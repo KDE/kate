@@ -74,12 +74,15 @@ public:
                     finalTooltip.append(element.value);
                 }
 
-                LspTooltip::show(finalTooltip, v->mapToGlobal(v->cursorToCoordinate(position)), v);
+                // make sure there is no selection, otherwise we interrupt
+                if (!v->selection()) {
+                    LspTooltip::show(finalTooltip, v->mapToGlobal(v->cursorToCoordinate(position)), v);
+                }
             };
 
             if (view && view->document()) {
                 auto doc = view->document();
-                if (doc->wordAt(position).isEmpty()) {
+                if (doc->wordAt(position).isEmpty() || view->selection()) {
                     return {};
                 }
                 m_handle.cancel() = m_server->documentHover(view->document()->url(), position, this, h);

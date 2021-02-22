@@ -31,62 +31,62 @@ GitUtils::GitParsedStatus GitUtils::parseStatus(const QByteArray &raw)
 
         switch (xy) {
         case StatusXY::QQ:
-            untracked.append({QString::fromUtf8(file, size), GitStatus::Untracked});
+            untracked.append({QString::fromUtf8(file, size), GitStatus::Untracked, 'U'});
             break;
         case StatusXY::II:
-            untracked.append({QString::fromUtf8(file, size), GitStatus::Ignored});
+            untracked.append({QString::fromUtf8(file, size), GitStatus::Ignored, 'I'});
             break;
 
         case StatusXY::DD:
-            unmerge.append({QString::fromUtf8(file, size), GitStatus::Unmerge_BothDeleted});
+            unmerge.append({QString::fromUtf8(file, size), GitStatus::Unmerge_BothDeleted, x});
             break;
         case StatusXY::AU:
-            unmerge.append({QString::fromUtf8(file, size), GitStatus::Unmerge_AddedByUs});
+            unmerge.append({QString::fromUtf8(file, size), GitStatus::Unmerge_AddedByUs, x});
             break;
         case StatusXY::UD:
-            unmerge.append({QString::fromUtf8(file, size), GitStatus::Unmerge_DeletedByThem});
+            unmerge.append({QString::fromUtf8(file, size), GitStatus::Unmerge_DeletedByThem, x});
             break;
         case StatusXY::UA:
-            unmerge.append({QString::fromUtf8(file, size), GitStatus::Unmerge_AddedByThem});
+            unmerge.append({QString::fromUtf8(file, size), GitStatus::Unmerge_AddedByThem, x});
             break;
         case StatusXY::DU:
-            unmerge.append({QString::fromUtf8(file, size), GitStatus::Unmerge_DeletedByUs});
+            unmerge.append({QString::fromUtf8(file, size), GitStatus::Unmerge_DeletedByUs, x});
             break;
         case StatusXY::AA:
-            unmerge.append({QString::fromUtf8(file, size), GitStatus::Unmerge_BothAdded});
+            unmerge.append({QString::fromUtf8(file, size), GitStatus::Unmerge_BothAdded, x});
             break;
         case StatusXY::UU:
-            unmerge.append({QString::fromUtf8(file, size), GitStatus::Unmerge_BothModified});
+            unmerge.append({QString::fromUtf8(file, size), GitStatus::Unmerge_BothModified, x});
             break;
         }
 
         switch (x) {
         case 'M':
-            staged.append({QString::fromUtf8(file, size), GitStatus::Index_Modified});
+            staged.append({QString::fromUtf8(file, size), GitStatus::Index_Modified, x});
             break;
         case 'A':
-            staged.append({QString::fromUtf8(file, size), GitStatus::Index_Added});
+            staged.append({QString::fromUtf8(file, size), GitStatus::Index_Added, x});
             break;
         case 'D':
-            staged.append({QString::fromUtf8(file, size), GitStatus::Index_Deleted});
+            staged.append({QString::fromUtf8(file, size), GitStatus::Index_Deleted, x});
             break;
         case 'R':
-            staged.append({QString::fromUtf8(file, size), GitStatus::Index_Renamed});
+            staged.append({QString::fromUtf8(file, size), GitStatus::Index_Renamed, x});
             break;
         case 'C':
-            staged.append({QString::fromUtf8(file, size), GitStatus::Index_Copied});
+            staged.append({QString::fromUtf8(file, size), GitStatus::Index_Copied, x});
             break;
         }
 
         switch (y) {
         case 'M':
-            changed.append({QString::fromUtf8(file, size), GitStatus::WorkingTree_Modified});
+            changed.append({QString::fromUtf8(file, size), GitStatus::WorkingTree_Modified, y});
             break;
         case 'D':
-            changed.append({QString::fromUtf8(file, size), GitStatus::WorkingTree_Deleted});
+            changed.append({QString::fromUtf8(file, size), GitStatus::WorkingTree_Deleted, y});
             break;
         case 'A':
-            changed.append({QString::fromUtf8(file, size), GitStatus::WorkingTree_IntentToAdd});
+            changed.append({QString::fromUtf8(file, size), GitStatus::WorkingTree_IntentToAdd, y});
             break;
         }
     }

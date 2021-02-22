@@ -64,7 +64,7 @@ int GitStatusModel::rowCount(const QModelIndex &parent) const
 
 int GitStatusModel::columnCount(const QModelIndex &) const
 {
-    return 1;
+    return 2;
 }
 
 QVariant GitStatusModel::data(const QModelIndex &index, int role) const
@@ -77,16 +77,20 @@ QVariant GitStatusModel::data(const QModelIndex &index, int role) const
 
     if (index.internalId() == Root) {
         if (role == Qt::DisplayRole) {
-            if (row == Staged) {
-                return i18n("Staged (%1)", m_nodes[Staged].count());
-            } else if (row == Untrack) {
-                return i18n("Untracked (%1)", m_nodes[Untrack].count());
-            } else if (row == Conflict) {
-                return i18n("Conflict (%1)", m_nodes[Conflict].count());
-            } else if (row == Changed) {
-                return i18n("Modified (%1)", m_nodes[Changed].count());
+            if (index.column() == 1) {
+                return QString::number(m_nodes[row].count());
             } else {
-                Q_UNREACHABLE();
+                if (row == Staged) {
+                    return i18n("Staged");
+                } else if (row == Untrack) {
+                    return i18n("Untracked");
+                } else if (row == Conflict) {
+                    return i18n("Conflict");
+                } else if (row == Changed) {
+                    return i18n("Modified");
+                } else {
+                    Q_UNREACHABLE();
+                }
             }
         } else if (role == Qt::FontRole) {
             QFont bold;
@@ -97,6 +101,12 @@ QVariant GitStatusModel::data(const QModelIndex &index, int role) const
             return branchIcon;
         } else if (role == Role::TreeItemType) {
             return NodeStage + row;
+        } else if (role == Qt::TextAlignmentRole) {
+            if (index.column() == 0) {
+                return Qt::AlignLeft;
+            } else {
+                return Qt::AlignRight;
+            }
         }
     } else {
         int rootIndex = index.internalId();
@@ -110,6 +120,12 @@ QVariant GitStatusModel::data(const QModelIndex &index, int role) const
             return QIcon::fromTheme(QMimeDatabase().mimeTypeForFile(m_nodes[rootIndex].at(row).file, QMimeDatabase::MatchExtension).iconName());
         } else if (role == Role::TreeItemType) {
             return ItemType::NodeFile;
+        } else if (role == Qt::TextAlignmentRole) {
+            if (index.column() == 0) {
+                return Qt::AlignLeft;
+            } else {
+                return Qt::AlignRight;
+            }
         }
     }
 

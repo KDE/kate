@@ -451,6 +451,9 @@ void GitWidget::hideEmptyTreeNodes()
             }
         }
     }
+
+    m_treeView->resizeColumnToContents(0);
+    m_treeView->resizeColumnToContents(1);
 }
 
 void GitWidget::parseStatusReady()

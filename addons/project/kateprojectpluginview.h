@@ -262,6 +262,11 @@ private:
     QToolButton *m_reloadButton;
 
     /**
+     * Git status refresh button
+     */
+    QToolButton *m_gitStatusRefreshButton;
+
+    /**
      * stacked widget will all currently created project views
      */
     QStackedWidget *m_stackedProjectViews;

@@ -84,7 +84,15 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
 
     m_projectsComboGit = new QComboBox(m_gitToolView.get());
     m_projectsComboGit->setFrame(false);
-    m_gitToolView->layout()->addWidget(m_projectsComboGit);
+    m_gitStatusRefreshButton = new QToolButton(m_gitToolView.get());
+    m_gitStatusRefreshButton->setAutoRaise(true);
+    m_gitStatusRefreshButton->setIcon(QIcon::fromTheme(QStringLiteral("view-refresh")));
+    layout = new QHBoxLayout();
+    layout->setSpacing(0);
+    layout->addWidget(m_projectsComboGit);
+    layout->addWidget(m_gitStatusRefreshButton);
+    m_gitToolView->layout()->addItem(layout);
+    m_gitToolView->layout()->setSpacing(0);
 
     m_stackedProjectViews = new QStackedWidget(m_toolView);
     m_stackedProjectInfoViews = new QStackedWidget(m_toolInfoView);
@@ -99,7 +107,11 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     });
     connect(m_projectsCombo, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &KateProjectPluginView::slotCurrentChanged);
     connect(m_reloadButton, &QToolButton::clicked, this, &KateProjectPluginView::slotProjectReload);
-
+    connect(m_gitStatusRefreshButton, &QToolButton::clicked, this, [this] {
+        if (auto widget = m_stackedgitViews->currentWidget()) {
+            qobject_cast<GitWidget *>(widget)->getStatus();
+        }
+    });
     /**
      * create views for all already existing projects
      * will create toolviews on demand!
@@ -531,6 +543,12 @@ void KateProjectPluginView::slotProjectReload()
      */
     if (QWidget *current = m_stackedProjectViews->currentWidget()) {
         static_cast<KateProjectView *>(current)->project()->reload(true);
+    }
+    /**
+     * Refresh git status
+     */
+    if (auto widget = m_stackedgitViews->currentWidget()) {
+        qobject_cast<GitWidget *>(widget)->getStatus();
     }
 }
 

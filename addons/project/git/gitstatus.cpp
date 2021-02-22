@@ -93,3 +93,35 @@ GitUtils::GitParsedStatus GitUtils::parseStatus(const QByteArray &raw)
 
     return {untracked, unmerge, staged, changed};
 }
+
+QString GitUtils::statusString(GitUtils::GitStatus s)
+{
+    switch (s) {
+    case WorkingTree_Modified:
+    case Index_Modified:
+        return QStringLiteral(" ‣ Modified");
+    case Untracked:
+        return QStringLiteral(" ‣ Untracked");
+    case Index_Renamed:
+        return QStringLiteral(" ‣ Renamed");
+    case Index_Deleted:
+    case WorkingTree_Deleted:
+        return QStringLiteral(" ‣ Deleted");
+    case Index_Added:
+    case WorkingTree_IntentToAdd:
+        return QStringLiteral(" ‣ Added");
+    case Index_Copied:
+        return QStringLiteral(" ‣ Copied");
+    case Ignored:
+        return QStringLiteral(" ‣ Ignored");
+    case Unmerge_AddedByThem:
+    case Unmerge_AddedByUs:
+    case Unmerge_BothAdded:
+    case Unmerge_BothDeleted:
+    case Unmerge_BothModified:
+    case Unmerge_DeletedByThem:
+    case Unmerge_DeletedByUs:
+        return QStringLiteral(" ‣ Conflict");
+    }
+    return QString();
+}

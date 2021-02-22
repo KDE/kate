@@ -132,6 +132,8 @@ QVariant GitStatusModel::data(const QModelIndex &index, int role) const
                 return QIcon::fromTheme(QMimeDatabase().mimeTypeForFile(m_nodes[rootIndex].at(row).file, QMimeDatabase::MatchExtension).iconName());
         } else if (role == Role::TreeItemType) {
             return ItemType::NodeFile;
+        } else if (role == Qt::ToolTipRole) {
+            return QString(m_nodes[rootIndex].at(row).file + GitUtils::statusString(m_nodes[rootIndex].at(row).status));
         } else if (role == Qt::TextAlignmentRole) {
             if (index.column() == 0) {
                 return Qt::AlignLeft;

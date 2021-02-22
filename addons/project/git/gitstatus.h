@@ -63,6 +63,8 @@ struct GitParsedStatus {
 };
 
 GitParsedStatus parseStatus(const QByteArray &raw);
+
+QString statusString(GitStatus s);
 }
 
 #endif // GITSTATUS_H

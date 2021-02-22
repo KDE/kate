@@ -11,7 +11,6 @@
 #include <QDebug>
 #include <QEvent>
 #include <QFontMetrics>
-#include <QLabel>
 #include <QMouseEvent>
 #include <QScreen>
 #include <QString>
@@ -127,16 +126,11 @@ private:
     QTextStream out;
 };
 
-class Tooltip : public QTextBrowser
+class GitBlameTooltip::Private : public QTextBrowser
 {
     Q_OBJECT
 
 public:
-    static Tooltip *self()
-    {
-        static Tooltip instance;
-        return &instance;
-    }
 
     void setTooltipText(const QString &text)
     {
@@ -168,13 +162,13 @@ public:
         }
     }
 
-    Tooltip(QWidget *parent = nullptr)
+    Private(QWidget *parent = nullptr)
         : QTextBrowser(parent)
     {
         setWindowFlags(Qt::FramelessWindowHint | Qt::BypassGraphicsProxyWidget | Qt::ToolTip);
         document()->setDocumentMargin(5);
         setFrameStyle(QFrame::Box | QFrame::Raised);
-        connect(&m_hideTimer, &QTimer::timeout, this, &Tooltip::hideTooltip);
+        connect(&m_hideTimer, &QTimer::timeout, this, &Private::hideTooltip);
 
         setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
         setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
@@ -281,23 +275,27 @@ protected:
 
 private:
     bool inContextMenu = false;
-    KTextEditor::View *m_view;
+    QPointer<KTextEditor::View> m_view;
     QTimer m_hideTimer;
     HtmlHl m_htmlHl;
     KSyntaxHighlighting::Repository m_syntaxHlRepo;
 };
 
-void GitBlameTooltip::show(const QString &text, KTextEditor::View *v)
+
+GitBlameTooltip::GitBlameTooltip() : d(new GitBlameTooltip::Private()) {}
+GitBlameTooltip::~GitBlameTooltip() { delete d; }
+
+void GitBlameTooltip::show(const QString &text,  QPointer<KTextEditor::View> v)
 {
     if (text.isEmpty() || !v || !v->document()) {
         return;
     }
 
-    Tooltip::self()->setView(v);
-    Tooltip::self()->setTooltipText(text);
-    Tooltip::self()->fixGeometry();
-    Tooltip::self()->raise();
-    Tooltip::self()->show();
+    d->setView(v);
+    d->setTooltipText(text);
+    d->fixGeometry();
+    d->raise();
+    d->show();
 }
 
 #include "gitblametooltip.moc"

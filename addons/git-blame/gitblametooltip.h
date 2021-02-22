@@ -5,14 +5,12 @@
 
     SPDX-License-Identifier: MIT
 */
-#ifndef LSPTOOLTIP_H
-#define LSPTOOLTIP_H
+#ifndef GitBlameTooltip_h
+#define GitBlameTooltip_h
 
-#include <QPoint>
+#include <QPointer>
 
-class QWidget;
 class QString;
-class Tooltip;
 
 namespace KTextEditor
 {
@@ -21,8 +19,16 @@ class View;
 
 class GitBlameTooltip
 {
+
 public:
-    static void show(const QString &text, KTextEditor::View *v);
+    GitBlameTooltip();
+    ~GitBlameTooltip();
+
+    void show(const QString &text,  QPointer<KTextEditor::View> v);
+
+private:
+    class Private;
+    Private *const d;
 };
 
-#endif // LSPTOOLTIP_H
+#endif // GitBlameTooltip_h

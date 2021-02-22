@@ -5,8 +5,10 @@
 */
 
 
-#ifndef KATE_COLORPICKER_H
-#define KATE_COLORPICKER_H
+#ifndef KateGitBlamePlugin_h
+#define KateGitBlamePlugin_h
+
+#include "gitblametooltip.h"
 
 #include <KTextEditor/ConfigPage>
 #include <KTextEditor/InlineNoteProvider>
@@ -29,6 +31,7 @@ struct KateGitBlameInfo {
 };
 
 class KateGitBlamePlugin;
+class GitBlameTooltip;
 
 class GitBlameInlineNoteProvider : public KTextEditor::InlineNoteProvider
 {
@@ -82,6 +85,8 @@ private:
     QVector<KateGitBlameInfo> m_blameInfo;
     KTextEditor::View *m_blameInfoView = nullptr;
     int m_lineOffset{0};
+
+    GitBlameTooltip m_tooltip;
 };
 
-#endif // KATE_COLORPICKER_H
+#endif // KateGitBlamePlugin_h

@@ -242,7 +242,7 @@ void KateGitBlamePlugin::showFinished(int exitCode, QProcess::ExitStatus exitSta
         return;
     }
 
-    GitBlameTooltip::show(stdOut, m_mainWindow->activeView());
+    m_tooltip.show(stdOut, m_mainWindow->activeView());
 }
 
 bool KateGitBlamePlugin::hasBlameInfo() const

@@ -77,6 +77,8 @@ private Q_SLOTS:
 private:
     void addDocument(KTextEditor::Document *doc);
 
+    void startBlameProcess(const QUrl &url);
+
     KTextEditor::MainWindow *m_mainWindow;
     QHash<KTextEditor::Document *, GitBlameInlineNoteProvider *> m_inlineNoteProviders;
 

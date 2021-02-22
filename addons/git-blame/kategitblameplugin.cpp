@@ -151,7 +151,6 @@ QObject *KateGitBlamePlugin::createView(KTextEditor::MainWindow *mainWindow)
 
     connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, &KateGitBlamePlugin::viewChanged);
 
-
     return nullptr;
 }
 
@@ -164,6 +163,12 @@ void KateGitBlamePlugin::addDocument(KTextEditor::Document *doc)
     connect(doc, &KTextEditor::Document::destroyed, this, [this, doc]() {
         m_inlineNoteProviders.remove(doc);
     });
+    connect(doc, &KTextEditor::Document::reloaded, this, [this, doc]() {
+        startBlameProcess(doc->url());
+    });
+    connect(doc, &KTextEditor::Document::documentSavedOrUploaded, this, [this, doc]() {
+        startBlameProcess(doc->url());
+    });
 }
 
 void KateGitBlamePlugin::viewChanged(KTextEditor::View *view)
@@ -173,15 +178,17 @@ void KateGitBlamePlugin::viewChanged(KTextEditor::View *view)
     if (view == nullptr || view->document() == nullptr) {
         return;
     }
+    m_blameInfoView = view;
+    startBlameProcess(view->document()->url());
+}
 
+void KateGitBlamePlugin::startBlameProcess(const QUrl &url)
+{
     if (m_blameInfoProc.state() != QProcess::NotRunning) {
         // Wait for the previous process to be done...
         return;
     }
 
-    m_blameInfoView = view;
-
-    QUrl url = view->document()->url();
     QString fileName{url.fileName()};
     QDir dir{url.toLocalFile()};
     dir.cdUp();

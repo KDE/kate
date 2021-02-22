@@ -198,8 +198,7 @@ bool KateApp::startupKate()
     const QString codec_name = codec ? QString::fromLatin1(codec->name()) : QString();
 
     //  Bug 397913: Reverse the order here so the new tabs are opened in same order as the files were passed in on the command line
-    // NOTE: apparently the effect of the fix for above bug has "disappeared" since it was resolved in 2018.
-    // Docs opened in reverse order (compared to how they passed on command line), so the for() below was modified to increasing count.
+    // NOTE: apparently the cause of the above bug is not present, fix reversed
     QString positionalArgument;
     for (int i = 0; i < m_args.positionalArguments().count(); ++i) {
         positionalArgument = m_args.positionalArguments().at(i);
@@ -326,9 +325,8 @@ KTextEditor::Document *KateApp::openDocUrl(const QUrl &url, const QString &encod
         KMessageBox::sorry(mainWindow, i18n("The file '%1' could not be opened: it is not a normal file, it is a folder.", url.url()));
     }
 
-    // When opening from remote url, 'completed' is emitted
-    // once loading has finished. Connect to each remote document's
-    // completed signal for post-load operations.
+    // When opening from remote url, 'completed' is emitted once loading has finished.
+    // Connect to each remote document's completed signal for post-load operations.
     if (doc && !doc->url().isLocalFile()) {
         connect(doc, SIGNAL(completed()), this, SLOT(remoteDocumentLoaded()));
     }
@@ -388,15 +386,15 @@ void KateApp::setCursorFromQueryString(KTextEditor::View *view)
         return;
     }
 
-    // by the time remote file opens, query string is stripped from url, so find it in m_args
-    QRegExp fileNameRe = QRegExp(QLatin1String(view->document()->url().toDisplayString().toUtf8().append(".*") ));
-    if ((pos = m_args.positionalArguments().indexOf(fileNameRe)) < 0 ) {
+    // find query string in m_args
+    QLatin1String pattern(view->document()->url().toDisplayString().toUtf8().append(".*"));
+    if ((pos = m_args.positionalArguments().indexOf(QRegExp(pattern))) < 0 ) {
         return;
     }
 
     QString positionalArgument = m_args.positionalArguments().at(pos);
     UrlInfo info(positionalArgument);
-    QUrlQuery urlQuery = QUrlQuery(info.url);
+    QUrlQuery urlQuery(info.url);
     QString lineStr = urlQuery.queryItemValue(QStringLiteral("line"));
     QString columnStr = urlQuery.queryItemValue(QStringLiteral("column"));
 

@@ -30,11 +30,48 @@
 #include <QClipboard>
 #include <QContextMenuEvent>
 #include <QDir>
+#include <QHeaderView>
 #include <QInputDialog>
 #include <QLineEdit>
 #include <QMenu>
 #include <QMimeDatabase>
+#include <QStyledItemDelegate>
 // END Includes
+
+class StyleDelegate : public QStyledItemDelegate
+{
+public:
+    StyleDelegate(QObject *parent = nullptr)
+        : QStyledItemDelegate(parent)
+    {
+    }
+
+    void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
+    {
+        QStyledItemDelegate::paint(painter, option, index);
+
+        if (!m_closeBtn) {
+            return;
+        }
+
+        auto doc = index.data(KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
+        if (doc && index.column() == 1 && option.state & QStyle::State_MouseOver) {
+            const QIcon icon = QIcon::fromTheme(QStringLiteral("document-close"));
+
+            QRect iconRect(option.rect.right() - option.rect.height(), option.rect.y(), option.rect.height(), option.rect.height());
+
+            icon.paint(painter, iconRect, Qt::AlignRight | Qt::AlignVCenter);
+        }
+    }
+
+    void setShowCloseButton(bool s)
+    {
+        m_closeBtn = s;
+    }
+
+private:
+    bool m_closeBtn;
+};
 
 // BEGIN KateFileTree
 
@@ -47,6 +84,9 @@ KateFileTree::KateFileTree(QWidget *parent)
     setFocusPolicy(Qt::NoFocus);
     setDragEnabled(true);
     setDragDropMode(QAbstractItemView::DragOnly);
+    setSelectionBehavior(QAbstractItemView::SelectRows);
+
+    setItemDelegate(new StyleDelegate(this));
 
     // handle activated (e.g. for pressing enter) + clicked (to avoid to need to do double-click e.g. on Windows)
     connect(this, &KateFileTree::activated, this, &KateFileTree::mouseClicked);
@@ -144,6 +184,18 @@ void KateFileTree::setModel(QAbstractItemModel *model)
 {
     Q_ASSERT(qobject_cast<KateFileTreeProxyModel *>(model)); // we don't really work with anything else
     QTreeView::setModel(model);
+
+    header()->hide();
+    header()->setStretchLastSection(false);
+    header()->setSectionResizeMode(0, QHeaderView::Stretch);
+    header()->setSectionResizeMode(1, QHeaderView::Fixed);
+    header()->resizeSection(1, 16);
+}
+
+void KateFileTree::setShowCloseButton(bool show)
+{
+    m_hasCloseButton = show;
+    static_cast<StyleDelegate *>(itemDelegate())->setShowCloseButton(show);
 }
 
 QAction *KateFileTree::setupOption(QActionGroup *group, const QIcon &icon, const QString &label, const QString &whatsThis, const char *slot, bool checked)
@@ -198,6 +250,10 @@ void KateFileTree::slotCurrentChanged(const QModelIndex &current, const QModelIn
 void KateFileTree::mouseClicked(const QModelIndex &index)
 {
     if (auto doc = model()->data(index, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>()) {
+        if (m_hasCloseButton && index.column() == 1) {
+            KTextEditor::Editor::instance()->application()->closeDocuments({doc});
+            return;
+        }
         Q_EMIT activateDocument(doc);
     }
 }
@@ -206,7 +262,7 @@ void KateFileTree::contextMenuEvent(QContextMenuEvent *event)
 {
     m_indexContextMenu = selectionModel()->currentIndex();
 
-    selectionModel()->setCurrentIndex(m_indexContextMenu, QItemSelectionModel::ClearAndSelect);
+    selectionModel()->setCurrentIndex(m_indexContextMenu, QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Rows);
 
     KateFileTreeProxyModel *ftpm = static_cast<KateFileTreeProxyModel *>(model());
     KateFileTreeModel *ftm = static_cast<KateFileTreeModel *>(ftpm->sourceModel());
@@ -264,7 +320,7 @@ void KateFileTree::contextMenuEvent(QContextMenuEvent *event)
     menu.exec(viewport()->mapToGlobal(event->pos()));
 
     if (m_previouslySelected.isValid()) {
-        selectionModel()->setCurrentIndex(m_previouslySelected, QItemSelectionModel::ClearAndSelect);
+        selectionModel()->setCurrentIndex(m_previouslySelected, QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Rows);
     }
 
     event->accept();

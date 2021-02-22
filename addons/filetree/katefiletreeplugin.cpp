@@ -84,7 +84,13 @@ const KateFileTreePluginSettings &KateFileTreePlugin::settings()
     return m_settings;
 }
 
-void KateFileTreePlugin::applyConfig(bool shadingEnabled, const QColor &viewShade, const QColor &editShade, bool listMode, int sortRole, bool showFullPath)
+void KateFileTreePlugin::applyConfig(bool shadingEnabled,
+                                     const QColor &viewShade,
+                                     const QColor &editShade,
+                                     bool listMode,
+                                     int sortRole,
+                                     bool showFullPath,
+                                     bool showCloseButton)
 {
     // save to settings
     m_settings.setShadingEnabled(shadingEnabled);
@@ -94,6 +100,7 @@ void KateFileTreePlugin::applyConfig(bool shadingEnabled, const QColor &viewShad
     m_settings.setListMode(listMode);
     m_settings.setSortRole(sortRole);
     m_settings.setShowFullPathOnRoots(showFullPath);
+    m_settings.setShowCloseButton(showCloseButton);
     m_settings.save();
 
     // update views
@@ -105,6 +112,7 @@ void KateFileTreePlugin::applyConfig(bool shadingEnabled, const QColor &viewShad
         view->setListMode(listMode);
         view->proxy()->setSortRole(sortRole);
         view->model()->setShowFullPathOnRoots(showFullPath);
+        view->tree()->setShowCloseButton(showCloseButton);
     }
 }
 
@@ -139,6 +147,7 @@ KateFileTreePluginView::KateFileTreePluginView(KTextEditor::MainWindow *mainWind
     // create filetree
     m_fileTree = new KateFileTree(m_toolView);
     m_fileTree->setSortingEnabled(true);
+    m_fileTree->setShowCloseButton(m_plug->settings().showCloseButton());
 
     connect(m_fileTree, &KateFileTree::activateDocument, this, &KateFileTreePluginView::activateDocument);
     connect(m_fileTree, &KateFileTree::viewModeChanged, this, &KateFileTreePluginView::viewModeChanged);
@@ -315,7 +324,7 @@ void KateFileTreePluginView::viewChanged(KTextEditor::View *)
     // update the model on which doc is active
     m_documentModel->documentActivated(doc);
 
-    m_fileTree->selectionModel()->setCurrentIndex(index, QItemSelectionModel::ClearAndSelect);
+    m_fileTree->selectionModel()->setCurrentIndex(index, QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Rows);
 
     m_fileTree->scrollTo(index);
 

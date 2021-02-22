@@ -1780,7 +1780,11 @@ public:
         }
 
         auto h = [this](const QString &reply) {
-            m_mainWindow->openUrl(QUrl(reply));
+            if (!reply.isEmpty()) {
+                m_mainWindow->openUrl(QUrl(reply));
+            } else {
+                showMessage(i18n("Corresponding Header/Source not found"), KTextEditor::Message::Information);
+            }
         };
         server->clangdSwitchSourceHeader(document->url(), this, h);
     }

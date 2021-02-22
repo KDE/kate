@@ -19,7 +19,20 @@ void CommandModel::refresh(QVector<QPair<QString, QAction *>> actionList)
     QVector<Item> temp;
     temp.reserve(actionList.size());
     for (auto action : actionList) {
-        temp.push_back({action.first, action.second, 0});
+        if (!action.second) {
+            continue;
+        }
+        temp.push_back({action.first, action.second, -1});
+    }
+
+    int score = 0;
+    for (const auto &actionName : m_lastTriggered) {
+        for (auto &item : temp) {
+            if (actionName == item.action->text()) {
+                item.score = score++;
+                break;
+            }
+        }
     }
 
     beginResetModel();
@@ -64,4 +77,22 @@ QVariant CommandModel::data(const QModelIndex &index, int role) const
     }
 
     return {};
+}
+
+void CommandModel::actionTriggered(const QString &name)
+{
+    if (m_lastTriggered.size() == 6) {
+        m_lastTriggered.pop_front();
+    }
+    m_lastTriggered.push_back(name);
+}
+
+QVector<QString> CommandModel::lastUsedActions()
+{
+    return m_lastTriggered;
+}
+
+void CommandModel::setLastUsedActions(const QVector<QString> &actionNames)
+{
+    m_lastTriggered = actionNames;
 }

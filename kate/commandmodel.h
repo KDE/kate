@@ -55,8 +55,15 @@ public:
 
     QVariant data(const QModelIndex &index, int role) const override;
 
+    void actionTriggered(const QString &name);
+
+    QVector<QString> lastUsedActions();
+
+    void setLastUsedActions(const QVector<QString> &actionNames);
+
 private:
     QVector<Item> m_rows;
+    QVector<QString> m_lastTriggered;
 };
 
 #endif // COMMANDMODEL_H

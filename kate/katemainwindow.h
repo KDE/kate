@@ -566,6 +566,8 @@ private:
     QWidget *m_bottomViewBarContainer = nullptr;
     KateContainerStackedLayout *m_bottomContainerStack = nullptr;
 
+    QVector<QString> m_lastUsedCmdBarActions;
+
     class BarState
     {
     public:

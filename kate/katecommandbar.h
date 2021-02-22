@@ -23,6 +23,9 @@ public:
 
     void updateViewGeometry();
 
+    void setLastUsedCmdBarActions(const QVector<QString> &actionNames);
+    QVector<QString> lastUsedCmdBarActions() const;
+
 protected:
     bool eventFilter(QObject *obj, QEvent *event) override;
 

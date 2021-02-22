@@ -1207,9 +1207,11 @@ void KateMainWindow::slotCommandBarOpen()
     }
 
     KateCommandBar commandBar(this);
+    commandBar.setLastUsedCmdBarActions(m_lastUsedCmdBarActions);
     commandBar.updateBar(actionCollections, actionsCount);
     centralWidget()->setFocusProxy(&commandBar);
     commandBar.exec();
+    m_lastUsedCmdBarActions = commandBar.lastUsedCmdBarActions();
 }
 
 QWidget *KateMainWindow::createToolView(KTextEditor::Plugin *plugin,

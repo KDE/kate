@@ -387,6 +387,7 @@ void KateCommandBar::slotReturnPressed()
             m_lineEdit->clear();
             return;
         } else {
+            m_model->actionTriggered(act->text());
             act->trigger();
         }
     }
@@ -418,4 +419,14 @@ void KateCommandBar::updateViewGeometry()
     move(p + parentWidget()->pos());
 
     this->setFixedSize(viewMaxSize);
+}
+
+void KateCommandBar::setLastUsedCmdBarActions(const QVector<QString> &actionNames)
+{
+    return m_model->setLastUsedActions(actionNames);
+}
+
+QVector<QString> KateCommandBar::lastUsedCmdBarActions() const
+{
+    return m_model->lastUsedActions();
 }

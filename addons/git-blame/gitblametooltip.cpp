@@ -132,6 +132,48 @@ class GitBlameTooltip::Private : public QTextBrowser
 
 public:
 
+    Private() : QTextBrowser(nullptr)
+    {
+        setWindowFlags(Qt::FramelessWindowHint | Qt::BypassGraphicsProxyWidget | Qt::ToolTip);
+        document()->setDocumentMargin(10);
+        setFrameStyle(QFrame::Box | QFrame::Raised);
+        connect(&m_hideTimer, &QTimer::timeout, this, &Private::hideTooltip);
+
+        setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+        setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+
+        auto updateColors = [this](KTextEditor::Editor *e) {
+            auto theme = e->theme();
+            m_htmlHl.setTheme(theme);
+
+            auto pal = palette();
+            const QColor bg = theme.editorColor(KSyntaxHighlighting::Theme::BackgroundColor);
+            pal.setColor(QPalette::Base, bg);
+            const QColor normal = theme.textColor(KSyntaxHighlighting::Theme::Normal);
+            pal.setColor(QPalette::Text, normal);
+            setPalette(pal);
+
+            updateFont();
+        };
+        updateColors(KTextEditor::Editor::instance());
+        connect(KTextEditor::Editor::instance(), &KTextEditor::Editor::configChanged, this, updateColors);
+    }
+
+    bool eventFilter(QObject *, QEvent *event) override
+    {
+        switch (event->type()) {
+        case QEvent::KeyPress:
+        case QEvent::KeyRelease:
+        case QEvent::WindowActivate:
+        case QEvent::WindowDeactivate:
+            hideTooltip();
+            break;
+        default:
+            break;
+        }
+        return false;
+    }
+
     void setTooltipText(const QString &text)
     {
         if (text.isEmpty())
@@ -162,53 +204,11 @@ public:
         }
     }
 
-    Private(QWidget *parent = nullptr)
-        : QTextBrowser(parent)
-    {
-        setWindowFlags(Qt::FramelessWindowHint | Qt::BypassGraphicsProxyWidget | Qt::ToolTip);
-        document()->setDocumentMargin(5);
-        setFrameStyle(QFrame::Box | QFrame::Raised);
-        connect(&m_hideTimer, &QTimer::timeout, this, &Private::hideTooltip);
-
-        setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-        setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-
-        auto updateColors = [this](KTextEditor::Editor *e) {
-            auto theme = e->theme();
-            m_htmlHl.setTheme(theme);
-
-            auto pal = palette();
-            const QColor bg = theme.editorColor(KSyntaxHighlighting::Theme::BackgroundColor);
-            pal.setColor(QPalette::Base, bg);
-            const QColor normal = theme.textColor(KSyntaxHighlighting::Theme::Normal);
-            pal.setColor(QPalette::Text, normal);
-            setPalette(pal);
-
-            updateFont();
-        };
-        updateColors(KTextEditor::Editor::instance());
-        connect(KTextEditor::Editor::instance(), &KTextEditor::Editor::configChanged, this, updateColors);
-    }
-
-    bool eventFilter(QObject *, QEvent *e) override
-    {
-        switch (e->type()) {
-        case QEvent::KeyPress:
-        case QEvent::KeyRelease:
-        case QEvent::WindowActivate:
-        case QEvent::WindowDeactivate:
-            hideTooltip();
-            break;
-        default:
-            break;
-        }
-        return false;
-    }
-
     void updateFont()
     {
-        if (!m_view)
+        if (!m_view) {
             return;
+        }
         auto ciface = qobject_cast<KTextEditor::ConfigInterface *>(m_view);
         auto font = ciface->configValue(QStringLiteral("font")).value<QFont>();
         setFont(font);
@@ -222,6 +222,9 @@ public:
 
     void fixGeometry()
     {
+        if (!m_view) {
+            return;
+        }
         static QScrollBar scrollBar(Qt::Horizontal);
         QFontMetrics fm(font());
         QSize size = fm.size(Qt::TextSingleLine, QStringLiteral("m"));
@@ -245,14 +248,14 @@ protected:
 
     void enterEvent(QEvent *event) override
     {
-        inContextMenu = false;
+        m_inContextMenu = false;
         m_hideTimer.stop();
         return QTextBrowser::enterEvent(event);
     }
 
     void leaveEvent(QEvent *event) override
     {
-        if (!m_hideTimer.isActive() && !inContextMenu) {
+        if (!m_hideTimer.isActive() && !m_inContextMenu) {
             hideTooltip();
         }
         return QTextBrowser::leaveEvent(event);
@@ -267,14 +270,14 @@ protected:
         hideTooltip();
     }
 
-    void contextMenuEvent(QContextMenuEvent *e) override
+    void contextMenuEvent(QContextMenuEvent *event) override
     {
-        inContextMenu = true;
-        return QTextBrowser::contextMenuEvent(e);
+        m_inContextMenu = true;
+        return QTextBrowser::contextMenuEvent(event);
     }
 
 private:
-    bool inContextMenu = false;
+    bool m_inContextMenu = false;
     QPointer<KTextEditor::View> m_view;
     QTimer m_hideTimer;
     HtmlHl m_htmlHl;
@@ -285,13 +288,13 @@ private:
 GitBlameTooltip::GitBlameTooltip() : d(new GitBlameTooltip::Private()) {}
 GitBlameTooltip::~GitBlameTooltip() { delete d; }
 
-void GitBlameTooltip::show(const QString &text,  QPointer<KTextEditor::View> v)
+void GitBlameTooltip::show(const QString &text,  QPointer<KTextEditor::View> view)
 {
-    if (text.isEmpty() || !v || !v->document()) {
+    if (text.isEmpty() || !view || !view->document()) {
         return;
     }
 
-    d->setView(v);
+    d->setView(view);
     d->setTooltipText(text);
     d->fixGeometry();
     d->raise();

@@ -37,7 +37,6 @@
 #include <KTextEditor/Message>
 #include <KTextEditor/View>
 
-
 GitWidget::GitWidget(KateProject *project, KTextEditor::MainWindow *mainWindow, KateProjectPluginView *pluginView)
     : m_project(project)
     , m_mainWin(mainWindow)
@@ -272,12 +271,15 @@ void GitWidget::openAtHEAD(const QString &file)
 
             // close temp on document close
             auto clearTemp = [this](KTextEditor::Document *document) {
-                std::remove_if(m_filesOpenAtHEAD.begin(), m_filesOpenAtHEAD.end(), [document](const GitWidget::TempFileViewPair &tf) {
-                    if (tf.second->document() == document) {
-                        return true;
-                    }
-                    return false;
-                });
+                m_filesOpenAtHEAD.erase(std::remove_if(m_filesOpenAtHEAD.begin(),
+                                                       m_filesOpenAtHEAD.end(),
+                                                       [document](const GitWidget::TempFileViewPair &tf) {
+                                                           if (tf.second && tf.second->document() == document) {
+                                                               return true;
+                                                           }
+                                                           return false;
+                                                       }),
+                                        m_filesOpenAtHEAD.end());
             };
             connect(v->document(), &KTextEditor::Document::aboutToClose, this, clearTemp);
         }
@@ -328,12 +330,15 @@ void GitWidget::showDiff(const QString &file, bool staged)
 
             // close temp on document close
             auto clearTemp = [this](KTextEditor::Document *document) {
-                std::remove_if(m_filesOpenAtHEAD.begin(), m_filesOpenAtHEAD.end(), [document](const GitWidget::TempFileViewPair &tf) {
-                    if (tf.second->document() == document) {
-                        return true;
-                    }
-                    return false;
-                });
+                m_filesOpenAtHEAD.erase(std::remove_if(m_filesOpenAtHEAD.begin(),
+                                                       m_filesOpenAtHEAD.end(),
+                                                       [document](const GitWidget::TempFileViewPair &tf) {
+                                                           if (tf.second && tf.second->document() == document) {
+                                                               return true;
+                                                           }
+                                                           return false;
+                                                       }),
+                                        m_filesOpenAtHEAD.end());
             };
             connect(v->document(), &KTextEditor::Document::aboutToClose, this, clearTemp);
         }

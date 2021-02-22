@@ -468,12 +468,15 @@ void StashDialog::showStash(const QByteArray &index)
             // close temp on document close
             auto clearTemp = [gitWidget](KTextEditor::Document *document) {
                 auto tempFiles = gitWidget->tempFilesVector();
-                std::remove_if(tempFiles->begin(), tempFiles->end(), [document](const GitWidget::TempFileViewPair &tf) {
-                    if (tf.second->document() == document) {
-                        return true;
-                    }
-                    return false;
-                });
+                tempFiles->erase(std::remove_if(tempFiles->begin(),
+                                                tempFiles->end(),
+                                                [document](const GitWidget::TempFileViewPair &tf) {
+                                                    if (tf.second->document() == document) {
+                                                        return true;
+                                                    }
+                                                    return false;
+                                                }),
+                                 tempFiles->end());
             };
             connect(v->document(), &KTextEditor::Document::aboutToClose, gitWidget, clearTemp);
         }

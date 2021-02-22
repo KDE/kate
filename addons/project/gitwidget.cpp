@@ -16,6 +16,7 @@
 #include <QDialog>
 #include <QEvent>
 #include <QFileInfo>
+#include <QHeaderView>
 #include <QInputMethodEvent>
 #include <QLineEdit>
 #include <QMenu>
@@ -35,6 +36,7 @@
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/Message>
 #include <KTextEditor/View>
+
 
 GitWidget::GitWidget(KateProject *project, KTextEditor::MainWindow *mainWindow, KateProjectPluginView *pluginView)
     : m_project(project)
@@ -82,6 +84,9 @@ GitWidget::GitWidget(KateProject *project, KTextEditor::MainWindow *mainWindow, 
     m_treeView->setSelectionMode(QTreeView::ExtendedSelection);
     m_treeView->setModel(m_model);
     m_treeView->installEventFilter(this);
+
+    m_treeView->header()->setStretchLastSection(false);
+    m_treeView->header()->setSectionResizeMode(0, QHeaderView::Stretch);
 
     setLayout(layout);
 
@@ -534,7 +539,7 @@ QMenu *GitWidget::stashMenu()
 void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
 {
     if (auto selModel = m_treeView->selectionModel()) {
-        if (selModel->selectedIndexes().count() > 1) {
+        if (selModel->selectedRows().count() > 1) {
             return selectedContextMenu(e);
         }
     }
@@ -589,7 +594,7 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
         auto discardAct = untracked ? menu.addAction(i18n("Remove")) : menu.addAction(i18n("Discard"));
 
         auto act = menu.exec(m_treeView->viewport()->mapToGlobal(e->pos()));
-        const QString file = m_gitPath + idx.data().toString();
+        const QString file = m_gitPath + idx.data(GitStatusModel::FileNameRole).toString();
         if (act == stageAct) {
             if (staged) {
                 return unstage({file});
@@ -598,13 +603,13 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
         } else if (act == discardAct && !untracked) {
             discard({file});
         } else if (act == openAtHead && !untracked) {
-            openAtHEAD(idx.data().toString());
+            openAtHEAD(idx.data(GitStatusModel::FileNameRole).toString());
         } else if (act == showDiffAct && !untracked) {
             showDiff(file, staged);
         } else if (act == discardAct && untracked) {
             clean({file});
         } else if (act == launchDifftoolAct) {
-            launchExternalDiffTool(idx.data().toString(), staged);
+            launchExternalDiffTool(idx.data(GitStatusModel::FileNameRole).toString(), staged);
         }
     } else if (type == GitStatusModel::NodeStage) {
         QMenu menu;
@@ -642,7 +647,7 @@ void GitWidget::selectedContextMenu(QContextMenuEvent *e)
             } else {
                 selectionHasChangedItems = true;
             }
-            files.append(idx.data().toString());
+            files.append(idx.data(GitStatusModel::FileNameRole).toString());
         }
     }
 

@@ -16,7 +16,7 @@ public:
     explicit GitStatusModel(QObject *parent);
 
     enum ItemType { NodeStage = 0, NodeChanges, NodeConflict, NodeUntrack, NodeFile };
-    enum Role { TreeItemType = Qt::UserRole };
+    enum Role { TreeItemType = Qt::UserRole + 1, FileNameRole };
 
 public:
     QModelIndex index(int row, int column, const QModelIndex &parent) const override;

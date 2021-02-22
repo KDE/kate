@@ -6,6 +6,7 @@
 #include "gitstatusmodel.h"
 
 #include <QDebug>
+#include <QFileInfo>
 #include <QFont>
 #include <QIcon>
 #include <QMimeDatabase>
@@ -115,9 +116,20 @@ QVariant GitStatusModel::data(const QModelIndex &index, int role) const
         }
 
         if (role == Qt::DisplayRole) {
+            if (index.column() == 0) {
+                const auto filename = QFileInfo(m_nodes[rootIndex].at(row).file).fileName();
+                if (filename.isEmpty()) {
+                    return m_nodes[rootIndex].at(row).file;
+                }
+                return filename;
+            } else {
+                return QString(QLatin1Char(m_nodes[rootIndex].at(row).statusChar));
+            }
+        } else if (role == FileNameRole) {
             return m_nodes[rootIndex].at(row).file;
         } else if (role == Qt::DecorationRole) {
-            return QIcon::fromTheme(QMimeDatabase().mimeTypeForFile(m_nodes[rootIndex].at(row).file, QMimeDatabase::MatchExtension).iconName());
+            if (index.column() == 0)
+                return QIcon::fromTheme(QMimeDatabase().mimeTypeForFile(m_nodes[rootIndex].at(row).file, QMimeDatabase::MatchExtension).iconName());
         } else if (role == Role::TreeItemType) {
             return ItemType::NodeFile;
         } else if (role == Qt::TextAlignmentRole) {

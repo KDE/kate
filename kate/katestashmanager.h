@@ -1,7 +1,7 @@
 /* This file is part of the KDE project
    SPDX-FileCopyrightText: 2021 Méven Car <meven.car@kdemail.net>
 
-   SPDX-License-Identifier: LGPL-2.0-only
+   SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
 #ifndef KATESTASHMANAGER_H

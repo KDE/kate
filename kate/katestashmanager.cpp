@@ -58,7 +58,7 @@ void KateStashManager::stashDocument(KTextEditor::Document *doc, const QString &
 
     // save the current document changes to stash
     if (!doc->saveAs(QUrl::fromLocalFile(stashedFile))) {
-        qCWarning(LOG_KATE()) << "Could not write to stash file" << stashedFile;
+        qCWarning(LOG_KATE) << "Could not write to stash file" << stashedFile;
         return;
     }
 

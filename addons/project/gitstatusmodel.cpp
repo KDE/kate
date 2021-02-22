@@ -97,9 +97,6 @@ QVariant GitStatusModel::data(const QModelIndex &index, int role) const
             QFont bold;
             bold.setBold(true);
             return bold;
-        } else if (role == Qt::DecorationRole) {
-            static const auto branchIcon = QIcon(QStringLiteral(":/icons/icons/sc-apps-git.svg"));
-            return branchIcon;
         } else if (role == Role::TreeItemType) {
             return NodeStage + row;
         } else if (role == Qt::TextAlignmentRole) {

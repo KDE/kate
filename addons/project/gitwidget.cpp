@@ -595,8 +595,9 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
         bool staged = idx.internalId() == GitStatusModel::NodeStage;
         bool untracked = idx.internalId() == GitStatusModel::NodeUntrack;
 
+        auto openFile = menu.addAction(i18n("Open file"));
         auto showDiffAct = untracked ? nullptr : menu.addAction(i18n("Show raw diff"));
-        auto launchDifftoolAct = untracked ? nullptr : menu.addAction(i18n("Show in external diff tool"));
+        auto launchDifftoolAct = untracked ? nullptr : menu.addAction(i18n("Show in external git difftool"));
         auto openAtHead = untracked ? nullptr : menu.addAction(i18n("Open at HEAD"));
         auto stageAct = staged ? menu.addAction(i18n("Unstage file")) : menu.addAction(i18n("Stage file"));
         auto discardAct = untracked ? menu.addAction(i18n("Remove")) : menu.addAction(i18n("Discard"));
@@ -618,6 +619,8 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
             clean({file});
         } else if (act == launchDifftoolAct) {
             launchExternalDiffTool(idx.data(GitStatusModel::FileNameRole).toString(), staged);
+        } else if (act == openFile) {
+            m_mainWin->openUrl(QUrl::fromLocalFile(file));
         }
     } else if (type == GitStatusModel::NodeStage) {
         QMenu menu;

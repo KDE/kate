@@ -370,9 +370,8 @@ void KateApp::setCursorFromArgs(KTextEditor::View *view)
 
     if (nav) {
         view->setCursorPosition(KTextEditor::Cursor(line, column));
+        activeKateMainWindow()->setAutoSaveSettings();
     }
-
-    activeKateMainWindow()->setAutoSaveSettings();
 }
 
 void KateApp::setCursorFromQueryString(KTextEditor::View *view)
@@ -386,15 +385,20 @@ void KateApp::setCursorFromQueryString(KTextEditor::View *view)
         return;
     }
 
-    // find query string in m_args
-    QLatin1String pattern(view->document()->url().toDisplayString().toUtf8().append(".*"));
-    if ((pos = m_args.positionalArguments().indexOf(QRegExp(pattern))) < 0 ) {
-        return;
+    QUrlQuery urlQuery;
+    if (!view->document()->url().hasQuery()) {
+        // find orig url with query string in m_args
+        QRegExp pattern(QLatin1String(view->document()->url().toString().toUtf8().append(".*").constData()));
+        if ((pos = m_args.positionalArguments().indexOf(pattern)) < 0) {
+            return;
+        }
+        QString positionalArgument = m_args.positionalArguments().at(pos);
+        UrlInfo info(positionalArgument);
+        urlQuery = QUrlQuery(info.url);
+    } else {
+        urlQuery = QUrlQuery(view->document()->url());
     }
 
-    QString positionalArgument = m_args.positionalArguments().at(pos);
-    UrlInfo info(positionalArgument);
-    QUrlQuery urlQuery(info.url);
     QString lineStr = urlQuery.queryItemValue(QStringLiteral("line"));
     QString columnStr = urlQuery.queryItemValue(QStringLiteral("column"));
 
@@ -403,18 +407,15 @@ void KateApp::setCursorFromQueryString(KTextEditor::View *view)
         line > 0 && line--;
         nav = true;
     }
-
     if (!columnStr.isEmpty()) {
         column = columnStr.toInt();
         column > 0 && column--;
         nav = true;
     }
-
     if (nav) {
         view->setCursorPosition(KTextEditor::Cursor(line, column));
+        activeKateMainWindow()->setAutoSaveSettings();
     }
-
-    activeKateMainWindow()->setAutoSaveSettings();
 }
 
 bool KateApp::setCursor(int line, int column)

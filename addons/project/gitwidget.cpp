@@ -662,31 +662,38 @@ void GitWidget::selectedContextMenu(QContextMenuEvent *e)
 {
     QStringList files;
 
-    bool selectionHasStageItems = false;
+    bool selectionHasStagedItems = false;
     bool selectionHasChangedItems = false;
+    bool selectionHasUntrackedItems = false;
 
     if (auto selModel = m_treeView->selectionModel()) {
         const auto idxList = selModel->selectedIndexes();
         for (const auto &idx : idxList) {
             if (idx.internalId() == GitStatusModel::NodeStage) {
-                selectionHasStageItems = true;
+                selectionHasStagedItems = true;
             } else if (!idx.parent().isValid()) {
                 // can't allow main nodes to be selected
                 return;
-            } else {
+            } else if (idx.internalId() == GitStatusModel::NodeUntrack) {
+                selectionHasUntrackedItems = true;
+            } else if (idx.internalId() == GitStatusModel::NodeChanges) {
                 selectionHasChangedItems = true;
             }
             files.append(idx.data(GitStatusModel::FileNameRole).toString());
         }
     }
 
+    const bool selHasUnstagedItems = selectionHasUntrackedItems || selectionHasChangedItems;
+
     // cant allow both
-    if (selectionHasChangedItems && selectionHasStageItems) {
+    if (selHasUnstagedItems && selectionHasStagedItems) {
         return;
     }
 
     QMenu menu;
-    auto stageAct = selectionHasStageItems ? menu.addAction(i18n("Unstage Selected Files")) : menu.addAction(i18n("Stage Selected Files"));
+    auto stageAct = selectionHasStagedItems ? menu.addAction(i18n("Unstage Selected Files")) : menu.addAction(i18n("Stage Selected Files"));
+    auto discardAct = selectionHasChangedItems && !selectionHasUntrackedItems ? menu.addAction(i18n("Discard Selected Files")) : nullptr;
+    auto removeAct = !selectionHasChangedItems && selectionHasUntrackedItems ? menu.addAction(i18n("Remove Selected Files")) : nullptr;
     auto execAct = menu.exec(m_treeView->viewport()->mapToGlobal(e->pos()));
 
     if (execAct == stageAct) {
@@ -694,6 +701,16 @@ void GitWidget::selectedContextMenu(QContextMenuEvent *e)
             stage(files);
         } else {
             unstage(files);
+        }
+    } else if (selectionHasChangedItems && !selectionHasUntrackedItems && execAct == discardAct) {
+        auto ret = confirm(this, i18n("Are you sure you want to discard the changes?"));
+        if (ret == KMessageBox::Yes) {
+            discard(files);
+        }
+    } else if (!selectionHasChangedItems && selectionHasUntrackedItems && execAct == removeAct) {
+        auto ret = confirm(this, i18n("Are you sure you want to remove these untracked changes?"));
+        if (ret == KMessageBox::Yes) {
+            clean(files);
         }
     }
 }

@@ -459,8 +459,6 @@ int main(int argc, char **argv)
             QStringList tokens;
 
             // open given files...
-            // Bug 397913: Reverse the order here so the new tabs are opened in same order as the files were passed in on the command line
-            // Cause of above bug not present, reversed...
             for (int i = 0; i < urls.size(); ++i) {
                 const QString &url = urls[i];
                 QDBusMessage m = QDBusMessage::createMethodCall(serviceName,

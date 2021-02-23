@@ -22,11 +22,13 @@
 #include <QRegularExpression>
 #include <QVariant>
 #include <QVector>
+#include <QDateTime>
+#include <QLocale>
 
 struct KateGitBlameInfo {
     QString commitHash;
     QString name;
-    QString date;
+    QDateTime date;
     QString line;
 };
 
@@ -49,6 +51,7 @@ public:
 private:
     KTextEditor::Document *m_doc;
     KateGitBlamePlugin *m_plugin;
+    QLocale m_locale;
 };
 
 class KateGitBlamePlugin : public KTextEditor::Plugin

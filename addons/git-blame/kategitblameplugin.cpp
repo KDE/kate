@@ -90,21 +90,18 @@ void GitBlameInlineNoteProvider::paintInlineNote(const KTextEditor::InlineNote &
     int lineNr = note.position().line();
     const KateGitBlameInfo &info = m_plugin->blameInfo(lineNr, m_doc->line(lineNr));
 
-    QString text = QStringLiteral("  %1: %2").arg(info.name, info.date);
+    QString text = QStringLiteral("  %1: %2").arg(info.name, m_locale.toString(info.date, QLocale::NarrowFormat));
     QRect rectangle = fm.boundingRect(text);
-    rectangle.setWidth(rectangle.width() * 1.1);
+    rectangle.setWidth(rectangle.width() * 1.01);
     rectangle.moveTo(0,0);
 
     auto editor = KTextEditor::Editor::instance();
     auto color = QColor::fromRgba(editor->theme().textColor(KSyntaxHighlighting::Theme::Normal));
     color.setAlpha(0);
     painter.setPen(color);
-    color.setAlpha(15);
+    color.setAlpha(10);
     painter.setBrush(color);
     painter.drawRect(0,0, rectangle.width(), note.lineHeight());
-    color.setAlpha(50);
-    painter.setBrush(color);
-    painter.drawRect(0, 0, 3, note.lineHeight());
 
     color.setAlpha(note.underMouse() ? 130 : 90);
     painter.setPen(color);
@@ -193,7 +190,7 @@ void KateGitBlamePlugin::startBlameProcess(const QUrl &url)
     QDir dir{url.toLocalFile()};
     dir.cdUp();
 
-    QStringList args{QStringLiteral("blame"),  QStringLiteral("./%1").arg(fileName)};
+    QStringList args{QStringLiteral("blame"), QStringLiteral("--date=iso-strict"), QStringLiteral("./%1").arg(fileName)};
 
     m_blameInfoProc.setWorkingDirectory(dir.absolutePath());
     m_blameInfoProc.start(QStringLiteral("git"), args);
@@ -228,14 +225,15 @@ void KateGitBlamePlugin::blameFinished(int /*exitCode*/, QProcess::ExitStatus /*
         return;
     }
 
-    const static QRegularExpression lineReg(QStringLiteral("(\\S+)[^\\(]+\\((.*)\\s+(\\d\\d\\d\\d-\\d\\d-\\d\\d \\d\\d:\\d\\d:\\d\\d)[^\\)]+\\)\\s(.*)"));
+    const static QRegularExpression lineReg(QStringLiteral("(\\S+)[^\\(]+\\((.*)\\s+(\\d\\d\\d\\d-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\d\\S+)[^\\)]+\\)\\s(.*)"));
 
     m_blameInfo.clear();
 
     for (const auto &line: stdOut) {
         const QRegularExpressionMatch match = lineReg.match(line);
         if (match.hasMatch()) {
-            m_blameInfo.append({ match.captured(1), match.captured(2).trimmed(), match.captured(3), match.captured(4) });
+            m_blameInfo.append({ match.captured(1), match.captured(2).trimmed(),
+                QDateTime::fromString(match.captured(3), Qt::ISODate), match.captured(4) });
         }
     }
 }
@@ -259,7 +257,7 @@ bool KateGitBlamePlugin::hasBlameInfo() const
 
 const KateGitBlameInfo &KateGitBlamePlugin::blameInfo(int lineNr, const QStringView &lineText)
 {
-    static const KateGitBlameInfo dummy{QStringLiteral("hash"), i18n("Not Committed Yet"), QStringLiteral(""), QStringLiteral("")};
+    static const KateGitBlameInfo dummy{QStringLiteral("hash"), i18n("Not Committed Yet"), QDateTime::currentDateTime(), QStringLiteral("")};
 
     if (m_blameInfo.isEmpty()) {
         return dummy;

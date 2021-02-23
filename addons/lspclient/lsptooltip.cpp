@@ -285,6 +285,9 @@ public:
     {
         QRect screen = QApplication::screenAt(p)->availableGeometry();
 
+        const auto offset = QPoint(3, 21);
+        p += offset;
+
         if (p.x() + width() > screen.x() + screen.width())
             p.rx() -= 4 + width();
         if (p.y() + this->height() > screen.y() + screen.height())

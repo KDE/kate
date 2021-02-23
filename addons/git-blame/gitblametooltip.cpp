@@ -135,6 +135,7 @@ public:
     Private() : QTextBrowser(nullptr)
     {
         setWindowFlags(Qt::FramelessWindowHint | Qt::BypassGraphicsProxyWidget | Qt::ToolTip);
+        setWordWrapMode(QTextOption::NoWrap);
         document()->setDocumentMargin(10);
         setFrameStyle(QFrame::Box | QFrame::Raised);
         connect(&m_hideTimer, &QTimer::timeout, this, &Private::hideTooltip);
@@ -247,6 +248,7 @@ public:
         }
         close();
         setText(QString());
+        m_inContextMenu = false;
     }
 
     void fixGeometry()
@@ -284,7 +286,9 @@ protected:
 
     void leaveEvent(QEvent *event) override
     {
-        if (!m_hideTimer.isActive() && !m_inContextMenu) {
+        if (!m_hideTimer.isActive() && !m_inContextMenu &&
+            textCursor().selectionStart() == textCursor().selectionEnd()
+        ) {
             hideTooltip();
         }
         return QTextBrowser::leaveEvent(event);
@@ -293,7 +297,9 @@ protected:
     void mouseMoveEvent(QMouseEvent *event) override
     {
         auto pos = event->pos();
-        if (rect().contains(pos)) {
+        if (rect().contains(pos) || m_inContextMenu ||
+            textCursor().selectionStart() != textCursor().selectionEnd()
+        ) {
             return QTextBrowser::mouseMoveEvent(event);
         }
         hideTooltip();

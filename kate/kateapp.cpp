@@ -325,27 +325,21 @@ KTextEditor::Document *KateApp::openDocUrl(const QUrl &url, const QString &encod
         KMessageBox::sorry(mainWindow, i18n("The file '%1' could not be opened: it is not a normal file, it is a folder.", url.url()));
     }
 
-    // When opening from remote url, 'completed' is emitted once loading has finished.
-    // Connect to each remote document's completed signal for post-load operations.
+    // When opening from remote url, 'textChanged' is emitted once loading has finished.
+    // Connect to each remote document's signal for post-load operations.
     if (doc && !doc->url().isLocalFile()) {
-        connect(doc, SIGNAL(completed()), this, SLOT(remoteDocumentLoaded()));
+        auto *connCtx = new QObject(this); // use a dummy object as signal receiver
+        connect(doc, &KTextEditor::Document::textChanged, connCtx, [this, connCtx](KTextEditor::Document *doc) {
+            connCtx->deleteLater();
+            if (doc->url().hasQuery()) {
+                setCursorFromQueryString(doc->views().empty() ? nullptr : doc->views().at(0));
+            } else {
+                setCursorFromArgs(doc->views().empty() ? nullptr : doc->views().at(0));
+            }
+        });
     }
 
     return doc;
-}
-
-void KateApp::remoteDocumentLoaded()
-{
-    // disconnect sender doc
-    auto doc = dynamic_cast<KTextEditor::Document *>(QObject::sender());
-    disconnect(doc, SIGNAL(completed()), this, SLOT(remoteDocumentLoaded()));
-
-    // respect order (query then args)
-    if (doc->url().hasQuery()) {
-        setCursorFromQueryString(doc->views().at(0));
-    } else {
-        setCursorFromArgs(doc->views().at(0));
-    }
 }
 
 void KateApp::setCursorFromArgs(KTextEditor::View *view)
@@ -387,7 +381,8 @@ void KateApp::setCursorFromQueryString(KTextEditor::View *view)
 
     QUrlQuery urlQuery;
     if (!view->document()->url().hasQuery()) {
-        // find orig url with query string in m_args
+        // Find orig url with query string in m_args. It's necessary because positional arguments
+        // are cleaned (in normaliseUrl() in KateDocManager::openUrl()) for local files but not for remote ones.
         QRegExp pattern(QLatin1String(view->document()->url().toString().toUtf8().append(".*").constData()));
         if ((pos = m_args.positionalArguments().indexOf(pattern)) < 0) {
             return;

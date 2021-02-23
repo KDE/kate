@@ -408,12 +408,6 @@ private:
      */
     void setCursorFromQueryString(KTextEditor::View *view = nullptr);
 
-private Q_SLOTS:
-    /**
-     * Executed when a document from a remote URL has finished loading.
-     */
-    void remoteDocumentLoaded();
-
 #ifdef WITH_KUSERFEEDBACK
     /**
      * user feedback provider

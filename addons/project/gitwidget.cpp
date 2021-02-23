@@ -30,6 +30,7 @@
 #include <QtConcurrentRun>
 
 #include <KLocalizedString>
+#include <KMessageBox>
 
 #include <KTextEditor/ConfigInterface>
 #include <KTextEditor/Editor>
@@ -544,6 +545,11 @@ QMenu *GitWidget::stashMenu()
     return menu;
 }
 
+static KMessageBox::ButtonCode confirm(GitWidget *_this, const QString &text)
+{
+    return KMessageBox::questionYesNo(_this, text, {}, KStandardGuiItem::yes(), KStandardGuiItem::no(), {}, KMessageBox::Dangerous);
+}
+
 void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
 {
     if (auto selModel = m_treeView->selectionModel()) {
@@ -575,9 +581,15 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
         if (act == stageAct) {
             stage(filesList, type == GitStatusModel::NodeUntrack);
         } else if (act == discardAct && !untracked) {
-            discard(filesList);
+            auto ret = confirm(this, i18n("Are you sure you want to remove these files?"));
+            if (ret == KMessageBox::Yes) {
+                discard(filesList);
+            }
         } else if (act == discardAct && untracked) {
-            clean(filesList);
+            auto ret = confirm(this, i18n("Are you sure you want to discard all changes?"));
+            if (ret == KMessageBox::Yes) {
+                clean(filesList);
+            }
         } else if (untracked && act == ignoreAct) {
             const auto files = m_project->files();
             const auto it = std::find_if(files.cbegin(), files.cend(), [](const QString &s) {
@@ -597,7 +609,7 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
 
         auto openFile = menu.addAction(i18n("Open file"));
         auto showDiffAct = untracked ? nullptr : menu.addAction(i18n("Show raw diff"));
-        auto launchDifftoolAct = untracked ? nullptr : menu.addAction(i18n("Show in external git difftool"));
+        auto launchDifftoolAct = untracked ? nullptr : menu.addAction(i18n("Show in external git diff tool"));
         auto openAtHead = untracked ? nullptr : menu.addAction(i18n("Open at HEAD"));
         auto stageAct = staged ? menu.addAction(i18n("Unstage file")) : menu.addAction(i18n("Stage file"));
         auto discardAct = untracked ? menu.addAction(i18n("Remove")) : menu.addAction(i18n("Discard"));
@@ -610,13 +622,19 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
             }
             return stage({file});
         } else if (act == discardAct && !untracked) {
-            discard({file});
+            auto ret = confirm(this, i18n("Are you sure you want to discard the changes in this file?"));
+            if (ret == KMessageBox::Yes) {
+                discard({file});
+            }
         } else if (act == openAtHead && !untracked) {
             openAtHEAD(idx.data(GitStatusModel::FileNameRole).toString());
         } else if (act == showDiffAct && !untracked) {
             showDiff(file, staged);
         } else if (act == discardAct && untracked) {
-            clean({file});
+            auto ret = confirm(this, i18n("Are you sure you want to remove this file?"));
+            if (ret == KMessageBox::Yes) {
+                clean({file});
+            }
         } else if (act == launchDifftoolAct) {
             launchExternalDiffTool(idx.data(GitStatusModel::FileNameRole).toString(), staged);
         } else if (act == openFile) {

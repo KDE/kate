@@ -70,7 +70,7 @@ QVector<int> GitBlameInlineNoteProvider::inlineNotes(int line) const
     int lineLen = m_doc->line(line).size();
     for (const auto view: m_doc->views()) {
         if (view->cursorPosition().line() == line) {
-            return QVector<int>{lineLen + 4};
+            return QVector<int>{lineLen};
         }
     }
     return QVector<int>();
@@ -90,10 +90,8 @@ void GitBlameInlineNoteProvider::paintInlineNote(const KTextEditor::InlineNote &
     int lineNr = note.position().line();
     const KateGitBlameInfo &info = m_plugin->blameInfo(lineNr, m_doc->line(lineNr));
 
-    QString text = QStringLiteral("  %1: %2").arg(info.name, m_locale.toString(info.date, QLocale::NarrowFormat));
-    QRect rectangle = fm.boundingRect(text);
-    rectangle.setWidth(rectangle.width() * 1.01);
-    rectangle.moveTo(0,0);
+    QString text = QStringLiteral(" %1: %2 ").arg(info.name, m_locale.toString(info.date, QLocale::NarrowFormat));
+    QRect rectangle{30, 0, fm.horizontalAdvance(text), note.lineHeight()};
 
     auto editor = KTextEditor::Editor::instance();
     auto color = QColor::fromRgba(editor->theme().textColor(KSyntaxHighlighting::Theme::Normal));
@@ -101,7 +99,7 @@ void GitBlameInlineNoteProvider::paintInlineNote(const KTextEditor::InlineNote &
     painter.setPen(color);
     color.setAlpha(10);
     painter.setBrush(color);
-    painter.drawRect(0,0, rectangle.width(), note.lineHeight());
+    painter.drawRect(rectangle);
 
     color.setAlpha(note.underMouse() ? 130 : 90);
     painter.setPen(color);

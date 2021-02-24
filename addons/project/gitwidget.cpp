@@ -261,17 +261,15 @@ void GitWidget::openAtHEAD(const QString &file)
 
 void GitWidget::showDiff(const QString &file, bool staged)
 {
-    if (file.isEmpty()) {
-        return;
-    }
-
     auto args = QStringList{QStringLiteral("diff")};
     if (staged) {
         args.append(QStringLiteral("--staged"));
     }
 
-    args.append(QStringLiteral("--"));
-    args.append(file);
+    if (!file.isEmpty()) {
+        args.append(QStringLiteral("--"));
+        args.append(file);
+    }
 
     disconnect(&git, &QProcess::finished, nullptr, nullptr);
     connect(&git, &QProcess::finished, this, [this, file](int exitCode, QProcess::ExitStatus es) {
@@ -279,7 +277,8 @@ void GitWidget::showDiff(const QString &file, bool staged)
         if (es != QProcess::NormalExit || exitCode != 0) {
             sendMessage(i18n("Failed to get Diff of file. Error:\n%1", QString::fromUtf8(git.readAllStandardError())), true);
         } else {
-            openTempFile(QFileInfo(file).fileName(), QStringLiteral("XXXXXX %1.diff"));
+            const QString filename = file.isEmpty() ? QString() : QFileInfo(file).fileName();
+            openTempFile(filename, QStringLiteral("XXXXXX %1.diff"));
         }
     });
 
@@ -508,7 +507,7 @@ void GitWidget::openTempFile(const QString &file, const QString &templatString)
         qWarning() << "Gitwidget: Failed to open temp file";
         return;
     }
-    qWarning() << "Reading output";
+
     f->write(git.readAllStandardOutput());
     f->flush();
     const QUrl tempFileUrl(QUrl::fromLocalFile(f->fileName()));
@@ -545,7 +544,7 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
         bool untracked = type == GitStatusModel::NodeUntrack;
         auto discardAct = untracked ? menu.addAction(i18n("Remove All")) : menu.addAction(i18n("Discard All"));
         auto ignoreAct = untracked ? menu.addAction(i18n("Open .gitignore")) : nullptr;
-
+        auto diff = !untracked ? menu.addAction(i18n("Show diff")) : nullptr;
         // get files
         const QVector<GitUtils::StatusItem> &files = untracked ? m_model->untrackedFiles() : m_model->changedFiles();
         QStringList filesList;
@@ -579,6 +578,8 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
             if (it != files.cend()) {
                 m_mainWin->openUrl(QUrl::fromLocalFile(*it));
             }
+        } else if (!untracked && act == diff) {
+            showDiff(QString(), false);
         }
     } else if (type == GitStatusModel::NodeFile) {
         QMenu menu;
@@ -621,6 +622,7 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
     } else if (type == GitStatusModel::NodeStage) {
         QMenu menu;
         auto stage = menu.addAction(i18n("Unstage All"));
+        auto diff = menu.addAction(i18n("Show diff"));
         auto act = menu.exec(m_treeView->viewport()->mapToGlobal(e->pos()));
 
         // git reset -q HEAD --
@@ -632,6 +634,8 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
                 filesList.append(file.file);
             }
             unstage(filesList);
+        } else if (act == diff) {
+            showDiff(QString(), true);
         }
     }
 }

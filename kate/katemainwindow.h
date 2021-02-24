@@ -39,6 +39,7 @@ typedef class QList<UDSEntry> UDSEntryList;
 class KFileItem;
 class KRecentFilesAction;
 
+class KateOutputView;
 class KateViewManager;
 class KateMwModOnHdDialog;
 
@@ -598,6 +599,16 @@ private:
         bool m_state = false;
     };
     QHash<KTextEditor::View *, BarState> m_bottomViewBarMapping;
+
+    /**
+     * generic output tool view
+     */
+    QWidget *m_toolViewOutput = nullptr;
+
+    /**
+     * output widget contained in above tool view
+     */
+    KateOutputView *m_outputView = nullptr;
 
 public:
     static void unsetModifiedOnDiscDialogIfIf(KateMwModOnHdDialog *diag)

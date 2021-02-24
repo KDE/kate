@@ -93,6 +93,8 @@ target_sources(
 
     katecommandbar.cpp
     commandmodel.cpp
+
+    kateoutputview.cpp
 )
 
 # Executable only adds the main definition.

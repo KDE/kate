@@ -336,7 +336,7 @@ void StashDialog::stash(bool keepIndex, bool includeUntracked)
         }
     });
     git->setArguments(args);
-    git->start();
+    git->start(QProcess::ReadOnly);
 }
 
 void StashDialog::getStashList()
@@ -347,7 +347,7 @@ void StashDialog::getStashList()
     }
 
     git->setArguments({QStringLiteral("stash"), QStringLiteral("list")});
-    git->start();
+    git->start(QProcess::ReadOnly);
 
     QList<QByteArray> stashList;
     if (git->waitForStarted() && git->waitForFinished(-1)) {
@@ -414,7 +414,7 @@ void StashDialog::popStash(const QByteArray &index, const QString &command)
         }
     });
     git->setArguments(args);
-    git->start();
+    git->start(QProcess::ReadOnly);
 }
 
 void StashDialog::applyStash(const QByteArray &index)
@@ -443,46 +443,16 @@ void StashDialog::showStash(const QByteArray &index)
     QStringList args{QStringLiteral("stash"), QStringLiteral("show"), QStringLiteral("-p"), QString::fromUtf8(index)};
 
     connect(git, &QProcess::finished, gitWidget, [gitWidget](int exitCode, QProcess::ExitStatus es) {
-        // sever connection
         disconnect(gitWidget->gitprocess(), &QProcess::finished, nullptr, nullptr);
         if (es != QProcess::NormalExit || exitCode != 0) {
-            gitWidget->sendMessage(i18n("Failed to get Diff of file. Error:\n%1", QString::fromUtf8(gitWidget->gitprocess()->readAllStandardError())), true);
+            gitWidget->sendMessage(i18n("Show stash failed. Error:\n%1", QString::fromUtf8(gitWidget->gitprocess()->readAllStandardError())), true);
         } else {
-            std::unique_ptr<QTemporaryFile> f(new QTemporaryFile);
-            f->setFileTemplate(QString(QStringLiteral("XXXXXX.diff")));
-            if (!f->open()) {
-                return;
-            }
-
-            f->write(gitWidget->gitprocess()->readAllStandardOutput());
-            f->flush();
-            const QUrl tempFileUrl(QUrl::fromLocalFile(f->fileName()));
-            auto v = gitWidget->mainWindow()->openUrl(tempFileUrl);
-            if (!v || !v->document()) {
-                return;
-            }
-
-            std::pair<std::unique_ptr<QTemporaryFile>, KTextEditor::View *> tf = std::make_pair(std::move(f), v);
-            gitWidget->tempFilesVector()->push_back(std::move(tf));
-
-            // close temp on document close
-            auto clearTemp = [gitWidget](KTextEditor::Document *document) {
-                auto tempFiles = gitWidget->tempFilesVector();
-                tempFiles->erase(std::remove_if(tempFiles->begin(),
-                                                tempFiles->end(),
-                                                [document](const GitWidget::TempFileViewPair &tf) {
-                                                    if (tf.second->document() == document) {
-                                                        return true;
-                                                    }
-                                                    return false;
-                                                }),
-                                 tempFiles->end());
-            };
-            connect(v->document(), &KTextEditor::Document::aboutToClose, gitWidget, clearTemp);
+            gitWidget->openTempFile(QString(), QStringLiteral("XXXXXX.diff"));
         }
     });
+
     git->setArguments(args);
-    git->start();
+    git->start(QProcess::ReadOnly);
 }
 
 void StashDialog::updateViewGeometry()

@@ -28,6 +28,7 @@ namespace KTextEditor
 {
 class MainWindow;
 class View;
+class Document;
 }
 
 class GitWidget : public QWidget
@@ -42,8 +43,9 @@ public:
     QProcess *gitprocess();
     KTextEditor::MainWindow *mainWindow();
 
-    using TempFileViewPair = std::pair<std::unique_ptr<QTemporaryFile>, KTextEditor::View *>;
+    using TempFileViewPair = std::pair<std::unique_ptr<QTemporaryFile>, QPointer<KTextEditor::View>>;
     std::vector<TempFileViewPair> *tempFilesVector();
+    void openTempFile(const QString &file, const QString &templatString);
 
 private:
     QToolButton *m_menuBtn;
@@ -58,7 +60,7 @@ private:
     QString m_commitMessage;
     KTextEditor::MainWindow *m_mainWin;
     QMenu *m_gitMenu;
-    std::vector<TempFileViewPair> m_filesOpenAtHEAD;
+    std::vector<TempFileViewPair> m_tempFiles;
     KateProjectPluginView *m_pluginView;
 
     void buildMenu();
@@ -78,9 +80,13 @@ private:
     void treeViewContextMenuEvent(QContextMenuEvent *e);
     void selectedContextMenu(QContextMenuEvent *e);
 
-    Q_SLOT void gitStatusReady(int exit, QProcess::ExitStatus);
-    Q_SLOT void parseStatusReady();
-    Q_SLOT void opencommitChangesDialog();
+public Q_SLOTS:
+    void clearTempFile(KTextEditor::Document *document);
+
+private Q_SLOTS:
+    void gitStatusReady(int exit, QProcess::ExitStatus);
+    void parseStatusReady();
+    void opencommitChangesDialog();
 
     // signals
 public:

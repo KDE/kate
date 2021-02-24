@@ -118,8 +118,9 @@ public:
 
     void setFilterString(const QString &string)
     {
+        beginResetModel();
         m_pattern = string;
-        invalidateFilter();
+        endResetModel();
     }
 
 protected:

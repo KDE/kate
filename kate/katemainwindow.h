@@ -611,6 +611,16 @@ private:
     KateOutputView *m_outputView = nullptr;
 
 public:
+    /**
+     * Accessor for unique output view per main window.
+     * @return our output view, will always exist!
+     */
+    KateOutputView *outputView()
+    {
+        return m_outputView;
+    }
+
+public:
     static void unsetModifiedOnDiscDialogIfIf(KateMwModOnHdDialog *diag)
     {
         if (s_modOnHdDialog == diag) {

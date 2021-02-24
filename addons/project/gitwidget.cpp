@@ -8,6 +8,7 @@
 #include "gitcommitdialog.h"
 #include "gitstatusmodel.h"
 #include "kateproject.h"
+#include "kateprojectpluginview.h"
 #include "stashdialog.h"
 
 #include <QContextMenuEvent>
@@ -123,6 +124,13 @@ void GitWidget::initGitExe()
 
 void GitWidget::sendMessage(const QString &message, bool warn)
 {
+    // use generic output view
+    // FIXME: proper attributes
+    //        if finished => remove the other case below!
+    QVariantMap genericMessage;
+    genericMessage.insert(QStringLiteral("plainText"), message);
+    Q_EMIT m_pluginView->message(genericMessage);
+
     // quickfix crash on startup
     if (!m_mainWin->activeView()) {
         return;

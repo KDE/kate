@@ -44,7 +44,7 @@ public:
 
     using TempFileViewPair = std::pair<std::unique_ptr<QTemporaryFile>, QPointer<KTextEditor::View>>;
     std::vector<TempFileViewPair> *tempFilesVector();
-    void openTempFile(const QString &file, const QString &templatString);
+    bool openTempFile(const QString &file, const QString &templatString);
 
     // will just proxy the message to the plugin view
     void sendMessage(const QString &message, bool warn);
@@ -76,11 +76,14 @@ private:
     void showDiff(const QString &file, bool staged);
     void launchExternalDiffTool(const QString &file, bool staged);
     void commitChanges(const QString &msg, const QString &desc, bool signOff);
+    void applyDiff(const QString &fileName, bool staged, bool hunk, KTextEditor::View *v);
     QMenu *stashMenu();
 
     void hideEmptyTreeNodes();
     void treeViewContextMenuEvent(QContextMenuEvent *e);
     void selectedContextMenu(QContextMenuEvent *e);
+
+    QString getDiff(KTextEditor::View *view, bool hunk, bool alreadyStaged);
 
 public Q_SLOTS:
     void clearTempFile(KTextEditor::Document *document);

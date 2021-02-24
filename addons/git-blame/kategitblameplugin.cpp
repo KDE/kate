@@ -70,7 +70,7 @@ QVector<int> GitBlameInlineNoteProvider::inlineNotes(int line) const
     int lineLen = m_doc->line(line).size();
     for (const auto view: m_doc->views()) {
         if (view->cursorPosition().line() == line) {
-            return QVector<int>{lineLen};
+            return QVector<int>{qMax(lineLen, 1)};
         }
     }
     return QVector<int>();

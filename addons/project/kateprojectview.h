@@ -17,6 +17,8 @@ class KLineEdit;
 class KateProjectPluginView;
 class BranchesDialog;
 class QToolButton;
+class QStackedWidget;
+class FileHistoryWidget;
 
 /**
  * Class representing a view of a project.
@@ -66,6 +68,10 @@ private Q_SLOTS:
      */
     void filterTextChanged(const QString &filterText);
 
+    void setTreeViewAsCurrent();
+
+    void showFileGitHistory(const QString &file);
+
 private:
     /**
      * our plugin view
@@ -81,6 +87,11 @@ private:
      * our tree view
      */
     KateProjectViewTree *m_treeView;
+
+    /**
+     * Contains treeview + file history commit list
+     */
+    QStackedWidget *m_stackWidget;
 
     /**
      * filter

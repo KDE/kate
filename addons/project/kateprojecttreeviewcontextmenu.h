@@ -8,14 +8,16 @@
 #ifndef KATE_PROJECT_TREE_VIEW_CONTEXT_MENU_H
 #define KATE_PROJECT_TREE_VIEW_CONTEXT_MENU_H
 
+#include <QObject>
 #include <QPoint>
 #include <QString>
 
 class QWidget;
 class QModelIndex;
 
-class KateProjectTreeViewContextMenu
+class KateProjectTreeViewContextMenu : public QObject
 {
+    Q_OBJECT
 public:
     /**
      * construct project view for given project
@@ -34,6 +36,11 @@ public:
      * @return project
      */
     void exec(const QString &filename, const QModelIndex &index, const QPoint &pos, QWidget *parent);
+
+    /**
+     * emits on clicking Menu->Show File History
+     */
+    Q_SIGNAL void showFileHistory(const QString &file);
 
 protected:
 };

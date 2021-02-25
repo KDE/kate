@@ -128,6 +128,8 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
 
     auto rename = menu.addAction(QIcon::fromTheme(QStringLiteral("edit-rename")), i18n("&Rename"));
 
+    auto history = menu.addAction(i18n("Show File History"));
+
     /**
      * run menu and handle the triggered action
      */
@@ -147,6 +149,8 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
             dlg->show();
         } else if (action == rename) {
             static_cast<KateProjectViewTree *>(parent)->edit(index);
+        } else if (action == history) {
+            showFileHistory(index.data(Qt::UserRole).toString());
         } else {
             // One of the git actions was triggered
         }

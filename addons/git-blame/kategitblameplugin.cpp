@@ -70,7 +70,7 @@ QVector<int> GitBlameInlineNoteProvider::inlineNotes(int line) const
     int lineLen = m_doc->line(line).size();
     for (const auto view: m_doc->views()) {
         if (view->cursorPosition().line() == line) {
-            return QVector<int>{qMax(lineLen, 1)};
+            return QVector<int>{lineLen + 4};
         }
     }
     return QVector<int>();
@@ -93,7 +93,7 @@ void GitBlameInlineNoteProvider::paintInlineNote(const KTextEditor::InlineNote &
     QString text = info.title.isEmpty() ?
     QStringLiteral(" %1: %2 ").arg(info.name, m_locale.toString(info.date, QLocale::NarrowFormat)) :
     QStringLiteral(" %1: %2: %3 ").arg(info.name, m_locale.toString(info.date, QLocale::NarrowFormat), info.title);
-    QRect rectangle{30, 0, fm.horizontalAdvance(text), note.lineHeight()};
+    QRect rectangle{0, 0, fm.horizontalAdvance(text), note.lineHeight()};
 
     auto editor = KTextEditor::Editor::instance();
     auto color = QColor::fromRgba(editor->theme().textColor(KSyntaxHighlighting::Theme::Normal));

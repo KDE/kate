@@ -11,6 +11,9 @@ class FileHistoryWidget : public QWidget
 public:
     explicit FileHistoryWidget(const QString &file, QWidget *parent = nullptr);
 
+private Q_SLOTS:
+    void itemClicked(const QModelIndex &idx);
+
 private:
     QPushButton m_backBtn;
     QListView *m_listView;
@@ -18,6 +21,7 @@ private:
 
 Q_SIGNALS:
     void backClicked();
+    void commitClicked(const QString &file, const QString &templString, const QByteArray &contents);
 };
 
 #endif // FILEHISTORYWIDGET_H

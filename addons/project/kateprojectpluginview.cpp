@@ -481,6 +481,14 @@ void KateProjectPluginView::switchToProject(const QDir &dir)
     }
 }
 
+void KateProjectPluginView::openTempFile(const QString &file, const QString &templateString, const QByteArray &contents)
+{
+    if (QWidget *current = m_stackedgitViews->currentWidget()) {
+        m_stackedgitViews->setFocusProxy(current);
+        static_cast<GitWidget *>(current)->openTempFile(file, templateString, contents);
+    }
+}
+
 void KateProjectPluginView::slotViewCreated(KTextEditor::View *view)
 {
     /**

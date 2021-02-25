@@ -447,7 +447,7 @@ void StashDialog::showStash(const QByteArray &index)
         if (es != QProcess::NormalExit || exitCode != 0) {
             gitWidget->sendMessage(i18n("Show stash failed. Error:\n%1", QString::fromUtf8(gitWidget->gitprocess()->readAllStandardError())), true);
         } else {
-            gitWidget->openTempFile(QString(), QStringLiteral("XXXXXX.diff"));
+            gitWidget->openTempFile(QString(), QStringLiteral("XXXXXX.diff"), gitWidget->gitprocess()->readAllStandardOutput());
         }
     });
 

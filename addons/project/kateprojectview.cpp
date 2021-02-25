@@ -148,6 +148,7 @@ void KateProjectView::showFileGitHistory(const QString &file)
     // create on demand and on switch back delete
     auto fhs = new FileHistoryWidget(file);
     connect(fhs, &FileHistoryWidget::backClicked, this, &KateProjectView::setTreeViewAsCurrent);
+    connect(fhs, &FileHistoryWidget::commitClicked, m_pluginView, &KateProjectPluginView::openTempFile);
     m_stackWidget->addWidget(fhs);
     m_stackWidget->setCurrentWidget(fhs);
 }

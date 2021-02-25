@@ -251,7 +251,7 @@ void GitWidget::openAtHEAD(const QString &file)
         if (es != QProcess::NormalExit || exitCode != 0) {
             sendMessage(i18n("Failed to open file at HEAD. Error:\n%1", QString::fromUtf8(git.readAllStandardError())), true);
         } else {
-            openTempFile(QFileInfo(file).fileName(), QStringLiteral("XXXXXX - (HEAD) - %1"));
+            openTempFile(QFileInfo(file).fileName(), QStringLiteral("XXXXXX - (HEAD) - %1"), git.readAllStandardOutput());
         }
     });
 
@@ -278,7 +278,7 @@ void GitWidget::showDiff(const QString &file, bool staged)
             sendMessage(i18n("Failed to get Diff of file. Error:\n%1", QString::fromUtf8(git.readAllStandardError())), true);
         } else {
             const QString filename = file.isEmpty() ? QString() : QFileInfo(file).fileName();
-            openTempFile(filename, QStringLiteral("XXXXXX %1.diff"));
+            openTempFile(filename, QStringLiteral("XXXXXX %1.diff"), git.readAllStandardOutput());
         }
     });
 
@@ -495,8 +495,12 @@ void GitWidget::clearTempFile(KTextEditor::Document *document)
                       m_tempFiles.end());
 }
 
-void GitWidget::openTempFile(const QString &file, const QString &templatString)
+void GitWidget::openTempFile(const QString &file, const QString &templatString, const QByteArray &contents)
 {
+    if (contents.isEmpty()) {
+        return;
+    }
+
     std::unique_ptr<QTemporaryFile> f(new QTemporaryFile);
     if (!templatString.isEmpty() && !file.isEmpty()) {
         f->setFileTemplate(templatString.arg(file));
@@ -504,12 +508,13 @@ void GitWidget::openTempFile(const QString &file, const QString &templatString)
         f->setFileTemplate(templatString);
     }
     if (!f->open()) {
-        qWarning() << "Gitwidget: Failed to open temp file";
+        qWarning() << "Gitwidget: Failed to open temp file" << f->errorString();
         return;
     }
 
-    f->write(git.readAllStandardOutput());
+    f->write(contents);
     f->flush();
+
     const QUrl tempFileUrl(QUrl::fromLocalFile(f->fileName()));
     QPointer<KTextEditor::View> v = m_mainWin->openUrl(tempFileUrl);
 

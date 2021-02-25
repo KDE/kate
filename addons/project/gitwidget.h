@@ -45,7 +45,7 @@ public:
 
     using TempFileViewPair = std::pair<std::unique_ptr<QTemporaryFile>, QPointer<KTextEditor::View>>;
     std::vector<TempFileViewPair> *tempFilesVector();
-    void openTempFile(const QString &file, const QString &templatString);
+    void openTempFile(const QString &file, const QString &templatString, const QByteArray &contents);
 
 private:
     QToolButton *m_menuBtn;

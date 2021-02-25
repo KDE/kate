@@ -115,6 +115,11 @@ public Q_SLOTS:
      */
     void switchToProject(const QDir &dir);
 
+    /**
+     * tells Git widget to open a temporary file for diff etc.
+     */
+    void openTempFile(const QString &file, const QString &templateString, const QByteArray &contents);
+
 private Q_SLOTS:
     /**
      * Plugin config updated

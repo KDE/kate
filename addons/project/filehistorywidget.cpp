@@ -128,4 +128,23 @@ FileHistoryWidget::FileHistoryWidget(const QString &file, QWidget *parent)
     model->refresh(parseCommits(getFileHistory(file)));
 
     m_listView->setModel(model);
+    connect(m_listView, &QListView::clicked, this, &FileHistoryWidget::itemClicked);
+}
+
+void FileHistoryWidget::itemClicked(const QModelIndex &idx)
+{
+    QProcess git;
+    QFileInfo fi(m_file);
+    git.setWorkingDirectory(fi.absolutePath());
+    QStringList args{QStringLiteral("diff"), QString::fromUtf8(idx.data(CommitListModel::Hash).toByteArray()), QStringLiteral("--"), m_file};
+    git.start(QStringLiteral("git"), args, QProcess::ReadOnly);
+    if (git.waitForStarted() && git.waitForFinished(-1)) {
+        if (git.exitStatus() != QProcess::NormalExit || git.exitCode() != 0) {
+            return;
+        }
+        QByteArray contents = git.readAll();
+        // we send this signal to the parent, which will pass it on to
+        // the GitWidget from where a temporary file is opened
+        Q_EMIT commitClicked(fi.fileName(), QStringLiteral("XXXXXX %1.diff"), contents);
+    }
 }

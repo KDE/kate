@@ -331,7 +331,7 @@ void KateSessionManager::saveSessionTo(KConfig *sc) const
     // Clear the session file to avoid to accumulate outdated entries
     for (const auto &group : sc->groupList()) {
         // Don't delete groups for loaded documents that have
-        // VeiwSpace config in session but do not have any views.
+        // ViewSpace config in session but do not have any views.
         if (!isViewLessDocumentViewSpaceGroup(group)) {
             sc->deleteGroup(group);
         }
@@ -645,15 +645,21 @@ void KateSessionManager::updateJumpListActions(const QStringList &sessionList)
 
 bool KateSessionManager::isViewLessDocumentViewSpaceGroup(const QString &group) {
 
-    if (!group.startsWith(QStringLiteral("MainWindow"))) return false;
+    if (KateApp::self()->sessionManager()->activeSession()->isAnonymous()) {
+        return false;
+    }
 
-    QRegExp re(QStringLiteral("^MainWindow\\d+-ViewSpace\\s\\d+\\s(.*)$"));
-    if (group.indexOf(re) > -1) {
-        QUrl url(re.cap(1));
+    if (!group.startsWith(QStringLiteral("MainWindow"))) {
+        return false;
+    }
+
+    static const QRegularExpression re(QStringLiteral("^MainWindow\\d+\\-ViewSpace\\s\\d+\\s(.*)$"));
+    QRegularExpressionMatch match = re.match(group);
+    if (match.hasMatch()) {
+        QUrl url(match.captured(1));
         auto *docMan = KateApp::self()->documentManager();
         auto *doc = docMan->findDocument(url);
-        bool anonSession = KateApp::self()->sessionManager()->activeSession()->isAnonymous();
-        if (doc && doc->views().empty() && docMan->documentList().contains(doc) && !anonSession) {
+        if (doc && doc->views().empty() && docMan->documentList().contains(doc)) {
            return true;
         }
     }

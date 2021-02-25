@@ -139,9 +139,9 @@ QVariant GitStatusModel::data(const QModelIndex &index, int role) const
             }
         } else if (role == Qt::ForegroundRole) {
             if (index.column() == 1 && rootIndex > 0) {
-                return QColor(Qt::red);
+                return QColor(218, 68, 83); // Breeze Fg Negative
             } else if (index.column() == 1 && rootIndex == 0) {
-                return QColor(Qt::green);
+                return QColor(39, 174, 96); // Breeze Fg Positive
             }
         }
     }

@@ -209,6 +209,11 @@ private Q_SLOTS:
      */
     void handleEsc(QEvent *e);
 
+    /**
+     * Update git status on toolview shown
+     */
+    void slotUpdateStatus(bool visible);
+
 private:
     /**
      * find current selected or under cursor word

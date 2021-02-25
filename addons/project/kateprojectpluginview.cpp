@@ -177,6 +177,9 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
 
     connect(m_mainWindow, &KTextEditor::MainWindow::unhandledShortcutOverride, this, &KateProjectPluginView::handleEsc);
 
+    // update git status on toolview visibility change
+    connect(m_gitToolView.get(), SIGNAL(toolVisibleChanged(bool)), this, SLOT(slotUpdateStatus(bool)));
+
     /**
      * add us to gui
      */
@@ -621,6 +624,17 @@ void KateProjectPluginView::handleEsc(QEvent *e)
         if (m_toolInfoView->isVisible() && (!infoView || !infoView->ignoreEsc())) {
             m_mainWindow->hideToolView(m_toolInfoView);
         }
+    }
+}
+
+void KateProjectPluginView::slotUpdateStatus(bool visible)
+{
+    if (!visible) {
+        return;
+    }
+
+    if (auto widget = m_stackedgitViews->currentWidget()) {
+        static_cast<GitWidget *>(widget)->getStatus();
     }
 }
 

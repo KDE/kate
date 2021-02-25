@@ -5,6 +5,7 @@
 */
 #include "gitstatus.h"
 
+#include <KLocalizedString>
 #include <QByteArray>
 #include <QList>
 
@@ -99,21 +100,21 @@ QString GitUtils::statusString(GitUtils::GitStatus s)
     switch (s) {
     case WorkingTree_Modified:
     case Index_Modified:
-        return QStringLiteral(" ‣ Modified");
+        return i18n(" ‣ Modified");
     case Untracked:
-        return QStringLiteral(" ‣ Untracked");
+        return i18n(" ‣ Untracked");
     case Index_Renamed:
-        return QStringLiteral(" ‣ Renamed");
+        return i18n(" ‣ Renamed");
     case Index_Deleted:
     case WorkingTree_Deleted:
-        return QStringLiteral(" ‣ Deleted");
+        return i18n(" ‣ Deleted");
     case Index_Added:
     case WorkingTree_IntentToAdd:
-        return QStringLiteral(" ‣ Added");
+        return i18n(" ‣ Added");
     case Index_Copied:
-        return QStringLiteral(" ‣ Copied");
+        return i18n(" ‣ Copied");
     case Ignored:
-        return QStringLiteral(" ‣ Ignored");
+        return i18n(" ‣ Ignored");
     case Unmerge_AddedByThem:
     case Unmerge_AddedByUs:
     case Unmerge_BothAdded:
@@ -121,7 +122,7 @@ QString GitUtils::statusString(GitUtils::GitStatus s)
     case Unmerge_BothModified:
     case Unmerge_DeletedByThem:
     case Unmerge_DeletedByUs:
-        return QStringLiteral(" ‣ Conflict");
+        return i18n(" ‣ Conflicted");
     }
     return QString();
 }

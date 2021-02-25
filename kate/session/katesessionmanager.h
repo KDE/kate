@@ -217,6 +217,19 @@ private:
      */
     void updateJumpListActions(const QStringList &sessionList);
 
+    /**
+     * Given a config group name, determines if the group represents
+     * a session ViewSpace group (i.e. "MainWindowN-ViewSpace N [doc url]")
+     * and, if so,
+     *  - returns TRUE if the document referred to has no views
+     *            and the session is not anonymous;
+     *  - returns FALSE otherwise.
+     *
+     *  A document does not have a view when it is opened in a named session
+     *  until its tab is activated.
+     */
+    static bool isViewLessDocumentViewSpaceGroup(const QString &group) ;
+
 private:
     /**
      * absolute path to dir in home dir where to store the sessions

@@ -103,6 +103,8 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
      */
     auto filePropertiesAction = menu.addAction(QIcon::fromTheme(QStringLiteral("dialog-object-properties")), i18n("Properties"));
 
+    auto history = menu.addAction(i18n("Show File History"));
+
     /**
      * Git menu
      */
@@ -127,8 +129,6 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
     };
 
     auto rename = menu.addAction(QIcon::fromTheme(QStringLiteral("edit-rename")), i18n("&Rename"));
-
-    auto history = menu.addAction(i18n("Show File History"));
 
     /**
      * run menu and handle the triggered action

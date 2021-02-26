@@ -215,6 +215,7 @@ FileHistoryWidget::FileHistoryWidget(const QString &file, QWidget *parent)
     setLayout(new QVBoxLayout);
 
     m_backBtn.setText(i18n("Back"));
+    m_backBtn.setIcon(QIcon::fromTheme(QStringLiteral("draw-arrow-back.svg")));
     connect(&m_backBtn, &QPushButton::clicked, this, &FileHistoryWidget::backClicked);
     layout()->addWidget(&m_backBtn);
 
@@ -235,13 +236,18 @@ void FileHistoryWidget::itemClicked(const QModelIndex &idx)
     QProcess git;
     QFileInfo fi(m_file);
     git.setWorkingDirectory(fi.absolutePath());
-    QStringList args{QStringLiteral("diff"), QString::fromUtf8(idx.data(CommitListModel::CommitHash).toByteArray()), QStringLiteral("--"), m_file};
+
+    const auto commit = idx.data(CommitListModel::CommitRole).value<Commit>();
+
+    QStringList args{QStringLiteral("diff"), QString::fromUtf8(commit.hash), QStringLiteral("--"), m_file};
     git.start(QStringLiteral("git"), args, QProcess::ReadOnly);
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         if (git.exitStatus() != QProcess::NormalExit || git.exitCode() != 0) {
             return;
         }
-        QByteArray contents = git.readAll();
+        QByteArray contents = commit.msg.toUtf8();
+        contents.append("\n\n");
+        contents.append(git.readAllStandardOutput());
         // we send this signal to the parent, which will pass it on to
         // the GitWidget from where a temporary file is opened
         Q_EMIT commitClicked(fi.fileName(), QStringLiteral("XXXXXX %1.diff"), contents);

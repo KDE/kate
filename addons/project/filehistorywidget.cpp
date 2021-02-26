@@ -132,12 +132,42 @@ public:
         options.text = QString();
         QStyledItemDelegate::paint(painter, options, index);
 
-        constexpr int lineHeight = 3;
+        constexpr int lineHeight = 2;
         QFontMetrics fm = opt.fontMetrics;
 
         QRect prect = opt.rect;
+
+        const int ascent = (opt.fontMetrics.ascent() / 2);
+
+        // draw line
+        prect.setX(prect.x() + ascent + 2);
+        auto sp = painter->pen();
+        auto p = painter->pen();
+        p.setWidth(2);
+        painter->setPen(p);
+
+        auto p1 = prect.bottomLeft();
+        int w = opt.fontMetrics.ascent();
+        int h = opt.rect.height();
+        int r = w / 3;
+        p1.ry() -= (h / 2) - r;
+
+        painter->setRenderHint(QPainter::Antialiasing, true);
+
+        QPoint pp = p1;
+        pp.ry() -= 3 + 1;
+        painter->drawLine(prect.topLeft(), pp);
+        painter->drawEllipse(p1, r, r);
+        auto p2 = p1;
+        p2.ry() += r + 1;
+        painter->drawLine(p2, prect.bottomLeft());
+
+        painter->setRenderHint(QPainter::Antialiasing, false);
+
+        painter->setPen(sp);
+
         // padding
-        prect.setX(prect.x() + lineHeight);
+        prect.setX(prect.x() + ascent + 2);
         prect.setY(prect.y() + lineHeight);
 
         // draw author on left
@@ -167,14 +197,14 @@ public:
 
         // draw separator
         painter->setPen(opt.palette.button().color());
-        painter->drawLine(prect.bottomLeft(), prect.bottomRight());
+        painter->drawLine(opt.rect.bottomLeft(), opt.rect.bottomRight());
         painter->setPen(fg);
     }
 
-    QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &) const override
+    QSize sizeHint(const QStyleOptionViewItem &opt, const QModelIndex &) const override
     {
-        auto height = option.fontMetrics.height();
-        return QSize(0, height * 4);
+        auto height = opt.fontMetrics.height();
+        return QSize(0, height * 3 + (3 * 2));
     }
 };
 

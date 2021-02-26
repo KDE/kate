@@ -68,13 +68,9 @@ void KatePluginManager::setupPluginList()
     // handle all install KTextEditor plugins
     m_pluginList.clear();
     QSet<QString> unique;
-    //    const QVector<KPluginMetaData> plugins = KPluginLoader::findPlugins(QStringLiteral("ktexteditor"), [](const KPluginMetaData &md) {
-    //        return md.serviceTypes().contains(QLatin1String("KTextEditor/Plugin"));
-    //    });
-    const QVector<KPluginMetaData> plugins =
-        KPluginLoader::findPlugins(QStringLiteral("/home/waqar/kde/src/kde/applications/kate/Release/bin"), [](const KPluginMetaData &md) {
-            return md.serviceTypes().contains(QLatin1String("KTextEditor/Plugin"));
-        });
+    const QVector<KPluginMetaData> plugins = KPluginLoader::findPlugins(QStringLiteral("ktexteditor"), [](const KPluginMetaData &md) {
+        return md.serviceTypes().contains(QLatin1String("KTextEditor/Plugin"));
+    });
     for (const auto &pluginMetaData : plugins) {
         KatePluginInfo info;
         info.metaData = pluginMetaData;

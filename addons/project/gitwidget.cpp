@@ -128,6 +128,7 @@ void GitWidget::sendMessage(const QString &message, bool warn)
     // FIXME: proper attributes
     //        if finished => remove the other case below!
     QVariantMap genericMessage;
+    genericMessage.insert(QStringLiteral("type"), warn ? QStringLiteral("Warning") : QStringLiteral("Info"));
     genericMessage.insert(QStringLiteral("plainText"), message);
     Q_EMIT m_pluginView->message(genericMessage);
 

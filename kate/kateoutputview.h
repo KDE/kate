@@ -4,14 +4,61 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef __KATE_OUTPUT_VIEW_H__
-#define __KATE_OUTPUT_VIEW_H__
+#ifndef KATE_OUTPUT_VIEW_H
+#define KATE_OUTPUT_VIEW_H
 
 #include <QStandardItemModel>
+#include <QStyledItemDelegate>
+#include <QTextDocument>
 #include <QWidget>
 
 class KateMainWindow;
 class QTreeView;
+
+/**
+ * Delegate to render the message body.
+ */
+class KateOutputMessageStyledDelegate : public QStyledItemDelegate
+{
+    Q_OBJECT
+
+private:
+    /**
+     * setup text document from data
+     */
+    static void setupText(QTextDocument &doc, const QVariant &data)
+    {
+        const auto message = data.toMap();
+        printf("MUHH\n");
+        if (message.contains(QStringLiteral("plainText"))) {
+            printf("MUHH1\n");
+            doc.setPlainText(message.value(QStringLiteral("plainText")).toString());
+        } else if (message.contains(QStringLiteral("markDown"))) {
+            printf("MUHH2\n");
+            doc.setMarkdown(message.value(QStringLiteral("markDown")).toString());
+        } else if (message.contains(QStringLiteral("html"))) {
+            printf("MUHH4\n");
+            doc.setHtml(message.value(QStringLiteral("html")).toString());
+        }
+    }
+
+public:
+    KateOutputMessageStyledDelegate() = default;
+
+    void paint(QPainter *painter, const QStyleOptionViewItem &, const QModelIndex &index) const override
+    {
+        QTextDocument doc;
+        setupText(doc, index.data());
+        doc.drawContents(painter);
+    }
+
+    QSize sizeHint(const QStyleOptionViewItem &, const QModelIndex &index) const override
+    {
+        QTextDocument doc;
+        setupText(doc, index.data());
+        return doc.size().toSize();
+    }
+};
 
 /**
  * Widget to output stuff e.g. for plugins.
@@ -32,6 +79,31 @@ public Q_SLOTS:
     /**
      * slot for incoming messages
      * @param message incoming message we shall handle
+     *
+     * details of message format:
+     *
+     * IMPORTANT: at the moment, most stuff is key/value with strings, if the format is more finalized, one can introduce better type for more efficiency/type
+     * safety
+     *
+     * message body, can have different formats, lookup order will be:
+     *
+     *    message["plainText"] => plain text string to display
+     *    message["markDown"] => markdown string to display, we use QTextDocument with MarkdownDialectGitHub
+     *    message["html"] => HTML string to display, we use QTextDocument, that means only a subset of HTML https://doc.qt.io/qt-5/richtext-html-subset.html
+     *
+     * the first thing found will be used.
+     *
+     * message type, we support at the moment
+     *
+     *    message["type"] = "Error"
+     *    message["type"] = "Warning"
+     *    message["type"] = "Info"
+     *    message["type"] = "Log"
+     *
+     * this is take from https://microsoft.github.io/language-server-protocol/specification#window_showMessage MessageType of LSP
+     *
+     * will lead to appropriate icons/... in the output view
+     *
      */
     void slotMessage(const QVariantMap &message);
 
@@ -51,6 +123,11 @@ private:
      * Our message model, at the moment a standard item model
      */
     QStandardItemModel m_messagesModel;
+
+    /**
+     * Our special output delegate for the message body
+     */
+    KateOutputMessageStyledDelegate m_messageBodyDelegate;
 };
 
 #endif

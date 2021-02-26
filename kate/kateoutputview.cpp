@@ -53,9 +53,10 @@ void KateOutputView::slotMessage(const QVariantMap &message)
     /**
      * body column, formatted text
      * we just set the full message as attribute
+     * we have our KateOutputMessageStyledDelegate to render this!
      */
     auto bodyColumn = new QStandardItem();
-    bodyColumn->setData(QVariant::fromValue(message));
+    bodyColumn->setData(QVariant::fromValue(message), KateOutputMessageStyledDelegate::MessageRole);
 
     /**
      * add new message to model as one row

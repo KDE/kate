@@ -22,22 +22,24 @@ class KateOutputMessageStyledDelegate : public QStyledItemDelegate
 {
     Q_OBJECT
 
+public:
+    /**
+     * the role for the message
+     */
+    static constexpr int MessageRole = Qt::UserRole + 1;
+
 private:
     /**
      * setup text document from data
      */
-    static void setupText(QTextDocument &doc, const QVariant &data)
+    static void setupText(QTextDocument &doc, const QModelIndex &index)
     {
-        const auto message = data.toMap();
-        printf("MUHH\n");
+        const auto message = index.data(KateOutputMessageStyledDelegate::MessageRole).toMap();
         if (message.contains(QStringLiteral("plainText"))) {
-            printf("MUHH1\n");
             doc.setPlainText(message.value(QStringLiteral("plainText")).toString());
         } else if (message.contains(QStringLiteral("markDown"))) {
-            printf("MUHH2\n");
             doc.setMarkdown(message.value(QStringLiteral("markDown")).toString());
         } else if (message.contains(QStringLiteral("html"))) {
-            printf("MUHH4\n");
             doc.setHtml(message.value(QStringLiteral("html")).toString());
         }
     }
@@ -48,14 +50,14 @@ public:
     void paint(QPainter *painter, const QStyleOptionViewItem &, const QModelIndex &index) const override
     {
         QTextDocument doc;
-        setupText(doc, index.data());
+        setupText(doc, index);
         doc.drawContents(painter);
     }
 
     QSize sizeHint(const QStyleOptionViewItem &, const QModelIndex &index) const override
     {
         QTextDocument doc;
-        setupText(doc, index.data());
+        setupText(doc, index);
         return doc.size().toSize();
     }
 };

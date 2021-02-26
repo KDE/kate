@@ -34,6 +34,9 @@ static void setupText(QTextDocument &doc, const QModelIndex &index)
 
 void KateOutputMessageStyledDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
+    // ensure we recover state
+    painter->save();
+
     QStyleOptionViewItem options = option;
     initStyleOption(&options, index);
 
@@ -52,6 +55,9 @@ void KateOutputMessageStyledDelegate::paint(QPainter *painter, const QStyleOptio
     QTextDocument doc;
     setupText(doc, index);
     doc.drawContents(painter);
+
+    // ensure we recover state
+    painter->restore();
 }
 
 QSize KateOutputMessageStyledDelegate::sizeHint(const QStyleOptionViewItem &, const QModelIndex &index) const

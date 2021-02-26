@@ -141,22 +141,31 @@ public:
         prect.setY(prect.y() + lineHeight);
 
         // draw author on left
+        QFont f = opt.font;
+        f.setBold(true);
+        painter->setFont(f);
         painter->drawText(prect, Qt::AlignLeft, commit.authorName);
+        painter->setFont(opt.font);
 
         // draw author on right
         auto dt = QDateTime::fromSecsSinceEpoch(commit.authorDate);
         painter->drawText(prect, Qt::AlignRight, dt.date().toString());
 
         // draw commit hash
+        auto fg = painter->pen();
+        painter->setPen(Qt::gray);
         prect.setY(prect.y() + fm.height() + lineHeight);
         painter->drawText(prect, Qt::AlignLeft, QString::fromUtf8(commit.hash.left(7)));
+        painter->setPen(fg);
 
         // draw msg
         prect.setY(prect.y() + fm.height() + lineHeight);
         painter->drawText(prect, Qt::AlignLeft, commit.msg);
 
         // draw separator
+        painter->setPen(opt.palette.button().color());
         painter->drawLine(prect.bottomLeft(), prect.bottomRight());
+        painter->setPen(fg);
     }
 
     QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &) const override

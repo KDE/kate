@@ -124,25 +124,7 @@ void GitWidget::initGitExe()
 
 void GitWidget::sendMessage(const QString &message, bool warn)
 {
-    // use generic output view
-    // FIXME: proper attributes
-    //        if finished => remove the other case below!
-    QVariantMap genericMessage;
-    genericMessage.insert(QStringLiteral("type"), warn ? QStringLiteral("Warning") : QStringLiteral("Info"));
-    genericMessage.insert(QStringLiteral("plainText"), message);
-    Q_EMIT m_pluginView->message(genericMessage);
-
-    // quickfix crash on startup
-    if (!m_mainWin->activeView()) {
-        return;
-    }
-
-    KTextEditor::Message *msg = new KTextEditor::Message(message, warn ? KTextEditor::Message::Warning : KTextEditor::Message::Positive);
-    msg->setPosition(KTextEditor::Message::TopInView);
-    msg->setAutoHide(warn ? 5000 : 3000);
-    msg->setAutoHideMode(KTextEditor::Message::Immediate);
-    msg->setView(m_mainWin->activeView());
-    m_mainWin->activeView()->document()->postMessage(msg);
+    m_pluginView->sendMessage(message, warn);
 }
 
 QProcess *GitWidget::gitprocess()
@@ -431,7 +413,7 @@ void GitWidget::buildMenu()
         }
     });
     m_gitMenu->addAction(i18n("Checkout Branch"), this, [this] {
-        BranchesDialog bd(this, m_mainWin, m_project->baseDir());
+        BranchesDialog bd(this, m_mainWin, m_pluginView, m_project->baseDir());
         bd.openDialog();
     });
 

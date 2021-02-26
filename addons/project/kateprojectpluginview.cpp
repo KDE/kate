@@ -638,4 +638,13 @@ void KateProjectPluginView::slotUpdateStatus(bool visible)
     }
 }
 
+void KateProjectPluginView::sendMessage(const QString &plainText, bool warn)
+{
+    // use generic output view
+    QVariantMap genericMessage;
+    genericMessage.insert(QStringLiteral("type"), warn ? QStringLiteral("Warning") : QStringLiteral("Info"));
+    genericMessage.insert(QStringLiteral("plainText"), plainText);
+    Q_EMIT message(genericMessage);
+}
+
 #include "kateprojectpluginview.moc"

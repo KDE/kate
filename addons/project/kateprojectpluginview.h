@@ -100,6 +100,13 @@ public:
         return m_plugin;
     }
 
+    /**
+     * Send out trivial plain text message, potential warnings
+     * @param message plain text message
+     * @param warn warning or not?
+     */
+    void sendMessage(const QString &plainText, bool warn);
+
 public Q_SLOTS:
     /**
      * Create views for given project.

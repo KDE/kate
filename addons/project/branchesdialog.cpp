@@ -6,6 +6,7 @@
 #include "branchesdialog.h"
 #include "branchesdialogmodel.h"
 #include "git/gitutils.h"
+#include "kateprojectpluginview.h"
 
 #include <QCoreApplication>
 #include <QKeyEvent>
@@ -151,9 +152,10 @@ private:
     QString m_filterString;
 };
 
-BranchesDialog::BranchesDialog(QWidget *parent, KTextEditor::MainWindow *mainWindow, QString projectPath)
+BranchesDialog::BranchesDialog(QWidget *parent, KTextEditor::MainWindow *mainWindow, KateProjectPluginView *pluginView, QString projectPath)
     : QMenu(parent)
     , m_mainWindow(mainWindow)
+    , m_pluginView(pluginView)
     , m_projectPath(projectPath)
 {
     QVBoxLayout *layout = new QVBoxLayout();
@@ -331,12 +333,7 @@ void BranchesDialog::reselectFirst()
 
 void BranchesDialog::sendMessage(const QString &message, bool warn)
 {
-    KTextEditor::Message *msg = new KTextEditor::Message(message, warn ? KTextEditor::Message::Warning : KTextEditor::Message::Positive);
-    msg->setPosition(KTextEditor::Message::TopInView);
-    msg->setAutoHide(3000);
-    msg->setAutoHideMode(KTextEditor::Message::Immediate);
-    msg->setView(m_mainWindow->activeView());
-    m_mainWindow->activeView()->document()->postMessage(msg);
+    m_pluginView->sendMessage(message, warn);
 }
 
 void BranchesDialog::createNewBranch(const QString &branch, const QString &fromBranch)

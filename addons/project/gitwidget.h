@@ -39,13 +39,15 @@ public:
 
     bool eventFilter(QObject *o, QEvent *e) override;
     void getStatus(bool untracked = true, bool submodules = false);
-    void sendMessage(const QString &message, bool warn);
     QProcess *gitprocess();
     KTextEditor::MainWindow *mainWindow();
 
     using TempFileViewPair = std::pair<std::unique_ptr<QTemporaryFile>, QPointer<KTextEditor::View>>;
     std::vector<TempFileViewPair> *tempFilesVector();
     void openTempFile(const QString &file, const QString &templatString);
+
+    // will just proxy the message to the plugin view
+    void sendMessage(const QString &message, bool warn);
 
 private:
     QToolButton *m_menuBtn;

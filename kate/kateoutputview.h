@@ -9,7 +9,6 @@
 
 #include <QStandardItemModel>
 #include <QStyledItemDelegate>
-#include <QTextDocument>
 #include <QWidget>
 
 class KateMainWindow;
@@ -28,38 +27,12 @@ public:
      */
     static constexpr int MessageRole = Qt::UserRole + 1;
 
-private:
-    /**
-     * setup text document from data
-     */
-    static void setupText(QTextDocument &doc, const QModelIndex &index)
-    {
-        const auto message = index.data(KateOutputMessageStyledDelegate::MessageRole).toMap();
-        if (message.contains(QStringLiteral("plainText"))) {
-            doc.setPlainText(message.value(QStringLiteral("plainText")).toString());
-        } else if (message.contains(QStringLiteral("markDown"))) {
-            doc.setMarkdown(message.value(QStringLiteral("markDown")).toString());
-        } else if (message.contains(QStringLiteral("html"))) {
-            doc.setHtml(message.value(QStringLiteral("html")).toString());
-        }
-    }
-
 public:
     KateOutputMessageStyledDelegate() = default;
 
-    void paint(QPainter *painter, const QStyleOptionViewItem &, const QModelIndex &index) const override
-    {
-        QTextDocument doc;
-        setupText(doc, index);
-        doc.drawContents(painter);
-    }
+    void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 
-    QSize sizeHint(const QStyleOptionViewItem &, const QModelIndex &index) const override
-    {
-        QTextDocument doc;
-        setupText(doc, index);
-        return doc.size().toSize();
-    }
+    QSize sizeHint(const QStyleOptionViewItem &, const QModelIndex &index) const override;
 };
 
 /**

@@ -8,8 +8,58 @@
 
 #include <KLocalizedString>
 
+#include <QPainter>
+#include <QTextDocument>
 #include <QTreeView>
 #include <QVBoxLayout>
+
+/**
+ * setup text document from data
+ */
+static void setupText(QTextDocument &doc, const QModelIndex &index)
+{
+    /**
+     * fill in right variant of text
+     * we always trim spaces away, to avoid ugly empty line at the start/end
+     */
+    const auto message = index.data(KateOutputMessageStyledDelegate::MessageRole).toMap();
+    if (message.contains(QStringLiteral("plainText"))) {
+        doc.setPlainText(message.value(QStringLiteral("plainText")).toString().trimmed());
+    } else if (message.contains(QStringLiteral("markDown"))) {
+        doc.setMarkdown(message.value(QStringLiteral("markDown")).toString().trimmed());
+    } else if (message.contains(QStringLiteral("html"))) {
+        doc.setHtml(message.value(QStringLiteral("html")).toString().trimmed());
+    }
+}
+
+void KateOutputMessageStyledDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
+{
+    QStyleOptionViewItem options = option;
+    initStyleOption(&options, index);
+
+    // paint background
+    if (option.state & QStyle::State_Selected) {
+        painter->fillRect(option.rect, option.palette.highlight());
+    } else {
+        painter->fillRect(option.rect, option.palette.base());
+    }
+
+    options.text = QString();
+    options.widget->style()->drawControl(QStyle::CE_ItemViewItem, &options, painter, options.widget);
+
+    painter->translate(option.rect.x(), option.rect.y());
+
+    QTextDocument doc;
+    setupText(doc, index);
+    doc.drawContents(painter);
+}
+
+QSize KateOutputMessageStyledDelegate::sizeHint(const QStyleOptionViewItem &, const QModelIndex &index) const
+{
+    QTextDocument doc;
+    setupText(doc, index);
+    return doc.size().toSize();
+}
 
 KateOutputView::KateOutputView(KateMainWindow *mainWindow, QWidget *parent)
     : QWidget(parent)

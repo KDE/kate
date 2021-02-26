@@ -149,7 +149,9 @@ public:
 
         // draw author on right
         auto dt = QDateTime::fromSecsSinceEpoch(commit.authorDate);
-        painter->drawText(prect, Qt::AlignRight, dt.date().toString());
+        QString timestamp =
+            (dt.date() == QDate::currentDate()) ? dt.time().toString(Qt::DefaultLocaleShortDate) : dt.date().toString(Qt::DefaultLocaleShortDate);
+        painter->drawText(prect, Qt::AlignRight, timestamp);
 
         // draw commit hash
         auto fg = painter->pen();
@@ -160,7 +162,8 @@ public:
 
         // draw msg
         prect.setY(prect.y() + fm.height() + lineHeight);
-        painter->drawText(prect, Qt::AlignLeft, commit.msg);
+        auto elidedMsg = opt.fontMetrics.elidedText(commit.msg, Qt::ElideRight, prect.width());
+        painter->drawText(prect, Qt::AlignLeft, elidedMsg);
 
         // draw separator
         painter->setPen(opt.palette.button().color());

@@ -5,6 +5,7 @@
 */
 
 #include "kateoutputview.h"
+#include "katemainwindow.h"
 
 #include <KLocalizedString>
 
@@ -91,12 +92,15 @@ void KateOutputView::slotMessage(const QVariantMap &message)
     /**
      * type column: shows the type, icons for some types only
      */
+    bool shouldShowOutputToolView = false;
     auto typeColumn = new QStandardItem();
     const auto typeString = message.value(QStringLiteral("type")).toString();
     if (typeString == QLatin1String("Error")) {
+        shouldShowOutputToolView = true;
         typeColumn->setText(i18nc("@info", "Error"));
         typeColumn->setIcon(QIcon::fromTheme(QStringLiteral("data-error")));
     } else if (typeString == QLatin1String("Warning")) {
+        shouldShowOutputToolView = true;
         typeColumn->setText(i18nc("@info", "Warning"));
         typeColumn->setIcon(QIcon::fromTheme(QStringLiteral("data-warning")));
     } else if (typeString == QLatin1String("Info")) {
@@ -118,4 +122,11 @@ void KateOutputView::slotMessage(const QVariantMap &message)
      * add new message to model as one row
      */
     m_messagesModel.appendRow({typeColumn, bodyColumn});
+
+    /**
+     * if message requires it => show the tool view if hidden
+     */
+    if (shouldShowOutputToolView) {
+        m_mainWindow->showToolView(parentWidget());
+    }
 }

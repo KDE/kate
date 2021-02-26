@@ -3,7 +3,9 @@
 #include <QDate>
 #include <QDebug>
 #include <QFileInfo>
+#include <QPainter>
 #include <QProcess>
+#include <QStyledItemDelegate>
 #include <QVBoxLayout>
 
 #include <KLocalizedString>
@@ -34,6 +36,7 @@ struct Commit {
     QByteArray parentHash;
     QString msg;
 };
+Q_DECLARE_METATYPE(Commit)
 
 static QVector<Commit> parseCommits(const QList<QByteArray> &raw)
 {
@@ -72,7 +75,7 @@ public:
     {
     }
 
-    enum Role { Author = Qt::UserRole + 1, Email, Date, Hash };
+    enum Role { CommitRole = Qt::UserRole + 1, CommitHash };
 
     int rowCount(const QModelIndex &) const override
     {
@@ -85,15 +88,12 @@ public:
         }
         auto row = index.row();
         switch (role) {
-        case Qt::DisplayRole:
-            return m_rows[row].msg;
-        case Role::Author:
-            return m_rows[row].authorName;
-        case Role::Email:
-            return m_rows[row].email;
-        case Role::Date:
-            return m_rows[row].commitDate;
-        case Role::Hash:
+        case Role::CommitRole: {
+            QVariant v;
+            v.setValue(m_rows[row]);
+            return v;
+        }
+        case Role::CommitHash:
             return m_rows[row].hash;
         }
 
@@ -109,6 +109,61 @@ public:
 
 private:
     QVector<Commit> m_rows;
+};
+
+class CommitDelegate : public QStyledItemDelegate
+{
+public:
+    CommitDelegate(QObject *parent)
+        : QStyledItemDelegate(parent)
+    {
+    }
+
+    void paint(QPainter *painter, const QStyleOptionViewItem &opt, const QModelIndex &index) const override
+    {
+        auto commit = index.data(CommitListModel::CommitRole).value<Commit>();
+        if (commit.hash.isEmpty()) {
+            return;
+        }
+
+        QStyleOptionViewItem options = opt;
+        initStyleOption(&options, index);
+
+        options.text = QString();
+        QStyledItemDelegate::paint(painter, options, index);
+
+        constexpr int lineHeight = 3;
+        QFontMetrics fm = opt.fontMetrics;
+
+        QRect prect = opt.rect;
+        // padding
+        prect.setX(prect.x() + lineHeight);
+        prect.setY(prect.y() + lineHeight);
+
+        // draw author on left
+        painter->drawText(prect, Qt::AlignLeft, commit.authorName);
+
+        // draw author on right
+        auto dt = QDateTime::fromSecsSinceEpoch(commit.authorDate);
+        painter->drawText(prect, Qt::AlignRight, dt.date().toString());
+
+        // draw commit hash
+        prect.setY(prect.y() + fm.height() + lineHeight);
+        painter->drawText(prect, Qt::AlignLeft, QString::fromUtf8(commit.hash.left(7)));
+
+        // draw msg
+        prect.setY(prect.y() + fm.height() + lineHeight);
+        painter->drawText(prect, Qt::AlignLeft, commit.msg);
+
+        // draw separator
+        painter->drawLine(prect.bottomLeft(), prect.bottomRight());
+    }
+
+    QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &) const override
+    {
+        auto height = option.fontMetrics.height();
+        return QSize(0, height * 4);
+    }
 };
 
 FileHistoryWidget::FileHistoryWidget(const QString &file, QWidget *parent)
@@ -129,6 +184,8 @@ FileHistoryWidget::FileHistoryWidget(const QString &file, QWidget *parent)
 
     m_listView->setModel(model);
     connect(m_listView, &QListView::clicked, this, &FileHistoryWidget::itemClicked);
+
+    m_listView->setItemDelegate(new CommitDelegate(this));
 }
 
 void FileHistoryWidget::itemClicked(const QModelIndex &idx)
@@ -136,7 +193,7 @@ void FileHistoryWidget::itemClicked(const QModelIndex &idx)
     QProcess git;
     QFileInfo fi(m_file);
     git.setWorkingDirectory(fi.absolutePath());
-    QStringList args{QStringLiteral("diff"), QString::fromUtf8(idx.data(CommitListModel::Hash).toByteArray()), QStringLiteral("--"), m_file};
+    QStringList args{QStringLiteral("diff"), QString::fromUtf8(idx.data(CommitListModel::CommitHash).toByteArray()), QStringLiteral("--"), m_file};
     git.start(QStringLiteral("git"), args, QProcess::ReadOnly);
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         if (git.exitStatus() != QProcess::NormalExit || git.exitCode() != 0) {

@@ -14,6 +14,7 @@
 #include "kateprojectpluginview.h"
 
 #include <KTextEditor/Document>
+#include <KTextEditor/Editor>
 #include <KTextEditor/View>
 
 #include <KActionCollection>
@@ -148,7 +149,19 @@ void KateProjectView::showFileGitHistory(const QString &file)
     // create on demand and on switch back delete
     auto fhs = new FileHistoryWidget(file);
     connect(fhs, &FileHistoryWidget::backClicked, this, &KateProjectView::setTreeViewAsCurrent);
-    connect(fhs, &FileHistoryWidget::commitClicked, m_pluginView, &KateProjectPluginView::openTempFile);
+    connect(fhs, &FileHistoryWidget::commitClicked, this, &KateProjectView::showDiffInFixedView);
     m_stackWidget->addWidget(fhs);
     m_stackWidget->setCurrentWidget(fhs);
+}
+
+void KateProjectView::showDiffInFixedView(const QString & /*file*/, const QByteArray &contents)
+{
+    if (!m_fixedView) {
+        m_fixedView = m_pluginView->mainWindow()->openUrl(QUrl());
+    }
+
+    if (m_fixedView->document()) {
+        m_fixedView->document()->setText(QString::fromUtf8(contents));
+        m_fixedView->document()->setHighlightingMode(QStringLiteral("Diff"));
+    }
 }

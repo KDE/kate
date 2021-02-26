@@ -21,7 +21,7 @@ private:
 
 Q_SIGNALS:
     void backClicked();
-    void commitClicked(const QString &file, const QString &templString, const QByteArray &contents);
+    void commitClicked(const QString &file, const QByteArray &contents);
 };
 
 #endif // FILEHISTORYWIDGET_H

@@ -12,6 +12,7 @@
 #include "kateprojectviewtree.h"
 
 #include <QFileSystemWatcher>
+#include <QPointer>
 
 class KLineEdit;
 class KateProjectPluginView;
@@ -72,6 +73,8 @@ private Q_SLOTS:
 
     void showFileGitHistory(const QString &file);
 
+    void showDiffInFixedView(const QString &file, const QByteArray &contents);
+
 private:
     /**
      * our plugin view
@@ -112,6 +115,11 @@ private:
      * watches for changes to .git/HEAD
      */
     QFileSystemWatcher m_branchChangedWatcher;
+
+    /**
+     * Fixed view for view diffs
+     */
+    QPointer<KTextEditor::View> m_fixedView;
 };
 
 #endif

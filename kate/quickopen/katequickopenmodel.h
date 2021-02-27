@@ -10,11 +10,13 @@
 #define KATEQUICKOPENMODEL_H
 
 #include <QAbstractTableModel>
+#include <QUrl>
 #include <QVector>
 
 class KateMainWindow;
 
 struct ModelEntry {
+    QUrl url;
     QString fileName; // display string for left column
     QString filePath; // display string for right column
     bool bold; // format line in bold text or not

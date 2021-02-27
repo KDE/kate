@@ -296,7 +296,7 @@ void StashDialog::reselectFirst()
 
 void StashDialog::sendMessage(const QString &message, bool warn)
 {
-    // just proxy to git widget => proxy to plugin view
+    // just proxy to git widget
     m_gitwidget->sendMessage(message, warn);
 }
 

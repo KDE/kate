@@ -331,9 +331,14 @@ void BranchesDialog::reselectFirst()
     m_treeView->setCurrentIndex(index);
 }
 
-void BranchesDialog::sendMessage(const QString &message, bool warn)
+void BranchesDialog::sendMessage(const QString &plainText, bool warn)
 {
-    m_pluginView->sendMessage(message, warn);
+    // use generic output view
+    QVariantMap genericMessage;
+    genericMessage.insert(QStringLiteral("type"), warn ? QStringLiteral("Warning") : QStringLiteral("Info"));
+    genericMessage.insert(QStringLiteral("category"), i18n("Git"));
+    genericMessage.insert(QStringLiteral("plainText"), plainText);
+    Q_EMIT m_pluginView->message(genericMessage);
 }
 
 void BranchesDialog::createNewBranch(const QString &branch, const QString &fromBranch)

@@ -9,6 +9,7 @@
 
 #include <KLocalizedString>
 
+#include <QDateTime>
 #include <QPainter>
 #include <QTextDocument>
 #include <QTreeView>
@@ -79,16 +80,25 @@ KateOutputView::KateOutputView(KateMainWindow *mainWindow, QWidget *parent)
     m_messagesTreeView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     m_messagesTreeView->setHeaderHidden(true);
     m_messagesTreeView->setRootIsDecorated(false);
+    m_messagesTreeView->setAlternatingRowColors(true);
     m_messagesTreeView->setModel(&m_messagesModel);
     layout->addWidget(m_messagesTreeView);
 
     // we want a special delegate to render the message body, as that might be plain text
     // mark down or HTML
-    m_messagesTreeView->setItemDelegateForColumn(1, &m_messageBodyDelegate);
+    m_messagesTreeView->setItemDelegateForColumn(3, &m_messageBodyDelegate);
 }
 
 void KateOutputView::slotMessage(const QVariantMap &message)
 {
+    /**
+     * date time column: we want to know when a message arrived
+     * TODO: perhaps store full date time for more stuff later
+     */
+    auto dateTimeColumn = new QStandardItem();
+    const QDateTime current = QDateTime::currentDateTime();
+    dateTimeColumn->setText(current.time().toString(Qt::TextDate));
+
     /**
      * type column: shows the type, icons for some types only
      */
@@ -111,6 +121,13 @@ void KateOutputView::slotMessage(const QVariantMap &message)
     }
 
     /**
+     * category
+     * provided by sender to better categorize the output into stuff like: lsp, git, ...
+     */
+    auto categoryColumn = new QStandardItem();
+    categoryColumn->setText(message.value(QStringLiteral("category")).toString().trimmed());
+
+    /**
      * body column, formatted text
      * we just set the full message as attribute
      * we have our KateOutputMessageStyledDelegate to render this!
@@ -121,7 +138,15 @@ void KateOutputView::slotMessage(const QVariantMap &message)
     /**
      * add new message to model as one row
      */
-    m_messagesModel.appendRow({typeColumn, bodyColumn});
+    m_messagesModel.appendRow({dateTimeColumn, typeColumn, categoryColumn, bodyColumn});
+
+    /**
+     * ensure correct sizing
+     * OPTIMIZE: we can do that only if e.g. a first time a new type/category pops up
+     */
+    m_messagesTreeView->resizeColumnToContents(0);
+    m_messagesTreeView->resizeColumnToContents(1);
+    m_messagesTreeView->resizeColumnToContents(2);
 
     /**
      * if message requires it => show the tool view if hidden

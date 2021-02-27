@@ -176,6 +176,7 @@ void KateExternalToolsPlugin::runTool(const KateExternalTool &tool, KTextEditor:
     QVariantMap genericMessage;
     genericMessage.insert(QStringLiteral("type"), QStringLiteral("Info"));
     genericMessage.insert(QStringLiteral("category"), i18n("External Tools"));
+    genericMessage.insert(QStringLiteral("categoryIcon"), QIcon::fromTheme(QStringLiteral("system-run")));
     genericMessage.insert(
         QStringLiteral("plainText"),
         i18n("Running external tool: %1\n- Executable: %2\n- Arguments: %3\n- Input: %4", copy->name, copy->executable, copy->arguments, copy->input));
@@ -281,6 +282,7 @@ void KateExternalToolsPlugin::handleToolFinished(KateToolRunner *runner, int exi
         QVariantMap genericMessage;
         genericMessage.insert(QStringLiteral("type"), messageType);
         genericMessage.insert(QStringLiteral("category"), i18n("External Tools"));
+        genericMessage.insert(QStringLiteral("categoryIcon"), QIcon::fromTheme(QStringLiteral("system-run")));
         genericMessage.insert(QStringLiteral("plainText"), messageBody);
         Q_EMIT pluginView->message(genericMessage);
 

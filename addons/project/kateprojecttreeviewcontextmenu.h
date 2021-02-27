@@ -14,6 +14,7 @@
 
 class QWidget;
 class QModelIndex;
+class KateProjectViewTree;
 
 class KateProjectTreeViewContextMenu : public QObject
 {
@@ -24,18 +25,13 @@ public:
      * @param pluginView our plugin view
      * @param project project this view is for
      */
-    KateProjectTreeViewContextMenu();
-
-    /**
-     * deconstruct project
-     */
-    ~KateProjectTreeViewContextMenu();
+    KateProjectTreeViewContextMenu() = default;
 
     /**
      * our project.
      * @return project
      */
-    void exec(const QString &filename, const QModelIndex &index, const QPoint &pos, QWidget *parent);
+    void exec(const QString &filename, const QModelIndex &index, const QPoint &pos, KateProjectViewTree *parent);
 
     /**
      * emits on clicking Menu->Show File History

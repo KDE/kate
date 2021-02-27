@@ -7,6 +7,7 @@
 
 #include "kateprojecttreeviewcontextmenu.h"
 #include "git/gitutils.h"
+#include "kateprojectviewtree.h"
 
 #include <KApplicationTrader>
 #include <KIO/ApplicationLauncherJob>
@@ -26,17 +27,7 @@
 #include <QMimeType>
 #include <QStandardPaths>
 
-#include "kateprojectviewtree.h"
-
-KateProjectTreeViewContextMenu::KateProjectTreeViewContextMenu()
-{
-}
-
-KateProjectTreeViewContextMenu::~KateProjectTreeViewContextMenu()
-{
-}
-
-void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelIndex &index, const QPoint &pos, QWidget *parent)
+void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelIndex &index, const QPoint &pos, KateProjectViewTree *parent)
 {
     /**
      * Create context menu
@@ -122,7 +113,7 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
             dlg->setAttribute(Qt::WA_DeleteOnClose);
             dlg->show();
         } else if (action == rename) {
-            static_cast<KateProjectViewTree *>(parent)->edit(index);
+            parent->edit(index);
         } else if (action == fileHistory) {
             showFileHistory(index.data(Qt::UserRole).toString());
         } else {

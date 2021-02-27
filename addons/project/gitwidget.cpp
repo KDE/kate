@@ -129,7 +129,7 @@ void GitWidget::sendMessage(const QString &plainText, bool warn)
 {
     // use generic output view
     QVariantMap genericMessage;
-    genericMessage.insert(QStringLiteral("type"), warn ? QStringLiteral("Warning") : QStringLiteral("Info"));
+    genericMessage.insert(QStringLiteral("type"), warn ? QStringLiteral("Error") : QStringLiteral("Info"));
     genericMessage.insert(QStringLiteral("category"), i18n("Git"));
     genericMessage.insert(QStringLiteral("plainText"), plainText);
     Q_EMIT m_pluginView->message(genericMessage);

@@ -52,6 +52,11 @@ public:
 
 public Q_SLOTS:
     /**
+     * Read and apply our configuration.
+     */
+    void readConfig();
+
+    /**
      * slot for incoming messages
      * @param message incoming message we shall handle
      *
@@ -109,6 +114,16 @@ private:
      * Our special output delegate for the message body
      */
     KateOutputMessageStyledDelegate m_messageBodyDelegate;
+
+    /**
+     * When to show output view
+     * 0 => never
+     * 1 => on error
+     * 2 => on warning or above
+     * 3 => on info or above
+     * 4 => on log or above
+     */
+    int m_showOutputViewForMessageType = 1;
 };
 
 #endif

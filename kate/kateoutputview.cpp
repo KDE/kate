@@ -5,9 +5,12 @@
 */
 
 #include "kateoutputview.h"
+#include "kateapp.h"
 #include "katemainwindow.h"
 
+#include <KConfigGroup>
 #include <KLocalizedString>
+#include <KSharedConfig>
 
 #include <QDateTime>
 #include <QPainter>
@@ -87,6 +90,19 @@ KateOutputView::KateOutputView(KateMainWindow *mainWindow, QWidget *parent)
     // we want a special delegate to render the message body, as that might be plain text
     // mark down or HTML
     m_messagesTreeView->setItemDelegateForColumn(3, &m_messageBodyDelegate);
+
+    // read config once
+    readConfig();
+
+    // handle config changes
+    connect(KateApp::self(), &KateApp::configurationChanged, this, &KateOutputView::readConfig);
+}
+
+void KateOutputView::readConfig()
+{
+    KSharedConfig::Ptr config = KSharedConfig::openConfig();
+    KConfigGroup cgGeneral = KConfigGroup(config, "General");
+    m_showOutputViewForMessageType = cgGeneral.readEntry("Show output view for message type", 1);
 }
 
 void KateOutputView::slotMessage(const QVariantMap &message)
@@ -106,17 +122,19 @@ void KateOutputView::slotMessage(const QVariantMap &message)
     auto typeColumn = new QStandardItem();
     const auto typeString = message.value(QStringLiteral("type")).toString();
     if (typeString == QLatin1String("Error")) {
-        shouldShowOutputToolView = true;
+        shouldShowOutputToolView = (m_showOutputViewForMessageType >= 1);
         typeColumn->setText(i18nc("@info", "Error"));
         typeColumn->setIcon(QIcon::fromTheme(QStringLiteral("data-error")));
     } else if (typeString == QLatin1String("Warning")) {
-        shouldShowOutputToolView = true;
+        shouldShowOutputToolView = (m_showOutputViewForMessageType >= 2);
         typeColumn->setText(i18nc("@info", "Warning"));
         typeColumn->setIcon(QIcon::fromTheme(QStringLiteral("data-warning")));
     } else if (typeString == QLatin1String("Info")) {
+        shouldShowOutputToolView = (m_showOutputViewForMessageType >= 3);
         typeColumn->setText(i18nc("@info", "Info"));
         typeColumn->setIcon(QIcon::fromTheme(QStringLiteral("data-information")));
     } else {
+        shouldShowOutputToolView = (m_showOutputViewForMessageType >= 4);
         typeColumn->setText(i18nc("@info", "Log"));
     }
 

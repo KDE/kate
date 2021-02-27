@@ -249,9 +249,10 @@ void KateOutputView::slotMessage(const QVariantMap &message)
     m_messagesModel.appendRow({dateTimeColumn, categoryColumn, typeColumn, bodyColumn});
 
     /**
-     * expand the new thingy
+     * expand the new thingy and make it visible
      */
     m_messagesTreeView->expand(m_proxyModel->mapFromSource(dateTimeColumn->index()));
+    m_messagesTreeView->scrollTo(m_proxyModel->mapFromSource(dateTimeColumn->index()));
 
     /**
      * ensure correct sizing

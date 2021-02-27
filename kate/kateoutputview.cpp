@@ -12,10 +12,13 @@
 #include <KLocalizedString>
 #include <KSharedConfig>
 
+#include <KTextEditor/ConfigInterface>
+
 #include <QDateTime>
 #include <QPainter>
 #include <QSortFilterProxyModel>
 #include <QTextDocument>
+#include <QTimer>
 #include <QToolButton>
 #include <QTreeView>
 #include <QVBoxLayout>
@@ -144,6 +147,10 @@ KateOutputView::KateOutputView(KateMainWindow *mainWindow, QWidget *parent)
 
     // handle config changes
     connect(KateApp::self(), &KateApp::configurationChanged, this, &KateOutputView::readConfig);
+    connect(KTextEditor::Editor::instance(), &KTextEditor::Editor::configChanged, this, &KateOutputView::readConfig);
+
+    // needed to have some view, can be removed if Editor::font is there
+    QTimer::singleShot(0, this, &KateOutputView::readConfig);
 }
 
 void KateOutputView::readConfig()
@@ -151,6 +158,23 @@ void KateOutputView::readConfig()
     KSharedConfig::Ptr config = KSharedConfig::openConfig();
     KConfigGroup cgGeneral = KConfigGroup(config, "General");
     m_showOutputViewForMessageType = cgGeneral.readEntry("Show output view for message type", 1);
+
+    // use editor fonts
+    const auto theme = KTextEditor::Editor::instance()->theme();
+    auto pal = m_messagesTreeView->palette();
+    pal.setColor(QPalette::Base, QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::BackgroundColor)));
+    pal.setColor(QPalette::Highlight, QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::TextSelection)));
+    pal.setColor(QPalette::Text, QColor::fromRgba(theme.textColor(KSyntaxHighlighting::Theme::Normal)));
+    m_messagesTreeView->setPalette(pal);
+
+    // remove later in favor or Editor::font
+    QFont font;
+    if (const auto ciface = qobject_cast<KTextEditor::ConfigInterface *>(m_mainWindow->activeView())) {
+        font = ciface->configValue(QStringLiteral("font")).value<QFont>();
+    } else {
+        font = QFontDatabase::systemFont(QFontDatabase::FixedFont);
+    }
+    m_messagesTreeView->setFont(font);
 }
 
 void KateOutputView::slotMessage(const QVariantMap &message)

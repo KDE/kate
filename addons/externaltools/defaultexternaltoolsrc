@@ -1,5 +1,5 @@
 [Global]
-tools=14
+tools=15
 version=1
 
 [Tool 0]
@@ -207,6 +207,21 @@ icon=
 input=
 mimetypes=
 name=Prettier Format Current File
+output=ReplaceCurrentDocument
+reload=false
+save=CurrentDocument
+workingDir=%{Document:Path}
+
+[Tool 14]
+actionName=externaltool_GoImports
+arguments=%{Document:FileName}
+category=Tools
+cmdname=goimports-full-file
+executable=goimports
+icon=text-x-go
+input=
+mimetypes=text/x-go
+name=GoImports Full File
 output=ReplaceCurrentDocument
 reload=false
 save=CurrentDocument

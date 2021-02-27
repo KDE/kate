@@ -116,6 +116,18 @@ void KateOutputView::slotMessage(const QVariantMap &message)
     dateTimeColumn->setText(current.time().toString(Qt::TextDate));
 
     /**
+     * category
+     * provided by sender to better categorize the output into stuff like: lsp, git, ...
+     * optional icon support
+     */
+    auto categoryColumn = new QStandardItem();
+    categoryColumn->setText(message.value(QStringLiteral("category")).toString().trimmed());
+    const auto categoryIcon = message.value(QStringLiteral("categoryIcon")).value<QIcon>();
+    if (!categoryIcon.isNull()) {
+        categoryColumn->setIcon(categoryIcon);
+    }
+
+    /**
      * type column: shows the type, icons for some types only
      */
     bool shouldShowOutputToolView = false;
@@ -139,13 +151,6 @@ void KateOutputView::slotMessage(const QVariantMap &message)
     }
 
     /**
-     * category
-     * provided by sender to better categorize the output into stuff like: lsp, git, ...
-     */
-    auto categoryColumn = new QStandardItem();
-    categoryColumn->setText(message.value(QStringLiteral("category")).toString().trimmed());
-
-    /**
      * body column, formatted text
      * we just set the full message as attribute
      * we have our KateOutputMessageStyledDelegate to render this!
@@ -156,7 +161,7 @@ void KateOutputView::slotMessage(const QVariantMap &message)
     /**
      * add new message to model as one row
      */
-    m_messagesModel.appendRow({dateTimeColumn, typeColumn, categoryColumn, bodyColumn});
+    m_messagesModel.appendRow({dateTimeColumn, categoryColumn, typeColumn, bodyColumn});
 
     /**
      * ensure correct sizing

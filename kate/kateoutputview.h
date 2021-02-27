@@ -90,6 +90,12 @@ public Q_SLOTS:
      *
      * will be used to allow the user to filter for
      *
+     * one can additionally provide a categoryIcon
+     *
+     *    message["categoryIcon"] = QIcon(...)
+     *
+     * the categoryIcon icon QVariant must contain a QIcon, nothing else!
+     *
      */
     void slotMessage(const QVariantMap &message);
 

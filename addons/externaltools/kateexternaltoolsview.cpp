@@ -151,7 +151,6 @@ KateExternalToolsPluginView::KateExternalToolsPluginView(KTextEditor::MainWindow
     , m_plugin(plugin)
     , m_mainWindow(mainWindow)
     , m_outputDoc(new QTextDocument(this))
-    , m_statusDoc(new QTextDocument(this))
 {
     m_plugin->registerPluginView(this);
 
@@ -212,12 +211,10 @@ void KateExternalToolsPluginView::createToolView()
 
         // set the documents
         m_ui->teOutput->setDocument(m_outputDoc);
-        m_ui->teStatus->setDocument(m_statusDoc);
 
         // use fixed font for displaying status and output text
         const auto fixedFont = QFontDatabase::systemFont(QFontDatabase::FixedFont);
         m_ui->teOutput->setFont(fixedFont);
-        m_ui->teStatus->setFont(fixedFont);
 
         // close button to delete tool view
         auto btnClose = new QToolButton();
@@ -228,31 +225,16 @@ void KateExternalToolsPluginView::createToolView()
     }
 }
 
-void KateExternalToolsPluginView::showToolView(ToolViewFocus tab)
+void KateExternalToolsPluginView::showToolView()
 {
     createToolView();
-
-    if (tab == ToolViewFocus::OutputTab) {
-        m_ui->tabWidget->setCurrentWidget(m_ui->tabOutput);
-    } else {
-        m_ui->tabWidget->setCurrentWidget(m_ui->tabStatus);
-    }
-
+    m_ui->tabWidget->setCurrentWidget(m_ui->tabOutput);
     mainWindow()->showToolView(m_toolView);
 }
 
 void KateExternalToolsPluginView::clearToolView()
 {
     m_outputDoc->clear();
-    m_statusDoc->clear();
-}
-
-void KateExternalToolsPluginView::addToolStatus(const QString &message)
-{
-    QTextCursor cursor(m_statusDoc);
-    cursor.movePosition(QTextCursor::End);
-    cursor.insertText(message);
-    cursor.insertText(QStringLiteral("\n"));
 }
 
 void KateExternalToolsPluginView::setOutputData(const QString &data)

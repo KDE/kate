@@ -171,11 +171,15 @@ void KateExternalToolsPlugin::runTool(const KateExternalTool &tool, KTextEditor:
     // clear previous toolview data
     auto pluginView = viewForMainWindow(mw);
     pluginView->clearToolView();
-    pluginView->addToolStatus(i18n("Running external tool: %1", copy->name));
-    pluginView->addToolStatus(i18n("- Executable: %1", copy->executable));
-    pluginView->addToolStatus(i18n("- Arguments : %1", copy->arguments));
-    pluginView->addToolStatus(i18n("- Input     : %1", copy->input));
-    pluginView->addToolStatus(QString());
+
+    // use generic output view for status
+    QVariantMap genericMessage;
+    genericMessage.insert(QStringLiteral("type"), QStringLiteral("Info"));
+    genericMessage.insert(QStringLiteral("category"), i18n("External Tools"));
+    genericMessage.insert(
+        QStringLiteral("plainText"),
+        i18n("Running external tool: %1\n- Executable: %2\n- Arguments: %3\n- Input: %4", copy->name, copy->executable, copy->arguments, copy->input));
+    Q_EMIT pluginView->message(genericMessage);
 
     // expand macros
     auto editor = KTextEditor::Editor::instance();
@@ -254,24 +258,36 @@ void KateExternalToolsPlugin::handleToolFinished(KateToolRunner *runner, int exi
             hasOutputInPane = !runner->outputData().isEmpty();
         }
 
+        QString messageBody;
+        QString messageType = QStringLiteral("Info");
         if (!runner->errorData().isEmpty()) {
-            pluginView->addToolStatus(i18n("Data written to stderr:"));
-            pluginView->addToolStatus(runner->errorData());
+            messageBody += i18n("Data written to stderr:\n");
+            messageBody += runner->errorData();
+            messageBody += QStringLiteral("\n");
+            messageType = QStringLiteral("Warning");
         }
-
-        // empty line
-        pluginView->addToolStatus(QString());
-
-        // print crash & exit code
-        if (crashed) {
-            pluginView->addToolStatus(i18n("Warning: External tool crashed."));
-        }
-        pluginView->addToolStatus(i18n("Finished with exit code: %1", exitCode));
-
         if (crashed || exitCode != 0) {
-            pluginView->showToolView(ToolViewFocus::StatusTab);
-        } else if (hasOutputInPane) {
-            pluginView->showToolView(ToolViewFocus::OutputTab);
+            messageType = QStringLiteral("Error");
+        }
+
+        // print crash or exit code
+        if (crashed) {
+            messageBody += i18n("Warning: External tool crashed.");
+        } else {
+            messageBody += i18n("Finished with exit code: %1", exitCode);
+        }
+
+        // use generic output view for status
+        QVariantMap genericMessage;
+        genericMessage.insert(QStringLiteral("type"), messageType);
+        genericMessage.insert(QStringLiteral("category"), i18n("External Tools"));
+        genericMessage.insert(QStringLiteral("plainText"), messageBody);
+        Q_EMIT pluginView->message(genericMessage);
+
+        // on successful execution => show output
+        // otherwise the global output pane settings will ensure we see the error output
+        if (!(crashed || exitCode != 0) && hasOutputInPane) {
+            pluginView->showToolView();
         }
     }
 

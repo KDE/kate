@@ -32,8 +32,6 @@ namespace Ui
 class ToolView;
 }
 
-enum class ToolViewFocus { OutputTab = 0, StatusTab };
-
 /**
  * Menu action that displays all KateExternalTool in a submenu.
  * Enables/disables the tool actions whenever the view changes, depending on the mimetype.
@@ -116,18 +114,12 @@ public Q_SLOTS:
     /**
      * Shows the tool view. The toolview will be created, if not yet existing.
      */
-    void showToolView(ToolViewFocus tab);
+    void showToolView();
 
     /**
      * Clears the toolview data. If no toolview is around, nothing happens.
      */
     void clearToolView();
-
-    /**
-     * Shows the External Tools toolview and points the error message along with
-     * some more info about the tool.
-     */
-    void addToolStatus(const QString &message);
 
     /**
      * Sets the output data to data;
@@ -144,6 +136,14 @@ public Q_SLOTS:
      */
     void handleEsc(QEvent *event);
 
+Q_SIGNALS:
+    /**
+     * Signal for outgoing message, the host application will handle them!
+     * Will only be handled inside the main windows of this plugin view.
+     * @param message outgoing message we send to the host application
+     */
+    void message(const QVariantMap &message);
+
 private:
     KateExternalToolsPlugin *m_plugin;
     KTextEditor::MainWindow *m_mainWindow;
@@ -151,7 +151,6 @@ private:
     QWidget *m_toolView = nullptr;
     Ui::ToolView *m_ui = nullptr;
     QTextDocument *m_outputDoc = nullptr;
-    QTextDocument *m_statusDoc = nullptr;
 };
 
 #endif // KTEXTEDITOR_EXTERNALTOOLS_H

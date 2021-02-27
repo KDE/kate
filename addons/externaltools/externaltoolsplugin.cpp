@@ -172,22 +172,24 @@ void KateExternalToolsPlugin::runTool(const KateExternalTool &tool, KTextEditor:
     auto pluginView = viewForMainWindow(mw);
     pluginView->clearToolView();
 
-    // use generic output view for status
-    QVariantMap genericMessage;
-    genericMessage.insert(QStringLiteral("type"), QStringLiteral("Info"));
-    genericMessage.insert(QStringLiteral("category"), i18n("External Tools"));
-    genericMessage.insert(QStringLiteral("categoryIcon"), QIcon::fromTheme(QStringLiteral("system-run")));
-    genericMessage.insert(
-        QStringLiteral("text"),
-        i18n("Running external tool: %1\n- Executable: %2\n- Arguments: %3\n- Input: %4", copy->name, copy->executable, copy->arguments, copy->input));
-    Q_EMIT pluginView->message(genericMessage);
-
     // expand macros
     auto editor = KTextEditor::Editor::instance();
     editor->expandText(copy->executable, view, copy->executable);
     editor->expandText(copy->arguments, view, copy->arguments);
     editor->expandText(copy->workingDir, view, copy->workingDir);
     editor->expandText(copy->input, view, copy->input);
+
+    const QString messageText = copy->input.isEmpty() ? i18n("Running %1: %2 %3", copy->name, copy->executable, copy->arguments)
+                                                      : i18n("Running %1: %2 %3 with input %4", copy->name, copy->executable, copy->arguments, tool.input);
+
+    // use generic output view for status
+    QVariantMap genericMessage;
+    genericMessage.insert(QStringLiteral("type"), QStringLiteral("Info"));
+    genericMessage.insert(QStringLiteral("category"), i18n("External Tools"));
+    genericMessage.insert(QStringLiteral("categoryIcon"), QIcon::fromTheme(QStringLiteral("system-run")));
+    genericMessage.insert(QStringLiteral("text"), messageText);
+    Q_EMIT pluginView->message(genericMessage);
+
 
     // Allocate runner on heap such that it lives as long as the child
     // process is running and does not block the main thread.
@@ -273,9 +275,9 @@ void KateExternalToolsPlugin::handleToolFinished(KateToolRunner *runner, int exi
 
         // print crash or exit code
         if (crashed) {
-            messageBody += i18n("Warning: External tool crashed.");
-        } else {
-            messageBody += i18n("Finished with exit code: %1", exitCode);
+            messageBody += i18n("%1 crashed", runner->tool()->translatedName());
+        } else if (exitCode != 0) {
+            messageBody += i18n("%1 finished with exit code %2", runner->tool()->translatedName(), exitCode);
         }
 
         // use generic output view for status

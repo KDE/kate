@@ -215,7 +215,7 @@ workingDir=%{Document:Path}
 [Tool 14]
 actionName=externaltool_GoImports
 arguments=%{Document:FileName}
-category=Tools
+category=Go
 cmdname=goimports-full-file
 executable=goimports
 icon=text-x-go

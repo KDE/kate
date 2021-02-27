@@ -170,10 +170,10 @@ workingDir=%{Document:Path}
 [Tool 11]
 actionName=externaltool_GoFmt
 arguments=%{Document:FileName}
-category=Tools
+category=Go
 cmdname=gofmt-full-file
 executable=gofmt
-icon=text-x-go
+icon=text/x-go
 input=
 mimetypes=text/x-go
 name=Go Fmt Full File

@@ -1151,6 +1151,10 @@ bool KateMainWindow::event(QEvent *e)
     if (e->type() == QEvent::ShortcutOverride) {
         QKeyEvent *k = static_cast<QKeyEvent *>(e);
         Q_EMIT unhandledShortcutOverride(k);
+
+        if (k->key() == Qt::Key_Escape && k->modifiers() == Qt::NoModifier && !m_toolViewOutput->isHidden()) {
+            hideToolView(m_toolViewOutput);
+        }
     }
     return KateMDI::MainWindow::event(e);
 }

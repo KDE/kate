@@ -7,6 +7,7 @@
 #ifndef KATE_OUTPUT_VIEW_H
 #define KATE_OUTPUT_VIEW_H
 
+#include <QLineEdit>
 #include <QStandardItemModel>
 #include <QStyledItemDelegate>
 #include <QWidget>
@@ -120,6 +121,8 @@ private:
      * Our special output delegate for the message body
      */
     KateOutputMessageStyledDelegate m_messageBodyDelegate;
+
+    QLineEdit m_filterLine;
 
     /**
      * When to show output view

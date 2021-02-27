@@ -14,9 +14,85 @@
 
 #include <QDateTime>
 #include <QPainter>
+#include <QSortFilterProxyModel>
 #include <QTextDocument>
+#include <QToolButton>
 #include <QTreeView>
 #include <QVBoxLayout>
+
+#include <kfts_fuzzy_match.h>
+
+class OutputSortFilterProxyModel final : public QSortFilterProxyModel
+{
+public:
+    OutputSortFilterProxyModel(QObject *parent = nullptr)
+        : QSortFilterProxyModel(parent)
+    {
+    }
+
+    void setFilterString(const QString &string)
+    {
+        beginResetModel();
+        m_pattern = string;
+        endResetModel();
+    }
+
+protected:
+    bool lessThan(const QModelIndex &sourceLeft, const QModelIndex &sourceRight) const override
+    {
+        const int l = sourceLeft.data(WeightRole).toInt();
+        const int r = sourceRight.data(WeightRole).toInt();
+        return l < r;
+    }
+
+    bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const override
+    {
+        if (m_pattern.isEmpty()) {
+            return true;
+        }
+
+        const auto idxCat = sourceModel()->index(sourceRow, 1, sourceParent);
+        const auto idxTyp = sourceModel()->index(sourceRow, 2, sourceParent);
+        const auto idxBod = sourceModel()->index(sourceRow, 3, sourceParent);
+
+        const QString cat = idxCat.data().toString();
+        const QString typ = idxTyp.data().toString();
+        const QString bod = getText(idxBod);
+
+        int scorec = 0;
+        int scoret = 0;
+        int scoreb = 0;
+        const bool resc = kfts::fuzzy_match(m_pattern, cat, scorec);
+        const bool rest = kfts::fuzzy_match(m_pattern, typ, scoret);
+        const bool resb = kfts::fuzzy_match(m_pattern, bod, scoreb);
+
+        const auto idx = sourceModel()->index(sourceRow, 0, sourceParent);
+        sourceModel()->setData(idx, scorec + scoret + scoreb, WeightRole);
+        return resc || rest || resb;
+    }
+
+private:
+    static QString getText(const QModelIndex &index)
+    {
+        QTextDocument doc;
+        /**
+         * fill in right variant of text
+         * we always trim spaces away, to avoid ugly empty line at the start/end
+         */
+        const auto message = index.data(KateOutputMessageStyledDelegate::MessageRole).toMap();
+        if (message.contains(QStringLiteral("plainText"))) {
+            doc.setPlainText(message.value(QStringLiteral("plainText")).toString().trimmed());
+        } else if (message.contains(QStringLiteral("markDown"))) {
+            doc.setMarkdown(message.value(QStringLiteral("markDown")).toString().trimmed());
+        } else if (message.contains(QStringLiteral("html"))) {
+            doc.setHtml(message.value(QStringLiteral("html")).toString().trimmed());
+        }
+        return doc.toPlainText();
+    }
+
+    QString m_pattern;
+    static constexpr int WeightRole = Qt::UserRole + 1;
+};
 
 /**
  * setup text document from data
@@ -76,6 +152,15 @@ KateOutputView::KateOutputView(KateMainWindow *mainWindow, QWidget *parent)
     : QWidget(parent)
     , m_mainWindow(mainWindow)
 {
+    // filter line is always hidden initially
+    m_filterLine.setHidden(true);
+    m_filterLine.installEventFilter(this);
+
+    OutputSortFilterProxyModel *proxyModel = new OutputSortFilterProxyModel(this);
+    proxyModel->setSourceModel(&m_messagesModel);
+
+    connect(&m_filterLine, &QLineEdit::textChanged, proxyModel, &OutputSortFilterProxyModel::setFilterString);
+
     // simple vbox layout with just the tree view ATM
     // TODO: e.g. filter and such!
     QVBoxLayout *layout = new QVBoxLayout(this);
@@ -84,8 +169,33 @@ KateOutputView::KateOutputView(KateMainWindow *mainWindow, QWidget *parent)
     m_messagesTreeView->setHeaderHidden(true);
     m_messagesTreeView->setRootIsDecorated(false);
     m_messagesTreeView->setAlternatingRowColors(true);
-    m_messagesTreeView->setModel(&m_messagesModel);
+    m_messagesTreeView->setModel(proxyModel);
+
+    // buttons at top
+    QHBoxLayout *hLayout = new QHBoxLayout(this);
+    hLayout->addStretch();
+    auto filter = new QToolButton(this);
+    filter->setToolTip(QStringLiteral("Filter"));
+    filter->setIcon(QIcon::fromTheme(QStringLiteral("view-filter")));
+    filter->setCheckable(true);
+    connect(filter, &QToolButton::toggled, this, [this] {
+        if (!m_filterLine.isHidden()) {
+            m_filterLine.clear();
+        }
+        m_filterLine.setHidden(!m_filterLine.isHidden());
+        m_filterLine.setFocus();
+    });
+    hLayout->addWidget(filter);
+    auto clear = new QPushButton(QIcon::fromTheme(QStringLiteral("edit-clear")), QStringLiteral("Clear"));
+    connect(clear, &QPushButton::clicked, this, [this] {
+        m_messagesModel.clear();
+    });
+    hLayout->addWidget(clear);
+
+    // tree view and filter line edit
+    layout->addLayout(hLayout);
     layout->addWidget(m_messagesTreeView);
+    layout->addWidget(&m_filterLine);
 
     // we want a special delegate to render the message body, as that might be plain text
     // mark down or HTML

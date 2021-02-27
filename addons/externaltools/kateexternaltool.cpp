@@ -123,21 +123,30 @@ void KateExternalTool::load(const KConfigGroup &cg)
     hasexec = checkExec();
 }
 
+static inline void writeStringEntry(KConfigGroup &cg, const char *key, const QString &value)
+{
+    if (!value.isEmpty()) {
+        cg.writeEntry(key, value);
+    }
+}
+
 void KateExternalTool::save(KConfigGroup &cg) const
 {
-    cg.writeEntry("category", category);
-    cg.writeEntry("name", name);
-    cg.writeEntry("icon", icon);
-    cg.writeEntry("executable", executable);
-    cg.writeEntry("arguments", arguments);
-    cg.writeEntry("input", input);
-    cg.writeEntry("workingDir", workingDir);
-    cg.writeEntry("mimetypes", mimetypes);
-    cg.writeEntry("actionName", actionName);
-    cg.writeEntry("cmdname", cmdname);
-    cg.writeEntry("save", toString(saveMode));
+    writeStringEntry(cg, "category", category);
+    writeStringEntry(cg, "name", name);
+    writeStringEntry(cg, "icon", icon);
+    writeStringEntry(cg, "executable", executable);
+    writeStringEntry(cg, "arguments", arguments);
+    writeStringEntry(cg, "input", input);
+    writeStringEntry(cg, "workingDir", workingDir);
+    if (!mimetypes.empty()) {
+        cg.writeEntry("mimetypes", mimetypes);
+    }
+    writeStringEntry(cg, "actionName", actionName);
+    writeStringEntry(cg, "cmdname", cmdname);
+    writeStringEntry(cg, "save", toString(saveMode));
+    writeStringEntry(cg, "output", toString(outputMode));
     cg.writeEntry("reload", reload);
-    cg.writeEntry("output", toString(outputMode));
 }
 
 QString KateExternalTool::translatedName() const

@@ -9,23 +9,17 @@ category=Git
 cmdname=git-cola
 executable=git-cola
 icon=git-cola
-input=
-mimetypes=
 name=git-cola
 output=Ignore
 reload=false
 save=None
-workingDir=
 
 [Tool 1]
 actionName=externaltool_gitk
-arguments=
 category=Git
 cmdname=gitk
 executable=gitk
 icon=git-gui
-input=
-mimetypes=
 name=gitk
 output=Ignore
 reload=false
@@ -38,9 +32,6 @@ arguments=gui blame --line=%{Document:Cursor:Line} %{Document:FileName}
 category=Git
 cmdname=git-blame
 executable=git
-icon=
-input=
-mimetypes=
 name=git blame
 output=Ignore
 reload=false
@@ -54,8 +45,6 @@ category=Tools
 cmdname=run-script
 executable=konsole
 icon=system-run
-input=
-mimetypes=
 name=Run Shell Script
 output=Ignore
 reload=false
@@ -69,13 +58,10 @@ category=Tools
 cmdname=google
 executable=xdg-open
 icon=globe
-input=
-mimetypes=
 name=Google Selected Text
 output=Ignore
 reload=false
 save=None
-workingDir=
 
 [Tool 5]
 actionName=externaltool_InsertUUID
@@ -83,14 +69,10 @@ arguments=%{UUID}
 category=Tools
 cmdname=uuid
 executable=echo
-icon=
-input=
-mimetypes=
 name=Insert UUID
 output=InsertAtCursor
 reload=false
 save=None
-workingDir=
 
 [Tool 6]
 actionName=externaltool_ClangFormatFullFile
@@ -98,9 +80,6 @@ arguments=-i %{Document:FileName}
 category=Tools
 cmdname=clang-format-file
 executable=clang-format
-icon=
-input=
-mimetypes=
 name=Clang Format Full File
 output=Ignore
 reload=true
@@ -113,9 +92,7 @@ arguments=-assume-filename=%{Document:FileName}
 category=Tools
 cmdname=clang-format-selection
 executable=clang-format
-icon=
 input=\s%{Document:Selection:Text}
-mimetypes=
 name=Clang Format Selected Text
 output=ReplaceSelectedText
 reload=false
@@ -123,73 +100,38 @@ save=None
 workingDir=%{Document:Path}
 
 [Tool 8]
-actionName=externaltool_QtQuick2Previewqmlscene
-arguments=%{Document:FileName}
-category=Qt
-cmdname=qml-preview
-executable=qmlscene
-icon=
-input=
-mimetypes=text/x-qml
-name=Qt Quick 2 Preview (qmlscene)
-output=Ignore
-reload=false
-save=CurrentDocument
-workingDir=%{Document:Path}
-
-[Tool 9]
 actionName=externaltool_JSONFormatFullFile
 arguments='.' %{Document:FileName}
 category=Tools
 cmdname=json-format-file
 executable=jq
 icon=application-json
-input=
-mimetypes=
 name=JSON Format Full File
 output=ReplaceCurrentDocument
 reload=false
 save=CurrentDocument
 workingDir=%{Document:Path}
 
-[Tool 10]
+[Tool 9]
 actionName=externaltool_XMLFormatFullFile
 arguments=--format %{Document:FileName}
 category=Tools
 cmdname=xml-format-file
 executable=xmllint
 icon=application-xml
-input=
-mimetypes=
 name=XML Format Full File
 output=ReplaceCurrentDocument
 reload=false
 save=CurrentDocument
 workingDir=%{Document:Path}
 
-[Tool 11]
-actionName=externaltool_GoFmt
-arguments=%{Document:FileName}
-category=Go
-cmdname=gofmt-full-file
-executable=gofmt
-icon=text/x-go
-input=
-mimetypes=text/x-go
-name=Go Fmt Full File
-output=ReplaceCurrentDocument
-reload=false
-save=CurrentDocument
-workingDir=%{Document:Path}
-
-[Tool 12]
+[Tool 10]
 actionName=externaltool_RustFmt
 arguments=--emit stdout %{Document:FileName}
 category=Tools
 cmdname=rustfmt-full-file
 executable=rustfmt
 icon=text-x-rust
-input=
 mimetypes=text/x-rust
 name=Rust Fmt Full File
 output=ReplaceCurrentDocument
@@ -197,16 +139,40 @@ reload=false
 save=CurrentDocument
 workingDir=%{Document:Path}
 
-[Tool 13]
+[Tool 11]
 actionName=externaltool_Prettier
 arguments=%{Document:FileName}
 category=Tools
 cmdname=prettier-format-full-file
 executable=prettier
-icon=
-input=
-mimetypes=
 name=Prettier Format Current File
+output=ReplaceCurrentDocument
+reload=false
+save=CurrentDocument
+workingDir=%{Document:Path}
+
+[Tool 12]
+actionName=externaltool_QtQuick2Previewqmlscene
+arguments=%{Document:FileName}
+category=Qt
+cmdname=qml-preview
+executable=qmlscene
+mimetypes=text/x-qml
+name=Qt Quick 2 Preview (qmlscene)
+output=Ignore
+reload=false
+save=CurrentDocument
+workingDir=%{Document:Path}
+
+[Tool 13]
+actionName=externaltool_GoFmt
+arguments=%{Document:FileName}
+category=Go
+cmdname=gofmt-full-file
+executable=gofmt
+icon=text/x-go
+mimetypes=text/x-go
+name=Go Fmt Full File
 output=ReplaceCurrentDocument
 reload=false
 save=CurrentDocument
@@ -219,7 +185,6 @@ category=Go
 cmdname=goimports-full-file
 executable=goimports
 icon=text-x-go
-input=
 mimetypes=text/x-go
 name=GoImports Full File
 output=ReplaceCurrentDocument

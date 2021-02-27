@@ -34,7 +34,6 @@ static const QString CONFIG_DIAGNOSTICS_MARK{QStringLiteral("DiagnosticsMark")};
 static const QString CONFIG_DIAGNOSTICS_HOVER{QStringLiteral("DiagnosticsHover")};
 static const QString CONFIG_DIAGNOSTICS_SIZE{QStringLiteral("DiagnosticsSize")};
 static const QString CONFIG_MESSAGES{QStringLiteral("Messages")};
-static const QString CONFIG_MESSAGES_AUTO_SWITCH{QStringLiteral("MessagesAutoSwitch")};
 static const QString CONFIG_SERVER_CONFIG{QStringLiteral("ServerConfiguration")};
 static const QString CONFIG_SEMANTIC_HIGHLIGHTING{QStringLiteral("SemanticHighlighting")};
 static const QString CONFIG_SIGNATURE_HELP{QStringLiteral("SignatureHelp")};
@@ -104,7 +103,6 @@ void LSPClientPlugin::readConfig()
     m_diagnosticsHover = config.readEntry(CONFIG_DIAGNOSTICS_HOVER, true);
     m_diagnosticsSize = config.readEntry(CONFIG_DIAGNOSTICS_SIZE, 1024);
     m_messages = config.readEntry(CONFIG_MESSAGES, true);
-    m_messagesAutoSwitch = config.readEntry(CONFIG_MESSAGES_AUTO_SWITCH, 1);
     m_configPath = config.readEntry(CONFIG_SERVER_CONFIG, QUrl());
     m_semanticHighlighting = config.readEntry(CONFIG_SEMANTIC_HIGHLIGHTING, false);
     m_signatureHelp = config.readEntry(CONFIG_SIGNATURE_HELP, true);
@@ -130,7 +128,6 @@ void LSPClientPlugin::writeConfig() const
     config.writeEntry(CONFIG_DIAGNOSTICS_HOVER, m_diagnosticsHover);
     config.writeEntry(CONFIG_DIAGNOSTICS_SIZE, m_diagnosticsSize);
     config.writeEntry(CONFIG_MESSAGES, m_messages);
-    config.writeEntry(CONFIG_MESSAGES_AUTO_SWITCH, m_messagesAutoSwitch);
     config.writeEntry(CONFIG_SERVER_CONFIG, m_configPath);
     config.writeEntry(CONFIG_SEMANTIC_HIGHLIGHTING, m_semanticHighlighting);
     config.writeEntry(CONFIG_SIGNATURE_HELP, m_signatureHelp);

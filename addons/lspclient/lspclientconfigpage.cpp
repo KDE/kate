@@ -66,7 +66,6 @@ LSPClientConfigPage::LSPClientConfigPage(QWidget *parent, LSPClientPlugin *plugi
     auto ch = [this](int) {
         this->changed();
     };
-    connect(ui->comboMessagesSwitch, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, ch);
     connect(ui->spinDiagnosticsSize, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, ch);
     connect(ui->edtConfigPath, &KUrlRequester::textChanged, this, &LSPClientConfigPage::configUrlChanged);
     connect(ui->edtConfigPath, &KUrlRequester::urlSelected, this, &LSPClientConfigPage::configUrlChanged);
@@ -90,7 +89,6 @@ LSPClientConfigPage::LSPClientConfigPage(QWidget *parent, LSPClientPlugin *plugi
         enabled = enabled && ui->chkDiagnosticsHover->isChecked();
         ui->spinDiagnosticsSize->setEnabled(enabled);
         enabled = ui->chkMessages->isChecked();
-        ui->comboMessagesSwitch->setEnabled(enabled);
     };
     connect(this, &LSPClientConfigPage::changed, this, h);
 }
@@ -138,7 +136,6 @@ void LSPClientConfigPage::apply()
     m_plugin->m_signatureHelp = ui->chkSignatureHelp->isChecked();
 
     m_plugin->m_messages = ui->chkMessages->isChecked();
-    m_plugin->m_messagesAutoSwitch = ui->comboMessagesSwitch->currentIndex();
 
     m_plugin->m_configPath = ui->edtConfigPath->url();
 
@@ -177,7 +174,6 @@ void LSPClientConfigPage::reset()
     ui->chkSignatureHelp->setChecked(m_plugin->m_signatureHelp);
 
     ui->chkMessages->setChecked(m_plugin->m_messages);
-    ui->comboMessagesSwitch->setCurrentIndex(m_plugin->m_messagesAutoSwitch);
 
     ui->edtConfigPath->setUrl(m_plugin->m_configPath);
 

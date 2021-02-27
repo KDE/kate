@@ -48,7 +48,6 @@ public:
     bool m_diagnosticsHover = false;
     unsigned m_diagnosticsSize = 0;
     bool m_messages = false;
-    int m_messagesAutoSwitch = 0;
     bool m_autoHover = false;
     bool m_onTypeFormatting = false;
     bool m_incrementalSync = false;

@@ -1,6 +1,7 @@
 /*  SPDX-License-Identifier: LGPL-2.0-or-later
 
     SPDX-FileCopyrightText: 2018 Tomaz Canabrava <tcanabrava@kde.org>
+    SPDX-FileCopyrightText: 2021 Waqar Ahmed <waqar.17a@gmail.com>
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
@@ -9,15 +10,11 @@
 #define KATEQUICKOPENMODEL_H
 
 #include <QAbstractTableModel>
-#include <QIcon>
-#include <QUrl>
-#include <QVariant>
 #include <QVector>
 
 class KateMainWindow;
 
 struct ModelEntry {
-    QUrl url; // used for actually opening a selected file (local or remote)
     QString fileName; // display string for left column
     QString filePath; // display string for right column
     bool bold; // format line in bold text or not
@@ -32,11 +29,11 @@ class KateQuickOpenModel : public QAbstractTableModel
     Q_OBJECT
 public:
     enum Role { FileName = Qt::UserRole + 1, FilePath, Score };
-    explicit KateQuickOpenModel(KateMainWindow *mainWindow, QObject *parent = nullptr);
+    explicit KateQuickOpenModel(QObject *parent = nullptr);
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     int columnCount(const QModelIndex &parent) const override;
     QVariant data(const QModelIndex &idx, int role) const override;
-    void refresh();
+    void refresh(KateMainWindow *mainWindow);
     // add a convenient in-class alias
     using List = KateQuickOpenModelList;
     List listMode() const
@@ -48,27 +45,37 @@ public:
         m_listMode = mode;
     }
 
-    bool setData(const QModelIndex &index, const QVariant &value, int role) override
+    bool isValid(int row) const
     {
-        if (!index.isValid()) {
-            return false;
+        return row >= 0 && row < m_modelEntries.size();
+    }
+
+    void setScoreForIndex(int row, int score)
+    {
+        m_modelEntries[row].score = score;
+    }
+
+    const QString &idxToFileName(int row) const
+    {
+        return m_modelEntries.at(row).fileName;
+    }
+
+    const QString &idxToFilePath(int row) const
+    {
+        return m_modelEntries.at(row).filePath;
+    }
+
+    int idxScore(const QModelIndex &idx) const
+    {
+        if (!idx.isValid()) {
+            return {};
         }
-        if (role == Role::Score) {
-            auto row = index.row();
-            m_modelEntries[row].score = value.toInt();
-        }
-        return QAbstractTableModel::setData(index, value, role);
+        return m_modelEntries.at(idx.row()).score;
     }
 
 private:
     QVector<ModelEntry> m_modelEntries;
-
-    /* TODO: don't rely in a pointer to the main window.
-     * this is bad engineering, but current code is too tight
-     * on this and it's hard to untangle without breaking existing
-     * code.
-     */
-    KateMainWindow *m_mainWindow;
+    QString m_projectBase;
     List m_listMode{};
 };
 

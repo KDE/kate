@@ -289,30 +289,6 @@ private:
     KTextEditor::Range range;
 };
 
-class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient
-{
-    Q_OBJECT
-
-    typedef LSPClientPluginViewImpl self_type;
-
-    KTextEditor::MainWindow *m_mainWindow;
-    QSharedPointer<LSPClientServerManager> m_serverManager;
-    QScopedPointer<class LSPClientActionView> m_actionView;
-
-public:
-    LSPClientPluginViewImpl(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin);
-
-    ~LSPClientPluginViewImpl() override;
-
-Q_SIGNALS:
-    /**
-     * Signal for outgoing message, the host application will handle them!
-     * Will only be handled inside the main windows of this plugin view.
-     * @param message outgoing message we send to the host application
-     */
-    void message(const QVariantMap &message);
-};
-
 class LSPClientActionView : public QObject
 {
     Q_OBJECT
@@ -321,7 +297,7 @@ class LSPClientActionView : public QObject
 
     LSPClientPlugin *m_plugin;
     KTextEditor::MainWindow *m_mainWindow;
-    LSPClientPluginViewImpl *m_client;
+    KXMLGUIClient *m_client;
     QSharedPointer<LSPClientServerManager> m_serverManager;
     QScopedPointer<LSPClientViewTracker> m_viewTracker;
     QScopedPointer<LSPClientCompletion> m_completion;
@@ -425,11 +401,16 @@ class LSPClientActionView : public QObject
         }
     };
 
+Q_SIGNALS:
+    /**
+     * Signal for outgoing message, the host application will handle them!
+     * Will only be handled inside the main windows of this plugin view.
+     * @param message outgoing message we send to the host application
+     */
+    void message(const QVariantMap &message);
+
 public:
-    LSPClientActionView(LSPClientPlugin *plugin,
-                        KTextEditor::MainWindow *mainWin,
-                        LSPClientPluginViewImpl *client,
-                        QSharedPointer<LSPClientServerManager> serverManager)
+    LSPClientActionView(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin, KXMLGUIClient *client, QSharedPointer<LSPClientServerManager> serverManager)
         : QObject(mainWin)
         , m_plugin(plugin)
         , m_mainWindow(mainWin)
@@ -2001,7 +1982,7 @@ public:
         genericMessage.insert(QStringLiteral("type"), type);
 
         // host application will handle these message for us, including auto-show settings
-        Q_EMIT m_client->message(genericMessage);
+        Q_EMIT message(genericMessage);
     }
 
     // params type is same for show or log and is treated the same way
@@ -2409,30 +2390,52 @@ public:
     }
 };
 
-LSPClientPluginViewImpl::LSPClientPluginViewImpl(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin)
-    : QObject(mainWin)
-    , m_mainWindow(mainWin)
-    , m_serverManager(LSPClientServerManager::new_(plugin, mainWin))
+class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient
 {
-    KXMLGUIClient::setComponentName(QStringLiteral("lspclient"), i18n("LSP Client"));
-    setXMLFile(QStringLiteral("ui.rc"));
+    Q_OBJECT
 
-    // we need to do this AFTER the setComponentName above
-    m_actionView.reset(new LSPClientActionView(plugin, mainWin, this, m_serverManager));
+    typedef LSPClientPluginViewImpl self_type;
 
-    m_mainWindow->guiFactory()->addClient(this);
-}
+    KTextEditor::MainWindow *m_mainWindow;
+    QSharedPointer<LSPClientServerManager> m_serverManager;
+    QScopedPointer<class LSPClientActionView> m_actionView;
 
-LSPClientPluginViewImpl::~LSPClientPluginViewImpl()
-{
-    // minimize/avoid some surprises;
-    // safe construction/destruction by separate (helper) objects;
-    // signals are auto-disconnected when high-level "view" objects are broken down
-    // so it only remains to clean up lowest level here then prior to removal
-    m_actionView.reset();
-    m_serverManager.reset();
-    m_mainWindow->guiFactory()->removeClient(this);
-}
+public:
+    LSPClientPluginViewImpl(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin)
+        : QObject(mainWin)
+        , m_mainWindow(mainWin)
+        , m_serverManager(LSPClientServerManager::new_(plugin, mainWin))
+    {
+        KXMLGUIClient::setComponentName(QStringLiteral("lspclient"), i18n("LSP Client"));
+        setXMLFile(QStringLiteral("ui.rc"));
+
+        // we need to do this AFTER the setComponentName above
+        m_actionView.reset(new LSPClientActionView(plugin, mainWin, this, m_serverManager));
+
+        m_mainWindow->guiFactory()->addClient(this);
+
+        connect(m_actionView.get(), &LSPClientActionView::message, this, &LSPClientPluginViewImpl::message);
+    }
+
+    ~LSPClientPluginViewImpl() override
+    {
+        // minimize/avoid some surprises;
+        // safe construction/destruction by separate (helper) objects;
+        // signals are auto-disconnected when high-level "view" objects are broken down
+        // so it only remains to clean up lowest level here then prior to removal
+        m_actionView.reset();
+        m_serverManager.reset();
+        m_mainWindow->guiFactory()->removeClient(this);
+    }
+
+Q_SIGNALS:
+    /**
+     * Signal for outgoing message, the host application will handle them!
+     * Will only be handled inside the main windows of this plugin view.
+     * @param message outgoing message we send to the host application
+     */
+    void message(const QVariantMap &message);
+};
 
 QObject *LSPClientPluginView::new_(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin)
 {

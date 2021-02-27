@@ -338,7 +338,7 @@ void BranchesDialog::sendMessage(const QString &plainText, bool warn)
     genericMessage.insert(QStringLiteral("type"), warn ? QStringLiteral("Error") : QStringLiteral("Info"));
     genericMessage.insert(QStringLiteral("category"), i18n("Git"));
     genericMessage.insert(QStringLiteral("categoryIcon"), QIcon(QStringLiteral(":/icons/icons/sc-apps-git.svg")));
-    genericMessage.insert(QStringLiteral("plainText"), plainText);
+    genericMessage.insert(QStringLiteral("text"), plainText);
     Q_EMIT m_pluginView->message(genericMessage);
 }
 

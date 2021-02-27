@@ -22,6 +22,20 @@
 
 #include <kfts_fuzzy_match.h>
 
+class KateOutputTreeView : public QTreeView
+{
+public:
+    KateOutputTreeView(QWidget *parent)
+        : QTreeView(parent)
+    {
+    }
+
+    void drawBranches(QPainter *, const QRect &, const QModelIndex &) const override
+    {
+        // we want no branches!
+    }
+};
+
 class OutputSortFilterProxyModel final : public QSortFilterProxyModel
 {
 public:
@@ -57,7 +71,7 @@ protected:
 
         const QString cat = idxCat.data().toString();
         const QString typ = idxTyp.data().toString();
-        const QString bod = getText(idxBod);
+        const QString bod = idxBod.data().toString();
 
         int scorec = 0;
         int scoret = 0;
@@ -72,81 +86,9 @@ protected:
     }
 
 private:
-    static QString getText(const QModelIndex &index)
-    {
-        QTextDocument doc;
-        /**
-         * fill in right variant of text
-         * we always trim spaces away, to avoid ugly empty line at the start/end
-         */
-        const auto message = index.data(KateOutputMessageStyledDelegate::MessageRole).toMap();
-        if (message.contains(QStringLiteral("plainText"))) {
-            doc.setPlainText(message.value(QStringLiteral("plainText")).toString().trimmed());
-        } else if (message.contains(QStringLiteral("markDown"))) {
-            doc.setMarkdown(message.value(QStringLiteral("markDown")).toString().trimmed());
-        } else if (message.contains(QStringLiteral("html"))) {
-            doc.setHtml(message.value(QStringLiteral("html")).toString().trimmed());
-        }
-        return doc.toPlainText();
-    }
-
     QString m_pattern;
     static constexpr int WeightRole = Qt::UserRole + 1;
 };
-
-/**
- * setup text document from data
- */
-static void setupText(QTextDocument &doc, const QModelIndex &index)
-{
-    /**
-     * fill in right variant of text
-     * we always trim spaces away, to avoid ugly empty line at the start/end
-     */
-    const auto message = index.data(KateOutputMessageStyledDelegate::MessageRole).toMap();
-    if (message.contains(QStringLiteral("plainText"))) {
-        doc.setPlainText(message.value(QStringLiteral("plainText")).toString().trimmed());
-    } else if (message.contains(QStringLiteral("markDown"))) {
-        doc.setMarkdown(message.value(QStringLiteral("markDown")).toString().trimmed());
-    } else if (message.contains(QStringLiteral("html"))) {
-        doc.setHtml(message.value(QStringLiteral("html")).toString().trimmed());
-    }
-}
-
-void KateOutputMessageStyledDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
-{
-    // ensure we recover state
-    painter->save();
-
-    QStyleOptionViewItem options = option;
-    initStyleOption(&options, index);
-
-    // paint background
-    if (option.state & QStyle::State_Selected) {
-        painter->fillRect(option.rect, option.palette.highlight());
-    } else {
-        painter->fillRect(option.rect, option.palette.base());
-    }
-
-    options.text = QString();
-    options.widget->style()->drawControl(QStyle::CE_ItemViewItem, &options, painter, options.widget);
-
-    painter->translate(option.rect.x(), option.rect.y());
-
-    QTextDocument doc;
-    setupText(doc, index);
-    doc.drawContents(painter);
-
-    // ensure we recover state
-    painter->restore();
-}
-
-QSize KateOutputMessageStyledDelegate::sizeHint(const QStyleOptionViewItem &, const QModelIndex &index) const
-{
-    QTextDocument doc;
-    setupText(doc, index);
-    return doc.size().toSize();
-}
 
 KateOutputView::KateOutputView(KateMainWindow *mainWindow, QWidget *parent)
     : QWidget(parent)
@@ -156,23 +98,23 @@ KateOutputView::KateOutputView(KateMainWindow *mainWindow, QWidget *parent)
     m_filterLine.setHidden(true);
     m_filterLine.installEventFilter(this);
 
-    OutputSortFilterProxyModel *proxyModel = new OutputSortFilterProxyModel(this);
-    proxyModel->setSourceModel(&m_messagesModel);
+    m_proxyModel = new OutputSortFilterProxyModel(this);
+    m_proxyModel->setSourceModel(&m_messagesModel);
 
-    connect(&m_filterLine, &QLineEdit::textChanged, proxyModel, &OutputSortFilterProxyModel::setFilterString);
+    connect(&m_filterLine, &QLineEdit::textChanged, static_cast<OutputSortFilterProxyModel *>(m_proxyModel), &OutputSortFilterProxyModel::setFilterString);
 
     // simple vbox layout with just the tree view ATM
     // TODO: e.g. filter and such!
     QVBoxLayout *layout = new QVBoxLayout(this);
-    m_messagesTreeView = new QTreeView(this);
+    m_messagesTreeView = new KateOutputTreeView(this);
     m_messagesTreeView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     m_messagesTreeView->setHeaderHidden(true);
     m_messagesTreeView->setRootIsDecorated(false);
-    m_messagesTreeView->setAlternatingRowColors(true);
-    m_messagesTreeView->setModel(proxyModel);
+    m_messagesTreeView->setUniformRowHeights(true);
+    m_messagesTreeView->setModel(m_proxyModel);
 
     // buttons at top
-    QHBoxLayout *hLayout = new QHBoxLayout(this);
+    QHBoxLayout *hLayout = new QHBoxLayout();
     hLayout->addStretch();
     auto filter = new QToolButton(this);
     filter->setToolTip(QStringLiteral("Filter"));
@@ -197,10 +139,6 @@ KateOutputView::KateOutputView(KateMainWindow *mainWindow, QWidget *parent)
     layout->addWidget(m_messagesTreeView);
     layout->addWidget(&m_filterLine);
 
-    // we want a special delegate to render the message body, as that might be plain text
-    // mark down or HTML
-    m_messagesTreeView->setItemDelegateForColumn(3, &m_messageBodyDelegate);
-
     // read config once
     readConfig();
 
@@ -217,6 +155,14 @@ void KateOutputView::readConfig()
 
 void KateOutputView::slotMessage(const QVariantMap &message)
 {
+    /**
+     * discard all messages without any real text
+     */
+    const auto text = message.value(QStringLiteral("text")).toString().trimmed();
+    if (text.isEmpty()) {
+        return;
+    }
+
     /**
      * date time column: we want to know when a message arrived
      * TODO: perhaps store full date time for more stuff later
@@ -261,17 +207,27 @@ void KateOutputView::slotMessage(const QVariantMap &message)
     }
 
     /**
-     * body column, formatted text
-     * we just set the full message as attribute
-     * we have our KateOutputMessageStyledDelegate to render this!
+     * body column, plain text
+     * we ensured above that we have some
+     * split it into lines, we want nice fixed-height parts
+     * we will add extra rows for everything below the first line
      */
-    auto bodyColumn = new QStandardItem();
-    bodyColumn->setData(QVariant::fromValue(message), KateOutputMessageStyledDelegate::MessageRole);
+    const auto textLines = text.split(QLatin1Char('\n'));
+    Q_ASSERT(!textLines.empty());
+    auto bodyColumn = new QStandardItem(textLines.at(0));
+    for (int i = 1; i < textLines.size(); ++i) {
+        dateTimeColumn->appendRow({new QStandardItem(), new QStandardItem(), new QStandardItem(), new QStandardItem(textLines.at(i))});
+    }
 
     /**
-     * add new message to model as one row
+     * add new message to model
      */
     m_messagesModel.appendRow({dateTimeColumn, categoryColumn, typeColumn, bodyColumn});
+
+    /**
+     * expand the new thingy
+     */
+    m_messagesTreeView->expand(m_proxyModel->mapFromSource(dateTimeColumn->index()));
 
     /**
      * ensure correct sizing

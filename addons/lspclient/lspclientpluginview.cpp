@@ -1980,7 +1980,7 @@ public:
         // use generic output view
         QVariantMap genericMessage;
         genericMessage.insert(QStringLiteral("category"), category);
-        genericMessage.insert(QStringLiteral("plainText"), msg);
+        genericMessage.insert(QStringLiteral("text"), msg);
 
         // translate level to the type keys
         QString type;

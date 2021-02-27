@@ -13,28 +13,8 @@
 #include <QWidget>
 
 class KateMainWindow;
-class QTreeView;
-
-/**
- * Delegate to render the message body.
- */
-class KateOutputMessageStyledDelegate : public QStyledItemDelegate
-{
-    Q_OBJECT
-
-public:
-    /**
-     * the role for the message
-     */
-    static constexpr int MessageRole = Qt::UserRole + 1;
-
-public:
-    KateOutputMessageStyledDelegate() = default;
-
-    void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
-
-    QSize sizeHint(const QStyleOptionViewItem &, const QModelIndex &index) const override;
-};
+class KateOutputTreeView;
+class QSortFilterProxyModel;
 
 /**
  * Widget to output stuff e.g. for plugins.
@@ -66,13 +46,11 @@ public Q_SLOTS:
      * IMPORTANT: at the moment, most stuff is key/value with strings, if the format is more finalized, one can introduce better type for more efficiency/type
      * safety
      *
-     * message body, can have different formats, lookup order will be:
+     * message text, will be trimmed before output
      *
-     *    message["plainText"] => plain text string to display
-     *    message["markDown"] => markdown string to display, we use QTextDocument with MarkdownDialectGitHub
-     *    message["html"] => HTML string to display, we use QTextDocument, that means only a subset of HTML https://doc.qt.io/qt-5/richtext-html-subset.html
+     *    message["text"] = i18n("your cool message")
      *
-     * the first thing found will be used.
+     * the text will be split in lines, all lines beside the first can be collapsed away
      *
      * message type, we support at the moment
      *
@@ -110,7 +88,7 @@ private:
     /**
      * Internal tree view to display the messages we get
      */
-    QTreeView *m_messagesTreeView = nullptr;
+    KateOutputTreeView *m_messagesTreeView = nullptr;
 
     /**
      * Our message model, at the moment a standard item model
@@ -118,10 +96,13 @@ private:
     QStandardItemModel m_messagesModel;
 
     /**
-     * Our special output delegate for the message body
+     * Our proxy model for filtering
      */
-    KateOutputMessageStyledDelegate m_messageBodyDelegate;
+    QSortFilterProxyModel *m_proxyModel = nullptr;
 
+    /**
+     * fuzzy filter line edit
+     */
     QLineEdit m_filterLine;
 
     /**

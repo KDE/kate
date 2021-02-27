@@ -41,8 +41,6 @@ public:
      * emits on clicking Menu->Show File History
      */
     Q_SIGNAL void showFileHistory(const QString &file);
-
-protected:
 };
 
 #endif

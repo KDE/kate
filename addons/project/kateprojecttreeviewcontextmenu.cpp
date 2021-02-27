@@ -6,6 +6,7 @@
  */
 
 #include "kateprojecttreeviewcontextmenu.h"
+#include "git/gitutils.h"
 
 #include <KApplicationTrader>
 #include <KIO/ApplicationLauncherJob>
@@ -18,14 +19,11 @@
 
 #include <QApplication>
 #include <QClipboard>
-#include <QDebug>
-#include <QDir>
 #include <QFileInfo>
 #include <QIcon>
 #include <QMenu>
 #include <QMimeDatabase>
 #include <QMimeType>
-#include <QProcess>
 #include <QStandardPaths>
 
 #include "kateprojectviewtree.h"
@@ -36,31 +34,6 @@ KateProjectTreeViewContextMenu::KateProjectTreeViewContextMenu()
 
 KateProjectTreeViewContextMenu::~KateProjectTreeViewContextMenu()
 {
-}
-
-static bool isGit(const QString &filename)
-{
-    QFileInfo fi(filename);
-    QDir dir(fi.absoluteDir());
-    QProcess git;
-    git.setWorkingDirectory(dir.absolutePath());
-    QStringList args;
-    // git ls-files -z results a bytearray where each entry is \0-terminated.
-    // NOTE: Without -z, Umlauts such as "Der Bäcker/Das Brötchen.txt" do not work (#389415, #402213)
-    args << QStringLiteral("ls-files") << QStringLiteral("-z") << fi.fileName();
-    git.start(QStringLiteral("git"), args, QProcess::ReadOnly);
-    bool isGit = false;
-    if (git.waitForStarted() && git.waitForFinished(-1)) {
-        const QList<QByteArray> byteArrayList = git.readAllStandardOutput().split('\0');
-        const QString fn = fi.fileName();
-        for (const QByteArray &byteArray : byteArrayList) {
-            if (fn == QString::fromUtf8(byteArray)) {
-                isGit = true;
-                break;
-            }
-        }
-    }
-    return isGit;
 }
 
 void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelIndex &index, const QPoint &pos, QWidget *parent)
@@ -103,14 +76,15 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
      */
     auto filePropertiesAction = menu.addAction(QIcon::fromTheme(QStringLiteral("dialog-object-properties")), i18n("Properties"));
 
-    auto history = menu.addAction(i18n("Show File History"));
-
+    QAction *fileHistory = nullptr;
     /**
      * Git menu
      */
     KMoreToolsMenuFactory menuFactory(QStringLiteral("kate/addons/project/git-tools"));
     QMenu gitMenu; // must live as long as the maybe filled menu items should live
-    if (isGit(filename)) {
+    if (GitUtils::isGitRepo(QFileInfo(filename).absolutePath())) {
+        fileHistory = menu.addAction(i18n("Show File History"));
+
         menuFactory.fillMenuFromGroupingNames(&gitMenu, {QLatin1String("git-clients-and-actions")}, QUrl::fromLocalFile(filename));
         menu.addSection(i18n("Git:"));
         const auto gitActions = gitMenu.actions();
@@ -149,7 +123,7 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
             dlg->show();
         } else if (action == rename) {
             static_cast<KateProjectViewTree *>(parent)->edit(index);
-        } else if (action == history) {
+        } else if (action == fileHistory) {
             showFileHistory(index.data(Qt::UserRole).toString());
         } else {
             // One of the git actions was triggered

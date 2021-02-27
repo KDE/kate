@@ -259,9 +259,9 @@ QList<DiffHunk *> parseHunks(VcsDiff &diff)
         m = HUNK_HEADER_RE->match(curln);
         if (!m.hasMatch())
             continue;
-        auto [oldStart, oldCount] = parseRange(m.captured(1));
-        auto [newStart, newCount] = parseRange(m.captured(2));
-        auto heading = m.captured(3);
+        const auto oldRange = parseRange(m.captured(1));
+        const auto newRange = parseRange(m.captured(2));
+        const auto heading = m.captured(3);
         uint firstLineIdx = lineNo;
         QStringList hunkLines;
         while (lines.hasNext() && (CONFLICT_START_RE->match(lines.peekNext()).hasMatch() || !META_LINE_RE->match(lines.peekNext()).hasMatch())) {
@@ -285,7 +285,7 @@ QList<DiffHunk *> parseHunks(VcsDiff &diff)
 
         // The number of filenames present in the diff should match the number
         // of hunks
-        ret << new DiffHunk{oldStart, oldCount, newStart, newCount, firstLineIdx, curSrcFileName, curTgtFileName, heading, hunkLines};
+        ret << new DiffHunk{oldRange.first, oldRange.second, newRange.first, newRange.second, firstLineIdx, curSrcFileName, curTgtFileName, heading, hunkLines};
     }
 
     // If the diff ends with a newline, for the last hunk, when splitting into lines above

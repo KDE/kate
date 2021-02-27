@@ -203,7 +203,9 @@ void KateOutputView::slotMessage(const QVariantMap &message)
     auto categoryColumn = new QStandardItem();
     categoryColumn->setText(message.value(QStringLiteral("category")).toString().trimmed());
     const auto categoryIcon = message.value(QStringLiteral("categoryIcon")).value<QIcon>();
-    if (!categoryIcon.isNull()) {
+    if (categoryIcon.isNull()) {
+        categoryColumn->setIcon(QIcon::fromTheme(QStringLiteral("dialog-scripts")));
+    } else {
         categoryColumn->setIcon(categoryIcon);
     }
 
@@ -228,6 +230,7 @@ void KateOutputView::slotMessage(const QVariantMap &message)
     } else {
         shouldShowOutputToolView = (m_showOutputViewForMessageType >= 4);
         typeColumn->setText(i18nc("@info", "Log"));
+        typeColumn->setIcon(QIcon::fromTheme(QStringLiteral("dialog-messages")));
     }
 
     /**

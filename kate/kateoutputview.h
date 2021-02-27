@@ -79,6 +79,12 @@ public Q_SLOTS:
      *
      * will lead to appropriate icons/... in the output view
      *
+     * a message should have some category, like Git, LSP, ....
+     *
+     *    message["category"] = i18n(...)
+     *
+     * will be used to allow the user to filter for
+     *
      */
     void slotMessage(const QVariantMap &message);
 

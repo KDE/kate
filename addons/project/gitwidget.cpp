@@ -109,7 +109,7 @@ void GitWidget::initGitExe()
     git.start(QProcess::ReadOnly);
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         if (git.exitStatus() != QProcess::NormalExit || git.exitCode() != 0) {
-            sendMessage(i18n("Failed to find .git directory. Things may not work correctly. Error:\n%1", QString::fromUtf8(git.readAllStandardError())), true);
+            sendMessage(i18n("Failed to find .git directory, things may not work correctly: %1", QString::fromUtf8(git.readAllStandardError())), true);
             m_gitPath = m_project->baseDir();
             return;
         }
@@ -176,7 +176,7 @@ void GitWidget::runGitCmd(const QStringList &args, const QString &i18error)
         // sever connection
         disconnect(&git, &QProcess::finished, nullptr, nullptr);
         if (es != QProcess::NormalExit || exitCode != 0) {
-            sendMessage(i18error + QStringLiteral("\n") + QString::fromUtf8(git.readAllStandardError()), true);
+            sendMessage(i18error + QStringLiteral(": ") + QString::fromUtf8(git.readAllStandardError()), true);
         } else {
             getStatus();
         }
@@ -249,7 +249,7 @@ void GitWidget::openAtHEAD(const QString &file)
     connect(&git, &QProcess::finished, this, [this, file](int exitCode, QProcess::ExitStatus es) {
         disconnect(&git, &QProcess::finished, nullptr, nullptr);
         if (es != QProcess::NormalExit || exitCode != 0) {
-            sendMessage(i18n("Failed to open file at HEAD. Error:\n%1", QString::fromUtf8(git.readAllStandardError())), true);
+            sendMessage(i18n("Failed to open file at HEAD: %1", QString::fromUtf8(git.readAllStandardError())), true);
         } else {
             openTempFile(QFileInfo(file).fileName(), QStringLiteral("XXXXXX - (HEAD) - %1"), git.readAllStandardOutput());
         }
@@ -275,7 +275,7 @@ void GitWidget::showDiff(const QString &file, bool staged)
     connect(&git, &QProcess::finished, this, [this, file, staged](int exitCode, QProcess::ExitStatus es) {
         disconnect(&git, &QProcess::finished, nullptr, nullptr);
         if (es != QProcess::NormalExit || exitCode != 0) {
-            sendMessage(i18n("Failed to get Diff of file. Error:\n%1", QString::fromUtf8(git.readAllStandardError())), true);
+            sendMessage(i18n("Failed to get Diff of file: %1", QString::fromUtf8(git.readAllStandardError())), true);
         } else {
             const QString filename = file.isEmpty() ? QString() : QFileInfo(file).fileName();
 
@@ -358,7 +358,7 @@ void GitWidget::commitChanges(const QString &msg, const QString &desc, bool sign
         // sever connection
         disconnect(&git, &QProcess::finished, nullptr, nullptr);
         if (es != QProcess::NormalExit || exitCode != 0) {
-            sendMessage(i18n("Failed to commit.\n %1", QString::fromUtf8(git.readAllStandardError())), true);
+            sendMessage(i18n("Failed to commit: %1", QString::fromUtf8(git.readAllStandardError())), true);
         } else {
             m_commitMessage.clear();
             getStatus();
@@ -416,7 +416,7 @@ void GitWidget::applyDiff(const QString &fileName, bool staged, bool hunk, KText
         delete file;
         disconnect(&git, &QProcess::finished, nullptr, nullptr);
         if (es != QProcess::NormalExit || exitCode != 0) {
-            sendMessage(QStringLiteral("Failed to stage\n") + QString::fromUtf8(git.readAllStandardError()), true);
+            sendMessage(i18n("Failed to stage: %1", QString::fromUtf8(git.readAllStandardError())), true);
         } else {
             // close and reopen doc to show updated diff
             if (v && v->document()) {

@@ -11,7 +11,7 @@
 #include <KLocalizedString>
 
 // git log --format=%H%n%aN%n%aE%n%at%n%ct%n%P%n%B --author-date-order
-static QList<QByteArray> getFileHistory(const QString &file)
+QList<QByteArray> FileHistoryWidget::getFileHistory(const QString &file)
 {
     QProcess git;
     git.setWorkingDirectory(QFileInfo(file).absolutePath());
@@ -22,7 +22,11 @@ static QList<QByteArray> getFileHistory(const QString &file)
                      file};
     git.start(QStringLiteral("git"), args, QProcess::ReadOnly);
     if (git.waitForStarted() && git.waitForFinished(-1)) {
-        return git.readAll().split(0x00);
+        if (git.exitStatus() == QProcess::NormalExit && git.exitCode() == 0) {
+            return git.readAll().split(0x00);
+        } else {
+            Q_EMIT errorMessage(i18n("Failed to get file history: %1", QString::fromUtf8(git.readAllStandardError())), true);
+        }
     }
     return {};
 }
@@ -137,7 +141,7 @@ public:
 
         QRect prect = opt.rect;
 
-        const int ascent = (opt.fontMetrics.ascent() / 2);
+        //        const int ascent = (opt.fontMetrics.ascent() / 2);
 
         // draw line
         //        prect.setX(prect.x() + ascent + 2);

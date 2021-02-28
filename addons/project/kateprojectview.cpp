@@ -150,6 +150,14 @@ void KateProjectView::showFileGitHistory(const QString &file)
     auto fhs = new FileHistoryWidget(file);
     connect(fhs, &FileHistoryWidget::backClicked, this, &KateProjectView::setTreeViewAsCurrent);
     connect(fhs, &FileHistoryWidget::commitClicked, this, &KateProjectView::showDiffInFixedView);
+    connect(fhs, &FileHistoryWidget::errorMessage, m_pluginView, [this](const QString &s, bool warn) {
+        QVariantMap genericMessage;
+        genericMessage.insert(QStringLiteral("type"), warn ? QStringLiteral("Error") : QStringLiteral("Info"));
+        genericMessage.insert(QStringLiteral("category"), i18n("Git"));
+        genericMessage.insert(QStringLiteral("categoryIcon"), QIcon(QStringLiteral(":/icons/icons/sc-apps-git.svg")));
+        genericMessage.insert(QStringLiteral("text"), s);
+        Q_EMIT m_pluginView->message(genericMessage);
+    });
     m_stackWidget->addWidget(fhs);
     m_stackWidget->setCurrentWidget(fhs);
 }

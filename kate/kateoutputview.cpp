@@ -14,7 +14,10 @@
 
 #include <KTextEditor/ConfigInterface>
 
+#include <QClipboard>
 #include <QDateTime>
+#include <QGuiApplication>
+#include <QMenu>
 #include <QPainter>
 #include <QSortFilterProxyModel>
 #include <QTextDocument>
@@ -31,12 +34,72 @@ public:
     KateOutputTreeView(QWidget *parent)
         : QTreeView(parent)
     {
+        // copy action, default off, is enabled on selection!
+        m_copyAction = new QAction(QIcon::fromTheme(QStringLiteral("edit-copy")), i18nc("@action:inmenu", "Copy to Clipboard"), this);
+        connect(m_copyAction, &QAction::triggered, this, &KateOutputTreeView::slotCopySelected);
+        m_copyAction->setEnabled(false);
     }
 
+    // we want no branches!
     void drawBranches(QPainter *, const QRect &, const QModelIndex &) const override
     {
-        // we want no branches!
     }
+
+    // activate copy action based on selection
+    void selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) override
+    {
+        QTreeView::selectionChanged(selected, deselected);
+        m_copyAction->setEnabled(!selected.indexes().isEmpty());
+    }
+
+    // provide simple context menu, e.g. for copy&paste
+    void contextMenuEvent(QContextMenuEvent *event) override
+    {
+        QMenu menu;
+        menu.addAction(m_copyAction);
+        menu.exec(viewport()->mapToGlobal(event->pos()));
+        event->accept();
+    }
+
+private Q_SLOTS:
+    void slotCopySelected()
+    {
+        // collect the stuff
+        QString clipboardText;
+        int row = -1;
+        for (const auto selected : selectedIndexes()) {
+            // we want to separate columns by " " and rows by "\n"
+
+            // first element: just append + remember row
+            if (row == -1) {
+                clipboardText += selected.data().toString();
+                row = selected.row();
+                continue;
+            }
+
+            // same line, space separated
+            if (row == selected.row()) {
+                clipboardText += QLatin1Char(' ') + selected.data().toString();
+                continue;
+            }
+
+            // new line, add \n
+            if (row != selected.row()) {
+                clipboardText += QLatin1Char('\n') + selected.data().toString();
+                row = selected.row();
+                continue;
+            }
+        }
+        if (!clipboardText.isEmpty()) {
+            QGuiApplication::clipboard()->setText(clipboardText);
+        }
+    }
+
+private:
+    /**
+     * action to copy current selection to clipboard
+     */
+    QAction *m_copyAction = nullptr;
 };
 
 class OutputSortFilterProxyModel final : public QSortFilterProxyModel
@@ -108,6 +171,8 @@ KateOutputView::KateOutputView(KateMainWindow *mainWindow, QWidget *parent)
     m_messagesTreeView->setHeaderHidden(true);
     m_messagesTreeView->setRootIsDecorated(false);
     m_messagesTreeView->setUniformRowHeights(true);
+    m_messagesTreeView->setSelectionBehavior(QAbstractItemView::SelectRows);
+    m_messagesTreeView->setSelectionMode(QAbstractItemView::ContiguousSelection);
     m_messagesTreeView->setModel(m_proxyModel);
     m_messagesTreeView->setIndentation(0);
 

@@ -92,6 +92,18 @@ the right.</para>
 <variablelist>
 
 <varlistentry>
+<term><anchor id="config-dialog-general-switch-to-output"/>
+<guilabel>Switch to output view upon message type</guilabel></term>
+<listitem><para>This option allows configuring when &kate; should show an
+output pane depending on the type of action output.</para>
+<para>It is possible to choose between <guimenuitem>Never</guimenuitem>,
+<guimenuitem>Error</guimenuitem> (on error), <guimenuitem>Warning</guimenuitem>
+(on warning or above), <guimenuitem>Info</guimenuitem> (on info or above),
+and <guimenuitem>Log</guimenuitem> (on log or above).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
 <term><anchor id="config-dialog-general-warn-mod"/>
 <guilabel>Warn about files modified by foreign processes</guilabel></term>
 <listitem><para>When enabled, &kate; will notify you about files modified

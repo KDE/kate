@@ -171,11 +171,6 @@ void KateExternalToolsPlugin::runTool(const KateExternalTool &tool, KTextEditor:
     // clear previous toolview data
     auto pluginView = viewForMainWindow(mw);
     pluginView->clearToolView();
-    pluginView->addToolStatus(i18n("Running external tool: %1", copy->name));
-    pluginView->addToolStatus(i18n("- Executable: %1", copy->executable));
-    pluginView->addToolStatus(i18n("- Arguments : %1", copy->arguments));
-    pluginView->addToolStatus(i18n("- Input     : %1", copy->input));
-    pluginView->addToolStatus(QString());
 
     // expand macros
     auto editor = KTextEditor::Editor::instance();
@@ -183,6 +178,17 @@ void KateExternalToolsPlugin::runTool(const KateExternalTool &tool, KTextEditor:
     editor->expandText(copy->arguments, view, copy->arguments);
     editor->expandText(copy->workingDir, view, copy->workingDir);
     editor->expandText(copy->input, view, copy->input);
+
+    const QString messageText = copy->input.isEmpty() ? i18n("Running %1: %2 %3", copy->name, copy->executable, copy->arguments)
+                                                      : i18n("Running %1: %2 %3 with input %4", copy->name, copy->executable, copy->arguments, tool.input);
+
+    // use generic output view for status
+    QVariantMap genericMessage;
+    genericMessage.insert(QStringLiteral("type"), QStringLiteral("Info"));
+    genericMessage.insert(QStringLiteral("category"), i18n("External Tools"));
+    genericMessage.insert(QStringLiteral("categoryIcon"), QIcon::fromTheme(QStringLiteral("system-run")));
+    genericMessage.insert(QStringLiteral("text"), messageText);
+    Q_EMIT pluginView->message(genericMessage);
 
     // Allocate runner on heap such that it lives as long as the child
     // process is running and does not block the main thread.
@@ -254,24 +260,37 @@ void KateExternalToolsPlugin::handleToolFinished(KateToolRunner *runner, int exi
             hasOutputInPane = !runner->outputData().isEmpty();
         }
 
+        QString messageBody;
+        QString messageType = QStringLiteral("Info");
         if (!runner->errorData().isEmpty()) {
-            pluginView->addToolStatus(i18n("Data written to stderr:"));
-            pluginView->addToolStatus(runner->errorData());
+            messageBody += i18n("Data written to stderr:\n");
+            messageBody += runner->errorData();
+            messageBody += QStringLiteral("\n");
+            messageType = QStringLiteral("Warning");
         }
-
-        // empty line
-        pluginView->addToolStatus(QString());
-
-        // print crash & exit code
-        if (crashed) {
-            pluginView->addToolStatus(i18n("Warning: External tool crashed."));
-        }
-        pluginView->addToolStatus(i18n("Finished with exit code: %1", exitCode));
-
         if (crashed || exitCode != 0) {
-            pluginView->showToolView(ToolViewFocus::StatusTab);
-        } else if (hasOutputInPane) {
-            pluginView->showToolView(ToolViewFocus::OutputTab);
+            messageType = QStringLiteral("Error");
+        }
+
+        // print crash or exit code
+        if (crashed) {
+            messageBody += i18n("%1 crashed", runner->tool()->translatedName());
+        } else if (exitCode != 0) {
+            messageBody += i18n("%1 finished with exit code %2", runner->tool()->translatedName(), exitCode);
+        }
+
+        // use generic output view for status
+        QVariantMap genericMessage;
+        genericMessage.insert(QStringLiteral("type"), messageType);
+        genericMessage.insert(QStringLiteral("category"), i18n("External Tools"));
+        genericMessage.insert(QStringLiteral("categoryIcon"), QIcon::fromTheme(QStringLiteral("system-run")));
+        genericMessage.insert(QStringLiteral("text"), messageBody);
+        Q_EMIT pluginView->message(genericMessage);
+
+        // on successful execution => show output
+        // otherwise the global output pane settings will ensure we see the error output
+        if (!(crashed || exitCode != 0) && hasOutputInPane) {
+            pluginView->showToolView();
         }
     }
 

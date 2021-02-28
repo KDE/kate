@@ -1,6 +1,7 @@
 /*  SPDX-License-Identifier: LGPL-2.0-or-later
 
     SPDX-FileCopyrightText: 2007, 2009 Joseph Wenninger <jowenn@kde.org>
+    SPDX-FileCopyrightText: 2021 Waqar Ahmed <waqar.17a@gmail.com>
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
@@ -39,7 +40,7 @@
 
 #include <kfts_fuzzy_match.h>
 
-class QuickOpenFilterProxyModel : public QSortFilterProxyModel
+class QuickOpenFilterProxyModel final : public QSortFilterProxyModel
 {
 public:
     QuickOpenFilterProxyModel(QObject *parent = nullptr)
@@ -50,38 +51,42 @@ public:
 protected:
     bool lessThan(const QModelIndex &sourceLeft, const QModelIndex &sourceRight) const override
     {
-        int l = sourceLeft.data(KateQuickOpenModel::Score).toInt();
-        int r = sourceRight.data(KateQuickOpenModel::Score).toInt();
+        auto sm = sourceModel();
+        const int l = static_cast<KateQuickOpenModel *>(sm)->idxScore(sourceLeft);
+        const int r = static_cast<KateQuickOpenModel *>(sm)->idxScore(sourceRight);
         return l < r;
     }
 
-    bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const override
+    bool filterAcceptsRow(int sourceRow, const QModelIndex &) const override
     {
         if (pattern.isEmpty()) {
             return true;
         }
-        const auto idx = sourceModel()->index(sourceRow, 0, sourceParent);
-        const QString name = idx.data(KateQuickOpenModel::FileName).toString();
-        const QString path = idx.data(KateQuickOpenModel::FilePath).toString();
+
+        auto sm = static_cast<KateQuickOpenModel *>(sourceModel());
+        if (!sm->isValid(sourceRow)) {
+            return false;
+        }
+
+        const QString &name = sm->idxToFileName(sourceRow);
 
         int score = 0;
         bool res = false;
-        {
-            int scorep = 0, scoren = 0;
-            bool resn = filterByName(name, scoren);
+        int scorep = 0, scoren = 0;
+        bool resn = filterByName(name, scoren);
 
-            // only match file path if filename got a match
-            bool resp = false;
-            if (resn || pattern.contains(QLatin1Char('/'))) {
-                resp = filterByPath(path, scorep);
-            }
-
-            // store the score for sorting later
-            score = scoren + scorep;
-            res = resp || resn;
+        // only match file path if filename got a match
+        bool resp = false;
+        if (resn || pathLike) {
+            const QString &path = sm->idxToFilePath(sourceRow);
+            resp = filterByPath(path, scorep);
         }
 
-        sourceModel()->setData(idx, score, KateQuickOpenModel::Score);
+        // store the score for sorting later
+        score = scoren + scorep;
+        res = resp || resn;
+
+        sm->setScoreForIndex(sourceRow, score);
 
         return res;
     }
@@ -91,6 +96,7 @@ public Q_SLOTS:
     {
         beginResetModel();
         pattern = text;
+        pathLike = pattern.contains(QLatin1Char('/'));
         endResetModel();
     }
 
@@ -107,6 +113,7 @@ private:
 
 private:
     QString pattern;
+    bool pathLike = false;
 };
 
 class QuickOpenStyleDelegate : public QStyledItemDelegate
@@ -212,7 +219,7 @@ KateQuickOpen::KateQuickOpen(KateMainWindow *mainWindow)
     m_listView->setTextElideMode(Qt::ElideLeft);
     m_listView->setUniformRowHeights(true);
 
-    m_base_model = new KateQuickOpenModel(m_mainWindow, this);
+    m_base_model = new KateQuickOpenModel(this);
 
     m_model = new QuickOpenFilterProxyModel(this);
     m_model->setFilterRole(Qt::DisplayRole);
@@ -251,7 +258,7 @@ KateQuickOpen::KateQuickOpen(KateMainWindow *mainWindow)
     slotListModeChanged(m_inputLine->listMode());
 
     // fill stuff
-    update();
+    update(mainWindow);
 }
 
 KateQuickOpen::~KateQuickOpen()
@@ -314,9 +321,9 @@ void KateQuickOpen::reselectFirst()
     m_listView->setCurrentIndex(index);
 }
 
-void KateQuickOpen::update()
+void KateQuickOpen::update(KateMainWindow *mainWindow)
 {
-    m_base_model->refresh();
+    m_base_model->refresh(mainWindow);
     reselectFirst();
 
     updateViewGeometry();
@@ -331,6 +338,9 @@ void KateQuickOpen::slotReturnPressed()
     m_mainWindow->wrapper()->openUrl(url);
     hide();
     m_mainWindow->slotWindowActivated();
+
+    // block signals for input line so that we dont trigger filtering again
+    const QSignalBlocker blocker(m_inputLine);
     m_inputLine->clear();
 }
 

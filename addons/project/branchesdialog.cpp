@@ -6,6 +6,7 @@
 #include "branchesdialog.h"
 #include "branchesdialogmodel.h"
 #include "git/gitutils.h"
+#include "kateprojectpluginview.h"
 
 #include <QCoreApplication>
 #include <QKeyEvent>
@@ -151,9 +152,10 @@ private:
     QString m_filterString;
 };
 
-BranchesDialog::BranchesDialog(QWidget *parent, KTextEditor::MainWindow *mainWindow, QString projectPath)
+BranchesDialog::BranchesDialog(QWidget *parent, KTextEditor::MainWindow *mainWindow, KateProjectPluginView *pluginView, QString projectPath)
     : QMenu(parent)
     , m_mainWindow(mainWindow)
+    , m_pluginView(pluginView)
     , m_projectPath(projectPath)
 {
     QVBoxLayout *layout = new QVBoxLayout();
@@ -329,14 +331,15 @@ void BranchesDialog::reselectFirst()
     m_treeView->setCurrentIndex(index);
 }
 
-void BranchesDialog::sendMessage(const QString &message, bool warn)
+void BranchesDialog::sendMessage(const QString &plainText, bool warn)
 {
-    KTextEditor::Message *msg = new KTextEditor::Message(message, warn ? KTextEditor::Message::Warning : KTextEditor::Message::Positive);
-    msg->setPosition(KTextEditor::Message::TopInView);
-    msg->setAutoHide(3000);
-    msg->setAutoHideMode(KTextEditor::Message::Immediate);
-    msg->setView(m_mainWindow->activeView());
-    m_mainWindow->activeView()->document()->postMessage(msg);
+    // use generic output view
+    QVariantMap genericMessage;
+    genericMessage.insert(QStringLiteral("type"), warn ? QStringLiteral("Error") : QStringLiteral("Info"));
+    genericMessage.insert(QStringLiteral("category"), i18n("Git"));
+    genericMessage.insert(QStringLiteral("categoryIcon"), QIcon(QStringLiteral(":/icons/icons/sc-apps-git.svg")));
+    genericMessage.insert(QStringLiteral("text"), plainText);
+    Q_EMIT m_pluginView->message(genericMessage);
 }
 
 void BranchesDialog::createNewBranch(const QString &branch, const QString &fromBranch)

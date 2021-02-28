@@ -5,9 +5,11 @@
 */
 #include "gitwidget.h"
 #include "branchesdialog.h"
+#include "git/gitdiff.h"
 #include "gitcommitdialog.h"
 #include "gitstatusmodel.h"
 #include "kateproject.h"
+#include "kateprojectpluginview.h"
 #include "stashdialog.h"
 
 #include <QContextMenuEvent>
@@ -24,6 +26,7 @@
 #include <QProcess>
 #include <QPushButton>
 #include <QStringListModel>
+#include <QTimer>
 #include <QToolButton>
 #include <QTreeView>
 #include <QVBoxLayout>
@@ -33,6 +36,7 @@
 #include <KMessageBox>
 #include <QPointer>
 
+#include <KTextEditor/Application>
 #include <KTextEditor/ConfigInterface>
 #include <KTextEditor/Editor>
 #include <KTextEditor/MainWindow>
@@ -121,19 +125,15 @@ void GitWidget::initGitExe()
     }
 }
 
-void GitWidget::sendMessage(const QString &message, bool warn)
+void GitWidget::sendMessage(const QString &plainText, bool warn)
 {
-    // quickfix crash on startup
-    if (!m_mainWin->activeView()) {
-        return;
-    }
-
-    KTextEditor::Message *msg = new KTextEditor::Message(message, warn ? KTextEditor::Message::Warning : KTextEditor::Message::Positive);
-    msg->setPosition(KTextEditor::Message::TopInView);
-    msg->setAutoHide(warn ? 5000 : 3000);
-    msg->setAutoHideMode(KTextEditor::Message::Immediate);
-    msg->setView(m_mainWin->activeView());
-    m_mainWin->activeView()->document()->postMessage(msg);
+    // use generic output view
+    QVariantMap genericMessage;
+    genericMessage.insert(QStringLiteral("type"), warn ? QStringLiteral("Error") : QStringLiteral("Info"));
+    genericMessage.insert(QStringLiteral("category"), i18n("Git"));
+    genericMessage.insert(QStringLiteral("categoryIcon"), QIcon(QStringLiteral(":/icons/icons/sc-apps-git.svg")));
+    genericMessage.insert(QStringLiteral("text"), plainText);
+    Q_EMIT m_pluginView->message(genericMessage);
 }
 
 QProcess *GitWidget::gitprocess()
@@ -272,13 +272,51 @@ void GitWidget::showDiff(const QString &file, bool staged)
     }
 
     disconnect(&git, &QProcess::finished, nullptr, nullptr);
-    connect(&git, &QProcess::finished, this, [this, file](int exitCode, QProcess::ExitStatus es) {
+    connect(&git, &QProcess::finished, this, [this, file, staged](int exitCode, QProcess::ExitStatus es) {
         disconnect(&git, &QProcess::finished, nullptr, nullptr);
         if (es != QProcess::NormalExit || exitCode != 0) {
             sendMessage(i18n("Failed to get Diff of file. Error:\n%1", QString::fromUtf8(git.readAllStandardError())), true);
         } else {
             const QString filename = file.isEmpty() ? QString() : QFileInfo(file).fileName();
+
             openTempFile(filename, QStringLiteral("XXXXXX %1.diff"), git.readAllStandardOutput());
+
+            if (m_tempFiles.empty()) {
+                return;
+            }
+            auto v = m_tempFiles.back().second;
+            if (!v || !v->document()) {
+                return;
+            }
+            auto m = v->contextMenu();
+
+            if (!staged) {
+                QMenu *menu = new QMenu(v);
+                auto sh = menu->addAction(i18n("Stage Hunk"));
+                auto sl = menu->addAction(i18n("Stage Lines"));
+                menu->addActions(m->actions());
+                v->setContextMenu(menu);
+
+                connect(sh, &QAction::triggered, v, [=] {
+                    applyDiff(file, false, true, v);
+                });
+                connect(sl, &QAction::triggered, v, [=] {
+                    applyDiff(file, false, false, v);
+                });
+            } else {
+                QMenu *menu = new QMenu(v);
+                auto ush = menu->addAction(i18n("Unstage Hunk"));
+                auto usl = menu->addAction(i18n("Unstage Lines"));
+                menu->addActions(m->actions());
+                v->setContextMenu(menu);
+
+                connect(ush, &QAction::triggered, v, [=] {
+                    applyDiff(file, true, true, v);
+                });
+                connect(usl, &QAction::triggered, v, [=] {
+                    applyDiff(file, true, false, v);
+                });
+            }
         }
     });
 
@@ -325,6 +363,70 @@ void GitWidget::commitChanges(const QString &msg, const QString &desc, bool sign
             m_commitMessage.clear();
             getStatus();
             sendMessage(i18n("Changes committed successfully."), false);
+        }
+    });
+    git.setArguments(args);
+    git.start(QProcess::ReadOnly);
+}
+
+QString GitWidget::getDiff(KTextEditor::View *v, bool hunk, bool alreadyStaged)
+{
+    auto range = v->selectionRange();
+    int startLine = range.start().line();
+    int endLine = range.end().line();
+    if (range.isEmpty() || hunk) {
+        startLine = endLine = v->cursorPosition().line();
+    }
+
+    VcsDiff full;
+    full.setDiff(v->document()->text());
+    auto p = QUrl::fromUserInput(m_gitPath);
+    full.setBaseDiff(QUrl::fromUserInput(m_gitPath));
+
+    const auto dir = alreadyStaged ? VcsDiff::Reverse : VcsDiff::Forward;
+
+    VcsDiff selected = hunk ? full.subDiffHunk(startLine, dir) : full.subDiff(startLine, endLine, dir);
+    return selected.diff();
+}
+
+void GitWidget::applyDiff(const QString &fileName, bool staged, bool hunk, KTextEditor::View *v)
+{
+    if (!v) {
+        return;
+    }
+
+    const QString diff = getDiff(v, hunk, staged);
+    if (diff.isEmpty()) {
+        return;
+    }
+
+    QTemporaryFile *file = new QTemporaryFile(this);
+    if (!file->open()) {
+        sendMessage(i18n("Failed to stage selection"), true);
+        return;
+    }
+    file->write(diff.toUtf8());
+    file->close();
+
+    QStringList args{QStringLiteral("apply"), QStringLiteral("--index"), QStringLiteral("--cached"), file->fileName()};
+
+    disconnect(&git, &QProcess::finished, nullptr, nullptr);
+    connect(&git, &QProcess::finished, this, [=](int exitCode, QProcess::ExitStatus es) {
+        // sever connection
+        delete file;
+        disconnect(&git, &QProcess::finished, nullptr, nullptr);
+        if (es != QProcess::NormalExit || exitCode != 0) {
+            sendMessage(QStringLiteral("Failed to stage\n") + QString::fromUtf8(git.readAllStandardError()), true);
+        } else {
+            // close and reopen doc to show updated diff
+            if (v && v->document()) {
+                KTextEditor::Editor::instance()->application()->closeDocument(v->document());
+                showDiff(fileName, staged);
+            }
+            // must come at the end
+            QTimer::singleShot(100, this, [this] {
+                getStatus();
+            });
         }
     });
     git.setArguments(args);
@@ -422,7 +524,7 @@ void GitWidget::buildMenu()
         }
     });
     m_gitMenu->addAction(i18n("Checkout Branch"), this, [this] {
-        BranchesDialog bd(this, m_mainWin, m_project->baseDir());
+        BranchesDialog bd(this, m_mainWin, m_pluginView, m_project->baseDir());
         bd.openDialog();
     });
 

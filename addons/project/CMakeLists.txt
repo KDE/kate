@@ -71,6 +71,7 @@ target_sources(
     tools/kateprojectcodeanalysistoolshellcheck.cpp
     tools/kateprojectcodeanalysisselector.cpp
 
+    git/gitdiff.cpp
     git/gitutils.cpp
     git/gitstatus.cpp
 

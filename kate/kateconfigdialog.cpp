@@ -81,6 +81,17 @@ void KateConfigDialog::addBehaviorPage()
     QVBoxLayout *vbox = new QVBoxLayout;
     layout->addWidget(buttonGroup);
 
+    auto hlayout = new QHBoxLayout;
+    auto label = new QLabel(i18n("&Switch to output view upon message type:"), buttonGroup);
+    hlayout->addWidget(label);
+    m_messageTypes = new QComboBox(buttonGroup);
+    hlayout->addWidget(m_messageTypes);
+    label->setBuddy(m_messageTypes);
+    m_messageTypes->addItems({i18n("Never"), i18n("Error"), i18n("Warning"), i18n("Info"), i18n("Log")});
+    m_messageTypes->setCurrentIndex(cgGeneral.readEntry("Show output view for message type", 1));
+    connect(m_messageTypes, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &KateConfigDialog::slotChanged);
+    vbox->addLayout(hlayout);
+
     // modified files notification
     m_modNotifications = new QCheckBox(i18n("Wa&rn about files modified by foreign processes"), buttonGroup);
     m_modNotifications->setChecked(m_mainWindow->modNotificationEnabled());
@@ -99,8 +110,8 @@ void KateConfigDialog::addBehaviorPage()
     buttonGroup = new QGroupBox(i18n("&Tabs"), generalFrame);
     vbox = new QVBoxLayout;
     buttonGroup->setLayout(vbox);
-    auto hlayout = new QHBoxLayout;
-    auto label = new QLabel(i18n("&Limit number of tabs:"), buttonGroup);
+    hlayout = new QHBoxLayout;
+    label = new QLabel(i18n("&Limit number of tabs:"), buttonGroup);
     hlayout->addWidget(label);
     m_tabLimit = new QSpinBox(buttonGroup);
     hlayout->addWidget(m_tabLimit);
@@ -330,6 +341,8 @@ void KateConfigDialog::slotApply()
 
         cg.writeEntry("Close After Last", sessionConfigUi.modCloseAfterLast->isChecked());
         m_mainWindow->setModCloseAfterLast(sessionConfigUi.modCloseAfterLast->isChecked());
+
+        cg.readEntry("Show output view for message type", m_messageTypes->currentIndex());
 
         cg.writeEntry("Tabbar Tab Limit", m_tabLimit->value());
 

@@ -1,6 +1,7 @@
 /*  SPDX-License-Identifier: LGPL-2.0-or-later
 
     SPDX-FileCopyrightText: 2018 Tomaz Canabrava <tcanabrava@kde.org>
+    SPDX-FileCopyrightText: 2021 Waqar Ahmed <waqar.17a@gmail.com>
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
@@ -14,11 +15,11 @@
 #include <ktexteditor/view.h>
 
 #include <QFileInfo>
+#include <QIcon>
 #include <QMimeDatabase>
 
-KateQuickOpenModel::KateQuickOpenModel(KateMainWindow *mainWindow, QObject *parent)
+KateQuickOpenModel::KateQuickOpenModel(QObject *parent)
     : QAbstractTableModel(parent)
-    , m_mainWindow(mainWindow)
 {
 }
 
@@ -48,7 +49,7 @@ QVariant KateQuickOpenModel::data(const QModelIndex &idx, int role) const
     case Role::FileName:
         return entry.fileName;
     case Role::FilePath:
-        return entry.filePath;
+        return QString(entry.filePath).remove(m_projectBase);
     case Qt::FontRole: {
         if (entry.bold) {
             QFont font;
@@ -60,7 +61,7 @@ QVariant KateQuickOpenModel::data(const QModelIndex &idx, int role) const
     case Qt::DecorationRole:
         return QIcon::fromTheme(QMimeDatabase().mimeTypeForFile(entry.fileName, QMimeDatabase::MatchExtension).iconName());
     case Qt::UserRole:
-        return entry.url;
+        return entry.url.isEmpty() ? QUrl::fromLocalFile(entry.filePath) : entry.url;
     case Role::Score:
         return entry.score;
     default:
@@ -70,10 +71,10 @@ QVariant KateQuickOpenModel::data(const QModelIndex &idx, int role) const
     return {};
 }
 
-void KateQuickOpenModel::refresh()
+void KateQuickOpenModel::refresh(KateMainWindow *mainWindow)
 {
-    QObject *projectView = m_mainWindow->pluginView(QStringLiteral("kateprojectplugin"));
-    const QList<KTextEditor::View *> sortedViews = m_mainWindow->viewManager()->sortedViews();
+    QObject *projectView = mainWindow->pluginView(QStringLiteral("kateprojectplugin"));
+    const QList<KTextEditor::View *> sortedViews = mainWindow->viewManager()->sortedViews();
     const QList<KTextEditor::Document *> openDocs = KateApp::self()->documentManager()->documentList();
     const QStringList projectDocs = projectView
         ? (m_listMode == CurrentProject ? projectView->property("projectFiles") : projectView->property("allProjectsFiles")).toStringList()
@@ -94,40 +95,37 @@ void KateQuickOpenModel::refresh()
         return ret;
     }();
 
+    m_projectBase = projectBase;
+
     QVector<ModelEntry> allDocuments;
     allDocuments.reserve(sortedViews.size() + projectDocs.size());
 
-    QSet<QUrl> openedDocUrls;
+    QSet<QString> openedDocUrls;
     openedDocUrls.reserve(sortedViews.size());
 
     for (auto *view : qAsConst(sortedViews)) {
         auto doc = view->document();
-        const auto url = doc->url();
-        if (openedDocUrls.contains(url)) {
-            continue;
-        }
-        openedDocUrls.insert(url);
-        allDocuments.push_back(
-            {url, doc->documentName(), url.toDisplayString(QUrl::NormalizePathSegments | QUrl::PreferLocalFile).remove(projectBase), true, -1});
+        auto path = doc->url().toString(QUrl::NormalizePathSegments | QUrl::PreferLocalFile);
+        openedDocUrls.insert(path);
+        allDocuments.push_back({doc->url(), doc->documentName(), path, true, -1});
     }
 
     for (auto *doc : qAsConst(openDocs)) {
-        auto url = doc->url();
-        if (openedDocUrls.contains(url)) {
+        auto path = doc->url().toString(QUrl::NormalizePathSegments | QUrl::PreferLocalFile);
+        if (openedDocUrls.contains(path)) {
             continue;
         }
-        openedDocUrls.insert(url);
-        const auto normalizedUrl = url.toString(QUrl::NormalizePathSegments | QUrl::PreferLocalFile).remove(projectBase);
-        allDocuments.push_back({doc->url(), doc->documentName(), normalizedUrl, true, -1});
+        openedDocUrls.insert(path);
+        allDocuments.push_back({doc->url(), doc->documentName(), path, true, -1});
     }
 
     for (const auto &file : qAsConst(projectDocs)) {
         QFileInfo fi(file);
-        const auto localFile = QUrl::fromLocalFile(fi.absoluteFilePath());
-        if (openedDocUrls.contains(localFile)) {
+        // projectDocs items have full path already, reuse that
+        if (openedDocUrls.contains(file)) {
             continue;
         }
-        allDocuments.push_back({localFile, fi.fileName(), fi.filePath().remove(projectBase), false, -1});
+        allDocuments.push_back({QUrl(), fi.fileName(), file, false, -1});
     }
 
     beginResetModel();

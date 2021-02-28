@@ -6,6 +6,7 @@
 #include "stashdialog.h"
 #include "git/gitutils.h"
 #include "gitwidget.h"
+#include "kateprojectpluginview.h"
 
 #include <QCoreApplication>
 #include <QFileInfo>
@@ -295,12 +296,8 @@ void StashDialog::reselectFirst()
 
 void StashDialog::sendMessage(const QString &message, bool warn)
 {
-    KTextEditor::Message *msg = new KTextEditor::Message(message, warn ? KTextEditor::Message::Warning : KTextEditor::Message::Positive);
-    msg->setPosition(KTextEditor::Message::TopInView);
-    msg->setAutoHide(3000);
-    msg->setAutoHideMode(KTextEditor::Message::Immediate);
-    msg->setView(m_mainWindow->activeView());
-    m_mainWindow->activeView()->document()->postMessage(msg);
+    // just proxy to git widget
+    m_gitwidget->sendMessage(message, warn);
 }
 
 void StashDialog::stash(bool keepIndex, bool includeUntracked)

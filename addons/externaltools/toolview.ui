@@ -39,23 +39,6 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="tabStatus">
-    <attribute name="title">
-     <string>Status</string>
-    </attribute>
-    <layout class="QVBoxLayout" name="verticalLayout_2">
-     <item>
-      <widget class="QTextEdit" name="teStatus">
-       <property name="readOnly">
-        <bool>true</bool>
-       </property>
-       <property name="placeholderText">
-        <string>No errors detected</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
   </widget>
  </widget>
  <resources/>

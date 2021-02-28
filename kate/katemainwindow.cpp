@@ -19,6 +19,7 @@
 #include "katedocmanager.h"
 #include "katefileactions.h"
 #include "katemwmodonhddialog.h"
+#include "kateoutputview.h"
 #include "katepluginmanager.h"
 #include "katequickopen.h"
 #include "katesavemodifieddialog.h"
@@ -270,6 +271,17 @@ void KateMainWindow::setupMainWindow()
     m_bottomViewBarContainer = new QWidget(centralWidget());
     centralWidget()->layout()->addWidget(m_bottomViewBarContainer);
     m_bottomContainerStack = new KateContainerStackedLayout(m_bottomViewBarContainer);
+
+    /**
+     * create generic output tool view
+     * is used to display output of e.g. plugins
+     */
+    m_toolViewOutput = createToolView(nullptr /* toolview has no plugin it belongs to */,
+                                      QStringLiteral("output"),
+                                      KTextEditor::MainWindow::Bottom,
+                                      QIcon::fromTheme(QStringLiteral("output_win")),
+                                      i18n("Output"));
+    m_outputView = new KateOutputView(this, m_toolViewOutput);
 }
 
 void KateMainWindow::setupActions()
@@ -1139,6 +1151,10 @@ bool KateMainWindow::event(QEvent *e)
     if (e->type() == QEvent::ShortcutOverride) {
         QKeyEvent *k = static_cast<QKeyEvent *>(e);
         Q_EMIT unhandledShortcutOverride(k);
+
+        if (k->key() == Qt::Key_Escape && k->modifiers() == Qt::NoModifier && !m_toolViewOutput->isHidden()) {
+            hideToolView(m_toolViewOutput);
+        }
     }
     return KateMDI::MainWindow::event(e);
 }

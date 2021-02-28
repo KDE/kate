@@ -74,7 +74,7 @@ KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject 
      * Setup git checkout stuff
      */
     m_branchBtn->setHidden(true);
-    m_branchesDialog = new BranchesDialog(this, mainWindow, m_project->baseDir());
+    m_branchesDialog = new BranchesDialog(this, mainWindow, m_pluginView, m_project->baseDir());
     connect(m_branchBtn, &QPushButton::clicked, this, [this] {
         m_branchesDialog->openDialog();
     });

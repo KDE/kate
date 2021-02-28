@@ -182,6 +182,13 @@ Q_SIGNALS:
      */
     void gotoSymbol(const QString &word, int &results);
 
+    /**
+     * Signal for outgoing message, the host application will handle them!
+     * Will only be handled inside the main windows of this plugin view.
+     * @param message outgoing message we send to the host application
+     */
+    void message(const QVariantMap &message);
+
 private Q_SLOTS:
     /**
      * This slot is called whenever the active view changes in our main window.
@@ -208,6 +215,11 @@ private Q_SLOTS:
      * Handle esc key and hide the toolview
      */
     void handleEsc(QEvent *e);
+
+    /**
+     * Update git status on toolview shown
+     */
+    void slotUpdateStatus(bool visible);
 
 private:
     /**

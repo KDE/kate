@@ -114,6 +114,13 @@ Q_SIGNALS:
      */
     void configUpdated();
 
+    /**
+     * Signal for outgoing message, the host application will handle them!
+     * Will be handled in all open main windows.
+     * @param message outgoing message we send to the host application
+     */
+    void message(const QVariantMap &message);
+
 public Q_SLOTS:
     /**
      * New document got created, we need to update our connections

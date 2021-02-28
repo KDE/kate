@@ -324,8 +324,6 @@ class LSPClientActionView : public QObject
     QPointer<QAction> m_diagnosticsHover;
     QPointer<QAction> m_diagnosticsSwitch;
     QPointer<QAction> m_messages;
-    QPointer<KSelectAction> m_messagesAutoSwitch;
-    QPointer<QAction> m_messagesSwitch;
     QPointer<QAction> m_closeDynamic;
     QPointer<QAction> m_restartServer;
     QPointer<QAction> m_restartAll;
@@ -361,12 +359,6 @@ class LSPClientActionView : public QObject
     RangeCollection m_diagnosticsRanges;
     // and marks
     DocumentCollection m_diagnosticsMarks;
-
-    using MessagesWidget = QPlainTextEdit;
-    // messages tab
-    QPointer<MessagesWidget> m_messagesView;
-    // widget is either owned here or by tab
-    QScopedPointer<MessagesWidget> m_messagesViewOwn;
 
     // views on which completions have been registered
     QSet<KTextEditor::View *> m_completionViews;
@@ -408,6 +400,14 @@ class LSPClientActionView : public QObject
             return m_parent->onTextHint(view, position);
         }
     };
+
+Q_SIGNALS:
+    /**
+     * Signal for outgoing message, the host application will handle them!
+     * Will only be handled inside the main windows of this plugin view.
+     * @param message outgoing message we send to the host application
+     */
+    void message(const QVariantMap &message);
 
 public:
     LSPClientActionView(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin, KXMLGUIClient *client, QSharedPointer<LSPClientServerManager> serverManager)
@@ -482,16 +482,6 @@ public:
         m_messages = actionCollection()->addAction(QStringLiteral("lspclient_messages"), this, &self_type::displayOptionChanged);
         m_messages->setText(i18n("Show messages"));
         m_messages->setCheckable(true);
-        m_messagesAutoSwitch = new KSelectAction(i18n("Switch to messages tab upon message level"), this);
-        actionCollection()->addAction(QStringLiteral("lspclient_messages_auto_switch"), m_messagesAutoSwitch);
-        const QStringList list{i18nc("@info", "Never"),
-                               i18nc("@info", "Error"),
-                               i18nc("@info", "Warning"),
-                               i18nc("@info", "Information"),
-                               i18nc("@info", "Log")};
-        m_messagesAutoSwitch->setItems(list);
-        m_messagesSwitch = actionCollection()->addAction(QStringLiteral("lspclient_messages_switch"), this, &self_type::switchToMessages);
-        m_messagesSwitch->setText(i18n("Switch to messages tab"));
 
         // server control and misc actions
         m_closeDynamic = actionCollection()->addAction(QStringLiteral("lspclient_close_dynamic"), this, &self_type::closeDynamic);
@@ -515,7 +505,6 @@ public:
         menu->addAction(m_triggerRename);
         menu->addSeparator();
         menu->addAction(m_diagnosticsSwitch);
-        menu->addAction(m_messagesSwitch);
         menu->addAction(m_closeDynamic);
         menu->addSeparator();
         menu->addAction(m_restartServer);
@@ -536,7 +525,6 @@ public:
         moreOptions->addAction(m_diagnosticsHover);
         moreOptions->addSeparator();
         moreOptions->addAction(m_messages);
-        moreOptions->addAction(m_messagesAutoSwitch);
 
         // sync with plugin settings if updated
         connect(m_plugin, &LSPClientPlugin::update, this, &self_type::configUpdated);
@@ -565,12 +553,6 @@ public:
         configureTreeView(m_diagnosticsTree);
         connect(m_diagnosticsTree, &QTreeView::clicked, this, &self_type::goToItemLocation);
         connect(m_diagnosticsTree, &QTreeView::doubleClicked, this, &self_type::triggerCodeAction);
-
-        // messages tab
-        m_messagesView = new QPlainTextEdit();
-        m_messagesView->setMaximumBlockCount(100);
-        m_messagesView->setReadOnly(true);
-        m_messagesViewOwn.reset(m_messagesView);
 
         // track position in view to sync diagnostics list
         m_viewTracker.reset(LSPClientViewTracker::new_(plugin, mainWin, 0, 500));
@@ -760,23 +742,13 @@ public:
         m_diagnosticsHighlight->setEnabled(m_diagnostics->isChecked());
         m_diagnosticsMark->setEnabled(m_diagnostics->isChecked());
         m_diagnosticsHover->setEnabled(m_diagnostics->isChecked());
-        // messages tab should go first
-        int messagesIndex = m_tabWidget->indexOf(m_messagesView);
-        if (m_messages->isChecked() && m_messagesViewOwn) {
-            m_tabWidget->insertTab(0, m_messagesView, i18nc("@title:tab", "Messages"));
-            messagesIndex = 0;
-            m_messagesViewOwn.take();
-        } else if (!m_messages->isChecked() && !m_messagesViewOwn) {
-            m_messagesViewOwn.reset(m_messagesView);
-            m_tabWidget->removeTab(messagesIndex);
-            messagesIndex = -1;
-        }
+
         // diagnstics tab next
         int diagnosticsIndex = m_tabWidget->indexOf(m_diagnosticsTree);
         // setTabEnabled may still show it ... so let's be more forceful
         if (m_diagnostics->isChecked() && m_diagnosticsTreeOwn) {
             m_diagnosticsTreeOwn.take();
-            m_tabWidget->insertTab(messagesIndex + 1, m_diagnosticsTree, i18nc("@title:tab", "Diagnostics"));
+            m_tabWidget->insertTab(0, m_diagnosticsTree, i18nc("@title:tab", "Diagnostics"));
         } else if (!m_diagnostics->isChecked() && !m_diagnosticsTreeOwn) {
             m_diagnosticsTreeOwn.reset(m_diagnosticsTree);
             m_tabWidget->removeTab(diagnosticsIndex);
@@ -817,9 +789,6 @@ public:
         }
         if (m_messages) {
             m_messages->setChecked(m_plugin->m_messages);
-        }
-        if (m_messagesAutoSwitch) {
-            m_messagesAutoSwitch->setCurrentItem(m_plugin->m_messagesAutoSwitch);
         }
         displayOptionChanged();
     }
@@ -1205,7 +1174,7 @@ public:
     bool tabCloseRequested(int index)
     {
         auto widget = m_tabWidget->widget(index);
-        if (widget != m_diagnosticsTree && widget != m_messagesView) {
+        if (widget != m_diagnosticsTree) {
             if (m_markModel && widget == m_markModel->parent()) {
                 clearAllLocationMarks();
             }
@@ -1224,12 +1193,6 @@ public:
     void switchToDiagnostics()
     {
         m_tabWidget->setCurrentWidget(m_diagnosticsTree);
-        m_mainWindow->showToolView(m_toolView.data());
-    }
-
-    void switchToMessages()
-    {
-        m_tabWidget->setCurrentWidget(m_messagesView);
         m_mainWindow->showToolView(m_toolView.data());
     }
 
@@ -1988,42 +1951,38 @@ public:
         return nullptr;
     }
 
-    void addMessage(LSPMessageType level, const QString &header, const QString &msg)
+    void addMessage(LSPMessageType level, const QString &category, const QString &msg)
     {
-        if (!m_messagesView) {
+        // skip messaging if not enabled
+        if (!m_messages->isChecked()) {
             return;
         }
 
-        QString lvl = i18nc("@info", "Unknown");
+        // use generic output view
+        QVariantMap genericMessage;
+        genericMessage.insert(QStringLiteral("category"), category);
+        genericMessage.insert(QStringLiteral("text"), msg);
+
+        // translate level to the type keys
+        QString type;
         switch (level) {
         case LSPMessageType::Error:
-            lvl = i18nc("@info", "Error");
+            type = QStringLiteral("Error");
             break;
         case LSPMessageType::Warning:
-            lvl = i18nc("@info", "Warning");
+            type = QStringLiteral("Warning");
             break;
         case LSPMessageType::Info:
-            lvl = i18nc("@info", "Information");
+            type = QStringLiteral("Info");
             break;
         case LSPMessageType::Log:
-            lvl = i18nc("@info", "Log");
+            type = QStringLiteral("Log");
             break;
         }
+        genericMessage.insert(QStringLiteral("type"), type);
 
-        // let's consider this expert info and use ISO date
-        auto now = QDateTime::currentDateTime().toString(Qt::ISODate);
-        auto text = QStringLiteral("[%1] [%2] [%3]\n%4\n").arg(now, lvl, header, msg.trimmed());
-        m_messagesView->appendPlainText(text);
-
-        if (static_cast<int>(level) <= m_messagesAutoSwitch->currentItem()) {
-            switchToMessages();
-        } else {
-            // show arrival of new message
-            auto index = m_tabWidget->indexOf(m_messagesView);
-            if (m_tabWidget->currentIndex() != index) {
-                m_tabWidget->tabBar()->setTabTextColor(index, Qt::gray);
-            }
-        }
+        // host application will handle these message for us, including auto-show settings
+        Q_EMIT message(genericMessage);
     }
 
     // params type is same for show or log and is treated the same way
@@ -2031,11 +1990,11 @@ public:
     {
         // determine server description
         auto server = dynamic_cast<LSPClientServer *>(sender());
-        auto desc = i18nc("@info", "LSP Server");
+        auto message = params.message;
         if (server) {
-            desc += QStringLiteral(": %1").arg(LSPClientServerManager::serverDescription(server));
+            message = QStringLiteral("%1\n%2").arg(LSPClientServerManager::serverDescription(server), message);
         }
-        addMessage(params.type, desc, params.message);
+        addMessage(params.type, i18nc("@info", "LSP Server"), message);
     }
 
     void onShowMessage(KTextEditor::Message::MessageType level, const QString &msg)
@@ -2439,7 +2398,7 @@ class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient
 
     KTextEditor::MainWindow *m_mainWindow;
     QSharedPointer<LSPClientServerManager> m_serverManager;
-    QScopedPointer<LSPClientActionView> m_actionView;
+    QScopedPointer<class LSPClientActionView> m_actionView;
 
 public:
     LSPClientPluginViewImpl(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin)
@@ -2454,6 +2413,8 @@ public:
         m_actionView.reset(new LSPClientActionView(plugin, mainWin, this, m_serverManager));
 
         m_mainWindow->guiFactory()->addClient(this);
+
+        connect(m_actionView.get(), &LSPClientActionView::message, this, &LSPClientPluginViewImpl::message);
     }
 
     ~LSPClientPluginViewImpl() override
@@ -2466,6 +2427,14 @@ public:
         m_serverManager.reset();
         m_mainWindow->guiFactory()->removeClient(this);
     }
+
+Q_SIGNALS:
+    /**
+     * Signal for outgoing message, the host application will handle them!
+     * Will only be handled inside the main windows of this plugin view.
+     * @param message outgoing message we send to the host application
+     */
+    void message(const QVariantMap &message);
 };
 
 QObject *LSPClientPluginView::new_(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin)

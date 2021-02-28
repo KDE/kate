@@ -14,6 +14,7 @@ class BranchesDialogModel;
 class QAction;
 class BranchFilterModel;
 class KActionCollection;
+class KateProjectPluginView;
 
 namespace KTextEditor
 {
@@ -24,7 +25,7 @@ class BranchesDialog : public QMenu
 {
     Q_OBJECT
 public:
-    BranchesDialog(QWidget *parent, KTextEditor::MainWindow *mainWindow, QString projectPath);
+    BranchesDialog(QWidget *parent, KTextEditor::MainWindow *mainWindow, KateProjectPluginView *pluginView, QString projectPath);
 
     void openDialog();
 
@@ -52,6 +53,7 @@ private:
     BranchesDialogModel *m_model;
     BranchFilterModel *m_proxyModel;
     KTextEditor::MainWindow *m_mainWindow;
+    KateProjectPluginView *m_pluginView;
     QString m_projectPath;
     QFutureWatcher<GitUtils::CheckoutResult> m_checkoutWatcher;
     QString m_checkoutBranchName;

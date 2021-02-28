@@ -29,6 +29,7 @@ struct KateGitBlameInfo {
     QString commitHash;
     QString name;
     QDateTime date;
+    QString title;
     QString line;
 };
 
@@ -78,9 +79,19 @@ private Q_SLOTS:
     void showFinished(int exitCode, QProcess::ExitStatus exitStatus);
 
 private:
+    struct CommitInfo {
+        QString m_hash;
+        QString m_title;
+        QString m_content;
+        void clear();
+    };
+
     void addDocument(KTextEditor::Document *doc);
 
     void startBlameProcess(const QUrl &url);
+    void startShowProcess(const QUrl &url, const QString &hash);
+
+    const KateGitBlameInfo &blameGetUpdateInfo(int lineNr);
 
     KTextEditor::MainWindow *m_mainWindow;
     QHash<KTextEditor::Document *, GitBlameInlineNoteProvider *> m_inlineNoteProviders;
@@ -92,6 +103,8 @@ private:
     int m_lineOffset{0};
 
     GitBlameTooltip m_tooltip;
+    QString m_showHash;
+    CommitInfo m_activeCommitInfo;
 };
 
 #endif // KateGitBlamePlugin_h

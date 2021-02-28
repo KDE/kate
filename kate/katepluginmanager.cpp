@@ -11,6 +11,7 @@
 #include "kateapp.h"
 #include "katedebug.h"
 #include "katemainwindow.h"
+#include "kateoutputview.h"
 
 #include <KConfig>
 #include <KConfigGroup>
@@ -19,6 +20,7 @@
 
 #include <QFile>
 #include <QFileInfo>
+#include <QMetaObject>
 
 #include <ktexteditor/sessionconfiginterface.h>
 
@@ -221,10 +223,20 @@ void KatePluginManager::enablePluginGUI(KatePluginInfo *item, KateMainWindow *wi
     // lookup if there is already a view for it..
     QObject *createdView = nullptr;
     if (!win->pluginViews().contains(item->plugin)) {
+        // ensure messaging is connected, if available, for the complete plugin
+        if (item->plugin->metaObject()->indexOfSignal("message(QVariantMap)") != -1) {
+            connect(item->plugin, SIGNAL(message(const QVariantMap &)), win->outputView(), SLOT(slotMessage(const QVariantMap &)), Qt::UniqueConnection);
+        }
+
         // create the view + try to correctly load shortcuts, if it's a GUI Client
         createdView = item->plugin->createView(win->wrapper());
         if (createdView) {
             win->pluginViews().insert(item->plugin, createdView);
+
+            // ensure messaging is connected, if available, for view, too!
+            if (createdView->metaObject()->indexOfSignal("message(QVariantMap)") != -1) {
+                connect(createdView, SIGNAL(message(const QVariantMap &)), win->outputView(), SLOT(slotMessage(const QVariantMap &)), Qt::UniqueConnection);
+            }
         }
     }
 

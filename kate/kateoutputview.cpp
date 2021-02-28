@@ -69,22 +69,21 @@ protected:
         }
 
         const auto idxCat = sourceModel()->index(sourceRow, 1, sourceParent);
-        const auto idxTyp = sourceModel()->index(sourceRow, 2, sourceParent);
-        const auto idxBod = sourceModel()->index(sourceRow, 3, sourceParent);
+        const auto idxType = sourceModel()->index(sourceRow, 2, sourceParent);
+        const auto idxBody = sourceModel()->index(sourceRow, 3, sourceParent);
 
         const QString cat = idxCat.data().toString();
-        const QString typ = idxTyp.data().toString();
-        const QString bod = idxBod.data().toString();
+        const QString type = idxType.data().toString();
+        const QString body = idxBody.data().toString();
 
         int scorec = 0;
         int scoret = 0;
-        int scoreb = 0;
         const bool resc = kfts::fuzzy_match(m_pattern, cat, scorec);
-        const bool rest = kfts::fuzzy_match(m_pattern, typ, scoret);
-        const bool resb = kfts::fuzzy_match(m_pattern, bod, scoreb);
+        const bool rest = kfts::fuzzy_match(m_pattern, type, scoret);
+        const bool resb = body.contains(m_pattern, Qt::CaseInsensitive);
 
         const auto idx = sourceModel()->index(sourceRow, 0, sourceParent);
-        sourceModel()->setData(idx, scorec + scoret + scoreb, WeightRole);
+        sourceModel()->setData(idx, scorec + scoret, WeightRole);
         return resc || rest || resb;
     }
 
@@ -97,14 +96,9 @@ KateOutputView::KateOutputView(KateMainWindow *mainWindow, QWidget *parent)
     : QWidget(parent)
     , m_mainWindow(mainWindow)
 {
-    // filter line is always hidden initially
-    m_filterLine.setHidden(true);
-    m_filterLine.installEventFilter(this);
-
     m_proxyModel = new OutputSortFilterProxyModel(this);
     m_proxyModel->setSourceModel(&m_messagesModel);
-
-    connect(&m_filterLine, &QLineEdit::textChanged, static_cast<OutputSortFilterProxyModel *>(m_proxyModel), &OutputSortFilterProxyModel::setFilterString);
+    m_proxyModel->setRecursiveFilteringEnabled(true);
 
     // simple vbox layout with just the tree view ATM
     // TODO: e.g. filter and such!
@@ -115,33 +109,33 @@ KateOutputView::KateOutputView(KateMainWindow *mainWindow, QWidget *parent)
     m_messagesTreeView->setRootIsDecorated(false);
     m_messagesTreeView->setUniformRowHeights(true);
     m_messagesTreeView->setModel(m_proxyModel);
+    m_messagesTreeView->setIndentation(0);
 
-    // buttons at top
-    QHBoxLayout *hLayout = new QHBoxLayout();
-    hLayout->addStretch();
-    auto filter = new QToolButton(this);
-    filter->setToolTip(QStringLiteral("Filter"));
-    filter->setIcon(QIcon::fromTheme(QStringLiteral("view-filter")));
-    filter->setCheckable(true);
-    connect(filter, &QToolButton::toggled, this, [this] {
-        if (!m_filterLine.isHidden()) {
-            m_filterLine.clear();
-        }
-        m_filterLine.setHidden(!m_filterLine.isHidden());
-        m_filterLine.setFocus();
+    // filter line edit
+    m_filterLine.installEventFilter(this);
+    m_filterLine.setPlaceholderText(i18n("Type to filter..."));
+    connect(&m_filterLine, &QLineEdit::textChanged, this, [this](const QString &text) {
+        static_cast<OutputSortFilterProxyModel *>(m_proxyModel)->setFilterString(text);
+        m_messagesTreeView->expandAll();
     });
-    hLayout->addWidget(filter);
-    auto clear = new QPushButton(QIcon::fromTheme(QStringLiteral("edit-clear")), QStringLiteral("Clear"));
+
+    // clear button
+    auto clear = new QToolButton(this);
+    clear->setIcon(QIcon::fromTheme(QStringLiteral("edit-clear-history")));
+    clear->setToolTip(i18n("Clear all messages"));
     connect(clear, &QPushButton::clicked, this, [this] {
         m_messagesModel.clear();
     });
-    hLayout->addWidget(clear);
 
-    // tree view and filter line edit
+    // setup top horizontal layout
+    QHBoxLayout *hLayout = new QHBoxLayout();
+    hLayout->addWidget(&m_filterLine);
+    hLayout->addWidget(clear);
+    hLayout->setStretch(0, 1);
+
+    // tree view
     layout->addLayout(hLayout);
     layout->addWidget(m_messagesTreeView);
-    layout->addWidget(&m_filterLine);
-
     // read config once
     readConfig();
 

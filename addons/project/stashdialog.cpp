@@ -34,7 +34,7 @@
 
 constexpr int StashIndexRole = Qt::UserRole + 2;
 
-class StashFilterModel : public QSortFilterProxyModel
+class StashFilterModel final : public QSortFilterProxyModel
 {
 public:
     StashFilterModel(QObject *parent = nullptr)
@@ -68,10 +68,9 @@ protected:
         sourceModel()->setData(idx, score, FuzzyScore);
         return res;
     }
-
 private:
-    QString m_pattern;
     static constexpr int FuzzyScore = Qt::UserRole + 1;
+    QString m_pattern;
 };
 
 class StyleDelegate : public QStyledItemDelegate
@@ -133,54 +132,24 @@ private:
     QString m_filterString;
 };
 
-StashDialog::StashDialog(QWidget *parent, KTextEditor::MainWindow *mainWindow)
-    : QMenu(parent)
-    , m_mainWindow(mainWindow)
-    , m_gitwidget(qobject_cast<GitWidget *>(parent))
+StashDialog::StashDialog(GitWidget *gitwidget, QWidget *window)
+    : QuickDialog(window)
+    , m_gitwidget(gitwidget)
 {
-    QVBoxLayout *layout = new QVBoxLayout();
-    layout->setSpacing(0);
-    layout->setContentsMargins(4, 4, 4, 4);
-    setLayout(layout);
-
-    m_lineEdit = new QLineEdit(this);
-    setFocusProxy(m_lineEdit);
-
-    layout->addWidget(m_lineEdit);
-
-    m_treeView = new QTreeView();
-    layout->addWidget(m_treeView, 1);
-    m_treeView->setTextElideMode(Qt::ElideLeft);
-    m_treeView->setUniformRowHeights(true);
-
     m_model = new QStandardItemModel(this);
+    m_proxyModel = new StashFilterModel(this);
+    m_proxyModel->setSourceModel(m_model);
+    m_treeView.setModel(m_proxyModel);
 
     StyleDelegate *delegate = new StyleDelegate(this);
-    m_treeView->setItemDelegateForColumn(0, delegate);
-
-    m_proxyModel = new StashFilterModel(this);
-    m_proxyModel->setFilterRole(Qt::DisplayRole);
-
-    connect(m_lineEdit, &QLineEdit::returnPressed, this, &StashDialog::slotReturnPressed);
-    connect(m_lineEdit, &QLineEdit::textChanged, m_proxyModel, &StashFilterModel::setFilterString);
-    connect(m_lineEdit, &QLineEdit::textChanged, delegate, &StyleDelegate::setFilterString);
-    connect(m_lineEdit, &QLineEdit::textChanged, this, [this]() {
-        m_treeView->viewport()->update();
-        reselectFirst();
+    m_treeView.setItemDelegateForColumn(0, delegate);
+    connect(&m_lineEdit, &QLineEdit::textChanged, delegate, [this, delegate](const QString &string) {
+        m_proxyModel->setFilterString(string);
+        delegate->setFilterString(string);
+        // reselect first
+        m_treeView.setCurrentIndex(m_proxyModel->index(0, 0));
     });
-    connect(m_treeView, &QTreeView::clicked, this, &StashDialog::slotReturnPressed);
-
-    m_proxyModel->setSourceModel(m_model);
-    m_treeView->setSortingEnabled(true);
-    m_treeView->setModel(m_proxyModel);
-
-    m_treeView->installEventFilter(this);
-    m_lineEdit->installEventFilter(this);
-
-    m_treeView->setHeaderHidden(true);
-    m_treeView->setRootIsDecorated(false);
-    m_treeView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    m_treeView->setSelectionMode(QTreeView::SingleSelection);
+    m_proxyModel->setFilterRole(Qt::DisplayRole);
 }
 
 void StashDialog::openDialog(StashDialog::Mode m)
@@ -191,14 +160,14 @@ void StashDialog::openDialog(StashDialog::Mode m)
     case Mode::Stash:
     case Mode::StashKeepIndex:
     case Mode::StashUntrackIncluded:
-        m_lineEdit->setPlaceholderText(i18n("Stash message (optional). Enter to confirm, Esc to leave."));
+        m_lineEdit.setPlaceholderText(i18n("Stash message (optional). Enter to confirm, Esc to leave."));
         m_currentMode = m;
         break;
     case Mode::StashPop:
     case Mode::StashDrop:
     case Mode::StashApply:
     case Mode::ShowStashContent:
-        m_lineEdit->setPlaceholderText(i18n("Type to filter, Enter to pop stash, Esc to leave."));
+        m_lineEdit.setPlaceholderText(i18n("Type to filter, Enter to pop stash, Esc to leave."));
         m_currentMode = m;
         getStashList();
         break;
@@ -211,49 +180,12 @@ void StashDialog::openDialog(StashDialog::Mode m)
     default:
         return;
     }
-    reselectFirst();
+
+    // trigger reselect first
+    m_lineEdit.textChanged(QString());
     updateViewGeometry();
     setFocus();
     exec();
-}
-
-bool StashDialog::eventFilter(QObject *obj, QEvent *event)
-{
-    // catch key presses + shortcut overrides to allow to have ESC as application wide shortcut, too, see bug 409856
-    if (event->type() == QEvent::KeyPress || event->type() == QEvent::ShortcutOverride) {
-        QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
-        if (obj == m_lineEdit) {
-            const bool forward2list = (keyEvent->key() == Qt::Key_Up) || (keyEvent->key() == Qt::Key_Down) || (keyEvent->key() == Qt::Key_PageUp)
-                || (keyEvent->key() == Qt::Key_PageDown);
-            if (forward2list) {
-                QCoreApplication::sendEvent(m_treeView, event);
-                return true;
-            }
-
-            if (keyEvent->key() == Qt::Key_Escape) {
-                m_lineEdit->clear();
-                keyEvent->accept();
-                hide();
-                return true;
-            }
-        } else {
-            const bool forward2input = (keyEvent->key() != Qt::Key_Up) && (keyEvent->key() != Qt::Key_Down) && (keyEvent->key() != Qt::Key_PageUp)
-                && (keyEvent->key() != Qt::Key_PageDown) && (keyEvent->key() != Qt::Key_Tab) && (keyEvent->key() != Qt::Key_Backtab);
-            if (forward2input) {
-                QCoreApplication::sendEvent(m_lineEdit, event);
-                return true;
-            }
-        }
-    }
-
-    // hide on focus out, if neither input field nor list have focus!
-    else if (event->type() == QEvent::FocusOut && !(m_lineEdit->hasFocus() || m_treeView->hasFocus())) {
-        m_lineEdit->clear();
-        hide();
-        return true;
-    }
-
-    return QWidget::eventFilter(obj, event);
 }
 
 void StashDialog::slotReturnPressed()
@@ -269,29 +201,23 @@ void StashDialog::slotReturnPressed()
         stash(false, true);
         break;
     case Mode::StashApply:
-        applyStash(m_treeView->currentIndex().data(StashIndexRole).toByteArray());
+        applyStash(m_treeView.currentIndex().data(StashIndexRole).toByteArray());
         break;
     case Mode::StashPop:
-        popStash(m_treeView->currentIndex().data(StashIndexRole).toByteArray());
+        popStash(m_treeView.currentIndex().data(StashIndexRole).toByteArray());
         break;
     case Mode::StashDrop:
-        dropStash(m_treeView->currentIndex().data(StashIndexRole).toByteArray());
+        dropStash(m_treeView.currentIndex().data(StashIndexRole).toByteArray());
         break;
     case Mode::ShowStashContent:
-        showStash(m_treeView->currentIndex().data(StashIndexRole).toByteArray());
+        showStash(m_treeView.currentIndex().data(StashIndexRole).toByteArray());
         break;
     default:
         break;
     }
 
-    m_lineEdit->clear();
+    clearLineEdit();
     hide();
-}
-
-void StashDialog::reselectFirst()
-{
-    QModelIndex index = m_proxyModel->index(0, 0);
-    m_treeView->setCurrentIndex(index);
 }
 
 void StashDialog::sendMessage(const QString &message, bool warn)
@@ -311,9 +237,9 @@ void StashDialog::stash(bool keepIndex, bool includeUntracked)
         args.append(QStringLiteral("-u"));
     }
 
-    if (!m_lineEdit->text().isEmpty()) {
+    if (!m_lineEdit.text().isEmpty()) {
         args.append(QStringLiteral("-m"));
-        args.append(m_lineEdit->text());
+        args.append(m_lineEdit.text());
     }
 
     auto git = m_gitwidget->gitprocess();
@@ -452,24 +378,3 @@ void StashDialog::showStash(const QByteArray &index)
     git->start(QProcess::ReadOnly);
 }
 
-void StashDialog::updateViewGeometry()
-{
-    m_treeView->resizeColumnToContents(0);
-    m_treeView->resizeColumnToContents(1);
-
-    QWidget *window = m_mainWindow->window();
-    const QSize centralSize = window->size();
-
-    // width: 2.4 of editor, height: 1/2 of editor
-    const QSize viewMaxSize(centralSize.width() / 2.4, centralSize.height() / 2);
-
-    const QSize widgetSize(centralSize.width() / 2.4, m_model->rowCount() == 0 ? m_lineEdit->sizeHint().height() * 2 : centralSize.height() / 2);
-
-    // Position should be central over window
-    const int xPos = std::max(0, (centralSize.width() - viewMaxSize.width()) / 2);
-    const int yPos = std::max(0, (centralSize.height() - viewMaxSize.height()) * 1 / 4);
-    const QPoint p(xPos, yPos);
-    move(p + window->pos());
-
-    this->setFixedSize(widgetSize);
-}

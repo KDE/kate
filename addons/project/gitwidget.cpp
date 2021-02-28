@@ -610,7 +610,7 @@ void GitWidget::openTempFile(const QString &file, const QString &templatString, 
         f->setFileTemplate(templatString);
     }
     if (!f->open()) {
-        qWarning() << "Gitwidget: Failed to open temp file" << f->errorString();
+        sendMessage(i18n("Failed to open temporary file for diff: %1", f->errorString()), true);
         return;
     }
 

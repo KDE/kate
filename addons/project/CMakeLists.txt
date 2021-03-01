@@ -65,6 +65,7 @@ target_sources(
     gitcommitdialog.cpp
     stashdialog.cpp
     filehistorywidget.cpp
+    quickdialog.cpp
 
     tools/kateprojectcodeanalysistoolcppcheck.cpp
     tools/kateprojectcodeanalysistoolflake8.cpp

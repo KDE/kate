@@ -524,7 +524,7 @@ void GitWidget::buildMenu()
         }
     });
     m_gitMenu->addAction(i18n("Checkout Branch"), this, [this] {
-        BranchesDialog bd(this, m_mainWin, m_pluginView, m_project->baseDir());
+        BranchesDialog bd(m_mainWin->window(), m_pluginView, m_project->baseDir());
         bd.openDialog();
     });
 
@@ -545,39 +545,39 @@ QMenu *GitWidget::stashMenu()
     auto showStashAct = menu->addAction(i18n("Show Stash Content"));
 
     connect(stashAct, &QAction::triggered, this, [this] {
-        StashDialog stashDialog(this, m_mainWin);
+        StashDialog stashDialog(this, m_mainWin->window());
         stashDialog.openDialog(StashDialog::Stash);
     });
     connect(stashUAct, &QAction::triggered, this, [this] {
-        StashDialog stashDialog(this, m_mainWin);
+        StashDialog stashDialog(this, m_mainWin->window());
         stashDialog.openDialog(StashDialog::StashUntrackIncluded);
     });
     connect(stashKeepStagedAct, &QAction::triggered, this, [this] {
-        StashDialog stashDialog(this, m_mainWin);
+        StashDialog stashDialog(this, m_mainWin->window());
         stashDialog.openDialog(StashDialog::StashKeepIndex);
     });
     connect(popAct, &QAction::triggered, this, [this] {
-        StashDialog stashDialog(this, m_mainWin);
+        StashDialog stashDialog(this, m_mainWin->window());
         stashDialog.openDialog(StashDialog::StashPop);
     });
     connect(applyStashAct, &QAction::triggered, this, [this] {
-        StashDialog stashDialog(this, m_mainWin);
+        StashDialog stashDialog(this, m_mainWin->window());
         stashDialog.openDialog(StashDialog::StashApply);
     });
     connect(dropAct, &QAction::triggered, this, [this] {
-        StashDialog stashDialog(this, m_mainWin);
+        StashDialog stashDialog(this, m_mainWin->window());
         stashDialog.openDialog(StashDialog::StashDrop);
     });
     connect(popLastAct, &QAction::triggered, this, [this] {
-        StashDialog stashDialog(this, m_mainWin);
+        StashDialog stashDialog(this, m_mainWin->window());
         stashDialog.openDialog(StashDialog::StashPopLast);
     });
     connect(applyLastAct, &QAction::triggered, this, [this] {
-        StashDialog stashDialog(this, m_mainWin);
+        StashDialog stashDialog(this, m_mainWin->window());
         stashDialog.openDialog(StashDialog::StashApplyLast);
     });
     connect(showStashAct, &QAction::triggered, this, [this] {
-        StashDialog stashDialog(this, m_mainWin);
+        StashDialog stashDialog(this, m_mainWin->window());
         stashDialog.openDialog(StashDialog::ShowStashContent);
     });
 

@@ -5,6 +5,8 @@
 */
 #include <QMenu>
 
+#include "quickdialog.h"
+
 class QTreeView;
 class QLineEdit;
 class BranchesDialogModel;
@@ -25,7 +27,7 @@ namespace GitUtils
 struct CheckoutResult;
 }
 
-class StashDialog : public QMenu
+class StashDialog : public QuickDialog
 {
     Q_OBJECT
 public:
@@ -42,20 +44,16 @@ public:
         ShowStashContent,
     };
 
-    StashDialog(QWidget *parent, KTextEditor::MainWindow *mainWindow);
+    StashDialog(GitWidget *gitwidget, QWidget *window);
 
     void openDialog(Mode mode);
 
-    void updateViewGeometry();
-
     Q_SIGNAL void branchChanged(const QString &branch);
 
-protected:
-    bool eventFilter(QObject *obj, QEvent *event) override;
+protected Q_SLOTS:
+    void slotReturnPressed() override;
 
 private Q_SLOTS:
-    void slotReturnPressed();
-    void reselectFirst();
     void sendMessage(const QString &message, bool warn);
 
 private:
@@ -66,11 +64,8 @@ private:
     void dropStash(const QByteArray &index);
     void showStash(const QByteArray &index);
 
-    QTreeView *m_treeView;
-    QLineEdit *m_lineEdit;
     QStandardItemModel *m_model;
     StashFilterModel *m_proxyModel;
-    KTextEditor::MainWindow *m_mainWindow;
     GitWidget *m_gitwidget;
     QString m_projectPath;
     Mode m_currentMode = None;

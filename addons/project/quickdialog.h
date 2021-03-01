@@ -1,3 +1,8 @@
+/*
+    SPDX-FileCopyrightText: 2021 Waqar Ahmed <waqar.17a@gmail.com>
+
+    SPDX-License-Identifier: LGPL-2.0-or-later
+*/
 #ifndef QUICKDIALOG_H
 #define QUICKDIALOG_H
 
@@ -19,7 +24,7 @@ class QuickDialog : public QMenu
 {
     Q_OBJECT
 public:
-    QuickDialog(QWidget *mainWindow /* QAbstractItemModel *model*/ /*, QuickDialogProxyModel *proxyModel*/);
+    QuickDialog(QWidget *mainWindow);
 
 protected:
     bool eventFilter(QObject *obj, QEvent *event) override;

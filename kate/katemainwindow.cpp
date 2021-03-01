@@ -245,6 +245,18 @@ void KateMainWindow::setupImportantActions()
     connect(a, &QAction::triggered, this, &KateMainWindow::slotQuickOpen);
     a->setWhatsThis(i18n("Open a form to quick open documents."));
 
+    a = actionCollection()->addAction(QStringLiteral("view_history_back"));
+    a->setIcon(QIcon::fromTheme(QStringLiteral("arrow-left")));
+    a->setText(i18n("Jump to previous location"));
+    //    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::ALT | Qt::Key_O));
+    connect(a, &QAction::triggered, this, &KateMainWindow::goBack);
+
+    a = actionCollection()->addAction(QStringLiteral("view_history_forward"));
+    a->setIcon(QIcon::fromTheme(QStringLiteral("arrow-right")));
+    a->setText(i18n("Jump to next location"));
+    //    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::ALT | Qt::Key_O));
+    connect(a, &QAction::triggered, this, &KateMainWindow::goForward);
+
     // kate command bar
     a = actionCollection()->addAction(QStringLiteral("view_commandbar_open"));
     actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::ALT | Qt::Key_I));

@@ -47,6 +47,27 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent, cons
     hLayout->setSpacing(0);
     hLayout->setContentsMargins(0, 0, 0, 0);
 
+    // add left <-> right history buttons
+    m_historyLeft = new QToolButton(this);
+    auto hlAct = m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_history_back"));
+    m_historyLeft->setDefaultAction(hlAct);
+    m_historyLeft->setToolTip(hlAct->text());
+    m_historyLeft->setIcon(hlAct->icon());
+    m_historyLeft->setAutoRaise(true);
+    KAcceleratorManager::setNoAccel(m_historyLeft);
+    m_historyLeft->installEventFilter(this); // on click, active this view space
+    hLayout->addWidget(m_historyLeft);
+
+    m_historyRight = new QToolButton(this);
+    auto hrAct = m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_history_forward"));
+    m_historyRight->setDefaultAction(hrAct);
+    m_historyRight->setIcon(hrAct->icon());
+    m_historyRight->setToolTip(hrAct->text());
+    m_historyRight->setAutoRaise(true);
+    KAcceleratorManager::setNoAccel(m_historyRight);
+    m_historyRight->installEventFilter(this); // on click, active this view space
+    hLayout->addWidget(m_historyRight);
+
     // add tab bar
     m_tabBar = new KateTabBar(this);
     connect(m_tabBar, &KateTabBar::currentChanged, this, &KateViewSpace::changeView);
@@ -63,7 +84,7 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent, cons
     m_quickOpen->installEventFilter(this); // on click, active this view space
     hLayout->addWidget(m_quickOpen);
 
-    // forward tab bar quick open action to globa quick open action
+    // forward tab bar quick open action to global quick open action
     QAction *bridge = new QAction(QIcon::fromTheme(QStringLiteral("tab-duplicate")), i18nc("indicator for more documents", "+%1", 100), this);
     m_quickOpen->setDefaultAction(bridge);
     QAction *quickOpen = m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_quick_open"));

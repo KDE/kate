@@ -171,6 +171,9 @@ private:
 
     // quick open action
     QToolButton *m_quickOpen;
+
+    QToolButton *m_historyLeft;
+    QToolButton *m_historyRight;
 };
 
 #endif

@@ -412,7 +412,7 @@ Q_SIGNALS:
     /**
      * Signal that we jumped to a location
      */
-    void jumped(const QUrl &url, int line, int col);
+    void jumped(const QUrl &url, KTextEditor::Cursor c);
 
 public:
     LSPClientActionView(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin, KXMLGUIClient *client, QSharedPointer<LSPClientServerManager> serverManager)
@@ -664,7 +664,6 @@ public:
             if (mouseEvent->button() == Qt::LeftButton && mouseEvent->modifiers() == Qt::ControlModifier) {
                 // must set cursor else we will be jumping somewhere else!!
                 v->setCursorPosition(cur);
-                Q_EMIT jumped(v->document()->url(), cur.line(), cur.column());
                 if (!word.isEmpty()) {
                     m_ctrlHoverFeedback.clear(m_mainWindow->activeView());
                     goToDefinition();
@@ -1031,8 +1030,13 @@ public:
         KTextEditor::Document *document = activeView->document();
         KTextEditor::Cursor cdef(line, column);
 
-        // tell Kate we have jumped to this location for record
-        Q_EMIT jumped(uri, line, column);
+        // tell Kate we are jumping "from" this location
+        if (document) {
+            Q_EMIT jumped(document->url(), activeView->cursorPosition());
+        }
+
+        // tell Kate we are jumping "to" this location
+        Q_EMIT jumped(uri, cdef);
 
         if (document && uri == document->url()) {
             activeView->setCursorPosition(cdef);
@@ -2425,7 +2429,6 @@ public:
 
         connect(m_actionView.get(), &LSPClientActionView::message, this, &LSPClientPluginViewImpl::message);
         connect(m_actionView.get(), &LSPClientActionView::jumped, this, &LSPClientPluginViewImpl::jumped);
-        connect(this, &self_type::jumped, plugin, &LSPClientPlugin::jumped);
     }
 
     ~LSPClientPluginViewImpl() override
@@ -2450,7 +2453,7 @@ Q_SIGNALS:
     /**
      * Signal that we jumped to a location
      */
-    void jumped(const QUrl &url, int line, int col);
+    void jumped(const QUrl &url, KTextEditor::Cursor c);
 };
 
 QObject *LSPClientPluginView::new_(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin)

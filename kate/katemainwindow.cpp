@@ -1181,9 +1181,9 @@ QObject *KateMainWindow::pluginView(const QString &name)
     return m_pluginViews.contains(plugin) ? m_pluginViews.value(plugin) : nullptr;
 }
 
-void KateMainWindow::addJumpLocation(QUrl url, int line, int col)
+void KateMainWindow::addJump(QUrl url, KTextEditor::Cursor c)
 {
-    m_locations.push_back({url, line, col});
+    m_locations.push_back({url, c});
     // set to last
     currentLocation = m_locations.size() - 1;
 }
@@ -1257,17 +1257,20 @@ void KateMainWindow::goBack()
     auto location = m_locations.at(currentLocation - 1);
     currentLocation--;
 
-    if (!location.url.isValid()) {
+    if (!location.url.isValid() || !location.cursor.isValid()) {
         QVariantMap genericMessage;
         genericMessage.insert(QStringLiteral("type"), QStringLiteral("Error"));
         genericMessage.insert(QStringLiteral("category"), i18n("Git"));
-        genericMessage.insert(QStringLiteral("text"), i18n("Failed to jump to: %1 %2 %3", location.url.toDisplayString(), location.line, location.col));
+        genericMessage.insert(QStringLiteral("text"),
+                              i18n("Failed to jump to: %1 %2 %3", location.url.toDisplayString(), location.cursor.line(), location.cursor.column()));
         m_outputView->slotMessage(genericMessage);
+
+        m_locations.remove(currentLocation);
         return;
     }
 
     auto v = openUrl(location.url);
-    v->setCursorPosition({location.line, location.col});
+    v->setCursorPosition(location.cursor);
 }
 
 void KateMainWindow::goForward()
@@ -1280,19 +1283,22 @@ void KateMainWindow::goForward()
     }
 
     auto location = m_locations.at(currentLocation + 1);
-    currentLocation--;
+    currentLocation++;
 
-    if (!location.url.isValid()) {
+    if (!location.url.isValid() || !location.cursor.isValid()) {
         QVariantMap genericMessage;
         genericMessage.insert(QStringLiteral("type"), QStringLiteral("Error"));
         genericMessage.insert(QStringLiteral("category"), i18n("Git"));
-        genericMessage.insert(QStringLiteral("text"), i18n("Failed to jump to: %1 %2 %3", location.url.toDisplayString(), location.line, location.col));
+        genericMessage.insert(QStringLiteral("text"),
+                              i18n("Failed to jump to: %1 %2 %3", location.url.toDisplayString(), location.cursor.line(), location.cursor.column()));
         m_outputView->slotMessage(genericMessage);
+
+        m_locations.remove(currentLocation);
         return;
     }
 
     auto v = openUrl(location.url);
-    v->setCursorPosition({location.line, location.col});
+    v->setCursorPosition(location.cursor);
 }
 
 QWidget *KateMainWindow::createToolView(KTextEditor::Plugin *plugin,

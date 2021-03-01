@@ -229,11 +229,6 @@ void KatePluginManager::enablePluginGUI(KatePluginInfo *item, KateMainWindow *wi
             connect(item->plugin, SIGNAL(message(const QVariantMap &)), win->outputView(), SLOT(slotMessage(const QVariantMap &)), Qt::UniqueConnection);
         }
 
-        // ensure jumping is connected for plugin if available
-        if (item->plugin->metaObject()->indexOfSignal("jumped(QUrl,int,int)") != -1) {
-            connect(item->plugin, SIGNAL(jumped(const QUrl &, int, int)), win, SLOT(addJumpLocation(const QUrl &, int, int)), Qt::UniqueConnection);
-        }
-
         // create the view + try to correctly load shortcuts, if it's a GUI Client
         createdView = item->plugin->createView(win->wrapper());
         if (createdView) {
@@ -242,6 +237,15 @@ void KatePluginManager::enablePluginGUI(KatePluginInfo *item, KateMainWindow *wi
             // ensure messaging is connected, if available, for view, too!
             if (createdView->metaObject()->indexOfSignal("message(QVariantMap)") != -1) {
                 connect(createdView, SIGNAL(message(const QVariantMap &)), win->outputView(), SLOT(slotMessage(const QVariantMap &)), Qt::UniqueConnection);
+            }
+
+            // ensure jumping is connected for plugin view if available
+            if (createdView->metaObject()->indexOfSignal("jumped(QUrl,KTextEditor::Cursor)") != -1) {
+                connect(createdView,
+                        SIGNAL(jumped(const QUrl &, KTextEditor::Cursor)),
+                        win,
+                        SLOT(addJump(const QUrl &, KTextEditor::Cursor)),
+                        Qt::UniqueConnection);
             }
         }
     }

@@ -64,13 +64,6 @@ public:
         return m_configPath.isEmpty() ? m_defaultConfigPath : m_configPath;
     }
 
-Q_SIGNALS:
-
-    /**
-     * Signal that we jumped to a location
-     */
-    void jumped(const QUrl &, int line, int col);
-
 private:
 Q_SIGNALS:
     // signal settings update

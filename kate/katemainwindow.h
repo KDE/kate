@@ -522,7 +522,7 @@ public Q_SLOTS:
     /**
      * Add a jump location for jumping back and forth between history
      */
-    void addJumpLocation(QUrl url, int line, int col);
+    void addJump(QUrl url, KTextEditor::Cursor);
 
 private Q_SLOTS:
     void slotUpdateBottomViewBar();
@@ -580,8 +580,7 @@ private:
 
     struct Location {
         QUrl url;
-        int line;
-        int col;
+        KTextEditor::Cursor cursor;
     };
 
     QVector<Location> m_locations;

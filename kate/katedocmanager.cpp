@@ -414,29 +414,11 @@ void KateDocManager::saveDocumentList(KConfig *config)
 
     openDocGroup.writeEntry("Count", m_docList.count());
 
-    // prepare stash directory
-    const QString appDataPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
-    QDir dir(appDataPath);
-    dir.mkdir(QStringLiteral("stash"));
-    dir.cd(QStringLiteral("stash"));
-
-    const auto session = KateApp::self()->sessionManager()->activeSession();
-    if (session) {
-        const QString sessionName = session->name();
-        dir.mkdir(sessionName);
-        dir.cd(sessionName);
-    }
-
     int i = 0;
     for (KTextEditor::Document *doc : qAsConst(m_docList)) {
         const QString entryName = QStringLiteral("Document %1").arg(i);
         KConfigGroup cg(config, entryName);
         doc->writeSessionConfig(cg);
-
-        // stash the file content
-        if (doc->isModified()) {
-            KateApp::self()->stashManager()->stashDocument(doc, entryName, cg, dir.path());
-        }
 
         i++;
     }

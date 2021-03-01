@@ -586,6 +586,8 @@ bool KateMainWindow::queryClose()
     // and save docs if we really close down !
     if (queryClose_internal()) {
         KateApp::self()->sessionManager()->saveActiveSession(true);
+        KateApp::self()->stashManager()->stashDocuments(KateApp::self()->sessionManager()->activeSession()->config(),
+                                                        KateApp::self()->documentManager()->documentList());
         return true;
     }
 

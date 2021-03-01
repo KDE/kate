@@ -18,11 +18,41 @@
 #include <QDir>
 #include <QFile>
 #include <QSaveFile>
+#include <QTextCodec>
 #include <QUrl>
 
 KateStashManager::KateStashManager(QObject *parent)
     : QObject(parent)
 {
+}
+
+void KateStashManager::stashDocuments(KConfig *config, const QList<KTextEditor::Document *> &documents)
+{
+    // prepare stash directory
+    const QString appDataPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+    QDir dir(appDataPath);
+    dir.mkdir(QStringLiteral("stash"));
+    dir.cd(QStringLiteral("stash"));
+
+    const auto session = KateApp::self()->sessionManager()->activeSession();
+    if (session) {
+        const QString sessionName = session->name();
+        dir.mkdir(sessionName);
+        dir.cd(sessionName);
+    }
+
+    int i = 0;
+    for (KTextEditor::Document *doc : qAsConst(documents)) {
+        const QString entryName = QStringLiteral("Document %1").arg(i);
+        KConfigGroup cg(config, entryName);
+
+        // stash the file content
+        if (doc->isModified()) {
+            stashDocument(doc, entryName, cg, dir.path());
+        }
+
+        i++;
+    }
 }
 
 bool KateStashManager::willStashDoc(KTextEditor::Document *doc)
@@ -85,7 +115,7 @@ bool KateStashManager::popDocument(KTextEditor::Document *doc, const KConfigGrou
 
     bool checksumOk = true;
     if (url.isValid()) {
-        auto sum = kconfig.readEntry(QStringLiteral("checksum")).toLatin1().constData();
+        const auto sum = kconfig.readEntry(QStringLiteral("checksum")).toLatin1().constData();
         checksumOk = sum != doc->checksum();
     }
 
@@ -94,10 +124,17 @@ bool KateStashManager::popDocument(KTextEditor::Document *doc, const KConfigGrou
         QFile file(stashedFile);
         file.open(QIODevice::ReadOnly);
         QTextStream out(&file);
+        const auto codec = QTextCodec::codecForName(kconfig.readEntry("Encoding").toLocal8Bit());
+        if (codec != 0) {
+            out.setCodec(codec);
+        }
+
         doc->setText(out.readAll());
 
         // clean stashed file
-        file.remove();
+        if (!file.remove()) {
+            qCWarning(LOG_KATE) << "Could not remove stash file" << stashedFile;
+        }
 
         return true;
     } else {

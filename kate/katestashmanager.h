@@ -32,6 +32,8 @@ public:
         m_stashUnsaveChanges = stashUnsaveChanges;
     }
 
+    void stashDocuments(KConfig *cfg, const QList<KTextEditor::Document *> &documents);
+
     bool willStashDoc(KTextEditor::Document *doc);
 
     void stashDocument(KTextEditor::Document *doc, const QString &stashfileName, KConfigGroup &kconfig, const QString &path);

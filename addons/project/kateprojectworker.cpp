@@ -17,6 +17,7 @@
 #include <QSettings>
 #include <QThread>
 #include <QTime>
+#include <QtConcurrentFilter>
 
 #include <algorithm>
 
@@ -283,13 +284,9 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent, const QVariantMap 
      * sort out non-files
      * even for git, that just reports non-directories, we need to filter out e.g. sym-links to directories
      */
-    files.erase(std::remove_if(files.begin(),
-                               files.end(),
-                               [](const QString &item) {
-                                   return !QFileInfo(item).isFile();
-                               }),
-                files.end());
-
+    QtConcurrent::blockingFilter(files, [](const QString &item) {
+        return QFileInfo(item).isFile();
+    });
     /**
      * we might end up with nothing to add at all
      */

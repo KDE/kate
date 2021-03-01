@@ -85,6 +85,25 @@ static bool fuzzy_match_simple(const QStringView pattern, const QStringView str)
 
 static bool fuzzy_match(const QStringView pattern, const QStringView str, int &outScore)
 {
+    // simple substring matching to flush out non-matching stuff
+    auto patternIt = pattern.cbegin();
+    bool lower = patternIt->isLower();
+    QChar cUp = lower ? patternIt->toUpper() : *patternIt;
+    QChar cLow = lower ? *patternIt : patternIt->toLower();
+    for (auto strIt = str.cbegin(); strIt != str.cend() && patternIt != pattern.cend(); ++strIt) {
+        if (*strIt == cLow || *strIt == cUp) {
+            ++patternIt;
+            lower = patternIt->isLower();
+            cUp = lower ? patternIt->toUpper() : *patternIt;
+            cLow = lower ? *patternIt : patternIt->toLower();
+        }
+    }
+
+    if (patternIt != pattern.cend()) {
+        outScore = 0;
+        return false;
+    }
+
     uint8_t matches[256];
     return fuzzy_match(pattern, str, outScore, matches);
 }

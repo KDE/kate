@@ -284,7 +284,11 @@ bool KateQuickOpen::eventFilter(QObject *obj, QEvent *event)
 
             if (keyEvent->key() == Qt::Key_Escape) {
                 m_mainWindow->slotWindowActivated();
-                m_inputLine->clear();
+                {
+                    m_inputLine->blockSignals(true);
+                    m_inputLine->clear();
+                    m_inputLine->blockSignals(false);
+                }
                 keyEvent->accept();
                 hide();
                 return true;
@@ -302,7 +306,11 @@ bool KateQuickOpen::eventFilter(QObject *obj, QEvent *event)
     // hide on focus out, if neither input field nor list have focus!
     else if (event->type() == QEvent::FocusOut && !(m_inputLine->hasFocus() || m_listView->hasFocus())) {
         m_mainWindow->slotWindowActivated();
-        m_inputLine->clear();
+        {
+            m_inputLine->blockSignals(true);
+            m_inputLine->clear();
+            m_inputLine->blockSignals(false);
+        }
         hide();
         return true;
     }

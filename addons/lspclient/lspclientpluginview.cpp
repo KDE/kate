@@ -409,6 +409,11 @@ Q_SIGNALS:
      */
     void message(const QVariantMap &message);
 
+    /**
+     * Signal that we jumped to a location
+     */
+    void jumped(const QUrl &url, int line, int col);
+
 public:
     LSPClientActionView(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin, KXMLGUIClient *client, QSharedPointer<LSPClientServerManager> serverManager)
         : QObject(mainWin)
@@ -659,6 +664,7 @@ public:
             if (mouseEvent->button() == Qt::LeftButton && mouseEvent->modifiers() == Qt::ControlModifier) {
                 // must set cursor else we will be jumping somewhere else!!
                 v->setCursorPosition(cur);
+                Q_EMIT jumped(v->document()->url(), cur.line(), cur.column());
                 if (!word.isEmpty()) {
                     m_ctrlHoverFeedback.clear(m_mainWindow->activeView());
                     goToDefinition();
@@ -1024,6 +1030,9 @@ public:
 
         KTextEditor::Document *document = activeView->document();
         KTextEditor::Cursor cdef(line, column);
+
+        // tell Kate we have jumped to this location for record
+        Q_EMIT jumped(uri, line, column);
 
         if (document && uri == document->url()) {
             activeView->setCursorPosition(cdef);
@@ -2415,6 +2424,8 @@ public:
         m_mainWindow->guiFactory()->addClient(this);
 
         connect(m_actionView.get(), &LSPClientActionView::message, this, &LSPClientPluginViewImpl::message);
+        connect(m_actionView.get(), &LSPClientActionView::jumped, this, &LSPClientPluginViewImpl::jumped);
+        connect(this, &self_type::jumped, plugin, &LSPClientPlugin::jumped);
     }
 
     ~LSPClientPluginViewImpl() override
@@ -2435,6 +2446,11 @@ Q_SIGNALS:
      * @param message outgoing message we send to the host application
      */
     void message(const QVariantMap &message);
+
+    /**
+     * Signal that we jumped to a location
+     */
+    void jumped(const QUrl &url, int line, int col);
 };
 
 QObject *LSPClientPluginView::new_(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin)

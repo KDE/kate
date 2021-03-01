@@ -56,10 +56,9 @@ public:
 
         auto doc = index.data(KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
         if (doc && index.column() == 1 && option.state & QStyle::State_MouseOver) {
-            const QIcon icon = QIcon::fromTheme(QStringLiteral("document-close"));
-
-            QRect iconRect(option.rect.right() - option.rect.height(), option.rect.y(), option.rect.height(), option.rect.height());
-
+            const QIcon icon = QIcon::fromTheme(QStringLiteral("tab-close"));
+            int w = option.decorationSize.width();
+            QRect iconRect(option.rect.right() - w, option.rect.top(), w, option.rect.height());
             icon.paint(painter, iconRect, Qt::AlignRight | Qt::AlignVCenter);
         }
     }

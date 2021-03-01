@@ -172,6 +172,10 @@ public Q_SLOTS:
 
     void slotCommandBarOpen();
 
+    void goBack();
+
+    void goForward();
+
     /**
      * Overwrite size hint for better default window sizes
      * @return size hint
@@ -515,6 +519,11 @@ public Q_SLOTS:
      */
     QObject *pluginView(const QString &name);
 
+    /**
+     * Add a jump location for jumping back and forth between history
+     */
+    void addJumpLocation(QUrl url, int line, int col);
+
 private Q_SLOTS:
     void slotUpdateBottomViewBar();
 
@@ -568,6 +577,15 @@ private:
     KateContainerStackedLayout *m_bottomContainerStack = nullptr;
 
     QVector<QString> m_lastUsedCmdBarActions;
+
+    struct Location {
+        QUrl url;
+        int line;
+        int col;
+    };
+
+    QVector<Location> m_locations;
+    int currentLocation = 0;
 
     class BarState
     {

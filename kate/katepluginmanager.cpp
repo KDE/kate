@@ -70,6 +70,7 @@ void KatePluginManager::setupPluginList()
     // handle all install KTextEditor plugins
     m_pluginList.clear();
     QSet<QString> unique;
+
     const QVector<KPluginMetaData> plugins = KPluginLoader::findPlugins(QStringLiteral("ktexteditor"), [](const KPluginMetaData &md) {
         return md.serviceTypes().contains(QLatin1String("KTextEditor/Plugin"));
     });
@@ -226,6 +227,11 @@ void KatePluginManager::enablePluginGUI(KatePluginInfo *item, KateMainWindow *wi
         // ensure messaging is connected, if available, for the complete plugin
         if (item->plugin->metaObject()->indexOfSignal("message(QVariantMap)") != -1) {
             connect(item->plugin, SIGNAL(message(const QVariantMap &)), win->outputView(), SLOT(slotMessage(const QVariantMap &)), Qt::UniqueConnection);
+        }
+
+        // ensure jumping is connected for plugin if available
+        if (item->plugin->metaObject()->indexOfSignal("jumped(QUrl,int,int)") != -1) {
+            connect(item->plugin, SIGNAL(jumped(const QUrl &, int, int)), win, SLOT(addJumpLocation(const QUrl &, int, int)), Qt::UniqueConnection);
         }
 
         // create the view + try to correctly load shortcuts, if it's a GUI Client

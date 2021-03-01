@@ -1181,6 +1181,13 @@ QObject *KateMainWindow::pluginView(const QString &name)
     return m_pluginViews.contains(plugin) ? m_pluginViews.value(plugin) : nullptr;
 }
 
+void KateMainWindow::addJumpLocation(QUrl url, int line, int col)
+{
+    m_locations.push_back({url, line, col});
+    // set to last
+    currentLocation = m_locations.size() - 1;
+}
+
 void KateMainWindow::mousePressEvent(QMouseEvent *e)
 {
     switch (e->button()) {
@@ -1240,6 +1247,52 @@ void KateMainWindow::slotCommandBarOpen()
     centralWidget()->setFocusProxy(&commandBar);
     commandBar.exec();
     m_lastUsedCmdBarActions = commandBar.lastUsedCmdBarActions();
+}
+
+void KateMainWindow::goBack()
+{
+    if (m_locations.isEmpty() || currentLocation == 0) {
+        return;
+    }
+    auto location = m_locations.at(currentLocation - 1);
+    currentLocation--;
+
+    if (!location.url.isValid()) {
+        QVariantMap genericMessage;
+        genericMessage.insert(QStringLiteral("type"), QStringLiteral("Error"));
+        genericMessage.insert(QStringLiteral("category"), i18n("Git"));
+        genericMessage.insert(QStringLiteral("text"), i18n("Failed to jump to: %1 %2 %3", location.url.toDisplayString(), location.line, location.col));
+        m_outputView->slotMessage(genericMessage);
+        return;
+    }
+
+    auto v = openUrl(location.url);
+    v->setCursorPosition({location.line, location.col});
+}
+
+void KateMainWindow::goForward()
+{
+    if (m_locations.isEmpty()) {
+        return;
+    }
+    if (currentLocation == m_locations.size() - 1) {
+        return;
+    }
+
+    auto location = m_locations.at(currentLocation + 1);
+    currentLocation--;
+
+    if (!location.url.isValid()) {
+        QVariantMap genericMessage;
+        genericMessage.insert(QStringLiteral("type"), QStringLiteral("Error"));
+        genericMessage.insert(QStringLiteral("category"), i18n("Git"));
+        genericMessage.insert(QStringLiteral("text"), i18n("Failed to jump to: %1 %2 %3", location.url.toDisplayString(), location.line, location.col));
+        m_outputView->slotMessage(genericMessage);
+        return;
+    }
+
+    auto v = openUrl(location.url);
+    v->setCursorPosition({location.line, location.col});
 }
 
 QWidget *KateMainWindow::createToolView(KTextEditor::Plugin *plugin,

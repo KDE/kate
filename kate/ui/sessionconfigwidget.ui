@@ -52,28 +52,33 @@
         <item>
          <widget class="QLabel" name="label_4">
           <property name="text">
-           <string>Save and Restore unsaved changes</string>
+           <string>Automatically save and restore:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QComboBox" name="stashChangesCombo">
+         <layout class="QVBoxLayout" name="verticalLayout_6">
           <item>
-           <property name="text">
-            <string>Never</string>
-           </property>
+           <widget class="QCheckBox" name="stashNewUnsavedFiles">
+            <property name="text">
+             <string>Newly-created unsaved files</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
           </item>
           <item>
-           <property name="text">
-            <string>For unsaved Files</string>
-           </property>
+           <widget class="QCheckBox" name="stashUnsavedFilesChanges">
+            <property name="text">
+             <string>Files with unsaved changes</string>
+            </property>
+           </widget>
           </item>
-          <item>
-           <property name="text">
-            <string>For all files</string>
-           </property>
-          </item>
-         </widget>
+         </layout>
         </item>
        </layout>
       </item>

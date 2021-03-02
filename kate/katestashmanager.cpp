@@ -74,9 +74,6 @@ void KateStashManager::stashDocuments(KConfig *config, const QList<KTextEditor::
 
 bool KateStashManager::willStashDoc(KTextEditor::Document *doc)
 {
-    if (m_stashUnsaveChanges == 0) {
-        return false;
-    }
     if (!KateApp::self()->sessionManager()->activeSession()) {
         return false;
     }
@@ -84,15 +81,16 @@ bool KateStashManager::willStashDoc(KTextEditor::Document *doc)
         return false;
     }
     if (doc->url().isEmpty()) {
-        return true;
+        return m_stashNewUnsavedFiles;
     }
     if (doc->url().isLocalFile()) {
         const QString path = doc->url().toLocalFile();
         if (path.startsWith(QDir::tempPath())) {
             return false; // inside tmp resource, do not stash
         }
+        return m_stashUnsavedChanges;
     }
-    return m_stashUnsaveChanges == 2;
+    return false;
 }
 
 void KateStashManager::stashDocument(KTextEditor::Document *doc, const QString &stashfileName, KConfigGroup &kconfig, const QString &path)
@@ -142,7 +140,7 @@ bool KateStashManager::popDocument(KTextEditor::Document *doc, const KConfigGrou
         file.open(QIODevice::ReadOnly);
         QTextStream out(&file);
         const auto codec = QTextCodec::codecForName(kconfig.readEntry("Encoding").toLocal8Bit());
-        if (codec != 0) {
+        if (codec != nullptr) {
             out.setCodec(codec);
         }
 

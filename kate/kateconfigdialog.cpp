@@ -201,10 +201,10 @@ void KateConfigDialog::addSessionPage()
     connect(sessionConfigUi.modCloseAfterLast, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
 
     // stash unsave changes
-    sessionConfigUi.stashChangesCombo->setCurrentIndex(KateApp::self()->stashManager()->stashUnsaveChanges());
-    connect(sessionConfigUi.stashChangesCombo, QOverload<const int>::of(&QComboBox::currentIndexChanged), this, [this](int /*index*/) {
-        this->slotChanged();
-    });
+    sessionConfigUi.stashNewUnsavedFiles->setChecked(KateApp::self()->stashManager()->stashNewUnsavedFiles());
+    sessionConfigUi.stashUnsavedFilesChanges->setChecked(KateApp::self()->stashManager()->stashUnsavedChanges());
+    connect(sessionConfigUi.stashNewUnsavedFiles, &QRadioButton::toggled, this, &KateConfigDialog::slotChanged);
+    connect(sessionConfigUi.stashUnsavedFilesChanges, &QRadioButton::toggled, this, &KateConfigDialog::slotChanged);
 }
 
 void KateConfigDialog::addPluginsPage()
@@ -349,8 +349,10 @@ void KateConfigDialog::slotApply()
 
         cg.readEntry("Show output view for message type", m_messageTypes->currentIndex());
 
-        cg.writeEntry("Stash unsaved changes", sessionConfigUi.stashChangesCombo->currentIndex());
-        KateApp::self()->stashManager()->setStashUnsaveChanges(sessionConfigUi.stashChangesCombo->currentIndex());
+        cg.writeEntry("Stash unsaved file changes", sessionConfigUi.stashUnsavedFilesChanges->isChecked());
+        KateApp::self()->stashManager()->setStashUnsavedChanges(sessionConfigUi.stashUnsavedFilesChanges->isChecked());
+        cg.writeEntry("Stash new unsaved files", sessionConfigUi.stashNewUnsavedFiles->isChecked());
+        KateApp::self()->stashManager()->setStashNewUnsavedFiles(sessionConfigUi.stashNewUnsavedFiles->isChecked());
 
         cg.writeEntry("Tabbar Tab Limit", m_tabLimit->value());
 

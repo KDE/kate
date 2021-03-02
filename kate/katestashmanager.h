@@ -23,14 +23,24 @@ class KateStashManager : QObject
 public:
     KateStashManager(QObject *parent = nullptr);
 
-    int stashUnsaveChanges()
+    bool stashUnsavedChanges()
     {
-        return m_stashUnsaveChanges;
+        return m_stashUnsavedChanges;
     }
 
-    void setStashUnsaveChanges(int stashUnsaveChanges)
+    void setStashUnsavedChanges(bool stashUnsavedChanges)
     {
-        m_stashUnsaveChanges = stashUnsaveChanges;
+        m_stashUnsavedChanges = stashUnsavedChanges;
+    }
+
+    bool stashNewUnsavedFiles()
+    {
+        return m_stashNewUnsavedFiles;
+    }
+
+    void setStashNewUnsavedFiles(bool stashNewUnsavedFiles)
+    {
+        m_stashNewUnsavedFiles = stashNewUnsavedFiles;
     }
 
     void stashDocuments(KConfig *cfg, const QList<KTextEditor::Document *> &documents);
@@ -43,16 +53,8 @@ public:
     void clearStashForSession(const KateSession::Ptr session);
 
 private:
-    /**
-     * Stash unsave changes setting
-     *
-     * stash unsaved file by default
-     *
-     * 0 => Never
-     * 1 => for unsaved files
-     * 2 => for all files
-     */
-    int m_stashUnsaveChanges = 1;
+    bool m_stashUnsavedChanges = false;
+    bool m_stashNewUnsavedFiles = true;
 };
 
 #endif // KATESTASHMANAGER_H

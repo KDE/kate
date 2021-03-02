@@ -104,14 +104,14 @@ and <guimenuitem>Log</guimenuitem> (on log or above).</para>
 </varlistentry>
 
 <varlistentry>
-<term><anchor id="config-dialog-general-warn-mod"/>
-<guilabel>Warn about files modified by foreign processes</guilabel></term>
-<listitem><para>When enabled, &kate; will notify you about files modified
-from outside the application whenever the main window receives input focus.
+<term><anchor id="config-dialog-general-separate-dialog"/>
+<guilabel>Use a separate dialog for handling externally modified files</guilabel></term>
+<listitem><para>When enabled, &kate; will notify you with a modal dialog about all
+files modified from outside the application whenever the main window receives input focus.
 You will be able to deal with several modified files at once, you
 can reload, save or discard changed files in groups.</para>
-<para>If not enabled, &kate; will prompt you for action when an externally
-modified file receives focus within the application.</para>
+<para>If not enabled, &kate; will individually ask you what to do for each modified file only
+when that file's view receives focus.</para>
 </listitem>
 </varlistentry>
 

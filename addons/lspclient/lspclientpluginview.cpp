@@ -409,11 +409,6 @@ Q_SIGNALS:
      */
     void message(const QVariantMap &message);
 
-    /**
-     * Signal that we jumped to a location
-     */
-    void jumped(const QUrl &url, KTextEditor::Cursor c);
-
 public:
     LSPClientActionView(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin, KXMLGUIClient *client, QSharedPointer<LSPClientServerManager> serverManager)
         : QObject(mainWin)
@@ -1029,14 +1024,6 @@ public:
 
         KTextEditor::Document *document = activeView->document();
         KTextEditor::Cursor cdef(line, column);
-
-        // tell Kate we are jumping "from" this location
-        if (document) {
-            Q_EMIT jumped(document->url(), activeView->cursorPosition());
-        }
-
-        // tell Kate we are jumping "to" this location
-        Q_EMIT jumped(uri, cdef);
 
         if (document && uri == document->url()) {
             activeView->setCursorPosition(cdef);
@@ -2428,7 +2415,6 @@ public:
         m_mainWindow->guiFactory()->addClient(this);
 
         connect(m_actionView.get(), &LSPClientActionView::message, this, &LSPClientPluginViewImpl::message);
-        connect(m_actionView.get(), &LSPClientActionView::jumped, this, &LSPClientPluginViewImpl::jumped);
     }
 
     ~LSPClientPluginViewImpl() override
@@ -2449,11 +2435,6 @@ Q_SIGNALS:
      * @param message outgoing message we send to the host application
      */
     void message(const QVariantMap &message);
-
-    /**
-     * Signal that we jumped to a location
-     */
-    void jumped(const QUrl &url, KTextEditor::Cursor c);
 };
 
 QObject *LSPClientPluginView::new_(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin)

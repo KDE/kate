@@ -1183,6 +1183,12 @@ QObject *KateMainWindow::pluginView(const QString &name)
 
 void KateMainWindow::addJump(QUrl url, KTextEditor::Cursor c)
 {
+    // we are in the middle of jumps somewhere?
+    if (!m_locations.isEmpty() && currentLocation + 1 < m_locations.size()) {
+        // erase all forward history
+        m_locations.remove(currentLocation + 1, m_locations.size() - (currentLocation + 1));
+        // this is our new forward
+    }
     m_locations.push_back({url, c});
     // set to last
     currentLocation = m_locations.size() - 1;
@@ -1254,7 +1260,7 @@ void KateMainWindow::goBack()
     if (m_locations.isEmpty() || currentLocation == 0) {
         return;
     }
-    auto location = m_locations.at(currentLocation - 1);
+    const auto &location = m_locations.at(currentLocation - 1);
     currentLocation--;
 
     if (!location.url.isValid() || !location.cursor.isValid()) {
@@ -1269,7 +1275,14 @@ void KateMainWindow::goBack()
         return;
     }
 
+    if (activeView() && activeView()->document() && activeView()->document()->url() == location.url) {
+        const QSignalBlocker blocker(activeView());
+        activeView()->setCursorPosition(location.cursor);
+        return;
+    }
+
     auto v = openUrl(location.url);
+    const QSignalBlocker blocker(v);
     v->setCursorPosition(location.cursor);
 }
 
@@ -1282,7 +1295,7 @@ void KateMainWindow::goForward()
         return;
     }
 
-    auto location = m_locations.at(currentLocation + 1);
+    const auto &location = m_locations.at(currentLocation + 1);
     currentLocation++;
 
     if (!location.url.isValid() || !location.cursor.isValid()) {
@@ -1297,7 +1310,14 @@ void KateMainWindow::goForward()
         return;
     }
 
+    if (activeView() && activeView()->document() && activeView()->document()->url() == location.url) {
+        const QSignalBlocker blocker(activeView());
+        activeView()->setCursorPosition(location.cursor);
+        return;
+    }
+
     auto v = openUrl(location.url);
+    const QSignalBlocker blocker(v);
     v->setCursorPosition(location.cursor);
 }
 

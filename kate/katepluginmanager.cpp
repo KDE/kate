@@ -238,15 +238,6 @@ void KatePluginManager::enablePluginGUI(KatePluginInfo *item, KateMainWindow *wi
             if (createdView->metaObject()->indexOfSignal("message(QVariantMap)") != -1) {
                 connect(createdView, SIGNAL(message(const QVariantMap &)), win->outputView(), SLOT(slotMessage(const QVariantMap &)), Qt::UniqueConnection);
             }
-
-            // ensure jumping is connected for plugin view if available
-            if (createdView->metaObject()->indexOfSignal("jumped(QUrl,KTextEditor::Cursor)") != -1) {
-                connect(createdView,
-                        SIGNAL(jumped(const QUrl &, KTextEditor::Cursor)),
-                        win,
-                        SLOT(addJump(const QUrl &, KTextEditor::Cursor)),
-                        Qt::UniqueConnection);
-            }
         }
     }
 

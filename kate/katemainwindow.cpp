@@ -1204,13 +1204,15 @@ void KateMainWindow::addJump(QUrl url, KTextEditor::Cursor c)
     // we are in the middle of jumps somewhere?
     if (!m_locations.isEmpty() && currentLocation + 1 < m_locations.size()) {
         // erase all forward history
-        m_locations.remove(currentLocation + 1, m_locations.size() - (currentLocation + 1));
-        // this is our new forward
+        m_locations.erase(m_locations.begin() + currentLocation + 1, m_locations.end());
     }
+    // this is our new forward
+
     m_locations.push_back({url, c});
     // set to last
     currentLocation = m_locations.size() - 1;
-
+    // disable forward button as we are at the end now
+    setForwardButtonEnabled(false);
     // renable back
     if (currentLocation > 0) {
         setBackButtonEnabled(true);
@@ -1283,6 +1285,7 @@ void KateMainWindow::goBack()
     if (m_locations.isEmpty() || currentLocation == 0) {
         return;
     }
+
     const auto &location = m_locations.at(currentLocation - 1);
     currentLocation--;
 
@@ -1350,6 +1353,8 @@ void KateMainWindow::goForward()
         activeView()->setCursorPosition(location.cursor);
         return;
     }
+
+    setBackButtonEnabled(true);
 
     auto v = openUrl(location.url);
     const QSignalBlocker blocker(v);

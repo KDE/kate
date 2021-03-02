@@ -120,8 +120,8 @@ QVector<KateSearchMatch> SearchDiskFiles::searchMultiLineRegExp(QFile &file)
 {
     int column = 0;
     int line = 0;
-    static QString fullDoc;
-    static QVector<int> lineStart;
+    QString fullDoc;
+    QVector<int> lineStart;
     QRegularExpression tmpRegExp = m_regExp;
 
     QVector<KateSearchMatch> matches;

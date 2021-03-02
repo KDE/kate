@@ -85,7 +85,7 @@ GitCommitDialog::GitCommitDialog(const QString &lastCommit, const QFont &font, Q
     m_pe.setFont(font);
 
     QVBoxLayout *vlayout = new QVBoxLayout;
-    vlayout->setContentsMargins(0, 0, 0, 0);
+    vlayout->setContentsMargins(4, 0, 4, 0);
     setLayout(vlayout);
 
     QHBoxLayout *hLayoutLine = new QHBoxLayout;

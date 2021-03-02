@@ -93,13 +93,12 @@ void KateConfigDialog::addBehaviorPage()
     vbox->addLayout(hlayout);
 
     // modified files notification
-    m_modNotifications = new QCheckBox(i18n("Wa&rn about files modified by foreign processes"), buttonGroup);
+    m_modNotifications = new QCheckBox(i18n("Use a separate &dialog for handling externally modified files"), buttonGroup);
     m_modNotifications->setChecked(m_mainWindow->modNotificationEnabled());
     m_modNotifications->setWhatsThis(
-        i18n("If enabled, when Kate receives focus you will be asked what to do with "
-             "files that have been modified on the hard disk. If not enabled, you will "
-             "be asked what to do with a file that has been modified on the hard disk only "
-             "when that file is tried to be saved."));
+        i18n("If enabled, a modal dialog will be used to show all of the modified files. "
+             "If not enabled, you will be individually asked what to do for each modified file "
+             "only when that file's view receives focus."));
     connect(m_modNotifications, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
 
     vbox->addWidget(m_modNotifications);

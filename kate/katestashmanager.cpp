@@ -49,7 +49,7 @@ void KateStashManager::stashDocuments(KConfig *config, const QList<KTextEditor::
     dir.cd(QStringLiteral("stash"));
 
     const auto session = KateApp::self()->sessionManager()->activeSession();
-    if (!session) {
+    if (!session || session->name().isEmpty()) {
         qDebug(LOG_KATE) << "Could not stash files without a session";
         return;
     }

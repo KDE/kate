@@ -52,6 +52,8 @@ public:
 private:
     QToolButton *m_menuBtn;
     QToolButton *m_commitBtn;
+    QToolButton *m_pushBtn;
+    QToolButton *m_pullBtn;
     QTreeView *m_treeView;
     GitStatusModel *m_model;
     KateProject *m_project;
@@ -68,6 +70,7 @@ private:
     void buildMenu();
     void initGitExe();
     void runGitCmd(const QStringList &args, const QString &i18error);
+    void runPushPullCmd(const QStringList &args);
     void stage(const QStringList &files, bool = false);
     void unstage(const QStringList &files);
     void discard(const QStringList &files);

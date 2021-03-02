@@ -10,6 +10,7 @@
 #include "gitstatusmodel.h"
 #include "kateproject.h"
 #include "kateprojectpluginview.h"
+#include "pushpulldialog.h"
 #include "stashdialog.h"
 
 #include <QContextMenuEvent>
@@ -48,13 +49,13 @@ GitWidget::GitWidget(KateProject *project, KTextEditor::MainWindow *mainWindow, 
     , m_mainWin(mainWindow)
     , m_pluginView(pluginView)
 {
-    m_commitBtn = new QToolButton(this);
     m_treeView = new QTreeView(this);
 
     initGitExe();
 
     buildMenu();
-    m_menuBtn = new QToolButton(this);
+    m_menuBtn = new QToolButton;
+    m_menuBtn->setIcon(QIcon::fromTheme(QStringLiteral("application-menu")));
     m_menuBtn->setAutoRaise(true);
     m_menuBtn->setMenu(m_gitMenu);
     m_menuBtn->setArrowType(Qt::NoArrow);
@@ -63,21 +64,47 @@ GitWidget::GitWidget(KateProject *project, KTextEditor::MainWindow *mainWindow, 
         m_menuBtn->showMenu();
     });
 
-    m_menuBtn->setIcon(QIcon::fromTheme(QStringLiteral("application-menu")));
+    m_commitBtn = new QToolButton;
     m_commitBtn->setText(i18n("Commit"));
     m_commitBtn->setIcon(QIcon::fromTheme(QStringLiteral("svn-commit"))); // ":/kxmlgui5/kateproject/git-commit-dark.svg"
     m_commitBtn->setAutoRaise(true);
     m_commitBtn->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     m_commitBtn->setSizePolicy(QSizePolicy::Minimum, m_commitBtn->sizePolicy().verticalPolicy());
 
+    m_pushBtn = new QToolButton;
+    m_pushBtn->setIcon(QIcon::fromTheme(QStringLiteral("arrow-up")));
+    m_pushBtn->setToolTip(i18n("Git push"));
+    m_pushBtn->setAutoRaise(true);
+    m_pushBtn->setSizePolicy(QSizePolicy::Minimum, m_commitBtn->sizePolicy().verticalPolicy());
+    connect(m_pushBtn, &QToolButton::clicked, this, [this]() {
+        PushPullDialog ppd(m_mainWin->window(), m_gitPath);
+        connect(&ppd, &PushPullDialog::runGitCommand, this, &GitWidget::runPushPullCmd);
+        ppd.openDialog(PushPullDialog::Push);
+    });
+
+    m_pullBtn = new QToolButton;
+    m_pullBtn->setIcon(QIcon::fromTheme(QStringLiteral("arrow-down")));
+    m_pullBtn->setToolTip(i18n("Git pull"));
+    m_pullBtn->setAutoRaise(true);
+    m_pullBtn->setSizePolicy(QSizePolicy::Minimum, m_commitBtn->sizePolicy().verticalPolicy());
+    connect(m_pullBtn, &QToolButton::clicked, this, [this]() {
+        PushPullDialog ppd(m_mainWin->window(), m_gitPath);
+        connect(&ppd, &PushPullDialog::runGitCommand, this, &GitWidget::runPushPullCmd);
+        ppd.openDialog(PushPullDialog::Pull);
+    });
+
     QVBoxLayout *layout = new QVBoxLayout;
     layout->setSpacing(0);
     layout->setContentsMargins(0, 0, 0, 0);
+
     QHBoxLayout *btnsLayout = new QHBoxLayout;
     btnsLayout->setContentsMargins(0, 0, 0, 0);
 
     btnsLayout->addWidget(m_commitBtn);
+    btnsLayout->addWidget(m_pushBtn);
+    btnsLayout->addWidget(m_pullBtn);
     btnsLayout->addWidget(m_menuBtn);
+    btnsLayout->setStretch(0, 1);
 
     layout->addLayout(btnsLayout);
     layout->addWidget(m_treeView);
@@ -176,13 +203,39 @@ void GitWidget::runGitCmd(const QStringList &args, const QString &i18error)
         // sever connection
         disconnect(&git, &QProcess::finished, nullptr, nullptr);
         if (es != QProcess::NormalExit || exitCode != 0) {
-            sendMessage(i18error + QStringLiteral("\n") + QString::fromUtf8(git.readAllStandardError()), true);
+            sendMessage(i18error + QStringLiteral(": ") + QString::fromUtf8(git.readAllStandardError()), true);
         } else {
             getStatus();
         }
     });
     git.setArguments(args);
     git.start(QProcess::ReadOnly);
+}
+
+void GitWidget::runPushPullCmd(const QStringList &args)
+{
+    disconnect(&git, &QProcess::finished, nullptr, nullptr);
+    connect(&git, &QProcess::finished, this, [this](int exitCode, QProcess::ExitStatus es) {
+        // sever connection
+        disconnect(&git, &QProcess::finished, nullptr, nullptr);
+        if (es != QProcess::NormalExit || exitCode != 0) {
+            sendMessage(i18n("git push error: %1", QString::fromUtf8(git.readAllStandardError())), true);
+        } else {
+            sendMessage(i18n("git push finished"), false);
+            getStatus();
+        }
+    });
+
+    git.setArguments(args);
+    git.start(QProcess::ReadOnly);
+
+    // kill after 40 seconds
+    QTimer::singleShot(40000, this, [this] {
+        if (git.state() == QProcess::Running) {
+            sendMessage(i18n("Git operation failed. Killing..."), true);
+            git.kill();
+        }
+    });
 }
 
 void GitWidget::stage(const QStringList &files, bool)

@@ -143,7 +143,7 @@ StashDialog::StashDialog(GitWidget *gitwidget, QWidget *window)
 
     StyleDelegate *delegate = new StyleDelegate(this);
     m_treeView.setItemDelegateForColumn(0, delegate);
-    connect(&m_lineEdit, &QLineEdit::textChanged, delegate, [this, delegate](const QString &string) {
+    connect(&m_lineEdit, &QLineEdit::textChanged, this, [this, delegate](const QString &string) {
         m_proxyModel->setFilterString(string);
         delegate->setFilterString(string);
         // reselect first

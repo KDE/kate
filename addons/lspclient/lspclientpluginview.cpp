@@ -658,8 +658,16 @@ public:
         if (event->type() == QEvent::MouseButtonPress) {
             if (mouseEvent->button() == Qt::LeftButton && mouseEvent->modifiers() == Qt::ControlModifier) {
                 // must set cursor else we will be jumping somewhere else!!
-                v->setCursorPosition(cur);
                 if (!word.isEmpty()) {
+                    auto existingCur = v->cursorPosition();
+                    v->setCursorPosition(cur);
+
+                    // hack: if the cursor is same as existing one,
+                    // we force trigger cursorPositionChanged()
+                    if (existingCur == cur) {
+                        Q_EMIT v->cursorPositionChanged(v, cur);
+                    }
+
                     m_ctrlHoverFeedback.clear(m_mainWindow->activeView());
                     goToDefinition();
                 }
@@ -1026,12 +1034,22 @@ public:
         KTextEditor::Cursor cdef(line, column);
 
         if (document && uri == document->url()) {
+            auto existingCur = activeView->cursorPosition();
             activeView->setCursorPosition(cdef);
+            // force emit cursorPositionChanged
+            if (existingCur == cdef) {
+                Q_EMIT activeView->cursorPositionChanged(activeView, cdef);
+            }
             highlightLandingLocation(activeView, location);
         } else {
             KTextEditor::View *view = m_mainWindow->openUrl(uri);
             if (view) {
+                auto existingCur = view->cursorPosition();
                 view->setCursorPosition(cdef);
+                // force emit cursorPositionChanged
+                if (existingCur == cdef) {
+                    Q_EMIT activeView->cursorPositionChanged(view, cdef);
+                }
                 highlightLandingLocation(view, location);
             }
         }

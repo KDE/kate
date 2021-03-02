@@ -91,6 +91,16 @@ public:
      */
     void focusNextTab();
 
+    /**
+     * set Forward Button Active
+     */
+    void setForwardButtonEnabled(bool active);
+
+    /**
+     * set Back Button Active
+     */
+    void setBackButtonEnabled(bool active);
+
 public Q_SLOTS:
     void documentDestroyed(QObject *doc);
     void updateDocumentName(KTextEditor::Document *doc);

@@ -149,6 +149,9 @@ private:
     void addMenuBarActionToContextMenu();
     void removeMenuBarActionFromContextMenu();
 
+    void setForwardButtonEnabled(bool v);
+    void setBackButtonEnabled(bool v);
+
     /**
      * read some global options from katerc
      */
@@ -171,10 +174,6 @@ public Q_SLOTS:
     void slotQuickOpen();
 
     void slotCommandBarOpen();
-
-    void goBack();
-
-    void goForward();
 
     /**
      * Overwrite size hint for better default window sizes
@@ -214,6 +213,10 @@ private Q_SLOTS:
     void slotFullScreen(bool);
 
     void slotListRecursiveEntries(KIO::Job *job, const KIO::UDSEntryList &list);
+
+    // jump in location history
+    void goBack();
+    void goForward();
 
 private Q_SLOTS:
     void toggleShowMenuBar(bool showMessage = true);

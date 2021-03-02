@@ -689,6 +689,24 @@ void KateMainWindow::removeMenuBarActionFromContextMenu()
     }
 }
 
+void KateMainWindow::setForwardButtonEnabled(bool val)
+{
+    if (auto v = activeView()) {
+        if (auto kvs = qobject_cast<KateViewSpace *>(v->parentWidget()->parentWidget())) {
+            kvs->setForwardButtonEnabled(val);
+        }
+    }
+}
+
+void KateMainWindow::setBackButtonEnabled(bool val)
+{
+    if (auto v = activeView()) {
+        if (auto kvs = qobject_cast<KateViewSpace *>(v->parentWidget()->parentWidget())) {
+            kvs->setBackButtonEnabled(val);
+        }
+    }
+}
+
 void KateMainWindow::toggleShowStatusBar()
 {
     Q_EMIT statusBarToggled();
@@ -1192,6 +1210,11 @@ void KateMainWindow::addJump(QUrl url, KTextEditor::Cursor c)
     m_locations.push_back({url, c});
     // set to last
     currentLocation = m_locations.size() - 1;
+
+    // renable back
+    if (currentLocation > 0) {
+        setBackButtonEnabled(true);
+    }
 }
 
 void KateMainWindow::mousePressEvent(QMouseEvent *e)
@@ -1263,6 +1286,10 @@ void KateMainWindow::goBack()
     const auto &location = m_locations.at(currentLocation - 1);
     currentLocation--;
 
+    if (currentLocation <= 0) {
+        setBackButtonEnabled(false);
+    }
+
     if (!location.url.isValid() || !location.cursor.isValid()) {
         QVariantMap genericMessage;
         genericMessage.insert(QStringLiteral("type"), QStringLiteral("Error"));
@@ -1278,12 +1305,16 @@ void KateMainWindow::goBack()
     if (activeView() && activeView()->document() && activeView()->document()->url() == location.url) {
         const QSignalBlocker blocker(activeView());
         activeView()->setCursorPosition(location.cursor);
+        // enable forward
+        setForwardButtonEnabled(true);
         return;
     }
 
     auto v = openUrl(location.url);
     const QSignalBlocker blocker(v);
     v->setCursorPosition(location.cursor);
+    // enable forward
+    setForwardButtonEnabled(true);
 }
 
 void KateMainWindow::goForward()
@@ -1297,6 +1328,10 @@ void KateMainWindow::goForward()
 
     const auto &location = m_locations.at(currentLocation + 1);
     currentLocation++;
+
+    if (currentLocation + 1 >= m_locations.size()) {
+        setForwardButtonEnabled(false);
+    }
 
     if (!location.url.isValid() || !location.cursor.isValid()) {
         QVariantMap genericMessage;

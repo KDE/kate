@@ -68,6 +68,10 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent, cons
     m_historyRight->installEventFilter(this); // on click, active this view space
     hLayout->addWidget(m_historyRight);
 
+    // deactive in the beginning for now
+    setBackButtonEnabled(false);
+    setForwardButtonEnabled(false);
+
     // add tab bar
     m_tabBar = new KateTabBar(this);
     connect(m_tabBar, &KateTabBar::currentChanged, this, &KateViewSpace::changeView);
@@ -461,6 +465,16 @@ void KateViewSpace::focusNextTab()
     if (id >= 0) {
         changeView(id);
     }
+}
+
+void KateViewSpace::setForwardButtonEnabled(bool active)
+{
+    m_historyRight->setEnabled(active);
+}
+
+void KateViewSpace::setBackButtonEnabled(bool active)
+{
+    m_historyLeft->setEnabled(active);
 }
 
 int KateViewSpace::hiddenDocuments() const

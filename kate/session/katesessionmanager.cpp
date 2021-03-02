@@ -264,6 +264,12 @@ bool KateSessionManager::deleteSession(KateSession::Ptr session)
         return false;
     }
 
+    KConfigGroup c(KSharedConfig::openConfig(), "General");
+    if (c.readEntry("Last Session") == session->name()) {
+        c.writeEntry("Last Session", QString());
+        c.sync();
+    }
+
     QFile::remove(session->file());
     m_sessions.remove(session->name());
     // Due to this remove from m_sessions will updateSessionList() no signal emit,

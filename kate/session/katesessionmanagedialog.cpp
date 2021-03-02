@@ -98,6 +98,7 @@ void KateSessionManageDialog::done(int result)
 {
     for (const auto &session : qAsConst(m_deleteList)) {
         KateApp::self()->sessionManager()->deleteSession(session);
+        KateApp::self()->stashManager()->clearStashForSession(session);
     }
     m_deleteList.clear(); // May not needed, but anyway
 

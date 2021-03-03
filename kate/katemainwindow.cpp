@@ -689,24 +689,6 @@ void KateMainWindow::removeMenuBarActionFromContextMenu()
     }
 }
 
-void KateMainWindow::setForwardButtonEnabled(bool val)
-{
-    if (auto v = activeView()) {
-        if (auto kvs = qobject_cast<KateViewSpace *>(v->parentWidget()->parentWidget())) {
-            kvs->setForwardButtonEnabled(val);
-        }
-    }
-}
-
-void KateMainWindow::setBackButtonEnabled(bool val)
-{
-    if (auto v = activeView()) {
-        if (auto kvs = qobject_cast<KateViewSpace *>(v->parentWidget()->parentWidget())) {
-            kvs->setBackButtonEnabled(val);
-        }
-    }
-}
-
 void KateMainWindow::toggleShowStatusBar()
 {
     Q_EMIT statusBarToggled();
@@ -1212,10 +1194,11 @@ void KateMainWindow::addJump(QUrl url, KTextEditor::Cursor c)
     // set to last
     currentLocation = m_locations.size() - 1;
     // disable forward button as we are at the end now
-    setForwardButtonEnabled(false);
+    Q_EMIT forwardButtonEnabled(false);
+
     // renable back
     if (currentLocation > 0) {
-        setBackButtonEnabled(true);
+        Q_EMIT backButtonEnabled(true);
     }
 }
 
@@ -1290,7 +1273,7 @@ void KateMainWindow::goBack()
     currentLocation--;
 
     if (currentLocation <= 0) {
-        setBackButtonEnabled(false);
+        Q_EMIT backButtonEnabled(false);
     }
 
     if (!location.url.isValid() || !location.cursor.isValid()) {
@@ -1309,7 +1292,7 @@ void KateMainWindow::goBack()
         const QSignalBlocker blocker(activeView());
         activeView()->setCursorPosition(location.cursor);
         // enable forward
-        setForwardButtonEnabled(true);
+        Q_EMIT forwardButtonEnabled(true);
         return;
     }
 
@@ -1317,7 +1300,7 @@ void KateMainWindow::goBack()
     const QSignalBlocker blocker(v);
     v->setCursorPosition(location.cursor);
     // enable forward
-    setForwardButtonEnabled(true);
+    Q_EMIT forwardButtonEnabled(true);
 }
 
 void KateMainWindow::goForward()
@@ -1333,7 +1316,7 @@ void KateMainWindow::goForward()
     currentLocation++;
 
     if (currentLocation + 1 >= m_locations.size()) {
-        setForwardButtonEnabled(false);
+        Q_EMIT forwardButtonEnabled(false);
     }
 
     if (!location.url.isValid() || !location.cursor.isValid()) {
@@ -1354,7 +1337,7 @@ void KateMainWindow::goForward()
         return;
     }
 
-    setBackButtonEnabled(true);
+    Q_EMIT backButtonEnabled(true);
 
     auto v = openUrl(location.url);
     const QSignalBlocker blocker(v);

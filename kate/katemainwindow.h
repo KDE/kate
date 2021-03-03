@@ -149,9 +149,6 @@ private:
     void addMenuBarActionToContextMenu();
     void removeMenuBarActionFromContextMenu();
 
-    void setForwardButtonEnabled(bool v);
-    void setBackButtonEnabled(bool v);
-
     /**
      * read some global options from katerc
      */
@@ -231,6 +228,8 @@ Q_SIGNALS:
     void statusBarToggled();
     void tabBarToggled();
     void unhandledShortcutOverride(QEvent *e);
+    void backButtonEnabled(bool enabled);
+    void forwardButtonEnabled(bool enabled);
 
 public:
     void openUrl(const QString &name = QString());

@@ -27,9 +27,8 @@ class BranchesDialog : public QuickDialog
     Q_OBJECT
 public:
     BranchesDialog(QWidget *window, KateProjectPluginView *pluginView, QString projectPath);
+    ~BranchesDialog();
     void openDialog();
-    // removed, otherwise we can trigger multiple project reloads on branch change
-    //    Q_SIGNAL void branchChanged(const QString &branch);
 
 private Q_SLOTS:
     void slotReturnPressed() override;

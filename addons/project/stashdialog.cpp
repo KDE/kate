@@ -251,10 +251,10 @@ void StashDialog::stash(bool keepIndex, bool includeUntracked)
     disconnect(git, &QProcess::finished, nullptr, nullptr);
     connect(git, &QProcess::finished, m_gitwidget, [gitWidget](int exitCode, QProcess::ExitStatus es) {
         disconnect(gitWidget->gitprocess(), &QProcess::finished, nullptr, nullptr);
+        gitWidget->getStatus();
         if (es != QProcess::NormalExit || exitCode != 0) {
             gitWidget->sendMessage(i18n("Failed to stash changes"), true);
         } else {
-            gitWidget->getStatus();
             gitWidget->sendMessage(i18n("Changes stashed successfully."), false);
         }
     });
@@ -277,7 +277,7 @@ void StashDialog::getStashList()
         if (git->exitStatus() == QProcess::NormalExit && git->exitCode() == 0) {
             stashList = git->readAllStandardOutput().split('\n');
         } else {
-            m_gitwidget->sendMessage(i18n("Failed to get stash list. Error:\n %1", QString::fromUtf8(git->readAllStandardError())), true);
+            m_gitwidget->sendMessage(i18n("Failed to get stash list. Error: ") + QString::fromUtf8(git->readAll()), true);
         }
     }
 
@@ -316,17 +316,17 @@ void StashDialog::popStash(const QByteArray &index, const QString &command)
 
     connect(git, &QProcess::finished, gitWidget, [gitWidget, command](int exitCode, QProcess::ExitStatus es) {
         disconnect(gitWidget->gitprocess(), &QProcess::finished, nullptr, nullptr);
+        gitWidget->getStatus();
         if (es != QProcess::NormalExit || exitCode != 0) {
             auto git = gitWidget->gitprocess();
             if (command == QLatin1String("apply")) {
-                gitWidget->sendMessage(i18n("Failed to apply stash. Error:\n%1", QString::fromUtf8(git->readAllStandardError())), true);
+                gitWidget->sendMessage(i18n("Failed to apply stash. Error: ") + QString::fromUtf8(git->readAll()), true);
             } else if (command == QLatin1String("drop")) {
-                gitWidget->sendMessage(i18n("Failed to drop stash. Error:\n%1", QString::fromUtf8(git->readAllStandardError())), true);
+                gitWidget->sendMessage(i18n("Failed to drop stash. Error: ") + QString::fromUtf8(git->readAll()), true);
             } else {
-                gitWidget->sendMessage(i18n("Failed to pop stash. Error:\n%1", QString::fromUtf8(git->readAllStandardError())), true);
+                gitWidget->sendMessage(i18n("Failed to pop stash. Error: ") + QString::fromUtf8(git->readAll()), true);
             }
         } else {
-            gitWidget->getStatus();
             if (command == QLatin1String("apply")) {
                 gitWidget->sendMessage(i18n("Stash applied successfully."), false);
             } else if (command == QLatin1String("drop")) {
@@ -368,7 +368,8 @@ void StashDialog::showStash(const QByteArray &index)
     connect(git, &QProcess::finished, gitWidget, [gitWidget](int exitCode, QProcess::ExitStatus es) {
         disconnect(gitWidget->gitprocess(), &QProcess::finished, nullptr, nullptr);
         if (es != QProcess::NormalExit || exitCode != 0) {
-            gitWidget->sendMessage(i18n("Show stash failed. Error:\n%1", QString::fromUtf8(gitWidget->gitprocess()->readAllStandardError())), true);
+            gitWidget->sendMessage(i18n("Show stash failed. Error: ") + QString::fromUtf8(gitWidget->gitprocess()->readAll()), true);
+            gitWidget->getStatus();
         } else {
             gitWidget->openTempFile(QString(), QStringLiteral("XXXXXX.diff"), gitWidget->gitprocess()->readAllStandardOutput());
         }

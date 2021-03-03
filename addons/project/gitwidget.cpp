@@ -698,7 +698,7 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
         auto launchDifftoolAct = untracked ? nullptr : menu.addAction(i18n("Show in external git diff tool"));
         auto openAtHead = untracked ? nullptr : menu.addAction(i18n("Open at HEAD"));
         auto stageAct = staged ? menu.addAction(i18n("Unstage file")) : menu.addAction(i18n("Stage file"));
-        auto discardAct = untracked ? menu.addAction(i18n("Remove")) : menu.addAction(i18n("Discard"));
+        auto discardAct = staged ? nullptr : untracked ? menu.addAction(i18n("Remove")) : menu.addAction(i18n("Discard"));
 
         auto act = menu.exec(m_treeView->viewport()->mapToGlobal(e->pos()));
         const QString file = m_gitPath + idx.data(GitStatusModel::FileNameRole).toString();

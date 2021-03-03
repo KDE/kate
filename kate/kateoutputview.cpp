@@ -61,6 +61,12 @@ public:
         event->accept();
     }
 
+    // access to copy action for outside tool buttons etc.
+    QAction *copyAction()
+    {
+        return m_copyAction;
+    }
+
 private Q_SLOTS:
     void slotCopySelected()
     {
@@ -184,6 +190,10 @@ KateOutputView::KateOutputView(KateMainWindow *mainWindow, QWidget *parent)
         m_messagesTreeView->expandAll();
     });
 
+    // copy button
+    auto copy = new QToolButton(this);
+    copy->setDefaultAction(m_messagesTreeView->copyAction());
+
     // clear button
     auto clear = new QToolButton(this);
     clear->setIcon(QIcon::fromTheme(QStringLiteral("edit-clear-history")));
@@ -193,8 +203,10 @@ KateOutputView::KateOutputView(KateMainWindow *mainWindow, QWidget *parent)
     });
 
     // setup top horizontal layout
+    // tried toolbar, has bad spacing
     QHBoxLayout *hLayout = new QHBoxLayout();
     hLayout->addWidget(&m_filterLine);
+    hLayout->addWidget(copy);
     hLayout->addWidget(clear);
     hLayout->setStretch(0, 1);
 

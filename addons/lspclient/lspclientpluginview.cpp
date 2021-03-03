@@ -1048,7 +1048,7 @@ public:
                 view->setCursorPosition(cdef);
                 // force emit cursorPositionChanged
                 if (existingCur == cdef) {
-                    Q_EMIT activeView->cursorPositionChanged(view, cdef);
+                    Q_EMIT view->cursorPositionChanged(view, cdef);
                 }
                 highlightLandingLocation(view, location);
             }

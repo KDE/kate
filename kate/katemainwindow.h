@@ -524,7 +524,7 @@ public Q_SLOTS:
     /**
      * Add a jump location for jumping back and forth between history
      */
-    void addJump(QUrl url, KTextEditor::Cursor);
+    void addJump(const QUrl &url, KTextEditor::Cursor);
 
 private Q_SLOTS:
     void slotUpdateBottomViewBar();

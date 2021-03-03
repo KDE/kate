@@ -1181,13 +1181,24 @@ QObject *KateMainWindow::pluginView(const QString &name)
     return m_pluginViews.contains(plugin) ? m_pluginViews.value(plugin) : nullptr;
 }
 
-void KateMainWindow::addJump(QUrl url, KTextEditor::Cursor c)
+void KateMainWindow::addJump(const QUrl &url, KTextEditor::Cursor c)
 {
     // we are in the middle of jumps somewhere?
     if (!m_locations.isEmpty() && currentLocation + 1 < m_locations.size()) {
         // erase all forward history
         m_locations.erase(m_locations.begin() + currentLocation + 1, m_locations.end());
     }
+
+    // if same line, remove last entry
+    if (m_locations.back().url == url && m_locations.back().cursor.line() == c.line()) {
+        m_locations.pop_back();
+    }
+
+    // limit size to 100, remove first 20
+    if (m_locations.size() >= 100) {
+        m_locations.erase(m_locations.begin(), m_locations.begin() + 20);
+    }
+
     // this is our new forward
 
     m_locations.push_back({url, c});

@@ -355,6 +355,18 @@ protected:
      */
     bool eventFilter(QObject *obj, QEvent *event) override;
 
+private Q_SLOTS:
+    /**
+     * Read and apply configuration
+     */
+    void readConfig();
+
+    /**
+     * Triggered if configuration of global editor changed
+     * @param editor global instance pointer
+     */
+    void slotEditorConfigChanged(KTextEditor::Editor *editor);
+
 private:
     /**
      * kate's command line args
@@ -397,6 +409,11 @@ private:
      */
     KUserFeedback::Provider m_userFeedbackProvider;
 #endif
+
+    /**
+     * Use the Editor::theme() to update application palette?
+     */
+    bool m_useEditorTheme = false;
 };
 
 #endif

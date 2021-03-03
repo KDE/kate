@@ -92,6 +92,14 @@ KateApp::KateApp(const QCommandLineParser &args)
     m_userFeedbackProvider.addDataSource(new KUserFeedback::StartCountSource);
     m_userFeedbackProvider.addDataSource(new KUserFeedback::UsageTimeSource);
 #endif
+
+    // handle config changes
+    connect(this, &KateApp::configurationChanged, this, &KateApp::readConfig);
+    readConfig();
+
+    // follow the KTextEditor color theme if wanted
+    connect(KTextEditor::Editor::instance(), &KTextEditor::Editor::configChanged, this, &KateApp::slotEditorConfigChanged);
+    slotEditorConfigChanged(KTextEditor::Editor::instance());
 }
 
 KateApp::~KateApp()
@@ -511,4 +519,28 @@ void KateApp::remoteMessageReceived(const QString &message, QObject *)
 
     // try to activate current window
     m_adaptor.activate();
+}
+
+void KateApp::readConfig()
+{
+    // shall we use the editor theme?
+    KSharedConfig::Ptr config = KSharedConfig::openConfig();
+    KConfigGroup cgGeneral = KConfigGroup(config, "General");
+    m_useEditorTheme = cgGeneral.readEntry("Use Editor Theme", true);
+}
+
+void KateApp::slotEditorConfigChanged(KTextEditor::Editor *editor)
+{
+    // if we don't want to use the editor theme, do nothing
+    if (!m_useEditorTheme) {
+        return;
+    }
+
+    // use editor fonts
+    const auto theme = editor->theme();
+    auto pal = qApp->palette();
+    pal.setColor(QPalette::Base, QColor::fromRgb(theme.editorColor(KSyntaxHighlighting::Theme::BackgroundColor)));
+    pal.setColor(QPalette::Highlight, QColor::fromRgb(theme.editorColor(KSyntaxHighlighting::Theme::TextSelection)));
+    pal.setColor(QPalette::Text, QColor::fromRgb(theme.textColor(KSyntaxHighlighting::Theme::Normal)));
+    qApp->setPalette(pal);
 }

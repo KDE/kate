@@ -37,6 +37,7 @@ public:
 
     bool openedByUser = false;
     bool openSuccess = true;
+    bool doPostLoadOperations = false;
 };
 
 class KateDocManager : public QObject

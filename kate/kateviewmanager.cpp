@@ -432,6 +432,27 @@ KTextEditor::View *KateViewManager::createView(KTextEditor::Document *doc, KateV
     KTextEditor::View *view = (vs ? vs : activeViewSpace())->createView(doc);
 
     /**
+     * connect to signal here so we can handle post-load
+     * set cursor position for this view if we need to
+     */
+    KateDocumentInfo *docInfo = KateApp::self()->documentManager()->documentInfo(doc);
+    if (docInfo->doPostLoadOperations) {
+        docInfo->doPostLoadOperations = false; // do this only once
+
+        QSharedPointer<QMetaObject::Connection> conn(new QMetaObject::Connection());
+        auto handler = [view, conn](KTextEditor::Document *doc) {
+            disconnect(*conn);
+            if (doc->url().hasQuery()) {
+                KateApp::self()->setCursorFromQueryString(view);
+            } else {
+                KateApp::self()->setCursorFromArgs(view);
+            }
+        };
+
+        *conn = connect(doc, &KTextEditor::Document::textChanged, view, handler);
+    }
+
+    /**
      * remember this view, active == false, min age set
      * create activity resource
      */

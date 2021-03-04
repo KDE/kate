@@ -629,7 +629,9 @@ void KateViewSpace::restoreConfig(KateViewManager *viewMan, const KConfigBase *c
 
     // avoid empty view space
     if (m_docToView.isEmpty()) {
-        viewMan->createView(KateApp::self()->documentManager()->documentList().first(), this);
+        auto *doc = KateApp::self()->documentManager()->documentList().first();
+        KateApp::self()->documentManager()->documentInfo(doc)->doPostLoadOperations = !doc->url().isLocalFile() && (KateApp::self()->hasCursorInArgs() || doc->url().hasQuery());
+        viewMan->createView(doc, this);
     }
 
     m_group = groupname; // used for restroing view configs later

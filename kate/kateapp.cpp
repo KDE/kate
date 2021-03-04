@@ -205,15 +205,10 @@ bool KateApp::startupKate()
 
         if (noDir) {
             doc = openDocUrl(info.url, codec_name, tempfileSet);
-
-            // when setting cursor position on startup, the order should be
-            // queryString, cmdArgs, session (i.e. query overrides both, args override session)
-            if (info.url.hasQuery()) {
-                setCursorFromQueryString(doc->views().at(0));
-            } else if (m_args.isSet(QStringLiteral("line")) || m_args.isSet(QStringLiteral("column"))) {
-                setCursorFromArgs(doc->views().at(0));
-            } else if (info.cursor.isValid()) {
+            if (info.cursor.isValid()) {
                 setCursor(info.cursor.line(), info.cursor.column());
+            } else if (m_args.isSet(QStringLiteral("line")) || m_args.isSet(QStringLiteral("column"))) {
+                setCursorFromArgs(activeMainWindow()->activeView());
             }
         } else if (!KateApp::self()->pluginManager()->plugin(QStringLiteral("kateprojectplugin"))) {
             KMessageBox::sorry(activeKateMainWindow(), i18n("Folders can only be opened when the projects plugin is enabled"));
@@ -311,28 +306,16 @@ KTextEditor::Document *KateApp::openDocUrl(const QUrl &url, const QString &encod
     KTextEditor::Document *doc = nullptr;
 
     if (noDir) {
+        KateDocumentInfo docInfo;
+        docInfo.doPostLoadOperations = !url.isLocalFile() && (hasCursorInArgs() || url.hasQuery());
         // open a normal file
         if (codec) {
-            doc = mainWindow->viewManager()->openUrl(url, QString::fromLatin1(codec->name()), true, isTempFile);
+            doc = mainWindow->viewManager()->openUrl(url, QString::fromLatin1(codec->name()), true, isTempFile, docInfo);
         } else {
-            doc = mainWindow->viewManager()->openUrl(url, QString(), true, isTempFile);
+            doc = mainWindow->viewManager()->openUrl(url, QString(), true, isTempFile, docInfo);
         }
     } else {
         KMessageBox::sorry(mainWindow, i18n("The file '%1' could not be opened: it is not a normal file, it is a folder.", url.url()));
-    }
-
-    // When opening from remote url, 'textChanged' is emitted once loading has finished.
-    // Connect to each remote document's signal for post-load operations.
-    if (doc && !doc->url().isLocalFile()) {
-        auto *connCtx = new QObject(this); // use a dummy object as signal receiver
-        connect(doc, &KTextEditor::Document::textChanged, connCtx, [this, connCtx](KTextEditor::Document *doc) {
-            connCtx->deleteLater();
-            if (doc->url().hasQuery()) {
-                setCursorFromQueryString(doc->views().empty() ? nullptr : doc->views().at(0));
-            } else {
-                setCursorFromArgs(doc->views().empty() ? nullptr : doc->views().at(0));
-            }
-        });
     }
 
     return doc;
@@ -369,27 +352,12 @@ void KateApp::setCursorFromQueryString(KTextEditor::View *view)
     int line = 0;
     int column = 0;
     bool nav = false;
-    int pos = -1;
 
     if (!view && !(view = activeKateMainWindow()->activeView())) {
         return;
     }
 
-    QUrlQuery urlQuery;
-    if (!view->document()->url().hasQuery()) {
-        // Find orig url with query string in m_args. It's necessary because positional arguments
-        // are cleaned (in normaliseUrl() in KateDocManager::openUrl()) for local files but not for remote ones.
-        QRegExp pattern(QLatin1String(view->document()->url().toString().toUtf8().append(".*").constData()));
-        if ((pos = m_args.positionalArguments().indexOf(pattern)) < 0) {
-            return;
-        }
-        QString positionalArgument = m_args.positionalArguments().at(pos);
-        UrlInfo info(positionalArgument);
-        urlQuery = QUrlQuery(info.url);
-    } else {
-        urlQuery = QUrlQuery(view->document()->url());
-    }
-
+    QUrlQuery urlQuery(view->document()->url());
     QString lineStr = urlQuery.queryItemValue(QStringLiteral("line"));
     QString columnStr = urlQuery.queryItemValue(QStringLiteral("column"));
 
@@ -398,11 +366,13 @@ void KateApp::setCursorFromQueryString(KTextEditor::View *view)
         line > 0 && line--;
         nav = true;
     }
+
     if (!columnStr.isEmpty()) {
         column = columnStr.toInt();
         column > 0 && column--;
         nav = true;
     }
+
     if (nav) {
         view->setCursorPosition(KTextEditor::Cursor(line, column));
         activeKateMainWindow()->setAutoSaveSettings();
@@ -423,6 +393,10 @@ bool KateApp::setCursor(int line, int column)
     }
 
     return true;
+}
+
+bool KateApp::hasCursorInArgs() {
+    return m_args.isSet(QStringLiteral("line")) || m_args.isSet(QStringLiteral("c"));
 }
 
 bool KateApp::openInput(const QString &text, const QString &encoding)

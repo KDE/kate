@@ -228,7 +228,7 @@ private:
      *  A document does not have a view when it is opened in a named session
      *  until its tab is activated.
      */
-    static bool isViewLessDocumentViewSpaceGroup(const QString &group) ;
+    static bool isViewLessDocumentViewSpaceGroup(const QString &group);
 
 private:
     /**

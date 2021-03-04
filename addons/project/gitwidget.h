@@ -44,7 +44,7 @@ public:
 
     using TempFileViewPair = std::pair<std::unique_ptr<QTemporaryFile>, QPointer<KTextEditor::View>>;
     std::vector<TempFileViewPair> *tempFilesVector();
-    bool openTempFile(const QString &file, const QString &templatString);
+    void openTempFile(const QString &file, const QString &templatString, const QByteArray &contents);
 
     // will just proxy the message to the plugin view
     void sendMessage(const QString &message, bool warn);

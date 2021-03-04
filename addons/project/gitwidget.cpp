@@ -136,7 +136,7 @@ void GitWidget::initGitExe()
     git.start(QProcess::ReadOnly);
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         if (git.exitStatus() != QProcess::NormalExit || git.exitCode() != 0) {
-            sendMessage(i18n("Failed to find .git directory. Things may not work correctly. Error:\n%1", QString::fromUtf8(git.readAllStandardError())), true);
+            sendMessage(i18n("Failed to find .git directory, things may not work correctly: %1", QString::fromUtf8(git.readAllStandardError())), true);
             m_gitPath = m_project->baseDir();
             return;
         }
@@ -302,9 +302,9 @@ void GitWidget::openAtHEAD(const QString &file)
     connect(&git, &QProcess::finished, this, [this, file](int exitCode, QProcess::ExitStatus es) {
         disconnect(&git, &QProcess::finished, nullptr, nullptr);
         if (es != QProcess::NormalExit || exitCode != 0) {
-            sendMessage(i18n("Failed to open file at HEAD. Error:\n%1", QString::fromUtf8(git.readAllStandardError())), true);
+            sendMessage(i18n("Failed to open file at HEAD: %1", QString::fromUtf8(git.readAllStandardError())), true);
         } else {
-            openTempFile(QFileInfo(file).fileName(), QStringLiteral("XXXXXX - (HEAD) - %1"));
+            openTempFile(QFileInfo(file).fileName(), QStringLiteral("XXXXXX - (HEAD) - %1"), git.readAllStandardOutput());
         }
     });
 
@@ -328,11 +328,13 @@ void GitWidget::showDiff(const QString &file, bool staged)
     connect(&git, &QProcess::finished, this, [this, file, staged](int exitCode, QProcess::ExitStatus es) {
         disconnect(&git, &QProcess::finished, nullptr, nullptr);
         if (es != QProcess::NormalExit || exitCode != 0) {
-            sendMessage(i18n("Failed to get Diff of file. Error:\n%1", QString::fromUtf8(git.readAllStandardError())), true);
+            sendMessage(i18n("Failed to get Diff of file: %1", QString::fromUtf8(git.readAllStandardError())), true);
         } else {
             const QString filename = file.isEmpty() ? QString() : QFileInfo(file).fileName();
-            auto res = openTempFile(filename, QStringLiteral("XXXXXX %1.diff"));
-            if (!res || m_tempFiles.empty()) {
+
+            openTempFile(filename, QStringLiteral("XXXXXX %1.diff"), git.readAllStandardOutput());
+
+            if (m_tempFiles.empty()) {
                 return;
             }
             auto v = m_tempFiles.back().second;
@@ -409,7 +411,7 @@ void GitWidget::commitChanges(const QString &msg, const QString &desc, bool sign
         // sever connection
         disconnect(&git, &QProcess::finished, nullptr, nullptr);
         if (es != QProcess::NormalExit || exitCode != 0) {
-            sendMessage(i18n("Failed to commit.\n %1", QString::fromUtf8(git.readAllStandardError())), true);
+            sendMessage(i18n("Failed to commit: %1", QString::fromUtf8(git.readAllStandardError())), true);
         } else {
             m_commitMessage.clear();
             getStatus();
@@ -467,7 +469,7 @@ void GitWidget::applyDiff(const QString &fileName, bool staged, bool hunk, KText
         delete file;
         disconnect(&git, &QProcess::finished, nullptr, nullptr);
         if (es != QProcess::NormalExit || exitCode != 0) {
-            sendMessage(QStringLiteral("Failed to stage\n") + QString::fromUtf8(git.readAllStandardError()), true);
+            sendMessage(i18n("Failed to stage: %1", QString::fromUtf8(git.readAllStandardError())), true);
         } else {
             // close and reopen doc to show updated diff
             if (v && v->document()) {
@@ -648,8 +650,12 @@ void GitWidget::clearTempFile(KTextEditor::Document *document)
                       m_tempFiles.end());
 }
 
-bool GitWidget::openTempFile(const QString &file, const QString &templatString)
+void GitWidget::openTempFile(const QString &file, const QString &templatString, const QByteArray &contents)
 {
+    if (contents.isEmpty()) {
+        return;
+    }
+
     std::unique_ptr<QTemporaryFile> f(new QTemporaryFile);
     if (!templatString.isEmpty() && !file.isEmpty()) {
         f->setFileTemplate(templatString.arg(file));
@@ -657,29 +663,23 @@ bool GitWidget::openTempFile(const QString &file, const QString &templatString)
         f->setFileTemplate(templatString);
     }
     if (!f->open()) {
-        qWarning() << "Gitwidget: Failed to open temp file";
-        return false;
+        sendMessage(i18n("Failed to open temporary file for diff: %1", f->errorString()), true);
+        return;
     }
 
-    const auto diffOut = git.readAllStandardOutput();
-    if (diffOut.isEmpty()) {
-        return false;
-    }
-
-    f->write(diffOut);
+    f->write(contents);
     f->flush();
+
     const QUrl tempFileUrl(QUrl::fromLocalFile(f->fileName()));
     QPointer<KTextEditor::View> v = m_mainWin->openUrl(tempFileUrl);
 
     if (!v || !v->document()) {
-        return false;
+        return;
     }
 
     TempFileViewPair tfvp = std::make_pair(std::move(f), v);
     m_tempFiles.push_back(std::move(tfvp));
     connect(v->document(), &KTextEditor::Document::aboutToClose, this, &GitWidget::clearTempFile);
-
-    return true;
 }
 
 static KMessageBox::ButtonCode confirm(GitWidget *_this, const QString &text)
@@ -751,7 +751,7 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
         auto launchDifftoolAct = untracked ? nullptr : menu.addAction(i18n("Show in external git diff tool"));
         auto openAtHead = untracked ? nullptr : menu.addAction(i18n("Open at HEAD"));
         auto stageAct = staged ? menu.addAction(i18n("Unstage file")) : menu.addAction(i18n("Stage file"));
-        auto discardAct = untracked ? menu.addAction(i18n("Remove")) : menu.addAction(i18n("Discard"));
+        auto discardAct = staged ? nullptr : untracked ? menu.addAction(i18n("Remove")) : menu.addAction(i18n("Discard"));
 
         auto act = menu.exec(m_treeView->viewport()->mapToGlobal(e->pos()));
         const QString file = m_gitPath + idx.data(GitStatusModel::FileNameRole).toString();

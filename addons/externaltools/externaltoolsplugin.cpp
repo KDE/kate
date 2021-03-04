@@ -190,7 +190,6 @@ void KateExternalToolsPlugin::runTool(const KateExternalTool &tool, KTextEditor:
     genericMessage.insert(QStringLiteral("text"), messageText);
     Q_EMIT pluginView->message(genericMessage);
 
-
     // Allocate runner on heap such that it lives as long as the child
     // process is running and does not block the main thread.
     auto runner = new KateToolRunner(std::move(copy), view, this);

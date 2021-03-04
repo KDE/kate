@@ -90,9 +90,8 @@ void GitBlameInlineNoteProvider::paintInlineNote(const KTextEditor::InlineNote &
     int lineNr = note.position().line();
     const KateGitBlameInfo &info = m_plugin->blameInfo(lineNr, m_doc->line(lineNr));
 
-    QString text = info.title.isEmpty() ?
-    QStringLiteral(" %1: %2 ").arg(info.name, m_locale.toString(info.date, QLocale::NarrowFormat)) :
-    QStringLiteral(" %1: %2: %3 ").arg(info.name, m_locale.toString(info.date, QLocale::NarrowFormat), info.title);
+    QString text = info.title.isEmpty() ? QStringLiteral(" %1: %2 ").arg(info.name, m_locale.toString(info.date, QLocale::NarrowFormat))
+                                        : QStringLiteral(" %1: %2: %3 ").arg(info.name, m_locale.toString(info.date, QLocale::NarrowFormat), info.title);
     QRect rectangle{0, 0, fm.horizontalAdvance(text), note.lineHeight()};
 
     auto editor = KTextEditor::Editor::instance();
@@ -213,9 +212,7 @@ void KateGitBlamePlugin::startShowProcess(const QUrl &url, const QString &hash)
     QStringList args{QStringLiteral("show"),  hash};
     m_showProc.setWorkingDirectory(dir.absolutePath());
     m_showProc.start(QStringLiteral("git"), args, QIODevice::ReadOnly);
-
 }
-
 
 void KateGitBlamePlugin::showCommitInfo(const QString &hash)
 {
@@ -226,13 +223,11 @@ void KateGitBlamePlugin::showCommitInfo(const QString &hash)
     if (hash == m_activeCommitInfo.m_hash) {
         m_showHash.clear();
         m_tooltip.show(m_activeCommitInfo.m_content, m_mainWindow->activeView());
-    }
-    else {
+    } else {
         m_showHash = hash;
         startShowProcess(m_mainWindow->activeView()->document()->url(), hash);
     }
 }
-
 
 void KateGitBlamePlugin::blameFinished(int /*exitCode*/, QProcess::ExitStatus /*exitStatus*/)
 {
@@ -253,8 +248,8 @@ void KateGitBlamePlugin::blameFinished(int /*exitCode*/, QProcess::ExitStatus /*
     for (const auto &line: stdOut) {
         const QRegularExpressionMatch match = lineReg.match(line);
         if (match.hasMatch()) {
-            m_blameInfo.append({ match.captured(1), match.captured(2).trimmed(),
-                QDateTime::fromString(match.captured(3), Qt::ISODate), QString(), match.captured(4) });
+            m_blameInfo.append(
+                {match.captured(1), match.captured(2).trimmed(), QDateTime::fromString(match.captured(3), Qt::ISODate), QString(), match.captured(4)});
         }
     }
 }
@@ -275,20 +270,20 @@ void KateGitBlamePlugin::showFinished(int exitCode, QProcess::ExitStatus exitSta
 
     int titleStart = 0;
     for (int i = 0; i < 4; ++i) {
-        titleStart = stdOut.indexOf(QLatin1Char('\n'), titleStart+1);
-        if (titleStart < 0 || titleStart >= stdOut.size()-1) {
+        titleStart = stdOut.indexOf(QLatin1Char('\n'), titleStart + 1);
+        if (titleStart < 0 || titleStart >= stdOut.size() - 1) {
             qWarning() << "This is not a known git show format";
             return;
         }
     }
 
-    int titleEnd = stdOut.indexOf(QLatin1Char('\n'), titleStart+1);
-    if (titleEnd < 0 || titleEnd >= stdOut.size()-1) {
+    int titleEnd = stdOut.indexOf(QLatin1Char('\n'), titleStart + 1);
+    if (titleEnd < 0 || titleEnd >= stdOut.size() - 1) {
         qWarning() << "This is not a known git show format";
         return;
     }
 
-    m_activeCommitInfo.m_title = stdOut.mid(titleStart, titleEnd-titleStart);
+    m_activeCommitInfo.m_title = stdOut.mid(titleStart, titleEnd - titleStart);
     m_activeCommitInfo.m_hash = args[1];
     m_activeCommitInfo.m_title = m_activeCommitInfo.m_title.trimmed();
     m_activeCommitInfo.m_content = stdOut;
@@ -330,7 +325,7 @@ const KateGitBlameInfo &KateGitBlamePlugin::blameInfo(int lineNr, const QStringV
         lineNr+m_lineOffset < m_blameInfo.size())
     {
         if (m_blameInfo[lineNr+m_lineOffset].line == lineText) {
-            return blameGetUpdateInfo(lineNr+m_lineOffset);
+            return blameGetUpdateInfo(lineNr + m_lineOffset);
         }
         m_lineOffset++;
     }
@@ -341,7 +336,7 @@ const KateGitBlameInfo &KateGitBlamePlugin::blameInfo(int lineNr, const QStringV
         (lineNr+m_lineOffset) < m_blameInfo.size())
     {
         if (m_blameInfo[lineNr+m_lineOffset].line == lineText) {
-            return blameGetUpdateInfo(lineNr+m_lineOffset);
+            return blameGetUpdateInfo(lineNr + m_lineOffset);
         }
         m_lineOffset--;
     }
@@ -352,11 +347,10 @@ const KateGitBlameInfo &KateGitBlamePlugin::blameInfo(int lineNr, const QStringV
 const KateGitBlameInfo &KateGitBlamePlugin::blameGetUpdateInfo(int lineNr)
 {
     static const KateGitBlameInfo dummy{QStringLiteral("hash"),
-        i18n("Not Committed Yet"),
-        QDateTime::currentDateTime(),
-        QStringLiteral(""),
-        QStringLiteral("")
-    };
+                                        i18n("Not Committed Yet"),
+                                        QDateTime::currentDateTime(),
+                                        QStringLiteral(""),
+                                        QStringLiteral("")};
 
     if (m_blameInfo.isEmpty() || lineNr < 0 || lineNr >= m_blameInfo.size()) {
         return dummy;
@@ -367,8 +361,7 @@ const KateGitBlameInfo &KateGitBlamePlugin::blameGetUpdateInfo(int lineNr)
         if (info.title != m_activeCommitInfo.m_title) {
             info.title = m_activeCommitInfo.m_title;
         }
-    }
-    else {
+    } else {
         startShowProcess(m_mainWindow->activeView()->document()->url(), info.commitHash);
     }
     return info;

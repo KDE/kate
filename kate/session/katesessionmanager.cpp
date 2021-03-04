@@ -643,8 +643,8 @@ void KateSessionManager::updateJumpListActions(const QStringList &sessionList)
     df->desktopGroup().writeXdgListEntry("Actions", newActions);
 }
 
-bool KateSessionManager::isViewLessDocumentViewSpaceGroup(const QString &group) {
-
+bool KateSessionManager::isViewLessDocumentViewSpaceGroup(const QString &group)
+{
     if (KateApp::self()->sessionManager()->activeSession()->isAnonymous()) {
         return false;
     }
@@ -660,7 +660,7 @@ bool KateSessionManager::isViewLessDocumentViewSpaceGroup(const QString &group) 
         auto *docMan = KateApp::self()->documentManager();
         auto *doc = docMan->findDocument(url);
         if (doc && doc->views().empty() && docMan->documentList().contains(doc)) {
-           return true;
+            return true;
         }
     }
     return false;

@@ -64,6 +64,7 @@ target_sources(
     gitstatusmodel.cpp
     gitcommitdialog.cpp
     stashdialog.cpp
+    filehistorywidget.cpp
     quickdialog.cpp
     pushpulldialog.cpp
 

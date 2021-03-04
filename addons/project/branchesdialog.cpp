@@ -172,6 +172,13 @@ BranchesDialog::BranchesDialog(QWidget *window, KateProjectPluginView *pluginVie
     connect(&m_checkoutWatcher, &QFutureWatcher<GitUtils::CheckoutResult>::finished, this, &BranchesDialog::onCheckoutDone);
 }
 
+BranchesDialog::~BranchesDialog()
+{
+    if (m_checkoutWatcher.isRunning()) {
+        onCheckoutDone();
+    }
+}
+
 void BranchesDialog::resetValues()
 {
     m_checkoutBranchName.clear();
@@ -203,9 +210,7 @@ void BranchesDialog::onCheckoutDone()
     QString msgStr = i18n("Branch %1 checked out", res.branch);
     if (res.returnCode > 0) {
         msgType = KTextEditor::Message::Warning;
-        msgStr = i18n("Failed to checkout branch: %1", res.branch);
-    } else {
-        msgStr = i18n("Checked out to branch: %1", res.branch);
+        msgStr = i18n("Failed to checkout to branch %1, Error: %2", res.branch, res.error);
     }
 
     sendMessage(msgStr, msgType == KTextEditor::Message::Warning);

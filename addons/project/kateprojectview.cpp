@@ -1,4 +1,4 @@
-/*  This file is part of the Kate project.
+﻿/*  This file is part of the Kate project.
  *
  *  SPDX-FileCopyrightText: 2012 Christoph Cullmann <cullmann@kde.org>
  *
@@ -7,12 +7,14 @@
 
 #include "kateprojectview.h"
 #include "branchesdialog.h"
+#include "filehistorywidget.h"
 #include "git/gitutils.h"
 #include "gitwidget.h"
 #include "kateprojectfiltermodel.h"
 #include "kateprojectpluginview.h"
 
 #include <KTextEditor/Document>
+#include <KTextEditor/Editor>
 #include <KTextEditor/View>
 
 #include <KActionCollection>
@@ -28,6 +30,7 @@ KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject 
     : m_pluginView(pluginView)
     , m_project(project)
     , m_treeView(new KateProjectViewTree(pluginView, project))
+    , m_stackWidget(new QStackedWidget(this))
     , m_filter(new KLineEdit())
     , m_branchBtn(new QToolButton)
 {
@@ -38,9 +41,12 @@ KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject 
     layout->setSpacing(0);
     layout->setContentsMargins(0, 0, 0, 0);
     layout->addWidget(m_branchBtn);
-    layout->addWidget(m_treeView);
+    //    layout->addWidget(m_treeView);
+    layout->addWidget(m_stackWidget);
     layout->addWidget(m_filter);
     setLayout(layout);
+
+    m_stackWidget->addWidget(m_treeView);
 
     m_branchBtn->setAutoRaise(true);
     m_branchBtn->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
@@ -90,6 +96,9 @@ KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject 
     connect(&m_branchChangedWatcher, &QFileSystemWatcher::fileChanged, this, [this] {
         m_project->reload(true);
     });
+
+    // file history
+    connect(m_treeView, &KateProjectViewTree::showFileHistory, this, &KateProjectView::showFileGitHistory);
 }
 
 KateProjectView::~KateProjectView()
@@ -118,5 +127,46 @@ void KateProjectView::filterTextChanged(const QString &filterText)
      */
     if (!filterText.isEmpty()) {
         QTimer::singleShot(100, m_treeView, &QTreeView::expandAll);
+    }
+}
+
+void KateProjectView::setTreeViewAsCurrent()
+{
+    Q_ASSERT(m_treeView != m_stackWidget->currentWidget());
+
+    auto currentFileHistory = m_stackWidget->currentWidget();
+    m_stackWidget->removeWidget(currentFileHistory);
+    delete currentFileHistory;
+
+    m_stackWidget->setCurrentWidget(m_treeView);
+}
+
+void KateProjectView::showFileGitHistory(const QString &file)
+{
+    // create on demand and on switch back delete
+    auto fhs = new FileHistoryWidget(file);
+    connect(fhs, &FileHistoryWidget::backClicked, this, &KateProjectView::setTreeViewAsCurrent);
+    connect(fhs, &FileHistoryWidget::commitClicked, this, &KateProjectView::showDiffInFixedView);
+    connect(fhs, &FileHistoryWidget::errorMessage, m_pluginView, [this](const QString &s, bool warn) {
+        QVariantMap genericMessage;
+        genericMessage.insert(QStringLiteral("type"), warn ? QStringLiteral("Error") : QStringLiteral("Info"));
+        genericMessage.insert(QStringLiteral("category"), i18n("Git"));
+        genericMessage.insert(QStringLiteral("categoryIcon"), QIcon(QStringLiteral(":/icons/icons/sc-apps-git.svg")));
+        genericMessage.insert(QStringLiteral("text"), s);
+        Q_EMIT m_pluginView->message(genericMessage);
+    });
+    m_stackWidget->addWidget(fhs);
+    m_stackWidget->setCurrentWidget(fhs);
+}
+
+void KateProjectView::showDiffInFixedView(const QString & /*file*/, const QByteArray &contents)
+{
+    if (!m_fixedView) {
+        m_fixedView = m_pluginView->mainWindow()->openUrl(QUrl());
+    }
+
+    if (m_fixedView->document()) {
+        m_fixedView->document()->setText(QString::fromUtf8(contents));
+        m_fixedView->document()->setHighlightingMode(QStringLiteral("Diff"));
     }
 }

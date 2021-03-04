@@ -215,13 +215,17 @@ void GitWidget::runGitCmd(const QStringList &args, const QString &i18error)
 void GitWidget::runPushPullCmd(const QStringList &args)
 {
     disconnect(&git, &QProcess::finished, nullptr, nullptr);
-    connect(&git, &QProcess::finished, this, [this](int exitCode, QProcess::ExitStatus es) {
+    connect(&git, &QProcess::finished, this, [this, args](int exitCode, QProcess::ExitStatus es) {
         // sever connection
         disconnect(&git, &QProcess::finished, nullptr, nullptr);
         if (es != QProcess::NormalExit || exitCode != 0) {
             sendMessage(i18n("git push error: %1", QString::fromUtf8(git.readAllStandardError())), true);
         } else {
-            sendMessage(i18n("git push finished"), false);
+            auto gargs = args;
+            gargs.push_front(QStringLiteral("git"));
+            QString cmd = gargs.join(QStringLiteral(" "));
+            QString out = QString::fromUtf8(git.readAllStandardError() + git.readAllStandardOutput());
+            sendMessage(i18n("\"%1\" executed successfully: %2", cmd, out), false);
             getStatus();
         }
     });

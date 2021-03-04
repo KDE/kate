@@ -251,11 +251,19 @@ void KateMainWindow::setupImportantActions()
     //    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::ALT | Qt::Key_O));
     connect(a, &QAction::triggered, this, &KateMainWindow::goBack);
 
+    // ensure they have the right state, start with no history
+    a->setEnabled(false);
+    connect(this, &KateMainWindow::backButtonEnabled, a, &QAction::setEnabled);
+
     a = actionCollection()->addAction(QStringLiteral("view_history_forward"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("arrow-right")));
     a->setText(i18n("Jump to next location"));
     //    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::ALT | Qt::Key_O));
     connect(a, &QAction::triggered, this, &KateMainWindow::goForward);
+
+    // ensure they have the right state, start with no history
+    a->setEnabled(false);
+    connect(this, &KateMainWindow::forwardButtonEnabled, a, &QAction::setEnabled);
 
     // kate command bar
     a = actionCollection()->addAction(QStringLiteral("view_commandbar_open"));

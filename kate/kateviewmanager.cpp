@@ -87,17 +87,6 @@ KateViewManager::KateViewManager(QWidget *parentW, KateMainWindow *parent)
         documentCreated(doc);
     }
 
-    connect(m_mainWindow, &KateMainWindow::backButtonEnabled, this, [this](bool v) {
-        if (auto avs = activeViewSpace()) {
-            avs->setBackButtonEnabled(v);
-        }
-    });
-    connect(m_mainWindow, &KateMainWindow::forwardButtonEnabled, this, [this](bool v) {
-        if (auto avs = activeViewSpace()) {
-            avs->setForwardButtonEnabled(v);
-        }
-    });
-
     m_blockViewCreationAndActivation = false;
 
     // init done

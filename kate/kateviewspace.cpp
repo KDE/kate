@@ -48,29 +48,25 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent, cons
     hLayout->setContentsMargins(0, 0, 0, 0);
 
     // add left <-> right history buttons
-    m_historyLeft = new QToolButton(this);
+    auto historyLeft = new QToolButton(this);
     auto hlAct = m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_history_back"));
-    m_historyLeft->setDefaultAction(hlAct);
-    m_historyLeft->setToolTip(hlAct->text());
-    m_historyLeft->setIcon(hlAct->icon());
-    m_historyLeft->setAutoRaise(true);
-    KAcceleratorManager::setNoAccel(m_historyLeft);
-    m_historyLeft->installEventFilter(this); // on click, active this view space
-    hLayout->addWidget(m_historyLeft);
+    historyLeft->setDefaultAction(hlAct);
+    historyLeft->setToolTip(hlAct->text());
+    historyLeft->setIcon(hlAct->icon());
+    historyLeft->setAutoRaise(true);
+    KAcceleratorManager::setNoAccel(historyLeft);
+    historyLeft->installEventFilter(this); // on click, active this view space
+    hLayout->addWidget(historyLeft);
 
-    m_historyRight = new QToolButton(this);
+    auto historyRight = new QToolButton(this);
     auto hrAct = m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_history_forward"));
-    m_historyRight->setDefaultAction(hrAct);
-    m_historyRight->setIcon(hrAct->icon());
-    m_historyRight->setToolTip(hrAct->text());
-    m_historyRight->setAutoRaise(true);
-    KAcceleratorManager::setNoAccel(m_historyRight);
-    m_historyRight->installEventFilter(this); // on click, active this view space
-    hLayout->addWidget(m_historyRight);
-
-    // deactive in the beginning for now
-    setBackButtonEnabled(false);
-    setForwardButtonEnabled(false);
+    historyRight->setDefaultAction(hrAct);
+    historyRight->setIcon(hrAct->icon());
+    historyRight->setToolTip(hrAct->text());
+    historyRight->setAutoRaise(true);
+    KAcceleratorManager::setNoAccel(historyRight);
+    historyRight->installEventFilter(this); // on click, active this view space
+    hLayout->addWidget(historyRight);
 
     // add tab bar
     m_tabBar = new KateTabBar(this);
@@ -465,16 +461,6 @@ void KateViewSpace::focusNextTab()
     if (id >= 0) {
         changeView(id);
     }
-}
-
-void KateViewSpace::setForwardButtonEnabled(bool active)
-{
-    m_historyRight->setEnabled(active);
-}
-
-void KateViewSpace::setBackButtonEnabled(bool active)
-{
-    m_historyLeft->setEnabled(active);
 }
 
 int KateViewSpace::hiddenDocuments() const

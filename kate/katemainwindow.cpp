@@ -1190,7 +1190,7 @@ void KateMainWindow::addJump(const QUrl &url, KTextEditor::Cursor c)
     }
 
     // if same line, remove last entry
-    if (m_locations.back().url == url && m_locations.back().cursor.line() == c.line()) {
+    if (!m_locations.isEmpty() && m_locations.back().url == url && m_locations.back().cursor.line() == c.line()) {
         m_locations.pop_back();
     }
 

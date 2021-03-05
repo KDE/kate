@@ -511,9 +511,9 @@ which indicates how many of the appropriate movements to make.</para>
 <entry><para>Next closing bracket</para></entry>
 </row>
 <row><entry><para><keycombo action="simul">&Ctrl;<keycap>I</keycap></keycombo></para></entry>
-<entry><para>Jump forward to next location</para></entry></row>
+<entry><para>Jump to next location</para></entry></row>
 <row><entry><para><keycombo action="simul">&Ctrl;<keycap>O</keycap></keycombo></para></entry>
-<entry><para>Jump back to previous location</para></entry></row>
+<entry><para>Jump to previous location</para></entry></row>
 <row><entry><para><userinput>H</userinput></para></entry>
 <entry>Go to first line of screen</entry></row>
 <row><entry><para><userinput>M</userinput></para></entry>

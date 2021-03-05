@@ -48,12 +48,6 @@ const QStringList DefaultConfig = QStringList() << GitConfig << SubversionConfig
 KateProjectPlugin::KateProjectPlugin(QObject *parent, const QList<QVariant> &)
     : KTextEditor::Plugin(parent)
     , m_completion(this)
-    , m_autoGit(true)
-    , m_autoSubversion(true)
-    , m_autoMercurial(true)
-    , m_indexEnabled(false)
-    , m_multiProjectCompletion(false)
-    , m_multiProjectGoto(false)
 {
     qRegisterMetaType<KateProjectSharedQStandardItem>("KateProjectSharedQStandardItem");
     qRegisterMetaType<KateProjectSharedQHashStringItem>("KateProjectSharedQHashStringItem");
@@ -369,21 +363,11 @@ void KateProjectPlugin::setMultiProject(bool completion, bool gotoSymbol)
 void KateProjectPlugin::readConfig()
 {
     KConfigGroup config(KSharedConfig::openConfig(), "project");
-    QStringList autorepository = config.readEntry("autorepository", DefaultConfig);
 
-    m_autoGit = m_autoSubversion = m_autoMercurial = false;
-
-    if (autorepository.contains(GitConfig)) {
-        m_autoGit = true;
-    }
-
-    if (autorepository.contains(SubversionConfig)) {
-        m_autoSubversion = true;
-    }
-
-    if (autorepository.contains(MercurialConfig)) {
-        m_autoMercurial = true;
-    }
+    const QStringList autorepository = config.readEntry("autorepository", DefaultConfig);
+    m_autoGit = autorepository.contains(GitConfig);
+    m_autoSubversion = autorepository.contains(SubversionConfig);
+    m_autoMercurial = autorepository.contains(MercurialConfig);
 
     m_indexEnabled = config.readEntry("index", false);
     m_indexDirectory = config.readEntry("indexDirectory", QUrl());

@@ -182,14 +182,21 @@ private:
      */
     KateProjectCompletion m_completion;
 
-    bool m_autoGit;
-    bool m_autoSubversion;
-    bool m_autoMercurial;
-    bool m_indexEnabled;
-    bool m_multiProjectCompletion;
-    bool m_multiProjectGoto;
-    bool m_gitNumStat;
+    // auto discovery on per default
+    bool m_autoGit = true;
+    bool m_autoSubversion = true;
+    bool m_autoMercurial = true;
+
+    // indexing is expensive, default off
+    bool m_indexEnabled = false;
     QUrl m_indexDirectory;
+
+    // some more features default off, too
+    bool m_multiProjectCompletion = false;
+    bool m_multiProjectGoto = false;
+
+    // git features
+    bool m_gitNumStat = true;
 
     /**
      * thread pool for our workers

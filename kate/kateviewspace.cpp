@@ -48,25 +48,25 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent, cons
     hLayout->setContentsMargins(0, 0, 0, 0);
 
     // add left <-> right history buttons
-    auto historyLeft = new QToolButton(this);
+    m_historyBack = new QToolButton(this);
     auto hlAct = m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_history_back"));
-    historyLeft->setDefaultAction(hlAct);
-    historyLeft->setToolTip(hlAct->text());
-    historyLeft->setIcon(hlAct->icon());
-    historyLeft->setAutoRaise(true);
-    KAcceleratorManager::setNoAccel(historyLeft);
-    historyLeft->installEventFilter(this); // on click, active this view space
-    hLayout->addWidget(historyLeft);
+    m_historyBack->setDefaultAction(hlAct);
+    m_historyBack->setToolTip(hlAct->text());
+    m_historyBack->setIcon(hlAct->icon());
+    m_historyBack->setAutoRaise(true);
+    KAcceleratorManager::setNoAccel(m_historyBack);
+    m_historyBack->installEventFilter(this); // on click, active this view space
+    hLayout->addWidget(m_historyBack);
 
-    auto historyRight = new QToolButton(this);
+    m_historyForward = new QToolButton(this);
     auto hrAct = m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_history_forward"));
-    historyRight->setDefaultAction(hrAct);
-    historyRight->setIcon(hrAct->icon());
-    historyRight->setToolTip(hrAct->text());
-    historyRight->setAutoRaise(true);
-    KAcceleratorManager::setNoAccel(historyRight);
-    historyRight->installEventFilter(this); // on click, active this view space
-    hLayout->addWidget(historyRight);
+    m_historyForward->setDefaultAction(hrAct);
+    m_historyForward->setIcon(hrAct->icon());
+    m_historyForward->setToolTip(hrAct->text());
+    m_historyForward->setAutoRaise(true);
+    KAcceleratorManager::setNoAccel(m_historyForward);
+    m_historyForward->installEventFilter(this); // on click, active this view space
+    hLayout->addWidget(m_historyForward);
 
     // add tab bar
     m_tabBar = new KateTabBar(this);
@@ -173,6 +173,8 @@ void KateViewSpace::statusBarToggled()
 void KateViewSpace::tabBarToggled()
 {
     KateUpdateDisabler updatesDisabled(m_viewManager->mainWindow());
+    m_historyBack->setVisible(m_viewManager->mainWindow()->showTabBar());
+    m_historyForward->setVisible(m_viewManager->mainWindow()->showTabBar());
     m_tabBar->setVisible(m_viewManager->mainWindow()->showTabBar());
     m_split->setVisible(m_viewManager->mainWindow()->showTabBar());
     m_quickOpen->setVisible(m_viewManager->mainWindow()->showTabBar());

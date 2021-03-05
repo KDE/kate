@@ -171,6 +171,12 @@ private:
 
     // quick open action
     QToolButton *m_quickOpen;
+
+    // go back in history button (only visible when the tab bar is visible)
+    QToolButton *m_historyBack;
+
+    // go forward in history button (only visible when the tab bar is visible)
+    QToolButton *m_historyForward;
 };
 
 #endif

@@ -53,6 +53,8 @@ struct StatusItem {
     QString file;
     GitStatus status;
     char statusChar;
+    int add;
+    int sub;
 };
 
 struct GitParsedStatus {
@@ -60,9 +62,13 @@ struct GitParsedStatus {
     QVector<StatusItem> unmerge;
     QVector<StatusItem> staged;
     QVector<StatusItem> changed;
+
+    void addNumStat(int add, int sub, const QString &file);
 };
 
 GitParsedStatus parseStatus(const QByteArray &raw);
+
+GitParsedStatus parseDiffNumStat(GitParsedStatus s, const QByteArray &raw);
 
 QString statusString(GitStatus s);
 }

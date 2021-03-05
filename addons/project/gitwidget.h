@@ -80,6 +80,7 @@ private:
     void launchExternalDiffTool(const QString &file, bool staged);
     void commitChanges(const QString &msg, const QString &desc, bool signOff);
     void applyDiff(const QString &fileName, bool staged, bool hunk, KTextEditor::View *v);
+    void numStatForStatus(GitUtils::GitParsedStatus status);
     QMenu *stashMenu();
 
     void hideEmptyTreeNodes();

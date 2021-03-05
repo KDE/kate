@@ -556,9 +556,37 @@ void GitWidget::hideEmptyTreeNodes()
 void GitWidget::parseStatusReady()
 {
     GitUtils::GitParsedStatus s = m_gitStatusWatcher.result();
-    m_model->addItems(std::move(s));
 
+    if (m_pluginView->plugin()->showGitStatusWithNumStat()) {
+        numStatForStatus(std::move(s));
+        return;
+    }
+
+    m_model->addItems(std::move(s), false);
     hideEmptyTreeNodes();
+}
+
+void GitWidget::numStatForStatus(GitUtils::GitParsedStatus status)
+{
+    disconnect(&git, &QProcess::finished, nullptr, nullptr);
+
+    const auto args = QStringList{QStringLiteral("diff"), QStringLiteral("HEAD"), QStringLiteral("--numstat"), QStringLiteral("-z")};
+
+    connect(&git, &QProcess::finished, this, [this, status{std::move(status)}](int exitCode, QProcess::ExitStatus es) mutable {
+        disconnect(&git, &QProcess::finished, nullptr, nullptr);
+        if (es != QProcess::NormalExit || exitCode != 0) {
+            sendMessage(i18n("Failed to get diff --numstat: %1", QString::fromUtf8(git.readAllStandardError())), true);
+            // just use the simple status data in model
+            m_model->addItems(std::move(status), false);
+        } else {
+            status = GitUtils::parseDiffNumStat(std::move(status), git.readAllStandardOutput());
+            m_model->addItems(status, true);
+        }
+        hideEmptyTreeNodes();
+    });
+
+    git.setArguments(args);
+    git.start();
 }
 
 bool GitWidget::eventFilter(QObject *o, QEvent *e)

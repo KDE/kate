@@ -120,7 +120,16 @@ QVariant GitStatusModel::data(const QModelIndex &index, int role) const
                 }
                 return filename;
             } else {
-                return QString(QLatin1Char(m_nodes[rootIndex].at(row).statusChar));
+                if (!m_showNumStat) {
+                    return QString(QLatin1Char(m_nodes[rootIndex].at(row).statusChar));
+                }
+                int a = m_nodes[rootIndex].at(row).add;
+                int s = m_nodes[rootIndex].at(row).sub;
+                auto add = QString::number(a);
+                auto sub = QString::number(s);
+                add.append(QStringLiteral("+ ") + sub + QStringLiteral("- "));
+                add.append(QString(QLatin1Char(m_nodes[rootIndex].at(row).statusChar)));
+                return add;
             }
         } else if (role == FileNameRole) {
             return m_nodes[rootIndex].at(row).file;
@@ -148,13 +157,14 @@ QVariant GitStatusModel::data(const QModelIndex &index, int role) const
 
     return {};
 }
-void GitStatusModel::addItems(GitUtils::GitParsedStatus status)
+void GitStatusModel::addItems(GitUtils::GitParsedStatus status, bool numStat)
 {
     beginResetModel();
     m_nodes[Staged] = std::move(status.staged);
     m_nodes[Changed] = std::move(status.changed);
     m_nodes[Conflict] = std::move(status.unmerge);
     m_nodes[Untrack] = std::move(status.untracked);
+    m_showNumStat = numStat;
     endResetModel();
 }
 

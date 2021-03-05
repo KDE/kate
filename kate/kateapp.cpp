@@ -396,7 +396,7 @@ bool KateApp::setCursor(int line, int column)
 }
 
 bool KateApp::hasCursorInArgs() {
-    return m_args.isSet(QStringLiteral("line")) || m_args.isSet(QStringLiteral("c"));
+    return m_args.isSet(QStringLiteral("line")) || m_args.isSet(QStringLiteral("column"));
 }
 
 bool KateApp::openInput(const QString &text, const QString &encoding)

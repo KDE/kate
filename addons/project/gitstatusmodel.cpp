@@ -127,9 +127,9 @@ QVariant GitStatusModel::data(const QModelIndex &index, int role) const
                 int r = m_nodes[rootIndex].at(row).linesRemoved;
                 auto add = QString::number(a);
                 auto sub = QString::number(r);
-                add.append(QStringLiteral("+ ") + sub + QStringLiteral("- "));
-                add.append(QString(QLatin1Char(m_nodes[rootIndex].at(row).statusChar)));
-                return add;
+                QString statusChar(QLatin1Char(m_nodes[rootIndex].at(row).statusChar));
+                QString ret = QStringLiteral("+") + add + QStringLiteral(" -") + sub + QStringLiteral(" ") + statusChar;
+                return ret;
             }
         } else if (role == FileNameRole) {
             return m_nodes[rootIndex].at(row).file;

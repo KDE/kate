@@ -24,7 +24,6 @@
 KateProjectItem::KateProjectItem(Type type, const QString &text)
     : QStandardItem(text)
     , m_type(type)
-    , m_icon(nullptr)
 {
 }
 

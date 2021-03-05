@@ -78,7 +78,7 @@ private:
     /**
      * cached icon
      */
-    mutable QIcon *m_icon;
+    mutable QIcon *m_icon = nullptr;
 
     /**
      * for document icons

@@ -114,7 +114,7 @@ QVariant GitStatusModel::data(const QModelIndex &index, int role) const
 
         if (role == Qt::DisplayRole) {
             if (index.column() == 0) {
-                const auto filename = QFileInfo(m_nodes[rootIndex].at(row).file).fileName();
+                const auto filename = QFileInfo(QString::fromUtf8(m_nodes[rootIndex].at(row).file)).fileName();
                 if (filename.isEmpty()) {
                     return m_nodes[rootIndex].at(row).file;
                 }
@@ -123,10 +123,10 @@ QVariant GitStatusModel::data(const QModelIndex &index, int role) const
                 if (!m_showNumStat) {
                     return QString(QLatin1Char(m_nodes[rootIndex].at(row).statusChar));
                 }
-                int a = m_nodes[rootIndex].at(row).add;
-                int s = m_nodes[rootIndex].at(row).sub;
+                int a = m_nodes[rootIndex].at(row).linesAdded;
+                int r = m_nodes[rootIndex].at(row).linesRemoved;
                 auto add = QString::number(a);
-                auto sub = QString::number(s);
+                auto sub = QString::number(r);
                 add.append(QStringLiteral("+ ") + sub + QStringLiteral("- "));
                 add.append(QString(QLatin1Char(m_nodes[rootIndex].at(row).statusChar)));
                 return add;
@@ -134,12 +134,14 @@ QVariant GitStatusModel::data(const QModelIndex &index, int role) const
         } else if (role == FileNameRole) {
             return m_nodes[rootIndex].at(row).file;
         } else if (role == Qt::DecorationRole) {
-            if (index.column() == 0)
-                return QIcon::fromTheme(QMimeDatabase().mimeTypeForFile(m_nodes[rootIndex].at(row).file, QMimeDatabase::MatchExtension).iconName());
+            if (index.column() == 0) {
+                const QString file = QString::fromUtf8(m_nodes[rootIndex].at(row).file);
+                return QIcon::fromTheme(QMimeDatabase().mimeTypeForFile(file, QMimeDatabase::MatchExtension).iconName());
+            }
         } else if (role == Role::TreeItemType) {
             return ItemType::NodeFile;
         } else if (role == Qt::ToolTipRole) {
-            return QString(m_nodes[rootIndex].at(row).file + GitUtils::statusString(m_nodes[rootIndex].at(row).status));
+            return QString(QString::fromUtf8(m_nodes[rootIndex].at(row).file) + GitUtils::statusString(m_nodes[rootIndex].at(row).status));
         } else if (role == Qt::TextAlignmentRole) {
             if (index.column() == 0) {
                 return Qt::AlignLeft;

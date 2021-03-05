@@ -16,7 +16,7 @@ GitUtils::GitParsedStatus GitUtils::parseStatus(const QByteArray &raw)
     QVector<GitUtils::StatusItem> staged;
     QVector<GitUtils::StatusItem> changed;
 
-    QList<QByteArray> rawList = raw.split(0x00);
+    const QList<QByteArray> rawList = raw.split(0x00);
     for (const auto &r : rawList) {
         if (r.isEmpty() || r.length() < 3) {
             continue;
@@ -27,67 +27,64 @@ GitUtils::GitParsedStatus GitUtils::parseStatus(const QByteArray &raw)
         uint16_t xy = (((uint16_t)x) << 8) | y;
         using namespace GitUtils;
 
-        const char *file = r.data() + 3;
-        const int size = r.size() - 3;
-
         switch (xy) {
         case StatusXY::QQ:
-            untracked.append({QString::fromUtf8(file, size), GitStatus::Untracked, 'U', 0, 0});
+            untracked.append({r.mid(3), GitStatus::Untracked, 'U', 0, 0});
             break;
         case StatusXY::II:
-            untracked.append({QString::fromUtf8(file, size), GitStatus::Ignored, 'I', 0, 0});
+            untracked.append({r.mid(3), GitStatus::Ignored, 'I', 0, 0});
             break;
 
         case StatusXY::DD:
-            unmerge.append({QString::fromUtf8(file, size), GitStatus::Unmerge_BothDeleted, x, 0, 0});
+            unmerge.append({r.mid(3), GitStatus::Unmerge_BothDeleted, x, 0, 0});
             break;
         case StatusXY::AU:
-            unmerge.append({QString::fromUtf8(file, size), GitStatus::Unmerge_AddedByUs, x, 0, 0});
+            unmerge.append({r.mid(3), GitStatus::Unmerge_AddedByUs, x, 0, 0});
             break;
         case StatusXY::UD:
-            unmerge.append({QString::fromUtf8(file, size), GitStatus::Unmerge_DeletedByThem, x, 0, 0});
+            unmerge.append({r.mid(3), GitStatus::Unmerge_DeletedByThem, x, 0, 0});
             break;
         case StatusXY::UA:
-            unmerge.append({QString::fromUtf8(file, size), GitStatus::Unmerge_AddedByThem, x, 0, 0});
+            unmerge.append({r.mid(3), GitStatus::Unmerge_AddedByThem, x, 0, 0});
             break;
         case StatusXY::DU:
-            unmerge.append({QString::fromUtf8(file, size), GitStatus::Unmerge_DeletedByUs, x, 0, 0});
+            unmerge.append({r.mid(3), GitStatus::Unmerge_DeletedByUs, x, 0, 0});
             break;
         case StatusXY::AA:
-            unmerge.append({QString::fromUtf8(file, size), GitStatus::Unmerge_BothAdded, x, 0, 0});
+            unmerge.append({r.mid(3), GitStatus::Unmerge_BothAdded, x, 0, 0});
             break;
         case StatusXY::UU:
-            unmerge.append({QString::fromUtf8(file, size), GitStatus::Unmerge_BothModified, x, 0, 0});
+            unmerge.append({r.mid(3), GitStatus::Unmerge_BothModified, x, 0, 0});
             break;
         }
 
         switch (x) {
         case 'M':
-            staged.append({QString::fromUtf8(file, size), GitStatus::Index_Modified, x, 0, 0});
+            staged.append({r.mid(3), GitStatus::Index_Modified, x, 0, 0});
             break;
         case 'A':
-            staged.append({QString::fromUtf8(file, size), GitStatus::Index_Added, x, 0, 0});
+            staged.append({r.mid(3), GitStatus::Index_Added, x, 0, 0});
             break;
         case 'D':
-            staged.append({QString::fromUtf8(file, size), GitStatus::Index_Deleted, x, 0, 0});
+            staged.append({r.mid(3), GitStatus::Index_Deleted, x, 0, 0});
             break;
         case 'R':
-            staged.append({QString::fromUtf8(file, size), GitStatus::Index_Renamed, x, 0, 0});
+            staged.append({r.mid(3), GitStatus::Index_Renamed, x, 0, 0});
             break;
         case 'C':
-            staged.append({QString::fromUtf8(file, size), GitStatus::Index_Copied, x, 0, 0});
+            staged.append({r.mid(3), GitStatus::Index_Copied, x, 0, 0});
             break;
         }
 
         switch (y) {
         case 'M':
-            changed.append({QString::fromUtf8(file, size), GitStatus::WorkingTree_Modified, y, 0, 0});
+            changed.append({r.mid(3), GitStatus::WorkingTree_Modified, y, 0, 0});
             break;
         case 'D':
-            changed.append({QString::fromUtf8(file, size), GitStatus::WorkingTree_Deleted, y, 0, 0});
+            changed.append({r.mid(3), GitStatus::WorkingTree_Deleted, y, 0, 0});
             break;
         case 'A':
-            changed.append({QString::fromUtf8(file, size), GitStatus::WorkingTree_IntentToAdd, y, 0, 0});
+            changed.append({r.mid(3), GitStatus::WorkingTree_IntentToAdd, y, 0, 0});
             break;
         }
     }
@@ -134,11 +131,25 @@ static bool getNum(const QByteArray &numBytes, int *num)
     return res;
 }
 
-GitUtils::GitParsedStatus GitUtils::parseDiffNumStat(GitUtils::GitParsedStatus s, const QByteArray &raw)
+static void addNumStat(QVector<GitUtils::StatusItem> &items, int add, int sub, const QByteArray &file)
 {
-    auto list = raw.split(0x00);
-    for (const auto &l : list) {
-        auto cols = l.split('\t');
+    // look in modified first, then staged
+    auto item = std::find_if(items.begin(), items.end(), [&file](const GitUtils::StatusItem &si) {
+        return si.file == file;
+    });
+    if (item != items.end()) {
+        item->linesAdded = add;
+        item->linesRemoved = sub;
+        return;
+    }
+}
+
+void GitUtils::parseDiffNumStat(QVector<GitUtils::StatusItem> &items, const QByteArray &raw)
+{
+    const auto lines = raw.split(0x00);
+    for (const auto &line : lines) {
+        // format: 12(adds)\t10(subs)\tFileName
+        const auto cols = line.split('\t');
         if (cols.length() < 3) {
             continue;
         }
@@ -152,31 +163,7 @@ GitUtils::GitParsedStatus GitUtils::parseDiffNumStat(GitUtils::GitParsedStatus s
             continue;
         }
 
-        auto file = cols.at(2);
-        s.addNumStat(add, sub, QString::fromUtf8(file));
-        // we are only concerned with staged + modified
-    }
-    return s;
-}
-
-void GitUtils::GitParsedStatus::addNumStat(int add, int sub, const QString &file)
-{
-    // look in modified first, then staged
-    auto i = std::find_if(changed.begin(), changed.end(), [&file](const StatusItem &si) {
-        return si.file == file;
-    });
-    if (i != changed.end()) {
-        i->add = add;
-        i->sub = sub;
-        return;
-    }
-
-    i = std::find_if(staged.begin(), staged.end(), [&file](const StatusItem &si) {
-        return si.file == file;
-    });
-    if (i != staged.end()) {
-        i->add = add;
-        i->sub = sub;
-        return;
+        const auto file = cols.at(2);
+        addNumStat(items, add, sub, file);
     }
 }

@@ -50,11 +50,11 @@ enum StatusXY {
 };
 
 struct StatusItem {
-    QString file;
+    QByteArray file;
     GitStatus status;
     char statusChar;
-    int add;
-    int sub;
+    int linesAdded;
+    int linesRemoved;
 };
 
 struct GitParsedStatus {
@@ -62,13 +62,11 @@ struct GitParsedStatus {
     QVector<StatusItem> unmerge;
     QVector<StatusItem> staged;
     QVector<StatusItem> changed;
-
-    void addNumStat(int add, int sub, const QString &file);
 };
 
 GitParsedStatus parseStatus(const QByteArray &raw);
 
-GitParsedStatus parseDiffNumStat(GitParsedStatus s, const QByteArray &raw);
+void parseDiffNumStat(QVector<GitUtils::StatusItem> &items, const QByteArray &raw);
 
 QString statusString(GitStatus s);
 }

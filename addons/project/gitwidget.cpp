@@ -558,35 +558,31 @@ void GitWidget::parseStatusReady()
     GitUtils::GitParsedStatus s = m_gitStatusWatcher.result();
 
     if (m_pluginView->plugin()->showGitStatusWithNumStat()) {
-        numStatForStatus(std::move(s));
-        return;
+        numStatForStatus(s.changed, true);
+        numStatForStatus(s.staged, false);
     }
 
-    m_model->addItems(std::move(s), false);
+    m_model->addItems(std::move(s), m_pluginView->plugin()->showGitStatusWithNumStat());
     hideEmptyTreeNodes();
 }
 
-void GitWidget::numStatForStatus(GitUtils::GitParsedStatus status)
+void GitWidget::numStatForStatus(QVector<GitUtils::StatusItem> &list, bool modified)
 {
     disconnect(&git, &QProcess::finished, nullptr, nullptr);
 
-    const auto args = QStringList{QStringLiteral("diff"), QStringLiteral("HEAD"), QStringLiteral("--numstat"), QStringLiteral("-z")};
-
-    connect(&git, &QProcess::finished, this, [this, status{std::move(status)}](int exitCode, QProcess::ExitStatus es) mutable {
-        disconnect(&git, &QProcess::finished, nullptr, nullptr);
-        if (es != QProcess::NormalExit || exitCode != 0) {
-            sendMessage(i18n("Failed to get diff --numstat: %1", QString::fromUtf8(git.readAllStandardError())), true);
-            // just use the simple status data in model
-            m_model->addItems(std::move(status), false);
-        } else {
-            status = GitUtils::parseDiffNumStat(std::move(status), git.readAllStandardOutput());
-            m_model->addItems(status, true);
-        }
-        hideEmptyTreeNodes();
-    });
+    const auto args = modified ? QStringList{QStringLiteral("diff"), QStringLiteral("--numstat"), QStringLiteral("-z")}
+                               : QStringList{QStringLiteral("diff"), QStringLiteral("--numstat"), QStringLiteral("--staged"), QStringLiteral("-z")};
 
     git.setArguments(args);
     git.start();
+
+    if (git.waitForStarted() && git.waitForFinished(-1)) {
+        if (git.exitStatus() != QProcess::NormalExit || git.exitCode() != 0) {
+            return;
+        }
+    }
+
+    GitUtils::parseDiffNumStat(list, git.readAllStandardOutput());
 }
 
 bool GitWidget::eventFilter(QObject *o, QEvent *e)
@@ -741,8 +737,8 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
         const QVector<GitUtils::StatusItem> &files = untracked ? m_model->untrackedFiles() : m_model->changedFiles();
         QStringList filesList;
         filesList.reserve(files.size());
-        for (const auto &file : files) {
-            filesList.append(file.file);
+        for (const GitUtils::StatusItem &item : files) {
+            filesList.append(QString::fromUtf8(item.file));
         }
 
         // execute action
@@ -819,11 +815,11 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
 
         // git reset -q HEAD --
         if (act == stage) {
-            const QVector<GitUtils::StatusItem> &files = m_model->stagedFiles();
+            const QVector<GitUtils::StatusItem> &items = m_model->stagedFiles();
             QStringList filesList;
-            filesList.reserve(filesList.size() + files.size());
-            for (const auto &file : files) {
-                filesList.append(file.file);
+            filesList.reserve(filesList.size() + items.size());
+            for (const GitUtils::StatusItem &item : items) {
+                filesList.append(QString::fromUtf8(item.file));
             }
             unstage(filesList);
         } else if (act == diff) {

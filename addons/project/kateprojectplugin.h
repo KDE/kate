@@ -182,13 +182,13 @@ private:
      */
     KateProjectCompletion m_completion;
 
-    bool m_autoGit : 1;
-    bool m_autoSubversion : 1;
-    bool m_autoMercurial : 1;
-    bool m_indexEnabled : 1;
-    bool m_multiProjectCompletion : 1;
-    bool m_multiProjectGoto : 1;
-    bool m_gitNumStat : 1;
+    bool m_autoGit;
+    bool m_autoSubversion;
+    bool m_autoMercurial;
+    bool m_indexEnabled;
+    bool m_multiProjectCompletion;
+    bool m_multiProjectGoto;
+    bool m_gitNumStat;
     QUrl m_indexDirectory;
 
     /**

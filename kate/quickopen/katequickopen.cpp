@@ -52,6 +52,11 @@ protected:
     bool lessThan(const QModelIndex &sourceLeft, const QModelIndex &sourceRight) const override
     {
         auto sm = sourceModel();
+        if (pattern.isEmpty()) {
+            const bool l = static_cast<KateQuickOpenModel *>(sm)->isOpened(sourceLeft);
+            const bool r = static_cast<KateQuickOpenModel *>(sm)->isOpened(sourceRight);
+            return l < r;
+        }
         const int l = static_cast<KateQuickOpenModel *>(sm)->idxScore(sourceLeft);
         const int r = static_cast<KateQuickOpenModel *>(sm)->idxScore(sourceRight);
         return l < r;
@@ -92,12 +97,20 @@ protected:
     }
 
 public Q_SLOTS:
-    void setFilterText(const QString &text)
+    bool setFilterText(const QString &text)
     {
+        // we don't want to trigger filtering if the user is just entering line:col
+        const auto splitted = text.split(QLatin1Char(':')).at(0);
+        if (splitted == pattern) {
+            return false;
+        }
+
         beginResetModel();
-        pattern = text;
+        pattern = splitted;
         pathLike = pattern.contains(QLatin1Char('/'));
         endResetModel();
+
+        return true;
     }
 
 private:
@@ -231,11 +244,13 @@ KateQuickOpen::KateQuickOpen(KateMainWindow *mainWindow)
     m_styleDelegate = new QuickOpenStyleDelegate(this);
     m_listView->setItemDelegate(m_styleDelegate);
 
-    connect(m_inputLine, &QuickOpenLineEdit::textChanged, m_model, &QuickOpenFilterProxyModel::setFilterText);
     connect(m_inputLine, &QuickOpenLineEdit::textChanged, m_styleDelegate, &QuickOpenStyleDelegate::setFilterString);
-    connect(m_inputLine, &QuickOpenLineEdit::textChanged, this, [this]() {
-        m_listView->viewport()->update();
-        reselectFirst(); // hacky way
+    connect(m_inputLine, &QuickOpenLineEdit::textChanged, this, [this](const QString &text) {
+        if (m_model->setFilterText(text)) {
+            m_styleDelegate->setFilterString(text);
+            m_listView->viewport()->update();
+            reselectFirst(); // hacky way
+        }
     });
     connect(m_inputLine, &QuickOpenLineEdit::returnPressed, this, &KateQuickOpen::slotReturnPressed);
     connect(m_inputLine, &QuickOpenLineEdit::listModeChanged, this, &KateQuickOpen::slotListModeChanged);
@@ -306,11 +321,9 @@ bool KateQuickOpen::eventFilter(QObject *obj, QEvent *event)
     // hide on focus out, if neither input field nor list have focus!
     else if (event->type() == QEvent::FocusOut && !(m_inputLine->hasFocus() || m_listView->hasFocus())) {
         m_mainWindow->slotWindowActivated();
-        {
-            m_inputLine->blockSignals(true);
-            m_inputLine->clear();
-            m_inputLine->blockSignals(false);
-        }
+        m_inputLine->blockSignals(true);
+        m_inputLine->clear();
+        m_inputLine->blockSignals(false);
         hide();
         return true;
     }
@@ -356,12 +369,30 @@ void KateQuickOpen::slotReturnPressed()
         }
     }
 
-    KTextEditor::View *v = m_mainWindow->wrapper()->openUrl(url);
+    KTextEditor::View *view = m_mainWindow->wrapper()->openUrl(url);
+
+    const auto strs = m_inputLine->text().split(QLatin1Char(':'));
+
+    if (view && strs.count() > 1) {
+        int lineCol[2] = {0, 0};
+
+        for (int i = 1; i < strs.count() && i < 3; ++i) {
+            QString str = strs.at(i);
+            bool ok = false;
+            int l = str.toInt(&ok);
+            if (ok) {
+                lineCol[i - 1] = l - 1;
+            }
+        }
+        KTextEditor::Cursor c{lineCol[0], lineCol[1]};
+        view->setCursorPosition(c);
+    }
+
     hide();
     m_mainWindow->slotWindowActivated();
 
-    if (v) {
-        vm->addPositionToHistory(v->document()->url(), v->cursorPosition());
+    if (view) {
+        vm->addPositionToHistory(view->document()->url(), view->cursorPosition());
     }
 
     // block signals for input line so that we dont trigger filtering again

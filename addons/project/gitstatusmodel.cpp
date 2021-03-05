@@ -144,9 +144,9 @@ QVariant GitStatusModel::data(const QModelIndex &index, int role) const
             return QString(QString::fromUtf8(m_nodes[rootIndex].at(row).file) + GitUtils::statusString(m_nodes[rootIndex].at(row).status));
         } else if (role == Qt::TextAlignmentRole) {
             if (index.column() == 0) {
-                return Qt::AlignLeft;
+                return (int)(Qt::AlignLeft | Qt::AlignVCenter);
             } else {
-                return Qt::AlignRight;
+                return (int)(Qt::AlignRight | Qt::AlignVCenter);
             }
         } else if (role == Qt::ForegroundRole) {
             if (index.column() == 1 && rootIndex > 0) {

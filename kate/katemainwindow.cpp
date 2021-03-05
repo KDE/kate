@@ -1358,6 +1358,8 @@ void KateMainWindow::goForward()
         Q_EMIT forwardButtonEnabled(false);
     }
 
+    Q_EMIT backButtonEnabled(true);
+
     if (!location.url.isValid() || !location.cursor.isValid()) {
         QVariantMap genericMessage;
         genericMessage.insert(QStringLiteral("type"), QStringLiteral("Error"));
@@ -1375,8 +1377,6 @@ void KateMainWindow::goForward()
         activeView()->setCursorPosition(location.cursor);
         return;
     }
-
-    Q_EMIT backButtonEnabled(true);
 
     auto v = openUrl(location.url);
     const QSignalBlocker blocker(v);

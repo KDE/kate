@@ -207,7 +207,7 @@ bool KateApp::startupKate()
             doc = openDocUrl(info.url, codec_name, tempfileSet);
             if (info.cursor.isValid()) {
                 setCursor(info.cursor.line(), info.cursor.column());
-            } else if (m_args.isSet(QStringLiteral("line")) || m_args.isSet(QStringLiteral("column"))) {
+            } else if (hasCursorInArgs()) {
                 setCursorFromArgs(activeMainWindow()->activeView());
             }
         } else if (!KateApp::self()->pluginManager()->plugin(QStringLiteral("kateprojectplugin"))) {

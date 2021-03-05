@@ -23,6 +23,7 @@ class QMenu;
 class QToolButton;
 class QTemporaryFile;
 class KateProjectPluginView;
+class GitWidgetTreeView;
 
 namespace KTextEditor
 {
@@ -54,7 +55,7 @@ private:
     QToolButton *m_commitBtn;
     QToolButton *m_pushBtn;
     QToolButton *m_pullBtn;
-    QTreeView *m_treeView;
+    GitWidgetTreeView *m_treeView;
     GitStatusModel *m_model;
     KateProject *m_project;
     /** This ends with "/", always remember this */

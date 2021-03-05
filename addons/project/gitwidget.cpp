@@ -113,12 +113,26 @@ private:
     KateProjectPlugin *m_plugin;
 };
 
+class GitWidgetTreeView : public QTreeView
+{
+public:
+    GitWidgetTreeView(QWidget *parent)
+        : QTreeView(parent)
+    {
+    }
+
+    // we want no branches!
+    void drawBranches(QPainter *, const QRect &, const QModelIndex &) const override
+    {
+    }
+};
+
 GitWidget::GitWidget(KateProject *project, KTextEditor::MainWindow *mainWindow, KateProjectPluginView *pluginView)
     : m_project(project)
     , m_mainWin(mainWindow)
     , m_pluginView(pluginView)
 {
-    m_treeView = new QTreeView(this);
+    m_treeView = new GitWidgetTreeView(this);
 
     initGitExe();
 
@@ -185,6 +199,8 @@ GitWidget::GitWidget(KateProject *project, KTextEditor::MainWindow *mainWindow, 
     m_treeView->setSelectionMode(QTreeView::ExtendedSelection);
     m_treeView->setModel(m_model);
     m_treeView->installEventFilter(this);
+    m_treeView->setRootIsDecorated(false);
+    m_treeView->setIndentation(4);
 
     m_treeView->header()->setStretchLastSection(false);
     m_treeView->header()->setSectionResizeMode(0, QHeaderView::Stretch);

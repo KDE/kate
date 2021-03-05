@@ -734,26 +734,25 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
         auto ignoreAct = untracked ? menu.addAction(i18n("Open .gitignore")) : nullptr;
         auto diff = !untracked ? menu.addAction(i18n("Show diff")) : nullptr;
         // get files
-        const QVector<GitUtils::StatusItem> &files = untracked ? m_model->untrackedFiles() : m_model->changedFiles();
-        QStringList filesList;
-        filesList.reserve(files.size());
-        for (const GitUtils::StatusItem &item : files) {
-            filesList.append(QString::fromUtf8(item.file));
-        }
-
+        const QVector<GitUtils::StatusItem> &items = untracked ? m_model->untrackedFiles() : m_model->changedFiles();
+        QStringList files;
+        files.reserve(items.size());
+        std::transform(items.begin(), items.end(), std::back_inserter(files), [](const GitUtils::StatusItem &i) {
+            return QString::fromUtf8(i.file);
+        });
         // execute action
         auto act = menu.exec(m_treeView->viewport()->mapToGlobal(e->pos()));
         if (act == stageAct) {
-            stage(filesList, type == GitStatusModel::NodeUntrack);
+            stage(files, type == GitStatusModel::NodeUntrack);
         } else if (act == discardAct && !untracked) {
             auto ret = confirm(this, i18n("Are you sure you want to remove these files?"));
             if (ret == KMessageBox::Yes) {
-                discard(filesList);
+                discard(files);
             }
         } else if (act == discardAct && untracked) {
             auto ret = confirm(this, i18n("Are you sure you want to discard all changes?"));
             if (ret == KMessageBox::Yes) {
-                clean(filesList);
+                clean(files);
             }
         } else if (untracked && act == ignoreAct) {
             const auto files = m_project->files();
@@ -816,12 +815,12 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
         // git reset -q HEAD --
         if (act == stage) {
             const QVector<GitUtils::StatusItem> &items = m_model->stagedFiles();
-            QStringList filesList;
-            filesList.reserve(filesList.size() + items.size());
-            for (const GitUtils::StatusItem &item : items) {
-                filesList.append(QString::fromUtf8(item.file));
-            }
-            unstage(filesList);
+            QStringList files;
+            files.reserve(items.size());
+            std::transform(items.begin(), items.end(), std::back_inserter(files), [](const GitUtils::StatusItem &i) {
+                return QString::fromUtf8(i.file);
+            });
+            unstage(files);
         } else if (act == diff) {
             showDiff(QString(), true);
         }

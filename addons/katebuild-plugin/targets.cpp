@@ -30,7 +30,7 @@ TargetsUi::TargetsUi(QObject *view, QWidget *parent)
     copyTarget->setIcon(QIcon::fromTheme(QStringLiteral("edit-copy")));
 
     deleteTarget = new QToolButton(this);
-    deleteTarget->setToolTip(i18n("Delete current set of targets"));
+    deleteTarget->setToolTip(i18n("Delete current target or current set of targets"));
     deleteTarget->setIcon(QIcon::fromTheme(QStringLiteral("edit-delete")));
 
     addButton = new QToolButton(this);
@@ -38,7 +38,7 @@ TargetsUi::TargetsUi(QObject *view, QWidget *parent)
     addButton->setToolTip(i18n("Add new target"));
 
     buildButton = new QToolButton(this);
-    buildButton->setIcon(QIcon::fromTheme(QStringLiteral("dialog-ok")));
+    buildButton->setIcon(QIcon::fromTheme(QStringLiteral("run-build")));
     buildButton->setToolTip(i18n("Build selected target"));
 
     targetsView = new QTreeView(this);

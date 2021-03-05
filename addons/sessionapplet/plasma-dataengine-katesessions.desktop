@@ -2,6 +2,7 @@
 Name=Kate Sessions
 Name[ar]=جلسات كيت
 Name[ast]=Sesiones de Kate
+Name[az]=Kate sessiyaları
 Name[ca]=Sessions del Kate
 Name[ca@valencia]=Sessions del Kate
 Name[cs]=Sezení Kate
@@ -46,6 +47,7 @@ Name[zh_TW]=Kate 工作階段
 Comment=Kate Session Launcher
 Comment[ar]=مُطلق لجلسات «كيت»
 Comment[ast]=Llanzador de sesiones de Kate
+Comment[az]=Kate sessiya başladıcısı
 Comment[bg]=Зареждане на сесии на Kate
 Comment[bs]=Pokretač Kate sesija
 Comment[ca]=Llançador de la sessió del Kate

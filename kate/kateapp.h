@@ -233,6 +233,9 @@ public:
      */
     void setCursorFromQueryString(KTextEditor::View *view = nullptr);
 
+    /**
+     * @return true if --line or --column command line args were provided
+     */
     bool hasCursorInArgs();
 
     /**

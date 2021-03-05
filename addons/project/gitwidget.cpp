@@ -200,7 +200,11 @@ GitWidget::GitWidget(KateProject *project, KTextEditor::MainWindow *mainWindow, 
     m_treeView->setModel(m_model);
     m_treeView->installEventFilter(this);
     m_treeView->setRootIsDecorated(false);
-    m_treeView->setIndentation(4);
+
+    if (m_treeView->style()) {
+        auto indent = m_treeView->style()->pixelMetric(QStyle::PM_TreeViewIndentation, nullptr, m_treeView);
+        m_treeView->setIndentation(indent / 4);
+    }
 
     m_treeView->header()->setStretchLastSection(false);
     m_treeView->header()->setSectionResizeMode(0, QHeaderView::Stretch);

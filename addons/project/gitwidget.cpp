@@ -23,10 +23,12 @@
 #include <QInputMethodEvent>
 #include <QLineEdit>
 #include <QMenu>
+#include <QPainter>
 #include <QPlainTextEdit>
 #include <QProcess>
 #include <QPushButton>
 #include <QStringListModel>
+#include <QStyledItemDelegate>
 #include <QTimer>
 #include <QToolButton>
 #include <QTreeView>
@@ -43,6 +45,73 @@
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/Message>
 #include <KTextEditor/View>
+
+class NumStatStyle final : public QStyledItemDelegate
+{
+public:
+    NumStatStyle(QObject *parent, KateProjectPlugin *p)
+        : QStyledItemDelegate(parent)
+        , m_plugin(p)
+    {
+    }
+
+    void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override
+    {
+        if (!m_plugin->showGitStatusWithNumStat()) {
+            return QStyledItemDelegate::paint(painter, option, index);
+        }
+
+        const auto strs = index.data().toString().split(QLatin1Char(' '));
+        if (strs.count() < 3) {
+            return QStyledItemDelegate::paint(painter, option, index);
+        }
+
+        QStyleOptionViewItem options = option;
+        initStyleOption(&options, index);
+        painter->save();
+
+        // paint background
+        if (option.state & QStyle::State_Selected) {
+            painter->fillRect(option.rect, option.palette.highlight());
+        } else {
+            painter->fillRect(option.rect, option.palette.base());
+        }
+
+        options.text = QString(); // clear old text
+        options.widget->style()->drawControl(QStyle::CE_ItemViewItem, &options, painter, options.widget);
+
+        const QString add = strs.at(0) + QStringLiteral(" ");
+        const QString sub = strs.at(1) + QStringLiteral(" ");
+        const QString Status = strs.at(2);
+
+        int ha = option.fontMetrics.horizontalAdvance(add);
+        int hs = option.fontMetrics.horizontalAdvance(sub);
+        int hS = option.fontMetrics.horizontalAdvance(Status);
+
+        QRect r = option.rect;
+        int mw = r.width() - (ha + hs + hS);
+        r.setX(r.x() + mw);
+
+        static constexpr auto red = QColor(237, 21, 21); // Breeze Danger Red
+        static constexpr auto green = QColor(17, 209, 27); // Breeze Verdant Green
+
+        painter->setPen(green);
+        painter->drawText(r, Qt::AlignVCenter, add);
+        r.setX(r.x() + ha);
+
+        painter->setPen(red);
+        painter->drawText(r, Qt::AlignVCenter, sub);
+        r.setX(r.x() + hs);
+
+        painter->setPen(index.data(Qt::ForegroundRole).value<QColor>());
+        painter->drawText(r, Qt::AlignVCenter, Status);
+
+        painter->restore();
+    }
+
+private:
+    KateProjectPlugin *m_plugin;
+};
 
 GitWidget::GitWidget(KateProject *project, KTextEditor::MainWindow *mainWindow, KateProjectPluginView *pluginView)
     : m_project(project)
@@ -119,6 +188,8 @@ GitWidget::GitWidget(KateProject *project, KTextEditor::MainWindow *mainWindow, 
 
     m_treeView->header()->setStretchLastSection(false);
     m_treeView->header()->setSectionResizeMode(0, QHeaderView::Stretch);
+
+    m_treeView->setItemDelegateForColumn(1, new NumStatStyle(this, m_pluginView->plugin()));
 
     setLayout(layout);
 

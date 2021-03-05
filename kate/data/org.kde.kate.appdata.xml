@@ -6,6 +6,7 @@
   <name>Kate</name>
   <name xml:lang="ar">كيت</name>
   <name xml:lang="ast">Kate</name>
+  <name xml:lang="az">Kate</name>
   <name xml:lang="bs">Kate</name>
   <name xml:lang="ca">Kate</name>
   <name xml:lang="ca-valencia">Kate</name>
@@ -50,6 +51,7 @@
   <summary>Advanced Text Editor</summary>
   <summary xml:lang="ar">محرّر نصوص متقدّم</summary>
   <summary xml:lang="ast">Editor avanzáu de testu</summary>
+  <summary xml:lang="az">Əlavə mətn redaktoru</summary>
   <summary xml:lang="bs">Napredni uređivač teksta</summary>
   <summary xml:lang="ca">Editor de text avançat</summary>
   <summary xml:lang="ca-valencia">Editor de text avançat</summary>
@@ -96,6 +98,7 @@
       Kate is a multi-document, multi-view text editor by KDE. It features stuff like codefolding, syntaxhighlighting,
       dynamic word wrap, an embedded console, an extensive plugin interface and some preliminary scripting support.
     </p>
+    <p xml:lang="az">Kate, KDE-nin təqdim etdiyi çoxsənədli, bir neçə görünüşlü mətn redaktorudur. Kod bükümü, sintaksislərin vurğulanması, dinamik sətirə keçid, daxili konsol, geniş qoşma interfeysi və bəzi əmrlər faylı dəstəkləmə imkanlarına malikdir.</p>
     <p xml:lang="ca">El Kate és un editor de text multidocument i multivista, creat per la comunitat KDE. Té funcionalitats com el plegat de codi, ressaltat de la sintaxi, ajust dinàmic de les paraules, una consola incrustada, una interfície extensa de connectors i una implementació preliminar per a crear scripts.</p>
     <p xml:lang="ca-valencia">El Kate és un editor de text multidocument i multivista, creat per la comunitat KDE. Té funcionalitats com el plegat de codi, ressaltat de la sintaxi, ajust dinàmic de les paraules, una consola incrustada, una interfície extensa de connectors i una implementació preliminar per a crear scripts.</p>
     <p xml:lang="cs">Kate je textový editor od KDE pro práci s více dokumenty najednou. Podporuje vlastnosti jako skládání kódu, zvýraznění syntaxe, dynamické zalamování slov, vloženou konzoli, rozsáhlou podporu modulů a základní podporu pro skriptování.</p>
@@ -135,6 +138,7 @@
     <p>Features:</p>
     <p xml:lang="ar">الميزات:</p>
     <p xml:lang="ast">Carauterístiques:</p>
+    <p xml:lang="az">İmkanlar:</p>
     <p xml:lang="bs">Svojstva:</p>
     <p xml:lang="ca">Característiques:</p>
     <p xml:lang="ca-valencia">Característiques:</p>
@@ -179,6 +183,8 @@
     <ul>
       <li>MDI, window splitting, window tabbing</li>
       <li xml:lang="ar">واجهة لعدّة مستندات، تقسيم وتلسين للنّوافذ</li>
+      <li xml:lang="az">Pəncərəni bölməklə, vərəqlərdən istifadə etməklə və s.
+kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ca">MDI, divisió de finestres, finestres en pestanyes</li>
       <li xml:lang="ca-valencia">MDI, divisió de finestres, finestres en pestanyes</li>
       <li xml:lang="cs">MDI, dělení oken, skládání oken do karet</li>
@@ -221,6 +227,7 @@
       <li>Spell checking</li>
       <li xml:lang="ar">تدقيق الهجاء</li>
       <li xml:lang="ast">Comprobación ortográfica</li>
+      <li xml:lang="az">Orfoqrafiya yoxlaması</li>
       <li xml:lang="bs">Provjera ispravnog pisanja riječi</li>
       <li xml:lang="ca">Verificació ortogràfica</li>
       <li xml:lang="ca-valencia">Verificació ortogràfica</li>
@@ -264,6 +271,7 @@
       <li xml:lang="zh-TW">拼字檢查</li>
       <li>CR, CRLF, LF newline support</li>
       <li xml:lang="ar">دعم أسطر CR، وCRLF وLF الجديدة</li>
+      <li xml:lang="az">CR, CRLF, LF yeni sətirə keçmə dəstəyi</li>
       <li xml:lang="ca">Implementació de línia nova CR, CRLF, LF</li>
       <li xml:lang="ca-valencia">Implementació de línia nova CR, CRLF, LF</li>
       <li xml:lang="cs">Podpora odřádkování CR, CRLF i LF</li>
@@ -306,6 +314,7 @@
       <li>Encoding support (utf-8, utf-16, ascii etc.)</li>
       <li xml:lang="ar">دعم التّرميز (utf-8، وutf-16 وآسكي وغيرها)</li>
       <li xml:lang="ast">Sofitu pa codificaciones (utf-8, utf-16, ascii… etc)</li>
+      <li xml:lang="az">Müxtəlif kodlama dəstəyi (utf-8, utf-16, ascii etc.)</li>
       <li xml:lang="ca">Admet codificacions (UTF-8, UTF-16, ASCII, etc.)</li>
       <li xml:lang="ca-valencia">Admet codificacions (UTF-8, UTF-16, ASCII, etc.)</li>
       <li xml:lang="cs">Podpora kódování (UTF-8, UTF-16, ASCII a další)</li>
@@ -347,6 +356,7 @@
       <li xml:lang="zh-TW">編碼支援（UTF-8，UTF-16，ASCII 等）</li>
       <li>Encoding conversion</li>
       <li xml:lang="ar">التّحويل بين التّرميزات</li>
+      <li xml:lang="az">Kodlamanın çevrilməsi</li>
       <li xml:lang="ca">Conversió de codificació</li>
       <li xml:lang="ca-valencia">Conversió de codificació</li>
       <li xml:lang="cs">Převod kódování</li>
@@ -389,6 +399,7 @@
       <li xml:lang="zh-TW">編碼轉換</li>
       <li>Regular expression based find &amp; replace</li>
       <li xml:lang="ar">بحث واستبدال مبنيّ على التّعابير النّمطيّة</li>
+      <li xml:lang="az">Müntəzəm ifadələrə əsaslanan axtar &amp; əvəz et imkanları</li>
       <li xml:lang="ca">Expressió regular basada en cerca i substitució</li>
       <li xml:lang="ca-valencia">Expressió regular basada en cerca i substitució</li>
       <li xml:lang="cs">Funkce Najít a nahradit s podporou regulárních výrazů</li>
@@ -430,6 +441,7 @@
       <li xml:lang="zh-TW">搜尋與取代支援正則表達式</li>
       <li>Powerful syntax highlighting and bracket matching</li>
       <li xml:lang="ar">دعم قويّ لإبراز الصّياغة ومطابقة الأقواس</li>
+      <li xml:lang="az">Sintaksisin vurğulanması və qoşa nöqtə axtarışı</li>
       <li xml:lang="ca">Ressaltat potent de sintaxi i concordança de parèntesis</li>
       <li xml:lang="ca-valencia">Ressaltat potent de sintaxi i concordança de parèntesis</li>
       <li xml:lang="cs">Pokročilé zvýrazňování syntaxe a párování závorek ve zdrojovém kódu</li>
@@ -470,6 +482,7 @@
       <li xml:lang="zh-TW">強大的語法突顯與括號對應</li>
       <li>Code and text folding</li>
       <li xml:lang="ar">لفّ النّصوص والأكواد</li>
+      <li xml:lang="az">Mənbə kodu mətninin bükülməsi</li>
       <li xml:lang="ca">Plegat de codi i text</li>
       <li xml:lang="ca-valencia">Plegat de codi i text</li>
       <li xml:lang="cs">Skládání kódu a textu</li>
@@ -513,6 +526,7 @@
       <li>Infinite undo/redo support</li>
       <li xml:lang="ar">دعم عدد متناهٍ من الإعادات والتّكرارات</li>
       <li xml:lang="ast">Sofitu pa desfechura/refechura infinita</li>
+      <li xml:lang="az">Sonsuz sayda geri qaytarma və təkrarlama dəstəyi</li>
       <li xml:lang="ca">Admet desfer/refer infinits</li>
       <li xml:lang="ca-valencia">Admet desfer/refer infinits</li>
       <li xml:lang="cs">Nekonečná funkce Zpět/Vpřed</li>
@@ -555,6 +569,7 @@
       <li xml:lang="zh-TW">無限的復原/重做支援</li>
       <li>Block selection mode</li>
       <li xml:lang="ar">وضع التحديد الكتليّ</li>
+      <li xml:lang="az">Blok seçim rejimi</li>
       <li xml:lang="ca">Mode de selecció per blocs</li>
       <li xml:lang="ca-valencia">Mode de selecció per blocs</li>
       <li xml:lang="cs">Režim blokového výběru</li>
@@ -597,6 +612,7 @@
       <li>Auto indentation</li>
       <li xml:lang="ar">الإزاحة الآليّة</li>
       <li xml:lang="ast">Sangráu automáticu</li>
+      <li xml:lang="az">Avtomatik boşluqlar</li>
       <li xml:lang="bs">Automatsko uvlačenje</li>
       <li xml:lang="ca">Sagnat automàtic</li>
       <li xml:lang="ca-valencia">Sagnat automàtic</li>
@@ -640,6 +656,7 @@
       <li>Auto completion support</li>
       <li xml:lang="ar">دعم الإكمال الآليّ</li>
       <li xml:lang="ast">Sofitu pa completáu automáticu</li>
+      <li xml:lang="az">Avtomatik tamamlama dəstəyi</li>
       <li xml:lang="ca">Admet compleció automàtica</li>
       <li xml:lang="ca-valencia">Admet compleció automàtica</li>
       <li xml:lang="cs">Podpora automatického doplňování</li>
@@ -682,6 +699,7 @@
       <li>Shell integration</li>
       <li xml:lang="ar">التّكامل مع الصّدفة</li>
       <li xml:lang="ast">Integración cola shell</li>
+      <li xml:lang="az">Funksiyanın əmrlər sətrindən çağırılması</li>
       <li xml:lang="ca">Integració de l'intèrpret d'ordres</li>
       <li xml:lang="ca-valencia">Integració de l'intèrpret d'ordres</li>
       <li xml:lang="cs">Integrace shellu</li>
@@ -724,6 +742,7 @@
       <li xml:lang="zh-TW">Shell 整合</li>
       <li>Wide protocol support (http, ftp, ssh, webdav etc.) using kioslaves</li>
       <li xml:lang="ar">دعم واسع للموافيق (http، وftp، وssh وwebdav وغيرها) عبر «عبيد KIO»</li>
+      <li xml:lang="az">Kioslaves ilə çoxsaylı fayllar protokolu dəstəyi (http, ftp, ssh, webdav və s.)</li>
       <li xml:lang="ca">Implementació àmplia de protocols (http, ftp, ssh, webdav, etc.) usant kioslaves</li>
       <li xml:lang="ca-valencia">Implementació àmplia de protocols (http, ftp, ssh, webdav, etc.) usant kioslaves</li>
       <li xml:lang="cs">Široká podpora protokolů pomocí kioslaves (http, ftp, ssh, webdav atd.)</li>
@@ -765,6 +784,7 @@
       <li>Plugin architecture for the application and editor component</li>
       <li xml:lang="ar">بنية ملحقات للتّطبيق ومكوّن المحرّر</li>
       <li xml:lang="ast">Arquiteutura de plugins pa l'aplicación y el componente del editor</li>
+      <li xml:lang="az">Tətbiq və redaktor komponentləri üçün qoşma arxitekturası</li>
       <li xml:lang="ca">Arquitectura de connectors per a l'aplicació i el component d'edició</li>
       <li xml:lang="ca-valencia">Arquitectura de connectors per a l'aplicació i el component d'edició</li>
       <li xml:lang="cs">Podpora rozšiřujících modulů pro aplikaci editor</li>
@@ -807,6 +827,7 @@
       <li>Customizable shortcuts</li>
       <li xml:lang="ar">اختصارات يمكن تخصيصها</li>
       <li xml:lang="ast">Atayos personalizables</li>
+      <li xml:lang="az">Ayarlanabilən qısayollar</li>
       <li xml:lang="ca">Dreceres personalitzables</li>
       <li xml:lang="ca-valencia">Dreceres personalitzables</li>
       <li xml:lang="cs">Nastavitelné klávesové zkratky</li>
@@ -849,6 +870,7 @@
       <li>Integrated command line</li>
       <li xml:lang="ar">سطر أوامر مدمج</li>
       <li xml:lang="ast">Llinia de comandos integrada</li>
+      <li xml:lang="az">İnteqrasiya olunmuş əmrlər sətri</li>
       <li xml:lang="ca">Línia d'ordres integrada</li>
       <li xml:lang="ca-valencia">Línia d'ordres integrada</li>
       <li xml:lang="cs">Integrovaný příkazový řádek</li>
@@ -891,6 +913,7 @@
       <li xml:lang="zh-TW">整合指令行</li>
       <li>Scriptable using JavaScript</li>
       <li xml:lang="ar">يمكن سكربتته عبر جافاسكربت</li>
+      <li xml:lang="az">JavaScript istifadə edən senarilər</li>
       <li xml:lang="ca">Es pot crear scripts usant JavaScript</li>
       <li xml:lang="ca-valencia">Es pot crear scripts usant JavaScript</li>
       <li xml:lang="cs">Podpora skriptování v JavaScriptu</li>
@@ -939,6 +962,7 @@
     <screenshot type="default">
       <caption>Editing code with Kate</caption>
       <caption xml:lang="ast">Edición de códigu con Kate</caption>
+      <caption xml:lang="az">Mənbə koduna Kate ilə düzəliş edilməsi</caption>
       <caption xml:lang="ca">Edició de codi amb el Kate</caption>
       <caption xml:lang="ca-valencia">Edició de codi amb el Kate</caption>
       <caption xml:lang="de">Bearbeitung von Quelltext mit Kate</caption>

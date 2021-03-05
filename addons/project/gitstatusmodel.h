@@ -50,7 +50,7 @@ public:
 
 private:
     QVector<GitUtils::StatusItem> m_nodes[4];
-    bool m_showNumStat;
+    bool m_showNumStat = false;
 };
 
 #endif // GITSTATUSMODEL_H

@@ -48,13 +48,13 @@ void KateStashManager::stashDocuments(KConfig *config, const QList<KTextEditor::
     dir.mkdir(QStringLiteral("stash"));
     dir.cd(QStringLiteral("stash"));
 
-    const auto session = KateApp::self()->sessionManager()->activeSession();
-    if (!session || session->name().isEmpty()) {
+    const auto activeSession = KateApp::self()->sessionManager()->activeSession();
+    if (!activeSession || activeSession->isAnonymous() || activeSession->name().isEmpty()) {
         qDebug(LOG_KATE) << "Could not stash files without a session";
         return;
     }
 
-    const QString sessionName = session->name();
+    const QString sessionName = activeSession->name();
     dir.mkdir(sessionName);
     dir.cd(sessionName);
 
@@ -74,7 +74,8 @@ void KateStashManager::stashDocuments(KConfig *config, const QList<KTextEditor::
 
 bool KateStashManager::willStashDoc(KTextEditor::Document *doc)
 {
-    if (!KateApp::self()->sessionManager()->activeSession()) {
+    const auto activeSession = KateApp::self()->sessionManager()->activeSession();
+    if (!activeSession || activeSession->isAnonymous() || activeSession->name().isEmpty()) {
         return false;
     }
     if (doc->text().isEmpty()) {

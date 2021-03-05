@@ -75,6 +75,14 @@ public:
         return m_modelEntries.at(idx.row()).score;
     }
 
+    bool isOpened(const QModelIndex &idx) const
+    {
+        if (!idx.isValid()) {
+            return {};
+        }
+        return m_modelEntries.at(idx.row()).bold;
+    }
+
 private:
     QVector<ModelEntry> m_modelEntries;
     QString m_projectBase;

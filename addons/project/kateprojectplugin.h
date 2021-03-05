@@ -102,6 +102,9 @@ public:
     bool multiProjectCompletion() const;
     bool multiProjectGoto() const;
 
+    void setGitStatusShowNumStat(bool show);
+    bool showGitStatusWithNumStat();
+
 Q_SIGNALS:
     /**
      * Signal that a new project got created.
@@ -185,6 +188,7 @@ private:
     bool m_indexEnabled : 1;
     bool m_multiProjectCompletion : 1;
     bool m_multiProjectGoto : 1;
+    bool m_gitNumStat : 1;
     QUrl m_indexDirectory;
 
     /**

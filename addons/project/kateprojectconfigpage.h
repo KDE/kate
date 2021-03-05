@@ -35,6 +35,8 @@ private Q_SLOTS:
     void slotMyChanged();
 
 private:
+    void setupGitConfigUI();
+
     QCheckBox *m_cbAutoGit;
     QCheckBox *m_cbAutoSubversion;
     QCheckBox *m_cbAutoMercurial;
@@ -42,6 +44,7 @@ private:
     KUrlRequester *m_indexPath;
     QCheckBox *m_cbMultiProjectCompletion;
     QCheckBox *m_cbMultiProjectGoto;
+    QCheckBox *m_cbGitStatusDiffNumStat;
     KateProjectPlugin *m_plugin;
     bool m_changed = false;
 };

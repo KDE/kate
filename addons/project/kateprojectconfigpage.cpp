@@ -66,9 +66,17 @@ KateProjectConfigPage::KateProjectConfigPage(QWidget *parent, KateProjectPlugin 
     group->setLayout(vbox);
     layout->addWidget(group);
 
-    layout->insertStretch(-1, 10);
+    /** Git specific **/
+    vbox = new QVBoxLayout;
+    group = new QGroupBox(i18nc("Groupbox title", "Git"), this);
+    m_cbGitStatusDiffNumStat = new QCheckBox(i18n("Show number of changed lines in git status"));
 
-    reset();
+    vbox->addWidget(m_cbGitStatusDiffNumStat);
+    vbox->addStretch(1);
+    group->setLayout(vbox);
+    layout->addWidget(group);
+
+    layout->insertStretch(-1, 10);
 
     connect(m_cbAutoGit, &QCheckBox::stateChanged, this, &KateProjectConfigPage::slotMyChanged);
     connect(m_cbAutoSubversion, &QCheckBox::stateChanged, this, &KateProjectConfigPage::slotMyChanged);
@@ -78,6 +86,10 @@ KateProjectConfigPage::KateProjectConfigPage(QWidget *parent, KateProjectPlugin 
     connect(m_indexPath, &KUrlRequester::urlSelected, this, &KateProjectConfigPage::slotMyChanged);
     connect(m_cbMultiProjectCompletion, &QCheckBox::stateChanged, this, &KateProjectConfigPage::slotMyChanged);
     connect(m_cbMultiProjectGoto, &QCheckBox::stateChanged, this, &KateProjectConfigPage::slotMyChanged);
+
+    connect(m_cbGitStatusDiffNumStat, &QCheckBox::stateChanged, this, &KateProjectConfigPage::slotMyChanged);
+
+    reset();
 }
 
 QString KateProjectConfigPage::name() const
@@ -108,6 +120,8 @@ void KateProjectConfigPage::apply()
                                 m_cbAutoMercurial->checkState() == Qt::Checked);
     m_plugin->setIndex(m_cbIndexEnabled->checkState() == Qt::Checked, m_indexPath->url());
     m_plugin->setMultiProject(m_cbMultiProjectCompletion->checkState() == Qt::Checked, m_cbMultiProjectGoto->checkState() == Qt::Checked);
+
+    m_plugin->setGitStatusShowNumStat(m_cbGitStatusDiffNumStat->isChecked());
 }
 
 void KateProjectConfigPage::reset()
@@ -119,6 +133,9 @@ void KateProjectConfigPage::reset()
     m_indexPath->setUrl(m_plugin->getIndexDirectory());
     m_cbMultiProjectCompletion->setCheckState(m_plugin->multiProjectCompletion() ? Qt::Checked : Qt::Unchecked);
     m_cbMultiProjectGoto->setCheckState(m_plugin->multiProjectGoto() ? Qt::Checked : Qt::Unchecked);
+
+    m_cbGitStatusDiffNumStat->setChecked(m_plugin->showGitStatusWithNumStat());
+
     m_changed = false;
 }
 

@@ -348,6 +348,17 @@ bool KateProjectPlugin::multiProjectGoto() const
     return m_multiProjectGoto;
 }
 
+void KateProjectPlugin::setGitStatusShowNumStat(bool show)
+{
+    m_gitNumStat = show;
+    writeConfig();
+}
+
+bool KateProjectPlugin::showGitStatusWithNumStat()
+{
+    return m_gitNumStat;
+}
+
 void KateProjectPlugin::setMultiProject(bool completion, bool gotoSymbol)
 {
     m_multiProjectCompletion = completion;
@@ -380,6 +391,8 @@ void KateProjectPlugin::readConfig()
     m_multiProjectCompletion = config.readEntry("multiProjectCompletion", false);
     m_multiProjectGoto = config.readEntry("multiProjectCompletion", false);
 
+    m_gitNumStat = config.readEntry("gitStatusNumStat", true);
+
     Q_EMIT configUpdated();
 }
 
@@ -407,6 +420,8 @@ void KateProjectPlugin::writeConfig()
 
     config.writeEntry("multiProjectCompletion", m_multiProjectCompletion);
     config.writeEntry("multiProjectGoto", m_multiProjectGoto);
+
+    config.writeEntry("gitStatusNumStat", m_gitNumStat);
 
     Q_EMIT configUpdated();
 }

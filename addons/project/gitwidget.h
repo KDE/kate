@@ -97,6 +97,9 @@ private Q_SLOTS:
     void gitStatusReady(int exit, QProcess::ExitStatus);
     void parseStatusReady();
     void opencommitChangesDialog();
+    void handleClick(const QModelIndex &idx, int clickAction);
+    void treeViewSingleClicked(const QModelIndex &idx);
+    void treeViewDoubleClicked(const QModelIndex &idx);
 
     // signals
 public:

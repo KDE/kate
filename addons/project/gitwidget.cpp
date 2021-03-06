@@ -215,6 +215,10 @@ GitWidget::GitWidget(KateProject *project, KTextEditor::MainWindow *mainWindow, 
 
     connect(&m_gitStatusWatcher, &QFutureWatcher<GitUtils::GitParsedStatus>::finished, this, &GitWidget::parseStatusReady);
     connect(m_commitBtn, &QPushButton::clicked, this, &GitWidget::opencommitChangesDialog);
+
+    // single / double click
+    connect(m_treeView, &QTreeView::clicked, this, &GitWidget::treeViewSingleClicked);
+    connect(m_treeView, &QTreeView::doubleClicked, this, &GitWidget::treeViewDoubleClicked);
 }
 
 void GitWidget::initGitExe()
@@ -606,6 +610,46 @@ void GitWidget::opencommitChangesDialog()
         m_commitMessage = dialog.subject() + QStringLiteral("[[\n\n]]") + dialog.description();
         commitChanges(dialog.subject(), dialog.description(), dialog.signoff());
     }
+}
+
+void GitWidget::handleClick(const QModelIndex &idx, int clickAction)
+{
+    auto type = idx.data(GitStatusModel::TreeItemType);
+    if (type != GitStatusModel::NodeFile) {
+        return;
+    }
+
+    if (clickAction == ClickAction::NoAction) {
+        return;
+    }
+
+    const QString file = m_gitPath + idx.data(GitStatusModel::FileNameRole).toString();
+    bool staged = idx.internalId() == GitStatusModel::NodeStage;
+
+    if (clickAction == ClickAction::StageUnstage) {
+        if (staged) {
+            return unstage({file});
+        }
+        return stage({file});
+    }
+
+    if (clickAction == ClickAction::ShowDiff) {
+        showDiff(file, staged);
+    }
+
+    if (clickAction == ClickAction::OpenFile) {
+        m_mainWin->openUrl(QUrl::fromLocalFile(file));
+    }
+}
+
+void GitWidget::treeViewSingleClicked(const QModelIndex &idx)
+{
+    handleClick(idx, m_pluginView->plugin()->singleClickAcion());
+}
+
+void GitWidget::treeViewDoubleClicked(const QModelIndex &idx)
+{
+    handleClick(idx, m_pluginView->plugin()->doubleClickAcion());
 }
 
 void GitWidget::gitStatusReady(int exit, QProcess::ExitStatus status)

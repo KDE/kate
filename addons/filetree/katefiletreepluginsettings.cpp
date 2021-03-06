@@ -26,7 +26,7 @@ KateFileTreePluginSettings::KateFileTreePluginSettings()
 
     m_showFullPathOnRoots = m_group.readEntry("showFullPathOnRoots", false);
 
-    m_showCloseButton = m_group.readEntry("showCloseButton", true);
+    m_showCloseButton = m_group.readEntry("showCloseButton", false);
 }
 
 void KateFileTreePluginSettings::save()

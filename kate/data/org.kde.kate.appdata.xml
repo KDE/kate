@@ -44,6 +44,7 @@
   <name xml:lang="sv">Kate</name>
   <name xml:lang="tr">Kate</name>
   <name xml:lang="uk">Kate</name>
+  <name xml:lang="vi">Kate</name>
   <name xml:lang="x-test">xxKatexx</name>
   <name xml:lang="zh-CN">Kate</name>
   <name xml:lang="zh-TW">Kate</name>
@@ -88,6 +89,7 @@
   <summary xml:lang="sv">Avancerad texteditor</summary>
   <summary xml:lang="tr">Gelişmiş Metin Düzenleyici</summary>
   <summary xml:lang="uk">Потужний текстовий редактор</summary>
+  <summary xml:lang="vi">Trình biên tập văn bản nâng cao</summary>
   <summary xml:lang="x-test">xxAdvanced Text Editorxx</summary>
   <summary xml:lang="zh-CN">高级文本编辑器</summary>
   <summary xml:lang="zh-TW">進階文字編輯器</summary>

@@ -278,7 +278,7 @@ will be used if the document is unchanged when reopened.</para></listitem>
 <term><anchor id="config-sessions-delete-meta-information-after"/>
 <guilabel>Delete unused meta-information after</guilabel></term>
 <listitem><para>Set the maximum number of days to keep meta information
-for previously opened files. This helps keeping the database of meta information
+for previously opened files. This helps keep the database of meta information
 reasonably sized.</para></listitem>
 </varlistentry>
 

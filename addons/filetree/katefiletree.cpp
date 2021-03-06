@@ -46,7 +46,7 @@ public:
     {
     }
 
-    void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
+    void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override
     {
         QStyledItemDelegate::paint(painter, option, index);
 
@@ -187,6 +187,7 @@ void KateFileTree::setModel(QAbstractItemModel *model)
     header()->hide();
     header()->setStretchLastSection(false);
     header()->setSectionResizeMode(0, QHeaderView::Stretch);
+    header()->setMinimumSectionSize(8);
     header()->setSectionResizeMode(1, QHeaderView::Fixed);
     header()->resizeSection(1, 16);
 }

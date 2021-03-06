@@ -101,9 +101,9 @@ QVariant GitStatusModel::data(const QModelIndex &index, int role) const
             return NodeStage + row;
         } else if (role == Qt::TextAlignmentRole) {
             if (index.column() == 0) {
-                return Qt::AlignLeft;
+                return (int)(Qt::AlignLeft | Qt::AlignVCenter);
             } else {
-                return Qt::AlignRight;
+                return (int)(Qt::AlignRight | Qt::AlignVCenter);
             }
         }
     } else {

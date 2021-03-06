@@ -33,6 +33,7 @@ class Document;
 }
 
 enum class ClickAction : uint8_t;
+enum class StashMode : uint8_t;
 
 class GitWidget : public QWidget
 {
@@ -91,6 +92,7 @@ private:
     void selectedContextMenu(QContextMenuEvent *e);
 
     QString getDiff(KTextEditor::View *view, bool hunk, bool alreadyStaged);
+    void createStashDialog(StashMode m, const QString &gitPath);
 
 public Q_SLOTS:
     void clearTempFile(KTextEditor::Document *document);

@@ -24,7 +24,7 @@ class QuickDialog : public QMenu
 {
     Q_OBJECT
 public:
-    QuickDialog(QWidget *mainWindow);
+    QuickDialog(QWidget *parent, QWidget *mainWindow);
 
 protected:
     bool eventFilter(QObject *obj, QEvent *event) override;

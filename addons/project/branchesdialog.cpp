@@ -153,7 +153,7 @@ private:
 };
 
 BranchesDialog::BranchesDialog(QWidget *window, KateProjectPluginView *pluginView, QString projectPath)
-    : QuickDialog(window)
+    : QuickDialog(nullptr, window)
     , m_pluginView(pluginView)
     , m_projectPath(projectPath)
 {

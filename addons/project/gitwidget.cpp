@@ -747,6 +747,20 @@ void GitWidget::buildMenu()
     m_gitMenu->addAction(i18n("Stash"))->setMenu(stashMenu());
 }
 
+void GitWidget::createStashDialog(StashMode m, const QString &gitPath)
+{
+    auto stashDialog = new StashDialog(this, mainWindow()->window(), gitPath);
+    connect(stashDialog, &StashDialog::message, this, &GitWidget::sendMessage);
+    connect(stashDialog, &StashDialog::openTempFile, this, [this](const QString &t, const QByteArray &r) {
+        openTempFile(QString(), t, r);
+    });
+    connect(stashDialog, &StashDialog::done, this, [this, stashDialog] {
+        getStatus();
+        stashDialog->deleteLater();
+    });
+    stashDialog->openDialog(m);
+}
+
 QMenu *GitWidget::stashMenu()
 {
     QMenu *menu = new QMenu(this);
@@ -761,40 +775,31 @@ QMenu *GitWidget::stashMenu()
     auto showStashAct = menu->addAction(i18n("Show Stash Content"));
 
     connect(stashAct, &QAction::triggered, this, [this] {
-        StashDialog stashDialog(this, m_mainWin->window());
-        stashDialog.openDialog(StashDialog::Stash);
+        createStashDialog(StashMode::Stash, m_gitPath);
     });
     connect(stashUAct, &QAction::triggered, this, [this] {
-        StashDialog stashDialog(this, m_mainWin->window());
-        stashDialog.openDialog(StashDialog::StashUntrackIncluded);
+        createStashDialog(StashMode::StashUntrackIncluded, m_gitPath);
     });
     connect(stashKeepStagedAct, &QAction::triggered, this, [this] {
-        StashDialog stashDialog(this, m_mainWin->window());
-        stashDialog.openDialog(StashDialog::StashKeepIndex);
+        createStashDialog(StashMode::StashKeepIndex, m_gitPath);
     });
     connect(popAct, &QAction::triggered, this, [this] {
-        StashDialog stashDialog(this, m_mainWin->window());
-        stashDialog.openDialog(StashDialog::StashPop);
+        createStashDialog(StashMode::StashPop, m_gitPath);
     });
     connect(applyStashAct, &QAction::triggered, this, [this] {
-        StashDialog stashDialog(this, m_mainWin->window());
-        stashDialog.openDialog(StashDialog::StashApply);
+        createStashDialog(StashMode::StashApply, m_gitPath);
     });
     connect(dropAct, &QAction::triggered, this, [this] {
-        StashDialog stashDialog(this, m_mainWin->window());
-        stashDialog.openDialog(StashDialog::StashDrop);
+        createStashDialog(StashMode::StashDrop, m_gitPath);
     });
     connect(popLastAct, &QAction::triggered, this, [this] {
-        StashDialog stashDialog(this, m_mainWin->window());
-        stashDialog.openDialog(StashDialog::StashPopLast);
+        createStashDialog(StashMode::StashPopLast, m_gitPath);
     });
     connect(applyLastAct, &QAction::triggered, this, [this] {
-        StashDialog stashDialog(this, m_mainWin->window());
-        stashDialog.openDialog(StashDialog::StashApplyLast);
+        createStashDialog(StashMode::StashApplyLast, m_gitPath);
     });
     connect(showStashAct, &QAction::triggered, this, [this] {
-        StashDialog stashDialog(this, m_mainWin->window());
-        stashDialog.openDialog(StashDialog::ShowStashContent);
+        createStashDialog(StashMode::ShowStashContent, m_gitPath);
     });
 
     return menu;

@@ -8,7 +8,7 @@
 #include <QProcess>
 
 PushPullDialog::PushPullDialog(QWidget *mainWindow, const QString &repoPath)
-    : QuickDialog(mainWindow)
+    : QuickDialog(nullptr, mainWindow)
     , m_repo(repoPath)
 {
 }

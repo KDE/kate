@@ -27,36 +27,36 @@ namespace GitUtils
 struct CheckoutResult;
 }
 
+enum class StashMode : uint8_t {
+    None = 0,
+    Stash,
+    StashKeepIndex,
+    StashUntrackIncluded,
+    StashPopLast,
+    StashPop,
+    StashDrop,
+    StashApply,
+    StashApplyLast,
+    ShowStashContent,
+};
+
 class StashDialog : public QuickDialog
 {
     Q_OBJECT
 public:
-    enum Mode {
-        None,
-        Stash,
-        StashKeepIndex,
-        StashUntrackIncluded,
-        StashPopLast,
-        StashPop,
-        StashDrop,
-        StashApply,
-        StashApplyLast,
-        ShowStashContent,
-    };
+    StashDialog(QWidget *parent, QWidget *window, const QString &gitPath);
 
-    StashDialog(GitWidget *gitwidget, QWidget *window);
+    void openDialog(StashMode mode);
 
-    void openDialog(Mode mode);
-
-    Q_SIGNAL void branchChanged(const QString &branch);
+    Q_SIGNAL void message(const QString &msg, bool warn);
+    Q_SIGNAL void done();
+    Q_SIGNAL void openTempFile(const QString &templatee, const QByteArray &gitOutput);
 
 protected Q_SLOTS:
     void slotReturnPressed() override;
 
-private Q_SLOTS:
-    void sendMessage(const QString &message, bool warn);
-
 private:
+    QProcess *gitp();
     void stash(bool keepIndex, bool includeUntracked);
     void getStashList();
     void popStash(const QByteArray &index, const QString &command = QStringLiteral("pop"));
@@ -66,7 +66,7 @@ private:
 
     QStandardItemModel *m_model;
     StashFilterModel *m_proxyModel;
-    GitWidget *m_gitwidget;
+    QString m_gitPath;
     QString m_projectPath;
-    Mode m_currentMode = None;
+    StashMode m_currentMode = StashMode::None;
 };

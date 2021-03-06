@@ -14,8 +14,8 @@
 
 #include <QDebug>
 
-QuickDialog::QuickDialog(QWidget *mainWindow)
-    : QMenu()
+QuickDialog::QuickDialog(QWidget *parent, QWidget *mainWindow)
+    : QMenu(parent)
     , m_mainWindow(mainWindow)
 {
     QVBoxLayout *layout = new QVBoxLayout();

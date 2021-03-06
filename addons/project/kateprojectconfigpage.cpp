@@ -74,7 +74,7 @@ KateProjectConfigPage::KateProjectConfigPage(QWidget *parent, KateProjectPlugin 
     vbox->addWidget(m_cbGitStatusDiffNumStat);
 
     auto hbox = new QHBoxLayout;
-    label = new QLabel(i18n("What happens when you <b>single click</b> an item in git status toolview"), this);
+    label = new QLabel(i18n("Single click action in the git status view"), this);
     m_cmbSingleClick = new QComboBox(this);
     m_cmbSingleClick->addItem(i18n("No Action"));
     m_cmbSingleClick->addItem(i18n("Show Diff"));
@@ -85,7 +85,7 @@ KateProjectConfigPage::KateProjectConfigPage(QWidget *parent, KateProjectPlugin 
     vbox->addLayout(hbox);
 
     hbox = new QHBoxLayout;
-    label = new QLabel(i18n("What happens when you <b>double click</b> an item in git status toolview"), this);
+    label = new QLabel(i18n("Double click action in the git status view"), this);
     m_cmbDoubleClick = new QComboBox(this);
     m_cmbDoubleClick->addItem(i18n("No Action"));
     m_cmbDoubleClick->addItem(i18n("Show Diff"));

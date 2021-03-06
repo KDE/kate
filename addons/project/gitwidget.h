@@ -7,6 +7,7 @@
 #define GITWIDGET_H
 
 #include <QFutureWatcher>
+#include <QPointer>
 #include <QProcess>
 #include <QWidget>
 
@@ -40,6 +41,7 @@ class GitWidget : public QWidget
     Q_OBJECT
 public:
     explicit GitWidget(KateProject *project, KTextEditor::MainWindow *mainWindow = nullptr, KateProjectPluginView *pluginView = nullptr);
+    ~GitWidget();
 
     bool eventFilter(QObject *o, QEvent *e) override;
     void getStatus(bool untracked = true, bool submodules = false);
@@ -57,6 +59,7 @@ private:
     QToolButton *m_commitBtn;
     QToolButton *m_pushBtn;
     QToolButton *m_pullBtn;
+    QToolButton *m_cancelBtn;
     GitWidgetTreeView *m_treeView;
     GitStatusModel *m_model;
     KateProject *m_project;
@@ -68,6 +71,12 @@ private:
     QMenu *m_gitMenu;
     std::vector<TempFileViewPair> m_tempFiles;
     KateProjectPluginView *m_pluginView;
+
+    struct CancelHandle {
+        QPointer<QProcess> proc;
+        QString cmd;
+    };
+    CancelHandle m_cancelHandle;
 
     QProcess *gitp();
 
@@ -93,6 +102,9 @@ private:
 
     QString getDiff(KTextEditor::View *view, bool hunk, bool alreadyStaged);
     void createStashDialog(StashMode m, const QString &gitPath);
+
+    void enableCancel(QProcess *git, const QStringList &args);
+    void hideCancel();
 
 public Q_SLOTS:
     void clearTempFile(KTextEditor::Document *document);

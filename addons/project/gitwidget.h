@@ -43,7 +43,6 @@ public:
 
     bool eventFilter(QObject *o, QEvent *e) override;
     void getStatus(bool untracked = true, bool submodules = false);
-    QProcess *gitprocess();
     KTextEditor::MainWindow *mainWindow();
 
     using TempFileViewPair = std::pair<std::unique_ptr<QTemporaryFile>, QPointer<KTextEditor::View>>;
@@ -63,7 +62,6 @@ private:
     KateProject *m_project;
     /** This ends with "/", always remember this */
     QString m_gitPath;
-    QProcess git;
     QFutureWatcher<GitUtils::GitParsedStatus> m_gitStatusWatcher;
     QString m_commitMessage;
     KTextEditor::MainWindow *m_mainWin;
@@ -71,8 +69,10 @@ private:
     std::vector<TempFileViewPair> m_tempFiles;
     KateProjectPluginView *m_pluginView;
 
+    QProcess *gitp();
+
     void buildMenu();
-    void initGitExe();
+    void setDotGitPath();
     void runGitCmd(const QStringList &args, const QString &i18error);
     void runPushPullCmd(const QStringList &args);
     void stage(const QStringList &files, bool = false);
@@ -98,7 +98,6 @@ public Q_SLOTS:
     void clearTempFile(KTextEditor::Document *document);
 
 private Q_SLOTS:
-    void gitStatusReady(int exit, QProcess::ExitStatus);
     void parseStatusReady();
     void opencommitChangesDialog();
     void handleClick(const QModelIndex &idx, ClickAction clickAction);

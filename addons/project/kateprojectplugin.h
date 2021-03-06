@@ -210,8 +210,8 @@ private:
 
     // git features
     bool m_gitNumStat = true;
-    ClickAction m_singleClick;
-    ClickAction m_doubleClick;
+    ClickAction m_singleClickAction = ClickAction::ShowDiff;
+    ClickAction m_doubleClickAction = ClickAction::StageUnstage;
 
     /**
      * thread pool for our workers

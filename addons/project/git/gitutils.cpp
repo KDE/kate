@@ -23,9 +23,6 @@ bool GitUtils::isGitRepo(const QString &repo)
 
 QString GitUtils::getCurrentBranchName(const QString &repo)
 {
-    QProcess git;
-    git.setWorkingDirectory(repo);
-
     // clang-format off
     QStringList argsList[3] =
     {
@@ -36,8 +33,9 @@ QString GitUtils::getCurrentBranchName(const QString &repo)
     // clang-format on
 
     for (int i = 0; i < 3; ++i) {
-        auto args = argsList[i];
-        git.start(QStringLiteral("git"), args, QProcess::ReadOnly);
+        QProcess git;
+        git.setWorkingDirectory(repo);
+        git.start(QStringLiteral("git"), argsList[i], QProcess::ReadOnly);
         if (git.waitForStarted() && git.waitForFinished(-1)) {
             if (git.exitStatus() == QProcess::NormalExit && git.exitCode() == 0) {
                 return QString::fromUtf8(git.readAllStandardOutput().trimmed());

@@ -115,44 +115,9 @@ when that file's view receives focus.</para>
 </listitem>
 </varlistentry>
 
-<varlistentry>
-<term><anchor id="config-dialog-general-close-mod"/>
-<guilabel>Close Kate entirely when the last file is closed</guilabel></term>
-<listitem><para>If enabled, &kate; will shutdown when the last file being edited is closed,
-otherwise a blank page will open so that you can start a new file.</para>
-</listitem>
-</varlistentry>
-
 </variablelist>
 </listitem>
 </varlistentry><!-- /behavior group -->
-
-<varlistentry>
-<term><anchor id="config-general-meta-data"/>
-<guilabel>Meta-Information</guilabel></term>
- <listitem>
-
-<variablelist>
-<varlistentry>
-<term><anchor id="config-general-keep-meta-information"/>
-<guilabel>Keep meta-information past sessions</guilabel></term>
-<listitem><para>When enabled, &kate; will store meta data such as bookmarks
-and session configuration even when you close your documents. The data
-will be used if the document is unchanged when reopened.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><anchor id="config-general-delete-meta-information-after"/>
-<guilabel>Delete unused meta information after</guilabel></term>
-<listitem><para>Set the maximum number of days to keep meta information
-for previously opened files. This helps keeping the database of meta information
-reasonably sized.</para></listitem>
-</varlistentry>
-
-</variablelist>
-
-</listitem>
-</varlistentry><!-- /meta data group -->
 
 <varlistentry>
 <term><anchor id="config-general-quick-open"/>
@@ -228,23 +193,8 @@ linkend="fundamentals-using-sessions">using sessions</link>.</para>
 <variablelist>
 
 <varlistentry>
-<term><anchor id="config-dialog-sessions-elements"/>
-<guilabel>Session Elements</guilabel></term>
-<listitem>
-<variablelist>
-<!--FIXME Maximum number of entries in recent file list-->
-<varlistentry>
-<term><guilabel>Include window configuration</guilabel></term>
-<listitem><para>If enabled, &kate; will save the window configuration
-with each session.</para></listitem>
-</varlistentry>
-</variablelist>
-</listitem>
-</varlistentry><!-- /elements of sessions -->
-
-<varlistentry>
 <term><anchor id="config-dialog-sessions-startup-behavior"/>
-<guilabel>Behavior on Application Startup</guilabel></term>
+<guilabel>Application Startup Behavior</guilabel></term>
 <listitem>
 <para>Select how you want &kate; to behave at startup. This setting can be
 overridden by specifying what to do on the <link
@@ -271,6 +221,66 @@ frequently.</para></listitem>
 </variablelist>
 </listitem>
 </varlistentry><!-- /startup behavior -->
+
+<varlistentry>
+<term><anchor id="config-dialog-sessions-shutdown-behavior"/>
+<guilabel>Application Shutdown Behavior</guilabel></term>
+<listitem>
+<para>Select how you want &kate; to behave at shutdown. It is possible to define what
+&kate; should <guilabel>Automatically save and restore</guilabel>.</para>
+<variablelist>
+<varlistentry>
+<term><guilabel>Newly-created unsaved files</guilabel></term>
+<listitem><para>With this item checked, &kate; will automatically save
+all newly-created unsaved files.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Files with unsaved changes</guilabel></term>
+<listitem><para>This item allows configuring &kate; for automatically saving
+all files with unsaved changes on shutdown.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><anchor id="config-dialog-sessions-close-mod"/>
+<guilabel>Close Kate entirely when the last file is closed</guilabel></term>
+<listitem><para>If enabled, &kate; will shutdown when the last file being edited is closed,
+otherwise a blank page will open so that you can start a new file.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</listitem>
+</varlistentry><!-- /shutdown behavior -->
+
+<varlistentry>
+<term><anchor id="config-dialog-sessions-elements"/>
+<guilabel>Session Elements</guilabel></term>
+<listitem>
+<variablelist>
+<!--FIXME Maximum number of entries in recent file list-->
+<varlistentry>
+<term><guilabel>Include window configuration</guilabel></term>
+<listitem><para>If enabled, &kate; will save the window configuration
+with each session.</para></listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry><!-- /elements of sessions -->
+
+<varlistentry>
+<term><anchor id="config-sessions-keep-meta-information"/>
+<guilabel>Keep meta-information past sessions</guilabel></term>
+<listitem><para>When enabled, &kate; will store meta data such as bookmarks
+and session configuration even when you close your documents. The data
+will be used if the document is unchanged when reopened.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><anchor id="config-sessions-delete-meta-information-after"/>
+<guilabel>Delete unused meta-information after</guilabel></term>
+<listitem><para>Set the maximum number of days to keep meta information
+for previously opened files. This helps keeping the database of meta information
+reasonably sized.</para></listitem>
+</varlistentry>
 
 </variablelist>
 <para>Any changes to the session data (opened files and, if enabled,

@@ -93,7 +93,11 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
         job->start();
     };
 
-    auto rename = menu.addAction(QIcon::fromTheme(QStringLiteral("edit-rename")), i18n("&Rename"));
+    // we can ATM only handle file renames
+    QAction *rename = nullptr;
+    if (index.data(KateProjectItem::TypeRole).toInt() == KateProjectItem::File) {
+        rename = menu.addAction(QIcon::fromTheme(QStringLiteral("edit-rename")), i18n("&Rename"));
+    }
 
     /**
      * run menu and handle the triggered action
@@ -112,7 +116,7 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
             QDialog *dlg = new KPropertiesDialog(fileItem);
             dlg->setAttribute(Qt::WA_DeleteOnClose);
             dlg->show();
-        } else if (action == rename) {
+        } else if (rename && action == rename) {
             parent->edit(index);
         } else if (action == fileHistory) {
             showFileHistory(index.data(Qt::UserRole).toString());

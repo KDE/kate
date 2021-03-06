@@ -130,7 +130,7 @@ void KateProjectWorker::loadProject(QStandardItem *parent, const QVariantMap &pr
  * @param path current path we need item for
  * @return correct parent item for given path, will reuse existing ones
  */
-static QStandardItem *directoryParent(QHash<QString, QStandardItem *> &dir2Item, QString path)
+static QStandardItem *directoryParent(const QDir &base, QHash<QString, QStandardItem *> &dir2Item, QString path)
 {
     /**
      * throw away simple /
@@ -158,6 +158,7 @@ static QStandardItem *directoryParent(QHash<QString, QStandardItem *> &dir2Item,
      */
     if (slashIndex < 0) {
         const auto item = new KateProjectItem(KateProjectItem::Directory, path);
+        item->setData(base.absoluteFilePath(path), Qt::UserRole);
         dir2Item[path] = item;
         dir2Item[QString()]->appendRow(item);
         return item;
@@ -173,15 +174,16 @@ static QStandardItem *directoryParent(QHash<QString, QStandardItem *> &dir2Item,
      * special handling if / with nothing on one side are found
      */
     if (leftPart.isEmpty() || rightPart.isEmpty()) {
-        return directoryParent(dir2Item, leftPart.isEmpty() ? rightPart : leftPart);
+        return directoryParent(base, dir2Item, leftPart.isEmpty() ? rightPart : leftPart);
     }
 
     /**
      * else: recurse on left side
      */
     const auto item = new KateProjectItem(KateProjectItem::Directory, rightPart);
+    item->setData(base.absoluteFilePath(path), Qt::UserRole);
     dir2Item[path] = item;
-    directoryParent(dir2Item, leftPart)->appendRow(item);
+    directoryParent(base, dir2Item, leftPart)->appendRow(item);
     return item;
 }
 
@@ -266,7 +268,7 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent, const QVariantMap 
             }
 
             // put in our item to the right directory parent
-            directoryParent(dir2Item, dirRelPath)->appendRow(fileItem);
+            directoryParent(dir, dir2Item, dirRelPath)->appendRow(fileItem);
         }
 
         /**
@@ -324,7 +326,7 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent, const QVariantMap 
         }
 
         // put in our item to the right directory parent
-        directoryParent(dir2Item, dirRelPath)->appendRow(fileItem);
+        directoryParent(dir, dir2Item, dirRelPath)->appendRow(fileItem);
     }
 }
 

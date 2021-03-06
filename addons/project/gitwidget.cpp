@@ -287,8 +287,11 @@ void GitWidget::getStatus(bool untracked, bool submodules)
     if (!submodules) {
         args.append(QStringLiteral("--ignore-submodules"));
     }
-    git.setArguments(args);
-    git.start(QProcess::ReadOnly);
+
+    if (git.state() == QProcess::NotRunning) {
+        git.setArguments(args);
+        git.start(QProcess::ReadOnly);
+    }
 }
 
 void GitWidget::runGitCmd(const QStringList &args, const QString &i18error)

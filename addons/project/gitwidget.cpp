@@ -612,7 +612,7 @@ void GitWidget::opencommitChangesDialog()
     }
 }
 
-void GitWidget::handleClick(const QModelIndex &idx, int clickAction)
+void GitWidget::handleClick(const QModelIndex &idx, ClickAction clickAction)
 {
     auto type = idx.data(GitStatusModel::TreeItemType);
     if (type != GitStatusModel::NodeFile) {

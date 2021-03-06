@@ -162,8 +162,8 @@ void KateProjectConfigPage::reset()
     m_cbMultiProjectGoto->setCheckState(m_plugin->multiProjectGoto() ? Qt::Checked : Qt::Unchecked);
 
     m_cbGitStatusDiffNumStat->setChecked(m_plugin->showGitStatusWithNumStat());
-    m_cmbSingleClick->setCurrentIndex(m_plugin->singleClickAcion());
-    m_cmbDoubleClick->setCurrentIndex(m_plugin->doubleClickAcion());
+    m_cmbSingleClick->setCurrentIndex((int)m_plugin->singleClickAcion());
+    m_cmbDoubleClick->setCurrentIndex((int)m_plugin->doubleClickAcion());
 
     m_changed = false;
 }

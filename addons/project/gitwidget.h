@@ -32,6 +32,8 @@ class View;
 class Document;
 }
 
+enum class ClickAction : uint8_t;
+
 class GitWidget : public QWidget
 {
     Q_OBJECT
@@ -97,7 +99,7 @@ private Q_SLOTS:
     void gitStatusReady(int exit, QProcess::ExitStatus);
     void parseStatusReady();
     void opencommitChangesDialog();
-    void handleClick(const QModelIndex &idx, int clickAction);
+    void handleClick(const QModelIndex &idx, ClickAction clickAction);
     void treeViewSingleClicked(const QModelIndex &idx);
     void treeViewDoubleClicked(const QModelIndex &idx);
 

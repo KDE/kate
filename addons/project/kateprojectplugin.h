@@ -21,7 +21,7 @@
 #include "kateproject.h"
 #include "kateprojectcompletion.h"
 
-enum ClickAction {
+enum class ClickAction : uint8_t {
     NoAction = 0,
     ShowDiff,
     OpenFile,

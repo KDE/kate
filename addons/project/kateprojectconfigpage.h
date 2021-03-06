@@ -12,6 +12,7 @@ class KateProjectPlugin;
 class QWidget;
 class QCheckBox;
 class KUrlRequester;
+class QComboBox;
 
 class KateProjectConfigPage : public KTextEditor::ConfigPage
 {
@@ -45,6 +46,8 @@ private:
     QCheckBox *m_cbMultiProjectCompletion;
     QCheckBox *m_cbMultiProjectGoto;
     QCheckBox *m_cbGitStatusDiffNumStat;
+    QComboBox *m_cmbSingleClick;
+    QComboBox *m_cmbDoubleClick;
     KateProjectPlugin *m_plugin;
     bool m_changed = false;
 };

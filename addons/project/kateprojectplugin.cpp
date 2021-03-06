@@ -353,6 +353,28 @@ bool KateProjectPlugin::showGitStatusWithNumStat()
     return m_gitNumStat;
 }
 
+void KateProjectPlugin::setSingleClickAction(ClickAction cb)
+{
+    m_singleClick = cb;
+    writeConfig();
+}
+
+ClickAction KateProjectPlugin::singleClickAcion()
+{
+    return m_singleClick;
+}
+
+void KateProjectPlugin::setDoubleClickAction(ClickAction cb)
+{
+    m_doubleClick = cb;
+    writeConfig();
+}
+
+ClickAction KateProjectPlugin::doubleClickAcion()
+{
+    return m_doubleClick;
+}
+
 void KateProjectPlugin::setMultiProject(bool completion, bool gotoSymbol)
 {
     m_multiProjectCompletion = completion;
@@ -376,6 +398,8 @@ void KateProjectPlugin::readConfig()
     m_multiProjectGoto = config.readEntry("multiProjectCompletion", false);
 
     m_gitNumStat = config.readEntry("gitStatusNumStat", true);
+    m_singleClick = (ClickAction)config.readEntry("gitStatusSingleClick", (int)ClickAction::ShowDiff);
+    m_doubleClick = (ClickAction)config.readEntry("gitStatusDoubleClick", (int)ClickAction::StageUnstage);
 
     Q_EMIT configUpdated();
 }
@@ -406,6 +430,8 @@ void KateProjectPlugin::writeConfig()
     config.writeEntry("multiProjectGoto", m_multiProjectGoto);
 
     config.writeEntry("gitStatusNumStat", m_gitNumStat);
+    config.writeEntry("gitStatusSingleClick", (int)m_singleClick);
+    config.writeEntry("gitStatusDoubleClick", (int)m_doubleClick);
 
     Q_EMIT configUpdated();
 }

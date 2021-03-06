@@ -21,6 +21,13 @@
 #include "kateproject.h"
 #include "kateprojectcompletion.h"
 
+enum ClickAction {
+    NoAction = 0,
+    ShowDiff,
+    OpenFile,
+    StageUnstage,
+};
+
 class KateProjectPlugin : public KTextEditor::Plugin
 {
     Q_OBJECT
@@ -104,6 +111,12 @@ public:
 
     void setGitStatusShowNumStat(bool show);
     bool showGitStatusWithNumStat();
+
+    void setSingleClickAction(ClickAction cb);
+    ClickAction singleClickAcion();
+
+    void setDoubleClickAction(ClickAction cb);
+    ClickAction doubleClickAcion();
 
 Q_SIGNALS:
     /**
@@ -197,6 +210,8 @@ private:
 
     // git features
     bool m_gitNumStat = true;
+    ClickAction m_singleClick;
+    ClickAction m_doubleClick;
 
     /**
      * thread pool for our workers

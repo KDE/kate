@@ -187,9 +187,9 @@ void KateFileTree::setModel(QAbstractItemModel *model)
     header()->hide();
     header()->setStretchLastSection(false);
     header()->setSectionResizeMode(0, QHeaderView::Stretch);
-    header()->setMinimumSectionSize(8);
+    header()->setMinimumSectionSize(1);
     header()->setSectionResizeMode(1, QHeaderView::Fixed);
-    header()->resizeSection(1, 16);
+    header()->resizeSection(1, 1);
 }
 
 void KateFileTree::setShowCloseButton(bool show)

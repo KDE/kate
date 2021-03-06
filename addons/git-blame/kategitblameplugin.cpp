@@ -9,10 +9,13 @@
 
 #include <algorithm>
 
+#include <KActionCollection>
 #include <KConfigGroup>
 #include <KLocalizedString>
 #include <KPluginFactory>
 #include <KSharedConfig>
+#include <KXMLGUIFactory>
+
 #include <KTextEditor/Editor>
 #include <KTextEditor/Document>
 #include <KTextEditor/InlineNoteInterface>
@@ -134,6 +137,38 @@ KateGitBlamePlugin::~KateGitBlamePlugin()
     qDeleteAll(m_inlineNoteProviders);
 }
 
+KateGitBlamePluginView::KateGitBlamePluginView(KateGitBlamePlugin *plugin, KTextEditor::MainWindow *mainwindow)
+    : QObject(plugin)
+    , m_mainWindow(mainwindow)
+{
+    KXMLGUIClient::setComponentName(QStringLiteral("kategitblameplugin"), i18n("Git Blame"));
+    setXMLFile(QStringLiteral("ui.rc"));
+    QAction *showBlameAction = actionCollection()->addAction(QStringLiteral("git_blame_show"));
+    showBlameAction->setText(i18n("Show Git Blame Details"));
+    actionCollection()->setDefaultShortcut(showBlameAction, Qt::CTRL | Qt::ALT | Qt::Key_G);
+
+    connect(showBlameAction, &QAction::triggered, plugin, [this, plugin, showBlameAction]() {
+        KTextEditor::View *kv = m_mainWindow->activeView();
+        if (!kv) {
+            return;
+        }
+        KTextEditor::Document *doc = kv->document();
+        if (!doc) {
+            return;
+        }
+        plugin->setToolTipIgnoreKeySequence(showBlameAction->shortcut());
+        int lineNr = kv->cursorPosition().line();
+        const KateGitBlameInfo &info = plugin->blameInfo(lineNr, doc->line(lineNr));
+        plugin->showCommitInfo(info.commitHash);
+    });
+    m_mainWindow->guiFactory()->addClient(this);
+}
+
+KateGitBlamePluginView::~KateGitBlamePluginView()
+{
+    m_mainWindow->guiFactory()->removeClient(this);
+}
+
 QObject *KateGitBlamePlugin::createView(KTextEditor::MainWindow *mainWindow)
 {
     m_mainWindow = mainWindow;
@@ -147,7 +182,7 @@ QObject *KateGitBlamePlugin::createView(KTextEditor::MainWindow *mainWindow)
 
     connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, &KateGitBlamePlugin::viewChanged);
 
-    return nullptr;
+    return new KateGitBlamePluginView(this, mainWindow);
 }
 
 void KateGitBlamePlugin::addDocument(KTextEditor::Document *doc)
@@ -365,6 +400,11 @@ const KateGitBlameInfo &KateGitBlamePlugin::blameGetUpdateInfo(int lineNr)
         startShowProcess(m_mainWindow->activeView()->document()->url(), info.commitHash);
     }
     return info;
+}
+
+void KateGitBlamePlugin::setToolTipIgnoreKeySequence(QKeySequence sequence)
+{
+    m_tooltip.setIgnoreKeySequence(sequence);
 }
 
 void KateGitBlamePlugin::readConfig()

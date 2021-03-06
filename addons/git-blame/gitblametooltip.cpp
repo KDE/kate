@@ -131,6 +131,10 @@ class GitBlameTooltip::Private : public QTextBrowser
     Q_OBJECT
 
 public:
+    QKeySequence m_ignoreKeySequence;
+
+    static const uint64_t ModifierMask =
+        Qt::ShiftModifier | Qt::ControlModifier | Qt::AltModifier | Qt::MetaModifier | Qt::KeypadModifier | Qt::GroupSwitchModifier;
 
     Private() : QTextBrowser(nullptr)
     {
@@ -181,13 +185,13 @@ public:
         case QEvent::KeyRelease:
         {
             QKeyEvent *ke = static_cast<QKeyEvent *>(event);
-            if (ke->matches(QKeySequence::Copy) ||
-                ke->matches(QKeySequence::SelectAll) ||
-                ke->key() == Qt::Key_Control ||
-                ke->key() == Qt::Key_Alt ||
-                ke->key() == Qt::Key_Shift ||
-                ke->key() == Qt::Key_AltGr ||
-                ke->key() == Qt::Key_Meta) {
+            int ignoreKey = 0;
+            if (m_ignoreKeySequence.count() > 0) {
+                ignoreKey = m_ignoreKeySequence[m_ignoreKeySequence.count() - 1] & ~ModifierMask;
+            }
+            if (ke->matches(QKeySequence::Copy) || ke->matches(QKeySequence::SelectAll) || (ignoreKey != 0 && ignoreKey == ke->key())
+                || ke->key() == Qt::Key_Control || ke->key() == Qt::Key_Alt || ke->key() == Qt::Key_Shift || ke->key() == Qt::Key_AltGr
+                || ke->key() == Qt::Key_Meta) {
                 event->accept();
                 return true;
             }
@@ -334,6 +338,11 @@ void GitBlameTooltip::show(const QString &text,  QPointer<KTextEditor::View> vie
     d->fixGeometry();
     d->raise();
     d->show();
+}
+
+void GitBlameTooltip::setIgnoreKeySequence(QKeySequence sequence)
+{
+    d->m_ignoreKeySequence = sequence;
 }
 
 #include "gitblametooltip.moc"

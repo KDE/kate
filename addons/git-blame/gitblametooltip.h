@@ -26,6 +26,8 @@ public:
 
     void show(const QString &text,  QPointer<KTextEditor::View> v);
 
+    void setIgnoreKeySequence(QKeySequence sequence);
+
 private:
     class Private;
     Private *const d;

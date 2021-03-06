@@ -55,6 +55,17 @@ private:
     QLocale m_locale;
 };
 
+class KateGitBlamePluginView : public QObject, public KXMLGUIClient
+{
+    Q_OBJECT
+public:
+    KateGitBlamePluginView(KateGitBlamePlugin *plugin, KTextEditor::MainWindow *mainwindow);
+    ~KateGitBlamePluginView() override;
+
+private:
+    KTextEditor::MainWindow *m_mainWindow;
+};
+
 class KateGitBlamePlugin : public KTextEditor::Plugin
 {
     Q_OBJECT
@@ -71,6 +82,8 @@ public:
     void readConfig();
 
     void showCommitInfo(const QString &hash);
+
+    void setToolTipIgnoreKeySequence(QKeySequence sequence);
 
 private Q_SLOTS:
     void viewChanged(KTextEditor::View *view);

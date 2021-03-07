@@ -960,7 +960,8 @@ void KatePluginSearchView::startSearch()
     }
 
     QRegularExpression::PatternOptions patternOptions =
-        (m_ui.matchCase->isChecked() ? QRegularExpression::NoPatternOption : QRegularExpression::CaseInsensitiveOption);
+        (m_ui.matchCase->isChecked() ? QRegularExpression::UseUnicodePropertiesOption
+                                     : QRegularExpression::UseUnicodePropertiesOption | QRegularExpression::CaseInsensitiveOption);
     QString pattern = (m_ui.useRegExp->isChecked() ? currentSearchText : QRegularExpression::escape(currentSearchText));
     QRegularExpression reg(pattern, patternOptions);
 
@@ -1127,7 +1128,8 @@ void KatePluginSearchView::startSearchWhileTyping()
     // Now we should have a true typed text change
 
     QRegularExpression::PatternOptions patternOptions =
-        (m_ui.matchCase->isChecked() ? QRegularExpression::NoPatternOption : QRegularExpression::CaseInsensitiveOption);
+        (m_ui.matchCase->isChecked() ? QRegularExpression::UseUnicodePropertiesOption
+                                     : QRegularExpression::UseUnicodePropertiesOption | QRegularExpression::CaseInsensitiveOption);
     QString pattern = (m_ui.useRegExp->isChecked() ? currentSearchText : QRegularExpression::escape(currentSearchText));
     QRegularExpression reg(pattern, patternOptions);
     if (!reg.isValid()) {

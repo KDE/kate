@@ -222,6 +222,9 @@ QObject *KatePluginSearch::createView(KTextEditor::MainWindow *mainWindow)
     connect(m_searchCommand, &KateSearchCommand::setSearchString, view, &KatePluginSearchView::setSearchString);
     connect(m_searchCommand, &KateSearchCommand::startSearch, view, &KatePluginSearchView::startSearch);
     connect(m_searchCommand, SIGNAL(newTab()), view, SLOT(addTab()));
+
+    connect(view, &KatePluginSearchView::searchBusy, m_searchCommand, &KateSearchCommand::setBusy);
+
     return view;
 }
 
@@ -971,6 +974,8 @@ void KatePluginSearchView::startSearch()
         return;
     }
 
+    Q_EMIT searchBusy(true);
+
     updateViewColors();
 
     m_curResults->regExp = reg;
@@ -1138,6 +1143,8 @@ void KatePluginSearchView::startSearchWhileTyping()
         return;
     }
 
+    Q_EMIT searchBusy(true);
+
     m_curResults->regExp = reg;
     m_curResults->useRegExp = m_ui.useRegExp->isChecked();
 
@@ -1212,6 +1219,8 @@ void KatePluginSearchView::searchDone()
     m_ui.expandResults->setDisabled(false);
     m_ui.currentFolderButton->setDisabled(m_ui.searchPlaceCombo->currentIndex() != MatchModel::Folder);
 
+    Q_EMIT searchBusy(false);
+
     if (!m_curResults) {
         return;
     }
@@ -1245,6 +1254,8 @@ void KatePluginSearchView::searchDone()
 
 void KatePluginSearchView::searchWhileTypingDone()
 {
+    Q_EMIT searchBusy(false);
+
     if (!m_curResults) {
         return;
     }
@@ -1335,6 +1346,8 @@ void KatePluginSearchView::replaceSingleMatch()
         return;
     }
 
+    Q_EMIT searchBusy(true);
+
     KTextEditor::Document *doc = m_mainWindow->activeView()->document();
 
     // FIXME The document might have been edited after the search.
@@ -1364,6 +1377,8 @@ void KatePluginSearchView::replaceChecked()
         qWarning() << "Results not found";
         return;
     }
+
+    Q_EMIT searchBusy(true);
 
     m_ui.stopAndNext->setCurrentWidget(m_ui.stopButton);
     m_ui.displayOptions->setChecked(false);
@@ -1401,6 +1416,8 @@ void KatePluginSearchView::replaceDone()
     m_ui.expandResults->setDisabled(false);
     m_ui.currentFolderButton->setDisabled(false);
     updateMatchMarks();
+
+    Q_EMIT searchBusy(false);
 }
 
 /** Remove all moving ranges and document marks belonging to Search & Replace */
@@ -1554,7 +1571,7 @@ void KatePluginSearchView::expandResults()
 
     // we expand recursively if we either are told so or we have just one toplevel match item
     QModelIndex rootItem = m_curResults->matchModel.index(0, 0);
-    if (m_ui.expandResults->isChecked() || m_curResults->matchModel.rowCount(rootItem) == 1) {
+    if ((m_ui.expandResults->isChecked() && m_curResults->matchModel.rowCount(rootItem) < 200) || m_curResults->matchModel.rowCount(rootItem) == 1) {
         m_curResults->treeView->expandAll();
     } else {
         // first collapse all and the expand the root, much faster than collapsing all children manually

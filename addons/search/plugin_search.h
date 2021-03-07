@@ -164,6 +164,9 @@ private Q_SLOTS:
     void copySearchToClipboard(CopyResultType type);
     void customResMenuRequested(const QPoint &pos);
 
+Q_SIGNALS:
+    void searchBusy(bool busy);
+
 protected:
     bool eventFilter(QObject *obj, QEvent *ev) override;
 

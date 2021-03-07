@@ -22,6 +22,8 @@ class KateSearchCommand : public KTextEditor::Command
 public:
     KateSearchCommand(QObject *parent);
 
+    void setBusy(bool busy);
+
 Q_SIGNALS:
     void setSearchPlace(int place);
     void setCurrentFolder();
@@ -35,6 +37,9 @@ Q_SIGNALS:
 public:
     bool exec(KTextEditor::View *view, const QString &cmd, QString &msg, const KTextEditor::Range &range = KTextEditor::Range::invalid()) override;
     bool help(KTextEditor::View *view, const QString &cmd, QString &msg) override;
+
+private:
+    bool m_busy{false};
 };
 
 #endif

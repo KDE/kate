@@ -16,8 +16,16 @@ KateSearchCommand::KateSearchCommand(QObject *parent)
 {
 }
 
+void KateSearchCommand::setBusy(bool busy)
+{
+    m_busy = busy;
+}
+
 bool KateSearchCommand::exec(KTextEditor::View * /*view*/, const QString &cmd, QString & /*msg*/, const KTextEditor::Range &)
 {
+    if (m_busy) {
+        return false;
+    }
     // create a list of args
 #if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
     QStringList args(cmd.split(QLatin1Char(' '), QString::KeepEmptyParts));

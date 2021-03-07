@@ -409,8 +409,8 @@ or
 using the <menuchoice><guimenu>Edit</guimenu>
 <guimenuitem>Replace</guimenuitem></menuchoice> command, or the
 <keycombo action="simul">&Ctrl;<keycap>R</keycap></keycombo> shortcut.</para>
-<para>On the upper left side of the bar is a button with an icon to close the bar, followed by a small text
-box for entering the search pattern.</para>
+<para>On the upper left side of the bar is a button with an icon to close the bar, followed by a small combo
+box for entering the search pattern. The box remembers recently used patterns.</para>
 <para>You can control the search mode by selecting the options <guilabel>Plain Text</guilabel>,
 <guilabel>Whole Words</guilabel>, <guilabel>Escape Sequences</guilabel> or
 <guilabel>Regular Expression</guilabel> from the drop down box.

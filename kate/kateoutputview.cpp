@@ -172,6 +172,7 @@ KateOutputView::KateOutputView(KateMainWindow *mainWindow, QWidget *parent)
     // simple vbox layout with just the tree view ATM
     // TODO: e.g. filter and such!
     QVBoxLayout *layout = new QVBoxLayout(this);
+    layout->setContentsMargins(0, 0, 0, 0);
     m_messagesTreeView = new KateOutputTreeView(this);
     m_messagesTreeView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     m_messagesTreeView->setHeaderHidden(true);

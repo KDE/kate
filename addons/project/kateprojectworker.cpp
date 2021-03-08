@@ -17,7 +17,7 @@
 #include <QSettings>
 #include <QThread>
 #include <QTime>
-#include <QtConcurrentFilter>
+#include <QtConcurrent>
 
 #include <algorithm>
 
@@ -285,27 +285,28 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent, const QVariantMap 
     /**
      * sort out non-files
      * even for git, that just reports non-directories, we need to filter out e.g. sym-links to directories
+     * we use map, not filter, less locking!
+     * we invalidate not matching stuff by clearing the string and skip that then below in processing
      */
     const QString dirPath = dir.path() + QLatin1Char('/');
-    QtConcurrent::blockingFilter(files, [dirPath](const QString &item) {
-        return QFileInfo(dirPath + item).isFile();
-    });
-
-    /**
-     * we might end up with nothing to add at all
-     */
-    if (files.isEmpty()) {
-        return;
-    }
-
+    QtConcurrent::blockingMap(files, [dirPath](QString &item) {
+            if (!QFileInfo(dirPath + item).isFile()) {
+                item.clear();
+            }
+        });
 
     /**
      * construct paths first in tree and items in a map
      */
     QHash<QString, QStandardItem *> dir2Item;
     dir2Item[QString()] = parent;
-    file2Item->reserve(files.size());
+    file2Item->reserve(files.size()); // perhaps a bit too much, as we emptied stuff above, but who cares!
     for (const QString &filePath : qAsConst(files)) {
+        // skip empty files, that is filtered stuff
+        if (filePath.isEmpty()) {
+            continue;
+        }
+
         /**
          * cheap file name computation
          * we do this A LOT, QFileInfo is very expensive just for this operation

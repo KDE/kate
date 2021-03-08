@@ -280,15 +280,17 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent, const QVariantMap 
     /**
      * get list of files for this directory, might query the VCS
      */
-    QStringList files = findFiles(dir, filesEntry);
+    QVector<QString> files = findFiles(dir, filesEntry);
 
     /**
      * sort out non-files
      * even for git, that just reports non-directories, we need to filter out e.g. sym-links to directories
      */
-    QtConcurrent::blockingFilter(files, [](const QString &item) {
-        return QFileInfo(item).isFile();
+    const QString dirPath = dir.path() + QLatin1Char('/');
+    QtConcurrent::blockingFilter(files, [dirPath](const QString &item) {
+        return QFileInfo(dirPath + item).isFile();
     });
+
     /**
      * we might end up with nothing to add at all
      */
@@ -296,29 +298,21 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent, const QVariantMap 
         return;
     }
 
-    const QString dirPath = dir.path() + QLatin1Char('/');
 
     /**
      * construct paths first in tree and items in a map
      */
     QHash<QString, QStandardItem *> dir2Item;
     dir2Item[QString()] = parent;
-    for (const QString &filePath : files) {
+    file2Item->reserve(files.size());
+    for (const QString &filePath : qAsConst(files)) {
         /**
          * cheap file name computation
          * we do this A LOT, QFileInfo is very expensive just for this operation
          */
         const int slashIndex = filePath.lastIndexOf(QLatin1Char('/'));
         const QString fileName = (slashIndex < 0) ? filePath : filePath.mid(slashIndex + 1);
-
-        // get the directory's relative path to the base directory
-        int len = filePath.length() - (dirPath.length() + fileName.length() + 1);
-        len = len >= 0 ? len : 0;
-        /** remove basePath + fileName = relativePath
-         *  we don't use QDir::relativePath as it is very expensive
-         *  This can be empty if the file is in the base dir itself
-         */
-        const QString dirRelPath = (slashIndex < 0) ? QString() : filePath.mid(dirPath.length(), len);
+        const QString filePathName = (slashIndex < 0) ? QString() : filePath.left(slashIndex);
 
         /**
          * construct the item with right directory prefix
@@ -329,11 +323,11 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent, const QVariantMap 
         (*file2Item)[filePath] = fileItem;
 
         // put in our item to the right directory parent
-        directoryParent(dir, dir2Item, dirRelPath)->appendRow(fileItem);
+        directoryParent(dir, dir2Item, filePathName)->appendRow(fileItem);
     }
 }
 
-QStringList KateProjectWorker::findFiles(const QDir &dir, const QVariantMap &filesEntry)
+QVector<QString> KateProjectWorker::findFiles(const QDir &dir, const QVariantMap &filesEntry)
 {
     /**
      * shall we collect files recursively or not?
@@ -382,7 +376,7 @@ QStringList KateProjectWorker::findFiles(const QDir &dir, const QVariantMap &fil
          * users might have specified duplicates, this can't happen for the other ways
          */
         userGivenFilesList.removeDuplicates();
-        return userGivenFilesList;
+        return userGivenFilesList.toVector();
     }
 
     /**
@@ -392,7 +386,7 @@ QStringList KateProjectWorker::findFiles(const QDir &dir, const QVariantMap &fil
     return filesFromDirectory(dir, recursive, filesEntry[QStringLiteral("filters")].toStringList());
 }
 
-QStringList KateProjectWorker::filesFromGit(const QDir &dir, bool recursive)
+QVector<QString> KateProjectWorker::filesFromGit(const QDir &dir, bool recursive)
 {
     /**
      * query files via ls-files and make them absolute afterwards
@@ -416,12 +410,12 @@ QStringList KateProjectWorker::filesFromGit(const QDir &dir, bool recursive)
     return gitFiles(dir, recursive, lsFilesArgs) << gitFiles(dir, recursive, lsFilesUntrackedArgs);
 }
 
-QStringList KateProjectWorker::gitFiles(const QDir &dir, bool recursive, const QStringList &args)
+QVector<QString> KateProjectWorker::gitFiles(const QDir &dir, bool recursive, const QStringList &args)
 {
     QProcess git;
     git.setWorkingDirectory(dir.absolutePath());
     git.start(QStringLiteral("git"), args, QProcess::ReadOnly);
-    QStringList files;
+    QVector<QString> files;
     if (!git.waitForStarted() || !git.waitForFinished(-1)) {
         return files;
     }
@@ -437,15 +431,14 @@ QStringList KateProjectWorker::gitFiles(const QDir &dir, bool recursive, const Q
         if (!recursive && (byteArray.indexOf('/') != -1)) {
             continue;
         }
-        const QString fileName = QString::fromUtf8(byteArray);
-        files.append(dirAbsoloutePath + fileName);
+        files.append(QString::fromUtf8(byteArray));
     }
     return files;
 }
 
-QStringList KateProjectWorker::filesFromMercurial(const QDir &dir, bool recursive)
+QVector<QString> KateProjectWorker::filesFromMercurial(const QDir &dir, bool recursive)
 {
-    QStringList files;
+    QVector<QString> files;
 
     QProcess hg;
     hg.setWorkingDirectory(dir.absolutePath());
@@ -463,20 +456,21 @@ QStringList KateProjectWorker::filesFromMercurial(const QDir &dir, bool recursiv
     const QStringList relFiles = QString::fromLocal8Bit(hg.readAllStandardOutput()).split(QRegularExpression(QStringLiteral("[\n\r]")), Qt::SkipEmptyParts);
 #endif
 
+    files.reserve(relFiles.size());
     for (const QString &relFile : relFiles) {
         if (!recursive && (relFile.indexOf(QLatin1Char('/')) != -1)) {
             continue;
         }
 
-        files.append(dir.absolutePath() + QLatin1Char('/') + relFile);
+        files.append(relFile);
     }
 
     return files;
 }
 
-QStringList KateProjectWorker::filesFromSubversion(const QDir &dir, bool recursive)
+QVector<QString> KateProjectWorker::filesFromSubversion(const QDir &dir, bool recursive)
 {
-    QStringList files;
+    QVector<QString> files;
 
     QProcess svn;
     svn.setWorkingDirectory(dir.absolutePath());
@@ -507,6 +501,7 @@ QStringList KateProjectWorker::filesFromSubversion(const QDir &dir, bool recursi
     bool first = true;
     int prefixLength = -1;
 
+    files.reserve(lines.size());
     for (const QString &line : lines) {
         /**
          * get length of stuff to cut
@@ -532,16 +527,16 @@ QStringList KateProjectWorker::filesFromSubversion(const QDir &dir, bool recursi
          * prepend directory path
          */
         if ((line.size() > prefixLength) && line[0] != QLatin1Char('?') && line[0] != QLatin1Char('I')) {
-            files.append(dir.absolutePath() + QLatin1Char('/') + line.right(line.size() - prefixLength));
+            files.append(line.right(line.size() - prefixLength));
         }
     }
 
     return files;
 }
 
-QStringList KateProjectWorker::filesFromDarcs(const QDir &dir, bool recursive)
+QVector<QString> KateProjectWorker::filesFromDarcs(const QDir &dir, bool recursive)
 {
-    QStringList files;
+    QVector<QString> files;
 
     const QString cmd = QStringLiteral("darcs");
     QString root;
@@ -589,6 +584,7 @@ QStringList KateProjectWorker::filesFromDarcs(const QDir &dir, bool recursive)
 #endif
     }
 
+    files.reserve(relFiles.size());
     for (const QString &relFile : relFiles) {
         const QString path = dir.relativeFilePath(root + QLatin1String("/") + relFile);
 
@@ -596,13 +592,13 @@ QStringList KateProjectWorker::filesFromDarcs(const QDir &dir, bool recursive)
             continue;
         }
 
-        files.append(dir.absoluteFilePath(path));
+        files.append(path);
     }
 
     return files;
 }
 
-QStringList KateProjectWorker::filesFromDirectory(const QDir &_dir, bool recursive, const QStringList &filters)
+QVector<QString> KateProjectWorker::filesFromDirectory(const QDir &_dir, bool recursive, const QStringList &filters)
 {
     /**
      * setup our filters, we only want files!
@@ -624,11 +620,13 @@ QStringList KateProjectWorker::filesFromDirectory(const QDir &_dir, bool recursi
     /**
      * create iterator and collect all files
      */
-    QStringList files;
+    QVector<QString> files;
     QDirIterator dirIterator(dir, flags);
+    const QString dirPath = dir.path() + QLatin1Char('/');
     while (dirIterator.hasNext()) {
         dirIterator.next();
-        files.append(dirIterator.filePath());
+        // make it relative path
+        files.append(dirIterator.filePath().remove(dirPath));
     }
     return files;
 }

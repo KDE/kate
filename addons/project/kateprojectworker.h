@@ -57,15 +57,15 @@ private:
      */
     void loadFilesEntry(QStandardItem *parent, const QVariantMap &filesEntry, QHash<QString, KateProjectItem *> *file2Item);
 
-    QStringList findFiles(const QDir &dir, const QVariantMap &filesEntry);
+    QVector<QString> findFiles(const QDir &dir, const QVariantMap &filesEntry);
 
-    QStringList filesFromGit(const QDir &dir, bool recursive);
-    QStringList filesFromMercurial(const QDir &dir, bool recursive);
-    QStringList filesFromSubversion(const QDir &dir, bool recursive);
-    QStringList filesFromDarcs(const QDir &dir, bool recursive);
-    QStringList filesFromDirectory(const QDir &dir, bool recursive, const QStringList &filters);
+    QVector<QString> filesFromGit(const QDir &dir, bool recursive);
+    QVector<QString> filesFromMercurial(const QDir &dir, bool recursive);
+    QVector<QString> filesFromSubversion(const QDir &dir, bool recursive);
+    QVector<QString> filesFromDarcs(const QDir &dir, bool recursive);
+    QVector<QString> filesFromDirectory(const QDir &dir, bool recursive, const QStringList &filters);
 
-    QStringList gitFiles(const QDir &dir, bool recursive, const QStringList& args);
+    QVector<QString> gitFiles(const QDir &dir, bool recursive, const QStringList &args);
 
 private:
     /**

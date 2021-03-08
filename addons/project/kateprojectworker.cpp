@@ -313,14 +313,15 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent, const QVariantMap 
         const int slashIndex = filePath.lastIndexOf(QLatin1Char('/'));
         const QString fileName = (slashIndex < 0) ? filePath : filePath.mid(slashIndex + 1);
         const QString filePathName = (slashIndex < 0) ? QString() : filePath.left(slashIndex);
+        const QString fullFilePath = dirPath + filePath;
 
         /**
          * construct the item with right directory prefix
          * already hang in directories in tree
          */
         KateProjectItem *fileItem = new KateProjectItem(KateProjectItem::File, fileName);
-        fileItem->setData(filePath, Qt::UserRole);
-        (*file2Item)[filePath] = fileItem;
+        fileItem->setData(fullFilePath, Qt::UserRole);
+        (*file2Item)[fullFilePath] = fileItem;
 
         // put in our item to the right directory parent
         directoryParent(dir, dir2Item, filePathName)->appendRow(fileItem);

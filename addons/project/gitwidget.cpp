@@ -176,11 +176,12 @@ GitWidget::GitWidget(KateProject *project, KTextEditor::MainWindow *mainWindow, 
     m_cancelBtn = toolButton(QStringLiteral("dialog-cancel"), i18n("Cancel Operation"));
     m_cancelBtn->setHidden(true);
     connect(m_cancelBtn, &QToolButton::clicked, this, [this] {
-        if (m_cancelHandle.proc) {
+        if (m_cancelHandle) {
             // we don't want error occurred, this is intentional
-            disconnect(m_cancelHandle.proc, &QProcess::errorOccurred, nullptr, nullptr);
-            m_cancelHandle.proc->kill();
-            sendMessage(m_cancelHandle.cmd + i18n(" canceled."), false);
+            disconnect(m_cancelHandle, &QProcess::errorOccurred, nullptr, nullptr);
+            const auto args = m_cancelHandle->arguments();
+            m_cancelHandle->kill();
+            sendMessage(QStringLiteral("git ") + args.join(QLatin1Char(' ')) + i18n(" canceled."), false);
             hideCancel();
         }
     });
@@ -231,8 +232,8 @@ GitWidget::GitWidget(KateProject *project, KTextEditor::MainWindow *mainWindow, 
 
 GitWidget::~GitWidget()
 {
-    if (m_cancelHandle.proc) {
-        m_cancelHandle.proc->kill();
+    if (m_cancelHandle) {
+        m_cancelHandle->kill();
     }
 }
 
@@ -357,7 +358,7 @@ void GitWidget::runPushPullCmd(const QStringList &args)
         git->deleteLater();
     });
 
-    enableCancel(git, args);
+    enableCancel(git);
     git->setArguments(args);
     git->start(QProcess::ReadOnly);
 
@@ -775,9 +776,9 @@ void GitWidget::createStashDialog(StashMode m, const QString &gitPath)
     stashDialog->openDialog(m);
 }
 
-void GitWidget::enableCancel(QProcess *git, const QStringList &args)
+void GitWidget::enableCancel(QProcess *git)
 {
-    m_cancelHandle = {git, QStringLiteral("git ") + args.join(QLatin1Char(' '))};
+    m_cancelHandle = git;
     m_pushBtn->hide();
     m_cancelBtn->show();
 }

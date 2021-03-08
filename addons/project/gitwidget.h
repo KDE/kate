@@ -72,10 +72,7 @@ private:
     std::vector<TempFileViewPair> m_tempFiles;
     KateProjectPluginView *m_pluginView;
 
-    struct CancelHandle {
-        QPointer<QProcess> proc;
-        QString cmd;
-    };
+    using CancelHandle = QPointer<QProcess>;
     CancelHandle m_cancelHandle;
 
     QProcess *gitp();
@@ -103,7 +100,7 @@ private:
     QString getDiff(KTextEditor::View *view, bool hunk, bool alreadyStaged);
     void createStashDialog(StashMode m, const QString &gitPath);
 
-    void enableCancel(QProcess *git, const QStringList &args);
+    void enableCancel(QProcess *git);
     void hideCancel();
 
 public Q_SLOTS:

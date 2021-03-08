@@ -65,7 +65,7 @@ private:
     QStringList filesFromDarcs(const QDir &dir, bool recursive);
     QStringList filesFromDirectory(const QDir &dir, bool recursive, const QStringList &filters);
 
-    QStringList gitLsFiles(const QDir &dir);
+    QStringList gitFiles(const QDir &dir, bool recursive, const QStringList& args);
 
 private:
     /**

@@ -394,20 +394,7 @@ QStringList KateProjectWorker::filesFromGit(const QDir &dir, bool recursive)
     /**
      * query files via ls-files and make them absolute afterwards
      */
-    const QStringList relFiles = gitLsFiles(dir);
-    QStringList files;
-    for (const QString &relFile : relFiles) {
-        if (!recursive && (relFile.indexOf(QLatin1Char('/')) != -1)) {
-            continue;
-        }
 
-        files.append(dir.absolutePath() + QLatin1Char('/') + relFile);
-    }
-    return files;
-}
-
-QStringList KateProjectWorker::gitLsFiles(const QDir &dir)
-{
     /**
      * git ls-files -z results a bytearray where each entry is \0-terminated.
      * NOTE: Without -z, Umlauts such as "Der Bäcker/Das Brötchen.txt" do not work (#389415)
@@ -415,9 +402,19 @@ QStringList KateProjectWorker::gitLsFiles(const QDir &dir)
      * use --recurse-submodules, there since git 2.11 (released 2016)
      * our own submodules handling code leads to file duplicates
      */
-    QStringList args;
-    args << QStringLiteral("ls-files") << QStringLiteral("-z") << QStringLiteral("--recurse-submodules") << QStringLiteral(".");
+    const QStringList lsFilesArgs{QStringLiteral("ls-files"), QStringLiteral("-z"), QStringLiteral("--recurse-submodules"), QStringLiteral(".")};
 
+    /**
+     * ls-files untracked
+     */
+    const QStringList lsFilesUntrackedArgs{QStringLiteral("ls-files"), QStringLiteral("-z"), QStringLiteral("--others"), QStringLiteral("--exclude-standard"), QStringLiteral(".")};
+
+    // ls-files + ls-files untracked
+    return gitFiles(dir, recursive, lsFilesArgs) << gitFiles(dir, recursive, lsFilesUntrackedArgs);
+}
+
+QStringList KateProjectWorker::gitFiles(const QDir &dir, bool recursive, const QStringList &args)
+{
     QProcess git;
     git.setWorkingDirectory(dir.absolutePath());
     git.start(QStringLiteral("git"), args, QProcess::ReadOnly);
@@ -426,34 +423,20 @@ QStringList KateProjectWorker::gitLsFiles(const QDir &dir)
         return files;
     }
 
+    const QString dirAbsoloutePath = dir.absolutePath() + QLatin1Char('/');
+
     const QList<QByteArray> byteArrayList = git.readAllStandardOutput().split('\0');
+    files.reserve(byteArrayList.size());
     for (const QByteArray &byteArray : byteArrayList) {
+        if (byteArray.isEmpty()) {
+            continue;
+        }
+        if (!recursive && (byteArray.indexOf('/') != -1)) {
+            continue;
+        }
         const QString fileName = QString::fromUtf8(byteArray);
-        if (!fileName.isEmpty()) {
-            files << fileName;
-        }
+        files.append(dirAbsoloutePath + fileName);
     }
-
-    // untracked files
-    {
-        args.clear();
-        args << QStringLiteral("ls-files") << QStringLiteral("-z") << QStringLiteral("--others") << QStringLiteral("--exclude-standard") << QStringLiteral(".");
-        git.setArguments(args);
-        git.start(QProcess::ReadOnly);
-
-        if (!git.waitForStarted() || !git.waitForFinished(-1)) {
-            return files;
-        }
-
-        const QList<QByteArray> byteArrayList = git.readAllStandardOutput().split('\0');
-        for (const QByteArray &byteArray : byteArrayList) {
-            const QString fileName = QString::fromUtf8(byteArray);
-            if (!fileName.isEmpty()) {
-                files << fileName;
-            }
-        }
-    }
-
     return files;
 }
 

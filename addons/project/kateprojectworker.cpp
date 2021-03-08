@@ -296,6 +296,8 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent, const QVariantMap 
         return;
     }
 
+    const QString dirPath = dir.path() + QLatin1Char('/');
+
     /**
      * construct paths first in tree and items in a map
      */
@@ -308,7 +310,15 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent, const QVariantMap 
          */
         const int slashIndex = filePath.lastIndexOf(QLatin1Char('/'));
         const QString fileName = (slashIndex < 0) ? filePath : filePath.mid(slashIndex + 1);
-        const QString filePathName = (slashIndex < 0) ? QString() : filePath.left(slashIndex);
+
+        // get the directory's relative path to the base directory
+        int len = filePath.length() - (dirPath.length() + fileName.length() + 1);
+        len = len >= 0 ? len : 0;
+        /** remove basePath + fileName = relativePath
+         *  we don't use QDir::relativePath as it is very expensive
+         *  This can be empty if the file is in the base dir itself
+         */
+        const QString dirRelPath = (slashIndex < 0) ? QString() : filePath.mid(dirPath.length(), len);
 
         /**
          * construct the item with right directory prefix
@@ -317,13 +327,6 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent, const QVariantMap 
         KateProjectItem *fileItem = new KateProjectItem(KateProjectItem::File, fileName);
         fileItem->setData(filePath, Qt::UserRole);
         (*file2Item)[filePath] = fileItem;
-
-        // get the directory's relative path to the base directory
-        QString dirRelPath = dir.relativeFilePath(filePathName);
-        // if the relative path is ".", clean it up
-        if (dirRelPath == QLatin1Char('.')) {
-            dirRelPath = QString();
-        }
 
         // put in our item to the right directory parent
         directoryParent(dir, dir2Item, dirRelPath)->appendRow(fileItem);

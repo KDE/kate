@@ -812,7 +812,7 @@ void KatePluginSearchView::cancelDiskFileSearch()
 
 bool KatePluginSearchView::searchingDiskFiles()
 {
-    return m_worklistForDiskFiles.isRunning();
+    return m_worklistForDiskFiles.isRunning() || m_folderFilesList.isRunning();
 }
 
 void KatePluginSearchView::searchPlaceChanged()

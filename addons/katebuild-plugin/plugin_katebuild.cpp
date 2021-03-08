@@ -42,16 +42,15 @@
 #include <KActionCollection>
 #include <KTextEditor/Application>
 #include <KTextEditor/ConfigInterface>
-#include <KXMLGUIFactory>
-
-#include <KMessageBox>
+#include <KTextEditor/Editor>
+#include <KTextEditor/MarkInterface>
+#include <KTextEditor/MovingInterface>
 
 #include <KAboutData>
 #include <KLocalizedString>
+#include <KMessageBox>
 #include <KPluginFactory>
-
-#include <ktexteditor/markinterface.h>
-#include <ktexteditor/movinginterface.h>
+#include <KXMLGUIFactory>
 
 #include "SelectTargetView.h"
 
@@ -190,6 +189,22 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     m_buildUi.plainTextEdit->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
     m_buildUi.plainTextEdit->setReadOnly(true);
     slotDisplayMode(FullOutput);
+
+    auto updateEditorColors = [this](KTextEditor::Editor *e) {
+        if (!e)
+            return;
+        auto theme = e->theme();
+        auto bg = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::BackgroundColor));
+        auto fg = QColor::fromRgba(theme.textColor(KSyntaxHighlighting::Theme::TextStyle::Normal));
+        auto sel = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::TextSelection));
+        auto pal = m_buildUi.plainTextEdit->palette();
+        pal.setColor(QPalette::Base, bg);
+        pal.setColor(QPalette::Text, fg);
+        pal.setColor(QPalette::Highlight, sel);
+        pal.setColor(QPalette::HighlightedText, fg);
+        m_buildUi.plainTextEdit->setPalette(pal);
+    };
+    connect(KTextEditor::Editor::instance(), &KTextEditor::Editor::configChanged, this, updateEditorColors);
 
     connect(m_buildUi.displayModeSlider, &QSlider::valueChanged, this, &KateBuildView::slotDisplayMode);
 

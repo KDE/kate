@@ -136,6 +136,14 @@ private:
      */
     int hiddenDocuments() const;
 
+    /**
+     * Add a jump location for jumping back and forth between history
+     */
+    void addJump(const QUrl &url, KTextEditor::Cursor);
+
+    void goForward();
+    void goBack();
+
 private:
     // Kate's view manager
     KateViewManager *m_viewManager;
@@ -149,6 +157,15 @@ private:
 
     // widget stack that contains all KTE::Views
     QStackedWidget *stack;
+
+    // jump location history for this view-space
+    struct Location {
+        QUrl url;
+        KTextEditor::Cursor cursor;
+    };
+
+    QVector<Location> m_locations;
+    int currentLocation = 0;
 
     /**
      * all documents this view space is aware of

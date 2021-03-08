@@ -211,10 +211,6 @@ private Q_SLOTS:
 
     void slotListRecursiveEntries(KIO::Job *job, const KIO::UDSEntryList &list);
 
-    // jump in location history
-    void goBack();
-    void goForward();
-
 private Q_SLOTS:
     void toggleShowMenuBar(bool showMessage = true);
     void toggleShowStatusBar();
@@ -228,8 +224,6 @@ Q_SIGNALS:
     void statusBarToggled();
     void tabBarToggled();
     void unhandledShortcutOverride(QEvent *e);
-    void backButtonEnabled(bool enabled);
-    void forwardButtonEnabled(bool enabled);
 
 public:
     void openUrl(const QString &name = QString());
@@ -521,11 +515,6 @@ public Q_SLOTS:
      */
     QObject *pluginView(const QString &name);
 
-    /**
-     * Add a jump location for jumping back and forth between history
-     */
-    void addJump(const QUrl &url, KTextEditor::Cursor);
-
 private Q_SLOTS:
     void slotUpdateBottomViewBar();
 
@@ -579,14 +568,6 @@ private:
     KateContainerStackedLayout *m_bottomContainerStack = nullptr;
 
     QVector<QString> m_lastUsedCmdBarActions;
-
-    struct Location {
-        QUrl url;
-        KTextEditor::Cursor cursor;
-    };
-
-    QVector<Location> m_locations;
-    int currentLocation = 0;
 
     class BarState
     {

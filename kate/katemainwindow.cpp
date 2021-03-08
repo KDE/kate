@@ -249,26 +249,6 @@ void KateMainWindow::setupImportantActions()
     connect(a, &QAction::triggered, this, &KateMainWindow::slotQuickOpen);
     a->setWhatsThis(i18n("Open a form to quick open documents."));
 
-    a = actionCollection()->addAction(QStringLiteral("view_history_back"));
-    a->setIcon(QIcon::fromTheme(QStringLiteral("arrow-left")));
-    a->setText(i18n("Jump to previous location"));
-    //    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::ALT | Qt::Key_O));
-    connect(a, &QAction::triggered, this, &KateMainWindow::goBack);
-
-    // ensure they have the right state, start with no history
-    a->setEnabled(false);
-    connect(this, &KateMainWindow::backButtonEnabled, a, &QAction::setEnabled);
-
-    a = actionCollection()->addAction(QStringLiteral("view_history_forward"));
-    a->setIcon(QIcon::fromTheme(QStringLiteral("arrow-right")));
-    a->setText(i18n("Jump to next location"));
-    //    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::ALT | Qt::Key_O));
-    connect(a, &QAction::triggered, this, &KateMainWindow::goForward);
-
-    // ensure they have the right state, start with no history
-    a->setEnabled(false);
-    connect(this, &KateMainWindow::forwardButtonEnabled, a, &QAction::setEnabled);
-
     // kate command bar
     a = actionCollection()->addAction(QStringLiteral("view_commandbar_open"));
     actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::ALT | Qt::Key_I));
@@ -1209,38 +1189,6 @@ QObject *KateMainWindow::pluginView(const QString &name)
     return m_pluginViews.contains(plugin) ? m_pluginViews.value(plugin) : nullptr;
 }
 
-void KateMainWindow::addJump(const QUrl &url, KTextEditor::Cursor c)
-{
-    // we are in the middle of jumps somewhere?
-    if (!m_locations.isEmpty() && currentLocation + 1 < m_locations.size()) {
-        // erase all forward history
-        m_locations.erase(m_locations.begin() + currentLocation + 1, m_locations.end());
-    }
-
-    // if same line, remove last entry
-    if (!m_locations.isEmpty() && m_locations.back().url == url && m_locations.back().cursor.line() == c.line()) {
-        m_locations.pop_back();
-    }
-
-    // limit size to 100, remove first 20
-    if (m_locations.size() >= 100) {
-        m_locations.erase(m_locations.begin(), m_locations.begin() + 20);
-    }
-
-    // this is our new forward
-
-    m_locations.push_back({url, c});
-    // set to last
-    currentLocation = m_locations.size() - 1;
-    // disable forward button as we are at the end now
-    Q_EMIT forwardButtonEnabled(false);
-
-    // renable back
-    if (currentLocation > 0) {
-        Q_EMIT backButtonEnabled(true);
-    }
-}
-
 void KateMainWindow::mousePressEvent(QMouseEvent *e)
 {
     switch (e->button()) {
@@ -1300,87 +1248,6 @@ void KateMainWindow::slotCommandBarOpen()
     centralWidget()->setFocusProxy(&commandBar);
     commandBar.exec();
     m_lastUsedCmdBarActions = commandBar.lastUsedCmdBarActions();
-}
-
-void KateMainWindow::goBack()
-{
-    if (m_locations.isEmpty() || currentLocation == 0) {
-        return;
-    }
-
-    const auto &location = m_locations.at(currentLocation - 1);
-    currentLocation--;
-
-    if (currentLocation <= 0) {
-        Q_EMIT backButtonEnabled(false);
-    }
-
-    if (!location.url.isValid() || !location.cursor.isValid()) {
-        QVariantMap genericMessage;
-        genericMessage.insert(QStringLiteral("type"), QStringLiteral("Error"));
-        genericMessage.insert(QStringLiteral("category"), i18n("Git"));
-        genericMessage.insert(QStringLiteral("text"),
-                              i18n("Failed to jump to: %1 %2 %3", location.url.toDisplayString(), location.cursor.line(), location.cursor.column()));
-        m_outputView->slotMessage(genericMessage);
-
-        m_locations.remove(currentLocation);
-        return;
-    }
-
-    if (activeView() && activeView()->document() && activeView()->document()->url() == location.url) {
-        const QSignalBlocker blocker(activeView());
-        activeView()->setCursorPosition(location.cursor);
-        // enable forward
-        Q_EMIT forwardButtonEnabled(true);
-        return;
-    }
-
-    auto v = openUrl(location.url);
-    const QSignalBlocker blocker(v);
-    v->setCursorPosition(location.cursor);
-    // enable forward
-    Q_EMIT forwardButtonEnabled(true);
-}
-
-void KateMainWindow::goForward()
-{
-    if (m_locations.isEmpty()) {
-        return;
-    }
-    if (currentLocation == m_locations.size() - 1) {
-        return;
-    }
-
-    const auto &location = m_locations.at(currentLocation + 1);
-    currentLocation++;
-
-    if (currentLocation + 1 >= m_locations.size()) {
-        Q_EMIT forwardButtonEnabled(false);
-    }
-
-    Q_EMIT backButtonEnabled(true);
-
-    if (!location.url.isValid() || !location.cursor.isValid()) {
-        QVariantMap genericMessage;
-        genericMessage.insert(QStringLiteral("type"), QStringLiteral("Error"));
-        genericMessage.insert(QStringLiteral("category"), i18n("Git"));
-        genericMessage.insert(QStringLiteral("text"),
-                              i18n("Failed to jump to: %1 %2 %3", location.url.toDisplayString(), location.cursor.line(), location.cursor.column()));
-        m_outputView->slotMessage(genericMessage);
-
-        m_locations.remove(currentLocation);
-        return;
-    }
-
-    if (activeView() && activeView()->document() && activeView()->document()->url() == location.url) {
-        const QSignalBlocker blocker(activeView());
-        activeView()->setCursorPosition(location.cursor);
-        return;
-    }
-
-    auto v = openUrl(location.url);
-    const QSignalBlocker blocker(v);
-    v->setCursorPosition(location.cursor);
 }
 
 QWidget *KateMainWindow::createToolView(KTextEditor::Plugin *plugin,

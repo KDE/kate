@@ -452,10 +452,6 @@ KTextEditor::View *KateViewManager::createView(KTextEditor::Document *doc, KateV
     // clang-format on
     connect(view, &KTextEditor::View::focusIn, this, &KateViewManager::activateSpace);
 
-    connect(view, &KTextEditor::View::cursorPositionChanged, this, [this](KTextEditor::View *view, const KTextEditor::Cursor &newPosition) {
-        m_mainWindow->addJump(view->document()->url(), newPosition);
-    });
-
     viewCreated(view);
 
     if (!vs) {

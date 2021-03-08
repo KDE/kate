@@ -49,24 +49,28 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent, cons
 
     // add left <-> right history buttons
     m_historyBack = new QToolButton(this);
-    auto hlAct = m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_history_back"));
-    m_historyBack->setDefaultAction(hlAct);
-    m_historyBack->setToolTip(hlAct->text());
-    m_historyBack->setIcon(hlAct->icon());
+    m_historyBack->setToolTip(i18n("Go Back"));
+    m_historyBack->setIcon(QIcon::fromTheme(QStringLiteral("arrow-left")));
     m_historyBack->setAutoRaise(true);
     KAcceleratorManager::setNoAccel(m_historyBack);
     m_historyBack->installEventFilter(this); // on click, active this view space
     hLayout->addWidget(m_historyBack);
+    connect(m_historyBack, &QToolButton::clicked, this, [this] {
+        goBack();
+    });
+    m_historyBack->setEnabled(false);
 
     m_historyForward = new QToolButton(this);
-    auto hrAct = m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_history_forward"));
-    m_historyForward->setDefaultAction(hrAct);
-    m_historyForward->setIcon(hrAct->icon());
-    m_historyForward->setToolTip(hrAct->text());
+    m_historyForward->setIcon(QIcon::fromTheme(QStringLiteral("arrow-right")));
+    m_historyForward->setToolTip(i18n("Go Forward"));
     m_historyForward->setAutoRaise(true);
     KAcceleratorManager::setNoAccel(m_historyForward);
     m_historyForward->installEventFilter(this); // on click, active this view space
     hLayout->addWidget(m_historyForward);
+    connect(m_historyForward, &QToolButton::clicked, this, [this] {
+        goForward();
+    });
+    m_historyForward->setEnabled(false);
 
     // add tab bar
     m_tabBar = new KateTabBar(this);
@@ -206,6 +210,11 @@ KTextEditor::View *KateViewSpace::createView(KTextEditor::Document *doc)
             }
         }
     }
+
+    connect(v, &KTextEditor::View::cursorPositionChanged, this, [this](KTextEditor::View *view, const KTextEditor::Cursor &newPosition) {
+        if (view && view->document())
+            addJump(view->document()->url(), newPosition);
+    });
 
     // register document, it is shown below through showView() then
     registerDocument(doc);
@@ -465,6 +474,37 @@ void KateViewSpace::focusNextTab()
     }
 }
 
+void KateViewSpace::addJump(const QUrl &url, KTextEditor::Cursor c)
+{
+    // we are in the middle of jumps somewhere?
+    if (!m_locations.isEmpty() && currentLocation + 1 < m_locations.size()) {
+        // erase all forward history
+        m_locations.erase(m_locations.begin() + currentLocation + 1, m_locations.end());
+    }
+
+    // if same line, remove last entry
+    if (!m_locations.isEmpty() && m_locations.back().url == url && m_locations.back().cursor.line() == c.line()) {
+        m_locations.pop_back();
+    }
+
+    // limit size to 100, remove first 20
+    if (m_locations.size() >= 100) {
+        m_locations.erase(m_locations.begin(), m_locations.begin() + 20);
+    }
+
+    // this is our new forward
+
+    m_locations.push_back({url, c});
+    // set to last
+    currentLocation = m_locations.size() - 1;
+    // disable forward button as we are at the end now
+    m_historyForward->setEnabled(false);
+
+    // renable back
+    if (currentLocation > 0) {
+        m_historyBack->setEnabled(true);
+    }
+}
 int KateViewSpace::hiddenDocuments() const
 {
     const int hiddenDocs = KateApp::self()->documents().count() - m_tabBar->count();
@@ -647,4 +687,71 @@ void KateViewSpace::restoreConfig(KateViewManager *viewMan, const KConfigBase *c
 
     m_group = groupname; // used for restroing view configs later
 }
+
+void KateViewSpace::goBack()
+{
+    if (m_locations.isEmpty() || currentLocation == 0) {
+        return;
+    }
+
+    const auto &location = m_locations.at(currentLocation - 1);
+    currentLocation--;
+
+    if (currentLocation <= 0) {
+        m_historyBack->setEnabled(false);
+    }
+
+    if (auto v = m_viewManager->activeView()) {
+        if (v->document() && v->document()->url() == location.url) {
+            const QSignalBlocker blocker(m_viewManager->activeView());
+            m_viewManager->activeView()->setCursorPosition(location.cursor);
+            // enable forward
+            m_historyForward->setEnabled(true);
+            return;
+        }
+    }
+
+    auto v = m_viewManager->openUrlWithView(location.url, QString());
+    const QSignalBlocker blocker(v);
+    v->setCursorPosition(location.cursor);
+    // enable forward
+    m_historyForward->setEnabled(true);
+}
+
+void KateViewSpace::goForward()
+{
+    if (m_locations.isEmpty()) {
+        return;
+    }
+    if (currentLocation == m_locations.size() - 1) {
+        return;
+    }
+
+    const auto &location = m_locations.at(currentLocation + 1);
+    currentLocation++;
+
+    if (currentLocation + 1 >= m_locations.size()) {
+        m_historyForward->setEnabled(false);
+    }
+
+    if (!location.url.isValid() || !location.cursor.isValid()) {
+        m_locations.remove(currentLocation);
+        return;
+    }
+
+    m_historyBack->setEnabled(true);
+
+    if (auto v = m_viewManager->activeView()) {
+        if (v->document() && v->document()->url() == location.url) {
+            const QSignalBlocker blocker(m_viewManager->activeView());
+            m_viewManager->activeView()->setCursorPosition(location.cursor);
+            return;
+        }
+    }
+
+    auto v = m_viewManager->openUrlWithView(location.url, QString());
+    const QSignalBlocker blocker(v);
+    v->setCursorPosition(location.cursor);
+}
+
 // END KateViewSpace

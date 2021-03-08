@@ -290,10 +290,10 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent, const QVariantMap 
      */
     const QString dirPath = dir.path() + QLatin1Char('/');
     QtConcurrent::blockingMap(files, [dirPath](QString &item) {
-            if (!QFileInfo(dirPath + item).isFile()) {
-                item.clear();
-            }
-        });
+        if (!QFileInfo(dirPath + item).isFile()) {
+            item.clear();
+        }
+    });
 
     /**
      * construct paths first in tree and items in a map

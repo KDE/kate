@@ -235,11 +235,11 @@ GenericDataLocation</option></userinput> which usually are
 and <filename class="directory">/usr/share/</filename>.
 </para>
 
-<para>For Flatpak and Snap packages, the data location is different
-for each application. In a Flatpak application, usually is
-<filename class="directory"><envar>$HOME</envar>/.var/app/<replaceable>package-name</replaceable>/data/</filename>
+<para>In Flatpak and Snap packages, the above directory will not work as the data location
+is different for each application. In a Flatpak application, usually is
+<filename class="directory"><envar>$HOME</envar>/.var/app/<replaceable>flatpak-package-name</replaceable>/data/</filename>
 and in a Snap application is
-<filename class="directory"><envar>$HOME</envar>/snap/<replaceable>package-name</replaceable>/current/.local/share/</filename>.
+<filename class="directory"><envar>$HOME</envar>/snap/<replaceable>snap-package-name</replaceable>/current/.local/share/</filename>.
 For example, for <ulink url="https://flathub.org/apps/details/org.kde.kate">&kate;'s Flatpak package</ulink>,
 the custom &XML; files are located in
 <filename class="directory"><envar>$HOME</envar>/.var/app/org.kde.kate/data/org.kde.syntax-highlighting/syntax/</filename>
@@ -249,6 +249,36 @@ it is <filename class="directory"><envar>$HOME</envar>/snap/kate/current/.local/
 
 <para>On &Windows; these files are located <filename>%USERPROFILE%&#92;AppData&#92;Local&#92;org.kde.syntax-highlighting&#92;syntax</filename>.
 <replaceable>%USERPROFILE%</replaceable> usually expands to <filename>C:&#92;Users&#92;<replaceable>user</replaceable></filename>.</para>
+
+<para>In summary, for most configurations the directory of custom &XML;
+files is as follows:</para>
+
+<informaltable>
+<tgroup cols="2">
+<tbody>
+<row>
+<entry>For local user</entry>
+<entry><filename class="directory"><envar>$HOME</envar>/.local/share/org.kde.syntax-highlighting/syntax/</filename></entry>
+</row>
+<row>
+<entry>For all users</entry>
+<entry><filename class="directory">/usr/share/org.kde.syntax-highlighting/syntax/</filename></entry>
+</row>
+<row>
+<entry>For Flatpak packages</entry>
+<entry><filename class="directory"><envar>$HOME</envar>/.var/app/<replaceable>flatpak-package-name</replaceable>/data/org.kde.syntax-highlighting/syntax/</filename></entry>
+</row>
+<row>
+<entry>For Snap packages</entry>
+<entry><filename class="directory"><envar>$HOME</envar>/snap/<replaceable>snap-package-name</replaceable>/current/.local/share/org.kde.syntax-highlighting/syntax/</filename></entry>
+</row>
+<row>
+<entry>On &Windows;</entry>
+<entry><filename>%USERPROFILE%&#92;AppData&#92;Local&#92;org.kde.syntax-highlighting&#92;syntax</filename></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
 
 <para>If multiple files exist for the same language, the file with the highest <userinput>version</userinput> attribute in the <userinput>language</userinput> element will be loaded.</para>
 
@@ -412,20 +442,34 @@ line. Available attributes are:</term>
 <listitem>
 <para><userinput>name</userinput> states the context name. Rules will use this name
 to specify the context to switch to if the rule matches.</para>
+
 <para><userinput>lineEndContext</userinput> defines the context the highlight
 system switches to if it reaches the end of a line. This may either be a name
 of another context, <userinput>#stay</userinput> to not switch the context
 (&eg;. do nothing) or <userinput>#pop</userinput> which will cause it to leave this
 context. It is possible to use for example <userinput>#pop#pop#pop</userinput>
 to pop three times, or even <userinput>#pop#pop!OtherContext</userinput> to pop
-two times and switch to the context named <userinput>OtherContext</userinput>.</para>
+two times and switch to the context named <userinput>OtherContext</userinput>.
+It is also possible to switch to a context that belongs to another language definition,
+in the same way as in the <userinput>IncludeRules</userinput> rules, e.g.
+<userinput>SomeContext##JavaScript</userinput>. Note that it is not possible to use
+this context switch in combination with <userinput>#pop</userinput>, for example,
+<userinput>#pop!SomeContext##JavaScript</userinput> is not valid.
+Context switches are also described in <xref linkend="kate-highlight-rules-detailled"/>.</para>
 <para><userinput>lineEmptyContext</userinput> defines the context if an empty
-line is encountered. Default: #stay.</para>
+line is encountered. The nomenclature of context switches is the same as
+previously described in <emphasis>lineEndContext</emphasis>. Default: #stay.</para>
+<para><userinput>fallthroughContext</userinput> specifies the next context to
+switch to if no rule matches. The nomenclature of context switches is
+the same as previously described in <emphasis>lineEndContext</emphasis>.
+Default: #stay.</para>
 <para><userinput>fallthrough</userinput> defines if the highlight system switches
-to the context specified in fallthroughContext if no rule matches.
-Default: <emphasis>false</emphasis>.</para>
-<para><userinput>fallthroughContext</userinput> specifies the next context
-if no rule matches.</para>
+to the context specified in <userinput>fallthroughContext</userinput> if no rule
+matches. Note that since &kde; &frameworks; 5.62 this attribute is deprecated
+in favor of only <userinput>fallthroughContext</userinput>, since if the
+<userinput>fallthroughContext</userinput> attribute is present it is implicitly
+understood that the value of <userinput>fallthrough</userinput> is
+<emphasis>true</emphasis>. Default: <emphasis>false</emphasis>.</para>
 <para><userinput>noIndentationBasedFolding</userinput> disables indentation-based folding
 in the context. If indentation-based folding is not activated, this attribute is useless.
 This is defined in the element <emphasis>folding</emphasis> of the group <emphasis>general</emphasis>.
@@ -680,6 +724,17 @@ previous context used in the string (<userinput>#pop</userinput>).</para>
 will make the engine first follow the order and then switch to the
 other context, &eg; <userinput>#pop#pop!OtherContext</userinput>.</para>
 </listitem>
+<listitem>
+<para>An <emphasis>identifier</emphasis>, which is a context name,
+followed by two hashes (<userinput>##</userinput>) and another
+<emphasis>identifier</emphasis>, which is the name of a language definition.
+This naming is similar to that used in <userinput>IncludeRules</userinput>
+rules and allows you to switch to a context belonging to another syntax
+highlighting definition, e.g. <userinput>SomeContext##JavaScript</userinput>.
+Note that it is not possible to use this context switch in combination with
+<userinput>#pop</userinput>, for example,
+<userinput>#pop!SomeContext##JavaScript</userinput> is not valid.</para>
+</listitem>
 </itemizedlist>
 
 <para>Rule specific attributes varies and are described in the
@@ -741,7 +796,7 @@ expression. Whenever a rule allows this attribute it will contain a
 </listitem>
 </itemizedlist>
 
-<para>How does it work:</para>
+<para><userinput>How does it work:</userinput></para>
 
 <para>In the <link linkend="regular-expressions">regular expressions</link> of the
 <userinput>RegExpr</userinput> rules, all text within simple curved brackets

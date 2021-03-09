@@ -459,6 +459,23 @@ void KateMainWindow::setupActions()
     // quick open menu ;)
     a = new KateSessionsAction(i18n("&Quick Open Session"), this);
     actionCollection()->addAction(QStringLiteral("sessions_list"), a);
+
+    // location history actions
+    a = actionCollection()->addAction(QStringLiteral("view_history_back"));
+    a->setIcon(QIcon::fromTheme(QStringLiteral("arrow-left")));
+    a->setText(i18n("Go back"));
+    connect(a, &QAction::triggered, this, [this] {
+        m_viewManager->activeViewSpace()->goBack();
+    });
+    connect(this->m_viewManager, &KateViewManager::historyBackEnabled, a, &QAction::setEnabled);
+
+    a = actionCollection()->addAction(QStringLiteral("view_history_forward"));
+    a->setIcon(QIcon::fromTheme(QStringLiteral("arrow-right")));
+    a->setText(i18n("Go forward"));
+    connect(a, &QAction::triggered, this, [this] {
+        m_viewManager->activeViewSpace()->goForward();
+    });
+    connect(this->m_viewManager, &KateViewManager::historyForwardEnabled, a, &QAction::setEnabled);
 }
 
 void KateMainWindow::slotDocumentCloseAll()

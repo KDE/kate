@@ -499,10 +499,12 @@ void KateViewSpace::addJump(const QUrl &url, KTextEditor::Cursor c)
     currentLocation = m_locations.size() - 1;
     // disable forward button as we are at the end now
     m_historyForward->setEnabled(false);
+    Q_EMIT m_viewManager->historyForwardEnabled(false);
 
     // renable back
     if (currentLocation > 0) {
         m_historyBack->setEnabled(true);
+        Q_EMIT m_viewManager->historyBackEnabled(true);
     }
 }
 int KateViewSpace::hiddenDocuments() const
@@ -699,6 +701,7 @@ void KateViewSpace::goBack()
 
     if (currentLocation <= 0) {
         m_historyBack->setEnabled(false);
+        Q_EMIT m_viewManager->historyBackEnabled(false);
     }
 
     if (auto v = m_viewManager->activeView()) {
@@ -707,6 +710,7 @@ void KateViewSpace::goBack()
             m_viewManager->activeView()->setCursorPosition(location.cursor);
             // enable forward
             m_historyForward->setEnabled(true);
+            Q_EMIT m_viewManager->historyForwardEnabled(false);
             return;
         }
     }
@@ -714,8 +718,19 @@ void KateViewSpace::goBack()
     auto v = m_viewManager->openUrlWithView(location.url, QString());
     const QSignalBlocker blocker(v);
     v->setCursorPosition(location.cursor);
-    // enable forward
+    // enable forward in viewspace + mainwindow
     m_historyForward->setEnabled(true);
+    Q_EMIT m_viewManager->historyForwardEnabled(false);
+}
+
+bool KateViewSpace::isHistoryBackEnabled() const
+{
+    return m_historyBack->isEnabled();
+}
+
+bool KateViewSpace::isHistoryForwardEnabled() const
+{
+    return m_historyForward->isEnabled();
 }
 
 void KateViewSpace::goForward()
@@ -731,6 +746,7 @@ void KateViewSpace::goForward()
     currentLocation++;
 
     if (currentLocation + 1 >= m_locations.size()) {
+        Q_EMIT m_viewManager->historyForwardEnabled(false);
         m_historyForward->setEnabled(false);
     }
 
@@ -740,6 +756,7 @@ void KateViewSpace::goForward()
     }
 
     m_historyBack->setEnabled(true);
+    Q_EMIT m_viewManager->historyBackEnabled(true);
 
     if (auto v = m_viewManager->activeView()) {
         if (v->document() && v->document()->url() == location.url) {

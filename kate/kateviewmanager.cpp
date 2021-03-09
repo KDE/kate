@@ -552,6 +552,10 @@ void KateViewManager::setActiveSpace(KateViewSpace *vs)
     }
 
     vs->setActive(true);
+
+    // signal update history buttons in mainWindow
+    Q_EMIT historyBackEnabled(vs->isHistoryBackEnabled());
+    Q_EMIT historyForwardEnabled(vs->isHistoryForwardEnabled());
 }
 
 void KateViewManager::setActiveView(KTextEditor::View *view)

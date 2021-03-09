@@ -91,6 +91,26 @@ public:
      */
     void focusNextTab();
 
+    /**
+     * go forward in location history
+     */
+    void goForward();
+
+    /**
+     * go back in location history
+     */
+    void goBack();
+
+    /**
+     * Is back history avail?
+     */
+    bool isHistoryBackEnabled() const;
+
+    /**
+     * Is forward history avail?
+     */
+    bool isHistoryForwardEnabled() const;
+
 public Q_SLOTS:
     void documentDestroyed(QObject *doc);
     void updateDocumentName(KTextEditor::Document *doc);
@@ -140,9 +160,6 @@ private:
      * Add a jump location for jumping back and forth between history
      */
     void addJump(const QUrl &url, KTextEditor::Cursor);
-
-    void goForward();
-    void goBack();
 
 private:
     // Kate's view manager

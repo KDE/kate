@@ -92,6 +92,9 @@ Q_SIGNALS:
     void viewChanged(KTextEditor::View *);
     void viewCreated(KTextEditor::View *);
 
+    void historyBackEnabled(bool e);
+    void historyForwardEnabled(bool e);
+
 public:
     /**
      * create and activate a new view for doc, if doc == 0, then

@@ -361,16 +361,6 @@ void GitWidget::runPushPullCmd(const QStringList &args)
     enableCancel(git);
     git->setArguments(args);
     git->start(QProcess::ReadOnly);
-
-    // kill after 40 seconds
-    QTimer::singleShot(40000, this, [git, this] {
-        if (git->state() == QProcess::Running) {
-            sendMessage(i18n("Git operation timed-out. Killing..."), true);
-            git->kill();
-            git->deleteLater();
-            hideCancel();
-        }
-    });
 }
 
 void GitWidget::stage(const QStringList &files, bool)

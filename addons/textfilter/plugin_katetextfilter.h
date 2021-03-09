@@ -49,6 +49,8 @@ private:
     QStringList completionList;
     bool copyResult = false;
     bool mergeOutput = false;
+    bool newDocument = false;
+    KTextEditor::MainWindow *m_mainWindow;
 public Q_SLOTS:
     void slotEditFilter();
     void slotFilterReceivedStdout();

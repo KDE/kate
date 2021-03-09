@@ -57,6 +57,7 @@ PluginKateTextFilter::~PluginKateTextFilter()
 
 QObject *PluginKateTextFilter::createView(KTextEditor::MainWindow *mainWindow)
 {
+    m_mainWindow = mainWindow;
     // create a plugin view
     return new PluginViewKateTextFilter(this, mainWindow);
 }
@@ -93,6 +94,14 @@ void PluginKateTextFilter::slotFilterProcessExited(int, QProcess::ExitStatus)
         kv->document()->postMessage(message);
     }
 
+    if (newDocument) {
+        auto v = m_mainWindow->openUrl(QUrl());
+        if (v && v->document()) {
+            v->document()->setText(m_strFilterOutput);
+        }
+        return;
+    }
+
     if (copyResult) {
         QApplication::clipboard()->setText(m_strFilterOutput);
         return;
@@ -122,6 +131,8 @@ static void slipInFilter(KProcess &proc, KTextEditor::View &view, const QString 
 
     if (view.selection()) {
         inputText = view.selectionText();
+    } else {
+        inputText = view.document()->text();
     }
 
     proc.clearProgram();
@@ -165,18 +176,22 @@ void PluginKateTextFilter::slotEditFilter()
     QStringList items = config.readEntry("Completion list", QStringList());
     copyResult = config.readEntry("Copy result", false);
     mergeOutput = config.readEntry("Merge output", true);
+    newDocument = config.readEntry("New Document", false);
     ui.filterBox->setMaxCount(10);
     ui.filterBox->setHistoryItems(items, true);
     ui.filterBox->setMinimumContentsLength(80);
     ui.copyResult->setChecked(copyResult);
     ui.mergeOutput->setChecked(mergeOutput);
+    ui.newDoc->setChecked(newDocument);
 
     if (dialog.exec() == QDialog::Accepted) {
         copyResult = ui.copyResult->isChecked();
         mergeOutput = ui.mergeOutput->isChecked();
+        newDocument = ui.newDoc->isChecked();
         const QString filter = ui.filterBox->currentText();
         if (!filter.isEmpty()) {
             ui.filterBox->addToHistory(filter);
+            config.writeEntry("New Document", newDocument);
             config.writeEntry("Completion list", ui.filterBox->historyItems());
             config.writeEntry("Copy result", copyResult);
             config.writeEntry("Merge output", mergeOutput);

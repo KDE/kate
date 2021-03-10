@@ -13,10 +13,10 @@
 #include <QFontMetrics>
 #include <QMouseEvent>
 #include <QScreen>
+#include <QScrollBar>
 #include <QString>
 #include <QTextBrowser>
 #include <QTimer>
-#include <QScrollBar>
 
 #include <KTextEditor/ConfigInterface>
 #include <KTextEditor/Editor>
@@ -260,11 +260,11 @@ public:
         if (!m_view) {
             return;
         }
-        static QScrollBar scrollBar(Qt::Horizontal);
+        const int scrollBarHeight = horizontalScrollBar()->height();
         QFontMetrics fm(font());
         QSize size = fm.size(Qt::TextSingleLine, QStringLiteral("m"));
         int fontHeight = size.height();
-        size.setHeight(m_view->height() - fontHeight * 2 - scrollBar.sizeHint().height());
+        size.setHeight(m_view->height() - fontHeight * 2 - scrollBarHeight);
         size.setWidth(qRound(m_view->width() * 0.7));
         resize(size);
 

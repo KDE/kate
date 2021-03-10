@@ -3184,7 +3184,7 @@ be used in the function statically or passed as arguments, by using the
 <userinput>${func(field)}</userinput> or <userinput>${<replaceable>field2=func(field)</replaceable>}</userinput>
 syntax in the snippet string.</para>
 <para>You can use
-the <ulink url="help:/katepart/development.html#dev-scripting-api">&kate; scripting API</ulink>
+the <ulink url="help:/katepart/dev-scripting.html#dev-scripting-api">&kate; scripting API</ulink>
 to get the selected text, full text, file name and
 more by using the appropriate methods of the <userinput>document</userinput>
 and <userinput>view</userinput> objects. Refer to the scripting API

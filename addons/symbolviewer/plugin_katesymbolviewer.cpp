@@ -332,6 +332,8 @@ void KatePluginSymbolViewerView::parseSymbols()
         parseRubySymbols();
     } else if (hlModeName == QLatin1String("Java")) {
         parseCppSymbols();
+    } else if (hlModeName == QLatin1String("Groovy")) {
+        parseCppSymbols();
     } else if (hlModeName == QLatin1String("xslt")) {
         parseXsltSymbols();
     } else if (hlModeName == QLatin1String("XML") || hlModeName == QLatin1String("HTML")) {

@@ -1220,7 +1220,7 @@ on or off.</para></listitem>
 <listitem><para><userinput>modified</userinput>, <userinput>mod</userinput>, <userinput>+</userinput> or <userinput>1</userinput>: remove trailing spaces only in
 modified lines. The modified lines are marked by the line modification system.</para></listitem>
 <listitem><para><userinput>all</userinput>, <userinput>*</userinput> or <userinput>2</userinput>: remove trailing spaces in the entire document.</para></listitem>
-<listitem><para><userinput>3</userinput>: remove trailing spaces trailing spaces except those to the left of the current cursor position.</para></listitem>
+<listitem><para><userinput>cursor</userinput>, <userinput>cur</userinput> or <userinput>3</userinput>: remove trailing spaces trailing spaces except those to the left of the current cursor position.</para></listitem>
 </itemizedlist>
 </listitem>
 </varlistentry>

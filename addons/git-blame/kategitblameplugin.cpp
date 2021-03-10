@@ -116,7 +116,9 @@ void GitBlameInlineNoteProvider::inlineNoteActivated(const KTextEditor::InlineNo
     if ((buttons & Qt::LeftButton) != 0) {
         int lineNr = note.position().line();
         const KateGitBlameInfo &info = m_plugin->blameInfo(lineNr, m_doc->line(lineNr));
-        m_plugin->showCommitInfo(info.commitHash);
+
+        // Hack: view->mainWindow()->view() to de-constify view
+        m_plugin->showCommitInfo(info.commitHash, note.view()->mainWindow()->activeView());
     }
 }
 
@@ -141,6 +143,7 @@ KateGitBlamePluginView::KateGitBlamePluginView(KateGitBlamePlugin *plugin, KText
     : QObject(plugin)
     , m_mainWindow(mainwindow)
 {
+    qDebug() << "creating new plugin view";
     KXMLGUIClient::setComponentName(QStringLiteral("kategitblameplugin"), i18n("Git Blame"));
     setXMLFile(QStringLiteral("ui.rc"));
     QAction *showBlameAction = actionCollection()->addAction(QStringLiteral("git_blame_show"));
@@ -159,7 +162,7 @@ KateGitBlamePluginView::KateGitBlamePluginView(KateGitBlamePlugin *plugin, KText
         plugin->setToolTipIgnoreKeySequence(showBlameAction->shortcut());
         int lineNr = kv->cursorPosition().line();
         const KateGitBlameInfo &info = plugin->blameInfo(lineNr, doc->line(lineNr));
-        plugin->showCommitInfo(info.commitHash);
+        plugin->showCommitInfo(info.commitHash, kv);
     });
     m_mainWindow->guiFactory()->addClient(this);
 }
@@ -249,18 +252,15 @@ void KateGitBlamePlugin::startShowProcess(const QUrl &url, const QString &hash)
     m_showProc.start(QStringLiteral("git"), args, QIODevice::ReadOnly);
 }
 
-void KateGitBlamePlugin::showCommitInfo(const QString &hash)
+void KateGitBlamePlugin::showCommitInfo(const QString &hash, KTextEditor::View *view)
 {
-    if (!m_mainWindow || !m_mainWindow->activeView() || !m_mainWindow->activeView()->document()) {
-        return;
-    }
 
     if (hash == m_activeCommitInfo.m_hash) {
         m_showHash.clear();
-        m_tooltip.show(m_activeCommitInfo.m_content, m_mainWindow->activeView());
+        m_tooltip.show(m_activeCommitInfo.m_content, view);
     } else {
         m_showHash = hash;
-        startShowProcess(m_mainWindow->activeView()->document()->url(), hash);
+        startShowProcess(view->document()->url(), hash);
     }
 }
 

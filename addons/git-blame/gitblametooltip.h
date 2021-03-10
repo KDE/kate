@@ -24,7 +24,7 @@ public:
     GitBlameTooltip();
     ~GitBlameTooltip();
 
-    void show(const QString &text,  QPointer<KTextEditor::View> v);
+    void show(const QString &text, QPointer<KTextEditor::View> view);
 
     void setIgnoreKeySequence(QKeySequence sequence);
 

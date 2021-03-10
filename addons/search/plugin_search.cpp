@@ -1157,8 +1157,7 @@ void KatePluginSearchView::startSearchWhileTyping()
     m_ui.searchCombo->blockSignals(true);
     if (m_ui.searchCombo->count() == 0) {
         m_ui.searchCombo->insertItem(0, currentSearchText);
-    }
-    else {
+    } else {
         m_ui.searchCombo->setItemText(0, currentSearchText);
     }
     m_ui.searchCombo->setCurrentIndex(0);

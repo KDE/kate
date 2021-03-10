@@ -159,8 +159,6 @@ public:
             const QColor normal = theme.textColor(KSyntaxHighlighting::Theme::Normal);
             pal.setColor(QPalette::Text, normal);
             setPalette(pal);
-
-            updateFont();
         };
         updateColors(KTextEditor::Editor::instance());
         connect(KTextEditor::Editor::instance(), &KTextEditor::Editor::configChanged, this, updateColors);
@@ -206,17 +204,14 @@ public:
         return false;
     }
 
-    void setTooltipText(const QString &text)
+    void showTooltip(const QString &text, const QPointer<KTextEditor::View> view)
     {
-        if (text.isEmpty())
+        if (text.isEmpty() || !view) {
             return;
+        }
 
         m_htmlHl.setText(text);
         setHtml(m_htmlHl.html());
-    }
-
-    void setView(QPointer<KTextEditor::View> view)
-    {
         // view changed?
         // => update definition
         // => update font
@@ -224,42 +219,14 @@ public:
             if (m_view && m_view->focusProxy()) {
                 m_view->focusProxy()->removeEventFilter(this);
             }
-
             m_view = view;
-
-            updateFont();
-        }
-
-        if (m_view && m_view->focusProxy()) {
+            // update font
+            auto ciface = qobject_cast<KTextEditor::ConfigInterface *>(m_view);
+            auto font = ciface->configValue(QStringLiteral("font")).value<QFont>();
+            setFont(font);
             m_view->focusProxy()->installEventFilter(this);
         }
-    }
 
-    void updateFont()
-    {
-        if (!m_view) {
-            return;
-        }
-        auto ciface = qobject_cast<KTextEditor::ConfigInterface *>(m_view);
-        auto font = ciface->configValue(QStringLiteral("font")).value<QFont>();
-        setFont(font);
-    }
-
-    Q_SLOT void hideTooltip()
-    {
-        if (m_view && m_view->focusProxy()) {
-            m_view->focusProxy()->removeEventFilter(this);
-        }
-        close();
-        setText(QString());
-        m_inContextMenu = false;
-    }
-
-    void fixGeometry()
-    {
-        if (!m_view) {
-            return;
-        }
         const int scrollBarHeight = horizontalScrollBar()->height();
         QFontMetrics fm(font());
         QSize size = fm.size(Qt::TextSingleLine, QStringLiteral("m"));
@@ -272,6 +239,18 @@ public:
         p.setY(p.y() + fontHeight);
         p.setX(p.x() + m_view->textAreaRect().left() + m_view->textAreaRect().width() - size.width() - fontHeight);
         this->move(p);
+
+        show();
+    }
+
+    Q_SLOT void hideTooltip()
+    {
+        if (m_view && m_view->focusProxy()) {
+            m_view->focusProxy()->removeEventFilter(this);
+        }
+        close();
+        setText(QString());
+        m_inContextMenu = false;
     }
 
 protected:
@@ -327,17 +306,13 @@ private:
 GitBlameTooltip::GitBlameTooltip() : d(new GitBlameTooltip::Private()) {}
 GitBlameTooltip::~GitBlameTooltip() { delete d; }
 
-void GitBlameTooltip::show(const QString &text,  QPointer<KTextEditor::View> view)
+void GitBlameTooltip::show(const QString &text, QPointer<KTextEditor::View> view)
 {
     if (text.isEmpty() || !view || !view->document()) {
         return;
     }
 
-    d->setView(view);
-    d->setTooltipText(text);
-    d->fixGeometry();
-    d->raise();
-    d->show();
+    d->showTooltip(text, view);
 }
 
 void GitBlameTooltip::setIgnoreKeySequence(QKeySequence sequence)

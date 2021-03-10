@@ -81,7 +81,7 @@ public:
 
     void readConfig();
 
-    void showCommitInfo(const QString &hash);
+    void showCommitInfo(const QString &hash, KTextEditor::View *view);
 
     void setToolTipIgnoreKeySequence(QKeySequence sequence);
 

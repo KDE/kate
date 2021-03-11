@@ -12,11 +12,9 @@
 #include "katewaiter.h"
 
 #include <KAboutData>
-#include <KConfigGroup>
 #include <KCrash>
 #include <KDBusService>
 #include <KLocalizedString>
-#include <KSharedConfig>
 #include <KStartupInfo>
 #include <KWindowSystem>
 #include <algorithm>
@@ -653,17 +651,6 @@ int main(int argc, char **argv)
     /**
      * if we arrive here, we need to start a new kate instance!
      */
-
-    /**
-     * set some KTextEditor defaults
-     */
-    {
-        KConfigGroup viewConfig(KSharedConfig::openConfig(), QStringLiteral("KTextEditor View"));
-        if (!viewConfig.exists()) {
-            viewConfig.writeEntry("Line Modification", true);
-            viewConfig.writeEntry("Line Numbers", true);
-        }
-    }
 
     /**
      * construct the real kate app object ;)

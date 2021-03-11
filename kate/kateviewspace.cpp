@@ -631,7 +631,10 @@ void KateViewSpace::restoreConfig(KateViewManager *viewMan, const KConfigBase *c
     // avoid empty view space
     if (m_docToView.isEmpty()) {
         auto *doc = KateApp::self()->documentManager()->documentList().first();
-        KateApp::self()->documentManager()->documentInfo(doc)->doPostLoadOperations = !doc->url().isLocalFile() && (KateApp::self()->hasCursorInArgs() || doc->url().hasQuery());
+        if (!fn.isEmpty()) {
+            QUrl url(fn);
+            KateApp::self()->documentManager()->documentInfo(doc)->doPostLoadOperations = !url.isLocalFile() && (KateApp::self()->hasCursorInArgs() || url.hasQuery());
+        }
         viewMan->createView(doc, this);
     }
 

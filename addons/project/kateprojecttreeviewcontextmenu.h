@@ -21,13 +21,6 @@ class KateProjectTreeViewContextMenu : public QObject
     Q_OBJECT
 public:
     /**
-     * construct project view for given project
-     * @param pluginView our plugin view
-     * @param project project this view is for
-     */
-    KateProjectTreeViewContextMenu() = default;
-
-    /**
      * our project.
      * @return project
      */

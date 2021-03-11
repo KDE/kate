@@ -136,7 +136,7 @@ void KateProjectViewTree::addFile(const QModelIndex &idx, const QString &fileNam
     KateProjectItem *i = new KateProjectItem(KateProjectItem::File, fileName);
     i->setData(fullFileName, Qt::UserRole);
     item->appendRow(i);
-    m_project->addFile(fileName, i);
+    m_project->addFile(fullFileName, i);
     item->sortChildren(0);
 }
 

@@ -36,10 +36,6 @@ GitBlameInlineNoteProvider::GitBlameInlineNoteProvider(KateGitBlamePluginView *p
     : KTextEditor::InlineNoteProvider()
     , m_pluginView(pluginView)
 {
-    QPointer<KTextEditor::View> view = m_pluginView->activeView();
-    if (view) {
-        qobject_cast<KTextEditor::InlineNoteInterface *>(view)->registerInlineNoteProvider(this);
-    }
 }
 
 GitBlameInlineNoteProvider::~GitBlameInlineNoteProvider()

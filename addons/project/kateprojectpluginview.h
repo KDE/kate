@@ -113,12 +113,11 @@ public:
             m_fixedView.defaultMenu = m_fixedView.view->contextMenu();
         }
 
-        if (m_fixedView.view->document()) {
-            m_fixedView.view->document()->setText(QString::fromUtf8(contents));
-            m_fixedView.view->document()->setHighlightingMode(QStringLiteral("Diff"));
-
-            m_fixedView.restoreMenu();
-        }
+        m_fixedView.view->document()->setText(QString::fromUtf8(contents));
+        m_fixedView.view->document()->setHighlightingMode(QStringLiteral("Diff"));
+        /** We don't want save dialog on close */
+        m_fixedView.view->document()->setModified(false);
+        m_fixedView.restoreMenu();
     }
 
     /**

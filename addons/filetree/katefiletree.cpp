@@ -187,15 +187,25 @@ void KateFileTree::setModel(QAbstractItemModel *model)
     header()->hide();
     header()->setStretchLastSection(false);
     header()->setSectionResizeMode(0, QHeaderView::Stretch);
-    header()->setMinimumSectionSize(1);
+
+    int minSize = m_hasCloseButton ? 16 : 1;
+    header()->setMinimumSectionSize(minSize);
     header()->setSectionResizeMode(1, QHeaderView::Fixed);
-    header()->resizeSection(1, 1);
+    header()->resizeSection(1, minSize);
 }
 
 void KateFileTree::setShowCloseButton(bool show)
 {
     m_hasCloseButton = show;
     static_cast<StyleDelegate *>(itemDelegate())->setShowCloseButton(show);
+
+    if (!header())
+        return;
+
+    int minSize = show ? 16 : 1;
+    header()->setMinimumSectionSize(minSize);
+    header()->resizeSection(1, minSize);
+    header()->viewport()->update();
 }
 
 QAction *KateFileTree::setupOption(QActionGroup *group, const QIcon &icon, const QString &label, const QString &whatsThis, const char *slot, bool checked)

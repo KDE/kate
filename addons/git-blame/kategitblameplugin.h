@@ -33,14 +33,15 @@ struct KateGitBlameInfo {
     QString line;
 };
 
-class KateGitBlamePluginView;
+class KateGitBlamePlugin;
 class GitBlameTooltip;
 
 class GitBlameInlineNoteProvider : public KTextEditor::InlineNoteProvider
 {
     Q_OBJECT
 public:
-    GitBlameInlineNoteProvider(KateGitBlamePluginView *view);
+
+    GitBlameInlineNoteProvider(KTextEditor::Document *doc, KateGitBlamePlugin *plugin);
     ~GitBlameInlineNoteProvider();
 
     QVector<int> inlineNotes(int line) const override;
@@ -49,20 +50,9 @@ public:
     void inlineNoteActivated(const KTextEditor::InlineNote &note, Qt::MouseButtons buttons, const QPoint &globalPos) override;
 
 private:
-    KateGitBlamePluginView *m_pluginView;
+    KTextEditor::Document *m_doc;
+    KateGitBlamePlugin *m_plugin;
     QLocale m_locale;
-};
-
-
-
-class KateGitBlamePlugin : public KTextEditor::Plugin
-{
-    Q_OBJECT
-public:
-    explicit KateGitBlamePlugin(QObject *parent = nullptr, const QList<QVariant> & = QList<QVariant>());
-    ~KateGitBlamePlugin() override;
-
-    QObject *createView(KTextEditor::MainWindow *mainWindow) override;
 };
 
 class KateGitBlamePluginView : public QObject, public KXMLGUIClient
@@ -72,16 +62,34 @@ public:
     KateGitBlamePluginView(KateGitBlamePlugin *plugin, KTextEditor::MainWindow *mainwindow);
     ~KateGitBlamePluginView() override;
 
-    QPointer<KTextEditor::View> activeView() const;
-    QPointer<KTextEditor::Document> activeDocument() const;
+private:
+    KTextEditor::MainWindow *m_mainWindow;
+};
+
+class KateGitBlamePlugin : public KTextEditor::Plugin
+{
+    Q_OBJECT
+public:
+    explicit KateGitBlamePlugin(QObject *parent = nullptr, const QList<QVariant> & = QList<QVariant>());
+    ~KateGitBlamePlugin() override;
+
+    QObject *createView(KTextEditor::MainWindow *mainWindow) override;
+
+    const KateGitBlameInfo &blameInfo(int lineNr, const QStringView &lineText);
 
     bool hasBlameInfo() const;
 
-    const KateGitBlameInfo &blameInfo(int lineNr);
+    void readConfig();
 
     void showCommitInfo(const QString &hash, KTextEditor::View *view);
 
     void setToolTipIgnoreKeySequence(QKeySequence sequence);
+
+private Q_SLOTS:
+    void viewChanged(KTextEditor::View *view);
+
+    void blameFinished(int exitCode, QProcess::ExitStatus exitStatus);
+    void showFinished(int exitCode, QProcess::ExitStatus exitStatus);
 
 private:
     struct CommitInfo {
@@ -91,26 +99,22 @@ private:
         void clear();
     };
 
-    void viewChanged(KTextEditor::View *view);
+    void addDocument(KTextEditor::Document *doc);
 
     void startBlameProcess(const QUrl &url);
-    void blameFinished(int exitCode, QProcess::ExitStatus exitStatus);
-
     void startShowProcess(const QUrl &url, const QString &hash);
-    void showFinished(int exitCode, QProcess::ExitStatus exitStatus);
 
     const KateGitBlameInfo &blameGetUpdateInfo(int lineNr);
 
     KTextEditor::MainWindow *m_mainWindow;
+    QHash<KTextEditor::Document *, GitBlameInlineNoteProvider *> m_inlineNoteProviders;
 
-    GitBlameInlineNoteProvider m_inlineNoteProvider;
-
-    QProcess m_blameInfoProc;
     QProcess m_showProc;
+    QProcess m_blameInfoProc;
     QVector<KateGitBlameInfo> m_blameInfo;
-    QUrl m_blameUrl;
-    QPointer<KTextEditor::View> m_lastView;
+    KTextEditor::View *m_blameInfoView = nullptr;
     int m_lineOffset{0};
+
     GitBlameTooltip m_tooltip;
     QString m_showHash;
     CommitInfo m_activeCommitInfo;

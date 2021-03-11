@@ -16,15 +16,15 @@
 #include <KSharedConfig>
 #include <KXMLGUIFactory>
 
-#include <KTextEditor/Document>
 #include <KTextEditor/Editor>
+#include <KTextEditor/Document>
 #include <KTextEditor/InlineNoteInterface>
 #include <KTextEditor/InlineNoteProvider>
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/View>
 
-#include <QDir>
 #include <QUrl>
+#include <QDir>
 
 #include <QFontMetricsF>
 #include <QHash>
@@ -32,40 +32,49 @@
 #include <QRegularExpression>
 #include <QVariant>
 
-GitBlameInlineNoteProvider::GitBlameInlineNoteProvider(KateGitBlamePluginView *pluginView)
-    : KTextEditor::InlineNoteProvider()
-    , m_pluginView(pluginView)
+GitBlameInlineNoteProvider::GitBlameInlineNoteProvider(KTextEditor::Document *doc, KateGitBlamePlugin *plugin)
+    : m_doc(doc)
+    , m_plugin(plugin)
 {
-    QPointer<KTextEditor::View> view = m_pluginView->activeView();
-    if (view) {
+    for (auto view : m_doc->views()) {
         qobject_cast<KTextEditor::InlineNoteInterface *>(view)->registerInlineNoteProvider(this);
     }
+
+    connect(m_doc, &KTextEditor::Document::viewCreated, this, [this](KTextEditor::Document *, KTextEditor::View *view) {
+        qobject_cast<KTextEditor::InlineNoteInterface *>(view)->registerInlineNoteProvider(this);
+    });
+
+    // textInserted and textRemoved are emitted per line, then the last line is followed by a textChanged signal
+    connect(m_doc, &KTextEditor::Document::textInserted, this, [/*this*/](KTextEditor::Document *, const KTextEditor::Cursor &/*cur*/, const QString &/*str*/) {
+        //qDebug() << cur.line() << str << this;
+    });
+    connect(m_doc, &KTextEditor::Document::textRemoved, this, [/*this*/](KTextEditor::Document *, const KTextEditor::Range &/*range*/, const QString &/*str*/) {
+        //qDebug() << range.start() << str << this;
+    });
+
+    connect(m_doc, &KTextEditor::Document::textChanged, this, [/*this*/](KTextEditor::Document *) {
+        //qDebug() << this;
+    });
 }
 
 GitBlameInlineNoteProvider::~GitBlameInlineNoteProvider()
 {
-    QPointer<KTextEditor::View> view = m_pluginView->activeView();
-    if (view) {
+    for (auto view : m_doc->views()) {
         qobject_cast<KTextEditor::InlineNoteInterface *>(view)->unregisterInlineNoteProvider(this);
     }
 }
 
 QVector<int> GitBlameInlineNoteProvider::inlineNotes(int line) const
 {
-    if (!m_pluginView->hasBlameInfo()) {
+    if (!m_plugin->hasBlameInfo()) {
         return QVector<int>();
     }
 
-    QPointer<KTextEditor::Document> doc = m_pluginView->activeDocument();
-    if (!doc) {
-        qDebug() << "no document";
-        return QVector<int>();
-    }
-
-    int lineLen = doc->line(line).size();
-    QPointer<KTextEditor::View> view = m_pluginView->activeView();
-    if (view->cursorPosition().line() == line) {
-        return QVector<int>{lineLen + 4};
+    int lineLen = m_doc->line(line).size();
+    for (const auto view: m_doc->views()) {
+        if (view->cursorPosition().line() == line) {
+            return QVector<int>{lineLen + 4};
+        }
     }
     return QVector<int>();
 }
@@ -82,7 +91,7 @@ void GitBlameInlineNoteProvider::paintInlineNote(const KTextEditor::InlineNote &
     const QFontMetrics fm(note.font());
 
     int lineNr = note.position().line();
-    const KateGitBlameInfo &info = m_pluginView->blameInfo(lineNr);
+    const KateGitBlameInfo &info = m_plugin->blameInfo(lineNr, m_doc->line(lineNr));
 
     QString text = info.title.isEmpty() ? QStringLiteral(" %1: %2 ").arg(info.name, m_locale.toString(info.date, QLocale::NarrowFormat))
                                         : QStringLiteral(" %1: %2: %3 ").arg(info.name, m_locale.toString(info.date, QLocale::NarrowFormat), info.title);
@@ -106,11 +115,10 @@ void GitBlameInlineNoteProvider::inlineNoteActivated(const KTextEditor::InlineNo
 {
     if ((buttons & Qt::LeftButton) != 0) {
         int lineNr = note.position().line();
-        const KateGitBlameInfo &info = m_pluginView->blameInfo(lineNr);
+        const KateGitBlameInfo &info = m_plugin->blameInfo(lineNr, m_doc->line(lineNr));
 
         // Hack: view->mainWindow()->view() to de-constify view
-        Q_ASSERT(note.view() == m_pluginView->activeView());
-        m_pluginView->showCommitInfo(info.commitHash, note.view()->mainWindow()->activeView());
+        m_plugin->showCommitInfo(info.commitHash, note.view()->mainWindow()->activeView());
     }
 }
 
@@ -118,48 +126,45 @@ K_PLUGIN_FACTORY_WITH_JSON(KateGitBlamePluginFactory, "kategitblameplugin.json",
 
 KateGitBlamePlugin::KateGitBlamePlugin(QObject *parent, const QList<QVariant> &)
     : KTextEditor::Plugin(parent)
+    , m_blameInfoProc(this)
 {
+
+    connect(&m_blameInfoProc, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &KateGitBlamePlugin::blameFinished);
+
+    connect(&m_showProc, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &KateGitBlamePlugin::showFinished);
 }
 
 KateGitBlamePlugin::~KateGitBlamePlugin()
 {
-}
-
-QObject *KateGitBlamePlugin::createView(KTextEditor::MainWindow *mainWindow)
-{
-    return new KateGitBlamePluginView(this, mainWindow);
+    qDeleteAll(m_inlineNoteProviders);
 }
 
 KateGitBlamePluginView::KateGitBlamePluginView(KateGitBlamePlugin *plugin, KTextEditor::MainWindow *mainwindow)
     : QObject(plugin)
     , m_mainWindow(mainwindow)
-    , m_inlineNoteProvider(this)
-    , m_blameInfoProc(this)
-    , m_showProc(this)
 {
+    qDebug() << "creating new plugin view";
     KXMLGUIClient::setComponentName(QStringLiteral("kategitblameplugin"), i18n("Git Blame"));
     setXMLFile(QStringLiteral("ui.rc"));
     QAction *showBlameAction = actionCollection()->addAction(QStringLiteral("git_blame_show"));
     showBlameAction->setText(i18n("Show Git Blame Details"));
     actionCollection()->setDefaultShortcut(showBlameAction, Qt::CTRL | Qt::ALT | Qt::Key_G);
-    m_mainWindow->guiFactory()->addClient(this);
 
-    connect(showBlameAction, &QAction::triggered, plugin, [this, showBlameAction]() {
+    connect(showBlameAction, &QAction::triggered, plugin, [this, plugin, showBlameAction]() {
         KTextEditor::View *kv = m_mainWindow->activeView();
         if (!kv) {
             return;
         }
-        setToolTipIgnoreKeySequence(showBlameAction->shortcut());
+        KTextEditor::Document *doc = kv->document();
+        if (!doc) {
+            return;
+        }
+        plugin->setToolTipIgnoreKeySequence(showBlameAction->shortcut());
         int lineNr = kv->cursorPosition().line();
-        const KateGitBlameInfo &info = blameInfo(lineNr);
-        showCommitInfo(info.commitHash, kv);
+        const KateGitBlameInfo &info = plugin->blameInfo(lineNr, doc->line(lineNr));
+        plugin->showCommitInfo(info.commitHash, kv);
     });
-
-    connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, &KateGitBlamePluginView::viewChanged);
-
-    connect(&m_blameInfoProc, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &KateGitBlamePluginView::blameFinished);
-
-    connect(&m_showProc, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &KateGitBlamePluginView::showFinished);
+    m_mainWindow->guiFactory()->addClient(this);
 }
 
 KateGitBlamePluginView::~KateGitBlamePluginView()
@@ -167,38 +172,51 @@ KateGitBlamePluginView::~KateGitBlamePluginView()
     m_mainWindow->guiFactory()->removeClient(this);
 }
 
-QPointer<KTextEditor::View> KateGitBlamePluginView::activeView() const
+QObject *KateGitBlamePlugin::createView(KTextEditor::MainWindow *mainWindow)
 {
-    return m_mainWindow->activeView();
-}
-
-QPointer<KTextEditor::Document> KateGitBlamePluginView::activeDocument() const
-{
-    if (m_mainWindow->activeView() && m_mainWindow->activeView()->document()) {
-        return m_mainWindow->activeView()->document();
+    m_mainWindow = mainWindow;
+    for (auto view : m_mainWindow->views()) {
+        addDocument(view->document());
     }
-    return nullptr;
+
+    connect(m_mainWindow, &KTextEditor::MainWindow::viewCreated, this, [this](KTextEditor::View *view) {
+        addDocument(view->document());
+    });
+
+    connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, &KateGitBlamePlugin::viewChanged);
+
+    return new KateGitBlamePluginView(this, mainWindow);
 }
 
-void KateGitBlamePluginView::viewChanged(KTextEditor::View *view)
+void KateGitBlamePlugin::addDocument(KTextEditor::Document *doc)
+{
+    if (!m_inlineNoteProviders.contains(doc)) {
+        m_inlineNoteProviders.insert(doc, new GitBlameInlineNoteProvider(doc, this));
+    }
+
+    connect(doc, &KTextEditor::Document::destroyed, this, [this, doc]() {
+        m_inlineNoteProviders.remove(doc);
+    });
+    connect(doc, &KTextEditor::Document::reloaded, this, [this, doc]() {
+        startBlameProcess(doc->url());
+    });
+    connect(doc, &KTextEditor::Document::documentSavedOrUploaded, this, [this, doc]() {
+        startBlameProcess(doc->url());
+    });
+}
+
+void KateGitBlamePlugin::viewChanged(KTextEditor::View *view)
 {
     m_blameInfo.clear();
-
-    if (m_lastView) {
-        qobject_cast<KTextEditor::InlineNoteInterface *>(m_lastView)->unregisterInlineNoteProvider(&m_inlineNoteProvider);
-    }
-    m_lastView = view;
 
     if (view == nullptr || view->document() == nullptr) {
         return;
     }
-
-    qobject_cast<KTextEditor::InlineNoteInterface *>(view)->registerInlineNoteProvider(&m_inlineNoteProvider);
-
+    m_blameInfoView = view;
     startBlameProcess(view->document()->url());
 }
 
-void KateGitBlamePluginView::startBlameProcess(const QUrl &url)
+void KateGitBlamePlugin::startBlameProcess(const QUrl &url)
 {
     if (m_blameInfoProc.state() != QProcess::NotRunning) {
         // Wait for the previous process to be done...
@@ -213,10 +231,9 @@ void KateGitBlamePluginView::startBlameProcess(const QUrl &url)
 
     m_blameInfoProc.setWorkingDirectory(dir.absolutePath());
     m_blameInfoProc.start(QStringLiteral("git"), args, QIODevice::ReadOnly);
-    m_blameUrl = url;
 }
 
-void KateGitBlamePluginView::startShowProcess(const QUrl &url, const QString &hash)
+void KateGitBlamePlugin::startShowProcess(const QUrl &url, const QString &hash)
 {
     if (m_showProc.state() != QProcess::NotRunning) {
         // Wait for the previous process to be done...
@@ -230,13 +247,14 @@ void KateGitBlamePluginView::startShowProcess(const QUrl &url, const QString &ha
     QDir dir{url.toLocalFile()};
     dir.cdUp();
 
-    QStringList args{QStringLiteral("show"), hash};
+    QStringList args{QStringLiteral("show"),  hash};
     m_showProc.setWorkingDirectory(dir.absolutePath());
     m_showProc.start(QStringLiteral("git"), args, QIODevice::ReadOnly);
 }
 
-void KateGitBlamePluginView::showCommitInfo(const QString &hash, KTextEditor::View *view)
+void KateGitBlamePlugin::showCommitInfo(const QString &hash, KTextEditor::View *view)
 {
+
     if (hash == m_activeCommitInfo.m_hash) {
         m_showHash.clear();
         m_tooltip.show(m_activeCommitInfo.m_content, view);
@@ -246,15 +264,14 @@ void KateGitBlamePluginView::showCommitInfo(const QString &hash, KTextEditor::Vi
     }
 }
 
-void KateGitBlamePluginView::blameFinished(int /*exitCode*/, QProcess::ExitStatus /*exitStatus*/)
+void KateGitBlamePlugin::blameFinished(int /*exitCode*/, QProcess::ExitStatus /*exitStatus*/)
 {
     QString stdErr = QString::fromUtf8(m_blameInfoProc.readAllStandardError());
     const QStringList stdOut = QString::fromUtf8(m_blameInfoProc.readAllStandardOutput()).split(QLatin1Char('\n'));
 
     // check if the git process was running for a previous document when the view changed.
     // if that is the case re-trigger the process and skip this data
-    KTextEditor::Document *doc = activeDocument();
-    if (!doc || m_blameUrl != doc->url()) {
+    if (m_blameInfoView != m_mainWindow->activeView()) {
         viewChanged(m_mainWindow->activeView());
         return;
     }
@@ -263,7 +280,7 @@ void KateGitBlamePluginView::blameFinished(int /*exitCode*/, QProcess::ExitStatu
 
     m_blameInfo.clear();
 
-    for (const auto &line : stdOut) {
+    for (const auto &line: stdOut) {
         const QRegularExpressionMatch match = lineReg.match(line);
         if (match.hasMatch()) {
             m_blameInfo.append(
@@ -272,7 +289,7 @@ void KateGitBlamePluginView::blameFinished(int /*exitCode*/, QProcess::ExitStatu
     }
 }
 
-void KateGitBlamePluginView::showFinished(int exitCode, QProcess::ExitStatus exitStatus)
+void KateGitBlamePlugin::showFinished(int exitCode, QProcess::ExitStatus exitStatus)
 {
     QString stdErr = QString::fromUtf8(m_showProc.readAllStandardError());
     const QString stdOut = QString::fromUtf8(m_showProc.readAllStandardOutput());
@@ -316,19 +333,18 @@ void KateGitBlamePluginView::showFinished(int exitCode, QProcess::ExitStatus exi
     }
 }
 
-bool KateGitBlamePluginView::hasBlameInfo() const
+bool KateGitBlamePlugin::hasBlameInfo() const
 {
     return !m_blameInfo.isEmpty();
 }
 
-const KateGitBlameInfo &KateGitBlamePluginView::blameInfo(int lineNr)
+const KateGitBlameInfo &KateGitBlamePlugin::blameInfo(int lineNr, const QStringView &lineText)
 {
-    if (m_blameInfo.isEmpty() || !activeDocument()) {
+    if (m_blameInfo.isEmpty()) {
         return blameGetUpdateInfo(-1);
     }
 
     int adjustedLineNr = lineNr + m_lineOffset;
-    const QStringView lineText = activeDocument()->line(lineNr);
 
     if (adjustedLineNr >= 0 && adjustedLineNr < m_blameInfo.size()) {
         if (m_blameInfo[adjustedLineNr].line == lineText) {
@@ -336,18 +352,25 @@ const KateGitBlameInfo &KateGitBlamePluginView::blameInfo(int lineNr)
         }
     }
 
+    // FIXME search for the matching line
     // search for the line 100 lines before and after until it matches
     m_lineOffset = 0;
-    while (m_lineOffset < 100 && lineNr + m_lineOffset >= 0 && lineNr + m_lineOffset < m_blameInfo.size()) {
-        if (m_blameInfo[lineNr + m_lineOffset].line == lineText) {
+    while (m_lineOffset < 100  &&
+        lineNr+m_lineOffset >= 0 &&
+        lineNr+m_lineOffset < m_blameInfo.size())
+    {
+        if (m_blameInfo[lineNr+m_lineOffset].line == lineText) {
             return blameGetUpdateInfo(lineNr + m_lineOffset);
         }
         m_lineOffset++;
     }
 
     m_lineOffset = 0;
-    while (m_lineOffset > -100 && lineNr + m_lineOffset >= 0 && (lineNr + m_lineOffset) < m_blameInfo.size()) {
-        if (m_blameInfo[lineNr + m_lineOffset].line == lineText) {
+    while (m_lineOffset > -100  &&
+        lineNr+m_lineOffset >= 0 &&
+        (lineNr+m_lineOffset) < m_blameInfo.size())
+    {
+        if (m_blameInfo[lineNr+m_lineOffset].line == lineText) {
             return blameGetUpdateInfo(lineNr + m_lineOffset);
         }
         m_lineOffset--;
@@ -356,7 +379,7 @@ const KateGitBlameInfo &KateGitBlamePluginView::blameInfo(int lineNr)
     return blameGetUpdateInfo(-1);
 }
 
-const KateGitBlameInfo &KateGitBlamePluginView::blameGetUpdateInfo(int lineNr)
+const KateGitBlameInfo &KateGitBlamePlugin::blameGetUpdateInfo(int lineNr)
 {
     static const KateGitBlameInfo dummy{QStringLiteral("hash"),
                                         i18n("Not Committed Yet"),
@@ -379,12 +402,16 @@ const KateGitBlameInfo &KateGitBlamePluginView::blameGetUpdateInfo(int lineNr)
     return info;
 }
 
-void KateGitBlamePluginView::setToolTipIgnoreKeySequence(QKeySequence sequence)
+void KateGitBlamePlugin::setToolTipIgnoreKeySequence(QKeySequence sequence)
 {
     m_tooltip.setIgnoreKeySequence(sequence);
 }
 
-void KateGitBlamePluginView::CommitInfo::clear()
+void KateGitBlamePlugin::readConfig()
+{
+}
+
+void KateGitBlamePlugin::CommitInfo::clear()
 {
     m_hash.clear();
     m_title.clear();

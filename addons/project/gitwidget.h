@@ -47,10 +47,6 @@ public:
     void getStatus(bool untracked = true, bool submodules = false);
     KTextEditor::MainWindow *mainWindow();
 
-    using TempFileViewPair = std::pair<std::unique_ptr<QTemporaryFile>, QPointer<KTextEditor::View>>;
-    std::vector<TempFileViewPair> *tempFilesVector();
-    void openTempFile(const QString &file, const QString &templatString, const QByteArray &contents);
-
     // will just proxy the message to the plugin view
     void sendMessage(const QString &message, bool warn);
 
@@ -69,7 +65,6 @@ private:
     QString m_commitMessage;
     KTextEditor::MainWindow *m_mainWin;
     QMenu *m_gitMenu;
-    std::vector<TempFileViewPair> m_tempFiles;
     KateProjectPluginView *m_pluginView;
 
     using CancelHandle = QPointer<QProcess>;
@@ -102,9 +97,6 @@ private:
 
     void enableCancel(QProcess *git);
     void hideCancel();
-
-public Q_SLOTS:
-    void clearTempFile(KTextEditor::Document *document);
 
 private Q_SLOTS:
     void parseStatusReady();

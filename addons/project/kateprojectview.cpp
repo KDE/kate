@@ -41,7 +41,6 @@ KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject 
     layout->setSpacing(0);
     layout->setContentsMargins(0, 0, 0, 0);
     layout->addWidget(m_branchBtn);
-    //    layout->addWidget(m_treeView);
     layout->addWidget(m_stackWidget);
     layout->addWidget(m_filter);
     setLayout(layout);
@@ -146,7 +145,9 @@ void KateProjectView::showFileGitHistory(const QString &file)
     // create on demand and on switch back delete
     auto fhs = new FileHistoryWidget(file);
     connect(fhs, &FileHistoryWidget::backClicked, this, &KateProjectView::setTreeViewAsCurrent);
-    connect(fhs, &FileHistoryWidget::commitClicked, this, &KateProjectView::showDiffInFixedView);
+    connect(fhs, &FileHistoryWidget::commitClicked, this, [this](const QByteArray &diff) {
+        m_pluginView->showDiffInFixedView(diff);
+    });
     connect(fhs, &FileHistoryWidget::errorMessage, m_pluginView, [this](const QString &s, bool warn) {
         QVariantMap genericMessage;
         genericMessage.insert(QStringLiteral("type"), warn ? QStringLiteral("Error") : QStringLiteral("Info"));
@@ -157,16 +158,4 @@ void KateProjectView::showFileGitHistory(const QString &file)
     });
     m_stackWidget->addWidget(fhs);
     m_stackWidget->setCurrentWidget(fhs);
-}
-
-void KateProjectView::showDiffInFixedView(const QString & /*file*/, const QByteArray &contents)
-{
-    if (!m_fixedView) {
-        m_fixedView = m_pluginView->mainWindow()->openUrl(QUrl());
-    }
-
-    if (m_fixedView->document()) {
-        m_fixedView->document()->setText(QString::fromUtf8(contents));
-        m_fixedView->document()->setHighlightingMode(QStringLiteral("Diff"));
-    }
 }

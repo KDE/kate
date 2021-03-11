@@ -39,6 +39,8 @@
 #include <KMessageBox>
 #include <QPointer>
 
+#include <KSyntaxHighlighting/Definition>
+#include <KSyntaxHighlighting/Repository>
 #include <KTextEditor/Application>
 #include <KTextEditor/ConfigInterface>
 #include <KTextEditor/Editor>
@@ -279,11 +281,6 @@ KTextEditor::MainWindow *GitWidget::mainWindow()
     return m_mainWin;
 }
 
-std::vector<GitWidget::TempFileViewPair> *GitWidget::tempFilesVector()
-{
-    return &m_tempFiles;
-}
-
 QProcess *GitWidget::gitp()
 {
     auto git = new QProcess(this);
@@ -426,7 +423,12 @@ void GitWidget::openAtHEAD(const QString &file)
         if (es != QProcess::NormalExit || exitCode != 0) {
             sendMessage(i18n("Failed to open file at HEAD: %1", QString::fromUtf8(git->readAllStandardError())), true);
         } else {
-            openTempFile(QFileInfo(file).fileName(), QStringLiteral("XXXXXX - (HEAD) - %1"), git->readAllStandardOutput());
+            auto view = m_mainWin->openUrl(QUrl());
+            if (view && view->document()) {
+                view->document()->setText(QString::fromUtf8(git->readAllStandardOutput()));
+                auto mode = KTextEditor::Editor::instance()->repository().definitionForFileName(file).name();
+                view->document()->setHighlightingMode(mode);
+            }
         }
         git->deleteLater();
     });
@@ -454,44 +456,38 @@ void GitWidget::showDiff(const QString &file, bool staged)
         } else {
             const QString filename = file.isEmpty() ? QString() : QFileInfo(file).fileName();
 
-            openTempFile(filename, QStringLiteral("XXXXXX %1.diff"), git->readAllStandardOutput());
+            auto addContextMenuActions = [this, file, staged](KTextEditor::View *v) {
+                auto m = v->contextMenu();
+                if (!staged) {
+                    QMenu *menu = new QMenu(v);
+                    auto sh = menu->addAction(i18n("Stage Hunk"));
+                    auto sl = menu->addAction(i18n("Stage Lines"));
+                    menu->addActions(m->actions());
+                    v->setContextMenu(menu);
 
-            if (m_tempFiles.empty()) {
-                return;
-            }
-            auto v = m_tempFiles.back().second;
-            if (!v || !v->document()) {
-                return;
-            }
-            auto m = v->contextMenu();
+                    connect(sh, &QAction::triggered, v, [=] {
+                        applyDiff(file, false, true, v);
+                    });
+                    connect(sl, &QAction::triggered, v, [=] {
+                        applyDiff(file, false, false, v);
+                    });
+                } else {
+                    QMenu *menu = new QMenu(v);
+                    auto ush = menu->addAction(i18n("Unstage Hunk"));
+                    auto usl = menu->addAction(i18n("Unstage Lines"));
+                    menu->addActions(m->actions());
+                    v->setContextMenu(menu);
 
-            if (!staged) {
-                QMenu *menu = new QMenu(v);
-                auto sh = menu->addAction(i18n("Stage Hunk"));
-                auto sl = menu->addAction(i18n("Stage Lines"));
-                menu->addActions(m->actions());
-                v->setContextMenu(menu);
+                    connect(ush, &QAction::triggered, v, [=] {
+                        applyDiff(file, true, true, v);
+                    });
+                    connect(usl, &QAction::triggered, v, [=] {
+                        applyDiff(file, true, false, v);
+                    });
+                }
+            };
 
-                connect(sh, &QAction::triggered, v, [=] {
-                    applyDiff(file, false, true, v);
-                });
-                connect(sl, &QAction::triggered, v, [=] {
-                    applyDiff(file, false, false, v);
-                });
-            } else {
-                QMenu *menu = new QMenu(v);
-                auto ush = menu->addAction(i18n("Unstage Hunk"));
-                auto usl = menu->addAction(i18n("Unstage Lines"));
-                menu->addActions(m->actions());
-                v->setContextMenu(menu);
-
-                connect(ush, &QAction::triggered, v, [=] {
-                    applyDiff(file, true, true, v);
-                });
-                connect(usl, &QAction::triggered, v, [=] {
-                    applyDiff(file, true, false, v);
-                });
-            }
+            m_pluginView->showDiffInFixedView(git->readAllStandardOutput(), addContextMenuActions);
         }
         git->deleteLater();
     });
@@ -593,11 +589,10 @@ void GitWidget::applyDiff(const QString &fileName, bool staged, bool hunk, KText
         } else {
             // close and reopen doc to show updated diff
             if (v && v->document()) {
-                KTextEditor::Editor::instance()->application()->closeDocument(v->document());
                 showDiff(fileName, staged);
             }
             // must come at the end
-            QTimer::singleShot(100, this, [this] {
+            QTimer::singleShot(10, this, [this] {
                 getStatus();
             });
         }
@@ -756,8 +751,8 @@ void GitWidget::createStashDialog(StashMode m, const QString &gitPath)
 {
     auto stashDialog = new StashDialog(this, mainWindow()->window(), gitPath);
     connect(stashDialog, &StashDialog::message, this, &GitWidget::sendMessage);
-    connect(stashDialog, &StashDialog::openTempFile, this, [this](const QString &t, const QByteArray &r) {
-        openTempFile(QString(), t, r);
+    connect(stashDialog, &StashDialog::showStashDiff, this, [this](const QByteArray &r) {
+        m_pluginView->showDiffInFixedView(r);
     });
     connect(stashDialog, &StashDialog::done, this, [this, stashDialog] {
         getStatus();
@@ -821,51 +816,6 @@ QMenu *GitWidget::stashMenu()
     });
 
     return menu;
-}
-
-void GitWidget::clearTempFile(KTextEditor::Document *document)
-{
-    m_tempFiles.erase(std::remove_if(m_tempFiles.begin(),
-                                     m_tempFiles.end(),
-                                     [document](const GitWidget::TempFileViewPair &tf) {
-                                         if (tf.second && tf.second->document() == document) {
-                                             return true;
-                                         }
-                                         return false;
-                                     }),
-                      m_tempFiles.end());
-}
-
-void GitWidget::openTempFile(const QString &file, const QString &templatString, const QByteArray &contents)
-{
-    if (contents.isEmpty()) {
-        return;
-    }
-
-    std::unique_ptr<QTemporaryFile> f(new QTemporaryFile);
-    if (!templatString.isEmpty() && !file.isEmpty()) {
-        f->setFileTemplate(templatString.arg(file));
-    } else if (!templatString.isEmpty() && file.isEmpty()) {
-        f->setFileTemplate(templatString);
-    }
-    if (!f->open()) {
-        sendMessage(i18n("Failed to open temporary file for diff: %1", f->errorString()), true);
-        return;
-    }
-
-    f->write(contents);
-    f->flush();
-
-    const QUrl tempFileUrl(QUrl::fromLocalFile(f->fileName()));
-    QPointer<KTextEditor::View> v = m_mainWin->openUrl(tempFileUrl);
-
-    if (!v || !v->document()) {
-        return;
-    }
-
-    TempFileViewPair tfvp = std::make_pair(std::move(f), v);
-    m_tempFiles.push_back(std::move(tfvp));
-    connect(v->document(), &KTextEditor::Document::aboutToClose, this, &GitWidget::clearTempFile);
 }
 
 static KMessageBox::ButtonCode confirm(GitWidget *_this, const QString &text)

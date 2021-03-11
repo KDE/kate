@@ -349,7 +349,7 @@ void StashDialog::showStash(const QByteArray &index)
         if (es != QProcess::NormalExit || exitCode != 0) {
             Q_EMIT message(i18n("Show stash failed. Error: ") + QString::fromUtf8(git->readAll()), true);
         } else {
-            Q_EMIT openTempFile(QStringLiteral("XXXXXX.diff"), git->readAllStandardOutput());
+            Q_EMIT showStashDiff(git->readAllStandardOutput());
         }
         Q_EMIT done();
         git->deleteLater();

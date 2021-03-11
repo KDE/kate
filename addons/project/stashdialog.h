@@ -50,7 +50,7 @@ public:
 
     Q_SIGNAL void message(const QString &msg, bool warn);
     Q_SIGNAL void done();
-    Q_SIGNAL void openTempFile(const QString &templatee, const QByteArray &gitOutput);
+    Q_SIGNAL void showStashDiff(const QByteArray &diff);
 
 protected Q_SLOTS:
     void slotReturnPressed() override;

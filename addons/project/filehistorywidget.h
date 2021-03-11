@@ -28,7 +28,7 @@ private:
 
 Q_SIGNALS:
     void backClicked();
-    void commitClicked(const QString &file, const QByteArray &contents);
+    void commitClicked(const QByteArray &contents);
     void errorMessage(const QString &msg, bool warn);
 };
 

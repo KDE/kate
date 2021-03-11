@@ -139,6 +139,11 @@ KateProject *KateProjectPlugin::createProjectForFileName(const QString &fileName
 KateProject *KateProjectPlugin::projectForDir(QDir dir)
 {
     /**
+     * Save dir to create a project from directory if nothing works
+     */
+    const QDir originalDir = dir;
+
+    /**
      * search project file upwards
      * with recursion guard
      * do this first for all level and only after this fails try to invent projects
@@ -185,8 +190,10 @@ KateProject *KateProjectPlugin::projectForDir(QDir dir)
         }
     }
 
-    // no project found, bad luck
-    return nullptr;
+    /**
+     * Version control not found? Load the directory as project
+     */
+    return createProjectForDirectory(originalDir);
 }
 
 KateProject *KateProjectPlugin::projectForUrl(const QUrl &url)
@@ -280,6 +287,23 @@ KateProject *KateProjectPlugin::createProjectForRepository(const QString &type, 
 {
     QVariantMap cnf, files;
     files[type] = 1;
+    cnf[QStringLiteral("name")] = dir.dirName();
+    cnf[QStringLiteral("files")] = (QVariantList() << files);
+
+    KateProject *project = new KateProject(m_threadPool, this);
+    project->loadFromData(cnf, dir.canonicalPath());
+
+    m_projects.append(project);
+
+    Q_EMIT projectCreated(project);
+    return project;
+}
+
+KateProject *KateProjectPlugin::createProjectForDirectory(const QDir &dir)
+{
+    QVariantMap cnf, files;
+    files[QStringLiteral("directory")] = QStringLiteral("./");
+    qWarning() << files;
     cnf[QStringLiteral("name")] = dir.dirName();
     cnf[QStringLiteral("files")] = (QVariantList() << files);
 

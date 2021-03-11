@@ -14,6 +14,7 @@
 #include "kateprojectview.h"
 
 #include <QComboBox>
+#include <QMenu>
 #include <QPointer>
 #include <QStackedWidget>
 #include <QToolButton>
@@ -98,6 +99,39 @@ public:
     KateProjectPlugin *plugin() const
     {
         return m_plugin;
+    }
+
+    /**
+     * @brief Shows diff in a fixed view, i.e., the view is recycled instead
+     * of creating new view every time
+     * @param contents diff contents
+     */
+    void showDiffInFixedView(const QByteArray &contents)
+    {
+        if (!m_fixedView.view) {
+            m_fixedView.view = mainWindow()->openUrl(QUrl());
+            m_fixedView.defaultMenu = m_fixedView.view->contextMenu();
+        }
+
+        if (m_fixedView.view->document()) {
+            m_fixedView.view->document()->setText(QString::fromUtf8(contents));
+            m_fixedView.view->document()->setHighlightingMode(QStringLiteral("Diff"));
+
+            m_fixedView.restoreMenu();
+        }
+    }
+
+    /**
+     * Same as above with call back for setting a context menu
+     *
+     * @param cb Callback on the view. This should always take KTextEditor::View*
+     * as a parameter. This is mainly used to plug-in context-menu actions.
+     */
+    template<typename ViewCallback>
+    void showDiffInFixedView(const QByteArray &contents, ViewCallback cb)
+    {
+        showDiffInFixedView(contents);
+        cb(m_fixedView.view);
     }
 
 public Q_SLOTS:
@@ -319,6 +353,25 @@ private:
      */
     QAction *m_gotoSymbolAction;
     QAction *m_gotoSymbolActionAppMenu;
+
+    class FixedView
+    {
+    public:
+        QPointer<KTextEditor::View> view;
+        QPointer<QMenu> defaultMenu;
+
+        void restoreMenu()
+        {
+            if (view && defaultMenu) {
+                view->setContextMenu(defaultMenu);
+            }
+        }
+    };
+
+    /**
+     * Fixed view for viewing diffs
+     */
+    FixedView m_fixedView;
 };
 
 #endif

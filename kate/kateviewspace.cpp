@@ -614,11 +614,12 @@ void KateViewSpace::restoreConfig(KateViewManager *viewMan, const KConfigBase *c
                 // When a session is opened with a remote file being active, we need to wait
                 // with applying saved session settings until the remote's temp file is initialised.
                 if (!view->document()->url().isLocalFile()) {
-                    auto *connCtx = new QObject(this); // use a dummy object as signal receiver
-                    connect(doc, &KTextEditor::Document::textChanged, connCtx, [connCtx, view, configGroup](KTextEditor::Document *doc){
-                        connCtx->deleteLater(); // destroying context also destroys connection
+                    QSharedPointer<QMetaObject::Connection> conn(new QMetaObject::Connection());
+                    auto handler = [conn, view, configGroup](KTextEditor::Document *doc){
+                        disconnect(*conn);
                         view->readSessionConfig(configGroup);
-                    });
+                    };
+                    *conn = connect(doc, &KTextEditor::Document::textChanged, view, handler);
                 } else {
                     view->readSessionConfig(configGroup);
                 }

@@ -44,7 +44,7 @@ public:
         le.setFont(font);
         le.setText(QStringLiteral("TEMP"));
         setFont(font);
-        setFixedHeight(le.sizeHint().height());
+        setFixedHeight(le.sizeHint().height() - QFontMetrics(font).descent());
         setLineWrapMode(QPlainTextEdit::NoWrap);
         setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     }

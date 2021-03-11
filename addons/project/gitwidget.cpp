@@ -862,7 +862,7 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
             if (ret == KMessageBox::Yes) {
                 clean(files);
             }
-        } else if (untracked && act == ignoreAct) {
+        } else if (ignoreAct && untracked && act == ignoreAct) {
             const auto files = m_project->files();
             const auto it = std::find_if(files.cbegin(), files.cend(), [](const QString &s) {
                 if (s.contains(QStringLiteral(".gitignore"))) {
@@ -873,7 +873,7 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
             if (it != files.cend()) {
                 m_mainWin->openUrl(QUrl::fromLocalFile(*it));
             }
-        } else if (!untracked && act == diff) {
+        } else if (diff && !untracked && act == diff) {
             showDiff(QString(), false);
         }
     } else if (type == GitStatusModel::NodeFile) {
@@ -895,21 +895,21 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
                 return unstage({file});
             }
             return stage({file});
-        } else if (act == discardAct && !untracked) {
+        } else if (discardAct && act == discardAct && !untracked) {
             auto ret = confirm(this, i18n("Are you sure you want to discard the changes in this file?"));
             if (ret == KMessageBox::Yes) {
                 discard({file});
             }
-        } else if (act == openAtHead && !untracked) {
+        } else if (openAtHead && act == openAtHead && !untracked) {
             openAtHEAD(idx.data(GitStatusModel::FileNameRole).toString());
-        } else if (act == showDiffAct && !untracked) {
+        } else if (showDiffAct && act == showDiffAct && !untracked) {
             showDiff(file, staged);
-        } else if (act == discardAct && untracked) {
+        } else if (discardAct && act == discardAct && untracked) {
             auto ret = confirm(this, i18n("Are you sure you want to remove this file?"));
             if (ret == KMessageBox::Yes) {
                 clean({file});
             }
-        } else if (act == launchDifftoolAct) {
+        } else if (launchDifftoolAct && act == launchDifftoolAct) {
             launchExternalDiffTool(idx.data(GitStatusModel::FileNameRole).toString(), staged);
         } else if (act == openFile) {
             m_mainWin->openUrl(QUrl::fromLocalFile(file));

@@ -143,6 +143,16 @@ public:
     }
 
     /**
+     * add a new file to the project
+     */
+    void addFile(const QString &file, KateProjectItem *item)
+    {
+        if (m_file2Item && item) {
+            (*m_file2Item)[file] = item;
+        }
+    }
+
+    /**
      * Access to project index.
      * May be null.
      * Don't store this pointer, might change.

@@ -54,6 +54,16 @@ public:
      */
     void openSelectedDocument();
 
+    /**
+     * Add a new file
+     */
+    void addFile(const QModelIndex &idx, const QString &fileName);
+
+    /**
+     * Add a new directory
+     */
+    void addDirectory(const QModelIndex &idx, const QString &name);
+
 private Q_SLOTS:
     /**
      * item got clicked, do stuff, like open document

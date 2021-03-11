@@ -22,10 +22,62 @@
 #include <QClipboard>
 #include <QFileInfo>
 #include <QIcon>
+#include <QLineEdit>
 #include <QMenu>
 #include <QMimeDatabase>
 #include <QMimeType>
+#include <QPushButton>
 #include <QStandardPaths>
+#include <QVBoxLayout>
+
+class AskNameDialog : public QDialog
+{
+public:
+    struct Name {
+        Name(const QString &n, bool s)
+            : name{n}
+            , success{s}
+        {
+        }
+        QString name;
+        bool success = false;
+    };
+
+    AskNameDialog(QWidget *parent = nullptr)
+        : QDialog(parent)
+    {
+        QVBoxLayout *layout = new QVBoxLayout;
+        setLayout(layout);
+        layout->addWidget(&m_lineEdit);
+
+        QHBoxLayout *hl = new QHBoxLayout;
+        hl->addWidget(&m_addBtn);
+        hl->addWidget(&m_cancelBtn);
+
+        m_addBtn.setText(i18n("Add"));
+        m_cancelBtn.setText(i18n("Cancel"));
+
+        connect(&m_addBtn, &QPushButton::clicked, this, &QDialog::accept);
+        connect(&m_cancelBtn, &QPushButton::clicked, this, &QDialog::reject);
+
+        layout->addLayout(hl);
+    }
+
+    Name askName()
+    {
+        int res = exec();
+        bool suc = res == QDialog::Accepted;
+        if (!suc || m_lineEdit.text().isEmpty()) {
+            return {{}, false};
+        }
+        return {m_lineEdit.text(), true};
+    }
+
+private:
+    QLineEdit m_lineEdit;
+    QPushButton m_addBtn;
+    QPushButton m_cancelBtn;
+};
 
 void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelIndex &index, const QPoint &pos, KateProjectViewTree *parent)
 {
@@ -33,6 +85,13 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
      * Create context menu
      */
     QMenu menu;
+
+    QAction *addFile = nullptr;
+    QAction *addFolder = nullptr;
+    if (index.data(KateProjectItem::TypeRole).toInt() == KateProjectItem::Directory) {
+        addFile = menu.addAction(QIcon::fromTheme(QStringLiteral("document-new")), i18n("&Add File"));
+        addFolder = menu.addAction(QIcon::fromTheme(QStringLiteral("folder-new")), i18n("&Add Folder"));
+    }
 
     /**
      * Copy Path
@@ -120,6 +179,18 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
             parent->edit(index);
         } else if (action == fileHistory) {
             showFileHistory(index.data(Qt::UserRole).toString());
+        } else if (action == addFile) {
+            AskNameDialog d;
+            auto name = d.askName();
+            if (name.success) {
+                parent->addFile(index, name.name);
+            }
+        } else if (action == addFolder) {
+            AskNameDialog d;
+            auto name = d.askName();
+            if (name.success) {
+                parent->addDirectory(index, name.name);
+            }
         } else {
             // One of the git actions was triggered
         }

@@ -15,6 +15,8 @@
 
 #include <QContextMenuEvent>
 
+#include <KLocalizedString>
+
 KateProjectViewTree::KateProjectViewTree(KateProjectPluginView *pluginView, KateProject *project)
     : m_pluginView(pluginView)
     , m_project(project)
@@ -106,6 +108,60 @@ void KateProjectViewTree::openSelectedDocument()
     if (!filePath.isEmpty()) {
         m_pluginView->mainWindow()->openUrl(QUrl::fromLocalFile(filePath));
     }
+}
+
+void KateProjectViewTree::addFile(const QModelIndex &idx, const QString &fileName)
+{
+    auto proxyModel = static_cast<QSortFilterProxyModel *>(model());
+    auto index = proxyModel->mapToSource(idx);
+    auto item = m_project->model()->itemFromIndex(index);
+
+    const QString fullFileName = index.data(Qt::UserRole).toString() + QLatin1Char('/') + fileName;
+
+    /**
+     * Create an actual file on disk
+     */
+    QFile f(fullFileName);
+    bool created = f.open(QIODevice::WriteOnly);
+    if (!created) {
+        QVariantMap genericMessage;
+        genericMessage.insert(QStringLiteral("type"), QStringLiteral("Error"));
+        genericMessage.insert(QStringLiteral("category"), i18n("Project"));
+        genericMessage.insert(QStringLiteral("categoryIcon"), QIcon::fromTheme(QStringLiteral("document-new")));
+        genericMessage.insert(QStringLiteral("text"), i18n("Failed to create file: %1, Error: %2", fileName, f.errorString()));
+        Q_EMIT m_pluginView->message(genericMessage);
+        return;
+    }
+
+    KateProjectItem *i = new KateProjectItem(KateProjectItem::File, fileName);
+    i->setData(fullFileName, Qt::UserRole);
+    item->appendRow(i);
+    m_project->addFile(fileName, i);
+    item->sortChildren(0);
+}
+
+void KateProjectViewTree::addDirectory(const QModelIndex &idx, const QString &name)
+{
+    auto proxyModel = static_cast<QSortFilterProxyModel *>(model());
+    auto index = proxyModel->mapToSource(idx);
+    auto item = m_project->model()->itemFromIndex(index);
+    const QString fullDirName = index.data(Qt::UserRole).toString() + QLatin1Char('/') + name;
+
+    QDir dir(index.data(Qt::UserRole).toString());
+    if (!dir.mkdir(name)) {
+        QVariantMap genericMessage;
+        genericMessage.insert(QStringLiteral("type"), QStringLiteral("Error"));
+        genericMessage.insert(QStringLiteral("category"), i18n("Project"));
+        genericMessage.insert(QStringLiteral("categoryIcon"), QIcon::fromTheme(QStringLiteral("folder-new")));
+        genericMessage.insert(QStringLiteral("text"), i18n("Failed to create dir: %1", name));
+        Q_EMIT m_pluginView->message(genericMessage);
+        return;
+    }
+
+    KateProjectItem *i = new KateProjectItem(KateProjectItem::Directory, name);
+    i->setData(fullDirName, Qt::UserRole);
+    item->appendRow(i);
+    item->sortChildren(0);
 }
 
 void KateProjectViewTree::slotClicked(const QModelIndex &index)

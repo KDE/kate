@@ -424,10 +424,11 @@ void GitWidget::openAtHEAD(const QString &file)
             sendMessage(i18n("Failed to open file at HEAD: %1", QString::fromUtf8(git->readAllStandardError())), true);
         } else {
             auto view = m_mainWin->openUrl(QUrl());
-            if (view && view->document()) {
+            if (view) {
                 view->document()->setText(QString::fromUtf8(git->readAllStandardOutput()));
                 auto mode = KTextEditor::Editor::instance()->repository().definitionForFileName(file).name();
                 view->document()->setHighlightingMode(mode);
+                view->document()->setModified(false); // no save file dialog when closing
             }
         }
         git->deleteLater();
@@ -842,14 +843,18 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
         auto ignoreAct = untracked ? menu.addAction(i18n("Open .gitignore")) : nullptr;
         auto diff = !untracked ? menu.addAction(i18n("Show diff")) : nullptr;
         // get files
+        auto act = menu.exec(m_treeView->viewport()->mapToGlobal(e->pos()));
+        if (!act) {
+            return;
+        }
+
         const QVector<GitUtils::StatusItem> &items = untracked ? m_model->untrackedFiles() : m_model->changedFiles();
         QStringList files;
         files.reserve(items.size());
         std::transform(items.begin(), items.end(), std::back_inserter(files), [](const GitUtils::StatusItem &i) {
             return QString::fromUtf8(i.file);
         });
-        // execute action
-        auto act = menu.exec(m_treeView->viewport()->mapToGlobal(e->pos()));
+
         if (act == stageAct) {
             stage(files, type == GitStatusModel::NodeUntrack);
         } else if (act == discardAct && !untracked) {
@@ -862,7 +867,7 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
             if (ret == KMessageBox::Yes) {
                 clean(files);
             }
-        } else if (ignoreAct && untracked && act == ignoreAct) {
+        } else if (untracked && act == ignoreAct) {
             const auto files = m_project->files();
             const auto it = std::find_if(files.cbegin(), files.cend(), [](const QString &s) {
                 if (s.contains(QStringLiteral(".gitignore"))) {
@@ -873,7 +878,7 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
             if (it != files.cend()) {
                 m_mainWin->openUrl(QUrl::fromLocalFile(*it));
             }
-        } else if (diff && !untracked && act == diff) {
+        } else if (!untracked && act == diff) {
             showDiff(QString(), false);
         }
     } else if (type == GitStatusModel::NodeFile) {
@@ -889,27 +894,31 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
         auto discardAct = staged ? nullptr : untracked ? menu.addAction(i18n("Remove")) : menu.addAction(i18n("Discard"));
 
         auto act = menu.exec(m_treeView->viewport()->mapToGlobal(e->pos()));
+        if (!act) {
+            return;
+        }
+
         const QString file = m_gitPath + idx.data(GitStatusModel::FileNameRole).toString();
         if (act == stageAct) {
             if (staged) {
                 return unstage({file});
             }
             return stage({file});
-        } else if (discardAct && act == discardAct && !untracked) {
+        } else if (act == discardAct && !untracked) {
             auto ret = confirm(this, i18n("Are you sure you want to discard the changes in this file?"));
             if (ret == KMessageBox::Yes) {
                 discard({file});
             }
-        } else if (openAtHead && act == openAtHead && !untracked) {
+        } else if (act == openAtHead && !untracked) {
             openAtHEAD(idx.data(GitStatusModel::FileNameRole).toString());
         } else if (showDiffAct && act == showDiffAct && !untracked) {
             showDiff(file, staged);
-        } else if (discardAct && act == discardAct && untracked) {
+        } else if (act == discardAct && untracked) {
             auto ret = confirm(this, i18n("Are you sure you want to remove this file?"));
             if (ret == KMessageBox::Yes) {
                 clean({file});
             }
-        } else if (launchDifftoolAct && act == launchDifftoolAct) {
+        } else if (act == launchDifftoolAct) {
             launchExternalDiffTool(idx.data(GitStatusModel::FileNameRole).toString(), staged);
         } else if (act == openFile) {
             m_mainWin->openUrl(QUrl::fromLocalFile(file));
@@ -919,6 +928,9 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
         auto stage = menu.addAction(i18n("Unstage All"));
         auto diff = menu.addAction(i18n("Show diff"));
         auto act = menu.exec(m_treeView->viewport()->mapToGlobal(e->pos()));
+        if (!act) {
+            return;
+        }
 
         // git reset -q HEAD --
         if (act == stage) {
@@ -972,6 +984,9 @@ void GitWidget::selectedContextMenu(QContextMenuEvent *e)
     auto discardAct = selectionHasChangedItems && !selectionHasUntrackedItems ? menu.addAction(i18n("Discard Selected Files")) : nullptr;
     auto removeAct = !selectionHasChangedItems && selectionHasUntrackedItems ? menu.addAction(i18n("Remove Selected Files")) : nullptr;
     auto execAct = menu.exec(m_treeView->viewport()->mapToGlobal(e->pos()));
+    if (!execAct) {
+        return;
+    }
 
     if (execAct == stageAct) {
         if (selectionHasChangedItems) {

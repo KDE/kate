@@ -27,7 +27,6 @@ KateProjectViewTree::KateProjectViewTree(KateProjectPluginView *pluginView, Kate
     setHeaderHidden(true);
     setEditTriggers(QAbstractItemView::NoEditTriggers);
     setAllColumnsShowFocus(true);
-    setFocusPolicy(Qt::NoFocus);
 
     /**
      * attach view => project

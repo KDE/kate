@@ -81,8 +81,8 @@ void GitBlameInlineNoteProvider::paintInlineNote(const KTextEditor::InlineNote &
     const KateGitBlameInfo &info = m_pluginView->blameInfo(lineNr);
 
     QString text = info.title.isEmpty()
-        ? i18nc("git-balme information \"author: date \"", " %1: %2 ", info.name, m_locale.toString(info.date, QLocale::NarrowFormat))
-        : i18nc("git-balme information \"author: date: commit title \"",
+        ? i18nc("git-blame information \"author: date \"", " %1: %2 ", info.name, m_locale.toString(info.date, QLocale::NarrowFormat))
+        : i18nc("git-blame information \"author: date: commit title \"",
                 " %1: %2: %3 ",
                 info.name,
                 m_locale.toString(info.date, QLocale::NarrowFormat),

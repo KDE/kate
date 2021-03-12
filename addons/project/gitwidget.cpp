@@ -618,17 +618,20 @@ void GitWidget::opencommitChangesDialog()
         font = QFontDatabase::systemFont(QFontDatabase::FixedFont);
     }
 
-    GitCommitDialog dialog(m_commitMessage, font);
-    dialog.setWindowFlags(Qt::WindowSystemMenuHint | Qt::WindowTitleHint);
+    GitCommitDialog *dialog = new GitCommitDialog(m_commitMessage, font, this);
 
-    int res = dialog.exec();
-    if (res == QDialog::Accepted) {
-        if (dialog.subject().isEmpty()) {
-            return sendMessage(i18n("Commit message cannot be empty."), true);
+    connect(dialog, &QDialog::finished, this, [this, dialog](int res) {
+        if (res == QDialog::Accepted) {
+            if (dialog->subject().isEmpty()) {
+                return sendMessage(i18n("Commit message cannot be empty."), true);
+            }
+            m_commitMessage = dialog->subject() + QStringLiteral("[[\n\n]]") + dialog->description();
+            commitChanges(dialog->subject(), dialog->description(), dialog->signoff());
         }
-        m_commitMessage = dialog.subject() + QStringLiteral("[[\n\n]]") + dialog.description();
-        commitChanges(dialog.subject(), dialog.description(), dialog.signoff());
-    }
+        dialog->deleteLater();
+    });
+
+    dialog->open();
 }
 
 void GitWidget::handleClick(const QModelIndex &idx, ClickAction clickAction)

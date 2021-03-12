@@ -5,7 +5,9 @@
 */
 #include "gitcommitdialog.h"
 
+#include <QCoreApplication>
 #include <QDebug>
+#include <QInputMethodEvent>
 #include <QSyntaxHighlighter>
 #include <QVBoxLayout>
 
@@ -32,52 +34,43 @@ private:
     int badLength = 0;
 };
 
-class SingleLineEdit : public QPlainTextEdit
+static void changeTextColorToRed(QLineEdit *lineEdit)
 {
-public:
-    explicit SingleLineEdit(const QFont &font, QWidget *parent = nullptr)
-        : QPlainTextEdit(parent)
-        , m_hl(new BadLengthHighlighter(document(), 52))
-    {
-        // create a temporary line edit to figure out the correct size
-        QLineEdit le;
-        le.setFont(font);
-        le.setText(QStringLiteral("TEMP"));
-        setFont(font);
-        setFixedHeight(le.sizeHint().height() - QFontMetrics(font).descent());
-        setLineWrapMode(QPlainTextEdit::NoWrap);
-        setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    }
+    if (!lineEdit)
+        return;
 
-    void setText(const QString &text)
-    {
-        setPlainText(text);
-    }
+    // Everything > 52 = red color
+    QList<QInputMethodEvent::Attribute> attributes;
+    if (lineEdit->text().length() > 52) {
+        int start = 52 - lineEdit->cursorPosition();
+        int len = lineEdit->text().length() - start;
+        QInputMethodEvent::AttributeType type = QInputMethodEvent::TextFormat;
 
-    int textLength()
-    {
-        return toPlainText().length();
-    }
+        QTextCharFormat fmt;
+        fmt.setForeground(Qt::red);
+        QVariant format = fmt;
 
-private:
-    BadLengthHighlighter *m_hl;
-};
+        attributes.append(QInputMethodEvent::Attribute(type, start, len, format));
+    }
+    QInputMethodEvent event(QString(), attributes);
+    QCoreApplication::sendEvent(lineEdit, &event);
+}
 
 GitCommitDialog::GitCommitDialog(const QString &lastCommit, const QFont &font, QWidget *parent, Qt::WindowFlags f)
     : QDialog(parent, f)
-    , m_le(new SingleLineEdit(font))
-    , m_hl(new BadLengthHighlighter(m_pe.document(), 72))
+    , m_le(new QLineEdit())
 {
     setWindowTitle(i18n("Commit Changes"));
 
     ok.setText(i18n("Commit"));
     cancel.setText(i18n("Cancel"));
 
-    m_le->setPlaceholderText(i18n("Write commit message..."));
-    m_le->setFont(font);
+    m_le.setPlaceholderText(i18n("Write commit message..."));
+    m_le.setFont(font);
 
     QFontMetrics fm(font);
-    const int width = fm.averageCharWidth() * 72;
+    /** Add 8 because 4 + 4 margins on left / right */
+    const int width = (fm.averageCharWidth() * 72) + 8;
 
     m_leLen.setText(QStringLiteral("0 / 52"));
 
@@ -93,7 +86,7 @@ GitCommitDialog::GitCommitDialog(const QString &lastCommit, const QFont &font, Q
     hLayoutLine->addWidget(&m_leLen);
 
     vlayout->addLayout(hLayoutLine);
-    vlayout->addWidget(m_le);
+    vlayout->addWidget(&m_le);
     vlayout->addWidget(&m_pe);
 
     // set 72 chars wide plain text edit
@@ -104,7 +97,7 @@ GitCommitDialog::GitCommitDialog(const QString &lastCommit, const QFont &font, Q
     if (!lastCommit.isEmpty()) {
         auto msgs = lastCommit.split(QStringLiteral("[[\n\n]]"));
         if (!msgs.isEmpty()) {
-            m_le->setText(msgs.at(0));
+            m_le.setText(msgs.at(0));
             if (msgs.length() > 1) {
                 m_pe.setPlainText(msgs.at(1));
             }
@@ -122,16 +115,19 @@ GitCommitDialog::GitCommitDialog(const QString &lastCommit, const QFont &font, Q
 
     connect(&ok, &QPushButton::clicked, this, &QDialog::accept);
     connect(&cancel, &QPushButton::clicked, this, &QDialog::reject);
-    connect(m_le, &QPlainTextEdit::textChanged, this, &GitCommitDialog::updateLineSizeLabel);
+    connect(&m_le, &QLineEdit::textChanged, this, &GitCommitDialog::updateLineSizeLabel);
 
     updateLineSizeLabel();
 
     vlayout->addLayout(hLayout);
+
+    auto hl = new BadLengthHighlighter(m_pe.document(), 72);
+    Q_UNUSED(hl)
 }
 
 QString GitCommitDialog::subject() const
 {
-    return m_le->toPlainText();
+    return m_le.text();
 }
 
 QString GitCommitDialog::description() const
@@ -146,10 +142,11 @@ bool GitCommitDialog::signoff() const
 
 void GitCommitDialog::updateLineSizeLabel()
 {
-    int len = m_le->textLength();
+    int len = m_le.text().length();
     if (len < 52) {
         m_leLen.setText(QStringLiteral("%1 / 52").arg(QString::number(len)));
     } else {
+        changeTextColorToRed(&m_le);
         m_leLen.setText(QStringLiteral("<span style=\"color:red;\">%1</span> / 52").arg(QString::number(len)));
     }
 }

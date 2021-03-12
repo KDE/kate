@@ -13,9 +13,6 @@
 #include <QPlainTextEdit>
 #include <QPushButton>
 
-class SingleLineEdit;
-class BadLengthHighlighter;
-
 class QFont;
 
 class GitCommitDialog : public QDialog
@@ -31,14 +28,13 @@ public:
 private:
     Q_SLOT void updateLineSizeLabel();
 
-    SingleLineEdit *m_le;
+    QLineEdit m_le;
     QPlainTextEdit m_pe;
     QPushButton ok;
     QPushButton cancel;
     QLabel m_leLen;
     QLabel m_peLen;
     QCheckBox m_cbSignOff;
-    BadLengthHighlighter *m_hl;
 };
 
 #endif // GITCOMMITDIALOG_H

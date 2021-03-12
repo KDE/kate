@@ -3,7 +3,6 @@
         <file>ui.rc</file>
     </qresource>
     <qresource prefix="/icons">
-        <file>icons/git-commit-dark.svg</file>
         <file>icons/sc-apps-git.svg</file>
     </qresource>
 </RCC>

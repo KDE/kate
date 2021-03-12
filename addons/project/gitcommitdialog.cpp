@@ -144,7 +144,7 @@ void GitCommitDialog::updateLineSizeLabel()
 {
     int len = m_le.text().length();
     if (len < 52) {
-        m_leLen.setText(QStringLiteral("%1 / 52").arg(QString::number(len)));
+        m_leLen.setText(i18n("%1 / 52").arg(QString::number(len)));
     } else {
         changeTextColorToRed(&m_le);
         m_leLen.setText(QStringLiteral("<span style=\"color:red;\">%1</span> / 52").arg(QString::number(len)));

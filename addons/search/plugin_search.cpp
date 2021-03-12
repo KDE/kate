@@ -679,44 +679,57 @@ QStringList KatePluginSearchView::filterFiles(const QStringList &files) const
         return files;
     }
 
-    QStringList tmpTypes = types.split(QLatin1Char(','));
-    QVector<QRegExp> typeList(tmpTypes.size());
-    for (int i = 0; i < tmpTypes.size(); i++) {
-        QRegExp rx(tmpTypes[i].trimmed());
-        rx.setPatternSyntax(QRegExp::Wildcard);
-        typeList << rx;
+    if (types.isEmpty()) {
+        types = QStringLiteral("*");
     }
 
-    QStringList tmpExcludes = excludes.split(QLatin1Char(','));
-    QVector<QRegExp> excludeList(tmpExcludes.size());
-    for (int i = 0; i < tmpExcludes.size(); i++) {
-        QRegExp rx(tmpExcludes[i].trimmed());
-        rx.setPatternSyntax(QRegExp::Wildcard);
-        excludeList << rx;
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
+    const auto SkipEmptyParts = QString::SkipEmptyParts;
+#else
+    const auto SkipEmptyParts = Qt::SkipEmptyParts;
+#endif
+    const QStringList tmpTypes = types.split(QLatin1Char(','), SkipEmptyParts);
+    QVector<QRegularExpression> typeList;
+    for (const auto &type : tmpTypes) {
+        typeList << QRegularExpression(QRegularExpression::wildcardToRegularExpression(type.trimmed()));
+    }
+
+    const QStringList tmpExcludes = excludes.split(QLatin1Char(','), SkipEmptyParts);
+    QVector<QRegularExpression> excludeList;
+    for (const auto &exclude : tmpExcludes) {
+        excludeList << QRegularExpression(QRegularExpression::wildcardToRegularExpression(exclude.trimmed()));
     }
 
     QStringList filteredFiles;
-    for (const QString &fileName : files) {
-        bool isInSubDir = fileName.startsWith(m_resultBaseDir);
-        QString nameToCheck = fileName;
+    for (const QString &filePath : files) {
+        bool isInSubDir = filePath.startsWith(m_resultBaseDir);
+        QString nameToCheck = filePath;
         if (isInSubDir) {
-            nameToCheck = fileName.mid(m_resultBaseDir.size());
+            nameToCheck = filePath.mid(m_resultBaseDir.size());
         }
 
         bool skip = false;
+        const QStringList pathSplit = nameToCheck.split(QLatin1Char('/'), SkipEmptyParts);
         for (const auto &regex : qAsConst(excludeList)) {
-            if (regex.exactMatch(nameToCheck)) {
-                skip = true;
-                break;
+            for (const auto &part : pathSplit) {
+                QRegularExpressionMatch match = regex.match(part);
+                if (match.hasMatch()) {
+                    skip = true;
+                    break;
+                }
             }
         }
         if (skip) {
             continue;
         }
 
+        QFileInfo fileInfo(filePath);
+        QString fileName = fileInfo.fileName();
+
         for (const auto &regex : qAsConst(typeList)) {
-            if (regex.exactMatch(nameToCheck)) {
-                filteredFiles << fileName;
+            QRegularExpressionMatch match = regex.match(fileName);
+            if (match.hasMatch()) {
+                filteredFiles << filePath;
                 break;
             }
         }

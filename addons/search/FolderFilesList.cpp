@@ -171,11 +171,18 @@ void FolderFilesList::checkNextItem(DirectoryWithResults &handleOnFolder) const
     for (const auto &entry : entries) {
         const QString absFilePath = entry.absoluteFilePath();
         bool skip{false};
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
+        const QStringList pathSplit = absFilePath.split(QLatin1Char('/'), QString::SkipEmptyParts);
+#else
+        const QStringList pathSplit = absFilePath.split(QLatin1Char('/'), Qt::SkipEmptyParts);
+#endif
         for (const auto &regex : m_excludes) {
-            QRegularExpressionMatch match = regex.match(absFilePath);
-            if (match.hasMatch()) {
-                skip = true;
-                break;
+            for (const auto &part : pathSplit) {
+                QRegularExpressionMatch match = regex.match(part);
+                if (match.hasMatch()) {
+                    skip = true;
+                    break;
+                }
             }
         }
         if (skip) {

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
-<gui name="kateprojectplugin" library="kateprojectplugin" version="9" translationDomain="kateproject">
+<gui name="kateprojectplugin" library="kateprojectplugin" version="10" translationDomain="kateproject">
   <MenuBar>
     <Menu name="projects">
       <text>&amp;Projects</text>
+      <Action name="projects_open_project"/>
       <Action name="projects_prev_project"/>
       <Action name="projects_next_project"/>
       <Action name="projects_goto_index" />

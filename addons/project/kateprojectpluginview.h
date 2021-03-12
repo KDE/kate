@@ -254,6 +254,11 @@ private Q_SLOTS:
      */
     void slotUpdateStatus(bool visible);
 
+    /**
+     * Open a folder / project
+     */
+    void openDirectoryOrProject();
+
 private:
     /**
      * find current selected or under cursor word

@@ -26,6 +26,7 @@
 
 #include <QAction>
 #include <QDialog>
+#include <QFileDialog>
 #include <QHBoxLayout>
 #include <QKeyEvent>
 #include <QMenu>
@@ -157,7 +158,9 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     /**
      * back + forward
      */
-    auto a = actionCollection()->addAction(KStandardAction::Back, QStringLiteral("projects_prev_project"), this, SLOT(slotProjectPrev()));
+    auto a = actionCollection()->addAction(QStringLiteral("projects_open_project"), this, SLOT(openDirectoryOrProject()));
+    a->setText(i18n("Open Folder..."));
+    a = actionCollection()->addAction(KStandardAction::Back, QStringLiteral("projects_prev_project"), this, SLOT(slotProjectPrev()));
     actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::ALT | Qt::Key_Left));
     a = actionCollection()->addAction(KStandardAction::Forward, QStringLiteral("projects_next_project"), this, SLOT(slotProjectNext()));
     actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::ALT | Qt::Key_Right));
@@ -636,6 +639,12 @@ void KateProjectPluginView::slotUpdateStatus(bool visible)
     if (auto widget = m_stackedgitViews->currentWidget()) {
         static_cast<GitWidget *>(widget)->getStatus();
     }
+}
+
+void KateProjectPluginView::openDirectoryOrProject()
+{
+    const QString dir = QFileDialog::getExistingDirectory(nullptr, i18n("Choose a directory"), QDir::currentPath());
+    m_plugin->projectForDir(dir, true);
 }
 
 #include "kateprojectpluginview.moc"

@@ -52,8 +52,8 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
     QAction *addFile = nullptr;
     QAction *addFolder = nullptr;
     if (index.data(KateProjectItem::TypeRole).toInt() == KateProjectItem::Directory) {
-        addFile = menu.addAction(QIcon::fromTheme(QStringLiteral("document-new")), i18n("&Add File"));
-        addFolder = menu.addAction(QIcon::fromTheme(QStringLiteral("folder-new")), i18n("&Add Folder"));
+        addFile = menu.addAction(QIcon::fromTheme(QStringLiteral("document-new")), i18n("Add File"));
+        addFolder = menu.addAction(QIcon::fromTheme(QStringLiteral("folder-new")), i18n("Add Folder"));
     }
 
     /**

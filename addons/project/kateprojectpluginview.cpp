@@ -644,7 +644,14 @@ void KateProjectPluginView::slotUpdateStatus(bool visible)
 void KateProjectPluginView::openDirectoryOrProject()
 {
     const QString dir = QFileDialog::getExistingDirectory(nullptr, i18n("Choose a directory"), QDir::currentPath());
-    m_plugin->projectForDir(dir, true);
+    auto project = m_plugin->projectForDir(dir, true);
+    // switch to this project
+    if (project) {
+        int index = m_projectsCombo->findData(project->fileName());
+        if (index >= 0) {
+            m_projectsCombo->setCurrentIndex(index);
+        }
+    }
 }
 
 #include "kateprojectpluginview.moc"

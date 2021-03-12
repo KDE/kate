@@ -1,5 +1,5 @@
 [Global]
-tools=15
+tools=18
 version=1
 
 [Tool 0]
@@ -190,4 +190,46 @@ name=GoImports Full File
 output=ReplaceCurrentDocument
 reload=false
 save=CurrentDocument
+workingDir=%{Document:Path}
+
+[Tool 15]
+actionName=externaltool_C++CompileRun
+arguments=-c 'g++ %{Document:FilePath} -o %{Document:FileBaseName} && ./%{Document:FileBaseName}'
+category=Tools
+executable=sh
+icon=text-x-c++src
+name=Compile and Run cpp
+output=DisplayInPane
+reload=false
+save=CurrentDocument
+workingDir=%{Document:Path}
+
+[Tool 16]
+actionName=externaltool_KDEAPI
+arguments="https://api.kde.org/search.html?query=%{Document:Selection:Text}"
+category=Tools
+cmdname=
+executable=xdg-open
+icon=kde
+input=
+mimetypes=
+name=Search KDE API
+output=Ignore
+reload=false
+save=None
+workingDir=%{Document:Path}
+
+[Tool 17]
+actionName=externaltool_QtAPI
+arguments="https://doc.qt.io/qt-5/search-results.html?q=%{Document:Selection:Text}"
+category=Tools
+cmdname=
+executable=xdg-open
+icon=qtcreator
+input=
+mimetypes=
+name=Search Qt API
+output=Ignore
+reload=false
+save=None
 workingDir=%{Document:Path}

@@ -55,9 +55,10 @@ public:
      * Will search upwards for .kateproject file.
      * Will use internally projectForFileName if project file is found.
      * @param dir dir to search matching project for
+     * @param userSpecified whether user asked to open a directory as project
      * @return project or null if not openable
      */
-    KateProject *projectForDir(QDir dir);
+    KateProject *projectForDir(QDir dir, bool userSpecified = false);
 
     /**
      * Search and open project that contains given url, if possible.

@@ -64,7 +64,7 @@ KateProjectPlugin::KateProjectPlugin(QObject *parent, const QList<QVariant> &)
     for (const QString &arg : qAsConst(args)) {
         QFileInfo info(arg);
         if (info.isDir()) {
-            projectForDir(info.absoluteFilePath());
+            projectForDir(info.absoluteFilePath(), true);
             projectSpecified = true;
         }
     }
@@ -136,7 +136,7 @@ KateProject *KateProjectPlugin::createProjectForFileName(const QString &fileName
     return project;
 }
 
-KateProject *KateProjectPlugin::projectForDir(QDir dir)
+KateProject *KateProjectPlugin::projectForDir(QDir dir, bool userSpecified)
 {
     /**
      * Save dir to create a project from directory if nothing works
@@ -193,7 +193,14 @@ KateProject *KateProjectPlugin::projectForDir(QDir dir)
     /**
      * Version control not found? Load the directory as project
      */
-    return createProjectForDirectory(originalDir);
+    if (userSpecified) {
+        return createProjectForDirectory(originalDir);
+    }
+
+    /**
+     * Give up
+     */
+    return nullptr;
 }
 
 KateProject *KateProjectPlugin::projectForUrl(const QUrl &url)
@@ -303,7 +310,6 @@ KateProject *KateProjectPlugin::createProjectForDirectory(const QDir &dir)
 {
     QVariantMap cnf, files;
     files[QStringLiteral("directory")] = QStringLiteral("./");
-    qWarning() << files;
     cnf[QStringLiteral("name")] = dir.dirName();
     cnf[QStringLiteral("files")] = (QVariantList() << files);
 

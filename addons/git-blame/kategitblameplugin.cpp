@@ -80,8 +80,13 @@ void GitBlameInlineNoteProvider::paintInlineNote(const KTextEditor::InlineNote &
     int lineNr = note.position().line();
     const KateGitBlameInfo &info = m_pluginView->blameInfo(lineNr);
 
-    QString text = info.title.isEmpty() ? QStringLiteral(" %1: %2 ").arg(info.name, m_locale.toString(info.date, QLocale::NarrowFormat))
-                                        : QStringLiteral(" %1: %2: %3 ").arg(info.name, m_locale.toString(info.date, QLocale::NarrowFormat), info.title);
+    QString text = info.title.isEmpty()
+        ? i18nc("git-balme information \"author: date \"", " %1: %2 ", info.name, m_locale.toString(info.date, QLocale::NarrowFormat))
+        : i18nc("git-balme information \"author: date: commit title \"",
+                " %1: %2: %3 ",
+                info.name,
+                m_locale.toString(info.date, QLocale::NarrowFormat),
+                info.title);
     QRect rectangle{0, 0, fm.horizontalAdvance(text), note.lineHeight()};
 
     auto editor = KTextEditor::Editor::instance();
@@ -354,11 +359,7 @@ const KateGitBlameInfo &KateGitBlamePluginView::blameInfo(int lineNr)
 
 const KateGitBlameInfo &KateGitBlamePluginView::blameGetUpdateInfo(int lineNr)
 {
-    static const KateGitBlameInfo dummy{QStringLiteral("hash"),
-                                        i18n("Not Committed Yet"),
-                                        QDateTime::currentDateTime(),
-                                        QStringLiteral(""),
-                                        QStringLiteral("")};
+    static const KateGitBlameInfo dummy{QStringLiteral("hash"), i18n("Not Committed Yet"), QDateTime::currentDateTime(), QString(), QString()};
 
     if (m_blameInfo.isEmpty() || lineNr < 0 || lineNr >= m_blameInfo.size()) {
         return dummy;

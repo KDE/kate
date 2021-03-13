@@ -59,6 +59,7 @@ target_sources(
     kateprojectconfigpage.cpp
     kateprojectcodeanalysistool.cpp
     branchesdialog.cpp
+    branchcheckoutdialog.cpp
     branchesdialogmodel.cpp
     gitwidget.cpp
     gitstatusmodel.cpp

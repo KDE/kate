@@ -744,7 +744,7 @@ void GitWidget::buildMenu()
         }
     });
     m_gitMenu->addAction(i18n("Checkout Branch"), this, [this] {
-        BranchesDialog bd(m_mainWin->window(), m_pluginView, m_project->baseDir());
+        BranchCheckoutDialog bd(m_mainWin->window(), m_pluginView, m_project->baseDir());
         bd.openDialog();
     });
 

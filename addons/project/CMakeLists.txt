@@ -68,6 +68,7 @@ target_sources(
     filehistorywidget.cpp
     quickdialog.cpp
     pushpulldialog.cpp
+    comarebranchesview.cpp
 
     tools/kateprojectcodeanalysistoolcppcheck.cpp
     tools/kateprojectcodeanalysistoolflake8.cpp

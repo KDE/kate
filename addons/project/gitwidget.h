@@ -25,6 +25,7 @@ class QToolButton;
 class QTemporaryFile;
 class KateProjectPluginView;
 class GitWidgetTreeView;
+class QStackedWidget;
 
 namespace KTextEditor
 {
@@ -67,6 +68,9 @@ private:
     QMenu *m_gitMenu;
     KateProjectPluginView *m_pluginView;
 
+    QWidget *m_mainView;
+    QStackedWidget *m_stackWid;
+
     using CancelHandle = QPointer<QProcess>;
     CancelHandle m_cancelHandle;
 
@@ -86,6 +90,7 @@ private:
     void commitChanges(const QString &msg, const QString &desc, bool signOff);
     void applyDiff(const QString &fileName, bool staged, bool hunk, KTextEditor::View *v);
     void numStatForStatus(QVector<GitUtils::StatusItem> &list, bool modified);
+    void branchCompareFiles(const QString &from, const QString &to);
     QMenu *stashMenu();
 
     void hideEmptyTreeNodes();

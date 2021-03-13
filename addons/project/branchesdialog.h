@@ -3,6 +3,9 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
+#ifndef BRANCHES_DIALOG_H
+#define BRANCHES_DIALOG_H
+
 #include <QFutureWatcher>
 #include <QMenu>
 
@@ -27,25 +30,28 @@ class BranchesDialog : public QuickDialog
     Q_OBJECT
 public:
     BranchesDialog(QWidget *window, KateProjectPluginView *pluginView, QString projectPath);
-    ~BranchesDialog();
-    void openDialog();
+    void openDialog(GitUtils::RefType r);
+    void sendMessage(const QString &message, bool warn);
+    QString branch() const
+    {
+        return m_branch;
+    }
+
+Q_SIGNALS:
+    void branchSelected(const QString &branch);
 
 private Q_SLOTS:
     void slotReturnPressed() override;
     void reselectFirst();
-    void onCheckoutDone();
 
-private:
-    void resetValues();
-    void sendMessage(const QString &message, bool warn);
-    void createNewBranch(const QString &branch, const QString &fromBranch = QString());
-
-private:
+protected:
     BranchesDialogModel *m_model;
-    BranchFilterModel *m_proxyModel;
-    KateProjectPluginView *m_pluginView;
+    QSortFilterProxyModel *m_proxyModel;
     QString m_projectPath;
-    QFutureWatcher<GitUtils::CheckoutResult> m_checkoutWatcher;
-    QString m_checkoutBranchName;
-    bool m_checkingOutFromBranch = false;
+
+private:
+    KateProjectPluginView *m_pluginView;
+    QString m_branch;
 };
+
+#endif

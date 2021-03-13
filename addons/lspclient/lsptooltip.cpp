@@ -22,138 +22,9 @@
 #include <KTextEditor/Editor>
 #include <KTextEditor/View>
 
-#include <KSyntaxHighlighting/AbstractHighlighter>
 #include <KSyntaxHighlighting/Definition>
-#include <KSyntaxHighlighting/Format>
 #include <KSyntaxHighlighting/Repository>
-#include <KSyntaxHighlighting/State>
-
-using KSyntaxHighlighting::AbstractHighlighter;
-using KSyntaxHighlighting::Format;
-
-static QString toHtmlRgbaString(const QColor &color)
-{
-    if (color.alpha() == 0xFF)
-        return color.name();
-
-    QString rgba = QStringLiteral("rgba(");
-    rgba.append(QString::number(color.red()));
-    rgba.append(QLatin1Char(','));
-    rgba.append(QString::number(color.green()));
-    rgba.append(QLatin1Char(','));
-    rgba.append(QString::number(color.blue()));
-    rgba.append(QLatin1Char(','));
-    // this must be alphaF
-    rgba.append(QString::number(color.alphaF()));
-    rgba.append(QLatin1Char(')'));
-    return rgba;
-}
-
-class HtmlHl : public AbstractHighlighter
-{
-public:
-    HtmlHl()
-        : out(&outputString)
-    {
-    }
-
-    void setText(const QString &txt)
-    {
-        text = txt;
-        QTextStream in(&text);
-
-        out.reset();
-        outputString.clear();
-
-        bool inCodeBlock = false;
-
-        KSyntaxHighlighting::State state;
-        bool li = false;
-        // World's smallest markdown parser :)
-        while (!in.atEnd()) {
-            currentLine = in.readLine();
-
-            // allow empty lines in code blocks, no ruler here
-            if (!inCodeBlock && currentLine.isEmpty()) {
-                out << "<hr>";
-                continue;
-            }
-
-            // list
-            if (!li && currentLine.startsWith(QLatin1String("- "))) {
-                currentLine.remove(0, 2);
-                out << "<ul><li>";
-                li = true;
-            } else if (li && currentLine.startsWith(QLatin1String("- "))) {
-                currentLine.remove(0, 2);
-                out << "<li>";
-            } else if (li) {
-                out << "</li></ul>";
-                li = false;
-            }
-
-            // code block
-            if (!inCodeBlock && currentLine.startsWith(QLatin1String("```"))) {
-                inCodeBlock = true;
-                continue;
-            } else if (inCodeBlock && currentLine.startsWith(QLatin1String("```"))) {
-                inCodeBlock = false;
-                continue;
-            }
-
-            // ATX heading
-            if (currentLine.startsWith(QStringLiteral("# "))) {
-                currentLine.remove(0, 2);
-                currentLine = QStringLiteral("<h3>") + currentLine + QStringLiteral("</h3>");
-                out << currentLine;
-                continue;
-            }
-
-            state = highlightLine(currentLine, state);
-            if (li) {
-                out << "</li>";
-                continue;
-            }
-            out << "\n<br>";
-        }
-    }
-
-    QString html() const
-    {
-        //        while (!out.atEnd())
-        //            qWarning() << out.readLine();
-        return outputString;
-    }
-
-protected:
-    void applyFormat(int offset, int length, const Format &format) override
-    {
-        if (!length)
-            return;
-
-        QString formatOutput;
-
-        if (format.hasTextColor(theme())) {
-            formatOutput = toHtmlRgbaString(format.textColor(theme()));
-        }
-
-        if (!formatOutput.isEmpty()) {
-            out << "<span style=\"color:" << formatOutput << "\">";
-        }
-
-        out << currentLine.mid(offset, length).toHtmlEscaped();
-
-        if (!formatOutput.isEmpty()) {
-            out << "</span>";
-        }
-    }
-
-private:
-    QString text;
-    QString currentLine;
-    QString outputString;
-    QTextStream out;
-};
+#include <KSyntaxHighlighting/SyntaxHighlighter>
 
 class Tooltip : public QTextBrowser
 {
@@ -165,8 +36,10 @@ public:
         if (text.isEmpty())
             return;
 
-        hl.setText(text);
-        setHtml(hl.html());
+        QString htext = text;
+        // we have to do this to handle soft line
+        htext.replace(QLatin1Char('\n'), QStringLiteral("  \n"));
+        setMarkdown(htext);
         resizeTip(text);
     }
 
@@ -193,6 +66,7 @@ public:
 
     Tooltip(QWidget *parent)
         : QTextBrowser(parent)
+        , hl(document())
     {
         setWindowFlags(Qt::FramelessWindowHint | Qt::BypassGraphicsProxyWidget | Qt::ToolTip);
         setAttribute(Qt::WA_DeleteOnClose, true);
@@ -202,6 +76,9 @@ public:
 
         setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
         setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+
+        // doc links
+        setOpenExternalLinks(true);
 
         auto updateColors = [this](KTextEditor::Editor *e) {
             auto theme = e->theme();
@@ -345,7 +222,7 @@ private:
     bool inContextMenu = false;
     QPointer<KTextEditor::View> m_view;
     QTimer m_hideTimer;
-    HtmlHl hl;
+    KSyntaxHighlighting::SyntaxHighlighter hl;
 };
 
 void LspTooltip::show(const QString &text, QPoint pos, KTextEditor::View *v)

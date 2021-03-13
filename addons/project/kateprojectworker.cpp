@@ -38,7 +38,7 @@ void KateProjectWorker::run()
      */
     KateProjectSharedQStandardItem topLevel(new QStandardItem());
     KateProjectSharedQHashStringItem file2Item(new QHash<QString, KateProjectItem *>());
-    loadProject(topLevel.data(), m_projectMap, file2Item.data());
+    loadProject(topLevel.data(), m_projectMap, file2Item.data(), m_baseDir);
 
     /**
      * sort the stuff once recursively, this is a LOT faster than once sorting the list
@@ -90,7 +90,7 @@ void KateProjectWorker::run()
     Q_EMIT loadIndexDone(index);
 }
 
-void KateProjectWorker::loadProject(QStandardItem *parent, const QVariantMap &project, QHash<QString, KateProjectItem *> *file2Item)
+void KateProjectWorker::loadProject(QStandardItem *parent, const QVariantMap &project, QHash<QString, KateProjectItem *> *file2Item, const QString &baseDir)
 {
     /**
      * recurse to sub-projects FIRST
@@ -110,7 +110,7 @@ void KateProjectWorker::loadProject(QStandardItem *parent, const QVariantMap &pr
          * recurse
          */
         QStandardItem *subProjectItem = new KateProjectItem(KateProjectItem::Project, subProject[keyName].toString());
-        loadProject(subProjectItem, subProject, file2Item);
+        loadProject(subProjectItem, subProject, file2Item, baseDir);
         parent->appendRow(subProjectItem);
     }
 
@@ -120,7 +120,7 @@ void KateProjectWorker::loadProject(QStandardItem *parent, const QVariantMap &pr
     const QString keyFiles = QStringLiteral("files");
     const QVariantList files = project[keyFiles].toList();
     for (const QVariant &fileVariant : files) {
-        loadFilesEntry(parent, fileVariant.toMap(), file2Item);
+        loadFilesEntry(parent, fileVariant.toMap(), file2Item, baseDir);
     }
 }
 
@@ -187,9 +187,12 @@ static QStandardItem *directoryParent(const QDir &base, QHash<QString, QStandard
     return item;
 }
 
-void KateProjectWorker::loadFilesEntry(QStandardItem *parent, const QVariantMap &filesEntry, QHash<QString, KateProjectItem *> *file2Item)
+void KateProjectWorker::loadFilesEntry(QStandardItem *parent,
+                                       const QVariantMap &filesEntry,
+                                       QHash<QString, KateProjectItem *> *file2Item,
+                                       const QString &baseDir)
 {
-    QDir dir(m_baseDir);
+    QDir dir(baseDir);
     if (!dir.cd(filesEntry[QStringLiteral("directory")].toString())) {
         return;
     }
@@ -370,9 +373,9 @@ QVector<QString> KateProjectWorker::findFiles(const QDir &dir, const QVariantMap
          * all code later requires this and the filesFrom... routines do this, too, internally
          * even without this, the tree views will show them, but opening them will create new elements!
          */
-        for (auto &file : userGivenFilesList) {
-            file = dir.absoluteFilePath(file);
-        }
+        //        for (auto &file : userGivenFilesList) {
+        //            file = dir.absoluteFilePath(file);
+        //        }
 
         /**
          * users might have specified duplicates, this can't happen for the other ways

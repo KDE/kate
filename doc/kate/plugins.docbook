@@ -1506,6 +1506,12 @@ the folder in addition to the name of the folder.  It has no effect in List
 View.</para></listitem>
 </varlistentry>
 
+<varlistentry>
+<term><guilabel>Show Close Button</guilabel></term>
+<listitem><para>When this option is enabled, &kate; will show a close button
+for opened documents on hover.</para></listitem>
+</varlistentry>
+
 </variablelist>
 
 </sect2>

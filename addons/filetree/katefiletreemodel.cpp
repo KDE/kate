@@ -1326,8 +1326,8 @@ void KateFileTreeModel::setupIcon(ProxyItem *item) const
 
 void KateFileTreeModel::resetHistory()
 {
-    QSet<ProxyItem *> list = QSet<ProxyItem *>::fromList(m_viewHistory);
-    list += QSet<ProxyItem *>::fromList(m_editHistory);
+    QSet<ProxyItem *> list{m_viewHistory.begin(), m_viewHistory.end()};
+    list += QSet<ProxyItem *>{m_editHistory.begin(), m_editHistory.end()};
 
     m_viewHistory.clear();
     m_editHistory.clear();

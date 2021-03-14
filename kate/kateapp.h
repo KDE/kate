@@ -223,6 +223,28 @@ public:
     bool setCursor(int line, int column);
 
     /**
+     * Checks if --line and/or --column args were provided and attempts
+     * to set cursor position in the provided or active view accordingly.
+     *
+     * @param view Optional view to apply changes on.
+     */
+    void setCursorFromArgs(KTextEditor::View *view = nullptr);
+
+    /**
+     * Checks if line or column were provided in query string
+     * (e.g. file:///file1?line=3&column=4) and attempts to set cursor
+     * position in the provided or active view accordingly.
+     *
+     * @param view Optional view to apply changes on.
+     */
+    void setCursorFromQueryString(KTextEditor::View *view = nullptr);
+
+    /**
+     * @return true if --line or --column command line args were provided
+     */
+    bool hasCursorInArgs();
+
+    /**
      * helper to handle stdin input
      * open a new document/view, fill it with the text given
      * @param text text to fill in the new doc/view

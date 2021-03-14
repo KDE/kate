@@ -136,7 +136,8 @@ public:
     static const uint64_t ModifierMask =
         Qt::ShiftModifier | Qt::ControlModifier | Qt::AltModifier | Qt::MetaModifier | Qt::KeypadModifier | Qt::GroupSwitchModifier;
 
-    Private() : QTextBrowser(nullptr)
+    Private()
+        : QTextBrowser(nullptr)
     {
         setWindowFlags(Qt::FramelessWindowHint | Qt::BypassGraphicsProxyWidget | Qt::ToolTip);
         setWordWrapMode(QTextOption::NoWrap);
@@ -168,20 +169,17 @@ public:
     {
         switch (event->type()) {
         case QEvent::KeyPress:
-        case QEvent::ShortcutOverride:
-        {
+        case QEvent::ShortcutOverride: {
             QKeyEvent *ke = static_cast<QKeyEvent *>(event);
             if (ke->matches(QKeySequence::Copy)) {
                 copy();
-            }
-            else if (ke->matches(QKeySequence::SelectAll)) {
+            } else if (ke->matches(QKeySequence::SelectAll)) {
                 selectAll();
             }
             event->accept();
             return true;
         }
-        case QEvent::KeyRelease:
-        {
+        case QEvent::KeyRelease: {
             QKeyEvent *ke = static_cast<QKeyEvent *>(event);
             int ignoreKey = 0;
             if (m_ignoreKeySequence.count() > 0) {
@@ -269,9 +267,7 @@ protected:
 
     void leaveEvent(QEvent *event) override
     {
-        if (!m_hideTimer.isActive() && !m_inContextMenu &&
-            textCursor().selectionStart() == textCursor().selectionEnd()
-        ) {
+        if (!m_hideTimer.isActive() && !m_inContextMenu && textCursor().selectionStart() == textCursor().selectionEnd()) {
             hideTooltip();
         }
         return QTextBrowser::leaveEvent(event);
@@ -280,9 +276,7 @@ protected:
     void mouseMoveEvent(QMouseEvent *event) override
     {
         auto pos = event->pos();
-        if (rect().contains(pos) || m_inContextMenu ||
-            textCursor().selectionStart() != textCursor().selectionEnd()
-        ) {
+        if (rect().contains(pos) || m_inContextMenu || textCursor().selectionStart() != textCursor().selectionEnd()) {
             return QTextBrowser::mouseMoveEvent(event);
         }
         hideTooltip();
@@ -302,9 +296,14 @@ private:
     KSyntaxHighlighting::Repository m_syntaxHlRepo;
 };
 
-
-GitBlameTooltip::GitBlameTooltip() : d(new GitBlameTooltip::Private()) {}
-GitBlameTooltip::~GitBlameTooltip() { delete d; }
+GitBlameTooltip::GitBlameTooltip()
+    : d(new GitBlameTooltip::Private())
+{
+}
+GitBlameTooltip::~GitBlameTooltip()
+{
+    delete d;
+}
 
 void GitBlameTooltip::show(const QString &text, QPointer<KTextEditor::View> view)
 {

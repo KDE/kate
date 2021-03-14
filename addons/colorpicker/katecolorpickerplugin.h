@@ -29,7 +29,7 @@ public:
 
     void updateColorMatchingCriteria();
     // if startLine == -1, update all notes. endLine is optional
-    void updateNotes(int startLine=-1, int endLine=-1);
+    void updateNotes(int startLine = -1, int endLine = -1);
 
     QVector<int> inlineNotes(int line) const override;
     QSize inlineNoteSize(const KTextEditor::InlineNote &note) const override;
@@ -43,8 +43,8 @@ private:
     int m_previousNumLines = -1;
 
     struct ColorIndices {
-        // When m_putPreviewAfterColor is true, otherColorIndices holds the starting color indices while colorNoteIndices holds the end color indices (and vice versa)
-        // colorNoteIndices[i] corresponds to otherColorIndices[i]
+        // When m_putPreviewAfterColor is true, otherColorIndices holds the starting color indices while colorNoteIndices holds the end color indices (and vice
+        // versa) colorNoteIndices[i] corresponds to otherColorIndices[i]
         QVector<int> colorNoteIndices;
         QVector<int> otherColorIndices;
     };

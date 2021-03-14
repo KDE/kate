@@ -11,18 +11,18 @@
 #include <ktexteditorpreview_debug.h>
 
 // KF
-#include <KTextEditor/Document>
-#include <KTextEditor/MainWindow>
-#include <KTextEditor/View>
 #include <KAboutPluginDialog>
-#include <KPluginMetaData>
 #include <KConfigGroup>
 #include <KGuiItem>
 #include <KLocalizedString>
 #include <KMimeTypeTrader>
 #include <KParts/ReadOnlyPart>
+#include <KPluginMetaData>
 #include <KService>
 #include <KSharedConfig>
+#include <KTextEditor/Document>
+#include <KTextEditor/MainWindow>
+#include <KTextEditor/View>
 #include <KToggleAction>
 #include <KXMLGUIFactory>
 

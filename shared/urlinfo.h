@@ -13,6 +13,7 @@
 #include <QRegularExpression>
 #include <QString>
 #include <QUrl>
+#include <QUrlQuery>
 
 /**
  * Represents a file to be opened, consisting of its URL and the cursor to jump to.
@@ -89,6 +90,35 @@ public:
          * - remote urls, e.g. sftp://1.2.3.4:22/path/to/some/file
          */
         url = QUrl::fromUserInput(path, QString(), QUrl::AssumeLocalFile);
+
+        /**
+         * Set cursor position if we can extract from URL query string
+         */
+        if (url.hasQuery()) {
+            QUrlQuery urlQuery(url);
+            QString lineStr = urlQuery.queryItemValue(QStringLiteral("line"));
+            QString columnStr = urlQuery.queryItemValue(QStringLiteral("column"));
+
+            int line = 0;
+            int column = 0;
+            bool setCursor = false;
+
+            if (!lineStr.isEmpty()) {
+                line = lineStr.toInt();
+                line > 0 && line--;
+                setCursor = true;
+            }
+
+            if (!columnStr.isEmpty()) {
+                column = columnStr.toInt();
+                column > 0 && column--;
+                setCursor = true;
+            }
+
+            if (setCursor) {
+                cursor.setPosition(line, column);
+            }
+        }
     }
 
     /**

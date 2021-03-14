@@ -1669,7 +1669,8 @@ public:
         h({m_accept_edit, QString()});
     }
 
-    template<typename Collection> void checkEditResult(const Collection &c)
+    template<typename Collection>
+    void checkEditResult(const Collection &c)
     {
         if (c.empty()) {
             showMessage(i18n("No edits"), KTextEditor::Message::Information);
@@ -2184,7 +2185,7 @@ public:
             lineRanges.clear();
             //             qDebug() << "line:" << line.line << ", toks " << line.tokens.size();
             for (const auto &token : line.tokens) {
-//                 qDebug() << "token:" << token.character << token.length << token.scope;
+                //                 qDebug() << "token:" << token.character << token.length << token.scope;
                 auto attribute = scopes.attrForScope(token.scope);
                 if (!attribute) {
                     continue;

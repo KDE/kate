@@ -30,6 +30,11 @@ void UrlInfoTest::someCursors()
     QCOMPARE(UrlInfo(QStringLiteral("file:///for_sure_not_there_path_xxcv123/to/file:1234:12")).cursor, KTextEditor::Cursor(1233, 11));
     QCOMPARE(UrlInfo(QStringLiteral("sftp://127.0.0.1:1234/path/to/file:1:1")).url.toString(), QStringLiteral("sftp://127.0.0.1:1234/path/to/file"));
     QCOMPARE(UrlInfo(QStringLiteral("sftp://127.0.0.1:1234/path/to/file:1:1")).cursor, KTextEditor::Cursor(0, 0));
+    // check url query string to cursor
+    QCOMPARE(UrlInfo(QStringLiteral("sftp://127.0.0.1:1234/path/to/file?line=2&column=3")).cursor, KTextEditor::Cursor(1, 2));
+    QCOMPARE(UrlInfo(QStringLiteral("fish://remote/file?some=variable&line=4&")).cursor, KTextEditor::Cursor(3, 0));
+    QCOMPARE(UrlInfo(QStringLiteral("file:///directory/file?some=variable&column=5&other=value&line=6")).cursor, KTextEditor::Cursor(5, 4));
+    QCOMPARE(UrlInfo(QStringLiteral("~/file?line=7")).url.hasQuery(), false);
 }
 
 void UrlInfoTest::urlWithColonAtStart()

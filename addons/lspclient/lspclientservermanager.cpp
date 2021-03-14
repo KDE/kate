@@ -64,7 +64,6 @@ static QString rootForDocumentAndRootIndicationFileName(KTextEditor::Document *d
 
 #include <memory>
 
-
 // helper guard to handle revision (un)lock
 struct RevisionGuard {
     QPointer<KTextEditor::Document> m_doc;

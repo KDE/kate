@@ -680,7 +680,7 @@ void KateViewSpace::restoreConfig(KateViewManager *viewMan, const KConfigBase *c
                 // with applying saved session settings until the remote's temp file is initialised.
                 if (!view->document()->url().isLocalFile()) {
                     QSharedPointer<QMetaObject::Connection> conn(new QMetaObject::Connection());
-                    auto handler = [conn, view, configGroup](KTextEditor::Document *doc) {
+                    auto handler = [conn, view, configGroup](KTextEditor::Document *) {
                         disconnect(*conn);
                         view->readSessionConfig(configGroup);
                     };

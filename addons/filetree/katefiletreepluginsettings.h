@@ -36,6 +36,9 @@ public:
     bool showFullPathOnRoots() const;
     void setShowFullPathOnRoots(bool);
 
+    bool showToolbar() const;
+    void setShowToolbar(bool);
+
     bool showCloseButton() const;
     void setShowCloseButton(bool);
 
@@ -50,6 +53,7 @@ private:
     int m_sortRole;
 
     bool m_showFullPathOnRoots;
+    bool m_showToolbar;
     bool m_showCloseButton;
 };
 

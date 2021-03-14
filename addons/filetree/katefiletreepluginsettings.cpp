@@ -25,6 +25,8 @@ KateFileTreePluginSettings::KateFileTreePluginSettings()
     m_sortRole = m_group.readEntry("sortRole", int(Qt::DisplayRole));
 
     m_showFullPathOnRoots = m_group.readEntry("showFullPathOnRoots", false);
+    
+    m_showToolbar = m_group.readEntry("showToolbar", true);
 
     m_showCloseButton = m_group.readEntry("showCloseButton", false);
 }
@@ -37,6 +39,7 @@ void KateFileTreePluginSettings::save()
     m_group.writeEntry("listMode", m_listMode);
     m_group.writeEntry("sortRole", m_sortRole);
     m_group.writeEntry("showFullPathOnRoots", m_showFullPathOnRoots);
+    m_group.writeEntry("showToolbar", m_showToolbar);
     m_group.writeEntry("showCloseButton", m_showCloseButton);
 
     m_group.sync();
@@ -100,6 +103,16 @@ bool KateFileTreePluginSettings::showFullPathOnRoots() const
 void KateFileTreePluginSettings::setShowFullPathOnRoots(bool s)
 {
     m_showFullPathOnRoots = s;
+}
+
+bool KateFileTreePluginSettings::showToolbar() const
+{
+    return m_showToolbar;
+}
+
+void KateFileTreePluginSettings::setShowToolbar(bool s)
+{
+    m_showToolbar = s;
 }
 
 bool KateFileTreePluginSettings::showCloseButton() const

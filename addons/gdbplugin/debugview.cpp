@@ -202,7 +202,7 @@ void DebugView::slotInterrupt()
     if (m_state == executingCmd) {
         m_debugLocationChanged = true;
     }
-    int pid = m_debugProcess.pid();
+    const auto pid = m_debugProcess.processId();
     if (pid != 0) {
         ::kill(pid, SIGINT);
     }

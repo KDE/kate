@@ -90,6 +90,7 @@ void KateFileTreePlugin::applyConfig(bool shadingEnabled,
                                      bool listMode,
                                      int sortRole,
                                      bool showFullPath,
+                                     bool showToolbar,
                                      bool showCloseButton)
 {
     // save to settings
@@ -100,6 +101,7 @@ void KateFileTreePlugin::applyConfig(bool shadingEnabled,
     m_settings.setListMode(listMode);
     m_settings.setSortRole(sortRole);
     m_settings.setShowFullPathOnRoots(showFullPath);
+    m_settings.setShowToolbar(showToolbar);
     m_settings.setShowCloseButton(showCloseButton);
     m_settings.save();
 
@@ -112,6 +114,7 @@ void KateFileTreePlugin::applyConfig(bool shadingEnabled,
         view->setListMode(listMode);
         view->proxy()->setSortRole(sortRole);
         view->model()->setShowFullPathOnRoots(showFullPath);
+        view->setToolbarVisible(showToolbar);
         view->tree()->setShowCloseButton(showCloseButton);
     }
 }
@@ -208,6 +211,8 @@ KateFileTreePluginView::KateFileTreePluginView(KTextEditor::MainWindow *mainWind
     setupActions();
 
     mainWindow->guiFactory()->addClient(this);
+    
+    setToolbarVisible(m_plug->settings().showToolbar());
 
     m_proxyModel->setSortRole(Qt::DisplayRole);
 
@@ -309,6 +314,11 @@ void KateFileTreePluginView::documentClosed(KTextEditor::Document *doc)
 {
     m_documentsCreated.removeAll(doc);
     m_proxyModel->invalidate();
+}
+
+void KateFileTreePluginView::setToolbarVisible(bool visible)
+{
+    m_toolbar->setVisible(visible);
 }
 
 void KateFileTreePluginView::viewChanged(KTextEditor::View *)

@@ -4,7 +4,6 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-
 #ifndef KateGitBlamePlugin_h
 #define KateGitBlamePlugin_h
 
@@ -17,13 +16,13 @@
 
 #include <QProcess>
 
+#include <QDateTime>
 #include <QHash>
 #include <QList>
+#include <QLocale>
 #include <QRegularExpression>
 #include <QVariant>
 #include <QVector>
-#include <QDateTime>
-#include <QLocale>
 
 struct KateGitBlameInfo {
     QString commitHash;
@@ -52,8 +51,6 @@ private:
     KateGitBlamePluginView *m_pluginView;
     QLocale m_locale;
 };
-
-
 
 class KateGitBlamePlugin : public KTextEditor::Plugin
 {

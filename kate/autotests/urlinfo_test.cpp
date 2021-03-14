@@ -35,7 +35,6 @@ void UrlInfoTest::someCursors()
     QCOMPARE(UrlInfo(QStringLiteral("fish://remote/file?some=variable&line=4&")).cursor, KTextEditor::Cursor(3, 0));
     QCOMPARE(UrlInfo(QStringLiteral("file:///directory/file?some=variable&column=5&other=value&line=6")).cursor, KTextEditor::Cursor(5, 4));
     QCOMPARE(UrlInfo(QStringLiteral("~/file?line=7")).url.hasQuery(), false);
-
 }
 
 void UrlInfoTest::urlWithColonAtStart()

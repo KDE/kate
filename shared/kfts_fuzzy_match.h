@@ -178,8 +178,17 @@ static bool fuzzy_internal::fuzzy_match_recursive(QStringView::const_iterator pa
             int recursiveScore = 0;
             const auto strNextChar = std::next(str);
             if (!matchingInSequence
-                && fuzzy_match_recursive(
-                    pattern, strNextChar, recursiveScore, strBegin, strEnd, patternEnd, matches, recursiveMatches, nextMatch, totalMatches, recursionCount)) {
+                && fuzzy_match_recursive(pattern,
+                                         strNextChar,
+                                         recursiveScore,
+                                         strBegin,
+                                         strEnd,
+                                         patternEnd,
+                                         matches,
+                                         recursiveMatches,
+                                         nextMatch,
+                                         totalMatches,
+                                         recursionCount)) {
                 // Pick best recursive score
                 if (!recursiveMatch || recursiveScore > bestRecursiveScore) {
                     memcpy(bestRecursiveMatches, recursiveMatches, maxMatches);

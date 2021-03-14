@@ -48,9 +48,9 @@ ColorPickerInlineNoteProvider::ColorPickerInlineNoteProvider(KTextEditor::Docume
     auto lineChanged = [this](const int line) {
         if (m_startChangedLines == -1 || m_endChangedLines == -1) {
             m_startChangedLines = line;
-        // changed line is directly above/below the previous changed line, so we just update them
+            // changed line is directly above/below the previous changed line, so we just update them
         } else if (line == m_endChangedLines) { // handled below. Condition added here to avoid fallthrough
-        } else if (line == m_startChangedLines-1) {
+        } else if (line == m_startChangedLines - 1) {
             m_startChangedLines = line;
         } else if (line < m_startChangedLines || line > m_endChangedLines) {
             // changed line is outside the range of previous changes. Change proably skipped lines
@@ -126,10 +126,11 @@ void ColorPickerInlineNoteProvider::updateColorMatchingCriteria()
         colorRegex = QLatin1String("(?!)");
     }
 
-   m_colorRegex.setPattern(colorRegex);
+    m_colorRegex.setPattern(colorRegex);
 }
 
-void ColorPickerInlineNoteProvider::updateNotes(int startLine, int endLine) {
+void ColorPickerInlineNoteProvider::updateNotes(int startLine, int endLine)
+{
     startLine = startLine < -1 ? -1 : startLine;
     if (startLine == -1) {
         startLine = 0;
@@ -161,8 +162,7 @@ QVector<int> ColorPickerInlineNoteProvider::inlineNotes(int line) const
                 continue;
             }
 
-            if (lineText.at(match.capturedStart()) == QLatin1Char('#')
-                && !m_matchHexLengths.contains(match.capturedLength()-1)) {
+            if (lineText.at(match.capturedStart()) == QLatin1Char('#') && !m_matchHexLengths.contains(match.capturedLength() - 1)) {
                 // matching for this hex color format is disabled
                 continue;
             }
@@ -184,7 +184,7 @@ QVector<int> ColorPickerInlineNoteProvider::inlineNotes(int line) const
 
 QSize ColorPickerInlineNoteProvider::inlineNoteSize(const KTextEditor::InlineNote &note) const
 {
-    return QSize(note.lineHeight()-1, note.lineHeight()-1);
+    return QSize(note.lineHeight() - 1, note.lineHeight() - 1);
 }
 
 void ColorPickerInlineNoteProvider::paintInlineNote(const KTextEditor::InlineNote &note, QPainter &painter) const
@@ -193,7 +193,8 @@ void ColorPickerInlineNoteProvider::paintInlineNote(const KTextEditor::InlineNot
     auto colorEnd = note.position().column();
 
     const QVector<int> &colorNoteIndices = m_colorNoteIndices[line].colorNoteIndices;
-    // Since the colorNoteIndices are inserted in left-to-right (increasing) order in inlineNotes(), we can use binary search to find the index (or color note number) for the line
+    // Since the colorNoteIndices are inserted in left-to-right (increasing) order in inlineNotes(), we can use binary search to find the index (or color note
+    // number) for the line
     const int colorNoteNumber = std::lower_bound(colorNoteIndices.cbegin(), colorNoteIndices.cend(), colorEnd) - colorNoteIndices.cbegin();
     auto colorStart = m_colorNoteIndices[line].otherColorIndices[colorNoteNumber];
 
@@ -223,7 +224,8 @@ void ColorPickerInlineNoteProvider::inlineNoteActivated(const KTextEditor::Inlin
     auto colorEnd = note.position().column();
 
     const QVector<int> &colorNoteIndices = m_colorNoteIndices[line].colorNoteIndices;
-    // Since the colorNoteIndices are inserted in left-to-right (increasing) order in inlineNotes, we can use binary search to find the index (or color note number) for the line
+    // Since the colorNoteIndices are inserted in left-to-right (increasing) order in inlineNotes, we can use binary search to find the index (or color note
+    // number) for the line
     const int colorNoteNumber = std::lower_bound(colorNoteIndices.cbegin(), colorNoteIndices.cend(), colorEnd) - colorNoteIndices.cbegin();
     auto colorStart = m_colorNoteIndices[line].otherColorIndices[colorNoteNumber];
     if (colorStart > colorEnd) {
@@ -238,7 +240,7 @@ void ColorPickerInlineNoteProvider::inlineNoteActivated(const KTextEditor::Inlin
         dialogOptions |= QColorDialog::NoButtons;
         title = i18n("View Color [Read only]");
     }
-    const QColor newColor = QColorDialog::getColor(oldColor, const_cast<KTextEditor::View*>(note.view()), title, dialogOptions);
+    const QColor newColor = QColorDialog::getColor(oldColor, const_cast<KTextEditor::View *>(note.view()), title, dialogOptions);
     if (!newColor.isValid()) {
         return;
     }
@@ -285,7 +287,8 @@ void KateColorPickerPlugin::addDocument(KTextEditor::Document *doc)
     });
 }
 
-void KateColorPickerPlugin::readConfig() {
+void KateColorPickerPlugin::readConfig()
+{
     for (auto colorNoteProvider : m_inlineColorNoteProviders.values()) {
         colorNoteProvider->updateColorMatchingCriteria();
         colorNoteProvider->updateNotes();

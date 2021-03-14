@@ -198,7 +198,7 @@ bool KateApp::startupKate()
     KTextEditor::Document *doc = nullptr;
     const QString codec_name = codec ? QString::fromLatin1(codec->name()) : QString();
 
-    for (const auto& positionalArgument : m_args.positionalArguments()) {
+    for (const auto &positionalArgument : m_args.positionalArguments()) {
         UrlInfo info(positionalArgument);
 
         // this file is no local dir, open it, else warn
@@ -401,7 +401,8 @@ bool KateApp::setCursor(int line, int column)
     return true;
 }
 
-bool KateApp::hasCursorInArgs() {
+bool KateApp::hasCursorInArgs()
+{
     return m_args.isSet(QStringLiteral("line")) || m_args.isSet(QStringLiteral("column"));
 }
 

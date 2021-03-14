@@ -68,6 +68,7 @@ protected:
         sourceModel()->setData(idx, score, FuzzyScore);
         return res;
     }
+
 private:
     static constexpr int FuzzyScore = Qt::UserRole + 1;
     QString m_pattern;
@@ -358,4 +359,3 @@ void StashDialog::showStash(const QByteArray &index)
     git->setArguments(args);
     git->start(QProcess::ReadOnly);
 }
-

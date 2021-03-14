@@ -223,11 +223,11 @@ public:
     bool setCursor(int line, int column);
 
     /**
-    * Checks if --line and/or --column args were provided and attempts
-    * to set cursor position in the provided or active view accordingly.
-    *
-    * @param view Optional view to apply changes on.
-    */
+     * Checks if --line and/or --column args were provided and attempts
+     * to set cursor position in the provided or active view accordingly.
+     *
+     * @param view Optional view to apply changes on.
+     */
     void setCursorFromArgs(KTextEditor::View *view = nullptr);
 
     /**

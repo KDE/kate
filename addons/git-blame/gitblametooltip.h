@@ -19,7 +19,6 @@ class View;
 
 class GitBlameTooltip
 {
-
 public:
     GitBlameTooltip();
     ~GitBlameTooltip();

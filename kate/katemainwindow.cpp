@@ -35,7 +35,11 @@
 #include <KApplicationTrader>
 #include <KConfigGroup>
 #include <KEditToolBar>
+#include <KFileItem>
 #include <KHelpClient>
+#include <KIO/ApplicationLauncherJob>
+#include <KIO/Job>
+#include <KIO/JobUiDelegate>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KMultiTabBar>
@@ -50,10 +54,6 @@
 #include <KWindowConfig>
 #include <KWindowSystem>
 #include <KXMLGUIFactory>
-#include <KIO/ApplicationLauncherJob>
-#include <KIO/JobUiDelegate>
-#include <KFileItem>
-#include <KIO/Job>
 
 #include <QApplication>
 #include <QDesktopWidget>

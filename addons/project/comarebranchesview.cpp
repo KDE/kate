@@ -2,32 +2,131 @@
 #include "kateprojectpluginview.h"
 #include "kateprojectworker.h"
 
+#include <QPainter>
+#include <QProcess>
+#include <QStyledItemDelegate>
 #include <QVBoxLayout>
 
 #include <KLocalizedString>
-#include <QProcess>
 
-static QVariantMap createMap(const QStringList &files)
+#include <QDebug>
+class DiffStyleDelegate : public QStyledItemDelegate
 {
-    QVariantMap cnf, filesMap;
-    filesMap[QStringLiteral("list")] = (files);
-    cnf[QStringLiteral("name")] = QStringLiteral("ComparingBranches");
-    cnf[QStringLiteral("files")] = (QVariantList() << filesMap);
-    return cnf;
+public:
+    DiffStyleDelegate(QObject *parent)
+        : QStyledItemDelegate(parent)
+    {
+    }
+
+    void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override
+    {
+        if (index.data(KateProjectItem::TypeRole).toInt() == KateProjectItem::Directory) {
+            QStyledItemDelegate::paint(painter, option, index);
+            return;
+        }
+
+        QStyleOptionViewItem options = option;
+        initStyleOption(&options, index);
+
+        painter->save();
+
+        // paint background
+        if (option.state & QStyle::State_Selected) {
+            painter->fillRect(option.rect, option.palette.highlight());
+        } else {
+            painter->fillRect(option.rect, option.palette.base());
+        }
+
+        int add = index.data(Qt::UserRole + 2).toInt();
+        int sub = index.data(Qt::UserRole + 3).toInt();
+        QString adds = QString(QStringLiteral("+") + QString::number(add));
+        QString subs = QString(QStringLiteral(" -") + QString::number(sub));
+        QString file = options.text;
+
+        options.text = QString(); // clear old text
+        options.widget->style()->drawControl(QStyle::CE_ItemViewItem, &options, painter, options.widget);
+
+        QRect r = options.rect;
+
+        // don't draw over icon
+        r.setX(r.x() + option.decorationSize.width() + 5);
+
+        auto &fm = options.fontMetrics;
+
+        // adds width
+        int aw = fm.horizontalAdvance(adds);
+        // subs width
+        int sw = fm.horizontalAdvance(subs);
+
+        // subtract this from total width of rect
+        int totalw = r.width();
+        totalw = totalw - (aw + sw);
+
+        // get file name, elide if necessary
+        QString filename = fm.elidedText(file, Qt::ElideRight, totalw);
+
+        painter->drawText(r, Qt::AlignVCenter, filename);
+
+        static constexpr auto red = QColor(237, 21, 21); // Breeze Danger Red
+        static constexpr auto green = QColor(17, 209, 27); // Breeze Verdant Green
+
+        r.setX(r.x() + totalw);
+        painter->setPen(green);
+        painter->drawText(r, Qt::AlignVCenter, adds);
+
+        painter->setPen(red);
+        r.setX(r.x() + aw);
+        painter->drawText(r, Qt::AlignVCenter, subs);
+
+        painter->restore();
+    }
+};
+
+static void createFileTree(QStandardItem *parent, const QString &basePath, const QVector<GitUtils::StatusItem> &files)
+{
+    QDir dir(basePath);
+    const QString dirPath = dir.path() + QLatin1Char('/');
+    QHash<QString, QStandardItem *> dir2Item;
+    dir2Item[QString()] = parent;
+    for (const auto &file : qAsConst(files)) {
+        const QString filePath = QString::fromUtf8(file.file);
+        /**
+         * cheap file name computation
+         * we do this A LOT, QFileInfo is very expensive just for this operation
+         */
+        const int slashIndex = filePath.lastIndexOf(QLatin1Char('/'));
+        const QString fileName = (slashIndex < 0) ? filePath : filePath.mid(slashIndex + 1);
+        const QString filePathName = (slashIndex < 0) ? QString() : filePath.left(slashIndex);
+        const QString fullFilePath = dirPath + filePath;
+
+        /**
+         * construct the item with right directory prefix
+         * already hang in directories in tree
+         */
+        KateProjectItem *fileItem = new KateProjectItem(KateProjectItem::File, fileName);
+        fileItem->setData(fullFilePath, Qt::UserRole);
+        fileItem->setData(file.statusChar, Qt::UserRole + 1);
+        fileItem->setData(file.linesAdded, Qt::UserRole + 2);
+        fileItem->setData(file.linesRemoved, Qt::UserRole + 3);
+
+        // put in our item to the right directory parent
+        KateProjectWorker::directoryParent(dir, dir2Item, filePathName)->appendRow(fileItem);
+    }
 }
 
-CompareBranchesView::CompareBranchesView(QWidget *parent, const QString &gitPath, const QString fromB, const QString &toBr, QStringList files)
+CompareBranchesView::CompareBranchesView(QWidget *parent, const QString &gitPath, const QString fromB, const QString &toBr, QVector<GitUtils::StatusItem> items)
     : QWidget(parent)
-    , m_files(std::move(files))
     , m_gitDir(gitPath)
     , m_fromBr(fromB)
     , m_toBr(toBr)
 {
     setLayout(new QVBoxLayout);
 
-    KateProjectWorker *w = new KateProjectWorker(m_gitDir, QString(), createMap(m_files), true);
-    connect(w, &KateProjectWorker::loadDone, this, &CompareBranchesView::loadFilesDone, Qt::QueuedConnection);
-    w->run();
+    QStandardItem *root = new QStandardItem;
+    createFileTree(root, m_gitDir, items);
+
+    m_model.clear();
+    m_model.invisibleRootItem()->appendColumn(root->takeColumn(0));
 
     m_backBtn.setText(i18n("Back"));
     m_backBtn.setIcon(QIcon::fromTheme(QStringLiteral("draw-arrow-back.svg")));
@@ -38,15 +137,10 @@ CompareBranchesView::CompareBranchesView(QWidget *parent, const QString &gitPath
     layout()->addWidget(&m_tree);
 
     m_tree.setHeaderHidden(true);
+    m_tree.setItemDelegate(new DiffStyleDelegate(this));
+    m_tree.expandAll();
 
     connect(&m_tree, &QTreeView::clicked, this, &CompareBranchesView::showDiff);
-}
-
-void CompareBranchesView::loadFilesDone(const KateProjectSharedQStandardItem &topLevel, KateProjectSharedQHashStringItem)
-{
-    m_model.clear();
-    m_model.invisibleRootItem()->appendColumn(topLevel->takeColumn(0));
-    m_tree.expandAll();
 }
 
 void CompareBranchesView::showDiff(const QModelIndex &idx)

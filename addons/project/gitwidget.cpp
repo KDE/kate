@@ -738,7 +738,7 @@ void GitWidget::numStatForStatus(QVector<GitUtils::StatusItem> &list, bool modif
 void GitWidget::branchCompareFiles(const QString &from, const QString &to)
 {
     // git diff br...br2 --name-only -z
-    const auto args = QStringList{QStringLiteral("diff"), QStringLiteral("%1...%2").arg(from).arg(to), QStringLiteral("--name-only"), QStringLiteral("-z")};
+    auto args = QStringList{QStringLiteral("diff"), QStringLiteral("%1...%2").arg(from).arg(to), QStringLiteral("--name-status")};
 
     QProcess git;
     git.setWorkingDirectory(m_gitPath);
@@ -748,13 +748,27 @@ void GitWidget::branchCompareFiles(const QString &from, const QString &to)
             return;
         }
     }
-    QList<QByteArray> files = git.readAllStandardOutput().split(0x00);
-    QStringList filesList;
-    std::transform(files.cbegin(), files.cend(), std::back_inserter(filesList), [](const QByteArray &a) {
-        return QString::fromUtf8(a);
-    });
 
-    CompareBranchesView *w = new CompareBranchesView(this, m_gitPath, from, to, filesList);
+    auto filesWithNameStatus = GitUtils::parseDiffNameStatus(git.readAllStandardOutput());
+    if (filesWithNameStatus.isEmpty()) {
+        sendMessage(i18n("Failed to compare %1...%2", from, to), true);
+        return;
+    }
+
+    // get --num-stat
+    args = QStringList{QStringLiteral("diff"), QStringLiteral("%1...%2").arg(from).arg(to), QStringLiteral("--numstat"), QStringLiteral("-z")};
+    git.setArguments(args);
+    git.start(QStringLiteral("git"), args, QProcess::ReadOnly);
+    if (git.waitForStarted() && git.waitForFinished(-1)) {
+        if (git.exitStatus() != QProcess::NormalExit || git.exitCode() != 0) {
+            sendMessage(i18n("Failed to get numstat when diffing %1...%2", from, to), true);
+            return;
+        }
+    }
+
+    GitUtils::parseDiffNumStat(filesWithNameStatus, git.readAllStandardOutput());
+
+    CompareBranchesView *w = new CompareBranchesView(this, m_gitPath, from, to, filesWithNameStatus);
     w->setPluginView(m_pluginView);
     connect(w, &CompareBranchesView::backClicked, this, [this] {
         auto x = m_stackWid->currentWidget();

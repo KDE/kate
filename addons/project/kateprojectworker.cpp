@@ -130,7 +130,7 @@ void KateProjectWorker::loadProject(QStandardItem *parent, const QVariantMap &pr
  * @param path current path we need item for
  * @return correct parent item for given path, will reuse existing ones
  */
-static QStandardItem *directoryParent(const QDir &base, QHash<QString, QStandardItem *> &dir2Item, QString path)
+QStandardItem *KateProjectWorker::directoryParent(const QDir &base, QHash<QString, QStandardItem *> &dir2Item, QString path)
 {
     /**
      * throw away simple /

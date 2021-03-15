@@ -35,6 +35,8 @@ public:
 
     void run() override;
 
+    static QStandardItem *directoryParent(const QDir &base, QHash<QString, QStandardItem *> &dir2Item, QString path);
+
 Q_SIGNALS:
     void loadDone(KateProjectSharedQStandardItem topLevel, KateProjectSharedQHashStringItem file2Item);
     void loadIndexDone(KateProjectSharedProjectIndex index);

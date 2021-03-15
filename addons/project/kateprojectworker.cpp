@@ -373,9 +373,9 @@ QVector<QString> KateProjectWorker::findFiles(const QDir &dir, const QVariantMap
          * all code later requires this and the filesFrom... routines do this, too, internally
          * even without this, the tree views will show them, but opening them will create new elements!
          */
-        //        for (auto &file : userGivenFilesList) {
-        //            file = dir.absoluteFilePath(file);
-        //        }
+        for (auto &file : userGivenFilesList) {
+            file = dir.absoluteFilePath(file);
+        }
 
         /**
          * users might have specified duplicates, this can't happen for the other ways

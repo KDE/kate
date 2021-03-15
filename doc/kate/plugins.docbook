@@ -1507,6 +1507,14 @@ View.</para></listitem>
 </varlistentry>
 
 <varlistentry>
+<term><guilabel>Show Toolbar</guilabel></term>
+<listitem><para>When Tree View and this option are enabled, a toolbar with
+actions like <guibutton>Save</guibutton> are displayed above the 
+list of documents. Uncheck this option if the toolbar should be
+hidden.</para></listitem>
+</varlistentry>
+
+<varlistentry>
 <term><guilabel>Show Close Button</guilabel></term>
 <listitem><para>When this option is enabled, &kate; will show a close button
 for opened documents on hover.</para></listitem>

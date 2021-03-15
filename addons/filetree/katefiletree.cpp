@@ -84,6 +84,8 @@ KateFileTree::KateFileTree(QWidget *parent)
     setDragEnabled(true);
     setDragDropMode(QAbstractItemView::DragOnly);
     setSelectionBehavior(QAbstractItemView::SelectRows);
+    // for hover close button
+    viewport()->setAttribute(Qt::WA_Hover);
 
     setItemDelegate(new StyleDelegate(this));
 

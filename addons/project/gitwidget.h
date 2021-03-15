@@ -91,6 +91,8 @@ private:
     void applyDiff(const QString &fileName, bool staged, bool hunk, KTextEditor::View *v);
     void numStatForStatus(QVector<GitUtils::StatusItem> &list, bool modified);
     void branchCompareFiles(const QString &from, const QString &to);
+
+    QMenu *compareBranchesMenu();
     QMenu *stashMenu();
 
     void hideEmptyTreeNodes();

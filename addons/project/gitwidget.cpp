@@ -804,18 +804,25 @@ void GitWidget::buildMenu()
         BranchCheckoutDialog bd(m_mainWin->window(), m_pluginView, m_project->baseDir());
         bd.openDialog();
     });
-    m_gitMenu->addAction(i18n("Compare Branches"), this, [this] {
+
+    m_gitMenu->addAction(i18n("Compare Branch"))->setMenu(compareBranchesMenu());
+    m_gitMenu->addAction(i18n("Stash"))->setMenu(stashMenu());
+}
+
+QMenu *GitWidget::compareBranchesMenu()
+{
+    QMenu *menu = new QMenu(this);
+    menu->addAction(i18n("Compare with master"), this, [this] {
+        branchCompareFiles(QStringLiteral("master"), QString());
+    });
+    menu->addAction(i18n("Compare with ..."), this, [this] {
         BranchesDialog bd(m_mainWin->window(), m_pluginView, m_project->baseDir());
         bd.openDialog(GitUtils::RefType::Head);
-        QString frombr = bd.branch();
+        QString branch = bd.branch();
 
-        bd.openDialog(GitUtils::RefType::Head);
-        QString tobr = bd.branch();
-
-        branchCompareFiles(frombr, tobr);
+        branchCompareFiles(branch, QString());
     });
-
-    m_gitMenu->addAction(i18n("Stash"))->setMenu(stashMenu());
+    return menu;
 }
 
 void GitWidget::createStashDialog(StashMode m, const QString &gitPath)

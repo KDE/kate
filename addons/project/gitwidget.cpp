@@ -811,7 +811,8 @@ void GitWidget::buildMenu()
 
     m_gitMenu->addAction(i18n("Compare branch with ..."), this, [this] {
         BranchesDialog bd(m_mainWin->window(), m_pluginView, m_project->baseDir());
-        bd.openDialog(GitUtils::RefType::Head);
+        using GitUtils::RefType;
+        bd.openDialog(static_cast<GitUtils::RefType>(RefType::Head | RefType::Remote));
         QString branch = bd.branch();
 
         branchCompareFiles(branch, QString());

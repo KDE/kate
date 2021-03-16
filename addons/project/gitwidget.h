@@ -69,7 +69,7 @@ private:
     KateProjectPluginView *m_pluginView;
 
     QWidget *m_mainView;
-    QStackedWidget *m_stackWid;
+    QStackedWidget *m_stackWidget;
 
     using CancelHandle = QPointer<QProcess>;
     CancelHandle m_cancelHandle;
@@ -92,7 +92,6 @@ private:
     void numStatForStatus(QVector<GitUtils::StatusItem> &list, bool modified);
     void branchCompareFiles(const QString &from, const QString &to);
 
-    QMenu *compareBranchesMenu();
     QMenu *stashMenu();
 
     void hideEmptyTreeNodes();

@@ -148,7 +148,7 @@ GitWidget::GitWidget(KateProject *project, KTextEditor::MainWindow *mainWindow, 
     , m_mainWin(mainWindow)
     , m_pluginView(pluginView)
     , m_mainView(new QWidget(this))
-    , m_stackWid(new QStackedWidget(this))
+    , m_stackWidget(new QStackedWidget(this))
 {
     setDotGitPath();
 
@@ -236,11 +236,11 @@ GitWidget::GitWidget(KateProject *project, KTextEditor::MainWindow *mainWindow, 
     connect(m_treeView, &QTreeView::clicked, this, &GitWidget::treeViewSingleClicked);
     connect(m_treeView, &QTreeView::doubleClicked, this, &GitWidget::treeViewDoubleClicked);
 
-    m_stackWid->addWidget(m_mainView);
+    m_stackWidget->addWidget(m_mainView);
 
     // This Widget's layout
     setLayout(new QVBoxLayout);
-    this->layout()->addWidget(m_stackWid);
+    this->layout()->addWidget(m_stackWidget);
 }
 
 GitWidget::~GitWidget()
@@ -737,6 +737,10 @@ void GitWidget::numStatForStatus(QVector<GitUtils::StatusItem> &list, bool modif
 
 void GitWidget::branchCompareFiles(const QString &from, const QString &to)
 {
+    if (from.isEmpty() && to.isEmpty()) {
+        return;
+    }
+
     // git diff br...br2 --name-only -z
     auto args = QStringList{QStringLiteral("diff"), QStringLiteral("%1...%2").arg(from).arg(to), QStringLiteral("--name-status")};
 
@@ -771,14 +775,14 @@ void GitWidget::branchCompareFiles(const QString &from, const QString &to)
     CompareBranchesView *w = new CompareBranchesView(this, m_gitPath, from, to, filesWithNameStatus);
     w->setPluginView(m_pluginView);
     connect(w, &CompareBranchesView::backClicked, this, [this] {
-        auto x = m_stackWid->currentWidget();
+        auto x = m_stackWidget->currentWidget();
         if (x) {
-            m_stackWid->setCurrentWidget(m_mainView);
+            m_stackWidget->setCurrentWidget(m_mainView);
             x->deleteLater();
         }
     });
-    m_stackWid->addWidget(w);
-    m_stackWid->setCurrentWidget(w);
+    m_stackWidget->addWidget(w);
+    m_stackWidget->setCurrentWidget(w);
 }
 
 bool GitWidget::eventFilter(QObject *o, QEvent *e)
@@ -805,24 +809,15 @@ void GitWidget::buildMenu()
         bd.openDialog();
     });
 
-    m_gitMenu->addAction(i18n("Compare Branch"))->setMenu(compareBranchesMenu());
-    m_gitMenu->addAction(i18n("Stash"))->setMenu(stashMenu());
-}
-
-QMenu *GitWidget::compareBranchesMenu()
-{
-    QMenu *menu = new QMenu(this);
-    menu->addAction(i18n("Compare with master"), this, [this] {
-        branchCompareFiles(QStringLiteral("master"), QString());
-    });
-    menu->addAction(i18n("Compare with ..."), this, [this] {
+    m_gitMenu->addAction(i18n("Compare branch with ..."), this, [this] {
         BranchesDialog bd(m_mainWin->window(), m_pluginView, m_project->baseDir());
         bd.openDialog(GitUtils::RefType::Head);
         QString branch = bd.branch();
 
         branchCompareFiles(branch, QString());
     });
-    return menu;
+
+    m_gitMenu->addAction(i18n("Stash"))->setMenu(stashMenu());
 }
 
 void GitWidget::createStashDialog(StashMode m, const QString &gitPath)

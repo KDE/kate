@@ -221,7 +221,7 @@ QObject *KatePluginSearch::createView(KTextEditor::MainWindow *mainWindow)
     connect(m_searchCommand, &KateSearchCommand::setCurrentFolder, view, &KatePluginSearchView::setCurrentFolder);
     connect(m_searchCommand, &KateSearchCommand::setSearchString, view, &KatePluginSearchView::setSearchString);
     connect(m_searchCommand, &KateSearchCommand::startSearch, view, &KatePluginSearchView::startSearch);
-    connect(m_searchCommand, &KateSearchCommand::setPregSearch, view, &KatePluginSearchView::setPregSearch);
+    connect(m_searchCommand, &KateSearchCommand::setProjectRegexSearch, view, &KatePluginSearchView::setPregSearch);
     connect(m_searchCommand, SIGNAL(newTab()), view, SLOT(addTab()));
 
     connect(view, &KatePluginSearchView::searchBusy, m_searchCommand, &KateSearchCommand::setBusy);

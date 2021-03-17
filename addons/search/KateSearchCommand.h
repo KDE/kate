@@ -28,7 +28,7 @@ Q_SIGNALS:
     void setSearchPlace(int place);
     void setCurrentFolder();
     void setSearchString(const QString &pattern);
-    void setPregSearch();
+    void setProjectRegexSearch();
     void startSearch();
     void newTab();
 

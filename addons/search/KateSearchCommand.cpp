@@ -57,9 +57,15 @@ bool KateSearchCommand::exec(KTextEditor::View * /*view*/, const QString &cmd, Q
         }
     }
 
+    /**
+     * preg command
+     * - Uses regex always
+     * - Is case insensitive
+     * - Will expand the tree on search completion if -e is used
+     */
     else if (command == QLatin1String("preg")) {
         Q_EMIT setSearchPlace(MatchModel::Project);
-        Q_EMIT setPregSearch();
+        Q_EMIT setProjectRegexSearch();
         Q_EMIT newTab();
     }
 

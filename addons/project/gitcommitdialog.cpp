@@ -142,11 +142,12 @@ bool GitCommitDialog::signoff() const
 
 void GitCommitDialog::updateLineSizeLabel()
 {
+    static constexpr auto red = QColor(237, 21, 21); // Breeze Danger Red
     int len = m_le.text().length();
     if (len < 52) {
-        m_leLen.setText(i18n("%1 / 52").arg(QString::number(len)));
+        m_leLen.setText(i18nc("Number of characters", "%1 / 52", QString::number(len)));
     } else {
         changeTextColorToRed(&m_le);
-        m_leLen.setText(QStringLiteral("<span style=\"color:red;\">%1</span> / 52").arg(QString::number(len)));
+        m_leLen.setText(i18nc("Number of characters", "<span style=\"color:%1;\">%2</span> / 52", red.name(), QString::number(len)));
     }
 }

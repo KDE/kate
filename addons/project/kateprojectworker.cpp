@@ -38,7 +38,7 @@ void KateProjectWorker::run()
      */
     KateProjectSharedQStandardItem topLevel(new QStandardItem());
     KateProjectSharedQHashStringItem file2Item(new QHash<QString, KateProjectItem *>());
-    loadProject(topLevel.data(), m_projectMap, file2Item.data());
+    loadProject(topLevel.data(), m_projectMap, file2Item.data(), m_baseDir);
 
     /**
      * sort the stuff once recursively, this is a LOT faster than once sorting the list
@@ -90,7 +90,7 @@ void KateProjectWorker::run()
     Q_EMIT loadIndexDone(index);
 }
 
-void KateProjectWorker::loadProject(QStandardItem *parent, const QVariantMap &project, QHash<QString, KateProjectItem *> *file2Item)
+void KateProjectWorker::loadProject(QStandardItem *parent, const QVariantMap &project, QHash<QString, KateProjectItem *> *file2Item, const QString &baseDir)
 {
     /**
      * recurse to sub-projects FIRST
@@ -110,7 +110,7 @@ void KateProjectWorker::loadProject(QStandardItem *parent, const QVariantMap &pr
          * recurse
          */
         QStandardItem *subProjectItem = new KateProjectItem(KateProjectItem::Project, subProject[keyName].toString());
-        loadProject(subProjectItem, subProject, file2Item);
+        loadProject(subProjectItem, subProject, file2Item, baseDir);
         parent->appendRow(subProjectItem);
     }
 
@@ -120,7 +120,7 @@ void KateProjectWorker::loadProject(QStandardItem *parent, const QVariantMap &pr
     const QString keyFiles = QStringLiteral("files");
     const QVariantList files = project[keyFiles].toList();
     for (const QVariant &fileVariant : files) {
-        loadFilesEntry(parent, fileVariant.toMap(), file2Item);
+        loadFilesEntry(parent, fileVariant.toMap(), file2Item, baseDir);
     }
 }
 
@@ -130,7 +130,7 @@ void KateProjectWorker::loadProject(QStandardItem *parent, const QVariantMap &pr
  * @param path current path we need item for
  * @return correct parent item for given path, will reuse existing ones
  */
-static QStandardItem *directoryParent(const QDir &base, QHash<QString, QStandardItem *> &dir2Item, QString path)
+QStandardItem *KateProjectWorker::directoryParent(const QDir &base, QHash<QString, QStandardItem *> &dir2Item, QString path)
 {
     /**
      * throw away simple /
@@ -187,9 +187,12 @@ static QStandardItem *directoryParent(const QDir &base, QHash<QString, QStandard
     return item;
 }
 
-void KateProjectWorker::loadFilesEntry(QStandardItem *parent, const QVariantMap &filesEntry, QHash<QString, KateProjectItem *> *file2Item)
+void KateProjectWorker::loadFilesEntry(QStandardItem *parent,
+                                       const QVariantMap &filesEntry,
+                                       QHash<QString, KateProjectItem *> *file2Item,
+                                       const QString &baseDir)
 {
-    QDir dir(m_baseDir);
+    QDir dir(baseDir);
     if (!dir.cd(filesEntry[QStringLiteral("directory")].toString())) {
         return;
     }

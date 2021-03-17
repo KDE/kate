@@ -318,16 +318,33 @@ public:
         return doc->characterAt(KTextEditor::Cursor(range.end().line(), range.end().column()));
     }
 
+    static bool isFunctionKind(LSPCompletionItemKind k)
+    {
+        return k == LSPCompletionItemKind::Function || k == LSPCompletionItemKind::Method;
+    }
+
     void executeCompletionItem(KTextEditor::View *view, const KTextEditor::Range &word, const QModelIndex &index) const override
     {
         if (index.row() < m_matches.size()) {
-            auto next = peekNextChar(view->document(), word);
-            auto matching = m_matches.at(index.row()).insertText;
+            QChar next = peekNextChar(view->document(), word);
+            QString matching = m_matches.at(index.row()).insertText;
             // if there is already a '"' or >, remove it, this happens with #include "xx.h"
             if ((next == QLatin1Char('"') && matching.endsWith(QLatin1Char('"'))) || (next == QLatin1Char('>') && matching.endsWith(QLatin1Char('>')))) {
                 matching.chop(1);
             }
+
+            // This is a function
+            const auto &m = m_matches.at(index.row());
+            if (isFunctionKind(m.kind)) {
+                matching += QStringLiteral("()");
+            }
+
             view->document()->replaceText(word, matching);
+
+            if (isFunctionKind(m.kind)) {
+                // place the cursor in between (|)
+                view->setCursorPosition({view->cursorPosition().line(), view->cursorPosition().column() - 1});
+            }
         }
     }
 

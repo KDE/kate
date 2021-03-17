@@ -167,3 +167,23 @@ void GitUtils::parseDiffNumStat(QVector<GitUtils::StatusItem> &items, const QByt
         addNumStat(items, add, sub, file);
     }
 }
+
+QVector<GitUtils::StatusItem> GitUtils::parseDiffNameStatus(const QByteArray &raw)
+{
+    const auto lines = raw.split('\n');
+    QVector<GitUtils::StatusItem> out;
+    out.reserve(lines.size());
+    for (const auto &l : lines) {
+        const auto cols = l.split('\t');
+        if (cols.size() < 2) {
+            continue;
+        }
+
+        GitUtils::StatusItem i;
+        i.statusChar = cols[0][0];
+
+        i.file = cols[1];
+        out.append(i);
+    }
+    return out;
+}

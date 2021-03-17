@@ -4,7 +4,9 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 #include "gitwidget.h"
+#include "branchcheckoutdialog.h"
 #include "branchesdialog.h"
+#include "comarebranchesview.h"
 #include "git/gitdiff.h"
 #include "gitcommitdialog.h"
 #include "gitstatusmodel.h"
@@ -145,6 +147,8 @@ GitWidget::GitWidget(KateProject *project, KTextEditor::MainWindow *mainWindow, 
     : m_project(project)
     , m_mainWin(mainWindow)
     , m_pluginView(pluginView)
+    , m_mainView(new QWidget(this))
+    , m_stackWidget(new QStackedWidget(this))
 {
     setDotGitPath();
 
@@ -222,7 +226,8 @@ GitWidget::GitWidget(KateProject *project, KTextEditor::MainWindow *mainWindow, 
 
     m_treeView->setItemDelegateForColumn(1, new NumStatStyle(this, m_pluginView->plugin()));
 
-    setLayout(layout);
+    // our main view - status view + btns
+    m_mainView->setLayout(layout);
 
     connect(&m_gitStatusWatcher, &QFutureWatcher<GitUtils::GitParsedStatus>::finished, this, &GitWidget::parseStatusReady);
     connect(m_commitBtn, &QPushButton::clicked, this, &GitWidget::opencommitChangesDialog);
@@ -230,6 +235,12 @@ GitWidget::GitWidget(KateProject *project, KTextEditor::MainWindow *mainWindow, 
     // single / double click
     connect(m_treeView, &QTreeView::clicked, this, &GitWidget::treeViewSingleClicked);
     connect(m_treeView, &QTreeView::doubleClicked, this, &GitWidget::treeViewDoubleClicked);
+
+    m_stackWidget->addWidget(m_mainView);
+
+    // This Widget's layout
+    setLayout(new QVBoxLayout);
+    this->layout()->addWidget(m_stackWidget);
 }
 
 GitWidget::~GitWidget()
@@ -724,6 +735,56 @@ void GitWidget::numStatForStatus(QVector<GitUtils::StatusItem> &list, bool modif
     GitUtils::parseDiffNumStat(list, git.readAllStandardOutput());
 }
 
+void GitWidget::branchCompareFiles(const QString &from, const QString &to)
+{
+    if (from.isEmpty() && to.isEmpty()) {
+        return;
+    }
+
+    // git diff br...br2 --name-only -z
+    auto args = QStringList{QStringLiteral("diff"), QStringLiteral("%1...%2").arg(from).arg(to), QStringLiteral("--name-status")};
+
+    QProcess git;
+    git.setWorkingDirectory(m_gitPath);
+    git.start(QStringLiteral("git"), args, QProcess::ReadOnly);
+    if (git.waitForStarted() && git.waitForFinished(-1)) {
+        if (git.exitStatus() != QProcess::NormalExit || git.exitCode() != 0) {
+            return;
+        }
+    }
+
+    auto filesWithNameStatus = GitUtils::parseDiffNameStatus(git.readAllStandardOutput());
+    if (filesWithNameStatus.isEmpty()) {
+        sendMessage(i18n("Failed to compare %1...%2", from, to), true);
+        return;
+    }
+
+    // get --num-stat
+    args = QStringList{QStringLiteral("diff"), QStringLiteral("%1...%2").arg(from).arg(to), QStringLiteral("--numstat"), QStringLiteral("-z")};
+    git.setArguments(args);
+    git.start(QStringLiteral("git"), args, QProcess::ReadOnly);
+    if (git.waitForStarted() && git.waitForFinished(-1)) {
+        if (git.exitStatus() != QProcess::NormalExit || git.exitCode() != 0) {
+            sendMessage(i18n("Failed to get numstat when diffing %1...%2", from, to), true);
+            return;
+        }
+    }
+
+    GitUtils::parseDiffNumStat(filesWithNameStatus, git.readAllStandardOutput());
+
+    CompareBranchesView *w = new CompareBranchesView(this, m_gitPath, from, to, filesWithNameStatus);
+    w->setPluginView(m_pluginView);
+    connect(w, &CompareBranchesView::backClicked, this, [this] {
+        auto x = m_stackWidget->currentWidget();
+        if (x) {
+            m_stackWidget->setCurrentWidget(m_mainView);
+            x->deleteLater();
+        }
+    });
+    m_stackWidget->addWidget(w);
+    m_stackWidget->setCurrentWidget(w);
+}
+
 bool GitWidget::eventFilter(QObject *o, QEvent *e)
 {
     if (e->type() == QEvent::ContextMenu) {
@@ -744,8 +805,17 @@ void GitWidget::buildMenu()
         }
     });
     m_gitMenu->addAction(i18n("Checkout Branch"), this, [this] {
-        BranchesDialog bd(m_mainWin->window(), m_pluginView, m_project->baseDir());
+        BranchCheckoutDialog bd(m_mainWin->window(), m_pluginView, m_project->baseDir());
         bd.openDialog();
+    });
+
+    m_gitMenu->addAction(i18n("Compare Branch with ..."), this, [this] {
+        BranchesDialog bd(m_mainWin->window(), m_pluginView, m_project->baseDir());
+        using GitUtils::RefType;
+        bd.openDialog(static_cast<GitUtils::RefType>(RefType::Head | RefType::Remote));
+        QString branch = bd.branch();
+
+        branchCompareFiles(branch, QString());
     });
 
     m_gitMenu->addAction(i18n("Stash"))->setMenu(stashMenu());

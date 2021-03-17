@@ -59,6 +59,7 @@ target_sources(
     kateprojectconfigpage.cpp
     kateprojectcodeanalysistool.cpp
     branchesdialog.cpp
+    branchcheckoutdialog.cpp
     branchesdialogmodel.cpp
     gitwidget.cpp
     gitstatusmodel.cpp
@@ -67,6 +68,7 @@ target_sources(
     filehistorywidget.cpp
     quickdialog.cpp
     pushpulldialog.cpp
+    comarebranchesview.cpp
 
     tools/kateprojectcodeanalysistoolcppcheck.cpp
     tools/kateprojectcodeanalysistoolflake8.cpp

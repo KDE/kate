@@ -24,7 +24,7 @@ public:
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     int columnCount(const QModelIndex &parent) const override;
     QVariant data(const QModelIndex &idx, int role) const override;
-    void refresh(QVector<GitUtils::Branch> branches);
+    void refresh(const QVector<GitUtils::Branch> &branches, bool checkingOut = false);
     void clear();
     void clearBranchCreationItems();
 

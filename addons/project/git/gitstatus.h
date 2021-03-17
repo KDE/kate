@@ -68,6 +68,8 @@ GitParsedStatus parseStatus(const QByteArray &raw);
 
 void parseDiffNumStat(QVector<GitUtils::StatusItem> &items, const QByteArray &raw);
 
+QVector<StatusItem> parseDiffNameStatus(const QByteArray &raw);
+
 QString statusString(GitStatus s);
 }
 

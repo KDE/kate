@@ -6,7 +6,7 @@
  */
 
 #include "kateprojectview.h"
-#include "branchesdialog.h"
+#include "branchcheckoutdialog.h"
 #include "filehistorywidget.h"
 #include "git/gitutils.h"
 #include "gitwidget.h"
@@ -74,7 +74,7 @@ KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject 
      */
     m_branchBtn->setHidden(true);
     connect(m_branchBtn, &QPushButton::clicked, this, [this, mainWindow] {
-        BranchesDialog bd(mainWindow->window(), m_pluginView, m_project->baseDir());
+        BranchCheckoutDialog bd(mainWindow->window(), m_pluginView, m_project->baseDir());
         bd.openDialog();
     });
 

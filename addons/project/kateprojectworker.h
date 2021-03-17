@@ -35,6 +35,8 @@ public:
 
     void run() override;
 
+    static QStandardItem *directoryParent(const QDir &base, QHash<QString, QStandardItem *> &dir2Item, QString path);
+
 Q_SIGNALS:
     void loadDone(KateProjectSharedQStandardItem topLevel, KateProjectSharedQHashStringItem file2Item);
     void loadIndexDone(KateProjectSharedProjectIndex index);
@@ -47,7 +49,7 @@ private:
      * @param project variant map for this group
      * @param file2Item mapping file => item, will be filled
      */
-    void loadProject(QStandardItem *parent, const QVariantMap &project, QHash<QString, KateProjectItem *> *file2Item);
+    static void loadProject(QStandardItem *parent, const QVariantMap &project, QHash<QString, KateProjectItem *> *file2Item, const QString &baseDir);
 
     /**
      * Load one files entry in the current parent item.
@@ -55,17 +57,17 @@ private:
      * @param filesEntry one files entry specification to load
      * @param file2Item mapping file => item, will be filled
      */
-    void loadFilesEntry(QStandardItem *parent, const QVariantMap &filesEntry, QHash<QString, KateProjectItem *> *file2Item);
+    static void loadFilesEntry(QStandardItem *parent, const QVariantMap &filesEntry, QHash<QString, KateProjectItem *> *file2Item, const QString &baseDir);
 
-    QVector<QString> findFiles(const QDir &dir, const QVariantMap &filesEntry);
+    static QVector<QString> findFiles(const QDir &dir, const QVariantMap &filesEntry);
 
-    QVector<QString> filesFromGit(const QDir &dir, bool recursive);
-    QVector<QString> filesFromMercurial(const QDir &dir, bool recursive);
-    QVector<QString> filesFromSubversion(const QDir &dir, bool recursive);
-    QVector<QString> filesFromDarcs(const QDir &dir, bool recursive);
-    QVector<QString> filesFromDirectory(const QDir &dir, bool recursive, const QStringList &filters);
+    static QVector<QString> filesFromGit(const QDir &dir, bool recursive);
+    static QVector<QString> filesFromMercurial(const QDir &dir, bool recursive);
+    static QVector<QString> filesFromSubversion(const QDir &dir, bool recursive);
+    static QVector<QString> filesFromDarcs(const QDir &dir, bool recursive);
+    static QVector<QString> filesFromDirectory(const QDir &dir, bool recursive, const QStringList &filters);
 
-    QVector<QString> gitFiles(const QDir &dir, bool recursive, const QStringList &args);
+    static QVector<QString> gitFiles(const QDir &dir, bool recursive, const QStringList &args);
 
 private:
     /**

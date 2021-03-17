@@ -58,7 +58,6 @@ target_sources(
     kateprojectinfoviewnotes.cpp
     kateprojectconfigpage.cpp
     kateprojectcodeanalysistool.cpp
-    kateprojecttodoview.cpp
     branchesdialog.cpp
     branchcheckoutdialog.cpp
     branchesdialogmodel.cpp

@@ -11,13 +11,10 @@
 #include "kateprojectinfoviewnotes.h"
 #include "kateprojectinfoviewterminal.h"
 #include "kateprojectpluginview.h"
-#include "kateprojecttodoview.h"
 
 #include <KLocalizedString>
 
 #include <QFileInfo>
-
-#include "git/gitutils.h"
 
 KateProjectInfoView::KateProjectInfoView(KateProjectPluginView *pluginView, KateProject *project)
     : m_pluginView(pluginView)
@@ -53,15 +50,6 @@ KateProjectInfoView::KateProjectInfoView(KateProjectPluginView *pluginView, Kate
      * code analysis
      */
     addTab(new KateProjectInfoViewCodeAnalysis(pluginView, project), i18n("Code Analysis"));
-
-    /**
-     * to do and fix me view
-     */
-    if (GitUtils::isGitRepo(project->baseDir())) {
-        auto todoWidget = new KateProjectTODOView(m_pluginView->mainWindow(), project->baseDir());
-        addTab(todoWidget, i18n("TODOs"));
-        connect(project, &KateProject::modelChanged, todoWidget, &KateProjectTODOView::refresh);
-    }
 
     /**
      * notes

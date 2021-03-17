@@ -11,7 +11,7 @@
 
 KateSearchCommand::KateSearchCommand(QObject *parent)
     : KTextEditor::Command(QStringList() << QStringLiteral("grep") << QStringLiteral("newGrep") << QStringLiteral("search") << QStringLiteral("newSearch")
-                                         << QStringLiteral("pgrep") << QStringLiteral("newPGrep"),
+                                         << QStringLiteral("pgrep") << QStringLiteral("newPGrep") << QStringLiteral("preg"),
                            parent)
 {
 }
@@ -57,6 +57,12 @@ bool KateSearchCommand::exec(KTextEditor::View * /*view*/, const QString &cmd, Q
         }
     }
 
+    else if (command == QLatin1String("preg")) {
+        Q_EMIT setSearchPlace(MatchModel::Project);
+        Q_EMIT setPregSearch();
+        Q_EMIT newTab();
+    }
+
     Q_EMIT setSearchString(searchText);
     Q_EMIT startSearch();
 
@@ -81,6 +87,10 @@ bool KateSearchCommand::help(KTextEditor::View * /*view*/, const QString &cmd, Q
         msg = i18n("Usage: pgrep [pattern to search for in current project]");
     } else if (cmd.startsWith(QLatin1String("newPGrep"))) {
         msg = i18n("Usage: newPGrep [pattern to search for in current project]");
+    }
+
+    else if (cmd.startsWith(QLatin1String("preg"))) {
+        msg = i18n("Usage: preg [pattern to search for in current project]");
     }
 
     return true;

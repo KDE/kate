@@ -259,6 +259,11 @@ private Q_SLOTS:
      */
     void openDirectoryOrProject();
 
+    /**
+     * Show projects To-Dos and Fix-mes
+     */
+    void showProjectTodos();
+
 private:
     /**
      * find current selected or under cursor word

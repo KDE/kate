@@ -10,6 +10,7 @@
 #include "gitwidget.h"
 #include "kateprojectinfoviewindex.h"
 
+#include <KTextEditor/Command>
 #include <ktexteditor/application.h>
 #include <ktexteditor/codecompletioninterface.h>
 #include <ktexteditor/document.h>
@@ -160,10 +161,17 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
      */
     auto a = actionCollection()->addAction(QStringLiteral("projects_open_project"), this, SLOT(openDirectoryOrProject()));
     a->setText(i18n("Open Folder..."));
+
+    a = actionCollection()->addAction(QStringLiteral("projects_todos"), this, SLOT(showProjectTodos()));
+    a->setText(i18n("Project TODOs"));
+    a->setIcon(QIcon::fromTheme(QStringLiteral("korg-todo")));
+
     a = actionCollection()->addAction(KStandardAction::Back, QStringLiteral("projects_prev_project"), this, SLOT(slotProjectPrev()));
     actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::ALT | Qt::Key_Left));
+
     a = actionCollection()->addAction(KStandardAction::Forward, QStringLiteral("projects_next_project"), this, SLOT(slotProjectNext()));
     actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::ALT | Qt::Key_Right));
+
     a = actionCollection()->addAction(QStringLiteral("projects_goto_index"), this, SLOT(slotProjectIndex()));
     a->setText(i18n("Lookup"));
     actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::ALT | Qt::Key_1));
@@ -652,6 +660,16 @@ void KateProjectPluginView::openDirectoryOrProject()
             m_projectsCombo->setCurrentIndex(index);
         }
     }
+}
+
+void KateProjectPluginView::showProjectTodos()
+{
+    KTextEditor::Command *pgrep = KTextEditor::Editor::instance()->queryCommand(QStringLiteral("pgrep"));
+    if (!pgrep) {
+        return;
+    }
+    QString msg;
+    pgrep->exec(nullptr, QStringLiteral("preg (TODO|FIXME)\\b"), msg);
 }
 
 #include "kateprojectpluginview.moc"

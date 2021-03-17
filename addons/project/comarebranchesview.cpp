@@ -1,3 +1,8 @@
+/*
+    SPDX-FileCopyrightText: 2021 Waqar Ahmed <waqar.17a@gmail.com>
+
+    SPDX-License-Identifier: LGPL-2.0-or-later
+*/
 #include "comarebranchesview.h"
 #include "kateprojectpluginview.h"
 #include "kateprojectworker.h"

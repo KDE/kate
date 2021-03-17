@@ -809,7 +809,7 @@ void GitWidget::buildMenu()
         bd.openDialog();
     });
 
-    m_gitMenu->addAction(i18n("Compare branch with ..."), this, [this] {
+    m_gitMenu->addAction(i18n("Compare Branch with ..."), this, [this] {
         BranchesDialog bd(m_mainWin->window(), m_pluginView, m_project->baseDir());
         using GitUtils::RefType;
         bd.openDialog(static_cast<GitUtils::RefType>(RefType::Head | RefType::Remote));

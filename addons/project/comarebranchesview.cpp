@@ -7,6 +7,7 @@
 #include "kateprojectpluginview.h"
 #include "kateprojectworker.h"
 
+#include <KColorScheme>
 #include <QPainter>
 #include <QProcess>
 #include <QStyledItemDelegate>
@@ -56,7 +57,7 @@ public:
         // don't draw over icon
         r.setX(r.x() + option.decorationSize.width() + 5);
 
-        auto &fm = options.fontMetrics;
+        const QFontMetrics &fm = options.fontMetrics;
 
         // adds width
         int aw = fm.horizontalAdvance(adds);
@@ -72,8 +73,9 @@ public:
 
         painter->drawText(r, Qt::AlignVCenter, filename);
 
-        static constexpr auto red = QColor(237, 21, 21); // Breeze Danger Red
-        static constexpr auto green = QColor(17, 209, 27); // Breeze Verdant Green
+        KColorScheme c;
+        const auto red = c.shade(c.foreground(KColorScheme::NegativeText).color(), KColorScheme::MidlightShade, 1);
+        const auto green = c.shade(c.foreground(KColorScheme::PositiveText).color(), KColorScheme::MidlightShade, 1);
 
         r.setX(r.x() + totalw);
         painter->setPen(green);

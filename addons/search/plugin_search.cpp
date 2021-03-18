@@ -221,7 +221,7 @@ QObject *KatePluginSearch::createView(KTextEditor::MainWindow *mainWindow)
     connect(m_searchCommand, &KateSearchCommand::setCurrentFolder, view, &KatePluginSearchView::setCurrentFolder);
     connect(m_searchCommand, &KateSearchCommand::setSearchString, view, &KatePluginSearchView::setSearchString);
     connect(m_searchCommand, &KateSearchCommand::startSearch, view, &KatePluginSearchView::startSearch);
-    connect(m_searchCommand, &KateSearchCommand::setProjectRegexSearch, view, &KatePluginSearchView::setPregSearch);
+    connect(m_searchCommand, &KateSearchCommand::setProjectRegexSearch, view, &KatePluginSearchView::setProjectRegexSearch);
     connect(m_searchCommand, SIGNAL(newTab()), view, SLOT(addTab()));
 
     connect(view, &KatePluginSearchView::searchBusy, m_searchCommand, &KateSearchCommand::setBusy);
@@ -979,7 +979,7 @@ void KatePluginSearchView::startSearch()
     QRegularExpression::PatternOptions patternOptions =
         (m_ui.matchCase->isChecked() ? QRegularExpression::UseUnicodePropertiesOption
                                      : QRegularExpression::UseUnicodePropertiesOption | QRegularExpression::CaseInsensitiveOption);
-    QString pattern = (m_ui.useRegExp->isChecked() || m_isPreg ? currentSearchText : QRegularExpression::escape(currentSearchText));
+    QString pattern = (m_ui.useRegExp->isChecked() ? currentSearchText : QRegularExpression::escape(currentSearchText));
     QRegularExpression reg(pattern, patternOptions);
 
     if (!reg.isValid()) {
@@ -993,8 +993,8 @@ void KatePluginSearchView::startSearch()
     updateViewColors();
 
     m_curResults->regExp = reg;
-    m_curResults->useRegExp = m_isPreg ? true : m_ui.useRegExp->isChecked();
-    m_curResults->matchCase = m_isPreg ? false : m_ui.matchCase->isChecked();
+    m_curResults->useRegExp = m_ui.useRegExp->isChecked();
+    m_curResults->matchCase = m_ui.matchCase->isChecked();
     m_curResults->searchPlaceIndex = m_ui.searchPlaceCombo->currentIndex();
 
     m_ui.newTabButton->setDisabled(true);
@@ -1262,8 +1262,6 @@ void KatePluginSearchView::searchDone()
     m_searchJustOpened = false;
     updateMatchMarks();
 
-    // unset preg command mode
-    m_isPreg = false;
     // qDebug() << "done:" << s_timer.elapsed();
 }
 
@@ -1584,12 +1582,6 @@ void KatePluginSearchView::expandResults()
         return;
     }
 
-    // preg command? => expand all
-    if (m_isPreg) {
-        m_curResults->treeView->expandAll();
-        return;
-    }
-
     // we expand recursively if we either are told so or we have just one toplevel match item
     QModelIndex rootItem = m_curResults->matchModel.index(0, 0);
     if ((m_ui.expandResults->isChecked() && m_curResults->matchModel.rowCount(rootItem) < 200) || m_curResults->matchModel.rowCount(rootItem) == 1) {
@@ -1806,9 +1798,11 @@ void KatePluginSearchView::goToPreviousMatch()
     }
 }
 
-void KatePluginSearchView::setPregSearch()
+void KatePluginSearchView::setProjectRegexSearch()
 {
-    m_isPreg = true;
+    m_ui.expandResults->setChecked(true);
+    m_ui.useRegExp->setChecked(true);
+    m_ui.matchCase->setChecked(true);
 }
 
 void KatePluginSearchView::readSessionConfig(const KConfigGroup &cg)

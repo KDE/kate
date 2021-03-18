@@ -107,7 +107,7 @@ public Q_SLOTS:
     void setSearchPlace(int place);
     void goToNextMatch();
     void goToPreviousMatch();
-    void setPregSearch();
+    void setProjectRegexSearch();
 
 private:
     enum CopyResultType { AllExpanded, All };
@@ -205,7 +205,6 @@ private:
     int m_projectSearchPlaceIndex = 0;
     bool m_isSearchAsYouType = false;
     bool m_isVerticalLayout = false;
-    bool m_isPreg = false; /* ci-regex search via preg command with auto expand */
     QString m_resultBaseDir;
     QVector<KTextEditor::MovingRange *> m_matchRanges;
     QTimer m_changeTimer;

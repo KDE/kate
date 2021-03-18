@@ -134,7 +134,7 @@ CompareBranchesView::CompareBranchesView(QWidget *parent, const QString &gitPath
     m_model.invisibleRootItem()->appendColumn(root->takeColumn(0));
 
     m_backBtn.setText(i18n("Back"));
-    m_backBtn.setIcon(QIcon::fromTheme(QStringLiteral("draw-arrow-back.svg")));
+    m_backBtn.setIcon(QIcon::fromTheme(QStringLiteral("go-previous")));
     connect(&m_backBtn, &QPushButton::clicked, this, &CompareBranchesView::backClicked);
     layout()->addWidget(&m_backBtn);
 

@@ -165,16 +165,16 @@ GitWidget::GitWidget(KateProject *project, KTextEditor::MainWindow *mainWindow, 
         m_menuBtn->showMenu();
     });
 
-    m_commitBtn = toolButton(QStringLiteral("svn-commit"), QString(), i18n("Commit"), Qt::ToolButtonTextBesideIcon);
+    m_commitBtn = toolButton(QStringLiteral("vcs-commit"), QString(), i18n("Commit"), Qt::ToolButtonTextBesideIcon);
 
-    m_pushBtn = toolButton(QStringLiteral("arrow-up"), i18n("Git push"));
+    m_pushBtn = toolButton(QStringLiteral("vcs-push"), i18n("Git push"));
     connect(m_pushBtn, &QToolButton::clicked, this, [this]() {
         PushPullDialog ppd(m_mainWin->window(), m_gitPath);
         connect(&ppd, &PushPullDialog::runGitCommand, this, &GitWidget::runPushPullCmd);
         ppd.openDialog(PushPullDialog::Push);
     });
 
-    m_pullBtn = toolButton(QStringLiteral("arrow-down"), i18n("Git pull"));
+    m_pullBtn = toolButton(QStringLiteral("vcs-pull"), i18n("Git pull"));
     connect(m_pullBtn, &QToolButton::clicked, this, [this]() {
         PushPullDialog ppd(m_mainWin->window(), m_gitPath);
         connect(&ppd, &PushPullDialog::runGitCommand, this, &GitWidget::runPushPullCmd);
@@ -812,18 +812,20 @@ void GitWidget::buildMenu()
             getStatus();
         }
     });
-    m_gitMenu->addAction(i18n("Checkout Branch"), this, [this] {
+    auto a = m_gitMenu->addAction(i18n("Checkout Branch"), this, [this] {
         BranchCheckoutDialog bd(m_mainWin->window(), m_pluginView, m_project->baseDir());
         bd.openDialog();
     });
+    a->setIcon(QIcon::fromTheme(QStringLiteral("vcs-branch")));
 
-    m_gitMenu->addAction(i18n("Compare Branch with ..."), this, [this] {
+    a = m_gitMenu->addAction(i18n("Compare Branch with ..."), this, [this] {
         BranchesDialog bd(m_mainWin->window(), m_pluginView, m_project->baseDir());
         using GitUtils::RefType;
         bd.openDialog(static_cast<GitUtils::RefType>(RefType::Head | RefType::Remote));
         QString branch = bd.branch();
         branchCompareFiles(branch, QString());
     });
+    a->setIcon(QIcon::fromTheme(QStringLiteral("vcs-diff")));
 
     m_gitMenu->addAction(i18n("Stash"))->setMenu(stashMenu());
 }
@@ -858,8 +860,8 @@ void GitWidget::hideCancel()
 QMenu *GitWidget::stashMenu()
 {
     QMenu *menu = new QMenu(this);
-    auto stashAct = menu->addAction(i18n("Stash"));
-    auto popLastAct = menu->addAction(i18n("Pop Last Stash"));
+    auto stashAct = menu->addAction(QIcon::fromTheme(QStringLiteral("vcs-stash")), i18n("Stash"));
+    auto popLastAct = menu->addAction(QIcon::fromTheme(QStringLiteral("vcs-stash-pop")), i18n("Pop Last Stash"));
     auto popAct = menu->addAction(i18n("Pop Stash"));
     auto applyLastAct = menu->addAction(i18n("Apply Last Stash"));
     auto stashKeepStagedAct = menu->addAction(i18n("Stash (Keep Staged)"));

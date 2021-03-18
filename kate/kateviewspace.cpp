@@ -216,6 +216,12 @@ KTextEditor::View *KateViewSpace::createView(KTextEditor::Document *doc)
             addJump(view->document()->url(), newPosition);
     });
 
+    connect(v, &KTextEditor::View::textInserted, this, [this](KTextEditor::View *view, const KTextEditor::Cursor &, const QString &) {
+        if (view) {
+            m_textWasInserted = true;
+        }
+    });
+
     // register document, it is shown below through showView() then
     registerDocument(doc);
 
@@ -476,6 +482,12 @@ void KateViewSpace::focusNextTab()
 
 void KateViewSpace::addJump(const QUrl &url, KTextEditor::Cursor c)
 {
+    // are we typing text? => no jump record
+    if (m_textWasInserted) {
+        m_textWasInserted = false;
+        return;
+    }
+
     // we are in the middle of jumps somewhere?
     if (!m_locations.isEmpty() && currentLocation + 1 < m_locations.size()) {
         // erase all forward history

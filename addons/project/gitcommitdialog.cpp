@@ -11,6 +11,7 @@
 #include <QSyntaxHighlighter>
 #include <QVBoxLayout>
 
+#include <KColorScheme>
 #include <KLocalizedString>
 
 class BadLengthHighlighter : public QSyntaxHighlighter
@@ -27,14 +28,15 @@ public:
         if (text.length() < badLength) {
             return;
         }
-        setFormat(badLength, text.length() - badLength, Qt::red);
+        setFormat(badLength, text.length() - badLength, red);
     }
 
 private:
     int badLength = 0;
+    const QColor red = KColorScheme().foreground(KColorScheme::NegativeText).color();
 };
 
-static void changeTextColorToRed(QLineEdit *lineEdit)
+static void changeTextColorToRed(QLineEdit *lineEdit, const QColor &red)
 {
     if (!lineEdit)
         return;
@@ -47,7 +49,7 @@ static void changeTextColorToRed(QLineEdit *lineEdit)
         QInputMethodEvent::AttributeType type = QInputMethodEvent::TextFormat;
 
         QTextCharFormat fmt;
-        fmt.setForeground(Qt::red);
+        fmt.setForeground(red);
         QVariant format = fmt;
 
         attributes.append(QInputMethodEvent::Attribute(type, start, len, format));
@@ -142,12 +144,12 @@ bool GitCommitDialog::signoff() const
 
 void GitCommitDialog::updateLineSizeLabel()
 {
-    static constexpr auto red = QColor(237, 21, 21); // Breeze Danger Red
+    const QColor red = KColorScheme().foreground(KColorScheme::NegativeText).color();
     int len = m_le.text().length();
     if (len < 52) {
         m_leLen.setText(i18nc("Number of characters", "%1 / 52", QString::number(len)));
     } else {
-        changeTextColorToRed(&m_le);
+        changeTextColorToRed(&m_le, red);
         m_leLen.setText(i18nc("Number of characters", "<span style=\"color:%1;\">%2</span> / 52", red.name(), QString::number(len)));
     }
 }

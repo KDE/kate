@@ -15,6 +15,7 @@
 #include "pushpulldialog.h"
 #include "stashdialog.h"
 
+#include <KColorScheme>
 #include <QContextMenuEvent>
 #include <QCoreApplication>
 #include <QDebug>
@@ -96,8 +97,9 @@ public:
         int mw = r.width() - (ha + hs + hS);
         r.setX(r.x() + mw);
 
-        static constexpr auto red = QColor(237, 21, 21); // Breeze Danger Red
-        static constexpr auto green = QColor(17, 209, 27); // Breeze Verdant Green
+        KColorScheme c;
+        const auto red = c.shade(c.foreground(KColorScheme::NegativeText).color(), KColorScheme::MidlightShade, 1);
+        const auto green = c.shade(c.foreground(KColorScheme::PositiveText).color(), KColorScheme::MidlightShade, 1);
 
         painter->setPen(green);
         painter->drawText(r, Qt::AlignVCenter, add);

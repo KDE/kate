@@ -727,7 +727,7 @@ void KateViewSpace::goBack()
             m_viewManager->activeView()->setCursorPosition(location.cursor);
             // enable forward
             m_historyForward->setEnabled(true);
-            Q_EMIT m_viewManager->historyForwardEnabled(false);
+            Q_EMIT m_viewManager->historyForwardEnabled(true);
             return;
         }
     }
@@ -737,7 +737,7 @@ void KateViewSpace::goBack()
     v->setCursorPosition(location.cursor);
     // enable forward in viewspace + mainwindow
     m_historyForward->setEnabled(true);
-    Q_EMIT m_viewManager->historyForwardEnabled(false);
+    Q_EMIT m_viewManager->historyForwardEnabled(true);
 }
 
 bool KateViewSpace::isHistoryBackEnabled() const

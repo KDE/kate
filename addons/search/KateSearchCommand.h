@@ -28,9 +28,11 @@ Q_SIGNALS:
     void setSearchPlace(int place);
     void setCurrentFolder();
     void setSearchString(const QString &pattern);
-    void setProjectRegexSearch();
     void startSearch();
     void newTab();
+    void setRegexMode(bool enabled);
+    void setCaseInsensitive(bool enabled);
+    void setExpandResults(bool enabled);
 
     //
     // KTextEditor::Command

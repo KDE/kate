@@ -221,7 +221,9 @@ QObject *KatePluginSearch::createView(KTextEditor::MainWindow *mainWindow)
     connect(m_searchCommand, &KateSearchCommand::setCurrentFolder, view, &KatePluginSearchView::setCurrentFolder);
     connect(m_searchCommand, &KateSearchCommand::setSearchString, view, &KatePluginSearchView::setSearchString);
     connect(m_searchCommand, &KateSearchCommand::startSearch, view, &KatePluginSearchView::startSearch);
-    connect(m_searchCommand, &KateSearchCommand::setProjectRegexSearch, view, &KatePluginSearchView::setProjectRegexSearch);
+    connect(m_searchCommand, &KateSearchCommand::setRegexMode, view, &KatePluginSearchView::setRegexMode);
+    connect(m_searchCommand, &KateSearchCommand::setCaseInsensitive, view, &KatePluginSearchView::setCaseInsensitive);
+    connect(m_searchCommand, &KateSearchCommand::setExpandResults, view, &KatePluginSearchView::setExpandResults);
     connect(m_searchCommand, SIGNAL(newTab()), view, SLOT(addTab()));
 
     connect(view, &KatePluginSearchView::searchBusy, m_searchCommand, &KateSearchCommand::setBusy);
@@ -1798,11 +1800,19 @@ void KatePluginSearchView::goToPreviousMatch()
     }
 }
 
-void KatePluginSearchView::setProjectRegexSearch()
+void KatePluginSearchView::setRegexMode(bool enabled)
 {
-    m_ui.expandResults->setChecked(true);
-    m_ui.useRegExp->setChecked(true);
-    m_ui.matchCase->setChecked(true);
+    m_ui.useRegExp->setChecked(enabled);
+}
+
+void KatePluginSearchView::setCaseInsensitive(bool enabled)
+{
+    m_ui.matchCase->setChecked(enabled);
+}
+
+void KatePluginSearchView::setExpandResults(bool enabled)
+{
+    m_ui.expandResults->setChecked(enabled);
 }
 
 void KatePluginSearchView::readSessionConfig(const KConfigGroup &cg)

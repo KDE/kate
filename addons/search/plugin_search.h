@@ -107,7 +107,9 @@ public Q_SLOTS:
     void setSearchPlace(int place);
     void goToNextMatch();
     void goToPreviousMatch();
-    void setProjectRegexSearch();
+    void setRegexMode(bool enabled);
+    void setCaseInsensitive(bool enabled);
+    void setExpandResults(bool enabled);
 
 private:
     enum CopyResultType { AllExpanded, All };

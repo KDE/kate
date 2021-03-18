@@ -65,7 +65,9 @@ bool KateSearchCommand::exec(KTextEditor::View * /*view*/, const QString &cmd, Q
      */
     else if (command == QLatin1String("preg")) {
         Q_EMIT setSearchPlace(MatchModel::Project);
-        Q_EMIT setProjectRegexSearch();
+        Q_EMIT setRegexMode(true);
+        Q_EMIT setCaseInsensitive(true);
+        Q_EMIT setExpandResults(true);
         Q_EMIT newTab();
     }
 
@@ -96,7 +98,7 @@ bool KateSearchCommand::help(KTextEditor::View * /*view*/, const QString &cmd, Q
     }
 
     else if (cmd.startsWith(QLatin1String("preg"))) {
-        msg = i18n("Usage: preg [pattern to search for in current project]");
+        msg = i18n("Usage: preg [regex pattern to search for in current project]");
     }
 
     return true;

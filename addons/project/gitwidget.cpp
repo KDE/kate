@@ -753,7 +753,12 @@ void GitWidget::branchCompareFiles(const QString &from, const QString &to)
         }
     }
 
-    auto filesWithNameStatus = GitUtils::parseDiffNameStatus(git.readAllStandardOutput());
+    const QByteArray diff = git.readAllStandardOutput();
+    if (diff.isEmpty()) {
+        return;
+    }
+
+    auto filesWithNameStatus = GitUtils::parseDiffNameStatus(diff);
     if (filesWithNameStatus.isEmpty()) {
         sendMessage(i18n("Failed to compare %1...%2", from, to), true);
         return;
@@ -814,7 +819,6 @@ void GitWidget::buildMenu()
         using GitUtils::RefType;
         bd.openDialog(static_cast<GitUtils::RefType>(RefType::Head | RefType::Remote));
         QString branch = bd.branch();
-
         branchCompareFiles(branch, QString());
     });
 

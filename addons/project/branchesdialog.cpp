@@ -185,7 +185,8 @@ void BranchesDialog::openDialog(GitUtils::RefType r)
 
 void BranchesDialog::slotReturnPressed()
 {
-    const auto branch = m_proxyModel->data(m_treeView.currentIndex(), BranchesDialogModel::CheckoutName).toString();
+    /** We want display role here */
+    const auto branch = m_proxyModel->data(m_treeView.currentIndex(), Qt::DisplayRole).toString();
     const auto itemType = (BranchesDialogModel::ItemType)m_proxyModel->data(m_treeView.currentIndex(), BranchesDialogModel::ItemTypeRole).toInt();
     Q_ASSERT(itemType == BranchesDialogModel::BranchItem);
 

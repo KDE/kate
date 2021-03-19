@@ -35,3 +35,8 @@ void KateProjectCodeAnalysisTool::setActualFilesCount(int count)
 {
     m_filesCount = count;
 }
+
+void KateProjectCodeAnalysisTool::setMainWindow(KTextEditor::MainWindow *mainWin)
+{
+    m_mainWindow = mainWin;
+}

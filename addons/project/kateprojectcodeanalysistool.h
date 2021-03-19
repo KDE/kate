@@ -13,6 +13,11 @@
 
 #include "kateproject.h"
 
+namespace KTextEditor
+{
+class MainWindow;
+}
+
 /**
  * Information provider for a code analysis tool
  */
@@ -26,6 +31,8 @@ protected:
      * Current project
      */
     KateProject *m_project = nullptr;
+
+    KTextEditor::MainWindow *m_mainWindow;
 
 public:
     ~KateProjectCodeAnalysisTool() override;
@@ -115,6 +122,8 @@ public:
      * To be called by derived classes
      */
     void setActualFilesCount(int count);
+
+    void setMainWindow(KTextEditor::MainWindow *mainWin);
 
 private:
     int m_filesCount = 0;

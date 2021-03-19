@@ -108,6 +108,7 @@ void KateProjectInfoViewCodeAnalysis::slotStartStopClicked()
      */
     m_analysisTool = m_toolSelector->currentData(Qt::UserRole + 1).value<KateProjectCodeAnalysisTool *>();
     m_analysisTool->setProject(m_project);
+    m_analysisTool->setMainWindow(m_pluginView->mainWindow());
 
     /**
      * clear existing entries
@@ -240,6 +241,7 @@ void KateProjectInfoViewCodeAnalysis::finished(int exitCode, QProcess::ExitStatu
                                        m_analysisTool->getActualFilesCount(),
                                        exitCode));
     }
+
     static_cast<QVBoxLayout *>(layout())->addWidget(m_messageWidget);
     m_messageWidget->animatedShow();
 }

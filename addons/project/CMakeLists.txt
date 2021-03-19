@@ -74,6 +74,8 @@ target_sources(
     tools/kateprojectcodeanalysistoolflake8.cpp
     tools/kateprojectcodeanalysistoolshellcheck.cpp
     tools/kateprojectcodeanalysisselector.cpp
+    tools/kateprojectcodeanalysistoolclazy.cpp
+    tools/kateprojectcodeanalysistoolclazycurrent.cpp
 
     git/gitdiff.cpp
     git/gitutils.cpp

@@ -7,6 +7,8 @@
 
 #include "kateprojectcodeanalysisselector.h"
 
+#include "kateprojectcodeanalysistoolclazy.h"
+#include "kateprojectcodeanalysistoolclazycurrent.h"
 #include "kateprojectcodeanalysistoolcppcheck.h"
 #include "kateprojectcodeanalysistoolflake8.h"
 #include "kateprojectcodeanalysistoolshellcheck.h"
@@ -23,7 +25,11 @@ QStandardItemModel *KateProjectCodeAnalysisSelector::model(QObject *parent)
                                                         // flake8, for Python
                                                         new KateProjectCodeAnalysisToolFlake8(model),
                                                         // ShellCheck, for sh/bash scripts
-                                                        new KateProjectCodeAnalysisToolShellcheck(model)};
+                                                        new KateProjectCodeAnalysisToolShellcheck(model),
+                                                        // clazy for Qt C++
+                                                        new KateProjectCodeAnalysisToolClazy(model),
+                                                        // clang-tidy
+                                                        new KateProjectCodeAnalysisToolClazyCurrent(model)};
 
     QList<QStandardItem *> column;
 

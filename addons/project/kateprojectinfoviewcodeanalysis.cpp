@@ -17,6 +17,7 @@
 
 #include <KLocalizedString>
 #include <KMessageWidget>
+#include <QTimer>
 
 KateProjectInfoViewCodeAnalysis::KateProjectInfoViewCodeAnalysis(KateProjectPluginView *pluginView, KateProject *project)
     : m_pluginView(pluginView)
@@ -232,6 +233,13 @@ void KateProjectInfoViewCodeAnalysis::finished(int exitCode, QProcess::ExitStatu
         // normally 0 is successful but there are exceptions
         m_messageWidget->setMessageType(KMessageWidget::Information);
         m_messageWidget->setText(i18np("Analysis on %1 file finished.", "Analysis on %1 files finished.", m_analysisTool->getActualFilesCount()));
+
+        // hide after 3 seconds
+        QTimer::singleShot(3000, this, [this]() {
+            if (m_messageWidget) {
+                m_messageWidget->animatedHide();
+            }
+        });
     } else {
         // unfortunately, output was eaten by slotReadyRead()
         // TODO: get stderr output, show it here

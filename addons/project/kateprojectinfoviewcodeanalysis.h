@@ -12,6 +12,7 @@
 
 #include <QComboBox>
 #include <QLabel>
+#include <QPointer>
 #include <QProcess>
 #include <QPushButton>
 #include <QTreeView>
@@ -93,7 +94,7 @@ private:
     /**
      * information widget showing a warning about missing ctags.
      */
-    KMessageWidget *m_messageWidget;
+    QPointer<KMessageWidget> m_messageWidget;
 
     /**
      * start/stop analysis button

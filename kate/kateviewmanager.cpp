@@ -322,6 +322,13 @@ void KateViewManager::openUrl(const QUrl &url)
     openUrl(url, QString());
 }
 
+void KateViewManager::savePosition(const QUrl &url, KTextEditor::Cursor pos)
+{
+    if (KateViewSpace *avs = activeViewSpace()) {
+        avs->addJump(url, pos, /* calledExternally: */ true);
+    }
+}
+
 KateMainWindow *KateViewManager::mainWindow()
 {
     return m_mainWindow;

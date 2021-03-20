@@ -341,11 +341,28 @@ void KateQuickOpen::update(KateMainWindow *mainWindow)
 
 void KateQuickOpen::slotReturnPressed()
 {
-    const auto index = m_listView->model()->index(m_listView->currentIndex().row(), 0);
-    auto url = index.data(Qt::UserRole).toUrl();
-    m_mainWindow->wrapper()->openUrl(url);
+    const QModelIndex index = m_listView->model()->index(m_listView->currentIndex().row(), 0);
+    const QUrl url = index.data(Qt::UserRole).toUrl();
+
+    if (!url.isValid()) {
+        return;
+    }
+
+    // save current position before opening new url for location history
+    KateViewManager *vm = m_mainWindow->viewManager();
+    if (vm) {
+        if (KTextEditor::View *v = vm->activeView()) {
+            vm->savePosition(v->document()->url(), v->cursorPosition());
+        }
+    }
+
+    KTextEditor::View *v = m_mainWindow->wrapper()->openUrl(url);
     hide();
     m_mainWindow->slotWindowActivated();
+
+    if (v) {
+        vm->savePosition(v->document()->url(), v->cursorPosition());
+    }
 
     // block signals for input line so that we dont trigger filtering again
     const QSignalBlocker blocker(m_inputLine);

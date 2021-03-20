@@ -124,6 +124,15 @@ void KateProjectInfoViewIndex::slotClicked(const QModelIndex &index)
         return;
     }
 
+    /** Save current position before jumping **/
+    auto currentView = m_pluginView->mainWindow()->activeView();
+    QUrl url;
+    KTextEditor::Cursor pos;
+    if (currentView) {
+        url = currentView->document()->url();
+        pos = currentView->cursorPosition();
+    }
+
     /**
      * create view
      */
@@ -132,12 +141,18 @@ void KateProjectInfoViewIndex::slotClicked(const QModelIndex &index)
         return;
     }
 
+    /** save current position in location history */
+    Q_EMIT m_pluginView->posChanged(url, pos);
+
     /**
      * set cursor, if possible
      */
     int line = m_model->item(index.row(), 3)->text().toInt();
     if (line >= 1) {
         view->setCursorPosition(KTextEditor::Cursor(line - 1, 0));
+
+        /** save the jump position in location history */
+        Q_EMIT m_pluginView->posChanged(view->document()->url(), {line - 1, 0});
     }
 }
 

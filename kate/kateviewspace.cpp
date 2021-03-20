@@ -474,8 +474,13 @@ void KateViewSpace::focusNextTab()
     }
 }
 
-void KateViewSpace::addJump(const QUrl &url, KTextEditor::Cursor c)
+void KateViewSpace::addJump(const QUrl &url, KTextEditor::Cursor c, bool calledExternally)
 {
+    // We don't care about invalid urls (Fixed Diff View / Untitled docs)
+    if (!url.isValid()) {
+        return;
+    }
+
     // we are in the middle of jumps somewhere?
     if (!m_locations.isEmpty() && currentLocation + 1 < m_locations.size()) {
         // erase all forward history
@@ -487,15 +492,30 @@ void KateViewSpace::addJump(const QUrl &url, KTextEditor::Cursor c)
         m_locations.pop_back();
     }
 
-    // limit size to 100, remove first 20
-    if (m_locations.size() >= 100) {
-        m_locations.erase(m_locations.begin(), m_locations.begin() + 20);
+    // Check if the location is at least "viewLineCount" away
+    if (!calledExternally && !m_locations.isEmpty() && m_locations.back().url == url) {
+        int line = c.line();
+        int lastLocLine = m_locations.back().cursor.line();
+
+        auto view = m_viewManager->activeView();
+
+        int viewLineCount = view->lastDisplayedLine() - view->firstDisplayedLine();
+        int lowerBound = lastLocLine - viewLineCount;
+        int upperBound = lastLocLine + viewLineCount;
+        if (lowerBound <= line && line <= upperBound) {
+            return;
+        }
     }
 
-    // this is our new forward
+    // limit size to 50, remove first 10
+    if (m_locations.size() >= 50) {
+        m_locations.erase(m_locations.begin(), m_locations.begin() + 10);
+    }
+
+    /** this is our new forward **/
 
     m_locations.push_back({url, c});
-    // set to last
+    // set currentLocation as last
     currentLocation = m_locations.size() - 1;
     // disable forward button as we are at the end now
     m_historyForward->setEnabled(false);

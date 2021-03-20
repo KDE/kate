@@ -238,6 +238,15 @@ void KatePluginManager::enablePluginGUI(KatePluginInfo *item, KateMainWindow *wi
             if (createdView->metaObject()->indexOfSignal("message(QVariantMap)") != -1) {
                 connect(createdView, SIGNAL(message(const QVariantMap &)), win->outputView(), SLOT(slotMessage(const QVariantMap &)), Qt::UniqueConnection);
             }
+
+            // ensure location tracking is connected for view
+            if (createdView->metaObject()->indexOfSignal("posChanged(QUrl,KTextEditor::Cursor)") != -1) {
+                connect(createdView,
+                        SIGNAL(posChanged(QUrl, KTextEditor::Cursor)),
+                        win->viewManager(),
+                        SLOT(savePosition(const QUrl &, KTextEditor::Cursor)),
+                        Qt::UniqueConnection);
+            }
         }
     }
 

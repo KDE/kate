@@ -91,6 +91,8 @@ public:
      */
     void focusNextTab();
 
+    /** BEGIN Location History Stuff **/
+
     /**
      * go forward in location history
      */
@@ -110,6 +112,13 @@ public:
      * Is forward history avail?
      */
     bool isHistoryForwardEnabled() const;
+
+    /**
+     * Add a jump location for jumping back and forth between history
+     */
+    void addJump(const QUrl &url, KTextEditor::Cursor, bool calledExternally = false);
+
+    /** END Location History Stuff **/
 
 public Q_SLOTS:
     void documentDestroyed(QObject *doc);
@@ -155,11 +164,6 @@ private:
      * have no tab in this tab bar.
      */
     int hiddenDocuments() const;
-
-    /**
-     * Add a jump location for jumping back and forth between history
-     */
-    void addJump(const QUrl &url, KTextEditor::Cursor);
 
 private:
     // Kate's view manager

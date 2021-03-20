@@ -409,6 +409,8 @@ Q_SIGNALS:
      */
     void message(const QVariantMap &message);
 
+    void posChanged(const QUrl &url, KTextEditor::Cursor c);
+
 public:
     LSPClientActionView(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin, KXMLGUIClient *client, QSharedPointer<LSPClientServerManager> serverManager)
         : QObject(mainWin)
@@ -659,15 +661,7 @@ public:
             if (mouseEvent->button() == Qt::LeftButton && mouseEvent->modifiers() == Qt::ControlModifier) {
                 // must set cursor else we will be jumping somewhere else!!
                 if (!word.isEmpty()) {
-                    auto existingCur = v->cursorPosition();
                     v->setCursorPosition(cur);
-
-                    // hack: if the cursor is same as existing one,
-                    // we force trigger cursorPositionChanged()
-                    if (existingCur == cur) {
-                        Q_EMIT v->cursorPositionChanged(v, cur);
-                    }
-
                     m_ctrlHoverFeedback.clear(m_mainWindow->activeView());
                     goToDefinition();
                 }
@@ -1034,22 +1028,19 @@ public:
         KTextEditor::Cursor cdef(line, column);
 
         if (document && uri == document->url()) {
-            auto existingCur = activeView->cursorPosition();
+            // save current position for location history
+            Q_EMIT posChanged(activeView->document()->url(), activeView->cursorPosition());
+            // save the position to which we are jumping in location history
+            Q_EMIT posChanged(activeView->document()->url(), cdef);
+
             activeView->setCursorPosition(cdef);
-            // force emit cursorPositionChanged
-            if (existingCur == cdef) {
-                Q_EMIT activeView->cursorPositionChanged(activeView, cdef);
-            }
             highlightLandingLocation(activeView, location);
         } else {
             KTextEditor::View *view = m_mainWindow->openUrl(uri);
             if (view) {
-                auto existingCur = view->cursorPosition();
+                Q_EMIT posChanged(activeView->document()->url(), activeView->cursorPosition());
+                Q_EMIT posChanged(view->document()->url(), cdef);
                 view->setCursorPosition(cdef);
-                // force emit cursorPositionChanged
-                if (existingCur == cdef) {
-                    Q_EMIT view->cursorPositionChanged(view, cdef);
-                }
                 highlightLandingLocation(view, location);
             }
         }
@@ -2434,6 +2425,7 @@ public:
         m_mainWindow->guiFactory()->addClient(this);
 
         connect(m_actionView.get(), &LSPClientActionView::message, this, &LSPClientPluginViewImpl::message);
+        connect(m_actionView.get(), &LSPClientActionView::posChanged, this, &LSPClientPluginViewImpl::posChanged);
     }
 
     ~LSPClientPluginViewImpl() override
@@ -2454,6 +2446,13 @@ Q_SIGNALS:
      * @param message outgoing message we send to the host application
      */
     void message(const QVariantMap &message);
+
+    /**
+     * Signal for location changed.
+     * @param document url
+     * @param c pos in document
+     */
+    void posChanged(const QUrl &url, KTextEditor::Cursor c);
 };
 
 QObject *LSPClientPluginView::new_(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin)

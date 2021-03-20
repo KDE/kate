@@ -183,7 +183,6 @@ private:
 
     QVector<Location> m_locations;
     int currentLocation = 0;
-    bool m_textWasInserted = false;
 
     /**
      * all documents this view space is aware of

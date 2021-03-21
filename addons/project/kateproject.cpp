@@ -73,20 +73,6 @@ bool KateProject::reload(bool force)
     return load(m_globalProject, force);
 }
 
-void KateProject::close(bool force)
-{
-    QVariantMap map = readProjectFile();
-
-    if (!map.isEmpty()) 
-    {
-        m_plugin->deleteProject(this);
-        m_globalProject.clear();
-        delete this;
-    }
-
-    load(m_globalProject, force);
-}
-
 /**
  * Read a JSON document from file.
  *

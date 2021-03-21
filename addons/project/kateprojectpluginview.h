@@ -228,7 +228,7 @@ Q_SIGNALS:
      * @param document url
      * @param c pos in document
      */
-    void posChanged(const QUrl &url, KTextEditor::Cursor c);
+    void addPositionToHistory(const QUrl &url, KTextEditor::Cursor c);
 
 private Q_SLOTS:
     /**

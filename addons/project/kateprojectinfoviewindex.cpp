@@ -142,7 +142,7 @@ void KateProjectInfoViewIndex::slotClicked(const QModelIndex &index)
     }
 
     /** save current position in location history */
-    Q_EMIT m_pluginView->posChanged(url, pos);
+    Q_EMIT m_pluginView->addPositionToHistory(url, pos);
 
     /**
      * set cursor, if possible
@@ -152,7 +152,7 @@ void KateProjectInfoViewIndex::slotClicked(const QModelIndex &index)
         view->setCursorPosition(KTextEditor::Cursor(line - 1, 0));
 
         /** save the jump position in location history */
-        Q_EMIT m_pluginView->posChanged(view->document()->url(), {line - 1, 0});
+        Q_EMIT m_pluginView->addPositionToHistory(view->document()->url(), {line - 1, 0});
     }
 }
 

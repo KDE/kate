@@ -67,7 +67,7 @@ public:
 
 public Q_SLOTS:
     void openUrl(const QUrl &url);
-    void savePosition(const QUrl &url, KTextEditor::Cursor pos);
+    void addPositionToHistory(const QUrl &url, KTextEditor::Cursor pos);
 
 public:
     void closeView(KTextEditor::View *view);

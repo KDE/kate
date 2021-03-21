@@ -116,7 +116,7 @@ public:
     /**
      * Add a jump location for jumping back and forth between history
      */
-    void addJump(const QUrl &url, KTextEditor::Cursor, bool calledExternally = false);
+    void addPositionToHistory(const QUrl &url, KTextEditor::Cursor, bool calledExternally = false);
 
     /** END Location History Stuff **/
 

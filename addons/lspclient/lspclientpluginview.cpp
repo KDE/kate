@@ -409,7 +409,7 @@ Q_SIGNALS:
      */
     void message(const QVariantMap &message);
 
-    void posChanged(const QUrl &url, KTextEditor::Cursor c);
+    void addPositionToHistory(const QUrl &url, KTextEditor::Cursor c);
 
 public:
     LSPClientActionView(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin, KXMLGUIClient *client, QSharedPointer<LSPClientServerManager> serverManager)
@@ -1029,17 +1029,17 @@ public:
 
         if (document && uri == document->url()) {
             // save current position for location history
-            Q_EMIT posChanged(activeView->document()->url(), activeView->cursorPosition());
+            Q_EMIT addPositionToHistory(activeView->document()->url(), activeView->cursorPosition());
             // save the position to which we are jumping in location history
-            Q_EMIT posChanged(activeView->document()->url(), cdef);
+            Q_EMIT addPositionToHistory(activeView->document()->url(), cdef);
 
             activeView->setCursorPosition(cdef);
             highlightLandingLocation(activeView, location);
         } else {
             KTextEditor::View *view = m_mainWindow->openUrl(uri);
             if (view) {
-                Q_EMIT posChanged(activeView->document()->url(), activeView->cursorPosition());
-                Q_EMIT posChanged(view->document()->url(), cdef);
+                Q_EMIT addPositionToHistory(activeView->document()->url(), activeView->cursorPosition());
+                Q_EMIT addPositionToHistory(view->document()->url(), cdef);
                 view->setCursorPosition(cdef);
                 highlightLandingLocation(view, location);
             }
@@ -2425,7 +2425,7 @@ public:
         m_mainWindow->guiFactory()->addClient(this);
 
         connect(m_actionView.get(), &LSPClientActionView::message, this, &LSPClientPluginViewImpl::message);
-        connect(m_actionView.get(), &LSPClientActionView::posChanged, this, &LSPClientPluginViewImpl::posChanged);
+        connect(m_actionView.get(), &LSPClientActionView::addPositionToHistory, this, &LSPClientPluginViewImpl::addPositionToHistory);
     }
 
     ~LSPClientPluginViewImpl() override
@@ -2452,7 +2452,7 @@ Q_SIGNALS:
      * @param document url
      * @param c pos in document
      */
-    void posChanged(const QUrl &url, KTextEditor::Cursor c);
+    void addPositionToHistory(const QUrl &url, KTextEditor::Cursor c);
 };
 
 QObject *LSPClientPluginView::new_(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin)

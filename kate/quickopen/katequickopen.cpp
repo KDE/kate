@@ -352,7 +352,7 @@ void KateQuickOpen::slotReturnPressed()
     KateViewManager *vm = m_mainWindow->viewManager();
     if (vm) {
         if (KTextEditor::View *v = vm->activeView()) {
-            vm->savePosition(v->document()->url(), v->cursorPosition());
+            vm->addPositionToHistory(v->document()->url(), v->cursorPosition());
         }
     }
 
@@ -361,7 +361,7 @@ void KateQuickOpen::slotReturnPressed()
     m_mainWindow->slotWindowActivated();
 
     if (v) {
-        vm->savePosition(v->document()->url(), v->cursorPosition());
+        vm->addPositionToHistory(v->document()->url(), v->cursorPosition());
     }
 
     // block signals for input line so that we dont trigger filtering again

@@ -213,7 +213,7 @@ KTextEditor::View *KateViewSpace::createView(KTextEditor::Document *doc)
 
     connect(v, &KTextEditor::View::cursorPositionChanged, this, [this](KTextEditor::View *view, const KTextEditor::Cursor &newPosition) {
         if (view && view->document())
-            addJump(view->document()->url(), newPosition);
+            addPositionToHistory(view->document()->url(), newPosition);
     });
 
     // register document, it is shown below through showView() then
@@ -474,7 +474,7 @@ void KateViewSpace::focusNextTab()
     }
 }
 
-void KateViewSpace::addJump(const QUrl &url, KTextEditor::Cursor c, bool calledExternally)
+void KateViewSpace::addPositionToHistory(const QUrl &url, KTextEditor::Cursor c, bool calledExternally)
 {
     // We don't care about invalid urls (Fixed Diff View / Untitled docs)
     if (!url.isValid()) {

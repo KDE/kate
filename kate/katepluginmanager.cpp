@@ -240,11 +240,11 @@ void KatePluginManager::enablePluginGUI(KatePluginInfo *item, KateMainWindow *wi
             }
 
             // ensure location tracking is connected for view
-            if (createdView->metaObject()->indexOfSignal("posChanged(QUrl,KTextEditor::Cursor)") != -1) {
+            if (createdView->metaObject()->indexOfSignal("addPositionToHistory(QUrl,KTextEditor::Cursor)") != -1) {
                 connect(createdView,
-                        SIGNAL(posChanged(QUrl, KTextEditor::Cursor)),
+                        SIGNAL(addPositionToHistory(QUrl, KTextEditor::Cursor)),
                         win->viewManager(),
-                        SLOT(savePosition(const QUrl &, KTextEditor::Cursor)),
+                        SLOT(addPositionToHistory(const QUrl &, KTextEditor::Cursor)),
                         Qt::UniqueConnection);
             }
         }

@@ -322,10 +322,10 @@ void KateViewManager::openUrl(const QUrl &url)
     openUrl(url, QString());
 }
 
-void KateViewManager::savePosition(const QUrl &url, KTextEditor::Cursor pos)
+void KateViewManager::addPositionToHistory(const QUrl &url, KTextEditor::Cursor pos)
 {
     if (KateViewSpace *avs = activeViewSpace()) {
-        avs->addJump(url, pos, /* calledExternally: */ true);
+        avs->addPositionToHistory(url, pos, /* calledExternally: */ true);
     }
 }
 

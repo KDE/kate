@@ -190,7 +190,7 @@ KateProject *KateProjectPlugin::projectForDir(QDir dir)
 }
 
 
-void KateProjectPlugin::deleteProject(KateProject *project)
+bool KateProjectPlugin::closeProject(KateProject *project)
 {
     m_projects.removeOne(project);
     for (KateProject *projectIterator : m_projects) 
@@ -199,8 +199,10 @@ void KateProjectPlugin::deleteProject(KateProject *project)
         {
             m_fileWatcher.removePath(QFileInfo(projectIterator->fileName()).canonicalPath());
             delete projectIterator;
+            return true;
         }
     }
+    return false;
 }
 
 

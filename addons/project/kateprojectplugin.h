@@ -59,7 +59,12 @@ public:
      */
     KateProject *projectForDir(QDir dir);
     
-    void deleteProject(KateProject *project);
+    /**
+     * Search and close project for given project, if possible.
+     * @param project to search matching project for closing
+     * @return true if successful
+     */
+    bool closeProject(KateProject *project);
 
     /**
      * Search and open project that contains given url, if possible.

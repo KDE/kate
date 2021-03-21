@@ -58,6 +58,8 @@ public:
      * @return project or null if not openable
      */
     KateProject *projectForDir(QDir dir);
+    
+    void deleteProject(KateProject *project);
 
     /**
      * Search and open project that contains given url, if possible.

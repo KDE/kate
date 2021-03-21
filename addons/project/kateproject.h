@@ -67,6 +67,13 @@ public:
      * @return success
      */
     bool reload(bool force = false);
+    
+    /**
+     * Try to close a project.
+     * @param force will enforce the worker to update files list and co even if the content of the file was not changed!
+     * @return success
+     */
+    void close(bool force = false);
 
     /**
      * Accessor to file name.

@@ -75,10 +75,14 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     m_reloadButton = new QToolButton(m_toolView);
     m_reloadButton->setAutoRaise(true);
     m_reloadButton->setIcon(QIcon::fromTheme(QStringLiteral("view-refresh")));
+    m_closeProjectButton = new QToolButton(m_toolView);
+    m_closeProjectButton->setAutoRaise(true);
+    m_closeProjectButton->setIcon(QIcon::fromTheme(QStringLiteral("window-close")));
     QHBoxLayout *layout = new QHBoxLayout();
     layout->setSpacing(0);
     layout->addWidget(m_projectsCombo);
     layout->addWidget(m_reloadButton);
+    layout->addWidget(m_closeProjectButton);
     m_toolView->layout()->addItem(layout);
     m_toolView->layout()->setSpacing(0);
 
@@ -107,6 +111,9 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     });
     connect(m_projectsCombo, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &KateProjectPluginView::slotCurrentChanged);
     connect(m_reloadButton, &QToolButton::clicked, this, &KateProjectPluginView::slotProjectReload);
+    //---
+    connect(m_closeProjectButton, &QToolButton::clicked, this, &KateProjectPluginView::slotProjectClose);
+    //---
     connect(m_gitStatusRefreshButton, &QToolButton::clicked, this, [this] {
         if (auto widget = m_stackedgitViews->currentWidget()) {
             qobject_cast<GitWidget *>(widget)->getStatus();
@@ -554,6 +561,28 @@ void KateProjectPluginView::slotProjectReload()
         qobject_cast<GitWidget *>(widget)->getStatus();
     }
 }
+
+void KateProjectPluginView::slotProjectClose()
+{
+    
+    if (QWidget *current = m_stackedProjectViews->currentWidget())
+    {
+
+        m_project2View.erase(m_project2View.find(static_cast<KateProjectView *>(current)->project()));
+        m_stackedProjectViews->removeWidget(m_stackedProjectViews->currentWidget());
+        m_stackedProjectInfoViews->removeWidget(m_stackedProjectInfoViews->currentWidget());
+        m_stackedgitViews->removeWidget(m_stackedgitViews->currentWidget());
+        m_plugin->projects().removeAt(m_plugin->projects().indexOf(static_cast<KateProjectView *>(current)->project()));
+        
+        m_projectsCombo->removeItem(m_plugin->projects().indexOf(static_cast<KateProjectView *>(current)->project()));
+        m_projectsComboGit->removeItem(m_plugin->projects().indexOf(static_cast<KateProjectView *>(current)->project()));
+        
+        static_cast<KateProjectView *>(current)->project()->close(true);
+        //delete static_cast<KateProjectView *>(current)->project();
+        
+    }
+}
+
 
 QString KateProjectPluginView::currentWord() const
 {

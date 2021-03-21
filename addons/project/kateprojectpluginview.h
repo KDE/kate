@@ -148,6 +148,11 @@ private Q_SLOTS:
      * This will trigger a reload with force.
      */
     void slotProjectReload();
+    
+    /**
+     * Close current project, if any.
+     */
+    void slotProjectClose();
 
     /**
      * Lookup current word
@@ -272,6 +277,11 @@ private:
      * Reload button
      */
     QToolButton *m_reloadButton;
+    
+    /**
+     * Closeing button
+     */
+    QToolButton *m_closeProjectButton;
 
     /**
      * Git status refresh button

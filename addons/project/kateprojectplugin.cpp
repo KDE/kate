@@ -189,6 +189,22 @@ KateProject *KateProjectPlugin::projectForDir(QDir dir)
     return nullptr;
 }
 
+
+void KateProjectPlugin::deleteProject(KateProject *project)
+{
+    m_projects.removeOne(project);
+    for (KateProject *projectIterator : m_projects) 
+    {
+        if(project == projectIterator)
+        {
+            m_fileWatcher.removePath(QFileInfo(projectIterator->fileName()).canonicalPath());
+            delete projectIterator;
+        }
+    }
+}
+
+
+
 KateProject *KateProjectPlugin::projectForUrl(const QUrl &url)
 {
     if (url.isEmpty() || !url.isLocalFile()) {

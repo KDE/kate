@@ -236,9 +236,9 @@ and <filename class="directory">/usr/share/</filename>.
 </para>
 
 <para>In Flatpak and Snap packages, the above directory will not work as the data location
-is different for each application. In a Flatpak application, usually is
+is different for each application. In a Flatpak application, that location is usually
 <filename class="directory"><envar>$HOME</envar>/.var/app/<replaceable>flatpak-package-name</replaceable>/data/</filename>
-and in a Snap application is
+and in a Snap application that location is
 <filename class="directory"><envar>$HOME</envar>/snap/<replaceable>snap-package-name</replaceable>/current/.local/share/</filename>.
 For example, for <ulink url="https://flathub.org/apps/details/org.kde.kate">&kate;'s Flatpak package</ulink>,
 the custom &XML; files are located in
@@ -451,7 +451,7 @@ context. It is possible to use for example <userinput>#pop#pop#pop</userinput>
 to pop three times, or even <userinput>#pop#pop!OtherContext</userinput> to pop
 two times and switch to the context named <userinput>OtherContext</userinput>.
 It is also possible to switch to a context that belongs to another language definition,
-in the same way as in the <userinput>IncludeRules</userinput> rules, e.g.
+in the same way as in the <userinput>IncludeRules</userinput> rules, &eg;,
 <userinput>SomeContext##JavaScript</userinput>. Note that it is not possible to use
 this context switch in combination with <userinput>#pop</userinput>, for example,
 <userinput>#pop!SomeContext##JavaScript</userinput> is not valid.
@@ -466,7 +466,7 @@ Default: #stay.</para>
 <para><userinput>fallthrough</userinput> defines if the highlight system switches
 to the context specified in <userinput>fallthroughContext</userinput> if no rule
 matches. Note that since &kde; &frameworks; 5.62 this attribute is deprecated
-in favor of only <userinput>fallthroughContext</userinput>, since if the
+in favor of <userinput>fallthroughContext</userinput>, since if the
 <userinput>fallthroughContext</userinput> attribute is present it is implicitly
 understood that the value of <userinput>fallthrough</userinput> is
 <emphasis>true</emphasis>. Default: <emphasis>false</emphasis>.</para>

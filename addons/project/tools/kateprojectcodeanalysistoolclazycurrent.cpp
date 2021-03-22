@@ -24,12 +24,11 @@ QStringList KateProjectCodeAnalysisToolClazyCurrent::arguments()
         return {};
     }
 
-    // check for compile_commands.json
-    bool hasCompileComds = QFile::exists(m_project->baseDir() + QStringLiteral("/build/compile_commands.json"));
+    QString compileCommandsDir = compileCommandsDirectory();
 
     QStringList args;
-    if (hasCompileComds) {
-        args << QStringList{QStringLiteral("-p"), m_project->baseDir() + QStringLiteral("/build")};
+    if (!compileCommandsDir.isEmpty()) {
+        args << QStringList{QStringLiteral("-p"), compileCommandsDir};
     }
     setActualFilesCount(1);
 

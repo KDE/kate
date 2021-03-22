@@ -27,6 +27,8 @@ public:
     QStringList parseLine(const QString &line) const override;
 
     QString stdinMessages() override;
+
+    QString compileCommandsDirectory() const;
 };
 
 #endif // KATEPROJECTCODEANALYSISTOOLCLAZY_H

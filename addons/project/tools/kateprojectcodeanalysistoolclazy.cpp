@@ -1,6 +1,8 @@
 #include "kateprojectcodeanalysistoolclazy.h"
 
 #include <KLocalizedString>
+
+#include <QDir>
 #include <QRegularExpression>
 
 KateProjectCodeAnalysisToolClazy::KateProjectCodeAnalysisToolClazy(QObject *parent)
@@ -35,18 +37,24 @@ QString KateProjectCodeAnalysisToolClazy::path() const
     return QStringLiteral("clazy-standalone");
 }
 
+static QString buildDirectory(const QVariantMap &projectMap)
+{
+    const QVariantMap buildMap = projectMap[QStringLiteral("build")].toMap();
+    const QString buildDir = buildMap[QStringLiteral("directory")].toString();
+    return buildDir;
+}
+
 QStringList KateProjectCodeAnalysisToolClazy::arguments()
 {
     if (!m_project) {
         return {};
     }
 
-    // check for compile_commands.json
-    bool hasCompileComds = QFile::exists(m_project->baseDir() + QStringLiteral("/build/compile_commands.json"));
+    QString compileCommandsDir = compileCommandsDirectory();
 
     QStringList args;
-    if (hasCompileComds) {
-        args = QStringList{QStringLiteral("-p"), m_project->baseDir() + QStringLiteral("/build")};
+    if (!compileCommandsDir.isEmpty()) {
+        args = QStringList{QStringLiteral("-p"), compileCommandsDir};
     }
 
     auto &&fileList = filter(m_project->files());
@@ -95,4 +103,40 @@ QStringList KateProjectCodeAnalysisToolClazy::parseLine(const QString &line) con
 QString KateProjectCodeAnalysisToolClazy::stdinMessages()
 {
     return QString();
+}
+
+QString KateProjectCodeAnalysisToolClazy::compileCommandsDirectory() const
+{
+    QString buildDir = buildDirectory(m_project->projectMap());
+    const QString compCommandsFile = QStringLiteral("compile_commands.json");
+
+    // check for compile_commands.json
+    QString compileCommandsDir;
+    bool hasCompileComds = false;
+    if (QDir::isAbsolutePath(buildDir)) {
+        if (!buildDir.endsWith(QLatin1Char('/'))) {
+            buildDir.append(QLatin1Char('/'));
+        }
+        hasCompileComds = QFile::exists(buildDir + compCommandsFile);
+        if (hasCompileComds) {
+            compileCommandsDir = buildDir;
+        }
+    } else if (QDir::isRelativePath(buildDir)) {
+        if (buildDir.startsWith(QLatin1Char('/'))) {
+            buildDir = buildDir.mid(1);
+        } else if (buildDir.startsWith(QLatin1String("./"))) {
+            buildDir = buildDir.mid(2);
+        }
+        QString path = m_project->baseDir() + QLatin1Char('/') + buildDir;
+        hasCompileComds = QFile::exists(QDir(path).absoluteFilePath(compCommandsFile));
+        if (hasCompileComds) {
+            compileCommandsDir = path;
+        }
+    } else {
+        hasCompileComds = QFile::exists(m_project->baseDir() + QStringLiteral("/build/compile_commands.json"));
+        if (hasCompileComds) {
+            compileCommandsDir = m_project->baseDir() + QStringLiteral("/build");
+        }
+    }
+    return compileCommandsDir;
 }

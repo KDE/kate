@@ -31,7 +31,7 @@
 static QString getName()
 {
     QInputDialog dlg;
-    dlg.setLabelText(i18n("Enter name: "));
+    dlg.setLabelText(i18n("Enter name:"));
     dlg.setOkButtonText(i18n("Add"));
     dlg.setInputMode(QInputDialog::TextInput);
 

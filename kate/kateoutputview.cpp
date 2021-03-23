@@ -314,8 +314,10 @@ void KateOutputView::slotMessage(const QVariantMap &message)
     const auto textLines = text.split(QLatin1Char('\n'));
     Q_ASSERT(!textLines.empty());
     auto bodyColumn = new QStandardItem(textLines.at(0));
+    auto lastItemForScrolling = bodyColumn;
     for (int i = 1; i < textLines.size(); ++i) {
-        dateTimeColumn->appendRow({new QStandardItem(), new QStandardItem(), new QStandardItem(), new QStandardItem(textLines.at(i))});
+        lastItemForScrolling = new QStandardItem(textLines.at(i));
+        dateTimeColumn->appendRow({new QStandardItem(), new QStandardItem(), new QStandardItem(), lastItemForScrolling});
     }
 
     /**
@@ -324,10 +326,9 @@ void KateOutputView::slotMessage(const QVariantMap &message)
     m_messagesModel.appendRow({dateTimeColumn, categoryColumn, typeColumn, bodyColumn});
 
     /**
-     * expand the new thingy and make it visible
+     * expand the new thingy
      */
     m_messagesTreeView->expand(m_proxyModel->mapFromSource(dateTimeColumn->index()));
-    m_messagesTreeView->scrollTo(m_proxyModel->mapFromSource(dateTimeColumn->index()));
 
     /**
      * ensure correct sizing
@@ -336,6 +337,11 @@ void KateOutputView::slotMessage(const QVariantMap &message)
     m_messagesTreeView->resizeColumnToContents(0);
     m_messagesTreeView->resizeColumnToContents(1);
     m_messagesTreeView->resizeColumnToContents(2);
+
+    /**
+     * ensure last item is visible
+     */
+    m_messagesTreeView->scrollTo(m_proxyModel->mapFromSource(lastItemForScrolling->index()));
 
     /**
      * if message requires it => show the tool view if hidden

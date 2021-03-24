@@ -91,6 +91,11 @@ KateProjectInfoViewCodeAnalysis::KateProjectInfoViewCodeAnalysis(KateProjectPlug
 
 KateProjectInfoViewCodeAnalysis::~KateProjectInfoViewCodeAnalysis()
 {
+    if (m_analyzer && m_analyzer->state() != QProcess::NotRunning) {
+        m_analyzer->kill();
+        m_analyzer->blockSignals(true);
+        m_analyzer->waitForFinished();
+    }
     delete m_analyzer;
 }
 

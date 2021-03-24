@@ -110,33 +110,41 @@ QString KateProjectCodeAnalysisToolClazy::compileCommandsDirectory() const
     QString buildDir = buildDirectory(m_project->projectMap());
     const QString compCommandsFile = QStringLiteral("compile_commands.json");
 
-    // check for compile_commands.json
+    if (buildDir.startsWith(QLatin1String("./"))) {
+        buildDir = buildDir.mid(2);
+    }
+
+    // clang-format off
+    /**
+     * list of absoloute paths to check compile commands
+     */
+    const QString possiblePaths[4] =
+    {
+        /** Absoloute build path in .kateproject e.g from cmake */
+        buildDir,
+        /** Relative path in .kateproject e.g */
+        m_project->baseDir() + (buildDir.startsWith(QLatin1Char('/')) ? buildDir : QLatin1Char('/') + buildDir),
+        /** Check for the commonly existing "build/" directory */
+        m_project->baseDir() + QStringLiteral("/build"),
+        /** Project base, maybe it has a symlink to compile_commands.json file */
+        m_project->baseDir()
+    };
+    // clang-format on
+
+    /**
+     * Check all paths one by one for compile_commands.json and exit when found
+     */
     QString compileCommandsDir;
-    bool hasCompileComds = false;
-    if (QDir::isAbsolutePath(buildDir)) {
-        if (!buildDir.endsWith(QLatin1Char('/'))) {
-            buildDir.append(QLatin1Char('/'));
+    for (QString path : possiblePaths) {
+        if (!path.endsWith(QLatin1Char('/'))) {
+            path.append(QLatin1Char('/'));
         }
-        hasCompileComds = QFile::exists(buildDir + compCommandsFile);
-        if (hasCompileComds) {
-            compileCommandsDir = buildDir;
-        }
-    } else if (QDir::isRelativePath(buildDir)) {
-        if (buildDir.startsWith(QLatin1Char('/'))) {
-            buildDir = buildDir.mid(1);
-        } else if (buildDir.startsWith(QLatin1String("./"))) {
-            buildDir = buildDir.mid(2);
-        }
-        QString path = m_project->baseDir() + QLatin1Char('/') + buildDir;
-        hasCompileComds = QFile::exists(QDir(path).absoluteFilePath(compCommandsFile));
-        if (hasCompileComds) {
+        const bool dirHasCompileComds = QFile::exists(buildDir + compCommandsFile);
+        if (dirHasCompileComds) {
             compileCommandsDir = path;
-        }
-    } else {
-        hasCompileComds = QFile::exists(m_project->baseDir() + QStringLiteral("/build/compile_commands.json"));
-        if (hasCompileComds) {
-            compileCommandsDir = m_project->baseDir() + QStringLiteral("/build");
+            break;
         }
     }
+
     return compileCommandsDir;
 }

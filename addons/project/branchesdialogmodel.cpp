@@ -45,7 +45,7 @@ QVariant BranchesDialogModel::data(const QModelIndex &idx, int role) const
         return branch.dateSort;
     } else if (role == Qt::DecorationRole) {
         if (branch.itemType == BranchItem) {
-            static const auto branchIcon = QIcon(QStringLiteral(":/icons/icons/sc-apps-git.svg"));
+            static const auto branchIcon = QIcon::fromTheme(QStringLiteral("vcs-branch"));
             return branchIcon;
         }
     } else if (role == Qt::FontRole) {

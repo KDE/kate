@@ -827,7 +827,8 @@ void GitWidget::buildMenu()
     });
     a->setIcon(QIcon::fromTheme(QStringLiteral("vcs-diff")));
 
-    m_gitMenu->addAction(i18n("Stash"))->setMenu(stashMenu());
+    auto stashMenu = m_gitMenu->addAction(QIcon::fromTheme(QStringLiteral("vcs-stash")), i18n("Stash"));
+    stashMenu->setMenu(this->stashMenu());
 }
 
 void GitWidget::createStashDialog(StashMode m, const QString &gitPath)
@@ -862,10 +863,10 @@ QMenu *GitWidget::stashMenu()
     QMenu *menu = new QMenu(this);
     auto stashAct = menu->addAction(QIcon::fromTheme(QStringLiteral("vcs-stash")), i18n("Stash"));
     auto popLastAct = menu->addAction(QIcon::fromTheme(QStringLiteral("vcs-stash-pop")), i18n("Pop Last Stash"));
-    auto popAct = menu->addAction(i18n("Pop Stash"));
+    auto popAct = menu->addAction(QIcon::fromTheme(QStringLiteral("vcs-stash-pop")), i18n("Pop Stash"));
     auto applyLastAct = menu->addAction(i18n("Apply Last Stash"));
-    auto stashKeepStagedAct = menu->addAction(i18n("Stash (Keep Staged)"));
-    auto stashUAct = menu->addAction(i18n("Stash (Include Untracked)"));
+    auto stashKeepStagedAct = menu->addAction(QIcon::fromTheme(QStringLiteral("vcs-stash")), i18n("Stash (Keep Staged)"));
+    auto stashUAct = menu->addAction(QIcon::fromTheme(QStringLiteral("vcs-stash")), i18n("Stash (Include Untracked)"));
     auto applyStashAct = menu->addAction(i18n("Apply Stash"));
     auto dropAct = menu->addAction(i18n("Drop Stash"));
     auto showStashAct = menu->addAction(i18n("Show Stash Content"));
@@ -919,11 +920,15 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
 
     if (type == GitStatusModel::NodeChanges || type == GitStatusModel::NodeUntrack) {
         QMenu menu;
-        auto stageAct = menu.addAction(i18n("Stage All"));
         bool untracked = type == GitStatusModel::NodeUntrack;
+
+        auto stageAct = menu.addAction(i18n("Stage All"));
+
         auto discardAct = untracked ? menu.addAction(i18n("Remove All")) : menu.addAction(i18n("Discard All"));
+        discardAct->setIcon(QIcon::fromTheme(QStringLiteral("edit-delete-remove")));
+
         auto ignoreAct = untracked ? menu.addAction(i18n("Open .gitignore")) : nullptr;
-        auto diff = !untracked ? menu.addAction(i18n("Show diff")) : nullptr;
+        auto diff = !untracked ? menu.addAction(QIcon::fromTheme(QStringLiteral("vcs-diff")), i18n("Show diff")) : nullptr;
         // get files
         auto act = menu.exec(m_treeView->viewport()->mapToGlobal(e->pos()));
         if (!act) {
@@ -970,10 +975,15 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
 
         auto openFile = menu.addAction(i18n("Open file"));
         auto showDiffAct = untracked ? nullptr : menu.addAction(i18n("Show raw diff"));
+        showDiffAct->setIcon(QIcon::fromTheme(QStringLiteral("vcs-diff")));
         auto launchDifftoolAct = untracked ? nullptr : menu.addAction(i18n("Show in external git diff tool"));
+        launchDifftoolAct->setIcon(QIcon::fromTheme(QStringLiteral("kdiff3")));
         auto openAtHead = untracked ? nullptr : menu.addAction(i18n("Open at HEAD"));
         auto stageAct = staged ? menu.addAction(i18n("Unstage file")) : menu.addAction(i18n("Stage file"));
         auto discardAct = staged ? nullptr : untracked ? menu.addAction(i18n("Remove")) : menu.addAction(i18n("Discard"));
+        if (discardAct) {
+            discardAct->setIcon(QIcon::fromTheme(QStringLiteral("edit-delete-remove")));
+        }
 
         auto act = menu.exec(m_treeView->viewport()->mapToGlobal(e->pos()));
         if (!act) {
@@ -1064,6 +1074,9 @@ void GitWidget::selectedContextMenu(QContextMenuEvent *e)
     QMenu menu;
     auto stageAct = selectionHasStagedItems ? menu.addAction(i18n("Unstage Selected Files")) : menu.addAction(i18n("Stage Selected Files"));
     auto discardAct = selectionHasChangedItems && !selectionHasUntrackedItems ? menu.addAction(i18n("Discard Selected Files")) : nullptr;
+    if (discardAct) {
+        discardAct->setIcon(QIcon::fromTheme(QStringLiteral("edit-delete-remove")));
+    }
     auto removeAct = !selectionHasChangedItems && selectionHasUntrackedItems ? menu.addAction(i18n("Remove Selected Files")) : nullptr;
     auto execAct = menu.exec(m_treeView->viewport()->mapToGlobal(e->pos()));
     if (!execAct) {

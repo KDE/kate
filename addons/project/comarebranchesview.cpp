@@ -144,6 +144,7 @@ CompareBranchesView::CompareBranchesView(QWidget *parent, const QString &gitPath
     layout()->addWidget(&m_tree);
 
     m_tree.setHeaderHidden(true);
+    m_tree.setEditTriggers(QTreeView::NoEditTriggers);
     m_tree.setItemDelegate(new DiffStyleDelegate(this));
     m_tree.expandAll();
 

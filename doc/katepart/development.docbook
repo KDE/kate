@@ -235,16 +235,12 @@ GenericDataLocation</option></userinput> which usually are
 and <filename class="directory">/usr/share/</filename>.
 </para>
 
-<para>In Flatpak and Snap packages, the above directory will not work as the data location
-is different for each application. In a Flatpak application, that location is usually
-<filename class="directory"><envar>$HOME</envar>/.var/app/<replaceable>flatpak-package-name</replaceable>/data/</filename>
+<para>In Flatpak and Snap packages, the above directory will not work
+as the data location is different for each application.
+In a Flatpak application, the location of custom &XML; files is usually
+<filename class="directory"><envar>$HOME</envar>/.var/app/<replaceable>flatpak-package-name</replaceable>/data/org.kde.syntax-highlighting/syntax/</filename>
 and in a Snap application that location is
-<filename class="directory"><envar>$HOME</envar>/snap/<replaceable>snap-package-name</replaceable>/current/.local/share/</filename>.
-For example, for <ulink url="https://flathub.org/apps/details/org.kde.kate">&kate;'s Flatpak package</ulink>,
-the custom &XML; files are located in
-<filename class="directory"><envar>$HOME</envar>/.var/app/org.kde.kate/data/org.kde.syntax-highlighting/syntax/</filename>
-and for <ulink url="https://snapcraft.io/kate">&kate;'s Snap package</ulink>,
-it is <filename class="directory"><envar>$HOME</envar>/snap/kate/current/.local/share/org.kde.syntax-highlighting/syntax/</filename>.
+<filename class="directory"><envar>$HOME</envar>/snap/<replaceable>snap-package-name</replaceable>/current/.local/share/org.kde.syntax-highlighting/syntax/</filename>.
 </para>
 
 <para>On &Windows; these files are located <filename>%USERPROFILE%&#92;AppData&#92;Local&#92;org.kde.syntax-highlighting&#92;syntax</filename>.
@@ -1390,17 +1386,12 @@ and are commonly <filename class="directory"><envar>$HOME</envar>/.local/share/<
 and <filename class="directory">/usr/share/</filename>.
 </para>
 
-<para>In Flatpak and Snap packages, the above theme directory will not work
+<para>In Flatpak and Snap packages, the above directory will not work
 as the data location is different for each application.
-In a Flatpak application, usually is
-<filename class="directory"><envar>$HOME</envar>/.var/app/<replaceable>flatpak-package-name</replaceable>/data/</filename>
-and in a Snap application is
-<filename class="directory"><envar>$HOME</envar>/snap/<replaceable>snap-package-name</replaceable>/current/.local/share/</filename>.
-For example, for <ulink url="https://flathub.org/apps/details/org.kde.kate">&kate;'s Flatpak package</ulink>,
-the custom color theme files are located in
-<filename class="directory"><envar>$HOME</envar>/.var/app/org.kde.kate/data/org.kde.syntax-highlighting/themes/</filename>
-and for <ulink url="https://snapcraft.io/kate">&kate;'s Snap package</ulink>, it is
-<filename class="directory"><envar>$HOME</envar>/snap/kate/current/.local/share/org.kde.syntax-highlighting/themes/</filename>.
+In a Flatpak application, the location of custom theme files is usually
+<filename class="directory"><envar>$HOME</envar>/.var/app/<replaceable>flatpak-package-name</replaceable>/data/org.kde.syntax-highlighting/themes/</filename>
+and in a Snap application that location is
+<filename class="directory"><envar>$HOME</envar>/snap/<replaceable>snap-package-name</replaceable>/current/.local/share/org.kde.syntax-highlighting/themes/</filename>.
 </para>
 
 <para>On &Windows; these files are located

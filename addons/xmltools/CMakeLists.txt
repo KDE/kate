@@ -16,6 +16,9 @@ target_sources(
 )
 
 kcoreaddons_desktop_to_json(katexmltoolsplugin katexmltools.desktop)
+
+# ensure we are able to load plugins pre-install, too, directories must match!
+set_target_properties(katexmltoolsplugin PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/ktexteditor")
 install(TARGETS katexmltoolsplugin DESTINATION ${KDE_INSTALL_PLUGINDIR}/ktexteditor)
 
 install(

@@ -30,7 +30,11 @@ target_sources(
 
 plasma_install_package(applet org.kde.plasma.katesessions)
 kcoreaddons_desktop_to_json(plasma_engine_katesessions plasma-dataengine-katesessions.desktop)
+
+# ensure we are able to load plugins pre-install, too, directories must match!
+set_target_properties(plasma_engine_katesessions PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/plasma/dataengine")
 install(TARGETS plasma_engine_katesessions DESTINATION ${KDE_INSTALL_PLUGINDIR}/plasma/dataengine)
+
 install(FILES plasma-dataengine-katesessions.desktop DESTINATION ${KDE_INSTALL_KSERVICES5DIR})
 install(FILES org.kde.plasma.katesessions.operations DESTINATION ${PLASMA_DATA_INSTALL_DIR}/services)
 

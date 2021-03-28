@@ -15,6 +15,9 @@ target_sources(
 )
 
 kcoreaddons_desktop_to_json(katebacktracebrowserplugin katebacktracebrowserplugin.desktop)
+
+# ensure we are able to load plugins pre-install, too, directories must match!
+set_target_properties(katebacktracebrowserplugin PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/ktexteditor")
 install(TARGETS katebacktracebrowserplugin DESTINATION ${KDE_INSTALL_PLUGINDIR}/ktexteditor)
 
 if(BUILD_TESTING)

@@ -20,4 +20,6 @@ target_sources(
     kpartview.cpp
 )
 
+# ensure we are able to load plugins pre-install, too, directories must match!
+set_target_properties(ktexteditorpreviewplugin PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/ktexteditor")
 install(TARGETS ktexteditorpreviewplugin DESTINATION ${KDE_INSTALL_PLUGINDIR}/ktexteditor)

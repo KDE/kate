@@ -54,6 +54,9 @@ target_include_directories(
 )
 
 kcoreaddons_desktop_to_json(lspclientplugin lspclientplugin.desktop)
+
+# ensure we are able to load plugins pre-install, too, directories must match!
+set_target_properties(lspclientplugin PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/ktexteditor")
 install(TARGETS lspclientplugin DESTINATION ${KDE_INSTALL_PLUGINDIR}/ktexteditor)
 
 if(BUILD_TESTING)

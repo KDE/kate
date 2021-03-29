@@ -1,8 +1,9 @@
 /*
     SPDX-FileCopyrightText: 2007 Andreas Pakulat <apaku@gmx.de>
     SPDX-FileCopyrightText: 2007 Matthew Woehlke <mw_triad@users.sourceforge.net>
+    SPDX-FileCopyrightText: 2020 Jonathan Verner <jonathan.verner@matfyz.cz>
 
-    SPDX-License-Identifier: GPL-2.0-or-later
+    SPDX-License-Identifier: LGPL-2.0-or-later
 */
 #ifndef KDEVPLATFORM_VCSDIFF_H
 #define KDEVPLATFORM_VCSDIFF_H

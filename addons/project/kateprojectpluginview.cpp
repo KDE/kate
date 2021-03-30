@@ -32,6 +32,7 @@
 #include <QTimer>
 #include <QVBoxLayout>
 
+
 K_PLUGIN_FACTORY_WITH_JSON(KateProjectPluginFactory, "kateprojectplugin.json", registerPlugin<KateProjectPlugin>();)
 
 KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEditor::MainWindow *mainWin)
@@ -569,18 +570,21 @@ void KateProjectPluginView::slotProjectClose()
     {
         const auto project = static_cast<KateProjectView *>(current)->project();
         
-        m_project2View.erase(m_project2View.find(static_cast<KateProjectView *>(current)->project()));
-        m_stackedProjectViews->removeWidget(m_stackedProjectViews->currentWidget());
-        m_stackedProjectInfoViews->removeWidget(m_stackedProjectInfoViews->currentWidget());
-        m_stackedgitViews->removeWidget(m_stackedgitViews->currentWidget());
-        m_plugin->projects().removeAt(m_plugin->projects().indexOf(static_cast<KateProjectView *>(current)->project()));
+//         m_project2View.erase(m_project2View.find(project));
+//         m_stackedProjectViews->removeWidget(m_stackedProjectViews->currentWidget());
+//         m_stackedProjectInfoViews->removeWidget(m_stackedProjectInfoViews->currentWidget());
+//         m_stackedgitViews->removeWidget(m_stackedgitViews->currentWidget());
+//         m_plugin->projects().removeAt(m_plugin->projects().indexOf(project));
+//         m_projectsCombo->removeItem(m_plugin->projects().indexOf(project));
+//         m_projectsComboGit->removeItem(m_plugin->projects().indexOf(project));
+//         
+//         m_plugin->closeProject(project);
         
-        m_projectsCombo->removeItem(m_plugin->projects().indexOf(static_cast<KateProjectView *>(current)->project()));
-        m_projectsComboGit->removeItem(m_plugin->projects().indexOf(static_cast<KateProjectView *>(current)->project()));
-        
-        m_plugin->closeProject(project);
-        
-        
+        for(int i = 0; i < project->files().size(); i++)
+        {
+            m_mainWindow->closeUrl(QUrl(project->files()[i]));
+        }
+
     }
 }
 

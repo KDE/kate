@@ -278,6 +278,7 @@ void KateViewManager::slotDocumentClose()
     slotDocumentClose(activeView()->document());
 }
 
+
 KTextEditor::Document *KateViewManager::openUrl(const QUrl &url, const QString &encoding, bool activate, bool isTempFile, const KateDocumentInfo &docInfo)
 {
     KTextEditor::Document *doc = KateApp::self()->documentManager()->openUrl(url, encoding, isTempFile, docInfo);
@@ -320,6 +321,20 @@ KTextEditor::View *KateViewManager::openUrlWithView(const QUrl &url, const QStri
 void KateViewManager::openUrl(const QUrl &url)
 {
     openUrl(url, QString());
+}
+
+bool KateViewManager::closeUrl(const QUrl &url)
+{
+
+    for(int i = 0; i < activeViewSpace()->documentList().size(); i++)
+    {
+        if(activeViewSpace()->documentList()[i]->url() == url)
+        {
+            slotDocumentClose(activeViewSpace()->documentList()[i]);
+            return true;
+        }
+    }
+    return false;
 }
 
 KateMainWindow *KateViewManager::mainWindow()

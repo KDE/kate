@@ -881,6 +881,11 @@ void KateMainWindow::openUrl(const QString &name)
     m_viewManager->openUrl(QUrl(name));
 }
 
+// void KateMainWindow::closeUrl(const QString &name)
+// {
+//     m_viewManager->closeUrl(QUrl(name));
+// }
+
 void KateMainWindow::slotConfigure()
 {
     showPluginConfigPage(nullptr, 0);

@@ -59,6 +59,8 @@ public:
 
     KTextEditor::Document *
     openUrl(const QUrl &url, const QString &encoding, bool activate = true, bool isTempFile = false, const KateDocumentInfo &docInfo = KateDocumentInfo());
+    
+    bool closeUrl(const QUrl &url);
 
     KTextEditor::Document *
     openUrls(const QList<QUrl> &url, const QString &encoding, bool isTempFile = false, const KateDocumentInfo &docInfo = KateDocumentInfo());

@@ -260,7 +260,8 @@ void KateGitBlamePluginView::blameFinished(int /*exitCode*/, QProcess::ExitStatu
         return;
     }
 
-    const static QRegularExpression lineReg(QStringLiteral("(\\S+)[^\\(]+\\((.*)\\s+(\\d\\d\\d\\d-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\d\\S+)[^\\)]+\\)\\s(.*)"));
+    const static QRegularExpression lineReg(
+        QStringLiteral("([^\\^\\s]+)[^\\(]+\\((.*)\\s+(\\d\\d\\d\\d-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\d\\S+)[^\\)]+\\)\\s(.*)"));
 
     m_blameInfo.clear();
 

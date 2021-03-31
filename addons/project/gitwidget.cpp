@@ -1084,7 +1084,7 @@ void GitWidget::selectedContextMenu(QContextMenuEvent *e)
     }
 
     if (execAct == stageAct) {
-        if (selectionHasChangedItems) {
+        if (selectionHasChangedItems || selectionHasUntrackedItems) {
             stage(files);
         } else {
             unstage(files);

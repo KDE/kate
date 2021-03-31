@@ -974,10 +974,8 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
         bool untracked = idx.internalId() == GitStatusModel::NodeUntrack;
 
         auto openFile = menu.addAction(i18n("Open file"));
-        auto showDiffAct = untracked ? nullptr : menu.addAction(i18n("Show raw diff"));
-        showDiffAct->setIcon(QIcon::fromTheme(QStringLiteral("vcs-diff")));
-        auto launchDifftoolAct = untracked ? nullptr : menu.addAction(i18n("Show in external git diff tool"));
-        launchDifftoolAct->setIcon(QIcon::fromTheme(QStringLiteral("kdiff3")));
+        auto showDiffAct = untracked ? nullptr : menu.addAction(QIcon::fromTheme(QStringLiteral("vcs-diff")), i18n("Show raw diff"));
+        auto launchDifftoolAct = untracked ? nullptr : menu.addAction(QIcon::fromTheme(QStringLiteral("kdiff3")), i18n("Show in external git diff tool"));
         auto openAtHead = untracked ? nullptr : menu.addAction(i18n("Open at HEAD"));
         auto stageAct = staged ? menu.addAction(i18n("Unstage file")) : menu.addAction(i18n("Stage file"));
         auto discardAct = staged ? nullptr : untracked ? menu.addAction(i18n("Remove")) : menu.addAction(i18n("Discard"));

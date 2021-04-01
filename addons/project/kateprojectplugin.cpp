@@ -12,6 +12,7 @@
 
 #include <ktexteditor/application.h>
 #include <ktexteditor/editor.h>
+#include <ktexteditor/view.h>
 
 #include <KConfigGroup>
 #include <KLocalizedString>
@@ -190,8 +191,11 @@ KateProject *KateProjectPlugin::projectForDir(QDir dir)
 }
 
 
+
 bool KateProjectPlugin::closeProject(KateProject *project)
 {
+    Q_EMIT pluginViewProjectClosing(project);
+    
     m_projects.removeOne(project);
     for (KateProject *projectIterator : m_projects) 
     {

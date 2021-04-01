@@ -126,6 +126,13 @@ public:
     ClickAction doubleClickAcion();
 
 Q_SIGNALS:
+    
+    /**
+     * Signal that for view to clean up
+     * @param project to close
+     */
+    void pluginViewProjectClosing(KateProject *project);
+    
     /**
      * Signal that a new project got created.
      * @param project new created project

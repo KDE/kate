@@ -150,9 +150,15 @@ private Q_SLOTS:
     void slotProjectReload();
     
     /**
-     * Close current project, if any.
+     * Getting project for others windows
+     * and closing project documents.
      */
-    void slotProjectClose();
+    void slotProjectAboutToClose();
+    
+    /**
+     * Close current project.
+     */
+    void slotProjectClose(KateProject *project);
 
     /**
      * Lookup current word
@@ -165,6 +171,12 @@ private Q_SLOTS:
     void slotGotoSymbol();
 
 Q_SIGNALS:
+    
+    /**
+     * Emitted if project is about to close.
+     */
+    void pluginProjectClose(KateProject *project);
+    
     /**
      * Emitted if projectFileName changed.
      */

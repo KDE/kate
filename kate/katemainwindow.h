@@ -233,7 +233,6 @@ Q_SIGNALS:
 
 public:
     void openUrl(const QString &name = QString());
-//     void closeUrl(const QString &name = QString());
 
     QHash<KTextEditor::Plugin *, QObject *> &pluginViews()
     {

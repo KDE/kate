@@ -142,10 +142,20 @@ private:
 
 class ShortcutStyleDelegate : public QStyledItemDelegate
 {
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
+    static constexpr auto SkipEmptyParts = QString::SkipEmptyParts;
+#else
+    static constexpr auto SkipEmptyParts = Qt::SkipEmptyParts;
+#endif
 public:
     ShortcutStyleDelegate(QObject *parent = nullptr)
         : QStyledItemDelegate(parent)
     {
+    }
+
+    static QStringList splitShortcutString(const QString &shortcutString)
+    {
+        return shortcutString.split(QLatin1String(", "), SkipEmptyParts);
     }
 
     void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override
@@ -167,19 +177,42 @@ public:
         options.widget->style()->drawControl(QStyle::CE_ItemViewItem, &options, painter, options.widget);
 
         if (!shortcutString.isEmpty()) {
-            // collect rects for each word
-            QVector<QPair<QRect, QString>> btns;
-            const auto list = [&shortcutString] {
-#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
-                auto list = shortcutString.split(QLatin1Char('+'), QString::SkipEmptyParts);
-#else
-                auto list = shortcutString.split(QLatin1Char('+'), Qt::SkipEmptyParts);
-#endif
-                if (shortcutString.endsWith(QLatin1String("+"))) {
-                    list.append(QStringLiteral("+"));
+            /**
+             * Shortcut string splitting
+             *
+             * We do it in two steps
+             * 1. Split on ", " so that if we have multi modifier shortcuts they are nicely
+             *    splitted into strings.
+             * 2. Split each shortcut from step 1 into individual string.
+             *
+             * Example:
+             *
+             * "Ctrl+,, Alt+:"
+             * Step 1: [ "Ctrl+," , "Alt+:"]
+             * Step 2: [ "Ctrl", ",", "Alt", ":"]
+             */
+            const auto spaceSplitted = splitShortcutString(shortcutString);
+
+            const auto list = [spaceSplitted] {
+                QStringList shortcutList;
+                shortcutList.reserve(spaceSplitted.size() * 2);
+                for (const QString &shortcut : spaceSplitted) {
+                    QStringList list = shortcut.split(QLatin1Char('+'), SkipEmptyParts);
+                    if (shortcut.endsWith(QLatin1String("+"))) {
+                        list.append(QStringLiteral("+"));
+                    }
                 }
-                return list;
+                return shortcutList;
             }();
+
+            /**
+             * Create rects for each string from the previous step
+             *
+             * @todo boundingRect may give issues here, use horizontalAdvance
+             * @todo We probably dont need the full rect, just the width so the
+             * "btns" vector can just be vector<pair<int, string>>
+             */
+            QVector<QPair<QRect, QString>> btns;
             btns.reserve(list.size());
             const int height = options.rect.height();
             for (const QString &text : list) {

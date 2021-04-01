@@ -16,6 +16,7 @@ target_link_libraries(
   PRIVATE
     KF5::I18n
     KF5::Plasma
+    KF5::KIOGui
     Qt5::Widgets
 )
 

@@ -11,7 +11,7 @@ SPDX-License-Identifier: GPL-2.0-or-later
 *********************************************************************/
 #include "katesessionsjob.h"
 #include "katesessionsengine.h"
-#include <KToolInvocation>
+#include <KIO/CommandLauncherJob>
 #include <QDebug>
 #include <QUrl>
 
@@ -42,7 +42,8 @@ void KateSessionsJob::start()
         // CHECK IF SESSION EXISTS
         QStringList args;
         args << QStringLiteral("-n") << QStringLiteral("--start") << sessionName;
-        KToolInvocation::kdeinitExec(QStringLiteral("kate"), args);
+        auto job = new KIO::CommandLauncherJob(QStringLiteral("kate"), args);
+        job->start();
         setResult(true);
         emitResult();
         return;
@@ -62,7 +63,9 @@ void KateSessionsJob::start()
             // args <<"-n"<< "--start"<<m_sessions[ id-3 ];
         }
 
-        KToolInvocation::kdeinitExec(QStringLiteral("kate"), args);
+        auto job = new KIO::CommandLauncherJob(QStringLiteral("kate"), args);
+        job->start();
+
         setResult(true);
         emitResult();
         return;

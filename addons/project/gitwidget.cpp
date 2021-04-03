@@ -6,7 +6,7 @@
 #include "gitwidget.h"
 #include "branchcheckoutdialog.h"
 #include "branchesdialog.h"
-#include "comarebranchesview.h"
+#include "comparebranchesview.h"
 #include "git/gitdiff.h"
 #include "gitcommitdialog.h"
 #include "gitstatusmodel.h"

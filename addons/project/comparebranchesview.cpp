@@ -3,7 +3,7 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#include "comarebranchesview.h"
+#include "comparebranchesview.h"
 #include "kateprojectpluginview.h"
 #include "kateprojectworker.h"
 
@@ -129,11 +129,11 @@ CompareBranchesView::CompareBranchesView(QWidget *parent, const QString &gitPath
 {
     setLayout(new QVBoxLayout);
 
-    QStandardItem *root = new QStandardItem;
-    createFileTree(root, m_gitDir, items);
+    QStandardItem root;
+    createFileTree(&root, m_gitDir, items);
 
     m_model.clear();
-    m_model.invisibleRootItem()->appendColumn(root->takeColumn(0));
+    m_model.invisibleRootItem()->appendColumn(root.takeColumn(0));
 
     m_backBtn.setText(i18n("Back"));
     m_backBtn.setIcon(QIcon::fromTheme(QStringLiteral("go-previous")));

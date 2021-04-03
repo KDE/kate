@@ -140,6 +140,18 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
             dlg->setAttribute(Qt::WA_DeleteOnClose);
             dlg->show();
         } else if (rename && action == rename) {
+            /**
+             * hack:
+             * We store a reference to project in the item so that
+             * after rename we can update file2Item map properly.
+             */
+            KateProjectItem *item = parent->project()->itemForFile(index.data(Qt::UserRole).toString());
+            if (!item) {
+                return;
+            }
+            item->setData(QVariant::fromValue(parent->project()), KateProjectItem::ProjectRole);
+
+            /** start the edit */
             parent->edit(index);
         } else if (action == fileHistory) {
             showFileHistory(index.data(Qt::UserRole).toString());

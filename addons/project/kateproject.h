@@ -153,6 +153,11 @@ public:
     }
 
     /**
+     * rename a file
+     */
+    void renameFile(const QString &newName, const QString &oldName);
+
+    /**
      * Access to project index.
      * May be null.
      * Don't store this pointer, might change.

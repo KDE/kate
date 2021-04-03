@@ -33,7 +33,7 @@ public:
     /**
      * Our defined roles
      */
-    enum Role { TypeRole = Qt::UserRole + 42 };
+    enum Role { TypeRole = Qt::UserRole + 42, ProjectRole };
 
     /**
      * construct new item with given text

@@ -73,6 +73,17 @@ bool KateProject::reload(bool force)
     return load(m_globalProject, force);
 }
 
+void KateProject::renameFile(const QString &newName, const QString &oldName)
+{
+    auto it = m_file2Item->find(oldName);
+    if (it == m_file2Item->end()) {
+        qWarning() << "renameFile() File not found, new: " << newName << "old: " << oldName;
+        return;
+    }
+    (*m_file2Item)[newName] = it.value();
+    m_file2Item->erase(it);
+}
+
 /**
  * Read a JSON document from file.
  *

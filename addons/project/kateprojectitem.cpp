@@ -6,6 +6,7 @@
  */
 
 #include "kateprojectitem.h"
+#include "kateproject.h"
 
 #include <QCoreApplication>
 #include <QDir>
@@ -140,6 +141,15 @@ void KateProjectItem::setData(const QVariant &value, int role)
         if (newFileName.isEmpty())
             return;
 
+        /**
+         *  retrieve the ref to project that we stored
+         *  in KateProjectTreeViewContextMenu
+         */
+        KateProject *project = data(KateProjectItem::ProjectRole).value<KateProject *>();
+        if (!project) {
+            return;
+        }
+
         auto oldFileName = data(Qt::DisplayRole).toString();
         auto oldName = data(Qt::UserRole).toString();
         QString newName = oldName;
@@ -154,10 +164,13 @@ void KateProjectItem::setData(const QVariant &value, int role)
             return;
         }
 
+        /**
+         * Update the file2Item
+         */
+        project->renameFile(newName, oldName);
+
         // change internal path
         setData(newName, Qt::UserRole);
-
-        emitDataChanged();
     }
 
     QStandardItem::setData(value, role);

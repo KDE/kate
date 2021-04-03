@@ -155,8 +155,9 @@ void KateProjectItem::setData(const QVariant &value, int role)
         }
 
         // change internal path
-        setData(oldName, Qt::UserRole);
-        setData(oldName, Qt::ToolTipRole);
+        setData(newName, Qt::UserRole);
+
+        emitDataChanged();
     }
 
     QStandardItem::setData(value, role);

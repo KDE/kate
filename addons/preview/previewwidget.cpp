@@ -137,6 +137,38 @@ void PreviewWidget::setTextEditorView(KTextEditor::View *view)
     resetTextEditorView(m_previewedTextEditorDocument);
 }
 
+KService::Ptr KTextEditorPreview::PreviewWidget::findPreviewPart(const QStringList mimeTypes)
+{
+    for (const auto &mimeType : qAsConst(mimeTypes)) {
+        KService::Ptr service = KMimeTypeTrader::self()->preferredService(mimeType, QStringLiteral("KParts/ReadOnlyPart"));
+
+        if (!service) {
+            continue;
+        }
+
+        qCDebug(KTEPREVIEW) << "Found preferred kpart service named" << service->name() << "with library" << service->library() << "for mimetype" << mimeType;
+
+        if (service->library().isEmpty()) {
+            qCWarning(KTEPREVIEW) << "Discarding preferred kpart service due to empty library name:" << service->name();
+            continue;
+        }
+
+        // no interest in kparts which also just display the text (like katepart itself)
+        // TODO: what about parts which also support importing plain text and turning into richer format
+        // and thus have it in their mimetypes list?
+        // could that perhaps be solved by introducing the concept of "native" and "imported" mimetypes?
+        // or making a distinction between source editors/viewers and final editors/viewers?
+        // latter would also help other source editors/viewers like a hexeditor, which "supports" any mimetype
+        if (service->mimeTypes().contains(QLatin1String("text/plain"))) {
+            qCDebug(KTEPREVIEW) << "Blindly discarding preferred service as it also supports text/plain, to avoid useless plain/text preview.";
+            continue;
+        }
+
+        return service;
+    }
+    return {};
+}
+
 void PreviewWidget::resetTextEditorView(KTextEditor::Document *document)
 {
     if (!isVisible() || m_previewedTextEditorDocument != document) {
@@ -155,33 +187,8 @@ void PreviewWidget::resetTextEditorView(KTextEditor::Document *document)
         // Also try to guess from the content, if the above fails.
         mimeTypes << m_previewedTextEditorDocument->mimeType();
 
-        for (const auto &mimeType : qAsConst(mimeTypes)) {
-            service = KMimeTypeTrader::self()->preferredService(mimeType, QStringLiteral("KParts/ReadOnlyPart"));
-            if (service) {
-                qCDebug(KTEPREVIEW) << "Found preferred kpart service named" << service->name() << "with library" << service->library() << "for mimetype"
-                                    << mimeType;
+        service = findPreviewPart(mimeTypes);
 
-                if (service->library().isEmpty()) {
-                    qCWarning(KTEPREVIEW) << "Discarding preferred kpart service due to empty library name:" << service->name();
-                    service.reset();
-                }
-
-                // no interest in kparts which also just display the text (like katepart itself)
-                // TODO: what about parts which also support importing plain text and turning into richer format
-                // and thus have it in their mimetypes list?
-                // could that perhaps be solved by introducing the concept of "native" and "imported" mimetypes?
-                // or making a distinction between source editors/viewers and final editors/viewers?
-                // latter would also help other source editors/viewers like a hexeditor, which "supports" any mimetype
-                if (service && service->mimeTypes().contains(QLatin1String("text/plain"))) {
-                    qCDebug(KTEPREVIEW) << "Blindly discarding preferred service as it also supports text/plain, to avoid useless plain/text preview.";
-                    service.reset();
-                }
-
-                if (service) {
-                    break;
-                }
-            }
-        }
         if (!service) {
             qCDebug(KTEPREVIEW) << "Found no preferred kpart service for mimetypes" << mimeTypes;
         }

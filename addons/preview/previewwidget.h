@@ -13,6 +13,8 @@
 #include <QPointer>
 #include <QStackedWidget>
 
+#include <KService>
+
 class KTextEditorPreviewPlugin;
 
 namespace KTextEditor
@@ -92,6 +94,7 @@ private:
     void updatePreview();
     void showAboutKPartPlugin();
     void clearMenu();
+    KService::Ptr findPreviewPart(const QStringList mimeTypes);
 
 private:
     KToggleAction *m_lockAction;

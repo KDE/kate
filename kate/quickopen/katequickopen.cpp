@@ -297,17 +297,6 @@ bool KateQuickOpen::eventFilter(QObject *obj, QEvent *event)
                 return true;
             }
 
-            if (keyEvent->key() == Qt::Key_Escape) {
-                m_mainWindow->slotWindowActivated();
-                {
-                    m_inputLine->blockSignals(true);
-                    m_inputLine->clear();
-                    m_inputLine->blockSignals(false);
-                }
-                keyEvent->accept();
-                hide();
-                return true;
-            }
         } else {
             const bool forward2input = (keyEvent->key() != Qt::Key_Up) && (keyEvent->key() != Qt::Key_Down) && (keyEvent->key() != Qt::Key_PageUp)
                 && (keyEvent->key() != Qt::Key_PageDown) && (keyEvent->key() != Qt::Key_Tab) && (keyEvent->key() != Qt::Key_Backtab);
@@ -316,16 +305,6 @@ bool KateQuickOpen::eventFilter(QObject *obj, QEvent *event)
                 return true;
             }
         }
-    }
-
-    // hide on focus out, if neither input field nor list have focus!
-    else if (event->type() == QEvent::FocusOut && !(m_inputLine->hasFocus() || m_listView->hasFocus())) {
-        m_mainWindow->slotWindowActivated();
-        m_inputLine->blockSignals(true);
-        m_inputLine->clear();
-        m_inputLine->blockSignals(false);
-        hide();
-        return true;
     }
 
     return QWidget::eventFilter(obj, event);
@@ -372,32 +351,38 @@ void KateQuickOpen::slotReturnPressed()
     KTextEditor::View *view = m_mainWindow->wrapper()->openUrl(url);
 
     const auto strs = m_inputLine->text().split(QLatin1Char(':'));
-
     if (view && strs.count() > 1) {
-        int lineCol[2] = {0, 0};
-
-        for (int i = 1; i < strs.count() && i < 3; ++i) {
-            QString str = strs.at(i);
+        // helper to convert String => Number
+        auto stringToInt = [](const QString &s) {
             bool ok = false;
-            int l = str.toInt(&ok);
-            if (ok) {
-                lineCol[i - 1] = l - 1;
-            }
+            const int num = s.toInt(&ok);
+            return ok ? num : -1;
+        };
+        KTextEditor::Cursor cursor = KTextEditor::Cursor::invalid();
+
+        // try to get line
+        const int line = stringToInt(strs.at(1));
+        cursor.setLine(line - 1);
+
+        // if line is valid, try to see if we have column available as well
+        if (line > -1 && strs.count() > 2) {
+            const int col = stringToInt(strs.at(2));
+            cursor.setColumn(col - 1);
         }
-        KTextEditor::Cursor c{lineCol[0], lineCol[1]};
-        view->setCursorPosition(c);
+
+        // do we have valid line at least?
+        if (line > -1) {
+            view->setCursorPosition(cursor);
+        }
     }
 
     hide();
     m_mainWindow->slotWindowActivated();
 
+    // store the new position in location history
     if (view) {
         vm->addPositionToHistory(view->document()->url(), view->cursorPosition());
     }
-
-    // block signals for input line so that we dont trigger filtering again
-    const QSignalBlocker blocker(m_inputLine);
-    m_inputLine->clear();
 }
 
 void KateQuickOpen::slotListModeChanged(KateQuickOpenModel::List mode)

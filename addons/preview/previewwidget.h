@@ -8,12 +8,13 @@
 #define KTEXTEDITORPREVIEW_PREVIEWWIDGET_H
 
 // KF
+#include <KPluginMetaData>
 #include <KXMLGUIBuilder>
 // Qt
 #include <QPointer>
 #include <QStackedWidget>
 
-#include <KService>
+#include <optional>
 
 class KTextEditorPreviewPlugin;
 
@@ -94,7 +95,7 @@ private:
     void updatePreview();
     void showAboutKPartPlugin();
     void clearMenu();
-    KService::Ptr findPreviewPart(const QStringList mimeTypes);
+    std::optional<KPluginMetaData> findPreviewPart(const QStringList mimeTypes);
 
 private:
     KToggleAction *m_lockAction;

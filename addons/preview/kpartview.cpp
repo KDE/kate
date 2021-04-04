@@ -15,9 +15,11 @@
 #include <KParts/BrowserExtension>
 #include <KParts/ReadOnlyPart>
 #include <KPluginFactory>
+#include <KPluginLoader>
 
 // Qt
 #include <QDesktopServices>
+#include <QEvent>
 #include <QLabel>
 #include <QTemporaryFile>
 
@@ -32,14 +34,21 @@ using namespace KTextEditorPreview;
 static const int updateDelayFast = 150; // ms
 static const int updateDelaySlow = 1000; // ms
 
-KPartView::KPartView(const KService::Ptr &service, QObject *parent)
+KPartView::KPartView(const KPluginMetaData &service, QObject *parent)
     : QObject(parent)
 {
-    QString errorString;
-    m_part = service->createInstance<KParts::ReadOnlyPart>(nullptr, this, QVariantList(), &errorString);
+    KPluginLoader loader(service.fileName());
+
+    KPluginFactory *factory = loader.factory();
+
+    if (!factory) {
+        m_errorLabel = new QLabel(loader.errorString());
+    } else {
+        m_part = factory->create<KParts::ReadOnlyPart>(nullptr, this);
+    }
 
     if (!m_part) {
-        m_errorLabel = new QLabel(errorString);
+        m_errorLabel = new QLabel(loader.errorString());
     } else if (!m_part->widget()) {
         // should not happen, but just be safe
         delete m_part;

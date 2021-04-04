@@ -8,7 +8,7 @@
 #define KTEXTEDITORPREVIEW_KPARTVIEW_H
 
 // KF
-#include <KService>
+#include <KPluginMetaData>
 
 // Qt
 #include <QObject>
@@ -50,7 +50,7 @@ public:
      * @param service the description of the KPart which should be used, may not be a nullptr
      * @param parent the object taking ownership, can be a nullptr
      */
-    KPartView(const KService::Ptr &service, QObject *parent);
+    KPartView(const KPluginMetaData &service, QObject *parent);
     ~KPartView() override;
 
     /**

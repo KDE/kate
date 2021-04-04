@@ -15,7 +15,7 @@
 #include <KConfigGroup>
 #include <KGuiItem>
 #include <KLocalizedString>
-#include <KMimeTypeTrader>
+#include <KParts/PartLoader>
 #include <KParts/ReadOnlyPart>
 #include <KPluginMetaData>
 #include <KService>
@@ -137,21 +137,17 @@ void PreviewWidget::setTextEditorView(KTextEditor::View *view)
     resetTextEditorView(m_previewedTextEditorDocument);
 }
 
-KService::Ptr KTextEditorPreview::PreviewWidget::findPreviewPart(const QStringList mimeTypes)
+std::optional<KPluginMetaData> KTextEditorPreview::PreviewWidget::findPreviewPart(const QStringList mimeTypes)
 {
     for (const auto &mimeType : qAsConst(mimeTypes)) {
-        KService::Ptr service = KMimeTypeTrader::self()->preferredService(mimeType, QStringLiteral("KParts/ReadOnlyPart"));
+        const auto offers = KParts::PartLoader::partsForMimeType(mimeType);
 
-        if (!service) {
+        if (offers.isEmpty()) {
             continue;
         }
 
-        qCDebug(KTEPREVIEW) << "Found preferred kpart service named" << service->name() << "with library" << service->library() << "for mimetype" << mimeType;
-
-        if (service->library().isEmpty()) {
-            qCWarning(KTEPREVIEW) << "Discarding preferred kpart service due to empty library name:" << service->name();
-            continue;
-        }
+        const KPluginMetaData service = offers.first();
+        qCDebug(KTEPREVIEW) << "Found preferred kpart named" << service.name() << "with library" << service.fileName() << "for mimetype" << mimeType;
 
         // no interest in kparts which also just display the text (like katepart itself)
         // TODO: what about parts which also support importing plain text and turning into richer format
@@ -159,8 +155,8 @@ KService::Ptr KTextEditorPreview::PreviewWidget::findPreviewPart(const QStringLi
         // could that perhaps be solved by introducing the concept of "native" and "imported" mimetypes?
         // or making a distinction between source editors/viewers and final editors/viewers?
         // latter would also help other source editors/viewers like a hexeditor, which "supports" any mimetype
-        if (service->mimeTypes().contains(QLatin1String("text/plain"))) {
-            qCDebug(KTEPREVIEW) << "Blindly discarding preferred service as it also supports text/plain, to avoid useless plain/text preview.";
+        if (service.mimeTypes().contains(QLatin1String("text/plain"))) {
+            qCDebug(KTEPREVIEW) << "Blindly discarding preferred kpart as it also supports text/plain, to avoid useless plain/text preview.";
             continue;
         }
 
@@ -175,7 +171,7 @@ void PreviewWidget::resetTextEditorView(KTextEditor::Document *document)
         return;
     }
 
-    KService::Ptr service;
+    std::optional<KPluginMetaData> service;
 
     if (m_previewedTextEditorDocument) {
         // TODO: mimetype is not set for new documents which have not been saved yet.
@@ -209,7 +205,7 @@ void PreviewWidget::resetTextEditorView(KTextEditor::Document *document)
 
     // change of preview type?
     // TODO: find a better id than library?
-    const QString serviceId = service ? service->library() : QString();
+    const QString serviceId = service ? service->pluginId() : QString();
 
     if (serviceId != m_currentServiceId) {
         if (m_partView) {
@@ -220,7 +216,7 @@ void PreviewWidget::resetTextEditorView(KTextEditor::Document *document)
 
         if (service) {
             qCDebug(KTEPREVIEW) << "Creating new kpart service instance.";
-            m_partView = new KPartView(service, this);
+            m_partView = new KPartView(*service, this);
             const bool autoupdate = m_autoUpdateAction->isChecked();
             m_partView->setAutoUpdating(autoupdate);
             int index = addWidget(m_partView->widget());

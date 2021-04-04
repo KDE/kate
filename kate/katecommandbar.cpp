@@ -193,17 +193,14 @@ public:
              */
             const auto spaceSplitted = splitShortcutString(shortcutString);
 
-            const auto list = [spaceSplitted] {
-                QStringList shortcutList;
-                shortcutList.reserve(spaceSplitted.size() * 2);
-                for (const QString &shortcut : spaceSplitted) {
-                    QStringList list = shortcut.split(QLatin1Char('+'), SkipEmptyParts);
-                    if (shortcut.endsWith(QLatin1String("+"))) {
-                        list.append(QStringLiteral("+"));
-                    }
+            QStringList list;
+            list.reserve(spaceSplitted.size() * 2);
+            for (const QString &shortcut : spaceSplitted) {
+                QStringList list = shortcut.split(QLatin1Char('+'), SkipEmptyParts);
+                if (shortcut.endsWith(QLatin1String("+"))) {
+                    list.append(QStringLiteral("+"));
                 }
-                return shortcutList;
-            }();
+            }
 
             /**
              * Create rects for each string from the previous step

@@ -118,6 +118,8 @@ public:
         /** We don't want save dialog on close */
         m_fixedView.view->document()->setModified(false);
         m_fixedView.restoreMenu();
+        /** Activate this view */
+        m_mainWindow->activateView(m_fixedView.view->document());
     }
 
     /**

@@ -1893,7 +1893,7 @@ public:
                 auto location = QStringLiteral("%1:%2").arg(basename).arg(related.location.range.start().line());
                 relatedItemMessage->setText(QStringLiteral("[%1] %2").arg(location).arg(related.message));
                 relatedItemMessage->setData(diagnosticsIcon(LSPDiagnosticSeverity::Information), Qt::DecorationRole);
-                item->appendRow({relatedItemMessage});
+                item->appendRow(relatedItemMessage);
                 m_diagnosticsTree->setExpanded(item->index(), true);
             }
         }

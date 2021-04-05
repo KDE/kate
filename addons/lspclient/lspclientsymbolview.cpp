@@ -49,6 +49,7 @@ public:
         , m_change(change_ms)
         , m_motion(motion_ms)
     {
+        Q_UNUSED(m_plugin);
         // get updated
         m_changeTimer.setSingleShot(true);
         auto ch = [this]() {

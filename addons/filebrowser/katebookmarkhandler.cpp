@@ -10,6 +10,7 @@
 #include "katebookmarkhandler.h"
 #include "katefilebrowser.h"
 
+#include <KActionCollection>
 #include <KDirOperator>
 
 #include <QMenu>
@@ -33,7 +34,18 @@ KateBookmarkHandler::KateBookmarkHandler(KateFileBrowser *parent, QMenu *kpopupm
     KBookmarkManager *manager = KBookmarkManager::managerForFile(file, QStringLiteral("kate"));
     manager->setUpdate(true);
 
-    m_bookmarkMenu = new KBookmarkMenu(manager, this, m_menu, parent->actionCollection());
+    m_bookmarkMenu = new KBookmarkMenu(manager, this, m_menu);
+
+    KActionCollection *ac = parent->actionCollection();
+    if (QAction *addBookmarkAction = m_bookmarkMenu->addBookmarkAction()) {
+        ac->addAction(addBookmarkAction->objectName(), addBookmarkAction);
+    }
+    if (QAction *newBookmarkFolderAction = m_bookmarkMenu->newBookmarkFolderAction()) {
+        ac->addAction(newBookmarkFolderAction->objectName(), newBookmarkFolderAction);
+    }
+    if (QAction *editBookmarksAction = m_bookmarkMenu->editBookmarksAction()) {
+        ac->addAction(editBookmarksAction->objectName(), editBookmarksAction);
+    }
 }
 
 KateBookmarkHandler::~KateBookmarkHandler()

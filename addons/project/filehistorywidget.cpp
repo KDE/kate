@@ -146,35 +146,6 @@ public:
 
         QRect prect = opt.rect;
 
-        //        const int ascent = (opt.fontMetrics.ascent() / 2);
-
-        // draw line
-        //        prect.setX(prect.x() + ascent + 2);
-        //        auto sp = painter->pen();
-        //        auto p = painter->pen();
-        //        p.setWidth(2);
-        //        painter->setPen(p);
-
-        //        auto p1 = prect.bottomLeft();
-        //        int w = opt.fontMetrics.ascent();
-        //        int h = opt.rect.height();
-        //        int r = w / 3;
-        //        p1.ry() -= (h / 2) - r;
-
-        //        painter->setRenderHint(QPainter::Antialiasing, true);
-
-        //        QPoint pp = p1;
-        //        pp.ry() -= 3 + 1;
-        //        painter->drawLine(prect.topLeft(), pp);
-        //        painter->drawEllipse(p1, r, r);
-        //        auto p2 = p1;
-        //        p2.ry() += r + 1;
-        //        painter->drawLine(p2, prect.bottomLeft());
-
-        //        painter->setRenderHint(QPainter::Antialiasing, false);
-
-        //        painter->setPen(sp);
-
         // padding
         prect.setX(prect.x() + 5);
         prect.setY(prect.y() + lineHeight);
@@ -188,8 +159,9 @@ public:
 
         // draw author on right
         auto dt = QDateTime::fromSecsSinceEpoch(commit.authorDate);
-        QString timestamp =
-            (dt.date() == QDate::currentDate()) ? dt.time().toString(Qt::DefaultLocaleShortDate) : dt.date().toString(Qt::DefaultLocaleShortDate);
+        QLocale l;
+        const bool isToday = dt.date() == QDate::currentDate();
+        QString timestamp = isToday ? l.toString(dt.time(), QLocale::ShortFormat) : l.toString(dt.date(), QLocale::ShortFormat);
         painter->drawText(prect, Qt::AlignRight, timestamp);
 
         // draw commit hash

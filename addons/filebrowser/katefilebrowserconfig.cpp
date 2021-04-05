@@ -55,7 +55,7 @@ KateFileBrowserConfigPage::KateFileBrowserConfigPage(QWidget *parent, KateFileBr
     , fileBrowser(kfb)
 {
     QVBoxLayout *lo = new QVBoxLayout(this);
-    int spacing = QApplication::style()->pixelMetric(QStyle::PM_DefaultLayoutSpacing);
+    int spacing = QApplication::style()->pixelMetric(QStyle::PM_LayoutVerticalSpacing);
     lo->setSpacing(spacing);
     lo->setContentsMargins(0, 0, 0, 0);
 

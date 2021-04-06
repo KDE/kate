@@ -1,5 +1,8 @@
 {
     "servers": {
+        "bash": {
+            "command": "bash-language-server start"
+        },
         "bibtex": {
             "use": "latex",
             "highlightingModeRegex": "^BibTeX$"

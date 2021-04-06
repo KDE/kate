@@ -2066,7 +2066,7 @@ public:
             }
         }
         if (version != miface->revision()) {
-            qCWarning(LSPCLIENT) << "discarding highlighting, versions don't match:" << params.textDocument.version << version << miface->revision();
+            qCDebug(LSPCLIENT) << "discarding highlighting, versions don't match:" << params.textDocument.version << version << miface->revision();
             return;
         }
 

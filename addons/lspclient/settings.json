@@ -1,7 +1,9 @@
 {
     "servers": {
         "bash": {
-            "command": "bash-language-server start"
+            "command": "bash-language-server start",
+            "url": "https://github.com/bash-lsp/bash-language-server",
+            "highlightingModeRegex": "^Bash$"
         },
         "bibtex": {
             "use": "latex",

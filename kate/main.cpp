@@ -390,7 +390,7 @@ int main(int argc, char **argv)
         // check if a pid is given, which should be reused.
         // two possibilities: pid given or not...
         if ((!force_new) && serviceName.isEmpty()) {
-            if ((parser.isSet(usePidOption)) || (!qgetenv("KATE_PID").isEmpty())) {
+            if ((parser.isSet(usePidOption)) || (!qEnvironmentVariableIsEmpty("KATE_PID"))) {
                 QString usePid = (parser.isSet(usePidOption)) ? parser.value(usePidOption) : QString::fromLocal8Bit(qgetenv("KATE_PID"));
 
                 serviceName = QLatin1String("org.kde.kate-") + usePid;

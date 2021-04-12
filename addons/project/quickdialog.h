@@ -13,8 +13,6 @@
 #include <QTreeView>
 
 class QAbstractItemModel;
-class QTreeView;
-class QLineEdit;
 namespace KTextEditor
 {
 class MainWindow;

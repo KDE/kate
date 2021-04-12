@@ -17,7 +17,6 @@
 #include <memory>
 
 class KateExternalTool;
-class QProcess;
 namespace KTextEditor
 {
 class View;

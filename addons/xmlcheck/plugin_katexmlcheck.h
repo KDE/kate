@@ -40,7 +40,6 @@
 class QTreeWidget;
 class QTreeWidgetItem;
 class QTemporaryFile;
-class QProcess;
 
 class PluginKateXMLCheckView : public QObject, public KXMLGUIClient
 {

@@ -15,7 +15,6 @@
 class QListWidgetItem;
 class QListWidget;
 class QTemporaryFile;
-class QProcess;
 class QListWidget;
 class QPushButton;
 class QAction;

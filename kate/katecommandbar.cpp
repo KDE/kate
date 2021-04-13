@@ -192,15 +192,15 @@ public:
              * Step 2: [ "Ctrl", ",", "Alt", ":"]
              */
             const auto spaceSplitted = splitShortcutString(shortcutString);
-
             QStringList list;
             list.reserve(spaceSplitted.size() * 2);
             for (const QString &shortcut : spaceSplitted) {
-                QStringList list = shortcut.split(QLatin1Char('+'), SkipEmptyParts);
+                list += shortcut.split(QLatin1Char('+'), SkipEmptyParts);
                 if (shortcut.endsWith(QLatin1String("+"))) {
                     list.append(QStringLiteral("+"));
                 }
             }
+            Q_ASSERT(!list.isEmpty());
 
             /**
              * Create rects for each string from the previous step
@@ -225,6 +225,7 @@ public:
                 r.setWidth(r.width() + 8);
                 btns.append({r, text});
             }
+            Q_ASSERT(!btns.isEmpty());
 
             // we have nothing, just return
             if (btns.isEmpty()) {

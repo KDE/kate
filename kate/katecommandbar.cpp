@@ -226,6 +226,11 @@ public:
                 btns.append({r, text});
             }
 
+            // we have nothing, just return
+            if (btns.isEmpty()) {
+                return;
+            }
+
             const auto plusRect = option.fontMetrics.boundingRect(QLatin1Char('+'));
 
             // draw them

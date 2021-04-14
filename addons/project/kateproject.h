@@ -67,7 +67,6 @@ public:
      * @return success
      */
     bool reload(bool force = false);
-    
 
     /**
      * Accessor to file name.

@@ -10,7 +10,6 @@
 #include "gitwidget.h"
 #include "kateprojectinfoviewindex.h"
 
-
 #include <ktexteditor/application.h>
 #include <ktexteditor/codecompletioninterface.h>
 #include <ktexteditor/document.h>
@@ -32,7 +31,6 @@
 #include <QMenu>
 #include <QTimer>
 #include <QVBoxLayout>
-
 
 K_PLUGIN_FACTORY_WITH_JSON(KateProjectPluginFactory, "kateprojectplugin.json", registerPlugin<KateProjectPlugin>();)
 
@@ -115,7 +113,6 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     connect(m_reloadButton, &QToolButton::clicked, this, &KateProjectPluginView::slotProjectReload);
 
     connect(m_closeProjectButton, &QToolButton::clicked, this, &KateProjectPluginView::slotProjectAboutToClose);
-    connect(this, &KateProjectPluginView::pluginProjectClose, m_plugin, &KateProjectPlugin::closeProject);
     connect(m_plugin, &KateProjectPlugin::pluginViewProjectClosing, this, &KateProjectPluginView::slotProjectClose);
     
     connect(m_gitStatusRefreshButton, &QToolButton::clicked, this, [this] {
@@ -568,20 +565,10 @@ void KateProjectPluginView::slotProjectReload()
 
 void KateProjectPluginView::slotProjectAboutToClose()
 {
-
     if (QWidget *current = m_stackedProjectViews->currentWidget())
     {
         const auto project = static_cast<KateProjectView *>(current)->project();
-        
-        Q_EMIT pluginProjectClose(project);
-            
-        for(int i = 0; i < m_mainWindow->views().size(); i++)
-        {
-            if(QUrl(project->baseDir()).isParentOf(m_mainWindow->views()[i]->document()->url().adjusted(QUrl::RemoveScheme)))
-            {
-                KTextEditor::Editor::instance()->application()->closeDocument(m_mainWindow->views()[i]->document());
-            }
-        }
+        m_plugin->closeProject(project);
     }
 }
 
@@ -591,7 +578,6 @@ void KateProjectPluginView::slotProjectClose(KateProject *project)
     m_stackedProjectViews->removeWidget(m_stackedProjectViews->currentWidget());
     m_stackedProjectInfoViews->removeWidget(m_stackedProjectInfoViews->currentWidget());
     m_stackedgitViews->removeWidget(m_stackedgitViews->currentWidget());
-    m_plugin->projects().removeAt(m_plugin->projects().indexOf(project));
     m_projectsCombo->removeItem(m_plugin->projects().indexOf(project));
     m_projectsComboGit->removeItem(m_plugin->projects().indexOf(project));
 }

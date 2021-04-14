@@ -190,26 +190,23 @@ KateProject *KateProjectPlugin::projectForDir(QDir dir)
     return nullptr;
 }
 
-
-
 bool KateProjectPlugin::closeProject(KateProject *project)
 {
-    Q_EMIT pluginViewProjectClosing(project);
+    QList< KTextEditor::Document* > documents = KTextEditor::Editor::instance()->application()->documents();
     
-    m_projects.removeOne(project);
-    for (KateProject *projectIterator : m_projects) 
+    for(int i = 0; i<documents.size(); i++)
+        if(QUrl(project->baseDir()).isParentOf(documents[i]->url().adjusted(QUrl::RemoveScheme)))
+            KTextEditor::Editor::instance()->application()->closeDocument(documents[i]);
+    
+    Q_EMIT pluginViewProjectClosing(project);
+    if(m_projects.removeOne(project))
     {
-        if(project == projectIterator)
-        {
-            m_fileWatcher.removePath(QFileInfo(projectIterator->fileName()).canonicalPath());
-            delete projectIterator;
-            return true;
-        }
+        m_fileWatcher.removePath(QFileInfo(project->fileName()).canonicalPath());
+        delete project;
+        return true;
     }
-    return false;
+    else return false;
 }
-
-
 
 KateProject *KateProjectPlugin::projectForUrl(const QUrl &url)
 {

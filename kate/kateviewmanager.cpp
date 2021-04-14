@@ -278,7 +278,6 @@ void KateViewManager::slotDocumentClose()
     slotDocumentClose(activeView()->document());
 }
 
-
 KTextEditor::Document *KateViewManager::openUrl(const QUrl &url, const QString &encoding, bool activate, bool isTempFile, const KateDocumentInfo &docInfo)
 {
     KTextEditor::Document *doc = KateApp::self()->documentManager()->openUrl(url, encoding, isTempFile, docInfo);

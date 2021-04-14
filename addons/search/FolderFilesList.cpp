@@ -127,16 +127,15 @@ void FolderFilesList::terminateSearch()
 {
     m_cancelSearch = true;
     wait();
+    m_files.clear();
 }
 
 QStringList FolderFilesList::fileList()
 {
+    if (m_cancelSearch) {
+        m_files.clear();
+    }
     return m_files;
-}
-
-void FolderFilesList::cancelSearch()
-{
-    m_cancelSearch = true;
 }
 
 void FolderFilesList::checkNextItem(DirectoryWithResults &handleOnFolder) const

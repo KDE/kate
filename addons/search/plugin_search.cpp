@@ -875,7 +875,7 @@ void KatePluginSearchView::matchesFound(const QUrl &url, const QVector<KateSearc
 
 void KatePluginSearchView::stopClicked()
 {
-    m_folderFilesList.cancelSearch();
+    m_folderFilesList.terminateSearch();
     m_searchOpenFiles.cancelSearch();
     cancelDiskFileSearch();
     Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
@@ -1917,7 +1917,7 @@ void KatePluginSearchView::tabCloseRequested(int index)
     if (m_curResults == tmp) {
         m_searchOpenFiles.cancelSearch();
         cancelDiskFileSearch();
-        m_folderFilesList.cancelSearch();
+        m_folderFilesList.terminateSearch();
     }
     if (m_ui.resultTabWidget->count() > 1) {
         delete tmp; // remove the tab

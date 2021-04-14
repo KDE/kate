@@ -28,9 +28,6 @@ public:
 
     QStringList fileList();
 
-public Q_SLOTS:
-    void cancelSearch();
-
 Q_SIGNALS:
     void searching(const QString &path);
     void fileListReady();

@@ -9,6 +9,7 @@
 #include "fileutil.h"
 #include "gitwidget.h"
 #include "kateprojectinfoviewindex.h"
+#include "kateprojectclosingcontextmenu.h"
 
 #include <ktexteditor/application.h>
 #include <ktexteditor/codecompletioninterface.h>
@@ -29,6 +30,7 @@
 #include <QHBoxLayout>
 #include <QKeyEvent>
 #include <QMenu>
+#include <QContextMenuEvent>
 #include <QTimer>
 #include <QVBoxLayout>
 
@@ -112,7 +114,7 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     connect(m_projectsCombo, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &KateProjectPluginView::slotCurrentChanged);
     connect(m_reloadButton, &QToolButton::clicked, this, &KateProjectPluginView::slotProjectReload);
 
-    connect(m_closeProjectButton, &QToolButton::clicked, this, &KateProjectPluginView::slotProjectAboutToClose);
+//     connect(m_closeProjectButton, &QToolButton::clicked, this, &KateProjectPluginView::contextMenuEvent);
     connect(m_plugin, &KateProjectPlugin::pluginViewProjectClosing, this, &KateProjectPluginView::slotProjectClose);
     
     connect(m_gitStatusRefreshButton, &QToolButton::clicked, this, [this] {
@@ -563,13 +565,17 @@ void KateProjectPluginView::slotProjectReload()
     }
 }
 
-void KateProjectPluginView::slotProjectAboutToClose()
+void KateProjectPluginView::contextMenuEvent(QContextMenuEvent* event)
 {
-    if (QWidget *current = m_stackedProjectViews->currentWidget())
-    {
-        const auto project = static_cast<KateProjectView *>(current)->project();
-        m_plugin->closeProject(project);
-    }
+    KateProjectClosingContextMenu menu;
+    menu.exec(m_plugin->projects(), event->pos(), this);
+
+    event->accept();
+}
+
+void KateProjectPluginView::projectAboutToClose(KateProject *project)
+{
+    m_plugin->closeProject(project);
 }
 
 void KateProjectPluginView::slotProjectClose(KateProject *project)

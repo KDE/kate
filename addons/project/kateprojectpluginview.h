@@ -99,11 +99,6 @@ public:
     {
         return m_plugin;
     }
-    
-    /**
-     * Getting project for others windows.
-     */
-    void projectAboutToClose(KateProject *project);
 
 public Q_SLOTS:
     /**
@@ -155,9 +150,11 @@ private Q_SLOTS:
     void slotProjectReload();
     
     /**
-     * Opening close menu
+     * Getting project for others windows
+     * and closing project documents.
      */
-    void contextMenuEvent(QContextMenuEvent* event);
+    void slotProjectAboutToClose();
+    
     /**
      * Close current project.
      */

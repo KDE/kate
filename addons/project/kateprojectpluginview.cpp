@@ -567,19 +567,29 @@ void KateProjectPluginView::slotProjectAboutToClose()
 {
     if (QWidget *current = m_stackedProjectViews->currentWidget())
     {
-        const auto project = static_cast<KateProjectView *>(current)->project();
-        m_plugin->closeProject(project);
+        m_plugin->closeProject(static_cast<KateProjectView *>(current)->project());
     }
 }
 
 void KateProjectPluginView::slotProjectClose(KateProject *project)
 {
+    const int index = m_plugin->projects().indexOf(project);
     m_project2View.erase(m_project2View.find(project));
-    m_stackedProjectViews->removeWidget(m_stackedProjectViews->currentWidget());
-    m_stackedProjectInfoViews->removeWidget(m_stackedProjectInfoViews->currentWidget());
-    m_stackedgitViews->removeWidget(m_stackedgitViews->currentWidget());
-    m_projectsCombo->removeItem(m_plugin->projects().indexOf(project));
-    m_projectsComboGit->removeItem(m_plugin->projects().indexOf(project));
+    
+    QWidget* stackedProjectViewsWidget = m_stackedProjectViews->widget(index);
+    m_stackedProjectViews->removeWidget(stackedProjectViewsWidget);
+    delete stackedProjectViewsWidget;
+    
+    QWidget* stackedProjectInfoViewsWidget = m_stackedProjectInfoViews->widget(index);
+    m_stackedProjectInfoViews->removeWidget(stackedProjectInfoViewsWidget);
+    delete stackedProjectInfoViewsWidget;
+    
+    QWidget* stackedgitViewsWidget = m_stackedgitViews->widget(index);
+    m_stackedgitViews->removeWidget(stackedgitViewsWidget);
+    delete stackedgitViewsWidget;
+    
+    m_projectsCombo->removeItem(index);
+    m_projectsComboGit->removeItem(index);
 }
 
 

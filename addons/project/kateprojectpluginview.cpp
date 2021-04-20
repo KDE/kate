@@ -32,6 +32,8 @@
 #include <QTimer>
 #include <QVBoxLayout>
 
+#define PROJECTCLOSEICON "window-close"
+
 K_PLUGIN_FACTORY_WITH_JSON(KateProjectPluginFactory, "kateprojectplugin.json", registerPlugin<KateProjectPlugin>();)
 
 KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEditor::MainWindow *mainWin)
@@ -77,7 +79,7 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     m_reloadButton->setIcon(QIcon::fromTheme(QStringLiteral("view-refresh")));
     m_closeProjectButton = new QToolButton(m_toolView);
     m_closeProjectButton->setAutoRaise(true);
-    m_closeProjectButton->setIcon(QIcon::fromTheme(QStringLiteral("window-close")));
+    m_closeProjectButton->setIcon(QIcon::fromTheme(QStringLiteral(PROJECTCLOSEICON)));
     QHBoxLayout *layout = new QHBoxLayout();
     layout->setSpacing(0);
     layout->addWidget(m_projectsCombo);
@@ -112,7 +114,7 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     connect(m_projectsCombo, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &KateProjectPluginView::slotCurrentChanged);
     connect(m_reloadButton, &QToolButton::clicked, this, &KateProjectPluginView::slotProjectReload);
 
-    connect(m_closeProjectButton, &QToolButton::clicked, this, &KateProjectPluginView::slotProjectAboutToClose);
+//     connect(m_closeProjectButton, &QToolButton::clicked, this, &KateProjectPluginView::slotProjectAboutToClose);
     connect(m_plugin, &KateProjectPlugin::pluginViewProjectClosing, this, &KateProjectPluginView::slotProjectClose);
     
     connect(m_gitStatusRefreshButton, &QToolButton::clicked, this, [this] {
@@ -172,6 +174,9 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     a = actionCollection()->addAction(QStringLiteral("projects_goto_index"), this, SLOT(slotProjectIndex()));
     a->setText(i18n("Lookup"));
     actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::ALT | Qt::Key_1));
+    a = actionCollection()->addAction(QStringLiteral("projects_close"), this, SLOT(slotProjectAboutToClose()));
+    a->setText(i18n("Close Project"));
+    a->setIcon(QIcon::fromTheme(QStringLiteral(PROJECTCLOSEICON)));
     m_gotoSymbolActionAppMenu = a = actionCollection()->addAction(KStandardAction::Goto, QStringLiteral("projects_goto_symbol"), this, SLOT(slotGotoSymbol()));
 
     // popup menu

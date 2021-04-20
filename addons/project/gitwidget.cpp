@@ -262,7 +262,14 @@ void GitWidget::setDotGitPath()
     git.start(QProcess::ReadOnly);
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         if (git.exitStatus() != QProcess::NormalExit || git.exitCode() != 0) {
-            sendMessage(i18n("Failed to find .git directory, things may not work correctly: %1", QString::fromUtf8(git.readAllStandardError())), true);
+            const QString error = QString::fromUtf8(git.readAllStandardError());
+
+            /**
+             * Do this on next even loop iteration because we may be in the constructor of pluginView
+             */
+            QTimer::singleShot(1, this, [this, error] {
+                sendMessage(i18n("Failed to find .git directory, things may not work correctly: %1", error), false);
+            });
             m_gitPath = m_project->baseDir();
             return;
         }

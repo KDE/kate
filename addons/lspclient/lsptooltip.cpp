@@ -39,7 +39,7 @@ public:
         QString htext = text;
         // we have to do this to handle soft line
         htext.replace(QLatin1Char('\n'), QStringLiteral("  \n"));
-        setMarkdown(htext);
+        setMarkdown(htext.toHtmlEscaped());
         resizeTip(text);
     }
 

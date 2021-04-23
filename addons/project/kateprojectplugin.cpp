@@ -196,23 +196,18 @@ bool KateProjectPlugin::closeProject(KateProject *project)
 {
     QList< KTextEditor::Document* > documents = KTextEditor::Editor::instance()->application()->documents();
     QVector< KTextEditor::Document* > projectDocuments;
-    QString text = i18n("Documents will be closed:\n");
-    QString title = i18n("Confirm project closing: ") + project->name();
+    QWidget* window = KTextEditor::Editor::instance()->application()->activeMainWindow()->window();
     
     for(int i = 0; i<documents.size(); i++)
-    {
         if(QUrl(project->baseDir()).isParentOf(documents[i]->url().adjusted(QUrl::RemoveScheme)))
-        {
             projectDocuments.push_back(documents[i]);
-            text+=documents[i]->url().adjusted(QUrl::RemoveScheme).toDisplayString();
-            text+=i18n("\n");
-        }
-    }
+        
+    QString title = i18n("Confirm project closing: ") + project->name();
+    QString text = i18n("Do you want to close ") + QString::number(projectDocuments.size()) + i18n(" documents and ") + project->name() + i18n(" project?");
 
-    QMessageBox confirmationBox(QMessageBox::Information, title, text, QMessageBox::Cancel | QMessageBox::Yes);
-    confirmationBox.setDefaultButton(QMessageBox::Cancel);
+    QMessageBox confirmationBox;
     
-    if(16384==confirmationBox.exec())//4194304 for QMessageBox::Cancel
+    if(QMessageBox::Yes == confirmationBox.question(window, title, text, QMessageBox::No | QMessageBox::Yes, QMessageBox::No))
     {
         for(int i = 0; i<projectDocuments.size(); i++)
             KTextEditor::Editor::instance()->application()->closeDocument(projectDocuments[i]);

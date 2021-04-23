@@ -21,6 +21,8 @@
 #include <QCoreApplication>
 #include <QFileInfo>
 #include <QTime>
+#include <QMessageBox>
+#include <QString>
 
 #include <vector>
 
@@ -193,19 +195,38 @@ KateProject *KateProjectPlugin::projectForDir(QDir dir)
 bool KateProjectPlugin::closeProject(KateProject *project)
 {
     QList< KTextEditor::Document* > documents = KTextEditor::Editor::instance()->application()->documents();
+    QVector< KTextEditor::Document* > projectDocuments;
+    QString text = i18n("Documents will be closed:\n");
+    QString title = i18n("Confirm project closing: ") + project->name();
     
     for(int i = 0; i<documents.size(); i++)
-        if(QUrl(project->baseDir()).isParentOf(documents[i]->url().adjusted(QUrl::RemoveScheme)))
-            KTextEditor::Editor::instance()->application()->closeDocument(documents[i]);
-    
-    Q_EMIT pluginViewProjectClosing(project);
-    if(m_projects.removeOne(project))
     {
-        m_fileWatcher.removePath(QFileInfo(project->fileName()).canonicalPath());
-        delete project;
-        return true;
+        if(QUrl(project->baseDir()).isParentOf(documents[i]->url().adjusted(QUrl::RemoveScheme)))
+        {
+            projectDocuments.push_back(documents[i]);
+            text+=documents[i]->url().adjusted(QUrl::RemoveScheme).toDisplayString();
+            text+=i18n("\n");
+        }
     }
-    else return false;
+
+    QMessageBox confirmationBox(QMessageBox::Information, title, text, QMessageBox::Cancel | QMessageBox::Yes);
+    confirmationBox.setDefaultButton(QMessageBox::Cancel);
+    
+    if(16384==confirmationBox.exec())//4194304 for QMessageBox::Cancel
+    {
+        for(int i = 0; i<projectDocuments.size(); i++)
+            KTextEditor::Editor::instance()->application()->closeDocument(projectDocuments[i]);
+        
+        Q_EMIT pluginViewProjectClosing(project);
+        if(m_projects.removeOne(project))
+        {
+            m_fileWatcher.removePath(QFileInfo(project->fileName()).canonicalPath());
+            delete project;
+            return true;
+        }
+    }
+    
+    return false;
 }
 
 KateProject *KateProjectPlugin::projectForUrl(const QUrl &url)

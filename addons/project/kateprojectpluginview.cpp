@@ -114,7 +114,7 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     connect(m_projectsCombo, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &KateProjectPluginView::slotCurrentChanged);
     connect(m_reloadButton, &QToolButton::clicked, this, &KateProjectPluginView::slotProjectReload);
 
-//     connect(m_closeProjectButton, &QToolButton::clicked, this, &KateProjectPluginView::slotProjectAboutToClose);
+    connect(m_closeProjectButton, &QToolButton::clicked, this, &KateProjectPluginView::slotProjectAboutToClose);
     connect(m_plugin, &KateProjectPlugin::pluginViewProjectClosing, this, &KateProjectPluginView::slotProjectClose);
     
     connect(m_gitStatusRefreshButton, &QToolButton::clicked, this, [this] {
@@ -570,7 +570,7 @@ void KateProjectPluginView::slotProjectReload()
 
 void KateProjectPluginView::slotProjectAboutToClose()
 {
-    if (QWidget *current = m_stackedProjectViews->currentWidget())
+    if (QWidget* current = m_stackedProjectViews->currentWidget())
     {
         m_plugin->closeProject(static_cast<KateProjectView *>(current)->project());
     }

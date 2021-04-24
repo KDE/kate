@@ -12,6 +12,7 @@
       <Action name="projects_next_project"/>
       <Action name="projects_goto_index" />
       <Action name="projects_goto_symbol" />
+      <Action name="projects_close" />
     </Menu>
   </MenuBar>
   <Menu name="ktexteditor_popup" noMerge="1">

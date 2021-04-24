@@ -59,6 +59,13 @@ public:
      * @return project or null if not openable
      */
     KateProject *projectForDir(QDir dir, bool userSpecified = false);
+    
+    /**
+     * Search and close project for given project, if possible.
+     * @param project to search matching project for closing
+     * @return true if successful
+     */
+    bool closeProject(KateProject *project);
 
     /**
      * Search and open project that contains given url, if possible.
@@ -120,6 +127,13 @@ public:
     ClickAction doubleClickAcion();
 
 Q_SIGNALS:
+    
+    /**
+     * Signal that for view to clean up
+     * @param project to close
+     */
+    void pluginViewProjectClosing(KateProject *project);
+    
     /**
      * Signal that a new project got created.
      * @param project new created project

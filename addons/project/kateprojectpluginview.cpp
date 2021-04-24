@@ -118,7 +118,7 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
 
     connect(m_closeProjectButton, &QToolButton::clicked, this, &KateProjectPluginView::slotProjectAboutToClose);
     connect(m_plugin, &KateProjectPlugin::pluginViewProjectClosing, this, &KateProjectPluginView::slotProjectClose);
-    
+
     connect(m_gitStatusRefreshButton, &QToolButton::clicked, this, [this] {
         if (auto widget = m_stackedgitViews->currentWidget()) {
             qobject_cast<GitWidget *>(widget)->getStatus();
@@ -581,8 +581,7 @@ void KateProjectPluginView::slotProjectReload()
 
 void KateProjectPluginView::slotProjectAboutToClose()
 {
-    if (QWidget* current = m_stackedProjectViews->currentWidget())
-    {
+    if (QWidget *current = m_stackedProjectViews->currentWidget()) {
         m_plugin->closeProject(static_cast<KateProjectView *>(current)->project());
     }
 }
@@ -591,23 +590,22 @@ void KateProjectPluginView::slotProjectClose(KateProject *project)
 {
     const int index = m_plugin->projects().indexOf(project);
     m_project2View.erase(m_project2View.find(project));
-    
-    QWidget* stackedProjectViewsWidget = m_stackedProjectViews->widget(index);
+
+    QWidget *stackedProjectViewsWidget = m_stackedProjectViews->widget(index);
     m_stackedProjectViews->removeWidget(stackedProjectViewsWidget);
     delete stackedProjectViewsWidget;
-    
-    QWidget* stackedProjectInfoViewsWidget = m_stackedProjectInfoViews->widget(index);
+
+    QWidget *stackedProjectInfoViewsWidget = m_stackedProjectInfoViews->widget(index);
     m_stackedProjectInfoViews->removeWidget(stackedProjectInfoViewsWidget);
     delete stackedProjectInfoViewsWidget;
-    
-    QWidget* stackedgitViewsWidget = m_stackedgitViews->widget(index);
+
+    QWidget *stackedgitViewsWidget = m_stackedgitViews->widget(index);
     m_stackedgitViews->removeWidget(stackedgitViewsWidget);
     delete stackedgitViewsWidget;
-    
+
     m_projectsCombo->removeItem(index);
     m_projectsComboGit->removeItem(index);
 }
-
 
 QString KateProjectPluginView::currentWord() const
 {

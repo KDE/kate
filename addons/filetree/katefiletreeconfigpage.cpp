@@ -114,8 +114,7 @@ KateFileTreeConfigPage::KateFileTreeConfigPage(QWidget *parent, KateFileTreePlug
         i18n("When enabled, in tree mode, top level folders will show up with their full path "
              "rather than just the last folder name."));
 
-    cbShowToolbar->setWhatsThis(
-        i18n("When enabled, a toolbar with actions like “Save” are displayed above the list of documents."));
+    cbShowToolbar->setWhatsThis(i18n("When enabled, a toolbar with actions like “Save” are displayed above the list of documents."));
 
     //   cmbSort->setWhatsThis( i18n(
     //       "Set the sorting method for the documents.") );

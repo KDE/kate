@@ -20,9 +20,9 @@
 
 #include <QCoreApplication>
 #include <QFileInfo>
-#include <QTime>
 #include <QMessageBox>
 #include <QString>
+#include <QTime>
 
 #include <vector>
 
@@ -208,33 +208,31 @@ KateProject *KateProjectPlugin::projectForDir(QDir dir, bool userSpecified)
 
 bool KateProjectPlugin::closeProject(KateProject *project)
 {
-    QList< KTextEditor::Document* > documents = KTextEditor::Editor::instance()->application()->documents();
-    QVector< KTextEditor::Document* > projectDocuments;
-    QWidget* window = KTextEditor::Editor::instance()->application()->activeMainWindow()->window();
-    
-    for(int i = 0; i<documents.size(); i++)
-        if(QUrl(project->baseDir()).isParentOf(documents[i]->url().adjusted(QUrl::RemoveScheme)))
+    QList<KTextEditor::Document *> documents = KTextEditor::Editor::instance()->application()->documents();
+    QVector<KTextEditor::Document *> projectDocuments;
+    QWidget *window = KTextEditor::Editor::instance()->application()->activeMainWindow()->window();
+
+    for (int i = 0; i < documents.size(); i++)
+        if (QUrl(project->baseDir()).isParentOf(documents[i]->url().adjusted(QUrl::RemoveScheme)))
             projectDocuments.push_back(documents[i]);
-        
+
     QString title = i18n("Confirm project closing: ") + project->name();
     QString text = i18n("Do you want to close ") + QString::number(projectDocuments.size()) + i18n(" documents and ") + project->name() + i18n(" project?");
 
     QMessageBox confirmationBox;
-    
-    if(QMessageBox::Yes == confirmationBox.question(window, title, text, QMessageBox::No | QMessageBox::Yes, QMessageBox::No))
-    {
-        for(int i = 0; i<projectDocuments.size(); i++)
+
+    if (QMessageBox::Yes == confirmationBox.question(window, title, text, QMessageBox::No | QMessageBox::Yes, QMessageBox::No)) {
+        for (int i = 0; i < projectDocuments.size(); i++)
             KTextEditor::Editor::instance()->application()->closeDocument(projectDocuments[i]);
-        
+
         Q_EMIT pluginViewProjectClosing(project);
-        if(m_projects.removeOne(project))
-        {
+        if (m_projects.removeOne(project)) {
             m_fileWatcher.removePath(QFileInfo(project->fileName()).canonicalPath());
             delete project;
             return true;
         }
     }
-    
+
     return false;
 }
 

@@ -183,13 +183,13 @@ private Q_SLOTS:
      * This will trigger a reload with force.
      */
     void slotProjectReload();
-    
+
     /**
      * Getting project for others windows
      * and closing project documents.
      */
     void slotProjectAboutToClose();
-    
+
     /**
      * Close current project.
      */
@@ -206,12 +206,12 @@ private Q_SLOTS:
     void slotGotoSymbol();
 
 Q_SIGNALS:
-    
+
     /**
      * Emitted if project is about to close.
      */
     void pluginProjectClose(KateProject *project);
-    
+
     /**
      * Emitted if projectFileName changed.
      */
@@ -342,7 +342,7 @@ private:
      * Reload button
      */
     QToolButton *m_reloadButton;
-    
+
     /**
      * Closeing button
      */

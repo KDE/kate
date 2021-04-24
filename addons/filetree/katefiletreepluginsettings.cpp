@@ -25,7 +25,7 @@ KateFileTreePluginSettings::KateFileTreePluginSettings()
     m_sortRole = m_group.readEntry("sortRole", int(Qt::DisplayRole));
 
     m_showFullPathOnRoots = m_group.readEntry("showFullPathOnRoots", false);
-    
+
     m_showToolbar = m_group.readEntry("showToolbar", true);
 
     m_showCloseButton = m_group.readEntry("showCloseButton", false);

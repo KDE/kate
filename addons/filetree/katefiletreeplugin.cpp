@@ -211,7 +211,7 @@ KateFileTreePluginView::KateFileTreePluginView(KTextEditor::MainWindow *mainWind
     setupActions();
 
     mainWindow->guiFactory()->addClient(this);
-    
+
     setToolbarVisible(m_plug->settings().showToolbar());
 
     m_proxyModel->setSortRole(Qt::DisplayRole);

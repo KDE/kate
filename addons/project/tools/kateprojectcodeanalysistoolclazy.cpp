@@ -141,13 +141,11 @@ QString KateProjectCodeAnalysisToolClazy::compileCommandsDirectory() const
      * Check all paths one by one for compile_commands.json and exit when found
      */
     QString compileCommandsDir;
-    for (QString path : possiblePaths) {
-        if (!path.endsWith(QLatin1Char('/'))) {
-            path.append(QLatin1Char('/'));
-        }
-        const bool dirHasCompileComds = QFile::exists(buildDir + compCommandsFile);
+    for (const QString &path : possiblePaths) {
+        const QString guessedPath = QDir(path).filePath(compCommandsFile);
+        const bool dirHasCompileComds = QFile::exists(guessedPath);
         if (dirHasCompileComds) {
-            compileCommandsDir = path;
+            compileCommandsDir = guessedPath;
             break;
         }
     }

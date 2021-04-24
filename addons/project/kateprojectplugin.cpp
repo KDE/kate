@@ -216,12 +216,9 @@ bool KateProjectPlugin::closeProject(KateProject *project)
         if (QUrl(project->baseDir()).isParentOf(documents[i]->url().adjusted(QUrl::RemoveScheme)))
             projectDocuments.push_back(documents[i]);
 
-    QString title = i18n("Confirm project closing: ") + project->name();
-    QString text = i18n("Do you want to close ") + QString::number(projectDocuments.size()) + i18n(" documents and ") + project->name() + i18n(" project?");
-
-    QMessageBox confirmationBox;
-
-    if (QMessageBox::Yes == confirmationBox.question(window, title, text, QMessageBox::No | QMessageBox::Yes, QMessageBox::No)) {
+    const QString title = i18n("Confirm project closing: %1", project->name());
+    const QString text = i18n("Do you want to close the project %1 and the related %1 open documents?", project->name(), projectDocuments.size());
+    if (QMessageBox::Yes == QMessageBox::question(window, title, text, QMessageBox::No | QMessageBox::Yes, QMessageBox::Yes)) {
         for (int i = 0; i < projectDocuments.size(); i++)
             KTextEditor::Editor::instance()->application()->closeDocument(projectDocuments[i]);
 

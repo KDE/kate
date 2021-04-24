@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
-<gui name="kateprojectplugin" library="kateprojectplugin" version="11" translationDomain="kateproject">
+<gui name="kateprojectplugin" library="kateprojectplugin" version="12" translationDomain="kateproject">
   <MenuBar>
   <Menu name="file">
     <Action name="projects_open_project" group="open_merge"/>

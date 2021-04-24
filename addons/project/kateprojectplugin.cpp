@@ -217,7 +217,7 @@ bool KateProjectPlugin::closeProject(KateProject *project)
             projectDocuments.push_back(documents[i]);
 
     const QString title = i18n("Confirm project closing: %1", project->name());
-    const QString text = i18n("Do you want to close the project %1 and the related %1 open documents?", project->name(), projectDocuments.size());
+    const QString text = i18n("Do you want to close the project %1 and the related %2 open documents?", project->name(), projectDocuments.size());
     if (QMessageBox::Yes == QMessageBox::question(window, title, text, QMessageBox::No | QMessageBox::Yes, QMessageBox::Yes)) {
         for (int i = 0; i < projectDocuments.size(); i++)
             KTextEditor::Editor::instance()->application()->closeDocument(projectDocuments[i]);

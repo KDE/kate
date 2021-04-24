@@ -1,3 +1,4 @@
+find_package(Qt5Concurrent ${QT_MIN_VERSION} QUIET)
 find_package(
   KF5 ${KF5_DEP_VERSION}
   QUIET
@@ -9,7 +10,7 @@ find_package(
 set_package_properties(KFGuiAddons PROPERTIES PURPOSE "Required to build the project addon")
 set_package_properties(KF5NewStuff PROPERTIES PURPOSE "Required to build the project addon")
 
-if(NOT KF5_FOUND)
+if(NOT KF5_FOUND OR NOT Qt5Concurrent_FOUND)
   return()
 endif()
 
@@ -19,6 +20,7 @@ target_compile_definitions(kateprojectplugin PRIVATE TRANSLATION_DOMAIN="katepro
 target_link_libraries(
   kateprojectplugin
   PRIVATE
+    Qt5::Concurrent
     KF5::GuiAddons
     KF5::NewStuff
     KF5::TextEditor

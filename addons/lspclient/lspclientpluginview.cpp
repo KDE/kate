@@ -308,6 +308,7 @@ class LSPClientActionView : public QObject
 
     QPointer<QAction> m_findDef;
     QPointer<QAction> m_findDecl;
+    QPointer<QAction> m_findTypeDef;
     QPointer<QAction> m_findRef;
     QPointer<QAction> m_findImpl;
     QPointer<QAction> m_triggerHighlight;
@@ -350,6 +351,8 @@ class LSPClientActionView : public QObject
     QPointer<QTreeView> m_defTree;
     // ... and for declaration
     QPointer<QTreeView> m_declTree;
+    // ... and for type definition
+    QPointer<QTreeView> m_typeDefTree;
 
     // diagnostics tab
     QPointer<QTreeView> m_diagnosticsTree;
@@ -433,6 +436,8 @@ public:
         m_findDef->setText(i18n("Go to Definition"));
         m_findDecl = actionCollection()->addAction(QStringLiteral("lspclient_find_declaration"), this, &self_type::goToDeclaration);
         m_findDecl->setText(i18n("Go to Declaration"));
+        m_findTypeDef = actionCollection()->addAction(QStringLiteral("lspclient_find_type_definition"), this, &self_type::goToTypeDefinition);
+        m_findTypeDef->setText(i18n("Go to Type Definition"));
         m_findRef = actionCollection()->addAction(QStringLiteral("lspclient_find_references"), this, &self_type::findReferences);
         m_findRef->setText(i18n("Find References"));
         m_findImpl = actionCollection()->addAction(QStringLiteral("lspclient_find_implementations"), this, &self_type::findImplementation);
@@ -499,6 +504,7 @@ public:
         actionCollection()->addAction(QStringLiteral("popup_lspclient"), menu);
         menu->addAction(m_findDef);
         menu->addAction(m_findDecl);
+        menu->addAction(m_findTypeDef);
         menu->addAction(m_findRef);
         menu->addAction(m_findImpl);
         menu->addAction(m_switchSourceHeader);
@@ -1547,6 +1553,12 @@ public:
         processLocations<LSPLocation>(title, &LSPClientServer::documentDeclaration, false, &self_type::locationToRangeItem, &m_declTree);
     }
 
+    void goToTypeDefinition()
+    {
+        auto title = i18nc("@title:tab", "Type Definition: %1", currentWord());
+        processLocations<LSPLocation>(title, &LSPClientServer::documentTypeDefinition, false, &self_type::locationToRangeItem, &m_typeDefTree);
+    }
+
     void findReferences()
     {
         auto title = i18nc("@title:tab", "References: %1", currentWord());
@@ -2240,7 +2252,7 @@ public:
         KTextEditor::View *activeView = m_mainWindow->activeView();
         auto doc = activeView ? activeView->document() : nullptr;
         auto server = m_serverManager->findServer(activeView);
-        bool defEnabled = false, declEnabled = false, refEnabled = false, implEnabled = false;
+        bool defEnabled = false, declEnabled = false, typeDefEnabled = false, refEnabled = false, implEnabled = false;
         bool hoverEnabled = false, highlightEnabled = false;
         bool formatEnabled = false;
         bool renameEnabled = false;
@@ -2250,6 +2262,7 @@ public:
             const auto &caps = server->capabilities();
             defEnabled = caps.definitionProvider;
             declEnabled = caps.declarationProvider;
+            typeDefEnabled = caps.typeDefinitionProvider;
             refEnabled = caps.referencesProvider;
             implEnabled = caps.implementationProvider;
             hoverEnabled = caps.hoverProvider;
@@ -2284,6 +2297,9 @@ public:
         }
         if (m_findDecl) {
             m_findDecl->setEnabled(declEnabled);
+        }
+        if (m_findTypeDef) {
+            m_findTypeDef->setEnabled(typeDefEnabled);
         }
         if (m_findRef) {
             m_findRef->setEnabled(refEnabled);

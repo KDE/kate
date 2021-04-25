@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
-<gui name="lspclient" library="lspclient" version="10" translationDomain="lspclient">
+<gui name="lspclient" library="lspclient" version="11" translationDomain="lspclient">
   <MenuBar>
     <Menu name="LSPClient Menubar">
       <text>LSP Client</text>
       <Action name="lspclient_find_definition"/>
       <Action name="lspclient_find_declaration"/>
+      <Action name="lspclient_find_type_definition"/>
       <Action name="lspclient_find_references"/>
       <Action name="lspclient_highlight"/>
       <Action name="lspclient_symbol_info"/>

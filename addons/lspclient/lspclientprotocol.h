@@ -78,6 +78,7 @@ struct LSPServerCapabilities {
     bool definitionProvider = false;
     // official extension as of 3.14.0
     bool declarationProvider = false;
+    bool typeDefinitionProvider = false;
     bool referencesProvider = false;
     bool implementationProvider = false;
     bool documentSymbolProvider = false;

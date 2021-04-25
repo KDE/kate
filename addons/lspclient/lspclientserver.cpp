@@ -296,6 +296,7 @@ static void from_json(LSPServerCapabilities &caps, const QJsonObject &json)
     from_json(caps.signatureHelpProvider, json.value(QStringLiteral("signatureHelpProvider")));
     caps.definitionProvider = json.value(QStringLiteral("definitionProvider")).toBool();
     caps.declarationProvider = json.value(QStringLiteral("declarationProvider")).toBool();
+    caps.typeDefinitionProvider = json.value(QStringLiteral("typeDefinitionProvider")).toBool();
     caps.referencesProvider = json.value(QStringLiteral("referencesProvider")).toBool();
     caps.implementationProvider = json.value(QStringLiteral("implementationProvider")).toBool();
     caps.documentSymbolProvider = json.value(QStringLiteral("documentSymbolProvider")).toBool();
@@ -1152,6 +1153,12 @@ public:
         return send(init_request(QStringLiteral("textDocument/declaration"), params), h);
     }
 
+    RequestHandle documentTypeDefinition(const QUrl &document, const LSPPosition &pos, const GenericReplyHandler &h)
+    {
+        auto params = textDocumentPositionParams(document, pos);
+        return send(init_request(QStringLiteral("textDocument/typeDefinition"), params), h);
+    }
+
     RequestHandle documentImplementation(const QUrl &document, const LSPPosition &pos, const GenericReplyHandler &h)
     {
         auto params = textDocumentPositionParams(document, pos);
@@ -1423,6 +1430,12 @@ LSPClientServer::RequestHandle
 LSPClientServer::documentDeclaration(const QUrl &document, const LSPPosition &pos, const QObject *context, const DocumentDefinitionReplyHandler &h)
 {
     return d->documentDeclaration(document, pos, make_handler(h, context, parseDocumentLocation));
+}
+
+LSPClientServer::RequestHandle
+LSPClientServer::documentTypeDefinition(const QUrl &document, const LSPPosition &pos, const QObject *context, const DocumentDefinitionReplyHandler &h)
+{
+    return d->documentTypeDefinition(document, pos, make_handler(h, context, parseDocumentLocation));
 }
 
 LSPClientServer::RequestHandle

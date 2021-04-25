@@ -89,7 +89,7 @@ private:
 
     Ui::SessionConfigWidget sessionConfigUi;
 
-    QHash<KPageWidgetItem *, PluginPageListItem *> m_pluginPages;
+    QHash<KPageWidgetItem *, PluginPageListItem> m_pluginPages;
     QList<KTextEditor::ConfigPage *> m_editorPages;
 
 #ifdef WITH_KUSERFEEDBACK

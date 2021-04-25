@@ -280,13 +280,13 @@ void KateConfigDialog::addPluginPage(KTextEditor::Plugin *plugin)
         item->setHeader(cp->fullName());
         item->setIcon(cp->icon());
 
-        PluginPageListItem *info = new PluginPageListItem;
-        info->plugin = plugin;
-        info->pageParent = page;
-        info->pluginPage = cp;
-        info->idInPlugin = i;
-        info->pageWidgetItem = item;
-        connect(info->pluginPage, &KTextEditor::ConfigPage::changed, this, &KateConfigDialog::slotChanged);
+        PluginPageListItem info;
+        info.plugin = plugin;
+        info.pageParent = page;
+        info.pluginPage = cp;
+        info.idInPlugin = i;
+        info.pageWidgetItem = item;
+        connect(info.pluginPage, &KTextEditor::ConfigPage::changed, this, &KateConfigDialog::slotChanged);
         m_pluginPages.insert(item, info);
     }
 }
@@ -294,12 +294,10 @@ void KateConfigDialog::addPluginPage(KTextEditor::Plugin *plugin)
 void KateConfigDialog::removePluginPage(KTextEditor::Plugin *plugin)
 {
     QList<KPageWidgetItem *> remove;
-    for (QHash<KPageWidgetItem *, PluginPageListItem *>::const_iterator it = m_pluginPages.constBegin(); it != m_pluginPages.constEnd(); ++it) {
-        PluginPageListItem *pli = it.value();
-        if (!pli) {
-            continue;
-        }
-        if (pli->plugin == plugin) {
+    for (QHash<KPageWidgetItem *, PluginPageListItem>::const_iterator it = m_pluginPages.constBegin(); it != m_pluginPages.constEnd(); ++it) {
+        const PluginPageListItem &pli = it.value();
+
+        if (pli.plugin == plugin) {
             remove.append(it.key());
         }
     }
@@ -307,11 +305,10 @@ void KateConfigDialog::removePluginPage(KTextEditor::Plugin *plugin)
     qCDebug(LOG_KATE) << remove.count();
     while (!remove.isEmpty()) {
         KPageWidgetItem *wItem = remove.takeLast();
-        PluginPageListItem *pItem = m_pluginPages.take(wItem);
-        delete pItem->pluginPage;
-        delete pItem->pageParent;
+        PluginPageListItem item = m_pluginPages.take(wItem);
+        delete item.pluginPage;
+        delete item.pageParent;
         removePage(wItem);
-        delete pItem;
     }
 }
 
@@ -385,12 +382,9 @@ void KateConfigDialog::slotApply()
 #endif
     }
 
-    for (PluginPageListItem *plugin : qAsConst(m_pluginPages)) {
-        if (!plugin) {
-            continue;
-        }
-        if (plugin->pluginPage) {
-            plugin->pluginPage->apply();
+    for (const PluginPageListItem &plugin : qAsConst(m_pluginPages)) {
+        if (plugin.pluginPage) {
+            plugin.pluginPage->apply();
         }
     }
 
@@ -418,9 +412,9 @@ void KateConfigDialog::slotChanged()
 
 void KateConfigDialog::showAppPluginPage(KTextEditor::Plugin *p, int id)
 {
-    for (PluginPageListItem *plugin : qAsConst(m_pluginPages)) {
-        if ((plugin->plugin == p) && (id == plugin->idInPlugin)) {
-            setCurrentPage(plugin->pageWidgetItem);
+    for (const PluginPageListItem &plugin : qAsConst(m_pluginPages)) {
+        if ((plugin.plugin == p) && (id == plugin.idInPlugin)) {
+            setCurrentPage(plugin.pageWidgetItem);
             break;
         }
     }

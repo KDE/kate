@@ -2254,8 +2254,7 @@ public:
         if (server) {
             const auto &caps = server->capabilities();
             defEnabled = caps.definitionProvider;
-            // FIXME no real official protocol way to detect, so enable anyway
-            declEnabled = caps.declarationProvider || true;
+            declEnabled = caps.declarationProvider;
             refEnabled = caps.referencesProvider;
             implEnabled = caps.implementationProvider;
             hoverEnabled = caps.hoverProvider;

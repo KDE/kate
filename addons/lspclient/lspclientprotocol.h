@@ -76,7 +76,7 @@ struct LSPServerCapabilities {
     LSPCompletionOptions completionProvider;
     LSPSignatureHelpOptions signatureHelpProvider;
     bool definitionProvider = false;
-    // FIXME ? clangd unofficial extension
+    // official extension as of 3.14.0
     bool declarationProvider = false;
     bool referencesProvider = false;
     bool implementationProvider = false;

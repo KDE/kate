@@ -1562,12 +1562,7 @@ public:
     void findImplementation()
     {
         auto title = i18nc("@title:tab", "Implementation: %1", currentWord());
-        // clang-format off
-        auto req = [](LSPClientServer &server, const QUrl &document, const LSPPosition &pos, const QObject *context, const DocumentDefinitionReplyHandler &h)
-        { return server.documentImplementation(document, pos, context, h); };
-        // clang-format on
-
-        processLocations<LSPLocation>(title, req, true, &self_type::locationToRangeItem);
+        processLocations<LSPLocation>(title, &LSPClientServer::documentImplementation, true, &self_type::locationToRangeItem);
     }
 
     void highlight()

@@ -139,6 +139,9 @@ QString KateProjectCodeAnalysisToolClazy::compileCommandsDirectory() const
      */
     QString compileCommandsDir;
     for (const QString &path : possiblePaths) {
+        if (path.isEmpty()) {
+            continue;
+        }
         const QString guessedPath = QDir(path).filePath(compCommandsFile);
         const bool dirHasCompileComds = QFile::exists(guessedPath);
         if (dirHasCompileComds) {

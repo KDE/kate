@@ -120,12 +120,10 @@ QString KateProjectCodeAnalysisToolClazy::compileCommandsDirectory() const
         buildDir = buildDir.mid(2);
     }
 
-    // clang-format off
     /**
      * list of absoloute paths to check compile commands
      */
-    const QString possiblePaths[4] =
-    {
+    const QString possiblePaths[4] = {
         /** Absoloute build path in .kateproject e.g from cmake */
         buildDir,
         /** Relative path in .kateproject e.g */
@@ -133,9 +131,8 @@ QString KateProjectCodeAnalysisToolClazy::compileCommandsDirectory() const
         /** Check for the commonly existing "build/" directory */
         m_project->baseDir() + QStringLiteral("/build"),
         /** Project base, maybe it has a symlink to compile_commands.json file */
-        m_project->baseDir()
+        m_project->baseDir(),
     };
-    // clang-format on
 
     /**
      * Check all paths one by one for compile_commands.json and exit when found

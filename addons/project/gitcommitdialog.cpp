@@ -60,7 +60,7 @@ static void changeTextColorToRed(QLineEdit *lineEdit, const QColor &red)
 
 GitCommitDialog::GitCommitDialog(const QString &lastCommit, const QFont &font, QWidget *parent, Qt::WindowFlags f)
     : QDialog(parent, f)
-    , m_le(new QLineEdit())
+    , m_le(new QLineEdit(this))
 {
     setWindowTitle(i18n("Commit Changes"));
 
@@ -79,7 +79,7 @@ GitCommitDialog::GitCommitDialog(const QString &lastCommit, const QFont &font, Q
     m_pe.setPlaceholderText(i18n("Extended commit description..."));
     m_pe.setFont(font);
 
-    QVBoxLayout *vlayout = new QVBoxLayout;
+    QVBoxLayout *vlayout = new QVBoxLayout(this);
     vlayout->setContentsMargins(4, 4, 4, 4);
     setLayout(vlayout);
 

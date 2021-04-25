@@ -220,15 +220,13 @@ void FileHistoryWidget::itemClicked(const QModelIndex &idx)
 
     const auto commit = idx.data(CommitListModel::CommitRole).value<Commit>();
 
-    QStringList args{QStringLiteral("diff"), QString::fromUtf8(commit.hash), QStringLiteral("--"), m_file};
+    QStringList args{QStringLiteral("show"), QString::fromUtf8(commit.hash), QStringLiteral("--"), m_file};
     git.start(QStringLiteral("git"), args, QProcess::ReadOnly);
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         if (git.exitStatus() != QProcess::NormalExit || git.exitCode() != 0) {
             return;
         }
-        QByteArray contents = commit.msg.toUtf8();
-        contents.append("\n\n");
-        contents.append(git.readAllStandardOutput());
+        QByteArray contents(git.readAllStandardOutput());
         // we send this signal to the parent, which will pass it on to
         // the GitWidget from where a temporary file is opened
         Q_EMIT commitClicked(contents);

@@ -27,6 +27,7 @@
 #include <QMimeDatabase>
 #include <QMimeType>
 #include <QStandardPaths>
+#include <KToolInvocation>
 
 static QString getName()
 {
@@ -61,13 +62,15 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
      * Copy Path
      */
     QAction *copyAction = menu.addAction(QIcon::fromTheme(QStringLiteral("edit-copy")), i18n("Copy File Path"));
-
+    
+    QAction* terminal = menu.addAction(QIcon::fromTheme(QStringLiteral("utilities-terminal")), i18n("Open Terminal here"));
+    
     /**
      * Handle "open with",
      * find correct mimetype to query for possible applications
      */
     QMenu *openWithMenu = menu.addMenu(i18n("Open With"));
-    QMimeType mimeType = QMimeDatabase().mimeTypeForFile(filename);
+    QMimeType mimeType = QMimeDatabase().mimeTypeForFile(filename);    
     const KService::List offers = KApplicationTrader::queryByMimeType(mimeType.name());
     // For each one, insert a menu item...
     for (const auto &service : offers) {
@@ -115,6 +118,15 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
         job->setUiDelegate(new KIO::JobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, parent));
         job->start();
     };
+    
+    auto terminalLambda = [](const QString &filename) 
+    {
+        QFileInfo checkFile(filename);
+        if (QUrl::fromLocalFile(filename).isLocalFile() && checkFile.isFile()) 
+            KToolInvocation::invokeTerminal(QString(), {}, QUrl::fromLocalFile(filename).toString(QUrl::RemoveFilename | QUrl::RemoveScheme));
+        if (QUrl::fromLocalFile(filename).isLocalFile() && checkFile.isDir()) 
+            KToolInvocation::invokeTerminal(QString(), {}, filename);
+    };
 
     // we can ATM only handle file renames
     QAction *rename = nullptr;
@@ -131,7 +143,11 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
         } else if (action->parentWidget() == openWithMenu) {
             // handle "open with"
             handleOpenWith(action, filename);
-        } else if (action == openContaingFolderAction) {
+        }
+        else if (action == terminal) {
+            // handle "open terminal here"
+            terminalLambda(filename);
+        }else if (action == openContaingFolderAction) {
             KIO::highlightInFileManager({QUrl::fromLocalFile(filename)});
         } else if (action == filePropertiesAction) {
             // code copied and adapted from frameworks/kio/src/filewidgets/knewfilemenu.cpp

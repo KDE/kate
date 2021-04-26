@@ -2265,6 +2265,16 @@ implementation.
 </listitem>
 </varlistentry>
 
+<varlistentry id="lspclient-typedefinition">
+<term><menuchoice>
+<guimenu>LSP Client</guimenu>
+<guisubmenu>Go to Type Definition</guisubmenu>
+</menuchoice></term>
+<listitem>
+<para>[textDocument/typeDefinition] Go to current symbol type definition.</para>
+</listitem>
+</varlistentry>
+
 <varlistentry id="lspclient-references">
 <term><menuchoice>
 <guimenu>LSP Client</guimenu>
@@ -2272,6 +2282,16 @@ implementation.
 </menuchoice></term>
 <listitem>
 <para>[textDocument/references] Find references to current symbol.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="lspclient-implementation">
+<term><menuchoice>
+<guimenu>LSP Client</guimenu>
+<guisubmenu>Find Implementations</guisubmenu>
+</menuchoice></term>
+<listitem>
+<para>[textDocument/implementation] Find implementations of current symbol.</para>
 </listitem>
 </varlistentry>
 

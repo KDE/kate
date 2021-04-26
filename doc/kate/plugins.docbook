@@ -2649,6 +2649,40 @@ transformed to the &JSON; configuration that is used here and outlined above.
 
 </sect3>
 
+<sect3 id="lspclient-troubleshooting">
+<title>LSP Server Troubleshooting</title>
+
+<para>
+It is one thing to describe how to configure a (custom) LSP server for
+any particular language, it is another to end up with the server running
+smoothly. Usually, the latter is fortunately the case.  Sometimes, however,
+problems may arise due to either some "silly" misconfiguration or a more
+fundamental problem with the server itself.  The latter might typically manifest
+itself as a couple of attempts at starting the server, as so reported in &kate;
+Output tab. The latter, however, is only meant to convey high-level messages or
+progress rather than to provide detailed diagnostics, and even less so for what
+is in fact another process (the LSP server).
+</para>
+
+<para>
+The usual way to diagnose this is to add some flag(s) to the startup
+command (of the language server) that enables (additional) logging (to
+some file or standard error), in as far as it does not do so by default. If
+&kate; is then started on the command line, then one might be able to obtain
+more (in)sight in what might be going wrong.
+</para>
+
+<para>
+It may also be informative to examine the protocol exchange between &kate;'s
+LSP client and the LSP server.  Again, the latter usually has ways to trace
+that.  The LSP client also provides additional debug tracing (to stderr)
+when &kate; is invoked with the following
+<literal>QT_LOGGING_RULES=katelspclientplugin=true</literal> suitably
+<literal>export</literal>'ed.
+</para>
+
+</sect3>
+
 </sect2>
 
 <!--TODO: Supported languages, describe features and actions a bit -->

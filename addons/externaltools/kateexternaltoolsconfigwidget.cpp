@@ -130,59 +130,58 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool *t
     setWindowTitle(i18n("Edit External Tool"));
     setWindowIcon(QIcon::fromTheme(QStringLiteral("system-run")));
 
-    ui = new Ui::ToolDialog();
-    ui->setupUi(this);
-    ui->btnIcon->setIconSize(KIconLoader::SizeSmall);
+    ui.setupUi(this);
+    ui.btnIcon->setIconSize(KIconLoader::SizeSmall);
 
-    connect(ui->buttonBox, &QDialogButtonBox::accepted, this, &KateExternalToolServiceEditor::slotOKClicked);
-    connect(ui->buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
-    connect(ui->btnMimeType, &QToolButton::clicked, this, &KateExternalToolServiceEditor::showMTDlg);
+    connect(ui.buttonBox, &QDialogButtonBox::accepted, this, &KateExternalToolServiceEditor::slotOKClicked);
+    connect(ui.buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
+    connect(ui.btnMimeType, &QToolButton::clicked, this, &KateExternalToolServiceEditor::showMTDlg);
 
     Q_ASSERT(m_tool != nullptr);
-    ui->edtName->setText(m_tool->translatedName());
+    ui.edtName->setText(m_tool->translatedName());
     if (!m_tool->icon.isEmpty()) {
-        ui->btnIcon->setIcon(m_tool->icon);
+        ui.btnIcon->setIcon(m_tool->icon);
     }
 
-    ui->edtExecutable->setText(m_tool->executable);
-    ui->edtArgs->setText(m_tool->arguments);
-    ui->edtInput->setText(m_tool->input);
-    ui->edtWorkingDir->setText(m_tool->workingDir);
-    ui->edtMimeType->setText(m_tool->mimetypes.join(QStringLiteral("; ")));
-    ui->cmbSave->setCurrentIndex(static_cast<int>(m_tool->saveMode));
-    ui->chkReload->setChecked(m_tool->reload);
-    ui->cmbOutput->setCurrentIndex(static_cast<int>(m_tool->outputMode));
-    ui->edtCommand->setText(m_tool->cmdname);
+    ui.edtExecutable->setText(m_tool->executable);
+    ui.edtArgs->setText(m_tool->arguments);
+    ui.edtInput->setText(m_tool->input);
+    ui.edtWorkingDir->setText(m_tool->workingDir);
+    ui.edtMimeType->setText(m_tool->mimetypes.join(QStringLiteral("; ")));
+    ui.cmbSave->setCurrentIndex(static_cast<int>(m_tool->saveMode));
+    ui.chkReload->setChecked(m_tool->reload);
+    ui.cmbOutput->setCurrentIndex(static_cast<int>(m_tool->outputMode));
+    ui.edtCommand->setText(m_tool->cmdname);
 
     static const QRegularExpressionValidator cmdLineValidator(QRegularExpression(QStringLiteral("[\\w-]*")));
-    ui->edtCommand->setValidator(&cmdLineValidator);
+    ui.edtCommand->setValidator(&cmdLineValidator);
 
     if (isDefaultTool(tool, m_plugin->defaultTools())) {
-        ui->buttonBox->setStandardButtons(ui->buttonBox->standardButtons() | QDialogButtonBox::RestoreDefaults);
-        ui->buttonBox->setToolTip(i18n("Revert tool to default settings"));
-        connect(ui->buttonBox->button(QDialogButtonBox::RestoreDefaults), &QPushButton::clicked, [this, tool]() {
+        ui.buttonBox->setStandardButtons(ui.buttonBox->standardButtons() | QDialogButtonBox::RestoreDefaults);
+        ui.buttonBox->setToolTip(i18n("Revert tool to default settings"));
+        connect(ui.buttonBox->button(QDialogButtonBox::RestoreDefaults), &QPushButton::clicked, [this, tool]() {
             const auto t = defaultTool(tool->actionName, m_plugin->defaultTools());
-            ui->edtName->setText(t.translatedName());
-            ui->btnIcon->setIcon(t.icon);
-            ui->edtExecutable->setText(t.executable);
-            ui->edtArgs->setText(t.arguments);
-            ui->edtInput->setText(t.input);
-            ui->edtWorkingDir->setText(t.workingDir);
-            ui->edtMimeType->setText(t.mimetypes.join(QStringLiteral("; ")));
-            ui->cmbSave->setCurrentIndex(static_cast<int>(t.saveMode));
-            ui->chkReload->setChecked(t.reload);
-            ui->cmbOutput->setCurrentIndex(static_cast<int>(t.outputMode));
-            ui->edtCommand->setText(t.cmdname);
+            ui.edtName->setText(t.translatedName());
+            ui.btnIcon->setIcon(t.icon);
+            ui.edtExecutable->setText(t.executable);
+            ui.edtArgs->setText(t.arguments);
+            ui.edtInput->setText(t.input);
+            ui.edtWorkingDir->setText(t.workingDir);
+            ui.edtMimeType->setText(t.mimetypes.join(QStringLiteral("; ")));
+            ui.cmbSave->setCurrentIndex(static_cast<int>(t.saveMode));
+            ui.chkReload->setChecked(t.reload);
+            ui.cmbOutput->setCurrentIndex(static_cast<int>(t.outputMode));
+            ui.edtCommand->setText(t.cmdname);
         });
     }
 
     // add support for variable expansion
-    KTextEditor::Editor::instance()->addVariableExpansion({ui->edtExecutable->lineEdit(), ui->edtArgs, ui->edtInput, ui->edtWorkingDir->lineEdit()});
+    KTextEditor::Editor::instance()->addVariableExpansion({ui.edtExecutable->lineEdit(), ui.edtArgs, ui.edtInput, ui.edtWorkingDir->lineEdit()});
 }
 
 void KateExternalToolServiceEditor::slotOKClicked()
 {
-    if (ui->edtName->text().isEmpty() || ui->edtExecutable->text().isEmpty()) {
+    if (ui.edtName->text().isEmpty() || ui.edtExecutable->text().isEmpty()) {
         QMessageBox::information(this, i18n("External Tool"), i18n("You must specify at least a name and an executable"));
         return;
     }
@@ -194,13 +193,13 @@ void KateExternalToolServiceEditor::showMTDlg()
 {
     QString text = i18n("Select the MimeTypes for which to enable this tool.");
 #if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
-    QStringList list = ui->edtMimeType->text().split(QRegularExpression(QStringLiteral("\\s*;\\s*")), QString::SkipEmptyParts);
+    QStringList list = ui.edtMimeType->text().split(QRegularExpression(QStringLiteral("\\s*;\\s*")), QString::SkipEmptyParts);
 #else
-    QStringList list = ui->edtMimeType->text().split(QRegularExpression(QStringLiteral("\\s*;\\s*")), Qt::SkipEmptyParts);
+    QStringList list = ui.edtMimeType->text().split(QRegularExpression(QStringLiteral("\\s*;\\s*")), Qt::SkipEmptyParts);
 #endif
     KMimeTypeChooserDialog d(i18n("Select Mime Types"), text, list, QStringLiteral("text"), this);
     if (d.exec() == QDialog::Accepted) {
-        ui->edtMimeType->setText(d.chooser()->mimeTypes().join(QStringLiteral(";")));
+        ui.edtMimeType->setText(d.chooser()->mimeTypes().join(QStringLiteral(";")));
     }
 }
 // END KateExternalToolServiceEditor
@@ -245,7 +244,7 @@ KateExternalToolsConfigWidget::KateExternalToolsConfigWidget(QWidget *parent, Ka
     lbTools->setDragDropMode(QAbstractItemView::InternalMove);
 
     // Add... button popup menu
-    auto addMenu = new QMenu();
+    auto addMenu = new QMenu(btnAdd);
     auto addToolAction = addMenu->addAction(i18n("Add Tool..."));
     auto addDefaultsMenu = addMenu->addMenu(i18n("Add Tool from Defaults"));
     addMenu->addSeparator();
@@ -370,21 +369,21 @@ bool KateExternalToolsConfigWidget::editTool(KateExternalTool *tool)
     KateExternalToolServiceEditor editor(tool, m_plugin, this);
     editor.resize(m_config->group("Editor").readEntry("Size", QSize()));
     if (editor.exec() == QDialog::Accepted) {
-        tool->name = editor.ui->edtName->text().trimmed();
-        tool->icon = editor.ui->btnIcon->icon();
-        tool->executable = editor.ui->edtExecutable->text().trimmed();
-        tool->arguments = editor.ui->edtArgs->text();
-        tool->input = editor.ui->edtInput->toPlainText();
-        tool->workingDir = editor.ui->edtWorkingDir->text();
+        tool->name = editor.ui.edtName->text().trimmed();
+        tool->icon = editor.ui.btnIcon->icon();
+        tool->executable = editor.ui.edtExecutable->text().trimmed();
+        tool->arguments = editor.ui.edtArgs->text();
+        tool->input = editor.ui.edtInput->toPlainText();
+        tool->workingDir = editor.ui.edtWorkingDir->text();
 #if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
-        tool->mimetypes = editor.ui->edtMimeType->text().split(QRegularExpression(QStringLiteral("\\s*;\\s*")), QString::SkipEmptyParts);
+        tool->mimetypes = editor.ui.edtMimeType->text().split(QRegularExpression(QStringLiteral("\\s*;\\s*")), QString::SkipEmptyParts);
 #else
-        tool->mimetypes = editor.ui->edtMimeType->text().split(QRegularExpression(QStringLiteral("\\s*;\\s*")), Qt::SkipEmptyParts);
+        tool->mimetypes = editor.ui.edtMimeType->text().split(QRegularExpression(QStringLiteral("\\s*;\\s*")), Qt::SkipEmptyParts);
 #endif
-        tool->saveMode = static_cast<KateExternalTool::SaveMode>(editor.ui->cmbSave->currentIndex());
-        tool->reload = editor.ui->chkReload->isChecked();
-        tool->outputMode = static_cast<KateExternalTool::OutputMode>(editor.ui->cmbOutput->currentIndex());
-        tool->cmdname = editor.ui->edtCommand->text().trimmed();
+        tool->saveMode = static_cast<KateExternalTool::SaveMode>(editor.ui.cmbSave->currentIndex());
+        tool->reload = editor.ui.chkReload->isChecked();
+        tool->outputMode = static_cast<KateExternalTool::OutputMode>(editor.ui.cmbOutput->currentIndex());
+        tool->cmdname = editor.ui.edtCommand->text().trimmed();
 
         // sticky action collection name, never changes again, so that shortcuts stay
         if (tool->actionName.isEmpty()) {

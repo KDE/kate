@@ -108,7 +108,7 @@ private Q_SLOTS:
     void showMTDlg();
 
 public:
-    Ui::ToolDialog *ui;
+    Ui::ToolDialog ui;
 
 private:
     KateExternalToolsPlugin *m_plugin;

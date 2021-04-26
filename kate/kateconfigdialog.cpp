@@ -297,14 +297,8 @@ void KateConfigDialog::removePluginPage(KTextEditor::Plugin *plugin)
     qCDebug(LOG_KATE) << remove.count();
     while (!remove.isEmpty()) {
         KPageWidgetItem *wItem = remove.takeLast();
-<<<<<<< HEAD
-        PluginPageListItem *pItem = m_pluginPages.take(wItem);
-        delete pItem->pluginPage;
-=======
         PluginPageListItem item = m_pluginPages.take(wItem);
         delete item.pluginPage;
-        delete item.pageParent;
->>>>>>> work/fix-leaks-in-config
         removePage(wItem);
     }
 }

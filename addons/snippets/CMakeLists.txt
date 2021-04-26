@@ -11,6 +11,7 @@ target_compile_definitions(katesnippetsplugin PRIVATE TRANSLATION_DOMAIN="katesn
 target_link_libraries(
   katesnippetsplugin 
   PRIVATE
+    KF5::I18n
     KF5::NewStuff 
     KF5::TextEditor
 )

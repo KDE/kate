@@ -7,6 +7,7 @@ find_package(Qt5Test ${QT_MIN_VERSION} QUIET REQUIRED)
 target_link_libraries(
   projectplugin_test 
   PRIVATE
+    KF5::I18n
     KF5::TextEditor
     Qt5::Test
 )

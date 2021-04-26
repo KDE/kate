@@ -16,6 +16,7 @@ ki18n_wrap_ui(UI_SOURCES lspconfigwidget.ui)
 target_link_libraries(
   lspclientplugin
   PRIVATE
+    KF5::I18n
     KF5::ItemModels
     KF5::TextEditor
     KF5::SyntaxHighlighting

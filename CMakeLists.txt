@@ -49,6 +49,7 @@ find_package(Qt5Widgets ${QT_MIN_VERSION} CONFIG REQUIRED)
 find_package(KF5 ${KF5_DEP_VERSION}
     REQUIRED COMPONENTS
         I18n
+        TextWidgets
     OPTIONAL_COMPONENTS
         DocTools
 )

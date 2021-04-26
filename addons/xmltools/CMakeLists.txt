@@ -5,7 +5,7 @@ remove_definitions(-DQT_NO_CAST_FROM_BYTEARRAY)
 
 add_library(katexmltoolsplugin MODULE "")
 target_compile_definitions(katexmltoolsplugin PRIVATE TRANSLATION_DOMAIN="katexmltools")
-target_link_libraries(katexmltoolsplugin PRIVATE KF5::TextEditor)
+target_link_libraries(katexmltoolsplugin PRIVATE KF5::I18n KF5::TextEditor)
 
 target_sources(
   katexmltoolsplugin 

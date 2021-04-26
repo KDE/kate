@@ -22,6 +22,7 @@ target_link_libraries(
   PRIVATE
     Qt5::Concurrent
     KF5::GuiAddons
+    KF5::I18n
     KF5::NewStuff
     KF5::TextEditor
 )

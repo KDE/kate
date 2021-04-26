@@ -4,7 +4,7 @@ endif()
 
 add_library(katekonsoleplugin MODULE "")
 target_compile_definitions(katekonsoleplugin PRIVATE TRANSLATION_DOMAIN="katekonsoleplugin")
-target_link_libraries(katekonsoleplugin PRIVATE KF5::TextEditor)
+target_link_libraries(katekonsoleplugin PRIVATE KF5::I18n KF5::TextEditor)
 
 target_sources(
   katekonsoleplugin 

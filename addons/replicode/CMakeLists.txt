@@ -4,6 +4,7 @@ target_compile_definitions(katereplicodeplugin PRIVATE TRANSLATION_DOMAIN="kate-
 target_link_libraries(
   katereplicodeplugin
   PRIVATE
+    KF5::I18n
     KF5::TextEditor
 )
 

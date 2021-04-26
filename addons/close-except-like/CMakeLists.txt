@@ -4,6 +4,7 @@ target_compile_definitions(katecloseexceptplugin PRIVATE TRANSLATION_DOMAIN="kat
 target_link_libraries(
   katecloseexceptplugin
   PRIVATE
+    KF5::I18n
     KF5::TextEditor
 )
 

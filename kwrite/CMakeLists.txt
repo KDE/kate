@@ -21,6 +21,7 @@ find_package(
 target_link_libraries(
   kwrite
   PUBLIC
+    KF5::I18n
     KF5::TextEditor
     KF5::DBusAddons
     KF5::Crash

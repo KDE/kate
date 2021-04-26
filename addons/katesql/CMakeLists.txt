@@ -14,6 +14,7 @@ target_compile_definitions(katesqlplugin PRIVATE TRANSLATION_DOMAIN="katesql")
 target_link_libraries(
   katesqlplugin 
   PRIVATE
+    KF5::I18n
     KF5::TextEditor
     KF5::Wallet
     Qt5::Sql

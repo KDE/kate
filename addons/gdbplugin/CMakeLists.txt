@@ -5,7 +5,7 @@ endif()
 
 add_library(kategdbplugin MODULE "")
 target_compile_definitions(kategdbplugin PRIVATE TRANSLATION_DOMAIN="kategdbplugin")
-target_link_libraries(kategdbplugin PRIVATE KF5::TextEditor)
+target_link_libraries(kategdbplugin PRIVATE KF5::I18n KF5::TextEditor)
 
 ki18n_wrap_ui(UI_SOURCES advanced_settings.ui)
 target_sources(kategdbplugin PRIVATE ${UI_SOURCES})

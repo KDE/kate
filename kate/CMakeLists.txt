@@ -38,10 +38,12 @@ find_package(
 target_link_libraries(
   kate-lib
   PUBLIC
+    KF5::I18n
     KF5::TextEditor
     KF5::WindowSystem
     KF5::DBusAddons
     KF5::Crash
+    KF5::TextWidgets
 )
 
 if(KF5Activities_FOUND)

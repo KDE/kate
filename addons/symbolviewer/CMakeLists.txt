@@ -1,6 +1,6 @@
 add_library(katesymbolviewerplugin MODULE "")
 target_compile_definitions(katesymbolviewerplugin PRIVATE TRANSLATION_DOMAIN="katesymbolviewer")
-target_link_libraries(katesymbolviewerplugin PRIVATE KF5::TextEditor)
+target_link_libraries(katesymbolviewerplugin PRIVATE KF5::I18n KF5::TextEditor)
 
 target_sources(
   katesymbolviewerplugin 

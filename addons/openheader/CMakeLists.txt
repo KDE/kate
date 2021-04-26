@@ -1,6 +1,6 @@
 add_library(kateopenheaderplugin MODULE "")
 target_compile_definitions(kateopenheaderplugin PRIVATE TRANSLATION_DOMAIN="kateopenheader")
-target_link_libraries(kateopenheaderplugin PRIVATE KF5::TextEditor)
+target_link_libraries(kateopenheaderplugin PRIVATE KF5::I18n KF5::TextEditor)
 
 target_sources(
   kateopenheaderplugin 

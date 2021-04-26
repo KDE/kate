@@ -11,6 +11,7 @@ target_compile_definitions(katefiletreeplugin PRIVATE TRANSLATION_DOMAIN="katefi
 target_link_libraries(
   katefiletreeplugin
   PUBLIC
+    KF5::I18n
     KF5::TextEditor
     KF5::GuiAddons
 )

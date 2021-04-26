@@ -13,6 +13,7 @@ target_link_libraries(
   katesearchplugin
   PRIVATE
     Qt5::Concurrent
+    KF5::I18n
     KF5::ItemViews
     KF5::TextEditor
 )

@@ -268,21 +268,13 @@ void KateConfigDialog::addEditorPages()
 void KateConfigDialog::addPluginPage(KTextEditor::Plugin *plugin)
 {
     for (int i = 0; i < plugin->configPages(); i++) {
-        QFrame *page = new QFrame();
-        QVBoxLayout *layout = new QVBoxLayout(page);
-        layout->setSpacing(0);
-        layout->setContentsMargins(0, 0, 0, 0);
-
-        KTextEditor::ConfigPage *cp = plugin->configPage(i, page);
-        page->layout()->addWidget(cp);
-
-        KPageWidgetItem *item = addPage(page, cp->name());
+        KTextEditor::ConfigPage *cp = plugin->configPage(i, this);
+        KPageWidgetItem *item = addPage(cp, cp->name());
         item->setHeader(cp->fullName());
         item->setIcon(cp->icon());
 
         PluginPageListItem *info = new PluginPageListItem;
         info->plugin = plugin;
-        info->pageParent = page;
         info->pluginPage = cp;
         info->idInPlugin = i;
         info->pageWidgetItem = item;
@@ -309,7 +301,6 @@ void KateConfigDialog::removePluginPage(KTextEditor::Plugin *plugin)
         KPageWidgetItem *wItem = remove.takeLast();
         PluginPageListItem *pItem = m_pluginPages.take(wItem);
         delete pItem->pluginPage;
-        delete pItem->pageParent;
         removePage(wItem);
         delete pItem;
     }

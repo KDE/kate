@@ -34,7 +34,6 @@ struct PluginPageListItem {
     KTextEditor::Plugin *plugin;
     int idInPlugin;
     KTextEditor::ConfigPage *pluginPage;
-    QWidget *pageParent;
     KPageWidgetItem *pageWidgetItem;
 };
 

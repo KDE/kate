@@ -60,7 +60,6 @@ static void changeTextColorToRed(QLineEdit *lineEdit, const QColor &red)
 
 GitCommitDialog::GitCommitDialog(const QString &lastCommit, const QFont &font, QWidget *parent, Qt::WindowFlags f)
     : QDialog(parent, f)
-    , m_le(new QLineEdit(this))
 {
     setWindowTitle(i18n("Commit Changes"));
 

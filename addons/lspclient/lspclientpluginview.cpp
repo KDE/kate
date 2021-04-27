@@ -258,6 +258,7 @@ public:
                 }
             }
         }
+        w.clear();
     }
 
     void setRangeAndWidget(const KTextEditor::Range &r, QWidget *wid)
@@ -268,7 +269,7 @@ public:
 
     bool isValid() const
     {
-        return w != nullptr;
+        return !w.isNull();
     }
 
 private:
@@ -284,7 +285,7 @@ private:
     }
 
 private:
-    QWidget *w = nullptr;
+    QPointer<QWidget> w;
     QHash<KTextEditor::Document *, KTextEditor::MovingRange *> ranges;
     KTextEditor::Range range;
 };

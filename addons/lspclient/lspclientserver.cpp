@@ -288,23 +288,31 @@ static void from_json(LSPSemanticHighlightingOptions &options, const QJsonValue 
 
 static void from_json(LSPServerCapabilities &caps, const QJsonObject &json)
 {
+    // in older protocol versions a support option is simply a boolean
+    // in newer version it may be an object instead;
+    // it should not be sent unless such support is announced, but let's handle it anyway
+    // so consider an object there as a (good?) sign that the server is suitably capable
+    auto toBoolOrObject = [](const QJsonValue &value) {
+        return value.toBool() || value.isObject();
+    };
+
     auto sync = json.value(QStringLiteral("textDocumentSync"));
     caps.textDocumentSync = static_cast<LSPDocumentSyncKind>(
         (sync.isObject() ? sync.toObject().value(QStringLiteral("change")) : sync).toInt(static_cast<int>(LSPDocumentSyncKind::None)));
-    caps.hoverProvider = json.value(QStringLiteral("hoverProvider")).toBool();
+    caps.hoverProvider = toBoolOrObject(json.value(QStringLiteral("hoverProvider")));
     from_json(caps.completionProvider, json.value(QStringLiteral("completionProvider")));
     from_json(caps.signatureHelpProvider, json.value(QStringLiteral("signatureHelpProvider")));
-    caps.definitionProvider = json.value(QStringLiteral("definitionProvider")).toBool();
-    caps.declarationProvider = json.value(QStringLiteral("declarationProvider")).toBool();
-    caps.typeDefinitionProvider = json.value(QStringLiteral("typeDefinitionProvider")).toBool();
-    caps.referencesProvider = json.value(QStringLiteral("referencesProvider")).toBool();
-    caps.implementationProvider = json.value(QStringLiteral("implementationProvider")).toBool();
-    caps.documentSymbolProvider = json.value(QStringLiteral("documentSymbolProvider")).toBool();
-    caps.documentHighlightProvider = json.value(QStringLiteral("documentHighlightProvider")).toBool();
-    caps.documentFormattingProvider = json.value(QStringLiteral("documentFormattingProvider")).toBool();
-    caps.documentRangeFormattingProvider = json.value(QStringLiteral("documentRangeFormattingProvider")).toBool();
+    caps.definitionProvider = toBoolOrObject(json.value(QStringLiteral("definitionProvider")));
+    caps.declarationProvider = toBoolOrObject(json.value(QStringLiteral("declarationProvider")));
+    caps.typeDefinitionProvider = toBoolOrObject(json.value(QStringLiteral("typeDefinitionProvider")));
+    caps.referencesProvider = toBoolOrObject(json.value(QStringLiteral("referencesProvider")));
+    caps.implementationProvider = toBoolOrObject(json.value(QStringLiteral("implementationProvider")));
+    caps.documentSymbolProvider = toBoolOrObject(json.value(QStringLiteral("documentSymbolProvider")));
+    caps.documentHighlightProvider = toBoolOrObject(json.value(QStringLiteral("documentHighlightProvider")));
+    caps.documentFormattingProvider = toBoolOrObject(json.value(QStringLiteral("documentFormattingProvider")));
+    caps.documentRangeFormattingProvider = toBoolOrObject(json.value(QStringLiteral("documentRangeFormattingProvider")));
     from_json(caps.documentOnTypeFormattingProvider, json.value(QStringLiteral("documentOnTypeFormattingProvider")));
-    caps.renameProvider = json.value(QStringLiteral("renameProvider")).toBool();
+    caps.renameProvider = toBoolOrObject(json.value(QStringLiteral("renameProvider")));
     auto codeActionProvider = json.value(QStringLiteral("codeActionProvider"));
     caps.codeActionProvider = codeActionProvider.toBool() || codeActionProvider.isObject();
     from_json(caps.semanticHighlightingProvider, json.value(QStringLiteral("semanticHighlighting")).toObject());

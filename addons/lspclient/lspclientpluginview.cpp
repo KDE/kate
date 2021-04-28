@@ -2092,93 +2092,12 @@ public:
                 Qt::UniqueConnection);
         // clang-format on
 
-        // TODO: make schema attributes accessible via some new interface,
-        // or at least add configuration to the lsp plugin config
-        // FIXME: static attributes break if one e.g. switches the color scheme on the fly!
-        auto attributeForScopes = [view](const QVector<QString> &scopes) -> KTextEditor::Attribute::Ptr {
-            for (const auto &scope : scopes) {
-                if (scope == QLatin1String("entity.name.function.method.cpp")) {
-                    static KTextEditor::Attribute::Ptr attr;
-                    if (!attr) {
-                        attr = view->defaultStyleAttribute(KTextEditor::dsFunction);
-                        attr.detach();
-                        attr->setForeground(Qt::darkYellow);
-                        attr->setFontItalic(true);
-                    }
-                    return attr;
-                } else if (scope == QLatin1String("entity.name.function.cpp")) {
-                    static KTextEditor::Attribute::Ptr attr;
-                    if (!attr) {
-                        attr = view->defaultStyleAttribute(KTextEditor::dsFunction);
-                        attr.detach();
-                        attr->setForeground(Qt::darkYellow);
-                    }
-                    return attr;
-                } else if (scope == QLatin1String("variable.other.cpp")) {
-                    static KTextEditor::Attribute::Ptr attr;
-                    if (!attr) {
-                        attr = view->defaultStyleAttribute(KTextEditor::dsVariable);
-                        attr.detach();
-                        attr->setForeground(Qt::darkCyan);
-                    }
-                    return attr;
-                } else if (scope == QLatin1String("variable.other.field.cpp")) {
-                    static KTextEditor::Attribute::Ptr attr;
-                    if (!attr) {
-                        attr = view->defaultStyleAttribute(KTextEditor::dsVariable);
-                        attr.detach();
-                        attr->setForeground(Qt::darkCyan);
-                        attr->setFontItalic(true);
-                    }
-                    return attr;
-                } else if (scope == QLatin1String("entity.name.type.enum.cpp")) {
-                    static KTextEditor::Attribute::Ptr attr;
-                    if (!attr) {
-                        attr = view->defaultStyleAttribute(KTextEditor::dsConstant);
-                        attr.detach();
-                        attr->setForeground(Qt::darkMagenta);
-                    }
-                    return attr;
-                } else if (scope == QLatin1String("variable.other.enummember.cpp")) {
-                    static KTextEditor::Attribute::Ptr attr;
-                    if (!attr) {
-                        attr = view->defaultStyleAttribute(KTextEditor::dsConstant);
-                        attr.detach();
-                        attr->setForeground(Qt::darkMagenta);
-                        attr->setFontItalic(true);
-                    }
-                    return attr;
-                } else if (scope == QLatin1String("entity.name.type.class.cpp") || scope == QLatin1String("entity.name.type.template.cpp")) {
-                    static KTextEditor::Attribute::Ptr attr;
-                    if (!attr) {
-                        attr = view->defaultStyleAttribute(KTextEditor::dsDataType);
-                        attr.detach();
-                        attr->setForeground(Qt::darkMagenta);
-                    }
-                    return attr;
-                } else if (scope == QLatin1String("entity.name.namespace.cpp")) {
-                    static KTextEditor::Attribute::Ptr attr;
-                    if (!attr) {
-                        attr = view->defaultStyleAttribute(KTextEditor::dsDataType);
-                        attr.detach();
-                        attr->setForeground(Qt::darkGreen);
-                        attr->setFontItalic(true);
-                    }
-                    return attr;
-                }
-            }
-            return {};
-        };
-        (void)attributeForScopes; // shut the warning for kf >= 5.79
         // TODO: we should try to recycle the moving ranges instead of recreating them all the time
-
         const auto &scopes = server->capabilities().semanticHighlightingProvider.scopes;
         // qDebug() << params.textDocument.uri << scopes;
 
         auto &documentRanges = m_semanticHighlightRanges[document];
-        QSet<int> handledLines;
         for (const auto &line : params.lines) {
-            handledLines.insert(line.line);
             auto &lineRanges = documentRanges[line.line];
             qDeleteAll(lineRanges);
             lineRanges.clear();

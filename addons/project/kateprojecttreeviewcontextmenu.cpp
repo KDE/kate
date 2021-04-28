@@ -144,7 +144,7 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
             KToolInvocation::invokeTerminal(QString(), {}, filename);
     };
     
-    auto handleDeleteFile = [parent](const QString &path)
+    auto handleDeleteFile = [parent, index](const QString &path)
     {
         
         QFileInfo fileInfo(path);
@@ -156,34 +156,29 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
         {
             if(fileInfo.isDir()) //for dir
             {
-                QDir dir(path);
                 //has opend files ?
                 for (auto doc : KTextEditor::Editor::instance()->application()->documents())
                     if(QUrl(path).isParentOf(doc->url().adjusted(QUrl::RemoveScheme)))
-                        KTextEditor::Editor::instance()->application()->closeDocument(doc);
-    
-                dir.removeRecursively(); //.moveToTrash()
+                        KTextEditor::Editor::instance()->application()->closeDocument(doc); //KTextEditor::Editor::instance()->application()->documentWillBeDeleted(doc);
+
+                parent->removeDirectory(index, path);
             }
             else //for file
             {
-                QFile file(path);
+                
                 //if is open, close
                 for(auto doc : KTextEditor::Editor::instance()->application()->documents())
                 {
                     if(doc->url().adjusted(QUrl::RemoveScheme) == QUrl(path).adjusted(QUrl::RemoveScheme))
                     {
                         KTextEditor::Editor::instance()->application()->closeDocument(doc);
-
 //                         KTextEditor::Editor::instance()->application()->documentWillBeDeleted(doc);
-                        file.remove();
-//                         KTextEditor::Editor::instance()->application()->documentDeleted(doc); ???
-
                         break;
                     }
                 }
+                parent->removeFile(index, path);
             }
         }
-        //to do - >refresh project tree
     };
 
     // we can ATM only handle file renames

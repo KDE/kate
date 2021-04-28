@@ -63,6 +63,16 @@ public:
      * Add a new directory
      */
     void addDirectory(const QModelIndex &idx, const QString &name);
+    
+    /**
+     * remove a file, the function isn't closing document before removing'
+     */
+    void removeFile(const QModelIndex &idx, const QString &fullFilePath);
+
+    /**
+     * remove a directory, the function isn't closing documents before removing
+     */
+    void removeDirectory(const QModelIndex &idx, const QString &fullDirPath);
 
 private Q_SLOTS:
     /**

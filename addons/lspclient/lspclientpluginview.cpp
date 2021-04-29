@@ -1039,22 +1039,19 @@ public:
         KTextEditor::Document *document = activeView->document();
         KTextEditor::Cursor cdef(line, column);
 
+        KTextEditor::View *targetView = nullptr;
         if (document && uri == document->url()) {
+            targetView = activeView;
+        } else {
+            targetView = m_mainWindow->openUrl(uri);
+        }
+        if (targetView) {
             // save current position for location history
             Q_EMIT addPositionToHistory(activeView->document()->url(), activeView->cursorPosition());
             // save the position to which we are jumping in location history
-            Q_EMIT addPositionToHistory(activeView->document()->url(), cdef);
-
-            activeView->setCursorPosition(cdef);
-            highlightLandingLocation(activeView, location);
-        } else {
-            KTextEditor::View *view = m_mainWindow->openUrl(uri);
-            if (view) {
-                Q_EMIT addPositionToHistory(activeView->document()->url(), activeView->cursorPosition());
-                Q_EMIT addPositionToHistory(view->document()->url(), cdef);
-                view->setCursorPosition(cdef);
-                highlightLandingLocation(view, location);
-            }
+            Q_EMIT addPositionToHistory(targetView->document()->url(), cdef);
+            targetView->setCursorPosition(cdef);
+            highlightLandingLocation(targetView, location);
         }
     }
 

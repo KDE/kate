@@ -58,6 +58,7 @@ LSPClientConfigPage::LSPClientConfigPage(QWidget *parent, LSPClientPlugin *plugi
                            ui->chkMessages,
                            ui->chkOnTypeFormatting,
                            ui->chkIncrementalSync,
+                           ui->chkHighlightGoto,
                            ui->chkSemanticHighlighting,
                            ui->chkAutoHover,
                            ui->chkSignatureHelp}) {
@@ -132,6 +133,7 @@ void LSPClientConfigPage::apply()
     m_plugin->m_autoHover = ui->chkAutoHover->isChecked();
     m_plugin->m_onTypeFormatting = ui->chkOnTypeFormatting->isChecked();
     m_plugin->m_incrementalSync = ui->chkIncrementalSync->isChecked();
+    m_plugin->m_highlightGoto = ui->chkHighlightGoto->isChecked();
     m_plugin->m_semanticHighlighting = ui->chkSemanticHighlighting->isChecked();
     m_plugin->m_signatureHelp = ui->chkSignatureHelp->isChecked();
 
@@ -170,6 +172,7 @@ void LSPClientConfigPage::reset()
     ui->chkAutoHover->setChecked(m_plugin->m_autoHover);
     ui->chkOnTypeFormatting->setChecked(m_plugin->m_onTypeFormatting);
     ui->chkIncrementalSync->setChecked(m_plugin->m_incrementalSync);
+    ui->chkHighlightGoto->setChecked(m_plugin->m_highlightGoto);
     ui->chkSemanticHighlighting->setChecked(m_plugin->m_semanticHighlighting);
     ui->chkSignatureHelp->setChecked(m_plugin->m_signatureHelp);
 

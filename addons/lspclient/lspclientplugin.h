@@ -51,6 +51,7 @@ public:
     bool m_autoHover = false;
     bool m_onTypeFormatting = false;
     bool m_incrementalSync = false;
+    bool m_highlightGoto = true;
     QUrl m_configPath;
     bool m_semanticHighlighting = false;
     bool m_signatureHelp = true;

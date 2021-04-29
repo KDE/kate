@@ -77,6 +77,13 @@
              </widget>
             </item>
             <item>
+             <widget class="QCheckBox" name="chkHighlightGoto">
+              <property name="text">
+               <string>Highlight goto location</string>
+              </property>
+             </widget>
+            </item>
+            <item>
              <widget class="QCheckBox" name="chkSemanticHighlighting">
               <property name="text">
                <string>Enable semantic highlighting</string>

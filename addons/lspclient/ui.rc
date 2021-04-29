@@ -30,6 +30,7 @@
         <Action name="lspclient_auto_hover"/>
         <Action name="lspclient_type_formatting"/>
         <Action name="lspclient_incremental_sync"/>
+        <Action name="lspclient_highlight_goto"/>
         <Separator/>
         <Action name="lspclient_diagnostics"/>
         <Action name="lspclient_diagnostics_highlight"/>

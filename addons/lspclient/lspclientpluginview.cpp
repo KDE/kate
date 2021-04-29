@@ -320,6 +320,7 @@ class LSPClientActionView : public QObject
     QPointer<QAction> m_autoHover;
     QPointer<QAction> m_onTypeFormatting;
     QPointer<QAction> m_incrementalSync;
+    QPointer<QAction> m_highlightGoto;
     QPointer<QAction> m_diagnostics;
     QPointer<QAction> m_diagnosticsHighlight;
     QPointer<QAction> m_diagnosticsMark;
@@ -473,6 +474,9 @@ public:
         m_incrementalSync = actionCollection()->addAction(QStringLiteral("lspclient_incremental_sync"), this, &self_type::displayOptionChanged);
         m_incrementalSync->setText(i18n("Incremental document synchronization"));
         m_incrementalSync->setCheckable(true);
+        m_highlightGoto = actionCollection()->addAction(QStringLiteral("lspclient_highlight_goto"), this, &self_type::displayOptionChanged);
+        m_highlightGoto->setText(i18n("Highlight goto location"));
+        m_highlightGoto->setCheckable(true);
 
         // diagnostics
         m_diagnostics = actionCollection()->addAction(QStringLiteral("lspclient_diagnostics"), this, &self_type::displayOptionChanged);
@@ -532,6 +536,7 @@ public:
         moreOptions->addAction(m_autoHover);
         moreOptions->addAction(m_onTypeFormatting);
         moreOptions->addAction(m_incrementalSync);
+        moreOptions->addAction(m_highlightGoto);
         moreOptions->addSeparator();
         moreOptions->addAction(m_diagnostics);
         moreOptions->addAction(m_diagnosticsHighlight);
@@ -788,6 +793,9 @@ public:
         }
         if (m_incrementalSync) {
             m_incrementalSync->setChecked(m_plugin->m_incrementalSync);
+        }
+        if (m_highlightGoto) {
+            m_highlightGoto->setChecked(m_plugin->m_highlightGoto);
         }
         if (m_diagnostics) {
             m_diagnostics->setChecked(m_plugin->m_diagnostics);
@@ -1060,6 +1068,9 @@ public:
      */
     void highlightLandingLocation(KTextEditor::View *view, const KTextEditor::Range &location)
     {
+        if (!m_highlightGoto || !m_highlightGoto->isChecked()) {
+            return;
+        }
         auto doc = view->document();
         if (!doc) {
             return;

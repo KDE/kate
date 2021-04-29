@@ -28,6 +28,7 @@ static const QString CONFIG_REFERENCES_DECLARATION{QStringLiteral("ReferencesDec
 static const QString CONFIG_AUTO_HOVER{QStringLiteral("AutoHover")};
 static const QString CONFIG_TYPE_FORMATTING{QStringLiteral("TypeFormatting")};
 static const QString CONFIG_INCREMENTAL_SYNC{QStringLiteral("IncrementalSync")};
+static const QString CONFIG_HIGHLIGHT_GOTO{QStringLiteral("HighlightGoto")};
 static const QString CONFIG_DIAGNOSTICS{QStringLiteral("Diagnostics")};
 static const QString CONFIG_DIAGNOSTICS_HIGHLIGHT{QStringLiteral("DiagnosticsHighlight")};
 static const QString CONFIG_DIAGNOSTICS_MARK{QStringLiteral("DiagnosticsMark")};
@@ -97,6 +98,7 @@ void LSPClientPlugin::readConfig()
     m_autoHover = config.readEntry(CONFIG_AUTO_HOVER, true);
     m_onTypeFormatting = config.readEntry(CONFIG_TYPE_FORMATTING, false);
     m_incrementalSync = config.readEntry(CONFIG_INCREMENTAL_SYNC, false);
+    m_highlightGoto = config.readEntry(CONFIG_HIGHLIGHT_GOTO, true);
     m_diagnostics = config.readEntry(CONFIG_DIAGNOSTICS, true);
     m_diagnosticsHighlight = config.readEntry(CONFIG_DIAGNOSTICS_HIGHLIGHT, true);
     m_diagnosticsMark = config.readEntry(CONFIG_DIAGNOSTICS_MARK, true);
@@ -122,6 +124,7 @@ void LSPClientPlugin::writeConfig() const
     config.writeEntry(CONFIG_AUTO_HOVER, m_autoHover);
     config.writeEntry(CONFIG_TYPE_FORMATTING, m_onTypeFormatting);
     config.writeEntry(CONFIG_INCREMENTAL_SYNC, m_incrementalSync);
+    config.writeEntry(CONFIG_HIGHLIGHT_GOTO, m_highlightGoto);
     config.writeEntry(CONFIG_DIAGNOSTICS, m_diagnostics);
     config.writeEntry(CONFIG_DIAGNOSTICS_HIGHLIGHT, m_diagnosticsHighlight);
     config.writeEntry(CONFIG_DIAGNOSTICS_MARK, m_diagnosticsMark);

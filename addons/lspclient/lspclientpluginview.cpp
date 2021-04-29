@@ -316,6 +316,7 @@ class LSPClientActionView : public QObject
     QPointer<QAction> m_triggerFormat;
     QPointer<QAction> m_triggerRename;
     QPointer<QAction> m_complDocOn;
+    QPointer<QAction> m_signatureHelp;
     QPointer<QAction> m_refDeclaration;
     QPointer<QAction> m_autoHover;
     QPointer<QAction> m_onTypeFormatting;
@@ -424,7 +425,7 @@ public:
         , m_mainWindow(mainWin)
         , m_client(client)
         , m_serverManager(std::move(serverManager))
-        , m_completion(LSPClientCompletion::new_(m_serverManager, plugin))
+        , m_completion(LSPClientCompletion::new_(m_serverManager))
         , m_hover(LSPClientHover::new_(m_serverManager))
         , m_forwardHover(new ForwardingTextHintProvider(this))
         , m_symbolView(LSPClientSymbolView::new_(plugin, mainWin, m_serverManager))
@@ -462,6 +463,9 @@ public:
         m_complDocOn = actionCollection()->addAction(QStringLiteral("lspclient_completion_doc"), this, &self_type::displayOptionChanged);
         m_complDocOn->setText(i18n("Show selected completion documentation"));
         m_complDocOn->setCheckable(true);
+        m_signatureHelp = actionCollection()->addAction(QStringLiteral("lspclient_signature_help"), this, &self_type::displayOptionChanged);
+        m_signatureHelp->setText(i18n("Enable signature help with auto completion"));
+        m_signatureHelp->setCheckable(true);
         m_refDeclaration = actionCollection()->addAction(QStringLiteral("lspclient_references_declaration"), this, &self_type::displayOptionChanged);
         m_refDeclaration->setText(i18n("Include declaration in references"));
         m_refDeclaration->setCheckable(true);
@@ -532,6 +536,7 @@ public:
         auto moreOptions = new KActionMenu(i18n("More options"), this);
         menu->addAction(moreOptions);
         moreOptions->addAction(m_complDocOn);
+        moreOptions->addAction(m_signatureHelp);
         moreOptions->addAction(m_refDeclaration);
         moreOptions->addAction(m_autoHover);
         moreOptions->addAction(m_onTypeFormatting);
@@ -781,6 +786,9 @@ public:
     {
         if (m_complDocOn) {
             m_complDocOn->setChecked(m_plugin->m_complDoc);
+        }
+        if (m_signatureHelp) {
+            m_signatureHelp->setChecked(m_plugin->m_signatureHelp);
         }
         if (m_refDeclaration) {
             m_refDeclaration->setChecked(m_plugin->m_refDeclaration);
@@ -2321,6 +2329,7 @@ public:
         m_completion->setServer(server);
         if (m_complDocOn) {
             m_completion->setSelectedDocumentation(m_complDocOn->isChecked());
+            m_completion->setSignatureHelp(m_signatureHelp->isChecked());
         }
         updateCompletion(activeView, server.data());
 

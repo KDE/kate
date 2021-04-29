@@ -49,6 +49,13 @@
              </widget>
             </item>
             <item>
+             <widget class="QCheckBox" name="chkSignatureHelp">
+              <property name="text">
+               <string>Enable signature help with auto completion</string>
+              </property>
+             </widget>
+            </item>
+            <item>
              <widget class="QCheckBox" name="chkRefDeclaration">
               <property name="text">
                <string>Include declaration in references</string>
@@ -87,13 +94,6 @@
              <widget class="QCheckBox" name="chkSemanticHighlighting">
               <property name="text">
                <string>Enable semantic highlighting</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="chkSignatureHelp">
-              <property name="text">
-               <string>Enable signature help with auto completion</string>
               </property>
              </widget>
             </item>

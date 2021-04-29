@@ -139,8 +139,8 @@ class LSPClientCompletionImpl : public LSPClientCompletion
 
     QSharedPointer<LSPClientServerManager> m_manager;
     QSharedPointer<LSPClientServer> m_server;
-    LSPClientPlugin *m_plugin;
     bool m_selectedDocumentation = false;
+    bool m_signatureHelp = true;
 
     QVector<QChar> m_triggersCompletion;
     QVector<QChar> m_triggersSignature;
@@ -150,11 +150,10 @@ class LSPClientCompletionImpl : public LSPClientCompletion
     LSPClientServer::RequestHandle m_handle, m_handleSig;
 
 public:
-    LSPClientCompletionImpl(QSharedPointer<LSPClientServerManager> manager, LSPClientPlugin *plugin)
+    LSPClientCompletionImpl(QSharedPointer<LSPClientServerManager> manager)
         : LSPClientCompletion(nullptr)
         , m_manager(std::move(manager))
         , m_server(nullptr)
-        , m_plugin(plugin)
     {
     }
 
@@ -174,6 +173,11 @@ public:
     void setSelectedDocumentation(bool s) override
     {
         m_selectedDocumentation = s;
+    }
+
+    void setSignatureHelp(bool s) override
+    {
+        m_signatureHelp = s;
     }
 
     QVariant data(const QModelIndex &index, int role) const override
@@ -302,7 +306,7 @@ public:
             if (!m_triggerSignature) {
                 m_handle = m_server->documentCompletion(document->url(), {cursor.line(), cursor.column()}, this, handler);
             }
-            if (m_plugin->m_signatureHelp) {
+            if (m_signatureHelp) {
                 m_handleSig = m_server->signatureHelp(document->url(), {cursor.line(), cursor.column()}, this, sigHandler);
             }
         }
@@ -360,9 +364,9 @@ public:
     }
 };
 
-LSPClientCompletion *LSPClientCompletion::new_(QSharedPointer<LSPClientServerManager> manager, LSPClientPlugin *plugin)
+LSPClientCompletion *LSPClientCompletion::new_(QSharedPointer<LSPClientServerManager> manager)
 {
-    return new LSPClientCompletionImpl(std::move(manager), plugin);
+    return new LSPClientCompletionImpl(std::move(manager));
 }
 
 #include "lspclientcompletion.moc"

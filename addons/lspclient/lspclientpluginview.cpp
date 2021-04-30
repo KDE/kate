@@ -1619,7 +1619,7 @@ public:
     {
         // trigger manually the normally automagic hover
         if (auto activeView = m_mainWindow->activeView()) {
-            m_hover->textHint(activeView, activeView->cursorPosition());
+            m_hover->showTextHint(activeView, activeView->cursorPosition(), true);
         }
     }
 

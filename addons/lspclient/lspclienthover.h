@@ -27,6 +27,9 @@ public:
     }
 
     virtual void setServer(QSharedPointer<LSPClientServer> server) = 0;
+
+    // support additional parameters besides the usual interface signature
+    virtual QString showTextHint(KTextEditor::View *view, const KTextEditor::Cursor &position, bool manual) = 0;
 };
 
 #endif

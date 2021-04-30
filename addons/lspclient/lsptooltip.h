@@ -21,7 +21,8 @@ class View;
 class LspTooltip
 {
 public:
-    static void show(const QString &text, QPoint pos, KTextEditor::View *v);
+    // tooltip hidden after timeout msec (if > 0)
+    static void show(const QString &text, QPoint pos, KTextEditor::View *v, int timeout);
 };
 
 #endif // LSPTOOLTIP_H

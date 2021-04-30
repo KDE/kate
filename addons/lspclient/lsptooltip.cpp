@@ -64,9 +64,10 @@ public:
         }
     }
 
-    Tooltip(QWidget *parent)
+    Tooltip(QWidget *parent, int timeout)
         : QTextBrowser(parent)
         , hl(document())
+        , m_hideTimeout(timeout)
     {
         setWindowFlags(Qt::FramelessWindowHint | Qt::BypassGraphicsProxyWidget | Qt::ToolTip);
         setAttribute(Qt::WA_DeleteOnClose, true);
@@ -185,7 +186,9 @@ public:
 protected:
     void showEvent(QShowEvent *event) override
     {
-        m_hideTimer.start(1000);
+        if (m_hideTimeout > 0) {
+            m_hideTimer.start(m_hideTimeout);
+        }
         QTextBrowser::showEvent(event);
     }
 
@@ -224,9 +227,10 @@ private:
     QPointer<KTextEditor::View> m_view;
     QTimer m_hideTimer;
     KSyntaxHighlighting::SyntaxHighlighter hl;
+    int m_hideTimeout;
 };
 
-void LspTooltip::show(const QString &text, QPoint pos, KTextEditor::View *v)
+void LspTooltip::show(const QString &text, QPoint pos, KTextEditor::View *v, int timeout)
 {
     if (text.isEmpty())
         return;
@@ -235,7 +239,7 @@ void LspTooltip::show(const QString &text, QPoint pos, KTextEditor::View *v)
         return;
     }
 
-    auto tooltip = new Tooltip(v);
+    auto tooltip = new Tooltip(v, timeout);
     tooltip->show();
     tooltip->setView(v);
     tooltip->setTooltipText(text);

@@ -53,6 +53,11 @@ public:
      */
     QString textHint(KTextEditor::View *view, const KTextEditor::Cursor &position) override
     {
+        return showTextHint(view, position, false);
+    }
+
+    QString showTextHint(KTextEditor::View *view, const KTextEditor::Cursor &position, bool manual) override
+    {
         if (!position.isValid()) {
             return {};
         }
@@ -60,7 +65,7 @@ public:
         // hack: delayed handling of tooltip on our own, the API is too dumb for a-sync feedback ;=)
         if (m_server) {
             QPointer<KTextEditor::View> v(view);
-            auto h = [v, position](const LSPHover &info) {
+            auto h = [v, position, manual](const LSPHover &info) {
                 if (!v || info.contents.isEmpty()) {
                     return;
                 }
@@ -76,7 +81,7 @@ public:
 
                 // make sure there is no selection, otherwise we interrupt
                 if (!v->selection()) {
-                    LspTooltip::show(finalTooltip, v->mapToGlobal(v->cursorToCoordinate(position)), v);
+                    LspTooltip::show(finalTooltip, v->mapToGlobal(v->cursorToCoordinate(position)), v, manual ? 0 : 1000);
                 }
             };
 

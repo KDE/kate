@@ -2118,7 +2118,7 @@ precedence over <filename>.kateproject</filename>.
 
 <varlistentry>
 <term>
-<guimenu>Terminal</guimenu>
+<guimenu>Terminal Panel</guimenu>
 </term>
 <listitem>
 <para>A <link linkend="kate-application-plugin-konsole">Terminal emulator</link> starting in the
@@ -3598,7 +3598,7 @@ Structures of the source code in the active document.</para>
 The built in Terminal Emulator is a copy of the &kde; &konsole;
 terminal application, for your convenience. It is available from the
 <menuchoice><guimenu>View</guimenu><guisubmenu>Tool Views</guisubmenu>
-<guimenuitem>Show Terminal</guimenuitem></menuchoice> menu item and will get the focus
+<guimenuitem>Show Terminal Panel</guimenuitem></menuchoice> menu item and will get the focus
 whenever displayed. Additionally, if the <link
 linkend="konsole-config">Automatically synchronize
 the terminal with the current document when possible</link> option is enabled, it will
@@ -3622,7 +3622,7 @@ information, see the <ulink url="help:/konsole/index.html">&konsole; manual</uli
 <varlistentry id="view-toolviews-show-terminal">
 <term><menuchoice>
 <guimenu>View</guimenu><guisubmenu>Tool Views</guisubmenu>
-<guimenuitem>Show Terminal</guimenuitem>
+<guimenuitem>Show Terminal Panel</guimenuitem>
 </menuchoice></term>
 <listitem>
 <para>Toggles the display of the built-in terminal emulator.</para>
@@ -3661,7 +3661,7 @@ sync with the current document.  See
 <varlistentry id="tools-focus-terminal">
 <term><menuchoice>
 <guimenu>Tools</guimenu>
-<guimenuitem>Focus/Defocus Terminal</guimenuitem>
+<guimenuitem>Focus/Defocus Terminal Panel</guimenuitem>
 </menuchoice></term>
 <listitem>
 <para>Switch the focus from the current document to the terminal and vice versa.

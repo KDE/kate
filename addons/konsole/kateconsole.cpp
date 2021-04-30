@@ -99,8 +99,8 @@ KateKonsolePluginView::KateKonsolePluginView(KateKonsolePlugin *plugin, KTextEdi
     QWidget *toolview = mainWindow->createToolView(plugin,
                                                    QStringLiteral("kate_private_plugin_katekonsoleplugin"),
                                                    KTextEditor::MainWindow::Bottom,
-                                                   QIcon::fromTheme(QStringLiteral("utilities-terminal")),
-                                                   i18n("Terminal"));
+                                                   QIcon::fromTheme(QStringLiteral("dialog-scripts")),
+                                                   i18n("Terminal Panel"));
     m_console = new KateConsole(m_plugin, mainWindow, toolview);
 
     // register this view
@@ -138,7 +138,7 @@ KateConsole::KateConsole(KateKonsolePlugin *plugin, KTextEditor::MainWindow *mw,
     layout()->setContentsMargins(0, 0, 0, 0);
 
     QAction *a = actionCollection()->addAction(QStringLiteral("katekonsole_tools_pipe_to_terminal"));
-    a->setIcon(QIcon::fromTheme(QStringLiteral("utilities-terminal")));
+    a->setIcon(QIcon::fromTheme(QStringLiteral("dialog-scripts")));
     a->setText(i18nc("@action", "&Pipe to Terminal"));
     connect(a, &QAction::triggered, this, &KateConsole::slotPipeToConsole);
 
@@ -151,14 +151,14 @@ KateConsole::KateConsole(KateKonsolePlugin *plugin, KTextEditor::MainWindow *mw,
     connect(a, &QAction::triggered, this, &KateConsole::slotRun);
 
     a = actionCollection()->addAction(QStringLiteral("katekonsole_tools_toggle_visibility"));
-    a->setIcon(QIcon::fromTheme(QStringLiteral("utilities-terminal")));
-    a->setText(i18nc("@action", "S&how Terminal"));
+    a->setIcon(QIcon::fromTheme(QStringLiteral("dialog-scripts")));
+    a->setText(i18nc("@action", "S&how Terminal Panel"));
     actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::Key_F4));
     connect(a, &QAction::triggered, this, &KateConsole::slotToggleVisibility);
 
     a = actionCollection()->addAction(QStringLiteral("katekonsole_tools_toggle_focus"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("swap-panels")));
-    a->setText(i18nc("@action", "&Focus Terminal"));
+    a->setText(i18nc("@action", "&Focus Terminal Panel"));
     actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_F4));
     connect(a, &QAction::triggered, this, &KateConsole::slotToggleFocus);
 
@@ -418,10 +418,10 @@ void KateConsole::slotToggleVisibility()
     QAction *action = actionCollection()->action(QStringLiteral("katekonsole_tools_toggle_visibility"));
     if (!m_part || !m_part->widget()->isVisible()) {
         m_mw->showToolView(parentWidget());
-        action->setText(i18nc("@action", "&Hide Terminal"));
+        action->setText(i18nc("@action", "&Hide Terminal Panel"));
     } else {
         m_mw->hideToolView(m_toolView);
-        action->setText(i18nc("@action", "S&how Terminal"));
+        action->setText(i18nc("@action", "S&how Terminal Panel"));
     }
 }
 
@@ -430,7 +430,7 @@ void KateConsole::slotToggleFocus()
     QAction *action = actionCollection()->action(QStringLiteral("katekonsole_tools_toggle_focus"));
     if (!m_part) {
         m_mw->showToolView(parentWidget());
-        action->setText(i18n("Defocus Terminal"));
+        action->setText(i18n("Defocus Terminal Panel"));
         return; // this shows and focuses the konsole
     }
 
@@ -442,7 +442,7 @@ void KateConsole::slotToggleFocus()
         if (m_mw->activeView()) {
             m_mw->activeView()->setFocus();
         }
-        action->setText(i18n("Focus Terminal"));
+        action->setText(i18n("Focus Terminal Panel"));
     } else {
         // show the view if it is hidden
         if (parentWidget()->isHidden()) {
@@ -450,7 +450,7 @@ void KateConsole::slotToggleFocus()
         } else { // should focus the widget too!
             m_part->widget()->setFocus(Qt::OtherFocusReason);
         }
-        action->setText(i18n("Defocus Terminal"));
+        action->setText(i18n("Defocus Terminal Panel"));
     }
 }
 

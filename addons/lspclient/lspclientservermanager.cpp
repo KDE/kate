@@ -357,7 +357,7 @@ public:
                 }
             }
         }
-        restart(servers);
+        restart(servers, server == nullptr);
     }
 
     qint64 revision(KTextEditor::Document *doc) override
@@ -387,7 +387,7 @@ private:
     }
 
     // caller ensures that servers are no longer present in m_servers
-    void restart(const ServerList &servers)
+    void restart(const ServerList &servers, bool reload = false)
     {
         // close docs
         for (const auto &server : servers) {
@@ -429,8 +429,14 @@ private:
         // as for the start part
         // trigger interested parties, which will again request a server as needed
         // let's delay this; less chance for server instances to trip over each other
-        QTimer::singleShot(6 * TIMEOUT_SHUTDOWN, this, [this]() {
-            Q_EMIT serverChanged();
+        QTimer::singleShot(6 * TIMEOUT_SHUTDOWN, this, [this, reload]() {
+            // this may be a good time to refresh server config
+            if (reload) {
+                // will also trigger as mentioned above
+                updateServerConfig();
+            } else {
+                Q_EMIT serverChanged();
+            }
         });
     }
 

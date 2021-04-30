@@ -100,8 +100,9 @@ public:
     bool eventFilter(QObject *, QEvent *e) override
     {
         switch (e->type()) {
+        // only consider KeyPress
+        // a key release might get triggered by the trail of a shortcut key activation
         case QEvent::KeyPress:
-        case QEvent::KeyRelease:
             hideTooltip();
             break;
         case QEvent::WindowActivate:

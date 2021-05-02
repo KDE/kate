@@ -72,26 +72,14 @@ KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject 
     /**
      * Setup git checkout stuff
      */
-    m_branchBtn->setHidden(true);
     connect(m_branchBtn, &QPushButton::clicked, this, [this, mainWindow] {
         BranchCheckoutDialog bd(mainWindow->window(), m_pluginView, m_project->baseDir());
         bd.openDialog();
     });
 
-    connect(m_project, &KateProject::modelChanged, this, [this] {
-        if (GitUtils::isGitRepo(m_project->baseDir())) {
-            m_branchBtn->setHidden(false);
-            m_branchBtn->setText(GitUtils::getCurrentBranchName(m_project->baseDir()));
-            if (m_branchChangedWatcher.files().isEmpty()) {
-                m_branchChangedWatcher.addPath(m_project->baseDir() + QStringLiteral("/.git/HEAD"));
-            }
-        } else {
-            if (!m_branchChangedWatcher.files().isEmpty()) {
-                m_branchChangedWatcher.removePaths(m_branchChangedWatcher.files());
-            }
-            m_branchBtn->setHidden(true);
-        }
-    });
+    checkAndRefreshGit();
+
+    connect(m_project, &KateProject::modelChanged, this, &KateProjectView::checkAndRefreshGit);
     connect(&m_branchChangedWatcher, &QFileSystemWatcher::fileChanged, this, [this] {
         m_project->reload(true);
     });
@@ -158,4 +146,20 @@ void KateProjectView::showFileGitHistory(const QString &file)
     });
     m_stackWidget->addWidget(fhs);
     m_stackWidget->setCurrentWidget(fhs);
+}
+
+void KateProjectView::checkAndRefreshGit()
+{
+    if (GitUtils::isGitRepo(m_project->baseDir())) {
+        m_branchBtn->setHidden(false);
+        m_branchBtn->setText(GitUtils::getCurrentBranchName(m_project->baseDir()));
+        if (m_branchChangedWatcher.files().isEmpty()) {
+            m_branchChangedWatcher.addPath(m_project->baseDir() + QStringLiteral("/.git/HEAD"));
+        }
+    } else {
+        if (!m_branchChangedWatcher.files().isEmpty()) {
+            m_branchChangedWatcher.removePaths(m_branchChangedWatcher.files());
+        }
+        m_branchBtn->setHidden(true);
+    }
 }

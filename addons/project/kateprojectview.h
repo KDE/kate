@@ -73,6 +73,13 @@ private Q_SLOTS:
 
     void showFileGitHistory(const QString &file);
 
+    /**
+     * On project model change, check if project
+     * is a git repo and then show/hide the branch
+     * button accordingly
+     */
+    void checkAndRefreshGit();
+
 private:
     /**
      * our plugin view

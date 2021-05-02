@@ -2282,8 +2282,9 @@ public:
                 connect(doc, &KTextEditor::Document::textChanged, this, &self_type::onTextChanged, Qt::UniqueConnection);
                 connect(doc, &KTextEditor::Document::documentUrlChanged, this, &self_type::onDocumentUrlChanged, Qt::UniqueConnection);
             }
-
-            isClangd = server->cmdline().front() == QStringLiteral("clangd");
+            // only consider basename (full path may have been custom specified)
+            auto lspServer = QFileInfo(server->cmdline().front()).fileName();
+            isClangd = lspServer == QStringLiteral("clangd");
         }
 
         if (m_findDef) {

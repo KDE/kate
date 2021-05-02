@@ -6,6 +6,7 @@
  */
 
 #include "kateprojectworker.h"
+#include "kateprojectitem.h"
 
 #include <QDir>
 #include <QDirIterator>

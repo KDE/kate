@@ -8,11 +8,11 @@
 #ifndef KATE_PROJECT_CODE_ANALYSIS_TOOL_H
 #define KATE_PROJECT_CODE_ANALYSIS_TOOL_H
 
+#include <QObject>
 #include <QString>
 #include <QStringList>
 
-#include "kateproject.h"
-
+class KateProject;
 namespace KTextEditor
 {
 class MainWindow;

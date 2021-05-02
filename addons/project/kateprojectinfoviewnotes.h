@@ -8,11 +8,10 @@
 #ifndef KATE_PROJECT_INFO_VIEW_NOTES_H
 #define KATE_PROJECT_INFO_VIEW_NOTES_H
 
-#include "kateproject.h"
-
 #include <QPlainTextEdit>
 
 class KateProjectPluginView;
+class KateProject;
 
 /**
  * Class representing a view of a project.
@@ -29,11 +28,6 @@ public:
      * @param project project this view is for
      */
     KateProjectInfoViewNotes(KateProjectPluginView *pluginView, KateProject *project);
-
-    /**
-     * deconstruct info view
-     */
-    ~KateProjectInfoViewNotes() override;
 
     /**
      * our project.

@@ -7,6 +7,7 @@
 
 #include "kateprojecttreeviewcontextmenu.h"
 #include "git/gitutils.h"
+#include "kateproject.h"
 #include "kateprojectviewtree.h"
 
 #include <KApplicationTrader>

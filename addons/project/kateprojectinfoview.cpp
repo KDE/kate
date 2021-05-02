@@ -6,6 +6,7 @@
  */
 
 #include "kateprojectinfoview.h"
+#include "kateproject.h"
 #include "kateprojectinfoviewcodeanalysis.h"
 #include "kateprojectinfoviewindex.h"
 #include "kateprojectinfoviewnotes.h"

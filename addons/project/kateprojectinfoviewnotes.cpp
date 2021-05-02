@@ -6,6 +6,7 @@
  */
 
 #include "kateprojectinfoviewnotes.h"
+#include "kateproject.h"
 #include "kateprojectpluginview.h"
 
 #include <QVBoxLayout>
@@ -24,8 +25,4 @@ KateProjectInfoViewNotes::KateProjectInfoViewNotes(KateProjectPluginView *plugin
     setLayout(layout);
     m_edit->setDocument(project->notesDocument());
     setFocusProxy(m_edit);
-}
-
-KateProjectInfoViewNotes::~KateProjectInfoViewNotes()
-{
 }

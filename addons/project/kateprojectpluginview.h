@@ -8,22 +8,23 @@
 #ifndef _KATE_PROJECT_PLUGIN_VIEW_H_
 #define _KATE_PROJECT_PLUGIN_VIEW_H_
 
-#include "kateproject.h"
-#include "kateprojectinfoview.h"
-#include "kateprojectplugin.h"
-#include "kateprojectview.h"
-
 #include <QComboBox>
 #include <QMenu>
 #include <QPointer>
 #include <QStackedWidget>
 #include <QToolButton>
 
+#include <KTextEditor/View>
 #include <KXMLGUIClient>
 
 #include <memory>
 
 class QAction;
+class QDir;
+class KateProject;
+class KateProjectView;
+class KateProjectPlugin;
+class KateProjectInfoView;
 
 class KateProjectPluginView : public QObject, public KXMLGUIClient
 {
@@ -106,22 +107,7 @@ public:
      * of creating new view every time
      * @param contents diff contents
      */
-    void showDiffInFixedView(const QByteArray &contents)
-    {
-        if (!m_fixedView.view) {
-            m_fixedView.view = mainWindow()->openUrl(QUrl());
-            m_fixedView.defaultMenu = m_fixedView.view->contextMenu();
-        }
-
-        m_fixedView.view->document()->setText(QString::fromUtf8(contents));
-        m_fixedView.view->document()->setHighlightingMode(QStringLiteral("Diff"));
-        /** We don't want save dialog on close */
-        m_fixedView.view->document()->setModified(false);
-        m_fixedView.view->setCursorPosition({0, 0});
-        m_fixedView.restoreMenu();
-        /** Activate this view */
-        m_mainWindow->activateView(m_fixedView.view->document());
-    }
+    void showDiffInFixedView(const QByteArray &contents);
 
     /**
      * Same as above with call back for setting a context menu

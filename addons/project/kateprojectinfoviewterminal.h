@@ -8,15 +8,15 @@
 #ifndef KATE_PROJECT_INFO_VIEW_TERMINAL_H
 #define KATE_PROJECT_INFO_VIEW_TERMINAL_H
 
-#include "kateproject.h"
-
 #include <QKeyEvent>
 #include <QVBoxLayout>
 
-#include <KPluginFactory>
-#include <kparts/part.h>
+#include <kparts/readonlypart.h>
+
+#include <QWidget>
 
 class KateProjectPluginView;
+class KPluginFactory;
 
 /**
  * Class representing a view of a project.

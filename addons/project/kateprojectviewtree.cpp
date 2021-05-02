@@ -6,14 +6,17 @@
  */
 
 #include "kateprojectviewtree.h"
+#include "kateproject.h"
 #include "kateprojectfiltermodel.h"
 #include "kateprojectpluginview.h"
 #include "kateprojecttreeviewcontextmenu.h"
 
-#include <ktexteditor/document.h>
-#include <ktexteditor/view.h>
+#include <KTextEditor/Document>
+#include <KTextEditor/MainWindow>
+#include <KTextEditor/View>
 
 #include <QContextMenuEvent>
+#include <QDir>
 
 #include <KLocalizedString>
 

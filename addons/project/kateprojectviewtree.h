@@ -8,11 +8,10 @@
 #ifndef KATE_PROJECT_VIEW_TREE_H
 #define KATE_PROJECT_VIEW_TREE_H
 
-#include "kateproject.h"
-
 #include <QTreeView>
 
 class KateProjectPluginView;
+class KateProject;
 
 /**
  * A tree like view of project content.

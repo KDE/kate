@@ -9,13 +9,13 @@
 #define KATE_PROJECT_WORKER_H
 
 #include "kateproject.h"
-#include "kateprojectitem.h"
 
 #include <QHash>
 #include <QRunnable>
 #include <QStandardItemModel>
 
 class QDir;
+class KateProjectItem;
 
 /**
  * Class representing a project background worker.

@@ -8,11 +8,10 @@
 #ifndef KATE_PROJECT_INFO_VIEW_H
 #define KATE_PROJECT_INFO_VIEW_H
 
-#include "kateproject.h"
-
 #include <QTabWidget>
 
 class KateProjectPluginView;
+class KateProject;
 
 /**
  * Class representing a view of a project.

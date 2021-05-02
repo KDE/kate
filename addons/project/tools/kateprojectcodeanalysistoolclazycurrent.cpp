@@ -8,6 +8,7 @@
 
 #include <KLocalizedString>
 #include <KTextEditor/MainWindow>
+#include <KTextEditor/View>
 
 KateProjectCodeAnalysisToolClazyCurrent::KateProjectCodeAnalysisToolClazyCurrent(QObject *parent)
     : KateProjectCodeAnalysisToolClazy(parent)

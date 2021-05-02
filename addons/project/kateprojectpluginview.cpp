@@ -8,7 +8,11 @@
 #include "kateprojectpluginview.h"
 #include "fileutil.h"
 #include "gitwidget.h"
+#include "kateproject.h"
+#include "kateprojectinfoview.h"
 #include "kateprojectinfoviewindex.h"
+#include "kateprojectplugin.h"
+#include "kateprojectview.h"
 
 #include <KTextEditor/Command>
 #include <ktexteditor/application.h>
@@ -711,6 +715,23 @@ void KateProjectPluginView::showProjectTodos()
     }
     QString msg;
     pgrep->exec(nullptr, QStringLiteral("preg (TODO|FIXME)\\b"), msg);
+}
+
+void KateProjectPluginView::showDiffInFixedView(const QByteArray &contents)
+{
+    if (!m_fixedView.view) {
+        m_fixedView.view = mainWindow()->openUrl(QUrl());
+        m_fixedView.defaultMenu = m_fixedView.view->contextMenu();
+    }
+
+    m_fixedView.view->document()->setText(QString::fromUtf8(contents));
+    m_fixedView.view->document()->setHighlightingMode(QStringLiteral("Diff"));
+    /** We don't want save dialog on close */
+    m_fixedView.view->document()->setModified(false);
+    m_fixedView.view->setCursorPosition({0, 0});
+    m_fixedView.restoreMenu();
+    /** Activate this view */
+    m_mainWindow->activateView(m_fixedView.view->document());
 }
 
 #include "kateprojectpluginview.moc"

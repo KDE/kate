@@ -10,6 +10,7 @@
 
 #include <KConfigGroup>
 #include <KLocalizedString>
+#include <KPluginFactory>
 #include <KPluginLoader>
 #include <KSharedConfig>
 #include <kde_terminal_interface.h>

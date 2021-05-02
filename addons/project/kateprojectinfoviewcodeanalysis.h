@@ -8,18 +8,19 @@
 #ifndef KATE_PROJECT_INFO_VIEW_CODE_ANALYSIS_H
 #define KATE_PROJECT_INFO_VIEW_CODE_ANALYSIS_H
 
-#include "kateproject.h"
-
 #include <QComboBox>
 #include <QLabel>
 #include <QPointer>
 #include <QProcess>
 #include <QPushButton>
 #include <QTreeView>
+#include <QWidget>
 
 class KateProjectPluginView;
 class KateProjectCodeAnalysisTool;
 class KMessageWidget;
+class KateProject;
+class QStandardItemModel;
 
 /**
  * View for Code Analysis.

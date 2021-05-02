@@ -11,8 +11,6 @@
 #include <QProcess>
 #include <QWidget>
 
-#include <memory>
-
 #include "git/gitstatus.h"
 
 class QTreeView;

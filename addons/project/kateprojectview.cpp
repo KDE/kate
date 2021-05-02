@@ -15,6 +15,7 @@
 
 #include <KTextEditor/Document>
 #include <KTextEditor/Editor>
+#include <KTextEditor/MainWindow>
 #include <KTextEditor/View>
 
 #include <KActionCollection>

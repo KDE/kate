@@ -7,6 +7,7 @@
 
 #include "kateprojectplugin.h"
 
+#include "kateproject.h"
 #include "kateprojectconfigpage.h"
 #include "kateprojectpluginview.h"
 

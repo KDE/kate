@@ -6,6 +6,7 @@
  */
 
 #include "kateprojectinfoviewcodeanalysis.h"
+#include "kateproject.h"
 #include "kateprojectcodeanalysistool.h"
 #include "kateprojectpluginview.h"
 #include "tools/kateprojectcodeanalysisselector.h"
@@ -18,6 +19,8 @@
 #include <KLocalizedString>
 #include <KMessageWidget>
 #include <QTimer>
+
+#include <KTextEditor/MainWindow>
 
 KateProjectInfoViewCodeAnalysis::KateProjectInfoViewCodeAnalysis(KateProjectPluginView *pluginView, KateProject *project)
     : m_pluginView(pluginView)

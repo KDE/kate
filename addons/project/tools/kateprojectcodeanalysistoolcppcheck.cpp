@@ -6,6 +6,7 @@
  */
 
 #include "kateprojectcodeanalysistoolcppcheck.h"
+#include "kateproject.h"
 
 #include <KLocalizedString>
 #include <QRegularExpression>

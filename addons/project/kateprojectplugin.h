@@ -18,8 +18,9 @@
 
 #include <KXMLGUIClient>
 
-#include "kateproject.h"
 #include "kateprojectcompletion.h"
+
+class KateProject;
 
 enum class ClickAction : uint8_t {
     NoAction = 0,

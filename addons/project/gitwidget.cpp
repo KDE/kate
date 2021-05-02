@@ -11,6 +11,7 @@
 #include "gitcommitdialog.h"
 #include "gitstatusmodel.h"
 #include "kateproject.h"
+#include "kateprojectplugin.h"
 #include "kateprojectpluginview.h"
 #include "pushpulldialog.h"
 #include "stashdialog.h"

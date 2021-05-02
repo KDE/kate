@@ -6,12 +6,16 @@
  */
 
 #include "kateprojectinfoviewindex.h"
+#include "kateproject.h"
+#include "kateprojectplugin.h"
 #include "kateprojectpluginview.h"
 
 #include <KLocalizedString>
 #include <KMessageWidget>
 #include <QAction>
 #include <QVBoxLayout>
+
+#include <KTextEditor/MainWindow>
 
 KateProjectInfoViewIndex::KateProjectInfoViewIndex(KateProjectPluginView *pluginView, KateProject *project, QWidget *parent)
     : QWidget(parent)

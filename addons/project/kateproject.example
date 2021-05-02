@@ -107,7 +107,7 @@ Simple example, get files via globbing recursively in doc/, no build plugin:
 }
 
 
-A project for a custom language named Swine, of wich source files have a suffix .swn:
+A project for a custom language named Swine whose source files have a suffix .swn:
 
 {
    "name": "Custom",

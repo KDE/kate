@@ -8,13 +8,14 @@
 #ifndef KATE_PROJECT_INFO_VIEW_INDEX_H
 #define KATE_PROJECT_INFO_VIEW_INDEX_H
 
-#include "kateproject.h"
-
 #include <QLineEdit>
 #include <QTreeView>
+#include <QWidget>
 
 class KateProjectPluginView;
 class KMessageWidget;
+class KateProject;
+class QStandardItemModel;
 
 /**
  * Class representing a view of a project.

@@ -7,15 +7,15 @@
 #include "kateprojectpluginview.h"
 #include "kateprojectworker.h"
 
-#include <KColorScheme>
+#include <QDir>
 #include <QPainter>
 #include <QProcess>
 #include <QStyledItemDelegate>
 #include <QVBoxLayout>
 
+#include <KColorScheme>
 #include <KLocalizedString>
 
-#include <QDebug>
 class DiffStyleDelegate : public QStyledItemDelegate
 {
 public:

@@ -13,6 +13,8 @@
 #include <KLocalizedString>
 #include <KSharedConfig>
 
+static const QString CONFIG_QUICKOPEN_LISTMODE{QStringLiteral("Quickopen List Mode")};
+
 QuickOpenLineEdit::QuickOpenLineEdit(QWidget *parent)
     : QLineEdit(parent)
 {
@@ -24,6 +26,14 @@ QuickOpenLineEdit::QuickOpenLineEdit(QWidget *parent)
 
     const bool cfgListMode = cg.readEntry(CONFIG_QUICKOPEN_LISTMODE, true);
     m_listMode = cfgListMode ? KateQuickOpenModelList::CurrentProject : KateQuickOpenModelList::AllProjects;
+}
+
+QuickOpenLineEdit::~QuickOpenLineEdit()
+{
+    KSharedConfig::Ptr cfg = KSharedConfig::openConfig();
+    KConfigGroup cg(cfg, "General");
+
+    cg.writeEntry(CONFIG_QUICKOPEN_LISTMODE, m_listMode == KateQuickOpenModelList::CurrentProject);
 }
 
 void QuickOpenLineEdit::contextMenuEvent(QContextMenuEvent *event)

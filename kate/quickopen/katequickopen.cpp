@@ -276,13 +276,6 @@ KateQuickOpen::KateQuickOpen(KateMainWindow *mainWindow)
     update();
 }
 
-KateQuickOpen::~KateQuickOpen()
-{
-    KSharedConfig::Ptr cfg = KSharedConfig::openConfig();
-    KConfigGroup cg(cfg, "General");
-
-    cg.writeEntry("Quickopen List Mode", m_base_model->listMode() == KateQuickOpenModelList::CurrentProject);
-}
 
 bool KateQuickOpen::eventFilter(QObject *obj, QEvent *event)
 {

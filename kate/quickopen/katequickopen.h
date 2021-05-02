@@ -36,7 +36,7 @@ public:
      * update state
      * will fill model with current open documents, project documents, ...
      */
-    void update(KateMainWindow *mainWindow);
+    void update();
     void updateViewGeometry();
 
 protected:

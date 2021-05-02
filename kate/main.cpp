@@ -179,6 +179,10 @@ int main(int argc, char **argv)
                         QStringLiteral("oss@senarclens.eu"),
                         QStringLiteral("http://find-santa.eu/"));
 
+    aboutData.addCredit(i18n("Tyson Tan"),
+                        i18n("Designer of Kate's mascot 'Kate the Cyber Woodpecker'"),
+                        QString(),
+                        QStringLiteral("https://www.tysontan.com/"));
     aboutData.addCredit(i18n("Matteo Merli"), i18n("Highlighting for RPM Spec-Files, Perl, Diff and more"), QStringLiteral("merlim@libero.it"));
     aboutData.addCredit(i18n("Rocky Scaletta"), i18n("Highlighting for VHDL"), QStringLiteral("rocky@purdue.edu"));
     aboutData.addCredit(i18n("Yury Lebedev"), i18n("Highlighting for SQL"));

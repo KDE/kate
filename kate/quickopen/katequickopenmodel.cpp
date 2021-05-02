@@ -79,16 +79,17 @@ void KateQuickOpenModel::refresh(KateMainWindow *mainWindow)
     const QStringList projectDocs = projectView
         ? (m_listMode == CurrentProject ? projectView->property("projectFiles") : projectView->property("allProjectsFiles")).toStringList()
         : QStringList();
-    const QString projectBase = [this, projectView]() -> QString {
+    const QString projectBase = [projectView]() -> QString {
         if (!projectView) {
             return QString();
         }
         QString ret;
-        if (m_listMode == CurrentProject) {
-            ret = projectView->property("projectBaseDir").toString();
-        } else {
-            ret = projectView->property("allProjectsCommonBaseDir").toString();
-        }
+        // open files are always included in the listing, even if list mode == CurrentProject
+        // those open files may belong to another project than the current one
+        // so we should always consistently strip the common base
+        // otherwise it will be confusing and the opened files of anther project
+        // end up with an unstripped complete file path
+        ret = projectView->property("allProjectsCommonBaseDir").toString();
         if (!ret.endsWith(QLatin1Char('/'))) {
             ret.append(QLatin1Char('/'));
         }

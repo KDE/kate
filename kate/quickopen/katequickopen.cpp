@@ -172,7 +172,7 @@ public:
         QTextCharFormat boldFmt;
         boldFmt.setFontWeight(QFont::Bold);
         boldFmt.setFontPointSize(options.font.pointSize() - 1);
-        auto pathFormats = kfts::get_fuzzy_match_formats(m_filterString, name, nameLen + space, boldFmt);
+        auto pathFormats = kfts::get_fuzzy_match_formats(m_filterString, path, nameLen + space, boldFmt);
         QTextCharFormat gray;
         gray.setForeground(Qt::gray);
         gray.setFontPointSize(options.font.pointSize() - 1);

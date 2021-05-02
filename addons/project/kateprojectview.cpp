@@ -72,7 +72,7 @@ KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject 
     /**
      * Setup git checkout stuff
      */
-    m_branchBtn->setHidden(true);
+    m_branchBtn->setHidden(!GitUtils::isGitRepo(m_project->baseDir()));
     connect(m_branchBtn, &QPushButton::clicked, this, [this, mainWindow] {
         BranchCheckoutDialog bd(mainWindow->window(), m_pluginView, m_project->baseDir());
         bd.openDialog();

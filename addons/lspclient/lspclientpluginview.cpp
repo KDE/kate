@@ -330,6 +330,7 @@ class LSPClientActionView : public QObject
     QPointer<QAction> m_restartServer;
     QPointer<QAction> m_restartAll;
     QPointer<QAction> m_switchSourceHeader;
+    QPointer<KActionMenu> m_requestCodeAction;
 
     // toolview
     QScopedPointer<QWidget> m_toolView;
@@ -452,6 +453,9 @@ public:
         m_triggerRename->setText(i18n("Rename"));
         m_switchSourceHeader = actionCollection()->addAction(QStringLiteral("lspclient_clangd_switchheader"), this, &self_type::clangdSwitchSourceHeader);
         m_switchSourceHeader->setText(i18n("Switch Source Header"));
+        m_requestCodeAction = actionCollection()->add<KActionMenu>(QStringLiteral("lspclient_code_action"));
+        m_requestCodeAction->setText(i18n("Code Action"));
+        connect(m_requestCodeAction->menu(), &QMenu::aboutToShow, this, &self_type::requestCodeAction);
 
         // general options
         m_complDocOn = actionCollection()->addAction(QStringLiteral("lspclient_completion_doc"), this, &self_type::displayOptionChanged);
@@ -512,6 +516,7 @@ public:
         menu->addAction(m_triggerSymbolInfo);
         menu->addAction(m_triggerFormat);
         menu->addAction(m_triggerRename);
+        menu->addAction(m_requestCodeAction);
         menu->addSeparator();
         menu->addAction(m_diagnosticsSwitch);
         menu->addAction(m_closeDynamic);
@@ -1602,6 +1607,59 @@ public:
         }
     }
 
+    void requestCodeAction()
+    {
+        if (!m_requestCodeAction)
+            return;
+        m_requestCodeAction->menu()->clear();
+
+        KTextEditor::View *activeView = m_mainWindow->activeView();
+        if (!activeView) {
+            m_requestCodeAction->menu()->addAction(i18n("No Actions"))->setEnabled(false);
+            return;
+        }
+
+        QPointer<KTextEditor::Document> document = activeView->document();
+        auto server = m_serverManager->findServer(activeView);
+        auto range = activeView->selectionRange();
+        if (!range.isValid()) {
+            auto currentLine = activeView->cursorPosition().line();
+            range = KTextEditor::Range(currentLine, 0, currentLine + 1, 0);
+        }
+        if (!server || !document || !range.isValid()) {
+            m_requestCodeAction->menu()->addAction(i18n("No Actions"))->setEnabled(false);
+            return;
+        }
+
+        m_requestCodeAction->menu()->addAction(i18n("Loading..."))->setEnabled(false);
+
+        // store some things to find item safely later on
+        QSharedPointer<LSPClientRevisionSnapshot> snapshot(m_serverManager->snapshot(server.data()));
+        auto h = [this, snapshot, server](const QList<LSPCodeAction> &actions) {
+            auto menu = m_requestCodeAction->menu();
+            menu->clear();
+            if (actions.isEmpty()) {
+                m_requestCodeAction->menu()->addAction(i18n("No Actions"))->setEnabled(false);
+                return;
+            }
+            for (const auto &action : actions) {
+                auto text = action.kind.size() ? QStringLiteral("[%1] %2").arg(action.kind).arg(action.title) : action.title;
+                menu->addAction(text, this, [this, action, snapshot, server]() {
+                    applyWorkspaceEdit(action.edit, snapshot.data());
+                    auto &command = action.command;
+                    if (!command.command.isEmpty()) {
+                        // accept edit requests that may be sent to execute command
+                        m_accept_edit = true;
+                        // but only for a short time
+                        QTimer::singleShot(2000, this, [this] { m_accept_edit = false; });
+                        server->executeCommand(command.command, command.arguments);
+                    }
+                });
+            }
+        };
+        server->documentCodeAction(document->url(), range, {}, {}, this, h);
+    }
+
     void applyEdits(KTextEditor::Document *doc, const LSPClientRevisionSnapshot *snapshot, const QList<LSPTextEdit> &edits)
     {
         KTextEditor::MovingInterface *miface = qobject_cast<KTextEditor::MovingInterface *>(doc);
@@ -2172,7 +2230,7 @@ public:
         auto doc = activeView ? activeView->document() : nullptr;
         auto server = m_serverManager->findServer(activeView);
         bool defEnabled = false, declEnabled = false, typeDefEnabled = false, refEnabled = false, implEnabled = false;
-        bool hoverEnabled = false, highlightEnabled = false;
+        bool hoverEnabled = false, highlightEnabled = false, codeActionEnabled = false;
         bool formatEnabled = false;
         bool renameEnabled = false;
         bool isClangd = false;
@@ -2188,6 +2246,7 @@ public:
             highlightEnabled = caps.documentHighlightProvider;
             formatEnabled = caps.documentFormattingProvider || caps.documentRangeFormattingProvider;
             renameEnabled = caps.renameProvider;
+            codeActionEnabled = caps.codeActionProvider;
 
             connect(server.data(), &LSPClientServer::publishDiagnostics, this, &self_type::onDiagnostics, Qt::UniqueConnection);
             connect(server.data(), &LSPClientServer::showMessage, this, &self_type::onMessage, Qt::UniqueConnection);
@@ -2243,6 +2302,9 @@ public:
         }
         if (m_restartServer) {
             m_restartServer->setEnabled(server);
+        }
+        if (m_requestCodeAction) {
+            m_requestCodeAction->setEnabled(codeActionEnabled);
         }
         m_switchSourceHeader->setEnabled(isClangd);
         m_switchSourceHeader->setVisible(isClangd);

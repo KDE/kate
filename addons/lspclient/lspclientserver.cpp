@@ -1244,7 +1244,8 @@ public:
     void executeCommand(const QString &command, const QJsonValue &args)
     {
         auto params = executeCommandParams(command, args);
-        send(init_request(QStringLiteral("workspace/executeCommand"), params));
+        // Pass an empty lambda as reply handler because executeCommand is a Request, but we ignore the result
+        send(init_request(QStringLiteral("workspace/executeCommand"), params), [](const auto &) {});
     }
 
     void didOpen(const QUrl &document, int version, const QString &langId, const QString &text)

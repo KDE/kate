@@ -17,6 +17,13 @@ QuickOpenLineEdit::QuickOpenLineEdit(QWidget *parent)
     : QLineEdit(parent)
 {
     setPlaceholderText(i18n("Quick Open Search (configure via context menu)"));
+
+    // ensure config is read (menu only created upon demand)
+    KSharedConfig::Ptr cfg = KSharedConfig::openConfig();
+    KConfigGroup cg(cfg, "General");
+
+    const bool cfgListMode = cg.readEntry(CONFIG_QUICKOPEN_LISTMODE, true);
+    m_listMode = cfgListMode ? KateQuickOpenModelList::CurrentProject : KateQuickOpenModelList::AllProjects;
 }
 
 void QuickOpenLineEdit::contextMenuEvent(QContextMenuEvent *event)
@@ -31,10 +38,7 @@ void QuickOpenLineEdit::contextMenuEvent(QContextMenuEvent *event)
 
 void QuickOpenLineEdit::setupMenu()
 {
-    KSharedConfig::Ptr cfg = KSharedConfig::openConfig();
-    KConfigGroup cg(cfg, "General");
-
-    const bool cfgListMode = cg.readEntry("Quickopen List Mode", true);
+    const bool cfgListMode = m_listMode == CurrentProject;
 
     menu->addSeparator();
 
@@ -44,6 +48,7 @@ void QuickOpenLineEdit::setupMenu()
     act->setCheckable(true);
     connect(act, &QAction::toggled, this, [this](bool checked) {
         if (checked) {
+            m_listMode = AllProjects;
             Q_EMIT listModeChanged(KateQuickOpenModelList::AllProjects);
         }
     });
@@ -55,11 +60,11 @@ void QuickOpenLineEdit::setupMenu()
     act->setCheckable(true);
     connect(act, &QAction::toggled, this, [this](bool checked) {
         if (checked) {
+            m_listMode = CurrentProject;
             Q_EMIT listModeChanged(KateQuickOpenModelList::CurrentProject);
         }
     });
     act->setChecked(cfgListMode);
-    m_listMode = cfgListMode ? KateQuickOpenModelList::CurrentProject : KateQuickOpenModelList::AllProjects;
 
     actGp->addAction(act);
 }

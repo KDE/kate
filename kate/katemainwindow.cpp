@@ -251,6 +251,7 @@ void KateMainWindow::setupImportantActions()
 
     // kate command bar
     a = actionCollection()->addAction(QStringLiteral("view_commandbar_open"));
+    a->setText(i18n("&Command Bar"));
     actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::ALT | Qt::Key_I));
     connect(a, &QAction::triggered, this, &KateMainWindow::slotCommandBarOpen);
 }

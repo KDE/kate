@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
-<gui name="kate" version="88" translationDomain="kate">
+<gui name="kate" version="89" translationDomain="kate">
   <MenuBar>
     <Menu name="file" noMerge="1">
       <text>&amp;File</text>
@@ -57,6 +57,8 @@
       <Action name="view_prev_tab"/>
       <Action name="view_lru_document_next"/>
       <Action name="view_quick_open"/>
+      <Separator/>
+      <Action name="view_commandbar_open"/>
       <Separator/>
       <Menu name="view-split">
         <text>Split View</text>

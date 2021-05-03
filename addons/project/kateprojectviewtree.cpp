@@ -174,19 +174,20 @@ void KateProjectViewTree::removeFile(const QModelIndex& idx, const QString& full
      * Delete file
      */
     QFile file(fullFilePath);
-    file.remove(); //.moveToTrash()
-
-    if(parent != nullptr)
+    if(file.remove())//.moveToTrash()
     {
-        parent->removeRow(item->row());
-        parent->sortChildren(0);
+        if(parent != nullptr)
+        {
+            parent->removeRow(item->row());
+            parent->sortChildren(0);
+        }
+        else
+        {
+            m_project->model()->removeRow(item->row());
+            m_project->model()->sort(0);
+        }
+        m_project->removeFile(fullFilePath);
     }
-    else
-    {
-        m_project->model()->removeRow(item->row());
-        m_project->model()->sort(0);
-    }
-    m_project->removeFile(fullFilePath);
 }
 
 void KateProjectViewTree::removeDirectory(const QModelIndex& idx, const QString& fullDirPath)
@@ -197,17 +198,18 @@ void KateProjectViewTree::removeDirectory(const QModelIndex& idx, const QString&
     QStandardItem* parent = item->parent();
     
     QDir dir(fullDirPath);
-    dir.removeRecursively(); //.moveToTrash()
-    
-    if(parent != nullptr)
+    if(dir.removeRecursively()) //.moveToTrash()
     {
-        parent->removeRow(item->row());
-        parent->sortChildren(0);
-    }
-    else
-    {
-        m_project->model()->removeRow(item->row());
-        m_project->model()->sort(0);
+        if(parent != nullptr)
+        {
+            parent->removeRow(item->row());
+            parent->sortChildren(0);
+        }
+        else
+        {
+            m_project->model()->removeRow(item->row());
+            m_project->model()->sort(0);
+        }
     }
 }
 

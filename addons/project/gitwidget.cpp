@@ -306,8 +306,9 @@ QProcess *GitWidget::gitp()
     auto git = new QProcess(this);
     git->setProgram(QStringLiteral("git"));
     git->setWorkingDirectory(m_gitPath);
-    connect(git, &QProcess::errorOccurred, this, [this, git](QProcess::ProcessError) {
-        sendMessage(git->errorString(), true);
+    connect(git, &QProcess::errorOccurred, this, [this, git](QProcess::ProcessError pe) {
+        // git program missing is not an error
+        sendMessage(git->errorString(), pe != QProcess::FailedToStart);
         git->deleteLater();
     });
     return git;

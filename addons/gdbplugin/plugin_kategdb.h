@@ -95,8 +95,8 @@ private:
 
     KTextEditor::Application *m_kateApplication;
     KTextEditor::MainWindow *m_mainWin;
-    QWidget *m_toolView;
-    QWidget *m_localsStackToolView;
+    std::unique_ptr<QWidget> m_toolView;
+    std::unique_ptr<QWidget> m_localsStackToolView;
     QTabWidget *m_tabWidget;
     QTextEdit *m_outputArea;
     KHistoryComboBox *m_inputArea;
@@ -107,7 +107,7 @@ private:
     QString m_lastCommand;
     DebugView *m_debugView;
     ConfigView *m_configView;
-    IOView *m_ioView;
+    std::unique_ptr<IOView> m_ioView;
     LocalsView *m_localsView;
     QPointer<KActionMenu> m_menu;
     QAction *m_breakpoint;

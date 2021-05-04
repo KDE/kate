@@ -69,19 +69,19 @@ KatePluginGDBView::KatePluginGDBView(KTextEditor::Plugin *plugin, KTextEditor::M
     KXMLGUIClient::setComponentName(QStringLiteral("kategdb"), i18n("Kate GDB"));
     setXMLFile(QStringLiteral("ui.rc"));
 
-    m_toolView = m_mainWin->createToolView(plugin,
-                                           i18n("Debug View"),
-                                           KTextEditor::MainWindow::Bottom,
-                                           QIcon(QStringLiteral(":/kategdb/22-actions-debug-kategdb.png")),
-                                           i18n("Debug View"));
+    m_toolView.reset(m_mainWin->createToolView(plugin,
+                                               i18n("Debug View"),
+                                               KTextEditor::MainWindow::Bottom,
+                                               QIcon(QStringLiteral(":/kategdb/22-actions-debug-kategdb.png")),
+                                               i18n("Debug View")));
 
-    m_localsStackToolView = m_mainWin->createToolView(plugin,
-                                                      i18n("Locals and Stack"),
-                                                      KTextEditor::MainWindow::Right,
-                                                      QIcon(QStringLiteral(":/kategdb/22-actions-debug-kategdb.png")),
-                                                      i18n("Locals and Stack"));
+    m_localsStackToolView.reset(m_mainWin->createToolView(plugin,
+                                                          i18n("Locals and Stack"),
+                                                          KTextEditor::MainWindow::Right,
+                                                          QIcon(QStringLiteral(":/kategdb/22-actions-debug-kategdb.png")),
+                                                          i18n("Locals and Stack")));
 
-    m_tabWidget = new QTabWidget(m_toolView);
+    m_tabWidget = new QTabWidget(m_toolView.get());
     // Output
     m_outputArea = new QTextEdit();
     m_outputArea->setAcceptRichText(false);
@@ -136,7 +136,7 @@ KatePluginGDBView::KatePluginGDBView(KTextEditor::Plugin *plugin, KTextEditor::M
 
     m_localsView = new LocalsView();
 
-    QSplitter *locStackSplitter = new QSplitter(m_localsStackToolView);
+    QSplitter *locStackSplitter = new QSplitter(m_localsStackToolView.get());
     locStackSplitter->addWidget(m_localsView);
     locStackSplitter->addWidget(stackContainer);
     locStackSplitter->setOrientation(Qt::Vertical);
@@ -144,7 +144,7 @@ KatePluginGDBView::KatePluginGDBView(KTextEditor::Plugin *plugin, KTextEditor::M
     // config page
     m_configView = new ConfigView(nullptr, mainWin);
 
-    m_ioView = new IOView();
+    m_ioView = std::make_unique<IOView>();
     connect(m_configView, &ConfigView::showIO, this, &KatePluginGDBView::showIO);
 
     m_tabWidget->addTab(m_gdbPage, i18nc("Tab label", "GDB Output"));
@@ -276,8 +276,6 @@ KatePluginGDBView::KatePluginGDBView(KTextEditor::Plugin *plugin, KTextEditor::M
 KatePluginGDBView::~KatePluginGDBView()
 {
     m_mainWin->guiFactory()->removeClient(this);
-    delete m_toolView;
-    delete m_localsStackToolView;
 }
 
 void KatePluginGDBView::readSessionConfig(const KConfigGroup &config)
@@ -292,14 +290,14 @@ void KatePluginGDBView::writeSessionConfig(KConfigGroup &config)
 
 void KatePluginGDBView::slotDebug()
 {
-    disconnect(m_ioView, &IOView::stdOutText, nullptr, nullptr);
-    disconnect(m_ioView, &IOView::stdErrText, nullptr, nullptr);
+    disconnect(m_ioView.get(), &IOView::stdOutText, nullptr, nullptr);
+    disconnect(m_ioView.get(), &IOView::stdErrText, nullptr, nullptr);
     if (m_configView->showIOTab()) {
-        connect(m_ioView, &IOView::stdOutText, m_ioView, &IOView::addStdOutText);
-        connect(m_ioView, &IOView::stdErrText, m_ioView, &IOView::addStdErrText);
+        connect(m_ioView.get(), &IOView::stdOutText, m_ioView.get(), &IOView::addStdOutText);
+        connect(m_ioView.get(), &IOView::stdErrText, m_ioView.get(), &IOView::addStdErrText);
     } else {
-        connect(m_ioView, &IOView::stdOutText, this, &KatePluginGDBView::addOutputText);
-        connect(m_ioView, &IOView::stdErrText, this, &KatePluginGDBView::addErrorText);
+        connect(m_ioView.get(), &IOView::stdOutText, this, &KatePluginGDBView::addOutputText);
+        connect(m_ioView.get(), &IOView::stdErrText, this, &KatePluginGDBView::addErrorText);
     }
     QStringList ioFifos;
     ioFifos << m_ioView->stdinFifo();
@@ -307,7 +305,7 @@ void KatePluginGDBView::slotDebug()
     ioFifos << m_ioView->stderrFifo();
 
     enableDebugActions(true);
-    m_mainWin->showToolView(m_toolView);
+    m_mainWin->showToolView(m_toolView.get());
     m_tabWidget->setCurrentWidget(m_gdbPage);
     QScrollBar *sb = m_outputArea->verticalScrollBar();
     sb->setValue(sb->maximum());
@@ -318,7 +316,7 @@ void KatePluginGDBView::slotDebug()
 
 void KatePluginGDBView::slotRestart()
 {
-    m_mainWin->showToolView(m_toolView);
+    m_mainWin->showToolView(m_toolView.get());
     m_tabWidget->setCurrentWidget(m_gdbPage);
     QScrollBar *sb = m_outputArea->verticalScrollBar();
     sb->setValue(sb->maximum());
@@ -482,7 +480,7 @@ void KatePluginGDBView::programEnded()
     m_threadCombo->clear();
 
     // Indicate the state change by showing the debug outputArea
-    m_mainWin->showToolView(m_toolView);
+    m_mainWin->showToolView(m_toolView.get());
     m_tabWidget->setCurrentWidget(m_gdbPage);
 }
 
@@ -665,7 +663,7 @@ void KatePluginGDBView::slotValue()
     m_inputArea->addToHistory(cmd);
     m_inputArea->setCurrentItem(QString());
 
-    m_mainWin->showToolView(m_toolView);
+    m_mainWin->showToolView(m_toolView.get());
     m_tabWidget->setCurrentWidget(m_gdbPage);
 
     QScrollBar *sb = m_outputArea->verticalScrollBar();
@@ -675,9 +673,9 @@ void KatePluginGDBView::slotValue()
 void KatePluginGDBView::showIO(bool show)
 {
     if (show) {
-        m_tabWidget->addTab(m_ioView, i18n("IO"));
+        m_tabWidget->addTab(m_ioView.get(), i18n("IO"));
     } else {
-        m_tabWidget->removeTab(m_tabWidget->indexOf(m_ioView));
+        m_tabWidget->removeTab(m_tabWidget->indexOf(m_ioView.get()));
     }
 }
 
@@ -711,8 +709,8 @@ bool KatePluginGDBView::eventFilter(QObject *obj, QEvent *event)
 {
     if (event->type() == QEvent::KeyPress) {
         QKeyEvent *ke = static_cast<QKeyEvent *>(event);
-        if ((obj == m_toolView) && (ke->key() == Qt::Key_Escape)) {
-            m_mainWin->hideToolView(m_toolView);
+        if ((obj == m_toolView.get()) && (ke->key() == Qt::Key_Escape)) {
+            m_mainWin->hideToolView(m_toolView.get());
             event->accept();
             return true;
         }
@@ -722,14 +720,14 @@ bool KatePluginGDBView::eventFilter(QObject *obj, QEvent *event)
 
 void KatePluginGDBView::handleEsc(QEvent *e)
 {
-    if (!m_mainWin) {
+    if (!m_mainWin || !m_toolView) {
         return;
     }
 
     QKeyEvent *k = static_cast<QKeyEvent *>(e);
     if (k->key() == Qt::Key_Escape && k->modifiers() == Qt::NoModifier) {
         if (m_toolView->isVisible()) {
-            m_mainWin->hideToolView(m_toolView);
+            m_mainWin->hideToolView(m_toolView.get());
         }
     }
 }

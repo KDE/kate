@@ -83,7 +83,7 @@ protected:
         // only match file path if filename got a match
         bool resp = false;
         if (resn || pathLike) {
-            const QString &path = sm->idxToFilePath(sourceRow);
+            const QStringView path = sm->idxToFilePath(sourceRow);
             resp = filterByPath(path, scorep);
         }
 
@@ -114,7 +114,7 @@ public Q_SLOTS:
     }
 
 private:
-    inline bool filterByPath(const QString &path, int &score) const
+    inline bool filterByPath(const QStringView path, int &score) const
     {
         return kfts::fuzzy_match(pattern, path, score);
     }

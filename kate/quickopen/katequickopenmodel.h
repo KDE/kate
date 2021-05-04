@@ -62,9 +62,11 @@ public:
         return m_modelEntries.at(row).fileName;
     }
 
-    const QString &idxToFilePath(int row) const
+    const QStringView idxToFilePath(int row) const
     {
-        return m_modelEntries.at(row).filePath;
+        const auto &path = m_modelEntries.at(row).filePath;
+        // handle exceptional non-saved file case
+        return path.startsWith(m_projectBase) ? QStringView(path).mid(m_projectBase.size()) : path;
     }
 
     int idxScore(const QModelIndex &idx) const

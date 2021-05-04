@@ -111,20 +111,27 @@ void KateQuickOpenModel::refresh(KateMainWindow *mainWindow)
     QSet<QString> openedDocUrls;
     openedDocUrls.reserve(sortedViews.size());
 
-    for (auto *view : qAsConst(sortedViews)) {
-        auto doc = view->document();
+    const auto collectDoc = [&openedDocUrls, &allDocuments](KTextEditor::Document *doc) {
         auto path = doc->url().toString(QUrl::NormalizePathSegments | QUrl::PreferLocalFile);
+        if (openedDocUrls.contains(path)) {
+            return;
+        }
         openedDocUrls.insert(path);
-        allDocuments.push_back({doc->url(), doc->documentName(), path, true, -1});
+        // prefer the real filename, since documentName might be `foo (2)`
+        // (which is not a suffix of the path)
+        auto fileName = QFileInfo(path).fileName();
+        if (fileName.isEmpty()) {
+            fileName = doc->documentName();
+        }
+        allDocuments.push_back({doc->url(), fileName, path, true, -1});
+    };
+
+    for (auto *view : qAsConst(sortedViews)) {
+        collectDoc(view->document());
     }
 
     for (auto *doc : qAsConst(openDocs)) {
-        auto path = doc->url().toString(QUrl::NormalizePathSegments | QUrl::PreferLocalFile);
-        if (openedDocUrls.contains(path)) {
-            continue;
-        }
-        openedDocUrls.insert(path);
-        allDocuments.push_back({doc->url(), doc->documentName(), path, true, -1});
+        collectDoc(doc);
     }
 
     for (const auto &file : qAsConst(projectDocs)) {

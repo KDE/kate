@@ -455,6 +455,7 @@ public:
         m_triggerRename->setText(i18n("Rename"));
         m_switchSourceHeader = actionCollection()->addAction(QStringLiteral("lspclient_clangd_switchheader"), this, &self_type::clangdSwitchSourceHeader);
         m_switchSourceHeader->setText(i18n("Switch Source Header"));
+        actionCollection()->setDefaultShortcut(m_switchSourceHeader, Qt::Key_F12);
         m_requestCodeAction = actionCollection()->add<KActionMenu>(QStringLiteral("lspclient_code_action"));
         m_requestCodeAction->setText(i18n("Code Action"));
         connect(m_requestCodeAction->menu(), &QMenu::aboutToShow, this, &self_type::requestCodeAction);

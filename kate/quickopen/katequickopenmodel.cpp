@@ -48,8 +48,11 @@ QVariant KateQuickOpenModel::data(const QModelIndex &idx, int role) const
     case Qt::DisplayRole:
     case Role::FileName:
         return entry.fileName;
-    case Role::FilePath:
-        return QString(entry.filePath).remove(m_projectBase);
+    case Role::FilePath: {
+        // no .remove since that might remove all occurrence in rare cases
+        const auto &path = entry.filePath;
+        return path.startsWith(m_projectBase) ? path.mid(m_projectBase.size()) : path;
+    }
     case Qt::FontRole: {
         if (entry.bold) {
             QFont font;
@@ -92,6 +95,10 @@ void KateQuickOpenModel::refresh(KateMainWindow *mainWindow)
         ret = projectView->property("allProjectsCommonBaseDir").toString();
         if (!ret.endsWith(QLatin1Char('/'))) {
             ret.append(QLatin1Char('/'));
+        }
+        // avoid strip of a single leading /
+        if (ret == QStringLiteral("/")) {
+            ret.clear();
         }
         return ret;
     }();

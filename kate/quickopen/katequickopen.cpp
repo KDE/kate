@@ -145,7 +145,11 @@ public:
         QString name = index.data(KateQuickOpenModel::FileName).toString();
         QString path = index.data(KateQuickOpenModel::FilePath).toString();
 
-        path.remove(QStringLiteral("/") + name);
+        // only remove suffix, not where it might occur elsewhere
+        const QString suffix = QStringLiteral("/") + name;
+        if (path.endsWith(suffix)) {
+            path.chop(suffix.size());
+        }
 
         const QString nameColor = option.palette.color(QPalette::Link).name();
 

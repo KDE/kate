@@ -35,7 +35,7 @@ public:
      * update state
      * will fill model with current open documents, project documents, ...
      */
-    void update();
+    void updateState();
     void updateViewGeometry();
 
 protected:

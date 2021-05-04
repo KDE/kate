@@ -277,7 +277,7 @@ KateQuickOpen::KateQuickOpen(KateMainWindow *mainWindow)
     slotListModeChanged(m_inputLine->listMode());
 
     // fill stuff
-    update();
+    updateState();
 }
 
 
@@ -318,7 +318,7 @@ void KateQuickOpen::reselectFirst()
     m_listView->setCurrentIndex(index);
 }
 
-void KateQuickOpen::update()
+void KateQuickOpen::updateState()
 {
     m_base_model->refresh(m_mainWindow);
     reselectFirst();
@@ -386,7 +386,7 @@ void KateQuickOpen::slotListModeChanged(KateQuickOpenModel::List mode)
 {
     m_base_model->setListMode(mode);
     // this changes things again, needs refresh, let's go all the way
-    update();
+    updateState();
 }
 
 void KateQuickOpen::updateViewGeometry()

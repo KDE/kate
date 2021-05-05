@@ -2142,6 +2142,8 @@ public:
         QStandardItemModel *model = m_diagnosticsModel.data();
         QStandardItem *topItem = getItem(*m_diagnosticsModel, diagnostics.uri);
 
+        // current diagnostics row, if one of incoming diagnostics' document
+        int row = -1;
         if (!topItem) {
             // no need to create an empty one
             if (diagnostics.diagnostics.empty()) {
@@ -2151,6 +2153,11 @@ public:
             model->appendRow(topItem);
             topItem->setText(diagnostics.uri.toLocalFile());
         } else {
+            // try to retain current position
+            auto currentIndex = m_diagnosticsTree->currentIndex();
+            if (currentIndex.parent() == topItem->index()) {
+                row = currentIndex.row();
+            }
             topItem->setRowCount(0);
         }
 
@@ -2184,13 +2191,17 @@ public:
         // and only the whole text when item selected ??
         m_diagnosticsTree->setExpanded(topItem->index(), true);
         m_diagnosticsTree->setRowHidden(topItem->row(), QModelIndex(), topItem->rowCount() == 0);
-        m_diagnosticsTree->scrollTo(topItem->index(), QAbstractItemView::PositionAtTop);
 
         updateMarks();
-        // also sync updated diagnositic to current position
+        // also sync updated diagnostic to current position
         auto currentView = m_mainWindow->activeView();
         if (currentView && currentView->document()) {
-            syncDiagnostics(currentView->document(), currentView->cursorPosition().line(), false, false);
+            if (!syncDiagnostics(currentView->document(), currentView->cursorPosition().line(), false, false)) {
+                // avoid jitter; only restore previous if applicable
+                if (row >= 0 && row < topItem->rowCount()) {
+                    m_diagnosticsTree->scrollTo(topItem->child(row)->index());
+                }
+            }
         }
     }
 

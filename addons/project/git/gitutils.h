@@ -51,6 +51,15 @@ struct StatusEntry {
 bool isGitRepo(const QString &repo);
 
 /**
+ * @brief get the .git folder path
+ * Returns the path without the .git in the string e.g:
+ * ~/projects/kate/ instead of ~/projects/kate/.git
+ *
+ * Can be used to check whether you are in a git repo as well
+ */
+QString getDotGitPath(const QString &repo);
+
+/**
  * @brief get name of current branch in @p repo
  */
 QString getCurrentBranchName(const QString &repo);

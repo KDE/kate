@@ -151,16 +151,20 @@ void KateProjectView::showFileGitHistory(const QString &file)
 
 void KateProjectView::checkAndRefreshGit()
 {
-    if (GitUtils::isGitRepo(m_project->baseDir())) {
-        m_branchBtn->setHidden(false);
-        m_branchBtn->setText(GitUtils::getCurrentBranchName(m_project->baseDir()));
-        if (m_branchChangedWatcher.files().isEmpty()) {
-            m_branchChangedWatcher.addPath(m_project->baseDir() + QStringLiteral("/.git/HEAD"));
-        }
-    } else {
+    const auto dotGitPath = GitUtils::getDotGitPath(m_project->baseDir());
+    /**
+     * Not in a git repo or git was removed
+     */
+    if (!dotGitPath.has_value()) {
         if (!m_branchChangedWatcher.files().isEmpty()) {
             m_branchChangedWatcher.removePaths(m_branchChangedWatcher.files());
         }
         m_branchBtn->setHidden(true);
+    } else {
+        m_branchBtn->setHidden(false);
+        m_branchBtn->setText(GitUtils::getCurrentBranchName(dotGitPath.value()));
+        if (m_branchChangedWatcher.files().isEmpty()) {
+            m_branchChangedWatcher.addPath(dotGitPath.value() + QStringLiteral(".git/HEAD"));
+        }
     }
 }

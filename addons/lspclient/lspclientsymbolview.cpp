@@ -184,6 +184,8 @@ class LSPClientSymbolViewImpl : public QObject, public LSPClientSymbolView
     QScopedPointer<LSPClientViewTracker> m_viewTracker;
     // outstanding request
     LSPClientServer::RequestHandle m_handle;
+    // magic request tracking cookie
+    int m_requestCnt = 0;
     // cached outline models
     struct ModelData {
         QPointer<KTextEditor::Document> document;
@@ -456,7 +458,7 @@ public:
         updateCurrentTreeItem();
     }
 
-    void refresh(bool clear, bool allow_cache = true)
+    void refresh(bool clear, bool allow_cache = true, int retry = 0)
     {
         // cancel old request!
         m_handle.cancel();
@@ -509,13 +511,25 @@ public:
             // so arrange to process it as an error rather than an empty result,
             // since the latter would (temporarily) clear the symbol outline
             // and lead to flicker until the next/final request has a proper result again
-            auto eh = [this](const LSPResponseError &err) {
+            auto oldRequestCnt = ++m_requestCnt;
+            auto eh = [this, clear, retry, oldRequestCnt](const LSPResponseError &err) {
                 switch (err.code) {
                 case LSPErrorCode::ContentModified:
                 case LSPErrorCode::RequestCancelled:
                     break;
                 default:
-                    onDocumentSymbols({});
+                    // also try to avoid flicker here
+                    // never mind the request if another one has already been launched
+                    // but if this is the last request standing, go for retry
+                    if (m_requestCnt == oldRequestCnt) {
+                        if (retry < 4) {
+                            // if we got here, cache was not used
+                            refresh(clear, false, retry + 1);
+                        } else {
+                            // clear old/stale situation and show that the server has lost track
+                            onDocumentSymbols({});
+                        }
+                    }
                     break;
                 }
             };

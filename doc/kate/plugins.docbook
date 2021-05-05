@@ -80,10 +80,6 @@ simple &gdb; frontend</para>
 </listitem>
 -->
 <listitem>
-<para><link linkend="kate-application-plugin-openheader">Open Header</link>
-- Opens the corresponding .h/[.cpp|.c] file</para>
-</listitem>
-<listitem>
 <para><link linkend="kate-application-plugin-projects">Project Plugin</link> - Integration with &git; and other source control systems</para>
 </listitem>
 <listitem>
@@ -1833,53 +1829,6 @@ writing much of this section.</para>
 </sect2>
 
 </sect1>
-
-<sect1 id="kate-application-plugin-openheader">
-
-<title>Open Header Plugin</title>
-
-<sect2 id="openheader-using">
-<title>Using the Open Header Plugin</title>
-
-<para>When editing C or C++ code, this command will switch between a header file and
-its corresponding C/C++ file or vice versa.</para>
-
-<para>For example, if you are editing <filename>myclass.cpp</filename>, this action will change
-to <filename>myclass.h</filename> if this file is available in the same folder.</para>
-
-<para>Pairs of the following filename extensions will work:</para>
-
-<simplelist>
-<member>Header files: h, H, hh, hpp</member>
-<member>Source files: c, cpp, cc, cp, cxx</member>
-</simplelist>
-
-</sect2>
-
-<sect2 id="openheader-menu">
-<title>Menu Structure</title>
-
-<variablelist>
-
-<varlistentry id="file-openheader">
-<term><menuchoice>
-<shortcut>
-<keycap>F12</keycap>
-</shortcut>
-<guimenu>File</guimenu>
-<guisubmenu>Open .h/.cpp/.c</guisubmenu>
-</menuchoice></term>
-<listitem>
-<para><action>Open</action> the corresponding header or source files for the active document.</para>
-</listitem>
-</varlistentry>
-
-</variablelist>
-
-</sect2>
-
-</sect1>
-
 
 <sect1 id="kate-application-plugin-projects">
 <!--https://kate-editor.org/2012/11/02/using-the-projects-plugin-in-kate -->

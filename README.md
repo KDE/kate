@@ -67,3 +67,11 @@ This is purely internal, no libraries/headers are installed, this is meant to be
 
 The **LICENSES** directory contains the license files as referenced in the individual source files.
 For any used **SPDX-License-Identifier** the matching license should be located there.
+
+## Kate's Mascot: Kate the Cyber Woodpecker
+
+Kate's mascot, Kate the Cyber Woodpecker, was designed by [Tyson Tan](https://www.tysontan.com/).
+
+More details can be found on our [mascot page](https://kate-editor.org/mascot/).
+
+![Picture](https://kate-editor.org/images/mascot/electrichearts_20210103_kate_normal.png)

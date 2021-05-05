@@ -255,35 +255,16 @@ GitWidget::~GitWidget()
 
 void GitWidget::setDotGitPath()
 {
-    /* This call is intentionally blocking because we need git path for everything else */
-    QProcess git;
-    git.setProgram(QStringLiteral("git"));
-    git.setWorkingDirectory(m_project->baseDir());
-    git.setArguments({QStringLiteral("rev-parse"), QStringLiteral("--absolute-git-dir")});
-    git.start(QProcess::ReadOnly);
-    if (git.waitForStarted() && git.waitForFinished(-1)) {
-        if (git.exitStatus() != QProcess::NormalExit || git.exitCode() != 0) {
-            const QString error = QString::fromUtf8(git.readAllStandardError());
-
-            /**
-             * Do this on next even loop iteration because we may be in the constructor of pluginView
-             */
-            QTimer::singleShot(1, this, [this, error] {
-                sendMessage(i18n("Failed to find .git directory, things may not work correctly: %1", error), false);
-            });
-            m_gitPath = m_project->baseDir();
-            return;
-        }
-        m_gitPath = QString::fromUtf8(git.readAllStandardOutput());
-        if (m_gitPath.endsWith(QLatin1String("\n"))) {
-            m_gitPath.remove(QLatin1String(".git\n"));
-        } else {
-            m_gitPath.remove(QLatin1String(".git"));
-        }
-        // set once, use everywhere
-        // This is per project
-        git.setWorkingDirectory(m_gitPath);
+    const auto dotGitPath = GitUtils::getDotGitPath(m_project->baseDir());
+    if (dotGitPath.has_value()) {
+        QTimer::singleShot(1, this, [this] {
+            sendMessage(i18n("Failed to find .git directory, things may not work correctly"), false);
+        });
+        m_gitPath = m_project->baseDir();
+        return;
     }
+
+    m_gitPath = dotGitPath.value();
 }
 
 void GitWidget::sendMessage(const QString &plainText, bool warn)

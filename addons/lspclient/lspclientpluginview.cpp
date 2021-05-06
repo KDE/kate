@@ -2331,6 +2331,8 @@ public:
         m_completion->setServer(server);
         if (m_complDocOn) {
             m_completion->setSelectedDocumentation(m_complDocOn->isChecked());
+        }
+        if (m_signatureHelp) {
             m_completion->setSignatureHelp(m_signatureHelp->isChecked());
         }
         updateCompletion(activeView, server.data());

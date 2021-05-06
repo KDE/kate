@@ -7,8 +7,8 @@
 #define GITUTILS_H
 
 #include <QString>
+
 #include <functional>
-#include <optional>
 
 namespace GitUtils
 {

@@ -28,3 +28,4 @@ CMakeLists.txt.user*
 /.cmake/
 /.cache/
 /compile_commands.json
+/cmake-build*

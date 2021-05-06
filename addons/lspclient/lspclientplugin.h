@@ -42,6 +42,7 @@ public:
     bool m_symbolSort = false;
     bool m_complDoc = false;
     bool m_refDeclaration = false;
+    bool m_complParens = false;
     bool m_diagnostics = false;
     bool m_diagnosticsHighlight = false;
     bool m_diagnosticsMark = false;

@@ -63,6 +63,13 @@
              </widget>
             </item>
             <item>
+             <widget class="QCheckBox" name="chkComplParens">
+              <property name="text">
+               <string>Add parentheses upon function completion</string>
+              </property>
+             </widget>
+            </item>
+            <item>
              <widget class="QCheckBox" name="chkAutoHover">
               <property name="text">
                <string>Show hover information</string>

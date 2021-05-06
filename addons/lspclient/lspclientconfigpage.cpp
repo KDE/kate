@@ -52,6 +52,7 @@ LSPClientConfigPage::LSPClientConfigPage(QWidget *parent, LSPClientPlugin *plugi
                            ui->chkSymbolTree,
                            ui->chkComplDoc,
                            ui->chkRefDeclaration,
+                           ui->chkComplParens,
                            ui->chkDiagnostics,
                            ui->chkDiagnosticsMark,
                            ui->chkDiagnosticsHover,
@@ -123,6 +124,7 @@ void LSPClientConfigPage::apply()
 
     m_plugin->m_complDoc = ui->chkComplDoc->isChecked();
     m_plugin->m_refDeclaration = ui->chkRefDeclaration->isChecked();
+    m_plugin->m_complParens = ui->chkComplParens->isChecked();
 
     m_plugin->m_diagnostics = ui->chkDiagnostics->isChecked();
     m_plugin->m_diagnosticsHighlight = ui->chkDiagnosticsHighlight->isChecked();
@@ -162,6 +164,7 @@ void LSPClientConfigPage::reset()
 
     ui->chkComplDoc->setChecked(m_plugin->m_complDoc);
     ui->chkRefDeclaration->setChecked(m_plugin->m_refDeclaration);
+    ui->chkComplParens->setChecked(m_plugin->m_complParens);
 
     ui->chkDiagnostics->setChecked(m_plugin->m_diagnostics);
     ui->chkDiagnosticsHighlight->setChecked(m_plugin->m_diagnosticsHighlight);

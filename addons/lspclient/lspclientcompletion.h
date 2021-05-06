@@ -31,6 +31,7 @@ public:
     virtual void setServer(QSharedPointer<LSPClientServer> server) = 0;
     virtual void setSelectedDocumentation(bool) = 0;
     virtual void setSignatureHelp(bool) = 0;
+    virtual void setCompleteParens(bool) = 0;
 };
 
 #endif

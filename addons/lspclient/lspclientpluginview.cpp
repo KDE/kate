@@ -396,6 +396,7 @@ class LSPClientActionView : public QObject
     QPointer<QAction> m_complDocOn;
     QPointer<QAction> m_signatureHelp;
     QPointer<QAction> m_refDeclaration;
+    QPointer<QAction> m_complParens;
     QPointer<QAction> m_autoHover;
     QPointer<QAction> m_onTypeFormatting;
     QPointer<QAction> m_incrementalSync;
@@ -549,6 +550,9 @@ public:
         m_refDeclaration = actionCollection()->addAction(QStringLiteral("lspclient_references_declaration"), this, &self_type::displayOptionChanged);
         m_refDeclaration->setText(i18n("Include declaration in references"));
         m_refDeclaration->setCheckable(true);
+        m_complParens = actionCollection()->addAction(QStringLiteral("lspclient_completion_parens"), this, &self_type::displayOptionChanged);
+        m_complParens->setText(i18n("Add parentheses upon function completion"));
+        m_complParens->setCheckable(true);
         m_autoHover = actionCollection()->addAction(QStringLiteral("lspclient_auto_hover"), this, &self_type::displayOptionChanged);
         m_autoHover->setText(i18n("Show hover information"));
         m_autoHover->setCheckable(true);
@@ -618,6 +622,7 @@ public:
         moreOptions->addAction(m_complDocOn);
         moreOptions->addAction(m_signatureHelp);
         moreOptions->addAction(m_refDeclaration);
+        moreOptions->addAction(m_complParens);
         moreOptions->addAction(m_autoHover);
         moreOptions->addAction(m_onTypeFormatting);
         moreOptions->addAction(m_incrementalSync);
@@ -878,6 +883,9 @@ public:
         }
         if (m_refDeclaration) {
             m_refDeclaration->setChecked(m_plugin->m_refDeclaration);
+        }
+        if (m_complParens) {
+            m_complParens->setChecked(m_plugin->m_complParens);
         }
         if (m_autoHover) {
             m_autoHover->setChecked(m_plugin->m_autoHover);
@@ -2344,6 +2352,9 @@ public:
         }
         if (m_signatureHelp) {
             m_completion->setSignatureHelp(m_signatureHelp->isChecked());
+        }
+        if (m_complParens) {
+            m_completion->setCompleteParens(m_complParens->isChecked());
         }
         updateCompletion(activeView, server.data());
 

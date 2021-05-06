@@ -141,6 +141,7 @@ class LSPClientCompletionImpl : public LSPClientCompletion
     QSharedPointer<LSPClientServer> m_server;
     bool m_selectedDocumentation = false;
     bool m_signatureHelp = true;
+    bool m_complParens = true;
 
     QVector<QChar> m_triggersCompletion;
     QVector<QChar> m_triggersSignature;
@@ -178,6 +179,11 @@ public:
     void setSignatureHelp(bool s) override
     {
         m_signatureHelp = s;
+    }
+
+    void setCompleteParens(bool s) override
+    {
+        m_complParens = s;
     }
 
     QVariant data(const QModelIndex &index, int role) const override
@@ -340,7 +346,8 @@ public:
             // This is a function
             const auto &m = m_matches.at(index.row());
             // add parentheses if function and guestimated meaningful for language in question
-            bool addParens = isFunctionKind(m.kind) && m_triggersSignature.contains(QLatin1Char('('));
+            // this covers at least the common cases such as clangd, python, etc
+            bool addParens = m_complParens && isFunctionKind(m.kind) && m_triggersSignature.contains(QLatin1Char('('));
             if (addParens) {
                 matching += QStringLiteral("()");
             }

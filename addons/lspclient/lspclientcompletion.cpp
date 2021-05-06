@@ -339,13 +339,15 @@ public:
 
             // This is a function
             const auto &m = m_matches.at(index.row());
-            if (isFunctionKind(m.kind)) {
+            // add parentheses if function and guestimated meaningful for language in question
+            bool addParens = isFunctionKind(m.kind) && m_triggersSignature.contains(QLatin1Char('('));
+            if (addParens) {
                 matching += QStringLiteral("()");
             }
 
             view->document()->replaceText(word, matching);
 
-            if (isFunctionKind(m.kind)) {
+            if (addParens) {
                 // place the cursor in between (|)
                 view->setCursorPosition({view->cursorPosition().line(), view->cursorPosition().column() - 1});
             }

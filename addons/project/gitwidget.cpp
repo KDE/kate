@@ -642,6 +642,7 @@ void GitWidget::opencommitChangesDialog()
     GitCommitDialog *dialog = new GitCommitDialog(m_commitMessage, font, this);
 
     connect(dialog, &QDialog::finished, this, [this, dialog](int res) {
+        dialog->deleteLater();
         if (res == QDialog::Accepted) {
             if (dialog->subject().isEmpty()) {
                 return sendMessage(i18n("Commit message cannot be empty."), true);
@@ -649,7 +650,6 @@ void GitWidget::opencommitChangesDialog()
             m_commitMessage = dialog->subject() + QStringLiteral("[[\n\n]]") + dialog->description();
             commitChanges(dialog->subject(), dialog->description(), dialog->signoff());
         }
-        dialog->deleteLater();
     });
 
     dialog->open();

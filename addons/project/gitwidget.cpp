@@ -648,7 +648,7 @@ void GitWidget::handleClick(const QModelIndex &idx, ClickAction clickAction)
         return;
     }
 
-    const QString file = m_gitPath + idx.data(GitStatusModel::FileNameRole).toString();
+    const QString file = idx.data(GitStatusModel::FileNameRole).toString();
     bool staged = idx.internalId() == GitStatusModel::NodeStage;
 
     if (clickAction == ClickAction::StageUnstage) {
@@ -663,7 +663,7 @@ void GitWidget::handleClick(const QModelIndex &idx, ClickAction clickAction)
     }
 
     if (clickAction == ClickAction::OpenFile) {
-        m_mainWin->openUrl(QUrl::fromLocalFile(file));
+        m_mainWin->openUrl(QUrl::fromLocalFile(m_gitPath + file));
     }
 }
 
@@ -978,7 +978,7 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
             return;
         }
 
-        const QString file = m_gitPath + idx.data(GitStatusModel::FileNameRole).toString();
+        const QString file = idx.data(GitStatusModel::FileNameRole).toString();
         if (act == stageAct) {
             if (staged) {
                 return unstage({file});
@@ -1001,7 +1001,7 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
         } else if (act == launchDifftoolAct) {
             launchExternalDiffTool(idx.data(GitStatusModel::FileNameRole).toString(), staged);
         } else if (act == openFile) {
-            m_mainWin->openUrl(QUrl::fromLocalFile(file));
+            m_mainWin->openUrl(QUrl::fromLocalFile(m_gitPath + QLatin1Char('/') + file));
         }
     } else if (type == GitStatusModel::NodeStage) {
         QMenu menu;

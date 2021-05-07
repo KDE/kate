@@ -1001,7 +1001,7 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
         } else if (act == launchDifftoolAct) {
             launchExternalDiffTool(idx.data(GitStatusModel::FileNameRole).toString(), staged);
         } else if (act == openFile) {
-            m_mainWin->openUrl(QUrl::fromLocalFile(m_gitPath + file));
+            m_mainWin->openUrl(QUrl::fromLocalFile(file));
         }
     } else if (type == GitStatusModel::NodeStage) {
         QMenu menu;

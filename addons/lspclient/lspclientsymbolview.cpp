@@ -127,6 +127,11 @@ public:
 protected:
     bool lessThan(const QModelIndex &sourceLeft, const QModelIndex &sourceRight) const override
     {
+        // make sure to honour configured sort-order (if no scoring applies)
+        if (m_pattern.isEmpty()) {
+            return QSortFilterProxyModel::lessThan(sourceLeft, sourceRight);
+        }
+
         const int l = sourceLeft.data(WeightRole).toInt();
         const int r = sourceRight.data(WeightRole).toInt();
         return l < r;

@@ -663,7 +663,7 @@ void GitWidget::handleClick(const QModelIndex &idx, ClickAction clickAction)
     }
 
     if (clickAction == ClickAction::OpenFile) {
-        m_mainWin->openUrl(QUrl::fromLocalFile(m_gitPath + file));
+        m_mainWin->openUrl(QUrl::fromLocalFile(file));
     }
 }
 

@@ -1640,7 +1640,7 @@ public:
                     }
                 }
                 // update marks
-                updateState();
+                updateMarks();
             }
         };
 
@@ -2114,7 +2114,7 @@ public:
         m_diagnosticsTree->setRowHidden(topItem->row(), QModelIndex(), topItem->rowCount() == 0);
         m_diagnosticsTree->scrollTo(topItem->index(), QAbstractItemView::PositionAtTop);
 
-        updateState();
+        updateMarks();
         // also sync updated diagnositic to current position
         auto currentView = m_mainWindow->activeView();
         if (currentView && currentView->document()) {
@@ -2402,6 +2402,21 @@ public:
         // so register anyway if server available and will sort out what to do/show later
         updateHover(activeView, server.data());
 
+        updateMarks(doc);
+
+        // connect for cleanup stuff
+        if (activeView) {
+            connect(activeView, &KTextEditor::View::destroyed, this, &self_type::viewDestroyed, Qt::UniqueConnection);
+        }
+    }
+
+    void updateMarks(KTextEditor::Document *doc = nullptr)
+    {
+        if (!doc) {
+            KTextEditor::View *activeView = m_mainWindow->activeView();
+            doc = activeView ? activeView->document() : nullptr;
+        }
+
         // update marks if applicable
         if (m_markModel && doc) {
             addMarks(doc, m_markModel, m_ranges, m_marks);
@@ -2409,11 +2424,6 @@ public:
         if (m_diagnosticsModel && doc) {
             clearMarks(doc, m_diagnosticsRanges, m_diagnosticsMarks, RangeData::markTypeDiagAll);
             addMarks(doc, m_diagnosticsModel.data(), m_diagnosticsRanges, m_diagnosticsMarks);
-        }
-
-        // connect for cleanup stuff
-        if (activeView) {
-            connect(activeView, &KTextEditor::View::destroyed, this, &self_type::viewDestroyed, Qt::UniqueConnection);
         }
     }
 

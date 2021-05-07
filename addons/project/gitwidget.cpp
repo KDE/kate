@@ -797,11 +797,13 @@ bool GitWidget::eventFilter(QObject *o, QEvent *e)
 void GitWidget::buildMenu()
 {
     m_gitMenu = new QMenu(this);
-    m_gitMenu->addAction(i18n("Refresh"), this, [this] {
+    auto r = m_gitMenu->addAction(i18n("Refresh"), this, [this] {
         if (m_project) {
             getStatus();
         }
     });
+    r->setIcon(QIcon::fromTheme(QStringLiteral("view-refresh")));
+
     auto a = m_gitMenu->addAction(i18n("Checkout Branch"), this, [this] {
         BranchCheckoutDialog bd(m_mainWin->window(), m_pluginView, m_project->baseDir());
         bd.openDialog();

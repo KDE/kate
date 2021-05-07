@@ -256,7 +256,7 @@ GitWidget::~GitWidget()
 void GitWidget::setDotGitPath()
 {
     const auto dotGitPath = GitUtils::getDotGitPath(m_project->baseDir());
-    if (dotGitPath.has_value()) {
+    if (!dotGitPath.has_value()) {
         QTimer::singleShot(1, this, [this] {
             sendMessage(i18n("Failed to find .git directory, things may not work correctly"), false);
         });

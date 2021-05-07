@@ -271,7 +271,7 @@ public:
         m_viewTracker.reset(LSPClientViewTracker::new_(plugin, mainWin, 500, 100));
         connect(m_viewTracker.data(), &LSPClientViewTracker::newState, this, &self_type::onViewState);
         connect(m_serverManager.data(), &LSPClientServerManager::serverChanged, this, [this]() {
-            refresh(false);
+            refresh(false, false);
         });
 
         // limit cached models; will not go beyond capacity set here
@@ -284,7 +284,7 @@ public:
     void displayOptionChanged()
     {
         m_expandOn->setEnabled(m_treeOn->isChecked());
-        refresh(false);
+        refresh(false, false);
     }
 
     void configUpdated()
@@ -456,7 +456,7 @@ public:
         updateCurrentTreeItem();
     }
 
-    void refresh(bool clear)
+    void refresh(bool clear, bool allow_cache = true)
     {
         // cancel old request!
         m_handle.cancel();
@@ -493,7 +493,7 @@ public:
                 // re-use if possible
                 // reloaded document recycles revision number, so avoid stale cache
                 // (clear := view switch)
-                if (revision == model.revision && model.model && (clear || revision > 0)) {
+                if (revision == model.revision && model.model && (clear || revision > 0) && allow_cache) {
                     setModel(model.model);
                     return;
                 }

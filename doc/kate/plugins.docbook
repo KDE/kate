@@ -2657,6 +2657,54 @@ transformed to the &JSON; configuration that is used here and outlined above.
 
 </sect3>
 
+<sect3 id="lspclient-diagnostics-suppression">
+<title>LSP Server Diagnostic Suppression</title>
+
+<para>
+It may happen that diagnostics are reported which are not quite useful.
+This can be quite cumbersome, especially if there are many (often of the same
+kind). In some cases, this may be tweaked by language (server) specific means.
+For example, the <ulink url="https://clangd.llvm.org/config.html">clangd
+configuration  mechanism</ulink> allows tweaking of some diagnostics aspects. In
+general, however, it may not always be evident how to do so, or it may not even
+be possible at all in desired ways due to server limitations or bug.
+</para>
+
+<para>
+As such, the plugin supports diagnostics suppression similar to e.g. valgrind
+suppressions. The most fine-grained configuration can be supplied in a
+"suppressions" key in the (merged) &JSON; configuration.
+</para>
+
+<screen>
+{
+    "servers": {
+        "c": {
+            "suppressions": {
+                "rulename": ["filename", "foo"],
+                "clang_pointer": ["", "clang-tidy", "clear_pointer"],
+            }
+        }
+    }
+}
+</screen>
+
+<para>
+Each (valid) rule has an arbitrary name and is defined by an array of length
+2 or 3 which provides a regex to match against the (full) filename, a regex
+to match against the diagnostic (text) and an optional regex matched against
+the (source code range of) text to which the diagnostic applies.
+</para>
+
+<para>
+In addition to the above fine-grained configuration, the context menu in the
+diagnostics tab also supports add/remove of suppressions that match a particular
+diagnostic (text) exactly, either globally (any file) or locally (the specific
+file in question).  These suppression are stored in and loaded from session config.
+</para>
+
+</sect3>
+
 <sect3 id="lspclient-troubleshooting">
 <title>LSP Server Troubleshooting</title>
 

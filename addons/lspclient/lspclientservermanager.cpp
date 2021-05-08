@@ -179,6 +179,8 @@ class LSPClientServerManagerImpl : public LSPClientServerManager
 
     struct DocumentInfo {
         QSharedPointer<LSPClientServer> server;
+        // merged server config as obtain from various sources
+        QJsonObject config;
         KTextEditor::MovingInterface *movingInterface;
         QUrl url;
         qint64 version;
@@ -357,8 +359,9 @@ public:
         auto it = m_docs.find(document);
         auto server = it != m_docs.end() ? it->server : nullptr;
         if (!server) {
-            if ((server = _findServer(view, document))) {
-                trackDocument(document, server);
+            QJsonObject serverConfig;
+            if ((server = _findServer(view, document, serverConfig))) {
+                trackDocument(document, server, serverConfig);
             }
         }
 
@@ -366,6 +369,14 @@ public:
             update(server.data(), false);
         }
         return server;
+    }
+
+    virtual QJsonValue findServerConfig(KTextEditor::Document *document) override
+    {
+        // check if document has been seen/processed by now
+        auto it = m_docs.find(document);
+        auto config = it != m_docs.end() ? QJsonValue(it->config) : QJsonValue::Null;
+        return config;
     }
 
     // restart a specific server or all servers if server == nullptr
@@ -534,7 +545,7 @@ private:
         }
     }
 
-    QSharedPointer<LSPClientServer> _findServer(KTextEditor::View *view, KTextEditor::Document *document)
+    QSharedPointer<LSPClientServer> _findServer(KTextEditor::View *view, KTextEditor::Document *document, QJsonObject &mergedConfig)
     {
         // compute the LSP standardized language id, none found => no change
         auto langId = languageId(document->highlightingMode());
@@ -747,6 +758,7 @@ private:
                 serverinfo.useWorkspace = useWorkspace;
             }
         }
+        mergedConfig = serverConfig;
         return (server && server->state() == LSPClientServer::State::Running) ? server : nullptr;
     }
 
@@ -807,12 +819,12 @@ private:
         Q_EMIT serverChanged();
     }
 
-    void trackDocument(KTextEditor::Document *doc, const QSharedPointer<LSPClientServer> &server)
+    void trackDocument(KTextEditor::Document *doc, const QSharedPointer<LSPClientServer> &server, QJsonObject serverConfig)
     {
         auto it = m_docs.find(doc);
         if (it == m_docs.end()) {
             KTextEditor::MovingInterface *miface = qobject_cast<KTextEditor::MovingInterface *>(doc);
-            it = m_docs.insert(doc, {server, miface, doc->url(), 0, false, false, {}});
+            it = m_docs.insert(doc, {server, serverConfig, miface, doc->url(), 0, false, false, {}});
             // track document
             connect(doc, &KTextEditor::Document::documentUrlChanged, this, &self_type::untrack, Qt::UniqueConnection);
             connect(doc, &KTextEditor::Document::highlightingModeChanged, this, &self_type::untrack, Qt::UniqueConnection);

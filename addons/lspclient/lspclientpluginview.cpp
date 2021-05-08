@@ -17,6 +17,7 @@
 #include <KAcceleratorManager>
 #include <KActionCollection>
 #include <KActionMenu>
+#include <KConfigGroup>
 #include <KLocalizedString>
 #include <KStandardAction>
 #include <KXMLGUIFactory>
@@ -26,6 +27,7 @@
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/Message>
 #include <KTextEditor/MovingInterface>
+#include <KTextEditor/SessionConfigInterface>
 #include <KTextEditor/View>
 #include <KXMLGUIClient>
 
@@ -355,6 +357,78 @@ private:
     KTextEditor::Range range;
 };
 
+class SessionDiagnosticSuppressions
+{
+    // file -> suppression
+    // (empty file matches any file)
+    QHash<QString, QSet<QString>> m_suppressions;
+
+public:
+    void readSessionConfig(const KConfigGroup &cg)
+    {
+        qCInfo(LSPCLIENT) << "reading session config";
+        int numEntries = cg.readEntry(QStringLiteral("NumEntries"), 0);
+        for (int i = 0; i < numEntries; i++) {
+            QStringList entry = cg.readEntry(QStringLiteral("Supp_%1").arg(i), QStringList());
+            if (entry.size() == 2) {
+                m_suppressions[entry[0]].insert(entry[1]);
+            }
+        }
+    }
+
+    void writeSessionConfig(KConfigGroup &cg)
+    {
+        qCInfo(LSPCLIENT) << "writing session config";
+        int cnt = 0;
+        for (auto it = m_suppressions.begin(); it != m_suppressions.end(); ++it) {
+            for (const auto &s : it.value()) {
+                QStringList entry{it.key(), s};
+                cg.writeEntry(QStringLiteral("Supp_%1").arg(cnt), entry);
+                ++cnt;
+            }
+        }
+        cg.writeEntry("NumEntries", cnt);
+    }
+
+    void add(const QString &file, const QString &diagnostic)
+    {
+        m_suppressions[file].insert(diagnostic);
+    }
+
+    void remove(const QString &file, const QString &diagnostic)
+    {
+        auto it = m_suppressions.find(file);
+        if (it != m_suppressions.end()) {
+            it->remove(diagnostic);
+        }
+    }
+
+    bool hasSuppression(const QString &file, const QString &diagnostic)
+    {
+        auto it = m_suppressions.find(file);
+        if (it != m_suppressions.end()) {
+            return it->contains(diagnostic);
+        } else {
+            return false;
+        }
+    }
+
+    QVector<QString> getSuppressions(const QString &file)
+    {
+        QVector<QString> result;
+
+        for (const auto &entry : {QString(), file}) {
+            auto it = m_suppressions.find(entry);
+            if (it != m_suppressions.end()) {
+                for (const auto &d : it.value()) {
+                    result.push_back(d);
+                }
+            }
+        }
+        return result;
+    }
+};
+
 class LSPClientActionView : public QObject
 {
     Q_OBJECT
@@ -434,6 +508,8 @@ class LSPClientActionView : public QObject
     RangeCollection m_diagnosticsRanges;
     // and marks
     DocumentCollection m_diagnosticsMarks;
+    // suppression tracked by session config
+    SessionDiagnosticSuppressions m_sessionDiagnosticSuppressions;
 
     // views on which completions have been registered
     QSet<KTextEditor::View *> m_completionViews;
@@ -507,7 +583,7 @@ public:
     {
         connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, &self_type::updateState);
         connect(m_mainWindow, &KTextEditor::MainWindow::unhandledShortcutOverride, this, &self_type::handleEsc);
-        connect(m_serverManager.data(), &LSPClientServerManager::serverChanged, this, &self_type::updateState);
+        connect(m_serverManager.data(), &LSPClientServerManager::serverChanged, this, &self_type::onServerChanged);
         connect(m_serverManager.data(), &LSPClientServerManager::showMessage, this, &self_type::onShowMessage);
         connect(m_serverManager.data(), &LSPClientServerManager::serverShowMessage, this, &self_type::onMessage);
         connect(m_serverManager.data(), &LSPClientServerManager::serverLogMessage, this, &self_type::onMessage);
@@ -686,6 +762,11 @@ public:
         updateState();
     }
 
+    SessionDiagnosticSuppressions &sessionDiagnosticSuppressions()
+    {
+        return m_sessionDiagnosticSuppressions;
+    }
+
     void onViewCreated(KTextEditor::View *view)
     {
         if (view) {
@@ -860,7 +941,11 @@ public:
         auto h = [menu](const QPoint &) {
             menu->popup(QCursor::pos());
         };
-        connect(treeView, &QTreeView::customContextMenuRequested, h);
+        if (m_diagnosticsTree == treeView) {
+            connect(treeView, &QTreeView::customContextMenuRequested, this, &self_type::onDiagnosticsMenu);
+        } else {
+            connect(treeView, &QTreeView::customContextMenuRequested, h);
+        }
     }
 
     void displayOptionChanged()
@@ -998,6 +1083,11 @@ public:
         Q_ASSERT(iface);
         KTextEditor::View *activeView = m_mainWindow->activeView();
         KTextEditor::ConfigInterface *ciface = qobject_cast<KTextEditor::ConfigInterface *>(activeView);
+
+        // only consider enabled items
+        if (!(item->flags() & Qt::ItemIsEnabled)) {
+            return;
+        }
 
         auto url = item->data(RangeData::FileUrlRole).toUrl();
         // document url could end up empty while in intermediate reload state
@@ -1233,6 +1323,90 @@ public:
         {
             return !m_diagnostic.range.isValid() && m_codeAction.title.size();
         }
+    };
+
+    // helper data that holds diagnostics suppressions
+    class DiagnosticSuppression
+    {
+        struct Suppression {
+            QRegularExpression diag, code;
+        };
+        QVector<Suppression> m_suppressions;
+        QPointer<KTextEditor::Document> m_document;
+
+    public:
+        // construct from configuration
+        DiagnosticSuppression(self_type *self, KTextEditor::Document *doc, const QJsonObject &serverConfig)
+            : m_document(doc)
+        {
+            // check regexp and report
+            auto checkRegExp = [self](const QRegularExpression &regExp) {
+                auto valid = regExp.isValid();
+                if (!valid) {
+                    auto error = regExp.errorString();
+                    auto offset = regExp.patternErrorOffset();
+                    auto msg = i18nc("@info", "Error in regular expression: %1\noffset %2: %3", regExp.pattern(), offset, error);
+                    self->onShowMessage(KTextEditor::Message::Error, msg);
+                }
+                return valid;
+            };
+
+            Q_ASSERT(doc);
+            const auto localPath = doc->url().toLocalFile();
+            const auto supps = serverConfig.value(QStringLiteral("suppressions")).toObject();
+            for (const auto &entry : supps) {
+                // should be (array) tuple (last element optional)
+                // [url regexp, message regexp, code regexp]
+                const auto patterns = entry.toArray();
+                if (patterns.size() >= 2) {
+                    const auto urlRegExp = QRegularExpression(patterns.at(0).toString());
+                    if (urlRegExp.isValid() && urlRegExp.match(localPath).hasMatch()) {
+                        QRegularExpression diagRegExp, codeRegExp;
+                        diagRegExp = QRegularExpression(patterns.at(1).toString());
+                        if (patterns.size() >= 3) {
+                            codeRegExp = QRegularExpression(patterns.at(2).toString());
+                        }
+                        if (checkRegExp(diagRegExp) && checkRegExp(codeRegExp)) {
+                            m_suppressions.push_back({diagRegExp, codeRegExp});
+                        }
+                    }
+                }
+            }
+            // also consider session suppressions
+            for (const auto &entry : self->m_sessionDiagnosticSuppressions.getSuppressions(localPath)) {
+                auto pattern = QRegularExpression::escape(entry);
+                m_suppressions.push_back({QRegularExpression(pattern), {}});
+            }
+        }
+
+        bool match(const QStandardItem &item) const
+        {
+            for (const auto &s : m_suppressions) {
+                if (s.diag.match(item.text()).hasMatch()) {
+                    // retrieve and check code text if we need to match the content as well
+                    if (m_document && !s.code.pattern().isEmpty()) {
+                        auto range = item.data(RangeData::RangeRole).value<LSPRange>();
+                        auto code = m_document->text(range);
+                        if (!s.code.match(code).hasMatch()) {
+                            continue;
+                        }
+                    }
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        KTextEditor::Document *document()
+        {
+            return m_document;
+        }
+    };
+
+    // likewise; a custom item for document level model item
+    struct DocumentDiagnosticItem : public QStandardItem {
+        QScopedPointer<DiagnosticSuppression> m_diagnosticSuppression;
+        bool m_enabled = true;
     };
 
     // double click on:
@@ -2026,9 +2200,10 @@ public:
 
     static QStandardItem *getItem(const QStandardItemModel &model, const QUrl &url)
     {
-        auto l = model.findItems(url.toLocalFile());
+        // local file in custom role, Qt::DisplayRole might have additional elements
+        auto l = model.match(model.index(0, 0, QModelIndex()), Qt::UserRole, url.toLocalFile(), 1, Qt::MatchExactly);
         if (l.length()) {
-            return l.at(0);
+            return model.itemFromIndex(l.at(0));
         }
         return nullptr;
     }
@@ -2065,6 +2240,9 @@ public:
             }
             for (int i = first; i < last; ++i) {
                 auto item = topItem->child(i);
+                if (!(item->flags() & Qt::ItemIsEnabled)) {
+                    continue;
+                }
                 auto range = item->data(RangeData::RangeRole).value<LSPRange>();
                 if ((onlyLine && pos.line() == range.start().line()) || (range.contains(pos))) {
                     targetItem = item;
@@ -2084,6 +2262,7 @@ public:
 
         auto hint = QAbstractItemView::PositionAtTop;
         QStandardItem *topItem = getItem(*m_diagnosticsModel, document->url());
+        updateDiagnosticsSuppression(topItem, document);
         QStandardItem *targetItem = getItem(topItem, {line, 0}, true);
         if (targetItem) {
             hint = QAbstractItemView::PositionAtCenter;
@@ -2125,6 +2304,69 @@ public:
         }
     }
 
+    Q_SLOT void onDiagnosticsMenu(const QPoint &pos)
+    {
+        Q_UNUSED(pos);
+
+        auto treeView = m_diagnosticsTree.data();
+        auto menu = new QMenu(m_diagnosticsTreeOwn.data());
+        menu->addAction(i18n("Expand All"), treeView, &QTreeView::expandAll);
+        menu->addAction(i18n("Collapse All"), treeView, &QTreeView::collapseAll);
+        menu->addSeparator();
+
+        QModelIndex index = treeView->currentIndex();
+        auto item = m_diagnosticsModel->itemFromIndex(index);
+        auto diagItem = dynamic_cast<DiagnosticItem *>(item);
+        auto docDiagItem = dynamic_cast<DocumentDiagnosticItem *>(item);
+
+        if (diagItem) {
+            auto diagText = index.data().toString();
+            auto parent = index.parent();
+            docDiagItem = dynamic_cast<DocumentDiagnosticItem *>(m_diagnosticsModel->itemFromIndex(parent));
+            // track validity of raw pointer
+            QPersistentModelIndex pindex(parent);
+            auto h = [this, pindex, diagText, docDiagItem](bool add, const QString &file, const QString &diagnostic) {
+                if (!pindex.isValid()) {
+                    return;
+                }
+                if (add) {
+                    m_sessionDiagnosticSuppressions.add(file, diagnostic);
+                } else {
+                    m_sessionDiagnosticSuppressions.remove(file, diagnostic);
+                }
+                updateDiagnosticsSuppression(docDiagItem, docDiagItem->m_diagnosticSuppression->document(), true);
+            };
+            using namespace std::placeholders;
+            const auto empty = QString();
+            if (m_sessionDiagnosticSuppressions.hasSuppression(empty, diagText)) {
+                menu->addAction(i18n("Remove Global Suppression"), this, std::bind(h, false, empty, diagText));
+            } else {
+                menu->addAction(i18n("Add Global Suppression"), this, std::bind(h, true, empty, diagText));
+            }
+            auto file = parent.data(Qt::UserRole).toString();
+            if (m_sessionDiagnosticSuppressions.hasSuppression(file, diagText)) {
+                menu->addAction(i18n("Remove Local Suppression"), this, std::bind(h, false, file, diagText));
+            } else {
+                menu->addAction(i18n("Add Local Suppression"), this, std::bind(h, true, file, diagText));
+            }
+        } else if (docDiagItem) {
+            // track validity of raw pointer
+            QPersistentModelIndex pindex(index);
+            auto h = [this, docDiagItem, pindex](bool enabled) {
+                if (pindex.isValid()) {
+                    docDiagItem->m_enabled = enabled;
+                }
+                updateDiagnosticsState(docDiagItem);
+            };
+            if (docDiagItem->m_enabled) {
+                menu->addAction(i18n("Disable Suppression"), this, std::bind(h, false));
+            } else {
+                menu->addAction(i18n("Enable Suppression"), this, std::bind(h, true));
+            }
+        }
+        menu->popup(QCursor::pos());
+    }
+
     Q_SLOT void onMarkClicked(KTextEditor::Document *document, KTextEditor::Mark mark, bool &handled)
     {
         // no action if no mark was sprinkled here
@@ -2149,9 +2391,10 @@ public:
             if (diagnostics.diagnostics.empty()) {
                 return;
             }
-            topItem = new QStandardItem();
+            topItem = new DocumentDiagnosticItem();
             model->appendRow(topItem);
             topItem->setText(diagnostics.uri.toLocalFile());
+            topItem->setData(diagnostics.uri.toLocalFile(), Qt::UserRole);
         } else {
             // try to retain current position
             auto currentIndex = m_diagnosticsTree->currentIndex();
@@ -2190,9 +2433,8 @@ public:
         // TODO perhaps add some custom delegate that only shows 1 line
         // and only the whole text when item selected ??
         m_diagnosticsTree->setExpanded(topItem->index(), true);
-        m_diagnosticsTree->setRowHidden(topItem->row(), QModelIndex(), topItem->rowCount() == 0);
 
-        updateMarks();
+        updateDiagnosticsState(topItem);
         // also sync updated diagnostic to current position
         auto currentView = m_mainWindow->activeView();
         if (currentView && currentView->document()) {
@@ -2203,6 +2445,71 @@ public:
                 }
             }
         }
+    }
+
+    void updateDiagnosticsSuppression(QStandardItem *topItem, KTextEditor::Document *doc, bool force = false)
+    {
+        if (!topItem || !doc) {
+            return;
+        }
+
+        auto diagTopItem = static_cast<DocumentDiagnosticItem *>(topItem);
+        auto &suppressions = diagTopItem->m_diagnosticSuppression;
+        if (!suppressions || force) {
+            auto config = m_serverManager->findServerConfig(doc);
+            if (config.isObject()) {
+                auto supp = new DiagnosticSuppression(this, doc, config.toObject());
+                suppressions.reset(supp);
+                updateDiagnosticsState(topItem);
+            }
+        }
+    }
+
+    void updateDiagnosticsState(QStandardItem *topItem)
+    {
+        if (!topItem) {
+            return;
+        }
+
+        auto diagTopItem = static_cast<DocumentDiagnosticItem *>(topItem);
+        auto enabled = diagTopItem->m_enabled;
+        auto suppressions = enabled ? diagTopItem->m_diagnosticSuppression.data() : nullptr;
+
+        int totalCount = topItem->rowCount();
+        int count = 0;
+        for (int i = 0; i < totalCount; ++i) {
+            auto item = topItem->child(i);
+            auto hide = suppressions && item && suppressions->match(*item);
+            // mark accordingly as flag and (un)hide
+            auto flags = item->flags();
+            const auto ENABLED = Qt::ItemFlag::ItemIsEnabled;
+            if ((flags & ENABLED) != !hide) {
+                flags = hide ? (flags & ~ENABLED) : (flags | ENABLED);
+                item->setFlags(flags);
+                m_diagnosticsTree->setRowHidden(item->row(), topItem->index(), hide);
+            }
+            count += hide ? 0 : 1;
+        }
+        // adjust file item level text
+        auto suppressed = totalCount - count;
+        auto text = topItem->data(Qt::UserRole).toString();
+        topItem->setText(suppressed ? i18nc("@info", "%1 [suppressed: %2]", text, suppressed) : text);
+        // only hide if really nothing below
+        m_diagnosticsTree->setRowHidden(topItem->row(), QModelIndex(), totalCount == 0);
+
+        updateMarks();
+    }
+
+    void onServerChanged()
+    {
+        // need to clear suppressions
+        // will be filled at suitable time
+        auto &model = m_diagnosticsModel;
+        for (int i = 0; i < model->rowCount(); ++i) {
+            auto diagItem = static_cast<DocumentDiagnosticItem *>(model->item(i));
+            diagItem->m_diagnosticSuppression.reset();
+        }
+        updateState();
     }
 
     QString onTextHint(KTextEditor::View *view, const KTextEditor::Cursor &position)
@@ -2605,9 +2912,10 @@ public:
     }
 };
 
-class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient
+class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient, public KTextEditor::SessionConfigInterface
 {
     Q_OBJECT
+    Q_INTERFACES(KTextEditor::SessionConfigInterface)
 
     typedef LSPClientPluginViewImpl self_type;
 
@@ -2642,6 +2950,16 @@ public:
         m_actionView.reset();
         m_serverManager.reset();
         m_mainWindow->guiFactory()->removeClient(this);
+    }
+
+    void readSessionConfig(const KConfigGroup &config) override
+    {
+        m_actionView->sessionDiagnosticSuppressions().readSessionConfig(config);
+    }
+
+    void writeSessionConfig(KConfigGroup &config) override
+    {
+        m_actionView->sessionDiagnosticSuppressions().writeSessionConfig(config);
     }
 
 Q_SIGNALS:

@@ -1986,12 +1986,32 @@ public:
         QStandardItem *targetItem = nullptr;
         if (topItem) {
             int count = topItem->rowCount();
+            int first = 0, last = count;
             // let's not run wild on a linear search in a flood of diagnostics
-            // user is already in enough trouble as it is ;-)
             if (count > 50) {
-                count = 0;
+                // instead, let's *assume* sorted and use binary search to get closer
+                // it probably is sorted, so it should work out
+                // if not, at least we tried (without spending/wasting more on sorting)
+                auto getLine = [topItem, count](int index) {
+                    Q_ASSERT(index >= 0);
+                    Q_ASSERT(index < count);
+                    auto range = topItem->child(index)->data(RangeData::RangeRole).value<LSPRange>();
+                    return range.start().line();
+                };
+                int first = 0, last = count - 1;
+                int target = pos.line();
+                while (first + 1 < last) {
+                    int middle = first + (last - first) / 2;
+                    Q_ASSERT(first != middle);
+                    Q_ASSERT(middle != last);
+                    if (getLine(middle) < target) {
+                        first = middle;
+                    } else {
+                        last = middle;
+                    }
+                }
             }
-            for (int i = 0; i < count; ++i) {
+            for (int i = first; i < last; ++i) {
                 auto item = topItem->child(i);
                 auto range = item->data(RangeData::RangeRole).value<LSPRange>();
                 if ((onlyLine && pos.line() == range.start().line()) || (range.contains(pos))) {

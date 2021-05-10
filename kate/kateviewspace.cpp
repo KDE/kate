@@ -629,18 +629,19 @@ void KateViewSpace::saveConfig(KConfigBase *config, int myIndex, const QString &
     QString groupname = QString(viewConfGrp + QStringLiteral("-ViewSpace %1")).arg(myIndex);
 
     // aggregate all views in view space (LRU ordered)
-    QVector<KTextEditor::View *> views;
+    std::vector<KTextEditor::View *> views;
     QStringList lruList;
-    for (KTextEditor::Document *doc : documentList()) {
+    const auto docList = documentList();
+    for (KTextEditor::Document *doc : docList) {
         lruList << doc->url().toString();
         if (m_docToView.contains(doc)) {
-            views.append(m_docToView[doc]);
+            views.push_back(m_docToView[doc]);
         }
     }
 
     KConfigGroup group(config, groupname);
     group.writeEntry("Documents", lruList);
-    group.writeEntry("Count", views.count());
+    group.writeEntry("Count", views.size());
 
     if (currentView()) {
         group.writeEntry("Active View", currentView()->document()->url().toString());
@@ -648,14 +649,15 @@ void KateViewSpace::saveConfig(KConfigBase *config, int myIndex, const QString &
 
     // Save file list, including cursor position in this instance.
     int idx = 0;
-    for (QVector<KTextEditor::View *>::iterator it = views.begin(); it != views.end(); ++it) {
-        if (!(*it)->document()->url().isEmpty()) {
-            group.writeEntry(QStringLiteral("View %1").arg(idx), (*it)->document()->url().toString());
+    for (auto view : views) {
+        const auto url = view->document()->url();
+        if (!url.isEmpty()) {
+            group.writeEntry(QStringLiteral("View %1").arg(idx), url.toString());
 
             // view config, group: "ViewSpace <n> url"
-            QString vgroup = QStringLiteral("%1 %2").arg(groupname, (*it)->document()->url().toString());
+            QString vgroup = QStringLiteral("%1 %2").arg(groupname, url.toString());
             KConfigGroup viewGroup(config, vgroup);
-            (*it)->writeSessionConfig(viewGroup);
+            view->writeSessionConfig(viewGroup);
         }
 
         ++idx;

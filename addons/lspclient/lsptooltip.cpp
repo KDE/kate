@@ -64,10 +64,10 @@ public:
         }
     }
 
-    Tooltip(QWidget *parent, int timeout)
+    Tooltip(QWidget *parent, bool manual)
         : QTextBrowser(parent)
         , hl(document())
-        , m_hideTimeout(timeout)
+        , m_manual(manual)
     {
         setWindowFlags(Qt::FramelessWindowHint | Qt::BypassGraphicsProxyWidget | Qt::ToolTip);
         setAttribute(Qt::WA_DeleteOnClose, true);
@@ -110,8 +110,13 @@ public:
         case QEvent::WindowDeactivate:
         case QEvent::FocusOut:
         case QEvent::FocusIn:
-            if (!inContextMenu)
+            if (!inContextMenu && !m_view->hasFocus()) {
                 hideTooltip();
+            }
+            break;
+        case QEvent::MouseMove:
+            if (!m_manual && !hasFocus())
+                hideTooltipWithDelay();
             break;
         case QEvent::MouseButtonPress:
         case QEvent::MouseButtonRelease:
@@ -139,6 +144,11 @@ public:
     Q_SLOT void hideTooltip()
     {
         deleteLater();
+    }
+
+    Q_SLOT void hideTooltipWithDelay()
+    {
+        m_hideTimer.start(100);
     }
 
     void resizeTip(const QString &text)
@@ -184,13 +194,6 @@ public:
     }
 
 protected:
-    void showEvent(QShowEvent *event) override
-    {
-        if (m_hideTimeout > 0) {
-            m_hideTimer.start(m_hideTimeout);
-        }
-        QTextBrowser::showEvent(event);
-    }
 
     void enterEvent(QEvent *event) override
     {
@@ -213,7 +216,6 @@ protected:
         if (rect().contains(pos)) {
             return QTextBrowser::mouseMoveEvent(event);
         }
-        hideTooltip();
     }
 
     void contextMenuEvent(QContextMenuEvent *e) override
@@ -227,10 +229,10 @@ private:
     QPointer<KTextEditor::View> m_view;
     QTimer m_hideTimer;
     KSyntaxHighlighting::SyntaxHighlighter hl;
-    int m_hideTimeout;
+    bool m_manual;
 };
 
-void LspTooltip::show(const QString &text, QPoint pos, KTextEditor::View *v, int timeout)
+void LspTooltip::show(const QString &text, QPoint pos, KTextEditor::View *v, bool manual)
 {
     if (text.isEmpty())
         return;
@@ -239,7 +241,10 @@ void LspTooltip::show(const QString &text, QPoint pos, KTextEditor::View *v, int
         return;
     }
 
-    auto tooltip = new Tooltip(v, timeout);
+    static QPointer<Tooltip> tooltip = nullptr;
+    delete tooltip;
+
+    tooltip = new Tooltip(v, manual);
     tooltip->show();
     tooltip->setView(v);
     tooltip->setTooltipText(text);

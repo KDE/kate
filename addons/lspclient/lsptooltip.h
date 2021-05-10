@@ -22,7 +22,7 @@ class LspTooltip
 {
 public:
     // tooltip hidden after timeout msec (if > 0)
-    static void show(const QString &text, QPoint pos, KTextEditor::View *v, int timeout);
+    static void show(const QString &text, QPoint pos, KTextEditor::View *v, bool manual);
 };
 
 #endif // LSPTOOLTIP_H

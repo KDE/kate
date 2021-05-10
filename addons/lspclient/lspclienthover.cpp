@@ -81,7 +81,7 @@ public:
 
                 // make sure there is no selection, otherwise we interrupt
                 if (!v->selection()) {
-                    LspTooltip::show(finalTooltip, v->mapToGlobal(v->cursorToCoordinate(position)), v, manual ? 0 : 1000);
+                    LspTooltip::show(finalTooltip, v->mapToGlobal(v->cursorToCoordinate(position)), v, manual);
                 }
             };
 

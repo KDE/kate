@@ -347,7 +347,8 @@ public:
             const auto &m = m_matches.at(index.row());
             // add parentheses if function and guestimated meaningful for language in question
             // this covers at least the common cases such as clangd, python, etc
-            bool addParens = m_complParens && isFunctionKind(m.kind) && m_triggersSignature.contains(QLatin1Char('('));
+            // also no need to add one if the next char is already
+            bool addParens = m_complParens && next != QLatin1Char('(') && isFunctionKind(m.kind) && m_triggersSignature.contains(QLatin1Char('('));
             if (addParens) {
                 matching += QStringLiteral("()");
             }

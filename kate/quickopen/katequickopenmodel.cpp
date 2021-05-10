@@ -11,12 +11,14 @@
 #include "kateapp.h"
 #include "katemainwindow.h"
 
-#include <ktexteditor/document.h>
-#include <ktexteditor/view.h>
+#include <KTextEditor/Document>
+#include <KTextEditor/View>
 
 #include <QFileInfo>
 #include <QIcon>
 #include <QMimeDatabase>
+
+#include <unordered_set>
 
 KateQuickOpenModel::KateQuickOpenModel(QObject *parent)
     : QAbstractTableModel(parent)
@@ -105,17 +107,20 @@ void KateQuickOpenModel::refresh(KateMainWindow *mainWindow)
 
     m_projectBase = projectBase;
 
-    QVector<ModelEntry> allDocuments;
+    std::vector<ModelEntry> allDocuments;
     allDocuments.reserve(sortedViews.size() + projectDocs.size());
 
-    QSet<QString> openedDocUrls;
+    std::unordered_set<QString> openedDocUrls;
     openedDocUrls.reserve(sortedViews.size());
 
     const auto collectDoc = [&openedDocUrls, &allDocuments](KTextEditor::Document *doc) {
         auto path = doc->url().toString(QUrl::NormalizePathSegments | QUrl::PreferLocalFile);
-        if (openedDocUrls.contains(path)) {
+
+        // We don't want any duplicates
+        if (openedDocUrls.count(path) != 0) {
             return;
         }
+
         openedDocUrls.insert(path);
         // prefer the real filename, since documentName might be `foo (2)`
         // (which is not a suffix of the path)
@@ -126,21 +131,24 @@ void KateQuickOpenModel::refresh(KateMainWindow *mainWindow)
         allDocuments.push_back({doc->url(), fileName, path, true, -1});
     };
 
-    for (auto *view : qAsConst(sortedViews)) {
+    for (auto *view : sortedViews) {
         collectDoc(view->document());
     }
 
-    for (auto *doc : qAsConst(openDocs)) {
+    for (auto *doc : openDocs) {
         collectDoc(doc);
     }
 
-    for (const auto &file : qAsConst(projectDocs)) {
-        QFileInfo fi(file);
-        // projectDocs items have full path already, reuse that
-        if (openedDocUrls.contains(file)) {
+    for (const auto &filePath : projectDocs) {
+        // No duplicates
+        if (openedDocUrls.count(filePath) != 0) {
             continue;
         }
-        allDocuments.push_back({QUrl(), fi.fileName(), file, false, -1});
+
+        // QFileInfo is too expensive just for fileName computation
+        const int slashIndex = filePath.lastIndexOf(QLatin1Char('/'));
+        QString fileName = filePath.mid(slashIndex + 1);
+        allDocuments.push_back({QUrl(), std::move(fileName), filePath, false, -1});
     }
 
     beginResetModel();

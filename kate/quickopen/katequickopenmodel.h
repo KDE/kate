@@ -11,7 +11,8 @@
 
 #include <QAbstractTableModel>
 #include <QUrl>
-#include <QVector>
+
+#include <vector>
 
 class KateMainWindow;
 
@@ -49,7 +50,7 @@ public:
 
     bool isValid(int row) const
     {
-        return row >= 0 && row < m_modelEntries.size();
+        return row >= 0 && (size_t)row < m_modelEntries.size();
     }
 
     void setScoreForIndex(int row, int score)
@@ -86,7 +87,7 @@ public:
     }
 
 private:
-    QVector<ModelEntry> m_modelEntries;
+    std::vector<ModelEntry> m_modelEntries;
     QString m_projectBase;
     List m_listMode{};
 };

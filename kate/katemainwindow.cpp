@@ -1176,6 +1176,9 @@ void KateMainWindow::queueModifiedOnDisc(KTextEditor::Document *doc)
         s_modOnHdDialog = new KateMwModOnHdDialog(list, this);
         m_modignore = true;
         KWindowSystem::setOnAllDesktops(s_modOnHdDialog->winId(), true);
+        connect(s_modOnHdDialog, &KateMwModOnHdDialog::requesOpenDiffDocumment, this, [this](const QUrl &url) {
+            viewManager()->openUrl(url, QString(), true, true);
+        });
         s_modOnHdDialog->exec();
         delete s_modOnHdDialog; // s_modOnHdDialog is set to 0 in destructor of KateMwModOnHdDialog (jowenn!!!)
         m_modignore = false;

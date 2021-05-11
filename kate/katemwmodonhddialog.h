@@ -32,6 +32,9 @@ public:
     ~KateMwModOnHdDialog() override;
     void addDocument(KTextEditor::Document *doc);
 
+Q_SIGNALS:
+    void requesOpenDiffDocumment(const QUrl &documentUrl);
+
 private Q_SLOTS:
     void slotIgnore();
     void slotOverwrite();

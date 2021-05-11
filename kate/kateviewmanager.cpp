@@ -24,7 +24,6 @@
 #include <KConfigGroup>
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <KRecentFilesAction>
 #include <KToolBar>
 #include <KXMLGUIFactory>
 
@@ -282,7 +281,9 @@ KTextEditor::Document *KateViewManager::openUrl(const QUrl &url, const QString &
 {
     KTextEditor::Document *doc = KateApp::self()->documentManager()->openUrl(url, encoding, isTempFile, docInfo);
 
-    m_mainWindow->addRecentOpenedFile(doc->url());
+    if (!isTempFile) {
+        m_mainWindow->addRecentOpenedFile(doc->url());
+    }
 
     if (activate) {
         activateView(doc);
@@ -295,8 +296,10 @@ KTextEditor::Document *KateViewManager::openUrls(const QList<QUrl> &urls, const 
 {
     const QList<KTextEditor::Document *> docs = KateApp::self()->documentManager()->openUrls(urls, encoding, isTempFile, docInfo);
 
-    for (const KTextEditor::Document *doc : docs) {
-        m_mainWindow->addRecentOpenedFile(doc->url());
+    if (!isTempFile) {
+        for (const KTextEditor::Document *doc : docs) {
+            m_mainWindow->addRecentOpenedFile(doc->url());
+        }
     }
 
     return docs.isEmpty() ? nullptr : docs.last();

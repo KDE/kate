@@ -344,11 +344,7 @@ void KateMwModOnHdDialog::slotPDone()
     delete m_diffFile;
     m_diffFile = nullptr;
 
-    // OpenUrlJob will delete the temp. file
-    auto *job = new KIO::OpenUrlJob(url, QStringLiteral("text/x-patch"));
-    job->setUiDelegate(new KIO::JobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, this));
-    job->setDeleteTemporaryFile(true);
-    job->start();
+    Q_EMIT requesOpenDiffDocumment(url);
 }
 
 void KateMwModOnHdDialog::addDocument(KTextEditor::Document *doc)

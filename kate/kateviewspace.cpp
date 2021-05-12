@@ -641,7 +641,7 @@ void KateViewSpace::saveConfig(KConfigBase *config, int myIndex, const QString &
 
     KConfigGroup group(config, groupname);
     group.writeEntry("Documents", lruList);
-    group.writeEntry("Count", views.size());
+    group.writeEntry("Count", static_cast<int>(views.size()));
 
     if (currentView()) {
         group.writeEntry("Active View", currentView()->document()->url().toString());

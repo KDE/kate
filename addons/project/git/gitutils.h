@@ -83,6 +83,8 @@ QVector<Branch> getAllBranches(const QString &repo);
  * @brief get all local and remote branches + tags
  */
 QVector<Branch> getAllBranchesAndTags(const QString &repo, RefType ref = RefType::All);
+
+std::pair<QString, QString> getLastCommitMessage(const QString &repo);
 }
 
 Q_DECLARE_TYPEINFO(GitUtils::Branch, Q_MOVABLE_TYPE);

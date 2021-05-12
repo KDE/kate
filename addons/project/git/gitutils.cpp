@@ -162,3 +162,33 @@ QVector<GitUtils::Branch> GitUtils::getAllBranches(const QString &repo)
 {
     return getAllBranchesAndTags(repo, static_cast<RefType>(RefType::Head | RefType::Remote));
 }
+
+std::pair<QString, QString> GitUtils::getLastCommitMessage(const QString &repo)
+{
+    // git log -1 --pretty=%B
+    QProcess git;
+    git.setWorkingDirectory(repo);
+    const QStringList args{QStringLiteral("log"), QStringLiteral("-1"), QStringLiteral("--pretty=%B")};
+    git.start(QStringLiteral("git"), args, QProcess::ReadOnly);
+    if (git.waitForStarted() && git.waitForFinished(-1)) {
+        if (git.exitCode() != 0 || git.exitStatus() != QProcess::NormalExit) {
+            return {};
+        }
+
+        QList<QByteArray> output = git.readAllStandardOutput().split('\n');
+        if (output.isEmpty()) {
+            return {};
+        }
+
+        QString msg = QString::fromUtf8(output.at(0));
+        QString desc;
+        if (output.size() > 1) {
+            desc = std::accumulate(output.cbegin() + 1, output.cend(), QString::fromUtf8(output.at(1)), [](const QString &line, const QByteArray &ba) {
+                return QString(line + QString::fromUtf8(ba) + QStringLiteral("\n"));
+            });
+            desc = desc.trimmed();
+        }
+        return {msg, desc};
+    }
+    return {};
+}

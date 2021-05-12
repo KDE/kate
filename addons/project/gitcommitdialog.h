@@ -24,9 +24,12 @@ public:
     QString subject() const;
     QString description() const;
     bool signoff() const;
+    bool amendingLastCommit() const;
+    void setAmendingCommit();
 
 private:
     Q_SLOT void updateLineSizeLabel();
+    void loadCommitMessage(const QString &lastCommit);
 
     QLineEdit m_le;
     QPlainTextEdit m_pe;
@@ -35,6 +38,7 @@ private:
     QLabel m_leLen;
     QLabel m_peLen;
     QCheckBox m_cbSignOff;
+    QCheckBox m_cbAmend;
 };
 
 #endif // GITCOMMITDIALOG_H

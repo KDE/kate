@@ -233,7 +233,7 @@ GitWidget::GitWidget(KateProject *project, KTextEditor::MainWindow *mainWindow, 
     m_mainView->setLayout(layout);
 
     connect(&m_gitStatusWatcher, &QFutureWatcher<GitUtils::GitParsedStatus>::finished, this, &GitWidget::parseStatusReady);
-    connect(m_commitBtn, &QPushButton::clicked, this, &GitWidget::opencommitChangesDialog);
+    connect(m_commitBtn, &QPushButton::clicked, this, &GitWidget::openCommitChangesDialog);
 
     // single / double click
     connect(m_treeView, &QTreeView::clicked, this, &GitWidget::treeViewSingleClicked);
@@ -516,12 +516,18 @@ void GitWidget::launchExternalDiffTool(const QString &file, bool staged)
     git.startDetached(QStringLiteral("git"), args, m_gitPath);
 }
 
-void GitWidget::commitChanges(const QString &msg, const QString &desc, bool signOff)
+void GitWidget::commitChanges(const QString &msg, const QString &desc, bool signOff, bool amend)
 {
     auto args = QStringList{QStringLiteral("commit")};
+
+    if (amend) {
+        args.append(QStringLiteral("--amend"));
+    }
+
     if (signOff) {
         args.append(QStringLiteral("-s"));
     }
+
     args.append(QStringLiteral("-m"));
     args.append(msg);
     if (!desc.isEmpty()) {
@@ -607,9 +613,9 @@ void GitWidget::applyDiff(const QString &fileName, bool staged, bool hunk, KText
     git->start(QProcess::ReadOnly);
 }
 
-void GitWidget::opencommitChangesDialog()
+void GitWidget::openCommitChangesDialog(bool amend)
 {
-    if (m_model->stagedFiles().isEmpty()) {
+    if (!amend && m_model->stagedFiles().isEmpty()) {
         return sendMessage(i18n("Nothing to commit. Please stage your changes first."), true);
     }
 
@@ -623,6 +629,10 @@ void GitWidget::opencommitChangesDialog()
 
     GitCommitDialog *dialog = new GitCommitDialog(m_commitMessage, font, this);
 
+    if (amend) {
+        dialog->setAmendingCommit();
+    }
+
     connect(dialog, &QDialog::finished, this, [this, dialog](int res) {
         dialog->deleteLater();
         if (res == QDialog::Accepted) {
@@ -630,7 +640,7 @@ void GitWidget::opencommitChangesDialog()
                 return sendMessage(i18n("Commit message cannot be empty."), true);
             }
             m_commitMessage = dialog->subject() + QStringLiteral("[[\n\n]]") + dialog->description();
-            commitChanges(dialog->subject(), dialog->description(), dialog->signoff());
+            commitChanges(dialog->subject(), dialog->description(), dialog->signoff(), dialog->amendingLastCommit());
         }
     });
 
@@ -803,6 +813,10 @@ void GitWidget::buildMenu()
         }
     });
     r->setIcon(QIcon::fromTheme(QStringLiteral("view-refresh")));
+
+    m_gitMenu->addAction(QIcon::fromTheme(QStringLiteral("document-edit")), i18n("Amend Last Commit"), this, [this] {
+        openCommitChangesDialog(/* amend = */ true);
+    });
 
     auto a = m_gitMenu->addAction(i18n("Checkout Branch"), this, [this] {
         BranchCheckoutDialog bd(m_mainWin->window(), m_pluginView, m_project->baseDir());

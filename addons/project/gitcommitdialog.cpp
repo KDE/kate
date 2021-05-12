@@ -4,6 +4,8 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 #include "gitcommitdialog.h"
+#include "git/gitutils.h"
+#include "gitwidget.h"
 
 #include <QCoreApplication>
 #include <QDebug>
@@ -61,6 +63,8 @@ static void changeTextColorToRed(QLineEdit *lineEdit, const QColor &red)
 GitCommitDialog::GitCommitDialog(const QString &lastCommit, const QFont &font, QWidget *parent, Qt::WindowFlags f)
     : QDialog(parent, f)
 {
+    Q_ASSERT(parent);
+
     setWindowTitle(i18n("Commit Changes"));
 
     ok.setText(i18n("Commit"));
@@ -78,14 +82,17 @@ GitCommitDialog::GitCommitDialog(const QString &lastCommit, const QFont &font, Q
     m_pe.setPlaceholderText(i18n("Extended commit description..."));
     m_pe.setFont(font);
 
+    /** Dialog's main layout **/
     QVBoxLayout *vlayout = new QVBoxLayout(this);
     vlayout->setContentsMargins(4, 4, 4, 4);
     setLayout(vlayout);
 
+    /** Setup the label at the top **/
     QHBoxLayout *hLayoutLine = new QHBoxLayout;
     hLayoutLine->addStretch();
     hLayoutLine->addWidget(&m_leLen);
 
+    /** Setup plaintextedit and line edit **/
     vlayout->addLayout(hLayoutLine);
     vlayout->addWidget(&m_le);
     vlayout->addWidget(&m_pe);
@@ -94,21 +101,37 @@ GitCommitDialog::GitCommitDialog(const QString &lastCommit, const QFont &font, Q
     m_pe.resize(width, m_pe.height());
     resize(width, fm.averageCharWidth() * 52);
 
-    // restore last message ?
-    if (!lastCommit.isEmpty()) {
-        auto msgs = lastCommit.split(QStringLiteral("[[\n\n]]"));
-        if (!msgs.isEmpty()) {
-            m_le.setText(msgs.at(0));
-            if (msgs.length() > 1) {
-                m_pe.setPlainText(msgs.at(1));
-            }
-        }
-    }
+    loadCommitMessage(lastCommit);
 
+    auto bottomLayout = new QHBoxLayout;
+
+    /** Setup checkboxes at the bottom **/
     m_cbSignOff.setChecked(false);
     m_cbSignOff.setText(i18n("Sign off"));
-    vlayout->addWidget(&m_cbSignOff);
+    bottomLayout->addWidget(&m_cbSignOff);
 
+    m_cbAmend.setChecked(false);
+    m_cbAmend.setText(i18n("Amend"));
+    m_cbAmend.setToolTip(i18n("Amend Last Commit"));
+    connect(&m_cbAmend, &QCheckBox::stateChanged, this, [this](int state) {
+        if (state != Qt::Checked) {
+            ok.setText(i18n("Commit"));
+            setWindowTitle(i18n("Commit Changes"));
+            return;
+        }
+        setWindowTitle(i18n("Amending Commit"));
+        ok.setText(i18n("Amend"));
+        const auto [msg, desc] = GitUtils::getLastCommitMessage(static_cast<GitWidget *>(this->parentWidget())->dotGitPath());
+        m_le.setText(msg);
+        m_pe.setPlainText(desc);
+    });
+
+    bottomLayout->addWidget(&m_cbAmend);
+    bottomLayout->addStretch();
+
+    vlayout->addLayout(bottomLayout);
+
+    /** Setup Ok / Cancel Button **/
     QHBoxLayout *hLayout = new QHBoxLayout;
     hLayout->addStretch();
     hLayout->addWidget(&ok);
@@ -122,8 +145,27 @@ GitCommitDialog::GitCommitDialog(const QString &lastCommit, const QFont &font, Q
 
     vlayout->addLayout(hLayout);
 
+    /**
+     * Setup highlighting which changes text color to red if
+     * it crosses the 72 char threshold
+     */
     auto hl = new BadLengthHighlighter(m_pe.document(), 72);
     Q_UNUSED(hl)
+}
+
+void GitCommitDialog::loadCommitMessage(const QString &lastCommit)
+{
+    if (lastCommit.isEmpty()) {
+        return;
+    }
+    // restore last message ?
+    auto msgs = lastCommit.split(QStringLiteral("[[\n\n]]"));
+    if (!msgs.isEmpty()) {
+        m_le.setText(msgs.at(0));
+        if (msgs.length() > 1) {
+            m_pe.setPlainText(msgs.at(1));
+        }
+    }
 }
 
 QString GitCommitDialog::subject() const
@@ -141,13 +183,23 @@ bool GitCommitDialog::signoff() const
     return m_cbSignOff.isChecked();
 }
 
+bool GitCommitDialog::amendingLastCommit() const
+{
+    return m_cbAmend.isChecked();
+}
+
+void GitCommitDialog::setAmendingCommit()
+{
+    m_cbAmend.setChecked(true);
+}
+
 void GitCommitDialog::updateLineSizeLabel()
 {
-    const QColor red = KColorScheme().foreground(KColorScheme::NegativeText).color();
     int len = m_le.text().length();
     if (len < 52) {
         m_leLen.setText(i18nc("Number of characters", "%1 / 52", QString::number(len)));
     } else {
+        const QColor red = KColorScheme().foreground(KColorScheme::NegativeText).color();
         changeTextColorToRed(&m_le, red);
         m_leLen.setText(i18nc("Number of characters", "<span style=\"color:%1;\">%2</span> / 52", red.name(), QString::number(len)));
     }

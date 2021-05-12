@@ -49,6 +49,11 @@ public:
     // will just proxy the message to the plugin view
     void sendMessage(const QString &message, bool warn);
 
+    QString dotGitPath() const
+    {
+        return m_gitPath;
+    }
+
 private:
     QToolButton *m_menuBtn;
     QToolButton *m_commitBtn;
@@ -85,7 +90,7 @@ private:
     void openAtHEAD(const QString &file);
     void showDiff(const QString &file, bool staged);
     void launchExternalDiffTool(const QString &file, bool staged);
-    void commitChanges(const QString &msg, const QString &desc, bool signOff);
+    void commitChanges(const QString &msg, const QString &desc, bool signOff, bool amend = false);
     void applyDiff(const QString &fileName, bool staged, bool hunk, KTextEditor::View *v);
     void numStatForStatus(QVector<GitUtils::StatusItem> &list, bool modified);
     void branchCompareFiles(const QString &from, const QString &to);
@@ -104,7 +109,7 @@ private:
 
 private Q_SLOTS:
     void parseStatusReady();
-    void opencommitChangesDialog();
+    void openCommitChangesDialog(bool amend = false);
     void handleClick(const QModelIndex &idx, ClickAction clickAction);
     void treeViewSingleClicked(const QModelIndex &idx);
     void treeViewDoubleClicked(const QModelIndex &idx);

@@ -18,6 +18,7 @@
 #include <KMessageBox>
 #include <KProcess>
 
+#include <QDir>
 #include <QHeaderView>
 #include <QLabel>
 #include <QPushButton>
@@ -340,7 +341,7 @@ void KateMwModOnHdDialog::slotPDone()
     }
 
     m_diffFile->setAutoRemove(false);
-    QUrl url = QUrl::fromLocalFile(m_diffFile->fileName());
+    QUrl url = QUrl::fromLocalFile(QDir::tempPath() + "/" + m_diffFile->fileName());
     delete m_diffFile;
     m_diffFile = nullptr;
 

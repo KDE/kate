@@ -1313,6 +1313,10 @@ void KateMainWindow::addRecentOpenedFile(const QUrl &url)
     if (url.isEmpty()) {
         return;
     }
+    // skip files in /subltmp
+    if (url.path().startsWith(QDir::tempPath())) {
+        return;
+    }
 
     // to our local list, aka menu
     m_fileOpenRecent->addUrl(url);

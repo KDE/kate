@@ -1176,7 +1176,7 @@ void KateMainWindow::queueModifiedOnDisc(KTextEditor::Document *doc)
         s_modOnHdDialog = new KateMwModOnHdDialog(list, this);
         m_modignore = true;
         KWindowSystem::setOnAllDesktops(s_modOnHdDialog->winId(), true);
-        connect(s_modOnHdDialog, &KateMwModOnHdDialog::requesOpenDiffDocumment, this, [this](const QUrl &url) {
+        connect(s_modOnHdDialog, &KateMwModOnHdDialog::requestOpenDiffDocument, this, [this](const QUrl &url) {
             viewManager()->openUrl(url, QString(), true, true);
         });
         s_modOnHdDialog->exec();

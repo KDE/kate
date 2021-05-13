@@ -33,7 +33,7 @@ public:
     void addDocument(KTextEditor::Document *doc);
 
 Q_SIGNALS:
-    void requesOpenDiffDocumment(const QUrl &documentUrl);
+    void requestOpenDiffDocument(const QUrl &documentUrl);
 
 private Q_SLOTS:
     void slotIgnore();

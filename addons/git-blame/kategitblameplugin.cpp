@@ -58,9 +58,13 @@ QVector<int> GitBlameInlineNoteProvider::inlineNotes(int line) const
         return QVector<int>();
     }
 
+    if (m_mode == KateGitBlameMode::None) {
+        return {};
+    }
+
     int lineLen = doc->line(line).size();
     QPointer<KTextEditor::View> view = m_pluginView->activeView();
-    if (view->cursorPosition().line() == line) {
+    if (view->cursorPosition().line() == line || m_mode == KateGitBlameMode::AllLines) {
         return QVector<int>{lineLen + 4};
     }
     return QVector<int>();
@@ -115,6 +119,21 @@ void GitBlameInlineNoteProvider::inlineNoteActivated(const KTextEditor::InlineNo
     }
 }
 
+void GitBlameInlineNoteProvider::cycleMode()
+{
+    int newMode = (int)m_mode + 1;
+    if (newMode > (int)KateGitBlameMode::Count) {
+        newMode = 0;
+    }
+    setMode(KateGitBlameMode(newMode));
+}
+
+void GitBlameInlineNoteProvider::setMode(KateGitBlameMode mode)
+{
+    m_mode = mode;
+    Q_EMIT inlineNotesReset();
+}
+
 K_PLUGIN_FACTORY_WITH_JSON(KateGitBlamePluginFactory, "kategitblameplugin.json", registerPlugin<KateGitBlamePlugin>();)
 
 KateGitBlamePlugin::KateGitBlamePlugin(QObject *parent, const QList<QVariant> &)
@@ -143,6 +162,8 @@ KateGitBlamePluginView::KateGitBlamePluginView(KateGitBlamePlugin *plugin, KText
     QAction *showBlameAction = actionCollection()->addAction(QStringLiteral("git_blame_show"));
     showBlameAction->setText(i18n("Show Git Blame Details"));
     actionCollection()->setDefaultShortcut(showBlameAction, Qt::CTRL | Qt::ALT | Qt::Key_G);
+    QAction *toggleBlameAction = actionCollection()->addAction(QStringLiteral("git_blame_toggle"));
+    toggleBlameAction->setText(i18n("Toggle Git Blame Details"));
     m_mainWindow->guiFactory()->addClient(this);
 
     connect(showBlameAction, &QAction::triggered, plugin, [this, showBlameAction]() {
@@ -155,12 +176,17 @@ KateGitBlamePluginView::KateGitBlamePluginView(KateGitBlamePlugin *plugin, KText
         const KateGitBlameInfo &info = blameInfo(lineNr);
         showCommitInfo(info.commitHash, kv);
     });
+    connect(toggleBlameAction, &QAction::triggered, this, [this]() {
+        m_inlineNoteProvider.cycleMode();
+    });
 
     connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, &KateGitBlamePluginView::viewChanged);
 
     connect(&m_blameInfoProc, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &KateGitBlamePluginView::blameFinished);
 
     connect(&m_showProc, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &KateGitBlamePluginView::showFinished);
+
+    m_inlineNoteProvider.setMode(KateGitBlameMode::SingleLine);
 }
 
 KateGitBlamePluginView::~KateGitBlamePluginView()

@@ -24,6 +24,8 @@
 #include <QVariant>
 #include <QVector>
 
+enum class KateGitBlameMode { None, SingleLine, AllLines, Count = AllLines };
+
 struct KateGitBlameInfo {
     QString commitHash;
     QString name;
@@ -46,10 +48,13 @@ public:
     QSize inlineNoteSize(const KTextEditor::InlineNote &note) const override;
     void paintInlineNote(const KTextEditor::InlineNote &note, QPainter &painter) const override;
     void inlineNoteActivated(const KTextEditor::InlineNote &note, Qt::MouseButtons buttons, const QPoint &globalPos) override;
+    void cycleMode();
+    void setMode(KateGitBlameMode mode);
 
 private:
     KateGitBlamePluginView *m_pluginView;
     QLocale m_locale;
+    KateGitBlameMode m_mode;
 };
 
 class KateGitBlamePlugin : public KTextEditor::Plugin

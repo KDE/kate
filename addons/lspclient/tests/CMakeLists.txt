@@ -8,5 +8,6 @@ target_sources(
     lsptestapp.cpp
     ../lspclientserver.cpp
     ../lspsemantichighlighting.cpp
+    ../semantic_tokens_legend.cpp
     ${DEBUG_SOURCES}
 )

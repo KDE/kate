@@ -64,6 +64,8 @@ using CodeActionReplyHandler = ReplyHandler<QList<LSPCodeAction>>;
 using WorkspaceEditReplyHandler = ReplyHandler<LSPWorkspaceEdit>;
 using ApplyEditReplyHandler = ReplyHandler<LSPApplyWorkspaceEditResponse>;
 using SwitchSourceHeaderHandler = ReplyHandler<QString>;
+using SemanticTokensReplyHandler = ReplyHandler<LSPSemanticTokens>;
+using SemanticTokensDeltaReplyHandler = ReplyHandler<LSPSemanticTokensDelta>;
 
 class LSPClientPlugin;
 
@@ -147,6 +149,12 @@ public:
                                      QList<LSPDiagnostic> diagnostics,
                                      const QObject *context,
                                      const CodeActionReplyHandler &h);
+
+    RequestHandle documentSemanticTokensFull(const QUrl &document, const QString requestId, const QObject *context, const SemanticTokensReplyHandler &h);
+
+    RequestHandle
+    documentSemanticTokensFullDelta(const QUrl &document, const QString requestId, const QObject *context, const SemanticTokensDeltaReplyHandler &h);
+
     void executeCommand(const QString &command, const QJsonValue &args);
 
     // sync
@@ -164,7 +172,6 @@ Q_SIGNALS:
     void showMessage(const LSPShowMessageParams &);
     void logMessage(const LSPLogMessageParams &);
     void publishDiagnostics(const LSPPublishDiagnosticsParams &);
-    void semanticHighlighting(const LSPSemanticHighlightingParams &);
 
     // request = signal
     void applyEdit(const LSPApplyWorkspaceEditParams &req, const ApplyEditReplyHandler &h, bool &handled);

@@ -1,76 +1,98 @@
-/*
-    SPDX-FileCopyrightText: 2021 Waqar Ahmed <waqar.17a@gmail.com>
+#pragma once
 
-    SPDX-License-Identifier: MIT
-*/
-#ifndef SEMANTICTOKENMAP_H
-#define SEMANTICTOKENMAP_H
-
-#include <QObject>
-
-#include <vector>
+#include <QHash>
+#include <QPointer>
+#include <QString>
+#include <QUrl>
+#include <QVector>
 
 #include <KTextEditor/Attribute>
+#include <KTextEditor/MovingRange>
+#include <KTextEditor/View>
 
-namespace KTextEditor
+class SemanticTokensLegend;
+
+class SemanticHighlighter
 {
-class Editor;
-}
-
-class SemanticHighlighting : public QObject
-{
-    Q_OBJECT
-
 public:
-    explicit SemanticHighlighting(QObject *parent = nullptr);
-
-    enum TokenType : quint16 {
-        variableOtherCpp = 0,
-        variableOtherLocalCpp,
-        variableParameterCpp,
-        entityNameFunctionCpp,
-        entityNameFunctionMethodCpp,
-        entityNameFunctionMethodStaticCpp,
-        variableOtherFieldCpp,
-        variableOtherFieldStaticCpp,
-        entityNameTypeClassCpp,
-        entityNameTypeEnumCpp,
-        variableOtherEnummemberCpp,
-        entityNameTypeTypedefCpp,
-        entityNameTypeDependentCpp,
-        entityNameOtherDependentCpp,
-        entityNameNamespaceCpp,
-        entityNameTypeTemplateCpp,
-        entityNameTypeConceptCpp,
-        storageTypePrimitiveCpp,
-        entityNameFunctionPreprocessorCpp,
-        metaDisabled
-    };
-
-    Q_SLOT void themeChange(KTextEditor::Editor *e);
-
-    KTextEditor::Attribute::Ptr attrForScope(quint16 scopeidx) const
+    ~SemanticHighlighter()
     {
-        if (scopeidx > m_scopes.size()) {
-            return {};
+        for (auto &info : m_docSemanticInfo) {
+            qDeleteAll(info.movingRanges.begin(), info.movingRanges.end());
         }
-        return sharedAttrs.at(scopeidx);
     }
 
-    void scopesToAttrVector(const QVector<QString> &scopes);
+    /**
+     * Does the actual highlighting
+     */
+    void highlight(const QUrl &url);
 
-    void refresh();
+    /**
+     * Insert tokens @p data for doc with @p url
+     */
+    void insert(const QUrl &url, const QString &resultId, const std::vector<uint32_t> &data);
 
-    void clear()
+    /**
+     * Unregister a doc from highlighter and remove all its moving ranges and tokens
+     */
+    void remove(const QUrl &url);
+
+    /**
+     * This function is more or less useless for Kate? Maybe because MovingRange already handles this for us
+     *
+     * An update or SemanticTokensEdit only arrives if you entered a new line or something trivial. If you insert new characters you
+     * get a full new vector with new data which has to be replaced with the old and everything rehighlighted. This is the behaviour of
+     * clangd, not sure about others.
+     */
+    void update(const QUrl &url, const QString &resultId, uint32_t start, uint32_t deleteCount, const std::vector<uint32_t> &data);
+
+    QString resultIdForDoc(const QUrl &url) const
     {
-        m_scopes.clear();
-        sharedAttrs.clear();
+        return m_docUrlToResultId.value(url);
+    }
+
+    void setCurrentView(KTextEditor::View *v)
+    {
+        view = v;
+    }
+
+    void setLegend(const SemanticTokensLegend *legend)
+    {
+        m_legend = legend;
     }
 
 private:
-    std::vector<TokenType> m_scopes;
-    std::vector<KTextEditor::Attribute::Ptr> sharedAttrs;
-    KTextEditor::Attribute::Ptr fixedAttrs[6];
-};
+    /**
+     * A simple struct which holds the tokens recieved by server +
+     * moving ranges that were created to highlight those tokens
+     */
+    struct TokensData {
+        std::vector<uint32_t> tokens;
+        std::vector<KTextEditor::MovingRange *> movingRanges;
+    };
 
-#endif // SEMANTICTOKENMAP_H
+    /**
+     * The current active view
+     */
+    QPointer<KTextEditor::View> view;
+
+    /**
+     * token types specified in server caps. Uncomment for debuggin
+     */
+    //     QVector<QString> m_types;
+
+    /**
+     * Doc => result-id mapping
+     */
+    QHash<QUrl, QString> m_docUrlToResultId;
+
+    /**
+     * semantic token and moving range mapping for doc
+     */
+    QHash<QUrl, TokensData> m_docSemanticInfo;
+
+    /**
+     * Legend which is basically used to fetch color for a type
+     */
+    const SemanticTokensLegend *m_legend = nullptr;
+};

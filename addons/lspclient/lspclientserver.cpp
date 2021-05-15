@@ -20,6 +20,7 @@
 #include <QJsonObject>
 #include <QTime>
 #include <QtEndian>
+#include <iostream>
 #include <utility>
 
 // good/bad old school; allows easier concatenate
@@ -55,6 +56,7 @@ static const QString MEMBER_DIAGNOSTICS = QStringLiteral("diagnostics");
 static const QString MEMBER_TARGET_URI = QStringLiteral("targetUri");
 static const QString MEMBER_TARGET_RANGE = QStringLiteral("targetRange");
 static const QString MEMBER_TARGET_SELECTION_RANGE = QStringLiteral("targetSelectionRange");
+static const QString MEMBER_PREVIOUS_RESULT_ID = QStringLiteral("previousResultId");
 
 // message construction helpers
 static QJsonObject to_json(const LSPPosition &pos)
@@ -268,22 +270,40 @@ static void from_json(LSPDocumentOnTypeFormattingOptions &options, const QJsonVa
     }
 }
 
-static void from_json(LSPSemanticHighlightingOptions &options, const QJsonValue &json)
+static void from_json(LSPSemanticTokensOptions &options, const QJsonObject &json)
 {
-    if (!json.isObject()) {
+    if (json.isEmpty()) {
         return;
     }
-    const auto scopes = json.toObject().value(QStringLiteral("scopes"));
-    options.scopes.clear();
-    QVector<QString> entries;
-    for (const auto &scope_entry : scopes.toArray()) {
-        const auto json_entries = scope_entry.toArray();
-        entries.reserve(json_entries.size());
-        for (const auto &inner_json_entry : json_entries) {
-            entries.push_back(inner_json_entry.toString());
-        }
+
+    if (json.value(QStringLiteral("full")).isObject()) {
+        auto full = json.value(QStringLiteral("full")).toObject();
+        options.fullDelta = full.value(QStringLiteral("delta")).toBool();
+        options.full = options.fullDelta;
+    } else {
+        options.full = json.value(QStringLiteral("full")).toBool();
     }
-    options.scopes.scopesToAttrVector(entries);
+    options.range = json.value(QStringLiteral("range")).toBool();
+
+    const auto legend = json.value(QStringLiteral("legend")).toObject();
+    const auto tokenTypes = legend.value(QStringLiteral("tokenTypes")).toArray();
+
+    std::vector<QString> types;
+    types.reserve(tokenTypes.size());
+    std::transform(tokenTypes.cbegin(), tokenTypes.cend(), std::back_inserter(types), [](const QJsonValue &jv) {
+        return jv.toString();
+    });
+    //     options.types = QVector<QString>(types.begin(), types.end());
+    options.legend.initialize(types);
+
+    // Disabled
+
+    //     const auto tokenMods = legend.value(QStringLiteral("tokenModifiers")).toArray();
+    //     std::vector<QString> modifiers;
+    //     modifiers.reserve(tokenMods.size());
+    //     std::transform(tokenMods.cbegin(), tokenMods.cend(), std::back_inserter(modifiers), [](const QJsonValue &jv) {
+    //         return jv.toString();
+    //     });
 }
 
 static void from_json(LSPServerCapabilities &caps, const QJsonObject &json)
@@ -315,7 +335,7 @@ static void from_json(LSPServerCapabilities &caps, const QJsonObject &json)
     caps.renameProvider = toBoolOrObject(json.value(QStringLiteral("renameProvider")));
     auto codeActionProvider = json.value(QStringLiteral("codeActionProvider"));
     caps.codeActionProvider = codeActionProvider.toBool() || codeActionProvider.isObject();
-    from_json(caps.semanticHighlightingProvider, json.value(QStringLiteral("semanticHighlighting")).toObject());
+    from_json(caps.semanticTokenProvider, json.value(QStringLiteral("semanticTokensProvider")).toObject());
 }
 
 // follow suit; as performed in kate docmanager
@@ -709,6 +729,76 @@ static QList<LSPCodeAction> parseCodeAction(const QJsonValue &result)
     return ret;
 }
 
+static LSPSemanticTokens parseSemanticTokens(const QJsonValue &result)
+{
+    LSPSemanticTokens ret;
+    auto json = result.toObject();
+    ret.resultId = json.value(QStringLiteral("resultId")).toString();
+
+    if (ret.resultId.isEmpty()) {
+        qCDebug(LSPCLIENT) << "unexpected emtpy result id when parsing semantic tokens";
+        return ret;
+    }
+
+    auto data = json.value(QStringLiteral("data")).toArray();
+    ret.data.reserve(data.size());
+    std::transform(data.cbegin(), data.cend(), std::back_inserter(ret.data), [](const QJsonValue &jv) {
+        return jv.toInt();
+    });
+
+    return ret;
+}
+
+static LSPSemanticTokensDelta parseSemanticTokensDelta(const QJsonValue &result)
+{
+    LSPSemanticTokensDelta ret;
+    auto json = result.toObject();
+    ret.resultId = json.value(QStringLiteral("resultId")).toString();
+
+    //     std::cout << QJsonDocument(json).toJson().constData() << '\n';
+
+    if (ret.resultId.isEmpty()) {
+        qCDebug(LSPCLIENT) << "unexpected emtpy result id when parsing semantic tokens";
+        return ret;
+    }
+
+    /**
+     * Intentionally disabled as "edits" part is already being handled by MovingRange
+     *
+     * Any new text that is entered is sent as new data that replaces all old data.
+     *
+     */
+    auto edits = json.value(QStringLiteral("edits")).toArray();
+
+    for (const auto &edit_jsonValue : edits) {
+        if (!edit_jsonValue.isObject()) {
+            continue;
+        }
+
+        auto edit = edit_jsonValue.toObject();
+
+        LSPSemanticTokensEdit e;
+        e.start = edit.value(QStringLiteral("start")).toInt();
+        e.deleteCount = edit.value(QStringLiteral("deleteCount")).toInt();
+
+        auto data = edit.value(QStringLiteral("data")).toArray();
+        e.data.reserve(data.size());
+        std::transform(data.cbegin(), data.cend(), std::back_inserter(e.data), [](const QJsonValue &jv) {
+            return jv.toInt();
+        });
+
+        ret.edits.push_back(e);
+    }
+
+    auto data = json.value(QStringLiteral("data")).toArray();
+    ret.data.reserve(data.size());
+    std::transform(data.cbegin(), data.cend(), std::back_inserter(ret.data), [](const QJsonValue &jv) {
+        return jv.toInt();
+    });
+
+    return ret;
+}
+
 static LSPPublishDiagnosticsParams parseDiagnostics(const QJsonObject &result)
 {
     LSPPublishDiagnosticsParams ret;
@@ -727,53 +817,12 @@ static LSPApplyWorkspaceEditParams parseApplyWorkspaceEditParams(const QJsonObje
     return ret;
 }
 
-static LSPVersionedTextDocumentIdentifier parseVersionedTextDocumentIdentifier(const QJsonObject &result)
-{
-    LSPVersionedTextDocumentIdentifier ret;
-    ret.uri = normalizeUrl(QUrl(result.value(MEMBER_URI).toString()));
-    ret.version = result.value(QStringLiteral("version")).toInt(-1);
-    return ret;
-}
-
 static LSPShowMessageParams parseMessage(const QJsonObject &result)
 {
     LSPShowMessageParams ret;
 
     ret.type = static_cast<LSPMessageType>(result.value(QStringLiteral("type")).toInt());
     ret.message = result.value(MEMBER_MESSAGE).toString();
-    return ret;
-}
-
-static LSPSemanticHighlightingParams parseSemanticHighlighting(const QJsonObject &result)
-{
-    LSPSemanticHighlightingParams ret;
-    ret.textDocument = parseVersionedTextDocumentIdentifier(result.value(QStringLiteral("textDocument")).toObject());
-    for (const auto &line_json : result.value(QStringLiteral("lines")).toArray()) {
-        const auto line_obj = line_json.toObject();
-        LSPSemanticHighlightingInformation info;
-        info.line = line_obj.value(QStringLiteral("line")).toInt(-1);
-
-        const auto tokenString = line_obj.value(QStringLiteral("tokens"));
-        constexpr auto TokenSize = sizeof(LSPSemanticHighlightingToken);
-        // the raw tokens are in big endian, we may need to convert that to little endian
-        const auto rawTokens = QByteArray::fromBase64(tokenString.toString().toUtf8());
-        if (rawTokens.size() % TokenSize != 0) {
-            qCDebug(LSPCLIENT) << "unexpected raw token size" << rawTokens.size() << "for string" << tokenString << "in line" << info.line;
-            continue;
-        }
-        const auto numTokens = rawTokens.size() / TokenSize;
-        const auto *begin = reinterpret_cast<const LSPSemanticHighlightingToken *>(rawTokens.constData());
-        const auto *end = begin + numTokens;
-        info.tokens.resize(numTokens);
-        std::transform(begin, end, info.tokens.begin(), [](const LSPSemanticHighlightingToken &rawToken) {
-            LSPSemanticHighlightingToken token;
-            token.character = qFromBigEndian(rawToken.character);
-            token.length = qFromBigEndian(rawToken.length);
-            token.scope = qFromBigEndian(rawToken.scope);
-            return token;
-        });
-        ret.lines.push_back(info);
-    }
     return ret;
 }
 
@@ -1241,6 +1290,16 @@ public:
         return send(init_request(QStringLiteral("textDocument/codeAction"), params), h);
     }
 
+    RequestHandle documentSemanticTokensFull(const QUrl &document, bool delta, const QString requestId, const GenericReplyHandler &h)
+    {
+        auto params = textDocumentParams(document);
+        if (delta && !requestId.isEmpty()) {
+            params[MEMBER_PREVIOUS_RESULT_ID] = requestId;
+            return send(init_request(QStringLiteral("textDocument/semanticTokens/full/delta"), params), h);
+        }
+        return send(init_request(QStringLiteral("textDocument/semanticTokens/full"), params), h);
+    }
+
     void executeCommand(const QString &command, const QJsonValue &args)
     {
         auto params = executeCommandParams(command, args);
@@ -1286,8 +1345,6 @@ public:
         auto method = msg[MEMBER_METHOD].toString();
         if (method == QLatin1String("textDocument/publishDiagnostics")) {
             Q_EMIT q->publishDiagnostics(parseDiagnostics(msg[MEMBER_PARAMS].toObject()));
-        } else if (method == QLatin1String("textDocument/semanticHighlighting")) {
-            Q_EMIT q->semanticHighlighting(parseSemanticHighlighting(msg[MEMBER_PARAMS].toObject()));
         } else if (method == QLatin1String("window/showMessage")) {
             Q_EMIT q->showMessage(parseMessage(msg[MEMBER_PARAMS].toObject()));
         } else if (method == QLatin1String("window/logMessage")) {
@@ -1524,6 +1581,20 @@ LSPClientServer::RequestHandle LSPClientServer::documentCodeAction(const QUrl &d
                                                                    const CodeActionReplyHandler &h)
 {
     return d->documentCodeAction(document, range, kinds, std::move(diagnostics), make_handler(h, context, parseCodeAction));
+}
+
+LSPClientServer::RequestHandle
+LSPClientServer::documentSemanticTokensFull(const QUrl &document, const QString requestId, const QObject *context, const SemanticTokensReplyHandler &h)
+{
+    return d->documentSemanticTokensFull(document, /* delta = */ false, requestId, make_handler(h, context, parseSemanticTokens));
+}
+
+LSPClientServer::RequestHandle LSPClientServer::documentSemanticTokensFullDelta(const QUrl &document,
+                                                                                const QString requestId,
+                                                                                const QObject *context,
+                                                                                const SemanticTokensDeltaReplyHandler &h)
+{
+    return d->documentSemanticTokensFull(document, /* delta = */ true, requestId, make_handler(h, context, parseSemanticTokensDelta));
 }
 
 void LSPClientServer::executeCommand(const QString &command, const QJsonValue &args)

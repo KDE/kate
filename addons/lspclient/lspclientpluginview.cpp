@@ -430,6 +430,8 @@ class LSPClientActionView : public QObject
         }
     };
 
+    SemanticHighlighter m_semHighlightingManager;
+
 Q_SIGNALS:
     /**
      * Signal for outgoing message, the host application will handle them!
@@ -622,6 +624,48 @@ public:
                 if (c) {
                     c->installEventFilter(this);
                 }
+            }
+        }
+    }
+
+    void doSemanticHighlighting(KTextEditor::View *view)
+    {
+        if (!view) {
+            return;
+        }
+
+        auto server = m_serverManager->findServer(view);
+        if (server) {
+            auto reqId = m_semHighlightingManager.resultIdForDoc(view->document()->url());
+            m_semHighlightingManager.setLegend(&server->capabilities().semanticTokenProvider.legend);
+            //             m_semHighlightingManager.setTypes(server->capabilities().semanticTokenProvider.types);
+            /**
+             * Full delta only if server supports it or if we don't have a result ID for this document
+             */
+            if (reqId.isEmpty() || !server->capabilities().semanticTokenProvider.fullDelta) {
+                auto h = [this, view](const LSPSemanticTokens &st) {
+                    auto url = view->document()->url();
+                    m_semHighlightingManager.setCurrentView(view);
+                    m_semHighlightingManager.insert(url, st.resultId, st.data);
+                    m_semHighlightingManager.highlight(url);
+                };
+                server->documentSemanticTokensFull(view->document()->url(), {}, this, h);
+            } else {
+                auto h = [this, view](const LSPSemanticTokensDelta &st) {
+                    auto url = view->document()->url();
+                    m_semHighlightingManager.setCurrentView(view);
+
+                    for (const auto &semTokenEdit : st.edits) {
+                        m_semHighlightingManager.update(url, st.resultId, semTokenEdit.start, semTokenEdit.deleteCount, semTokenEdit.data);
+                    }
+
+                    if (!st.data.empty()) {
+                        m_semHighlightingManager.insert(url, st.resultId, st.data);
+                    }
+                    m_semHighlightingManager.highlight(url);
+                };
+
+                server->documentSemanticTokensFullDelta(view->document()->url(), reqId, this, h);
             }
         }
     }
@@ -2126,86 +2170,6 @@ public:
         addMessage(lvl, i18nc("@info", "LSP Client"), msg);
     }
 
-    Q_SLOT void clearSemanticHighlighting(KTextEditor::Document *document)
-    {
-        auto &documentRanges = m_semanticHighlightRanges[document];
-        for (const auto &lineRanges : documentRanges) {
-            qDeleteAll(lineRanges);
-        }
-        documentRanges.clear();
-    }
-
-    void onSemanticHighlighting(const LSPSemanticHighlightingParams &params)
-    {
-        auto *view = viewForUrl(params.textDocument.uri);
-        if (!view) {
-            qCWarning(LSPCLIENT) << "failed to find view for uri" << params.textDocument.uri;
-            return;
-        }
-
-        auto server = m_serverManager->findServer(view);
-        if (!server) {
-            qCWarning(LSPCLIENT) << "failed to find server for view" << params.textDocument.uri;
-            return;
-        }
-
-        auto *document = view->document();
-        auto *miface = qobject_cast<KTextEditor::MovingInterface *>(document);
-        Q_ASSERT(miface);
-
-        // TODO: translate between locked revision, if possible?
-        auto version = params.textDocument.version;
-        if (version == -1) { // use version from disk
-            version = miface->lastSavedRevision();
-            if (version == -1) { // never saved
-                version = miface->revision();
-            }
-        }
-        if (version != miface->revision()) {
-            qCDebug(LSPCLIENT) << "discarding highlighting, versions don't match:" << params.textDocument.version << version << miface->revision();
-            return;
-        }
-
-        // ensure runtime match
-        // clang-format off
-        connect(document,
-                SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document*)),
-                this,
-                SLOT(clearSemanticHighlighting(KTextEditor::Document*)),
-                Qt::UniqueConnection);
-        connect(document,
-                SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document*)),
-                this,
-                SLOT(clearSemanticHighlighting(KTextEditor::Document*)),
-                Qt::UniqueConnection);
-        // clang-format on
-
-        // TODO: we should try to recycle the moving ranges instead of recreating them all the time
-        const auto &scopes = server->capabilities().semanticHighlightingProvider.scopes;
-        // qDebug() << params.textDocument.uri << scopes;
-
-        auto &documentRanges = m_semanticHighlightRanges[document];
-        for (const auto &line : params.lines) {
-            auto &lineRanges = documentRanges[line.line];
-            qDeleteAll(lineRanges);
-            lineRanges.clear();
-            //             qDebug() << "line:" << line.line << ", toks " << line.tokens.size();
-            for (const auto &token : line.tokens) {
-                //                 qDebug() << "token:" << token.character << token.length << token.scope;
-                auto attribute = scopes.attrForScope(token.scope);
-                if (!attribute) {
-                    continue;
-                }
-
-                const auto columnStart = static_cast<int>(token.character);
-                const auto columnEnd = columnStart + static_cast<int>(token.length);
-                auto *range = miface->newMovingRange({line.line, columnStart, line.line, columnEnd});
-                range->setAttribute(attribute);
-                lineRanges.append(range);
-            }
-        }
-    }
-
     void onDocumentUrlChanged(KTextEditor::Document *doc)
     {
         // url already changed by this time and new url not useful
@@ -2236,12 +2200,16 @@ public:
 
     void onTextChanged(KTextEditor::Document *doc)
     {
-        if (m_onTypeFormattingTriggers.empty()) {
+        KTextEditor::View *activeView = m_mainWindow->activeView();
+        if (!activeView || activeView->document() != doc) {
             return;
         }
 
-        KTextEditor::View *activeView = m_mainWindow->activeView();
-        if (!activeView || activeView->document() != doc) {
+        if (m_plugin->m_semanticHighlighting) {
+            doSemanticHighlighting(activeView);
+        }
+
+        if (m_onTypeFormattingTriggers.empty()) {
             return;
         }
 
@@ -2281,7 +2249,6 @@ public:
             connect(server.data(), &LSPClientServer::publishDiagnostics, this, &self_type::onDiagnostics, Qt::UniqueConnection);
             connect(server.data(), &LSPClientServer::showMessage, this, &self_type::onMessage, Qt::UniqueConnection);
             connect(server.data(), &LSPClientServer::logMessage, this, &self_type::onMessage, Qt::UniqueConnection);
-            connect(server.data(), &LSPClientServer::semanticHighlighting, this, &self_type::onSemanticHighlighting, Qt::UniqueConnection);
             connect(server.data(), &LSPClientServer::applyEdit, this, &self_type::onApplyEdit, Qt::UniqueConnection);
 
             // update format trigger characters
@@ -2299,6 +2266,25 @@ public:
             // only consider basename (full path may have been custom specified)
             auto lspServer = QFileInfo(server->cmdline().front()).fileName();
             isClangd = lspServer == QStringLiteral("clangd");
+
+            const bool semHighlightingEnabled = m_plugin->m_semanticHighlighting;
+            const bool serverSupportsSemHighlighting = caps.semanticTokenProvider.full || caps.semanticTokenProvider.fullDelta;
+            if (semHighlightingEnabled && serverSupportsSemHighlighting) {
+                if (doc) {
+                    connect(doc,
+                            SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document *)),
+                            this,
+                            SLOT(clearSemanticTokensHighlighting(KTextEditor::Document *)),
+                            Qt::UniqueConnection);
+                    connect(doc,
+                            SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document *)),
+                            this,
+                            SLOT(clearSemanticTokensHighlighting(KTextEditor::Document *)),
+                            Qt::UniqueConnection);
+
+                    doSemanticHighlighting(activeView);
+                }
+            }
         }
 
         if (m_findDef) {
@@ -2368,6 +2354,13 @@ public:
         // connect for cleanup stuff
         if (activeView) {
             connect(activeView, &KTextEditor::View::destroyed, this, &self_type::viewDestroyed, Qt::UniqueConnection);
+        }
+    }
+
+    Q_SLOT void clearSemanticTokensHighlighting(KTextEditor::Document *doc)
+    {
+        if (doc) {
+            m_semHighlightingManager.remove(doc->url());
         }
     }
 

@@ -16,6 +16,7 @@
 #include <QVector>
 
 #include "lspsemantichighlighting.h"
+#include "semantic_tokens_legend.h"
 
 #include <KTextEditor/Cursor>
 #include <KTextEditor/Range>
@@ -65,9 +66,13 @@ struct LSPSignatureHelpOptions {
 struct LSPDocumentOnTypeFormattingOptions : public LSPSignatureHelpOptions {
 };
 
-struct LSPSemanticHighlightingOptions {
-    // cf. https://manual.macromates.com/en/language_grammars
-    SemanticHighlighting scopes;
+// Ref: https://microsoft.github.io/language-server-protocol/specification#textDocument_semanticTokens
+struct LSPSemanticTokensOptions {
+    bool full = false;
+    bool fullDelta = false;
+    bool range = false;
+    SemanticTokensLegend legend;
+    //     QVector<QString> types;
 };
 
 struct LSPServerCapabilities {
@@ -89,7 +94,7 @@ struct LSPServerCapabilities {
     bool renameProvider = false;
     // CodeActionOptions not useful/considered at present
     bool codeActionProvider = false;
-    LSPSemanticHighlightingOptions semanticHighlightingProvider;
+    LSPSemanticTokensOptions semanticTokenProvider;
 };
 
 enum class LSPMarkupKind { None = 0, PlainText = 1, MarkDown = 2 };
@@ -329,6 +334,23 @@ struct LSPApplyWorkspaceEditParams {
 struct LSPApplyWorkspaceEditResponse {
     bool applied;
     QString failureReason;
+};
+
+struct LSPSemanticTokensEdit {
+    uint32_t start = 0;
+    uint32_t deleteCount = 0;
+    std::vector<uint32_t> data;
+};
+
+struct LSPSemanticTokens {
+    QString resultId;
+    std::vector<uint32_t> data;
+};
+
+struct LSPSemanticTokensDelta {
+    QString resultId;
+    std::vector<LSPSemanticTokensEdit> edits;
+    std::vector<uint32_t> data;
 };
 
 #endif

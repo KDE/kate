@@ -19,7 +19,6 @@
 #include <QJsonObject>
 #include <QTime>
 #include <QtEndian>
-#include <iostream>
 #include <utility>
 
 // good/bad old school; allows easier concatenate
@@ -1120,15 +1119,25 @@ private:
 
     void initialize()
     {
+        // clang-format off
         QJsonObject codeAction{{QStringLiteral("codeActionLiteralSupport"),
                                 QJsonObject{{QStringLiteral("codeActionKind"), QJsonObject{{QStringLiteral("valueSet"), QJsonArray()}}}}}};
+
+        QJsonObject semanticTokens{{QStringLiteral("requests"),
+                                        QJsonObject{
+                                            {QStringLiteral("range"), false},
+                                            {QStringLiteral("full"), QJsonObject{{QStringLiteral("delta"), true}}}
+                                       }
+                                  }};
         QJsonObject capabilities{{QStringLiteral("textDocument"),
                                   QJsonObject{{
                                                   QStringLiteral("documentSymbol"),
                                                   QJsonObject{{QStringLiteral("hierarchicalDocumentSymbolSupport"), true}},
                                               },
                                               {QStringLiteral("publishDiagnostics"), QJsonObject{{QStringLiteral("relatedInformation"), true}}},
-                                              {QStringLiteral("codeAction"), codeAction}}}};
+                                              {QStringLiteral("codeAction"), codeAction},
+                                              {QStringLiteral("semanticTokens"), semanticTokens}
+                                }}};
         // NOTE a typical server does not use root all that much,
         // other than for some corner case (in) requests
         QJsonObject params{{QStringLiteral("processId"), QCoreApplication::applicationPid()},
@@ -1138,6 +1147,7 @@ private:
                            {QStringLiteral("initializationOptions"), m_init}};
         //
         write(init_request(QStringLiteral("initialize"), params), utils::mem_fun(&self_type::onInitializeReply, this));
+        // clang-format on
     }
 
     void initialized()

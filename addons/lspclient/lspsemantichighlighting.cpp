@@ -8,12 +8,17 @@
 void SemanticHighlighter::remove(const QUrl &url)
 {
     m_docUrlToResultId.remove(url);
-    auto &data = m_docSemanticInfo[url];
-    auto &movingRanges = data.movingRanges;
+
+    auto it = m_docSemanticInfo.find(url);
+    if (it == m_docSemanticInfo.end()) {
+        return;
+    }
+
+    auto &movingRanges = it->movingRanges;
     for (auto mr : movingRanges) {
         delete mr;
     }
-    m_docUrlToResultId.remove(url);
+    m_docSemanticInfo.remove(url);
 }
 
 void SemanticHighlighter::insert(const QUrl &url, const QString &resultId, const std::vector<uint32_t> &data)

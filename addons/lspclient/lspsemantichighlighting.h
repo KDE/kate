@@ -15,13 +15,6 @@ class SemanticTokensLegend;
 class SemanticHighlighter
 {
 public:
-    ~SemanticHighlighter()
-    {
-        for (auto &info : m_docSemanticInfo) {
-            qDeleteAll(info.movingRanges.begin(), info.movingRanges.end());
-        }
-    }
-
     /**
      * Does the actual highlighting
      */

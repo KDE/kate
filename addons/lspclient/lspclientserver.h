@@ -98,7 +98,7 @@ public:
 
     // server management
     // request start
-    bool start(LSPClientPlugin *plugin);
+    bool start();
     // request shutdown/stop
     // if to_xxx >= 0 -> send signal if not exit'ed after timeout
     void stop(int to_term_ms, int to_kill_ms);

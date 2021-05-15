@@ -5,7 +5,6 @@
 */
 
 #include "lspclientserver.h"
-#include "lspclientplugin.h"
 
 #include "lspclient_debug.h"
 
@@ -1119,7 +1118,7 @@ private:
         initialized();
     }
 
-    void initialize(LSPClientPlugin *plugin)
+    void initialize()
     {
         QJsonObject codeAction{{QStringLiteral("codeActionLiteralSupport"),
                                 QJsonObject{{QStringLiteral("codeActionKind"), QJsonObject{{QStringLiteral("valueSet"), QJsonArray()}}}}}};
@@ -1129,9 +1128,7 @@ private:
                                                   QJsonObject{{QStringLiteral("hierarchicalDocumentSymbolSupport"), true}},
                                               },
                                               {QStringLiteral("publishDiagnostics"), QJsonObject{{QStringLiteral("relatedInformation"), true}}},
-                                              {QStringLiteral("codeAction"), codeAction},
-                                              {QStringLiteral("semanticHighlightingCapabilities"),
-                                               QJsonObject{{QStringLiteral("semanticHighlighting"), !plugin || plugin->m_semanticHighlighting}}}}}};
+                                              {QStringLiteral("codeAction"), codeAction}}}};
         // NOTE a typical server does not use root all that much,
         // other than for some corner case (in) requests
         QJsonObject params{{QStringLiteral("processId"), QCoreApplication::applicationPid()},
@@ -1150,7 +1147,7 @@ private:
     }
 
 public:
-    bool start(LSPClientPlugin *plugin)
+    bool start()
     {
         if (m_state != State::None) {
             return true;
@@ -1174,7 +1171,7 @@ public:
         } else {
             setState(State::Started);
             // perform initial handshake
-            initialize(plugin);
+            initialize();
         }
         return result;
     }
@@ -1459,9 +1456,9 @@ const LSPServerCapabilities &LSPClientServer::capabilities() const
     return d->capabilities();
 }
 
-bool LSPClientServer::start(LSPClientPlugin *plugin)
+bool LSPClientServer::start()
 {
-    return d->start(plugin);
+    return d->start();
 }
 
 void LSPClientServer::stop(int to_t, int to_k)

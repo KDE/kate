@@ -593,7 +593,7 @@ private:
             if (cmdline.length() > 0) {
                 server.reset(new LSPClientServer(cmdline, root, realLangId, serverConfig.value(QStringLiteral("initializationOptions"))));
                 connect(server.data(), &LSPClientServer::stateChanged, this, &self_type::onStateChanged, Qt::UniqueConnection);
-                if (!server->start(m_plugin)) {
+                if (!server->start()) {
                     showMessage(i18n("Failed to start server: %1", cmdline.join(QLatin1Char(' '))), KTextEditor::Message::Error);
                 } else {
                     showMessage(i18n("Started server %2: %1", cmdline.join(QLatin1Char(' ')), serverDescription(server.data())),

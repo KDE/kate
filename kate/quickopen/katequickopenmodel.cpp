@@ -56,7 +56,7 @@ QVariant KateQuickOpenModel::data(const QModelIndex &idx, int role) const
         return path.startsWith(m_projectBase) ? path.mid(m_projectBase.size()) : path;
     }
     case Qt::FontRole: {
-        if (entry.bold) {
+        if (entry.document) {
             QFont font;
             font.setBold(true);
             return font;
@@ -69,6 +69,8 @@ QVariant KateQuickOpenModel::data(const QModelIndex &idx, int role) const
         return entry.url.isEmpty() ? QUrl::fromLocalFile(entry.filePath) : entry.url;
     case Role::Score:
         return entry.score;
+    case Role::Document:
+        return QVariant::fromValue(entry.document);
     default:
         return {};
     }
@@ -111,24 +113,25 @@ void KateQuickOpenModel::refresh(KateMainWindow *mainWindow)
     allDocuments.reserve(sortedViews.size() + projectDocs.size());
 
     std::unordered_set<QString> openedDocUrls;
+    std::unordered_set<KTextEditor::Document *> seenDocuments;
     openedDocUrls.reserve(sortedViews.size());
 
-    const auto collectDoc = [&openedDocUrls, &allDocuments](KTextEditor::Document *doc) {
-        auto path = doc->url().toString(QUrl::NormalizePathSegments | QUrl::PreferLocalFile);
-
-        // We don't want any duplicates
-        if (openedDocUrls.count(path) != 0) {
+    const auto collectDoc = [&openedDocUrls, &seenDocuments, &allDocuments](KTextEditor::Document *doc) {
+        // We don't want any duplicates, beside for untitled documents
+        if (!seenDocuments.insert(doc).second) {
             return;
         }
 
-        openedDocUrls.insert(path);
-        // prefer the real filename, since documentName might be `foo (2)`
-        // (which is not a suffix of the path)
-        auto fileName = QFileInfo(path).fileName();
-        if (fileName.isEmpty()) {
-            fileName = doc->documentName();
+        // document with set url => use the url for displaying
+        if (!doc->url().isEmpty()) {
+            auto path = doc->url().toString(QUrl::NormalizePathSegments | QUrl::PreferLocalFile);
+            openedDocUrls.insert(path);
+            allDocuments.push_back({doc->url(), QFileInfo(path).fileName(), path, doc, -1});
+            return;
         }
-        allDocuments.push_back({doc->url(), fileName, path, true, -1});
+
+        // untitled document
+        allDocuments.push_back({doc->url(), doc->documentName(), QString(), doc, -1});
     };
 
     for (auto *view : sortedViews) {
@@ -141,14 +144,14 @@ void KateQuickOpenModel::refresh(KateMainWindow *mainWindow)
 
     for (const auto &filePath : projectDocs) {
         // No duplicates
-        if (openedDocUrls.count(filePath) != 0) {
+        if (!openedDocUrls.insert(filePath).second) {
             continue;
         }
 
         // QFileInfo is too expensive just for fileName computation
         const int slashIndex = filePath.lastIndexOf(QLatin1Char('/'));
         QString fileName = filePath.mid(slashIndex + 1);
-        allDocuments.push_back({QUrl(), std::move(fileName), filePath, false, -1});
+        allDocuments.push_back({QUrl(), std::move(fileName), filePath, nullptr, -1});
     }
 
     beginResetModel();

@@ -15,13 +15,17 @@
 #include <vector>
 
 class KateMainWindow;
+namespace KTextEditor
+{
+class Document;
+}
 
 struct ModelEntry {
     QUrl url;
     QString fileName; // display string for left column
     QString filePath; // display string for right column
-    bool bold; // format line in bold text or not
-    int score;
+    KTextEditor::Document *document = nullptr; // document for entry, if already open
+    int score = -1;
 };
 
 // needs to be defined outside of class to support forward declaration elsewhere
@@ -31,7 +35,7 @@ class KateQuickOpenModel : public QAbstractTableModel
 {
     Q_OBJECT
 public:
-    enum Role { FileName = Qt::UserRole + 1, FilePath, Score };
+    enum Role { FileName = Qt::UserRole + 1, FilePath, Score, Document };
     explicit KateQuickOpenModel(QObject *parent = nullptr);
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     int columnCount(const QModelIndex &parent) const override;
@@ -83,7 +87,7 @@ public:
         if (!idx.isValid()) {
             return {};
         }
-        return m_modelEntries.at(idx.row()).bold;
+        return m_modelEntries.at(idx.row()).document;
     }
 
 private:

@@ -330,13 +330,6 @@ void KateQuickOpen::updateState()
 
 void KateQuickOpen::slotReturnPressed()
 {
-    const QModelIndex index = m_listView->model()->index(m_listView->currentIndex().row(), 0);
-    const QUrl url = index.data(Qt::UserRole).toUrl();
-
-    if (!url.isValid()) {
-        return;
-    }
-
     // save current position before opening new url for location history
     KateViewManager *vm = m_mainWindow->viewManager();
     if (vm) {
@@ -345,7 +338,14 @@ void KateQuickOpen::slotReturnPressed()
         }
     }
 
-    KTextEditor::View *view = m_mainWindow->wrapper()->openUrl(url);
+    // either get view via document pointer or url
+    const QModelIndex index = m_listView->model()->index(m_listView->currentIndex().row(), 0);
+    KTextEditor::View *view = nullptr;
+    if (auto doc = index.data(KateQuickOpenModel::Document).value<KTextEditor::Document *>()) {
+        view = m_mainWindow->activateView(doc);
+    } else {
+        view = m_mainWindow->wrapper()->openUrl(index.data(Qt::UserRole).toUrl());
+    }
 
     const auto strs = m_inputLine->text().split(QLatin1Char(':'));
     if (view && strs.count() > 1) {

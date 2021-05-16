@@ -5,11 +5,11 @@
 
 #include "semantic_tokens_legend.h"
 
-void SemanticHighlighter::remove(const QUrl &url)
+void SemanticHighlighter::remove(KTextEditor::Document *doc)
 {
-    m_docUrlToResultId.remove(url);
+    m_docUrlToResultId.remove(doc);
 
-    auto it = m_docSemanticInfo.find(url);
+    auto it = m_docSemanticInfo.find(doc);
     if (it == m_docSemanticInfo.end()) {
         return;
     }
@@ -20,22 +20,22 @@ void SemanticHighlighter::remove(const QUrl &url)
         mr = nullptr;
     }
     movingRanges.clear();
-    m_docSemanticInfo.remove(url);
+    m_docSemanticInfo.remove(doc);
 }
 
-void SemanticHighlighter::insert(const QUrl &url, const QString &resultId, const std::vector<uint32_t> &data)
+void SemanticHighlighter::insert(KTextEditor::Document *doc, const QString &resultId, const std::vector<uint32_t> &data)
 {
-    m_docUrlToResultId[url] = resultId;
-    TokensData &tokensData = m_docSemanticInfo[url];
+    m_docUrlToResultId[doc] = resultId;
+    TokensData &tokensData = m_docSemanticInfo[doc];
     tokensData.tokens = data;
 }
 
 /**
  * Handle semantic tokens edits
  */
-void SemanticHighlighter::update(const QUrl &url, const QString &resultId, uint32_t start, uint32_t deleteCount, const std::vector<uint32_t> &data)
+void SemanticHighlighter::update(KTextEditor::Document *doc, const QString &resultId, uint32_t start, uint32_t deleteCount, const std::vector<uint32_t> &data)
 {
-    auto toks = m_docSemanticInfo.find(url);
+    auto toks = m_docSemanticInfo.find(doc);
     if (toks == m_docSemanticInfo.end()) {
         return;
     }
@@ -49,10 +49,10 @@ void SemanticHighlighter::update(const QUrl &url, const QString &resultId, uint3
     existingTokens.insert(existingTokens.begin() + start, data.begin(), data.end());
 
     //     Update result Id
-    m_docUrlToResultId[url] = resultId;
+    m_docUrlToResultId[doc] = resultId;
 }
 
-void SemanticHighlighter::highlight(const QUrl &url)
+void SemanticHighlighter::highlight(KTextEditor::Document *doc)
 {
     Q_ASSERT(m_legend);
 
@@ -60,7 +60,6 @@ void SemanticHighlighter::highlight(const QUrl &url)
         return;
     }
 
-    auto doc = view->document();
     if (!doc) {
         qWarning() << "View doesn't have doc!";
         return;
@@ -68,12 +67,12 @@ void SemanticHighlighter::highlight(const QUrl &url)
 
     auto miface = qobject_cast<KTextEditor::MovingInterface *>(doc);
 
-    TokensData &semanticData = m_docSemanticInfo[url];
+    TokensData &semanticData = m_docSemanticInfo[doc];
     auto &movingRanges = semanticData.movingRanges;
     auto &data = semanticData.tokens;
 
     if (data.size() % 5 != 0) {
-        qWarning() << "Bad data for doc: " << url << " skipping";
+        qWarning() << "Bad data for doc: " << doc->url() << " skipping";
         return;
     }
 
@@ -99,8 +98,8 @@ void SemanticHighlighter::highlight(const QUrl &url)
             start = deltaStart;
         }
 
-        QString text = doc->line(currentLine);
-        text = text.mid(start, len);
+        //         QString text = doc->line(currentLine);
+        //         text = text.mid(start, len);
 
         KTextEditor::Range r(currentLine, start, currentLine, start + len);
 

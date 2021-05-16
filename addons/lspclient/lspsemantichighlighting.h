@@ -18,17 +18,17 @@ public:
     /**
      * Does the actual highlighting
      */
-    void highlight(const QUrl &url);
+    void highlight(KTextEditor::Document *doc);
 
     /**
      * Insert tokens @p data for doc with @p url
      */
-    void insert(const QUrl &url, const QString &resultId, const std::vector<uint32_t> &data);
+    void insert(KTextEditor::Document *doc, const QString &resultId, const std::vector<uint32_t> &data);
 
     /**
      * Unregister a doc from highlighter and remove all its moving ranges and tokens
      */
-    void remove(const QUrl &url);
+    void remove(KTextEditor::Document *doc);
 
     /**
      * This function is more or less useless for Kate? Maybe because MovingRange already handles this for us
@@ -37,11 +37,11 @@ public:
      * get a full new vector with new data which has to be replaced with the old and everything rehighlighted. This is the behaviour of
      * clangd, not sure about others.
      */
-    void update(const QUrl &url, const QString &resultId, uint32_t start, uint32_t deleteCount, const std::vector<uint32_t> &data);
+    void update(KTextEditor::Document *doc, const QString &resultId, uint32_t start, uint32_t deleteCount, const std::vector<uint32_t> &data);
 
-    QString resultIdForDoc(const QUrl &url) const
+    QString resultIdForDoc(KTextEditor::Document *doc) const
     {
-        return m_docUrlToResultId.value(url);
+        return m_docUrlToResultId.value(doc);
     }
 
     void setCurrentView(KTextEditor::View *v)
@@ -77,12 +77,12 @@ private:
     /**
      * Doc => result-id mapping
      */
-    QHash<QUrl, QString> m_docUrlToResultId;
+    QHash<KTextEditor::Document *, QString> m_docUrlToResultId;
 
     /**
      * semantic token and moving range mapping for doc
      */
-    QHash<QUrl, TokensData> m_docSemanticInfo;
+    QHash<KTextEditor::Document *, TokensData> m_docSemanticInfo;
 
     /**
      * Legend which is basically used to fetch color for a type

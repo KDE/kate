@@ -636,7 +636,7 @@ public:
 
         auto server = m_serverManager->findServer(view);
         if (server) {
-            auto reqId = m_semHighlightingManager.resultIdForDoc(view->document()->url());
+            auto reqId = m_semHighlightingManager.resultIdForDoc(view->document());
             m_semHighlightingManager.setLegend(&server->capabilities().semanticTokenProvider.legend);
             //             m_semHighlightingManager.setTypes(server->capabilities().semanticTokenProvider.types);
             /**
@@ -644,25 +644,25 @@ public:
              */
             if (reqId.isEmpty() || !server->capabilities().semanticTokenProvider.fullDelta) {
                 auto h = [this, view](const LSPSemanticTokens &st) {
-                    auto url = view->document()->url();
+                    auto doc = view->document();
                     m_semHighlightingManager.setCurrentView(view);
-                    m_semHighlightingManager.insert(url, st.resultId, st.data);
-                    m_semHighlightingManager.highlight(url);
+                    m_semHighlightingManager.insert(doc, st.resultId, st.data);
+                    m_semHighlightingManager.highlight(doc);
                 };
                 server->documentSemanticTokensFull(view->document()->url(), {}, this, h);
             } else {
                 auto h = [this, view](const LSPSemanticTokensDelta &st) {
-                    auto url = view->document()->url();
+                    auto doc = view->document();
                     m_semHighlightingManager.setCurrentView(view);
 
                     for (const auto &semTokenEdit : st.edits) {
-                        m_semHighlightingManager.update(url, st.resultId, semTokenEdit.start, semTokenEdit.deleteCount, semTokenEdit.data);
+                        m_semHighlightingManager.update(doc, st.resultId, semTokenEdit.start, semTokenEdit.deleteCount, semTokenEdit.data);
                     }
 
                     if (!st.data.empty()) {
-                        m_semHighlightingManager.insert(url, st.resultId, st.data);
+                        m_semHighlightingManager.insert(doc, st.resultId, st.data);
                     }
-                    m_semHighlightingManager.highlight(url);
+                    m_semHighlightingManager.highlight(doc);
                 };
 
                 server->documentSemanticTokensFullDelta(view->document()->url(), reqId, this, h);
@@ -2281,11 +2281,6 @@ public:
                             this,
                             SLOT(clearSemanticTokensHighlighting(KTextEditor::Document *)),
                             Qt::UniqueConnection);
-                    connect(doc,
-                            SIGNAL(aboutToClose(KTextEditor::Document *)),
-                            this,
-                            SLOT(clearSemanticTokensHighlighting(KTextEditor::Document *)),
-                            Qt::UniqueConnection);
                     doSemanticHighlighting(activeView);
                 }
             }
@@ -2364,7 +2359,7 @@ public:
     Q_SLOT void clearSemanticTokensHighlighting(KTextEditor::Document *doc)
     {
         if (doc) {
-            m_semHighlightingManager.remove(doc->url());
+            m_semHighlightingManager.remove(doc);
         }
     }
 

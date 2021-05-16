@@ -277,7 +277,6 @@ static void from_json(LSPSemanticTokensOptions &options, const QJsonObject &json
     if (json.value(QStringLiteral("full")).isObject()) {
         auto full = json.value(QStringLiteral("full")).toObject();
         options.fullDelta = full.value(QStringLiteral("delta")).toBool();
-        options.full = options.fullDelta;
     } else {
         options.full = json.value(QStringLiteral("full")).toBool();
     }
@@ -737,26 +736,9 @@ static QJsonArray supportedSemanticTokenTypes()
                        QStringLiteral("regexp"),    QStringLiteral("operator")});
 }
 
-static LSPSemanticTokens parseSemanticTokens(const QJsonValue &result)
-{
-    LSPSemanticTokens ret;
-    auto json = result.toObject();
-    ret.resultId = json.value(QStringLiteral("resultId")).toString();
-
-    if (ret.resultId.isEmpty()) {
-        qCDebug(LSPCLIENT) << "unexpected emtpy result id when parsing semantic tokens";
-        return ret;
-    }
-
-    auto data = json.value(QStringLiteral("data")).toArray();
-    ret.data.reserve(data.size());
-    std::transform(data.cbegin(), data.cend(), std::back_inserter(ret.data), [](const QJsonValue &jv) {
-        return jv.toInt();
-    });
-
-    return ret;
-}
-
+/**
+ * Used for both delta and full
+ */
 static LSPSemanticTokensDelta parseSemanticTokensDelta(const QJsonValue &result)
 {
     LSPSemanticTokensDelta ret;
@@ -770,12 +752,6 @@ static LSPSemanticTokensDelta parseSemanticTokensDelta(const QJsonValue &result)
         return ret;
     }
 
-    /**
-     * Intentionally disabled as "edits" part is already being handled by MovingRange
-     *
-     * Any new text that is entered is sent as new data that replaces all old data.
-     *
-     */
     auto edits = json.value(QStringLiteral("edits")).toArray();
 
     for (const auto &edit_jsonValue : edits) {
@@ -1605,9 +1581,9 @@ LSPClientServer::RequestHandle LSPClientServer::documentCodeAction(const QUrl &d
 }
 
 LSPClientServer::RequestHandle
-LSPClientServer::documentSemanticTokensFull(const QUrl &document, const QString requestId, const QObject *context, const SemanticTokensReplyHandler &h)
+LSPClientServer::documentSemanticTokensFull(const QUrl &document, const QString requestId, const QObject *context, const SemanticTokensDeltaReplyHandler &h)
 {
-    return d->documentSemanticTokensFull(document, /* delta = */ false, requestId, make_handler(h, context, parseSemanticTokens));
+    return d->documentSemanticTokensFull(document, /* delta = */ false, requestId, make_handler(h, context, parseSemanticTokensDelta));
 }
 
 LSPClientServer::RequestHandle LSPClientServer::documentSemanticTokensFullDelta(const QUrl &document,

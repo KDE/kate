@@ -342,11 +342,6 @@ struct LSPSemanticTokensEdit {
     std::vector<uint32_t> data;
 };
 
-struct LSPSemanticTokens {
-    QString resultId;
-    std::vector<uint32_t> data;
-};
-
 struct LSPSemanticTokensDelta {
     QString resultId;
     std::vector<LSPSemanticTokensEdit> edits;

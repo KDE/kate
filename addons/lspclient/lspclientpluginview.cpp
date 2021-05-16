@@ -636,36 +636,28 @@ public:
 
         auto server = m_serverManager->findServer(view);
         if (server) {
-            auto reqId = m_semHighlightingManager.resultIdForDoc(view->document());
+            auto resultId = m_semHighlightingManager.resultIdForDoc(view->document());
             m_semHighlightingManager.setLegend(&server->capabilities().semanticTokenProvider.legend);
             //             m_semHighlightingManager.setTypes(server->capabilities().semanticTokenProvider.types);
-            /**
-             * Full delta only if server supports it or if we don't have a result ID for this document
-             */
-            if (reqId.isEmpty() || !server->capabilities().semanticTokenProvider.fullDelta) {
-                auto h = [this, view](const LSPSemanticTokens &st) {
-                    auto doc = view->document();
-                    m_semHighlightingManager.setCurrentView(view);
+
+            auto h = [this, view](const LSPSemanticTokensDelta &st) {
+                auto doc = view->document();
+                m_semHighlightingManager.setCurrentView(view);
+
+                for (const auto &semTokenEdit : st.edits) {
+                    m_semHighlightingManager.update(doc, st.resultId, semTokenEdit.start, semTokenEdit.deleteCount, semTokenEdit.data);
+                }
+
+                if (!st.data.empty()) {
                     m_semHighlightingManager.insert(doc, st.resultId, st.data);
-                    m_semHighlightingManager.highlight(doc);
-                };
-                server->documentSemanticTokensFull(view->document()->url(), {}, this, h);
+                }
+                m_semHighlightingManager.highlight(doc);
+            };
+
+            if (!server->capabilities().semanticTokenProvider.fullDelta) {
+                server->documentSemanticTokensFull(view->document()->url(), resultId, this, h);
             } else {
-                auto h = [this, view](const LSPSemanticTokensDelta &st) {
-                    auto doc = view->document();
-                    m_semHighlightingManager.setCurrentView(view);
-
-                    for (const auto &semTokenEdit : st.edits) {
-                        m_semHighlightingManager.update(doc, st.resultId, semTokenEdit.start, semTokenEdit.deleteCount, semTokenEdit.data);
-                    }
-
-                    if (!st.data.empty()) {
-                        m_semHighlightingManager.insert(doc, st.resultId, st.data);
-                    }
-                    m_semHighlightingManager.highlight(doc);
-                };
-
-                server->documentSemanticTokensFullDelta(view->document()->url(), reqId, this, h);
+                server->documentSemanticTokensFullDelta(view->document()->url(), resultId, this, h);
             }
         }
     }

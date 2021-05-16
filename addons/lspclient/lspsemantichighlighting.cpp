@@ -23,9 +23,7 @@ void SemanticHighlighter::remove(KTextEditor::Document *doc)
     auto &movingRanges = it->movingRanges;
     for (auto mr : movingRanges) {
         delete mr;
-        mr = nullptr;
     }
-    movingRanges.clear();
     m_docSemanticInfo.remove(doc);
 }
 

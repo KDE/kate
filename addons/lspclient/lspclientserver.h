@@ -64,7 +64,6 @@ using CodeActionReplyHandler = ReplyHandler<QList<LSPCodeAction>>;
 using WorkspaceEditReplyHandler = ReplyHandler<LSPWorkspaceEdit>;
 using ApplyEditReplyHandler = ReplyHandler<LSPApplyWorkspaceEditResponse>;
 using SwitchSourceHeaderHandler = ReplyHandler<QString>;
-using SemanticTokensReplyHandler = ReplyHandler<LSPSemanticTokens>;
 using SemanticTokensDeltaReplyHandler = ReplyHandler<LSPSemanticTokensDelta>;
 
 class LSPClientPlugin;
@@ -150,7 +149,7 @@ public:
                                      const QObject *context,
                                      const CodeActionReplyHandler &h);
 
-    RequestHandle documentSemanticTokensFull(const QUrl &document, const QString requestId, const QObject *context, const SemanticTokensReplyHandler &h);
+    RequestHandle documentSemanticTokensFull(const QUrl &document, const QString requestId, const QObject *context, const SemanticTokensDeltaReplyHandler &h);
 
     RequestHandle
     documentSemanticTokensFullDelta(const QUrl &document, const QString requestId, const QObject *context, const SemanticTokensDeltaReplyHandler &h);

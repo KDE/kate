@@ -727,6 +727,16 @@ static QList<LSPCodeAction> parseCodeAction(const QJsonValue &result)
     return ret;
 }
 
+static QJsonArray supportedSemanticTokenTypes()
+{
+    return QJsonArray({QStringLiteral("namespace"), QStringLiteral("type"),     QStringLiteral("class"),         QStringLiteral("enum"),
+                       QStringLiteral("interface"), QStringLiteral("struct"),   QStringLiteral("typeParameter"), QStringLiteral("parameter"),
+                       QStringLiteral("variable"),  QStringLiteral("property"), QStringLiteral("enumMember"),    QStringLiteral("event"),
+                       QStringLiteral("function"),  QStringLiteral("method"),   QStringLiteral("macro"),         QStringLiteral("keyword"),
+                       QStringLiteral("modifier"),  QStringLiteral("comment"),  QStringLiteral("string"),        QStringLiteral("number"),
+                       QStringLiteral("regexp"),    QStringLiteral("operator")});
+}
+
 static LSPSemanticTokens parseSemanticTokens(const QJsonValue &result)
 {
     LSPSemanticTokens ret;
@@ -1128,7 +1138,11 @@ private:
                                             {QStringLiteral("range"), false},
                                             {QStringLiteral("full"), QJsonObject{{QStringLiteral("delta"), true}}}
                                        }
-                                  }};
+                                  },
+                                  {QStringLiteral("tokenTypes"), supportedSemanticTokenTypes()},
+                                  {QStringLiteral("tokenModifiers"), QJsonArray()},
+                                  {QStringLiteral("formats"), QJsonArray({QStringLiteral("relative")})},
+        };
         QJsonObject capabilities{{QStringLiteral("textDocument"),
                                   QJsonObject{{
                                                   QStringLiteral("documentSymbol"),

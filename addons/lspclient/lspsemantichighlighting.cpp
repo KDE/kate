@@ -77,18 +77,18 @@ void SemanticHighlighter::highlight(const QUrl &url)
         return;
     }
 
-    int currentLine = 0;
-    int start = 0;
+    uint32_t currentLine = 0;
+    uint32_t start = 0;
 
     int reusedRanges = 0;
     int newRanges = 0;
 
     for (size_t i = 0; i < data.size(); i += 5) {
-        int deltaLine = data.at(i);
-        int deltaStart = data.at(i + 1);
-        int len = data.at(i + 2);
-        int type = data.at(i + 3);
-        int mod = data.at(i + 4);
+        auto deltaLine = data.at(i);
+        auto deltaStart = data.at(i + 1);
+        auto len = data.at(i + 2);
+        auto type = data.at(i + 3);
+        auto mod = data.at(i + 4);
         (void)mod;
 
         currentLine += deltaLine;
@@ -107,11 +107,13 @@ void SemanticHighlighter::highlight(const QUrl &url)
         // Check if we have a moving ranges already available in the cache
         const auto index = i / 5;
         if (index < movingRanges.size()) {
-            auto &range = movingRanges[index];
-            range->setRange(r);
-            range->setAttribute(m_legend->attrForIndex(type));
-            reusedRanges++;
-            continue;
+            KTextEditor::MovingRange *range = movingRanges[index];
+            if (range) {
+                range->setRange(r);
+                range->setAttribute(m_legend->attrForIndex(type));
+                reusedRanges++;
+                continue;
+            }
         }
 
         KTextEditor::MovingRange *mr = miface->newMovingRange(r);

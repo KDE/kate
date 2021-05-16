@@ -13,6 +13,7 @@ class Editor;
 class SemanticTokensLegend : public QObject
 {
     enum TokenType {
+        Unsupported = -1,
         Type,
         Class,
         Enum,
@@ -51,6 +52,11 @@ public:
             return {};
         }
         return sharedAttrs.at(idx);
+    }
+
+    size_t tokenTypeCount() const
+    {
+        return totalTokenTypes;
     }
 
 private:

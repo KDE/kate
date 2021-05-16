@@ -87,6 +87,11 @@
             "url": "https://github.com/REditorSupport/languageserver",
             "highlightingModeRegex": "^R Script$"
         },
+        "vala": {
+            "command": ["vala-language-server"],
+            "url": "https://github.com/Prince781/vala-language-server",
+            "highlightingModeRegex": "^Vala$"
+        },
         "zig": {
             "command": ["zls"],
             "url": "https://github.com/zigtools/zls",

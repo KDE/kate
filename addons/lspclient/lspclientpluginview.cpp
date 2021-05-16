@@ -640,9 +640,14 @@ public:
             m_semHighlightingManager.setLegend(&server->capabilities().semanticTokenProvider.legend);
             //             m_semHighlightingManager.setTypes(server->capabilities().semanticTokenProvider.types);
 
-            auto h = [this, view](const LSPSemanticTokensDelta &st) {
-                auto doc = view->document();
-                m_semHighlightingManager.setCurrentView(view);
+            QPointer<KTextEditor::View> v = view;
+            auto h = [this, v](const LSPSemanticTokensDelta &st) {
+                if (!v) {
+                    return;
+                }
+
+                auto doc = v->document();
+                m_semHighlightingManager.setCurrentView(v);
 
                 for (const auto &semTokenEdit : st.edits) {
                     m_semHighlightingManager.update(doc, st.resultId, semTokenEdit.start, semTokenEdit.deleteCount, semTokenEdit.data);

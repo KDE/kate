@@ -240,9 +240,9 @@ QString DiffHunk::formatHeader(uint oldStart, uint oldCount, uint newStart, uint
  * Strictly speaking, these should not appear in diffs, but git diff
  * generates them anyway for files with unresolved conflicts.
  */
-QList<DiffHunk *> parseHunks(VcsDiff &diff)
+std::vector<DiffHunk> parseHunks(VcsDiff &diff)
 {
-    QList<DiffHunk *> ret;
+    std::vector<DiffHunk> ret;
     int lineNo = -1;
     QString curSrcFileName, curTgtFileName;
     QStringListIterator lines(diff.diff().split(QLatin1Char('\n')));
@@ -286,14 +286,15 @@ QList<DiffHunk *> parseHunks(VcsDiff &diff)
 
         // The number of filenames present in the diff should match the number
         // of hunks
-        ret << new DiffHunk{oldRange.first, oldRange.second, newRange.first, newRange.second, firstLineIdx, curSrcFileName, curTgtFileName, heading, hunkLines};
+        ret.push_back(
+            DiffHunk{oldRange.first, oldRange.second, newRange.first, newRange.second, firstLineIdx, curSrcFileName, curTgtFileName, heading, hunkLines});
     }
 
     // If the diff ends with a newline, for the last hunk, when splitting into lines above
     // we will always get an empty string at the end, which we now remove
     if (diff.diff().endsWith(QLatin1Char('\n'))) {
-        if (ret.size() > 0 && ret.back()->lines.size() > 0) {
-            ret.back()->lines.pop_back();
+        if (ret.size() > 0 && ret.back().lines.size() > 0) {
+            ret.back().lines.pop_back();
         } else {
             qWarning() << "Failed to parse a diff, produced no hunks";
             qDebug() << "Failed diff:" << diff.diff();
@@ -303,13 +304,13 @@ QList<DiffHunk *> parseHunks(VcsDiff &diff)
     return ret;
 }
 
-class VcsDiffPrivate : public QSharedData
+class VcsDiffPrivate
 {
 public:
     QUrl baseDiff;
     QString diff;
     uint depth = 0;
-    QList<DiffHunk *> hunks;
+    std::vector<DiffHunk> hunks;
 
     enum Dest {
         SRC = '-',
@@ -327,9 +328,9 @@ public:
     int mapDiffLine(const uint line, const Dest dest) const
     {
         const QLatin1Char skipChar = (dest == SRC) ? QLatin1Char(TGT) : QLatin1Char(SRC);
-        for (auto h : hunks) {
-            if (h->containsDiffLine(line)) {
-                int hunkPos = h->diffLineToHunkLine(line);
+        for (const auto &h : hunks) {
+            if (h.containsDiffLine(line)) {
+                int hunkPos = h.diffLineToHunkLine(line);
 
                 // The line refers to the heading line
                 if (hunkPos < 0)
@@ -339,7 +340,7 @@ public:
                 // of dest should not be counted (they are not present in the dest)
                 int skipCount = 0;
                 for (int i = 0; i < hunkPos; i++) {
-                    if (h->lines.at(i).startsWith(skipChar))
+                    if (h.lines.at(i).startsWith(skipChar))
                         skipCount++;
                 }
 
@@ -347,32 +348,32 @@ public:
                 // of a conflict should not be counted either
                 bool inConflict = false; // This is set so that a line inside a conflict is recognized as a valid line
                 for (int i = 0; i < hunkPos; i++) {
-                    if (CONFLICT_START_RE->match(h->lines.at(i)).hasMatch()) {
+                    if (CONFLICT_START_RE->match(h.lines.at(i)).hasMatch()) {
                         skipCount++; // skip the conflict marker line
                         if (dest == TGT) {
-                            while ((++i) < hunkPos && !CONFLICT_MID_RE->match(h->lines.at(i)).hasMatch()) {
+                            while ((++i) < hunkPos && !CONFLICT_MID_RE->match(h.lines.at(i)).hasMatch()) {
                                 skipCount++;
                             }
                         } else {
                             inConflict = true;
                         }
                     }
-                    if (CONFLICT_MID_RE->match(h->lines.at(i)).hasMatch()) {
+                    if (CONFLICT_MID_RE->match(h.lines.at(i)).hasMatch()) {
                         skipCount++; // skip the conflict marker line
                         if (dest == SRC) {
-                            while ((++i) < hunkPos && !CONFLICT_END_RE->match(h->lines.at(i)).hasMatch())
+                            while ((++i) < hunkPos && !CONFLICT_END_RE->match(h.lines.at(i)).hasMatch())
                                 skipCount++;
                         } else {
                             inConflict = true;
                         }
                     }
-                    if (CONFLICT_END_RE->match(h->lines.at(i)).hasMatch()) {
+                    if (CONFLICT_END_RE->match(h.lines.at(i)).hasMatch()) {
                         skipCount++; // skip the conflict marker line
                         inConflict = false;
                     }
                 }
 
-                auto ln = h->lines[hunkPos];
+                auto ln = h.lines[hunkPos];
 
                 // This works around the fact that inConflict is set even if hunkPos
                 // ends up hitting a conflict marker
@@ -383,11 +384,11 @@ public:
                     if (dest == SRC)
                         // The -1 accounts for the fact that srcStart is 1-based
                         // but we need to return 0-based line numbers
-                        return h->srcStart - 1 + hunkPos - skipCount;
+                        return h.srcStart - 1 + hunkPos - skipCount;
                     else
                         // The -1 accounts for the fact that srcStart is 1-based
                         // but we need to return 0-based line numbers
-                        return h->tgtStart - 1 + hunkPos - skipCount;
+                        return h.tgtStart - 1 + hunkPos - skipCount;
                 } else
                     return -1;
             }
@@ -398,10 +399,9 @@ public:
 
 VcsDiff VcsDiff::subDiffHunk(const uint line, DiffDirection dir) const
 {
-    auto hunks = d->hunks;
-    for (const auto *hunk : hunks) {
-        if (hunk->containsDiffLine(line)) {
-            return subDiff(hunk->headingLineIdx, hunk->lastLineIdx(), dir);
+    for (const auto &hunk : d->hunks) {
+        if (hunk.containsDiffLine(line)) {
+            return subDiff(hunk.headingLineIdx, hunk.lastLineIdx(), dir);
         }
     }
 
@@ -421,15 +421,14 @@ VcsDiff VcsDiff::subDiff(const uint startLine, const uint endLine, DiffDirection
     ret.setBaseDiff(baseDiff());
     ret.setDepth(depth());
 
-    auto hunks = d->hunks;
     QStringList lines;
-    for (const auto *hunk : hunks) {
+    for (const auto &hunk : d->hunks) {
         // Skip hunks before the first line
-        if (*hunk < startLine)
+        if (hunk < startLine)
             continue;
 
         // Skip hunks after the last line
-        if (*hunk > endLine)
+        if (hunk > endLine)
             break;
 
         std::map<LineType, int> counts = {{ADD, 0}, {DEL, 0}, {CTX, 0}, {NO_NEWLINE, 0}};
@@ -439,13 +438,13 @@ VcsDiff VcsDiff::subDiff(const uint startLine, const uint endLine, DiffDirection
         // skipped because it was not in the selected range
         bool prevSkipped = false;
 
-        uint lnIdx = hunk->headingLineIdx;
+        uint lnIdx = hunk.headingLineIdx;
 
         // Store the number of skipped lines which start the hunk
         // (i.e. lines before a first deletion (addition in case of reverse)
         // so that we can adjust the start appropriately
         int startOffset = 0;
-        const auto _lines = QStringList(hunk->lines.constBegin(), hunk->lines.constEnd());
+        const auto _lines = QStringList(hunk.lines.constBegin(), hunk.lines.constEnd());
         for (const auto &line : _lines) {
             lnIdx++;
             LineType tp = line.length() > 0 ? (LineType)line[0].toLatin1() : (LineType)0;
@@ -502,20 +501,20 @@ VcsDiff VcsDiff::subDiff(const uint startLine, const uint endLine, DiffDirection
         // Compute the start & counts of the hunks
         uint subSrcStart, subTgtStart;
         if (dir == Reverse) {
-            subSrcStart = hunk->tgtStart + startOffset;
-            subTgtStart = hunk->srcStart + startOffset;
+            subSrcStart = hunk.tgtStart + startOffset;
+            subTgtStart = hunk.srcStart + startOffset;
         } else {
-            subSrcStart = hunk->srcStart + startOffset;
-            subTgtStart = hunk->tgtStart + startOffset;
+            subSrcStart = hunk.srcStart + startOffset;
+            subTgtStart = hunk.tgtStart + startOffset;
         }
         uint subSrcCount = counts[CTX] + counts[DEL];
         uint subTgtCount = counts[CTX] + counts[ADD];
 
         // Prepend lines identifying the source files
-        lines << QStringLiteral("--- a/") + ((dir == Reverse) ? hunk->tgtFile : hunk->srcFile);
-        lines << QStringLiteral("+++ b/") + ((dir == Reverse) ? hunk->srcFile : hunk->tgtFile);
+        lines << QStringLiteral("--- a/") + ((dir == Reverse) ? hunk.tgtFile : hunk.srcFile);
+        lines << QStringLiteral("+++ b/") + ((dir == Reverse) ? hunk.srcFile : hunk.tgtFile);
 
-        lines << DiffHunk::formatHeader(subSrcStart, subSrcCount, subTgtStart, subTgtCount, hunk->heading);
+        lines << DiffHunk::formatHeader(subSrcStart, subSrcCount, subTgtStart, subTgtCount, hunk.heading);
         lines += filteredLines;
     }
     if (lines.size() > 2)
@@ -527,11 +526,11 @@ const QVector<VcsDiff::FilePair> VcsDiff::fileNames() const
 {
     QVector<VcsDiff::FilePair> ret;
     VcsDiff::FilePair current;
-    for (auto h : d->hunks) {
+    for (const auto &h : d->hunks) {
         // List each pair only once
-        if (h->srcFile == current.source && h->tgtFile == current.target)
+        if (h.srcFile == current.source && h.tgtFile == current.target)
             continue;
-        current = {h->srcFile, h->tgtFile};
+        current = {h.srcFile, h.tgtFile};
         ret.push_back(current);
     }
     return ret;
@@ -554,9 +553,9 @@ VcsDiff::VcsDiff()
 
 VcsDiff::~VcsDiff() = default;
 
-VcsDiff::VcsDiff(const VcsDiff &rhs)
-    : d(rhs.d)
+VcsDiff::VcsDiff(VcsDiff &&rhs)
 {
+    this->d = std::move(rhs.d);
 }
 
 bool VcsDiff::isEmpty() const
@@ -573,12 +572,6 @@ void VcsDiff::setDiff(const QString &s)
 {
     d->diff = s;
     d->hunks = parseHunks(*this);
-}
-
-VcsDiff &VcsDiff::operator=(const VcsDiff &rhs)
-{
-    d = rhs.d;
-    return *this;
 }
 
 QUrl VcsDiff::baseDiff() const

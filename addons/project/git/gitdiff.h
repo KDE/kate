@@ -9,9 +9,9 @@
 #define KDEVPLATFORM_VCSDIFF_H
 
 #include <QMetaType>
-#include <QSharedDataPointer>
 #include <QVector>
 #include <QtGlobal>
+#include <memory>
 
 class QUrl;
 class QString;
@@ -85,8 +85,8 @@ public:
     };
 
     VcsDiff();
-    virtual ~VcsDiff();
-    VcsDiff(const VcsDiff &);
+    ~VcsDiff();
+    VcsDiff(VcsDiff &&rhs);
 
     /**
      * @returns the source of the diff.
@@ -113,8 +113,6 @@ public:
      * @param diff the diff in unified diff format
      */
     void setDiff(const QString &diff);
-
-    VcsDiff &operator=(const VcsDiff &rhs);
 
     /** @returns whether or not there are changes in the diff */
     bool isEmpty() const;
@@ -181,7 +179,7 @@ public:
     const QVector<FilePair> fileNames() const;
 
 private:
-    QSharedDataPointer<class VcsDiffPrivate> d;
+    std::unique_ptr<class VcsDiffPrivate> d;
 };
 
 #endif

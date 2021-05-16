@@ -1,5 +1,11 @@
-#ifndef SEMANTIC_TOKENS_LEGEND
-#define SEMANTIC_TOKENS_LEGEND
+/*  SPDX-License-Identifier: MIT
+
+    SPDX-FileCopyrightText: 2021 Waqar Ahmed <waqar.17a@gmail.com>
+
+    SPDX-License-Identifier: MIT
+*/
+#ifndef SEMANTIC_TOKENS_LEGEND_H
+#define SEMANTIC_TOKENS_LEGEND_H
 
 #include <QObject>
 

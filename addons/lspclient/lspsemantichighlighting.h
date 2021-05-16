@@ -1,4 +1,11 @@
-#pragma once
+/*  SPDX-License-Identifier: MIT
+
+    SPDX-FileCopyrightText: 2021 Waqar Ahmed <waqar.17a@gmail.com>
+
+    SPDX-License-Identifier: MIT
+*/
+#ifndef LSP_SEMANTIC_HIGHLIGHTING_H
+#define LSP_SEMANTIC_HIGHLIGHTING_H
 
 #include <QHash>
 #include <QPointer>
@@ -89,3 +96,4 @@ private:
      */
     const SemanticTokensLegend *m_legend = nullptr;
 };
+#endif

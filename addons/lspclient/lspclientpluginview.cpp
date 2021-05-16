@@ -2281,7 +2281,11 @@ public:
                             this,
                             SLOT(clearSemanticTokensHighlighting(KTextEditor::Document *)),
                             Qt::UniqueConnection);
-
+                    connect(doc,
+                            SIGNAL(aboutToClose(KTextEditor::Document *)),
+                            this,
+                            SLOT(clearSemanticTokensHighlighting(KTextEditor::Document *)),
+                            Qt::UniqueConnection);
                     doSemanticHighlighting(activeView);
                 }
             }

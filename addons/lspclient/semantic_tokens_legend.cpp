@@ -182,7 +182,7 @@ void SemanticTokensLegend::initialize(const std::vector<QString> &types)
         if (type == QStringLiteral("operator"))
             tokenTypes[i] = TokenType::Operator;
         if (type == QStringLiteral("namespace"))
-            tokenTypes[i] = TokenType::Operator;
+            tokenTypes[i] = TokenType::Namespace;
         i++;
     }
     totalTokenTypes = tokenTypes.size();

@@ -93,9 +93,6 @@ void QuickDialog::updateViewGeometry()
     if (!m_mainWindow)
         return;
 
-    m_treeView.resizeColumnToContents(0);
-    m_treeView.resizeColumnToContents(1);
-
     const QSize centralSize = m_mainWindow->size();
 
     // width: 2.4 of editor, height: 1/2 of editor

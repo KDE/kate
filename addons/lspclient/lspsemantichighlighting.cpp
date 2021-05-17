@@ -9,6 +9,7 @@
 #include "semantic_tokens_legend.h"
 
 #include <KTextEditor/MovingInterface>
+#include <KTextEditor/MovingRange>
 #include <KTextEditor/View>
 
 void SemanticHighlighter::processTokens(const LSPSemanticTokensDelta &tokens, KTextEditor::View *view, const SemanticTokensLegend *legend)
@@ -112,14 +113,14 @@ void SemanticHighlighter::highlight(KTextEditor::View *view, const SemanticToken
             auto &range = movingRanges[index];
             if (range) {
                 range->setRange(r);
-                range->setAttribute(legend->attrForIndex(type));
+                range->setAttribute(legend->attributeForTokenType(type));
                 reusedRanges++;
                 continue;
             }
         }
 
         std::unique_ptr<KTextEditor::MovingRange> mr(miface->newMovingRange(r));
-        mr->setAttribute(legend->attrForIndex(type));
+        mr->setAttribute(legend->attributeForTokenType(type));
         movingRanges.push_back(std::move(mr));
         newRanges++;
 

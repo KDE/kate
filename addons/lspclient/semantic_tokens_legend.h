@@ -52,7 +52,7 @@ public:
      */
     void initialize(const std::vector<QString> &types);
 
-    KTextEditor::Attribute::Ptr attrForIndex(int idx) const
+    KTextEditor::Attribute::Ptr attributeForTokenType(int idx) const
     {
         if (idx >= totalTokenTypes) {
             return {};

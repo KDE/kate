@@ -7,15 +7,19 @@
 #ifndef LSP_SEMANTIC_HIGHLIGHTING_H
 #define LSP_SEMANTIC_HIGHLIGHTING_H
 
-#include <QHash>
-#include <QPointer>
 #include <QString>
-#include <QUrl>
-#include <QVector>
 
-#include <KTextEditor/Attribute>
 #include <KTextEditor/MovingRange>
-#include <KTextEditor/View>
+
+#include <memory>
+#include <unordered_map>
+#include <vector>
+
+namespace KTextEditor
+{
+class View;
+class Document;
+}
 
 class SemanticTokensLegend;
 struct LSPSemanticTokensDelta;
@@ -23,7 +27,7 @@ struct LSPSemanticTokensDelta;
 class SemanticHighlighter
 {
 public:
-    QString resultIdForDoc(KTextEditor::Document *doc) const
+    QString previousResultIdForDoc(KTextEditor::Document *doc) const
     {
         auto it = m_docResultId.find(doc);
         if (it != m_docResultId.end()) {
@@ -46,16 +50,12 @@ private:
     void highlight(KTextEditor::View *view, const SemanticTokensLegend *legend);
 
     /**
-     * Insert tokens @p data for doc with @p url
+     * Insert new incoming tokens @p data for doc with @p url
      */
     void insert(KTextEditor::Document *doc, const QString &resultId, const std::vector<uint32_t> &data);
 
     /**
-     * This function is more or less useless for Kate? Maybe because MovingRange already handles this for us
-     *
-     * An update or SemanticTokensEdit only arrives if you entered a new line or something trivial. If you insert new characters you
-     * get a full new vector with new data which has to be replaced with the old and everything rehighlighted. This is the behaviour of
-     * clangd, not sure about others.
+     * Handle SemanticTokensEdits
      */
     void update(KTextEditor::Document *doc, const QString &resultId, uint32_t start, uint32_t deleteCount, const std::vector<uint32_t> &data);
 
@@ -69,7 +69,7 @@ private:
     };
 
     /**
-     * token types specified in server caps. Uncomment for debuggin
+     * token types specified in server caps. Uncomment for debugging
      */
     //     QVector<QString> m_types;
 

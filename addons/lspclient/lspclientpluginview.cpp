@@ -362,7 +362,6 @@ class LSPClientActionView : public QObject
     // applied search ranges
     typedef QMultiHash<KTextEditor::Document *, KTextEditor::MovingRange *> RangeCollection;
     RangeCollection m_ranges;
-    QHash<KTextEditor::Document *, QHash<int, QVector<KTextEditor::MovingRange *>>> m_semanticHighlightRanges;
     // applied marks
     typedef QSet<KTextEditor::Document *> DocumentCollection;
     DocumentCollection m_marks;
@@ -633,26 +632,25 @@ public:
         if (!view) {
             return;
         }
-
         auto server = m_serverManager->findServer(view);
-        if (server) {
-            //  m_semHighlightingManager.setTypes(server->capabilities().semanticTokenProvider.types);
+        if (!server) {
+            return;
+        }
+        //  m_semHighlightingManager.setTypes(server->capabilities().semanticTokenProvider.types);
 
-            QPointer<KTextEditor::View> v = view;
-            auto h = [this, v, server](const LSPSemanticTokensDelta &st) {
-                if (!v) {
-                    return;
-                }
+        QPointer<KTextEditor::View> v = view;
+        auto h = [this, v, server](const LSPSemanticTokensDelta &st) {
+            if (v && server) {
                 const auto legend = &server->capabilities().semanticTokenProvider.legend;
                 m_semHighlightingManager.processTokens(st, v, legend);
-            };
-
-            auto resultId = m_semHighlightingManager.resultIdForDoc(view->document());
-            if (!server->capabilities().semanticTokenProvider.fullDelta) {
-                server->documentSemanticTokensFull(view->document()->url(), resultId, this, h);
-            } else {
-                server->documentSemanticTokensFullDelta(view->document()->url(), resultId, this, h);
             }
+        };
+
+        auto prevResultId = m_semHighlightingManager.previousResultIdForDoc(view->document());
+        if (!server->capabilities().semanticTokenProvider.fullDelta) {
+            server->documentSemanticTokensFull(view->document()->url(), QString(), this, h);
+        } else {
+            server->documentSemanticTokensFullDelta(view->document()->url(), prevResultId, this, h);
         }
     }
 

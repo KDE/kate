@@ -5,31 +5,35 @@
     SPDX-License-Identifier: MIT
 */
 #include "lspsemantichighlighting.h"
+#include "lspclientprotocol.h"
+#include "semantic_tokens_legend.h"
 
 #include <KTextEditor/MovingInterface>
 #include <KTextEditor/View>
 
-#include "semantic_tokens_legend.h"
+void SemanticHighlighter::processTokens(const LSPSemanticTokensDelta &tokens, KTextEditor::View *view, const SemanticTokensLegend *legend)
+{
+    Q_ASSERT(view);
+
+    for (const auto &semTokenEdit : tokens.edits) {
+        update(view->document(), tokens.resultId, semTokenEdit.start, semTokenEdit.deleteCount, semTokenEdit.data);
+    }
+
+    if (!tokens.data.empty()) {
+        insert(view->document(), tokens.resultId, tokens.data);
+    }
+    highlight(view, legend);
+}
 
 void SemanticHighlighter::remove(KTextEditor::Document *doc)
 {
-    m_docUrlToResultId.remove(doc);
-
-    auto it = m_docSemanticInfo.find(doc);
-    if (it == m_docSemanticInfo.end()) {
-        return;
-    }
-
-    auto &movingRanges = it->movingRanges;
-    for (auto mr : movingRanges) {
-        delete mr;
-    }
-    m_docSemanticInfo.remove(doc);
+    m_docResultId.erase(doc);
+    m_docSemanticInfo.erase(doc);
 }
 
 void SemanticHighlighter::insert(KTextEditor::Document *doc, const QString &resultId, const std::vector<uint32_t> &data)
 {
-    m_docUrlToResultId[doc] = resultId;
+    m_docResultId[doc] = resultId;
     TokensData &tokensData = m_docSemanticInfo[doc];
     tokensData.tokens = data;
 }
@@ -44,7 +48,7 @@ void SemanticHighlighter::update(KTextEditor::Document *doc, const QString &resu
         return;
     }
 
-    auto &existingTokens = toks->tokens;
+    auto &existingTokens = toks->second.tokens;
 
     // replace
     if (deleteCount > 0) {
@@ -53,22 +57,17 @@ void SemanticHighlighter::update(KTextEditor::Document *doc, const QString &resu
     existingTokens.insert(existingTokens.begin() + start, data.begin(), data.end());
 
     //     Update result Id
-    m_docUrlToResultId[doc] = resultId;
+    m_docResultId[doc] = resultId;
 }
 
-void SemanticHighlighter::highlight(KTextEditor::Document *doc)
+void SemanticHighlighter::highlight(KTextEditor::View *view, const SemanticTokensLegend *legend)
 {
-    Q_ASSERT(m_legend);
+    Q_ASSERT(legend);
 
-    if (!view || !m_legend) {
+    if (!view || !legend) {
         return;
     }
-
-    if (!doc) {
-        qWarning() << "View doesn't have doc!";
-        return;
-    }
-
+    auto doc = view->document();
     auto miface = qobject_cast<KTextEditor::MovingInterface *>(doc);
 
     TokensData &semanticData = m_docSemanticInfo[doc];
@@ -102,29 +101,29 @@ void SemanticHighlighter::highlight(KTextEditor::Document *doc)
             start = deltaStart;
         }
 
-        //         QString text = doc->line(currentLine);
-        //         text = text.mid(start, len);
+        // QString text = doc->line(currentLine);
+        // text = text.mid(start, len);
 
         KTextEditor::Range r(currentLine, start, currentLine, start + len);
 
         // Check if we have a moving ranges already available in the cache
         const auto index = i / 5;
         if (index < movingRanges.size()) {
-            KTextEditor::MovingRange *range = movingRanges[index];
+            auto &range = movingRanges[index];
             if (range) {
                 range->setRange(r);
-                range->setAttribute(m_legend->attrForIndex(type));
+                range->setAttribute(legend->attrForIndex(type));
                 reusedRanges++;
                 continue;
             }
         }
 
-        KTextEditor::MovingRange *mr = miface->newMovingRange(r);
-        mr->setAttribute(m_legend->attrForIndex(type));
-        movingRanges.push_back(mr);
+        std::unique_ptr<KTextEditor::MovingRange> mr(miface->newMovingRange(r));
+        mr->setAttribute(legend->attrForIndex(type));
+        movingRanges.push_back(std::move(mr));
         newRanges++;
 
-        //         std::cout << "Token: " << text.toStdString() << " => " << m_types.at(type).toStdString() << ", Line: {" << currentLine << ", " << deltaLine
+        // std::cout << "Token: " << text.toStdString() << " => " << m_types.at(type).toStdString() << ", Line: {" << currentLine << ", " << deltaLine
         //         << "}\n";
     }
 
@@ -133,7 +132,7 @@ void SemanticHighlighter::highlight(KTextEditor::Document *doc)
      */
     int totalCreatedRanges = reusedRanges + newRanges;
     if (totalCreatedRanges < (int)movingRanges.size()) {
-        std::for_each(movingRanges.begin() + totalCreatedRanges, movingRanges.end(), [](KTextEditor::MovingRange *mr) {
+        std::for_each(movingRanges.begin() + totalCreatedRanges, movingRanges.end(), [](const std::unique_ptr<KTextEditor::MovingRange> &mr) {
             mr->setRange(KTextEditor::Range::invalid());
         });
     }

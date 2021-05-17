@@ -18,24 +18,37 @@
 #include <KTextEditor/View>
 
 class SemanticTokensLegend;
+struct LSPSemanticTokensDelta;
 
 class SemanticHighlighter
 {
 public:
+    QString resultIdForDoc(KTextEditor::Document *doc) const
+    {
+        auto it = m_docResultId.find(doc);
+        if (it != m_docResultId.end()) {
+            return it->second;
+        }
+        return QString();
+    }
+
+    /**
+     * Unregister a doc from highlighter and remove all its associated moving ranges and tokens
+     */
+    void remove(KTextEditor::Document *doc);
+
+    void processTokens(const LSPSemanticTokensDelta &tokens, KTextEditor::View *view, const SemanticTokensLegend *legend);
+
+private:
     /**
      * Does the actual highlighting
      */
-    void highlight(KTextEditor::Document *doc);
+    void highlight(KTextEditor::View *view, const SemanticTokensLegend *legend);
 
     /**
      * Insert tokens @p data for doc with @p url
      */
     void insert(KTextEditor::Document *doc, const QString &resultId, const std::vector<uint32_t> &data);
-
-    /**
-     * Unregister a doc from highlighter and remove all its moving ranges and tokens
-     */
-    void remove(KTextEditor::Document *doc);
 
     /**
      * This function is more or less useless for Kate? Maybe because MovingRange already handles this for us
@@ -46,35 +59,14 @@ public:
      */
     void update(KTextEditor::Document *doc, const QString &resultId, uint32_t start, uint32_t deleteCount, const std::vector<uint32_t> &data);
 
-    QString resultIdForDoc(KTextEditor::Document *doc) const
-    {
-        return m_docUrlToResultId.value(doc);
-    }
-
-    void setCurrentView(KTextEditor::View *v)
-    {
-        view = v;
-    }
-
-    void setLegend(const SemanticTokensLegend *legend)
-    {
-        m_legend = legend;
-    }
-
-private:
     /**
      * A simple struct which holds the tokens recieved by server +
      * moving ranges that were created to highlight those tokens
      */
     struct TokensData {
         std::vector<uint32_t> tokens;
-        std::vector<KTextEditor::MovingRange *> movingRanges;
+        std::vector<std::unique_ptr<KTextEditor::MovingRange>> movingRanges;
     };
-
-    /**
-     * The current active view
-     */
-    QPointer<KTextEditor::View> view;
 
     /**
      * token types specified in server caps. Uncomment for debuggin
@@ -84,16 +76,11 @@ private:
     /**
      * Doc => result-id mapping
      */
-    QHash<KTextEditor::Document *, QString> m_docUrlToResultId;
+    std::unordered_map<KTextEditor::Document *, QString> m_docResultId;
 
     /**
      * semantic token and moving range mapping for doc
      */
-    QHash<KTextEditor::Document *, TokensData> m_docSemanticInfo;
-
-    /**
-     * Legend which is basically used to fetch color for a type
-     */
-    const SemanticTokensLegend *m_legend = nullptr;
+    std::unordered_map<KTextEditor::Document *, TokensData> m_docSemanticInfo;
 };
 #endif

@@ -161,14 +161,11 @@ KTextEditor::Document *KateDocManager::openUrl(const QUrl &url, const QString &e
 
     if (!doc) {
         if (untitledDoc) {
-            // reuse the untitled document which is not needed
-            auto &info = m_docInfos.find(untitledDoc).value();
-            delete info;
-            info = new KateDocumentInfo(docInfo);
-            doc = untitledDoc;
-        } else {
-            doc = createDoc(docInfo);
+            QTimer::singleShot(0, untitledDoc, [this, untitledDoc] {
+                closeDocument(untitledDoc);
+            });
         }
+        doc = createDoc(docInfo);
 
         if (!encoding.isEmpty()) {
             doc->setEncoding(encoding);
@@ -265,10 +262,7 @@ bool KateDocManager::closeDocument(KTextEditor::Document *doc, bool closeUrl)
         return false;
     }
 
-    QList<KTextEditor::Document *> documents;
-    documents.append(doc);
-
-    return closeDocuments(documents, closeUrl);
+    return closeDocuments({doc}, closeUrl);
 }
 
 bool KateDocManager::closeDocumentList(const QList<KTextEditor::Document *> &documents)

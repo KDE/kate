@@ -6,11 +6,71 @@
 */
 #include "lspsemantichighlighting.h"
 #include "lspclientprotocol.h"
+#include "lspclientservermanager.h"
 #include "semantic_tokens_legend.h"
 
 #include <KTextEditor/MovingInterface>
 #include <KTextEditor/MovingRange>
 #include <KTextEditor/View>
+
+SemanticHighlighter::SemanticHighlighter(QObject *parent)
+    : QObject(parent)
+{
+}
+
+void SemanticHighlighter::doSemanticHighlighting(KTextEditor::View *view, QSharedPointer<LSPClientServerManager> serverManager)
+{
+    if (!view) {
+        return;
+    }
+
+    auto server = serverManager->findServer(view);
+    if (!server) {
+        return;
+    }
+
+    const auto &caps = server->capabilities();
+    const bool serverSupportsSemHighlighting = caps.semanticTokenProvider.full || caps.semanticTokenProvider.fullDelta;
+    if (!serverSupportsSemHighlighting) {
+        return;
+    }
+
+    auto doc = view->document();
+    if (m_docResultId.count(doc) == 0) {
+        connect(doc,
+                SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document *)),
+                this,
+                SLOT(remove(KTextEditor::Document *)),
+                Qt::UniqueConnection);
+        connect(doc, SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document *)), this, SLOT(remove(KTextEditor::Document *)), Qt::UniqueConnection);
+    }
+
+    //  m_semHighlightingManager.setTypes(server->capabilities().semanticTokenProvider.types);
+
+    QPointer<KTextEditor::View> v = view;
+    auto h = [this, v, server](const LSPSemanticTokensDelta &st) {
+        if (v && server) {
+            const auto legend = &server->capabilities().semanticTokenProvider.legend;
+            processTokens(st, v, legend);
+        }
+    };
+
+    if (!server->capabilities().semanticTokenProvider.fullDelta) {
+        server->documentSemanticTokensFull(doc->url(), QString(), this, h);
+    } else {
+        auto prevResultId = previousResultIdForDoc(doc);
+        server->documentSemanticTokensFullDelta(doc->url(), prevResultId, this, h);
+    }
+}
+
+QString SemanticHighlighter::previousResultIdForDoc(KTextEditor::Document *doc) const
+{
+    auto it = m_docResultId.find(doc);
+    if (it != m_docResultId.end()) {
+        return it->second;
+    }
+    return QString();
+}
 
 void SemanticHighlighter::processTokens(const LSPSemanticTokensDelta &tokens, KTextEditor::View *view, const SemanticTokensLegend *legend)
 {

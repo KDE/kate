@@ -7,6 +7,7 @@
 #ifndef LSP_SEMANTIC_HIGHLIGHTING_H
 #define LSP_SEMANTIC_HIGHLIGHTING_H
 
+#include <QObject>
 #include <QString>
 
 #include <KTextEditor/MovingRange>
@@ -22,28 +23,27 @@ class Document;
 }
 
 class SemanticTokensLegend;
+class LSPClientServerManager;
 struct LSPSemanticTokensDelta;
 
-class SemanticHighlighter
+class SemanticHighlighter : public QObject
 {
+    Q_OBJECT
 public:
-    QString previousResultIdForDoc(KTextEditor::Document *doc) const
-    {
-        auto it = m_docResultId.find(doc);
-        if (it != m_docResultId.end()) {
-            return it->second;
-        }
-        return QString();
-    }
+    SemanticHighlighter(QObject *parent = nullptr);
+
+    void doSemanticHighlighting(KTextEditor::View *v, QSharedPointer<LSPClientServerManager> serverManager);
+
+private:
+    QString previousResultIdForDoc(KTextEditor::Document *doc) const;
 
     /**
      * Unregister a doc from highlighter and remove all its associated moving ranges and tokens
      */
-    void remove(KTextEditor::Document *doc);
+    Q_SLOT void remove(KTextEditor::Document *doc);
 
     void processTokens(const LSPSemanticTokensDelta &tokens, KTextEditor::View *view, const SemanticTokensLegend *legend);
 
-private:
     /**
      * Does the actual highlighting
      */

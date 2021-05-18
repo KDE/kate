@@ -627,33 +627,6 @@ public:
         }
     }
 
-    void doSemanticHighlighting(KTextEditor::View *view)
-    {
-        if (!view) {
-            return;
-        }
-        auto server = m_serverManager->findServer(view);
-        if (!server) {
-            return;
-        }
-        //  m_semHighlightingManager.setTypes(server->capabilities().semanticTokenProvider.types);
-
-        QPointer<KTextEditor::View> v = view;
-        auto h = [this, v, server](const LSPSemanticTokensDelta &st) {
-            if (v && server) {
-                const auto legend = &server->capabilities().semanticTokenProvider.legend;
-                m_semHighlightingManager.processTokens(st, v, legend);
-            }
-        };
-
-        auto prevResultId = m_semHighlightingManager.previousResultIdForDoc(view->document());
-        if (!server->capabilities().semanticTokenProvider.fullDelta) {
-            server->documentSemanticTokensFull(view->document()->url(), QString(), this, h);
-        } else {
-            server->documentSemanticTokensFullDelta(view->document()->url(), prevResultId, this, h);
-        }
-    }
-
     // This is taken from KDevelop :)
     KTextEditor::View *viewFromWidget(QWidget *widget)
     {
@@ -2190,7 +2163,7 @@ public:
         }
 
         if (m_plugin->m_semanticHighlighting) {
-            doSemanticHighlighting(activeView);
+            m_semHighlightingManager.doSemanticHighlighting(activeView, m_serverManager);
         }
 
         if (m_onTypeFormattingTriggers.empty()) {
@@ -2252,21 +2225,8 @@ public:
             isClangd = lspServer == QStringLiteral("clangd");
 
             const bool semHighlightingEnabled = m_plugin->m_semanticHighlighting;
-            const bool serverSupportsSemHighlighting = caps.semanticTokenProvider.full || caps.semanticTokenProvider.fullDelta;
-            if (semHighlightingEnabled && serverSupportsSemHighlighting) {
-                if (doc) {
-                    connect(doc,
-                            SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document *)),
-                            this,
-                            SLOT(clearSemanticTokensHighlighting(KTextEditor::Document *)),
-                            Qt::UniqueConnection);
-                    connect(doc,
-                            SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document *)),
-                            this,
-                            SLOT(clearSemanticTokensHighlighting(KTextEditor::Document *)),
-                            Qt::UniqueConnection);
-                    doSemanticHighlighting(activeView);
-                }
+            if (semHighlightingEnabled) {
+                m_semHighlightingManager.doSemanticHighlighting(activeView, m_serverManager);
             }
         }
 
@@ -2337,13 +2297,6 @@ public:
         // connect for cleanup stuff
         if (activeView) {
             connect(activeView, &KTextEditor::View::destroyed, this, &self_type::viewDestroyed, Qt::UniqueConnection);
-        }
-    }
-
-    Q_SLOT void clearSemanticTokensHighlighting(KTextEditor::Document *doc)
-    {
-        if (doc) {
-            m_semHighlightingManager.remove(doc);
         }
     }
 

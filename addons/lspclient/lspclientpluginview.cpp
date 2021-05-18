@@ -210,12 +210,18 @@ public:
         }
 
         // set the cursor
+        auto &data = docs[doc];
         if (w) {
+            // track original cursor
+            if (!data.wid) {
+                data.wid = w;
+                data.cursor = w->cursor();
+            }
             w->setCursor(Qt::PointingHandCursor);
         }
 
         // underline the hovered word
-        auto mr = ranges[doc];
+        auto mr = data.range;
         if (mr) {
             mr->setRange(range);
         } else {
@@ -224,7 +230,7 @@ public:
                 return;
             }
             mr = miface->newMovingRange(range);
-            ranges[doc] = mr;
+            data.range = mr;
             // clang-format off
             connect(doc,
                     SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document*)),
@@ -251,10 +257,16 @@ public:
     {
         if (activeView) {
             auto doc = activeView->document();
-            if (doc) {
-                auto &mr = ranges[doc];
+            auto it = docs.find(doc);
+            if (it != docs.end()) {
+                auto &data = *it;
+                auto &mr = data.range;
                 if (mr) {
                     mr->setRange(KTextEditor::Range::invalid());
+                }
+                if (data.wid) {
+                    data.wid->setCursor(data.cursor);
+                    data.wid = nullptr;
                 }
             }
         }
@@ -276,17 +288,27 @@ private:
     Q_SLOT void clear(KTextEditor::Document *doc)
     {
         if (doc) {
-            auto it = ranges.find(doc);
-            if (it != ranges.end()) {
-                delete *it;
-                ranges.erase(it);
+            auto it = docs.find(doc);
+            if (it != docs.end()) {
+                delete it->range;
+                if (it->wid) {
+                    it->wid->setCursor(it->cursor);
+                }
+                docs.erase(it);
             }
         }
     }
 
 private:
+    struct DocumentData {
+        KTextEditor::MovingRange *range = nullptr;
+        // widget to restore cursor on
+        QPointer<QWidget> wid;
+        QCursor cursor;
+    };
+
     QPointer<QWidget> w;
-    QHash<KTextEditor::Document *, KTextEditor::MovingRange *> ranges;
+    QHash<KTextEditor::Document *, DocumentData> docs;
     KTextEditor::Range range;
 };
 
@@ -709,17 +731,11 @@ public:
                     processCtrlMouseHover(cur);
                 } else {
                     // if there is no word, unset the cursor and remove the highlight
-                    if (wid) {
-                        wid->unsetCursor();
-                    }
                     m_ctrlHoverFeedback.clear(m_mainWindow->activeView());
                 }
             } else {
                 // simple mouse move, make sure to unset the cursor
                 // and remove the highlight
-                if (wid) {
-                    wid->unsetCursor();
-                }
                 m_ctrlHoverFeedback.clear(m_mainWindow->activeView());
             }
         }

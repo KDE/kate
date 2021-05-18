@@ -190,31 +190,6 @@ void KateProjectViewTree::removeFile(const QModelIndex& idx, const QString& full
     }
 }
 
-void KateProjectViewTree::removeDirectory(const QModelIndex& idx, const QString& fullDirPath)
-{
-    auto proxyModel = static_cast<QSortFilterProxyModel *>(model());
-    auto index = proxyModel->mapToSource(idx);
-    auto item = m_project->model()->itemFromIndex(index);
-    QStandardItem* parent = item->parent();
-    
-    QDir dir(fullDirPath);
-    if(dir.removeRecursively()) //.moveToTrash()
-    {
-        if(parent != nullptr)
-        {
-            parent->removeRow(item->row());
-            parent->sortChildren(0);
-        }
-        else
-        {
-            m_project->model()->removeRow(item->row());
-            m_project->model()->sort(0);
-        }
-    }
-}
-
-
-
 void KateProjectViewTree::slotClicked(const QModelIndex &index)
 {
     /**

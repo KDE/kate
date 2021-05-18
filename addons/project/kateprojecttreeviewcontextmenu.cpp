@@ -61,6 +61,7 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
 
     QAction *addFile = nullptr;
     QAction *addFolder = nullptr;
+    QAction* fileDelete = nullptr;
     if (index.data(KateProjectItem::TypeRole).toInt() == KateProjectItem::Directory) {
         addFile = menu.addAction(QIcon::fromTheme(QStringLiteral("document-new")), i18n("Add File"));
         addFolder = menu.addAction(QIcon::fromTheme(QStringLiteral("folder-new")), i18n("Add Folder"));
@@ -99,10 +100,13 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
      */
     auto openContaingFolderAction = menu.addAction(QIcon::fromTheme(QStringLiteral("document-open-folder")), i18n("&Open Containing Folder"));
     
-    /**
-     * File delete dialog
-     */
-    QAction* fileDelete = menu.addAction(QIcon::fromTheme(QStringLiteral("delete")), i18n("Delete"));
+    if(index.data(KateProjectItem::TypeRole).toInt() == KateProjectItem::File)
+    {
+        /**
+        * File delete dialog
+        */
+        fileDelete = menu.addAction(QIcon::fromTheme(QStringLiteral("delete")), i18n("Delete"));
+    }
 
     /**
      * File Properties Dialog
@@ -137,8 +141,6 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
     
     auto handleDeleteFile = [parent, index](const QString &path)
     {
-        
-        QFileInfo fileInfo(path);
         //message box
         const QString title = i18n("Confirm deleting: %1", path);
         const QString text = i18n("Do you want to delete: %1 ?", path);
@@ -146,30 +148,17 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
         if (QMessageBox::Yes == QMessageBox::question(parent, title, text, QMessageBox::No | QMessageBox::Yes, QMessageBox::Yes)) 
         {
             const QList< KTextEditor::Document* > openDocuments = KTextEditor::Editor::instance()->application()->documents();
-            if(fileInfo.isDir()) //for dir
+              
+            //if is open, close
+            for(auto doc : openDocuments)
             {
-                //has opend files ?
-                for (auto doc : openDocuments)
-                    if(QUrl(path).isParentOf(doc->url().adjusted(QUrl::RemoveScheme)))
-                        KTextEditor::Editor::instance()->application()->closeDocument(doc); //KTextEditor::Editor::instance()->application()->documentWillBeDeleted(doc);
-
-                parent->removeDirectory(index, path);
-            }
-            else //for file
-            {
-                
-                //if is open, close
-                for(auto doc : openDocuments)
+                if(doc->url().adjusted(QUrl::RemoveScheme) == QUrl(path).adjusted(QUrl::RemoveScheme))
                 {
-                    if(doc->url().adjusted(QUrl::RemoveScheme) == QUrl(path).adjusted(QUrl::RemoveScheme))
-                    {
-                        KTextEditor::Editor::instance()->application()->closeDocument(doc);
-//                         KTextEditor::Editor::instance()->application()->documentWillBeDeleted(doc);
-                        break;
-                    }
+                    KTextEditor::Editor::instance()->application()->closeDocument(doc);
+                    break;
                 }
-                parent->removeFile(index, path);
             }
+            parent->removeFile(index, path);
         }
     };
 
@@ -198,7 +187,7 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
             handleOpenWith(action, filename);
         } else if (action == openContaingFolderAction) {
             KIO::highlightInFileManager({QUrl::fromLocalFile(filename)});
-        } else if (action == fileDelete) {
+        } else if (fileDelete && action == fileDelete) {
             handleDeleteFile(filename);
         } else if (action == filePropertiesAction) {
             // code copied and adapted from frameworks/kio/src/filewidgets/knewfilemenu.cpp

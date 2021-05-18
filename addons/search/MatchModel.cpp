@@ -1027,6 +1027,14 @@ bool MatchModel::setData(const QModelIndex &itemIndex, const QVariant &, int rol
     return true;
 }
 
+void MatchModel::uncheckAll()
+{
+    for (int i = 0; i < m_matchFiles.size(); ++i) {
+        setFileChecked(i, false);
+    }
+    m_infoCheckState = Qt::Unchecked;
+}
+
 Qt::ItemFlags MatchModel::flags(const QModelIndex &index) const
 {
     if (!index.isValid()) {

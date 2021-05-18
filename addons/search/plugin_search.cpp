@@ -649,6 +649,11 @@ void KatePluginSearchView::handleEsc(QEvent *e)
         } else if (m_toolView->isVisible()) {
             m_mainWindow->hideToolView(m_toolView);
         }
+        // uncheck all so no new marks are added again when switching views
+        Results *curResults = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
+        if (curResults) {
+            curResults->matchModel.uncheckAll();
+        }
     }
 }
 

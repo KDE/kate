@@ -97,6 +97,8 @@ public:
 
     void updateMatchRanges(const QVector<KTextEditor::MovingRange *> &ranges);
 
+    void uncheckAll();
+
 public Q_SLOTS:
 
     /** This function returns the row index of the specified file.

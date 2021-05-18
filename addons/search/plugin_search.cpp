@@ -1949,6 +1949,7 @@ void KatePluginSearchView::tabCloseRequested(int index)
     if (m_ui.resultTabWidget->count() == 1) {
         m_ui.resultTabWidget->tabBar()->hide();
     }
+    updateMatchMarks();
 }
 
 void KatePluginSearchView::resultTabChanged(int index)
@@ -1976,6 +1977,7 @@ void KatePluginSearchView::resultTabChanged(int index)
     m_ui.useRegExp->blockSignals(false);
     m_ui.searchPlaceCombo->blockSignals(false);
     searchPlaceChanged();
+    updateMatchMarks();
 }
 
 void KatePluginSearchView::onResize(const QSize &size)

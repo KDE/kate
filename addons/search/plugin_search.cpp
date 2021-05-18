@@ -1479,7 +1479,7 @@ void KatePluginSearchView::addRangeAndMark(KTextEditor::Document *doc,
                                            KTextEditor::Attribute::Ptr attr,
                                            KTextEditor::MovingInterface *miface)
 {
-    if (!doc) {
+    if (!doc || !match.checked) {
         return;
     }
 

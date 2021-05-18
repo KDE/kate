@@ -145,7 +145,7 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
         const QString title = i18n("Confirm deleting: %1", path);
         const QString text = i18n("Do you want to delete: %1 ?", path);
         
-        if (QMessageBox::Yes == QMessageBox::question(parent, title, text, QMessageBox::No | QMessageBox::Yes, QMessageBox::Yes)) 
+        if (QMessageBox::Yes == QMessageBox::question(parent, title, text, QMessageBox::No | QMessageBox::Yes, QMessageBox::No))
         {
             const QList< KTextEditor::Document* > openDocuments = KTextEditor::Editor::instance()->application()->documents();
               

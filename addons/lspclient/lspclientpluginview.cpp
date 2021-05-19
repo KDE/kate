@@ -43,12 +43,15 @@
 #include <QJsonObject>
 #include <QKeyEvent>
 #include <QMenu>
+#include <QPainter>
 #include <QPlainTextEdit>
 #include <QSet>
 #include <QStandardItem>
+#include <QStyledItemDelegate>
 #include <QTextCodec>
 #include <QTimer>
 #include <QTreeView>
+#include <kfts_fuzzy_match.h>
 #include <unordered_map>
 #include <utility>
 
@@ -189,6 +192,59 @@ public:
         }
         return QString();
     }
+};
+
+class LocationTreeDelegate : public QStyledItemDelegate
+{
+public:
+    LocationTreeDelegate(QObject *parent, const QString &root, const QFont &font)
+        : QStyledItemDelegate(parent)
+        , m_root(root)
+        , m_monoFont(font)
+    {
+    }
+
+    void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override
+    {
+        auto options = option;
+        initStyleOption(&options, index);
+
+        painter->save();
+
+        QString text = index.data().toString();
+
+        options.text = QString(); // clear old text
+        options.widget->style()->drawControl(QStyle::CE_ItemViewItem, &options, painter, options.widget);
+
+        text.remove(m_root);
+
+        QVector<QTextLayout::FormatRange> formats;
+        if (!text.startsWith(QStringLiteral("Line: "))) {
+            int lastSlash = text.lastIndexOf(QLatin1Char('/'));
+            if (lastSlash != -1) {
+                QTextCharFormat fmt;
+                fmt.setFontWeight(QFont::Bold);
+                formats.append({lastSlash + 1, text.length() - (lastSlash + 1), fmt});
+            }
+        } else {
+            constexpr auto len = sizeof("Line: ") - 1;
+            int nextColon = text.indexOf(QLatin1Char(':'), len);
+            if (nextColon != -1) {
+                QTextCharFormat fmt;
+                fmt.setFont(m_monoFont);
+                int codeStart = nextColon + 1;
+                formats.append({codeStart, text.length() - codeStart, fmt});
+            }
+        }
+
+        kfts::paintItemViewText(painter, text, options, formats);
+
+        painter->restore();
+    }
+
+private:
+    QString m_root;
+    QFont m_monoFont;
 };
 
 /**
@@ -760,6 +816,15 @@ public:
         clearAllDiagnosticsMarks();
     }
 
+    QFont getEditorFont()
+    {
+        auto ciface = qobject_cast<KTextEditor::ConfigInterface *>(m_mainWindow->activeView());
+        if (ciface) {
+            return ciface->configValue(QStringLiteral("font")).value<QFont>();
+        }
+        return QFont();
+    }
+
     void configureTreeView(QTreeView *treeView)
     {
         treeView->setHeaderHidden(true);
@@ -767,6 +832,14 @@ public:
         treeView->setLayoutDirection(Qt::LeftToRight);
         treeView->setSortingEnabled(false);
         treeView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+
+        // styling
+        QString root;
+        auto activeView = m_mainWindow->activeView();
+        if (auto s = m_serverManager->findServer(activeView)) {
+            root = s->root().toLocalFile();
+        }
+        treeView->setItemDelegate(new LocationTreeDelegate(treeView, root, getEditorFont()));
 
         // context menu
         treeView->setContextMenuPolicy(Qt::CustomContextMenu);

@@ -1,4 +1,4 @@
-add_library(katebacktracebrowserplugin MODULE "")
+kcoreaddons_add_plugin(katebacktracebrowserplugin INSTALL_NAMESPACE "ktexteditor")
 target_compile_definitions(katebacktracebrowserplugin PRIVATE TRANSLATION_DOMAIN="katebacktracebrowserplugin")
 target_link_libraries(katebacktracebrowserplugin PRIVATE KF5::I18n KF5::TextEditor)
 
@@ -14,9 +14,6 @@ target_sources(
     btdatabase.cpp
 )
 
-# ensure we are able to load plugins pre-install, too, directories must match!
-set_target_properties(katebacktracebrowserplugin PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/ktexteditor")
-install(TARGETS katebacktracebrowserplugin DESTINATION ${KDE_INSTALL_PLUGINDIR}/ktexteditor)
 
 if(BUILD_TESTING)
   add_subdirectory(autotests)

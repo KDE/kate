@@ -8,7 +8,7 @@ if(NOT KF5ItemModels_FOUND OR NOT KF5SyntaxHighlighting_FOUND)
   return()
 endif()
 
-add_library(lspclientplugin MODULE "")
+kcoreaddons_add_plugin(lspclientplugin INSTALL_NAMESPACE "ktexteditor")
 target_compile_definitions(lspclientplugin PRIVATE TRANSLATION_DOMAIN="lspclient")
 
 ki18n_wrap_ui(UI_SOURCES lspconfigwidget.ui)
@@ -59,9 +59,6 @@ target_include_directories(
     ${CMAKE_SOURCE_DIR}/shared
 )
 
-# ensure we are able to load plugins pre-install, too, directories must match!
-set_target_properties(lspclientplugin PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/ktexteditor")
-install(TARGETS lspclientplugin DESTINATION ${KDE_INSTALL_PLUGINDIR}/ktexteditor)
 
 if(BUILD_TESTING)
   add_subdirectory(tests)

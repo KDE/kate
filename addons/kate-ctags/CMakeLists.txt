@@ -1,4 +1,4 @@
-add_library(katectagsplugin MODULE "")
+kcoreaddons_add_plugin(katectagsplugin INSTALL_NAMESPACE "ktexteditor")
 target_compile_definitions(katectagsplugin PRIVATE TRANSLATION_DOMAIN="kate-ctags-plugin")
 target_link_libraries(katectagsplugin PRIVATE KF5::I18n KF5::TextEditor)
 
@@ -29,6 +29,3 @@ target_sources(
     plugin.qrc
 )
 
-# ensure we are able to load plugins pre-install, too, directories must match!
-set_target_properties(katectagsplugin PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/ktexteditor")
-install(TARGETS katectagsplugin DESTINATION ${KDE_INSTALL_PLUGINDIR}/ktexteditor)

@@ -1,4 +1,4 @@
-add_library(kategitblameplugin MODULE "")
+kcoreaddons_add_plugin(kategitblameplugin INSTALL_NAMESPACE "ktexteditor")
 target_compile_definitions(kategitblameplugin PRIVATE TRANSLATION_DOMAIN="kategitblameplugin")
 target_link_libraries(kategitblameplugin PRIVATE KF5::I18n KF5::TextEditor)
 
@@ -15,6 +15,3 @@ target_include_directories(kategitblameplugin PRIVATE
     ${CMAKE_SOURCE_DIR}/shared
 )
 
-# ensure we are able to load plugins pre-install, too, directories must match!
-set_target_properties(kategitblameplugin PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/ktexteditor")
-install(TARGETS kategitblameplugin DESTINATION ${KDE_INSTALL_PLUGINDIR}/ktexteditor)

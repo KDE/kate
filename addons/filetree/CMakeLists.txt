@@ -5,7 +5,8 @@ if(NOT KF5GuiAddons_FOUND)
   return()
 endif()
 
-add_library(katefiletreeplugin MODULE "")
+kcoreaddons_add_plugin(katefiletreeplugin INSTALL_NAMESPACE "ktexteditor")
+
 target_compile_definitions(katefiletreeplugin PRIVATE TRANSLATION_DOMAIN="katefiletree")
 
 target_link_libraries(
@@ -28,9 +29,6 @@ target_sources(
     plugin.qrc
 )
 
-# ensure we are able to load plugins pre-install, too, directories must match!
-set_target_properties(katefiletreeplugin PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/ktexteditor")
-install(TARGETS katefiletreeplugin DESTINATION ${KDE_INSTALL_PLUGINDIR}/ktexteditor)
 
 if(BUILD_TESTING)
   add_subdirectory(autotests)

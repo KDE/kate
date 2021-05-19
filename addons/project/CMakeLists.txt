@@ -14,7 +14,7 @@ if(NOT KF5_FOUND OR NOT Qt5Concurrent_FOUND)
   return()
 endif()
 
-add_library(kateprojectplugin MODULE "")
+kcoreaddons_add_plugin(kateprojectplugin INSTALL_NAMESPACE "ktexteditor")
 target_compile_definitions(kateprojectplugin PRIVATE TRANSLATION_DOMAIN="kateproject")
 
 target_link_libraries(
@@ -88,9 +88,6 @@ target_sources(
     plugin.qrc
 )
 
-# ensure we are able to load plugins pre-install, too, directories must match!
-set_target_properties(kateprojectplugin PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/ktexteditor")
-install(TARGETS kateprojectplugin DESTINATION ${KDE_INSTALL_PLUGINDIR}/ktexteditor)
 install(FILES kateproject.example DESTINATION ${KDE_INSTALL_DATADIR}/kateproject)
 
 if(BUILD_TESTING)

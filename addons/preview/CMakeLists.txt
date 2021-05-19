@@ -1,4 +1,4 @@
-add_library(ktexteditorpreviewplugin MODULE "")
+kcoreaddons_add_plugin(ktexteditorpreviewplugin INSTALL_NAMESPACE "ktexteditor")
 target_compile_definitions(ktexteditorpreviewplugin PRIVATE TRANSLATION_DOMAIN="ktexteditorpreviewplugin")
 target_link_libraries(ktexteditorpreviewplugin PRIVATE KF5::I18n KF5::TextEditor)
 
@@ -19,7 +19,3 @@ target_sources(
     previewwidget.cpp
     kpartview.cpp
 )
-
-# ensure we are able to load plugins pre-install, too, directories must match!
-set_target_properties(ktexteditorpreviewplugin PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/ktexteditor")
-install(TARGETS ktexteditorpreviewplugin DESTINATION ${KDE_INSTALL_PLUGINDIR}/ktexteditor)

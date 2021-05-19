@@ -8,6 +8,3 @@ target_sources(
     rainbowparens_plugin.cpp
 )
 
-# ensure we are able to load plugins pre-install, too, directories must match!
-set_target_properties(rainbowparens PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/ktexteditor")
-install(TARGETS rainbowparens DESTINATION ${KDE_INSTALL_PLUGINDIR}/ktexteditor)

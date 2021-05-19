@@ -8,7 +8,7 @@ if(NOT KF5Wallet_FOUND OR NOT Qt5Sql_FOUND)
   return()
 endif()
 
-add_library(katesqlplugin MODULE "")
+kcoreaddons_add_plugin(katesqlplugin INSTALL_NAMESPACE "ktexteditor")
 target_compile_definitions(katesqlplugin PRIVATE TRANSLATION_DOMAIN="katesql")
 
 target_link_libraries(
@@ -42,6 +42,3 @@ target_sources(
     plugin.qrc
 )
 
-# ensure we are able to load plugins pre-install, too, directories must match!
-set_target_properties(katesqlplugin PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/ktexteditor")
-install(TARGETS katesqlplugin DESTINATION ${KDE_INSTALL_PLUGINDIR}/ktexteditor)

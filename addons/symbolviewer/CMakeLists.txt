@@ -1,4 +1,4 @@
-add_library(katesymbolviewerplugin MODULE "")
+kcoreaddons_add_plugin(katesymbolviewerplugin INSTALL_NAMESPACE "ktexteditor")
 target_compile_definitions(katesymbolviewerplugin PRIVATE TRANSLATION_DOMAIN="katesymbolviewer")
 target_link_libraries(katesymbolviewerplugin PRIVATE KF5::I18n KF5::TextEditor)
 
@@ -20,6 +20,3 @@ target_sources(
     plugin.qrc
 )
 
-# ensure we are able to load plugins pre-install, too, directories must match!
-set_target_properties(katesymbolviewerplugin PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/ktexteditor")
-install(TARGETS katesymbolviewerplugin DESTINATION ${KDE_INSTALL_PLUGINDIR}/ktexteditor)

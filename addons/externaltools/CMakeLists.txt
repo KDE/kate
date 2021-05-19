@@ -10,7 +10,7 @@ endif()
 
 find_package(Qt5Test ${QT_MIN_VERSION} QUIET REQUIRED)
 
-add_library(externaltoolsplugin MODULE "")
+kcoreaddons_add_plugin(externaltoolsplugin INSTALL_NAMESPACE "ktexteditor")
 target_compile_definitions(externaltoolsplugin PRIVATE TRANSLATION_DOMAIN="kateexternaltoolsplugin")
 target_link_libraries(externaltoolsplugin PRIVATE
     KF5::CoreAddons
@@ -36,10 +36,6 @@ target_sources(
     plugin.qrc
     ${UI_SOURCES}
 )
-
-# ensure we are able to load plugins pre-install, too, directories must match!
-set_target_properties(externaltoolsplugin PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/ktexteditor")
-install(TARGETS externaltoolsplugin DESTINATION ${KDE_INSTALL_PLUGINDIR}/ktexteditor )
 
 if (BUILD_TESTING)
     add_subdirectory(autotests)

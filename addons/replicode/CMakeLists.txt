@@ -1,4 +1,4 @@
-add_library(katereplicodeplugin MODULE "")
+kcoreaddons_add_plugin(katereplicodeplugin INSTALL_NAMESPACE "ktexteditor")
 target_compile_definitions(katereplicodeplugin PRIVATE TRANSLATION_DOMAIN="kate-replicode-plugin")
 
 target_link_libraries(
@@ -22,6 +22,3 @@ target_sources(
     plugin.qrc
 )
 
-# ensure we are able to load plugins pre-install, too, directories must match!
-set_target_properties(katereplicodeplugin PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/ktexteditor")
-install(TARGETS katereplicodeplugin DESTINATION ${KDE_INSTALL_PLUGINDIR}/ktexteditor)

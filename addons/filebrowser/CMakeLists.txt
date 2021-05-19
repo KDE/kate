@@ -6,7 +6,7 @@ if(NOT KF5KIO_FOUND)
   return()
 endif()
 
-add_library(katefilebrowserplugin MODULE "")
+kcoreaddons_add_plugin(katefilebrowserplugin INSTALL_NAMESPACE "ktexteditor")
 target_compile_definitions(katefilebrowserplugin PRIVATE TRANSLATION_DOMAIN="katefilebrowserplugin")
 
 target_link_libraries(
@@ -28,6 +28,3 @@ target_sources(
     katefilebrowseropenwithmenu.cpp
 )
 
-# ensure we are able to load plugins pre-install, too, directories must match!
-set_target_properties(katefilebrowserplugin PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/ktexteditor")
-install(TARGETS katefilebrowserplugin DESTINATION ${KDE_INSTALL_PLUGINDIR}/ktexteditor)

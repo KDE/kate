@@ -1,4 +1,4 @@
-add_library(katecloseexceptplugin MODULE "")
+kcoreaddons_add_plugin(katecloseexceptplugin INSTALL_NAMESPACE "ktexteditor")
 target_compile_definitions(katecloseexceptplugin PRIVATE TRANSLATION_DOMAIN="katecloseexceptplugin")
 
 target_link_libraries(
@@ -19,6 +19,3 @@ target_sources(
     plugin.qrc
 )
 
-# ensure we are able to load plugins pre-install, too, directories must match!
-set_target_properties(katecloseexceptplugin PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/ktexteditor")
-install(TARGETS katecloseexceptplugin DESTINATION ${KDE_INSTALL_PLUGINDIR}/ktexteditor)

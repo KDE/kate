@@ -6,7 +6,7 @@ if(NOT KF5ItemViews_FOUND OR NOT Qt5Concurrent_FOUND)
   return()
 endif()
 
-add_library(katesearchplugin MODULE "")
+kcoreaddons_add_plugin(katesearchplugin INSTALL_NAMESPACE "ktexteditor")
 target_compile_definitions(katesearchplugin PRIVATE TRANSLATION_DOMAIN="katesearch")
 
 target_link_libraries(
@@ -35,6 +35,3 @@ target_sources(
     search_open_files.cpp
 )
 
-# ensure we are able to load plugins pre-install, too, directories must match!
-set_target_properties(katesearchplugin PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/ktexteditor")
-install(TARGETS katesearchplugin DESTINATION ${KDE_INSTALL_PLUGINDIR}/ktexteditor)

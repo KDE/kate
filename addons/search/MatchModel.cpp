@@ -944,8 +944,8 @@ bool MatchModel::setFileChecked(int fileRow, bool checked)
     }
     m_matchFiles[fileRow].checkState = checked ? Qt::Checked : Qt::Unchecked;
     QModelIndex rootFileIndex = index(fileRow, 0, createIndex(0, 0, InfoItemId));
-    dataChanged(index(0, 0, rootFileIndex), index(matches.count() - 1, 0, rootFileIndex), QVector<int>(Qt::CheckStateRole));
-    dataChanged(rootFileIndex, rootFileIndex, QVector<int>(Qt::CheckStateRole));
+    dataChanged(index(0, 0, rootFileIndex), index(matches.count() - 1, 0, rootFileIndex), QVector<int>{Qt::CheckStateRole});
+    dataChanged(rootFileIndex, rootFileIndex, QVector<int>{Qt::CheckStateRole});
     return true;
 }
 
@@ -969,7 +969,7 @@ bool MatchModel::setData(const QModelIndex &itemIndex, const QVariant &, int rol
         }
         m_infoCheckState = checked ? Qt::Checked : Qt::Unchecked;
         QModelIndex infoIndex = createIndex(0, 0, InfoItemId);
-        dataChanged(infoIndex, infoIndex, QVector<int>(Qt::CheckStateRole));
+        dataChanged(infoIndex, infoIndex, QVector<int>{Qt::CheckStateRole});
         return true;
     }
 
@@ -991,7 +991,7 @@ bool MatchModel::setData(const QModelIndex &itemIndex, const QVariant &, int rol
         }
         m_infoCheckState = checkState;
         QModelIndex infoIndex = createIndex(0, 0, InfoItemId);
-        dataChanged(infoIndex, infoIndex, QVector<int>(Qt::CheckStateRole));
+        dataChanged(infoIndex, infoIndex, QVector<int>{Qt::CheckStateRole});
         return true;
     }
 
@@ -1022,8 +1022,8 @@ bool MatchModel::setData(const QModelIndex &itemIndex, const QVariant &, int rol
     }
 
     QModelIndex rootFileIndex = index(rootRow, 0);
-    dataChanged(rootFileIndex, rootFileIndex, QVector<int>(Qt::CheckStateRole));
-    dataChanged(index(row, 0, rootFileIndex), index(row, 0, rootFileIndex), QVector<int>(Qt::CheckStateRole));
+    dataChanged(rootFileIndex, rootFileIndex, QVector<int>{Qt::CheckStateRole});
+    dataChanged(index(row, 0, rootFileIndex), index(row, 0, rootFileIndex), QVector<int>{Qt::CheckStateRole});
     return true;
 }
 

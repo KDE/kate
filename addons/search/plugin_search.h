@@ -149,6 +149,7 @@ private Q_SLOTS:
 
     void replaceDone();
 
+    void updateCheckState(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles);
     void updateMatchMarks();
 
     void syncModelRanges();
@@ -200,6 +201,7 @@ private:
     QThreadPool m_searchDiskFilePool;
 
     QTimer m_diskSearchDoneTimer;
+    QTimer m_updateCheckedStateTimer;
     QAction *m_matchCase = nullptr;
     QAction *m_useRegExp = nullptr;
     Results *m_curResults = nullptr;

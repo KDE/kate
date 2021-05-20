@@ -451,6 +451,10 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
     m_diskSearchDoneTimer.setInterval(10);
     connect(&m_diskSearchDoneTimer, &QTimer::timeout, this, &KatePluginSearchView::searchDone);
 
+    m_updateCheckedStateTimer.setSingleShot(true);
+    m_updateCheckedStateTimer.setInterval(10);
+    connect(&m_updateCheckedStateTimer, &QTimer::timeout, this, &KatePluginSearchView::updateMatchMarks);
+
     // queued connect to signals emitted outside of background thread
     connect(&m_folderFilesList, &FolderFilesList::fileListReady, this, &KatePluginSearchView::folderFileListChanged, Qt::QueuedConnection);
     connect(
@@ -1535,6 +1539,22 @@ void KatePluginSearchView::addRangeAndMark(KTextEditor::Document *doc,
     iface->addMark(match.range.start().line(), KTextEditor::MarkInterface::markType32);
 }
 
+void KatePluginSearchView::updateCheckState(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles)
+{
+    Q_UNUSED(topLeft);
+    Q_UNUSED(bottomRight);
+
+    // check tailored to the way signal is raised by the model
+    // keep the check simple in case each one is one of many
+    if (roles.size() == 0 || roles.size() > 1 || roles[0] != Qt::CheckStateRole) {
+        return;
+    }
+    // more updates might follow, let's batch those
+    if (!m_updateCheckedStateTimer.isActive()) {
+        m_updateCheckedStateTimer.start();
+    }
+}
+
 void KatePluginSearchView::updateMatchMarks()
 {
     // We only keep marks & ranges for one document at a time so clear the rest
@@ -1562,6 +1582,8 @@ void KatePluginSearchView::updateMatchMarks()
     // clang-format on
     // Re-add the highlighting on document reload
     connect(doc, &KTextEditor::Document::reloaded, this, &KatePluginSearchView::updateMatchMarks, Qt::UniqueConnection);
+    // Re-do highlight upon check mark update
+    connect(&res->matchModel, &QAbstractItemModel::dataChanged, this, &KatePluginSearchView::updateCheckState, Qt::UniqueConnection);
 
     KTextEditor::MovingInterface *miface = qobject_cast<KTextEditor::MovingInterface *>(doc);
 

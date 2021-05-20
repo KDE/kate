@@ -234,6 +234,11 @@ public:
             }
         }
 
+        /** There might be an icon? Make sure to not draw over it **/
+        auto textRectX = options.widget->style()->subElementRect(QStyle::SE_ItemViewItemText, &options, options.widget).x();
+        auto width = textRectX - options.rect.x();
+        painter->translate(width, 0);
+
         kfts::paintItemViewText(painter, text, options, formats);
 
         painter->restore();

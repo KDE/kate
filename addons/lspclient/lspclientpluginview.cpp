@@ -197,9 +197,8 @@ public:
 class LocationTreeDelegate : public QStyledItemDelegate
 {
 public:
-    LocationTreeDelegate(QObject *parent, const QString &root, const QFont &font)
+    LocationTreeDelegate(QObject *parent, const QFont &font)
         : QStyledItemDelegate(parent)
-        , m_root(root)
         , m_monoFont(font)
     {
     }
@@ -215,8 +214,6 @@ public:
 
         options.text = QString(); // clear old text
         options.widget->style()->drawControl(QStyle::CE_ItemViewItem, &options, painter, options.widget);
-
-        text.remove(m_root);
 
         QVector<QTextLayout::FormatRange> formats;
         if (!text.startsWith(QStringLiteral("Line: "))) {
@@ -243,7 +240,6 @@ public:
     }
 
 private:
-    QString m_root;
     QFont m_monoFont;
 };
 
@@ -834,12 +830,7 @@ public:
         treeView->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
         // styling
-        QString root;
-        auto activeView = m_mainWindow->activeView();
-        if (auto s = m_serverManager->findServer(activeView)) {
-            root = s->root().toLocalFile();
-        }
-        treeView->setItemDelegate(new LocationTreeDelegate(treeView, root, getEditorFont()));
+        treeView->setItemDelegate(new LocationTreeDelegate(treeView, getEditorFont()));
 
         // context menu
         treeView->setContextMenuPolicy(Qt::CustomContextMenu);

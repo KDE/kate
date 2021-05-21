@@ -340,8 +340,9 @@ int main(int argc, char **argv)
         }
 
         QStringList kateServices;
-        for (KateRunningInstanceMap::const_iterator it = mapSessionRii.constBegin(); it != mapSessionRii.constEnd(); ++it) {
-            QString serviceName = (*it)->serviceName;
+        for (const auto &[_, katerunninginstanceinfo] : mapSessionRii) {
+            Q_UNUSED(_)
+            QString serviceName = katerunninginstanceinfo.serviceName;
 
             if (currentActivity.length() != 0) {
                 QDBusMessage m = QDBusMessage::createMethodCall(serviceName,
@@ -381,15 +382,13 @@ int main(int argc, char **argv)
             force_new = true;
         } else if (parser.isSet(startSessionOption)) {
             start_session = parser.value(startSessionOption);
-            if (mapSessionRii.contains(start_session)) {
-                serviceName = mapSessionRii[start_session]->serviceName;
+            auto it = mapSessionRii.find(start_session);
+            if (it != mapSessionRii.end()) {
+                serviceName = it->second.serviceName;
                 force_new = false;
                 session_already_opened = true;
             }
         }
-
-        // cleanup map
-        cleanupRunningKateAppInstanceMap(&mapSessionRii);
 
         // if no new instance is forced and no already opened session is requested,
         // check if a pid is given, which should be reused.

@@ -13,21 +13,20 @@
 #include <QMap>
 #include <QVariant>
 #include <iostream>
+#include <memory>
 
-class KateRunningInstanceInfo : public QObject
+class KateRunningInstanceInfo
 {
-    Q_OBJECT
-
 public:
+    KateRunningInstanceInfo() = default;
+
     KateRunningInstanceInfo(const QString &serviceName_)
-        : QObject()
-        , valid(false)
+        : valid(false)
         , serviceName(serviceName_)
         , dbus_if(new QDBusInterface(serviceName_,
                                      QStringLiteral("/MainApplication"),
                                      QString(), // I don't know why it does not work if I specify org.kde.Kate.Application here
-                                     QDBusConnection::sessionBus(),
-                                     this))
+                                     QDBusConnection::sessionBus()))
     {
         if (!dbus_if->isValid()) {
             std::cerr << qPrintable(QDBusConnection::sessionBus().lastError().message()) << std::endl;
@@ -48,22 +47,18 @@ public:
             valid = true;
         }
     }
-    ~KateRunningInstanceInfo() override
-    {
-        delete dbus_if;
-    }
-    bool valid;
+
+    bool valid = false;
     const QString serviceName;
-    QDBusInterface *dbus_if;
+    std::unique_ptr<QDBusInterface> dbus_if;
     QString sessionName;
 
 private:
-    static int dummy_session;
+    static inline int dummy_session = 0;
 };
 
-typedef QMap<QString, KateRunningInstanceInfo *> KateRunningInstanceMap;
+typedef std::map<QString, KateRunningInstanceInfo> KateRunningInstanceMap;
 
 Q_DECL_EXPORT bool fillinRunningKateAppInstances(KateRunningInstanceMap *map);
-Q_DECL_EXPORT void cleanupRunningKateAppInstanceMap(KateRunningInstanceMap *map);
 
 #endif

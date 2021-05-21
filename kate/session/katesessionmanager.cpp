@@ -115,7 +115,7 @@ bool KateSessionManager::activateSession(KateSession::Ptr session, const bool cl
             return false;
         }
 
-        if (instances.contains(session->name())) {
+        if (instances.find(session->name()) != instances.end()) {
             if (KMessageBox::questionYesNo(nullptr,
                                            i18n("Session '%1' is already opened in another kate instance, change there instead of reopening?", session->name()),
                                            QString(),
@@ -123,13 +123,10 @@ bool KateSessionManager::activateSession(KateSession::Ptr session, const bool cl
                                            KStandardGuiItem::no(),
                                            QStringLiteral("katesessionmanager_switch_instance"))
                 == KMessageBox::Yes) {
-                instances[session->name()]->dbus_if->call(QStringLiteral("activate"));
-                cleanupRunningKateAppInstanceMap(&instances);
+                instances[session->name()].dbus_if->call(QStringLiteral("activate"));
                 return false;
             }
         }
-
-        cleanupRunningKateAppInstanceMap(&instances);
     }
     // try to close and save last session
     if (closeAndSaveLast) {

@@ -13,8 +13,6 @@
 #include <QRegularExpression>
 #include <QStringList>
 
-int KateRunningInstanceInfo::dummy_session = 0;
-
 bool fillinRunningKateAppInstances(KateRunningInstanceMap *map)
 {
     QDBusConnectionInterface *i = QDBusConnection::sessionBus().interface();
@@ -35,25 +33,16 @@ bool fillinRunningKateAppInstances(KateRunningInstanceMap *map)
 
     for (const QString &s : qAsConst(services)) {
         if (s.startsWith(QLatin1String("org.kde.kate")) && !s.endsWith(my_pid)) {
-            KateRunningInstanceInfo *rii = new KateRunningInstanceInfo(s);
-            if (rii->valid) {
-                if (map->contains(rii->sessionName)) {
+            KateRunningInstanceInfo rii(s);
+            if (rii.valid) {
+                if (map->find(rii.sessionName) != map->end()) {
                     return false; // ERROR no two instances may have the same session name
                 }
-                map->insert(rii->sessionName, rii);
+                auto sessionName = rii.sessionName;
+                map->emplace(sessionName, std::move(rii));
                 // std::cerr<<qPrintable(s)<<"running instance:"<< rii->sessionName.toUtf8().data()<<std::endl;
-            } else {
-                delete rii;
             }
         }
     }
     return true;
-}
-
-void cleanupRunningKateAppInstanceMap(KateRunningInstanceMap *map)
-{
-    for (KateRunningInstanceMap::const_iterator it = map->constBegin(); it != map->constEnd(); ++it) {
-        delete it.value();
-    }
-    map->clear();
 }

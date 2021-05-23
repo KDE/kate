@@ -19,8 +19,7 @@ class KateProjectPluginView;
 class KPluginFactory;
 
 /**
- * Class representing a view of a project.
- * A tree like view of project content.
+ * Single terminal view for project toolview
  */
 class KateProjectInfoViewTerminal : public QWidget
 {
@@ -40,18 +39,16 @@ public:
     ~KateProjectInfoViewTerminal() override;
 
     /**
-     * global plugin factory to create terminal
-     * exposed to allow to skip terminal toolview creation if not possible
-     * @return plugin factory for terminal or nullptr if no terminal part there
-     */
-    static KPluginFactory *pluginFactory();
-
-    /**
      * Shall the ESC key press be ignored?
      * If not, the toolview will be hidden.
      * @return ignore ESC shortcut?
      */
     bool ignoreEsc() const;
+
+    /**
+     * Check if terminal is loadable
+     */
+    static bool isLoadable();
 
 private Q_SLOTS:
     /**
@@ -70,6 +67,14 @@ protected:
      * @param ev show event
      */
     void showEvent(QShowEvent *ev) override;
+
+private:
+    /**
+     * global plugin factory to create terminal
+     * exposed to allow to skip terminal toolview creation if not possible
+     * @return plugin factory for terminal or nullptr if no terminal part there
+     */
+    static KPluginFactory *pluginFactory();
 
 private:
     /**

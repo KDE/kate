@@ -125,3 +125,8 @@ bool KateProjectInfoViewTerminal::ignoreEsc() const
     const auto app = qobject_cast<TerminalInterface *>(m_konsolePart)->foregroundProcessName();
     return exceptList.contains(app);
 }
+
+bool KateProjectInfoViewTerminal::isLoadable()
+{
+    return (pluginFactory() != nullptr);
+}

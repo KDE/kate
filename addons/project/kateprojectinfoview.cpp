@@ -24,7 +24,7 @@ KateProjectInfoView::KateProjectInfoView(KateProjectPluginView *pluginView, Kate
     /**
      * skip terminal toolviews if no terminal aka KonsolePart around
      */
-    if (KateProjectInfoViewTerminal::pluginFactory()) {
+    if (KateProjectInfoViewTerminal::isLoadable()) {
         /**
          * terminal for the directory with the .kateproject file inside
          */

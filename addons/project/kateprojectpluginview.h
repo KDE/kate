@@ -122,6 +122,11 @@ public:
         cb(m_fixedView.view);
     }
 
+    /**
+     * Open terminal view at \p dirPath location for project \p project
+     */
+    void openTerminal(const QString &dirPath, KateProject *project);
+
 public Q_SLOTS:
     /**
      * Create views for given project.

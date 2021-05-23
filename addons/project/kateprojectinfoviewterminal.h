@@ -50,6 +50,8 @@ public:
      */
     static bool isLoadable();
 
+    void respawn(const QString &dirPath);
+
 private Q_SLOTS:
     /**
      * Construct a new terminal for this view
@@ -90,7 +92,7 @@ private:
     /**
      * our start directory for the terminal
      */
-    const QString m_directory;
+    QString m_directory;
 
     /**
      * our layout

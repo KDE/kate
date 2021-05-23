@@ -130,3 +130,20 @@ bool KateProjectInfoViewTerminal::isLoadable()
 {
     return (pluginFactory() != nullptr);
 }
+
+void KateProjectInfoViewTerminal::respawn(const QString &directory)
+{
+    if (!isLoadable()) {
+        return;
+    }
+
+    m_directory = directory;
+    disconnect(m_konsolePart, &KParts::ReadOnlyPart::destroyed, this, &KateProjectInfoViewTerminal::loadTerminal);
+
+    if (m_konsolePart != nullptr) {
+        delete m_konsolePart;
+    }
+
+    loadTerminal();
+}
+

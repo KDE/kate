@@ -20,6 +20,7 @@
 KateProjectInfoView::KateProjectInfoView(KateProjectPluginView *pluginView, KateProject *project)
     : m_pluginView(pluginView)
     , m_project(project)
+    , m_terminal(nullptr)
 {
     /**
      * skip terminal toolviews if no terminal aka KonsolePart around
@@ -30,7 +31,8 @@ KateProjectInfoView::KateProjectInfoView(KateProjectPluginView *pluginView, Kate
          */
         const QString projectPath = QFileInfo(QFileInfo(m_project->fileName()).path()).canonicalFilePath();
         if (!projectPath.isEmpty()) {
-            addTab(new KateProjectInfoViewTerminal(pluginView, projectPath), i18n("Terminal (.kateproject)"));
+            m_terminal = new KateProjectInfoViewTerminal(pluginView, projectPath);
+            addTab(m_terminal, i18n("Terminal (.kateproject)"));
         }
 
         /**
@@ -76,4 +78,11 @@ bool KateProjectInfoView::ignoreEsc() const
 
     // else: always hide toolview, nothing to ignore
     return false;
+}
+
+void KateProjectInfoView::resetTerminal(const QString &directory)
+{
+    if (m_terminal) {
+        m_terminal->respawn(directory);
+    }
 }

@@ -12,6 +12,7 @@
 
 class KateProjectPluginView;
 class KateProject;
+class KateProjectInfoViewTerminal;
 
 /**
  * Class representing a view of a project.
@@ -52,6 +53,8 @@ public:
      */
     bool ignoreEsc() const;
 
+    void resetTerminal(const QString &directory);
+
 private:
     /**
      * our plugin view
@@ -62,6 +65,8 @@ private:
      * our project
      */
     KateProject *m_project;
+
+    KateProjectInfoViewTerminal *m_terminal;
 };
 
 #endif

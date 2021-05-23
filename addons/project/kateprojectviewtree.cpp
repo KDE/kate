@@ -193,6 +193,11 @@ void KateProjectViewTree::removeFile(const QModelIndex& idx, const QString& full
     }
 }
 
+void KateProjectViewTree::openTerminal(const QString &dirPath)
+{
+    m_pluginView->openTerminal(dirPath, m_project);
+}
+
 void KateProjectViewTree::slotClicked(const QModelIndex &index)
 {
     /**

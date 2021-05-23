@@ -734,4 +734,13 @@ void KateProjectPluginView::showDiffInFixedView(const QByteArray &contents)
     m_mainWindow->activateView(m_fixedView.view->document());
 }
 
+void KateProjectPluginView::openTerminal(const QString &dirPath, KateProject *project)
+{
+    m_mainWindow->showToolView(m_toolInfoView);
+
+    if (m_project2View.contains(project)) {
+        m_project2View.find(project)->second->resetTerminal(dirPath);
+    }
+}
+
 #include "kateprojectpluginview.moc"

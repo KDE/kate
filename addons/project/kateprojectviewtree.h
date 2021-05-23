@@ -68,6 +68,11 @@ public:
      */
     void removeFile(const QModelIndex &idx, const QString &fullFilePath);
 
+    /**
+     * Open project terminal at location dirPath
+     */
+    void openTerminal(const QString &dirPath);
+
 private Q_SLOTS:
     /**
      * item got clicked, do stuff, like open document

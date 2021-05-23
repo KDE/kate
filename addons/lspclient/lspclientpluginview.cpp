@@ -183,9 +183,8 @@ public:
                 if (state.invalidChars > 0) {
                     text = QString::fromLatin1(line);
                 }
-                while (text.size() && text.at(text.size() - 1).isSpace()) {
-                    text.chop(1);
-                }
+
+                text = text.trimmed();
                 lastLine = text;
                 return text;
             }

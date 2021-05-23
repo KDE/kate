@@ -20,10 +20,12 @@
 #include <QChildEvent>
 #include <QEvent>
 #include <QFrame>
-#include <QList>
-#include <QMap>
 #include <QPointer>
 #include <QSplitter>
+
+#include <map>
+#include <unordered_map>
+#include <vector>
 
 class KActionMenu;
 class QAction;
@@ -46,8 +48,6 @@ class ToggleToolViewAction : public KToggleAction
 public:
     ToggleToolViewAction(const QString &text, ToolView *tv, QObject *parent);
 
-    ~ToggleToolViewAction() override;
-
 protected Q_SLOTS:
     void slotToggled(bool) override;
     void toolVisibleChanged(bool);
@@ -62,7 +62,6 @@ class GUIClient : public QObject, public KXMLGUIClient
 
 public:
     GUIClient(class MainWindow *mw);
-    ~GUIClient() override;
 
     void registerToolView(ToolView *tv);
     void unregisterToolView(ToolView *tv);
@@ -75,8 +74,8 @@ private Q_SLOTS:
 private:
     MainWindow *m_mw;
     KToggleAction *m_showSidebarsAction;
-    QList<QAction *> m_toolViewActions;
-    QMap<ToolView *, QAction *> m_toolToAction;
+    std::vector<QAction *> m_toolViewActions;
+    std::unordered_map<ToolView *, QAction *> m_toolToAction;
     KActionMenu *m_toolMenu;
 };
 
@@ -173,7 +172,6 @@ class Sidebar : public KMultiTabBar
 
 public:
     Sidebar(KMultiTabBar::KMultiTabBarPosition pos, class MainWindow *mainwin, QWidget *parent);
-    ~Sidebar() override;
 
     void setSplitter(QSplitter *sp);
 
@@ -233,14 +231,14 @@ private:
     KMultiTabBar *m_tabBar = nullptr;
     QSplitter *m_ownSplit;
 
-    QMap<int, ToolView *> m_idToWidget;
-    QMap<ToolView *, int> m_widgetToId;
-    QMap<ToolView *, QSize> m_widgetToSize;
+    std::map<int, ToolView *> m_idToWidget;
+    std::map<ToolView *, int> m_widgetToId;
+    std::map<ToolView *, QSize> m_widgetToSize;
 
     /**
      * list of all toolviews around in this sidebar
      */
-    QList<ToolView *> m_toolviews;
+    std::vector<ToolView *> m_toolviews;
 
     int m_lastSize;
 
@@ -393,12 +391,12 @@ private:
     /**
      * map identifiers to widgets
      */
-    QMap<QString, ToolView *> m_idToWidget;
+    std::map<QString, ToolView *> m_idToWidget;
 
     /**
      * list of all toolviews around
      */
-    QList<ToolView *> m_toolviews;
+    std::vector<ToolView *> m_toolviews;
 
     /**
      * widget, which is the central part of the
@@ -419,7 +417,7 @@ private:
     /**
      * sidebars for the four sides
      */
-    Sidebar *m_sidebars[4]{};
+    std::unique_ptr<Sidebar> m_sidebars[4];
 
     /**
      * sidebars state.

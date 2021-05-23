@@ -10,7 +10,7 @@
 
 #include "katemdi.h"
 
-#include "katedebug.h"
+// #include "katedebug.h"
 
 #include <KActionCollection>
 #include <KActionMenu>
@@ -25,8 +25,6 @@
 #include <QContextMenuEvent>
 #include <QDomDocument>
 #include <QMenu>
-#include <QPixmap>
-#include <QShortcut>
 #include <QSizePolicy>
 #include <QStyle>
 #include <QTimer>
@@ -44,10 +42,6 @@ ToggleToolViewAction::ToggleToolViewAction(const QString &text, ToolView *tv, QO
     connect(m_tv, &ToolView::toolVisibleChanged, this, &ToggleToolViewAction::toolVisibleChanged);
 
     setChecked(m_tv->toolVisible());
-}
-
-ToggleToolViewAction::~ToggleToolViewAction()
-{
 }
 
 void ToggleToolViewAction::toolVisibleChanged(bool)
@@ -73,23 +67,21 @@ void ToggleToolViewAction::slotToggled(bool t)
 
 static const QString actionListName = QStringLiteral("kate_mdi_view_actions");
 
-// please don't use QStringLiteral since it can't be used with a concatenated string parameter on all platforms
-static const QString guiDescription = QStringLiteral(
-    ""
-    "<!DOCTYPE gui><gui name=\"kate_mdi_view_actions\">"
-    "<MenuBar>"
-    "    <Menu name=\"view\">"
-    "        <ActionList name=\"%1\" />"
-    "    </Menu>"
-    "</MenuBar>"
-    "</gui>");
-
 GUIClient::GUIClient(MainWindow *mw)
     : QObject(mw)
     , KXMLGUIClient(mw)
     , m_mw(mw)
 {
     connect(m_mw->guiFactory(), &KXMLGUIFactory::clientAdded, this, &GUIClient::clientAdded);
+    const QString guiDescription = QStringLiteral(
+        ""
+        "<!DOCTYPE gui><gui name=\"kate_mdi_view_actions\">"
+        "<MenuBar>"
+        "    <Menu name=\"view\">"
+        "        <ActionList name=\"%1\" />"
+        "    </Menu>"
+        "</MenuBar>"
+        "</gui>");
 
     if (domDocument().documentElement().isNull()) {
         QString completeDescription = guiDescription.arg(actionListName);
@@ -122,10 +114,6 @@ GUIClient::GUIClient(MainWindow *mw)
     }
 }
 
-GUIClient::~GUIClient()
-{
-}
-
 void GUIClient::updateSidebarsVisibleAction()
 {
     m_showSidebarsAction->setChecked(m_mw->sidebarsVisible());
@@ -150,10 +138,10 @@ void GUIClient::registerToolView(ToolView *tv)
     actionCollection()->setDefaultShortcuts(a, shortcuts);
     actionCollection()->addAction(aname, a);
 
-    m_toolViewActions.append(a);
+    m_toolViewActions.push_back(a);
     m_toolMenu->addAction(a);
 
-    m_toolToAction.insert(tv, a);
+    m_toolToAction.emplace(tv, a);
 
     updateActions();
 }
@@ -166,10 +154,10 @@ void GUIClient::unregisterToolView(ToolView *tv)
         return;
     }
 
-    m_toolViewActions.removeAt(m_toolViewActions.indexOf(a));
+    m_toolViewActions.erase(std::remove(m_toolViewActions.begin(), m_toolViewActions.end(), a), m_toolViewActions.end());
     delete a;
 
-    m_toolToAction.remove(tv);
+    m_toolToAction.erase(tv);
 
     updateActions();
 }
@@ -296,10 +284,6 @@ Sidebar::Sidebar(KMultiTabBar::KMultiTabBarPosition pos, MainWindow *mainwin, QW
     hide();
 }
 
-Sidebar::~Sidebar()
-{
-}
-
 void Sidebar::setSplitter(QSplitter *sp)
 {
     m_splitter = sp;
@@ -338,13 +322,13 @@ ToolView *Sidebar::addWidget(const QIcon &icon, const QString &text, ToolView *w
     // save its pos ;)
     widget->persistent = false;
 
-    m_idToWidget.insert(newId, widget);
-    m_widgetToId.insert(widget, newId);
+    m_idToWidget.emplace(newId, widget);
+    m_widgetToId.emplace(widget, newId);
     m_toolviews.push_back(widget);
 
     // widget => size, for correct size restoration after hide/show
     // starts with invalid size
-    m_widgetToSize.insert(widget, QSize());
+    m_widgetToSize.emplace(widget, QSize());
 
     show();
 
@@ -357,27 +341,26 @@ ToolView *Sidebar::addWidget(const QIcon &icon, const QString &text, ToolView *w
 
 bool Sidebar::removeWidget(ToolView *widget)
 {
-    if (!m_widgetToId.contains(widget)) {
+    if (m_widgetToId.find(widget) == m_widgetToId.end()) {
         return false;
     }
 
     removeTab(m_widgetToId[widget]);
 
-    m_idToWidget.remove(m_widgetToId[widget]);
-    m_widgetToId.remove(widget);
-    m_widgetToSize.remove(widget);
-    m_toolviews.removeAt(m_toolviews.indexOf(widget));
+    m_idToWidget.erase(m_widgetToId[widget]);
+    m_widgetToId.erase(widget);
+    m_widgetToSize.erase(widget);
+    m_toolviews.erase(std::remove(m_toolviews.begin(), m_toolviews.end(), widget), m_toolviews.end());
 
     bool anyVis = false;
-    QMapIterator<int, ToolView *> it(m_idToWidget);
-    while (it.hasNext()) {
-        it.next();
-        if ((anyVis = it.value()->isVisible())) {
+    for (const auto &[id, wid] : m_idToWidget) {
+        if (wid->isVisible()) {
+            anyVis = true;
             break;
         }
     }
 
-    if (m_idToWidget.isEmpty()) {
+    if (m_idToWidget.empty()) {
         m_ownSplit->hide();
         hide();
     } else if (!anyVis) {
@@ -389,25 +372,22 @@ bool Sidebar::removeWidget(ToolView *widget)
 
 bool Sidebar::showWidget(ToolView *widget)
 {
-    if (!m_widgetToId.contains(widget)) {
+    if (m_widgetToId.find(widget) == m_widgetToId.end()) {
         return false;
     }
 
-    // hide other non-persistent views
-    QMapIterator<int, ToolView *> it(m_idToWidget);
     bool unfixSize = false;
-    while (it.hasNext()) {
-        it.next();
-        if ((it.value() != widget) && !it.value()->persistent) {
-            hideWidget(it.value());
+    // hide other non-persistent views
+    for (const auto &[id, wid] : m_idToWidget) {
+        if (wid != widget && !wid->persistent) {
+            hideWidget(wid);
         }
         // lock persistents' size while show/hide reshuffle happens
         // (could also make this behavior per-widget configurable)
-        if (it.value()->persistent) {
-            auto w = it.value();
-            auto s = w->size();
-            w->setMinimumSize(s);
-            w->setMaximumSize(s);
+        if (wid->persistent) {
+            const auto size = wid->size();
+            wid->setMaximumSize(size);
+            wid->setMinimumSize(size);
             unfixSize = true;
         }
     }
@@ -436,9 +416,10 @@ bool Sidebar::showWidget(ToolView *widget)
     // (later on, when all event processing has happened)
     auto func = [this]() {
         auto wsizes = m_ownSplit->sizes();
-        for (auto w : m_idToWidget) {
-            w->setMinimumSize(QSize(0, 0));
-            w->setMaximumSize(QSize(QWIDGETSIZE_MAX, QWIDGETSIZE_MAX));
+        for (const auto &[id, widget] : m_idToWidget) {
+            Q_UNUSED(id)
+            widget->setMinimumSize(QSize(0, 0));
+            widget->setMaximumSize(QSize(QWIDGETSIZE_MAX, QWIDGETSIZE_MAX));
         }
         m_ownSplit->setSizes(wsizes);
     };
@@ -455,23 +436,20 @@ bool Sidebar::showWidget(ToolView *widget)
 
 bool Sidebar::hideWidget(ToolView *widget)
 {
-    if (!m_widgetToId.contains(widget)) {
+    if (m_widgetToId.find(widget) == m_widgetToId.end()) {
         return false;
     }
 
-    bool anyVis = false;
-
     updateLastSize();
 
-    QMapIterator<int, ToolView *> it(m_idToWidget);
-    while (it.hasNext()) {
-        it.next();
-        if (it.value() == widget) {
-            // remember size and hide
+    bool anyVis = false;
+    for (const auto &[id, wid] : m_idToWidget) {
+        if (wid == widget) {
             if (widget->isVisible()) {
                 m_widgetToSize[widget] = widget->size();
             }
-        } else if ((anyVis = it.value()->isVisible())) {
+        } else if (wid->isVisible()) {
+            anyVis = true;
             break;
         }
     }
@@ -521,42 +499,41 @@ bool Sidebar::eventFilter(QObject *obj, QEvent *ev)
             ToolView *w = m_idToWidget[m_popupButton];
 
             if (w) {
-                QMenu *menu = new QMenu(this);
+                QMenu menu(this);
 
                 if (!w->plugin.isNull()) {
                     if (w->plugin.data()->configPages() > 0) {
-                        menu->addAction(i18n("Configure ..."))->setData(20);
+                        menu.addAction(i18n("Configure ..."))->setData(20);
                     }
                 }
 
-                menu->addSection(QIcon::fromTheme(QStringLiteral("view_remove")), i18n("Behavior"));
+                menu.addSection(QIcon::fromTheme(QStringLiteral("view_remove")), i18n("Behavior"));
 
-                menu->addAction(w->persistent ? QIcon::fromTheme(QStringLiteral("view-restore")) : QIcon::fromTheme(QStringLiteral("view-fullscreen")),
-                                w->persistent ? i18n("Make Non-Persistent") : i18n("Make Persistent"))
+                menu.addAction(w->persistent ? QIcon::fromTheme(QStringLiteral("view-restore")) : QIcon::fromTheme(QStringLiteral("view-fullscreen")),
+                               w->persistent ? i18n("Make Non-Persistent") : i18n("Make Persistent"))
                     ->setData(10);
 
-                menu->addSection(QIcon::fromTheme(QStringLiteral("move")), i18n("Move To"));
+                menu.addSection(QIcon::fromTheme(QStringLiteral("move")), i18n("Move To"));
 
                 if (position() != 0) {
-                    menu->addAction(QIcon::fromTheme(QStringLiteral("go-previous")), i18n("Left Sidebar"))->setData(0);
+                    menu.addAction(QIcon::fromTheme(QStringLiteral("go-previous")), i18n("Left Sidebar"))->setData(0);
                 }
 
                 if (position() != 1) {
-                    menu->addAction(QIcon::fromTheme(QStringLiteral("go-next")), i18n("Right Sidebar"))->setData(1);
+                    menu.addAction(QIcon::fromTheme(QStringLiteral("go-next")), i18n("Right Sidebar"))->setData(1);
                 }
 
                 if (position() != 2) {
-                    menu->addAction(QIcon::fromTheme(QStringLiteral("go-up")), i18n("Top Sidebar"))->setData(2);
+                    menu.addAction(QIcon::fromTheme(QStringLiteral("go-up")), i18n("Top Sidebar"))->setData(2);
                 }
 
                 if (position() != 3) {
-                    menu->addAction(QIcon::fromTheme(QStringLiteral("go-down")), i18n("Bottom Sidebar"))->setData(3);
+                    menu.addAction(QIcon::fromTheme(QStringLiteral("go-down")), i18n("Bottom Sidebar"))->setData(3);
                 }
 
-                connect(menu, &QMenu::triggered, this, &Sidebar::buttonPopupActivate);
+                connect(&menu, &QMenu::triggered, this, &Sidebar::buttonPopupActivate);
 
-                menu->exec(e->globalPos());
-                delete menu;
+                menu.exec(e->globalPos());
 
                 return true;
             }
@@ -569,7 +546,7 @@ bool Sidebar::eventFilter(QObject *obj, QEvent *ev)
 void Sidebar::setVisible(bool visible)
 {
     // visible==true means show-request
-    if (visible && (m_idToWidget.isEmpty() || !m_mainWin->sidebarsVisible())) {
+    if (visible && (m_idToWidget.empty() || !m_mainWin->sidebarsVisible())) {
         return;
     }
 
@@ -633,7 +610,8 @@ void Sidebar::restoreSession(KConfigGroup &config)
 {
     // get the last correct placed toolview
     int firstWrong = 0;
-    for (; firstWrong < m_toolviews.size(); ++firstWrong) {
+    const int toolViewsCount = (int)m_toolviews.size();
+    for (; firstWrong < toolViewsCount; ++firstWrong) {
         ToolView *tv = m_toolviews[firstWrong];
 
         int pos = config.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Sidebar-Position").arg(tv->id), firstWrong);
@@ -644,10 +622,10 @@ void Sidebar::restoreSession(KConfigGroup &config)
     }
 
     // we need to reshuffle, ahhh :(
-    if (firstWrong < m_toolviews.size()) {
+    if (firstWrong < toolViewsCount) {
         // first: collect the items to reshuffle
-        QList<TmpToolViewSorter> toSort;
-        for (int i = firstWrong; i < m_toolviews.size(); ++i) {
+        std::vector<TmpToolViewSorter> toSort;
+        for (int i = firstWrong; i < toolViewsCount; ++i) {
             TmpToolViewSorter s;
             s.tv = m_toolviews[i];
             s.pos = config.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Sidebar-Position").arg(m_toolviews[i]->id), i);
@@ -655,24 +633,18 @@ void Sidebar::restoreSession(KConfigGroup &config)
         }
 
         // now: sort the stuff we need to reshuffle
-        for (int m = 0; m < toSort.size(); ++m) {
-            for (int n = m + 1; n < toSort.size(); ++n) {
-                if (toSort[n].pos < toSort[m].pos) {
-                    TmpToolViewSorter tmp = toSort[n];
-                    toSort[n] = toSort[m];
-                    toSort[m] = tmp;
-                }
-            }
-        }
+        std::sort(toSort.begin(), toSort.end(), [](const TmpToolViewSorter &l, const TmpToolViewSorter &r) {
+            return l.pos < r.pos;
+        });
 
         // then: remove this items from the button bar
         // do this backwards, to minimize the relayout efforts
-        for (int i = m_toolviews.size() - 1; i >= firstWrong; --i) {
+        for (int i = toolViewsCount - 1; i >= firstWrong; --i) {
             removeTab(m_widgetToId[m_toolviews[i]]);
         }
 
         // insert the reshuffled things in order :)
-        for (int i = 0; i < toSort.size(); ++i) {
+        for (int i = 0; i < (int)toSort.size(); ++i) {
             ToolView *tv = toSort[i].tv;
 
             m_toolviews[firstWrong + i] = tv;
@@ -698,7 +670,7 @@ void Sidebar::restoreSession(KConfigGroup &config)
 
     // show only correct toolviews, remember persistent values ;)
     bool anyVis = false;
-    for (auto tv : qAsConst(m_toolviews)) {
+    for (auto tv : m_toolviews) {
         tv->persistent = config.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Persistent").arg(tv->id), false);
         tv->setToolVisible(config.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Visible").arg(tv->id), false));
 
@@ -729,7 +701,7 @@ void Sidebar::saveSession(KConfigGroup &config)
     config.writeEntry(QStringLiteral("Kate-MDI-Sidebar-%1-Splitter").arg(position()), s);
 
     // store the data about all toolviews in this sidebar ;)
-    for (int i = 0; i < m_toolviews.size(); ++i) {
+    for (int i = 0; i < (int)m_toolviews.size(); ++i) {
         ToolView *tv = m_toolviews[i];
 
         config.writeEntry(QStringLiteral("Kate-MDI-ToolView-%1-Position").arg(tv->id), int(tv->sidebar()->position()));
@@ -755,8 +727,8 @@ MainWindow::MainWindow(QWidget *parentWidget)
 
     setCentralWidget(hb);
 
-    m_sidebars[KMultiTabBar::Left] = new Sidebar(KMultiTabBar::Left, this, hb);
-    hlayout->addWidget(m_sidebars[KMultiTabBar::Left]);
+    m_sidebars[KMultiTabBar::Left] = std::make_unique<Sidebar>(KMultiTabBar::Left, this, hb);
+    hlayout->addWidget(m_sidebars[KMultiTabBar::Left].get());
 
     m_hSplitter = new QSplitter(Qt::Horizontal, hb);
     hlayout->addWidget(m_hSplitter);
@@ -771,8 +743,8 @@ MainWindow::MainWindow(QWidget *parentWidget)
     m_hSplitter->setCollapsible(m_hSplitter->indexOf(vb), false);
     m_hSplitter->setStretchFactor(m_hSplitter->indexOf(vb), 1);
 
-    m_sidebars[KMultiTabBar::Top] = new Sidebar(KMultiTabBar::Top, this, vb);
-    vlayout->addWidget(m_sidebars[KMultiTabBar::Top]);
+    m_sidebars[KMultiTabBar::Top] = std::make_unique<Sidebar>(KMultiTabBar::Top, this, vb);
+    vlayout->addWidget(m_sidebars[KMultiTabBar::Top].get());
 
     m_vSplitter = new QSplitter(Qt::Vertical, vb);
     vlayout->addWidget(m_vSplitter);
@@ -787,16 +759,16 @@ MainWindow::MainWindow(QWidget *parentWidget)
     m_vSplitter->setCollapsible(m_vSplitter->indexOf(m_centralWidget), false);
     m_vSplitter->setStretchFactor(m_vSplitter->indexOf(m_centralWidget), 1);
 
-    m_sidebars[KMultiTabBar::Bottom] = new Sidebar(KMultiTabBar::Bottom, this, vb);
-    vlayout->addWidget(m_sidebars[KMultiTabBar::Bottom]);
+    m_sidebars[KMultiTabBar::Bottom] = std::make_unique<Sidebar>(KMultiTabBar::Bottom, this, vb);
+    vlayout->addWidget(m_sidebars[KMultiTabBar::Bottom].get());
     m_sidebars[KMultiTabBar::Bottom]->setSplitter(m_vSplitter);
 
-    m_sidebars[KMultiTabBar::Right] = new Sidebar(KMultiTabBar::Right, this, hb);
-    hlayout->addWidget(m_sidebars[KMultiTabBar::Right]);
+    m_sidebars[KMultiTabBar::Right] = std::make_unique<Sidebar>(KMultiTabBar::Right, this, hb);
+    hlayout->addWidget(m_sidebars[KMultiTabBar::Right].get());
     m_sidebars[KMultiTabBar::Right]->setSplitter(m_hSplitter);
 
-    for (const auto sidebar : qAsConst(m_sidebars)) {
-        connect(sidebar, &Sidebar::sigShowPluginConfigPage, this, &MainWindow::sigShowPluginConfigPage);
+    for (const auto &sidebar : qAsConst(m_sidebars)) {
+        connect(sidebar.get(), &Sidebar::sigShowPluginConfigPage, this, &MainWindow::sigShowPluginConfigPage);
     }
 }
 
@@ -807,11 +779,6 @@ MainWindow::~MainWindow()
 
     // seems like we really should delete this by hand ;)
     delete m_centralWidget;
-
-    // cleanup the sidebars
-    for (auto sidebar : qAsConst(m_sidebars)) {
-        delete sidebar;
-    }
 }
 
 QWidget *MainWindow::centralWidget() const
@@ -839,7 +806,7 @@ ToolView *MainWindow::createToolView(KTextEditor::Plugin *plugin,
     v->id = identifier;
     v->plugin = plugin;
 
-    m_idToWidget.insert(identifier, v);
+    m_idToWidget.emplace(identifier, v);
     m_toolviews.push_back(v);
 
     // register for menu stuff
@@ -850,7 +817,11 @@ ToolView *MainWindow::createToolView(KTextEditor::Plugin *plugin,
 
 ToolView *MainWindow::toolView(const QString &identifier) const
 {
-    return m_idToWidget[identifier];
+    auto it = m_idToWidget.find(identifier);
+    if (it != m_idToWidget.end()) {
+        return it->second;
+    }
+    return nullptr;
 }
 
 void MainWindow::toolViewDeleted(ToolView *widget)
@@ -868,8 +839,9 @@ void MainWindow::toolViewDeleted(ToolView *widget)
 
     widget->sidebar()->removeWidget(widget);
 
-    m_idToWidget.remove(widget->id);
-    m_toolviews.removeAt(m_toolviews.indexOf(widget));
+    m_idToWidget.erase(widget->id);
+
+    m_toolviews.erase(std::remove(m_toolviews.begin(), m_toolviews.end(), widget), m_toolviews.end());
 }
 
 void MainWindow::setSidebarsVisible(bool visible)
@@ -1010,7 +982,7 @@ void MainWindow::finishRestore()
         applyMainWindowSettings(cg);
 
         // reshuffle toolviews only if needed
-        for (const auto tv : qAsConst(m_toolviews)) {
+        for (const auto tv : m_toolviews) {
             KMultiTabBar::KMultiTabBarPosition newPos = static_cast<KMultiTabBar::KMultiTabBarPosition>(
                 cg.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Position").arg(tv->id), int(tv->sidebar()->position())));
 
@@ -1020,7 +992,7 @@ void MainWindow::finishRestore()
         }
 
         // restore the sidebars
-        for (auto sidebar : qAsConst(m_sidebars)) {
+        for (auto &sidebar : qAsConst(m_sidebars)) {
             sidebar->restoreSession(cg);
         }
 
@@ -1075,7 +1047,7 @@ void MainWindow::saveSession(KConfigGroup &config)
     config.writeEntry("Kate-MDI-Sidebar-Visible", m_sidebarsVisible);
 
     // save the sidebars
-    for (auto sidebar : qAsConst(m_sidebars)) {
+    for (auto &sidebar : qAsConst(m_sidebars)) {
         sidebar->saveSession(config);
     }
 }

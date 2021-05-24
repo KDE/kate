@@ -60,28 +60,36 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
      */
     QMenu menu;
 
+    /**
+     * Copy Path, always available, put that to the top
+     */
+    QAction *copyAction = menu.addAction(QIcon::fromTheme(QStringLiteral("edit-copy")), i18n("Copy File Path"));
+
     QAction *addFile = nullptr;
     QAction *addFolder = nullptr;
-    QAction* fileDelete = nullptr;
     if (index.data(KateProjectItem::TypeRole).toInt() == KateProjectItem::Directory) {
         addFile = menu.addAction(QIcon::fromTheme(QStringLiteral("document-new")), i18n("Add File"));
         addFolder = menu.addAction(QIcon::fromTheme(QStringLiteral("folder-new")), i18n("Add Folder"));
     }
 
+    // we can ATM only handle file renames
+    QAction *rename = nullptr;
+    QAction *fileDelete = nullptr;
+    if (index.data(KateProjectItem::TypeRole).toInt() == KateProjectItem::File) {
+        rename = menu.addAction(QIcon::fromTheme(QStringLiteral("edit-rename")), i18n("&Rename"));
+        fileDelete = menu.addAction(QIcon::fromTheme(QStringLiteral("delete")), i18n("Delete"));
+    }
+
     /**
-     * Copy Path
+     * File Properties Dialog
      */
-    QAction *copyAction = menu.addAction(QIcon::fromTheme(QStringLiteral("edit-copy")), i18n("Copy File Path"));
-    
-    /**
-     * Open terminal here
-     */
-    QAction* terminal = menu.addAction(QIcon::fromTheme(QStringLiteral("utilities-terminal")), i18n("Open Terminal Here"));
-    
+    auto filePropertiesAction = menu.addAction(QIcon::fromTheme(QStringLiteral("dialog-object-properties")), i18n("Properties"));
+
     /**
      * Handle "open with",
      * find correct mimetype to query for possible applications
      */
+    menu.addSeparator();
     QMenu *openWithMenu = menu.addMenu(i18n("Open With"));
     QMimeType mimeType = QMimeDatabase().mimeTypeForFile(filename);
     const KService::List offers = KApplicationTrader::queryByMimeType(mimeType.name());
@@ -100,31 +108,22 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
      * Open Containing folder
      */
     auto openContaingFolderAction = menu.addAction(QIcon::fromTheme(QStringLiteral("document-open-folder")), i18n("&Open Containing Folder"));
-    
-    if(index.data(KateProjectItem::TypeRole).toInt() == KateProjectItem::File)
-    {
-        /**
-        * File delete dialog
-        */
-        fileDelete = menu.addAction(QIcon::fromTheme(QStringLiteral("delete")), i18n("Delete"));
-    }
 
     /**
-     * File Properties Dialog
+     * Open external terminal here
      */
-    auto filePropertiesAction = menu.addAction(QIcon::fromTheme(QStringLiteral("dialog-object-properties")), i18n("Properties"));
+    QAction *terminal = menu.addAction(QIcon::fromTheme(QStringLiteral("utilities-terminal")), i18n("Open External Terminal Here"));
 
-    QAction *fileHistory = nullptr;
     /**
      * Git menu
      */
+    QAction *fileHistory = nullptr;
     KMoreToolsMenuFactory menuFactory(QStringLiteral("kate/addons/project/git-tools"));
     QMenu gitMenu; // must live as long as the maybe filled menu items should live
     if (GitUtils::isGitRepo(QFileInfo(filename).absolutePath())) {
-        fileHistory = menu.addAction(i18n("Show File History"));
-
+        menu.addSeparator();
+        fileHistory = menu.addAction(i18n("Show Git History"));
         menuFactory.fillMenuFromGroupingNames(&gitMenu, {QLatin1String("git-clients-and-actions")}, QUrl::fromLocalFile(filename));
-        menu.addSection(i18n("Git:"));
         const auto gitActions = gitMenu.actions();
         for (auto action : gitActions) {
             menu.addAction(action);
@@ -143,11 +142,9 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
     auto handleDeleteFile = [parent, index](const QString &path)
     {
         //message box
-        const QString title = i18n("Confirm deleting: %1", path);
-        const QString text = i18n("Do you want to delete: %1 ?", path);
-        
-        if (QMessageBox::Yes == QMessageBox::question(parent, title, text, QMessageBox::No | QMessageBox::Yes, QMessageBox::No))
-        {
+        const QString title = i18n("Delete File");
+        const QString text = i18n("Do you want to delete the file '%1'?", path);
+        if (QMessageBox::Yes == QMessageBox::question(parent, title, text, QMessageBox::No | QMessageBox::Yes, QMessageBox::Yes)) {
             const QList< KTextEditor::Document* > openDocuments = KTextEditor::Editor::instance()->application()->documents();
               
             //if is open, close
@@ -162,12 +159,6 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
             parent->removeFile(index, path);
         }
     };
-
-    // we can ATM only handle file renames
-    QAction *rename = nullptr;
-    if (index.data(KateProjectItem::TypeRole).toInt() == KateProjectItem::File) {
-        rename = menu.addAction(QIcon::fromTheme(QStringLiteral("edit-rename")), i18n("&Rename"));
-    }
 
     /**
      * run menu and handle the triggered action

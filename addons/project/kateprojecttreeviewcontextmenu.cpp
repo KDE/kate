@@ -8,6 +8,7 @@
 #include "kateprojecttreeviewcontextmenu.h"
 #include "git/gitutils.h"
 #include "kateproject.h"
+#include "kateprojectinfoviewterminal.h"
 #include "kateprojectviewtree.h"
 
 #include <KApplicationTrader>
@@ -70,9 +71,11 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
     if (index.data(KateProjectItem::TypeRole).toInt() == KateProjectItem::Directory) {
         addFile = menu.addAction(QIcon::fromTheme(QStringLiteral("document-new")), i18n("Add File"));
         addFolder = menu.addAction(QIcon::fromTheme(QStringLiteral("folder-new")), i18n("Add Folder"));
-        menu.addAction(QIcon::fromTheme(QStringLiteral("terminal")), i18n("Open Terminal"), [parent, &filename]() {
-            parent->openTerminal(filename);
-        });
+        if (KateProjectInfoViewTerminal::isLoadable()) {
+            menu.addAction(QIcon::fromTheme(QStringLiteral("terminal")), i18n("Open Terminal"), [parent, &filename]() {
+                parent->openTerminal(filename);
+            });
+        }
     }
 
     // we can ATM only handle file renames

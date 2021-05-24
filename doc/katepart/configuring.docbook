@@ -775,11 +775,9 @@ specified here. To disable this, set this to <userinput>0</userinput>.</para>
 <para>The editor will automatically eliminate extra spaces at the ends of lines
 of text while saving the file.  You can select <guilabel>Never</guilabel> to
 disable this functionality, <guilabel>On Modified Lines</guilabel> to do so
-only on lines that you have modified since you last saved the document,
+only on lines that you have modified since you last saved the document, or
 <guilabel>In Entire Document</guilabel> to remove them unconditionally from the
-entire document, or <guilabel>Except To The Left of Cursor Position</guilabel>
-to remove spaces everywhere, except to the left of the current cursor
-position.</para>
+entire document.</para>
 </listitem>
 </varlistentry>
 
@@ -1220,7 +1218,6 @@ on or off.</para></listitem>
 <listitem><para><userinput>modified</userinput>, <userinput>mod</userinput>, <userinput>+</userinput> or <userinput>1</userinput>: remove trailing spaces only in
 modified lines. The modified lines are marked by the line modification system.</para></listitem>
 <listitem><para><userinput>all</userinput>, <userinput>*</userinput> or <userinput>2</userinput>: remove trailing spaces in the entire document.</para></listitem>
-<listitem><para><userinput>cursor</userinput>, <userinput>cur</userinput> or <userinput>3</userinput>: remove all trailing spaces except those to the left of the current cursor position.</para></listitem>
 </itemizedlist>
 </listitem>
 </varlistentry>

@@ -71,11 +71,6 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
     if (index.data(KateProjectItem::TypeRole).toInt() == KateProjectItem::Directory) {
         addFile = menu.addAction(QIcon::fromTheme(QStringLiteral("document-new")), i18n("Add File"));
         addFolder = menu.addAction(QIcon::fromTheme(QStringLiteral("folder-new")), i18n("Add Folder"));
-        if (KateProjectInfoViewTerminal::isLoadable()) {
-            menu.addAction(QIcon::fromTheme(QStringLiteral("terminal")), i18n("Open Terminal"), [parent, &filename]() {
-                parent->openTerminal(filename);
-            });
-        }
     }
 
     // we can ATM only handle file renames
@@ -111,14 +106,24 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
     openWithMenu->setEnabled(!openWithMenu->isEmpty());
 
     /**
+     * Open external terminal here
+     */
+    if (KateProjectInfoViewTerminal::isLoadable()) {
+        menu.addAction(QIcon::fromTheme(QStringLiteral("terminal")), i18n("Open Internal Terminal Here"), [parent, &filename]() {
+            QFileInfo checkFile(filename);
+            if (checkFile.isFile()) {
+                parent->openTerminal(checkFile.absolutePath());
+            } else {
+                parent->openTerminal(filename);
+            }
+        });
+    }
+    QAction *terminal = menu.addAction(QIcon::fromTheme(QStringLiteral("utilities-terminal")), i18n("Open External Terminal Here"));
+
+    /**
      * Open Containing folder
      */
     auto openContaingFolderAction = menu.addAction(QIcon::fromTheme(QStringLiteral("document-open-folder")), i18n("&Open Containing Folder"));
-
-    /**
-     * Open external terminal here
-     */
-    QAction *terminal = menu.addAction(QIcon::fromTheme(QStringLiteral("utilities-terminal")), i18n("Open External Terminal Here"));
 
     /**
      * Git menu
@@ -175,9 +180,9 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
         } else if (action == terminal) {
             // handle "open terminal here"
             QFileInfo checkFile(filename);
-            if (QUrl::fromLocalFile(filename).isLocalFile() && checkFile.isFile()) {
-                KToolInvocation::invokeTerminal(QString(), {}, QUrl::fromLocalFile(filename).toString(QUrl::RemoveFilename | QUrl::RemoveScheme));
-            } if (QUrl::fromLocalFile(filename).isLocalFile() && checkFile.isDir()) {
+            if (checkFile.isFile()) {
+                KToolInvocation::invokeTerminal(QString(), {}, checkFile.absolutePath());
+            } else {
                 KToolInvocation::invokeTerminal(QString(), {}, filename);
             }
         } else if (action->parentWidget() == openWithMenu) {

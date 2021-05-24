@@ -156,6 +156,11 @@ public:
      * rename a file
      */
     void renameFile(const QString &newName, const QString &oldName);
+    
+    /**
+     * remove a file
+     */
+    void removeFile(const QString &file);
 
     /**
      * Access to project index.

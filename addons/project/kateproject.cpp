@@ -84,6 +84,16 @@ void KateProject::renameFile(const QString &newName, const QString &oldName)
     m_file2Item->erase(it);
 }
 
+void KateProject::removeFile(const QString &file)
+{
+    auto it = m_file2Item->find(file);
+    if (it == m_file2Item->end()) {
+        qWarning() << "removeFile() File not found: " << file;
+        return;
+    }
+    m_file2Item->erase(it);
+}
+
 /**
  * Read a JSON document from file.
  *

@@ -19,15 +19,24 @@
 #include <KNS3/KMoreToolsMenuFactory>
 #include <KPropertiesDialog>
 
+#include <QAction>
 #include <QApplication>
 #include <QClipboard>
+#include <QDir>
 #include <QFileInfo>
 #include <QIcon>
 #include <QInputDialog>
 #include <QMenu>
+#include <QMessageBox>
 #include <QMimeDatabase>
 #include <QMimeType>
 #include <QStandardPaths>
+
+#include <KToolInvocation>
+#include <ktexteditor/editor.h>
+#include <ktexteditor/application.h>
+
+
 
 static QString getName()
 {
@@ -53,6 +62,7 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
 
     QAction *addFile = nullptr;
     QAction *addFolder = nullptr;
+    QAction* fileDelete = nullptr;
     if (index.data(KateProjectItem::TypeRole).toInt() == KateProjectItem::Directory) {
         addFile = menu.addAction(QIcon::fromTheme(QStringLiteral("document-new")), i18n("Add File"));
         addFolder = menu.addAction(QIcon::fromTheme(QStringLiteral("folder-new")), i18n("Add Folder"));
@@ -62,7 +72,12 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
      * Copy Path
      */
     QAction *copyAction = menu.addAction(QIcon::fromTheme(QStringLiteral("edit-copy")), i18n("Copy File Path"));
-
+    
+    /**
+     * Open terminal here
+     */
+    QAction* terminal = menu.addAction(QIcon::fromTheme(QStringLiteral("utilities-terminal")), i18n("Open Terminal Here"));
+    
     /**
      * Handle "open with",
      * find correct mimetype to query for possible applications
@@ -85,6 +100,14 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
      * Open Containing folder
      */
     auto openContaingFolderAction = menu.addAction(QIcon::fromTheme(QStringLiteral("document-open-folder")), i18n("&Open Containing Folder"));
+    
+    if(index.data(KateProjectItem::TypeRole).toInt() == KateProjectItem::File)
+    {
+        /**
+        * File delete dialog
+        */
+        fileDelete = menu.addAction(QIcon::fromTheme(QStringLiteral("delete")), i18n("Delete"));
+    }
 
     /**
      * File Properties Dialog
@@ -116,6 +139,29 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
         job->setUiDelegate(new KIO::JobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, parent));
         job->start();
     };
+    
+    auto handleDeleteFile = [parent, index](const QString &path)
+    {
+        //message box
+        const QString title = i18n("Confirm deleting: %1", path);
+        const QString text = i18n("Do you want to delete: %1 ?", path);
+        
+        if (QMessageBox::Yes == QMessageBox::question(parent, title, text, QMessageBox::No | QMessageBox::Yes, QMessageBox::No))
+        {
+            const QList< KTextEditor::Document* > openDocuments = KTextEditor::Editor::instance()->application()->documents();
+              
+            //if is open, close
+            for(auto doc : openDocuments)
+            {
+                if(doc->url().adjusted(QUrl::RemoveScheme) == QUrl(path).adjusted(QUrl::RemoveScheme))
+                {
+                    KTextEditor::Editor::instance()->application()->closeDocument(doc);
+                    break;
+                }
+            }
+            parent->removeFile(index, path);
+        }
+    };
 
     // we can ATM only handle file renames
     QAction *rename = nullptr;
@@ -129,11 +175,21 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
     if (QAction *const action = menu.exec(pos)) {
         if (action == copyAction) {
             QApplication::clipboard()->setText(filename);
+        } else if (action == terminal) {
+            // handle "open terminal here"
+            QFileInfo checkFile(filename);
+            if (QUrl::fromLocalFile(filename).isLocalFile() && checkFile.isFile()) {
+                KToolInvocation::invokeTerminal(QString(), {}, QUrl::fromLocalFile(filename).toString(QUrl::RemoveFilename | QUrl::RemoveScheme));
+            } if (QUrl::fromLocalFile(filename).isLocalFile() && checkFile.isDir()) {
+                KToolInvocation::invokeTerminal(QString(), {}, filename);
+            }
         } else if (action->parentWidget() == openWithMenu) {
             // handle "open with"
             handleOpenWith(action, filename);
         } else if (action == openContaingFolderAction) {
             KIO::highlightInFileManager({QUrl::fromLocalFile(filename)});
+        } else if (fileDelete && action == fileDelete) {
+            handleDeleteFile(filename);
         } else if (action == filePropertiesAction) {
             // code copied and adapted from frameworks/kio/src/filewidgets/knewfilemenu.cpp
             KFileItem fileItem(QUrl::fromLocalFile(filename));

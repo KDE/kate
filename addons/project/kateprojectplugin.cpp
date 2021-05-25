@@ -17,6 +17,11 @@
 
 #include <KConfigGroup>
 #include <KLocalizedString>
+
+#if KCOREADDONS_VERSION >= QT_VERSION_CHECK(5, 85, 0)
+#include <KNetworkMounts>
+#endif
+
 #include <KSharedConfig>
 
 #include <QCoreApplication>
@@ -249,7 +254,11 @@ bool KateProjectPlugin::closeProject(KateProject *project)
 
 KateProject *KateProjectPlugin::projectForUrl(const QUrl &url)
 {
-    if (url.isEmpty() || !url.isLocalFile()) {
+    if (url.isEmpty() || !url.isLocalFile()
+#if KCOREADDONS_VERSION >= QT_VERSION_CHECK(5, 85, 0)
+        || KNetworkMounts::self()->isOptionEnabledForPath(url.toLocalFile(), KNetworkMounts::MediumSideEffectsOptimizations)
+#endif
+    ) {
         return nullptr;
     }
 

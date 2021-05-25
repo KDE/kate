@@ -23,6 +23,10 @@
 #include <KLocalizedString>
 #include <KMessageBox>
 
+#if KCOREADDONS_VERSION >= QT_VERSION_CHECK(5, 85, 0)
+#include <KNetworkMounts>
+#endif
+
 #include <QApplication>
 #include <QFileDialog>
 #include <QProgressDialog>
@@ -110,7 +114,11 @@ KateDocumentInfo *KateDocManager::documentInfo(KTextEditor::Document *doc)
 static QUrl normalizeUrl(const QUrl &url)
 {
     // Resolve symbolic links for local files (done anyway in KTextEditor)
-    if (url.isLocalFile()) {
+    if (url.isLocalFile()
+#if KCOREADDONS_VERSION >= QT_VERSION_CHECK(5, 85, 0)
+        && !KNetworkMounts::self()->isOptionEnabledForPath(url.toLocalFile(), KNetworkMounts::StrongSideEffectsOptimizations)
+#endif
+    ) {
         QString normalizedUrl = QFileInfo(url.toLocalFile()).canonicalFilePath();
         if (!normalizedUrl.isEmpty()) {
             return QUrl::fromLocalFile(normalizedUrl);

@@ -171,7 +171,7 @@ bool KateViewSpace::eventFilter(QObject *obj, QEvent *event)
 void KateViewSpace::statusBarToggled()
 {
     KateUpdateDisabler updatesDisabled(m_viewManager->mainWindow());
-    for (auto view : qAsConst(m_docToView)) {
+    for (const auto [doc, view] : m_docToView) {
         view->setStatusBarEnabled(m_viewManager->mainWindow()->showStatusBar());
     }
 }
@@ -189,7 +189,10 @@ void KateViewSpace::tabBarToggled()
 KTextEditor::View *KateViewSpace::createView(KTextEditor::Document *doc)
 {
     // should only be called if a view does not yet exist
-    Q_ASSERT(!m_docToView.contains(doc));
+    {
+        auto it = m_docToView.find(doc);
+        Q_ASSERT(it == m_docToView.end());
+    }
 
     /**
      * Create a fresh view
@@ -222,7 +225,7 @@ KTextEditor::View *KateViewSpace::createView(KTextEditor::Document *doc)
     registerDocument(doc);
 
     // view shall still be not registered
-    Q_ASSERT(!m_docToView.contains(doc));
+    Q_ASSERT(m_docToView.find(doc) == m_docToView.end());
 
     // insert View into stack
     stack->addWidget(v);
@@ -235,17 +238,19 @@ KTextEditor::View *KateViewSpace::createView(KTextEditor::Document *doc)
 void KateViewSpace::removeView(KTextEditor::View *v)
 {
     // remove view mappings
-    Q_ASSERT(m_docToView.contains(v->document()));
-    m_docToView.remove(v->document());
+    auto it = m_docToView.find(v->document());
+    Q_ASSERT(it != m_docToView.end());
+    m_docToView.erase(it);
 
     // ...and now: remove from view space
     stack->removeWidget(v);
 
     // switch to most recently used rather than letting stack choose one
     // (last element could well be v->document() being removed here)
-    for (auto it = m_registeredDocuments.rbegin(); it != m_registeredDocuments.rend(); ++it) {
-        if (m_docToView.contains(*it)) {
-            showView(*it);
+    for (auto rit = m_registeredDocuments.rbegin(); rit != m_registeredDocuments.rend(); ++rit) {
+        auto it = m_docToView.find(*rit);
+        if (it != m_docToView.end()) {
+            showView(*rit);
             break;
         }
     }
@@ -256,7 +261,8 @@ bool KateViewSpace::showView(KTextEditor::Document *document)
     /**
      * nothing can be done if we have now view ready here
      */
-    if (!m_docToView.contains(document)) {
+    auto it = m_docToView.find(document);
+    if (it == m_docToView.end()) {
         return false;
     }
 
@@ -275,7 +281,7 @@ bool KateViewSpace::showView(KTextEditor::Document *document)
     /**
      * show the wanted view
      */
-    KTextEditor::View *kv = m_docToView[document];
+    KTextEditor::View *kv = it->second;
     stack->setCurrentWidget(kv);
     kv->show();
 
@@ -396,7 +402,7 @@ void KateViewSpace::documentDestroyed(QObject *doc)
     /**
      * we shall have no views for this document at this point in time!
      */
-    Q_ASSERT(!m_docToView.contains(invalidDoc));
+    Q_ASSERT(m_docToView.find(invalidDoc) == m_docToView.end());
 
     // disconnect entirely
     disconnect(doc, nullptr, this, nullptr);
@@ -484,18 +490,18 @@ void KateViewSpace::addPositionToHistory(const QUrl &url, KTextEditor::Cursor c,
     }
 
     // we are in the middle of jumps somewhere?
-    if (!m_locations.isEmpty() && currentLocation + 1 < m_locations.size()) {
+    if (!m_locations.empty() && currentLocation + 1 < m_locations.size()) {
         // erase all forward history
         m_locations.erase(m_locations.begin() + currentLocation + 1, m_locations.end());
     }
 
     // if same line, remove last entry
-    if (!m_locations.isEmpty() && m_locations.back().url == url && m_locations.back().cursor.line() == c.line()) {
+    if (!m_locations.empty() && m_locations.back().url == url && m_locations.back().cursor.line() == c.line()) {
         m_locations.pop_back();
     }
 
     // Check if the location is at least "viewLineCount" away
-    if (!calledExternally && !m_locations.isEmpty() && m_locations.back().url == url) {
+    if (!calledExternally && !m_locations.empty() && m_locations.back().url == url) {
         int line = c.line();
         int lastLocLine = m_locations.back().cursor.line();
 
@@ -636,8 +642,9 @@ void KateViewSpace::saveConfig(KConfigBase *config, int myIndex, const QString &
     const auto docList = documentList();
     for (KTextEditor::Document *doc : docList) {
         lruList << doc->url().toString();
-        if (m_docToView.contains(doc)) {
-            views.push_back(m_docToView[doc]);
+        auto it = m_docToView.find(doc);
+        if (it != m_docToView.end()) {
+            views.push_back(it->second);
         }
     }
 
@@ -718,8 +725,8 @@ void KateViewSpace::restoreConfig(KateViewManager *viewMan, const KConfigBase *c
     }
 
     // avoid empty view space
-    if (m_docToView.isEmpty()) {
-        auto *doc = KateApp::self()->documentManager()->documentList().front();
+    if (m_docToView.empty()) {
+        auto *doc = KateApp::self()->documentManager()->documentList().first();
         if (!fn.isEmpty()) {
             QUrl url(fn);
             KateApp::self()->documentManager()->documentInfo(doc)->doPostLoadOperations =
@@ -733,7 +740,7 @@ void KateViewSpace::restoreConfig(KateViewManager *viewMan, const KConfigBase *c
 
 void KateViewSpace::goBack()
 {
-    if (m_locations.isEmpty() || currentLocation == 0) {
+    if (m_locations.empty() || currentLocation == 0) {
         return;
     }
 
@@ -747,8 +754,8 @@ void KateViewSpace::goBack()
 
     if (auto v = m_viewManager->activeView()) {
         if (v->document() && v->document()->url() == location.url) {
-            const QSignalBlocker blocker(m_viewManager->activeView());
-            m_viewManager->activeView()->setCursorPosition(location.cursor);
+            const QSignalBlocker blocker(v);
+            v->setCursorPosition(location.cursor);
             // enable forward
             m_historyForward->setEnabled(true);
             Q_EMIT m_viewManager->historyForwardEnabled(true);
@@ -776,7 +783,7 @@ bool KateViewSpace::isHistoryForwardEnabled() const
 
 void KateViewSpace::goForward()
 {
-    if (m_locations.isEmpty()) {
+    if (m_locations.empty()) {
         return;
     }
     if (currentLocation == m_locations.size() - 1) {
@@ -792,7 +799,7 @@ void KateViewSpace::goForward()
     }
 
     if (!location.url.isValid() || !location.cursor.isValid()) {
-        m_locations.remove(currentLocation);
+        m_locations.erase(m_locations.begin() + currentLocation);
         return;
     }
 
@@ -801,8 +808,8 @@ void KateViewSpace::goForward()
 
     if (auto v = m_viewManager->activeView()) {
         if (v->document() && v->document()->url() == location.url) {
-            const QSignalBlocker blocker(m_viewManager->activeView());
-            m_viewManager->activeView()->setCursorPosition(location.cursor);
+            const QSignalBlocker blocker(v);
+            v->setCursorPosition(location.cursor);
             return;
         }
     }

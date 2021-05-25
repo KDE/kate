@@ -16,6 +16,8 @@
 #include <QPointer>
 #include <QSplitter>
 
+#include <unordered_map>
+
 namespace KActivities
 {
 class ResourceInstance;
@@ -248,22 +250,38 @@ public Q_SLOTS:
      */
     QList<KTextEditor::View *> views() const
     {
-        return m_views.keys();
+        QList<KTextEditor::View *> ret;
+        ret.reserve(m_views.size());
+        std::transform(m_views.begin(), m_views.end(), std::back_inserter(ret), [](const std::pair<KTextEditor::View *, ViewData> &p) {
+            return p.first;
+        });
+        return ret;
     }
 
     /**
      * get views in lru order
      * @return views in lru order
      */
-    QList<KTextEditor::View *> sortedViews() const
+    std::vector<KTextEditor::View *> sortedViews() const
     {
-        QMap<qint64, KTextEditor::View *> sortedViews;
-        QHashIterator<KTextEditor::View *, ViewData> i(m_views);
-        while (i.hasNext()) {
-            i.next();
-            sortedViews[i.value().lruAge] = i.key();
-        }
-        return sortedViews.values();
+        std::vector<std::pair<KTextEditor::View *, qint64>> sorted;
+
+        // extract into a list
+        std::transform(m_views.begin(), m_views.end(), std::back_inserter(sorted), [](const std::pair<KTextEditor::View *, ViewData> &p) {
+            return std::pair<KTextEditor::View *, qint64>{p.first, p.second.lruAge};
+        });
+        // sort the views based on lru
+        std::sort(sorted.begin(), sorted.end(), [](const std::pair<KTextEditor::View *, qint64> &l, const std::pair<KTextEditor::View *, qint64> &r) {
+            return l.second < r.second;
+        });
+
+        // extract the views only and return
+        std::vector<KTextEditor::View *> ret;
+        ret.reserve(sorted.size());
+        std::transform(sorted.begin(), sorted.end(), std::back_inserter(ret), [](const std::pair<KTextEditor::View *, qint64> &p) {
+            return p.first;
+        });
+        return ret;
     }
 
 private:
@@ -279,7 +297,7 @@ private:
     QAction *goNext = nullptr;
     QAction *goPrev = nullptr;
 
-    QList<KateViewSpace *> m_viewSpaceList;
+    std::vector<KateViewSpace *> m_viewSpaceList;
 
     bool m_blockViewCreationAndActivation;
 
@@ -293,11 +311,6 @@ private:
     class ViewData
     {
     public:
-        /**
-         * Default constructor
-         */
-        ViewData() = default;
-
         /**
          * view active?
          */
@@ -319,7 +332,7 @@ private:
      * central storage of all views known in the view manager
      * maps the view to meta data
      */
-    QHash<KTextEditor::View *, ViewData> m_views;
+    std::unordered_map<KTextEditor::View *, ViewData> m_views;
 
     /**
      * current minimal age

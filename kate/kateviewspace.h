@@ -185,8 +185,8 @@ private:
         KTextEditor::Cursor cursor;
     };
 
-    QVector<Location> m_locations;
-    int currentLocation = 0;
+    std::vector<Location> m_locations;
+    size_t currentLocation = 0;
 
     /**
      * all documents this view space is aware of
@@ -199,7 +199,7 @@ private:
     // the list of views that are contained in this view space,
     // mapped through a hash from Document to View.
     // note: the number of entries match stack->count();
-    QHash<KTextEditor::Document *, KTextEditor::View *> m_docToView;
+    std::unordered_map<KTextEditor::Document *, KTextEditor::View *> m_docToView;
 
     // tab bar that contains viewspace tabs
     KateTabBar *m_tabBar;

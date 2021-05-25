@@ -987,10 +987,15 @@ void KatePluginSearchView::startSearch()
         return;
     }
 
-    QRegularExpression::PatternOptions patternOptions =
-        (m_ui.matchCase->isChecked() ? QRegularExpression::UseUnicodePropertiesOption
-                                     : QRegularExpression::UseUnicodePropertiesOption | QRegularExpression::CaseInsensitiveOption);
     QString pattern = (m_ui.useRegExp->isChecked() ? currentSearchText : QRegularExpression::escape(currentSearchText));
+    QRegularExpression::PatternOptions patternOptions = QRegularExpression::UseUnicodePropertiesOption;
+    if (!m_ui.matchCase->isChecked()) {
+        patternOptions |= QRegularExpression::CaseInsensitiveOption;
+    }
+
+    if (pattern.contains(QLatin1String("\\n"))) {
+        patternOptions |= QRegularExpression::MultilineOption;
+    }
     QRegularExpression reg(pattern, patternOptions);
 
     if (!reg.isValid()) {
@@ -1157,11 +1162,16 @@ void KatePluginSearchView::startSearchWhileTyping()
 
     // Now we should have a true typed text change
 
-    QRegularExpression::PatternOptions patternOptions =
-        (m_ui.matchCase->isChecked() ? QRegularExpression::UseUnicodePropertiesOption
-                                     : QRegularExpression::UseUnicodePropertiesOption | QRegularExpression::CaseInsensitiveOption);
     QString pattern = (m_ui.useRegExp->isChecked() ? currentSearchText : QRegularExpression::escape(currentSearchText));
+    QRegularExpression::PatternOptions patternOptions = QRegularExpression::UseUnicodePropertiesOption;
+    if (!m_ui.matchCase->isChecked()) {
+        patternOptions |= QRegularExpression::CaseInsensitiveOption;
+    }
+    if (pattern.contains(QLatin1String("\\n"))) {
+        patternOptions |= QRegularExpression::MultilineOption;
+    }
     QRegularExpression reg(pattern, patternOptions);
+
     if (!reg.isValid()) {
         // qDebug() << "invalid regexp";
         indicateMatch(false);

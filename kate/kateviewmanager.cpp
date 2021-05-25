@@ -81,7 +81,7 @@ KateViewManager::KateViewManager(QWidget *parentW, KateMainWindow *parent)
     // register all already existing documents
     m_blockViewCreationAndActivation = true;
 
-    const QList<KTextEditor::Document *> &docs = KateApp::self()->documentManager()->documentList();
+    const auto &docs = KateApp::self()->documentManager()->documentList();
     for (KTextEditor::Document *doc : docs) {
         documentCreated(doc);
     }
@@ -228,7 +228,7 @@ void KateViewManager::slotDocumentOpen()
      * emit size warning, for local files
      */
     QString fileListWithTooLargeFiles;
-    for (const QUrl &url : urls) {
+    for (const QUrl &url : qAsConst(urls)) {
         if (!url.isLocalFile()) {
             continue;
         }
@@ -294,7 +294,7 @@ KTextEditor::Document *KateViewManager::openUrl(const QUrl &url, const QString &
 
 KTextEditor::Document *KateViewManager::openUrls(const QList<QUrl> &urls, const QString &encoding, bool isTempFile, const KateDocumentInfo &docInfo)
 {
-    const QList<KTextEditor::Document *> docs = KateApp::self()->documentManager()->openUrls(urls, encoding, isTempFile, docInfo);
+    const std::vector<KTextEditor::Document *> docs = KateApp::self()->documentManager()->openUrls(urls, encoding, isTempFile, docInfo);
 
     if (!isTempFile) {
         for (const KTextEditor::Document *doc : docs) {
@@ -302,7 +302,7 @@ KTextEditor::Document *KateViewManager::openUrls(const QList<QUrl> &urls, const 
         }
     }
 
-    return docs.isEmpty() ? nullptr : docs.last();
+    return docs.empty() ? nullptr : docs.back();
 }
 
 KTextEditor::View *KateViewManager::openUrlWithView(const QUrl &url, const QString &encoding)
@@ -388,8 +388,8 @@ void KateViewManager::documentsDeleted(const QList<KTextEditor::Document *> &)
     /**
      * try to have active view around!
      */
-    if (!activeView() && !KateApp::self()->documentManager()->documentList().isEmpty()) {
-        createView(KateApp::self()->documentManager()->documentList().last());
+    if (!activeView() && !KateApp::self()->documentManager()->documentList().empty()) {
+        createView(KateApp::self()->documentManager()->documentList().back());
     }
 
     /**
@@ -751,8 +751,8 @@ void KateViewManager::closeView(KTextEditor::View *view)
     /**
      * try to have active view around!
      */
-    if (!activeView() && !KateApp::self()->documentManager()->documentList().isEmpty()) {
-        createView(KateApp::self()->documentManager()->documentList().last());
+    if (!activeView() && !KateApp::self()->documentManager()->documentList().empty()) {
+        createView(KateApp::self()->documentManager()->documentList().back());
     }
 
     /**
@@ -1091,7 +1091,7 @@ void KateViewManager::restoreViewConfiguration(const KConfigGroup &config)
         /**
          * activate at least one document!
          */
-        activateView(KateApp::self()->documentManager()->documentList().last());
+        activateView(KateApp::self()->documentManager()->documentList().back());
         if (!vs->currentView()) {
             createView(activeView()->document(), vs);
         }

@@ -20,9 +20,9 @@ class KateSaveModifiedDialog : public QDialog
 {
     Q_OBJECT
 public:
-    KateSaveModifiedDialog(QWidget *parent, const QList<KTextEditor::Document *> &documents);
+    KateSaveModifiedDialog(QWidget *parent, const std::vector<KTextEditor::Document *> &documents);
     ~KateSaveModifiedDialog() override;
-    static bool queryClose(QWidget *parent, const QList<KTextEditor::Document *> &documents);
+    static bool queryClose(QWidget *parent, const std::vector<KTextEditor::Document *> &documents);
 
 protected:
     bool doSave();

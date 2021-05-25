@@ -59,7 +59,7 @@ void KateStashManager::stashDocuments(KConfig *config, const QList<KTextEditor::
     dir.cd(sessionName);
 
     int i = 0;
-    for (KTextEditor::Document *doc : qAsConst(documents)) {
+    for (KTextEditor::Document *doc : documents) {
         const QString entryName = QStringLiteral("Document %1").arg(i);
         KConfigGroup cg(config, entryName);
 

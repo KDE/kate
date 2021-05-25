@@ -121,7 +121,7 @@ private:
     KTextEditor::Document *m_document;
 };
 
-KateSaveModifiedDialog::KateSaveModifiedDialog(QWidget *parent, const QList<KTextEditor::Document *> &documents)
+KateSaveModifiedDialog::KateSaveModifiedDialog(QWidget *parent, const std::vector<KTextEditor::Document *> &documents)
     : QDialog(parent)
 {
     setWindowTitle(i18n("Save Documents"));
@@ -234,7 +234,7 @@ bool KateSaveModifiedDialog::doSave()
     return true;
 }
 
-bool KateSaveModifiedDialog::queryClose(QWidget *parent, const QList<KTextEditor::Document *> &documents)
+bool KateSaveModifiedDialog::queryClose(QWidget *parent, const std::vector<KTextEditor::Document *> &documents)
 {
     KateSaveModifiedDialog d(parent, documents);
     return (d.exec() != QDialog::Rejected);

@@ -354,8 +354,8 @@ void KateConfigDialog::slotApply()
         // patch document modified warn state
         const QList<KTextEditor::Document *> &docs = KateApp::self()->documentManager()->documentList();
         for (KTextEditor::Document *doc : docs) {
-            if (qobject_cast<KTextEditor::ModificationInterface *>(doc)) {
-                qobject_cast<KTextEditor::ModificationInterface *>(doc)->setModifiedOnDiskWarning(!m_modNotifications->isChecked());
+            if (auto modIface = qobject_cast<KTextEditor::ModificationInterface *>(doc)) {
+                modIface->setModifiedOnDiskWarning(!m_modNotifications->isChecked());
             }
         }
 

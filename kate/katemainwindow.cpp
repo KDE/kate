@@ -520,7 +520,7 @@ void KateMainWindow::slotDocumentCloseSelected(const QList<KTextEditor::Document
     QList<KTextEditor::Document *> documents;
     for (KTextEditor::Document *doc : docList) {
         if (queryClose_internal(doc)) {
-            documents.append(doc);
+            documents.push_back(doc);
         }
     }
 
@@ -534,14 +534,14 @@ void KateMainWindow::slotDocumentCloseOther()
 
 bool KateMainWindow::queryClose_internal(KTextEditor::Document *doc)
 {
-    int documentCount = KateApp::self()->documentManager()->documentList().size();
+    const auto documentCount = KateApp::self()->documentManager()->documentList().size();
 
     if (!showModOnDiskPrompt(PromptEdited)) {
         return false;
     }
 
-    QList<KTextEditor::Document *> modifiedDocuments = KateApp::self()->documentManager()->modifiedDocumentList();
-    modifiedDocuments.removeAll(doc);
+    std::vector<KTextEditor::Document *> modifiedDocuments = KateApp::self()->documentManager()->modifiedDocumentList();
+    modifiedDocuments.erase(std::remove(modifiedDocuments.begin(), modifiedDocuments.end(), doc), modifiedDocuments.end());
 
     // filter out what the stashManager will itself stash
     auto m = modifiedDocuments.begin();
@@ -553,7 +553,7 @@ bool KateMainWindow::queryClose_internal(KTextEditor::Document *doc)
         }
     }
 
-    bool shutdown = modifiedDocuments.count() == 0;
+    bool shutdown = modifiedDocuments.empty();
 
     if (!shutdown) {
         shutdown = KateSaveModifiedDialog::queryClose(this, modifiedDocuments);

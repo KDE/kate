@@ -13,6 +13,7 @@
 #include <KSharedConfig>
 
 #include <KTextEditor/ConfigInterface>
+#include <KTextEditor/Editor>
 
 #include <QClipboard>
 #include <QDateTime>

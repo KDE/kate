@@ -14,6 +14,7 @@
 #include "katesavemodifieddialog.h"
 #include "kateviewmanager.h"
 
+#include <ktexteditor/editor.h>
 #include <ktexteditor/view.h>
 
 #include <KColorScheme>
@@ -24,7 +25,6 @@
 
 #include <QApplication>
 #include <QFileDialog>
-#include <QListView>
 #include <QProgressDialog>
 #include <QTextCodec>
 #include <QTimer>
@@ -65,8 +65,6 @@ KateDocManager::~KateDocManager()
             }
         }
     }
-
-    qDeleteAll(m_docInfos);
 }
 
 KTextEditor::Document *KateDocManager::createDoc(const KateDocumentInfo &docInfo)
@@ -80,8 +78,8 @@ KTextEditor::Document *KateDocManager::createDoc(const KateDocumentInfo &docInfo
         qobject_cast<KTextEditor::ModificationInterface *>(doc)->setModifiedOnDiskWarning(!ownModNotification);
     }
 
-    m_docList.append(doc);
-    m_docInfos.insert(doc, new KateDocumentInfo(docInfo));
+    m_docList.push_back(doc);
+    m_docInfos.emplace(doc, docInfo);
 
     // connect internal signals...
     connect(doc, &KTextEditor::Document::modifiedChanged, this, &KateDocManager::slotModChanged1);
@@ -102,7 +100,11 @@ KTextEditor::Document *KateDocManager::createDoc(const KateDocumentInfo &docInfo
 
 KateDocumentInfo *KateDocManager::documentInfo(KTextEditor::Document *doc)
 {
-    return m_docInfos.contains(doc) ? m_docInfos[doc] : nullptr;
+    auto it = m_docInfos.find(doc);
+    if (it != m_docInfos.end()) {
+        return &it->second;
+    }
+    return nullptr;
 }
 
 static QUrl normalizeUrl(const QUrl &url)
@@ -130,11 +132,13 @@ KTextEditor::Document *KateDocManager::findDocument(const QUrl &url) const
     return nullptr;
 }
 
-QList<KTextEditor::Document *> KateDocManager::openUrls(const QList<QUrl> &urls, const QString &encoding, bool isTempFile, const KateDocumentInfo &docInfo)
+std::vector<KTextEditor::Document *>
+KateDocManager::openUrls(const QList<QUrl> &urls, const QString &encoding, bool isTempFile, const KateDocumentInfo &docInfo)
 {
-    QList<KTextEditor::Document *> docs;
+    std::vector<KTextEditor::Document *> docs;
+    docs.reserve(urls.size());
     for (const QUrl &url : urls) {
-        docs << openUrl(url, encoding, isTempFile, docInfo);
+        docs.push_back(openUrl(url, encoding, isTempFile, docInfo));
     }
     return docs;
 }
@@ -144,8 +148,8 @@ KTextEditor::Document *KateDocManager::openUrl(const QUrl &url, const QString &e
     // special handling: if only one unmodified empty buffer in the list,
     // keep this buffer in mind to close it after opening the new url
     KTextEditor::Document *untitledDoc = nullptr;
-    if ((documentList().count() == 1) && (!documentList().at(0)->isModified() && documentList().at(0)->url().isEmpty())) {
-        untitledDoc = documentList().first();
+    if ((documentList().size() == 1) && (!documentList().at(0)->isModified() && documentList().at(0)->url().isEmpty())) {
+        untitledDoc = documentList().front();
     }
 
     //
@@ -183,7 +187,7 @@ KTextEditor::Document *KateDocManager::openUrl(const QUrl &url, const QString &e
     if (isTempFile && u.isLocalFile()) {
         QFileInfo fi(u.toLocalFile());
         if (fi.exists()) {
-            m_tempFiles[doc] = qMakePair(u, fi.lastModified());
+            m_tempFiles[doc] = std::make_pair(u, fi.lastModified());
             qCDebug(LOG_KATE) << "temporary file will be deleted after use unless modified: " << u;
         }
     }
@@ -193,13 +197,13 @@ KTextEditor::Document *KateDocManager::openUrl(const QUrl &url, const QString &e
 
 bool KateDocManager::closeDocuments(const QList<KTextEditor::Document *> &documents, bool closeUrl)
 {
-    if (documents.isEmpty()) {
+    if (documents.empty()) {
         return false;
     }
 
     saveMetaInfos(documents);
 
-    Q_EMIT aboutToDeleteDocuments(documents);
+    Q_EMIT aboutToDeleteDocuments(QList<KTextEditor::Document *>{documents.begin(), documents.end()});
 
     int last = 0;
     bool success = true;
@@ -209,22 +213,25 @@ bool KateDocManager::closeDocuments(const QList<KTextEditor::Document *> &docume
             break;
         }
 
-        if (closeUrl && m_tempFiles.contains(doc)) {
-            QFileInfo fi(m_tempFiles[doc].first.toLocalFile());
-            if (fi.lastModified() <= m_tempFiles[doc].second
-                || KMessageBox::questionYesNo(KateApp::self()->activeKateMainWindow(),
-                                              i18n("The supposedly temporary file %1 has been modified. "
-                                                   "Do you want to delete it anyway?",
-                                                   m_tempFiles[doc].first.url(QUrl::PreferLocalFile)),
-                                              i18n("Delete File?"))
-                    == KMessageBox::Yes) {
-                KIO::del(m_tempFiles[doc].first, KIO::HideProgressInfo);
-                qCDebug(LOG_KATE) << "Deleted temporary file " << m_tempFiles[doc].first;
-                m_tempFiles.remove(doc);
-            } else {
-                m_tempFiles.remove(doc);
-                qCDebug(LOG_KATE) << "The supposedly temporary file " << m_tempFiles[doc].first.url()
-                                  << " have been modified since loaded, and has not been deleted.";
+        if (closeUrl) {
+            auto it = m_tempFiles.find(doc);
+            if (it != m_tempFiles.end()) {
+                const auto [url, lastMod] = it->second;
+                QFileInfo fi(url.toLocalFile());
+                if (fi.lastModified() <= lastMod
+                    || KMessageBox::questionYesNo(KateApp::self()->activeKateMainWindow(),
+                                                  i18n("The supposedly temporary file %1 has been modified. "
+                                                       "Do you want to delete it anyway?",
+                                                       url.url(QUrl::PreferLocalFile)),
+                                                  i18n("Delete File?"))
+                        == KMessageBox::Yes) {
+                    KIO::del(url, KIO::HideProgressInfo);
+                    qCDebug(LOG_KATE) << "Deleted temporary file " << url;
+                    m_tempFiles.erase(it);
+                } else {
+                    m_tempFiles.erase(it);
+                    qCDebug(LOG_KATE) << "The supposedly temporary file " << url.url() << " have been modified since loaded, and has not been deleted.";
+                }
             }
         }
 
@@ -234,11 +241,14 @@ bool KateDocManager::closeDocuments(const QList<KTextEditor::Document *> &docume
         Q_EMIT documentWillBeDeleted(doc);
 
         // really delete the document and its infos
-        delete m_docInfos.take(doc);
-        delete m_docList.takeAt(m_docList.indexOf(doc));
-
-        // document is gone, emit our signals
-        Q_EMIT documentDeleted(doc);
+        m_docInfos.erase(doc);
+        auto it = std::find(m_docList.begin(), m_docList.end(), doc);
+        if (it != m_docList.end()) {
+            delete *it;
+            // document is gone, emit our signals
+            Q_EMIT documentDeleted(doc);
+            m_docList.erase(it);
+        }
 
         last++;
     }
@@ -247,11 +257,11 @@ bool KateDocManager::closeDocuments(const QList<KTextEditor::Document *> &docume
      * never ever empty the whole document list
      * do this before documentsDeleted is emitted, to have no flicker
      */
-    if (m_docList.isEmpty()) {
+    if (m_docList.empty()) {
         createDoc();
     }
 
-    Q_EMIT documentsDeleted(documents.mid(last));
+    Q_EMIT documentsDeleted(QList<KTextEditor::Document *>{documents.begin() + last, documents.end()});
 
     return success;
 }
@@ -267,10 +277,10 @@ bool KateDocManager::closeDocument(KTextEditor::Document *doc, bool closeUrl)
 
 bool KateDocManager::closeDocumentList(const QList<KTextEditor::Document *> &documents)
 {
-    QList<KTextEditor::Document *> modifiedDocuments;
+    std::vector<KTextEditor::Document *> modifiedDocuments;
     for (KTextEditor::Document *document : documents) {
         if (document->isModified()) {
-            modifiedDocuments.append(document);
+            modifiedDocuments.push_back(document);
         }
     }
 
@@ -294,8 +304,14 @@ bool KateDocManager::closeOtherDocuments(KTextEditor::Document *doc)
     /**
      * close all documents beside the passed one
      */
-    QList<KTextEditor::Document *> documents = m_docList;
-    documents.removeOne(doc);
+    QList<KTextEditor::Document *> documents;
+    documents.reserve(m_docList.size() - 1);
+    for (auto document : m_docList) {
+        if (document != doc) {
+            documents.push_back(document);
+        }
+    }
+
     return closeDocuments(documents);
 }
 
@@ -303,21 +319,19 @@ bool KateDocManager::closeOtherDocuments(KTextEditor::Document *doc)
  * Find all modified documents.
  * @return Return the list of all modified documents.
  */
-QList<KTextEditor::Document *> KateDocManager::modifiedDocumentList()
+std::vector<KTextEditor::Document *> KateDocManager::modifiedDocumentList()
 {
-    QList<KTextEditor::Document *> modified;
-    for (KTextEditor::Document *doc : qAsConst(m_docList)) {
-        if (doc->isModified()) {
-            modified.append(doc);
-        }
-    }
+    std::vector<KTextEditor::Document *> modified;
+    std::copy_if(m_docList.begin(), m_docList.end(), std::back_inserter(modified), [](KTextEditor::Document *doc) {
+        return doc->isModified();
+    });
     return modified;
 }
 
 bool KateDocManager::queryCloseDocuments(KateMainWindow *w)
 {
-    int docCount = m_docList.count();
-    for (KTextEditor::Document *doc : qAsConst(m_docList)) {
+    const auto docCount = m_docList.size();
+    for (KTextEditor::Document *doc : m_docList) {
         if (doc->url().isEmpty() && doc->isModified()) {
             int msgres = KMessageBox::warningYesNoCancel(w,
                                                          i18n("<p>The document '%1' has been modified, but not saved.</p>"
@@ -349,7 +363,7 @@ bool KateDocManager::queryCloseDocuments(KateMainWindow *w)
     }
 
     // document count changed while queryClose, abort and notify user
-    if (m_docList.count() > docCount) {
+    if (m_docList.size() > docCount) {
         KMessageBox::information(w, i18n("New file opened while trying to close Kate, closing aborted."), i18n("Closing Aborted"));
         return false;
     }
@@ -359,7 +373,7 @@ bool KateDocManager::queryCloseDocuments(KateMainWindow *w)
 
 void KateDocManager::saveAll()
 {
-    for (KTextEditor::Document *doc : qAsConst(m_docList)) {
+    for (KTextEditor::Document *doc : m_docList) {
         if (doc->isModified()) {
             doc->documentSave();
         }
@@ -368,7 +382,7 @@ void KateDocManager::saveAll()
 
 void KateDocManager::saveSelected(const QList<KTextEditor::Document *> &docList)
 {
-    for (KTextEditor::Document *doc : qAsConst(docList)) {
+    for (KTextEditor::Document *doc : docList) {
         if (doc->isModified()) {
             doc->documentSave();
         }
@@ -378,7 +392,7 @@ void KateDocManager::saveSelected(const QList<KTextEditor::Document *> &docList)
 void KateDocManager::reloadAll()
 {
     // reload all docs that are NOT modified on disk
-    for (KTextEditor::Document *doc : qAsConst(m_docList)) {
+    for (KTextEditor::Document *doc : m_docList) {
         if (!documentInfo(doc)->modifiedOnDisc) {
             doc->documentReload();
         }
@@ -392,10 +406,10 @@ void KateDocManager::closeOrphaned()
 {
     QList<KTextEditor::Document *> documents;
 
-    for (KTextEditor::Document *doc : qAsConst(m_docList)) {
+    for (KTextEditor::Document *doc : m_docList) {
         KateDocumentInfo *info = documentInfo(doc);
         if (info && !info->openSuccess) {
-            documents.append(doc);
+            documents.push_back(doc);
         }
     }
 
@@ -406,10 +420,10 @@ void KateDocManager::saveDocumentList(KConfig *config)
 {
     KConfigGroup openDocGroup(config, "Open Documents");
 
-    openDocGroup.writeEntry("Count", m_docList.count());
+    openDocGroup.writeEntry("Count", (int)m_docList.size());
 
     int i = 0;
-    for (KTextEditor::Document *doc : qAsConst(m_docList)) {
+    for (KTextEditor::Document *doc : m_docList) {
         const QString entryName = QStringLiteral("Document %1").arg(i);
         KConfigGroup cg(config, entryName);
         doc->writeSessionConfig(cg);
@@ -439,7 +453,7 @@ void KateDocManager::restoreDocumentList(KConfig *config)
         KTextEditor::Document *doc = nullptr;
 
         if (i == 0) {
-            doc = m_docList.first();
+            doc = m_docList.front();
         } else {
             doc = createDoc();
         }
@@ -457,9 +471,10 @@ void KateDocManager::restoreDocumentList(KConfig *config)
 
 void KateDocManager::slotModifiedOnDisc(KTextEditor::Document *doc, bool b, KTextEditor::ModificationInterface::ModifiedOnDiskReason reason)
 {
-    if (m_docInfos.contains(doc)) {
-        m_docInfos[doc]->modifiedOnDisc = b;
-        m_docInfos[doc]->modifiedOnDiscReason = reason;
+    auto it = m_docInfos.find(doc);
+    if (it != m_docInfos.end()) {
+        it->second.modifiedOnDisc = b;
+        it->second.modifiedOnDiscReason = reason;
         slotModChanged1(doc);
     }
 }
@@ -550,9 +565,7 @@ void KateDocManager::saveMetaInfos(const QList<KTextEditor::Document *> &documen
 
 void KateDocManager::slotModChanged(KTextEditor::Document *doc)
 {
-    QList<KTextEditor::Document *> documents;
-    documents.append(doc);
-    saveMetaInfos(documents);
+    saveMetaInfos({doc});
 }
 
 void KateDocManager::slotModChanged1(KTextEditor::Document *doc)

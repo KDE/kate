@@ -31,6 +31,8 @@
 #include <QToolTip>
 #include <QWhatsThis>
 
+#include <KTextEditor/Editor>
+
 // BEGIN KateViewSpace
 KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent, const char *name)
     : QWidget(parent)
@@ -529,7 +531,7 @@ void KateViewSpace::addPositionToHistory(const QUrl &url, KTextEditor::Cursor c,
 }
 int KateViewSpace::hiddenDocuments() const
 {
-    const int hiddenDocs = KateApp::self()->documents().count() - m_tabBar->count();
+    const auto hiddenDocs = KateApp::self()->documentManager()->documentList().size() - m_tabBar->count();
     Q_ASSERT(hiddenDocs >= 0);
     return hiddenDocs;
 }
@@ -564,7 +566,7 @@ void KateViewSpace::showContextMenu(int idx, const QPoint &globalPos)
     mCompareWithActive->setIcon(QIcon::fromTheme(QStringLiteral("kompare")));
     menu.addMenu(mCompareWithActive);
 
-    if (KateApp::self()->documentManager()->documentList().count() < 2) {
+    if (KateApp::self()->documentManager()->documentList().size() < 2) {
         aCloseOthers->setEnabled(false);
     }
 
@@ -717,7 +719,7 @@ void KateViewSpace::restoreConfig(KateViewManager *viewMan, const KConfigBase *c
 
     // avoid empty view space
     if (m_docToView.isEmpty()) {
-        auto *doc = KateApp::self()->documentManager()->documentList().first();
+        auto *doc = KateApp::self()->documentManager()->documentList().front();
         if (!fn.isEmpty()) {
             QUrl url(fn);
             KateApp::self()->documentManager()->documentInfo(doc)->doPostLoadOperations =

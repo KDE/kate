@@ -9,18 +9,15 @@
 #define __KATE_DOCMANAGER_H__
 
 #include <ktexteditor/document.h>
-#include <ktexteditor/editor.h>
 #include <ktexteditor/modificationinterface.h>
 
-#include <QByteArray>
 #include <QDateTime>
-#include <QHash>
 #include <QList>
-#include <QMap>
 #include <QObject>
-#include <QPair>
 
 #include <KConfig>
+
+#include <unordered_map>
 
 class KateMainWindow;
 
@@ -63,7 +60,7 @@ public:
     KTextEditor::Document *
     openUrl(const QUrl &, const QString &encoding = QString(), bool isTempFile = false, const KateDocumentInfo &docInfo = KateDocumentInfo());
 
-    QList<KTextEditor::Document *>
+    std::vector<KTextEditor::Document *>
     openUrls(const QList<QUrl> &, const QString &encoding = QString(), bool isTempFile = false, const KateDocumentInfo &docInfo = KateDocumentInfo());
 
     bool closeDocument(KTextEditor::Document *, bool closeUrl = true);
@@ -72,7 +69,7 @@ public:
     bool closeAllDocuments(bool closeUrl = true);
     bool closeOtherDocuments(KTextEditor::Document *);
 
-    QList<KTextEditor::Document *> modifiedDocumentList();
+    std::vector<KTextEditor::Document *> modifiedDocumentList();
     bool queryCloseDocuments(KateMainWindow *w);
 
     void saveDocumentList(KConfig *config);
@@ -174,14 +171,14 @@ private:
     void saveMetaInfos(const QList<KTextEditor::Document *> &docs);
 
     QList<KTextEditor::Document *> m_docList;
-    QHash<KTextEditor::Document *, KateDocumentInfo *> m_docInfos;
+    std::unordered_map<KTextEditor::Document *, KateDocumentInfo> m_docInfos;
 
     KConfig m_metaInfos;
     bool m_saveMetaInfos;
     int m_daysMetaInfos;
 
-    typedef QPair<QUrl, QDateTime> TPair;
-    QMap<KTextEditor::Document *, TPair> m_tempFiles;
+    typedef std::pair<QUrl, QDateTime> TPair;
+    std::unordered_map<KTextEditor::Document *, TPair> m_tempFiles;
 
 private Q_SLOTS:
     void documentOpened();

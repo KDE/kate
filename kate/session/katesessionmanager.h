@@ -13,6 +13,8 @@
 #include <QHash>
 #include <QObject>
 
+#include <memory>
+
 typedef QList<KateSession::Ptr> KateSessionList;
 
 class KATE_TESTS_EXPORT KateSessionManager : public QObject
@@ -23,7 +25,6 @@ class KATE_TESTS_EXPORT KateSessionManager : public QObject
 
 public:
     KateSessionManager(QObject *parent = nullptr, const QString &sessionsDir = QString());
-    ~KateSessionManager() override;
 
     /**
      * allow access to the session list
@@ -59,7 +60,7 @@ public:
      * sessionFile == empty means we have no session around for this instance of kate
      * @return session active atm
      */
-    inline KateSession::Ptr activeSession()
+    KateSession::Ptr activeSession()
     {
         return m_activeSession;
     }
@@ -68,7 +69,7 @@ public:
      * session dir
      * @return global session dir
      */
-    inline const QString &sessionsDir() const
+    const QString &sessionsDir() const
     {
         return m_sessionsDir;
     }
@@ -246,7 +247,7 @@ private:
      */
     KateSession::Ptr m_activeSession;
 
-    class KDirWatch *m_dirWatch;
+    std::unique_ptr<class KDirWatch> m_dirWatch;
 };
 
 #endif

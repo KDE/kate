@@ -25,12 +25,11 @@ KateSession::KateSession(const QString &file, const QString &name, const bool an
     , m_file(file)
     , m_anonymous(anonymous)
     , m_documents(0)
-    , m_config(nullptr)
 {
     Q_ASSERT(!m_file.isEmpty());
 
     if (_config) { // copy data from config instead
-        m_config = _config->copyTo(m_file);
+        m_config.reset(_config->copyTo(m_file));
     } else if (!QFile::exists(m_file)) { // given file exists, use it to load some stuff
         qCDebug(LOG_KATE) << "Warning, session file not found: " << m_file;
         return;
@@ -40,11 +39,6 @@ KateSession::KateSession(const QString &file, const QString &name, const bool an
 
     // get the document count
     m_documents = config()->group(opGroupName).readEntry(keyCount, 0);
-}
-
-KateSession::~KateSession()
-{
-    delete m_config;
 }
 
 const QString &KateSession::file() const
@@ -62,8 +56,7 @@ void KateSession::setFile(const QString &filename)
 {
     if (m_config) {
         KConfig *cfg = m_config->copyTo(filename);
-        delete m_config;
-        m_config = cfg;
+        m_config.reset(cfg);
     }
 
     m_file = filename;
@@ -76,12 +69,12 @@ void KateSession::setName(const QString &name)
 
 KConfig *KateSession::config()
 {
-    if (m_config) {
-        return m_config;
+    if (!m_config) {
+        // reread documents number?
+        m_config = std::make_unique<KConfig>(m_file, KConfig::SimpleConfig);
     }
 
-    // reread documents number?
-    return m_config = new KConfig(m_file, KConfig::SimpleConfig);
+    return m_config.get();
 }
 
 KateSession::Ptr KateSession::create(const QString &file, const QString &name)

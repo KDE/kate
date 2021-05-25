@@ -71,10 +71,6 @@ KateSessionManageDialog::KateSessionManageDialog(QWidget *parent, const QString 
     updateSessionList();
 }
 
-KateSessionManageDialog::~KateSessionManageDialog()
-{
-}
-
 void KateSessionManageDialog::dontAskToggled()
 {
     m_templateButton->setEnabled(!m_dontAskCheckBox->isChecked());

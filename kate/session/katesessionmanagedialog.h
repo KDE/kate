@@ -34,7 +34,6 @@ public:
      * the @p lastSession in the session list.
      */
     KateSessionManageDialog(QWidget *parent, const QString &lastSession);
-    ~KateSessionManageDialog() override;
 
 protected Q_SLOTS:
     /**

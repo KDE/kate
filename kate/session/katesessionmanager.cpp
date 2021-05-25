@@ -29,7 +29,6 @@
 #include <QDBusReply>
 #include <QDir>
 #include <QInputDialog>
-#include <QScopedPointer>
 #include <QUrl>
 
 #ifndef Q_OS_WIN
@@ -50,16 +49,11 @@ KateSessionManager::KateSessionManager(QObject *parent, const QString &sessionsD
     // create dir if needed
     QDir().mkpath(m_sessionsDir);
 
-    m_dirWatch = new KDirWatch(this);
+    m_dirWatch = std::make_unique<KDirWatch>(this);
     m_dirWatch->addDir(m_sessionsDir);
-    connect(m_dirWatch, &KDirWatch::dirty, this, &KateSessionManager::updateSessionList);
+    connect(m_dirWatch.get(), &KDirWatch::dirty, this, &KateSessionManager::updateSessionList);
 
     updateSessionList();
-}
-
-KateSessionManager::~KateSessionManager()
-{
-    delete m_dirWatch;
 }
 
 void KateSessionManager::updateSessionList()
@@ -585,7 +579,7 @@ void KateSessionManager::updateJumpListActions(const QStringList &sessionList)
         return;
     }
 
-    QScopedPointer<KDesktopFile> df(new KDesktopFile(service->entryPath()));
+    std::unique_ptr<KDesktopFile> df(new KDesktopFile(service->entryPath()));
 
     QStringList newActions = df->readActions();
 

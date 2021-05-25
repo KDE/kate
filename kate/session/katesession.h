@@ -14,6 +14,8 @@
 #include <QExplicitlySharedDataPointer>
 #include <QString>
 
+#include <memory>
+
 class KConfig;
 
 class KATE_TESTS_EXPORT KateSession : public QSharedData
@@ -25,7 +27,6 @@ public:
     typedef QExplicitlySharedDataPointer<KateSession> Ptr;
 
 public:
-    ~KateSession();
 
     /**
      * session name
@@ -120,7 +121,7 @@ private:
     QString m_file;
     bool m_anonymous;
     unsigned int m_documents;
-    KConfig *m_config;
+    std::unique_ptr<KConfig> m_config;
     QDateTime m_timestamp;
 };
 

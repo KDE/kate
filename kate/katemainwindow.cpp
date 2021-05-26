@@ -249,10 +249,14 @@ void KateMainWindow::setupImportantActions()
     connect(a, &QAction::triggered, this, &KateMainWindow::slotQuickOpen);
     a->setWhatsThis(i18n("Open a form to quick open documents."));
 
-    // kate command bar
-    a = actionCollection()->addAction(QStringLiteral("view_commandbar_open"));
-    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::ALT | Qt::Key_I));
-    connect(a, &QAction::triggered, this, &KateMainWindow::slotCommandBarOpen);
+    // kate command bar, only add this if we don't already have the generic one from KXMLGui
+    // https://invent.kde.org/frameworks/kxmlgui/-/merge_requests/54
+    // FIXME: remove after we require Frameworks >= 5.83
+    if (!actionCollection()->action(QStringLiteral("open_kcommand_bar"))) {
+        a = actionCollection()->addAction(QStringLiteral("view_commandbar_open"));
+        actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::ALT | Qt::Key_I));
+        connect(a, &QAction::triggered, this, &KateMainWindow::slotCommandBarOpen);
+    }
 }
 
 void KateMainWindow::setupMainWindow()

@@ -10,6 +10,8 @@
 
 #include "katesession.h"
 
+#include <KDirWatch>
+
 #include <QHash>
 #include <QObject>
 
@@ -247,7 +249,7 @@ private:
      */
     KateSession::Ptr m_activeSession;
 
-    std::unique_ptr<class KDirWatch> m_dirWatch;
+    std::unique_ptr<KDirWatch> m_dirWatch;
 };
 
 #endif

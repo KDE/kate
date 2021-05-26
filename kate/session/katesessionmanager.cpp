@@ -15,7 +15,6 @@
 
 #include <KConfigGroup>
 #include <KDesktopFile>
-#include <KDirWatch>
 #include <KIO/CopyJob>
 #include <KLocalizedString>
 #include <KMessageBox>

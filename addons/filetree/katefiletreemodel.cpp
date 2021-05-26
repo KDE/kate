@@ -798,7 +798,7 @@ void KateFileTreeModel::documentModifiedOnDisc(KTextEditor::Document *doc, bool 
 
 void KateFileTreeModel::documentActivated(const KTextEditor::Document *doc)
 {
-    if (!m_docmap.contains(doc)) {
+    if (!m_shadingEnabled || !m_docmap.contains(doc)) {
         return;
     }
 
@@ -815,7 +815,7 @@ void KateFileTreeModel::documentActivated(const KTextEditor::Document *doc)
 
 void KateFileTreeModel::documentEdited(const KTextEditor::Document *doc)
 {
-    if (!m_docmap.contains(doc)) {
+    if (!m_shadingEnabled || !m_docmap.contains(doc)) {
         return;
     }
 

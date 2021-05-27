@@ -11,6 +11,7 @@
 #include <KPluginMetaData>
 
 // Qt
+#include <QMap>
 #include <QObject>
 #include <QTimer>
 
@@ -22,6 +23,8 @@ namespace KParts
 {
 class ReadOnlyPart;
 }
+class QAction;
+class QKeySequence;
 class QLabel;
 class QTemporaryFile;
 
@@ -108,6 +111,7 @@ private:
     QTimer m_updateSquashingTimerFast;
     QTimer m_updateSquashingTimerSlow;
     QTemporaryFile *m_bufferFile = nullptr;
+    QMap<QKeySequence, QAction *> m_shortcuts;
 };
 
 }

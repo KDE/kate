@@ -277,7 +277,15 @@ void KateGitBlamePluginView::blameFinished(int /*exitCode*/, QProcess::ExitStatu
 void KateGitBlamePluginView::showFinished(int exitCode, QProcess::ExitStatus exitStatus)
 {
     QString stdErr = QString::fromUtf8(m_showProc.readAllStandardError());
-    const QString stdOut = QString::fromUtf8(m_showProc.readAllStandardOutput());
+    QString stdOut = QString::fromUtf8(m_showProc.readAllStandardOutput());
+
+    // Try to avoid crashes caused by QTextBrowser running out of memory
+    // Seems to be a limit somewhere as the memory reaches 8G and then crashes
+    // even if there is more free memory
+    // Anyways, this popup is not optimal for > 1m characters...
+    if (stdOut.size() > 1000000) {
+        stdOut = stdOut.left(1000000) + QLatin1String("\n- 8< - - - - - - - - - - - -\n");
+    }
 
     if (exitCode != 0 || exitStatus != QProcess::NormalExit) {
         return;

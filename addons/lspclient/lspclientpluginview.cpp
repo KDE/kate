@@ -1750,7 +1750,7 @@ public:
             return;
         }
 
-        QPointer<KTextEditor::Document> document = activeView->document();
+        KTextEditor::Document *document = activeView->document();
         auto server = m_serverManager->findServer(activeView);
         auto range = activeView->selectionRange();
         if (!range.isValid()) {
@@ -1762,16 +1762,16 @@ public:
             return;
         }
 
-        m_requestCodeAction->menu()->addAction(i18n("Loading..."))->setEnabled(false);
+        auto action = m_requestCodeAction->menu()->addAction(i18n("Loading..."));
+        action->setEnabled(false);
 
         // store some things to find item safely later on
         QSharedPointer<LSPClientRevisionSnapshot> snapshot(m_serverManager->snapshot(server.data()));
-        auto h = [this, snapshot, server](const QList<LSPCodeAction> &actions) {
+        auto h = [this, snapshot, server, action](const QList<LSPCodeAction> &actions) {
             auto menu = m_requestCodeAction->menu();
-            menu->clear();
+            // clearing menu also hides it, and so added actions end up not shown
             if (actions.isEmpty()) {
-                m_requestCodeAction->menu()->addAction(i18n("No Actions"))->setEnabled(false);
-                return;
+                menu->addAction(i18n("No Actions"))->setEnabled(false);
             }
             for (const auto &action : actions) {
                 auto text = action.kind.size() ? QStringLiteral("[%1] %2").arg(action.kind).arg(action.title) : action.title;
@@ -1780,6 +1780,7 @@ public:
                     executeServerCommand(server, action.command);
                 });
             }
+            menu->removeAction(action);
         };
         server->documentCodeAction(document->url(), range, {}, {}, this, h);
     }

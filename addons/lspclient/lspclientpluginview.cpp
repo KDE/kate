@@ -411,6 +411,7 @@ class LSPClientActionView : public QObject
     QPointer<QAction> m_restartServer;
     QPointer<QAction> m_restartAll;
     QPointer<QAction> m_switchSourceHeader;
+    QPointer<QAction> m_quickFix;
     QPointer<KActionMenu> m_requestCodeAction;
 
     // toolview
@@ -536,6 +537,8 @@ public:
         m_switchSourceHeader = actionCollection()->addAction(QStringLiteral("lspclient_clangd_switchheader"), this, &self_type::clangdSwitchSourceHeader);
         m_switchSourceHeader->setText(i18n("Switch Source Header"));
         actionCollection()->setDefaultShortcut(m_switchSourceHeader, Qt::Key_F12);
+        m_quickFix = actionCollection()->addAction(QStringLiteral("lspclient_quick_fix"), this, &self_type::quickFix);
+        m_quickFix->setText(i18n("Quick Fix"));
         m_requestCodeAction = actionCollection()->add<KActionMenu>(QStringLiteral("lspclient_code_action"));
         m_requestCodeAction->setText(i18n("Code Action"));
         connect(m_requestCodeAction->menu(), &QMenu::aboutToShow, this, &self_type::requestCodeAction);
@@ -608,6 +611,7 @@ public:
         menu->addAction(m_triggerSymbolInfo);
         menu->addAction(m_triggerFormat);
         menu->addAction(m_triggerRename);
+        menu->addAction(m_quickFix);
         menu->addAction(m_requestCodeAction);
         menu->addSeparator();
         menu->addAction(m_diagnosticsSwitch);
@@ -1230,6 +1234,11 @@ public:
     // (execution of command may lead to an applyEdit request from server)
     void triggerCodeAction(const QModelIndex &index)
     {
+        triggerCodeActionItem(index, false);
+    }
+
+    void triggerCodeActionItem(const QModelIndex &index, bool autoApply)
+    {
         KTextEditor::View *activeView = m_mainWindow->activeView();
         QPointer<KTextEditor::Document> document = activeView->document();
         auto server = m_serverManager->findServer(activeView);
@@ -1238,8 +1247,8 @@ public:
             return;
         }
 
-        // click on an action ?
-        if (it->isCodeAction()) {
+        auto executeCodeAction = [this, server](DiagnosticItem *it) {
+            Q_ASSERT(it->isCodeAction());
             auto &action = it->m_codeAction;
             // apply edit before command
             applyWorkspaceEdit(action.edit, it->m_snapshot.data());
@@ -1249,6 +1258,10 @@ public:
             action.edit.changes.clear();
             action.command.command.clear();
             return;
+        };
+        // click on an action ?
+        if (it->isCodeAction()) {
+            executeCodeAction(it);
         }
 
         // only engage action if
@@ -1265,7 +1278,7 @@ public:
         // store some things to find item safely later on
         QPersistentModelIndex pindex(index);
         QSharedPointer<LSPClientRevisionSnapshot> snapshot(m_serverManager->snapshot(server.data()));
-        auto h = [this, url, snapshot, pindex](const QList<LSPCodeAction> &actions) {
+        auto h = [this, url, snapshot, pindex, autoApply, executeCodeAction](const QList<LSPCodeAction> &actions) {
             if (!pindex.isValid()) {
                 return;
             }
@@ -1280,6 +1293,9 @@ public:
                 auto text = action.kind.size() ? QStringLiteral("[%1] %2").arg(action.kind).arg(action.title) : action.title;
                 item->setData(text, Qt::DisplayRole);
                 item->setData(codeActionIcon(), Qt::DecorationRole);
+                if (autoApply) {
+                    executeCodeAction(item);
+                }
             }
             m_diagnosticsTree->setExpanded(child->index(), true);
             // mark actions added
@@ -1291,6 +1307,29 @@ public:
             range = document->documentRange();
         }
         server->documentCodeAction(url, range, {}, {it->m_diagnostic}, this, h);
+    }
+
+    void quickFix()
+    {
+        KTextEditor::View *activeView = m_mainWindow->activeView();
+        KTextEditor::Document *document = activeView->document();
+
+        if (!document) {
+            return;
+        }
+
+        QStandardItem *topItem = getItem(*m_diagnosticsModel, document->url());
+        // try to find current diagnostic based on cursor position
+        auto pos = activeView->cursorPosition();
+        QStandardItem *targetItem = getItem(topItem, pos, false);
+        if (!targetItem) {
+            // match based on line position only
+            targetItem = getItem(topItem, pos, true);
+        }
+
+        if (targetItem) {
+            triggerCodeActionItem(targetItem->index(), true);
+        }
     }
 
     bool tabCloseRequested(int index)

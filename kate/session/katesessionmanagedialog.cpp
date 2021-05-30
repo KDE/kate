@@ -259,9 +259,7 @@ void KateSessionManageDialog::openSessionAsTemplate()
 
     hide();
 
-    KateSessionManager *sm = KateApp::self()->sessionManager();
-    KateSession::Ptr ns = KateSession::createAnonymousFrom(item->session, sm->anonymousSessionFile());
-    sm->activateSession(ns);
+    KateApp::self()->sessionManager()->activateNewSessionFrom(item->session);
 
     done(ResultOpen);
 }

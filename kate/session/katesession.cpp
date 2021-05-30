@@ -89,12 +89,12 @@ KateSession::Ptr KateSession::createFrom(const KateSession::Ptr &session, const 
 
 KateSession::Ptr KateSession::createAnonymous(const QString &file)
 {
-    return Ptr(new KateSession(file, QString(), true));
+    return Ptr(new KateSession(file, AnonymousSessionName, true));
 }
 
 KateSession::Ptr KateSession::createAnonymousFrom(const KateSession::Ptr &session, const QString &file)
 {
-    return Ptr(new KateSession(file, QString(), true, session->config()));
+    return Ptr(new KateSession(file, AnonymousSessionName, true, session->config()));
 }
 
 bool KateSession::compareByName(const KateSession::Ptr &s1, const KateSession::Ptr &s2)

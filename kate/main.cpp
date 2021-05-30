@@ -226,8 +226,12 @@ int main(int argc, char **argv)
 
     // --startanon session option
     const QCommandLineOption startAnonymousSessionOption(QStringList() << QStringLiteral("startanon"),
-                                                         i18n("Start Kate with a new anonymous session, implies '-n'."));
+                                                         i18n("Start Kate with a new session, implies '-n' (deprecated)."));
     parser.addOption(startAnonymousSessionOption);
+
+    // --new-session option
+    const QCommandLineOption startNewSessionOption(QStringList() << QStringLiteral("new-session"), i18n("Start Kate with a new session, implies '-n'."));
+    parser.addOption(startNewSessionOption);
 
     // -n/--new option
     const QCommandLineOption startNewInstanceOption(QStringList() << QStringLiteral("n") << QStringLiteral("new"),
@@ -378,7 +382,7 @@ int main(int argc, char **argv)
         bool session_already_opened = false;
 
         // check if we try to start an already opened session
-        if (parser.isSet(startAnonymousSessionOption)) {
+        if (parser.isSet(startAnonymousSessionOption) || parser.isSet(startNewSessionOption)) {
             force_new = true;
         } else if (parser.isSet(startSessionOption)) {
             start_session = parser.value(startSessionOption);

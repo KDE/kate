@@ -169,17 +169,37 @@ bool KateApp::startupKate()
     // user specified session to open
     if (m_args.isSet(QStringLiteral("start"))) {
         sessionManager()->activateSession(m_args.value(QStringLiteral("start")), false);
-    } else if (m_args.isSet(QStringLiteral("startanon"))) {
-        sessionManager()->activateAnonymousSession();
-    } else if (!m_args.isSet(QStringLiteral("stdin")) && (m_args.positionalArguments().count() == 0)) { // only start session if no files specified
+    } else if (m_args.isSet(QStringLiteral("startanon")) || m_args.isSet(QStringLiteral("new-session"))) {
+        sessionManager()->activateNewSession();
+    } else if (m_args.isSet(QStringLiteral("stdin")) || (m_args.positionalArguments().count() > 0)) {
+        /* User decided to open some files and we need some session space.
+         * Notice that if we have running instance on dbus already, we don't
+         * get to this point and files will be open in the other instance.
+         *
+         * options:
+         *   1. she doesn't work with sessions
+         *      a. ask her what to do with the existing anon session (tedious)
+         *      b. force her to name the session (not friendly, forces user to change behaviour)
+         *      c. overwrite the anon session (surprising data loss)
+         *      d. restore the anon session and open extra files in there (might not be what she wanted, but can't have two anonymous sessions)
+         *   2. she works with sessions actively
+         *      a. ask what session she wants to open files in (tedious)
+         *      b. start the new session, destroy the anon session slot (possible data loss)
+         *   3. she doesn't work with sessions but has some from long ago...
+         *      a. ask what session she wants to open files in
+         */
+        if (sessionManager()->sessionList().isEmpty()) {
+            sessionManager()->activateAnonymousSession();
+        } else {
+            sessionManager()->activateNewSession();
+        }
+    } else {
         // let the user choose session if possible
         if (!sessionManager()->chooseSession()) {
             // we will exit kate now, notify the rest of the world we are done
             KStartupInfo::appStarted(KStartupInfo::startupId());
             return false;
         }
-    } else {
-        sessionManager()->activateAnonymousSession();
     }
 
     // oh, no mainwindow, create one, should not happen, but make sure ;)

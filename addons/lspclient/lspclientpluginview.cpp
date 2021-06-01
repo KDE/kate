@@ -269,11 +269,11 @@ public:
         // set the cursor
         auto &data = docs[doc];
         if (w) {
-            // track original cursor
-            if (!data.wid) {
-                data.wid = w;
-                data.cursor = w->cursor();
+            // if we had a widget => reset to original cursor for it and track new one
+            if (data.wid) {
+                data.wid->setCursor(Qt::IBeamCursor);
             }
+            data.wid = w;
             w->setCursor(Qt::PointingHandCursor);
         }
 
@@ -321,7 +321,7 @@ public:
                     mr->setRange(KTextEditor::Range::invalid());
                 }
                 if (data.wid) {
-                    data.wid->setCursor(data.cursor);
+                    data.wid->setCursor(Qt::IBeamCursor);
                     data.wid = nullptr;
                 }
             }
@@ -348,7 +348,7 @@ private:
             if (it != docs.end()) {
                 auto &data = it->second;
                 if (data.wid) {
-                    data.wid->setCursor(data.cursor);
+                    data.wid->setCursor(Qt::IBeamCursor);
                 }
                 docs.erase(it);
             }
@@ -360,7 +360,6 @@ private:
         std::unique_ptr<KTextEditor::MovingRange> range = nullptr;
         // widget to restore cursor on
         QPointer<QWidget> wid;
-        QCursor cursor;
     };
 
     QPointer<QWidget> w;

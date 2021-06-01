@@ -10,6 +10,7 @@
 class SQLManager;
 class KComboBox;
 class KLineEdit;
+class KPasswordLineEdit;
 class QSpinBox;
 class KUrlRequester;
 
@@ -63,7 +64,7 @@ public:
 private:
     KLineEdit *hostnameLineEdit;
     KLineEdit *usernameLineEdit;
-    KLineEdit *passwordLineEdit;
+    KPasswordLineEdit *passwordLineEdit;
     KLineEdit *databaseLineEdit;
     KLineEdit *optionsLineEdit;
     QSpinBox *portSpinBox;

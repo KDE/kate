@@ -11,6 +11,7 @@
 #include <KLineEdit>
 #include <KLocalizedString>
 #include <KMessageBox>
+#include <KPasswordLineEdit>
 #include <KUrlRequester>
 
 #include <QFormLayout>
@@ -82,7 +83,7 @@ ConnectionStandardServerPage::ConnectionStandardServerPage(QWidget *parent)
 
     hostnameLineEdit = new KLineEdit();
     usernameLineEdit = new KLineEdit();
-    passwordLineEdit = new KLineEdit();
+    passwordLineEdit = new KPasswordLineEdit();
     databaseLineEdit = new KLineEdit();
     optionsLineEdit = new KLineEdit();
     portSpinBox = new QSpinBox();
@@ -90,8 +91,6 @@ ConnectionStandardServerPage::ConnectionStandardServerPage(QWidget *parent)
     portSpinBox->setMaximum(65535);
     portSpinBox->setSpecialValueText(i18nc("@item Spinbox special value", "Default"));
     portSpinBox->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
-
-    passwordLineEdit->setPasswordMode(true);
 
     layout->addRow(i18nc("@label:textbox", "Hostname:"), hostnameLineEdit);
     layout->addRow(i18nc("@label:textbox", "Username:"), usernameLineEdit);
@@ -104,7 +103,7 @@ ConnectionStandardServerPage::ConnectionStandardServerPage(QWidget *parent)
 
     registerField(QStringLiteral("hostname*"), hostnameLineEdit);
     registerField(QStringLiteral("username"), usernameLineEdit);
-    registerField(QStringLiteral("password"), passwordLineEdit);
+    registerField(QStringLiteral("password"), passwordLineEdit, "password", "passwordChanged");
     registerField(QStringLiteral("database"), databaseLineEdit);
     registerField(QStringLiteral("stdOptions"), optionsLineEdit);
     registerField(QStringLiteral("port"), portSpinBox);
@@ -124,7 +123,7 @@ void ConnectionStandardServerPage::initializePage()
     if (c->driver == field(QStringLiteral("driver")).toString()) {
         hostnameLineEdit->setText(c->hostname);
         usernameLineEdit->setText(c->username);
-        passwordLineEdit->setText(c->password);
+        passwordLineEdit->setPassword(c->password);
         databaseLineEdit->setText(c->database);
         optionsLineEdit->setText(c->options);
         portSpinBox->setValue(c->port);

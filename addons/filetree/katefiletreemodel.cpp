@@ -26,6 +26,8 @@
 
 #include "katefiletreedebug.h"
 
+static constexpr int MaxHistoryItems = 10;
+
 class ProxyItemDir;
 class ProxyItem
 {
@@ -382,32 +384,23 @@ KateFileTreeModel::~KateFileTreeModel()
     delete m_root;
 }
 
-bool KateFileTreeModel::shadingEnabled() const
-{
-    return m_shadingEnabled;
-}
-
 void KateFileTreeModel::setShadingEnabled(bool se)
 {
     if (m_shadingEnabled != se) {
         updateBackgrounds(true);
         m_shadingEnabled = se;
     }
-}
 
-const QColor &KateFileTreeModel::editShade() const
-{
-    return m_editShade;
+    if (!se) {
+        m_viewHistory.clear();
+        m_editHistory.clear();
+        m_brushes.clear();
+    }
 }
 
 void KateFileTreeModel::setEditShade(const QColor &es)
 {
     m_editShade = es;
-}
-
-const QColor &KateFileTreeModel::viewShade() const
-{
-    return m_viewShade;
 }
 
 void KateFileTreeModel::setViewShade(const QColor &vs)
@@ -476,12 +469,11 @@ void KateFileTreeModel::connectDocument(const KTextEditor::Document *doc)
 
 QModelIndex KateFileTreeModel::docIndex(const KTextEditor::Document *doc) const
 {
-    if (!m_docmap.contains(doc)) {
-        return QModelIndex();
+    auto it = m_docmap.find(doc);
+    if (it == m_docmap.end()) {
+        return {};
     }
-
-    ProxyItem *item = m_docmap[doc];
-
+    auto item = it.value();
     return createIndex(item->row(), 0, item);
 }
 
@@ -567,8 +559,10 @@ QVariant KateFileTreeModel::data(const QModelIndex &index, int role) const
 
     case Qt::BackgroundRole:
         // TODO: do that funky shading the file list does...
-        if (m_shadingEnabled && m_brushes.contains(item)) {
-            return m_brushes[item];
+        if (m_shadingEnabled) {
+            if (auto it = m_brushes.find(item); it != m_brushes.end()) {
+                return it->second;
+            }
         }
         break;
     }
@@ -744,11 +738,12 @@ void KateFileTreeModel::documentsOpened(const QList<KTextEditor::Document *> &do
 
 void KateFileTreeModel::documentModifiedChanged(KTextEditor::Document *doc)
 {
-    if (!m_docmap.contains(doc)) {
+    auto it = m_docmap.find(doc);
+    if (it == m_docmap.end()) {
         return;
     }
 
-    ProxyItem *item = m_docmap[doc];
+    ProxyItem *item = it.value();
 
     if (doc->isModified()) {
         item->setFlag(ProxyItem::Modified);
@@ -767,11 +762,12 @@ void KateFileTreeModel::documentModifiedChanged(KTextEditor::Document *doc)
 void KateFileTreeModel::documentModifiedOnDisc(KTextEditor::Document *doc, bool modified, KTextEditor::ModificationInterface::ModifiedOnDiskReason reason)
 {
     Q_UNUSED(modified);
-    if (!m_docmap.contains(doc)) {
+    auto it = m_docmap.find(doc);
+    if (it == m_docmap.end()) {
         return;
     }
 
-    ProxyItem *item = m_docmap[doc];
+    ProxyItem *item = it.value();
 
     // This didn't do what I thought it did, on an ignore
     // we'd get !modified causing the warning icons to disappear
@@ -798,16 +794,22 @@ void KateFileTreeModel::documentModifiedOnDisc(KTextEditor::Document *doc, bool 
 
 void KateFileTreeModel::documentActivated(const KTextEditor::Document *doc)
 {
-    if (!m_shadingEnabled || !m_docmap.contains(doc)) {
+    if (!m_shadingEnabled) {
         return;
     }
 
-    ProxyItem *item = m_docmap[doc];
-    m_viewHistory.removeAll(item);
-    m_viewHistory.prepend(item);
+    auto it = m_docmap.find(doc);
+    if (it == m_docmap.end()) {
+        return;
+    }
 
-    while (m_viewHistory.count() > 10) {
-        m_viewHistory.removeLast();
+    ProxyItem *item = it.value();
+
+    m_viewHistory.erase(std::remove(m_viewHistory.begin(), m_viewHistory.end(), item), m_viewHistory.end());
+    m_viewHistory.insert(m_viewHistory.begin(), item);
+
+    while (m_viewHistory.size() > MaxHistoryItems) {
+        m_viewHistory.pop_back();
     }
 
     updateBackgrounds();
@@ -815,15 +817,22 @@ void KateFileTreeModel::documentActivated(const KTextEditor::Document *doc)
 
 void KateFileTreeModel::documentEdited(const KTextEditor::Document *doc)
 {
-    if (!m_shadingEnabled || !m_docmap.contains(doc)) {
+    if (!m_shadingEnabled) {
         return;
     }
 
-    ProxyItem *item = m_docmap[doc];
-    m_editHistory.removeAll(item);
-    m_editHistory.prepend(item);
-    while (m_editHistory.count() > 10) {
-        m_editHistory.removeLast();
+    auto it = m_docmap.find(doc);
+    if (it == m_docmap.end()) {
+        return;
+    }
+
+    ProxyItem *item = it.value();
+
+    m_editHistory.erase(std::remove(m_editHistory.begin(), m_editHistory.end(), item), m_editHistory.end());
+    m_editHistory.insert(m_editHistory.begin(), item);
+
+    while (m_editHistory.size() > MaxHistoryItems) {
+        m_editHistory.pop_back();
     }
 
     updateBackgrounds();
@@ -843,9 +852,10 @@ void KateFileTreeModel::updateBackgrounds(bool force)
         return;
     }
 
-    QMap<ProxyItem *, EditViewCount> helper;
-    int i = 1;
+    std::unordered_map<ProxyItem *, EditViewCount> helper;
+    helper.reserve(m_viewHistory.size() + m_editHistory.size());
 
+    int i = 1;
     for (ProxyItem *item : qAsConst(m_viewHistory)) {
         helper[item].view = i;
         i++;
@@ -857,19 +867,19 @@ void KateFileTreeModel::updateBackgrounds(bool force)
         i++;
     }
 
-    QMap<ProxyItem *, QBrush> oldBrushes = m_brushes;
-    m_brushes.clear();
+    std::unordered_map<ProxyItem *, QBrush> oldBrushes = std::move(m_brushes);
 
-    const int hc = m_viewHistory.count();
-    const int ec = m_editHistory.count();
+    const int hc = m_viewHistory.size();
+    const int ec = m_editHistory.size();
+    const QColor &base = QPalette().color(QPalette::Base);
 
-    for (QMap<ProxyItem *, EditViewCount>::iterator it = helper.begin(); it != helper.end(); ++it) {
+    for (const auto &[item, editViewCount] : helper) {
         QColor shade(m_viewShade);
         QColor eshade(m_editShade);
 
-        if (it.value().edit > 0) {
-            int v = hc - it.value().view;
-            int e = ec - it.value().edit + 1;
+        if (editViewCount.edit > 0) {
+            int v = hc - editViewCount.view;
+            int e = ec - editViewCount.edit + 1;
 
             e = e * e;
 
@@ -881,20 +891,18 @@ void KateFileTreeModel::updateBackgrounds(bool force)
         }
 
         // blend in the shade color; latest is most colored.
-        const double t = double(hc - it.value().view + 1) / double(hc);
+        const double t = double(hc - editViewCount.view + 1) / double(hc);
 
-        m_brushes[it.key()] = QBrush(KColorUtils::mix(QPalette().color(QPalette::Base), shade, t));
+        m_brushes[item] = QBrush(KColorUtils::mix(base, shade, t));
     }
 
-    for (auto it = m_brushes.constBegin(), end = m_brushes.constEnd(); it != end; ++it) {
-        ProxyItem *item = it.key();
-        oldBrushes.remove(item);
+    for (const auto &[item, brush] : m_brushes) {
+        oldBrushes.erase(item);
         const QModelIndex idx = createIndex(item->row(), 0, item);
         dataChanged(idx, idx);
     }
 
-    for (auto it = oldBrushes.constBegin(), end = oldBrushes.constEnd(); it != end; ++it) {
-        ProxyItem *item = it.key();
+    for (const auto &[item, brush] : oldBrushes) {
         const QModelIndex idx = createIndex(item->row(), 0, item);
         dataChanged(idx, idx);
     }
@@ -939,26 +947,19 @@ void KateFileTreeModel::documentClosed(KTextEditor::Document *doc)
                 SLOT(documentModifiedOnDisc(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)));
     // clang-format on
 
-    if (!m_docmap.contains(doc)) {
+    auto it = m_docmap.find(doc);
+    if (it == m_docmap.end()) {
         return;
     }
 
     if (m_shadingEnabled) {
-        ProxyItem *toRemove = m_docmap[doc];
-        if (m_brushes.contains(toRemove)) {
-            m_brushes.remove(toRemove);
-        }
-
-        if (m_viewHistory.contains(toRemove)) {
-            m_viewHistory.removeAll(toRemove);
-        }
-
-        if (m_editHistory.contains(toRemove)) {
-            m_editHistory.removeAll(toRemove);
-        }
+        ProxyItem *toRemove = it.value();
+        m_brushes.erase(toRemove);
+        m_viewHistory.erase(std::remove(m_viewHistory.begin(), m_viewHistory.end(), toRemove), m_viewHistory.end());
+        m_editHistory.erase(std::remove(m_editHistory.begin(), m_editHistory.end(), toRemove), m_editHistory.end());
     }
 
-    ProxyItem *node = m_docmap[doc];
+    ProxyItem *node = it.value();
     ProxyItemDir *parent = node->parent();
 
     const QModelIndex parent_index = (parent == m_root) ? QModelIndex() : createIndex(parent->row(), 0, parent);
@@ -969,41 +970,17 @@ void KateFileTreeModel::documentClosed(KTextEditor::Document *doc)
     delete node;
     handleEmptyParents(parent);
 
-    m_docmap.remove(doc);
+    m_docmap.erase(it);
 }
 
 void KateFileTreeModel::documentNameChanged(KTextEditor::Document *doc)
 {
-    if (!m_docmap.contains(doc)) {
+    auto it = m_docmap.find(doc);
+    if (it == m_docmap.end()) {
         return;
     }
 
-    ProxyItem *item = m_docmap[doc];
-
-    if (m_shadingEnabled) {
-        ProxyItem *toRemove = m_docmap[doc];
-        if (m_brushes.contains(toRemove)) {
-            QBrush brush = m_brushes[toRemove];
-            m_brushes.remove(toRemove);
-            m_brushes.insert(item, brush);
-        }
-
-        if (m_viewHistory.contains(toRemove)) {
-            const int idx = m_viewHistory.indexOf(toRemove);
-            if (idx != -1) {
-                m_viewHistory.replace(idx, item);
-            }
-        }
-
-        if (m_editHistory.contains(toRemove)) {
-            const int idx = m_editHistory.indexOf(toRemove);
-            if (idx != -1) {
-                m_editHistory.replace(idx, item);
-            }
-        }
-    }
-
-    handleNameChange(item);
+    handleNameChange(it.value());
     Q_EMIT triggerViewChangeAfterNameChange(); // FIXME: heh, non-standard signal?
 }
 

@@ -8,6 +8,7 @@
 #define KATEFILETREEMODEL_H
 
 #include <QAbstractItemModel>
+#include <QBrush>
 #include <QColor>
 
 #include <ktexteditor/modificationinterface.h>
@@ -53,13 +54,10 @@ public:
     bool listMode() const;
     void setListMode(bool);
 
-    bool shadingEnabled() const;
     void setShadingEnabled(bool);
 
-    const QColor &editShade() const;
     void setEditShade(const QColor &);
 
-    const QColor &viewShade() const;
     void setViewShade(const QColor &);
 
     bool showFullPathOnRoots(void) const;
@@ -104,9 +102,9 @@ private:
 
     bool m_shadingEnabled;
 
-    QList<ProxyItem *> m_viewHistory;
-    QList<ProxyItem *> m_editHistory;
-    QMap<ProxyItem *, QBrush> m_brushes;
+    std::vector<ProxyItem *> m_viewHistory;
+    std::vector<ProxyItem *> m_editHistory;
+    std::unordered_map<ProxyItem *, QBrush> m_brushes;
 
     QColor m_editShade;
     QColor m_viewShade;

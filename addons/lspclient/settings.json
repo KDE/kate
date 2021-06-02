@@ -90,7 +90,8 @@
         },
         "typescript": {
             "use": "javascript",
-            "highlightingModeRegex": "^TypeScript.*$"
+            "highlightingModeRegex": "^TypeScript.*$",
+            "documentLanguageId": false
         },
         "r": {
             "command": ["R", "--slave", "-e", "languageserver::run()"],

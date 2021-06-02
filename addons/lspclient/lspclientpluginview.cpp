@@ -216,7 +216,7 @@ public:
         options.widget->style()->drawControl(QStyle::CE_ItemViewItem, &options, painter, options.widget);
 
         QVector<QTextLayout::FormatRange> formats;
-        if (!text.startsWith(QStringLiteral("Line: "))) {
+        if (!index.parent().isValid()) {
             int lastSlash = text.lastIndexOf(QLatin1Char('/'));
             if (lastSlash != -1) {
                 QTextCharFormat fmt;
@@ -224,8 +224,11 @@ public:
                 formats.append({lastSlash + 1, text.length() - (lastSlash + 1), fmt});
             }
         } else {
-            constexpr auto len = sizeof("Line: ") - 1;
-            int nextColon = text.indexOf(QLatin1Char(':'), len);
+            // mind translation; let's hope/assume the colon survived
+            int nextColon = text.indexOf(QLatin1Char(':'), 0);
+            if (nextColon != 1 && nextColon < text.size()) {
+                nextColon = text.indexOf(QLatin1Char(':'), nextColon + 1);
+            }
             if (nextColon != -1) {
                 QTextCharFormat fmt;
                 fmt.setFont(m_monoFont);

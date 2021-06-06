@@ -251,6 +251,14 @@ GitWidget::~GitWidget()
     if (m_cancelHandle) {
         m_cancelHandle->kill();
     }
+
+    // if there are any living processes, disconnect them now before gitwidget get destroyed
+    for (QObject *child : children()) {
+        QProcess *p = qobject_cast<QProcess *>(child);
+        if (p) {
+            disconnect(p, nullptr, nullptr, nullptr);
+        }
+    }
 }
 
 void GitWidget::setDotGitPath()

@@ -7,6 +7,8 @@
 #ifndef KATEFILETREEMODEL_H
 #define KATEFILETREEMODEL_H
 
+#include <unordered_map>
+
 #include <QAbstractItemModel>
 #include <QBrush>
 #include <QColor>

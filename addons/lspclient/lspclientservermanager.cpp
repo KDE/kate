@@ -597,6 +597,10 @@ private:
                 connect(server.data(), &LSPClientServer::stateChanged, this, &self_type::onStateChanged, Qt::UniqueConnection);
                 if (!server->start()) {
                     showMessage(i18n("Failed to start server: %1", cmdline.join(QLatin1Char(' '))), KTextEditor::Message::Error);
+                    auto url = serverConfig.value(QStringLiteral("url")).toString();
+                    if (!url.isEmpty()) {
+                        showMessage(i18n("See also %1 for installation or details", url), KTextEditor::Message::Error);
+                    }
                 } else {
                     showMessage(i18n("Started server %2: %1", cmdline.join(QLatin1Char(' ')), serverDescription(server.data())),
                                 KTextEditor::Message::Positive);

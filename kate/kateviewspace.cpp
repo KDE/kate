@@ -171,7 +171,8 @@ bool KateViewSpace::eventFilter(QObject *obj, QEvent *event)
 void KateViewSpace::statusBarToggled()
 {
     KateUpdateDisabler updatesDisabled(m_viewManager->mainWindow());
-    for (const auto [doc, view] : m_docToView) {
+    for (const auto &[_, view] : m_docToView) {
+        Q_UNUSED(_)
         view->setStatusBarEnabled(m_viewManager->mainWindow()->showStatusBar());
     }
 }

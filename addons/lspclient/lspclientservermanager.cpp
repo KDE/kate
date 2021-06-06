@@ -534,13 +534,15 @@ private:
         serverConfig = json::merge(serverConfig.value(QStringLiteral("global")).toObject(), config.toObject());
 
         QString rootpath;
-        auto rootv = serverConfig.value(QStringLiteral("root"));
+        const auto rootv = serverConfig.value(QStringLiteral("root"));
         if (rootv.isString()) {
-            auto sroot = rootv.toString();
+            const auto sroot = rootv.toString();
             if (QDir::isAbsolutePath(sroot)) {
                 rootpath = sroot;
             } else if (!projectBase.isEmpty()) {
                 rootpath = QDir(projectBase).absoluteFilePath(sroot);
+            } else if (const auto url = document->url(); url.isValid() && url.isLocalFile()) {
+                rootpath = QDir(QFileInfo(url.toLocalFile()).absolutePath()).absoluteFilePath(sroot);
             }
         }
 

@@ -25,6 +25,15 @@
             "url": "https://github.com/Pure-D/serve-d",
             "highlightingModeRegex": "^D$"
         },
+        "dart": {
+            "command": ["dart", "analysis_server.dart.snapshot", "--lsp"],
+            "url": "https://github.com/dart-lang/sdk/blob/master/pkg/analysis_server/tool",
+            "rootIndicationFileNames": ["pubspec.yaml"],
+            "highlightingModeRegex": "^Dart$",
+            "initializationOptions": {
+                "onlyAnalyzeProjectsWithOpenFiles": true
+            }
+        },
         "fortran": {
             "command": ["fortls"],
             "rootIndicationFileNames": [".fortls"],

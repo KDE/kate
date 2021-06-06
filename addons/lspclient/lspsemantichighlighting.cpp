@@ -18,6 +18,17 @@ SemanticHighlighter::SemanticHighlighter(QObject *parent)
 {
 }
 
+static KTextEditor::Range getCurrentViewLinesRange(KTextEditor::View *view)
+{
+    Q_ASSERT(view);
+
+    auto doc = view->document();
+    auto first = view->firstDisplayedLine();
+    auto last = view->lastDisplayedLine();
+    auto lastLineLen = doc->line(last).size();
+    return KTextEditor::Range(first, 0, last, lastLineLen);
+}
+
 void SemanticHighlighter::doSemanticHighlighting(KTextEditor::View *view, QSharedPointer<LSPClientServerManager> serverManager)
 {
     if (!view) {
@@ -30,7 +41,7 @@ void SemanticHighlighter::doSemanticHighlighting(KTextEditor::View *view, QShare
     }
 
     const auto &caps = server->capabilities();
-    const bool serverSupportsSemHighlighting = caps.semanticTokenProvider.full || caps.semanticTokenProvider.fullDelta;
+    const bool serverSupportsSemHighlighting = caps.semanticTokenProvider.full || caps.semanticTokenProvider.fullDelta || caps.semanticTokenProvider.range;
     if (!serverSupportsSemHighlighting) {
         return;
     }
@@ -45,6 +56,27 @@ void SemanticHighlighter::doSemanticHighlighting(KTextEditor::View *view, QShare
         connect(doc, SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document *)), this, SLOT(remove(KTextEditor::Document *)), Qt::UniqueConnection);
     }
 
+    if (caps.semanticTokenProvider.range) {
+        if (!m_docSemanticConnectedViews.insert(view).second) {
+            // track vertical scrolling for this view
+            QPointer<KTextEditor::View> v = view;
+            connect(
+                view,
+                &KTextEditor::View::verticalScrollPositionChanged,
+                this,
+                [this, v, serverManager]() {
+                    doSemanticHighlighting(v, serverManager);
+                },
+                Qt::UniqueConnection);
+
+            // clean it up from our set after the view is gone
+            connect(view, &KTextEditor::View::destroyed, this, [this](QObject *o) {
+                auto view = static_cast<KTextEditor::View *>(o);
+                m_docSemanticConnectedViews.erase(view);
+            });
+        }
+    }
+
     //  m_semHighlightingManager.setTypes(server->capabilities().semanticTokenProvider.types);
 
     QPointer<KTextEditor::View> v = view;
@@ -55,11 +87,13 @@ void SemanticHighlighter::doSemanticHighlighting(KTextEditor::View *view, QShare
         }
     };
 
-    if (!server->capabilities().semanticTokenProvider.fullDelta) {
-        server->documentSemanticTokensFull(doc->url(), QString(), this, h);
-    } else {
+    if (caps.semanticTokenProvider.range) {
+        server->documentSemanticTokensRange(doc->url(), getCurrentViewLinesRange(view), this, h);
+    } else if (caps.semanticTokenProvider.fullDelta) {
         auto prevResultId = previousResultIdForDoc(doc);
         server->documentSemanticTokensFullDelta(doc->url(), prevResultId, this, h);
+    } else {
+        server->documentSemanticTokensFull(doc->url(), QString(), this, h);
     }
 }
 

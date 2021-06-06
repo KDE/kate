@@ -745,13 +745,6 @@ static LSPSemanticTokensDelta parseSemanticTokensDelta(const QJsonValue &result)
     auto json = result.toObject();
     ret.resultId = json.value(QStringLiteral("resultId")).toString();
 
-    //     std::cout << QJsonDocument(json).toJson().constData() << '\n';
-
-    if (ret.resultId.isEmpty()) {
-        qCDebug(LSPCLIENT) << "unexpected emtpy result id when parsing semantic tokens";
-        return ret;
-    }
-
     auto edits = json.value(QStringLiteral("edits")).toArray();
 
     for (const auto &edit_jsonValue : edits) {
@@ -1287,13 +1280,20 @@ public:
         return send(init_request(QStringLiteral("textDocument/codeAction"), params), h);
     }
 
-    RequestHandle documentSemanticTokensFull(const QUrl &document, bool delta, const QString requestId, const GenericReplyHandler &h)
+    RequestHandle documentSemanticTokensFull(const QUrl &document, bool delta, const QString requestId, const LSPRange &range, const GenericReplyHandler &h)
     {
         auto params = textDocumentParams(document);
+        // Delta
         if (delta && !requestId.isEmpty()) {
             params[MEMBER_PREVIOUS_RESULT_ID] = requestId;
             return send(init_request(QStringLiteral("textDocument/semanticTokens/full/delta"), params), h);
         }
+        // Range
+        if (range.isValid()) {
+            params[MEMBER_RANGE] = to_json(range);
+            return send(init_request(QStringLiteral("textDocument/semanticTokens/range"), params), h);
+        }
+
         return send(init_request(QStringLiteral("textDocument/semanticTokens/full"), params), h);
     }
 
@@ -1583,7 +1583,8 @@ LSPClientServer::RequestHandle LSPClientServer::documentCodeAction(const QUrl &d
 LSPClientServer::RequestHandle
 LSPClientServer::documentSemanticTokensFull(const QUrl &document, const QString requestId, const QObject *context, const SemanticTokensDeltaReplyHandler &h)
 {
-    return d->documentSemanticTokensFull(document, /* delta = */ false, requestId, make_handler(h, context, parseSemanticTokensDelta));
+    auto invalidRange = KTextEditor::Range::invalid();
+    return d->documentSemanticTokensFull(document, /* delta = */ false, requestId, invalidRange, make_handler(h, context, parseSemanticTokensDelta));
 }
 
 LSPClientServer::RequestHandle LSPClientServer::documentSemanticTokensFullDelta(const QUrl &document,
@@ -1591,7 +1592,14 @@ LSPClientServer::RequestHandle LSPClientServer::documentSemanticTokensFullDelta(
                                                                                 const QObject *context,
                                                                                 const SemanticTokensDeltaReplyHandler &h)
 {
-    return d->documentSemanticTokensFull(document, /* delta = */ true, requestId, make_handler(h, context, parseSemanticTokensDelta));
+    auto invalidRange = KTextEditor::Range::invalid();
+    return d->documentSemanticTokensFull(document, /* delta = */ true, requestId, invalidRange, make_handler(h, context, parseSemanticTokensDelta));
+}
+
+LSPClientServer::RequestHandle
+LSPClientServer::documentSemanticTokensRange(const QUrl &document, const LSPRange &range, const QObject *context, const SemanticTokensDeltaReplyHandler &h)
+{
+    return d->documentSemanticTokensFull(document, /* delta = */ false, QString(), range, make_handler(h, context, parseSemanticTokensDelta));
 }
 
 void LSPClientServer::executeCommand(const QString &command, const QJsonValue &args)

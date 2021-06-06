@@ -14,6 +14,7 @@
 
 #include <memory>
 #include <unordered_map>
+#include <unordered_set>
 #include <vector>
 
 namespace KTextEditor
@@ -82,5 +83,11 @@ private:
      * semantic token and moving range mapping for doc
      */
     std::unordered_map<KTextEditor::Document *, TokensData> m_docSemanticInfo;
+
+    /**
+     * Views whose vertical scroll we are tracking for semantic tokens range request.
+     * This is important, otherwise performance can get really crappy.
+     */
+    std::unordered_set<KTextEditor::View *> m_docSemanticConnectedViews;
 };
 #endif

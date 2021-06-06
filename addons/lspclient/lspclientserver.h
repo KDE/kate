@@ -154,6 +154,8 @@ public:
     RequestHandle
     documentSemanticTokensFullDelta(const QUrl &document, const QString requestId, const QObject *context, const SemanticTokensDeltaReplyHandler &h);
 
+    RequestHandle documentSemanticTokensRange(const QUrl &document, const LSPRange &range, const QObject *context, const SemanticTokensDeltaReplyHandler &h);
+
     void executeCommand(const QString &command, const QJsonValue &args);
 
     // sync

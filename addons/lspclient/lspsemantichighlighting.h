@@ -31,11 +31,13 @@ class SemanticHighlighter : public QObject
 {
     Q_OBJECT
 public:
-    SemanticHighlighter(QObject *parent = nullptr);
+    SemanticHighlighter(QSharedPointer<LSPClientServerManager> serverManager, QObject *parent = nullptr);
 
-    void doSemanticHighlighting(KTextEditor::View *v, QSharedPointer<LSPClientServerManager> serverManager);
+    void doSemanticHighlighting(KTextEditor::View *v);
 
 private:
+    void semanticHighlightRange(KTextEditor::View *view, const KTextEditor::Cursor &);
+
     QString previousResultIdForDoc(KTextEditor::Document *doc) const;
 
     /**
@@ -84,10 +86,6 @@ private:
      */
     std::unordered_map<KTextEditor::Document *, TokensData> m_docSemanticInfo;
 
-    /**
-     * Views whose vertical scroll we are tracking for semantic tokens range request.
-     * This is important, otherwise performance can get really crappy.
-     */
-    std::unordered_set<KTextEditor::View *> m_docSemanticConnectedViews;
+    QSharedPointer<LSPClientServerManager> m_serverManager;
 };
 #endif

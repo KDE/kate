@@ -509,6 +509,7 @@ public:
         , m_hover(LSPClientHover::new_(m_serverManager))
         , m_forwardHover(new ForwardingTextHintProvider(this))
         , m_symbolView(LSPClientSymbolView::new_(plugin, mainWin, m_serverManager))
+        , m_semHighlightingManager(m_serverManager)
     {
         connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, &self_type::updateState);
         connect(m_mainWindow, &KTextEditor::MainWindow::unhandledShortcutOverride, this, &self_type::handleEsc);
@@ -2277,7 +2278,7 @@ public:
         }
 
         if (m_plugin->m_semanticHighlighting) {
-            m_semHighlightingManager.doSemanticHighlighting(activeView, m_serverManager);
+            m_semHighlightingManager.doSemanticHighlighting(activeView);
         }
 
         if (m_onTypeFormattingTriggers.empty()) {
@@ -2340,7 +2341,7 @@ public:
 
             const bool semHighlightingEnabled = m_plugin->m_semanticHighlighting;
             if (semHighlightingEnabled) {
-                m_semHighlightingManager.doSemanticHighlighting(activeView, m_serverManager);
+                m_semHighlightingManager.doSemanticHighlighting(activeView);
             }
         }
 

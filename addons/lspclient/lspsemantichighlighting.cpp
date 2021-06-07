@@ -13,8 +13,9 @@
 #include <KTextEditor/MovingRange>
 #include <KTextEditor/View>
 
-SemanticHighlighter::SemanticHighlighter(QObject *parent)
+SemanticHighlighter::SemanticHighlighter(QSharedPointer<LSPClientServerManager> serverManager, QObject *parent)
     : QObject(parent)
+    , m_serverManager(std::move(serverManager))
 {
 }
 
@@ -29,13 +30,13 @@ static KTextEditor::Range getCurrentViewLinesRange(KTextEditor::View *view)
     return KTextEditor::Range(first, 0, last, lastLineLen);
 }
 
-void SemanticHighlighter::doSemanticHighlighting(KTextEditor::View *view, QSharedPointer<LSPClientServerManager> serverManager)
+void SemanticHighlighter::doSemanticHighlighting(KTextEditor::View *view)
 {
     if (!view) {
         return;
     }
 
-    auto server = serverManager->findServer(view);
+    auto server = m_serverManager->findServer(view);
     if (!server) {
         return;
     }
@@ -57,24 +58,7 @@ void SemanticHighlighter::doSemanticHighlighting(KTextEditor::View *view, QShare
     }
 
     if (caps.semanticTokenProvider.range) {
-        if (!m_docSemanticConnectedViews.insert(view).second) {
-            // track vertical scrolling for this view
-            QPointer<KTextEditor::View> v = view;
-            connect(
-                view,
-                &KTextEditor::View::verticalScrollPositionChanged,
-                this,
-                [this, v, serverManager]() {
-                    doSemanticHighlighting(v, serverManager);
-                },
-                Qt::UniqueConnection);
-
-            // clean it up from our set after the view is gone
-            connect(view, &KTextEditor::View::destroyed, this, [this](QObject *o) {
-                auto view = static_cast<KTextEditor::View *>(o);
-                m_docSemanticConnectedViews.erase(view);
-            });
-        }
+        connect(view, &KTextEditor::View::verticalScrollPositionChanged, this, &SemanticHighlighter::semanticHighlightRange, Qt::UniqueConnection);
     }
 
     //  m_semHighlightingManager.setTypes(server->capabilities().semanticTokenProvider.types);
@@ -95,6 +79,11 @@ void SemanticHighlighter::doSemanticHighlighting(KTextEditor::View *view, QShare
     } else {
         server->documentSemanticTokensFull(doc->url(), QString(), this, h);
     }
+}
+
+void SemanticHighlighter::semanticHighlightRange(KTextEditor::View *view, const KTextEditor::Cursor &)
+{
+    doSemanticHighlighting(view);
 }
 
 QString SemanticHighlighter::previousResultIdForDoc(KTextEditor::Document *doc) const

@@ -1056,8 +1056,8 @@ public:
         // highlight the range
         if (enabled && ranges) {
             KTextEditor::MovingRange *mr = miface->newMovingRange(range);
-            mr->setAttribute(attr);
             mr->setZDepth(-90000.0); // Set the z-depth to slightly worse than the selection
+            mr->setAttribute(attr);
             mr->setAttributeOnlyForViews(true);
             ranges->insert(doc, mr);
         }

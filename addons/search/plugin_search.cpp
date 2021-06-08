@@ -1533,8 +1533,8 @@ void KatePluginSearchView::addRangeAndMark(KTextEditor::Document *doc,
     }
 
     KTextEditor::MovingRange *mr = miface->newMovingRange(match.range);
-    mr->setAttribute(attr);
     mr->setZDepth(-90000.0); // Set the z-depth to slightly worse than the selection
+    mr->setAttribute(attr);
     mr->setAttributeOnlyForViews(true);
     m_matchRanges.append(mr);
 

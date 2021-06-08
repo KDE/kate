@@ -266,19 +266,14 @@ public:
             return;
         }
 
-        // set the cursor
-        auto &data = docs[doc];
-        if (w) {
-            // if we had a widget => reset to original cursor for it and track new one
-            if (data.wid) {
-                data.wid->setCursor(Qt::IBeamCursor);
-            }
-            data.wid = w;
-            w->setCursor(Qt::PointingHandCursor);
+        if (!w) {
+            return;
         }
 
+        w->setCursor(Qt::PointingHandCursor);
+
         // underline the hovered word
-        auto &mr = data.range;
+        auto &mr = docs[doc];
         if (mr) {
             mr->setRange(range);
         } else {
@@ -315,16 +310,14 @@ public:
             auto doc = activeView->document();
             auto it = docs.find(doc);
             if (it != docs.end()) {
-                auto &data = it->second;
-                auto &mr = data.range;
+                auto &mr = it->second;
                 if (mr) {
                     mr->setRange(KTextEditor::Range::invalid());
                 }
-                if (data.wid) {
-                    data.wid->setCursor(Qt::IBeamCursor);
-                    data.wid = nullptr;
-                }
             }
+        }
+        if (w && w->cursor() != Qt::IBeamCursor) {
+            w->setCursor(Qt::IBeamCursor);
         }
         w.clear();
     }
@@ -346,24 +339,14 @@ private:
         if (doc) {
             auto it = docs.find(doc);
             if (it != docs.end()) {
-                auto &data = it->second;
-                if (data.wid) {
-                    data.wid->setCursor(Qt::IBeamCursor);
-                }
                 docs.erase(it);
             }
         }
     }
 
 private:
-    struct DocumentData {
-        std::unique_ptr<KTextEditor::MovingRange> range = nullptr;
-        // widget to restore cursor on
-        QPointer<QWidget> wid;
-    };
-
     QPointer<QWidget> w;
-    std::unordered_map<KTextEditor::Document *, DocumentData> docs;
+    std::unordered_map<KTextEditor::Document *, std::unique_ptr<KTextEditor::MovingRange>> docs;
     KTextEditor::Range range;
 };
 
@@ -773,7 +756,7 @@ public:
                 // must set cursor else we will be jumping somewhere else!!
                 if (!word.isEmpty()) {
                     v->setCursorPosition(cur);
-                    m_ctrlHoverFeedback.clear(m_mainWindow->activeView());
+                    m_ctrlHoverFeedback.clear(v);
                     goToDefinition();
                 }
             }
@@ -797,12 +780,12 @@ public:
                     processCtrlMouseHover(cur);
                 } else {
                     // if there is no word, unset the cursor and remove the highlight
-                    m_ctrlHoverFeedback.clear(m_mainWindow->activeView());
+                    m_ctrlHoverFeedback.clear(v);
                 }
             } else {
                 // simple mouse move, make sure to unset the cursor
                 // and remove the highlight
-                m_ctrlHoverFeedback.clear(m_mainWindow->activeView());
+                m_ctrlHoverFeedback.clear(v);
             }
         }
 

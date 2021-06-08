@@ -14,6 +14,7 @@
 
 #include <KLocalizedString>
 #include <KTextEditor/Document>
+#include <KTextEditor/Editor>
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/MovingInterface>
 #include <KTextEditor/View>
@@ -317,8 +318,13 @@ public:
         m_incrementalSync = inc;
     }
 
-    QSharedPointer<LSPClientServer> findServer(KTextEditor::Document *document, bool updatedoc = true) override
+    QSharedPointer<LSPClientServer> findServer(KTextEditor::View *view, bool updatedoc = true) override
     {
+        if (!view) {
+            return nullptr;
+        }
+
+        auto document = view->document();
         if (!document || document->url().isEmpty()) {
             return nullptr;
         }
@@ -326,7 +332,7 @@ public:
         auto it = m_docs.find(document);
         auto server = it != m_docs.end() ? it->server : nullptr;
         if (!server) {
-            if ((server = _findServer(document))) {
+            if ((server = _findServer(view, document))) {
                 trackDocument(document, server);
             }
         }
@@ -335,11 +341,6 @@ public:
             update(server.data(), false);
         }
         return server;
-    }
-
-    QSharedPointer<LSPClientServer> findServer(KTextEditor::View *view, bool updatedoc = true) override
-    {
-        return view ? findServer(view->document(), updatedoc) : nullptr;
     }
 
     // restart a specific server or all servers if server == nullptr
@@ -490,7 +491,7 @@ private:
         }
     }
 
-    QSharedPointer<LSPClientServer> _findServer(KTextEditor::Document *document)
+    QSharedPointer<LSPClientServer> _findServer(KTextEditor::View *view, KTextEditor::Document *document)
     {
         // compute the LSP standardized language id, none found => no change
         auto langId = languageId(document->highlightingMode());
@@ -533,10 +534,15 @@ private:
         // merge global settings
         serverConfig = json::merge(serverConfig.value(QStringLiteral("global")).toObject(), config.toObject());
 
+        // used for variable substitution in the sequl
+        // NOTE that also covers a form of environment substitution using %{ENV:XYZ}
+        auto editor = KTextEditor::Editor::instance();
+
         QString rootpath;
         const auto rootv = serverConfig.value(QStringLiteral("root"));
         if (rootv.isString()) {
-            const auto sroot = rootv.toString();
+            auto sroot = rootv.toString();
+            editor->expandText(sroot, view, sroot);
             if (QDir::isAbsolutePath(sroot)) {
                 rootpath = sroot;
             } else if (!projectBase.isEmpty()) {
@@ -592,6 +598,13 @@ private:
                     cmdline.push_back(c.toString());
                 }
             }
+
+            // some more expansion and substitution
+            // unlikely to be used here, but anyway
+            for (auto &e : cmdline) {
+                editor->expandText(e, view, e);
+            }
+
             if (cmdline.length() > 0) {
                 server.reset(new LSPClientServer(cmdline, root, realLangId, serverConfig.value(QStringLiteral("initializationOptions"))));
                 connect(server.data(), &LSPClientServer::stateChanged, this, &self_type::onStateChanged, Qt::UniqueConnection);

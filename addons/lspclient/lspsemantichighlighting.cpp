@@ -166,8 +166,9 @@ void SemanticHighlighter::highlight(KTextEditor::View *view, const SemanticToken
     uint32_t currentLine = 0;
     uint32_t start = 0;
 
-    int reusedRanges = 0;
-    int newRanges = 0;
+    size_t reusedRanges = 0;
+    size_t newRanges = 0;
+    size_t existingMovingRangesCount = movingRanges.size();
 
     for (size_t i = 0; i < data.size(); i += 5) {
         auto deltaLine = data.at(i);
@@ -188,22 +189,29 @@ void SemanticHighlighter::highlight(KTextEditor::View *view, const SemanticToken
         // QString text = doc->line(currentLine);
         // text = text.mid(start, len);
 
+        auto attribute = legend->attributeForTokenType(type);
+        if (!attribute) {
+            continue;
+        }
+
         KTextEditor::Range r(currentLine, start, currentLine, start + len);
 
         // Check if we have a moving ranges already available in the cache
-        const auto index = i / 5;
-        if (index < movingRanges.size()) {
-            auto &range = movingRanges[index];
-            if (range) {
-                range->setRange(r);
-                range->setAttribute(legend->attributeForTokenType(type));
-                reusedRanges++;
-                continue;
+        if (reusedRanges < existingMovingRangesCount) {
+            auto &range = movingRanges[reusedRanges];
+            if (!range) {
+                range.reset(miface->newMovingRange(r));
             }
+            reusedRanges++;
+            // clear attribute first so that we block some of the notifyAboutRangeChange stuff!
+            range->setAttribute(KTextEditor::Attribute::Ptr(nullptr));
+            range->setRange(r);
+            range->setAttribute(attribute);
+            continue;
         }
 
         std::unique_ptr<KTextEditor::MovingRange> mr(miface->newMovingRange(r));
-        mr->setAttribute(legend->attributeForTokenType(type));
+        mr->setAttribute(attribute);
         movingRanges.push_back(std::move(mr));
         newRanges++;
 
@@ -214,9 +222,9 @@ void SemanticHighlighter::highlight(KTextEditor::View *view, const SemanticToken
     /**
      * Invalid all extra ranges
      */
-    int totalCreatedRanges = reusedRanges + newRanges;
-    if (totalCreatedRanges < (int)movingRanges.size()) {
-        std::for_each(movingRanges.begin() + totalCreatedRanges, movingRanges.end(), [](const std::unique_ptr<KTextEditor::MovingRange> &mr) {
+    const auto totalUtilizedRanges = reusedRanges + newRanges;
+    if (totalUtilizedRanges < movingRanges.size()) {
+        std::for_each(movingRanges.begin() + totalUtilizedRanges, movingRanges.end(), [](const std::unique_ptr<KTextEditor::MovingRange> &mr) {
             mr->setRange(KTextEditor::Range::invalid());
         });
     }

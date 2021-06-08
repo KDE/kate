@@ -71,9 +71,7 @@ void KatePluginManager::setupPluginList()
     m_pluginList.clear();
     QSet<QString> unique;
 
-    const QVector<KPluginMetaData> plugins = KPluginLoader::findPlugins(QStringLiteral("ktexteditor"), [](const KPluginMetaData &md) {
-        return md.serviceTypes().contains(QLatin1String("KTextEditor/Plugin"));
-    });
+    const QVector<KPluginMetaData> plugins = KPluginLoader::findPlugins(QStringLiteral("ktexteditor"));
     for (const auto &pluginMetaData : plugins) {
         KatePluginInfo info;
         info.metaData = pluginMetaData;

@@ -2523,6 +2523,7 @@ To aid in the explanation below, an excerpt of that configuration is given here:
         },
         "rust": {
             "command": ["rls"],
+            "path": ["%{ENV:HOME}/.cargo/bin", "%{ENV:USERPROFILE}/.cargo/bin"],
             "rootIndicationFileNames": ["Cargo.lock", "Cargo.toml"],
             "url": "https://github.com/rust-lang/rls",
             "highlightingModeRegex": "^Rust$"
@@ -2540,6 +2541,15 @@ To aid in the explanation below, an excerpt of that configuration is given here:
 Note that each "command" may be an array or a string (in which case it is
 split into an array). Also, a top-level "global" entry (next to "server") is
 considered as well (see further below).
+The specified binary is searched for in the usual way, e.g. using <literal>PATH</literal>.
+If it is installed in some custom location, then the latter may have to be
+extended.  Or alternatively, a (sym)link or wrapper script may be used in a location
+that is within the usual <literal>PATH</literal>.  As illustrated above,
+one may also specify a "path" that will be searched for after the standard locations.
+</para>
+
+<para>
+All of the entries in "command", "root" and "path" are subject to variable expansion.
 </para>
 
 <para>

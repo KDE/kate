@@ -27,6 +27,7 @@
 #include <QJsonObject>
 #include <QJsonParseError>
 #include <QRegularExpression>
+#include <QStandardPaths>
 #include <QThread>
 #include <QTime>
 #include <QTimer>
@@ -606,12 +607,31 @@ private:
             }
 
             if (cmdline.length() > 0) {
+                // optionally search in supplied path(s)
+                auto vpath = serverConfig.value(QStringLiteral("path")).toArray();
+                if (vpath.size() > 0) {
+                    auto cmd = QStandardPaths::findExecutable(cmdline[0]);
+                    if (cmd.isEmpty()) {
+                        // collect and expand in case home dir or other (environment) variable reference is used
+                        QStringList path;
+                        for (const auto &e : vpath) {
+                            auto p = e.toString();
+                            editor->expandText(p, view, p);
+                            path.push_back(p);
+                        }
+                        cmd = QStandardPaths::findExecutable(cmdline[0], path);
+                        if (!cmd.isEmpty()) {
+                            cmdline[0] = cmd;
+                        }
+                    }
+                }
                 server.reset(new LSPClientServer(cmdline, root, realLangId, serverConfig.value(QStringLiteral("initializationOptions"))));
                 connect(server.data(), &LSPClientServer::stateChanged, this, &self_type::onStateChanged, Qt::UniqueConnection);
                 if (!server->start()) {
                     showMessage(i18n("Failed to start server: %1", cmdline.join(QLatin1Char(' '))), KTextEditor::Message::Error);
                     auto url = serverConfig.value(QStringLiteral("url")).toString();
                     if (!url.isEmpty()) {
+                        showMessage(i18n("Please check your PATH for the binary"), KTextEditor::Message::Error);
                         showMessage(i18n("See also %1 for installation or details", url), KTextEditor::Message::Error);
                     }
                 } else {

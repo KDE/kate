@@ -84,6 +84,7 @@
         },
         "rust": {
             "command": ["rls"],
+            "path": ["%{ENV:HOME}/.cargo/bin", "%{ENV:USERPROFILE}/.cargo/bin"],
             "rootIndicationFileNames": ["Cargo.lock", "Cargo.toml"],
             "url": "https://github.com/rust-lang/rls",
             "highlightingModeRegex": "^Rust$"

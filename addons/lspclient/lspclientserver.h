@@ -168,6 +168,9 @@ public:
     // misc
     void didChangeConfiguration(const QJsonValue &settings);
 
+    // workspace
+    void workspaceSymbol(const QString &symbol, const QObject *context, const ReplyHandler<QString> &h);
+
     // notification = signal
 Q_SIGNALS:
     void showMessage(const LSPShowMessageParams &);

@@ -55,6 +55,7 @@ static const QString MEMBER_TARGET_URI = QStringLiteral("targetUri");
 static const QString MEMBER_TARGET_RANGE = QStringLiteral("targetRange");
 static const QString MEMBER_TARGET_SELECTION_RANGE = QStringLiteral("targetSelectionRange");
 static const QString MEMBER_PREVIOUS_RESULT_ID = QStringLiteral("previousResultId");
+static const QString MEMBER_QUERY = QStringLiteral("query");
 
 // message construction helpers
 static QJsonObject to_json(const LSPPosition &pos)
@@ -803,6 +804,12 @@ static LSPShowMessageParams parseMessage(const QJsonObject &result)
     return ret;
 }
 
+static QString parseWorkspaceSymbols(const QJsonValue &result)
+{
+    // result has an array in it
+    return {};
+}
+
 using GenericReplyType = QJsonValue;
 using GenericReplyHandler = ReplyHandler<GenericReplyType>;
 
@@ -1337,6 +1344,12 @@ public:
         send(init_request(QStringLiteral("workspace/didChangeConfiguration"), params));
     }
 
+    void workspaceSymbol(const QString &symbol, const GenericReplyHandler &h)
+    {
+        auto params = QJsonObject{{MEMBER_QUERY, symbol}};
+        send(init_request(QStringLiteral("workspace/symbol"), params), h);
+    }
+
     void processNotification(const QJsonObject &msg)
     {
         auto method = msg[MEMBER_METHOD].toString();
@@ -1630,4 +1643,9 @@ void LSPClientServer::didClose(const QUrl &document)
 void LSPClientServer::didChangeConfiguration(const QJsonValue &settings)
 {
     return d->didChangeConfiguration(settings);
+}
+
+void LSPClientServer::workspaceSymbol(const QString &symbol, const QObject *context, const ReplyHandler<QString> &h)
+{
+    return d->workspaceSymbol(symbol, make_handler(h, context, parseWorkspaceSymbols));
 }

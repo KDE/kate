@@ -65,6 +65,7 @@ using WorkspaceEditReplyHandler = ReplyHandler<LSPWorkspaceEdit>;
 using ApplyEditReplyHandler = ReplyHandler<LSPApplyWorkspaceEditResponse>;
 using SwitchSourceHeaderHandler = ReplyHandler<QString>;
 using SemanticTokensDeltaReplyHandler = ReplyHandler<LSPSemanticTokensDelta>;
+using WorkspaceSymbolsReplyHandler = ReplyHandler<std::vector<LSPSymbolInformation>>;
 
 class LSPClientPlugin;
 
@@ -169,7 +170,7 @@ public:
     void didChangeConfiguration(const QJsonValue &settings);
 
     // workspace
-    void workspaceSymbol(const QString &symbol, const QObject *context, const ReplyHandler<QString> &h);
+    void workspaceSymbol(const QString &symbol, const QObject *context, const WorkspaceSymbolsReplyHandler &h);
 
     // notification = signal
 Q_SIGNALS:

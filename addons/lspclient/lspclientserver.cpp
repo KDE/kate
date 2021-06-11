@@ -804,10 +804,35 @@ static LSPShowMessageParams parseMessage(const QJsonObject &result)
     return ret;
 }
 
-static QString parseWorkspaceSymbols(const QJsonValue &result)
+static std::vector<LSPSymbolInformation> parseWorkspaceSymbols(const QJsonValue &result)
 {
-    // result has an array in it
-    return {};
+    auto res = result.toArray();
+
+    std::vector<LSPSymbolInformation> symbols;
+    symbols.reserve(res.size());
+
+    std::transform(res.cbegin(), res.cend(), std::back_inserter(symbols), [](const QJsonValue &jv) {
+        auto symbol = jv.toObject();
+
+        LSPSymbolInformation symInfo;
+
+        const auto location = symbol.value(MEMBER_LOCATION).toObject();
+        const auto mrange = symbol.contains(MEMBER_RANGE) ? symbol.value(MEMBER_RANGE) : location.value(MEMBER_RANGE);
+
+        symInfo.name = symbol.value(QStringLiteral("name")).toString();
+        symInfo.kind = (LSPSymbolKind)symbol.value(MEMBER_KIND).toInt();
+        symInfo.range = parseRange(mrange.toObject());
+        symInfo.url = QUrl(location.value(MEMBER_URI).toString());
+        symInfo.score = symbol.value(QStringLiteral("score")).toDouble();
+        symInfo.tags = (LSPSymbolTag)symbol.value(QStringLiteral("tags")).toInt();
+        return symInfo;
+    });
+
+    std::sort(symbols.begin(), symbols.end(), [](const LSPSymbolInformation &l, const LSPSymbolInformation &r) {
+        return l.score > r.score;
+    });
+
+    return symbols;
 }
 
 using GenericReplyType = QJsonValue;
@@ -1645,7 +1670,7 @@ void LSPClientServer::didChangeConfiguration(const QJsonValue &settings)
     return d->didChangeConfiguration(settings);
 }
 
-void LSPClientServer::workspaceSymbol(const QString &symbol, const QObject *context, const ReplyHandler<QString> &h)
+void LSPClientServer::workspaceSymbol(const QString &symbol, const QObject *context, const WorkspaceSymbolsReplyHandler &h)
 {
     return d->workspaceSymbol(symbol, make_handler(h, context, parseWorkspaceSymbols));
 }

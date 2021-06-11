@@ -162,9 +162,22 @@ enum class LSPSymbolKind {
     Number = 16,
     Boolean = 17,
     Array = 18,
+    Object = 19,
+    Key = 20,
+    Null = 21,
+    EnumMember = 22,
+    Struct = 23,
+    Event = 24,
+    Operator = 25,
+    TypeParameter = 26,
+};
+
+enum class LSPSymbolTag : uint8_t {
+    Deprecated = 1,
 };
 
 struct LSPSymbolInformation {
+    LSPSymbolInformation() = default;
     LSPSymbolInformation(const QString &_name, LSPSymbolKind _kind, LSPRange _range, const QString &_detail)
         : name(_name)
         , detail(_detail)
@@ -175,7 +188,10 @@ struct LSPSymbolInformation {
     QString name;
     QString detail;
     LSPSymbolKind kind;
+    QUrl url;
     LSPRange range;
+    double score = 0.0;
+    LSPSymbolTag tags;
     QList<LSPSymbolInformation> children;
 };
 

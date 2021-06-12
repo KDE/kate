@@ -45,6 +45,10 @@ target_sources(
     lspsemantichighlighting.cpp
     semantic_tokens_legend.cpp
     lsptooltip.cpp
+    gotosymboldialog.cpp
+
+    ${CMAKE_SOURCE_DIR}/shared/quickdialog.cpp # hud dialog
+
     plugin.qrc
     ${UI_SOURCES}
 )

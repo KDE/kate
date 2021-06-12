@@ -194,6 +194,7 @@ struct LSPSymbolInformation {
     LSPSymbolTag tags;
     QList<LSPSymbolInformation> children;
 };
+Q_DECLARE_METATYPE(LSPSymbolInformation)
 
 enum class LSPCompletionItemKind {
     Text = 1,

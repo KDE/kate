@@ -5,6 +5,7 @@
 */
 
 #include "lspclientpluginview.h"
+#include "gotosymboldialog.h"
 #include "lspclientcompletion.h"
 #include "lspclienthover.h"
 #include "lspclientplugin.h"
@@ -580,6 +581,9 @@ public:
         m_restartServer->setText(i18n("Restart LSP Server"));
         m_restartAll = actionCollection()->addAction(QStringLiteral("lspclient_restart_all"), this, &self_type::restartAll);
         m_restartAll->setText(i18n("Restart All LSP Servers"));
+
+        auto act = actionCollection()->addAction(QStringLiteral("lspclient_goto_workspace_symbol"), this, &self_type::gotoWorkSpaceSymbol);
+        act->setShortcut(Qt::ALT | Qt::CTRL | Qt::Key_P);
 
         // popup menu
         auto menu = new KActionMenu(i18n("LSP Client"), this);
@@ -1955,6 +1959,17 @@ public:
             }
         };
         server->clangdSwitchSourceHeader(document->url(), this, h);
+    }
+
+    void gotoWorkSpaceSymbol()
+    {
+        KTextEditor::View *activeView = m_mainWindow->activeView();
+        auto server = m_serverManager->findServer(activeView);
+        if (!server) {
+            return;
+        }
+        GotoSymbolHUDDialog dialog(m_mainWindow, server);
+        dialog.openDialog();
     }
 
     static QStandardItem *getItem(const QStandardItemModel &model, const QUrl &url)

@@ -19,6 +19,7 @@
 #include <QJsonObject>
 #include <QTime>
 #include <QtEndian>
+#include <iostream>
 #include <utility>
 
 // good/bad old school; allows easier concatenate

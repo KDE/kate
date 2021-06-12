@@ -146,9 +146,6 @@ private:
     void setupActions();
     bool queryClose() override;
 
-    void addMenuBarActionToContextMenu();
-    void removeMenuBarActionFromContextMenu();
-
     /**
      * read some global options from katerc
      */

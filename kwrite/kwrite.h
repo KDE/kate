@@ -42,9 +42,6 @@ public:
 private:
     void setupActions();
 
-    void addMenuBarActionToContextMenu();
-    void removeMenuBarActionFromContextMenu();
-
     bool queryClose() override;
 
     void dragEnterEvent(QDragEnterEvent *) override;

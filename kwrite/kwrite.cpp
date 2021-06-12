@@ -268,7 +268,9 @@ void KWrite::toggleMenuBar(bool showMessage)
 {
     if (m_paShowMenuBar->isChecked()) {
         menuBar()->show();
-        removeMenuBarActionFromContextMenu();
+        if (m_view->contextMenu()) {
+            m_view->contextMenu()->removeAction(m_paShowMenuBar);
+        }
     } else {
         if (showMessage) {
             const QString accel = m_paShowMenuBar->shortcut().toString();
@@ -280,18 +282,10 @@ void KWrite::toggleMenuBar(bool showMessage)
                                      QStringLiteral("HideMenuBarWarning"));
         }
         menuBar()->hide();
-        addMenuBarActionToContextMenu();
+        if (m_view->contextMenu()) {
+            m_view->contextMenu()->addAction(m_paShowMenuBar);
+        }
     }
-}
-
-void KWrite::addMenuBarActionToContextMenu()
-{
-    m_view->contextMenu()->addAction(m_paShowMenuBar);
-}
-
-void KWrite::removeMenuBarActionFromContextMenu()
-{
-    m_view->contextMenu()->removeAction(m_paShowMenuBar);
 }
 
 void KWrite::toggleStatusBar()

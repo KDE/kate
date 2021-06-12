@@ -689,7 +689,9 @@ void KateMainWindow::toggleShowMenuBar(bool showMessage)
 {
     if (m_paShowMenuBar->isChecked()) {
         menuBar()->show();
-        removeMenuBarActionFromContextMenu();
+        if (m_viewManager->activeView() && m_viewManager->activeView()->contextMenu()) {
+            m_viewManager->activeView()->contextMenu()->removeAction(m_paShowMenuBar);
+        }
     } else {
         if (showMessage) {
             const QString accel = m_paShowMenuBar->shortcut().toString();
@@ -701,21 +703,9 @@ void KateMainWindow::toggleShowMenuBar(bool showMessage)
                                      QStringLiteral("HideMenuBarWarning"));
         }
         menuBar()->hide();
-        addMenuBarActionToContextMenu();
-    }
-}
-
-void KateMainWindow::addMenuBarActionToContextMenu()
-{
-    if (m_viewManager->activeView()) {
-        m_viewManager->activeView()->contextMenu()->addAction(m_paShowMenuBar);
-    }
-}
-
-void KateMainWindow::removeMenuBarActionFromContextMenu()
-{
-    if (m_viewManager->activeView()) {
-        m_viewManager->activeView()->contextMenu()->removeAction(m_paShowMenuBar);
+        if (m_viewManager->activeView() && m_viewManager->activeView()->contextMenu()) {
+            m_viewManager->activeView()->contextMenu()->addAction(m_paShowMenuBar);
+        }
     }
 }
 

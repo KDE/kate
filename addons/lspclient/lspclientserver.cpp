@@ -820,7 +820,11 @@ static std::vector<LSPSymbolInformation> parseWorkspaceSymbols(const QJsonValue 
         const auto location = symbol.value(MEMBER_LOCATION).toObject();
         const auto mrange = symbol.contains(MEMBER_RANGE) ? symbol.value(MEMBER_RANGE) : location.value(MEMBER_RANGE);
 
-        symInfo.name = symbol.value(QStringLiteral("name")).toString();
+        auto containerName = symbol.value(QStringLiteral("containerName")).toString();
+        if (!containerName.isEmpty()) {
+            containerName.append(QStringLiteral("::"));
+        }
+        symInfo.name = containerName + symbol.value(QStringLiteral("name")).toString();
         symInfo.kind = (LSPSymbolKind)symbol.value(MEMBER_KIND).toInt();
         symInfo.range = parseRange(mrange.toObject());
         symInfo.url = QUrl(location.value(MEMBER_URI).toString());

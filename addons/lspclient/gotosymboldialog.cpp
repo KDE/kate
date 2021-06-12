@@ -1,12 +1,163 @@
 #include "gotosymboldialog.h"
 #include "lspclientserver.h"
 
+#include <KSyntaxHighlighting/Theme>
+#include <KTextEditor/ConfigInterface>
+#include <KTextEditor/Editor>
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/View>
 
+#include <QBitmap>
+#include <QFileInfo>
+#include <QPainter>
 #include <QStandardItemModel>
+#include <QStyledItemDelegate>
+
+#include <kfts_fuzzy_match.h>
 
 static constexpr int SymbolInfoRole = Qt::UserRole + 1;
+
+class GotoSymbolHUDStyleDelegate : public QStyledItemDelegate
+{
+public:
+    GotoSymbolHUDStyleDelegate(QObject *parent)
+        : QStyledItemDelegate(parent)
+    {
+    }
+
+    void setColors()
+    {
+        using KSyntaxHighlighting::Theme;
+        auto theme = KTextEditor::Editor::instance()->theme();
+        normalColor = theme.textColor(Theme::Normal);
+        typeColor = theme.textColor(Theme::DataType);
+        keywordColor = theme.textColor(Theme::Keyword);
+        funcColor = theme.textColor(Theme::Function);
+    }
+
+    void setFont(const QFont &font)
+    {
+        monoFont = font;
+    }
+
+    void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override
+    {
+        QStyleOptionViewItem options = option;
+        initStyleOption(&options, index);
+
+        auto style = options.widget->style();
+        auto iconRect = style->subElementRect(QStyle::SE_ItemViewItemDecoration, &options, options.widget);
+
+        auto icon = options.icon;
+        options.icon = QIcon();
+        auto pm = createPixmap(icon, iconRect.size());
+
+        painter->save();
+
+        QString text = options.text;
+        options.text = QString();
+        style->drawControl(QStyle::CE_ItemViewItem, &options, painter, options.widget);
+
+        style->drawItemPixmap(painter, iconRect, Qt::AlignCenter, pm);
+
+        auto textRectX = options.widget->style()->subElementRect(QStyle::SE_ItemViewItemText, &options, options.widget).x();
+        auto width = textRectX - options.rect.x();
+        painter->translate(width, 0);
+
+        auto symbol = index.data(SymbolInfoRole).value<LSPSymbolInformation>();
+        auto kind = symbol.kind;
+
+        QVector<QTextLayout::FormatRange> fmts;
+        auto colons = text.indexOf(QStringLiteral("::"));
+        int i = 0;
+        // container name
+        if (colons != -1) {
+            QTextCharFormat fmt;
+            fmt.setForeground(keywordColor);
+            fmt.setFont(monoFont);
+            fmts.append({0, colons, fmt});
+            i = colons + 2;
+        }
+        // symbol name
+        {
+            QTextCharFormat f;
+            f.setForeground(colorForSymbolKind(kind));
+            f.setFont(monoFont);
+            fmts.append({i, text.length() - i, f});
+        }
+
+        // add file name to the text we are going to display
+        auto file = QFileInfo(symbol.url.toLocalFile()).fileName();
+        auto textLength = text.length();
+        text += QStringLiteral(" ") + file;
+
+        // file name
+        {
+            QTextCharFormat f;
+            f.setForeground(Qt::gray);
+            fmts.append({textLength, text.length() - textLength, f});
+        }
+
+        kfts::paintItemViewText(painter, text, options, fmts);
+
+        painter->restore();
+    }
+
+private:
+    QPixmap createPixmap(const QIcon &icon, QSize iconSize) const
+    {
+        auto pm = icon.pixmap(iconSize);
+        auto mask = pm.createMaskFromColor(Qt::transparent, Qt::MaskInColor);
+        pm.fill(normalColor);
+        pm.setMask(mask);
+        return pm;
+    }
+
+    QColor colorForSymbolKind(LSPSymbolKind kind) const
+    {
+        switch (kind) {
+        case LSPSymbolKind::File:
+        case LSPSymbolKind::Module:
+        case LSPSymbolKind::Namespace:
+        case LSPSymbolKind::Package:
+            return keywordColor;
+        case LSPSymbolKind::Struct:
+        case LSPSymbolKind::Class:
+        case LSPSymbolKind::Interface:
+            return typeColor;
+        case LSPSymbolKind::Enum:
+            return typeColor;
+        case LSPSymbolKind::Method:
+        case LSPSymbolKind::Function:
+        case LSPSymbolKind::Constructor:
+            return funcColor;
+        // all others considered/assumed Variable
+        case LSPSymbolKind::Variable:
+        case LSPSymbolKind::Constant:
+        case LSPSymbolKind::String:
+        case LSPSymbolKind::Number:
+        case LSPSymbolKind::Property:
+        case LSPSymbolKind::Field:
+        default:
+            return normalColor;
+        }
+    }
+
+    QColor funcColor;
+    QColor keywordColor;
+    QColor typeColor;
+    QColor normalColor;
+
+    QFont monoFont;
+};
+
+static QFont getViewFont(KTextEditor::MainWindow *mainWindow)
+{
+    auto view = mainWindow->activeView();
+    auto ciface = qobject_cast<KTextEditor::ConfigInterface *>(view);
+    Q_ASSERT(ciface);
+    return ciface->configValue(QStringLiteral("font")).value<QFont>();
+}
 
 GotoSymbolHUDDialog::GotoSymbolHUDDialog(KTextEditor::MainWindow *mainWindow, QSharedPointer<LSPClientServer> server)
     : QuickDialog(nullptr, mainWindow->window())
@@ -14,7 +165,18 @@ GotoSymbolHUDDialog::GotoSymbolHUDDialog(KTextEditor::MainWindow *mainWindow, QS
     , mainWindow(mainWindow)
     , server(std::move(server))
 {
+    auto pal = m_treeView.palette();
+    auto e = KTextEditor::Editor::instance();
+    auto bg = QColor::fromRgba(e->theme().editorColor(KSyntaxHighlighting::Theme::BackgroundColor));
+    pal.setColor(QPalette::Base, bg);
+    m_treeView.setPalette(pal);
+
     m_treeView.setModel(model);
+
+    auto delegate = new GotoSymbolHUDStyleDelegate(this);
+    delegate->setColors();
+    delegate->setFont(getViewFont(mainWindow));
+    m_treeView.setItemDelegate(delegate);
 
     connect(&m_lineEdit, &QLineEdit::textChanged, this, &GotoSymbolHUDDialog::slotTextChanged);
 }
@@ -48,6 +210,7 @@ QIcon GotoSymbolHUDDialog::iconForSymbolKind(LSPSymbolKind kind) const
     case LSPSymbolKind::Namespace:
     case LSPSymbolKind::Package:
         return m_icon_pkg;
+    case LSPSymbolKind::Struct:
     case LSPSymbolKind::Class:
     case LSPSymbolKind::Interface:
         return m_icon_class;

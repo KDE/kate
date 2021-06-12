@@ -26,6 +26,9 @@ class KateProjectView;
 class KateProjectPlugin;
 class KateProjectInfoView;
 
+typedef QMap<QString, QString> QStringMap;
+Q_DECLARE_METATYPE(QStringMap)
+
 class KateProjectPluginView : public QObject, public KXMLGUIClient
 {
     Q_OBJECT
@@ -38,6 +41,7 @@ class KateProjectPluginView : public QObject, public KXMLGUIClient
 
     Q_PROPERTY(QString allProjectsCommonBaseDir READ allProjectsCommonBaseDir)
     Q_PROPERTY(QStringList allProjectsFiles READ allProjectsFiles)
+    Q_PROPERTY(QStringMap allProjects READ allProjects)
 
 public:
     KateProjectPluginView(KateProjectPlugin *plugin, KTextEditor::MainWindow *mainWindow);
@@ -83,6 +87,11 @@ public:
      * @returns a flat list of files for all open projects (@see also projectFiles())
      */
     QStringList allProjectsFiles() const;
+
+    /**
+     * @returns a map of all open projects which maps base directory to name
+     */
+    QMap<QString, QString> allProjects() const;
 
     /**
      * the main window we belong to
@@ -198,6 +207,16 @@ private Q_SLOTS:
     void slotGotoSymbol();
 
 Q_SIGNALS:
+
+    /**
+     * Emitted if project is about to close.
+     */
+    void pluginProjectRemoved(QString baseDir, QString name);
+
+    /**
+     * Emitted if project is added.
+     */
+    void pluginProjectAdded(QString baseDir, QString name);
 
     /**
      * Emitted if project is about to close.

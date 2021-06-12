@@ -298,6 +298,11 @@ QPair<KateProjectView *, KateProjectInfoView *> KateProjectPluginView::viewForPr
     m_projectsCombo->addItem(QIcon::fromTheme(QStringLiteral("project-open")), project->name(), project->fileName());
     m_projectsComboGit->addItem(QIcon::fromTheme(QStringLiteral("project-open")), project->name(), project->fileName());
 
+    /*
+     * inform onward
+     */
+    Q_EMIT pluginProjectAdded(project->baseDir(), project->name());
+
     /**
      * remember and return it
      */
@@ -385,6 +390,17 @@ QStringList KateProjectPluginView::allProjectsFiles() const
     }
 
     return fileList;
+}
+
+QMap<QString, QString> KateProjectPluginView::allProjects() const
+{
+    QMap<QString, QString> projectMap;
+
+    const auto projectList = m_plugin->projects();
+    for (auto project : projectList) {
+        projectMap[project->baseDir()] = project->name();
+    }
+    return projectMap;
 }
 
 void KateProjectPluginView::slotViewChanged()
@@ -609,6 +625,9 @@ void KateProjectPluginView::slotProjectClose(KateProject *project)
 
     m_projectsCombo->removeItem(index);
     m_projectsComboGit->removeItem(index);
+
+    // inform onward
+    Q_EMIT pluginProjectRemoved(project->baseDir(), project->name());
 }
 
 QString KateProjectPluginView::currentWord() const

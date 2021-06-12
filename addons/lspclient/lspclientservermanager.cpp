@@ -34,6 +34,11 @@
 
 #include <json_utils.h>
 
+// sadly no common header for plugins to include this from
+// unless we do come up with such one
+typedef QMap<QString, QString> QStringMap;
+Q_DECLARE_METATYPE(QStringMap)
+
 // helper to find a proper root dir for the given document & file name that indicate the root dir
 static QString rootForDocumentAndRootIndicationFileName(KTextEditor::Document *document, const QString &rootIndicationFileName)
 {
@@ -168,6 +173,8 @@ class LSPClientServerManagerImpl : public LSPClientServerManager
         int failcount = 0;
         // pending settings to be submitted
         QJsonValue settings;
+        // use of workspace folders allowed
+        bool useWorkspace = false;
     };
 
     struct DocumentInfo {
@@ -208,6 +215,21 @@ public:
     {
         connect(plugin, &LSPClientPlugin::update, this, &self_type::updateServerConfig);
         QTimer::singleShot(100, this, &self_type::updateServerConfig);
+
+        // stay tuned on project situation
+        QObject *projectView = projectPluginView();
+        if (projectView) {
+            // clang-format off
+            connect(projectView,
+                    SIGNAL(pluginProjectAdded(QString,QString)),
+                    this,
+                    SLOT(onProjectAdded(QString,QString)));
+            connect(projectView,
+                    SIGNAL(pluginProjectRemoved(QString,QString)),
+                    this,
+                    SLOT(onProjectRemoved(QString,QString)));
+            // clang-format on
+        }
     }
 
     ~LSPClientServerManagerImpl() override
@@ -294,6 +316,11 @@ public:
         // else: we have no matching server!
         m_highlightingModeToLanguageIdCache[mode] = QString();
         return QString();
+    }
+
+    QObject *projectPluginView()
+    {
+        return m_mainWindow->pluginView(QStringLiteral("kateprojectplugin"));
     }
 
     QString documentLanguageId(const QString mode)
@@ -443,11 +470,29 @@ private:
     {
         if (server->state() == LSPClientServer::State::Running) {
             // send settings if pending
+            ServerInfo *info = nullptr;
             for (auto &m : m_servers) {
                 for (auto &si : m) {
-                    if (si.server.data() == server && !si.settings.isUndefined()) {
-                        server->didChangeConfiguration(si.settings);
+                    if (si.server.data() == server) {
+                        info = &si;
+                        break;
                     }
+                }
+            }
+            if (info && !info->settings.isUndefined()) {
+                server->didChangeConfiguration(info->settings);
+            }
+            // provide initial workspace folder situation
+            // this is done here because the folder notification pre-dates
+            // the workspaceFolders property in 'initialize'
+            // there is also no way to know whether the server supports that
+            // and in fact some servers do "support workspace folders" (e.g. notification)
+            // but do not know about the 'initialize' property
+            // so, in summary, the notification is used here rather than the property
+            const auto &caps = server->capabilities();
+            if (caps.workspaceFolders.changeNotifications && info && info->useWorkspace) {
+                if (auto folders = currentWorkspaceFolders(); !folders.isEmpty()) {
+                    server->didChangeWorkspaceFolders(folders, {});
                 }
             }
             // clear for normal operation
@@ -497,7 +542,7 @@ private:
             return nullptr;
         }
 
-        QObject *projectView = m_mainWindow->pluginView(QStringLiteral("kateprojectplugin"));
+        QObject *projectView = projectPluginView();
         const auto projectBase = QDir(projectView ? projectView->property("projectBaseDir").toString() : QString());
         const auto &projectMap = projectView ? projectView->property("projectMap").toMap() : QVariantMap();
 
@@ -576,6 +621,26 @@ private:
             }
         }
 
+        // just in case ... ensure normalized result
+        if (rootpath && !rootpath->isEmpty()) {
+            auto cpath = QFileInfo(*rootpath).canonicalFilePath();
+            if (!cpath.isEmpty()) {
+                rootpath = cpath;
+            }
+        }
+
+        // is it actually safe/reasonable to use workspaces?
+        // in practice, (at this time) servers do do not quite consider or support all that
+        // so in that regard workspace folders represents a bit of "spec endulgance"
+        // (along with quite some other aspects for that matter)
+        //
+        // if a server was/is able to handle a "generic root",
+        //   let's assume it is safe to consider workspace folders if it explicitly claims such support
+        // if, however, an explicit root was/is necessary,
+        //   let's assume not safe
+        // in either case, let configuration explicitly specify this
+        bool useWorkspace = serverConfig.value(QStringLiteral("useWorkspace")).toBool(!rootpath ? true : false);
+
         // last fallback: home directory
         if (!rootpath) {
             rootpath = QDir::homePath();
@@ -584,6 +649,25 @@ private:
         auto root = rootpath && !rootpath->isEmpty() ? QUrl::fromLocalFile(*rootpath) : QUrl();
         auto &serverinfo = m_servers[root][langId];
         auto &server = serverinfo.server;
+
+        // maybe there is a server with other root that is workspace capable
+        if (!server && useWorkspace) {
+            for (const auto &l : m_servers) {
+                // for (auto it = l.begin(); it != l.end(); ++it) {
+                auto it = l.find(langId);
+                if (it != l.end()) {
+                    if (auto oserver = it->server) {
+                        const auto &caps = oserver->capabilities();
+                        if (caps.workspaceFolders.supported && caps.workspaceFolders.changeNotifications && it->useWorkspace) {
+                            // so this server can handle workspace folders and should know about project root
+                            server = oserver;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
         if (!server) {
             QStringList cmdline;
 
@@ -627,7 +711,16 @@ private:
                         }
                     }
                 }
-                server.reset(new LSPClientServer(cmdline, root, realLangId, serverConfig.value(QStringLiteral("initializationOptions"))));
+                // an empty list is always passed here (or null)
+                // the initial list is provided/updated using notification after start
+                // since that is what a server is more aware of
+                // and should support if it declares workspace folder capable
+                // (as opposed to the new initialization property)
+                LSPClientServer::FoldersType folders;
+                if (useWorkspace) {
+                    folders = QList<LSPWorkspaceFolder>();
+                }
+                server.reset(new LSPClientServer(cmdline, root, realLangId, serverConfig.value(QStringLiteral("initializationOptions")), folders));
                 connect(server.data(), &LSPClientServer::stateChanged, this, &self_type::onStateChanged, Qt::UniqueConnection);
                 if (!server->start()) {
                     showMessage(i18n("Failed to start server: %1", cmdline.join(QLatin1Char(' '))), KTextEditor::Message::Error);
@@ -642,11 +735,13 @@ private:
                     using namespace std::placeholders;
                     server->connect(server.data(), &LSPClientServer::logMessage, this, std::bind(&self_type::onMessage, this, true, _1));
                     server->connect(server.data(), &LSPClientServer::showMessage, this, std::bind(&self_type::onMessage, this, false, _1));
+                    server->connect(server.data(), &LSPClientServer::workspaceFolders, this, &self_type::onWorkspaceFolders, Qt::UniqueConnection);
                 }
                 serverinfo.settings = serverConfig.value(QStringLiteral("settings"));
                 serverinfo.started = QTime::currentTime();
                 serverinfo.url = serverConfig.value(QStringLiteral("url")).toString();
                 // leave failcount as-is
+                serverinfo.useWorkspace = useWorkspace;
             }
         }
         return (server && server->state() == LSPClientServer::State::Running) ? server : nullptr;
@@ -874,6 +969,63 @@ private:
         } else {
             Q_EMIT serverShowMessage(server, params);
         }
+    }
+
+    QList<LSPWorkspaceFolder> currentWorkspaceFolders()
+    {
+        QList<LSPWorkspaceFolder> folders;
+        auto projectView = projectPluginView();
+        if (projectView) {
+            auto projectsMap = projectView->property("allProjects").value<QStringMap>();
+            for (auto it = projectsMap.begin(); it != projectsMap.end(); ++it) {
+                folders.push_back(workspaceFolder(it.key(), it.value()));
+            }
+        }
+        return folders;
+    }
+
+    static LSPWorkspaceFolder workspaceFolder(const QString &baseDir, const QString &name)
+    {
+        return {QUrl::fromLocalFile(baseDir), name};
+    }
+
+    void updateWorkspace(bool added, const QString &baseDir, const QString &name)
+    {
+        qCInfo(LSPCLIENT) << "update workspace" << added << baseDir << name;
+        for (const auto &u : m_servers) {
+            for (const auto &si : u) {
+                if (auto server = si.server) {
+                    const auto &caps = server->capabilities();
+                    if (caps.workspaceFolders.changeNotifications && si.useWorkspace) {
+                        auto wsfolder = workspaceFolder(baseDir, name);
+                        QList<LSPWorkspaceFolder> l{wsfolder}, empty;
+                        server->didChangeWorkspaceFolders(added ? l : empty, added ? empty : l);
+                    }
+                }
+            }
+        }
+    }
+
+    Q_SLOT void onProjectAdded(QString baseDir, QString name)
+    {
+        updateWorkspace(true, baseDir, name);
+    }
+
+    Q_SLOT void onProjectRemoved(QString baseDir, QString name)
+    {
+        updateWorkspace(false, baseDir, name);
+    }
+
+    void onWorkspaceFolders(const WorkspaceFoldersReplyHandler &h, bool &handled)
+    {
+        if (handled) {
+            return;
+        }
+
+        auto folders = currentWorkspaceFolders();
+        h(folders);
+
+        handled = true;
     }
 };
 

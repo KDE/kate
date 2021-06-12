@@ -1153,14 +1153,13 @@ private:
                                   {QStringLiteral("formats"), QJsonArray({QStringLiteral("relative")})},
         };
         QJsonObject capabilities{{QStringLiteral("textDocument"),
-                                  QJsonObject{{
-                                                  QStringLiteral("documentSymbol"),
-                                                  QJsonObject{{QStringLiteral("hierarchicalDocumentSymbolSupport"), true}},
-                                              },
-                                              {QStringLiteral("publishDiagnostics"), QJsonObject{{QStringLiteral("relatedInformation"), true}}},
-                                              {QStringLiteral("codeAction"), codeAction},
-                                              {QStringLiteral("semanticTokens"), semanticTokens}
-                                }}};
+                                        QJsonObject{
+                                            {QStringLiteral("documentSymbol"), QJsonObject{{QStringLiteral("hierarchicalDocumentSymbolSupport"), true}} },
+                                            {QStringLiteral("publishDiagnostics"), QJsonObject{{QStringLiteral("relatedInformation"), true}}},
+                                            {QStringLiteral("codeAction"), codeAction},
+                                            {QStringLiteral("semanticTokens"), semanticTokens}
+                                        }
+                                }};
         // NOTE a typical server does not use root all that much,
         // other than for some corner case (in) requests
         QJsonObject params{{QStringLiteral("processId"), QCoreApplication::applicationPid()},

@@ -69,7 +69,7 @@ target_sources(
     gitcommitdialog.cpp
     stashdialog.cpp
     filehistorywidget.cpp
-    quickdialog.cpp
+    ${CMAKE_SOURCE_DIR}/shared/quickdialog.cpp
     pushpulldialog.cpp
     comparebranchesview.cpp
 

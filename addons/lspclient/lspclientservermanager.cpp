@@ -536,7 +536,7 @@ private:
         // NOTE that also covers a form of environment substitution using %{ENV:XYZ}
         auto editor = KTextEditor::Editor::instance();
 
-        QString rootpath;
+        std::optional<QString> rootpath;
         const auto rootv = serverConfig.value(QStringLiteral("root"));
         if (rootv.isString()) {
             auto sroot = rootv.toString();
@@ -545,7 +545,11 @@ private:
                 rootpath = sroot;
             } else if (!projectBase.isEmpty()) {
                 rootpath = QDir(projectBase).absoluteFilePath(sroot);
+            } else if (sroot.isEmpty()) {
+                // empty root; so we are convinced the server can handle null rootUri
+                rootpath = QString();
             } else if (const auto url = document->url(); url.isValid() && url.isLocalFile()) {
+                // likewise, but use safer traditional approach and specify rootUri
                 rootpath = QDir(QFileInfo(url.toLocalFile()).absolutePath()).absoluteFilePath(sroot);
             }
         }
@@ -555,15 +559,16 @@ private:
          * this is required for some LSP servers like rls that don't handle that on their own like
          * clangd does
          */
-        if (rootpath.isEmpty()) {
+        if (!rootpath) {
             const auto fileNamesForDetection = serverConfig.value(QStringLiteral("rootIndicationFileNames"));
             if (fileNamesForDetection.isArray()) {
                 // we try each file name alternative in the listed order
                 // this allows to have preferences
                 for (auto name : fileNamesForDetection.toArray()) {
                     if (name.isString()) {
-                        rootpath = rootForDocumentAndRootIndicationFileName(document, name.toString());
-                        if (!rootpath.isEmpty()) {
+                        auto root = rootForDocumentAndRootIndicationFileName(document, name.toString());
+                        if (!root.isEmpty()) {
+                            rootpath = root;
                             break;
                         }
                     }
@@ -572,11 +577,11 @@ private:
         }
 
         // last fallback: home directory
-        if (rootpath.isEmpty()) {
+        if (!rootpath) {
             rootpath = QDir::homePath();
         }
 
-        auto root = QUrl::fromLocalFile(rootpath);
+        auto root = rootpath && !rootpath->isEmpty() ? QUrl::fromLocalFile(*rootpath) : QUrl();
         auto &serverinfo = m_servers[root][langId];
         auto &server = serverinfo.server;
         if (!server) {

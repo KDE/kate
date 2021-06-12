@@ -18,6 +18,7 @@
 #include <QVector>
 
 #include <functional>
+#include <optional>
 
 namespace utils
 {
@@ -63,6 +64,7 @@ using FormattingReplyHandler = ReplyHandler<QList<LSPTextEdit>>;
 using CodeActionReplyHandler = ReplyHandler<QList<LSPCodeAction>>;
 using WorkspaceEditReplyHandler = ReplyHandler<LSPWorkspaceEdit>;
 using ApplyEditReplyHandler = ReplyHandler<LSPApplyWorkspaceEditResponse>;
+using WorkspaceFoldersReplyHandler = ReplyHandler<QList<LSPWorkspaceFolder>>;
 using SwitchSourceHeaderHandler = ReplyHandler<QString>;
 using SemanticTokensDeltaReplyHandler = ReplyHandler<LSPSemanticTokensDelta>;
 using WorkspaceSymbolsReplyHandler = ReplyHandler<std::vector<LSPSymbolInformation>>;
@@ -93,7 +95,12 @@ public:
         }
     };
 
-    LSPClientServer(const QStringList &server, const QUrl &root, const QString &langId = QString(), const QJsonValue &init = QJsonValue());
+    using FoldersType = std::optional<QList<LSPWorkspaceFolder>>;
+    LSPClientServer(const QStringList &server,
+                    const QUrl &root,
+                    const QString &langId = QString(),
+                    const QJsonValue &init = QJsonValue(),
+                    const FoldersType &folders = std::nullopt);
     ~LSPClientServer() override;
 
     // server management
@@ -166,10 +173,9 @@ public:
     void didSave(const QUrl &document, const QString &text);
     void didClose(const QUrl &document);
 
-    // misc
-    void didChangeConfiguration(const QJsonValue &settings);
-
     // workspace
+    void didChangeConfiguration(const QJsonValue &settings);
+    void didChangeWorkspaceFolders(const QList<LSPWorkspaceFolder> &added, const QList<LSPWorkspaceFolder> &removed);
     void workspaceSymbol(const QString &symbol, const QObject *context, const WorkspaceSymbolsReplyHandler &h);
 
     // notification = signal
@@ -180,6 +186,7 @@ Q_SIGNALS:
 
     // request = signal
     void applyEdit(const LSPApplyWorkspaceEditParams &req, const ApplyEditReplyHandler &h, bool &handled);
+    void workspaceFolders(const WorkspaceFoldersReplyHandler &h, bool &handled);
 
 private:
     // pimpl data holder

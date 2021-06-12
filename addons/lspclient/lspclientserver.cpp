@@ -218,9 +218,31 @@ static QJsonObject applyWorkspaceEditResponse(const LSPApplyWorkspaceEditRespons
     return QJsonObject{{QStringLiteral("applied"), response.applied}, {QStringLiteral("failureReason"), response.failureReason}};
 }
 
+static QJsonObject workspaceFolder(const LSPWorkspaceFolder &response)
+{
+    return QJsonObject{{MEMBER_URI, response.uri.toString()}, {QStringLiteral("name"), response.name}};
+}
+
 static QJsonObject changeConfigurationParams(const QJsonValue &settings)
 {
     return QJsonObject{{QStringLiteral("settings"), settings}};
+}
+
+static QJsonArray to_json(const QList<LSPWorkspaceFolder> &l)
+{
+    QJsonArray result;
+    for (const auto &e : l) {
+        result.push_back(workspaceFolder(e));
+    }
+    return result;
+}
+
+static QJsonObject changeWorkspaceFoldersParams(const QList<LSPWorkspaceFolder> &added, const QList<LSPWorkspaceFolder> &removed)
+{
+    QJsonObject event;
+    event[QStringLiteral("added")] = to_json(added);
+    event[QStringLiteral("removed")] = to_json(removed);
+    return QJsonObject{{QStringLiteral("event"), event}};
 }
 
 static void from_json(QVector<QChar> &trigger, const QJsonValue &json)
@@ -262,6 +284,16 @@ static void from_json(LSPDocumentOnTypeFormattingOptions &options, const QJsonVa
         if (trigger.size()) {
             options.triggerCharacters.insert(0, trigger.at(0));
         }
+    }
+}
+
+static void from_json(LSPWorkspaceFoldersServerCapabilities &options, const QJsonValue &json)
+{
+    if (json.isObject()) {
+        auto ob = json.toObject();
+        options.supported = ob.value(QStringLiteral("supported")).toBool();
+        auto notify = ob.value(QStringLiteral("changeNotifications"));
+        options.changeNotifications = notify.isString() ? notify.toString().size() > 0 : notify.toBool();
     }
 }
 
@@ -330,6 +362,8 @@ static void from_json(LSPServerCapabilities &caps, const QJsonObject &json)
     auto codeActionProvider = json.value(QStringLiteral("codeActionProvider"));
     caps.codeActionProvider = codeActionProvider.toBool() || codeActionProvider.isObject();
     from_json(caps.semanticTokenProvider, json.value(QStringLiteral("semanticTokensProvider")).toObject());
+    auto workspace = json.value(QStringLiteral("workspace")).toObject();
+    from_json(caps.workspaceFolders, workspace.value(QStringLiteral("workspaceFolders")));
 }
 
 // follow suit; as performed in kate docmanager
@@ -859,6 +893,8 @@ class LSPClientServer::LSPClientServerPrivate
     QString m_langId;
     // user provided init
     QJsonValue m_init;
+    // optional workspace folders
+    FoldersType m_folders;
     // server process
     QProcess m_sproc;
     // server declared capabilities
@@ -877,12 +913,18 @@ class LSPClientServer::LSPClientServerPrivate
     QVector<int> m_requests{MAX_REQUESTS + 1};
 
 public:
-    LSPClientServerPrivate(LSPClientServer *_q, const QStringList &server, const QUrl &root, const QString &langId, const QJsonValue &init)
+    LSPClientServerPrivate(LSPClientServer *_q,
+                           const QStringList &server,
+                           const QUrl &root,
+                           const QString &langId,
+                           const QJsonValue &init,
+                           const FoldersType &folders)
         : q(_q)
         , m_server(server)
         , m_root(root)
         , m_langId(langId)
         , m_init(init)
+        , m_folders(folders)
     {
         // setup async reading
         QObject::connect(&m_sproc, &QProcess::readyRead, utils::mem_fun(&self_type::read, this));
@@ -1160,13 +1202,21 @@ private:
                                             {QStringLiteral("semanticTokens"), semanticTokens}
                                         }
                                 }};
+        // only declare workspace support if folders so specified
+        if (m_folders) {
+            capabilities[QStringLiteral("workspace")] = QJsonObject{{QStringLiteral("workspaceFolders"), true}};
+        }
         // NOTE a typical server does not use root all that much,
         // other than for some corner case (in) requests
         QJsonObject params{{QStringLiteral("processId"), QCoreApplication::applicationPid()},
-                           {QStringLiteral("rootPath"), m_root.toLocalFile()},
-                           {QStringLiteral("rootUri"), m_root.toString()},
+                           {QStringLiteral("rootPath"), m_root.isValid() ? m_root.toLocalFile() : QJsonValue()},
+                           {QStringLiteral("rootUri"), m_root.isValid() ? m_root.toString() : QJsonValue()},
                            {QStringLiteral("capabilities"), capabilities},
                            {QStringLiteral("initializationOptions"), m_init}};
+        // only add new style workspaces init if so specified
+        if (m_folders) {
+            params[QStringLiteral("workspaceFolders")] = to_json(*m_folders);
+        }
         //
         write(init_request(QStringLiteral("initialize"), params), utils::mem_fun(&self_type::onInitializeReply, this));
         // clang-format on
@@ -1376,6 +1426,12 @@ public:
         send(init_request(QStringLiteral("workspace/didChangeConfiguration"), params));
     }
 
+    void didChangeWorkspaceFolders(const QList<LSPWorkspaceFolder> &added, const QList<LSPWorkspaceFolder> &removed)
+    {
+        auto params = changeWorkspaceFoldersParams(added, removed);
+        send(init_request(QStringLiteral("workspace/didChangeWorkspaceFolders"), params));
+    }
+
     void workspaceSymbol(const QString &symbol, const GenericReplyHandler &h)
     {
         auto params = QJsonObject{{MEMBER_QUERY, symbol}};
@@ -1438,6 +1494,13 @@ public:
         if (method == QLatin1String("workspace/applyEdit")) {
             auto h = responseHandler<LSPApplyWorkspaceEditResponse>(prepareResponse(msgid), applyWorkspaceEditResponse);
             Q_EMIT q->applyEdit(parseApplyWorkspaceEditParams(params.toObject()), h, handled);
+        } else if (method == QLatin1String("workspace/workspaceFolders")) {
+            // helper to convert from array to value
+            auto workspaceFolders = [](auto &&p) {
+                return to_json(p);
+            };
+            auto h = responseHandler<QList<LSPWorkspaceFolder>>(prepareResponse(msgid), workspaceFolders);
+            Q_EMIT q->workspaceFolders(h, handled);
         } else {
             write(init_error(LSPErrorCode::MethodNotFound, method), nullptr, nullptr, &msgid);
             qCWarning(LSPCLIENT) << "discarding request" << method;
@@ -1466,8 +1529,8 @@ make_handler(const ReplyHandler<ReplyType> &h, const QObject *context, typename 
     };
 }
 
-LSPClientServer::LSPClientServer(const QStringList &server, const QUrl &root, const QString &langId, const QJsonValue &init)
-    : d(new LSPClientServerPrivate(this, server, root, langId, init))
+LSPClientServer::LSPClientServer(const QStringList &server, const QUrl &root, const QString &langId, const QJsonValue &init, const FoldersType &folders)
+    : d(new LSPClientServerPrivate(this, server, root, langId, init, folders))
 {
 }
 
@@ -1675,6 +1738,11 @@ void LSPClientServer::didClose(const QUrl &document)
 void LSPClientServer::didChangeConfiguration(const QJsonValue &settings)
 {
     return d->didChangeConfiguration(settings);
+}
+
+void LSPClientServer::didChangeWorkspaceFolders(const QList<LSPWorkspaceFolder> &added, const QList<LSPWorkspaceFolder> &removed)
+{
+    return d->didChangeWorkspaceFolders(added, removed);
 }
 
 void LSPClientServer::workspaceSymbol(const QString &symbol, const QObject *context, const WorkspaceSymbolsReplyHandler &h)

@@ -75,6 +75,11 @@ struct LSPSemanticTokensOptions {
     //     QVector<QString> types;
 };
 
+struct LSPWorkspaceFoldersServerCapabilities {
+    bool supported = false;
+    bool changeNotifications = false;
+};
+
 struct LSPServerCapabilities {
     LSPDocumentSyncKind textDocumentSync = LSPDocumentSyncKind::None;
     bool hoverProvider = false;
@@ -95,6 +100,9 @@ struct LSPServerCapabilities {
     // CodeActionOptions not useful/considered at present
     bool codeActionProvider = false;
     LSPSemanticTokensOptions semanticTokenProvider;
+    // workspace caps flattened
+    // (other parts not useful/considered at present)
+    LSPWorkspaceFoldersServerCapabilities workspaceFolders;
 };
 
 enum class LSPMarkupKind { None = 0, PlainText = 1, MarkDown = 2 };
@@ -351,6 +359,11 @@ struct LSPApplyWorkspaceEditParams {
 struct LSPApplyWorkspaceEditResponse {
     bool applied;
     QString failureReason;
+};
+
+struct LSPWorkspaceFolder {
+    QUrl uri;
+    QString name;
 };
 
 struct LSPSemanticTokensEdit {

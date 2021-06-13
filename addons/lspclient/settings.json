@@ -2,7 +2,7 @@
     "servers": {
         "bash": {
             "command": ["bash-language-server", "start"],
-            "root": ".",
+            "root": "",
             "url": "https://github.com/bash-lsp/bash-language-server",
             "highlightingModeRegex": "^Bash$"
         },

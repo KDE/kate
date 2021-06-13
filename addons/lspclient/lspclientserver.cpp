@@ -8,18 +8,13 @@
 
 #include "lspclient_debug.h"
 
-#include <QProcess>
-#include <QScopedPointer>
-#include <QVariantMap>
-
 #include <QCoreApplication>
 #include <QFileInfo>
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
-#include <QTime>
-#include <QtEndian>
-#include <iostream>
+#include <QProcess>
+
 #include <utility>
 
 // good/bad old school; allows easier concatenate

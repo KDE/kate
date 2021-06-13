@@ -543,7 +543,8 @@ private:
         }
 
         QObject *projectView = projectPluginView();
-        const auto projectBase = QDir(projectView ? projectView->property("projectBaseDir").toString() : QString());
+        // preserve raw QString value so it can be used and tested that way below
+        const auto projectBase = projectView ? projectView->property("projectBaseDir").toString() : QString();
         const auto &projectMap = projectView ? projectView->property("projectMap").toMap() : QVariantMap();
 
         // merge with project specific

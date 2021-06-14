@@ -637,6 +637,9 @@ private:
                 } else {
                     showMessage(i18n("Started server %2: %1", cmdline.join(QLatin1Char(' ')), serverDescription(server.data())),
                                 KTextEditor::Message::Positive);
+                    using namespace std::placeholders;
+                    server->connect(server.data(), &LSPClientServer::logMessage, this, std::bind(&self_type::onMessage, this, true, _1));
+                    server->connect(server.data(), &LSPClientServer::showMessage, this, std::bind(&self_type::onMessage, this, false, _1));
                 }
                 serverinfo.settings = serverConfig.value(QStringLiteral("settings"));
                 serverinfo.started = QTime::currentTime();
@@ -856,6 +859,18 @@ private:
             LSPRange newrange{{line - 1, 0}, {line, 0}};
             auto text = doc->text(newrange);
             info->changes.push_back({oldrange, text});
+        }
+    }
+
+    void onMessage(bool isLog, const LSPLogMessageParams &params)
+    {
+        // determine server description
+        auto server = dynamic_cast<LSPClientServer *>(sender());
+        auto message = params.message;
+        if (isLog) {
+            Q_EMIT serverLogMessage(server, params);
+        } else {
+            Q_EMIT serverShowMessage(server, params);
         }
     }
 };

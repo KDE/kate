@@ -499,6 +499,8 @@ public:
         connect(m_mainWindow, &KTextEditor::MainWindow::unhandledShortcutOverride, this, &self_type::handleEsc);
         connect(m_serverManager.data(), &LSPClientServerManager::serverChanged, this, &self_type::updateState);
         connect(m_serverManager.data(), &LSPClientServerManager::showMessage, this, &self_type::onShowMessage);
+        connect(m_serverManager.data(), &LSPClientServerManager::serverShowMessage, this, &self_type::onMessage);
+        connect(m_serverManager.data(), &LSPClientServerManager::serverLogMessage, this, &self_type::onMessage);
 
         m_findDef = actionCollection()->addAction(QStringLiteral("lspclient_find_definition"), this, &self_type::goToDefinition);
         m_findDef->setText(i18n("Go to Definition"));
@@ -2226,10 +2228,9 @@ public:
     }
 
     // params type is same for show or log and is treated the same way
-    void onMessage(const LSPLogMessageParams &params)
+    void onMessage(LSPClientServer *server, const LSPLogMessageParams &params)
     {
         // determine server description
-        auto server = dynamic_cast<LSPClientServer *>(sender());
         auto message = params.message;
         if (server) {
             message = QStringLiteral("%1\n%2").arg(LSPClientServerManager::serverDescription(server), message);
@@ -2337,8 +2338,6 @@ public:
             codeActionEnabled = caps.codeActionProvider;
 
             connect(server.data(), &LSPClientServer::publishDiagnostics, this, &self_type::onDiagnostics, Qt::UniqueConnection);
-            connect(server.data(), &LSPClientServer::showMessage, this, &self_type::onMessage, Qt::UniqueConnection);
-            connect(server.data(), &LSPClientServer::logMessage, this, &self_type::onMessage, Qt::UniqueConnection);
             connect(server.data(), &LSPClientServer::applyEdit, this, &self_type::onApplyEdit, Qt::UniqueConnection);
 
             // update format trigger characters

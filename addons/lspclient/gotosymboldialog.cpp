@@ -23,6 +23,14 @@
 
 static constexpr int SymbolInfoRole = Qt::UserRole + 1;
 
+struct GotoSymbolItem {
+    QUrl fileUrl;
+    KTextEditor::Cursor pos;
+    LSPSymbolKind kind;
+};
+Q_DECLARE_METATYPE(GotoSymbolItem)
+Q_DECLARE_TYPEINFO(GotoSymbolItem, Q_MOVABLE_TYPE);
+
 class GotoSymbolHUDStyleDelegate : public QStyledItemDelegate
 {
 public:
@@ -70,7 +78,7 @@ public:
         auto width = textRectX - options.rect.x();
         painter->translate(width, 0);
 
-        auto symbol = index.data(SymbolInfoRole).value<LSPSymbolInformation>();
+        auto symbol = index.data(SymbolInfoRole).value<GotoSymbolItem>();
         auto kind = symbol.kind;
 
         QVector<QTextLayout::FormatRange> fmts;
@@ -93,7 +101,7 @@ public:
         }
 
         // add file name to the text we are going to display
-        auto file = QFileInfo(symbol.url.toLocalFile()).fileName();
+        auto file = QFileInfo(symbol.fileUrl.toLocalFile()).fileName();
         auto textLength = text.length();
         text += QStringLiteral(" ") + file;
 
@@ -189,14 +197,14 @@ GotoSymbolHUDDialog::GotoSymbolHUDDialog(KTextEditor::MainWindow *mainWindow, QS
 
 void GotoSymbolHUDDialog::slotReturnPressed()
 {
-    auto symbol = m_treeView.currentIndex().data(SymbolInfoRole).value<LSPSymbolInformation>();
-    if (!symbol.url.isValid() || symbol.url.isEmpty()) {
+    auto symbol = m_treeView.currentIndex().data(SymbolInfoRole).value<GotoSymbolItem>();
+    if (!symbol.fileUrl.isValid() || symbol.fileUrl.isEmpty()) {
         return;
     }
 
-    auto v = mainWindow->openUrl(symbol.url);
+    auto v = mainWindow->openUrl(symbol.fileUrl);
     if (v) {
-        v->setCursorPosition(symbol.range.start());
+        v->setCursorPosition(symbol.pos);
     }
     close();
 }
@@ -254,7 +262,7 @@ void GotoSymbolHUDDialog::slotTextChanged(const QString &text)
         model->clear();
         for (const auto &sym : symbols) {
             auto item = new QStandardItem(iconForSymbolKind(sym.kind), sym.name);
-            item->setData(QVariant::fromValue(sym), SymbolInfoRole);
+            item->setData(QVariant::fromValue(GotoSymbolItem{sym.url, sym.range.start(), sym.kind}), SymbolInfoRole);
             model->appendRow(item);
         }
     };

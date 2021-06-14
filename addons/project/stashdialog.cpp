@@ -184,8 +184,6 @@ void StashDialog::openDialog(StashMode m)
 
     // trigger reselect first
     m_lineEdit.textChanged(QString());
-    updateViewGeometry();
-    setFocus();
     exec();
 }
 
@@ -217,7 +215,6 @@ void StashDialog::slotReturnPressed()
         break;
     }
 
-    clearLineEdit();
     hide();
 }
 

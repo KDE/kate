@@ -47,6 +47,9 @@ QuickDialog::QuickDialog(QWidget *parent, QWidget *mainWindow)
     m_treeView.setRootIsDecorated(false);
     m_treeView.setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     m_treeView.setSelectionMode(QTreeView::SingleSelection);
+
+    updateViewGeometry();
+    setFocus();
 }
 
 bool QuickDialog::eventFilter(QObject *obj, QEvent *event)

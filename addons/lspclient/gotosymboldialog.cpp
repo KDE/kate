@@ -178,20 +178,26 @@ GotoSymbolHUDDialog::GotoSymbolHUDDialog(KTextEditor::MainWindow *mainWindow, QS
     , mainWindow(mainWindow)
     , server(std::move(server))
 {
-    auto pal = m_treeView.palette();
-    auto e = KTextEditor::Editor::instance();
-    auto bg = QColor::fromRgba(e->theme().editorColor(KSyntaxHighlighting::Theme::BackgroundColor));
-    pal.setColor(QPalette::Base, bg);
-    m_treeView.setPalette(pal);
+    setPaletteToEditorColors();
 
     m_treeView.setModel(model);
-
     auto delegate = new GotoSymbolHUDStyleDelegate(this);
     delegate->setColors();
     delegate->setFont(getViewFont(mainWindow));
     m_treeView.setItemDelegate(delegate);
 
     connect(&m_lineEdit, &QLineEdit::textChanged, this, &GotoSymbolHUDDialog::slotTextChanged);
+}
+
+void GotoSymbolHUDDialog::setPaletteToEditorColors()
+{
+    auto pal = m_treeView.palette();
+    auto e = KTextEditor::Editor::instance();
+    auto bg = QColor::fromRgba(e->theme().editorColor(KSyntaxHighlighting::Theme::BackgroundColor));
+    auto fg = QColor::fromRgba(e->theme().textColor(KSyntaxHighlighting::Theme::Normal));
+    pal.setColor(QPalette::Base, bg);
+    pal.setColor(QPalette::Text, fg);
+    m_treeView.setPalette(pal);
 }
 
 void GotoSymbolHUDDialog::slotReturnPressed()
@@ -210,8 +216,6 @@ void GotoSymbolHUDDialog::slotReturnPressed()
 
 void GotoSymbolHUDDialog::openDialog()
 {
-    updateViewGeometry();
-    setFocus();
     exec();
 }
 

@@ -20,9 +20,6 @@ void PushPullDialog::openDialog(PushPullDialog::Mode m)
     } else if (m == Pull) {
         m_lineEdit.setText(buildPullString());
     }
-
-    updateViewGeometry();
-    setFocus();
     exec();
 }
 
@@ -102,6 +99,5 @@ void PushPullDialog::slotReturnPressed()
         }
     }
 
-    clearLineEdit();
     hide();
 }

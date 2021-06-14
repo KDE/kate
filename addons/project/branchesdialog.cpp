@@ -178,8 +178,6 @@ void BranchesDialog::openDialog(GitUtils::RefType r)
     m_model->refresh(branches);
 
     reselectFirst();
-    updateViewGeometry();
-    setFocus();
     exec();
 }
 

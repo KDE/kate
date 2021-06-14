@@ -31,6 +31,7 @@ protected Q_SLOTS:
 private:
     void slotTextChanged(const QString &text);
     QIcon iconForSymbolKind(LSPSymbolKind kind) const;
+    void setPaletteToEditorColors();
 
     QStandardItemModel *model = nullptr;
     KTextEditor::MainWindow *mainWindow;

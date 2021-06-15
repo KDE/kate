@@ -242,13 +242,10 @@ bool KateDocManager::closeDocuments(const QList<KTextEditor::Document *> &docume
 
         // really delete the document and its infos
         m_docInfos.erase(doc);
-        auto it = std::find(m_docList.begin(), m_docList.end(), doc);
-        if (it != m_docList.end()) {
-            delete *it;
-            // document is gone, emit our signals
-            Q_EMIT documentDeleted(doc);
-            m_docList.erase(it);
-        }
+        delete m_docList.takeAt(m_docList.indexOf(doc));
+
+        // document is gone, emit our signals
+        Q_EMIT documentDeleted(doc);
 
         last++;
     }

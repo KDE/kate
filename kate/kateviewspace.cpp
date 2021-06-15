@@ -190,10 +190,7 @@ void KateViewSpace::tabBarToggled()
 KTextEditor::View *KateViewSpace::createView(KTextEditor::Document *doc)
 {
     // should only be called if a view does not yet exist
-    {
-        auto it = m_docToView.find(doc);
-        Q_ASSERT(it == m_docToView.end());
-    }
+    Q_ASSERT(m_docToView.find(doc) == m_docToView.end());
 
     /**
      * Create a fresh view

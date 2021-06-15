@@ -333,32 +333,50 @@ public:
         return k == LSPCompletionItemKind::Function || k == LSPCompletionItemKind::Method;
     }
 
+    static bool hasTextEdit(const LSPCompletionItem &i)
+    {
+        return !i.textEdit.newText.isEmpty();
+    }
+
     void executeCompletionItem(KTextEditor::View *view, const KTextEditor::Range &word, const QModelIndex &index) const override
     {
-        if (index.row() < m_matches.size()) {
-            QChar next = peekNextChar(view->document(), word);
-            QString matching = m_matches.at(index.row()).insertText;
+        if (index.row() >= m_matches.size()) {
+            return;
+        }
+
+        QChar next = peekNextChar(view->document(), word);
+
+        QString matching;
+        KTextEditor::Range replaceRange = word;
+
+        const auto &completionItem = m_matches.at(index.row());
+        if (hasTextEdit(completionItem)) {
+            matching = completionItem.textEdit.newText;
+            auto range = completionItem.textEdit.range;
+            replaceRange = range;
+        } else {
+            matching = m_matches.at(index.row()).insertText;
             // if there is already a '"' or >, remove it, this happens with #include "xx.h"
             if ((next == QLatin1Char('"') && matching.endsWith(QLatin1Char('"'))) || (next == QLatin1Char('>') && matching.endsWith(QLatin1Char('>')))) {
                 matching.chop(1);
             }
+        }
 
-            // This is a function
-            const auto &m = m_matches.at(index.row());
-            // add parentheses if function and guestimated meaningful for language in question
-            // this covers at least the common cases such as clangd, python, etc
-            // also no need to add one if the next char is already
-            bool addParens = m_complParens && next != QLatin1Char('(') && isFunctionKind(m.kind) && m_triggersSignature.contains(QLatin1Char('('));
-            if (addParens) {
-                matching += QStringLiteral("()");
-            }
+        const auto kind = completionItem.kind;
+        // Is this a function?
+        // add parentheses if function and guestimated meaningful for language in question
+        // this covers at least the common cases such as clangd, python, etc
+        // also no need to add one if the next char is already
+        bool addParens = m_complParens && next != QLatin1Char('(') && isFunctionKind(kind) && m_triggersSignature.contains(QLatin1Char('('));
+        if (addParens) {
+            matching += QStringLiteral("()");
+        }
 
-            view->document()->replaceText(word, matching);
+        view->document()->replaceText(replaceRange, matching);
 
-            if (addParens) {
-                // place the cursor in between (|)
-                view->setCursorPosition({view->cursorPosition().line(), view->cursorPosition().column() - 1});
-            }
+        if (addParens) {
+            // place the cursor in between (|)
+            view->setCursorPosition({view->cursorPosition().line(), view->cursorPosition().column() - 1});
         }
     }
 

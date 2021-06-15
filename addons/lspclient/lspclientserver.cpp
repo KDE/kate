@@ -569,6 +569,13 @@ static QList<LSPCompletionItem> parseDocumentCompletion(const QJsonValue &result
     if (items.empty()) {
         items = result.toObject().value(QStringLiteral("items")).toArray();
     }
+
+    auto parseTextEdit = [](const QJsonObject &obj) -> LSPTextEdit {
+        auto newText = obj.value(QStringLiteral("newText")).toString();
+        auto range = parseRange(obj.value(QStringLiteral("range")).toObject());
+        return LSPTextEdit{range, newText};
+    };
+
     for (const auto &vitem : items) {
         const auto &item = vitem.toObject();
         auto label = item.value(MEMBER_LABEL).toString();
@@ -583,7 +590,8 @@ static QList<LSPCompletionItem> parseDocumentCompletion(const QJsonValue &result
             insertText = label;
         }
         auto kind = static_cast<LSPCompletionItemKind>(item.value(MEMBER_KIND).toInt());
-        ret.push_back({label, kind, detail, doc, sortText, insertText});
+        auto textEdit = parseTextEdit(item.value(QStringLiteral("textEdit")).toObject());
+        ret.push_back({label, kind, detail, doc, sortText, insertText, textEdit});
     }
     return ret;
 }

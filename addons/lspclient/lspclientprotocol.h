@@ -195,6 +195,11 @@ struct LSPSymbolInformation {
     QList<LSPSymbolInformation> children;
 };
 
+struct LSPTextEdit {
+    LSPRange range;
+    QString newText;
+};
+
 enum class LSPCompletionItemKind {
     Text = 1,
     Method = 2,
@@ -230,6 +235,7 @@ struct LSPCompletionItem {
     LSPMarkupContent documentation;
     QString sortText;
     QString insertText;
+    LSPTextEdit textEdit;
 };
 
 struct LSPParameterInformation {
@@ -256,11 +262,6 @@ struct LSPFormattingOptions {
     bool insertSpaces;
     // additional fields
     QJsonObject extra;
-};
-
-struct LSPTextEdit {
-    LSPRange range;
-    QString newText;
 };
 
 enum class LSPDiagnosticSeverity {

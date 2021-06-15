@@ -204,12 +204,14 @@ void SemanticHighlighter::highlight(KTextEditor::View *view, const SemanticToken
             reusedRanges++;
             // clear attribute first so that we block some of the notifyAboutRangeChange stuff!
             range->setAttribute(KTextEditor::Attribute::Ptr(nullptr));
+            range->setZDepth(-90000.0);
             range->setRange(r);
             range->setAttribute(attribute);
             continue;
         }
 
         std::unique_ptr<KTextEditor::MovingRange> mr(miface->newMovingRange(r));
+        mr->setZDepth(-90000.0);
         mr->setAttribute(attribute);
         movingRanges.push_back(std::move(mr));
         newRanges++;

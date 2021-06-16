@@ -374,6 +374,7 @@ class LSPClientActionView : public QObject
     QPointer<QAction> m_findImpl;
     QPointer<QAction> m_triggerHighlight;
     QPointer<QAction> m_triggerSymbolInfo;
+    QPointer<QAction> m_triggerGotoSymbol;
     QPointer<QAction> m_triggerFormat;
     QPointer<QAction> m_triggerRename;
     QPointer<QAction> m_complDocOn;
@@ -516,6 +517,9 @@ public:
         m_triggerHighlight->setText(i18n("Highlight"));
         m_triggerSymbolInfo = actionCollection()->addAction(QStringLiteral("lspclient_symbol_info"), this, &self_type::symbolInfo);
         m_triggerSymbolInfo->setText(i18n("Symbol Info"));
+        m_triggerGotoSymbol = actionCollection()->addAction(QStringLiteral("lspclient_goto_workspace_symbol"), this, &self_type::gotoWorkSpaceSymbol);
+        m_triggerGotoSymbol->setText(i18n("Search and Go to Symbol"));
+        actionCollection()->setDefaultShortcut(m_triggerGotoSymbol, Qt::ALT | Qt::CTRL | Qt::Key_P);
         m_triggerFormat = actionCollection()->addAction(QStringLiteral("lspclient_format"), this, &self_type::format);
         m_triggerFormat->setText(i18n("Format"));
         m_triggerRename = actionCollection()->addAction(QStringLiteral("lspclient_rename"), this, &self_type::rename);
@@ -584,9 +588,6 @@ public:
         m_restartAll = actionCollection()->addAction(QStringLiteral("lspclient_restart_all"), this, &self_type::restartAll);
         m_restartAll->setText(i18n("Restart All LSP Servers"));
 
-        auto act = actionCollection()->addAction(QStringLiteral("lspclient_goto_workspace_symbol"), this, &self_type::gotoWorkSpaceSymbol);
-        act->setShortcut(Qt::ALT | Qt::CTRL | Qt::Key_P);
-
         // popup menu
         auto menu = new KActionMenu(i18n("LSP Client"), this);
         actionCollection()->addAction(QStringLiteral("popup_lspclient"), menu);
@@ -598,6 +599,7 @@ public:
         menu->addAction(m_switchSourceHeader);
         menu->addAction(m_triggerHighlight);
         menu->addAction(m_triggerSymbolInfo);
+        menu->addAction(m_triggerGotoSymbol);
         menu->addAction(m_triggerFormat);
         menu->addAction(m_triggerRename);
         menu->addAction(m_quickFix);

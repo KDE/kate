@@ -1136,7 +1136,7 @@ private:
 
         QJsonObject semanticTokens{{QStringLiteral("requests"),
                                         QJsonObject{
-                                            {QStringLiteral("range"), false},
+                                            {QStringLiteral("range"), true},
                                             {QStringLiteral("full"), QJsonObject{{QStringLiteral("delta"), true}}}
                                        }
                                   },

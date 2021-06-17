@@ -220,9 +220,6 @@ public:
         // stage 3; send KILL
 
         // stage 1
-        QEventLoop q;
-        QTimer t;
-        connect(&t, &QTimer::timeout, &q, &QEventLoop::quit);
 
         /* some msleep are used below which is somewhat BAD as it blocks/hangs
          * the mainloop, however there is not much alternative:
@@ -246,34 +243,34 @@ public:
                 }
                 disconnect(s.data(), nullptr, this, nullptr);
                 if (s->state() != LSPClientServer::State::None) {
-                    auto handler = [&q, &count, s]() {
-                        if (s->state() != LSPClientServer::State::None) {
-                            if (--count == 0) {
-                                q.quit();
-                            }
-                        }
-                    };
-                    connect(s.data(), &LSPClientServer::stateChanged, this, handler);
                     ++count;
                     s->stop(-1, -1);
                 }
             }
         }
-        QThread::msleep(500);
+        if (count) {
+            QThread::msleep(500);
+        } else {
+            return;
+        }
 
         // stage 2 and 3
         count = 0;
         for (count = 0; count < 2; ++count) {
+            bool wait = false;
             for (const auto &el : m_servers) {
                 for (const auto &si : el) {
                     auto &s = si.server;
                     if (!s) {
                         continue;
                     }
+                    wait = true;
                     s->stop(count == 0 ? 1 : -1, count == 0 ? -1 : 1);
                 }
             }
-            QThread::msleep(100);
+            if (wait && count == 0) {
+                QThread::msleep(100);
+            }
         }
     }
 

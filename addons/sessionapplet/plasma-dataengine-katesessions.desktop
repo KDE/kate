@@ -109,7 +109,7 @@ Type=Service
 Icon=kate
 X-KDE-ServiceTypes=Plasma/DataEngine
 
-X-KDE-Library=plasma_engine_clipboard
+X-KDE-Library=plasma_engine_katesessions
 
 
 X-KDE-PluginInfo-Author=Joseph Wenninger

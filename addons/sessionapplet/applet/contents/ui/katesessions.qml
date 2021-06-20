@@ -33,17 +33,17 @@ Item {
     }
 
     PlasmaCore.DataSource {
-        id: clipboardSource
+        id: sessionsSource
         property bool editing: false;
         engine: "org.kde.plasma.katesessions"
         connectedSources: "katesessions"
         function service(uuid, op) {
-            var service = clipboardSource.serviceForSource(uuid);
+            var service = sessionsSource.serviceForSource(uuid);
             var operation = service.operationDescription(op);
             return service.startOperationCall(operation);
         }
         function newSession(sessionName) {
-            var service = clipboardSource.serviceForSource("");
+            var service = sessionsSource.serviceForSource("");
             var operation = service.operationDescription("newSession");
             operation.sessionName=sessionName;
             return service.startOperationCall(operation);
@@ -71,22 +71,22 @@ Item {
         Keys.onPressed: {
             switch(event.key) {
                 case Qt.Key_Up: {
-                    clipboardMenu.view.decrementCurrentIndex();
+                    sessionsMenu.view.decrementCurrentIndex();
                     event.accepted = true;
                     break;
                 }
                 case Qt.Key_Down: {
-                    clipboardMenu.view.incrementCurrentIndex();
+                    sessionsMenu.view.incrementCurrentIndex();
                     event.accepted = true;
                     break;
                 }
                 case Qt.Key_Enter:
                 case Qt.Key_Return: {
-                    if (clipboardMenu.view.currentIndex >= 0) {
-                        var uuid = clipboardMenu.model.get(clipboardMenu.view.currentIndex).UuidRole
+                    if (sessionsMenu.view.currentIndex >= 0) {
+                        var uuid = sessionsMenu.model.get(sessionsMenu.view.currentIndex).UuidRole
                         if (uuid) {
-                            clipboardSource.service(uuid, "invoke")
-                            clipboardMenu.view.currentIndex = 0
+                            sessionsSource.service(uuid, "invoke")
+                            sessionsMenu.view.currentIndex = 0
                         }
                     }
                     break;
@@ -106,7 +106,7 @@ Item {
                         return;
                     }
                     if (event.text != "" && !filter.activeFocus) {
-                        clipboardMenu.view.currentIndex = -1
+                        sessionsMenu.view.currentIndex = -1
                         if (event.text == "v" && event.modifiers & Qt.ControlModifier) {
                             filter.paste();
                         } else {
@@ -121,34 +121,21 @@ Item {
         }
         ColumnLayout {
             anchors.fill: parent
-            RowLayout {
-                Layout.fillWidth: true
-                Item {
-                    width: units.gridUnit / 2 - parent.spacing
-                    height: 1
-                }
-                PlasmaComponents.TextField {
-                    id: filter
-                    placeholderText: i18n("Search")
-                    clearButtonShown: true
-                    Layout.fillWidth: true
-                }
-            }
             Menu {
-                id: clipboardMenu
+                id: sessionsMenu
                 model: PlasmaCore.SortFilterModel {
-                    sourceModel: clipboardSource.models.katesessions
+                    sourceModel: sessionsSource.models.katesessions
                     filterRole: "DisplayRole"
                     filterRegExp: filter.text
                 }
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 onItemSelected: {
-                    clipboardSource.service(uuid, "invoke")
+                    sessionsSource.service(uuid, "invoke")
                     plasmoid.expanded = false;
                 }
-                onRemove: clipboardSource.service(uuid, "remove")
-                onNewSession:clipboardSource.newSession(sessionName)
+                onRemove: sessionsSource.service(uuid, "remove")
+                onNewSession: sessionsSource.newSession(sessionName)
             }
             //NewSessionDialog {
             //    id: newsessiondialog

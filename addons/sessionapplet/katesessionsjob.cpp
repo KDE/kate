@@ -15,7 +15,7 @@ SPDX-License-Identifier: GPL-2.0-or-later
 #include <QDebug>
 #include <QUrl>
 
-static const QString s_clipboardSourceName = QStringLiteral("katesessions");
+static const QString s_sessionsSourceName = QStringLiteral("katesessions");
 
 KateSessionsJob::KateSessionsJob(KateSessionsEngine *engine,
                                  const QString &destination,

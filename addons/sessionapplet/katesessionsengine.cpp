@@ -12,13 +12,13 @@ SPDX-License-Identifier: GPL-2.0-or-later
 #include "katesessionsservice.h"
 #include <QDebug>
 
-static const QString s_clipboardSourceName = QStringLiteral("katesessions");
+static const QString s_sessionsSourceName = QStringLiteral("katesessions");
 
 KateSessionsEngine::KateSessionsEngine(QObject *parent, const QVariantList &args)
     : Plasma::DataEngine(parent, args)
 {
-    setData(s_clipboardSourceName, QStringLiteral("test_data"), QLatin1String("This is just for testing"));
-    setModel(s_clipboardSourceName, new KateSessionsModel(this));
+    setData(s_sessionsSourceName, QStringLiteral("test_data"), QLatin1String("This is just for testing"));
+    setModel(s_sessionsSourceName, new KateSessionsModel(this));
 }
 
 KateSessionsEngine::~KateSessionsEngine()

@@ -11,18 +11,19 @@ SPDX-License-Identifier: GPL-2.0-or-later
 *********************************************************************/
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
+
 import org.kde.plasma.plasmoid 2.0
 import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.plasma.components 2.0 as PlasmaComponents
+import org.kde.plasma.components 3.0 as PlasmaComponents3
 import org.kde.plasma.extras 2.0 as PlasmaExtras
 
 Item {
     id: main
-    width: (Plasmoid.formFactor==PlasmaCore.Types.Planar)? units.gridUnit * 14 : undefined
-    height: (Plasmoid.formFactor==PlasmaCore.Types.Planar)? units.gridUnit * 16: undefined
+    width: (Plasmoid.formFactor==PlasmaCore.Types.Planar)? PlasmaCore.Units.gridUnit * 14 : undefined
+    height: (Plasmoid.formFactor==PlasmaCore.Types.Planar)? PlasmaCore.Units.gridUnit * 16: undefined
     
-    Plasmoid.switchWidth: units.gridUnit * 11
-    Plasmoid.switchHeight: units.gridUnit * 11    
+    Plasmoid.switchWidth: PlasmaCore.Units.gridUnit * 11
+    Plasmoid.switchHeight: PlasmaCore.Units.gridUnit * 11
     Plasmoid.status: PlasmaCore.Types.ActiveStatus
     Plasmoid.toolTipMainText: i18n("Kate Sessions")
     Plasmoid.icon: "kate"
@@ -51,13 +52,28 @@ Item {
         
     }
 
-    Plasmoid.fullRepresentation: Item {
+    property var searchHeader: PlasmaExtras.PlasmoidHeading {
+        RowLayout {
+            anchors.fill: parent
+            enabled: true
+
+            PlasmaComponents3.TextField {
+                id: filter
+                placeholderText: i18n("Search…")
+                clearButtonShown: true
+                Layout.fillWidth: true
+            }
+        }
+    }
+
+    Plasmoid.fullRepresentation: PlasmaComponents3.Page {
 
         id: dialogItem
-        Layout.minimumWidth: units.gridUnit * 12
-        Layout.minimumHeight: units.gridUnit * 12
+        Layout.minimumWidth: PlasmaCore.Units.gridUnit * 12
+        Layout.minimumHeight: PlasmaCore.Units.gridUnit * 12
 
         focus: true
+        header: searchHeader
 
         property alias listMargins: listItemSvg.margins
 
@@ -130,6 +146,7 @@ Item {
                 }
                 Layout.fillWidth: true
                 Layout.fillHeight: true
+                Layout.topMargin: PlasmaCore.Units.smallSpacing
                 onItemSelected: {
                     sessionsSource.service(uuid, "invoke")
                     plasmoid.expanded = false;
@@ -137,9 +154,6 @@ Item {
                 onRemove: sessionsSource.service(uuid, "remove")
                 onNewSession: sessionsSource.newSession(sessionName)
             }
-            //NewSessionDialog {
-            //    id: newsessiondialog
-            //}
         }
     }
 }

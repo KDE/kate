@@ -271,6 +271,13 @@ public:
         auto handler = [this](const QList<LSPCompletionItem> & compl ) {
             beginResetModel();
             qCInfo(LSPCLIENT) << "adding completions " << compl .size();
+            // purge all existing completion items
+            m_matches.erase(std::remove_if(m_matches.begin(),
+                                           m_matches.end(),
+                                           [](const LSPClientCompletionItem &ci) {
+                                               return ci.argumentHintDepth == 0;
+                                           }),
+                            m_matches.end());
             for (const auto &item : compl ) {
                 m_matches.push_back(item);
             }
@@ -283,6 +290,12 @@ public:
             beginResetModel();
             qCInfo(LSPCLIENT) << "adding signatures " << sig.signatures.size();
             int index = 0;
+            m_matches.erase(std::remove_if(m_matches.begin(),
+                                           m_matches.end(),
+                                           [](const LSPClientCompletionItem &ci) {
+                                               return ci.argumentHintDepth == 1;
+                                           }),
+                            m_matches.end());
             for (const auto &item : sig.signatures) {
                 int sortIndex = 10 + index;
                 int active = -1;

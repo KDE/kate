@@ -52,11 +52,8 @@ void KateSessionsJob::start()
         QStringList args;
         if (dest == QLatin1String("_kate_noargs")) {
             // do nothing
-        } else if (dest == QLatin1String("_kate_anon_newsession")) {
-            args << QStringLiteral("--startanon");
         } else if (dest == QLatin1String("_kate_newsession")) {
             args << QStringLiteral("--startanon");
-            qDebug() << "This should not be reached";
         } else {
             dest.chop(12); // .katesession
             args << QStringLiteral("-n") << QStringLiteral("--start") << QUrl::fromPercentEncoding(dest.toLatin1());

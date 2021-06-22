@@ -80,14 +80,6 @@ void KateSessionsModel::initSessionFiles()
     m_fullList << item->data(Qt::DisplayRole).toString();
     appendRow(item);
 
-    item = new QStandardItem();
-    item->setData(i18n("New Anonymous Session"), Qt::DisplayRole);
-    item->setData(QStringLiteral("_kate_anon_newsession"), Uuid);
-    item->setData(0, TypeRole);
-    item->setData(QIcon::fromTheme(QStringLiteral("document-new")), Qt::DecorationRole);
-    m_fullList << item->data(Qt::DisplayRole).toString();
-    appendRow(item);
-
     QDir dir(m_sessionsDir, QStringLiteral("*.katesession"));
 
     for (unsigned int i = 0; i < dir.count(); ++i) {

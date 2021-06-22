@@ -38,31 +38,26 @@ Item {
         property bool editing: false;
         engine: "org.kde.plasma.katesessions"
         connectedSources: "katesessions"
-        function service(uuid, op) {
-            var service = sessionsSource.serviceForSource(uuid);
+        function serviceAction(uuid, op) {
+            const service = sessionsSource.serviceForSource(uuid);
             var operation = service.operationDescription(op);
             return service.startOperationCall(operation);
         }
         function newSession(sessionName) {
-            var service = sessionsSource.serviceForSource("");
+            const service = sessionsSource.serviceForSource("");
             var operation = service.operationDescription("newSession");
-            operation.sessionName=sessionName;
+            operation.sessionName = sessionName;
             return service.startOperationCall(operation);
         }
         
     }
 
     property var searchHeader: PlasmaExtras.PlasmoidHeading {
-        RowLayout {
+        PlasmaComponents3.TextField {
+            id: filter
+            placeholderText: i18n("Search…")
+            clearButtonShown: true
             anchors.fill: parent
-            enabled: true
-
-            PlasmaComponents3.TextField {
-                id: filter
-                placeholderText: i18n("Search…")
-                clearButtonShown: true
-                Layout.fillWidth: true
-            }
         }
     }
 
@@ -99,9 +94,9 @@ Item {
                 case Qt.Key_Enter:
                 case Qt.Key_Return: {
                     if (sessionsMenu.view.currentIndex >= 0) {
-                        var uuid = sessionsMenu.model.get(sessionsMenu.view.currentIndex).UuidRole
+                        const uuid = sessionsMenu.model.get(sessionsMenu.view.currentIndex).UuidRole
                         if (uuid) {
-                            sessionsSource.service(uuid, "invoke")
+                            sessionsSource.serviceAction(uuid, "invoke")
                             sessionsMenu.view.currentIndex = 0
                         }
                     }
@@ -148,10 +143,10 @@ Item {
                 Layout.fillHeight: true
                 Layout.topMargin: PlasmaCore.Units.smallSpacing
                 onItemSelected: {
-                    sessionsSource.service(uuid, "invoke")
+                    sessionsSource.serviceAction(uuid, "invoke")
                     plasmoid.expanded = false;
                 }
-                onRemove: sessionsSource.service(uuid, "remove")
+                onRemove: sessionsSource.serviceAction(uuid, "remove")
                 onNewSession: sessionsSource.newSession(sessionName)
             }
         }

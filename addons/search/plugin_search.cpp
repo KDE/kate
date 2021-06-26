@@ -1973,9 +1973,15 @@ void KatePluginSearchView::tabCloseRequested(int index)
         cancelDiskFileSearch();
         m_folderFilesList.terminateSearch();
     }
+
     if (m_ui.resultTabWidget->count() > 1) {
-        delete tmp; // remove the tab
-        m_curResults = nullptr;
+        m_ui.resultTabWidget->removeTab(index);
+        if (m_curResults == tmp) {
+            delete m_curResults;
+            m_curResults = nullptr;
+        } else {
+            delete tmp;
+        }
     }
 
     updateMatchMarks();

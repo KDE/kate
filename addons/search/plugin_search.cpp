@@ -363,6 +363,8 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
     actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::SHIFT | Qt::Key_F6));
     connect(a, &QAction::triggered, this, &KatePluginSearchView::goToPreviousMatch);
 
+    // Only show the tab bar when there is more than one tab
+    m_ui.resultTabWidget->tabBar()->setAutoHide(true);
     m_ui.resultTabWidget->tabBar()->setSelectionBehaviorOnRemove(QTabBar::SelectLeftTab);
     KAcceleratorManager::setNoAccel(m_ui.resultTabWidget);
 
@@ -389,9 +391,7 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
     m_ui.filterCombo->setToolTip(i18n("Comma separated list of file types to search in. Example: \"*.cpp,*.h\"\n"));
     m_ui.excludeCombo->setToolTip(i18n("Comma separated list of files and directories to exclude from the search. Example: \"build*\""));
 
-    // the order here is important to get the tabBar hidden for only one tab
     addTab();
-    m_ui.resultTabWidget->tabBar()->hide();
 
     // get url-requester's combo box and sanely initialize
     KComboBox *cmbUrl = m_ui.folderRequester->comboBox();
@@ -1960,7 +1960,6 @@ void KatePluginSearchView::addTab()
     m_ui.resultTabWidget->addTab(res, QString());
     m_ui.resultTabWidget->setCurrentIndex(m_ui.resultTabWidget->count() - 1);
     m_ui.stackedWidget->setCurrentIndex(0);
-    m_ui.resultTabWidget->tabBar()->show();
     m_ui.displayOptions->setChecked(false);
 
     res->treeView->installEventFilter(this);
@@ -1978,9 +1977,7 @@ void KatePluginSearchView::tabCloseRequested(int index)
         delete tmp; // remove the tab
         m_curResults = nullptr;
     }
-    if (m_ui.resultTabWidget->count() == 1) {
-        m_ui.resultTabWidget->tabBar()->hide();
-    }
+
     updateMatchMarks();
 }
 

@@ -106,7 +106,7 @@ and puts you in insert mode.</para>
 <para>Vim: <userinput>O</userinput> and <userinput>o</userinput> opens a new line and inserts
 text [<replaceable>count</replaceable>] times when leaving insert mode.</para>
 <para>This is mostly done as a consequence of witnessing many people being
-confused by this behavior on a vim &irc; channel (#vim on freenode).</para>
+confused by this behavior on a vim &irc; channel (#vim on Libera Chat).</para>
 </listitem>
 </itemizedlist>
 

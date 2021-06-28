@@ -11,8 +11,6 @@ target_sources(
     plugin.qrc
 )
 
-kcoreaddons_desktop_to_json(tabswitcherplugin tabswitcherplugin.desktop)
-
 # ensure we are able to load plugins pre-install, too, directories must match!
 set_target_properties(tabswitcherplugin PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/ktexteditor")
 install(TARGETS tabswitcherplugin DESTINATION ${KDE_INSTALL_PLUGINDIR}/ktexteditor)

@@ -9,8 +9,6 @@ target_sources(
     colorpickerconfigpage.cpp
 )
 
-kcoreaddons_desktop_to_json(katecolorpickerplugin katecolorpickerplugin.desktop)
-
 # ensure we are able to load plugins pre-install, too, directories must match!
 set_target_properties(katecolorpickerplugin PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/ktexteditor")
 install(TARGETS katecolorpickerplugin DESTINATION ${KDE_INSTALL_PLUGINDIR}/ktexteditor)

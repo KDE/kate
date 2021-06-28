@@ -26,8 +26,6 @@ target_sources(
     katefilebrowseropenwithmenu.cpp
 )
 
-kcoreaddons_desktop_to_json(katefilebrowserplugin katefilebrowserplugin.desktop)
-
 # ensure we are able to load plugins pre-install, too, directories must match!
 set_target_properties(katefilebrowserplugin PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/ktexteditor")
 install(TARGETS katefilebrowserplugin DESTINATION ${KDE_INSTALL_PLUGINDIR}/ktexteditor)

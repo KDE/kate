@@ -20,8 +20,6 @@ target_sources(
     plugin.qrc
 )
 
-kcoreaddons_desktop_to_json(katesymbolviewerplugin katesymbolviewerplugin.desktop)
-
 # ensure we are able to load plugins pre-install, too, directories must match!
 set_target_properties(katesymbolviewerplugin PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/ktexteditor")
 install(TARGETS katesymbolviewerplugin DESTINATION ${KDE_INSTALL_PLUGINDIR}/ktexteditor)

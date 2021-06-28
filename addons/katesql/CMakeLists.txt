@@ -42,8 +42,6 @@ target_sources(
     plugin.qrc
 )
 
-kcoreaddons_desktop_to_json(katesqlplugin katesql.desktop)
-
 # ensure we are able to load plugins pre-install, too, directories must match!
 set_target_properties(katesqlplugin PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/ktexteditor")
 install(TARGETS katesqlplugin DESTINATION ${KDE_INSTALL_PLUGINDIR}/ktexteditor)

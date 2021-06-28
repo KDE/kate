@@ -17,8 +17,6 @@ target_sources(
     plugin.qrc
 )
 
-kcoreaddons_desktop_to_json (katebuildplugin katebuildplugin.desktop)
-
 # ensure we are able to load plugins pre-install, too, directories must match!
 set_target_properties(katebuildplugin PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/ktexteditor")
 install(TARGETS katebuildplugin DESTINATION ${KDE_INSTALL_PLUGINDIR}/ktexteditor)

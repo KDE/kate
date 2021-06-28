@@ -19,8 +19,6 @@ target_sources(
     plugin.qrc
 )
 
-kcoreaddons_desktop_to_json(katecloseexceptplugin katecloseexceptplugin.desktop)
-
 # ensure we are able to load plugins pre-install, too, directories must match!
 set_target_properties(katecloseexceptplugin PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/ktexteditor")
 install(TARGETS katecloseexceptplugin DESTINATION ${KDE_INSTALL_PLUGINDIR}/ktexteditor)

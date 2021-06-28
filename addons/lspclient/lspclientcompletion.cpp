@@ -346,11 +346,6 @@ public:
         return k == LSPCompletionItemKind::Function || k == LSPCompletionItemKind::Method;
     }
 
-    static bool hasTextEdit(const LSPCompletionItem &i)
-    {
-        return !i.textEdit.newText.isEmpty();
-    }
-
     void executeCompletionItem(KTextEditor::View *view, const KTextEditor::Range &word, const QModelIndex &index) const override
     {
         if (index.row() >= m_matches.size()) {
@@ -359,23 +354,13 @@ public:
 
         QChar next = peekNextChar(view->document(), word);
 
-        QString matching;
-        KTextEditor::Range replaceRange = word;
-
-        const auto &completionItem = m_matches.at(index.row());
-        if (hasTextEdit(completionItem)) {
-            matching = completionItem.textEdit.newText;
-            auto range = completionItem.textEdit.range;
-            replaceRange = range;
-        } else {
-            matching = m_matches.at(index.row()).insertText;
-            // if there is already a '"' or >, remove it, this happens with #include "xx.h"
-            if ((next == QLatin1Char('"') && matching.endsWith(QLatin1Char('"'))) || (next == QLatin1Char('>') && matching.endsWith(QLatin1Char('>')))) {
-                matching.chop(1);
-            }
+        QString matching = m_matches.at(index.row()).insertText;
+        // if there is already a '"' or >, remove it, this happens with #include "xx.h"
+        if ((next == QLatin1Char('"') && matching.endsWith(QLatin1Char('"'))) || (next == QLatin1Char('>') && matching.endsWith(QLatin1Char('>')))) {
+            matching.chop(1);
         }
 
-        const auto kind = completionItem.kind;
+        const LSPCompletionItemKind kind = m_matches.at(index.row()).kind;
         // Is this a function?
         // add parentheses if function and guestimated meaningful for language in question
         // this covers at least the common cases such as clangd, python, etc
@@ -385,7 +370,7 @@ public:
             matching += QStringLiteral("()");
         }
 
-        view->document()->replaceText(replaceRange, matching);
+        view->document()->replaceText(word, matching);
 
         if (addParens) {
             // place the cursor in between (|)

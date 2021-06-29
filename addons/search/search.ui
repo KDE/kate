@@ -267,6 +267,9 @@
        </property>
        <item>
         <widget class="QTabWidget" name="resultTabWidget">
+         <property name="elideMode">
+          <enum>Qt::ElideMiddle</enum>
+         </property>
          <property name="tabsClosable">
           <bool>true</bool>
          </property>

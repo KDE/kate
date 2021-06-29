@@ -848,8 +848,6 @@ void KatePluginSearchView::searchPlaceChanged()
 {
     int searchPlace = m_ui.searchPlaceCombo->currentIndex();
     const bool inFolder = (searchPlace == MatchModel::Folder);
-    const bool inCurrentProject = searchPlace == MatchModel::Project;
-    const bool inAllOpenProjects = searchPlace == MatchModel::AllProjects;
 
     m_ui.filterCombo->setEnabled(searchPlace >= MatchModel::Folder);
     m_ui.excludeCombo->setEnabled(searchPlace >= MatchModel::Folder);
@@ -859,7 +857,7 @@ void KatePluginSearchView::searchPlaceChanged()
     m_ui.recursiveCheckBox->setEnabled(inFolder);
     m_ui.hiddenCheckBox->setEnabled(inFolder);
     m_ui.symLinkCheckBox->setEnabled(inFolder);
-    m_ui.binaryCheckBox->setEnabled(inFolder || inCurrentProject || inAllOpenProjects);
+    m_ui.binaryCheckBox->setEnabled(inFolder);
 
     if (inFolder && sender() == m_ui.searchPlaceCombo) {
         setCurrentFolder();
@@ -1119,7 +1117,9 @@ void KatePluginSearchView::startSearch()
         if (!openList.empty()) {
             m_searchOpenFiles.startSearch(openList, m_curResults->regExp);
         }
-        startDiskFileSearch(files, m_curResults->regExp, m_ui.binaryCheckBox->isChecked());
+        // We don't want to search for binary files in the project, so false is used instead of the checkbox
+        // which is disabled in this case
+        startDiskFileSearch(files, m_curResults->regExp, false);
     } else {
         qDebug() << "Case not handled:" << m_ui.searchPlaceCombo->currentIndex();
         Q_ASSERT_X(false, "KatePluginSearchView::startSearch", "case not handled");

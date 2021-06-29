@@ -1,5 +1,15 @@
 [KNewStuff3]
 Name=Text Editor Snippets
+Name[az]=Mətn redaktoru hissələri
+Name[ca]=Retalls de l'editor de text
+Name[ca@valencia]=Retalls de l'editor de text
+Name[es]=Fragmentos del editor de texto
+Name[nl]=Tekstfragmentenbewerker
+Name[pt]=Excertos do Editor de Texto
+Name[sv]=Texteditorsnuttar
+Name[uk]=Фрагменти текстового редактора
+Name[vi]=Mảnh mã trong trình biên tập văn bản
+Name[x-test]=xxText Editor Snippetsxx
 
 ProvidersUrl=https://autoconfig.kde.org/ocs/providers.xml
 Categories=KTextEditor Snippet

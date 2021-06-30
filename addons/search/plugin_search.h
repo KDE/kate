@@ -113,6 +113,7 @@ public Q_SLOTS:
 
 private:
     enum CopyResultType { AllExpanded, All };
+    enum class MatchType { NoMatch, HasMatch, InvalidRegExp };
 
 private Q_SLOTS:
     void openSearchView();
@@ -137,7 +138,8 @@ private Q_SLOTS:
 
     void searchDone();
     void searchWhileTypingDone();
-    void indicateMatch(bool hasMatch);
+
+    void indicateMatch(MatchType matchType);
 
     void itemSelected(const QModelIndex &item);
 

@@ -999,10 +999,11 @@ void KatePluginSearchView::startSearch()
     QRegularExpression reg(pattern, patternOptions);
 
     if (!reg.isValid()) {
-        // qDebug() << "invalid regexp";
-        indicateMatch(false);
+        m_ui.searchCombo->setToolTip(reg.errorString());
+        indicateMatch(MatchType::InvalidRegExp);
         return;
     }
+    m_ui.searchCombo->setToolTip(QString());
 
     Q_EMIT searchBusy(true);
 
@@ -1175,11 +1176,13 @@ void KatePluginSearchView::startSearchWhileTyping()
     }
     QRegularExpression reg(pattern, patternOptions);
 
+    // If we have an invalid regex it could be caused by the user not having finished the query,
+    // consequently we should ignore it skip the search but don't display an error message'
     if (!reg.isValid()) {
-        // qDebug() << "invalid regexp";
-        indicateMatch(false);
+        indicateMatch(MatchType::InvalidRegExp);
         return;
     }
+    m_ui.searchCombo->setToolTip(QString());
 
     Q_EMIT searchBusy(true);
 
@@ -1274,7 +1277,7 @@ void KatePluginSearchView::searchDone()
 
     m_curResults->treeView->resizeColumnToContents(0);
 
-    indicateMatch(m_curResults->matches > 0);
+    indicateMatch(m_curResults->matches > 0 ? MatchType::HasMatch : MatchType::NoMatch);
 
     m_curResults = nullptr;
     m_toolView->unsetCursor();
@@ -1315,7 +1318,7 @@ void KatePluginSearchView::searchWhileTypingDone()
     // expand the "header item " to display all files and all results if configured
     expandResults();
 
-    indicateMatch(m_curResults->matches > 0);
+    indicateMatch(m_curResults->matches > 0 ? MatchType::HasMatch : MatchType::NoMatch);
 
     m_curResults = nullptr;
 
@@ -1326,14 +1329,17 @@ void KatePluginSearchView::searchWhileTypingDone()
     updateMatchMarks();
 }
 
-void KatePluginSearchView::indicateMatch(bool hasMatch)
+void KatePluginSearchView::indicateMatch(MatchType matchType)
 {
     QLineEdit *const lineEdit = m_ui.searchCombo->lineEdit();
     QPalette background(lineEdit->palette());
 
-    if (hasMatch) {
+    if (matchType == MatchType::HasMatch) {
         // Green background for line edit
         KColorScheme::adjustBackground(background, KColorScheme::PositiveBackground);
+    } else if (matchType == MatchType::InvalidRegExp) {
+        // Red background in case an error occured
+        KColorScheme::adjustBackground(background, KColorScheme::NegativeBackground);
     } else {
         // Reset background of line edit
         background = QPalette();

@@ -1,7 +1,21 @@
 {
     "KPlugin": {
         "Description": "File system browser tool view",
+        "Description[az]": "Fayl sistemi bələdçisi aləti görünüşü",
+        "Description[ca]": "Vista d'eina del navegador pel sistema de fitxers",
+        "Description[es]": "Vista de la herramienta del navegador del sistema de archivos",
+        "Description[nl]": "Blader door het bestandssysteem",
+        "Description[sv]": "Verktygsvy för filsystembläddring",
+        "Description[uk]": "Панель навігатора файловою системою",
+        "Description[x-test]": "xxFile system browser tool viewxx",
         "Name": "File System Browser",
+        "Name[az]": "Fayl sistemi bələdçisi",
+        "Name[ca]": "Navegador del sistema de fitxers",
+        "Name[es]": "Navegador del sistema de archivos",
+        "Name[nl]": "Bestandssysteembrowser",
+        "Name[sv]": "Filsystembläddrare",
+        "Name[uk]": "Навігатор файловою системою",
+        "Name[x-test]": "xxFile System Browserxx",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

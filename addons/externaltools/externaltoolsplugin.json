@@ -1,8 +1,22 @@
 {
     "KPlugin": {
         "Description": "External Tools",
+        "Description[az]": "Xarici alətlər",
+        "Description[ca]": "Eines externes",
+        "Description[es]": "Herramientas externas",
+        "Description[nl]": "Externe hulpmiddelen",
+        "Description[sv]": "Externa verktyg",
+        "Description[uk]": "Зовнішні інструменти",
+        "Description[x-test]": "xxExternal Toolsxx",
         "Icon": "system-run",
         "Name": "External Tools",
+        "Name[az]": "Xarici alətlər",
+        "Name[ca]": "Eines externes",
+        "Name[es]": "Herramientas externas",
+        "Name[nl]": "Externe hulpmiddelen",
+        "Name[sv]": "Externa verktyg",
+        "Name[uk]": "Зовнішні засоби",
+        "Name[x-test]": "xxExternal Toolsxx",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

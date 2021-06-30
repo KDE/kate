@@ -1,7 +1,21 @@
 {
     "KPlugin": {
         "Description": "Search and replace in documents, folders, or projects",
+        "Description[az]": "SənədlərdəŞ qovluqlarda və ya layihələrdə axtarımaq və əvəzləmək",
+        "Description[ca]": "Cerca i substitució en documents, carpetes o projectes",
+        "Description[es]": "Buscar y sustituir en documentos, carpetas o proyectos",
+        "Description[nl]": "Zoeken en vervangen in documenten, mappen of projecten",
+        "Description[sv]": "Sök och ersätt i dokument, kataloger eller projekt",
+        "Description[uk]": "Пошук з заміною у відкритих документах,теках або проєктах",
+        "Description[x-test]": "xxSearch and replace in documents, folders, or projectsxx",
         "Name": "Search & Replace",
+        "Name[az]": "Axtarın və əvəzləyin",
+        "Name[ca]": "Cerca i substitueix",
+        "Name[es]": "Buscar y sustituir",
+        "Name[nl]": "Zoeken en vervangen",
+        "Name[sv]": "Sök och ersätt",
+        "Name[uk]": "Пошук з заміною",
+        "Name[x-test]": "xxSearch & Replacexx",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

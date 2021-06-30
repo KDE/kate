@@ -1,7 +1,21 @@
 {
     "KPlugin": {
         "Description": "Provides a simple GDB frontend",
+        "Description[az]": "Sadə bir GDB xarici interfeysi ilə təmin edir",
+        "Description[ca]": "Proporciona un frontal de GDB senzill",
+        "Description[es]": "Proporciona una interfaz de GDB sencilla",
+        "Description[nl]": "Levert een eenvoudige GDB-frontend",
+        "Description[sv]": "Tillhandahåller ett enkelt gränssnitt för GDB",
+        "Description[uk]": "Проста оболонка до GDB",
+        "Description[x-test]": "xxProvides a simple GDB frontendxx",
         "Name": "GDB",
+        "Name[az]": "GDB",
+        "Name[ca]": "GDB",
+        "Name[es]": "GDB",
+        "Name[nl]": "GDB",
+        "Name[sv]": "GDB",
+        "Name[uk]": "GDB",
+        "Name[x-test]": "xxGDBxx",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

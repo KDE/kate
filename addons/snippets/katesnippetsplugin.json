@@ -1,8 +1,22 @@
 {
     "KPlugin": {
         "Description": "Manage your code snippets or download new ones",
+        "Description[az]": "Kod fraqmentlərini idarə edin və yenilərini endirin",
+        "Description[ca]": "Gestiona els retalls de codi o en baixa de nous",
+        "Description[es]": "Gestión de fragmentos de código y descarga de otros nuevos",
+        "Description[nl]": "Uw codefragmenten beheren of nieuwe downloaden",
+        "Description[sv]": "Hantera kodsnuttar eller ladda ner nya",
+        "Description[uk]": "Керування фрагментами вашого коду та отримання фрагментів коду інших",
+        "Description[x-test]": "xxManage your code snippets or download new onesxx",
         "Icon": "document-new",
         "Name": "Snippets Tool View",
+        "Name[az]": "Fraqmentlər paneli",
+        "Name[ca]": "Vista d'eina de retalls",
+        "Name[es]": "Vista de la herramienta de fragmentos",
+        "Name[nl]": "Weergave van hulpmiddel voor fragmenten",
+        "Name[sv]": "Verktygsvy för kodsnuttar",
+        "Name[uk]": "Панель фрагментів",
+        "Name[x-test]": "xxSnippets Tool Viewxx",
         "ServiceTypes": [
             "KTextEditor/Plugin",
             "KDevelop/Plugin"

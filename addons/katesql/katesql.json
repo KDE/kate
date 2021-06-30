@@ -1,7 +1,21 @@
 {
     "KPlugin": {
         "Description": "Execute query on SQL databases",
+        "Description[az]": "SQL verilənlər bazasında sorğu icra edin",
+        "Description[ca]": "Executa consultes a bases de dades SQL",
+        "Description[es]": "Ejecutar consultas a bases de datos SQL",
+        "Description[nl]": "Zoekopdracht uitvoeren op SQL-databases",
+        "Description[sv]": "Utför förfrågan i SQL-databaser",
+        "Description[uk]": "Виконання запитів до баз даних SQL",
+        "Description[x-test]": "xxExecute query on SQL databasesxx",
         "Name": "SQL Plugin",
+        "Name[az]": "SQL qoşması",
+        "Name[ca]": "Connector SQL",
+        "Name[es]": "Complemento SQL",
+        "Name[nl]": "SQL-plug-in",
+        "Name[sv]": "SQL-insticksprogram",
+        "Name[uk]": "Додаток SQL",
+        "Name[x-test]": "xxSQL Pluginxx",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

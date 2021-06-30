@@ -1,7 +1,21 @@
 {
     "KPlugin": {
         "Description": "Extract and show reference symbols from source",
+        "Description[az]": "Mənbə kodundan C/C++ identifikatorlarını çıxarır və göstərir",
+        "Description[ca]": "Extreu i visualitza símbols de referència des del codi font",
+        "Description[es]": "Extraer y mostrar símbolos de referencia del código fuente",
+        "Description[nl]": "Referentiesymbolen uit de broncode halen en tonen",
+        "Description[sv]": "Hämta och visa referenssymboler från källkod",
+        "Description[uk]": "Добування і показ символів з джерельного коду",
+        "Description[x-test]": "xxExtract and show reference symbols from sourcexx",
         "Name": "Symbol Viewer",
+        "Name[az]": "Simvol Görünüşü",
+        "Name[ca]": "Visor de símbols",
+        "Name[es]": "Visor de símbolos",
+        "Name[nl]": "Symboolviewer",
+        "Name[sv]": "Symbolvisning",
+        "Name[uk]": "Переглядач символів",
+        "Name[x-test]": "xxSymbol Viewerxx",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

@@ -1,7 +1,21 @@
 {
     "KPlugin": {
         "Description": "Validates XML files using xmllint",
+        "Description[az]": "XML fayllarını xmllint istifadə edərək doğrulayır",
+        "Description[ca]": "Valida els fitxers XML usant el «xmllint»",
+        "Description[es]": "Valida archivos XML usando xmllint",
+        "Description[nl]": "Valideert XML-bestanden met behulp van xmllint",
+        "Description[sv]": "Validerar XML-filer med XMLlint",
+        "Description[uk]": "Перевіряє файли XML за допомогою xmllint",
+        "Description[x-test]": "xxValidates XML files using xmllintxx",
         "Name": "XML Validation",
+        "Name[az]": "XML doğrulama",
+        "Name[ca]": "Validació de l'XML",
+        "Name[es]": "Validación XML",
+        "Name[nl]": "XML-validatie",
+        "Name[sv]": "XML-validering",
+        "Name[uk]": "Перевірка XML",
+        "Name[x-test]": "xxXML Validationxx",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

@@ -1,7 +1,21 @@
 {
     "KPlugin": {
         "Description": "Integration with Git and other source control systems",
+        "Description[az]": "Git və digər versiyaya nəzarət sistemləri ilə inteqrasiya",
+        "Description[ca]": "Integració amb el Git i altres sistemes de control de codi font",
+        "Description[es]": "Integración con Git y otros sistemas de control de código fuente",
+        "Description[nl]": "Integratie met Git en andere controlesystemen voor broncode",
+        "Description[sv]": "Integrering med Git och andra källkontrollsystem",
+        "Description[uk]": "Інтеграція із Git та іншими системами керування кодом",
+        "Description[x-test]": "xxIntegration with Git and other source control systemsxx",
         "Name": "Project Plugin",
+        "Name[az]": "Layihə modulu",
+        "Name[ca]": "Connector de projecte",
+        "Name[es]": "Complemento de proyectos",
+        "Name[nl]": "Projectplug-in",
+        "Name[sv]": "Projektinsticksprogram",
+        "Name[uk]": "Додаток проєктів",
+        "Name[x-test]": "xxProject Pluginxx",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

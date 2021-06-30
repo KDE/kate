@@ -1,7 +1,21 @@
 {
     "KPlugin": {
         "Description": "Lists XML elements, attributes, attribute values and entities allowed by DTD",
+        "Description[az]": "DTD tərəfindən icazə verilən XML elementlərini, atributları, atribut dəyərlərini və girişləri sıralayır",
+        "Description[ca]": "Llista els elements XML, atributs, valors dels atributs i entitats permeses per la DTD",
+        "Description[es]": "Lista elementos XML, atributos, valores de atributos y entidades permitidas por la DTD",
+        "Description[nl]": "Somt XML-elementen, -atributen, -atribuutwaarden en -entiteiten op die door de DTD zijn toegestaan",
+        "Description[sv]": "Listar XML-element, attribut, attributvärden och objekt som tillåts av DTD",
+        "Description[uk]": "Список елементів XML, атрибути, значення атрибутів і об’єктів дозволених DTD",
+        "Description[x-test]": "xxLists XML elements, attributes, attribute values and entities allowed by DTDxx",
         "Name": "XML Completion",
+        "Name[az]": "XML tamamlama",
+        "Name[ca]": "Compleció XML",
+        "Name[es]": "Terminación de XML",
+        "Name[nl]": "XML-aanvulling",
+        "Name[sv]": "XML-komplettering",
+        "Name[uk]": "Завершення XML",
+        "Name[x-test]": "xxXML Completionxx",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

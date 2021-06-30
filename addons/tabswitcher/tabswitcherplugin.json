@@ -1,7 +1,21 @@
 {
     "KPlugin": {
         "Description": "Quick document switching with Alt+Tab behavior",
+        "Description[az]": "Alt+Tab ilə sənədləri sürətlə dəyişdirmək",
+        "Description[ca]": "Canvia ràpidament de document amb el comportament d'Alt+Tab",
+        "Description[es]": "Cambio rápido de documento al estilo de Alt+Tab",
+        "Description[nl]": "Snel van document wisselen met Alt+Tab",
+        "Description[sv]": "Snabbt dokumentbyte med Alt+Tabulator beteende",
+        "Description[uk]": "Поведінка швидкого перемикача між документами за Alt+Tab",
+        "Description[x-test]": "xxQuick document switching with Alt+Tab behaviorxx",
         "Name": "Document Switcher",
+        "Name[az]": "Sənəd dəyişdricisi",
+        "Name[ca]": "Commutador de documents",
+        "Name[es]": "Selector de documentos",
+        "Name[nl]": "Documentenwisselaar",
+        "Name[sv]": "Dokumentbyte",
+        "Name[uk]": "Перемикач між документами",
+        "Name[x-test]": "xxDocument Switcherxx",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

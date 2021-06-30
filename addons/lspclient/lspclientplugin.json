@@ -1,7 +1,21 @@
 {
     "KPlugin": {
         "Description": "Language Server Protocol Client",
+        "Description[az]": "Language Server Protocol dəstəyi",
+        "Description[ca]": "Client del protocol de servidor de llenguatge",
+        "Description[es]": "Cliente del protocolo de servidor de lenguaje",
+        "Description[nl]": "Language Server Protocol Client",
+        "Description[sv]": "Klient för språkserverprotokollet (Language Server Protocol)",
+        "Description[uk]": "Клієнт протоколу сервера мов (LSP)",
+        "Description[x-test]": "xxLanguage Server Protocol Clientxx",
         "Name": "LSP Client",
+        "Name[az]": "LSP müştərisi",
+        "Name[ca]": "Client LSP",
+        "Name[es]": "Cliente LSP",
+        "Name[nl]": "LSP-client",
+        "Name[sv]": "LSP-klient",
+        "Name[uk]": "Клієнт LSP",
+        "Name[x-test]": "xxLSP Clientxx",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

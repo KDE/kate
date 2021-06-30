@@ -1,7 +1,21 @@
 {
     "KPlugin": {
         "Description": "C/C++ Backtrace navigation tool view",
+        "Description[az]": "C/C++ geri izləmə naviqasiya aləti görünüşü",
+        "Description[ca]": "Vista d'eina del navegador per a la traça inversa de C/C++",
+        "Description[es]": "Vista de la herramienta de navegación por trazas inversas de C/C++",
+        "Description[nl]": "C/C++ Backtrace hulpmiddel voor navigatieweergave",
+        "Description[sv]": "C/C++ navigeringsverktyg med vy av bakåtspårning",
+        "Description[uk]": "Панель навігації зворотним трасуванням C++",
+        "Description[x-test]": "xxC/C++ Backtrace navigation tool viewxx",
         "Name": "Backtrace Browser",
+        "Name[az]": "Geri izləmə bələdçisi",
+        "Name[ca]": "Navegador de traça inversa",
+        "Name[es]": "Explorador de trazas inversas",
+        "Name[nl]": "Backtrace bladerprogramma",
+        "Name[sv]": "Bläddring i bakåtspårning",
+        "Name[uk]": "Переглядач зворотного трасування",
+        "Name[x-test]": "xxBacktrace Browserxx",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

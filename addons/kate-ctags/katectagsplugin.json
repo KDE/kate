@@ -1,8 +1,22 @@
 {
     "KPlugin": {
         "Description": "Look up definitions/declarations with CTags",
+        "Description[az]": "CTags ilə bildirişlərədə və tanıtmalarda axtarın",
+        "Description[ca]": "Cerca definicions/declaracions amb CTags",
+        "Description[es]": "Buscar definiciones/declaraciones con CTags",
+        "Description[nl]": "Defenities/declaraties opzoeken met CTags",
+        "Description[sv]": "Slå upp definitioner och deklarationer med Ctags",
+        "Description[uk]": "Пошук визначень і оголошень за допомогою CTags",
+        "Description[x-test]": "xxLook up definitions/declarations with CTagsxx",
         "Icon": "text-x-csrc",
         "Name": "CTags",
+        "Name[az]": "CTags",
+        "Name[ca]": "CTags",
+        "Name[es]": "CTags",
+        "Name[nl]": "CTags",
+        "Name[sv]": "CTags",
+        "Name[uk]": "CTags",
+        "Name[x-test]": "xxCTagsxx",
         "ServiceTypes": [
             "KTextEditor/Plugin",
             "KDevelop/Plugin"

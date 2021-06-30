@@ -3,15 +3,36 @@
         "Authors": [
             {
                 "Email": "jowenn@kde.org",
-                "Name": "Joseph Wenninger"
+                "Name": "Joseph Wenninger",
+                "Name[az]": "Joseph Wenninger",
+                "Name[ca]": "Joseph Wenninger",
+                "Name[es]": "Joseph Wenninger",
+                "Name[nl]": "Joseph Wenninger",
+                "Name[sv]": "Joseph Wenninger",
+                "Name[uk]": "Joseph Wenninger",
+                "Name[x-test]": "xxJoseph Wenningerxx"
             }
         ],
         "Category": "Utilities",
         "Description": "Kate Session Launcher",
+        "Description[az]": "Kate sessiya başladıcısı",
+        "Description[ca]": "Llançador de la sessió del Kate",
+        "Description[es]": "Lanzador de sesiones de Kate",
+        "Description[nl]": "Kate sessiestarter",
+        "Description[sv]": "Kate sessionsstart",
+        "Description[uk]": "Запуск сеансів Kate",
+        "Description[x-test]": "xxKate Session Launcherxx",
         "Icon": "kate",
         "Id": "org.kde.plasma.katesessions",
         "License": "GPL-2.0+",
         "Name": "Kate Sessions",
+        "Name[az]": "Kate sessiyaları",
+        "Name[ca]": "Sessions del Kate",
+        "Name[es]": "Sesiones de Kate",
+        "Name[nl]": "Kate-sessies",
+        "Name[sv]": "Kate-sessioner",
+        "Name[uk]": "Сеанси Kate",
+        "Name[x-test]": "xxKate Sessionsxx",
         "ServiceTypes": [
             "Plasma/Applet"
         ],

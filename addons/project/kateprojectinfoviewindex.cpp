@@ -195,6 +195,9 @@ void KateProjectInfoViewIndex::enableWidgets(bool valid)
             m_messageWidget->removeAction(actions.first());
         }
     } else if (!valid) {
+        if (!m_messageWidget->text().isEmpty()) {
+            return;
+        }
         m_messageWidget->setText(i18n("Indexing is not enabled"));
         auto enableIndexing = new QAction(i18n("Enable indexing"), m_messageWidget);
         connect(enableIndexing, &QAction::triggered, m_messageWidget, [this]() {

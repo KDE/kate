@@ -1247,10 +1247,8 @@ public:
         m_sproc.setProcessChannelMode(QProcess::ForwardedErrorChannel);
         m_sproc.setReadChannel(QProcess::QProcess::StandardOutput);
         m_sproc.start(program, args);
-        bool result = m_sproc.waitForStarted();
-        if (!result) {
-            qCWarning(LSPCLIENT) << m_sproc.error();
-        } else {
+        const bool result = m_sproc.waitForStarted();
+        if (result) {
             setState(State::Started);
             // perform initial handshake
             initialize();

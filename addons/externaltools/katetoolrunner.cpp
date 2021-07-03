@@ -13,6 +13,7 @@
 #include <KShell>
 #include <KTextEditor/View>
 #include <QFileInfo>
+#include <QRegularExpression>
 
 KateToolRunner::KateToolRunner(std::unique_ptr<KateExternalTool> tool, KTextEditor::View *view, QObject *parent)
     : QObject(parent)
@@ -79,14 +80,29 @@ void KateToolRunner::waitForFinished()
     m_process->waitForFinished();
 }
 
+/**
+ * Convert input from local encoding to text with only \n line endings
+ * @param localOutput local output from tool to convert
+ * @return string with proper \n line endings
+ */
+static QString textFromLocal(const QByteArray &localOutput)
+{
+    // normalize line endings, to e.g. catch issues with \r\n
+    // see bug 436753
+    QString s = QString::fromLocal8Bit(localOutput);
+    static const QRegularExpression lineEndings(QStringLiteral("\r\n?"));
+    s.replace(lineEndings, QStringLiteral("\n"));
+    return s;
+}
+
 QString KateToolRunner::outputData() const
 {
-    return QString::fromLocal8Bit(m_stdout);
+    return textFromLocal(m_stdout);
 }
 
 QString KateToolRunner::errorData() const
 {
-    return QString::fromLocal8Bit(m_stderr);
+    return textFromLocal(m_stderr);
 }
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

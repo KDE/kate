@@ -12,6 +12,7 @@
         "Description[pt]": "Selecção rápida de documentos com o comportamento do Alt+Tab",
         "Description[sv]": "Snabbt dokumentbyte med Alt+Tabulator beteende",
         "Description[uk]": "Поведінка швидкого перемикача між документами за Alt+Tab",
+        "Description[vi]": "Chuyển tài liệu nhanh với hành vi theo kiểu Alt+Tab",
         "Description[x-test]": "xxQuick document switching with Alt+Tab behaviorxx",
         "Name": "Document Switcher",
         "Name[az]": "Sənəd dəyişdricisi",
@@ -25,6 +26,7 @@
         "Name[pt]": "Selector de Documentos",
         "Name[sv]": "Dokumentbyte",
         "Name[uk]": "Перемикач між документами",
+        "Name[vi]": "Trình chuyển tài liệu",
         "Name[x-test]": "xxDocument Switcherxx",
         "ServiceTypes": [
             "KTextEditor/Plugin"

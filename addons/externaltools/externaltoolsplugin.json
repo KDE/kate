@@ -12,6 +12,7 @@
         "Description[pt]": "Ferramentas Externas",
         "Description[sv]": "Externa verktyg",
         "Description[uk]": "Зовнішні інструменти",
+        "Description[vi]": "Công cụ bên ngoài",
         "Description[x-test]": "xxExternal Toolsxx",
         "Icon": "system-run",
         "Name": "External Tools",
@@ -26,6 +27,7 @@
         "Name[pt]": "Ferramentas Externas",
         "Name[sv]": "Externa verktyg",
         "Name[uk]": "Зовнішні засоби",
+        "Name[vi]": "Công cụ bên ngoài",
         "Name[x-test]": "xxExternal Toolsxx",
         "ServiceTypes": [
             "KTextEditor/Plugin"

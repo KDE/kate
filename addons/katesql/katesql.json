@@ -12,6 +12,7 @@
         "Description[pt]": "Executar uma pesquisa em bases de dados SQL",
         "Description[sv]": "Utför förfrågan i SQL-databaser",
         "Description[uk]": "Виконання запитів до баз даних SQL",
+        "Description[vi]": "Thực thi truy vấn trong các cơ sở dữ liệu SQL",
         "Description[x-test]": "xxExecute query on SQL databasesxx",
         "Name": "SQL Plugin",
         "Name[az]": "SQL qoşması",
@@ -25,6 +26,7 @@
         "Name[pt]": "'Plugin' de SQL",
         "Name[sv]": "SQL-insticksprogram",
         "Name[uk]": "Додаток SQL",
+        "Name[vi]": "Phần cài cắm SQL",
         "Name[x-test]": "xxSQL Pluginxx",
         "ServiceTypes": [
             "KTextEditor/Plugin"

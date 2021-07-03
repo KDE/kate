@@ -12,6 +12,7 @@
         "Description[pt]": "Ferramenta de navegação de registos de chamadas de C/C++",
         "Description[sv]": "C/C++ navigeringsverktyg med vy av bakåtspårning",
         "Description[uk]": "Панель навігації зворотним трасуванням C++",
+        "Description[vi]": "Khung xem công cụ \"điều hướng vết ngăn xếp C/C++\"",
         "Description[x-test]": "xxC/C++ Backtrace navigation tool viewxx",
         "Name": "Backtrace Browser",
         "Name[az]": "Geri izləmə bələdçisi",
@@ -25,6 +26,7 @@
         "Name[pt]": "Navegador de Registos de Chamadas",
         "Name[sv]": "Bläddring i bakåtspårning",
         "Name[uk]": "Переглядач зворотного трасування",
+        "Name[vi]": "Trình duyệt vết ngăn xếp",
         "Name[x-test]": "xxBacktrace Browserxx",
         "ServiceTypes": [
             "KTextEditor/Plugin"

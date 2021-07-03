@@ -12,6 +12,7 @@
         "Description[pt]": "Apresenta os elementos, atributos, valores dos atributos e entidades permitidos pela DTD",
         "Description[sv]": "Listar XML-element, attribut, attributvärden och objekt som tillåts av DTD",
         "Description[uk]": "Список елементів XML, атрибути, значення атрибутів і об’єктів дозволених DTD",
+        "Description[vi]": "Liệt kê các phần tử, thuộc tính, giá trị thuộc tính và các thực thể XML được DTD cho phép",
         "Description[x-test]": "xxLists XML elements, attributes, attribute values and entities allowed by DTDxx",
         "Name": "XML Completion",
         "Name[az]": "XML tamamlama",
@@ -25,6 +26,7 @@
         "Name[pt]": "Completação de XML",
         "Name[sv]": "XML-komplettering",
         "Name[uk]": "Завершення XML",
+        "Name[vi]": "Hoàn tất XML",
         "Name[x-test]": "xxXML Completionxx",
         "ServiceTypes": [
             "KTextEditor/Plugin"

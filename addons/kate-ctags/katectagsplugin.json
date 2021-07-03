@@ -12,6 +12,7 @@
         "Description[pt]": "Procurar pelas definições/declarações com o CTags",
         "Description[sv]": "Slå upp definitioner och deklarationer med Ctags",
         "Description[uk]": "Пошук визначень і оголошень за допомогою CTags",
+        "Description[vi]": "Tra định nghĩa / khai báo với CTags",
         "Description[x-test]": "xxLook up definitions/declarations with CTagsxx",
         "Icon": "text-x-csrc",
         "Name": "CTags",
@@ -26,6 +27,7 @@
         "Name[pt]": "CTags",
         "Name[sv]": "CTags",
         "Name[uk]": "CTags",
+        "Name[vi]": "CTags",
         "Name[x-test]": "xxCTagsxx",
         "ServiceTypes": [
             "KTextEditor/Plugin",

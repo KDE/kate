@@ -12,6 +12,7 @@
         "Description[pt]": "Integração com o Git e outros sistemas de controlo de versões",
         "Description[sv]": "Integrering med Git och andra källkontrollsystem",
         "Description[uk]": "Інтеграція із Git та іншими системами керування кодом",
+        "Description[vi]": "Phần tích hợp với Git và các hệ thống quản lí phiên bản khác",
         "Description[x-test]": "xxIntegration with Git and other source control systemsxx",
         "Name": "Project Plugin",
         "Name[az]": "Layihə modulu",
@@ -25,6 +26,7 @@
         "Name[pt]": "'Plugin' de Projectos",
         "Name[sv]": "Projektinsticksprogram",
         "Name[uk]": "Додаток проєктів",
+        "Name[vi]": "Phần cài cắm \"dự án\"",
         "Name[x-test]": "xxProject Pluginxx",
         "ServiceTypes": [
             "KTextEditor/Plugin"

@@ -15,6 +15,7 @@
                 "Name[pt]": "Joseph Wenninger",
                 "Name[sv]": "Joseph Wenninger",
                 "Name[uk]": "Joseph Wenninger",
+                "Name[vi]": "Joseph Wenninger",
                 "Name[x-test]": "xxJoseph Wenningerxx"
             }
         ],
@@ -31,6 +32,7 @@
         "Description[pt]": "Lançador de Sessões do Kate",
         "Description[sv]": "Kate sessionsstart",
         "Description[uk]": "Запуск сеансів Kate",
+        "Description[vi]": "Trình khởi chạy phiên Kate",
         "Description[x-test]": "xxKate Session Launcherxx",
         "Icon": "kate",
         "Id": "org.kde.plasma.katesessions",
@@ -47,6 +49,7 @@
         "Name[pt]": "Sessões do Kate",
         "Name[sv]": "Kate-sessioner",
         "Name[uk]": "Сеанси Kate",
+        "Name[vi]": "Các phiên Kate",
         "Name[x-test]": "xxKate Sessionsxx",
         "ServiceTypes": [
             "Plasma/Applet"

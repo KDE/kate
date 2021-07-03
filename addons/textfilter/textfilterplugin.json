@@ -12,6 +12,7 @@
         "Description[pt]": "Processar texto com comandos do terminal",
         "Description[sv]": "Behandla text med terminalkommandon",
         "Description[uk]": "Обробити текст за допомогою команд термінала",
+        "Description[vi]": "Xử lí văn bản bằng các lệnh trong chương trình dòng lệnh",
         "Description[x-test]": "xxProcess text using terminal commandsxx",
         "Name": "Text Filter",
         "Name[az]": "Mətn süzgəci",
@@ -25,6 +26,7 @@
         "Name[pt]": "Filtro de Texto",
         "Name[sv]": "Textfilter",
         "Name[uk]": "Фільтр тексту",
+        "Name[vi]": "Bộ lọc văn bản",
         "Name[x-test]": "xxText Filterxx",
         "ServiceTypes": [
             "KTextEditor/Plugin"

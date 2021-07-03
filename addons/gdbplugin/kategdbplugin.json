@@ -12,6 +12,7 @@
         "Description[pt]": "Oferece uma interface simples para o GDB",
         "Description[sv]": "Tillhandahåller ett enkelt gränssnitt för GDB",
         "Description[uk]": "Проста оболонка до GDB",
+        "Description[vi]": "Cung cấp một tiền phương GDB đơn giản",
         "Description[x-test]": "xxProvides a simple GDB frontendxx",
         "Name": "GDB",
         "Name[az]": "GDB",
@@ -25,6 +26,7 @@
         "Name[pt]": "GDB",
         "Name[sv]": "GDB",
         "Name[uk]": "GDB",
+        "Name[vi]": "GDB",
         "Name[x-test]": "xxGDBxx",
         "ServiceTypes": [
             "KTextEditor/Plugin"

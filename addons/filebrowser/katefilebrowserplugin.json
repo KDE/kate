@@ -12,6 +12,7 @@
         "Description[pt]": "Área de navegação no sistema de ficheiros",
         "Description[sv]": "Verktygsvy för filsystembläddring",
         "Description[uk]": "Панель навігатора файловою системою",
+        "Description[vi]": "Khung xem công cụ \"trình duyệt hệ thống tệp\"",
         "Description[x-test]": "xxFile system browser tool viewxx",
         "Name": "File System Browser",
         "Name[az]": "Fayl sistemi bələdçisi",
@@ -25,6 +26,7 @@
         "Name[pt]": "Navegador do Sistema de Ficheiros",
         "Name[sv]": "Filsystembläddrare",
         "Name[uk]": "Навігатор файловою системою",
+        "Name[vi]": "Trình duyệt hệ thống tệp",
         "Name[x-test]": "xxFile System Browserxx",
         "ServiceTypes": [
             "KTextEditor/Plugin"

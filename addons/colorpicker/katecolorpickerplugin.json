@@ -11,6 +11,7 @@
         "Description[pt]": "Adiciona uma antevisão/selector de cores incorporado para as cores no texto (p.ex. #FFFFFF, white)",
         "Description[sv]": "Lägger till en färggranskare/färghämtare på plats i texten (t.ex. #FFFFFF, vit)",
         "Description[uk]": "Додає вбудовану панель попереднього перегляду і піпетку для кольорів у тексті (наприклад, #FFFFFF, білого)",
+        "Description[vi]": "Thêm một bộ xem thử / chọn màu tại chỗ cho các màu trong văn bản (vd. #FFFFFF, trắng)",
         "Description[x-test]": "xxAdds an inline Color preview/picker to colors in the text (e.g. #FFFFFF, white)xx",
         "Name": "Color Picker",
         "Name[az]": "Rəng seçici",
@@ -24,6 +25,7 @@
         "Name[pt]": "Selector de Cores",
         "Name[sv]": "Färgväljare",
         "Name[uk]": "Піпетка",
+        "Name[vi]": "Trình chọn màu",
         "Name[x-test]": "xxColor Pickerxx",
         "ServiceTypes": [
             "KTextEditor/Plugin"

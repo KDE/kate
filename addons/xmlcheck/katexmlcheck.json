@@ -12,6 +12,7 @@
         "Description[pt]": "Valida os ficheiros XML com o 'xmllint'",
         "Description[sv]": "Validerar XML-filer med XMLlint",
         "Description[uk]": "Перевіряє файли XML за допомогою xmllint",
+        "Description[vi]": "Kiểm nhận các tệp XML bằng xmllint",
         "Description[x-test]": "xxValidates XML files using xmllintxx",
         "Name": "XML Validation",
         "Name[az]": "XML doğrulama",
@@ -25,6 +26,7 @@
         "Name[pt]": "Validação de XML",
         "Name[sv]": "XML-validering",
         "Name[uk]": "Перевірка XML",
+        "Name[vi]": "Kiểm nhận XML",
         "Name[x-test]": "xxXML Validationxx",
         "ServiceTypes": [
             "KTextEditor/Plugin"

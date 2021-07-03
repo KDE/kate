@@ -12,6 +12,7 @@
         "Description[pt]": "Faça a gestão dos seus excertos de código ou transfira novos",
         "Description[sv]": "Hantera kodsnuttar eller ladda ner nya",
         "Description[uk]": "Керування фрагментами вашого коду та отримання фрагментів коду інших",
+        "Description[vi]": "Quản lí các mảnh mã của bạn hoặc tải về những mảnh mã mới",
         "Description[x-test]": "xxManage your code snippets or download new onesxx",
         "Icon": "document-new",
         "Name": "Snippets Tool View",
@@ -26,6 +27,7 @@
         "Name[pt]": "Área de Excertos",
         "Name[sv]": "Verktygsvy för kodsnuttar",
         "Name[uk]": "Панель фрагментів",
+        "Name[vi]": "Khung xem công cụ \"mảnh mã\"",
         "Name[x-test]": "xxSnippets Tool Viewxx",
         "ServiceTypes": [
             "KTextEditor/Plugin",

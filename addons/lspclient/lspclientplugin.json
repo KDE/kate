@@ -12,6 +12,7 @@
         "Description[pt]": "Cliente do Protocolo LSP (Language Server Protocol)",
         "Description[sv]": "Klient för språkserverprotokollet (Language Server Protocol)",
         "Description[uk]": "Клієнт протоколу сервера мов (LSP)",
+        "Description[vi]": "Trình khách Giao thức Trình chủ Ngôn ngữ",
         "Description[x-test]": "xxLanguage Server Protocol Clientxx",
         "Name": "LSP Client",
         "Name[az]": "LSP müştərisi",
@@ -25,6 +26,7 @@
         "Name[pt]": "Cliente de LSP",
         "Name[sv]": "LSP-klient",
         "Name[uk]": "Клієнт LSP",
+        "Name[vi]": "Trình khách LSP",
         "Name[x-test]": "xxLSP Clientxx",
         "ServiceTypes": [
             "KTextEditor/Plugin"

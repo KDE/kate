@@ -12,6 +12,7 @@
         "Description[pt]": "Compilar e processar as mensagens de erro",
         "Description[sv]": "Kompilera eller bygg och tolka felmeddelanden",
         "Description[uk]": "Компілює або збирає і обробляє повідомлення про помилки",
+        "Description[vi]": "Biên dịch hoặc make và phân tách các thông điệp lỗi",
         "Description[x-test]": "xxCompile or Make and parse error messagesxx",
         "Name": "Build Plugin",
         "Name[az]": "Yığılma qoşması",
@@ -25,6 +26,7 @@
         "Name[pt]": "'Plugin' de Compilação",
         "Name[sv]": "Bygginsticksprogram",
         "Name[uk]": "Додаток для збирання",
+        "Name[vi]": "Phần cài cắm \"xây\"",
         "Name[x-test]": "xxBuild Pluginxx",
         "ServiceTypes": [
             "KTextEditor/Plugin"

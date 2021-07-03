@@ -1,5 +1,4 @@
-/*  SPDX-License-Identifier: MIT
-
+/*
     SPDX-FileCopyrightText: 2021 Waqar Ahmed <waqar.17a@gmail.com>
     SPDX-FileCopyrightText: 2021 Kåre Särs <kare.sars@iki.fi>
 

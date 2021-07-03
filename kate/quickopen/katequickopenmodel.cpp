@@ -144,7 +144,7 @@ void KateQuickOpenModel::refresh(KateMainWindow *mainWindow)
 
     for (const auto &filePath : projectDocs) {
         // No duplicates
-        if (!openedDocUrls.insert(filePath).second) {
+        if (openedDocUrls.count(filePath) != 0) {
             continue;
         }
 

@@ -274,7 +274,7 @@ KateQuickOpen::KateQuickOpen(KateMainWindow *mainWindow)
 
     setHidden(true);
 
-    slotListModeChanged(m_inputLine->listMode());
+    m_base_model->setListMode(m_inputLine->listMode());
 
     // fill stuff
     updateState();

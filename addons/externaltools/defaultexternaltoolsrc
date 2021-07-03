@@ -101,7 +101,7 @@ workingDir=%{Document:Path}
 
 [Tool 8]
 actionName=externaltool_JSONFormatFullFile
-arguments='.' %{Document:FileName}
+arguments="." "%{Document:FileName}"
 category=Tools
 cmdname=json-format-file
 executable=jq

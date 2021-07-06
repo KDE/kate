@@ -405,6 +405,7 @@ void KateMainWindow::setupActions()
 
     m_showFullScreenAction = KStandardAction::fullScreen(nullptr, nullptr, this, this);
     actionCollection()->addAction(m_showFullScreenAction->objectName(), m_showFullScreenAction);
+    actionCollection()->setDefaultShortcut(m_showFullScreenAction, Qt::Key_F11);
     connect(m_showFullScreenAction, &QAction::toggled, this, &KateMainWindow::slotFullScreen);
 
     documentOpenWith = new KActionMenu(i18n("Open W&ith"), this);

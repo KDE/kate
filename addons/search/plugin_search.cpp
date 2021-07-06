@@ -343,7 +343,7 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
     connect(container, &ContainerWidget::nextFocus, this, &KatePluginSearchView::nextFocus);
 
     QAction *a = actionCollection()->addAction(QStringLiteral("search_in_files"));
-    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::ALT | Qt::Key_F));
+    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_F));
     a->setText(i18n("Search in Files"));
     connect(a, &QAction::triggered, this, &KatePluginSearchView::openSearchView);
 

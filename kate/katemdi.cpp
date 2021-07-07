@@ -740,7 +740,6 @@ MainWindow::MainWindow(QWidget *parentWidget)
     vlayout->setContentsMargins(0, 0, 0, 0);
     vlayout->setSpacing(0);
 
-    m_hSplitter->setCollapsible(m_hSplitter->indexOf(vb), false);
     m_hSplitter->setStretchFactor(m_hSplitter->indexOf(vb), 1);
 
     m_sidebars[KMultiTabBar::Top] = std::make_unique<Sidebar>(KMultiTabBar::Top, this, vb);
@@ -756,7 +755,6 @@ MainWindow::MainWindow(QWidget *parentWidget)
     m_centralWidget->layout()->setSpacing(0);
     m_centralWidget->layout()->setContentsMargins(0, 0, 0, 0);
 
-    m_vSplitter->setCollapsible(m_vSplitter->indexOf(m_centralWidget), false);
     m_vSplitter->setStretchFactor(m_vSplitter->indexOf(m_centralWidget), 1);
 
     m_sidebars[KMultiTabBar::Bottom] = std::make_unique<Sidebar>(KMultiTabBar::Bottom, this, vb);
@@ -770,6 +768,12 @@ MainWindow::MainWindow(QWidget *parentWidget)
     for (const auto &sidebar : qAsConst(m_sidebars)) {
         connect(sidebar.get(), &Sidebar::sigShowPluginConfigPage, this, &MainWindow::sigShowPluginConfigPage);
     }
+
+    // avoid that toolviews can be collapsed, one should hide them via the button
+    // => otherwise people are confused how to show them again, as the button will do nothing
+    // see bug 439535
+    m_hSplitter->setChildrenCollapsible(false);
+    m_vSplitter->setChildrenCollapsible(false);
 }
 
 MainWindow::~MainWindow()

@@ -553,9 +553,12 @@ void Sidebar::tabClicked(int i)
         return;
     }
 
-    if (isTabRaised(i)) {
+    if (isTabRaised(i) || isCollapsed()) {
         showWidget(w);
         w->setFocus();
+        // When sidebar is collapsed and the toolview was pressed, we only expand
+        // the toolview/sidebar, so the tab must remain activated
+        setTab(m_widgetToId[w], true);
     } else {
         hideWidget(w);
     }

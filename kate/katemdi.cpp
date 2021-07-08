@@ -427,6 +427,9 @@ bool Sidebar::showWidget(ToolView *widget)
         QTimer::singleShot(0, this, func);
     }
 
+    // ensure that the sidebar is expanded
+    expandSidebar(widget);
+
     /**
      * we are visible again!
      */
@@ -464,10 +467,52 @@ bool Sidebar::hideWidget(ToolView *widget)
             m_preHideSize = m_ownSplit->size();
         }
         m_ownSplit->hide();
+    } else {
+        // some toolviews are still visible, so we must ensure the sidebar is expanded
+        expandSidebar(widget);
     }
 
     widget->setToolVisible(false);
     return true;
+}
+
+bool Sidebar::isCollapsed()
+{
+    if (!m_splitter) {
+        // sidebar still has no splitter set
+        return false;
+    }
+
+    const int ownSplitIndex = m_splitter->indexOf(m_ownSplit);
+    if (ownSplitIndex == -1) {
+        // m_ownSplit should already be a child of m_splitter if it is set, but we check here just in case
+        return false;
+    }
+
+    QList<int> wsizes = m_splitter->sizes();
+    return wsizes[ownSplitIndex] == 0;
+}
+
+void Sidebar::expandSidebar(ToolView *widget)
+{
+    if (m_widgetToId.find(widget) == m_widgetToId.end()) {
+        return;
+    }
+
+    // If the sidebar is collapsed, we need to resize it so that it does not become "stuck" in the collapsed state
+    // see BUG: 439535
+    // NOTE: Even if the sidebar is expanded, this does not ensure that it is visible (might be hidden with hide() or setVisible(false))
+    if (isCollapsed()) {
+        QList<int> wsizes = m_splitter->sizes();
+        const int ownSplitIndex = m_splitter->indexOf(m_ownSplit);
+        if (m_splitter->orientation() == Qt::Vertical) {
+            wsizes[ownSplitIndex] = qMax(widget->minimumSizeHint().height(), m_widgetToSize[widget].height());
+        } else {
+            wsizes[ownSplitIndex] = qMax(widget->minimumSizeHint().width(), m_widgetToSize[widget].width());
+        }
+
+        m_splitter->setSizes(wsizes);
+    }
 }
 
 void Sidebar::tabClicked(int i)
@@ -740,6 +785,7 @@ MainWindow::MainWindow(QWidget *parentWidget)
     vlayout->setContentsMargins(0, 0, 0, 0);
     vlayout->setSpacing(0);
 
+    m_hSplitter->setCollapsible(m_hSplitter->indexOf(vb), false);
     m_hSplitter->setStretchFactor(m_hSplitter->indexOf(vb), 1);
 
     m_sidebars[KMultiTabBar::Top] = std::make_unique<Sidebar>(KMultiTabBar::Top, this, vb);
@@ -755,6 +801,7 @@ MainWindow::MainWindow(QWidget *parentWidget)
     m_centralWidget->layout()->setSpacing(0);
     m_centralWidget->layout()->setContentsMargins(0, 0, 0, 0);
 
+    m_vSplitter->setCollapsible(m_vSplitter->indexOf(m_centralWidget), false);
     m_vSplitter->setStretchFactor(m_vSplitter->indexOf(m_centralWidget), 1);
 
     m_sidebars[KMultiTabBar::Bottom] = std::make_unique<Sidebar>(KMultiTabBar::Bottom, this, vb);
@@ -768,12 +815,6 @@ MainWindow::MainWindow(QWidget *parentWidget)
     for (const auto &sidebar : qAsConst(m_sidebars)) {
         connect(sidebar.get(), &Sidebar::sigShowPluginConfigPage, this, &MainWindow::sigShowPluginConfigPage);
     }
-
-    // avoid that toolviews can be collapsed, one should hide them via the button
-    // => otherwise people are confused how to show them again, as the button will do nothing
-    // see bug 439535
-    m_hSplitter->setChildrenCollapsible(false);
-    m_vSplitter->setChildrenCollapsible(false);
 }
 
 MainWindow::~MainWindow()

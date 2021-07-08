@@ -182,6 +182,9 @@ public:
     bool showWidget(ToolView *widget);
     bool hideWidget(ToolView *widget);
 
+    bool isCollapsed();
+    void expandSidebar(ToolView *widget);
+
     void setLastSize(int s)
     {
         m_lastSize = s;

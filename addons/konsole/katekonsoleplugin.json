@@ -17,6 +17,7 @@
         "Description[uk]": "Термінал на основі віджета Konsole KDE",
         "Description[vi]": "Có một chương trình dòng lệnh luôn sẵn sàng, với phụ kiện Konsole của KDE",
         "Description[x-test]": "xxHave a terminal at the ready, using KDE's Konsole widgetxx",
+        "Description[zh_CN]": "使用 KDE的 Konsole 小部件作为可用的终端。",
         "Name": "Terminal Tool View",
         "Name[az]": "Terminal görünüşü",
         "Name[ca@valencia]": "Vista d'eina del terminal",
@@ -35,6 +36,7 @@
         "Name[uk]": "Інструмент термінала",
         "Name[vi]": "Khung xem công cụ dòng lệnh",
         "Name[x-test]": "xxTerminal Tool Viewxx",
+        "Name[zh_CN]": "终端工具视图",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

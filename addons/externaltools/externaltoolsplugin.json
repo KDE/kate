@@ -18,6 +18,7 @@
         "Description[uk]": "Зовнішні інструменти",
         "Description[vi]": "Công cụ bên ngoài",
         "Description[x-test]": "xxExternal Toolsxx",
+        "Description[zh_CN]": "外部工具",
         "Icon": "system-run",
         "Name": "External Tools",
         "Name[az]": "Xarici alətlər",
@@ -37,6 +38,7 @@
         "Name[uk]": "Зовнішні засоби",
         "Name[vi]": "Công cụ bên ngoài",
         "Name[x-test]": "xxExternal Toolsxx",
+        "Name[zh_CN]": "外部工具",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

@@ -18,6 +18,7 @@
         "Description[uk]": "Пошук визначень і оголошень за допомогою CTags",
         "Description[vi]": "Tra định nghĩa / khai báo với CTags",
         "Description[x-test]": "xxLook up definitions/declarations with CTagsxx",
+        "Description[zh_CN]": "使用 CTags 查找定义/声明",
         "Icon": "text-x-csrc",
         "Name": "CTags",
         "Name[az]": "CTags",
@@ -36,6 +37,7 @@
         "Name[uk]": "CTags",
         "Name[vi]": "CTags",
         "Name[x-test]": "xxCTagsxx",
+        "Name[zh_CN]": "CTags",
         "ServiceTypes": [
             "KTextEditor/Plugin",
             "KDevelop/Plugin"

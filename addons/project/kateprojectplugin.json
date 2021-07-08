@@ -18,6 +18,7 @@
         "Description[uk]": "Інтеграція із Git та іншими системами керування кодом",
         "Description[vi]": "Phần tích hợp với Git và các hệ thống quản lí phiên bản khác",
         "Description[x-test]": "xxIntegration with Git and other source control systemsxx",
+        "Description[zh_CN]": "与 Git 和其他源代码控制系统集成",
         "Name": "Project Plugin",
         "Name[az]": "Layihə modulu",
         "Name[ca@valencia]": "Connector de projecte",
@@ -36,6 +37,7 @@
         "Name[uk]": "Додаток проєктів",
         "Name[vi]": "Phần cài cắm \"dự án\"",
         "Name[x-test]": "xxProject Pluginxx",
+        "Name[zh_CN]": "项目插件",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

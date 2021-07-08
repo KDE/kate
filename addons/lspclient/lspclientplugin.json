@@ -18,6 +18,7 @@
         "Description[uk]": "Клієнт протоколу сервера мов (LSP)",
         "Description[vi]": "Trình khách Giao thức Trình chủ Ngôn ngữ",
         "Description[x-test]": "xxLanguage Server Protocol Clientxx",
+        "Description[zh_CN]": "语言服务器协议客户端",
         "Name": "LSP Client",
         "Name[az]": "LSP müştərisi",
         "Name[ca@valencia]": "Client LSP",
@@ -36,6 +37,7 @@
         "Name[uk]": "Клієнт LSP",
         "Name[vi]": "Trình khách LSP",
         "Name[x-test]": "xxLSP Clientxx",
+        "Name[zh_CN]": "LSP 客户端",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

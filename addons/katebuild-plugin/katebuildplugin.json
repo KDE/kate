@@ -18,6 +18,7 @@
         "Description[uk]": "Компілює або збирає і обробляє повідомлення про помилки",
         "Description[vi]": "Biên dịch hoặc make và phân tách các thông điệp lỗi",
         "Description[x-test]": "xxCompile or Make and parse error messagesxx",
+        "Description[zh_CN]": "执行编译(Compile/Make)并分析错误消息",
         "Name": "Build Plugin",
         "Name[az]": "Yığılma qoşması",
         "Name[ca@valencia]": "Connector de construcció",
@@ -36,6 +37,7 @@
         "Name[uk]": "Додаток для збирання",
         "Name[vi]": "Phần cài cắm \"xây\"",
         "Name[x-test]": "xxBuild Pluginxx",
+        "Name[zh_CN]": "构建插件",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

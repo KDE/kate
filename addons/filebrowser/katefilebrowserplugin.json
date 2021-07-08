@@ -18,6 +18,7 @@
         "Description[uk]": "Панель навігатора файловою системою",
         "Description[vi]": "Khung xem công cụ \"trình duyệt hệ thống tệp\"",
         "Description[x-test]": "xxFile system browser tool viewxx",
+        "Description[zh_CN]": "文件系统浏览器工具视图",
         "Name": "File System Browser",
         "Name[az]": "Fayl sistemi bələdçisi",
         "Name[ca@valencia]": "Navegador del sistema de fitxers",
@@ -36,6 +37,7 @@
         "Name[uk]": "Навігатор файловою системою",
         "Name[vi]": "Trình duyệt hệ thống tệp",
         "Name[x-test]": "xxFile System Browserxx",
+        "Name[zh_CN]": "文件系统浏览器",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

@@ -18,6 +18,7 @@
         "Description[uk]": "Обробити текст за допомогою команд термінала",
         "Description[vi]": "Xử lí văn bản bằng các lệnh trong chương trình dòng lệnh",
         "Description[x-test]": "xxProcess text using terminal commandsxx",
+        "Description[zh_CN]": "使用终端命令处理文本",
         "Name": "Text Filter",
         "Name[az]": "Mətn süzgəci",
         "Name[ca@valencia]": "Filtre de text",
@@ -36,6 +37,7 @@
         "Name[uk]": "Фільтр тексту",
         "Name[vi]": "Bộ lọc văn bản",
         "Name[x-test]": "xxText Filterxx",
+        "Name[zh_CN]": "文本筛选器",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

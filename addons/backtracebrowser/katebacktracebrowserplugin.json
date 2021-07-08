@@ -17,6 +17,7 @@
         "Description[uk]": "Панель навігації зворотним трасуванням C++",
         "Description[vi]": "Khung xem công cụ \"điều hướng vết ngăn xếp C/C++\"",
         "Description[x-test]": "xxC/C++ Backtrace navigation tool viewxx",
+        "Description[zh_CN]": "C/C++ 回溯导航工具视图",
         "Name": "Backtrace Browser",
         "Name[az]": "Geri izləmə bələdçisi",
         "Name[ca@valencia]": "Navegador de traça inversa",
@@ -34,6 +35,7 @@
         "Name[uk]": "Переглядач зворотного трасування",
         "Name[vi]": "Trình duyệt vết ngăn xếp",
         "Name[x-test]": "xxBacktrace Browserxx",
+        "Name[zh_CN]": "回溯跟踪浏览器",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

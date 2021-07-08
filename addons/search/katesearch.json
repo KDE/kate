@@ -18,6 +18,7 @@
         "Description[uk]": "Пошук з заміною у відкритих документах,теках або проєктах",
         "Description[vi]": "Tìm kiếm và thay thế trong tài liệu, thư mục, hay dự án",
         "Description[x-test]": "xxSearch and replace in documents, folders, or projectsxx",
+        "Description[zh_CN]": "在文档、文件夹或项目中搜索并替换",
         "Name": "Search & Replace",
         "Name[az]": "Axtarın və əvəzləyin",
         "Name[ca@valencia]": "Cerca i substitueix",
@@ -36,6 +37,7 @@
         "Name[uk]": "Пошук з заміною",
         "Name[vi]": "Tìm kiếm & thay thế",
         "Name[x-test]": "xxSearch & Replacexx",
+        "Name[zh_CN]": "搜索和替换",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

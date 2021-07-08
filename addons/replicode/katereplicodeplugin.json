@@ -61,6 +61,7 @@
         "Description[uk]": "Replicode (конструктивістська мова та середовище виконання ШІ)",
         "Description[vi]": "Replicode (ngôn ngữ và môi trường chạy AI theo xu hướng tạo dựng)",
         "Description[x-test]": "xxReplicode (constructivist AI language and runtime)xx",
+        "Description[zh_CN]": "Replicode (构建主义的 AI 语言和运行时)",
         "Name": "Replicode",
         "Name[az]": "Təkrar kodlama",
         "Name[ca@valencia]": "Replicode",
@@ -78,6 +79,7 @@
         "Name[uk]": "Replicode",
         "Name[vi]": "Replicode",
         "Name[x-test]": "xxReplicodexx",
+        "Name[zh_CN]": "Replicode",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

@@ -17,6 +17,7 @@
         "Description[uk]": "Проста оболонка до GDB",
         "Description[vi]": "Cung cấp một tiền phương GDB đơn giản",
         "Description[x-test]": "xxProvides a simple GDB frontendxx",
+        "Description[zh_CN]": "提供一个简单的 GDB 前端",
         "Name": "GDB",
         "Name[az]": "GDB",
         "Name[ca@valencia]": "GDB",
@@ -35,6 +36,7 @@
         "Name[uk]": "GDB",
         "Name[vi]": "GDB",
         "Name[x-test]": "xxGDBxx",
+        "Name[zh_CN]": "GDB",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

@@ -18,6 +18,7 @@
         "Description[uk]": "Керування фрагментами вашого коду та отримання фрагментів коду інших",
         "Description[vi]": "Quản lí các mảnh mã của bạn hoặc tải về những mảnh mã mới",
         "Description[x-test]": "xxManage your code snippets or download new onesxx",
+        "Description[zh_CN]": "管理您的代码片段或下载新代码片段",
         "Icon": "document-new",
         "Name": "Snippets Tool View",
         "Name[az]": "Fraqmentlər paneli",
@@ -37,6 +38,7 @@
         "Name[uk]": "Панель фрагментів",
         "Name[vi]": "Khung xem công cụ \"mảnh mã\"",
         "Name[x-test]": "xxSnippets Tool Viewxx",
+        "Name[zh_CN]": "代码片段工具视图",
         "ServiceTypes": [
             "KTextEditor/Plugin",
             "KDevelop/Plugin"

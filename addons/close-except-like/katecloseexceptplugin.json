@@ -18,6 +18,7 @@
         "Description[uk]": "Закриває групу документів, які зберігаються у одному каталозі або мають однаковий суфікс назви.",
         "Description[vi]": "Đóng một nhóm các tài liệu dựa trên một đường dẫn hoặc phần mở rộng tệp chung",
         "Description[x-test]": "xxClose group of documents based on a common path or file extensionxx",
+        "Description[zh_CN]": "根据路径或文件扩展名关闭一组文档",
         "Name": "Close Except/Like",
         "Name[az]": "Istisna olunanı/İstədiyinizi bağlayın",
         "Name[ca@valencia]": "Tancament excepte/com",
@@ -36,6 +37,7 @@
         "Name[uk]": "Додаток закриття за критерієм",
         "Name[vi]": "Đóng ngoại trừ / theo kiểu",
         "Name[x-test]": "xxClose Except/Likexx",
+        "Name[zh_CN]": "批量关闭",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

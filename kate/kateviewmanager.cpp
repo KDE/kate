@@ -39,7 +39,7 @@
 static constexpr qint64 FileSizeAboveToAskUserIfProceedWithOpen = 10 * 1024 * 1024; // 10MB should suffice
 
 KateViewManager::KateViewManager(QWidget *parentW, KateMainWindow *parent)
-    : QSplitter(parentW)
+    : KateSplitter(parentW)
     , m_mainWindow(parent)
     , m_blockViewCreationAndActivation(false)
     , m_activeViewRunning(false)
@@ -789,7 +789,7 @@ void KateViewManager::splitViewSpace(KateViewSpace *vs, // = 0
     }
 
     // get current splitter, and abort if null
-    QSplitter *currentSplitter = qobject_cast<QSplitter *>(vs->parentWidget());
+    KateSplitter *currentSplitter = qobject_cast<KateSplitter *>(vs->parentWidget());
     if (!currentSplitter) {
         return;
     }
@@ -815,9 +815,9 @@ void KateViewManager::splitViewSpace(KateViewSpace *vs, // = 0
         currentSplitter->insertWidget(index, vsNew);
         currentSplitter->setSizes(sizes);
     } else {
-        // create a new QSplitter and replace vs with the splitter. vs and newVS are
-        // the new children of the new QSplitter
-        QSplitter *newContainer = new QSplitter(o);
+        // create a new KateSplitter and replace vs with the splitter. vs and newVS are
+        // the new children of the new KateSplitter
+        KateSplitter *newContainer = new KateSplitter(o);
 
         // we don't allow full collapse, see bug 366014
         newContainer->setChildrenCollapsible(false);
@@ -867,7 +867,7 @@ void KateViewManager::toggleSplitterOrientation()
     }
 
     // get current splitter, and abort if null
-    QSplitter *currentSplitter = qobject_cast<QSplitter *>(vs->parentWidget());
+    KateSplitter *currentSplitter = qobject_cast<KateSplitter *>(vs->parentWidget());
     if (!currentSplitter || (currentSplitter->count() == 1)) {
         return;
     }
@@ -910,7 +910,7 @@ void KateViewManager::removeViewSpace(KateViewSpace *viewspace)
     }
 
     // get current splitter
-    QSplitter *currentSplitter = qobject_cast<QSplitter *>(viewspace->parentWidget());
+    KateSplitter *currentSplitter = qobject_cast<KateSplitter *>(viewspace->parentWidget());
 
     // no splitter found, bah
     if (!currentSplitter) {
@@ -945,7 +945,7 @@ void KateViewManager::removeViewSpace(KateViewSpace *viewspace)
     // the splitter then.
     if (currentSplitter != this) {
         // get parent splitter
-        QSplitter *parentSplitter = qobject_cast<QSplitter *>(currentSplitter->parentWidget());
+        KateSplitter *parentSplitter = qobject_cast<KateSplitter *>(currentSplitter->parentWidget());
 
         // only do magic if found ;)
         if (parentSplitter) {
@@ -958,7 +958,7 @@ void KateViewManager::removeViewSpace(KateViewSpace *viewspace)
             // now restore the sizes again
             parentSplitter->setSizes(parentSizes);
         }
-    } else if (QSplitter *splitter = qobject_cast<QSplitter *>(currentSplitter->widget(0))) {
+    } else if (KateSplitter *splitter = qobject_cast<KateSplitter *>(currentSplitter->widget(0))) {
         // we are the root splitter and have only one child, which is also a splitter
         // -> eliminate the redundant splitter and move both children into the root splitter
         QList<int> sizes = splitter->sizes();
@@ -1106,7 +1106,7 @@ void KateViewManager::restoreViewConfiguration(const KConfigGroup &config)
     updateViewSpaceActions();
 }
 
-QString KateViewManager::saveSplitterConfig(QSplitter *s, KConfigBase *configBase, const QString &viewConfGrp)
+QString KateViewManager::saveSplitterConfig(KateSplitter *s, KConfigBase *configBase, const QString &viewConfGrp)
 {
     /**
      * avoid to export invisible view spaces
@@ -1121,7 +1121,7 @@ QString KateViewManager::saveSplitterConfig(QSplitter *s, KConfigBase *configBas
     const auto grp = QString(viewConfGrp + QStringLiteral("-Splitter %1")).arg(m_splitterIndex);
     ++m_splitterIndex;
 
-    // a QSplitter has two children, either QSplitters and/or KateViewSpaces
+    // a KateSplitter has two children, either KateSplitters and/or KateViewSpaces
     // special case: root splitter might have only one child (just for info)
     QStringList childList;
     const auto sizes = s->sizes();
@@ -1145,8 +1145,8 @@ QString KateViewManager::saveSplitterConfig(QSplitter *s, KConfigBase *configBas
                 viewConfGroup.writeEntry("Active ViewSpace", idx);
             }
         }
-        // for QSplitters, recurse
-        else if (auto splitter = qobject_cast<QSplitter *>(obj)) {
+        // for KateSplitters, recurse
+        else if (auto splitter = qobject_cast<KateSplitter *>(obj)) {
             childList.append(saveSplitterConfig(splitter, configBase, viewConfGrp));
         }
     }
@@ -1164,7 +1164,7 @@ QString KateViewManager::saveSplitterConfig(QSplitter *s, KConfigBase *configBas
     return grp;
 }
 
-void KateViewManager::restoreSplitter(const KConfigBase *configBase, const QString &group, QSplitter *parent, const QString &viewConfGrp)
+void KateViewManager::restoreSplitter(const KConfigBase *configBase, const QString &group, KateSplitter *parent, const QString &viewConfGrp)
 {
     KConfigGroup config(configBase, group);
 
@@ -1185,7 +1185,7 @@ void KateViewManager::restoreSplitter(const KConfigBase *configBase, const QStri
             vs->show();
         } else {
             // for a splitter, recurse
-            auto newContainer = new QSplitter(parent);
+            auto newContainer = new KateSplitter(parent);
 
             // we don't allow full collapse, see bug 366014
             newContainer->setChildrenCollapsible(false);
@@ -1210,7 +1210,7 @@ void KateViewManager::moveSplitter(Qt::Key key, int repeats)
         return;
     }
 
-    QSplitter *currentSplitter = qobject_cast<QSplitter *>(vs->parentWidget());
+    KateSplitter *currentSplitter = qobject_cast<KateSplitter *>(vs->parentWidget());
 
     if (!currentSplitter) {
         return;
@@ -1275,6 +1275,6 @@ void KateViewManager::moveSplitter(Qt::Key key, int repeats)
 
         currentWidget = static_cast<QWidget *>(currentSplitter);
         // the parent of the current splitter will become the current splitter
-        currentSplitter = qobject_cast<QSplitter *>(currentSplitter->parentWidget());
+        currentSplitter = qobject_cast<KateSplitter *>(currentSplitter->parentWidget());
     }
 }

@@ -10,11 +10,11 @@
 #define __KATE_VIEWMANAGER_H__
 
 #include "katedocmanager.h"
+#include "katesplitter.h"
 
 #include <QList>
 #include <QMap>
 #include <QPointer>
-#include <QSplitter>
 
 #include <unordered_map>
 
@@ -36,7 +36,7 @@ class KConfigBase;
 class KateMainWindow;
 class KateViewSpace;
 
-class KateViewManager : public QSplitter
+class KateViewManager : public KateSplitter
 {
     Q_OBJECT
 
@@ -116,12 +116,12 @@ private:
      * If child splitters are found, it calls it self with those as the argument.
      * If a viewspace child is found, it is asked to save its filelist.
      */
-    QString saveSplitterConfig(QSplitter *s, KConfigBase *config, const QString &viewConfGrp);
+    QString saveSplitterConfig(KateSplitter *s, KConfigBase *config, const QString &viewConfGrp);
 
     /** Restore a single splitter.
      * This is all the work is done for @see saveSplitterConfig()
      */
-    void restoreSplitter(const KConfigBase *config, const QString &group, QSplitter *parent, const QString &viewConfGrp);
+    void restoreSplitter(const KConfigBase *config, const QString &group, KateSplitter *parent, const QString &viewConfGrp);
 
     void removeViewSpace(KateViewSpace *viewspace);
 
@@ -158,7 +158,7 @@ private Q_SLOTS:
 public Q_SLOTS:
     /**
      * Splits a KateViewSpace into two in the following steps:
-     * 1. create a QSplitter in the parent of the KateViewSpace to be split
+     * 1. create a KateSplitter in the parent of the KateViewSpace to be split
      * 2. move the to-be-split KateViewSpace to the new splitter
      * 3. create new KateViewSpace and added to the new splitter
      * 4. create KateView to populate the new viewspace.

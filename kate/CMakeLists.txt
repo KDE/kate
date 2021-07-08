@@ -89,6 +89,7 @@ target_sources(
     katerunninginstanceinfo.cpp
     katesavemodifieddialog.cpp
     katetabbar.cpp
+    katesplitter.cpp
     kateviewmanager.cpp
     kateviewspace.cpp
     katewaiter.cpp

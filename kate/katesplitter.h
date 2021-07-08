@@ -1,0 +1,24 @@
+/* This file is part of the KDE project
+   SPDX-FileCopyrightText: 2021 Christoph Cullmann <cullmann@kde.org>
+
+   SPDX-License-Identifier: LGPL-2.0-only
+*/
+
+#ifndef __KATE_SPLITTER_H__
+#define __KATE_SPLITTER_H__
+
+#include <QSplitter>
+
+class KateSplitter : public QSplitter
+{
+    Q_OBJECT
+
+public:
+    KateSplitter(Qt::Orientation orientation, QWidget *parent = nullptr);
+    KateSplitter(QWidget *parent = nullptr);
+
+protected:
+    virtual QSplitterHandle *createHandle() override;
+};
+
+#endif

@@ -487,35 +487,40 @@ void KateViewSpace::addPositionToHistory(const QUrl &url, KTextEditor::Cursor c,
         return;
     }
 
-    // we are in the middle of jumps somewhere?
-    if (!m_locations.empty() && currentLocation + 1 < m_locations.size()) {
-        // erase all forward history
-        m_locations.erase(m_locations.begin() + currentLocation + 1, m_locations.end());
-    }
-
     // if same line, remove last entry
-    if (!m_locations.empty() && m_locations.back().url == url && m_locations.back().cursor.line() == c.line()) {
-        m_locations.pop_back();
+    // If new pos is same as "current pos", replace it with new one
+    bool currPosIsInSameLine = false;
+    if (currentLocation < m_locations.size()) {
+        const auto &currentLoc = m_locations.at(currentLocation);
+        currPosIsInSameLine = currentLoc.url == url && currentLoc.cursor.line() == c.line();
     }
 
-    // Check if the location is at least "viewLineCount" away
-    if (!calledExternally && !m_locations.empty() && m_locations.back().url == url) {
-        int line = c.line();
-        int lastLocLine = m_locations.back().cursor.line();
+    // Check if the location is at least "viewLineCount" away from the "current" position in m_locations
+    if (!calledExternally && currentLocation < m_locations.size() && m_locations.at(currentLocation).url == url) {
+        const int currentLine = m_locations.at(currentLocation).cursor.line();
+        const int newPosLine = c.line();
 
-        auto view = m_viewManager->activeView();
-
-        int viewLineCount = view->lastDisplayedLine() - view->firstDisplayedLine();
-        int lowerBound = lastLocLine - viewLineCount;
-        int upperBound = lastLocLine + viewLineCount;
-        if (lowerBound <= line && line <= upperBound) {
+        const auto view = m_viewManager->activeView();
+        const int viewLineCount = view->lastDisplayedLine() - view->firstDisplayedLine();
+        const int lowerBound = currentLine - viewLineCount;
+        const int upperBound = currentLine + viewLineCount;
+        if (lowerBound <= newPosLine && newPosLine <= upperBound) {
+            if (currPosIsInSameLine) {
+                m_locations[currentLocation].cursor = c;
+            }
             return;
         }
     }
 
-    // limit size to 50, remove first 10
-    if (m_locations.size() >= 50) {
-        m_locations.erase(m_locations.begin(), m_locations.begin() + 10);
+    if (currPosIsInSameLine) {
+        m_locations[currentLocation].cursor.setColumn(c.column());
+        return;
+    }
+
+    // we are in the middle of jumps somewhere?
+    if (!m_locations.empty() && currentLocation + 1 < m_locations.size()) {
+        // erase all forward history
+        m_locations.erase(m_locations.begin() + currentLocation + 1, m_locations.end());
     }
 
     /** this is our new forward **/
@@ -531,6 +536,11 @@ void KateViewSpace::addPositionToHistory(const QUrl &url, KTextEditor::Cursor c,
     if (currentLocation > 0) {
         m_historyBack->setEnabled(true);
         Q_EMIT m_viewManager->historyBackEnabled(true);
+    }
+
+    // limit size to 50, remove first 10
+    if (m_locations.size() >= 50) {
+        m_locations.erase(m_locations.begin(), m_locations.begin() + 10);
     }
 }
 int KateViewSpace::hiddenDocuments() const
@@ -738,7 +748,8 @@ void KateViewSpace::restoreConfig(KateViewManager *viewMan, const KConfigBase *c
 
 void KateViewSpace::goBack()
 {
-    if (m_locations.empty() || currentLocation == 0) {
+    if (m_locations.empty() || currentLocation <= 0) {
+        currentLocation = 0;
         return;
     }
 
@@ -784,7 +795,9 @@ void KateViewSpace::goForward()
     if (m_locations.empty()) {
         return;
     }
-    if (currentLocation == m_locations.size() - 1) {
+
+    // We are already at the last position
+    if (currentLocation >= m_locations.size() - 1) {
         return;
     }
 

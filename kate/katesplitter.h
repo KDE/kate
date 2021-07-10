@@ -1,7 +1,8 @@
-/* This file is part of the KDE project
-   SPDX-FileCopyrightText: 2021 Christoph Cullmann <cullmann@kde.org>
+/*
+    SPDX-FileCopyrightText: 2021 Christoph Cullmann <cullmann@kde.org>
+    SPDX-FileCopyrightText: 2021 Michal Humpula <kde@hudrydum.cz>
 
-   SPDX-License-Identifier: LGPL-2.0-only
+    SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
 #ifndef __KATE_SPLITTER_H__

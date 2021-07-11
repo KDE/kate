@@ -286,10 +286,17 @@ Sidebar::Sidebar(KMultiTabBar::KMultiTabBarPosition pos, MainWindow *mainwin, QW
 
 void Sidebar::setSplitter(QSplitter *sp)
 {
+    // if splitter was set before, disconnect handler for collapse
+    if (m_splitter) {
+        disconnect(m_splitter, &QSplitter::splitterMoved, this, &Sidebar::handleCollapse);
+    }
+
     m_splitter = sp;
     m_ownSplit = new QSplitter((position() == KMultiTabBar::Top || position() == KMultiTabBar::Bottom) ? Qt::Horizontal : Qt::Vertical, m_splitter);
     m_ownSplit->setChildrenCollapsible(false);
     m_ownSplit->hide();
+
+    connect(m_splitter, &QSplitter::splitterMoved, this, &Sidebar::handleCollapse);
 }
 
 ToolView *Sidebar::addWidget(const QIcon &icon, const QString &text, ToolView *widget)
@@ -493,6 +500,21 @@ bool Sidebar::isCollapsed()
     return wsizes[ownSplitIndex] == 0;
 }
 
+void Sidebar::handleCollapse()
+{
+    if (!isCollapsed()) {
+        return;
+    }
+
+    // If the sidebar is collapsed, we need to hide the activated plugin-views since they are,
+    // visually speaking, hidden from the user but technically isVisible() would still return true
+    for (const auto &[id, wid] : m_idToWidget) {
+        if (wid->isVisible()) {
+            wid->hide();
+        }
+    }
+}
+
 void Sidebar::expandSidebar(ToolView *widget)
 {
     if (m_widgetToId.find(widget) == m_widgetToId.end()) {
@@ -509,6 +531,14 @@ void Sidebar::expandSidebar(ToolView *widget)
             wsizes[ownSplitIndex] = qMax(widget->minimumSizeHint().height(), m_widgetToSize[widget].height());
         } else {
             wsizes[ownSplitIndex] = qMax(widget->minimumSizeHint().width(), m_widgetToSize[widget].width());
+        }
+
+        // when the sidebar was collapsed, the activated widgets were hidden, so we need to show them again
+        // see Sidebar::handleCollapse
+        for (const auto &[id, wid] : m_idToWidget) {
+            if (isTabRaised(id)) {
+                wid->show();
+            }
         }
 
         m_splitter->setSizes(wsizes);

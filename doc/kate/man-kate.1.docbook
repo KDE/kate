@@ -7,9 +7,9 @@
 <refentryinfo>
 <title>&kate; User's Manual</title>
 <author>&Lauri.Watts; &Lauri.Watts.mail;</author>
-<date>2018-03-18</date>
-<releaseinfo>Applications 18.04</releaseinfo>
-<productname>KDE Applications</productname>
+<date>2021-07-12</date>
+<releaseinfo>KDE Gear 21.08</releaseinfo>
+<productname>KDE Gear</productname>
 </refentryinfo>
 
 <refmeta>
@@ -28,6 +28,7 @@
 <group choice="opt"><option>-s, --start</option> <replaceable>
 name</replaceable> </group>
 <group choice="opt"><option>--startanon</option></group>
+<group choice="opt"><option>--new-session</option></group>
 <group choice="opt"><option>-n, --new</option></group>
 <group choice="opt"><option>-b, --block</option></group>
 <group choice="opt"><option>-p, --pid</option><replaceable>
@@ -75,6 +76,10 @@ configuration files.  This document was written in &kate;.
 </varlistentry>
 <varlistentry>
 <term><option>--startanon</option></term>
+<listitem><para>Start &kate; with a new anonymous session, implies <option>-n</option> (deprecated).</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><option>--new-session</option></term>
 <listitem><para>Start &kate; with a new anonymous session, implies <option>-n</option>.</para></listitem>
 </varlistentry>
 <varlistentry>

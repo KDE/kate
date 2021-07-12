@@ -6,6 +6,7 @@
 #include "gotosymboldialog.h"
 #include "lspclientserver.h"
 
+#include <KLocalizedString>
 #include <KSyntaxHighlighting/Theme>
 #include <KTextEditor/ConfigInterface>
 #include <KTextEditor/Editor>
@@ -179,6 +180,8 @@ GotoSymbolHUDDialog::GotoSymbolHUDDialog(KTextEditor::MainWindow *mainWindow, QS
     , server(std::move(server))
 {
     setPaletteToEditorColors();
+
+    m_lineEdit.setPlaceholderText(i18n("Type to filter through symbols in your project..."));
 
     m_treeView.setModel(model);
     auto delegate = new GotoSymbolHUDStyleDelegate(this);

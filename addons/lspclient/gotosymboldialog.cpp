@@ -198,8 +198,10 @@ void GotoSymbolHUDDialog::setPaletteToEditorColors()
     auto e = KTextEditor::Editor::instance();
     auto bg = QColor::fromRgba(e->theme().editorColor(KSyntaxHighlighting::Theme::BackgroundColor));
     auto fg = QColor::fromRgba(e->theme().textColor(KSyntaxHighlighting::Theme::Normal));
+    auto hl = QColor::fromRgba(e->theme().editorColor(KSyntaxHighlighting::Theme::TextSelection));
     pal.setColor(QPalette::Base, bg);
     pal.setColor(QPalette::Text, fg);
+    pal.setColor(QPalette::Highlight, hl);
     m_treeView.setPalette(pal);
 }
 
@@ -271,6 +273,7 @@ void GotoSymbolHUDDialog::slotTextChanged(const QString &text)
             item->setData(QVariant::fromValue(GotoSymbolItem{sym.url, sym.range.start(), sym.kind}), SymbolInfoRole);
             model->appendRow(item);
         }
+        m_treeView.setCurrentIndex(model->index(0, 0));
     };
     server->workspaceSymbol(text, this, hh);
 }

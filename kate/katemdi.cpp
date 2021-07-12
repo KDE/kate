@@ -24,6 +24,7 @@
 
 #include <QContextMenuEvent>
 #include <QDomDocument>
+#include <QLabel>
 #include <QMenu>
 #include <QSizePolicy>
 #include <QStyle>
@@ -296,6 +297,13 @@ void Sidebar::setSplitter(QSplitter *sp)
     m_ownSplit->setChildrenCollapsible(false);
     m_ownSplit->hide();
 
+    // Add resize placeholder (an empty QLabel) so that sidebar will still be resizable after collapse
+    // see Sidebar::handleCollapse
+    m_resizePlaceholder = new QLabel();
+    m_ownSplit->addWidget(m_resizePlaceholder);
+    m_resizePlaceholder->hide();
+    m_resizePlaceholder->setMinimumSize(QSize(160, 160)); // Same minimum size set in ToolView::minimumSizeHint
+
     connect(m_splitter, &QSplitter::splitterMoved, this, &Sidebar::handleCollapse);
 }
 
@@ -496,22 +504,52 @@ bool Sidebar::isCollapsed()
         return false;
     }
 
-    QList<int> wsizes = m_splitter->sizes();
-    return wsizes[ownSplitIndex] == 0;
+    return m_splitter->sizes()[ownSplitIndex] == 0;
 }
 
-void Sidebar::handleCollapse()
+void Sidebar::handleCollapse(int pos, int index)
 {
-    if (!isCollapsed()) {
+    Q_UNUSED(pos);
+    if (!m_splitter) {
         return;
     }
 
-    // If the sidebar is collapsed, we need to hide the activated plugin-views since they are,
-    // visually speaking, hidden from the user but technically isVisible() would still return true
-    for (const auto &[id, wid] : m_idToWidget) {
-        if (wid->isVisible()) {
-            wid->hide();
+    // Verify that the sidebar really belongs to m_splitter
+    // and that we are handling the correct/matching sidebar
+    // 0 | 1 | 2  <- ownSplitIndex
+    //   1   2    <- index (of splitters, represented by |)
+    // ownSplitIndex should only be equal to index or (index - 1)
+    const int ownSplitIndex = m_splitter->indexOf(m_ownSplit);
+    if (ownSplitIndex == -1 || qAbs(index - ownSplitIndex) > 1) {
+        return;
+    }
+
+    if (isCollapsed()) {
+        if (m_isPreviouslyCollapsed) {
+            return;
         }
+
+        // If the sidebar is collapsed, we need to hide the activated plugin-views since they are,
+        // visually speaking, hidden from the user but technically isVisible() would still return true
+        for (const auto &[id, wid] : m_idToWidget) {
+            if (wid->isVisible()) {
+                wid->hide();
+            }
+        }
+
+        // show resize placeholder again, otherwise the sidebar splitter won't be manually resizable/expandable
+        m_resizePlaceholder->show();
+        m_isPreviouslyCollapsed = true;
+    } else if (m_isPreviouslyCollapsed && m_resizePlaceholder->isVisible()) {
+        // If the sidebar is manually expanded again, we need to show the activated plugin-views again
+        for (const auto &[id, wid] : m_idToWidget) {
+            if (isTabRaised(id)) {
+                wid->show();
+            }
+        }
+
+        m_resizePlaceholder->hide();
+        m_isPreviouslyCollapsed = false;
     }
 }
 
@@ -541,6 +579,8 @@ void Sidebar::expandSidebar(ToolView *widget)
             }
         }
 
+        m_resizePlaceholder->hide();
+        m_isPreviouslyCollapsed = false;
         m_splitter->setSizes(wsizes);
     }
 }

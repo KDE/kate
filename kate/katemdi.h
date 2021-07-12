@@ -29,6 +29,7 @@
 
 class KActionMenu;
 class QAction;
+class QLabel;
 class QPixmap;
 class KConfigBase;
 
@@ -183,7 +184,7 @@ public:
     bool hideWidget(ToolView *widget);
 
     bool isCollapsed();
-    void handleCollapse();
+    void handleCollapse(int pos, int index);
     void expandSidebar(ToolView *widget);
 
     void setLastSize(int s)
@@ -249,6 +250,9 @@ private:
     QSize m_preHideSize;
 
     int m_popupButton = 0;
+
+    QLabel *m_resizePlaceholder;
+    bool m_isPreviouslyCollapsed = false;
 
 Q_SIGNALS:
     void sigShowPluginConfigPage(KTextEditor::Plugin *configpageinterface, int id);

@@ -1927,6 +1927,11 @@ public:
             return;
         }
 
+        QString wordUnderCursor = document->wordAt(activeView->cursorPosition());
+        if (wordUnderCursor.isEmpty()) {
+            return;
+        }
+
         bool ok = false;
         // results are typically (too) limited
         // due to server implementation or limited view/scope
@@ -1935,7 +1940,7 @@ public:
                                                 i18nc("@title:window", "Rename"),
                                                 i18nc("@label:textbox", "New name (caution: not all references may be replaced)"),
                                                 QLineEdit::Normal,
-                                                QString(),
+                                                wordUnderCursor,
                                                 &ok);
         if (!ok) {
             return;

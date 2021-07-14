@@ -737,6 +737,7 @@ private:
                     using namespace std::placeholders;
                     server->connect(server.data(), &LSPClientServer::logMessage, this, std::bind(&self_type::onMessage, this, true, _1));
                     server->connect(server.data(), &LSPClientServer::showMessage, this, std::bind(&self_type::onMessage, this, false, _1));
+                    server->connect(server.data(), &LSPClientServer::workDoneProgress, this, &self_type::onWorkDoneProgress);
                     server->connect(server.data(), &LSPClientServer::workspaceFolders, this, &self_type::onWorkspaceFolders, Qt::UniqueConnection);
                 }
                 serverinfo.settings = serverConfig.value(QStringLiteral("settings"));
@@ -971,6 +972,13 @@ private:
         } else {
             Q_EMIT serverShowMessage(server, params);
         }
+    }
+
+    void onWorkDoneProgress(const LSPWorkDoneProgressParams &params)
+    {
+        // determine server description
+        auto server = dynamic_cast<LSPClientServer *>(sender());
+        Q_EMIT serverWorkDoneProgress(server, params);
     }
 
     QList<LSPWorkspaceFolder> currentWorkspaceFolders()

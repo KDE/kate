@@ -74,6 +74,7 @@ Q_SIGNALS:
     // proxy server signals in case those are emitted very early
     void serverShowMessage(LSPClientServer *server, const LSPShowMessageParams &);
     void serverLogMessage(LSPClientServer *server, const LSPShowMessageParams &);
+    void serverWorkDoneProgress(LSPClientServer *server, const LSPWorkDoneProgressParams &);
 };
 
 class LSPClientRevisionSnapshot : public QObject

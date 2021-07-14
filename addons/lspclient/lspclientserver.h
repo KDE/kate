@@ -183,6 +183,7 @@ Q_SIGNALS:
     void showMessage(const LSPShowMessageParams &);
     void logMessage(const LSPLogMessageParams &);
     void publishDiagnostics(const LSPPublishDiagnosticsParams &);
+    void workDoneProgress(const LSPWorkDoneProgressParams &);
 
     // request = signal
     void applyEdit(const LSPApplyWorkspaceEditParams &req, const ApplyEditReplyHandler &h, bool &handled);

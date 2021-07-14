@@ -311,6 +311,30 @@ struct LSPShowMessageParams {
 
 using LSPLogMessageParams = LSPShowMessageParams;
 
+enum class LSPWorkDoneProgressKind { Begin, Report, End };
+
+// combines following similar interfaces
+// WorkDoneProgressBegin
+// WorkDoneProgressReport
+// WorkDoneProgressEnd
+struct LSPWorkDoneProgressValue {
+    LSPWorkDoneProgressKind kind;
+    QString title;
+    QString message;
+    bool cancellable;
+    unsigned percentage;
+};
+
+template<typename T>
+struct LSPProgressParams {
+    // number or string
+    QJsonValue token;
+    T value;
+};
+
+// alias convenience
+using LSPWorkDoneProgressParams = LSPProgressParams<LSPWorkDoneProgressValue>;
+
 struct LSPSemanticHighlightingToken {
     quint32 character = 0;
     quint16 length = 0;

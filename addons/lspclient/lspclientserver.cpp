@@ -842,6 +842,40 @@ static LSPShowMessageParams parseMessage(const QJsonObject &result)
     return ret;
 }
 
+void from_json(LSPWorkDoneProgressValue &value, const QJsonValue &json)
+{
+    if (json.isObject()) {
+        auto ob = json.toObject();
+        auto kind = ob.value(QStringLiteral("kind")).toString();
+        if (kind == QStringLiteral("begin")) {
+            value.kind = LSPWorkDoneProgressKind::Begin;
+        } else if (kind == QStringLiteral("report")) {
+            value.kind = LSPWorkDoneProgressKind::Report;
+        } else if (kind == QStringLiteral("end")) {
+            value.kind = LSPWorkDoneProgressKind::End;
+        }
+        value.title = ob.value(QStringLiteral("title")).toString();
+        value.message = ob.value(QStringLiteral("message")).toString();
+        value.cancellable = ob.value(QStringLiteral("cancellable")).toBool();
+        value.percentage = ob.value(QStringLiteral("percentage")).toInt();
+    }
+}
+
+template<typename T>
+static LSPProgressParams<T> parseProgress(const QJsonObject &json)
+{
+    LSPProgressParams<T> ret;
+
+    ret.token = json.value(QStringLiteral("token"));
+    from_json(ret.value, json.value(QStringLiteral("value")));
+    return ret;
+}
+
+static LSPWorkDoneProgressParams parseWorkDone(const QJsonObject &json)
+{
+    return parseProgress<LSPWorkDoneProgressValue>(json);
+}
+
 static std::vector<LSPSymbolInformation> parseWorkspaceSymbols(const QJsonValue &result)
 {
     auto res = result.toArray();
@@ -1200,8 +1234,14 @@ private:
                                             {QStringLiteral("publishDiagnostics"), QJsonObject{{QStringLiteral("relatedInformation"), true}}},
                                             {QStringLiteral("codeAction"), codeAction},
                                             {QStringLiteral("semanticTokens"), semanticTokens}
+                                        },
+                                  },
+                                  {QStringLiteral("window"),
+                                        QJsonObject{
+                                            {QStringLiteral("workDoneProgress"), true}
                                         }
-                                }};
+                                  }
+                                };
         // only declare workspace support if folders so specified
         if (m_folders) {
             capabilities[QStringLiteral("workspace")] = QJsonObject{{QStringLiteral("workspaceFolders"), true}};
@@ -1445,6 +1485,8 @@ public:
             Q_EMIT q->showMessage(parseMessage(msg[MEMBER_PARAMS].toObject()));
         } else if (method == QLatin1String("window/logMessage")) {
             Q_EMIT q->logMessage(parseMessage(msg[MEMBER_PARAMS].toObject()));
+        } else if (method == QLatin1String("$/progress")) {
+            Q_EMIT q->workDoneProgress(parseWorkDone(msg[MEMBER_PARAMS].toObject()));
         } else {
             qCWarning(LSPCLIENT) << "discarding notification" << method;
         }
@@ -1499,6 +1541,12 @@ public:
             };
             auto h = responseHandler<QList<LSPWorkspaceFolder>>(prepareResponse(msgid), workspaceFolders);
             Q_EMIT q->workspaceFolders(h, handled);
+        } else if (method == QLatin1String("window/workDoneProgress/create")) {
+            // void reply to accept
+            // that should trigger subsequent progress notifications
+            // for now; also no need to extract supplied token
+            auto h = prepareResponse(msgid);
+            h(QJsonValue());
         } else {
             write(init_error(LSPErrorCode::MethodNotFound, method), nullptr, nullptr, &msgid);
             qCWarning(LSPCLIENT) << "discarding request" << method;

@@ -14,23 +14,46 @@ class SplitterHandle : public QSplitterHandle
 public:
     SplitterHandle(Qt::Orientation orientation, QSplitter *parent)
         : QSplitterHandle(orientation, parent)
+        , m_mouseReleaseWasReceived(false)
     {
     }
 
 protected:
-    virtual void mouseDoubleClickEvent(QMouseEvent *event) override
+    bool event(QEvent *event) override
     {
-        QList<int> _sizes = splitter()->sizes();
-
-        if (_sizes.size() == 2) {
-            const int halfSize = (_sizes[0] + _sizes[1]) / 2;
-            _sizes[0] = halfSize;
-            _sizes[1] = halfSize;
-            splitter()->setSizes(_sizes);
-        } else {
-            QSplitterHandle::mouseDoubleClickEvent(event);
+        switch (event->type()) {
+        case QEvent::MouseButtonPress:
+            m_mouseReleaseWasReceived = false;
+            break;
+        case QEvent::MouseButtonRelease:
+            if (m_mouseReleaseWasReceived) {
+                resetSplitterSizes();
+            }
+            m_mouseReleaseWasReceived = !m_mouseReleaseWasReceived;
+            break;
+        case QEvent::MouseButtonDblClick:
+            m_mouseReleaseWasReceived = false;
+            resetSplitterSizes();
+            break;
+        default:
+            break;
         }
+
+        return QSplitterHandle::event(event);
     }
+
+private:
+    void resetSplitterSizes()
+    {
+        QList<int> splitterSizes = splitter()->sizes();
+        std::fill(splitterSizes.begin(), splitterSizes.end(), 0);
+        splitter()->setSizes(splitterSizes);
+    }
+
+    // Sometimes QSplitterHandle doesn't receive MouseButtonDblClick event.
+    // We can detect that MouseButtonDblClick event should have been
+    // received if we receive two MouseButtonRelease events in a row.
+    bool m_mouseReleaseWasReceived;
 };
 
 KateSplitter::KateSplitter(Qt::Orientation orientation, QWidget *parent)

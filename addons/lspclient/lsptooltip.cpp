@@ -171,7 +171,13 @@ public:
 
     void place(QPoint p)
     {
-        QRect screen = QApplication::screenAt(p)->availableGeometry();
+        // try to get right screen, important: QApplication::screenAt(p) might return nullptr
+        // see crash in bug 439804
+        const QScreen *screenForTooltip = QApplication::screenAt(p);
+        if (!screenForTooltip) {
+            screenForTooltip = screen();
+        }
+        const QRect screen = screenForTooltip->availableGeometry();
 
         const auto offset = QPoint(3, 21);
         p += offset;

@@ -562,7 +562,7 @@ void Sidebar::expandSidebar(ToolView *widget)
     // If the sidebar is collapsed, we need to resize it so that it does not become "stuck" in the collapsed state
     // see BUG: 439535
     // NOTE: Even if the sidebar is expanded, this does not ensure that it is visible (might be hidden with hide() or setVisible(false))
-    if (isCollapsed()) {
+    if (m_isPreviouslyCollapsed && isCollapsed()) {
         QList<int> wsizes = m_splitter->sizes();
         const int ownSplitIndex = m_splitter->indexOf(m_ownSplit);
         if (m_splitter->orientation() == Qt::Vertical) {
@@ -807,6 +807,10 @@ void Sidebar::restoreSession(KConfigGroup &config)
 
     if (anyVis) {
         m_ownSplit->show();
+        // if there are activated plugin-views but sidebar is collapsed, we must set m_isPreviouslyCollapsed to true so that it can be expanded
+        if (isCollapsed()) {
+            m_isPreviouslyCollapsed = true;
+        }
     } else {
         m_ownSplit->hide();
     }

@@ -539,8 +539,10 @@ void KateViewSpace::addPositionToHistory(const QUrl &url, KTextEditor::Cursor c,
     }
 
     // limit size to 50, remove first 10
-    if (m_locations.size() >= 50) {
-        m_locations.erase(m_locations.begin(), m_locations.begin() + 10);
+    int toErase = (int)m_locations.size() - 50;
+    if (toErase > 0) {
+        m_locations.erase(m_locations.begin(), m_locations.begin() + toErase);
+        currentLocation -= toErase;
     }
 }
 int KateViewSpace::hiddenDocuments() const

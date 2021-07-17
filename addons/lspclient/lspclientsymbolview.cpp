@@ -371,7 +371,7 @@ public:
             if (!symbol.detail.isEmpty()) {
                 details = true;
             }
-            auto detail = show_detail ? symbol.detail : QString();
+            auto detail = show_detail && !symbol.detail.isEmpty() ? QStringLiteral(" [%1]").arg(symbol.detail) : QString();
             node->setText(symbol.name + detail);
             node->setIcon(*icon);
             node->setData(QVariant::fromValue<KTextEditor::Range>(symbol.range), Qt::UserRole);

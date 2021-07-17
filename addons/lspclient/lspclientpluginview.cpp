@@ -449,6 +449,10 @@ class LSPClientActionView : public QObject
     // characters to trigger format request
     QVector<QChar> m_onTypeFormattingTriggers;
 
+    // ongoing workDoneProgress
+    // list of (enhanced server token, progress begin)
+    QVector<std::pair<QString, LSPWorkDoneProgressParams>> m_workDoneProgress;
+
     CtrlHoverFeedback m_ctrlHoverFeedback = {};
 
     KActionCollection *actionCollection() const
@@ -505,6 +509,7 @@ public:
         connect(m_serverManager.data(), &LSPClientServerManager::showMessage, this, &self_type::onShowMessage);
         connect(m_serverManager.data(), &LSPClientServerManager::serverShowMessage, this, &self_type::onMessage);
         connect(m_serverManager.data(), &LSPClientServerManager::serverLogMessage, this, &self_type::onMessage);
+        connect(m_serverManager.data(), &LSPClientServerManager::serverWorkDoneProgress, this, &self_type::onWorkDoneProgress);
 
         m_findDef = actionCollection()->addAction(QStringLiteral("lspclient_find_definition"), this, &self_type::goToDefinition);
         m_findDef->setText(i18n("Go to Definition"));
@@ -2204,7 +2209,7 @@ public:
         return nullptr;
     }
 
-    void addMessage(LSPMessageType level, const QString &category, const QString &msg)
+    void addMessage(LSPMessageType level, const QString &category, const QString &msg, const QString &token = {})
     {
         // skip messaging if not enabled
         if (!m_messages->isChecked()) {
@@ -2234,6 +2239,10 @@ public:
         }
         genericMessage.insert(QStringLiteral("type"), type);
 
+        if (!token.isEmpty()) {
+            genericMessage.insert(QStringLiteral("token"), token);
+        }
+
         // host application will handle these message for us, including auto-show settings
         Q_EMIT message(genericMessage);
     }
@@ -2247,6 +2256,43 @@ public:
             message = QStringLiteral("%1\n%2").arg(LSPClientServerManager::serverDescription(server), message);
         }
         addMessage(params.type, i18nc("@info", "LSP Server"), message);
+    }
+
+    void onWorkDoneProgress(LSPClientServer *server, const LSPWorkDoneProgressParams &params)
+    {
+        // provided token is/should be unique (from server perspective)
+        // but we are dealing with multiple servers, so let's make a combined token
+        const auto token = QStringLiteral("%1:%2").arg((quintptr)server).arg(params.token.toString());
+        // find title in matching begin entry (if any)
+        QString title;
+        // plain search
+        // could have used a map, but now we can discard the oldest one if needed
+        int index = -1;
+        for (int i = 0; i < m_workDoneProgress.size(); ++i) {
+            auto &e = m_workDoneProgress.at(i);
+            if (e.first == token) {
+                index = i;
+                title = e.second.value.title;
+                break;
+            }
+        }
+        if (index < 0) {
+            if (m_workDoneProgress.size() > 10) {
+                m_workDoneProgress.pop_front();
+            }
+            m_workDoneProgress.push_back({token, params});
+        } else if (params.value.kind == LSPWorkDoneProgressKind::End) {
+            m_workDoneProgress.remove(index);
+        }
+        // title (likely) only in initial message
+        if (title.isEmpty()) {
+            title = params.value.title;
+        }
+        // let's force percentage to 100 to indicate completion
+        // (which it might otherwise not be so it seems)
+        const auto percentage = params.value.kind == LSPWorkDoneProgressKind::End ? 100 : params.value.percentage;
+        const auto msg = QStringLiteral("%1 [%3%] %2").arg(title).arg(params.value.message).arg(percentage, 3);
+        addMessage(LSPMessageType::Info, i18nc("@info", "LSP Server"), msg, token);
     }
 
     void onShowMessage(KTextEditor::Message::MessageType level, const QString &msg)

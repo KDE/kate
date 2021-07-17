@@ -24,6 +24,7 @@
 #include <QMessageBox>
 #include <QString>
 #include <QTime>
+#include <QTimer>
 
 #include <vector>
 
@@ -62,13 +63,27 @@ KateProjectPlugin::KateProjectPlugin(QObject *parent, const QList<QVariant> &)
 
     // read configuration prior to cwd project setup below
     readConfig();
-    QStringList args = qApp->arguments();
+
+    // register all already open documents, later we keep track of all newly created ones
+    for (auto document : KTextEditor::Editor::instance()->application()->documents()) {
+        slotDocumentCreated(document);
+    }
+
+    // make project plugin variables known to KTextEditor::Editor
+    registerVariables();
+
+    // open directories as projects
     bool projectSpecified = false;
+    auto args = qApp->arguments();
     args.removeFirst(); // The first argument is the executable name
     for (const QString &arg : qAsConst(args)) {
         QFileInfo info(arg);
         if (info.isDir()) {
-            projectForDir(info.absoluteFilePath(), true);
+            // delay open until even loop starts, to let this win over session restored stuff
+            const QDir pathToOpen = info.absoluteFilePath();
+            QTimer::singleShot(0, this, [this, pathToOpen]() {
+                projectForDir(pathToOpen, true);
+            });
             projectSpecified = true;
         }
     }
@@ -78,23 +93,18 @@ KateProjectPlugin::KateProjectPlugin(QObject *parent, const QList<QVariant> &)
      * open project for our current working directory, if this kate has a terminal
      * https://stackoverflow.com/questions/1312922/detect-if-stdin-is-a-terminal-or-pipe-in-c-c-qt
      */
-    char tty[L_ctermid + 1] = {0};
-    ctermid(tty);
-    int fd = ::open(tty, O_RDONLY);
-
-    if (fd >= 0) {
-        if (!projectSpecified) {
-            projectForDir(QDir::current());
+    if (!projectSpecified) {
+        char tty[L_ctermid + 1] = {0};
+        ctermid(tty);
+        if (int fd = ::open(tty, O_RDONLY); fd >= 0) {
+            const QDir pathToOpen = QDir::current();
+            QTimer::singleShot(0, this, [this, pathToOpen]() {
+                projectForDir(pathToOpen);
+            });
+            ::close(fd);
         }
-        ::close(fd);
     }
 #endif
-
-    for (auto document : KTextEditor::Editor::instance()->application()->documents()) {
-        slotDocumentCreated(document);
-    }
-
-    registerVariables();
 }
 
 KateProjectPlugin::~KateProjectPlugin()

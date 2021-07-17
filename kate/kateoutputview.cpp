@@ -260,6 +260,11 @@ void KateOutputView::slotMessage(const QVariantMap &message)
         return;
     }
 
+    /*
+     * subsequent message might replace a former one (e.g. for progress)
+     */
+    const auto token = message.value(QStringLiteral("token")).toString();
+
     /**
      * date time column: we want to know when a message arrived
      * TODO: perhaps store full date time for more stuff later
@@ -267,6 +272,9 @@ void KateOutputView::slotMessage(const QVariantMap &message)
     auto dateTimeColumn = new QStandardItem();
     const QDateTime current = QDateTime::currentDateTime();
     dateTimeColumn->setText(current.time().toString(Qt::TextDate));
+    if (!token.isEmpty()) {
+        dateTimeColumn->setData(token, Qt::UserRole);
+    }
 
     /**
      * category
@@ -322,9 +330,20 @@ void KateOutputView::slotMessage(const QVariantMap &message)
     }
 
     /**
-     * add new message to model
+     * add message to model or replace previous one with matching token
      */
-    m_messagesModel.appendRow({dateTimeColumn, categoryColumn, typeColumn, bodyColumn});
+    auto indices = m_messagesModel.match(m_messagesModel.index(0, 0, QModelIndex()), Qt::UserRole, token, 1, Qt::MatchExactly);
+    auto items = {dateTimeColumn, categoryColumn, typeColumn, bodyColumn};
+    if (indices.length()) {
+        const auto index = indices.at(0);
+        const auto row = index.row();
+        int column = 0;
+        for (auto item : items) {
+            m_messagesModel.setItem(row, column++, item);
+        }
+    } else {
+        m_messagesModel.appendRow(items);
+    }
 
     /**
      * expand the new thingy

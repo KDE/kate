@@ -78,8 +78,8 @@
             "highlightingModeRegex": "^Perl$"
         },
         "python": {
-            "command": ["pyls", "--check-parent-process"],
-            "url": "https://github.com/palantir/python-language-server",
+            "command": ["pylsp", "--check-parent-process"],
+            "url": "https://github.com/python-lsp/python-lsp-server",
             "highlightingModeRegex": "^Python$"
         },
         "rust": {

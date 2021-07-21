@@ -66,6 +66,7 @@ using WorkspaceEditReplyHandler = ReplyHandler<LSPWorkspaceEdit>;
 using ApplyEditReplyHandler = ReplyHandler<LSPApplyWorkspaceEditResponse>;
 using WorkspaceFoldersReplyHandler = ReplyHandler<QList<LSPWorkspaceFolder>>;
 using SwitchSourceHeaderHandler = ReplyHandler<QString>;
+using MemoryUsageHandler = ReplyHandler<QJsonValue>;
 using SemanticTokensDeltaReplyHandler = ReplyHandler<LSPSemanticTokensDelta>;
 using WorkspaceSymbolsReplyHandler = ReplyHandler<std::vector<LSPSymbolInformation>>;
 
@@ -134,6 +135,7 @@ public:
 
     // clangd specific
     RequestHandle clangdSwitchSourceHeader(const QUrl &document, const QObject *context, const SwitchSourceHeaderHandler &h);
+    RequestHandle clangdMemoryUsage(const QObject *context, const MemoryUsageHandler &h);
 
     RequestHandle documentFormatting(const QUrl &document, const LSPFormattingOptions &options, const QObject *context, const FormattingReplyHandler &h);
     RequestHandle documentRangeFormatting(const QUrl &document,

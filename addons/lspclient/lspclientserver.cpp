@@ -1375,6 +1375,11 @@ public:
         return send(init_request(QStringLiteral("textDocument/switchSourceHeader"), params), h);
     }
 
+    RequestHandle clangdMemoryUsage(const GenericReplyHandler &h)
+    {
+        return send(init_request(QStringLiteral("$/memoryUsage"), QJsonObject()), h);
+    }
+
     RequestHandle documentFormatting(const QUrl &document, const LSPFormattingOptions &options, const GenericReplyHandler &h)
     {
         auto params = documentRangeFormattingParams(document, nullptr, options);
@@ -1688,6 +1693,14 @@ LSPClientServer::signatureHelp(const QUrl &document, const LSPPosition &pos, con
 LSPClientServer::RequestHandle LSPClientServer::clangdSwitchSourceHeader(const QUrl &document, const QObject *context, const SwitchSourceHeaderHandler &h)
 {
     return d->clangdSwitchSourceHeader(document, make_handler(h, context, parseClangdSwitchSourceHeader));
+}
+
+LSPClientServer::RequestHandle LSPClientServer::clangdMemoryUsage(const QObject *context, const MemoryUsageHandler &h)
+{
+    auto identity = [](const auto &p) {
+        return p;
+    };
+    return d->clangdMemoryUsage(make_handler(h, context, identity));
 }
 
 LSPClientServer::RequestHandle

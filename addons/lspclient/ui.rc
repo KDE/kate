@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
-<gui name="lspclient" library="lspclient" version="18" translationDomain="lspclient">
+<gui name="lspclient" library="lspclient" version="19" translationDomain="lspclient">
   <MenuBar>
     <Menu name="LSPClient Menubar">
       <text>LSP Client</text>
@@ -42,6 +42,8 @@
         <Action name="lspclient_diagnostics_hover"/>
         <Separator/>
         <Action name="lspclient_messages"/>
+        <Separator/>
+        <Action name="lspclient_clangd_memoryusage"/>
       </Menu>
     </Menu>
   </MenuBar>

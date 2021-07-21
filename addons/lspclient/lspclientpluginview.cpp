@@ -41,6 +41,7 @@
 #include <QHBoxLayout>
 #include <QHeaderView>
 #include <QInputDialog>
+#include <QJsonDocument>
 #include <QJsonObject>
 #include <QKeyEvent>
 #include <QMenu>
@@ -399,6 +400,7 @@ class LSPClientActionView : public QObject
     QPointer<QAction> m_restartAll;
     QPointer<QAction> m_switchSourceHeader;
     QPointer<QAction> m_quickFix;
+    QPointer<QAction> m_memoryUsage;
     QPointer<KActionMenu> m_requestCodeAction;
 
     // toolview
@@ -588,6 +590,10 @@ public:
         m_messages->setText(i18n("Show messages"));
         m_messages->setCheckable(true);
 
+        // extra
+        m_memoryUsage = actionCollection()->addAction(QStringLiteral("lspclient_clangd_memoryusage"), this, &self_type::clangdMemoryUsage);
+        m_memoryUsage->setText(i18n("Server memory usage"));
+
         // server control and misc actions
         m_closeDynamic = actionCollection()->addAction(QStringLiteral("lspclient_close_dynamic"), this, &self_type::closeDynamic);
         m_closeDynamic->setText(i18n("Close all dynamic reference tabs"));
@@ -637,6 +643,8 @@ public:
         moreOptions->addAction(m_diagnosticsHover);
         moreOptions->addSeparator();
         moreOptions->addAction(m_messages);
+        moreOptions->addSeparator();
+        moreOptions->addAction(m_memoryUsage);
 
         // sync with plugin settings if updated
         connect(m_plugin, &LSPClientPlugin::update, this, &self_type::configUpdated);
@@ -1979,6 +1987,32 @@ public:
         server->clangdSwitchSourceHeader(document->url(), this, h);
     }
 
+    void clangdMemoryUsage()
+    {
+        KTextEditor::View *activeView = m_mainWindow->activeView();
+        auto server = m_serverManager->findServer(activeView);
+        if (!server)
+            return;
+
+        auto h = [this](const QJsonValue &reply) {
+            auto view = m_mainWindow->openUrl(QUrl());
+            if (view) {
+                QJsonDocument json(reply.toObject());
+                auto doc = view->document();
+                doc->setText(QString::fromUtf8(json.toJson()));
+                // position at top
+                view->setCursorPosition({0, 0});
+                // adjust mode
+                const QString mode = QStringLiteral("JSON");
+                doc->setHighlightingMode(mode);
+                doc->setMode(mode);
+                // no save file dialog when closing
+                doc->setModified(false);
+            }
+        };
+        server->clangdMemoryUsage(this, h);
+    }
+
     void gotoWorkSpaceSymbol()
     {
         KTextEditor::View *activeView = m_mainWindow->activeView();
@@ -2458,6 +2492,8 @@ public:
         }
         m_switchSourceHeader->setEnabled(isClangd);
         m_switchSourceHeader->setVisible(isClangd);
+        m_memoryUsage->setEnabled(isClangd);
+        m_memoryUsage->setVisible(isClangd);
 
         // update completion with relevant server
         m_completion->setServer(server);

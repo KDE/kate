@@ -17,7 +17,7 @@
         "Description[pt]": "Adiciona uma antevisão/selector de cores incorporado para as cores no texto (p.ex. #FFFFFF, white)",
         "Description[sv]": "Lägger till en färggranskare/färghämtare på plats i texten (t.ex. #FFFFFF, vit)",
         "Description[uk]": "Додає вбудовану панель попереднього перегляду і піпетку для кольорів у тексті (наприклад, #FFFFFF, білого)",
-        "Description[vi]": "Thêm một bộ xem thử / chọn màu tại chỗ cho các màu trong văn bản (vd. #FFFFFF, trắng)",
+        "Description[vi]": "Thêm một bộ xem thử / nhặt màu tại chỗ cho các màu trong văn bản (vd. #FFFFFF, trắng)",
         "Description[x-test]": "xxAdds an inline Color preview/picker to colors in the text (e.g. #FFFFFF, white)xx",
         "Description[zh_CN]": "在文本中添加内联的颜色预览/拾色器 (例如 #FFFFFF, 白色)",
         "Name": "Color Picker",
@@ -40,7 +40,7 @@
         "Name[sl]": "Izbirnik barv",
         "Name[sv]": "Färgväljare",
         "Name[uk]": "Піпетка",
-        "Name[vi]": "Trình chọn màu",
+        "Name[vi]": "Trình nhặt màu",
         "Name[x-test]": "xxColor Pickerxx",
         "Name[zh_CN]": "拾色器",
         "ServiceTypes": [

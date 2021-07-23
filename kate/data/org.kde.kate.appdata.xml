@@ -100,6 +100,7 @@
       Kate is a multi-document, multi-view text editor by KDE. It features stuff like codefolding, syntaxhighlighting,
       dynamic word wrap, an embedded console, an extensive plugin interface and some preliminary scripting support.
     </p>
+    <p xml:lang="ar">«كيت» هو محرّر نصوص بواسطة كدي يدعم عدّة مستندات وعدّة عروض. يقدّم «كيت» مزايا عديدة كلفّ الأكواد، وإبراز الصّياغة، ولفّ الكلمات الحركيّ، ومعراض مضمّن، وواجهة ملحقات واسعة ودعم بسيط للسّكربتة.</p>
     <p xml:lang="az">Kate, KDE-nin təqdim etdiyi çoxsənədli, bir neçə görünüşlü mətn redaktorudur. Kod bükümü, sintaksislərin vurğulanması, dinamik sətirə keçid, daxili konsol, geniş qoşma interfeysi və bəzi əmrlər faylı dəstəkləmə imkanlarına malikdir.</p>
     <p xml:lang="ca">El Kate és un editor de text multidocument i multivista, creat per la comunitat KDE. Té funcionalitats com el plegat de codi, ressaltat de la sintaxi, ajust dinàmic de les paraules, una consola incrustada, una interfície extensa de connectors i una implementació preliminar per a crear scripts.</p>
     <p xml:lang="ca-valencia">El Kate és un editor de text multidocument i multivista, creat per la comunitat KDE. Té funcionalitats com el plegat de codi, ressaltat de la sintaxi, ajust dinàmic de les paraules, una consola incrustada, una interfície extensa de connectors i una implementació preliminar per a crear scripts.</p>
@@ -983,6 +984,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
   <screenshots>
     <screenshot type="default">
       <caption>Editing code with Kate</caption>
+      <caption xml:lang="ar">يحرر الشفرات بكيت</caption>
       <caption xml:lang="ast">Edición de códigu con Kate</caption>
       <caption xml:lang="az">Mənbə koduna Kate ilə düzəliş edilməsi</caption>
       <caption xml:lang="ca">Edició de codi amb el Kate</caption>

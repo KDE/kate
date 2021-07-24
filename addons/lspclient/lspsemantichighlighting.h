@@ -7,13 +7,14 @@
 #define LSP_SEMANTIC_HIGHLIGHTING_H
 
 #include <QObject>
+#include <QPointer>
 #include <QString>
+#include <QTimer>
 
 #include <KTextEditor/MovingRange>
 
 #include <memory>
 #include <unordered_map>
-#include <unordered_set>
 #include <vector>
 
 namespace KTextEditor
@@ -35,6 +36,8 @@ public:
     void doSemanticHighlighting(KTextEditor::View *v);
 
 private:
+    void doSemanticHighlighting_impl(KTextEditor::View *v);
+
     void semanticHighlightRange(KTextEditor::View *view, const KTextEditor::Cursor &);
 
     QString previousResultIdForDoc(KTextEditor::Document *doc) const;
@@ -86,5 +89,8 @@ private:
     std::unordered_map<KTextEditor::Document *, TokensData> m_docSemanticInfo;
 
     QSharedPointer<LSPClientServerManager> m_serverManager;
+
+    QTimer m_requestTimer;
+    QPointer<KTextEditor::View> m_currentView;
 };
 #endif

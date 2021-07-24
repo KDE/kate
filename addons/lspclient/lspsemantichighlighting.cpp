@@ -16,6 +16,11 @@ SemanticHighlighter::SemanticHighlighter(QSharedPointer<LSPClientServerManager> 
     : QObject(parent)
     , m_serverManager(std::move(serverManager))
 {
+    m_requestTimer.setInterval(2000);
+    m_requestTimer.setSingleShot(true);
+    m_requestTimer.connect(&m_requestTimer, &QTimer::timeout, this, [this]() {
+        doSemanticHighlighting_impl(m_currentView);
+    });
 }
 
 static KTextEditor::Range getCurrentViewLinesRange(KTextEditor::View *view)
@@ -30,6 +35,18 @@ static KTextEditor::Range getCurrentViewLinesRange(KTextEditor::View *view)
 }
 
 void SemanticHighlighter::doSemanticHighlighting(KTextEditor::View *view)
+{
+    // start the timer
+    // We dont send the request directly because then there can be too many requests
+    // which leads to too much load on the server and client/server getting out of sync.
+    //
+    // This strategy can be problematic if the user keeps typing, but in reality that is
+    // unlikely to happen I think
+    m_currentView = view;
+    m_requestTimer.start();
+}
+
+void SemanticHighlighter::doSemanticHighlighting_impl(KTextEditor::View *view)
 {
     if (!view) {
         return;

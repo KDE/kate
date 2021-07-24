@@ -22,6 +22,7 @@ class KConfigBase;
 class KateViewManager;
 class QStackedWidget;
 class QToolButton;
+class LocationHistoryTest;
 
 class KateViewSpace : public QWidget
 {
@@ -91,7 +92,7 @@ public:
      */
     void focusNextTab();
 
-    /** BEGIN Location History Stuff **/
+    // BEGIN Location History Stuff
 
     /**
      * go forward in location history
@@ -118,7 +119,7 @@ public:
      */
     void addPositionToHistory(const QUrl &url, KTextEditor::Cursor, bool calledExternally = false);
 
-    /** END Location History Stuff **/
+    // END Location History Stuff
 
 public Q_SLOTS:
     void documentDestroyed(QObject *doc);
@@ -164,6 +165,17 @@ private:
      * have no tab in this tab bar.
      */
     int hiddenDocuments() const;
+
+    // The following functions are for unit-testing purposes
+    size_t &currentLoc()
+    {
+        return currentLocation;
+    }
+
+    auto &locationHistoryBuffer()
+    {
+        return m_locations;
+    }
 
 private:
     // Kate's view manager
@@ -215,6 +227,8 @@ private:
 
     // go forward in history button (only visible when the tab bar is visible)
     QToolButton *m_historyForward;
+
+    friend class LocationHistoryTest;
 };
 
 #endif

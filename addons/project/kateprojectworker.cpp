@@ -8,6 +8,8 @@
 #include "kateprojectworker.h"
 #include "kateprojectitem.h"
 
+#include <gitprocess.h>
+
 #include <QDir>
 #include <QDirIterator>
 #include <QFile>
@@ -423,8 +425,8 @@ QVector<QString> KateProjectWorker::filesFromGit(const QDir &dir, bool recursive
 QVector<QString> KateProjectWorker::gitFiles(const QDir &dir, bool recursive, const QStringList &args)
 {
     QProcess git;
-    git.setWorkingDirectory(dir.absolutePath());
-    git.start(QStringLiteral("git"), args, QProcess::ReadOnly);
+    setupGitProcess(git, dir.absolutePath(), args);
+    git.start(QProcess::ReadOnly);
     QVector<QString> files;
     if (!git.waitForStarted() || !git.waitForFinished(-1)) {
         return files;

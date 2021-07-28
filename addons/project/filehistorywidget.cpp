@@ -3,7 +3,10 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
+
 #include "filehistorywidget.h"
+
+#include <gitprocess.h>
 
 #include <QDate>
 #include <QDebug>
@@ -19,13 +22,12 @@
 QList<QByteArray> FileHistoryWidget::getFileHistory(const QString &file)
 {
     QProcess git;
-    git.setWorkingDirectory(QFileInfo(file).absolutePath());
-    QStringList args{QStringLiteral("log"),
+    setupGitProcess(git, QFileInfo(file).absolutePath(), {QStringLiteral("log"),
                      QStringLiteral("--format=%H%n%aN%n%aE%n%at%n%ct%n%P%n%B"),
                      QStringLiteral("-z"),
                      QStringLiteral("--author-date-order"),
-                     file};
-    git.start(QStringLiteral("git"), args, QProcess::ReadOnly);
+                     file});
+    git.start(QProcess::ReadOnly);
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         if (git.exitStatus() == QProcess::NormalExit && git.exitCode() == 0) {
             return git.readAll().split(0x00);
@@ -216,12 +218,11 @@ void FileHistoryWidget::itemClicked(const QModelIndex &idx)
 {
     QProcess git;
     QFileInfo fi(m_file);
-    git.setWorkingDirectory(fi.absolutePath());
 
     const auto commit = idx.data(CommitListModel::CommitRole).value<Commit>();
 
-    QStringList args{QStringLiteral("show"), QString::fromUtf8(commit.hash), QStringLiteral("--"), m_file};
-    git.start(QStringLiteral("git"), args, QProcess::ReadOnly);
+    setupGitProcess(git, fi.absolutePath(), {QStringLiteral("show"), QString::fromUtf8(commit.hash), QStringLiteral("--"), m_file});
+    git.start(QProcess::ReadOnly);
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         if (git.exitStatus() != QProcess::NormalExit || git.exitCode() != 0) {
             return;

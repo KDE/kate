@@ -7,6 +7,8 @@
 #include "kategitblameplugin.h"
 #include "gitblametooltip.h"
 
+#include <gitprocess.h>
+
 #include <algorithm>
 
 #include <KActionCollection>
@@ -236,10 +238,8 @@ void KateGitBlamePluginView::startBlameProcess(const QUrl &url)
     QDir dir{url.toLocalFile()};
     dir.cdUp();
 
-    QStringList args{QStringLiteral("blame"), QStringLiteral("--date=iso-strict"), QStringLiteral("./%1").arg(fileName)};
-
-    m_blameInfoProc.setWorkingDirectory(dir.absolutePath());
-    m_blameInfoProc.start(QStringLiteral("git"), args, QIODevice::ReadOnly);
+    setupGitProcess(m_blameInfoProc, dir.absolutePath(), {QStringLiteral("blame"), QStringLiteral("--date=iso-strict"), QStringLiteral("./%1").arg(fileName)});
+    m_blameInfoProc.start(QIODevice::ReadOnly);
     m_blameUrl = url;
 }
 
@@ -257,9 +257,8 @@ void KateGitBlamePluginView::startShowProcess(const QUrl &url, const QString &ha
     QDir dir{url.toLocalFile()};
     dir.cdUp();
 
-    QStringList args{QStringLiteral("show"), hash};
-    m_showProc.setWorkingDirectory(dir.absolutePath());
-    m_showProc.start(QStringLiteral("git"), args, QIODevice::ReadOnly);
+    setupGitProcess(m_showProc, dir.absolutePath(), {QStringLiteral("show"), hash});
+    m_showProc.start(QIODevice::ReadOnly);
 }
 
 void KateGitBlamePluginView::showCommitInfo(const QString &hash, KTextEditor::View *view)

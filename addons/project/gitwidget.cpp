@@ -3,6 +3,7 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
+
 #include "gitwidget.h"
 #include "branchcheckoutdialog.h"
 #include "branchesdialog.h"
@@ -15,6 +16,8 @@
 #include "kateprojectpluginview.h"
 #include "pushpulldialog.h"
 #include "stashdialog.h"
+
+#include <gitprocess.h>
 
 #include <KColorScheme>
 #include <QContextMenuEvent>
@@ -291,11 +294,10 @@ KTextEditor::MainWindow *GitWidget::mainWindow()
     return m_mainWin;
 }
 
-QProcess *GitWidget::gitp()
+QProcess *GitWidget::gitp(const QStringList &arguments)
 {
     auto git = new QProcess(this);
-    git->setProgram(QStringLiteral("git"));
-    git->setWorkingDirectory(m_gitPath);
+    setupGitProcess(*git, m_gitPath, arguments);
     connect(git, &QProcess::errorOccurred, this, [this, git](QProcess::ProcessError pe) {
         // git program missing is not an error
         sendMessage(git->errorString(), pe != QProcess::FailedToStart);
@@ -306,7 +308,17 @@ QProcess *GitWidget::gitp()
 
 void GitWidget::getStatus(bool untracked, bool submodules)
 {
-    auto git = gitp();
+    auto args = QStringList{QStringLiteral("status"), QStringLiteral("-z")};
+    if (!untracked) {
+        args.append(QStringLiteral("-uno"));
+    } else {
+        args.append(QStringLiteral("-u"));
+    }
+    if (!submodules) {
+        args.append(QStringLiteral("--ignore-submodules"));
+    }
+
+    auto git = gitp(args);
     connect(git, &QProcess::finished, this, [this, git](int exitCode, QProcess::ExitStatus es) {
         if (es != QProcess::NormalExit || exitCode != 0) {
             // no error on status failure
@@ -317,23 +329,12 @@ void GitWidget::getStatus(bool untracked, bool submodules)
         }
         git->deleteLater();
     });
-
-    auto args = QStringList{QStringLiteral("status"), QStringLiteral("-z")};
-    if (!untracked) {
-        args.append(QStringLiteral("-uno"));
-    } else {
-        args.append(QStringLiteral("-u"));
-    }
-    if (!submodules) {
-        args.append(QStringLiteral("--ignore-submodules"));
-    }
-    git->setArguments(args);
     git->start(QProcess::ReadOnly);
 }
 
 void GitWidget::runGitCmd(const QStringList &args, const QString &i18error)
 {
-    auto git = gitp();
+    auto git = gitp(args);
     connect(git, &QProcess::finished, this, [this, i18error, git](int exitCode, QProcess::ExitStatus es) {
         if (es != QProcess::NormalExit || exitCode != 0) {
             sendMessage(i18error + QStringLiteral(": ") + QString::fromUtf8(git->readAllStandardError()), true);
@@ -342,13 +343,12 @@ void GitWidget::runGitCmd(const QStringList &args, const QString &i18error)
         }
         git->deleteLater();
     });
-    git->setArguments(args);
     git->start(QProcess::ReadOnly);
 }
 
 void GitWidget::runPushPullCmd(const QStringList &args)
 {
-    auto git = gitp();
+    auto git = gitp(args);
     git->setProcessChannelMode(QProcess::MergedChannels);
 
     connect(git, &QProcess::finished, this, [this, args, git](int exitCode, QProcess::ExitStatus es) {
@@ -367,7 +367,6 @@ void GitWidget::runPushPullCmd(const QStringList &args)
     });
 
     enableCancel(git);
-    git->setArguments(args);
     git->start(QProcess::ReadOnly);
 }
 
@@ -424,10 +423,9 @@ void GitWidget::openAtHEAD(const QString &file)
         return;
     }
 
-    auto git = gitp();
     auto args = QStringList{QStringLiteral("show"), QStringLiteral("--textconv")};
     args.append(QStringLiteral(":") + file);
-    git->setArguments(args);
+    auto git = gitp(args);
     git->start(QProcess::ReadOnly);
 
     connect(git, &QProcess::finished, this, [this, file, git](int exitCode, QProcess::ExitStatus es) {
@@ -461,7 +459,7 @@ void GitWidget::showDiff(const QString &file, bool staged)
         args.append(file);
     }
 
-    auto git = gitp();
+    auto git = gitp(args);
     connect(git, &QProcess::finished, this, [this, file, staged, git](int exitCode, QProcess::ExitStatus es) {
         if (es != QProcess::NormalExit || exitCode != 0) {
             sendMessage(i18n("Failed to get Diff of file: %1", QString::fromUtf8(git->readAllStandardError())), true);
@@ -503,8 +501,6 @@ void GitWidget::showDiff(const QString &file, bool staged)
         }
         git->deleteLater();
     });
-
-    git->setArguments(args);
     git->start(QProcess::ReadOnly);
 }
 
@@ -521,7 +517,8 @@ void GitWidget::launchExternalDiffTool(const QString &file, bool staged)
     args.append(file);
 
     QProcess git;
-    git.startDetached(QStringLiteral("git"), args, m_gitPath);
+    setupGitProcess(git, m_gitPath, args);
+    git.startDetached();
 }
 
 void GitWidget::commitChanges(const QString &msg, const QString &desc, bool signOff, bool amend)
@@ -543,7 +540,7 @@ void GitWidget::commitChanges(const QString &msg, const QString &desc, bool sign
         args.append(desc);
     }
 
-    auto git = gitp();
+    auto git = gitp(args);
 
     connect(git, &QProcess::finished, this, [this, git](int exitCode, QProcess::ExitStatus es) {
         if (es != QProcess::NormalExit || exitCode != 0) {
@@ -555,7 +552,6 @@ void GitWidget::commitChanges(const QString &msg, const QString &desc, bool sign
         }
         git->deleteLater();
     });
-    git->setArguments(args);
     git->start(QProcess::ReadOnly);
 }
 
@@ -598,8 +594,7 @@ void GitWidget::applyDiff(const QString &fileName, bool staged, bool hunk, KText
     file->write(diff.toUtf8());
     file->close();
 
-    auto git = gitp();
-    QStringList args{QStringLiteral("apply"), QStringLiteral("--index"), QStringLiteral("--cached"), file->fileName()};
+    auto git = gitp({QStringLiteral("apply"), QStringLiteral("--index"), QStringLiteral("--cached"), file->fileName()});
 
     connect(git, &QProcess::finished, this, [=](int exitCode, QProcess::ExitStatus es) {
         if (es != QProcess::NormalExit || exitCode != 0) {
@@ -617,7 +612,6 @@ void GitWidget::applyDiff(const QString &fileName, bool staged, bool hunk, KText
         delete file;
         git->deleteLater();
     });
-    git->setArguments(args);
     git->start(QProcess::ReadOnly);
 }
 
@@ -734,8 +728,8 @@ void GitWidget::numStatForStatus(QVector<GitUtils::StatusItem> &list, bool modif
                                : QStringList{QStringLiteral("diff"), QStringLiteral("--numstat"), QStringLiteral("--staged"), QStringLiteral("-z")};
 
     QProcess git;
-    git.setWorkingDirectory(m_gitPath);
-    git.start(QStringLiteral("git"), args, QProcess::ReadOnly);
+    setupGitProcess(git, m_gitPath, args);
+    git.start(QProcess::ReadOnly);
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         if (git.exitStatus() != QProcess::NormalExit || git.exitCode() != 0) {
             return;
@@ -755,8 +749,8 @@ void GitWidget::branchCompareFiles(const QString &from, const QString &to)
     auto args = QStringList{QStringLiteral("diff"), QStringLiteral("%1...%2").arg(from).arg(to), QStringLiteral("--name-status")};
 
     QProcess git;
-    git.setWorkingDirectory(m_gitPath);
-    git.start(QStringLiteral("git"), args, QProcess::ReadOnly);
+    setupGitProcess(git, m_gitPath, args);
+    git.start(QProcess::ReadOnly);
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         if (git.exitStatus() != QProcess::NormalExit || git.exitCode() != 0) {
             return;
@@ -777,8 +771,8 @@ void GitWidget::branchCompareFiles(const QString &from, const QString &to)
 
     // get --num-stat
     args = QStringList{QStringLiteral("diff"), QStringLiteral("%1...%2").arg(from).arg(to), QStringLiteral("--numstat"), QStringLiteral("-z")};
-    git.setArguments(args);
-    git.start(QStringLiteral("git"), args, QProcess::ReadOnly);
+    setupGitProcess(git, m_gitPath, args);
+    git.start(QProcess::ReadOnly);
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         if (git.exitStatus() != QProcess::NormalExit || git.exitCode() != 0) {
             sendMessage(i18n("Failed to get numstat when diffing %1...%2", from, to), true);

@@ -77,7 +77,7 @@ private:
     using CancelHandle = QPointer<QProcess>;
     CancelHandle m_cancelHandle;
 
-    QProcess *gitp();
+    QProcess *gitp(const QStringList &arguments);
 
     void buildMenu();
     void setDotGitPath();

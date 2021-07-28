@@ -3,7 +3,10 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
+
 #include "gitutils.h"
+
+#include <gitprocess.h>
 
 #include <QDateTime>
 #include <QDebug>
@@ -12,9 +15,8 @@
 bool GitUtils::isGitRepo(const QString &repo)
 {
     QProcess git;
-    git.setWorkingDirectory(repo);
-    QStringList args{QStringLiteral("rev-parse"), QStringLiteral("--is-inside-work-tree")};
-    git.start(QStringLiteral("git"), args, QProcess::ReadOnly);
+    setupGitProcess(git, repo, {QStringLiteral("rev-parse"), QStringLiteral("--is-inside-work-tree")});
+    git.start(QProcess::ReadOnly);
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         return git.readAll().trimmed() == "true";
     }
@@ -25,9 +27,7 @@ std::optional<QString> GitUtils::getDotGitPath(const QString &repo)
 {
     /* This call is intentionally blocking because we need git path for everything else */
     QProcess git;
-    git.setProgram(QStringLiteral("git"));
-    git.setWorkingDirectory(repo);
-    git.setArguments({QStringLiteral("rev-parse"), QStringLiteral("--absolute-git-dir")});
+    setupGitProcess(git, repo, {QStringLiteral("rev-parse"), QStringLiteral("--absolute-git-dir")});
     git.start(QProcess::ReadOnly);
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         if (git.exitStatus() != QProcess::NormalExit || git.exitCode() != 0) {
@@ -57,8 +57,8 @@ QString GitUtils::getCurrentBranchName(const QString &repo)
 
     for (int i = 0; i < 3; ++i) {
         QProcess git;
-        git.setWorkingDirectory(repo);
-        git.start(QStringLiteral("git"), argsList[i], QProcess::ReadOnly);
+        setupGitProcess(git, repo, argsList[i]);
+        git.start(QProcess::ReadOnly);
         if (git.waitForStarted() && git.waitForFinished(-1)) {
             if (git.exitStatus() == QProcess::NormalExit && git.exitCode() == 0) {
                 return QString::fromUtf8(git.readAllStandardOutput().trimmed());
@@ -73,9 +73,8 @@ QString GitUtils::getCurrentBranchName(const QString &repo)
 GitUtils::CheckoutResult GitUtils::checkoutBranch(const QString &repo, const QString &branch)
 {
     QProcess git;
-    git.setWorkingDirectory(repo);
-    QStringList args{QStringLiteral("checkout"), branch};
-    git.start(QStringLiteral("git"), args, QProcess::ReadOnly);
+    setupGitProcess(git, repo, {QStringLiteral("checkout"), branch});
+    git.start(QProcess::ReadOnly);
     CheckoutResult res;
     res.branch = branch;
     if (git.waitForStarted() && git.waitForFinished(-1)) {
@@ -88,12 +87,12 @@ GitUtils::CheckoutResult GitUtils::checkoutBranch(const QString &repo, const QSt
 GitUtils::CheckoutResult GitUtils::checkoutNewBranch(const QString &repo, const QString &newBranch, const QString &fromBranch)
 {
     QProcess git;
-    git.setWorkingDirectory(repo);
     QStringList args{QStringLiteral("checkout"), QStringLiteral("-q"), QStringLiteral("-b"), newBranch};
     if (!fromBranch.isEmpty()) {
         args.append(fromBranch);
     }
-    git.start(QStringLiteral("git"), args, QProcess::ReadOnly);
+    setupGitProcess(git, repo, args);
+    git.start(QProcess::ReadOnly);
     CheckoutResult res;
     res.branch = newBranch;
     if (git.waitForStarted() && git.waitForFinished(-1)) {
@@ -120,7 +119,6 @@ QVector<GitUtils::Branch> GitUtils::getAllBranchesAndTags(const QString &repo, R
 {
     // git for-each-ref --format '%(refname)' --sort=-committerdate ...
     QProcess git;
-    git.setWorkingDirectory(repo);
 
     QStringList args{QStringLiteral("for-each-ref"), QStringLiteral("--format"), QStringLiteral("%(refname)"), QStringLiteral("--sort=-committerdate")};
     if (ref & RefType::Head) {
@@ -134,7 +132,8 @@ QVector<GitUtils::Branch> GitUtils::getAllBranchesAndTags(const QString &repo, R
         args.append(QStringLiteral("--sort=-taggerdate"));
     }
 
-    git.start(QStringLiteral("git"), args, QProcess::ReadOnly);
+    setupGitProcess(git, repo, args);
+    git.start(QProcess::ReadOnly);
     QVector<Branch> branches;
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         QString gitout = QString::fromUtf8(git.readAllStandardOutput());
@@ -167,9 +166,8 @@ std::pair<QString, QString> GitUtils::getLastCommitMessage(const QString &repo)
 {
     // git log -1 --pretty=%B
     QProcess git;
-    git.setWorkingDirectory(repo);
-    const QStringList args{QStringLiteral("log"), QStringLiteral("-1"), QStringLiteral("--pretty=%B")};
-    git.start(QStringLiteral("git"), args, QProcess::ReadOnly);
+    setupGitProcess(git, repo, {QStringLiteral("log"), QStringLiteral("-1"), QStringLiteral("--pretty=%B")});
+    git.start(QProcess::ReadOnly);
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         if (git.exitCode() != 0 || git.exitStatus() != QProcess::NormalExit) {
             return {};

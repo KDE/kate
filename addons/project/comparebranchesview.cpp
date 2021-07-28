@@ -3,9 +3,12 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
+
 #include "comparebranchesview.h"
 #include "kateprojectpluginview.h"
 #include "kateprojectworker.h"
+
+#include <gitprocess.h>
 
 #include <QDir>
 #include <QPainter>
@@ -155,9 +158,8 @@ void CompareBranchesView::showDiff(const QModelIndex &idx)
 {
     auto file = idx.data(Qt::UserRole).toString().remove(m_gitDir + QLatin1Char('/'));
     QProcess git;
-    git.setWorkingDirectory(m_gitDir);
-    QStringList args{QStringLiteral("diff"), QStringLiteral("%1...%2").arg(m_fromBr).arg(m_toBr), QStringLiteral("--"), file};
-    git.start(QStringLiteral("git"), args, QProcess::ReadOnly);
+    setupGitProcess(git, m_gitDir, {QStringLiteral("diff"), QStringLiteral("%1...%2").arg(m_fromBr).arg(m_toBr), QStringLiteral("--"), file});
+    git.start(QProcess::ReadOnly);
 
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         if (git.exitStatus() != QProcess::NormalExit || git.exitCode() != 0) {

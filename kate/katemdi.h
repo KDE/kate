@@ -176,6 +176,12 @@ public:
 
     void setSplitter(QSplitter *sp);
 
+    /**
+     * Monitor resizes using the mouse and update the last size accordingly.
+     * Only call this when the sidebar has siblings in the splitter (i.e. m_splitter->count() >= 2) to guarantee that resize handles exist
+     */
+    void updateLastSizeOnResize();
+
 public:
     ToolView *addWidget(const QIcon &icon, const QString &text, ToolView *widget);
     bool removeWidget(ToolView *widget);

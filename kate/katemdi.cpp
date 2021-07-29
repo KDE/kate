@@ -290,6 +290,12 @@ void Sidebar::setSplitter(QSplitter *sp)
     // if splitter was set before, disconnect handler for collapse
     if (m_splitter) {
         disconnect(m_splitter, &QSplitter::splitterMoved, this, &Sidebar::handleCollapse);
+        const int ownSplitIndex = m_splitter->indexOf(m_ownSplit);
+        for (int i : {ownSplitIndex, ownSplitIndex + 1}) {
+            if (i > 0 && i < m_splitter->count()) {
+                m_splitter->handle(i)->removeEventFilter(this);
+            }
+        }
     }
 
     m_splitter = sp;
@@ -305,6 +311,14 @@ void Sidebar::setSplitter(QSplitter *sp)
     m_resizePlaceholder->setMinimumSize(QSize(160, 160)); // Same minimum size set in ToolView::minimumSizeHint
 
     connect(m_splitter, &QSplitter::splitterMoved, this, &Sidebar::handleCollapse);
+}
+
+void Sidebar::updateLastSizeOnResize()
+{
+    const int splitHandleIndex = qMin(m_splitter->indexOf(m_ownSplit) + 1, m_splitter->count() - 1);
+    // this method requires that a splitter handle for resizing the sidebar exists
+    Q_ASSERT(splitHandleIndex > 0);
+    m_splitter->handle(splitHandleIndex)->installEventFilter(this);
 }
 
 ToolView *Sidebar::addWidget(const QIcon &icon, const QString &text, ToolView *widget)
@@ -658,6 +672,12 @@ bool Sidebar::eventFilter(QObject *obj, QEvent *ev)
                 return true;
             }
         }
+    } else if (ev->type() == QEvent::MouseButtonRelease) {
+        // The sidebar's splitter handle handle is release, so we update the sidebar's size. See Sidebar::updateLastSizeOnResize
+        QMouseEvent *e = static_cast<QMouseEvent *>(ev);
+        if (e->button() == Qt::LeftButton) {
+            updateLastSize();
+        }
     }
 
     return false;
@@ -893,6 +913,8 @@ MainWindow::MainWindow(QWidget *parentWidget)
 
     for (const auto &sidebar : qAsConst(m_sidebars)) {
         connect(sidebar.get(), &Sidebar::sigShowPluginConfigPage, this, &MainWindow::sigShowPluginConfigPage);
+        // all sidebar splitter handles are instantiated, so we can now safely call this
+        sidebar->updateLastSizeOnResize();
     }
 }
 

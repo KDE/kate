@@ -565,7 +565,9 @@ void Sidebar::expandSidebar(ToolView *widget)
     if (m_isPreviouslyCollapsed && isCollapsed()) {
         QList<int> wsizes = m_splitter->sizes();
         const int ownSplitIndex = m_splitter->indexOf(m_ownSplit);
-        if (m_splitter->orientation() == Qt::Vertical) {
+        if (m_lastSize > 2) { // use last size if available (see updateLastSize())
+            wsizes[ownSplitIndex] = m_lastSize;
+        } else if (m_splitter->orientation() == Qt::Vertical) {
             wsizes[ownSplitIndex] = qMax(widget->minimumSizeHint().height(), m_widgetToSize[widget].height());
         } else {
             wsizes[ownSplitIndex] = qMax(widget->minimumSizeHint().width(), m_widgetToSize[widget].width());

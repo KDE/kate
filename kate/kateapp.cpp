@@ -9,6 +9,8 @@
 
 #include "kateviewmanager.h"
 
+#include <kcoreaddons_version.h>
+
 #include <KConfigGroup>
 #include <KConfigGui>
 #include <KLocalizedString>

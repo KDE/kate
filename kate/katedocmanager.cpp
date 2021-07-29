@@ -14,6 +14,7 @@
 #include "katesavemodifieddialog.h"
 #include "kateviewmanager.h"
 
+#include <kcoreaddons_version.h>
 #include <ktexteditor/editor.h>
 #include <ktexteditor/view.h>
 

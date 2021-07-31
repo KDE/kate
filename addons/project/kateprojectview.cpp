@@ -51,7 +51,6 @@ KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject 
     m_branchBtn->setAutoRaise(true);
     m_branchBtn->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     m_branchBtn->setSizePolicy(QSizePolicy::Minimum, m_branchBtn->sizePolicy().verticalPolicy());
-    m_branchBtn->setText(GitUtils::getCurrentBranchName(m_project->baseDir()));
     m_branchBtn->setIcon(QIcon(QStringLiteral(":/icons/icons/sc-apps-git.svg")));
 
     // let tree get focus for keyboard selection of file to open

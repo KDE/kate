@@ -23,6 +23,8 @@
 #include <QtConcurrent>
 
 #include <algorithm>
+#include <tuple>
+#include <vector>
 
 KateProjectWorker::KateProjectWorker(const QString &baseDir, const QString &indexDir, const QVariantMap &projectMap, bool force)
     : m_baseDir(baseDir)
@@ -292,46 +294,62 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent,
      * sort out non-files
      * even for git, that just reports non-directories, we need to filter out e.g. sym-links to directories
      * we use map, not filter, less locking!
-     * we invalidate not matching stuff by clearing the string and skip that then below in processing
+     * we compute here already the KateProjectItem items we want to use later
+     * this happens in the threads, we later skip all nullptr entries
      */
     const QString dirPath = dir.path() + QLatin1Char('/');
-    QtConcurrent::blockingMap(files, [dirPath](QString &item) {
-        if (!QFileInfo(dirPath + item).isFile()) {
-            item.clear();
+    std::vector<std::tuple<QString, QString, KateProjectItem *>> preparedItems;
+    preparedItems.reserve(files.size());
+    for (const auto &item : files)
+        preparedItems.emplace_back(item, QString(), nullptr);
+    QtConcurrent::blockingMap(preparedItems, [dirPath](std::tuple<QString, QString, KateProjectItem *> &item) {
+        /**
+         * cheap file name computation
+         * we do this A LOT, QFileInfo is very expensive just for this operation
+         * we remember fullFilePath for later use and overwrite filePath with the part without the filename for later use, too
+         */
+        auto &[filePath, fullFilePath, projectItem] = item;
+        fullFilePath = dirPath + filePath;
+        const int slashIndex = filePath.lastIndexOf(QLatin1Char('/'));
+        const QString fileName = (slashIndex < 0) ? filePath : filePath.mid(slashIndex + 1);
+        filePath = (slashIndex < 0) ? QString() : filePath.left(slashIndex);
+
+        /**
+         * don't create a KateProjectItem object if no file!
+         */
+        if (!QFileInfo(fullFilePath).isFile()) {
+            return;
         }
+
+        /**
+         * construct the item with info about filename + full file path
+         */
+        projectItem = new KateProjectItem(KateProjectItem::File, fileName);
+        projectItem->setData(fullFilePath, Qt::UserRole);
     });
 
     /**
-     * construct paths first in tree and items in a map
+     * put the pre-computed file items in our file2Item hash + create the needed directory items
+     * all other stuff was already handled inside the worker threads to avoid main thread stalling
      */
     QHash<QString, QStandardItem *> dir2Item;
     dir2Item[QString()] = parent;
-    file2Item->reserve(files.size()); // perhaps a bit too much, as we emptied stuff above, but who cares!
-    for (const QString &filePath : qAsConst(files)) {
-        // skip empty files, that is filtered stuff
-        if (filePath.isEmpty()) {
+    file2Item->reserve(file2Item->size() + preparedItems.size());
+    for (const auto &item : preparedItems) {
+        /**
+         * skip all entries without an item => that are filtered out non-files
+         */
+        const auto &[filePath, fullFilePath, projectItem] = item;
+        if (!projectItem) {
             continue;
         }
 
         /**
-         * cheap file name computation
-         * we do this A LOT, QFileInfo is very expensive just for this operation
+         * register the item in the full file path => item hash
+         * create needed directory parents
          */
-        const int slashIndex = filePath.lastIndexOf(QLatin1Char('/'));
-        const QString fileName = (slashIndex < 0) ? filePath : filePath.mid(slashIndex + 1);
-        const QString filePathName = (slashIndex < 0) ? QString() : filePath.left(slashIndex);
-        const QString fullFilePath = dirPath + filePath;
-
-        /**
-         * construct the item with right directory prefix
-         * already hang in directories in tree
-         */
-        KateProjectItem *fileItem = new KateProjectItem(KateProjectItem::File, fileName);
-        fileItem->setData(fullFilePath, Qt::UserRole);
-        (*file2Item)[fullFilePath] = fileItem;
-
-        // put in our item to the right directory parent
-        directoryParent(dir, dir2Item, filePathName)->appendRow(fileItem);
+        (*file2Item)[fullFilePath] = projectItem;
+        directoryParent(dir, dir2Item, filePath)->appendRow(projectItem);
     }
 }
 

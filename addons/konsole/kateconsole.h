@@ -122,6 +122,8 @@ public:
         return m_mw;
     }
 
+    bool eventFilter(QObject *w, QEvent *e) override;
+
 public Q_SLOTS:
     /**
      * pipe current document to console

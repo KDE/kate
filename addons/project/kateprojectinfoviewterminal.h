@@ -52,6 +52,8 @@ public:
 
     void respawn(const QString &dirPath);
 
+    bool eventFilter(QObject *o, QEvent *e) override;
+
 private Q_SLOTS:
     /**
      * Construct a new terminal for this view

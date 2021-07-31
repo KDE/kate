@@ -33,6 +33,7 @@
 #include <QPushButton>
 #include <QShowEvent>
 #include <QStyle>
+#include <QTabWidget>
 #include <QVBoxLayout>
 
 #include <KAboutData>
@@ -204,6 +205,10 @@ void KateConsole::loadConsoleIfNeeded()
         return;
     }
 
+    if (auto konsoleTabWidget = qobject_cast<QTabWidget *>(m_part->widget())) {
+        konsoleTabWidget->setTabBarAutoHide(true);
+        konsoleTabWidget->installEventFilter(this);
+    }
     layout()->addWidget(m_part->widget());
 
     // start the terminal
@@ -212,13 +217,35 @@ void KateConsole::loadConsoleIfNeeded()
     //   KGlobal::locale()->insertCatalog("konsole"); // FIXME KF5: insert catalog
 
     setFocusProxy(m_part->widget());
-    m_part->widget()->show();
 
     connect(m_part, &KParts::ReadOnlyPart::destroyed, this, &KateConsole::slotDestroyed);
     // clang-format off
     connect(m_part, SIGNAL(overrideShortcut(QKeyEvent*,bool&)), this, SLOT(overrideShortcut(QKeyEvent*,bool&)));
     // clang-format on
     slotSync();
+}
+
+static bool isCtrlShiftT(QKeyEvent *ke)
+{
+    return ke->modifiers() == (Qt::ControlModifier | Qt::ShiftModifier) && ke->key() == Qt::Key_T;
+}
+
+bool KateConsole::eventFilter(QObject *w, QEvent *e)
+{
+    if (!m_part) {
+        return QWidget::eventFilter(w, e);
+    }
+
+    if (e->type() == QEvent::KeyPress || e->type() == QEvent::ShortcutOverride) {
+        QKeyEvent *keyEvent = static_cast<QKeyEvent *>(e);
+        if (isCtrlShiftT(keyEvent)) {
+            e->accept();
+            QMetaObject::invokeMethod(m_part, "newTab");
+            return true;
+        }
+    }
+
+    return QWidget::eventFilter(w, e);
 }
 
 void KateConsole::slotDestroyed()

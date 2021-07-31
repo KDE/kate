@@ -15,6 +15,8 @@
 #include <KSharedConfig>
 #include <kde_terminal_interface.h>
 
+#include <QTabWidget>
+
 KPluginFactory *KateProjectInfoViewTerminal::s_pluginFactory = nullptr;
 
 KateProjectInfoViewTerminal::KateProjectInfoViewTerminal(KateProjectPluginView *pluginView, const QString &directory)
@@ -92,7 +94,12 @@ void KateProjectInfoViewTerminal::loadTerminal()
     /**
      * add to widget
      */
+    if (auto konsoleTabWidget = qobject_cast<QTabWidget *>(m_konsolePart->widget())) {
+        konsoleTabWidget->setTabBarAutoHide(true);
+        konsoleTabWidget->installEventFilter(this);
+    }
     m_layout->addWidget(m_konsolePart->widget());
+
     setFocusProxy(m_konsolePart->widget());
 
     /**
@@ -147,3 +154,25 @@ void KateProjectInfoViewTerminal::respawn(const QString &directory)
     loadTerminal();
 }
 
+static bool isCtrlShiftT(QKeyEvent *ke)
+{
+    return ke->modifiers() == (Qt::ControlModifier | Qt::ShiftModifier) && ke->key() == Qt::Key_T;
+}
+
+bool KateProjectInfoViewTerminal::eventFilter(QObject *w, QEvent *e)
+{
+    if (!m_konsolePart) {
+        return QWidget::eventFilter(w, e);
+    }
+
+    if (e->type() == QEvent::KeyPress || e->type() == QEvent::ShortcutOverride) {
+        QKeyEvent *keyEvent = static_cast<QKeyEvent *>(e);
+        if (isCtrlShiftT(keyEvent)) {
+            e->accept();
+            QMetaObject::invokeMethod(m_konsolePart, "newTab");
+            return true;
+        }
+    }
+
+    return QWidget::eventFilter(w, e);
+}

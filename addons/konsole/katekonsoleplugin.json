@@ -19,7 +19,7 @@
         "Description[sl]": "Imej pripravljen terminal z uporabo gradnika KDE Konsole",
         "Description[sv]": "Ha en terminal redo genom att använda KDE:s grafiska terminalkomponent",
         "Description[uk]": "Термінал на основі віджета Konsole KDE",
-        "Description[vi]": "Có một chương trình dòng lệnh luôn sẵn sàng, với phụ kiện Konsole của KDE",
+        "Description[vi]": "Có một trình dòng lệnh luôn sẵn sàng, với phụ kiện Konsole của KDE",
         "Description[x-test]": "xxHave a terminal at the ready, using KDE's Konsole widgetxx",
         "Description[zh_CN]": "使用 KDE的 Konsole 小部件作为可用的终端。",
         "Name": "Terminal Tool View",

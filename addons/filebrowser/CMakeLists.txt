@@ -1,4 +1,5 @@
 find_package(KF5KIO ${KF5_DEP_VERSION} QUIET)
+find_package(KF5KBookmarks ${KF5_DEP_VERSION} QUIET)
 set_package_properties(KF5KIO PROPERTIES PURPOSE "Required to build the filebrowser addon")
 
 if(NOT KF5KIO_FOUND)
@@ -14,6 +15,7 @@ target_link_libraries(
     KF5::I18n
     KF5::TextEditor 
     KF5::KIOFileWidgets
+    KF5::Bookmarks
 )
 
 target_sources(

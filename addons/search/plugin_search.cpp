@@ -422,8 +422,8 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
     connect(m_ui.searchCombo->lineEdit(), &QLineEdit::returnPressed, this, &KatePluginSearchView::startSearch);
     // connecting to returnPressed() of the folderRequester doesn't work, I haven't found out why yet. But connecting to the linedit works:
     connect(m_ui.folderRequester->comboBox()->lineEdit(), &QLineEdit::returnPressed, this, &KatePluginSearchView::startSearch);
-    connect(m_ui.filterCombo, static_cast<void (KComboBox::*)()>(&KComboBox::returnPressed), this, &KatePluginSearchView::startSearch);
-    connect(m_ui.excludeCombo, static_cast<void (KComboBox::*)()>(&KComboBox::returnPressed), this, &KatePluginSearchView::startSearch);
+    connect(m_ui.filterCombo, static_cast<void (KComboBox::*)(const QString &)>(&KComboBox::returnPressed), this, &KatePluginSearchView::startSearch);
+    connect(m_ui.excludeCombo, static_cast<void (KComboBox::*)(const QString &)>(&KComboBox::returnPressed), this, &KatePluginSearchView::startSearch);
     connect(m_ui.searchButton, &QPushButton::clicked, this, &KatePluginSearchView::startSearch);
 
     connect(m_ui.displayOptions, &QToolButton::toggled, this, &KatePluginSearchView::toggleOptions);

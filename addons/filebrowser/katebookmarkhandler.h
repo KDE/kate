@@ -12,6 +12,7 @@
 
 #include <KBookmarkManager>
 #include <KBookmarkMenu>
+#include <KBookmarkOwner>
 
 class KateFileBrowser;
 class QMenu;

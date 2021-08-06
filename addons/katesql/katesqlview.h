@@ -54,7 +54,7 @@ public Q_SLOTS:
     void slotConnectionEdit();
     void slotConnectionRemove();
     void slotConnectionReconnect();
-    void slotConnectionChanged(const QString &connection);
+    void slotConnectionChanged(int currentIndex);
     void slotRunQuery();
     void slotError(const QString &message);
     void slotSuccess(const QString &message);

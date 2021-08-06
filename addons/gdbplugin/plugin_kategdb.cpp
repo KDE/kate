@@ -99,7 +99,7 @@ KatePluginGDBView::KatePluginGDBView(KTextEditor::Plugin *plugin, KTextEditor::M
 
     // input
     m_inputArea = new KHistoryComboBox(true);
-    connect(m_inputArea, static_cast<void (KHistoryComboBox::*)()>(&KHistoryComboBox::returnPressed), this, &KatePluginGDBView::slotSendCommand);
+    connect(m_inputArea, static_cast<void (KHistoryComboBox::*)(const QString &)>(&KHistoryComboBox::returnPressed), this, &KatePluginGDBView::slotSendCommand);
     QHBoxLayout *inputLayout = new QHBoxLayout();
     inputLayout->addWidget(m_inputArea, 10);
     inputLayout->setContentsMargins(0, 0, 0, 0);

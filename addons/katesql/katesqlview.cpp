@@ -83,7 +83,7 @@ KateSQLView::KateSQLView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *m
     connect(m_manager, &SQLManager::queryActivated, this, &KateSQLView::slotQueryActivated);
     connect(m_manager, &SQLManager::connectionCreated, this, &KateSQLView::slotConnectionCreated);
     connect(m_manager, &SQLManager::connectionAboutToBeClosed, this, &KateSQLView::slotConnectionAboutToBeClosed);
-    connect(m_connectionsComboBox, QOverload<const QString &>::of(&QComboBox::currentIndexChanged), this, &KateSQLView::slotConnectionChanged);
+    connect(m_connectionsComboBox, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &KateSQLView::slotConnectionChanged);
 
     stateChanged(QStringLiteral("has_connection_selected"), KXMLGUIClient::StateReverse);
 }
@@ -177,11 +177,14 @@ void KateSQLView::slotConnectionSelectedFromMenu(QAction *action)
     m_connectionsComboBox->setCurrentItem(action->text());
 }
 
-void KateSQLView::slotConnectionChanged(const QString &connection)
+void KateSQLView::slotConnectionChanged(int index)
 {
-    stateChanged(QStringLiteral("has_connection_selected"), (connection.isEmpty()) ? KXMLGUIClient::StateReverse : KXMLGUIClient::StateNoReverse);
+    if (index >= 0) {
+        const QString connection = m_connectionsComboBox->itemText(index);
+        stateChanged(QStringLiteral("has_connection_selected"), (connection.isEmpty()) ? KXMLGUIClient::StateReverse : KXMLGUIClient::StateNoReverse);
 
-    m_schemaBrowserWidget->schemaWidget()->buildTree(connection);
+        m_schemaBrowserWidget->schemaWidget()->buildTree(connection);
+    }
 }
 
 void KateSQLView::slotGlobalSettingsChanged()

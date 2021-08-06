@@ -76,20 +76,17 @@ protected:
         const QString &name = sm->idxToFileName(sourceRow);
 
         int score = 0;
-        bool res = false;
-        int scorep = 0, scoren = 0;
-        bool resn = filterByName(name, scoren);
+        // dont use the QStringView(QString) ctor
+        bool res = filterByName(QStringView(name.data(), name.size()), QStringView(pattern.data(), pattern.size()), score);
 
         // only match file path if filename got a match
-        bool resp = false;
-        if (resn || pathLike) {
-            const QStringView path = sm->idxToFilePath(sourceRow);
-            resp = filterByPath(path, scorep);
+        if (res || pathLike) {
+            int scorep = 0;
+            QStringView path{sm->idxToFilePath(sourceRow)};
+            bool resp = filterByPath(path, QStringView(pattern.data(), pattern.size()), scorep);
+            score += scorep;
+            res = res || resp;
         }
-
-        // store the score for sorting later
-        score = scoren + scorep;
-        res = resp || resn;
 
         sm->setScoreForIndex(sourceRow, score);
 
@@ -114,12 +111,12 @@ public Q_SLOTS:
     }
 
 private:
-    inline bool filterByPath(const QStringView path, int &score) const
+    static inline bool filterByPath(QStringView path, QStringView pattern, int &score)
     {
         return kfts::fuzzy_match(pattern, path, score);
     }
 
-    inline bool filterByName(const QString &name, int &score) const
+    static inline bool filterByName(QStringView name, QStringView pattern, int &score)
     {
         return kfts::fuzzy_match(pattern, name, score);
     }

@@ -30,8 +30,13 @@ by changing them per document during an editing session.</para>
 <sect2 id="appearance">
 <title>Appearance</title>
 
-<sect3 id="prefcolors-fonts">
-<title>Font</title>
+<sect3 id="appearance-general">
+<title>General</title>
+
+<variablelist>
+<varlistentry>
+<term><guilabel>Editor font</guilabel></term>
+<listitem>
 <para>
 Here you can choose the font of the editor text.  You can choose from
 any font available on your system, and set a default size. A sample text
@@ -40,20 +45,125 @@ is displayed at the bottom of the dialog, so you can see the effect of your choi
 <para>For more information about selecting a font, see the
 <ulink url="help:/fundamentals/fonts.html"><emphasis>Choosing Fonts</emphasis>
 section of the <emphasis>&kde; Fundamentals</emphasis> documentation</ulink>.</para>
-</sect3>
+</listitem>
+</varlistentry>
 
-<sect3 id="appearance-general">
-<title>General</title>
-
+<varlistentry>
+<term><guilabel>Show whitespace indicators</guilabel></term>
+<listitem>
 <variablelist>
+<varlistentry>
+<term><guilabel>Never</guilabel></term>
+<listitem><para>The editor will never display dots to indicate the presence of whitespace.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>At the end of a line</guilabel></term>
+<listitem><para>The editor will display dots to indicate the presence of extra
+whitespace at the end of lines.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Always</guilabel></term>
+<listitem><para>The editor will always display dots to indicate the presence of whitespace.</para></listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Whitespace indicator size</guilabel></term>
+<listitem><para>Use the slider to change the size of the visible indicator marker.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Show tab indicators</guilabel></term>
+<listitem><para>When checked the editor will display a &raquo; symbol to indicate the presence
+  of a tab in the text.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Bracket matching
+</guilabel></term>
+<listitem><para>
+<variablelist>
+<varlistentry>
+<term><guilabel>Highlight range between selected brackets
+</guilabel></term>
+<listitem><para>If this is enabled, the range between the selected matching brackets will be highlighted.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Show preview of matching open bracket
+</guilabel></term>
+<listitem><para>When enabled, the editor will show a tooltip of the matching open bracket.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Flash matching bracket when cursor moves to other bracket in pair
+</guilabel></term>
+<listitem><para>If enabled, moving on the brackets (<keycap>{</keycap>, <keycap>[</keycap>,  
+<keycap>]</keycap>, <keycap>}</keycap>,<keycap>(</keycap> or <keycap>)</keycap>) will
+quickly flash the matching bracket.</para></listitem>
+</varlistentry>
+</variablelist>
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Show indentation lines
+</guilabel></term>
+<listitem><para>If this is checked, the editor will display
+vertical lines to help identifying indent lines.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Counts
+</guilabel></term>
+<listitem><para>
+<variablelist>
+<varlistentry>
+<term><guilabel>Show word count
+</guilabel></term>
+<listitem><para>Displays the number of words and characters in the document and
+in the current selection in the status bar.
+This option is also available in the status bar context menu.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Show line count
+</guilabel></term>
+<listitem><para>Displays the number of total lines in the document in the status bar.
+This option is also available in the status bar context menu.</para></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Fold first line
+</guilabel></term>
+<listitem><para>If enabled, the first line is folded, if possible. This is useful, 
+if the file starts with a comment, such as a copyright</para></listitem>
+</varlistentry>
+
 <varlistentry>
 <term><guilabel>Dynamic Word Wrap</guilabel></term>
 <listitem>
 <para>If this option is checked, the text lines
 will be wrapped at the view border on the screen.</para>
+<para>
 <variablelist>
 <varlistentry>
-<term><guilabel>Dynamic word wrap indicators (if applicable)</guilabel></term>
+<term><guilabel>Wrap dynamically at static word wrap marker
+</guilabel></term>
+<listitem><para>When checked, editor wraps lines dynamically at the <link linkend="pref-word-wrap">static word wrap position</link>.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Disregard word boundaries for dynamic wrapping
+</guilabel></term>
+<listitem><para>When checked, the editor does not take into account word boundaries when wrapping text lines.</para></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Dynamic word wrap indicators</guilabel></term>
 <listitem><para>Choose when the Dynamic word wrap indicators
 should be displayed, either <guilabel>Off</guilabel>, <guilabel>Follow Line
 Numbers</guilabel> or <guilabel>Always on</guilabel>.
@@ -71,77 +181,6 @@ after which dynamically wrapped lines will no longer be vertically aligned.
 For example, at 50%, lines whose indentation levels are deeper than 50% of the
 width of the screen will not have vertical alignment applied to subsequent
 wrapped lines.</para></listitem>
-</varlistentry>
-</variablelist>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term><guilabel>Whitespace Highlighting</guilabel></term>
-<listitem>
-<variablelist>
-<varlistentry>
-<term><guilabel>Highlight tabulators</guilabel></term>
-<listitem><para>The editor will display a &raquo; symbol to indicate the presence
-  of a tab in the text.</para></listitem>
-</varlistentry>
-<varlistentry>
-<term><guilabel>Highlight trailing spaces</guilabel></term>
-<listitem><para>The editor will display dots to indicate the presence of extra
-whitespace at the end of lines.</para></listitem>
-</varlistentry>
-<varlistentry>
-<term><guilabel>Highlight marker size</guilabel></term>
-<listitem><para>Use the slider to change the size of the visible highlight marker.</para></listitem>
-</varlistentry>
-</variablelist>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term><guilabel>Advanced
-</guilabel></term>
-<listitem><para>
-<variablelist>
-<varlistentry>
-<term><guilabel>Show indentation lines
-</guilabel></term>
-<listitem><para>If this is checked, the editor will display
-vertical lines to help identifying indent lines.</para></listitem>
-</varlistentry>
-<varlistentry>
-<term><guilabel>Highlight range between selected brackets
-</guilabel></term>
-<listitem><para>If this is enabled, the range between the selected matching brackets will be highlighted.</para></listitem>
-</varlistentry>
-</variablelist>
-</para></listitem>
-</varlistentry>
-<varlistentry>
-<term><guilabel>Animate bracket matching
-</guilabel></term>
-<listitem><para>If enabled, moving on the brackets (<keycap>{</keycap>, <keycap>[</keycap>,  
-<keycap>]</keycap>, <keycap>}</keycap>,<keycap>(</keycap> or <keycap>)</keycap>) will
-quickly animate the matching bracket.</para></listitem>
-</varlistentry>
-<varlistentry>
-<term><guilabel>Fold first line
-</guilabel></term>
-<listitem><para>If enabled, the first line is folded, if possible. This is useful, 
-if the file starts with a comment, such as a copyright</para></listitem>
-</varlistentry>
-<varlistentry>
-<term><guilabel>Show Word Count
-</guilabel></term>
-<listitem><para>Displays the number of words and characters in the document and
-in the current selection in the status bar.
-This option is also available in the status bar context menu.</para></listitem>
-</varlistentry>
-<varlistentry>
-<term><guilabel>Show line count
-</guilabel></term>
-<listitem><para>Displays the number of total lines in the document in the status bar.
-This option is also available in the status bar context menu.</para></listitem>
 </varlistentry>
 </variablelist>
 </sect3>

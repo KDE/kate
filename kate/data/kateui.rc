@@ -101,7 +101,6 @@
       <Action name="sessions_list"/>
       <Action name="sessions_manage"/>
       <Separator/>
-      <Action name="sessions_save_default"/>
       <Action name="sessions_save"/>
       <Action name="sessions_save_as"/>
     </Menu>

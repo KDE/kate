@@ -370,12 +370,3 @@ void KatePluginManager::unloadPlugin(const QString &name, bool permanent)
      */
     m_name2Plugin.value(name)->load = !permanent;
 }
-
-bool KatePluginManager::isLoaded(const QString &name) const
-{
-    if (!m_name2Plugin.contains(name)) {
-        return false;
-    }
-
-    return m_name2Plugin.value(name)->plugin != nullptr;
-}

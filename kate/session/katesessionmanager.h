@@ -19,24 +19,11 @@
 
 typedef QList<KateSession::Ptr> KateSessionList;
 
-/**
- * Takes care of session store, session activation and sesion defaults.
- *
- * There is a single implicit anonymous session that is always present, but not
- * exported outside the manager, hence not even visible to user. It's possible
- * to activate the session via KateSessionManager::activateAnonymousSession. For other
- * usecases the anonymous session behaves the same as regular one.
- *
- * The session defaults are stored in an implicit default session, which the users
- * can only overwrite via KateSessionManager::saveDefaults.
- *
- * If the client request new session (calling KateSessionManager::activateNewSession)
- * the manager will import stored default session config to new session and overwrite
- * the anonymous session with this newly created one.
- */
 class KATE_TESTS_EXPORT KateSessionManager : public QObject
 {
     Q_OBJECT
+
+    friend class KateSessionManageDialog;
 
 public:
     KateSessionManager(QObject *parent = nullptr, const QString &sessionsDir = QString());
@@ -59,19 +46,9 @@ public:
     bool activateSession(const QString &name, const bool closeAndSaveLast = true, const bool loadNew = true);
 
     /**
-     * activate existing anonymous session
+     * activates new/anonymous session
      */
     bool activateAnonymousSession();
-
-    /**
-     * create and activate new session and store it as anonymous
-     */
-    void activateNewSession();
-
-    /**
-     * create and activate new session from another \p session as template
-     */
-    void activateNewSessionFrom(const KateSession::Ptr &session);
 
     /**
      * save current session
@@ -89,11 +66,6 @@ public:
     {
         return m_activeSession;
     }
-
-    /**
-     * @return true when @p session is active in any Kate instance, otherwise false
-     */
-    bool sessionIsActive(const QString &session);
 
     /**
      * session dir
@@ -132,11 +104,6 @@ public Q_SLOTS:
      */
     void sessionManage();
 
-    /**
-     * save current configuration as session defaults
-     */
-    void saveDefaults();
-
 Q_SIGNALS:
     /**
      * Emitted, whenever the session changes, e.g. when it was renamed.
@@ -153,6 +120,12 @@ Q_SIGNALS:
      * module internal APIs
      */
 public:
+    /**
+     * return session with given name
+     * if no existing session matches, create new one with this name
+     * @param name session name
+     */
+    KateSession::Ptr giveSession(const QString &name);
 
     /**
      * Try to delete the @p session and removes the session from sessions list
@@ -202,19 +175,6 @@ private Q_SLOTS:
 
 private:
     /**
-     * return session with given name
-     * if no existing session matches, create new one with this name
-     * @param name session name
-     */
-    KateSession::Ptr giveSession(const QString &name);
-
-    /**
-     * Create new session from defaults
-     * @param name session name
-     */
-    KateSession::Ptr createSession(const QString &name);
-
-    /**
      * Ask the user for a new session name, when needed.
      * @param session is the session to rename or copy
      * @param newName is a preset value. Is @p newName not already in use is nothing asked
@@ -236,14 +196,14 @@ private:
     QString sessionFileForName(const QString &name) const;
 
     /**
-     * returns session file for anonymous session
+     * @return true when @p session is active in any Kate instance, otherwise false
      */
-    QString anonymousSessionFile() const;
+    bool sessionIsActive(const QString &session);
 
     /**
      * returns session file for anonymous session
      */
-    QString defaultSessionFile() const;
+    QString anonymousSessionFile() const;
 
     /**
      * helper function to save the session to a given config object
@@ -253,7 +213,7 @@ private:
     /**
      * restore sessions documents, windows, etc...
      */
-    void loadSession(const KateSession::Ptr &session, bool loadDocs = true) const;
+    void loadSession(const KateSession::Ptr &session) const;
 
     /**
      * Writes sessions as jump list actions to the kate.desktop file

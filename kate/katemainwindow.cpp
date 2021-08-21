@@ -448,10 +448,6 @@ void KateMainWindow::setupActions()
     a->setText(i18nc("Menu entry Session->New Session", "&New Session"));
     // Qt::QueuedConnection to avoid deletion of code that is executed when reducing the amount of mainwindows. (bug #227008)
     connect(a, &QAction::triggered, KateApp::self()->sessionManager(), &KateSessionManager::sessionNew, Qt::QueuedConnection);
-    a = actionCollection()->addAction(QStringLiteral("sessions_save_default"));
-    a->setIcon(QIcon::fromTheme(QStringLiteral("document-save")));
-    a->setText(i18n("&Save as defaults"));
-    connect(a, &QAction::triggered, KateApp::self()->sessionManager(), &KateSessionManager::saveDefaults);
     a = actionCollection()->addAction(QStringLiteral("sessions_save"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("document-save")));
     a->setText(i18n("&Save Session"));

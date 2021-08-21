@@ -31,7 +31,6 @@ private Q_SLOTS:
 
     void deletingSessionFilesUnderRunningApp();
     void startNonEmpty();
-    void newSessionInheritsDefaults();
 
 private:
     class QTemporaryDir *m_tempdir;

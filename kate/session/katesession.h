@@ -18,8 +18,6 @@
 
 class KConfig;
 
-static const QLatin1String AnonymousSessionName("Anonymous");
-
 class KATE_TESTS_EXPORT KateSession : public QSharedData
 {
 public:

@@ -70,7 +70,6 @@ public:
 
     KTextEditor::Plugin *loadPlugin(const QString &name, bool permanent = true);
     void unloadPlugin(const QString &name, bool permanent = true);
-    bool isLoaded(const QString &name) const;
 
 private:
     void setupPluginList();

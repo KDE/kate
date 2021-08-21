@@ -136,7 +136,7 @@ void KateSessionManagerTest::saveActiveSessionWithAnynomous()
 
     QCOMPARE(m_manager->saveActiveSession(), true);
     QCOMPARE(m_manager->activeSession()->isAnonymous(), true);
-    QCOMPARE(m_manager->activeSession()->name(), QLatin1String("Anonymous"));
+    QCOMPARE(m_manager->activeSession()->name(), QString());
     QCOMPARE(m_manager->sessionList().size(), 0);
 }
 
@@ -162,21 +162,4 @@ void KateSessionManagerTest::startNonEmpty()
 
     KateSessionManager m(this, m_tempdir->path());
     QCOMPARE(m.sessionList().size(), 2);
-}
-
-void KateSessionManagerTest::newSessionInheritsDefaults()
-{
-    QLatin1String pluginToTest("katekonsoleplugin");
-
-    QString sessionsDirs = m_tempdir->path() + QLatin1String("/sessions");
-
-    KateSessionManager m(this, sessionsDirs);
-    m.activateAnonymousSession();
-    m_app->pluginManager()->unloadAllPlugins();
-    m_app->pluginManager()->loadPlugin(pluginToTest);
-    m.saveDefaults();
-    m_app->pluginManager()->unloadAllPlugins();
-
-    m.activateSession(QLatin1String("test"));
-    QVERIFY(m_app->pluginManager()->isLoaded(pluginToTest));
 }

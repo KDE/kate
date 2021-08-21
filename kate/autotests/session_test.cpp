@@ -49,7 +49,7 @@ void KateSessionTest::create()
 void KateSessionTest::createAnonymous()
 {
     KateSession::Ptr s = KateSession::createAnonymous(m_tmpfile->fileName());
-    QCOMPARE(s->name(), QLatin1String("Anonymous"));
+    QCOMPARE(s->name(), QString());
     QCOMPARE((int)s->documents(), 0);
     QCOMPARE(s->isAnonymous(), true);
     QCOMPARE(s->config()->name(), m_tmpfile->fileName());
@@ -69,7 +69,7 @@ void KateSessionTest::createAnonymousFrom()
 
     // Create Anon from Other
     ns = KateSession::createAnonymousFrom(s, newFile.fileName());
-    QCOMPARE(ns->name(), QLatin1String("Anonymous"));
+    QCOMPARE(ns->name(), QString());
     QCOMPARE((int)ns->documents(), 0);
     QCOMPARE(ns->isAnonymous(), true);
     QCOMPARE(ns->config()->name(), newFile.fileName());

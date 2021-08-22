@@ -484,9 +484,9 @@ QString MatchModel::infoHtmlString() const
 
     if (m_searchState == Preparing) {
         if (m_lastSearchPath.size() >= 73) {
-            return i18n("<b><i>Generating file list: ...%1</i></b>", m_lastSearchPath.right(70));
+            return i18n("<b><i>Generating file list: ...%1</i></b>", m_lastSearchPath.right(70).toHtmlEscaped());
         } else {
-            return i18n("<b><i>Generating file list: ...%1</i></b>", m_lastSearchPath);
+            return i18n("<b><i>Generating file list: ...%1</i></b>", m_lastSearchPath.toHtmlEscaped());
         }
     }
 
@@ -497,9 +497,12 @@ QString MatchModel::infoHtmlString() const
             return i18np("<b><i>One match found, searching: ...%2</i></b>",
                          "<b><i>%1 matches found, searching: ...%2</i></b>",
                          matchesTotal,
-                         searchUrl.right(70));
+                         searchUrl.right(70).toHtmlEscaped());
         } else {
-            return i18np("<b><i>One match found, searching: %2</i></b>", "<b><i>%1 matches found, searching: %2</i></b>", matchesTotal, searchUrl);
+            return i18np("<b><i>One match found, searching: %2</i></b>",
+                         "<b><i>%1 matches found, searching: %2</i></b>",
+                         matchesTotal,
+                         searchUrl.toHtmlEscaped());
         }
     }
 
@@ -515,15 +518,15 @@ QString MatchModel::infoHtmlString() const
         return i18np("<b><i>One match (%3) found in folder %2</i></b>",
                      "<b><i>%1 matches (%3) found in folder %2</i></b>",
                      matchesTotal,
-                     m_resultBaseDir,
+                     m_resultBaseDir.toHtmlEscaped(),
                      checkedStr);
         break;
     case MatchModel::Project: {
         return i18np("<b><i>One match (%4) found in project %2 (%3)</i></b>",
                      "<b><i>%1 matches (%4) found in project %2 (%3)</i></b>",
                      matchesTotal,
-                     m_projectName,
-                     m_resultBaseDir,
+                     m_projectName.toHtmlEscaped(),
+                     m_resultBaseDir.toHtmlEscaped(),
                      checkedStr);
         break;
     }
@@ -545,8 +548,9 @@ QString MatchModel::fileToHtmlString(const MatchFile &matchFile) const
     if (!path.isEmpty() && !path.endsWith(QLatin1Char('/'))) {
         path += QLatin1Char('/');
     }
+    path = path.toHtmlEscaped();
 
-    QString tmpStr = QStringLiteral("%1<b>%2: %3</b>").arg(path, matchFile.fileUrl.fileName()).arg(matchFile.matches.size());
+    QString tmpStr = QStringLiteral("%1<b>%2: %3</b>").arg(path, matchFile.fileUrl.fileName().toHtmlEscaped()).arg(matchFile.matches.size());
 
     return tmpStr;
 }

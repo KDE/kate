@@ -182,7 +182,10 @@ void KateTabBar::setTabDocument(int idx, KTextEditor::Document *doc)
     KateTabButtonData buttonData = data.value<KateTabButtonData>();
     buttonData.doc = doc;
     setTabData(idx, QVariant::fromValue(buttonData));
-    setTabText(idx, doc->documentName());
+    // BUG: 441340 We need to escape the & because it is used for accelerators/shortcut mnemonic by default
+    QString tabName = doc->documentName();
+    tabName.replace(QLatin1Char('&'), QLatin1String("&&"));
+    setTabText(idx, tabName);
     setTabToolTip(idx, doc->url().toDisplayString());
     setTabIcon(idx, icon);
 }

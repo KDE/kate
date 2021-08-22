@@ -1031,7 +1031,10 @@ void KatePluginSearchView::startSearch()
     clearMarksAndRanges();
     m_curResults->matches = 0;
 
-    m_ui.resultTabWidget->setTabText(m_ui.resultTabWidget->currentIndex(), m_ui.searchCombo->currentText());
+    // BUG: 441340 We need to escape the & because it is used for accelerators/shortcut mnemonic by default
+    QString tabName = m_ui.searchCombo->currentText();
+    tabName.replace(QLatin1Char('&'), QLatin1String("&&"));
+    m_ui.resultTabWidget->setTabText(m_ui.resultTabWidget->currentIndex(), tabName);
 
     m_toolView->setCursor(Qt::WaitCursor);
 
@@ -2003,7 +2006,10 @@ void KatePluginSearchView::resultTabChanged(int index)
     m_ui.matchCase->blockSignals(true);
     m_ui.useRegExp->blockSignals(true);
     m_ui.searchPlaceCombo->blockSignals(true);
-    m_ui.searchCombo->lineEdit()->setText(m_ui.resultTabWidget->tabText(index));
+    // BUG: 441340 & Characters were escaped so that accelerators are not created, so we need to "unescape" them
+    QString tabName = m_ui.resultTabWidget->tabText(index);
+    tabName.replace(QLatin1String("&&"), QLatin1String("&"));
+    m_ui.searchCombo->lineEdit()->setText(tabName);
     m_ui.useRegExp->setChecked(res->useRegExp);
     m_ui.matchCase->setChecked(res->matchCase);
     m_ui.searchPlaceCombo->setCurrentIndex(res->searchPlaceIndex);

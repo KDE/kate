@@ -416,7 +416,10 @@ void KateViewSpace::updateDocumentName(KTextEditor::Document *doc)
     // update tab button if available, might not be the case for tab limit set!
     const int buttonId = m_tabBar->documentIdx(doc);
     if (buttonId >= 0) {
-        m_tabBar->setTabText(buttonId, doc->documentName());
+        // BUG: 441278 We need to escape the & because it is used for accelerators/shortcut mnemonic by default
+        QString tabName = doc->documentName();
+        tabName.replace(QLatin1Char('&'), QLatin1String("&&"));
+        m_tabBar->setTabText(buttonId, tabName);
     }
 }
 

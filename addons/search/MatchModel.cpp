@@ -268,32 +268,7 @@ bool MatchModel::replaceMatch(KTextEditor::Document *doc, const QModelIndex &mat
     }
 
     // Modify the replace string according to this match
-    QString replaceText = replaceString;
-    replaceText.replace(QLatin1String("\\\\"), QLatin1String("¤Search&Replace¤"));
-
-    // allow captures \0 .. \9
-    for (int j = qMin(9, match.lastCapturedIndex()); j >= 0; --j) {
-        QString captureLX = QStringLiteral("\\L\\%1").arg(j);
-        QString captureUX = QStringLiteral("\\U\\%1").arg(j);
-        QString captureX = QStringLiteral("\\%1").arg(j);
-        replaceText.replace(captureLX, match.captured(j).toLower());
-        replaceText.replace(captureUX, match.captured(j).toUpper());
-        replaceText.replace(captureX, match.captured(j));
-    }
-
-    // allow captures \{0} .. \{9999999}...
-    for (int j = match.lastCapturedIndex(); j >= 0; --j) {
-        QString captureLX = QStringLiteral("\\L\\{%1}").arg(j);
-        QString captureUX = QStringLiteral("\\U\\{%1}").arg(j);
-        QString captureX = QStringLiteral("\\{%1}").arg(j);
-        replaceText.replace(captureLX, match.captured(j).toLower());
-        replaceText.replace(captureUX, match.captured(j).toUpper());
-        replaceText.replace(captureX, match.captured(j));
-    }
-
-    replaceText.replace(QLatin1String("\\n"), QLatin1String("\n"));
-    replaceText.replace(QLatin1String("\\t"), QLatin1String("\t"));
-    replaceText.replace(QLatin1String("¤Search&Replace¤"), QLatin1String("\\"));
+    QString replaceText = MatchModel::generateReplaceString(match, replaceString);
 
     // Replace the string
     doc->replaceText(matchItem->range, replaceText);
@@ -1037,6 +1012,39 @@ void MatchModel::uncheckAll()
         setFileChecked(i, false);
     }
     m_infoCheckState = Qt::Unchecked;
+}
+
+QString MatchModel::generateReplaceString(const QRegularExpressionMatch &match, const QString &replaceString)
+{
+    // Modify the replace string according to this match
+    QString replaceText = replaceString;
+    replaceText.replace(QLatin1String("\\\\"), QLatin1String("¤Search&Replace¤"));
+
+    // allow captures \0 .. \9
+    for (int j = qMin(9, match.lastCapturedIndex()); j >= 0; --j) {
+        QString captureLX = QStringLiteral("\\L\\%1").arg(j);
+        QString captureUX = QStringLiteral("\\U\\%1").arg(j);
+        QString captureX = QStringLiteral("\\%1").arg(j);
+        replaceText.replace(captureLX, match.captured(j).toLower());
+        replaceText.replace(captureUX, match.captured(j).toUpper());
+        replaceText.replace(captureX, match.captured(j));
+    }
+
+    // allow captures \{0} .. \{9999999}...
+    for (int j = match.lastCapturedIndex(); j >= 0; --j) {
+        QString captureLX = QStringLiteral("\\L\\{%1}").arg(j);
+        QString captureUX = QStringLiteral("\\U\\{%1}").arg(j);
+        QString captureX = QStringLiteral("\\{%1}").arg(j);
+        replaceText.replace(captureLX, match.captured(j).toLower());
+        replaceText.replace(captureUX, match.captured(j).toUpper());
+        replaceText.replace(captureX, match.captured(j));
+    }
+
+    replaceText.replace(QLatin1String("\\n"), QLatin1String("\n"));
+    replaceText.replace(QLatin1String("\\t"), QLatin1String("\t"));
+    replaceText.replace(QLatin1String("¤Search&Replace¤"), QLatin1String("\\"));
+
+    return replaceText;
 }
 
 Qt::ItemFlags MatchModel::flags(const QModelIndex &index) const

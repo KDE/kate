@@ -6,6 +6,7 @@
 
 #include "plugin_search.h"
 #include "KateSearchCommand.h"
+#include "MatchExportDialog.h"
 #include "htmldelegate.h"
 
 #include <ktexteditor/configinterface.h>
@@ -130,7 +131,7 @@ static void addRegexHelperActionsForSearch(QSet<QAction *> *actionList, QMenu *m
 /**
  * adds items and separators for regex in "replace" field
  */
-static void addRegexHelperActionsForReplace(QSet<QAction *> *actionList, QMenu *menu)
+void KatePluginSearchView::addRegexHelperActionsForReplace(QSet<QAction *> *actionList, QMenu *menu)
 {
     QSet<QAction *> &actionPointers = *actionList;
     QString emptyQSTring;
@@ -149,7 +150,7 @@ static void addRegexHelperActionsForReplace(QSet<QAction *> *actionList, QMenu *
 /**
  * inserts text and sets cursor position
  */
-static void regexHelperActOnAction(QAction *resultAction, const QSet<QAction *> &actionList, QLineEdit *lineEdit)
+void KatePluginSearchView::regexHelperActOnAction(QAction *resultAction, const QSet<QAction *> &actionList, QLineEdit *lineEdit)
 {
     if (resultAction && actionList.contains(resultAction)) {
         const int cursorPos = lineEdit->cursorPosition();
@@ -2093,6 +2094,11 @@ void KatePluginSearchView::customResMenuRequested(const QPoint &pos)
     QAction *copyExpanded = new QAction(i18n("Copy expanded"), tree);
     menu->addAction(copyExpanded);
 
+    QAction *exportMatches = new QAction(i18n("Export matches"), tree);
+    if (m_curResults->useRegExp) {
+        menu->addAction(exportMatches);
+    }
+
     menu->popup(tree->viewport()->mapToGlobal(pos));
 
     connect(copyAll, &QAction::triggered, this, [this](bool) {
@@ -2100,6 +2106,9 @@ void KatePluginSearchView::customResMenuRequested(const QPoint &pos)
     });
     connect(copyExpanded, &QAction::triggered, this, [this](bool) {
         copySearchToClipboard(AllExpanded);
+    });
+    connect(exportMatches, &QAction::triggered, this, [this](bool) {
+        showExportMatchesDialog();
     });
 }
 
@@ -2133,6 +2142,16 @@ void KatePluginSearchView::copySearchToClipboard(CopyResultType copyType)
     }
     clipboard += QLatin1String("\n");
     QApplication::clipboard()->setText(clipboard);
+}
+
+void KatePluginSearchView::showExportMatchesDialog()
+{
+    Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
+    if (!res) {
+        return;
+    }
+    MatchExportDialog matchExportDialog(m_mainWindow->window(), &m_curResults->matchModel, &m_curResults->regExp);
+    matchExportDialog.exec();
 }
 
 bool KatePluginSearchView::eventFilter(QObject *obj, QEvent *event)

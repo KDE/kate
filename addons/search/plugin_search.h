@@ -98,6 +98,9 @@ public:
     void readSessionConfig(const KConfigGroup &config) override;
     void writeSessionConfig(KConfigGroup &config) override;
 
+    static void addRegexHelperActionsForReplace(QSet<QAction *> *actionList, QMenu *menu);
+    static void regexHelperActOnAction(QAction *resultAction, const QSet<QAction *> &actionList, QLineEdit *lineEdit);
+
 public Q_SLOTS:
     void stopClicked();
     void startSearch();
@@ -168,6 +171,7 @@ private Q_SLOTS:
     void slotProjectFileNameChanged();
 
     void copySearchToClipboard(CopyResultType type);
+    void showExportMatchesDialog();
     void customResMenuRequested(const QPoint &pos);
 
 Q_SIGNALS:

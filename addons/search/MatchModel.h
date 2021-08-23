@@ -99,6 +99,8 @@ public:
 
     void uncheckAll();
 
+    static QString generateReplaceString(const QRegularExpressionMatch &match, const QString &replaceString);
+
 public Q_SLOTS:
 
     /** This function returns the row index of the specified file.

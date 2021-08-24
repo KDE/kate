@@ -170,12 +170,16 @@ Numbers</guilabel> or <guilabel>Always on</guilabel>.
 </para></listitem></varlistentry>
 <varlistentry>
 <term><guilabel>Align dynamically wrapped lines
-to indentation depth:
+to indentation depth
 </guilabel></term>
 <listitem><para>Enables the start of dynamically wrapped
 lines to be aligned  vertically to the indentation level of the first
-line.  This can help to make code and markup more
-readable.</para><para>Additionally, this allows you to
+line. This can help to make code and markup more
+readable.</para></listitem></varlistentry>
+<varlistentry>
+<term><guilabel>Indent wrapped lines
+</guilabel></term>
+<listitem><para>Additionally, this allows you to
 set a maximum width of the screen, as a percentage,
 after which dynamically wrapped lines will no longer be vertically aligned.
 For example, at 50%, lines whose indentation levels are deeper than 50% of the

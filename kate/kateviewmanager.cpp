@@ -476,7 +476,6 @@ KTextEditor::View *KateViewManager::createView(KTextEditor::Document *doc, KateV
 
     // disable settings dialog action
     delete view->actionCollection()->action(QStringLiteral("set_confdlg"));
-    delete view->actionCollection()->action(QStringLiteral("editor_options"));
 
     // clang-format off
     connect(view, SIGNAL(dropEventPass(QDropEvent*)), mainWindow(), SLOT(slotDropEvent(QDropEvent*)));

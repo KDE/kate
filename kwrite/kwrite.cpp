@@ -151,6 +151,15 @@ void KWrite::setupActions()
 
     actionCollection()->addAction(KStandardAction::Quit, this, SLOT(close()))->setWhatsThis(i18n("Close the current document view"));
 
+    // replace settings dialog action from KTextEditor with a standard action
+    delete m_view->actionCollection()->action(QStringLiteral("set_confdlg"));
+    // slotConfigDialog is a private slot in KTextEditor::ViewPrivate, so we have to use KTextEditor::Editor::configDialog
+    auto configDialogFunc = [this]() {
+        KTextEditor::Editor::instance()->configDialog(m_view);
+    };
+    QAction *settingsConfigure = KStandardAction::preferences(KTextEditor::Editor::instance(), configDialogFunc, actionCollection());
+    settingsConfigure->setWhatsThis(i18n("Configure various aspects of this application and the editing component."));
+
     // setup Settings menu
     setStandardToolBarMenuEnabled(true);
 

@@ -147,6 +147,7 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool *t
     ui.edtArgs->setText(m_tool->arguments);
     ui.edtInput->setText(m_tool->input);
     ui.edtWorkingDir->setText(m_tool->workingDir);
+    ui.edtWorkingDir->setMode(KFile::Directory | KFile::ExistingOnly | KFile::LocalOnly);
     ui.edtMimeType->setText(m_tool->mimetypes.join(QStringLiteral("; ")));
     ui.cmbSave->setCurrentIndex(static_cast<int>(m_tool->saveMode));
     ui.chkReload->setChecked(m_tool->reload);

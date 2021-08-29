@@ -227,7 +227,7 @@ gets invoked. There are two kind of variables supported:
 The first form <userinput>%{variable-name}</userinput> simply replaces the
 variable with its contents. For instance, the variable <userinput>%{Document:FileName}</userinput>
 is replaced by the current document’s filename without its path.
-The second form <userinput>%{variable-name:&lg;value&gt;}</userinput> gets the
+The second form <userinput>%{variable-name:&lt;value&gt;}</userinput> gets the
 <userinput>&lt;value&gt;</userinput> as contents. For example, this can be used
 to expand an environment variable with <userinput>%{ENV:HOME}</userinput>,
 or one can obtain the current date in the preferred format like

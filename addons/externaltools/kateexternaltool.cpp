@@ -123,29 +123,32 @@ void KateExternalTool::load(const KConfigGroup &cg)
     hasexec = checkExec();
 }
 
-static inline void writeStringEntry(KConfigGroup &cg, const char *key, const QString &value)
+template < class Value >
+static inline void writeEntryMaybe(KConfigGroup &cg, const char *key, const Value &value)
 {
-    if (!value.isEmpty()) {
+    if (value.isEmpty()) {
+        cg.deleteEntry(key);
+    }
+    else {
         cg.writeEntry(key, value);
     }
 }
 
 void KateExternalTool::save(KConfigGroup &cg) const
 {
-    writeStringEntry(cg, "category", category);
-    writeStringEntry(cg, "name", name);
-    writeStringEntry(cg, "icon", icon);
-    writeStringEntry(cg, "executable", executable);
-    writeStringEntry(cg, "arguments", arguments);
-    writeStringEntry(cg, "input", input);
-    writeStringEntry(cg, "workingDir", workingDir);
-    if (!mimetypes.empty()) {
-        cg.writeEntry("mimetypes", mimetypes);
-    }
-    writeStringEntry(cg, "actionName", actionName);
-    writeStringEntry(cg, "cmdname", cmdname);
-    writeStringEntry(cg, "save", toString(saveMode));
-    writeStringEntry(cg, "output", toString(outputMode));
+    writeEntryMaybe(cg, "category", category);
+    writeEntryMaybe(cg, "name", name);
+    writeEntryMaybe(cg, "icon", icon);
+    writeEntryMaybe(cg, "executable", executable);
+    writeEntryMaybe(cg, "arguments", arguments);
+    writeEntryMaybe(cg, "input", input);
+    writeEntryMaybe(cg, "workingDir", workingDir);
+    writeEntryMaybe(cg, "mimetypes", mimetypes);
+    writeEntryMaybe(cg, "actionName", actionName);
+    writeEntryMaybe(cg, "cmdname", cmdname);
+    writeEntryMaybe(cg, "save", toString(saveMode));
+    writeEntryMaybe(cg, "output", toString(outputMode));
+    // a logical value is never empty
     cg.writeEntry("reload", reload);
 }
 

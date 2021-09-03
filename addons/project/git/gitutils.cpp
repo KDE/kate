@@ -190,3 +190,19 @@ std::pair<QString, QString> GitUtils::getLastCommitMessage(const QString &repo)
     }
     return {};
 }
+
+GitUtils::Result GitUtils::deleteBranches(const QStringList &branches, const QString &repo)
+{
+    QStringList args = {QStringLiteral("branch"), QStringLiteral("-D")};
+    args << branches;
+
+    QProcess git;
+    setupGitProcess(git, repo, args);
+    git.start(QProcess::ReadOnly);
+    if (git.waitForStarted() && git.waitForFinished(-1)) {
+        QString out = QString::fromLatin1(git.readAllStandardError()) + QString::fromLatin1(git.readAllStandardOutput());
+        return {out, git.exitCode()};
+    }
+    Q_UNREACHABLE();
+    return {QString(), -1};
+}

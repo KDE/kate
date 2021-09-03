@@ -31,10 +31,13 @@ struct Branch {
     RefType type;
 };
 
-struct CheckoutResult {
-    QString branch;
+struct Result {
     QString error;
     int returnCode;
+};
+
+struct CheckoutResult : public Result {
+    QString branch;
 };
 
 struct StatusEntry {
@@ -85,6 +88,8 @@ QVector<Branch> getAllBranches(const QString &repo);
 QVector<Branch> getAllBranchesAndTags(const QString &repo, RefType ref = RefType::All);
 
 std::pair<QString, QString> getLastCommitMessage(const QString &repo);
+
+Result deleteBranches(const QStringList &branches, const QString &repo);
 }
 
 Q_DECLARE_TYPEINFO(GitUtils::Branch, Q_MOVABLE_TYPE);

@@ -6,6 +6,7 @@
 
 #include "gitwidget.h"
 #include "branchcheckoutdialog.h"
+#include "branchdeletedialog.h"
 #include "branchesdialog.h"
 #include "comparebranchesview.h"
 #include "git/gitdiff.h"
@@ -825,6 +826,15 @@ void GitWidget::buildMenu()
         bd.openDialog();
     });
     a->setIcon(QIcon::fromTheme(QStringLiteral("vcs-branch")));
+
+    a = m_gitMenu->addAction(i18n("Delete Branch"), this, [this] {
+        BranchDeleteDialog dlg(m_gitPath, this);
+        if (dlg.exec() == QDialog::Accepted) {
+            auto result = GitUtils::deleteBranches(dlg.branchesToDelete(), m_gitPath);
+            sendMessage(result.error, result.returnCode != 0);
+        }
+    });
+    a->setIcon(QIcon::fromTheme(QStringLiteral("edit-delete")));
 
     a = m_gitMenu->addAction(i18n("Compare Branch with ..."), this, [this] {
         BranchesDialog bd(m_mainWin->window(), m_pluginView, m_project->baseDir());

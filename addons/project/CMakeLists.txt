@@ -72,6 +72,7 @@ target_sources(
     ${CMAKE_SOURCE_DIR}/shared/quickdialog.cpp
     pushpulldialog.cpp
     comparebranchesview.cpp
+    branchdeletedialog.cpp
 
     tools/kateprojectcodeanalysistoolcppcheck.cpp
     tools/kateprojectcodeanalysistoolflake8.cpp

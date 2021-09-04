@@ -1,0 +1,9 @@
+{
+    "KPlugin": {
+        "Description": "LaTeX syntax for unicode symbols",
+        "Name": "LaTeX completion",
+        "ServiceTypes": [
+            "KTextEditor/Plugin"
+        ]
+    }
+}

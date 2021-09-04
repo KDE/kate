@@ -13,6 +13,7 @@ ecm_optional_add_subdirectory(kate-ctags)
 ecm_optional_add_subdirectory(katebuild-plugin)
 ecm_optional_add_subdirectory(katesql) 
 ecm_optional_add_subdirectory(konsole)
+ecm_optional_add_subdirectory(latexunicodecompletion)
 ecm_optional_add_subdirectory(lspclient) # Language Server Protocol (LSP) client plugin.
 ecm_optional_add_subdirectory(preview) # Live preview of sources in target format.
 ecm_optional_add_subdirectory(project) # Small & smart project manager.

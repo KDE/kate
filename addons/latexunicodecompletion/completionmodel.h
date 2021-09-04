@@ -27,6 +27,7 @@ class LatexCompletionModel : public KTextEditor::CodeCompletionModel, public KTe
 public:
     LatexCompletionModel(QObject *parent);
     KTextEditor::Range completionRange(KTextEditor::View *view, const KTextEditor::Cursor &position) override;
+    bool shouldStartCompletion(KTextEditor::View *view, const QString &insertedText, bool userInsertion, const KTextEditor::Cursor &position) override;
     bool shouldAbortCompletion(KTextEditor::View *view, const KTextEditor::Range &range, const QString &currentCompletion) override;
     void completionInvoked(KTextEditor::View *view, const KTextEditor::Range &range, InvocationType invocationType) override;
     void executeCompletionItem(KTextEditor::View *view, const KTextEditor::Range &word, const QModelIndex &index) const override;

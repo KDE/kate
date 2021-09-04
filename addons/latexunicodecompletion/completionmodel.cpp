@@ -44,6 +44,13 @@ void LatexCompletionModel::completionInvoked(KTextEditor::View *view,
     endResetModel();
 }
 
+bool LatexCompletionModel::shouldStartCompletion(KTextEditor::View *view, const QString &insertedText, bool userInsertion, const KTextEditor::Cursor &position)
+{
+    Q_UNUSED(view);
+    Q_UNUSED(position);
+    return userInsertion && latexexpr.match(insertedText).hasMatch();
+}
+
 bool LatexCompletionModel::shouldAbortCompletion(KTextEditor::View *view, const KTextEditor::Range &range, const QString &currentCompletion)
 {
     if (view->cursorPosition() < range.start() || view->cursorPosition() > range.end())

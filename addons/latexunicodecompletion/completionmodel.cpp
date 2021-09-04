@@ -15,9 +15,6 @@
 #include <KTextEditor/Document>
 #include <KTextEditor/View>
 
-static const QRegularExpression latexexpr(QStringLiteral("\\\\:?[\\w]+:?$"),
-                                          QRegularExpression::DontCaptureOption); // no unicode here, LaTeX expressions are ASCII only
-
 LatexCompletionModel::LatexCompletionModel(QObject *parent)
     : KTextEditor::CodeCompletionModel(parent)
 {

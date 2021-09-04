@@ -10,6 +10,7 @@ OUTFNAME = "completiontrie.h"
 
 from urllib import request
 from html.parser import HTMLParser
+from string import ascii_letters, digits
 
 class JuliaUnicodeCompletionsParser(HTMLParser):
     def __init__(self):
@@ -55,7 +56,9 @@ class JuliaUnicodeCompletionsParser(HTMLParser):
             return
         if self._in_body:
             if tag == "tr":
-                self.table.append(tuple(self._current_row))
+                for ccompletion in self._current_row[2].split(","):
+                    self._current_row[2] = ccompletion.strip()
+                    self.table.append(tuple(self._current_row))
                 self._current_row = []
             elif tag == "table":
                 self._finished = True
@@ -66,10 +69,14 @@ with request.urlopen(JULIA_UNICODE_DOCUMENTATION_URL) as page:
 parser.close()
 
 parser.table.sort(key=lambda x: x[2])
+
+completionchars = set()
+wordchars = set(list(ascii_letters) + list(digits) + ["_"])
 with open(OUTFNAME, "w") as out:
     out.write("""\
 #include <tsl/htrie_map.h>
 #include <QString>
+#include <QRegularExpression>
 struct Completion {
     QString codepoint;
     QString chars;
@@ -80,6 +87,9 @@ static const tsl::htrie_map<char, Completion> completiontrie({
 """)
 
     for i, completion in enumerate(parser.table):
+        for letter in completion[2][1:]:
+            if letter not in wordchars:
+                completionchars.add(letter)
         latexsym = completion[2].replace("\\", "\\\\")
         if i > 0:
             out.write(",")
@@ -90,3 +100,16 @@ static const tsl::htrie_map<char, Completion> completiontrie({
     out.write("""\
 });
 """)
+
+    have_dash = False
+    if "-" in completionchars:
+        have_dash = True
+        completionchars.discard("-")
+    if "]" in completionchars:
+        completionchars.discard("]")
+        completionchars.add("\\]")
+    charclass = "".join(completionchars)
+    if have_dash:
+        charclass += "-"
+
+    out.write(f'static const QRegularExpression latexexpr(QStringLiteral("\\\\\\\\:?[\\\\w{charclass}]+:?$"), QRegularExpression::DontCaptureOption);\n')

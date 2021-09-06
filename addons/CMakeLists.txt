@@ -32,3 +32,4 @@ ecm_optional_add_subdirectory(tabswitcher) # ALT+Tab like tab switcher.
 ecm_optional_add_subdirectory(textfilter) # Pipe text through some external command.
 ecm_optional_add_subdirectory(xmlcheck) # XML Validation plugin
 ecm_optional_add_subdirectory(xmltools) # XML completion
+ecm_optional_add_subdirectory(cmake-tools)

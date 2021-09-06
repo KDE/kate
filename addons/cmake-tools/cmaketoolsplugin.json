@@ -1,0 +1,9 @@
+{
+    "KPlugin": {
+        "Description": "CMake plugin for kate",
+        "Name": "CMake Tools",
+        "ServiceTypes": [
+            "KTextEditor/Plugin"
+        ]
+    }
+}

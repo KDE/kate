@@ -109,6 +109,20 @@ public:
      * Returns the translated category if possible.
      */
     QString translatedCategory() const;
+
+    /**
+     * Returns the config file name for this tool, created based on the tool "name", e.g.
+     * "Clang Format Full File" -> clang_format_full_file
+     * this will be the name of the config file in e.g. ~/.config/kate/externaltools/
+     */
+    static QString configFileName(QString name)
+    {
+        name.replace(QLatin1Char(' '), QLatin1Char('_'));
+        // '(' and ')' are problematic as file names in the .qrc file
+        name.replace(QLatin1Char('('), QLatin1Char('_'));
+        name.replace(QLatin1Char(')'), QLatin1Char('_'));
+        return name.toLower();
+    }
 };
 
 /**

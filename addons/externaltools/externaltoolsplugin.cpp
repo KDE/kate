@@ -30,19 +30,27 @@
 #include <QClipboard>
 #include <QGuiApplication>
 
+static QString toolsConfigDir()
+{
+    static const QString dir = QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation) + QLatin1String("/kate/externaltools/");
+    return dir;
+}
+
 static QVector<KateExternalTool> readDefaultTools()
 {
-    QVector<KateExternalTool> tools;
-    KConfig systemConfig(QStringLiteral("defaultexternaltoolsrc"));
-    KConfigGroup config(&systemConfig, "Global");
-    const int toolCount = config.readEntry("tools", 0);
-    for (int i = 0; i < toolCount; ++i) {
-        config = KConfigGroup(&systemConfig, QStringLiteral("Tool %1").arg(i));
+    QDir dir(QStringLiteral(":/kconfig/externaltools-config/"));
+    const QStringList entries = dir.entryList(QDir::NoDotAndDotDot | QDir::Files);
 
-        KateExternalTool t;
-        t.load(config);
-        tools.push_back(t);
+    QVector<KateExternalTool> tools;
+    for (const auto &file : entries) {
+        KConfig config(dir.absoluteFilePath(file));
+        KConfigGroup cg = config.group("General");
+
+        KateExternalTool tool;
+        tool.load(cg);
+        tools.push_back(tool);
     }
+
     return tools;
 }
 
@@ -51,6 +59,11 @@ K_PLUGIN_FACTORY_WITH_JSON(KateExternalToolsFactory, "externaltoolsplugin.json",
 KateExternalToolsPlugin::KateExternalToolsPlugin(QObject *parent, const QList<QVariant> &)
     : KTextEditor::Plugin(parent)
 {
+    m_config = KSharedConfig::openConfig(QStringLiteral("kate-externaltoolspluginrc"), KConfig::NoGlobals, QStandardPaths::GenericConfigLocation);
+    QDir().mkdir(toolsConfigDir());
+
+    migrateConfig();
+
     // read built-in external tools from compiled-in resource file
     m_defaultTools = readDefaultTools();
 
@@ -61,6 +74,37 @@ KateExternalToolsPlugin::KateExternalToolsPlugin(QObject *parent, const QList<QV
 KateExternalToolsPlugin::~KateExternalToolsPlugin()
 {
     clearTools();
+}
+
+void KateExternalToolsPlugin::migrateConfig()
+{
+    const QString oldFile = QStandardPaths::locate(QStandardPaths::ApplicationsLocation, QStringLiteral("externaltools"));
+
+    if (!oldFile.isEmpty()) {
+        KConfig oldConf(oldFile);
+        KConfigGroup oldGroup(&oldConf, "Global");
+
+        const bool isFirstRun = oldGroup.readEntry("firststart", true);
+        m_config->group("Global").writeEntry("firststart", isFirstRun);
+        m_config->sync();
+
+        const int toolCount = oldGroup.readEntry("tools", 0);
+        for (int i = 0; i < toolCount; ++i) {
+            oldGroup = oldConf.group(QStringLiteral("Tool %1").arg(i));
+            const QString name = KateExternalTool::configFileName(oldGroup.readEntry("name"));
+            const QString newConfPath = toolsConfigDir() + name;
+            if (QFileInfo::exists(newConfPath)) { // Already migrated ?
+                continue;
+            }
+
+            KConfig newConfig(newConfPath);
+            KConfigGroup newGroup = newConfig.group("General");
+            oldGroup.copyTo(&newGroup, KConfigBase::Persistent);
+            newConfig.sync();
+        }
+
+        QFile::remove(oldFile);
+    }
 }
 
 QObject *KateExternalToolsPlugin::createView(KTextEditor::MainWindow *mainWindow)
@@ -79,22 +123,61 @@ void KateExternalToolsPlugin::clearTools()
     m_tools.clear();
 }
 
+void KateExternalToolsPlugin::addNewTool(KateExternalTool *tool)
+{
+    m_tools.push_back(tool);
+    if (tool->hasexec && !tool->cmdname.isEmpty()) {
+        m_commands.push_back(tool->cmdname);
+    }
+    if (KAuthorized::authorizeAction(QStringLiteral("shell_access"))) {
+        m_command = new KateExternalToolsCommand(this);
+    }
+}
+
+void KateExternalToolsPlugin::removeTools(const std::vector<KateExternalTool *> &toRemove)
+{
+    for (auto *tool : toRemove) {
+        if (!tool) {
+            continue;
+        }
+
+        QString configFile = KateExternalTool::configFileName(tool->name);
+        if (!configFile.isEmpty()) {
+            QFile::remove(toolsConfigDir() + configFile);
+        }
+        delete tool;
+    }
+
+    auto it = std::remove_if(m_tools.begin(), m_tools.end(), [&toRemove](KateExternalTool *tool) {
+        return std::find(toRemove.cbegin(), toRemove.cend(), tool) != toRemove.cend();
+    });
+    m_tools.erase(it, m_tools.end());
+}
+
+void KateExternalToolsPlugin::save(KateExternalTool *tool) const
+{
+    const QString name = KateExternalTool::configFileName(tool->name);
+    KConfig config(toolsConfigDir() + name);
+    KConfigGroup cg = config.group("General");
+    tool->save(cg);
+    config.sync();
+}
+
 void KateExternalToolsPlugin::reload()
 {
-    clearTools();
+    KConfigGroup group(m_config, "Global");
+    const bool firstStart = group.readEntry("firststart", true);
 
-    KConfig _config(QStringLiteral("externaltools"), KConfig::NoGlobals, QStandardPaths::ApplicationsLocation);
-    KConfigGroup config(&_config, "Global");
-    const int toolCount = config.readEntry("tools", 0);
-    const bool firstStart = config.readEntry("firststart", true);
-
-    if (!firstStart || toolCount > 0) {
+    if (!firstStart) {
         // read user config
-        for (int i = 0; i < toolCount; ++i) {
-            config = KConfigGroup(&_config, QStringLiteral("Tool %1").arg(i));
+        QDir dir(toolsConfigDir());
+        const QStringList entries = dir.entryList(QDir::NoDotAndDotDot | QDir::Files);
+        for (const auto &file : entries) {
+            KConfig config(dir.absoluteFilePath(file));
+            KConfigGroup cg = config.group("General");
 
             auto t = new KateExternalTool();
-            t->load(config);
+            t->load(cg);
             m_tools.push_back(t);
         }
     } else {
@@ -105,7 +188,7 @@ void KateExternalToolsPlugin::reload()
     }
 
     // FIXME test for a command name first!
-    for (auto tool : m_tools) {
+    for (auto *tool : m_tools) {
         if (tool->hasexec && (!tool->cmdname.isEmpty())) {
             m_commands.push_back(tool->cmdname);
         }

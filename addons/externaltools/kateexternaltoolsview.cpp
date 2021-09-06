@@ -100,10 +100,10 @@ void KateExternalToolsMenuAction::reload()
     connect(cfgAction, &QAction::triggered, this, &KateExternalToolsMenuAction::showConfigPage, Qt::QueuedConnection);
 
     // load shortcuts
-    KSharedConfig::Ptr pConfig = KSharedConfig::openConfig(QStringLiteral("externaltools"), KConfig::NoGlobals, QStandardPaths::ApplicationsLocation);
-    KConfigGroup config(pConfig, "Global");
-    config = KConfigGroup(pConfig, "Shortcuts");
-    m_actionCollection->readSettings(&config);
+    KSharedConfigPtr pConfig = m_plugin->config();
+    KConfigGroup group(pConfig, "Global");
+    group = KConfigGroup(pConfig, "Shortcuts");
+    m_actionCollection->readSettings(&group);
     slotViewChanged(m_mainwindow->activeView());
 }
 

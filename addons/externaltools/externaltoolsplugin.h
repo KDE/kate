@@ -10,6 +10,8 @@
 #include <KTextEditor/Plugin>
 #include <QVector>
 
+#include <KSharedConfig>
+
 namespace KTextEditor
 {
 class View;
@@ -28,6 +30,15 @@ class KateExternalToolsPlugin : public KTextEditor::Plugin
 public:
     explicit KateExternalToolsPlugin(QObject *parent = nullptr, const QList<QVariant> & = QList<QVariant>());
     virtual ~KateExternalToolsPlugin();
+
+    /**
+     * Returns the global config object for the plugin (on Linux
+     * this is ~/.config/kateexternaltoolspluginrc).
+     */
+    KSharedConfigPtr config()
+    {
+        return m_config;
+    }
 
     /**
      * Reimplemented to return the number of config pages, in this case 1.
@@ -50,7 +61,7 @@ public:
     void clearTools();
 
     /**
-     * Reloads the external tools from disk.
+     * Reloads the external tools configuration from disk.
      */
     void reload();
 
@@ -106,7 +117,23 @@ public:
      */
     KateExternalToolsPluginView *viewForMainWindow(KTextEditor::MainWindow *mainWindow) const;
 
+    void addNewTool(KateExternalTool *tool);
+
+    /**
+     * Removes the tools in @p toRemove, this includes removing the relevant
+     * config file from disk.
+     */
+    void removeTools(const std::vector<KateExternalTool *> &toRemove);
+
+    /**
+     * Saves the configuration of @p tool to that tool's config file.
+     */
+    void save(KateExternalTool *tool) const;
+
 private:
+    void migrateConfig();
+
+    KSharedConfigPtr m_config;
     QVector<KateExternalTool> m_defaultTools;
     QVector<KateExternalToolsPluginView *> m_views;
     QVector<KateExternalTool *> m_tools;

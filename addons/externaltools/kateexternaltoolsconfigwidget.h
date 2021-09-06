@@ -79,7 +79,6 @@ private Q_SLOTS:
     void clearTools();
 
 private:
-    KConfig *m_config = nullptr;
     bool m_changed = false;
     KateExternalToolsPlugin *m_plugin;
     QStandardItemModel m_toolsModel;

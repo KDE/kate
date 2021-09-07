@@ -1,0 +1,6 @@
+include(ECMMarkAsTest)
+add_executable(latexcompletion_test testcompletiontable.cpp)
+target_include_directories(latexcompletion_test PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/..)
+add_test(NAME plugin-latexunicodecompletion_test COMMAND latexcompletion_test)
+target_link_libraries(latexcompletion_test Qt5::Core Qt5::Test)
+ecm_mark_as_test(latexcompletion_test)

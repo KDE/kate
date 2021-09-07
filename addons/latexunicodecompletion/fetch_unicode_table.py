@@ -6,7 +6,7 @@
 
 JULIA_UNICODE_DOCUMENTATION_URL = "https://docs.julialang.org/en/v1/manual/unicode-input/"
 CONTAINER_ID = "documenter-page"
-OUTFNAME = "completiontrie.h"
+OUTFNAME = "completiontable.h"
 
 from urllib import request
 from html.parser import HTMLParser
@@ -74,16 +74,16 @@ completionchars = set()
 wordchars = set(list(ascii_letters) + list(digits) + ["_"])
 with open(OUTFNAME, "w") as out:
     out.write("""\
-#include <tsl/htrie_map.h>
 #include <QString>
 #include <QRegularExpression>
 struct Completion {
+    QString completion;
     QString codepoint;
     QString chars;
     QString name;
 };
 
-static const tsl::htrie_map<char, Completion> completiontrie({
+static const QVector<Completion> completiontable({
 """)
 
     for i, completion in enumerate(parser.table):
@@ -93,10 +93,10 @@ static const tsl::htrie_map<char, Completion> completiontrie({
         latexsym = completion[2].replace("\\", "\\\\")
         if i > 0:
             out.write(",")
-        out.write(f"{{\n\"{latexsym}\",\n{{\n"
+        out.write(f"{{\n    QStringLiteral(\"{latexsym}\"),\n"
                   f"    QStringLiteral(\"{completion[0]}\"),\n"
                   f"    QStringLiteral(u\"{completion[1]}\"),\n"
-                  f"    QStringLiteral(\"{completion[3]}\")\n}}\n}}\n")
+                  f"    QStringLiteral(\"{completion[3]}\")\n}}\n")
     out.write("""\
 });
 """)

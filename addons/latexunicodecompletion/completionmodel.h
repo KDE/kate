@@ -41,6 +41,6 @@ public:
     QVariant data(const QModelIndex &index, int role) const override;
 
 private:
-    QVector<QPair<QString, const Completion *>> m_matches;
+    QPair<int, int> m_matches = {0, 0};
 };
 #endif

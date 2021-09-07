@@ -5,8 +5,11 @@
 */
 
 #include "completionmodel.h"
-#include "completiontrie.h"
+#include "completiontable.h"
 #include "logging.h"
+
+#include <algorithm>
+#include <iterator>
 
 #include <QIcon>
 #include <QRegularExpression>
@@ -20,26 +23,26 @@ LatexCompletionModel::LatexCompletionModel(QObject *parent)
 {
     setHasGroups(false);
 }
+
 void LatexCompletionModel::completionInvoked(KTextEditor::View *view,
                                              const KTextEditor::Range &range,
                                              KTextEditor::CodeCompletionModel::InvocationType invocationType)
 {
     Q_UNUSED(invocationType);
     beginResetModel();
-    m_matches.clear();
+    m_matches.first = m_matches.second = -1;
     auto word = view->document()->text(range);
     if (!word.isEmpty() && word[0] == QLatin1Char('\\')) {
-        try {
-            auto prefixrange = completiontrie.equal_prefix_range(word.toStdString());
-            for (auto it = prefixrange.first; it != prefixrange.second; ++it) {
-                m_matches.push_back(QPair(QString::fromStdString(it.key()), &(*it)));
-            }
-        } catch (const std::exception &e) {
-            qCCritical(LATEXCOMPLETION) << "caught exception while generating completions for " << word;
-            qCCritical(LATEXCOMPLETION) << e.what();
-        } catch (...) {
-            qCCritical(LATEXCOMPLETION) << "caught exception while generating completions for " << word;
-        }
+        auto beginit = completiontable.constBegin();
+        auto endit = completiontable.constEnd();
+        auto prefixrangestart = std::lower_bound(beginit, endit, word, [](const Completion &a, const QString &b) -> bool {
+            return a.completion.startsWith(b) ? false : a.completion < b;
+        });
+        auto prefixrangeend = std::upper_bound(beginit, endit, word, [](const QString &a, const Completion &b) -> bool {
+            return b.completion.startsWith(a) ? false : a < b.completion;
+        });
+        m_matches.first = std::distance(beginit, prefixrangestart);
+        m_matches.second = std::distance(beginit, prefixrangeend);
     }
     endResetModel();
 }
@@ -80,7 +83,7 @@ int LatexCompletionModel::rowCount(const QModelIndex &parent) const
     } else if (parent.parent().isValid()) {
         return 0; // Completion-items have no children
     } else {
-        return m_matches.size();
+        return m_matches.second - m_matches.first;
     }
 }
 
@@ -97,7 +100,7 @@ QModelIndex LatexCompletionModel::index(int row, int column, const QModelIndex &
         return QModelIndex();
     }
 
-    if (row < 0 || row >= m_matches.size() || column < 0 || column >= ColumnCount) {
+    if (row < 0 || row >= m_matches.second - m_matches.first || column < 0 || column >= ColumnCount) {
         return QModelIndex();
     }
 
@@ -129,20 +132,20 @@ QVariant LatexCompletionModel::data(const QModelIndex &index, int role) const
         }
     }
 
-    if (index.isValid() && m_matches.size()) {
-        auto symbol = m_matches[index.row()];
+    if (index.isValid() && m_matches.second - m_matches.first > 0) {
+        const Completion &completion = completiontable[m_matches.first + index.row()];
         if (role == IsExpandable)
             return true; // if it's not expandable, the description will often be cut off
                          // because apprarently the ItemSelected role is not taken into account
                          // when determining the completion widget width. So expanding is
                          // the only way to make sure that the complete description is available.
         else if (role == ItemSelected || role == ExpandingWidget)
-            return QStringLiteral("<table><tr><td>%1</td><td>%2</td></tr></table>").arg(symbol.second->codepoint, symbol.second->name);
+            return QStringLiteral("<table><tr><td>%1</td><td>%2</td></tr></table>").arg(completion.codepoint, completion.name);
         else if (role == Qt::DisplayRole) {
             if (index.column() == Name)
-                return symbol.first;
+                return completion.completion;
             else if (index.column() == Postfix)
-                return symbol.second->chars;
+                return completion.chars;
         } else if (index.column() == Icon && role == Qt::DecorationRole) {
             static const QIcon icon(QIcon::fromTheme(QStringLiteral("texcompiler")).pixmap(QSize(16, 16)));
             return icon;

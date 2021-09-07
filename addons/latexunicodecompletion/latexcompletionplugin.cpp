@@ -18,13 +18,8 @@ class LatexCompletionPlugin : public KTextEditor::Plugin
 public:
     LatexCompletionPlugin(QObject *parent, const QVariantList &)
         : KTextEditor::Plugin(parent)
-        , m_model(new LatexCompletionModel(parent))
+        , m_model(new LatexCompletionModel(this))
     {
-    }
-
-    ~LatexCompletionPlugin()
-    {
-        delete m_model;
     }
 
     QObject *createView(KTextEditor::MainWindow *mainWindow) override

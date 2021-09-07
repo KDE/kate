@@ -41,8 +41,10 @@ void LatexCompletionModel::completionInvoked(KTextEditor::View *view,
         auto prefixrangeend = std::upper_bound(beginit, endit, word, [](const QString &a, const Completion &b) -> bool {
             return b.completion.startsWith(a) ? false : a < b.completion;
         });
-        m_matches.first = std::distance(beginit, prefixrangestart);
-        m_matches.second = std::distance(beginit, prefixrangeend);
+        if (prefixrangestart != endit) {
+            m_matches.first = std::distance(beginit, prefixrangestart);
+            m_matches.second = std::distance(beginit, prefixrangeend);
+        }
     }
     endResetModel();
 }

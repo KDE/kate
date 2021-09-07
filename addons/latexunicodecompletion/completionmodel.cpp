@@ -6,7 +6,6 @@
 
 #include "completionmodel.h"
 #include "completiontable.h"
-#include "logging.h"
 
 #include <algorithm>
 #include <iterator>

@@ -7,6 +7,7 @@
 #define FILEHISTORYWIDGET_H
 
 #include <QListView>
+#include <QProcess>
 #include <QPushButton>
 #include <QWidget>
 
@@ -15,16 +16,18 @@ class FileHistoryWidget : public QWidget
     Q_OBJECT
 public:
     explicit FileHistoryWidget(const QString &file, QWidget *parent = nullptr);
+    ~FileHistoryWidget();
 
 private Q_SLOTS:
     void itemClicked(const QModelIndex &idx);
 
 private:
-    QList<QByteArray> getFileHistory(const QString &file);
+    void getFileHistory(const QString &file);
 
     QPushButton m_backBtn;
     QListView *m_listView;
     QString m_file;
+    QProcess m_git;
 
 Q_SIGNALS:
     void backClicked();

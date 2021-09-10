@@ -9,34 +9,14 @@
 #include <gitprocess.h>
 
 #include <QDate>
-#include <QDebug>
 #include <QFileInfo>
 #include <QPainter>
 #include <QProcess>
 #include <QStyledItemDelegate>
 #include <QVBoxLayout>
+#include <optional>
 
 #include <KLocalizedString>
-
-// git log --format=%H%n%aN%n%aE%n%at%n%ct%n%P%n%B --author-date-order
-QList<QByteArray> FileHistoryWidget::getFileHistory(const QString &file)
-{
-    QProcess git;
-    setupGitProcess(git, QFileInfo(file).absolutePath(), {QStringLiteral("log"),
-                     QStringLiteral("--format=%H%n%aN%n%aE%n%at%n%ct%n%P%n%B"),
-                     QStringLiteral("-z"),
-                     QStringLiteral("--author-date-order"),
-                     file});
-    git.start(QProcess::ReadOnly);
-    if (git.waitForStarted() && git.waitForFinished(-1)) {
-        if (git.exitStatus() == QProcess::NormalExit && git.exitCode() == 0) {
-            return git.readAll().split(0x00);
-        } else {
-            Q_EMIT errorMessage(i18n("Failed to get file history: %1", QString::fromUtf8(git.readAllStandardError())), true);
-        }
-    }
-    return {};
-}
 
 struct Commit {
     QByteArray hash;
@@ -49,31 +29,46 @@ struct Commit {
 };
 Q_DECLARE_METATYPE(Commit)
 
+static std::optional<qint64> toLong(const QByteArray &input)
+{
+    bool ok = false;
+    qint64 ret = input.toLongLong(&ok);
+    if (ok) {
+        return ret;
+    }
+    return std::nullopt;
+}
+
 static QVector<Commit> parseCommits(const QList<QByteArray> &raw)
 {
     QVector<Commit> commits;
     commits.reserve(raw.size());
-    std::transform(raw.cbegin(), raw.cend(), std::back_inserter(commits), [](const QByteArray &r) {
+
+    for (const auto &r : raw) {
         const auto lines = r.split('\n');
         if (lines.length() < 7) {
-            return Commit{};
+            continue;
         }
-        auto hash = lines.at(0);
-        //        qWarning() << hash;
-        auto author = QString::fromUtf8(lines.at(1));
-        //        qWarning() << author;
-        auto email = QString::fromUtf8(lines.at(2));
-        //        qWarning() << email;
-        qint64 authorDate = lines.at(3).toLong();
-        //        qWarning() << authorDate;
-        qint64 commitDate = lines.at(4).toLong();
-        //        qWarning() << commitDate;
-        auto parent = lines.at(5);
-        //        qWarning() << parent;
-        auto msg = QString::fromUtf8(lines.at(6));
-        //        qWarning() << msg;
-        return Commit{hash, author, email, authorDate, commitDate, parent, msg};
-    });
+        QByteArray hash = lines.at(0);
+        QString author = QString::fromUtf8(lines.at(1));
+        QString email = QString::fromUtf8(lines.at(2));
+
+        auto authDate = toLong(lines.at(3));
+        if (!authDate.has_value()) {
+            continue;
+        }
+        qint64 authorDate = authDate.value();
+
+        auto commtDate = toLong(lines.at(4));
+        if (!commtDate.has_value()) {
+            continue;
+        }
+        qint64 commitDate = commtDate.value();
+
+        QByteArray parent = lines.at(5);
+        QString msg = QString::fromUtf8(lines.at(6));
+        commits << Commit{hash, author, email, authorDate, commitDate, parent, msg};
+    }
 
     return commits;
 }
@@ -99,13 +94,14 @@ public:
         }
         auto row = index.row();
         switch (role) {
-        case Role::CommitRole: {
-            QVariant v;
-            v.setValue(m_rows[row]);
-            return v;
-        }
+        case Role::CommitRole:
+            return QVariant::fromValue(m_rows.at(row));
         case Role::CommitHash:
-            return m_rows[row].hash;
+            return m_rows.at(row).hash;
+        case Qt::ToolTipRole: {
+            QString ret = m_rows.at(row).authorName + QStringLiteral("<br>") + m_rows.at(row).email;
+            return ret;
+        }
         }
 
         return {};
@@ -116,6 +112,20 @@ public:
         beginResetModel();
         m_rows = cmts;
         endResetModel();
+    }
+
+    void addCommit(Commit cmt)
+    {
+        beginInsertRows(QModelIndex(), m_rows.size(), m_rows.size());
+        m_rows.push_back(cmt);
+        endInsertRows();
+    }
+
+    void addCommits(const QVector<Commit> &cmts)
+    {
+        for (const auto &commit : cmts) {
+            addCommit(commit);
+        }
     }
 
 private:
@@ -159,7 +169,7 @@ public:
         painter->drawText(prect, Qt::AlignLeft, commit.authorName);
         painter->setFont(opt.font);
 
-        // draw author on right
+        // draw author date on right
         auto dt = QDateTime::fromSecsSinceEpoch(commit.authorDate);
         QLocale l;
         const bool isToday = dt.date() == QDate::currentDate();
@@ -195,23 +205,51 @@ FileHistoryWidget::FileHistoryWidget(const QString &file, QWidget *parent)
     : QWidget(parent)
     , m_file(file)
 {
+    auto model = new CommitListModel(this);
+    m_listView = new QListView;
+    m_listView->setModel(model);
+    getFileHistory(file);
+
     setLayout(new QVBoxLayout);
 
     m_backBtn.setText(i18n("Back"));
     m_backBtn.setIcon(QIcon::fromTheme(QStringLiteral("go-previous")));
     connect(&m_backBtn, &QPushButton::clicked, this, &FileHistoryWidget::backClicked);
-    layout()->addWidget(&m_backBtn);
 
-    m_listView = new QListView;
-    layout()->addWidget(m_listView);
-
-    auto model = new CommitListModel(this);
-    model->refresh(parseCommits(getFileHistory(file)));
-
-    m_listView->setModel(model);
     connect(m_listView, &QListView::clicked, this, &FileHistoryWidget::itemClicked);
-
     m_listView->setItemDelegate(new CommitDelegate(this));
+
+    layout()->addWidget(&m_backBtn);
+    layout()->addWidget(m_listView);
+}
+
+FileHistoryWidget::~FileHistoryWidget()
+{
+    m_git.kill();
+    m_git.waitForFinished();
+}
+
+// git log --format=%H%n%aN%n%aE%n%at%n%ct%n%P%n%B --author-date-order
+void FileHistoryWidget::getFileHistory(const QString &file)
+{
+    setupGitProcess(m_git,
+                    QFileInfo(file).absolutePath(),
+                    {QStringLiteral("log"), QStringLiteral("--format=%H%n%aN%n%aE%n%at%n%ct%n%P%n%B"), QStringLiteral("-z"), file});
+
+    connect(&m_git, &QProcess::readyReadStandardOutput, this, [this] {
+        auto commits = parseCommits(m_git.readAllStandardOutput().split(0x00));
+        if (!commits.isEmpty()) {
+            static_cast<CommitListModel *>(m_listView->model())->addCommits(commits);
+        }
+    });
+
+    connect(&m_git, &QProcess::finished, this, [this](int exitCode, QProcess::ExitStatus s) {
+        if (exitCode != 0 || s != QProcess::NormalExit) {
+            Q_EMIT errorMessage(i18n("Failed to get file history: %1", QString::fromUtf8(m_git.readAllStandardError())), true);
+        }
+    });
+
+    m_git.start(QProcess::ReadOnly);
 }
 
 void FileHistoryWidget::itemClicked(const QModelIndex &idx)

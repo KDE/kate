@@ -20,7 +20,6 @@
 LatexCompletionModel::LatexCompletionModel(QObject *parent)
     : KTextEditor::CodeCompletionModel(parent)
 {
-    setHasGroups(false);
 }
 
 void LatexCompletionModel::completionInvoked(KTextEditor::View *view,
@@ -116,7 +115,7 @@ QModelIndex LatexCompletionModel::parent(const QModelIndex &index) const
         return QModelIndex();
     }
 }
-#include <iostream>
+
 QVariant LatexCompletionModel::data(const QModelIndex &index, int role) const
 {
     if (role == UnimportantItemRole)

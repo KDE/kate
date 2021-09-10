@@ -147,7 +147,7 @@ QVariant LatexCompletionModel::data(const QModelIndex &index, int role) const
             else if (index.column() == Postfix)
                 return completion.chars;
         } else if (index.column() == Icon && role == Qt::DecorationRole) {
-            static const QIcon icon(QIcon::fromTheme(QStringLiteral("texcompiler")).pixmap(QSize(16, 16)));
+            static const QIcon icon(QIcon::fromTheme(QStringLiteral("texcompiler")));
             return icon;
         }
     }

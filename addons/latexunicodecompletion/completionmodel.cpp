@@ -8,7 +8,7 @@
 #include "completiontable.h"
 
 #include <algorithm>
-#include <iterator>
+#include <cstring>
 
 #include <QIcon>
 #include <QRegularExpression>
@@ -16,6 +16,13 @@
 #include <KLocalizedString>
 #include <KTextEditor/Document>
 #include <KTextEditor/View>
+
+bool startsWith(const Completion &comp, const std::string &prefix)
+{
+    if (prefix.size() <= comp.completion_strlen)
+        return std::strncmp(prefix.data(), comp.completion, prefix.size()) == 0;
+    return false;
+}
 
 LatexCompletionModel::LatexCompletionModel(QObject *parent)
     : KTextEditor::CodeCompletionModel(parent)
@@ -29,19 +36,19 @@ void LatexCompletionModel::completionInvoked(KTextEditor::View *view,
     Q_UNUSED(invocationType);
     beginResetModel();
     m_matches.first = m_matches.second = -1;
-    auto word = view->document()->text(range);
-    if (!word.isEmpty() && word[0] == QLatin1Char('\\')) {
-        auto beginit = completiontable.constBegin();
-        auto endit = completiontable.constEnd();
-        auto prefixrangestart = std::lower_bound(beginit, endit, word, [](const Completion &a, const QString &b) -> bool {
-            return a.completion.startsWith(b) ? false : a.completion < b;
+    auto word = view->document()->text(range).toStdString();
+    const Completion *beginit = (Completion *)&completiontable;
+    const Completion *endit = beginit + n_completions;
+    if (!word.empty() && word[0] == QLatin1Char('\\')) {
+        auto prefixrangestart = std::lower_bound(beginit, endit, word, [](const Completion &a, const std::string &b) -> bool {
+            return startsWith(a, b) ? false : a.completion < b;
         });
-        auto prefixrangeend = std::upper_bound(beginit, endit, word, [](const QString &a, const Completion &b) -> bool {
-            return b.completion.startsWith(a) ? false : a < b.completion;
+        auto prefixrangeend = std::upper_bound(beginit, endit, word, [](const std::string &a, const Completion &b) -> bool {
+            return startsWith(b, a) ? false : a < b.completion;
         });
         if (prefixrangestart != endit) {
-            m_matches.first = std::distance(beginit, prefixrangestart);
-            m_matches.second = std::distance(beginit, prefixrangeend);
+            m_matches.first = prefixrangestart - beginit;
+            m_matches.second = prefixrangeend - beginit;
         }
     }
     setRowCount(m_matches.second - m_matches.first);
@@ -92,12 +99,13 @@ QVariant LatexCompletionModel::data(const QModelIndex &index, int role) const
                          // when determining the completion widget width. So expanding is
                          // the only way to make sure that the complete description is available.
         else if (role == ItemSelected || role == ExpandingWidget)
-            return QStringLiteral("<table><tr><td>%1</td><td>%2</td></tr></table>").arg(completion.codepoint, completion.name);
+            return QStringLiteral("<table><tr><td>%1</td><td>%2</td></tr></table>")
+                .arg(QString::fromUtf8(completion.codepoint), QString::fromUtf8(completion.name));
         else if (role == Qt::DisplayRole) {
             if (index.column() == Name)
-                return completion.completion;
+                return QString::fromUtf8(completion.completion);
             else if (index.column() == Postfix)
-                return completion.chars;
+                return QString::fromUtf8(completion.chars);
         } else if (index.column() == Icon && role == Qt::DecorationRole) {
             static const QIcon icon(QIcon::fromTheme(QStringLiteral("texcompiler")));
             return icon;

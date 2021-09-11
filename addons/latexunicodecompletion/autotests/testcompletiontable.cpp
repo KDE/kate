@@ -8,6 +8,8 @@
 
 #include "completiontable.h"
 
+#include <cstring>
+
 #include <QObject>
 #include <QTest>
 
@@ -17,8 +19,8 @@ class LatexCompletionTableTest : public QObject
 private Q_SLOTS:
     void testSorting()
     {
-        for (int i = 0; i < completiontable.size() - 1; ++i) {
-            QVERIFY(completiontable[i].completion < completiontable[i + 1].completion);
+        for (int i = 0; i < n_completions - 1; ++i) {
+            QVERIFY(strcmp(completiontable[i].completion, completiontable[i + 1].completion) < 0);
         }
     }
 };

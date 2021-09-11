@@ -72,33 +72,38 @@ parser.table.sort(key=lambda x: x[2])
 
 completionchars = set()
 wordchars = set(list(ascii_letters) + list(digits) + ["_"])
-with open(OUTFNAME, "w") as out:
-    out.write("""\
+with open(OUTFNAME, "w", encoding="utf-8") as out:
+    out.write(f"""\
 #include <QString>
 #include <QRegularExpression>
-struct Completion {
-    QString completion;
-    QString codepoint;
-    QString chars;
-    QString name;
-};
+struct Completion {{
+    const char *completion;
+    const char *codepoint;
+    const char *chars;
+    const char *name;
+    const uint16_t completion_strlen;
+}};
 
-static const QVector<Completion> completiontable({
+static constexpr uint16_t n_completions = {len(parser.table)};
+
+static constexpr Completion completiontable[] = {{
 """)
 
     for i, completion in enumerate(parser.table):
         for letter in completion[2][1:]:
             if letter not in wordchars:
                 completionchars.add(letter)
+        latexsymlength = len(completion[2].encode("utf-8"))
         latexsym = completion[2].replace("\\", "\\\\")
         if i > 0:
             out.write(",")
-        out.write(f"{{\n    QStringLiteral(\"{latexsym}\"),\n"
-                  f"    QStringLiteral(\"{completion[0]}\"),\n"
-                  f"    QStringLiteral(u\"{completion[1]}\"),\n"
-                  f"    QStringLiteral(\"{completion[3]}\")\n}}\n")
+        out.write(f"{{\n    u8\"{latexsym}\",\n"
+                  f"    u8\"{completion[0]}\",\n"
+                  f"    u8\"{completion[1]}\",\n"
+                  f"    u8\"{completion[3]}\",\n"
+                  f"    {latexsymlength}\n}}\n")
     out.write("""\
-});
+};
 """)
 
     have_dash = False

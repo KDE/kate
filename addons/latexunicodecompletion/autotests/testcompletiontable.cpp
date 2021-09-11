@@ -8,7 +8,8 @@
 
 #include "completiontable.h"
 
-#include <cstring>
+#include <algorithm>
+#include <string>
 
 #include <QObject>
 #include <QTest>
@@ -20,7 +21,10 @@ private Q_SLOTS:
     void testSorting()
     {
         for (int i = 0; i < n_completions - 1; ++i) {
-            QVERIFY(strcmp(completiontable[i].completion, completiontable[i + 1].completion) < 0);
+            QVERIFY(std::char_traits<char16_t>::compare(completiontable[i].completion,
+                                                        completiontable[i + 1].completion,
+                                                        std::min(completiontable[i].completion_strlen, completiontable[i + 1].completion_strlen))
+                    < 0);
         }
     }
 };

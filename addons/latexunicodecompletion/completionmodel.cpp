@@ -8,7 +8,7 @@
 #include "completiontable.h"
 
 #include <algorithm>
-#include <cstring>
+#include <string>
 
 #include <QIcon>
 #include <QRegularExpression>
@@ -16,10 +16,10 @@
 #include <KTextEditor/Document>
 #include <KTextEditor/View>
 
-bool startsWith(const Completion &comp, const std::string &prefix)
+bool startsWith(const Completion &comp, const std::u16string &prefix)
 {
     if (prefix.size() <= comp.completion_strlen)
-        return std::strncmp(prefix.data(), comp.completion, prefix.size()) == 0;
+        return std::char_traits<char16_t>::compare(prefix.data(), comp.completion, prefix.size()) == 0;
     return false;
 }
 
@@ -35,14 +35,14 @@ void LatexCompletionModel::completionInvoked(KTextEditor::View *view,
     Q_UNUSED(invocationType);
     beginResetModel();
     m_matches.first = m_matches.second = -1;
-    auto word = view->document()->text(range).toStdString();
+    auto word = view->document()->text(range).toStdU16String();
     const Completion *beginit = (Completion *)&completiontable;
     const Completion *endit = beginit + n_completions;
     if (!word.empty() && word[0] == QLatin1Char('\\')) {
-        auto prefixrangestart = std::lower_bound(beginit, endit, word, [](const Completion &a, const std::string &b) -> bool {
+        auto prefixrangestart = std::lower_bound(beginit, endit, word, [](const Completion &a, const std::u16string &b) -> bool {
             return startsWith(a, b) ? false : a.completion < b;
         });
-        auto prefixrangeend = std::upper_bound(beginit, endit, word, [](const std::string &a, const Completion &b) -> bool {
+        auto prefixrangeend = std::upper_bound(beginit, endit, word, [](const std::u16string &a, const Completion &b) -> bool {
             return startsWith(b, a) ? false : a < b.completion;
         });
         if (prefixrangestart != endit) {
@@ -99,12 +99,12 @@ QVariant LatexCompletionModel::data(const QModelIndex &index, int role) const
                          // the only way to make sure that the complete description is available.
         else if (role == ItemSelected || role == ExpandingWidget)
             return QStringLiteral("<table><tr><td>%1</td><td>%2</td></tr></table>")
-                .arg(QString::fromUtf8(completion.codepoint), QString::fromUtf8(completion.name));
+                .arg(QString::fromUtf16(completion.codepoint), QString::fromUtf16(completion.name));
         else if (role == Qt::DisplayRole) {
             if (index.column() == Name)
-                return QString::fromUtf8(completion.completion);
+                return QString::fromUtf16(completion.completion);
             else if (index.column() == Postfix)
-                return QString::fromUtf8(completion.chars);
+                return QString::fromUtf16(completion.chars);
         } else if (index.column() == Icon && role == Qt::DecorationRole) {
             static const QIcon icon(QIcon::fromTheme(QStringLiteral("texcompiler")));
             return icon;

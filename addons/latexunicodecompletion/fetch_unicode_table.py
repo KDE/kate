@@ -77,10 +77,10 @@ with open(OUTFNAME, "w", encoding="utf-8") as out:
 #include <QString>
 #include <QRegularExpression>
 struct Completion {{
-    const char *completion;
-    const char *codepoint;
-    const char *chars;
-    const char *name;
+    const char16_t *completion;
+    const char16_t *codepoint;
+    const char16_t *chars;
+    const char16_t *name;
     const uint16_t completion_strlen;
 }};
 
@@ -93,14 +93,14 @@ static constexpr Completion completiontable[] = {{
         for letter in completion[2][1:]:
             if letter not in wordchars:
                 completionchars.add(letter)
-        latexsymlength = len(completion[2].encode("utf-8"))
+        latexsymlength = len(completion[2].encode("utf-16")) - 2 # Python adds the BOM
         latexsym = completion[2].replace("\\", "\\\\")
         if i > 0:
             out.write(",")
-        out.write(f"{{\n    u8\"{latexsym}\",\n"
-                  f"    u8\"{completion[0]}\",\n"
-                  f"    u8\"{completion[1]}\",\n"
-                  f"    u8\"{completion[3]}\",\n"
+        out.write(f"{{\n    u\"{latexsym}\",\n"
+                  f"    u\"{completion[0]}\",\n"
+                  f"    u\"{completion[1]}\",\n"
+                  f"    u\"{completion[3]}\",\n"
                   f"    {latexsymlength}\n}}\n")
     out.write("""\
 };

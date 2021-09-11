@@ -93,7 +93,9 @@ static constexpr Completion completiontable[] = {{
         for letter in completion[2][1:]:
             if letter not in wordchars:
                 completionchars.add(letter)
-        latexsymlength = len(completion[2].encode("utf-16")) - 2 # Python adds the BOM
+        latexsymlength = (len(completion[2].encode("utf-16")) - 2) // 2
+        # Python adds the BOM, thus -2. We need number of charachters, not bytes,
+        # thus //2
         latexsym = completion[2].replace("\\", "\\\\")
         if i > 0:
             out.write(",")

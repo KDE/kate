@@ -23,7 +23,7 @@ private Q_SLOTS:
         for (int i = 0; i < n_completions - 1; ++i) {
             QVERIFY(std::char_traits<char16_t>::compare(completiontable[i].completion,
                                                         completiontable[i + 1].completion,
-                                                        std::min(completiontable[i].completion_strlen, completiontable[i + 1].completion_strlen))
+                                                        std::max(completiontable[i].completion_strlen, completiontable[i + 1].completion_strlen))
                     < 0);
         }
     }

@@ -13,7 +13,6 @@
 #include <QIcon>
 #include <QRegularExpression>
 
-#include <KLocalizedString>
 #include <KTextEditor/Document>
 #include <KTextEditor/View>
 

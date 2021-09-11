@@ -362,16 +362,19 @@ class SessionDiagnosticSuppressions
     // file -> suppression
     // (empty file matches any file)
     QHash<QString, QSet<QString>> m_suppressions;
+    const QString ENTRY_PREFIX{QStringLiteral("File_")};
 
 public:
     void readSessionConfig(const KConfigGroup &cg)
     {
         qCInfo(LSPCLIENT) << "reading session config";
-        int numEntries = cg.readEntry(QStringLiteral("NumEntries"), 0);
-        for (int i = 0; i < numEntries; i++) {
-            QStringList entry = cg.readEntry(QStringLiteral("Supp_%1").arg(i), QStringList());
-            if (entry.size() == 2) {
-                m_suppressions[entry[0]].insert(entry[1]);
+        for (const auto &fkey : cg.keyList()) {
+            if (fkey.startsWith(ENTRY_PREFIX)) {
+                QString fname = fkey.mid(ENTRY_PREFIX.size());
+                QStringList entries = cg.readEntry(fkey, QStringList());
+                if (entries.size()) {
+                    m_suppressions[fname] = {entries.begin(), entries.end()};
+                }
             }
         }
     }
@@ -379,15 +382,14 @@ public:
     void writeSessionConfig(KConfigGroup &cg)
     {
         qCInfo(LSPCLIENT) << "writing session config";
-        int cnt = 0;
+        // clear existing entries
+        cg.deleteGroup();
         for (auto it = m_suppressions.begin(); it != m_suppressions.end(); ++it) {
-            for (const auto &s : it.value()) {
-                QStringList entry{it.key(), s};
-                cg.writeEntry(QStringLiteral("Supp_%1").arg(cnt), entry);
-                ++cnt;
+            QStringList entries = it.value().values();
+            if (entries.size()) {
+                cg.writeEntry(ENTRY_PREFIX + it.key(), entries);
             }
         }
-        cg.writeEntry("NumEntries", cnt);
     }
 
     void add(const QString &file, const QString &diagnostic)

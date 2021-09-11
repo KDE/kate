@@ -44,6 +44,7 @@ void LatexCompletionModel::completionInvoked(KTextEditor::View *view,
             m_matches.second = std::distance(beginit, prefixrangeend);
         }
     }
+    setRowCount(m_matches.second - m_matches.first);
     endResetModel();
 }
 
@@ -76,46 +77,6 @@ void LatexCompletionModel::executeCompletionItem(KTextEditor::View *view, const 
     view->document()->replaceText(word, data(index.sibling(index.row(), Postfix), Qt::DisplayRole).toString());
 }
 
-int LatexCompletionModel::rowCount(const QModelIndex &parent) const
-{
-    if (!parent.isValid()) {
-        return 1; // One root node to define the custom group
-    } else if (parent.parent().isValid()) {
-        return 0; // Completion-items have no children
-    } else {
-        return m_matches.second - m_matches.first;
-    }
-}
-
-QModelIndex LatexCompletionModel::index(int row, int column, const QModelIndex &parent) const
-{
-    if (!parent.isValid()) {
-        if (row == 0) {
-            return createIndex(row, column, quintptr(0));
-        } else {
-            return QModelIndex();
-        }
-
-    } else if (parent.parent().isValid()) {
-        return QModelIndex();
-    }
-
-    if (row < 0 || row >= m_matches.second - m_matches.first || column < 0 || column >= ColumnCount) {
-        return QModelIndex();
-    }
-
-    return createIndex(row, column, 1);
-}
-
-QModelIndex LatexCompletionModel::parent(const QModelIndex &index) const
-{
-    if (index.internalId()) {
-        return createIndex(0, 0, quintptr(0));
-    } else {
-        return QModelIndex();
-    }
-}
-
 QVariant LatexCompletionModel::data(const QModelIndex &index, int role) const
 {
     if (role == UnimportantItemRole)
@@ -123,16 +84,7 @@ QVariant LatexCompletionModel::data(const QModelIndex &index, int role) const
     else if (role == InheritanceDepth)
         return 1;
 
-    if (!index.parent().isValid()) { // header
-        switch (role) {
-        case Qt::DisplayRole:
-            return i18n("LaTeX completion");
-        case GroupRole:
-            return Qt::DisplayRole;
-        }
-    }
-
-    if (index.isValid() && m_matches.second - m_matches.first > 0) {
+    if (index.isValid() && index.row() < m_matches.second - m_matches.first) {
         const Completion &completion = completiontable[m_matches.first + index.row()];
         if (role == IsExpandable)
             return true; // if it's not expandable, the description will often be cut off

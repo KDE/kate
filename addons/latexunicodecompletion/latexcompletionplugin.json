@@ -1,7 +1,23 @@
 {
     "KPlugin": {
         "Description": "LaTeX syntax for unicode symbols",
+        "Description[ca]": "Sintaxi de LaTeX per a símbols unicode",
+        "Description[es]": "Sintaxis de LaTeX para símbolos Unicode",
+        "Description[ia]": "Syntaxe de LaTeX per symbolos de unicode",
+        "Description[nl]": "LaTeX syntaxis voor unicode symbolen",
+        "Description[pl]": "Składnia LaTeX dla symboli unikodu",
+        "Description[sv]": "Latex-syntax för Unicode-symboler",
+        "Description[uk]": "Синтаксис LaTeX для символів Unicode",
+        "Description[x-test]": "xxLaTeX syntax for unicode symbolsxx",
         "Name": "LaTeX completion",
+        "Name[ca]": "Compleció de LaTeX",
+        "Name[es]": "Terminación de LaTeX",
+        "Name[ia]": "Completion de LaTeX",
+        "Name[nl]": "LaTeX-aanvulling",
+        "Name[pl]": "Uzupełnianie LaTeX",
+        "Name[sv]": "Latex-komplettering",
+        "Name[uk]": "Доповнення LaTeX",
+        "Name[x-test]": "xxLaTeX completionxx",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

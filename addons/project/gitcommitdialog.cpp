@@ -74,8 +74,6 @@ GitCommitDialog::GitCommitDialog(const QString &lastCommit, const QFont &font, Q
     m_le.setFont(font);
 
     QFontMetrics fm(font);
-    /** Add 8 because 4 + 4 margins on left / right */
-    const int width = (fm.averageCharWidth() * 72) + 8;
 
     m_leLen.setText(QStringLiteral("0 / 52"));
 
@@ -96,10 +94,6 @@ GitCommitDialog::GitCommitDialog(const QString &lastCommit, const QFont &font, Q
     vlayout->addLayout(hLayoutLine);
     vlayout->addWidget(&m_le);
     vlayout->addWidget(&m_pe);
-
-    // set 72 chars wide plain text edit
-    m_pe.resize(width, m_pe.height());
-    resize(width, fm.averageCharWidth() * 52);
 
     loadCommitMessage(lastCommit);
 
@@ -151,6 +145,12 @@ GitCommitDialog::GitCommitDialog(const QString &lastCommit, const QFont &font, Q
      */
     auto hl = new BadLengthHighlighter(m_pe.document(), 72);
     Q_UNUSED(hl)
+
+    // set 72 chars wide plain text edit
+    const int avgCharWidth = fm.averageCharWidth();
+    const int width = (avgCharWidth * 72);
+    const int fw = width + vlayout->contentsMargins().left() * 2 + m_pe.frameWidth() * 2 + m_pe.contentsMargins().left() + vlayout->spacing();
+    resize(fw, avgCharWidth * 52);
 }
 
 void GitCommitDialog::loadCommitMessage(const QString &lastCommit)
@@ -196,7 +196,7 @@ void GitCommitDialog::setAmendingCommit()
 void GitCommitDialog::updateLineSizeLabel()
 {
     int len = m_le.text().length();
-    if (len < 52) {
+    if (len <= 52) {
         m_leLen.setText(i18nc("Number of characters", "%1 / 52", QString::number(len)));
     } else {
         const QColor red = KColorScheme().foreground(KColorScheme::NegativeText).color();

@@ -14,6 +14,7 @@
         "Description[x-test]": "xxLaTeX syntax for unicode symbolsxx",
         "Name": "LaTeX completion",
         "Name[ca]": "Compleció de LaTeX",
+        "Name[cs]": "Doplňování LaTeXu",
         "Name[el]": "Ολοκλήρωση LaTeX",
         "Name[es]": "Terminación de LaTeX",
         "Name[fr]": "Complètement LaTeX",

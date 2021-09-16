@@ -27,6 +27,7 @@
   <name xml:lang="it">Kate</name>
   <name xml:lang="ko">Kate</name>
   <name xml:lang="ml">കെയ്റ്റ്</name>
+  <name xml:lang="my">ကိတ်</name>
   <name xml:lang="nb">Kate</name>
   <name xml:lang="nl">Kate</name>
   <name xml:lang="nn">Kate</name>
@@ -73,6 +74,7 @@
   <summary xml:lang="it">Editor di testi avanzato</summary>
   <summary xml:lang="ko">고급 텍스트 편집기</summary>
   <summary xml:lang="ml">വിസ്തൃതമായ പദാവലി എഡിറ്റർ</summary>
+  <summary xml:lang="my">အဆင့်မြင့်စာသားတည်းဖြတ်ကိရိယာ</summary>
   <summary xml:lang="nb">Avansert skriveprogram</summary>
   <summary xml:lang="nl">Geavanceerde teksteditor</summary>
   <summary xml:lang="nn">Avansert skriveprogram</summary>
@@ -163,6 +165,7 @@
     <p xml:lang="it">Funzionalità:</p>
     <p xml:lang="ko">기능:</p>
     <p xml:lang="ml">വിശേഷതകൾ:</p>
+    <p xml:lang="my">စွမ်းဆောင်ရည်များ -</p>
     <p xml:lang="nb">Funksjoner:</p>
     <p xml:lang="nl">Mogelijkheden:</p>
     <p xml:lang="nn">Funksjonar:</p>
@@ -254,6 +257,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="it">Controllo ortografico</li>
       <li xml:lang="ko">맞춤법 검사</li>
       <li xml:lang="ml">അക്ഷര പരിശോധന</li>
+      <li xml:lang="my">သတ်ပုံစစ်ဆေးခြင်း</li>
       <li xml:lang="nb">Stavekontroll</li>
       <li xml:lang="nl">Spellingcontrole</li>
       <li xml:lang="nn">Stavekontroll</li>
@@ -298,6 +302,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="it">Supporto ritorno a capo CR, CRLF, LF</li>
       <li xml:lang="ko">CR, CRLF, LF 새 줄지 원</li>
       <li xml:lang="ml">CR, CRLF, LF അന്ത്യാക്ഷര പിന്തുണ</li>
+      <li xml:lang="my">စီအာ၊ စီအာအယ်အက်ဖ်၊ အယ်အက်ဖ် စာကြောင်းအသစ်အက္ခရာထောက်ပံ့မှု</li>
       <li xml:lang="nb">Støtte for ny linje med CR, CRLF eller LF</li>
       <li xml:lang="nl">Ondersteuning van CR, CRLF, LF nieuwe-regel</li>
       <li xml:lang="nn">Støtte for linjeskift med CR, CRLF eller LF</li>
@@ -342,6 +347,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="it">Supporto di codifica (utf-8, utf-16, ascii, ecc.)</li>
       <li xml:lang="ko">인코딩 지원(UTF-8, UTF-16, ASCII 등)</li>
       <li xml:lang="ml">എൻകോഡിംഗ് പിന്തുണ (utf-8, utf-16, ascii etc.)</li>
+      <li xml:lang="my">ကုတ်ဝှက်စနစ် ထောက်ပံ့မှု (ယူတီအက်ဖ်-၈၊ ယူတီအက်ဖ်-၁၆၊ အေအက်စ်စီအိုင်အိုင်၊ စသည်)</li>
       <li xml:lang="nb">Støtte for tegnkoding (utf-8. utf-16, ascii osv.)</li>
       <li xml:lang="nl">Ondersteuning voor codering (utf-8, utf-16, ascii etc.)</li>
       <li xml:lang="nn">Støtte for fleire teiknkodingar (UTF-8, UTF-16, ASCII, ….)</li>
@@ -385,6 +391,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="it">Conversione di codifica</li>
       <li xml:lang="ko">인코딩 변환</li>
       <li xml:lang="ml">എൻകോഡിംഗ് പരിവർത്തനം</li>
+      <li xml:lang="my">ကုတ်ဝှက်စနစ် ပြောင်းလဲခြင်း</li>
       <li xml:lang="nb">Kodekonvertering</li>
       <li xml:lang="nl">Conversie van codering</li>
       <li xml:lang="nn">Støtte for teiknkodingskonvertering</li>
@@ -514,6 +521,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="it">Raggruppamento del codice e del testo</li>
       <li xml:lang="ko">코드 및 텍스트 접기</li>
       <li xml:lang="ml">കോഡും അക്ഷര മടക്കലും</li>
+      <li xml:lang="my">ကုတ်နှင့် စာသား ခေါက်ခြင်း</li>
       <li xml:lang="nb">Kode- og tekstbryting</li>
       <li xml:lang="nl">Code en tekst invouwen</li>
       <li xml:lang="nn">Kode- og tekstfalding</li>
@@ -559,6 +567,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="it">Supporto annulla/rifai infinito</li>
       <li xml:lang="ko">무한 실행 취소/다시 실행 지원</li>
       <li xml:lang="ml">അനന്തമായ നിഷ്‍ഫലമാക്കൽ / വീണ്ടും ചെയ്യൽ പിന്തുണ</li>
+      <li xml:lang="my">အကန့်အသတ်မရှိ ပြန်ဆုတ်/ပြန်လုပ် နိုင်ခြင်း</li>
       <li xml:lang="nb">Ubegrenset støtte for angring/omgjøring</li>
       <li xml:lang="nl">Ondersteuning van oneindig ongedaan maken/opnieuw</li>
       <li xml:lang="nn">Uavgrensa støtte for angring/omgjering</li>
@@ -603,6 +612,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="it">Modalità di selezione a blocchi</li>
       <li xml:lang="ko">블록 선택 모드</li>
       <li xml:lang="ml">ബ്ലോക്ക് തെരഞ്ഞെടുക്കൽ രീതി</li>
+      <li xml:lang="my">အကွက်ရွေးချယ်မှုထုံးနည်း</li>
       <li xml:lang="nb">Blokkmerkingsmodus</li>
       <li xml:lang="nl">Blokselectiemodus</li>
       <li xml:lang="nn">Blokkmerkingsmodus</li>
@@ -648,6 +658,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="it">Rientro automatico</li>
       <li xml:lang="ko">자동 들여쓰기</li>
       <li xml:lang="ml">സ്വയം അകലക്രമീകരണം</li>
+      <li xml:lang="my">အလိုအလျောက်-အင်တင်းလုပ်ခြင်း</li>
       <li xml:lang="nb">Automatisk innrykk</li>
       <li xml:lang="nl">Automatisch inspringen</li>
       <li xml:lang="nn">Automatiske innrykk</li>
@@ -692,6 +703,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="it">Supporto completamento automatico</li>
       <li xml:lang="ko">자동 완성 지원</li>
       <li xml:lang="ml">സ്വയ പൂർത്തീകരണ പിന്തുണ</li>
+      <li xml:lang="my">စကားလုံး အလိုလိုပြီးစေခြင်း</li>
       <li xml:lang="nb">Autofullføring</li>
       <li xml:lang="nl">Ondersteuning voor automatische aanvulling</li>
       <li xml:lang="nn">Støtte for autofullføring</li>
@@ -867,6 +879,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="it">Scorciatoie personalizzabili</li>
       <li xml:lang="ko">사용자 정의 가능한 단축키</li>
       <li xml:lang="ml">അഭിരുചിക്കനുസൃതമാക്കാവുന്ന കുറുക്കുവഴികൾ</li>
+      <li xml:lang="my">စိတ်ကြိုက်ပြင်ဆင်နိုင်သော ဖြတ်လမ်းများ</li>
       <li xml:lang="nb">Brukerstyrte snarveier</li>
       <li xml:lang="nl">Aanpasbare sneltoetsen</li>
       <li xml:lang="nn">Tilpassbare snarvegar</li>
@@ -955,6 +968,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="it">Creazione di script con JavaScript</li>
       <li xml:lang="ko">JavaScript를 사용한 스크립트</li>
       <li xml:lang="ml">ജാവാസ്ക്രിപ്റ്റ് ഉപയോഗിച്ച് സ്ക്രിപ്റ്റ് ചെയ്യാവുന്നത്</li>
+      <li xml:lang="my">ဂျာဗားစခရစ် သုံး၍ ညွှန်ကြားကုတ်ရေးသားနိုင်ခြင်း</li>
       <li xml:lang="nb">Kan skriptes med Javascript</li>
       <li xml:lang="nl">JavaScript te gebruiken in scripts</li>
       <li xml:lang="nn">Skriptstøtte via JavaScript</li>
@@ -1004,6 +1018,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="it">Modificare il codice con Kate</caption>
       <caption xml:lang="ko">Kate로 코드 편집</caption>
       <caption xml:lang="ml">കെയ്റ്റ് ഉപയോഗിച്ചുള്ള കോഡ് ചിട്ടപ്പെടുത്തൽ</caption>
+      <caption xml:lang="my">ကိတ်ဖြင့် ကုတ်တည်းဖြတ်ခြင်း</caption>
       <caption xml:lang="nl">Broncode bewerken met Kate</caption>
       <caption xml:lang="nn">Redigering av kjeldekode med Kate</caption>
       <caption xml:lang="pl">Edytowanie kodu z Kate</caption>

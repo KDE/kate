@@ -38,6 +38,7 @@
 
 #include <QAction>
 #include <QApplication>
+#include <QClipboard>
 #include <QDateTime>
 #include <QFileInfo>
 #include <QHBoxLayout>
@@ -2322,9 +2323,13 @@ public:
         auto item = m_diagnosticsModel->itemFromIndex(index);
         auto diagItem = dynamic_cast<DiagnosticItem *>(item);
         auto docDiagItem = dynamic_cast<DocumentDiagnosticItem *>(item);
-
         if (diagItem) {
             auto diagText = index.data().toString();
+            menu->addAction(QIcon::fromTheme(QLatin1String("edit-copy")), i18n("Copy Diagnostic to Clipboard"), [diagText]() {
+                QClipboard *clipboard = QGuiApplication::clipboard();
+                clipboard->setText(diagText);
+            });
+            menu->addSeparator();
             auto parent = index.parent();
             docDiagItem = dynamic_cast<DocumentDiagnosticItem *>(m_diagnosticsModel->itemFromIndex(parent));
             // track validity of raw pointer

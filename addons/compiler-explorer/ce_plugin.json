@@ -1,0 +1,9 @@
+{
+    "KPlugin": {
+        "Description": "View generated asm for C/C++ code",
+        "Name": "Compiler Explorer",
+        "ServiceTypes": [
+            "KTextEditor/Plugin"
+        ]
+    }
+}

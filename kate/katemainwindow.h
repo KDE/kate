@@ -512,6 +512,8 @@ public Q_SLOTS:
      */
     QObject *pluginView(const QString &name);
 
+    void addWidgetAsTab(QWidget *widget);
+
 private Q_SLOTS:
     void slotUpdateBottomViewBar();
 

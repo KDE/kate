@@ -87,6 +87,11 @@ public:
      */
     QVector<KTextEditor::Document *> documentList() const;
 
+    /**
+     * Add an "extra" widget to the tab bar which is not a "KTextEditor::View"
+     */
+    void setCurrentWidget(QWidget *widget);
+
 Q_SIGNALS:
     /**
      * This signal is emitted whenever the context menu is requested for
@@ -126,6 +131,11 @@ protected:
 private:
     using QTabBar::addTab;
     using QTabBar::insertTab;
+
+    /**
+     * Indexes of tabs which are a normal KTextEditor::View
+     */
+    std::vector<int> documentTabIndexes() const;
 
     bool m_isActive = false;
     KTextEditor::Document *m_beingAdded = nullptr;

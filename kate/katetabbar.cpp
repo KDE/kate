@@ -70,11 +70,18 @@ void KateTabBar::readConfig()
     // elide if we have some limit
     setElideMode((m_tabCountLimit == 0) ? Qt::ElideNone : Qt::ElideMiddle);
 
+    const std::vector<int> documentTabIndexes = this->documentTabIndexes();
+
     // if we enforce a limit: purge tabs that violate it
-    if (m_tabCountLimit > 0 && (count() > m_tabCountLimit)) {
+    if (m_tabCountLimit > 0 && ((int)documentTabIndexes.size() > m_tabCountLimit)) {
         // just purge last X tabs, this isn't that clever but happens only on config changes!
-        while (count() > m_tabCountLimit) {
-            removeTab(count() - 1);
+        size_t toRemove = documentTabIndexes.size() - (size_t)m_tabCountLimit;
+        size_t removed = 0;
+        for (auto rit = documentTabIndexes.rbegin(); rit != documentTabIndexes.rend(); ++rit) {
+            if (removed == toRemove)
+                break;
+            removeTab(*rit);
+            removed++;
         }
         setCurrentIndex(0);
     }
@@ -86,6 +93,18 @@ void KateTabBar::readConfig()
     // get mouse click rules
     m_doubleClickNewDocument = cgGeneral.readEntry("Tab Double Click New Document", true);
     m_middleClickCloseDocument = cgGeneral.readEntry("Tab Middle Click Close Document", true);
+}
+
+std::vector<int> KateTabBar::documentTabIndexes() const
+{
+    std::vector<int> docs;
+    const int tabCount = count();
+    for (int i = 0; i < tabCount; ++i) {
+        if (tabData(i).value<KateTabButtonData>().doc) {
+            docs.push_back(i);
+        }
+    }
+    return docs;
 }
 
 void KateTabBar::setActive(bool active)
@@ -206,7 +225,7 @@ void KateTabBar::setCurrentDocument(KTextEditor::Document *doc)
 
     // else: if we are still inside the allowed number of tabs or have no limit
     // => create new tab and be done
-    if ((m_tabCountLimit == 0) || count() < m_tabCountLimit) {
+    if ((m_tabCountLimit == 0) || documentTabIndexes().size() < (size_t)m_tabCountLimit) {
         m_beingAdded = doc;
         insertTab(-1, doc->documentName());
         return;
@@ -221,14 +240,15 @@ void KateTabBar::setCurrentDocument(KTextEditor::Document *doc)
     KTextEditor::Document *docToReplace = nullptr;
     for (int idx = 0; idx < count(); idx++) {
         QVariant data = tabData(idx);
-        if (!data.isValid()) {
+        KTextEditor::Document *doc = data.value<KateTabButtonData>().doc;
+        if (!data.isValid() || !doc) {
             continue;
         }
-        const quint64 currentCounter = m_docToLruCounterAndHasTab[data.value<KateTabButtonData>().doc].first;
+        const quint64 currentCounter = m_docToLruCounterAndHasTab[doc].first;
         if (currentCounter <= minCounter) {
             minCounter = currentCounter;
             indexToReplace = idx;
-            docToReplace = data.value<KateTabButtonData>().doc;
+            docToReplace = doc;
         }
     }
 
@@ -336,7 +356,15 @@ QVector<KTextEditor::Document *> KateTabBar::documentList() const
         if (!data.isValid()) {
             continue;
         }
-        result.append(data.value<KateTabButtonData>().doc);
+        if (data.value<KateTabButtonData>().doc)
+            result.append(data.value<KateTabButtonData>().doc);
     }
     return result;
+}
+
+void KateTabBar::setCurrentWidget(QWidget *widget)
+{
+    int idx = insertTab(-1, widget->windowTitle());
+    setTabData(idx, QVariant::fromValue(widget));
+    setCurrentIndex(idx);
 }

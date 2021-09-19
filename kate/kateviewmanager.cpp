@@ -275,6 +275,13 @@ void KateViewManager::slotDocumentClose()
         return;
     }
 
+    if (auto vs = activeViewSpace()) {
+        if (auto w = vs->currentWidget()) {
+            vs->closeTabWithWidget(w);
+            return;
+        }
+    }
+
     slotDocumentClose(view->document());
 }
 
@@ -906,6 +913,13 @@ void KateViewManager::removeViewSpace(KateViewSpace *viewspace)
     // abort if this is the last viewspace
     if (m_viewSpaceList.size() < 2) {
         return;
+    }
+
+    if (viewspace->hasWidgets()) {
+        int ret = KMessageBox::warningYesNo(this, i18n("This view may have unsaved work. Do you really want to close it?"));
+        if (ret != KMessageBox::Yes) {
+            return;
+        }
     }
 
     // get current splitter

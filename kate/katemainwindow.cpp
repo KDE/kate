@@ -1205,6 +1205,12 @@ QObject *KateMainWindow::pluginView(const QString &name)
     return m_pluginViews.contains(plugin) ? m_pluginViews.value(plugin) : nullptr;
 }
 
+void KateMainWindow::addWidgetAsTab(QWidget *widget)
+{
+    auto vs = m_viewManager->activeViewSpace();
+    vs->addWidgetAsTab(widget);
+}
+
 void KateMainWindow::mousePressEvent(QMouseEvent *e)
 {
     switch (e->button()) {

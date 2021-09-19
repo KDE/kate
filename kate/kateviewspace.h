@@ -92,6 +92,27 @@ public:
      */
     void focusNextTab();
 
+    /**
+     * Add a non KTE-View as a tab
+     */
+    void addWidgetAsTab(QWidget *widget);
+
+    /**
+     * Does this viewspace contain any not KTextEditor::View widgets?
+     */
+    bool hasWidgets() const;
+
+    /**
+     * Does the current tab contains a widget
+     * that is not a KTextEditor::View
+     *
+     * If the current active tab has a KTE::View
+     * this will return nullptr
+     */
+    QWidget *currentWidget();
+
+    void closeTabWithWidget(QWidget *widget);
+
     // BEGIN Location History Stuff
 
     /**

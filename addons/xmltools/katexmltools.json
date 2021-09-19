@@ -49,7 +49,7 @@
         "Name[uk]": "Завершення XML",
         "Name[vi]": "Hoàn tất XML",
         "Name[x-test]": "xxXML Completionxx",
-        "Name[zh_CN]": "XML 补全",
+        "Name[zh_CN]": "XML 代码补全",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

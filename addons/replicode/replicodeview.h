@@ -50,8 +50,8 @@ private:
     KTextEditor::MainWindow *m_mainWindow;
     QProcess *m_executor;
     QListWidget *m_replicodeOutput;
-    QWidget *m_toolview;
-    QWidget *m_configSidebar;
+    std::unique_ptr<QWidget> m_toolview;
+    std::unique_ptr<QWidget> m_configSidebar;
     QPushButton *m_runButton;
     QPushButton *m_stopButton;
     QAction *m_runAction;

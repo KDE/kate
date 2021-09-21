@@ -133,7 +133,7 @@ KateCTagsView::KateCTagsView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
         KMessageBox::sorry(nullptr, error);
     });
 
-    m_gotoSymbWidget = new GotoSymbolWidget(mainWin, this);
+    m_gotoSymbWidget.reset(new GotoSymbolWidget(mainWin, this));
     auto openLocal = actionCollection()->addAction(QStringLiteral("open_local_gts"));
     openLocal->setText(i18n("Go To Local Symbol"));
     actionCollection()->setDefaultShortcut(openLocal, Qt::CTRL | Qt::ALT | Qt::Key_P);

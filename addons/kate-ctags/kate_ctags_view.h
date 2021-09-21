@@ -103,7 +103,7 @@ private:
     QPointer<KTextEditor::MainWindow> m_mWin;
     QPointer<QWidget> m_toolView;
     Ui::kateCtags m_ctagsUi{};
-    GotoSymbolWidget *m_gotoSymbWidget;
+    std::unique_ptr<GotoSymbolWidget> m_gotoSymbWidget;
 
     QPointer<KActionMenu> m_menu;
     QAction *m_gotoDef;

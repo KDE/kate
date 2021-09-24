@@ -2325,7 +2325,7 @@ public:
         auto docDiagItem = dynamic_cast<DocumentDiagnosticItem *>(item);
         if (diagItem) {
             auto diagText = index.data().toString();
-            menu->addAction(QIcon::fromTheme(QLatin1String("edit-copy")), i18n("Copy Diagnostic to Clipboard"), [diagText]() {
+            menu->addAction(QIcon::fromTheme(QLatin1String("edit-copy")), i18n("Copy to Clipboard"), [diagText]() {
                 QClipboard *clipboard = QGuiApplication::clipboard();
                 clipboard->setText(diagText);
             });

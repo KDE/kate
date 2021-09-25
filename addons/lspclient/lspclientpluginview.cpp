@@ -1954,12 +1954,12 @@ public:
             return;
         }
 
-        auto action = m_requestCodeAction->menu()->addAction(i18n("Loading..."));
-        action->setEnabled(false);
+        QPointer<QAction> loadingAction = m_requestCodeAction->menu()->addAction(i18n("Loading..."));
+        loadingAction->setEnabled(false);
 
         // store some things to find item safely later on
         QSharedPointer<LSPClientRevisionSnapshot> snapshot(m_serverManager->snapshot(server.data()));
-        auto h = [this, snapshot, server, action](const QList<LSPCodeAction> &actions) {
+        auto h = [this, snapshot, server, loadingAction](const QList<LSPCodeAction> &actions) {
             auto menu = m_requestCodeAction->menu();
             // clearing menu also hides it, and so added actions end up not shown
             if (actions.isEmpty()) {
@@ -1972,7 +1972,9 @@ public:
                     executeServerCommand(server, action.command);
                 });
             }
-            menu->removeAction(action);
+            if (loadingAction) {
+                menu->removeAction(loadingAction);
+            }
         };
         server->documentCodeAction(document->url(), range, {}, {}, this, h);
     }

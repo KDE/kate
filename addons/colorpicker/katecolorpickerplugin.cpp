@@ -94,8 +94,13 @@ ColorPickerInlineNoteProvider::ColorPickerInlineNoteProvider(KTextEditor::Docume
 
 ColorPickerInlineNoteProvider::~ColorPickerInlineNoteProvider()
 {
-    for (auto view : m_doc->views()) {
-        qobject_cast<KTextEditor::InlineNoteInterface *>(view)->unregisterInlineNoteProvider(this);
+    QPointer<KTextEditor::Document> doc = m_doc;
+    if (doc) {
+        for (auto view : m_doc->views()) {
+            if (auto ini = qobject_cast<KTextEditor::InlineNoteInterface *>(view)) {
+                ini->unregisterInlineNoteProvider(this);
+            }
+        }
     }
 }
 
@@ -257,10 +262,7 @@ KateColorPickerPlugin::KateColorPickerPlugin(QObject *parent, const QList<QVaria
 {
 }
 
-KateColorPickerPlugin::~KateColorPickerPlugin()
-{
-    qDeleteAll(m_inlineColorNoteProviders);
-}
+KateColorPickerPlugin::~KateColorPickerPlugin() = default;
 
 QObject *KateColorPickerPlugin::createView(KTextEditor::MainWindow *mainWindow)
 {
@@ -278,18 +280,19 @@ QObject *KateColorPickerPlugin::createView(KTextEditor::MainWindow *mainWindow)
 
 void KateColorPickerPlugin::addDocument(KTextEditor::Document *doc)
 {
-    if (!m_inlineColorNoteProviders.contains(doc)) {
-        m_inlineColorNoteProviders.insert(doc, new ColorPickerInlineNoteProvider(doc));
+    if (m_inlineColorNoteProviders.find(doc) == m_inlineColorNoteProviders.end()) {
+        m_inlineColorNoteProviders.emplace(doc, new ColorPickerInlineNoteProvider(doc));
     }
 
-    connect(doc, &KTextEditor::Document::destroyed, this, [this, doc]() {
-        m_inlineColorNoteProviders.remove(doc);
+    connect(doc, &KTextEditor::Document::aboutToClose, this, [this, doc]() {
+        m_inlineColorNoteProviders.erase(doc);
     });
 }
 
 void KateColorPickerPlugin::readConfig()
 {
-    for (auto colorNoteProvider : m_inlineColorNoteProviders.values()) {
+    for (const auto &[doc, colorNoteProvider] : m_inlineColorNoteProviders) {
+        Q_UNUSED(doc)
         colorNoteProvider->updateColorMatchingCriteria();
         colorNoteProvider->updateNotes();
     }

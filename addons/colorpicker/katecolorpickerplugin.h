@@ -78,7 +78,7 @@ private:
     KTextEditor::ConfigPage *configPage(int number = 0, QWidget *parent = nullptr) override;
 
     KTextEditor::MainWindow *m_mainWindow;
-    QHash<KTextEditor::Document *, ColorPickerInlineNoteProvider *> m_inlineColorNoteProviders;
+    std::unordered_map<KTextEditor::Document *, std::unique_ptr<ColorPickerInlineNoteProvider>> m_inlineColorNoteProviders;
 };
 
 #endif // KATE_COLORPICKER_H

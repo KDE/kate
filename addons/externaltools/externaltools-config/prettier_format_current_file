@@ -1,0 +1,11 @@
+[General]
+actionName=externaltool_Prettier
+arguments=%{Document:FileName}
+category=Tools
+cmdname=prettier-format-full-file
+executable=prettier
+name=Prettier Format Current File
+output=ReplaceCurrentDocument
+reload=false
+save=CurrentDocument
+workingDir=%{Document:Path}

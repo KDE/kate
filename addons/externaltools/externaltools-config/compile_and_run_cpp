@@ -1,0 +1,11 @@
+[General]
+actionName=externaltool_C++CompileRun
+arguments=-c 'g++ %{Document:FilePath} -o %{Document:FileBaseName} && ./%{Document:FileBaseName}'
+category=Tools
+executable=sh
+icon=text-x-c++src
+name=Compile and Run cpp
+output=DisplayInPane
+reload=false
+save=CurrentDocument
+workingDir=%{Document:Path}

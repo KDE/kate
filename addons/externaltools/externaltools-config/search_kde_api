@@ -1,0 +1,14 @@
+[General]
+actionName=externaltool_KDEAPI
+arguments="https://api.kde.org/search.html?query=%{Document:Selection:Text}"
+category=Tools
+cmdname=
+executable=xdg-open
+icon=kde
+input=
+mimetypes=
+name=Search KDE API
+output=Ignore
+reload=false
+save=None
+workingDir=%{Document:Path}

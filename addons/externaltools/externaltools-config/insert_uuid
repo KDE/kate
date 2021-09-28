@@ -1,0 +1,10 @@
+[General]
+actionName=externaltool_InsertUUID
+arguments=%{UUID}
+category=Tools
+cmdname=uuid
+executable=echo
+name=Insert UUID
+output=InsertAtCursor
+reload=false
+save=None

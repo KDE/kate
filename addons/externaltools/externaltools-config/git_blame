@@ -1,0 +1,11 @@
+[General]
+actionName=externaltool_gitblame
+arguments=gui blame --line=%{Document:Cursor:Line} %{Document:FileName}
+category=Git
+cmdname=git-blame
+executable=git
+name=git blame
+output=Ignore
+reload=false
+save=CurrentDocument
+workingDir=%{Document:Path}

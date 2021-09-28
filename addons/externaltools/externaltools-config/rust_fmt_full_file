@@ -1,0 +1,13 @@
+[General]
+actionName=externaltool_RustFmt
+arguments=--emit stdout %{Document:FileName}
+category=Tools
+cmdname=rustfmt-full-file
+executable=rustfmt
+icon=text-x-rust
+mimetypes=text/x-rust
+name=Rust Fmt Full File
+output=ReplaceCurrentDocument
+reload=false
+save=CurrentDocument
+workingDir=%{Document:Path}

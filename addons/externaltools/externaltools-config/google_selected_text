@@ -1,0 +1,11 @@
+[General]
+actionName=externaltool_GoogleSelectedText
+arguments="https://www.google.com/search?q=%{PercentEncoded:%{Document:Selection:Text}}"
+category=Tools
+cmdname=google
+executable=xdg-open
+icon=globe
+name=Google Selected Text
+output=Ignore
+reload=false
+save=None

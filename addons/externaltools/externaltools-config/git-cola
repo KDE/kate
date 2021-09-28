@@ -1,0 +1,11 @@
+[General]
+actionName=externaltool_gitcola
+arguments=-r %{Document:Path}
+category=Git
+cmdname=git-cola
+executable=git-cola
+icon=git-cola
+name=git-cola
+output=Ignore
+reload=false
+save=None

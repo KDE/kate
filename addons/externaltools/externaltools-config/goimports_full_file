@@ -1,0 +1,13 @@
+[General]
+actionName=externaltool_GoImports
+arguments=%{Document:FileName}
+category=Go
+cmdname=goimports-full-file
+executable=goimports
+icon=text-x-go
+mimetypes=text/x-go
+name=GoImports Full File
+output=ReplaceCurrentDocument
+reload=false
+save=CurrentDocument
+workingDir=%{Document:Path}

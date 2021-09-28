@@ -1,0 +1,11 @@
+[General]
+actionName=externaltool_gitk
+category=Git
+cmdname=gitk
+executable=gitk
+icon=git-gui
+name=gitk
+output=Ignore
+reload=false
+save=None
+workingDir=%{Document:Path}

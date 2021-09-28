@@ -1,0 +1,12 @@
+[General]
+actionName=externaltool_ClangFormatSelectedText
+arguments=-assume-filename=%{Document:FileName}
+category=Tools
+cmdname=clang-format-selection
+executable=clang-format
+input=\s%{Document:Selection:Text}
+name=Clang Format Selected Text
+output=ReplaceSelectedText
+reload=false
+save=None
+workingDir=%{Document:Path}

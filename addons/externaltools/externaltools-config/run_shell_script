@@ -1,0 +1,12 @@
+[General]
+actionName=externaltool_RunShellScript
+arguments=-e sh -c "cd %{Document:Path} && pwd && chmod -vc a+x %{Document:FileName} && ./%{Document:FileName} ; echo Press any key to continue. && read -n 1"
+category=Tools
+cmdname=run-script
+executable=konsole
+icon=system-run
+name=Run Shell Script
+output=Ignore
+reload=false
+save=CurrentDocument
+workingDir=%{Document:Path}

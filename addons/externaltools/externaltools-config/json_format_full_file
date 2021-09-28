@@ -1,0 +1,12 @@
+[General]
+actionName=externaltool_JSONFormatFullFile
+arguments="." "%{Document:FileName}"
+category=Tools
+cmdname=json-format-file
+executable=jq
+icon=application-json
+name=JSON Format Full File
+output=ReplaceCurrentDocument
+reload=false
+save=CurrentDocument
+workingDir=%{Document:Path}

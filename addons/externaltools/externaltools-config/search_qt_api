@@ -1,0 +1,14 @@
+[General]
+actionName=externaltool_QtAPI
+arguments="https://doc.qt.io/qt-5/search-results.html?q=%{Document:Selection:Text}"
+category=Tools
+cmdname=
+executable=xdg-open
+icon=qtcreator
+input=
+mimetypes=
+name=Search Qt API
+output=Ignore
+reload=false
+save=None
+workingDir=%{Document:Path}

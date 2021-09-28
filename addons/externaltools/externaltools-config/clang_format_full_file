@@ -1,0 +1,11 @@
+[General]
+actionName=externaltool_ClangFormatFullFile
+arguments=-i %{Document:FileName}
+category=Tools
+cmdname=clang-format-file
+executable=clang-format
+name=Clang Format Full File
+output=Ignore
+reload=true
+save=CurrentDocument
+workingDir=%{Document:Path}

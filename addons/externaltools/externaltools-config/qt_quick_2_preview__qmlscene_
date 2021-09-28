@@ -1,0 +1,12 @@
+[General]
+actionName=externaltool_QtQuick2Previewqmlscene
+arguments=%{Document:FileName}
+category=Qt
+cmdname=qml-preview
+executable=qmlscene
+mimetypes=text/x-qml
+name=Qt Quick 2 Preview (qmlscene)
+output=Ignore
+reload=false
+save=CurrentDocument
+workingDir=%{Document:Path}

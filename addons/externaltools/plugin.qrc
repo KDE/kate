@@ -4,6 +4,24 @@
         <file>ui.rc</file>
     </qresource>
     <qresource prefix="/kconfig">
-        <file>defaultexternaltoolsrc</file>
+        <file>kate-externaltoolspluginrc</file>
+        <file>externaltools-config/clang_format_full_file</file>
+        <file>externaltools-config/clang_format_selected_text</file>
+        <file>externaltools-config/compile_and_run_cpp</file>
+        <file>externaltools-config/git-cola</file>
+        <file>externaltools-config/git_blame</file>
+        <file>externaltools-config/gitk</file>
+        <file>externaltools-config/go_fmt_full_file</file>
+        <file>externaltools-config/goimports_full_file</file>
+        <file>externaltools-config/google_selected_text</file>
+        <file>externaltools-config/insert_uuid</file>
+        <file>externaltools-config/json_format_full_file</file>
+        <file>externaltools-config/prettier_format_current_file</file>
+        <file>externaltools-config/qt_quick_2_preview__qmlscene_</file>
+        <file>externaltools-config/run_shell_script</file>
+        <file>externaltools-config/rust_fmt_full_file</file>
+        <file>externaltools-config/search_kde_api</file>
+        <file>externaltools-config/search_qt_api</file>
+        <file>externaltools-config/xml_format_full_file</file>
     </qresource>
 </RCC>

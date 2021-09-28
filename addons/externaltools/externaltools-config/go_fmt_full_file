@@ -1,0 +1,13 @@
+[General]
+actionName=externaltool_GoFmt
+arguments=%{Document:FileName}
+category=Go
+cmdname=gofmt-full-file
+executable=gofmt
+icon=text/x-go
+mimetypes=text/x-go
+name=Go Fmt Full File
+output=ReplaceCurrentDocument
+reload=false
+save=CurrentDocument
+workingDir=%{Document:Path}

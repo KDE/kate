@@ -198,11 +198,7 @@ void PluginKateXMLCheckView::slotProcExited(int exitCode, QProcess::ExitStatus e
         list_count++;
     }
     if (!proc_stderr.isEmpty()) {
-#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
-        QStringList lines = proc_stderr.split('\n', QString::SkipEmptyParts);
-#else
         QStringList lines = proc_stderr.split('\n', Qt::SkipEmptyParts);
-#endif
         QString linenumber, msg;
         int line_count = 0;
         for (QStringList::Iterator it = lines.begin(); it != lines.end(); ++it) {

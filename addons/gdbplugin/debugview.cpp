@@ -338,11 +338,7 @@ void DebugView::processLine(QString line)
         } else if (breakPointDel.match(line).hasMatch()) {
             line.remove(QStringLiteral("Deleted breakpoint"));
             line.remove(QLatin1Char('s')); // in case of multiple breakpoints
-#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
-            QStringList numbers = line.split(QLatin1Char(' '), QString::SkipEmptyParts);
-#else
             QStringList numbers = line.split(QLatin1Char(' '), Qt::SkipEmptyParts);
-#endif
             for (int i = 0; i < numbers.size(); i++) {
                 for (int j = 0; j < m_breakPointList.size(); j++) {
                     if (numbers[i].toInt() == m_breakPointList[j].number) {

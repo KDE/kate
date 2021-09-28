@@ -193,11 +193,7 @@ void KateExternalToolServiceEditor::slotOKClicked()
 void KateExternalToolServiceEditor::showMTDlg()
 {
     QString text = i18n("Select the MimeTypes for which to enable this tool.");
-#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
-    QStringList list = ui.edtMimeType->text().split(QRegularExpression(QStringLiteral("\\s*;\\s*")), QString::SkipEmptyParts);
-#else
     QStringList list = ui.edtMimeType->text().split(QRegularExpression(QStringLiteral("\\s*;\\s*")), Qt::SkipEmptyParts);
-#endif
     KMimeTypeChooserDialog d(i18n("Select Mime Types"), text, list, QStringLiteral("text"), this);
     if (d.exec() == QDialog::Accepted) {
         ui.edtMimeType->setText(d.chooser()->mimeTypes().join(QStringLiteral(";")));
@@ -376,11 +372,7 @@ bool KateExternalToolsConfigWidget::editTool(KateExternalTool *tool)
         tool->arguments = editor.ui.edtArgs->text();
         tool->input = editor.ui.edtInput->toPlainText();
         tool->workingDir = editor.ui.edtWorkingDir->text();
-#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
-        tool->mimetypes = editor.ui.edtMimeType->text().split(QRegularExpression(QStringLiteral("\\s*;\\s*")), QString::SkipEmptyParts);
-#else
         tool->mimetypes = editor.ui.edtMimeType->text().split(QRegularExpression(QStringLiteral("\\s*;\\s*")), Qt::SkipEmptyParts);
-#endif
         tool->saveMode = static_cast<KateExternalTool::SaveMode>(editor.ui.cmbSave->currentIndex());
         tool->reload = editor.ui.chkReload->isChecked();
         tool->outputMode = static_cast<KateExternalTool::OutputMode>(editor.ui.cmbOutput->currentIndex());

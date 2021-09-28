@@ -543,13 +543,9 @@ void KateCTagsView::updateSessionDB()
     }
 
     QString commandLine = QStringLiteral("%1 -f %2 %3").arg(m_ctagsUi.cmdEdit->text(), m_ctagsUi.tagsFile->text(), targets);
-#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
     QStringList arguments = m_proc.splitCommand(commandLine);
     QString command = arguments.takeFirst();
     m_proc.start(command, arguments);
-#else
-    m_proc.start(commandLine);
-#endif
 
     if (!m_proc.waitForStarted(500)) {
         KMessageBox::error(nullptr, i18n("Failed to run \"%1\". exitStatus = %2", commandLine, m_proc.exitStatus()));

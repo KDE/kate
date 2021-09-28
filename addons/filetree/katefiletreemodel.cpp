@@ -1037,11 +1037,7 @@ void KateFileTreeModel::insertItemInto(ProxyItemDir *root, ProxyItem *item)
 
     QString tail = item->path();
     tail.remove(0, root->path().length());
-#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
-    QStringList parts = tail.split(QLatin1Char('/'), QString::SkipEmptyParts);
-#else
     QStringList parts = tail.split(QLatin1Char('/'), Qt::SkipEmptyParts);
-#endif
     ProxyItemDir *ptr = root;
     QStringList current_parts;
     current_parts.append(root->path());

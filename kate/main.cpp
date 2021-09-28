@@ -85,7 +85,7 @@ int main(int argc, char **argv)
      * we raise the Qt requirement to  5.15 as it seems some patches went in after 5.14 that are needed
      * see Krita comments, too
      */
-#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0) && defined(Q_OS_WIN)
+#if defined(Q_OS_WIN)
     QGuiApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::RoundPreferFloor);
 #endif
 

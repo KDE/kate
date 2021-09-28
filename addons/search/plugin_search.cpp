@@ -696,18 +696,13 @@ QStringList KatePluginSearchView::filterFiles(const QStringList &files) const
         types = QStringLiteral("*");
     }
 
-#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
-    const auto SkipEmptyParts = QString::SkipEmptyParts;
-#else
-    const auto SkipEmptyParts = Qt::SkipEmptyParts;
-#endif
-    const QStringList tmpTypes = types.split(QLatin1Char(','), SkipEmptyParts);
+    const QStringList tmpTypes = types.split(QLatin1Char(','), Qt::SkipEmptyParts);
     QVector<QRegularExpression> typeList;
     for (const auto &type : tmpTypes) {
         typeList << QRegularExpression(QRegularExpression::wildcardToRegularExpression(type.trimmed()));
     }
 
-    const QStringList tmpExcludes = excludes.split(QLatin1Char(','), SkipEmptyParts);
+    const QStringList tmpExcludes = excludes.split(QLatin1Char(','), Qt::SkipEmptyParts);
     QVector<QRegularExpression> excludeList;
     for (const auto &exclude : tmpExcludes) {
         excludeList << QRegularExpression(QRegularExpression::wildcardToRegularExpression(exclude.trimmed()));
@@ -722,7 +717,7 @@ QStringList KatePluginSearchView::filterFiles(const QStringList &files) const
         }
 
         bool skip = false;
-        const QStringList pathSplit = nameToCheck.split(QLatin1Char('/'), SkipEmptyParts);
+        const QStringList pathSplit = nameToCheck.split(QLatin1Char('/'), Qt::SkipEmptyParts);
         for (const auto &regex : qAsConst(excludeList)) {
             for (const auto &part : pathSplit) {
                 QRegularExpressionMatch match = regex.match(part);

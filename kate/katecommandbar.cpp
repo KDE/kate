@@ -142,11 +142,6 @@ private:
 
 class ShortcutStyleDelegate : public QStyledItemDelegate
 {
-#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
-    static constexpr auto SkipEmptyParts = QString::SkipEmptyParts;
-#else
-    static constexpr auto SkipEmptyParts = Qt::SkipEmptyParts;
-#endif
 public:
     ShortcutStyleDelegate(QObject *parent = nullptr)
         : QStyledItemDelegate(parent)
@@ -155,7 +150,7 @@ public:
 
     static QStringList splitShortcutString(const QString &shortcutString)
     {
-        return shortcutString.split(QLatin1String(", "), SkipEmptyParts);
+        return shortcutString.split(QLatin1String(", "), Qt::SkipEmptyParts);
     }
 
     void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override
@@ -195,7 +190,7 @@ public:
             QStringList list;
             list.reserve(spaceSplitted.size() * 2);
             for (const QString &shortcut : spaceSplitted) {
-                list += shortcut.split(QLatin1Char('+'), SkipEmptyParts);
+                list += shortcut.split(QLatin1Char('+'), Qt::SkipEmptyParts);
                 if (shortcut.endsWith(QLatin1String("+"))) {
                     list.append(QStringLiteral("+"));
                 }

@@ -43,10 +43,10 @@ void KatePluginSymbolViewerView::parseXMLSymbols(void)
         cl = kv->line(i);
         cl = cl.trimmed();
 
-        if (cl.indexOf(QRegularExpression(QLatin1String("<!--"))) >= 0) {
+        if (cl.indexOf(QLatin1String("<!--")) >= 0) {
             comment = 1;
         }
-        if (cl.indexOf(QRegularExpression(QLatin1String("-->"))) >= 0) {
+        if (cl.indexOf(QLatin1String("-->")) >= 0) {
             comment = 0;
             continue;
         }

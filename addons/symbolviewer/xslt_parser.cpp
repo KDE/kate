@@ -68,10 +68,10 @@ void KatePluginSymbolViewerView::parseXsltSymbols(void)
         cl = kv->line(i);
         cl = cl.trimmed();
 
-        if (cl.indexOf(QRegularExpression(QLatin1String("<!--"))) >= 0) {
+        if (cl.indexOf(QLatin1String("<!--")) >= 0) {
             comment = 1;
         }
-        if (cl.indexOf(QRegularExpression(QLatin1String("-->"))) >= 0) {
+        if (cl.indexOf(QLatin1String("-->")) >= 0) {
             comment = 0;
             continue;
         }
@@ -148,7 +148,7 @@ void KatePluginSymbolViewerView::parseXsltSymbols(void)
             node->setText(1, QString::number(i, 10));
         }
 
-        if (cl.indexOf(QRegularExpression(QLatin1String("<xsl:template"))) >= 0) {
+        if (cl.indexOf(QLatin1String("<xsl:template")) >= 0) {
             templ = 1;
         }
     }

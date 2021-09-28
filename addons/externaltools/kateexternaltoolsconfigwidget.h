@@ -73,14 +73,10 @@ private Q_SLOTS:
      */
     QStandardItem *currentCategory() const;
 
-    /**
-     * Clears the tools model.
-     */
-    void clearTools();
-
 private:
     bool m_changed = false;
     KateExternalToolsPlugin *m_plugin;
+    std::vector<KateExternalTool *> m_toolsToRemove;
     QStandardItemModel m_toolsModel;
     QStandardItem *m_noCategory = nullptr;
 };

@@ -65,7 +65,7 @@ QIcon blankIcon()
 }
 
 //! Helper that ensures that tool->actionName is unique
-static void makeActionNameUnique(KateExternalTool *tool, const std::vector<KateExternalTool *> &tools)
+static void makeActionNameUnique(KateExternalTool *tool, const QVector<KateExternalTool *> &tools)
 {
     QString name = tool->actionName;
     int i = 1;
@@ -85,7 +85,7 @@ static void makeActionNameUnique(KateExternalTool *tool, const std::vector<KateE
 /**
  * Helper that ensures that the tool->cmdname is unique
  */
-void makeEditorCommandUnique(KateExternalTool *tool, const std::vector<KateExternalTool *> &tools)
+void makeEditorCommandUnique(KateExternalTool *tool, const QVector<KateExternalTool *> &tools)
 {
     // empty command line name is OK
     if (tool->cmdname.isEmpty()) {
@@ -201,29 +201,6 @@ void KateExternalToolServiceEditor::showMTDlg()
 }
 // END KateExternalToolServiceEditor
 
-static std::vector<QStandardItem *> childItems(const QStandardItem *item)
-{
-    // collect all KateExternalTool items
-    std::vector<QStandardItem *> children;
-    for (int i = 0; i < item->rowCount(); ++i) {
-        children.push_back(item->child(i));
-    }
-    return children;
-}
-
-static std::vector<KateExternalTool *> collectTools(const QStandardItemModel &model)
-{
-    std::vector<KateExternalTool *> tools;
-    for (auto categoryItem : childItems(model.invisibleRootItem())) {
-        for (auto child : childItems(categoryItem)) {
-            auto tool = toolForItem(child);
-            Q_ASSERT(tool != nullptr);
-            tools.push_back(tool);
-        }
-    }
-    return tools;
-}
-
 // BEGIN KateExternalToolsConfigWidget
 KateExternalToolsConfigWidget::KateExternalToolsConfigWidget(QWidget *parent, KateExternalToolsPlugin *plugin)
     : KTextEditor::ConfigPage(parent)
@@ -272,7 +249,6 @@ KateExternalToolsConfigWidget::KateExternalToolsConfigWidget(QWidget *parent, Ka
 
 KateExternalToolsConfigWidget::~KateExternalToolsConfigWidget()
 {
-    clearTools();
 }
 
 QString KateExternalToolsConfigWidget::name() const
@@ -292,7 +268,7 @@ QIcon KateExternalToolsConfigWidget::icon() const
 
 void KateExternalToolsConfigWidget::reset()
 {
-    clearTools();
+    m_toolsModel.clear();
     m_toolsModel.invisibleRootItem()->setFlags(Qt::NoItemFlags);
 
     // the "Uncategorized" category always exists
@@ -301,10 +277,9 @@ void KateExternalToolsConfigWidget::reset()
 
     // create other tools and categories
     const auto tools = m_plugin->tools();
-    for (auto tool : tools) {
-        auto clone = new KateExternalTool(*tool);
-        auto item = newToolItem(clone->icon.isEmpty() ? blankIcon() : QIcon::fromTheme(clone->icon), clone);
-        auto category = clone->category.isEmpty() ? m_noCategory : addCategory(clone->category);
+    for (KateExternalTool *tool : tools) {
+        auto item = newToolItem(tool->icon.isEmpty() ? blankIcon() : QIcon::fromTheme(tool->icon), tool);
+        auto category = tool->category.isEmpty() ? m_noCategory : addCategory(tool->category);
         category->appendRow(item);
     }
     lbTools->expandAll();
@@ -318,31 +293,16 @@ void KateExternalToolsConfigWidget::apply()
     }
     m_changed = false;
 
-    // collect all KateExternalTool items
-    std::vector<KateExternalTool *> tools;
-    for (auto categoryItem : childItems(m_toolsModel.invisibleRootItem())) {
-        const QString category = (categoryItem == m_noCategory) ? QString() : categoryItem->text();
-        for (auto child : childItems(categoryItem)) {
-            auto tool = toolForItem(child);
-            Q_ASSERT(tool != nullptr);
-            // at this point, we have to overwrite the category, since it may have changed (and we never tracked this)
-            tool->category = category;
-            tools.push_back(tool);
-        }
-    }
-
     KSharedConfigPtr config = m_plugin->config();
-    // write tool configuration to disk
     config->group("Global").writeEntry("firststart", false);
-    config->group("Global").writeEntry("tools", static_cast<int>(tools.size()));
-    for (size_t i = 0; i < tools.size(); i++) {
-        const QString section = QStringLiteral("Tool ") + QString::number(i);
-        KConfigGroup cg(config, section);
-        tools[i]->save(cg);
-    }
-
     config->sync();
-    m_plugin->reload();
+
+    m_plugin->removeTools(m_toolsToRemove);
+    m_toolsToRemove.clear();
+
+    // So that KateExternalToolsPluginView::rebuildMenu() is called,
+    // needed to update the menu actions
+    Q_EMIT m_plugin->externalToolsChanged();
 }
 
 void KateExternalToolsConfigWidget::slotSelectionChanged()
@@ -368,7 +328,6 @@ bool KateExternalToolsConfigWidget::editTool(KateExternalTool *tool)
     if (editor.exec() == QDialog::Accepted) {
         tool->name = editor.ui.edtName->text().trimmed();
         tool->icon = editor.ui.btnIcon->icon();
-        tool->executable = editor.ui.edtExecutable->text().trimmed();
         tool->arguments = editor.ui.edtArgs->text();
         tool->input = editor.ui.edtInput->toPlainText();
         tool->workingDir = editor.ui.edtWorkingDir->text();
@@ -378,16 +337,20 @@ bool KateExternalToolsConfigWidget::editTool(KateExternalTool *tool)
         tool->outputMode = static_cast<KateExternalTool::OutputMode>(editor.ui.cmbOutput->currentIndex());
         tool->cmdname = editor.ui.edtCommand->text().trimmed();
 
+        tool->executable = editor.ui.edtExecutable->text().trimmed();
+        tool->hasexec = tool->checkExec();
+
         // sticky action collection name, never changes again, so that shortcuts stay
         if (tool->actionName.isEmpty()) {
             tool->actionName = QStringLiteral("externaltool_") + QString(tool->name).remove(QRegularExpression(QStringLiteral("\\W+")));
         }
 
-        const auto tools = collectTools(m_toolsModel);
+        const auto tools = m_plugin->tools();
         makeActionNameUnique(tool, tools);
         makeEditorCommandUnique(tool, tools);
 
         m_plugin->save(tool);
+
         changed = true;
     }
 
@@ -439,7 +402,7 @@ void KateExternalToolsConfigWidget::slotAddDefaultTool(int defaultToolsIndex)
 
 void KateExternalToolsConfigWidget::addNewTool(KateExternalTool *tool)
 {
-    const auto tools = collectTools(m_toolsModel);
+    const auto tools = m_plugin->tools();
     makeActionNameUnique(tool, tools);
     makeEditorCommandUnique(tool, tools);
 
@@ -495,15 +458,6 @@ QStandardItem *KateExternalToolsConfigWidget::currentCategory() const
     return item;
 }
 
-void KateExternalToolsConfigWidget::clearTools()
-{
-    // collect all KateExternalTool items and delete them, since they are copies
-    std::vector<KateExternalTool *> tools = collectTools(m_toolsModel);
-    qDeleteAll(tools);
-    tools.clear();
-    m_toolsModel.clear();
-}
-
 void KateExternalToolsConfigWidget::slotAddCategory()
 {
     // find unique name
@@ -520,11 +474,11 @@ void KateExternalToolsConfigWidget::slotAddCategory()
 
 void KateExternalToolsConfigWidget::slotAddTool()
 {
-    auto t = new KateExternalTool();
-    if (editTool(t)) {
-        addNewTool(t);
+    auto tool = new KateExternalTool();
+    if (editTool(tool)) {
+        addNewTool(tool);
     } else {
-        delete t;
+        delete tool;
     }
 }
 
@@ -535,7 +489,8 @@ void KateExternalToolsConfigWidget::slotRemove()
 
     if (tool) {
         item->parent()->removeRow(item->index().row());
-        delete tool;
+        // Delay calling m_plugin->removeTools() to apply()
+        m_toolsToRemove.push_back(tool);
         Q_EMIT changed();
         m_changed = true;
     }

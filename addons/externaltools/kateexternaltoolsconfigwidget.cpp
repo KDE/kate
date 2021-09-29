@@ -64,45 +64,52 @@ QIcon blankIcon()
     return QIcon(pm);
 }
 
-//! Helper that ensures that tool->actionName is unique
-static void makeActionNameUnique(KateExternalTool *tool, const QVector<KateExternalTool *> &tools)
+static void makeToolUnique(KateExternalTool *tool, const QVector<KateExternalTool *> &tools)
 {
-    QString name = tool->actionName;
+    // Ensure that tool->name is unique
     int i = 1;
+    QString name = tool->name;
     while (true) {
-        auto it = std::find_if(tools.cbegin(), tools.cend(), [tool, &name](const KateExternalTool *t) {
-            return (t != tool) && (t->actionName == name);
+        const bool isUnique = std::none_of(tools.cbegin(), tools.cend(), [tool, &name](const KateExternalTool *t) {
+            return (t != tool) && (t->name == name);
         });
-        if (it == tools.cend()) {
+        if (isUnique) {
             break;
         }
-        name = tool->actionName + QString::number(i);
-        ++i;
+        name = tool->name + QString::number(i++);
     }
-    tool->actionName = name;
-}
+    tool->name = name;
 
-/**
- * Helper that ensures that the tool->cmdname is unique
- */
-void makeEditorCommandUnique(KateExternalTool *tool, const QVector<KateExternalTool *> &tools)
-{
+    // Ensure tool->actionName is unique
+    i = 1;
+    QString actName = tool->actionName;
+    while (true) {
+        const bool isUnique = std::none_of(tools.cbegin(), tools.cend(), [tool, &actName](const KateExternalTool *t) {
+            return (t != tool) && (t->actionName == actName);
+        });
+        if (isUnique) {
+            break;
+        }
+        actName = tool->actionName + QString::number(i++);
+    }
+    tool->actionName = actName;
+
+    // Ensure the tool->cmdname is unique
     // empty command line name is OK
     if (tool->cmdname.isEmpty()) {
         return;
     }
 
+    i = 1;
     QString cmdname = tool->cmdname;
-    int i = 1;
     while (true) {
-        auto it = std::find_if(tools.cbegin(), tools.cend(), [tool, &cmdname](const KateExternalTool *t) {
+        const bool isUnique = std::none_of(tools.cbegin(), tools.cend(), [tool, &cmdname](const KateExternalTool *t) {
             return (t != tool) && (t->cmdname == cmdname);
         });
-        if (it == tools.cend()) {
+        if (isUnique) {
             break;
         }
-        cmdname = tool->cmdname + QString::number(i);
-        ++i;
+        cmdname = tool->cmdname + QString::number(i++);
     }
     tool->cmdname = cmdname;
 }
@@ -345,9 +352,7 @@ bool KateExternalToolsConfigWidget::editTool(KateExternalTool *tool)
             tool->actionName = QStringLiteral("externaltool_") + QString(tool->name).remove(QRegularExpression(QStringLiteral("\\W+")));
         }
 
-        const auto tools = m_plugin->tools();
-        makeActionNameUnique(tool, tools);
-        makeEditorCommandUnique(tool, tools);
+        makeToolUnique(tool, m_plugin->tools());
 
         m_plugin->save(tool);
 
@@ -402,9 +407,7 @@ void KateExternalToolsConfigWidget::slotAddDefaultTool(int defaultToolsIndex)
 
 void KateExternalToolsConfigWidget::addNewTool(KateExternalTool *tool)
 {
-    const auto tools = m_plugin->tools();
-    makeActionNameUnique(tool, tools);
-    makeEditorCommandUnique(tool, tools);
+    makeToolUnique(tool, m_plugin->tools());
 
     auto item = newToolItem(tool->icon.isEmpty() ? blankIcon() : QIcon::fromTheme(tool->icon), tool);
     auto category = addCategory(tool->translatedCategory());

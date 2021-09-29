@@ -35,6 +35,12 @@
                 "onlyAnalyzeProjectsWithOpenFiles": true
             }
         },
+        "elm": {
+            "command": ["elm-language-server"],
+            "rootIndicatorFileNames": ["elm.json"],
+            "url": "https://github.com/elm-tooling/elm-language-server",
+            "highlightingModeRegex": "^Elm$"
+        },
         "fortran": {
             "command": ["fortls"],
             "rootIndicationFileNames": [".fortls"],

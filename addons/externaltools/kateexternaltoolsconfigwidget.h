@@ -79,6 +79,12 @@ private:
     std::vector<KateExternalTool *> m_toolsToRemove;
     QStandardItemModel m_toolsModel;
     QStandardItem *m_noCategory = nullptr;
+
+    struct ChangedToolInfo {
+        KateExternalTool *tool = nullptr;
+        QString oldName;
+    };
+    std::vector<ChangedToolInfo> m_changedTools;
 };
 
 /**

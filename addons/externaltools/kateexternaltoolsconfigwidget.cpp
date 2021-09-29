@@ -307,6 +307,11 @@ void KateExternalToolsConfigWidget::apply()
     m_plugin->removeTools(m_toolsToRemove);
     m_toolsToRemove.clear();
 
+    for (auto &[tool, oldName] : m_changedTools) {
+        m_plugin->save(tool, oldName);
+    }
+    m_changedTools.clear();
+
     // So that KateExternalToolsPluginView::rebuildMenu() is called,
     // needed to update the menu actions
     Q_EMIT m_plugin->externalToolsChanged();
@@ -333,6 +338,7 @@ bool KateExternalToolsConfigWidget::editTool(KateExternalTool *tool)
     editor.resize(editorGroup.readEntry("Size", QSize()));
 
     if (editor.exec() == QDialog::Accepted) {
+        const QString oldName = tool->name;
         tool->name = editor.ui.edtName->text().trimmed();
         tool->icon = editor.ui.btnIcon->icon();
         tool->arguments = editor.ui.edtArgs->text();
@@ -354,7 +360,9 @@ bool KateExternalToolsConfigWidget::editTool(KateExternalTool *tool)
 
         makeToolUnique(tool, m_plugin->tools());
 
-        m_plugin->save(tool);
+        const bool renamed = !oldName.isEmpty() && oldName != tool->name;
+        // Delay saving to apply()
+        m_changedTools.push_back({tool, renamed ? oldName : QString{}});
 
         changed = true;
     }
@@ -415,6 +423,7 @@ void KateExternalToolsConfigWidget::addNewTool(KateExternalTool *tool)
     lbTools->setCurrentIndex(item->index());
 
     m_plugin->addNewTool(tool);
+    m_changedTools.push_back({tool, {}});
 
     Q_EMIT changed();
     m_changed = true;
@@ -519,6 +528,7 @@ void KateExternalToolsConfigWidget::slotEdit()
         m_changed = true;
     }
 }
+
 // END KateExternalToolsConfigWidget
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

@@ -154,13 +154,19 @@ void KateExternalToolsPlugin::removeTools(const std::vector<KateExternalTool *> 
     m_tools.erase(it, m_tools.end());
 }
 
-void KateExternalToolsPlugin::save(KateExternalTool *tool) const
+void KateExternalToolsPlugin::save(KateExternalTool *tool, const QString &oldName) const
 {
     const QString name = KateExternalTool::configFileName(tool->name);
     KConfig config(toolsConfigDir() + name);
     KConfigGroup cg = config.group("General");
     tool->save(cg);
     config.sync();
+
+    // The tool was renamed, remove the old config file
+    if (!oldName.isEmpty()) {
+        const QString oldFile = toolsConfigDir() + KateExternalTool::configFileName(oldName);
+        QFile::remove(oldFile);
+    }
 }
 
 void KateExternalToolsPlugin::reload()

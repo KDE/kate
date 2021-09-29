@@ -126,9 +126,11 @@ public:
     void removeTools(const std::vector<KateExternalTool *> &toRemove);
 
     /**
-     * Saves the configuration of @p tool to that tool's config file.
+     * Saves @p tool config. If @p oldName is not empty, then the tool's name
+     * was changed, and after saving the config (to a new file based on the
+     * new name), the old config file is removed.
      */
-    void save(KateExternalTool *tool) const;
+    void save(KateExternalTool *tool, const QString &oldName) const;
 
 private:
     void migrateConfig();

@@ -248,10 +248,7 @@ KateExternalToolsConfigWidget::KateExternalToolsConfigWidget(QWidget *parent, Ka
     reset();
     slotSelectionChanged();
 
-    connect(&m_toolsModel, &QStandardItemModel::itemChanged, [this]() {
-        m_changed = true;
-        Q_EMIT changed();
-    });
+    connect(&m_toolsModel, &QStandardItemModel::itemChanged, this, &KateExternalToolsConfigWidget::slotItemChanged);
 }
 
 KateExternalToolsConfigWidget::~KateExternalToolsConfigWidget()
@@ -527,6 +524,22 @@ void KateExternalToolsConfigWidget::slotEdit()
         Q_EMIT changed();
         m_changed = true;
     }
+}
+
+void KateExternalToolsConfigWidget::slotItemChanged(QStandardItem *item)
+{
+    // If a tool was drag and dropped to some other category, we need
+    // to update the tool's category
+    if (KateExternalTool *tool = toolForItem(item)) {
+        if (QStandardItem *parentCategory = item->parent()) {
+            tool->category = parentCategory != m_noCategory ? parentCategory->text() : QString{};
+            // Changes will be saved in apply()
+            m_changedTools.push_back({tool, {}});
+        }
+    }
+
+    m_changed = true;
+    Q_EMIT changed();
 }
 
 // END KateExternalToolsConfigWidget

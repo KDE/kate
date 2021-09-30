@@ -56,6 +56,7 @@ private Q_SLOTS:
     void slotEdit();
     void slotRemove();
     void slotSelectionChanged();
+    void slotItemChanged(QStandardItem *item);
 
     /**
      * Helper to open the ToolDialog.

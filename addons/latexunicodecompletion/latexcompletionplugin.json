@@ -13,6 +13,7 @@
         "Description[sl]": "LaTeXova sintaksa simbolov unicode",
         "Description[sv]": "Latex-syntax för Unicode-symboler",
         "Description[uk]": "Синтаксис LaTeX для символів Unicode",
+        "Description[vi]": "Cú pháp LaTeX cho các kí hiệu unicode",
         "Description[x-test]": "xxLaTeX syntax for unicode symbolsxx",
         "Description[zh_CN]": "Unicode 符号的 LaTeX 语法",
         "Name": "LaTeX completion",
@@ -29,6 +30,7 @@
         "Name[sl]": "Kompletiranje LaTeXa",
         "Name[sv]": "Latex-komplettering",
         "Name[uk]": "Доповнення LaTeX",
+        "Name[vi]": "Hoàn tất LaTeX",
         "Name[x-test]": "xxLaTeX completionxx",
         "Name[zh_CN]": "LaTeX 代码补全",
         "ServiceTypes": [

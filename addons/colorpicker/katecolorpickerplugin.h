@@ -9,6 +9,8 @@
 #ifndef KATE_COLORPICKER_H
 #define KATE_COLORPICKER_H
 
+#include <unordered_map>
+
 #include <KTextEditor/ConfigPage>
 #include <KTextEditor/InlineNoteProvider>
 #include <KTextEditor/MainWindow>

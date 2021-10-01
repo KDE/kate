@@ -89,10 +89,9 @@
             "highlightingModeRegex": "^Python$"
         },
         "rust": {
-            "command": ["rls"],
-            "path": ["%{ENV:HOME}/.cargo/bin", "%{ENV:USERPROFILE}/.cargo/bin"],
+            "command": ["rust-analyzer"],
             "rootIndicationFileNames": ["Cargo.lock", "Cargo.toml"],
-            "url": "https://github.com/rust-lang/rls",
+            "url": "https://rust-analyzer.github.io",
             "highlightingModeRegex": "^Rust$"
         },
         "typescript": {

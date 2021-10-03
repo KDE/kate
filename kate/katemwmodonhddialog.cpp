@@ -341,7 +341,7 @@ void KateMwModOnHdDialog::slotPDone()
     }
 
     m_diffFile->setAutoRemove(false);
-    QUrl url = QUrl::fromLocalFile(QDir::tempPath() + QLatin1Char('/') + m_diffFile->fileName());
+    const QUrl url = QUrl::fromLocalFile(m_diffFile->fileName());
     delete m_diffFile;
     m_diffFile = nullptr;
 

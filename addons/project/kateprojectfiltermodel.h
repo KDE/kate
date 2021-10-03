@@ -35,8 +35,17 @@ protected:
             return true;
         }
 
+        // If index is invalid(root index), return true
+        // The rowCount(invalidIndex) can be same as model->rowCount() and when
+        // we are recursively filtering, we get stuck on this index i.e.,
+        // trying to check its children again and again recursively.
+        auto index = sourceModel()->index(sourceRow, 0, sourceParent);
+        if (!index.isValid()) {
+            return true;
+        }
+
         int score = 0; // unused intentionally
-        QString file = sourceModel()->index(sourceRow, 0, sourceParent).data().toString();
+        QString file = index.data().toString();
         return kfts::fuzzy_match(m_pattern, file, score);
     }
 

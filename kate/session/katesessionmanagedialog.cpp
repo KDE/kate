@@ -202,14 +202,15 @@ void KateSessionManageDialog::editDone()
 {
     m_editByUser = nullptr;
     disconnect(m_sessionList, &QTreeWidget::itemChanged, this, &KateSessionManageDialog::editApply);
-    updateSessionList();
+
+    // avoid crash, see bug 142127
+    QTimer::singleShot(0, this, &KateSessionManageDialog::updateSessionList);
+    m_sessionList->setFocus();
 
     m_newButton->setEnabled(true);
     m_dontAskCheckBox->setEnabled(true);
     m_closeButton->setEnabled(true);
     m_filterBox->setEnabled(true);
-
-    m_sessionList->setFocus();
 }
 
 void KateSessionManageDialog::editApply()
@@ -435,7 +436,8 @@ bool KateSessionManageDialog::eventFilter(QObject *object, QEvent *event)
     } else if (object == m_filterBox) {
         // Catch Return key to avoid to finish the dialog
         if (event->type() == QEvent::KeyPress && (ke->key() == Qt::Key_Return || ke->key() == Qt::Key_Enter)) {
-            updateSessionList();
+            // avoid crash, see bug 142127
+            QTimer::singleShot(0, this, &KateSessionManageDialog::updateSessionList);
             m_sessionList->setFocus();
             return true;
         }

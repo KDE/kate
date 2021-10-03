@@ -335,7 +335,7 @@ void KateConfigDialog::slotApply()
         cg.writeEntry("Close After Last", sessionConfigUi.modCloseAfterLast->isChecked());
         m_mainWindow->setModCloseAfterLast(sessionConfigUi.modCloseAfterLast->isChecked());
 
-        cg.readEntry("Show output view for message type", m_messageTypes->currentIndex());
+        cg.writeEntry("Show output view for message type", m_messageTypes->currentIndex());
 
         cg.writeEntry("Stash unsaved file changes", sessionConfigUi.stashUnsavedFilesChanges->isChecked());
         KateApp::self()->stashManager()->setStashUnsavedChanges(sessionConfigUi.stashUnsavedFilesChanges->isChecked());

@@ -483,11 +483,9 @@ void KateExternalToolsConfigWidget::slotAddCategory()
 
 void KateExternalToolsConfigWidget::slotAddTool()
 {
-    auto tool = new KateExternalTool();
-    if (editTool(tool)) {
-        addNewTool(tool);
-    } else {
-        delete tool;
+    std::unique_ptr tool = std::make_unique<KateExternalTool>();
+    if (editTool(tool.get())) {
+        addNewTool(tool.release());
     }
 }
 

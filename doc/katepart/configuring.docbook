@@ -318,23 +318,22 @@ work on a different theme start by selecting that from the
 <variablelist>
 
 <varlistentry>
-<term id="pref-word-wrap"><guilabel>Static Word Wrap</guilabel></term>
+<term id="pref-word-wrap"><guilabel>Word wrap</guilabel></term>
 <listitem><para>
 Word wrap is a feature that causes the editor to automatically start a new line
 of text and move (wrap) the cursor to the beginning of that new line.  &kappname;
 will automatically start a new line of text when  the current line reaches the
-length specified by the <link linkend="pref-wrap-words-at">Wrap Words
-At:</link> option.</para>
+length specified by the <link linkend="pref-wrap-words-at">Wrap words
+at:</link> option.</para>
 <variablelist>
 <varlistentry>
-<term><guilabel>Enable static word wrap</guilabel></term>
+<term><guilabel>Wrap words at a fixed column</guilabel></term>
 <listitem>
 <para>Turns static word wrap on or off.</para>
 </listitem>
 </varlistentry>
 <varlistentry>
-<term><guilabel>Show static word wrap marker
-(if applicable)</guilabel></term>
+<term><guilabel>Draw vertical line at the word wrap column</guilabel></term>
 <listitem>
 <para>If this option is checked, a vertical line will be drawn at the word wrap
 column as defined in the <menuchoice> <guimenu>Settings</guimenu>
@@ -346,7 +345,7 @@ font.</para>
 <varlistentry>
 <term id="pref-wrap-words-at"><guilabel>Wrap words at:</guilabel></term>
 <listitem>
-<para>If the <link linkend="pref-word-wrap">Enable static word wrap</link> option is selected
+<para>If the <link linkend="pref-word-wrap">Wrap words at a fixed column</link> option is selected
 this entry  determines the length (in characters) at which the editor will
 automatically start a new line.</para>
 </listitem>
@@ -355,31 +354,47 @@ automatically start a new line.</para>
 </listitem>
 </varlistentry>
 <varlistentry>
-<term><guilabel>Input Mode</guilabel></term> <listitem><para>
+<term><guilabel>Default input mode</guilabel></term> <listitem><para>
 The selected input mode will be enabled when opening a new view.
 You can still toggle the vi input mode on/off for a particular view in the
 <guimenu>Edit</guimenu> menu.
 </para>
 </listitem>
 </varlistentry>
+
 <varlistentry>
-<term><guilabel>Auto brackets</guilabel></term> <listitem><para>When
+<term><guilabel>Brackets</guilabel></term> <listitem>
+<para>If the <guilabel>Automatically close brackets when opening bracket is typed</guilabel> option is selected when
 the user types a left bracket (<keycap>[</keycap>, <keycap>(</keycap>, or <keycap>{</keycap>)
 &kappname; automatically enters the right bracket (<keycap>}</keycap>, <keycap>)</keycap>, 
 or <keycap>]</keycap>) to the right of the cursor.</para>
-<para>When text is selected, typing one of the characters wraps the selected text.</para>
 </listitem>
 </varlistentry>
 
+<varlistentry>
+<term><guilabel>Enclosing characters</guilabel></term> <listitem>
+<para>It is possible to select the enclosing characters using the corresponding drop-down list.</para>
+<para>When text is selected, typing one of these characters wraps the selected text.</para>
+</listitem>
+</varlistentry>
 
 <varlistentry>
-<term ><guilabel>Copy and Paste</guilabel></term>
+<term ><guilabel>Copy and paste</guilabel></term>
 <listitem>
 <variablelist>
 <varlistentry>
-<term><guilabel>Copy/Cut the current line if no selection</guilabel></term> <listitem>
+<term><guilabel>Move selected text when dragged</guilabel></term> <listitem>
+<para>This option enables drag-and-drop of the selected text inside the editor window.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Copy/cut the current line if invoked without any text selected</guilabel></term> <listitem>
 <para>If this option is enabled and the text selection is empty, copy and cut
 action are performed for the line of text at the actual cursor position.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Don't move the text cursor when pasting by mouse</guilabel></term> <listitem>
+<para>If this option is enabled and you paste some text in the editor window with the &MMB; clicking, &kappname;
+will not move the text cursor into the clicked position.</para></listitem>
 </varlistentry>
 </variablelist>
 </listitem>

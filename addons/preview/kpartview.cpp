@@ -76,9 +76,10 @@ KPartView::KPartView(const KPluginMetaData &service, QObject *parent)
         // identified as ambiguous).
         // Also restrict the shortcuts to the m_part widget by setting the shortcut context.
         m_shortcuts.clear();
-        auto ac = m_part->actionCollection();
-        for (auto action : ac->actions()) {
-            for (auto shortcut : action->shortcuts()) {
+        const auto actions = m_part->actionCollection()->actions();
+        for (auto *action : actions) {
+            const auto shortcuts = action->shortcuts();
+            for (const auto &shortcut : shortcuts) {
                 m_shortcuts[shortcut] = action;
             }
             if (action->shortcutContext() != Qt::WidgetShortcut) {
@@ -245,10 +246,10 @@ bool KPartView::eventFilter(QObject *object, QEvent *event)
         }
         return true;
     } else if (event->type() == QEvent::ShortcutOverride) {
-        auto keyevent = static_cast<QKeyEvent *>(event);
-        auto it = m_shortcuts.find(QKeySequence(keyevent->modifiers() | keyevent->key()));
-        if (it != m_shortcuts.end()) {
-            it.value()->activate(QAction::Trigger);
+        const auto keyEvent = static_cast<const QKeyEvent *>(event);
+        auto *const action = m_shortcuts.value(QKeySequence(keyEvent->modifiers() | keyEvent->key()));
+        if (action) {
+            action->trigger();
             event->accept();
             return true;
         }

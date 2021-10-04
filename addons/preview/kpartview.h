@@ -11,7 +11,7 @@
 #include <KPluginMetaData>
 
 // Qt
-#include <QMap>
+#include <QHash>
 #include <QObject>
 #include <QTimer>
 
@@ -111,7 +111,7 @@ private:
     QTimer m_updateSquashingTimerFast;
     QTimer m_updateSquashingTimerSlow;
     QTemporaryFile *m_bufferFile = nullptr;
-    QMap<QKeySequence, QAction *> m_shortcuts;
+    QHash<QKeySequence, QAction *> m_shortcuts;
 };
 
 }

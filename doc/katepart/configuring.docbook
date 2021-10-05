@@ -859,7 +859,7 @@ one is not already present upon saving the file.</para>
 <variablelist>
 
 <varlistentry>
-<term><guilabel>Backup on Save</guilabel></term>
+<term><guilabel>Write a backup file on save for</guilabel></term>
 <listitem><para>Backing up on save will cause &kappname; to copy the disk file to
 &lt;prefix&gt;&lt;filename&gt;&lt;suffix&gt; before saving changes.
 The suffix defaults to <emphasis role="bold">~</emphasis> and prefix is empty by
@@ -879,19 +879,19 @@ saving.</para>
 </listitem>
 </varlistentry>
 <varlistentry>
-<term><guilabel>Prefix</guilabel></term>
+<term><guilabel>Prefix for backup files</guilabel></term>
 <listitem>
 <para>Enter the prefix to prepend to the backup file names.</para>
 </listitem>
 </varlistentry>
 <varlistentry>
-<term><guilabel>Suffix</guilabel></term>
+<term><guilabel>Suffix for backup files</guilabel></term>
 <listitem>
 <para>Enter the suffix to add to the backup file names.</para>
 </listitem>
 </varlistentry>
 <varlistentry>
-<term><guilabel>Swap file options</guilabel></term>
+<term><guilabel>Swap file mode</guilabel></term>
 <listitem>
 <para>&kappname; is able to recover (most of) what was written after last save in case
 of a crash or power failure. A swap file (.swp.&lt;filename&gt;) is created
@@ -905,10 +905,21 @@ one, too. The swap file is deleted after every save and on normal exit.</para>
 have changed since the last sync. The user can disable the swap files syncing if
 he wants, by selecting <guilabel>Disable</guilabel>,
 but this can lead to more data loss.</para>
-<para>When enabled, the swap files are saved in the same folder as the file. 
-When <guilabel>Alternative Directory</guilabel> is chosen, swap files are created in the specified folder.
+<para>When the swap file is enabled, it is possible to switch between two modes, namely <guilabel>Enabled, Store in Default Directory</guilabel> and <guilabel>Enabled, Store in Custom Directory</guilabel>.
+</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Store swap files in</guilabel></term>
+<listitem><para>By default, the swap files are saved in the same folder as the file. 
+When <guilabel>Enabled, Store in Custom Directory</guilabel> is chosen for the swap file mode, swap files are created in the specified folder.
 This is useful for network file systems to avoid unnecessary network traffic.</para>
 </listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Save swap files every</guilabel></term>
+<listitem><para>&kappname; syncs the swap files on the disk every 15 seconds, but only if they
+have changed since the last sync. You can change the sync interval as you like.</para></listitem>
 </varlistentry>
 
 </variablelist>

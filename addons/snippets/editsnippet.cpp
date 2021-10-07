@@ -47,7 +47,7 @@ KTextEditor::View *createView(QWidget *tabWidget)
 
 EditSnippet::EditSnippet(SnippetRepository *repository, Snippet *snippet, QWidget *parent)
     : QDialog(parent)
-    , m_ui(new Ui::EditSnippetBase)
+    , m_ui(std::make_unique<Ui::EditSnippetBase>())
     , m_repo(repository)
     , m_snippet(snippet)
     , m_topBoxModified(false)
@@ -131,10 +131,7 @@ void EditSnippet::test()
     m_testView->setFocus();
 }
 
-EditSnippet::~EditSnippet()
-{
-    delete m_ui;
-}
+EditSnippet::~EditSnippet() = default;
 
 void EditSnippet::setSnippetText(const QString &text)
 {

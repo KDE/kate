@@ -13,6 +13,8 @@
 
 #include <QDialog>
 
+#include <memory>
+
 namespace KTextEditor
 {
 class View;
@@ -45,7 +47,7 @@ public:
     void reject() override;
 
 private:
-    Ui::EditSnippetBase *m_ui;
+    std::unique_ptr<Ui::EditSnippetBase> const m_ui;
     SnippetRepository *m_repo;
     Snippet *m_snippet;
     KTextEditor::View *m_snippetView;

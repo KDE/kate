@@ -16,10 +16,12 @@
 #include "snippetrepository.h"
 #include "snippetstore.h"
 
+#include <KConfigGroup>
 #include <KHelpClient>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KMessageWidget>
+#include <KSharedConfig>
 
 #include <QAction>
 #include <QPushButton>
@@ -29,6 +31,8 @@
 #include <KTextEditor/Document>
 #include <KTextEditor/Editor>
 #include <KTextEditor/View>
+
+static const char s_configFile[] = "kate-snippetsrc";
 
 KTextEditor::View *createView(QWidget *tabWidget)
 {
@@ -112,8 +116,12 @@ EditSnippet::EditSnippet(SnippetRepository *repository, Snippet *snippet, QWidge
     m_ui->snippetNameEdit->setFocus();
     setTabOrder(m_ui->snippetNameEdit, m_snippetView);
 
-    QSize initSize = sizeHint();
-    initSize.setHeight(initSize.height() + 200);
+    KSharedConfigPtr config = KSharedConfig::openConfig(QLatin1String(s_configFile));
+    KConfigGroup group = config->group("General");
+    const QSize savedSize = group.readEntry("Size", QSize());
+    if (savedSize.isValid()) {
+        resize(savedSize);
+    }
 }
 
 void EditSnippet::test()
@@ -173,6 +181,11 @@ void EditSnippet::save()
     m_repo->save();
 
     setWindowTitle(i18n("Edit Snippet %1 in %2", m_snippet->text(), m_repo->text()));
+
+    KSharedConfigPtr config = KSharedConfig::openConfig(QLatin1String(s_configFile));
+    KConfigGroup group = config->group("General");
+    group.writeEntry("Size", size());
+    group.sync();
 }
 
 void EditSnippet::reject()

@@ -16,12 +16,16 @@
 #include <ktexteditor/document.h>
 #include <ktexteditor/editor.h>
 
+#include <KConfigGroup>
 #include <KLocalizedString>
+#include <KSharedConfig>
 #include <KStandardGuiItem>
 #include <KUser>
 
 #include <QDialogButtonBox>
 #include <QPushButton>
+
+static const char s_configFile[] = "kate-snippetsrc";
 
 EditRepository::EditRepository(SnippetRepository *repository, QWidget *parent)
     : QDialog(parent)
@@ -84,6 +88,13 @@ EditRepository::EditRepository(SnippetRepository *repository, QWidget *parent)
     validate();
     updateFileTypes();
     repoNameEdit->setFocus();
+
+    KSharedConfigPtr config = KSharedConfig::openConfig(QLatin1String(s_configFile));
+    KConfigGroup group = config->group("General");
+    const QSize savedSize = group.readEntry("Size", QSize());
+    if (savedSize.isValid()) {
+        resize(savedSize);
+    }
 }
 
 void EditRepository::validate()
@@ -113,6 +124,11 @@ void EditRepository::save()
     m_repo->save();
 
     setWindowTitle(i18n("Edit Snippet Repository %1", m_repo->text()));
+
+    KSharedConfigPtr config = KSharedConfig::openConfig(QLatin1String(s_configFile));
+    KConfigGroup group = config->group("General");
+    group.writeEntry("Size", size());
+    group.sync();
 }
 
 void EditRepository::updateFileTypes()

@@ -8,3 +8,4 @@ Dependencies:
     'frameworks/ki18n': '@stable'
     'frameworks/ktextwidgets': '@stable'
     'frameworks/kdoctools': '@stable'
+    'frameworks/ktexteditor': '@stable'

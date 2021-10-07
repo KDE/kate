@@ -1,17 +1,6 @@
-variables:
-  PRODUCT: Applications
+# SPDX-FileCopyrightText: None
+# SPDX-License-Identifier: CC0-1.0
 
 include:
-  - project: 'sysadmin/ci-tooling'
-    file: '/invent/ci-before.yml'
-
-linux kf5-qt5 qt5.15:
-  image: "kdeorg/ci-suse-qt515"
-  extends: .linux
-  only:
-    - master
-    - merge_requests
-  variables:
-    PLATFORM: SUSEQt5.15
-    BRANCH_GROUP: stable-kf5-qt5
-
+  - https://invent.kde.org/sysadmin/ci-utilities/raw/master/gitlab-templates/linux.yml
+  - https://invent.kde.org/sysadmin/ci-utilities/raw/master/gitlab-templates/freebsd.yml

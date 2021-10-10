@@ -37,7 +37,8 @@ ColorPickerInlineNoteProvider::ColorPickerInlineNoteProvider(KTextEditor::Docume
     m_colorRegex.setPatternOptions(QRegularExpression::DontCaptureOption | QRegularExpression::CaseInsensitiveOption);
     updateColorMatchingCriteria();
 
-    for (auto view : m_doc->views()) {
+    const auto views = m_doc->views();
+    for (auto view : views) {
         qobject_cast<KTextEditor::InlineNoteInterface *>(view)->registerInlineNoteProvider(this);
     }
 
@@ -96,7 +97,8 @@ ColorPickerInlineNoteProvider::~ColorPickerInlineNoteProvider()
 {
     QPointer<KTextEditor::Document> doc = m_doc;
     if (doc) {
-        for (auto view : m_doc->views()) {
+        const auto views = m_doc->views();
+        for (auto view : views) {
             if (auto ini = qobject_cast<KTextEditor::InlineNoteInterface *>(view)) {
                 ini->unregisterInlineNoteProvider(this);
             }
@@ -267,7 +269,8 @@ KateColorPickerPlugin::~KateColorPickerPlugin() = default;
 QObject *KateColorPickerPlugin::createView(KTextEditor::MainWindow *mainWindow)
 {
     m_mainWindow = mainWindow;
-    for (auto view : m_mainWindow->views()) {
+    const auto views = m_mainWindow->views();
+    for (auto view : views) {
         addDocument(view->document());
     }
 

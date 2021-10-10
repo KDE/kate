@@ -617,7 +617,8 @@ void KateMainWindow::reloadXmlGui()
 {
     for (KTextEditor::Document *doc : KateApp::self()->documentManager()->documentList()) {
         doc->reloadXML();
-        for (KTextEditor::View *view : doc->views()) {
+        const auto views = doc->views();
+        for (KTextEditor::View *view : views) {
             view->reloadXML();
         }
     }

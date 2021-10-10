@@ -239,7 +239,7 @@ void KWrite::slotOpen()
     } else {
         urls = QFileDialog::getOpenFileUrls(this, i18n("Open File"), m_view->document()->url().adjusted(QUrl::RemoveFilename));
     }
-    for (const QUrl &url : urls) {
+    for (const QUrl &url : qAsConst(urls)) {
         slotOpen(url);
     }
 }

@@ -225,7 +225,7 @@ void KatePluginManager::enablePluginGUI(KatePluginInfo *item, KateMainWindow *wi
     if (!win->pluginViews().contains(item->plugin)) {
         // ensure messaging is connected, if available, for the complete plugin
         if (item->plugin->metaObject()->indexOfSignal("message(QVariantMap)") != -1) {
-            connect(item->plugin, SIGNAL(message(const QVariantMap &)), win->outputView(), SLOT(slotMessage(const QVariantMap &)), Qt::UniqueConnection);
+            connect(item->plugin, SIGNAL(message(QVariantMap)), win->outputView(), SLOT(slotMessage(QVariantMap)), Qt::UniqueConnection);
         }
 
         // create the view + try to correctly load shortcuts, if it's a GUI Client
@@ -235,7 +235,7 @@ void KatePluginManager::enablePluginGUI(KatePluginInfo *item, KateMainWindow *wi
 
             // ensure messaging is connected, if available, for view, too!
             if (createdView->metaObject()->indexOfSignal("message(QVariantMap)") != -1) {
-                connect(createdView, SIGNAL(message(const QVariantMap &)), win->outputView(), SLOT(slotMessage(const QVariantMap &)), Qt::UniqueConnection);
+                connect(createdView, SIGNAL(message(QVariantMap)), win->outputView(), SLOT(slotMessage(QVariantMap)), Qt::UniqueConnection);
             }
 
             // ensure location tracking is connected for view
@@ -243,7 +243,7 @@ void KatePluginManager::enablePluginGUI(KatePluginInfo *item, KateMainWindow *wi
                 connect(createdView,
                         SIGNAL(addPositionToHistory(QUrl, KTextEditor::Cursor)),
                         win->viewManager(),
-                        SLOT(addPositionToHistory(const QUrl &, KTextEditor::Cursor)),
+                        SLOT(addPositionToHistory(QUrl, KTextEditor::Cursor)),
                         Qt::UniqueConnection);
             }
         }

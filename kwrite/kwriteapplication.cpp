@@ -97,7 +97,7 @@ bool KWriteApplication::quit()
 
 KTextEditor::MainWindow *KWriteApplication::activeMainWindow()
 {
-    for (auto kwrite : m_kwrites) {
+    for (auto kwrite : qAsConst(m_kwrites)) {
         if (kwrite->isActiveWindow()) {
             return kwrite->mainWindow();
         }
@@ -109,7 +109,7 @@ KTextEditor::MainWindow *KWriteApplication::activeMainWindow()
 QList<KTextEditor::MainWindow *> KWriteApplication::mainWindows()
 {
     QList<KTextEditor::MainWindow *> windows;
-    for (auto kwrite : m_kwrites) {
+    for (auto kwrite : qAsConst(m_kwrites)) {
         windows.append(kwrite->mainWindow());
     }
 

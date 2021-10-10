@@ -259,7 +259,7 @@ public:
          */
 
         int count = 0;
-        for (const auto &el : m_servers) {
+        for (const auto &el : qAsConst(m_servers)) {
             for (const auto &si : el) {
                 auto &s = si.server;
                 if (!s) {
@@ -282,7 +282,7 @@ public:
         count = 0;
         for (count = 0; count < 2; ++count) {
             bool wait = false;
-            for (const auto &el : m_servers) {
+            for (const auto &el : qAsConst(m_servers)) {
                 for (const auto &si : el) {
                     auto &s = si.server;
                     if (!s) {
@@ -308,7 +308,7 @@ public:
         }
 
         // match via regexes + cache result
-        for (auto it : m_highlightingModeRegexToLanguageId) {
+        for (const auto &it : m_highlightingModeRegexToLanguageId) {
             if (it.first.match(mode).hasMatch()) {
                 m_highlightingModeToLanguageIdCache[mode] = it.second;
                 return it.second;
@@ -621,7 +621,8 @@ private:
             if (fileNamesForDetection.isArray()) {
                 // we try each file name alternative in the listed order
                 // this allows to have preferences
-                for (auto name : fileNamesForDetection.toArray()) {
+                const auto fileNames = fileNamesForDetection.toArray();
+                for (auto name : fileNames) {
                     if (name.isString()) {
                         auto root = rootForDocumentAndRootIndicationFileName(document, name.toString());
                         if (!root.isEmpty()) {
@@ -664,7 +665,7 @@ private:
 
         // maybe there is a server with other root that is workspace capable
         if (!server && useWorkspace) {
-            for (const auto &l : m_servers) {
+            for (const auto &l : qAsConst(m_servers)) {
                 // for (auto it = l.begin(); it != l.end(); ++it) {
                 auto it = l.find(langId);
                 if (it != l.end()) {
@@ -693,7 +694,8 @@ private:
             if (!scmdline.isEmpty()) {
                 cmdline = scmdline.split(QLatin1Char(' '));
             } else {
-                for (const auto &c : vcmdline.toArray()) {
+                const auto cmdOpts = vcmdline.toArray();
+                for (const auto &c : cmdOpts) {
                     cmdline.push_back(c.toString());
                 }
             }
@@ -978,7 +980,6 @@ private:
     {
         // determine server description
         auto server = dynamic_cast<LSPClientServer *>(sender());
-        auto message = params.message;
         if (isLog) {
             Q_EMIT serverLogMessage(server, params);
         } else {
@@ -1014,7 +1015,7 @@ private:
     void updateWorkspace(bool added, const QString &baseDir, const QString &name)
     {
         qCInfo(LSPCLIENT) << "update workspace" << added << baseDir << name;
-        for (const auto &u : m_servers) {
+        for (const auto &u : qAsConst(m_servers)) {
             for (const auto &si : u) {
                 if (auto server = si.server) {
                     const auto &caps = server->capabilities();

@@ -189,8 +189,8 @@ KateFileTreePluginView::KateFileTreePluginView(KTextEditor::MainWindow *mainWind
     m_documentsCreatedTimer.setInterval(0);
     connect(&m_documentsCreatedTimer, &QTimer::timeout, this, &KateFileTreePluginView::slotDocumentsCreated);
 
-    connect(m_documentModel, &KateFileTreeModel::triggerViewChangeAfterNameChange, [=] {
-        KateFileTreePluginView::viewChanged();
+    connect(m_documentModel, &KateFileTreeModel::triggerViewChangeAfterNameChange, this, [this] {
+        viewChanged();
     });
 
     m_fileTree->setModel(m_proxyModel);

@@ -465,8 +465,6 @@ void GitWidget::showDiff(const QString &file, bool staged)
         if (es != QProcess::NormalExit || exitCode != 0) {
             sendMessage(i18n("Failed to get Diff of file: %1", QString::fromUtf8(git->readAllStandardError())), true);
         } else {
-            const QString filename = file.isEmpty() ? QString() : QFileInfo(file).fileName();
-
             auto addContextMenuActions = [this, file, staged](KTextEditor::View *v) {
                 auto m = v->contextMenu();
                 if (!staged) {
@@ -567,7 +565,6 @@ QString GitWidget::getDiff(KTextEditor::View *v, bool hunk, bool alreadyStaged)
 
     VcsDiff full;
     full.setDiff(v->document()->text());
-    auto p = QUrl::fromUserInput(m_gitPath);
     full.setBaseDiff(QUrl::fromUserInput(m_gitPath));
 
     const auto dir = alreadyStaged ? VcsDiff::Reverse : VcsDiff::Forward;

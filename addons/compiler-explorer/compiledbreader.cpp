@@ -107,7 +107,7 @@ QString CompileDBReader::argsForFile(const QString &compile_commandsPath, const 
         QFileInfo fi(cmpCmdFile);
         if (fi.isRelative()) {
             QString dir = QDir::cleanPath(compileCommand.value(QStringLiteral("directory")).toString());
-            QString file = QDir::cleanPath(dir + QStringLiteral("/") + cmpCmdFile);
+            //             QString file = QDir::cleanPath(dir + QStringLiteral("/") + cmpCmdFile);
         } else {
             if (fi.canonicalFilePath() == file) {
                 return compileCommand.value(QStringLiteral("command")).toString();
@@ -155,7 +155,7 @@ static void removeIncludeArgument(QStringList &commands)
         }
     }
 
-    for (const auto &rem : toRemove) {
+    for (const auto &rem : qAsConst(toRemove)) {
         commands.removeAll(rem);
     }
 }

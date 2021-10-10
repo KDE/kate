@@ -400,7 +400,7 @@ bool CEWidget::compilationFailed(const QJsonObject &obj)
                     lines << text.mid(i, maxChars);
                 }
 
-                for (const auto &line : lines) {
+                for (const auto &line : qAsConst(lines)) {
                     AsmRow r;
                     r.text = line;
                     rows.push_back(r);

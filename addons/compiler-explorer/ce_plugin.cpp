@@ -51,7 +51,7 @@ void CEPluginView::openANewTab()
     m_mainWidget = new CEWidget(this, m_mainWindow);
 
     QWidget *mw = m_mainWindow->window();
-    QMetaObject::invokeMethod(mw, "addWidgetAsTab", Q_ARG(QWidget *, m_mainWidget));
+    QMetaObject::invokeMethod(mw, "addWidgetAsTab", Q_ARG(QWidget*, m_mainWidget));
 }
 
 // required for TextFilterPluginFactory vtable

@@ -518,7 +518,7 @@ bool Sidebar::isCollapsed()
         return false;
     }
 
-    return m_splitter->sizes()[ownSplitIndex] == 0;
+    return m_splitter->sizes().constFirst() == 0;
 }
 
 void Sidebar::handleCollapse(int pos, int index)

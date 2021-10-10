@@ -71,7 +71,8 @@ KateProjectPlugin::KateProjectPlugin(QObject *parent, const QList<QVariant> &)
     readConfig();
 
     // register all already open documents, later we keep track of all newly created ones
-    for (auto document : KTextEditor::Editor::instance()->application()->documents()) {
+    const auto docs = KTextEditor::Editor::instance()->application()->documents();
+    for (auto document : docs) {
         slotDocumentCreated(document);
     }
 
@@ -117,7 +118,7 @@ KateProjectPlugin::~KateProjectPlugin()
 {
     unregisterVariables();
 
-    for (KateProject *project : m_projects) {
+    for (KateProject *project : qAsConst(m_projects)) {
         m_fileWatcher.removePath(QFileInfo(project->fileName()).canonicalPath());
         delete project;
     }
@@ -181,7 +182,7 @@ KateProject *KateProjectPlugin::projectForDir(QDir dir, bool userSpecified)
         // check for project and load it if found
         const QString canonicalPath = dir.canonicalPath();
         const QString canonicalFileName = dir.filePath(ProjectFileName);
-        for (KateProject *project : m_projects) {
+        for (KateProject *project : qAsConst(m_projects)) {
             if (project->baseDir() == canonicalPath || project->fileName() == canonicalFileName) {
                 return project;
             }
@@ -226,7 +227,8 @@ KateProject *KateProjectPlugin::projectForDir(QDir dir, bool userSpecified)
 bool KateProjectPlugin::closeProject(KateProject *project)
 {
     QVector<KTextEditor::Document *> projectDocuments;
-    for (auto doc : KTextEditor::Editor::instance()->application()->documents())
+    const auto docs = KTextEditor::Editor::instance()->application()->documents();
+    for (auto doc : docs)
         if (QUrl(project->baseDir()).isParentOf(doc->url().adjusted(QUrl::RemoveScheme)))
             projectDocuments.push_back(doc);
 
@@ -305,7 +307,7 @@ void KateProjectPlugin::slotDocumentUrlChanged(KTextEditor::Document *document)
 void KateProjectPlugin::slotDirectoryChanged(const QString &path)
 {
     QString fileName = QDir(path).filePath(ProjectFileName);
-    for (KateProject *project : m_projects) {
+    for (KateProject *project : qAsConst(m_projects)) {
         if (project->fileName() == fileName) {
             QDateTime lastModified = QFileInfo(fileName).lastModified();
             if (project->fileLastModified().isNull() || (lastModified > project->fileLastModified())) {

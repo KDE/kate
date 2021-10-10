@@ -273,7 +273,7 @@ void StashDialog::getStashList()
     }
 
     // format stash@{}: message
-    for (const auto &stash : stashList) {
+    for (const auto &stash : qAsConst(stashList)) {
         if (!stash.startsWith("stash@{")) {
             continue;
         }

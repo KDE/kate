@@ -24,7 +24,8 @@ public:
 
     QObject *createView(KTextEditor::MainWindow *mainWindow) override
     {
-        for (auto view : mainWindow->views())
+        const auto views = mainWindow->views();
+        for (auto view : views)
             viewCreated(view);
         connect(mainWindow, &KTextEditor::MainWindow::viewCreated, this, &LatexCompletionPlugin::viewCreated);
         return nullptr;

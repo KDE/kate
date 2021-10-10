@@ -247,7 +247,8 @@ static QJsonObject changeWorkspaceFoldersParams(const QList<LSPWorkspaceFolder> 
 
 static void from_json(QVector<QChar> &trigger, const QJsonValue &json)
 {
-    for (const auto &t : json.toArray()) {
+    const auto triggersArray = json.toArray();
+    for (const auto &t : triggersArray) {
         auto st = t.toString();
         if (st.length()) {
             trigger.push_back(st.at(0));
@@ -467,7 +468,8 @@ static QList<LSPDocumentHighlight> parseDocumentHighlightList(const QJsonValue &
     QList<LSPDocumentHighlight> ret;
     // could be array
     if (result.isArray()) {
-        for (const auto &def : result.toArray()) {
+        const auto defs = result.toArray();
+        for (const auto &def : defs) {
             ret.push_back(parseDocumentHighlight(def));
         }
     } else if (result.isObject()) {
@@ -509,7 +511,8 @@ static LSPHover parseHover(const QJsonValue &result)
 
     // support the deprecated MarkedString[] variant, used by e.g. Rust rls
     if (contents.isArray()) {
-        for (const auto &c : contents.toArray()) {
+        const auto elements = contents.toArray();
+        for (const auto &c : elements) {
             ret.contents.push_back(parseHoverContentElement(c));
         }
     } else {
@@ -562,13 +565,15 @@ static QList<LSPSymbolInformation> parseDocumentSymbols(const QJsonValue &result
             list->push_back({name, kind, range, detail});
             index.insert(name, &list->back());
             // proceed recursively
-            for (const auto &child : symbol.value(QStringLiteral("children")).toArray()) {
+            const auto children = symbol.value(QStringLiteral("children")).toArray();
+            for (const auto &child : children) {
                 parseSymbol(child.toObject(), &list->back());
             }
         }
     };
 
-    for (const auto &info : result.toArray()) {
+    const auto symInfos = result.toArray();
+    for (const auto &info : symInfos) {
         parseSymbol(info.toObject(), nullptr);
     }
     return ret;
@@ -579,7 +584,8 @@ static QList<LSPLocation> parseDocumentLocation(const QJsonValue &result)
     QList<LSPLocation> ret;
     // could be array
     if (result.isArray()) {
-        for (const auto &def : result.toArray()) {
+        const auto locs = result.toArray();
+        for (const auto &def : locs) {
             const auto &ob = def.toObject();
             ret.push_back(parseLocation(ob));
             // bogus server might have sent LocationLink[] instead
@@ -610,7 +616,7 @@ static QList<LSPCompletionItem> parseDocumentCompletion(const QJsonValue &result
     //         return LSPTextEdit{range, newText};
     //     };
 
-    for (const auto &vitem : items) {
+    for (const auto &vitem : qAsConst(items)) {
         const auto &item = vitem.toObject();
         auto label = item.value(MEMBER_LABEL).toString();
         auto detail = item.value(MEMBER_DETAIL).toString();
@@ -636,7 +642,8 @@ static LSPSignatureInformation parseSignatureInformation(const QJsonObject &json
 
     info.label = json.value(MEMBER_LABEL).toString();
     info.documentation = parseMarkupContent(json.value(MEMBER_DOCUMENTATION));
-    for (const auto &rpar : json.value(QStringLiteral("parameters")).toArray()) {
+    const auto params = json.value(QStringLiteral("parameters")).toArray();
+    for (const auto &rpar : params) {
         auto par = rpar.toObject();
         auto label = par.value(MEMBER_LABEL);
         int begin = -1, end = -1;
@@ -669,9 +676,9 @@ static LSPSignatureInformation parseSignatureInformation(const QJsonObject &json
 static LSPSignatureHelp parseSignatureHelp(const QJsonValue &result)
 {
     LSPSignatureHelp ret;
-    QJsonObject sig = result.toObject();
-
-    for (const auto &info : sig.value(QStringLiteral("signatures")).toArray()) {
+    const QJsonObject sig = result.toObject();
+    const auto sigInfos = sig.value(QStringLiteral("signatures")).toArray();
+    for (const auto &info : sigInfos) {
         ret.signatures.push_back(parseSignatureInformation(info.toObject()));
     }
     ret.activeSignature = sig.value(QStringLiteral("activeSignature")).toInt(0);
@@ -692,7 +699,8 @@ static QString parseClangdSwitchSourceHeader(const QJsonValue &result)
 static QList<LSPTextEdit> parseTextEdit(const QJsonValue &result)
 {
     QList<LSPTextEdit> ret;
-    for (const auto &redit : result.toArray()) {
+    const auto textEdits = result.toArray();
+    for (const auto &redit : textEdits) {
         auto edit = redit.toObject();
         auto text = edit.value(QStringLiteral("newText")).toString();
         auto range = parseRange(edit.value(MEMBER_RANGE).toObject());
@@ -729,7 +737,7 @@ static QList<LSPDiagnostic> parseDiagnostics(const QJsonArray &result)
         auto code = diag.value(QStringLiteral("code")).toString();
         auto source = diag.value(QStringLiteral("source")).toString();
         auto message = diag.value(MEMBER_MESSAGE).toString();
-        auto relatedInfo = diag.value(QStringLiteral("relatedInformation")).toArray();
+        const auto relatedInfo = diag.value(QStringLiteral("relatedInformation")).toArray();
         QList<LSPDiagnosticRelatedInformation> relatedInfoList;
         for (const auto &vrelated : relatedInfo) {
             auto related = vrelated.toObject();
@@ -745,7 +753,8 @@ static QList<LSPDiagnostic> parseDiagnostics(const QJsonArray &result)
 static QList<LSPCodeAction> parseCodeAction(const QJsonValue &result)
 {
     QList<LSPCodeAction> ret;
-    for (const auto &vaction : result.toArray()) {
+    const auto codeActions = result.toArray();
+    for (const auto &vaction : codeActions) {
         auto action = vaction.toObject();
         // entry could be Command or CodeAction
         if (!action.value(MEMBER_COMMAND).isString()) {

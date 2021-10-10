@@ -207,7 +207,7 @@ public:
             QVector<QPair<QRect, QString>> btns;
             btns.reserve(list.size());
             const int height = options.rect.height();
-            for (const QString &text : list) {
+            for (const QString &text : qAsConst(list)) {
                 if (text.isEmpty()) {
                     continue;
                 }

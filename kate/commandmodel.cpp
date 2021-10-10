@@ -18,7 +18,7 @@ void CommandModel::refresh(QVector<QPair<QString, QAction *>> actionList)
 {
     QVector<Item> temp;
     temp.reserve(actionList.size());
-    for (auto action : actionList) {
+    for (const auto &action : actionList) {
         if (!action.second) {
             continue;
         }
@@ -26,7 +26,7 @@ void CommandModel::refresh(QVector<QPair<QString, QAction *>> actionList)
     }
 
     int score = 0;
-    for (const auto &actionName : m_lastTriggered) {
+    for (const auto &actionName : qAsConst(m_lastTriggered)) {
         for (auto &item : temp) {
             if (actionName == item.action->text()) {
                 item.score = score++;

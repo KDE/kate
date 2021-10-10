@@ -450,8 +450,6 @@ QVector<QString> KateProjectWorker::gitFiles(const QDir &dir, bool recursive, co
         return files;
     }
 
-    const QString dirAbsoloutePath = dir.absolutePath() + QLatin1Char('/');
-
     const QList<QByteArray> byteArrayList = git.readAllStandardOutput().split('\0');
     files.reserve(byteArrayList.size());
     for (const QByteArray &byteArray : byteArrayList) {
@@ -602,7 +600,7 @@ QVector<QString> KateProjectWorker::filesFromDarcs(const QDir &dir, bool recursi
     }
 
     files.reserve(relFiles.size());
-    for (const QString &relFile : relFiles) {
+    for (const QString &relFile : qAsConst(relFiles)) {
         const QString path = dir.relativeFilePath(root + QLatin1String("/") + relFile);
 
         if ((!recursive && (relFile.indexOf(QLatin1Char('/')) != -1)) || (recursive && (relFile.indexOf(QLatin1String("..")) == 0))) {

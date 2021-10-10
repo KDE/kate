@@ -102,7 +102,8 @@ void KateProjectInfoViewIndex::slotTextChanged(const QString &text)
     if (m_project && m_project->projectIndex() && !text.isEmpty()) {
         m_project->projectIndex()->findMatches(*m_model, text, KateProjectIndex::FindMatches);
     } else if (!text.isEmpty()) {
-        for (const auto &project : m_pluginView->plugin()->projects()) {
+        const auto projects = m_pluginView->plugin()->projects();
+        for (const auto &project : projects) {
             if (project->projectIndex()) {
                 project->projectIndex()->findMatches(*m_model, text, KateProjectIndex::FindMatches, TAG_FULLMATCH | TAG_OBSERVECASE);
             }

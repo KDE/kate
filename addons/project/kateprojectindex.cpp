@@ -81,7 +81,8 @@ void KateProjectIndex::loadCtags(const QStringList &files, const QVariantMap &ct
     QStringList args;
     args << QStringLiteral("-L") << QStringLiteral("-") << QStringLiteral("-f") << m_ctagsIndexFile->fileName() << QStringLiteral("--fields=+K+n");
     const QString keyOptions = QStringLiteral("options");
-    for (const QVariant &optVariant : ctagsMap[keyOptions].toList()) {
+    const auto opts = ctagsMap[keyOptions].toList();
+    for (const QVariant &optVariant : opts) {
         args << optVariant.toString();
     }
     ctags.start(QStringLiteral("ctags"), args);

@@ -188,13 +188,13 @@ void KateExternalToolsPlugin::reload()
         }
     } else {
         // first start -> use system config
-        for (const auto &tool : m_defaultTools) {
+        for (const auto &tool : qAsConst(m_defaultTools)) {
             m_tools.push_back(new KateExternalTool(tool));
         }
     }
 
     // FIXME test for a command name first!
-    for (auto *tool : m_tools) {
+    for (auto *tool : qAsConst(m_tools)) {
         if (tool->hasexec && (!tool->cmdname.isEmpty())) {
             m_commands.push_back(tool->cmdname);
         }

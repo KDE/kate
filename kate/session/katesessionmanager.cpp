@@ -82,7 +82,8 @@ void KateSessionManager::updateSessionList()
         }
     }
     // Remove gone sessions from our list
-    for (const QString &session : m_sessions.keys()) {
+    const auto sessions = m_sessions.keys();
+    for (const QString &session : sessions) {
         if ((list.indexOf(session) < 0) && (m_sessions.value(session) != activeSession())) {
             m_sessions.remove(session);
             changed = true;
@@ -325,7 +326,8 @@ QString KateSessionManager::renameSession(KateSession::Ptr session, const QStrin
 void KateSessionManager::saveSessionTo(KConfig *sc) const
 {
     // Clear the session file to avoid to accumulate outdated entries
-    for (const auto &group : sc->groupList()) {
+    const auto groupList = sc->groupList();
+    for (const auto &group : groupList) {
         // Don't delete groups for loaded documents that have
         // ViewSpace config in session but do not have any views.
         if (!isViewLessDocumentViewSpaceGroup(group)) {
@@ -620,7 +622,8 @@ void KateSessionManager::updateJumpListActions(const QStringList &sessionList)
     }
 
     // remove all Session action groups first to not leave behind any cruft
-    for (const QString &action : df->readActions()) {
+    const auto actions = df->readActions();
+    for (const QString &action : actions) {
         if (action.startsWith(QLatin1String("Session "))) {
             // TODO is there no deleteGroup(KConfigGroup)?
             df->deleteGroup(df->actionGroup(action).name());

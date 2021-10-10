@@ -107,8 +107,6 @@ public:
         QString text = option.text;
         option.text = QString();
 
-        QColor textColor = normalColor;
-
         option.widget->style()->drawControl(QStyle::CE_ItemViewItem, &option, painter, option.widget);
 
         const AsmViewModel *m = static_cast<const AsmViewModel *>(index.model());

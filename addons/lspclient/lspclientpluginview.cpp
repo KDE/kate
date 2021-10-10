@@ -369,7 +369,8 @@ public:
     void readSessionConfig(const KConfigGroup &cg)
     {
         qCInfo(LSPCLIENT) << "reading session config";
-        for (const auto &fkey : cg.keyList()) {
+        const auto groups = cg.keyList();
+        for (const auto &fkey : groups) {
             if (fkey.startsWith(ENTRY_PREFIX)) {
                 QString fname = fkey.mid(ENTRY_PREFIX.size());
                 QStringList entries = cg.readEntry(fkey, QStringList());
@@ -423,7 +424,8 @@ public:
         for (const auto &entry : {QString(), file}) {
             auto it = m_suppressions.find(entry);
             if (it != m_suppressions.end()) {
-                for (const auto &d : it.value()) {
+                const auto ds = it.value();
+                for (const auto &d : ds) {
                     result.push_back(d);
                 }
             }
@@ -1376,7 +1378,8 @@ public:
                 }
             }
             // also consider session suppressions
-            for (const auto &entry : self->m_sessionDiagnosticSuppressions.getSuppressions(localPath)) {
+            const auto suppressions = self->m_sessionDiagnosticSuppressions.getSuppressions(localPath);
+            for (const auto &entry : suppressions) {
                 auto pattern = QRegularExpression::escape(entry);
                 m_suppressions.push_back({QRegularExpression(pattern), {}});
             }
@@ -2562,7 +2565,8 @@ public:
 
     KTextEditor::View *viewForUrl(const QUrl &url) const
     {
-        for (auto *view : m_mainWindow->views()) {
+        const auto views = m_mainWindow->views();
+        for (auto *view : views) {
             if (view->document()->url() == url) {
                 return view;
             }
@@ -2689,7 +2693,8 @@ public:
         // but in either case (url change or close); remove lingering diagnostics
         // collect active urls
         QSet<QString> fpaths;
-        for (const auto &view : m_mainWindow->views()) {
+        const auto views = m_mainWindow->views();
+        for (const auto &view : views) {
             if (auto doc = view->document()) {
                 fpaths.insert(doc->url().toLocalFile());
             }

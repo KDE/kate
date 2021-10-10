@@ -148,8 +148,6 @@ public:
             path.chop(suffix.size());
         }
 
-        const QString nameColor = option.palette.color(QPalette::Link).name();
-
         QTextCharFormat fmt;
         fmt.setForeground(options.palette.link().color());
         fmt.setFontWeight(QFont::Bold);

@@ -414,7 +414,7 @@ void KatePluginSymbolViewer::applyConfig(KatePluginSymbolViewerConfigPage *p)
     config.writeEntry(QStringLiteral("TreeView"), p->treeView->isChecked());
     config.writeEntry(QStringLiteral("SortSymbols"), p->sortSymbols->isChecked());
 
-    for (auto view : m_views) {
+    for (auto view : qAsConst(m_views)) {
         view->m_typesOn->setChecked(p->viewReturns->isChecked());
         view->m_expandOn->setChecked(p->expandTree->isChecked());
         view->m_treeOn->setChecked(p->treeView->isChecked());

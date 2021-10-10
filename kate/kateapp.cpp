@@ -205,7 +205,8 @@ bool KateApp::startupKate()
     KTextEditor::Document *doc = nullptr;
     const QString codec_name = codec ? QString::fromLatin1(codec->name()) : QString();
 
-    for (const auto &positionalArgument : m_args.positionalArguments()) {
+    const auto args = m_args.positionalArguments();
+    for (const auto &positionalArgument : args) {
         UrlInfo info(positionalArgument);
 
         // this file is no local dir, open it, else warn
@@ -295,7 +296,7 @@ bool KateApp::openUrl(const QUrl &url, const QString &encoding, bool isTempFile)
 
 bool KateApp::isOnActivity(const QString &activity)
 {
-    for (const auto &window : m_mainWindows) {
+    for (const auto &window : qAsConst(m_mainWindows)) {
         const KWindowInfo info(window->winId(), {}, NET::WM2Activities);
         const auto activities = info.activities();
         // handle special case of "on all activities"
@@ -541,7 +542,7 @@ void KateApp::remoteMessageReceived(const QString &message, QObject *)
      * open all passed urls
      */
     const QJsonArray urls = jsonMessage.object().value(QLatin1String("urls")).toArray();
-    for (QJsonValue urlObject : urls) {
+    for (const QJsonValue &urlObject : urls) {
         /**
          * get url meta data
          */

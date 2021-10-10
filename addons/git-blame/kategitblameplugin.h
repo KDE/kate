@@ -85,6 +85,8 @@ public:
 
     void setToolTipIgnoreKeySequence(QKeySequence sequence);
 
+    void showCommitTreeView(const QUrl &url);
+
 private:
     struct CommitInfo {
         QString m_hash;
@@ -101,6 +103,11 @@ private:
     void startShowProcess(const QUrl &url, const QString &hash);
     void showFinished(int exitCode, QProcess::ExitStatus exitStatus);
 
+    void createToolView();
+    void hideToolView();
+
+    void showDiffForFile(const QByteArray &diffContents);
+
     const KateGitBlameInfo &blameGetUpdateInfo(int lineNr);
 
     KTextEditor::MainWindow *m_mainWindow;
@@ -116,6 +123,9 @@ private:
     GitBlameTooltip m_tooltip;
     QString m_showHash;
     CommitInfo m_activeCommitInfo;
+    class CommitDiffTreeView *m_commitFilesView;
+    std::unique_ptr<QWidget> m_toolView;
+    QPointer<KTextEditor::View> m_diffView;
 };
 
 #endif // KateGitBlamePlugin_h

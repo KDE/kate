@@ -5,6 +5,7 @@
 */
 
 #include "kategitblameplugin.h"
+#include "commitfilesview.h"
 #include "gitblametooltip.h"
 
 #include <gitprocess.h>
@@ -30,6 +31,7 @@
 
 #include <QFontMetricsF>
 #include <QHash>
+#include <QLayout>
 #include <QPainter>
 #include <QRegularExpression>
 #include <QVariant>
@@ -158,6 +160,7 @@ KateGitBlamePluginView::KateGitBlamePluginView(KateGitBlamePlugin *plugin, KText
     , m_inlineNoteProvider(this)
     , m_blameInfoProc(this)
     , m_showProc(this)
+    , m_tooltip(this)
 {
     KXMLGUIClient::setComponentName(QStringLiteral("kategitblameplugin"), i18n("Git Blame"));
     setXMLFile(QStringLiteral("ui.rc"));
@@ -257,7 +260,7 @@ void KateGitBlamePluginView::startShowProcess(const QUrl &url, const QString &ha
     QDir dir{url.toLocalFile()};
     dir.cdUp();
 
-    setupGitProcess(m_showProc, dir.absolutePath(), {QStringLiteral("show"), hash});
+    setupGitProcess(m_showProc, dir.absolutePath(), {QStringLiteral("show"), hash, QStringLiteral("--numstat")});
     m_showProc.start(QIODevice::ReadOnly);
 }
 
@@ -302,25 +305,13 @@ void KateGitBlamePluginView::blameFinished(int /*exitCode*/, QProcess::ExitStatu
 
 void KateGitBlamePluginView::showFinished(int exitCode, QProcess::ExitStatus exitStatus)
 {
-    QString stdErr = QString::fromUtf8(m_showProc.readAllStandardError());
-    QString stdOut = QString::fromUtf8(m_showProc.readAllStandardOutput());
-
-    // Try to avoid crashes caused by QTextBrowser running out of memory
-    // Seems to be a limit somewhere as the memory reaches 8G and then crashes
-    // even if there is more free memory
-    // Anyways, this popup is not optimal for > 1m characters...
-    if (stdOut.size() > 1000000) {
-        stdOut = stdOut.left(1000000) + i18n("\n--- Output truncated ---\n");
-    }
-
     if (exitCode != 0 || exitStatus != QProcess::NormalExit) {
+        qWarning() << "Failed to show commit";
         return;
     }
+
+    QString stdOut = QString::fromUtf8(m_showProc.readAllStandardOutput());
     QStringList args = m_showProc.arguments();
-    if (args.size() != 2) {
-        qWarning() << "Wrong number of parameters:" << args;
-        return;
-    }
 
     int titleStart = 0;
     for (int i = 0; i < 4; ++i) {
@@ -335,6 +326,16 @@ void KateGitBlamePluginView::showFinished(int exitCode, QProcess::ExitStatus exi
     if (titleEnd < 0 || titleEnd >= stdOut.size() - 1) {
         qWarning() << "This is not a known git show format";
         return;
+    }
+
+    // Find 'Date:'
+    int dateIdx = stdOut.indexOf(QStringLiteral("Date:"));
+    if (dateIdx != -1) {
+        int newLine = stdOut.indexOf(QLatin1Char('\n'), dateIdx);
+        if (newLine != -1) {
+            QString btn = QLatin1String("\n<a href=\"%1\">Click To Show Commit In Tree View</a>\n").arg(args[1]);
+            stdOut.insert(newLine + 1, btn);
+        }
     }
 
     m_activeCommitInfo.m_title = stdOut.mid(titleStart, titleEnd - titleStart);
@@ -406,7 +407,7 @@ const KateGitBlameInfo &KateGitBlamePluginView::blameGetUpdateInfo(int lineNr)
             info.title = m_activeCommitInfo.m_title;
         }
     } else {
-        startShowProcess(m_mainWindow->activeView()->document()->url(), info.commitHash);
+        //         startShowProcess(m_mainWindow->activeView()->document()->url(), info.commitHash);
     }
     return info;
 }
@@ -414,6 +415,57 @@ const KateGitBlameInfo &KateGitBlamePluginView::blameGetUpdateInfo(int lineNr)
 void KateGitBlamePluginView::setToolTipIgnoreKeySequence(QKeySequence sequence)
 {
     m_tooltip.setIgnoreKeySequence(sequence);
+}
+
+void KateGitBlamePluginView::showCommitTreeView(const QUrl &url)
+{
+    QString commitHash = url.toDisplayString();
+    createToolView();
+    m_commitFilesView->openCommit(commitHash, m_mainWindow->activeView()->document()->url().toLocalFile());
+    m_mainWindow->showToolView(m_toolView.get());
+}
+
+void KateGitBlamePluginView::createToolView()
+{
+    if (m_toolView) {
+        return;
+    }
+
+    auto plugin = static_cast<KTextEditor::Plugin *>(parent());
+    m_toolView.reset(m_mainWindow->createToolView(plugin,
+                                                  QStringLiteral("commitfilesview"),
+                                                  KTextEditor::MainWindow::Left,
+                                                  QIcon::fromTheme(QStringLiteral(":/icons/icons/sc-apps-git.svg")),
+                                                  i18n("Commit")));
+
+    m_commitFilesView = new CommitDiffTreeView(m_toolView.get());
+    m_toolView->layout()->addWidget(m_commitFilesView);
+    connect(m_commitFilesView, &CommitDiffTreeView::closeRequested, this, &KateGitBlamePluginView::hideToolView);
+    connect(m_commitFilesView, &CommitDiffTreeView::showDiffRequested, this, &KateGitBlamePluginView::showDiffForFile);
+}
+
+void KateGitBlamePluginView::hideToolView()
+{
+    m_mainWindow->hideToolView(m_toolView.get());
+    m_toolView.reset();
+    // CommitFileView will be destroyed as well as it is the child of m_ToolView
+}
+
+void KateGitBlamePluginView::showDiffForFile(const QByteArray &diffContents)
+{
+    if (m_diffView) {
+        m_diffView->document()->setText(QString::fromUtf8(diffContents));
+        m_diffView->document()->setModified(false);
+        m_mainWindow->activateView(m_diffView->document());
+        m_diffView->setCursorPosition({0, 0});
+        return;
+    }
+    m_diffView = m_mainWindow->openUrl(QUrl());
+    m_diffView->document()->setHighlightingMode(QStringLiteral("Diff"));
+    m_diffView->document()->setText(QString::fromUtf8(diffContents));
+    m_diffView->document()->setModified(false);
+    m_mainWindow->activateView(m_diffView->document());
+    m_diffView->setCursorPosition({0, 0});
 }
 
 void KateGitBlamePluginView::CommitInfo::clear()

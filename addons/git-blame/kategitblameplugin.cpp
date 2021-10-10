@@ -274,7 +274,6 @@ void KateGitBlamePluginView::showCommitInfo(const QString &hash, KTextEditor::Vi
 
 void KateGitBlamePluginView::blameFinished(int /*exitCode*/, QProcess::ExitStatus /*exitStatus*/)
 {
-    //     QString stdErr = QString::fromUtf8(m_blameInfoProc.readAllStandardError());
     const QStringList stdOut = QString::fromUtf8(m_blameInfoProc.readAllStandardOutput()).split(QLatin1Char('\n'));
 
     // check if the git process was running for a previous document when the view changed.
@@ -301,7 +300,6 @@ void KateGitBlamePluginView::blameFinished(int /*exitCode*/, QProcess::ExitStatu
 
 void KateGitBlamePluginView::showFinished(int exitCode, QProcess::ExitStatus exitStatus)
 {
-    //     QString stdErr = QString::fromUtf8(m_showProc.readAllStandardError());
     QString stdOut = QString::fromUtf8(m_showProc.readAllStandardOutput());
 
     // Try to avoid crashes caused by QTextBrowser running out of memory

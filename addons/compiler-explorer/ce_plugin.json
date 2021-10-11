@@ -1,7 +1,25 @@
 {
     "KPlugin": {
         "Description": "View generated asm for C/C++ code",
+        "Description[az]": "C/C++ kodu üçün yaradılmış asm göstərmək",
+        "Description[ca]": "Visualitza el codi ASM generat per a C/C++",
+        "Description[en_GB]": "View generated asm for C/C++ code",
+        "Description[es]": "Ver ensamblador generado para el código C/C++",
+        "Description[ia]": "Vista generava asm per codice C/C++",
+        "Description[nl]": "Gegenereerde asm voor C/C++ code",
+        "Description[sv]": "Vy av genererade assembler för C/C++ kod",
+        "Description[uk]": "Перегляд створеного коду асемблера для коду C/C++",
+        "Description[x-test]": "xxView generated asm for C/C++ codexx",
         "Name": "Compiler Explorer",
+        "Name[az]": "Kompliyator bələdçisi",
+        "Name[ca]": "Explorador de compiladors",
+        "Name[en_GB]": "Compiler Explorer",
+        "Name[es]": "Explorador del compilador",
+        "Name[ia]": "Explrator de compilator (Compiler Explorer)",
+        "Name[nl]": "Explorer van compiler",
+        "Name[sv]": "Kompilatorutforskare",
+        "Name[uk]": "Засіб аналізу компілятора",
+        "Name[x-test]": "xxCompiler Explorerxx",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

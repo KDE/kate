@@ -293,8 +293,9 @@ void KateGitBlamePluginView::blameFinished(int /*exitCode*/, QProcess::ExitStatu
     for (const auto &line : stdOut) {
         const QRegularExpressionMatch match = lineReg.match(line);
         if (match.hasMatch()) {
-            m_blameInfo.append(
-                {match.captured(1), match.captured(2).trimmed(), QDateTime::fromString(match.captured(3), Qt::ISODate), QString(), match.captured(4)});
+            QString lineContent = match.captured(4);
+            lineContent.remove(QLatin1Char('\r'));
+            m_blameInfo.append({match.captured(1), match.captured(2).trimmed(), QDateTime::fromString(match.captured(3), Qt::ISODate), QString(), lineContent});
         }
     }
 }

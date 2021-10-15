@@ -232,7 +232,7 @@ hand side. The icon border shows bookmark signs for instance.</para></listitem>
 hand side.</para></listitem>
 </varlistentry>
 <varlistentry>
-<term><guilabel>Hightlight changed and unsaved lines
+<term><guilabel>Highlight changed and unsaved lines
 </guilabel></term>
 <listitem><para>If this is checked, line modification markers will be visible.
 For more information, see <xref linkend="kate-part-line-modification"/>.

@@ -364,7 +364,7 @@ void KateViewManager::documentCreated(KTextEditor::Document *doc)
      * check if we have any empty viewspaces and give them a view
      */
     for (KateViewSpace *vs : m_viewSpaceList) {
-        if (!vs->currentView()) {
+        if (!vs->currentView() && !vs->currentWidget()) {
             createView(view->document(), vs);
         }
     }

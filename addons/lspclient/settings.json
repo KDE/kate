@@ -88,8 +88,14 @@
             "url": "https://github.com/python-lsp/python-lsp-server",
             "highlightingModeRegex": "^Python$"
         },
+        "r": {
+            "command": ["R", "--slave", "-e", "languageserver::run()"],
+            "url": "https://github.com/REditorSupport/languageserver",
+            "highlightingModeRegex": "^R Script$"
+        },
         "rust": {
             "command": ["rust-analyzer"],
+            "path": ["%{ENV:HOME}/.cargo/bin", "%{ENV:USERPROFILE}/.cargo/bin"],
             "rootIndicationFileNames": ["Cargo.lock", "Cargo.toml"],
             "url": "https://rust-analyzer.github.io",
             "highlightingModeRegex": "^Rust$"
@@ -98,11 +104,6 @@
             "use": "javascript",
             "highlightingModeRegex": "^TypeScript.*$",
             "documentLanguageId": false
-        },
-        "r": {
-            "command": ["R", "--slave", "-e", "languageserver::run()"],
-            "url": "https://github.com/REditorSupport/languageserver",
-            "highlightingModeRegex": "^R Script$"
         },
         "vala": {
             "command": ["vala-language-server"],

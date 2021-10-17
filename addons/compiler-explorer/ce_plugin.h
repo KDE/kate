@@ -42,6 +42,8 @@ public:
      */
     explicit CEPluginView(CEPlugin *plugin, KTextEditor::MainWindow *mainwindow);
 
+    Q_SIGNAL void message(const QVariantMap &message);
+
     /**
      * Our Destructor
      */

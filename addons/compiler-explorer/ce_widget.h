@@ -32,6 +32,8 @@ private:
     void doCompile();
     QString currentCompiler() const;
     void addExtraActionstoTextEditor();
+    void warnIfBadArgs(const QStringList &args);
+    void sendMessage(const QString &plainText, bool warn);
 
     void removeViewAsActiveXMLGuiClient();
     void setViewAsActiveXMLGuiClient();

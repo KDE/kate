@@ -156,10 +156,12 @@ void CEWidget::setViewAsActiveXMLGuiClient()
 
 bool CEWidget::eventFilter(QObject *o, QEvent *e)
 {
-    if (o == m_textEditor->focusProxy() && e->type() == QEvent::FocusIn) {
+    // We live in a stacked widget in kateviewspace
+    // use hide/show to figure out when we are not active
+    if (e->type() == QEvent::Show) {
         setViewAsActiveXMLGuiClient();
         return QWidget::eventFilter(o, e);
-    } else if (o == m_textEditor->focusProxy() && e->type() == QEvent::FocusOut) {
+    } else if (e->type() == QEvent::Hide) {
         removeViewAsActiveXMLGuiClient();
         return QWidget::eventFilter(o, e);
     }

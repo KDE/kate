@@ -74,8 +74,8 @@ private Q_SLOTS:
         // collect the stuff
         QString clipboardText;
         int row = -1;
-        const auto selectedIndexes = this->selectedIndexes();
-        for (const auto selected : selectedIndexes) {
+        const auto selectedIdxs = selectedIndexes();
+        for (const auto &selected : selectedIdxs) {
             // we want to separate columns by " " and rows by "\n"
 
             // first element: just append + remember row

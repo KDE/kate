@@ -183,7 +183,7 @@ void KateProjectCompletion::allMatches(QStandardItemModel &model, KTextEditor::V
     /**
      * let project index fill the completion for this document
      */
-    for (const auto &project : qAsConst(projects)) {
+    for (const auto project : qAsConst(projects)) {
         if (project->projectIndex()) {
             project->projectIndex()->findMatches(model, view->document()->text(range), KateProjectIndex::CompletionMatches);
         }

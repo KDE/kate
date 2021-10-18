@@ -55,7 +55,7 @@ KateColorPickerConfigPage::KateColorPickerConfigPage(QWidget *parent, KateColorP
     chkHexLengths.insert(6, new QCheckBox(i18n("6 digits (#RRGGBB)"), this));
     chkHexLengths.insert(3, new QCheckBox(i18n("3 digits (#RGB)"), this));
 
-    for (QCheckBox *chk : qAsConst(chkHexLengths)) {
+    for (QCheckBox *chk : std::as_const(chkHexLengths)) {
         hexLayout->addWidget(chk);
         connect(chk, &QCheckBox::stateChanged, this, &KateColorPickerConfigPage::changed);
     }
@@ -118,8 +118,9 @@ void KateColorPickerConfigPage::reset()
     chkPreviewAfterColor->setChecked(config.readEntry("PreviewAfterColor", true));
 
     const QList<int> enabledHexLengths = config.readEntry("HexLengths", QList<int>{12, 9, 6, 3});
-    const auto hexLengths = chkHexLengths.keys();
-    for (const int hexLength : hexLengths) {
-        chkHexLengths[hexLength]->setChecked(enabledHexLengths.contains(hexLength));
+
+    for (auto it = chkHexLengths.cbegin(); it != chkHexLengths.cend(); ++it) {
+        int hexLength = it.key();
+        it.value()->setChecked(enabledHexLengths.contains(hexLength));
     }
 }

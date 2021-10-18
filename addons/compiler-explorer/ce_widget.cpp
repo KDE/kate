@@ -396,11 +396,12 @@ bool CEWidget::compilationFailed(const QJsonObject &obj)
                 text.replace(re, QLatin1String(""));
 
                 QStringList lines;
+                lines.reserve(text.size() / maxChars);
                 for (int i = 0; i < text.size(); i += maxChars) {
                     lines << text.mid(i, maxChars);
                 }
 
-                for (const auto &line : qAsConst(lines)) {
+                for (const auto &line : std::as_const(lines)) {
                     AsmRow r;
                     r.text = line;
                     rows.push_back(r);

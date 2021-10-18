@@ -64,7 +64,7 @@ QStringList KateProjectCodeAnalysisToolClazy::arguments()
         args = QStringList{QStringLiteral("-p"), compileCommandsDir};
     }
 
-    QStringList fileList = filter(m_project->files());
+    const QStringList fileList = filter(m_project->files());
     setActualFilesCount(fileList.size());
 
     return args << fileList;

@@ -2694,7 +2694,7 @@ public:
         // collect active urls
         QSet<QString> fpaths;
         const auto views = m_mainWindow->views();
-        for (const auto &view : views) {
+        for (const auto view : views) {
             if (auto doc = view->document()) {
                 fpaths.insert(doc->url().toLocalFile());
             }

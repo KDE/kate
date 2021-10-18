@@ -81,11 +81,11 @@ void KateSessionManager::updateSessionList()
             changed = true;
         }
     }
+
     // Remove gone sessions from our list
-    const auto sessions = m_sessions.keys();
-    for (const QString &session : sessions) {
-        if ((list.indexOf(session) < 0) && (m_sessions.value(session) != activeSession())) {
-            m_sessions.remove(session);
+    for (auto it = m_sessions.cbegin(); it != m_sessions.cend(); ++it) {
+        if (list.indexOf(it.key()) < 0 && it.value() != activeSession()) {
+            m_sessions.remove(it.key());
             changed = true;
         }
     }

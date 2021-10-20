@@ -12,6 +12,7 @@
         "Description[nl]": "Gegenereerde asm voor C/C++ code",
         "Description[sv]": "Vy av genererade assembler för C/C++ kod",
         "Description[uk]": "Перегляд створеного коду асемблера для коду C/C++",
+        "Description[vi]": "Xem hợp ngữ được sinh cho mã C/C++",
         "Description[x-test]": "xxView generated asm for C/C++ codexx",
         "Name": "Compiler Explorer",
         "Name[az]": "Kompliyator bələdçisi",
@@ -25,6 +26,7 @@
         "Name[nl]": "Explorer van compiler",
         "Name[sv]": "Kompilatorutforskare",
         "Name[uk]": "Засіб аналізу компілятора",
+        "Name[vi]": "Trình khảo sát trình biên dịch",
         "Name[x-test]": "xxCompiler Explorerxx",
         "ServiceTypes": [
             "KTextEditor/Plugin"

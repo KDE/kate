@@ -14,6 +14,7 @@
         "Description[uk]": "Перегляд створеного коду асемблера для коду C/C++",
         "Description[vi]": "Xem hợp ngữ được sinh cho mã C/C++",
         "Description[x-test]": "xxView generated asm for C/C++ codexx",
+        "Description[zh_CN]": "查看 C/C++ 代码生成的 asm",
         "Name": "Compiler Explorer",
         "Name[az]": "Kompliyator bələdçisi",
         "Name[ca@valencia]": "Explorador de compiladors",
@@ -28,6 +29,7 @@
         "Name[uk]": "Засіб аналізу компілятора",
         "Name[vi]": "Trình khảo sát trình biên dịch",
         "Name[x-test]": "xxCompiler Explorerxx",
+        "Name[zh_CN]": "编译器浏览器",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

@@ -9,3 +9,5 @@ Dependencies:
     'frameworks/ktextwidgets': '@stable'
     'frameworks/kdoctools': '@stable'
     'frameworks/ktexteditor': '@stable'
+    'frameworks/knewstuff': '@stable'
+    'frameworks/kactivities': '@stable'

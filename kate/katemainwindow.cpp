@@ -52,7 +52,6 @@
 #include <KToggleFullScreenAction>
 #include <KToolBar>
 #include <KWindowConfig>
-#include <KWindowSystem>
 #include <KXMLGUIFactory>
 
 #include <QApplication>
@@ -1170,7 +1169,6 @@ void KateMainWindow::queueModifiedOnDisc(KTextEditor::Document *doc)
 
         s_modOnHdDialog = new KateMwModOnHdDialog(list, this);
         m_modignore = true;
-        KWindowSystem::setOnAllDesktops(s_modOnHdDialog->winId(), true);
         connect(s_modOnHdDialog, &KateMwModOnHdDialog::requestOpenDiffDocument, this, [this](const QUrl &url) {
             viewManager()->openUrl(url, QString(), true, true);
         });

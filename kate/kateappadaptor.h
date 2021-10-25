@@ -94,7 +94,7 @@ public Q_SLOTS:
     /**
      * activate this kate instance
      */
-    void activate();
+    void activate(const QString &token = QString());
 
 Q_SIGNALS:
     /**

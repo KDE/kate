@@ -28,7 +28,7 @@ KateAppAdaptor::KateAppAdaptor(KateApp *app)
 {
 }
 
-void KateAppAdaptor::activate()
+void KateAppAdaptor::activate(const QString &token)
 {
     KateMainWindow *win = m_app->activeKateMainWindow();
     if (!win) {
@@ -43,6 +43,7 @@ void KateAppAdaptor::activate()
     // try to raise window, see bug 407288
     win->setAttribute(Qt::WA_NativeWindow, true);
     KStartupInfo::setNewStartupId(win->windowHandle(), KStartupInfo::startupId());
+    KWindowSystem::setCurrentXdgActivationToken(token);
     KWindowSystem::activateWindow(win->effectiveWinId());
 }
 

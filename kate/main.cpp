@@ -563,6 +563,7 @@ int main(int argc, char **argv)
                                                                       QStringLiteral("/MainApplication"),
                                                                       QStringLiteral("org.kde.Kate.Application"),
                                                                       QStringLiteral("activate"));
+            activateMsg.setArguments({qEnvironmentVariable("XDG_ACTIVATION_TOKEN")});
             QDBusConnection::sessionBus().call(activateMsg);
 
             // connect dbus signal

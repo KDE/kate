@@ -69,7 +69,7 @@ public:
 private:
 Q_SIGNALS:
     // signal settings update
-    void update();
+    void update() const;
 };
 
 #endif

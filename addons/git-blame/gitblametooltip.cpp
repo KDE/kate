@@ -5,6 +5,7 @@
     SPDX-License-Identifier: MIT
 */
 #include "gitblametooltip.h"
+#include "kategitblameplugin.h"
 
 #include <QApplication>
 #include <QDebug>
@@ -71,6 +72,12 @@ public:
         while (!in.atEnd()) {
             currentLine = in.readLine();
 
+            // Link to open the tree view, insert as is
+            if (currentLine.startsWith(QStringLiteral("<a href"))) {
+                out << currentLine;
+                continue;
+            }
+
             // allow empty lines in code blocks, no ruler here
             if (!inDiff && currentLine.isEmpty()) {
                 out << "<hr>";
@@ -135,13 +142,14 @@ public:
     static const uint64_t ModifierMask =
         Qt::ShiftModifier | Qt::ControlModifier | Qt::AltModifier | Qt::MetaModifier | Qt::KeypadModifier | Qt::GroupSwitchModifier;
 
-    Private()
+    Private(KateGitBlamePluginView *pluginView)
         : QTextBrowser(nullptr)
     {
         setWindowFlags(Qt::FramelessWindowHint | Qt::BypassGraphicsProxyWidget | Qt::ToolTip);
         setWordWrapMode(QTextOption::NoWrap);
         document()->setDocumentMargin(10);
         setFrameStyle(QFrame::Box | QFrame::Raised);
+        setOpenLinks(false);
         connect(&m_hideTimer, &QTimer::timeout, this, &Private::hideTooltip);
 
         setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
@@ -162,6 +170,11 @@ public:
         };
         updateColors(KTextEditor::Editor::instance());
         connect(KTextEditor::Editor::instance(), &KTextEditor::Editor::configChanged, this, updateColors);
+        // Kinda ugly, but we are deep in the pimpl class wrapped by a normal cpp class...
+        connect(this, &QTextBrowser::anchorClicked, pluginView, [pluginView, this](const QUrl &url) {
+            hideTooltip();
+            pluginView->showCommitTreeView(url);
+        });
     }
 
     bool eventFilter(QObject *, QEvent *event) override
@@ -290,13 +303,14 @@ protected:
 private:
     bool m_inContextMenu = false;
     QPointer<KTextEditor::View> m_view;
+    KateGitBlamePluginView *m_pluginView;
     QTimer m_hideTimer;
     HtmlHl m_htmlHl;
     KSyntaxHighlighting::Repository m_syntaxHlRepo;
 };
 
-GitBlameTooltip::GitBlameTooltip()
-    : d(new GitBlameTooltip::Private())
+GitBlameTooltip::GitBlameTooltip(KateGitBlamePluginView *pv)
+    : d(new GitBlameTooltip::Private(pv))
 {
 }
 GitBlameTooltip::~GitBlameTooltip()

@@ -1,6 +1,7 @@
 #include "ce_widget.h"
 #include "AsmView.h"
 #include "AsmViewModel.h"
+#include "ce_plugin.h"
 #include "ce_service.h"
 #include "compiledbreader.h"
 
@@ -110,6 +111,8 @@ CEWidget::CEWidget(CEPluginView *pluginView, KTextEditor::MainWindow *mainWindow
     QString args = CompileDBReader::filteredArgsForFile(compilecmds, file);
     m_lineEdit->setText(args);
 
+    warnIfBadArgs(args.split(QLatin1Char(' ')));
+
     setFocusPolicy(Qt::StrongFocus);
 }
 
@@ -156,10 +159,12 @@ void CEWidget::setViewAsActiveXMLGuiClient()
 
 bool CEWidget::eventFilter(QObject *o, QEvent *e)
 {
-    if (o == m_textEditor->focusProxy() && e->type() == QEvent::FocusIn) {
+    // We live in a stacked widget in kateviewspace
+    // use hide/show to figure out when we are not active
+    if (e->type() == QEvent::Show) {
         setViewAsActiveXMLGuiClient();
         return QWidget::eventFilter(o, e);
-    } else if (o == m_textEditor->focusProxy() && e->type() == QEvent::FocusOut) {
+    } else if (e->type() == QEvent::Hide) {
         removeViewAsActiveXMLGuiClient();
         return QWidget::eventFilter(o, e);
     }
@@ -180,7 +185,7 @@ bool CEWidget::eventFilter(QObject *o, QEvent *e)
     return QWidget::eventFilter(o, e);
 }
 
-void CEWidget::createTopBar(class QVBoxLayout *mainLayout)
+void CEWidget::createTopBar(QVBoxLayout *mainLayout)
 {
     QHBoxLayout *topBarLayout = new QHBoxLayout;
     mainLayout->addLayout(topBarLayout);
@@ -338,7 +343,7 @@ void CEWidget::initOptionsComboBox()
     });
 }
 
-void CEWidget::createMainViews(class QVBoxLayout *mainLayout)
+void CEWidget::createMainViews(QVBoxLayout *mainLayout)
 {
     if (!doc) {
         return;
@@ -559,4 +564,31 @@ void CEWidget::addExtraActionstoTextEditor()
     });
     menu->addActions(m->actions());
     m_textEditor->setContextMenu(menu);
+}
+
+void CEWidget::sendMessage(const QString &plainText, bool warn)
+{
+    // use generic output view
+    QVariantMap genericMessage;
+    genericMessage.insert(QStringLiteral("type"), warn ? QStringLiteral("Error") : QStringLiteral("Info"));
+    genericMessage.insert(QStringLiteral("category"), i18n("CompilerExplorer"));
+    genericMessage.insert(QStringLiteral("text"), plainText);
+    Q_EMIT m_pluginView->message(genericMessage);
+}
+
+void CEWidget::warnIfBadArgs(const QStringList &args)
+{
+    QStringList warnableArgs = {QStringLiteral("flto"), QStringLiteral("fsanitize")};
+    QStringList found;
+    for (const auto &a : args) {
+        for (const auto &w : warnableArgs) {
+            if (a.contains(w)) {
+                warnableArgs.removeOne(w);
+                found.append(w);
+            }
+        }
+    }
+
+    QString msg = i18n("'%1' compiler flags were found. Output may not be useful.", found.join(QLatin1String(", ")));
+    sendMessage(msg, true);
 }

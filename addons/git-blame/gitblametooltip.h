@@ -10,6 +10,7 @@
 #include <QPointer>
 
 class QString;
+class KateGitBlamePluginView;
 
 namespace KTextEditor
 {
@@ -19,7 +20,7 @@ class View;
 class GitBlameTooltip
 {
 public:
-    GitBlameTooltip();
+    GitBlameTooltip(KateGitBlamePluginView *pv);
     ~GitBlameTooltip();
 
     void show(const QString &text, QPointer<KTextEditor::View> view);

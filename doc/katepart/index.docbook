@@ -52,8 +52,8 @@
 </copyright>
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2021-10-04</date>
-<releaseinfo>&frameworks; 5.87</releaseinfo>
+<date>2021-10-15</date>
+<releaseinfo>&frameworks; 5.88</releaseinfo>
 
 <abstract>
 <para>&katepart; is a fully featured editor component by &kde;.</para>

@@ -250,10 +250,11 @@ void LspTooltip::show(const QString &text, QPoint pos, KTextEditor::View *v, boo
     delete tooltip;
 
     tooltip = new Tooltip(v, manual);
-    tooltip->show();
     tooltip->setView(v);
     tooltip->setTooltipText(text);
+    tooltip->adjustSize();
     tooltip->place(pos);
+    tooltip->show();
 }
 
 #include "lsptooltip.moc"

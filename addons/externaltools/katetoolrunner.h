@@ -39,7 +39,7 @@ public:
     KateToolRunner(const KateToolRunner &) = delete;
     void operator=(const KateToolRunner &) = delete;
 
-    ~KateToolRunner();
+    ~KateToolRunner() override;
 
     /**
      * Returns the view that was active when running the tool.

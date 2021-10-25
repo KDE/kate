@@ -22,7 +22,7 @@ class KateFileBrowserOpenWithMenu : public QMenu
 
 public:
     explicit KateFileBrowserOpenWithMenu(const QString &title, QWidget *parent = nullptr);
-    ~KateFileBrowserOpenWithMenu();
+    ~KateFileBrowserOpenWithMenu() override;
 
     void setItem(KFileItem item)
     {

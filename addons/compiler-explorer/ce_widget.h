@@ -13,7 +13,7 @@ class CEWidget : public QWidget
     Q_OBJECT
 public:
     explicit CEWidget(CEPluginView *pluginView, KTextEditor::MainWindow *mainWindow);
-    ~CEWidget();
+    ~CEWidget() override;
 
     Q_INVOKABLE bool shouldClose();
 

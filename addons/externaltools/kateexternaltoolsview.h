@@ -44,7 +44,7 @@ public:
                                 KActionCollection *collection,
                                 KateExternalToolsPlugin *plugin,
                                 class KTextEditor::MainWindow *mw = nullptr);
-    virtual ~KateExternalToolsMenuAction();
+    ~KateExternalToolsMenuAction() override;
 
     /**
      * This will load all the configured services.
@@ -93,7 +93,7 @@ public:
     /**
      * Virtual destructor.
      */
-    ~KateExternalToolsPluginView();
+    ~KateExternalToolsPluginView() override;
 
     /**
      * Returns the associated mainWindow

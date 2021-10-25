@@ -14,7 +14,7 @@ public:
     void compileRequest(const QString &endpoint, const QByteArray &obj);
     QNetworkReply *tooltipRequest(const QString &asmWord);
 
-    ~CompilerExplorerSvc();
+    ~CompilerExplorerSvc() override;
 
     static QJsonDocument getCompilationOptions(const QString &source,
                                                const QString &userArgs,

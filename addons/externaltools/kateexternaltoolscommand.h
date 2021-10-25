@@ -19,7 +19,7 @@ class KateExternalToolsCommand : public KTextEditor::Command
 {
 public:
     KateExternalToolsCommand(KateExternalToolsPlugin *plugin);
-    virtual ~KateExternalToolsCommand() = default;
+    ~KateExternalToolsCommand() override = default;
 
 public:
     bool exec(KTextEditor::View *view, const QString &cmd, QString &msg, const KTextEditor::Range &range = KTextEditor::Range::invalid()) override;

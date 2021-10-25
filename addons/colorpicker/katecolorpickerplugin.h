@@ -27,7 +27,7 @@ class ColorPickerInlineNoteProvider : public KTextEditor::InlineNoteProvider
     Q_OBJECT
 public:
     ColorPickerInlineNoteProvider(KTextEditor::Document *doc);
-    ~ColorPickerInlineNoteProvider();
+    ~ColorPickerInlineNoteProvider() override;
 
     void updateColorMatchingCriteria();
     // if startLine == -1, update all notes. endLine is optional

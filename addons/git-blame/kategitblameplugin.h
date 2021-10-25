@@ -42,7 +42,7 @@ class GitBlameInlineNoteProvider : public KTextEditor::InlineNoteProvider
     Q_OBJECT
 public:
     GitBlameInlineNoteProvider(KateGitBlamePluginView *view);
-    ~GitBlameInlineNoteProvider();
+    ~GitBlameInlineNoteProvider() override;
 
     QVector<int> inlineNotes(int line) const override;
     QSize inlineNoteSize(const KTextEditor::InlineNote &note) const override;

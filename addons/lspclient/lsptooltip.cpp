@@ -25,6 +25,8 @@
 #include <KSyntaxHighlighting/Repository>
 #include <KSyntaxHighlighting/SyntaxHighlighter>
 
+#include <KWindowSystem>
+
 class Tooltip : public QTextBrowser
 {
     Q_OBJECT
@@ -171,6 +173,15 @@ public:
 
     void place(QPoint p)
     {
+        const auto offset = QPoint(3, 21);
+        p += offset;
+
+        // wayland automatically keeps popups on screen
+        if (KWindowSystem::isPlatformWayland()) {
+            move(p);
+            return;
+        }
+
         // try to get right screen, important: QApplication::screenAt(p) might return nullptr
         // see crash in bug 439804
         const QScreen *screenForTooltip = QApplication::screenAt(p);
@@ -178,9 +189,6 @@ public:
             screenForTooltip = screen();
         }
         const QRect screen = screenForTooltip->availableGeometry();
-
-        const auto offset = QPoint(3, 21);
-        p += offset;
 
         if (p.x() + width() > screen.x() + screen.width())
             p.rx() -= 4 + width();

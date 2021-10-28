@@ -858,24 +858,21 @@ public:
             return false;
         }
 
-        const auto word = doc->wordAt(cur);
 
         // The user pressed Ctrl + Click
         if (event->type() == QEvent::MouseButtonPress) {
             if (mouseEvent->button() == Qt::LeftButton && mouseEvent->modifiers() == Qt::ControlModifier) {
                 // must set cursor else we will be jumping somewhere else!!
-                if (!word.isEmpty()) {
-                    v->setCursorPosition(cur);
-                    m_ctrlHoverFeedback.clear(v);
-                    goToDefinition();
-                }
+                v->setCursorPosition(cur);
+                m_ctrlHoverFeedback.clear(v);
+                goToDefinition();
             }
         }
         // The user is hovering with Ctrl pressed
         else if (event->type() == QEvent::MouseMove) {
             if (mouseEvent->modifiers() == Qt::ControlModifier) {
                 auto range = doc->wordRangeAt(cur);
-                if (!word.isEmpty() && range.isValid()) {
+                if (range.isValid()) {
                     // check if we are in #include
                     // and expand the word range
                     auto lineText = doc->line(range.start().line());
@@ -1847,10 +1844,6 @@ public:
         positionRequest<HandlerType>(req, h, s.data());
     }
 
-    /**
-     * @brief processCtrlMouseHover This function just processes Ctrl + Mouse move hovering.
-     * It should not be used for other purposes ideally.
-     */
     void processCtrlMouseHover(const KTextEditor::Cursor &cursor)
     {
         auto h = [this](const QList<LSPLocation> &defs) {

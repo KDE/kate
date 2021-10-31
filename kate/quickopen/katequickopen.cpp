@@ -305,9 +305,9 @@ bool KateQuickOpen::eventFilter(QObject *obj, QEvent *event)
 void KateQuickOpen::reselectFirst()
 {
     int first = 0;
-    if (m_mainWindow->viewManager()->sortedViews().size() > 1 && m_model->rowCount() > 1) {
+    if (m_mainWindow->viewManager()->sortedViews().size() > 1 && m_model->rowCount() > 1 && m_inputLine->text().isEmpty()) {
         first = 1;
-    }
+    } 
 
     QModelIndex index = m_model->index(first, 0);
     m_listView->setCurrentIndex(index);

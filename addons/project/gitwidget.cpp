@@ -174,14 +174,14 @@ GitWidget::GitWidget(KateProject *project, KTextEditor::MainWindow *mainWindow, 
 
     m_pushBtn = toolButton(QStringLiteral("vcs-push"), i18n("Git push"));
     connect(m_pushBtn, &QToolButton::clicked, this, [this]() {
-        PushPullDialog ppd(m_mainWin->window(), m_gitPath);
+        PushPullDialog ppd(m_mainWin, m_gitPath);
         connect(&ppd, &PushPullDialog::runGitCommand, this, &GitWidget::runPushPullCmd);
         ppd.openDialog(PushPullDialog::Push);
     });
 
     m_pullBtn = toolButton(QStringLiteral("vcs-pull"), i18n("Git pull"));
     connect(m_pullBtn, &QToolButton::clicked, this, [this]() {
-        PushPullDialog ppd(m_mainWin->window(), m_gitPath);
+        PushPullDialog ppd(m_mainWin, m_gitPath);
         connect(&ppd, &PushPullDialog::runGitCommand, this, &GitWidget::runPushPullCmd);
         ppd.openDialog(PushPullDialog::Pull);
     });

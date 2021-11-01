@@ -12,7 +12,7 @@ class PushPullDialog : public QuickDialog
 {
     Q_OBJECT
 public:
-    PushPullDialog(QWidget *mainWindow, const QString &repo);
+    PushPullDialog(KTextEditor::MainWindow *mainWindow, const QString &repo);
 
     enum Mode { Push, Pull };
     void openDialog(Mode m);
@@ -22,8 +22,13 @@ public:
 private:
     QString buildPushString();
     QString buildPullString();
+    void loadLastExecutedCommands();
+    void saveCommand(const QString &command);
+
+    QString getLastPushPullCmd(Mode m) const;
 
     QString m_repo;
+    QStringList m_lastExecutedCommands;
 
 protected Q_SLOTS:
     void slotReturnPressed() override;

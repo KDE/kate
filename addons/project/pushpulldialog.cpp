@@ -6,21 +6,93 @@
 #include "pushpulldialog.h"
 
 #include <QProcess>
+#include <QStandardItemModel>
 
-PushPullDialog::PushPullDialog(QWidget *mainWindow, const QString &repoPath)
-    : QuickDialog(nullptr, mainWindow)
+#include <KConfigGroup>
+#include <KSharedConfig>
+#include <KTextEditor/ConfigInterface>
+#include <KTextEditor/MainWindow>
+#include <KTextEditor/View>
+
+PushPullDialog::PushPullDialog(KTextEditor::MainWindow *mainWindow, const QString &repoPath)
+    : QuickDialog(nullptr, mainWindow->window())
     , m_repo(repoPath)
 {
+    auto ciface = qobject_cast<KTextEditor::ConfigInterface *>(mainWindow->activeView());
+    Q_ASSERT(ciface);
+    m_lineEdit.setFont(ciface->configValue(QStringLiteral("font")).value<QFont>());
+
+    loadLastExecutedCommands();
 }
 
 void PushPullDialog::openDialog(PushPullDialog::Mode m)
 {
-    if (m == Push) {
-        m_lineEdit.setText(buildPushString());
-    } else if (m == Pull) {
-        m_lineEdit.setText(buildPullString());
+    // build the string
+    QString builtString = m == Push ? buildPushString() : buildPullString();
+    // find if we have a last executed push/pull command
+    QString lastCmd = getLastPushPullCmd(m);
+
+    QStringList lastExecCmds = m_lastExecutedCommands;
+
+    if (!lastExecCmds.contains(builtString)) {
+        lastExecCmds.push_front(builtString);
     }
+
+    // if found, bring it up
+    if (!lastCmd.isEmpty()) {
+        lastExecCmds.removeAll(lastCmd);
+        lastExecCmds.push_front(lastCmd);
+    }
+
+    auto *model = new QStandardItemModel(this);
+    m_treeView.setModel(model);
+
+    auto monoFont = m_lineEdit.font();
+
+    for (const QString &cmd : std::as_const(lastExecCmds)) {
+        auto *item = new QStandardItem(cmd);
+        item->setFont(monoFont);
+        model->appendRow(item);
+    }
+
+    connect(m_treeView.selectionModel(), &QItemSelectionModel::currentChanged, this, [this](const QModelIndex &current, const QModelIndex &) {
+        m_lineEdit.setText(current.data().toString());
+    });
+
+    m_treeView.setCurrentIndex(model->index(0, 0));
+
     exec();
+}
+
+QString PushPullDialog::getLastPushPullCmd(Mode m) const
+{
+    const QString cmdToFind = m == Push ? QStringLiteral("git push") : QStringLiteral("git pull");
+    QString found;
+    for (const auto &cmd : m_lastExecutedCommands) {
+        if (cmd.startsWith(cmdToFind)) {
+            found = cmd;
+            break;
+        }
+    }
+    return found;
+}
+
+void PushPullDialog::loadLastExecutedCommands()
+{
+    KConfigGroup config(KSharedConfig::openConfig(), "kategit");
+    m_lastExecutedCommands = config.readEntry("lastExecutedGitCmds", QStringList());
+}
+
+void PushPullDialog::saveCommand(const QString &command)
+{
+    KConfigGroup config(KSharedConfig::openConfig(), "kategit");
+    QStringList cmds = m_lastExecutedCommands;
+    cmds.removeAll(command);
+    cmds.push_front(command);
+    while (cmds.size() > 8) {
+        cmds.pop_back();
+    }
+    config.writeEntry("lastExecutedGitCmds", cmds);
 }
 
 /**
@@ -94,6 +166,7 @@ void PushPullDialog::slotReturnPressed()
     if (!m_lineEdit.text().isEmpty()) {
         auto args = m_lineEdit.text().split(QLatin1Char(' '));
         if (args.first() == QStringLiteral("git")) {
+            saveCommand(m_lineEdit.text());
             args.pop_front();
             Q_EMIT runGitCommand(args);
         }

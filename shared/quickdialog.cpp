@@ -7,9 +7,6 @@
 
 #include <QCoreApplication>
 #include <QKeyEvent>
-#include <QLineEdit>
-#include <QSortFilterProxyModel>
-#include <QTreeView>
 #include <QVBoxLayout>
 
 #include <QDebug>

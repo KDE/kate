@@ -5,7 +5,6 @@
 */
 #include "branchesdialog.h"
 #include "branchesdialogmodel.h"
-#include "git/gitutils.h"
 #include "kateprojectpluginview.h"
 
 #include <QCoreApplication>

@@ -2,7 +2,6 @@
 
 #include <QColor>
 #include <QDebug>
-#include <QFont>
 #include <QFontDatabase>
 
 AsmViewModel::AsmViewModel(QObject *parent)

@@ -11,7 +11,6 @@
 #include <QSharedData>
 #include <QString>
 #include <QUrl>
-#include <QtGlobal>
 
 /* A class representing a diff hunk (a collection of localized changes) */
 class DiffHunk

@@ -18,16 +18,12 @@
 #include <KSharedConfig>
 #include <KTextEditor/Document>
 #include <KTextEditor/InlineNoteInterface>
-#include <KTextEditor/InlineNoteProvider>
-#include <KTextEditor/MainWindow>
 #include <KTextEditor/View>
 
 #include <QColor>
 #include <QColorDialog>
 #include <QFontMetricsF>
-#include <QHash>
 #include <QPainter>
-#include <QRegularExpression>
 #include <QVariant>
 
 ColorPickerInlineNoteProvider::ColorPickerInlineNoteProvider(KTextEditor::Document *doc)

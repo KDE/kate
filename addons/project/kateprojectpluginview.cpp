@@ -34,7 +34,6 @@
 #include <QFileDialog>
 #include <QHBoxLayout>
 #include <QKeyEvent>
-#include <QMenu>
 #include <QTimer>
 #include <QVBoxLayout>
 

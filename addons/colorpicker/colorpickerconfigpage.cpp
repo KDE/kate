@@ -11,10 +11,8 @@
 #include <KConfigGroup>
 #include <KLocalizedString>
 #include <KSharedConfig>
-#include <KTextEditor/ConfigPage>
 
 #include <QApplication>
-#include <QCheckBox>
 #include <QGroupBox>
 #include <QStyle>
 #include <QVBoxLayout>

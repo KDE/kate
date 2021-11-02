@@ -6,7 +6,6 @@
 
 #include "kategitblameplugin.h"
 #include "commitfilesview.h"
-#include "gitblametooltip.h"
 
 #include <gitprocess.h>
 
@@ -22,18 +21,14 @@
 #include <KTextEditor/Document>
 #include <KTextEditor/Editor>
 #include <KTextEditor/InlineNoteInterface>
-#include <KTextEditor/InlineNoteProvider>
-#include <KTextEditor/MainWindow>
 #include <KTextEditor/View>
 
 #include <QDir>
 #include <QUrl>
 
 #include <QFontMetricsF>
-#include <QHash>
 #include <QLayout>
 #include <QPainter>
-#include <QRegularExpression>
 #include <QVariant>
 
 GitBlameInlineNoteProvider::GitBlameInlineNoteProvider(KateGitBlamePluginView *pluginView)

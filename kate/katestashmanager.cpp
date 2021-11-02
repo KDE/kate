@@ -12,7 +12,6 @@
 #include "katedocmanager.h"
 #include "kateviewmanager.h"
 
-#include "kconfiggroup.h"
 #include "ksharedconfig.h"
 
 #include <QDir>

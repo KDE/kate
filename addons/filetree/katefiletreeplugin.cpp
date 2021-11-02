@@ -28,7 +28,6 @@
 #include <QApplication>
 #include <QLineEdit>
 #include <QStyle>
-#include <QTimer>
 
 #include "katefiletreedebug.h"
 

@@ -11,7 +11,6 @@
 #include <QDate>
 #include <QFileInfo>
 #include <QPainter>
-#include <QProcess>
 #include <QStyledItemDelegate>
 #include <QVBoxLayout>
 #include <optional>

@@ -9,8 +9,6 @@
 #include <QDebug>
 #include <QDir>
 #include <QFileInfo>
-#include <QRegularExpression>
-#include <QTimer>
 #include <algorithm> // std::count_if
 
 #include <ktexteditor/movinginterface.h>

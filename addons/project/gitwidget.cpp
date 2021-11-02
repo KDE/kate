@@ -33,7 +33,6 @@
 #include <QMenu>
 #include <QPainter>
 #include <QPlainTextEdit>
-#include <QProcess>
 #include <QPushButton>
 #include <QStringListModel>
 #include <QStyledItemDelegate>
@@ -45,7 +44,6 @@
 
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <QPointer>
 
 #include <KSyntaxHighlighting/Definition>
 #include <KSyntaxHighlighting/Repository>

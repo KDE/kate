@@ -9,7 +9,6 @@
 #include "semantic_tokens_legend.h"
 
 #include <KTextEditor/MovingInterface>
-#include <KTextEditor/MovingRange>
 #include <KTextEditor/View>
 
 SemanticHighlighter::SemanticHighlighter(QSharedPointer<LSPClientServerManager> serverManager, QObject *parent)

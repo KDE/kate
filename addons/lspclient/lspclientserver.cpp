@@ -629,6 +629,12 @@ static QList<LSPCompletionItem> parseDocumentCompletion(const QJsonValue &result
         if (insertText.isEmpty()) {
             insertText = label;
         }
+        const auto &textEdit = item.value(QStringLiteral("textEdit")).toObject();
+        if (!textEdit.empty()) {
+            // Not a proper implementation of textEdit, but a workaround for KDE bug #445085
+            auto newText = textEdit.value(QStringLiteral("newText")).toString();
+            insertText = newText;
+        }
         auto kind = static_cast<LSPCompletionItemKind>(item.value(MEMBER_KIND).toInt());
         //         auto textEdit = parseTextEdit(item.value(QStringLiteral("textEdit")).toObject());
         ret.push_back({label, kind, detail, doc, sortText, insertText /*, textEdit*/});

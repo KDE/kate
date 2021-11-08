@@ -3,8 +3,8 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#ifndef PLUGIN_KATETEXTFILTER_H
-#define PLUGIN_KATETEXTFILTER_H
+#ifndef COMPILER_EXPLORER_PLUGIN_H
+#define COMPILER_EXPLORER_PLUGIN_H
 
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/Plugin>

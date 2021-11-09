@@ -1,0 +1,9 @@
+{
+    "KPlugin": {
+        "Description": "Colored brackets for readibility",
+        "Name": "Colored Brackets",
+        "ServiceTypes": [
+            "KTextEditor/Plugin"
+        ]
+    }
+}

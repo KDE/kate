@@ -93,6 +93,12 @@
             "url": "https://github.com/REditorSupport/languageserver",
             "highlightingModeRegex": "^R Script$"
         },
+        "racket": {
+            "command": ["racket","-l","racket-langserver"],
+            "rootIndicationFileNames": ["info.rkt"],
+            "url": "https://github.com/jeapostrophe/racket-langserver",
+            "highlightingModeRegex": "^Racket$"
+        },
         "rust": {
             "command": ["rust-analyzer"],
             "path": ["%{ENV:HOME}/.cargo/bin", "%{ENV:USERPROFILE}/.cargo/bin"],

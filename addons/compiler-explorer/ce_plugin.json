@@ -4,6 +4,7 @@
         "Description[az]": "C/C++ kodu üçün yaradılmış asm göstərmək",
         "Description[ca@valencia]": "Visualitza el codi ASM generat per a C/C++",
         "Description[ca]": "Visualitza el codi ASM generat per a C/C++",
+        "Description[cs]": "Zobrazit vygenerovaná kód asm pro kód C/C++",
         "Description[el]": "Προβολή παραχθέντος asm για C/C++ κώδικα",
         "Description[en_GB]": "View generated asm for C/C++ code",
         "Description[es]": "Ver ensamblador generado para el código C/C++",

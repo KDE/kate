@@ -26,7 +26,7 @@
 #include <QDir>
 #include <QUrl>
 
-#include <QFontMetricsF>
+#include <QFontMetrics>
 #include <QLayout>
 #include <QPainter>
 #include <QVariant>
@@ -81,15 +81,15 @@ void GitBlameInlineNoteProvider::paintInlineNote(const KTextEditor::InlineNote &
     const QFontMetrics fm(note.font());
 
     int lineNr = note.position().line();
-    const KateGitBlameInfo &info = m_pluginView->blameInfo(lineNr);
+    const CommitInfo &info = m_pluginView->blameInfo(lineNr);
 
-    QString text = info.title.isEmpty()
-        ? i18nc("git-blame information \"author: date \"", " %1: %2 ", info.name, m_locale.toString(info.date, QLocale::NarrowFormat))
+    QString text = info.summary.isEmpty()
+        ? i18nc("git-blame information \"author: date \"", " %1: %2 ", info.authorName, m_locale.toString(info.authorDate, QLocale::NarrowFormat))
         : i18nc("git-blame information \"author: date: commit title \"",
                 " %1: %2: %3 ",
-                info.name,
-                m_locale.toString(info.date, QLocale::NarrowFormat),
-                info.title);
+                info.authorName,
+                m_locale.toString(info.authorDate, QLocale::NarrowFormat),
+                QString::fromUtf8(info.summary));
     QRect rectangle{0, 0, fm.horizontalAdvance(text), note.lineHeight()};
 
     auto editor = KTextEditor::Editor::instance();
@@ -110,11 +110,11 @@ void GitBlameInlineNoteProvider::inlineNoteActivated(const KTextEditor::InlineNo
 {
     if ((buttons & Qt::LeftButton) != 0) {
         int lineNr = note.position().line();
-        const KateGitBlameInfo &info = m_pluginView->blameInfo(lineNr);
+        const CommitInfo &info = m_pluginView->blameInfo(lineNr);
 
         // Hack: view->mainWindow()->view() to de-constify view
         Q_ASSERT(note.view() == m_pluginView->activeView());
-        m_pluginView->showCommitInfo(info.commitHash, note.view()->mainWindow()->activeView());
+        m_pluginView->showCommitInfo(QString::fromUtf8(info.hash), note.view()->mainWindow()->activeView());
     }
 }
 
@@ -137,10 +137,6 @@ K_PLUGIN_FACTORY_WITH_JSON(KateGitBlamePluginFactory, "kategitblameplugin.json",
 
 KateGitBlamePlugin::KateGitBlamePlugin(QObject *parent, const QList<QVariant> &)
     : KTextEditor::Plugin(parent)
-{
-}
-
-KateGitBlamePlugin::~KateGitBlamePlugin()
 {
 }
 
@@ -173,8 +169,8 @@ KateGitBlamePluginView::KateGitBlamePluginView(KateGitBlamePlugin *plugin, KText
         }
         setToolTipIgnoreKeySequence(showBlameAction->shortcut());
         int lineNr = kv->cursorPosition().line();
-        const KateGitBlameInfo &info = blameInfo(lineNr);
-        showCommitInfo(info.commitHash, kv);
+        const CommitInfo &info = blameInfo(lineNr);
+        showCommitInfo(QString::fromUtf8(info.hash), kv);
     });
     connect(toggleBlameAction, &QAction::triggered, this, [this]() {
         m_inlineNoteProvider.cycleMode();
@@ -201,7 +197,8 @@ QPointer<KTextEditor::View> KateGitBlamePluginView::activeView() const
 
 QPointer<KTextEditor::Document> KateGitBlamePluginView::activeDocument() const
 {
-    if (m_mainWindow->activeView() && m_mainWindow->activeView()->document()) {
+    KTextEditor::View *view = m_mainWindow->activeView();
+    if (view && view->document()) {
         return m_mainWindow->activeView()->document();
     }
     return nullptr;
@@ -209,7 +206,7 @@ QPointer<KTextEditor::Document> KateGitBlamePluginView::activeDocument() const
 
 void KateGitBlamePluginView::viewChanged(KTextEditor::View *view)
 {
-    m_blameInfo.clear();
+    m_blamedLines.clear();
 
     if (m_lastView) {
         qobject_cast<KTextEditor::InlineNoteInterface *>(m_lastView)->unregisterInlineNoteProvider(&m_inlineNoteProvider);
@@ -236,7 +233,7 @@ void KateGitBlamePluginView::startBlameProcess(const QUrl &url)
     QDir dir{url.toLocalFile()};
     dir.cdUp();
 
-    setupGitProcess(m_blameInfoProc, dir.absolutePath(), {QStringLiteral("blame"), QStringLiteral("--date=iso-strict"), QStringLiteral("./%1").arg(fileName)});
+    setupGitProcess(m_blameInfoProc, dir.absolutePath(), {QStringLiteral("blame"), QStringLiteral("-p"), QStringLiteral("./%1").arg(fileName)});
     m_blameInfoProc.start(QIODevice::ReadOnly);
     m_blameUrl = url;
 }
@@ -245,10 +242,6 @@ void KateGitBlamePluginView::startShowProcess(const QUrl &url, const QString &ha
 {
     if (m_showProc.state() != QProcess::NotRunning) {
         // Wait for the previous process to be done...
-        return;
-    }
-    if (hash == m_activeCommitInfo.m_hash) {
-        // We have already the data
         return;
     }
 
@@ -261,39 +254,131 @@ void KateGitBlamePluginView::startShowProcess(const QUrl &url, const QString &ha
 
 void KateGitBlamePluginView::showCommitInfo(const QString &hash, KTextEditor::View *view)
 {
-    if (hash == m_activeCommitInfo.m_hash) {
-        m_showHash.clear();
-        m_tooltip.show(m_activeCommitInfo.m_content, view);
-    } else {
-        m_showHash = hash;
-        startShowProcess(view->document()->url(), hash);
-    }
+    m_showHash = hash;
+    startShowProcess(view->document()->url(), hash);
 }
 
 void KateGitBlamePluginView::blameFinished(int /*exitCode*/, QProcess::ExitStatus /*exitStatus*/)
 {
-    const QStringList stdOut = QString::fromUtf8(m_blameInfoProc.readAllStandardOutput()).split(QLatin1Char('\n'));
+    const QByteArray out = m_blameInfoProc.readAllStandardOutput();
+    // printf("recieved output: %d for: git %s\n", out.size(), qPrintable(m_blameInfoProc.arguments().join(QLatin1Char(' '))));
 
-    // check if the git process was running for a previous document when the view changed.
-    // if that is the case re-trigger the process and skip this data
-    KTextEditor::Document *doc = activeDocument();
-    if (!doc || m_blameUrl != doc->url()) {
-        viewChanged(m_mainWindow->activeView());
-        return;
-    }
+    /**
+     * This is out git blame output parser.
+     *
+     * The output contains info about each line of text and commit info
+     * for that line. We store the commit info separately in a hash-map
+     * so that they don't need to be duplicated. For each line we store
+     * its line text and short commit. Text is needed because if you
+     * modify the doc, we use it to figure out where the original blame
+     * line is. The short commit is used to fetch the full commit from
+     * the hashmap
+     */
 
-    const static QRegularExpression lineReg(
-        QStringLiteral("([^\\^\\s]+)[^\\(]+\\((.*)\\s+(\\d\\d\\d\\d-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\d\\S+)[^\\)]+\\)\\s(.*)"));
+    int start = 0;
+    int next = out.indexOf('\t');
+    next = out.indexOf('\n', next);
 
-    m_blameInfo.clear();
+    while (next != -1) {
+        //         printf("Block: (Size: %d) %s\n\n", (next - start), out.mid(start, next - start).constData());
 
-    for (const auto &line : stdOut) {
-        const QRegularExpressionMatch match = lineReg.match(line);
-        if (match.hasMatch()) {
-            QString lineContent = match.captured(4);
-            lineContent.remove(QLatin1Char('\r'));
-            m_blameInfo.append({match.captured(1), match.captured(2).trimmed(), QDateTime::fromString(match.captured(3), Qt::ISODate), QString(), lineContent});
+        CommitInfo commitInfo;
+        BlamedLine lineInfo;
+
+        /**
+         * Parse hash and line numbers
+         *
+         * 5c7f27a0915a9b20dc9f683d0d85b6e4b829bc85 1 1 5
+         */
+        int pos = out.indexOf(' ', start);
+        constexpr int hashLen = 40;
+        if (pos == -1 || (pos - start) != hashLen) {
+            printf("no proper hash\n");
+            break;
         }
+        QByteArray hash = out.mid(start, pos - start);
+
+        // skip to line end,
+        // we don't care about line no etc here
+        int from = pos + 1;
+        pos = out.indexOf('\n', from);
+        if (pos == -1) {
+            qWarning() << "Git blame: Invalid blame output : No new line";
+            break;
+        }
+        pos++;
+
+        lineInfo.shortCommitHash = hash.mid(0, 7);
+
+        m_blamedLines.push_back(lineInfo);
+
+        // are we done because this line references the commit instead of
+        // containing the content?
+        if (out[pos] == '\t') {
+            pos++; // skip \t
+            from = pos;
+            pos = out.indexOf('\n', from); // go to line end
+            m_blamedLines.back().lineText = out.mid(from, pos - from);
+
+            start = next + 1;
+            next = out.indexOf('\t', start);
+            if (next == -1)
+                break;
+            next = out.indexOf('\n', next);
+            continue;
+        }
+
+        /**
+         * Parse actual commit
+         */
+        commitInfo.hash = hash;
+
+        // author Xyz
+        constexpr int authorLen = sizeof("author ") - 1;
+        pos += authorLen;
+        from = pos;
+        pos = out.indexOf('\n', pos);
+
+        commitInfo.authorName = QString::fromUtf8(out.mid(from, pos - from));
+        pos++;
+
+        // author-time timestamp
+        constexpr int authorTimeLen = sizeof("author-time ") - 1;
+        pos = out.indexOf("author-time ", pos);
+        if (pos == -1) {
+            qWarning() << "Invalid commit while git-blameing";
+            break;
+        }
+        pos += authorTimeLen;
+        from = pos;
+        pos = out.indexOf('\n', from);
+
+        qint64 timestamp = out.mid(from, pos - from).toLongLong();
+        commitInfo.authorDate = QDateTime::fromSecsSinceEpoch(timestamp);
+
+        constexpr int summaryLen = sizeof("summary ") - 1;
+        pos = out.indexOf("summary ", pos);
+        pos += summaryLen;
+        from = pos;
+        pos = out.indexOf('\n', pos);
+
+        commitInfo.summary = out.mid(from, pos - from);
+        //         printf("Commit{\n %s,\n %s,\n %s,\n %s\n}\n", qPrintable(commitInfo.commitHash), qPrintable(commitInfo.name),
+        //         qPrintable(commitInfo.date.toString()), qPrintable(commitInfo.title));
+
+        m_blameInfoForHash[lineInfo.shortCommitHash] = commitInfo;
+
+        from = pos;
+        pos = out.indexOf('\t', from);
+        from = pos + 1;
+        pos = out.indexOf('\n', from);
+        m_blamedLines.back().lineText = out.mid(from, pos - from);
+
+        start = next + 1;
+        next = out.indexOf('\t', start);
+        if (next == -1)
+            break;
+        next = out.indexOf('\n', next);
     }
 }
 
@@ -332,11 +417,6 @@ void KateGitBlamePluginView::showFinished(int exitCode, QProcess::ExitStatus exi
         }
     }
 
-    m_activeCommitInfo.m_title = stdOut.mid(titleStart, titleEnd - titleStart);
-    m_activeCommitInfo.m_hash = args[1];
-    m_activeCommitInfo.m_title = m_activeCommitInfo.m_title.trimmed();
-    m_activeCommitInfo.m_content = stdOut;
-
     if (!m_showHash.isEmpty() && m_showHash != args[1]) {
         startShowProcess(m_mainWindow->activeView()->document()->url(), m_showHash);
         return;
@@ -349,36 +429,38 @@ void KateGitBlamePluginView::showFinished(int exitCode, QProcess::ExitStatus exi
 
 bool KateGitBlamePluginView::hasBlameInfo() const
 {
-    return !m_blameInfo.isEmpty();
+    return !m_blamedLines.empty();
 }
 
-const KateGitBlameInfo &KateGitBlamePluginView::blameInfo(int lineNr)
+const CommitInfo &KateGitBlamePluginView::blameInfo(int lineNr)
 {
-    if (m_blameInfo.isEmpty() || !activeDocument()) {
+    if (m_blamedLines.empty() || m_blameInfoForHash.isEmpty() || !activeDocument()) {
         return blameGetUpdateInfo(-1);
     }
 
-    int adjustedLineNr = lineNr + m_lineOffset;
-    const QStringView lineText = activeDocument()->line(lineNr);
+    int totalBlamedLines = m_blamedLines.size();
 
-    if (adjustedLineNr >= 0 && adjustedLineNr < m_blameInfo.size()) {
-        if (m_blameInfo[adjustedLineNr].line == lineText) {
+    int adjustedLineNr = lineNr + m_lineOffset;
+    const QByteArray lineText = activeDocument()->line(lineNr).toUtf8();
+
+    if (adjustedLineNr >= 0 && adjustedLineNr < totalBlamedLines) {
+        if (m_blamedLines[adjustedLineNr].lineText == lineText) {
             return blameGetUpdateInfo(adjustedLineNr);
         }
     }
 
     // search for the line 100 lines before and after until it matches
     m_lineOffset = 0;
-    while (m_lineOffset < 100 && lineNr + m_lineOffset >= 0 && lineNr + m_lineOffset < m_blameInfo.size()) {
-        if (m_blameInfo[lineNr + m_lineOffset].line == lineText) {
+    while (m_lineOffset < 100 && lineNr + m_lineOffset >= 0 && lineNr + m_lineOffset < totalBlamedLines) {
+        if (m_blamedLines[lineNr + m_lineOffset].lineText == lineText) {
             return blameGetUpdateInfo(lineNr + m_lineOffset);
         }
         m_lineOffset++;
     }
 
     m_lineOffset = 0;
-    while (m_lineOffset > -100 && lineNr + m_lineOffset >= 0 && (lineNr + m_lineOffset) < m_blameInfo.size()) {
-        if (m_blameInfo[lineNr + m_lineOffset].line == lineText) {
+    while (m_lineOffset > -100 && lineNr + m_lineOffset >= 0 && (lineNr + m_lineOffset) < totalBlamedLines) {
+        if (m_blamedLines[lineNr + m_lineOffset].lineText == lineText) {
             return blameGetUpdateInfo(lineNr + m_lineOffset);
         }
         m_lineOffset--;
@@ -387,23 +469,17 @@ const KateGitBlameInfo &KateGitBlamePluginView::blameInfo(int lineNr)
     return blameGetUpdateInfo(-1);
 }
 
-const KateGitBlameInfo &KateGitBlamePluginView::blameGetUpdateInfo(int lineNr)
+const CommitInfo &KateGitBlamePluginView::blameGetUpdateInfo(int lineNr)
 {
-    static const KateGitBlameInfo dummy{QStringLiteral("hash"), i18n("Not Committed Yet"), QDateTime::currentDateTime(), QString(), QString()};
-
-    if (m_blameInfo.isEmpty() || lineNr < 0 || lineNr >= m_blameInfo.size()) {
+    static const CommitInfo dummy{"hash", i18n("Not Committed Yet"), QDateTime::currentDateTime(), {}};
+    if (m_blamedLines.empty() || lineNr < 0 || lineNr >= (int)m_blamedLines.size()) {
         return dummy;
     }
 
-    KateGitBlameInfo &info = m_blameInfo[lineNr];
-    if (info.commitHash == m_activeCommitInfo.m_hash) {
-        if (info.title != m_activeCommitInfo.m_title) {
-            info.title = m_activeCommitInfo.m_title;
-        }
-    } else {
-        //         startShowProcess(m_mainWindow->activeView()->document()->url(), info.commitHash);
-    }
-    return info;
+    auto &commitInfo = m_blamedLines[lineNr];
+
+    Q_ASSERT(m_blameInfoForHash.contains(commitInfo.shortCommitHash));
+    return m_blameInfoForHash[commitInfo.shortCommitHash];
 }
 
 void KateGitBlamePluginView::setToolTipIgnoreKeySequence(QKeySequence sequence)
@@ -460,13 +536,6 @@ void KateGitBlamePluginView::showDiffForFile(const QByteArray &diffContents)
     m_diffView->document()->setModified(false);
     m_mainWindow->activateView(m_diffView->document());
     m_diffView->setCursorPosition({0, 0});
-}
-
-void KateGitBlamePluginView::CommitInfo::clear()
-{
-    m_hash.clear();
-    m_title.clear();
-    m_content.clear();
 }
 
 #include "kategitblameplugin.moc"

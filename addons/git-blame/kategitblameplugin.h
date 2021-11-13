@@ -26,12 +26,16 @@
 
 enum class KateGitBlameMode { None, SingleLine, AllLines, Count = AllLines };
 
-struct KateGitBlameInfo {
-    QString commitHash;
-    QString name;
-    QDateTime date;
-    QString title;
-    QString line;
+struct CommitInfo {
+    QByteArray hash;
+    QString authorName;
+    QDateTime authorDate;
+    QByteArray summary;
+};
+
+struct BlamedLine {
+    QByteArray shortCommitHash;
+    QByteArray lineText;
 };
 
 class KateGitBlamePluginView;
@@ -62,7 +66,6 @@ class KateGitBlamePlugin : public KTextEditor::Plugin
     Q_OBJECT
 public:
     explicit KateGitBlamePlugin(QObject *parent = nullptr, const QList<QVariant> & = QList<QVariant>());
-    ~KateGitBlamePlugin() override;
 
     QObject *createView(KTextEditor::MainWindow *mainWindow) override;
 };
@@ -79,7 +82,7 @@ public:
 
     bool hasBlameInfo() const;
 
-    const KateGitBlameInfo &blameInfo(int lineNr);
+    const CommitInfo &blameInfo(int lineNr);
 
     void showCommitInfo(const QString &hash, KTextEditor::View *view);
 
@@ -88,12 +91,6 @@ public:
     void showCommitTreeView(const QUrl &url);
 
 private:
-    struct CommitInfo {
-        QString m_hash;
-        QString m_title;
-        QString m_content;
-        void clear();
-    };
 
     void viewChanged(KTextEditor::View *view);
 
@@ -108,7 +105,7 @@ private:
 
     void showDiffForFile(const QByteArray &diffContents);
 
-    const KateGitBlameInfo &blameGetUpdateInfo(int lineNr);
+    const CommitInfo &blameGetUpdateInfo(int lineNr);
 
     KTextEditor::MainWindow *m_mainWindow;
 
@@ -116,13 +113,13 @@ private:
 
     QProcess m_blameInfoProc;
     QProcess m_showProc;
-    QVector<KateGitBlameInfo> m_blameInfo;
+    QHash<QByteArray, CommitInfo> m_blameInfoForHash;
+    std::vector<BlamedLine> m_blamedLines;
     QUrl m_blameUrl;
     QPointer<KTextEditor::View> m_lastView;
     int m_lineOffset{0};
     GitBlameTooltip m_tooltip;
     QString m_showHash;
-    CommitInfo m_activeCommitInfo;
     class CommitDiffTreeView *m_commitFilesView;
     std::unique_ptr<QWidget> m_toolView;
     QPointer<KTextEditor::View> m_diffView;

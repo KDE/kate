@@ -224,9 +224,14 @@ void KateGitBlamePluginView::viewChanged(KTextEditor::View *view)
 
 void KateGitBlamePluginView::startBlameProcess(const QUrl &url)
 {
-    if (m_blameInfoProc.state() != QProcess::NotRunning) {
-        // Wait for the previous process to be done...
+    if (url.isEmpty() || !url.isValid() || m_blameUrl == url) {
         return;
+    }
+
+    // Kill any existing process...
+    if (m_blameInfoProc.state() != QProcess::NotRunning) {
+        m_blameInfoProc.kill();
+        m_blameInfoProc.waitForFinished();
     }
 
     QString fileName{url.fileName()};

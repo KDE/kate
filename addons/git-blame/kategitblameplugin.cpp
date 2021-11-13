@@ -83,13 +83,13 @@ void GitBlameInlineNoteProvider::paintInlineNote(const KTextEditor::InlineNote &
     int lineNr = note.position().line();
     const CommitInfo &info = m_pluginView->blameInfo(lineNr);
 
+    bool isToday = info.authorDate.date() == QDate::currentDate();
+    QString date =
+        isToday ? m_locale.toString(info.authorDate.time(), QLocale::NarrowFormat) : m_locale.toString(info.authorDate.date(), QLocale::NarrowFormat);
+
     QString text = info.summary.isEmpty()
-        ? i18nc("git-blame information \"author: date \"", " %1: %2 ", info.authorName, m_locale.toString(info.authorDate, QLocale::NarrowFormat))
-        : i18nc("git-blame information \"author: date: commit title \"",
-                " %1: %2: %3 ",
-                info.authorName,
-                m_locale.toString(info.authorDate, QLocale::NarrowFormat),
-                QString::fromUtf8(info.summary));
+        ? i18nc("git-blame information \"author: date \"", " %1: %2 ", info.authorName, date)
+        : i18nc("git-blame information \"author: date: commit title \"", " %1: %2: %3 ", info.authorName, date, QString::fromUtf8(info.summary));
     QRect rectangle{0, 0, fm.horizontalAdvance(text), note.lineHeight()};
 
     auto editor = KTextEditor::Editor::instance();

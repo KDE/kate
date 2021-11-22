@@ -2,6 +2,14 @@
     "KPlugin": {
         "Description": "Colored brackets for readability",
         "Name": "Colored Brackets",
+        "Name[ca@valencia]": "Claus amb color",
+        "Name[ca]": "Claus amb color",
+        "Name[es]": "Paréntesis de colores",
+        "Name[ia]": "Parentheses colorate",
+        "Name[nl]": "Gekleurde blokhaakjes",
+        "Name[sv]": "Färgade parenteser",
+        "Name[uk]": "Кольорові дужки",
+        "Name[x-test]": "xxColored Bracketsxx",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

@@ -1,14 +1,26 @@
 {
     "KPlugin": {
         "Description": "Colored brackets for readability",
+        "Description[ca@valencia]": "Claus amb color per a llegir millor",
+        "Description[ca]": "Claus amb color per a llegir millor",
+        "Description[ia]": "Parentheses colorate per legibilitate",
+        "Description[nl]": "Gekleurde blokhaakjes voor leesbaarheid",
+        "Description[sl]": "Pobarvani oklepaji za berljivost",
+        "Description[sv]": "Färgade parenteser för läsbarhet",
+        "Description[uk]": "Кольорові дужки для зручності читання",
+        "Description[vi]": "Dấu ngoặc được tô màu cho dễ đọc",
+        "Description[x-test]": "xxColored brackets for readabilityxx",
         "Name": "Colored Brackets",
         "Name[ca@valencia]": "Claus amb color",
         "Name[ca]": "Claus amb color",
         "Name[es]": "Paréntesis de colores",
         "Name[ia]": "Parentheses colorate",
         "Name[nl]": "Gekleurde blokhaakjes",
+        "Name[pt]": "Parênteses Coloridos",
+        "Name[sl]": "Pobarvani oklepaji",
         "Name[sv]": "Färgade parenteser",
         "Name[uk]": "Кольорові дужки",
+        "Name[vi]": "Dấu ngoặc được tô màu",
         "Name[x-test]": "xxColored Bracketsxx",
         "ServiceTypes": [
             "KTextEditor/Plugin"

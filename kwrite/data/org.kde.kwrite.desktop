@@ -179,3 +179,4 @@ X-DBUS-StartupType=Multi
 X-DBUS-ServiceName=org.kde.kwrite
 Categories=Qt;KDE;Utility;TextEditor;
 StartupWMClass=kwrite
+X-KDE-Keywords=text,txt,editor,note,notepad

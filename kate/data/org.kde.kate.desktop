@@ -184,5 +184,6 @@ Terminal=false
 InitialPreference=9
 X-DBUS-StartupType=Multi
 X-DBUS-ServiceName=org.kde.kate
-Categories=Qt;KDE;Utility;TextEditor;
+Categories=Qt;KDE;Utility;TextEditor;Development;
 StartupWMClass=kate
+X-KDE-Keywords=text,txt,editor,programming,programmer,development,developer

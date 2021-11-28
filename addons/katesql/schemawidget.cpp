@@ -370,14 +370,17 @@ void SchemaWidget::pasteStatementIntoActiveView(const QString &statement)
     kv->insertText(statement);
     kv->setFocus();
 }
-void SchemaWidget::executeStatement(const QString &statement)
+void SchemaWidget::executeStatement(QSqlDriver::StatementType statementType)
 {
+    const QString statement = generateStatement(statementType);
+    if (statement.length()) {
+        executeStatement(statement);
+    }
     m_manager->runQuery(statement, m_connectionName);
 }
 void SchemaWidget::executeSelect()
 {
-    const QString select = generateStatement(QSqlDriver::SelectStatement);
-    executeStatement(select);
+    executeStatement(QSqlDriver::SelectStatement);
 }
 
 void SchemaWidget::generateAndPasteStatement(QSqlDriver::StatementType statementType)

@@ -48,7 +48,7 @@ public Q_SLOTS:
     QString generateStatement(QSqlDriver::StatementType statementType);
     static void pasteStatementIntoActiveView(const QString &statement);
     void generateAndPasteStatement(QSqlDriver::StatementType statementType);
-    void executeStatement(const QString &statement);
+    void executeStatement(QSqlDriver::StatementType statement);
 
 private Q_SLOTS:
     void slotCustomContextMenuRequested(const QPoint &pos);

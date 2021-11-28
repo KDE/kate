@@ -40,11 +40,15 @@ public Q_SLOTS:
     void buildTree(const QString &connection);
     void refresh();
 
-    void generateSelect();
-    void generateUpdate();
-    void generateInsert();
-    void generateDelete();
-    void generateStatement(QSqlDriver::StatementType type);
+    void generateSelectIntoView();
+    void generateUpdateIntoView();
+    void generateInsertIntoView();
+    void generateDeleteIntoView();
+    void executeSelect();
+    QString generateStatement(QSqlDriver::StatementType statementType);
+    static void pasteStatementIntoActiveView(const QString &statement);
+    void generateAndPasteStatement(QSqlDriver::StatementType statementType);
+    void executeStatement(const QString &statement);
 
 private Q_SLOTS:
     void slotCustomContextMenuRequested(const QPoint &pos);
@@ -55,7 +59,6 @@ private:
     void mousePressEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
     bool isConnectionValidAndOpen();
-
     QString m_connectionName;
     QPoint m_dragStartPosition;
 

@@ -271,23 +271,27 @@ void SchemaWidget::slotCustomContextMenuRequested(const QPoint &pos)
     if (item) {
         if (item->type() == SchemaWidget::SystemTableType || item->type() == SchemaWidget::TableType || item->type() == SchemaWidget::ViewType
             || item->type() == SchemaWidget::FieldType) {
+            menu.addAction(QIcon::fromTheme(QStringLiteral("view-sort-descending")),
+                           i18nc("@action:inmenu Context menu", "Select Data"),
+                           this,
+                           &SchemaWidget::executeSelect);
             menu.addSeparator();
             QMenu *submenu = menu.addMenu(QIcon::fromTheme(QStringLiteral("tools-wizard")), i18nc("@action:inmenu Submenu title", "Generate"));
 
-            submenu->addAction(i18n("SELECT"), this, &SchemaWidget::generateSelect);
-            submenu->addAction(i18n("UPDATE"), this, &SchemaWidget::generateUpdate);
-            submenu->addAction(i18n("INSERT"), this, &SchemaWidget::generateInsert);
-            submenu->addAction(i18n("DELETE"), this, &SchemaWidget::generateDelete);
+            submenu->addAction(i18n("SELECT"), this, &SchemaWidget::generateSelectIntoView);
+            submenu->addAction(i18n("UPDATE"), this, &SchemaWidget::generateUpdateIntoView);
+            submenu->addAction(i18n("INSERT"), this, &SchemaWidget::generateInsertIntoView);
+            submenu->addAction(i18n("DELETE"), this, &SchemaWidget::generateDeleteIntoView);
         }
     }
 
     menu.exec(QCursor::pos());
 }
 
-void SchemaWidget::generateStatement(QSqlDriver::StatementType statementType)
+QString SchemaWidget::generateStatement(QSqlDriver::StatementType statementType)
 {
     if (!isConnectionValidAndOpen()) {
-        return;
+        return {};
     }
 
     QSqlDatabase db = QSqlDatabase::database(m_connectionName);
@@ -295,13 +299,13 @@ void SchemaWidget::generateStatement(QSqlDriver::StatementType statementType)
     QSqlDriver *drv = db.driver();
 
     if (!drv) {
-        return;
+        return {};
     }
 
     QTreeWidgetItem *item = currentItem();
 
     if (!item) {
-        return;
+        return {};
     }
 
     QString statement;
@@ -348,37 +352,55 @@ void SchemaWidget::generateStatement(QSqlDriver::StatementType statementType)
     } break;
     }
 
-    KTextEditor::MainWindow *mw = KTextEditor::Editor::instance()->application()->activeMainWindow();
-    KTextEditor::View *kv = mw->activeView();
-
     // replace NULL with a more generic '?'
     statement.replace(QLatin1String("NULL"), QLatin1String("?"));
+    return statement;
+}
 
-    if (kv) {
-        // paste statement in the active view
-        kv->insertText(statement);
-        kv->setFocus();
-    }
-
+void SchemaWidget::pasteStatementIntoActiveView(const QString &statement)
+{
+    KTextEditor::MainWindow *mw = KTextEditor::Editor::instance()->application()->activeMainWindow();
+    KTextEditor::View *kv = mw->activeView();
     qDebug() << "Generated statement:" << statement;
+
+    if (!kv) {
+        return;
+    }
+    // paste statement in the active view
+    kv->insertText(statement);
+    kv->setFocus();
+}
+void SchemaWidget::executeStatement(const QString &statement)
+{
+    m_manager->runQuery(statement, m_connectionName);
+}
+void SchemaWidget::executeSelect()
+{
+    const QString select = generateStatement(QSqlDriver::SelectStatement);
+    executeStatement(select);
 }
 
-void SchemaWidget::generateSelect()
+void SchemaWidget::generateAndPasteStatement(QSqlDriver::StatementType statementType)
 {
-    generateStatement(QSqlDriver::SelectStatement);
+    QString statement = generateStatement(statementType);
+    pasteStatementIntoActiveView(statement);
+}
+void SchemaWidget::generateSelectIntoView()
+{
+    generateAndPasteStatement(QSqlDriver::SelectStatement);
 }
 
-void SchemaWidget::generateUpdate()
+void SchemaWidget::generateUpdateIntoView()
 {
-    generateStatement(QSqlDriver::UpdateStatement);
+    generateAndPasteStatement(QSqlDriver::UpdateStatement);
 }
 
-void SchemaWidget::generateInsert()
+void SchemaWidget::generateInsertIntoView()
 {
-    generateStatement(QSqlDriver::InsertStatement);
+    generateAndPasteStatement(QSqlDriver::InsertStatement);
 }
 
-void SchemaWidget::generateDelete()
+void SchemaWidget::generateDeleteIntoView()
 {
-    generateStatement(QSqlDriver::DeleteStatement);
+    generateAndPasteStatement(QSqlDriver::DeleteStatement);
 }

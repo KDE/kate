@@ -374,9 +374,8 @@ void SchemaWidget::executeStatement(QSqlDriver::StatementType statementType)
 {
     const QString statement = generateStatement(statementType);
     if (statement.length()) {
-        executeStatement(statement);
+        m_manager->runQuery(statement, m_connectionName);
     }
-    m_manager->runQuery(statement, m_connectionName);
 }
 void SchemaWidget::executeSelect()
 {

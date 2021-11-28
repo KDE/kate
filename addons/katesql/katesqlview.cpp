@@ -234,7 +234,7 @@ void KateSQLView::slotConnectionCreate()
 
     m_manager->createConnection(c);
 
-    if (m_manager->storeCredentials(c) != 0) {
+    if (m_manager->storeCredentials(c) != SQLManager::K_WALLET_CONNECTION_SUCCESSFUL) {
         qDebug() << "Connection credentials not saved";
     }
 }
@@ -261,7 +261,7 @@ void KateSQLView::slotConnectionEdit()
     m_manager->removeConnection(previousName);
     m_manager->createConnection(c);
 
-    if (m_manager->storeCredentials(c) != 0) {
+    if (m_manager->storeCredentials(c) != SQLManager::K_WALLET_CONNECTION_SUCCESSFUL) {
         qDebug() << "Connection credentials not saved";
     }
 }

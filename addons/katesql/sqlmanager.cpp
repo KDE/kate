@@ -124,7 +124,7 @@ bool SQLManager::isValidAndOpen(const QString &connection)
             QString password;
             int ret = readCredentials(connection, password);
 
-            if (ret != 0) {
+            if (ret != SQLManager::K_WALLET_CONNECTION_SUCCESSFUL) {
                 qDebug() << "Can't retrieve password from kwallet. returned code" << ret;
             } else {
                 db.setPassword(password);
@@ -176,13 +176,12 @@ Wallet *SQLManager::openWallet()
     return m_wallet;
 }
 
-// return 0 on success, -1 on error, -2 on user reject
 int SQLManager::storeCredentials(const Connection &conn)
 {
     Wallet *wallet = openWallet();
 
     if (!wallet) { // user reject
-        return -2;
+        return SQLManager::K_WALLET_CONNECTION_REJECTED_BY_USER;
     }
 
     QMap<QString, QString> map;
@@ -200,18 +199,17 @@ int SQLManager::storeCredentials(const Connection &conn)
         map[QStringLiteral("hostname")] = conn.hostname.toUpper();
         map[QStringLiteral("port")] = QString::number(conn.port);
     }
-    const int result = (wallet->writeMap(conn.name, map) == 0) ? 0 : -1;
+    const int result = (wallet->writeMap(conn.name, map) == SQLManager::K_WALLET_CONNECTION_SUCCESSFUL) ? SQLManager::K_WALLET_CONNECTION_SUCCESSFUL : SQLManager::K_WALLET_CONNECTION_ERROR;
     return result;
 }
 
-// return 0 on success, -1 on error or not found, -2 on user reject
 // if success, password contain the password
 int SQLManager::readCredentials(const QString &name, QString &password)
 {
     Wallet *wallet = openWallet();
 
     if (!wallet) { // user reject
-        return -2;
+        return SQLManager::K_WALLET_CONNECTION_REJECTED_BY_USER;
     }
 
     QMap<QString, QString> map;
@@ -219,11 +217,11 @@ int SQLManager::readCredentials(const QString &name, QString &password)
     if (wallet->readMap(name, map) == 0) {
         if (!map.isEmpty()) {
             password = map.value(QStringLiteral("password"));
-            return 0;
+            return SQLManager::K_WALLET_CONNECTION_SUCCESSFUL;
         }
     }
 
-    return -1;
+    return SQLManager::K_WALLET_CONNECTION_ERROR;
 }
 
 ConnectionModel *SQLManager::connectionModel()

@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "Colored brackets for readability",
+        "Description[az]": "Oxunabilən rəngli mötərizələr",
         "Description[ca@valencia]": "Claus amb color per a llegir millor",
         "Description[ca]": "Claus amb color per a llegir millor",
         "Description[es]": "Paréntesis de colores para mejor legibilidad",
@@ -14,6 +15,7 @@
         "Description[vi]": "Dấu ngoặc được tô màu cho dễ đọc",
         "Description[x-test]": "xxColored brackets for readabilityxx",
         "Name": "Colored Brackets",
+        "Name[az]": "Rəngli mötərizələr",
         "Name[ca@valencia]": "Claus amb color",
         "Name[ca]": "Claus amb color",
         "Name[es]": "Paréntesis de colores",

@@ -9,10 +9,12 @@
 
 class ConnectionModel;
 class KConfigGroup;
+class QUrl;
 
 #include "connection.h"
 #include <KWallet>
 #include <QSqlQuery>
+#include <QUrl>
 
 class SQLManager : public QObject
 {
@@ -34,7 +36,7 @@ public:
 public Q_SLOTS:
     void removeConnection(const QString &name);
     void reopenConnection(const QString &name);
-    void loadConnections(KConfigGroup *connectionsGroup);
+    void loadConnections(const KConfigGroup &connectionsGroup);
     void saveConnections(KConfigGroup *connectionsGroup);
     void runQuery(const QString &text, const QString &connection);
 

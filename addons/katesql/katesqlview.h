@@ -32,17 +32,18 @@ class QActionGroup;
 #include <KXMLGUIClient>
 
 #include <ktexteditor/mainwindow.h>
+#include <ktexteditor/sessionconfiginterface.h>
 
-class KateSQLView : public QObject, public KXMLGUIClient
+class KateSQLView : public QObject, public KXMLGUIClient, public KTextEditor::SessionConfigInterface
 {
     Q_OBJECT
-
+    Q_INTERFACES(KTextEditor::SessionConfigInterface)
 public:
     KateSQLView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mw);
     ~KateSQLView() override;
 
-    void readSessionConfig(KConfigBase *config, const QString &groupPrefix);
-    void writeSessionConfig(KConfigBase *config, const QString &groupPrefix);
+    void readSessionConfig(const KConfigGroup &group) override;
+    void writeSessionConfig(KConfigGroup &group) override;
 
     SchemaBrowserWidget *schemaBrowserWidget() const
     {

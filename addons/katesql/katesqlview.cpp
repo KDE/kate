@@ -192,19 +192,9 @@ void KateSQLView::slotGlobalSettingsChanged()
     m_outputWidget->dataOutputWidget()->model()->readConfig();
 }
 
-void KateSQLView::readSessionConfig(KConfigBase *config, const QString &groupPrefix)
+void KateSQLView::readSessionConfig(KConfigGroup const &group)
 {
-    KConfigGroup globalConfig(KSharedConfig::openConfig(), "KateSQLPlugin");
-
-    bool saveConnections = globalConfig.readEntry("SaveConnections", true);
-
-    if (!saveConnections) {
-        return;
-    }
-
-    KConfigGroup group(config, groupPrefix + QLatin1String(":connections"));
-
-    m_manager->loadConnections(&group);
+    m_manager->loadConnections(group);
 
     QString lastConnection = group.readEntry("LastUsed");
 
@@ -213,10 +203,8 @@ void KateSQLView::readSessionConfig(KConfigBase *config, const QString &groupPre
     }
 }
 
-void KateSQLView::writeSessionConfig(KConfigBase *config, const QString &groupPrefix)
+void KateSQLView::writeSessionConfig(KConfigGroup &group)
 {
-    KConfigGroup group(config, groupPrefix + QLatin1String(":connections"));
-
     group.deleteGroup();
 
     KConfigGroup globalConfig(KSharedConfig::openConfig(), "KateSQLPlugin");
@@ -227,8 +215,7 @@ void KateSQLView::writeSessionConfig(KConfigBase *config, const QString &groupPr
 
         group.writeEntry("LastUsed", m_connectionsComboBox->currentText());
     }
-
-    config->sync();
+    group.config()->sync();
 }
 
 void KateSQLView::slotConnectionCreate()

@@ -179,11 +179,6 @@ Wallet *SQLManager::openWallet()
 // return 0 on success, -1 on error, -2 on user reject
 int SQLManager::storeCredentials(const Connection &conn)
 {
-    // Sqlite is without password, avoid to open wallet
-    if (conn.driver.contains(QLatin1String("QSQLITE"))) {
-        return 0;
-    }
-
     Wallet *wallet = openWallet();
 
     if (!wallet) { // user reject
@@ -193,13 +188,20 @@ int SQLManager::storeCredentials(const Connection &conn)
     QMap<QString, QString> map;
 
     map[QStringLiteral("driver")] = conn.driver.toUpper();
-    map[QStringLiteral("hostname")] = conn.hostname.toUpper();
-    map[QStringLiteral("port")] = QString::number(conn.port);
-    map[QStringLiteral("database")] = conn.database.toUpper();
-    map[QStringLiteral("username")] = conn.username;
-    map[QStringLiteral("password")] = conn.password;
+    map[QStringLiteral("options")] = conn.options;
 
-    return (wallet->writeMap(conn.name, map) == 0) ? 0 : -1;
+    // Sqlite is without password
+    if (conn.driver.contains(QLatin1String("QSQLITE"))) {
+        map[QStringLiteral("database")] = conn.database;
+    } else {
+        map[QStringLiteral("database")] = conn.database.toUpper();
+        map[QStringLiteral("username")] = conn.username;
+        map[QStringLiteral("password")] = conn.password;
+        map[QStringLiteral("hostname")] = conn.hostname.toUpper();
+        map[QStringLiteral("port")] = QString::number(conn.port);
+    }
+    const int result = (wallet->writeMap(conn.name, map) == 0) ? 0 : -1;
+    return result;
 }
 
 // return 0 on success, -1 on error or not found, -2 on user reject
@@ -240,23 +242,24 @@ void SQLManager::removeConnection(const QString &name)
     Q_EMIT connectionRemoved(name);
 }
 
-/// TODO: read KUrl instead of QString for sqlite paths
-void SQLManager::loadConnections(KConfigGroup *connectionsGroup)
+void SQLManager::loadConnections(const KConfigGroup &connectionsGroup)
 {
     Connection c;
+    const auto groupList = connectionsGroup.groupList();
 
-    const auto groupList = connectionsGroup->groupList();
     for (const QString &groupName : groupList) {
         qDebug() << "reading group:" << groupName;
 
-        KConfigGroup group = connectionsGroup->group(groupName);
+        KConfigGroup group = connectionsGroup.group(groupName);
 
         c.name = groupName;
         c.driver = group.readEntry("driver");
-        c.database = group.readEntry("database");
         c.options = group.readEntry("options");
 
-        if (!c.driver.contains(QLatin1String("QSQLITE"))) {
+        if (c.driver.contains(QLatin1String("QSQLITE"))) {
+            c.database = QUrl(group.readEntry("database")).path();
+        } else {
+            c.database = group.readEntry("database");
             c.hostname = group.readEntry("hostname");
             c.username = group.readEntry("username");
             c.port = group.readEntry("port", 0);
@@ -277,33 +280,34 @@ void SQLManager::loadConnections(KConfigGroup *connectionsGroup)
 
 void SQLManager::saveConnections(KConfigGroup *connectionsGroup)
 {
+    //    qDebug() << "Saving " << m_model->rowCount() << " groups";
     for (int i = 0; i < m_model->rowCount(); i++) {
         saveConnection(connectionsGroup, m_model->data(m_model->index(i), Qt::UserRole).value<Connection>());
     }
 }
 
-/// TODO: write KUrl instead of QString for sqlite paths
 void SQLManager::saveConnection(KConfigGroup *connectionsGroup, const Connection &conn)
 {
-    qDebug() << "saving connection" << conn.name;
-
+    //    qDebug() << "saving connection " << conn.name;
     KConfigGroup group = connectionsGroup->group(conn.name);
 
     group.writeEntry("driver", conn.driver);
-    group.writeEntry("database", conn.database);
     group.writeEntry("options", conn.options);
 
-    if (!conn.driver.contains(QLatin1String("QSQLITE"))) {
-        group.writeEntry("hostname", conn.hostname);
-        group.writeEntry("username", conn.username);
-        group.writeEntry("port", conn.port);
+    if (conn.driver.contains(QLatin1String("QSQLITE"))) {
+        group.writeEntry("database", QUrl::fromLocalFile(conn.database));
+        return;
     }
+    group.writeEntry("database", conn.database);
+    group.writeEntry("hostname", conn.hostname);
+    group.writeEntry("username", conn.username);
+    group.writeEntry("port", conn.port);
 }
 
 void SQLManager::runQuery(const QString &text, const QString &connection)
 {
-    qDebug() << "connection:" << connection;
-    qDebug() << "text:" << text;
+    //    qDebug() << "connection:" << connection;
+    //    qDebug() << "text:" << text;
 
     if (text.isEmpty()) {
         return;

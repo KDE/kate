@@ -263,9 +263,6 @@ void SchemaWidget::slotItemExpanded(QTreeWidgetItem *item)
 void SchemaWidget::slotCustomContextMenuRequested(const QPoint &pos)
 {
     QMenu menu;
-
-    menu.addAction(QIcon::fromTheme(QStringLiteral("view-refresh")), i18nc("@action:inmenu Context menu", "Refresh"), this, &SchemaWidget::refresh);
-
     QTreeWidgetItem *item = itemAt(pos);
 
     if (item) {
@@ -275,15 +272,16 @@ void SchemaWidget::slotCustomContextMenuRequested(const QPoint &pos)
                            i18nc("@action:inmenu Context menu", "Select Data"),
                            this,
                            &SchemaWidget::executeSelect);
-            menu.addSeparator();
             QMenu *submenu = menu.addMenu(QIcon::fromTheme(QStringLiteral("tools-wizard")), i18nc("@action:inmenu Submenu title", "Generate"));
 
             submenu->addAction(i18n("SELECT"), this, &SchemaWidget::generateSelectIntoView);
             submenu->addAction(i18n("UPDATE"), this, &SchemaWidget::generateUpdateIntoView);
             submenu->addAction(i18n("INSERT"), this, &SchemaWidget::generateInsertIntoView);
             submenu->addAction(i18n("DELETE"), this, &SchemaWidget::generateDeleteIntoView);
+            menu.addSeparator();
         }
     }
+    menu.addAction(QIcon::fromTheme(QStringLiteral("view-refresh")), i18nc("@action:inmenu Context menu", "Refresh"), this, &SchemaWidget::refresh);
 
     menu.exec(QCursor::pos());
 }

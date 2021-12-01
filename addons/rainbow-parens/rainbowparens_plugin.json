@@ -22,6 +22,7 @@
         "Name[sv]": "Färgade parenteser",
         "Name[uk]": "Кольорові дужки",
         "Name[x-test]": "xxColored Bracketsxx",
+        "Name[zh_CN]": "彩色括号",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

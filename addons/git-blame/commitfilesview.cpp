@@ -8,6 +8,7 @@
 
 #include <gitprocess.h>
 
+#include <QDebug>
 #include <QDir>
 #include <QMimeDatabase>
 #include <QPainter>
@@ -259,24 +260,47 @@ static void createFileTree(QStandardItem *parent, const QString &basePath, const
     }
 }
 
-static std::optional<QString> getDotGitPath(const QString &repo)
+static std::optional<QString> getGitCmdOutput(const QString &workDir, const QStringList &args)
 {
-    /* This call is intentionally blocking because we need git path for everything else */
     QProcess git;
-    setupGitProcess(git, repo, {QStringLiteral("rev-parse"), QStringLiteral("--absolute-git-dir")});
+    setupGitProcess(git, workDir, args);
     git.start(QProcess::ReadOnly);
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         if (git.exitStatus() != QProcess::NormalExit || git.exitCode() != 0) {
             return std::nullopt;
         }
-        QString dotGitPath = QString::fromUtf8(git.readAllStandardOutput());
-        if (dotGitPath.endsWith(QLatin1String("\n"))) {
-            dotGitPath.remove(QLatin1String(".git\n"));
-        } else {
-            dotGitPath.remove(QLatin1String(".git"));
-        }
-        return dotGitPath;
+        return {QString::fromUtf8(git.readAllStandardOutput().trimmed())};
     }
+    return {};
+}
+
+static std::optional<QString> getDotGitPath(const QString &repo)
+{
+    /* This call is intentionally blocking because we need git path for everything else */
+    auto dotGitPathRes = getGitCmdOutput(repo, {QStringLiteral("rev-parse"), QStringLiteral("--absolute-git-dir")});
+    if (!dotGitPathRes.has_value()) {
+        return {};
+    }
+    QString dotGitPath = dotGitPathRes.value();
+
+    if (dotGitPath.endsWith(QLatin1String(".git"))) {
+        dotGitPath.remove(QLatin1String(".git"));
+    } else if (dotGitPath.contains(QLatin1String(".git/modules"))) {
+        // maybe this is some submodule
+        auto topLevelRes = getGitCmdOutput(repo, {QStringLiteral("rev-parse"), QStringLiteral("--show-toplevel")});
+        if (!topLevelRes.has_value()) {
+            return {};
+        }
+        QString topLevel = QDir::cleanPath(topLevelRes.value());
+        if (!topLevel.endsWith(QLatin1Char('/'))) {
+            topLevel += QStringLiteral("/");
+        }
+        return topLevel;
+    } else {
+        qWarning() << "[blame] Got invalid dot git path: " << dotGitPath;
+        return {};
+    }
+    return dotGitPath;
     return std::nullopt;
 }
 
@@ -414,7 +438,7 @@ void CommitDiffTreeView::createFileTreeForCommit(const QString &filePath, const 
 
 void CommitDiffTreeView::showDiff(const QModelIndex &idx)
 {
-    auto file = idx.data(FileItem::Path).toString().remove(m_gitDir + QLatin1Char('/'));
+    const QString file = idx.data(FileItem::Path).toString();
     QProcess git;
     setupGitProcess(git, m_gitDir, {QStringLiteral("show"), m_commitHash, QStringLiteral("--"), file});
     git.start(QProcess::ReadOnly);

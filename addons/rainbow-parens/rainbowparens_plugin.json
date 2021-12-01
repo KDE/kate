@@ -15,6 +15,7 @@
         "Description[uk]": "Кольорові дужки для зручності читання",
         "Description[vi]": "Dấu ngoặc được tô màu cho dễ đọc",
         "Description[x-test]": "xxColored brackets for readabilityxx",
+        "Description[zh_CN]": "提升可读性的彩色括号",
         "Name": "Colored Brackets",
         "Name[az]": "Rəngli mötərizələr",
         "Name[ca@valencia]": "Claus amb color",
@@ -30,6 +31,7 @@
         "Name[uk]": "Кольорові дужки",
         "Name[vi]": "Dấu ngoặc được tô màu",
         "Name[x-test]": "xxColored Bracketsxx",
+        "Name[zh_CN]": "彩色括号",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

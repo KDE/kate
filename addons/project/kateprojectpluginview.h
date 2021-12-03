@@ -302,6 +302,11 @@ private Q_SLOTS:
      */
     void showProjectTodos();
 
+    /**
+     * Enable/disable project actions
+     */
+    void updateActions();
+
 private:
     /**
      * find current selected or under cursor word
@@ -396,15 +401,16 @@ private:
     QSet<QObject *> m_textViews;
 
     /**
-     * lookup action
+     * project related actions
      */
     QAction *m_lookupAction;
-
-    /**
-     * goto symbol action
-     */
     QAction *m_gotoSymbolAction;
     QAction *m_gotoSymbolActionAppMenu;
+    QAction *m_projectTodosAction;
+    QAction *m_projectPrevAction;
+    QAction *m_projectNextAction;
+    QAction *m_projectGotoIndexAction;
+    QAction *m_projectCloseAction;
 
     class FixedView
     {

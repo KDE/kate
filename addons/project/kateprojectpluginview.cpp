@@ -127,6 +127,7 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
             qobject_cast<GitWidget *>(widget)->getStatus();
         }
     });
+
     /**
      * create views for all already existing projects
      * will create toolviews on demand!
@@ -165,30 +166,25 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     }
 
     /**
-     * trigger once view change, to highlight right document
-     */
-    slotViewChanged();
-
-    /**
      * back + forward
      */
     auto a = actionCollection()->addAction(QStringLiteral("projects_open_project"), this, SLOT(openDirectoryOrProject()));
     a->setText(i18n("Open Folder..."));
 
-    a = actionCollection()->addAction(QStringLiteral("projects_todos"), this, SLOT(showProjectTodos()));
+    m_projectTodosAction = a = actionCollection()->addAction(QStringLiteral("projects_todos"), this, SLOT(showProjectTodos()));
     a->setText(i18n("Project TODOs"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("korg-todo")));
 
-    a = actionCollection()->addAction(KStandardAction::Back, QStringLiteral("projects_prev_project"), this, SLOT(slotProjectPrev()));
+    m_projectPrevAction = a = actionCollection()->addAction(KStandardAction::Back, QStringLiteral("projects_prev_project"), this, SLOT(slotProjectPrev()));
     actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::ALT | Qt::Key_Left));
 
-    a = actionCollection()->addAction(KStandardAction::Forward, QStringLiteral("projects_next_project"), this, SLOT(slotProjectNext()));
+    m_projectNextAction = a = actionCollection()->addAction(KStandardAction::Forward, QStringLiteral("projects_next_project"), this, SLOT(slotProjectNext()));
     actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::ALT | Qt::Key_Right));
 
-    a = actionCollection()->addAction(QStringLiteral("projects_goto_index"), this, SLOT(slotProjectIndex()));
+    m_projectGotoIndexAction = a = actionCollection()->addAction(QStringLiteral("projects_goto_index"), this, SLOT(slotProjectIndex()));
     a->setText(i18n("Lookup"));
     actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::ALT | Qt::Key_1));
-    a = actionCollection()->addAction(QStringLiteral("projects_close"), this, SLOT(slotProjectAboutToClose()));
+    m_projectCloseAction = a = actionCollection()->addAction(QStringLiteral("projects_close"), this, SLOT(slotProjectAboutToClose()));
     a->setText(i18n("Close Project"));
     a->setIcon(QIcon::fromTheme(QStringLiteral(PROJECTCLOSEICON)));
     m_gotoSymbolActionAppMenu = a = actionCollection()->addAction(KStandardAction::Goto, QStringLiteral("projects_goto_symbol"), this, SLOT(slotGotoSymbol()));
@@ -216,6 +212,17 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
      * align to current config
      */
     slotConfigUpdated();
+
+    /**
+     * trigger once view change, to highlight right document
+     */
+    slotViewChanged();
+
+    /**
+     * ensure proper action update, to enable/disable stuff
+     */
+    connect(this, &KateProjectPluginView::projectMapChanged, this, &KateProjectPluginView::updateActions);
+    updateActions();
 }
 
 KateProjectPluginView::~KateProjectPluginView()
@@ -759,6 +766,25 @@ void KateProjectPluginView::openTerminal(const QString &dirPath, KateProject *pr
     if (m_project2View.contains(project)) {
         m_project2View.find(project)->second->resetTerminal(dirPath);
     }
+}
+
+void KateProjectPluginView::updateActions()
+{
+    // currently some project active?
+    const bool projectActive = !projectBaseDir().isEmpty();
+    m_projectsCombo->setEnabled(projectActive);
+    m_projectsComboGit->setEnabled(projectActive);
+    m_reloadButton->setEnabled(projectActive);
+    m_closeProjectButton->setEnabled(projectActive);
+    m_gitStatusRefreshButton->setEnabled(projectActive);
+    m_lookupAction->setEnabled(projectActive);
+    m_gotoSymbolAction->setEnabled(projectActive);
+    m_gotoSymbolActionAppMenu->setEnabled(projectActive);
+    m_projectTodosAction->setEnabled(projectActive);
+    m_projectPrevAction->setEnabled(projectActive);
+    m_projectNextAction->setEnabled(projectActive);
+    m_projectGotoIndexAction->setEnabled(projectActive);
+    m_projectCloseAction->setEnabled(projectActive);
 }
 
 #include "kateprojectpluginview.moc"

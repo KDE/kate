@@ -13,6 +13,7 @@
 #include <QMouseEvent>
 #include <QPointer>
 #include <QScreen>
+#include <QScrollBar>
 #include <QString>
 #include <QTextBrowser>
 #include <QTimer>
@@ -157,17 +158,19 @@ public:
         QFontMetrics fm(font());
         QSize size = fm.size(0, text);
 
-        // make sure we have the correct height
-        // size above gives us correct width but not
-        // correct height
-        qreal totalHeight = document()->size().height();
-        // add +1 line height to prevent scrollbar from appearing with small
-        // tooltips
-        int lineHeight = totalHeight / document()->lineCount();
-        const int height = totalHeight + lineHeight;
+        const int height = fm.lineSpacing() * (document()->lineCount());
 
         size.setHeight(std::min(height, m_view->height() / 3));
-        size.setWidth(std::min(size.width(), m_view->width() / 2));
+        size.setWidth(std::min<int>(size.width(), m_view->width() / 2.5));
+
+        const int contentsMarginsWidth = this->contentsMargins().left() + this->contentsMargins().right();
+        const int contentsMarginsHeight = this->contentsMargins().top() + this->contentsMargins().top();
+        const int docMargin = 2 * document()->documentMargin();
+        const int wMargins = contentsMarginsWidth + docMargin + verticalScrollBar()->height();
+        const int hMargins = contentsMarginsHeight + docMargin + horizontalScrollBar()->height();
+
+        size.setWidth(size.width() + wMargins);
+        size.setHeight(size.height() + hMargins);
         resize(size);
     }
 
@@ -260,7 +263,6 @@ void LspTooltip::show(const QString &text, QPoint pos, KTextEditor::View *v, boo
     tooltip = new Tooltip(v, manual);
     tooltip->setView(v);
     tooltip->setTooltipText(text);
-    tooltip->adjustSize();
     tooltip->place(pos);
     tooltip->show();
 }

@@ -187,6 +187,7 @@ X-DBUS-ServiceName=org.kde.kate
 Categories=Qt;KDE;Utility;TextEditor;Development;
 Keywords=text;txt;editor;programming;programmer;development;developer;
 Keywords[ca]=text;txt;editor;programació;programador;desenvolupament;desenvolupador;
+Keywords[ca@valencia]=text;txt;editor;programació;programador;desenvolupament;desenvolupador;
 Keywords[fr]=texte ;txt, éditeur ; programmation ; programmeur ; programmeuse ; développement ; développeur ; développeuse
 Keywords[nl]=text;tekst;txt;tekstbewerker;programmeren;programmeur;ontwikkeling;ontwikkelaar;
 Keywords[sv]=text;txt;editor;programmering;programmerare;utveckling;utvecklare;

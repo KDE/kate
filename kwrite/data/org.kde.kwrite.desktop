@@ -181,6 +181,7 @@ Categories=Qt;KDE;Utility;TextEditor;
 Keywords=text;txt;editor;note;notepad;
 Keywords[ca]=text;txt;editor;nota;bloc de notes;
 Keywords[ca@valencia]=text;txt;editor;nota;bloc de notes;
+Keywords[es]=texto;txt;editor;nota;bloc de notas;
 Keywords[fr]=texte ; txt, éditeur ; note ; bloc-notes ;
 Keywords[nl]=text;txt;tekst;tekstbewerker;notitie;notitieblok;
 Keywords[sv]=text;txt;editor;anteckning;anteckningsblock;

@@ -265,7 +265,8 @@ void KateGitBlamePluginView::showCommitInfo(const QString &hash, KTextEditor::Vi
 
 void KateGitBlamePluginView::blameFinished(int /*exitCode*/, QProcess::ExitStatus /*exitStatus*/)
 {
-    const QByteArray out = m_blameInfoProc.readAllStandardOutput();
+    QByteArray out = m_blameInfoProc.readAllStandardOutput();
+    out.replace("\r", ""); // KTextEditor removes all \r characters in the internal buffers
     // printf("recieved output: %d for: git %s\n", out.size(), qPrintable(m_blameInfoProc.arguments().join(QLatin1Char(' '))));
 
     /**

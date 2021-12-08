@@ -121,6 +121,7 @@
     <p xml:lang="fi">KWrite on KDE:n tekstimuokkain, joka perustuu Katen muokkainosaan.</p>
     <p xml:lang="fr">KWrite est un éditeur de texte fait par KDE et s'appuyant sur le composant éditeur de Kate.</p>
     <p xml:lang="gl">KWrite é un editor de texto creado por KDE baseado no compoñente de editor de Kate.</p>
+    <p xml:lang="hu">A KWrite egy, a Kate szerkesztőkomponensén alapuló szövegszerkesztő a KDE-től.</p>
     <p xml:lang="ia">KWrite es un editor de texto per KDE, basate sur le componente de editor de Kate.</p>
     <p xml:lang="id">KWrite adalah sebuah pengedit teks oleh KDE, berdasarkan pada komponen editor Kate.</p>
     <p xml:lang="it">KWrite è un editor di testo di KDE, basato sul componente dell'editor di Kate.</p>
@@ -216,7 +217,7 @@
       <li xml:lang="fr">Coloration syntaxique selon le type de fichier</li>
       <li xml:lang="gl">Realce de sintaxe segundo o tipo do ficheiro.</li>
       <li xml:lang="hi">फ़ाईल प्रकार से सिंटेक्स हाईलाइटिंग</li>
-      <li xml:lang="hu">Szintaxiskiemelés a fájlnak megfelelően</li>
+      <li xml:lang="hu">Szintaxiskiemelés a fájltípusnak megfelelően</li>
       <li xml:lang="ia">Evidentiation de syntaxe secundo le typo de file</li>
       <li xml:lang="id">Penyorotan sintaks sesuai dengan jenis file </li>
       <li xml:lang="it">Evidenziazione della sintassi in base al tipo di file</li>
@@ -464,6 +465,7 @@
       <caption xml:lang="fi">Koodin muokkaus KWritella</caption>
       <caption xml:lang="fr">Modification de code avec KWrite</caption>
       <caption xml:lang="gl">Editando código con KWrite</caption>
+      <caption xml:lang="hu">Kódszerkesztés KWrite-tal</caption>
       <caption xml:lang="ia">Modificante codice con KWrite</caption>
       <caption xml:lang="id">Pengeditan kode menggunakan KWrite</caption>
       <caption xml:lang="it">Modificare il codice con KWrite</caption>

@@ -117,6 +117,7 @@
     <p xml:lang="fi">Kate on KDE:n usean tiedoston ja näkymän tekstimuokkain, jossa on on koodin laskostus, syntaksikorostus, dynaaminen rivitys, upotettu konsoli, kattava liitännäisrajapinta sekä alustava skriptaustuki.</p>
     <p xml:lang="fr">Kate est un éditeur de texte multi-documents et multi-vues pour KDE. Il offre des fonctionnalités comme le repliement de code, la coloration syntaxique, le retour à la ligne automatique, une console intégrée, une interface complète pour modules complémentaires, et un début de prise en charge d'automatisation par scripts.</p>
     <p xml:lang="gl">Kate é un editor de texto creado por KDE que permite traballar en varios documentos e con varias vistas ao mesmo tempo. Goza de moitas funcionalidades, como pregado de código, salientado de sintaxe, axuste dinámico de texto, un terminal integrado, unha extensa interface para o desenvolvemento de complementos e funcionalidades preliminares de scripting.</p>
+    <p xml:lang="hu">A Kate egy többdokumentumos, többnézetes szövegszerkesztő a KDE-től. A szolgáltatásai közé tartozik például a kódösszecsukás, szintaxiskiemelés, dinamikus szótördelés, beágyazott konzol, bővíthető bővítmény-interfész és a szkriptelés támogatása.</p>
     <p xml:lang="ia">Kate es un editor de texto per multi-documento, multi-vista. Illo ha characteristicas como codefolding (plicamento de codice), dynamic word wrap (excision dynamic de parolas), un consolle incorpporate, un interfacie de plugin extensive e alcun supporto preliminari per le scripting.</p>
     <p xml:lang="id">Kate adalah editor teks multi-dokumen multi-tampilan oleh KDE. Ini fitur hal-hal seperti codefolding, syntaxhighlighting, bungkus kata dinamis, konsol tertanam, antarmuka plugin yang luas dan beberapa dukungan scripting awal.</p>
     <p xml:lang="it">Kate è un editor di testi multi-documento e multi-vista di KDE. È dotato di funzionalità come il raggruppamento del codice, l'evidenziazione della sintassi, a capo automatico dinamico, una console integrata, un'interfaccia potenziabile tramite estensioni e qualche supporto preliminare per la creazione di script.</p>
@@ -1013,6 +1014,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="fi">Koodin muokkaus Katella</caption>
       <caption xml:lang="fr">Édition de code avec Kate</caption>
       <caption xml:lang="gl">Editando código con Kate</caption>
+      <caption xml:lang="hu">Kódszerkesztés Kate-tel</caption>
       <caption xml:lang="ia">Modificante codice con Kate</caption>
       <caption xml:lang="id">Pengeditan kode menggunakan Kate</caption>
       <caption xml:lang="it">Modificare il codice con Kate</caption>

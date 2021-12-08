@@ -187,6 +187,12 @@ KateGitBlamePluginView::KateGitBlamePluginView(KateGitBlamePlugin *plugin, KText
 
 KateGitBlamePluginView::~KateGitBlamePluginView()
 {
+    // ensure to kill, we segfault otherwise
+    m_blameInfoProc.kill();
+    m_blameInfoProc.waitForFinished();
+    m_showProc.kill();
+    m_showProc.waitForFinished();
+
     m_mainWindow->guiFactory()->removeClient(this);
 }
 

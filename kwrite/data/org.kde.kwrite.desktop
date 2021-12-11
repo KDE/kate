@@ -189,6 +189,7 @@ Keywords[ko]=text;txt;editor;note;notepad;텍스트;편집기;에디터;메모;�
 Keywords[nl]=text;txt;tekst;tekstbewerker;notitie;notitieblok;
 Keywords[sv]=text;txt;editor;anteckning;anteckningsblock;
 Keywords[uk]=text;txt;editor;note;notepad;текст;теексте;редактор;нотатка;нотатник;
+Keywords[vi]=text;txt;editor;note;notepad;văn bản;trình biên tập;ghi chép;sổ ghi chép;
 Keywords[x-test]=xxtextxx;xxtxtxx;xxeditorxx;xxnotexx;xxnotepadxx;
 Keywords[zh_CN]=text;txt;editor;note;notepad;文字;文本;编辑器;笔记;记事本;
 StartupWMClass=kwrite

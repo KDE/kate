@@ -196,6 +196,7 @@ Keywords[ko]=text;txt;editor;programming;programmer;development;developer;텍스
 Keywords[nl]=text;tekst;txt;tekstbewerker;programmeren;programmeur;ontwikkeling;ontwikkelaar;
 Keywords[sv]=text;txt;editor;programmering;programmerare;utveckling;utvecklare;
 Keywords[uk]=text;txt;editor;programming;programmer;development;developer;текст;теексте;редактор;програмування;програміст;розробка;розробник;
+Keywords[vi]=text;txt;editor;programming;programmer;development;developer;văn bản;trình biên tập;lập trình;lập trình viên;phát triển; nhà phát triển;
 Keywords[x-test]=xxtextxx;xxtxtxx;xxeditorxx;xxprogrammingxx;xxprogrammerxx;xxdevelopmentxx;xxdeveloperxx;
 Keywords[zh_CN]=text;txt;editor;programming;programmer;development;developer;文字;文本;编辑器;编程;代码;程序员;开发;开发者;
 StartupWMClass=kate

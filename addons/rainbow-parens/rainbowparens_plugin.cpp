@@ -267,12 +267,6 @@ void RainbowParenPluginView::rehighlight(KTextEditor::View *view)
         }
         KTextEditor::Cursor opener;
         KTextEditor::Cursor closer;
-
-        // less than for sorting
-        bool operator<(BracketPair p)
-        {
-            return opener < p.opener;
-        }
     };
 
     // contains all final bracket pairs of current viewport
@@ -327,7 +321,9 @@ void RainbowParenPluginView::rehighlight(KTextEditor::View *view)
     // sort by start paren
     // Necessary so that we can get alternating colors for brackets
     // on the same line
-    std::sort(parens.begin(), parens.end());
+    std::stable_sort(parens.begin(), parens.end(), [](const auto &a, const auto &b) {
+        return a.opener < b.opener;
+    });
 
     auto onSameLine = [](KTextEditor::Cursor open, KTextEditor::Cursor close) {
         return open.line() == close.line();

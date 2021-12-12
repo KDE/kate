@@ -18,6 +18,7 @@ ecm_optional_add_subdirectory(latexunicodecompletion)
 ecm_optional_add_subdirectory(lspclient) # Language Server Protocol (LSP) client plugin.
 ecm_optional_add_subdirectory(preview) # Live preview of sources in target format.
 ecm_optional_add_subdirectory(project) # Small & smart project manager.
+ecm_optional_add_subdirectory(rainbow-parens) # Colored brackets for readability
 ecm_optional_add_subdirectory(replicode)
 ecm_optional_add_subdirectory(search)
 ecm_optional_add_subdirectory(sessionapplet)

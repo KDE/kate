@@ -179,6 +179,7 @@ X-DBUS-StartupType=Multi
 X-DBUS-ServiceName=org.kde.kwrite
 Categories=Qt;KDE;Utility;TextEditor;
 Keywords=text;txt;editor;note;notepad;
+Keywords[ar]=نص; نصوص; دفتر
 Keywords[az]=mətn;txt;redaktor;qeyd;qeyd dəftəri;
 Keywords[ca]=text;txt;editor;nota;bloc de notes;
 Keywords[ca@valencia]=text;txt;editor;nota;bloc de notes;

@@ -83,10 +83,12 @@ void KateSessionManager::updateSessionList()
     }
 
     // Remove gone sessions from our list
-    for (auto it = m_sessions.cbegin(); it != m_sessions.cend(); ++it) {
+    for (auto it = m_sessions.begin(); it != m_sessions.end();) {
         if (list.indexOf(it.key()) < 0 && it.value() != activeSession()) {
-            m_sessions.remove(it.key());
+            it = m_sessions.erase(it);
             changed = true;
+        } else {
+            ++it;
         }
     }
 

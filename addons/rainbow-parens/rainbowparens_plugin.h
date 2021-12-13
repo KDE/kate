@@ -37,12 +37,13 @@ public:
     void viewChanged(KTextEditor::View *view);
 
     Q_SLOT void clearRanges(KTextEditor::Document *doc);
+    Q_SLOT void clearSavedRangesForDoc(KTextEditor::Document *doc);
 
-    struct ViewSavedRanges {
-        QPointer<KTextEditor::View> view;
+    struct SavedRanges {
+        QPointer<KTextEditor::Document> doc;
         std::vector<std::unique_ptr<KTextEditor::MovingRange>> ranges;
     };
-    std::vector<ViewSavedRanges> savedRanges;
+    std::vector<SavedRanges> savedRanges;
 
 private:
     std::vector<std::unique_ptr<KTextEditor::MovingRange>> ranges;

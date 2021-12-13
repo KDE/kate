@@ -833,6 +833,7 @@ private:
             connect(doc, &KTextEditor::Document::aboutToClose, this, &self_type::untrack, Qt::UniqueConnection);
             connect(doc, &KTextEditor::Document::destroyed, this, &self_type::untrack, Qt::UniqueConnection);
             connect(doc, &KTextEditor::Document::textChanged, this, &self_type::onTextChanged, Qt::UniqueConnection);
+            connect(doc, &KTextEditor::Document::documentSavedOrUploaded, this, &self_type::onDocumentSaved, Qt::UniqueConnection);
             // in case of incremental change
             connect(doc, &KTextEditor::Document::textInserted, this, &self_type::onTextInserted, Qt::UniqueConnection);
             connect(doc, &KTextEditor::Document::textRemoved, this, &self_type::onTextRemoved, Qt::UniqueConnection);
@@ -973,6 +974,20 @@ private:
             LSPRange newrange{{line - 1, 0}, {line, 0}};
             auto text = doc->text(newrange);
             info->changes.push_back({oldrange, text});
+        }
+    }
+
+    void onDocumentSaved(KTextEditor::Document *doc, bool saveAs)
+    {
+        if (!saveAs) {
+            auto it = m_docs.find(doc);
+            if (it != m_docs.end() && it->server) {
+                auto server = it->server;
+                const auto &saveOptions = server->capabilities().textDocumentSync.save;
+                if (saveOptions) {
+                    server->didSave(doc->url(), saveOptions->includeText ? doc->text() : QString());
+                }
+            }
         }
     }
 

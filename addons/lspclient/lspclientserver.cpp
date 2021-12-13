@@ -1255,7 +1255,8 @@ private:
                                             {QStringLiteral("documentSymbol"), QJsonObject{{QStringLiteral("hierarchicalDocumentSymbolSupport"), true}} },
                                             {QStringLiteral("publishDiagnostics"), QJsonObject{{QStringLiteral("relatedInformation"), true}}},
                                             {QStringLiteral("codeAction"), codeAction},
-                                            {QStringLiteral("semanticTokens"), semanticTokens}
+                                            {QStringLiteral("semanticTokens"), semanticTokens},
+                                            {QStringLiteral("synchronization"), QJsonObject{{QStringLiteral("didSave"), true}}},
                                         },
                                   },
                                   {QStringLiteral("window"),
@@ -1475,7 +1476,9 @@ public:
     void didSave(const QUrl &document, const QString &text)
     {
         auto params = textDocumentParams(document);
-        params[QStringLiteral("text")] = text;
+        if (!text.isNull()) {
+            params[QStringLiteral("text")] = text;
+        }
         send(init_request(QStringLiteral("textDocument/didSave"), params));
     }
 

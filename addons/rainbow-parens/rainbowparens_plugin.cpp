@@ -85,22 +85,12 @@ void RainbowParenPluginView::updateColors(KTextEditor::Editor *editor)
     }
 }
 
-static void clearSavedRangesForView(std::vector<RainbowParenPluginView::ViewSavedRanges> &ranges, KTextEditor::View *v)
+static void getSavedRangesForDoc(std::vector<RainbowParenPluginView::SavedRanges> &ranges,
+                                 std::vector<std::unique_ptr<KTextEditor::MovingRange>> &outRanges,
+                                 KTextEditor::Document *d)
 {
-    auto it = std::find_if(ranges.begin(), ranges.end(), [v](const RainbowParenPluginView::ViewSavedRanges &r) {
-        return r.view == v;
-    });
-    if (it != ranges.end()) {
-        ranges.erase(it);
-    }
-}
-
-static void getSavedRangesForView(std::vector<RainbowParenPluginView::ViewSavedRanges> &ranges,
-                                  std::vector<std::unique_ptr<KTextEditor::MovingRange>> &outRanges,
-                                  KTextEditor::View *v)
-{
-    auto it = std::find_if(ranges.begin(), ranges.end(), [v](const RainbowParenPluginView::ViewSavedRanges &r) {
-        return r.view == v;
+    auto it = std::find_if(ranges.begin(), ranges.end(), [d](const RainbowParenPluginView::SavedRanges &r) {
+        return r.doc == d;
     });
     if (it != ranges.end()) {
         outRanges = std::move(it->ranges);
@@ -120,24 +110,28 @@ void RainbowParenPluginView::viewChanged(KTextEditor::View *view)
         disconnect(doc, SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document *)), this, SLOT(clearRanges(KTextEditor::Document *)));
 
         // Remove if we already have this view's ranges saved
-        clearSavedRangesForView(savedRanges, m_activeView);
+        clearSavedRangesForDoc(doc);
 
         // save these ranges so that if we are in a split view etc, we don't
         // loose the bracket coloring
-        ViewSavedRanges saved;
-        saved.view = m_activeView;
+        SavedRanges saved;
+        saved.doc = doc;
         saved.ranges = std::move(ranges);
         savedRanges.push_back(std::move(saved));
         if (savedRanges.size() > 4) {
             savedRanges.erase(savedRanges.begin());
         }
+
+        // clear ranges for this doc if it gets closed
+        connect(doc, SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document *)), this, SLOT(clearSavedRangesForDoc(KTextEditor::Document *)));
+        connect(doc, SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document *)), this, SLOT(clearSavedRangesForDoc(KTextEditor::Document *)));
     }
 
     ranges.clear();
     m_activeView = view;
 
     // get any existing ranges for this view
-    getSavedRangesForView(savedRanges, ranges, m_activeView);
+    getSavedRangesForDoc(savedRanges, ranges, m_activeView->document());
 
     connect(view, &KTextEditor::View::verticalScrollPositionChanged, this, &RainbowParenPluginView::rehighlight, Qt::UniqueConnection);
     connect(view, &KTextEditor::View::textInserted, this, &RainbowParenPluginView::rehighlight, Qt::UniqueConnection);
@@ -156,6 +150,16 @@ void RainbowParenPluginView::viewChanged(KTextEditor::View *view)
 void RainbowParenPluginView::clearRanges(KTextEditor::Document *)
 {
     ranges.clear();
+}
+
+void RainbowParenPluginView::clearSavedRangesForDoc(KTextEditor::Document *doc)
+{
+    auto it = std::find_if(savedRanges.begin(), savedRanges.end(), [doc](const RainbowParenPluginView::SavedRanges &r) {
+        return r.doc == doc;
+    });
+    if (it != savedRanges.end()) {
+        savedRanges.erase(it);
+    }
 }
 
 static bool isComment(KTextEditor::Document *doc, int line, int col)

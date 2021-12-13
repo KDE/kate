@@ -344,8 +344,15 @@ static void from_json(LSPServerCapabilities &caps, const QJsonObject &json)
     };
 
     auto sync = json.value(QStringLiteral("textDocumentSync"));
-    caps.textDocumentSync = static_cast<LSPDocumentSyncKind>(
+    caps.textDocumentSync.change = static_cast<LSPDocumentSyncKind>(
         (sync.isObject() ? sync.toObject().value(QStringLiteral("change")) : sync).toInt(static_cast<int>(LSPDocumentSyncKind::None)));
+    if (sync.isObject()) {
+        auto syncObject = sync.toObject();
+        auto save = syncObject.value(QStringLiteral("save"));
+        if (save.isObject() || save.toBool()) {
+            caps.textDocumentSync.save = {save.toObject().value(QStringLiteral("includeText")).toBool()};
+        }
+    }
     caps.hoverProvider = toBoolOrObject(json.value(QStringLiteral("hoverProvider")));
     from_json(caps.completionProvider, json.value(QStringLiteral("completionProvider")));
     from_json(caps.signatureHelpProvider, json.value(QStringLiteral("signatureHelpProvider")));

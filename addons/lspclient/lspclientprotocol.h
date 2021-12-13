@@ -21,6 +21,8 @@
 #include <KTextEditor/Cursor>
 #include <KTextEditor/Range>
 
+#include <optional>
+
 // Following types roughly follow the types/interfaces as defined in LSP protocol spec
 // although some deviation may arise where it has been deemed useful
 // Moreover, to avoid introducing a custom 'optional' type, absence of an optional
@@ -50,6 +52,16 @@ struct LSPResponseError {
 };
 
 enum class LSPDocumentSyncKind { None = 0, Full = 1, Incremental = 2 };
+
+struct LSPSaveOptions {
+    bool includeText = false;
+};
+
+// only used parts for now
+struct LSPTextDocumentSyncOptions {
+    LSPDocumentSyncKind change = LSPDocumentSyncKind::None;
+    std::optional<LSPSaveOptions> save;
+};
 
 struct LSPCompletionOptions {
     bool provider = false;
@@ -81,7 +93,7 @@ struct LSPWorkspaceFoldersServerCapabilities {
 };
 
 struct LSPServerCapabilities {
-    LSPDocumentSyncKind textDocumentSync = LSPDocumentSyncKind::None;
+    LSPTextDocumentSyncOptions textDocumentSync;
     bool hoverProvider = false;
     LSPCompletionOptions completionProvider;
     LSPSignatureHelpOptions signatureHelpProvider;

@@ -931,7 +931,7 @@ private:
         auto it = m_docs.find(doc);
         if (it != m_docs.end() && it->server) {
             const auto &caps = it->server->capabilities();
-            if (caps.textDocumentSync == LSPDocumentSyncKind::Incremental) {
+            if (caps.textDocumentSync.change == LSPDocumentSyncKind::Incremental) {
                 return &(*it);
             }
         }

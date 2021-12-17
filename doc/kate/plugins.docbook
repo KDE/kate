@@ -2602,6 +2602,49 @@ are obviously more efficient, and they also have a 'wider' view than
 the view of many separate instances.
 </para>
 
+<para>
+As mentioned above, several entries are subject to variable expansion.
+A suitable application of that combined with "wrapper script" approaches
+allows for customization to a great many circumstances.
+For example, consider a python development scenario that consists of multiple
+projects (e.g. git repos), each with its own virtualenv setup.  Using the default
+configuration, the python language server will not be aware of the virtual env.
+However, that can be remedied with the following approach.  First, the following
+fragment can be entered in LSPClient plugin's "User Server Settings":
+</para>
+<screen>
+{
+        "servers":
+        {
+                "python":
+                {
+                        "command": ["pylsp_in_env"], ["%{Project:NativePath}"],
+                        "root": "."
+                }
+        }
+}
+</screen>
+<para>
+The root entry above is relative to the project directory and ensures that a
+a separate language server is started for each project, which is necessary in
+this case as each has a distinct virtual environment.
+</para>
+<para>
+<filename>pylsp_in_env</filename> is a small "wrapper script" that should be placed
+in <literal>PATH</literal> with following (to-be-adjusted) content:
+</para>
+<screen>
+#!/bin/bash
+cd $1
+# run the server (python-lsp-server) within the virtualenv
+# (i.e. with virtualenv variables setup)
+# so source the virtualenv
+source XYZ
+# server mileage or arguments may vary
+exec myserver
+</screen>
+
+
 <sect3 id="lspclient-customization">
 <title>LSP Server Configuration</title>
 

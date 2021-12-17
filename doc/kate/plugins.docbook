@@ -2626,12 +2626,12 @@ fragment can be entered in LSPClient plugin's "User Server Settings":
 </screen>
 <para>
 The root entry above is relative to the project directory and ensures that a
-a separate language server is started for each project, which is necessary in
+separate language server is started for each project, which is necessary in
 this case as each has a distinct virtual environment.
 </para>
 <para>
 <filename>pylsp_in_env</filename> is a small "wrapper script" that should be placed
-in <literal>PATH</literal> with following (to-be-adjusted) content:
+in <literal>PATH</literal> with the ollowing (to-be-adjusted) content:
 </para>
 <screen>
 #!/bin/bash

@@ -2011,7 +2011,7 @@ public:
         }
 
         // now make one transaction (a.o. for one undo) and apply in sequence
-        {
+        if (!ranges.empty()) {
             KTextEditor::Document::EditingTransaction transaction(doc);
             for (int i = 0; i < ranges.length(); ++i) {
                 doc->replaceText(ranges.at(i)->toRange(), edits.at(i).newText);

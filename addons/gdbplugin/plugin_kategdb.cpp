@@ -72,13 +72,13 @@ KatePluginGDBView::KatePluginGDBView(KTextEditor::Plugin *plugin, KTextEditor::M
     m_toolView.reset(m_mainWin->createToolView(plugin,
                                                i18n("Debug View"),
                                                KTextEditor::MainWindow::Bottom,
-                                               QIcon(QStringLiteral(":/kategdb/22-actions-debug-kategdb.png")),
+                                               QIcon::fromTheme(QStringLiteral("debug-run")),
                                                i18n("Debug View")));
 
     m_localsStackToolView.reset(m_mainWin->createToolView(plugin,
                                                           i18n("Locals and Stack"),
                                                           KTextEditor::MainWindow::Right,
-                                                          QIcon(QStringLiteral(":/kategdb/22-actions-debug-kategdb.png")),
+                                                          QIcon::fromTheme(QStringLiteral("debug-run")),
                                                           i18n("Locals and Stack")));
 
     m_tabWidget = new QTabWidget(m_toolView.get());
@@ -200,7 +200,7 @@ KatePluginGDBView::KatePluginGDBView(KTextEditor::Plugin *plugin, KTextEditor::M
 
     QAction *a = actionCollection()->addAction(QStringLiteral("debug"));
     a->setText(i18n("Start Debugging"));
-    a->setIcon(QIcon(QStringLiteral(":/kategdb/22-actions-debug-kategdb.png")));
+    a->setIcon(QIcon::fromTheme(QStringLiteral("debug-run")));
     connect(a, &QAction::triggered, this, &KatePluginGDBView::slotDebug);
 
     a = actionCollection()->addAction(QStringLiteral("kill"));

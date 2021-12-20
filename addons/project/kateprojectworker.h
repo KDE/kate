@@ -65,6 +65,7 @@ private:
     static QVector<QString> filesFromMercurial(const QDir &dir, bool recursive);
     static QVector<QString> filesFromSubversion(const QDir &dir, bool recursive);
     static QVector<QString> filesFromDarcs(const QDir &dir, bool recursive);
+    static QVector<QString> filesFromFossil(const QDir &dir, bool recursive);
     static QVector<QString> filesFromDirectory(const QDir &dir, bool recursive, const QStringList &filters);
 
     static QVector<QString> gitFiles(const QDir &dir, bool recursive, const QStringList &args);

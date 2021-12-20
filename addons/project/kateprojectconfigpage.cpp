@@ -34,6 +34,8 @@ KateProjectConfigPage::KateProjectConfigPage(QWidget *parent, KateProjectPlugin 
     vbox->addWidget(m_cbAutoSubversion);
     m_cbAutoMercurial = new QCheckBox(i18n("&Mercurial"), this);
     vbox->addWidget(m_cbAutoMercurial);
+    m_cbAutoFossil = new QCheckBox(i18n("&Fossil"), this);
+    vbox->addWidget(m_cbAutoFossil);
 
     vbox->addStretch(1);
     group->setLayout(vbox);
@@ -104,6 +106,7 @@ KateProjectConfigPage::KateProjectConfigPage(QWidget *parent, KateProjectPlugin 
     connect(m_cbAutoGit, &QCheckBox::stateChanged, this, &KateProjectConfigPage::slotMyChanged);
     connect(m_cbAutoSubversion, &QCheckBox::stateChanged, this, &KateProjectConfigPage::slotMyChanged);
     connect(m_cbAutoMercurial, &QCheckBox::stateChanged, this, &KateProjectConfigPage::slotMyChanged);
+    connect(m_cbAutoFossil, &QCheckBox::stateChanged, this, &KateProjectConfigPage::slotMyChanged);
     connect(m_cbIndexEnabled, &QCheckBox::stateChanged, this, &KateProjectConfigPage::slotMyChanged);
     connect(m_indexPath, &KUrlRequester::textChanged, this, &KateProjectConfigPage::slotMyChanged);
     connect(m_indexPath, &KUrlRequester::urlSelected, this, &KateProjectConfigPage::slotMyChanged);
@@ -142,7 +145,8 @@ void KateProjectConfigPage::apply()
 
     m_plugin->setAutoRepository(m_cbAutoGit->checkState() == Qt::Checked,
                                 m_cbAutoSubversion->checkState() == Qt::Checked,
-                                m_cbAutoMercurial->checkState() == Qt::Checked);
+                                m_cbAutoMercurial->checkState() == Qt::Checked,
+                                m_cbAutoFossil->checkState() == Qt::Checked);
     m_plugin->setIndex(m_cbIndexEnabled->checkState() == Qt::Checked, m_indexPath->url());
     m_plugin->setMultiProject(m_cbMultiProjectCompletion->checkState() == Qt::Checked, m_cbMultiProjectGoto->checkState() == Qt::Checked);
 
@@ -156,6 +160,7 @@ void KateProjectConfigPage::reset()
     m_cbAutoGit->setCheckState(m_plugin->autoGit() ? Qt::Checked : Qt::Unchecked);
     m_cbAutoSubversion->setCheckState(m_plugin->autoSubversion() ? Qt::Checked : Qt::Unchecked);
     m_cbAutoMercurial->setCheckState(m_plugin->autoMercurial() ? Qt::Checked : Qt::Unchecked);
+    m_cbAutoFossil->setCheckState(m_plugin->autoFossil() ? Qt::Checked : Qt::Unchecked);
     m_cbIndexEnabled->setCheckState(m_plugin->getIndexEnabled() ? Qt::Checked : Qt::Unchecked);
     m_indexPath->setUrl(m_plugin->getIndexDirectory());
     m_cbMultiProjectCompletion->setCheckState(m_plugin->multiProjectCompletion() ? Qt::Checked : Qt::Unchecked);

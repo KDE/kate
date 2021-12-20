@@ -380,6 +380,10 @@ QVector<QString> KateProjectWorker::findFiles(const QDir &dir, const QVariantMap
         return filesFromDarcs(dir, recursive);
     }
 
+    if (filesEntry[QStringLiteral("fossil")].toBool()) {
+        return filesFromFossil(dir, recursive);
+    }
+
     /**
      * if we arrive here, we have some manual specification of files, no VCS
      */
@@ -608,6 +612,33 @@ QVector<QString> KateProjectWorker::filesFromDarcs(const QDir &dir, bool recursi
         }
 
         files.append(path);
+    }
+
+    return files;
+}
+
+QVector<QString> KateProjectWorker::filesFromFossil(const QDir &dir, bool recursive)
+{
+    QVector<QString> files;
+
+    QProcess fossil;
+    fossil.setWorkingDirectory(dir.absolutePath());
+    QStringList args;
+    args << QStringLiteral("ls");
+    fossil.start(QStringLiteral("fossil"), args, QProcess::ReadOnly);
+    if (!fossil.waitForStarted() || !fossil.waitForFinished(-1)) {
+        return files;
+    }
+
+    const QStringList relFiles = QString::fromLocal8Bit(fossil.readAllStandardOutput()).split(QRegularExpression(QStringLiteral("[\n\r]")), Qt::SkipEmptyParts);
+
+    files.reserve(relFiles.size());
+    for (const QString &relFile : relFiles) {
+        if (!recursive && (relFile.indexOf(QLatin1Char('/')) != -1)) {
+            continue;
+        }
+
+        files.append(relFile);
     }
 
     return files;

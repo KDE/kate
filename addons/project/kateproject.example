@@ -30,6 +30,9 @@ struct
       /// If "svn" is set to "1", the list of files is retrieved by running svn (subversion) in the files directory.
       bool svn;
 
+      /// If "fossil" is set to "1", the list of files is retrieved by running fossil in the files directory.
+      bool fossil;
+
       /// "list" can be set to a list of files.
       vector< string > list;
 

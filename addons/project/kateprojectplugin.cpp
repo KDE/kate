@@ -48,10 +48,12 @@ const QString ProjectFileName = QStringLiteral(".kateproject");
 const QString GitFolderName = QStringLiteral(".git");
 const QString SubversionFolderName = QStringLiteral(".svn");
 const QString MercurialFolderName = QStringLiteral(".hg");
+const QString FossilCheckoutFileName = QStringLiteral(".fslckout");
 
 const QString GitConfig = QStringLiteral("git");
 const QString SubversionConfig = QStringLiteral("subversion");
 const QString MercurialConfig = QStringLiteral("mercurial");
+const QString FossilConfig = QStringLiteral("fossil");
 
 const QStringList DefaultConfig = QStringList() << GitConfig << SubversionConfig << MercurialConfig;
 }
@@ -206,7 +208,7 @@ KateProject *KateProjectPlugin::projectForDir(QDir dir, bool userSpecified)
     for (const QString &dir : directoryStack) {
         // try to invent project based on version control stuff
         KateProject *project = nullptr;
-        if ((project = detectGit(dir)) || (project = detectSubversion(dir)) || (project = detectMercurial(dir))) {
+        if ((project = detectGit(dir)) || (project = detectSubversion(dir)) || (project = detectMercurial(dir)) || (project = detectFossil(dir))) {
             return project;
         }
     }
@@ -346,6 +348,15 @@ KateProject *KateProjectPlugin::detectMercurial(const QDir &dir)
     return nullptr;
 }
 
+KateProject *KateProjectPlugin::detectFossil(const QDir &dir)
+{
+    if (m_autoFossil && dir.exists(FossilCheckoutFileName) && QFileInfo(dir, FossilCheckoutFileName).isReadable()) {
+        return createProjectForRepository(QStringLiteral("fossil"), dir);
+    }
+
+    return nullptr;
+}
+
 KateProject *KateProjectPlugin::createProjectForRepository(const QString &type, const QDir &dir)
 {
     QVariantMap cnf, files;
@@ -378,11 +389,12 @@ KateProject *KateProjectPlugin::createProjectForDirectory(const QDir &dir)
     return project;
 }
 
-void KateProjectPlugin::setAutoRepository(bool onGit, bool onSubversion, bool onMercurial)
+void KateProjectPlugin::setAutoRepository(bool onGit, bool onSubversion, bool onMercurial, bool onFossil)
 {
     m_autoGit = onGit;
     m_autoSubversion = onSubversion;
     m_autoMercurial = onMercurial;
+    m_autoFossil = onFossil;
     writeConfig();
 }
 
@@ -399,6 +411,11 @@ bool KateProjectPlugin::autoSubversion() const
 bool KateProjectPlugin::autoMercurial() const
 {
     return m_autoMercurial;
+}
+
+bool KateProjectPlugin::autoFossil() const
+{
+    return m_autoFossil;
 }
 
 void KateProjectPlugin::setIndex(bool enabled, const QUrl &directory)
@@ -476,6 +493,7 @@ void KateProjectPlugin::readConfig()
     m_autoGit = autorepository.contains(GitConfig);
     m_autoSubversion = autorepository.contains(SubversionConfig);
     m_autoMercurial = autorepository.contains(MercurialConfig);
+    m_autoFossil = autorepository.contains(FossilConfig);
 
     m_indexEnabled = config.readEntry("index", false);
     m_indexDirectory = config.readEntry("indexDirectory", QUrl());
@@ -505,6 +523,10 @@ void KateProjectPlugin::writeConfig()
 
     if (m_autoMercurial) {
         repos << MercurialConfig;
+    }
+
+    if (m_autoFossil) {
+        repos << FossilConfig;
     }
 
     config.writeEntry("autorepository", repos);

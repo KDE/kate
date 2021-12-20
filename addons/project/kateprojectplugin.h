@@ -105,10 +105,11 @@ public:
         return m_document2Project.value(document);
     }
 
-    void setAutoRepository(bool onGit, bool onSubversion, bool onMercurial);
+    void setAutoRepository(bool onGit, bool onSubversion, bool onMercurial, bool onFossil);
     bool autoGit() const;
     bool autoSubversion() const;
     bool autoMercurial() const;
+    bool autoFossil() const;
 
     void setIndex(bool enabled, const QUrl &directory);
     bool getIndexEnabled() const;
@@ -183,6 +184,7 @@ private:
     KateProject *detectGit(const QDir &dir);
     KateProject *detectSubversion(const QDir &dir);
     KateProject *detectMercurial(const QDir &dir);
+    KateProject *detectFossil(const QDir &dir);
 
     void readConfig();
     void writeConfig();
@@ -216,6 +218,7 @@ private:
     bool m_autoGit = true;
     bool m_autoSubversion = true;
     bool m_autoMercurial = true;
+    bool m_autoFossil = true;
 
     // indexing is expensive, default off
     bool m_indexEnabled = false;

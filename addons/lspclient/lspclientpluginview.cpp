@@ -2713,7 +2713,7 @@ public:
         }
 
         if (m_plugin->m_semanticHighlighting) {
-            m_semHighlightingManager.doSemanticHighlighting(activeView);
+            m_semHighlightingManager.doSemanticHighlighting(activeView, true);
         }
 
         if (m_onTypeFormattingTriggers.empty()) {
@@ -2775,7 +2775,7 @@ public:
 
             const bool semHighlightingEnabled = m_plugin->m_semanticHighlighting;
             if (semHighlightingEnabled) {
-                m_semHighlightingManager.doSemanticHighlighting(activeView);
+                m_semHighlightingManager.doSemanticHighlighting(activeView, false);
             }
         }
 

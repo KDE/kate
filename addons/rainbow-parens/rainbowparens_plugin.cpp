@@ -102,8 +102,8 @@ void RainbowParenPluginView::viewChanged(KTextEditor::View *view)
 {
     // disconnect and clear previous doc stuff
     if (m_activeView) {
-        disconnect(view, &KTextEditor::View::verticalScrollPositionChanged, this, &RainbowParenPluginView::rehighlight);
-        disconnect(view, &KTextEditor::View::textInserted, this, &RainbowParenPluginView::rehighlight);
+        disconnect(m_activeView, &KTextEditor::View::verticalScrollPositionChanged, this, &RainbowParenPluginView::rehighlight);
+        disconnect(m_activeView, &KTextEditor::View::textInserted, this, &RainbowParenPluginView::rehighlight);
 
         auto doc = m_activeView->document();
         disconnect(doc, SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document *)), this, SLOT(clearRanges(KTextEditor::Document *)));

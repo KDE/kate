@@ -33,7 +33,7 @@ class SemanticHighlighter : public QObject
 public:
     SemanticHighlighter(QSharedPointer<LSPClientServerManager> serverManager, QObject *parent = nullptr);
 
-    void doSemanticHighlighting(KTextEditor::View *v);
+    void doSemanticHighlighting(KTextEditor::View *v, bool textChanged);
 
 private:
     void doSemanticHighlighting_impl(KTextEditor::View *v);

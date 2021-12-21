@@ -15,7 +15,7 @@ SemanticHighlighter::SemanticHighlighter(QSharedPointer<LSPClientServerManager> 
     : QObject(parent)
     , m_serverManager(std::move(serverManager))
 {
-    m_requestTimer.setInterval(2000);
+    m_requestTimer.setInterval(500);
     m_requestTimer.setSingleShot(true);
     m_requestTimer.connect(&m_requestTimer, &QTimer::timeout, this, [this]() {
         doSemanticHighlighting_impl(m_currentView);
@@ -33,7 +33,7 @@ static KTextEditor::Range getCurrentViewLinesRange(KTextEditor::View *view)
     return KTextEditor::Range(first, 0, last, lastLineLen);
 }
 
-void SemanticHighlighter::doSemanticHighlighting(KTextEditor::View *view)
+void SemanticHighlighter::doSemanticHighlighting(KTextEditor::View *view, bool textChanged)
 {
     // start the timer
     // We dont send the request directly because then there can be too many requests
@@ -42,7 +42,12 @@ void SemanticHighlighter::doSemanticHighlighting(KTextEditor::View *view)
     // This strategy can be problematic if the user keeps typing, but in reality that is
     // unlikely to happen I think
     m_currentView = view;
-    m_requestTimer.start();
+    if (textChanged) {
+        m_requestTimer.start();
+    } else {
+        // This is not a textChange, its either the user scrolled or view changed etc
+        m_requestTimer.start(1);
+    }
 }
 
 void SemanticHighlighter::doSemanticHighlighting_impl(KTextEditor::View *view)
@@ -98,7 +103,7 @@ void SemanticHighlighter::doSemanticHighlighting_impl(KTextEditor::View *view)
 
 void SemanticHighlighter::semanticHighlightRange(KTextEditor::View *view, const KTextEditor::Cursor &)
 {
-    doSemanticHighlighting(view);
+    doSemanticHighlighting(view, false);
 }
 
 QString SemanticHighlighter::previousResultIdForDoc(KTextEditor::Document *doc) const

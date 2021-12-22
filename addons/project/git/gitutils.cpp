@@ -105,14 +105,14 @@ GitUtils::CheckoutResult GitUtils::checkoutNewBranch(const QString &repo, const 
 static GitUtils::Branch parseLocalBranch(const QString &raw)
 {
     static const int len = QStringLiteral("refs/heads/").length();
-    return GitUtils::Branch{raw.mid(len), QString(), GitUtils::Head};
+    return GitUtils::Branch{raw.mid(len), QString(), GitUtils::Head, QString()};
 }
 
 static GitUtils::Branch parseRemoteBranch(const QString &raw)
 {
     static const int len = QStringLiteral("refs/remotes/").length();
     int indexofRemote = raw.indexOf(QLatin1Char('/'), len);
-    return GitUtils::Branch{raw.mid(len), raw.mid(len, indexofRemote - len), GitUtils::Remote};
+    return GitUtils::Branch{raw.mid(len), raw.mid(len, indexofRemote - len), GitUtils::Remote, QString()};
 }
 
 QVector<GitUtils::Branch> GitUtils::getAllBranchesAndTags(const QString &repo, RefType ref)
@@ -148,10 +148,46 @@ QVector<GitUtils::Branch> GitUtils::getAllBranchesAndTags(const QString &repo, R
                 branches.append(parseRemoteBranch(o));
             } else if (ref & Tag && o.startsWith(QLatin1String("refs/tags/"))) {
                 static const int len = QStringLiteral("refs/tags/").length();
-                branches.append({o.mid(len), {}, RefType::Tag});
+                branches.append({o.mid(len), {}, RefType::Tag, QString()});
             }
         }
         // clang-format on
+    }
+
+    return branches;
+}
+
+QVector<GitUtils::Branch> GitUtils::getAllLocalBranchesWithLastCommitSubject(const QString &repo)
+{
+    // git for-each-ref --format '%(refname)' --sort=-committerdate ...
+    QProcess git;
+
+    QStringList args{QStringLiteral("for-each-ref"),
+                     QStringLiteral("--format"),
+                     QStringLiteral("%(refname)[--]%(contents:subject)"),
+                     QStringLiteral("--sort=-committerdate"),
+                     QStringLiteral("refs/heads")};
+
+    setupGitProcess(git, repo, args);
+    git.start(QProcess::ReadOnly);
+    QVector<Branch> branches;
+    if (git.waitForStarted() && git.waitForFinished(-1)) {
+        QByteArray gitout = git.readAllStandardOutput();
+        QByteArrayList rows = gitout.split('\n');
+
+        branches.reserve(rows.size());
+        constexpr int len = sizeof("refs/heads/") - 1;
+        for (const auto &row : rows) {
+            int seperatorIdx = row.indexOf("[--]", len);
+            if (seperatorIdx == -1) {
+                continue;
+            }
+            int commitStart = seperatorIdx + 4;
+            branches << GitUtils::Branch{QString::fromUtf8(row.mid(len, seperatorIdx - len)),
+                                         QString(),
+                                         GitUtils::Head,
+                                         QString::fromUtf8(row.mid(commitStart))};
+        }
     }
 
     return branches;

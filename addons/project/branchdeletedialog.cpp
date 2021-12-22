@@ -22,6 +22,10 @@ BranchDeleteDialog::BranchDeleteDialog(const QString &dotGitPath, QWidget *paren
 
     l->addWidget(&m_listView);
 
+    m_model.setHorizontalHeaderLabels({i18n("Branch"), i18n("Last Commit")});
+
+    m_listView.setUniformRowHeights(true);
+    m_listView.setRootIsDecorated(false);
     m_listView.setModel(&m_model);
 
     // setup the buttons
@@ -49,7 +53,10 @@ BranchDeleteDialog::BranchDeleteDialog(const QString &dotGitPath, QWidget *paren
 
     l->addWidget(dlgBtns);
 
-    resize(500, 500);
+    m_listView.resizeColumnToContents(0);
+    m_listView.resizeColumnToContents(1);
+
+    resize(m_listView.width() * 1.5, m_listView.height() + l->contentsMargins().top() * 2);
 }
 
 void BranchDeleteDialog::loadBranches(const QString &dotGitPath)
@@ -61,12 +68,13 @@ void BranchDeleteDialog::loadBranches(const QString &dotGitPath)
 #endif
 
     static const auto branchIcon = QIcon::fromTheme(QStringLiteral("vcs-branch"));
-    const auto branches = GitUtils::getAllBranchesAndTags(dotGitPath, GitUtils::RefType::Head);
+    const auto branches = GitUtils::getAllLocalBranchesWithLastCommitSubject(dotGitPath);
     for (const auto &branch : branches) {
-        auto item = new QStandardItem(branchIcon, branch.name);
-        item->setFont(f);
-        item->setCheckable(true);
-        m_model.appendRow(item);
+        auto branchName = new QStandardItem(branchIcon, branch.name);
+        auto branchLastCommit = new QStandardItem(branch.lastCommit);
+        branchName->setFont(f);
+        branchName->setCheckable(true);
+        m_model.appendRow({branchName, branchLastCommit});
     }
 }
 

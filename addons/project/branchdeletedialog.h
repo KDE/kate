@@ -1,7 +1,7 @@
 #include <QDialog>
 #include <QLabel>
-#include <QListView>
 #include <QStandardItemModel>
+#include <QTreeView>
 
 class BranchDeleteDialog : public QDialog
 {
@@ -14,5 +14,5 @@ private:
     void loadBranches(const QString &dotGitPath);
     void updateLabel(QStandardItem *item);
     QStandardItemModel m_model;
-    QListView m_listView;
+    QTreeView m_listView;
 };

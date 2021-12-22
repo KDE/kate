@@ -205,15 +205,13 @@ QPointer<KTextEditor::Document> KateGitBlamePluginView::activeDocument() const
 {
     KTextEditor::View *view = m_mainWindow->activeView();
     if (view && view->document()) {
-        return m_mainWindow->activeView()->document();
+        return view->document();
     }
     return nullptr;
 }
 
 void KateGitBlamePluginView::viewChanged(KTextEditor::View *view)
 {
-    m_blamedLines.clear();
-
     if (m_lastView) {
         qobject_cast<KTextEditor::InlineNoteInterface *>(m_lastView)->unregisterInlineNoteProvider(&m_inlineNoteProvider);
     }
@@ -223,16 +221,29 @@ void KateGitBlamePluginView::viewChanged(KTextEditor::View *view)
         return;
     }
 
+    const auto url = view->document()->url();
+    // This can happen for example if you were looking at a "temporary"
+    // view like a diff. => do nothing
+    if (url.isEmpty() || !url.isValid()) {
+        return;
+    }
+
     qobject_cast<KTextEditor::InlineNoteInterface *>(view)->registerInlineNoteProvider(&m_inlineNoteProvider);
 
-    startBlameProcess(view->document()->url());
+    startBlameProcess(url);
 }
 
 void KateGitBlamePluginView::startBlameProcess(const QUrl &url)
 {
-    if (url.isEmpty() || !url.isValid() || m_blameUrl == url) {
+    // same document? maybe split view? => no work to do, reuse the result we already have
+    if (m_blameUrl == url) {
         return;
     }
+
+    // clear everything
+    m_blameUrl.clear();
+    m_blamedLines.clear();
+    m_blameInfoForHash.clear();
 
     // Kill any existing process...
     if (m_blameInfoProc.state() != QProcess::NotRunning) {

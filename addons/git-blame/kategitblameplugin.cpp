@@ -269,6 +269,21 @@ void KateGitBlamePluginView::showCommitInfo(const QString &hash, KTextEditor::Vi
     startShowProcess(view->document()->url(), hash);
 }
 
+static int nextBlockStart(const QByteArray &out, int from)
+{
+    int next = out.indexOf('\t', from);
+    // tab must be the first character in line for next block
+    if (next > 0 && out[next - 1] != '\n') {
+        next++;
+        // move forward one line
+        next = out.indexOf('\n', next);
+        // try to look for another tab char
+        next = out.indexOf('\t', next);
+        // if not found => end
+    }
+    return next;
+}
+
 void KateGitBlamePluginView::blameFinished(int /*exitCode*/, QProcess::ExitStatus /*exitStatus*/)
 {
     const QByteArray out = m_blameInfoProc.readAllStandardOutput();
@@ -332,7 +347,7 @@ void KateGitBlamePluginView::blameFinished(int /*exitCode*/, QProcess::ExitStatu
             m_blamedLines.back().lineText = out.mid(from, pos - from);
 
             start = next + 1;
-            next = out.indexOf('\t', start);
+            next = nextBlockStart(out, start);
             if (next == -1)
                 break;
             next = out.indexOf('\n', next);
@@ -386,7 +401,7 @@ void KateGitBlamePluginView::blameFinished(int /*exitCode*/, QProcess::ExitStatu
         m_blamedLines.back().lineText = out.mid(from, pos - from);
 
         start = next + 1;
-        next = out.indexOf('\t', start);
+        next = nextBlockStart(out, start);
         if (next == -1)
             break;
         next = out.indexOf('\n', next);

@@ -1561,7 +1561,7 @@ public:
             };
             auto h = responseHandler<QList<LSPWorkspaceFolder>>(prepareResponse(msgid), workspaceFolders);
             Q_EMIT q->workspaceFolders(h, handled);
-        } else if (method == QLatin1String("window/workDoneProgress/create")) {
+        } else if (method == QLatin1String("window/workDoneProgress/create") || method == QLatin1String("client/registerCapability")) {
             // void reply to accept
             // that should trigger subsequent progress notifications
             // for now; also no need to extract supplied token

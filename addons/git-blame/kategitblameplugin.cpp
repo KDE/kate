@@ -284,8 +284,24 @@ static int nextBlockStart(const QByteArray &out, int from)
     return next;
 }
 
-void KateGitBlamePluginView::blameFinished(int /*exitCode*/, QProcess::ExitStatus /*exitStatus*/)
+void KateGitBlamePluginView::sendMessage(const QString &text, bool error)
 {
+    QVariantMap genericMessage;
+    genericMessage.insert(QStringLiteral("type"), error ? QStringLiteral("Error") : QStringLiteral("Info"));
+    genericMessage.insert(QStringLiteral("category"), i18n("Git"));
+    genericMessage.insert(QStringLiteral("categoryIcon"), QIcon(QStringLiteral(":/icons/icons/sc-apps-git.svg")));
+    genericMessage.insert(QStringLiteral("text"), text);
+    Q_EMIT message(genericMessage);
+}
+
+void KateGitBlamePluginView::blameFinished(int exitCode, QProcess::ExitStatus exitStatus)
+{
+    if (exitCode != 0 || exitStatus != QProcess::NormalExit) {
+        QString text = i18n("Git blame failed.");
+        sendMessage(text + QStringLiteral("\n") + QString::fromUtf8(m_blameInfoProc.readAllStandardError()), true);
+        return;
+    }
+
     QByteArray out = m_blameInfoProc.readAllStandardOutput();
     out.replace("\r", ""); // KTextEditor removes all \r characters in the internal buffers
     // printf("recieved output: %d for: git %s\n", out.size(), qPrintable(m_blameInfoProc.arguments().join(QLatin1Char(' '))));
@@ -412,7 +428,8 @@ void KateGitBlamePluginView::blameFinished(int /*exitCode*/, QProcess::ExitStatu
 void KateGitBlamePluginView::showFinished(int exitCode, QProcess::ExitStatus exitStatus)
 {
     if (exitCode != 0 || exitStatus != QProcess::NormalExit) {
-        qWarning() << "Failed to show commit";
+        QString text = i18n("Git blame, show commit failed.");
+        sendMessage(text + QStringLiteral("\n") + QString::fromUtf8(m_showProc.readAllStandardError()), true);
         return;
     }
 

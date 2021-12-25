@@ -710,7 +710,7 @@ void GitWidget::parseStatusReady()
 {
     GitUtils::GitParsedStatus s = m_gitStatusWatcher.result();
 
-    m_model->addItems(std::move(s), m_pluginView->plugin()->showGitStatusWithNumStat());
+    m_model->setStatusItems(std::move(s), m_pluginView->plugin()->showGitStatusWithNumStat());
     hideEmptyTreeNodes();
 }
 

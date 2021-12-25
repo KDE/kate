@@ -160,7 +160,7 @@ QVariant GitStatusModel::data(const QModelIndex &index, int role) const
 
     return {};
 }
-void GitStatusModel::addItems(GitUtils::GitParsedStatus status, bool numStat)
+void GitStatusModel::setStatusItems(GitUtils::GitParsedStatus status, bool numStat)
 {
     beginResetModel();
     m_nodes[Staged] = std::move(status.staged);

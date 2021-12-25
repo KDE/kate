@@ -155,6 +155,8 @@ QVariant GitStatusModel::data(const QModelIndex &index, int role) const
             } else if (index.column() == 1 && rootIndex == 0) {
                 return KColorScheme().foreground(KColorScheme::PositiveText).color();
             }
+        } else if (role == Role::GitItemType) {
+            return (ItemType)rootIndex;
         }
     }
 
@@ -169,15 +171,4 @@ void GitStatusModel::setStatusItems(GitUtils::GitParsedStatus status, bool numSt
     m_nodes[Untrack] = std::move(status.untracked);
     m_showNumStat = numStat;
     endResetModel();
-}
-
-QVector<int> GitStatusModel::emptyRows()
-{
-    QVector<int> empty;
-    for (int i = 0; i < 4; ++i) {
-        if (m_nodes[i].isEmpty()) {
-            empty.append(i);
-        }
-    }
-    return empty;
 }

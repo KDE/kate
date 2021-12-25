@@ -54,6 +54,8 @@
 #include <KTextEditor/Message>
 #include <KTextEditor/View>
 
+#include <kfts_fuzzy_match.h>
+
 class NumStatStyle final : public QStyledItemDelegate
 {
 public:
@@ -120,6 +122,54 @@ public:
 
 private:
     KateProjectPlugin *m_plugin;
+};
+
+class StatusProxyModel : public QSortFilterProxyModel
+{
+public:
+    using QSortFilterProxyModel::QSortFilterProxyModel;
+
+    bool isTopLevel(const QModelIndex &idx) const
+    {
+        return !idx.isValid();
+    }
+
+    bool filterAcceptsRow(int sourceRow, const QModelIndex &parent) const override
+    {
+        // top level node
+        auto index = sourceModel()->index(sourceRow, 0, parent);
+        if (isTopLevel(parent)) {
+            // Staged are always visible
+            if (index.row() == GitStatusModel::ItemType::NodeStage)
+                return true;
+
+            // otherwise visible only if rowCount > 0
+            return sourceModel()->rowCount(index) > 0;
+        }
+
+        if (!index.isValid()) {
+            return false;
+        }
+
+        // no pattern => everything visible
+        if (m_text.isEmpty()) {
+            return true;
+        }
+
+        const QString file = index.data().toString();
+        int s = 0; // not using score atm
+        return kfts::fuzzy_match(m_text, file, s);
+    }
+
+    void setFilterText(const QString &text)
+    {
+        beginResetModel();
+        m_text = text;
+        endResetModel();
+    }
+
+private:
+    QString m_text;
 };
 
 class GitWidgetTreeView : public QTreeView
@@ -212,12 +262,21 @@ GitWidget::GitWidget(KateProject *project, KTextEditor::MainWindow *mainWindow, 
     layout->addLayout(btnsLayout);
     layout->addWidget(m_treeView);
 
+    m_filterLineEdit = new QLineEdit(this);
+    m_filterLineEdit->setPlaceholderText(i18n("Type to filter..."));
+    layout->addWidget(m_filterLineEdit);
+
     m_model = new GitStatusModel(this);
+    auto proxy = new StatusProxyModel(this);
+    proxy->setSourceModel(m_model);
+
+    connect(m_filterLineEdit, &QLineEdit::textChanged, proxy, &StatusProxyModel::setFilterText);
+    connect(m_filterLineEdit, &QLineEdit::textChanged, m_treeView, &QTreeView::expandAll);
 
     m_treeView->setUniformRowHeights(true);
     m_treeView->setHeaderHidden(true);
     m_treeView->setSelectionMode(QTreeView::ExtendedSelection);
-    m_treeView->setModel(m_model);
+    m_treeView->setModel(proxy);
     m_treeView->installEventFilter(this);
     m_treeView->setRootIsDecorated(false);
 
@@ -648,7 +707,7 @@ void GitWidget::openCommitChangesDialog(bool amend)
 
 void GitWidget::handleClick(const QModelIndex &idx, ClickAction clickAction)
 {
-    auto type = idx.data(GitStatusModel::TreeItemType);
+    const auto type = idx.data(GitStatusModel::TreeItemType);
     if (type != GitStatusModel::NodeFile) {
         return;
     }
@@ -658,7 +717,8 @@ void GitWidget::handleClick(const QModelIndex &idx, ClickAction clickAction)
     }
 
     const QString file = m_gitPath + idx.data(GitStatusModel::FileNameRole).toString();
-    bool staged = idx.internalId() == GitStatusModel::NodeStage;
+    const auto statusItemType = idx.data(GitStatusModel::GitItemType).value<GitStatusModel::ItemType>();
+    const bool staged = statusItemType == GitStatusModel::NodeStage;
 
     if (clickAction == ClickAction::StageUnstage) {
         if (staged) {
@@ -688,19 +748,20 @@ void GitWidget::treeViewDoubleClicked(const QModelIndex &idx)
 
 void GitWidget::hideEmptyTreeNodes()
 {
-    const auto emptyRows = m_model->emptyRows();
-    m_treeView->expand(m_model->getModelIndex((GitStatusModel::NodeStage)));
-    // 1 because "Staged" will always be visible
-    for (int i = 1; i < 4; ++i) {
-        if (emptyRows.contains(i)) {
-            m_treeView->setRowHidden(i, QModelIndex(), true);
-        } else {
-            m_treeView->setRowHidden(i, QModelIndex(), false);
-            if (i != GitStatusModel::NodeUntrack) {
-                m_treeView->expand(m_model->getModelIndex((GitStatusModel::ItemType)i));
-            }
+    auto expand = [this](GitStatusModel::ItemType t) {
+        auto *model = m_treeView->model();
+        auto index = model->index(t, 0);
+        if (!index.isValid() || index.data(GitStatusModel::TreeItemType).toInt() == GitStatusModel::NodeUntrack) {
+            return;
         }
-    }
+        if (model->rowCount(index) > 0 && !m_treeView->isExpanded(index)) {
+            m_treeView->expand(index);
+        }
+    };
+
+    expand(GitStatusModel::NodeStage);
+    expand(GitStatusModel::NodeChanges);
+    expand(GitStatusModel::NodeConflict);
 
     m_treeView->resizeColumnToContents(0);
     m_treeView->resizeColumnToContents(1);
@@ -907,12 +968,12 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
         }
     }
 
-    auto idx = m_model->index(m_treeView->currentIndex().row(), 0, m_treeView->currentIndex().parent());
-    auto type = idx.data(GitStatusModel::TreeItemType);
+    const auto idx = m_treeView->currentIndex();
+    auto treeItem = idx.data(GitStatusModel::TreeItemType);
 
-    if (type == GitStatusModel::NodeChanges || type == GitStatusModel::NodeUntrack) {
+    if (treeItem == GitStatusModel::NodeChanges || treeItem == GitStatusModel::NodeUntrack) {
         QMenu menu;
-        bool untracked = type == GitStatusModel::NodeUntrack;
+        bool untracked = treeItem == GitStatusModel::NodeUntrack;
 
         auto stageAct = menu.addAction(i18n("Stage All"));
 
@@ -935,7 +996,7 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
         });
 
         if (act == stageAct) {
-            stage(files, type == GitStatusModel::NodeUntrack);
+            stage(files, treeItem == GitStatusModel::NodeUntrack);
         } else if (act == discardAct && !untracked) {
             auto ret = confirm(this, i18n("Are you sure you want to remove these files?"));
             if (ret == KMessageBox::Yes) {
@@ -960,10 +1021,11 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
         } else if (!untracked && act == diff) {
             showDiff(QString(), false);
         }
-    } else if (type == GitStatusModel::NodeFile) {
+    } else if (treeItem == GitStatusModel::NodeFile) {
         QMenu menu;
-        bool staged = idx.internalId() == GitStatusModel::NodeStage;
-        bool untracked = idx.internalId() == GitStatusModel::NodeUntrack;
+        const auto statusItemType = idx.data(GitStatusModel::GitItemType).value<GitStatusModel::ItemType>();
+        const bool staged = statusItemType == GitStatusModel::NodeStage;
+        const bool untracked = statusItemType == GitStatusModel::NodeUntrack;
 
         auto openFile = menu.addAction(i18n("Open file"));
         auto showDiffAct = untracked ? nullptr : menu.addAction(QIcon::fromTheme(QStringLiteral("vcs-diff")), i18n("Show raw diff"));
@@ -1005,7 +1067,7 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
         } else if (act == openFile) {
             m_mainWin->openUrl(QUrl::fromLocalFile(file));
         }
-    } else if (type == GitStatusModel::NodeStage) {
+    } else if (treeItem == GitStatusModel::NodeStage) {
         QMenu menu;
         auto stage = menu.addAction(i18n("Unstage All"));
         auto diff = menu.addAction(i18n("Show diff"));
@@ -1040,16 +1102,23 @@ void GitWidget::selectedContextMenu(QContextMenuEvent *e)
     if (auto selModel = m_treeView->selectionModel()) {
         const auto idxList = selModel->selectedIndexes();
         for (const auto &idx : idxList) {
-            if (idx.internalId() == GitStatusModel::NodeStage) {
-                selectionHasStagedItems = true;
-            } else if (!idx.parent().isValid()) {
-                // can't allow main nodes to be selected
+            // no context menu for multi selection of top level nodes
+            const bool isTopLevel = idx.data(GitStatusModel::TreeItemType).value<GitStatusModel::ItemType>() != GitStatusModel::NodeFile;
+            if (isTopLevel) {
                 return;
-            } else if (idx.internalId() == GitStatusModel::NodeUntrack) {
+            }
+
+            // what type of status item is this?
+            auto type = idx.data(GitStatusModel::GitItemType).value<GitStatusModel::ItemType>();
+
+            if (type == GitStatusModel::NodeStage) {
+                selectionHasStagedItems = true;
+            } else if (type == GitStatusModel::NodeUntrack) {
                 selectionHasUntrackedItems = true;
-            } else if (idx.internalId() == GitStatusModel::NodeChanges) {
+            } else if (type == GitStatusModel::NodeChanges) {
                 selectionHasChangedItems = true;
             }
+
             files.append(idx.data(GitStatusModel::FileNameRole).toString());
         }
     }

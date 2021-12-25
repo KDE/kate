@@ -15,8 +15,16 @@ class GitStatusModel : public QAbstractItemModel
 public:
     explicit GitStatusModel(QObject *parent);
 
-    enum ItemType { NodeStage = 0, NodeChanges, NodeConflict, NodeUntrack, NodeFile };
-    enum Role { TreeItemType = Qt::UserRole + 1, FileNameRole };
+    enum ItemType {
+        NodeStage = 0,
+        NodeChanges,
+        NodeConflict,
+        NodeUntrack,
+        NodeFile,
+    };
+    Q_ENUM(ItemType)
+
+    enum Role { TreeItemType = Qt::UserRole + 1, FileNameRole, GitItemType };
 
 public:
     QModelIndex index(int row, int column, const QModelIndex &parent) const override;
@@ -26,7 +34,6 @@ public:
     QVariant data(const QModelIndex &index, int role) const override;
 
     void setStatusItems(GitUtils::GitParsedStatus status, bool numStat);
-    QVector<int> emptyRows();
 
     const QVector<GitUtils::StatusItem> &untrackedFiles() const
     {

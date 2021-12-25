@@ -24,6 +24,7 @@ class QTemporaryFile;
 class KateProjectPluginView;
 class GitWidgetTreeView;
 class QStackedWidget;
+class QLineEdit;
 
 namespace KTextEditor
 {
@@ -63,6 +64,7 @@ private:
     GitWidgetTreeView *m_treeView;
     GitStatusModel *m_model;
     KateProject *m_project;
+    QLineEdit *m_filterLineEdit;
     /** This ends with "/", always remember this */
     QString m_gitPath;
     QFutureWatcher<GitUtils::GitParsedStatus> m_gitStatusWatcher;

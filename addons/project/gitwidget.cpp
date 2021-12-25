@@ -323,7 +323,8 @@ void GitWidget::getStatus(bool untracked, bool submodules)
             // no error on status failure
             //            sendMessage(QString::fromUtf8(git->readAllStandardError()), true);
         } else {
-            auto future = QtConcurrent::run(GitUtils::parseStatus, git->readAllStandardOutput());
+            const bool withNumStat = m_pluginView->plugin()->showGitStatusWithNumStat();
+            auto future = QtConcurrent::run(GitUtils::parseStatus, git->readAllStandardOutput(), withNumStat, m_gitPath);
             m_gitStatusWatcher.setFuture(future);
         }
         git->deleteLater();
@@ -709,30 +710,8 @@ void GitWidget::parseStatusReady()
 {
     GitUtils::GitParsedStatus s = m_gitStatusWatcher.result();
 
-    if (m_pluginView->plugin()->showGitStatusWithNumStat()) {
-        numStatForStatus(s.changed, true);
-        numStatForStatus(s.staged, false);
-    }
-
     m_model->addItems(std::move(s), m_pluginView->plugin()->showGitStatusWithNumStat());
     hideEmptyTreeNodes();
-}
-
-void GitWidget::numStatForStatus(QVector<GitUtils::StatusItem> &list, bool modified)
-{
-    const auto args = modified ? QStringList{QStringLiteral("diff"), QStringLiteral("--numstat"), QStringLiteral("-z")}
-                               : QStringList{QStringLiteral("diff"), QStringLiteral("--numstat"), QStringLiteral("--staged"), QStringLiteral("-z")};
-
-    QProcess git;
-    setupGitProcess(git, m_gitPath, args);
-    git.start(QProcess::ReadOnly);
-    if (git.waitForStarted() && git.waitForFinished(-1)) {
-        if (git.exitStatus() != QProcess::NormalExit || git.exitCode() != 0) {
-            return;
-        }
-    }
-
-    GitUtils::parseDiffNumStat(list, git.readAllStandardOutput());
 }
 
 void GitWidget::branchCompareFiles(const QString &from, const QString &to)

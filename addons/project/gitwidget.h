@@ -92,7 +92,6 @@ private:
     void launchExternalDiffTool(const QString &file, bool staged);
     void commitChanges(const QString &msg, const QString &desc, bool signOff, bool amend = false);
     void applyDiff(const QString &fileName, bool staged, bool hunk, KTextEditor::View *v);
-    void numStatForStatus(QVector<GitUtils::StatusItem> &list, bool modified);
     void branchCompareFiles(const QString &from, const QString &to);
 
     QMenu *stashMenu();

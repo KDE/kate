@@ -64,7 +64,7 @@ struct GitParsedStatus {
     QVector<StatusItem> changed;
 };
 
-GitParsedStatus parseStatus(const QByteArray &raw);
+GitParsedStatus parseStatus(const QByteArray &raw, bool withNumStat, const QString &workingDir);
 
 void parseDiffNumStat(QVector<GitUtils::StatusItem> &items, const QByteArray &raw);
 

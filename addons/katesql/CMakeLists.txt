@@ -8,7 +8,7 @@ if(NOT KF5Wallet_FOUND OR NOT Qt5Sql_FOUND)
   return()
 endif()
 
-kcoreaddons_add_plugin(katesqlplugin INSTALL_NAMESPACE "ktexteditor")
+kate_add_plugin(katesqlplugin)
 target_compile_definitions(katesqlplugin PRIVATE TRANSLATION_DOMAIN="katesql")
 
 target_link_libraries(

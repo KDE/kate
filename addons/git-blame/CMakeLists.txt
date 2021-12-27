@@ -1,4 +1,4 @@
-kcoreaddons_add_plugin(kategitblameplugin INSTALL_NAMESPACE "ktexteditor")
+kate_add_plugin(kategitblameplugin)
 target_compile_definitions(kategitblameplugin PRIVATE TRANSLATION_DOMAIN="kategitblameplugin")
 target_link_libraries(kategitblameplugin PRIVATE KF5::I18n KF5::TextEditor)
 

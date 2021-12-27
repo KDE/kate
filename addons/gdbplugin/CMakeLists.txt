@@ -3,7 +3,7 @@ if(WIN32)
   return()
 endif()
 
-kcoreaddons_add_plugin(kategdbplugin INSTALL_NAMESPACE "ktexteditor")
+kate_add_plugin(kategdbplugin)
 target_compile_definitions(kategdbplugin PRIVATE TRANSLATION_DOMAIN="kategdbplugin")
 target_link_libraries(kategdbplugin PRIVATE KF5::I18n KF5::TextEditor)
 

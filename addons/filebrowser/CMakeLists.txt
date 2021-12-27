@@ -6,7 +6,7 @@ if(NOT KF5KIO_FOUND)
   return()
 endif()
 
-kcoreaddons_add_plugin(katefilebrowserplugin INSTALL_NAMESPACE "ktexteditor")
+kate_add_plugin(katefilebrowserplugin)
 target_compile_definitions(katefilebrowserplugin PRIVATE TRANSLATION_DOMAIN="katefilebrowserplugin")
 
 target_link_libraries(

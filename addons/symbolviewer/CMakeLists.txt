@@ -1,4 +1,4 @@
-kcoreaddons_add_plugin(katesymbolviewerplugin INSTALL_NAMESPACE "ktexteditor")
+kate_add_plugin(katesymbolviewerplugin)
 target_compile_definitions(katesymbolviewerplugin PRIVATE TRANSLATION_DOMAIN="katesymbolviewer")
 target_link_libraries(katesymbolviewerplugin PRIVATE KF5::I18n KF5::TextEditor)
 

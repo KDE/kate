@@ -5,7 +5,7 @@ if(NOT KF5GuiAddons_FOUND)
   return()
 endif()
 
-kcoreaddons_add_plugin(katefiletreeplugin INSTALL_NAMESPACE "ktexteditor")
+kate_add_plugin(katefiletreeplugin)
 
 target_compile_definitions(katefiletreeplugin PRIVATE TRANSLATION_DOMAIN="katefiletree")
 

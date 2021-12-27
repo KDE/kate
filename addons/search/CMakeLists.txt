@@ -6,7 +6,7 @@ if(NOT KF5ItemViews_FOUND OR NOT Qt5Concurrent_FOUND)
   return()
 endif()
 
-kcoreaddons_add_plugin(katesearchplugin INSTALL_NAMESPACE "ktexteditor")
+kate_add_plugin(katesearchplugin)
 target_compile_definitions(katesearchplugin PRIVATE TRANSLATION_DOMAIN="katesearch")
 
 target_link_libraries(

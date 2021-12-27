@@ -1,4 +1,4 @@
-kcoreaddons_add_plugin(katebuildplugin INSTALL_NAMESPACE "ktexteditor")
+kate_add_plugin(katebuildplugin)
 target_compile_definitions(katebuildplugin PRIVATE TRANSLATION_DOMAIN="katebuild-plugin")
 target_link_libraries(katebuildplugin PRIVATE KF5::I18n KF5::TextEditor)
 

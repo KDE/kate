@@ -3,7 +3,7 @@ remove_definitions(-DQT_NO_CAST_FROM_ASCII)
 remove_definitions(-DQT_NO_URL_CAST_FROM_STRING)
 remove_definitions(-DQT_NO_CAST_FROM_BYTEARRAY)
 
-kcoreaddons_add_plugin(katexmltoolsplugin INSTALL_NAMESPACE "ktexteditor")
+kate_add_plugin(katexmltoolsplugin)
 target_compile_definitions(katexmltoolsplugin PRIVATE TRANSLATION_DOMAIN="katexmltools")
 target_link_libraries(katexmltoolsplugin PRIVATE KF5::I18n KF5::TextEditor)
 

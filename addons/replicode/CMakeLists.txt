@@ -1,4 +1,4 @@
-kcoreaddons_add_plugin(katereplicodeplugin INSTALL_NAMESPACE "ktexteditor")
+kate_add_plugin(katereplicodeplugin)
 target_compile_definitions(katereplicodeplugin PRIVATE TRANSLATION_DOMAIN="kate-replicode-plugin")
 
 target_link_libraries(

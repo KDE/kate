@@ -5,7 +5,7 @@ if(NOT KF5NewStuff_FOUND)
   return()
 endif()
 
-kcoreaddons_add_plugin(katesnippetsplugin INSTALL_NAMESPACE "ktexteditor")
+kate_add_plugin(katesnippetsplugin)
 target_compile_definitions(katesnippetsplugin PRIVATE TRANSLATION_DOMAIN="katesnippetsplugin")
 
 target_link_libraries(

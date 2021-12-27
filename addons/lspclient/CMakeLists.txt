@@ -8,7 +8,7 @@ if(NOT KF5ItemModels_FOUND OR NOT KF5SyntaxHighlighting_FOUND)
   return()
 endif()
 
-kcoreaddons_add_plugin(lspclientplugin INSTALL_NAMESPACE "ktexteditor")
+kate_add_plugin(lspclientplugin)
 target_compile_definitions(lspclientplugin PRIVATE TRANSLATION_DOMAIN="lspclient")
 
 ki18n_wrap_ui(UI_SOURCES lspconfigwidget.ui)

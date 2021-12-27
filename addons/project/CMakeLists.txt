@@ -14,7 +14,7 @@ if(NOT KF5_FOUND OR NOT Qt5Concurrent_FOUND)
   return()
 endif()
 
-kcoreaddons_add_plugin(kateprojectplugin INSTALL_NAMESPACE "ktexteditor")
+kate_add_plugin(kateprojectplugin)
 target_compile_definitions(kateprojectplugin PRIVATE TRANSLATION_DOMAIN="kateproject")
 
 target_link_libraries(

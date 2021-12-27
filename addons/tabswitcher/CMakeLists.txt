@@ -1,4 +1,4 @@
-kcoreaddons_add_plugin(tabswitcherplugin INSTALL_NAMESPACE "ktexteditor")
+kate_add_plugin(tabswitcherplugin)
 target_compile_definitions(tabswitcherplugin PRIVATE TRANSLATION_DOMAIN="tabswitcherplugin")
 target_link_libraries(tabswitcherplugin PRIVATE KF5::I18n KF5::TextEditor)
 

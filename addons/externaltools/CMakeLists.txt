@@ -10,7 +10,7 @@ endif()
 
 find_package(Qt5Test ${QT_MIN_VERSION} QUIET REQUIRED)
 
-kcoreaddons_add_plugin(externaltoolsplugin INSTALL_NAMESPACE "ktexteditor")
+kate_add_plugin(externaltoolsplugin)
 target_compile_definitions(externaltoolsplugin PRIVATE TRANSLATION_DOMAIN="kateexternaltoolsplugin")
 target_link_libraries(externaltoolsplugin PRIVATE
     KF5::CoreAddons

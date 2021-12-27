@@ -1,4 +1,4 @@
-kcoreaddons_add_plugin(katectagsplugin INSTALL_NAMESPACE "ktexteditor")
+kate_add_plugin(katectagsplugin)
 target_compile_definitions(katectagsplugin PRIVATE TRANSLATION_DOMAIN="kate-ctags-plugin")
 target_link_libraries(katectagsplugin PRIVATE KF5::I18n KF5::TextEditor)
 

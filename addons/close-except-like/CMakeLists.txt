@@ -1,4 +1,4 @@
-kcoreaddons_add_plugin(katecloseexceptplugin INSTALL_NAMESPACE "ktexteditor")
+kate_add_plugin(katecloseexceptplugin)
 target_compile_definitions(katecloseexceptplugin PRIVATE TRANSLATION_DOMAIN="katecloseexceptplugin")
 
 target_link_libraries(

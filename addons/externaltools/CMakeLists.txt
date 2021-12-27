@@ -19,7 +19,7 @@ target_link_libraries(externaltoolsplugin PRIVATE
     KF5::I18n
 )
 
-ki18n_wrap_ui(UI_SOURCES configwidget.ui
+ki18n_wrap_ui(externaltoolsplugin configwidget.ui
     tooldialog.ui
     toolview.ui
 )
@@ -34,7 +34,6 @@ target_sources(
     kateexternaltoolscommand.cpp
     kateexternaltoolsconfigwidget.cpp
     plugin.qrc
-    ${UI_SOURCES}
 )
 
 if (BUILD_TESTING)

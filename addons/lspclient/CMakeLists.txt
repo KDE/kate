@@ -11,8 +11,6 @@ endif()
 kate_add_plugin(lspclientplugin)
 target_compile_definitions(lspclientplugin PRIVATE TRANSLATION_DOMAIN="lspclient")
 
-ki18n_wrap_ui(UI_SOURCES lspconfigwidget.ui)
-
 target_link_libraries(
   lspclientplugin
   PRIVATE
@@ -31,6 +29,7 @@ ecm_qt_declare_logging_category(
 )
 target_sources(lspclientplugin PRIVATE ${DEBUG_SOURCES})
 
+ki18n_wrap_ui(lspclientplugin lspconfigwidget.ui)
 target_sources(
   lspclientplugin
   PRIVATE
@@ -50,7 +49,6 @@ target_sources(
     ${CMAKE_SOURCE_DIR}/shared/quickdialog.cpp # hud dialog
 
     plugin.qrc
-    ${UI_SOURCES}
 )
 
 target_include_directories(

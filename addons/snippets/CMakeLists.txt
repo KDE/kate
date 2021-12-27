@@ -16,8 +16,7 @@ target_link_libraries(
     KF5::TextEditor
 )
 
-ki18n_wrap_ui(UI_SOURCES snippetview.ui editrepository.ui editsnippet.ui)
-target_sources(katesnippetsplugin PRIVATE ${UI_SOURCES})
+ki18n_wrap_ui(katesnippetsplugin snippetview.ui editrepository.ui editsnippet.ui)
 
 target_sources(
   katesnippetsplugin

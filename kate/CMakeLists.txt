@@ -57,8 +57,7 @@ if (TARGET KUserFeedbackWidgets)
     target_compile_definitions(kate-lib PUBLIC -DWITH_KUSERFEEDBACK)
 endif()
 
-ki18n_wrap_ui(UI_SOURCES ui/sessionconfigwidget.ui session/katesessionmanagedialog.ui)
-target_sources(kate-lib PRIVATE ${UI_SOURCES})
+ki18n_wrap_ui(kate-lib ui/sessionconfigwidget.ui session/katesessionmanagedialog.ui)
 
 target_sources(
   kate-lib

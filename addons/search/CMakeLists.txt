@@ -18,8 +18,7 @@ target_link_libraries(
     KF5::TextEditor
 )
 
-ki18n_wrap_ui(UI_SOURCES search.ui results.ui MatchExportDialog.ui)
-target_sources(katesearchplugin PRIVATE ${UI_SOURCES})
+ki18n_wrap_ui(katesearchplugin search.ui results.ui MatchExportDialog.ui)
 
 target_sources(
   katesearchplugin

@@ -8,8 +8,7 @@ target_link_libraries(
     KF5::TextEditor
 )
 
-ki18n_wrap_ui(UI_SOURCES config.ui)
-target_sources(katereplicodeplugin PRIVATE ${UI_SOURCES})
+ki18n_wrap_ui(katereplicodeplugin config.ui)
 
 target_sources(
   katereplicodeplugin

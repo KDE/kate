@@ -8,9 +8,7 @@ target_link_libraries(
     KF5::TextEditor
 )
 
-ki18n_wrap_ui(UI_SOURCES close_confirm_dialog.ui)
-target_sources(katecloseexceptplugin PRIVATE ${UI_SOURCES})
-
+ki18n_wrap_ui(katecloseexceptplugin close_confirm_dialog.ui)
 target_sources(
   katecloseexceptplugin
   PRIVATE

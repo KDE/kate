@@ -61,12 +61,7 @@ BranchDeleteDialog::BranchDeleteDialog(const QString &dotGitPath, QWidget *paren
 
 void BranchDeleteDialog::loadBranches(const QString &dotGitPath)
 {
-#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5, 80, 0)
-    QFont f = KTextEditor::Editor::instance()->font();
-#else
-    QFont f = QFontDatabase::systemFont(QFontDatabase::FixedFont);
-#endif
-
+    const auto f = KTextEditor::Editor::instance()->font();
     static const auto branchIcon = QIcon::fromTheme(QStringLiteral("vcs-branch"));
     const auto branches = GitUtils::getAllLocalBranchesWithLastCommitSubject(dotGitPath);
     for (const auto &branch : branches) {

@@ -2574,7 +2574,7 @@ called &eg; <filename>javascript.js</filename> in the local home folder
 Therein, the environment variable <envar>XDG_DATA_HOME</envar> typically expands to
 either <filename>~/.local</filename> or <filename>~/.local/share</filename>.
 </para>
-<para>On &Windows; these files are located in <filename>%USERPROFILE%\AppData\Local\katepart5\indentation</filename>.
+<para>On &Windows; these files are located in <filename>%USERPROFILE%\AppData\Local\katepart5\script\indentation</filename>.
 <replaceable>%USERPROFILE%</replaceable> usually expands to <filename>C:\\Users\\<replaceable>user</replaceable></filename>.</para>
 
 <sect3 id="dev-scripting-indentation-header">
@@ -2692,7 +2692,7 @@ with a different tab width.
 <para>
 A default &kde; installation ships &kappname; with several indenters. The
 corresponding &javascript; source code can be found in <filename>$<envar>XDG_DATA_DIRS</envar>/katepart5/script/indentation</filename>.</para>
-<para>On &Windows; these files are located in <filename>%USERPROFILE%\AppData\Local\katepart5\indentation</filename>.
+<para>On &Windows; these files are located in <filename>%USERPROFILE%\AppData\Local\katepart5\script\indentation</filename>.
 <replaceable>%USERPROFILE%</replaceable> usually expands to <filename>C:\\Users\\<replaceable>user</replaceable></filename>.
 </para>
 
@@ -2729,7 +2729,7 @@ So as a first step, create a new <filename>*.js</filename> file called
 <filename>$<envar>XDG_DATA_HOME</envar>/katepart5/script/commands</filename>.
 Therein, the environment variable <envar>XDG_DATA_HOME</envar> typically expands to
 either <filename>~/.local</filename> or <filename>~/.local/share</filename>.</para>
-<para>On &Windows; these files are located in <filename>%USERPROFILE%\AppData\Local\katepart5\commands</filename>.
+<para>On &Windows; these files are located in <filename>%USERPROFILE%\AppData\Local\katepart5\script\commands</filename>.
 <replaceable>%USERPROFILE%</replaceable> usually expands to <filename>C:\\Users\\<replaceable>user</replaceable></filename>.
 </para>
 
@@ -3265,7 +3265,7 @@ Returns the range as a string of the form <quote><literal>Range(Cursor(line, col
 String read(<parameter>String <replaceable>file</replaceable></parameter>);
 </synopsis></term>
 <listitem><para>
-Will search the given <replaceable>file</replaceable> relative to the <literal>katepart/script/files</literal> directory and return its content as a string.
+Will search the given <replaceable>file</replaceable> relative to the <literal>katepart5/script/files</literal> directory and return its content as a string.
 </para></listitem>
 </varlistentry></variablelist>
 
@@ -3274,7 +3274,7 @@ Will search the given <replaceable>file</replaceable> relative to the <literal>k
 void require(<parameter>String <replaceable>file</replaceable></parameter>);
 </synopsis></term>
 <listitem><para>
-Will search the given <replaceable>file</replaceable> relative to the <literal>katepart/script/libraries</literal> directory and evaluate it.
+Will search the given <replaceable>file</replaceable> relative to the <literal>katepart5/script/libraries</literal> directory and evaluate it.
 <literal>require</literal> is internally guarded against multiple inclusions of the same <replaceable>file</replaceable>.
 </para>
 <para>

@@ -11,7 +11,7 @@
 #include <QMenu>
 #include <QRegularExpression>
 
-MatchExportDialog::MatchExportDialog(QWidget *parent, MatchModel *matchModel, QRegularExpression *regExp)
+MatchExportDialog::MatchExportDialog(QWidget *parent, QAbstractItemModel *matchModel, QRegularExpression *regExp)
     : QDialog(parent)
     , m_matchModel(matchModel)
     , m_regExp(regExp)

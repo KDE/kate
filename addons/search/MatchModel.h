@@ -91,8 +91,6 @@ public:
     /** This function clears all matches in all files */
     void clear();
 
-    KTextEditor::Range matchRange(const QModelIndex &matchIndex) const;
-
     const QVector<KateSearchMatch> &fileMatches(const QUrl &fileUrl) const;
 
     void updateMatchRanges(const QVector<KTextEditor::MovingRange *> &ranges);
@@ -114,9 +112,6 @@ public Q_SLOTS:
      * This is done to update the match tree when we generate the search file list. */
     void setFileListUpdate(const QString &path);
 
-    /** This function is used to replace a single match */
-    bool replaceSingleMatch(KTextEditor::Document *doc, const QModelIndex &matchIndex, const QRegularExpression &regExp, const QString &replaceString);
-
     /** Initiate a replace of all matches that have been checked.
      * The actual replacing is split up into slot calls that are added to the event loop */
     void replaceChecked(const QRegularExpression &regExp, const QString &replaceString);
@@ -127,6 +122,7 @@ public Q_SLOTS:
 Q_SIGNALS:
     void replaceDone();
 
+    // QModelIndex api. Use with care if you are accessing it directly or access through 'Results' instead
 public:
     bool isMatch(const QModelIndex &itemIndex) const;
     QModelIndex fileIndex(const QUrl &url) const;
@@ -137,6 +133,11 @@ public:
     QModelIndex closestMatchBefore(const QUrl &url, const KTextEditor::Cursor &cursor) const;
     QModelIndex nextMatch(const QModelIndex &itemIndex) const;
     QModelIndex prevMatch(const QModelIndex &itemIndex) const;
+
+    KTextEditor::Range matchRange(const QModelIndex &matchIndex) const;
+
+    /** This function is used to replace a single match */
+    bool replaceSingleMatch(KTextEditor::Document *doc, const QModelIndex &matchIndex, const QRegularExpression &regExp, const QString &replaceString);
 
     // Model-View model functions
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
@@ -186,6 +187,8 @@ private:
     QRegularExpression m_regExp;
     QString m_replaceText;
     bool m_cancelReplace = true;
+
+    friend class Results;
 };
 
 Q_DECLARE_METATYPE(KateSearchMatch)

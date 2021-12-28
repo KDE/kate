@@ -27,10 +27,12 @@ target_sources(
     KateSearchCommand.cpp
     MatchExportDialog.cpp
     MatchModel.cpp
+    MatchProxyModel.cpp
     SearchDiskFiles.cpp
     htmldelegate.cpp
     plugin.qrc
     plugin_search.cpp
     search_open_files.cpp
+    Results.cpp
 )
 

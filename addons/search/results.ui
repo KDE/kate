@@ -6,11 +6,11 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>381</width>
-    <height>110</height>
+    <width>689</width>
+    <height>283</height>
    </rect>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout">
+  <layout class="QVBoxLayout" name="verticalLayout">
    <property name="leftMargin">
     <number>0</number>
    </property>
@@ -32,6 +32,9 @@
       <bool>true</bool>
      </property>
     </widget>
+   </item>
+   <item>
+    <widget class="QLineEdit" name="filterLineEdit"/>
    </item>
   </layout>
  </widget>

@@ -30,30 +30,13 @@
 #include "search_open_files.h"
 
 class KateSearchCommand;
+class Results;
 class QPoint;
 namespace KTextEditor
 {
 class MovingRange;
 class MovingInterface;
 }
-
-class Results : public QWidget, public Ui::Results
-{
-    Q_OBJECT
-public:
-    Results(QWidget *parent = nullptr);
-    int matches = 0;
-    QRegularExpression regExp;
-    bool useRegExp = false;
-    bool matchCase = false;
-    QString replaceStr;
-    int searchPlaceIndex = 0;
-    QString treeRootText;
-    MatchModel matchModel;
-
-Q_SIGNALS:
-    void colorsChanged();
-};
 
 // This class keeps the focus inside the S&R plugin when pressing tab/shift+tab by overriding focusNextPrevChild()
 class ContainerWidget : public QWidget

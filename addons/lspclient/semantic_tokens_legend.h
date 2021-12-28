@@ -51,7 +51,7 @@ public:
      */
     void initialize(const std::vector<QString> &types);
 
-    KTextEditor::Attribute::Ptr attributeForTokenType(int idx) const
+    KTextEditor::Attribute::Ptr attributeForTokenType(size_t idx) const
     {
         if (idx >= totalTokenTypes) {
             return {};
@@ -68,7 +68,7 @@ private:
     Q_SLOT void themeChange(KTextEditor::Editor *e);
     void refresh(const std::vector<TokenType> &m_tokenTypes);
 
-    int totalTokenTypes;
+    size_t totalTokenTypes;
     std::vector<KTextEditor::Attribute::Ptr> sharedAttrs;
     KTextEditor::Attribute::Ptr fixedAttrs[7];
 };

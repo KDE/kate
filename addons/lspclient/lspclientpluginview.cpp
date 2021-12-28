@@ -1084,6 +1084,8 @@ public:
         KTextEditor::MarkInterfaceV2 *iface = qobject_cast<KTextEditor::MarkInterfaceV2 *>(doc);
         Q_ASSERT(iface);
         KTextEditor::View *activeView = m_mainWindow->activeView();
+        using Style = KSyntaxHighlighting::Theme::TextStyle;
+        const auto theme = activeView->theme();
         KTextEditor::ConfigInterface *ciface = qobject_cast<KTextEditor::ConfigInterface *>(activeView);
 
         // only consider enabled items
@@ -1130,23 +1132,29 @@ public:
             enabled = true;
             break;
         // use underlining for diagnostics to avoid lots of fancy flickering
-        case RangeData::KindEnum::Error:
+        case RangeData::KindEnum::Error: {
             markType = RangeData::markTypeDiagError;
+            const auto color = theme.textColor(Style::Error);
             attr->setUnderlineStyle(QTextCharFormat::SpellCheckUnderline);
-            attr->setUnderlineColor(Qt::red);
+            attr->setUnderlineColor(color);
             break;
-        case RangeData::KindEnum::Warning:
+        }
+        case RangeData::KindEnum::Warning: {
             markType = RangeData::markTypeDiagWarning;
+            const auto color = theme.textColor(Style::Warning);
             attr->setUnderlineStyle(QTextCharFormat::SpellCheckUnderline);
-            attr->setUnderlineColor(QColor(255, 128, 0));
+            attr->setUnderlineColor(color);
             break;
+        }
         case RangeData::KindEnum::Information:
         case RangeData::KindEnum::Hint:
-        case RangeData::KindEnum::Related:
+        case RangeData::KindEnum::Related: {
             markType = RangeData::markTypeDiagOther;
+            const auto color = theme.textColor(Style::Information);
             attr->setUnderlineStyle(QTextCharFormat::DashUnderline);
-            attr->setUnderlineColor(Qt::blue);
+            attr->setUnderlineColor(color);
             break;
+        }
         }
         if (activeView) {
             attr->setForeground(activeView->defaultStyleAttribute(KTextEditor::dsNormal)->foreground());

@@ -595,7 +595,7 @@ void KateSessionManager::updateJumpListActions(const QStringList &sessionList)
                      newActions.end());
 
     // Limit the number of list entries we like to offer
-    const int maxEntryCount = std::min(sessionList.count(), 10);
+    const int maxEntryCount = std::min<int>(sessionList.count(), 10);
 
     // sessionList is ordered by time, but we like it alphabetical to avoid even more a needed update
     QStringList sessionSubList = sessionList.mid(0, maxEntryCount);

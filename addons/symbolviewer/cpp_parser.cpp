@@ -101,7 +101,7 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
                         macro = 3;
                     }
                     if (macro == 3) {
-                        if (cl.at(j) >= 0x20) {
+                        if (cl.at(j) >= QChar(0x20)) {
                             stripped += cl.at(j);
                         }
                         if (cl.at(j) == QLatin1Char(' ') || cl.at(j) == QLatin1Char('\t') || j == cl.length() - 1) {
@@ -248,7 +248,7 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
                     }
                     if (comment != 2 && comment != 3) {
                         if (block == 1 && graph == 0) {
-                            if (cl.at(j) >= 0x20) {
+                            if (cl.at(j) >= QChar(0x20)) {
                                 stripped += cl.at(j);
                             }
                             if (cl.at(j) == QLatin1Char('(')) {
@@ -283,7 +283,7 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
 
                             if ((cl.at(j) == QLatin1Char('{') && structure == false && cl.indexOf(QLatin1Char(';')) < 0)
                                 || (cl.at(j) == QLatin1Char('{') && structure == false && cl.indexOf(QLatin1Char('}')) > j)) {
-                                stripped.replace(0x9, QLatin1String(" "));
+                                stripped.replace(QChar(0x9), QLatin1String(" "));
                                 if (m_func->isChecked()) {
                                     QString strippedWithTypes = stripped;
                                     if (!m_typesOn->isChecked()) {
@@ -294,8 +294,8 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
                                             stripped = stripped.mid(stripped.indexOf(QLatin1String("::")) + 2);
                                         }
                                         stripped = stripped.trimmed();
-                                        while (stripped.indexOf(0x20) >= 0) {
-                                            stripped = stripped.mid(stripped.indexOf(0x20, 0) + 1);
+                                        while (stripped.indexOf(QChar(0x20)) >= 0) {
+                                            stripped = stripped.mid(stripped.indexOf(QChar(0x20), 0) + 1);
                                         }
                                         while ((stripped.length() > 0) && ((stripped.at(0) == QLatin1Char('*')) || (stripped.at(0) == QLatin1Char('&')))) {
                                             stripped = stripped.right(stripped.length() - 1);
@@ -337,7 +337,7 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
                                 stripped.clear();
                                 break; // Avoid an infinite loop :(
                             }
-                            if (structure == true && cl.at(j) >= 0x20) {
+                            if (structure == true && cl.at(j) >= QChar(0x20)) {
                                 stripped += cl.at(j);
                             }
                         } // BLOCK 2
@@ -385,7 +385,7 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
                                 // break;
                                 continue;
                             }
-                            if (cl.at(j) >= 0x20) {
+                            if (cl.at(j) >= QChar(0x20)) {
                                 stripped += cl.at(j);
                             }
                         } // BLOCK 4

@@ -237,7 +237,7 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
             } // (look for functions)
 
             // look for QML id: ....
-            if (stripped.midRef(c, 3) == QLatin1String("id:")) {
+            if (QStringView(stripped).mid(c, 3) == QLatin1String("id:")) {
                 c += 3;
                 identifier.clear();
                 // parse the id name

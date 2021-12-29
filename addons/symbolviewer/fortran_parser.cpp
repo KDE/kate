@@ -114,7 +114,7 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
                 }
                 if (m_macro->isChecked()) // not really a macro, but a subroutines
                 {
-                    stripped += currline.rightRef(currline.length());
+                    stripped += QStringView(currline).right(currline.length());
                     stripped = stripped.simplified();
                     stripped.remove(QLatin1Char('*'));
                     stripped.remove(QLatin1Char('+'));
@@ -190,7 +190,7 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
             // Functions
             else if (block == 3) {
                 if (m_func->isChecked()) {
-                    stripped += currline.rightRef(currline.length());
+                    stripped += QStringView(currline).right(currline.length());
                     stripped = stripped.trimmed();
                     stripped.remove(QLatin1String("function"));
                     stripped.remove(QLatin1Char('*'));

@@ -62,7 +62,7 @@ QString longestCommonPrefix(std::vector<QString> const &strs)
         for (size_t i = 1; i < strs.size(); i++) {
             if (strs[i][pos] != strs[i - 1][pos]) { // we found a mis-match
                 // reverse search to find path separator
-                const int sepIndex = strs.front().leftRef(pos).lastIndexOf(QLatin1Char('/'));
+                const int sepIndex = QStringView(strs.front()).left(pos).lastIndexOf(QLatin1Char('/'));
                 if (sepIndex >= 0) {
                     pos = sepIndex + 1;
                 }

@@ -161,7 +161,7 @@ public:
         int pos = m_filterString.lastIndexOf(QLatin1Char('/'));
         if (pos > -1) {
             ++pos;
-            auto pattern = m_filterString.midRef(pos);
+            auto pattern = QStringView(m_filterString).mid(pos);
             auto nameFormats = kfts::get_fuzzy_match_formats(pattern, name, 0, fmt);
             formats.append(nameFormats);
         } else {

@@ -10,6 +10,7 @@
 #include "kateapp.h"
 #include "katesessionmanager.h"
 
+#include <QActionGroup>
 #include <QMenu>
 #include <algorithm>
 

@@ -25,7 +25,6 @@
 
 #include <QBoxLayout>
 #include <QCoreApplication>
-#include <QDesktopWidget>
 #include <QEvent>
 #include <QFileInfo>
 #include <QHeaderView>

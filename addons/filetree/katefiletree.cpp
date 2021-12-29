@@ -26,6 +26,7 @@
 #include <KMessageBox>
 #include <KStandardAction>
 
+#include <QActionGroup>
 #include <QApplication>
 #include <QClipboard>
 #include <QContextMenuEvent>

@@ -6,6 +6,7 @@
 */
 #include "katequickopenlineedit.h"
 
+#include <QActionGroup>
 #include <QContextMenuEvent>
 #include <QMenu>
 

@@ -16,6 +16,7 @@
 #include <ktexteditor/mainwindow.h>
 #include <ktexteditor/view.h>
 
+#include <KIO/UDSEntry>
 #include <KParts/Part>
 
 #include <QDragEnterEvent>

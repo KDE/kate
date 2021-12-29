@@ -55,7 +55,6 @@
 #include <KXMLGUIFactory>
 
 #include <QApplication>
-#include <QDesktopWidget>
 #include <QDir>
 #include <QFontDatabase>
 #include <QList>

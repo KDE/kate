@@ -80,7 +80,7 @@ KWrite::KWrite(KTextEditor::Document *doc, KWriteApplication *app)
     guiFactory()->addClient(m_view);
 
     // FIXME: make sure the config dir exists, any idea how to do it more cleanly?
-    QDir(QStandardPaths::writableLocation(QStandardPaths::DataLocation)).mkpath(QStringLiteral("."));
+    QDir(QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation)).mkpath(QStringLiteral("."));
 
     // call it as last thing, must be sure everything is already set up ;)
     setAutoSaveSettings();

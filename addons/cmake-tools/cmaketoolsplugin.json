@@ -1,7 +1,27 @@
 {
     "KPlugin": {
         "Description": "CMake plugin for kate",
+        "Description[az]": "Kate üçün CMake əlavəsi",
+        "Description[ca@valencia]": "Connector de CMake per al Kate",
+        "Description[ca]": "Connector de CMake per al Kate",
+        "Description[es]": "Complemento CMake para Kate",
+        "Description[hu]": "CMake bővítmény a Kate-hez",
+        "Description[ia]": "Plugin de CMake pro Kate",
+        "Description[nl]": "CMake-plug-in voor kate",
+        "Description[sv]": "CMake-insticksprogram för Kate",
+        "Description[uk]": "Додаток CMake до kate",
+        "Description[x-test]": "xxCMake plugin for katexx",
         "Name": "CMake Tools",
+        "Name[az]": "CMake alətləri",
+        "Name[ca@valencia]": "Eines de CMake",
+        "Name[ca]": "Eines de CMake",
+        "Name[es]": "Herramientas CMake",
+        "Name[hu]": "CMake eszközök",
+        "Name[ia]": "Instrumentos de CMake",
+        "Name[nl]": "CMake-hulpmiddelen",
+        "Name[sv]": "CMake-verktyg",
+        "Name[uk]": "Інструменти CMake",
+        "Name[x-test]": "xxCMake Toolsxx",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

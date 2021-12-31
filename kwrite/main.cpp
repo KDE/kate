@@ -41,15 +41,15 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
     // Prohibit using sudo or kdesu (but allow using the root user directly)
     if (getuid() == 0) {
         if (!qEnvironmentVariableIsEmpty("SUDO_USER")) {
-            std::cout << "Executing KWrite with sudo is not possible due to unfixable security vulnerabilities. "
-                         "It is also not necessary; simply use KWrite normally, and you will be prompted for "
-                         "elevated privileges when saving documents if needed."
+            std::cout << "Running KWrite with sudo can cause bugs and expose you to security vulnerabilities. "
+                         "Instead use KWrite normally and you will be prompted for elevated privileges when "
+                         "saving documents if needed."
                       << std::endl;
             return EXIT_FAILURE;
         } else if (!qEnvironmentVariableIsEmpty("KDESU_USER")) {
-            std::cout << "Executing KWrite with kdesu is not possible due to unfixable security vulnerabilities. "
-                         "It is also not necessary; simply use KWrite normally, and you will be prompted for "
-                         "elevated privileges when saving documents if needed."
+            std::cout << "Running KWrite with kdesu can cause bugs and expose you to security vulnerabilities. "
+                         "Instead use KWrite normally and you will be prompted for elevated privileges when "
+                         "saving documents if needed."
                       << std::endl;
             return EXIT_FAILURE;
         }

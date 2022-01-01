@@ -2,14 +2,6 @@
 <ui version="4.0">
  <class>LspConfigWidget</class>
  <widget class="QWidget" name="LspConfigWidget">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>758</width>
-    <height>907</height>
-   </rect>
-  </property>
   <layout class="QVBoxLayout" name="verticalLayout_3">
    <property name="leftMargin">
     <number>0</number>
@@ -34,166 +26,205 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_6">
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout_5">
-         <item>
-          <widget class="QGroupBox" name="groupBox_2">
-           <property name="title">
-            <string>General Options</string>
+        <layout class="QFormLayout" name="formLayout">
+         <property name="formAlignment">
+          <set>Qt::AlignHCenter|Qt::AlignTop</set>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item row="2" column="0">
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>Completions:</string>
            </property>
-           <layout class="QVBoxLayout" name="verticalLayout_2">
-            <item>
-             <widget class="QCheckBox" name="chkComplDoc">
-              <property name="text">
-               <string>Show selected completion documentation</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="chkSignatureHelp">
-              <property name="text">
-               <string>Enable signature help with auto completion</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="chkRefDeclaration">
-              <property name="text">
-               <string>Include declaration in references</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="chkComplParens">
-              <property name="text">
-               <string>Add parentheses upon function completion</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="chkAutoHover">
-              <property name="text">
-               <string>Show hover information</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="chkOnTypeFormatting">
-              <property name="text">
-               <string>Format on typing</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="chkIncrementalSync">
-              <property name="text">
-               <string>Incremental document synchronization</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="chkHighlightGoto">
-              <property name="text">
-               <string>Highlight goto location</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="chkSemanticHighlighting">
-              <property name="text">
-               <string>Enable semantic highlighting</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="chkMessages">
-              <property name="text">
-               <string>Show messages</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout">
-              <item>
-               <widget class="QCheckBox" name="chkDiagnostics">
-                <property name="text">
-                 <string>Show diagnostics notifications</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QCheckBox" name="chkDiagnosticsHighlight">
-                <property name="text">
-                 <string>Add highlights</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QCheckBox" name="chkDiagnosticsMark">
-                <property name="text">
-                 <string>Add markers</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QCheckBox" name="chkDiagnosticsHover">
-                <property name="text">
-                 <string>On hover</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QSpinBox" name="spinDiagnosticsSize">
-                <property name="toolTip">
-                 <string>max diagnostics tooltip size</string>
-                </property>
-                <property name="minimum">
-                 <number>80</number>
-                </property>
-                <property name="maximum">
-                 <number>10240</number>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-           </layout>
           </widget>
          </item>
-         <item>
-          <widget class="QGroupBox" name="groupBox">
-           <property name="title">
-            <string>Symbol Outline Options</string>
+         <item row="2" column="1">
+          <widget class="QCheckBox" name="chkComplDoc">
+           <property name="text">
+            <string>Show inline docs for selected completion</string>
            </property>
-           <layout class="QVBoxLayout" name="verticalLayout">
-            <item>
-             <widget class="QCheckBox" name="chkSymbolDetails">
-              <property name="text">
-               <string>Display symbol details</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="chkSymbolTree">
-              <property name="text">
-               <string>Tree mode outline</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="chkSymbolExpand">
-              <property name="text">
-               <string>Automatically expand nodes in tree mode</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="chkSymbolSort">
-              <property name="text">
-               <string>Sort symbols alphabetically</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
+          </widget>
+         </item>
+         <item row="3" column="1">
+          <widget class="QCheckBox" name="chkSignatureHelp">
+           <property name="text">
+            <string>Show function signature when typing a function call</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="1">
+          <widget class="QCheckBox" name="chkComplParens">
+           <property name="text">
+            <string>Add parentheses upon function completion</string>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="0">
+          <widget class="QLabel" name="label_4">
+           <property name="text">
+            <string>Diagnostics:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="1">
+          <widget class="QCheckBox" name="chkDiagnostics">
+           <property name="text">
+            <string>Show program diagnostics</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="1">
+          <layout class="QVBoxLayout" name="verticalLayout_7">
+           <property name="leftMargin">
+            <number>20</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QCheckBox" name="chkDiagnosticsHighlight">
+             <property name="text">
+              <string>Highlight lines with diagnostics</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="chkDiagnosticsMark">
+             <property name="text">
+              <string>Show markers in the margins for lines with diagnostics</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="chkDiagnosticsHover">
+             <property name="text">
+              <string>Show diagnostics on hover</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="spinDiagnosticsSize">
+             <property name="toolTip">
+              <string>max diagnostics tooltip size</string>
+             </property>
+             <property name="minimum">
+              <number>80</number>
+             </property>
+             <property name="maximum">
+              <number>10240</number>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item row="7" column="0">
+          <widget class="QLabel" name="label_5">
+           <property name="text">
+            <string>Navigation:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="7" column="1">
+          <widget class="QCheckBox" name="chkRefDeclaration">
+           <property name="text">
+            <string>Count declarations when searching for references to a symbol</string>
+           </property>
+          </widget>
+         </item>
+         <item row="8" column="1">
+          <widget class="QCheckBox" name="chkAutoHover">
+           <property name="text">
+            <string>Show information about currently hovered symbol</string>
+           </property>
+          </widget>
+         </item>
+         <item row="9" column="1">
+          <widget class="QCheckBox" name="chkHighlightGoto">
+           <property name="text">
+            <string>Highlight target line when hopping to it</string>
+           </property>
+          </widget>
+         </item>
+         <item row="10" column="0">
+          <widget class="QLabel" name="label_3">
+           <property name="text">
+            <string>Server:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="10" column="1">
+          <widget class="QCheckBox" name="chkMessages">
+           <property name="text">
+            <string>Show notifications from the LSP server</string>
+           </property>
+          </widget>
+         </item>
+         <item row="11" column="1">
+          <widget class="QCheckBox" name="chkIncrementalSync">
+           <property name="text">
+            <string>Incrementally synchronize documents with the LSP server</string>
+           </property>
+          </widget>
+         </item>
+         <item row="13" column="1">
+          <widget class="QCheckBox" name="chkSymbolDetails">
+           <property name="text">
+            <string>Display additional details for symbols</string>
+           </property>
+          </widget>
+         </item>
+         <item row="14" column="1">
+          <widget class="QCheckBox" name="chkSymbolTree">
+           <property name="text">
+            <string>Present symbols in a hierarchy instead of a flat list</string>
+           </property>
+          </widget>
+         </item>
+         <item row="15" column="1">
+          <layout class="QHBoxLayout" name="horizontalLayout_4">
+           <property name="leftMargin">
+            <number>20</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QCheckBox" name="chkSymbolExpand">
+             <property name="text">
+              <string>Automatically expand tree</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item row="12" column="1">
+          <widget class="QCheckBox" name="chkSymbolSort">
+           <property name="text">
+            <string>Sort symbols alphabetically</string>
+           </property>
+          </widget>
+         </item>
+         <item row="12" column="0">
+          <widget class="QLabel" name="label_6">
+           <property name="text">
+            <string>Document outline:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QCheckBox" name="chkSemanticHighlighting">
+           <property name="text">
+            <string>Enable semantic highlighting</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QCheckBox" name="chkOnTypeFormatting">
+           <property name="text">
+            <string>Format on typing</string>
+           </property>
           </widget>
          </item>
         </layout>

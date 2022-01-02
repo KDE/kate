@@ -110,7 +110,7 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
                          QStringLiteral(KWRITE_VERSION),
                          i18n("KWrite - Text Editor"),
                          KAboutLicense::LGPL_V2,
-                         i18n("(c) 2000-2021 The Kate Authors"),
+                         i18n("(c) 2000-2022 The Kate Authors"),
                          QString(),
                          QStringLiteral("https://kate-editor.org"));
 

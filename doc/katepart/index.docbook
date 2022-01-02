@@ -104,7 +104,7 @@ file at the time per window.  Since &kwrite; is a very simple implementation of
 <chapter id="credits">
 <title>Credits and License</title>
 
-<para>&katepart; and &kwrite; Copyright 2001-2021 by the &kate; team.</para>
+<para>&katepart; and &kwrite; Copyright 2001-2022 by the &kate; team.</para>
 
 <para>
 Based on the original &kwrite;, which was Copyright 2000 by Jochen Wilhelmy

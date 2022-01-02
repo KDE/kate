@@ -189,6 +189,7 @@ Keywords=text;txt;editor;programming;programmer;development;developer;
 Keywords[az]=mətn;txt;redaktor;proqramlaşdırılma;proqramlayıcı;tərtibat;tərtibatçı;
 Keywords[ca]=text;txt;editor;programació;programador;desenvolupament;desenvolupador;
 Keywords[ca@valencia]=text;txt;editor;programació;programador;desenvolupament;desenvolupador;
+Keywords[en_GB]=text;txt;editor;programming;programmer;development;developer;
 Keywords[es]=texto;txt;editor;programación;programador;desarrollo;desarrollador;
 Keywords[fr]=texte;txt;éditeur;programmation;programmeur;programmeuse;développement;développeur;développeuse;
 Keywords[hu]=szöveg;txt;szerkesztő;programozás;programozó;fejlesztés;fejlesztő;

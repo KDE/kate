@@ -29,6 +29,7 @@
 
 #include <QClipboard>
 #include <QGuiApplication>
+#include <QScrollBar>
 
 static QString toolsConfigDir()
 {
@@ -337,7 +338,31 @@ void KateExternalToolsPlugin::handleToolFinished(KateToolRunner *runner, int exi
         // updates-enabled trick: avoid some flicker
         const bool wereUpdatesEnabled = view->updatesEnabled();
         view->setUpdatesEnabled(false);
+
+        // Find KateScrollBar
+        const auto scrollBars = view->findChildren<QScrollBar *>();
+        QScrollBar *kateScrollBar = [scrollBars] {
+            for (auto scrollBar : scrollBars) {
+                if (qstrcmp(scrollBar->metaObject()->className(), "KateScrollBar") == 0) {
+                    return scrollBar;
+                }
+            }
+            return static_cast<QScrollBar *>(nullptr);
+        }();
+
+        int value = 0;
+        if (kateScrollBar) {
+            value = kateScrollBar->value();
+        }
+
+        // Reload doc
         view->document()->documentReload();
+
+        // Restore scroll pos
+        if (kateScrollBar) {
+            kateScrollBar->setValue(value);
+        }
+
         view->setUpdatesEnabled(wereUpdatesEnabled);
     }
 

@@ -235,24 +235,26 @@ QVector<KateExternalTool> KateExternalToolsPlugin::defaultTools() const
     return m_defaultTools;
 }
 
-void KateExternalToolsPlugin::runTool(const KateExternalTool &tool, KTextEditor::View *view)
+void KateExternalToolsPlugin::runTool(const KateExternalTool &tool, KTextEditor::View *view, bool executingOnSave)
 {
     // expand the macros in command if any,
     // and construct a command with an absolute path
     auto mw = view->mainWindow();
 
     // save documents if requested
-    if (tool.saveMode == KateExternalTool::SaveMode::CurrentDocument) {
-        // only save if modified, to avoid unnecessary recompiles
-        if (view->document()->isModified()) {
-            view->document()->save();
-        }
-    } else if (tool.saveMode == KateExternalTool::SaveMode::AllDocuments) {
-        const auto guiClients = mw->guiFactory()->clients();
-        for (KXMLGUIClient *client : guiClients) {
-            if (QAction *a = client->actionCollection()->action(QStringLiteral("file_save_all"))) {
-                a->trigger();
-                break;
+    if (!executingOnSave) {
+        if (tool.saveMode == KateExternalTool::SaveMode::CurrentDocument) {
+            // only save if modified, to avoid unnecessary recompiles
+            if (view->document()->isModified()) {
+                view->document()->save();
+            }
+        } else if (tool.saveMode == KateExternalTool::SaveMode::AllDocuments) {
+            const auto guiClients = mw->guiFactory()->clients();
+            for (KXMLGUIClient *client : guiClients) {
+                if (QAction *a = client->actionCollection()->action(QStringLiteral("file_save_all"))) {
+                    a->trigger();
+                    break;
+                }
             }
         }
     }

@@ -91,7 +91,7 @@ public:
     /**
      * Executes the tool based on the view as current document.
      */
-    void runTool(const KateExternalTool &tool, KTextEditor::View *view);
+    void runTool(const KateExternalTool &tool, KTextEditor::View *view, bool executingOnSave = false);
 
 Q_SIGNALS:
     /**

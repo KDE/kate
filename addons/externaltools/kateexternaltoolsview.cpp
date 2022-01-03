@@ -134,7 +134,7 @@ void KateExternalToolsMenuAction::updateActionState(KTextEditor::Document *activ
     for (QAction *action : actions) {
         if (action && action->data().value<KateExternalTool *>()) {
             auto tool = action->data().value<KateExternalTool *>();
-            action->setEnabled(tool->matchesMimetype(mimeType));
+            action->setEnabled(tool->matchesMimetype(mimeType) || tool->mimetypes.isEmpty());
         }
     }
 }
@@ -167,6 +167,10 @@ KateExternalToolsPluginView::KateExternalToolsPluginView(KTextEditor::MainWindow
 
     // ESC should close & hide ToolView
     connect(m_mainWindow, &KTextEditor::MainWindow::unhandledShortcutOverride, this, &KateExternalToolsPluginView::handleEsc);
+    connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, &KateExternalToolsPluginView::slotViewChanged);
+    if (auto view = m_mainWindow->activeView()) {
+        slotViewChanged(view);
+    }
 }
 
 KateExternalToolsPluginView::~KateExternalToolsPluginView()
@@ -260,6 +264,25 @@ void KateExternalToolsPluginView::handleEsc(QEvent *event)
     auto keyEvent = dynamic_cast<QKeyEvent *>(event);
     if (keyEvent && keyEvent->key() == Qt::Key_Escape && keyEvent->modifiers() == Qt::NoModifier) {
         deleteToolView();
+    }
+}
+
+void KateExternalToolsPluginView::slotViewChanged(KTextEditor::View *v)
+{
+    if (m_currentView) {
+        disconnect(m_currentView->document(), &KTextEditor::Document::documentSavedOrUploaded, this, &KateExternalToolsPluginView::documentSaved);
+    }
+    m_currentView = v;
+    connect(v->document(), &KTextEditor::Document::documentSavedOrUploaded, this, &KateExternalToolsPluginView::documentSaved, Qt::UniqueConnection);
+}
+
+void KateExternalToolsPluginView::documentSaved(KTextEditor::Document *doc)
+{
+    const auto tools = m_plugin->tools();
+    for (KateExternalTool *tool : tools) {
+        if (tool->execOnSave && tool->matchesMimetype(doc->mimeType())) {
+            m_plugin->runTool(*tool, m_currentView, tool->execOnSave);
+        }
     }
 }
 

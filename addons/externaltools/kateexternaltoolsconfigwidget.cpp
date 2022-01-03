@@ -156,6 +156,7 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool *t
     ui.edtWorkingDir->setText(m_tool->workingDir);
     ui.edtWorkingDir->setMode(KFile::Directory | KFile::ExistingOnly | KFile::LocalOnly);
     ui.edtMimeType->setText(m_tool->mimetypes.join(QStringLiteral("; ")));
+    ui.edtMimeType->setReadOnly(true);
     ui.cmbSave->setCurrentIndex(static_cast<int>(m_tool->saveMode));
     ui.chkReload->setChecked(m_tool->reload);
     ui.cmbOutput->setCurrentIndex(static_cast<int>(m_tool->outputMode));
@@ -180,6 +181,7 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool *t
             ui.chkReload->setChecked(t.reload);
             ui.cmbOutput->setCurrentIndex(static_cast<int>(t.outputMode));
             ui.edtCommand->setText(t.cmdname);
+            ui.chkExecSave->setChecked(t.execOnSave);
         });
     }
 
@@ -191,6 +193,12 @@ void KateExternalToolServiceEditor::slotOKClicked()
 {
     if (ui.edtName->text().isEmpty() || ui.edtExecutable->text().isEmpty()) {
         QMessageBox::information(this, i18n("External Tool"), i18n("You must specify at least a name and an executable"));
+        return;
+    }
+
+    const bool execOnSave = ui.chkExecSave->isChecked();
+    if (execOnSave && ui.edtMimeType->text().isEmpty()) {
+        QMessageBox::information(this, i18n("External Tool"), i18n("With 'Execute On Save' enabled, at least one mimetype needs to be specified."));
         return;
     }
 
@@ -206,6 +214,7 @@ void KateExternalToolServiceEditor::showMTDlg()
         ui.edtMimeType->setText(d.chooser()->mimeTypes().join(QStringLiteral(";")));
     }
 }
+
 // END KateExternalToolServiceEditor
 
 // BEGIN KateExternalToolsConfigWidget
@@ -346,6 +355,7 @@ bool KateExternalToolsConfigWidget::editTool(KateExternalTool *tool)
         tool->reload = editor.ui.chkReload->isChecked();
         tool->outputMode = static_cast<KateExternalTool::OutputMode>(editor.ui.cmbOutput->currentIndex());
         tool->cmdname = editor.ui.edtCommand->text().trimmed();
+        tool->execOnSave = editor.ui.chkExecSave->isChecked();
 
         tool->executable = editor.ui.edtExecutable->text().trimmed();
         tool->hasexec = tool->checkExec();

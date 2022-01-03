@@ -21,6 +21,8 @@ class View;
 #include <KMacroExpander>
 #include <KXMLGUIClient>
 
+#include <QPointer>
+
 class QTextDocument;
 
 class KActionCollection;
@@ -136,6 +138,10 @@ public Q_SLOTS:
      */
     void handleEsc(QEvent *event);
 
+private Q_SLOTS:
+    void slotViewChanged(KTextEditor::View *v);
+    void documentSaved(KTextEditor::Document *doc);
+
 Q_SIGNALS:
     /**
      * Signal for outgoing message, the host application will handle them!
@@ -151,6 +157,7 @@ private:
     QWidget *m_toolView = nullptr;
     Ui::ToolView *m_ui = nullptr;
     QTextDocument *m_outputDoc = nullptr;
+    QPointer<KTextEditor::View> m_currentView;
 };
 
 #endif // KTEXTEDITOR_EXTERNALTOOLS_H

@@ -101,7 +101,7 @@ bool KateExternalTool::checkExec() const
 
 bool KateExternalTool::matchesMimetype(const QString &mt) const
 {
-    return mimetypes.isEmpty() || mimetypes.contains(mt);
+    return mimetypes.contains(mt);
 }
 
 void KateExternalTool::load(const KConfigGroup &cg)
@@ -119,6 +119,7 @@ void KateExternalTool::load(const KConfigGroup &cg)
     saveMode = toSaveMode(cg.readEntry("save", "None"));
     reload = cg.readEntry("reload", false);
     outputMode = toOutputMode(cg.readEntry("output", "Ignore"));
+    execOnSave = cg.readEntry("execOnSave", false);
 
     hasexec = checkExec();
 }
@@ -148,8 +149,10 @@ void KateExternalTool::save(KConfigGroup &cg) const
     writeEntryMaybe(cg, "cmdname", cmdname);
     writeEntryMaybe(cg, "save", toString(saveMode));
     writeEntryMaybe(cg, "output", toString(outputMode));
+
     // a logical value is never empty
     cg.writeEntry("reload", reload);
+    cg.writeEntry("execOnSave", execOnSave);
 }
 
 QString KateExternalTool::translatedName() const
@@ -166,7 +169,8 @@ bool operator==(const KateExternalTool &lhs, const KateExternalTool &rhs)
 {
     return lhs.category == rhs.category && lhs.name == rhs.name && lhs.icon == rhs.icon && lhs.executable == rhs.executable && lhs.arguments == rhs.arguments
         && lhs.input == rhs.input && lhs.workingDir == rhs.workingDir && lhs.mimetypes == rhs.mimetypes && lhs.actionName == rhs.actionName
-        && lhs.cmdname == rhs.cmdname && lhs.saveMode == rhs.saveMode && lhs.reload == rhs.reload && lhs.outputMode == rhs.outputMode;
+        && lhs.cmdname == rhs.cmdname && lhs.saveMode == rhs.saveMode && lhs.reload == rhs.reload && lhs.outputMode == rhs.outputMode
+        && lhs.execOnSave == rhs.execOnSave;
 }
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

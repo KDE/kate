@@ -73,13 +73,15 @@ public:
     bool reload = false;
     /// Defines where to redirect the tool's output
     OutputMode outputMode = OutputMode::Ignore;
+    /// Whether to execute tool on document save
+    bool execOnSave = false;
 
 public:
     /// This is set when loading the Tool from disk.
     bool hasexec = false;
 
     /**
-     * @return true if mimetypes is empty, or the @p mimetype matches.
+     * @return true if the @p mimetype matches.
      */
     bool matchesMimetype(const QString &mimetype) const;
 

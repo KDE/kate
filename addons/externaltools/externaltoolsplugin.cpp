@@ -55,6 +55,46 @@ static QVector<KateExternalTool> readDefaultTools()
     return tools;
 }
 
+struct KateScrollBarRestorer {
+    KateScrollBarRestorer(KTextEditor::View *view)
+    {
+        // Find KateScrollBar
+        const auto scrollBars = view->findChildren<QScrollBar *>();
+        kateScrollBar = [scrollBars] {
+            for (auto scrollBar : scrollBars) {
+                if (qstrcmp(scrollBar->metaObject()->className(), "KateScrollBar") == 0) {
+                    return scrollBar;
+                }
+            }
+            return static_cast<QScrollBar *>(nullptr);
+        }();
+
+        if (kateScrollBar) {
+            oldScrollValue = kateScrollBar->value();
+        }
+    }
+
+    void restore()
+    {
+        if (kateScrollBar) {
+            kateScrollBar->setValue(oldScrollValue);
+        }
+        restored = true;
+    }
+
+    ~KateScrollBarRestorer()
+    {
+        if (!restored) {
+            restore();
+        }
+    }
+
+private:
+    QPointer<QScrollBar> kateScrollBar = nullptr;
+    int oldScrollValue = 0;
+    bool restored = false;
+};
+
 K_PLUGIN_FACTORY_WITH_JSON(KateExternalToolsFactory, "externaltoolsplugin.json", registerPlugin<KateExternalToolsPlugin>();)
 
 KateExternalToolsPlugin::KateExternalToolsPlugin(QObject *parent, const QList<QVariant> &)
@@ -339,29 +379,12 @@ void KateExternalToolsPlugin::handleToolFinished(KateToolRunner *runner, int exi
         const bool wereUpdatesEnabled = view->updatesEnabled();
         view->setUpdatesEnabled(false);
 
-        // Find KateScrollBar
-        const auto scrollBars = view->findChildren<QScrollBar *>();
-        QScrollBar *kateScrollBar = [scrollBars] {
-            for (auto scrollBar : scrollBars) {
-                if (qstrcmp(scrollBar->metaObject()->className(), "KateScrollBar") == 0) {
-                    return scrollBar;
-                }
-            }
-            return static_cast<QScrollBar *>(nullptr);
-        }();
-
-        int value = 0;
-        if (kateScrollBar) {
-            value = kateScrollBar->value();
-        }
+        KateScrollBarRestorer scrollRestorer(view);
 
         // Reload doc
         view->document()->documentReload();
 
-        // Restore scroll pos
-        if (kateScrollBar) {
-            kateScrollBar->setValue(value);
-        }
+        scrollRestorer.restore();
 
         view->setUpdatesEnabled(wereUpdatesEnabled);
     }

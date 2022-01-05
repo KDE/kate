@@ -317,8 +317,15 @@ void KateGitBlamePluginView::sendMessage(const QString &text, bool error)
 void KateGitBlamePluginView::blameFinished(int exitCode, QProcess::ExitStatus exitStatus)
 {
     if (exitCode != 0 || exitStatus != QProcess::NormalExit) {
+        const auto error = m_blameInfoProc.readAllStandardError();
+
+        // Ignore, this repo doesn't have any commits or not a repo
+        if (error.startsWith("fatal: no such ref: HEAD") || error.startsWith("fatal: not a git repository")) {
+            return;
+        }
+
         QString text = i18n("Git blame failed.");
-        sendMessage(text + QStringLiteral("\n") + QString::fromUtf8(m_blameInfoProc.readAllStandardError()), true);
+        sendMessage(text + QStringLiteral("\n") + QString::fromUtf8(error), true);
         return;
     }
 

@@ -66,7 +66,7 @@ void KateFileActions::renameDocumentFile(QWidget *parent, KTextEditor::Document 
                                                 QLineEdit::Normal,
                                                 oldFileName,
                                                 &ok);
-    if (!ok) {
+    if (!ok || (newFileName == oldFileName)) {
         return;
     }
 

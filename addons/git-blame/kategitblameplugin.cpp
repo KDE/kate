@@ -31,6 +31,11 @@
 #include <QPainter>
 #include <QVariant>
 
+static bool isUncomittedLine(const QByteArray &hash)
+{
+    return hash == "hash" || hash == "0000000000000000000000000000000000000000";
+}
+
 GitBlameInlineNoteProvider::GitBlameInlineNoteProvider(KateGitBlamePluginView *pluginView)
     : KTextEditor::InlineNoteProvider()
     , m_pluginView(pluginView)
@@ -111,6 +116,10 @@ void GitBlameInlineNoteProvider::inlineNoteActivated(const KTextEditor::InlineNo
     if ((buttons & Qt::LeftButton) != 0) {
         int lineNr = note.position().line();
         const CommitInfo &info = m_pluginView->blameInfo(lineNr);
+
+        if (isUncomittedLine(info.hash)) {
+            return;
+        }
 
         // Hack: view->mainWindow()->view() to de-constify view
         Q_ASSERT(note.view() == m_pluginView->activeView());

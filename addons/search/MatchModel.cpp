@@ -112,6 +112,7 @@ void MatchModel::clear()
     beginResetModel();
     m_matchFiles.clear();
     m_matchFileIndexHash.clear();
+    m_lastMatchUrl.clear();
     endResetModel();
 }
 
@@ -132,13 +133,13 @@ void MatchModel::addMatches(const QUrl &fileUrl, const QVector<KateSearchMatch> 
         m_infoUpdateTimer.start();
     }
 
+    if (searchMatches.isEmpty()) {
+        return;
+    }
+
     if (m_matchFiles.isEmpty()) {
         beginInsertRows(QModelIndex(), 0, 0);
         endInsertRows();
-    }
-
-    if (searchMatches.isEmpty()) {
-        return;
     }
 
     int fileIndex = matchFileRow(fileUrl);

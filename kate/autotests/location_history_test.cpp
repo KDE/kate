@@ -229,7 +229,9 @@ void LocationHistoryTest::test_addOnlyIfViewLineCountAwayFromCurrentPos()
 
     // Changing cursor position will only be added to location
     // history if view line count away
+    // ensure the view has some non-null size
     auto view = vm->activeView();
+    view->resize(600, 600);
     int vlc = viewLineCount(view);
     view->setCursorPosition({2 * vlc, 0});
     QCOMPARE(vs->locationHistoryBuffer().size(), 2);

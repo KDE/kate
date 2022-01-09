@@ -11,9 +11,11 @@
         "Description[ia]": "Plugin de CMake pro Kate",
         "Description[it]": "Estensione CMake per kate",
         "Description[nl]": "CMake-plug-in voor kate",
+        "Description[pl]": "Wtyczka CMake dla kate",
         "Description[sv]": "CMake-insticksprogram för Kate",
         "Description[uk]": "Додаток CMake до kate",
         "Description[x-test]": "xxCMake plugin for katexx",
+        "Description[zh_CN]": "Kate 的 CMake 插件",
         "Name": "CMake Tools",
         "Name[az]": "CMake alətləri",
         "Name[ca@valencia]": "Eines de CMake",
@@ -25,9 +27,11 @@
         "Name[ia]": "Instrumentos de CMake",
         "Name[it]": "Strumenti CMake",
         "Name[nl]": "CMake-hulpmiddelen",
+        "Name[pl]": "Narzędzia CMake",
         "Name[sv]": "CMake-verktyg",
         "Name[uk]": "Інструменти CMake",
         "Name[x-test]": "xxCMake Toolsxx",
+        "Name[zh_CN]": "CMake 工具",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

@@ -24,6 +24,12 @@ class KateOutputView : public QWidget
     Q_OBJECT
 
 public:
+    enum Column {
+        Column_Time = 0,
+        Column_Category,
+        Column_LogType,
+        Column_Body,
+    };
     /**
      * Construct new output, we do that once per main window
      * @param mainWindow parent main window
@@ -114,6 +120,13 @@ private:
      * 4 => on log or above
      */
     int m_showOutputViewForMessageType = 1;
+
+    /**
+     * cached categories + log levels to apply
+     * some optimization
+     */
+    QVector<QString> m_seenLogTypes;
+    QVector<QString> m_seenCategories;
 };
 
 #endif

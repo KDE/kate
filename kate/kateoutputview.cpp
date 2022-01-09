@@ -29,13 +29,6 @@
 
 #include <kfts_fuzzy_match.h>
 
-enum Column {
-    Column_Time = 0,
-    Column_Category,
-    Column_LogType,
-    Column_Body,
-};
-
 class KateOutputTreeView : public QTreeView
 {
 public:
@@ -146,9 +139,9 @@ protected:
             return true;
         }
 
-        const auto idxCat = sourceModel()->index(sourceRow, Column_Category, sourceParent);
-        const auto idxType = sourceModel()->index(sourceRow, Column_LogType, sourceParent);
-        const auto idxBody = sourceModel()->index(sourceRow, Column_Body, sourceParent);
+        const auto idxCat = sourceModel()->index(sourceRow, KateOutputView::Column_Category, sourceParent);
+        const auto idxType = sourceModel()->index(sourceRow, KateOutputView::Column_LogType, sourceParent);
+        const auto idxBody = sourceModel()->index(sourceRow, KateOutputView::Column_Body, sourceParent);
 
         const QString cat = idxCat.data().toString();
         const QString type = idxType.data().toString();
@@ -160,7 +153,7 @@ protected:
         const bool rest = kfts::fuzzy_match(m_pattern, type, scoret);
         const bool resb = body.contains(m_pattern, Qt::CaseInsensitive);
 
-        const auto idx = sourceModel()->index(sourceRow, Column_Time, sourceParent);
+        const auto idx = sourceModel()->index(sourceRow, KateOutputView::Column_Time, sourceParent);
         sourceModel()->setData(idx, scorec + scoret, WeightRole);
         return resc || rest || resb;
     }
@@ -221,8 +214,6 @@ KateOutputView::KateOutputView(KateMainWindow *mainWindow, QWidget *parent)
     // tree view
     layout->addLayout(hLayout);
     layout->addWidget(m_messagesTreeView);
-    // read config once
-    readConfig();
 
     // handle config changes
     connect(KateApp::self(), &KateApp::configurationChanged, this, &KateOutputView::readConfig);
@@ -359,18 +350,15 @@ void KateOutputView::slotMessage(const QVariantMap &message)
     /**
      * ensure correct sizing
      */
-    static QVector<QString> seenCategories;
-    if (!seenCategories.contains(categoryColumn->text())) {
-        seenCategories << categoryColumn->text();
+    if (!m_seenCategories.contains(categoryColumn->text())) {
+        m_seenCategories << categoryColumn->text();
         m_messagesTreeView->resizeColumnToContents(Column_Category);
     }
 
-    static QVector<QString> seenTypes;
-    if (!seenTypes.contains(typeColumn->text())) {
-        seenTypes << typeColumn->text();
+    if (!m_seenLogTypes.contains(typeColumn->text())) {
+        m_seenLogTypes << typeColumn->text();
         m_messagesTreeView->resizeColumnToContents(Column_LogType);
     }
-
 
     /**
      * ensure last item is visible

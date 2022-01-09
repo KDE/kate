@@ -20,6 +20,7 @@
 #include <QStyledItemDelegate>
 
 #include <kfts_fuzzy_match.h>
+#include <ktexteditor_utils.h>
 
 static constexpr int SymbolInfoRole = Qt::UserRole + 1;
 
@@ -165,14 +166,6 @@ private:
     QFont monoFont;
 };
 
-static QFont getViewFont(KTextEditor::MainWindow *mainWindow)
-{
-    auto view = mainWindow->activeView();
-    auto ciface = qobject_cast<KTextEditor::ConfigInterface *>(view);
-    Q_ASSERT(ciface);
-    return ciface->configValue(QStringLiteral("font")).value<QFont>();
-}
-
 GotoSymbolHUDDialog::GotoSymbolHUDDialog(KTextEditor::MainWindow *mainWindow, QSharedPointer<LSPClientServer> server)
     : QuickDialog(nullptr, mainWindow->window())
     , model(new QStandardItemModel(this))
@@ -186,7 +179,7 @@ GotoSymbolHUDDialog::GotoSymbolHUDDialog(KTextEditor::MainWindow *mainWindow, QS
     m_treeView.setModel(model);
     auto delegate = new GotoSymbolHUDStyleDelegate(this);
     delegate->setColors();
-    delegate->setFont(getViewFont(mainWindow));
+    delegate->setFont(Utils::editorFont());
     m_treeView.setItemDelegate(delegate);
 
     connect(&m_lineEdit, &QLineEdit::textChanged, this, &GotoSymbolHUDDialog::slotTextChanged);

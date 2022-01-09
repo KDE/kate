@@ -16,6 +16,8 @@
 #include <KColorScheme>
 #include <KLocalizedString>
 
+#include <ktexteditor_utils.h>
+
 class BadLengthHighlighter : public QSyntaxHighlighter
 {
 public:
@@ -60,12 +62,14 @@ static void changeTextColorToRed(QLineEdit *lineEdit, const QColor &red)
     QCoreApplication::sendEvent(lineEdit, &event);
 }
 
-GitCommitDialog::GitCommitDialog(const QString &lastCommit, const QFont &font, QWidget *parent, Qt::WindowFlags f)
+GitCommitDialog::GitCommitDialog(const QString &lastCommit, QWidget *parent, Qt::WindowFlags f)
     : QDialog(parent, f)
 {
     Q_ASSERT(parent);
 
     setWindowTitle(i18n("Commit Changes"));
+
+    QFont font = Utils::editorFont();
 
     ok.setText(i18n("Commit"));
     cancel.setText(i18n("Cancel"));

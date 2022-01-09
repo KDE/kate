@@ -37,6 +37,8 @@
 #include <QPoint>
 #include <QScrollBar>
 
+#include <ktexteditor_utils.h>
+
 static QUrl localFileDirUp(const QUrl &url)
 {
     if (!url.isLocalFile()) {
@@ -889,10 +891,6 @@ void KatePluginSearchView::updateViewColors()
         m_resultAttr->clear();
         m_resultAttr->setBackground(search);
         m_resultAttr->setForeground(fg);
-
-        if (m_curResults) {
-            m_curResults->setDisplayFont(ciface->configValue(QStringLiteral("font")).value<QFont>());
-        }
     }
 }
 

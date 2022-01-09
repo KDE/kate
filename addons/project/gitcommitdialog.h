@@ -19,7 +19,7 @@ class GitCommitDialog : public QDialog
 {
     Q_OBJECT
 public:
-    explicit GitCommitDialog(const QString &lastCommit, const QFont &font, QWidget *parent = nullptr, Qt::WindowFlags f = Qt::WindowFlags());
+    explicit GitCommitDialog(const QString &lastCommit, QWidget *parent = nullptr, Qt::WindowFlags f = Qt::WindowFlags());
 
     QString subject() const;
     QString description() const;

@@ -28,6 +28,8 @@
 #include <KSyntaxHighlighting/Repository>
 #include <KSyntaxHighlighting/State>
 
+#include <ktexteditor_utils.h>
+
 using KSyntaxHighlighting::AbstractHighlighter;
 using KSyntaxHighlighting::Format;
 
@@ -167,6 +169,8 @@ public:
             const QColor normal = theme.textColor(KSyntaxHighlighting::Theme::Normal);
             pal.setColor(QPalette::Text, normal);
             setPalette(pal);
+
+            setFont(Utils::editorFont());
         };
         updateColors(KTextEditor::Editor::instance());
         connect(KTextEditor::Editor::instance(), &KTextEditor::Editor::configChanged, this, updateColors);
@@ -230,10 +234,6 @@ public:
                 m_view->focusProxy()->removeEventFilter(this);
             }
             m_view = view;
-            // update font
-            auto ciface = qobject_cast<KTextEditor::ConfigInterface *>(m_view);
-            auto font = ciface->configValue(QStringLiteral("font")).value<QFont>();
-            setFont(font);
             m_view->focusProxy()->installEventFilter(this);
         }
 

@@ -16,3 +16,8 @@ target_sources(
     plugin.qrc
 )
 
+target_include_directories(
+    katebuildplugin
+    PUBLIC
+    ${CMAKE_SOURCE_DIR}/shared
+)

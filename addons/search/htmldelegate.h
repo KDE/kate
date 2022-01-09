@@ -20,10 +20,6 @@ public:
 
     void paint(QPainter *, const QStyleOptionViewItem &, const QModelIndex &) const override;
     QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override;
-    void setDisplayFont(const QFont &font)
-    {
-        m_font = font;
-    }
 
 private:
     QFont m_font;

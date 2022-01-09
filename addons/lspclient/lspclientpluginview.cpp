@@ -56,9 +56,11 @@
 #include <QTextCodec>
 #include <QTimer>
 #include <QTreeView>
-#include <kfts_fuzzy_match.h>
 #include <unordered_map>
 #include <utility>
+
+#include <kfts_fuzzy_match.h>
+#include <ktexteditor_utils.h>
 
 namespace RangeData
 {
@@ -915,15 +917,6 @@ public:
         clearAllDiagnosticsMarks();
     }
 
-    QFont getEditorFont()
-    {
-        auto ciface = qobject_cast<KTextEditor::ConfigInterface *>(m_mainWindow->activeView());
-        if (ciface) {
-            return ciface->configValue(QStringLiteral("font")).value<QFont>();
-        }
-        return QFont();
-    }
-
     void configureTreeView(QTreeView *treeView)
     {
         treeView->setHeaderHidden(true);
@@ -933,7 +926,7 @@ public:
         treeView->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
         // styling
-        treeView->setItemDelegate(new LocationTreeDelegate(treeView, getEditorFont()));
+        treeView->setItemDelegate(new LocationTreeDelegate(treeView, Utils::editorFont()));
 
         // context menu
         treeView->setContextMenuPolicy(Qt::CustomContextMenu);

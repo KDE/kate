@@ -15,6 +15,7 @@
 #include <QDebug>
 
 #include <kfts_fuzzy_match.h>
+#include <ktexteditor_utils.h>
 
 class LineNumberDelegate : public QStyledItemDelegate
 {
@@ -281,6 +282,10 @@ AsmView::AsmView(QWidget *parent)
         c = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::BackgroundColor));
         palette.setColor(QPalette::Base, c);
         setPalette(palette);
+
+        auto model = static_cast<AsmViewModel *>(this->model());
+        model->setFont(Utils::editorFont());
+
     };
     updateColors();
     connect(KTextEditor::Editor::instance(), &KTextEditor::Editor::configChanged, this, updateColors);

@@ -28,6 +28,7 @@
 #include <QVBoxLayout>
 
 #include <kfts_fuzzy_match.h>
+#include <ktexteditor_utils.h>
 
 class KateOutputTreeView : public QTreeView
 {
@@ -237,14 +238,7 @@ void KateOutputView::readConfig()
     pal.setColor(QPalette::Text, QColor::fromRgba(theme.textColor(KSyntaxHighlighting::Theme::Normal)));
     m_messagesTreeView->setPalette(pal);
 
-    // remove later in favor or Editor::font
-    QFont font;
-    if (const auto ciface = qobject_cast<KTextEditor::ConfigInterface *>(m_mainWindow->activeView())) {
-        font = ciface->configValue(QStringLiteral("font")).value<QFont>();
-    } else {
-        font = QFontDatabase::systemFont(QFontDatabase::FixedFont);
-    }
-    m_messagesTreeView->setFont(font);
+    m_messagesTreeView->setFont(Utils::editorFont());
 }
 
 void KateOutputView::slotMessage(const QVariantMap &message)

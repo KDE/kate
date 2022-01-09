@@ -500,11 +500,6 @@ void CEWidget::doCompile()
         return;
     }
 
-    if (auto ciface = qobject_cast<KTextEditor::ConfigInterface *>(m_textEditor)) {
-        auto font = ciface->configValue(QStringLiteral("font")).value<QFont>();
-        m_model->setFont(font);
-    }
-
     const QString text = doc->text();
     if (text.isEmpty()) {
         return;

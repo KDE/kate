@@ -129,10 +129,3 @@ bool Results::replaceSingleMatch(KTextEditor::Document *doc, const QModelIndex &
     return matchModel.replaceSingleMatch(doc, sourceIndex, regExp, replaceString);
 }
 
-void Results::setDisplayFont(const QFont &f)
-{
-    if (treeView->itemDelegate()) {
-        auto *delegate = static_cast<SPHtmlDelegate *>(treeView->itemDelegate());
-        delegate->setDisplayFont(f);
-    }
-}

@@ -7,11 +7,13 @@
 #include "htmldelegate.h"
 
 #include <KLocalizedString>
+#include <KTextEditor/Editor>
 #include <QAbstractTextDocumentLayout>
 #include <QModelIndex>
 #include <QPainter>
 #include <QTextCharFormat>
 #include <QTextDocument>
+#include <ktexteditor_utils.h>
 
 // make list spacing resemble the default list spacing
 // (which would not be the case with default QTextDocument margin)
@@ -20,6 +22,10 @@ static const int s_ItemMargin = 1;
 SPHtmlDelegate::SPHtmlDelegate(QObject *parent)
     : QStyledItemDelegate(parent)
 {
+    connect(KTextEditor::Editor::instance(), &KTextEditor::Editor::configChanged, this, [this] {
+        m_font = Utils::editorFont();
+    });
+    m_font = Utils::editorFont();
 }
 
 SPHtmlDelegate::~SPHtmlDelegate()

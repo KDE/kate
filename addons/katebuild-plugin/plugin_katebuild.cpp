@@ -54,6 +54,8 @@
 
 #include "SelectTargetView.h"
 
+#include <ktexteditor_utils.h>
+
 K_PLUGIN_FACTORY_WITH_JSON(KateBuildPluginFactory, "katebuildplugin.json", registerPlugin<KateBuildPlugin>();)
 
 static const QString DefConfigCmd = QStringLiteral("cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_EXPORT_COMPILE_COMMANDS=1 ../");
@@ -774,15 +776,9 @@ bool KateBuildView::startProcess(const QString &dir, const QString &command)
     m_buildUi.displayModeSlider->setValue(0);
     m_win->showToolView(m_toolView);
 
-    KTextEditor::View *kv = m_win->activeView();
-    if (kv) {
-        KTextEditor::ConfigInterface *ciface = qobject_cast<KTextEditor::ConfigInterface *>(kv);
-        if (ciface) {
-            QFont font = ciface->configValue(QStringLiteral("font")).value<QFont>();
-            m_buildUi.errTreeWidget->setFont(font);
-            m_buildUi.plainTextEdit->setFont(font);
-        }
-    }
+    QFont font = Utils::editorFont();
+    m_buildUi.errTreeWidget->setFont(font);
+    m_buildUi.plainTextEdit->setFont(font);
 
     // set working directory
     m_make_dir = dir;

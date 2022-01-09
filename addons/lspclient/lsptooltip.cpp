@@ -21,12 +21,12 @@
 #include <KTextEditor/ConfigInterface>
 #include <KTextEditor/Editor>
 #include <KTextEditor/View>
-
 #include <KSyntaxHighlighting/Definition>
 #include <KSyntaxHighlighting/Repository>
 #include <KSyntaxHighlighting/SyntaxHighlighter>
-
 #include <KWindowSystem>
+
+#include <ktexteditor_utils.h>
 
 class Tooltip : public QTextBrowser
 {
@@ -58,7 +58,6 @@ public:
             m_view = view;
 
             hl.setDefinition(KTextEditor::Editor::instance()->repository().definitionForFileName(m_view->document()->url().toString()));
-            updateFont();
 
             if (m_view && m_view->focusProxy()) {
                 m_view->focusProxy()->installEventFilter(this);
@@ -94,7 +93,7 @@ public:
             pal.setColor(QPalette::Text, normal);
             setPalette(pal);
 
-            updateFont();
+            setFont(Utils::editorFont());
         };
         updateColors(KTextEditor::Editor::instance());
         connect(KTextEditor::Editor::instance(), &KTextEditor::Editor::configChanged, this, updateColors);
@@ -132,15 +131,6 @@ public:
             break;
         }
         return false;
-    }
-
-    void updateFont()
-    {
-        if (!m_view)
-            return;
-        auto ciface = qobject_cast<KTextEditor::ConfigInterface *>(m_view);
-        auto font = ciface->configValue(QStringLiteral("font")).value<QFont>();
-        setFont(font);
     }
 
     Q_SLOT void hideTooltip()

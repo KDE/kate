@@ -677,15 +677,7 @@ void GitWidget::openCommitChangesDialog(bool amend)
         return sendMessage(i18n("Nothing to commit. Please stage your changes first."), true);
     }
 
-    auto ciface = qobject_cast<KTextEditor::ConfigInterface *>(m_mainWin->activeView());
-    QFont font;
-    if (ciface) {
-        font = ciface->configValue(QStringLiteral("font")).value<QFont>();
-    } else {
-        font = QFontDatabase::systemFont(QFontDatabase::FixedFont);
-    }
-
-    GitCommitDialog *dialog = new GitCommitDialog(m_commitMessage, font, this);
+    GitCommitDialog *dialog = new GitCommitDialog(m_commitMessage, this);
 
     if (amend) {
         dialog->setAmendingCommit();

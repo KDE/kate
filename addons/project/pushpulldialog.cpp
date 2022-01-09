@@ -14,14 +14,13 @@
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/View>
 
+#include <ktexteditor_utils.h>
+
 PushPullDialog::PushPullDialog(KTextEditor::MainWindow *mainWindow, const QString &repoPath)
     : QuickDialog(nullptr, mainWindow->window())
     , m_repo(repoPath)
 {
-    auto ciface = qobject_cast<KTextEditor::ConfigInterface *>(mainWindow->activeView());
-    Q_ASSERT(ciface);
-    m_lineEdit.setFont(ciface->configValue(QStringLiteral("font")).value<QFont>());
-
+    m_lineEdit.setFont(Utils::editorFont());
     loadLastExecutedCommands();
 }
 

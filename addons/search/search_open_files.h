@@ -40,7 +40,7 @@ private:
     int searchMultiLineRegExp(KTextEditor::Document *doc, const QRegularExpression &regExp, int startLine);
 
 Q_SIGNALS:
-    void matchesFound(const QUrl &url, const QVector<KateSearchMatch> &searchMatches);
+    void matchesFound(const QUrl &url, const QVector<KateSearchMatch> &searchMatches, KTextEditor::Document *doc);
     void searchDone();
     void searching(const QString &file);
 

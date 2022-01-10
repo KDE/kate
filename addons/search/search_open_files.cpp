@@ -130,7 +130,7 @@ int SearchOpenFiles::searchSingleLineRegExp(KTextEditor::Document *doc, const QR
     }
 
     // Q_EMIT all matches batched
-    Q_EMIT matchesFound(doc->url(), matches);
+    Q_EMIT matchesFound(doc->url(), matches, doc);
 
     return resultLine;
 }
@@ -213,7 +213,7 @@ int SearchOpenFiles::searchMultiLineRegExp(KTextEditor::Document *doc, const QRe
     }
 
     // Q_EMIT all matches batched
-    Q_EMIT matchesFound(doc->url(), matches);
+    Q_EMIT matchesFound(doc->url(), matches, doc);
 
     return resultLine;
 }

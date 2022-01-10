@@ -73,20 +73,25 @@ MatchProxyModel *Results::model() const
     return static_cast<MatchProxyModel *>(treeView->model());
 }
 
+bool Results::isEmpty() const
+{
+    return matchModel.isEmpty();
+}
+
 bool Results::isMatch(const QModelIndex &index) const
 {
     Q_ASSERT(index.model() == model());
     return matchModel.isMatch(model()->mapToSource(index));
 }
 
-QModelIndex Results::firstFileMatch(const QUrl &url) const
+QModelIndex Results::firstFileMatch(KTextEditor::Document *doc) const
 {
-    return model()->mapFromSource(matchModel.firstFileMatch(url));
+    return model()->mapFromSource(matchModel.firstFileMatch(doc));
 }
 
-QModelIndex Results::closestMatchAfter(const QUrl &url, const KTextEditor::Cursor &cursor) const
+QModelIndex Results::closestMatchAfter(KTextEditor::Document *doc, const KTextEditor::Cursor &cursor) const
 {
-    return model()->mapFromSource(matchModel.closestMatchAfter(url, cursor));
+    return model()->mapFromSource(matchModel.closestMatchAfter(doc, cursor));
 }
 
 QModelIndex Results::firstMatch() const
@@ -106,9 +111,9 @@ QModelIndex Results::prevMatch(const QModelIndex &itemIndex) const
     return model()->mapFromSource(matchModel.prevMatch(model()->mapToSource(itemIndex)));
 }
 
-QModelIndex Results::closestMatchBefore(const QUrl &url, const KTextEditor::Cursor &cursor) const
+QModelIndex Results::closestMatchBefore(KTextEditor::Document *doc, const KTextEditor::Cursor &cursor) const
 {
-    return model()->mapFromSource(matchModel.closestMatchBefore(url, cursor));
+    return model()->mapFromSource(matchModel.closestMatchBefore(doc, cursor));
 }
 
 QModelIndex Results::lastMatch() const

@@ -842,13 +842,13 @@ void KatePluginSearchView::searchPlaceChanged()
     }
 }
 
-void KatePluginSearchView::matchesFound(const QUrl &url, const QVector<KateSearchMatch> &searchMatches)
+void KatePluginSearchView::matchesFound(const QUrl &url, const QVector<KateSearchMatch> &searchMatches, KTextEditor::Document *doc)
 {
     if (!m_curResults) {
         return;
     }
 
-    m_curResults->matchModel.addMatches(url, searchMatches);
+    m_curResults->matchModel.addMatches(url, searchMatches, doc);
     m_curResults->matches += searchMatches.size();
 }
 
@@ -1369,6 +1369,12 @@ void KatePluginSearchView::replaceChecked()
     // Sync the current documents ranges with the model in case it has been edited
     syncModelRanges();
 
+    // Clear match marks and ranges
+    // we MUST do this because after we are done replacing, our current moving ranges
+    // destroy the replace ranges and we don't get the highlights for replace for the
+    // current open doc
+    clearMarksAndRanges();
+
     if (m_ui.searchCombo->findText(m_ui.searchCombo->currentText()) == -1) {
         m_ui.searchCombo->insertItem(1, m_ui.searchCombo->currentText());
         m_ui.searchCombo->setCurrentIndex(1);
@@ -1494,7 +1500,7 @@ void KatePluginSearchView::addRangeAndMark(KTextEditor::Document *doc,
             }
         } else {
             if (doc->text(match.range) != match.replaceText) {
-                /// qDebug() << doc->text(range) << "Does not match" << itemIndex.data(MatchModel::ReplaceTextRole).toString();
+                // qDebug() << doc->text(match.range) << "Does not match" << match.replaceText;
                 return;
             }
         }
@@ -1549,7 +1555,7 @@ void KatePluginSearchView::updateMatchMarks()
     }
 
     Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
-    if (!res) {
+    if (!res || res->isEmpty()) {
         return;
     }
     m_curResults = res;
@@ -1571,7 +1577,7 @@ void KatePluginSearchView::updateMatchMarks()
     KTextEditor::MovingInterface *miface = qobject_cast<KTextEditor::MovingInterface *>(doc);
 
     // Add match marks for all matches in the file
-    const QVector<KateSearchMatch> &fileMatches = res->matchModel.fileMatches(doc->url());
+    const QVector<KateSearchMatch> &fileMatches = res->matchModel.fileMatches(doc);
     for (const KateSearchMatch &match : fileMatches) {
         addRangeAndMark(doc, match, m_resultAttr, miface);
     }
@@ -1630,14 +1636,26 @@ void KatePluginSearchView::itemSelected(const QModelIndex &item)
     int toLine = matchItem.data(MatchModel::StartLineRole).toInt();
     int toColumn = matchItem.data(MatchModel::StartColumnRole).toInt();
     QUrl url = matchItem.data(MatchModel::FileUrlRole).toUrl();
-    KTextEditor::Document *doc = m_kateApp->findUrl(url);
 
-    // add the marks to the document if it is not already open
-    if (!doc) {
-        doc = m_kateApp->openUrl(url);
+    // If this url is invalid, it could be that we are searching an unsaved file
+    // use doc ptr in that case.
+    KTextEditor::Document *doc = nullptr;
+    if (url.isValid()) {
+        doc = m_kateApp->findUrl(url);
+        // add the marks to the document if it is not already open
+        if (!doc) {
+            doc = m_kateApp->openUrl(url);
+        }
+    } else {
+        doc = matchItem.data(MatchModel::DocumentRole).value<KTextEditor::Document *>();
+        if (!doc) {
+            // maybe the doc was closed
+            return;
+        }
     }
+
     if (!doc) {
-        qDebug() << "Could not open" << url;
+        qWarning() << "Could not open" << url;
         Q_ASSERT(false); // If we get here we have a bug
         return;
     }
@@ -1673,17 +1691,17 @@ void KatePluginSearchView::goToNextMatch()
     if (!currentIndex.isValid() && focusInView) {
         // no item has been visited && focus is not in searchCombo (probably in the view) ->
         // jump to the closest match after current cursor position
-        QUrl docUrl = m_mainWindow->activeView()->document()->url();
+        auto *doc = m_mainWindow->activeView()->document();
 
         // check if current file is in the file list
-        currentIndex = res->firstFileMatch(docUrl);
+        currentIndex = res->firstFileMatch(doc);
         if (currentIndex.isValid()) {
             // We have the index of the first match in the file
             // expand the file item
             res->treeView->expand(currentIndex.parent());
 
             // check if we can get the next match after the
-            currentIndex = res->closestMatchAfter(docUrl, m_mainWindow->activeView()->cursorPosition());
+            currentIndex = res->closestMatchAfter(doc, m_mainWindow->activeView()->cursorPosition());
             if (currentIndex.isValid()) {
                 itemSelected(currentIndex);
                 delete m_infoMessage;
@@ -1750,17 +1768,17 @@ void KatePluginSearchView::goToPreviousMatch()
     if (!currentIndex.isValid() && focusInView) {
         // no item has been visited && focus is not in the view ->
         // jump to the closest match before current cursor position
-        QUrl docUrl = m_mainWindow->activeView()->document()->url();
+        auto *doc = m_mainWindow->activeView()->document();
 
         // check if current file is in the file list
-        currentIndex = res->firstFileMatch(docUrl);
+        currentIndex = res->firstFileMatch(doc);
         if (currentIndex.isValid()) {
             // We have the index of the first match in the file
             // expand the file item
             res->treeView->expand(currentIndex.parent());
 
             // check if we can get the next match after the
-            currentIndex = res->closestMatchBefore(docUrl, m_mainWindow->activeView()->cursorPosition());
+            currentIndex = res->closestMatchBefore(doc, m_mainWindow->activeView()->cursorPosition());
             if (currentIndex.isValid()) {
                 itemSelected(currentIndex);
                 delete m_infoMessage;

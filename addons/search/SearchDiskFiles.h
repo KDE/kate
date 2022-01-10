@@ -171,7 +171,7 @@ public:
     void run() override;
 
 Q_SIGNALS:
-    void matchesFound(const QUrl &url, const QVector<KateSearchMatch> &searchMatches);
+    void matchesFound(const QUrl &url, const QVector<KateSearchMatch> &searchMatches, KTextEditor::Document *doc = nullptr);
 
 private:
     QVector<KateSearchMatch> searchSingleLineRegExp(QFile &file);

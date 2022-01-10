@@ -20,16 +20,17 @@ public:
     QString treeRootText;
     MatchModel matchModel;
 
+    bool isEmpty() const;
     void setFilterLineVisible(bool visible);
     void expandRoot();
     bool isMatch(const QModelIndex &index) const;
     class MatchProxyModel *model() const;
-    QModelIndex firstFileMatch(const QUrl &url) const;
-    QModelIndex closestMatchAfter(const QUrl &url, const KTextEditor::Cursor &cursor) const;
+    QModelIndex firstFileMatch(KTextEditor::Document *doc) const;
+    QModelIndex closestMatchAfter(KTextEditor::Document *doc, const KTextEditor::Cursor &cursor) const;
     QModelIndex firstMatch() const;
     QModelIndex nextMatch(const QModelIndex &itemIndex) const;
     QModelIndex prevMatch(const QModelIndex &itemIndex) const;
-    QModelIndex closestMatchBefore(const QUrl &url, const KTextEditor::Cursor &cursor) const;
+    QModelIndex closestMatchBefore(KTextEditor::Document *doc, const KTextEditor::Cursor &cursor) const;
     QModelIndex lastMatch() const;
     KTextEditor::Range matchRange(const QModelIndex &matchIndex) const;
     bool replaceSingleMatch(KTextEditor::Document *doc, const QModelIndex &matchIndex, const QRegularExpression &regExp, const QString &replaceString);

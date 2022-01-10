@@ -118,7 +118,7 @@ private Q_SLOTS:
 
     void folderFileListChanged();
 
-    void matchesFound(const QUrl &url, const QVector<KateSearchMatch> &searchMatches);
+    void matchesFound(const QUrl &url, const QVector<KateSearchMatch> &searchMatches, KTextEditor::Document *doc);
 
     void addRangeAndMark(KTextEditor::Document *doc, const KateSearchMatch &match, KTextEditor::Attribute::Ptr attr, KTextEditor::MovingInterface *miface);
 

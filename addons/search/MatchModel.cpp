@@ -85,7 +85,14 @@ void MatchModel::setSearchState(MatchModel::SearchState searchState)
             return l.fileUrl < r.fileUrl;
         });
         for (int i = 0; i < m_matchFiles.size(); ++i) {
-            m_matchFileIndexHash[m_matchFiles[i].fileUrl] = i;
+            if (m_matchFiles.at(i).fileUrl.isValid()) {
+                m_matchFileIndexHash[m_matchFiles[i].fileUrl] = i;
+            } else if (m_matchFiles.at(i).doc) {
+                m_matchUnsavedFileIndexHash[m_matchFiles.at(i).doc] = i;
+            } else {
+                qWarning() << "Trying to setSearchState for invalid doc";
+                Q_UNREACHABLE();
+            }
         }
         endResetModel();
     }
@@ -112,19 +119,24 @@ void MatchModel::clear()
     beginResetModel();
     m_matchFiles.clear();
     m_matchFileIndexHash.clear();
+    m_matchUnsavedFileIndexHash.clear();
     m_lastMatchUrl.clear();
     endResetModel();
 }
 
 /** This function returns the row index of the specified file.
  * If the file does not exist in the model, the file will be added to the model. */
-int MatchModel::matchFileRow(const QUrl &fileUrl) const
+int MatchModel::matchFileRow(const QUrl &fileUrl, KTextEditor::Document *doc) const
 {
-    return m_matchFileIndexHash.value(fileUrl, -1);
+    const int ret = m_matchFileIndexHash.value(fileUrl, -1);
+    if (ret != -1) {
+        return ret;
+    }
+    return m_matchUnsavedFileIndexHash.value(doc, -1);
 }
 
 /** This function is used to add a match to a new file */
-void MatchModel::addMatches(const QUrl &fileUrl, const QVector<KateSearchMatch> &searchMatches)
+void MatchModel::addMatches(const QUrl &fileUrl, const QVector<KateSearchMatch> &searchMatches, KTextEditor::Document *doc)
 {
     m_lastMatchUrl = fileUrl;
     m_searchState = Searching;
@@ -142,14 +154,24 @@ void MatchModel::addMatches(const QUrl &fileUrl, const QVector<KateSearchMatch> 
         endInsertRows();
     }
 
-    int fileIndex = matchFileRow(fileUrl);
+    int fileIndex = matchFileRow(fileUrl, doc);
     if (fileIndex == -1) {
         fileIndex = m_matchFiles.size();
-        m_matchFileIndexHash.insert(fileUrl, fileIndex);
+
+        if (fileUrl.isValid()) {
+            m_matchFileIndexHash.insert(fileUrl, fileIndex);
+        } else if (doc) {
+            m_matchUnsavedFileIndexHash.insert(doc, fileIndex);
+        } else {
+            qWarning() << "Trying to insert invalid match, url is invalid, doc is null";
+            Q_UNREACHABLE();
+        }
+
         beginInsertRows(createIndex(0, 0, InfoItemId), fileIndex, fileIndex);
         // We are always starting the insert at the end, so we could optimize by delaying/grouping the signaling of the updates
         m_matchFiles.append(MatchFile());
         m_matchFiles[fileIndex].fileUrl = fileUrl;
+        m_matchFiles[fileIndex].doc = doc;
         endInsertRows();
     }
 
@@ -190,12 +212,12 @@ KTextEditor::Range MatchModel::matchRange(const QModelIndex &matchIndex) const
     return m_matchFiles[fileRow].matches[matchRow].range;
 }
 
-const QVector<KateSearchMatch> &MatchModel::fileMatches(const QUrl &fileUrl) const
+const QVector<KateSearchMatch> &MatchModel::fileMatches(KTextEditor::Document *doc) const
 {
-    static const QVector<KateSearchMatch> EmptyDummy;
-
-    int row = matchFileRow(fileUrl);
+    int row = matchFileRow(doc->url(), doc);
     if (row < 0 || row >= m_matchFiles.size()) {
+        qWarning() << "fileMatches, matches requested for invalid doc: " << doc << doc->url();
+        static const QVector<KateSearchMatch> EmptyDummy;
         return EmptyDummy;
     }
     return m_matchFiles[row].matches;
@@ -207,11 +229,12 @@ void MatchModel::updateMatchRanges(const QVector<KTextEditor::MovingRange *> &ra
         return;
     }
 
-    const QUrl &fileUrl = ranges.first()->document()->url();
+    auto *doc = ranges.first()->document();
+    const QUrl fileUrl = doc->url();
     // NOTE: we assume there are only ranges for one document in the provided ranges
     // NOTE: we also assume the document is not deleted as we clear the ranges when the document is deleted
 
-    int fileRow = matchFileRow(fileUrl);
+    int fileRow = matchFileRow(fileUrl, doc);
     if (fileRow < 0 || fileRow >= m_matchFiles.size()) {
         // qDebug() << "No such results" << fileRow << fileUrl;
         return; // No such document in the results
@@ -221,7 +244,7 @@ void MatchModel::updateMatchRanges(const QVector<KTextEditor::MovingRange *> &ra
 
     if (ranges.size() != matches.size()) {
         // The sizes do not match so we cannot match the ranges easily.. abort
-        qDebug() << ranges.size() << "!=" << matches.size();
+        qDebug() << __func__ << ranges.size() << "!=" << matches.size() << fileUrl << doc;
         return;
     }
 
@@ -357,21 +380,28 @@ void MatchModel::doReplaceNextMatch()
     }
 
     KTextEditor::Document *doc;
-    doc = m_docManager->findUrl(matchFile.fileUrl);
-    if (!doc) {
-        doc = m_docManager->openUrl(matchFile.fileUrl);
+    if (matchFile.fileUrl.isValid()) {
+        doc = m_docManager->findUrl(matchFile.fileUrl);
+        if (!doc) {
+            doc = m_docManager->openUrl(matchFile.fileUrl);
+        }
+    } else {
+        doc = matchFile.doc;
     }
 
     if (!doc) {
-        qDebug() << "Failed to open the document" << matchFile.fileUrl;
+        qDebug() << "Failed to open the document" << matchFile.fileUrl << doc;
         m_replaceFile++;
         QTimer::singleShot(0, this, &MatchModel::doReplaceNextMatch);
         return;
     }
 
-    if (doc->url() != matchFile.fileUrl) {
+    if (matchFile.fileUrl.isValid() && doc->url() != matchFile.fileUrl) {
         qDebug() << "url differences" << matchFile.fileUrl << doc->url();
         matchFile.fileUrl = doc->url();
+    } else if (matchFile.doc != doc) {
+        qDebug() << "doc differences" << matchFile.fileUrl << doc->url();
+        matchFile.doc = doc;
     }
 
     auto &matches = matchFile.matches;
@@ -690,9 +720,9 @@ bool MatchModel::isMatch(const QModelIndex &itemIndex) const
     return true;
 }
 
-QModelIndex MatchModel::fileIndex(const QUrl &url) const
+QModelIndex MatchModel::fileIndex(const QUrl &url, KTextEditor::Document *doc) const
 {
-    int row = matchFileRow(url);
+    int row = matchFileRow(url, doc);
     if (row == -1) {
         return QModelIndex();
     }
@@ -717,9 +747,9 @@ QModelIndex MatchModel::lastMatch() const
     return createIndex(matchFile.matches.size() - 1, 0, m_matchFiles.size() - 1);
 }
 
-QModelIndex MatchModel::firstFileMatch(const QUrl &url) const
+QModelIndex MatchModel::firstFileMatch(KTextEditor::Document *doc) const
 {
-    int row = matchFileRow(url);
+    int row = matchFileRow(doc->url(), doc);
     if (row == -1) {
         return QModelIndex();
     }
@@ -728,9 +758,9 @@ QModelIndex MatchModel::firstFileMatch(const QUrl &url) const
     return createIndex(0, 0, row);
 }
 
-QModelIndex MatchModel::closestMatchAfter(const QUrl &url, const KTextEditor::Cursor &cursor) const
+QModelIndex MatchModel::closestMatchAfter(KTextEditor::Document *doc, const KTextEditor::Cursor &cursor) const
 {
-    int row = matchFileRow(url);
+    int row = matchFileRow(doc->url(), doc);
     if (row < 0) {
         return QModelIndex();
     }
@@ -754,9 +784,9 @@ QModelIndex MatchModel::closestMatchAfter(const QUrl &url, const KTextEditor::Cu
     return createIndex(i, 0, row);
 }
 
-QModelIndex MatchModel::closestMatchBefore(const QUrl &url, const KTextEditor::Cursor &cursor) const
+QModelIndex MatchModel::closestMatchBefore(KTextEditor::Document *doc, const KTextEditor::Cursor &cursor) const
 {
-    int row = matchFileRow(url);
+    int row = matchFileRow(doc->url(), doc);
     if (row < 0) {
         return QModelIndex();
     }
@@ -882,6 +912,8 @@ QVariant MatchModel::data(const QModelIndex &index, int role) const
             return match.checked ? Qt::Checked : Qt::Unchecked;
         case FileUrlRole:
             return m_matchFiles[fileRow].fileUrl;
+        case DocumentRole:
+            return QVariant::fromValue(m_matchFiles[fileRow].doc.data());
         case StartLineRole:
             return match.range.start().line();
         case StartColumnRole:

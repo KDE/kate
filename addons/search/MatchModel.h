@@ -9,6 +9,7 @@
 
 #include <QAbstractItemModel>
 #include <QBrush>
+#include <QPointer>
 #include <QRegularExpression>
 #include <QString>
 #include <QTimer>
@@ -46,6 +47,7 @@ public:
 
     enum MatchDataRoles {
         FileUrlRole = Qt::UserRole,
+        DocumentRole,
         FileNameRole,
         StartLineRole,
         StartColumnRole,
@@ -69,6 +71,7 @@ private:
     struct MatchFile {
         QUrl fileUrl;
         QVector<KateSearchMatch> matches;
+        QPointer<KTextEditor::Document> doc;
         Qt::CheckState checkState = Qt::Checked;
     };
 
@@ -91,7 +94,12 @@ public:
     /** This function clears all matches in all files */
     void clear();
 
-    const QVector<KateSearchMatch> &fileMatches(const QUrl &fileUrl) const;
+    bool isEmpty() const
+    {
+        return m_matchFiles.isEmpty();
+    }
+
+    const QVector<KateSearchMatch> &fileMatches(KTextEditor::Document *doc) const;
 
     void updateMatchRanges(const QVector<KTextEditor::MovingRange *> &ranges);
 
@@ -103,10 +111,11 @@ public Q_SLOTS:
 
     /** This function returns the row index of the specified file.
      * If the file does not exist in the model, the file will be added to the model. */
-    int matchFileRow(const QUrl &fileUrl) const;
+    int matchFileRow(const QUrl &fileUrl, KTextEditor::Document *doc) const;
 
     /** This function is used to add a new file */
-    void addMatches(const QUrl &fileUrl, const QVector<KateSearchMatch> &searchMatches);
+    /** @p doc may be null if we are searching disk files for instance */
+    void addMatches(const QUrl &fileUrl, const QVector<KateSearchMatch> &searchMatches, KTextEditor::Document *doc);
 
     /** This function is used to set the last added file to the search list.
      * This is done to update the match tree when we generate the search file list. */
@@ -125,12 +134,12 @@ Q_SIGNALS:
     // QModelIndex api. Use with care if you are accessing it directly or access through 'Results' instead
 public:
     bool isMatch(const QModelIndex &itemIndex) const;
-    QModelIndex fileIndex(const QUrl &url) const;
+    QModelIndex fileIndex(const QUrl &url, KTextEditor::Document *doc) const;
     QModelIndex firstMatch() const;
     QModelIndex lastMatch() const;
-    QModelIndex firstFileMatch(const QUrl &url) const;
-    QModelIndex closestMatchAfter(const QUrl &url, const KTextEditor::Cursor &cursor) const;
-    QModelIndex closestMatchBefore(const QUrl &url, const KTextEditor::Cursor &cursor) const;
+    QModelIndex firstFileMatch(KTextEditor::Document *doc) const;
+    QModelIndex closestMatchAfter(KTextEditor::Document *doc, const KTextEditor::Cursor &cursor) const;
+    QModelIndex closestMatchBefore(KTextEditor::Document *doc, const KTextEditor::Cursor &cursor) const;
     QModelIndex nextMatch(const QModelIndex &itemIndex) const;
     QModelIndex prevMatch(const QModelIndex &itemIndex) const;
 
@@ -168,6 +177,8 @@ private:
 
     QVector<MatchFile> m_matchFiles;
     QHash<QUrl, int> m_matchFileIndexHash;
+    // for unsaved documents with no url
+    QHash<KTextEditor::Document *, int> m_matchUnsavedFileIndexHash;
     QString m_searchBackgroundColor;
     QString m_foregroundColor;
     QString m_replaceHighlightColor;

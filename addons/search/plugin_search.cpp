@@ -915,6 +915,7 @@ void KatePluginSearchView::startSearch()
 
     if (m_ui.searchCombo->currentText().isEmpty()) {
         // return pressed in the folder combo or filter combo
+        clearMarksAndRanges();
         return;
     }
 
@@ -1102,6 +1103,7 @@ void KatePluginSearchView::startSearchWhileTyping()
 
     // Do not clear the search results if you press up by mistake
     if (currentSearchText.isEmpty()) {
+        clearMarksAndRanges();
         return;
     }
 

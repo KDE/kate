@@ -44,9 +44,8 @@ protected:
             return true;
         }
 
-        int score = 0; // unused intentionally
-        QString file = index.data().toString();
-        return kfts::fuzzy_match(m_pattern, file, score);
+        const QString file = index.data().toString();
+        return kfts::fuzzy_match_simple(m_pattern, file);
     }
 
 private:

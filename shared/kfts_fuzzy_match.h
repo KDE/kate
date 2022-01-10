@@ -74,6 +74,10 @@ static bool fuzzy_match_recursive(QStringView::const_iterator pattern,
 // Public interface
 static bool fuzzy_match_simple(const QStringView pattern, const QStringView str)
 {
+    if (pattern.length() == 1) {
+        return str.contains(pattern, Qt::CaseInsensitive);
+    }
+
     auto patternIt = pattern.cbegin();
     for (auto strIt = str.cbegin(); strIt != str.cend() && patternIt != pattern.cend(); ++strIt) {
         if (strIt->toLower() == patternIt->toLower()) {
@@ -85,6 +89,18 @@ static bool fuzzy_match_simple(const QStringView pattern, const QStringView str)
 
 static bool fuzzy_match(const QStringView pattern, const QStringView str, int &outScore)
 {
+    if (pattern.length() == 1) {
+        const int found = str.indexOf(pattern, Qt::CaseInsensitive);
+        if (found >= 0) {
+            outScore = 250 - found;
+            outScore += pattern.at(0) == str.at(found);
+            return true;
+        } else {
+            outScore = 0;
+            return false;
+        }
+    }
+
     // simple substring matching to flush out non-matching stuff
     auto patternIt = pattern.cbegin();
     bool lower = patternIt->isLower();

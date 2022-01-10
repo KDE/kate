@@ -113,10 +113,10 @@ int SearchOpenFiles::searchSingleLineRegExp(KTextEditor::Document *doc, const QR
 
         while (column != -1 && !match.captured().isEmpty()) {
             int endColumn = column + match.capturedLength();
-            int preContextStart = qMax(0, column - MatchModel::PreContextLen);
             const QString &lineStr = doc->line(line);
+            const auto [preContextStart, postContextLen] = MatchModel::contextLengths(lineStr.size(), column, endColumn);
             QString preContext = lineStr.mid(preContextStart, column - preContextStart);
-            QString postContext = lineStr.mid(endColumn, MatchModel::PostContextLen);
+            QString postContext = lineStr.mid(endColumn, postContextLen);
 
             matches.push_back(KateSearchMatch{preContext,
                                               match.captured(),

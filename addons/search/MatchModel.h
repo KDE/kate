@@ -67,6 +67,34 @@ public:
 
     typedef KateSearchMatch Match;
 
+    /// Utility function that is used to figure out how much context text we want to show
+    /// before and after the match
+    /// @p lineLength length of the line we are in
+    /// @return a pair, first = preContextStart i.e., the start position in line
+    /// second = postContextLen i.e., how much of post text we will show
+    static constexpr std::pair<int, int> contextLengths(int lineLength, int matchStart, int matchEnd)
+    {
+        int preContextStart = 0;
+        const int requiredPostLen = lineLength - matchEnd;
+        if (requiredPostLen < MatchModel::PostContextLen) {
+            int extra = MatchModel::PostContextLen - requiredPostLen;
+            preContextStart = qMax(0, matchStart - (MatchModel::PreContextLen + extra));
+        } else {
+            preContextStart = qMax(0, matchStart - MatchModel::PreContextLen);
+        }
+
+        int postContextLen = 0;
+        const int requiredPreLen = matchStart;
+        if (matchStart < MatchModel::PreContextLen) {
+            int extra = MatchModel::PreContextLen - requiredPreLen;
+            postContextLen = MatchModel::PostContextLen + extra;
+        } else {
+            postContextLen = MatchModel::PostContextLen;
+        }
+
+        return {preContextStart, postContextLen};
+    }
+
 private:
     struct MatchFile {
         QUrl fileUrl;
@@ -201,6 +229,17 @@ private:
 
     friend class Results;
 };
+
+// tests
+// output = {start, postContextLen}
+
+// precontext starts from 0 instead of at a higher place as post context is small
+static_assert(MatchModel::contextLengths(140, 110, 114) == std::pair<int, int>{0, 100});
+static_assert(MatchModel::contextLengths(140, 90, 114) == std::pair<int, int>{0, 100});
+
+// post context length increases from hundered as precontext is small here
+static_assert(MatchModel::contextLengths(140, 40, 50) == std::pair<int, int>{0, 140});
+static_assert(MatchModel::contextLengths(140, 20, 50) == std::pair<int, int>{0, 160});
 
 Q_DECLARE_METATYPE(KateSearchMatch)
 

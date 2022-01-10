@@ -95,9 +95,9 @@ QVector<KateSearchMatch> SearchDiskFiles::searchSingleLineRegExp(QFile &file)
 
             // remember match
             const int endColumn = column + match.capturedLength();
-            const int preContextStart = qMax(0, column - MatchModel::PreContextLen);
+            const auto [preContextStart, postContextLen] = MatchModel::contextLengths(line.size(), column, endColumn);
             const QString preContext = line.mid(preContextStart, column - preContextStart);
-            const QString postContext = line.mid(endColumn, MatchModel::PostContextLen);
+            const QString postContext = line.mid(endColumn, postContextLen);
             matches.push_back(KateSearchMatch{preContext,
                                               match.captured(),
                                               postContext,

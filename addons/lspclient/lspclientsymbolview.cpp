@@ -16,6 +16,7 @@
 #include <KTextEditor/View>
 
 #include <QHBoxLayout>
+#include <QHeaderView>
 #include <QMenu>
 #include <QPointer>
 #include <QStandardItemModel>
@@ -433,11 +434,13 @@ public:
         if (m_sortOn->isChecked()) {
             m_symbols->setSortingEnabled(true);
             m_symbols->sortByColumn(0, Qt::AscendingOrder);
+            m_symbols->header()->setSectionsClickable(true);
         } else {
             // most servers provide items in reasonable file/input order
             // however sadly not all, so let's sort by hidden line number column to make sure
             m_symbols->setSortingEnabled(true);
             m_symbols->sortByColumn(1, Qt::AscendingOrder);
+            m_symbols->header()->setSectionsClickable(false);
         }
         // no need to show internal info
         m_symbols->setColumnHidden(1, true);

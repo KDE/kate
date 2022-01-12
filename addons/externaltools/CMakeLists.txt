@@ -36,6 +36,12 @@ target_sources(
     plugin.qrc
 )
 
+target_include_directories(
+    externaltoolsplugin
+    PUBLIC
+    ${CMAKE_SOURCE_DIR}/shared
+)
+
 if (BUILD_TESTING)
     add_subdirectory(autotests)
 endif()

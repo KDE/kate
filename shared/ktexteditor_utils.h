@@ -9,9 +9,52 @@
 #include <KTextEditor/View>
 
 #include <QFontDatabase>
+#include <QPointer>
+#include <QScrollBar>
 
 namespace Utils
 {
+
+// A helper class that maintains scroll position
+struct KateScrollBarRestorer {
+    KateScrollBarRestorer(KTextEditor::View *view)
+    {
+        // Find KateScrollBar
+        const auto scrollBars = view->findChildren<QScrollBar *>();
+        kateScrollBar = [scrollBars] {
+            for (auto scrollBar : scrollBars) {
+                if (qstrcmp(scrollBar->metaObject()->className(), "KateScrollBar") == 0) {
+                    return scrollBar;
+                }
+            }
+            return static_cast<QScrollBar *>(nullptr);
+        }();
+
+        if (kateScrollBar) {
+            oldScrollValue = kateScrollBar->value();
+        }
+    }
+
+    void restore()
+    {
+        if (kateScrollBar) {
+            kateScrollBar->setValue(oldScrollValue);
+        }
+        restored = true;
+    }
+
+    ~KateScrollBarRestorer()
+    {
+        if (!restored) {
+            restore();
+        }
+    }
+
+private:
+    QPointer<QScrollBar> kateScrollBar = nullptr;
+    int oldScrollValue = 0;
+    bool restored = false;
+};
 
 /**
  * returns the current active global font

@@ -320,7 +320,7 @@ void KateGitBlamePluginView::blameFinished(int exitCode, QProcess::ExitStatus ex
         const auto error = m_blameInfoProc.readAllStandardError();
 
         // Ignore, this repo doesn't have any commits or not a repo
-        if (error.startsWith("fatal: no such ref: HEAD") || error.startsWith("fatal: not a git repository")) {
+        if (error.startsWith("fatal: no such ref: HEAD") || error.startsWith("fatal: not a git repository") || error.startsWith("fatal: no such path ")) {
             return;
         }
 

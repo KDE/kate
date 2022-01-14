@@ -41,7 +41,7 @@ public:
     ~ProxyItem();
 
     int addChild(ProxyItem *p);
-    void remChild(ProxyItem *p);
+    void removeChild(ProxyItem *p);
 
     ProxyItemDir *parent() const;
 
@@ -190,7 +190,7 @@ int ProxyItem::addChild(ProxyItem *item)
 {
     // remove from old parent, is any
     if (item->m_parent) {
-        item->m_parent->remChild(item);
+        item->m_parent->removeChild(item);
     }
 
     const int item_row = m_children.count();
@@ -203,7 +203,7 @@ int ProxyItem::addChild(ProxyItem *item)
     return item_row;
 }
 
-void ProxyItem::remChild(ProxyItem *item)
+void ProxyItem::removeChild(ProxyItem *item)
 {
     const int idx = m_children.indexOf(item);
     Q_ASSERT(idx != -1);
@@ -922,7 +922,7 @@ void KateFileTreeModel::handleEmptyParents(ProxyItemDir *item)
         if (!item->childCount()) {
             const QModelIndex parent_index = (parent == m_root) ? QModelIndex() : createIndex(parent->row(), 0, parent);
             beginRemoveRows(parent_index, item->row(), item->row());
-            parent->remChild(item);
+            parent->removeChild(item);
             endRemoveRows();
             delete item;
         } else {
@@ -964,7 +964,7 @@ void KateFileTreeModel::documentClosed(KTextEditor::Document *doc)
 
     const QModelIndex parent_index = (parent == m_root) ? QModelIndex() : createIndex(parent->row(), 0, parent);
     beginRemoveRows(parent_index, node->row(), node->row());
-    node->parent()->remChild(node);
+    node->parent()->removeChild(node);
     endRemoveRows();
 
     delete node;
@@ -1030,7 +1030,7 @@ ProxyItemDir *KateFileTreeModel::findChildNode(const ProxyItemDir *parent, const
     return nullptr;
 }
 
-void KateFileTreeModel::insertItemInto(ProxyItemDir *root, ProxyItem *item)
+void KateFileTreeModel::insertItemInto(ProxyItemDir *root, ProxyItem *item, bool move, ProxyItemDir **moveDest)
 {
     Q_ASSERT(root != nullptr);
     Q_ASSERT(item != nullptr);
@@ -1051,6 +1051,13 @@ void KateFileTreeModel::insertItemInto(ProxyItemDir *root, ProxyItem *item)
         current_parts.append(part);
         ProxyItemDir *find = findChildNode(ptr, part);
         if (!find) {
+            // One of child's parent dir didn't exist, create it
+            // This is like you have a folder:
+            // folder/dir/dir2/a.c
+            // folder/b.c
+            // if only a.c is opened, then we only show dir2,
+            // but if you open b.c, we now need to create a new root i.e., "folder"
+            // and since a.c lives in a child dir, we create "dir" as well.
             const QString new_name = current_parts.join(QLatin1Char('/'));
             const QModelIndex parent_index = (ptr == m_root) ? QModelIndex() : createIndex(ptr->row(), 0, ptr);
             beginInsertRows(parent_index, ptr->childCount(), ptr->childCount());
@@ -1061,10 +1068,16 @@ void KateFileTreeModel::insertItemInto(ProxyItemDir *root, ProxyItem *item)
         }
     }
 
-    const QModelIndex parent_index = (ptr == m_root) ? QModelIndex() : createIndex(ptr->row(), 0, ptr);
-    beginInsertRows(parent_index, ptr->childCount(), ptr->childCount());
-    ptr->addChild(item);
-    endInsertRows();
+    if (!move) {
+        // We are not moving rows, this is all new stuff
+        const QModelIndex parent_index = (ptr == m_root) ? QModelIndex() : createIndex(ptr->row(), 0, ptr);
+        beginInsertRows(parent_index, ptr->childCount(), ptr->childCount());
+        ptr->addChild(item);
+        endInsertRows();
+    } else {
+        // We are moving
+        *moveDest = ptr;
+    }
 }
 
 void KateFileTreeModel::handleInsert(ProxyItem *item)
@@ -1108,14 +1121,19 @@ void KateFileTreeModel::handleInsert(ProxyItem *item)
         }
 
         if (root->path().startsWith(base)) {
-            beginRemoveRows(QModelIndex(), root->row(), root->row());
-            m_root->remChild(root);
-            endRemoveRows();
+            // We can't move directly because this items parent directories might not be in the model yet
+            // so check and insert them first. Then find out where we need to move
+            ProxyItemDir *moveDest = nullptr;
+            insertItemInto(new_root, root, true, &moveDest);
 
-            // beginInsertRows(new_root_index, new_root->childCount(), new_root->childCount());
-            // this can't use new_root->addChild directly, or it'll potentially miss a bunch of subdirs
-            insertItemInto(new_root, root);
-            // endInsertRows();
+            const QModelIndex destParent = (moveDest == m_root) ? QModelIndex() : createIndex(moveDest->row(), 0, moveDest);
+            // We are moving from topLevel root to maybe some child node
+            // We MUST move, otherwise if "root" was expanded, it will be collapsed if we did a remove + insert instead.
+            // This is the reason for added complexity in insertItemInto
+            beginMoveRows(QModelIndex(), root->row(), root->row(), destParent, moveDest->childCount());
+            m_root->removeChild(root);
+            moveDest->addChild(root);
+            endMoveRows();
         }
     }
 
@@ -1155,7 +1173,7 @@ void KateFileTreeModel::handleDuplicitRootDisplay(ProxyItemDir *init)
                 const QString rdir = root->path().section(QLatin1Char('/'), 0, -2);
                 if (!rdir.isEmpty()) {
                     beginRemoveRows(QModelIndex(), root->row(), root->row());
-                    m_root->remChild(root);
+                    m_root->removeChild(root);
                     endRemoveRows();
 
                     ProxyItemDir *irdir = new ProxyItemDir(rdir);
@@ -1176,7 +1194,7 @@ void KateFileTreeModel::handleDuplicitRootDisplay(ProxyItemDir *init)
                             beginRemoveRows(QModelIndex(), node->row(), node->row());
                             // check_root_removed must be sticky
                             check_root_removed = check_root_removed || (node == check_root);
-                            m_root->remChild(node);
+                            m_root->removeChild(node);
                             endRemoveRows();
                             insertItemInto(irdir, node);
                         }
@@ -1190,7 +1208,7 @@ void KateFileTreeModel::handleDuplicitRootDisplay(ProxyItemDir *init)
                     const QString nrdir = check_root->path().section(QLatin1Char('/'), 0, -2);
                     if (!nrdir.isEmpty()) {
                         beginRemoveRows(QModelIndex(), check_root->row(), check_root->row());
-                        m_root->remChild(check_root);
+                        m_root->removeChild(check_root);
                         endRemoveRows();
 
                         ProxyItemDir *irdir = new ProxyItemDir(nrdir);
@@ -1232,7 +1250,7 @@ void KateFileTreeModel::handleNameChange(ProxyItem *item)
 
     const QModelIndex parent_index = (parent == m_root) ? QModelIndex() : createIndex(parent->row(), 0, parent);
     beginRemoveRows(parent_index, item->row(), item->row());
-    parent->remChild(item);
+    parent->removeChild(item);
     endRemoveRows();
 
     handleEmptyParents(parent);

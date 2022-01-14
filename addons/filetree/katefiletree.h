@@ -73,6 +73,8 @@ private Q_SLOTS:
 
     void slotRenameFile();
 
+    void onRowsMoved(const QModelIndex &parent, int start, int end, const QModelIndex &destination, int row);
+
 private:
     QAction *setupOption(QActionGroup *group, const QIcon &, const QString &, const QString &, const char *slot, bool checked = false);
 

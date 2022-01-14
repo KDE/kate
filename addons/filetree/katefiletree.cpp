@@ -184,7 +184,8 @@ KateFileTree::~KateFileTree()
 
 void KateFileTree::setModel(QAbstractItemModel *model)
 {
-    Q_ASSERT(qobject_cast<KateFileTreeProxyModel *>(model)); // we don't really work with anything else
+    auto proxy = qobject_cast<KateFileTreeProxyModel *>(model);
+    Q_ASSERT(proxy); // we don't really work with anything else
     QTreeView::setModel(model);
 
     header()->hide();
@@ -195,6 +196,24 @@ void KateFileTree::setModel(QAbstractItemModel *model)
     header()->setMinimumSectionSize(minSize);
     header()->setSectionResizeMode(1, QHeaderView::Fixed);
     header()->resizeSection(1, minSize);
+
+    // proxy never emits rowsMoved
+    connect(proxy->sourceModel(), &QAbstractItemModel::rowsMoved, this, &KateFileTree::onRowsMoved);
+}
+
+void KateFileTree::onRowsMoved(const QModelIndex &, int, int, const QModelIndex &destination, int row)
+{
+    auto proxy = static_cast<KateFileTreeProxyModel *>(model());
+    auto source = proxy->sourceModel();
+    QModelIndex movedIndex = proxy->mapFromSource(source->index(row, 0, destination));
+    // We moved stuff, make sure if child was expanded, we expand all parents too.
+    if (movedIndex.isValid() && isExpanded(movedIndex) && !isExpanded(movedIndex.parent())) {
+        QModelIndex movedParent = movedIndex.parent();
+        while (movedParent.isValid() && !isExpanded(movedParent)) {
+            expand(movedParent);
+            movedParent = movedParent.parent();
+        }
+    }
 }
 
 void KateFileTree::setShowCloseButton(bool show)

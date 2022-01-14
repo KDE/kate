@@ -84,7 +84,7 @@ Q_SIGNALS:
 private:
     ProxyItemDir *findRootNode(const QString &name, const int r = 1) const;
     ProxyItemDir *findChildNode(const ProxyItemDir *parent, const QString &name) const;
-    void insertItemInto(ProxyItemDir *root, ProxyItem *item);
+    void insertItemInto(ProxyItemDir *root, ProxyItem *item, bool move = false, ProxyItemDir **moveDest = nullptr);
     void handleInsert(ProxyItem *item);
     void handleNameChange(ProxyItem *item);
     void handleEmptyParents(ProxyItemDir *item);

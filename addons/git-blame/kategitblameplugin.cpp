@@ -58,7 +58,6 @@ QVector<int> GitBlameInlineNoteProvider::inlineNotes(int line) const
 
     QPointer<KTextEditor::Document> doc = m_pluginView->activeDocument();
     if (!doc) {
-        qDebug() << "no document";
         return QVector<int>();
     }
 

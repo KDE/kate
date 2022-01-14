@@ -173,6 +173,11 @@ private Q_SLOTS:
     void slotToggleFocus();
 
     /**
+     * changes the menu actions text based on focus
+     */
+    void focusChanged(QWidget *, QWidget *now);
+
+    /**
      * Handle that shortcuts are not eaten by console
      */
     void overrideShortcut(QKeyEvent *event, bool &override);

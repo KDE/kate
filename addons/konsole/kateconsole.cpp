@@ -168,6 +168,8 @@ KateConsole::KateConsole(KateKonsolePlugin *plugin, KTextEditor::MainWindow *mw,
     m_mw->guiFactory()->addClient(this);
 
     readConfig();
+
+    connect(qApp, &QApplication::focusChanged, this, &KateConsole::focusChanged);
 }
 
 KateConsole::~KateConsole()
@@ -452,24 +454,27 @@ void KateConsole::slotToggleVisibility()
     }
 }
 
-void KateConsole::slotToggleFocus()
+void KateConsole::focusChanged(QWidget *, QWidget *now)
 {
     QAction *action = actionCollection()->action(QStringLiteral("katekonsole_tools_toggle_focus"));
+    if (m_part && m_part->widget()->isAncestorOf(now)) {
+        action->setText(i18n("Defocus Terminal Panel"));
+    } else if (action->text() != i18n("Focus Terminal Panel")) {
+        action->setText(i18n("Focus Terminal Panel"));
+    }
+}
+
+void KateConsole::slotToggleFocus()
+{
     if (!m_part) {
         m_mw->showToolView(parentWidget());
-        action->setText(i18n("Defocus Terminal Panel"));
         return; // this shows and focuses the konsole
-    }
-
-    if (!m_part) {
-        return;
     }
 
     if (m_part->widget()->hasFocus()) {
         if (m_mw->activeView()) {
             m_mw->activeView()->setFocus();
         }
-        action->setText(i18n("Focus Terminal Panel"));
     } else {
         // show the view if it is hidden
         if (parentWidget()->isHidden()) {
@@ -477,7 +482,6 @@ void KateConsole::slotToggleFocus()
         } else { // should focus the widget too!
             m_part->widget()->setFocus(Qt::OtherFocusReason);
         }
-        action->setText(i18n("Defocus Terminal Panel"));
     }
 }
 

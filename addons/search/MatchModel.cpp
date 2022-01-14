@@ -216,7 +216,6 @@ const QVector<KateSearchMatch> &MatchModel::fileMatches(KTextEditor::Document *d
 {
     int row = matchFileRow(doc->url(), doc);
     if (row < 0 || row >= m_matchFiles.size()) {
-        qWarning() << "fileMatches, matches requested for invalid doc: " << doc << doc->url();
         static const QVector<KateSearchMatch> EmptyDummy;
         return EmptyDummy;
     }

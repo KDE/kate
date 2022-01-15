@@ -1,6 +1,6 @@
 find_package(Qt5Test ${QT_MIN_VERSION} QUIET REQUIRED)
 
-add_library(latexcompletionplugin MODULE)
+kate_add_plugin(latexcompletionplugin)
 target_compile_definitions(latexcompletionplugin PRIVATE TRANSLATION_DOMAIN="latexcompletionplugin")
 
 target_link_libraries(latexcompletionplugin PRIVATE KF5::I18n KF5::TextEditor)

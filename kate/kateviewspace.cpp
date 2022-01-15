@@ -127,6 +127,8 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent, cons
     connect(m_viewManager->mainWindow(), &KateMainWindow::statusBarToggled, this, &KateViewSpace::statusBarToggled);
     connect(m_viewManager->mainWindow(), &KateMainWindow::tabBarToggled, this, &KateViewSpace::tabBarToggled);
 
+    connect(this, &KateViewSpace::viewSpaceEmptied, m_viewManager, &KateViewManager::onViewSpaceEmptied);
+
     // init the bars...
     statusBarToggled();
     tabBarToggled();
@@ -395,6 +397,32 @@ void KateViewSpace::registerDocument(KTextEditor::Document *doc)
     connect(m_tabBar, &KateTabBar::currentChanged, this, &KateViewSpace::changeView);
 }
 
+void KateViewSpace::closeDocument(KTextEditor::Document *doc)
+{
+    auto it = m_docToView.find(doc);
+    Q_ASSERT(it != m_docToView.end());
+
+    // If this is the only view of the document,
+    // just close the document and it will take
+    // care of removing the view + cleaning up the doc
+    if (doc->views().size() == 1) {
+        m_viewManager->slotDocumentClose(doc);
+    } else {
+        // We have other views of this doc in other viewspaces
+        // Just remove the view
+        m_viewManager->deleteView(it->second);
+        // Clean up this doc from this viewspace
+        documentDestroyed(doc);
+    }
+
+    /**
+     * if this was the last doc, let viewManager know we are empty
+     */
+    if (m_registeredDocuments.isEmpty() && m_tabBar->count() == 0) {
+        Q_EMIT viewSpaceEmptied(this);
+    }
+}
+
 void KateViewSpace::documentDestroyed(QObject *doc)
 {
     /**
@@ -473,7 +501,7 @@ void KateViewSpace::closeTabRequest(int idx)
         return;
     }
 
-    m_viewManager->slotDocumentClose(doc);
+    closeDocument(doc);
 }
 
 void KateViewSpace::createNewDocument()

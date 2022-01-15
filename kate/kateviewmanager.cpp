@@ -275,14 +275,15 @@ void KateViewManager::slotDocumentClose()
         return;
     }
 
-    if (auto vs = activeViewSpace()) {
+    auto vs = activeViewSpace();
+    if (vs) {
         if (auto w = vs->currentWidget()) {
             vs->closeTabWithWidget(w);
             return;
         }
-    }
 
-    slotDocumentClose(view->document());
+        vs->closeDocument(view->document());
+    }
 }
 
 KTextEditor::Document *KateViewManager::openUrl(const QUrl &url, const QString &encoding, bool activate, bool isTempFile, const KateDocumentInfo &docInfo)
@@ -818,7 +819,7 @@ void KateViewManager::splitViewSpace(KateViewSpace *vs, // = 0
         QList<int> sizes = currentSplitter->sizes();
         sizes << (sizes.first() - currentSplitter->handleWidth()) / 2;
         sizes[0] = sizes[1];
-        currentSplitter->insertWidget(index, vsNew);
+        currentSplitter->insertWidget(index + 1, vsNew);
         currentSplitter->setSizes(sizes);
     } else {
         // create a new KateSplitter and replace vs with the splitter. vs and newVS are
@@ -886,6 +887,15 @@ void KateViewManager::toggleSplitterOrientation()
         currentSplitter->setOrientation(Qt::Vertical);
     } else {
         currentSplitter->setOrientation(Qt::Horizontal);
+    }
+}
+
+void KateViewManager::onViewSpaceEmptied(KateViewSpace *vs)
+{
+    // If we have more than one viewspaces and this viewspace
+    // got empty, remove it
+    if (m_viewSpaceList.size() > 1) {
+        removeViewSpace(vs);
     }
 }
 

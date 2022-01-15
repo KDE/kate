@@ -106,9 +106,9 @@ public:
      */
     KTextEditor::View *createView(KTextEditor::Document *doc = nullptr, KateViewSpace *vs = nullptr);
 
-private:
     bool deleteView(KTextEditor::View *view);
 
+private:
     void moveViewtoSplit(KTextEditor::View *view);
     void moveViewtoStack(KTextEditor::View *view);
 
@@ -283,6 +283,8 @@ public Q_SLOTS:
         });
         return ret;
     }
+
+    void onViewSpaceEmptied(KateViewSpace *vs);
 
 private:
     KateMainWindow *m_mainWindow;

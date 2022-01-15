@@ -78,6 +78,11 @@ public:
     void registerDocument(KTextEditor::Document *doc);
 
     /**
+     * closes the view of the provided doc in this viewspace
+     */
+    void closeDocument(KTextEditor::Document *doc);
+
+    /**
      * Event filter to catch events from view space tool buttons.
      */
     bool eventFilter(QObject *obj, QEvent *event) override;
@@ -141,6 +146,8 @@ public:
     void addPositionToHistory(const QUrl &url, KTextEditor::Cursor, bool calledExternally = false);
 
     // END Location History Stuff
+Q_SIGNALS:
+    void viewSpaceEmptied(KateViewSpace *vs);
 
 public Q_SLOTS:
     void documentDestroyed(QObject *doc);

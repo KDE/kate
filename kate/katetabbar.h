@@ -122,6 +122,8 @@ protected:
     //! Override to request making the tab bar active.
     void mousePressEvent(QMouseEvent *event) override;
 
+    void mouseMoveEvent(QMouseEvent *) override;
+
     //! Request context menu
     void contextMenuEvent(QContextMenuEvent *ev) override;
 
@@ -167,6 +169,8 @@ private:
      * is a bit strange tab replacement a few times
      */
     std::unordered_map<KTextEditor::Document *, std::pair<quint64, bool>> m_docToLruCounterAndHasTab;
+
+    QPoint dragStartPos;
 };
 
 #endif // KATE_TAB_BAR_H

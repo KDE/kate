@@ -92,6 +92,7 @@ target_sources(
     kateviewmanager.cpp
     kateviewspace.cpp
     katewaiter.cpp
+    tabmimedata.cpp
 
     katecommandbar.cpp
     commandmodel.cpp

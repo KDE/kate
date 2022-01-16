@@ -15,6 +15,7 @@
 #include "katesessionmanager.h"
 #include "kateupdatedisabler.h"
 #include "kateviewmanager.h"
+#include "tabmimedata.h"
 #include <KActionCollection>
 
 #include <KAcceleratorManager>
@@ -26,6 +27,7 @@
 #include <QHelpEvent>
 #include <QMenu>
 #include <QMessageBox>
+#include <QRubberBand>
 #include <QStackedWidget>
 #include <QToolButton>
 #include <QToolTip>
@@ -129,10 +131,15 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent, cons
 
     connect(this, &KateViewSpace::viewSpaceEmptied, m_viewManager, &KateViewManager::onViewSpaceEmptied);
 
+    // we accept drops (tabs from other viewspaces / windows)
+    setAcceptDrops(true);
+
     // init the bars...
     statusBarToggled();
     tabBarToggled();
 }
+
+KateViewSpace::~KateViewSpace() = default;
 
 bool KateViewSpace::eventFilter(QObject *obj, QEvent *event)
 {
@@ -397,6 +404,7 @@ void KateViewSpace::registerDocument(KTextEditor::Document *doc)
     connect(m_tabBar, &KateTabBar::currentChanged, this, &KateViewSpace::changeView);
 }
 
+
 void KateViewSpace::closeDocument(KTextEditor::Document *doc)
 {
     // If this is the only view of the document,
@@ -421,6 +429,64 @@ void KateViewSpace::closeDocument(KTextEditor::Document *doc)
     if (m_registeredDocuments.isEmpty() && m_tabBar->count() == 0) {
         Q_EMIT viewSpaceEmptied(this);
     }
+}
+
+void KateViewSpace::dragEnterEvent(QDragEnterEvent *e)
+{
+    auto mimeData = qobject_cast<const TabMimeData *>(e->mimeData());
+    if (mimeData && this != mimeData->sourceVS && !hasDocument(mimeData->doc)) {
+        m_dropIndicator.reset(new QRubberBand(QRubberBand::Rectangle, this));
+        m_dropIndicator->setGeometry(rect());
+        m_dropIndicator->show();
+        e->acceptProposedAction();
+        return;
+    }
+    QWidget::dragEnterEvent(e);
+}
+
+void KateViewSpace::dragLeaveEvent(QDragLeaveEvent *e)
+{
+    m_dropIndicator.reset();
+    QWidget::dragLeaveEvent(e);
+}
+
+void KateViewSpace::dropEvent(QDropEvent *e)
+{
+    if (auto mimeData = qobject_cast<const TabMimeData *>(e->mimeData())) {
+        m_viewManager->moveViewToViewSpace(this, mimeData->sourceVS, mimeData->doc);
+        m_dropIndicator.reset();
+        e->accept();
+        return;
+    }
+    QWidget::dropEvent(e);
+}
+
+bool KateViewSpace::hasDocument(KTextEditor::Document *doc) const
+{
+    return m_registeredDocuments.contains(doc) && (m_docToView.find(doc) != m_docToView.end());
+}
+
+KTextEditor::View *KateViewSpace::takeView(KTextEditor::Document *doc)
+{
+    auto it = m_docToView.find(doc);
+    if (it == m_docToView.end()) {
+        return nullptr;
+    }
+    auto *view = it->second;
+    stack->removeWidget(view);
+    m_tabBar->removeDocument(doc);
+    documentDestroyed(doc);
+    return view;
+}
+
+void KateViewSpace::addView(KTextEditor::View *v)
+{
+    registerDocument(v->document());
+    m_docToView[v->document()] = v;
+    // We must not already have this widget
+    Q_ASSERT(stack->indexOf(v) == -1);
+    stack->addWidget(v);
+    showView(v);
 }
 
 void KateViewSpace::documentDestroyed(QObject *doc)

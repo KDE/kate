@@ -8,12 +8,17 @@
 
 #include "katetabbar.h"
 #include "kateapp.h"
+#include "tabmimedata.h"
 
+#include <QApplication>
+#include <QDrag>
 #include <QIcon>
 #include <QMimeData>
 #include <QPainter>
+#include <QPixmap>
 #include <QResizeEvent>
 #include <QStyleOptionTab>
+#include <QStylePainter>
 #include <QWheelEvent>
 
 #include <KAcceleratorManager>
@@ -160,6 +165,13 @@ void KateTabBar::mousePressEvent(QMouseEvent *event)
     if (!isActive()) {
         Q_EMIT activateViewSpaceRequested();
     }
+
+    if (event->button() == Qt::LeftButton && tabAt(event->pos()) != -1) {
+        dragStartPos = event->pos();
+    } else {
+        dragStartPos = {};
+    }
+
     QTabBar::mousePressEvent(event);
 
     // handle close for middle mouse button
@@ -169,6 +181,59 @@ void KateTabBar::mousePressEvent(QMouseEvent *event)
             Q_EMIT tabCloseRequested(id);
         }
     }
+}
+
+void KateTabBar::mouseMoveEvent(QMouseEvent *event)
+{
+    if (dragStartPos.isNull()) {
+        QTabBar::mouseMoveEvent(event);
+        return;
+    }
+
+    if ((event->pos() - dragStartPos).manhattanLength() < QApplication::startDragDistance()) {
+        QTabBar::mouseMoveEvent(event);
+        return;
+    }
+
+    if (rect().contains(event->pos())) {
+        return QTabBar::mouseMoveEvent(event);
+    }
+
+    QDrag *drag = new QDrag(this);
+
+    int tab = tabAt(dragStartPos);
+    QRect rect = tabRect(tab);
+
+    QPixmap p(rect.size());
+    p.setDevicePixelRatio(this->devicePixelRatioF());
+    p.fill(Qt::transparent);
+
+    // For some reason initStyleOption with tabIdx directly
+    // wasn't working, so manually set some stuff
+    QStyleOptionTabV4 opt;
+    initStyleOption(&opt, 0);
+    opt.text = tabText(tab);
+    opt.state = QStyle::State_Selected | QStyle::State_Raised;
+    opt.tabIndex = tab;
+    opt.features = QStyleOptionTab::TabFeature::HasFrame;
+
+    QStylePainter paint(&p, this);
+    paint.drawControl(QStyle::CE_TabBarTab, opt);
+    paint.end();
+
+    auto parentViewSpace = qobject_cast<KateViewSpace *>(parentWidget());
+    Q_ASSERT(parentViewSpace);
+
+    auto mime = new TabMimeData(parentViewSpace, tabDocument(tab), tab);
+    drag->setMimeData(mime);
+    drag->setPixmap(p);
+    QPoint hp;
+    hp.setX(dragStartPos.x() - rect.x());
+    drag->setHotSpot(hp);
+
+    dragStartPos = {};
+
+    drag->exec();
 }
 
 void KateTabBar::contextMenuEvent(QContextMenuEvent *ev)

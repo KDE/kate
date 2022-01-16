@@ -783,6 +783,15 @@ void KateViewManager::closeView(KTextEditor::View *view)
     }
 }
 
+void KateViewManager::moveViewToViewSpace(KateViewSpace *dest, KateViewSpace *src, KTextEditor::Document *doc)
+{
+    // We always have an active view at this point which is what we are moving
+    Q_ASSERT(activeView());
+    auto view = src->takeView(doc);
+    dest->addView(view);
+    setActiveSpace(dest);
+}
+
 void KateViewManager::splitViewSpace(KateViewSpace *vs, // = 0
                                      Qt::Orientation o) // = Qt::Horizontal
 {

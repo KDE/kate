@@ -31,6 +31,8 @@ class KateViewSpace : public QWidget
 public:
     explicit KateViewSpace(KateViewManager *, QWidget *parent = nullptr, const char *name = nullptr);
 
+    ~KateViewSpace();
+
     /**
      * Returns \e true, if this view space is currently the active view space.
      */
@@ -81,6 +83,24 @@ public:
      * closes the view of the provided doc in this viewspace
      */
     void closeDocument(KTextEditor::Document *doc);
+
+    /*
+     * Does this viewspace contain @p doc
+     */
+    bool hasDocument(KTextEditor::Document *doc) const;
+
+    /**
+     * Removes @p doc from this space and returns the associated
+     * view
+     * Used for dnd
+     */
+    KTextEditor::View *takeView(KTextEditor::Document *doc);
+
+    /**
+     * Adds @p view to this space
+     * Used for dnd to add a view from another viewspace
+     */
+    void addView(KTextEditor::View *v);
 
     /**
      * Event filter to catch events from view space tool buttons.
@@ -146,6 +166,12 @@ public:
     void addPositionToHistory(const QUrl &url, KTextEditor::Cursor, bool calledExternally = false);
 
     // END Location History Stuff
+protected:
+    // DND
+    void dragEnterEvent(QDragEnterEvent *e) override;
+    void dragLeaveEvent(QDragLeaveEvent *e) override;
+    void dropEvent(QDropEvent *e) override;
+
 Q_SIGNALS:
     void viewSpaceEmptied(KateViewSpace *vs);
 
@@ -255,6 +281,9 @@ private:
 
     // go forward in history button (only visible when the tab bar is visible)
     QToolButton *m_historyForward;
+
+    // rubber band to indicate drag and drop
+    std::unique_ptr<class QRubberBand> m_dropIndicator;
 
     friend class LocationHistoryTest;
 };

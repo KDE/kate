@@ -75,6 +75,8 @@ public:
     void closeView(KTextEditor::View *view);
     KateMainWindow *mainWindow();
 
+    void moveViewToViewSpace(KateViewSpace *dest, KateViewSpace *src, KTextEditor::Document *doc);
+
 private Q_SLOTS:
     void activateView(KTextEditor::View *view);
     void activateSpace(KTextEditor::View *v);

@@ -737,13 +737,13 @@ private:
                 server.reset(new LSPClientServer(cmdline, root, realLangId, serverConfig.value(QStringLiteral("initializationOptions")), folders));
                 connect(server.data(), &LSPClientServer::stateChanged, this, &self_type::onStateChanged, Qt::UniqueConnection);
                 if (!server->start()) {
-                    QString errorMessage = i18n("Failed to start server: %1", cmdline.join(QLatin1Char(' ')));
+                    QString message = i18n("Failed to start server: %1", cmdline.join(QLatin1Char(' ')));
                     const auto url = serverConfig.value(QStringLiteral("url")).toString();
                     if (!url.isEmpty()) {
-                        errorMessage += QStringLiteral("\n") + i18n("Please check your PATH for the binary");
-                        errorMessage += QStringLiteral("\n") + i18n("See also %1 for installation or details", url);
+                        message += QStringLiteral("\n") + i18n("Please check your PATH for the binary");
+                        message += QStringLiteral("\n") + i18n("See also %1 for installation or details", url);
                     }
-                    showMessage(errorMessage, KTextEditor::Message::Error);
+                    showMessage(message, KTextEditor::Message::Warning);
                 } else {
                     showMessage(i18n("Started server %2: %1", cmdline.join(QLatin1Char(' ')), serverDescription(server.data())),
                                 KTextEditor::Message::Positive);

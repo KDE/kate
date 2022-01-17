@@ -404,7 +404,6 @@ void KateViewSpace::registerDocument(KTextEditor::Document *doc)
     connect(m_tabBar, &KateTabBar::currentChanged, this, &KateViewSpace::changeView);
 }
 
-
 void KateViewSpace::closeDocument(KTextEditor::Document *doc)
 {
     // If this is the only view of the document,
@@ -431,10 +430,17 @@ void KateViewSpace::closeDocument(KTextEditor::Document *doc)
     }
 }
 
+bool KateViewSpace::acceptsDroppedTab(const class TabMimeData *tabMimeData)
+{
+    return tabMimeData && this != tabMimeData->sourceVS && // must not be same viewspace
+        viewManger() == tabMimeData->sourceVS->viewManger() && // for now we don't support dropping into different windows
+        !hasDocument(tabMimeData->doc);
+}
+
 void KateViewSpace::dragEnterEvent(QDragEnterEvent *e)
 {
     auto mimeData = qobject_cast<const TabMimeData *>(e->mimeData());
-    if (mimeData && this != mimeData->sourceVS && !hasDocument(mimeData->doc)) {
+    if (acceptsDroppedTab(mimeData)) {
         m_dropIndicator.reset(new QRubberBand(QRubberBand::Rectangle, this));
         m_dropIndicator->setGeometry(rect());
         m_dropIndicator->show();

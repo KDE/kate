@@ -45,6 +45,14 @@ public:
     void setActive(bool active);
 
     /**
+     * @return the view manager that this viewspace belongs to
+     */
+    KateViewManager *viewManger() const
+    {
+        return m_viewManager;
+    }
+
+    /**
      * Create new view for given document
      * @param doc document to create view for
      * @return new created view
@@ -214,6 +222,7 @@ private Q_SLOTS:
     void createNewDocument();
 
 private:
+    bool acceptsDroppedTab(const class TabMimeData *tabMimeData);
     /**
      * Returns the amount of documents in KateDocManager that currently
      * have no tab in this tab bar.

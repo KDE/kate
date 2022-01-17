@@ -787,6 +787,13 @@ void KateViewManager::moveViewToViewSpace(KateViewSpace *dest, KateViewSpace *sr
 {
     // We always have an active view at this point which is what we are moving
     Q_ASSERT(activeView());
+
+    // Are we trying to drop into some other mainWindow of current app session?
+    // shouldn't happen, but just a safe guard
+    if (src->viewManger() != dest->viewManger()) {
+        return;
+    }
+
     auto view = src->takeView(doc);
     dest->addView(view);
     setActiveSpace(dest);

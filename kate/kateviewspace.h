@@ -222,7 +222,7 @@ private Q_SLOTS:
     void createNewDocument();
 
 private:
-    bool acceptsDroppedTab(const class TabMimeData *tabMimeData);
+    bool acceptsDroppedTab(const class QMimeData *tabMimeData);
     /**
      * Returns the amount of documents in KateDocManager that currently
      * have no tab in this tab bar.

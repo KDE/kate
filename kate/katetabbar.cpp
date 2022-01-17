@@ -11,6 +11,7 @@
 #include "tabmimedata.h"
 
 #include <QApplication>
+#include <QDataStream>
 #include <QDrag>
 #include <QIcon>
 #include <QMimeData>
@@ -224,7 +225,21 @@ void KateTabBar::mouseMoveEvent(QMouseEvent *event)
     auto parentViewSpace = qobject_cast<KateViewSpace *>(parentWidget());
     Q_ASSERT(parentViewSpace);
 
-    auto mime = new TabMimeData(parentViewSpace, tabDocument(tab), tab);
+    auto view = parentViewSpace->currentView();
+    if (!view) {
+        return;
+    }
+
+    QByteArray data;
+    KTextEditor::Cursor cp = view->cursorPosition();
+    QDataStream ds(&data, QIODevice::WriteOnly);
+    ds << cp.line();
+    ds << cp.column();
+    ds << view->document()->url();
+
+    auto mime = new TabMimeData(parentViewSpace, tabDocument(tab));
+    mime->setData(QStringLiteral("application/kate.tab.mimedata"), data);
+
     drag->setMimeData(mime);
     drag->setPixmap(p);
     QPoint hp;

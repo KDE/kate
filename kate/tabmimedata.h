@@ -5,6 +5,8 @@
 
 #include "kateviewspace.h"
 
+#include <optional>
+
 namespace KTextEditor
 {
 class Document;
@@ -14,11 +16,20 @@ class TabMimeData : public QMimeData
 {
     Q_OBJECT
 public:
-    TabMimeData(KateViewSpace *vs, KTextEditor::Document *d, int sourceTabIdx);
+    struct DroppedData {
+        int line = -1;
+        int col = -1;
+        QUrl url;
+    };
+
+    TabMimeData(KateViewSpace *vs, KTextEditor::Document *d);
+
+    static bool hasValidData(const QMimeData *md);
+
+    static std::optional<DroppedData> data(const QMimeData *md);
 
     KateViewSpace *const sourceVS;
     KTextEditor::Document *const doc;
-    const int tabIdx;
 };
 
 #endif

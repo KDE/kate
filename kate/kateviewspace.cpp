@@ -24,6 +24,7 @@
 
 #include <QApplication>
 #include <QClipboard>
+#include <QDataStream>
 #include <QHelpEvent>
 #include <QMenu>
 #include <QMessageBox>
@@ -430,23 +431,26 @@ void KateViewSpace::closeDocument(KTextEditor::Document *doc)
     }
 }
 
-bool KateViewSpace::acceptsDroppedTab(const class TabMimeData *tabMimeData)
+bool KateViewSpace::acceptsDroppedTab(const QMimeData *md)
 {
-    return tabMimeData && this != tabMimeData->sourceVS && // must not be same viewspace
-        viewManger() == tabMimeData->sourceVS->viewManger() && // for now we don't support dropping into different windows
-        !hasDocument(tabMimeData->doc);
+    if (auto tabMimeData = qobject_cast<const TabMimeData *>(md)) {
+        return this != tabMimeData->sourceVS && // must not be same viewspace
+            viewManger() == tabMimeData->sourceVS->viewManger() && // for now we don't support dropping into different windows
+            !hasDocument(tabMimeData->doc);
+    }
+    return TabMimeData::hasValidData(md);
 }
 
 void KateViewSpace::dragEnterEvent(QDragEnterEvent *e)
 {
-    auto mimeData = qobject_cast<const TabMimeData *>(e->mimeData());
-    if (acceptsDroppedTab(mimeData)) {
+    if (acceptsDroppedTab(e->mimeData())) {
         m_dropIndicator.reset(new QRubberBand(QRubberBand::Rectangle, this));
         m_dropIndicator->setGeometry(rect());
         m_dropIndicator->show();
         e->acceptProposedAction();
         return;
     }
+
     QWidget::dragEnterEvent(e);
 }
 
@@ -464,6 +468,17 @@ void KateViewSpace::dropEvent(QDropEvent *e)
         e->accept();
         return;
     }
+    auto droppedData = TabMimeData::data(e->mimeData());
+    if (droppedData.has_value()) {
+        auto doc = KateApp::self()->documentManager()->openUrl(droppedData.value().url);
+        auto view = m_viewManager->activateView(doc);
+        if (view) {
+            view->setCursorPosition({droppedData.value().line, droppedData.value().col});
+            e->accept();
+            return;
+        }
+    }
+
     QWidget::dropEvent(e);
 }
 

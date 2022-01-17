@@ -246,23 +246,9 @@ public Q_SLOTS:
 
     /**
      * Get a list of all views.
-     * @return all views
+     * @return all views sorted by their last use, most recently used first
      */
     QList<KTextEditor::View *> views() const
-    {
-        QList<KTextEditor::View *> ret;
-        ret.reserve(m_views.size());
-        std::transform(m_views.begin(), m_views.end(), std::back_inserter(ret), [](const std::pair<KTextEditor::View *, ViewData> &p) {
-            return p.first;
-        });
-        return ret;
-    }
-
-    /**
-     * get views in lru order
-     * @return views in lru order
-     */
-    std::vector<KTextEditor::View *> sortedViews() const
     {
         std::vector<std::pair<KTextEditor::View *, qint64>> sorted;
 
@@ -276,7 +262,7 @@ public Q_SLOTS:
         });
 
         // extract the views only and return
-        std::vector<KTextEditor::View *> ret;
+        QList<KTextEditor::View *> ret;
         ret.reserve(sorted.size());
         std::transform(sorted.begin(), sorted.end(), std::back_inserter(ret), [](const std::pair<KTextEditor::View *, qint64> &p) {
             return p.first;

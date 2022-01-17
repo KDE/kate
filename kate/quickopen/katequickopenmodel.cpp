@@ -81,7 +81,7 @@ QVariant KateQuickOpenModel::data(const QModelIndex &idx, int role) const
 void KateQuickOpenModel::refresh(KateMainWindow *mainWindow)
 {
     QObject *projectView = mainWindow->pluginView(QStringLiteral("kateprojectplugin"));
-    const std::vector<KTextEditor::View *> sortedViews = mainWindow->viewManager()->sortedViews();
+    const auto sortedViews = mainWindow->viewManager()->views();
     const QList<KTextEditor::Document *> openDocs = KateApp::self()->documentManager()->documentList();
     const QStringList projectDocs = projectView
         ? (m_listMode == CurrentProject ? projectView->property("projectFiles") : projectView->property("allProjectsFiles")).toStringList()

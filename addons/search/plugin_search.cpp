@@ -1129,9 +1129,17 @@ void KatePluginSearchView::startSearchWhileTyping()
     if (searchingDiskFiles() || m_searchOpenFiles.searching()) {
         return;
     }
+
+    // If the user has selected to disable search as you type, stop here
+    int searchPlace = m_ui.searchPlaceCombo->currentIndex();
+    if (!m_searchAsYouType.value(static_cast<MatchModel::SearchPlaces>(searchPlace), true)) {
+        return;
+    }
+
     updateViewColors();
 
     m_isSearchAsYouType = true;
+    clearMarksAndRanges();
 
     QString currentSearchText = m_ui.searchCombo->currentText();
 
@@ -1139,7 +1147,6 @@ void KatePluginSearchView::startSearchWhileTyping()
 
     // Do not clear the search results if you press up by mistake
     if (currentSearchText.isEmpty()) {
-        clearMarksAndRanges();
         return;
     }
 
@@ -1211,7 +1218,6 @@ void KatePluginSearchView::startSearchWhileTyping()
     m_ui.searchCombo->blockSignals(false);
 
     // Prepare for the new search content
-    clearMarksAndRanges();
     m_resultBaseDir.clear();
     m_curResults->matches = 0;
 
@@ -1931,6 +1937,13 @@ void KatePluginSearchView::readSessionConfig(const KConfigGroup &cg)
     m_ui.excludeCombo->addItems(cg.readEntry("ExcludeFilters", QStringList()));
     m_ui.excludeCombo->setCurrentIndex(cg.readEntry("CurrentExcludeFilter", -1));
     m_ui.displayOptions->setChecked(searchPlaceIndex == MatchModel::Folder);
+
+    // Search as you type
+    m_searchAsYouType.insert(MatchModel::CurrentFile, cg.readEntry("SearchAsYouTypeCurrentFile", true));
+    m_searchAsYouType.insert(MatchModel::OpenFiles, cg.readEntry("SearchAsYouTypeOpenFiles", true));
+    m_searchAsYouType.insert(MatchModel::Folder, cg.readEntry("SearchAsYouTypeFolder", true));
+    m_searchAsYouType.insert(MatchModel::Project, cg.readEntry("SearchAsYouTypeProject", true));
+    m_searchAsYouType.insert(MatchModel::AllProjects, cg.readEntry("SearchAsYouTypeAllProjects", true));
 }
 
 void KatePluginSearchView::writeSessionConfig(KConfigGroup &cg)
@@ -1974,6 +1987,13 @@ void KatePluginSearchView::writeSessionConfig(KConfigGroup &cg)
     }
     cg.writeEntry("ExcludeFilters", excludeFilterItems);
     cg.writeEntry("CurrentExcludeFilter", m_ui.excludeCombo->findText(m_ui.excludeCombo->currentText()));
+
+    // Search as you type
+    cg.writeEntry("SearchAsYouTypeCurrentFile", m_searchAsYouType.value(MatchModel::CurrentFile, true));
+    cg.writeEntry("SearchAsYouTypeOpenFiles", m_searchAsYouType.value(MatchModel::OpenFiles, true));
+    cg.writeEntry("SearchAsYouTypeFolder", m_searchAsYouType.value(MatchModel::Folder, true));
+    cg.writeEntry("SearchAsYouTypeProject", m_searchAsYouType.value(MatchModel::Project, true));
+    cg.writeEntry("SearchAsYouTypeAllProjects", m_searchAsYouType.value(MatchModel::AllProjects, true));
 }
 
 void KatePluginSearchView::addTab()
@@ -2260,6 +2280,52 @@ void KatePluginSearchView::searchContextMenu(const QPoint &pos)
 
         addRegexHelperActionsForSearch(&actionPointers, menu);
     }
+
+    QMenu *asYouTypeMenu = contextMenu->addMenu(i18n("Search As You Type..."));
+    if (!asYouTypeMenu) {
+        return;
+    }
+
+    // adds search as you type options
+    QAction *a = asYouTypeMenu->addAction(QStringLiteral("search_ayt_current_file"));
+    a->setText(i18n("In Current File"));
+    a->setCheckable(true);
+    a->setChecked(m_searchAsYouType.value(MatchModel::CurrentFile, true));
+    connect(a, &QAction::triggered, this, [this](bool checked) {
+        m_searchAsYouType[MatchModel::CurrentFile] = checked;
+    });
+
+    a = asYouTypeMenu->addAction(QStringLiteral("search_ayt_open_files"));
+    a->setText(i18n("In Open Files"));
+    a->setCheckable(true);
+    a->setChecked(m_searchAsYouType.value(MatchModel::OpenFiles, true));
+    connect(a, &QAction::triggered, this, [this](bool checked) {
+        m_searchAsYouType[MatchModel::OpenFiles] = checked;
+    });
+
+    a = asYouTypeMenu->addAction(QStringLiteral("search_ayt_folder"));
+    a->setText(i18n("In Folder"));
+    a->setCheckable(true);
+    a->setChecked(m_searchAsYouType.value(MatchModel::Folder, true));
+    connect(a, &QAction::triggered, this, [this](bool checked) {
+        m_searchAsYouType[MatchModel::Folder] = checked;
+    });
+
+    a = asYouTypeMenu->addAction(QStringLiteral("search_ayt_project"));
+    a->setText(i18n("In Project"));
+    a->setCheckable(true);
+    a->setChecked(m_searchAsYouType.value(MatchModel::Project, true));
+    connect(a, &QAction::triggered, this, [this](bool checked) {
+        m_searchAsYouType[MatchModel::Project] = checked;
+    });
+
+    a = asYouTypeMenu->addAction(QStringLiteral("search_ayt_all_projects"));
+    a->setText(i18n("In All Open Projects"));
+    a->setCheckable(true);
+    a->setChecked(m_searchAsYouType.value(MatchModel::AllProjects, true));
+    connect(a, &QAction::triggered, this, [this](bool checked) {
+        m_searchAsYouType[MatchModel::AllProjects] = checked;
+    });
 
     // Show menu and act
     QAction *const result = contextMenu->exec(m_ui.searchCombo->mapToGlobal(pos));

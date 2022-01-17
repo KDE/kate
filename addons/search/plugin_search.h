@@ -206,6 +206,8 @@ private:
     QColor m_replaceHighlightColor;
     KTextEditor::Attribute::Ptr m_resultAttr;
 
+    QHash<MatchModel::SearchPlaces, bool> m_searchAsYouType;
+
     /**
      * current project plugin view, if any
      */

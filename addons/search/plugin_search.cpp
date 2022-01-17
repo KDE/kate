@@ -401,11 +401,6 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
 
     connect(m_ui.displayOptions, &QToolButton::toggled, this, &KatePluginSearchView::toggleOptions);
     connect(m_ui.searchPlaceCombo, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &KatePluginSearchView::searchPlaceChanged);
-    connect(m_ui.searchPlaceCombo, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, [this](int) {
-        if (m_ui.searchPlaceCombo->currentIndex() == MatchModel::Folder) {
-            m_ui.displayOptions->setChecked(true);
-        }
-    });
 
     connect(m_ui.stopButton, &QPushButton::clicked, this, &KatePluginSearchView::stopClicked);
 
@@ -816,6 +811,14 @@ void KatePluginSearchView::searchPlaceChanged()
 {
     int searchPlace = m_ui.searchPlaceCombo->currentIndex();
     const bool inFolder = (searchPlace == MatchModel::Folder);
+
+    if (searchPlace < MatchModel::Folder) {
+        m_ui.displayOptions->setChecked(false);
+        m_ui.displayOptions->setEnabled(false);
+    } else {
+        m_ui.displayOptions->setEnabled(true);
+        m_ui.displayOptions->setChecked(true);
+    }
 
     m_ui.filterCombo->setEnabled(searchPlace >= MatchModel::Folder);
     m_ui.excludeCombo->setEnabled(searchPlace >= MatchModel::Folder);

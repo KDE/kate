@@ -212,11 +212,14 @@ void KateTabBar::mouseMoveEvent(QMouseEvent *event)
     // For some reason initStyleOption with tabIdx directly
     // wasn't working, so manually set some stuff
     QStyleOptionTabV4 opt;
-    initStyleOption(&opt, 0);
     opt.text = tabText(tab);
     opt.state = QStyle::State_Selected | QStyle::State_Raised;
     opt.tabIndex = tab;
+    opt.position = QStyleOptionTab::OnlyOneTab;
     opt.features = QStyleOptionTab::TabFeature::HasFrame;
+    opt.rect = rect;
+    // adjust the rect so that it starts at(0,0)
+    opt.rect.adjust(-opt.rect.x(), 0, -opt.rect.x(), 0);
 
     QStylePainter paint(&p, this);
     paint.drawControl(QStyle::CE_TabBarTab, opt);
@@ -244,6 +247,7 @@ void KateTabBar::mouseMoveEvent(QMouseEvent *event)
     drag->setPixmap(p);
     QPoint hp;
     hp.setX(dragStartPos.x() - rect.x());
+    hp.setY(dragStartPos.y() - rect.y());
     drag->setHotSpot(hp);
 
     dragStartPos = {};

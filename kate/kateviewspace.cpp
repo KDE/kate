@@ -494,9 +494,24 @@ KTextEditor::View *KateViewSpace::takeView(KTextEditor::Document *doc)
         return nullptr;
     }
     auto *view = it->second;
+    // remove it from the stack
     stack->removeWidget(view);
-    m_tabBar->removeDocument(doc);
+    // remove it from our doc->view mapping
+    m_docToView.erase(it);
     documentDestroyed(doc);
+
+    // Did we just loose our last doc?
+    // Send a delayed signal. Delay is important as we want to kill
+    // the viewspace after the view transfer was done
+    if (m_tabBar->count() == 0 && m_registeredDocuments.empty()) {
+        QMetaObject::invokeMethod(
+            this,
+            [this] {
+                Q_EMIT viewSpaceEmptied(this);
+            },
+            Qt::QueuedConnection);
+    }
+
     return view;
 }
 

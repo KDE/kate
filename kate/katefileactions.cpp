@@ -14,6 +14,7 @@
 #include <KIO/CopyJob>
 #include <KIO/DeleteJob>
 #include <KIO/OpenFileManagerWindowJob>
+#include <KJobWidgets>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KPropertiesDialog>
@@ -85,18 +86,24 @@ void KateFileActions::renameDocumentFile(QWidget *parent, KTextEditor::Document 
     doc->waitSaveComplete();
 
     KIO::CopyJob *job = KIO::move(oldFileUrl, newFileUrl);
-    QSharedPointer<QMetaObject::Connection> sc(new QMetaObject::Connection());
-    auto success = [doc, sc](KIO::Job *, const QUrl &, const QUrl &realNewFileUrl, const QDateTime &, bool, bool) {
-        doc->openUrl(realNewFileUrl);
-        doc->documentSavedOrUploaded(doc, true);
-        QObject::disconnect(*sc);
-    };
-    *sc = parent->connect(job, &KIO::CopyJob::copyingDone, doc, success);
+    parent->connect(parent, &QObject::destroyed, job, [job]() {
+        job->kill();
+    });
 
-    if (!job->exec()) {
-        KMessageBox::sorry(parent, i18n("File \"%1\" could not be moved to \"%2\"", oldFileUrl.toDisplayString(), newFileUrl.toDisplayString()));
-        doc->openUrl(oldFileUrl);
-    }
+    // Associate the job with the parent widget, in case of renaming conflicts the ask-user-dialog
+    // is window-modal by default
+    KJobWidgets::setWindow(job, parent);
+
+    parent->connect(job, &KJob::result, parent, [parent, doc, oldFileUrl](KJob *job) {
+        auto *copyJob = static_cast<KIO::CopyJob *>(job);
+        if (!copyJob->error()) {
+            doc->openUrl(copyJob->destUrl());
+            doc->documentSavedOrUploaded(doc, true);
+        } else {
+            KMessageBox::sorry(parent, i18n("File \"%1\" could not be moved to \"%2\"", oldFileUrl.toDisplayString(), copyJob->destUrl().toDisplayString()));
+            doc->openUrl(oldFileUrl);
+        }
+    });
 }
 
 void KateFileActions::deleteDocumentFile(QWidget *parent, KTextEditor::Document *doc)

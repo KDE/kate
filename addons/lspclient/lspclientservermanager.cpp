@@ -707,52 +707,67 @@ private:
             }
 
             if (cmdline.length() > 0) {
+                // ensure we always only take the server executable from the PATH or user defined paths
+                // QProcess will take the executable even just from current working directory without this => BAD
+                auto cmd = QStandardPaths::findExecutable(cmdline[0]);
+
                 // optionally search in supplied path(s)
-                auto vpath = serverConfig.value(QStringLiteral("path")).toArray();
-                if (vpath.size() > 0) {
-                    auto cmd = QStandardPaths::findExecutable(cmdline[0]);
-                    if (cmd.isEmpty()) {
-                        // collect and expand in case home dir or other (environment) variable reference is used
-                        QStringList path;
-                        for (const auto &e : vpath) {
-                            auto p = e.toString();
-                            editor->expandText(p, view, p);
-                            path.push_back(p);
-                        }
-                        cmd = QStandardPaths::findExecutable(cmdline[0], path);
-                        if (!cmd.isEmpty()) {
-                            cmdline[0] = cmd;
-                        }
+                const auto vpath = serverConfig.value(QStringLiteral("path")).toArray();
+                if (cmd.isEmpty() && !vpath.isEmpty()) {
+                    // collect and expand in case home dir or other (environment) variable reference is used
+                    QStringList path;
+                    for (const auto &e : vpath) {
+                        auto p = e.toString();
+                        editor->expandText(p, view, p);
+                        path.push_back(p);
                     }
+                    cmd = QStandardPaths::findExecutable(cmdline[0], path);
                 }
-                // an empty list is always passed here (or null)
-                // the initial list is provided/updated using notification after start
-                // since that is what a server is more aware of
-                // and should support if it declares workspace folder capable
-                // (as opposed to the new initialization property)
-                LSPClientServer::FoldersType folders;
-                if (useWorkspace) {
-                    folders = QList<LSPWorkspaceFolder>();
-                }
-                server.reset(new LSPClientServer(cmdline, root, realLangId, serverConfig.value(QStringLiteral("initializationOptions")), folders));
-                connect(server.data(), &LSPClientServer::stateChanged, this, &self_type::onStateChanged, Qt::UniqueConnection);
-                if (!server->start()) {
-                    QString message = i18n("Failed to start server: %1", cmdline.join(QLatin1Char(' ')));
+
+                // we can only start the stuff if we did find the binary in the paths
+                if (!cmd.isEmpty()) {
+                    // use full path to avoid security issues
+                    cmdline[0] = cmd;
+
+                    // an empty list is always passed here (or null)
+                    // the initial list is provided/updated using notification after start
+                    // since that is what a server is more aware of
+                    // and should support if it declares workspace folder capable
+                    // (as opposed to the new initialization property)
+                    LSPClientServer::FoldersType folders;
+                    if (useWorkspace) {
+                        folders = QList<LSPWorkspaceFolder>();
+                    }
+                    server.reset(new LSPClientServer(cmdline, root, realLangId, serverConfig.value(QStringLiteral("initializationOptions")), folders));
+                    connect(server.data(), &LSPClientServer::stateChanged, this, &self_type::onStateChanged, Qt::UniqueConnection);
+                    if (!server->start()) {
+                        QString message = i18n("Failed to start server: %1", cmdline.join(QLatin1Char(' ')));
+                        const auto url = serverConfig.value(QStringLiteral("url")).toString();
+                        if (!url.isEmpty()) {
+                            message += QStringLiteral("\n") + i18n("Please check your PATH for the binary");
+                            message += QStringLiteral("\n") + i18n("See also %1 for installation or details", url);
+                        }
+                        showMessage(message, KTextEditor::Message::Warning);
+                    } else {
+                        showMessage(i18n("Started server %2: %1", cmdline.join(QLatin1Char(' ')), serverDescription(server.data())),
+                                    KTextEditor::Message::Positive);
+                        using namespace std::placeholders;
+                        server->connect(server.data(), &LSPClientServer::logMessage, this, std::bind(&self_type::onMessage, this, true, _1));
+                        server->connect(server.data(), &LSPClientServer::showMessage, this, std::bind(&self_type::onMessage, this, false, _1));
+                        server->connect(server.data(), &LSPClientServer::workDoneProgress, this, &self_type::onWorkDoneProgress);
+                        server->connect(server.data(), &LSPClientServer::workspaceFolders, this, &self_type::onWorkspaceFolders, Qt::UniqueConnection);
+                    }
+                } else {
+                    // we didn't find the server binary at all!
+                    QString message = i18n("Failed to find server binary: %1", cmdline[0]);
                     const auto url = serverConfig.value(QStringLiteral("url")).toString();
                     if (!url.isEmpty()) {
                         message += QStringLiteral("\n") + i18n("Please check your PATH for the binary");
                         message += QStringLiteral("\n") + i18n("See also %1 for installation or details", url);
                     }
                     showMessage(message, KTextEditor::Message::Warning);
-                } else {
-                    showMessage(i18n("Started server %2: %1", cmdline.join(QLatin1Char(' ')), serverDescription(server.data())),
-                                KTextEditor::Message::Positive);
-                    using namespace std::placeholders;
-                    server->connect(server.data(), &LSPClientServer::logMessage, this, std::bind(&self_type::onMessage, this, true, _1));
-                    server->connect(server.data(), &LSPClientServer::showMessage, this, std::bind(&self_type::onMessage, this, false, _1));
-                    server->connect(server.data(), &LSPClientServer::workDoneProgress, this, &self_type::onWorkDoneProgress);
-                    server->connect(server.data(), &LSPClientServer::workspaceFolders, this, &self_type::onWorkspaceFolders, Qt::UniqueConnection);
                 }
+
                 serverinfo.settings = serverConfig.value(QStringLiteral("settings"));
                 serverinfo.started = QTime::currentTime();
                 serverinfo.url = serverConfig.value(QStringLiteral("url")).toString();

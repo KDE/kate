@@ -100,7 +100,10 @@ void KateFileActions::renameDocumentFile(QWidget *parent, KTextEditor::Document 
             doc->openUrl(copyJob->destUrl());
             doc->documentSavedOrUploaded(doc, true);
         } else {
-            KMessageBox::sorry(parent, i18n("File \"%1\" could not be moved to \"%2\"", oldFileUrl.toDisplayString(), copyJob->destUrl().toDisplayString()));
+            KMessageBox::sorry(parent,
+                               i18n("File \"%1\" could not be moved to \"%2\"",
+                                    oldFileUrl.toDisplayString(QUrl::PreferLocalFile),
+                                    copyJob->destUrl().toDisplayString(QUrl::PreferLocalFile)));
             doc->openUrl(oldFileUrl);
         }
     });

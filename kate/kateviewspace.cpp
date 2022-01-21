@@ -399,15 +399,15 @@ void KateViewSpace::registerDocument(KTextEditor::Document *doc)
 
 void KateViewSpace::closeDocument(KTextEditor::Document *doc)
 {
-    auto it = m_docToView.find(doc);
-    Q_ASSERT(it != m_docToView.end());
-
     // If this is the only view of the document,
+    // OR the doc has no views yet
     // just close the document and it will take
     // care of removing the view + cleaning up the doc
-    if (doc->views().size() == 1) {
+    if (doc->views().size() <= 1) {
         m_viewManager->slotDocumentClose(doc);
     } else {
+        auto it = m_docToView.find(doc);
+        Q_ASSERT(it != m_docToView.end());
         // We have other views of this doc in other viewspaces
         // Just remove the view
         m_viewManager->deleteView(it->second);

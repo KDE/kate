@@ -9,7 +9,9 @@
 #include "kateexternaltool.h"
 #include "ui_toolview.h"
 
+#include <KTextEditor/Application>
 #include <KTextEditor/Document>
+#include <KTextEditor/Editor>
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/View>
 
@@ -22,6 +24,7 @@
 #include <KXMLGUIFactory>
 #include <QMenu>
 #include <QStandardPaths>
+#include <ktexteditor_version.h>
 
 #include <QFontDatabase>
 #include <QKeyEvent>
@@ -270,20 +273,54 @@ void KateExternalToolsPluginView::handleEsc(QEvent *event)
 void KateExternalToolsPluginView::slotViewChanged(KTextEditor::View *v)
 {
     if (m_currentView) {
-        disconnect(m_currentView->document(), &KTextEditor::Document::documentSavedOrUploaded, this, &KateExternalToolsPluginView::documentSaved);
+        disconnect(m_currentView->document(), &KTextEditor::Document::documentSavedOrUploaded, this, &KateExternalToolsPluginView::onDocumentSaved);
+#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5, 90, 0)
+        disconnect(m_currentView->document(), &KTextEditor::Document::aboutToSave, this, &KateExternalToolsPluginView::onDocumentAboutToSave);
+#endif
     }
     m_currentView = v;
-    connect(v->document(), &KTextEditor::Document::documentSavedOrUploaded, this, &KateExternalToolsPluginView::documentSaved, Qt::UniqueConnection);
+
+    connect(v->document(), &KTextEditor::Document::documentSavedOrUploaded, this, &KateExternalToolsPluginView::onDocumentSaved, Qt::UniqueConnection);
+
+#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5, 90, 0)
+    connect(v->document(), &KTextEditor::Document::aboutToSave, this, &KateExternalToolsPluginView::onDocumentAboutToSave, Qt::UniqueConnection);
+#endif
 }
 
-void KateExternalToolsPluginView::documentSaved(KTextEditor::Document *doc)
+void KateExternalToolsPluginView::onDocumentSaved(KTextEditor::Document *doc)
 {
+    // We only want to run this in the current active mainwindow
+    if (KTextEditor::Editor::instance()->application()->activeMainWindow() != m_mainWindow) {
+        return;
+    }
+
     const auto tools = m_plugin->tools();
     for (KateExternalTool *tool : tools) {
-        if (tool->execOnSave && tool->matchesMimetype(doc->mimeType())) {
-            m_plugin->runTool(*tool, m_currentView, tool->execOnSave);
+        const bool hasSaveTrigger = tool->trigger == KateExternalTool::Trigger::AfterSave;
+        if (hasSaveTrigger && tool->matchesMimetype(doc->mimeType())) {
+            m_plugin->runTool(*tool, m_currentView, /*exec save trigger=*/true);
         }
     }
+}
+
+void KateExternalToolsPluginView::onDocumentAboutToSave(KTextEditor::Document *doc)
+{
+    // We only want to run this in the current active mainwindow
+    if (KTextEditor::Editor::instance()->application()->activeMainWindow() != m_mainWindow) {
+        return;
+    }
+
+#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5, 90, 0)
+    const auto tools = m_plugin->tools();
+    for (KateExternalTool *tool : tools) {
+        const bool hasSaveTrigger = tool->trigger == KateExternalTool::Trigger::BeforeSave;
+        if (hasSaveTrigger && tool->matchesMimetype(doc->mimeType())) {
+            m_plugin->blockingRunTool(*tool, m_currentView, /*exec save trigger=*/true);
+        }
+    }
+#else
+    Q_UNUSED(doc)
+#endif
 }
 
 // END KateExternalToolsPluginView

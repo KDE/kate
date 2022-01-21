@@ -13,6 +13,7 @@
 #include <KTextEditor/Document>
 #include <KTextEditor/Editor>
 #include <KTextEditor/View>
+#include <ktexteditor_version.h>
 
 #include <KConfig>
 #include <KConfigGroup>
@@ -24,6 +25,7 @@
 #include <KXmlGuiWindow>
 #include <QBitmap>
 #include <QComboBox>
+#include <QListView>
 #include <QMenu>
 #include <QMessageBox>
 #include <QRegularExpression>
@@ -140,6 +142,13 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool *t
     ui.setupUi(this);
     ui.btnIcon->setIconSize(KIconLoader::SizeSmall);
 
+#if KTEXTEDITOR_VERSION < QT_VERSION_CHECK(5, 90, 0)
+    {
+        auto v = qobject_cast<QListView *>(ui.cmbTrigger->view());
+        v->setRowHidden(1, true);
+    }
+#endif
+
     connect(ui.buttonBox, &QDialogButtonBox::accepted, this, &KateExternalToolServiceEditor::slotOKClicked);
     connect(ui.buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
     connect(ui.btnMimeType, &QToolButton::clicked, this, &KateExternalToolServiceEditor::showMTDlg);
@@ -156,11 +165,11 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool *t
     ui.edtWorkingDir->setText(m_tool->workingDir);
     ui.edtWorkingDir->setMode(KFile::Directory | KFile::ExistingOnly | KFile::LocalOnly);
     ui.edtMimeType->setText(m_tool->mimetypes.join(QStringLiteral("; ")));
-    ui.edtMimeType->setReadOnly(true);
     ui.cmbSave->setCurrentIndex(static_cast<int>(m_tool->saveMode));
     ui.chkReload->setChecked(m_tool->reload);
     ui.cmbOutput->setCurrentIndex(static_cast<int>(m_tool->outputMode));
     ui.edtCommand->setText(m_tool->cmdname);
+    ui.cmbTrigger->setCurrentIndex((int)m_tool->trigger);
 
     static const QRegularExpressionValidator cmdLineValidator(QRegularExpression(QStringLiteral("[\\w-]*")));
     ui.edtCommand->setValidator(&cmdLineValidator);
@@ -181,7 +190,7 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool *t
             ui.chkReload->setChecked(t.reload);
             ui.cmbOutput->setCurrentIndex(static_cast<int>(t.outputMode));
             ui.edtCommand->setText(t.cmdname);
-            ui.chkExecSave->setChecked(t.execOnSave);
+            ui.cmbTrigger->setCurrentIndex(static_cast<int>(t.trigger));
         });
     }
 
@@ -196,9 +205,9 @@ void KateExternalToolServiceEditor::slotOKClicked()
         return;
     }
 
-    const bool execOnSave = ui.chkExecSave->isChecked();
-    if (execOnSave && ui.edtMimeType->text().isEmpty()) {
-        QMessageBox::information(this, i18n("External Tool"), i18n("With 'Execute On Save' enabled, at least one mimetype needs to be specified."));
+    const bool hasTrigger = ui.cmbTrigger->currentIndex() != (int)KateExternalTool::Trigger::None;
+    if (hasTrigger && ui.edtMimeType->text().isEmpty()) {
+        QMessageBox::information(this, i18n("External Tool"), i18n("With 'Trigger' enabled, at least one mimetype needs to be specified."));
         return;
     }
 
@@ -355,7 +364,7 @@ bool KateExternalToolsConfigWidget::editTool(KateExternalTool *tool)
         tool->reload = editor.ui.chkReload->isChecked();
         tool->outputMode = static_cast<KateExternalTool::OutputMode>(editor.ui.cmbOutput->currentIndex());
         tool->cmdname = editor.ui.edtCommand->text().trimmed();
-        tool->execOnSave = editor.ui.chkExecSave->isChecked();
+        tool->trigger = static_cast<KateExternalTool::Trigger>(editor.ui.cmbTrigger->currentIndex());
 
         tool->executable = editor.ui.edtExecutable->text().trimmed();
         tool->hasexec = tool->checkExec();

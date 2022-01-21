@@ -92,6 +92,34 @@ KateExternalTool::OutputMode toOutputMode(const QString &mode)
     }
     return KateExternalTool::OutputMode::Ignore;
 }
+
+KateExternalTool::Trigger toTrigger(const QString &trigger)
+{
+    if (trigger == QStringLiteral("None")) {
+        return KateExternalTool::Trigger::None;
+    }
+    if (trigger == QStringLiteral("BeforeSave")) {
+        return KateExternalTool::Trigger::BeforeSave;
+    }
+    if (trigger == QStringLiteral("AfterSave")) {
+        return KateExternalTool::Trigger::AfterSave;
+    }
+    return KateExternalTool::Trigger::None;
+}
+
+QString toString(KateExternalTool::Trigger trigger)
+{
+    if (trigger == KateExternalTool::Trigger::None) {
+        return QStringLiteral("None");
+    }
+    if (trigger == KateExternalTool::Trigger::BeforeSave) {
+        return QStringLiteral("BeforeSave");
+    }
+    if (trigger == KateExternalTool::Trigger::AfterSave) {
+        return QStringLiteral("AfterSave");
+    }
+    return QStringLiteral("None");
+}
 }
 
 bool KateExternalTool::checkExec() const
@@ -119,7 +147,7 @@ void KateExternalTool::load(const KConfigGroup &cg)
     saveMode = toSaveMode(cg.readEntry("save", "None"));
     reload = cg.readEntry("reload", false);
     outputMode = toOutputMode(cg.readEntry("output", "Ignore"));
-    execOnSave = cg.readEntry("execOnSave", false);
+    trigger = toTrigger(cg.readEntry("trigger", "None"));
 
     hasexec = checkExec();
 }
@@ -149,10 +177,10 @@ void KateExternalTool::save(KConfigGroup &cg) const
     writeEntryMaybe(cg, "cmdname", cmdname);
     writeEntryMaybe(cg, "save", toString(saveMode));
     writeEntryMaybe(cg, "output", toString(outputMode));
+    writeEntryMaybe(cg, "trigger", toString(trigger));
 
     // a logical value is never empty
     cg.writeEntry("reload", reload);
-    cg.writeEntry("execOnSave", execOnSave);
 }
 
 QString KateExternalTool::translatedName() const
@@ -170,7 +198,7 @@ bool operator==(const KateExternalTool &lhs, const KateExternalTool &rhs)
     return lhs.category == rhs.category && lhs.name == rhs.name && lhs.icon == rhs.icon && lhs.executable == rhs.executable && lhs.arguments == rhs.arguments
         && lhs.input == rhs.input && lhs.workingDir == rhs.workingDir && lhs.mimetypes == rhs.mimetypes && lhs.actionName == rhs.actionName
         && lhs.cmdname == rhs.cmdname && lhs.saveMode == rhs.saveMode && lhs.reload == rhs.reload && lhs.outputMode == rhs.outputMode
-        && lhs.execOnSave == rhs.execOnSave;
+        && lhs.trigger == rhs.trigger;
 }
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

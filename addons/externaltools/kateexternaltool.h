@@ -45,6 +45,15 @@ public:
         DisplayInPane
     };
 
+    enum class Trigger {
+        //! No trigger
+        None,
+        //! Run the tool before saving
+        BeforeSave,
+        //! Run the tool after saving
+        AfterSave,
+    };
+
 public:
     /// The category used in the menu to categorize the tool.
     QString category;
@@ -73,8 +82,8 @@ public:
     bool reload = false;
     /// Defines where to redirect the tool's output
     OutputMode outputMode = OutputMode::Ignore;
-    /// Whether to execute tool on document save
-    bool execOnSave = false;
+    /// Trigger to run tool
+    Trigger trigger = Trigger::None;
 
 public:
     /// This is set when loading the Tool from disk.

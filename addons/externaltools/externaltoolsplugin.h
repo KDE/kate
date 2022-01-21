@@ -91,7 +91,13 @@ public:
     /**
      * Executes the tool based on the view as current document.
      */
-    void runTool(const KateExternalTool &tool, KTextEditor::View *view, bool executingOnSave = false);
+    void runTool(const KateExternalTool &tool, KTextEditor::View *view, bool executingSaveTrigger = false);
+
+    /**
+     * Executes the tool based on the view as current document.
+     * same as @ref runTool but waits for the tool to finish before returning
+     */
+    void blockingRunTool(const KateExternalTool &tool, KTextEditor::View *view, bool executingSaveTrigger = false);
 
 Q_SIGNALS:
     /**
@@ -134,6 +140,7 @@ public:
 
 private:
     void migrateConfig();
+    KateToolRunner *runnerForTool(const KateExternalTool &tool, KTextEditor::View *view, bool executingSaveTrigger);
 
     KSharedConfigPtr m_config;
     QVector<KateExternalTool> m_defaultTools;

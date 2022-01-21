@@ -235,14 +235,14 @@ QVector<KateExternalTool> KateExternalToolsPlugin::defaultTools() const
     return m_defaultTools;
 }
 
-void KateExternalToolsPlugin::runTool(const KateExternalTool &tool, KTextEditor::View *view, bool executingOnSave)
+KateToolRunner *KateExternalToolsPlugin::runnerForTool(const KateExternalTool &tool, KTextEditor::View *view, bool executingSaveTrigger)
 {
     // expand the macros in command if any,
     // and construct a command with an absolute path
     auto mw = view->mainWindow();
 
     // save documents if requested
-    if (!executingOnSave) {
+    if (!executingSaveTrigger) {
         if (tool.saveMode == KateExternalTool::SaveMode::CurrentDocument) {
             // only save if modified, to avoid unnecessary recompiles
             if (view->document()->isModified()) {
@@ -286,11 +286,23 @@ void KateExternalToolsPlugin::runTool(const KateExternalTool &tool, KTextEditor:
 
     // Allocate runner on heap such that it lives as long as the child
     // process is running and does not block the main thread.
-    auto runner = new KateToolRunner(std::move(copy), view, this);
+    return new KateToolRunner(std::move(copy), view, this);
+}
 
+void KateExternalToolsPlugin::runTool(const KateExternalTool &tool, KTextEditor::View *view, bool executingSaveTrigger)
+{
+    auto runner = runnerForTool(tool, view, executingSaveTrigger);
     // use QueuedConnection, since handleToolFinished deletes the runner
     connect(runner, &KateToolRunner::toolFinished, this, &KateExternalToolsPlugin::handleToolFinished, Qt::QueuedConnection);
     runner->run();
+}
+
+void KateExternalToolsPlugin::blockingRunTool(const KateExternalTool &tool, KTextEditor::View *view, bool executingSaveTrigger)
+{
+    auto runner = runnerForTool(tool, view, executingSaveTrigger);
+    connect(runner, &KateToolRunner::toolFinished, this, &KateExternalToolsPlugin::handleToolFinished);
+    runner->run();
+    runner->waitForFinished();
 }
 
 void KateExternalToolsPlugin::handleToolFinished(KateToolRunner *runner, int exitCode, bool crashed)

@@ -140,7 +140,8 @@ public Q_SLOTS:
 
 private Q_SLOTS:
     void slotViewChanged(KTextEditor::View *v);
-    void documentSaved(KTextEditor::Document *doc);
+    void onDocumentSaved(KTextEditor::Document *doc);
+    void onDocumentAboutToSave(KTextEditor::Document *doc);
 
 Q_SIGNALS:
     /**

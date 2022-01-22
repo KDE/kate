@@ -77,6 +77,10 @@ whitespace at the end of lines.</para></listitem>
 <listitem><para>When checked the editor will display a &raquo; symbol to indicate the presence
   of a tab in the text.</para></listitem>
 </varlistentry>
+<varlistentry>
+<term><guilabel>Show focus frame around editor</guilabel></term>
+<listitem><para>When checked the editor shows focus frame around the main source text control.</para></listitem>
+</varlistentry>
 
 <varlistentry>
 <term><guilabel>Bracket matching

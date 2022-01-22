@@ -1136,19 +1136,9 @@ void KatePluginSearchView::startSearchWhileTyping()
         return;
     }
 
-    updateViewColors();
-
-    m_isSearchAsYouType = true;
-    clearMarksAndRanges();
-
     QString currentSearchText = m_ui.searchCombo->currentText();
 
     m_ui.searchButton->setDisabled(currentSearchText.isEmpty());
-
-    // Do not clear the search results if you press up by mistake
-    if (currentSearchText.isEmpty()) {
-        return;
-    }
 
     if (!m_mainWindow->activeView()) {
         return;
@@ -1172,6 +1162,9 @@ void KatePluginSearchView::startSearchWhileTyping()
     }
 
     // Now we should have a true typed text change
+    m_isSearchAsYouType = true;
+    updateViewColors();
+    clearMarksAndRanges();
 
     QString pattern = (m_ui.useRegExp->isChecked() ? currentSearchText : QRegularExpression::escape(currentSearchText));
     QRegularExpression::PatternOptions patternOptions = QRegularExpression::UseUnicodePropertiesOption;
@@ -2281,50 +2274,16 @@ void KatePluginSearchView::searchContextMenu(const QPoint &pos)
         addRegexHelperActionsForSearch(&actionPointers, menu);
     }
 
-    QMenu *asYouTypeMenu = contextMenu->addMenu(i18n("Search As You Type..."));
-    if (!asYouTypeMenu) {
-        return;
-    }
-
-    // adds search as you type options
-    QAction *a = asYouTypeMenu->addAction(QStringLiteral("search_ayt_current_file"));
-    a->setText(i18n("In Current File"));
+    // add option to disable/enable search as you type
+    QAction *a = contextMenu->addAction(QStringLiteral("search_as_you_type"));
+    a->setText(i18n("Search As You Type"));
     a->setCheckable(true);
-    a->setChecked(m_searchAsYouType.value(MatchModel::CurrentFile, true));
+    int searchPlace = m_ui.searchPlaceCombo->currentIndex();
+    bool enabled = m_searchAsYouType.value(static_cast<MatchModel::SearchPlaces>(searchPlace), true);
+    a->setChecked(enabled);
     connect(a, &QAction::triggered, this, [this](bool checked) {
-        m_searchAsYouType[MatchModel::CurrentFile] = checked;
-    });
-
-    a = asYouTypeMenu->addAction(QStringLiteral("search_ayt_open_files"));
-    a->setText(i18n("In Open Files"));
-    a->setCheckable(true);
-    a->setChecked(m_searchAsYouType.value(MatchModel::OpenFiles, true));
-    connect(a, &QAction::triggered, this, [this](bool checked) {
-        m_searchAsYouType[MatchModel::OpenFiles] = checked;
-    });
-
-    a = asYouTypeMenu->addAction(QStringLiteral("search_ayt_folder"));
-    a->setText(i18n("In Folder"));
-    a->setCheckable(true);
-    a->setChecked(m_searchAsYouType.value(MatchModel::Folder, true));
-    connect(a, &QAction::triggered, this, [this](bool checked) {
-        m_searchAsYouType[MatchModel::Folder] = checked;
-    });
-
-    a = asYouTypeMenu->addAction(QStringLiteral("search_ayt_project"));
-    a->setText(i18n("In Project"));
-    a->setCheckable(true);
-    a->setChecked(m_searchAsYouType.value(MatchModel::Project, true));
-    connect(a, &QAction::triggered, this, [this](bool checked) {
-        m_searchAsYouType[MatchModel::Project] = checked;
-    });
-
-    a = asYouTypeMenu->addAction(QStringLiteral("search_ayt_all_projects"));
-    a->setText(i18n("In All Open Projects"));
-    a->setCheckable(true);
-    a->setChecked(m_searchAsYouType.value(MatchModel::AllProjects, true));
-    connect(a, &QAction::triggered, this, [this](bool checked) {
-        m_searchAsYouType[MatchModel::AllProjects] = checked;
+        int searchPlace = m_ui.searchPlaceCombo->currentIndex();
+        m_searchAsYouType[static_cast<MatchModel::SearchPlaces>(searchPlace)] = checked;
     });
 
     // Show menu and act

@@ -32,6 +32,15 @@ public:
     ~KateMwModOnHdDialog() override;
     void addDocument(KTextEditor::Document *doc);
 
+    void setShowOnWindowActivation(bool show)
+    {
+        m_showOnWindowActivation = show;
+    }
+    bool showOnWindowActivation() const
+    {
+        return m_showOnWindowActivation;
+    }
+
 Q_SIGNALS:
     void requestOpenDiffDocument(const QUrl &documentUrl);
 
@@ -55,6 +64,7 @@ private:
     QTemporaryFile *m_diffFile;
     QStringList m_stateTexts;
     bool m_blockAddDocument;
+    bool m_showOnWindowActivation = false;
 
 protected:
     void closeEvent(QCloseEvent *e) override;

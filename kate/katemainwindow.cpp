@@ -1172,6 +1172,20 @@ void KateMainWindow::queueModifiedOnDisc(KTextEditor::Document *doc)
         connect(s_modOnHdDialog, &KateMwModOnHdDialog::requestOpenDiffDocument, this, [this](const QUrl &url) {
             viewManager()->openUrl(url, QString(), true, true);
         });
+
+        // Someone modified a doc outside and now we are here
+        // but Kate isn't the active app. Delay the dialog exec
+        // otherwise it will bring us front interrupting user's
+        // work.
+        if (!qApp->activeWindow() || !hasFocus()) {
+            m_modignore = false;
+            s_modOnHdDialog->setShowOnWindowActivation(true);
+            // hopefully this shows an alert to the user in task bar
+            // that something changed in Kate
+            qApp->alert(this, 3000);
+            return;
+        }
+
         s_modOnHdDialog->exec();
         delete s_modOnHdDialog; // s_modOnHdDialog is set to 0 in destructor of KateMwModOnHdDialog (jowenn!!!)
         m_modignore = false;
@@ -1190,6 +1204,21 @@ bool KateMainWindow::event(QEvent *e)
             hideToolView(m_toolViewOutput);
         }
     }
+
+    if (e->type() == QEvent::ActivationChange) {
+        // After queueModifiedOnDisc, the app wasn't active but now it got
+        // active. Show the dialog.
+        if (s_modOnHdDialog && s_modOnHdDialog->showOnWindowActivation()) {
+            // Must set this to false, we want only one exec to happen.
+            s_modOnHdDialog->setShowOnWindowActivation(false);
+            // do it on next event loop iteration to avoid blocking here
+            QTimer::singleShot(1, this, [] {
+                s_modOnHdDialog->exec();
+                delete s_modOnHdDialog;
+            });
+        }
+    }
+
     return KateMDI::MainWindow::event(e);
 }
 

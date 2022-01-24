@@ -158,7 +158,9 @@ void CompareBranchesView::showDiff(const QModelIndex &idx)
 {
     auto file = idx.data(Qt::UserRole).toString().remove(m_gitDir + QLatin1Char('/'));
     QProcess git;
-    setupGitProcess(git, m_gitDir, {QStringLiteral("diff"), QStringLiteral("%1...%2").arg(m_fromBr).arg(m_toBr), QStringLiteral("--"), file});
+    if (!setupGitProcess(git, m_gitDir, {QStringLiteral("diff"), QStringLiteral("%1...%2").arg(m_fromBr).arg(m_toBr), QStringLiteral("--"), file})) {
+        return;
+    }
     git.start(QProcess::ReadOnly);
 
     if (git.waitForStarted() && git.waitForFinished(-1)) {

@@ -9,6 +9,7 @@
 
 #include <QDir>
 #include <QProcess>
+#include <QStandardPaths>
 
 /**
  * include ctags reading
@@ -73,6 +74,12 @@ void KateProjectIndex::loadCtags(const QStringList &files, const QVariantMap &ct
      */
     m_ctagsIndexFile->close();
 
+    // only use ctags from PATH
+    static const auto fullExecutablePath = QStandardPaths::findExecutable(QStringLiteral("ctags"));
+    if (fullExecutablePath.isEmpty()) {
+        return;
+    }
+
     /**
      * try to run ctags for all files in this project
      * output to our ctags index file
@@ -85,7 +92,7 @@ void KateProjectIndex::loadCtags(const QStringList &files, const QVariantMap &ct
     for (const QVariant &optVariant : opts) {
         args << optVariant.toString();
     }
-    ctags.start(QStringLiteral("ctags"), args);
+    ctags.start(fullExecutablePath, args);
     if (!ctags.waitForStarted()) {
         return;
     }

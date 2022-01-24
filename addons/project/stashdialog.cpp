@@ -32,6 +32,8 @@
 
 #include <kfts_fuzzy_match.h>
 
+#include <gitprocess.h>
+
 constexpr int StashIndexRole = Qt::UserRole + 2;
 
 class StashFilterModel final : public QSortFilterProxyModel
@@ -218,11 +220,10 @@ void StashDialog::slotReturnPressed()
     hide();
 }
 
-QProcess *StashDialog::gitp()
+QProcess *StashDialog::gitp(const QStringList &arguments)
 {
     auto git = new QProcess(this);
-    git->setProgram(QStringLiteral("git"));
-    git->setWorkingDirectory(m_gitPath);
+    setupGitProcess(*git, m_gitPath, arguments);
     return git;
 }
 
@@ -242,7 +243,7 @@ void StashDialog::stash(bool keepIndex, bool includeUntracked)
         args.append(m_lineEdit.text());
     }
 
-    auto git = gitp();
+    auto git = gitp(args);
     connect(git, &QProcess::finished, this, [this, git](int exitCode, QProcess::ExitStatus es) {
         if (es != QProcess::NormalExit || exitCode != 0) {
             qWarning() << git->errorString();
@@ -253,14 +254,12 @@ void StashDialog::stash(bool keepIndex, bool includeUntracked)
         Q_EMIT done();
         git->deleteLater();
     });
-    git->setArguments(args);
     git->start(QProcess::ReadOnly);
 }
 
 void StashDialog::getStashList()
 {
-    auto git = gitp();
-    git->setArguments({QStringLiteral("stash"), QStringLiteral("list")});
+    auto git = gitp({QStringLiteral("stash"), QStringLiteral("list")});
     git->start(QProcess::ReadOnly);
 
     QList<QByteArray> stashList;
@@ -293,11 +292,11 @@ void StashDialog::getStashList()
 
 void StashDialog::popStash(const QByteArray &index, const QString &command)
 {
-    auto git = gitp();
     QStringList args{QStringLiteral("stash"), command};
     if (!index.isEmpty()) {
         args.append(QString::fromUtf8(index));
     }
+    auto git = gitp(args);
 
     connect(git, &QProcess::finished, this, [this, command, git](int exitCode, QProcess::ExitStatus es) {
         if (es != QProcess::NormalExit || exitCode != 0) {
@@ -320,7 +319,6 @@ void StashDialog::popStash(const QByteArray &index, const QString &command)
         Q_EMIT done();
         git->deleteLater();
     });
-    git->setArguments(args);
     git->start(QProcess::ReadOnly);
 }
 
@@ -339,9 +337,8 @@ void StashDialog::showStash(const QByteArray &index)
     if (index.isEmpty()) {
         return;
     }
-    auto git = gitp();
 
-    QStringList args{QStringLiteral("stash"), QStringLiteral("show"), QStringLiteral("-p"), QString::fromUtf8(index)};
+    auto git = gitp({QStringLiteral("stash"), QStringLiteral("show"), QStringLiteral("-p"), QString::fromUtf8(index)});
 
     connect(git, &QProcess::finished, this, [this, git](int exitCode, QProcess::ExitStatus es) {
         if (es != QProcess::NormalExit || exitCode != 0) {
@@ -353,6 +350,5 @@ void StashDialog::showStash(const QByteArray &index)
         git->deleteLater();
     });
 
-    git->setArguments(args);
     git->start(QProcess::ReadOnly);
 }

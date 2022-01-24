@@ -678,8 +678,11 @@ void KateViewSpace::showContextMenu(int idx, const QPoint &globalPos)
 
     if (mCompareWithActive->isEnabled()) {
         for (auto &&diffTool : KateFileActions::supportedDiffTools()) {
-            QAction *compareAction = mCompareWithActive->addAction(diffTool);
-            compareAction->setData(diffTool);
+            QAction *compareAction = mCompareWithActive->addAction(diffTool.first);
+
+            // we use the full path to safely execute the tool, disable action if no full path => tool not found
+            compareAction->setData(diffTool.second);
+            compareAction->setEnabled(!diffTool.second.isEmpty());
         }
     }
 

@@ -514,8 +514,9 @@ void GitWidget::launchExternalDiffTool(const QString &file, bool staged)
     args.append(file);
 
     QProcess git;
-    setupGitProcess(git, m_gitPath, args);
-    git.startDetached();
+    if (setupGitProcess(git, m_gitPath, args)) {
+        git.startDetached();
+    }
 }
 
 void GitWidget::commitChanges(const QString &msg, const QString &desc, bool signOff, bool amend)
@@ -745,7 +746,12 @@ void GitWidget::branchCompareFiles(const QString &from, const QString &to)
     auto args = QStringList{QStringLiteral("diff"), QStringLiteral("%1...%2").arg(from).arg(to), QStringLiteral("--name-status")};
 
     QProcess git;
-    setupGitProcess(git, m_gitPath, args);
+
+    // early out if we can't find git
+    if (!setupGitProcess(git, m_gitPath, args)) {
+        return;
+    }
+
     git.start(QProcess::ReadOnly);
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         if (git.exitStatus() != QProcess::NormalExit || git.exitCode() != 0) {
@@ -767,7 +773,12 @@ void GitWidget::branchCompareFiles(const QString &from, const QString &to)
 
     // get --num-stat
     args = QStringList{QStringLiteral("diff"), QStringLiteral("%1...%2").arg(from).arg(to), QStringLiteral("--numstat"), QStringLiteral("-z")};
-    setupGitProcess(git, m_gitPath, args);
+
+    // early out if we can't find git
+    if (!setupGitProcess(git, m_gitPath, args)) {
+        return;
+    }
+
     git.start(QProcess::ReadOnly);
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         if (git.exitStatus() != QProcess::NormalExit || git.exitCode() != 0) {

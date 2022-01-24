@@ -304,10 +304,18 @@ bool PluginKateXMLCheckView::slotValidate()
     s << kv->document()->text();
     s.flush();
 
+    // ensure we only execute xmllint from PATH or application package
     QString exe = QStandardPaths::findExecutable(QStringLiteral("xmllint"));
     if (exe.isEmpty()) {
         exe = QStandardPaths::locate(QStandardPaths::ApplicationsLocation, QStringLiteral("xmllint"));
     }
+    if (exe.isEmpty()) {
+        KMessageBox::error(nullptr,
+                           i18n("<b>Error:</b> Failed to find xmllint. Please make "
+                                "sure that xmllint is installed. It is part of libxml2."));
+        return false;
+    }
+
     // qDebug() << "exe=" <<exe;
     // 	// use catalogs for KDE docbook:
     // 	if( ! getenv("XML_CATALOG_FILES") ) {

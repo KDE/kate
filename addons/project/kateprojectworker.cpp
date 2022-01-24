@@ -18,6 +18,7 @@
 #include <QRegularExpression>
 #include <QSet>
 #include <QSettings>
+#include <QStandardPaths>
 #include <QThread>
 #include <QTime>
 #include <QtConcurrent>
@@ -442,10 +443,12 @@ QVector<QString> KateProjectWorker::filesFromGit(const QDir &dir, bool recursive
 
 QVector<QString> KateProjectWorker::gitFiles(const QDir &dir, bool recursive, const QStringList &args)
 {
-    QProcess git;
-    setupGitProcess(git, dir.absolutePath(), args);
-    git.start(QProcess::ReadOnly);
     QVector<QString> files;
+    QProcess git;
+    if (!setupGitProcess(git, dir.absolutePath(), args)) {
+        return files;
+    }
+    git.start(QProcess::ReadOnly);
     if (!git.waitForStarted() || !git.waitForFinished(-1)) {
         return files;
     }
@@ -466,13 +469,18 @@ QVector<QString> KateProjectWorker::gitFiles(const QDir &dir, bool recursive, co
 
 QVector<QString> KateProjectWorker::filesFromMercurial(const QDir &dir, bool recursive)
 {
+    // only use version control from PATH
     QVector<QString> files;
+    static const auto fullExecutablePath = QStandardPaths::findExecutable(QStringLiteral("hg"));
+    if (fullExecutablePath.isEmpty()) {
+        return files;
+    }
 
     QProcess hg;
     hg.setWorkingDirectory(dir.absolutePath());
     QStringList args;
     args << QStringLiteral("manifest") << QStringLiteral(".");
-    hg.start(QStringLiteral("hg"), args, QProcess::ReadOnly);
+    hg.start(fullExecutablePath, args, QProcess::ReadOnly);
     if (!hg.waitForStarted() || !hg.waitForFinished(-1)) {
         return files;
     }
@@ -493,7 +501,12 @@ QVector<QString> KateProjectWorker::filesFromMercurial(const QDir &dir, bool rec
 
 QVector<QString> KateProjectWorker::filesFromSubversion(const QDir &dir, bool recursive)
 {
+    // only use version control from PATH
     QVector<QString> files;
+    static const auto fullExecutablePath = QStandardPaths::findExecutable(QStringLiteral("svn"));
+    if (fullExecutablePath.isEmpty()) {
+        return files;
+    }
 
     QProcess svn;
     svn.setWorkingDirectory(dir.absolutePath());
@@ -504,7 +517,7 @@ QVector<QString> KateProjectWorker::filesFromSubversion(const QDir &dir, bool re
     } else {
         args << QStringLiteral("--depth=files");
     }
-    svn.start(QStringLiteral("svn"), args, QProcess::ReadOnly);
+    svn.start(fullExecutablePath, args, QProcess::ReadOnly);
     if (!svn.waitForStarted() || !svn.waitForFinished(-1)) {
         return files;
     }
@@ -555,18 +568,21 @@ QVector<QString> KateProjectWorker::filesFromSubversion(const QDir &dir, bool re
 
 QVector<QString> KateProjectWorker::filesFromDarcs(const QDir &dir, bool recursive)
 {
+    // only use version control from PATH
     QVector<QString> files;
+    static const auto fullExecutablePath = QStandardPaths::findExecutable(QStringLiteral("darcs"));
+    if (fullExecutablePath.isEmpty()) {
+        return files;
+    }
 
-    const QString cmd = QStringLiteral("darcs");
     QString root;
-
     {
         QProcess darcs;
         darcs.setWorkingDirectory(dir.absolutePath());
         QStringList args;
         args << QStringLiteral("list") << QStringLiteral("repo");
 
-        darcs.start(cmd, args, QProcess::ReadOnly);
+        darcs.start(fullExecutablePath, args, QProcess::ReadOnly);
 
         if (!darcs.waitForStarted() || !darcs.waitForFinished(-1)) {
             return files;
@@ -590,7 +606,7 @@ QVector<QString> KateProjectWorker::filesFromDarcs(const QDir &dir, bool recursi
         darcs.setWorkingDirectory(dir.absolutePath());
         args << QStringLiteral("list") << QStringLiteral("files") << QStringLiteral("--no-directories") << QStringLiteral("--pending");
 
-        darcs.start(cmd, args, QProcess::ReadOnly);
+        darcs.start(fullExecutablePath, args, QProcess::ReadOnly);
 
         if (!darcs.waitForStarted() || !darcs.waitForFinished(-1)) {
             return files;

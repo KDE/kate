@@ -263,7 +263,9 @@ static void createFileTree(QStandardItem *parent, const QString &basePath, const
 static std::optional<QString> getGitCmdOutput(const QString &workDir, const QStringList &args)
 {
     QProcess git;
-    setupGitProcess(git, workDir, args);
+    if (!setupGitProcess(git, workDir, args)) {
+        return {};
+    }
     git.start(QProcess::ReadOnly);
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         if (git.exitStatus() != QProcess::NormalExit || git.exitCode() != 0) {
@@ -365,9 +367,12 @@ void CommitDiffTreeView::openCommit(const QString &hash, const QString &filePath
     m_commitHash = hash;
 
     QProcess *git = new QProcess(this);
-    setupGitProcess(*git,
-                    QFileInfo(filePath).absolutePath(),
-                    {QStringLiteral("show"), hash, QStringLiteral("--numstat"), QStringLiteral("--pretty=oneline"), QStringLiteral("-z")});
+    if (!setupGitProcess(*git,
+                         QFileInfo(filePath).absolutePath(),
+                         {QStringLiteral("show"), hash, QStringLiteral("--numstat"), QStringLiteral("--pretty=oneline"), QStringLiteral("-z")})) {
+        delete git;
+        return;
+    }
     connect(git, &QProcess::finished, this, [this, git, filePath](int e, QProcess::ExitStatus s) {
         git->deleteLater();
         if (e != 0 || s != QProcess::NormalExit) {
@@ -440,7 +445,9 @@ void CommitDiffTreeView::showDiff(const QModelIndex &idx)
 {
     const QString file = idx.data(FileItem::Path).toString();
     QProcess git;
-    setupGitProcess(git, m_gitDir, {QStringLiteral("show"), m_commitHash, QStringLiteral("--"), file});
+    if (!setupGitProcess(git, m_gitDir, {QStringLiteral("show"), m_commitHash, QStringLiteral("--"), file})) {
+        return;
+    }
     git.start(QProcess::ReadOnly);
 
     if (git.waitForStarted() && git.waitForFinished(-1)) {

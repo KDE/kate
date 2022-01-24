@@ -51,9 +51,9 @@ void openFilePropertiesDialog(KTextEditor::Document *document);
 void deleteDocumentFile(QWidget *parent, KTextEditor::Document *document);
 
 /**
- * @returns a list of supported diff tools (names of the executables)
+ * @returns a list of supported diff tools (names of the executables + paths to them, empty if not found in PATH)
  */
-QStringList supportedDiffTools();
+QVector<std::pair<QString, QString>> supportedDiffTools();
 
 /**
  * Runs an external program to compare the underlying files of two given documents.

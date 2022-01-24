@@ -2456,6 +2456,58 @@ and so it may not be advisable to have both enabled at the same time.
 
 </sect2>
 
+<sect2 id="lspclient-go-to-symbol">
+<title>Goto Symbol support</title>
+<para>
+LSP Client can help you jump to any symbol in your project or current file.
+
+To jump to any symbol in the file, use the toolview "LSP Client Symbol Outline"
+on the right border of kate. This toolview lists all symbols found by the server
+in current document.
+</para>
+
+<sect3 id="lspclient-symbol-outline-config">
+<title>Configuring LSP Client Symbol Outline</title>
+
+<para>
+By default the symbols are sorted by their occurrence in the
+document but you can change the sort to be alphabetical. To do so, right click in
+the toolview and check "Sort Alphabetically".
+</para>
+
+<para>
+The toolview shows the symbols in tree mode by default, however you can change it to a list using the
+context menu.
+</para>
+</sect3>
+
+<sect3 id="lspclient-global-go-to-symbol">
+<title>Global Goto symbol support</title>
+<para>
+To jump to any symbol in your project, you can open the goto symbol dialog using
+<keycombo action="simul">&Ctrl;&Alt;<keycap>p</keycap></keycombo>.
+The dialog is empty when it opens but as soon as you type something the dialog will start showing
+you matching symbols. The quality of matches as well as filtering capabilities depend upon the server
+that you use. For example, clangd supports fuzzy filtering but some other server may not.
+</para>
+</sect3>
+
+</sect2>
+
+<sect2 id="lspclient-extra">
+<title>Other Features</title>
+
+<para>
+Clangd switch source header command is supported. To switch source header in a C or C++ project either use the "Switch Source Header"
+option from the context menu or the shortcut <keycombo action="simul"><keycap>F12</keycap></keycombo>.
+</para>
+
+<para>
+You can jump to a symbol quickly by putting your mouse over the symbol and then pressing
+<keycombo action="simul">&Ctrl;</keycombo> + left mouse button.
+</para>
+
+</sect2>
 
 <sect2 id="lspclient-configuration">
 <title>Configuration</title>

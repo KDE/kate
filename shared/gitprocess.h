@@ -7,6 +7,7 @@
 #pragma once
 
 #include <QProcess>
+#include <QStandardPaths>
 
 /**
  * small helper function to setup a QProcess based "git" command.
@@ -17,10 +18,20 @@
  * @param process process to setup for git
  * @param workingDirectory working directory to use for process
  * @param arguments arguments to pass to git
+ * @return could set setup the process or did that fail, e.g. because the git executable is not available?
  */
-inline void setupGitProcess(QProcess &process, const QString &workingDirectory, const QStringList &arguments)
+inline bool setupGitProcess(QProcess &process, const QString &workingDirectory, const QStringList &arguments)
 {
-    process.setProgram(QStringLiteral("git"));
+    // only use git from PATH
+    static const auto gitExecutable = QStandardPaths::findExecutable(QStringLiteral("git"));
+    if (gitExecutable.isEmpty()) {
+        // ensure we have no valid QProcess setup
+        process.setProgram(QString());
+        return false;
+    }
+
+    // setup program and arguments, ensure we do run git in the right working directory
+    process.setProgram(gitExecutable);
     process.setWorkingDirectory(workingDirectory);
     process.setArguments(arguments);
 
@@ -37,4 +48,5 @@ inline void setupGitProcess(QProcess &process, const QString &workingDirectory, 
     QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
     env.insert(QStringLiteral("GIT_OPTIONAL_LOCKS"), QStringLiteral("0"));
     process.setProcessEnvironment(env);
+    return true;
 }

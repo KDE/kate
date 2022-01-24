@@ -231,9 +231,12 @@ FileHistoryWidget::~FileHistoryWidget()
 // git log --format=%H%n%aN%n%aE%n%at%n%ct%n%P%n%B --author-date-order
 void FileHistoryWidget::getFileHistory(const QString &file)
 {
-    setupGitProcess(m_git,
-                    QFileInfo(file).absolutePath(),
-                    {QStringLiteral("log"), QStringLiteral("--format=%H%n%aN%n%aE%n%at%n%ct%n%P%n%B"), QStringLiteral("-z"), file});
+    if (!setupGitProcess(m_git,
+                         QFileInfo(file).absolutePath(),
+                         {QStringLiteral("log"), QStringLiteral("--format=%H%n%aN%n%aE%n%at%n%ct%n%P%n%B"), QStringLiteral("-z"), file})) {
+        Q_EMIT errorMessage(i18n("Failed to get file history: git executable not found in PATH"), true);
+        return;
+    }
 
     connect(&m_git, &QProcess::readyReadStandardOutput, this, [this] {
         auto commits = parseCommits(m_git.readAllStandardOutput().split(0x00));
@@ -258,7 +261,10 @@ void FileHistoryWidget::itemClicked(const QModelIndex &idx)
 
     const auto commit = idx.data(CommitListModel::CommitRole).value<Commit>();
 
-    setupGitProcess(git, fi.absolutePath(), {QStringLiteral("show"), QString::fromUtf8(commit.hash), QStringLiteral("--"), m_file});
+    if (!setupGitProcess(git, fi.absolutePath(), {QStringLiteral("show"), QString::fromUtf8(commit.hash), QStringLiteral("--"), m_file})) {
+        return;
+    }
+
     git.start(QProcess::ReadOnly);
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         if (git.exitStatus() != QProcess::NormalExit || git.exitCode() != 0) {

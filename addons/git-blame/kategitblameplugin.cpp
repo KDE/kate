@@ -263,7 +263,9 @@ void KateGitBlamePluginView::startBlameProcess(const QUrl &url)
     QDir dir{url.toLocalFile()};
     dir.cdUp();
 
-    setupGitProcess(m_blameInfoProc, dir.absolutePath(), {QStringLiteral("blame"), QStringLiteral("-p"), QStringLiteral("./%1").arg(fileName)});
+    if (!setupGitProcess(m_blameInfoProc, dir.absolutePath(), {QStringLiteral("blame"), QStringLiteral("-p"), QStringLiteral("./%1").arg(fileName)})) {
+        return;
+    }
     m_blameInfoProc.start(QIODevice::ReadOnly);
     m_blameUrl = url;
 }
@@ -278,7 +280,9 @@ void KateGitBlamePluginView::startShowProcess(const QUrl &url, const QString &ha
     QDir dir{url.toLocalFile()};
     dir.cdUp();
 
-    setupGitProcess(m_showProc, dir.absolutePath(), {QStringLiteral("show"), hash, QStringLiteral("--numstat")});
+    if (!setupGitProcess(m_showProc, dir.absolutePath(), {QStringLiteral("show"), hash, QStringLiteral("--numstat")})) {
+        return;
+    }
     m_showProc.start(QIODevice::ReadOnly);
 }
 

@@ -60,6 +60,7 @@ private:
     class QTreeWidget *twDocuments;
     class QDialogButtonBox *dlgButtons;
     class QPushButton *btnDiff;
+    QString m_fullDiffPath;
     KProcess *m_proc;
     QTemporaryFile *m_diffFile;
     QStringList m_stateTexts;

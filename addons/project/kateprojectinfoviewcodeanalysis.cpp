@@ -13,6 +13,7 @@
 
 #include <QFileInfo>
 #include <QHBoxLayout>
+#include <QStandardPaths>
 #include <QToolTip>
 #include <QVBoxLayout>
 
@@ -134,14 +135,18 @@ void KateProjectInfoViewCodeAnalysis::slotStartStopClicked()
     connect(m_analyzer, &QProcess::readyRead, this, &KateProjectInfoViewCodeAnalysis::slotReadyRead);
     connect(m_analyzer, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &KateProjectInfoViewCodeAnalysis::finished);
 
-    m_analyzer->start(m_analysisTool->path(), m_analysisTool->arguments());
+    // ensure we only run the code analyzer from PATH
+    const QString fullExecutable = QStandardPaths::findExecutable(m_analysisTool->path());
+    if (!fullExecutable.isEmpty()) {
+        m_analyzer->start(fullExecutable, m_analysisTool->arguments());
+    }
 
     if (m_messageWidget) {
         delete m_messageWidget;
         m_messageWidget = nullptr;
     }
 
-    if (!m_analyzer->waitForStarted()) {
+    if (fullExecutable.isEmpty() || !m_analyzer->waitForStarted()) {
         m_messageWidget = new KMessageWidget(this);
         m_messageWidget->setCloseButtonVisible(true);
         m_messageWidget->setMessageType(KMessageWidget::Warning);

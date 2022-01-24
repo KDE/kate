@@ -22,6 +22,7 @@
 #include <QHeaderView>
 #include <QLabel>
 #include <QPushButton>
+#include <QStandardPaths>
 #include <QStyle>
 #include <QTemporaryFile>
 #include <QTextStream>
@@ -52,6 +53,7 @@ public:
 
 KateMwModOnHdDialog::KateMwModOnHdDialog(DocVector docs, QWidget *parent, const char *name)
     : QDialog(parent)
+    , m_fullDiffPath(QStandardPaths::findExecutable(QStringLiteral("diff")))
     , m_proc(nullptr)
     , m_diffFile(nullptr)
     , m_blockAddDocument(false)
@@ -108,6 +110,7 @@ KateMwModOnHdDialog::KateMwModOnHdDialog(DocVector docs, QWidget *parent, const 
              "file for the selected document, and shows the difference with the "
              "default application. Requires diff(1)."));
     hb->addWidget(btnDiff);
+    btnDiff->setEnabled(!m_fullDiffPath.isEmpty());
     connect(btnDiff, &QPushButton::clicked, this, &KateMwModOnHdDialog::slotDiff);
 
     // Dialog buttons
@@ -288,9 +291,10 @@ void KateMwModOnHdDialog::slotDiff()
     m_diffFile->open();
 
     // Start a KProcess that creates a diff
+    // We use the full path to don't launch some random "diff" in current working directory
     m_proc = new KProcess(this);
     m_proc->setOutputChannelMode(KProcess::MergedChannels);
-    *m_proc << QStringLiteral("diff") << QStringLiteral("-ub") << QStringLiteral("-") << doc->url().toLocalFile();
+    *m_proc << m_fullDiffPath << QStringLiteral("-ub") << QStringLiteral("-") << doc->url().toLocalFile();
     connect(m_proc, &KProcess::readyRead, this, &KateMwModOnHdDialog::slotDataAvailable);
     connect(m_proc, static_cast<void (KProcess::*)(int, QProcess::ExitStatus)>(&KProcess::finished), this, &KateMwModOnHdDialog::slotPDone);
 

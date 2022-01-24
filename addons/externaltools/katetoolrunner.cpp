@@ -14,6 +14,7 @@
 #include <KTextEditor/View>
 #include <QFileInfo>
 #include <QRegularExpression>
+#include <QStandardPaths>
 
 KateToolRunner::KateToolRunner(std::unique_ptr<KateExternalTool> tool, KTextEditor::View *view, QObject *parent)
     : QObject(parent)
@@ -40,6 +41,12 @@ KateExternalTool *KateToolRunner::tool() const
 
 void KateToolRunner::run()
 {
+    // always only execute the tool from PATH
+    const auto fullExecutable = QStandardPaths::findExecutable(m_tool->executable);
+    if (fullExecutable.isEmpty()) {
+        return;
+    }
+
     if (!m_tool->workingDir.isEmpty()) {
         m_process->setWorkingDirectory(m_tool->workingDir);
     } else if (m_view) {
@@ -72,7 +79,7 @@ void KateToolRunner::run()
     });
 
     const QStringList args = KShell::splitArgs(m_tool->arguments);
-    m_process->start(m_tool->executable, args);
+    m_process->start(fullExecutable, args);
 }
 
 void KateToolRunner::waitForFinished()

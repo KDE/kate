@@ -21,7 +21,9 @@ std::optional<QString> getDotGitPath(const QString &repo)
 {
     /* This call is intentionally blocking because we need git path for everything else */
     QProcess git;
-    setupGitProcess(git, repo, {QStringLiteral("rev-parse"), QStringLiteral("--absolute-git-dir")});
+    if (!setupGitProcess(git, repo, {QStringLiteral("rev-parse"), QStringLiteral("--absolute-git-dir")})) {
+        return std::nullopt;
+    }
     git.start(QProcess::ReadOnly);
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         if (git.exitStatus() != QProcess::NormalExit || git.exitCode() != 0) {

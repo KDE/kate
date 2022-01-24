@@ -23,6 +23,7 @@
 #include <QDebug>
 #include <QInputDialog>
 #include <QProcess>
+#include <QStandardPaths>
 #include <QUrl>
 
 void KateFileActions::copyFilePathToClipboard(KTextEditor::Document *doc)
@@ -137,17 +138,13 @@ void KateFileActions::deleteDocumentFile(QWidget *parent, KTextEditor::Document 
     }
 }
 
-QStringList KateFileActions::supportedDiffTools()
+QVector<std::pair<QString, QString>> KateFileActions::supportedDiffTools()
 {
-    // LATER: check for program existence and set some boolean value accordingly
-    // Can this be even done in an easy way when we don't use the absolute path to the executable?
-    // See https://stackoverflow.com/questions/42444055/how-to-check-if-a-program-exists-in-path-using-qt
-
-    QStringList resultList;
-    resultList.push_back(QStringLiteral("kdiff3"));
-    resultList.push_back(QStringLiteral("kompare"));
-    resultList.push_back(QStringLiteral("meld"));
-
+    // query once if the tools are there in the path and store that
+    // we will disable the actions for the tools not found
+    static QVector<std::pair<QString, QString>> resultList{{QStringLiteral("kdiff3"), QStandardPaths::findExecutable(QStringLiteral("kdiff3"))},
+                                                           {QStringLiteral("kompare"), QStandardPaths::findExecutable(QStringLiteral("kompare"))},
+                                                           {QStringLiteral("meld"), QStandardPaths::findExecutable(QStringLiteral("meld"))}};
     return resultList;
 }
 

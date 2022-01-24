@@ -12,7 +12,9 @@
 #include "debugview.h"
 
 #include <QFile>
+#include <QFileInfo>
 #include <QRegularExpression>
+#include <QStandardPaths>
 #include <QTimer>
 
 #include <KLocalizedString>
@@ -48,7 +50,20 @@ void DebugView::runDebugger(const GDBTargetConf &conf, const QStringList &ioFifo
     if (conf.executable.isEmpty()) {
         return;
     }
+
     m_targetConf = conf;
+
+    // no chance if no debugger configured
+    if (m_targetConf.gdbCmd.isEmpty()) {
+        return;
+    }
+
+    // only run debugger from PATH or the absolute executable path we specified
+    const auto fullExecutable = QFileInfo(m_targetConf.gdbCmd).isAbsolute() ? m_targetConf.gdbCmd : QStandardPaths::findExecutable(m_targetConf.gdbCmd);
+    if (fullExecutable.isEmpty()) {
+        return;
+    }
+
     if (ioFifos.size() == 3) {
         m_ioPipeString = QStringLiteral("< %1 1> %2 2> %3").arg(ioFifos[0], ioFifos[1], ioFifos[2]);
     }
@@ -69,7 +84,7 @@ void DebugView::runDebugger(const GDBTargetConf &conf, const QStringList &ioFifo
 
         connect(&m_debugProcess, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &DebugView::slotDebugFinished);
 
-        m_debugProcess.start(m_targetConf.gdbCmd, QStringList());
+        m_debugProcess.start(fullExecutable, QStringList());
 
         m_nextCommands << QStringLiteral("set pagination off");
         m_state = ready;

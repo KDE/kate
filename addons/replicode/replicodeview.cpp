@@ -8,7 +8,9 @@
 
 #include "replicodeconfig.h"
 #include "replicodesettings.h"
+
 #include <QPushButton>
+#include <QStandardPaths>
 #include <QTemporaryFile>
 #include <QtGlobal>
 
@@ -116,7 +118,14 @@ void ReplicodeView::runReplicode()
     }
 
     KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("Replicode"));
+
     QString executorPath = config.readEntry<QString>("replicodePath", QString());
+
+    // ensure we only call replicode from PATH if not given as absolute path already
+    if (!executorPath.isEmpty() && !QFileInfo(executorPath).isAbsolute()) {
+        executorPath = QStandardPaths::findExecutable(executorPath);
+    }
+
     if (executorPath.isEmpty()) {
         QMessageBox::warning(m_mainWindow->window(),
                              i18nc("@title:window", "Replicode Executable Not Found"),

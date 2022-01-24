@@ -21,7 +21,9 @@ static void numStatForStatus(QVector<GitUtils::StatusItem> &list, const QString 
                                : QStringList{QStringLiteral("diff"), QStringLiteral("--numstat"), QStringLiteral("--staged"), QStringLiteral("-z")};
 
     QProcess git;
-    setupGitProcess(git, workDir, args);
+    if (!setupGitProcess(git, workDir, args)) {
+        return;
+    }
     git.start(QProcess::ReadOnly);
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         if (git.exitStatus() != QProcess::NormalExit || git.exitCode() != 0) {

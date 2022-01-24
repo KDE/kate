@@ -9,6 +9,7 @@
 #include <KTextEditor/View>
 
 #include <QProcess>
+#include <QStandardPaths>
 
 struct CMakeComplData {
     std::vector<QByteArray> m_commands;
@@ -18,8 +19,14 @@ struct CMakeComplData {
 
 static QByteArray runCMake(const QString &arg)
 {
+    // only use cmake from PATH
+    static const auto cmakeExecutable = QStandardPaths::findExecutable(QStringLiteral("cmake"));
+    if (cmakeExecutable.isEmpty()) {
+        return {};
+    }
+
     QProcess p;
-    p.start(QStringLiteral("cmake"), {arg});
+    p.start(cmakeExecutable, {arg});
     if (p.waitForStarted() && p.waitForFinished()) {
         if (p.exitCode() == 0 && p.exitStatus() == QProcess::NormalExit) {
             return p.readAllStandardOutput();

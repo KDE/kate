@@ -56,7 +56,7 @@ protected Q_SLOTS:
     void slotReturnPressed() override;
 
 private:
-    QProcess *gitp();
+    QProcess *gitp(const QStringList &arguments);
     void stash(bool keepIndex, bool includeUntracked);
     void getStashList();
     void popStash(const QByteArray &index, const QString &command = QStringLiteral("pop"));

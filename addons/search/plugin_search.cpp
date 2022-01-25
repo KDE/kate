@@ -243,7 +243,7 @@ void KatePluginSearchView::nextFocus(QWidget *currentWidget, bool *found, bool n
                     return;
                 }
             } else {
-                Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
+                Results *res = qobject_cast<Results *>(m_ui.resultWidget->currentWidget());
                 if (!res) {
                     return;
                 }
@@ -269,7 +269,7 @@ void KatePluginSearchView::nextFocus(QWidget *currentWidget, bool *found, bool n
                     return;
                 }
             } else {
-                Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
+                Results *res = qobject_cast<Results *>(m_ui.resultWidget->currentWidget());
                 if (!res) {
                     return;
                 }
@@ -302,7 +302,26 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
                                          i18n("Search and Replace"));
 
     ContainerWidget *container = new ContainerWidget(m_toolView);
-    m_ui.setupUi(container);
+    QWidget *searchUi = new QWidget(container);
+    m_ui.setupUi(searchUi);
+
+    m_tabBar = new QTabBar(container);
+    m_tabBar->setAutoHide(true);
+    m_tabBar->setSelectionBehaviorOnRemove(QTabBar::SelectLeftTab);
+    connect(m_tabBar, &QTabBar::currentChanged, m_ui.resultWidget, &QStackedWidget::setCurrentIndex);
+    m_tabBar->setElideMode(Qt::ElideMiddle);
+    m_tabBar->setTabsClosable(true);
+    m_tabBar->setMovable(false); // FIXME we might want this...
+    m_tabBar->setAutoHide(true);
+    m_tabBar->setSelectionBehaviorOnRemove(QTabBar::SelectLeftTab);
+    KAcceleratorManager::setNoAccel(m_tabBar);
+
+    QVBoxLayout *layout = new QVBoxLayout(container);
+    layout->addWidget(m_tabBar);
+    layout->addWidget(searchUi);
+    layout->setContentsMargins(0, 0, 0, 0);
+    layout->setSpacing(0);
+
     container->setFocusProxy(m_ui.searchCombo);
     connect(container, &ContainerWidget::nextFocus, this, &KatePluginSearchView::nextFocus);
 
@@ -328,9 +347,7 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
     connect(a, &QAction::triggered, this, &KatePluginSearchView::goToPreviousMatch);
 
     // Only show the tab bar when there is more than one tab
-    m_ui.resultTabWidget->tabBar()->setAutoHide(true);
-    m_ui.resultTabWidget->tabBar()->setSelectionBehaviorOnRemove(QTabBar::SelectLeftTab);
-    KAcceleratorManager::setNoAccel(m_ui.resultTabWidget);
+    KAcceleratorManager::setNoAccel(m_ui.resultWidget);
 
     // Gnome does not seem to have all icons we want, so we use fall-back icons for those that are missing.
     QIcon dispOptIcon = QIcon::fromTheme(QStringLiteral("games-config-options"), QIcon::fromTheme(QStringLiteral("preferences-system")));
@@ -359,7 +376,7 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
     m_ui.filterBtn->setToolTip(i18n("Click to filter through results"));
     m_ui.filterBtn->setDisabled(true);
     connect(m_ui.filterBtn, &QToolButton::toggled, this, [this](bool on) {
-        if (Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget())) {
+        if (Results *res = qobject_cast<Results *>(m_ui.resultWidget->currentWidget())) {
             res->setFilterLineVisible(on);
         }
     });
@@ -376,8 +393,8 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
     cmbUrl->setAutoDeleteCompletionObject(true);
 
     connect(m_ui.newTabButton, &QToolButton::clicked, this, &KatePluginSearchView::addTab);
-    connect(m_ui.resultTabWidget, &QTabWidget::tabCloseRequested, this, &KatePluginSearchView::tabCloseRequested);
-    connect(m_ui.resultTabWidget, &QTabWidget::currentChanged, this, &KatePluginSearchView::resultTabChanged);
+    connect(m_tabBar, &QTabBar::tabCloseRequested, this, &KatePluginSearchView::tabCloseRequested);
+    connect(m_tabBar, &QTabBar::currentChanged, this, &KatePluginSearchView::resultTabChanged);
 
     connect(m_ui.folderUpButton, &QToolButton::clicked, this, &KatePluginSearchView::navigateFolderUp);
     connect(m_ui.currentFolderButton, &QToolButton::clicked, this, &KatePluginSearchView::setCurrentFolder);
@@ -386,7 +403,7 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
     connect(m_ui.searchCombo, &QComboBox::editTextChanged, &m_changeTimer, static_cast<void (QTimer::*)()>(&QTimer::start));
     connect(m_ui.matchCase, &QToolButton::toggled, &m_changeTimer, static_cast<void (QTimer::*)()>(&QTimer::start));
     connect(m_ui.matchCase, &QToolButton::toggled, this, [=] {
-        Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
+        Results *res = qobject_cast<Results *>(m_ui.resultWidget->currentWidget());
         if (res) {
             res->matchCase = m_ui.matchCase->isChecked();
         }
@@ -430,7 +447,7 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
         &FolderFilesList::searching,
         this,
         [this](const QString &path) {
-            Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
+            Results *res = qobject_cast<Results *>(m_ui.resultWidget->currentWidget());
             if (res) {
                 res->matchModel.setFileListUpdate(path);
             }
@@ -440,7 +457,7 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
     connect(m_kateApp, &KTextEditor::Application::documentWillBeDeleted, this, &KatePluginSearchView::clearDocMarksAndRanges);
     connect(m_kateApp, &KTextEditor::Application::documentWillBeDeleted, &m_searchOpenFiles, &SearchOpenFiles::cancelSearch);
     connect(m_kateApp, &KTextEditor::Application::documentWillBeDeleted, this, [this]() {
-        Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
+        Results *res = qobject_cast<Results *>(m_ui.resultWidget->currentWidget());
         if (res) {
             res->matchModel.cancelReplace();
         }
@@ -496,7 +513,7 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
 
     connect(m_ui.useRegExp, &QToolButton::toggled, &m_changeTimer, static_cast<void (QTimer::*)()>(&QTimer::start));
     auto onRegexToggleChanged = [=] {
-        Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
+        Results *res = qobject_cast<Results *>(m_ui.resultWidget->currentWidget());
         if (res) {
             bool useRegExp = m_ui.useRegExp->isChecked();
             res->useRegExp = useRegExp;
@@ -622,7 +639,7 @@ void KatePluginSearchView::handleEsc(QEvent *e)
             m_mainWindow->hideToolView(m_toolView);
         }
         // uncheck all so no new marks are added again when switching views
-        Results *curResults = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
+        Results *curResults = qobject_cast<Results *>(m_ui.resultWidget->currentWidget());
         if (curResults) {
             curResults->matchModel.uncheckAll();
         }
@@ -817,7 +834,11 @@ void KatePluginSearchView::searchPlaceChanged()
         m_ui.displayOptions->setEnabled(false);
     } else {
         m_ui.displayOptions->setEnabled(true);
-        m_ui.displayOptions->setChecked(true);
+        if (qobject_cast<QComboBox *>(sender())) {
+            // Only display the options if the change was due to a direct
+            // index change in the combo-box triggered by the user
+            m_ui.displayOptions->setChecked(true);
+        }
     }
 
     m_ui.filterCombo->setEnabled(searchPlace >= MatchModel::Folder);
@@ -839,7 +860,7 @@ void KatePluginSearchView::searchPlaceChanged()
     m_ui.filterLabel->setEnabled(m_ui.filterCombo->isEnabled());
     m_ui.excludeLabel->setEnabled(m_ui.excludeCombo->isEnabled());
 
-    Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
+    Results *res = qobject_cast<Results *>(m_ui.resultWidget->currentWidget());
     if (res) {
         res->searchPlaceIndex = searchPlace;
     }
@@ -860,7 +881,7 @@ void KatePluginSearchView::stopClicked()
     m_folderFilesList.terminateSearch();
     m_searchOpenFiles.cancelSearch();
     cancelDiskFileSearch();
-    Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
+    Results *res = qobject_cast<Results *>(m_ui.resultWidget->currentWidget());
     if (res) {
         res->matchModel.cancelReplace();
     }
@@ -907,7 +928,7 @@ void KatePluginSearchView::startSearch()
     m_searchOpenFiles.terminateSearch();
     cancelDiskFileSearch();
 
-    Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
+    Results *res = qobject_cast<Results *>(m_ui.resultWidget->currentWidget());
     if (res) {
         res->matchModel.cancelReplace();
     }
@@ -945,7 +966,7 @@ void KatePluginSearchView::startSearch()
         m_ui.folderRequester->comboBox()->insertItem(0, m_ui.folderRequester->comboBox()->currentText());
         m_ui.folderRequester->comboBox()->setCurrentIndex(0);
     }
-    m_curResults = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
+    m_curResults = qobject_cast<Results *>(m_ui.resultWidget->currentWidget());
     if (!m_curResults) {
         qWarning() << "This is a bug";
         return;
@@ -973,6 +994,7 @@ void KatePluginSearchView::startSearch()
 
     updateViewColors();
 
+    m_curResults->searchStr = currentSearchText;
     m_curResults->regExp = reg;
     m_curResults->useRegExp = m_ui.useRegExp->isChecked();
     m_curResults->matchCase = m_ui.matchCase->isChecked();
@@ -999,7 +1021,7 @@ void KatePluginSearchView::startSearch()
     // BUG: 441340 We need to escape the & because it is used for accelerators/shortcut mnemonic by default
     QString tabName = m_ui.searchCombo->currentText();
     tabName.replace(QLatin1Char('&'), QLatin1String("&&"));
-    m_ui.resultTabWidget->setTabText(m_ui.resultTabWidget->currentIndex(), tabName);
+    m_tabBar->setTabText(m_ui.resultWidget->currentIndex(), tabName);
 
     m_toolView->setCursor(Qt::WaitCursor);
 
@@ -1119,7 +1141,7 @@ void KatePluginSearchView::startSearchWhileTyping()
         return;
     }
 
-    m_curResults = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
+    m_curResults = qobject_cast<Results *>(m_ui.resultWidget->currentWidget());
     if (!m_curResults) {
         qWarning() << "This is a bug";
         return;
@@ -1201,6 +1223,11 @@ void KatePluginSearchView::startSearchWhileTyping()
         m_infoMessage->setView(m_mainWindow->activeView());
         m_mainWindow->activeView()->document()->postMessage(m_infoMessage);
     }
+
+    // We need to escape the & because it is used for accelerators/shortcut mnemonic by default
+    QString tabName = m_ui.searchCombo->currentText();
+    tabName.replace(QLatin1Char('&'), QLatin1String("&&"));
+    m_tabBar->setTabText(m_ui.resultWidget->currentIndex(), tabName);
 }
 
 void KatePluginSearchView::searchDone()
@@ -1336,7 +1363,7 @@ void KatePluginSearchView::replaceSingleMatch()
     }
 
     // Check if the cursor is at the current item if not jump there
-    Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
+    Results *res = qobject_cast<Results *>(m_ui.resultWidget->currentWidget());
     if (!res) {
         return; // Security measure
     }
@@ -1390,7 +1417,7 @@ void KatePluginSearchView::replaceChecked()
         m_ui.replaceCombo->setCurrentIndex(1);
     }
 
-    m_curResults = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
+    m_curResults = qobject_cast<Results *>(m_ui.resultWidget->currentWidget());
     if (!m_curResults) {
         qWarning() << "Results not found";
         return;
@@ -1559,7 +1586,7 @@ void KatePluginSearchView::updateMatchMarks()
         return;
     }
 
-    Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
+    Results *res = qobject_cast<Results *>(m_ui.resultWidget->currentWidget());
     if (!res || res->isEmpty()) {
         return;
     }
@@ -1599,7 +1626,7 @@ void KatePluginSearchView::syncModelRanges()
 
 void KatePluginSearchView::expandResults()
 {
-    m_curResults = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
+    m_curResults = qobject_cast<Results *>(m_ui.resultWidget->currentWidget());
     if (!m_curResults) {
         qWarning() << "Results not found";
         return;
@@ -1619,7 +1646,7 @@ void KatePluginSearchView::expandResults()
 
 void KatePluginSearchView::itemSelected(const QModelIndex &item)
 {
-    m_curResults = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
+    m_curResults = qobject_cast<Results *>(m_ui.resultWidget->currentWidget());
     if (!m_curResults) {
         qDebug() << "No result widget available";
         return;
@@ -1682,7 +1709,7 @@ void KatePluginSearchView::itemSelected(const QModelIndex &item)
 
 void KatePluginSearchView::goToNextMatch()
 {
-    Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
+    Results *res = qobject_cast<Results *>(m_ui.resultWidget->currentWidget());
     if (!res) {
         return;
     }
@@ -1759,7 +1786,7 @@ void KatePluginSearchView::goToNextMatch()
 
 void KatePluginSearchView::goToPreviousMatch()
 {
-    Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
+    Results *res = qobject_cast<Results *>(m_ui.resultWidget->currentWidget());
     if (!res) {
         return;
     }
@@ -1933,11 +1960,6 @@ void KatePluginSearchView::writeSessionConfig(KConfigGroup &cg)
 
 void KatePluginSearchView::addTab()
 {
-    if ((sender() != m_ui.newTabButton) && (m_ui.resultTabWidget->count() > 0)
-        && m_ui.resultTabWidget->tabText(m_ui.resultTabWidget->currentIndex()).isEmpty()) {
-        return;
-    }
-
     Results *res = new Results();
 
     connect(res, &Results::colorsChanged, this, [this]() {
@@ -1954,8 +1976,9 @@ void KatePluginSearchView::addTab()
     res->searchPlaceIndex = m_ui.searchPlaceCombo->currentIndex();
     res->useRegExp = m_ui.useRegExp->isChecked();
     res->matchCase = m_ui.matchCase->isChecked();
-    m_ui.resultTabWidget->addTab(res, QString());
-    m_ui.resultTabWidget->setCurrentIndex(m_ui.resultTabWidget->count() - 1);
+    m_ui.resultWidget->addWidget(res);
+    m_tabBar->addTab(QString());
+    m_tabBar->setCurrentIndex(m_tabBar->count() - 1);
     m_ui.stackedWidget->setCurrentIndex(0);
     m_ui.displayOptions->setChecked(false);
 
@@ -1964,22 +1987,30 @@ void KatePluginSearchView::addTab()
 
 void KatePluginSearchView::tabCloseRequested(int index)
 {
-    Results *tmp = qobject_cast<Results *>(m_ui.resultTabWidget->widget(index));
+    Results *tmp = qobject_cast<Results *>(m_ui.resultWidget->widget(index));
     if (m_curResults == tmp) {
         m_searchOpenFiles.cancelSearch();
         cancelDiskFileSearch();
         m_folderFilesList.terminateSearch();
     }
 
-    if (m_ui.resultTabWidget->count() > 1) {
-        m_ui.resultTabWidget->removeTab(index);
+    if (m_ui.resultWidget->count() > 1) {
+        m_tabBar->blockSignals(true);
+        m_tabBar->removeTab(index);
         if (m_curResults == tmp) {
-            delete m_curResults;
             m_curResults = nullptr;
-        } else {
-            delete tmp;
         }
+        m_ui.resultWidget->removeWidget(tmp);
+        m_tabBar->blockSignals(false);
+        delete tmp;
     }
+
+    // focus the tab after or the first one if it is the last
+    if (index >= m_ui.resultWidget->count()) {
+        index = m_ui.resultWidget->count() - 1;
+    }
+    m_tabBar->setCurrentIndex(index); // this will change also the resultWidget index
+    resultTabChanged(index); // but the index might not change so make sure we update
 
     updateMatchMarks();
 }
@@ -1990,7 +2021,7 @@ void KatePluginSearchView::resultTabChanged(int index)
         return;
     }
 
-    Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->widget(index));
+    Results *res = qobject_cast<Results *>(m_ui.resultWidget->widget(index));
     if (!res) {
         // qDebug() << "No res found";
         return;
@@ -2000,13 +2031,12 @@ void KatePluginSearchView::resultTabChanged(int index)
     m_ui.matchCase->blockSignals(true);
     m_ui.useRegExp->blockSignals(true);
     m_ui.searchPlaceCombo->blockSignals(true);
-    // BUG: 441340 & Characters were escaped so that accelerators are not created, so we need to "unescape" them
-    QString tabName = m_ui.resultTabWidget->tabText(index);
-    tabName.replace(QLatin1String("&&"), QLatin1String("&"));
-    m_ui.searchCombo->lineEdit()->setText(tabName);
+
+    m_ui.searchCombo->lineEdit()->setText(res->searchStr);
     m_ui.useRegExp->setChecked(res->useRegExp);
     m_ui.matchCase->setChecked(res->matchCase);
     m_ui.searchPlaceCombo->setCurrentIndex(res->searchPlaceIndex);
+
     m_ui.searchCombo->blockSignals(false);
     m_ui.matchCase->blockSignals(false);
     m_ui.useRegExp->blockSignals(false);
@@ -2107,7 +2137,7 @@ void KatePluginSearchView::customResMenuRequested(const QPoint &pos)
 
 void KatePluginSearchView::copySearchToClipboard(CopyResultType copyType)
 {
-    Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
+    Results *res = qobject_cast<Results *>(m_ui.resultWidget->currentWidget());
     if (!res) {
         return;
     }
@@ -2140,7 +2170,7 @@ void KatePluginSearchView::copySearchToClipboard(CopyResultType copyType)
 
 void KatePluginSearchView::showExportMatchesDialog()
 {
-    Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
+    Results *res = qobject_cast<Results *>(m_ui.resultWidget->currentWidget());
     if (!res) {
         return;
     }

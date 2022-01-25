@@ -194,6 +194,7 @@ private:
     QAction *m_matchCase = nullptr;
     QAction *m_useRegExp = nullptr;
     Results *m_curResults = nullptr;
+    QTabBar *m_tabBar = nullptr;
     bool m_searchJustOpened = false;
     int m_projectSearchPlaceIndex = 0;
     bool m_isSearchAsYouType = false;

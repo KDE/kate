@@ -15,6 +15,7 @@ public:
     QRegularExpression regExp;
     bool useRegExp = false;
     bool matchCase = false;
+    QString searchStr;
     QString replaceStr;
     int searchPlaceIndex = 0;
     QString treeRootText;

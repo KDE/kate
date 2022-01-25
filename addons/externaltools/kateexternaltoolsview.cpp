@@ -171,9 +171,7 @@ KateExternalToolsPluginView::KateExternalToolsPluginView(KTextEditor::MainWindow
     // ESC should close & hide ToolView
     connect(m_mainWindow, &KTextEditor::MainWindow::unhandledShortcutOverride, this, &KateExternalToolsPluginView::handleEsc);
     connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, &KateExternalToolsPluginView::slotViewChanged);
-    if (auto view = m_mainWindow->activeView()) {
-        slotViewChanged(view);
-    }
+    slotViewChanged(m_mainWindow->activeView());
 }
 
 KateExternalToolsPluginView::~KateExternalToolsPluginView()
@@ -279,6 +277,10 @@ void KateExternalToolsPluginView::slotViewChanged(KTextEditor::View *v)
 #endif
     }
     m_currentView = v;
+
+    if (!m_currentView) {
+        return;
+    }
 
     connect(v->document(), &KTextEditor::Document::documentSavedOrUploaded, this, &KateExternalToolsPluginView::onDocumentSaved, Qt::UniqueConnection);
 

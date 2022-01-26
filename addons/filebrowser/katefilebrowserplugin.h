@@ -11,11 +11,14 @@
 #ifndef KATE_FILEBROWSER_PLUGIN_H
 #define KATE_FILEBROWSER_PLUGIN_H
 
+#include <KConfigGroup>
 #include <KTextEditor/SessionConfigInterface>
 #include <ktexteditor/configpage.h>
 #include <ktexteditor/document.h>
 #include <ktexteditor/mainwindow.h>
 #include <ktexteditor/plugin.h>
+
+#include <memory>
 
 class KateFileBrowser;
 class KateFileBrowserPluginView;
@@ -53,19 +56,16 @@ public:
      */
     KateFileBrowserPluginView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mainWindow);
 
-    /**
-     * Virtual destructor.
-     */
-    ~KateFileBrowserPluginView() override;
-
     void readSessionConfig(const KConfigGroup &config) override;
     void writeSessionConfig(KConfigGroup &config) override;
 
 private:
     bool eventFilter(QObject *, QEvent *) override;
+    Q_SLOT void createFileBrowser(bool visible);
 
-    QWidget *m_toolView;
-    KateFileBrowser *m_fileBrowser;
+    std::unique_ptr<QWidget> m_toolView;
+    std::unique_ptr<KateFileBrowser> m_fileBrowser = nullptr;
+    std::unique_ptr<KConfigGroup> cg;
     KTextEditor::MainWindow *m_mainWindow;
     friend class KateFileBrowserPlugin;
 };

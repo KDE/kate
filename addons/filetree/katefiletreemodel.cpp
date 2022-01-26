@@ -368,6 +368,7 @@ KateFileTreeModel::KateFileTreeModel(QObject *p)
     const QColor bg = colors.background().color();
     m_editShade = KColorUtils::tint(bg, colors.foreground(KColorScheme::ActiveText).color(), 0.5);
     m_viewShade = KColorUtils::tint(bg, colors.foreground(KColorScheme::VisitedText).color(), 0.5);
+    m_inactiveDocColor = colors.foreground(KColorScheme::InactiveText).color();
     m_shadingEnabled = true;
     m_listMode = false;
 
@@ -375,6 +376,7 @@ KateFileTreeModel::KateFileTreeModel(QObject *p)
 
     // ensure palette change updates the colors properly
     connect(qGuiApp, &QGuiApplication::paletteChanged, this, [this]() {
+        m_inactiveDocColor = KColorScheme(QPalette::Active).foreground(KColorScheme::InactiveText).color();
         updateBackgrounds(true);
     });
 }
@@ -551,9 +553,8 @@ QVariant KateFileTreeModel::data(const QModelIndex &index, int role) const
     }
 
     case Qt::ForegroundRole: {
-        const KColorScheme colors(QPalette::Active);
         if (!item->flag(ProxyItem::Dir) && (!item->doc() || item->doc()->openingError())) {
-            return colors.foreground(KColorScheme::InactiveText).color();
+            return m_inactiveDocColor;
         }
     } break;
 

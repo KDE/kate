@@ -110,6 +110,7 @@ private:
 
     QColor m_editShade;
     QColor m_viewShade;
+    QColor m_inactiveDocColor;
 
     bool m_listMode;
 };

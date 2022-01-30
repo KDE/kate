@@ -311,10 +311,16 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
     connect(m_tabBar, &QTabBar::currentChanged, m_ui.resultWidget, &QStackedWidget::setCurrentIndex);
     m_tabBar->setElideMode(Qt::ElideMiddle);
     m_tabBar->setTabsClosable(true);
-    m_tabBar->setMovable(false); // FIXME we might want this...
+    m_tabBar->setMovable(true);
     m_tabBar->setAutoHide(true);
+    m_tabBar->setExpanding(false);
     m_tabBar->setSelectionBehaviorOnRemove(QTabBar::SelectLeftTab);
     KAcceleratorManager::setNoAccel(m_tabBar);
+    connect(m_tabBar, &QTabBar::tabMoved, this, [this](int from, int to) {
+        QWidget *fromWidget = m_ui.resultWidget->widget(from);
+        m_ui.resultWidget->removeWidget(fromWidget);
+        m_ui.resultWidget->insertWidget(to, fromWidget);
+    });
 
     QVBoxLayout *layout = new QVBoxLayout(container);
     layout->addWidget(m_tabBar);
@@ -654,6 +660,10 @@ void KatePluginSearchView::setSearchString(const QString &pattern)
 void KatePluginSearchView::toggleOptions(bool show)
 {
     m_ui.stackedWidget->setCurrentIndex((show) ? 1 : 0);
+    Results *curResults = qobject_cast<Results *>(m_ui.resultWidget->currentWidget());
+    if (curResults) {
+        curResults->displayFolderOptions = show;
+    }
 }
 
 void KatePluginSearchView::setSearchPlace(int place)
@@ -1981,6 +1991,7 @@ void KatePluginSearchView::addTab()
     m_tabBar->setCurrentIndex(m_tabBar->count() - 1);
     m_ui.stackedWidget->setCurrentIndex(0);
     m_ui.displayOptions->setChecked(false);
+    res->displayFolderOptions = false;
 
     res->treeView->installEventFilter(this);
 }
@@ -2026,6 +2037,9 @@ void KatePluginSearchView::resultTabChanged(int index)
         // qDebug() << "No res found";
         return;
     }
+
+    // Restore display folder option state
+    m_ui.displayOptions->setChecked(res->displayFolderOptions);
 
     m_ui.searchCombo->blockSignals(true);
     m_ui.matchCase->blockSignals(true);

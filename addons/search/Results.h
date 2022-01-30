@@ -20,6 +20,7 @@ public:
     int searchPlaceIndex = 0;
     QString treeRootText;
     MatchModel matchModel;
+    bool displayFolderOptions = false;
 
     bool isEmpty() const;
     void setFilterLineVisible(bool visible);

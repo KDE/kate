@@ -1342,7 +1342,7 @@ void KatePluginSearchView::replaceSingleMatch()
     }
 
     QModelIndex itemIndex = res->treeView->currentIndex();
-    if (!res->isMatch(itemIndex)) {
+    if (!itemIndex.isValid() || !res->isMatch(itemIndex)) {
         goToNextMatch();
     }
 

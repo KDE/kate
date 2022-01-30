@@ -80,7 +80,7 @@ bool Results::isEmpty() const
 
 bool Results::isMatch(const QModelIndex &index) const
 {
-    Q_ASSERT(index.model() == model());
+    Q_ASSERT(!index.isValid() || index.model() == model());
     return matchModel.isMatch(model()->mapToSource(index));
 }
 
@@ -101,13 +101,13 @@ QModelIndex Results::firstMatch() const
 
 QModelIndex Results::nextMatch(const QModelIndex &itemIndex) const
 {
-    Q_ASSERT(itemIndex.model() == model());
+    Q_ASSERT(!itemIndex.isValid() || itemIndex.model() == model());
     return model()->mapFromSource(matchModel.nextMatch(model()->mapToSource(itemIndex)));
 }
 
 QModelIndex Results::prevMatch(const QModelIndex &itemIndex) const
 {
-    Q_ASSERT(itemIndex.model() == model());
+    Q_ASSERT(!itemIndex.isValid() || itemIndex.model() == model());
     return model()->mapFromSource(matchModel.prevMatch(model()->mapToSource(itemIndex)));
 }
 

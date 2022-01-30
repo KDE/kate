@@ -474,6 +474,7 @@ void KateViewSpace::dropEvent(QDropEvent *e)
         auto view = m_viewManager->activateView(doc);
         if (view) {
             view->setCursorPosition({droppedData.value().line, droppedData.value().col});
+            m_dropIndicator.reset();
             e->accept();
             return;
         }

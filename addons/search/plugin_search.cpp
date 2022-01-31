@@ -1284,7 +1284,6 @@ void KatePluginSearchView::searchDone()
 
     indicateMatch(m_curResults->matches > 0 ? MatchType::HasMatch : MatchType::NoMatch);
 
-    m_curResults = nullptr;
     m_toolView->unsetCursor();
 
     if (fw == m_ui.stopButton) {
@@ -1292,6 +1291,8 @@ void KatePluginSearchView::searchDone()
     }
 
     m_searchJustOpened = false;
+    m_curResults->searchStr = m_ui.searchCombo->currentText();
+    m_curResults = nullptr;
     updateMatchMarks();
 
     // qDebug() << "done:" << s_timer.elapsed();
@@ -1326,12 +1327,18 @@ void KatePluginSearchView::searchWhileTypingDone()
 
     indicateMatch(m_curResults->matches > 0 ? MatchType::HasMatch : MatchType::NoMatch);
 
-    m_curResults = nullptr;
-
     if (popupVisible) {
         m_ui.searchCombo->lineEdit()->completer()->complete();
     }
+    if (!m_searchJustOpened && m_ui.displayOptions->isEnabled()) {
+        m_ui.displayOptions->setChecked(false);
+    }
+
     m_searchJustOpened = false;
+    m_curResults->searchStr = m_ui.searchCombo->currentText();
+
+    m_curResults = nullptr;
+
     updateMatchMarks();
 }
 
@@ -1990,8 +1997,13 @@ void KatePluginSearchView::addTab()
     m_tabBar->addTab(QString());
     m_tabBar->setCurrentIndex(m_tabBar->count() - 1);
     m_ui.stackedWidget->setCurrentIndex(0);
-    m_ui.displayOptions->setChecked(false);
-    res->displayFolderOptions = false;
+    if (res->searchPlaceIndex < MatchModel::Folder) {
+        m_ui.displayOptions->setChecked(false);
+        res->displayFolderOptions = false;
+    } else {
+        m_ui.displayOptions->setChecked(true);
+        res->displayFolderOptions = true;
+    }
 
     res->treeView->installEventFilter(this);
 }

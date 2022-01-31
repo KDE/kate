@@ -391,6 +391,15 @@ static QUrl normalizeUrl(const QUrl &url)
     return url.adjusted(QUrl::NormalizePathSegments);
 }
 
+static void from_json(LSPVersionedTextDocumentIdentifier &id, const QJsonValue &json)
+{
+    if (json.isObject()) {
+        auto ob = json.toObject();
+        id.uri = normalizeUrl(QUrl(ob.value(MEMBER_URI).toString()));
+        id.version = ob.value(MEMBER_VERSION).toInt(-1);
+    }
+}
+
 static LSPResponseError parseResponseError(const QJsonValue &v)
 {
     LSPResponseError ret;
@@ -722,14 +731,28 @@ static QList<LSPTextEdit> parseTextEdit(const QJsonValue &result)
     return ret;
 }
 
+static LSPTextDocumentEdit parseTextDocumentEdit(const QJsonValue &result)
+{
+    LSPTextDocumentEdit ret;
+    auto ob = result.toObject();
+    from_json(ret.textDocument, ob.value(QStringLiteral("textDocument")));
+    ret.edits = parseTextEdit(ob.value(QStringLiteral("edits")));
+    return ret;
+}
+
 static LSPWorkspaceEdit parseWorkSpaceEdit(const QJsonValue &result)
 {
-    QHash<QUrl, QList<LSPTextEdit>> ret;
+    LSPWorkspaceEdit ret;
     auto changes = result.toObject().value(QStringLiteral("changes")).toObject();
     for (auto it = changes.begin(); it != changes.end(); ++it) {
-        ret.insert(normalizeUrl(QUrl(it.key())), parseTextEdit(it.value()));
+        ret.changes.insert(normalizeUrl(QUrl(it.key())), parseTextEdit(it.value()));
     }
-    return {ret};
+    auto documentChanges = result.toObject().value(QStringLiteral("documentChanges")).toArray();
+    // resourceOperations not supported for now
+    for (auto edit : documentChanges) {
+        ret.documentChanges.push_back(parseTextDocumentEdit(edit));
+    }
+    return ret;
 }
 
 static LSPCommand parseCommand(const QJsonObject &result)

@@ -376,9 +376,15 @@ struct LSPCommand {
     QJsonArray arguments;
 };
 
+struct LSPTextDocumentEdit {
+    LSPVersionedTextDocumentIdentifier textDocument;
+    QList<LSPTextEdit> edits;
+};
+
 struct LSPWorkspaceEdit {
     // supported part for now
     QHash<QUrl, QList<LSPTextEdit>> changes;
+    QList<LSPTextDocumentEdit> documentChanges;
 };
 
 struct LSPCodeAction {

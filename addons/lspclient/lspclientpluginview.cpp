@@ -2022,18 +2022,29 @@ public:
         qDeleteAll(ranges);
     }
 
+    void applyEdits(const QUrl &url, const LSPClientRevisionSnapshot *snapshot, const QList<LSPTextEdit> &edits)
+    {
+        auto document = findDocument(m_mainWindow, url);
+        if (!document) {
+            KTextEditor::View *view = m_mainWindow->openUrl(url);
+            if (view) {
+                document = view->document();
+            }
+        }
+        applyEdits(document, snapshot, edits);
+    }
+
     void applyWorkspaceEdit(const LSPWorkspaceEdit &edit, const LSPClientRevisionSnapshot *snapshot)
     {
         auto currentView = m_mainWindow->activeView();
+        // edits may be in changes or documentChanges
+        // the latter is handled in a sneaky way, but not announced in capabilities
         for (auto it = edit.changes.begin(); it != edit.changes.end(); ++it) {
-            auto document = findDocument(m_mainWindow, it.key());
-            if (!document) {
-                KTextEditor::View *view = m_mainWindow->openUrl(it.key());
-                if (view) {
-                    document = view->document();
-                }
-            }
-            applyEdits(document, snapshot, it.value());
+            applyEdits(it.key(), snapshot, it.value());
+        }
+        // ... as/though the document version is not (yet) taken into account
+        for (auto &change : edit.documentChanges) {
+            applyEdits(change.textDocument.uri, snapshot, change.edits);
         }
         if (currentView) {
             m_mainWindow->activateView(currentView->document());
@@ -2137,7 +2148,9 @@ public:
 
         QSharedPointer<LSPClientRevisionSnapshot> snapshot(m_serverManager->snapshot(server.data()));
         auto h = [this, snapshot](const LSPWorkspaceEdit &edit) {
-            checkEditResult(edit.changes);
+            if (edit.documentChanges.empty()) {
+                checkEditResult(edit.changes);
+            }
             applyWorkspaceEdit(edit, snapshot.data());
         };
         auto handle = server->documentRename(document->url(), activeView->cursorPosition(), newName, this, h);

@@ -79,7 +79,7 @@ protected:
         bool res = filterByName(QStringView(name.data(), name.size()), QStringView(pattern.data(), pattern.size()), score);
 
         // only match file path if filename got a match
-        if (res || pathLike) {
+        if (matchPath) {
             int scorep = 0;
             QStringView path{sm->idxToFilePath(sourceRow)};
             bool resp = filterByPath(path, QStringView(pattern.data(), pattern.size()), scorep);
@@ -103,7 +103,7 @@ public Q_SLOTS:
 
         beginResetModel();
         pattern = splitted;
-        pathLike = pattern.contains(QLatin1Char('/'));
+        matchPath = pattern.contains(QLatin1Char('/'));
         endResetModel();
 
         return true;
@@ -122,7 +122,7 @@ private:
 
 private:
     QString pattern;
-    bool pathLike = false;
+    bool matchPath = false;
 };
 
 class QuickOpenStyleDelegate : public QStyledItemDelegate

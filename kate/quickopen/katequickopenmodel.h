@@ -91,6 +91,11 @@ public:
         return m_modelEntries.at(idx.row()).document;
     }
 
+    bool isOpened(int row) const
+    {
+        return m_modelEntries.at(row).document;
+    }
+
 private:
     std::vector<ModelEntry> m_modelEntries;
     QString m_projectBase;

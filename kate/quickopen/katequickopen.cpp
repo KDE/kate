@@ -87,6 +87,11 @@ protected:
             res = res || resp;
         }
 
+        if (res) {
+            // +1 point for opened files
+            score += (sm->isOpened(sourceRow));
+        }
+
         sm->setScoreForIndex(sourceRow, score);
 
         return res;

@@ -172,6 +172,15 @@ configuration of the tool:</para>
 <para><userinput>Working directory</userinput>, the working directory the tool will be started in. If empty, the working directory is set to the current document’s path.</para>
 <para><userinput>Mime types</userinput>, if set, the tool is active only if the current document’s mime type matches.</para>
 <para><userinput>Save</userinput>, when invoked, saves none, the current document, or all documents.</para>
+<para><userinput>Trigger</userinput>, a trigger to execute this tool. A trigger will only affect the currently active document and will only execute if the mimetype of current active document matches the mimetype of the external tool.</para>
+    <variablelist><varlistentry>
+    <term>Following triggers are available:</term>
+    <listitem>
+    <para><userinput>None</userinput>, this is the default, it means the tool has no trigger.</para>
+    <para><userinput>Before Save</userinput>, this trigger will execute right before saving the document.</para>
+    <para><userinput>After Save</userinput>, this trigger will execute the tool after the document was saved.</para>
+    </listitem>
+    </varlistentry></variablelist>
 <para><userinput>Reload current document after execution</userinput>, useful when the current file is modified on disk.</para>
 <para><userinput>Output</userinput>, the output defines the target of stdout. It is either set to <userinput>Ignored</userinput>, <userinput>Insert at Cursor Position</userinput>, <userinput>Replace Selected Text</userinput>, <userinput>Replace Current Document</userinput>, <userinput>Append to Current Document</userinput>, <userinput>Insert in New Document</userinput>, <userinput>Copy to Clipboard</userinput>, or <userinput>Display in Pane</userinput>.</para>
 <para><userinput>Editor command</userinput>, optional command that can be used to invoke the external tool via the built-in <ulink url="help:/katepart/advanced.html#advanced-editing-tools-commandline">command line</ulink>.</para>

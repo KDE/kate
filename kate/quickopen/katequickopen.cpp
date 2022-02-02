@@ -72,14 +72,29 @@ protected:
             return false;
         }
 
+        QStringView fileNameMatchPattern = pattern;
+        // When matching path, we want to match the last section of the pattern
+        // with filenames. /path/to/file => pattern: file
+        if (matchPath) {
+            int lastSlash = pattern.lastIndexOf(QLatin1Char('/'));
+            if (lastSlash != -1) {
+                fileNameMatchPattern = fileNameMatchPattern.mid(lastSlash + 1);
+            }
+        }
+
         const QString &name = sm->idxToFileName(sourceRow);
 
         int score = 0;
+        bool res;
         // dont use the QStringView(QString) ctor
-        bool res = filterByName(QStringView(name.data(), name.size()), QStringView(pattern.data(), pattern.size()), score);
+        if (fileNameMatchPattern.isEmpty()) {
+            res = true;
+        } else {
+            res = filterByName(QStringView(name.data(), name.size()), fileNameMatchPattern, score);
+        }
 
-        // only match file path if filename got a match
-        if (matchPath) {
+        // only match file path if needed
+        if (matchPath && res) {
             int scorep = 0;
             QStringView path{sm->idxToFilePath(sourceRow)};
             bool resp = filterByPath(path, QStringView(pattern.data(), pattern.size()), scorep);
@@ -90,6 +105,15 @@ protected:
         if (res) {
             // +1 point for opened files
             score += (sm->isOpened(sourceRow));
+
+            // extra points if file exists in project root
+            // This gives priority to the files at the root
+            // of the project over others. This is important
+            // because otherwise getting to root files may
+            // not be that easy
+            if (!matchPath) {
+                score += (sm->idxToFilePath(sourceRow) == name) + name.size();
+            }
         }
 
         sm->setScoreForIndex(sourceRow, score);

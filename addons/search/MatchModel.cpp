@@ -121,6 +121,8 @@ void MatchModel::clear()
     m_matchFileIndexHash.clear();
     m_matchUnsavedFileIndexHash.clear();
     m_lastMatchUrl.clear();
+    m_maxColNumFound = 0;
+    m_maxLineNumFound = 0;
     endResetModel();
 }
 
@@ -179,6 +181,10 @@ void MatchModel::addMatches(const QUrl &fileUrl, const QVector<KateSearchMatch> 
     beginInsertRows(createIndex(fileIndex, 0, FileItemId), matchIndex, matchIndex + searchMatches.size() - 1);
     m_matchFiles[fileIndex].matches += searchMatches;
     endInsertRows();
+
+    const auto &lastMatch = searchMatches.last();
+    m_maxLineNumFound = std::max(lastMatch.range.start().line(), m_maxLineNumFound);
+    m_maxColNumFound = std::max(lastMatch.range.start().column(), m_maxColNumFound);
 }
 
 void MatchModel::setMatchColors(const QString &foreground, const QString &background, const QString &replaceBackground)
@@ -594,10 +600,7 @@ QString MatchModel::matchToHtmlString(const Match &match) const
     post = post.toHtmlEscaped();
 
     // (line:col)[space][space] ...Line text pre [highlighted match] Line text post....
-    QString displayText = QStringLiteral("<span style=\"color:%1;\">&nbsp;<b>%2:%3</b></span>&nbsp;")
-                              .arg(m_foregroundColor)
-                              .arg(nbsFormated(match.range.start().line() + 1, 3))
-                              .arg(nbsFormated(match.range.start().column() + 1, 3))
+    QString displayText = QStringLiteral("%1:%2").arg(nbsFormated(match.range.start().line() + 1, 3)).arg(nbsFormated(match.range.start().column() + 1, 3))
         + pre + matchStr + post;
 
     return displayText;
@@ -933,6 +936,8 @@ QVariant MatchModel::data(const QModelIndex &index, int role) const
             return match.replaceText;
         case PlainTextRole:
             return matchToPlainText(match);
+        case MatchItem:
+            return QVariant::fromValue(match);
         }
     } else {
         qDebug() << "bad index";

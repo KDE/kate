@@ -18,9 +18,9 @@ public:
         endResetModel();
     }
 
-private:
     bool isMatchItem(const QModelIndex &index) const;
 
+private:
     bool parentAcceptsRow(const QModelIndex &source_parent) const;
 
     QString m_text;

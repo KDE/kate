@@ -1274,6 +1274,9 @@ void KatePluginSearchView::searchDone()
     m_ui.nextButton->setDisabled(m_curResults->matches < 1);
     m_ui.filterBtn->setDisabled(m_curResults->matches <= 1);
 
+    // let the delegate know about max line num for painting line num area
+    m_curResults->updateMaxLineNumTouched();
+
     // Set search to done. This sorts the model and collapses all items in the view
     m_curResults->matchModel.setSearchState(MatchModel::SearchDone);
 
@@ -1318,6 +1321,9 @@ void KatePluginSearchView::searchWhileTypingDone()
     if (m_curResults->treeView->columnWidth(0) < m_curResults->treeView->width() - 30) {
         m_curResults->treeView->setColumnWidth(0, m_curResults->treeView->width() - 30);
     }
+
+    // let the delegate know about max line num for painting line num area
+    m_curResults->updateMaxLineNumTouched();
 
     // Set search to done. This sorts the model and collapses all items in the view
     m_curResults->matchModel.setSearchState(MatchModel::SearchDone);

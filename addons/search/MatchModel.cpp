@@ -558,7 +558,7 @@ QString MatchModel::fileToHtmlString(const MatchFile &matchFile) const
         path += QLatin1Char('/');
     }
     path = path.toHtmlEscaped();
-
+    path.remove(m_resultBaseDir);
     QString tmpStr = QStringLiteral("%1<b>%2: %3</b>").arg(path, matchFile.fileUrl.fileName().toHtmlEscaped()).arg(matchFile.matches.size());
 
     return tmpStr;

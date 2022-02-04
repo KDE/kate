@@ -597,5 +597,3 @@ void FileTreeModelTest::rename()
     QCOMPARE(root, nodes);
     qDeleteAll(documents);
 }
-
-// kate: space-indent on; indent-width 2; replace-tabs on;

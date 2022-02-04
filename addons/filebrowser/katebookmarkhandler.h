@@ -45,4 +45,3 @@ private:
 };
 
 #endif // KATE_BOOKMARK_HANDLER_H
-// kate: space-indent on; indent-width 2; replace-tabs on;

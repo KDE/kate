@@ -44,5 +44,3 @@ private:
 };
 
 #endif // KATE_FILEBROWSEROPENWITHMENU_H
-
-// kate: space-indent on; indent-width 2; replace-tabs on;

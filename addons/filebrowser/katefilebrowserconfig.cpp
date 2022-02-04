@@ -180,5 +180,3 @@ void KateFileBrowserConfigPage::slotMyChanged()
     Q_EMIT changed();
 }
 // END KateFileBrowserConfigPage
-
-// kate: space-indent on; indent-width 2; replace-tabs on;

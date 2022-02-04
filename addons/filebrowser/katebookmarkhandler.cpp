@@ -67,5 +67,3 @@ void KateBookmarkHandler::openBookmark(const KBookmark &bm, Qt::MouseButtons, Qt
 {
     Q_EMIT openUrl(bm.url().url());
 }
-
-// kate: space-indent on; indent-width 2; replace-tabs on;

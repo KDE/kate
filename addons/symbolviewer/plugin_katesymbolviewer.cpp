@@ -484,5 +484,3 @@ void KatePluginSymbolViewerConfigPage::apply()
 // END KatePluginSymbolViewerConfigPage
 
 #include "plugin_katesymbolviewer.moc"
-
-// kate: space-indent on; indent-width 2; replace-tabs on;

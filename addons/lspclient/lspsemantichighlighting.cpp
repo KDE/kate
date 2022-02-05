@@ -225,7 +225,7 @@ void SemanticHighlighter::highlight(KTextEditor::View *view, const SemanticToken
             reusedRanges++;
             // clear attribute first so that we block some of the notifyAboutRangeChange stuff!
             range->setAttribute(KTextEditor::Attribute::Ptr(nullptr));
-            range->setZDepth(-90000.0);
+            range->setZDepth(-91000.0);
             range->setRange(r);
             range->setAttribute(attribute);
             continue;

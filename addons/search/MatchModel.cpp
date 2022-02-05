@@ -548,6 +548,10 @@ QString MatchModel::infoHtmlString() const
 
 QString MatchModel::fileToHtmlString(const MatchFile &matchFile) const
 {
+    if (matchFile.fileUrl.isEmpty() && matchFile.doc) {
+        return matchFile.doc->documentName();
+    }
+
     QString path = matchFile.fileUrl.isLocalFile() ? localFileDirUp(matchFile.fileUrl).path() : matchFile.fileUrl.url();
     if (!path.isEmpty() && !path.endsWith(QLatin1Char('/'))) {
         path += QLatin1Char('/');

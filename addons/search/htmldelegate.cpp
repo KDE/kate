@@ -89,7 +89,7 @@ void SPHtmlDelegate::paintMatchItem(QPainter *p, const QStyleOptionViewItem &opt
     // line numbers
     const QBrush lineNumCol = selected ? m_curLineNumColor : m_lineNumColor;
     p->setPen(QPen(lineNumCol, 1));
-    p->drawText(iconBorderRect.adjusted(2., 0., -2., 0.), lineCol);
+    p->drawText(iconBorderRect.adjusted(2., 0., -2., 0.), Qt::AlignVCenter, lineCol);
 
     // draw the line number area separator line
     p->setPen(QPen(m_borderColor, 1));

@@ -6,7 +6,6 @@
 
 #include "htmldelegate.h"
 #include "MatchModel.h"
-#include "MatchProxyModel.h"
 
 #include <KLocalizedString>
 #include <KSyntaxHighlighting/Theme>
@@ -138,6 +137,11 @@ void SPHtmlDelegate::paintMatchItem(QPainter *p, const QStyleOptionViewItem &opt
     p->restore();
 }
 
+static bool isMatchItem(const QModelIndex &index)
+{
+    return index.parent().isValid() && index.parent().parent().isValid();
+}
+
 void SPHtmlDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
     QStyleOptionViewItem options = option;
@@ -147,13 +151,9 @@ void SPHtmlDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option
     options.text = QString();
     options.widget->style()->drawControl(QStyle::CE_ItemViewItem, &options, painter, options.widget);
 
-    Q_ASSERT(index.model() && qstrcmp(index.model()->metaObject()->className(), "MatchProxyModel"));
-
-    const auto model = static_cast<const MatchProxyModel *>(index.model());
-    if (model->isMatchItem(index)) {
+    if (isMatchItem(index)) {
         const auto item = index.data(MatchModel::MatchItem).value<KateSearchMatch>();
         paintMatchItem(painter, options, item);
-
     } else {
         QTextDocument doc;
         doc.setDefaultFont(m_font);

@@ -554,7 +554,19 @@ QString MatchModel::fileToHtmlString(const MatchFile &matchFile) const
     }
     path = path.toHtmlEscaped();
     path.remove(m_resultBaseDir);
-    QString tmpStr = QStringLiteral("%1<b>%2: %3</b>").arg(path, matchFile.fileUrl.fileName().toHtmlEscaped()).arg(matchFile.matches.size());
+    // dim the path color slightly
+    const auto fgColor = QColor(m_foregroundColor);
+    QString fg;
+    if (fgColor.lightness() < 127) {
+        fg = fgColor.lighter(150).name();
+    } else {
+        fg = fgColor.darker(150).name();
+    }
+    QString tmpStr = QStringLiteral("<span style=\"color:%1;\">%2</span><b>%3: %4</b>")
+                         .arg(fg)
+                         .arg(path)
+                         .arg(matchFile.fileUrl.fileName().toHtmlEscaped())
+                         .arg(matchFile.matches.size());
 
     return tmpStr;
 }

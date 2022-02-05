@@ -47,7 +47,7 @@ SPHtmlDelegate::SPHtmlDelegate(QObject *parent)
 static int lineNumAreaWidth(const QModelIndex &index, const QFontMetrics &fm)
 {
     const auto lastRangeForFile = index.parent().data(MatchModel::LastMatchedRangeInFile).value<KTextEditor::Range>();
-    const QString lineCol = QStringLiteral("%1:%2").arg(lastRangeForFile.start().line()).arg(lastRangeForFile.start().column());
+    const QString lineCol = QStringLiteral("%1:%2").arg(lastRangeForFile.start().line() + 1).arg(lastRangeForFile.start().column() + 1);
     return fm.horizontalAdvance(lineCol);
 }
 

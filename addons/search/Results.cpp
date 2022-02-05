@@ -133,11 +133,3 @@ bool Results::replaceSingleMatch(KTextEditor::Document *doc, const QModelIndex &
     const auto sourceIndex = model()->mapToSource(matchIndex);
     return matchModel.replaceSingleMatch(doc, sourceIndex, regExp, replaceString);
 }
-
-void Results::updateMaxLineNumTouched()
-{
-    auto *delegate = static_cast<SPHtmlDelegate *>(treeView->itemDelegate());
-    int maxLineFound = matchModel.m_maxLineNumFound;
-    int maxColFound = matchModel.m_maxColNumFound;
-    delegate->setMaxLineCol(maxLineFound, maxColFound);
-}

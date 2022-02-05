@@ -44,20 +44,22 @@ SPHtmlDelegate::SPHtmlDelegate(QObject *parent)
     m_font = Utils::editorFont();
 }
 
-void SPHtmlDelegate::setMaxLineCol(int line, int col)
+static int lineNumAreaWidth(const QModelIndex &index, const QFontMetrics &fm)
 {
-    const QString s = QStringLiteral("%1:%2").arg(line).arg(col);
-    m_lineNumAreaWidth = QFontMetrics(m_font).horizontalAdvance(s);
+    const auto lastRangeForFile = index.parent().data(MatchModel::LastMatchedRangeInFile).value<KTextEditor::Range>();
+    const QString lineCol = QStringLiteral("%1:%2").arg(lastRangeForFile.start().line()).arg(lastRangeForFile.start().column());
+    return fm.horizontalAdvance(lineCol);
 }
 
-void SPHtmlDelegate::paintMatchItem(QPainter *p, const QStyleOptionViewItem &opt, const KateSearchMatch &match) const
+void SPHtmlDelegate::paintMatchItem(QPainter *p, const QStyleOptionViewItem &opt, const QModelIndex &index) const
 {
+    const KateSearchMatch match = index.data(MatchModel::MatchItem).value<KateSearchMatch>();
     const int line = match.range.start().line() + 1;
     const int col = match.range.start().column() + 1;
     const QString lineCol = QStringLiteral("%1:%2").arg(line).arg(col);
 
     QStyle *style = opt.widget->style() ? opt.widget->style() : qApp->style();
-    const auto fm = QFontMetrics(m_font);
+    const QFontMetrics fm(m_font);
 
     static constexpr int hMargins = 2;
 
@@ -75,7 +77,7 @@ void SPHtmlDelegate::paintMatchItem(QPainter *p, const QStyleOptionViewItem &opt
     const bool selected = opt.state & QStyle::State_Selected;
     const QBrush iconBorderRectColor = selected ? m_curLineHighlightColor : m_iconBorderColor;
 
-    const int lineColWidth = m_lineNumAreaWidth + (hMargins * 2);
+    const int lineColWidth = lineNumAreaWidth(index, fm) + (hMargins * 2);
     if (rtl) {
         iconBorderRect.setX(textRect.width() - lineColWidth);
     }
@@ -144,6 +146,11 @@ static bool isMatchItem(const QModelIndex &index)
 
 void SPHtmlDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
+    if (!index.isValid()) {
+        QStyledItemDelegate::paint(painter, option, index);
+        return;
+    }
+
     QStyleOptionViewItem options = option;
     initStyleOption(&options, index);
 
@@ -152,8 +159,7 @@ void SPHtmlDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option
     options.widget->style()->drawControl(QStyle::CE_ItemViewItem, &options, painter, options.widget);
 
     if (isMatchItem(index)) {
-        const auto item = index.data(MatchModel::MatchItem).value<KateSearchMatch>();
-        paintMatchItem(painter, options, item);
+        paintMatchItem(painter, options, index);
     } else {
         QTextDocument doc;
         doc.setDefaultFont(m_font);

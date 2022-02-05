@@ -37,9 +37,6 @@ public:
     KTextEditor::Range matchRange(const QModelIndex &matchIndex) const;
     bool replaceSingleMatch(KTextEditor::Document *doc, const QModelIndex &matchIndex, const QRegularExpression &regExp, const QString &replaceString);
 
-    // Tells the delegate about max line num found in any file. Used while painting
-    void updateMaxLineNumTouched();
-
 Q_SIGNALS:
     void colorsChanged();
 };

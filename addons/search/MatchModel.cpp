@@ -122,8 +122,6 @@ void MatchModel::clear()
     m_matchFileIndexHash.clear();
     m_matchUnsavedFileIndexHash.clear();
     m_lastMatchUrl.clear();
-    m_maxColNumFound = 0;
-    m_maxLineNumFound = 0;
     endResetModel();
 }
 
@@ -182,10 +180,6 @@ void MatchModel::addMatches(const QUrl &fileUrl, const QVector<KateSearchMatch> 
     beginInsertRows(createIndex(fileIndex, 0, FileItemId), matchIndex, matchIndex + searchMatches.size() - 1);
     m_matchFiles[fileIndex].matches += searchMatches;
     endInsertRows();
-
-    const auto &lastMatch = searchMatches.last();
-    m_maxLineNumFound = std::max(lastMatch.range.start().line(), m_maxLineNumFound);
-    m_maxColNumFound = std::max(lastMatch.range.start().column(), m_maxColNumFound);
 }
 
 void MatchModel::setMatchColors(const QString &foreground, const QString &background, const QString &replaceBackground)
@@ -904,6 +898,12 @@ QVariant MatchModel::data(const QModelIndex &index, int role) const
             return m_matchFiles[fileRow].fileUrl;
         case PlainTextRole:
             return fileToPlainText(m_matchFiles[fileRow]);
+        case LastMatchedRangeInFile:
+            if (m_matchFiles[fileRow].matches.isEmpty()) {
+                qWarning() << "Unexpected empty matches for file!";
+                return {};
+            }
+            return QVariant::fromValue(m_matchFiles[fileRow].matches.constLast().range);
         }
     } else if (matchRow < m_matchFiles[fileRow].matches.size()) {
         // Match
@@ -939,6 +939,9 @@ QVariant MatchModel::data(const QModelIndex &index, int role) const
             return matchToPlainText(match);
         case MatchItem:
             return QVariant::fromValue(match);
+        case LastMatchedRangeInFile:
+            qWarning() << "Requested last matched line from a match item instead of file item1";
+            return {};
         }
     } else {
         qDebug() << "bad index";

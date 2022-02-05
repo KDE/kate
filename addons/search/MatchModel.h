@@ -59,7 +59,8 @@ public:
         ReplacedRole,
         ReplaceTextRole,
         PlainTextRole,
-        MatchItem
+        MatchItem,
+        LastMatchedRangeInFile,
     };
     Q_ENUM(MatchDataRoles)
 
@@ -227,12 +228,6 @@ private:
     QRegularExpression m_regExp;
     QString m_replaceText;
     bool m_cancelReplace = true;
-
-    // display related for current search
-    int m_maxLineNumFound = 0;
-    int m_maxColNumFound = 0;
-
-    friend class Results;
 };
 
 // tests

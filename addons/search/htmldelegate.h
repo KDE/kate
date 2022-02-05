@@ -10,8 +10,6 @@
 #include <QFont>
 #include <QStyledItemDelegate>
 
-class KateSearchMatch;
-
 class SPHtmlDelegate : public QStyledItemDelegate
 {
     Q_OBJECT
@@ -22,13 +20,10 @@ public:
     void paint(QPainter *, const QStyleOptionViewItem &, const QModelIndex &) const override;
     QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 
-    void setMaxLineCol(int line, int col);
-
 private:
-    void paintMatchItem(QPainter *, const QStyleOptionViewItem &, const KateSearchMatch &) const;
+    void paintMatchItem(QPainter *, const QStyleOptionViewItem &, const QModelIndex &index) const;
 
     QFont m_font;
-    int m_lineNumAreaWidth = 0;
     QBrush m_curLineHighlightColor;
     QBrush m_iconBorderColor;
     QBrush m_borderColor;

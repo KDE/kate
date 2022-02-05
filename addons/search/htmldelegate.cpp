@@ -185,13 +185,3 @@ void SPHtmlDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option
         painter->restore();
     }
 }
-
-QSize SPHtmlDelegate::sizeHint(const QStyleOptionViewItem & /*option*/, const QModelIndex &index) const
-{
-    QTextDocument doc;
-    doc.setDefaultFont(m_font);
-    doc.setDocumentMargin(s_ItemMargin);
-    doc.setHtml(index.data().toString());
-    // qDebug() << doc.toPlainText() << doc.size().toSize();
-    return doc.size().toSize() + QSize(30, 0); // add margin for the check-box
-}

@@ -18,7 +18,6 @@ public:
     explicit SPHtmlDelegate(QObject *parent);
 
     void paint(QPainter *, const QStyleOptionViewItem &, const QModelIndex &) const override;
-    QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 
 private:
     void paintMatchItem(QPainter *, const QStyleOptionViewItem &, const QModelIndex &index) const;

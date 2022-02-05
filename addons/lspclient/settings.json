@@ -48,11 +48,13 @@
             "highlightingModeRegex": "^Fortran.*$"
         },
         "go": {
-            "command": ["gopls"],
-            "commandDebug": ["gopls", "-rpc.trace"],
-            "rootIndicationFileNames": ["go.mod"],
-            "url": "golang.org/x/tools/gopls",
-            "highlightingModeRegex": "^Go$"
+            "go": {
+                "command": ["gopls"],
+                "commandDebug": ["gopls", "serve", "-debug", "0.0.0.0:8484", "-rpc.trace"],
+                "path": ["%{ENV:HOME}/go/bin", "%{ENV:USERPROFILE}/go/bin"],
+                "rootIndicationFileNames": ["go.mod"],
+                "url": "golang.org/x/tools/gopls",
+                "highlightingModeRegex": "^Go$"
         },
         "haskell": {
             "command": ["haskell-language-server-wrapper", "--lsp"],

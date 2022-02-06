@@ -260,6 +260,32 @@ void MatchModel::updateMatchRanges(const QVector<KTextEditor::MovingRange *> &ra
     dataChanged(index(0, 0, rootFileIndex), index(matches.count() - 1, 0, rootFileIndex));
 }
 
+QRegularExpressionMatch MatchModel::rangeTextMatches(const QString &rangeText, const QRegularExpression &regExp)
+{
+    // special handling for lookahead and lookbehind
+    QRegularExpression tmpReg = regExp;
+    QString pattern = tmpReg.pattern();
+
+    // NOTE: Negative look-ahead/behind i snot a problem as they are not part of the range
+    static QRegularExpression lookaheadRegex(QStringLiteral(".*(\\(\\?=[^\\)]+\\))"));
+    static QRegularExpression lookbehindRegex(QStringLiteral("(\\(\\?<=[^\\)]+\\)).*"));
+
+    // Remove possible lookahead as we do not have the tail to compare with
+    auto lookMatch = lookaheadRegex.match(pattern);
+    if (lookMatch.hasMatch()) {
+        pattern.remove(lookMatch.captured(1));
+        tmpReg.setPattern(pattern);
+    }
+    // Remove possible lookbehind as we do not have the prefix
+    lookMatch = lookbehindRegex.match(pattern);
+    if (lookMatch.hasMatch()) {
+        pattern.remove(lookMatch.captured(1));
+        tmpReg.setPattern(pattern);
+    }
+
+    return tmpReg.match(rangeText);
+}
+
 /** This function is used to replace a match */
 bool MatchModel::replaceMatch(KTextEditor::Document *doc, const QModelIndex &matchIndex, const QRegularExpression &regExp, const QString &replaceString)
 {
@@ -283,7 +309,7 @@ bool MatchModel::replaceMatch(KTextEditor::Document *doc, const QModelIndex &mat
 
     // Check that the text has not been modified and still matches + get captures for the replace
     QString matchLines = doc->text(matchItem->range);
-    QRegularExpressionMatch match = regExp.match(matchLines);
+    QRegularExpressionMatch match = rangeTextMatches(matchLines, regExp);
     if (match.capturedStart() != 0) {
         qDebug() << matchLines << "Does not match" << regExp.pattern();
         return false;

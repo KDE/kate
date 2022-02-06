@@ -1,0 +1,48 @@
+In this file we check that regular expression lookahead and lookbehind works as expected.
+
+The following three lines are test data
+1) Foo 123ABC123
+2) Foo    ABC
+3) Foo BARABCDEF
+4) Foo 123ABCDEF
+
+Run the test cases by entering the following regexes (one at a time).
+The lines in the result should be highlighted:
+
+Lookahead
+regex: "ABC(?=\d+)" result: 1
+regex: "ABC(?=\D+)" result: 3, 4
+regex: "ABC(?!\d+)" result: 2, 3, 4
+
+Negative lookahead
+regex: "ABC(?!\S+)" result: 2
+regex: "ABC(?!\d+)" result: 2, 3, 4
+
+Lookbehind
+regex: "(?<=\d)ABC" result: 1, 4
+regex: "(?<=\S)ABC" result: 1, 3, 4
+
+Negative lookbehind
+regex: "(?<!\d)ABC" result: 2, 3
+regex: "(?<!\S)ABC" result: 2
+regex: "(?<!\D)ABC" result: 1, 4
+
+Lookbehind + lookahead
+regex: "(?<=\S)ABC(?=\S+)" result: 1, 3, 4
+regex: "(?<=\d)ABC(?=\D+)" result: 4
+regex: "(?<=\D)ABC(?=\D+)" result: 3
+
+
+Next we check that the captures do not get offset by look-ahead or look-behind by
+checking the next regexp and replacement on the line after them. The replace should
+just replace '_' with '-':
+regex: (?<=\d)(ABC)_(DEF)_(GHI)(?=\d+)
+replace: \1-\2-\3
+123ABC_DEF_GHI123
+
+Next we check that the captures do not get offset by NEGATIVE look-ahead or
+look-behind by checking the next regexp and replacement on the line after them.
+The replace should just replace '_' with '-':
+regex: (?<!\d)(ABC)_(DEF)_(GHI)(?!\d+)
+replace: \1-\2-\3
+aaaABC_DEF_GHIaaa

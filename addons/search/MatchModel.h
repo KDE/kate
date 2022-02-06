@@ -187,6 +187,12 @@ public:
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     int columnCount(const QModelIndex &parent = QModelIndex()) const override;
 
+    /** This function is used to verify that the range has not been edited since the search and returns the match object with the needed captures.
+     * @param rangeText is the QString for the range.
+     * @param regExp is the regular-expression to check.
+     * @return the match object that has captures on success or none on failure to match the previously found range.*/
+    static QRegularExpressionMatch rangeTextMatches(const QString &rangeText, const QRegularExpression &regExp);
+
 private Q_SLOTS:
     void doReplaceNextMatch();
 

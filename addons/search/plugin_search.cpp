@@ -1535,15 +1535,8 @@ void KatePluginSearchView::addRangeAndMark(KTextEditor::Document *doc,
     // Check that the match still matches
     if (m_curResults) {
         if (!isReplaced) {
-            // special handling for "(?=\\n)" in multi-line search
-            QRegularExpression tmpReg = m_curResults->regExp;
-            if (m_curResults->regExp.pattern().endsWith(QLatin1String("(?=\\n)"))) {
-                QString newPatern = tmpReg.pattern();
-                newPatern.replace(QStringLiteral("(?=\\n)"), QStringLiteral("$"));
-                tmpReg.setPattern(newPatern);
-            }
-            // Check that the match still matches ;)
-            if (tmpReg.match(doc->text(match.range)).capturedStart() != 0) {
+            auto regMatch = MatchModel::rangeTextMatches(doc->text(match.range), m_curResults->regExp);
+            if (regMatch.capturedStart() != 0) {
                 // qDebug() << doc->text(range) << "Does not match" << m_curResults->regExp.pattern();
                 return;
             }

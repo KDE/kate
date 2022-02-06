@@ -1,0 +1,22 @@
+Foo Baar
+Foo Baar
+
+In this file we check that regular expression for multi-line regular
+expressions can use ^ bot beginning of line and $ for end of line.
+
+The following regexp should match the first the last and next "Foo Baar"
+blocks, but not the next to last or third to last:
+regex: "^Foo Baar\nFoo Baar$"
+
+Foo Baar
+Foo Baar
+
+ Foo Baar
+Foo Baar
+
+Foo Baar
+Foo Baar Baz
+
+NOTE: do not insert a newline at the end
+Foo Baar
+Foo Baar

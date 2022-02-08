@@ -11,6 +11,7 @@
 
 #include <KTextEditor/Cursor>
 #include <KTextEditor/Document>
+#include <KTextEditor/Editor>
 #include <KTextEditor/View>
 
 #include <QIcon>
@@ -19,41 +20,7 @@
 #include <algorithm>
 #include <utility>
 
-// clang-format off
-#define RETURN_CACHED_ICON(name) \
-    { \
-        static QIcon icon(QIcon::fromTheme(QStringLiteral(name))); \
-        return icon; \
-    }
-// clang-format on
-
-static QIcon kind_icon(LSPCompletionItemKind kind)
-{
-    switch (kind) {
-    case LSPCompletionItemKind::Method:
-    case LSPCompletionItemKind::Function:
-    case LSPCompletionItemKind::Constructor:
-        RETURN_CACHED_ICON("code-function")
-    case LSPCompletionItemKind::Variable:
-        RETURN_CACHED_ICON("code-variable")
-    case LSPCompletionItemKind::Class:
-    case LSPCompletionItemKind::Interface:
-    case LSPCompletionItemKind::Struct:
-        RETURN_CACHED_ICON("code-class");
-    case LSPCompletionItemKind::Module:
-        RETURN_CACHED_ICON("code-block");
-    case LSPCompletionItemKind::Field:
-    case LSPCompletionItemKind::Property:
-        // align with symbolview
-        RETURN_CACHED_ICON("code-variable");
-    case LSPCompletionItemKind::Enum:
-    case LSPCompletionItemKind::EnumMember:
-        RETURN_CACHED_ICON("enum");
-    default:
-        break;
-    }
-    return QIcon();
-}
+#include <drawing_utils.h>
 
 static KTextEditor::CodeCompletionModel::CompletionProperty kind_property(LSPCompletionItemKind kind)
 {
@@ -126,6 +93,84 @@ struct LSPClientCompletionItem : public LSPCompletionItem {
     }
 };
 
+/**
+ * Helper class that caches the completion icons
+ */
+class CompletionIcons
+{
+public:
+    CompletionIcons()
+    {
+        classIcon = QIcon::fromTheme(QStringLiteral("code-class"));
+        blockIcon = QIcon::fromTheme(QStringLiteral("code-block"));
+        funcIcon = QIcon::fromTheme(QStringLiteral("code-function"));
+        varIcon = QIcon::fromTheme(QStringLiteral("code-variable"));
+        enumIcon = QIcon::fromTheme(QStringLiteral("enum"));
+
+        auto e = KTextEditor::Editor::instance();
+        QObject::connect(e, &KTextEditor::Editor::configChanged, e, [this](KTextEditor::Editor *e) {
+            colorIcons(e);
+        });
+        colorIcons(e);
+    }
+
+    QIcon iconForKind(LSPCompletionItemKind kind) const
+    {
+        switch (kind) {
+        case LSPCompletionItemKind::Method:
+        case LSPCompletionItemKind::Function:
+        case LSPCompletionItemKind::Constructor:
+            return funcIcon;
+        case LSPCompletionItemKind::Variable:
+            return varIcon;
+        case LSPCompletionItemKind::Class:
+        case LSPCompletionItemKind::Interface:
+        case LSPCompletionItemKind::Struct:
+            return classIcon;
+        case LSPCompletionItemKind::Module:
+            return blockIcon;
+        case LSPCompletionItemKind::Field:
+        case LSPCompletionItemKind::Property:
+            // align with symbolview
+            return varIcon;
+        case LSPCompletionItemKind::Enum:
+        case LSPCompletionItemKind::EnumMember:
+            return enumIcon;
+        default:
+            break;
+        }
+        return QIcon();
+    }
+
+private:
+    void colorIcons(KTextEditor::Editor *e)
+    {
+        using KSyntaxHighlighting::Theme;
+        auto theme = e->theme();
+        auto varColor = QColor::fromRgba(theme.textColor(Theme::Variable));
+        varIcon = Utils::colorIcon(varIcon, varColor);
+
+        auto typeColor = QColor::fromRgba(theme.textColor(Theme::DataType));
+        classIcon = Utils::colorIcon(classIcon, typeColor);
+
+        auto enColor = QColor::fromRgba(theme.textColor(Theme::Constant));
+        enumIcon = Utils::colorIcon(enumIcon, enColor);
+
+        auto funcColor = QColor::fromRgba(theme.textColor(Theme::Function));
+        funcIcon = Utils::colorIcon(funcIcon, funcColor);
+
+        auto blockColor = QColor::fromRgba(theme.textColor(Theme::Import));
+        blockIcon = Utils::colorIcon(blockIcon, blockColor);
+    }
+
+private:
+    QIcon classIcon;
+    QIcon blockIcon;
+    QIcon funcIcon;
+    QIcon varIcon;
+    QIcon enumIcon;
+};
+
 static bool compare_match(const LSPCompletionItem &a, const LSPCompletionItem &b)
 {
     return a.sortText < b.sortText;
@@ -149,6 +194,8 @@ class LSPClientCompletionImpl : public LSPClientCompletion
 
     QList<LSPClientCompletionItem> m_matches;
     LSPClientServer::RequestHandle m_handle, m_handleSig;
+
+    CompletionIcons icons;
 
 public:
     LSPClientCompletionImpl(QSharedPointer<LSPClientServerManager> manager)
@@ -203,7 +250,7 @@ public:
                 return match.postfix;
             }
         } else if (role == Qt::DecorationRole && index.column() == KTextEditor::CodeCompletionModel::Icon) {
-            return kind_icon(match.kind);
+            return icons.iconForKind(match.kind);
         } else if (role == KTextEditor::CodeCompletionModel::CompletionRole) {
             return kind_property(match.kind);
         } else if (role == KTextEditor::CodeCompletionModel::ArgumentHintDepth) {

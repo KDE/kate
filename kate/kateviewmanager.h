@@ -276,7 +276,6 @@ public Q_SLOTS:
 
 private:
     KateMainWindow *m_mainWindow;
-    bool m_init;
 
     QAction *m_splitViewVert = nullptr;
     QAction *m_splitViewHoriz = nullptr;

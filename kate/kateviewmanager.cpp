@@ -33,6 +33,7 @@
 
 #include <QFileDialog>
 #include <QStyle>
+#include <QTimer>
 
 // END Includes
 
@@ -46,9 +47,6 @@ KateViewManager::KateViewManager(QWidget *parentW, KateMainWindow *parent)
     , m_minAge(0)
     , m_guiMergedView(nullptr)
 {
-    // while init
-    m_init = true;
-
     // we don't allow full collapse, see bug 366014
     setChildrenCollapsible(false);
 
@@ -78,18 +76,21 @@ KateViewManager::KateViewManager(QWidget *parentW, KateMainWindow *parent)
     connect(KateApp::self()->documentManager(), &KateDocManager::aboutToDeleteDocuments, this, &KateViewManager::aboutToDeleteDocuments);
     connect(KateApp::self()->documentManager(), &KateDocManager::documentsDeleted, this, &KateViewManager::documentsDeleted);
 
-    // register all already existing documents
-    m_blockViewCreationAndActivation = true;
+    // Do it on next event loop iteration *after* the viewspace
+    // config has been read. This avoids
+    // - useless work (because current ViewSpace is destroyed when we restore config)
+    // - creates views for stashed docs correctly.
+    QTimer::singleShot(0, this, [this] {
+        // register all already existing documents
+        m_blockViewCreationAndActivation = true;
 
-    const auto &docs = KateApp::self()->documentManager()->documentList();
-    for (KTextEditor::Document *doc : docs) {
-        documentCreated(doc);
-    }
+        const auto &docs = KateApp::self()->documentManager()->documentList();
+        for (KTextEditor::Document *doc : docs) {
+            documentCreated(doc);
+        }
 
-    m_blockViewCreationAndActivation = false;
-
-    // init done
-    m_init = false;
+        m_blockViewCreationAndActivation = false;
+    });
 }
 
 KateViewManager::~KateViewManager()

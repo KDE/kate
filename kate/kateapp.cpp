@@ -260,6 +260,7 @@ void KateApp::shutdownKate(KateMainWindow *win)
     }
 
     sessionManager()->saveActiveSession(true);
+    stashManager()->stashDocuments(sessionManager()->activeSession()->config(), documentManager()->documentList());
 
     /**
      * all main windows will be cleaned up

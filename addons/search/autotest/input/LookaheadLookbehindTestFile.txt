@@ -1,6 +1,6 @@
 In this file we check that regular expression lookahead and lookbehind works as expected.
 
-The following three lines are test data
+The following four lines are test data
 1) Foo 123ABC123
 2) Foo    ABC
 3) Foo BARABCDEF

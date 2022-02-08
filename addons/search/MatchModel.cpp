@@ -266,20 +266,20 @@ QRegularExpressionMatch MatchModel::rangeTextMatches(const QString &rangeText, c
     QRegularExpression tmpReg = regExp;
     QString pattern = tmpReg.pattern();
 
-    // NOTE: Negative look-ahead/behind i snot a problem as they are not part of the range
-    static QRegularExpression lookaheadRegex(QStringLiteral(".*(\\(\\?=[^\\)]+\\))"));
-    static QRegularExpression lookbehindRegex(QStringLiteral("(\\(\\?<=[^\\)]+\\)).*"));
+    // NOTE: Negative look-ahead/behind are not a problem as they are not part of the range
+    static const QRegularExpression lookaheadRegex(QStringLiteral(".*(\\(\\?=[^\\)]+\\))"));
+    static const QRegularExpression lookbehindRegex(QStringLiteral("(\\(\\?<=[^\\)]+\\)).*"));
 
     // Remove possible lookahead as we do not have the tail to compare with
     auto lookMatch = lookaheadRegex.match(pattern);
     if (lookMatch.hasMatch()) {
-        pattern.remove(lookMatch.captured(1));
+        pattern.remove(lookMatch.capturedStart(1), lookMatch.capturedLength(1));
         tmpReg.setPattern(pattern);
     }
     // Remove possible lookbehind as we do not have the prefix
     lookMatch = lookbehindRegex.match(pattern);
     if (lookMatch.hasMatch()) {
-        pattern.remove(lookMatch.captured(1));
+        pattern.remove(lookMatch.capturedStart(1), lookMatch.capturedLength(1));
         tmpReg.setPattern(pattern);
     }
 

@@ -161,7 +161,7 @@ void KateFileBrowser::readSessionConfig(const KConfigGroup &cg)
 
     m_urlNavigator->setLocationUrl(cg.readEntry("location", QUrl::fromLocalFile(QDir::homePath())));
     setDir(cg.readEntry("location", QUrl::fromLocalFile(QDir::homePath())));
-    m_autoSyncFolder->setChecked(cg.readEntry("auto sync folder", false));
+    m_autoSyncFolder->setChecked(cg.readEntry("auto sync folder", true));
     m_filter->setHistoryItems(cg.readEntry("filter history", QStringList()), true);
 }
 
@@ -381,6 +381,7 @@ void KateFileBrowser::setupActions()
     m_autoSyncFolder = new QAction(this);
     m_autoSyncFolder->setCheckable(true);
     m_autoSyncFolder->setText(i18n("Automatically synchronize with current document"));
+    m_autoSyncFolder->setChecked(true);
     m_autoSyncFolder->setIcon(QIcon::fromTheme(QStringLiteral("system-switch-user")));
     connect(m_autoSyncFolder, &QAction::triggered, this, &KateFileBrowser::autoSyncFolder);
     optionsMenu->addAction(m_autoSyncFolder);

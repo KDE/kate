@@ -580,8 +580,6 @@ void KateDocManager::slotModChanged1(KTextEditor::Document *doc)
 
 void KateDocManager::documentOpened()
 {
-    KColorScheme colors(QPalette::Active);
-
     KTextEditor::Document *doc = qobject_cast<KTextEditor::Document *>(sender());
     if (!doc) {
         return; // should never happen, but who knows

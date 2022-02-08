@@ -29,7 +29,8 @@ SPHtmlDelegate::SPHtmlDelegate(QObject *parent)
 {
     const auto e = KTextEditor::Editor::instance();
     const auto theme = e->theme();
-    connect(e, &KTextEditor::Editor::configChanged, this, [this] {
+
+    const auto updateColors = [this] {
         m_font = Utils::editorFont();
         const auto theme = KTextEditor::Editor::instance()->theme();
         m_lineNumColor = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::LineNumbers));
@@ -40,7 +41,9 @@ SPHtmlDelegate::SPHtmlDelegate(QObject *parent)
         m_curLineHighlightColor = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::CurrentLine));
         m_searchColor = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::SearchHighlight));
         m_replaceColor = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::ReplaceHighlight));
-    });
+    };
+    connect(e, &KTextEditor::Editor::configChanged, this, updateColors);
+    updateColors();
     m_font = Utils::editorFont();
 }
 

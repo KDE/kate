@@ -1388,6 +1388,9 @@ void KatePluginSearchView::replaceSingleMatch()
     QModelIndex itemIndex = res->treeView->currentIndex();
     if (!itemIndex.isValid() || !res->isMatch(itemIndex)) {
         goToNextMatch();
+        // If no item was selected "Replace" is similar to just pressing "Next"
+        // We do not want to replace a string we do not see with plain "Replace"
+        return;
     }
 
     if (!m_mainWindow->activeView() || !m_mainWindow->activeView()->cursorPosition().isValid()) {

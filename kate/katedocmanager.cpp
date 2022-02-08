@@ -18,11 +18,11 @@
 #include <ktexteditor/editor.h>
 #include <ktexteditor/view.h>
 
-#include <KColorScheme>
 #include <KConfigGroup>
 #include <KIO/DeleteJob>
 #include <KLocalizedString>
 #include <KMessageBox>
+#include <KSharedConfig>
 
 #if KCOREADDONS_VERSION >= QT_VERSION_CHECK(5, 85, 0)
 #include <KNetworkMounts>

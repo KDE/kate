@@ -1299,8 +1299,19 @@ public:
         });
     }
 
-    void goToItemLocation(const QModelIndex &index)
+    QModelIndex getPrimaryModelIndex(QModelIndex index)
     {
+        // in case of a multiline diagnostics item, a split secondary line has no data set
+        // so we need to go up to the primary parent item
+        if (!index.data(RangeData::RangeRole).isValid() && index.parent().data(RangeData::RangeRole).isValid()) {
+            return index.parent();
+        }
+        return index;
+    }
+
+    void goToItemLocation(const QModelIndex &_index)
+    {
+        auto index = getPrimaryModelIndex(_index);
         auto url = index.data(RangeData::FileUrlRole).toUrl();
         auto start = index.data(RangeData::RangeRole).value<LSPRange>();
         goToDocumentLocation(url, start);
@@ -1422,7 +1433,7 @@ public:
     // (execution of command may lead to an applyEdit request from server)
     void triggerCodeAction(const QModelIndex &index)
     {
-        triggerCodeActionItem(index, false);
+        triggerCodeActionItem(getPrimaryModelIndex(index), false);
     }
 
     void triggerCodeActionItem(const QModelIndex &index, bool autoApply)
@@ -2434,8 +2445,19 @@ public:
                 source = QStringLiteral("[%1] ").arg(diag.source);
             }
             item->setData(diagnosticsIcon(diag.severity), Qt::DecorationRole);
-            item->setText(source + diag.message);
+            // rendering of lines with embedded newlines does not work so well
+            // so ... split message by lines
+            auto lines = diag.message.split(QLatin1Char('\n'), Qt::SkipEmptyParts);
+            item->setText(source + (lines.size() > 0 ? lines[0] : QString()));
             fillItemRoles(item, diagnostics.uri, diag.range, diag.severity);
+            // add subsequent lines to subitems
+            // no metadata is added to these,
+            // as it can be taken from the parent (for marks and ranges)
+            for (int l = 1; l < lines.size(); ++l) {
+                auto subitem = new QStandardItem();
+                subitem->setText(lines[l]);
+                item->appendRow(subitem);
+            }
             const auto &relatedInfo = diag.relatedInformation;
             for (const auto &related : relatedInfo) {
                 if (related.location.uri.isEmpty()) {
@@ -2448,8 +2470,8 @@ public:
                 relatedItemMessage->setText(QStringLiteral("[%1] %2").arg(location).arg(related.message));
                 relatedItemMessage->setData(diagnosticsIcon(LSPDiagnosticSeverity::Information), Qt::DecorationRole);
                 item->appendRow(relatedItemMessage);
-                m_diagnosticsTree->setExpanded(item->index(), true);
             }
+            m_diagnosticsTree->setExpanded(item->index(), true);
         }
 
         // TODO perhaps add some custom delegate that only shows 1 line

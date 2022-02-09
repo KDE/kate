@@ -191,7 +191,7 @@ public:
      * @param rangeText is the QString for the range.
      * @param regExp is the regular-expression to check.
      * @return the match object that has captures on success or none on failure to match the previously found range.*/
-    static QRegularExpressionMatch rangeTextMatches(const QString &rangeText, const QRegularExpression &regExp);
+    static QRegularExpressionMatch rangeTextMatches(const QString &rangeText, QRegularExpression regExp);
 
 private Q_SLOTS:
     void doReplaceNextMatch();

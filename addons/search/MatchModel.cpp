@@ -260,30 +260,29 @@ void MatchModel::updateMatchRanges(const QVector<KTextEditor::MovingRange *> &ra
     dataChanged(index(0, 0, rootFileIndex), index(matches.count() - 1, 0, rootFileIndex));
 }
 
-QRegularExpressionMatch MatchModel::rangeTextMatches(const QString &rangeText, const QRegularExpression &regExp)
+QRegularExpressionMatch MatchModel::rangeTextMatches(const QString &rangeText, QRegularExpression regExp)
 {
     // special handling for lookahead and lookbehind
-    QRegularExpression tmpReg = regExp;
-    QString pattern = tmpReg.pattern();
+    QString pattern = regExp.pattern();
 
     // NOTE: Negative look-ahead/behind are not a problem as they are not part of the range
-    static const QRegularExpression lookaheadRegex(QStringLiteral(".*(\\(\\?=[^\\)]+\\))"));
-    static const QRegularExpression lookbehindRegex(QStringLiteral("(\\(\\?<=[^\\)]+\\)).*"));
+    static const QRegularExpression lookaheadRegex(QStringLiteral("^.*(\\(\\?=[^\\)]+\\))$"));
+    static const QRegularExpression lookbehindRegex(QStringLiteral("^(\\(\\?<=[^\\)]+\\)).*$"));
 
     // Remove possible lookahead as we do not have the tail to compare with
     auto lookMatch = lookaheadRegex.match(pattern);
     if (lookMatch.hasMatch()) {
         pattern.remove(lookMatch.capturedStart(1), lookMatch.capturedLength(1));
-        tmpReg.setPattern(pattern);
+        regExp.setPattern(pattern);
     }
     // Remove possible lookbehind as we do not have the prefix
     lookMatch = lookbehindRegex.match(pattern);
     if (lookMatch.hasMatch()) {
         pattern.remove(lookMatch.capturedStart(1), lookMatch.capturedLength(1));
-        tmpReg.setPattern(pattern);
+        regExp.setPattern(pattern);
     }
 
-    return tmpReg.match(rangeText);
+    return regExp.match(rangeText);
 }
 
 /** This function is used to replace a match */

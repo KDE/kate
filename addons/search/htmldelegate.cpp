@@ -188,3 +188,12 @@ void SPHtmlDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option
         painter->restore();
     }
 }
+
+QSize SPHtmlDelegate::sizeHint(const QStyleOptionViewItem &opt, const QModelIndex &index) const
+{
+    QSize s = QStyledItemDelegate::sizeHint(opt, index);
+    QFontMetrics fm(m_font);
+    s.setHeight(fm.lineSpacing());
+    s = s.grownBy({0, 2, 0, 2});
+    return s;
+}

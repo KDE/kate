@@ -120,6 +120,8 @@ void KateConfigDialog::addBehaviorPage()
     m_tabLimit->setValue(cgGeneral.readEntry("Tabbar Tab Limit", 0));
     connect(m_tabLimit, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &KateConfigDialog::slotChanged);
     vbox->addLayout(hlayout);
+    vbox->addWidget(
+        new QLabel(i18n("A high limit can increase the window size, please enable 'Allow tab scrolling' to prevent it. Unlimited tabs are always scrollable.")));
 
     m_showTabCloseButton = new QCheckBox(i18n("&Show close button"), buttonGroup);
     m_showTabCloseButton->setChecked(cgGeneral.readEntry("Show Tabs Close Button", true));
@@ -144,6 +146,18 @@ void KateConfigDialog::addBehaviorPage()
     m_tabMiddleClickCloseDocument->setToolTip(i18n("When checked middle click closes a document."));
     connect(m_tabMiddleClickCloseDocument, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
     vbox->addWidget(m_tabMiddleClickCloseDocument);
+
+    m_tabsScrollable = new QCheckBox(i18n("Allow tab scrolling"), this);
+    m_tabsScrollable->setChecked(cgGeneral.readEntry("Allow Tab Scrolling", false));
+    m_tabsScrollable->setToolTip(i18n("When checked this will allow scrolling in tab bar when number of tabs are large."));
+    connect(m_tabsScrollable, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
+    vbox->addWidget(m_tabsScrollable);
+
+    m_tabsElided = new QCheckBox(i18n("Elide tab text"), this);
+    m_tabsElided->setChecked(cgGeneral.readEntry("Elide Tab Text", false));
+    m_tabsElided->setToolTip(i18n("When checked tab text might be elided if its too long."));
+    connect(m_tabsElided, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
+    vbox->addWidget(m_tabsElided);
 
     layout->addWidget(buttonGroup);
 
@@ -350,6 +364,9 @@ void KateConfigDialog::slotApply()
 
         cg.writeEntry("Tab Double Click New Document", m_tabDoubleClickNewDocument->isChecked());
         cg.writeEntry("Tab Middle Click Close Document", m_tabMiddleClickCloseDocument->isChecked());
+
+        cg.writeEntry("Allow Tab Scrolling", m_tabsScrollable->isChecked());
+        cg.writeEntry("Elide Tab Text", m_tabsElided->isChecked());
 
         // patch document modified warn state
         const QList<KTextEditor::Document *> &docs = KateApp::self()->documentManager()->documentList();

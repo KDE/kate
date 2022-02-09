@@ -85,6 +85,8 @@ private:
     QCheckBox *m_expandTabs;
     QCheckBox *m_tabDoubleClickNewDocument;
     QCheckBox *m_tabMiddleClickCloseDocument;
+    QCheckBox *m_tabsScrollable = nullptr;
+    QCheckBox *m_tabsElided = nullptr;
 
     Ui::SessionConfigWidget sessionConfigUi;
 

@@ -13,10 +13,10 @@
 #include <QThreadPool>
 
 #include <KTextEditor/Plugin>
+#include <KTextEditor/SessionConfigInterface>
+#include <KXMLGUIClient>
 #include <ktexteditor/document.h>
 #include <ktexteditor/mainwindow.h>
-
-#include <KXMLGUIClient>
 
 #include "kateprojectcompletion.h"
 
@@ -29,9 +29,10 @@ enum class ClickAction : uint8_t {
     StageUnstage,
 };
 
-class KateProjectPlugin : public KTextEditor::Plugin
+class KateProjectPlugin : public KTextEditor::Plugin, public KTextEditor::SessionConfigInterface
 {
     Q_OBJECT
+    Q_INTERFACES(KTextEditor::SessionConfigInterface)
 
 public:
     explicit KateProjectPlugin(QObject *parent = nullptr, const QList<QVariant> & = QList<QVariant>());
@@ -188,6 +189,9 @@ private:
     KateProject *detectSubversion(const QDir &dir);
     KateProject *detectMercurial(const QDir &dir);
     KateProject *detectFossil(const QDir &dir);
+
+    void readSessionConfig(const KConfigGroup &config) override;
+    void writeSessionConfig(KConfigGroup &config) override;
 
     void readConfig();
     void writeConfig();

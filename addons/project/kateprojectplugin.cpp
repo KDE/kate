@@ -10,6 +10,7 @@
 #include "kateproject.h"
 #include "kateprojectconfigpage.h"
 #include "kateprojectpluginview.h"
+#include <iostream>
 
 #include <kcoreaddons_version.h>
 #include <ktexteditor/application.h>
@@ -567,10 +568,17 @@ void KateProjectPlugin::registerVariables()
                                       return QDir::toNativeSeparators(QDir(kateProject->baseDir()).absolutePath());
                                   });
 }
-
 void KateProjectPlugin::unregisterVariables()
 {
     auto editor = KTextEditor::Editor::instance();
     editor->unregisterVariableMatch(QStringLiteral("Project:Path"));
     editor->unregisterVariableMatch(QStringLiteral("Project:NativePath"));
+}
+
+void KateProjectPlugin::readSessionConfig(const KConfigGroup &config)
+{
+}
+
+void KateProjectPlugin::writeSessionConfig(KConfigGroup &config)
+{
 }

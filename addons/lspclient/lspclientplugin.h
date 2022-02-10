@@ -56,6 +56,7 @@ public:
     QUrl m_configPath;
     bool m_semanticHighlighting = false;
     bool m_signatureHelp = true;
+    bool m_autoImport = true;
 
     // debug mode?
     bool m_debugMode = false;

@@ -187,6 +187,7 @@ class LSPClientCompletionImpl : public LSPClientCompletion
     bool m_selectedDocumentation = false;
     bool m_signatureHelp = true;
     bool m_complParens = true;
+    bool m_autoImport = true;
 
     QVector<QChar> m_triggersCompletion;
     QVector<QChar> m_triggersSignature;
@@ -231,6 +232,11 @@ public:
     void setCompleteParens(bool s) override
     {
         m_complParens = s;
+    }
+
+    void setAutoImport(bool s) override
+    {
+        m_autoImport = s;
     }
 
     QVariant data(const QModelIndex &index, int role) const override
@@ -422,6 +428,13 @@ public:
         if (addParens) {
             // place the cursor in between (|)
             view->setCursorPosition({view->cursorPosition().line(), view->cursorPosition().column() - 1});
+        }
+
+        if (m_autoImport) {
+            const auto additionalTextEdits = m_matches.at(index.row()).additionalTextEdits;
+            for (const auto &textEdit : additionalTextEdits) {
+                view->document()->insertText(textEdit.range.start(), textEdit.newText);
+            }
         }
     }
 

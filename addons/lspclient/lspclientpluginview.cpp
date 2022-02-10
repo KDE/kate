@@ -1005,6 +1005,9 @@ public:
         if (m_messages) {
             m_messages->setChecked(m_plugin->m_messages);
         }
+        if (m_completion) {
+            m_completion->setAutoImport(m_plugin->m_autoImport);
+        }
         displayOptionChanged();
     }
 

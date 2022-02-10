@@ -470,6 +470,19 @@ static LSPLocation parseLocationLink(const QJsonObject &loc)
     return {QUrl(uri), range};
 }
 
+static QList<LSPTextEdit> parseTextEdit(const QJsonValue &result)
+{
+    QList<LSPTextEdit> ret;
+    const auto textEdits = result.toArray();
+    for (const auto &redit : textEdits) {
+        auto edit = redit.toObject();
+        auto text = edit.value(QStringLiteral("newText")).toString();
+        auto range = parseRange(edit.value(MEMBER_RANGE).toObject());
+        ret.push_back({range, text});
+    }
+    return ret;
+}
+
 static LSPDocumentHighlight parseDocumentHighlight(const QJsonValue &result)
 {
     auto hover = result.toObject();
@@ -653,7 +666,10 @@ static QList<LSPCompletionItem> parseDocumentCompletion(const QJsonValue &result
         }
         auto kind = static_cast<LSPCompletionItemKind>(item.value(MEMBER_KIND).toInt());
         //         auto textEdit = parseTextEdit(item.value(QStringLiteral("textEdit")).toObject());
-        ret.push_back({label, kind, detail, doc, sortText, insertText /*, textEdit*/});
+
+        const auto additionalTextEdits = parseTextEdit(item.value(QStringLiteral("additionalTextEdits")));
+
+        ret.push_back({label, kind, detail, doc, sortText, insertText, additionalTextEdits /*, textEdit*/});
     }
     return ret;
 }
@@ -716,19 +732,6 @@ static LSPSignatureHelp parseSignatureHelp(const QJsonValue &result)
 static QString parseClangdSwitchSourceHeader(const QJsonValue &result)
 {
     return result.toString();
-}
-
-static QList<LSPTextEdit> parseTextEdit(const QJsonValue &result)
-{
-    QList<LSPTextEdit> ret;
-    const auto textEdits = result.toArray();
-    for (const auto &redit : textEdits) {
-        auto edit = redit.toObject();
-        auto text = edit.value(QStringLiteral("newText")).toString();
-        auto range = parseRange(edit.value(MEMBER_RANGE).toObject());
-        ret.push_back({range, text});
-    }
-    return ret;
 }
 
 static LSPTextDocumentEdit parseTextDocumentEdit(const QJsonValue &result)

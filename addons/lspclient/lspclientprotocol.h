@@ -255,6 +255,7 @@ struct LSPCompletionItem {
     LSPMarkupContent documentation;
     QString sortText;
     QString insertText;
+    QList<LSPTextEdit> additionalTextEdits;
     // Intentionally disabled because doesn't work well
     // with KTE. See: https://invent.kde.org/utilities/kate/-/merge_requests/438
     //     LSPTextEdit textEdit;

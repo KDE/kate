@@ -39,6 +39,7 @@ static const QString CONFIG_MESSAGES{QStringLiteral("Messages")};
 static const QString CONFIG_SERVER_CONFIG{QStringLiteral("ServerConfiguration")};
 static const QString CONFIG_SEMANTIC_HIGHLIGHTING{QStringLiteral("SemanticHighlighting")};
 static const QString CONFIG_SIGNATURE_HELP{QStringLiteral("SignatureHelp")};
+static const QString CONFIG_AUTO_IMPORT{QStringLiteral("AutoImport")};
 
 K_PLUGIN_FACTORY_WITH_JSON(LSPClientPluginFactory, "lspclientplugin.json", registerPlugin<LSPClientPlugin>();)
 
@@ -110,6 +111,7 @@ void LSPClientPlugin::readConfig()
     m_configPath = config.readEntry(CONFIG_SERVER_CONFIG, QUrl());
     m_semanticHighlighting = config.readEntry(CONFIG_SEMANTIC_HIGHLIGHTING, false);
     m_signatureHelp = config.readEntry(CONFIG_SIGNATURE_HELP, true);
+    m_autoImport = config.readEntry(CONFIG_AUTO_IMPORT, true);
 
     Q_EMIT update();
 }
@@ -137,6 +139,7 @@ void LSPClientPlugin::writeConfig() const
     config.writeEntry(CONFIG_SERVER_CONFIG, m_configPath);
     config.writeEntry(CONFIG_SEMANTIC_HIGHLIGHTING, m_semanticHighlighting);
     config.writeEntry(CONFIG_SIGNATURE_HELP, m_signatureHelp);
+    config.writeEntry(CONFIG_AUTO_IMPORT, m_autoImport);
 
     Q_EMIT update();
 }

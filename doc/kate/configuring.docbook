@@ -177,6 +177,18 @@ when that file's view receives focus.</para>
 <guilabel>Middle click closes a document</guilabel></term>
 <listitem><para>When checked middle click closes a document.</para></listitem>
 </varlistentry>
+
+<varlistentry>
+<term><anchor id="config-general-tab-scrolling"/>
+<guilabel>Allow tab scrolling</guilabel></term>
+<listitem><para>When checked this will allow scrolling in tab bar when number of tabs are large.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><anchor id="config-general-elide-tab-text"/>
+<guilabel>Elide tab text</guilabel></term>
+<listitem><para>When checked tab text might be elided if its too long.</para></listitem>
+</varlistentry>
 </variablelist>
 
 </listitem>

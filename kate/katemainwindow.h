@@ -563,6 +563,7 @@ private:
     KToggleAction *m_paShowMenuBar = nullptr;
     KToggleAction *m_paShowStatusBar = nullptr;
     KToggleAction *m_paShowTabBar = nullptr;
+    KToggleAction *m_paShowUrlNavBar = nullptr;
 
     QWidget *m_bottomViewBarContainer = nullptr;
     KateContainerStackedLayout *m_bottomContainerStack = nullptr;

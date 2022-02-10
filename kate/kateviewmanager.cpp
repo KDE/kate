@@ -915,6 +915,19 @@ void KateViewManager::onViewSpaceEmptied(KateViewSpace *vs)
     }
 }
 
+void KateViewManager::setShowUrlNavBar(bool show)
+{
+    if (show != m_showUrlNavBar) {
+        m_showUrlNavBar = show;
+        Q_EMIT showUrlNavBarChanged(show);
+    }
+}
+
+bool KateViewManager::showUrlNavBar() const
+{
+    return m_showUrlNavBar;
+}
+
 bool KateViewManager::viewsInSameViewSpace(KTextEditor::View *view1, KTextEditor::View *view2)
 {
     if (!view1 || !view2) {

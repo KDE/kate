@@ -14,8 +14,10 @@
 #include "katemainwindow.h"
 #include "katesessionmanager.h"
 #include "kateupdatedisabler.h"
+#include "kateurlbar.h"
 #include "kateviewmanager.h"
 #include "tabmimedata.h"
+
 #include <KActionCollection>
 
 #include <KAcceleratorManager>
@@ -118,6 +120,12 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent, cons
 
     layout->addLayout(hLayout);
     // END tab bar
+
+    m_urlBar = new KateUrlBar(this);
+    connect(m_urlBar, &KateUrlBar::openUrlRequested, this, [this](const QUrl &url) {
+        m_viewManager->openUrl(url);
+    });
+    layout->addWidget(m_urlBar);
 
     stack = new QStackedWidget(this);
     stack->setFocus();

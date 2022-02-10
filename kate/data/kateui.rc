@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
-<gui name="kate" version="89" translationDomain="kate">
+<gui name="kate" version="90" translationDomain="kate">
   <MenuBar>
     <Menu name="file" noMerge="1">
       <text>&amp;File</text>
@@ -108,6 +108,7 @@
       <text>&amp;Settings</text>
       <Action name="settings_show_tab_bar" append="show_merge"/>
       <Action name="settings_show_full_path" append="show_merge"/>
+      <Action name="settings_show_url_nav_bar" append="show_merge"/>
       <Action name="colorscheme_menu"/>
     </Menu>
   </MenuBar>

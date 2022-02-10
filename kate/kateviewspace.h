@@ -294,6 +294,8 @@ private:
     // rubber band to indicate drag and drop
     std::unique_ptr<class QRubberBand> m_dropIndicator;
 
+    class KateUrlBar *m_urlBar = nullptr;
+
     friend class LocationHistoryTest;
 };
 

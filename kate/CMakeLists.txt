@@ -99,6 +99,8 @@ target_sources(
 
     kateoutputview.cpp
     katestashmanager.cpp
+
+    kateurlbar.cpp
 )
 
 # Executable only adds the main definition.

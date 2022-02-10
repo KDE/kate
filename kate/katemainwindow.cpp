@@ -224,6 +224,12 @@ void KateMainWindow::setupImportantActions()
     connect(m_paShowPath, SIGNAL(toggled(bool)), this, SLOT(updateCaption()));
     m_paShowPath->setWhatsThis(i18n("Show the complete document path in the window caption"));
 
+    m_paShowUrlNavBar = new KToggleAction(i18n("Show Navigation Bar"), this);
+    actionCollection()->addAction(QStringLiteral("settings_show_url_nav_bar"), m_paShowUrlNavBar);
+    connect(m_paShowUrlNavBar, &QAction::toggled, this, [this](bool v) {
+        m_viewManager->setShowUrlNavBar(v);
+    });
+
     // Load themes
     actionCollection()->addAction(QStringLiteral("colorscheme_menu"), new KateColorSchemeChooser(actionCollection()));
 
@@ -663,10 +669,12 @@ void KateMainWindow::readOptions()
     m_paShowStatusBar->setChecked(generalGroup.readEntry("Show Status Bar", true));
     m_paShowMenuBar->setChecked(generalGroup.readEntry("Show Menu Bar", true));
     m_paShowTabBar->setChecked(generalGroup.readEntry("Show Tab Bar", true));
+    m_paShowUrlNavBar->setChecked(generalGroup.readEntry("Show Url Nav Bar", true));
 
     // emit signal to hide/show statusbars
     toggleShowStatusBar();
     toggleShowTabBar();
+    m_viewManager->setShowUrlNavBar(m_paShowUrlNavBar->isChecked());
 }
 
 void KateMainWindow::saveOptions()
@@ -683,6 +691,7 @@ void KateMainWindow::saveOptions()
     generalGroup.writeEntry("Show Status Bar", m_paShowStatusBar->isChecked());
     generalGroup.writeEntry("Show Menu Bar", m_paShowMenuBar->isChecked());
     generalGroup.writeEntry("Show Tab Bar", m_paShowTabBar->isChecked());
+    generalGroup.writeEntry("Show Url Nav Bar", m_paShowUrlNavBar->isChecked());
 }
 
 void KateMainWindow::toggleShowMenuBar(bool showMessage)

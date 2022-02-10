@@ -100,6 +100,8 @@ Q_SIGNALS:
     void historyBackEnabled(bool e);
     void historyForwardEnabled(bool e);
 
+    void showUrlNavBarChanged(bool);
+
 public:
     /**
      * create and activate a new view for doc, if doc == 0, then
@@ -274,6 +276,9 @@ public Q_SLOTS:
 
     void onViewSpaceEmptied(KateViewSpace *vs);
 
+    void setShowUrlNavBar(bool show);
+    bool showUrlNavBar() const;
+
 private:
     KateMainWindow *m_mainWindow;
 
@@ -291,6 +296,8 @@ private:
     bool m_blockViewCreationAndActivation;
 
     bool m_activeViewRunning;
+
+    bool m_showUrlNavBar = false;
 
     int m_splitterIndex = 0; // used during saving splitter config.
 

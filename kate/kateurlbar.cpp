@@ -149,47 +149,59 @@ KateUrlBar::KateUrlBar(KateViewSpace *parent)
     m_layout->setSpacing(0);
 
     auto *vm = parent->viewManger();
-    connect(vm, &KateViewManager::viewChanged, this, [this, vm](KTextEditor::View *v) {
-        if (vm && !vm->showUrlNavBar()) {
-            return;
-        }
-        m_paths.clear();
+    connect(vm, &KateViewManager::viewChanged, this, &KateUrlBar::onViewChanged);
 
-        QLayoutItem *l;
-        while ((l = m_layout->takeAt(0)) != nullptr) {
-            delete l->widget();
-            delete l;
-        }
-
-        const auto url = v->document()->url();
-        if (url.isEmpty()) {
-            hide();
-            return;
-        }
-
-        auto res = splittedUrl(url);
-        const auto &file = res.first;
-        const auto &dirs = res.second;
-        if (dirs.isEmpty() || file.isEmpty()) {
-            hide();
-            return;
-        }
-
-        for (const auto &dir : dirs) {
-            m_layout->addWidget(dirButton(dir.name, dir.path));
-            m_layout->addWidget(separatorLabel());
-        }
-        m_layout->addWidget(fileLabel(file));
-        m_layout->addStretch();
-        if (isHidden())
-            show();
-    });
-
-    connect(vm, &KateViewManager::showUrlNavBarChanged, this, [this](bool show) {
+    connect(vm, &KateViewManager::showUrlNavBarChanged, this, [this, vm](bool show) {
         setHidden(!show);
+        if (show) {
+            onViewChanged(vm->activeView());
+        }
     });
 
     setHidden(!vm->showUrlNavBar());
+}
+
+void KateUrlBar::onViewChanged(KTextEditor::View *v)
+{
+    if (!v) {
+        hide();
+        return;
+    }
+
+    auto *vm = static_cast<KateViewSpace *>(parentWidget())->viewManger();
+    if (vm && !vm->showUrlNavBar()) {
+        return;
+    }
+    m_paths.clear();
+
+    QLayoutItem *l;
+    while ((l = m_layout->takeAt(0)) != nullptr) {
+        delete l->widget();
+        delete l;
+    }
+
+    const auto url = v->document()->url();
+    if (url.isEmpty()) {
+        hide();
+        return;
+    }
+
+    auto res = splittedUrl(url);
+    const auto &file = res.first;
+    const auto &dirs = res.second;
+    if (dirs.isEmpty() || file.isEmpty()) {
+        hide();
+        return;
+    }
+
+    for (const auto &dir : dirs) {
+        m_layout->addWidget(dirButton(dir.name, dir.path));
+        m_layout->addWidget(separatorLabel());
+    }
+    m_layout->addWidget(fileLabel(file));
+    m_layout->addStretch();
+    if (isHidden())
+        show();
 }
 
 std::pair<QString, QVector<KateUrlBar::DirNamePath>> KateUrlBar::splittedUrl(const QUrl &u)

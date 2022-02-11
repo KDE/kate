@@ -24,6 +24,7 @@ private:
         QString path;
     };
 
+    void onViewChanged(KTextEditor::View *v);
     std::pair<QString, QVector<DirNamePath>> splittedUrl(const QUrl &u);
     class QLabel *separatorLabel();
     class QToolButton *dirButton(const QString &dirName, const QString &path);

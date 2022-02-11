@@ -425,13 +425,16 @@ public:
 
         view->document()->replaceText(word, matching);
 
+        // NOTE: view->setCursorPosition() will invalidate the matches, so we save the
+        // additionalTextEdits before setting cursor-possition
+        const auto additionalTextEdits = m_matches.at(index.row()).additionalTextEdits;
+
         if (addParens) {
             // place the cursor in between (|)
             view->setCursorPosition({view->cursorPosition().line(), view->cursorPosition().column() - 1});
         }
 
         if (m_autoImport) {
-            const auto additionalTextEdits = m_matches.at(index.row()).additionalTextEdits;
             for (const auto &textEdit : additionalTextEdits) {
                 view->document()->insertText(textEdit.range.start(), textEdit.newText);
             }

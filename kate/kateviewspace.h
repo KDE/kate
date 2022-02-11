@@ -192,6 +192,7 @@ public Q_SLOTS:
 private Q_SLOTS:
     void statusBarToggled();
     void tabBarToggled();
+    void urlBarToggled(bool);
     void changeView(int buttonId);
 
     /**
@@ -295,6 +296,11 @@ private:
     std::unique_ptr<class QRubberBand> m_dropIndicator;
 
     class KateUrlBar *m_urlBar = nullptr;
+
+    struct TopBarLayout {
+        class QHBoxLayout *tabBarLayout = nullptr;
+        class QVBoxLayout *mainLayout = nullptr;
+    } m_layout;
 
     friend class LocationHistoryTest;
 };

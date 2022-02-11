@@ -137,11 +137,15 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent, cons
     // connect signal to hide/show statusbar
     connect(m_viewManager->mainWindow(), &KateMainWindow::statusBarToggled, this, &KateViewSpace::statusBarToggled);
     connect(m_viewManager->mainWindow(), &KateMainWindow::tabBarToggled, this, &KateViewSpace::tabBarToggled);
+    connect(m_viewManager, &KateViewManager::showUrlNavBarChanged, this, &KateViewSpace::urlBarToggled);
 
     connect(this, &KateViewSpace::viewSpaceEmptied, m_viewManager, &KateViewManager::onViewSpaceEmptied);
 
     // we accept drops (tabs from other viewspaces / windows)
     setAcceptDrops(true);
+
+    m_layout.tabBarLayout = hLayout;
+    m_layout.mainLayout = layout;
 
     // init the bars...
     statusBarToggled();
@@ -198,11 +202,55 @@ void KateViewSpace::statusBarToggled()
 void KateViewSpace::tabBarToggled()
 {
     KateUpdateDisabler updatesDisabled(m_viewManager->mainWindow());
-    m_historyBack->setVisible(m_viewManager->mainWindow()->showTabBar());
-    m_historyForward->setVisible(m_viewManager->mainWindow()->showTabBar());
-    m_tabBar->setVisible(m_viewManager->mainWindow()->showTabBar());
-    m_split->setVisible(m_viewManager->mainWindow()->showTabBar());
-    m_quickOpen->setVisible(m_viewManager->mainWindow()->showTabBar());
+
+    const bool show = m_viewManager->mainWindow()->showTabBar();
+    const bool urlBarVisible = m_viewManager->showUrlNavBar();
+
+    bool showButtons = true;
+
+    m_tabBar->setVisible(show);
+    if (show) {
+        m_layout.tabBarLayout->removeWidget(m_urlBar);
+        int afterTabLayout = m_layout.mainLayout->indexOf(m_layout.tabBarLayout);
+        m_layout.mainLayout->insertWidget(afterTabLayout + 1, m_urlBar);
+        showButtons = true;
+    } else if (!show && !urlBarVisible) {
+        // both hidden, hide buttons as well
+        showButtons = false;
+    } else if (!show && urlBarVisible) {
+        // UrlBar is still visible. Move it up to take the place of tabbar
+        int insertAt = m_layout.tabBarLayout->indexOf(m_historyForward) + 1;
+        m_layout.tabBarLayout->insertWidget(insertAt, m_urlBar);
+        showButtons = true;
+    }
+
+    m_historyBack->setVisible(showButtons);
+    m_historyForward->setVisible(showButtons);
+    m_split->setVisible(showButtons);
+    m_quickOpen->setVisible(showButtons);
+}
+
+void KateViewSpace::urlBarToggled(bool show)
+{
+    const bool tabBarVisible = m_viewManager->mainWindow()->showTabBar();
+    bool showButtons = true;
+    if (!show && !tabBarVisible) {
+        // Tab bar was already hidden, now url bar is also hidden
+        // so hide the buttons as well
+        showButtons = false;
+    } else if (show && !tabBarVisible) {
+        // Tabbar is hidden, but we now need to show url bar
+        // Move it up to take the place of tabbar
+        int insertAt = m_layout.tabBarLayout->indexOf(m_historyForward) + 1;
+        m_layout.tabBarLayout->insertWidget(insertAt, m_urlBar);
+        // make sure buttons are visible
+        showButtons = true;
+    }
+
+    m_historyBack->setVisible(showButtons);
+    m_historyForward->setVisible(showButtons);
+    m_split->setVisible(showButtons);
+    m_quickOpen->setVisible(showButtons);
 }
 
 KTextEditor::View *KateViewSpace::createView(KTextEditor::Document *doc)

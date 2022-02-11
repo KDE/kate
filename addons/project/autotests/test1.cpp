@@ -7,7 +7,7 @@
 
 #include "test1.h"
 #include "fileutil.h"
-#include "tools/kateprojectcodeanalysistoolshellcheck.h"
+#include "tools/shellcheck.h"
 
 #include <QTest>
 

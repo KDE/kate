@@ -5,7 +5,7 @@
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
-#include "kateprojectcodeanalysistoolflake8.h"
+#include "flake8.h"
 
 #include "kateproject.h"
 

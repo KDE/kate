@@ -74,12 +74,12 @@ target_sources(
     comparebranchesview.cpp
     branchdeletedialog.cpp
 
-    tools/kateprojectcodeanalysistoolcppcheck.cpp
-    tools/kateprojectcodeanalysistoolflake8.cpp
-    tools/kateprojectcodeanalysistoolshellcheck.cpp
-    tools/kateprojectcodeanalysisselector.cpp
-    tools/kateprojectcodeanalysistoolclazy.cpp
-    tools/kateprojectcodeanalysistoolclazycurrent.cpp
+    tools/clazy.cpp
+    tools/clazycurrent.cpp
+    tools/codeanalysisselector.cpp
+    tools/cppcheck.cpp
+    tools/flake8.cpp
+    tools/shellcheck.cpp
 
     git/gitdiff.cpp
     git/gitutils.cpp

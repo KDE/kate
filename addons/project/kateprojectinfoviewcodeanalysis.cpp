@@ -9,7 +9,7 @@
 #include "kateproject.h"
 #include "kateprojectcodeanalysistool.h"
 #include "kateprojectpluginview.h"
-#include "tools/kateprojectcodeanalysisselector.h"
+#include "tools/codeanalysisselector.h"
 
 #include <QFileInfo>
 #include <QHBoxLayout>

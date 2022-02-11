@@ -7,7 +7,7 @@
 #ifndef KATEPROJECTCODEANALYSISTOOLCLANGTIDY_H
 #define KATEPROJECTCODEANALYSISTOOLCLANGTIDY_H
 
-#include "kateprojectcodeanalysistoolclazy.h"
+#include "clazy.h"
 
 class KateProjectCodeAnalysisToolClazyCurrent : public KateProjectCodeAnalysisToolClazy
 {

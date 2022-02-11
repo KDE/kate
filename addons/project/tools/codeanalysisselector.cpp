@@ -5,13 +5,13 @@
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
-#include "kateprojectcodeanalysisselector.h"
+#include "codeanalysisselector.h"
 
-#include "kateprojectcodeanalysistoolclazy.h"
-#include "kateprojectcodeanalysistoolclazycurrent.h"
-#include "kateprojectcodeanalysistoolcppcheck.h"
-#include "kateprojectcodeanalysistoolflake8.h"
-#include "kateprojectcodeanalysistoolshellcheck.h"
+#include "clazy.h"
+#include "clazycurrent.h"
+#include "cppcheck.h"
+#include "flake8.h"
+#include "shellcheck.h"
 
 QStandardItemModel *KateProjectCodeAnalysisSelector::model(QObject *parent)
 {

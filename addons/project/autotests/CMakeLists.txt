@@ -18,7 +18,7 @@ target_sources(
     test1.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/../fileutil.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/../kateprojectcodeanalysistool.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/../tools/kateprojectcodeanalysistoolshellcheck.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/../tools/shellcheck.cpp
 )
 
 add_test(NAME plugin-project_test COMMAND projectplugin_test)

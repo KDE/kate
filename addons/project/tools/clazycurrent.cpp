@@ -4,7 +4,7 @@
  *
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
-#include "kateprojectcodeanalysistoolclazycurrent.h"
+#include "clazycurrent.h"
 
 #include <KLocalizedString>
 #include <KTextEditor/MainWindow>

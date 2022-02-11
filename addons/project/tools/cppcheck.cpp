@@ -5,7 +5,7 @@
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
-#include "kateprojectcodeanalysistoolcppcheck.h"
+#include "cppcheck.h"
 #include "kateproject.h"
 
 #include <KLocalizedString>

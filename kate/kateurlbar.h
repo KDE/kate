@@ -18,20 +18,9 @@ Q_SIGNALS:
     void openUrlRequested(const QUrl &url);
 
 private:
-    // helper struct containing dir name and path
-    struct DirNamePath {
-        QString name;
-        QString path;
-    };
-
     void onViewChanged(KTextEditor::View *v);
-    std::pair<QString, QVector<DirNamePath>> splittedUrl(const QUrl &u);
-    class QLabel *separatorLabel();
-    class QToolButton *dirButton(const QString &dirName, const QString &path);
-    class QLabel *fileLabel(const QString &file);
     class QHBoxLayout *m_layout;
-    void pathClicked();
-    QVector<std::pair<QToolButton *, QString>> m_paths;
+    class BreadCrumbView *m_breadCrumbView;
 };
 
 #endif

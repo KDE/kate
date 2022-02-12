@@ -579,9 +579,9 @@ void KateProjectPlugin::unregisterVariables()
 
 void KateProjectPlugin::readSessionConfig(const KConfigGroup &config)
 {
-    QStringList projectList = config.readEntry("projects", QStringList());
+    const QStringList projectList = config.readEntry("projects", QStringList());
 
-    for (QString project : projectList) {
+    for (const QString project : projectList) {
         std::cout << project.toStdString() << std::endl;
         KateProject *pProject = createProjectForDirectory(QDir(project));
 

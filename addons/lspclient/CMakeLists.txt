@@ -1,10 +1,7 @@
-find_package(KF5ItemModels ${KF5_DEP_VERSION} QUIET)
-set_package_properties(KF5ItemModels PROPERTIES PURPOSE "Required to build the lspclient addon")
-
 find_package(KF5SyntaxHighlighting ${KF5_DEP_VERSION} QUIET)
 set_package_properties(KF5SyntaxHighlighting PROPERTIES PURPOSE "Required to build the lspclient addon")
 
-if(NOT KF5ItemModels_FOUND OR NOT KF5SyntaxHighlighting_FOUND)
+if(NOT KF5SyntaxHighlighting_FOUND)
   return()
 endif()
 
@@ -15,7 +12,6 @@ target_link_libraries(
   lspclientplugin
   PRIVATE
     KF5::I18n
-    KF5::ItemModels
     KF5::TextEditor
     KF5::SyntaxHighlighting
 )

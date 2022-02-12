@@ -123,7 +123,14 @@ KateProjectPlugin::~KateProjectPlugin()
     unregisterVariables();
 
     for (KateProject *project : qAsConst(m_projects)) {
+<<<<<<< HEAD
         delete project;
+=======
+        if (!QFileInfo(project->fileName()).canonicalPath().isEmpty()){
+            m_fileWatcher.removePath(QFileInfo(project->fileName()).canonicalPath());
+            delete project;
+        }
+>>>>>>> e1da932a6 (fixing path removal when closing project)
     }
     m_projects.clear();
 }
@@ -249,8 +256,16 @@ bool KateProjectPlugin::closeProject(KateProject *project)
 
     Q_EMIT pluginViewProjectClosing(project);
     if (m_projects.removeOne(project)) {
+<<<<<<< HEAD
         delete project;
         return true;
+=======
+            if(!QFileInfo(project->fileName()).canonicalPath().isEmpty()){
+                m_fileWatcher.removePath(QFileInfo(project->fileName()).canonicalPath());
+                delete project;
+                return true;
+            }
+>>>>>>> e1da932a6 (fixing path removal when closing project)
     }
 
     return false;

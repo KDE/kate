@@ -1,10 +1,3 @@
-find_package(KF5SyntaxHighlighting ${KF5_DEP_VERSION} QUIET)
-set_package_properties(KF5SyntaxHighlighting PROPERTIES PURPOSE "Required to build the lspclient addon")
-
-if(NOT KF5SyntaxHighlighting_FOUND)
-  return()
-endif()
-
 kate_add_plugin(lspclientplugin)
 target_compile_definitions(lspclientplugin PRIVATE TRANSLATION_DOMAIN="lspclient")
 
@@ -13,7 +6,6 @@ target_link_libraries(
   PRIVATE
     KF5::I18n
     KF5::TextEditor
-    KF5::SyntaxHighlighting
 )
 
 include(ECMQtDeclareLoggingCategory)

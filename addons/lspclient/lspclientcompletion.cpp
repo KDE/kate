@@ -6,6 +6,7 @@
 
 #include "lspclientcompletion.h"
 #include "lspclientplugin.h"
+#include "lspclientutils.h"
 
 #include "lspclient_debug.h"
 
@@ -435,9 +436,9 @@ public:
         }
 
         if (m_autoImport) {
-            for (const auto &textEdit : additionalTextEdits) {
-                view->document()->insertText(textEdit.range.start(), textEdit.newText);
-            }
+            // re-use util to apply edits
+            // (which takes care to use moving range, etc)
+            applyEdits(view->document(), nullptr, additionalTextEdits);
         }
     }
 

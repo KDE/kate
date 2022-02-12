@@ -29,6 +29,7 @@ target_sources(
     lspclientserver.cpp
     lspclientservermanager.cpp
     lspclientsymbolview.cpp
+    lspclientutils.cpp
     lspsemantichighlighting.cpp
     semantic_tokens_legend.cpp
     lsptooltip.cpp

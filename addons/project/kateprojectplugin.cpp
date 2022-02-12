@@ -585,7 +585,7 @@ void KateProjectPlugin::readSessionConfig(const KConfigGroup &config)
         std::cout << project.toStdString() << std::endl;
         KateProject *pProject = createProjectForDirectory(QDir(project));
 
-        if (pProject != NULL)
+        if (pProject != nullptr)
             m_projects.append(pProject);
     }
 }

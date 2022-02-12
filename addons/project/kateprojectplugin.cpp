@@ -581,7 +581,7 @@ void KateProjectPlugin::readSessionConfig(const KConfigGroup &config)
 {
     const QStringList projectList = config.readEntry("projects", QStringList());
 
-    for (const QString project : projectList) {
+    for (const QString &project : projectList) {
         KateProject *pProject = createProjectForDirectory(QDir(project));
 
         if (pProject != nullptr)

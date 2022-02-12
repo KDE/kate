@@ -49,7 +49,6 @@ Item {
             operation.sessionName = sessionName;
             return service.startOperationCall(operation);
         }
-        
     }
 
     property var searchHeader: PlasmaExtras.PlasmoidHeading {
@@ -64,8 +63,8 @@ Item {
     Plasmoid.fullRepresentation: PlasmaComponents3.Page {
 
         id: dialogItem
-        Layout.minimumWidth: PlasmaCore.Units.gridUnit * 12
-        Layout.minimumHeight: PlasmaCore.Units.gridUnit * 12
+        Layout.minimumWidth: PlasmaCore.Units.gridUnit * 16
+        Layout.minimumHeight: PlasmaCore.Units.gridUnit * 24
 
         focus: true
         header: searchHeader

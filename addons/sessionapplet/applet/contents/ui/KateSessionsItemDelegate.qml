@@ -26,7 +26,7 @@ PlasmaComponents.ListItem {
     
     property bool showInput: false
 
-    height: Math.max(Math.max(label.height, toolButtonsLayout.implicitHeight), sessionnameditlayout.implicitHeight) + 2 * PlasmaCore.Units.smallSpacing
+    height: Math.max(Math.max(label.height, toolButtonsLayout.implicitHeight), sessionnameditlayout.implicitHeight) + PlasmaCore.Units.smallSpacing
 
     MouseArea {
         anchors.fill: parent
@@ -44,7 +44,7 @@ PlasmaComponents.ListItem {
 
         Item {
             id: label
-            height: childrenRect.height
+            height: iconItem.height
             anchors {
                 left: parent.left
                 leftMargin: PlasmaCore.Units.smallSpacing
@@ -53,7 +53,6 @@ PlasmaComponents.ListItem {
             }
 
             PlasmaComponents3.Label {
-                height: implicitHeight
                 anchors {
                     left: parent.left
                     right: parent.right
@@ -69,12 +68,11 @@ PlasmaComponents.ListItem {
             }
 
             PlasmaCore.IconItem {
+                id: iconItem
                 width: PlasmaCore.Units.iconSizes.small
                 height: width
                 anchors.verticalCenter: parent.verticalCenter
                 source: DecorationRole
-                enabled: true
-                visible: true
             }
         }
 

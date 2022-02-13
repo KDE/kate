@@ -1,3 +1,9 @@
+/*
+ *    SPDX-FileCopyrightText: 2022 Mark Nauwelaerts <mark.nauwelaerts@gmail.com>
+ *
+ *    SPDX-License-Identifier: MIT
+ */
+
 #include "lspclientutils.h"
 
 #include <KTextEditor/MovingInterface>

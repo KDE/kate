@@ -19,6 +19,7 @@
 #include <QStandardItemModel>
 #include <QStyledItemDelegate>
 
+#include <drawing_utils.h>
 #include <kfts_fuzzy_match.h>
 #include <ktexteditor_utils.h>
 
@@ -59,13 +60,9 @@ public:
     {
         QStyleOptionViewItem options = option;
         initStyleOption(&options, index);
+        options.icon = Utils::colorIcon(options.icon, normalColor);
 
         auto style = options.widget->style();
-        auto iconRect = style->subElementRect(QStyle::SE_ItemViewItemDecoration, &options, options.widget);
-
-        auto icon = options.icon;
-        options.icon = QIcon();
-        auto pm = createPixmap(icon, iconRect.size());
 
         painter->save();
 
@@ -73,7 +70,6 @@ public:
         options.text = QString();
         style->drawControl(QStyle::CE_ItemViewItem, &options, painter, options.widget);
 
-        style->drawItemPixmap(painter, iconRect, Qt::AlignCenter, pm);
 
         auto textRectX = options.widget->style()->subElementRect(QStyle::SE_ItemViewItemText, &options, options.widget).x();
         auto width = textRectX - options.rect.x();
@@ -119,15 +115,6 @@ public:
     }
 
 private:
-    QPixmap createPixmap(const QIcon &icon, QSize iconSize) const
-    {
-        auto pm = icon.pixmap(iconSize);
-        auto mask = pm.createMaskFromColor(Qt::transparent, Qt::MaskInColor);
-        pm.fill(normalColor);
-        pm.setMask(mask);
-        return pm;
-    }
-
     QColor colorForSymbolKind(LSPSymbolKind kind) const
     {
         switch (kind) {

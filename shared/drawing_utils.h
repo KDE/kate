@@ -10,7 +10,7 @@ namespace Utils
 /**
  * @brief colors the @p icon with @fgColor
  */
-QPixmap colorIcon(const QIcon &icon, const QColor &fgColor, const QSize s = QSize(16, 16))
+inline QPixmap colorIcon(const QIcon &icon, const QColor &fgColor, const QSize s = QSize(16, 16))
 {
     auto p = icon.pixmap(s);
     if (p.isNull())

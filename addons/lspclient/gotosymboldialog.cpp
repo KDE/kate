@@ -70,10 +70,7 @@ public:
         options.text = QString();
         style->drawControl(QStyle::CE_ItemViewItem, &options, painter, options.widget);
 
-
-        auto textRectX = options.widget->style()->subElementRect(QStyle::SE_ItemViewItemText, &options, options.widget).x();
-        auto width = textRectX - options.rect.x();
-        painter->translate(width, 0);
+        const auto textRect = options.widget->style()->subElementRect(QStyle::SE_ItemViewItemText, &options, options.widget);
 
         auto symbol = index.data(SymbolInfoRole).value<GotoSymbolItem>();
         auto kind = symbol.kind;
@@ -109,6 +106,7 @@ public:
             fmts.append({textLength, text.length() - textLength, f});
         }
 
+        options.rect = textRect;
         kfts::paintItemViewText(painter, text, options, fmts);
 
         painter->restore();
@@ -159,17 +157,15 @@ GotoSymbolHUDDialog::GotoSymbolHUDDialog(KTextEditor::MainWindow *mainWindow, QS
     , mainWindow(mainWindow)
     , server(std::move(server))
 {
-    setPaletteToEditorColors();
-
     m_lineEdit.setPlaceholderText(i18n("Type to filter through symbols in your project..."));
 
     m_treeView.setModel(model);
     auto delegate = new GotoSymbolHUDStyleDelegate(this);
-    delegate->setColors();
-    delegate->setFont(Utils::editorFont());
     m_treeView.setItemDelegate(delegate);
+    setPaletteToEditorColors();
 
     connect(&m_lineEdit, &QLineEdit::textChanged, this, &GotoSymbolHUDDialog::slotTextChanged);
+    connect(KTextEditor::Editor::instance(), &KTextEditor::Editor::configChanged, this, &GotoSymbolHUDDialog::setPaletteToEditorColors);
 }
 
 void GotoSymbolHUDDialog::setPaletteToEditorColors()
@@ -183,6 +179,10 @@ void GotoSymbolHUDDialog::setPaletteToEditorColors()
     pal.setColor(QPalette::Text, fg);
     pal.setColor(QPalette::Highlight, hl);
     m_treeView.setPalette(pal);
+
+    auto *delegate = static_cast<GotoSymbolHUDStyleDelegate *>(m_treeView.itemDelegate());
+    delegate->setColors();
+    delegate->setFont(Utils::editorFont());
 }
 
 void GotoSymbolHUDDialog::slotReturnPressed()

@@ -14,7 +14,7 @@
 
 #include <QDebug>
 
-#include <kfts_fuzzy_match.h>
+#include <drawing_utils.h>
 #include <ktexteditor_utils.h>
 
 class LineNumberDelegate : public QStyledItemDelegate
@@ -168,7 +168,7 @@ public:
             }
         }
 
-        kfts::paintItemViewText(painter, text, option, fmts);
+        Utils::paintItemViewText(painter, text, option, fmts);
 
         painter->restore();
     }
@@ -250,7 +250,7 @@ public:
             fmts.append({errIdx, 5, f});
         }
 
-        kfts::paintItemViewText(p, text, option, fmts);
+        Utils::paintItemViewText(p, text, option, fmts);
     }
 
 private:

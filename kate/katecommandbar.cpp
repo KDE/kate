@@ -23,6 +23,7 @@
 #include <KActionCollection>
 #include <KLocalizedString>
 
+#include <drawing_utils.h>
 #include <kfts_fuzzy_match.h>
 
 class CommandBarFilterModel : public QSortFilterProxyModel
@@ -125,7 +126,7 @@ public:
         const auto f = kfts::get_fuzzy_match_formats(m_filterString, str, componentIdx + 2, fmt);
         formats.append(f);
 
-        kfts::paintItemViewText(painter, original, options, std::move(formats));
+        Utils::paintItemViewText(painter, original, options, std::move(formats));
 
         painter->restore();
     }

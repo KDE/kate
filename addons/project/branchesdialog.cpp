@@ -25,6 +25,7 @@
 
 #include <KLocalizedString>
 
+#include <drawing_utils.h>
 #include <kfts_fuzzy_match.h>
 
 class BranchFilterModel : public QSortFilterProxyModel
@@ -136,7 +137,7 @@ public:
         if (itemType == BranchesDialogModel::BranchItem) {
             painter->translate(25, 0);
         }
-        kfts::paintItemViewText(painter, name, options, formats);
+        Utils::paintItemViewText(painter, name, options, formats);
 
         painter->restore();
     }

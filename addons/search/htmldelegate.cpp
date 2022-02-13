@@ -17,7 +17,7 @@
 #include <QTextCharFormat>
 #include <QTextDocument>
 
-#include <kfts_fuzzy_match.h>
+#include <drawing_utils.h>
 #include <ktexteditor_utils.h>
 
 // make list spacing resemble the default list spacing
@@ -137,7 +137,7 @@ void SPHtmlDelegate::paintMatchItem(QPainter *p, const QStyleOptionViewItem &opt
     // paint the match text
     auto opts = opt;
     opts.rect = rtl ? textRect.adjusted(0, 0, -(iconBorderRect.width() + hMargins * 2), 0) : textRect.adjusted(iconBorderRect.width() + hMargins * 2, 0, 0, 0);
-    kfts::paintItemViewText(p, text, opts, formats);
+    Utils::paintItemViewText(p, text, opts, formats);
 
     p->restore();
 }

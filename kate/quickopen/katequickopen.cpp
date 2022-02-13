@@ -37,6 +37,7 @@
 #include <QTextDocument>
 #include <QTreeView>
 
+#include <drawing_utils.h>
 #include <kfts_fuzzy_match.h>
 
 class QuickOpenFilterProxyModel final : public QSortFilterProxyModel
@@ -222,7 +223,7 @@ public:
         painter->translate(25, 0);
 
         // draw text
-        kfts::paintItemViewText(painter, QString(name + QStringLiteral(" ") + path), options, formats);
+        Utils::paintItemViewText(painter, QString(name + QStringLiteral(" ") + path), options, formats);
 
         painter->restore();
     }

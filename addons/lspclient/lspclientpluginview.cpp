@@ -60,7 +60,7 @@
 #include <unordered_map>
 #include <utility>
 
-#include <kfts_fuzzy_match.h>
+#include <drawing_utils.h>
 #include <ktexteditor_utils.h>
 
 namespace RangeData
@@ -249,7 +249,7 @@ public:
         auto width = textRectX - options.rect.x();
         painter->translate(width, 0);
 
-        kfts::paintItemViewText(painter, text, options, formats);
+        Utils::paintItemViewText(painter, text, options, formats);
 
         painter->restore();
     }

@@ -30,6 +30,7 @@
 
 #include <KLocalizedString>
 
+#include <drawing_utils.h>
 #include <kfts_fuzzy_match.h>
 
 #include <gitprocess.h>
@@ -120,7 +121,7 @@ public:
         options.text = QString(); // clear old text
         options.widget->style()->drawControl(QStyle::CE_ItemViewItem, &options, painter, options.widget);
 
-        kfts::paintItemViewText(painter, name, options, formats);
+        Utils::paintItemViewText(painter, name, options, formats);
 
         painter->restore();
     }

@@ -20,7 +20,6 @@
 #include <QStyledItemDelegate>
 
 #include <drawing_utils.h>
-#include <kfts_fuzzy_match.h>
 #include <ktexteditor_utils.h>
 
 static constexpr int SymbolInfoRole = Qt::UserRole + 1;
@@ -107,7 +106,7 @@ public:
         }
 
         options.rect = textRect;
-        kfts::paintItemViewText(painter, text, options, fmts);
+        Utils::paintItemViewText(painter, text, options, fmts);
 
         painter->restore();
     }

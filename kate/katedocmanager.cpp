@@ -576,6 +576,13 @@ void KateDocManager::slotModChanged1(KTextEditor::Document *doc)
     // clang-format off
     QMetaObject::invokeMethod(KateApp::self()->activeKateMainWindow(), "queueModifiedOnDisc", Qt::QueuedConnection, Q_ARG(KTextEditor::Document*,doc));
     // clang-format on
+
+    if (doc->isModified()) {
+        KateDocumentInfo *info = documentInfo(doc);
+        if (info) {
+            info->wasDocumentEverModified = true;
+        }
+    }
 }
 
 void KateDocManager::documentOpened()

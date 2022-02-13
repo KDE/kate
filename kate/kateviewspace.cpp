@@ -125,11 +125,19 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent, cons
 
     // like other editors, we try to re-use documents, of not modified
     connect(m_urlBar, &KateUrlBar::openUrlRequested, this, [this](const QUrl &url) {
-        if (auto activeView = m_viewManager->activeView(); activeView && !activeView->document()->isModified()) {
-            activeView->document()->openUrl(url);
-        } else {
-            m_viewManager->openUrl(url);
+        // try if reuse of view make sense
+        if (!KateApp::self()->documentManager()->findDocument(url)) {
+            if (auto activeView = m_viewManager->activeView(); activeView) {
+                KateDocumentInfo *info = KateApp::self()->documentManager()->documentInfo(activeView->document());
+                if (info && !info->wasDocumentEverModified) {
+                    activeView->document()->openUrl(url);
+                    return;
+                }
+            }
         }
+
+        // default: open a new document or switch there
+        m_viewManager->openUrl(url);
     });
     layout->addWidget(m_urlBar);
 

@@ -180,8 +180,8 @@ public:
             const int w = opt.fontMetrics.horizontalAdvance(str) + 8;
             size.rwidth() = w;
 
-            if (idx.data(BreadCrumbRole::IsFile).toBool() && !idx.data(Qt::DecorationRole).isNull()) {
-                size.rwidth() += 16 + hMargin + hMargin;
+            if (!idx.data(Qt::DecorationRole).isNull()) {
+                size.rwidth() += 16 + (3 * hMargin);
             }
 
             return size;
@@ -235,24 +235,25 @@ public:
         const QString s = url.toString(QUrl::NormalizePathSegments | QUrl::PreferLocalFile);
         const auto res = splittedUrl(s);
 
-        const auto &file = res.first;
-        const auto &dirs = res.second;
+        const auto &dirs = res;
 
         m_model.clear();
-
+        int i = 0;
         for (const auto &dir : dirs) {
             auto item = new QStandardItem(dir.name);
             item->setData(dir.path, BreadCrumbRole::PathRole);
             m_model.appendRow(item);
 
-            auto sep = new QStandardItem(QIcon::fromTheme(QStringLiteral("arrow-right")), {});
-            m_model.appendRow(sep);
+            if (i < dirs.size() - 1) {
+                auto sep = new QStandardItem(QIcon::fromTheme(QStringLiteral("arrow-right")), {});
+                m_model.appendRow(sep);
+            } else {
+                // last item, which is the filename, show icon with it
+                const auto icon = QIcon::fromTheme(QMimeDatabase().mimeTypeForFile(s, QMimeDatabase::MatchExtension).iconName());
+                item->setIcon(icon);
+            }
+            i++;
         }
-
-        const auto icon = QIcon::fromTheme(QMimeDatabase().mimeTypeForFile(s).iconName());
-        auto fileRow = new QStandardItem(icon, file);
-        fileRow->setData(true, BreadCrumbRole::IsFile);
-        m_model.appendRow(fileRow);
     }
 
     void onClicked(const QModelIndex &idx)
@@ -262,7 +263,7 @@ public:
             return;
         }
 
-        auto pos = mapToGlobal(rectForIndex(idx).bottomLeft());
+        const auto pos = mapToGlobal(rectForIndex(idx).bottomLeft());
 
         QDir d(path);
         DirFilesList m(this);
@@ -278,26 +279,34 @@ private:
         QString path;
     };
 
-    std::pair<QString, QVector<DirNamePath>> splittedUrl(const QString &s)
+    QVector<DirNamePath> splittedUrl(const QString &s)
     {
         const int slashIndex = s.lastIndexOf(QLatin1Char('/'));
         if (slashIndex == -1) {
             return {};
         }
 
-        const QString fileName = s.mid(slashIndex + 1);
-
         QDir dir(s);
+        const QString fileName = dir.dirName();
+        dir.cdUp();
+        const QString path = dir.absolutePath();
+
         QVector<DirNamePath> dirsList;
+        dirsList << DirNamePath{fileName, path};
+
+        QString dirName = dir.dirName();
+
         while (dir.cdUp()) {
-            if (dir.dirName().isEmpty()) {
+            if (dirName.isEmpty()) {
                 continue;
             }
-            DirNamePath dnp{dir.dirName(), dir.absolutePath()};
+            DirNamePath dnp{dirName, dir.absolutePath()};
             dirsList.push_back(dnp);
+
+            dirName = dir.dirName();
         }
         std::reverse(dirsList.begin(), dirsList.end());
-        return {fileName, dirsList};
+        return dirsList;
     }
 
     QStandardItemModel m_model;

@@ -191,6 +191,14 @@ void KateViewManager::setupActions()
     connect(a, &QAction::triggered, this, &KateViewManager::moveSplitterDown);
 
     a->setWhatsThis(i18n("Move the splitter of the current view down"));
+
+    a = m_mainWindow->actionCollection()->addAction(QStringLiteral("viewspace_focus_nav_bar"));
+    a->setText(i18n("Focus Navigation Bar"));
+    a->setToolTip(i18n("Focus the navigation bar"));
+    a->setShortcut(Qt::CTRL | Qt::SHIFT | Qt::Key_Period);
+    connect(a, &QAction::triggered, this, [this] {
+        activeViewSpace()->focusNavigationBar();
+    });
 }
 
 void KateViewManager::updateViewSpaceActions()

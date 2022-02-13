@@ -741,6 +741,13 @@ void KateViewSpace::closeTabWithWidget(QWidget *widget)
     }
 }
 
+void KateViewSpace::focusNavigationBar()
+{
+    if (!m_urlBar->isHidden()) {
+        m_urlBar->setFocus();
+    }
+}
+
 void KateViewSpace::addPositionToHistory(const QUrl &url, KTextEditor::Cursor c, bool calledExternally)
 {
     // We don't care about invalid urls (Fixed Diff View / Untitled docs)

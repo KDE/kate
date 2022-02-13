@@ -174,6 +174,9 @@ public:
     void addPositionToHistory(const QUrl &url, KTextEditor::Cursor, bool calledExternally = false);
 
     // END Location History Stuff
+
+    void focusNavigationBar();
+
 protected:
     // DND
     void dragEnterEvent(QDragEnterEvent *e) override;

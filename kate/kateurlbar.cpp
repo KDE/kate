@@ -114,11 +114,19 @@ public:
         setFocusProxy(&m_list);
     }
 
-    void setDir(const QDir &d)
+    void setDir(const QDir &d, const QString &currentItemName)
     {
         m_model.setDir(d);
         updateGeometry();
-        m_list.setCurrentIndex(m_model.index(0, 0));
+        auto firstIndex = m_model.index(0, 0);
+        if (!currentItemName.isEmpty() && firstIndex.isValid()) {
+            const auto idxesToSelect = m_model.match(firstIndex, Qt::DisplayRole, currentItemName);
+            if (!idxesToSelect.isEmpty() && idxesToSelect.constFirst().isValid()) {
+                m_list.setCurrentIndex(idxesToSelect.constFirst());
+            }
+        } else {
+            m_list.setCurrentIndex(firstIndex);
+        }
     }
 
     void updateGeometry()
@@ -139,7 +147,7 @@ public:
         }
         const auto fi = idx.data(DirFilesModel::FileInfo).value<QFileInfo>();
         if (fi.isDir()) {
-            setDir(QDir(fi.absoluteFilePath()));
+            setDir(QDir(fi.absoluteFilePath()), QString());
         } else if (fi.isFile()) {
             const QUrl url = QUrl::fromLocalFile(fi.absoluteFilePath());
             hide();
@@ -157,16 +165,12 @@ public:
             Q_EMIT navigateLeftRight(ke->key());
         } else if (ke->key() == Qt::Key_Escape) {
             hide();
+            ke->accept();
+            return;
         } else if (ke->key() == Qt::Key_Backspace) {
             auto dir = m_model.dir();
             if (dir.cdUp()) {
-                setDir(dir);
-            }
-        } else {
-            QChar ch(ke->key());
-            if (ch.isPrint()) {
-                QString s = ch;
-                m_model.match(m_list.currentIndex(), Qt::DisplayRole, s);
+                setDir(dir, QString());
             }
         }
         QMenu::keyPressEvent(ke);
@@ -294,6 +298,8 @@ public:
             onNavigateLeftRight(key, false);
         } else if (key == Qt::Key_Enter || key == Qt::Key_Return) {
             Q_EMIT clicked(current);
+        } else if (key == Qt::Key_Escape) {
+            Q_EMIT unsetFocus();
         }
     }
 
@@ -310,15 +316,39 @@ public:
         DirFilesList m(this);
         auto par = static_cast<KateUrlBar *>(parentWidget());
         connect(&m, &DirFilesList::openUrl, par, &KateUrlBar::openUrlRequested);
+        connect(&m, &DirFilesList::openUrl, this, &BreadCrumbView::unsetFocus);
         connect(&m, &DirFilesList::navigateLeftRight, this, [this](int k) {
             onNavigateLeftRight(k, true);
         });
-        m.setDir(d);
+        m.setDir(d, idx.data().toString());
         m.setFocus();
         m.exec(pos);
     }
 
+protected:
+    void focusInEvent(QFocusEvent *f) override
+    {
+        if (f->reason() == Qt::OtherFocusReason) {
+            const auto last = m_model.index(m_model.rowCount() - 1, 0);
+            if (last.isValid()) {
+                setCurrentIndex(last);
+                QMetaObject::invokeMethod(
+                    this,
+                    [this, last] {
+                        clicked(last);
+                    },
+                    Qt::QueuedConnection);
+            }
+        }
+        QListView::focusInEvent(f);
+    }
+
 private:
+    QModelIndex lastIndex()
+    {
+        return m_model.index(m_model.rowCount() - 1, 0);
+    }
+
     struct DirNamePath {
         QString name;
         QString path;
@@ -330,10 +360,11 @@ private:
         const int step = IsSeparator(current) ? 1 : 2;
         const int nextRow = key == Qt::Key_Left ? current.row() - step : current.row() + step;
         auto nextIndex = current.sibling(nextRow, 0);
-        setCurrentIndex(nextIndex);
-
-        if (open) {
-            Q_EMIT clicked(currentIndex());
+        if (nextIndex.isValid()) {
+            setCurrentIndex(nextIndex);
+            if (open) {
+                Q_EMIT clicked(currentIndex());
+            }
         }
     }
 
@@ -368,6 +399,9 @@ private:
     }
 
     QStandardItemModel m_model;
+
+Q_SIGNALS:
+    void unsetFocus();
 };
 
 KateUrlBar::KateUrlBar(KateViewSpace *parent)
@@ -392,6 +426,12 @@ KateUrlBar::KateUrlBar(KateViewSpace *parent)
             onViewChanged(vm->activeView());
         }
     });
+
+    connect(m_breadCrumbView, &BreadCrumbView::unsetFocus, this, [vm] {
+        vm->activeView()->setFocus();
+    });
+
+    setFocusProxy(m_breadCrumbView);
 
     setHidden(!vm->showUrlNavBar());
 }

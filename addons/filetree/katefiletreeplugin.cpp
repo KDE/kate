@@ -20,14 +20,15 @@
 #include <KConfigGroup>
 #include <KLocalizedString>
 #include <KPluginFactory>
-#include <KToolBar>
 #include <KXMLGUIFactory>
 #include <KXmlGuiWindow>
 
 #include <QAction>
 #include <QApplication>
+#include <QLayout>
 #include <QLineEdit>
 #include <QStyle>
+#include <QToolBar>
 
 #include "katefiletreedebug.h"
 
@@ -136,10 +137,11 @@ KateFileTreePluginView::KateFileTreePluginView(KTextEditor::MainWindow *mainWind
                                             i18n("Documents"));
 
     // create toolbar
-    m_toolbar = new KToolBar(m_toolView);
+    m_toolbar = new QToolBar(m_toolView);
     m_toolbar->setMovable(false);
     m_toolbar->setToolButtonStyle(Qt::ToolButtonIconOnly);
     m_toolbar->setContextMenuPolicy(Qt::NoContextMenu);
+    m_toolbar->layout()->setContentsMargins(0, 0, 0, 0);
 
     // ensure reasonable icons sizes, like e.g. the quick-open and co. icons
     // the normal toolbar sizes are TOO large, e.g. for scaled stuff even more!

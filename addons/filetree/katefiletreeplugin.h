@@ -21,7 +21,7 @@
 
 #include <KXMLGUIClient>
 
-class KToolBar;
+class QToolBar;
 
 class KateFileTree;
 class KateFileTreeModel;
@@ -111,7 +111,7 @@ protected:
 
 private:
     QWidget *m_toolView;
-    KToolBar *m_toolbar;
+    QToolBar *m_toolbar;
     KateFileTree *m_fileTree;
     KateFileTreeProxyModel *m_proxyModel;
     QLineEdit *m_filter;

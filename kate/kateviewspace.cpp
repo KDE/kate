@@ -54,7 +54,7 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent, cons
 
     // add left <-> right history buttons
     m_historyBack = new QToolButton(this);
-    m_historyBack->setToolTip(i18n("Go Back"));
+    m_historyBack->setToolTip(i18n("Go to previous edit location"));
     m_historyBack->setIcon(QIcon::fromTheme(QStringLiteral("arrow-left")));
     m_historyBack->setAutoRaise(true);
     KAcceleratorManager::setNoAccel(m_historyBack);
@@ -67,7 +67,7 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent, cons
 
     m_historyForward = new QToolButton(this);
     m_historyForward->setIcon(QIcon::fromTheme(QStringLiteral("arrow-right")));
-    m_historyForward->setToolTip(i18n("Go Forward"));
+    m_historyForward->setToolTip(i18n("Go to next edit location"));
     m_historyForward->setAutoRaise(true);
     KAcceleratorManager::setNoAccel(m_historyForward);
     m_historyForward->installEventFilter(this); // on click, active this view space

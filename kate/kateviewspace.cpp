@@ -122,8 +122,14 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent, cons
     // END tab bar
 
     m_urlBar = new KateUrlBar(this);
+
+    // like other editors, we try to re-use documents, of not modified
     connect(m_urlBar, &KateUrlBar::openUrlRequested, this, [this](const QUrl &url) {
-        m_viewManager->openUrl(url);
+        if (auto activeView = m_viewManager->activeView(); activeView && !activeView->document()->isModified()) {
+            activeView->document()->openUrl(url);
+        } else {
+            m_viewManager->openUrl(url);
+        }
     });
     layout->addWidget(m_urlBar);
 

@@ -15,6 +15,7 @@
 #include <QDir>
 #include <QHBoxLayout>
 #include <QIcon>
+#include <QKeyEvent>
 #include <QLabel>
 #include <QListView>
 #include <QMenu>
@@ -67,6 +68,7 @@ public:
     void setDir(const QDir &dir)
     {
         m_fileInfos.clear();
+        m_currentDir = dir;
 
         beginResetModel();
         const auto fileInfos = dir.entryInfoList(QDir::NoDotAndDotDot | QDir::Files | QDir::Dirs | QDir::Hidden);
@@ -80,8 +82,14 @@ public:
         endResetModel();
     }
 
+    QDir dir() const
+    {
+        return m_currentDir;
+    }
+
 private:
     QList<QFileInfo> m_fileInfos;
+    QDir m_currentDir;
 };
 
 class DirFilesList : public QMenu
@@ -102,12 +110,15 @@ public:
         l->addWidget(&m_list);
 
         connect(&m_list, &QListView::clicked, this, &DirFilesList::onClicked);
+
+        setFocusProxy(&m_list);
     }
 
     void setDir(const QDir &d)
     {
         m_model.setDir(d);
         updateGeometry();
+        m_list.setCurrentIndex(m_model.index(0, 0));
     }
 
     void updateGeometry()
@@ -136,8 +147,34 @@ public:
         }
     }
 
+    void keyPressEvent(QKeyEvent *ke) override
+    {
+        if (ke->key() == Qt::Key_Enter || ke->key() == Qt::Key_Return) {
+            onClicked(m_list.currentIndex());
+            return;
+        } else if (ke->key() == Qt::Key_Left || ke->key() == Qt::Key_Right) {
+            hide();
+            Q_EMIT navigateLeftRight(ke->key());
+        } else if (ke->key() == Qt::Key_Escape) {
+            hide();
+        } else if (ke->key() == Qt::Key_Backspace) {
+            auto dir = m_model.dir();
+            if (dir.cdUp()) {
+                setDir(dir);
+            }
+        } else {
+            QChar ch(ke->key());
+            if (ch.isPrint()) {
+                QString s = ch;
+                m_model.match(m_list.currentIndex(), Qt::DisplayRole, s);
+            }
+        }
+        QMenu::keyPressEvent(ke);
+    }
+
 Q_SIGNALS:
     void openUrl(const QUrl &url);
+    void navigateLeftRight(int key);
 
 private:
     QListView m_list;
@@ -146,7 +183,7 @@ private:
 
 enum BreadCrumbRole {
     PathRole = Qt::UserRole + 1,
-    IsFile = Qt::UserRole + 2,
+    IsSeparator = Qt::UserRole + 2,
 };
 
 class BreadCrumbDelegate : public QStyledItemDelegate
@@ -154,21 +191,6 @@ class BreadCrumbDelegate : public QStyledItemDelegate
     Q_OBJECT
 public:
     using QStyledItemDelegate::QStyledItemDelegate;
-
-    bool isDir(const QModelIndex &idx) const
-    {
-        return !idx.data(BreadCrumbRole::PathRole).toString().isEmpty();
-    }
-
-    void paint(QPainter *painter, const QStyleOptionViewItem &opt, const QModelIndex &index) const override
-    {
-        auto option = opt;
-        if (isDir(index) && option.state & QStyle::State_MouseOver) {
-            painter->fillRect(opt.rect, option.palette.brush(QPalette::Inactive, QPalette::Highlight));
-        }
-
-        QStyledItemDelegate::paint(painter, opt, index);
-    }
 
     QSize sizeHint(const QStyleOptionViewItem &opt, const QModelIndex &idx) const override
     {
@@ -204,7 +226,7 @@ public:
         setFlow(QListView::LeftToRight);
         setModel(&m_model);
         setFrameStyle(QFrame::NoFrame);
-        setSelectionMode(QAbstractItemView::NoSelection);
+        setSelectionMode(QAbstractItemView::SingleSelection);
         setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         setItemDelegate(new BreadCrumbDelegate(this));
@@ -246,6 +268,8 @@ public:
 
             if (i < dirs.size() - 1) {
                 auto sep = new QStandardItem(QIcon::fromTheme(QStringLiteral("arrow-right")), {});
+                sep->setSelectable(false);
+                sep->setData(true, BreadCrumbRole::IsSeparator);
                 m_model.appendRow(sep);
             } else {
                 // last item, which is the filename, show icon with it
@@ -253,6 +277,23 @@ public:
                 item->setIcon(icon);
             }
             i++;
+        }
+    }
+
+    bool IsSeparator(const QModelIndex &idx) const
+    {
+        return idx.data(BreadCrumbRole::IsSeparator).toBool();
+    }
+
+    void keyPressEvent(QKeyEvent *ke) override
+    {
+        const auto key = ke->key();
+        auto current = currentIndex();
+
+        if (key == Qt::Key_Left || key == Qt::Key_Right) {
+            onNavigateLeftRight(key, false);
+        } else if (key == Qt::Key_Enter || key == Qt::Key_Return) {
+            Q_EMIT clicked(current);
         }
     }
 
@@ -269,7 +310,11 @@ public:
         DirFilesList m(this);
         auto par = static_cast<KateUrlBar *>(parentWidget());
         connect(&m, &DirFilesList::openUrl, par, &KateUrlBar::openUrlRequested);
+        connect(&m, &DirFilesList::navigateLeftRight, this, [this](int k) {
+            onNavigateLeftRight(k, true);
+        });
         m.setDir(d);
+        m.setFocus();
         m.exec(pos);
     }
 
@@ -278,6 +323,19 @@ private:
         QString name;
         QString path;
     };
+
+    void onNavigateLeftRight(int key, bool open)
+    {
+        const auto current = currentIndex();
+        const int step = IsSeparator(current) ? 1 : 2;
+        const int nextRow = key == Qt::Key_Left ? current.row() - step : current.row() + step;
+        auto nextIndex = current.sibling(nextRow, 0);
+        setCurrentIndex(nextIndex);
+
+        if (open) {
+            Q_EMIT clicked(currentIndex());
+        }
+    }
 
     QVector<DirNamePath> splittedUrl(const QString &s)
     {

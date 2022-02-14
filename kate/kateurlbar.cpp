@@ -410,12 +410,12 @@ KateUrlBar::KateUrlBar(KateViewSpace *parent)
     setFixedHeight(24);
     setContentsMargins({});
 
-    m_layout = new QHBoxLayout(this);
-    m_layout->setContentsMargins({});
-    m_layout->setSpacing(0);
+    auto *layout = new QHBoxLayout(this);
+    layout->setContentsMargins({});
+    layout->setSpacing(0);
 
     m_breadCrumbView = new BreadCrumbView(this);
-    m_layout->addWidget(m_breadCrumbView);
+    layout->addWidget(m_breadCrumbView);
 
     auto *vm = parent->viewManger();
     connect(vm, &KateViewManager::viewChanged, this, &KateUrlBar::onViewChanged);

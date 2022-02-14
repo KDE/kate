@@ -19,7 +19,6 @@ Q_SIGNALS:
 
 private:
     void onViewChanged(KTextEditor::View *v);
-    class QHBoxLayout *m_layout;
     class BreadCrumbView *m_breadCrumbView;
 };
 

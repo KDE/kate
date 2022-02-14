@@ -296,7 +296,7 @@ public:
 
         if (key == Qt::Key_Left || key == Qt::Key_Right) {
             onNavigateLeftRight(key, false);
-        } else if (key == Qt::Key_Enter || key == Qt::Key_Return) {
+        } else if (key == Qt::Key_Enter || key == Qt::Key_Return || key == Qt::Key_Down) {
             Q_EMIT clicked(current);
         } else if (key == Qt::Key_Escape) {
             Q_EMIT unsetFocus();

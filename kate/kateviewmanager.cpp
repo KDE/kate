@@ -195,7 +195,7 @@ void KateViewManager::setupActions()
     a = m_mainWindow->actionCollection()->addAction(QStringLiteral("viewspace_focus_nav_bar"));
     a->setText(i18n("Focus Navigation Bar"));
     a->setToolTip(i18n("Focus the navigation bar"));
-    a->setShortcut(Qt::CTRL | Qt::SHIFT | Qt::Key_Period);
+    m_mainWindow->actionCollection()->setDefaultShortcut(a, Qt::CTRL | Qt::SHIFT | Qt::Key_Period);
     connect(a, &QAction::triggered, this, [this] {
         activeViewSpace()->focusNavigationBar();
     });

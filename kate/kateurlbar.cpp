@@ -439,22 +439,40 @@ KateUrlBar::KateUrlBar(KateViewSpace *parent)
 void KateUrlBar::onViewChanged(KTextEditor::View *v)
 {
     if (!v) {
+        updateForDocument(nullptr);
         hide();
         return;
     }
+
+    updateForDocument(v->document());
+}
+
+void KateUrlBar::updateForDocument(KTextEditor::Document *doc)
+{
+    // always disconnect and perhaps set nullptr doc
+    if (m_currentDoc) {
+        disconnect(m_currentDoc, &KTextEditor::Document::documentUrlChanged, this, &KateUrlBar::updateForDocument);
+    }
+    m_currentDoc = doc;
+    if (!doc) {
+        return;
+    }
+
+    // we want to watch for url changed
+    connect(m_currentDoc, &KTextEditor::Document::documentUrlChanged, this, &KateUrlBar::updateForDocument);
 
     auto *vm = static_cast<KateViewSpace *>(parentWidget())->viewManger();
     if (vm && !vm->showUrlNavBar()) {
         return;
     }
 
-    const auto url = v->document()->url();
+    const auto url = doc->url();
     if (url.isEmpty() || !url.isLocalFile()) {
         hide();
         return;
     }
 
-    m_breadCrumbView->setUrl(v->document()->url());
+    m_breadCrumbView->setUrl(url);
 
     if (isHidden())
         show();

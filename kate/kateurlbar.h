@@ -6,7 +6,9 @@
 #define KATE_URL_BAR_H
 
 #include "kateviewspace.h"
+
 #include <QFrame>
+#include <QPointer>
 
 class KateUrlBar : public QWidget
 {
@@ -19,7 +21,12 @@ Q_SIGNALS:
 
 private:
     void onViewChanged(KTextEditor::View *v);
+    void updateForDocument(KTextEditor::Document *doc);
     class BreadCrumbView *m_breadCrumbView;
+
+    // document for which the url bar is currently active
+    // might be nullptr
+    QPointer<KTextEditor::Document> m_currentDoc;
 };
 
 #endif

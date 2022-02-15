@@ -52,6 +52,7 @@ KateFileBrowser::KateFileBrowser(KTextEditor::MainWindow *mainWindow, QWidget *p
     m_toolbar->setMovable(false);
     m_toolbar->setToolButtonStyle(Qt::ToolButtonIconOnly);
     m_toolbar->setContextMenuPolicy(Qt::NoContextMenu);
+    m_toolbar->layout()->setContentsMargins(0, 0, 0, 0);
 
     // ensure reasonable icons sizes, like e.g. the quick-open and co. icons
     // the normal toolbar sizes are TOO large, e.g. for scaled stuff even more!

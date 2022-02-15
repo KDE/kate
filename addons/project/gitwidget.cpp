@@ -219,6 +219,7 @@ GitWidget::GitWidget(KateProject *project, KTextEditor::MainWindow *mainWindow, 
     });
 
     m_commitBtn = toolButton(QStringLiteral("vcs-commit"), QString(), i18n("Commit"), Qt::ToolButtonTextBesideIcon);
+    m_commitBtn->setMinimumHeight(16);
 
     m_pushBtn = toolButton(QStringLiteral("vcs-push"), i18n("Git push"));
     connect(m_pushBtn, &QToolButton::clicked, this, [this]() {
@@ -305,6 +306,7 @@ GitWidget::GitWidget(KateProject *project, KTextEditor::MainWindow *mainWindow, 
     // This Widget's layout
     setLayout(new QVBoxLayout);
     this->layout()->addWidget(m_stackWidget);
+    this->layout()->setContentsMargins(0, 0, 0, 0);
 }
 
 GitWidget::~GitWidget()

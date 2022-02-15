@@ -11,6 +11,18 @@
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
    <item>
     <layout class="QGridLayout" name="gridLayout" columnstretch="1,0,0,0,0,0">
      <item row="0" column="1">
@@ -276,8 +288,7 @@
         <number>0</number>
        </property>
        <item>
-        <widget class="QStackedWidget" name="resultWidget">
-        </widget>
+        <widget class="QStackedWidget" name="resultWidget"/>
        </item>
       </layout>
      </widget>
@@ -352,7 +363,7 @@
           <item row="1" column="1">
            <layout class="QHBoxLayout" name="horizontalLayout_3">
             <item>
-             <widget class="KUrlComboRequester" name="folderRequester"/>
+             <widget class="KUrlComboRequester" name="folderRequester" native="true"/>
             </item>
             <item>
              <widget class="QToolButton" name="folderUpButton">
@@ -476,13 +487,13 @@
    <header>kcombobox.h</header>
   </customwidget>
   <customwidget>
-   <class>KUrlComboRequester</class>
-   <extends>KUrlRequester</extends>
+   <class>KUrlRequester</class>
+   <extends>QWidget</extends>
    <header>kurlrequester.h</header>
   </customwidget>
   <customwidget>
-   <class>KUrlRequester</class>
-   <extends>QWidget</extends>
+   <class>KUrlComboRequester</class>
+   <extends>KUrlRequester</extends>
    <header>kurlrequester.h</header>
   </customwidget>
  </customwidgets>

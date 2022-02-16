@@ -428,6 +428,9 @@ private:
     {
         // close docs
         for (const auto &server : servers) {
+            if (!server) {
+                continue;
+            }
             // controlling server here, so disable usual state tracking response
             disconnect(server.data(), nullptr, this, nullptr);
             for (auto it = m_docs.begin(); it != m_docs.end();) {
@@ -447,7 +450,9 @@ private:
         // helper captures servers
         auto stopservers = [servers](int t, int k) {
             for (const auto &server : servers) {
-                server->stop(t, k);
+                if (server) {
+                    server->stop(t, k);
+                }
             }
         };
 

@@ -109,8 +109,7 @@ public:
         l->setContentsMargins({});
         l->addWidget(&m_list);
 
-        connect(&m_list, &QListView::clicked, this, &DirFilesList::onClicked);
-
+        m_list.viewport()->installEventFilter(this);
         setFocusProxy(&m_list);
     }
 
@@ -140,7 +139,7 @@ public:
         setFixedSize(qMin(w, 500), qMin(h, 600));
     }
 
-    void onClicked(const QModelIndex &idx)
+    void onClicked(const QModelIndex &idx, Qt::KeyboardModifiers mod)
     {
         if (!idx.isValid()) {
             return;
@@ -151,14 +150,14 @@ public:
         } else if (fi.isFile()) {
             const QUrl url = QUrl::fromLocalFile(fi.absoluteFilePath());
             hide();
-            Q_EMIT openUrl(url);
+            Q_EMIT openUrl(url, /*newtab=*/mod);
         }
     }
 
     void keyPressEvent(QKeyEvent *ke) override
     {
         if (ke->key() == Qt::Key_Enter || ke->key() == Qt::Key_Return) {
-            onClicked(m_list.currentIndex());
+            onClicked(m_list.currentIndex(), Qt::NoModifier);
             return;
         } else if (ke->key() == Qt::Key_Left || ke->key() == Qt::Key_Right) {
             hide();
@@ -176,8 +175,24 @@ public:
         QMenu::keyPressEvent(ke);
     }
 
+    bool eventFilter(QObject *o, QEvent *e) override
+    {
+        if (e->type() != QEvent::Type::MouseButtonPress) {
+            return QMenu::eventFilter(o, e);
+        }
+        QMouseEvent *me = static_cast<QMouseEvent *>(e);
+        if (me->button() == Qt::LeftButton) {
+            const QModelIndex idx = m_list.indexAt(m_list.viewport()->mapFromGlobal(me->globalPos()));
+            if (!idx.isValid()) {
+                return QMenu::eventFilter(o, me);
+            }
+            onClicked(idx, me->modifiers());
+        }
+        return QMenu::eventFilter(o, e);
+    }
+
 Q_SIGNALS:
-    void openUrl(const QUrl &url);
+    void openUrl(const QUrl &url, Qt::KeyboardModifiers);
     void navigateLeftRight(int key);
 
 private:

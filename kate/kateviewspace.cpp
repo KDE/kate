@@ -124,9 +124,10 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent, cons
     m_urlBar = new KateUrlBar(this);
 
     // like other editors, we try to re-use documents, of not modified
-    connect(m_urlBar, &KateUrlBar::openUrlRequested, this, [this](const QUrl &url) {
+    connect(m_urlBar, &KateUrlBar::openUrlRequested, this, [this](const QUrl &url, Qt::KeyboardModifiers mod) {
         // try if reuse of view make sense
-        if (!KateApp::self()->documentManager()->findDocument(url)) {
+        const bool shiftPress = mod == Qt::ShiftModifier;
+        if (!shiftPress && !KateApp::self()->documentManager()->findDocument(url)) {
             if (auto activeView = m_viewManager->activeView(); activeView) {
                 KateDocumentInfo *info = KateApp::self()->documentManager()->documentInfo(activeView->document());
                 if (info && !info->wasDocumentEverModified) {

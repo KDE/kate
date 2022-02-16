@@ -17,7 +17,7 @@ public:
     explicit KateUrlBar(KateViewSpace *parent = nullptr);
 
 Q_SIGNALS:
-    void openUrlRequested(const QUrl &url);
+    void openUrlRequested(const QUrl &url, Qt::KeyboardModifiers);
 
 private:
     void onViewChanged(KTextEditor::View *v);

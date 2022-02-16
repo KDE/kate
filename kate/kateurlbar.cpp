@@ -196,24 +196,31 @@ class BreadCrumbDelegate : public QStyledItemDelegate
 public:
     using QStyledItemDelegate::QStyledItemDelegate;
 
+    void initStyleOption(QStyleOptionViewItem *o, const QModelIndex &idx) const override
+    {
+        QStyledItemDelegate::initStyleOption(o, idx);
+        o->decorationAlignment = Qt::AlignCenter;
+        o->decorationSize = QSize(16, 16);
+    }
+
     QSize sizeHint(const QStyleOptionViewItem &opt, const QModelIndex &idx) const override
     {
-        constexpr int hMargin = 2;
-
         const auto str = idx.data(Qt::DisplayRole).toString();
+        const int margin = opt.widget->style()->pixelMetric(QStyle::PM_FocusFrameHMargin);
         if (!str.isEmpty()) {
+            const int hMargin = margin + 1;
             auto size = QStyledItemDelegate::sizeHint(opt, idx);
-            const int w = opt.fontMetrics.horizontalAdvance(str) + 8;
+            const int w = opt.fontMetrics.horizontalAdvance(str) + (2 * hMargin);
             size.rwidth() = w;
 
             if (!idx.data(Qt::DecorationRole).isNull()) {
-                size.rwidth() += 16 + (3 * hMargin);
+                size.rwidth() += 16 + (2 * margin);
             }
 
             return size;
         } else if (!idx.data(Qt::DecorationRole).isNull()) {
             QSize s(16, 16);
-            s = s.grownBy({hMargin, 0, hMargin, 0});
+            s = s.grownBy({margin, 0, margin, 0});
             return s;
         }
         return QStyledItemDelegate::sizeHint(opt, idx);
@@ -235,6 +242,7 @@ public:
         setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         setItemDelegate(new BreadCrumbDelegate(this));
         setEditTriggers(QAbstractItemView::NoEditTriggers);
+        setTextElideMode(Qt::ElideNone);
 
         connect(qApp, &QApplication::paletteChanged, this, &BreadCrumbView::updatePalette, Qt::QueuedConnection);
         auto font = this->font();

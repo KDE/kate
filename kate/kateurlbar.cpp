@@ -359,22 +359,13 @@ public:
         m.exec(pos);
     }
 
-protected:
-    void focusInEvent(QFocusEvent *f) override
+    void openLastIndex()
     {
-        if (f->reason() == Qt::OtherFocusReason) {
-            const auto last = m_model.index(m_model.rowCount() - 1, 0);
-            if (last.isValid()) {
-                setCurrentIndex(last);
-                QMetaObject::invokeMethod(
-                    this,
-                    [this, last] {
-                        clicked(last);
-                    },
-                    Qt::QueuedConnection);
-            }
+        const auto last = m_model.index(m_model.rowCount() - 1, 0);
+        if (last.isValid()) {
+            setCurrentIndex(last);
+            clicked(last);
         }
-        QListView::focusInEvent(f);
     }
 
 private:
@@ -473,6 +464,13 @@ KateUrlBar::KateUrlBar(KateViewSpace *parent)
     setFocusProxy(m_breadCrumbView);
 
     setHidden(!vm->showUrlNavBar());
+}
+
+void KateUrlBar::open()
+{
+    if (m_breadCrumbView && m_stack->currentWidget() == m_breadCrumbView) {
+        m_breadCrumbView->openLastIndex();
+    }
 }
 
 void KateUrlBar::onViewChanged(KTextEditor::View *v)

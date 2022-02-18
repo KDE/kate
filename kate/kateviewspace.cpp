@@ -745,7 +745,7 @@ void KateViewSpace::closeTabWithWidget(QWidget *widget)
 void KateViewSpace::focusNavigationBar()
 {
     if (!m_urlBar->isHidden()) {
-        m_urlBar->setFocus();
+        m_urlBar->open();
     }
 }
 

@@ -15,6 +15,7 @@ class KateUrlBar : public QWidget
     Q_OBJECT
 public:
     explicit KateUrlBar(KateViewSpace *parent = nullptr);
+    void open();
 
 Q_SIGNALS:
     void openUrlRequested(const QUrl &url, Qt::KeyboardModifiers);

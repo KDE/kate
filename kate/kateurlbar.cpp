@@ -2,14 +2,18 @@
     SPDX-FileCopyrightText: 2022 Waqar Ahmed <waqar.17a@gmail.com>
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
+
 #include "kateurlbar.h"
+#include "kateapp.h"
 #include "kateviewmanager.h"
 #include "kateviewspace.h"
 
 #include <KTextEditor/Document>
 #include <KTextEditor/View>
 
+#include <KColorScheme>
 #include <KLocalizedString>
+
 #include <QAbstractListModel>
 #include <QAction>
 #include <QApplication>
@@ -62,6 +66,11 @@ public:
             }
         } else if (role == FileInfo) {
             return QVariant::fromValue(fi);
+        } else if (role == Qt::ForegroundRole) {
+            // highlight already open documents
+            if (KateApp::self()->documentManager()->findDocument(QUrl::fromLocalFile(fi.absoluteFilePath()))) {
+                return KColorScheme().foreground(KColorScheme::PositiveText).color();
+            }
         }
 
         return {};

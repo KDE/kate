@@ -189,8 +189,8 @@ private:
     void readConfig();
     void writeConfig();
 
-    void registerVariables();
-    void unregisterVariables();
+    static void registerVariables();
+    static void unregisterVariables();
 
 private:
     /**

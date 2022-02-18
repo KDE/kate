@@ -26,7 +26,7 @@ public:
     void setConfigs(const QStringList &cfgs);
 
 private:
-    void setComboText(QComboBox *combo, const QString &str);
+    static void setComboText(QComboBox *combo, const QString &str);
 
 private Q_SLOTS:
     void slotBrowseGDB();

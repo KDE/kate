@@ -1300,7 +1300,7 @@ public:
         });
     }
 
-    QModelIndex getPrimaryModelIndex(QModelIndex index)
+    static QModelIndex getPrimaryModelIndex(QModelIndex index)
     {
         // in case of a multiline diagnostics item, a split secondary line has no data set
         // so we need to go up to the primary parent item
@@ -1633,7 +1633,7 @@ public:
         }
     };
 
-    void
+    static void
     fillItemRoles(QStandardItem *item, const QUrl &url, const LSPRange _range, RangeData::KindEnum kind, const LSPClientRevisionSnapshot *snapshot = nullptr)
     {
         auto range = snapshot ? transformRange(url, *snapshot, _range) : _range;
@@ -1992,7 +1992,7 @@ public:
         }
     }
 
-    void applyEdits(KTextEditor::Document *doc, const LSPClientRevisionSnapshot *snapshot, const QList<LSPTextEdit> &edits)
+    static void applyEdits(KTextEditor::Document *doc, const LSPClientRevisionSnapshot *snapshot, const QList<LSPTextEdit> &edits)
     {
         ::applyEdits(doc, snapshot, edits);
     }

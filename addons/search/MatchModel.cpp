@@ -707,7 +707,7 @@ QString MatchModel::infoToPlainText() const
     return QString();
 }
 
-QString MatchModel::fileToPlainText(const MatchFile &matchFile) const
+QString MatchModel::fileToPlainText(const MatchFile &matchFile)
 {
     QString path = matchFile.fileUrl.isLocalFile() ? localFileDirUp(matchFile.fileUrl).path() : matchFile.fileUrl.url();
     if (!path.isEmpty() && !path.endsWith(QLatin1Char('/'))) {
@@ -719,7 +719,7 @@ QString MatchModel::fileToPlainText(const MatchFile &matchFile) const
     return tmpStr;
 }
 
-QString MatchModel::matchToPlainText(const Match &match) const
+QString MatchModel::matchToPlainText(const Match &match)
 {
     QString pre = match.preMatchStr;
 
@@ -743,7 +743,7 @@ QString MatchModel::matchToPlainText(const Match &match) const
     return displayText;
 }
 
-bool MatchModel::isMatch(const QModelIndex &itemIndex) const
+bool MatchModel::isMatch(const QModelIndex &itemIndex)
 {
     if (!itemIndex.isValid()) {
         return false;

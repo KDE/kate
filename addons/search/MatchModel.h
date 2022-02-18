@@ -163,7 +163,7 @@ Q_SIGNALS:
 
     // QModelIndex api. Use with care if you are accessing it directly or access through 'Results' instead
 public:
-    bool isMatch(const QModelIndex &itemIndex) const;
+    static bool isMatch(const QModelIndex &itemIndex);
     QModelIndex fileIndex(const QUrl &url, KTextEditor::Document *doc) const;
     QModelIndex firstMatch() const;
     QModelIndex lastMatch() const;
@@ -204,8 +204,8 @@ private:
     QString matchToHtmlString(const Match &match) const;
 
     QString infoToPlainText() const;
-    QString fileToPlainText(const MatchFile &matchFile) const;
-    QString matchToPlainText(const Match &match) const;
+    static QString fileToPlainText(const MatchFile &matchFile);
+    static QString matchToPlainText(const Match &match);
 
     bool setFileChecked(int fileRow, bool checked);
 

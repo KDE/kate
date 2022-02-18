@@ -23,7 +23,7 @@ public:
         endResetModel();
     }
 
-    bool isMatchItem(const QModelIndex &index) const;
+    static bool isMatchItem(const QModelIndex &index);
 
 private:
     bool parentAcceptsRow(const QModelIndex &source_parent) const;

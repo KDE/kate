@@ -156,7 +156,7 @@ private:
      * Display @p item in a striking way to indicate that the session represent
      * by @p item will be deleted
      */
-    void markItemAsToBeDeleted(QTreeWidgetItem *item);
+    static void markItemAsToBeDeleted(QTreeWidgetItem *item);
 
     /**
      * The item which is currently edited by the user or @c nullptr to indicate

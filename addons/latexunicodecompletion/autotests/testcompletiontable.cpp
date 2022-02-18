@@ -18,7 +18,7 @@ class LatexCompletionTableTest : public QObject
 {
     Q_OBJECT
 private Q_SLOTS:
-    void testSorting()
+    static void testSorting()
     {
         for (int i = 0; i < n_completions - 1; ++i) {
             QVERIFY(std::char_traits<char16_t>::compare(completiontable[i].completion,

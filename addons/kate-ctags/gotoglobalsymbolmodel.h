@@ -30,7 +30,7 @@ public:
     /**
      * @brief removes useless symbols like anon namespace etc for better UI
      */
-    QString filterName(QString tagName) const;
+    static QString filterName(QString tagName);
 
     void setSymbolsData(Tags::TagList rows)
     {

@@ -150,7 +150,7 @@ public:
      * @param sgroup session group for this window
      * @return new constructed main window
      */
-    KateMainWindow *newMainWindow(KConfig *sconfig = nullptr, const QString &sgroup = QString());
+    static KateMainWindow *newMainWindow(KConfig *sconfig = nullptr, const QString &sgroup = QString());
 
     /**
      * add the mainwindow given

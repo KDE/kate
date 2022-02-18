@@ -685,7 +685,7 @@ bool KateFileTreeModel::hasChildren(const QModelIndex &parent) const
     return item->childCount() > 0;
 }
 
-bool KateFileTreeModel::isDir(const QModelIndex &index) const
+bool KateFileTreeModel::isDir(const QModelIndex &index)
 {
     if (!index.isValid()) {
         return true;
@@ -1008,7 +1008,7 @@ ProxyItemDir *KateFileTreeModel::findRootNode(const QString &name, const int r) 
     return nullptr;
 }
 
-ProxyItemDir *KateFileTreeModel::findChildNode(const ProxyItemDir *parent, const QString &name) const
+ProxyItemDir *KateFileTreeModel::findChildNode(const ProxyItemDir *parent, const QString &name)
 {
     Q_ASSERT(parent != nullptr);
     Q_ASSERT(!name.isEmpty());
@@ -1267,7 +1267,7 @@ void KateFileTreeModel::handleNameChange(ProxyItem *item)
     handleInsert(item);
 }
 
-void KateFileTreeModel::updateItemPathAndHost(ProxyItem *item) const
+void KateFileTreeModel::updateItemPathAndHost(ProxyItem *item)
 {
     const KTextEditor::Document *doc = item->doc();
     Q_ASSERT(doc); // this method should not be called at directory items
@@ -1294,7 +1294,7 @@ void KateFileTreeModel::updateItemPathAndHost(ProxyItem *item) const
     item->setHost(host);
 }
 
-void KateFileTreeModel::setupIcon(ProxyItem *item) const
+void KateFileTreeModel::setupIcon(ProxyItem *item)
 {
     Q_ASSERT(item != nullptr);
 

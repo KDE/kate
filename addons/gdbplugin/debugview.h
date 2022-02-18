@@ -52,7 +52,7 @@ public Q_SLOTS:
     void slotQueryLocals(bool display);
 
 private Q_SLOTS:
-    void slotError();
+    static void slotError();
     void slotReadDebugStdOut();
     void slotReadDebugStdErr();
     void slotDebugFinished(int exitCode, QProcess::ExitStatus status);

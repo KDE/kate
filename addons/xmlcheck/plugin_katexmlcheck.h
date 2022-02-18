@@ -56,7 +56,7 @@ public Q_SLOTS:
     bool slotValidate();
     void slotClicked(QTreeWidgetItem *item, int column);
     void slotProcExited(int exitCode, QProcess::ExitStatus exitStatus);
-    void slotUpdate();
+    static void slotUpdate();
 
 private:
     QTemporaryFile *m_tmp_file;

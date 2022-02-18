@@ -157,7 +157,7 @@ void KateExternalToolsPlugin::removeTools(const std::vector<KateExternalTool *> 
     m_tools.erase(it, m_tools.end());
 }
 
-void KateExternalToolsPlugin::save(KateExternalTool *tool, const QString &oldName) const
+void KateExternalToolsPlugin::save(KateExternalTool *tool, const QString &oldName)
 {
     const QString name = KateExternalTool::configFileName(tool->name);
     KConfig config(toolsConfigDir() + name);

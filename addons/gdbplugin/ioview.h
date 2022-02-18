@@ -48,7 +48,7 @@ Q_SIGNALS:
 
 private:
     void createFifos();
-    QString createFifo(const QString &prefix);
+    static QString createFifo(const QString &prefix);
 
     QTextEdit *m_output;
     QLineEdit *m_input;

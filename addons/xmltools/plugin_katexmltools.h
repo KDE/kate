@@ -97,15 +97,15 @@ protected:
     static QStringList sortQStringList(QStringList list);
     // bool eventFilter( QObject *object, QEvent *event );
 
-    QString insideTag(KTextEditor::View &kv);
-    QString insideAttribute(KTextEditor::View &kv);
+    static QString insideTag(KTextEditor::View &kv);
+    static QString insideAttribute(KTextEditor::View &kv);
 
     static bool isOpeningTag(const QString &tag);
     static bool isClosingTag(const QString &tag);
     static bool isEmptyTag(const QString &tag);
     static bool isQuote(const QString &ch);
 
-    QString getParentElement(KTextEditor::View &view, int skipCharacters);
+    static QString getParentElement(KTextEditor::View &view, int skipCharacters);
 
     enum Mode { none, entities, attributevalues, attributes, elements, closingtag };
     enum PopupMode { noPopup, tagname, attributename, attributevalue, entityname };

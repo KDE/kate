@@ -136,7 +136,7 @@ public:
      * was changed, and after saving the config (to a new file based on the
      * new name), the old config file is removed.
      */
-    void save(KateExternalTool *tool, const QString &oldName) const;
+    static void save(KateExternalTool *tool, const QString &oldName);
 
 private:
     void migrateConfig();

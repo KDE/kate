@@ -18,6 +18,6 @@ public Q_SLOTS:
     void cleanupTestCase();
 
 private Q_SLOTS:
-    void testLongestCommonPrefix();
-    void testLongestCommonPrefix_data();
+    static void testLongestCommonPrefix();
+    static void testLongestCommonPrefix_data();
 };

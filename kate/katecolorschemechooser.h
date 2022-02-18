@@ -29,12 +29,12 @@ public:
 
     QString currentSchemeName() const;
 private Q_SLOTS:
-    void slotSchemeChanged(QAction *triggeredAction);
+    static void slotSchemeChanged(QAction *triggeredAction);
 
 private:
-    QString loadCurrentScheme() const;
-    void saveCurrentScheme(const QString &name);
-    QString currentDesktopDefaultScheme() const;
+    static QString loadCurrentScheme();
+    static void saveCurrentScheme(const QString &name);
+    static QString currentDesktopDefaultScheme();
 };
 
 #endif // COLORSCHEMECHOOSER_H

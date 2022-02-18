@@ -42,7 +42,7 @@ public:
     static SnippetStore *self();
 
     ~SnippetStore() override;
-    KConfigGroup getConfig();
+    static KConfigGroup getConfig();
     bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
     /**
      * Returns the repository for the given @p file if there is any.

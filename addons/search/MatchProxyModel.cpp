@@ -39,7 +39,7 @@ bool MatchProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &parent)
     return false;
 }
 
-bool MatchProxyModel::isMatchItem(const QModelIndex &index) const
+bool MatchProxyModel::isMatchItem(const QModelIndex &index)
 {
     return index.parent().isValid() && index.parent().parent().isValid();
 }

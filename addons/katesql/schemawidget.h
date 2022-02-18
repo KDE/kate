@@ -55,7 +55,7 @@ private Q_SLOTS:
     void slotItemExpanded(QTreeWidgetItem *item);
 
 private:
-    void deleteChildren(QTreeWidgetItem *item);
+    static void deleteChildren(QTreeWidgetItem *item);
     void mousePressEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
     bool isConnectionValidAndOpen();

@@ -95,7 +95,7 @@ private:
     void updatePreview();
     void showAboutKPartPlugin();
     void clearMenu();
-    std::optional<KPluginMetaData> findPreviewPart(const QStringList mimeTypes);
+    static std::optional<KPluginMetaData> findPreviewPart(const QStringList mimeTypes);
 
 private:
     KToggleAction *m_lockAction;

@@ -325,7 +325,7 @@ QString KateSessionManager::renameSession(KateSession::Ptr session, const QStrin
     return name;
 }
 
-void KateSessionManager::saveSessionTo(KConfig *sc) const
+void KateSessionManager::saveSessionTo(KConfig *sc)
 {
     // Clear the session file to avoid to accumulate outdated entries
     const auto groupList = sc->groupList();

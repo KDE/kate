@@ -54,11 +54,11 @@ public:
     bool loadPlugin(KatePluginInfo *item);
     void unloadPlugin(KatePluginInfo *item);
 
-    void enablePluginGUI(KatePluginInfo *item, KateMainWindow *win, KConfigBase *config = nullptr);
-    void enablePluginGUI(KatePluginInfo *item);
+    static void enablePluginGUI(KatePluginInfo *item, KateMainWindow *win, KConfigBase *config = nullptr);
+    static void enablePluginGUI(KatePluginInfo *item);
 
-    void disablePluginGUI(KatePluginInfo *item, KateMainWindow *win);
-    void disablePluginGUI(KatePluginInfo *item);
+    static void disablePluginGUI(KatePluginInfo *item, KateMainWindow *win);
+    static void disablePluginGUI(KatePluginInfo *item);
 
     inline KatePluginList &pluginList()
     {

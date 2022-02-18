@@ -300,7 +300,7 @@ private Q_SLOTS:
     /**
      * Show projects To-Dos and Fix-mes
      */
-    void showProjectTodos();
+    static void showProjectTodos();
 
     /**
      * Enable/disable project actions

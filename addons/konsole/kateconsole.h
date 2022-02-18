@@ -180,7 +180,7 @@ private Q_SLOTS:
     /**
      * Handle that shortcuts are not eaten by console
      */
-    void overrideShortcut(QKeyEvent *event, bool &override);
+    static void overrideShortcut(QKeyEvent *event, bool &override);
 
     /**
      * hide terminal on Esc key press
@@ -247,6 +247,6 @@ private Q_SLOTS:
     /**
      * Enable the warning dialog for the next "Run in terminal"
      */
-    void slotEnableRunWarning();
+    static void slotEnableRunWarning();
 };
 #endif

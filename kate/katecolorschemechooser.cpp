@@ -44,7 +44,7 @@ KateColorSchemeChooser::KateColorSchemeChooser(QObject *parent)
     menu()->setTitle(i18n("&Color Scheme"));
 }
 
-QString KateColorSchemeChooser::loadCurrentScheme() const
+QString KateColorSchemeChooser::loadCurrentScheme()
 {
     KSharedConfigPtr config = KSharedConfig::openConfig();
     KConfigGroup cg(config, "UiSettings");
@@ -59,7 +59,7 @@ void KateColorSchemeChooser::saveCurrentScheme(const QString &name)
     cg.sync();
 }
 
-QString KateColorSchemeChooser::currentDesktopDefaultScheme() const
+QString KateColorSchemeChooser::currentDesktopDefaultScheme()
 {
     return QString();
 }

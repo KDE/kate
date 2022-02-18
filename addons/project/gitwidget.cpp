@@ -129,7 +129,7 @@ class StatusProxyModel : public QSortFilterProxyModel
 public:
     using QSortFilterProxyModel::QSortFilterProxyModel;
 
-    bool isTopLevel(const QModelIndex &idx) const
+    static bool isTopLevel(const QModelIndex &idx)
     {
         return !idx.isValid();
     }

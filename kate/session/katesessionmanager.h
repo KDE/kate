@@ -102,7 +102,7 @@ public Q_SLOTS:
     /**
      * show dialog to manage our sessions
      */
-    void sessionManage();
+    static void sessionManage();
 
 Q_SIGNALS:
     /**
@@ -208,7 +208,7 @@ private:
     /**
      * helper function to save the session to a given config object
      */
-    void saveSessionTo(KConfig *sc) const;
+    static void saveSessionTo(KConfig *sc);
 
     /**
      * restore sessions documents, windows, etc...
@@ -218,7 +218,7 @@ private:
     /**
      * Writes sessions as jump list actions to the kate.desktop file
      */
-    void updateJumpListActions(const QStringList &sessionList);
+    static void updateJumpListActions(const QStringList &sessionList);
 
     /**
      * Given a config group name, determines if the group represents

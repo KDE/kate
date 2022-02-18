@@ -51,7 +51,7 @@ public:
     /* extra api for view */
     QModelIndex docIndex(const KTextEditor::Document *) const;
 
-    bool isDir(const QModelIndex &index) const;
+    static bool isDir(const QModelIndex &index);
 
     bool listMode() const;
     void setListMode(bool);
@@ -83,13 +83,13 @@ Q_SIGNALS:
 
 private:
     ProxyItemDir *findRootNode(const QString &name, const int r = 1) const;
-    ProxyItemDir *findChildNode(const ProxyItemDir *parent, const QString &name) const;
+    static ProxyItemDir *findChildNode(const ProxyItemDir *parent, const QString &name);
     void insertItemInto(ProxyItemDir *root, ProxyItem *item, bool move = false, ProxyItemDir **moveDest = nullptr);
     void handleInsert(ProxyItem *item);
     void handleNameChange(ProxyItem *item);
     void handleEmptyParents(ProxyItemDir *item);
-    void setupIcon(ProxyItem *item) const;
-    void updateItemPathAndHost(ProxyItem *item) const;
+    static void setupIcon(ProxyItem *item);
+    static void updateItemPathAndHost(ProxyItem *item);
     void handleDuplicitRootDisplay(ProxyItemDir *item);
 
     void updateBackgrounds(bool force = false);

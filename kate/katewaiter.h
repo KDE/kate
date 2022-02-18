@@ -23,11 +23,11 @@ public:
     KateWaiter(const QString &service, const QStringList &tokens);
 
 public Q_SLOTS:
-    void exiting();
+    static void exiting();
 
     void documentClosed(const QString &token);
 
-    void serviceOwnerChanged(const QString &, const QString &, const QString &);
+    static void serviceOwnerChanged(const QString &, const QString &, const QString &);
 
 private:
     QStringList m_tokens;

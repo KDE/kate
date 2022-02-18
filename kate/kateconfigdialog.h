@@ -59,7 +59,7 @@ public:
 protected Q_SLOTS:
     void slotApply();
     void slotChanged();
-    void slotHelp();
+    static void slotHelp();
 
 protected:
     void closeEvent(QCloseEvent *event) override;

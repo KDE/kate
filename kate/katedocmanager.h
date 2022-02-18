@@ -115,7 +115,7 @@ public Q_SLOTS:
     /**
      * save selected documents from the File List
      */
-    void saveSelected(const QList<KTextEditor::Document *> &);
+    static void saveSelected(const QList<KTextEditor::Document *> &);
 
 Q_SIGNALS:
     /**

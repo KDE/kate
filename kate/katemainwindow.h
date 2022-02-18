@@ -181,7 +181,7 @@ public Q_SLOTS:
      * or internal signal connections
      */
 private Q_SLOTS:
-    void newWindow();
+    static void newWindow();
 
     void slotConfigure();
 
@@ -196,7 +196,7 @@ private Q_SLOTS:
     void slotDropEvent(QDropEvent *);
     void editKeys();
     void mSlotFixOpenWithMenu();
-    void reloadXmlGui();
+    static void reloadXmlGui();
 
     /* to update the caption */
     void slotDocumentCreated(KTextEditor::Document *doc);
@@ -204,7 +204,7 @@ private Q_SLOTS:
     // calls updateCaption(doc) with the current document
     void updateCaption();
 
-    void pluginHelp();
+    static void pluginHelp();
     void slotFullScreen(bool);
 
     void slotListRecursiveEntries(KIO::Job *job, const KIO::UDSEntryList &list);

@@ -63,7 +63,7 @@ private Q_SLOTS:
     /**
      * Handle that shortcuts are not eaten by console
      */
-    void overrideShortcut(QKeyEvent *event, bool &override);
+    static void overrideShortcut(QKeyEvent *event, bool &override);
 
 protected:
     /**

@@ -23,7 +23,7 @@ int GotoGlobalSymbolModel::rowCount(const QModelIndex &) const
     return m_rows.size();
 }
 
-QString GotoGlobalSymbolModel::filterName(QString tagName) const
+QString GotoGlobalSymbolModel::filterName(QString tagName)
 {
     // remove anon namespace
     int __anonIdx = tagName.indexOf(QStringLiteral("__anon"));

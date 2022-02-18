@@ -319,7 +319,7 @@ public:
         }
     }
 
-    bool IsSeparator(const QModelIndex &idx) const
+    static bool IsSeparator(const QModelIndex &idx)
     {
         return idx.data(BreadCrumbRole::IsSeparator).toBool();
     }
@@ -402,7 +402,7 @@ private:
         }
     }
 
-    QVector<DirNamePath> splittedUrl(const QString &s)
+    static QVector<DirNamePath> splittedUrl(const QString &s)
     {
         const int slashIndex = s.lastIndexOf(QLatin1Char('/'));
         if (slashIndex == -1) {

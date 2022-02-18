@@ -56,7 +56,7 @@ public Q_SLOTS:
      * Create snippet for given view, e.g. by using the selection
      * @param view view to create snippet for
      */
-    void createSnippet(KTextEditor::View *view);
+    static void createSnippet(KTextEditor::View *view);
 
     void insertSnippetFromActionData();
 

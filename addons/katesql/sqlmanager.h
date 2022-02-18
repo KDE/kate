@@ -26,7 +26,7 @@ public:
 
     ConnectionModel *connectionModel();
     void createConnection(const Connection &conn);
-    bool testConnection(const Connection &conn, QSqlError &error);
+    static bool testConnection(const Connection &conn, QSqlError &error);
     bool isValidAndOpen(const QString &connection);
 
     KWallet::Wallet *openWallet();
@@ -44,7 +44,7 @@ public Q_SLOTS:
     void runQuery(const QString &text, const QString &connection);
 
 protected:
-    void saveConnection(KConfigGroup *connectionsGroup, const Connection &conn);
+    static void saveConnection(KConfigGroup *connectionsGroup, const Connection &conn);
 
 Q_SIGNALS:
     void connectionCreated(const QString &name);

@@ -248,8 +248,9 @@ class BreadCrumbView : public QListView
 {
     Q_OBJECT
 public:
-    BreadCrumbView(QWidget *parent = nullptr)
-        : QListView(parent)
+    BreadCrumbView(KateUrlBar *urlBar)
+        : QListView(urlBar)
+        , m_urlBar(urlBar)
     {
         setFlow(QListView::LeftToRight);
         setModel(&m_model);
@@ -339,8 +340,7 @@ public:
 
         QDir d(path);
         DirFilesList m(this);
-        auto par = static_cast<KateUrlBar *>(parentWidget());
-        connect(&m, &DirFilesList::openUrl, par, &KateUrlBar::openUrlRequested);
+        connect(&m, &DirFilesList::openUrl, m_urlBar, &KateUrlBar::openUrlRequested);
         connect(&m, &DirFilesList::openUrl, this, &BreadCrumbView::unsetFocus);
         connect(&m, &DirFilesList::navigateLeftRight, this, [this](int k) {
             onNavigateLeftRight(k, true);
@@ -423,6 +423,7 @@ private:
         return dirsList;
     }
 
+    KateUrlBar *const m_urlBar;
     QStandardItemModel m_model;
 
 Q_SIGNALS:

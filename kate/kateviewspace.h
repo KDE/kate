@@ -36,7 +36,7 @@ public:
     /**
      * Returns \e true, if this view space is currently the active view space.
      */
-    bool isActiveSpace();
+    bool isActiveSpace() const;
 
     /**
      * Depending on @p active, mark this view space as active or inactive.

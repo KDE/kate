@@ -411,7 +411,7 @@ KTextEditor::View *KateViewSpace::currentView()
     return qobject_cast<KTextEditor::View *>(stack->currentWidget());
 }
 
-bool KateViewSpace::isActiveSpace()
+bool KateViewSpace::isActiveSpace() const
 {
     return m_isActiveSpace;
 }

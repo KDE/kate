@@ -71,7 +71,7 @@ void KateStashManager::stashDocuments(KConfig *config, const QList<KTextEditor::
     }
 }
 
-bool KateStashManager::willStashDoc(KTextEditor::Document *doc)
+bool KateStashManager::willStashDoc(KTextEditor::Document *doc) const
 {
     const auto activeSession = KateApp::self()->sessionManager()->activeSession();
     if (!activeSession || activeSession->isAnonymous() || activeSession->name().isEmpty()) {

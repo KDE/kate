@@ -45,7 +45,7 @@ public:
 
     void stashDocuments(KConfig *cfg, const QList<KTextEditor::Document *> &documents);
 
-    bool willStashDoc(KTextEditor::Document *doc);
+    bool willStashDoc(KTextEditor::Document *doc) const;
 
     void stashDocument(KTextEditor::Document *doc, const QString &stashfileName, KConfigGroup &kconfig, const QString &path);
     static bool popDocument(KTextEditor::Document *doc, const KConfigGroup &kconfig);

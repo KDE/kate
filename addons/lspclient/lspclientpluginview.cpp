@@ -1337,7 +1337,7 @@ public:
             m_diagnostic.range = LSPRange::invalid();
         }
 
-        bool isCodeAction()
+        bool isCodeAction() const
         {
             return !m_diagnostic.range.isValid() && m_codeAction.title.size();
         }

@@ -451,7 +451,7 @@ void KateProjectPlugin::setGitStatusShowNumStat(bool show)
     writeConfig();
 }
 
-bool KateProjectPlugin::showGitStatusWithNumStat()
+bool KateProjectPlugin::showGitStatusWithNumStat() const
 {
     return m_gitNumStat;
 }

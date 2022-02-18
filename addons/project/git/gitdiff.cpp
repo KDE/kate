@@ -110,7 +110,7 @@ public:
     {
         return headingLineIdx > line;
     }
-    bool operator>=(const DiffHunk &b)
+    bool operator>=(const DiffHunk &b) const
     {
         return headingLineIdx >= b.lastLineIdx();
     }

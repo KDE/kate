@@ -120,7 +120,7 @@ public:
     bool multiProjectGoto() const;
 
     void setGitStatusShowNumStat(bool show);
-    bool showGitStatusWithNumStat();
+    bool showGitStatusWithNumStat() const;
 
     void setSingleClickAction(ClickAction cb);
     ClickAction singleClickAcion();

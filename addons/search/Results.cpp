@@ -1,3 +1,9 @@
+/*
+    SPDX-FileCopyrightText: 2011-21 Kåre Särs <kare.sars@iki.fi>
+    SPDX-FileCopyrightText: 2022 Waqar Ahmed <waqar.17a@gmail.com>
+
+    SPDX-License-Identifier: LGPL-2.0-or-later
+*/
 #include "Results.h"
 
 #include "MatchProxyModel.h"
@@ -30,22 +36,12 @@ Results::Results(QWidget *parent)
         if (!e) {
             return;
         }
-
         const auto theme = e->theme();
-        auto bg = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::BackgroundColor));
-        auto hl = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::TextSelection));
         auto search = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::SearchHighlight));
         auto replace = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::ReplaceHighlight));
         auto fg = QColor::fromRgba(theme.textColor(KSyntaxHighlighting::Theme::Normal));
 
-        auto pal = treeView->palette();
-        pal.setColor(QPalette::Base, bg);
-        pal.setColor(QPalette::Highlight, hl);
-        pal.setColor(QPalette::Text, fg);
         matchModel.setMatchColors(fg.name(QColor::HexArgb), search.name(QColor::HexArgb), replace.name(QColor::HexArgb));
-        treeView->setPalette(pal);
-
-        Q_EMIT colorsChanged();
     };
 
     auto e = KTextEditor::Editor::instance();

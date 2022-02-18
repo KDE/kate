@@ -554,6 +554,10 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
     m_toolView->installEventFilter(this);
 
     m_mainWindow->guiFactory()->addClient(this);
+
+    auto e = KTextEditor::Editor::instance();
+    connect(e, &KTextEditor::Editor::configChanged, this, &KatePluginSearchView::updateViewColors);
+    updateViewColors();
 }
 
 KatePluginSearchView::~KatePluginSearchView()
@@ -905,28 +909,21 @@ void KatePluginSearchView::stopClicked()
  */
 void KatePluginSearchView::updateViewColors()
 {
-    auto *view = m_mainWindow->activeView();
-    KTextEditor::ConfigInterface *ciface = qobject_cast<KTextEditor::ConfigInterface *>(view);
-    if (ciface && view) {
-        // save for later reuse when the search tree starts getting populated
-        QColor search = ciface->configValue(QStringLiteral("search-highlight-color")).value<QColor>();
-        if (!search.isValid()) {
-            search = Qt::yellow;
-        }
-        m_replaceHighlightColor = ciface->configValue(QStringLiteral("replace-highlight-color")).value<QColor>();
-        if (!m_replaceHighlightColor.isValid()) {
-            m_replaceHighlightColor = Qt::green;
-        }
-        QColor fg = view->defaultStyleAttribute(KTextEditor::dsNormal)->foreground().color();
+    auto *e = KTextEditor::Editor::instance();
+    const auto theme = e->theme();
 
-        if (!m_resultAttr) {
-            m_resultAttr = new KTextEditor::Attribute();
-        }
-        // reset colors at the start of search
-        m_resultAttr->clear();
-        m_resultAttr->setBackground(search);
-        m_resultAttr->setForeground(fg);
+    auto search = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::SearchHighlight));
+    auto replace = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::ReplaceHighlight));
+    auto fg = QColor::fromRgba(theme.textColor(KSyntaxHighlighting::Theme::Normal));
+
+    if (!m_resultAttr) {
+        m_resultAttr = new KTextEditor::Attribute();
     }
+    m_resultAttr->clear();
+    m_resultAttr->setBackground(search);
+    m_resultAttr->setForeground(fg);
+
+    m_replaceHighlightColor = replace;
 }
 
 // static QElapsedTimer s_timer;
@@ -1002,8 +999,6 @@ void KatePluginSearchView::startSearch()
     m_ui.searchCombo->setToolTip(QString());
 
     Q_EMIT searchBusy(true);
-
-    updateViewColors();
 
     m_curResults->searchStr = currentSearchText;
     m_curResults->regExp = reg;
@@ -1163,7 +1158,6 @@ void KatePluginSearchView::startSearchWhileTyping()
 
     // Now we should have a true typed text change
     m_isSearchAsYouType = true;
-    updateViewColors();
     clearMarksAndRanges();
 
     QString pattern = (m_ui.useRegExp->isChecked() ? currentSearchText : QRegularExpression::escape(currentSearchText));
@@ -1988,10 +1982,6 @@ void KatePluginSearchView::writeSessionConfig(KConfigGroup &cg)
 void KatePluginSearchView::addTab()
 {
     Results *res = new Results();
-
-    connect(res, &Results::colorsChanged, this, [this]() {
-        updateViewColors();
-    });
 
     res->treeView->setContextMenuPolicy(Qt::CustomContextMenu);
     res->treeView->setRootIsDecorated(false);

@@ -1,3 +1,9 @@
+/*
+    SPDX-FileCopyrightText: 2011-21 Kåre Särs <kare.sars@iki.fi>
+    SPDX-FileCopyrightText: 2022 Waqar Ahmed <waqar.17a@gmail.com>
+
+    SPDX-License-Identifier: LGPL-2.0-or-later
+*/
 #ifndef KATE_SEARCH_RESULTS_H
 #define KATE_SEARCH_RESULTS_H
 
@@ -36,9 +42,6 @@ public:
     QModelIndex lastMatch() const;
     KTextEditor::Range matchRange(const QModelIndex &matchIndex) const;
     bool replaceSingleMatch(KTextEditor::Document *doc, const QModelIndex &matchIndex, const QRegularExpression &regExp, const QString &replaceString);
-
-Q_SIGNALS:
-    void colorsChanged();
 };
 
 #endif

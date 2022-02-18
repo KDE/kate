@@ -40,5 +40,6 @@ target_sources(
     plugin_search.cpp
     search_open_files.cpp
     Results.cpp
+    ResultsTreeView.cpp
 )
 

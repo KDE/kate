@@ -5,7 +5,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#include "plugin_search.h"
+#include "SearchPlugin.h"
 #include "KateSearchCommand.h"
 #include "MatchExportDialog.h"
 #include "MatchProxyModel.h"
@@ -2362,6 +2362,6 @@ void KatePluginSearchView::slotProjectFileNameChanged()
     }
 }
 
-#include "plugin_search.moc"
+#include "SearchPlugin.moc"
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

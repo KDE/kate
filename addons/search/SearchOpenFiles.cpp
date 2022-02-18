@@ -4,7 +4,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#include "search_open_files.h"
+#include "SearchOpenFiles.h"
 
 SearchOpenFiles::SearchOpenFiles(QObject *parent)
     : QObject(parent)

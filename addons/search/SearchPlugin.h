@@ -27,7 +27,7 @@
 #include "FolderFilesList.h"
 #include "MatchModel.h"
 #include "SearchDiskFiles.h"
-#include "search_open_files.h"
+#include "SearchOpenFiles.h"
 
 class KateSearchCommand;
 class Results;

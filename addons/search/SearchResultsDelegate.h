@@ -10,12 +10,12 @@
 #include <QFont>
 #include <QStyledItemDelegate>
 
-class SPHtmlDelegate : public QStyledItemDelegate
+class SearchResultsDelegate : public QStyledItemDelegate
 {
     Q_OBJECT
 
 public:
-    explicit SPHtmlDelegate(QObject *parent);
+    explicit SearchResultsDelegate(QObject *parent);
 
     void paint(QPainter *, const QStyleOptionViewItem &, const QModelIndex &) const override;
     QSize sizeHint(const QStyleOptionViewItem &, const QModelIndex &) const override;

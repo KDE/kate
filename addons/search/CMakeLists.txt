@@ -35,10 +35,10 @@ target_sources(
     MatchModel.cpp
     MatchProxyModel.cpp
     SearchDiskFiles.cpp
-    htmldelegate.cpp
+    SearchResultsDelegate.cpp
     plugin.qrc
-    plugin_search.cpp
-    search_open_files.cpp
+    SearchPlugin.cpp
+    SearchOpenFiles.cpp
     Results.cpp
     ResultsTreeView.cpp
 )

@@ -7,7 +7,7 @@
 #include "Results.h"
 
 #include "MatchProxyModel.h"
-#include "htmldelegate.h"
+#include "SearchResultsDelegate.h"
 
 #include <KSyntaxHighlighting/Theme>
 #include <KTextEditor/Editor>
@@ -17,7 +17,7 @@ Results::Results(QWidget *parent)
 {
     setupUi(this);
 
-    treeView->setItemDelegate(new SPHtmlDelegate(treeView));
+    treeView->setItemDelegate(new SearchResultsDelegate(treeView));
 
     MatchProxyModel *proxy = new MatchProxyModel(this);
     proxy->setSourceModel(&matchModel);

@@ -5,7 +5,7 @@
 */
 
 #include "MatchExportDialog.h"
-#include "plugin_search.h"
+#include "SearchPlugin.h"
 
 #include <QAction>
 #include <QMenu>

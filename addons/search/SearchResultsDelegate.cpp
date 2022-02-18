@@ -4,7 +4,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#include "htmldelegate.h"
+#include "SearchResultsDelegate.h"
 #include "MatchModel.h"
 
 #include <KLocalizedString>
@@ -24,7 +24,7 @@
 // (which would not be the case with default QTextDocument margin)
 static const int s_ItemMargin = 1;
 
-SPHtmlDelegate::SPHtmlDelegate(QObject *parent)
+SearchResultsDelegate::SearchResultsDelegate(QObject *parent)
     : QStyledItemDelegate(parent)
 {
     const auto e = KTextEditor::Editor::instance();
@@ -54,7 +54,7 @@ static int lineNumAreaWidth(const QModelIndex &index, const QFontMetrics &fm)
     return fm.horizontalAdvance(lineCol);
 }
 
-void SPHtmlDelegate::paintMatchItem(QPainter *p, const QStyleOptionViewItem &opt, const QModelIndex &index) const
+void SearchResultsDelegate::paintMatchItem(QPainter *p, const QStyleOptionViewItem &opt, const QModelIndex &index) const
 {
     const KateSearchMatch match = index.data(MatchModel::MatchItem).value<KateSearchMatch>();
     const int line = match.range.start().line() + 1;
@@ -147,7 +147,7 @@ static bool isMatchItem(const QModelIndex &index)
     return index.parent().isValid() && index.parent().parent().isValid();
 }
 
-void SPHtmlDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
+void SearchResultsDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
     if (!index.isValid()) {
         QStyledItemDelegate::paint(painter, option, index);
@@ -189,7 +189,7 @@ void SPHtmlDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option
     }
 }
 
-QSize SPHtmlDelegate::sizeHint(const QStyleOptionViewItem &opt, const QModelIndex &index) const
+QSize SearchResultsDelegate::sizeHint(const QStyleOptionViewItem &opt, const QModelIndex &index) const
 {
     QSize s = QStyledItemDelegate::sizeHint(opt, index);
     QFontMetrics fm(m_font);

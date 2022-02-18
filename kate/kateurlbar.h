@@ -22,7 +22,9 @@ Q_SIGNALS:
 private:
     void onViewChanged(KTextEditor::View *v);
     void updateForDocument(KTextEditor::Document *doc);
-    class BreadCrumbView *m_breadCrumbView;
+    class QStackedWidget *const m_stack;
+    class BreadCrumbView *const m_breadCrumbView;
+    class QLabel *const m_untitledDocLabel;
 
     // document for which the url bar is currently active
     // might be nullptr

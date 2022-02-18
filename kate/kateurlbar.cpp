@@ -9,6 +9,7 @@
 #include <KTextEditor/Document>
 #include <KTextEditor/View>
 
+#include <KLocalizedString>
 #include <QAbstractListModel>
 #include <QAction>
 #include <QApplication>
@@ -22,6 +23,7 @@
 #include <QMimeDatabase>
 #include <QPainter>
 #include <QScrollBar>
+#include <QStackedWidget>
 #include <QStandardItemModel>
 #include <QStyledItemDelegate>
 #include <QToolButton>
@@ -429,16 +431,20 @@ Q_SIGNALS:
 
 KateUrlBar::KateUrlBar(KateViewSpace *parent)
     : QWidget(parent)
+    , m_stack(new QStackedWidget(this))
+    , m_breadCrumbView(new BreadCrumbView(this))
+    , m_untitledDocLabel(new QLabel(this))
 {
     setFixedHeight(24);
     setContentsMargins({});
 
+    m_stack->addWidget(m_untitledDocLabel);
+    m_stack->addWidget(m_breadCrumbView);
+
     auto *layout = new QHBoxLayout(this);
     layout->setContentsMargins({});
     layout->setSpacing(0);
-
-    m_breadCrumbView = new BreadCrumbView(this);
-    layout->addWidget(m_breadCrumbView);
+    layout->addWidget(m_stack);
 
     auto *vm = parent->viewManger();
     connect(vm, &KateViewManager::viewChanged, this, &KateUrlBar::onViewChanged);
@@ -463,7 +469,8 @@ void KateUrlBar::onViewChanged(KTextEditor::View *v)
 {
     if (!v) {
         updateForDocument(nullptr);
-        hide();
+        m_untitledDocLabel->setText(i18n("Untitled"));
+        m_stack->setCurrentWidget(m_untitledDocLabel);
         return;
     }
 
@@ -484,21 +491,23 @@ void KateUrlBar::updateForDocument(KTextEditor::Document *doc)
     // we want to watch for url changed
     connect(m_currentDoc, &KTextEditor::Document::documentUrlChanged, this, &KateUrlBar::updateForDocument);
 
+    if (m_currentDoc->url().isEmpty() || !m_currentDoc->url().isLocalFile()) {
+        m_untitledDocLabel->setText(m_currentDoc->documentName());
+        m_stack->setCurrentWidget(m_untitledDocLabel);
+        return;
+    }
+
+    if (m_stack->currentWidget() != m_breadCrumbView) {
+        m_stack->setCurrentWidget(m_breadCrumbView);
+    }
+
     auto *vm = static_cast<KateViewSpace *>(parentWidget())->viewManger();
     if (vm && !vm->showUrlNavBar()) {
         return;
     }
 
     const auto url = doc->url();
-    if (url.isEmpty() || !url.isLocalFile()) {
-        hide();
-        return;
-    }
-
     m_breadCrumbView->setUrl(url);
-
-    if (isHidden())
-        show();
 }
 
 #include "kateurlbar.moc"

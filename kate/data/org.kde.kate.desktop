@@ -186,6 +186,7 @@ X-DBUS-StartupType=Multi
 X-DBUS-ServiceName=org.kde.kate
 Categories=Qt;KDE;Utility;TextEditor;Development;
 Keywords=text;txt;editor;programming;programmer;development;developer;code;
+Keywords[ar]=نص;نصوص;محرر;تطوير;برمجة;مبرمج;كود;
 Keywords[az]=mətn;txt;redaktor;proqramlaşdırılma;proqramlayıcı;tərtibat;tərtibatçı;kod;
 Keywords[ca]=text;txt;editor;programació;programador;desenvolupament;desenvolupador;codi;
 Keywords[ca@valencia]=text;txt;editor;programació;programador;desenvolupament;desenvolupador;codi;

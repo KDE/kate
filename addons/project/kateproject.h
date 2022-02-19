@@ -10,8 +10,9 @@
 
 #include "kateprojectindex.h"
 #include "kateprojectitem.h"
+
 #include <KTextEditor/ModificationInterface>
-#include <QDateTime>
+
 #include <QHash>
 #include <QSharedPointer>
 #include <QTextDocument>
@@ -42,9 +43,25 @@ class KateProject : public QObject
 
 public:
     /**
-     * construct empty project
+     * Construct project by reading from given file.
+     * Success can be checked later by using isValid().
+     *
+     * @param threadPool thread pool to be used by worker threads
+     * @param plugin our plugin instance, for config & file system watcher
+     * @param fileName fileName to load the project from
      */
-    KateProject(QThreadPool &threadPool, KateProjectPlugin *plugin);
+    KateProject(QThreadPool &threadPool, KateProjectPlugin *plugin, const QString &fileName);
+
+    /**
+     * Construct project from given data for given base directory
+     * Success can be checked later by using isValid().
+     *
+     * @param threadPool thread pool to be used by worker threads
+     * @param plugin our plugin instance, for config & file system watcher
+     * @param globalProject globalProject object content
+     * @param directory project base directory
+     */
+    KateProject(QThreadPool &threadPool, KateProjectPlugin *plugin, const QVariantMap &globalProject, const QString &directory);
 
     /**
      * deconstruct project
@@ -52,13 +69,13 @@ public:
     ~KateProject() override;
 
     /**
-     * Load a project from project file
-     * Only works once, afterwards use reload().
-     * @param fileName name of project file
-     * @return success
+     * Is this project valid?
+     * @return project valid? we are valid, if we have some name set
      */
-    bool loadFromFile(const QString &fileName);
-    bool loadFromData(const QVariantMap &globalProject, const QString &directory);
+    bool isValid() const
+    {
+        return !name().isEmpty();
+    }
 
     /**
      * Try to reload a project.
@@ -88,15 +105,6 @@ public:
     }
 
     /**
-     * Return the time when the project file has been modified last.
-     * @return QFileInfo::lastModified()
-     */
-    QDateTime fileLastModified() const
-    {
-        return m_fileLastModified;
-    }
-
-    /**
      * Accessor to project map containing the whole project info.
      * @return project info
      */
@@ -111,7 +119,6 @@ public:
      */
     QString name() const
     {
-        // MSVC doesn't support QStringLiteral here
         return m_projectMap[QStringLiteral("name")].toString();
     }
 
@@ -270,14 +277,19 @@ private:
 
 private:
     /**
-     * Last modification time of the project file
+     * thread pool used for project worker
      */
-    QDateTime m_fileLastModified;
+    QThreadPool &m_threadPool;
 
     /**
-     * project file name
+     * Project plugin (configuration)
      */
-    QString m_fileName;
+    KateProjectPlugin * const m_plugin;
+
+    /**
+     * project file name, will stay constant
+     */
+    const QString m_fileName;
 
     /**
      * base directory of the project
@@ -312,7 +324,7 @@ private:
     /**
      * notes buffer for project local notes
      */
-    QTextDocument *m_notesDocument;
+    QTextDocument *m_notesDocument = nullptr;
 
     /**
      * Set of existing documents for this project.
@@ -322,22 +334,12 @@ private:
     /**
      * Parent item for existing documents that are not in the project tree
      */
-    QStandardItem *m_untrackedDocumentsRoot;
-
-    /**
-     * thread pool used for project worker
-     */
-    QThreadPool &m_threadPool;
+    QStandardItem *m_untrackedDocumentsRoot = nullptr;
 
     /**
      * project configuration (read from file or injected)
      */
     QVariantMap m_globalProject;
-
-    /**
-     * Project plugin (configuration)
-     */
-    KateProjectPlugin *m_plugin;
 };
 
 #endif

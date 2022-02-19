@@ -145,8 +145,8 @@ KTextEditor::ConfigPage *KateProjectPlugin::configPage(int number, QWidget *pare
 
 KateProject *KateProjectPlugin::createProjectForFileName(const QString &fileName)
 {
-    KateProject *project = new KateProject(m_threadPool, this);
-    if (!project->loadFromFile(fileName)) {
+    KateProject *project = new KateProject(m_threadPool, this, fileName);
+    if (!project->isValid()) {
         delete project;
         return nullptr;
     }
@@ -346,8 +346,7 @@ KateProject *KateProjectPlugin::createProjectForRepository(const QString &type, 
     cnf[QStringLiteral("name")] = dir.dirName();
     cnf[QStringLiteral("files")] = (QVariantList() << files);
 
-    KateProject *project = new KateProject(m_threadPool, this);
-    project->loadFromData(cnf, dir.canonicalPath());
+    KateProject *project = new KateProject(m_threadPool, this, cnf, dir.canonicalPath());
 
     m_projects.append(project);
 
@@ -362,8 +361,7 @@ KateProject *KateProjectPlugin::createProjectForDirectory(const QDir &dir)
     cnf[QStringLiteral("name")] = dir.dirName();
     cnf[QStringLiteral("files")] = (QVariantList() << files);
 
-    KateProject *project = new KateProject(m_threadPool, this);
-    project->loadFromData(cnf, dir.canonicalPath());
+    KateProject *project = new KateProject(m_threadPool, this, cnf, dir.canonicalPath());
 
     m_projects.append(project);
 

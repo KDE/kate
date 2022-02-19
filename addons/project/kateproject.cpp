@@ -25,14 +25,34 @@
 #include <QPlainTextDocumentLayout>
 #include <utility>
 
-KateProject::KateProject(QThreadPool &threadPool, KateProjectPlugin *plugin)
-    : m_notesDocument(nullptr)
-    , m_untrackedDocumentsRoot(nullptr)
-    , m_threadPool(threadPool)
+KateProject::KateProject(QThreadPool &threadPool, KateProjectPlugin *plugin, const QString &fileName)
+    : m_threadPool(threadPool)
     , m_plugin(plugin)
+    , m_fileName(QFileInfo(fileName).canonicalFilePath())
+    , m_baseDir(QFileInfo(fileName).canonicalPath())
 {
+
+    // if canonicalFilePath already returned empty string, no need to try to load this
+    if (m_fileName.isEmpty()) {
+        return;
+    }
+
     // ensure we get notified for project file changes
     connect(&m_plugin->fileWatcher(), &QFileSystemWatcher::fileChanged, this, &KateProject::slotFileChanged);
+    m_plugin->fileWatcher().addPath(m_fileName);
+
+    // try to load the project map from our file, will start worker thread, too
+    reload();
+}
+
+KateProject::KateProject(QThreadPool &threadPool, KateProjectPlugin *plugin, const QVariantMap &globalProject, const QString &directory)
+: m_threadPool(threadPool)
+, m_plugin(plugin)
+, m_baseDir(directory)
+, m_globalProject(globalProject)
+{
+    // try to load the project map, will start worker thread, too
+    load(globalProject);
 }
 
 KateProject::~KateProject()
@@ -45,38 +65,10 @@ KateProject::~KateProject()
     }
 }
 
-bool KateProject::loadFromFile(const QString &fileName)
-{
-    // stop watching if we have some real project file
-    if (!m_fileName.isEmpty()) {
-        m_plugin->fileWatcher().removePath(m_fileName);
-    }
-
-    /**
-     * set new filename and base directory
-     */
-    const QFileInfo fi(fileName);
-    m_fileName = fi.canonicalFilePath();
-    m_baseDir = fi.canonicalPath();
-
-    // start watching if we have some real project file
-    if (!m_fileName.isEmpty()) {
-        m_plugin->fileWatcher().addPath(m_fileName);
-    }
-
-    /**
-     * trigger reload
-     */
-    return reload();
-}
-
 bool KateProject::reload(bool force)
 {
     const QVariantMap map = readProjectFile();
-    if (map.isEmpty()) {
-        m_fileLastModified = QDateTime();
-    } else {
-        m_fileLastModified = QFileInfo(m_fileName).lastModified();
+    if (!map.isEmpty()) {
         m_globalProject = map;
     }
 
@@ -178,19 +170,6 @@ QVariantMap KateProject::readProjectFile() const
     }
 
     return project.toVariant().toMap();
-}
-
-bool KateProject::loadFromData(const QVariantMap &globalProject, const QString &directory)
-{
-    // stop watching if we have some real project file
-    if (!m_fileName.isEmpty()) {
-        m_plugin->fileWatcher().removePath(m_fileName);
-    }
-
-    m_fileName.clear();
-    m_baseDir = directory;
-    m_globalProject = globalProject;
-    return load(globalProject);
 }
 
 bool KateProject::load(const QVariantMap &globalProject, bool force)

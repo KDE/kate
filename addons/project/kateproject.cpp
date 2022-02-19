@@ -31,7 +31,6 @@ KateProject::KateProject(QThreadPool &threadPool, KateProjectPlugin *plugin, con
     , m_fileName(QFileInfo(fileName).canonicalFilePath())
     , m_baseDir(QFileInfo(fileName).canonicalPath())
 {
-
     // if canonicalFilePath already returned empty string, no need to try to load this
     if (m_fileName.isEmpty()) {
         return;
@@ -46,10 +45,10 @@ KateProject::KateProject(QThreadPool &threadPool, KateProjectPlugin *plugin, con
 }
 
 KateProject::KateProject(QThreadPool &threadPool, KateProjectPlugin *plugin, const QVariantMap &globalProject, const QString &directory)
-: m_threadPool(threadPool)
-, m_plugin(plugin)
-, m_baseDir(directory)
-, m_globalProject(globalProject)
+    : m_threadPool(threadPool)
+    , m_plugin(plugin)
+    , m_baseDir(directory)
+    , m_globalProject(globalProject)
 {
     // try to load the project map, will start worker thread, too
     load(globalProject);

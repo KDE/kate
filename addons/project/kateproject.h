@@ -284,7 +284,7 @@ private:
     /**
      * Project plugin (configuration)
      */
-    KateProjectPlugin * const m_plugin;
+    KateProjectPlugin *const m_plugin;
 
     /**
      * project file name, will stay constant

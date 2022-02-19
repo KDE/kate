@@ -451,7 +451,7 @@ class LSPClientActionView : public QObject
     QScopedPointer<LSPClientCompletion> m_completion;
     QScopedPointer<LSPClientHover> m_hover;
     QScopedPointer<KTextEditor::TextHintProvider> m_forwardHover;
-    QScopedPointer<QObject> m_symbolView;
+    QScopedPointer<LSPClientSymbolView> m_symbolView;
 
     QPointer<QAction> m_findDef;
     QPointer<QAction> m_findDecl;
@@ -2917,6 +2917,11 @@ public:
             m_hoverViews.remove(view);
         }
     }
+
+    QAbstractItemModel *documentSymbolsModel()
+    {
+        return m_symbolView->documentSymbolsModel();
+    }
 };
 
 class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient, public KTextEditor::SessionConfigInterface
@@ -2967,6 +2972,11 @@ public:
     void writeSessionConfig(KConfigGroup &config) override
     {
         m_actionView->sessionDiagnosticSuppressions().writeSessionConfig(config);
+    }
+
+    Q_INVOKABLE QAbstractItemModel *documentSymbolsModel()
+    {
+        return m_actionView->documentSymbolsModel();
     }
 
 Q_SIGNALS:

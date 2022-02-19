@@ -17,6 +17,7 @@
 
 #include <QHBoxLayout>
 #include <QHeaderView>
+#include <QIdentityProxyModel>
 #include <QMenu>
 #include <QPointer>
 #include <QStandardItemModel>
@@ -27,6 +28,9 @@
 #include <utility>
 
 #include <kfts_fuzzy_match.h>
+
+// TODO: Make this globally available in shared/
+enum SymbolViewRoles { SymbolRange = Qt::UserRole, ScoreRole, IsPlaceholder };
 
 class LSPClientViewTrackerImpl : public LSPClientViewTracker
 {
@@ -133,8 +137,8 @@ protected:
             return QSortFilterProxyModel::lessThan(sourceLeft, sourceRight);
         }
 
-        const int l = sourceLeft.data(WeightRole).toInt();
-        const int r = sourceRight.data(WeightRole).toInt();
+        const int l = sourceLeft.data(SymbolViewRoles::ScoreRole).toInt();
+        const int r = sourceRight.data(SymbolViewRoles::ScoreRole).toInt();
         return l < r;
     }
 
@@ -148,13 +152,24 @@ protected:
         const auto idx = sourceModel()->index(sourceRow, 0, sourceParent);
         const QString symbol = idx.data().toString();
         const bool res = kfts::fuzzy_match(m_pattern, symbol, score);
-        sourceModel()->setData(idx, score, WeightRole);
+        sourceModel()->setData(idx, score, SymbolViewRoles::ScoreRole);
         return res;
     }
 
 private:
     QString m_pattern;
-    static constexpr int WeightRole = Qt::UserRole + 1;
+};
+
+class SymbolViewProxyModel : public QIdentityProxyModel
+{
+    Q_OBJECT
+public:
+    using QIdentityProxyModel::QIdentityProxyModel;
+
+    int columnCount(const QModelIndex &) const override
+    {
+        return 1;
+    }
 };
 
 /*
@@ -201,6 +216,8 @@ class LSPClientSymbolViewImpl : public QObject, public LSPClientSymbolView
     // filter model, setup once
     LSPClientSymbolViewFilterProxyModel m_filterModel;
 
+    SymbolViewProxyModel *m_identityModel;
+
     // cached icons for model
     const QIcon m_icon_pkg = QIcon::fromTheme(QStringLiteral("code-block"));
     const QIcon m_icon_class = QIcon::fromTheme(QStringLiteral("code-class"));
@@ -214,6 +231,7 @@ public:
         , m_mainWindow(mainWin)
         , m_serverManager(std::move(manager))
         , m_outline(new QStandardItemModel())
+        , m_identityModel(new SymbolViewProxyModel(this))
     {
         m_toolview.reset(m_mainWindow->createToolView(plugin,
                                                       QStringLiteral("lspclient_symbol_outline"),
@@ -248,6 +266,8 @@ public:
         m_filterModel.setRecursiveFilteringEnabled(true);
         m_symbols->setModel(&m_filterModel);
         delete m;
+
+        m_identityModel->setSourceModel(m_outline.get());
 
         connect(m_symbols, &QTreeView::customContextMenuRequested, this, &self_type::showContextMenu);
         connect(m_symbols, &QTreeView::activated, this, &self_type::goToSymbol);
@@ -375,7 +395,7 @@ public:
             auto detail = show_detail && !symbol.detail.isEmpty() ? QStringLiteral(" [%1]").arg(symbol.detail) : QString();
             node->setText(symbol.name + detail);
             node->setIcon(*icon);
-            node->setData(QVariant::fromValue<KTextEditor::Range>(symbol.range), Qt::UserRole);
+            node->setData(QVariant::fromValue<KTextEditor::Range>(symbol.range), SymbolViewRoles::SymbolRange);
             static const QChar prefix = QChar::fromLatin1('0');
             line->setText(QStringLiteral("%1").arg(symbol.range.start().line(), 7, 10, prefix));
             // recurse children
@@ -407,7 +427,9 @@ public:
                 m_models[0].model = newModel;
             }
         } else {
-            newModel->appendRow(new QStandardItem(problem));
+            auto item = new QStandardItem(problem);
+            item->setData(true, SymbolViewRoles::IsPlaceholder);
+            newModel->appendRow(item);
         }
 
         // cache detail info with model
@@ -459,6 +481,8 @@ public:
 
         // current item tracking
         updateCurrentTreeItem();
+
+        m_identityModel->setSourceModel(m_outline.get());
     }
 
     void refresh(bool clear, bool allow_cache = true, int retry = 0)
@@ -559,7 +583,7 @@ public:
         }
 
         // does the line match our item?
-        return item->data(Qt::UserRole).value<KTextEditor::Range>().overlapsLine(line) ? item : nullptr;
+        return item->data(SymbolViewRoles::SymbolRange).value<KTextEditor::Range>().overlapsLine(line) ? item : nullptr;
     }
 
     void updateCurrentTreeItem()
@@ -588,10 +612,15 @@ public:
     void goToSymbol(const QModelIndex &index)
     {
         KTextEditor::View *kv = m_mainWindow->activeView();
-        const auto range = index.data(Qt::UserRole).value<KTextEditor::Range>();
+        const auto range = index.data(SymbolViewRoles::SymbolRange).value<KTextEditor::Range>();
         if (kv && range.isValid()) {
             kv->setCursorPosition(range.start());
         }
+    }
+
+    QAbstractItemModel *documentSymbolsModel() override
+    {
+        return m_identityModel;
     }
 
 private Q_SLOTS:
@@ -619,9 +648,11 @@ private Q_SLOTS:
     }
 };
 
-QObject *LSPClientSymbolView::new_(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin, QSharedPointer<LSPClientServerManager> manager)
+LSPClientSymbolView *LSPClientSymbolView::new_(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin, QSharedPointer<LSPClientServerManager> manager)
 {
     return new LSPClientSymbolViewImpl(plugin, mainWin, std::move(manager));
 }
+
+LSPClientSymbolView::~LSPClientSymbolView() = default;
 
 #include "lspclientsymbolview.moc"

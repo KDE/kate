@@ -18,6 +18,7 @@ public:
     void open();
 
     class KateViewManager *viewManager();
+    class KateViewSpace *viewSpace();
 
 private:
     void setupLayout();

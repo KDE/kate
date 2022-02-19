@@ -17,7 +17,11 @@ class LSPClientSymbolView
 {
 public:
     // only needs a factory; no other public interface
-    static QObject *new_(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin, QSharedPointer<LSPClientServerManager> manager);
+    static LSPClientSymbolView *new_(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin, QSharedPointer<LSPClientServerManager> manager);
+
+    virtual ~LSPClientSymbolView();
+
+    virtual class QAbstractItemModel *documentSymbolsModel() = 0;
 };
 
 class LSPClientViewTracker : public QObject

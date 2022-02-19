@@ -33,6 +33,7 @@
 #include <QStyledItemDelegate>
 #include <QTimer>
 #include <QToolButton>
+#include <QTreeView>
 #include <QUrl>
 
 class DirFilesModel : public QAbstractListModel
@@ -213,10 +214,124 @@ private:
     DirFilesModel m_model;
 };
 
-enum BreadCrumbRole {
-    PathRole = Qt::UserRole + 1,
-    IsSeparator = Qt::UserRole + 2,
+class SymbolsTreeView : public QMenu
+{
+    Q_OBJECT
+public:
+    // Copied from LSPClientSymbolView
+    enum Role {
+        SymbolRange = Qt::UserRole,
+        ScoreRole, //> Unused here
+        IsPlaceholder
+    };
+    SymbolsTreeView(QWidget *parent)
+        : QMenu(parent)
+        , m_tree(new QTreeView(this))
+    {
+        m_tree->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        m_tree->setFrameStyle(QFrame::NoFrame);
+        m_tree->setUniformRowHeights(true);
+        m_tree->setHeaderHidden(true);
+        m_tree->setTextElideMode(Qt::ElideRight);
+
+        auto *l = new QVBoxLayout(this);
+        l->setContentsMargins({});
+        l->addWidget(m_tree);
+        setFocusProxy(m_tree);
+        m_tree->installEventFilter(this);
+        m_tree->viewport()->installEventFilter(this);
+
+        connect(m_tree, &QTreeView::clicked, this, &SymbolsTreeView::onClicked);
+    }
+
+    void setSymbolsModel(QAbstractItemModel *model, KTextEditor::View *v, const QString &text)
+    {
+        m_activeView = v;
+        m_tree->setModel(model);
+        m_tree->expandAll();
+        const auto idxToSelect = model->match(model->index(0, 0), 0, text, 1, Qt::MatchExactly);
+        if (!idxToSelect.isEmpty()) {
+            m_tree->setCurrentIndex(idxToSelect.constFirst());
+        }
+        updateGeometry();
+    }
+
+    bool eventFilter(QObject *o, QEvent *e) override
+    {
+        // Handling via event filter is necessary to bypass
+        // QTreeView's own key event handling
+        if (e->type() == QEvent::KeyPress) {
+            if (handleKeyPressEvent(static_cast<QKeyEvent *>(e))) {
+                return true;
+            }
+        }
+
+        return QMenu::eventFilter(o, e);
+    }
+
+    bool handleKeyPressEvent(QKeyEvent *ke)
+    {
+        if (ke->key() == Qt::Key_Enter || ke->key() == Qt::Key_Return) {
+            onClicked(m_tree->currentIndex());
+            return true;
+        } else if (ke->key() == Qt::Key_Left) {
+            hide();
+            Q_EMIT navigateLeftRight(ke->key());
+            return false;
+        } else if (ke->key() == Qt::Key_Escape) {
+            hide();
+            ke->accept();
+            return true;
+            ;
+        }
+        return false;
+    }
+
+    void updateGeometry()
+    {
+        const auto *model = m_tree->model();
+        const int rows = model->rowCount();
+        const int rowHeight = m_tree->sizeHintForRow(0);
+        const int maxHeight = rows * rowHeight;
+
+        setFixedSize(350, qMin(600, maxHeight));
+    }
+
+    void onClicked(const QModelIndex &idx)
+    {
+        const auto range = idx.data(SymbolRange).value<KTextEditor::Range>();
+        if (range.isValid()) {
+            m_activeView->setCursorPosition(range.start());
+        }
+        hide();
+    }
+
+    static QModelIndex symbolForCurrentLine(QAbstractItemModel *model, const QModelIndex &index, int line)
+    {
+        const int rowCount = model->rowCount(index);
+        for (int i = 0; i < rowCount; ++i) {
+            const auto idx = model->index(i, 0, index);
+            if (idx.data(SymbolRange).value<KTextEditor::Range>().overlapsLine(line)) {
+                return idx;
+            } else if (model->hasChildren(idx)) {
+                const auto childIdx = symbolForCurrentLine(model, idx, line);
+                if (childIdx.isValid()) {
+                    return childIdx;
+                }
+            }
+        }
+        return {};
+    }
+
+private:
+    QTreeView *m_tree;
+    QPointer<KTextEditor::View> m_activeView;
+
+Q_SIGNALS:
+    void navigateLeftRight(int key);
 };
+
+enum BreadCrumbRole { PathRole = Qt::UserRole + 1, IsSeparator, IsSymbolCrumb };
 
 class BreadCrumbDelegate : public QStyledItemDelegate
 {
@@ -301,6 +416,8 @@ public:
         const auto &dirs = res;
 
         m_model.clear();
+        m_symbolsModel = nullptr;
+
         int i = 0;
         for (const auto &dir : dirs) {
             auto item = new QStandardItem(dir.name);
@@ -319,6 +436,118 @@ public:
             }
             i++;
         }
+
+        auto *mainWindow = m_urlBar->viewManager()->mainWindow();
+        QPointer<QObject> lsp = mainWindow->pluginView(QStringLiteral("lspclientplugin"));
+        if (lsp) {
+            addSymbolCrumb(lsp);
+        }
+    }
+
+    void addSymbolCrumb(QObject *lsp)
+    {
+        QAbstractItemModel *model;
+        QMetaObject::invokeMethod(lsp, "documentSymbolsModel", Q_RETURN_ARG(QAbstractItemModel *, model));
+        m_symbolsModel = model;
+        if (!model) {
+            return;
+        }
+
+        connect(m_symbolsModel, &QAbstractItemModel::modelReset, this, &BreadCrumbView::updateSymbolsCrumb);
+
+        if (model->rowCount({}) == 0) {
+            return;
+        }
+
+        const auto view = m_urlBar->viewManager()->activeView();
+        disconnect(m_connToView);
+        if (view) {
+            m_connToView = connect(view, &KTextEditor::View::cursorPositionChanged, this, &BreadCrumbView::updateSymbolsCrumb);
+        }
+
+        const auto idx = getSymbolCrumbText();
+        if (!idx.isValid()) {
+            return;
+        }
+
+        // Add separator
+        auto sep = new QStandardItem(QIcon::fromTheme(QStringLiteral("arrow-right")), {});
+        sep->setSelectable(false);
+        sep->setData(true, BreadCrumbRole::IsSeparator);
+        m_model.appendRow(sep);
+
+        const auto icon = idx.data(Qt::DecorationRole).value<QIcon>();
+        const auto text = idx.data().toString();
+        auto *item = new QStandardItem(icon, text);
+        item->setData(true, BreadCrumbRole::IsSymbolCrumb);
+        m_model.appendRow(item);
+    }
+
+    void updateSymbolsCrumb()
+    {
+        QStandardItem *item = m_model.item(m_model.rowCount() - 1, 0);
+
+        if (!m_urlBar->viewSpace()->isActiveSpace()) {
+            if (item && item->data(BreadCrumbRole::IsSymbolCrumb).toBool()) {
+                // we are not active viewspace, remove the symbol + separator from breadcrumb
+                // This is important as LSP only gives us symbols for the current active view
+                // which atm is in some other viewspace.
+                // In future we might want to extend LSP to provide us models for documents
+                // but for now this will do.
+                qDeleteAll(m_model.takeRow(m_model.rowCount() - 1));
+                qDeleteAll(m_model.takeRow(m_model.rowCount() - 1));
+            }
+            return;
+        }
+
+        const auto idx = getSymbolCrumbText();
+        if (!idx.isValid()) {
+            return;
+        }
+
+        if (!item || !item->data(BreadCrumbRole::IsSymbolCrumb).toBool()) {
+            // Add separator
+            auto sep = new QStandardItem(QIcon::fromTheme(QStringLiteral("arrow-right")), {});
+            sep->setSelectable(false);
+            sep->setData(true, BreadCrumbRole::IsSeparator);
+            m_model.appendRow(sep);
+
+            item = new QStandardItem;
+            m_model.appendRow(item);
+            item->setData(true, BreadCrumbRole::IsSymbolCrumb);
+        }
+
+        const auto text = idx.data().toString();
+        const auto icon = idx.data(Qt::DecorationRole).value<QIcon>();
+        item->setText(text);
+        item->setIcon(icon);
+    }
+
+    QModelIndex getSymbolCrumbText()
+    {
+        if (!m_symbolsModel) {
+            return {};
+        }
+
+        QModelIndex first = m_symbolsModel->index(0, 0);
+        if (first.data(SymbolsTreeView::IsPlaceholder).toBool()) {
+            return {};
+        }
+
+        const auto view = m_urlBar->viewSpace()->currentView();
+        int line = view ? view->cursorPosition().line() : 0;
+
+        QModelIndex idx;
+        if (line > 0) {
+            idx = SymbolsTreeView::symbolForCurrentLine(m_symbolsModel, idx, line);
+        } else {
+            idx = first;
+        }
+
+        if (!idx.isValid()) {
+            idx = first;
+        }
+        return idx;
     }
 
     static bool IsSeparator(const QModelIndex &idx)
@@ -342,6 +571,24 @@ public:
 
     void onClicked(const QModelIndex &idx)
     {
+        // Clicked on the symbol?
+        if (m_symbolsModel && idx.data(BreadCrumbRole::IsSymbolCrumb).toBool()) {
+            auto activeView = m_urlBar->viewSpace()->currentView();
+            if (!activeView) {
+                // View must be there
+                return;
+            }
+            SymbolsTreeView t(this);
+            connect(&t, &SymbolsTreeView::navigateLeftRight, this, [this](int k) {
+                onNavigateLeftRight(k, true);
+            });
+            const QString symbolName = idx.data().toString();
+            t.setSymbolsModel(m_symbolsModel, activeView, symbolName);
+            const auto pos = mapToGlobal(rectForIndex(idx).bottomLeft());
+            t.setFocus();
+            t.exec(pos);
+        }
+
         auto path = idx.data(BreadCrumbRole::PathRole).toString();
         if (path.isEmpty()) {
             return;
@@ -427,6 +674,8 @@ private:
 
     KateUrlBar *const m_urlBar;
     QStandardItemModel m_model;
+    QPointer<QAbstractItemModel> m_symbolsModel;
+    QMetaObject::Connection m_connToView; // Only one conn at a time
 
 Q_SIGNALS:
     void unsetFocus();
@@ -554,6 +803,11 @@ KateViewManager *KateUrlBar::viewManager()
     return m_parentViewSpace->viewManger();
 }
 
+KateViewSpace *KateUrlBar::viewSpace()
+{
+    return m_parentViewSpace;
+}
+
 void KateUrlBar::setupLayout()
 {
     // Setup the stacked widget
@@ -569,6 +823,13 @@ void KateUrlBar::setupLayout()
 
 void KateUrlBar::onViewChanged(KTextEditor::View *v)
 {
+    // We are not active but we have a doc? => don't do anything
+    // we check for a doc because we want to update the KateUrlBar
+    // when kate starts
+    if (!viewSpace()->isActiveSpace() && m_currentDoc) {
+        return;
+    }
+
     if (!v) {
         updateForDocument(nullptr);
         m_untitledDocLabel->setText(i18n("Untitled"));
@@ -607,6 +868,7 @@ void KateUrlBar::updateForDocument(KTextEditor::Document *doc)
     if (vm && !vm->showUrlNavBar()) {
         return;
     }
+
     m_urlBarView->setUrl(doc->url());
 }
 

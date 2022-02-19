@@ -141,6 +141,7 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent, cons
         m_viewManager->openUrl(url);
     });
     layout->addWidget(m_urlBar);
+    m_urlBar->setFixedHeight(m_historyBack->height());
 
     stack = new QStackedWidget(this);
     stack->setFocus();

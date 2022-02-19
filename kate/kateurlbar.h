@@ -17,19 +17,24 @@ public:
     explicit KateUrlBar(KateViewSpace *parent = nullptr);
     void open();
 
-Q_SIGNALS:
-    void openUrlRequested(const QUrl &url, Qt::KeyboardModifiers);
+    class KateViewManager *viewManager();
 
 private:
+    void setupLayout();
+
     void onViewChanged(KTextEditor::View *v);
     void updateForDocument(KTextEditor::Document *doc);
     class QStackedWidget *const m_stack;
-    class BreadCrumbView *const m_breadCrumbView;
+    class UrlbarContainer *const m_urlBarView;
     class QLabel *const m_untitledDocLabel;
+    class KateViewSpace *m_parentViewSpace;
 
     // document for which the url bar is currently active
     // might be nullptr
     QPointer<KTextEditor::Document> m_currentDoc;
+
+Q_SIGNALS:
+    void openUrlRequested(const QUrl &url, Qt::KeyboardModifiers);
 };
 
 #endif

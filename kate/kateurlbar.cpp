@@ -11,6 +11,7 @@
 #include <KTextEditor/Document>
 #include <KTextEditor/View>
 
+#include <KActionCollection>
 #include <KColorScheme>
 #include <KLocalizedString>
 
@@ -30,6 +31,7 @@
 #include <QStackedWidget>
 #include <QStandardItemModel>
 #include <QStyledItemDelegate>
+#include <QTimer>
 #include <QToolButton>
 #include <QUrl>
 
@@ -257,8 +259,8 @@ class BreadCrumbView : public QListView
 {
     Q_OBJECT
 public:
-    BreadCrumbView(KateUrlBar *urlBar)
-        : QListView(urlBar)
+    BreadCrumbView(QWidget *parent, KateUrlBar *urlBar)
+        : QListView(parent)
         , m_urlBar(urlBar)
     {
         setFlow(QListView::LeftToRight);
@@ -430,22 +432,102 @@ Q_SIGNALS:
     void unsetFocus();
 };
 
+class UrlbarContainer : public QWidget
+{
+    Q_OBJECT
+public:
+    UrlbarContainer(KateUrlBar *parent)
+        : QWidget(parent)
+        , m_urlBar(parent)
+        , m_breadCrumbView(new BreadCrumbView(this, parent))
+        , m_currBranchBtn(new QToolButton(this))
+        , m_infoLabel(new QLabel(this))
+    {
+        // UrlBar
+        auto urlBarLayout = new QHBoxLayout(this);
+        urlBarLayout->setSpacing(0);
+        urlBarLayout->setContentsMargins({});
+        urlBarLayout->addWidget(m_currBranchBtn);
+        urlBarLayout->addSpacing(2);
+        urlBarLayout->addWidget(m_breadCrumbView);
+        urlBarLayout->addWidget(m_infoLabel);
+
+        setFocusProxy(m_breadCrumbView);
+
+        setupCurrentBranchButton();
+
+        connect(m_breadCrumbView, &BreadCrumbView::unsetFocus, this, [this] {
+            m_urlBar->viewManager()->activeView()->setFocus();
+        });
+    }
+
+    void paintEvent(QPaintEvent *e) override
+    {
+        QWidget::paintEvent(e);
+
+        const int topX = x() + m_currBranchBtn->width();
+        const int topY = y();
+
+        const int bottomX = topX;
+        const int bottomY = topY + height();
+
+        QPainter p(this);
+        p.setPen(palette().color(QPalette::Disabled, QPalette::Text));
+        p.drawLine(topX, topY, bottomX, bottomY);
+    }
+
+    void setupCurrentBranchButton()
+    {
+        m_currBranchBtn->setAutoRaise(true);
+        m_currBranchBtn->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+
+        QTimer::singleShot(500, this, [this] {
+            auto *mw = m_urlBar->viewManager()->mainWindow();
+            const auto acs = mw->actionCollection()->allCollections();
+            for (auto *ac : acs) {
+                if (auto action = ac->action(QStringLiteral("current_branch"))) {
+                    m_currBranchBtn->setDefaultAction(action);
+                    connect(action, &QAction::changed, this, [this] {
+                        if (m_currBranchBtn->defaultAction() && m_currBranchBtn->defaultAction()->text().isEmpty()) {
+                            m_currBranchBtn->hide();
+                        }
+                    });
+                }
+            }
+            if (!m_currBranchBtn->defaultAction())
+                m_currBranchBtn->hide();
+        });
+    }
+
+    void open()
+    {
+        if (m_breadCrumbView) {
+            m_breadCrumbView->openLastIndex();
+        }
+    }
+
+    void setUrl(const QUrl &url)
+    {
+        m_breadCrumbView->setUrl(url);
+    }
+
+private:
+    KateUrlBar *m_urlBar;
+    BreadCrumbView *const m_breadCrumbView;
+    QToolButton *const m_currBranchBtn;
+    QLabel *const m_infoLabel;
+};
+
 KateUrlBar::KateUrlBar(KateViewSpace *parent)
     : QWidget(parent)
     , m_stack(new QStackedWidget(this))
-    , m_breadCrumbView(new BreadCrumbView(this))
+    , m_urlBarView(new UrlbarContainer(this))
     , m_untitledDocLabel(new QLabel(this))
+    , m_parentViewSpace(parent)
 {
-    setFixedHeight(24);
     setContentsMargins({});
 
-    m_stack->addWidget(m_untitledDocLabel);
-    m_stack->addWidget(m_breadCrumbView);
-
-    auto *layout = new QHBoxLayout(this);
-    layout->setContentsMargins({});
-    layout->setSpacing(0);
-    layout->addWidget(m_stack);
+    setupLayout();
 
     auto *vm = parent->viewManger();
     connect(vm, &KateViewManager::viewChanged, this, &KateUrlBar::onViewChanged);
@@ -457,20 +539,32 @@ KateUrlBar::KateUrlBar(KateViewSpace *parent)
         }
     });
 
-    connect(m_breadCrumbView, &BreadCrumbView::unsetFocus, this, [vm] {
-        vm->activeView()->setFocus();
-    });
-
-    setFocusProxy(m_breadCrumbView);
-
     setHidden(!vm->showUrlNavBar());
 }
 
 void KateUrlBar::open()
 {
-    if (m_breadCrumbView && m_stack->currentWidget() == m_breadCrumbView) {
-        m_breadCrumbView->openLastIndex();
+    if (m_stack->currentWidget() == m_urlBarView) {
+        m_urlBarView->open();
     }
+}
+
+KateViewManager *KateUrlBar::viewManager()
+{
+    return m_parentViewSpace->viewManger();
+}
+
+void KateUrlBar::setupLayout()
+{
+    // Setup the stacked widget
+    m_stack->addWidget(m_untitledDocLabel);
+    m_stack->addWidget(m_urlBarView);
+
+    // MainLayout
+    auto *layout = new QHBoxLayout(this);
+    layout->setContentsMargins({});
+    layout->setSpacing(0);
+    layout->addWidget(m_stack);
 }
 
 void KateUrlBar::onViewChanged(KTextEditor::View *v)
@@ -505,17 +599,15 @@ void KateUrlBar::updateForDocument(KTextEditor::Document *doc)
         return;
     }
 
-    if (m_stack->currentWidget() != m_breadCrumbView) {
-        m_stack->setCurrentWidget(m_breadCrumbView);
+    if (m_stack->currentWidget() != m_urlBarView) {
+        m_stack->setCurrentWidget(m_urlBarView);
     }
 
-    auto *vm = static_cast<KateViewSpace *>(parentWidget())->viewManger();
+    auto *vm = viewManager();
     if (vm && !vm->showUrlNavBar()) {
         return;
     }
-
-    const auto url = doc->url();
-    m_breadCrumbView->setUrl(url);
+    m_urlBarView->setUrl(doc->url());
 }
 
 #include "kateurlbar.moc"

@@ -51,7 +51,6 @@ KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject 
     m_branchBtn->setAutoRaise(true);
     m_branchBtn->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     m_branchBtn->setSizePolicy(QSizePolicy::Minimum, m_branchBtn->sizePolicy().verticalPolicy());
-    m_branchBtn->setIcon(QIcon(QStringLiteral(":/icons/icons/sc-apps-git.svg")));
 
     // let tree get focus for keyboard selection of file to open
     setFocusProxy(m_treeView);
@@ -72,10 +71,12 @@ KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject 
     /**
      * Setup git checkout stuff
      */
-    connect(m_branchBtn, &QPushButton::clicked, this, [this, mainWindow] {
+    auto currBranchAct = pluginView->actionCollection()->addAction(QStringLiteral("current_branch"), this, [this, mainWindow] {
         BranchCheckoutDialog bd(mainWindow->window(), m_pluginView, m_project->baseDir());
         bd.openDialog();
     });
+    currBranchAct->setIcon(QIcon(QStringLiteral(":/icons/icons/sc-apps-git.svg")));
+    m_branchBtn->setDefaultAction(currBranchAct);
 
     checkAndRefreshGit();
 
@@ -161,7 +162,9 @@ void KateProjectView::checkAndRefreshGit()
         m_branchBtn->setHidden(true);
     } else {
         m_branchBtn->setHidden(false);
-        m_branchBtn->setText(GitUtils::getCurrentBranchName(dotGitPath.value()));
+        auto act = m_pluginView->actionCollection()->action(QStringLiteral("current_branch"));
+        Q_ASSERT(act);
+        act->setText(GitUtils::getCurrentBranchName(dotGitPath.value()));
         if (m_branchChangedWatcher.files().isEmpty()) {
             m_branchChangedWatcher.addPath(dotGitPath.value() + QStringLiteral(".git/HEAD"));
         }

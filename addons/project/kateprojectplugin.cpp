@@ -67,7 +67,6 @@ KateProjectPlugin::KateProjectPlugin(QObject *parent, const QList<QVariant> &)
     qRegisterMetaType<KateProjectSharedProjectIndex>("KateProjectSharedProjectIndex");
 
     connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::documentCreated, this, &KateProjectPlugin::slotDocumentCreated);
-    connect(&m_fileWatcher, &QFileSystemWatcher::directoryChanged, this, &KateProjectPlugin::slotDirectoryChanged);
 
     // read configuration prior to cwd project setup below
     readConfig();
@@ -121,7 +120,6 @@ KateProjectPlugin::~KateProjectPlugin()
     unregisterVariables();
 
     for (KateProject *project : qAsConst(m_projects)) {
-        m_fileWatcher.removePath(QFileInfo(project->fileName()).canonicalPath());
         delete project;
     }
     m_projects.clear();
@@ -154,7 +152,6 @@ KateProject *KateProjectPlugin::createProjectForFileName(const QString &fileName
     }
 
     m_projects.append(project);
-    m_fileWatcher.addPath(QFileInfo(fileName).canonicalPath());
     Q_EMIT projectCreated(project);
     return project;
 }
@@ -249,7 +246,6 @@ bool KateProjectPlugin::closeProject(KateProject *project)
 
     Q_EMIT pluginViewProjectClosing(project);
     if (m_projects.removeOne(project)) {
-        m_fileWatcher.removePath(QFileInfo(project->fileName()).canonicalPath());
         delete project;
         return true;
     }
@@ -303,20 +299,6 @@ void KateProjectPlugin::slotDocumentUrlChanged(KTextEditor::Document *document)
 
     if (KateProject *project = m_document2Project.value(document)) {
         project->registerDocument(document);
-    }
-}
-
-void KateProjectPlugin::slotDirectoryChanged(const QString &path)
-{
-    QString fileName = QDir(path).filePath(ProjectFileName);
-    for (KateProject *project : qAsConst(m_projects)) {
-        if (project->fileName() == fileName) {
-            QDateTime lastModified = QFileInfo(fileName).lastModified();
-            if (project->fileLastModified().isNull() || (lastModified > project->fileLastModified())) {
-                project->reload();
-            }
-            break;
-        }
     }
 }
 

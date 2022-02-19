@@ -128,6 +128,15 @@ public:
     void setDoubleClickAction(ClickAction cb);
     ClickAction doubleClickAcion();
 
+    /**
+     * filesystem watcher to keep track of all project files
+     * and auto-reload
+     */
+    QFileSystemWatcher &fileWatcher()
+    {
+        return m_fileWatcher;
+    }
+
 Q_SIGNALS:
 
     /**
@@ -171,12 +180,6 @@ public Q_SLOTS:
      * Url changed, to auto-load projects
      */
     void slotDocumentUrlChanged(KTextEditor::Document *document);
-
-    /**
-     * did some project file change?
-     * @param path name of directory that did change
-     */
-    void slotDirectoryChanged(const QString &path);
 
 private:
     KateProject *createProjectForRepository(const QString &type, const QDir &dir);

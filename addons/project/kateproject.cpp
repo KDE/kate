@@ -31,27 +31,38 @@ KateProject::KateProject(QThreadPool &threadPool, KateProjectPlugin *plugin)
     , m_threadPool(threadPool)
     , m_plugin(plugin)
 {
+    // ensure we get notified for project file changes
+    connect(&m_plugin->fileWatcher(), &QFileSystemWatcher::fileChanged, this, &KateProject::slotFileChanged);
 }
 
 KateProject::~KateProject()
 {
     saveNotesDocument();
+
+    // stop watching if we have some real project file
+    if (!m_fileName.isEmpty()) {
+        m_plugin->fileWatcher().removePath(m_fileName);
+    }
 }
 
 bool KateProject::loadFromFile(const QString &fileName)
 {
-    /**
-     * bail out if already fileName set!
-     */
+    // stop watching if we have some real project file
     if (!m_fileName.isEmpty()) {
-        return false;
+        m_plugin->fileWatcher().removePath(m_fileName);
     }
 
     /**
      * set new filename and base directory
      */
-    m_fileName = fileName;
-    m_baseDir = QFileInfo(m_fileName).canonicalPath();
+    const QFileInfo fi(fileName);
+    m_fileName = fi.canonicalFilePath();
+    m_baseDir = fi.canonicalPath();
+
+    // start watching if we have some real project file
+    if (!m_fileName.isEmpty()) {
+        m_plugin->fileWatcher().addPath(m_fileName);
+    }
 
     /**
      * trigger reload
@@ -61,8 +72,7 @@ bool KateProject::loadFromFile(const QString &fileName)
 
 bool KateProject::reload(bool force)
 {
-    QVariantMap map = readProjectFile();
-
+    const QVariantMap map = readProjectFile();
     if (map.isEmpty()) {
         m_fileLastModified = QDateTime();
     } else {
@@ -101,8 +111,11 @@ void KateProject::removeFile(const QString &file)
  */
 QJsonDocument KateProject::readJSONFile(const QString &fileName)
 {
-    QFile file(fileName);
+    if (fileName.isEmpty()) {
+        return QJsonDocument();
+    }
 
+    QFile file(fileName);
     if (!file.exists() || !file.open(QFile::ReadOnly)) {
         return QJsonDocument();
     }
@@ -123,8 +136,8 @@ QJsonDocument KateProject::readJSONFile(const QString &fileName)
 
 QVariantMap KateProject::readProjectFile() const
 {
-    QJsonDocument project(readJSONFile(m_fileName));
     // bail out on error
+    QJsonDocument project(readJSONFile(m_fileName));
     if (project.isNull()) {
         return QVariantMap();
     }
@@ -169,8 +182,13 @@ QVariantMap KateProject::readProjectFile() const
 
 bool KateProject::loadFromData(const QVariantMap &globalProject, const QString &directory)
 {
+    // stop watching if we have some real project file
+    if (!m_fileName.isEmpty()) {
+        m_plugin->fileWatcher().removePath(m_fileName);
+    }
+
+    m_fileName.clear();
     m_baseDir = directory;
-    m_fileName = QDir(directory).filePath(QStringLiteral(".kateproject"));
     m_globalProject = globalProject;
     return load(globalProject);
 }
@@ -489,5 +507,12 @@ void KateProject::unregisterUntrackedItem(const KateProjectItem *item)
     if (m_untrackedDocumentsRoot->rowCount() < 1) {
         m_model.removeRow(0);
         m_untrackedDocumentsRoot = nullptr;
+    }
+}
+
+void KateProject::slotFileChanged(const QString &file)
+{
+    if (file == m_fileName) {
+        reload();
     }
 }

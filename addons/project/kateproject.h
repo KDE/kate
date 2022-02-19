@@ -70,6 +70,7 @@ public:
 
     /**
      * Accessor to file name.
+     * Non-empty if really a project from some disk file, else empty e.g. for auto generated projects from VCS.
      * @return file name
      */
     const QString &fileName() const
@@ -230,6 +231,12 @@ private Q_SLOTS:
     void slotModifiedChanged(KTextEditor::Document *);
 
     void slotModifiedOnDisk(KTextEditor::Document *document, bool isModified, KTextEditor::ModificationInterface::ModifiedOnDiskReason reason);
+
+    /**
+     * did some project file change?
+     * @param file name of file that did change
+     */
+    void slotFileChanged(const QString &file);
 
 Q_SIGNALS:
     /**

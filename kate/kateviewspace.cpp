@@ -654,15 +654,10 @@ void KateViewSpace::updateDocumentUrl(KTextEditor::Document *doc)
 
 void KateViewSpace::updateDocumentState(KTextEditor::Document *doc)
 {
-    QIcon icon;
-    if (doc->isModified()) {
-        icon = QIcon::fromTheme(QStringLiteral("document-save"));
-    }
-
     // update tab button if available, might not be the case for tab limit set!
     const int buttonId = m_tabBar->documentIdx(doc);
     if (buttonId >= 0) {
-        m_tabBar->setTabIcon(buttonId, icon);
+        m_tabBar->update(m_tabBar->tabRect(buttonId));
     }
 }
 

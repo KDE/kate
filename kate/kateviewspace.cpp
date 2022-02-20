@@ -325,6 +325,16 @@ void KateViewSpace::removeView(KTextEditor::View *v)
     // ...and now: remove from view space
     stack->removeWidget(v);
 
+    // Remove the doc now!
+    // Why do this now? Because otherwise it messes up the LRU
+    // because we get two "currentChanged" signals
+    // - First signal when we "showView" below
+    // - Second comes soon after when v->document() is destroyed
+    // Handling (blocking) both signals here is necessary
+    m_tabBar->blockSignals(true);
+    documentDestroyed(v->document());
+    m_tabBar->blockSignals(false);
+
     // switch to most recently used rather than letting stack choose one
     // (last element could well be v->document() being removed here)
     for (auto rit = m_registeredDocuments.rbegin(); rit != m_registeredDocuments.rend(); ++rit) {

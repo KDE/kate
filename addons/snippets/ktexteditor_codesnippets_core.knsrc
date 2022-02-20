@@ -29,6 +29,7 @@ Name[uk]=Фрагменти текстового редактора
 Name[vi]=Mảnh mã trong trình biên tập văn bản
 Name[x-test]=xxText Editor Snippetsxx
 Name[zh_CN]=文本编辑器片段
+Name[zh_TW]=文字編輯器片段
 
 ProvidersUrl=https://autoconfig.kde.org/ocs/providers.xml
 Categories=KTextEditor Snippet

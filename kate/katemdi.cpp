@@ -285,6 +285,20 @@ Sidebar::Sidebar(KMultiTabBar::KMultiTabBarPosition pos, MainWindow *mainwin, QW
     hide();
 }
 
+QSize Sidebar::minimumSizeHint() const
+{
+    auto size = KMultiTabBar::sizeHint();
+    const auto fm = QFontMetrics(font());
+    const int height = fm.lineSpacing();
+    size.setHeight(height + 4);
+    return size;
+}
+
+QSize Sidebar::sizeHint() const
+{
+    return minimumSizeHint();
+}
+
 void Sidebar::setSplitter(QSplitter *sp)
 {
     // if splitter was set before, disconnect handler for collapse

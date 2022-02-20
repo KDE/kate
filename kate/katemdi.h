@@ -176,6 +176,9 @@ public:
 
     void setSplitter(QSplitter *sp);
 
+    QSize minimumSizeHint() const override;
+    QSize sizeHint() const override;
+
     /**
      * Monitor resizes using the mouse and update the last size accordingly.
      * Only call this when the sidebar has siblings in the splitter (i.e. m_splitter->count() >= 2) to guarantee that resize handles exist

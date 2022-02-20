@@ -125,6 +125,15 @@ public:
 
         m_list.viewport()->installEventFilter(this);
         setFocusProxy(&m_list);
+
+        connect(qApp, &QApplication::paletteChanged, this, &DirFilesList::updatePalette, Qt::QueuedConnection);
+    }
+
+    void updatePalette()
+    {
+        auto p = m_list.palette();
+        p.setBrush(QPalette::Base, palette().alternateBase());
+        m_list.setPalette(p);
     }
 
     void setDir(const QDir &d, const QString &currentItemName)
@@ -242,6 +251,14 @@ public:
         m_tree->viewport()->installEventFilter(this);
 
         connect(m_tree, &QTreeView::clicked, this, &SymbolsTreeView::onClicked);
+        connect(qApp, &QApplication::paletteChanged, this, &SymbolsTreeView::updatePalette, Qt::QueuedConnection);
+    }
+
+    void updatePalette()
+    {
+        auto p = m_tree->palette();
+        p.setBrush(QPalette::Base, palette().alternateBase());
+        m_tree->setPalette(p);
     }
 
     void setSymbolsModel(QAbstractItemModel *model, KTextEditor::View *v, const QString &text)
@@ -690,16 +707,18 @@ public:
         , m_urlBar(parent)
         , m_breadCrumbView(new BreadCrumbView(this, parent))
         , m_currBranchBtn(new QToolButton(this))
-        , m_infoLabel(new QLabel(this))
+        , m_sepLabel(new QLabel(this))
     {
         // UrlBar
         auto urlBarLayout = new QHBoxLayout(this);
         urlBarLayout->setSpacing(0);
         urlBarLayout->setContentsMargins({});
         urlBarLayout->addWidget(m_currBranchBtn);
-        urlBarLayout->addSpacing(2);
+        urlBarLayout->addWidget(m_sepLabel);
         urlBarLayout->addWidget(m_breadCrumbView);
-        urlBarLayout->addWidget(m_infoLabel);
+
+        m_sepLabel->setPixmap(QIcon::fromTheme(QStringLiteral("arrow-right")).pixmap(16, 16));
+        m_sepLabel->setContentsMargins({});
 
         setFocusProxy(m_breadCrumbView);
 
@@ -708,21 +727,6 @@ public:
         connect(m_breadCrumbView, &BreadCrumbView::unsetFocus, this, [this] {
             m_urlBar->viewManager()->activeView()->setFocus();
         });
-    }
-
-    void paintEvent(QPaintEvent *e) override
-    {
-        QWidget::paintEvent(e);
-
-        const int topX = x() + m_currBranchBtn->width();
-        const int topY = y();
-
-        const int bottomX = topX;
-        const int bottomY = topY + height();
-
-        QPainter p(this);
-        p.setPen(palette().color(QPalette::Disabled, QPalette::Text));
-        p.drawLine(topX, topY, bottomX, bottomY);
     }
 
     void setupCurrentBranchButton()
@@ -761,10 +765,10 @@ public:
     }
 
 private:
-    KateUrlBar *m_urlBar;
+    KateUrlBar *const m_urlBar;
     BreadCrumbView *const m_breadCrumbView;
     QToolButton *const m_currBranchBtn;
-    QLabel *const m_infoLabel;
+    QLabel *const m_sepLabel;
 };
 
 KateUrlBar::KateUrlBar(KateViewSpace *parent)
@@ -775,6 +779,7 @@ KateUrlBar::KateUrlBar(KateViewSpace *parent)
     , m_parentViewSpace(parent)
 {
     setContentsMargins({});
+    setFixedHeight(22);
 
     setupLayout();
 

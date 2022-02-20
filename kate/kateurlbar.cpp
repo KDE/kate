@@ -365,7 +365,11 @@ public:
         QStyledItemDelegate::initStyleOption(o, idx);
         o->decorationAlignment = Qt::AlignCenter;
         // We always want this icon size and nothing bigger
-        o->decorationSize = QSize(16, 16);
+        if (idx.data(BreadCrumbRole::IsSeparator).toBool()) {
+            o->decorationSize = QSize(12, 12);
+        } else {
+            o->decorationSize = QSize(16, 16);
+        }
 
         if (o->state & QStyle::State_MouseOver) {
             // No hover feedback for separators
@@ -392,7 +396,7 @@ public:
 
             return size;
         } else if (!idx.data(Qt::DecorationRole).isNull()) {
-            QSize s(16, 16);
+            QSize s(12, 12);
             s = s.grownBy({margin, 0, margin, 0});
             return s;
         }
@@ -764,7 +768,7 @@ public:
                 m_sepLabel->hide();
             } else {
                 // Setup the icon now
-                m_sepLabel->setPixmap(QIcon::fromTheme(QStringLiteral("arrow-right")).pixmap(16, 16));
+                m_sepLabel->setPixmap(QIcon::fromTheme(QStringLiteral("arrow-right")).pixmap(12, 12));
             }
         });
     }

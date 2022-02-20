@@ -206,6 +206,7 @@ bool KateApp::startupKate()
     const QString codec_name = codec ? QString::fromLatin1(codec->name()) : QString();
 
     const auto args = m_args.positionalArguments();
+
     for (const auto &positionalArgument : args) {
         UrlInfo info(positionalArgument);
 
@@ -217,12 +218,14 @@ bool KateApp::startupKate()
             || !QFileInfo(info.url.toLocalFile()).isDir();
 
         if (noDir) {
-            doc = openDocUrl(info.url, codec_name, tempfileSet);
-            if (info.cursor.isValid()) {
-                setCursor(info.cursor.line(), info.cursor.column());
-            } else if (hasCursorInArgs()) {
-                setCursorFromArgs(activeMainWindow()->activeView());
+            if (!info.cursor.isValid()) {
+                if (hasCursorInArgs()) {
+                    info.cursor = cursorFromArgs();
+                } else if (info.url.hasQuery()) {
+                    info.cursor = cursorFromQueryString(info.url);
+                }
             }
+            doc = openDocUrl(info.url, codec_name, tempfileSet, /*activateView=*/false, info.cursor);
         } else if (!KateApp::self()->pluginManager()->plugin(QStringLiteral("kateprojectplugin"))) {
             KMessageBox::sorry(activeKateMainWindow(), i18n("Folders can only be opened when the projects plugin is enabled"));
         }
@@ -309,7 +312,7 @@ bool KateApp::isOnActivity(const QString &activity)
     return false;
 }
 
-KTextEditor::Document *KateApp::openDocUrl(const QUrl &url, const QString &encoding, bool isTempFile)
+KTextEditor::Document *KateApp::openDocUrl(const QUrl &url, const QString &encoding, bool isTempFile, bool activateView, KTextEditor::Cursor c)
 {
     KateMainWindow *mainWindow = activeKateMainWindow();
 
@@ -330,12 +333,12 @@ KTextEditor::Document *KateApp::openDocUrl(const QUrl &url, const QString &encod
 
     if (noDir) {
         KateDocumentInfo docInfo;
-        docInfo.doPostLoadOperations = !url.isLocalFile() && (hasCursorInArgs() || url.hasQuery());
+        docInfo.startCursor = c;
         // open a normal file
         if (codec) {
-            doc = mainWindow->viewManager()->openUrl(url, QString::fromLatin1(codec->name()), true, isTempFile, docInfo);
+            doc = mainWindow->viewManager()->openUrl(url, QString::fromLatin1(codec->name()), activateView, isTempFile, docInfo);
         } else {
-            doc = mainWindow->viewManager()->openUrl(url, QString(), true, isTempFile, docInfo);
+            doc = mainWindow->viewManager()->openUrl(url, QString(), activateView, isTempFile, docInfo);
         }
     } else {
         KMessageBox::sorry(mainWindow, i18n("The file '%1' could not be opened: it is not a normal file, it is a folder.", url.url()));
@@ -344,62 +347,46 @@ KTextEditor::Document *KateApp::openDocUrl(const QUrl &url, const QString &encod
     return doc;
 }
 
-void KateApp::setCursorFromArgs(KTextEditor::View *view)
+KTextEditor::Cursor KateApp::cursorFromArgs()
 {
-    int line = 0;
-    int column = 0;
-    bool nav = false;
-
-    if (!view && !(view = activeKateMainWindow()->activeView())) {
-        return;
-    }
+    int line = -1;
+    int column = -1;
 
     if (m_args.isSet(QStringLiteral("line"))) {
         line = m_args.value(QStringLiteral("line")).toInt() - 1;
-        nav = true;
     }
 
     if (m_args.isSet(QStringLiteral("column"))) {
         column = m_args.value(QStringLiteral("column")).toInt() - 1;
-        nav = true;
     }
 
-    if (nav) {
-        view->setCursorPosition(KTextEditor::Cursor(line, column));
-        activeKateMainWindow()->setAutoSaveSettings();
-    }
+    return {line, column};
 }
 
-void KateApp::setCursorFromQueryString(KTextEditor::View *view)
+KTextEditor::Cursor KateApp::cursorFromQueryString(const QUrl &url)
 {
-    int line = 0;
-    int column = 0;
-    bool nav = false;
+    int line = -1;
+    int column = -1;
 
-    if (!view && !(view = activeKateMainWindow()->activeView())) {
-        return;
+    if (!url.hasQuery()) {
+        return {line, column};
     }
 
-    QUrlQuery urlQuery(view->document()->url());
+    QUrlQuery urlQuery(url);
     QString lineStr = urlQuery.queryItemValue(QStringLiteral("line"));
     QString columnStr = urlQuery.queryItemValue(QStringLiteral("column"));
 
     if (!lineStr.isEmpty()) {
         line = lineStr.toInt();
         line > 0 && line--;
-        nav = true;
     }
 
     if (!columnStr.isEmpty()) {
         column = columnStr.toInt();
         column > 0 && column--;
-        nav = true;
     }
 
-    if (nav) {
-        view->setCursorPosition(KTextEditor::Cursor(line, column));
-        activeKateMainWindow()->setAutoSaveSettings();
-    }
+    return {line, column};
 }
 
 bool KateApp::setCursor(int line, int column)
@@ -539,6 +526,7 @@ void KateApp::remoteMessageReceived(const QString &message, QObject *)
         return;
     }
 
+    KTextEditor::Document *doc = nullptr;
     /**
      * open all passed urls
      */
@@ -552,14 +540,14 @@ void KateApp::remoteMessageReceived(const QString &message, QObject *)
         const int column = urlObject.toObject().value(QLatin1String("column")).toVariant().toInt();
 
         /**
-         * open file + set line/column if requested
+         * open file + save line/column if requested
          */
-        openUrl(url, QString(), false);
-        if (line >= 0 && column >= 0) {
-            setCursor(line, column);
-        }
+        doc = openDocUrl(url, QString(), false, /*activateView=*/false, KTextEditor::Cursor{line, column});
     }
 
     // try to activate current window
     m_adaptor.activate();
+    if (doc && activeMainWindow()) {
+        activeMainWindow()->activateView(doc);
+    }
 }

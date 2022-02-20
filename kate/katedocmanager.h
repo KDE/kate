@@ -34,7 +34,7 @@ public:
 
     bool openedByUser = false;
     bool openSuccess = true;
-    bool doPostLoadOperations = false;
+    KTextEditor::Cursor startCursor = KTextEditor::Cursor::invalid(); // initial cursor position. This can be specified in the command line or as a url query
     bool wasDocumentEverModified = false;
 };
 

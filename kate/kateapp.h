@@ -209,7 +209,8 @@ public:
      */
     bool isOnActivity(const QString &activity);
 
-    KTextEditor::Document *openDocUrl(const QUrl &url, const QString &encoding, bool isTempFile);
+    KTextEditor::Document *
+    openDocUrl(const QUrl &url, const QString &encoding, bool isTempFile, bool activateView = true, KTextEditor::Cursor c = KTextEditor::Cursor::invalid());
 
     void emitDocumentClosed(const QString &token);
 
@@ -223,21 +224,19 @@ public:
     bool setCursor(int line, int column);
 
     /**
-     * Checks if --line and/or --column args were provided and attempts
-     * to set cursor position in the provided or active view accordingly.
-     *
-     * @param view Optional view to apply changes on.
+     * Checks if --line and/or --column args were provided and
+     * returns the cursor for it
      */
-    void setCursorFromArgs(KTextEditor::View *view = nullptr);
+    KTextEditor::Cursor cursorFromArgs();
 
     /**
      * Checks if line or column were provided in query string
-     * (e.g. file:///file1?line=3&column=4) and attempts to set cursor
-     * position in the provided or active view accordingly.
+     * (e.g. file:///file1?line=3&column=4) and returns the cursor
+     * If cursor was not set it will return invalid cursor
      *
-     * @param view Optional view to apply changes on.
+     * @param url the url to check
      */
-    void setCursorFromQueryString(KTextEditor::View *view = nullptr);
+    KTextEditor::Cursor cursorFromQueryString(const QUrl &url);
 
     /**
      * @return true if --line or --column command line args were provided

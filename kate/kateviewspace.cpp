@@ -1016,8 +1016,12 @@ void KateViewSpace::restoreConfig(KateViewManager *viewMan, const KConfigBase *c
         auto *doc = KateApp::self()->documentManager()->documentList().first();
         if (!fn.isEmpty()) {
             QUrl url(fn);
-            KateApp::self()->documentManager()->documentInfo(doc)->doPostLoadOperations =
-                !url.isLocalFile() && (KateApp::self()->hasCursorInArgs() || url.hasQuery());
+            auto *docInfo = KateApp::self()->documentManager()->documentInfo(doc);
+            if (KateApp::self()->hasCursorInArgs()) {
+                docInfo->startCursor = KateApp::self()->cursorFromArgs();
+            } else if (url.hasQuery()) {
+                docInfo->startCursor = KateApp::self()->cursorFromQueryString(url);
+            }
         }
         viewMan->createView(doc, this);
     }

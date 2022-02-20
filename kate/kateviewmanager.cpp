@@ -463,20 +463,21 @@ KTextEditor::View *KateViewManager::createView(KTextEditor::Document *doc, KateV
      * set cursor position for this view if we need to
      */
     KateDocumentInfo *docInfo = KateApp::self()->documentManager()->documentInfo(doc);
-    if (docInfo->doPostLoadOperations) {
-        docInfo->doPostLoadOperations = false; // do this only once
+    if (docInfo->startCursor.isValid()) {
+        KTextEditor::Cursor c = docInfo->startCursor; // Was a cursor position requested?
+        docInfo->startCursor = KTextEditor::Cursor::invalid(); // do this only once
 
-        QSharedPointer<QMetaObject::Connection> conn(new QMetaObject::Connection());
-        auto handler = [view, conn](KTextEditor::Document *doc) {
-            disconnect(*conn);
-            if (doc->url().hasQuery()) {
-                KateApp::self()->setCursorFromQueryString(view);
-            } else {
-                KateApp::self()->setCursorFromArgs(view);
-            }
-        };
+        if (!doc->url().isLocalFile()) {
+            QSharedPointer<QMetaObject::Connection> conn(new QMetaObject::Connection());
+            auto handler = [view, conn, c](KTextEditor::Document *) {
+                disconnect(*conn);
+                view->setCursorPosition(c);
+            };
 
-        *conn = connect(doc, &KTextEditor::Document::textChanged, view, handler);
+            *conn = connect(doc, &KTextEditor::Document::textChanged, view, handler);
+        } else if (c.isValid()) {
+            view->setCursorPosition(c);
+        }
     }
 
     /**

@@ -348,7 +348,11 @@ Q_SIGNALS:
     void navigateLeftRight(int key);
 };
 
-enum BreadCrumbRole { PathRole = Qt::UserRole + 1, IsSeparator, IsSymbolCrumb };
+enum BreadCrumbRole {
+    PathRole = Qt::UserRole + 1,
+    IsSeparator,
+    IsSymbolCrumb,
+};
 
 class BreadCrumbDelegate : public QStyledItemDelegate
 {
@@ -360,7 +364,16 @@ public:
     {
         QStyledItemDelegate::initStyleOption(o, idx);
         o->decorationAlignment = Qt::AlignCenter;
+        // We always want this icon size and nothing bigger
         o->decorationSize = QSize(16, 16);
+
+        if (o->state & QStyle::State_MouseOver) {
+            // No hover feedback for separators
+            if (idx.data(BreadCrumbRole::IsSeparator).toBool()) {
+                o->state.setFlag(QStyle::State_MouseOver, false);
+                o->state.setFlag(QStyle::State_Active, false);
+            }
+        }
     }
 
     QSize sizeHint(const QStyleOptionViewItem &opt, const QModelIndex &idx) const override
@@ -717,7 +730,6 @@ public:
         urlBarLayout->addWidget(m_sepLabel);
         urlBarLayout->addWidget(m_breadCrumbView);
 
-        m_sepLabel->setPixmap(QIcon::fromTheme(QStringLiteral("arrow-right")).pixmap(16, 16));
         m_sepLabel->setContentsMargins({});
 
         setFocusProxy(m_breadCrumbView);
@@ -747,8 +759,13 @@ public:
                     });
                 }
             }
-            if (!m_currBranchBtn->defaultAction())
+            if (!m_currBranchBtn->defaultAction()) {
                 m_currBranchBtn->hide();
+                m_sepLabel->hide();
+            } else {
+                // Setup the icon now
+                m_sepLabel->setPixmap(QIcon::fromTheme(QStringLiteral("arrow-right")).pixmap(16, 16));
+            }
         });
     }
 

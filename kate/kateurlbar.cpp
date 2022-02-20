@@ -480,7 +480,7 @@ public:
 
     void addSymbolCrumb(QObject *lsp)
     {
-        QAbstractItemModel *model;
+        QAbstractItemModel *model = nullptr;
         QMetaObject::invokeMethod(lsp, "documentSymbolsModel", Q_RETURN_ARG(QAbstractItemModel *, model));
         m_symbolsModel = model;
         if (!model) {

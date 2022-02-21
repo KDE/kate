@@ -2324,13 +2324,13 @@ void KatePluginSearchView::slotPluginViewDeleted(const QString &name, QObject *)
 void KatePluginSearchView::slotProjectFileNameChanged()
 {
     // query new project file name
-    QString projectFileName;
+    QString projectName;
     if (m_projectPluginView) {
-        projectFileName = m_projectPluginView->property("projectFileName").toString();
+        projectName = m_projectPluginView->property("projectName").toString();
     }
 
     // have project, enable gui for it
-    if (!projectFileName.isEmpty()) {
+    if (!projectName.isEmpty()) {
         if (m_ui.searchPlaceCombo->count() <= MatchModel::Project) {
             // add "in Project"
             m_ui.searchPlaceCombo->addItem(QIcon::fromTheme(QStringLiteral("project-open")), i18n("In Current Project"));

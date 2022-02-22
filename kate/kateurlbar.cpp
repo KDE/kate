@@ -307,7 +307,7 @@ public:
     void updateGeometry()
     {
         const auto *model = m_tree->model();
-        const int rows = model->rowCount();
+        const int rows = rowCount(model);
         const int rowHeight = m_tree->sizeHintForRow(0);
         const int maxHeight = rows * rowHeight;
 
@@ -341,6 +341,18 @@ public:
     }
 
 private:
+    // row count that counts top level + 1 level down rows
+    // needed to ensure we don't get strange heights for
+    // cases where there are only a couple of top level symbols
+    int rowCount(const QAbstractItemModel *model)
+    {
+        int rows = model->rowCount({});
+        for (int i = 0; i < rows; ++i) {
+            rows += model->rowCount(model->index(i, 0));
+        }
+        return rows;
+    }
+
     QTreeView *m_tree;
     QPointer<KTextEditor::View> m_activeView;
 

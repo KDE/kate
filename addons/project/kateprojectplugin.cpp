@@ -5,8 +5,6 @@
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
-#include <iostream>
-
 #include "kateprojectplugin.h"
 
 #include "kateproject.h"
@@ -591,7 +589,9 @@ void KateProjectPlugin::writeSessionConfig(KConfigGroup &config)
     QStringList projectList;
 
     for (KateProject *project : projects()) {
-        projectList.push_back(project->baseDir());
+        if (project->fileName().isEmpty()) {
+            projectList.push_back(project->baseDir());
+        }
     }
 
     config.writeEntry("projects", projectList);

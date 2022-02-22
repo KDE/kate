@@ -592,6 +592,14 @@ void KateProjectPlugin::writeSessionConfig(KConfigGroup &config)
         if (project->fileName().isEmpty()) {
             projectList.push_back(project->baseDir());
         }
+
+        /**
+        * setup global attributes in this object
+        */
+        m_projectMap = globalProject;
+
+        // emit that we changed stuff
+        Q_EMIT projectMapChanged();
     }
 
     config.writeEntry("projects", projectList);

@@ -19,6 +19,7 @@ public:
 
     class KateViewManager *viewManager();
     class KateViewSpace *viewSpace();
+    QIcon seperator();
 
 private:
     void setupLayout();

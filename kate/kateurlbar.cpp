@@ -366,7 +366,7 @@ public:
         o->decorationAlignment = Qt::AlignCenter;
         // We always want this icon size and nothing bigger
         if (idx.data(BreadCrumbRole::IsSeparator).toBool()) {
-            o->decorationSize = QSize(12, 12);
+            o->decorationSize = QSize(8, 8);
         } else {
             o->decorationSize = QSize(16, 16);
         }
@@ -376,6 +376,8 @@ public:
             if (idx.data(BreadCrumbRole::IsSeparator).toBool()) {
                 o->state.setFlag(QStyle::State_MouseOver, false);
                 o->state.setFlag(QStyle::State_Active, false);
+            } else {
+                o->palette.setBrush(QPalette::Text, o->palette.brightText());
             }
         }
     }
@@ -396,7 +398,7 @@ public:
 
             return size;
         } else if (!idx.data(Qt::DecorationRole).isNull()) {
-            QSize s(12, 12);
+            QSize s(8, 8);
             s = s.grownBy({margin, 0, margin, 0});
             return s;
         }
@@ -435,6 +437,10 @@ public:
     {
         auto pal = palette();
         pal.setBrush(QPalette::Base, parentWidget()->palette().window());
+        auto textColor = pal.text().color();
+        textColor = textColor.lightness() > 127 ? textColor.darker(150) : textColor.lighter(150);
+        pal.setBrush(QPalette::Inactive, QPalette::Text, textColor);
+        pal.setBrush(QPalette::Active, QPalette::Text, textColor);
         setPalette(pal);
     }
 
@@ -453,13 +459,14 @@ public:
         m_symbolsModel = nullptr;
 
         int i = 0;
+        QIcon seperator = m_urlBar->seperator();
         for (const auto &dir : dirs) {
             auto item = new QStandardItem(dir.name);
             item->setData(dir.path, BreadCrumbRole::PathRole);
             m_model.appendRow(item);
 
             if (i < dirs.size() - 1) {
-                auto sep = new QStandardItem(QIcon::fromTheme(QStringLiteral("arrow-right")), {});
+                auto sep = new QStandardItem(seperator, {});
                 sep->setSelectable(false);
                 sep->setData(true, BreadCrumbRole::IsSeparator);
                 m_model.appendRow(sep);
@@ -505,7 +512,7 @@ public:
         }
 
         // Add separator
-        auto sep = new QStandardItem(QIcon::fromTheme(QStringLiteral("arrow-right")), {});
+        auto sep = new QStandardItem(QIcon(m_urlBar->seperator()), {});
         sep->setSelectable(false);
         sep->setData(true, BreadCrumbRole::IsSeparator);
         m_model.appendRow(sep);
@@ -541,7 +548,7 @@ public:
 
         if (!item || !item->data(BreadCrumbRole::IsSymbolCrumb).toBool()) {
             // Add separator
-            auto sep = new QStandardItem(QIcon::fromTheme(QStringLiteral("arrow-right")), {});
+            auto sep = new QStandardItem(QIcon(m_urlBar->seperator()), {});
             sep->setSelectable(false);
             sep->setData(true, BreadCrumbRole::IsSeparator);
             m_model.appendRow(sep);
@@ -651,6 +658,17 @@ public:
         }
     }
 
+    void updateSeperatorIcon()
+    {
+        auto newSeperator = m_urlBar->seperator();
+        for (int i = 0; i < m_model.rowCount(); ++i) {
+            auto item = m_model.item(i);
+            if (item && item->data(BreadCrumbRole::IsSeparator).toBool()) {
+                item->setIcon(newSeperator);
+            }
+        }
+    }
+
 private:
     QModelIndex lastIndex()
     {
@@ -734,7 +752,7 @@ public:
         urlBarLayout->addWidget(m_sepLabel);
         urlBarLayout->addWidget(m_breadCrumbView);
 
-        m_sepLabel->setContentsMargins({});
+        m_sepLabel->setAlignment(Qt::AlignCenter);
 
         setFocusProxy(m_breadCrumbView);
 
@@ -743,6 +761,18 @@ public:
         connect(m_breadCrumbView, &BreadCrumbView::unsetFocus, this, [this] {
             m_urlBar->viewManager()->activeView()->setFocus();
         });
+
+        connect(
+            qApp,
+            &QApplication::paletteChanged,
+            this,
+            [this] {
+                m_sepPixmap = QPixmap();
+                initSeparatorIcon();
+                m_sepLabel->setPixmap(m_sepPixmap);
+                m_breadCrumbView->updateSeperatorIcon();
+            },
+            Qt::QueuedConnection);
     }
 
     void setupCurrentBranchButton()
@@ -768,7 +798,8 @@ public:
                 m_sepLabel->hide();
             } else {
                 // Setup the icon now
-                m_sepLabel->setPixmap(QIcon::fromTheme(QStringLiteral("arrow-right")).pixmap(12, 12));
+                initSeparatorIcon();
+                m_sepLabel->setPixmap(m_sepPixmap);
             }
         });
     }
@@ -785,11 +816,42 @@ public:
         m_breadCrumbView->setUrl(url);
     }
 
+    QPixmap separatorPixmap()
+    {
+        if (m_sepPixmap.isNull()) {
+            initSeparatorIcon();
+        }
+        return m_sepPixmap;
+    }
+
 private:
+    void initSeparatorIcon()
+    {
+        Q_ASSERT(m_sepPixmap.isNull());
+        const auto dpr = this->devicePixelRatioF();
+        m_sepPixmap = QPixmap(8 * dpr, 8 * dpr);
+        m_sepPixmap.fill(Qt::transparent);
+
+        auto pal = palette();
+        auto textColor = pal.text().color();
+        textColor = textColor.lightness() > 127 ? textColor.darker(150) : textColor.lighter(150);
+        pal.setColor(QPalette::ButtonText, textColor);
+        pal.setColor(QPalette::WindowText, textColor);
+        pal.setColor(QPalette::Text, textColor);
+
+        QPainter p(&m_sepPixmap);
+        QStyleOption o;
+        o.rect.setRect(0, 0, 8, 8);
+        o.palette = pal;
+        style()->drawPrimitive(QStyle::PE_IndicatorArrowRight, &o, &p, this);
+        m_sepPixmap.setDevicePixelRatio(dpr);
+    }
+
     KateUrlBar *const m_urlBar;
     BreadCrumbView *const m_breadCrumbView;
     QToolButton *const m_currBranchBtn;
     QLabel *const m_sepLabel;
+    QPixmap m_sepPixmap;
 };
 
 KateUrlBar::KateUrlBar(KateViewSpace *parent)
@@ -832,6 +894,11 @@ KateViewManager *KateUrlBar::viewManager()
 KateViewSpace *KateUrlBar::viewSpace()
 {
     return m_parentViewSpace;
+}
+
+QIcon KateUrlBar::seperator()
+{
+    return m_urlBarView->separatorPixmap();
 }
 
 void KateUrlBar::setupLayout()

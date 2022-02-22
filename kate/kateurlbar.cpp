@@ -23,11 +23,13 @@
 #include <QIcon>
 #include <QKeyEvent>
 #include <QLabel>
+#include <QLineEdit>
 #include <QListView>
 #include <QMenu>
 #include <QMimeDatabase>
 #include <QPainter>
 #include <QScrollBar>
+#include <QSortFilterProxyModel>
 #include <QStackedWidget>
 #include <QStandardItemModel>
 #include <QStyledItemDelegate>
@@ -113,7 +115,7 @@ public:
     DirFilesList(QWidget *parent)
         : QMenu(parent)
     {
-        m_list.setModel(&m_model);
+        m_list.setModel(&m_proxyModel);
         m_list.setResizeMode(QListView::Adjust);
         m_list.setViewMode(QListView::ListMode);
         m_list.setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -121,12 +123,22 @@ public:
 
         auto *l = new QVBoxLayout(this);
         l->setContentsMargins({});
+        l->addWidget(&m_lineEdit);
         l->addWidget(&m_list);
 
+        m_list.installEventFilter(this);
         m_list.viewport()->installEventFilter(this);
         setFocusProxy(&m_list);
 
         connect(qApp, &QApplication::paletteChanged, this, &DirFilesList::updatePalette, Qt::QueuedConnection);
+
+        m_lineEdit.setReadOnly(true);
+        m_lineEdit.hide();
+
+        m_proxyModel.setFilterCaseSensitivity(Qt::CaseInsensitive);
+        m_proxyModel.setSourceModel(&m_model);
+
+        connect(&m_lineEdit, &QLineEdit::textChanged, &m_proxyModel, &QSortFilterProxyModel::setFilterFixedString);
     }
 
     void updatePalette()
@@ -154,6 +166,8 @@ public:
     void updateGeometry()
     {
         auto s = m_list.sizeHintForRow(0);
+        m_proxyModel.setSourceModel(&m_model);
+
         auto c = m_model.rowCount();
         const auto h = s * c + (s / 2);
         const auto vScroll = m_list.verticalScrollBar();
@@ -169,6 +183,8 @@ public:
         }
         const auto fi = idx.data(DirFilesModel::FileInfo).value<QFileInfo>();
         if (fi.isDir()) {
+            m_lineEdit.clear();
+            m_lineEdit.hide();
             setDir(QDir(fi.absoluteFilePath()), QString());
         } else if (fi.isFile()) {
             const QUrl url = QUrl::fromLocalFile(fi.absoluteFilePath());
@@ -180,7 +196,7 @@ public:
     void keyPressEvent(QKeyEvent *ke) override
     {
         if (ke->key() == Qt::Key_Enter || ke->key() == Qt::Key_Return) {
-            onClicked(m_list.currentIndex(), Qt::NoModifier);
+            onClicked(m_list.currentIndex(), ke->modifiers());
             return;
         } else if (ke->key() == Qt::Key_Left || ke->key() == Qt::Key_Right) {
             hide();
@@ -190,9 +206,16 @@ public:
             ke->accept();
             return;
         } else if (ke->key() == Qt::Key_Backspace) {
-            auto dir = m_model.dir();
-            if (dir.cdUp()) {
-                setDir(dir, QString());
+            if (m_lineEdit.text().isEmpty()) {
+                auto dir = m_model.dir();
+                if (dir.cdUp()) {
+                    setDir(dir, QString());
+                }
+            } else {
+                m_lineEdit.setText(m_lineEdit.text().chopped(1));
+                if (m_lineEdit.text().isEmpty()) {
+                    m_lineEdit.hide();
+                }
             }
         }
         QMenu::keyPressEvent(ke);
@@ -200,17 +223,30 @@ public:
 
     bool eventFilter(QObject *o, QEvent *e) override
     {
-        if (e->type() != QEvent::Type::MouseButtonPress) {
-            return QMenu::eventFilter(o, e);
-        }
-        QMouseEvent *me = static_cast<QMouseEvent *>(e);
-        if (me->button() == Qt::LeftButton) {
-            const QModelIndex idx = m_list.indexAt(m_list.viewport()->mapFromGlobal(me->globalPos()));
-            if (!idx.isValid()) {
-                return QMenu::eventFilter(o, me);
+        if (e->type() == QEvent::MouseButtonPress) {
+            QMouseEvent *me = static_cast<QMouseEvent *>(e);
+            if (me->button() == Qt::LeftButton) {
+                const QModelIndex idx = m_list.indexAt(m_list.viewport()->mapFromGlobal(me->globalPos()));
+                if (!idx.isValid()) {
+                    return QMenu::eventFilter(o, me);
+                }
+                onClicked(idx, me->modifiers());
             }
-            onClicked(idx, me->modifiers());
         }
+
+        if (e->type() == QEvent::KeyPress) {
+            QKeyEvent *keyEvent = static_cast<QKeyEvent *>(e);
+            if ((keyEvent->modifiers() == Qt::NoModifier || keyEvent->modifiers() == Qt::SHIFT) && !keyEvent->text().isEmpty()) {
+                QChar c = keyEvent->text().front();
+                if (c.isPrint()) {
+                    m_lineEdit.setText(m_lineEdit.text() + keyEvent->text());
+                    if (!m_lineEdit.isVisible()) {
+                        m_lineEdit.show();
+                    }
+                }
+            }
+        }
+
         return QMenu::eventFilter(o, e);
     }
 
@@ -220,7 +256,9 @@ Q_SIGNALS:
 
 private:
     QListView m_list;
+    QLineEdit m_lineEdit;
     DirFilesModel m_model;
+    QSortFilterProxyModel m_proxyModel;
 };
 
 class SymbolsTreeView : public QMenu

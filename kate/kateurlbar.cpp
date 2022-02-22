@@ -768,8 +768,7 @@ public:
             this,
             [this] {
                 m_sepPixmap = QPixmap();
-                initSeparatorIcon();
-                m_sepLabel->setPixmap(m_sepPixmap);
+                m_sepLabel->setPixmap(separatorPixmap());
                 m_breadCrumbView->updateSeperatorIcon();
             },
             Qt::QueuedConnection);
@@ -798,8 +797,7 @@ public:
                 m_sepLabel->hide();
             } else {
                 // Setup the icon now
-                initSeparatorIcon();
-                m_sepLabel->setPixmap(m_sepPixmap);
+                m_sepLabel->setPixmap(separatorPixmap());
             }
         });
     }

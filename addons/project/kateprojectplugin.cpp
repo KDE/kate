@@ -370,6 +370,21 @@ KateProject *KateProjectPlugin::createProjectForDirectory(const QDir &dir)
     return project;
 }
 
+
+KateProject *KateProjectPlugin::createProjectForDirectory(const QDir &dir, const QVariantMap &projectMap)
+{
+    QVariantMap cnf;
+    cnf[QStringLiteral("name")] = dir.dirName();
+    cnf[QStringLiteral("files")] = (QVariantList() << projectMap);
+
+    KateProject *project = new KateProject(m_threadPool, this, cnf, dir.canonicalPath());
+
+    m_projects.append(project);
+
+    Q_EMIT projectCreated(project);
+    return project;
+}
+
 void KateProjectPlugin::setAutoRepository(bool onGit, bool onSubversion, bool onMercurial, bool onFossil)
 {
     m_autoGit = onGit;
@@ -578,29 +593,34 @@ void KateProjectPlugin::unregisterVariables()
 void KateProjectPlugin::readSessionConfig(const KConfigGroup &config)
 {
     const QStringList projectList = config.readEntry("projects", QStringList());
+    const QVariantList projectMapList = config.readEntry("projectsMaps", QVariantList());
 
-    for (const QString &project : projectList) {
-        createProjectForDirectory(QDir(project));
+    if (!projectMapList.isEmpty()){
+        int i = 0;
+        for (const QString &project : projectList) {
+            createProjectForDirectory(QDir(project), projectMapList.at(i).toMap());
+            i++;
+        }
+    } else {
+        for (const QString &project : projectList) {
+            createProjectForDirectory(QDir(project));
+        }
     }
+
 }
 
 void KateProjectPlugin::writeSessionConfig(KConfigGroup &config)
 {
     QStringList projectList;
+    QVariantList projectMapList;
 
     for (KateProject *project : projects()) {
         if (project->fileName().isEmpty()) {
             projectList.push_back(project->baseDir());
+            projectMapList.push_back(project->projectMap());
         }
-
-        /**
-        * setup global attributes in this object
-        */
-        m_projectMap = globalProject;
-
-        // emit that we changed stuff
-        Q_EMIT projectMapChanged();
     }
 
     config.writeEntry("projects", projectList);
+    config.writeEntry("projectsMaps", projectMapList);
 }

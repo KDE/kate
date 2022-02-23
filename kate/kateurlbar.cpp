@@ -39,6 +39,156 @@
 #include <QTreeView>
 #include <QUrl>
 
+#include <KFuzzyMatcher>
+
+class FuzzyFilterModel final : public QSortFilterProxyModel
+{
+    Q_OBJECT
+public:
+    explicit FuzzyFilterModel(QObject *parent = nullptr)
+        : QSortFilterProxyModel(parent)
+    {
+    }
+
+    bool filterAcceptsRow(int row, const QModelIndex &parent) const override
+    {
+        if (m_pattern.isEmpty()) {
+            return true;
+        }
+
+        const auto index = sourceModel()->index(row, filterKeyColumn(), parent);
+        const auto text = index.data(filterRole()).toString();
+        const auto res = KFuzzyMatcher::matchSimple(m_pattern, text);
+        return res;
+    }
+
+    void setFilterString(const QString &text)
+    {
+        beginResetModel();
+        m_pattern = text;
+        endResetModel();
+    }
+
+private:
+    QString m_pattern;
+};
+
+class BaseFilterItemView : public QWidget
+{
+    Q_OBJECT
+public:
+    explicit BaseFilterItemView(QWidget *parent = nullptr)
+        : QWidget(parent)
+    {
+    }
+
+Q_SIGNALS:
+    void returnPressed(const QModelIndex &, Qt::KeyboardModifiers);
+    void clicked(const QModelIndex &, Qt::KeyboardModifiers);
+};
+
+template<class ItemView>
+class FilterableItemView : public BaseFilterItemView
+{
+public:
+    explicit FilterableItemView(QWidget *parent = nullptr)
+        : BaseFilterItemView(parent)
+    {
+        auto layout = new QVBoxLayout(this);
+        layout->setContentsMargins({});
+        layout->setSpacing(0);
+        layout->addWidget(&m_filterText);
+        layout->addWidget(&m_itemView);
+
+        m_filterText.setReadOnly(true);
+        m_filterText.hide();
+
+        m_itemView.installEventFilter(this);
+        m_itemView.viewport()->installEventFilter(this);
+        setFocusProxy(&m_itemView);
+
+        m_proxyModel.setFilterKeyColumn(0);
+        m_proxyModel.setFilterRole(Qt::DisplayRole);
+        m_itemView.setModel(&m_proxyModel);
+        connect(&m_filterText, &QLineEdit::textChanged, &m_proxyModel, &FuzzyFilterModel::setFilterString);
+    }
+
+    void setModel(QAbstractItemModel *model)
+    {
+        m_proxyModel.setSourceModel(model);
+    }
+
+    QAbstractItemModel *model()
+    {
+        return m_itemView.model();
+    }
+
+    ItemView *view()
+    {
+        return &m_itemView;
+    }
+
+    void setCurrentIndex(const QModelIndex &index)
+    {
+        m_itemView.setCurrentIndex(index);
+    }
+    QModelIndex currentIndex() const
+    {
+        return m_itemView.currentIndex();
+    }
+
+protected:
+    bool eventFilter(QObject *o, QEvent *e) override
+    {
+        if (e->type() == QEvent::MouseButtonPress) {
+            QMouseEvent *me = static_cast<QMouseEvent *>(e);
+            if (me->button() == Qt::LeftButton) {
+                const QModelIndex idx = m_itemView.indexAt(m_itemView.viewport()->mapFromGlobal(me->globalPos()));
+                if (!idx.isValid()) {
+                    return QWidget::eventFilter(o, me);
+                }
+                m_filterText.hide();
+                Q_EMIT clicked(idx, me->modifiers());
+            }
+        }
+
+        if (e->type() == QEvent::KeyPress) {
+            QKeyEvent *keyEvent = static_cast<QKeyEvent *>(e);
+            if ((keyEvent->modifiers() == Qt::NoModifier || keyEvent->modifiers() == Qt::SHIFT) && !keyEvent->text().isEmpty()) {
+                QChar c = keyEvent->text().front();
+                if (c.isPrint()) {
+                    m_filterText.setText(m_filterText.text() + keyEvent->text());
+                    if (!m_filterText.isVisible()) {
+                        m_filterText.show();
+                    }
+                    return true;
+                } else if (keyEvent->key() == Qt::Key_Backspace) {
+                    if (m_filterText.text().isEmpty()) {
+                        return QWidget::eventFilter(o, e);
+                    }
+                    m_filterText.setText(m_filterText.text().chopped(1));
+                    if (m_filterText.text().isEmpty()) {
+                        m_filterText.hide();
+                    }
+                    return true;
+                } else if (keyEvent->key() == Qt::Key_Enter || keyEvent->key() == Qt::Key_Return) {
+                    m_filterText.hide();
+                    Q_EMIT returnPressed(m_itemView.currentIndex(), keyEvent->modifiers());
+                }
+            }
+        }
+
+        return QWidget::eventFilter(o, e);
+    }
+
+private:
+    ItemView m_itemView;
+    QLineEdit m_filterText;
+    FuzzyFilterModel m_proxyModel;
+};
+using FilterableListView = FilterableItemView<QListView>;
+using FilterableTreeView = FilterableItemView<QTreeView>;
+
 class DirFilesModel : public QAbstractListModel
 {
     Q_OBJECT
@@ -116,30 +266,22 @@ public:
     DirFilesList(QWidget *parent)
         : QMenu(parent)
     {
-        m_list.setModel(&m_proxyModel);
-        m_list.setResizeMode(QListView::Adjust);
-        m_list.setViewMode(QListView::ListMode);
-        m_list.setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-        m_list.setFrameStyle(QFrame::NoFrame);
+        m_list.setModel(&m_model);
+        m_list.view()->setResizeMode(QListView::Adjust);
+        m_list.view()->setViewMode(QListView::ListMode);
+        m_list.view()->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        m_list.view()->setFrameStyle(QFrame::NoFrame);
 
         auto *l = new QVBoxLayout(this);
         l->setContentsMargins({});
-        l->addWidget(&m_lineEdit);
         l->addWidget(&m_list);
 
-        m_list.installEventFilter(this);
-        m_list.viewport()->installEventFilter(this);
+        m_list.view()->viewport()->installEventFilter(this);
         setFocusProxy(&m_list);
 
+        connect(&m_list, &FilterableListView::returnPressed, this, &DirFilesList::onClicked);
+        connect(&m_list, &FilterableListView::clicked, this, &DirFilesList::onClicked);
         connect(qApp, &QApplication::paletteChanged, this, &DirFilesList::updatePalette, Qt::QueuedConnection);
-
-        m_lineEdit.setReadOnly(true);
-        m_lineEdit.hide();
-
-        m_proxyModel.setFilterCaseSensitivity(Qt::CaseInsensitive);
-        m_proxyModel.setSourceModel(&m_model);
-
-        connect(&m_lineEdit, &QLineEdit::textChanged, &m_proxyModel, &QSortFilterProxyModel::setFilterFixedString);
     }
 
     void updatePalette()
@@ -166,13 +308,11 @@ public:
 
     void updateGeometry()
     {
-        auto s = m_list.sizeHintForRow(0);
-        m_proxyModel.setSourceModel(&m_model);
-
+        auto rowHeight = m_list.view()->sizeHintForRow(0);
         auto c = m_model.rowCount();
-        const auto h = s * c + (s / 2);
-        const auto vScroll = m_list.verticalScrollBar();
-        int w = m_list.sizeHintForColumn(0) + (vScroll ? vScroll->height() / 2 : 0);
+        const auto h = rowHeight * c + 4;
+        const auto vScroll = m_list.view()->verticalScrollBar();
+        int w = m_list.view()->sizeHintForColumn(0) + (vScroll ? vScroll->height() / 2 : 0);
 
         setFixedSize(qMin(w, 500), qMin(h, 600));
     }
@@ -184,8 +324,6 @@ public:
         }
         const auto fi = idx.data(DirFilesModel::FileInfo).value<QFileInfo>();
         if (fi.isDir()) {
-            m_lineEdit.clear();
-            m_lineEdit.hide();
             setDir(QDir(fi.absoluteFilePath()), QString());
         } else if (fi.isFile()) {
             const QUrl url = QUrl::fromLocalFile(fi.absoluteFilePath());
@@ -196,10 +334,7 @@ public:
 
     void keyPressEvent(QKeyEvent *ke) override
     {
-        if (ke->key() == Qt::Key_Enter || ke->key() == Qt::Key_Return) {
-            onClicked(m_list.currentIndex(), ke->modifiers());
-            return;
-        } else if (ke->key() == Qt::Key_Left || ke->key() == Qt::Key_Right) {
+        if (ke->key() == Qt::Key_Left || ke->key() == Qt::Key_Right) {
             hide();
             Q_EMIT navigateLeftRight(ke->key());
         } else if (ke->key() == Qt::Key_Escape) {
@@ -207,48 +342,12 @@ public:
             ke->accept();
             return;
         } else if (ke->key() == Qt::Key_Backspace) {
-            if (m_lineEdit.text().isEmpty()) {
-                auto dir = m_model.dir();
-                if (dir.cdUp()) {
-                    setDir(dir, QString());
-                }
-            } else {
-                m_lineEdit.setText(m_lineEdit.text().chopped(1));
-                if (m_lineEdit.text().isEmpty()) {
-                    m_lineEdit.hide();
-                }
+            auto dir = m_model.dir();
+            if (dir.cdUp()) {
+                setDir(dir, QString());
             }
         }
         QMenu::keyPressEvent(ke);
-    }
-
-    bool eventFilter(QObject *o, QEvent *e) override
-    {
-        if (e->type() == QEvent::MouseButtonPress) {
-            QMouseEvent *me = static_cast<QMouseEvent *>(e);
-            if (me->button() == Qt::LeftButton) {
-                const QModelIndex idx = m_list.indexAt(m_list.viewport()->mapFromGlobal(me->globalPos()));
-                if (!idx.isValid()) {
-                    return QMenu::eventFilter(o, me);
-                }
-                onClicked(idx, me->modifiers());
-            }
-        }
-
-        if (e->type() == QEvent::KeyPress) {
-            QKeyEvent *keyEvent = static_cast<QKeyEvent *>(e);
-            if ((keyEvent->modifiers() == Qt::NoModifier || keyEvent->modifiers() == Qt::SHIFT) && !keyEvent->text().isEmpty()) {
-                QChar c = keyEvent->text().front();
-                if (c.isPrint()) {
-                    m_lineEdit.setText(m_lineEdit.text() + keyEvent->text());
-                    if (!m_lineEdit.isVisible()) {
-                        m_lineEdit.show();
-                    }
-                }
-            }
-        }
-
-        return QMenu::eventFilter(o, e);
     }
 
 Q_SIGNALS:
@@ -256,10 +355,8 @@ Q_SIGNALS:
     void navigateLeftRight(int key);
 
 private:
-    QListView m_list;
-    QLineEdit m_lineEdit;
+    FilterableListView m_list;
     DirFilesModel m_model;
-    QSortFilterProxyModel m_proxyModel;
 };
 
 class SymbolsTreeView : public QMenu
@@ -274,41 +371,41 @@ public:
     };
     SymbolsTreeView(QWidget *parent)
         : QMenu(parent)
-        , m_tree(new QTreeView(this))
     {
-        m_tree->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-        m_tree->setFrameStyle(QFrame::NoFrame);
-        m_tree->setUniformRowHeights(true);
-        m_tree->setHeaderHidden(true);
-        m_tree->setTextElideMode(Qt::ElideRight);
-        m_tree->setRootIsDecorated(false);
+        m_tree.view()->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        m_tree.view()->setFrameStyle(QFrame::NoFrame);
+        m_tree.view()->setUniformRowHeights(true);
+        m_tree.view()->setHeaderHidden(true);
+        m_tree.view()->setTextElideMode(Qt::ElideRight);
+        m_tree.view()->setRootIsDecorated(false);
 
         auto *l = new QVBoxLayout(this);
         l->setContentsMargins({});
-        l->addWidget(m_tree);
-        setFocusProxy(m_tree);
-        m_tree->installEventFilter(this);
-        m_tree->viewport()->installEventFilter(this);
+        l->addWidget(&m_tree);
+        setFocusProxy(&m_tree);
+        m_tree.view()->installEventFilter(this);
+        m_tree.view()->viewport()->installEventFilter(this);
 
-        connect(m_tree, &QTreeView::clicked, this, &SymbolsTreeView::onClicked);
+        connect(&m_tree, &FilterableTreeView::clicked, this, &SymbolsTreeView::onClicked);
+        connect(&m_tree, &FilterableTreeView::returnPressed, this, &SymbolsTreeView::onClicked);
         connect(qApp, &QApplication::paletteChanged, this, &SymbolsTreeView::updatePalette, Qt::QueuedConnection);
     }
 
     void updatePalette()
     {
-        auto p = m_tree->palette();
+        auto p = m_tree.palette();
         p.setBrush(QPalette::Base, palette().alternateBase());
-        m_tree->setPalette(p);
+        m_tree.setPalette(p);
     }
 
     void setSymbolsModel(QAbstractItemModel *model, KTextEditor::View *v, const QString &text)
     {
         m_activeView = v;
-        m_tree->setModel(model);
-        m_tree->expandAll();
+        m_tree.setModel(model);
+        m_tree.view()->expandAll();
         const auto idxToSelect = model->match(model->index(0, 0), 0, text, 1, Qt::MatchExactly);
         if (!idxToSelect.isEmpty()) {
-            m_tree->setCurrentIndex(idxToSelect.constFirst());
+            m_tree.setCurrentIndex(idxToSelect.constFirst());
         }
         updateGeometry();
     }
@@ -328,10 +425,7 @@ public:
 
     bool handleKeyPressEvent(QKeyEvent *ke)
     {
-        if (ke->key() == Qt::Key_Enter || ke->key() == Qt::Key_Return) {
-            onClicked(m_tree->currentIndex());
-            return true;
-        } else if (ke->key() == Qt::Key_Left) {
+        if (ke->key() == Qt::Key_Left) {
             hide();
             Q_EMIT navigateLeftRight(ke->key());
             return false;
@@ -345,9 +439,9 @@ public:
 
     void updateGeometry()
     {
-        const auto *model = m_tree->model();
+        const auto *model = m_tree.model();
         const int rows = rowCount(model, {});
-        const int rowHeight = m_tree->sizeHintForRow(0);
+        const int rowHeight = m_tree.view()->sizeHintForRow(0);
         const int maxHeight = rows * rowHeight;
 
         setFixedSize(350, qMin(600, maxHeight));
@@ -393,7 +487,7 @@ private:
         return rows + child_rows;
     }
 
-    QTreeView *m_tree;
+    FilterableTreeView m_tree;
     QPointer<KTextEditor::View> m_activeView;
 
 Q_SIGNALS:

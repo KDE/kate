@@ -280,6 +280,7 @@ public:
         m_tree->setUniformRowHeights(true);
         m_tree->setHeaderHidden(true);
         m_tree->setTextElideMode(Qt::ElideRight);
+        m_tree->setRootIsDecorated(false);
 
         auto *l = new QVBoxLayout(this);
         l->setContentsMargins({});
@@ -337,7 +338,6 @@ public:
             hide();
             ke->accept();
             return true;
-            ;
         }
         return false;
     }
@@ -345,7 +345,7 @@ public:
     void updateGeometry()
     {
         const auto *model = m_tree->model();
-        const int rows = rowCount(model);
+        const int rows = rowCount(model, {});
         const int rowHeight = m_tree->sizeHintForRow(0);
         const int maxHeight = rows * rowHeight;
 
@@ -382,13 +382,14 @@ private:
     // row count that counts top level + 1 level down rows
     // needed to ensure we don't get strange heights for
     // cases where there are only a couple of top level symbols
-    int rowCount(const QAbstractItemModel *model)
+    int rowCount(const QAbstractItemModel *model, const QModelIndex &index)
     {
-        int rows = model->rowCount({});
+        int rows = model->rowCount(index);
+        int child_rows = 0;
         for (int i = 0; i < rows; ++i) {
-            rows += model->rowCount(model->index(i, 0));
+            child_rows += rowCount(model, model->index(i, 0, index));
         }
-        return rows;
+        return rows + child_rows;
     }
 
     QTreeView *m_tree;

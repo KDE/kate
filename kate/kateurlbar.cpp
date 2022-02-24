@@ -11,6 +11,7 @@
 #include <KTextEditor/Document>
 #include <KTextEditor/View>
 
+#include <KAcceleratorManager>
 #include <KActionCollection>
 #include <KColorScheme>
 #include <KLocalizedString>
@@ -829,6 +830,7 @@ public:
     {
         m_currBranchBtn->setAutoRaise(true);
         m_currBranchBtn->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+        KAcceleratorManager::setNoAccel(m_currBranchBtn);
 
         QTimer::singleShot(500, this, [this] {
             auto *mw = m_urlBar->viewManager()->mainWindow();

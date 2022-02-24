@@ -18,6 +18,7 @@
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/View>
 
+#include <KAcceleratorManager>
 #include <KActionCollection>
 #include <KLineEdit>
 #include <KLocalizedString>
@@ -51,6 +52,7 @@ KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject 
     m_branchBtn->setAutoRaise(true);
     m_branchBtn->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     m_branchBtn->setSizePolicy(QSizePolicy::Minimum, m_branchBtn->sizePolicy().verticalPolicy());
+    KAcceleratorManager::setNoAccel(m_branchBtn);
 
     // let tree get focus for keyboard selection of file to open
     setFocusProxy(m_treeView);

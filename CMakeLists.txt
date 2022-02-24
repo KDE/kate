@@ -1,5 +1,5 @@
-# 3.1 is required for `target_sources`.
-cmake_minimum_required(VERSION 3.1 FATAL_ERROR)
+# 3.16 is required for the ECM version we require
+cmake_minimum_required(VERSION 3.16 FATAL_ERROR)
 
 # KDE Applications version, managed by release script.
 set(RELEASE_SERVICE_VERSION_MAJOR "22")

@@ -18,20 +18,14 @@ kate_add_plugin(kateprojectplugin)
 target_compile_definitions(kateprojectplugin PRIVATE TRANSLATION_DOMAIN="kateproject")
 
 target_link_libraries(
-  kateprojectplugin
-  PRIVATE
-    $<TARGET_OBJECTS:kateshared>
-    Qt5::Concurrent
-    KF5::GuiAddons
-    KF5::I18n
-    KF5::NewStuff
-    KF5::TextEditor
-)
-
-target_include_directories(
     kateprojectplugin
-    PUBLIC
-    ${CMAKE_SOURCE_DIR}/shared
+    PRIVATE
+        kateshared
+        Qt5::Concurrent
+        KF5::GuiAddons
+        KF5::I18n
+        KF5::NewStuff
+        KF5::TextEditor
 )
 
 include(CheckFunctionExists)

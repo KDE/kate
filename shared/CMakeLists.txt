@@ -1,4 +1,4 @@
-add_library(kateshared OBJECT
+add_library(kateshared STATIC
     quickdialog.cpp
 )
 

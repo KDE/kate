@@ -4,9 +4,7 @@ target_compile_definitions(lspclientplugin PRIVATE TRANSLATION_DOMAIN="lspclient
 target_link_libraries(
   lspclientplugin
   PRIVATE
-    $<TARGET_OBJECTS:kateshared>
-    KF5::I18n
-    KF5::TextEditor
+    kateshared
 )
 
 include(ECMQtDeclareLoggingCategory)
@@ -37,12 +35,6 @@ target_sources(
     gotosymboldialog.cpp
 
     plugin.qrc
-)
-
-target_include_directories(
-    lspclientplugin
-    PUBLIC
-    ${CMAKE_SOURCE_DIR}/shared
 )
 
 if(BUILD_TESTING)

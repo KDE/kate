@@ -201,7 +201,7 @@ KTextEditor::Document *KateDocManager::openUrl(const QUrl &url, const QString &e
     return doc;
 }
 
-bool KateDocManager::closeDocuments(const QList<KTextEditor::Document *> &documents, bool closeUrl)
+bool KateDocManager::closeDocuments(const QList<KTextEditor::Document *> documents, bool closeUrl)
 {
     if (documents.empty()) {
         return false;

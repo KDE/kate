@@ -65,7 +65,7 @@ public:
     openUrls(const QList<QUrl> &, const QString &encoding = QString(), bool isTempFile = false, const KateDocumentInfo &docInfo = KateDocumentInfo());
 
     bool closeDocument(KTextEditor::Document *, bool closeUrl = true);
-    bool closeDocuments(const QList<KTextEditor::Document *> &documents, bool closeUrl = true);
+    bool closeDocuments(const QList<KTextEditor::Document *> documents, bool closeUrl = true);
     bool closeDocumentList(const QList<KTextEditor::Document *> &documents);
     bool closeAllDocuments(bool closeUrl = true);
     bool closeOtherDocuments(KTextEditor::Document *);

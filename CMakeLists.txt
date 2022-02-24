@@ -52,6 +52,7 @@ find_package(KF5 ${KF5_DEP_VERSION}
 
 add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x050d00)
 
+ecm_optional_add_subdirectory(shared)
 ecm_optional_add_subdirectory(addons)
 ecm_optional_add_subdirectory(kwrite)
 ecm_optional_add_subdirectory(kate)

@@ -20,6 +20,7 @@ target_compile_definitions(kateprojectplugin PRIVATE TRANSLATION_DOMAIN="katepro
 target_link_libraries(
   kateprojectplugin
   PRIVATE
+    $<TARGET_OBJECTS:kateshared>
     Qt5::Concurrent
     KF5::GuiAddons
     KF5::I18n
@@ -69,7 +70,6 @@ target_sources(
     gitcommitdialog.cpp
     stashdialog.cpp
     filehistorywidget.cpp
-    ${CMAKE_SOURCE_DIR}/shared/quickdialog.cpp
     pushpulldialog.cpp
     comparebranchesview.cpp
     branchdeletedialog.cpp

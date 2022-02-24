@@ -303,7 +303,6 @@ protected:
 private:
     bool m_inContextMenu = false;
     QPointer<KTextEditor::View> m_view;
-    KateGitBlamePluginView *m_pluginView;
     QTimer m_hideTimer;
     HtmlHl m_htmlHl;
     KSyntaxHighlighting::Repository m_syntaxHlRepo;

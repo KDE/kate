@@ -16,12 +16,7 @@ class ResultNode
 {
 public:
     ResultNode() = default; // root node
-    ResultNode(const ResultNode &other)
-        : name(other.name)
-        , dir(other.dir)
-        , children(other.children)
-    {
-    }
+    ResultNode(const ResultNode &other) = default;
     ResultNode(const char *_name, const bool _dir = false)
         : ResultNode(QString::fromLatin1(_name), _dir)
     {

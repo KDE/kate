@@ -41,6 +41,8 @@ SearchResultsDelegate::SearchResultsDelegate(QObject *parent)
         m_curLineHighlightColor = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::CurrentLine));
         m_searchColor = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::SearchHighlight));
         m_replaceColor = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::ReplaceHighlight));
+        QColor altBase = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::BackgroundColor));
+        m_altBase = altBase.lightness() > 127 ? altBase.darker(125) : altBase.lighter(125);
     };
     connect(e, &KTextEditor::Editor::configChanged, this, updateColors);
     updateColors();
@@ -159,6 +161,9 @@ void SearchResultsDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
 
     // draw item without text
     options.text = QString();
+    if (!isMatchItem(index)) {
+        options.backgroundBrush = m_altBase;
+    }
     options.widget->style()->drawControl(QStyle::CE_ItemViewItem, &options, painter, options.widget);
 
     if (isMatchItem(index)) {

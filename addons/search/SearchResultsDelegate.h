@@ -32,6 +32,7 @@ private:
     QBrush m_textColor;
     QBrush m_searchColor;
     QBrush m_replaceColor;
+    QBrush m_altBase;
 };
 
 #endif

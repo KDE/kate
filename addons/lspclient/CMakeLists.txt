@@ -4,7 +4,6 @@ target_compile_definitions(lspclientplugin PRIVATE TRANSLATION_DOMAIN="lspclient
 target_link_libraries(
   lspclientplugin
   PRIVATE
-    $<TARGET_OBJECTS:kateshared>
     KF5::I18n
     KF5::TextEditor
 )
@@ -36,6 +35,8 @@ target_sources(
     lsptooltip.cpp
     gotosymboldialog.cpp
 
+    ${CMAKE_SOURCE_DIR}/shared/quickdialog.cpp # hud dialog
+
     plugin.qrc
 )
 
@@ -44,6 +45,7 @@ target_include_directories(
     PUBLIC
     ${CMAKE_SOURCE_DIR}/shared
 )
+
 
 if(BUILD_TESTING)
   add_subdirectory(tests)

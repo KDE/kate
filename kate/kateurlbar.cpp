@@ -879,6 +879,7 @@ Q_SIGNALS:
     void unsetFocus();
 };
 
+// TODO: Merge this class back into KateUrlBar
 class UrlbarContainer : public QWidget
 {
     Q_OBJECT
@@ -887,22 +888,13 @@ public:
         : QWidget(parent)
         , m_urlBar(parent)
         , m_breadCrumbView(new BreadCrumbView(this, parent))
-        , m_currBranchBtn(new QToolButton(this))
-        , m_sepLabel(new QLabel(this))
     {
         // UrlBar
         auto urlBarLayout = new QHBoxLayout(this);
         urlBarLayout->setSpacing(0);
         urlBarLayout->setContentsMargins({});
-        urlBarLayout->addWidget(m_currBranchBtn);
-        urlBarLayout->addWidget(m_sepLabel);
         urlBarLayout->addWidget(m_breadCrumbView);
-
-        m_sepLabel->setAlignment(Qt::AlignCenter);
-
         setFocusProxy(m_breadCrumbView);
-
-        setupCurrentBranchButton();
 
         connect(m_breadCrumbView, &BreadCrumbView::unsetFocus, this, [this] {
             m_urlBar->viewManager()->activeView()->setFocus();
@@ -914,39 +906,10 @@ public:
             this,
             [this] {
                 m_sepPixmap = QPixmap();
-                m_sepLabel->setPixmap(separatorPixmap());
+                initSeparatorIcon();
                 m_breadCrumbView->updateSeperatorIcon();
             },
             Qt::QueuedConnection);
-    }
-
-    void setupCurrentBranchButton()
-    {
-        m_currBranchBtn->setAutoRaise(true);
-        m_currBranchBtn->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-        KAcceleratorManager::setNoAccel(m_currBranchBtn);
-
-        QTimer::singleShot(500, this, [this] {
-            auto *mw = m_urlBar->viewManager()->mainWindow();
-            const auto acs = mw->actionCollection()->allCollections();
-            for (auto *ac : acs) {
-                if (auto action = ac->action(QStringLiteral("current_branch"))) {
-                    m_currBranchBtn->setDefaultAction(action);
-                    connect(action, &QAction::changed, this, [this] {
-                        if (m_currBranchBtn->defaultAction() && m_currBranchBtn->defaultAction()->text().isEmpty()) {
-                            m_currBranchBtn->hide();
-                        }
-                    });
-                }
-            }
-            if (!m_currBranchBtn->defaultAction()) {
-                m_currBranchBtn->hide();
-                m_sepLabel->hide();
-            } else {
-                // Setup the icon now
-                m_sepLabel->setPixmap(separatorPixmap());
-            }
-        });
     }
 
     void open()
@@ -994,8 +957,6 @@ private:
 
     KateUrlBar *const m_urlBar;
     BreadCrumbView *const m_breadCrumbView;
-    QToolButton *const m_currBranchBtn;
-    QLabel *const m_sepLabel;
     QPixmap m_sepPixmap;
 };
 

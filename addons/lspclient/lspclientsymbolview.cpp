@@ -237,7 +237,7 @@ public:
                                                       QStringLiteral("lspclient_symbol_outline"),
                                                       KTextEditor::MainWindow::Right,
                                                       QIcon::fromTheme(QStringLiteral("code-context")),
-                                                      i18n("LSP Client Symbol Outline")));
+                                                      i18n("Symbol Outline")));
 
         m_symbols = new QTreeView(m_toolview.data());
         m_symbols->setFocusPolicy(Qt::NoFocus);

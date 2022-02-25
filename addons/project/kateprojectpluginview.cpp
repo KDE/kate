@@ -72,7 +72,7 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
                                                   QStringLiteral("kateprojectinfo"),
                                                   KTextEditor::MainWindow::Bottom,
                                                   QIcon::fromTheme(QStringLiteral("view-choose")),
-                                                  i18n("Current Project"));
+                                                  i18n("Project"));
 
     /**
      * create the combo + buttons for the toolViews + stacked widgets

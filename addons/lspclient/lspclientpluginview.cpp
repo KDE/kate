@@ -738,7 +738,7 @@ public:
                                                  QStringLiteral("kate_lspclient"),
                                                  KTextEditor::MainWindow::Bottom,
                                                  QIcon::fromTheme(QStringLiteral("application-x-ms-dos-executable")),
-                                                 i18n("LSP Client")));
+                                                 i18n("LSP")));
         m_tabWidget = new QTabWidget(m_toolView.data());
         m_toolView->layout()->addWidget(m_tabWidget);
         m_tabWidget->setFocusPolicy(Qt::NoFocus);

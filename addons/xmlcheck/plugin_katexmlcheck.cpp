@@ -110,7 +110,7 @@ PluginKateXMLCheckView::PluginKateXMLCheckView(KTextEditor::Plugin *plugin, KTex
                                         QStringLiteral("kate_plugin_xmlcheck_ouputview"),
                                         KTextEditor::MainWindow::Bottom,
                                         QIcon::fromTheme(QStringLiteral("misc")),
-                                        i18n("XML Checker Output"));
+                                        i18n("XML Checker"));
     listview = new QTreeWidget(dock);
     m_tmp_file = nullptr;
     QAction *a = actionCollection()->addAction(QStringLiteral("xml_check"));

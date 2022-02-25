@@ -66,7 +66,7 @@ KateFileBrowserPluginView::KateFileBrowserPluginView(KTextEditor::Plugin *plugin
                                             QStringLiteral("kate_private_plugin_katefileselectorplugin"),
                                             KTextEditor::MainWindow::Left,
                                             QIcon::fromTheme(QStringLiteral("document-open")),
-                                            i18n("Filesystem Browser")))
+                                            i18n("Filesystem")))
     , m_mainWindow(mainWindow)
 {
     m_toolView->installEventFilter(this);

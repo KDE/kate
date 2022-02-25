@@ -300,7 +300,7 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
                                          QStringLiteral("kate_plugin_katesearch"),
                                          KTextEditor::MainWindow::Bottom,
                                          QIcon::fromTheme(QStringLiteral("edit-find")),
-                                         i18n("Search and Replace"));
+                                         i18n("Search"));
 
     ContainerWidget *container = new ContainerWidget(m_toolView);
     QWidget *searchUi = new QWidget(container);

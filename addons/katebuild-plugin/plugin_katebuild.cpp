@@ -132,7 +132,7 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
                                     QStringLiteral("kate_plugin_katebuildplugin"),
                                     KTextEditor::MainWindow::Bottom,
                                     QIcon::fromTheme(QStringLiteral("application-x-ms-dos-executable")),
-                                    i18n("Build Output"));
+                                    i18n("Build"));
 
     QAction *a = actionCollection()->addAction(QStringLiteral("select_target"));
     a->setText(i18n("Select Target..."));

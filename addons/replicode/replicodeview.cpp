@@ -52,7 +52,7 @@ ReplicodeView::ReplicodeView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
                                                   QStringLiteral("kate_private_plugin_katereplicodeplugin_run"),
                                                   KTextEditor::MainWindow::Bottom,
                                                   QIcon::fromTheme(QStringLiteral("code-block")),
-                                                  i18n("Replicode Output")));
+                                                  i18n("Replicode")));
     m_replicodeOutput = new QListWidget(m_toolview.get());
     m_replicodeOutput->setSelectionMode(QAbstractItemView::ContiguousSelection);
     connect(m_replicodeOutput, &QListWidget::itemActivated, this, &ReplicodeView::outputClicked);

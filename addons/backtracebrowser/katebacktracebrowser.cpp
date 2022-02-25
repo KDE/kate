@@ -114,7 +114,7 @@ KateBtBrowserPluginView::KateBtBrowserPluginView(KateBtBrowserPlugin *plugin, KT
                                                    QStringLiteral("kate_private_plugin_katebacktracebrowserplugin"),
                                                    KTextEditor::MainWindow::Bottom,
                                                    QIcon::fromTheme(QStringLiteral("tools-report-bug")),
-                                                   i18n("Backtrace Browser"));
+                                                   i18n("Backtrace"));
     m_widget = new KateBtBrowserWidget(mainWindow, toolview);
 
     connect(plugin, &KateBtBrowserPlugin::newStatus, m_widget, &KateBtBrowserWidget::setStatus);

@@ -101,7 +101,7 @@ KateKonsolePluginView::KateKonsolePluginView(KateKonsolePlugin *plugin, KTextEdi
                                                    QStringLiteral("kate_private_plugin_katekonsoleplugin"),
                                                    KTextEditor::MainWindow::Bottom,
                                                    QIcon::fromTheme(QStringLiteral("dialog-scripts")),
-                                                   i18n("Terminal Panel"));
+                                                   i18n("Terminal"));
     m_console = new KateConsole(m_plugin, mainWindow, toolview);
 
     // register this view

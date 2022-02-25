@@ -69,11 +69,8 @@ KatePluginGDBView::KatePluginGDBView(KTextEditor::Plugin *plugin, KTextEditor::M
     KXMLGUIClient::setComponentName(QStringLiteral("kategdb"), i18n("Kate GDB"));
     setXMLFile(QStringLiteral("ui.rc"));
 
-    m_toolView.reset(m_mainWin->createToolView(plugin,
-                                               i18n("Debug View"),
-                                               KTextEditor::MainWindow::Bottom,
-                                               QIcon::fromTheme(QStringLiteral("debug-run")),
-                                               i18n("Debug View")));
+    m_toolView.reset(
+        m_mainWin->createToolView(plugin, i18n("Debug View"), KTextEditor::MainWindow::Bottom, QIcon::fromTheme(QStringLiteral("debug-run")), i18n("Debug")));
 
     m_localsStackToolView.reset(m_mainWin->createToolView(plugin,
                                                           i18n("Locals and Stack"),

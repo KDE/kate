@@ -720,6 +720,8 @@ void KateMainWindow::toggleShowMenuBar(bool showMessage)
 
 void KateMainWindow::toggleShowStatusBar()
 {
+    // just hide or show the status bar stack
+    statusBarStackedWidget()->setVisible(showStatusBar());
 }
 
 bool KateMainWindow::showStatusBar()

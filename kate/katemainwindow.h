@@ -272,6 +272,7 @@ public:
                 m_bottomViewBarContainer->hide();
             }
             delete state.bar();
+            delete state.statusBar();
         }
     }
 
@@ -594,10 +595,28 @@ private:
         {
             m_state = state;
         }
+        QWidget *statusBar()
+        {
+            return m_statusBar;
+        }
+        void setStatusBar(QWidget *statusBar)
+        {
+            Q_ASSERT(statusBar);
+            Q_ASSERT(!m_statusBar);
+            m_statusBar = statusBar;
+        }
 
     private:
         QWidget *m_bar = nullptr;
         bool m_state = false;
+
+        /**
+         * status bar widget
+         * if already extracted from the bar itself
+         * we can't extract this on creation of the bar widget, but do this lazy
+         * later, as the construction order in KateView doesn't allow for that.
+         */
+        QWidget *m_statusBar = nullptr;
     };
     QHash<KTextEditor::View *, BarState> m_bottomViewBarMapping;
 

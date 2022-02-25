@@ -1143,19 +1143,47 @@ void KateMainWindow::restoreWindowConfig(const KConfigGroup &config)
 
 void KateMainWindow::slotUpdateBottomViewBar()
 {
-    // qCDebug(LOG_KATE)<<"slotUpdateHorizontalViewBar()"<<endl;
+    // get active view if any, if none => just hide bar
     KTextEditor::View *view = m_viewManager->activeView();
-    BarState bs = m_bottomViewBarMapping[view];
-    if (bs.bar() && bs.state()) {
+    if (!view) {
+        if (auto wid = m_bottomContainerStack->currentWidget()) {
+            wid->hide();
+        }
+        m_bottomViewBarContainer->hide();
+        return;
+    }
+
+    // get bar state, we must have a bar widget here, KateView always creates one!
+    BarState &bs = m_bottomViewBarMapping[view];
+    Q_ASSERT(bs.bar());
+
+    // extract statusbar if not already done
+    if (!bs.statusBar()) {
+        // we search for the status bar by class, this MUST work, we ensure that it is enabled in the view
+        const auto widgets = bs.bar()->findChildren<QWidget *>(QString(), Qt::FindChildrenRecursively);
+        for (auto *w : widgets) {
+            if (w && w->metaObject()->className() == QByteArrayLiteral("KateStatusBar")) {
+                bs.setStatusBar(w);
+            }
+        }
+        Q_ASSERT(bs.statusBar());
+
+        // ensure we don't mess up the vertical sizing
+        bs.statusBar()->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
+
+        // add the status bar to our status bar stack, there we will show/hide it
+        statusBarStackedWidget()->addWidget(bs.statusBar());
+    }
+
+    // hide or show the bar
+    if (bs.state()) {
         m_bottomContainerStack->setCurrentWidget(bs.bar());
         m_bottomContainerStack->currentWidget()->show();
         m_bottomViewBarContainer->show();
     } else {
-        QWidget *wid = m_bottomContainerStack->currentWidget();
-        if (wid) {
+        if (auto wid = m_bottomContainerStack->currentWidget()) {
             wid->hide();
         }
-        // qCDebug(LOG_KATE)<<wid<<"hiding container"<<endl;
         m_bottomViewBarContainer->hide();
     }
 }

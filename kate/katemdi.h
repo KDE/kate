@@ -31,6 +31,7 @@ class KActionMenu;
 class QAction;
 class QLabel;
 class QPixmap;
+class QStackedWidget;
 class KConfigBase;
 
 namespace KTextEditor
@@ -354,6 +355,15 @@ protected:
     QWidget *centralWidget() const;
 
     /**
+     * Status bar area stacked widget.
+     * We plug in our status bars from the KTextEditor::Views here
+     */
+    QStackedWidget *statusBarStackedWidget() const
+    {
+        return m_statusBarStackedWidget;
+    }
+
+    /**
      * modifiers for existing toolviews
      */
 public:
@@ -456,6 +466,11 @@ private:
      * out guiclient
      */
     GUIClient *m_guiClient;
+
+    /**
+     * stacked widget for status bars
+     */
+    QStackedWidget *m_statusBarStackedWidget;
 
 Q_SIGNALS:
     void sigShowPluginConfigPage(KTextEditor::Plugin *configpageinterface, int id);

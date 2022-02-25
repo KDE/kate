@@ -27,6 +27,7 @@
 #include <QLabel>
 #include <QMenu>
 #include <QSizePolicy>
+#include <QStackedWidget>
 #include <QStyle>
 #include <QTimer>
 #include <QVBoxLayout>
@@ -918,7 +919,12 @@ MainWindow::MainWindow(QWidget *parentWidget)
     m_vSplitter->setStretchFactor(m_vSplitter->indexOf(m_centralWidget), 1);
 
     m_sidebars[KMultiTabBar::Bottom] = std::make_unique<Sidebar>(KMultiTabBar::Bottom, this, vb);
-    vlayout->addWidget(m_sidebars[KMultiTabBar::Bottom].get());
+    auto bottomHBoxLaout = new QHBoxLayout;
+    bottomHBoxLaout->addWidget(m_sidebars[KMultiTabBar::Bottom].get());
+    m_statusBarStackedWidget = new QStackedWidget(this);
+    m_statusBarStackedWidget->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
+    bottomHBoxLaout->addWidget(m_statusBarStackedWidget);
+    vlayout->addLayout(bottomHBoxLaout);
     m_sidebars[KMultiTabBar::Bottom]->setSplitter(m_vSplitter);
 
     m_sidebars[KMultiTabBar::Right] = std::make_unique<Sidebar>(KMultiTabBar::Right, this, hb);

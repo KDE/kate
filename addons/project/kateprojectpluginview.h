@@ -136,6 +136,11 @@ public:
      */
     void openTerminal(const QString &dirPath, KateProject *project);
 
+    /**
+     * Returns project base dir for provided url
+     */
+    Q_INVOKABLE QString projectBaseDirForUrl(const QUrl &url);
+
 public Q_SLOTS:
     /**
      * Create views for given project.

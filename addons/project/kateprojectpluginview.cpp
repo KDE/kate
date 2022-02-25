@@ -772,6 +772,20 @@ void KateProjectPluginView::openTerminal(const QString &dirPath, KateProject *pr
     }
 }
 
+QString KateProjectPluginView::projectBaseDirForUrl(const QUrl &url)
+{
+    const auto projects = m_plugin->projects();
+    QString ret;
+    for (auto *project : projects) {
+        const QString dir = project->baseDir();
+        if (url.toLocalFile().startsWith(dir)) {
+            // prefer the longer base path
+            ret = ret.length() < dir.length() ? dir : ret;
+        }
+    }
+    return ret;
+}
+
 void KateProjectPluginView::updateActions()
 {
     // currently some project active?

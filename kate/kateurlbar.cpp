@@ -41,6 +41,8 @@
 
 #include <KFuzzyMatcher>
 
+using namespace std::chrono_literals;
+
 class FuzzyFilterModel final : public QSortFilterProxyModel
 {
     Q_OBJECT
@@ -569,6 +571,7 @@ public:
         setItemDelegate(new BreadCrumbDelegate(this));
         setEditTriggers(QAbstractItemView::NoEditTriggers);
         setTextElideMode(Qt::ElideNone);
+        setSpacing(0);
 
         connect(qApp, &QApplication::paletteChanged, this, &BreadCrumbView::updatePalette, Qt::QueuedConnection);
         auto font = this->font();
@@ -590,16 +593,14 @@ public:
         setPalette(pal);
     }
 
-    void setUrl(const QUrl &url)
+    void setUrl(const QString &baseDir, const QUrl &url)
     {
         if (url.isEmpty()) {
             return;
         }
 
         const QString s = url.toString(QUrl::NormalizePathSegments | QUrl::PreferLocalFile);
-        const auto res = splittedUrl(s);
-
-        const auto &dirs = res;
+        const auto &dirs = splittedUrl(baseDir, s);
 
         m_model.clear();
         m_symbolsModel = nullptr;
@@ -628,6 +629,41 @@ public:
         QPointer<QObject> lsp = mainWindow->pluginView(QStringLiteral("lspclientplugin"));
         if (lsp) {
             addSymbolCrumb(lsp);
+        }
+    }
+
+    void setDir(const QString &base)
+    {
+        m_model.clear();
+        if (base.isEmpty()) {
+            return;
+        }
+
+        QDir d(base);
+
+        std::vector<DirNamePath> dirs;
+
+        QString dirName = d.dirName();
+
+        while (d.cdUp()) {
+            if (dirName.isEmpty()) {
+                continue;
+            }
+            dirs.push_back({dirName, d.absolutePath()});
+            dirName = d.dirName();
+        }
+        std::reverse(dirs.begin(), dirs.end());
+
+        QIcon seperator = m_urlBar->seperator();
+        for (const auto &dir : dirs) {
+            auto item = new QStandardItem(dir.name);
+            item->setData(dir.path, BreadCrumbRole::PathRole);
+            m_model.appendRow(item);
+
+            auto sep = new QStandardItem(seperator, {});
+            sep->setSelectable(false);
+            sep->setData(true, BreadCrumbRole::IsSeparator);
+            m_model.appendRow(sep);
         }
     }
 
@@ -783,6 +819,8 @@ public:
 
         const auto pos = mapToGlobal(rectForIndex(idx).bottomLeft());
 
+        m_isNavigating = true;
+
         QDir d(path);
         DirFilesList m(this);
         connect(&m, &DirFilesList::openUrl, m_urlBar, &KateUrlBar::openUrlRequested);
@@ -793,6 +831,12 @@ public:
         m.setDir(d, idx.data().toString());
         m.setFocus();
         m.exec(pos);
+        m_isNavigating = false;
+    }
+
+    bool navigating() const
+    {
+        return m_isNavigating;
     }
 
     void openLastIndex()
@@ -813,6 +857,18 @@ public:
                 item->setIcon(newSeperator);
             }
         }
+    }
+
+    int maxWidth() const
+    {
+        const auto rowCount = m_model.rowCount();
+        int w = 0;
+        QStyleOptionViewItem opt = viewOptions();
+        auto delegate = itemDelegate();
+        for (int i = 0; i < rowCount; ++i) {
+            w += delegate->sizeHint(opt, m_model.index(i, 0)).width();
+        }
+        return w;
     }
 
 private:
@@ -840,13 +896,8 @@ private:
         }
     }
 
-    static QVector<DirNamePath> splittedUrl(const QString &s)
+    static QVector<DirNamePath> splittedUrl(const QString &base, const QString &s)
     {
-        const int slashIndex = s.lastIndexOf(QLatin1Char('/'));
-        if (slashIndex == -1) {
-            return {};
-        }
-
         QDir dir(s);
         const QString fileName = dir.dirName();
         dir.cdUp();
@@ -855,16 +906,27 @@ private:
         QVector<DirNamePath> dirsList;
         dirsList << DirNamePath{fileName, path};
 
+        // arrived at base?
+        if (dir.absolutePath() == base) {
+            return dirsList;
+        }
+
         QString dirName = dir.dirName();
 
         while (dir.cdUp()) {
             if (dirName.isEmpty()) {
                 continue;
             }
+
             DirNamePath dnp{dirName, dir.absolutePath()};
             dirsList.push_back(dnp);
 
             dirName = dir.dirName();
+
+            // arrived at base?
+            if (dir.absolutePath() == base) {
+                break;
+            }
         }
         std::reverse(dirsList.begin(), dirsList.end());
         return dirsList;
@@ -874,6 +936,7 @@ private:
     QStandardItemModel m_model;
     QPointer<QAbstractItemModel> m_symbolsModel;
     QMetaObject::Connection m_connToView; // Only one conn at a time
+    bool m_isNavigating = false;
 
 Q_SIGNALS:
     void unsetFocus();
@@ -887,16 +950,40 @@ public:
     UrlbarContainer(KateUrlBar *parent)
         : QWidget(parent)
         , m_urlBar(parent)
-        , m_breadCrumbView(new BreadCrumbView(this, parent))
+        , m_ellipses(new QToolButton(this))
+        , m_baseCrumbView(new BreadCrumbView(this, parent))
+        , m_mainCrumbView(new BreadCrumbView(this, parent))
     {
-        // UrlBar
+        m_ellipses->setText(QStringLiteral("…"));
+        m_ellipses->setAutoRaise(true);
         auto urlBarLayout = new QHBoxLayout(this);
+        connect(m_ellipses, &QToolButton::clicked, this, [urlBarLayout, this] {
+            if (m_currBaseDir.isEmpty()) {
+                qWarning() << "Unexpected empty base dir";
+                return;
+            }
+            m_ellipses->hide();
+            urlBarLayout->removeWidget(m_ellipses);
+            m_baseCrumbView->setDir(m_currBaseDir);
+            auto s = m_baseCrumbView->sizeHint();
+            s.setHeight(height());
+            int w = m_baseCrumbView->maxWidth();
+            s.setWidth(w);
+            m_baseCrumbView->setFixedSize(s);
+            urlBarLayout->insertWidget(0, m_baseCrumbView);
+            m_baseCrumbView->show();
+        });
+        m_baseCrumbView->hide();
+        m_baseCrumbView->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Ignored);
+
+        // UrlBar
         urlBarLayout->setSpacing(0);
         urlBarLayout->setContentsMargins({});
-        urlBarLayout->addWidget(m_breadCrumbView);
-        setFocusProxy(m_breadCrumbView);
+        urlBarLayout->addWidget(m_ellipses);
+        urlBarLayout->addWidget(m_mainCrumbView);
+        setFocusProxy(m_mainCrumbView);
 
-        connect(m_breadCrumbView, &BreadCrumbView::unsetFocus, this, [this] {
+        connect(m_mainCrumbView, &BreadCrumbView::unsetFocus, this, [this] {
             m_urlBar->viewManager()->activeView()->setFocus();
         });
 
@@ -907,21 +994,38 @@ public:
             [this] {
                 m_sepPixmap = QPixmap();
                 initSeparatorIcon();
-                m_breadCrumbView->updateSeperatorIcon();
+                m_mainCrumbView->updateSeperatorIcon();
             },
             Qt::QueuedConnection);
+
+        connect(&m_fullPathHideTimer, &QTimer::timeout, this, &UrlbarContainer::hideFullPath);
+        m_fullPathHideTimer.setInterval(1s);
+        m_fullPathHideTimer.setSingleShot(true);
     }
 
     void open()
     {
-        if (m_breadCrumbView) {
-            m_breadCrumbView->openLastIndex();
+        if (m_mainCrumbView) {
+            m_mainCrumbView->openLastIndex();
         }
     }
 
     void setUrl(const QUrl &url)
     {
-        m_breadCrumbView->setUrl(url);
+        QObject *project = m_urlBar->viewManager()->mainWindow()->pluginView(QStringLiteral("kateprojectplugin"));
+        QString baseDir;
+        if (project) {
+            QMetaObject::invokeMethod(project, "projectBaseDirForUrl", Q_RETURN_ARG(QString, baseDir), Q_ARG(QUrl, url));
+        }
+
+        m_currBaseDir = baseDir;
+        if (m_currBaseDir.isEmpty()) {
+            m_ellipses->hide();
+            m_baseCrumbView->hide();
+        } else {
+            m_ellipses->show();
+        }
+        m_mainCrumbView->setUrl(baseDir, url);
     }
 
     QPixmap separatorPixmap()
@@ -932,7 +1036,33 @@ public:
         return m_sepPixmap;
     }
 
+protected:
+    void leaveEvent(QEvent *e) override
+    {
+        if (!m_baseCrumbView->navigating()) {
+            m_fullPathHideTimer.start();
+        }
+        QWidget::leaveEvent(e);
+    }
+
+    void enterEvent(QEvent *e) override
+    {
+        m_fullPathHideTimer.stop();
+        QWidget::leaveEvent(e);
+    }
+
 private:
+    void hideFullPath()
+    {
+        if (m_currBaseDir.isEmpty()) {
+            return;
+        }
+        m_baseCrumbView->hide();
+        layout()->removeWidget(m_baseCrumbView);
+        static_cast<QHBoxLayout *>(layout())->insertWidget(0, m_ellipses);
+        m_ellipses->show();
+    }
+
     void initSeparatorIcon()
     {
         Q_ASSERT(m_sepPixmap.isNull());
@@ -956,8 +1086,12 @@ private:
     }
 
     KateUrlBar *const m_urlBar;
-    BreadCrumbView *const m_breadCrumbView;
+    QToolButton *const m_ellipses;
+    BreadCrumbView *const m_baseCrumbView;
+    BreadCrumbView *const m_mainCrumbView;
+    QTimer m_fullPathHideTimer;
     QPixmap m_sepPixmap;
+    QString m_currBaseDir;
 };
 
 KateUrlBar::KateUrlBar(KateViewSpace *parent)

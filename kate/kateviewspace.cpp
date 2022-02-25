@@ -500,8 +500,6 @@ void KateViewSpace::closeDocument(KTextEditor::Document *doc)
         // We have other views of this doc in other viewspaces
         // Just remove the view
         m_viewManager->deleteView(it->second);
-        // Clean up this doc from this viewspace
-        documentDestroyed(doc);
     }
 
     /**

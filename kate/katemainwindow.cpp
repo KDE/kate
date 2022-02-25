@@ -720,7 +720,6 @@ void KateMainWindow::toggleShowMenuBar(bool showMessage)
 
 void KateMainWindow::toggleShowStatusBar()
 {
-    Q_EMIT statusBarToggled();
 }
 
 bool KateMainWindow::showStatusBar()

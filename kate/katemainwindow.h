@@ -219,7 +219,6 @@ public:
     bool showTabBar();
 
 Q_SIGNALS:
-    void statusBarToggled();
     void tabBarToggled();
     void unhandledShortcutOverride(QEvent *e);
 

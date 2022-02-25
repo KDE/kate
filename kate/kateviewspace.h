@@ -193,7 +193,6 @@ public Q_SLOTS:
     void updateDocumentState(KTextEditor::Document *doc);
 
 private Q_SLOTS:
-    void statusBarToggled();
     void tabBarToggled();
     void urlBarToggled(bool);
     void changeView(int buttonId);

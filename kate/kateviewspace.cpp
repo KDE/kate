@@ -150,7 +150,6 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent, cons
     m_group.clear();
 
     // connect signal to hide/show statusbar
-    connect(m_viewManager->mainWindow(), &KateMainWindow::statusBarToggled, this, &KateViewSpace::statusBarToggled);
     connect(m_viewManager->mainWindow(), &KateMainWindow::tabBarToggled, this, &KateViewSpace::tabBarToggled);
     connect(m_viewManager, &KateViewManager::showUrlNavBarChanged, this, &KateViewSpace::urlBarToggled);
 
@@ -162,8 +161,7 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent, cons
     m_layout.tabBarLayout = hLayout;
     m_layout.mainLayout = layout;
 
-    // init the bars...
-    statusBarToggled();
+    // init tab bar
     tabBarToggled();
 }
 
@@ -203,15 +201,6 @@ bool KateViewSpace::eventFilter(QObject *obj, QEvent *event)
         }
     }
     return false;
-}
-
-void KateViewSpace::statusBarToggled()
-{
-    KateUpdateDisabler updatesDisabled(m_viewManager->mainWindow());
-    for (const auto &[_, view] : m_docToView) {
-        Q_UNUSED(_)
-        view->setStatusBarEnabled(m_viewManager->mainWindow()->showStatusBar());
-    }
 }
 
 void KateViewSpace::tabBarToggled()
@@ -278,8 +267,8 @@ KTextEditor::View *KateViewSpace::createView(KTextEditor::Document *doc)
      */
     KTextEditor::View *v = doc->createView(stack, m_viewManager->mainWindow()->wrapper());
 
-    // set status bar to right state
-    v->setStatusBarEnabled(m_viewManager->mainWindow()->showStatusBar());
+    // our framework relies on the existence of the status bar
+    v->setStatusBarEnabled(true);
 
     // restore the config of this view if possible
     if (!m_group.isEmpty()) {

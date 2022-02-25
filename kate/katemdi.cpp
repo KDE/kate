@@ -924,6 +924,7 @@ MainWindow::MainWindow(QWidget *parentWidget)
     m_statusBarStackedWidget = new QStackedWidget(this);
     m_statusBarStackedWidget->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
     bottomHBoxLaout->addWidget(m_statusBarStackedWidget);
+    bottomHBoxLaout->setStretch(1, 100);
     vlayout->addLayout(bottomHBoxLaout);
     m_sidebars[KMultiTabBar::Bottom]->setSplitter(m_vSplitter);
 

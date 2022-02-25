@@ -1175,6 +1175,10 @@ void KateMainWindow::slotUpdateBottomViewBar()
         statusBarStackedWidget()->addWidget(bs.statusBar());
     }
 
+    // always activate the current statusbar
+    Q_ASSERT(bs.statusBar()->parentWidget() == statusBarStackedWidget());
+    statusBarStackedWidget()->setCurrentWidget(bs.statusBar());
+
     // hide or show the bar
     if (bs.state()) {
         m_bottomContainerStack->setCurrentWidget(bs.bar());

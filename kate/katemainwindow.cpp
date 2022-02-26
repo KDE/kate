@@ -1037,6 +1037,7 @@ void KateMainWindow::updateCaption(KTextEditor::Document *doc)
 {
     if (!m_viewManager->activeView()) {
         setCaption(QString(), false);
+        setWindowFilePath(QString());
         return;
     }
 
@@ -1056,6 +1057,8 @@ void KateMainWindow::updateCaption(KTextEditor::Document *doc)
             c = QLatin1String("~") + c.right(c.length() - homePath.length());
         }
     }
+
+    setWindowFilePath(m_viewManager->activeView()->document()->url().toString(QUrl::PreferLocalFile));
 
     QString sessName = KateApp::self()->sessionManager()->activeSession()->name();
     if (!sessName.isEmpty()) {

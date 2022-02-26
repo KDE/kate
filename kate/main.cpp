@@ -210,7 +210,9 @@ int main(int argc, char **argv)
     /**
      * set the program icon
      */
+#ifndef Q_OS_MACOS // skip this on macOS to have proper mime-type icon visible
     QApplication::setWindowIcon(QIcon(QStringLiteral(":/kate/kate.svg")));
+#endif
 
     /**
      * Create command line parser and feed it with known options

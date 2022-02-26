@@ -443,6 +443,7 @@ void KWrite::documentNameChanged()
 
     if (m_view->document()->url().isEmpty()) {
         setCaption(i18n("Untitled") + readOnlyCaption + QStringLiteral(" [*]"), m_view->document()->isModified());
+        setWindowFilePath(QString());
         return;
     }
 
@@ -468,6 +469,8 @@ void KWrite::documentNameChanged()
             c = c.left(64) + QStringLiteral("...");
         }
     }
+
+    setWindowFilePath(m_view->document()->url().toString(QUrl::PreferLocalFile));
 
     setCaption(c + readOnlyCaption + QStringLiteral(" [*]"), m_view->document()->isModified());
 }

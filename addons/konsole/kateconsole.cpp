@@ -573,6 +573,7 @@ KateKonsoleConfigPage::KateKonsoleConfigPage(QWidget *parent, KateKonsolePlugin 
     QLabel *hideKonsoleLabel =
         new QLabel(i18n("This may cause issues with terminal apps that use Esc key, for e.g., vim. Add these apps in the input below (Comma separated list)"),
                    this);
+    hideKonsoleLabel->setWordWrap(true);
     lo->addWidget(hideKonsoleLabel);
 
     leEscExceptions = new QLineEdit(this);

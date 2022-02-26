@@ -878,13 +878,20 @@ MainWindow::MainWindow(QWidget *parentWidget)
     : KParts::MainWindow(parentWidget, Qt::Window)
     , m_guiClient(new GUIClient(this))
 {
-    // init the internal widgets
+    // central frame for all stuff
     QFrame *hb = new QFrame(this);
-    QHBoxLayout *hlayout = new QHBoxLayout(hb);
+    setCentralWidget(hb);
+
+    // top level vbox for all stuff + bottom bar
+    QVBoxLayout *toplevelVBox = new QVBoxLayout(hb);
+    toplevelVBox->setContentsMargins(0, 0, 0, 0);
+    toplevelVBox->setSpacing(0);
+
+    // hbox for all splitters and other side bars
+    QHBoxLayout *hlayout = new QHBoxLayout;
     hlayout->setContentsMargins(0, 0, 0, 0);
     hlayout->setSpacing(0);
-
-    setCentralWidget(hb);
+    toplevelVBox->addLayout(hlayout);
 
     m_sidebars[KMultiTabBar::Left] = std::make_unique<Sidebar>(KMultiTabBar::Left, this, hb);
     hlayout->addWidget(m_sidebars[KMultiTabBar::Left].get());
@@ -918,6 +925,11 @@ MainWindow::MainWindow(QWidget *parentWidget)
     m_vSplitter->setCollapsible(m_vSplitter->indexOf(m_centralWidget), false);
     m_vSplitter->setStretchFactor(m_vSplitter->indexOf(m_centralWidget), 1);
 
+    m_sidebars[KMultiTabBar::Right] = std::make_unique<Sidebar>(KMultiTabBar::Right, this, hb);
+    hlayout->addWidget(m_sidebars[KMultiTabBar::Right].get());
+    m_sidebars[KMultiTabBar::Right]->setSplitter(m_hSplitter);
+
+    // bottom side bar spans full windows, include status bar, too
     m_sidebars[KMultiTabBar::Bottom] = std::make_unique<Sidebar>(KMultiTabBar::Bottom, this, vb);
     auto bottomHBoxLaout = new QHBoxLayout;
     bottomHBoxLaout->addWidget(m_sidebars[KMultiTabBar::Bottom].get());
@@ -925,12 +937,8 @@ MainWindow::MainWindow(QWidget *parentWidget)
     m_statusBarStackedWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     bottomHBoxLaout->addWidget(m_statusBarStackedWidget);
     bottomHBoxLaout->setStretch(0, 100);
-    vlayout->addLayout(bottomHBoxLaout);
+    toplevelVBox->addLayout(bottomHBoxLaout);
     m_sidebars[KMultiTabBar::Bottom]->setSplitter(m_vSplitter);
-
-    m_sidebars[KMultiTabBar::Right] = std::make_unique<Sidebar>(KMultiTabBar::Right, this, hb);
-    hlayout->addWidget(m_sidebars[KMultiTabBar::Right].get());
-    m_sidebars[KMultiTabBar::Right]->setSplitter(m_hSplitter);
 
     for (const auto &sidebar : qAsConst(m_sidebars)) {
         connect(sidebar.get(), &Sidebar::sigShowPluginConfigPage, this, &MainWindow::sigShowPluginConfigPage);

@@ -288,7 +288,7 @@ Sidebar::Sidebar(KMultiTabBar::KMultiTabBarPosition pos, MainWindow *mainwin, QW
 
 QSize Sidebar::minimumSizeHint() const
 {
-    auto size = KMultiTabBar::sizeHint();
+    auto size = KMultiTabBar::minimumSizeHint();
     const auto fm = QFontMetrics(font());
     const int height = fm.lineSpacing();
     size.setHeight(height + 4);

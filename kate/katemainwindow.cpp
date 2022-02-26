@@ -1170,7 +1170,7 @@ void KateMainWindow::slotUpdateBottomViewBar()
         Q_ASSERT(bs.statusBar());
 
         // ensure we don't mess up the vertical sizing
-        bs.statusBar()->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
+        bs.statusBar()->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 
         // add the status bar to our status bar stack, there we will show/hide it
         statusBarStackedWidget()->addWidget(bs.statusBar());

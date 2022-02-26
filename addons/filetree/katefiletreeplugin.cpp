@@ -235,13 +235,13 @@ KateFileTreePluginView::~KateFileTreePluginView()
 void KateFileTreePluginView::setupActions()
 {
     auto aPrev = actionCollection()->addAction(QStringLiteral("filetree_prev_document"));
-    aPrev->setToolTip(i18n("Previous Document"));
+    aPrev->setText(i18n("Previous Document"));
     aPrev->setIcon(QIcon::fromTheme(QStringLiteral("go-up")));
     actionCollection()->setDefaultShortcut(aPrev, Qt::ALT | Qt::Key_Up);
     connect(aPrev, &QAction::triggered, m_fileTree, &KateFileTree::slotDocumentPrev);
 
     auto aNext = actionCollection()->addAction(QStringLiteral("filetree_next_document"));
-    aNext->setToolTip(i18n("Next Document"));
+    aNext->setText(i18n("Next Document"));
     aNext->setIcon(QIcon::fromTheme(QStringLiteral("go-down")));
     actionCollection()->setDefaultShortcut(aNext, Qt::ALT | Qt::Key_Down);
     connect(aNext, &QAction::triggered, m_fileTree, &KateFileTree::slotDocumentNext);

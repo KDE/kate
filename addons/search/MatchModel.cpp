@@ -484,6 +484,29 @@ void MatchModel::cancelReplace()
     m_cancelReplace = true;
 }
 
+void MatchModel::setFilterText(const QString &text)
+{
+    m_filterText = text;
+}
+
+bool MatchModel::matchesFilter(const QModelIndex &index)
+{
+    bool matches = true;
+    if (!m_filterText.isEmpty()) {
+        const QString text = index.data(MatchModel::PlainTextRole).toString();
+        matches = text.contains(m_filterText, Qt::CaseInsensitive);
+    }
+
+    int fileRow = index.internalId() == InfoItemId ? -1 : index.internalId() == FileItemId ? index.row() : (int)index.internalId();
+    int matchRow = index.internalId() == InfoItemId || index.internalId() == FileItemId ? -1 : index.row();
+
+    if ((fileRow >= 0) && (fileRow < m_matchFiles.size()) && (matchRow >= 0) && (matchRow < m_matchFiles[fileRow].matches.size())) {
+        m_matchFiles[fileRow].matches[matchRow].matchesFilter = matches;
+    }
+
+    return matches;
+}
+
 static QString nbsFormated(int number, int width)
 {
     QString str = QString::number(number);
@@ -505,10 +528,14 @@ QString MatchModel::infoHtmlString() const
     int matchesTotal = 0;
     int checkedTotal = 0;
     for (const auto &matchFile : qAsConst(m_matchFiles)) {
-        matchesTotal += matchFile.matches.size();
-        checkedTotal += std::count_if(matchFile.matches.begin(), matchFile.matches.end(), [](const KateSearchMatch &match) {
-            return match.checked;
-        });
+        for (const auto &match : qAsConst(matchFile.matches)) {
+            if (match.matchesFilter) {
+                matchesTotal++;
+                if (match.checked) {
+                    checkedTotal++;
+                }
+            }
+        }
     }
 
     if (m_searchState == Preparing) {

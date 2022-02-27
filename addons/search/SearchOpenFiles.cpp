@@ -123,6 +123,7 @@ int SearchOpenFiles::searchSingleLineRegExp(KTextEditor::Document *doc, const QR
                                               postContext,
                                               QString(),
                                               KTextEditor::Range{line, column, line, column + match.capturedLength()},
+                                              true,
                                               true});
             match = regExp.match(doc->line(line), column + match.capturedLength());
             column = match.capturedStart();
@@ -201,7 +202,7 @@ int SearchOpenFiles::searchMultiLineRegExp(KTextEditor::Document *doc, const QRe
         QString postContext = doc->line(endLine).mid(endColumn, MatchModel::PostContextLen);
 
         matches.push_back(
-            KateSearchMatch{preContext, match.captured(), postContext, QString(), KTextEditor::Range{startLine, startColumn, endLine, endColumn}, true});
+            KateSearchMatch{preContext, match.captured(), postContext, QString(), KTextEditor::Range{startLine, startColumn, endLine, endColumn}, true, true});
         match = tmpRegExp.match(m_fullDoc, column + match.capturedLength());
         column = match.capturedStart();
 

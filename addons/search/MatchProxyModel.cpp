@@ -6,15 +6,18 @@
 #include "MatchProxyModel.h"
 #include "MatchModel.h"
 
+void MatchProxyModel::setFilterText(const QString &text)
+{
+    beginResetModel();
+    auto *matchModel = dynamic_cast<MatchModel *>(sourceModel());
+    matchModel->setFilterText(text);
+    endResetModel();
+}
+
 bool MatchProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &parent) const
 {
     // root item always visible
     if (!parent.isValid()) {
-        return true;
-    }
-
-    // nothing to filter
-    if (m_text.isEmpty()) {
         return true;
     }
 
@@ -23,10 +26,11 @@ bool MatchProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &parent)
         return false;
     }
 
-    const QString text = index.data(MatchModel::PlainTextRole).toString();
-
     // match text;
-    if (text.contains(m_text, Qt::CaseInsensitive)) {
+    auto *matchModel = dynamic_cast<MatchModel *>(sourceModel());
+    bool matches = matchModel->matchesFilter(index);
+
+    if (matches) {
         return true;
     }
 

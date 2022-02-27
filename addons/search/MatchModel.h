@@ -33,6 +33,7 @@ public:
     QString replaceText;
     KTextEditor::Range range;
     bool checked;
+    bool matchesFilter;
 };
 
 class MatchModel : public QAbstractItemModel
@@ -178,6 +179,9 @@ public:
     /** This function is used to replace a single match */
     bool replaceSingleMatch(KTextEditor::Document *doc, const QModelIndex &matchIndex, const QRegularExpression &regExp, const QString &replaceString);
 
+    void setFilterText(const QString &text);
+    bool matchesFilter(const QModelIndex &index);
+
     // Model-View model functions
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
@@ -227,6 +231,7 @@ private:
     QUrl m_lastMatchUrl;
     QString m_lastSearchPath;
     QTimer m_infoUpdateTimer;
+    QString m_filterText;
 
     // Replacing related objects
     KTextEditor::Application *m_docManager = nullptr;

@@ -103,6 +103,7 @@ QVector<KateSearchMatch> SearchDiskFiles::searchSingleLineRegExp(QFile &file)
                                               postContext,
                                               QString(),
                                               KTextEditor::Range{currentLineNumber, column, currentLineNumber, column + match.capturedLength()},
+                                              true,
                                               true});
 
             // advance match column
@@ -185,7 +186,7 @@ QVector<KateSearchMatch> SearchDiskFiles::searchMultiLineRegExp(QFile &file)
         QString postContext = fullDoc.mid(column + match.captured().length(), MatchModel::PostContextLen);
 
         matches.push_back(
-            KateSearchMatch{preContext, match.captured(), postContext, QString(), KTextEditor::Range{line, startColumn, endLine, endColumn}, true});
+            KateSearchMatch{preContext, match.captured(), postContext, QString(), KTextEditor::Range{line, startColumn, endLine, endColumn}, true, true});
 
         match = tmpRegExp.match(fullDoc, column + match.capturedLength());
         column = match.capturedStart();

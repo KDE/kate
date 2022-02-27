@@ -16,19 +16,12 @@ public:
 
     bool filterAcceptsRow(int sourceRow, const QModelIndex &parent) const override;
 
-    Q_SLOT void setFilterText(const QString &text)
-    {
-        beginResetModel();
-        m_text = text;
-        endResetModel();
-    }
+    Q_SLOT void setFilterText(const QString &text);
 
     static bool isMatchItem(const QModelIndex &index);
 
 private:
     bool parentAcceptsRow(const QModelIndex &source_parent) const;
-
-    QString m_text;
 };
 
 #endif

@@ -444,7 +444,7 @@ void MatchModel::doReplaceNextMatch()
     KTextEditor::Document::EditingTransaction transaction(doc);
 
     for (int i = 0; i < matches.size(); ++i) {
-        if (matches[i].checked) {
+        if (matches[i].checked && matches[i].matchesFilter) {
             replaceMatch(doc, createIndex(i, 0, m_replaceFile), m_regExp, m_replaceText);
         }
         // The document has been modified -> make sure the next match has the correct range

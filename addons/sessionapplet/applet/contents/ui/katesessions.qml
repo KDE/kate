@@ -63,8 +63,10 @@ Item {
     Plasmoid.fullRepresentation: PlasmaComponents3.Page {
 
         id: dialogItem
-        Layout.minimumWidth: PlasmaCore.Units.gridUnit * 16
-        Layout.minimumHeight: PlasmaCore.Units.gridUnit * 24
+        Layout.minimumWidth: PlasmaCore.Units.gridUnit * 12
+        Layout.minimumHeight: PlasmaCore.Units.gridUnit * 12
+        Layout.preferredWidth: PlasmaCore.Units.gridUnit * 16
+        Layout.preferredHeight: PlasmaCore.Units.gridUnit * 24
 
         focus: true
         header: searchHeader

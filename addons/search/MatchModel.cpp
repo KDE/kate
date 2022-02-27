@@ -1033,12 +1033,12 @@ bool MatchModel::setData(const QModelIndex &itemIndex, const QVariant &, int rol
     }
 
     if (itemIndex.internalId() == FileItemId) {
-        int fileRrow = itemIndex.row();
-        if (fileRrow < 0 || fileRrow >= m_matchFiles.size()) {
+        int fileRow = itemIndex.row();
+        if (fileRow < 0 || fileRow >= m_matchFiles.size()) {
             return false;
         }
-        bool checked = m_matchFiles[fileRrow].checkState != Qt::Checked; // we toggle the current value
-        setFileChecked(fileRrow, checked);
+        bool checked = m_matchFiles[fileRow].checkState != Qt::Checked; // we toggle the current value
+        setFileChecked(fileRow, checked);
 
         // compare file items
         Qt::CheckState checkState = m_matchFiles[0].checkState;

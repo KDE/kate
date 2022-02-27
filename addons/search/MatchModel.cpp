@@ -939,7 +939,7 @@ QVariant MatchModel::data(const QModelIndex &index, int role) const
             return m_matchFiles[fileRow].fileUrl;
         case PlainTextRole:
             return fileToPlainText(m_matchFiles[fileRow]);
-        case LastMatchedRangeInFile:
+        case LastMatchedRangeInFileRole:
             if (m_matchFiles[fileRow].matches.isEmpty()) {
                 qWarning() << "Unexpected empty matches for file!";
                 return {};
@@ -980,7 +980,7 @@ QVariant MatchModel::data(const QModelIndex &index, int role) const
             return matchToPlainText(match);
         case MatchItem:
             return QVariant::fromValue(match);
-        case LastMatchedRangeInFile:
+        case LastMatchedRangeInFileRole:
             qWarning() << "Requested last matched line from a match item instead of file item1";
             return {};
         }

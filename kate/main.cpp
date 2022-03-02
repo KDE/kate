@@ -32,6 +32,7 @@
 #include <QUrl>
 #include <QVariant>
 
+#include <signal_watcher.h>
 #include <urlinfo.h>
 
 #ifdef USE_QT_SINGLE_APP
@@ -96,6 +97,21 @@ int main(int argc, char **argv)
     SharedTools::QtSingleApplication app(QStringLiteral("kate"), argc, argv);
 #else
     QApplication app(argc, argv);
+#endif
+
+#ifdef Q_OS_UNIX
+    /**
+     * Set up signal handler for SIGINT and SIGTERM
+     */
+    SignalWatcher sigWatcher;
+    QObject::connect(&sigWatcher, &SignalWatcher::unixSignal, [](SignalWatcher::Signal) {
+        printf("Shutting down...\n");
+        auto app = KateApp::self();
+        if (app) {
+            app->shutdownKate(app->activeKateMainWindow());
+        }
+        qApp->quit();
+    });
 #endif
 
     /**

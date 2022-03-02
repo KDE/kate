@@ -1,5 +1,6 @@
 add_library(kateshared STATIC
     quickdialog.cpp
+    signal_watcher.cpp
 )
 
 target_include_directories(kateshared PUBLIC

@@ -5,6 +5,8 @@
 */
 #include "signal_watcher.h"
 
+#if defined(Q_OS_UNIX)
+
 #include <QSocketNotifier>
 
 #include <signal.h>
@@ -12,8 +14,6 @@
 #include <sys/types.h>
 #include <sys/uio.h>
 #include <unistd.h>
-
-#if defined(Q_OS_UNIX)
 
 static int sigIntFd[2] = {0, 0};
 static int sigTermFd[2] = {0, 0};

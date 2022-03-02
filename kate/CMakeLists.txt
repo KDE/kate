@@ -19,7 +19,6 @@ target_include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/qtsingleapplication
     ${CMAKE_CURRENT_SOURCE_DIR}/quickopen
     ${CMAKE_CURRENT_BINARY_DIR} # katetests_export.h + config.h
-    ${CMAKE_SOURCE_DIR}/shared
 )
 
 find_package(
@@ -44,7 +43,6 @@ target_link_libraries(
     KF5::DBusAddons
     KF5::Crash
     KF5::TextWidgets
-  PRIVATE
     kateshared
 )
 

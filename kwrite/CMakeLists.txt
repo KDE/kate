@@ -3,7 +3,6 @@ add_executable(kwrite "")
 configure_file(config.h.in config.h)
 target_include_directories(kwrite PRIVATE
     ${CMAKE_CURRENT_BINARY_DIR} # config.h
-    ${CMAKE_SOURCE_DIR}/shared
 )
 
 find_package(
@@ -25,6 +24,7 @@ target_link_libraries(
     KF5::TextEditor
     KF5::DBusAddons
     KF5::Crash
+    kateshared
 )
 
 if(KF5Activities_FOUND)

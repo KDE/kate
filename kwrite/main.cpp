@@ -28,6 +28,7 @@
 #include <QTextCodec>
 #include <QUrlQuery>
 
+#include <signal_watcher.h>
 #include <urlinfo.h>
 
 #ifndef Q_OS_WIN
@@ -340,6 +341,17 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
      * finally register this kwrite instance for dbus, don't die if no dbus is around!
      */
     const KDBusService dbusService(KDBusService::Multiple | KDBusService::NoExitOnFailure);
+
+#ifdef Q_OS_UNIX
+    /**
+     * Set up signal handler for SIGINT and SIGTERM
+     */
+    SignalWatcher sigWatcher;
+    QObject::connect(&sigWatcher, &SignalWatcher::unixSignal, &kapp, [&kapp](SignalWatcher::Signal) {
+        printf("Shutting down...\n");
+        kapp.quit();
+    });
+#endif
 
     /**
      * Run the event loop

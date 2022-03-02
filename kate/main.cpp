@@ -99,21 +99,6 @@ int main(int argc, char **argv)
     QApplication app(argc, argv);
 #endif
 
-#ifdef Q_OS_UNIX
-    /**
-     * Set up signal handler for SIGINT and SIGTERM
-     */
-    SignalWatcher sigWatcher;
-    QObject::connect(&sigWatcher, &SignalWatcher::unixSignal, [](SignalWatcher::Signal) {
-        printf("Shutting down...\n");
-        auto app = KateApp::self();
-        if (app) {
-            app->shutdownKate(app->activeKateMainWindow());
-        }
-        qApp->quit();
-    });
-#endif
-
     /**
      * For Windows and macOS: use Breeze if available
      * Of all tested styles that works the best for us
@@ -710,6 +695,17 @@ int main(int argc, char **argv)
     KateMainWindow *win = kateApp.activeKateMainWindow();
     app.setActivationWindow(win, true);
 
+#endif
+
+#ifdef Q_OS_UNIX
+    /**
+     * Set up signal handler for SIGINT and SIGTERM
+     */
+    SignalWatcher sigWatcher;
+    QObject::connect(&sigWatcher, &SignalWatcher::unixSignal, &kateApp, [&kateApp](SignalWatcher::Signal) {
+        printf("Shutting down...\n");
+        kateApp.shutdownKate(kateApp.activeKateMainWindow());
+    });
 #endif
 
     /**

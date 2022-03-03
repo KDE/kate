@@ -19,6 +19,7 @@
 #include <KNS3/KMoreTools>
 #include <KNS3/KMoreToolsMenuFactory>
 #include <KPropertiesDialog>
+#include <KTerminalLauncherJob>
 
 #include <QAction>
 #include <QApplication>
@@ -33,7 +34,6 @@
 #include <QMimeType>
 #include <QStandardPaths>
 
-#include <KToolInvocation>
 #include <ktexteditor/editor.h>
 #include <ktexteditor/application.h>
 
@@ -180,11 +180,13 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
         } else if (action == terminal) {
             // handle "open terminal here"
             QFileInfo checkFile(filename);
+            auto *job = new KTerminalLauncherJob(QString());
             if (checkFile.isFile()) {
-                KToolInvocation::invokeTerminal(QString(), {}, checkFile.absolutePath());
+                job->setWorkingDirectory(checkFile.absolutePath());
             } else {
-                KToolInvocation::invokeTerminal(QString(), {}, filename);
+                job->setWorkingDirectory(filename);
             }
+            job->start();
         } else if (action->parentWidget() == openWithMenu) {
             // handle "open with"
             handleOpenWith(action, filename);

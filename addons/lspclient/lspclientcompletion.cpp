@@ -97,10 +97,13 @@ struct LSPClientCompletionItem : public LSPCompletionItem {
 /**
  * Helper class that caches the completion icons
  */
-class CompletionIcons
+class CompletionIcons : public QObject
 {
+    Q_OBJECT
+
 public:
     CompletionIcons()
+        : QObject(KTextEditor::Editor::instance())
     {
         classIcon = QIcon::fromTheme(QStringLiteral("code-class"));
         blockIcon = QIcon::fromTheme(QStringLiteral("code-block"));
@@ -109,7 +112,7 @@ public:
         enumIcon = QIcon::fromTheme(QStringLiteral("enum"));
 
         auto e = KTextEditor::Editor::instance();
-        QObject::connect(e, &KTextEditor::Editor::configChanged, e, [this](KTextEditor::Editor *e) {
+        QObject::connect(e, &KTextEditor::Editor::configChanged, this, [this](KTextEditor::Editor *e) {
             colorIcons(e);
         });
         colorIcons(e);
@@ -197,8 +200,6 @@ class LSPClientCompletionImpl : public LSPClientCompletion
     QList<LSPClientCompletionItem> m_matches;
     LSPClientServer::RequestHandle m_handle, m_handleSig;
 
-    CompletionIcons icons;
-
 public:
     LSPClientCompletionImpl(QSharedPointer<LSPClientServerManager> manager)
         : LSPClientCompletion(nullptr)
@@ -247,6 +248,7 @@ public:
         }
 
         const auto &match = m_matches.at(index.row());
+        static CompletionIcons *icons = new CompletionIcons;
 
         if (role == Qt::DisplayRole) {
             if (index.column() == KTextEditor::CodeCompletionModel::Name) {
@@ -257,7 +259,7 @@ public:
                 return match.postfix;
             }
         } else if (role == Qt::DecorationRole && index.column() == KTextEditor::CodeCompletionModel::Icon) {
-            return icons.iconForKind(match.kind);
+            return icons->iconForKind(match.kind);
         } else if (role == KTextEditor::CodeCompletionModel::CompletionRole) {
             return kind_property(match.kind);
         } else if (role == KTextEditor::CodeCompletionModel::ArgumentHintDepth) {

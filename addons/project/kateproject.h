@@ -78,6 +78,15 @@ public:
     }
 
     /**
+     * Is this a file backed project or just generated from e.g. opening a directory or VCS?
+     * @return file backed project? e.g. was this read from a .kateproject file?
+     */
+    bool isFileBacked() const
+    {
+        return m_fileBacked;
+    }
+
+    /**
      * Try to reload a project.
      * If the reload fails, e.g. because the file is not readable or corrupt, nothing will happen!
      * @param force will enforce the worker to update files list and co even if the content of the file was not changed!
@@ -87,7 +96,8 @@ public:
 
     /**
      * Accessor to file name.
-     * Non-empty if really a project from some disk file, else empty e.g. for auto generated projects from VCS.
+     * Even for projects generated from version control or by open directory we will create a fake name,
+     * as the project file name is used in many places as unique identifier for the project.
      * @return file name
      */
     const QString &fileName() const
@@ -285,6 +295,11 @@ private:
      * Project plugin (configuration)
      */
     KateProjectPlugin *const m_plugin;
+
+    /**
+     * file backed project? e.g. was this read from a .kateproject file?
+     */
+    const bool m_fileBacked;
 
     /**
      * project file name, will stay constant

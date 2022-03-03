@@ -28,6 +28,7 @@
 KateProject::KateProject(QThreadPool &threadPool, KateProjectPlugin *plugin, const QString &fileName)
     : m_threadPool(threadPool)
     , m_plugin(plugin)
+    , m_fileBacked(true)
     , m_fileName(QFileInfo(fileName).canonicalFilePath())
     , m_baseDir(QFileInfo(fileName).canonicalPath())
 {
@@ -47,7 +48,9 @@ KateProject::KateProject(QThreadPool &threadPool, KateProjectPlugin *plugin, con
 KateProject::KateProject(QThreadPool &threadPool, KateProjectPlugin *plugin, const QVariantMap &globalProject, const QString &directory)
     : m_threadPool(threadPool)
     , m_plugin(plugin)
-    , m_baseDir(directory)
+    , m_fileBacked(false)
+    , m_fileName(QDir(QDir(directory).canonicalPath()).filePath(QStringLiteral(".kateproject")))
+    , m_baseDir(QDir(directory).canonicalPath())
     , m_globalProject(globalProject)
 {
     // try to load the project map, will start worker thread, too
@@ -59,7 +62,7 @@ KateProject::~KateProject()
     saveNotesDocument();
 
     // stop watching if we have some real project file
-    if (!m_fileName.isEmpty()) {
+    if (m_fileBacked && !m_fileName.isEmpty()) {
         m_plugin->fileWatcher().removePath(m_fileName);
     }
 }
@@ -127,6 +130,11 @@ QJsonDocument KateProject::readJSONFile(const QString &fileName)
 
 QVariantMap KateProject::readProjectFile() const
 {
+    // not file back => will not work
+    if (!m_fileBacked) {
+        return QVariantMap();
+    }
+
     // bail out on error
     QJsonDocument project(readJSONFile(m_fileName));
     if (project.isNull()) {
@@ -182,9 +190,11 @@ bool KateProject::load(const QVariantMap &globalProject, bool force)
 
     /**
      * support out-of-source project files
+     * ensure we handle relative paths properly => relative to the potential invented .kateproject file name
      */
-    if (!globalProject[QStringLiteral("directory")].toString().isEmpty()) {
-        m_baseDir = QFileInfo(globalProject[QStringLiteral("directory")].toString()).canonicalFilePath();
+    const auto baseDir = globalProject[QStringLiteral("directory")].toString();
+    if (!baseDir.isEmpty()) {
+        m_baseDir = QFileInfo(QFileInfo(m_fileName).dir(), baseDir).canonicalFilePath();
     }
 
     /**

@@ -51,6 +51,12 @@ public: // static
      */
     static int recentFilesMaxCount();
 
+    /**
+     * Overwrite size hint for better default window sizes
+     * @return size hint
+     */
+    QSize sizeHint() const override;
+
 public:
     void addPluginPage(KTextEditor::Plugin *plugin);
     void removePluginPage(KTextEditor::Plugin *plugin);
@@ -71,6 +77,9 @@ private:
     void addFeedbackPage();
     void addPluginPages();
     void addEditorPages();
+
+    // add page variant that ensures the page is wrapped into a QScrollArea
+    KPageWidgetItem *addScrollablePage(QWidget *page, const QString &itemName);
 
 private:
     KateMainWindow *const m_mainWindow;

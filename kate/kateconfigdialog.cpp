@@ -3,6 +3,12 @@
    SPDX-FileCopyrightText: 2002 Joseph Wenninger <jowenn@kde.org>
    SPDX-FileCopyrightText: 2007 Mirko Stocker <me@misto.ch>
 
+   For the addScrollablePage original
+   SPDX-FileCopyrightText: 2003 Benjamin C Meyer <ben+kdelibs at meyerhome dot net>
+   SPDX-FileCopyrightText: 2003 Waldo Bastian <bastian@kde.org>
+   SPDX-FileCopyrightText: 2004 Michael Brade <brade@kde.org>
+   SPDX-FileCopyrightText: 2021 Ahmad Samir <a.samirh78@gmail.com>
+
    SPDX-License-Identifier: LGPL-2.0-only
 */
 
@@ -32,6 +38,9 @@
 #include <QFrame>
 #include <QGroupBox>
 #include <QLabel>
+#include <QScreen>
+#include <QScrollArea>
+#include <QScrollBar>
 #include <QVBoxLayout>
 
 KateConfigDialog::KateConfigDialog(KateMainWindow *parent)
@@ -63,13 +72,25 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent)
     connect(buttonBox()->button(QDialogButtonBox::Help), &QPushButton::clicked, this, &KateConfigDialog::slotHelp);
 }
 
+QSize KateConfigDialog::sizeHint() const
+{
+    // start with a bit enlarged default size hint to minimize changes of useless scrollbars
+    QSize size = KPageDialog::sizeHint() * 1.3;
+
+    // enlarge it to half of the main window size, if that is larger
+    size = size.expandedTo(m_mainWindow->size() * 0.5);
+
+    // return bounded size to available real screen space
+    return size.boundedTo(screen()->availableSize() * 0.9);
+}
+
 void KateConfigDialog::addBehaviorPage()
 {
     KSharedConfig::Ptr config = KSharedConfig::openConfig();
     KConfigGroup cgGeneral = KConfigGroup(config, "General");
 
     QFrame *generalFrame = new QFrame;
-    KPageWidgetItem *item = addPage(generalFrame, i18n("Behavior"));
+    KPageWidgetItem *item = addScrollablePage(generalFrame, i18n("Behavior"));
     item->setHeader(i18n("Behavior Options"));
     item->setIcon(QIcon::fromTheme(QStringLiteral("preferences-system-windows-behavior")));
 
@@ -170,7 +191,7 @@ void KateConfigDialog::addSessionPage()
     KConfigGroup cgGeneral = KConfigGroup(config, "General");
 
     QWidget *sessionsPage = new QWidget();
-    auto item = addPage(sessionsPage, i18n("Session"));
+    auto item = addScrollablePage(sessionsPage, i18n("Session"));
     item->setHeader(i18n("Session Management"));
     item->setIcon(QIcon::fromTheme(QStringLiteral("view-history")));
 
@@ -232,7 +253,7 @@ void KateConfigDialog::addPluginsPage()
     vlayout->addWidget(configPluginPage);
     connect(configPluginPage, &KateConfigPluginPage::changed, this, &KateConfigDialog::slotChanged);
 
-    auto item = addPage(page, i18n("Plugins"));
+    auto item = addScrollablePage(page, i18n("Plugins"));
     item->setHeader(i18n("Plugin Manager"));
     item->setIcon(QIcon::fromTheme(QStringLiteral("preferences-plugin")));
 }
@@ -251,7 +272,7 @@ void KateConfigDialog::addFeedbackPage()
     connect(m_userFeedbackWidget, &KUserFeedback::FeedbackConfigWidget::configurationChanged, this, &KateConfigDialog::slotChanged);
     vlayout->addWidget(m_userFeedbackWidget);
 
-    auto item = addPage(page, i18n("User Feedback"));
+    auto item = addScrollablePage(page, i18n("User Feedback"));
     item->setHeader(i18n("User Feedback"));
     item->setIcon(QIcon::fromTheme(QStringLiteral("preferences-desktop-locale")));
 #endif
@@ -273,7 +294,7 @@ void KateConfigDialog::addEditorPages()
         KTextEditor::ConfigPage *page = KTextEditor::Editor::instance()->configPage(i, this);
         connect(page, &KTextEditor::ConfigPage::changed, this, &KateConfigDialog::slotChanged);
         m_editorPages.push_back(page);
-        KPageWidgetItem *item = addPage(page, page->name());
+        KPageWidgetItem *item = addScrollablePage(page, page->name());
         item->setHeader(page->fullName());
         item->setIcon(page->icon());
     }
@@ -283,7 +304,7 @@ void KateConfigDialog::addPluginPage(KTextEditor::Plugin *plugin)
 {
     for (int i = 0; i < plugin->configPages(); i++) {
         KTextEditor::ConfigPage *cp = plugin->configPage(i, this);
-        KPageWidgetItem *item = addPage(cp, cp->name());
+        KPageWidgetItem *item = addScrollablePage(cp, cp->name());
         item->setHeader(cp->fullName());
         item->setIcon(cp->icon());
 
@@ -465,4 +486,35 @@ void KateConfigDialog::closeEvent(QCloseEvent *event)
     default:
         break;
     }
+}
+
+KPageWidgetItem *KateConfigDialog::addScrollablePage(QWidget *page, const QString &itemName)
+{
+    // inspired by KPageWidgetItem *KConfigDialogPrivate::addPageInternal(QWidget *page, const QString &itemName, const QString &pixmapName, const QString
+    // &header)
+    QWidget *frame = new QWidget;
+    QVBoxLayout *boxLayout = new QVBoxLayout(frame);
+    boxLayout->setContentsMargins(0, 0, 0, 0);
+    boxLayout->setContentsMargins(0, 0, 0, 0);
+
+    QScrollArea *scroll = new QScrollArea;
+    scroll->setFrameShape(QFrame::NoFrame);
+    scroll->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    scroll->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    scroll->setWidget(page);
+    scroll->setWidgetResizable(true);
+    scroll->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
+
+    if (page->minimumSizeHint().height() > scroll->sizeHint().height() - 2) {
+        if (page->sizeHint().width() < scroll->sizeHint().width() + 2) {
+            // QScrollArea is planning only a vertical scroll bar,
+            // try to avoid the horizontal one by reserving space for the vertical one.
+            // Currently KPageViewPrivate::_k_modelChanged() queries the minimumSizeHint().
+            // We can only set the minimumSize(), so this approach relies on QStackedWidget size calculation.
+            scroll->setMinimumWidth(scroll->sizeHint().width() + qBound(0, scroll->verticalScrollBar()->sizeHint().width(), 200) + 4);
+        }
+    }
+
+    boxLayout->addWidget(scroll);
+    return addPage(frame, itemName);
 }

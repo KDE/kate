@@ -62,6 +62,7 @@
 #include <QMenuBar>
 #include <QMimeData>
 #include <QMimeDatabase>
+#include <QScreen>
 #include <QStyle>
 #include <QTimer>
 #include <QToolButton>
@@ -202,10 +203,8 @@ KateMainWindow::~KateMainWindow()
 
 QSize KateMainWindow::sizeHint() const
 {
-    /**
-     * have some useful size hint, else we have mini windows per default
-     */
-    return (QSize(640, 480).expandedTo(minimumSizeHint()));
+    // ensure some proper sizing per default
+    return (QSize(800, 600).expandedTo(minimumSizeHint())).expandedTo(screen()->availableSize() * 0.6).boundedTo(screen()->availableSize());
 }
 
 void KateMainWindow::setupImportantActions()

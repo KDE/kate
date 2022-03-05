@@ -592,35 +592,42 @@ void KateProjectPlugin::unregisterVariables()
 
 void KateProjectPlugin::readSessionConfig(const KConfigGroup &config)
 {
-    const QStringList projectList = config.readEntry("projects", QStringList());
-    const QVariantList projectMapList = config.readEntry("projectsMaps", QVariantList());
+    QByteArray buffer;
+    QVariantMap projectMap;
+    QVariantList projectList = config.readEntry("projects", QVariantList());
 
-    if (!projectMapList.isEmpty()){
-        int i = 0;
-        for (const QString &project : projectList) {
-            createProjectForDirectory(QDir(project), projectMapList.at(i).toMap());
-            i++;
+    for (QVariant &project : projectList) {
+        buffer = project.toByteArray();
+
+        {
+            QDataStream stream(&buffer, QIODevice::ReadOnly);
+            stream >> projectMap;
         }
-    } else {
-        for (const QString &project : projectList) {
-            createProjectForDirectory(QDir(project));
-        }
+
+        createProjectForDirectory(QDir(projectMap[QStringLiteral("path")].toString()), projectMap[QStringLiteral("data")].toMap());
     }
-
 }
 
 void KateProjectPlugin::writeSessionConfig(KConfigGroup &config)
 {
-    QStringList projectList;
-    QVariantList projectMapList;
+    QVariantList projectList;
+    QByteArray buffer;
 
     for (KateProject *project : projects()) {
-        if (project->fileName().isEmpty()) {
-            projectList.push_back(project->baseDir());
-            projectMapList.push_back(project->projectMap());
+        if (!project->isFileBacked()) {
+            QVariantMap sMap;
+
+            sMap[QStringLiteral("data")] = project->projectMap();
+            sMap[QStringLiteral("path")] = project->baseDir();
+
+            {
+                QDataStream stream(&buffer, QIODevice::WriteOnly);
+                stream << sMap;
+            }
+
+            projectList.push_back(buffer);
         }
     }
 
     config.writeEntry("projects", projectList);
-    config.writeEntry("projectsMaps", projectMapList);
 }

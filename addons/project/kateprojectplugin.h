@@ -200,6 +200,10 @@ private:
     static void registerVariables();
     static void unregisterVariables();
 
+    /***
+     * Serialize object into a QByteArray
+     */
+
 private:
     /**
      * open plugins, maps project base directory => project

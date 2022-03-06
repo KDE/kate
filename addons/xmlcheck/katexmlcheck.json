@@ -26,7 +26,7 @@
         "Description[uk]": "Перевіряє файли XML за допомогою xmllint",
         "Description[vi]": "Kiểm nhận các tệp XML bằng xmllint",
         "Description[x-test]": "xxValidates XML files using xmllintxx",
-        "Description[zh_CN]": "使用 xmllint 校验XML 文件",
+        "Description[zh_CN]": "使用 xmllint 校验 XML 文件",
         "Name": "XML Validation",
         "Name[az]": "XML doğrulama",
         "Name[ca@valencia]": "Validació de l'XML",

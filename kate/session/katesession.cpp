@@ -24,7 +24,6 @@ KateSession::KateSession(const QString &file, const QString &name, const bool an
     : m_name(name)
     , m_file(file)
     , m_anonymous(anonymous)
-    , m_documents(0)
 {
     Q_ASSERT(!m_file.isEmpty());
 
@@ -36,9 +35,6 @@ KateSession::KateSession(const QString &file, const QString &name, const bool an
     }
 
     m_timestamp = QFileInfo(m_file).lastModified();
-
-    // get the document count
-    m_documents = config()->group(opGroupName).readEntry(keyCount, 0);
 }
 
 const QString &KateSession::file() const
@@ -46,10 +42,9 @@ const QString &KateSession::file() const
     return m_file;
 }
 
-void KateSession::setDocuments(const unsigned int number)
+unsigned int KateSession::documents()
 {
-    config()->group(opGroupName).writeEntry(keyCount, number);
-    m_documents = number;
+    return config()->group(opGroupName).readEntry(keyCount, 0);
 }
 
 void KateSession::setFile(const QString &filename)

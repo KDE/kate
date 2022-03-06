@@ -24,7 +24,6 @@ private Q_SLOTS:
     void createAnonymous();
     void createAnonymousFrom();
     void createFrom();
-    void documents();
     void setFile();
     void setName();
     void timestamp();

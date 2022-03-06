@@ -51,15 +51,7 @@ public:
      * count of documents in this session
      * @return documents count
      */
-    unsigned int documents() const
-    {
-        return m_documents;
-    }
-
-    /**
-     * update \p number of opened documents in session
-     */
-    void setDocuments(const unsigned int number);
+    unsigned int documents();
 
     /**
      * @return true if this is anonymous/new session
@@ -120,7 +112,6 @@ private:
     QString m_name;
     QString m_file;
     bool m_anonymous;
-    unsigned int m_documents;
     std::unique_ptr<KConfig> m_config;
     QDateTime m_timestamp;
 };

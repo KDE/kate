@@ -97,18 +97,6 @@ void KateSessionTest::createFrom()
     QCOMPARE(ns->config()->group(groupName).readEntry("foo"), QLatin1String("bar"));
 }
 
-void KateSessionTest::documents()
-{
-    KateSession::Ptr s = KateSession::create(m_tmpfile->fileName(), QStringLiteral("session name"));
-
-    s->setDocuments(42);
-    QCOMPARE((int)s->documents(), 42);
-
-    s->config()->sync();
-    KConfig c(m_tmpfile->fileName());
-    QCOMPARE(c.group("Open Documents").readEntry<int>("Count", 0), 42);
-}
-
 void KateSessionTest::setFile()
 {
     KateSession::Ptr s = KateSession::create(m_tmpfile->fileName(), QStringLiteral("session name"));

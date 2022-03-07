@@ -58,7 +58,7 @@ static int lineNumAreaWidth(const QModelIndex &index, const QFontMetrics &fm)
 
 void SearchResultsDelegate::paintMatchItem(QPainter *p, const QStyleOptionViewItem &opt, const QModelIndex &index) const
 {
-    const KateSearchMatch match = index.data(MatchModel::MatchItem).value<KateSearchMatch>();
+    const KateSearchMatch match = index.data(MatchModel::MatchItemRole).value<KateSearchMatch>();
     const int line = match.range.start().line() + 1;
     const int col = match.range.start().column() + 1;
     const QString lineCol = QStringLiteral("%1:%2").arg(line).arg(col);

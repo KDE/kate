@@ -60,7 +60,7 @@ public:
         ReplacedRole,
         ReplaceTextRole,
         PlainTextRole,
-        MatchItem,
+        MatchItemRole,
         LastMatchedRangeInFileRole,
     };
     Q_ENUM(MatchDataRoles)

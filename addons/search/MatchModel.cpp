@@ -1008,7 +1008,7 @@ QVariant MatchModel::data(const QModelIndex &index, int role) const
             return match.replaceText;
         case PlainTextRole:
             return matchToPlainText(match);
-        case MatchItem:
+        case MatchItemRole:
             return QVariant::fromValue(match);
         case LastMatchedRangeInFileRole:
             qWarning() << "Requested last matched line from a match item instead of file item1";

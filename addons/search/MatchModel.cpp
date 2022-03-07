@@ -618,11 +618,14 @@ QString MatchModel::fileToHtmlString(const MatchFile &matchFile) const
     } else {
         fg = fgColor.darker(150).name();
     }
+    int filteredMatches = std::count_if(matchFile.matches.begin(), matchFile.matches.end(), [](const KateSearchMatch &match) {
+        return match.matchesFilter;
+    });
     QString tmpStr = QStringLiteral("<span style=\"color:%1;\">%2</span><b>%3: %4</b>")
                          .arg(fg)
                          .arg(path)
                          .arg(matchFile.fileUrl.fileName().toHtmlEscaped())
-                         .arg(matchFile.matches.size());
+                         .arg(filteredMatches);
 
     return tmpStr;
 }

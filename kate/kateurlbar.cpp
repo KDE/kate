@@ -525,7 +525,7 @@ public:
                 o->state.setFlag(QStyle::State_MouseOver, false);
                 o->state.setFlag(QStyle::State_Active, false);
             } else {
-                o->palette.setBrush(QPalette::Text, o->palette.brightText());
+                o->palette.setBrush(QPalette::Text, o->palette.windowText());
             }
         }
     }

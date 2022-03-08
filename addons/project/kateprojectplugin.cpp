@@ -10,7 +10,6 @@
 #include "kateproject.h"
 #include "kateprojectconfigpage.h"
 #include "kateprojectpluginview.h"
-#include <iostream>
 
 #include <kcoreaddons_version.h>
 #include <ktexteditor/application.h>
@@ -373,11 +372,7 @@ KateProject *KateProjectPlugin::createProjectForDirectory(const QDir &dir)
 
 KateProject *KateProjectPlugin::createProjectForDirectory(const QDir &dir, const QVariantMap &projectMap)
 {
-    QVariantMap cnf;
-    cnf[QStringLiteral("name")] = dir.dirName();
-    cnf[QStringLiteral("files")] = (QVariantList() << projectMap);
-
-    KateProject *project = new KateProject(m_threadPool, this, cnf, dir.canonicalPath());
+    KateProject *project = new KateProject(m_threadPool, this, projectMap, dir.canonicalPath());
 
     m_projects.append(project);
 
@@ -594,9 +589,9 @@ void KateProjectPlugin::readSessionConfig(const KConfigGroup &config)
 {
     QByteArray buffer;
     QVariantMap projectMap;
-    QVariantList projectList = config.readEntry("projects", QVariantList());
+    const QVariantList projectList = config.readEntry("projects", QVariantList());
 
-    for (QVariant &project : projectList) {
+    for (const QVariant &project : projectList) {
         buffer = project.toByteArray();
 
         {

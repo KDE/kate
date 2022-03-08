@@ -208,7 +208,7 @@ private:
     QString matchToHtmlString(const Match &match) const;
 
     QString infoToPlainText() const;
-    static QString fileToPlainText(const MatchFile &matchFile);
+    QString fileToPlainText(const MatchFile &matchFile) const;
     static QString matchToPlainText(const Match &match);
 
     bool setFileChecked(int fileRow, bool checked);

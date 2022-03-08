@@ -501,6 +501,11 @@ bool MatchModel::matchesFilter(const QModelIndex &index)
     int matchRow = index.internalId() == InfoItemId || index.internalId() == FileItemId ? -1 : index.row();
 
     if ((fileRow >= 0) && (fileRow < m_matchFiles.size()) && (matchRow >= 0) && (matchRow < m_matchFiles[fileRow].matches.size())) {
+        // also match by filename
+        if (matches == false) {
+            const QString fileStr = fileToPlainText(m_matchFiles[fileRow]);
+            matches = fileStr.contains(m_filterText, Qt::CaseInsensitive);
+        }
         m_matchFiles[fileRow].matches[matchRow].matchesFilter = matches;
     }
 
@@ -737,9 +742,10 @@ QString MatchModel::infoToPlainText() const
     return QString();
 }
 
-QString MatchModel::fileToPlainText(const MatchFile &matchFile)
+QString MatchModel::fileToPlainText(const MatchFile &matchFile) const
 {
     QString path = matchFile.fileUrl.isLocalFile() ? localFileDirUp(matchFile.fileUrl).path() : matchFile.fileUrl.url();
+    path.remove(m_resultBaseDir);
     if (!path.isEmpty() && !path.endsWith(QLatin1Char('/'))) {
         path += QLatin1Char('/');
     }

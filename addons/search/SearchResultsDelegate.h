@@ -24,15 +24,16 @@ private:
     void paintMatchItem(QPainter *, const QStyleOptionViewItem &, const QModelIndex &index) const;
 
     QFont m_font;
-    QBrush m_curLineHighlightColor;
-    QBrush m_iconBorderColor;
-    QBrush m_borderColor;
-    QBrush m_lineNumColor;
-    QBrush m_curLineNumColor;
-    QBrush m_textColor;
-    QBrush m_searchColor;
-    QBrush m_replaceColor;
-    QBrush m_altBase;
+    QColor m_textColor;
+    QColor m_textColorLight;
+
+    QColor m_altBackground;
+    QColor m_numBackground;
+
+    QColor m_borderColor;
+
+    QColor m_searchColor;
+    QColor m_replaceColor;
 };
 
 #endif

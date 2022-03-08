@@ -33,16 +33,20 @@ SearchResultsDelegate::SearchResultsDelegate(QObject *parent)
     const auto updateColors = [this] {
         m_font = Utils::editorFont();
         const auto theme = KTextEditor::Editor::instance()->theme();
-        m_lineNumColor = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::LineNumbers));
+
+        m_textColorLight = m_textColor = QColor::fromRgba(theme.textColor(KSyntaxHighlighting::Theme::Normal));
+        m_textColorLight.setAlpha(150);
+
+        m_numBackground = m_altBackground = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::IconBorder));
+        m_numBackground.setAlpha(150);
+
         m_borderColor = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::Separator));
-        m_curLineNumColor = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::CurrentLineNumber));
-        m_textColor = QColor::fromRgba(theme.textColor(KSyntaxHighlighting::Theme::Normal));
-        m_iconBorderColor = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::IconBorder));
-        m_curLineHighlightColor = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::CurrentLine));
+
         m_searchColor = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::SearchHighlight));
+        m_searchColor.setAlpha(200);
+
         m_replaceColor = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::ReplaceHighlight));
-        QColor altBase = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::BackgroundColor));
-        m_altBase = altBase.lightness() > 127 ? altBase.darker(125) : altBase.lighter(125);
+        m_replaceColor.setAlpha(200);
     };
     connect(e, &KTextEditor::Editor::configChanged, this, updateColors);
     updateColors();
@@ -80,7 +84,6 @@ void SearchResultsDelegate::paintMatchItem(QPainter *p, const QStyleOptionViewIt
 
     // line num area
     const bool selected = opt.state & QStyle::State_Selected;
-    const QBrush iconBorderRectColor = selected ? m_curLineHighlightColor : m_iconBorderColor;
 
     const int lineColWidth = lineNumAreaWidth(index, fm) + (hMargins * 2);
     if (rtl) {
@@ -89,10 +92,10 @@ void SearchResultsDelegate::paintMatchItem(QPainter *p, const QStyleOptionViewIt
     iconBorderRect.setWidth(lineColWidth);
 
     // line number area background
-    p->fillRect(iconBorderRect, iconBorderRectColor);
+    p->fillRect(iconBorderRect, m_numBackground);
 
     // line numbers
-    const QBrush lineNumCol = selected ? m_curLineNumColor : m_lineNumColor;
+    const QBrush lineNumCol = selected ? m_textColor : m_textColorLight;
     p->setPen(QPen(lineNumCol, 1));
     p->drawText(iconBorderRect.adjusted(2., 0., -2., 0.), Qt::AlignVCenter, lineCol);
 
@@ -162,7 +165,7 @@ void SearchResultsDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
     // draw item without text
     options.text = QString();
     if (!isMatchItem(index)) {
-        options.backgroundBrush = m_altBase;
+        options.backgroundBrush = m_altBackground;
     }
     options.widget->style()->drawControl(QStyle::CE_ItemViewItem, &options, painter, options.widget);
 

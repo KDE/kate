@@ -510,24 +510,7 @@ static QList<LSPDocumentHighlight> parseDocumentHighlightList(const QJsonValue &
 
 static LSPMarkupContent parseHoverContentElement(const QJsonValue &contents)
 {
-    LSPMarkupContent result;
-    if (contents.isString()) {
-        result.value = contents.toString();
-    } else {
-        // should be object, pretend so
-        auto cont = contents.toObject();
-        auto text = cont.value(QStringLiteral("value")).toString();
-        if (text.isEmpty()) {
-            // nothing to lose, try markdown
-            result = parseMarkupContent(contents);
-        } else {
-            result.value = text;
-        }
-    }
-    if (result.value.length()) {
-        result.kind = LSPMarkupKind::PlainText;
-    }
-    return result;
+    return parseMarkupContent(contents);
 }
 
 static LSPHover parseHover(const QJsonValue &result)

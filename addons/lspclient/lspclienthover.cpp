@@ -71,8 +71,10 @@ public:
                 }
 
                 // combine contents elements to one string
+                LSPMarkupKind kind = LSPMarkupKind::PlainText;
                 QString finalTooltip;
                 for (auto &element : info.contents) {
+                    kind = element.kind;
                     if (!finalTooltip.isEmpty()) {
                         finalTooltip.append(QLatin1Char('\n'));
                     }
@@ -81,7 +83,7 @@ public:
 
                 // make sure there is no selection, otherwise we interrupt
                 if (!v->selection()) {
-                    LspTooltip::show(finalTooltip, v->mapToGlobal(v->cursorToCoordinate(position)), v, manual);
+                    LspTooltip::show(finalTooltip, kind, v->mapToGlobal(v->cursorToCoordinate(position)), v, manual);
                 }
             };
 

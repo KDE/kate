@@ -6,6 +6,8 @@
 #ifndef LSPTOOLTIP_H
 #define LSPTOOLTIP_H
 
+#include "lspclientprotocol.h"
+
 #include <QPoint>
 
 class QWidget;
@@ -21,7 +23,7 @@ class LspTooltip
 {
 public:
     // tooltip hidden after timeout msec (if > 0)
-    static void show(const QString &text, QPoint pos, KTextEditor::View *v, bool manual);
+    static void show(const QString &text, LSPMarkupKind kind, QPoint pos, KTextEditor::View *v, bool manual);
 };
 
 #endif // LSPTOOLTIP_H

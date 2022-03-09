@@ -33,15 +33,19 @@ class Tooltip : public QTextBrowser
     Q_OBJECT
 
 public:
-    void setTooltipText(const QString &text)
+    void setTooltipText(const QString &text, LSPMarkupKind kind)
     {
         if (text.isEmpty())
             return;
 
-        QString htext = text;
         // we have to do this to handle soft line
-        htext.replace(QLatin1Char('\n'), QStringLiteral("  \n"));
-        setMarkdown(htext);
+        if (kind == LSPMarkupKind::PlainText) {
+            setPlainText(text);
+        } else {
+            QString htext = text;
+            htext.replace(QLatin1Char('\n'), QStringLiteral("  \n"));
+            setMarkdown(htext);
+        }
         resizeTip(text);
     }
 
@@ -238,7 +242,7 @@ private:
     bool m_manual;
 };
 
-void LspTooltip::show(const QString &text, QPoint pos, KTextEditor::View *v, bool manual)
+void LspTooltip::show(const QString &text, LSPMarkupKind kind, QPoint pos, KTextEditor::View *v, bool manual)
 {
     if (text.isEmpty())
         return;
@@ -252,7 +256,7 @@ void LspTooltip::show(const QString &text, QPoint pos, KTextEditor::View *v, boo
 
     tooltip = new Tooltip(v, manual);
     tooltip->setView(v);
-    tooltip->setTooltipText(text);
+    tooltip->setTooltipText(text, kind);
     tooltip->place(pos);
     tooltip->show();
 }

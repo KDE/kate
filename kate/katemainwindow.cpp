@@ -33,6 +33,7 @@
 #include <KActionCollection>
 #include <KActionMenu>
 #include <KApplicationTrader>
+#include <KColorSchemeManager>
 #include <KConfigGroup>
 #include <KEditToolBar>
 #include <KFileItem>
@@ -53,6 +54,7 @@
 #include <KToolBar>
 #include <KWindowConfig>
 #include <KXMLGUIFactory>
+#include <kconfigwidgets_version.h>
 
 #include <QApplication>
 #include <QDir>
@@ -230,7 +232,14 @@ void KateMainWindow::setupImportantActions()
     });
 
     // Load themes
+#if KCONFIGWIDGETS_VERSION < QT_VERSION_CHECK(5, 89, 0)
     actionCollection()->addAction(QStringLiteral("colorscheme_menu"), new KateColorSchemeChooser(actionCollection()));
+#else
+    const QString colorScheme = KConfigGroup(KSharedConfig::openConfig(), "UiSettings").readEntry("ColorScheme", QString());
+
+    KColorSchemeManager *manager = new KColorSchemeManager(this);
+    actionCollection()->addAction(QStringLiteral("colorscheme_menu"), manager->createSchemeSelectionMenu(colorScheme, this));
+#endif
 
     QAction *a = actionCollection()->addAction(KStandardAction::Back, QStringLiteral("view_prev_tab"));
     a->setText(i18n("&Previous Tab"));

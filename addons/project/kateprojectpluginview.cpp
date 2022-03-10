@@ -733,6 +733,7 @@ void KateProjectPluginView::openDirectoryOrProject()
         if (index >= 0) {
             m_projectsCombo->setCurrentIndex(index);
         }
+        mainWindow()->showToolView(m_toolView);
     }
 }
 

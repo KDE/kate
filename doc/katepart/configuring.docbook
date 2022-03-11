@@ -895,10 +895,12 @@ one is not already present upon saving the file.</para>
 
 <varlistentry>
 <term><guilabel>Write a backup file on save for</guilabel></term>
-<listitem><para>Backing up on save will cause &kappname; to copy the disk file to
-&lt;prefix&gt;&lt;filename&gt;&lt;suffix&gt; before saving changes.
-The suffix defaults to <emphasis role="bold">~</emphasis> and prefix is empty by
-default. </para>
+<listitem><para>Backing up on save will cause &kappname; to copy the disk file
+(the previously saved version of the file) to &lt;prefix&gt;&lt;filename&gt;&lt;suffix&gt;
+before saving the new changes. A backup file can help you recover work if
+something goes wrong while saving or if you later want to recover the previous
+version of the file.  The suffix defaults to <emphasis role="bold">~</emphasis>
+and prefix is empty by default. </para>
 <variablelist>
 <varlistentry>
 <term><guilabel>Local files</guilabel></term>

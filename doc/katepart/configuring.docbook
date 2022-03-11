@@ -930,9 +930,9 @@ saving.</para>
 <varlistentry>
 <term><guilabel>Swap file mode</guilabel></term>
 <listitem>
-<para>&kappname; is able to recover (most of) what was written after last save in case
-of a crash or power failure. A swap file (.swp.&lt;filename&gt;) is created
-after the first editing action on a document. If the user doesn’t save the
+<para>&kappname; is able to recover (most) unsaved work in the case of a
+crash or power failure. A swap file (.&lt;filename&gt;.kate-swp) is created
+when a document is edited. If the user doesn’t save the
 changes and &kappname; crashes, the swap file remains on the disk. When opening a
 file, &kappname; checks if there is a swap file for the document and if it is, it asks
 the user whether he wants to recover the lost data or not. The user has the

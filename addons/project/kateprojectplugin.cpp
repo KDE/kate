@@ -27,6 +27,7 @@
 
 #include <QCoreApplication>
 #include <QFileInfo>
+#include <QJsonDocument>
 #include <QMessageBox>
 #include <QString>
 #include <QTime>
@@ -373,9 +374,12 @@ KateProject *KateProjectPlugin::createProjectForDirectory(const QDir &dir)
 KateProject *KateProjectPlugin::createProjectForDirectory(const QDir &dir, const QVariantMap &projectMap)
 {
     KateProject *project = new KateProject(m_threadPool, this, projectMap, dir.canonicalPath());
+    if (!project->isValid()) {
+        delete project;
+        return nullptr;
+    }
 
     m_projects.append(project);
-
     Q_EMIT projectCreated(project);
     return project;
 }
@@ -587,42 +591,47 @@ void KateProjectPlugin::unregisterVariables()
 
 void KateProjectPlugin::readSessionConfig(const KConfigGroup &config)
 {
-    QByteArray buffer;
-    QVariantMap projectMap;
-    const QVariantList projectList = config.readEntry("projects", QVariantList());
+    // de-serialize all open projects as list of json documents
+    const auto projectList = config.readEntry("projects", QStringList());
+    for (const auto &project : projectList) {
+        const QVariantMap sMap = QJsonDocument::fromJson(project.toUtf8()).toVariant().toMap();
 
-    for (const QVariant &project : projectList) {
-        buffer = project.toByteArray();
-
-        {
-            QDataStream stream(&buffer, QIODevice::ReadOnly);
-            stream >> projectMap;
+        // valid file backed project?
+        if (const auto file = sMap[QStringLiteral("file")].toString(); !file.isEmpty()) {
+            createProjectForFileName(file);
+            continue;
         }
 
-        createProjectForDirectory(QDir(projectMap[QStringLiteral("path")].toString()), projectMap[QStringLiteral("data")].toMap());
+        // valid path + data project?
+        if (const auto path = sMap[QStringLiteral("path")].toString(); !path.isEmpty()) {
+            createProjectForDirectory(QDir(path), sMap[QStringLiteral("data")].toMap());
+            continue;
+        }
+
+        // we might arrive here if invalid data is store, just ignore that, we just loose session data
     }
 }
 
 void KateProjectPlugin::writeSessionConfig(KConfigGroup &config)
 {
-    QVariantList projectList;
-    QByteArray buffer;
+    // serialize all open projects as list of json documents
+    QStringList projectList;
+    for (const auto project : projects()) {
+        QVariantMap sMap;
 
-    for (KateProject *project : projects()) {
-        if (!project->isFileBacked()) {
-            QVariantMap sMap;
+        // for file backed stuff, we just remember the file
+        if (project->isFileBacked()) {
+            sMap[QStringLiteral("file")] = project->fileName();
+        }
 
+        // otherwise we remember the data we generated purely in memory
+        else {
             sMap[QStringLiteral("data")] = project->projectMap();
             sMap[QStringLiteral("path")] = project->baseDir();
-
-            {
-                QDataStream stream(&buffer, QIODevice::WriteOnly);
-                stream << sMap;
-            }
-
-            projectList.push_back(buffer);
         }
-    }
 
+        // encode as one-lines json string
+        projectList.push_back(QString::fromUtf8(QJsonDocument::fromVariant(QVariant(sMap)).toJson(QJsonDocument::Compact)));
+    }
     config.writeEntry("projects", projectList);
 }

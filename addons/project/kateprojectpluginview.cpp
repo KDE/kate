@@ -175,10 +175,14 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     a->setText(i18n("Project TODOs"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("korg-todo")));
 
-    m_projectPrevAction = a = actionCollection()->addAction(KStandardAction::Back, QStringLiteral("projects_prev_project"), this, SLOT(slotProjectPrev()));
+    m_projectPrevAction = a = actionCollection()->addAction(QStringLiteral("projects_prev_project"), this, SLOT(slotProjectPrev()));
+    a->setText(i18n("Activate Previous Project"));
+    a->setIcon(QIcon::fromTheme(QStringLiteral("arrow-left")));
     actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::ALT | Qt::Key_Left));
 
-    m_projectNextAction = a = actionCollection()->addAction(KStandardAction::Forward, QStringLiteral("projects_next_project"), this, SLOT(slotProjectNext()));
+    m_projectNextAction = a = actionCollection()->addAction(QStringLiteral("projects_next_project"), this, SLOT(slotProjectNext()));
+    a->setText(i18n("Activate Next Project"));
+    a->setIcon(QIcon::fromTheme(QStringLiteral("arrow-right")));
     actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::ALT | Qt::Key_Right));
 
     m_projectGotoIndexAction = a = actionCollection()->addAction(QStringLiteral("projects_goto_index"), this, SLOT(slotProjectIndex()));

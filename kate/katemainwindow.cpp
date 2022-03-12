@@ -472,7 +472,7 @@ void KateMainWindow::setupActions()
     // location history actions
     a = actionCollection()->addAction(QStringLiteral("view_history_back"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("arrow-left")));
-    a->setText(i18n("Go back"));
+    a->setText(i18n("Go to Previous Location"));
     connect(a, &QAction::triggered, this, [this] {
         m_viewManager->activeViewSpace()->goBack();
     });
@@ -480,7 +480,7 @@ void KateMainWindow::setupActions()
 
     a = actionCollection()->addAction(QStringLiteral("view_history_forward"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("arrow-right")));
-    a->setText(i18n("Go forward"));
+    a->setText(i18n("Go to Next Location"));
     connect(a, &QAction::triggered, this, [this] {
         m_viewManager->activeViewSpace()->goForward();
     });

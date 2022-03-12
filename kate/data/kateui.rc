@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
-<gui name="kate" version="90" translationDomain="kate">
+<gui name="kate" version="91" translationDomain="kate">
   <MenuBar>
     <Menu name="file" noMerge="1">
       <text>&amp;File</text>
@@ -46,6 +46,12 @@
       <Separator/>
       <DefineGroup name="edit_find_merge"/>
       <Separator/>
+      <Menu name="edit_goto" group="edit_goto"><text>Go To</text>
+        <DefineGroup name="edit_goto_history"/>
+        <Action name="view_history_back" group="edit_goto_history" />
+        <Action name="view_history_forward" group="edit_goto_history" />
+        <Separator group="edit_goto_history" />
+      </Menu>
     </Menu>
     <Menu name="view">
       <text>&amp;View</text>

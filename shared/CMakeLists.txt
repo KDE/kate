@@ -1,4 +1,5 @@
 add_library(kateshared STATIC
+    gitprocess.cpp
     quickdialog.cpp
     signal_watcher.cpp
 )

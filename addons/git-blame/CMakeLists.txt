@@ -1,6 +1,6 @@
 kate_add_plugin(kategitblameplugin)
 target_compile_definitions(kategitblameplugin PRIVATE TRANSLATION_DOMAIN="kategitblameplugin")
-target_link_libraries(kategitblameplugin PRIVATE KF5::I18n KF5::TextEditor)
+target_link_libraries(kategitblameplugin PRIVATE kateshared KF5::I18n KF5::TextEditor)
 
 target_sources(
   kategitblameplugin
@@ -10,8 +10,3 @@ target_sources(
     commitfilesview.cpp
     plugin.qrc
 )
-
-target_include_directories(kategitblameplugin PRIVATE
-    ${CMAKE_SOURCE_DIR}/shared
-)
-

@@ -1,6 +1,6 @@
 kate_add_plugin(compilerexplorer)
 target_compile_definitions(compilerexplorer PRIVATE TRANSLATION_DOMAIN="compilerexplorer")
-target_link_libraries(compilerexplorer PRIVATE KF5::I18n KF5::TextEditor)
+target_link_libraries(compilerexplorer PRIVATE kateshared KF5::I18n KF5::TextEditor)
 
 target_sources(
   compilerexplorer
@@ -12,10 +12,3 @@ target_sources(
     AsmViewModel.cpp
     compiledbreader.cpp
 )
-
-target_include_directories(
-    compilerexplorer
-    PUBLIC
-    ${CMAKE_SOURCE_DIR}/shared
-)
-

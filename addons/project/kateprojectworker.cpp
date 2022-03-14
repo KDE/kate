@@ -442,16 +442,14 @@ QVector<QString> KateProjectWorker::filesFromGit(const QDir &dir, bool recursive
                                            QStringLiteral("--exclude-standard"),
                                            QStringLiteral(".")};
 
+    /**
+     * for recent enough git versions ensure we don't show duplicated files
+     */
     const auto [major, minor] = getGitVersion(dir.absolutePath());
-
-        if(major > 2 || (major == 2 && minor >= 31))
-        {
-            lsFilesArgs.insert(3, QStringLiteral("--deduplicate"));
-            lsFilesUntrackedArgs.insert(4, QStringLiteral("--deduplicate"));
-        } else {
-            qDebug() << "Your git version is too old, please update.";
-        }
-
+    if (major > 2 || (major == 2 && minor >= 31)) {
+        lsFilesArgs.insert(3, QStringLiteral("--deduplicate"));
+        lsFilesUntrackedArgs.insert(4, QStringLiteral("--deduplicate"));
+    }
 
     // ls-files + ls-files untracked
     return gitFiles(dir, recursive, lsFilesArgs, false) << gitFiles(dir, recursive, lsFilesUntrackedArgs, true);

@@ -430,16 +430,28 @@ QVector<QString> KateProjectWorker::filesFromGit(const QDir &dir, bool recursive
      * use --recurse-submodules, there since git 2.11 (released 2016)
      * our own submodules handling code leads to file duplicates
      */
-    const QStringList lsFilesArgs{QStringLiteral("ls-files"), QStringLiteral("-z"), QStringLiteral("--recurse-submodules"), QStringLiteral(".")};
+
+    QStringList lsFilesArgs{QStringLiteral("ls-files"), QStringLiteral("-z"), QStringLiteral("--recurse-submodules"), QStringLiteral(".")};
 
     /**
      * ls-files untracked
      */
-    const QStringList lsFilesUntrackedArgs{QStringLiteral("ls-files"),
+    QStringList lsFilesUntrackedArgs{QStringLiteral("ls-files"),
                                            QStringLiteral("-z"),
                                            QStringLiteral("--others"),
                                            QStringLiteral("--exclude-standard"),
                                            QStringLiteral(".")};
+
+    const auto [major, minor] = getGitVersion(dir.absolutePath());
+
+        if(major > 2 || (major == 2 && minor >= 31))
+        {
+            lsFilesArgs.insert(3, QStringLiteral("--deduplicate"));
+            lsFilesUntrackedArgs.insert(4, QStringLiteral("--deduplicate"));
+        } else {
+            qDebug() << "Your git version is too old, please update.";
+        }
+
 
     // ls-files + ls-files untracked
     return gitFiles(dir, recursive, lsFilesArgs, false) << gitFiles(dir, recursive, lsFilesUntrackedArgs, true);

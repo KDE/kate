@@ -8,6 +8,7 @@
 
 #include <QProcess>
 #include <QStandardPaths>
+#include <QRegularExpression>
 
 /**
  * small helper function to setup a QProcess based "git" command.
@@ -49,4 +50,41 @@ inline bool setupGitProcess(QProcess &process, const QString &workingDirectory, 
     env.insert(QStringLiteral("GIT_OPTIONAL_LOCKS"), QStringLiteral("0"));
     process.setProcessEnvironment(env);
     return true;
+}
+
+/**
+ * helper function to get the git version
+ * @param dir
+ */
+inline std::pair<int, int> getGitVersion(const QString &workingDir)
+{
+    QProcess git;
+    if (!setupGitProcess(git, workingDir, {QStringLiteral("--version")})) {
+        return {-1, -1};
+    }
+
+    git.start(QProcess::ReadOnly);
+    if (git.waitForStarted() && git.waitForFinished(-1)) {
+        if (git.exitStatus() != QProcess::NormalExit || git.exitCode() != 0) {
+            return {-1, -1};
+        }
+        QString gitVersion = QString::fromUtf8(git.readAllStandardOutput());
+        QString expression = QStringLiteral("git version\\s*(\\d+).(\\d+).(\\d+)+.*");
+        QRegularExpression gitRegex(expression);
+        QRegularExpressionMatch gitMatch = gitRegex.match(gitVersion);
+
+        bool okMajor;
+        bool okMinor;
+        int versionMajor = gitMatch.captured(1).toInt(&okMajor);
+        int versionMinor = gitMatch.captured(2).toInt(&okMinor);
+
+        if(okMajor && okMinor)
+        {
+            return {versionMajor, versionMinor};
+        } else {
+            return {-1, -1};
+        }
+    }
+
+    return {-1, -1};
 }

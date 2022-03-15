@@ -40,7 +40,7 @@ void KateSessionsActionTest::init()
     QVERIFY(m_tempdir->isValid());
 
     m_manager = new KateSessionManager(this, m_tempdir->path());
-    m_ac = new KateSessionsAction(QStringLiteral("menu"), this, m_manager);
+    m_ac = new KateSessionsAction(QStringLiteral("menu"), this, m_manager, false);
 }
 
 void KateSessionsActionTest::cleanup()

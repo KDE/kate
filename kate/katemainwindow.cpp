@@ -474,9 +474,13 @@ void KateMainWindow::setupActions()
     // Qt::QueuedConnection to avoid deletion of code that is executed when reducing the amount of mainwindows. (bug #227008)
     connect(a, &QAction::triggered, KateApp::self()->sessionManager(), &KateSessionManager::sessionManage, Qt::QueuedConnection);
 
-    // quick open menu ;)
-    a = new KateSessionsAction(i18n("&Quick Open Session"), this);
-    actionCollection()->addAction(QStringLiteral("sessions_list"), a);
+    // recent sessions menu
+    a = new KateSessionsAction(i18n("&Recent Sessions"), this, nullptr, false);
+    actionCollection()->addAction(QStringLiteral("session_open_recent"), a);
+
+    // session menu
+    a = new KateSessionsAction(i18n("&All Session"), this, nullptr, true);
+    actionCollection()->addAction(QStringLiteral("session_open_session"), a);
 
     // location history actions
     a = actionCollection()->addAction(QStringLiteral("view_history_back"));

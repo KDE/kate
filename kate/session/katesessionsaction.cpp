@@ -14,8 +14,9 @@
 #include <QMenu>
 #include <algorithm>
 
-KateSessionsAction::KateSessionsAction(const QString &text, QObject *parent, KateSessionManager *manager)
+KateSessionsAction::KateSessionsAction(const QString &text, QObject *parent, KateSessionManager *manager, bool allSessions)
     : KActionMenu(text, parent)
+    , m_allSessions(allSessions)
 {
     m_manager = manager ? manager : KateApp::self()->sessionManager();
 
@@ -39,9 +40,12 @@ void KateSessionsAction::slotAboutToShow()
     qDeleteAll(sessionsGroup->actions());
 
     KateSessionList slist = m_manager->sessionList();
-    std::sort(slist.begin(), slist.end(), KateSession::compareByTimeDesc);
 
-    slist = slist.mid(0, 10); // take first 10
+    // only show first 10 sessions for recent session menu?
+    if (!m_allSessions) {
+        std::sort(slist.begin(), slist.end(), KateSession::compareByTimeDesc);
+        slist = slist.mid(0, 10); // take first 10
+    }
 
     // sort the reduced list alphabetically (#364089)
     std::sort(slist.begin(), slist.end(), KateSession::compareByName);

@@ -18,7 +18,7 @@ class KATE_TESTS_EXPORT KateSessionsAction : public KActionMenu
     Q_OBJECT
 
 public:
-    KateSessionsAction(const QString &text, QObject *parent, KateSessionManager *manager = nullptr);
+    KateSessionsAction(const QString &text, QObject *parent, KateSessionManager *manager, bool allSessions);
 
 public Q_SLOTS:
     void slotAboutToShow();
@@ -29,6 +29,7 @@ private:
     friend class KateSessionsActionTest; // tfuj
     QActionGroup *sessionsGroup;
     KateSessionManager *m_manager;
+    const bool m_allSessions;
 };
 
 #endif

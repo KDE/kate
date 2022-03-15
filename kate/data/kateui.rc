@@ -106,7 +106,8 @@
     <Menu name="sessions">
       <text>Sess&amp;ions</text>
       <Action name="sessions_new"/>
-      <Action name="sessions_list"/>
+      <Action name="session_open_recent"/>
+      <Action name="session_open_session"/>
       <Action name="sessions_manage"/>
       <Separator/>
       <Action name="sessions_save"/>

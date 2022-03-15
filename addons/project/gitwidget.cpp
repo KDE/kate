@@ -80,13 +80,6 @@ public:
         initStyleOption(&options, index);
         painter->save();
 
-        // paint background
-        if (option.state & QStyle::State_Selected) {
-            painter->fillRect(option.rect, option.palette.highlight());
-        } else {
-            painter->fillRect(option.rect, option.palette.base());
-        }
-
         options.text = QString(); // clear old text
         options.widget->style()->drawControl(QStyle::CE_ItemViewItem, &options, painter, options.widget);
 
@@ -280,6 +273,7 @@ GitWidget::GitWidget(KateProject *project, KTextEditor::MainWindow *mainWindow, 
     m_treeView->setModel(proxy);
     m_treeView->installEventFilter(this);
     m_treeView->setRootIsDecorated(false);
+    m_treeView->setAllColumnsShowFocus(true);
 
     if (m_treeView->style()) {
         auto indent = m_treeView->style()->pixelMetric(QStyle::PM_TreeViewIndentation, nullptr, m_treeView);

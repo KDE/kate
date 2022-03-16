@@ -479,7 +479,7 @@ void KateMainWindow::setupActions()
     actionCollection()->addAction(QStringLiteral("session_open_recent"), a);
 
     // session menu
-    a = new KateSessionsAction(i18n("&All Session"), this, nullptr, true);
+    a = new KateSessionsAction(i18n("&All Sessions"), this, nullptr, true);
     actionCollection()->addAction(QStringLiteral("session_open_session"), a);
 
     // location history actions

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
-<gui name="lspclient" library="lspclient" version="19" translationDomain="lspclient">
+<gui name="lspclient" library="lspclient" version="20" translationDomain="lspclient">
   <MenuBar>
     <Menu name="LSPClient Menubar">
       <text>LSP Client</text>
@@ -10,6 +10,7 @@
       <Action name="lspclient_find_references"/>
       <Action name="lspclient_find_implementations"/>
       <Action name="lspclient_clangd_switchheader"/>
+      <Action name="lspclient_rust_analyzer_expand_macro"/>
       <Action name="lspclient_highlight"/>
       <Action name="lspclient_symbol_info"/>
       <Action name="lspclient_goto_workspace_symbol"/>

@@ -12,6 +12,7 @@
 #include "lspclientservermanager.h"
 #include "lspclientsymbolview.h"
 #include "lspclientutils.h"
+#include "lsptooltip.h"
 
 #include "lspclient_debug.h"
 
@@ -481,6 +482,7 @@ class LSPClientActionView : public QObject
     QPointer<QAction> m_restartServer;
     QPointer<QAction> m_restartAll;
     QPointer<QAction> m_switchSourceHeader;
+    QPointer<QAction> m_expandMacro;
     QPointer<QAction> m_quickFix;
     QPointer<QAction> m_memoryUsage;
     QPointer<KActionMenu> m_requestCodeAction;
@@ -621,6 +623,8 @@ public:
         m_switchSourceHeader = actionCollection()->addAction(QStringLiteral("lspclient_clangd_switchheader"), this, &self_type::clangdSwitchSourceHeader);
         m_switchSourceHeader->setText(i18n("Switch Source Header"));
         actionCollection()->setDefaultShortcut(m_switchSourceHeader, Qt::Key_F12);
+        m_expandMacro = actionCollection()->addAction(QStringLiteral("lspclient_rust_analyzer_expand_macro"), this, &self_type::rustAnalyzerExpandMacro);
+        m_expandMacro->setText(i18n("Expand Macro"));
         m_quickFix = actionCollection()->addAction(QStringLiteral("lspclient_quick_fix"), this, &self_type::quickFix);
         m_quickFix->setText(i18n("Quick Fix"));
         m_requestCodeAction = actionCollection()->add<KActionMenu>(QStringLiteral("lspclient_code_action"));
@@ -695,6 +699,7 @@ public:
         menu->addAction(m_findRef);
         menu->addAction(m_findImpl);
         menu->addAction(m_switchSourceHeader);
+        menu->addAction(m_expandMacro);
         menu->addAction(m_triggerHighlight);
         menu->addAction(m_triggerSymbolInfo);
         menu->addAction(m_triggerGotoSymbol);
@@ -2177,6 +2182,25 @@ public:
         server->clangdMemoryUsage(this, h);
     }
 
+    void rustAnalyzerExpandMacro()
+    {
+        KTextEditor::View *activeView = m_mainWindow->activeView();
+        auto server = m_serverManager->findServer(activeView);
+        if (!server)
+            return;
+
+        auto position = activeView->cursorPosition();
+        QPointer<KTextEditor::View> v(activeView);
+        auto h = [this, v, position](const LSPExpandedMacro &reply) {
+            if (v && !reply.expansion.isEmpty()) {
+                LspTooltip::show(reply.expansion, LSPMarkupKind::PlainText, v->mapToGlobal(v->cursorToCoordinate(position)), v, true);
+            } else {
+                showMessage(i18n("No results"), KTextEditor::Message::Information);
+            }
+        };
+        server->rustAnalyzerExpandMacro(this, activeView->document()->url(), position, h);
+    }
+
     void gotoWorkSpaceSymbol()
     {
         KTextEditor::View *activeView = m_mainWindow->activeView();
@@ -2739,6 +2763,7 @@ public:
         bool formatEnabled = false;
         bool renameEnabled = false;
         bool isClangd = false;
+        bool isRustAnalyzer = false;
 
         if (server) {
             const auto &caps = server->capabilities();
@@ -2772,6 +2797,7 @@ public:
             // only consider basename (full path may have been custom specified)
             auto lspServer = QFileInfo(server->cmdline().front()).fileName();
             isClangd = lspServer == QStringLiteral("clangd");
+            isRustAnalyzer = lspServer == QStringLiteral("rust-analyzer");
 
             const bool semHighlightingEnabled = m_plugin->m_semanticHighlighting;
             if (semHighlightingEnabled) {
@@ -2819,6 +2845,8 @@ public:
         m_switchSourceHeader->setVisible(isClangd);
         m_memoryUsage->setEnabled(isClangd);
         m_memoryUsage->setVisible(isClangd);
+        m_expandMacro->setEnabled(isRustAnalyzer);
+        m_expandMacro->setVisible(isRustAnalyzer);
 
         // update completion with relevant server
         m_completion->setServer(server);

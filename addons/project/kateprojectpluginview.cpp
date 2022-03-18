@@ -223,6 +223,11 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
      */
     connect(this, &KateProjectPluginView::projectMapChanged, this, &KateProjectPluginView::updateActions);
     updateActions();
+
+    /**
+     * ensure we react on requests to active a project from the plugin
+     */
+    connect(m_plugin, &KateProjectPlugin::activateProject, this, &KateProjectPluginView::slotActivateProject);
 }
 
 KateProjectPluginView::~KateProjectPluginView()
@@ -729,11 +734,7 @@ void KateProjectPluginView::openDirectoryOrProject()
 
     // switch to this project if there
     if (auto project = m_plugin->projectForDir(dir, true)) {
-        int index = m_projectsCombo->findData(project->fileName());
-        if (index >= 0) {
-            m_projectsCombo->setCurrentIndex(index);
-        }
-        mainWindow()->showToolView(m_toolView);
+        slotActivateProject(project);
     }
 }
 
@@ -804,6 +805,15 @@ void KateProjectPluginView::updateActions()
     m_projectNextAction->setEnabled(projectActive);
     m_projectGotoIndexAction->setEnabled(projectActive);
     m_projectCloseAction->setEnabled(projectActive);
+}
+
+void KateProjectPluginView::slotActivateProject(KateProject *project)
+{
+    const int index = m_projectsCombo->findData(project->fileName());
+    if (index >= 0) {
+        m_projectsCombo->setCurrentIndex(index);
+        mainWindow()->showToolView(m_toolView);
+    }
 }
 
 #include "kateprojectpluginview.moc"

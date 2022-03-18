@@ -211,6 +211,11 @@ private Q_SLOTS:
      */
     void slotGotoSymbol();
 
+    /**
+     * activate the given project
+     */
+    void slotActivateProject(KateProject *project);
+
 Q_SIGNALS:
 
     /**

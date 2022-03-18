@@ -138,6 +138,14 @@ public:
         return m_fileWatcher;
     }
 
+    /**
+     * Search for already loaded project for directory.
+     * Avoids that we double-load stuff for same one.
+     * @param dir director to check if we already have an open project for
+     * @return found project to re-use or nullptr
+     */
+    KateProject *openProjectForDirectory(const QDir &dir);
+
 Q_SIGNALS:
 
     /**
@@ -163,6 +171,13 @@ Q_SIGNALS:
      * @param message outgoing message we send to the host application
      */
     void message(const QVariantMap &message);
+
+    /**
+     * Signal emitted to tell the views to activate some project.
+     * Used for loading projects from the command line.
+     * @param project project to activate in the views
+     */
+    void activateProject(KateProject *project);
 
 public Q_SLOTS:
     /**

@@ -82,18 +82,13 @@ KateProjectPlugin::KateProjectPlugin(QObject *parent, const QList<QVariant> &)
     registerVariables();
 
     // open directories as projects
-    bool projectSpecified = false;
+    KateProject *projectToActivate = nullptr;
     auto args = qApp->arguments();
     args.removeFirst(); // The first argument is the executable name
     for (const QString &arg : qAsConst(args)) {
         QFileInfo info(arg);
         if (info.isDir()) {
-            // delay open until even loop starts, to let this win over session restored stuff
-            const QDir pathToOpen = info.absoluteFilePath();
-            QTimer::singleShot(0, this, [this, pathToOpen]() {
-                projectForDir(pathToOpen, true);
-            });
-            projectSpecified = true;
+            projectToActivate = projectForDir(info.absoluteFilePath(), true);
         }
     }
 
@@ -102,18 +97,24 @@ KateProjectPlugin::KateProjectPlugin(QObject *parent, const QList<QVariant> &)
      * open project for our current working directory, if this kate has a terminal
      * https://stackoverflow.com/questions/1312922/detect-if-stdin-is-a-terminal-or-pipe-in-c-c-qt
      */
-    if (!projectSpecified) {
+    if (!projectToActivate) {
         char tty[L_ctermid + 1] = {0};
         ctermid(tty);
         if (int fd = ::open(tty, O_RDONLY); fd >= 0) {
-            const QDir pathToOpen = QDir::current();
-            QTimer::singleShot(0, this, [this, pathToOpen]() {
-                projectForDir(pathToOpen);
-            });
+            projectToActivate = projectForDir(QDir::current());
             ::close(fd);
         }
     }
 #endif
+
+    /**
+     * delay activation after session restore
+     */
+    if (projectToActivate) {
+        QTimer::singleShot(0, projectToActivate, [this, projectToActivate]() {
+            Q_EMIT activateProject(projectToActivate);
+        });
+    }
 }
 
 KateProjectPlugin::~KateProjectPlugin()
@@ -146,6 +147,11 @@ KTextEditor::ConfigPage *KateProjectPlugin::configPage(int number, QWidget *pare
 
 KateProject *KateProjectPlugin::createProjectForFileName(const QString &fileName)
 {
+    // check if we already have the needed project opened
+    if (auto project = openProjectForDirectory(QFileInfo(fileName).dir())) {
+        return project;
+    }
+
     KateProject *project = new KateProject(m_threadPool, this, fileName);
     if (!project->isValid()) {
         delete project;
@@ -155,6 +161,19 @@ KateProject *KateProjectPlugin::createProjectForFileName(const QString &fileName
     m_projects.append(project);
     Q_EMIT projectCreated(project);
     return project;
+}
+
+KateProject *KateProjectPlugin::openProjectForDirectory(const QDir &dir)
+{
+    // check for project and load it if found
+    const QString canonicalPath = dir.canonicalPath();
+    const QString canonicalFileName = dir.filePath(ProjectFileName);
+    for (KateProject *project : qAsConst(m_projects)) {
+        if (project->baseDir() == canonicalPath || project->fileName() == canonicalFileName) {
+            return project;
+        }
+    }
+    return nullptr;
 }
 
 KateProject *KateProjectPlugin::projectForDir(QDir dir, bool userSpecified)
@@ -180,17 +199,13 @@ KateProject *KateProjectPlugin::projectForDir(QDir dir, bool userSpecified)
         directoryStack.push_back(dir.absolutePath());
 
         // check for project and load it if found
-        const QString canonicalPath = dir.canonicalPath();
-        const QString canonicalFileName = dir.filePath(ProjectFileName);
-        for (KateProject *project : qAsConst(m_projects)) {
-            if (project->baseDir() == canonicalPath || project->fileName() == canonicalFileName) {
-                return project;
-            }
+        if (auto project = openProjectForDirectory(dir)) {
+            return project;
         }
 
         // project file found => done
         if (dir.exists(ProjectFileName)) {
-            return createProjectForFileName(canonicalFileName);
+            return createProjectForFileName(dir.filePath(ProjectFileName));
         }
 
         // else: cd up, if possible or abort
@@ -342,6 +357,11 @@ KateProject *KateProjectPlugin::detectFossil(const QDir &dir)
 
 KateProject *KateProjectPlugin::createProjectForRepository(const QString &type, const QDir &dir)
 {
+    // check if we already have the needed project opened
+    if (auto project = openProjectForDirectory(dir)) {
+        return project;
+    }
+
     QVariantMap cnf, files;
     files[type] = 1;
     cnf[QStringLiteral("name")] = dir.dirName();
@@ -357,6 +377,11 @@ KateProject *KateProjectPlugin::createProjectForRepository(const QString &type, 
 
 KateProject *KateProjectPlugin::createProjectForDirectory(const QDir &dir)
 {
+    // check if we already have the needed project opened
+    if (auto project = openProjectForDirectory(dir)) {
+        return project;
+    }
+
     QVariantMap cnf, files;
     files[QStringLiteral("directory")] = QStringLiteral("./");
     cnf[QStringLiteral("name")] = dir.dirName();
@@ -373,6 +398,11 @@ KateProject *KateProjectPlugin::createProjectForDirectory(const QDir &dir)
 
 KateProject *KateProjectPlugin::createProjectForDirectory(const QDir &dir, const QVariantMap &projectMap)
 {
+    // check if we already have the needed project opened
+    if (auto project = openProjectForDirectory(dir)) {
+        return project;
+    }
+
     KateProject *project = new KateProject(m_threadPool, this, projectMap, dir.canonicalPath());
     if (!project->isValid()) {
         delete project;

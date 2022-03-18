@@ -717,6 +717,15 @@ static QString parseClangdSwitchSourceHeader(const QJsonValue &result)
     return result.toString();
 }
 
+static LSPExpandedMacro parseExpandedMacro(const QJsonValue &result)
+{
+    LSPExpandedMacro ret;
+    const QJsonObject ob = result.toObject();
+    ret.name = ob.value(QStringLiteral("name")).toString();
+    ret.expansion = ob.value(QStringLiteral("expansion")).toString();
+    return ret;
+}
+
 static LSPTextDocumentEdit parseTextDocumentEdit(const QJsonValue &result)
 {
     LSPTextDocumentEdit ret;
@@ -1412,6 +1421,12 @@ public:
         return send(init_request(QStringLiteral("$/memoryUsage"), QJsonObject()), h);
     }
 
+    RequestHandle rustAnalyzerExpandMacro(const QUrl &document, const LSPPosition &pos, const GenericReplyHandler &h)
+    {
+        auto params = textDocumentPositionParams(document, pos);
+        return send(init_request(QStringLiteral("rust-analyzer/expandMacro"), params), h);
+    }
+
     RequestHandle documentFormatting(const QUrl &document, const LSPFormattingOptions &options, const GenericReplyHandler &h)
     {
         auto params = documentRangeFormattingParams(document, nullptr, options);
@@ -1735,6 +1750,12 @@ LSPClientServer::RequestHandle LSPClientServer::clangdMemoryUsage(const QObject 
         return p;
     };
     return d->clangdMemoryUsage(make_handler(h, context, identity));
+}
+
+LSPClientServer::RequestHandle
+LSPClientServer::rustAnalyzerExpandMacro(const QObject *context, const QUrl &document, const LSPPosition &pos, const ExpandMacroHandler &h)
+{
+    return d->rustAnalyzerExpandMacro(document, pos, make_handler(h, context, parseExpandedMacro));
 }
 
 LSPClientServer::RequestHandle

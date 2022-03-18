@@ -423,4 +423,9 @@ struct LSPSemanticTokensDelta {
     std::vector<uint32_t> data;
 };
 
+struct LSPExpandedMacro {
+    QString name;
+    QString expansion;
+};
+
 #endif

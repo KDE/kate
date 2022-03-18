@@ -67,6 +67,7 @@ using ApplyEditReplyHandler = ReplyHandler<LSPApplyWorkspaceEditResponse>;
 using WorkspaceFoldersReplyHandler = ReplyHandler<QList<LSPWorkspaceFolder>>;
 using SwitchSourceHeaderHandler = ReplyHandler<QString>;
 using MemoryUsageHandler = ReplyHandler<QJsonValue>;
+using ExpandMacroHandler = ReplyHandler<LSPExpandedMacro>;
 using SemanticTokensDeltaReplyHandler = ReplyHandler<LSPSemanticTokensDelta>;
 using WorkspaceSymbolsReplyHandler = ReplyHandler<std::vector<LSPSymbolInformation>>;
 
@@ -167,6 +168,9 @@ public:
     RequestHandle documentSemanticTokensRange(const QUrl &document, const LSPRange &range, const QObject *context, const SemanticTokensDeltaReplyHandler &h);
 
     void executeCommand(const QString &command, const QJsonValue &args);
+
+    // rust-analyzer specific
+    RequestHandle rustAnalyzerExpandMacro(const QObject *context, const QUrl &document, const LSPPosition &pos, const ExpandMacroHandler &h);
 
     // sync
     void didOpen(const QUrl &document, int version, const QString &langId, const QString &text);

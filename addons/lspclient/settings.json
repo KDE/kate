@@ -72,6 +72,10 @@
             "command": ["texlab"],
             "url": "https://texlab.netlify.com/",
             "highlightingModeRegex": "^LaTeX$"
+        "nim": {
+            "command": [".nimble/bin/nimlsp"],
+            "url": "https://github.com/PMunch/nimlsp",
+            "highlightingModeRegex": "^Nim$"
         },
         "ocaml": {
             "command": ["ocamllsp"],

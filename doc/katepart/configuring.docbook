@@ -886,6 +886,32 @@ one is not already present upon saving the file.</para>
 </listitem>
 </varlistentry>
 
+<varlistentry>
+<term><guilabel>Enable Auto Save (local files only)</guilabel></term>
+<listitem>
+<para>
+Check this if you want the editor to autosave documents while you are working on them.
+</para>
+<variablelist>
+
+<varlistentry>
+<term><guilabel>Auto save document when focus leaves the editor</guilabel></term>
+<listitem>
+<para>The editor will automatically save documents when you switch to other applications.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Auto save interval</guilabel></term>
+<listitem>
+<para>You can determine the autosave inteval in seconds here.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</listitem>
+</varlistentry>
+
 </variablelist>
 </sect3>
 

@@ -23,7 +23,7 @@
 #include <KTextEditor/InlineNoteInterface>
 #include <KTextEditor/View>
 
-#include <QDir>
+#include <QFileInfo>
 #include <QUrl>
 
 #include <QFontMetrics>
@@ -259,11 +259,8 @@ void KateGitBlamePluginView::startBlameProcess(const QUrl &url)
         m_blameInfoProc.waitForFinished();
     }
 
-    QString fileName{url.fileName()};
-    QDir dir{url.toLocalFile()};
-    dir.cdUp();
-
-    if (!setupGitProcess(m_blameInfoProc, dir.absolutePath(), {QStringLiteral("blame"), QStringLiteral("-p"), QStringLiteral("./%1").arg(fileName)})) {
+    const QFileInfo fi{url.toLocalFile()};
+    if (!setupGitProcess(m_blameInfoProc, fi.absolutePath(), {QStringLiteral("blame"), QStringLiteral("-p"), fi.absoluteFilePath()})) {
         return;
     }
     m_blameInfoProc.start(QIODevice::ReadOnly);
@@ -277,10 +274,8 @@ void KateGitBlamePluginView::startShowProcess(const QUrl &url, const QString &ha
         return;
     }
 
-    QDir dir{url.toLocalFile()};
-    dir.cdUp();
-
-    if (!setupGitProcess(m_showProc, dir.absolutePath(), {QStringLiteral("show"), hash, QStringLiteral("--numstat")})) {
+    const QFileInfo fi{url.toLocalFile()};
+    if (!setupGitProcess(m_showProc, fi.absolutePath(), {QStringLiteral("show"), hash, QStringLiteral("--numstat")})) {
         return;
     }
     m_showProc.start(QIODevice::ReadOnly);
@@ -319,16 +314,9 @@ void KateGitBlamePluginView::sendMessage(const QString &text, bool error)
 
 void KateGitBlamePluginView::blameFinished(int exitCode, QProcess::ExitStatus exitStatus)
 {
+    // we ignore errors, we might just not be in a git repo, parsing errors is hard, as they are translated
+    // switching to english is no good idea either, as the user will likely not understand it then anyways
     if (exitCode != 0 || exitStatus != QProcess::NormalExit) {
-        const auto error = m_blameInfoProc.readAllStandardError();
-
-        // Ignore, this repo doesn't have any commits or not a repo
-        if (error.startsWith("fatal: no such ref: HEAD") || error.startsWith("fatal: not a git repository") || error.startsWith("fatal: no such path ")) {
-            return;
-        }
-
-        QString text = i18n("Git blame failed.");
-        sendMessage(text + QStringLiteral("\n") + QString::fromUtf8(error), true);
         return;
     }
 

@@ -764,32 +764,16 @@ void KateViewManager::documentWillBeDeleted(KTextEditor::Document *doc)
 
 void KateViewManager::closeView(KTextEditor::View *view)
 {
-    /**
-     * kill view we want to kill
-     */
-    deleteView(view);
-
-    /**
-     * try to have active view around!
-     */
-    if (!activeView() && !KateApp::self()->documentManager()->documentList().empty()) {
-        createView(KateApp::self()->documentManager()->documentList().back());
+    // we can only close views that are in our viewspaces
+    if (!view || !view->parentWidget() || !view->parentWidget()->parentWidget()) {
+        return;
     }
 
-    /**
-     * if we have one now, show them in all viewspaces that got empty!
-     */
-    if (KTextEditor::View *const newActiveView = activeView()) {
-        /**
-         * check if we have any empty viewspaces and give them a view
-         */
-        for (KateViewSpace *vs : m_viewSpaceList) {
-            if (!vs->currentView()) {
-                createView(newActiveView->document(), vs);
-            }
-        }
-
-        Q_EMIT viewChanged(newActiveView);
+    // get the viewspace if possible and close the document there => should close the passed view
+    // will close the full document, too, if last
+    auto viewSpace = qobject_cast<KateViewSpace *>(view->parentWidget()->parentWidget());
+    if (viewSpace) {
+        viewSpace->closeDocument(view->document());
     }
 }
 

@@ -904,7 +904,7 @@ Check this if you want the editor to autosave documents while you are working on
 <varlistentry>
 <term><guilabel>Auto save interval</guilabel></term>
 <listitem>
-<para>You can determine the autosave inteval in seconds here.</para>
+<para>You can determine the autosave interval in seconds here.</para>
 </listitem>
 </varlistentry>
 

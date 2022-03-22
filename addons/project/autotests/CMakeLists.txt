@@ -3,13 +3,13 @@ include(ECMMarkAsTest)
 add_executable(projectplugin_test "")
 target_include_directories(projectplugin_test PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/..)
 
-find_package(Qt5Test ${QT_MIN_VERSION} QUIET REQUIRED)
+find_package(Qt${QT_MAJOR_VERSION}Test ${QT_MIN_VERSION} QUIET REQUIRED)
 target_link_libraries(
   projectplugin_test 
   PRIVATE
     KF5::I18n
     KF5::TextEditor
-    Qt5::Test
+    Qt::Test
 )
 
 target_sources(

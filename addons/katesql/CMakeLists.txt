@@ -1,7 +1,7 @@
 find_package(KF5Wallet ${KF5_DEP_VERSION} QUIET)
 set_package_properties(KF5Wallet PROPERTIES PURPOSE "Required to build the katesql addon")
 
-find_package(Qt5Sql ${QT_MIN_VERSION} QUIET)
+find_package(Qt${QT_MAJOR_VERSION} ${QT_MIN_VERSION} QUIET)
 set_package_properties(Qt5Sql PROPERTIES PURPOSE "Required to build the katesql addon")
 
 if(NOT KF5Wallet_FOUND OR NOT Qt5Sql_FOUND)
@@ -17,7 +17,7 @@ target_link_libraries(
     KF5::I18n
     KF5::TextEditor
     KF5::Wallet
-    Qt5::Sql
+    Qt::Sql
 )
 
 target_sources(

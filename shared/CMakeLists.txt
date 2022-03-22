@@ -3,7 +3,7 @@ add_library(kateshared STATIC
     quickdialog.cpp
     signal_watcher.cpp
 )
-
+set_property(TARGET kateshared PROPERTY POSITION_INDEPENDENT_CODE ON)
 target_include_directories(kateshared PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}
 )

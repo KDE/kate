@@ -1,4 +1,4 @@
-find_package(Qt5Concurrent ${QT_MIN_VERSION} QUIET)
+find_package(Qt${QT_MAJOR_VERSION}Concurrent ${QT_MIN_VERSION} QUIET)
 find_package(
   KF5 ${KF5_DEP_VERSION}
   QUIET
@@ -21,7 +21,7 @@ target_link_libraries(
     kateprojectplugin
     PRIVATE
         kateshared
-        Qt5::Concurrent
+        Qt::Concurrent
         KF5::GuiAddons
         KF5::I18n
         KF5::NewStuff

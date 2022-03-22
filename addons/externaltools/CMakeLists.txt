@@ -8,7 +8,7 @@ if(NOT KF5IconThemes_FOUND)
     return()
 endif()
 
-find_package(Qt5Test ${QT_MIN_VERSION} QUIET REQUIRED)
+find_package(Qt${QT_MAJOR_VERSION}Test ${QT_MIN_VERSION} QUIET REQUIRED)
 
 kate_add_plugin(externaltoolsplugin)
 target_compile_definitions(externaltoolsplugin PRIVATE TRANSLATION_DOMAIN="kateexternaltoolsplugin")

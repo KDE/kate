@@ -1,4 +1,4 @@
-find_package(Qt5Test ${QT_MIN_VERSION} QUIET REQUIRED)
+find_package(Qt${QT_MAJOR_VERSION}Test ${QT_MIN_VERSION} QUIET REQUIRED)
 
 kate_add_plugin(latexcompletionplugin)
 target_compile_definitions(latexcompletionplugin PRIVATE TRANSLATION_DOMAIN="latexcompletionplugin")

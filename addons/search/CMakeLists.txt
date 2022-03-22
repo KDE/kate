@@ -1,4 +1,4 @@
-find_package(Qt5Concurrent ${QT_MIN_VERSION} QUIET)
+find_package(Qt${QT_MAJOR_VERSION}Concurrent ${QT_MIN_VERSION} QUIET)
 find_package(KF5ItemViews ${KF5_DEP_VERSION} QUIET)
 set_package_properties(KF5ItemViews PROPERTIES PURPOSE "Required to build the search addon")
 
@@ -12,7 +12,7 @@ target_compile_definitions(katesearchplugin PRIVATE TRANSLATION_DOMAIN="katesear
 target_link_libraries(
   katesearchplugin
   PRIVATE
-    Qt5::Concurrent
+    Qt::Concurrent
     KF5::I18n
     KF5::ItemViews
     KF5::TextEditor

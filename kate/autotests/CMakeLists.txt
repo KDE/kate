@@ -1,6 +1,6 @@
 include(ECMMarkAsTest)
 
-find_package(Qt5Test ${QT_MIN_VERSION} QUIET REQUIRED)
+find_package(Qt${QT_MAJOR_VERSION}Test ${QT_MIN_VERSION} QUIET REQUIRED)
 
 macro(kate_executable_tests)
   foreach(_testname ${ARGN})
@@ -10,7 +10,7 @@ macro(kate_executable_tests)
       ${_testname}
       PRIVATE
         kate-lib
-        Qt5::Test
+        Qt::Test
     )
 
     add_test(NAME kateapp-${_testname} COMMAND ${_testname})

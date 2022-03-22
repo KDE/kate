@@ -27,6 +27,7 @@
 #include <QDBusReply>
 #include <QDir>
 #include <QJsonDocument>
+#include <QRegularExpression>
 #include <QSessionManager>
 #include <QTextCodec>
 #include <QUrl>
@@ -503,22 +504,15 @@ int main(int argc, char **argv)
             }
 
             if (parser.isSet(readStdInOption)) {
-                QTextStream input(stdin, QIODevice::ReadOnly);
-
                 // set chosen codec
                 QTextCodec *codec = parser.isSet(useEncodingOption) ? QTextCodec::codecForName(parser.value(useEncodingOption).toUtf8()) : nullptr;
 
-                if (codec) {
-                    input.setCodec(codec);
-                }
+                QFile input;
+                input.open(stdin, QIODevice::ReadOnly);
+                QString text = codec ? codec->toUnicode(input.readAll()) : QString::fromLocal8Bit(input.readAll());
 
-                QString line;
-                QString text;
-
-                do {
-                    line = input.readLine();
-                    text.append(line + QLatin1Char('\n'));
-                } while (!line.isNull());
+                // normalize line endings, to e.g. catch issues with \r\n on Windows
+                text.replace(QRegularExpression(QStringLiteral("\r\n?")), QStringLiteral("\n"));
 
                 QDBusMessage m = QDBusMessage::createMethodCall(serviceName,
                                                                 QStringLiteral("/MainApplication"),

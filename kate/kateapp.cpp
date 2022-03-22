@@ -41,6 +41,7 @@
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QLoggingCategory>
+#include <QRegularExpression>
 #include <QTextCodec>
 #include <QUrlQuery>
 
@@ -233,20 +234,12 @@ bool KateApp::startupKate()
 
     // handle stdin input
     if (m_args.isSet(QStringLiteral("stdin"))) {
-        QTextStream input(stdin, QIODevice::ReadOnly);
+        QFile input;
+        input.open(stdin, QIODevice::ReadOnly);
+        QString text = codec ? codec->toUnicode(input.readAll()) : QString::fromLocal8Bit(input.readAll());
 
-        // set chosen codec
-        if (codec) {
-            input.setCodec(codec);
-        }
-
-        QString line;
-        QString text;
-
-        do {
-            line = input.readLine();
-            text.append(line + QLatin1Char('\n'));
-        } while (!line.isNull());
+        // normalize line endings, to e.g. catch issues with \r\n on Windows
+        text.replace(QRegularExpression(QStringLiteral("\r\n?")), QStringLiteral("\n"));
 
         openInput(text, codec_name);
     } else if (doc) {

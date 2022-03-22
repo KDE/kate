@@ -52,11 +52,11 @@ cursor.</para></entry>
 </row>
 <row>
 <entry><para><keycombo action="simul">&Ctrl;<keycap>E</keycap></keycombo></para></entry>
-<entry><para>Go to previous editing line.</para></entry>
+<entry><para>Go to previous edit location in document.</para></entry>
 </row>
 <row>
 <entry><para><keycombo action="simul">&Ctrl;&Shift;<keycap>E</keycap></keycombo></para></entry>
-<entry><para>Go to next editing line.</para></entry>
+<entry><para>Go to next edit location in document.</para></entry>
 </row>
 <row>
 <entry><para><keycombo action="simul">&Alt;&Shift;&Up;</keycombo></para></entry>
@@ -119,11 +119,7 @@ cursor.</para></entry>
 <entry><para>Move Lines Down.</para></entry>
 </row>
 <row>
-<entry><para><keycombo action="simul">&Ctrl;&Alt;&Up;</keycombo></para></entry>
-<entry><para>Duplicate Selected Lines Up.</para></entry>
-</row>
-<row>
-<entry><para><keycombo action="simul">&Ctrl;&Alt;&Down;</keycombo></para></entry>
+<entry><para><keycombo action="simul">&Ctrl;<keycap>.</keycap></keycombo></para></entry>
 <entry><para>Duplicate Selected Lines Down.</para></entry>
 </row>
 <row>
@@ -165,6 +161,14 @@ text).</para></entry>
 It is useful &eg; to write comments in the code: At the end of the line <quote>// some text</quote> press
 this shortcut and the next line starts already with <quote>// </quote>. So you do not have to enter the comment
 characters at the beginning of each new line with comments.</para></entry>
+</row>
+<row>
+<entry><para><keycombo action="simul">&Ctrl;&Shift;&Enter;</keycombo></para></entry>
+<entry><para>Create a new line below current line.</para></entry>
+</row>
+<row>
+<entry><para><keycombo action="simul">&Ctrl;&Alt;&Enter;</keycombo></para></entry>
+<entry><para>Create a new line above current line.</para></entry>
 </row>
 <row>
 <entry><para><keycombo action="simul">&Shift;&Left;</keycombo></para></entry>
@@ -435,6 +439,28 @@ action="simul">&Ctrl;&Space;</keycombo></para></entry>
 <entry><para><keycombo action="simul">&Ctrl;&Alt;<keycap>#</keycap></keycombo></para></entry>
 <entry><para>Expand Abbreviation.</para></entry>
 </row>
+
+<row>
+<entry><para><keycombo action="simul">&Ctrl;&Alt;&Up;</keycombo></para></entry>
+<entry><para>Add a cursor above current cursor.</para></entry>
+</row>
+<row>
+<entry><para><keycombo action="simul">&Ctrl;&Alt;&Down;</keycombo></para></entry>
+<entry><para>Add a cursor below current cursor.</para></entry>
+</row>
+<row>
+<entry><para><keycombo action="simul">&Shift;&Alt;<keycap>I</keycap></keycombo></para></entry>
+<entry><para>Create a cursor at the end of each line in selection.</para></entry>
+</row>
+<row>
+<entry><para><keycombo action="simul">&Alt;<keycap>J</keycap></keycombo></para></entry>
+<entry><para>Find next occurence of the word under cursor and select it.</para></entry>
+</row>
+<row>
+<entry><para><keycombo action="simul">&Ctrl;&Alt;&Shift;<keycap>J</keycap></keycombo></para></entry>
+<entry><para>Find all occurences of the word under cursor and select it.</para></entry>
+</row>
+
 </tbody>
 </tgroup>
 </informaltable>

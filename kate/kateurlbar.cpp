@@ -863,7 +863,12 @@ public:
     {
         const auto rowCount = m_model.rowCount();
         int w = 0;
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
         QStyleOptionViewItem opt = viewOptions();
+#else
+        QStyleOptionViewItem opt;
+        initViewItemOption(&opt);
+#endif
         auto delegate = itemDelegate();
         for (int i = 0; i < rowCount; ++i) {
             w += delegate->sizeHint(opt, m_model.index(i, 0)).width();

@@ -519,6 +519,13 @@ of only removing the base character. This is useful for Indic locales.</para></l
 </listitem>
 </varlistentry>
 
+<varlistentry>
+<term><guilabel>Multicursor modifier</guilabel></term>
+<listitem>
+<para>This option lets you set the modifier that will be used to create multiple cursors with &LMB; click. You need to press the modifiers and click &LMB; to create a cursor at the desired location.</para>
+</listitem>
+</varlistentry>
+
 </variablelist>
 </sect3>
 

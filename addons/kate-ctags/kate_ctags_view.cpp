@@ -158,7 +158,7 @@ KateCTagsView::KateCTagsView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
 
     m_mWin->guiFactory()->addClient(this);
 
-    m_commonDB = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1String("/katectags/common_db");
+    m_commonDB = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation) + QLatin1String("/katectags/common_db");
 }
 
 /******************************************************************/
@@ -526,7 +526,7 @@ void KateCTagsView::updateSessionDB()
         targets += QLatin1Char('\"') + target + QLatin1String("\" ");
     }
 
-    QString pluginFolder = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1String("/katectags");
+    QString pluginFolder = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation) + QLatin1String("/katectags");
     QDir().mkpath(pluginFolder);
 
     if (m_ctagsUi.tagsFile->text().isEmpty()) {

@@ -2833,10 +2833,10 @@ public:
             m_triggerRename->setEnabled(renameEnabled);
         }
         if (m_complDocOn) {
-            m_complDocOn->setEnabled(server);
+            m_complDocOn->setEnabled(!server.isNull());
         }
         if (m_restartServer) {
-            m_restartServer->setEnabled(server);
+            m_restartServer->setEnabled(!server.isNull());
         }
         if (m_requestCodeAction) {
             m_requestCodeAction->setEnabled(codeActionEnabled);

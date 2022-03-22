@@ -161,7 +161,11 @@ QString CTagsKinds::findKind(const char *kindChar, const QString &extension)
     return QString();
 }
 
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
 QString CTagsKinds::findKindNoi18n(const char *kindChar, const QStringRef &extension)
+#else
+QString CTagsKinds::findKindNoi18n(const char *kindChar, const QStringView &extension)
+#endif
 {
     if (kindChar == nullptr || extension.isEmpty()) {
         return QString();

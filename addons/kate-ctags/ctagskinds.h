@@ -15,7 +15,11 @@ class CTagsKinds
 {
 public:
     static QString findKind(const char *kindChar, const QString &extension);
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
     static QString findKindNoi18n(const char *kindChar, const QStringRef &extension);
+#else
+    static QString findKindNoi18n(const char *kindChar, const QStringView &extension);
+#endif
 };
 
 #endif

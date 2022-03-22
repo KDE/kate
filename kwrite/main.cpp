@@ -56,13 +56,13 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
         }
     }
 #endif
-
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
     /**
      * enable high dpi support
      */
     QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps, true);
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling, true);
-
+#endif
     /**
      * allow fractional scaling
      * we only activate this on Windows, it seems to creates problems on unices

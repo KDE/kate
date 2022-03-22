@@ -213,7 +213,7 @@ void KateCTagsConfigPage::updateGlobalDB()
         targets += QLatin1Char('\"') + target + QLatin1String("\" ");
     }
 
-    QString file = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1String("/katectags");
+    QString file = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation) + QLatin1String("/katectags");
     QDir().mkpath(file);
     file += QLatin1String("/common_db");
 

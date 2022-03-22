@@ -45,7 +45,11 @@ public:
     void drawControl(ControlElement element, const QStyleOption *option, QPainter *painter, const QWidget *widget = nullptr) const override
     {
         if (m_tabBar && element == QStyle::CE_TabBarTabLabel) {
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
             auto opt = const_cast<QStyleOptionTabV4 *>(qstyleoption_cast<const QStyleOptionTabV4 *>(option));
+#else
+            auto opt = const_cast<QStyleOptionTab *>(qstyleoption_cast<const QStyleOptionTab *>(option));
+#endif
             if (auto doc = m_tabBar->tabDocument(opt->tabIndex)) {
                 // If doc is modified we paint its text italic
                 if (doc->isModified()) {
@@ -256,7 +260,11 @@ void KateTabBar::mouseMoveEvent(QMouseEvent *event)
 
     // For some reason initStyleOption with tabIdx directly
     // wasn't working, so manually set some stuff
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
     QStyleOptionTabV4 opt;
+#else
+    QStyleOptionTab opt;
+#endif
     opt.text = tabText(tab);
     opt.state = QStyle::State_Selected | QStyle::State_Raised;
     opt.tabIndex = tab;

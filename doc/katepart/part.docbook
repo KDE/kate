@@ -650,4 +650,36 @@ or permanently in <link linkend="appearance-borders">the Appearance section of
 
 </sect1>
 
+<sect1 id="kate-part-multiple-cursors">
+<title>Multiple cursors</title>
+Multiple cursor support was introduced with version 5.93 of katepart.
+
+<!-- <sect3 id="kate-part-create-multiple-cursors"> -->
+<sect3 id="kate-part-create-multiple-cursors">
+<title>Creating multiple cursors</title>
+
+<varlistentry>
+<listitem><para>To create them via mouse, use &Alt; + &LMB;. The modifier is configurable, see <link linkend="multicursor-modifier-configure">Configure multicursor modifier</link></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<listitem><para>To create via keyboard, press <keycombo action="simul">&Ctrl;&Alt;&Up;</keycombo> to create cursor above primary cursor and <keycombo action="simul">&Ctrl;&Alt;&Down;</keycombo> to create cursor below. These shortucts are also configurable</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<listitem><para>To create cursors out of a selection, first select some text and then press <keycombo action="simul">&Shift;&Alt;<keycap>I</keycap></keycombo>. This will create a cursor at the end of each line in selection.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<listitem><para>Use <keycombo action="simul">&Alt;<keycap>J</keycap></keycombo> to find the next occurrence of the word under cursor and select it + create a cursor.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<listitem><para>Use <keycombo action="simul">&Ctrl;&Alt;&Shift;<keycap>J</keycap></keycombo> to find all occurrences of the word under cursor and select them with a cursor at the end of each selection.</para></listitem>
+</varlistentry>
+
+</sect3>
+
+</sect1>
+
 </chapter>

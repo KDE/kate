@@ -28,7 +28,6 @@
 
 #include <QCompleter>
 #include <QDir>
-#include <QDirModel>
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QIcon>
@@ -885,7 +884,7 @@ bool KateBuildView::buildCurrentTarget()
         return false;
     }
 
-    QFileInfo docFInfo = docUrl().toLocalFile(); // docUrl() saves the current document
+    const QFileInfo docFInfo(docUrl().toLocalFile()); // docUrl() saves the current document
 
     QModelIndex ind = m_targetsUi->targetsView->currentIndex();
     m_previousIndex = ind;
@@ -911,7 +910,7 @@ bool KateBuildView::buildCurrentTarget()
 
     // a single target can serve to build lots of projects with similar directory layout
     if (m_projectPluginView) {
-        QFileInfo baseDir = m_projectPluginView->property("projectBaseDir").toString();
+        const QFileInfo baseDir(m_projectPluginView->property("projectBaseDir").toString());
         dir.replace(QStringLiteral("%B"), baseDir.absoluteFilePath());
         dir.replace(QStringLiteral("%b"), baseDir.baseName());
     }

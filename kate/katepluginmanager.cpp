@@ -72,7 +72,7 @@ void KatePluginManager::setupPluginList()
     m_pluginList.clear();
     QSet<QString> unique;
 
-    const QVector<KPluginMetaData> plugins = KPluginLoader::findPlugins(QStringLiteral("ktexteditor"));
+    const QVector<KPluginMetaData> plugins = KPluginMetaData::findPlugins(QStringLiteral("ktexteditor"));
     for (const auto &pluginMetaData : plugins) {
         KatePluginInfo info;
         info.metaData = pluginMetaData;
@@ -187,10 +187,7 @@ bool KatePluginManager::loadPlugin(KatePluginInfo *item)
     /**
      * try to load the plugin
      */
-    auto factory = KPluginLoader(item->metaData.fileName()).factory();
-    if (factory) {
-        item->plugin = factory->create<KTextEditor::Plugin>(this, QVariantList() << item->saveName());
-    }
+    item->plugin = KPluginFactory::instantiatePlugin<KTextEditor::Plugin>(item->metaData, this, QVariantList() << item->saveName()).plugin;
     item->load = item->plugin != nullptr;
 
     /**

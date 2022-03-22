@@ -25,6 +25,7 @@
 #include <QCommandLineParser>
 #include <QDir>
 #include <QFileInfo>
+#include <QRegularExpression>
 #include <QTextCodec>
 #include <QUrlQuery>
 
@@ -251,21 +252,13 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
         if (parser.positionalArguments().count() == 0) {
             KWrite *t = kapp.newWindow();
 
-            if (parser.isSet(QStringLiteral("stdin"))) {
-                QTextStream input(stdin, QIODevice::ReadOnly);
+            if (parser.isSet(QStringLiteral("stdin"))) { // get full stdin content with right encoding
+                QFile input;
+                input.open(stdin, QIODevice::ReadOnly);
+                QString text = codec ? codec->toUnicode(input.readAll()) : QString::fromLocal8Bit(input.readAll());
 
-                // set chosen codec
-                if (codec) {
-                    input.setCodec(codec);
-                }
-
-                QString line;
-                QString text;
-
-                do {
-                    line = input.readLine();
-                    text.append(line + QLatin1Char('\n'));
-                } while (!line.isNull());
+                // normalize line endings, to e.g. catch issues with \r\n on Windows
+                text.replace(QRegularExpression(QStringLiteral("\r\n?")), QStringLiteral("\n"));
 
                 KTextEditor::Document *doc = t->activeView()->document();
                 if (doc) {

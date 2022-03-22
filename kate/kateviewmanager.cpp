@@ -1119,7 +1119,7 @@ void KateViewManager::restoreViewConfiguration(const KConfigGroup &config)
     if (lastViewSpace > m_viewSpaceList.size()) {
         lastViewSpace = 0;
     }
-    if (lastViewSpace >= 0 && lastViewSpace < m_viewSpaceList.size()) {
+    if (lastViewSpace < m_viewSpaceList.size()) {
         setActiveSpace(m_viewSpaceList.at(lastViewSpace));
         // activate correct view (wish #195435, #188764)
         activateView(m_viewSpaceList.at(lastViewSpace)->currentView());

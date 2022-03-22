@@ -136,18 +136,19 @@ bool KateStashManager::popDocument(KTextEditor::Document *doc, const KConfigGrou
 
     if (checksumOk) {
         // open file with stashed content
-        QFile file(stashedFile);
-        file.open(QIODevice::ReadOnly);
-        QTextStream out(&file);
-        const auto codec = QTextCodec::codecForName(kconfig.readEntry("Encoding").toLocal8Bit());
-        if (codec != nullptr) {
-            out.setCodec(codec);
-        }
+        QFile input(stashedFile);
+        input.open(QIODevice::ReadOnly);
 
-        doc->setText(out.readAll());
+        const auto codec = QTextCodec::codecForName(kconfig.readEntry("Encoding").toLocal8Bit());
+        QString text = codec ? codec->toUnicode(input.readAll()) : QString::fromLocal8Bit(input.readAll());
+
+        // normalize line endings, to e.g. catch issues with \r\n on Windows
+        text.replace(QRegularExpression(QStringLiteral("\r\n?")), QStringLiteral("\n"));
+
+        doc->setText(text);
 
         // clean stashed file
-        if (!file.remove()) {
+        if (!input.remove()) {
             qCWarning(LOG_KATE) << "Could not remove stash file" << stashedFile;
         }
 

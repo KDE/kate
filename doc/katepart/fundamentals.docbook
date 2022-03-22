@@ -454,11 +454,11 @@ action="simul">&Ctrl;&Space;</keycombo></para></entry>
 </row>
 <row>
 <entry><para><keycombo action="simul">&Alt;<keycap>J</keycap></keycombo></para></entry>
-<entry><para>Find next occurence of the word under cursor and select it.</para></entry>
+<entry><para>Find next occurrence of the word under cursor and select it.</para></entry>
 </row>
 <row>
 <entry><para><keycombo action="simul">&Ctrl;&Alt;&Shift;<keycap>J</keycap></keycombo></para></entry>
-<entry><para>Find all occurences of the word under cursor and select it.</para></entry>
+<entry><para>Find all occurrences of the word under cursor and select them.</para></entry>
 </row>
 
 </tbody>

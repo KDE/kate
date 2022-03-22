@@ -522,7 +522,7 @@ of only removing the base character. This is useful for Indic locales.</para></l
 <varlistentry id="multicursor-modifier-configure">
 <term><guilabel>Multicursor modifier</guilabel></term>
 <listitem>
-<para>This option lets you set the modifier that will be used to create multiple cursors with &LMB; click. You need to press the modifiers and click &LMB; to create a cursor at the desired location. See <link linkend="kate-part-create-multiple-cursors">Creating multiple cursors</link> to discover other ways to create mulitple cursors.</para>
+<para>This option lets you set the modifier that will be used to create multiple cursors with &LMB; click. You need to press the modifiers and click &LMB; to create a cursor at the desired location. See <link linkend="kate-part-create-multiple-cursors">Creating multiple cursors</link> to discover other ways to create multiple cursors.</para>
 </listitem>
 </varlistentry>
 
@@ -904,7 +904,7 @@ Check this if you want the editor to autosave documents while you are working on
 <varlistentry>
 <term><guilabel>Auto save document when focus leaves the editor</guilabel></term>
 <listitem>
-<para>The editor will automatically save documents when you switch to something outside the editor for e.g., the terminal panel in Kate.</para>
+<para>The editor will automatically save documents when you switch to something outside the editor, &eg;, the terminal panel in &kate;.</para>
 </listitem>
 </varlistentry>
 

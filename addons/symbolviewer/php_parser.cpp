@@ -13,6 +13,7 @@
  ***************************************************************************/
 
 #include "plugin_katesymbolviewer.h"
+#include <QRegExp>
 
 void KatePluginSymbolViewerView::parsePhpSymbols(void)
 {

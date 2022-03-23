@@ -26,7 +26,7 @@
 #include <QSortFilterProxyModel>
 #include <QTimer>
 
-#include <kns3/downloaddialog.h>
+#include <KNS3/QtQuickDialogWrapper>
 #include <kns3/uploaddialog.h>
 
 class SnippetFilterModel : public QSortFilterProxyModel
@@ -322,10 +322,12 @@ void SnippetView::slotRemoveRepo()
 
 void SnippetView::slotGHNS()
 {
-    KNS3::DownloadDialog dialog(QStringLiteral(":/katesnippets/ktexteditor_codesnippets_core.knsrc"), this);
-    dialog.exec();
-    const auto changedEntries = dialog.changedEntries();
-    for (const KNS3::Entry &entry : changedEntries) {
+    KNS3::QtQuickDialogWrapper dialog(QStringLiteral(":/katesnippets/ktexteditor_codesnippets_core.knsrc"));
+    const QList<KNSCore::EntryInternal> changedEntries = dialog.exec();
+    if (changedEntries.isEmpty()) {
+        return;
+    }
+    for (const auto &entry : changedEntries) {
         const auto uninstalledFiles = entry.uninstalledFiles();
         for (const QString &path : uninstalledFiles) {
             if (path.endsWith(QLatin1String(".xml"))) {

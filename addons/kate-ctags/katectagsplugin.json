@@ -2,7 +2,7 @@
     "KPlugin": {
         "Description": "Look up definitions/declarations with CTags",
         "Description[az]": "CTags ilə bildirişlərədə və tanıtmalarda axtarın",
-        "Description[ca@valencia]": "Cerca definicions/declaracions amb CTags",
+        "Description[ca@valencia]": "Busca definicions/declaracions amb CTags",
         "Description[ca]": "Cerca definicions/declaracions amb CTags",
         "Description[cs]": "Vyhledávání definic/deklarací pomocí CTags",
         "Description[de]": "Definition/Deklaration mit CTags nachschauen",

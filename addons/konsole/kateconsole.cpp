@@ -196,12 +196,12 @@ void KateConsole::loadConsoleIfNeeded()
     /**
      * get konsole part factory
      */
-    KPluginFactory *factory = KPluginLoader(QStringLiteral("konsolepart")).factory();
+    KPluginFactory *factory = KPluginFactory::loadFactory(QStringLiteral("konsolepart")).plugin;
     if (!factory) {
         return;
     }
 
-    m_part = factory->create<KParts::ReadOnlyPart>(this, this);
+    m_part = factory->create<KParts::ReadOnlyPart>(this);
 
     if (!m_part) {
         return;

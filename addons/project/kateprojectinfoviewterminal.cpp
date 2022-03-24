@@ -47,7 +47,7 @@ KPluginFactory *KateProjectInfoViewTerminal::pluginFactory()
     if (s_pluginFactory) {
         return s_pluginFactory;
     }
-    return s_pluginFactory = KPluginLoader(QStringLiteral("konsolepart")).factory();
+    return s_pluginFactory = KPluginFactory::loadFactory(QStringLiteral("konsolepart")).plugin;
 }
 
 void KateProjectInfoViewTerminal::showEvent(QShowEvent *)
@@ -76,7 +76,7 @@ void KateProjectInfoViewTerminal::loadTerminal()
     /**
      * create part
      */
-    m_konsolePart = pluginFactory()->create<KParts::ReadOnlyPart>(this, this);
+    m_konsolePart = pluginFactory()->create<KParts::ReadOnlyPart>(this);
     if (!m_konsolePart) {
         return;
     }

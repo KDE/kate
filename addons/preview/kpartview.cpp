@@ -40,18 +40,15 @@ static const int updateDelaySlow = 1000; // ms
 KPartView::KPartView(const KPluginMetaData &service, QObject *parent)
     : QObject(parent)
 {
-    KPluginLoader loader(service.fileName());
-
-    KPluginFactory *factory = loader.factory();
-
-    if (!factory) {
-        m_errorLabel = new QLabel(loader.errorString());
+    auto factoryResult = KPluginFactory::loadFactory(service.fileName());
+    if (!factoryResult.plugin) {
+        m_errorLabel = new QLabel(factoryResult.errorString);
     } else {
-        m_part = factory->create<KParts::ReadOnlyPart>(nullptr, this);
+        m_part = factoryResult.plugin->create<KParts::ReadOnlyPart>(this);
     }
 
     if (!m_part) {
-        m_errorLabel = new QLabel(loader.errorString());
+        m_errorLabel = new QLabel(factoryResult.errorString);
     } else if (!m_part->widget()) {
         // should not happen, but just be safe
         delete m_part;

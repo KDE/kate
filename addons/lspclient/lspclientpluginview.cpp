@@ -616,7 +616,9 @@ public:
         m_triggerGotoSymbol = actionCollection()->addAction(QStringLiteral("lspclient_goto_workspace_symbol"), this, &self_type::gotoWorkSpaceSymbol);
         m_triggerGotoSymbol->setText(i18n("Search and Go to Symbol"));
         actionCollection()->setDefaultShortcut(m_triggerGotoSymbol, Qt::ALT | Qt::CTRL | Qt::Key_P);
-        m_triggerFormat = actionCollection()->addAction(QStringLiteral("lspclient_format"), this, &self_type::format);
+        m_triggerFormat = actionCollection()->addAction(QStringLiteral("lspclient_format"), this, [this]() {
+            format();
+        });
         m_triggerFormat->setText(i18n("Format"));
         m_triggerRename = actionCollection()->addAction(QStringLiteral("lspclient_rename"), this, &self_type::rename);
         m_triggerRename->setText(i18n("Rename"));

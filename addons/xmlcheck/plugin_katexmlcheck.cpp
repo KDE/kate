@@ -361,7 +361,11 @@ bool PluginKateXMLCheckView::slotValidate()
     // and needs to be ignored then):
     QRegExp re("<!--.*-->");
     re.setMinimal(true);
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
+    text_start.remove(re);
+#else
     text_start = re.removeIn(text_start);
+#endif
     QRegExp re_doctype("<!DOCTYPE\\s+(.*)\\s+(?:PUBLIC\\s+[\"'].*[\"']\\s+[\"'](.*)[\"']|SYSTEM\\s+[\"'](.*)[\"'])", Qt::CaseInsensitive);
     re_doctype.setMinimal(true);
 

@@ -105,10 +105,12 @@ SnippetView::SnippetView(KateSnippetGlobal *plugin, KTextEditor::MainWindow *mai
 
     const bool newStuffAllowed = KAuthorized::authorize(QStringLiteral("ghns"));
 
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
     m_putNewStuffAction = new QAction(QIcon::fromTheme(QStringLiteral("get-hot-new-stuff")), i18n("Publish Repository"), this);
     m_putNewStuffAction->setVisible(newStuffAllowed);
     connect(m_putNewStuffAction, &QAction::triggered, this, &SnippetView::slotSnippetToGHNS);
     addAction(m_putNewStuffAction);
+#endif
 
     QAction *separator = new QAction(this);
     separator->setSeparator(true);
@@ -152,7 +154,10 @@ void SnippetView::validateActions()
     m_addRepoAction->setEnabled(true);
     m_editRepoAction->setEnabled(selectedRepo);
     m_removeRepoAction->setEnabled(selectedRepo);
+
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
     m_putNewStuffAction->setEnabled(selectedRepo);
+#endif
 
     m_addSnippetAction->setEnabled(selectedRepo || selectedSnippet);
     m_editSnippetAction->setEnabled(selectedSnippet);
@@ -214,7 +219,10 @@ void SnippetView::contextMenu(const QPoint &pos)
 
         menu.addAction(m_editRepoAction);
         menu.addAction(m_removeRepoAction);
+
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
         menu.addAction(m_putNewStuffAction);
+#endif
 
         menu.exec(snippetTree->mapToGlobal(pos));
     }
@@ -345,6 +353,8 @@ void SnippetView::slotGHNS()
     }
 }
 
+// will need complete re-implementation, API missing
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
 void SnippetView::slotSnippetToGHNS()
 {
     QStandardItem *item = currentItem();
@@ -362,6 +372,7 @@ void SnippetView::slotSnippetToGHNS()
     dialog.setUploadName(repo->text());
     dialog.exec();
 }
+#endif
 
 bool SnippetView::eventFilter(QObject *obj, QEvent *e)
 {

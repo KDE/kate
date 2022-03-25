@@ -81,10 +81,12 @@ private Q_SLOTS:
      */
     void slotGHNS();
 
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
     /**
      * Slot to put the selected snippet to GHNS
      */
     void slotSnippetToGHNS();
+#endif
 
     void contextMenu(const QPoint &pos);
     /// disables or enables available actions based on the currently selected item
@@ -106,7 +108,9 @@ private:
     QAction *m_removeSnippetAction;
     QAction *m_editSnippetAction;
     QAction *m_getNewStuffAction;
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
     QAction *m_putNewStuffAction;
+#endif
 };
 
 #endif

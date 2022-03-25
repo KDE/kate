@@ -104,10 +104,10 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
             lineWithliterals = line;
 
             // reduce literals to empty strings to not match comments separators in literals
-            line.replace(literalRegExp, QLatin1String("\\1\\1"));
+            line = literalRegExp.replaceIn(line, QLatin1String("\\1\\1"));
             // kdDebug(13000) << debugBuffer.arg(i, 4).arg("-literals", 10).arg(line);
 
-            line.remove(blockCommentInline);
+            line = blockCommentInline.removeIn(line);
             // kdDebug(13000) << debugBuffer.arg(i, 4).arg("-comments", 10).arg(line);
 
             // trying to find comments and to remove commented parts

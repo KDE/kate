@@ -117,7 +117,7 @@ private:
 #ifdef Q_OS_WIN
     QString caseFixed(const QString &path);
 #endif
-    void processLine(const QString &);
+    void processLine(QStringView line);
     void addError(const QString &filename, const QString &line, const QString &column, const QString &message);
     bool startProcess(const QString &dir, const QString &command);
     bool checkLocal(const QUrl &dir);

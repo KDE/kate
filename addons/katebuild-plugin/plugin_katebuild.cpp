@@ -1027,6 +1027,8 @@ void KateBuildView::slotReadReadyStdOut()
     // the text to the end of the output
     // FIXME This works for utf8 but not for all charsets
     QString l = QString::fromUtf8(m_proc.readAllStandardOutput());
+    m_buildUi.plainTextEdit->appendPlainText(l);
+
     l.remove(QLatin1Char('\r'));
     m_stdOut += l;
 
@@ -1037,13 +1039,12 @@ void KateBuildView::slotReadReadyStdOut()
             break;
         }
 
-        QString line = m_stdOut.mid(0, end);
+        QStringView line = QStringView(m_stdOut).mid(0, end);
         const bool ninjaOutput = line.startsWith(NinjaPrefix);
         m_ninjaBuildDetected |= ninjaOutput;
         if (ninjaOutput) {
             line = line.mid(NinjaPrefix.length());
         }
-        m_buildUi.plainTextEdit->appendPlainText(line);
         // qDebug() << line;
 
         QRegularExpressionMatch match = m_newDirDetector.match(line);
@@ -1093,7 +1094,7 @@ void KateBuildView::slotReadReadyStdErr()
 }
 
 /******************************************************************/
-void KateBuildView::processLine(const QString &line)
+void KateBuildView::processLine(QStringView line)
 {
     // qDebug() << line ;
 
@@ -1101,7 +1102,7 @@ void KateBuildView::processLine(const QString &line)
     QRegularExpressionMatch match = m_filenameDetector.match(line);
 
     if (!match.hasMatch()) {
-        addError(QString(), QStringLiteral("0"), QString(), line);
+        addError(QString(), QStringLiteral("0"), QString(), line.toString());
         // kDebug() << "A filename was not found in the line ";
         return;
     }

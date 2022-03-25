@@ -19,10 +19,11 @@
 
 #include <memory>
 
+#include <kateprojectview.h>
+
 class QAction;
 class QDir;
 class KateProject;
-class KateProjectView;
 class KateProjectPlugin;
 class KateProjectInfoView;
 

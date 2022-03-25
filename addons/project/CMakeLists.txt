@@ -10,7 +10,7 @@ find_package(
 set_package_properties(KFGuiAddons PROPERTIES PURPOSE "Required to build the project addon")
 set_package_properties(KF5NewStuff PROPERTIES PURPOSE "Required to build the project addon")
 
-if(NOT KF5_FOUND OR NOT Qt5Concurrent_FOUND)
+if(NOT KF5_FOUND OR NOT Qt${QT_MAJOR_VERSION}Concurrent_FOUND)
   return()
 endif()
 

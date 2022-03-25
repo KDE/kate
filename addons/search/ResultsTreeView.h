@@ -14,7 +14,12 @@ class ResultsTreeView : public QTreeView
     Q_OBJECT
 public:
     ResultsTreeView(QWidget *parent);
+
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
     QStyleOptionViewItem viewOptions() const override;
+#else
+    void initViewItemOption(QStyleOptionViewItem *option) const override;
+#endif
 
 private:
     QColor m_fg;

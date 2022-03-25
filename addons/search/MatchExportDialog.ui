@@ -54,22 +54,4 @@
   </layout>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>pushButton</sender>
-   <signal>clicked()</signal>
-   <receiver>MatchExportDialog</receiver>
-   <slot>generateMatchExport()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>707</x>
-     <y>22</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>378</x>
-     <y>237</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
 </ui>

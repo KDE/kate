@@ -146,7 +146,11 @@ std::pair<uint, uint> parseRange(const QString &range)
 {
     int commaPos = range.indexOf(QLatin1Char(','));
     if (commaPos > -1) {
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
         return {range.midRef(0, commaPos).toInt(), range.midRef(commaPos + 1).toInt()};
+#else
+        return {QStringView(range).sliced(0, commaPos).toInt(), QStringView(range).sliced(commaPos + 1).toInt()};
+#endif
     }
     return {range.toInt(), 1};
 }
@@ -379,7 +383,7 @@ public:
                 if (CONFLICT_RE->match(ln).hasMatch())
                     return -1;
 
-                if (ln.startsWith(dest) || ln.startsWith(QLatin1Char(' ')) || ln.isEmpty() || inConflict) {
+                if (ln.startsWith(QLatin1Char(dest)) || ln.startsWith(QLatin1Char(' ')) || ln.isEmpty() || inConflict) {
                     if (dest == SRC)
                         // The -1 accounts for the fact that srcStart is 1-based
                         // but we need to return 0-based line numbers

@@ -21,6 +21,7 @@ MatchExportDialog::MatchExportDialog(QWidget *parent, QAbstractItemModel *matchM
 
     QAction *exportPatternTextActionForInsertRegexButton =
         exportPatternText->addAction(QIcon::fromTheme(QStringLiteral("code-context")), QLineEdit::TrailingPosition);
+
     connect(exportPatternTextActionForInsertRegexButton, &QAction::triggered, this, [this]() {
         QMenu menu;
         QSet<QAction *> actionList;
@@ -28,6 +29,8 @@ MatchExportDialog::MatchExportDialog(QWidget *parent, QAbstractItemModel *matchM
         auto &&action = menu.exec(QCursor::pos());
         KatePluginSearchView::regexHelperActOnAction(action, actionList, exportPatternText);
     });
+
+    connect(pushButton, &QPushButton::clicked, this, &MatchExportDialog::generateMatchExport);
 }
 
 MatchExportDialog::~MatchExportDialog()

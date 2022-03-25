@@ -2,7 +2,7 @@ find_package(Qt${QT_MAJOR_VERSION}Concurrent ${QT_MIN_VERSION} QUIET)
 find_package(KF5ItemViews ${KF5_DEP_VERSION} QUIET)
 set_package_properties(KF5ItemViews PROPERTIES PURPOSE "Required to build the search addon")
 
-if(NOT KF5ItemViews_FOUND OR NOT Qt5Concurrent_FOUND)
+if(NOT KF5ItemViews_FOUND OR NOT Qt${QT_MAJOR_VERSION}Concurrent_FOUND)
   return()
 endif()
 

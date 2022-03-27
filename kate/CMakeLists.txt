@@ -75,7 +75,6 @@ target_sources(
 
     kateapp.cpp
     kateappadaptor.cpp
-    katecolorschemechooser.cpp
     kateconfigdialog.cpp
     kateconfigplugindialogpage.cpp
     katedocmanager.cpp

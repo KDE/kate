@@ -22,11 +22,8 @@
 #include <KIO/DeleteJob>
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <KSharedConfig>
-
-#if KCOREADDONS_VERSION >= QT_VERSION_CHECK(5, 85, 0)
 #include <KNetworkMounts>
-#endif
+#include <KSharedConfig>
 
 #include <QApplication>
 #include <QFileDialog>
@@ -113,9 +110,7 @@ static QUrl normalizeUrl(const QUrl &url)
 {
     // Resolve symbolic links for local files (done anyway in KTextEditor)
     if (url.isLocalFile()
-#if KCOREADDONS_VERSION >= QT_VERSION_CHECK(5, 85, 0)
         && !KNetworkMounts::self()->isOptionEnabledForPath(url.toLocalFile(), KNetworkMounts::StrongSideEffectsOptimizations)
-#endif
     ) {
         QString normalizedUrl = QFileInfo(url.toLocalFile()).canonicalFilePath();
         if (!normalizedUrl.isEmpty()) {

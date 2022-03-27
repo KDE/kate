@@ -15,11 +15,7 @@
 #include <KConfigGui>
 #include <KLocalizedString>
 #include <KMessageBox>
-
-#if KCOREADDONS_VERSION >= QT_VERSION_CHECK(5, 85, 0)
 #include <KNetworkMounts>
-#endif
-
 #include <KSharedConfig>
 #include <KStartupInfo>
 #include <KWindowInfo>
@@ -213,9 +209,7 @@ bool KateApp::startupKate()
 
         // this file is no local dir, open it, else warn
         bool noDir = !info.url.isLocalFile()
-#if KCOREADDONS_VERSION >= QT_VERSION_CHECK(5, 85, 0)
             || KNetworkMounts::self()->isOptionEnabledForPath(info.url.toLocalFile(), KNetworkMounts::LowSideEffectsOptimizations)
-#endif
             || !QFileInfo(info.url.toLocalFile()).isDir();
 
         if (noDir) {
@@ -317,9 +311,7 @@ KTextEditor::Document *KateApp::openDocUrl(const QUrl &url, const QString &encod
 
     // this file is no local dir, open it, else warn
     bool noDir = !url.isLocalFile()
-#if KCOREADDONS_VERSION >= QT_VERSION_CHECK(5, 85, 0)
         || KNetworkMounts::self()->isOptionEnabledForPath(url.toLocalFile(), KNetworkMounts::LowSideEffectsOptimizations)
-#endif
         || !QFileInfo(url.toLocalFile()).isDir();
 
     KTextEditor::Document *doc = nullptr;

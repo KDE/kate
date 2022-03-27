@@ -142,13 +142,6 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool *t
     ui.setupUi(this);
     ui.btnIcon->setIconSize(KIconLoader::SizeSmall);
 
-#if KTEXTEDITOR_VERSION < QT_VERSION_CHECK(5, 90, 0)
-    {
-        auto v = qobject_cast<QListView *>(ui.cmbTrigger->view());
-        v->setRowHidden(1, true);
-    }
-#endif
-
     connect(ui.buttonBox, &QDialogButtonBox::accepted, this, &KateExternalToolServiceEditor::slotOKClicked);
     connect(ui.buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
     connect(ui.btnMimeType, &QToolButton::clicked, this, &KateExternalToolServiceEditor::showMTDlg);

@@ -41,6 +41,7 @@
 #include <QTextCodec>
 #include <QUrlQuery>
 
+#include <signal_watcher.h>
 #include <urlinfo.h>
 
 /**
@@ -131,6 +132,17 @@ bool KateApp::init()
     if (isKate()) {
         qputenv("KATE_PID", QStringLiteral("%1").arg(QCoreApplication::applicationPid()).toLatin1().constData());
     }
+
+#ifdef Q_OS_UNIX
+    /**
+     * Set up signal handler for SIGINT and SIGTERM
+     */
+    auto sigWatcher = new SignalWatcher(this);
+    connect(sigWatcher, &SignalWatcher::unixSignal, this, [this](SignalWatcher::Signal) {
+        printf("Shutting down...\n");
+        quit();
+    });
+#endif
 
     // handle restore different
     if (qApp->isSessionRestored()) {

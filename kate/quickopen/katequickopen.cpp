@@ -100,7 +100,9 @@ protected:
             QStringView path{sm->idxToFilePath(sourceRow)};
             bool resp = filterByPath(path, QStringView(pattern.data(), pattern.size()), scorep);
             score += scorep;
-            res = res || resp;
+            res = resp;
+            // zero out the score if didn't match
+            score *= res;
         }
 
         if (res) {

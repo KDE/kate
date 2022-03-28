@@ -75,8 +75,9 @@ KateApp::KateApp(const QCommandLineParser &args, const ApplicationMode mode)
 #ifdef WITH_KUSERFEEDBACK
     /**
      * defaults, inspired by plasma
+     * important: choose between kate and kwrite mode here to submit the right product id
      */
-    m_userFeedbackProvider.setProductIdentifier(QStringLiteral("org.kde.kate"));
+    m_userFeedbackProvider.setProductIdentifier(isKate() ? QStringLiteral("org.kde.kate") : QStringLiteral("org.kde.kwrite"));
     m_userFeedbackProvider.setFeedbackServer(QUrl(QStringLiteral("https://telemetry.kde.org/")));
     m_userFeedbackProvider.setSubmissionInterval(7);
     m_userFeedbackProvider.setApplicationStartsUntilEncouragement(5);
@@ -127,7 +128,9 @@ KateApp *KateApp::self()
 bool KateApp::init()
 {
     // set KATE_PID for use in child processes
-    qputenv("KATE_PID", QStringLiteral("%1").arg(QCoreApplication::applicationPid()).toLatin1().constData());
+    if (isKate()) {
+        qputenv("KATE_PID", QStringLiteral("%1").arg(QCoreApplication::applicationPid()).toLatin1().constData());
+    }
 
     // handle restore different
     if (qApp->isSessionRestored()) {

@@ -1019,7 +1019,7 @@ void MainWindow::toolViewDeleted(ToolView *widget)
     m_toolviews.erase(std::remove(m_toolviews.begin(), m_toolviews.end(), widget), m_toolviews.end());
 }
 
-void MainWindow::setSidebarsVisible(bool visible)
+void MainWindow::setSidebarsVisibleInternal(bool visible, bool noWarning)
 {
     bool old_visible = m_sidebarsVisible;
     m_sidebarsVisible = visible;
@@ -1032,7 +1032,7 @@ void MainWindow::setSidebarsVisible(bool visible)
     m_guiClient->updateSidebarsVisibleAction();
 
     // show information message box, if the users hides the sidebars
-    if (old_visible && (!m_sidebarsVisible)) {
+    if (!noWarning && old_visible && (!m_sidebarsVisible)) {
         KMessageBox::information(this,
                                  i18n("<qt>You are about to hide the sidebars. With "
                                       "hidden sidebars it is not possible to directly "

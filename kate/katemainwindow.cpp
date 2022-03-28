@@ -178,7 +178,7 @@ KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup)
 
     // kwrite doesn't want sidebars, we have no plugins there
     if (KateApp::isKWrite()) {
-        setSidebarsVisible(false);
+        setSidebarsVisibleInternal(false, true);
     }
 }
 

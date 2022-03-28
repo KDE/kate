@@ -330,6 +330,15 @@ public:
      */
     bool sidebarsVisible() const;
 
+    /**
+     * set the sidebars' visibility to @p visible. If false, the sidebars
+     * are @e always hidden. Usually you do not have to call this because
+     * the user can set this in the menu.
+     * @param visible sidebars visibility
+     * @param noWarning avoid to warn about hiding the stuff
+     */
+    void setSidebarsVisibleInternal(bool visible, bool noWarning);
+
 public Q_SLOTS:
     /**
      * set the sidebars' visibility to @p visible. If false, the sidebars
@@ -337,7 +346,10 @@ public Q_SLOTS:
      * the user can set this in the menu.
      * @param visible sidebars visibility
      */
-    void setSidebarsVisible(bool visible);
+    void setSidebarsVisible(bool visible)
+    {
+        setSidebarsVisibleInternal(visible, false);
+    }
 
 protected:
     /**

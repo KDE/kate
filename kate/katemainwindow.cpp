@@ -176,9 +176,11 @@ KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup)
     // we need to delay this a bit due to lazy view creation (and lazy e.g. terminal widget creation)
     QTimer::singleShot(0, centralWidget(), SLOT(setFocus()));
 
-    // kwrite doesn't want sidebars, we have no plugins there
+    // kwrite doesn't want sidebars, we have no plugins there and we don't want the sessions menu
     if (KateApp::isKWrite()) {
         setSidebarsVisibleInternal(false, true);
+        auto sessionMenu = menuBar()->findChild<QMenu *>(QStringLiteral("sessions"));
+        delete sessionMenu;
     }
 }
 
@@ -470,8 +472,6 @@ void KateMainWindow::setupActions()
         // session menu
         a = new KateSessionsAction(i18n("&All Sessions"), this, nullptr, true);
         actionCollection()->addAction(QStringLiteral("session_open_session"), a);
-    } else {
-        // actionCollection()->action(QStringLiteral("sessions"))->setVisible(false);
     }
 
     // location history actions

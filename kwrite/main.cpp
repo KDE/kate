@@ -3,36 +3,24 @@
    SPDX-FileCopyrightText: 2001 Joseph Wenninger <jowenn@kde.org>
    SPDX-FileCopyrightText: 2001 Anders Lund <anders.lund@lund.tdcadsl.dk>
 
-   SPDX-License-Identifier: LGPL-2.0-only
+   SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
 #include "config.h"
-
 #include "kateapp.h"
-
-#include <ktexteditor/document.h>
-#include <ktexteditor/editor.h>
-#include <ktexteditor/view.h>
 
 #include <KAboutData>
 #include <KCrash>
 #include <KDBusService>
 #include <KLocalizedString>
-#include <KMessageBox>
 
 #include <QApplication>
 #include <QCommandLineParser>
-#include <QDir>
-#include <QFileInfo>
-#include <QRegularExpression>
-#include <QTextCodec>
-#include <QUrlQuery>
-
-#include <urlinfo.h>
 
 #ifndef Q_OS_WIN
 #include <unistd.h>
 #endif
+
 #include <iostream>
 
 extern "C" Q_DECL_EXPORT int main(int argc, char **argv)

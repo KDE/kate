@@ -47,9 +47,38 @@ class KATE_TESTS_EXPORT KateApp : public QObject
      */
 public:
     /**
+     *  Are we full featured Kate or the simplified KWrite?
+     */
+    enum ApplicationMode { ApplicationKate, ApplicationKWrite };
+
+    /**
      * application constructor
      */
-    KateApp(const QCommandLineParser &args);
+    KateApp(const QCommandLineParser &arg, const ApplicationMode mode = ApplicationKate);
+
+    /**
+     * return current application mode
+     */
+    static ApplicationMode mode()
+    {
+        return KateApp::self()->m_mode;
+    }
+
+    /**
+     * return current application mode
+     */
+    static bool isKate()
+    {
+        return mode() == KateApp::ApplicationKate;
+    }
+
+    /**
+     * return current application mode
+     */
+    static bool isKWrite()
+    {
+        return mode() == KateApp::ApplicationKWrite;
+    }
 
     /**
      * get kate inited
@@ -387,6 +416,11 @@ private:
      * kate's command line args
      */
     const QCommandLineParser &m_args;
+
+    /**
+     * application mode, kate or kwrite
+     */
+    const ApplicationMode m_mode;
 
     /**
      * known main windows

@@ -338,7 +338,7 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
      * behaves like a singleton, one unique instance
      * we are passing our local command line parser to it
      */
-    KateApp kateApp(parser);
+    KateApp kateApp(parser, KateApp::ApplicationKWrite);
 
     /**
      * init kate

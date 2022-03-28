@@ -51,6 +51,12 @@ KatePluginManager::~KatePluginManager()
 
 void KatePluginManager::setupPluginList()
 {
+    // no plugins for KWrite mode
+    if (KateApp::isKWrite()) {
+        Q_ASSERT(m_pluginList.isEmpty());
+        return;
+    }
+
     // activate a hand-picked list of plugins per default, give them a hand-picked sort order for loading
     const QMap<QString, int> defaultPlugins{
         {QStringLiteral("katefiletreeplugin"), -1000},

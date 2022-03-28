@@ -25,6 +25,7 @@ target_link_libraries(
     KF5::DBusAddons
     KF5::Crash
     kateshared
+    kate-lib
 )
 
 if(KF5Activities_FOUND)
@@ -49,9 +50,6 @@ target_sources(kwrite PRIVATE ${ICONS_SOURCES})
 target_sources(
   kwrite
   PRIVATE
-    data/kwrite.qrc
-    kwrite.cpp
-    kwriteapplication.cpp
     main.cpp
 )
 

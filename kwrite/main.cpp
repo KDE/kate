@@ -8,8 +8,7 @@
 
 #include "config.h"
 
-#include "kwrite.h"
-#include "kwriteapplication.h"
+#include "kateapp.h"
 
 #include <ktexteditor/document.h>
 #include <ktexteditor/editor.h>
@@ -195,6 +194,7 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
     QCommandLineParser parser;
     aboutData.setupCommandLine(&parser);
 
+#if 0
     // -e/--encoding option
     const QCommandLineOption useEncoding(QStringList() << QStringLiteral("e") << QStringLiteral("encoding"),
                                          i18n("Set encoding for the file to open."),
@@ -331,6 +331,23 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
     if (kapp.noWindows()) {
         kapp.newWindow();
     }
+#endif
+
+    /**
+     * construct the real kate app object ;)
+     * behaves like a singleton, one unique instance
+     * we are passing our local command line parser to it
+     */
+    KateApp kateApp(parser);
+
+    /**
+     * init kate
+     * if this returns false, we shall exit
+     * else we may enter the main event loop
+     */
+    if (!kateApp.init()) {
+        return 0;
+    }
 
     /**
      * finally register this kwrite instance for dbus, don't die if no dbus is around!
@@ -342,9 +359,9 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
      * Set up signal handler for SIGINT and SIGTERM
      */
     SignalWatcher sigWatcher;
-    QObject::connect(&sigWatcher, &SignalWatcher::unixSignal, &kapp, [&kapp](SignalWatcher::Signal) {
+    QObject::connect(&sigWatcher, &SignalWatcher::unixSignal, &kateApp, [&kateApp](SignalWatcher::Signal) {
         printf("Shutting down...\n");
-        kapp.quit();
+        kateApp.quit();
     });
 #endif
 

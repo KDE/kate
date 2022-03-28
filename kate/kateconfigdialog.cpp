@@ -59,8 +59,12 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent)
     addBehaviorPage();
     addSessionPage();
     addFeedbackPage();
-    addPluginsPage();
-    addPluginPages();
+
+    // no plugins for KWrite
+    if (KateApp::isKate()) {
+        addPluginsPage();
+        addPluginPages();
+    }
 
     // ensure no stray signals already set this!
     m_dataChanged = false;

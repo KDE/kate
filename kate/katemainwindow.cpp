@@ -175,6 +175,11 @@ KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup)
     // in all cases: avoid that arbitrary plugin toolviews get focus, like terminal, bug 412227
     // we need to delay this a bit due to lazy view creation (and lazy e.g. terminal widget creation)
     QTimer::singleShot(0, centralWidget(), SLOT(setFocus()));
+
+    // kwrite doesn't want sidebars, we have no plugins there
+    if (KateApp::isKWrite()) {
+        setSidebarsVisible(false);
+    }
 }
 
 KateMainWindow::~KateMainWindow()

@@ -171,20 +171,25 @@ void KateApp::restoreKate()
 
 bool KateApp::startupKate()
 {
-    // user specified session to open
-    if (m_args.isSet(QStringLiteral("start"))) {
-        sessionManager()->activateSession(m_args.value(QStringLiteral("start")), false);
-    } else if (m_args.isSet(QStringLiteral("startanon"))) {
+    // KWrite is session less
+    if (isKWrite()) {
         sessionManager()->activateAnonymousSession();
-    } else if (!m_args.isSet(QStringLiteral("stdin")) && (m_args.positionalArguments().count() == 0)) { // only start session if no files specified
-        // let the user choose session if possible
-        if (!sessionManager()->chooseSession()) {
-            // we will exit kate now, notify the rest of the world we are done
-            KStartupInfo::appStarted(KStartupInfo::startupId());
-            return false;
-        }
     } else {
-        sessionManager()->activateAnonymousSession();
+        // user specified session to open
+        if (m_args.isSet(QStringLiteral("start"))) {
+            sessionManager()->activateSession(m_args.value(QStringLiteral("start")), false);
+        } else if (m_args.isSet(QStringLiteral("startanon"))) {
+            sessionManager()->activateAnonymousSession();
+        } else if (!m_args.isSet(QStringLiteral("stdin")) && (m_args.positionalArguments().count() == 0)) { // only start session if no files specified
+            // let the user choose session if possible
+            if (!sessionManager()->chooseSession()) {
+                // we will exit kate now, notify the rest of the world we are done
+                KStartupInfo::appStarted(KStartupInfo::startupId());
+                return false;
+            }
+        } else {
+            sessionManager()->activateAnonymousSession();
+        }
     }
 
     // oh, no mainwindow, create one, should not happen, but make sure ;)

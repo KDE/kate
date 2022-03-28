@@ -194,7 +194,6 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
     QCommandLineParser parser;
     aboutData.setupCommandLine(&parser);
 
-#if 0
     // -e/--encoding option
     const QCommandLineOption useEncoding(QStringList() << QStringLiteral("e") << QStringLiteral("encoding"),
                                          i18n("Set encoding for the file to open."),
@@ -229,109 +228,6 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
      * handle standard options
      */
     aboutData.processCommandLine(&parser);
-
-    KWriteApplication kapp;
-
-    if (app.isSessionRestored()) {
-        kapp.restore();
-    } else {
-        bool nav = false;
-        int line = 0, column = 0;
-
-        QTextCodec *codec =
-            parser.isSet(QStringLiteral("encoding")) ? QTextCodec::codecForName(parser.value(QStringLiteral("encoding")).toLocal8Bit()) : nullptr;
-
-        if (parser.isSet(QStringLiteral("line"))) {
-            line = parser.value(QStringLiteral("line")).toInt() - 1;
-            nav = true;
-        }
-
-        if (parser.isSet(QStringLiteral("column"))) {
-            column = parser.value(QStringLiteral("column")).toInt() - 1;
-            nav = true;
-        }
-
-        if (parser.positionalArguments().count() == 0) {
-            KWrite *t = kapp.newWindow();
-
-            if (parser.isSet(QStringLiteral("stdin"))) { // get full stdin content with right encoding
-                QFile input;
-                input.open(stdin, QIODevice::ReadOnly);
-                QString text = codec ? codec->toUnicode(input.readAll()) : QString::fromLocal8Bit(input.readAll());
-
-                // normalize line endings, to e.g. catch issues with \r\n on Windows
-                text.replace(QRegularExpression(QStringLiteral("\r\n?")), QStringLiteral("\n"));
-
-                KTextEditor::Document *doc = t->activeView()->document();
-                if (doc) {
-                    // remember codec in document, e.g. to show the right one
-                    if (codec) {
-                        doc->setEncoding(QString::fromLatin1(codec->name()));
-                    }
-                    doc->setText(text);
-                }
-            }
-
-            if (nav && t->activeView()) {
-                t->activeView()->setCursorPosition(KTextEditor::Cursor(line, column));
-            }
-        } else {
-            int docs_opened = 0;
-            const auto positionalArguments = parser.positionalArguments();
-            for (const QString &positionalArgument : positionalArguments) {
-                UrlInfo info(positionalArgument);
-                if (nav) {
-                    info.cursor = KTextEditor::Cursor(line, column);
-                }
-
-                // this file is no local dir, open it, else warn
-                bool noDir = !info.url.isLocalFile() || !QFileInfo(info.url.toLocalFile()).isDir();
-
-                if (noDir) {
-                    ++docs_opened;
-                    KWrite *t = kapp.newWindow();
-
-                    if (codec) {
-                        t->activeView()->document()->setEncoding(QString::fromLatin1(codec->name()));
-                    }
-
-                    t->loadURL(info.url);
-
-                    if (info.cursor.isValid()) {
-                        t->activeView()->setCursorPosition(info.cursor);
-                    } else if (info.url.hasQuery()) {
-                        QUrlQuery q(info.url);
-                        QString lineStr = q.queryItemValue(QStringLiteral("line"));
-                        QString columnStr = q.queryItemValue(QStringLiteral("column"));
-
-                        line = lineStr.toInt();
-                        if (line > 0) {
-                            line--;
-                        }
-
-                        column = columnStr.toInt();
-                        if (column > 0) {
-                            column--;
-                        }
-
-                        t->activeView()->setCursorPosition(KTextEditor::Cursor(line, column));
-                    }
-                } else {
-                    KMessageBox::sorry(nullptr, i18n("The file '%1' could not be opened: it is not a normal file, it is a folder.", info.url.toString()));
-                }
-            }
-            if (!docs_opened) {
-                ::exit(1); // see https://bugs.kde.org/show_bug.cgi?id=124708
-            }
-        }
-    }
-
-    // no window there, uh, ohh, for example borked session config !!!
-    // create at least one !!
-    if (kapp.noWindows()) {
-        kapp.newWindow();
-    }
-#endif
 
     /**
      * construct the real kate app object ;)

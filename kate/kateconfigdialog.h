@@ -86,7 +86,7 @@ private:
 
     bool m_dataChanged = false;
 
-    QComboBox *m_messageTypes;
+    QComboBox *m_messageTypes = nullptr;
     QCheckBox *m_modNotifications;
     QComboBox *m_cmbQuickOpenListMode;
     QSpinBox *m_tabLimit;

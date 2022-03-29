@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
-<gui name="kate" version="93" translationDomain="kate">
+<gui name="kate" version="94" translationDomain="kate">
   <MenuBar>
     <Menu name="file" noMerge="1">
       <text>&amp;File</text>
@@ -103,16 +103,7 @@
       <DefineGroup name="tools_operations2"/>
       <Action name="scripts"/>
     </Menu>
-    <Menu name="sessions">
-      <text>Sess&amp;ions</text>
-      <Action name="sessions_new"/>
-      <Action name="session_open_recent"/>
-      <Action name="session_open_session"/>
-      <Action name="sessions_manage"/>
-      <Separator/>
-      <Action name="sessions_save"/>
-      <Action name="sessions_save_as"/>
-    </Menu>
+    <Action name="sessions"/>
     <Menu name="settings">
       <text>&amp;Settings</text>
       <Action name="settings_show_tab_bar" append="show_merge"/>

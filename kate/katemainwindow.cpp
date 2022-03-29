@@ -176,11 +176,9 @@ KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup)
     // we need to delay this a bit due to lazy view creation (and lazy e.g. terminal widget creation)
     QTimer::singleShot(0, centralWidget(), SLOT(setFocus()));
 
-    // kwrite doesn't want sidebars, we have no plugins there and we don't want the sessions menu
+    // kwrite doesn't want sidebars, we have no plugins
     if (KateApp::isKWrite()) {
         setSidebarsVisibleInternal(false, true);
-        auto sessionMenu = menuBar()->findChild<QMenu *>(QStringLiteral("sessions"));
-        delete sessionMenu;
     }
 }
 
@@ -444,34 +442,49 @@ void KateMainWindow::setupActions()
 
     slotWindowActivated();
 
-    // session actions, not for KWrite
+    // session actions, not for KWrite, create the full menu to be able to properly hide it
     if (KateApp::isKate()) {
+        auto sessionsMenu = actionCollection()->addAction(QStringLiteral("sessions"));
+        sessionsMenu->setText(i18n("Sessions"));
+        sessionsMenu->setMenu(new QMenu(this));
+
         a = actionCollection()->addAction(QStringLiteral("sessions_new"));
+        sessionsMenu->menu()->addAction(a);
         a->setIcon(QIcon::fromTheme(QStringLiteral("document-new")));
         a->setText(i18nc("Menu entry Session->New Session", "&New Session"));
         // Qt::QueuedConnection to avoid deletion of code that is executed when reducing the amount of mainwindows. (bug #227008)
         connect(a, &QAction::triggered, KateApp::self()->sessionManager(), &KateSessionManager::sessionNew, Qt::QueuedConnection);
-        a = actionCollection()->addAction(QStringLiteral("sessions_save"));
-        a->setIcon(QIcon::fromTheme(QStringLiteral("document-save")));
-        a->setText(i18n("&Save Session"));
-        connect(a, &QAction::triggered, KateApp::self()->sessionManager(), &KateSessionManager::sessionSave);
-        a = actionCollection()->addAction(QStringLiteral("sessions_save_as"));
-        a->setIcon(QIcon::fromTheme(QStringLiteral("document-save-as")));
-        a->setText(i18n("Save Session &As..."));
-        connect(a, &QAction::triggered, KateApp::self()->sessionManager(), &KateSessionManager::sessionSaveAs);
+
+        // recent sessions menu
+        a = new KateSessionsAction(i18n("&Recent Sessions"), this, nullptr, false);
+        sessionsMenu->menu()->addAction(a);
+        actionCollection()->addAction(QStringLiteral("session_open_recent"), a);
+
+        // session menu
+        a = new KateSessionsAction(i18n("&All Sessions"), this, nullptr, true);
+        sessionsMenu->menu()->addAction(a);
+        actionCollection()->addAction(QStringLiteral("session_open_session"), a);
+
         a = actionCollection()->addAction(QStringLiteral("sessions_manage"));
+        sessionsMenu->menu()->addAction(a);
         a->setIcon(QIcon::fromTheme(QStringLiteral("view-choose")));
         a->setText(i18n("&Manage Sessions..."));
         // Qt::QueuedConnection to avoid deletion of code that is executed when reducing the amount of mainwindows. (bug #227008)
         connect(a, &QAction::triggered, KateApp::self()->sessionManager(), &KateSessionManager::sessionManage, Qt::QueuedConnection);
 
-        // recent sessions menu
-        a = new KateSessionsAction(i18n("&Recent Sessions"), this, nullptr, false);
-        actionCollection()->addAction(QStringLiteral("session_open_recent"), a);
+        sessionsMenu->menu()->addSeparator();
 
-        // session menu
-        a = new KateSessionsAction(i18n("&All Sessions"), this, nullptr, true);
-        actionCollection()->addAction(QStringLiteral("session_open_session"), a);
+        a = actionCollection()->addAction(QStringLiteral("sessions_save"));
+        sessionsMenu->menu()->addAction(a);
+        a->setIcon(QIcon::fromTheme(QStringLiteral("document-save")));
+        a->setText(i18n("&Save Session"));
+        connect(a, &QAction::triggered, KateApp::self()->sessionManager(), &KateSessionManager::sessionSave);
+
+        a = actionCollection()->addAction(QStringLiteral("sessions_save_as"));
+        sessionsMenu->menu()->addAction(a);
+        a->setIcon(QIcon::fromTheme(QStringLiteral("document-save-as")));
+        a->setText(i18n("Save Session &As..."));
+        connect(a, &QAction::triggered, KateApp::self()->sessionManager(), &KateSessionManager::sessionSaveAs);
     }
 
     // location history actions

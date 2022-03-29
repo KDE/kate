@@ -167,8 +167,8 @@ KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup)
     // Hence, we have to take care of the menu bar here
     toggleShowMenuBar(false);
 
-    // on first start: deactivate toolbar
-    if (firstStart) {
+    // on first start: deactivate toolbar for Kate
+    if (firstStart && KateApp::isKate()) {
         toolBar(QStringLiteral("mainToolBar"))->hide();
     }
 
@@ -662,7 +662,7 @@ void KateMainWindow::readOptions()
 
     const KConfigGroup generalGroup(config, "General");
     m_modNotification = generalGroup.readEntry("Modified Notification", false);
-    m_modCloseAfterLast = generalGroup.readEntry("Close After Last", false);
+    m_modCloseAfterLast = generalGroup.readEntry("Close After Last", KateApp::isKWrite());
     KateApp::self()->documentManager()->setSaveMetaInfos(generalGroup.readEntry("Save Meta Infos", true));
     KateApp::self()->documentManager()->setDaysMetaInfos(generalGroup.readEntry("Days Meta Infos", 30));
 
@@ -673,7 +673,7 @@ void KateMainWindow::readOptions()
     m_paShowStatusBar->setChecked(generalGroup.readEntry("Show Status Bar", true));
     m_paShowMenuBar->setChecked(generalGroup.readEntry("Show Menu Bar", true));
     m_paShowTabBar->setChecked(generalGroup.readEntry("Show Tab Bar", true));
-    m_paShowUrlNavBar->setChecked(generalGroup.readEntry("Show Url Nav Bar", true));
+    m_paShowUrlNavBar->setChecked(generalGroup.readEntry("Show Url Nav Bar", KateApp::isKate()));
 
     // emit signal to hide/show statusbars
     toggleShowStatusBar();

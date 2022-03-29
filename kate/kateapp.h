@@ -81,6 +81,12 @@ public:
     }
 
     /**
+     * Fill in the authors and credits for the application.
+     * Use by Kate & KWrite
+     */
+    static void fillAuthorsAndCredits(KAboutData &aboutData);
+
+    /**
      * get kate inited
      * @return false, if application should exit
      */

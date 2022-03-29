@@ -116,47 +116,9 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
 
     /**
      * authors & co.
+     * add yourself there, if you helped to work on Kate or KWrite
      */
-    aboutData.addAuthor(i18n("Christoph Cullmann"), i18n("Maintainer"), QStringLiteral("cullmann@kde.org"), QStringLiteral("https://cullmann.io"));
-    aboutData.addAuthor(i18n("Dominik Haumann"), i18n("Core Developer"), QStringLiteral("dhaumann@kde.org"));
-    aboutData.addAuthor(i18n("Anders Lund"), i18n("Core Developer"), QStringLiteral("anders@alweb.dk"), QStringLiteral("https://www.alweb.dk"));
-    aboutData.addAuthor(i18n("Joseph Wenninger"),
-                        i18n("Core Developer"),
-                        QStringLiteral("jowenn@kde.org"),
-                        QStringLiteral("http://stud3.tuwien.ac.at/~e9925371"));
-    aboutData.addAuthor(i18n("Hamish Rodda"), i18n("Core Developer"), QStringLiteral("rodda@kde.org"));
-    aboutData.addAuthor(i18n("Waldo Bastian"), i18n("The cool buffersystem"), QStringLiteral("bastian@kde.org"));
-    aboutData.addAuthor(i18n("Charles Samuels"), i18n("The Editing Commands"), QStringLiteral("charles@kde.org"));
-    aboutData.addAuthor(i18n("Matt Newell"),
-                        i18nc("Credit text for someone that did testing and some other similar things", "Testing, ..."),
-                        QStringLiteral("newellm@proaxis.com"));
-    aboutData.addAuthor(i18n("Michael Bartl"), i18n("Former Core Developer"), QStringLiteral("michael.bartl1@chello.at"));
-    aboutData.addAuthor(i18n("Michael McCallum"), i18n("Core Developer"), QStringLiteral("gholam@xtra.co.nz"));
-    aboutData.addAuthor(i18n("Jochen Wilhemly"), i18n("KWrite Author"), QStringLiteral("digisnap@cs.tu-berlin.de"));
-    aboutData.addAuthor(i18n("Michael Koch"), i18n("KWrite port to KParts"), QStringLiteral("koch@kde.org"));
-    aboutData.addAuthor(i18n("Christian Gebauer"), QString(), QStringLiteral("gebauer@kde.org"));
-    aboutData.addAuthor(i18n("Simon Hausmann"), QString(), QStringLiteral("hausmann@kde.org"));
-    aboutData.addAuthor(i18n("Glen Parker"), i18n("KWrite Undo History, Kspell integration"), QStringLiteral("glenebob@nwlink.com"));
-    aboutData.addAuthor(i18n("Scott Manson"), i18n("KWrite XML Syntax highlighting support"), QStringLiteral("sdmanson@alltel.net"));
-    aboutData.addAuthor(i18n("John Firebaugh"), i18n("Patches and more"), QStringLiteral("jfirebaugh@kde.org"));
-    aboutData.addAuthor(i18n("Gerald Senarclens de Grancy"),
-                        i18n("QA and Scripting"),
-                        QStringLiteral("oss@senarclens.eu"),
-                        QStringLiteral("http://find-santa.eu/"));
-
-    aboutData.addCredit(i18n("Matteo Merli"), i18n("Highlighting for RPM Spec-Files, Perl, Diff and more"), QStringLiteral("merlim@libero.it"));
-    aboutData.addCredit(i18n("Rocky Scaletta"), i18n("Highlighting for VHDL"), QStringLiteral("rocky@purdue.edu"));
-    aboutData.addCredit(i18n("Yury Lebedev"), i18n("Highlighting for SQL"));
-    aboutData.addCredit(i18n("Chris Ross"), i18n("Highlighting for Ferite"));
-    aboutData.addCredit(i18n("Nick Roux"), i18n("Highlighting for ILERPG"));
-    aboutData.addCredit(i18n("Carsten Niehaus"), i18n("Highlighting for LaTeX"));
-    aboutData.addCredit(i18n("Per Wigren"), i18n("Highlighting for Makefiles, Python"));
-    aboutData.addCredit(i18n("Jan Fritz"), i18n("Highlighting for Python"));
-    aboutData.addCredit(i18n("Daniel Naber"));
-    aboutData.addCredit(i18n("Roland Pabel"), i18n("Highlighting for Scheme"));
-    aboutData.addCredit(i18n("Cristi Dumitrescu"), i18n("PHP Keyword/Datatype list"));
-    aboutData.addCredit(i18n("Carsten Pfeiffer"), i18nc("Credit text for someone that helped a lot", "Very nice help"));
-    aboutData.addCredit(i18n("All people who have contributed and I have forgotten to mention"));
+    KateApp::fillAuthorsAndCredits(aboutData);
 
     /**
      * bugzilla

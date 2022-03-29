@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
-<gui name="kate" version="92" translationDomain="kate">
+<gui name="kate" version="93" translationDomain="kate">
   <MenuBar>
     <Menu name="file" noMerge="1">
       <text>&amp;File</text>
@@ -137,9 +137,6 @@
     <DefineGroup name="find_operations"/>
     <Separator/>
     <DefineGroup name="zoom_operations"/>
-    <Separator/>
-    <Action name="view_history_back"/>
-    <Action name="view_history_forward"/>
   </ToolBar>
   <Menu name="ktexteditor_popup" noMerge="1">
     <DefineGroup name="popup_operations"/>

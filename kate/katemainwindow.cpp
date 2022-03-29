@@ -445,7 +445,7 @@ void KateMainWindow::setupActions()
     // session actions, not for KWrite, create the full menu to be able to properly hide it
     if (KateApp::isKate()) {
         auto sessionsMenu = actionCollection()->addAction(QStringLiteral("sessions"));
-        sessionsMenu->setText(i18n("Sessions"));
+        sessionsMenu->setText(i18n("Sess&ions"));
         sessionsMenu->setMenu(new QMenu(this));
 
         a = actionCollection()->addAction(QStringLiteral("sessions_new"));

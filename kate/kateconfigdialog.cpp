@@ -106,16 +106,21 @@ void KateConfigDialog::addBehaviorPage()
     QVBoxLayout *vbox = new QVBoxLayout;
     layout->addWidget(buttonGroup);
 
-    auto hlayout = new QHBoxLayout;
-    auto label = new QLabel(i18n("&Switch to output view upon message type:"), buttonGroup);
-    hlayout->addWidget(label);
-    m_messageTypes = new QComboBox(buttonGroup);
-    hlayout->addWidget(m_messageTypes);
-    label->setBuddy(m_messageTypes);
-    m_messageTypes->addItems({i18n("Never"), i18n("Error"), i18n("Warning"), i18n("Info"), i18n("Log")});
-    m_messageTypes->setCurrentIndex(cgGeneral.readEntry("Show output view for message type", 1));
-    connect(m_messageTypes, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &KateConfigDialog::slotChanged);
-    vbox->addLayout(hlayout);
+    QHBoxLayout *hlayout = nullptr;
+    QLabel *label = nullptr;
+
+    if (KateApp::isKate()) {
+        hlayout = new QHBoxLayout;
+        label = new QLabel(i18n("&Switch to output view upon message type:"), buttonGroup);
+        hlayout->addWidget(label);
+        m_messageTypes = new QComboBox(buttonGroup);
+        hlayout->addWidget(m_messageTypes);
+        label->setBuddy(m_messageTypes);
+        m_messageTypes->addItems({i18n("Never"), i18n("Error"), i18n("Warning"), i18n("Info"), i18n("Log")});
+        m_messageTypes->setCurrentIndex(cgGeneral.readEntry("Show output view for message type", 1));
+        connect(m_messageTypes, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &KateConfigDialog::slotChanged);
+        vbox->addLayout(hlayout);
+    }
 
     // modified files notification
     m_modNotifications = new QCheckBox(i18n("Use a separate &dialog for handling externally modified files"), buttonGroup);

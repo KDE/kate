@@ -26,6 +26,7 @@
 #include <KConfig>
 #include <QList>
 
+class KAboutData;
 class KateSessionManager;
 class KateMainWindow;
 class KatePluginManager;

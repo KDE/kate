@@ -2,7 +2,7 @@
     "KPlugin": {
         "Description": "CMake plugin for kate",
         "Description[az]": "Kate üçün CMake əlavəsi",
-        "Description[ca@valencia]": "Connector de CMake per al Kate",
+        "Description[ca@valencia]": "Connector de CMake per a Kate",
         "Description[ca]": "Connector de CMake per al Kate",
         "Description[de]": "CMake-Modul für Kate",
         "Description[en_GB]": "CMake plugin for kate",

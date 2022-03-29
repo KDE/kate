@@ -9,6 +9,7 @@
 */
 
 #include "katemdi.h"
+#include "kateapp.h"
 
 // #include "katedebug.h"
 
@@ -113,6 +114,11 @@ GUIClient::GUIClient(MainWindow *mw)
     const auto actions = actionCollection()->actions();
     for (QAction *action : actions) {
         action->setShortcutContext(Qt::WidgetWithChildrenShortcut);
+    }
+
+    // hide tool views menu for KWrite mode
+    if (KateApp::isKWrite()) {
+        m_toolMenu->setVisible(false);
     }
 }
 

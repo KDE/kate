@@ -48,6 +48,10 @@ For details of the opt-in send information, see https://community.kde.org/Teleme
 
 The **kwrite** directory contains the KWrite application sources.
 
+KWrite is using KUserFeedback for telemetry starting with release 22.08.
+
+For details of the opt-in send information, see https://community.kde.org/Telemetry_Use
+
 ## addons
 
 The **addons** directory contains in sub-directories the sources of all bundled plugins.

@@ -254,16 +254,6 @@ void KateMainWindow::setupImportantActions()
     actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::ALT | Qt::Key_O));
     connect(a, &QAction::triggered, this, &KateMainWindow::slotQuickOpen);
     a->setWhatsThis(i18n("Open a form to quick open documents."));
-
-    // kate command bar, only add this if we don't already have the generic one from KXMLGui
-    // https://invent.kde.org/frameworks/kxmlgui/-/merge_requests/54
-    // FIXME: remove after we require Frameworks >= 5.83
-    if (!actionCollection()->action(QStringLiteral("open_kcommand_bar"))) {
-        a = actionCollection()->addAction(QStringLiteral("view_commandbar_open"));
-        a->setText(i18n("&Command Bar"));
-        actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::ALT | Qt::Key_I));
-        connect(a, &QAction::triggered, this, &KateMainWindow::slotCommandBarOpen);
-    }
 }
 
 void KateMainWindow::setupMainWindow()
@@ -1324,30 +1314,6 @@ void KateMainWindow::slotQuickOpen()
     KateQuickOpen quickOpen(this);
     centralWidget()->setFocusProxy(&quickOpen);
     quickOpen.exec();
-}
-
-void KateMainWindow::slotCommandBarOpen()
-{
-    QList<KActionCollection *> actionCollections;
-
-    auto clients = guiFactory()->clients();
-    int actionsCount = 0;
-    for (const KXMLGUIClient *c : clients) {
-        if (!c) {
-            continue;
-        }
-        if (auto collection = c->actionCollection()) {
-            actionCollections.append(collection);
-            actionsCount += collection->count();
-        }
-    }
-
-    KateCommandBar commandBar(this);
-    commandBar.setLastUsedCmdBarActions(m_lastUsedCmdBarActions);
-    commandBar.updateBar(actionCollections, actionsCount);
-    centralWidget()->setFocusProxy(&commandBar);
-    commandBar.exec();
-    m_lastUsedCmdBarActions = commandBar.lastUsedCmdBarActions();
 }
 
 QWidget *KateMainWindow::createToolView(KTextEditor::Plugin *plugin,

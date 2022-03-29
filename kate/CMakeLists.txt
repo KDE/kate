@@ -93,9 +93,6 @@ target_sources(
     katewaiter.cpp
     tabmimedata.cpp
 
-    katecommandbar.cpp
-    commandmodel.cpp
-
     kateoutputview.cpp
     katestashmanager.cpp
 

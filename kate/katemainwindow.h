@@ -168,8 +168,6 @@ public Q_SLOTS:
      */
     void slotQuickOpen();
 
-    void slotCommandBarOpen();
-
     /**
      * Overwrite size hint for better default window sizes
      * @return size hint

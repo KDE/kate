@@ -57,7 +57,12 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent)
     // second: add out own config pages
     // this includes all plugin config pages, added to the bottom
     addBehaviorPage();
-    addSessionPage();
+
+    // no sessons for KWrite
+    if (KateApp::isKate()) {
+        addSessionPage();
+    }
+
     addFeedbackPage();
 
     // no plugins for KWrite
@@ -355,38 +360,39 @@ void KateConfigDialog::slotApply()
     if (m_dataChanged) {
         KConfigGroup cg = KConfigGroup(config, "General");
 
-        cg.writeEntry("Restore Window Configuration", sessionConfigUi.restoreVC->isChecked());
+        // simpler config for KWrite
+        if (KateApp::isKate()) {
+            cg.writeEntry("Restore Window Configuration", sessionConfigUi.restoreVC->isChecked());
 
-        cg.writeEntry("Recent File List Entry Count", sessionConfigUi.spinBoxRecentFilesCount->value());
+            cg.writeEntry("Recent File List Entry Count", sessionConfigUi.spinBoxRecentFilesCount->value());
 
-        if (sessionConfigUi.startNewSessionRadioButton->isChecked()) {
-            cg.writeEntry("Startup Session", "new");
-        } else if (sessionConfigUi.loadLastUserSessionRadioButton->isChecked()) {
-            cg.writeEntry("Startup Session", "last");
-        } else {
-            cg.writeEntry("Startup Session", "manual");
+            if (sessionConfigUi.startNewSessionRadioButton->isChecked()) {
+                cg.writeEntry("Startup Session", "new");
+            } else if (sessionConfigUi.loadLastUserSessionRadioButton->isChecked()) {
+                cg.writeEntry("Startup Session", "last");
+            } else {
+                cg.writeEntry("Startup Session", "manual");
+            }
+
+            cg.writeEntry("Save Meta Infos", sessionConfigUi.saveMetaInfos->isChecked());
+            KateApp::self()->documentManager()->setSaveMetaInfos(sessionConfigUi.saveMetaInfos->isChecked());
+
+            cg.writeEntry("Days Meta Infos", sessionConfigUi.daysMetaInfos->value());
+            KateApp::self()->documentManager()->setDaysMetaInfos(sessionConfigUi.daysMetaInfos->value());
+
+            cg.writeEntry("Close After Last", sessionConfigUi.modCloseAfterLast->isChecked());
+            m_mainWindow->setModCloseAfterLast(sessionConfigUi.modCloseAfterLast->isChecked());
+
+            cg.writeEntry("Show output view for message type", m_messageTypes->currentIndex());
+
+            cg.writeEntry("Stash unsaved file changes", sessionConfigUi.stashUnsavedFilesChanges->isChecked());
+            KateApp::self()->stashManager()->setStashUnsavedChanges(sessionConfigUi.stashUnsavedFilesChanges->isChecked());
+            cg.writeEntry("Stash new unsaved files", sessionConfigUi.stashNewUnsavedFiles->isChecked());
+            KateApp::self()->stashManager()->setStashNewUnsavedFiles(sessionConfigUi.stashNewUnsavedFiles->isChecked());
         }
-
-        cg.writeEntry("Save Meta Infos", sessionConfigUi.saveMetaInfos->isChecked());
-        KateApp::self()->documentManager()->setSaveMetaInfos(sessionConfigUi.saveMetaInfos->isChecked());
-
-        cg.writeEntry("Days Meta Infos", sessionConfigUi.daysMetaInfos->value());
-        KateApp::self()->documentManager()->setDaysMetaInfos(sessionConfigUi.daysMetaInfos->value());
 
         cg.writeEntry("Modified Notification", m_modNotifications->isChecked());
         m_mainWindow->setModNotificationEnabled(m_modNotifications->isChecked());
-
-        cg.writeEntry("Close After Last", sessionConfigUi.modCloseAfterLast->isChecked());
-        m_mainWindow->setModCloseAfterLast(sessionConfigUi.modCloseAfterLast->isChecked());
-
-        if (m_messageTypes) {
-            cg.writeEntry("Show output view for message type", m_messageTypes->currentIndex());
-        }
-
-        cg.writeEntry("Stash unsaved file changes", sessionConfigUi.stashUnsavedFilesChanges->isChecked());
-        KateApp::self()->stashManager()->setStashUnsavedChanges(sessionConfigUi.stashUnsavedFilesChanges->isChecked());
-        cg.writeEntry("Stash new unsaved files", sessionConfigUi.stashNewUnsavedFiles->isChecked());
-        KateApp::self()->stashManager()->setStashNewUnsavedFiles(sessionConfigUi.stashNewUnsavedFiles->isChecked());
 
         cg.writeEntry("Tabbar Tab Limit", m_tabLimit->value());
 

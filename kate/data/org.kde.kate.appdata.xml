@@ -105,7 +105,7 @@
     <p xml:lang="ar">«كيت» هو محرّر نصوص بواسطة كدي يدعم عدّة مستندات وعدّة عروض. يقدّم «كيت» مزايا عديدة كلفّ الأكواد، وإبراز الصّياغة، ولفّ الكلمات الحركيّ، ومعراض مضمّن، وواجهة ملحقات واسعة ودعم بسيط للسّكربتة.</p>
     <p xml:lang="az">Kate, KDE-nin təqdim etdiyi çoxsənədli, bir neçə görünüşlü mətn redaktorudur. Kod bükümü, sintaksislərin vurğulanması, dinamik sətirə keçid, daxili konsol, geniş qoşma interfeysi və bəzi əmrlər faylı dəstəkləmə imkanlarına malikdir.</p>
     <p xml:lang="ca">El Kate és un editor de text multidocument i multivista, creat per la comunitat KDE. Té funcionalitats com el plegat de codi, ressaltat de la sintaxi, ajust dinàmic de les paraules, una consola incrustada, una interfície extensa de connectors i una implementació preliminar per a crear scripts.</p>
-    <p xml:lang="ca-valencia">El Kate és un editor de text multidocument i multivista, creat per la comunitat KDE. Té funcionalitats com el plegat de codi, ressaltat de la sintaxi, ajust dinàmic de les paraules, una consola incrustada, una interfície extensa de connectors i una implementació preliminar per a crear scripts.</p>
+    <p xml:lang="ca-valencia">Kate és un editor de text multidocument i multivista, creat per la comunitat KDE. Té funcionalitats com el plegat de codi, ressaltat de la sintaxi, ajust dinàmic de les paraules, una consola incrustada, una interfície extensa de connectors i una implementació preliminar per a crear scripts.</p>
     <p xml:lang="cs">Kate je textový editor od KDE pro práci s více dokumenty najednou. Podporuje vlastnosti jako skládání kódu, zvýraznění syntaxe, dynamické zalamování slov, vloženou konzoli, rozsáhlou podporu modulů a základní podporu pro skriptování.</p>
     <p xml:lang="da">Kate er en multidokument-, multivisnings-teksteditor af KDE. Den har blandt andet kodefoldning, syntaksfremhævning, dynamisk ombrydning af ord, en indlejret konsol, en omfattende plugingrænseflade og foreløbig nogen understøttelse af scripting.</p>
     <p xml:lang="de">Kate ist ein KDE-Editor für mehrere Dokumente und Ansichten. Funktionen wie Quelltextausblendung, Syntaxhervorhebung, dynamischer Zeilenumbruch, eine eingebettete Konsole und eine umfangreiche Schnittstelle für Module sowie vorläufige Unterstützung für Skripte sind enthalten.</p>
@@ -1003,7 +1003,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="ast">Edición de códigu con Kate</caption>
       <caption xml:lang="az">Mənbə koduna Kate ilə düzəliş edilməsi</caption>
       <caption xml:lang="ca">Edició de codi amb el Kate</caption>
-      <caption xml:lang="ca-valencia">Edició de codi amb el Kate</caption>
+      <caption xml:lang="ca-valencia">Edició de codi amb Kate</caption>
       <caption xml:lang="cs">Úprava kódu pomocí Kate</caption>
       <caption xml:lang="de">Bearbeitung von Quelltext mit Kate</caption>
       <caption xml:lang="el">Επεξεργασία κώδικα με το Kate</caption>

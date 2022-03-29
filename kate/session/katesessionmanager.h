@@ -26,7 +26,7 @@ class KATE_TESTS_EXPORT KateSessionManager : public QObject
     friend class KateSessionManageDialog;
 
 public:
-    KateSessionManager(QObject *parent = nullptr, const QString &sessionsDir = QString());
+    KateSessionManager(QObject *parent, const QString &sessionsDir);
 
     /**
      * allow access to the session list
@@ -237,7 +237,7 @@ private:
     /**
      * absolute path to dir in home dir where to store the sessions
      */
-    QString m_sessionsDir;
+    const QString m_sessionsDir;
 
     /**
      * list of current available sessions

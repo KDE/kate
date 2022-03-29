@@ -58,7 +58,9 @@ KateApp::KateApp(const QCommandLineParser &args, const ApplicationMode mode)
     , m_docManager(this)
     , m_adaptor(this)
     , m_pluginManager(this)
-    , m_sessionManager(this)
+    , m_sessionManager(this,
+                       QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation)
+                           + (isKate() ? QStringLiteral("/kate/sessions") : QStringLiteral("/kwrite/sessions")))
     , m_stashManager(this)
 {
     /**

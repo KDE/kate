@@ -38,14 +38,10 @@
 
 KateSessionManager::KateSessionManager(QObject *parent, const QString &sessionsDir)
     : QObject(parent)
+    , m_sessionsDir(sessionsDir)
 {
-    if (sessionsDir.isEmpty()) {
-        m_sessionsDir = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QStringLiteral("/kate/sessions");
-    } else {
-        m_sessionsDir = sessionsDir;
-    }
-
     // create dir if needed
+    Q_ASSERT(!m_sessionsDir.isEmpty());
     QDir().mkpath(m_sessionsDir);
 
     m_dirWatch = std::make_unique<KDirWatch>(this);

@@ -2,7 +2,7 @@
     "KPlugin": {
         "Description": "Integration with Git and other source control systems",
         "Description[az]": "Git və digər versiyaya nəzarət sistemləri ilə inteqrasiya",
-        "Description[ca@valencia]": "Integració amb el Git i altres sistemes de control de codi font",
+        "Description[ca@valencia]": "Integració amb Git i altres sistemes de control de codi font",
         "Description[ca]": "Integració amb el Git i altres sistemes de control de codi font",
         "Description[cs]": "Integrace s Gitem a jinými verzovacími systémy",
         "Description[de]": "Integration von Git und anderen Versionsverwaltungen für Quelltexte",

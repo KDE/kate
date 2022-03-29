@@ -11,7 +11,6 @@
 #include "katemainwindow.h"
 
 #include "kateapp.h"
-#include "katecommandbar.h"
 #include "kateconfigdialog.h"
 #include "kateconfigplugindialogpage.h"
 #include "katedebug.h"

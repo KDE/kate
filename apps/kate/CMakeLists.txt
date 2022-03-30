@@ -1,4 +1,4 @@
-# Executable only adds the main definition.
+# Kate executable, just main.cpp & resource file & our large shared part in the static library
 add_executable(kate-bin main.cpp  data/kate.qrc)
 target_link_libraries(kate-bin PRIVATE kate-lib)
 

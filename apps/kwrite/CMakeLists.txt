@@ -1,31 +1,6 @@
-add_executable(kwrite "")
-
-find_package(
-  KF5 ${KF5_DEP_VERSION}
-  QUIET
-  REQUIRED
-  COMPONENTS
-    TextEditor
-    DBusAddons
-    Crash
-  OPTIONAL_COMPONENTS
-    Activities
-)
-
-target_link_libraries(
-  kwrite
-  PUBLIC
-    KF5::I18n
-    KF5::TextEditor
-    KF5::DBusAddons
-    KF5::Crash
-    kateshared
-    kate-lib
-)
-
-if(KF5Activities_FOUND)
-  target_link_libraries(kwrite PUBLIC KF5::Activities)
-endif()
+# KWrite executable, just main.cpp & resource file & our large shared part in the static library
+add_executable(kwrite main.cpp  data/kwrite.qrc)
+target_link_libraries(kwrite PRIVATE kate-lib)
 
 set(ICONS_PNG
   ${CMAKE_CURRENT_SOURCE_DIR}/icons/16-apps-kwrite.png
@@ -41,13 +16,6 @@ set(ICONS_SVG ${CMAKE_CURRENT_SOURCE_DIR}/icons/sc-apps-kwrite.svgz)
 # Add icon files to the application's source files to have CMake bundle them in the executable.
 ecm_add_app_icon(ICONS_SOURCES ICONS ${ICONS_PNG})
 target_sources(kwrite PRIVATE ${ICONS_SOURCES})
-
-target_sources(
-  kwrite
-  PRIVATE
-    main.cpp
-    data/kwrite.qrc
-)
 
 # See https://cmake.org/cmake/help/v3.15/prop_tgt/MACOSX_BUNDLE_INFO_PLIST.html
 if(APPLE)

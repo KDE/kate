@@ -95,6 +95,8 @@ target_sources(
     katestashmanager.cpp
 
     kateurlbar.cpp
+
+    signal_watcher.cpp
 )
 
 # Use a single application on MacOS + Windows instead of dbus.

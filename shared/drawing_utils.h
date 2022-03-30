@@ -1,3 +1,10 @@
+/*
+ *  SPDX-FileCopyrightText: 2019 Mark Nauwelaerts <mark.nauwelaerts@gmail.com>
+ *  SPDX-FileCopyrightText: 2022 Waqar Ahmed <waqar.17a@gmail.com>*
+ *
+ *  SPDX-License-Identifier: MIT
+ */
+
 #ifndef KATE_DRAW_UTILS_H
 #define KATE_DRAW_UTILS_H
 

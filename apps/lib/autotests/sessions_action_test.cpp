@@ -19,11 +19,6 @@ QTEST_MAIN(KateSessionsActionTest)
 
 void KateSessionsActionTest::initTestCase()
 {
-    /**
-     * init resources from our static lib
-     */
-    Q_INIT_RESOURCE(kate);
-
     // we need an application object, as session loading will trigger modifications to that
     m_app = new KateApp(QCommandLineParser());
     m_app->sessionManager()->activateAnonymousSession();

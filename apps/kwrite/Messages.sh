@@ -1,3 +1,3 @@
 #! /usr/bin/env bash
-$EXTRACTRC `find . -name \*.rc -o -name \*.ui` >> rc.cpp || exit 11
-$XGETTEXT `find . -name "*.cpp" -o -name "*.h"` -o $podir/kwrite.pot
+$EXTRACTRC `find . ../lib -name \*.rc -o -name \*.ui` >> rc.cpp || exit 11
+$XGETTEXT `find . ../lib -name "*.cpp" -o -name "*.h"` -o $podir/kwrite.pot

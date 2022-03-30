@@ -46,7 +46,7 @@ target_sources(
   kwrite
   PRIVATE
     main.cpp
-    ../kate/data/kate.qrc # tried to init static resource, failed
+    data/kwrite.qrc
 )
 
 # See https://cmake.org/cmake/help/v3.15/prop_tgt/MACOSX_BUNDLE_INFO_PLIST.html

@@ -1,0 +1,6 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource prefix="/kxmlgui5/kate">
+        <file alias="kateui.rc">../data/kateui.rc</file>
+    </qresource>
+</RCC>

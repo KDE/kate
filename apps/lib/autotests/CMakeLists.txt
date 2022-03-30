@@ -4,7 +4,7 @@ find_package(Qt${QT_MAJOR_VERSION}Test ${QT_MIN_VERSION} QUIET REQUIRED)
 
 macro(kate_executable_tests)
   foreach(_testname ${ARGN})
-    add_executable(${_testname} ${_testname}.cpp)
+    add_executable(${_testname} ${_testname}.cpp tests.qrc)
 
     target_link_libraries(
       ${_testname}

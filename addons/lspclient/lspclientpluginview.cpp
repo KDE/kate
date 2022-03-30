@@ -2088,7 +2088,12 @@ public:
                 checkEditResult(edits);
             }
             if (document) {
+                // Must clear formatting triggers here otherwise on applying edits we
+                // might end up triggering formatting again ending up in an infinite loop
+                auto savedTriggers = m_onTypeFormattingTriggers;
+                m_onTypeFormattingTriggers.clear();
                 applyEdits(document, snapshot.data(), edits);
+                m_onTypeFormattingTriggers = savedTriggers;
             }
         };
 

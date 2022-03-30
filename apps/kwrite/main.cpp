@@ -1,5 +1,5 @@
 /* This file is part of the KDE project
-   SPDX-FileCopyrightText: 2001 Christoph Cullmann <cullmann@kde.org>
+   SPDX-FileCopyrightText: 2001-2022 Christoph Cullmann <cullmann@kde.org>
    SPDX-FileCopyrightText: 2001 Joseph Wenninger <jowenn@kde.org>
    SPDX-FileCopyrightText: 2001 Anders Lund <anders.lund@lund.tdcadsl.dk>
 

@@ -414,6 +414,9 @@ void KateMainWindow::setupActions()
     connect(documentOpenWith->menu(), &QMenu::aboutToShow, this, &KateMainWindow::mSlotFixOpenWithMenu);
     connect(documentOpenWith->menu(), &QMenu::triggered, this, &KateMainWindow::slotOpenWithMenuAction);
 
+    // no open with for KWrite ATM
+    documentOpenWith->setVisible(KateApp::isKate());
+
     a = KStandardAction::keyBindings(this, SLOT(editKeys()), actionCollection());
     a->setWhatsThis(i18n("Configure the application's keyboard shortcut assignments."));
 

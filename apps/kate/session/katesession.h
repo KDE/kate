@@ -27,7 +27,6 @@ public:
     typedef QExplicitlySharedDataPointer<KateSession> Ptr;
 
 public:
-
     /**
      * session name
      * @return name for this session

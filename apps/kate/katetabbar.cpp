@@ -279,7 +279,9 @@ void KateTabBar::mouseMoveEvent(QMouseEvent *event)
     paint.end();
 
     auto parentViewSpace = qobject_cast<KateViewSpace *>(parentWidget());
-    if (!parentViewSpace) { qWarning() << Q_FUNC_INFO << "parentViewSpace is null"; }
+    if (!parentViewSpace) {
+        qWarning() << Q_FUNC_INFO << "parentViewSpace is null";
+    }
 
     auto view = parentViewSpace->currentView();
     if (!view) {
@@ -401,7 +403,9 @@ void KateTabBar::removeDocument(KTextEditor::Document *doc)
 {
     // purge LRU storage, must work
     auto erased = (m_docToLruCounterAndHasTab.erase(doc) == 1);
-    if (!erased) { qWarning() << Q_FUNC_INFO << "Failed to erase"; }
+    if (!erased) {
+        qWarning() << Q_FUNC_INFO << "Failed to erase";
+    }
 
     // remove document if needed, we might have no tab for it, if tab count is limited!
     const int idx = documentIdx(doc);

@@ -387,8 +387,7 @@ KTextEditor::Document *KateApp::openDocUrl(const QUrl &url, const QString &encod
     QTextCodec *codec = encoding.isEmpty() ? nullptr : QTextCodec::codecForName(encoding.toLatin1());
 
     // this file is no local dir, open it, else warn
-    bool noDir = !url.isLocalFile()
-        || KNetworkMounts::self()->isOptionEnabledForPath(url.toLocalFile(), KNetworkMounts::LowSideEffectsOptimizations)
+    bool noDir = !url.isLocalFile() || KNetworkMounts::self()->isOptionEnabledForPath(url.toLocalFile(), KNetworkMounts::LowSideEffectsOptimizations)
         || !QFileInfo(url.toLocalFile()).isDir();
 
     KTextEditor::Document *doc = nullptr;

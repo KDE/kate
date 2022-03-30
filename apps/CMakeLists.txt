@@ -1,0 +1,3 @@
+#ecm_optional_add_subdirectory(shared)
+ecm_optional_add_subdirectory(kate)
+ecm_optional_add_subdirectory(kwrite)

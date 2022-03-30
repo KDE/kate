@@ -109,9 +109,7 @@ KateDocumentInfo *KateDocManager::documentInfo(KTextEditor::Document *doc)
 static QUrl normalizeUrl(const QUrl &url)
 {
     // Resolve symbolic links for local files (done anyway in KTextEditor)
-    if (url.isLocalFile()
-        && !KNetworkMounts::self()->isOptionEnabledForPath(url.toLocalFile(), KNetworkMounts::StrongSideEffectsOptimizations)
-    ) {
+    if (url.isLocalFile() && !KNetworkMounts::self()->isOptionEnabledForPath(url.toLocalFile(), KNetworkMounts::StrongSideEffectsOptimizations)) {
         QString normalizedUrl = QFileInfo(url.toLocalFile()).canonicalFilePath();
         if (!normalizedUrl.isEmpty()) {
             return QUrl::fromLocalFile(normalizedUrl);

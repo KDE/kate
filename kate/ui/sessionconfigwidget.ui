@@ -85,10 +85,10 @@
       <item>
        <widget class="QCheckBox" name="modCloseAfterLast">
         <property name="whatsThis">
-         <string>If enabled, Kate will shutdown when the last file being edited is closed, otherwise a blank page will open so that you can start a new file.</string>
+         <string>If enabled, the application will shutdown when the last file being edited is closed, otherwise a blank page will open so that you can start a new file.</string>
         </property>
         <property name="text">
-         <string>Close Kate entirely when the last file is closed</string>
+         <string>Close the application entirely when the last file is closed</string>
         </property>
        </widget>
       </item>
@@ -144,7 +144,7 @@
       <item>
        <widget class="QCheckBox" name="restoreVC">
         <property name="whatsThis">
-         <string>Check this if you want all your views and frames restored each time you open Kate.</string>
+         <string>Check this if you want all your views and frames restored each time you open the application.</string>
         </property>
         <property name="text">
          <string>Include &amp;window configuration</string>

@@ -2,19 +2,25 @@
 add_executable(kwrite main.cpp  data/kwrite.qrc)
 target_link_libraries(kwrite PRIVATE kate-lib)
 
-set(ICONS_PNG
-  ${CMAKE_CURRENT_SOURCE_DIR}/icons/16-apps-kwrite.png
-  ${CMAKE_CURRENT_SOURCE_DIR}/icons/22-apps-kwrite.png
-  ${CMAKE_CURRENT_SOURCE_DIR}/icons/32-apps-kwrite.png
-  ${CMAKE_CURRENT_SOURCE_DIR}/icons/48-apps-kwrite.png
-  ${CMAKE_CURRENT_SOURCE_DIR}/icons/64-apps-kwrite.png
-  ${CMAKE_CURRENT_SOURCE_DIR}/icons/128-apps-kwrite.png
+# application icon, in all sizes needed to have e.g. nice Windows icons, too
+set(ICONS_FOLDER ${CMAKE_CURRENT_SOURCE_DIR}/icons)
+set(ICON_FILES
+    ${ICONS_FOLDER}/sc-apps-kwrite.svg
+    ${ICONS_FOLDER}/16-apps-kwrite.png
+    ${ICONS_FOLDER}/22-apps-kwrite.png
+    ${ICONS_FOLDER}/32-apps-kwrite.png
+    ${ICONS_FOLDER}/44-apps-kwrite.png
+    ${ICONS_FOLDER}/48-apps-kwrite.png
+    ${ICONS_FOLDER}/64-apps-kwrite.png
+    ${ICONS_FOLDER}/128-apps-kwrite.png
+    ${ICONS_FOLDER}/150-apps-kwrite.png
+    ${ICONS_FOLDER}/256-apps-kwrite.png
+    ${ICONS_FOLDER}/310-apps-kwrite.png
+    ${ICONS_FOLDER}/512-apps-kwrite.png
 )
 
-set(ICONS_SVG ${CMAKE_CURRENT_SOURCE_DIR}/icons/sc-apps-kwrite.svgz)
-
 # Add icon files to the application's source files to have CMake bundle them in the executable.
-ecm_add_app_icon(ICONS_SOURCES ICONS ${ICONS_PNG})
+ecm_add_app_icon(ICONS_SOURCES ICONS ${ICON_FILES})
 target_sources(kwrite PRIVATE ${ICONS_SOURCES})
 
 # See https://cmake.org/cmake/help/v3.15/prop_tgt/MACOSX_BUNDLE_INFO_PLIST.html
@@ -37,6 +43,12 @@ endif()
 
 install(TARGETS kwrite ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 
+ecm_install_icons(
+    ICONS ${ICON_FILES}
+    DESTINATION ${KDE_INSTALL_ICONDIR}
+    THEME hicolor
+)
+
 install(
   FILES ${CMAKE_CURRENT_SOURCE_DIR}/data/org.kde.kwrite.desktop
   DESTINATION ${KDE_INSTALL_APPDIR}
@@ -45,10 +57,4 @@ install(
 install(
   FILES ${CMAKE_CURRENT_SOURCE_DIR}/data/org.kde.kwrite.appdata.xml
   DESTINATION ${KDE_INSTALL_METAINFODIR}
-)
-
-ecm_install_icons(
-  ICONS ${ICONS_PNG} ${ICONS_SVG}
-  DESTINATION ${KDE_INSTALL_ICONDIR}
-  THEME hicolor
 )

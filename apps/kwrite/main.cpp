@@ -121,6 +121,11 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
     KateApp::fillAuthorsAndCredits(aboutData);
 
     /**
+     * set proper KWrite icon for our about dialog
+     */
+    aboutData.setProgramLogo(QIcon(QStringLiteral(":/kwrite/kwrite.svg")));
+
+    /**
      * bugzilla
      */
     aboutData.setProductName(QByteArray("kate/kwrite"));
@@ -134,7 +139,7 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
      * set the program icon
      */
 #ifndef Q_OS_MACOS // skip this on macOS to have proper mime-type icon visible
-    QApplication::setWindowIcon(QIcon::fromTheme(QStringLiteral("accessories-text-editor"), app.windowIcon()));
+    QApplication::setWindowIcon(QIcon(QStringLiteral(":/kwrite/kwrite.svg")));
 #endif
 
     /**

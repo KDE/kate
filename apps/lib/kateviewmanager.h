@@ -171,7 +171,7 @@ public Q_SLOTS:
      * The orientation of the new splitter is determined by the value of o.
      * Note: horizontal splitter means vertically aligned views.
      */
-    void splitViewSpace(KateViewSpace *vs = nullptr, Qt::Orientation o = Qt::Horizontal);
+    void splitViewSpace(KateViewSpace *vs = nullptr, Qt::Orientation o = Qt::Horizontal, bool moveDocument = false);
 
     /**
      * Close the view space that contains the given view. If no view was
@@ -200,6 +200,18 @@ public Q_SLOTS:
     void slotSplitViewSpaceVert()
     {
         splitViewSpace();
+    }
+
+    /** Splits the active viewspace horizontally and moves the active document to the viewspace below */
+    void slotSplitViewSpaceHorizMoveDoc()
+    {
+        splitViewSpace(nullptr, Qt::Vertical, true);
+    }
+
+    /** Splits the active viewspace vertically and moves the active document to the right viewspace */
+    void slotSplitViewSpaceVertMoveDoc()
+    {
+        splitViewSpace(nullptr, Qt::Horizontal, true);
     }
 
     /**  moves the splitter according to the key that has been pressed */
@@ -284,6 +296,8 @@ private:
 
     QAction *m_splitViewVert = nullptr;
     QAction *m_splitViewHoriz = nullptr;
+    QAction *m_splitViewVertMove = nullptr;
+    QAction *m_splitViewHorizMove = nullptr;
     QAction *m_closeView = nullptr;
     QAction *m_closeOtherViews = nullptr;
     QAction *m_toggleSplitterOrientation = nullptr;

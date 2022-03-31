@@ -75,6 +75,8 @@
         <Separator/>
         <Action name="view_split_vert"/>
         <Action name="view_split_horiz"/>
+        <Action name="view_split_vert_move_doc"/>
+        <Action name="view_split_horiz_move_doc"/>
         <Action name="view_split_toggle"/>
         <Separator/>
         <Action name="view_close_current_space"/>

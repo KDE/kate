@@ -125,6 +125,24 @@ void KateViewManager::setupActions()
 
     m_splitViewHoriz->setWhatsThis(i18n("Split the currently active view horizontally into two views."));
 
+    m_splitViewVertMove = m_mainWindow->actionCollection()->addAction(QStringLiteral("view_split_vert_move_doc"));
+    m_splitViewVertMove->setIcon(QIcon::fromTheme(QStringLiteral("view-split-left-right")));
+    m_splitViewVertMove->setText(i18n("Move Document to New Vertical Split"));
+    connect(m_splitViewVertMove, &QAction::triggered, this, &KateViewManager::slotSplitViewSpaceVertMoveDoc);
+
+    m_splitViewVertMove->setWhatsThis(
+        i18n("Split the currently active view vertically into two views "
+             "and move the currently active document to right view."));
+
+    m_splitViewHorizMove = m_mainWindow->actionCollection()->addAction(QStringLiteral("view_split_horiz_move_doc"));
+    m_splitViewHorizMove->setIcon(QIcon::fromTheme(QStringLiteral("view-split-top-bottom")));
+    m_splitViewHorizMove->setText(i18n("Move Document to New Horizontal Split"));
+    connect(m_splitViewHorizMove, &QAction::triggered, this, &KateViewManager::slotSplitViewSpaceHorizMoveDoc);
+
+    m_splitViewHorizMove->setWhatsThis(
+        i18n("Split the currently active view horizontally into two views "
+             "and move the currently active document to view below."));
+
     m_closeView = m_mainWindow->actionCollection()->addAction(QStringLiteral("view_close_current_space"));
     m_closeView->setIcon(QIcon::fromTheme(QStringLiteral("view-close")));
     m_closeView->setText(i18n("Cl&ose Current View"));
@@ -794,13 +812,17 @@ void KateViewManager::moveViewToViewSpace(KateViewSpace *dest, KateViewSpace *sr
 }
 
 void KateViewManager::splitViewSpace(KateViewSpace *vs, // = 0
-                                     Qt::Orientation o) // = Qt::Horizontal
+                                     Qt::Orientation o,
+                                     bool moveDocument) // = Qt::Horizontal
 {
     // emergency: fallback to activeViewSpace, and if still invalid, abort
     if (!vs) {
         vs = activeViewSpace();
     }
     if (!vs) {
+        return;
+    }
+    if (moveDocument && vs->documentList().size() <= 1) {
         return;
     }
 
@@ -859,6 +881,10 @@ void KateViewManager::splitViewSpace(KateViewSpace *vs, // = 0
     vsNew->show();
 
     createView(activeView()->document());
+
+    if (moveDocument) {
+        vs->closeDocument(vs->currentView()->document());
+    }
 
     updateViewSpaceActions();
 }

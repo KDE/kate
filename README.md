@@ -46,7 +46,7 @@ The **apps/lib** directory contains the shared sources of the Kate and KWrite ap
 
 Close to everything beside the main functions of the two applications is implemented there.
 
-## apps/kate
+### apps/kate
 
 The **apps/kate** directory contains the Kate application sources.
 
@@ -54,7 +54,7 @@ Kate is using KUserFeedback for telemetry starting with release 20.04.
 
 For details of the opt-in send information, see https://community.kde.org/Telemetry_Use
 
-## apps/kwrite
+### apps/kwrite
 
 The **apps/kwrite** directory contains the KWrite application sources.
 

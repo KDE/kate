@@ -36,17 +36,27 @@ All files shall contain a proper "SPDX-License-Identifier: LGPL-2.0-or-later" or
 
 # kate.git content
 
-## kate
+## apps
 
-The **kate** directory contains the Kate application sources.
+The apps folder contains both the Kate and KWrite applications itself and their shared implementation.
+
+### apps/lib
+
+The **apps/lib** directory contains the shared sources of the Kate and KWrite applications.
+
+Close to everything beside the main functions of the two applications is implemented there.
+
+## apps/kate
+
+The **apps/kate** directory contains the Kate application sources.
 
 Kate is using KUserFeedback for telemetry starting with release 20.04.
 
 For details of the opt-in send information, see https://community.kde.org/Telemetry_Use
 
-## kwrite
+## apps/kwrite
 
-The **kwrite** directory contains the KWrite application sources.
+The **apps/kwrite** directory contains the KWrite application sources.
 
 KWrite is using KUserFeedback for telemetry starting with release 22.08.
 

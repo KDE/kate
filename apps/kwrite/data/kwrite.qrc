@@ -5,5 +5,6 @@
        </qresource>
        <qresource prefix="/kwrite">
        <file alias="kwrite.svg">../icons/sc-apps-kwrite.svg</file>
+       <file alias="mascot.png">../../lib/data/mascot.png</file>
        </qresource>
 </RCC>

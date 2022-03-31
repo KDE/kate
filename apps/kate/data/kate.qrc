@@ -5,6 +5,6 @@
     </qresource>
     <qresource prefix="/kate">
         <file alias="kate.svg">../icons/unix/sc-apps-kate.svg</file>
-        <file alias="mascot.png">mascot.png</file>
+        <file alias="mascot.png">../../lib/data/mascot.png</file>
     </qresource>
 </RCC>

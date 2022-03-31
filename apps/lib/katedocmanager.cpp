@@ -33,7 +33,7 @@
 
 KateDocManager::KateDocManager(QObject *parent)
     : QObject(parent)
-    , m_metaInfos(QStringLiteral("katemetainfos"), KConfig::NoGlobals)
+    , m_metaInfos(KateApp::isKate() ? QStringLiteral("katemetainfos") : QStringLiteral("kwritemetainfos"), KConfig::NoGlobals)
     , m_saveMetaInfos(true)
     , m_daysMetaInfos(0)
 {

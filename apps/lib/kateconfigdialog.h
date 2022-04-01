@@ -90,6 +90,7 @@ private:
     QCheckBox *m_modNotifications;
     QComboBox *m_cmbQuickOpenListMode;
     QSpinBox *m_tabLimit;
+    QCheckBox *m_autoHideTabs;
     QCheckBox *m_showTabCloseButton;
     QCheckBox *m_expandTabs;
     QCheckBox *m_tabDoubleClickNewDocument;

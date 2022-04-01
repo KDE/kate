@@ -153,6 +153,12 @@ void KateConfigDialog::addBehaviorPage()
     vbox->addWidget(new QLabel(
         i18n("A high limit can increase the window size, please enable 'Allow tab scrolling' to prevent it. Unlimited tabs are always scrollable.")));
 
+    m_autoHideTabs = new QCheckBox(i18n("&Auto hide tabs"), buttonGroup);
+    m_autoHideTabs->setChecked(cgGeneral.readEntry("Auto Hide Tabs", true));
+    m_autoHideTabs->setToolTip(i18n("When checked tabs will be hidden if only one document is open."));
+    connect(m_autoHideTabs, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
+    vbox->addWidget(m_autoHideTabs);
+
     m_showTabCloseButton = new QCheckBox(i18n("&Show close button"), buttonGroup);
     m_showTabCloseButton->setChecked(cgGeneral.readEntry("Show Tabs Close Button", true));
     m_showTabCloseButton->setToolTip(i18n("When checked each tab will display a close button."));
@@ -399,6 +405,8 @@ void KateConfigDialog::slotApply()
         m_mainWindow->setModNotificationEnabled(m_modNotifications->isChecked());
 
         cg.writeEntry("Tabbar Tab Limit", m_tabLimit->value());
+
+        cg.writeEntry("Auto Hide Tabs", m_autoHideTabs->isChecked());
 
         cg.writeEntry("Show Tabs Close Button", m_showTabCloseButton->isChecked());
 

@@ -23,6 +23,7 @@
 #include <KAcceleratorManager>
 #include <KConfigGroup>
 #include <KLocalizedString>
+#include <KSharedConfig>
 
 #include <QApplication>
 #include <QClipboard>
@@ -161,11 +162,29 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent, cons
     m_layout.tabBarLayout = hLayout;
     m_layout.mainLayout = layout;
 
-    // init tab bar
-    tabBarToggled();
+    // apply config, will init tabbar
+    readConfig();
+
+    // handle config changes
+    connect(KateApp::self(), &KateApp::configurationChanged, this, &KateViewSpace::readConfig);
+
+    // ensure we show/hide tabbar if needed
+    connect(KateApp::self()->documentManager(), &KateDocManager::documentCreated, this, &KateViewSpace::documentCreatedOrDeleted);
+    connect(KateApp::self()->documentManager(), &KateDocManager::documentDeleted, this, &KateViewSpace::documentCreatedOrDeleted);
 }
 
 KateViewSpace::~KateViewSpace() = default;
+
+void KateViewSpace::readConfig()
+{
+    // get tab config
+    KSharedConfig::Ptr config = KSharedConfig::openConfig();
+    KConfigGroup cgGeneral = KConfigGroup(config, "General");
+    m_autoHideTabBar = cgGeneral.readEntry("Auto Hide Tabs", true);
+
+    // init tab bar
+    tabBarToggled();
+}
 
 bool KateViewSpace::eventFilter(QObject *obj, QEvent *event)
 {
@@ -203,11 +222,29 @@ bool KateViewSpace::eventFilter(QObject *obj, QEvent *event)
     return false;
 }
 
+void KateViewSpace::documentCreatedOrDeleted(KTextEditor::Document *)
+{
+    if (!m_autoHideTabBar || !m_viewManager->mainWindow()->showTabBar()) {
+        return;
+    }
+
+    // toggle hide/show if state changed
+    if ((KateApp::self()->documentManager()->documentList().size() > 1) != m_tabBar->isVisible()) {
+        tabBarToggled();
+    }
+}
+
 void KateViewSpace::tabBarToggled()
 {
     KateUpdateDisabler updatesDisabled(m_viewManager->mainWindow());
 
-    const bool show = m_viewManager->mainWindow()->showTabBar();
+    bool show = m_viewManager->mainWindow()->showTabBar();
+
+    // we might want to auto hide if just one document is open
+    if (show && m_autoHideTabBar) {
+        show = KateApp::self()->documentManager()->documentList().size() > 1;
+    }
+
     const bool urlBarVisible = m_viewManager->showUrlNavBar();
 
     bool showButtons = true;

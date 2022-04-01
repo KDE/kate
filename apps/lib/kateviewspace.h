@@ -224,6 +224,16 @@ private Q_SLOTS:
      */
     void createNewDocument();
 
+    /**
+     * Read and apply the config for this view space.
+     */
+    void readConfig();
+
+    /**
+     * Document created or deleted, used to auto hide/show the tabs
+     */
+    void documentCreatedOrDeleted(KTextEditor::Document *);
+
 private:
     bool acceptsDroppedTab(const class QMimeData *tabMimeData);
     /**
@@ -305,6 +315,9 @@ private:
     } m_layout;
 
     friend class LocationHistoryTest;
+
+    // should the tab bar be auto hidden if just one document is open?
+    bool m_autoHideTabBar = false;
 };
 
 #endif

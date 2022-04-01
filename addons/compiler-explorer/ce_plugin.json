@@ -18,6 +18,7 @@
         "Description[pl]": "Zobacz wytworzony asm dla kodu C/C++",
         "Description[pt]": "Ver o ASM gerado do código em C/C++",
         "Description[ru]": "Просмотр сгенерированных данных сборки для кода C/C++",
+        "Description[sk]": "Zobraziť vygenerovaný asm pre kód C/C++",
         "Description[sl]": "Pogled generirane asm za kodo C/C++",
         "Description[sv]": "Vy av genererade assembler för C/C++ kod",
         "Description[tr]": "C/C++ kodu için oluşturulmuş asm görüntüle",

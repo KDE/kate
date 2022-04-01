@@ -160,7 +160,7 @@ void KateConfigDialog::addBehaviorPage()
     vbox->addWidget(m_showTabCloseButton);
 
     m_expandTabs = new QCheckBox(i18n("&Expand tabs"), buttonGroup);
-    m_expandTabs->setChecked(cgGeneral.readEntry("Expand Tabs", true));
+    m_expandTabs->setChecked(cgGeneral.readEntry("Expand Tabs", false));
     m_expandTabs->setToolTip(i18n("When checked tabs take as much size as possible."));
     connect(m_expandTabs, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
     vbox->addWidget(m_expandTabs);
@@ -178,7 +178,7 @@ void KateConfigDialog::addBehaviorPage()
     vbox->addWidget(m_tabMiddleClickCloseDocument);
 
     m_tabsScrollable = new QCheckBox(i18n("Allow tab scrolling"), this);
-    m_tabsScrollable->setChecked(cgGeneral.readEntry("Allow Tab Scrolling", false));
+    m_tabsScrollable->setChecked(cgGeneral.readEntry("Allow Tab Scrolling", true));
     m_tabsScrollable->setToolTip(i18n("When checked this will allow scrolling in tab bar when number of tabs are large."));
     connect(m_tabsScrollable, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
     vbox->addWidget(m_tabsScrollable);

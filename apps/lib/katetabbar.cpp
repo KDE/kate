@@ -120,7 +120,7 @@ void KateTabBar::readConfig()
     m_tabCountLimit = (tabCountLimit <= 0) ? 0 : tabCountLimit;
 
     // use scroll buttons if we have no limit
-    setUsesScrollButtons(m_tabCountLimit == 0 || cgGeneral.readEntry("Allow Tab Scrolling", false));
+    setUsesScrollButtons(m_tabCountLimit == 0 || cgGeneral.readEntry("Allow Tab Scrolling", true));
 
     // elide if we have some limit
     setElideMode((m_tabCountLimit == 0 || !cgGeneral.readEntry("Elide Tab Text", false)) ? Qt::ElideNone : Qt::ElideMiddle);
@@ -142,7 +142,7 @@ void KateTabBar::readConfig()
     }
 
     // handle tab close button and expansion
-    setExpanding(cgGeneral.readEntry("Expand Tabs", true));
+    setExpanding(cgGeneral.readEntry("Expand Tabs", false));
     setTabsClosable(cgGeneral.readEntry("Show Tabs Close Button", true));
 
     // get mouse click rules

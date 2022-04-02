@@ -34,19 +34,17 @@ public Q_SLOTS:
     /** This function clears all the target-sets */
     void clear();
 
-    /** This function adds a target set and returns the row number of the newly
-     * inserted row */
-    int addTargetSet(const QString &setName, const QString &workDir);
+    /** This function adds a target set and returns the model-index of the newly
+     * inserted target-set */
+    QModelIndex addTargetSet(const QString &setName, const QString &workDir);
 
     /** This function adds a new command to a target-set and returns the model index */
-    QModelIndex addCommand(int rootRow, const QString &cmdName, const QString &command);
+    QModelIndex addCommand(const QModelIndex &parentIndex, const QString &cmdName, const QString &command);
 
     /** This function copies the target(-set) the model index points to and returns
      * the model index of the copy. */
     QModelIndex copyTargetOrSet(const QModelIndex &index);
 
-    /** This function returns the model index of the default command of the target-set */
-    QModelIndex defaultTarget(int targetSet);
 
     /** This function deletes the index */
     void deleteItem(const QModelIndex &index);
@@ -59,11 +57,12 @@ public Q_SLOTS:
         return m_targets;
     }
 
-    const QString command(const QModelIndex &itemIndex) const;
-    const QString cmdName(const QModelIndex &itemIndex) const;
-    const QString workDir(const QModelIndex &itemIndex) const;
-    const QString targetName(const QModelIndex &itemIndex) const;
-    int getDefaultCmdIndex(int rootRow) const;
+    /** Static functions that could be in a different file */
+    static QModelIndex defaultTarget(const QModelIndex &targetSetIndex);
+    static const QString command(const QModelIndex &itemIndex);
+    static const QString cmdName(const QModelIndex &itemIndex);
+    static const QString workDir(const QModelIndex &itemIndex);
+    static const QString targetName(const QModelIndex &itemIndex);
 
 Q_SIGNALS:
 

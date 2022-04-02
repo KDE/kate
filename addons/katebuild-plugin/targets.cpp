@@ -7,19 +7,27 @@
 
 #include "targets.h"
 #include <KLocalizedString>
+#include <QCoreApplication>
 #include <QDebug>
 #include <QEvent>
 #include <QIcon>
 #include <QKeyEvent>
+#include <qnamespace.h>
 
 TargetsUi::TargetsUi(QObject *view, QWidget *parent)
     : QWidget(parent)
 {
+    proxyModel.setSourceModel(&targetsModel);
+
     targetLabel = new QLabel(i18n("Active target-set:"));
     targetCombo = new QComboBox(this);
     targetCombo->setToolTip(i18n("Select active target set"));
-    targetCombo->setModel(&targetsModel);
+    targetCombo->setModel(&proxyModel);
     targetLabel->setBuddy(targetCombo);
+
+    targetFilterEdit = new QLineEdit(this);
+    targetFilterEdit->setPlaceholderText(i18n("Filter targets"));
+    targetFilterEdit->setClearButtonEnabled(true);
 
     newTarget = new QToolButton(this);
     newTarget->setToolTip(i18n("Create new set of targets"));
@@ -44,19 +52,21 @@ TargetsUi::TargetsUi(QObject *view, QWidget *parent)
     targetsView = new QTreeView(this);
     targetsView->setAlternatingRowColors(true);
 
-    targetsView->setModel(&targetsModel);
+    targetsView->setModel(&proxyModel);
     m_delegate = new TargetHtmlDelegate(view);
     targetsView->setItemDelegate(m_delegate);
     targetsView->setSelectionBehavior(QAbstractItemView::SelectItems);
     targetsView->setEditTriggers(QAbstractItemView::AnyKeyPressed | QAbstractItemView::DoubleClicked | QAbstractItemView::EditKeyPressed);
+    targetsView->expandAll();
+    targetsView->resizeColumnToContents(0);
 
     QHBoxLayout *tLayout = new QHBoxLayout();
 
     tLayout->addWidget(targetLabel);
     tLayout->addWidget(targetCombo);
-    tLayout->addStretch(40);
+    tLayout->addWidget(targetFilterEdit);
     tLayout->addWidget(buildButton);
-    tLayout->addSpacing(addButton->sizeHint().width());
+    tLayout->addSpacing(20);
     tLayout->addWidget(addButton);
     tLayout->addWidget(newTarget);
     tLayout->addWidget(copyTarget);
@@ -71,17 +81,23 @@ TargetsUi::TargetsUi(QObject *view, QWidget *parent)
     connect(targetsView->selectionModel(), &QItemSelectionModel::currentChanged, this, &TargetsUi::targetActivated);
     // connect(targetsView, SIGNAL(clicked(QModelIndex)), this, SLOT(targetActivated(QModelIndex)));
 
+    connect(targetFilterEdit, &QLineEdit::textChanged, this, [this](const QString &text) {
+        proxyModel.setFilter(text);
+        targetsView->expandAll();
+    });
+
     targetsView->installEventFilter(this);
+    targetFilterEdit->installEventFilter(this);
 }
 
 void TargetsUi::targetSetSelected(int index)
 {
     // qDebug() << index;
     targetsView->collapseAll();
-    QModelIndex rootItem = targetsModel.index(index, 0);
+    QModelIndex rootItem = proxyModel.index(index, 0);
 
     targetsView->setExpanded(rootItem, true);
-    targetsView->setCurrentIndex(targetsModel.index(0, 0, rootItem));
+    targetsView->setCurrentIndex(proxyModel.index(0, 0, rootItem));
 }
 
 void TargetsUi::targetActivated(const QModelIndex &index)
@@ -106,6 +122,29 @@ bool TargetsUi::eventFilter(QObject *obj, QEvent *event)
             if (((keyEvent->key() == Qt::Key_Return) || (keyEvent->key() == Qt::Key_Enter)) && m_delegate && !m_delegate->isEditing()) {
                 Q_EMIT enterPressed();
                 return true;
+            }
+        }
+        if (obj == targetFilterEdit) {
+            switch (keyEvent->key()) {
+            case Qt::Key_Up:
+            case Qt::Key_Down:
+            case Qt::Key_PageUp:
+            case Qt::Key_PageDown:
+            case Qt::Key_Return:
+            case Qt::Key_Enter:
+                QCoreApplication::sendEvent(targetsView, event);
+                return true;
+            case Qt::Key_Left:
+            case Qt::Key_Right:
+            case Qt::Key_F2:
+                // NOTE: I failed to find a generic "platform edit key" shortcut, but it seems
+                // Key_F2 is hard-coded on non-OSX and Return/Enter on OSX in:
+                // void QAbstractItemView::keyPressEvent(QKeyEvent *event)
+                if (targetFilterEdit->text().isEmpty()) {
+                    QCoreApplication::sendEvent(targetsView, event);
+                    return true;
+                }
+                break;
             }
         }
     }

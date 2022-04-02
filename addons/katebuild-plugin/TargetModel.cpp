@@ -50,24 +50,7 @@ void TargetModel::setDefaultCmd(int rootRow, const QString &defCmd)
     }
 }
 
-int TargetModel::getDefaultCmdIndex(int rootRow) const
-{
-    if (rootRow < 0 || rootRow >= m_targets.size()) {
-        qDebug() << "rootRow not valid";
-        return 0;
-    }
-
-    auto defCmd = m_targets[rootRow].defaultCmd;
-    for (int i = 0; i < m_targets[rootRow].commands.size(); i++) {
-        if (defCmd == m_targets[rootRow].commands[i].first) {
-            return i;
-        }
-    }
-
-    return 0;
-}
-
-int TargetModel::addTargetSet(const QString &setName, const QString &workDir)
+QModelIndex TargetModel::addTargetSet(const QString &setName, const QString &workDir)
 {
     // make the name unique
     QString newName = setName;
@@ -82,11 +65,12 @@ int TargetModel::addTargetSet(const QString &setName, const QString &workDir)
     TargetModel::TargetSet targetSet(newName, workDir);
     m_targets << targetSet;
     endInsertRows();
-    return m_targets.count() - 1;
+    return index(m_targets.count() - 1, 0);
 }
 
-QModelIndex TargetModel::addCommand(int rootRow, const QString &cmdName, const QString &command)
+QModelIndex TargetModel::addCommand(const QModelIndex &parentIndex, const QString &cmdName, const QString &command)
 {
+    int rootRow = parentIndex.row();
     if (rootRow < 0 || rootRow >= m_targets.size()) {
         qDebug() << "rootRow not valid";
         return QModelIndex();
@@ -164,9 +148,33 @@ QModelIndex TargetModel::copyTargetOrSet(const QModelIndex &index)
     return createIndex(m_targets[rootRow].commands.count() - 1, 0, rootRow);
 }
 
-QModelIndex TargetModel::defaultTarget(int targetSet)
+QModelIndex TargetModel::defaultTarget(const QModelIndex &targetSet)
 {
-    return createIndex(getDefaultCmdIndex(targetSet), 0, targetSet);
+    QModelIndex root = targetSet.sibling(targetSet.row(), 0);
+
+    if (root.parent().isValid()) {
+        // go to the parent so we know where we start
+        root = root.parent();
+    }
+
+    // This is the target-set root
+    auto model = root.model();
+    if (!model) {
+        qDebug() << "No model found";
+        return QModelIndex();
+    }
+    QModelIndex defaultIndex;
+    for (int i = 0; i < model->rowCount(root); ++i) {
+        QModelIndex childIndex = model->index(i, 0, root);
+        if (i == 0) {
+            defaultIndex = childIndex;
+        }
+        if (childIndex.data(Qt::CheckStateRole) == Qt::Checked) {
+            defaultIndex = childIndex;
+            break;
+        }
+    }
+    return defaultIndex;
 }
 
 void TargetModel::deleteItem(const QModelIndex &index)
@@ -198,88 +206,93 @@ void TargetModel::deleteTargetSet(const QString &targetSet)
     }
 }
 
-const QString TargetModel::command(const QModelIndex &itemIndex) const
+const QString TargetModel::command(const QModelIndex &itemIndex)
 {
     if (!itemIndex.isValid()) {
         return QString();
     }
-    quint32 rRow = itemIndex.internalId();
-    int cRow = itemIndex.row();
-    if (rRow == TargetModel::InvalidIndex) {
-        rRow = cRow;
-        cRow = 0;
-    }
 
-    if (static_cast<int>(rRow) >= m_targets.count()) {
-        return QString();
-    }
+    // take the item from the second column
+    QModelIndex cmdIndex = itemIndex.siblingAtColumn(1);
 
-    if (cRow < 0 || cRow >= m_targets[static_cast<int>(rRow)].commands.count()) {
-        return QString();
+    if (!itemIndex.parent().isValid()) {
+        // This is the target-set root column
+        // execute the default target (checked or first child)
+        auto model = itemIndex.model();
+        if (!model) {
+            qDebug() << "No model found";
+            return QString();
+        }
+        for (int i = 0; i < model->rowCount(itemIndex); ++i) {
+            QModelIndex childIndex = model->index(i, 0, itemIndex);
+            if (i == 0) {
+                cmdIndex = childIndex.siblingAtColumn(1);
+            }
+            if (childIndex.data(Qt::CheckStateRole) == Qt::Checked) {
+                cmdIndex = childIndex.siblingAtColumn(1);
+                break;
+            }
+        }
     }
-
-    return m_targets[rRow].commands[cRow].second;
+    return cmdIndex.data().toString();
 }
 
-const QString TargetModel::cmdName(const QModelIndex &itemIndex) const
+const QString TargetModel::cmdName(const QModelIndex &itemIndex)
 {
     if (!itemIndex.isValid()) {
         return QString();
     }
-    quint32 rRow = itemIndex.internalId();
-    int cRow = itemIndex.row();
-    if (rRow == TargetModel::InvalidIndex) {
-        rRow = cRow;
-        cRow = 0;
-    }
 
-    if (static_cast<int>(rRow) >= m_targets.count()) {
-        return QString();
-    }
+    // take the item from the first column
+    QModelIndex nameIndex = itemIndex.sibling(itemIndex.row(), 0);
 
-    if (cRow < 0 || cRow >= m_targets[static_cast<int>(rRow)].commands.count()) {
-        return QString();
+    if (!itemIndex.parent().isValid()) {
+        // This is the target-set root column
+        // execute the default target (checked or first child)
+        auto model = itemIndex.model();
+        if (!model) {
+            qDebug() << "No model found";
+            return QString();
+        }
+        for (int i = 0; i < model->rowCount(itemIndex); ++i) {
+            QModelIndex childIndex = model->index(i, 0, itemIndex);
+            if (i == 0) {
+                nameIndex = childIndex.siblingAtColumn(0);
+            }
+            if (childIndex.data(Qt::CheckStateRole) == Qt::Checked) {
+                nameIndex = childIndex.siblingAtColumn(0);
+                break;
+            }
+        }
     }
-
-    return m_targets[static_cast<int>(rRow)].commands[cRow].first;
+    return nameIndex.data().toString();
 }
 
-const QString TargetModel::workDir(const QModelIndex &itemIndex) const
+const QString TargetModel::workDir(const QModelIndex &itemIndex)
 {
     if (!itemIndex.isValid()) {
         return QString();
     }
-    quint32 rRow = itemIndex.internalId();
-    int cRow = itemIndex.row();
-    if (rRow == TargetModel::InvalidIndex) {
-        rRow = cRow;
-        cRow = 0;
-    }
 
-    if (static_cast<int>(rRow) >= m_targets.count()) {
-        return QString();
-    }
+    QModelIndex workDirIndex = itemIndex.sibling(itemIndex.row(), 1);
 
-    return m_targets[static_cast<int>(rRow)].workDir;
+    if (itemIndex.parent().isValid()) {
+        workDirIndex = itemIndex.parent().siblingAtColumn(1);
+    }
+    return workDirIndex.data().toString();
 }
 
-const QString TargetModel::targetName(const QModelIndex &itemIndex) const
+const QString TargetModel::targetName(const QModelIndex &itemIndex)
 {
     if (!itemIndex.isValid()) {
         return QString();
     }
-    quint32 rRow = itemIndex.internalId();
-    int cRow = itemIndex.row();
-    if (rRow == TargetModel::InvalidIndex) {
-        rRow = cRow;
-        cRow = 0;
-    }
+    QModelIndex targetNameIndex = itemIndex.sibling(itemIndex.row(), 0);
 
-    if (static_cast<int>(rRow) >= m_targets.count()) {
-        return QString();
+    if (itemIndex.parent().isValid()) {
+        targetNameIndex = itemIndex.parent().siblingAtColumn(0);
     }
-
-    return m_targets[static_cast<int>(rRow)].name;
+    return targetNameIndex.data().toString();
 }
 
 QVariant TargetModel::data(const QModelIndex &index, int role) const

@@ -8,11 +8,13 @@
 #ifndef TARGETS_H
 #define TARGETS_H
 
+#include "TargetFilterProxyModel.h"
 #include "TargetHtmlDelegate.h"
 #include "TargetModel.h"
 #include <QComboBox>
 #include <QGridLayout>
 #include <QLabel>
+#include <QLineEdit>
 #include <QToolButton>
 #include <QTreeView>
 #include <QWidget>
@@ -26,12 +28,14 @@ public:
 
     QLabel *targetLabel;
     QComboBox *targetCombo;
+    QLineEdit *targetFilterEdit;
     QToolButton *newTarget;
     QToolButton *copyTarget;
     QToolButton *deleteTarget;
 
     QTreeView *targetsView;
     TargetModel targetsModel;
+    TargetFilterProxyModel proxyModel;
 
     QToolButton *addButton;
     QToolButton *buildButton;
@@ -47,7 +51,7 @@ protected:
     bool eventFilter(QObject *obj, QEvent *event) override;
 
 private:
-    TargetHtmlDelegate *m_delegate;
+    TargetHtmlDelegate *m_delegate = nullptr;
 };
 
 #endif

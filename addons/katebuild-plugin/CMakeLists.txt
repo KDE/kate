@@ -2,7 +2,7 @@ kate_add_plugin(katebuildplugin)
 target_compile_definitions(katebuildplugin PRIVATE TRANSLATION_DOMAIN="katebuild-plugin")
 target_link_libraries(katebuildplugin PRIVATE KF5::I18n KF5::TextEditor)
 
-ki18n_wrap_ui(katebuildplugin build.ui SelectTargetUi.ui)
+ki18n_wrap_ui(katebuildplugin build.ui)
 
 target_sources(
   katebuildplugin
@@ -12,7 +12,7 @@ target_sources(
     TargetHtmlDelegate.cpp
     TargetModel.cpp
     UrlInserter.cpp
-    SelectTargetView.cpp
+    TargetFilterProxyModel.cpp
     plugin.qrc
 )
 

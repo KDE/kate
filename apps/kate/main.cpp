@@ -35,9 +35,7 @@
 
 #include <urlinfo.h>
 
-#ifdef USE_QT_SINGLE_APP
-#include "qtsingleapplication/qtsingleapplication.h"
-#endif
+#include "SingleApplication/SingleApplication"
 
 #ifndef Q_OS_WIN
 #include <unistd.h>
@@ -94,16 +92,10 @@ int main(int argc, char **argv)
 
     /**
      * Create application first
+     * We always use a single application that allows to start multiple instances.
+     * This allows for communication even without DBus and better testing of these code paths.
      */
-#ifdef USE_QT_SINGLE_APP
-    SharedTools::QtSingleApplication app(QStringLiteral("kate"), argc, argv);
-#else
-    QApplication app(argc, argv);
-#endif
-
-    /**
-     * Enforce application name even if the executable is renamed
-     */
+    SingleApplication app(argc, argv, true);
     app.setApplicationName(QStringLiteral("kate"));
 
     /**
@@ -591,7 +583,7 @@ int main(int argc, char **argv)
             /**
              * try to send message, return success
              */
-            return !app.sendMessage(QString::fromUtf8(QJsonDocument::fromVariant(QVariant(message)).toJson()));
+            return !app.sendMessage(QJsonDocument::fromVariant(QVariant(message)).toJson());
         }
     }
 #endif // USE_QT_SINGLE_APP
@@ -616,21 +608,15 @@ int main(int argc, char **argv)
         return 0;
     }
 
-#ifndef USE_QT_SINGLE_APP
     /**
      * finally register this kate instance for dbus, don't die if no dbus is around!
      */
     const KDBusService dbusService(KDBusService::Multiple | KDBusService::NoExitOnFailure);
-#else
+
     /**
-     * else: connect the single application notifications
+     * listen to single application messages in any case
      */
-    QObject::connect(&app, &SharedTools::QtSingleApplication::messageReceived, &kateApp, &KateApp::remoteMessageReceived);
-
-    KateMainWindow *win = kateApp.activeKateMainWindow();
-    app.setActivationWindow(win, true);
-
-#endif
+    QObject::connect(&app, &SingleApplication::receivedMessage, &kateApp, &KateApp::remoteMessageReceived);
 
     /**
      * start main event loop for our application

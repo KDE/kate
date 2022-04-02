@@ -16,7 +16,6 @@ target_include_directories(
   PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/session
-    ${CMAKE_CURRENT_SOURCE_DIR}/qtsingleapplication
     ${CMAKE_CURRENT_SOURCE_DIR}/quickopen
     ${CMAKE_CURRENT_BINARY_DIR} # katetests_export.h + config.h
 )
@@ -97,24 +96,14 @@ target_sources(
     kateurlbar.cpp
 
     signal_watcher.cpp
+
+    # single application handing for the non-dbus case
+    SingleApplication/singleapplication.cpp
+    SingleApplication/singleapplication_p.cpp
 )
 
-# Use a single application on MacOS + Windows instead of dbus.
-if(APPLE OR WIN32)
-  target_sources(
-    kate-lib
-    PRIVATE
-      qtsingleapplication/qtlocalpeer.cpp
-      qtsingleapplication/qtsingleapplication.cpp
-      qtsingleapplication/qtlockedfile.cpp
-  )
-
-  if(WIN32)
-    target_sources(kate-lib PRIVATE qtsingleapplication/qtlockedfile_win.cpp)
-  else()
-    target_sources(kate-lib PRIVATE qtsingleapplication/qtlockedfile_unix.cpp)
-  endif()
-endif()
+# ensure consistent SingleApplication usage
+target_compile_definitions(kate-lib PUBLIC -DQAPPLICATION_CLASS=QApplication)
 
 if(BUILD_TESTING)
   add_subdirectory(autotests)

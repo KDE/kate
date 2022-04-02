@@ -399,10 +399,10 @@ public Q_SLOTS:
     /**
      * A message is received from an external instance, if we use QtSingleApplication
      *
+     * \p instanceId the instance id we got the message from
      * \p message is a serialized message (at the moment just the file list separated by ';')
-     * \p socket is the QLocalSocket used for the communication
      */
-    void remoteMessageReceived(const QString &message, QObject *socket);
+    void remoteMessageReceived(quint32 instanceId, QByteArray message);
 
 Q_SIGNALS:
     /**

@@ -591,12 +591,12 @@ bool KateApp::eventFilter(QObject *obj, QEvent *event)
     return QObject::eventFilter(obj, event);
 }
 
-void KateApp::remoteMessageReceived(const QString &message, QObject *)
+void KateApp::remoteMessageReceived(quint32, QByteArray message)
 {
     /**
      * try to parse message, ignore if no object
      */
-    const QJsonDocument jsonMessage = QJsonDocument::fromJson(message.toUtf8());
+    const QJsonDocument jsonMessage = QJsonDocument::fromJson(message);
     if (!jsonMessage.isObject()) {
         return;
     }

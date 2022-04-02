@@ -155,6 +155,12 @@ when that file's view receives focus.</para>
 </varlistentry>
 
 <varlistentry>
+<term><anchor id="config-general-auto-hide-tabs"/>
+<guilabel>Auto hide tabs</guilabel></term>
+<listitem><para>When checked tabs will be hidden if only one document is open.</para></listitem>
+</varlistentry>
+
+<varlistentry>
 <term><anchor id="config-general-show-close-button"/>
 <guilabel>Show close button</guilabel></term>
 <listitem><para>When checked each tab will display a close button.</para></listitem>

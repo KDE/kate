@@ -90,6 +90,9 @@ KateViewManager::KateViewManager(QWidget *parentW, KateMainWindow *parent)
         }
 
         m_blockViewCreationAndActivation = false;
+
+        // update actions once
+        updateViewSpaceActions();
     });
 }
 
@@ -221,11 +224,18 @@ void KateViewManager::setupActions()
 
 void KateViewManager::updateViewSpaceActions()
 {
-    m_closeView->setEnabled(m_viewSpaceList.size() > 1);
-    m_closeOtherViews->setEnabled(m_viewSpaceList.size() > 1);
-    m_toggleSplitterOrientation->setEnabled(m_viewSpaceList.size() > 1);
-    goNext->setEnabled(m_viewSpaceList.size() > 1);
-    goPrev->setEnabled(m_viewSpaceList.size() > 1);
+    const bool multipleViewSpaces = m_viewSpaceList.size() > 1;
+    m_closeView->setEnabled(multipleViewSpaces);
+    m_closeOtherViews->setEnabled(multipleViewSpaces);
+    m_toggleSplitterOrientation->setEnabled(multipleViewSpaces);
+    m_hideOtherViews->setEnabled(multipleViewSpaces);
+    goNext->setEnabled(multipleViewSpaces);
+    goPrev->setEnabled(multipleViewSpaces);
+
+    // only allow move if we have more than one document in the current view space
+    const bool allowMove = activeViewSpace() && (activeViewSpace()->documentList().size() > 1);
+    m_splitViewVertMove->setEnabled(allowMove);
+    m_splitViewHorizMove->setEnabled(allowMove);
 }
 
 void KateViewManager::slotDocumentNew()
@@ -396,6 +406,9 @@ void KateViewManager::documentCreated(KTextEditor::Document *doc)
             createView(view->document(), vs);
         }
     }
+
+    // trigger action update
+    updateViewSpaceActions();
 }
 
 void KateViewManager::aboutToDeleteDocuments(const QList<KTextEditor::Document *> &)
@@ -447,6 +460,9 @@ void KateViewManager::documentsDeleted(const QList<KTextEditor::Document *> &)
          */
         reactivateActiveView();
     }
+
+    // trigger action update
+    updateViewSpaceActions();
 
     /**
      * enable updates hard (we can't use KateUpdateDisabler here, we have delayed signal

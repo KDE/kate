@@ -13,7 +13,6 @@
 #include "katewaiter.h"
 
 #include <KAboutData>
-#include <KCrash>
 #include <KDBusService>
 #include <KLocalizedString>
 #include <KStartupInfo>
@@ -103,22 +102,9 @@ int main(int argc, char **argv)
 #endif
 
     /**
-     * For Windows and macOS: use Breeze if available
-     * Of all tested styles that works the best for us
-     */
-#if defined(Q_OS_MACOS) || defined(Q_OS_WIN)
-    QApplication::setStyle(QStringLiteral("breeze"));
-#endif
-
-    /**
      * Enforce application name even if the executable is renamed
      */
     app.setApplicationName(QStringLiteral("kate"));
-
-    /**
-     * Enable crash handling through KCrash.
-     */
-    KCrash::initialize();
 
     /**
      * Connect application with translation catalogs

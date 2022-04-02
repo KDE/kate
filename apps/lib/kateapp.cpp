@@ -14,6 +14,7 @@
 #include <KAboutData>
 #include <KConfigGroup>
 #include <KConfigGui>
+#include <KCrash>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KNetworkMounts>
@@ -64,6 +65,19 @@ KateApp::KateApp(const QCommandLineParser &args, const ApplicationMode mode)
                            + (isKate() ? QStringLiteral("/kate/sessions") : QStringLiteral("/kwrite/sessions")))
     , m_stashManager(this)
 {
+    /**
+     * For Windows and macOS: use Breeze if available
+     * Of all tested styles that works the best for us
+     */
+#if defined(Q_OS_MACOS) || defined(Q_OS_WIN)
+    QApplication::setStyle(QStringLiteral("breeze"));
+#endif
+
+    /**
+     * Enable crash handling through KCrash.
+     */
+    KCrash::initialize();
+
     /**
      * re-route some signals to application wrapper
      */

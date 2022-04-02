@@ -255,7 +255,6 @@ int main(int argc, char **argv)
      * use dbus, if available for linux and co.
      * allows for reuse of running Kate instances
      */
-#ifndef USE_QT_SINGLE_APP
     if (QDBusConnectionInterface *const sessionBusInterface = QDBusConnection::sessionBus().interface()) {
         /**
          * try to get the current running kate instances
@@ -539,18 +538,15 @@ int main(int argc, char **argv)
     }
 
     /**
-     * for mac & windows: use QtSingleApplication
-     */
-#else
-    /**
+     * if we had no DBus session bus, we can try to use the SingleApplication communication.
      * only try to reuse existing kate instances if not already forbidden by arguments
      */
-    if (!force_new) {
+    else if (!force_new) {
         /**
          * any instance running we can use?
          * later we could do here pid checks and stuff
          */
-        bool instanceFound = app.isRunning();
+        bool instanceFound = app.isSecondary();
 
         /**
          * if instance was found, send over all urls to be opened
@@ -559,7 +555,7 @@ int main(int argc, char **argv)
             /**
              * tell single application to block if needed
              */
-            app.setBlock(needToBlock);
+            // FIXME  app.setBlock(needToBlock);
 
             /**
              * construct one big message with all urls to open
@@ -586,7 +582,6 @@ int main(int argc, char **argv)
             return !app.sendMessage(QJsonDocument::fromVariant(QVariant(message)).toJson());
         }
     }
-#endif // USE_QT_SINGLE_APP
 
     /**
      * if we arrive here, we need to start a new kate instance!

@@ -2,11 +2,6 @@
 add_executable(kate-bin main.cpp  data/kate.qrc)
 target_link_libraries(kate-bin PRIVATE kate-lib)
 
-# Use a single application on MacOS + Windows instead of dbus.
-if(APPLE OR WIN32)
-  target_compile_definitions(kate-bin PRIVATE USE_QT_SINGLE_APP)
-endif()
-
 # we have different windows icons, less margins
 set(ICONS_FOLDER ${CMAKE_CURRENT_SOURCE_DIR}/icons/unix)
 if(WIN32)

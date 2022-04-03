@@ -833,6 +833,35 @@ the old one.</para>
 </listitem>
 </varlistentry>
 
+<varlistentry id="move-document-to-new-vertical-split">
+<term>
+<menuchoice>
+<shortcut><keycombo action="simul">&Ctrl;&Shift;<keycap>L</keycap></keycombo></shortcut>
+<guimenu>View</guimenu><guisubmenu>Split View</guisubmenu>
+<guimenuitem>Move Document to New Vertical Split</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>This will split the currently active view vertically into two views and move the 
+currently active document to right view.</para>
+<para>See also <link linkend="kate-mdi">Working with the &kate; MDI</link>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="move-document-to-new-horizontal-split">
+<term>
+<menuchoice>
+<guimenu>View</guimenu><guisubmenu>Split View</guisubmenu>
+<guimenuitem>Move Document to New Horizontal Split</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>This will split the currently active view horizontally into two views and move the 
+currently active document to view below.</para>
+<para>See also <link linkend="kate-mdi">Working with the &kate; MDI</link></para>
+</listitem>
+</varlistentry>
+
 <varlistentry id="view-split-toggle-orientation">
 <term>
 <menuchoice>

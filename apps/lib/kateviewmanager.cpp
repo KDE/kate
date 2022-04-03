@@ -233,7 +233,7 @@ void KateViewManager::updateViewSpaceActions()
     goPrev->setEnabled(multipleViewSpaces);
 
     // only allow move if we have more than one document in the current view space
-    const bool allowMove = activeViewSpace() && (activeViewSpace()->documentList().size() > 1);
+    const bool allowMove = activeViewSpace() && (activeViewSpace()->numberOfRegisteredDocuments() > 1);
     m_splitViewVertMove->setEnabled(allowMove);
     m_splitViewHorizMove->setEnabled(allowMove);
 }
@@ -540,6 +540,8 @@ KTextEditor::View *KateViewManager::createView(KTextEditor::Document *doc, KateV
         activateView(view);
     }
 
+    updateViewSpaceActions();
+
     return view;
 }
 
@@ -550,8 +552,8 @@ bool KateViewManager::deleteView(KTextEditor::View *view)
     }
 
     KateViewSpace *viewspace = static_cast<KateViewSpace *>(view->parentWidget()->parentWidget());
-
     viewspace->removeView(view);
+    updateViewSpaceActions();
 
     /**
      * deregister if needed
@@ -717,6 +719,8 @@ void KateViewManager::activateView(KTextEditor::View *view)
 
         Q_EMIT viewChanged(view);
 
+        updateViewSpaceActions();
+
 #ifdef KF5Activities_FOUND
         // inform activity manager
         m_views[view].activityResource->setUri(view->document()->url());
@@ -838,7 +842,7 @@ void KateViewManager::splitViewSpace(KateViewSpace *vs, // = 0
     if (!vs) {
         return;
     }
-    if (moveDocument && vs->documentList().size() <= 1) {
+    if (moveDocument && vs->numberOfRegisteredDocuments() <= 1) {
         return;
     }
 

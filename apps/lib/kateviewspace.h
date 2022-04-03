@@ -82,6 +82,14 @@ public:
     }
 
     /**
+     * How many documents are registered here?
+     */
+    int numberOfRegisteredDocuments() const
+    {
+        return m_registeredDocuments.size();
+    }
+
+    /**
      * Register one document for this view space.
      * Each registered document will get e.g. a tab bar button.
      */

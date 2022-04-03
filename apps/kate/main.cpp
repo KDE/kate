@@ -544,46 +544,30 @@ int main(int argc, char **argv)
      * if we had no DBus session bus, we can try to use the SingleApplication communication.
      * only try to reuse existing kate instances if not already forbidden by arguments
      */
-    else if (!force_new) {
+    else if (!force_new && app.isSecondary()) {
         /**
-         * any instance running we can use?
-         * later we could do here pid checks and stuff
+         * construct one big message with all urls to open
+         * later we will add additional data to this
          */
-        bool instanceFound = app.isSecondary();
-
-        /**
-         * if instance was found, send over all urls to be opened
-         */
-        if (instanceFound) {
+        QVariantMap message;
+        QVariantList messageUrls;
+        for (const QString &url : urls) {
             /**
-             * tell single application to block if needed
+             * get url info and pack them into the message as extra element in urls list
              */
-            // FIXME  app.setBlock(needToBlock);
-
-            /**
-             * construct one big message with all urls to open
-             * later we will add additional data to this
-             */
-            QVariantMap message;
-            QVariantList messageUrls;
-            for (const QString &url : urls) {
-                /**
-                 * get url info and pack them into the message as extra element in urls list
-                 */
-                UrlInfo info(url);
-                QVariantMap urlMessagePart;
-                urlMessagePart[QLatin1String("url")] = info.url;
-                urlMessagePart[QLatin1String("line")] = info.cursor.line();
-                urlMessagePart[QLatin1String("column")] = info.cursor.column();
-                messageUrls.append(urlMessagePart);
-            }
-            message[QLatin1String("urls")] = messageUrls;
-
-            /**
-             * try to send message, return success
-             */
-            return !app.sendMessage(QJsonDocument::fromVariant(QVariant(message)).toJson(), 1000, needToBlock);
+            UrlInfo info(url);
+            QVariantMap urlMessagePart;
+            urlMessagePart[QLatin1String("url")] = info.url;
+            urlMessagePart[QLatin1String("line")] = info.cursor.line();
+            urlMessagePart[QLatin1String("column")] = info.cursor.column();
+            messageUrls.append(urlMessagePart);
         }
+        message[QLatin1String("urls")] = messageUrls;
+
+        /**
+         * try to send message, return success
+         */
+        return !app.sendMessage(QJsonDocument::fromVariant(QVariant(message)).toJson(), 1000, needToBlock);
     }
 
     /**

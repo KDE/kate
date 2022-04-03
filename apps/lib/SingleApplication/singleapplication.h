@@ -127,11 +127,12 @@ public:
     /**
      * @brief Sends a message to the primary instance. Returns true on success.
      * @param {int} timeout - Timeout for connecting
+     * @param {bool} block - Block until the primary application exits.
      * @returns {bool}
      * @note sendMessage() will return false if invoked from the primary
      * instance.
      */
-    bool sendMessage( const QByteArray &message, int timeout = 100 );
+    bool sendMessage( const QByteArray &message, int timeout = 100, bool block = false );
 
     /**
      * @brief Get the set user data.

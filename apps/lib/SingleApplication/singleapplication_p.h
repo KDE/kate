@@ -85,7 +85,7 @@ public:
     void readInitMessageBody(QLocalSocket *socket);
     void writeAck(QLocalSocket *sock);
     bool writeConfirmedFrame(int msecs, const QByteArray &msg);
-    bool writeConfirmedMessage(int msecs, const QByteArray &msg);
+    bool writeConfirmedMessage(int msecs, const QByteArray &msg, bool block = false);
     static void randomSleep();
     void addAppData(const QString &data);
     QStringList appData() const;

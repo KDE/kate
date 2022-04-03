@@ -33,6 +33,7 @@
 #include <QUrl>
 #include <QVariant>
 
+#include <qglobal.h>
 #include <urlinfo.h>
 
 #include "SingleApplication/SingleApplication"
@@ -254,8 +255,10 @@ int main(int argc, char **argv)
     /**
      * use dbus, if available for linux and co.
      * allows for reuse of running Kate instances
+     * we have some env var to forbid this for easier testing of the single application code paths: KATE_SKIP_DBUS
      */
-    if (QDBusConnectionInterface *const sessionBusInterface = QDBusConnection::sessionBus().interface()) {
+    if (QDBusConnectionInterface *const sessionBusInterface = QDBusConnection::sessionBus().interface();
+        sessionBusInterface && qEnvironmentVariableIsEmpty("KATE_SKIP_DBUS")) {
         /**
          * try to get the current running kate instances
          */
@@ -579,7 +582,7 @@ int main(int argc, char **argv)
             /**
              * try to send message, return success
              */
-            return !app.sendMessage(QJsonDocument::fromVariant(QVariant(message)).toJson());
+            return !app.sendMessage(QJsonDocument::fromVariant(QVariant(message)).toJson(), 1000, needToBlock);
         }
     }
 

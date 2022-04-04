@@ -147,7 +147,7 @@
     <p xml:lang="uk">KWrite — текстовий редактор від KDE, заснований на компоненті редактора Kate.</p>
     <p xml:lang="vi">KWrite là một trình biên tập văn bản của KDE, dựa trên thành phần trình biên tập của Kate.</p>
     <p xml:lang="x-test">xxKWrite is a text editor by KDE, based on the Kate's editor component.xx</p>
-    <p xml:lang="zh-CN">KWrite 是 KDE 的文本编辑器，基于 Kate 的编辑器组件。</p>
+    <p xml:lang="zh-CN">KWrite 是 KDE 的文本编辑器，它基于 Kate 的编辑器组件构建。</p>
     <p xml:lang="zh-TW">KWrite 是一套 KDE 的文字編輯器，基於 Kate 的編輯器組件。</p>
     <p>Features:</p>
     <p xml:lang="ar">الميزات:</p>

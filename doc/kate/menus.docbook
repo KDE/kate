@@ -836,7 +836,6 @@ the old one.</para>
 <varlistentry id="move-document-to-new-vertical-split">
 <term>
 <menuchoice>
-<shortcut><keycombo action="simul">&Ctrl;&Shift;<keycap>L</keycap></keycombo></shortcut>
 <guimenu>View</guimenu><guisubmenu>Split View</guisubmenu>
 <guimenuitem>Move Document to New Vertical Split</guimenuitem>
 </menuchoice>

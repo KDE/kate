@@ -238,7 +238,7 @@ QString SingleApplication::currentUser() const
  * @param block block until the primary application exits
  * @return true if the message was sent successfuly, false otherwise.
  */
-bool SingleApplication::sendMessage( const QByteArray &message, int timeout, bool block )
+bool SingleApplication::sendMessage( const QByteArray &message, int timeout, SendOptions options )
 {
     Q_D( SingleApplication );
 
@@ -249,7 +249,7 @@ bool SingleApplication::sendMessage( const QByteArray &message, int timeout, boo
     if( ! d->connectToPrimary( timeout,  SingleApplicationPrivate::Reconnect ) )
       return false;
 
-    return d->writeConfirmedMessage( timeout, message, block );
+    return d->writeConfirmedMessage( timeout, message, options );
 }
 
 /**

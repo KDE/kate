@@ -31,6 +31,8 @@
 #include <KSharedConfig>
 #include <KStandardAction>
 
+#include <kwidgetsaddons_version.h>
+
 #include <QCheckBox>
 #include <QComboBox>
 #include <QDesktopServices>
@@ -49,6 +51,11 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent)
 {
     setWindowTitle(i18n("Configure"));
     setStandardButtons(QDialogButtonBox::Ok | QDialogButtonBox::Apply | QDialogButtonBox::Cancel | QDialogButtonBox::Help);
+
+    // we may have a lot of pages, we want small icons for the list
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 93, 0)
+    setFaceType(KPageDialog::FlatList);
+#endif
 
     // first: add the KTextEditor config pages
     // rational: most people want to alter e.g. the fonts, the colors or some other editor stuff first

@@ -59,11 +59,13 @@ public:
     /* restore it */
     void restoreViewConfiguration(const KConfigGroup &group);
 
-    KTextEditor::Document *
-    openUrl(const QUrl &url, const QString &encoding, bool activate = true, bool isTempFile = false, const KateDocumentInfo &docInfo = KateDocumentInfo());
+    KTextEditor::Document *openUrl(const QUrl &url,
+                                   const QString &encoding,
+                                   bool activate = true,
+                                   bool ignoreForRecentFiles = false,
+                                   const KateDocumentInfo &docInfo = KateDocumentInfo());
 
-    KTextEditor::Document *
-    openUrls(const QList<QUrl> &url, const QString &encoding, bool isTempFile = false, const KateDocumentInfo &docInfo = KateDocumentInfo());
+    KTextEditor::Document *openUrls(const QList<QUrl> &url, const QString &encoding, const KateDocumentInfo &docInfo = KateDocumentInfo());
 
     KTextEditor::View *openUrlWithView(const QUrl &url, const QString &encoding);
 

@@ -669,7 +669,7 @@ void KateMainWindow::slotFileClose()
 
 void KateMainWindow::slotOpenDocument(const QUrl &url)
 {
-    m_viewManager->openUrl(url, QString(), true, false);
+    m_viewManager->openUrl(url, QString(), true);
 }
 
 void KateMainWindow::readOptions()
@@ -1235,7 +1235,8 @@ void KateMainWindow::queueModifiedOnDisc(KTextEditor::Document *doc)
         s_modOnHdDialog = new KateMwModOnHdDialog(list, this);
         m_modignore = true;
         connect(s_modOnHdDialog, &KateMwModOnHdDialog::requestOpenDiffDocument, this, [this](const QUrl &url) {
-            viewManager()->openUrl(url, QString(), true, true);
+            // use open with isTempFile == true
+            KateApp::self()->openUrl(url, QString(), true);
         });
 
         // Someone modified a doc outside and now we are here

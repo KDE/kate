@@ -131,18 +131,17 @@ KTextEditor::Document *KateDocManager::findDocument(const QUrl &url) const
     return nullptr;
 }
 
-std::vector<KTextEditor::Document *>
-KateDocManager::openUrls(const QList<QUrl> &urls, const QString &encoding, bool isTempFile, const KateDocumentInfo &docInfo)
+std::vector<KTextEditor::Document *> KateDocManager::openUrls(const QList<QUrl> &urls, const QString &encoding, const KateDocumentInfo &docInfo)
 {
     std::vector<KTextEditor::Document *> docs;
     docs.reserve(urls.size());
     for (const QUrl &url : urls) {
-        docs.push_back(openUrl(url, encoding, isTempFile, docInfo));
+        docs.push_back(openUrl(url, encoding, docInfo));
     }
     return docs;
 }
 
-KTextEditor::Document *KateDocManager::openUrl(const QUrl &url, const QString &encoding, bool isTempFile, const KateDocumentInfo &docInfo)
+KTextEditor::Document *KateDocManager::openUrl(const QUrl &url, const QString &encoding, const KateDocumentInfo &docInfo)
 {
     // special handling: if only one unmodified empty buffer in the list,
     // keep this buffer in mind to close it after opening the new url
@@ -180,17 +179,6 @@ KTextEditor::Document *KateDocManager::openUrl(const QUrl &url, const QString &e
         }
     }
 
-    //
-    // if needed, register as temporary file
-    //
-    if (isTempFile && u.isLocalFile()) {
-        QFileInfo fi(u.toLocalFile());
-        if (fi.exists()) {
-            m_tempFiles[doc] = std::make_pair(u, fi.lastModified());
-            qCDebug(LOG_KATE) << "temporary file will be deleted after use unless modified: " << u;
-        }
-    }
-
     return doc;
 }
 
@@ -210,28 +198,6 @@ bool KateDocManager::closeDocuments(const QList<KTextEditor::Document *> documen
         if (closeUrl && !doc->closeUrl()) {
             success = false; // get out on first error
             break;
-        }
-
-        if (closeUrl) {
-            auto it = m_tempFiles.find(doc);
-            if (it != m_tempFiles.end()) {
-                const auto [url, lastMod] = it->second;
-                QFileInfo fi(url.toLocalFile());
-                if (fi.lastModified() <= lastMod
-                    || KMessageBox::questionYesNo(KateApp::self()->activeKateMainWindow(),
-                                                  i18n("The supposedly temporary file %1 has been modified. "
-                                                       "Do you want to delete it anyway?",
-                                                       url.url(QUrl::PreferLocalFile)),
-                                                  i18n("Delete File?"))
-                        == KMessageBox::Yes) {
-                    KIO::del(url, KIO::HideProgressInfo);
-                    qCDebug(LOG_KATE) << "Deleted temporary file " << url;
-                    m_tempFiles.erase(it);
-                } else {
-                    m_tempFiles.erase(it);
-                    qCDebug(LOG_KATE) << "The supposedly temporary file " << url.url() << " have been modified since loaded, and has not been deleted.";
-                }
-            }
         }
 
         KateApp::self()->emitDocumentClosed(QString::number(reinterpret_cast<qptrdiff>(doc)));

@@ -289,7 +289,7 @@ void KateViewManager::slotDocumentOpen()
     // activate view of last opened document
     KateDocumentInfo docInfo;
     docInfo.openedByUser = true;
-    if (KTextEditor::Document *lastID = openUrls(urls, QString(), false, docInfo)) {
+    if (KTextEditor::Document *lastID = openUrls(urls, QString(), docInfo)) {
         activateView(lastID);
     }
 }
@@ -323,11 +323,12 @@ void KateViewManager::slotDocumentClose()
     }
 }
 
-KTextEditor::Document *KateViewManager::openUrl(const QUrl &url, const QString &encoding, bool activate, bool isTempFile, const KateDocumentInfo &docInfo)
+KTextEditor::Document *
+KateViewManager::openUrl(const QUrl &url, const QString &encoding, bool activate, bool ignoreForRecentFiles, const KateDocumentInfo &docInfo)
 {
-    KTextEditor::Document *doc = KateApp::self()->documentManager()->openUrl(url, encoding, isTempFile, docInfo);
+    KTextEditor::Document *doc = KateApp::self()->documentManager()->openUrl(url, encoding, docInfo);
 
-    if (!isTempFile) {
+    if (!ignoreForRecentFiles) {
         m_mainWindow->addRecentOpenedFile(doc->url());
     }
 
@@ -338,16 +339,9 @@ KTextEditor::Document *KateViewManager::openUrl(const QUrl &url, const QString &
     return doc;
 }
 
-KTextEditor::Document *KateViewManager::openUrls(const QList<QUrl> &urls, const QString &encoding, bool isTempFile, const KateDocumentInfo &docInfo)
+KTextEditor::Document *KateViewManager::openUrls(const QList<QUrl> &urls, const QString &encoding, const KateDocumentInfo &docInfo)
 {
-    const std::vector<KTextEditor::Document *> docs = KateApp::self()->documentManager()->openUrls(urls, encoding, isTempFile, docInfo);
-
-    if (!isTempFile) {
-        for (const KTextEditor::Document *doc : docs) {
-            m_mainWindow->addRecentOpenedFile(doc->url());
-        }
-    }
-
+    const std::vector<KTextEditor::Document *> docs = KateApp::self()->documentManager()->openUrls(urls, encoding, docInfo);
     return docs.empty() ? nullptr : docs.back();
 }
 

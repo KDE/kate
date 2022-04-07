@@ -136,6 +136,13 @@ KateApp::~KateApp()
         // mainwindow itself calls KateApp::removeMainWindow(this)
         delete m_mainWindows[0];
     }
+
+    /**
+     * cleanup --tempfile files
+     */
+    for (const auto &file : std::as_const(m_tempFilesToDelete)) {
+        QFile::remove(file);
+    }
 }
 
 KateApp *KateApp::self()
@@ -392,6 +399,13 @@ bool KateApp::isOnActivity(const QString &activity)
 
 KTextEditor::Document *KateApp::openDocUrl(const QUrl &url, const QString &encoding, bool isTempFile, bool activateView, KTextEditor::Cursor c)
 {
+    // temporary file handling
+    // ensure we will delete the local file we opened via --tempfile at end of program
+    if (isTempFile && !url.isEmpty() && url.isLocalFile() && QFile::exists(url.toLocalFile())) {
+        // register for deletion on program exit
+        m_tempFilesToDelete.push_back(url.toLocalFile());
+    }
+
     KateMainWindow *mainWindow = activeKateMainWindow();
 
     if (!mainWindow) {

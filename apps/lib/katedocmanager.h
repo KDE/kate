@@ -58,11 +58,10 @@ public:
         return m_docList;
     }
 
-    KTextEditor::Document *
-    openUrl(const QUrl &, const QString &encoding = QString(), bool isTempFile = false, const KateDocumentInfo &docInfo = KateDocumentInfo());
+    KTextEditor::Document *openUrl(const QUrl &, const QString &encoding = QString(), const KateDocumentInfo &docInfo = KateDocumentInfo());
 
     std::vector<KTextEditor::Document *>
-    openUrls(const QList<QUrl> &, const QString &encoding = QString(), bool isTempFile = false, const KateDocumentInfo &docInfo = KateDocumentInfo());
+    openUrls(const QList<QUrl> &, const QString &encoding = QString(), const KateDocumentInfo &docInfo = KateDocumentInfo());
 
     bool closeDocument(KTextEditor::Document *, bool closeUrl = true);
     bool closeDocuments(const QList<KTextEditor::Document *> documents, bool closeUrl = true);
@@ -177,9 +176,6 @@ private:
     KConfig m_metaInfos;
     bool m_saveMetaInfos;
     int m_daysMetaInfos;
-
-    typedef std::pair<QUrl, QDateTime> TPair;
-    std::unordered_map<KTextEditor::Document *, TPair> m_tempFiles;
 
 private Q_SLOTS:
     void documentOpened();

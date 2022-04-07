@@ -466,6 +466,11 @@ private:
      */
     KUserFeedback::Provider m_userFeedbackProvider;
 #endif
+
+    /**
+     * files opened via --tempfile, must be deleted on program exit
+     */
+    QStringList m_tempFilesToDelete;
 };
 
 #endif

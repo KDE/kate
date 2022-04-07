@@ -1,5 +1,4 @@
-/*  SPDX-License-Identifier: LGPL-2.0-or-later
-
+/*
     SPDX-FileCopyrightText: 2005 Christoph Cullmann <cullmann@kde.org>
     SPDX-FileCopyrightText: 2002, 2003 Joseph Wenninger <jowenn@kde.org>
 

@@ -1,5 +1,4 @@
-/*  SPDX-License-Identifier: LGPL-2.0-or-later
-
+/*
     SPDX-FileCopyrightText: 2007, 2009 Joseph Wenninger <jowenn@kde.org>
     SPDX-FileCopyrightText: 2021 Waqar Ahmed <waqar.17a@gmail.com>
 

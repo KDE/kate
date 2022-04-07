@@ -1,5 +1,4 @@
-/*  SPDX-License-Identifier: LGPL-2.0-or-later
-
+/*
     SPDX-FileCopyrightText: 2004 Anders Lund <anders@alweb.dk>
 
     SPDX-License-Identifier: LGPL-2.0-or-later

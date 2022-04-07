@@ -1,5 +1,4 @@
-/*  SPDX-License-Identifier: LGPL-2.0-or-later
-
+/*
     SPDX-FileCopyrightText: 2014 Dominik Haumann <dhaumann@kde.org>
     SPDX-FileCopyrightText: 2020 Christoph Cullmann <cullmann@kde.org>
 

@@ -136,13 +136,6 @@ KateApp::~KateApp()
         // mainwindow itself calls KateApp::removeMainWindow(this)
         delete m_mainWindows[0];
     }
-
-    /**
-     * cleanup --tempfile files
-     */
-    for (const auto &file : std::as_const(m_tempFilesToDelete)) {
-        QFile::remove(file);
-    }
 }
 
 KateApp *KateApp::self()
@@ -378,11 +371,6 @@ KateStashManager *KateApp::stashManager()
     return &m_stashManager;
 }
 
-bool KateApp::openUrl(const QUrl &url, const QString &encoding, bool isTempFile)
-{
-    return openDocUrl(url, encoding, isTempFile);
-}
-
 bool KateApp::isOnActivity(const QString &activity)
 {
     for (const auto window : qAsConst(m_mainWindows)) {
@@ -401,10 +389,8 @@ KTextEditor::Document *KateApp::openDocUrl(const QUrl &url, const QString &encod
 {
     // temporary file handling
     // ensure we will delete the local file we opened via --tempfile at end of program
-    if (isTempFile && !url.isEmpty() && url.isLocalFile() && QFile::exists(url.toLocalFile())) {
-        // register for deletion on program exit
-        m_tempFilesToDelete.push_back(url.toLocalFile());
-    }
+    // we can only do this properly for local files
+    isTempFile = (isTempFile && !url.isEmpty() && url.isLocalFile() && QFile::exists(url.toLocalFile()));
 
     KateMainWindow *mainWindow = activeKateMainWindow();
 
@@ -433,7 +419,35 @@ KTextEditor::Document *KateApp::openDocUrl(const QUrl &url, const QString &encod
         KMessageBox::sorry(mainWindow, i18n("The file '%1' could not be opened: it is not a normal file, it is a folder.", url.url()));
     }
 
+    // document was successfully opened, ensure we will handle destroy properly
+    if (doc) {
+        // connect to slot & register the temp file handling if needed
+        connect(doc, &QObject::destroyed, this, &KateApp::openDocUrlDocumentDestroyed);
+        if (isTempFile) {
+            m_tempFilesToDelete[doc].push_back(url.toLocalFile());
+        }
+    }
+
+    // unable to open document, directly dispose of the temporary file
+    else if (isTempFile) {
+        QFile::remove(url.toLocalFile());
+    }
+
     return doc;
+}
+
+void KateApp::openDocUrlDocumentDestroyed(QObject *document)
+{
+    // do we need to kill the temporary files for this document?
+    if (const auto tempFilesIt = m_tempFilesToDelete.find(document); tempFilesIt != m_tempFilesToDelete.end()) {
+        for (const auto &file : tempFilesIt.value()) {
+            QFile::remove(file);
+        }
+        m_tempFilesToDelete.erase(tempFilesIt);
+    }
+
+    // emit token signal to unblock remove blocking instances
+    m_adaptor.emitDocumentClosed(QString::number(reinterpret_cast<qptrdiff>(document)));
 }
 
 KTextEditor::Cursor KateApp::cursorFromArgs()
@@ -569,11 +583,6 @@ KateMainWindow *KateApp::mainWindow(int n)
     }
 
     return nullptr;
-}
-
-void KateApp::emitDocumentClosed(const QString &token)
-{
-    m_adaptor.emitDocumentClosed(token);
 }
 
 KTextEditor::Plugin *KateApp::plugin(const QString &name)

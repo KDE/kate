@@ -228,26 +228,24 @@ public:
      */
 public:
     /**
-     * open url with given encoding
-     * used by kate if --use given
-     * @param url filename
-     * @param encoding encoding name
-     * @param isTempFile whether the file is temporary
-     * @return success
-     */
-    bool openUrl(const QUrl &url, const QString &encoding, bool isTempFile);
-
-    /**
      * checks if the current instance is in a given activity
      * @param activity activity to check
      * @return true if the window is in the given activity, false otherwise
      */
     bool isOnActivity(const QString &activity);
 
+    /**
+     * open url with given encoding
+     * used by kate if --use given
+     * @param url filename
+     * @param encoding encoding name
+     * @param isTempFile whether the file is temporary
+     * @param activateView activate the view of the opened document?
+     * @param c cursor position to set if not invalid
+     * @return opened document or nullptr
+     */
     KTextEditor::Document *
     openDocUrl(const QUrl &url, const QString &encoding, bool isTempFile, bool activateView = true, KTextEditor::Cursor c = KTextEditor::Cursor::invalid());
-
-    void emitDocumentClosed(const QString &token);
 
     /**
      * position cursor in current active view
@@ -417,6 +415,13 @@ protected:
      */
     bool eventFilter(QObject *obj, QEvent *event) override;
 
+private Q_SLOTS:
+    /**
+     * Handle destroy of documents created via openDocUrl.
+     * Needed to e.g. emit token signal and cleanup temporary files.
+     */
+    void openDocUrlDocumentDestroyed(QObject *document);
+
 private:
     /**
      * kate's command line args
@@ -427,6 +432,13 @@ private:
      * application mode, kate or kwrite
      */
     const ApplicationMode m_mode;
+
+    /**
+     * files opened via --tempfile, must be deleted on program exit
+     * need to be constructed before document manager as the destructor of that might
+     * access it via the destroyed signal of the document
+     */
+    QHash<QObject *, QStringList> m_tempFilesToDelete;
 
     /**
      * known main windows
@@ -466,11 +478,6 @@ private:
      */
     KUserFeedback::Provider m_userFeedbackProvider;
 #endif
-
-    /**
-     * files opened via --tempfile, must be deleted on program exit
-     */
-    QStringList m_tempFilesToDelete;
 };
 
 #endif

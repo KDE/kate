@@ -49,14 +49,14 @@ void KateAppAdaptor::activate(const QString &token)
 
 bool KateAppAdaptor::openUrl(const QString &url, const QString &encoding)
 {
-    return m_app->openUrl(QUrl(url), encoding, false);
+    return m_app->openDocUrl(QUrl(url), encoding, false);
 }
 
 bool KateAppAdaptor::openUrl(const QString &url, const QString &encoding, bool isTempFile)
 {
     qCDebug(LOG_KATE) << "openURL";
 
-    return m_app->openUrl(QUrl(url), encoding, isTempFile);
+    return m_app->openDocUrl(QUrl(url), encoding, isTempFile);
 }
 
 bool KateAppAdaptor::isOnActivity(const QString &activity)

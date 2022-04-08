@@ -1236,7 +1236,7 @@ void KateMainWindow::queueModifiedOnDisc(KTextEditor::Document *doc)
         m_modignore = true;
         connect(s_modOnHdDialog, &KateMwModOnHdDialog::requestOpenDiffDocument, this, [this](const QUrl &url) {
             // use open with isTempFile == true
-            KateApp::self()->openUrl(url, QString(), true);
+            KateApp::self()->openDocUrl(url, QString(), true);
         });
 
         // Someone modified a doc outside and now we are here

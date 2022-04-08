@@ -329,12 +329,6 @@ void KateTabBar::wheelEvent(QWheelEvent *event)
 
 void KateTabBar::setTabDocument(int idx, KTextEditor::Document *doc)
 {
-    // get right icon to use
-    QIcon icon;
-    if (doc->isModified()) {
-        icon = QIcon::fromTheme(QStringLiteral("document-save"));
-    }
-
     QVariant data = ensureValidTabData(idx);
     KateTabButtonData buttonData = data.value<KateTabButtonData>();
     buttonData.doc = doc;
@@ -344,7 +338,6 @@ void KateTabBar::setTabDocument(int idx, KTextEditor::Document *doc)
     tabName.replace(QLatin1Char('&'), QLatin1String("&&"));
     setTabText(idx, tabName);
     setTabToolTip(idx, doc->url().toDisplayString());
-    setTabIcon(idx, icon);
 }
 
 void KateTabBar::setCurrentDocument(KTextEditor::Document *doc)

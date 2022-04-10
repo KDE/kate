@@ -53,7 +53,7 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent)
     setStandardButtons(QDialogButtonBox::Ok | QDialogButtonBox::Apply | QDialogButtonBox::Cancel | QDialogButtonBox::Help);
 
     // we may have a lot of pages, we want small icons for the list
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 93, 0)
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 94, 0)
     setFaceType(KPageDialog::FlatList);
 #endif
 

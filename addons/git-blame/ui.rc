@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
-<gui name="kategitblameplugin" library="kategitblameplugin" version="2" translationDomain="kategitblameplugin">
+<gui name="kategitblameplugin" library="kategitblameplugin" version="3" translationDomain="kategitblameplugin">
     <MenuBar>
-        <Menu name="view">
-            <text>&amp;View</text>
-            <Action name="git_blame_show" group="view_operations"/>
-            <Action name="git_blame_toggle" group="view_operations"/>
+        <Menu name="tools">
+            <text>&amp;Tools</text>
+            <Action name="git_blame_show" group="tools_git_blame"/>
+            <Action name="git_blame_toggle" group="tools_git_blame"/>
         </Menu>
     </MenuBar>
 </gui>

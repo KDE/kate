@@ -238,7 +238,9 @@ void KateMainWindow::setupImportantActions()
     // Load themes
     const QString colorScheme = KConfigGroup(KSharedConfig::openConfig(), "UiSettings").readEntry("ColorScheme", QString());
     KColorSchemeManager *manager = new KColorSchemeManager(this);
-    actionCollection()->addAction(QStringLiteral("colorscheme_menu"), manager->createSchemeSelectionMenu(colorScheme, this));
+    auto *colorSelectionMenu = manager->createSchemeSelectionMenu(colorScheme, this);
+    colorSelectionMenu->menu()->setTitle(i18n("&Window Color Scheme"));
+    actionCollection()->addAction(QStringLiteral("colorscheme_menu"), colorSelectionMenu);
 
     QAction *a = actionCollection()->addAction(KStandardAction::Back, QStringLiteral("view_prev_tab"));
     a->setText(i18n("&Previous Tab"));
@@ -400,9 +402,9 @@ void KateMainWindow::setupActions()
 
     a = actionCollection()->addAction(QStringLiteral("view_new_view"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("window-new")));
-    a->setText(i18n("&New Window"));
+    a->setText(i18n("&New Synchronized Window"));
     connect(a, &QAction::triggered, this, &KateMainWindow::newWindow);
-    a->setWhatsThis(i18n("Create a new Kate view (a new window with the same document list)."));
+    a->setWhatsThis(i18n("Create a new Kate window with a synchronized document list."));
 
     m_showFullScreenAction = KStandardAction::fullScreen(nullptr, nullptr, this, this);
     actionCollection()->addAction(m_showFullScreenAction->objectName(), m_showFullScreenAction);

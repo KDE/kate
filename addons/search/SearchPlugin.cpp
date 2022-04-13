@@ -334,11 +334,12 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
 
     QAction *a = actionCollection()->addAction(QStringLiteral("search_in_files"));
     actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_F));
-    a->setText(i18n("Search in Files"));
+    a->setText(i18n("Find in Files"));
+    a->setIcon(QIcon::fromTheme(QStringLiteral("edit-find")));
     connect(a, &QAction::triggered, this, &KatePluginSearchView::openSearchView);
 
     a = actionCollection()->addAction(QStringLiteral("search_in_files_new_tab"));
-    a->setText(i18n("Search in Files (in new tab)"));
+    a->setText(i18n("Find in Files (in new tab)"));
     // first add tab, then open search view, since open search view switches to show the search options
     connect(a, &QAction::triggered, this, &KatePluginSearchView::addTab);
     connect(a, &QAction::triggered, this, &KatePluginSearchView::openSearchView);

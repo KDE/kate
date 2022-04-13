@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
-<gui name="katefiletreeplugin" library="katefiletreeplugin" version="9" translationDomain="katefiletree">
+<gui name="katefiletreeplugin" library="katefiletreeplugin" version="10" translationDomain="katefiletree">
   <!-- merge in view -->
   <MenuBar>
-    <Menu name="view">
-      <text>&amp;View</text>
+    <Menu name="go">
+      <text>&amp;Go</text>
       <Action name="filetree_prev_document" group="switch_document"/>
       <Action name="filetree_next_document" group="switch_document"/>
       <Action name="filetree_show_active_document" group="switch_document"/>

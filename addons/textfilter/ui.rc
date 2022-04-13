@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
-<gui name="katetextfilter" library="libkatetextfilterplugin" version="4" translationDomain="katetextfilter">
+<gui name="katetextfilter" library="libkatetextfilterplugin" version="5" translationDomain="katetextfilter">
   <MenuBar>
     <Menu name="tools">
       <text>&amp;Tools</text>
-      <Action name="edit_filter"/>
+      <Action name="edit_filter" group="tools_konsole"/>
     </Menu>
   </MenuBar>
 </gui>

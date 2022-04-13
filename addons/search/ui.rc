@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
-<gui name="katesearch" library="libkatesearchplugin" version="4" translationDomain="katesearch">
+<gui name="katesearch" library="libkatesearchplugin" version="5" translationDomain="katesearch">
     <MenuBar>
         <Menu name="edit">
             <text>&amp;Edit</text>
             <Action name="search_in_files"/>
-             <Menu name="search_more">
-                <text>Search More</text>
+            <Menu name="search_more">
+                <text>Find in Files Variants</text>
                 <Action name="go_to_next_match"/>
                 <Action name="go_to_prev_match"/>
                 <Action name="search_in_files_new_tab"/>

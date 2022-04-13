@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
-<gui name="kate" version="95" translationDomain="kate">
+<gui name="kate" version="96" translationDomain="kate">
   <MenuBar>
     <Menu name="file" noMerge="1">
       <text>&amp;File</text>
       <Action name="file_new"/>
+      <Action name="view_new_view"/>
       <DefineGroup name="new_merge"/>
       <Separator/>
       <Action name="file_open"/>
@@ -48,29 +49,28 @@
       <Separator/>
       <DefineGroup name="edit_find_merge"/>
       <Separator/>
-      <Menu name="edit_goto" group="edit_goto"><text>Go To</text>
-        <DefineGroup name="edit_goto_history"/>
-        <Action name="view_history_back" group="edit_goto_history" />
-        <Action name="view_history_forward" group="edit_goto_history" />
-        <Separator group="edit_goto_history" />
-      </Menu>
     </Menu>
     <Menu name="selection" append="before_view">
       <text>&amp;Selection</text>
     </Menu>
-    <Menu name="view">
-      <text>&amp;View</text>
-      <Action name="view_new_view"/>
+    <Menu name="go">
+      <text>&amp;Go</text>
+      <Action name="view_quick_open" />
+      <DefineGroup name="view_switch_tab"/>
       <Separator/>
+      <DefineGroup name="edit_goto"/>
       <DefineGroup name="switch_document"/>
       <Separator/>
       <Action name="view_next_tab"/>
       <Action name="view_prev_tab"/>
-      <Action name="view_lru_document_next"/>
-      <Action name="view_quick_open"/>
       <Separator/>
-      <Action name="view_commandbar_open"/>
+      <Action name="view_history_back" />
+      <Action name="view_history_forward" />
       <Separator/>
+      <DefineGroup name="edit_goto2"/>
+    </Menu>
+    <Menu name="view">
+      <text>&amp;View</text>
       <Menu name="view-split">
         <text>Split View</text>
         <Action name="go_prev_split_view"/>
@@ -105,16 +105,25 @@
       <Action name="tools_external"/>
       <Separator/>
       <DefineGroup name="tools_operations"/>
+      <DefineGroup name="tools_konsole"/>
+      <Separator group="tools_konsole"/>
+      <DefineGroup name="tools_snippet"/>
+      <Separator group="tools_snippet"/>
       <DefineGroup name="tools_operations2"/>
-      <Action name="scripts"/>
+      <Separator group="tools_operations2"/>
+      <DefineGroup name="tools_git_blame"/>
+      <Separator group="tools_git_blame"/>
+      <DefineGroup name="tools_spelling"/>
+      <DefineGroup name="tools_operations3"/>
     </Menu>
     <Action name="sessions"/>
     <Menu name="settings">
       <text>&amp;Settings</text>
+      <Action name="colorscheme_menu" group="color"/>
+      <DefineGroup name="color"/>
       <Action name="settings_show_tab_bar" append="show_merge"/>
       <Action name="settings_show_full_path" append="show_merge"/>
       <Action name="settings_show_url_nav_bar" append="show_merge"/>
-      <Action name="colorscheme_menu"/>
     </Menu>
   </MenuBar>
   <ToolBar name="mainToolBar" noMerge="1">

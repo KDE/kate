@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
-<gui name="katesnippets" library="katesnippetsplugin" version="3" translationDomain="katesnippetsplugin">
+<gui name="katesnippets" library="katesnippetsplugin" version="4" translationDomain="katesnippetsplugin">
   <MenuBar>
     <Menu name="tools">
       <text>&amp;Tools</text>
-      <Action name="tools_create_snippet" group="tools_operations"/>
+      <Action name="tools_create_snippet" group="tools_snippet"/>
     </Menu>
   </MenuBar>
 </gui>

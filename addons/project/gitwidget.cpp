@@ -304,6 +304,11 @@ GitWidget::GitWidget(KateProject *project, KTextEditor::MainWindow *mainWindow, 
     setLayout(new QVBoxLayout);
     this->layout()->addWidget(m_stackWidget);
     this->layout()->setContentsMargins(0, 0, 0, 0);
+
+    // Ensure we are looks good
+    QTimer::singleShot(0, [=] {
+        getStatus();
+    });
 }
 
 GitWidget::~GitWidget()
@@ -365,6 +370,10 @@ QProcess *GitWidget::gitp(const QStringList &arguments)
 
 void GitWidget::getStatus(bool untracked, bool submodules)
 {
+    if (!isVisible()) {
+        return; // No need to update
+    }
+
     auto args = QStringList{QStringLiteral("status"), QStringLiteral("-z")};
     if (!untracked) {
         args.append(QStringLiteral("-uno"));

@@ -44,7 +44,7 @@ public:
     ~GitWidget();
 
     bool eventFilter(QObject *o, QEvent *e) override;
-    void getStatus(bool untracked = true, bool submodules = false);
+    void updateStatus(bool untracked = true, bool submodules = false);
     KTextEditor::MainWindow *mainWindow();
 
     // will just proxy the message to the plugin view

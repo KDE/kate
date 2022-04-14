@@ -107,7 +107,7 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
 
     m_stackedProjectViews = new QStackedWidget(m_toolView);
     m_stackedProjectInfoViews = new QStackedWidget(m_toolInfoView);
-    m_stackedgitViews = new QStackedWidget(m_gitToolView.get());
+    m_stackedGitViews = new QStackedWidget(m_gitToolView.get());
 
     connect(m_projectsCombo,
             static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
@@ -123,8 +123,8 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     connect(m_plugin, &KateProjectPlugin::pluginViewProjectClosing, this, &KateProjectPluginView::slotProjectClose);
 
     connect(m_gitStatusRefreshButton, &QToolButton::clicked, this, [this] {
-        if (auto widget = m_stackedgitViews->currentWidget()) {
-            qobject_cast<GitWidget *>(widget)->getStatus();
+        if (auto widget = m_stackedGitViews->currentWidget()) {
+            qobject_cast<GitWidget *>(widget)->updateStatus();
         }
     });
 
@@ -311,7 +311,7 @@ QPair<KateProjectView *, KateProjectInfoView *> KateProjectPluginView::viewForPr
      */
     m_stackedProjectViews->addWidget(view);
     m_stackedProjectInfoViews->addWidget(infoView);
-    m_stackedgitViews->addWidget(gitView);
+    m_stackedGitViews->addWidget(gitView);
     m_projectsCombo->addItem(QIcon::fromTheme(QStringLiteral("project-open")), project->name(), project->fileName());
     m_projectsComboGit->addItem(QIcon::fromTheme(QStringLiteral("project-open")), project->name(), project->fileName());
 
@@ -474,8 +474,8 @@ void KateProjectPluginView::slotDocumentSaved()
     // We need to wait to be sure all files are saved,
     // or the update may to early and we miss something
     QTimer::singleShot(500, this, [=] {
-        if (QWidget *current = m_stackedgitViews->currentWidget()) {
-            static_cast<GitWidget *>(current)->getStatus();
+        if (QWidget *current = m_stackedGitViews->currentWidget()) {
+            static_cast<GitWidget *>(current)->updateStatus();
         }
     });
 }
@@ -485,7 +485,7 @@ void KateProjectPluginView::slotCurrentChanged(int index)
     // trigger change of stacked widgets
     m_stackedProjectViews->setCurrentIndex(index);
     m_stackedProjectInfoViews->setCurrentIndex(index);
-    m_stackedgitViews->setCurrentIndex(index);
+    m_stackedGitViews->setCurrentIndex(index);
 
     {
         const QSignalBlocker blocker(m_projectsComboGit);
@@ -504,9 +504,9 @@ void KateProjectPluginView::slotCurrentChanged(int index)
     }
 
     // update git focus proxy + update status
-    if (QWidget *current = m_stackedgitViews->currentWidget()) {
-        m_stackedgitViews->setFocusProxy(current);
-        static_cast<GitWidget *>(current)->getStatus();
+    if (QWidget *current = m_stackedGitViews->currentWidget()) {
+        m_stackedGitViews->setFocusProxy(current);
+        static_cast<GitWidget *>(current)->updateStatus();
     }
 
     // project file name might have changed
@@ -638,8 +638,8 @@ void KateProjectPluginView::slotProjectReload()
     /**
      * Refresh git status
      */
-    if (auto widget = m_stackedgitViews->currentWidget()) {
-        qobject_cast<GitWidget *>(widget)->getStatus();
+    if (auto widget = m_stackedGitViews->currentWidget()) {
+        qobject_cast<GitWidget *>(widget)->updateStatus();
     }
 }
 
@@ -663,8 +663,8 @@ void KateProjectPluginView::slotProjectClose(KateProject *project)
     m_stackedProjectInfoViews->removeWidget(stackedProjectInfoViewsWidget);
     delete stackedProjectInfoViewsWidget;
 
-    QWidget *stackedgitViewsWidget = m_stackedgitViews->widget(index);
-    m_stackedgitViews->removeWidget(stackedgitViewsWidget);
+    QWidget *stackedgitViewsWidget = m_stackedGitViews->widget(index);
+    m_stackedGitViews->removeWidget(stackedgitViewsWidget);
     delete stackedgitViewsWidget;
 
     m_projectsCombo->removeItem(index);
@@ -752,8 +752,8 @@ void KateProjectPluginView::slotUpdateStatus(bool visible)
         return;
     }
 
-    if (auto widget = m_stackedgitViews->currentWidget()) {
-        static_cast<GitWidget *>(widget)->getStatus();
+    if (auto widget = m_stackedGitViews->currentWidget()) {
+        static_cast<GitWidget *>(widget)->updateStatus();
     }
 }
 

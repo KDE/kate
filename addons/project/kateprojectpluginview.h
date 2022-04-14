@@ -405,7 +405,7 @@ private:
     /**
      * stacked widget will all currently created git views
      */
-    QStackedWidget *m_stackedgitViews;
+    QStackedWidget *m_stackedGitViews;
 
     /**
      * project => view

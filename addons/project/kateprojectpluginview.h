@@ -9,6 +9,7 @@
 #define _KATE_PROJECT_PLUGIN_VIEW_H_
 
 #include <QComboBox>
+#include <QElapsedTimer>
 #include <QMenu>
 #include <QPointer>
 #include <QStackedWidget>
@@ -289,6 +290,11 @@ private Q_SLOTS:
     void slotDocumentUrlChanged(KTextEditor::Document *document);
 
     /**
+     * A helper to trigger an update of the git-widget.
+     */
+    void slotDocumentSaved();
+
+    /**
      * Show context menu
      */
     void slotContextMenuAboutToShow();
@@ -325,6 +331,12 @@ private:
     QString currentWord() const;
 
 private:
+    /**
+     * Helper to avoid multiple reloads at a time
+     * @see slotDocumentSaved
+     */
+    QElapsedTimer m_gitWidgetReloadGuard;
+
     /**
      * our plugin
      */

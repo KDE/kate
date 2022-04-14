@@ -128,6 +128,8 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
         }
     });
 
+    m_gitWidgetReloadGuard.start();
+
     /**
      * create views for all already existing projects
      * will create toolviews on demand!
@@ -429,7 +431,8 @@ void KateProjectPluginView::slotViewChanged()
      * update pointer, maybe disconnect before
      */
     if (m_activeTextEditorView) {
-        m_activeTextEditorView->document()->disconnect(this);
+        // but only url changed
+        disconnect(m_activeTextEditorView->document(), &KTextEditor::Document::documentUrlChanged, this, &KateProjectPluginView::slotDocumentUrlChanged);
     }
     m_activeTextEditorView = activeView;
 
@@ -446,9 +449,35 @@ void KateProjectPluginView::slotViewChanged()
     connect(m_activeTextEditorView->document(), &KTextEditor::Document::documentUrlChanged, this, &KateProjectPluginView::slotDocumentUrlChanged);
 
     /**
+     * Watch any document, as long as we live, if it's saved
+     */
+    connect(m_activeTextEditorView->document(),
+            &KTextEditor::Document::documentSavedOrUploaded,
+            this,
+            &KateProjectPluginView::slotDocumentSaved,
+            Qt::UniqueConnection);
+
+    /**
      * trigger slot once
      */
     slotDocumentUrlChanged(m_activeTextEditorView->document());
+}
+
+void KateProjectPluginView::slotDocumentSaved()
+{
+    if (!m_gitWidgetReloadGuard.hasExpired(500)) {
+        return;
+    }
+
+    m_gitWidgetReloadGuard.restart();
+
+    // We need to wait to be sure all files are saved,
+    // or the update may to early and we miss something
+    QTimer::singleShot(500, this, [=] {
+        if (QWidget *current = m_stackedgitViews->currentWidget()) {
+            static_cast<GitWidget *>(current)->getStatus();
+        }
+    });
 }
 
 void KateProjectPluginView::slotCurrentChanged(int index)

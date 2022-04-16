@@ -128,7 +128,11 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
         }
     });
 
-    m_gitWidgetReloadGuard.start();
+    m_gitWidgetReloadTrigger.setSingleShot(true);
+    m_gitWidgetReloadTrigger.setInterval(500);
+    connect(&m_gitWidgetReloadTrigger, &QTimer::timeout, this, [this] {
+        slotUpdateStatus(true);
+    });
 
     /**
      * create views for all already existing projects
@@ -465,19 +469,7 @@ void KateProjectPluginView::slotViewChanged()
 
 void KateProjectPluginView::slotDocumentSaved()
 {
-    if (!m_gitWidgetReloadGuard.hasExpired(500)) {
-        return;
-    }
-
-    m_gitWidgetReloadGuard.restart();
-
-    // We need to wait to be sure all files are saved,
-    // or the update may to early and we miss something
-    QTimer::singleShot(500, this, [=] {
-        if (QWidget *current = m_stackedGitViews->currentWidget()) {
-            static_cast<GitWidget *>(current)->updateStatus();
-        }
-    });
+    m_gitWidgetReloadTrigger.start();
 }
 
 void KateProjectPluginView::slotCurrentChanged(int index)

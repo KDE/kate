@@ -9,10 +9,10 @@
 #define _KATE_PROJECT_PLUGIN_VIEW_H_
 
 #include <QComboBox>
-#include <QElapsedTimer>
 #include <QMenu>
 #include <QPointer>
 #include <QStackedWidget>
+#include <QTimer>
 #include <QToolButton>
 
 #include <KTextEditor/View>
@@ -335,7 +335,7 @@ private:
      * Helper to avoid multiple reloads at a time
      * @see slotDocumentSaved
      */
-    QElapsedTimer m_gitWidgetReloadGuard;
+    QTimer m_gitWidgetReloadTrigger;
 
     /**
      * our plugin

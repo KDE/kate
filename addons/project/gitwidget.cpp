@@ -306,7 +306,7 @@ GitWidget::GitWidget(KateProject *project, KTextEditor::MainWindow *mainWindow, 
     this->layout()->setContentsMargins(0, 0, 0, 0);
 
     // Ensure we are looks good
-    QTimer::singleShot(0, [=] {
+    QTimer::singleShot(0, this, [this] {
         updateStatus();
     });
 }

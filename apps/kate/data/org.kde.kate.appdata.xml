@@ -136,7 +136,7 @@
     <p xml:lang="sr-ijekavian">Кејт је вишедокументски, вишеприказни уређивач текста из КДЕ‑а. Поседује могућности као што су сажимање кода, истицање синтаксе, динамички прелом текста, угнежђени терминал, опсежно сучеље за прикључке и основна подршка за скриптовање.</p>
     <p xml:lang="sr-ijekavianlatin">Kate je višedokumentski, višeprikazni uređivač teksta iz KDE‑a. Poseduje mogućnosti kao što su sažimanje koda, isticanje sintakse, dinamički prelom teksta, ugnežđeni terminal, opsežno sučelje za priključke i osnovna podrška za skriptovanje.</p>
     <p xml:lang="sv">Kate är en texteditor av KDE med flera dokument och multipla vyer. Den har funktioner som kodvikning, syntaxfärgläggning, dynamisk radbrytning, en inbäddad terminal, ett omfattande insticksgränssnitt och visst preliminärt stöd för skript.</p>
-    <p xml:lang="tr">Kate KDE tarafından çoklu belge ile çalışabilen, çoklu görünümlü bir metin düzenleyicisidir. Kod katlama, sözdizimi vurgulaması, dinamik sözcük kaydırma, gömülü bir uçbirim, geniş eklenti arayüzü ve bazı basit betik desteği özellikleri vardır.</p>
+    <p xml:lang="tr">Kate, birden çok belge ile aynı anda çalışabilen, KDE tarafından yapılmış bir metin düzenleyicidir. Kod katlama, sözdizim vurgulaması, devingen sözcük kaydırma, gömülü uçbirim, geniş eklenti arayüzü ve bazı yalın betik desteği özellikleri vardır.</p>
     <p xml:lang="uk">Kate — текстовий редактор від KDE, у якому передбачено можливість одночасної роботи з декількома документами на декількох панелях перегляду. У програмі передбачено багато корисних можливостей, зокрема згортання коду, підсвічування синтаксичних конструкцій, динамічне перенесення рядків, вбудована консоль, гнучкий інтерфейс для роботи з додатками та базова підтримка роботи зі скриптами.</p>
     <p xml:lang="vi">Kate là trình biên tập văn bản đa tài liệu, đa khung xem của KDE. Nó bao gồm các tính năng như gập mã, tô sáng cú pháp, bọc từ động, dòng lệnh tích hợp, một giao diện phần cài cắm toàn diện và một số hỗ trợ sơ bộ cho lập kịch bản.</p>
     <p xml:lang="x-test">xxKate is a multi-document, multi-view text editor by KDE. It features stuff like codefolding, syntaxhighlighting, dynamic word wrap, an embedded console, an extensive plugin interface and some preliminary scripting support.xx</p>
@@ -494,7 +494,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="sr-ijekavian">моћно истицање синтаксе и поклапање заграда</li>
       <li xml:lang="sr-ijekavianlatin">moćno isticanje sintakse i poklapanje zagrada</li>
       <li xml:lang="sv">Kraftfull syntaxfärgläggning och parentesmatchning</li>
-      <li xml:lang="tr">Güçlü sözdizimi vurgulaması ve parantez eşleştirme</li>
+      <li xml:lang="tr">Güçlü sözdizim vurgulaması ve parantez eşleştirme</li>
       <li xml:lang="uk">Потужні засоби підсвічування синтаксичних конструкцій та відповідних дужок.</li>
       <li xml:lang="vi">Tô sáng cú pháp và tìm dấu ngoặc cùng cặp hiệu quả</li>
       <li xml:lang="x-test">xxPowerful syntax highlighting and bracket matchingxx</li>

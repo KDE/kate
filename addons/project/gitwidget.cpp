@@ -290,6 +290,9 @@ GitWidget::GitWidget(KateProject *project, KTextEditor::MainWindow *mainWindow, 
 
     connect(&m_gitStatusWatcher, &QFutureWatcher<GitUtils::GitParsedStatus>::finished, this, &GitWidget::parseStatusReady);
     connect(m_commitBtn, &QPushButton::clicked, this, &GitWidget::openCommitChangesDialog);
+    connect(m_commitBtn, &QPushButton::pressed, [=] {
+        updateStatus();
+    });
 
     // single / double click
     connect(m_treeView, &QTreeView::clicked, this, &GitWidget::treeViewSingleClicked);
@@ -301,6 +304,11 @@ GitWidget::GitWidget(KateProject *project, KTextEditor::MainWindow *mainWindow, 
     setLayout(new QVBoxLayout);
     this->layout()->addWidget(m_stackWidget);
     this->layout()->setContentsMargins(0, 0, 0, 0);
+
+    // Ensure we are looks good
+    QTimer::singleShot(0, this, [this] {
+        updateStatus();
+    });
 }
 
 GitWidget::~GitWidget()
@@ -360,8 +368,12 @@ QProcess *GitWidget::gitp(const QStringList &arguments)
     return git;
 }
 
-void GitWidget::getStatus(bool untracked, bool submodules)
+void GitWidget::updateStatus(bool untracked, bool submodules)
 {
+    if (!isVisible()) {
+        return; // No need to update
+    }
+
     auto args = QStringList{QStringLiteral("status"), QStringLiteral("-z")};
     if (!untracked) {
         args.append(QStringLiteral("-uno"));
@@ -394,7 +406,7 @@ void GitWidget::runGitCmd(const QStringList &args, const QString &i18error)
         if (es != QProcess::NormalExit || exitCode != 0) {
             sendMessage(i18error + QStringLiteral(": ") + QString::fromUtf8(git->readAllStandardError()), true);
         } else {
-            getStatus();
+            updateStatus();
         }
         git->deleteLater();
     });
@@ -415,7 +427,7 @@ void GitWidget::runPushPullCmd(const QStringList &args)
             QString cmd = gargs.join(QStringLiteral(" "));
             QString out = QString::fromUtf8(git->readAll());
             sendMessage(i18n("\"%1\" executed successfully: %2", cmd, out), false);
-            getStatus();
+            updateStatus();
         }
         hideCancel();
         git->deleteLater();
@@ -601,7 +613,7 @@ void GitWidget::commitChanges(const QString &msg, const QString &desc, bool sign
             sendMessage(i18n("Failed to commit: %1", QString::fromUtf8(git->readAllStandardError())), true);
         } else {
             m_commitMessage.clear();
-            getStatus();
+            updateStatus();
             sendMessage(i18n("Changes committed successfully."), false);
         }
         git->deleteLater();
@@ -659,7 +671,7 @@ void GitWidget::applyDiff(const QString &fileName, bool staged, bool hunk, KText
             }
             // must come at the end
             QTimer::singleShot(10, this, [this] {
-                getStatus();
+                updateStatus();
             });
         }
         delete file;
@@ -846,7 +858,7 @@ void GitWidget::buildMenu()
     m_gitMenu = new QMenu(this);
     auto r = m_gitMenu->addAction(i18n("Refresh"), this, [this] {
         if (m_project) {
-            getStatus();
+            updateStatus();
         }
     });
     r->setIcon(QIcon::fromTheme(QStringLiteral("view-refresh")));
@@ -891,7 +903,7 @@ void GitWidget::createStashDialog(StashMode m, const QString &gitPath)
         m_pluginView->showDiffInFixedView(r);
     });
     connect(stashDialog, &StashDialog::done, this, [this, stashDialog] {
-        getStatus();
+        updateStatus();
         stashDialog->deleteLater();
     });
     stashDialog->openDialog(m);

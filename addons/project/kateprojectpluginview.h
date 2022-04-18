@@ -12,6 +12,7 @@
 #include <QMenu>
 #include <QPointer>
 #include <QStackedWidget>
+#include <QTimer>
 #include <QToolButton>
 
 #include <KTextEditor/View>
@@ -289,6 +290,11 @@ private Q_SLOTS:
     void slotDocumentUrlChanged(KTextEditor::Document *document);
 
     /**
+     * A helper to trigger an update of the git-widget.
+     */
+    void slotDocumentSaved();
+
+    /**
      * Show context menu
      */
     void slotContextMenuAboutToShow();
@@ -325,6 +331,12 @@ private:
     QString currentWord() const;
 
 private:
+    /**
+     * Helper to avoid multiple reloads at a time
+     * @see slotDocumentSaved
+     */
+    QTimer m_gitWidgetReloadTrigger;
+
     /**
      * our plugin
      */
@@ -393,7 +405,7 @@ private:
     /**
      * stacked widget will all currently created git views
      */
-    QStackedWidget *m_stackedgitViews;
+    QStackedWidget *m_stackedGitViews;
 
     /**
      * project => view

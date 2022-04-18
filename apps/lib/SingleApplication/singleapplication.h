@@ -129,22 +129,19 @@ public:
      * @enum
      */
     enum SendMode {
-        /**
-         * Should the sendMessage call block until the primary instance is terminated?
-         */
-        BlockingSend = 1 << 0,
+        NonBlocking,  /** Do not wait for the primary instance termination and return immediately */
+        BlockUntilPrimaryExit,  /** Wait until the primary instance is terminated */
     };
-    Q_DECLARE_FLAGS(SendOptions, SendMode)
 
     /**
      * @brief Sends a message to the primary instance. Returns true on success.
      * @param {int} timeout - Timeout for connecting
-     * @param {bool} block - Block until the primary application exits.
+     * @param {SendMode} sendMode - Mode of operation.
      * @returns {bool}
      * @note sendMessage() will return false if invoked from the primary
      * instance.
      */
-    bool sendMessage( const QByteArray &message, int timeout = 100, SendOptions options = {} );
+    bool sendMessage( const QByteArray &message, int timeout = 100, SendMode sendMode = NonBlocking );
 
     /**
      * @brief Get the set user data.

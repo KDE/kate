@@ -569,7 +569,7 @@ int main(int argc, char **argv)
          */
         return !app.sendMessage(QJsonDocument::fromVariant(QVariant(message)).toJson(),
                                 1000,
-                                needToBlock ? SingleApplication::BlockingSend : SingleApplication::SendOptions());
+                                needToBlock ? SingleApplication::BlockUntilPrimaryExit : SingleApplication::NonBlocking);
     }
 
     /**

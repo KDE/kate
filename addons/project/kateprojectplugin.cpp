@@ -504,6 +504,17 @@ void KateProjectPlugin::setMultiProject(bool completion, bool gotoSymbol)
     writeConfig();
 }
 
+void KateProjectPlugin::setRestoreProjectsForSession(bool enabled)
+{
+    m_restoreProjectsForSession = enabled;
+    writeConfig();
+}
+
+bool KateProjectPlugin::restoreProjectsForSession() const
+{
+    return m_restoreProjectsForSession;
+}
+
 void KateProjectPlugin::readConfig()
 {
     KConfigGroup config(KSharedConfig::openConfig(), "project");
@@ -523,6 +534,8 @@ void KateProjectPlugin::readConfig()
     m_gitNumStat = config.readEntry("gitStatusNumStat", true);
     m_singleClickAction = (ClickAction)config.readEntry("gitStatusSingleClick", (int)ClickAction::ShowDiff);
     m_doubleClickAction = (ClickAction)config.readEntry("gitStatusDoubleClick", (int)ClickAction::StageUnstage);
+
+    m_restoreProjectsForSession = config.readEntry("restoreProjectsForSession", true);
 
     Q_EMIT configUpdated();
 }
@@ -559,6 +572,8 @@ void KateProjectPlugin::writeConfig()
     config.writeEntry("gitStatusNumStat", m_gitNumStat);
     config.writeEntry("gitStatusSingleClick", (int)m_singleClickAction);
     config.writeEntry("gitStatusDoubleClick", (int)m_doubleClickAction);
+
+    config.writeEntry("restoreProjectsForSession", m_restoreProjectsForSession);
 
     Q_EMIT configUpdated();
 }
@@ -615,47 +630,51 @@ void KateProjectPlugin::unregisterVariables()
 
 void KateProjectPlugin::readSessionConfig(const KConfigGroup &config)
 {
-    // de-serialize all open projects as list of json documents
-    const auto projectList = config.readEntry("projects", QStringList());
-    for (const auto &project : projectList) {
-        const QVariantMap sMap = QJsonDocument::fromJson(project.toUtf8()).toVariant().toMap();
+    // de-serialize all open projects as list of JSON documents if allowed
+    if (restoreProjectsForSession()) {
+        const auto projectList = config.readEntry("projects", QStringList());
+        for (const auto &project : projectList) {
+            const QVariantMap sMap = QJsonDocument::fromJson(project.toUtf8()).toVariant().toMap();
 
-        // valid file backed project?
-        if (const auto file = sMap[QStringLiteral("file")].toString(); !file.isEmpty()) {
-            createProjectForFileName(file);
-            continue;
+            // valid file backed project?
+            if (const auto file = sMap[QStringLiteral("file")].toString(); !file.isEmpty()) {
+                createProjectForFileName(file);
+                continue;
+            }
+
+            // valid path + data project?
+            if (const auto path = sMap[QStringLiteral("path")].toString(); !path.isEmpty()) {
+                createProjectForDirectory(QDir(path), sMap[QStringLiteral("data")].toMap());
+                continue;
+            }
+
+            // we might arrive here if invalid data is store, just ignore that, we just loose session data
         }
-
-        // valid path + data project?
-        if (const auto path = sMap[QStringLiteral("path")].toString(); !path.isEmpty()) {
-            createProjectForDirectory(QDir(path), sMap[QStringLiteral("data")].toMap());
-            continue;
-        }
-
-        // we might arrive here if invalid data is store, just ignore that, we just loose session data
     }
 }
 
 void KateProjectPlugin::writeSessionConfig(KConfigGroup &config)
 {
-    // serialize all open projects as list of json documents
+    // serialize all open projects as list of JSON documents if allowed, always write the list to not leave over old data forever
     QStringList projectList;
-    for (const auto project : projects()) {
-        QVariantMap sMap;
+    if (restoreProjectsForSession()) {
+        for (const auto project : projects()) {
+            QVariantMap sMap;
 
-        // for file backed stuff, we just remember the file
-        if (project->isFileBacked()) {
-            sMap[QStringLiteral("file")] = project->fileName();
+            // for file backed stuff, we just remember the file
+            if (project->isFileBacked()) {
+                sMap[QStringLiteral("file")] = project->fileName();
+            }
+
+            // otherwise we remember the data we generated purely in memory
+            else {
+                sMap[QStringLiteral("data")] = project->projectMap();
+                sMap[QStringLiteral("path")] = project->baseDir();
+            }
+
+            // encode as one-lines JSON string
+            projectList.push_back(QString::fromUtf8(QJsonDocument::fromVariant(QVariant(sMap)).toJson(QJsonDocument::Compact)));
         }
-
-        // otherwise we remember the data we generated purely in memory
-        else {
-            sMap[QStringLiteral("data")] = project->projectMap();
-            sMap[QStringLiteral("path")] = project->baseDir();
-        }
-
-        // encode as one-lines json string
-        projectList.push_back(QString::fromUtf8(QJsonDocument::fromVariant(QVariant(sMap)).toJson(QJsonDocument::Compact)));
     }
     config.writeEntry("projects", projectList);
 }

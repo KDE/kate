@@ -43,6 +43,15 @@ KateProjectConfigPage::KateProjectConfigPage(QWidget *parent, KateProjectPlugin 
     layout->addWidget(group);
 
     vbox = new QVBoxLayout();
+    group = new QGroupBox(i18nc("Groupbox title", "Session Behavior"), this);
+    group->setWhatsThis(i18n("Session settings for projects"));
+    m_cbSessionRestoreOpenProjects = new QCheckBox(i18n("Restore Open Projects"), this);
+    vbox->addWidget(m_cbSessionRestoreOpenProjects);
+    vbox->addStretch(1);
+    group->setLayout(vbox);
+    layout->addWidget(group);
+
+    vbox = new QVBoxLayout();
     group = new QGroupBox(i18nc("Groupbox title", "Project Index"), this);
     group->setWhatsThis(i18n("Project ctags index settings"));
     m_cbIndexEnabled = new QCheckBox(i18n("Enable indexing"), this);
@@ -107,6 +116,7 @@ KateProjectConfigPage::KateProjectConfigPage(QWidget *parent, KateProjectPlugin 
     connect(m_cbAutoSubversion, &QCheckBox::stateChanged, this, &KateProjectConfigPage::slotMyChanged);
     connect(m_cbAutoMercurial, &QCheckBox::stateChanged, this, &KateProjectConfigPage::slotMyChanged);
     connect(m_cbAutoFossil, &QCheckBox::stateChanged, this, &KateProjectConfigPage::slotMyChanged);
+    connect(m_cbSessionRestoreOpenProjects, &QCheckBox::stateChanged, this, &KateProjectConfigPage::slotMyChanged);
     connect(m_cbIndexEnabled, &QCheckBox::stateChanged, this, &KateProjectConfigPage::slotMyChanged);
     connect(m_indexPath, &KUrlRequester::textChanged, this, &KateProjectConfigPage::slotMyChanged);
     connect(m_indexPath, &KUrlRequester::urlSelected, this, &KateProjectConfigPage::slotMyChanged);
@@ -153,6 +163,8 @@ void KateProjectConfigPage::apply()
     m_plugin->setGitStatusShowNumStat(m_cbGitStatusDiffNumStat->isChecked());
     m_plugin->setSingleClickAction((ClickAction)m_cmbSingleClick->currentIndex());
     m_plugin->setDoubleClickAction((ClickAction)m_cmbDoubleClick->currentIndex());
+
+    m_plugin->setRestoreProjectsForSession(m_cbSessionRestoreOpenProjects->isChecked());
 }
 
 void KateProjectConfigPage::reset()
@@ -169,6 +181,8 @@ void KateProjectConfigPage::reset()
     m_cbGitStatusDiffNumStat->setChecked(m_plugin->showGitStatusWithNumStat());
     m_cmbSingleClick->setCurrentIndex((int)m_plugin->singleClickAcion());
     m_cmbDoubleClick->setCurrentIndex((int)m_plugin->doubleClickAcion());
+
+    m_cbSessionRestoreOpenProjects->setCheckState(m_plugin->restoreProjectsForSession() ? Qt::Checked : Qt::Unchecked);
 
     m_changed = false;
 }

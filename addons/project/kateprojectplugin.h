@@ -129,6 +129,9 @@ public:
     void setDoubleClickAction(ClickAction cb);
     ClickAction doubleClickAcion();
 
+    void setRestoreProjectsForSession(bool enabled);
+    bool restoreProjectsForSession() const;
+
     /**
      * filesystem watcher to keep track of all project files
      * and auto-reload
@@ -242,6 +245,9 @@ private:
     bool m_autoSubversion = true;
     bool m_autoMercurial = true;
     bool m_autoFossil = true;
+
+    // restore projects on session loading?
+    bool m_restoreProjectsForSession = true;
 
     // indexing is expensive, default off
     bool m_indexEnabled = false;

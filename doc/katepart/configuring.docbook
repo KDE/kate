@@ -217,6 +217,15 @@ in a popup.</para></listitem>
 
 <variablelist>
 <varlistentry>
+<term><guilabel>Folding arrows visibility</guilabel></term>
+<listitem><para>Switch the folding arrows between <guimenuitem>Show on Hover</guimenuitem>
+and <guimenuitem>Show Always</guimenuitem>.
+</para></listitem>
+</varlistentry>
+</variablelist>
+
+<variablelist>
+<varlistentry>
 <term><guilabel>Left side</guilabel></term>
 <listitem>
 <variablelist>

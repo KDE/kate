@@ -341,6 +341,11 @@ private:
 
 private:
     /**
+     * Watches for changes to .git/indiex
+     */
+    QFileSystemWatcher m_gitChangedWatcher;
+
+    /**
      * Helper to avoid multiple reloads at a time
      * @see slotDocumentSaved
      */

@@ -133,6 +133,9 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     connect(&m_gitWidgetReloadTrigger, &QTimer::timeout, this, [this] {
         slotUpdateStatus(true);
     });
+    connect(&m_gitChangedWatcher, &QFileSystemWatcher::fileChanged, this, [this] {
+        m_gitWidgetReloadTrigger.start();
+    });
 
     /**
      * create views for all already existing projects
@@ -509,8 +512,9 @@ void KateProjectPluginView::slotCurrentChanged(int index)
     // update git focus proxy + update status
     if (QWidget *current = m_stackedGitViews->currentWidget()) {
         m_stackedGitViews->setFocusProxy(current);
-        static_cast<GitWidget *>(current)->updateStatus();
     }
+
+    slotUpdateStatus(true);
 
     // project file name might have changed
     Q_EMIT projectFileNameChanged();
@@ -779,6 +783,8 @@ void KateProjectPluginView::slotUpdateStatus(bool visible)
     if (!visible) {
         return;
     }
+    // We need to add the path every time again because it's always a different file
+    m_gitChangedWatcher.addPath(projectBaseDir() + QStringLiteral("/.git/index"));
 
     if (auto widget = m_stackedGitViews->currentWidget()) {
         static_cast<GitWidget *>(widget)->updateStatus();

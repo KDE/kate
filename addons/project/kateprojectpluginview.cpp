@@ -644,13 +644,18 @@ void KateProjectPluginView::slotProjectReload()
 void KateProjectPluginView::slotProjectAboutToClose()
 {
     if (QWidget *current = m_stackedProjectViews->currentWidget()) {
-        m_plugin->closeProjects({static_cast<KateProjectView *>(current)->project()});
+        m_plugin->closeProject(static_cast<KateProjectView *>(current)->project());
     }
 }
 
 void KateProjectPluginView::slotAllProjectsAboutToClose()
 {
-    m_plugin->closeProjects(m_plugin->projects());
+    // we must close project after project
+    // project closing might activate a different one and then would load the files of that project again
+    const auto copiedProjects = m_plugin->projects();
+    for (auto project : copiedProjects) {
+        m_plugin->closeProject(project);
+    }
 }
 
 void KateProjectPluginView::slotProjectClose(KateProject *project)

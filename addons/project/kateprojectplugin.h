@@ -65,11 +65,11 @@ public:
     KateProject *projectForDir(QDir dir, bool userSpecified = false);
 
     /**
-     * Try to close given list of projects.
-     * Will ask if the files belonging to them shall be closed, if not this will just do nothing.
-     * @param projects projects that shall be closed
+     * Try to close the given project.
+     * Will ask if the files belonging to the project shall be closed, if not this will just do nothing.
+     * @param project project to close
      */
-    void closeProjects(QList<KateProject *> projects);
+    void closeProject(KateProject *project);
 
     /**
      * Search and open project that contains given url, if possible.

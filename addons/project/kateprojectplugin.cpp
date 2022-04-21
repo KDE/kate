@@ -235,33 +235,22 @@ KateProject *KateProjectPlugin::projectForDir(QDir dir, bool userSpecified)
     return nullptr;
 }
 
-void KateProjectPlugin::closeProjects(QList<KateProject *> projects)
+void KateProjectPlugin::closeProject(KateProject *project)
 {
-    if (projects.empty()) {
-        return;
-    }
-
     // collect all documents we have mapped to the projects we want to close
     // we can not delete projects that still have some mapping
     QList<KTextEditor::Document *> projectDocuments;
     for (const auto &it : m_document2Project) {
-        if (projects.contains(it.second)) {
+        if (it.second == project) {
             projectDocuments.append(it.first);
-            printf("close %s\n", qPrintable(it.first->url().toString()));
         }
     }
 
     // if we have some documents open for this project, ask if we want to close, else just do it
     if (!projectDocuments.isEmpty()) {
-        // only tell the name if we close a singular project
-        QString title = i18n("Confirm closing of %1 projects", projects.size());
-        QString text = i18n("Do you want to close %1 projects and the related %2 open documents?", projects.size(), projectDocuments.size());
-        if (projects.size() == 1) {
-            title = i18n("Confirm project closing: %1", projects.first()->name());
-            text = i18n("Do you want to close the project %1 and the related %2 open documents?", projects.first()->name(), projectDocuments.size());
-        }
-
         QWidget *window = KTextEditor::Editor::instance()->application()->activeMainWindow()->window();
+        const QString title = i18n("Confirm project closing: %1", project->name());
+        const QString text = i18n("Do you want to close the project %1 and the related %2 open documents?", project->name(), projectDocuments.size());
         if (QMessageBox::Yes != QMessageBox::question(window, title, text, QMessageBox::No | QMessageBox::Yes, QMessageBox::Yes)) {
             return;
         }
@@ -270,17 +259,16 @@ void KateProjectPlugin::closeProjects(QList<KateProject *> projects)
         KTextEditor::Editor::instance()->application()->closeDocuments(projectDocuments);
     }
 
-    // now: close all projects we have no longer any open documents for, we just filter the list
+    // check: did all documents of the project go away? if not we shall not close it
     for (const auto &it : m_document2Project) {
-        if (projects.contains(it.second)) {
-            projects.removeOne(it.second);
+        if (it.second == project) {
+            return;
         }
     }
-    for (auto project : projects) {
-        Q_EMIT pluginViewProjectClosing(project);
-        m_projects.removeOne(project);
-        delete project;
-    }
+
+    Q_EMIT pluginViewProjectClosing(project);
+    m_projects.removeOne(project);
+    delete project;
 }
 
 KateProject *KateProjectPlugin::projectForUrl(const QUrl &url)

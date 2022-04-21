@@ -204,6 +204,34 @@ void KateConfigDialog::addBehaviorPage()
 
     layout->addWidget(buttonGroup);
 
+    buttonGroup = new QGroupBox(i18n("&Mouse"), generalFrame);
+    vbox = new QVBoxLayout;
+    layout->addWidget(buttonGroup);
+
+    hlayout = new QHBoxLayout;
+    label = new QLabel(i18n("&Backward button pressed:"), buttonGroup);
+    hlayout->addWidget(label);
+    m_mouseBackActions = new QComboBox(buttonGroup);
+    hlayout->addWidget(m_mouseBackActions);
+    label->setBuddy(m_mouseBackActions);
+    m_mouseBackActions->addItems({i18n("Previous tab"), i18n("History back")});
+    m_mouseBackActions->setCurrentIndex(cgGeneral.readEntry("Mouse back button action", 0));
+    connect(m_mouseBackActions, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &KateConfigDialog::slotChanged);
+    vbox->addLayout(hlayout);
+
+    hlayout = new QHBoxLayout;
+    label = new QLabel(i18n("&Forward button pressed:"), buttonGroup);
+    hlayout->addWidget(label);
+    m_mouseForwardActions = new QComboBox(buttonGroup);
+    hlayout->addWidget(m_mouseForwardActions);
+    label->setBuddy(m_mouseForwardActions);
+    m_mouseForwardActions->addItems({i18n("Next tab"), i18n("History forward")});
+    m_mouseForwardActions->setCurrentIndex(cgGeneral.readEntry("Mouse forward button action", 0));
+    connect(m_mouseForwardActions, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &KateConfigDialog::slotChanged);
+    vbox->addLayout(hlayout);
+
+    buttonGroup->setLayout(vbox);
+
     layout->addStretch(1); // :-] works correct without autoadd
 }
 
@@ -402,6 +430,9 @@ void KateConfigDialog::slotApply()
         if (m_messageTypes) {
             cg.writeEntry("Show output view for message type", m_messageTypes->currentIndex());
         }
+
+        cg.writeEntry("Mouse back button action", m_mouseBackActions->currentIndex());
+        cg.writeEntry("Mouse forward button action", m_mouseForwardActions->currentIndex());
 
         cg.writeEntry("Stash unsaved file changes", sessionConfigUi.stashUnsavedFilesChanges->isChecked());
         KateApp::self()->stashManager()->setStashUnsavedChanges(sessionConfigUi.stashUnsavedFilesChanges->isChecked());

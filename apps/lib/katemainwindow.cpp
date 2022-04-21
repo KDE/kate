@@ -143,6 +143,7 @@ KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup)
     }
 
     connect(KateApp::self()->documentManager(), &KateDocManager::documentCreated, this, &KateMainWindow::slotDocumentCreated);
+    connect(KateApp::self(), &KateApp::configurationChanged, this, &KateMainWindow::readOptions);
 
     readOptions();
 
@@ -690,6 +691,9 @@ void KateMainWindow::readOptions()
     m_paShowMenuBar->setChecked(generalGroup.readEntry("Show Menu Bar", true));
     m_paShowTabBar->setChecked(generalGroup.readEntry("Show Tab Bar", true));
     m_paShowUrlNavBar->setChecked(generalGroup.readEntry("Show Url Nav Bar", KateApp::isKate()));
+
+    m_mouseButtonBackAction = (MouseBackButtonAction)generalGroup.readEntry("Mouse back button action", 0);
+    m_mouseButtonForwardAction = (MouseForwardButtonAction)generalGroup.readEntry("Mouse forward button action", 0);
 
     // emit signal to hide/show statusbars
     toggleShowStatusBar();
@@ -1308,10 +1312,10 @@ void KateMainWindow::mousePressEvent(QMouseEvent *e)
 {
     switch (e->button()) {
     case Qt::ForwardButton:
-        slotFocusNextTab();
+        handleForwardButtonAction();
         break;
     case Qt::BackButton:
-        slotFocusPrevTab();
+        handleBackButtonAction();
         break;
     default:;
     }
@@ -1328,6 +1332,36 @@ void KateMainWindow::slotFocusNextTab()
 {
     if (m_viewManager->activeViewSpace()) {
         m_viewManager->activeViewSpace()->focusNextTab();
+    }
+}
+
+void KateMainWindow::handleBackButtonAction()
+{
+    if (m_viewManager->activeViewSpace()) {
+        switch (m_mouseButtonBackAction) {
+        case PreviousTab:
+            m_viewManager->activeViewSpace()->focusPrevTab();
+            break;
+        case HistoryBack:
+            m_viewManager->activeViewSpace()->goBack();
+            break;
+        default:;
+        }
+    }
+}
+
+void KateMainWindow::handleForwardButtonAction()
+{
+    if (m_viewManager->activeViewSpace()) {
+        switch (m_mouseButtonForwardAction) {
+        case NextTab:
+            m_viewManager->activeViewSpace()->focusNextTab();
+            break;
+        case HistoryForward:
+            m_viewManager->activeViewSpace()->goForward();
+            break;
+        default:;
+        }
     }
 }
 

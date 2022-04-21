@@ -116,7 +116,14 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     connect(m_projectsComboGit, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, [this](int index) {
         m_projectsCombo->setCurrentIndex(index);
     });
-    connect(m_projectsCombo, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &KateProjectPluginView::slotCurrentChanged);
+
+    // we queue this stuff to not have ping-pong document close/open during closing multiple projects
+    connect(m_projectsCombo,
+            static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
+            this,
+            &KateProjectPluginView::slotCurrentChanged,
+            Qt::QueuedConnection);
+
     connect(m_reloadButton, &QToolButton::clicked, this, &KateProjectPluginView::slotProjectReload);
 
     connect(m_closeProjectButton, &QToolButton::clicked, this, &KateProjectPluginView::slotProjectAboutToClose);
@@ -480,6 +487,9 @@ void KateProjectPluginView::slotDocumentSaved()
 
 void KateProjectPluginView::slotCurrentChanged(int index)
 {
+    // this is done in a queued connection, query real index
+    index = m_projectsCombo->currentIndex();
+
     // trigger change of stacked widgets
     m_stackedProjectViews->setCurrentIndex(index);
     m_stackedProjectInfoViews->setCurrentIndex(index);

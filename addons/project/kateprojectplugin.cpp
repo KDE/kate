@@ -235,34 +235,52 @@ KateProject *KateProjectPlugin::projectForDir(QDir dir, bool userSpecified)
     return nullptr;
 }
 
-bool KateProjectPlugin::closeProject(KateProject *project)
+void KateProjectPlugin::closeProjects(QList<KateProject *> projects)
 {
-    QVector<KTextEditor::Document *> projectDocuments;
-    const auto docs = KTextEditor::Editor::instance()->application()->documents();
-    for (auto doc : docs)
-        if (QUrl(project->baseDir()).isParentOf(doc->url().adjusted(QUrl::RemoveScheme)))
-            projectDocuments.push_back(doc);
+    if (projects.empty()) {
+        return;
+    }
+
+    // collect all documents we have mapped to the projects we want to close
+    // we can not delete projects that still have some mapping
+    QList<KTextEditor::Document *> projectDocuments;
+    for (const auto &it : m_document2Project) {
+        if (projects.contains(it.second)) {
+            projectDocuments.append(it.first);
+            printf("close %s\n", qPrintable(it.first->url().toString()));
+        }
+    }
 
     // if we have some documents open for this project, ask if we want to close, else just do it
     if (!projectDocuments.isEmpty()) {
-        QWidget *window = KTextEditor::Editor::instance()->application()->activeMainWindow()->window();
-        const QString title = i18n("Confirm project closing: %1", project->name());
-        const QString text = i18n("Do you want to close the project %1 and the related %2 open documents?", project->name(), projectDocuments.size());
-        if (QMessageBox::Yes != QMessageBox::question(window, title, text, QMessageBox::No | QMessageBox::Yes, QMessageBox::Yes)) {
-            return false;
+        // only tell the name if we close a singular project
+        QString title = i18n("Confirm closing of %1 projects", projects.size());
+        QString text = i18n("Do you want to close %1 projects and the related %2 open documents?", projects.size(), projectDocuments.size());
+        if (projects.size() == 1) {
+            title = i18n("Confirm project closing: %1", projects.first()->name());
+            text = i18n("Do you want to close the project %1 and the related %2 open documents?", projects.first()->name(), projectDocuments.size());
         }
 
-        for (auto doc : projectDocuments)
-            KTextEditor::Editor::instance()->application()->closeDocument(doc);
+        QWidget *window = KTextEditor::Editor::instance()->application()->activeMainWindow()->window();
+        if (QMessageBox::Yes != QMessageBox::question(window, title, text, QMessageBox::No | QMessageBox::Yes, QMessageBox::Yes)) {
+            return;
+        }
+
+        // best effort document closing, some might survive
+        KTextEditor::Editor::instance()->application()->closeDocuments(projectDocuments);
     }
 
-    Q_EMIT pluginViewProjectClosing(project);
-    if (m_projects.removeOne(project)) {
+    // now: close all projects we have no longer any open documents for, we just filter the list
+    for (const auto &it : m_document2Project) {
+        if (projects.contains(it.second)) {
+            projects.removeOne(it.second);
+        }
+    }
+    for (auto project : projects) {
+        Q_EMIT pluginViewProjectClosing(project);
+        m_projects.removeOne(project);
         delete project;
-        return true;
     }
-
-    return false;
 }
 
 KateProject *KateProjectPlugin::projectForUrl(const QUrl &url)
@@ -286,28 +304,23 @@ void KateProjectPlugin::slotDocumentCreated(KTextEditor::Document *document)
 
 void KateProjectPlugin::slotDocumentDestroyed(QObject *document)
 {
-    if (KateProject *project = m_document2Project.value(document)) {
-        project->unregisterDocument(static_cast<KTextEditor::Document *>(document));
+    const auto it = m_document2Project.find(static_cast<KTextEditor::Document *>(document));
+    if (it == m_document2Project.end()) {
+        return;
     }
 
-    m_document2Project.remove(document);
+    it->second->unregisterDocument(static_cast<KTextEditor::Document *>(document));
+    m_document2Project.erase(it);
 }
 
 void KateProjectPlugin::slotDocumentUrlChanged(KTextEditor::Document *document)
 {
-    KateProject *project = projectForUrl(document->url());
+    // unregister from old mapping
+    slotDocumentDestroyed(document);
 
-    if (KateProject *project = m_document2Project.value(document)) {
-        project->unregisterDocument(document);
-    }
-
-    if (!project) {
-        m_document2Project.remove(document);
-    } else {
-        m_document2Project[document] = project;
-    }
-
-    if (KateProject *project = m_document2Project.value(document)) {
+    // register for new project, if any
+    if (KateProject *project = projectForUrl(document->url())) {
+        m_document2Project.emplace(document, project);
         project->registerDocument(document);
     }
 }

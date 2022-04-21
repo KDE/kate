@@ -194,9 +194,15 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     m_projectGotoIndexAction = a = actionCollection()->addAction(QStringLiteral("projects_goto_index"), this, SLOT(slotProjectIndex()));
     a->setText(i18n("Lookup"));
     actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::ALT | Qt::Key_1));
+
     m_projectCloseAction = a = actionCollection()->addAction(QStringLiteral("projects_close"), this, SLOT(slotProjectAboutToClose()));
     a->setText(i18n("Close Project"));
     a->setIcon(QIcon::fromTheme(QStringLiteral(PROJECTCLOSEICON)));
+
+    m_projectCloseAllAction = a = actionCollection()->addAction(QStringLiteral("projects_close_all"), this, SLOT(slotAllProjectsAboutToClose()));
+    a->setText(i18n("Close All Projects"));
+    a->setIcon(QIcon::fromTheme(QStringLiteral(PROJECTCLOSEICON)));
+
     m_gotoSymbolActionAppMenu = a = actionCollection()->addAction(KStandardAction::Goto, QStringLiteral("projects_goto_symbol"), this, SLOT(slotGotoSymbol()));
 
     // popup menu
@@ -638,8 +644,13 @@ void KateProjectPluginView::slotProjectReload()
 void KateProjectPluginView::slotProjectAboutToClose()
 {
     if (QWidget *current = m_stackedProjectViews->currentWidget()) {
-        m_plugin->closeProject(static_cast<KateProjectView *>(current)->project());
+        m_plugin->closeProjects({static_cast<KateProjectView *>(current)->project()});
     }
+}
+
+void KateProjectPluginView::slotAllProjectsAboutToClose()
+{
+    m_plugin->closeProjects(m_plugin->projects());
 }
 
 void KateProjectPluginView::slotProjectClose(KateProject *project)
@@ -830,6 +841,7 @@ void KateProjectPluginView::updateActions()
     m_projectNextAction->setEnabled(projectActive);
     m_projectGotoIndexAction->setEnabled(projectActive);
     m_projectCloseAction->setEnabled(projectActive);
+    m_projectCloseAllAction->setEnabled(!m_plugin->projects().empty());
 }
 
 void KateProjectPluginView::slotActivateProject(KateProject *project)

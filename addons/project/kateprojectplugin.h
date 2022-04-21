@@ -63,11 +63,11 @@ public:
     KateProject *projectForDir(QDir dir, bool userSpecified = false);
 
     /**
-     * Search and close project for given project, if possible.
-     * @param project to search matching project for closing
-     * @return true if successful
+     * Try to close given list of projects.
+     * Will ask if the files belonging to them shall be closed, if not this will just do nothing.
+     * @param projects projects that shall be closed
      */
-    bool closeProject(KateProject *project);
+    void closeProjects(QList<KateProject *> projects);
 
     /**
      * Search and open project that contains given url, if possible.
@@ -103,7 +103,8 @@ public:
      */
     KateProject *projectForDocument(KTextEditor::Document *document)
     {
-        return m_document2Project.value(document);
+        const auto it = m_document2Project.find(document);
+        return (it != m_document2Project.end()) ? it->second : nullptr;
     }
 
     void setAutoRepository(bool onGit, bool onSubversion, bool onMercurial, bool onFossil);
@@ -233,7 +234,7 @@ private:
     /**
      * Mapping document => project
      */
-    QHash<QObject *, KateProject *> m_document2Project;
+    std::unordered_map<KTextEditor::Document *, KateProject *> m_document2Project;
 
     /**
      * Project completion

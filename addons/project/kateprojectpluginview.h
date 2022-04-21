@@ -199,6 +199,12 @@ private Q_SLOTS:
     void slotProjectAboutToClose();
 
     /**
+     * Getting project for others windows
+     * and closing project documents.
+     */
+    void slotAllProjectsAboutToClose();
+
+    /**
      * Close current project.
      */
     void slotProjectClose(KateProject *project);
@@ -383,7 +389,7 @@ private:
     QToolButton *m_reloadButton;
 
     /**
-     * Closeing button
+     * Closing button for current project
      */
     QToolButton *m_closeProjectButton;
 
@@ -434,6 +440,7 @@ private:
     QAction *m_projectNextAction;
     QAction *m_projectGotoIndexAction;
     QAction *m_projectCloseAction;
+    QAction *m_projectCloseAllAction;
 
     class FixedView
     {

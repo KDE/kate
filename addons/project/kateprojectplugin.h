@@ -90,6 +90,13 @@ public:
     }
 
     /**
+     * Has the given project open documents?
+     * @param project project to check open document for
+     * @return has the given project open documents
+     */
+    bool projectHasOpenDocuments(KateProject *project) const;
+
+    /**
      * Get global code completion.
      * @return global completion object for KTextEditor::View
      */

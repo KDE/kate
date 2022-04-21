@@ -260,15 +260,21 @@ void KateProjectPlugin::closeProject(KateProject *project)
     }
 
     // check: did all documents of the project go away? if not we shall not close it
+    if (!projectHasOpenDocuments(project)) {
+        Q_EMIT pluginViewProjectClosing(project);
+        m_projects.removeOne(project);
+        delete project;
+    }
+}
+
+bool KateProjectPlugin::projectHasOpenDocuments(KateProject *project) const
+{
     for (const auto &it : m_document2Project) {
         if (it.second == project) {
-            return;
+            return true;
         }
     }
-
-    Q_EMIT pluginViewProjectClosing(project);
-    m_projects.removeOne(project);
-    delete project;
+    return false;
 }
 
 KateProject *KateProjectPlugin::projectForUrl(const QUrl &url)

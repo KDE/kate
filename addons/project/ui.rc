@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
-<gui name="kateprojectplugin" library="kateprojectplugin" version="13" translationDomain="kateproject">
+<gui name="kateprojectplugin" library="kateprojectplugin" version="14" translationDomain="kateproject">
   <MenuBar>
   <Menu name="file">
     <Action name="projects_open_project" group="open_merge"/>
@@ -15,6 +15,7 @@
       <Separator/>
       <Action name="projects_close" />
       <Action name="projects_close_all" />
+      <Action name="projects_close_without_open_documents" />
       <Separator/>
       <Action name="projects_todos"/>
     </Menu>

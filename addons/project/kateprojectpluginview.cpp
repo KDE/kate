@@ -203,6 +203,11 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     a->setText(i18n("Close All Projects"));
     a->setIcon(QIcon::fromTheme(QStringLiteral(PROJECTCLOSEICON)));
 
+    m_projectCloseWithoutDocumentsAction = a =
+        actionCollection()->addAction(QStringLiteral("projects_close_without_open_documents"), this, SLOT(slotProjectsWithoutDocumentsAboutToClose()));
+    a->setText(i18n("Close Orphaned Projects"));
+    a->setIcon(QIcon::fromTheme(QStringLiteral(PROJECTCLOSEICON)));
+
     m_gotoSymbolActionAppMenu = a = actionCollection()->addAction(KStandardAction::Goto, QStringLiteral("projects_goto_symbol"), this, SLOT(slotGotoSymbol()));
 
     // popup menu
@@ -658,6 +663,18 @@ void KateProjectPluginView::slotAllProjectsAboutToClose()
     }
 }
 
+void KateProjectPluginView::slotProjectsWithoutDocumentsAboutToClose()
+{
+    // we must close project after project
+    // project closing might activate a different one and then would load the files of that project again
+    const auto copiedProjects = m_plugin->projects();
+    for (auto project : copiedProjects) {
+        if (!m_plugin->projectHasOpenDocuments(project)) {
+            m_plugin->closeProject(project);
+        }
+    }
+}
+
 void KateProjectPluginView::slotProjectClose(KateProject *project)
 {
     const int index = m_plugin->projects().indexOf(project);
@@ -850,6 +867,7 @@ void KateProjectPluginView::updateActions()
     m_projectGotoIndexAction->setEnabled(projectActive);
     m_projectCloseAction->setEnabled(projectActive);
     m_projectCloseAllAction->setEnabled(m_projectsCombo->count() > 0);
+    m_projectCloseWithoutDocumentsAction->setEnabled(m_projectsCombo->count() > 0);
 }
 
 void KateProjectPluginView::slotActivateProject(KateProject *project)

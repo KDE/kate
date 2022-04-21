@@ -193,16 +193,19 @@ private Q_SLOTS:
     void slotProjectReload();
 
     /**
-     * Getting project for others windows
-     * and closing project documents.
+     * Close currently active project.
      */
     void slotProjectAboutToClose();
 
     /**
-     * Getting project for others windows
-     * and closing project documents.
+     * Close all projects.
      */
     void slotAllProjectsAboutToClose();
+
+    /**
+     * Close all projects without open documents.
+     */
+    void slotProjectsWithoutDocumentsAboutToClose();
 
     /**
      * Close current project.
@@ -441,6 +444,7 @@ private:
     QAction *m_projectGotoIndexAction;
     QAction *m_projectCloseAction;
     QAction *m_projectCloseAllAction;
+    QAction *m_projectCloseWithoutDocumentsAction;
 
     class FixedView
     {

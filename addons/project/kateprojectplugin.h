@@ -8,6 +8,8 @@
 #ifndef _KATE_PROJECT_PLUGIN_H_
 #define _KATE_PROJECT_PLUGIN_H_
 
+#include <unordered_map>
+
 #include <QDir>
 #include <QFileSystemWatcher>
 #include <QThreadPool>

@@ -680,6 +680,9 @@ void KateProjectPluginView::slotProjectClose(KateProject *project)
 
     // inform onward
     Q_EMIT pluginProjectRemoved(project->baseDir(), project->name());
+
+    // update actions, e.g. the close all stuff needs this
+    updateActions();
 }
 
 QString KateProjectPluginView::currentWord() const
@@ -846,7 +849,7 @@ void KateProjectPluginView::updateActions()
     m_projectNextAction->setEnabled(projectActive);
     m_projectGotoIndexAction->setEnabled(projectActive);
     m_projectCloseAction->setEnabled(projectActive);
-    m_projectCloseAllAction->setEnabled(!m_plugin->projects().empty());
+    m_projectCloseAllAction->setEnabled(m_projectsCombo->count() > 0);
 }
 
 void KateProjectPluginView::slotActivateProject(KateProject *project)

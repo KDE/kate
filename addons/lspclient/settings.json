@@ -20,6 +20,12 @@
             "use": "c",
             "highlightingModeRegex": "^(C\\+\\+|ISO C\\+\\+|Objective-C\\+\\+)$"
         },
+        "c-sharp": {
+            "command": ["omnisharp", "-lsp"],
+            "commandDebug": ["omnisharp", "--debug", "--verbose"],
+            "url": "https://github.com/OmniSharp/omnisharp-roslyn",
+            "highlightingModeRegex": "^C#$"
+        },
         "d": {
             "command": ["serve-d"],
             "rootIndicationFileNames": ["dub.json"],

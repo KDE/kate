@@ -15,6 +15,8 @@
 
 #include <array>
 
+#define NUMBER_OF_COLORS 5
+
 K_PLUGIN_FACTORY_WITH_JSON(RainbowParenPluginFactory, "rainbowparens_plugin.json", registerPlugin<RainbowParenPlugin>();)
 
 RainbowParenPlugin::RainbowParenPlugin(QObject *parent, const QVariantList &)
@@ -48,7 +50,7 @@ void RainbowParenPluginView::updateColors(KTextEditor::Editor *editor)
     QColor bg = editor->theme().editorColor(KSyntaxHighlighting::Theme::BackgroundColor);
 
     if (attrs.empty()) {
-        attrs.resize(4);
+        attrs.resize(NUMBER_OF_COLORS);
     }
 
     if (bg.lightness() < 127) {
@@ -60,7 +62,7 @@ void RainbowParenPluginView::updateColors(KTextEditor::Editor *editor)
             QColor("#FC834A"), // Orange
             QColor("#3A86FF"), // Blue
         };
-        for (int i = 0; i < 4; ++i) {
+        for (int i = 0; i < NUMBER_OF_COLORS; ++i) {
             attrs[i] = new KTextEditor::Attribute;
             attrs[i]->setForeground(colors[i]);
         }
@@ -73,7 +75,7 @@ void RainbowParenPluginView::updateColors(KTextEditor::Editor *editor)
             QColor("#DD4803"), // Orange
             QColor("#004ECC"), // Blue
         };
-        for (int i = 0; i < 4; ++i) {
+        for (int i = 0; i < NUMBER_OF_COLORS; ++i) {
             attrs[i] = new KTextEditor::Attribute;
             attrs[i]->setForeground(colors[i]);
         }
@@ -376,12 +378,12 @@ void RainbowParenPluginView::rehighlight(KTextEditor::View *view)
         }
 
         std::unique_ptr<KTextEditor::MovingRange> r(miface->newMovingRange({p.opener, cur1}));
-        r->setAttribute(attrs[color % 4]);
+        r->setAttribute(attrs[color % NUMBER_OF_COLORS]);
 
         auto cur2 = p.closer;
         cur2.setColumn(cur2.column() + 1);
         std::unique_ptr<KTextEditor::MovingRange> r2(miface->newMovingRange({p.closer, cur2}));
-        r2->setAttribute(attrs[color % 4]);
+        r2->setAttribute(attrs[color % NUMBER_OF_COLORS]);
 
         ranges.push_back(std::move(r));
         ranges.push_back(std::move(r2));

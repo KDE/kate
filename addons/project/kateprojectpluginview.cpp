@@ -514,6 +514,9 @@ void KateProjectPluginView::slotCurrentChanged(int index)
         m_stackedGitViews->setFocusProxy(current);
     }
 
+    // Don't watch what nobody use, the old project...
+    m_gitChangedWatcher.removePaths(m_gitChangedWatcher.files());
+    // ...and start watching the new one
     slotUpdateStatus(true);
 
     // project file name might have changed
@@ -699,7 +702,7 @@ void KateProjectPluginView::slotHandleProjectClosing(KateProject *project)
     m_projectsCombo->removeItem(index);
     m_projectsComboGit->removeItem(index);
     // Stop watching what no one is interesting anymore
-    m_gitChangedWatcher.removePath(project->baseDir() + QStringLiteral("/.git/index"));
+    m_gitChangedWatcher.removePaths(m_gitChangedWatcher.files());
 
     // inform onward
     Q_EMIT pluginProjectRemoved(project->baseDir(), project->name());

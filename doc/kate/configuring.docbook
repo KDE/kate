@@ -199,6 +199,28 @@ when that file's view receives focus.</para>
 
 </listitem>
 </varlistentry><!-- /tabs group -->
+
+<varlistentry>
+<term><anchor id="config-general-mouse"/>
+<guilabel>Tabs</guilabel></term>
+ <listitem>
+
+<variablelist>
+<varlistentry>
+<term><anchor id="config-general-backward-button-pressed"/>
+<guilabel>Backward button pressed</guilabel></term>
+<listitem><para>Allows selecting the mouse back button action between the <guimenuitem>Previous tab</guimenuitem> and the <guimenuitem>History back</guimenuitem> items.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><anchor id="config-general-forward-button-pressed"/>
+<guilabel>Forward button pressed</guilabel></term>
+<listitem><para>Allows selecting the mouse back button action between the <guimenuitem>Next tab</guimenuitem> and the <guimenuitem>History forward</guimenuitem> items.</para></listitem>
+</varlistentry>
+</variablelist>
+
+</listitem>
+</varlistentry><!-- /mouse group -->
 </variablelist>
 </sect2>
 

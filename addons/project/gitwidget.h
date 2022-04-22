@@ -9,6 +9,7 @@
 #include <QFutureWatcher>
 #include <QPointer>
 #include <QProcess>
+#include <QTimer>
 #include <QWidget>
 
 #include "git/gitstatus.h"
@@ -44,7 +45,13 @@ public:
     ~GitWidget();
 
     bool eventFilter(QObject *o, QEvent *e) override;
-    void updateStatus(bool untracked = true, bool submodules = false);
+
+    /**
+     * Trigger the GitWidget to update itself.
+     * It is safe to call it repeatedly in a short time, due to delayed update after the last call.
+     */
+    void updateStatus();
+
     KTextEditor::MainWindow *mainWindow();
 
     // will just proxy the message to the plugin view
@@ -56,6 +63,12 @@ public:
     }
 
 private:
+    /**
+     * Helper to avoid multiple reloads at a time
+     * @see slotUpdateStatus
+     */
+    QTimer m_updateTrigger;
+
     QToolButton *m_menuBtn;
     QToolButton *m_commitBtn;
     QToolButton *m_pushBtn;
@@ -109,6 +122,11 @@ private:
     void hideCancel();
 
 private Q_SLOTS:
+    /**
+     * Does the real update
+     */
+    void slotUpdateStatus();
+
     void parseStatusReady();
     void openCommitChangesDialog(bool amend = false);
     void handleClick(const QModelIndex &idx, ClickAction clickAction);

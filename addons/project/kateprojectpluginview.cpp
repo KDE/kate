@@ -128,13 +128,8 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
         }
     });
 
-    m_gitWidgetReloadTrigger.setSingleShot(true);
-    m_gitWidgetReloadTrigger.setInterval(500);
-    connect(&m_gitWidgetReloadTrigger, &QTimer::timeout, this, [this] {
-        slotUpdateStatus(true);
-    });
     connect(&m_gitChangedWatcher, &QFileSystemWatcher::fileChanged, this, [this] {
-        m_gitWidgetReloadTrigger.start();
+        slotUpdateStatus(true);
     });
 
     /**
@@ -483,7 +478,7 @@ void KateProjectPluginView::slotViewChanged()
 
 void KateProjectPluginView::slotDocumentSaved()
 {
-    m_gitWidgetReloadTrigger.start();
+    slotUpdateStatus(true);
 }
 
 void KateProjectPluginView::slotCurrentChanged(int index)

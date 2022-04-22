@@ -346,12 +346,6 @@ private:
     QFileSystemWatcher m_gitChangedWatcher;
 
     /**
-     * Helper to avoid multiple reloads at a time
-     * @see slotDocumentSaved
-     */
-    QTimer m_gitWidgetReloadTrigger;
-
-    /**
      * our plugin
      */
     KateProjectPlugin *m_plugin;

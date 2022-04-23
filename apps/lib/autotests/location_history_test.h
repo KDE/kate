@@ -3,7 +3,9 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
+
 #include <QObject>
+#include <QTemporaryFile>
 
 class KateApp;
 class KateViewSpace;
@@ -34,4 +36,5 @@ private Q_SLOTS:
 
 private:
     KateApp *app;
+    QTemporaryFile tempFile;
 };

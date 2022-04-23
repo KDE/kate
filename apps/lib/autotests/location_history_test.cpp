@@ -20,6 +20,13 @@ LocationHistoryTest::LocationHistoryTest(QObject *parent)
 {
     app = new KateApp(QCommandLineParser());
     app->sessionManager()->activateAnonymousSession();
+
+    // create some usable example
+    QVERIFY(tempFile.open());
+    for (int i = 0; i < 10000; ++i) {
+        tempFile.write("test line lala lala lala lala lala lala lala lala\n");
+    }
+    tempFile.flush();
 }
 
 LocationHistoryTest::~LocationHistoryTest()
@@ -79,7 +86,7 @@ void LocationHistoryTest::test_addLocation()
     auto vm = viewManager();
     Q_ASSERT(vs && vm);
 
-    const auto currentFileUrl = QUrl::fromLocalFile(QString::fromLatin1(__FILE__));
+    const auto currentFileUrl = QUrl::fromLocalFile(tempFile.fileName());
 
     vm->openUrl(currentFileUrl, QString());
 
@@ -130,7 +137,7 @@ void LocationHistoryTest::test_addMaxLocations()
     auto vm = viewManager();
     Q_ASSERT(vs && vm);
 
-    const auto currentFileUrl = QUrl::fromLocalFile(QString::fromLatin1(__FILE__));
+    const auto currentFileUrl = QUrl::fromLocalFile(tempFile.fileName());
 
     for (int i = 0; i < 100; ++i) {
         vm->addPositionToHistory(currentFileUrl, {i, 0});
@@ -147,7 +154,7 @@ void LocationHistoryTest::test_goBackForward()
     auto vm = viewManager();
     Q_ASSERT(vs && vm);
 
-    const auto currentFileUrl = QUrl::fromLocalFile(QString::fromLatin1(__FILE__));
+    const auto currentFileUrl = QUrl::fromLocalFile(tempFile.fileName());
 
     for (int i = 0; i <= 49; ++i) {
         vm->addPositionToHistory(currentFileUrl, {i, 0});
@@ -181,7 +188,7 @@ void LocationHistoryTest::test_goBackForward2()
     auto vm = viewManager();
     Q_ASSERT(vs && vm);
 
-    const auto currentFileUrl = QUrl::fromLocalFile(QString::fromLatin1(__FILE__));
+    const auto currentFileUrl = QUrl::fromLocalFile(tempFile.fileName());
 
     // add 5 positions
     for (int i = 0; i < 5; ++i) {
@@ -219,7 +226,7 @@ void LocationHistoryTest::test_addOnlyIfViewLineCountAwayFromCurrentPos()
     auto vm = viewManager();
     Q_ASSERT(vs && vm);
 
-    const auto currentFileUrl = QUrl::fromLocalFile(QString::fromLatin1(__FILE__));
+    const auto currentFileUrl = QUrl::fromLocalFile(tempFile.fileName());
 
     vm->addPositionToHistory(currentFileUrl, {0, 0});
     QCOMPARE(vs->locationHistoryBuffer().size(), 1);
@@ -267,7 +274,7 @@ void LocationHistoryTest::test_signalEmission()
     auto vm = viewManager();
     Q_ASSERT(vs && vm);
 
-    const auto currentFileUrl = QUrl::fromLocalFile(QString::fromLatin1(__FILE__));
+    const auto currentFileUrl = QUrl::fromLocalFile(tempFile.fileName());
 
     QSignalSpy sigSpy(vm, &KateViewManager::historyBackEnabled);
 

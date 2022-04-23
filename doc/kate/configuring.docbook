@@ -215,7 +215,7 @@ when that file's view receives focus.</para>
 <varlistentry>
 <term><anchor id="config-general-forward-button-pressed"/>
 <guilabel>Forward button pressed</guilabel></term>
-<listitem><para>Allows selecting the mouse back button action between the <guimenuitem>Next tab</guimenuitem> and the <guimenuitem>History forward</guimenuitem> items.</para></listitem>
+<listitem><para>Allows selecting the mouse forward button action between the <guimenuitem>Next tab</guimenuitem> and the <guimenuitem>History forward</guimenuitem> items.</para></listitem>
 </varlistentry>
 </variablelist>
 

@@ -70,6 +70,7 @@ using MemoryUsageHandler = ReplyHandler<QJsonValue>;
 using ExpandMacroHandler = ReplyHandler<LSPExpandedMacro>;
 using SemanticTokensDeltaReplyHandler = ReplyHandler<LSPSemanticTokensDelta>;
 using WorkspaceSymbolsReplyHandler = ReplyHandler<std::vector<LSPSymbolInformation>>;
+using SelectionRangeReplyHandler = ReplyHandler<QList<std::shared_ptr<LSPSelectionRange>>>;
 
 class LSPClientPlugin;
 
@@ -133,7 +134,7 @@ public:
     RequestHandle documentReferences(const QUrl &document, const LSPPosition &pos, bool decl, const QObject *context, const DocumentDefinitionReplyHandler &h);
     RequestHandle documentCompletion(const QUrl &document, const LSPPosition &pos, const QObject *context, const DocumentCompletionReplyHandler &h);
     RequestHandle signatureHelp(const QUrl &document, const LSPPosition &pos, const QObject *context, const SignatureHelpReplyHandler &h);
-
+    RequestHandle selectionRange(const QUrl &document, const QVector<LSPPosition> &positions, const QObject *context, const SelectionRangeReplyHandler &h);
     // clangd specific
     RequestHandle clangdSwitchSourceHeader(const QUrl &document, const QObject *context, const SwitchSourceHeaderHandler &h);
     RequestHandle clangdMemoryUsage(const QObject *context, const MemoryUsageHandler &h);

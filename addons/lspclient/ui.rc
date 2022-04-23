@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
-<gui name="lspclient" library="lspclient" version="20" translationDomain="lspclient">
+<gui name="lspclient" library="lspclient" version="21" translationDomain="lspclient">
   <MenuBar>
     <Menu name="LSPClient Menubar">
       <text>LSP Client</text>
@@ -18,6 +18,8 @@
       <Action name="lspclient_rename"/>
       <Action name="lspclient_quick_fix"/>
       <Action name="lspclient_code_action"/>
+      <Action name="lspclient_expand_selection"/>
+      <Action name="lspclient_shrink_selection"/>
       <Separator/>
       <Action name="lspclient_diagnostic_switch"/>
       <Action name="lspclient_close_dynamic"/>

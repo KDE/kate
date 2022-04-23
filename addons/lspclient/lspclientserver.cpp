@@ -32,6 +32,7 @@ static const QString MEMBER_VERSION = QStringLiteral("version");
 static const QString MEMBER_START = QStringLiteral("start");
 static const QString MEMBER_END = QStringLiteral("end");
 static const QString MEMBER_POSITION = QStringLiteral("position");
+static const QString MEMBER_POSITIONS = QStringLiteral("positions");
 static const QString MEMBER_LOCATION = QStringLiteral("location");
 static const QString MEMBER_RANGE = QStringLiteral("range");
 static const QString MEMBER_LINE = QStringLiteral("line");
@@ -117,6 +118,15 @@ static QJsonArray to_json(const QList<LSPTextDocumentContentChangeEvent> &change
     return result;
 }
 
+static QJsonArray to_json(const QVector<LSPPosition> &positions)
+{
+    QJsonArray result;
+    for (const auto &position : positions) {
+        result.push_back(to_json(position));
+    }
+    return result;
+}
+
 static QJsonObject versionedTextDocumentIdentifier(const QUrl &document, int version = -1)
 {
     QJsonObject map{{MEMBER_URI, document.toString()}};
@@ -148,6 +158,13 @@ static QJsonObject textDocumentPositionParams(const QUrl &document, LSPPosition 
 {
     auto params = textDocumentParams(document);
     params[MEMBER_POSITION] = to_json(pos);
+    return params;
+}
+
+static QJsonObject textDocumentPositionsParams(const QUrl &document, const QVector<LSPPosition> &positions)
+{
+    auto params = textDocumentParams(document);
+    params[MEMBER_POSITIONS] = to_json(positions);
     return params;
 }
 
@@ -372,6 +389,7 @@ static void from_json(LSPServerCapabilities &caps, const QJsonObject &json)
     from_json(caps.semanticTokenProvider, json.value(QStringLiteral("semanticTokensProvider")).toObject());
     auto workspace = json.value(QStringLiteral("workspace")).toObject();
     from_json(caps.workspaceFolders, workspace.value(QStringLiteral("workspaceFolders")));
+    caps.selectionRangeProvider = toBoolOrObject(json.value(QStringLiteral("selectionRangeProvider")));
 }
 
 // follow suit; as performed in kate docmanager
@@ -448,6 +466,37 @@ static LSPRange parseRange(const QJsonObject &range)
     auto startpos = parsePosition(range.value(MEMBER_START).toObject());
     auto endpos = parsePosition(range.value(MEMBER_END).toObject());
     return {startpos, endpos};
+}
+
+static std::shared_ptr<LSPSelectionRange> parseSelectionRange(QJsonValueRef selectionRange)
+{
+    auto current = std::make_shared<LSPSelectionRange>(LSPSelectionRange{});
+    std::shared_ptr<LSPSelectionRange> ret = current;
+    QJsonValue selRange = std::move(selectionRange);
+
+    while (selRange.isObject()) {
+        current->range = parseRange(selRange[MEMBER_RANGE].toObject());
+        if (!selRange[QStringLiteral("parent")].isObject()) {
+            current->parent = nullptr;
+            break;
+        }
+        selRange = selRange[QStringLiteral("parent")].toObject();
+        current->parent = std::make_shared<LSPSelectionRange>(LSPSelectionRange{});
+        current = current->parent;
+    }
+
+    return ret;
+}
+
+static QList<std::shared_ptr<LSPSelectionRange>> parseSelectionRanges(const QJsonValue &result)
+{
+    QList<std::shared_ptr<LSPSelectionRange>> ret;
+    auto selectionRanges = result.toArray();
+    for (QJsonValueRef selectionRange : selectionRanges) {
+        ret.push_back(parseSelectionRange(selectionRange));
+    }
+
+    return ret;
 }
 
 static LSPLocation parseLocation(const QJsonObject &loc)
@@ -1275,6 +1324,7 @@ private:
                                             {QStringLiteral("codeAction"), codeAction},
                                             {QStringLiteral("semanticTokens"), semanticTokens},
                                             {QStringLiteral("synchronization"), QJsonObject{{QStringLiteral("didSave"), true}}},
+                                            {QStringLiteral("selectionRange"), QJsonObject{{QStringLiteral("dynamicRegistration"), false}}},
                                         },
                                   },
                                   {QStringLiteral("window"),
@@ -1408,6 +1458,12 @@ public:
     {
         auto params = textDocumentPositionParams(document, pos);
         return send(init_request(QStringLiteral("textDocument/signatureHelp"), params), h);
+    }
+
+    RequestHandle selectionRange(const QUrl &document, const QVector<LSPPosition> &positions, const GenericReplyHandler &h)
+    {
+        auto params = textDocumentPositionsParams(document, positions);
+        return send(init_request(QStringLiteral("textDocument/selectionRange"), params), h);
     }
 
     RequestHandle clangdSwitchSourceHeader(const QUrl &document, const GenericReplyHandler &h)
@@ -1737,6 +1793,12 @@ LSPClientServer::RequestHandle
 LSPClientServer::signatureHelp(const QUrl &document, const LSPPosition &pos, const QObject *context, const SignatureHelpReplyHandler &h)
 {
     return d->signatureHelp(document, pos, make_handler(h, context, parseSignatureHelp));
+}
+
+LSPClientServer::RequestHandle
+LSPClientServer::selectionRange(const QUrl &document, const QVector<LSPPosition> &positions, const QObject *context, const SelectionRangeReplyHandler &h)
+{
+    return d->selectionRange(document, positions, make_handler(h, context, parseSelectionRanges));
 }
 
 LSPClientServer::RequestHandle LSPClientServer::clangdSwitchSourceHeader(const QUrl &document, const QObject *context, const SwitchSourceHeaderHandler &h)

@@ -37,6 +37,7 @@
 #include <ktexteditor/markinterface.h>
 #include <ktexteditor/movinginterface.h>
 #include <ktexteditor/movingrange.h>
+#include <ktexteditor_version.h>
 
 #include <QAction>
 #include <QApplication>
@@ -464,6 +465,8 @@ class LSPClientActionView : public QObject
     QPointer<QAction> m_triggerGotoSymbol;
     QPointer<QAction> m_triggerFormat;
     QPointer<QAction> m_triggerRename;
+    QPointer<QAction> m_expandSelection;
+    QPointer<QAction> m_shrinkSelection;
     QPointer<QAction> m_complDocOn;
     QPointer<QAction> m_signatureHelp;
     QPointer<QAction> m_refDeclaration;
@@ -622,6 +625,12 @@ public:
         m_triggerFormat->setText(i18n("Format"));
         m_triggerRename = actionCollection()->addAction(QStringLiteral("lspclient_rename"), this, &self_type::rename);
         m_triggerRename->setText(i18n("Rename"));
+#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5, 95, 0)
+        m_expandSelection = actionCollection()->addAction(QStringLiteral("lspclient_expand_selection"), this, &self_type::expandSelection);
+        m_expandSelection->setText(i18n("Expand Selection"));
+        m_shrinkSelection = actionCollection()->addAction(QStringLiteral("lspclient_shrink_selection"), this, &self_type::shrinkSelection);
+        m_shrinkSelection->setText(i18n("Shrink Selection"));
+#endif
         m_switchSourceHeader = actionCollection()->addAction(QStringLiteral("lspclient_clangd_switchheader"), this, &self_type::clangdSwitchSourceHeader);
         m_switchSourceHeader->setText(i18n("Switch Source Header"));
         actionCollection()->setDefaultShortcut(m_switchSourceHeader, Qt::Key_F12);
@@ -709,6 +718,10 @@ public:
         menu->addAction(m_triggerRename);
         menu->addAction(m_quickFix);
         menu->addAction(m_requestCodeAction);
+#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5, 95, 0)
+        menu->addAction(m_expandSelection);
+        menu->addAction(m_shrinkSelection);
+#endif
         menu->addSeparator();
         menu->addAction(m_diagnosticsSwitch);
         menu->addAction(m_closeDynamic);
@@ -2144,6 +2157,91 @@ public:
         delayCancelRequest(std::move(handle));
     }
 
+#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5, 95, 0)
+    void expandSelection()
+    {
+        changeSelection(true);
+    }
+
+    void shrinkSelection()
+    {
+        changeSelection(false);
+    }
+
+    void changeSelection(bool expand)
+    {
+        KTextEditor::View *activeView = m_mainWindow->activeView();
+        QPointer<KTextEditor::Document> document = activeView->document();
+        auto server = m_serverManager->findServer(activeView);
+        if (!server || !document) {
+            return;
+        }
+
+        auto h = [this, activeView, expand](const QList<std::shared_ptr<LSPSelectionRange>> &reply) {
+            if (reply.isEmpty()) {
+                showMessage(i18n("No results"), KTextEditor::Message::Information);
+            }
+
+            auto cursors = activeView->cursorPositions();
+
+            if (cursors.size() != reply.size()) {
+                showMessage(i18n("Not enough results"), KTextEditor::Message::Information);
+            }
+
+            auto selections = activeView->selectionRanges();
+            QVector<KTextEditor::Range> ret;
+
+            for (int i = 0; i < cursors.size(); i++) {
+                const auto &lspSelectionRange = reply.at(i);
+
+                if (lspSelectionRange) {
+                    LSPRange currentRange = selections.isEmpty() || !selections.at(i).isValid() ? LSPRange(cursors.at(i), cursors.at(i)) : selections.at(i);
+
+                    auto resultRange = findNextSelection(lspSelectionRange, currentRange, expand);
+                    ret.append(resultRange);
+                } else {
+                    ret.append(KTextEditor::Range::invalid());
+                }
+            }
+
+            activeView->setSelections(ret);
+        };
+
+        auto handle = server->selectionRange(document->url(), activeView->cursorPositions(), this, h);
+        delayCancelRequest(std::move(handle));
+    }
+
+    static LSPRange findNextSelection(std::shared_ptr<LSPSelectionRange> selectionRange, const LSPRange &current, bool expand)
+    {
+        if (expand) {
+            while (selectionRange && !selectionRange->range.contains(current)) {
+                selectionRange = selectionRange->parent;
+            }
+
+            if (selectionRange) {
+                if (selectionRange->range != current) {
+                    return selectionRange->range;
+                } else if (selectionRange->parent) {
+                    return selectionRange->parent->range;
+                }
+            }
+        } else {
+            std::shared_ptr<LSPSelectionRange> previous = nullptr;
+
+            while (selectionRange && current.contains(selectionRange->range) && current != selectionRange->range) {
+                previous = selectionRange;
+                selectionRange = selectionRange->parent;
+            }
+
+            if (previous) {
+                return previous->range;
+            }
+        }
+
+        return LSPRange::invalid();
+    }
+#endif
+
     void clangdSwitchSourceHeader()
     {
         KTextEditor::View *activeView = m_mainWindow->activeView();
@@ -2769,6 +2867,7 @@ public:
         bool hoverEnabled = false, highlightEnabled = false, codeActionEnabled = false;
         bool formatEnabled = false;
         bool renameEnabled = false;
+        bool selectionRangeEnabled = false;
         bool isClangd = false;
         bool isRustAnalyzer = false;
 
@@ -2784,6 +2883,7 @@ public:
             formatEnabled = caps.documentFormattingProvider || caps.documentRangeFormattingProvider;
             renameEnabled = caps.renameProvider;
             codeActionEnabled = caps.codeActionProvider;
+            selectionRangeEnabled = caps.selectionRangeProvider;
 
             connect(server.data(), &LSPClientServer::publishDiagnostics, this, &self_type::onDiagnostics, Qt::UniqueConnection);
             connect(server.data(), &LSPClientServer::applyEdit, this, &self_type::onApplyEdit, Qt::UniqueConnection);
@@ -2847,6 +2947,12 @@ public:
         }
         if (m_requestCodeAction) {
             m_requestCodeAction->setEnabled(codeActionEnabled);
+        }
+        if (m_expandSelection) {
+            m_expandSelection->setEnabled(selectionRangeEnabled);
+        }
+        if (m_shrinkSelection) {
+            m_shrinkSelection->setEnabled(selectionRangeEnabled);
         }
         m_switchSourceHeader->setEnabled(isClangd);
         m_switchSourceHeader->setVisible(isClangd);

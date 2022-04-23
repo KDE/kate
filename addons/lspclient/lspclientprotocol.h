@@ -21,6 +21,7 @@
 #include <KTextEditor/Cursor>
 #include <KTextEditor/Range>
 
+#include <memory>
 #include <optional>
 
 // Following types roughly follow the types/interfaces as defined in LSP protocol spec
@@ -115,6 +116,7 @@ struct LSPServerCapabilities {
     // workspace caps flattened
     // (other parts not useful/considered at present)
     LSPWorkspaceFoldersServerCapabilities workspaceFolders;
+    bool selectionRangeProvider = false;
 };
 
 enum class LSPMarkupKind { None = 0, PlainText = 1, MarkDown = 2 };
@@ -218,6 +220,11 @@ struct LSPSymbolInformation {
 struct LSPTextEdit {
     LSPRange range;
     QString newText;
+};
+
+struct LSPSelectionRange {
+    LSPRange range;
+    std::shared_ptr<LSPSelectionRange> parent;
 };
 
 enum class LSPCompletionItemKind {

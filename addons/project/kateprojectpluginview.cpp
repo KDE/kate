@@ -119,8 +119,8 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     connect(m_projectsCombo, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &KateProjectPluginView::slotCurrentChanged);
     connect(m_reloadButton, &QToolButton::clicked, this, &KateProjectPluginView::slotProjectReload);
 
-    connect(m_closeProjectButton, &QToolButton::clicked, this, &KateProjectPluginView::slotProjectAboutToClose);
-    connect(m_plugin, &KateProjectPlugin::pluginViewProjectClosing, this, &KateProjectPluginView::slotProjectClose);
+    connect(m_closeProjectButton, &QToolButton::clicked, this, &KateProjectPluginView::slotCloseProject);
+    connect(m_plugin, &KateProjectPlugin::pluginViewProjectClosing, this, &KateProjectPluginView::slotHandleProjectClosing);
 
     connect(m_gitStatusRefreshButton, &QToolButton::clicked, this, [this] {
         if (auto widget = m_stackedGitViews->currentWidget()) {
@@ -195,16 +195,16 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     a->setText(i18n("Lookup"));
     actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::ALT | Qt::Key_1));
 
-    m_projectCloseAction = a = actionCollection()->addAction(QStringLiteral("projects_close"), this, SLOT(slotProjectAboutToClose()));
+    m_projectCloseAction = a = actionCollection()->addAction(QStringLiteral("projects_close"), this, SLOT(slotCloseProject()));
     a->setText(i18n("Close Project"));
     a->setIcon(QIcon::fromTheme(QStringLiteral(PROJECTCLOSEICON)));
 
-    m_projectCloseAllAction = a = actionCollection()->addAction(QStringLiteral("projects_close_all"), this, SLOT(slotAllProjectsAboutToClose()));
+    m_projectCloseAllAction = a = actionCollection()->addAction(QStringLiteral("projects_close_all"), this, SLOT(slotCloseAllProjects()));
     a->setText(i18n("Close All Projects"));
     a->setIcon(QIcon::fromTheme(QStringLiteral(PROJECTCLOSEICON)));
 
     m_projectCloseWithoutDocumentsAction = a =
-        actionCollection()->addAction(QStringLiteral("projects_close_without_open_documents"), this, SLOT(slotProjectsWithoutDocumentsAboutToClose()));
+        actionCollection()->addAction(QStringLiteral("projects_close_without_open_documents"), this, SLOT(slotCloseAllProjectsWithoutDocuments()));
     a->setText(i18n("Close Orphaned Projects"));
     a->setIcon(QIcon::fromTheme(QStringLiteral(PROJECTCLOSEICON)));
 
@@ -646,14 +646,14 @@ void KateProjectPluginView::slotProjectReload()
     }
 }
 
-void KateProjectPluginView::slotProjectAboutToClose()
+void KateProjectPluginView::slotCloseProject()
 {
     if (QWidget *current = m_stackedProjectViews->currentWidget()) {
         m_plugin->closeProject(static_cast<KateProjectView *>(current)->project());
     }
 }
 
-void KateProjectPluginView::slotAllProjectsAboutToClose()
+void KateProjectPluginView::slotCloseAllProjects()
 {
     // we must close project after project
     // project closing might activate a different one and then would load the files of that project again
@@ -663,7 +663,7 @@ void KateProjectPluginView::slotAllProjectsAboutToClose()
     }
 }
 
-void KateProjectPluginView::slotProjectsWithoutDocumentsAboutToClose()
+void KateProjectPluginView::slotCloseAllProjectsWithoutDocuments()
 {
     // we must close project after project
     // project closing might activate a different one and then would load the files of that project again
@@ -675,7 +675,7 @@ void KateProjectPluginView::slotProjectsWithoutDocumentsAboutToClose()
     }
 }
 
-void KateProjectPluginView::slotProjectClose(KateProject *project)
+void KateProjectPluginView::slotHandleProjectClosing(KateProject *project)
 {
     const int index = m_plugin->projects().indexOf(project);
     m_project2View.erase(m_project2View.find(project));

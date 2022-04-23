@@ -195,22 +195,22 @@ private Q_SLOTS:
     /**
      * Close currently active project.
      */
-    void slotProjectAboutToClose();
+    void slotCloseProject();
 
     /**
      * Close all projects.
      */
-    void slotAllProjectsAboutToClose();
+    void slotCloseAllProjects();
 
     /**
      * Close all projects without open documents.
      */
-    void slotProjectsWithoutDocumentsAboutToClose();
+    void slotCloseAllProjectsWithoutDocuments();
 
     /**
-     * Close current project.
+     * Handle closing of a project.
      */
-    void slotProjectClose(KateProject *project);
+    void slotHandleProjectClosing(KateProject *project);
 
     /**
      * Lookup current word

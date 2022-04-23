@@ -8,7 +8,9 @@
 
 #include "document_dummy.h"
 
+#include <QAbstractItemModelTester>
 #include <QTest>
+
 QTEST_MAIN(FileTreeModelTest)
 
 // BEGIN ResultNode
@@ -232,6 +234,7 @@ void FileTreeModelTest::buildTree_data()
 void FileTreeModelTest::buildTree()
 {
     KateFileTreeModel m(this);
+    QAbstractItemModelTester tester(&m, this);
     QFETCH(const QList<DummyDocument *>, documents);
     QFETCH(ResultNode, nodes);
 
@@ -255,6 +258,7 @@ void FileTreeModelTest::buildTreeBatch_data()
 void FileTreeModelTest::buildTreeBatch()
 {
     KateFileTreeModel m(this);
+    QAbstractItemModelTester tester(&m, this);
     QFETCH(const QList<DummyDocument *>, documents);
     QFETCH(ResultNode, nodes);
 
@@ -291,6 +295,7 @@ void FileTreeModelTest::buildTreeBatchPrefill_data()
 void FileTreeModelTest::buildTreeBatchPrefill()
 {
     KateFileTreeModel m(this);
+    QAbstractItemModelTester tester(&m, this);
     QFETCH(const QList<DummyDocument *>, prefill);
     QFETCH(const QList<DummyDocument *>, documents);
     QFETCH(ResultNode, nodes);
@@ -393,6 +398,7 @@ void FileTreeModelTest::buildTreeFullPath_data()
 void FileTreeModelTest::buildTreeFullPath()
 {
     KateFileTreeModel m(this);
+    QAbstractItemModelTester tester(&m, this);
     m.setShowFullPathOnRoots(true);
 
     QFETCH(const QList<DummyDocument *>, documents);
@@ -431,6 +437,7 @@ void FileTreeModelTest::listMode_data()
 void FileTreeModelTest::listMode()
 {
     KateFileTreeModel m(this);
+    QAbstractItemModelTester tester(&m, this);
     m.setListMode(true);
 
     QFETCH(const QList<DummyDocument *>, documents);
@@ -493,6 +500,7 @@ void FileTreeModelTest::deleteDocument_data()
 void FileTreeModelTest::deleteDocument()
 {
     KateFileTreeModel m(this);
+    QAbstractItemModelTester tester(&m, this);
     QFETCH(const QList<DummyDocument *>, documents);
     QFETCH(const QList<int>, remove);
     QFETCH(ResultNode, nodes);
@@ -531,6 +539,7 @@ void FileTreeModelTest::deleteDocumentBatch_data()
 void FileTreeModelTest::deleteDocumentBatch()
 {
     KateFileTreeModel m(this);
+    QAbstractItemModelTester tester(&m, this);
     QFETCH(const QList<DummyDocument *>, documents);
     QFETCH(const QList<int>, remove);
     QFETCH(const QList<int>, fail);
@@ -574,6 +583,7 @@ void FileTreeModelTest::rename_data()
 void FileTreeModelTest::rename()
 {
     KateFileTreeModel m(this);
+    QAbstractItemModelTester tester(&m, this);
     QFETCH(const QList<DummyDocument *>, documents);
     QFETCH(int, rename_idx);
     QFETCH(QString, rename_url);

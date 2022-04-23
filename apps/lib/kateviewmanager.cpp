@@ -498,7 +498,7 @@ KTextEditor::View *KateViewManager::createView(KTextEditor::Document *doc, KateV
         if (!doc->url().isLocalFile()) {
             QSharedPointer<QMetaObject::Connection> conn(new QMetaObject::Connection());
             auto handler = [view, conn, c](KTextEditor::Document *) {
-                disconnect(*conn);
+                QObject::disconnect(*conn);
                 view->setCursorPosition(c);
             };
 

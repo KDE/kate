@@ -1038,7 +1038,7 @@ void KateViewSpace::restoreConfig(KateViewManager *viewMan, const KConfigBase *c
                 if (!view->document()->url().isLocalFile()) {
                     QSharedPointer<QMetaObject::Connection> conn(new QMetaObject::Connection());
                     auto handler = [conn, view, configGroup](KTextEditor::Document *) {
-                        disconnect(*conn);
+                        QObject::disconnect(*conn);
                         view->readSessionConfig(configGroup);
                     };
                     *conn = connect(doc, &KTextEditor::Document::textChanged, view, handler);

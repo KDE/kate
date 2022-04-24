@@ -611,6 +611,11 @@ int KateFileTreeModel::rowCount(const QModelIndex &parent) const
         return m_root->childCount();
     }
 
+    // we only have children for column 0
+    if (parent.column() != 0) {
+        return 0;
+    }
+
     const ProxyItem *item = static_cast<ProxyItem *>(parent.internalPointer());
     if (!item) {
         return 0;

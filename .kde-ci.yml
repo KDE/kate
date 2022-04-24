@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: CC0-1.0
 
 Dependencies:
-- 'on': ['@all']
+- 'on': ['Linux', 'FreeBSD', 'Windows', 'macOS']
   'require':
     'frameworks/extra-cmake-modules': '@stable'
     'frameworks/ki18n': '@stable'
@@ -10,6 +10,9 @@ Dependencies:
     'frameworks/kdoctools': '@stable'
     'frameworks/ktexteditor': '@stable'
     'frameworks/knewstuff': '@stable'
+
+- 'on': ['Linux', 'FreeBSD']
+  'require':
     'frameworks/kactivities': '@stable'
 
 Options:

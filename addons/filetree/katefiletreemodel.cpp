@@ -443,7 +443,7 @@ void KateFileTreeModel::clearModel()
     // remove all items
     // can safely ignore documentClosed here
 
-    beginRemoveRows(QModelIndex(), 0, qMax(m_root->childCount() - 1, 0));
+    beginResetModel();
 
     delete m_root;
     m_root = new ProxyItemDir(QStringLiteral("m_root"), nullptr);
@@ -453,7 +453,7 @@ void KateFileTreeModel::clearModel()
     m_editHistory.clear();
     m_brushes.clear();
 
-    endRemoveRows();
+    endResetModel();
 }
 
 void KateFileTreeModel::connectDocument(const KTextEditor::Document *doc)

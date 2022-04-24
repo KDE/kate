@@ -1238,7 +1238,7 @@ void KateMainWindow::queueModifiedOnDisc(KTextEditor::Document *doc)
 
         s_modOnHdDialog = new KateMwModOnHdDialog(list, this);
         m_modignore = true;
-        connect(s_modOnHdDialog, &KateMwModOnHdDialog::requestOpenDiffDocument, this, [this](const QUrl &url) {
+        connect(s_modOnHdDialog, &KateMwModOnHdDialog::requestOpenDiffDocument, KateApp::self(), [](const QUrl &url) {
             // use open with isTempFile == true
             KateApp::self()->openDocUrl(url, QString(), true);
         });

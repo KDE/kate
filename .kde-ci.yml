@@ -11,3 +11,6 @@ Dependencies:
     'frameworks/ktexteditor': '@stable'
     'frameworks/knewstuff': '@stable'
     'frameworks/kactivities': '@stable'
+
+Options:
+  require-passing-tests-on: [ 'Linux', 'FreeBSD', 'Windows' ]

@@ -10,6 +10,7 @@ Dependencies:
     'frameworks/kdoctools': '@stable'
     'frameworks/ktexteditor': '@stable'
     'frameworks/knewstuff': '@stable'
+    'libraries/kuserfeedback': '@stable'
 
 - 'on': ['Linux', 'FreeBSD']
   'require':

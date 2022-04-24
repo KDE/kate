@@ -21,11 +21,12 @@ public:
     class KateViewSpace *viewSpace();
     QIcon seperator();
 
+    void updateForDocument(KTextEditor::Document *doc);
+
 private:
     void setupLayout();
 
     void onViewChanged(KTextEditor::View *v);
-    void updateForDocument(KTextEditor::Document *doc);
     class QStackedWidget *const m_stack;
     class UrlbarContainer *const m_urlBarView;
     class QLabel *const m_untitledDocLabel;

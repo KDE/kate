@@ -1065,6 +1065,12 @@ void KateViewSpace::restoreConfig(KateViewManager *viewMan, const KConfigBase *c
         viewMan->createView(doc, this);
     }
 
+    // there must be a view now
+    Q_ASSERT(currentView());
+
+    // ensure we update the urlbar at least once
+    m_urlBar->updateForDocument(currentView()->document());
+
     m_group = groupname; // used for restroing view configs later
 }
 

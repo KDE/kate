@@ -306,9 +306,6 @@ GitWidget::GitWidget(KateProject *project, KTextEditor::MainWindow *mainWindow, 
     m_updateTrigger.setSingleShot(true);
     m_updateTrigger.setInterval(500);
     connect(&m_updateTrigger, &QTimer::timeout, this, &GitWidget::slotUpdateStatus);
-
-    // Ensure we are looks good
-    QTimer::singleShot(0, this, &GitWidget::updateStatus);
 }
 
 GitWidget::~GitWidget()
@@ -370,15 +367,15 @@ QProcess *GitWidget::gitp(const QStringList &arguments)
 
 void GitWidget::updateStatus()
 {
-    if (!isVisible()) {
-        return; // No need to update
-    }
-
     m_updateTrigger.start();
 }
 
 void GitWidget::slotUpdateStatus()
 {
+    if (!isVisible()) {
+        return; // No need to update
+    }
+
     const auto args = QStringList{QStringLiteral("status"), QStringLiteral("-z"), QStringLiteral("-u"), QStringLiteral("--ignore-submodules")};
 
     auto git = gitp(args);

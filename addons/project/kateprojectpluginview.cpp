@@ -7,7 +7,6 @@
 
 #include "kateprojectpluginview.h"
 #include "fileutil.h"
-#include "git/gitutils.h"
 #include "gitwidget.h"
 #include "kateproject.h"
 #include "kateprojectinfoview.h"
@@ -785,13 +784,11 @@ void KateProjectPluginView::slotUpdateStatus(bool visible)
         return;
     }
 
-    // To support separate-git-dir we need some help of an utility
-    const auto dotGitPath = GitUtils::getDotGitPath(projectBaseDir());
-    // We need to add the path every time again because it's always a different file
-    m_gitChangedWatcher.addPath(dotGitPath.value() + QStringLiteral(".git/index"));
-
-    if (auto widget = m_stackedGitViews->currentWidget()) {
-        static_cast<GitWidget *>(widget)->updateStatus();
+    if (auto widget = static_cast<GitWidget *>(m_stackedGitViews->currentWidget())) {
+        // To support separate-git-dir always use dotGitPath
+        // We need to add the path every time again because it's always a different file
+        m_gitChangedWatcher.addPath(widget->dotGitPath() + QStringLiteral(".git/index"));
+        widget->updateStatus();
     }
 }
 

@@ -192,7 +192,7 @@ void KateConfigDialog::addBehaviorPage()
 
     m_tabsScrollable = new QCheckBox(i18n("Allow tab scrolling"), this);
     m_tabsScrollable->setChecked(cgGeneral.readEntry("Allow Tab Scrolling", true));
-    m_tabsScrollable->setToolTip(i18n("When checked this will allow scrolling in tab bar when number of tabs are large."));
+    m_tabsScrollable->setToolTip(i18n("When checked this will allow scrolling in tab bar when number of tabs is large."));
     connect(m_tabsScrollable, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
     vbox->addWidget(m_tabsScrollable);
 

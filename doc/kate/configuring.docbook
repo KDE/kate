@@ -187,7 +187,7 @@ when that file's view receives focus.</para>
 <varlistentry>
 <term><anchor id="config-general-tab-scrolling"/>
 <guilabel>Allow tab scrolling</guilabel></term>
-<listitem><para>When checked this will allow scrolling in tab bar when number of tabs are large.</para></listitem>
+<listitem><para>When checked this will allow scrolling in tab bar when number of tabs is large.</para></listitem>
 </varlistentry>
 
 <varlistentry>

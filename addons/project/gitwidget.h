@@ -75,9 +75,9 @@ private:
     QToolButton *m_pushBtn;
     QToolButton *m_pullBtn;
     QToolButton *m_cancelBtn;
+    KateProject *m_project;
     GitWidgetTreeView *m_treeView;
     GitStatusModel *m_model;
-    KateProject *m_project;
     QLineEdit *m_filterLineEdit;
     /** This ends with "/", always remember this */
     QString m_gitPath;
@@ -113,7 +113,6 @@ private:
     QMenu *stashMenu(KActionCollection *pCollection);
     QAction *stashMenuAction(KActionCollection *ac, const QString &name, const QString &text, StashMode m);
 
-    void hideEmptyTreeNodes();
     void treeViewContextMenuEvent(QContextMenuEvent *e);
     void selectedContextMenu(QContextMenuEvent *e);
 

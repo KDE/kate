@@ -257,7 +257,7 @@ GitWidget::GitWidget(KateProject *project, KTextEditor::MainWindow *mainWindow, 
     layout->addWidget(m_treeView);
 
     m_filterLineEdit = new QLineEdit(this);
-    m_filterLineEdit->setPlaceholderText(i18n("Type to filter..."));
+    m_filterLineEdit->setPlaceholderText(i18n("Filter..."));
     layout->addWidget(m_filterLineEdit);
 
     m_model = new GitStatusModel(this);

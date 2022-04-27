@@ -156,7 +156,7 @@ GotoSymbolHUDDialog::GotoSymbolHUDDialog(KTextEditor::MainWindow *mainWindow, QS
     , mainWindow(mainWindow)
     , server(std::move(server))
 {
-    m_lineEdit.setPlaceholderText(i18n("Type to filter through symbols in your project..."));
+    m_lineEdit.setPlaceholderText(i18n("Filter..."));
 
     m_treeView.setModel(model);
     auto delegate = new GotoSymbolHUDStyleDelegate(this);

@@ -186,7 +186,7 @@ KateOutputView::KateOutputView(KateMainWindow *mainWindow, QWidget *parent)
 
     // filter line edit
     m_filterLine.installEventFilter(this);
-    m_filterLine.setPlaceholderText(i18n("Type to filter..."));
+    m_filterLine.setPlaceholderText(i18n("Filter..."));
     connect(&m_filterLine, &QLineEdit::textChanged, this, [this](const QString &text) {
         static_cast<OutputSortFilterProxyModel *>(m_proxyModel)->setFilterString(text);
         m_messagesTreeView->expandAll();

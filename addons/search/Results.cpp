@@ -25,7 +25,7 @@ Results::Results(QWidget *parent)
     treeView->setModel(proxy);
 
     filterLineEdit->setVisible(false);
-    filterLineEdit->setPlaceholderText(i18n("Type to filter through results..."));
+    filterLineEdit->setPlaceholderText(i18n("Filter..."));
 
     connect(filterLineEdit, &QLineEdit::textChanged, this, [this, proxy](const QString &text) {
         proxy->setFilterText(text);

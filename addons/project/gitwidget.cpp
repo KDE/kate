@@ -290,6 +290,8 @@ GitWidget::GitWidget(KateProject *project, KTextEditor::MainWindow *mainWindow, 
 
     connect(&m_gitStatusWatcher, &QFutureWatcher<GitUtils::GitParsedStatus>::finished, this, &GitWidget::parseStatusReady);
     connect(m_commitBtn, &QPushButton::clicked, this, &GitWidget::openCommitChangesDialog);
+    // This may not needed anylonger, but we do it anyway, just to be on the save side, see e239cb310
+    connect(m_commitBtn, &QPushButton::pressed, this, &GitWidget::slotUpdateStatus);
 
     // single / double click
     connect(m_treeView, &QTreeView::clicked, this, &GitWidget::treeViewSingleClicked);

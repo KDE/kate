@@ -510,7 +510,9 @@ void KateProjectPluginView::slotCurrentChanged(int index)
     }
 
     // Don't watch what nobody use, the old project...
-    m_gitChangedWatcher.removePaths(m_gitChangedWatcher.files());
+    if (!m_gitChangedWatcher.files().isEmpty()) {
+        m_gitChangedWatcher.removePaths(m_gitChangedWatcher.files());
+    }
     // ...and start watching the new one
     slotUpdateStatus(true);
 
@@ -696,9 +698,11 @@ void KateProjectPluginView::slotHandleProjectClosing(KateProject *project)
 
     m_projectsCombo->removeItem(index);
     m_projectsComboGit->removeItem(index);
-    // Stop watching what no one is interesting anymore
-    m_gitChangedWatcher.removePaths(m_gitChangedWatcher.files());
 
+    // Stop watching what no one is interesting anymore
+    if (!m_gitChangedWatcher.files().isEmpty()) {
+        m_gitChangedWatcher.removePaths(m_gitChangedWatcher.files());
+    }
     // inform onward
     Q_EMIT pluginProjectRemoved(project->baseDir(), project->name());
 

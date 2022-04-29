@@ -16,23 +16,15 @@
 
 QTEST_MAIN(KateSessionsActionTest)
 
-void KateSessionsActionTest::initTestCase()
-{
-    // we need an application object, as session loading will trigger modifications to that
-    static QCommandLineParser parser;
-    m_app = new KateApp(parser);
-    m_app->sessionManager()->activateAnonymousSession();
-}
-
-void KateSessionsActionTest::cleanupTestCase()
-{
-    delete m_app;
-}
-
 void KateSessionsActionTest::init()
 {
     m_tempdir = new QTemporaryDir;
     QVERIFY(m_tempdir->isValid());
+
+    // we need an application object, as session loading will trigger modifications to that
+    static QCommandLineParser parser;
+    m_app = new KateApp(parser);
+    m_app->sessionManager()->activateAnonymousSession();
 
     m_manager = new KateSessionManager(this, m_tempdir->path());
     m_ac = new KateSessionsAction(QStringLiteral("menu"), this, m_manager, false);
@@ -42,6 +34,7 @@ void KateSessionsActionTest::cleanup()
 {
     delete m_ac;
     delete m_manager;
+    delete m_app;
     delete m_tempdir;
 }
 void KateSessionsActionTest::basic()

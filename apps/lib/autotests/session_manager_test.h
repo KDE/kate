@@ -16,8 +16,6 @@ class KateSessionManagerTest : public QObject
 private Q_SLOTS:
     void init();
     void cleanup();
-    void initTestCase();
-    void cleanupTestCase();
 
     void basic();
     void activateNewNamedSession();

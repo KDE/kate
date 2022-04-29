@@ -20,8 +20,6 @@ private Q_SLOTS:
 
     void init();
     void cleanup();
-    void initTestCase();
-    void cleanupTestCase();
 
 private:
     class QTemporaryDir *m_tempdir;

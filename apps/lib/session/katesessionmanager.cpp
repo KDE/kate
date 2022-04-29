@@ -14,7 +14,6 @@
 
 #include <KConfigGroup>
 #include <KDesktopFile>
-#include <KIO/CopyJob>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KService>
@@ -295,11 +294,7 @@ QString KateSessionManager::renameSession(KateSession::Ptr session, const QStrin
 
     session->config()->sync();
 
-    const QUrl srcUrl = QUrl::fromLocalFile(session->file());
-    const QUrl dstUrl = QUrl::fromLocalFile(newFile);
-    KIO::CopyJob *job = KIO::move(srcUrl, dstUrl, KIO::HideProgressInfo);
-
-    if (!job->exec()) {
+    if (!QFile::rename(session->file(), newFile)) {
         KMessageBox::sorry(QApplication::activeWindow(),
                            i18n("The session could not be renamed to \"%1\". Failed to write to \"%2\"", newName, newFile),
                            i18n("Session Renaming"));

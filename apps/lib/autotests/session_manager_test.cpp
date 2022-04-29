@@ -20,7 +20,8 @@ QTEST_MAIN(KateSessionManagerTest)
 void KateSessionManagerTest::initTestCase()
 {
     // we need an application object, as session loading will trigger modifications to that
-    m_app = new KateApp(QCommandLineParser());
+    static QCommandLineParser parser;
+    m_app = new KateApp(parser);
     m_app->sessionManager()->activateAnonymousSession();
 }
 

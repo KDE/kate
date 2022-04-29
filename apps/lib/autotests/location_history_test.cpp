@@ -18,7 +18,8 @@ QTEST_MAIN(LocationHistoryTest)
 LocationHistoryTest::LocationHistoryTest(QObject *parent)
     : QObject(parent)
 {
-    app = new KateApp(QCommandLineParser());
+    static QCommandLineParser parser;
+    app = new KateApp(parser);
     app->sessionManager()->activateAnonymousSession();
 
     // create some usable example

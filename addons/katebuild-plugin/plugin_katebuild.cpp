@@ -508,16 +508,19 @@ void KateBuildView::addError(const QString &filename, const QString &line, const
     ErrorCategory errorCategory = CategoryInfo;
     QTreeWidgetItem *item = new QTreeWidgetItem(m_buildUi.errTreeWidget);
     item->setBackground(1, Qt::gray);
+    static QRegularExpression errorRegExp(QStringLiteral("\berror\b"));
+    static QRegularExpression errorRegExpTr(QStringLiteral("\b%1\b").arg(i18nc("The same word as 'make' uses to mark an error.", "error")));
     // The strings are twice in case kate is translated but not make.
-    if (message.contains(QLatin1String("error")) || message.contains(i18nc("The same word as 'make' uses to mark an error.", "error"))
-        || message.contains(QLatin1String("undefined reference"))
+    if (message.contains(errorRegExp) || message.contains(errorRegExpTr) || message.contains(QLatin1String("undefined reference"))
         || message.contains(i18nc("The same word as 'ld' uses to mark an ...", "undefined reference"))) {
         errorCategory = CategoryError;
         item->setForeground(1, Qt::red);
         m_numErrors++;
         item->setHidden(false);
     }
-    if (message.contains(QLatin1String("warning")) || message.contains(i18nc("The same word as 'make' uses to mark a warning.", "warning"))) {
+    static QRegularExpression warningRegExp(QStringLiteral("\bwarning\b"));
+    static QRegularExpression warningRegExpTr(QStringLiteral("\b%1\b").arg(i18nc("The same word as 'make' uses to mark a warning.", "warning")));
+    if (message.contains(warningRegExp) || message.contains(warningRegExpTr)) {
         errorCategory = CategoryWarning;
         item->setForeground(1, Qt::yellow);
         m_numWarnings++;

@@ -1024,27 +1024,11 @@ void KateViewSpace::restoreConfig(KateViewManager *viewMan, const KConfigBase *c
     // restore active view properties
     const QString fn = group.readEntry("Active View");
     if (!fn.isEmpty()) {
-        KTextEditor::Document *doc = KateApp::self()->documentManager()->findDocument(QUrl(fn));
-
-        if (doc) {
-            // view config, group: "ViewSpace <n> url"
-            QString vgroup = QStringLiteral("%1 %2").arg(groupname, fn);
-            KConfigGroup configGroup(config, vgroup);
-
-            auto view = viewMan->createView(doc, this);
-            if (view) {
-                // When a session is opened with a remote file being active, we need to wait
-                // with applying saved session settings until the remote's temp file is initialised.
-                if (!view->document()->url().isLocalFile()) {
-                    QSharedPointer<QMetaObject::Connection> conn(new QMetaObject::Connection());
-                    auto handler = [conn, view, configGroup](KTextEditor::Document *) {
-                        QObject::disconnect(*conn);
-                        view->readSessionConfig(configGroup);
-                    };
-                    *conn = connect(doc, &KTextEditor::Document::textChanged, view, handler);
-                } else {
-                    view->readSessionConfig(configGroup);
-                }
+        if (auto doc = KateApp::self()->documentManager()->findDocument(QUrl(fn))) {
+            if (auto view = viewMan->createView(doc, this)) {
+                // view config, group: "ViewSpace <n> url"
+                const QString vgroup = QStringLiteral("%1 %2").arg(groupname, fn);
+                view->readSessionConfig(KConfigGroup(config, vgroup));
                 m_tabBar->setCurrentDocument(doc);
             }
         }

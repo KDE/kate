@@ -258,11 +258,10 @@ bool KateSessionManager::deleteSession(KateSession::Ptr session)
     }
 
     QFile::remove(session->file());
-    m_sessions.remove(session->name());
-    // Due to this remove from m_sessions will updateSessionList() no signal emit,
-    // but this way is there no delay between deletion and information
-    Q_EMIT sessionListChanged();
 
+    // ensure session list is updated
+    m_sessions.remove(session->name());
+    Q_EMIT sessionListChanged();
     return true;
 }
 
@@ -279,6 +278,9 @@ QString KateSessionManager::copySession(const KateSession::Ptr &session, const Q
     KateSession::Ptr ns = KateSession::createFrom(session, newFile, name);
     ns->config()->sync();
 
+    // ensure session list is updated
+    m_sessions[ns->name()] = ns;
+    Q_EMIT sessionListChanged();
     return name;
 }
 
@@ -301,11 +303,14 @@ QString KateSessionManager::renameSession(KateSession::Ptr session, const QStrin
         return QString();
     }
 
-    m_sessions[newName] = m_sessions.take(session->name());
+    // update session name and sync
+    const auto oldName = session->name();
     session->setName(newName);
     session->setFile(newFile);
     session->config()->sync();
-    // updateSessionList() will this edit not notice, so force signal
+
+    // ensure session list is updated
+    m_sessions[session->name()] = m_sessions.take(oldName);
     Q_EMIT sessionListChanged();
 
     if (session == activeSession()) {

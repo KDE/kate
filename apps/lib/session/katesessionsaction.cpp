@@ -29,7 +29,7 @@ KateSessionsAction::KateSessionsAction(const QString &text, QObject *parent, Kat
     // the current code path is executed ---> crash. See bug #227008.
     connect(sessionsGroup, &QActionGroup::triggered, this, &KateSessionsAction::openSession, Qt::QueuedConnection);
 
-    connect(m_manager, &KateSessionManager::sessionChanged, this, &KateSessionsAction::slotSessionChanged);
+    connect(m_manager, &KateSessionManager::sessionListChanged, this, &KateSessionsAction::slotSessionChanged);
 
     setDisabled(m_manager->sessionList().empty());
 }

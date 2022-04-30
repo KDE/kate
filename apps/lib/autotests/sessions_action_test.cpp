@@ -25,15 +25,13 @@ void KateSessionsActionTest::init()
     static QCommandLineParser parser;
     m_app = new KateApp(parser, KateApp::ApplicationKate, m_tempdir->path());
     m_app->sessionManager()->activateAnonymousSession();
-
-    m_manager = new KateSessionManager(this, m_tempdir->path());
+    m_manager = m_app->sessionManager();
     m_ac = new KateSessionsAction(QStringLiteral("menu"), this, m_manager, false);
 }
 
 void KateSessionsActionTest::cleanup()
 {
     delete m_ac;
-    delete m_manager;
     delete m_app;
     delete m_tempdir;
 }
@@ -49,10 +47,9 @@ void KateSessionsActionTest::basic()
 void KateSessionsActionTest::limit()
 {
     for (int i = 0; i < 14; i++) {
-        m_manager->activateSession(QStringLiteral("session %1").arg(i));
+        m_manager->copySession(m_manager->activeSession(), QStringLiteral("session %1").arg(i));
     }
 
-    QCOMPARE(m_manager->activeSession()->isAnonymous(), false);
     QCOMPARE(m_manager->sessionList().size(), 14);
     QCOMPARE(m_ac->isEnabled(), true);
 

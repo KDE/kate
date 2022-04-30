@@ -11,6 +11,7 @@
 
 #include <QCommandLineParser>
 #include <QSignalSpy>
+#include <QTemporaryDir>
 #include <QTest>
 
 QTEST_MAIN(LocationHistoryTest)
@@ -18,8 +19,11 @@ QTEST_MAIN(LocationHistoryTest)
 LocationHistoryTest::LocationHistoryTest(QObject *parent)
     : QObject(parent)
 {
+    m_tempdir = new QTemporaryDir;
+    QVERIFY(m_tempdir->isValid());
+
     static QCommandLineParser parser;
-    app = new KateApp(parser);
+    app = new KateApp(parser, KateApp::ApplicationKate, m_tempdir->path());
     app->sessionManager()->activateAnonymousSession();
 
     // create some usable example

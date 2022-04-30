@@ -24,7 +24,7 @@ void KateSessionManagerTest::init()
 
     // we need an application object, as session loading will trigger modifications to that
     static QCommandLineParser parser;
-    m_app = new KateApp(parser);
+    m_app = new KateApp(parser, KateApp::ApplicationKate, m_tempdir->path());
     m_app->sessionManager()->activateAnonymousSession();
 
     m_manager = new KateSessionManager(this, m_tempdir->path());

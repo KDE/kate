@@ -15,6 +15,7 @@
 
 #include <QApplication>
 #include <QCommandLineParser>
+#include <QStandardPaths>
 
 #ifndef Q_OS_WIN
 #include <unistd.h>
@@ -175,7 +176,9 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
      * behaves like a singleton, one unique instance
      * we are passing our local command line parser to it
      */
-    KateApp kateApp(parser, KateApp::ApplicationKWrite);
+    KateApp kateApp(parser,
+                    KateApp::ApplicationKWrite,
+                    QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QStringLiteral("/kwrite/sessions"));
 
     /**
      * init kate

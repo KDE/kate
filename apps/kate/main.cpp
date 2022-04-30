@@ -29,6 +29,7 @@
 #include <QJsonDocument>
 #include <QRegularExpression>
 #include <QSessionManager>
+#include <QStandardPaths>
 #include <QTextCodec>
 #include <QUrl>
 #include <QVariant>
@@ -581,7 +582,7 @@ int main(int argc, char **argv)
      * behaves like a singleton, one unique instance
      * we are passing our local command line parser to it
      */
-    KateApp kateApp(parser);
+    KateApp kateApp(parser, KateApp::ApplicationKate, QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QStringLiteral("/kate/sessions"));
 
     /**
      * init kate

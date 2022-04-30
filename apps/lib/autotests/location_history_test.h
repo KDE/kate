@@ -35,6 +35,7 @@ private Q_SLOTS:
     void test_signalEmission();
 
 private:
+    class QTemporaryDir *m_tempdir;
     KateApp *app;
     QTemporaryFile tempFile;
 };

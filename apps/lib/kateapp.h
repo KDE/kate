@@ -53,8 +53,11 @@ public:
 
     /**
      * application constructor
+     * @param arg command line parser, reference will be stored, needs to survive as long as application object is alive
+     * @param mode application mode, either Kate or KWrite
+     * @param sessionDir directory used to store the session config files
      */
-    KateApp(const QCommandLineParser &arg, const ApplicationMode mode = ApplicationKate);
+    KateApp(const QCommandLineParser &arg, const ApplicationMode mode, const QString &sessionsDir);
 
     /**
      * return current application mode

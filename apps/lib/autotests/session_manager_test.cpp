@@ -12,7 +12,6 @@
 #include <KConfigGroup>
 
 #include <QCommandLineParser>
-#include <QSignalSpy>
 #include <QTemporaryDir>
 #include <QtTestWidgets>
 
@@ -88,40 +87,6 @@ void KateSessionManagerTest::urlizeSessionFile()
     QCOMPARE(m_manager->sessionList().size(), 0);
 }
 
-void KateSessionManagerTest::deleteSession()
-{
-    m_manager->activateSession(QStringLiteral("foo"));
-    KateSession::Ptr s = m_manager->activeSession();
-
-    m_manager->activateSession(QStringLiteral("bar"));
-    KateSession::Ptr s2 = m_manager->activeSession();
-
-    QCOMPARE(m_manager->sessionList().size(), 2);
-
-    m_manager->deleteSession(s);
-    QCOMPARE(m_manager->sessionList().size(), 1);
-
-    // cleanup again for next test
-    QVERIFY(m_manager->activateAnonymousSession());
-    QVERIFY(m_manager->deleteSession(s2));
-    QCOMPARE(m_manager->sessionList().size(), 0);
-}
-
-void KateSessionManagerTest::deleteActiveSession()
-{
-    m_manager->activateSession(QStringLiteral("foo"));
-    KateSession::Ptr s = m_manager->activeSession();
-
-    QCOMPARE(m_manager->sessionList().size(), 1);
-    m_manager->deleteSession(s);
-    QCOMPARE(m_manager->sessionList().size(), 1);
-
-    // cleanup again for next test
-    QVERIFY(m_manager->activateAnonymousSession());
-    QVERIFY(m_manager->deleteSession(s));
-    QCOMPARE(m_manager->sessionList().size(), 0);
-}
-
 void KateSessionManagerTest::renameSession()
 {
     m_manager->activateSession(QStringLiteral("foo"));
@@ -139,43 +104,4 @@ void KateSessionManagerTest::renameSession()
     QVERIFY(m_manager->activateAnonymousSession());
     QVERIFY(m_manager->deleteSession(s));
     QCOMPARE(m_manager->sessionList().size(), 0);
-}
-
-void KateSessionManagerTest::saveActiveSessionWithAnynomous()
-{
-    QVERIFY(m_manager->activateAnonymousSession());
-    QVERIFY(m_manager->activeSession()->isAnonymous());
-    QVERIFY(m_manager->sessionList().empty());
-
-    QCOMPARE(m_manager->saveActiveSession(), true);
-    QCOMPARE(m_manager->activeSession()->isAnonymous(), true);
-    QCOMPARE(m_manager->activeSession()->name(), QString());
-    QCOMPARE(m_manager->sessionList().size(), 0);
-}
-
-void KateSessionManagerTest::deletingSessionFilesUnderRunningApp()
-{
-    m_manager->activateSession(QStringLiteral("foo"));
-    m_manager->activateSession(QStringLiteral("bar"));
-
-    QVERIFY(m_manager->sessionList().size() == 2);
-    QVERIFY(m_manager->activeSession()->name() == QLatin1String("bar"));
-
-    const QString file = m_tempdir->path() + QLatin1String("/foo.katesession");
-    QVERIFY(QFile::remove(file));
-
-    // wait for notification about external session list change
-    QSignalSpy spy(m_manager, &KateSessionManager::sessionListChanged);
-    QVERIFY(spy.wait());
-
-    QCOMPARE(m_manager->activeSession()->name(), QLatin1String("bar"));
-}
-
-void KateSessionManagerTest::startNonEmpty()
-{
-    m_manager->activateSession(QStringLiteral("foo"));
-    m_manager->activateSession(QStringLiteral("bar"));
-
-    KateSessionManager m(this, m_tempdir->path());
-    QCOMPARE(m.sessionList().size(), 2);
 }

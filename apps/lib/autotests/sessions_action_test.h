@@ -19,6 +19,13 @@ public:
 
 private Q_SLOTS:
     void basic();
+
+    void deleteActiveSession();
+    void deleteSession();
+    void saveActiveSessionWithAnynomous();
+    void deletingSessionFilesUnderRunningApp();
+    void startNonEmpty();
+
     void limit();
 
 private:

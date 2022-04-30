@@ -16,8 +16,6 @@ class KateSessionTest : public QObject
 private Q_SLOTS:
     void init();
     void cleanup();
-    void initTestCase();
-    void cleanupTestCase();
 
     void create();
     void createAnonymous();

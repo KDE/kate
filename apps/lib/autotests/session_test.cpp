@@ -16,14 +16,6 @@
 
 QTEST_MAIN(KateSessionTest)
 
-void KateSessionTest::initTestCase()
-{
-}
-
-void KateSessionTest::cleanupTestCase()
-{
-}
-
 void KateSessionTest::init()
 {
     m_tmpfile = new QTemporaryFile;

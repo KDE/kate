@@ -16,7 +16,7 @@
 
 QTEST_MAIN(KateSessionsActionTest)
 
-void KateSessionsActionTest::init()
+KateSessionsActionTest::KateSessionsActionTest()
 {
     m_tempdir = new QTemporaryDir;
     QVERIFY(m_tempdir->isValid());
@@ -29,12 +29,13 @@ void KateSessionsActionTest::init()
     m_ac = new KateSessionsAction(QStringLiteral("menu"), this, m_manager, false);
 }
 
-void KateSessionsActionTest::cleanup()
+KateSessionsActionTest::~KateSessionsActionTest()
 {
     delete m_ac;
     delete m_app;
     delete m_tempdir;
 }
+
 void KateSessionsActionTest::basic()
 {
     m_ac->slotAboutToShow();

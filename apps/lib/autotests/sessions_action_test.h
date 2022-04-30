@@ -13,12 +13,13 @@ class KateSessionsActionTest : public QObject
 {
     Q_OBJECT
 
+public:
+    KateSessionsActionTest();
+    ~KateSessionsActionTest();
+
 private Q_SLOTS:
     void basic();
     void limit();
-
-    void init();
-    void cleanup();
 
 private:
     class QTemporaryDir *m_tempdir;

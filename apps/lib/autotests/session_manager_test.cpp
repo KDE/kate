@@ -17,7 +17,7 @@
 
 QTEST_MAIN(KateSessionManagerTest)
 
-void KateSessionManagerTest::init()
+KateSessionManagerTest::KateSessionManagerTest()
 {
     m_tempdir = new QTemporaryDir;
     QVERIFY(m_tempdir->isValid());
@@ -30,7 +30,7 @@ void KateSessionManagerTest::init()
     m_manager = new KateSessionManager(this, m_tempdir->path());
 }
 
-void KateSessionManagerTest::cleanup()
+KateSessionManagerTest::~KateSessionManagerTest()
 {
     delete m_manager;
     delete m_app;
@@ -58,6 +58,11 @@ void KateSessionManagerTest::activateNewNamedSession()
 
     const QString sessionFile = m_tempdir->path() + QLatin1Char('/') + sessionName + QLatin1String(".katesession");
     QCOMPARE(s->config()->name(), sessionFile);
+
+    // cleanup again for next test
+    QVERIFY(m_manager->activateAnonymousSession());
+    QVERIFY(m_manager->deleteSession(s));
+    QCOMPARE(m_manager->sessionList().size(), 0);
 }
 
 void KateSessionManagerTest::anonymousSessionFile()
@@ -77,6 +82,11 @@ void KateSessionManagerTest::urlizeSessionFile()
 
     const QString sessionFile = m_tempdir->path() + QLatin1String("/hello%20world%2F%23.katesession");
     QCOMPARE(s->config()->name(), sessionFile);
+
+    // cleanup again for next test
+    QVERIFY(m_manager->activateAnonymousSession());
+    QVERIFY(m_manager->deleteSession(s));
+    QCOMPARE(m_manager->sessionList().size(), 0);
 }
 
 void KateSessionManagerTest::deleteSession()
@@ -85,11 +95,17 @@ void KateSessionManagerTest::deleteSession()
     KateSession::Ptr s = m_manager->activeSession();
 
     m_manager->activateSession(QStringLiteral("bar"));
+    KateSession::Ptr s2 = m_manager->activeSession();
 
     QCOMPARE(m_manager->sessionList().size(), 2);
 
     m_manager->deleteSession(s);
     QCOMPARE(m_manager->sessionList().size(), 1);
+
+    // cleanup again for next test
+    QVERIFY(m_manager->activateAnonymousSession());
+    QVERIFY(m_manager->deleteSession(s2));
+    QCOMPARE(m_manager->sessionList().size(), 0);
 }
 
 void KateSessionManagerTest::deleteActiveSession()
@@ -100,6 +116,11 @@ void KateSessionManagerTest::deleteActiveSession()
     QCOMPARE(m_manager->sessionList().size(), 1);
     m_manager->deleteSession(s);
     QCOMPARE(m_manager->sessionList().size(), 1);
+
+    // cleanup again for next test
+    QVERIFY(m_manager->activateAnonymousSession());
+    QVERIFY(m_manager->deleteSession(s));
+    QCOMPARE(m_manager->sessionList().size(), 0);
 }
 
 void KateSessionManagerTest::renameSession()
@@ -114,6 +135,11 @@ void KateSessionManagerTest::renameSession()
     QCOMPARE(s->name(), newName);
     QCOMPARE(m_manager->sessionList().size(), 1);
     QCOMPARE(m_manager->sessionList().first(), s);
+
+    // cleanup again for next test
+    QVERIFY(m_manager->activateAnonymousSession());
+    QVERIFY(m_manager->deleteSession(s));
+    QCOMPARE(m_manager->sessionList().size(), 0);
 }
 
 void KateSessionManagerTest::saveActiveSessionWithAnynomous()

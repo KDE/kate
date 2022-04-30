@@ -100,9 +100,12 @@ void KateFileBrowserPluginView::createFileBrowser(bool visible)
 
     disconnect(m_toolView.get(), SIGNAL(toolVisibleChanged(bool)), this, SLOT(createFileBrowser(bool)));
     m_fileBrowser = std::make_unique<KateFileBrowser>(m_mainWindow, m_toolView.get());
-    m_fileBrowser->readSessionConfig(*cg);
-    // delete the config now
-    cg.reset();
+
+    // read config only if there yet, see bug 453234
+    if (cg) {
+        m_fileBrowser->readSessionConfig(*cg);
+        cg.reset();
+    }
 }
 
 bool KateFileBrowserPluginView::eventFilter(QObject *obj, QEvent *event)

@@ -12,6 +12,7 @@
 #include <KConfigGroup>
 
 #include <QCommandLineParser>
+#include <QSignalSpy>
 #include <QTemporaryDir>
 #include <QtTestWidgets>
 
@@ -161,9 +162,12 @@ void KateSessionManagerTest::deletingSessionFilesUnderRunningApp()
     QVERIFY(m_manager->activeSession()->name() == QLatin1String("bar"));
 
     const QString file = m_tempdir->path() + QLatin1String("/foo.katesession");
-    QVERIFY(QFile(file).remove());
+    QVERIFY(QFile::remove(file));
 
-    QTRY_COMPARE_WITH_TIMEOUT(m_manager->sessionList().size(), 1, 1000); // that should be enough for KDirWatch to kick in
+    // wait for notification about external session list change
+    QSignalSpy spy(m_manager, &KateSessionManager::sessionListChanged);
+    QVERIFY(spy.wait());
+
     QCOMPARE(m_manager->activeSession()->name(), QLatin1String("bar"));
 }
 

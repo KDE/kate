@@ -22,8 +22,9 @@ LocationHistoryTest::LocationHistoryTest(QObject *parent)
     m_tempdir = new QTemporaryDir;
     QVERIFY(m_tempdir->isValid());
 
+    // create KWrite variant to avoid plugin loading!
     static QCommandLineParser parser;
-    app = new KateApp(parser, KateApp::ApplicationKate, m_tempdir->path());
+    app = new KateApp(parser, KateApp::ApplicationKWrite, m_tempdir->path());
     app->sessionManager()->activateAnonymousSession();
 
     // create some usable example

@@ -22,9 +22,9 @@ KateSessionManagerTest::KateSessionManagerTest()
     m_tempdir = new QTemporaryDir;
     QVERIFY(m_tempdir->isValid());
 
-    // we need an application object, as session loading will trigger modifications to that
+    // create KWrite variant to avoid plugin loading!
     static QCommandLineParser parser;
-    m_app = new KateApp(parser, KateApp::ApplicationKate, m_tempdir->path());
+    m_app = new KateApp(parser, KateApp::ApplicationKWrite, m_tempdir->path());
     m_app->sessionManager()->activateAnonymousSession();
     m_manager = m_app->sessionManager();
 }

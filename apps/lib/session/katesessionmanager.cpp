@@ -42,10 +42,11 @@ KateSessionManager::KateSessionManager(QObject *parent, const QString &sessionsD
     Q_ASSERT(!m_sessionsDir.isEmpty());
     QDir().mkpath(m_sessionsDir);
 
-    m_dirWatch = std::make_unique<KDirWatch>(this);
-    m_dirWatch->addDir(m_sessionsDir);
-    connect(m_dirWatch.get(), &KDirWatch::dirty, this, &KateSessionManager::updateSessionList);
+    // monitor our session directory for outside changes
+    m_dirWatch.addPath(m_sessionsDir);
+    connect(&m_dirWatch, &QFileSystemWatcher::directoryChanged, this, &KateSessionManager::updateSessionList);
 
+    // initial creation of the session list from disk files
     updateSessionList();
 }
 

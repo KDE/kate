@@ -9,12 +9,9 @@
 
 #include "katesession.h"
 
-#include <KDirWatch>
-
+#include <QFileSystemWatcher>
 #include <QHash>
 #include <QObject>
-
-#include <memory>
 
 typedef QList<KateSession::Ptr> KateSessionList;
 
@@ -248,7 +245,11 @@ private:
      */
     KateSession::Ptr m_activeSession;
 
-    std::unique_ptr<KDirWatch> m_dirWatch;
+    /**
+     * watcher for the session directory
+     * allows to monitor outside changes
+     */
+    QFileSystemWatcher m_dirWatch;
 };
 
 #endif

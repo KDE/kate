@@ -58,20 +58,3 @@ void KateSessionsActionTest::limit()
     QList<QAction *> actions = m_ac->sessionsGroup->actions();
     QCOMPARE(actions.size(), 10);
 }
-
-void KateSessionsActionTest::timesorted()
-{
-    /*
-    m_manager->activateSession("one", false, false);
-    m_manager->saveActiveSession();
-    m_manager->activateSession("two", false, false);
-    m_manager->saveActiveSession();
-    m_manager->activateSession("three", false, false);
-    m_manager->saveActiveSession();
-
-    KateSessionList list = m_manager->sessionList();
-    QCOMPARE(list.size(), 3);
-
-    TODO: any idea how to test this simply and not calling utime()?
-    */
-}

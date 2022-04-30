@@ -15,7 +15,6 @@ class KateSessionsActionTest : public QObject
 
 private Q_SLOTS:
     void basic();
-    void timesorted();
     void limit();
 
     void init();

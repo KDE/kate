@@ -164,7 +164,7 @@ void KateProjectView::checkAndRefreshGit()
         m_branchBtn->setHidden(true);
     } else {
         m_branchBtn->setHidden(false);
-        auto act = m_pluginView->actionCollection()->action(QStringLiteral("current_branch"));
+        auto act = m_branchBtn->defaultAction();
         Q_ASSERT(act);
         act->setText(GitUtils::getCurrentBranchName(dotGitPath.value()));
         if (m_branchChangedWatcher.files().isEmpty()) {

@@ -26,13 +26,11 @@ KateSessionManagerTest::KateSessionManagerTest()
     static QCommandLineParser parser;
     m_app = new KateApp(parser, KateApp::ApplicationKate, m_tempdir->path());
     m_app->sessionManager()->activateAnonymousSession();
-
-    m_manager = new KateSessionManager(this, m_tempdir->path());
+    m_manager = m_app->sessionManager();
 }
 
 KateSessionManagerTest::~KateSessionManagerTest()
 {
-    delete m_manager;
     delete m_app;
     delete m_tempdir;
 }

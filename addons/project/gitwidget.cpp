@@ -724,7 +724,7 @@ void GitWidget::handleClick(const QModelIndex &idx, ClickAction clickAction)
         return stage({file});
     }
 
-    if (clickAction == ClickAction::ShowDiff) {
+    if (clickAction == ClickAction::ShowDiff && statusItemType != GitStatusModel::NodeUntrack) {
         showDiff(file, staged);
     }
 

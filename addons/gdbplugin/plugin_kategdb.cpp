@@ -37,6 +37,7 @@
 #include <ktexteditor/editor.h>
 #include <ktexteditor/markinterface.h>
 #include <ktexteditor/view.h>
+#include <qboxlayout.h>
 
 K_PLUGIN_FACTORY_WITH_JSON(KatePluginGDBFactory, "kategdbplugin.json", registerPlugin<KatePluginGDB>();)
 
@@ -131,10 +132,19 @@ KatePluginGDBView::KatePluginGDBView(KTextEditor::Plugin *plugin, KTextEditor::M
 
     connect(m_threadCombo, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &KatePluginGDBView::threadSelected);
 
+    QWidget *variableContainer = new QWidget();
+    QVBoxLayout *variableLayout = new QVBoxLayout(variableContainer);
+    m_scopeCombo = new QComboBox();
+    connect(m_scopeCombo, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &KatePluginGDBView::scopeSelected);
     m_localsView = new LocalsView();
+    variableLayout->addWidget(m_scopeCombo);
+    variableLayout->addWidget(m_localsView);
+    variableLayout->setStretch(0, 10);
+    variableLayout->setContentsMargins(0, 0, 0, 0);
+    variableLayout->setSpacing(0);
 
     QSplitter *locStackSplitter = new QSplitter(m_localsStackToolView.get());
-    locStackSplitter->addWidget(m_localsView);
+    locStackSplitter->addWidget(variableContainer);
     locStackSplitter->addWidget(stackContainer);
     locStackSplitter->setOrientation(Qt::Vertical);
 
@@ -147,46 +157,59 @@ KatePluginGDBView::KatePluginGDBView(KTextEditor::Plugin *plugin, KTextEditor::M
     m_tabWidget->addTab(m_gdbPage, i18nc("Tab label", "GDB Output"));
     m_tabWidget->addTab(m_configView, i18nc("Tab label", "Settings"));
 
-    m_debugView = new DebugView(this);
-    connect(m_debugView, &DebugView::readyForInput, this, &KatePluginGDBView::enableDebugActions);
+    m_debugView = new Backend(this);
+    connect(m_debugView, &DebugViewInterface::readyForInput, this, &KatePluginGDBView::enableDebugActions);
+    connect(m_debugView, &DebugViewInterface::debuggerCapabilitiesChanged, [this] {
+        enableDebugActions(true);
+    });
 
-    connect(m_debugView, &DebugView::outputText, this, &KatePluginGDBView::addOutputText);
+    connect(m_debugView, &DebugViewInterface::outputText, this, &KatePluginGDBView::addOutputText);
 
-    connect(m_debugView, &DebugView::outputError, this, &KatePluginGDBView::addErrorText);
+    connect(m_debugView, &DebugViewInterface::outputError, this, &KatePluginGDBView::addErrorText);
 
-    connect(m_debugView, &DebugView::debugLocationChanged, this, &KatePluginGDBView::slotGoTo);
+    connect(m_debugView, &DebugViewInterface::debugLocationChanged, this, &KatePluginGDBView::slotGoTo);
 
-    connect(m_debugView, &DebugView::breakPointSet, this, &KatePluginGDBView::slotBreakpointSet);
+    connect(m_debugView, &DebugViewInterface::breakPointSet, this, &KatePluginGDBView::slotBreakpointSet);
 
-    connect(m_debugView, &DebugView::breakPointCleared, this, &KatePluginGDBView::slotBreakpointCleared);
+    connect(m_debugView, &DebugViewInterface::breakPointCleared, this, &KatePluginGDBView::slotBreakpointCleared);
 
-    connect(m_debugView, &DebugView::clearBreakpointMarks, this, &KatePluginGDBView::clearMarks);
+    connect(m_debugView, &DebugViewInterface::clearBreakpointMarks, this, &KatePluginGDBView::clearMarks);
 
-    connect(m_debugView, &DebugView::programEnded, this, &KatePluginGDBView::programEnded);
+    connect(m_debugView, &DebugViewInterface::programEnded, this, &KatePluginGDBView::programEnded);
 
-    connect(m_debugView, &DebugView::gdbEnded, this, &KatePluginGDBView::programEnded);
+    connect(m_debugView, &DebugViewInterface::gdbEnded, this, &KatePluginGDBView::programEnded);
 
-    connect(m_debugView, &DebugView::gdbEnded, this, &KatePluginGDBView::gdbEnded);
+    connect(m_debugView, &DebugViewInterface::gdbEnded, this, &KatePluginGDBView::gdbEnded);
 
-    connect(m_debugView, &DebugView::stackFrameInfo, this, &KatePluginGDBView::insertStackFrame);
+    connect(m_debugView, &DebugViewInterface::stackFrameInfo, this, &KatePluginGDBView::insertStackFrame);
 
-    connect(m_debugView, &DebugView::stackFrameChanged, this, &KatePluginGDBView::stackFrameChanged);
+    connect(m_debugView, &DebugViewInterface::stackFrameChanged, this, &KatePluginGDBView::stackFrameChanged);
 
-    connect(m_debugView, &DebugView::infoLocal, m_localsView, &LocalsView::addLocal);
+    connect(m_debugView, &DebugViewInterface::scopesInfo, this, &KatePluginGDBView::insertScopes);
 
-    connect(m_debugView, &DebugView::threadInfo, this, &KatePluginGDBView::insertThread);
+    connect(m_debugView, &DebugViewInterface::variableScopeOpened, m_localsView, &LocalsView::openVariableScope);
+    connect(m_debugView, &DebugViewInterface::variableScopeClosed, m_localsView, &LocalsView::closeVariableScope);
+    connect(m_debugView, &DebugViewInterface::variableInfo, m_localsView, &LocalsView::addVariableLevel);
+    //     connect(m_debugView, &DebugView::infoLocal, m_localsView, &LocalsView::addLocal);
 
-    connect(m_debugView, &DebugView::sourceFileNotFound, this, [this](const QString &fileName) {
+    connect(m_debugView, &DebugViewInterface::threadInfo, this, &KatePluginGDBView::insertThread);
+
+    connect(m_debugView, &DebugViewInterface::debuggeeOutput, this, &KatePluginGDBView::addOutput);
+
+    connect(m_debugView, &DebugViewInterface::sourceFileNotFound, this, [this](const QString &fileName) {
         displayMessage(xi18nc("@info",
                               "<title>Could not open file:</title><nl/>%1<br/>Try adding a search path to Advanced Settings -> Source file search paths",
                               fileName),
                        KTextEditor::Message::Error);
     });
 
-    connect(m_localsView, &LocalsView::localsVisible, m_debugView, &DebugView::slotQueryLocals);
+    connect(m_localsView, &LocalsView::localsVisible, m_debugView, &DebugViewInterface::slotQueryLocals);
 
     connect(m_configView, &ConfigView::configChanged, this, [this]() {
-        GDBTargetConf config = m_configView->currentTarget();
+        if (!m_configView->debuggerIsGDB())
+            return;
+
+        GDBTargetConf config = m_configView->currentGDBTarget();
         if (m_debugView->targetName() == config.targetName) {
             m_debugView->setFileSearchPaths(config.srcPaths);
         }
@@ -203,7 +226,7 @@ KatePluginGDBView::KatePluginGDBView(KTextEditor::Plugin *plugin, KTextEditor::M
     a = actionCollection()->addAction(QStringLiteral("kill"));
     a->setText(i18n("Kill / Stop Debugging"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("media-playback-stop")));
-    connect(a, &QAction::triggered, m_debugView, &DebugView::slotKill);
+    connect(a, &QAction::triggered, m_debugView, &DebugViewInterface::slotKill);
 
     a = actionCollection()->addAction(QStringLiteral("rerun"));
     a->setText(i18n("Restart Debugging"));
@@ -218,17 +241,17 @@ KatePluginGDBView::KatePluginGDBView(KTextEditor::Plugin *plugin, KTextEditor::M
     a = actionCollection()->addAction(QStringLiteral("step_in"));
     a->setText(i18n("Step In"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("debug-step-into")));
-    connect(a, &QAction::triggered, m_debugView, &DebugView::slotStepInto);
+    connect(a, &QAction::triggered, m_debugView, &DebugViewInterface::slotStepInto);
 
     a = actionCollection()->addAction(QStringLiteral("step_over"));
     a->setText(i18n("Step Over"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("debug-step-over")));
-    connect(a, &QAction::triggered, m_debugView, &DebugView::slotStepOver);
+    connect(a, &QAction::triggered, m_debugView, &DebugViewInterface::slotStepOver);
 
     a = actionCollection()->addAction(QStringLiteral("step_out"));
     a->setText(i18n("Step Out"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("debug-step-out")));
-    connect(a, &QAction::triggered, m_debugView, &DebugView::slotStepOut);
+    connect(a, &QAction::triggered, m_debugView, &DebugViewInterface::slotStepOut);
 
     a = actionCollection()->addAction(QStringLiteral("move_pc"));
     a->setText(i18nc("Move Program Counter (next execution)", "Move PC"));
@@ -242,7 +265,7 @@ KatePluginGDBView::KatePluginGDBView(KTextEditor::Plugin *plugin, KTextEditor::M
     a = actionCollection()->addAction(QStringLiteral("continue"));
     a->setText(i18n("Continue"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("media-playback-start")));
-    connect(a, &QAction::triggered, m_debugView, &DebugView::slotContinue);
+    connect(a, &QAction::triggered, m_debugView, &DebugViewInterface::slotContinue);
 
     a = actionCollection()->addAction(QStringLiteral("print_value"));
     a->setText(i18n("Print Value"));
@@ -306,9 +329,14 @@ void KatePluginGDBView::slotDebug()
     m_tabWidget->setCurrentWidget(m_gdbPage);
     QScrollBar *sb = m_outputArea->verticalScrollBar();
     sb->setValue(sb->maximum());
+    m_scopeCombo->clear();
     m_localsView->clear();
 
-    m_debugView->runDebugger(m_configView->currentTarget(), ioFifos);
+    if (m_configView->debuggerIsGDB()) {
+        m_debugView->runDebugger(m_configView->currentGDBTarget(), ioFifos);
+    } else {
+        m_debugView->runDebugger(m_configView->currentDAPTarget(true));
+    }
 }
 
 void KatePluginGDBView::slotRestart()
@@ -317,6 +345,7 @@ void KatePluginGDBView::slotRestart()
     m_tabWidget->setCurrentWidget(m_gdbPage);
     QScrollBar *sb = m_outputArea->verticalScrollBar();
     sb->setValue(sb->maximum());
+    m_scopeCombo->clear();
     m_localsView->clear();
 
     m_debugView->slotReRun();
@@ -416,23 +445,25 @@ void KatePluginGDBView::slotGoTo(const QUrl &url, int lineNum)
 
 void KatePluginGDBView::enableDebugActions(bool enable)
 {
-    actionCollection()->action(QStringLiteral("step_in"))->setEnabled(enable);
-    actionCollection()->action(QStringLiteral("step_over"))->setEnabled(enable);
-    actionCollection()->action(QStringLiteral("step_out"))->setEnabled(enable);
-    actionCollection()->action(QStringLiteral("move_pc"))->setEnabled(enable);
-    actionCollection()->action(QStringLiteral("run_to_cursor"))->setEnabled(enable);
+    const bool canMove = m_debugView->canMove();
+    actionCollection()->action(QStringLiteral("step_in"))->setEnabled(enable && canMove);
+    actionCollection()->action(QStringLiteral("step_over"))->setEnabled(enable && canMove);
+    actionCollection()->action(QStringLiteral("step_out"))->setEnabled(enable && canMove);
+    actionCollection()->action(QStringLiteral("move_pc"))->setEnabled(enable && m_debugView->supportsMovePC());
+    actionCollection()->action(QStringLiteral("run_to_cursor"))->setEnabled(enable && m_debugView->supportsRunToCursor());
     actionCollection()->action(QStringLiteral("popup_gdb"))->setEnabled(enable);
     actionCollection()->action(QStringLiteral("continue"))->setEnabled(enable);
     actionCollection()->action(QStringLiteral("print_value"))->setEnabled(enable);
 
     // "toggle breakpoint" doubles as interrupt while the program is running
-    actionCollection()->action(QStringLiteral("toggle_breakpoint"))->setEnabled(m_debugView->debuggerRunning());
+    actionCollection()->action(QStringLiteral("toggle_breakpoint"))->setEnabled(m_debugView->canSetBreakpoints());
     actionCollection()->action(QStringLiteral("kill"))->setEnabled(m_debugView->debuggerRunning());
     actionCollection()->action(QStringLiteral("rerun"))->setEnabled(m_debugView->debuggerRunning());
 
-    m_inputArea->setEnabled(enable);
+    m_inputArea->setEnabled(enable && !m_debugView->debuggerBusy());
     m_threadCombo->setEnabled(enable);
     m_stackTree->setEnabled(enable);
+    m_scopeCombo->setEnabled(enable);
     m_localsView->setEnabled(enable);
 
     if (enable) {
@@ -473,6 +504,7 @@ void KatePluginGDBView::programEnded()
     // don't set the execution mark on exit
     m_lastExecLine = -1;
     m_stackTree->clear();
+    m_scopeCombo->clear();
     m_localsView->clear();
     m_threadCombo->clear();
 
@@ -526,31 +558,31 @@ void KatePluginGDBView::slotSendCommand()
     sb->setValue(sb->maximum());
 }
 
-void KatePluginGDBView::insertStackFrame(QString const &level, QString const &info)
+void KatePluginGDBView::insertStackFrame(int level, const QString &info)
 {
-    if (level.isEmpty() && info.isEmpty()) {
+    if (level < 0) {
         m_stackTree->resizeColumnToContents(2);
         return;
     }
 
-    if (level == QLatin1Char('0')) {
+    if (level == 0) {
         m_stackTree->clear();
     }
     QStringList columns;
     columns << QStringLiteral("  "); // icon place holder
-    columns << level;
+    columns << QString::number(level);
     int lastSpace = info.lastIndexOf(QLatin1Char(' '));
     QString shortInfo = info.mid(lastSpace);
     columns << shortInfo;
 
     QTreeWidgetItem *item = new QTreeWidgetItem(columns);
     item->setToolTip(2, QStringLiteral("<qt>%1<qt>").arg(info));
-    m_stackTree->insertTopLevelItem(level.toInt(), item);
+    m_stackTree->insertTopLevelItem(level, item);
 }
 
 void KatePluginGDBView::stackFrameSelected()
 {
-    m_debugView->issueCommand(QStringLiteral("(Q)f %1").arg(m_stackTree->currentIndex().row()));
+    m_debugView->changeStackFrame(m_stackTree->currentIndex().row());
 }
 
 void KatePluginGDBView::stackFrameChanged(int level)
@@ -567,17 +599,47 @@ void KatePluginGDBView::stackFrameChanged(int level)
     m_lastExecFrame = level;
 }
 
-void KatePluginGDBView::insertThread(int number, bool active)
+void KatePluginGDBView::insertScopes(const QList<dap::Scope> &scopes, std::optional<int> activeId)
 {
-    if (number < 0) {
+    m_scopeCombo->clear();
+
+    int selected = -1;
+    int index = 0;
+    for (const auto &scope : scopes) {
+        QString name = scope.expensive.value_or(false) ? QStringLiteral("%1!").arg(scope.name) : scope.name;
+        if (activeId && (activeId == scope.variablesReference)) {
+            selected = index;
+        }
+        m_scopeCombo->addItem(QIcon::fromTheme(QStringLiteral("")).pixmap(10, 10), scope.name, scope.variablesReference);
+        ++index;
+    }
+    if (selected >= 0) {
+        m_scopeCombo->setCurrentIndex(selected);
+    }
+}
+
+void KatePluginGDBView::scopeSelected(int scope)
+{
+    if (scope < 0)
+        return;
+    m_debugView->changeScope(m_scopeCombo->itemData(scope).toInt());
+}
+
+void KatePluginGDBView::insertThread(const dap::Thread &thread, bool active)
+{
+    if (thread.id < 0) {
         m_threadCombo->clear();
         m_activeThread = -1;
         return;
     }
+    QString text = i18n("Thread %1", thread.id);
+    if (!thread.name.isEmpty()) {
+        text += QStringLiteral(": %1").arg(thread.name);
+    }
     if (!active) {
-        m_threadCombo->addItem(QIcon::fromTheme(QStringLiteral("")).pixmap(10, 10), i18n("Thread %1", number), number);
+        m_threadCombo->addItem(QIcon::fromTheme(QStringLiteral("")).pixmap(10, 10), text, thread.id);
     } else {
-        m_threadCombo->addItem(QIcon::fromTheme(QStringLiteral("arrow-right")).pixmap(10, 10), i18n("Thread %1", number), number);
+        m_threadCombo->addItem(QIcon::fromTheme(QStringLiteral("arrow-right")).pixmap(10, 10), text, thread.id);
         m_activeThread = m_threadCombo->count() - 1;
     }
     m_threadCombo->setCurrentIndex(m_activeThread);
@@ -585,7 +647,9 @@ void KatePluginGDBView::insertThread(int number, bool active)
 
 void KatePluginGDBView::threadSelected(int thread)
 {
-    m_debugView->issueCommand(QStringLiteral("thread %1").arg(m_threadCombo->itemData(thread).toInt()));
+    if (thread < 0)
+        return;
+    m_debugView->changeThread(m_threadCombo->itemData(thread).toInt());
 }
 
 QString KatePluginGDBView::currentWord()
@@ -655,9 +719,7 @@ void KatePluginGDBView::slotValue()
         return;
     }
 
-    QString cmd = QStringLiteral("print %1").arg(variable);
-    m_debugView->issueCommand(cmd);
-    m_inputArea->addToHistory(cmd);
+    m_inputArea->addToHistory(m_debugView->slotPrintVariable(variable));
     m_inputArea->setCurrentItem(QString());
 
     m_mainWin->showToolView(m_toolView.get());
@@ -673,6 +735,27 @@ void KatePluginGDBView::showIO(bool show)
         m_tabWidget->addTab(m_ioView.get(), i18n("IO"));
     } else {
         m_tabWidget->removeTab(m_tabWidget->indexOf(m_ioView.get()));
+    }
+}
+
+void KatePluginGDBView::addOutput(const dap::Output &output)
+{
+    if (output.isSpecialOutput()) {
+        addErrorText(output.output);
+        return;
+    }
+    if (m_configView->showIOTab()) {
+        if (output.category == dap::Output::Category::Stdout) {
+            m_ioView->addStdOutText(output.output);
+        } else {
+            m_ioView->addStdOutText(output.output);
+        }
+    } else {
+        if (output.category == dap::Output::Category::Stdout) {
+            addOutputText(output.output);
+        } else {
+            addErrorText(output.output);
+        }
     }
 }
 

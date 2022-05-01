@@ -18,8 +18,10 @@
 #include <QUrl>
 
 #include "configview.h"
+#include "debugview_iface.h"
+#include "gdbvariableparser.h"
 
-class DebugView : public QObject
+class DebugView : public DebugViewInterface
 {
     Q_OBJECT
 public:
@@ -27,29 +29,38 @@ public:
     ~DebugView() override;
 
     void runDebugger(const GDBTargetConf &conf, const QStringList &ioFifos);
-    bool debuggerRunning() const;
-    bool debuggerBusy() const;
-    bool hasBreakpoint(QUrl const &url, int line);
+    bool debuggerRunning() const override;
+    bool debuggerBusy() const override;
+    bool hasBreakpoint(QUrl const &url, int line) const override;
 
-    void toggleBreakpoint(QUrl const &url, int line);
-    void movePC(QUrl const &url, int line);
-    void runToCursor(QUrl const &url, int line);
+    bool supportsMovePC() const override;
+    bool supportsRunToCursor() const override;
+    bool canSetBreakpoints() const override;
+    bool canMove() const override;
 
-    void issueCommand(QString const &cmd);
+    void toggleBreakpoint(QUrl const &url, int line) override;
+    void movePC(QUrl const &url, int line) override;
+    void runToCursor(QUrl const &url, int line) override;
 
-    QString targetName() const;
-    void setFileSearchPaths(const QStringList &paths);
+    void issueCommand(QString const &cmd) override;
+
+    QString targetName() const override;
+    void setFileSearchPaths(const QStringList &paths) override;
 
 public Q_SLOTS:
-    void slotInterrupt();
-    void slotStepInto();
-    void slotStepOver();
-    void slotStepOut();
-    void slotContinue();
-    void slotKill();
-    void slotReRun();
+    void slotInterrupt() override;
+    void slotStepInto() override;
+    void slotStepOver() override;
+    void slotStepOut() override;
+    void slotContinue() override;
+    void slotKill() override;
+    void slotReRun() override;
+    QString slotPrintVariable(const QString &variable) override;
 
-    void slotQueryLocals(bool display);
+    void slotQueryLocals(bool display) override;
+    void changeStackFrame(int index) override;
+    void changeThread(int index) override;
+    void changeScope(int scopeId) override;
 
 private Q_SLOTS:
     static void slotError();
@@ -57,24 +68,6 @@ private Q_SLOTS:
     void slotReadDebugStdErr();
     void slotDebugFinished(int exitCode, QProcess::ExitStatus status);
     void issueNextCommand();
-
-Q_SIGNALS:
-    void debugLocationChanged(const QUrl &file, int lineNum);
-    void breakPointSet(const QUrl &file, int lineNum);
-    void breakPointCleared(const QUrl &file, int lineNum);
-    void clearBreakpointMarks();
-    void stackFrameInfo(QString const &level, QString const &info);
-    void stackFrameChanged(int level);
-    void threadInfo(int number, bool active);
-
-    void infoLocal(QString const &line);
-
-    void outputText(const QString &text);
-    void outputError(const QString &text);
-    void readyForInput(bool ready);
-    void programEnded();
-    void gdbEnded();
-    void sourceFileNotFound(const QString &fileName);
 
 private:
     enum State { none, ready, executingCmd, listingBreakpoints, infoStack, infoArgs, printThis, infoLocals, infoThreads };
@@ -112,6 +105,8 @@ private:
     QString m_errBuffer;
     QStringList m_errorList;
     bool m_queryLocals;
+
+    GDBVariableParser m_variableParser;
 };
 
 #endif

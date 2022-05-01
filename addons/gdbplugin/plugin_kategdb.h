@@ -19,9 +19,11 @@
 #include <KTextEditor/Plugin>
 #include <KTextEditor/SessionConfigInterface>
 #include <KXMLGUIClient>
+#include <optional>
 
+#include "backend.h"
 #include "configview.h"
-#include "debugview.h"
+#include "dap/entities.h"
 #include "ioview.h"
 #include "localsview.h"
 
@@ -72,14 +74,18 @@ private Q_SLOTS:
     void programEnded();
     void gdbEnded();
 
-    void insertStackFrame(QString const &level, QString const &info);
+    void insertStackFrame(int level, const QString &info);
     void stackFrameChanged(int level);
     void stackFrameSelected();
 
-    void insertThread(int number, bool active);
+    void insertThread(const dap::Thread &thread, bool active);
     void threadSelected(int thread);
 
+    void insertScopes(const QList<dap::Scope> &scopes, std::optional<int> activeId);
+    void scopeSelected(int scope);
+
     void showIO(bool show);
+    void addOutput(const dap::Output &output);
     void addOutputText(QString const &text);
     void addErrorText(QString const &text);
     void clearMarks();
@@ -101,11 +107,12 @@ private:
     QTextEdit *m_outputArea;
     KHistoryComboBox *m_inputArea;
     QWidget *m_gdbPage;
+    QComboBox *m_scopeCombo;
     QComboBox *m_threadCombo;
     int m_activeThread;
     QTreeWidget *m_stackTree;
     QString m_lastCommand;
-    DebugView *m_debugView;
+    Backend *m_debugView;
     ConfigView *m_configView;
     std::unique_ptr<IOView> m_ioView;
     LocalsView *m_localsView;

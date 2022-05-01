@@ -10,6 +10,7 @@
 //  SPDX-License-Identifier: LGPL-2.0-only
 
 #include "debugview.h"
+#include "dap/entities.h"
 
 #include <QFile>
 #include <QFileInfo>
@@ -24,16 +25,22 @@
 #include <signal.h>
 #include <stdlib.h>
 
+static const dap::Scope UniqueScope(0, i18n("Locals"));
+
 static const QString PromptStr = QStringLiteral("(prompt)");
 
 DebugView::DebugView(QObject *parent)
-    : QObject(parent)
+    : DebugViewInterface(parent)
     , m_debugProcess(nullptr)
     , m_state(none)
     , m_subState(normal)
     , m_debugLocationChanged(true)
     , m_queryLocals(false)
 {
+    // variable parser
+    connect(&m_variableParser, &GDBVariableParser::variable, this, &DebugViewInterface::variableInfo);
+    connect(&m_variableParser, &GDBVariableParser::scopeClosed, this, &DebugViewInterface::variableScopeClosed);
+    connect(&m_variableParser, &GDBVariableParser::scopeOpened, this, &DebugViewInterface::variableScopeOpened);
 }
 
 DebugView::~DebugView()
@@ -43,6 +50,26 @@ DebugView::~DebugView()
         m_debugProcess.blockSignals(true);
         m_debugProcess.waitForFinished();
     }
+}
+
+bool DebugView::supportsMovePC() const
+{
+    return true;
+}
+
+bool DebugView::supportsRunToCursor() const
+{
+    return true;
+}
+
+bool DebugView::canSetBreakpoints() const
+{
+    return debuggerRunning();
+}
+
+bool DebugView::canMove() const
+{
+    return debuggerRunning();
 }
 
 void DebugView::runDebugger(const GDBTargetConf &conf, const QStringList &ioFifos)
@@ -110,7 +137,7 @@ bool DebugView::debuggerBusy() const
     return (m_state == executingCmd);
 }
 
-bool DebugView::hasBreakpoint(const QUrl &url, int line)
+bool DebugView::hasBreakpoint(const QUrl &url, int line) const
 {
     for (const auto &breakpoint : qAsConst(m_breakPointList)) {
         if ((url == breakpoint.file) && (line == breakpoint.line)) {
@@ -306,7 +333,7 @@ void DebugView::processLine(QString line)
             m_breakPointList.clear();
         } else if ((match = stackFrameAny.match(line)).hasMatch()) {
             if (m_lastCommand.contains(QLatin1String("info stack"))) {
-                Q_EMIT stackFrameInfo(match.captured(1), match.captured(2));
+                Q_EMIT stackFrameInfo(match.captured(1).toInt(), match.captured(2));
             } else {
                 m_subState = (m_subState == normal) ? stackFrameSeen : stackTraceSeen;
 
@@ -401,7 +428,8 @@ void DebugView::processLine(QString line)
             m_state = ready;
             QTimer::singleShot(0, this, &DebugView::issueNextCommand);
         } else {
-            Q_EMIT infoLocal(line);
+            m_variableParser.addLocal(line);
+            //             Q_EMIT infoLocal(line);
         }
         break;
     case printThis:
@@ -409,33 +437,37 @@ void DebugView::processLine(QString line)
             m_state = ready;
             QTimer::singleShot(0, this, &DebugView::issueNextCommand);
         } else {
-            Q_EMIT infoLocal(line);
+            m_variableParser.addLocal(line);
+            //             Q_EMIT infoLocal(line);
         }
         break;
     case infoLocals:
         if (PromptStr == line) {
             m_state = ready;
-            Q_EMIT infoLocal(QString());
+            m_variableParser.addLocal(QString());
+            //             Q_EMIT infoLocal(QString());
             QTimer::singleShot(0, this, &DebugView::issueNextCommand);
         } else {
-            Q_EMIT infoLocal(line);
+            m_variableParser.addLocal(line);
+            //             Q_EMIT infoLocal(line);
         }
         break;
     case infoStack:
         if (PromptStr == line) {
             m_state = ready;
-            Q_EMIT stackFrameInfo(QString(), QString());
+            Q_EMIT stackFrameInfo(-1, QString());
             QTimer::singleShot(0, this, &DebugView::issueNextCommand);
         } else if ((match = stackFrameAny.match(line)).hasMatch()) {
-            Q_EMIT stackFrameInfo(match.captured(1), match.captured(2));
+            Q_EMIT stackFrameInfo(match.captured(1).toInt(), match.captured(2));
         }
+        Q_EMIT scopesInfo({UniqueScope}, UniqueScope.variablesReference);
         break;
     case infoThreads:
         if (PromptStr == line) {
             m_state = ready;
             QTimer::singleShot(0, this, &DebugView::issueNextCommand);
         } else if ((match = threadLine.match(line)).hasMatch()) {
-            Q_EMIT threadInfo(match.captured(1).toInt(), (line[0] == QLatin1Char('*')));
+            Q_EMIT threadInfo(dap::Thread(match.captured(1).toInt()), (line[0] == QLatin1Char('*')));
         }
         break;
     }
@@ -492,6 +524,13 @@ void DebugView::processErrors()
     }
 }
 
+QString DebugView::slotPrintVariable(const QString &variable)
+{
+    const QString cmd = QStringLiteral("print %1").arg(variable);
+    issueCommand(cmd);
+    return cmd;
+}
+
 void DebugView::issueCommand(QString const &cmd)
 {
     if (m_state == ready) {
@@ -506,7 +545,7 @@ void DebugView::issueCommand(QString const &cmd)
         } else if (cmd == QLatin1String("(Q)info stack")) {
             m_state = infoStack;
         } else if (cmd == QLatin1String("(Q)info thread")) {
-            Q_EMIT threadInfo(-1, false);
+            Q_EMIT threadInfo(dap::Thread(-1), false);
             m_state = infoThreads;
         }
         m_subState = normal;
@@ -615,4 +654,19 @@ QString DebugView::targetName() const
 void DebugView::setFileSearchPaths(const QStringList &paths)
 {
     m_targetConf.srcPaths = paths;
+}
+
+void DebugView::changeStackFrame(int index)
+{
+    issueCommand(QStringLiteral("(Q)f %1").arg(index));
+}
+
+void DebugView::changeThread(int index)
+{
+    issueCommand(QStringLiteral("thread %1").arg(index));
+}
+
+void DebugView::changeScope(int /*scopeId*/)
+{
+    // nothing to do: scope is always the same
 }

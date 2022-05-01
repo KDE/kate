@@ -17,11 +17,17 @@
 #include <QBoxLayout>
 #include <QCheckBox>
 #include <QComboBox>
+#include <QHash>
+#include <QJsonObject>
 #include <QLabel>
 #include <QLineEdit>
 #include <QResizeEvent>
+#include <QSpinBox>
 #include <QToolButton>
+#include <QVariantHash>
 #include <QWidget>
+#include <optional>
+#include <utility>
 
 #include <QList>
 
@@ -40,11 +46,25 @@ struct GDBTargetConf {
     QStringList srcPaths;
 };
 
+struct DAPAdapterSettings {
+    int index;
+    QJsonObject settings;
+    QStringList variables;
+};
+
+struct DAPTargetConf {
+    QString targetName;
+    QString debugger;
+    QString debuggerProfile;
+    QVariantHash variables;
+    std::optional<DAPAdapterSettings> dapSettings;
+};
+
 class ConfigView : public QWidget
 {
     Q_OBJECT
 public:
-    enum TargetStringOrder { NameIndex = 0, ExecIndex, WorkDirIndex, ArgsIndex, GDBIndex, CustomStartIndex };
+    enum TargetStringOrder { NameIndex = 0, ExecIndex, WorkDirIndex, ArgsIndex, GDBIndex, DebuggerKey, DebuggerProfile, DAPVariables, CustomStartIndex };
 
     ConfigView(QWidget *parent, KTextEditor::MainWindow *mainWin);
     ~ConfigView() override;
@@ -55,9 +75,11 @@ public:
     void readConfig(const KConfigGroup &config);
     void writeConfig(KConfigGroup &config);
 
-    const GDBTargetConf currentTarget() const;
+    const GDBTargetConf currentGDBTarget() const;
+    const DAPTargetConf currentDAPTarget(bool full = false) const;
     bool takeFocusAlways() const;
     bool showIOTab() const;
+    bool debuggerIsGDB() const;
 
 Q_SIGNALS:
     void showIO(bool show);
@@ -79,11 +101,17 @@ protected:
 
 private:
     void saveCurrentToIndex(int index);
-    void loadFromIndex(int index);
+    int loadFromIndex(int index);
     void setAdvancedOptions();
+    std::pair<QLabel *, QLineEdit *> &getDapField(const QString &fieldName);
+    void refreshUI();
+    void readDAPSettings();
 
 private:
     KTextEditor::MainWindow *m_mainWindow;
+
+    QComboBox *m_clientCombo;
+
     QComboBox *m_targetCombo;
     int m_currentTarget = 0;
     QToolButton *m_addTarget;
@@ -96,6 +124,7 @@ private:
 
     QLineEdit *m_workingDirectory;
     QToolButton *m_browseDir;
+    QSpinBox *m_processId;
 
     QLineEdit *m_arguments;
 
@@ -108,7 +137,11 @@ private:
     QLabel *m_execLabel;
     QLabel *m_workDirLabel;
     QLabel *m_argumentsLabel;
+    QLabel *m_processIdLabel;
     KSelectAction *m_targetSelectAction = nullptr;
+
+    QHash<QString, std::pair<QLabel *, QLineEdit *>> m_dapFields;
+    QHash<QString, QHash<QString, DAPAdapterSettings>> m_dapAdapterSettings;
 
     AdvancedGDBSettings *m_advanced;
 };

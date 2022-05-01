@@ -14,8 +14,11 @@
 #include <QCompleter>
 #include <QFileDialog>
 #include <QFileSystemModel>
+#include <QJsonDocument>
+#include <QJsonObject>
 #include <QLayout>
 #include <QPushButton>
+#include <QStandardPaths>
 #include <QTimer>
 
 #include <KTextEditor/Document>
@@ -24,16 +27,53 @@
 #include <KLocalizedString>
 #include <KMessageBox>
 
+#include "dap/settings.h"
+#include "json_placeholders.h"
+
+#include <json_utils.h>
+
 #ifdef WIN32
 static const QLatin1Char pathSeparator(';');
 #else
 static const QLatin1Char pathSeparator(':');
 #endif
 
+void ConfigView::refreshUI()
+{
+    // first false then true to make sure a layout is set
+    m_useBottomLayout = false;
+    resizeEvent(nullptr);
+    m_useBottomLayout = true;
+    resizeEvent(nullptr);
+}
+
+std::optional<QJsonDocument> loadJSON(const QString &path)
+{
+    QFile file(path);
+    if (!file.open(QIODevice::ReadOnly)) {
+        //         qCritical() << "file error: " << file.errorString();
+        return std::nullopt;
+    }
+    QJsonParseError error;
+    const auto json = QJsonDocument::fromJson(file.readAll(), &error);
+    file.close();
+    if (error.error != QJsonParseError::NoError) {
+        //         qCritical() << "JSON parse error: " << error.errorString();
+        return std::nullopt;
+    }
+    return json;
+}
+
 ConfigView::ConfigView(QWidget *parent, KTextEditor::MainWindow *mainWin)
     : QWidget(parent)
     , m_mainWindow(mainWin)
 {
+    m_clientCombo = new QComboBox();
+    m_clientCombo->setEditable(false);
+    m_clientCombo->addItem(QStringLiteral("GDB"));
+    m_clientCombo->insertSeparator(1);
+    readDAPSettings();
+
     m_targetCombo = new QComboBox();
     m_targetCombo->setEditable(true);
     // don't let Qt insert items when the user edits; new targets are only
@@ -81,6 +121,12 @@ ConfigView::ConfigView(QWidget *parent, KTextEditor::MainWindow *mainWin)
     m_browseDir = new QToolButton(this);
     m_browseDir->setIcon(QIcon::fromTheme(QStringLiteral("inode-directory")));
 
+    m_processId = new QSpinBox();
+    m_processId->setMinimum(1);
+    m_processId->setMaximum(4194304);
+    m_processIdLabel = new QLabel(i18n("Process Id:"));
+    m_processIdLabel->setBuddy(m_processId);
+
     m_arguments = new QLineEdit();
     m_arguments->setClearButtonEnabled(true);
     m_argumentsLabel = new QLabel(i18nc("Program argument list", "Arguments:"));
@@ -96,11 +142,8 @@ ConfigView::ConfigView(QWidget *parent, KTextEditor::MainWindow *mainWin)
 
     m_checBoxLayout = nullptr;
 
-    // first false then true to make sure a layout is set
-    m_useBottomLayout = false;
-    resizeEvent(nullptr);
-    m_useBottomLayout = true;
-    resizeEvent(nullptr);
+    // ensure layout is set
+    refreshUI();
 
     m_advanced = new AdvancedGDBSettings(this);
     m_advanced->hide();
@@ -114,10 +157,67 @@ ConfigView::ConfigView(QWidget *parent, KTextEditor::MainWindow *mainWin)
     connect(m_browseDir, &QToolButton::clicked, this, &ConfigView::slotBrowseDir);
     connect(m_redirectTerminal, &QCheckBox::toggled, this, &ConfigView::showIO);
     connect(m_advancedSettings, &QPushButton::clicked, this, &ConfigView::slotAdvancedClicked);
+
+    connect(m_clientCombo, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &ConfigView::refreshUI);
 }
 
 ConfigView::~ConfigView()
 {
+}
+
+void ConfigView::readDAPSettings()
+{
+    // read servers file
+    const auto json = loadJSON(QStringLiteral(":/dapclient/servers.json"));
+    if (!json)
+        return;
+
+    auto baseObject = json->object();
+
+    {
+        const QString settingsPath = QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + QDir::separator() + QStringLiteral("gdbplugin")
+            + QDir::separator() + QStringLiteral("dap.json");
+
+        const auto userJson = loadJSON(settingsPath);
+        if (userJson) {
+            baseObject = json::merge(baseObject, userJson->object());
+        }
+    }
+
+    const auto servers = baseObject[QStringLiteral("dap")].toObject();
+
+    int index = m_clientCombo->count();
+
+    for (auto itServer = servers.constBegin(); itServer != servers.constEnd(); ++itServer) {
+        const auto server = itServer.value().toObject();
+        const auto jsonProfiles = dap::settings::expandConfigurations(server);
+        if (!jsonProfiles)
+            continue;
+
+        QHash<QString, DAPAdapterSettings> profiles;
+
+        for (auto itProfile = jsonProfiles->constBegin(); itProfile != jsonProfiles->constEnd(); ++itProfile) {
+            profiles[itProfile.key()] = DAPAdapterSettings();
+            DAPAdapterSettings &conf = profiles[itProfile.key()];
+            conf.settings = itProfile->toObject();
+            conf.index = index++;
+
+            QSet<QString> variables;
+            json::findVariables(conf.settings, variables);
+
+            for (const auto &var : variables) {
+                if (var.startsWith(QStringLiteral("#")))
+                    continue;
+                conf.variables.append(var);
+            }
+
+            m_clientCombo->addItem(QStringLiteral("%1 | %2").arg(itServer.key()).arg(itProfile.key()), conf.variables);
+        }
+
+        m_dapAdapterSettings[itServer.key()] = profiles;
+
+        m_clientCombo->insertSeparator(index++);
+    }
 }
 
 void ConfigView::registerActions(KActionCollection *actionCollection)
@@ -228,7 +328,7 @@ void ConfigView::writeConfig(KConfigGroup &group)
     group.writeEntry("redirectTerminal", m_redirectTerminal->isChecked());
 }
 
-const GDBTargetConf ConfigView::currentTarget() const
+const GDBTargetConf ConfigView::currentGDBTarget() const
 {
     GDBTargetConf cfg;
     cfg.targetName = m_targetCombo->currentText();
@@ -254,6 +354,54 @@ const GDBTargetConf ConfigView::currentTarget() const
             cfg.srcPaths = paths.split(pathSeparator, Qt::SkipEmptyParts);
         }
         i--;
+    }
+    return cfg;
+}
+
+const static QString F_FILE = QStringLiteral("file");
+const static QString F_WORKDIR = QStringLiteral("workdir");
+const static QString F_ARGS = QStringLiteral("args");
+const static QString F_PID = QStringLiteral("pid");
+
+const DAPTargetConf ConfigView::currentDAPTarget(bool full) const
+{
+    DAPTargetConf cfg;
+    cfg.targetName = m_targetCombo->currentText();
+
+    const int comboIndex = m_clientCombo->currentIndex();
+    bool found = false;
+    // find config
+    for (auto itS = m_dapAdapterSettings.constBegin(); !found && itS != m_dapAdapterSettings.constEnd(); ++itS) {
+        for (auto itP = itS->constBegin(); itP != itS->constEnd(); ++itP) {
+            if (itP->index == comboIndex) {
+                cfg.debugger = itS.key();
+                cfg.debuggerProfile = itP.key();
+                if (full) {
+                    cfg.dapSettings = itP.value();
+                }
+                found = true;
+                break;
+            }
+        }
+    }
+    const QStringList &variables = m_clientCombo->currentData().toStringList();
+    for (const auto &field : variables) {
+        // file
+        if (field == F_FILE) {
+            cfg.variables[F_FILE] = m_executable->text();
+            // working dir
+        } else if (field == F_WORKDIR) {
+            cfg.variables[F_WORKDIR] = m_workingDirectory->text();
+            // pid
+        } else if (field == F_PID) {
+            cfg.variables[F_PID] = m_processId->value();
+            // arguments
+        } else if (field == F_ARGS) {
+            cfg.variables[F_ARGS] = m_arguments->text();
+            // other
+        } else if (m_dapFields.contains(field)) {
+            cfg.variables[field] = m_dapFields[field].second->text();
+        }
     }
     return cfg;
 }
@@ -299,14 +447,21 @@ void ConfigView::slotTargetSelected(int index)
         saveCurrentToIndex(m_currentTarget);
     }
 
-    loadFromIndex(index);
+    const int clientIndex = loadFromIndex(index);
+    if (clientIndex < 0)
+        return;
+
     m_currentTarget = index;
 
-    setAdvancedOptions();
+    if (clientIndex == 0) {
+        setAdvancedOptions();
+    }
 
     // Keep combo box and menu in sync
     m_targetCombo->setCurrentIndex(index);
     m_targetSelectAction->setCurrentItem(index);
+
+    m_clientCombo->setCurrentIndex(clientIndex);
 }
 
 void ConfigView::slotAddTarget()
@@ -343,81 +498,208 @@ void ConfigView::slotDeleteTarget()
         slotAddTarget();
     }
 
-    loadFromIndex(m_targetCombo->currentIndex());
+    const int clientIndex = loadFromIndex(m_targetCombo->currentIndex());
     m_targetCombo->blockSignals(false);
+
+    if (clientIndex >= 0) {
+        m_clientCombo->setCurrentIndex(clientIndex);
+    }
+}
+
+bool ConfigView::debuggerIsGDB() const
+{
+    return m_clientCombo->currentIndex() == 0;
 }
 
 void ConfigView::resizeEvent(QResizeEvent *)
 {
-    if (m_useBottomLayout && size().height() > size().width()) {
+    const bool toVertical = m_useBottomLayout && size().height() > size().width();
+    const bool toHorizontal = !m_useBottomLayout && (size().height() < size().width());
+
+    if (!toVertical && !toHorizontal)
+        return;
+
+    const bool is_dbg = debuggerIsGDB();
+    const QStringList debuggerVariables = m_clientCombo->currentData().toStringList();
+
+    // check if preformatted inputs are required
+
+    m_advancedSettings->setVisible(is_dbg);
+
+    // exe
+    const bool needsExe = is_dbg || debuggerVariables.contains(F_FILE);
+    m_execLabel->setVisible(needsExe);
+    m_executable->setVisible(needsExe);
+    m_browseExe->setVisible(needsExe);
+
+    // working dir
+    const bool needsWdir = is_dbg || debuggerVariables.contains(F_WORKDIR);
+    m_workDirLabel->setVisible(needsWdir);
+    m_workingDirectory->setVisible(needsWdir);
+    m_browseDir->setVisible(needsWdir);
+
+    // arguments
+    const bool needsArgs = is_dbg || debuggerVariables.contains(F_ARGS);
+    m_argumentsLabel->setVisible(needsArgs);
+    m_arguments->setVisible(needsArgs);
+
+    // pid
+    const bool needsPid = !is_dbg && debuggerVariables.contains(F_PID);
+    m_processIdLabel->setVisible(needsPid);
+    m_processId->setVisible(needsPid);
+
+    // additional dap fields
+    for (auto it = m_dapFields.cbegin(); it != m_dapFields.cend(); ++it) {
+        const bool visible = debuggerVariables.contains(it.key());
+        it->first->setVisible(visible);
+        it->second->setVisible(visible);
+    }
+
+    if (toVertical) {
         // Set layout for the side
         delete m_checBoxLayout;
         m_checBoxLayout = nullptr;
         delete layout();
         QGridLayout *layout = new QGridLayout(this);
 
-        layout->addWidget(m_targetCombo, 0, 0);
-        layout->addWidget(m_addTarget, 0, 1);
-        layout->addWidget(m_copyTarget, 0, 2);
-        layout->addWidget(m_deleteTarget, 0, 3);
+        layout->addWidget(m_clientCombo, 0, 0);
+        layout->addWidget(m_targetCombo, 1, 0);
+        layout->addWidget(m_addTarget, 1, 1);
+        layout->addWidget(m_copyTarget, 1, 2);
+        layout->addWidget(m_deleteTarget, 1, 3);
         m_line->setFrameShape(QFrame::HLine);
-        layout->addWidget(m_line, 1, 0, 1, 4);
+        layout->addWidget(m_line, 2, 0, 1, 4);
 
-        layout->addWidget(m_execLabel, 3, 0, Qt::AlignLeft);
-        layout->addWidget(m_executable, 4, 0, 1, 3);
-        layout->addWidget(m_browseExe, 4, 3);
+        int row = 3;
 
-        layout->addWidget(m_workDirLabel, 5, 0, Qt::AlignLeft);
-        layout->addWidget(m_workingDirectory, 6, 0, 1, 3);
-        layout->addWidget(m_browseDir, 6, 3);
+        if (needsExe) {
+            layout->addWidget(m_execLabel, ++row, 0, Qt::AlignLeft);
+            layout->addWidget(m_executable, ++row, 0, 1, 3);
+            layout->addWidget(m_browseExe, row, 3);
+        }
 
-        layout->addWidget(m_argumentsLabel, 7, 0, Qt::AlignLeft);
-        layout->addWidget(m_arguments, 8, 0, 1, 4);
+        if (needsWdir) {
+            layout->addWidget(m_workDirLabel, ++row, 0, Qt::AlignLeft);
+            layout->addWidget(m_workingDirectory, ++row, 0, 1, 3);
+            layout->addWidget(m_browseDir, row, 3);
+        }
 
-        layout->addWidget(m_takeFocus, 9, 0, 1, 4);
-        layout->addWidget(m_redirectTerminal, 10, 0, 1, 4);
-        layout->addWidget(m_advancedSettings, 11, 0, 1, 4);
+        if (needsArgs) {
+            layout->addWidget(m_argumentsLabel, ++row, 0, Qt::AlignLeft);
+            layout->addWidget(m_arguments, ++row, 0, 1, 4);
+        }
 
-        layout->addItem(new QSpacerItem(1, 1), 12, 0);
+        if (needsPid) {
+            layout->addWidget(m_processIdLabel, ++row, 0, Qt::AlignLeft);
+            layout->addWidget(m_processId, ++row, 0, 1, 4);
+        }
+
+        for (const auto &fieldName : debuggerVariables) {
+            if (fieldName == F_FILE)
+                continue;
+            if (fieldName == F_ARGS)
+                continue;
+            if (fieldName == F_PID)
+                continue;
+            if (fieldName == F_WORKDIR)
+                continue;
+
+            const auto &field = getDapField(fieldName);
+
+            layout->addWidget(field.first, ++row, 0, Qt::AlignLeft);
+            layout->addWidget(field.second, ++row, 0, 1, 4);
+        }
+
+        layout->addWidget(m_takeFocus, ++row, 0, 1, 4);
+        layout->addWidget(m_redirectTerminal, ++row, 0, 1, 4);
+        if (is_dbg) {
+            layout->addWidget(m_advancedSettings, ++row, 0, 1, 4);
+        }
+
+        layout->addItem(new QSpacerItem(1, 1), ++row, 0);
         layout->setColumnStretch(0, 1);
-        layout->setRowStretch(12, 1);
+        layout->setRowStretch(row, 1);
+
         m_useBottomLayout = false;
-    } else if (!m_useBottomLayout && (size().height() < size().width())) {
+    } else if (toHorizontal) {
         // Set layout for the bottom
         delete m_checBoxLayout;
         delete layout();
         m_checBoxLayout = new QHBoxLayout();
         m_checBoxLayout->addWidget(m_takeFocus, 10);
         m_checBoxLayout->addWidget(m_redirectTerminal, 10);
-        m_checBoxLayout->addWidget(m_advancedSettings, 0);
+        if (is_dbg) {
+            m_checBoxLayout->addWidget(m_advancedSettings, 0);
+        }
 
         QGridLayout *layout = new QGridLayout(this);
+        layout->addWidget(m_clientCombo, 0, 0, 1, 6);
 
-        layout->addWidget(m_targetCombo, 0, 0, 1, 3);
-        layout->addWidget(m_addTarget, 1, 0);
-        layout->addWidget(m_copyTarget, 1, 1);
-        layout->addWidget(m_deleteTarget, 1, 2);
-        m_line->setFrameShape(QFrame::VLine);
-        layout->addWidget(m_line, 0, 3, 4, 1);
+        layout->addWidget(m_targetCombo, 1, 0, 1, 3);
 
-        layout->addWidget(m_execLabel, 0, 5, Qt::AlignRight);
-        layout->addWidget(m_executable, 0, 6);
-        layout->addWidget(m_browseExe, 0, 7);
+        layout->addWidget(m_addTarget, 2, 0);
+        layout->addWidget(m_copyTarget, 2, 1);
+        layout->addWidget(m_deleteTarget, 2, 2);
 
-        layout->addWidget(m_workDirLabel, 1, 5, Qt::AlignRight);
-        layout->addWidget(m_workingDirectory, 1, 6);
-        layout->addWidget(m_browseDir, 1, 7);
+        int row = 0;
 
-        layout->addWidget(m_argumentsLabel, 2, 5, Qt::AlignRight);
-        layout->addWidget(m_arguments, 2, 6, 1, 2);
+        if (needsExe) {
+            layout->addWidget(m_execLabel, ++row, 5, Qt::AlignRight);
+            layout->addWidget(m_executable, row, 6);
+            layout->addWidget(m_browseExe, row, 7);
+        }
 
-        layout->addLayout(m_checBoxLayout, 3, 5, 1, 3);
+        if (needsWdir) {
+            layout->addWidget(m_workDirLabel, ++row, 5, Qt::AlignRight);
+            layout->addWidget(m_workingDirectory, row, 6);
+            layout->addWidget(m_browseDir, row, 7);
+        }
 
-        layout->addItem(new QSpacerItem(1, 1), 4, 0);
+        if (needsArgs) {
+            layout->addWidget(m_argumentsLabel, ++row, 5, Qt::AlignRight);
+            layout->addWidget(m_arguments, row, 6, 1, 2);
+        }
+
+        if (needsPid) {
+            layout->addWidget(m_processIdLabel, ++row, 5, Qt::AlignRight);
+            layout->addWidget(m_processId, row, 6);
+        }
+
+        for (const auto &fieldName : debuggerVariables) {
+            if (fieldName == F_FILE)
+                continue;
+            if (fieldName == F_ARGS)
+                continue;
+            if (fieldName == F_PID)
+                continue;
+            if (fieldName == F_WORKDIR)
+                continue;
+
+            const auto &field = getDapField(fieldName);
+
+            layout->addWidget(field.first, ++row, 5, Qt::AlignRight);
+            layout->addWidget(field.second, row, 6);
+        }
+
+        layout->addLayout(m_checBoxLayout, ++row, 5, 1, 3);
+
+        layout->addItem(new QSpacerItem(1, 1), ++row, 0);
         layout->setColumnStretch(6, 100);
-        layout->setRowStretch(4, 100);
+        layout->setRowStretch(row, 100);
+
+        m_line->setFrameShape(QFrame::VLine);
+        layout->addWidget(m_line, 1, 3, row - 1, 1);
+
         m_useBottomLayout = true;
     }
+}
+
+std::pair<QLabel *, QLineEdit *> &ConfigView::getDapField(const QString &fieldName)
+{
+    if (!m_dapFields.contains(fieldName)) {
+        m_dapFields[fieldName] = std::make_pair(new QLabel(fieldName, this), new QLineEdit(this));
+    }
+    return m_dapFields[fieldName];
 }
 
 void ConfigView::setAdvancedOptions()
@@ -493,6 +775,18 @@ void ConfigView::slotBrowseDir()
     m_workingDirectory->setText(QFileDialog::getExistingDirectory(this, QString(), dir));
 }
 
+QByteArray serializeHash(const QVariantHash map)
+{
+    const QJsonDocument doc(QJsonObject::fromVariantHash(map));
+    return doc.toJson(QJsonDocument::Compact);
+}
+
+QJsonObject unserializeDAPVariables(const QString map)
+{
+    const auto doc = QJsonDocument::fromJson(map.toLatin1());
+    return doc.object();
+}
+
 void ConfigView::saveCurrentToIndex(int index)
 {
     if ((index < 0) || (index >= m_targetCombo->count())) {
@@ -506,17 +800,24 @@ void ConfigView::saveCurrentToIndex(int index)
     }
 
     tmp[NameIndex] = m_targetCombo->itemText(index);
-    tmp[ExecIndex] = m_executable->text();
-    tmp[WorkDirIndex] = m_workingDirectory->text();
-    tmp[ArgsIndex] = m_arguments->text();
+    if (debuggerIsGDB()) {
+        tmp[ExecIndex] = m_executable->text();
+        tmp[WorkDirIndex] = m_workingDirectory->text();
+        tmp[ArgsIndex] = m_arguments->text();
+    } else {
+        const auto cfg = currentDAPTarget();
+        tmp[DebuggerKey] = cfg.debugger;
+        tmp[DebuggerProfile] = cfg.debuggerProfile;
+        tmp[DAPVariables] = QString::fromLatin1(serializeHash(cfg.variables));
+    }
 
     m_targetCombo->setItemData(index, tmp);
 }
 
-void ConfigView::loadFromIndex(int index)
+int ConfigView::loadFromIndex(int index)
 {
     if ((index < 0) || (index >= m_targetCombo->count())) {
-        return;
+        return -1;
     }
 
     QStringList tmp = m_targetCombo->itemData(index).toStringList();
@@ -525,7 +826,38 @@ void ConfigView::loadFromIndex(int index)
         tmp << QString();
     }
 
-    m_executable->setText(tmp[ExecIndex]);
-    m_workingDirectory->setText(tmp[WorkDirIndex]);
-    m_arguments->setText(tmp[ArgsIndex]);
+    const QString &debuggerKey = tmp[DebuggerKey];
+    if (debuggerKey.isNull() || debuggerKey.isEmpty()) {
+        // GDB
+        m_executable->setText(tmp[ExecIndex]);
+        m_workingDirectory->setText(tmp[WorkDirIndex]);
+        m_arguments->setText(tmp[ArgsIndex]);
+
+        return 0;
+    } else {
+        // DAP
+        const QString &debuggerKey = tmp[DebuggerKey];
+        if (!m_dapAdapterSettings.contains(debuggerKey))
+            return -1;
+        const QString &debuggerProfile = tmp[DebuggerProfile];
+        if (!m_dapAdapterSettings[debuggerKey].contains(debuggerProfile))
+            return -1;
+        auto map = unserializeDAPVariables(tmp[DAPVariables]);
+
+        m_executable->setText(map[F_FILE].toString());
+        map.remove(F_FILE);
+        m_workingDirectory->setText(map[F_WORKDIR].toString());
+        map.remove(F_WORKDIR);
+        m_arguments->setText(map[F_ARGS].toString());
+        map.remove(F_ARGS);
+        m_processId->setValue(map[F_PID].toInt());
+        map.remove(F_PID);
+
+        for (auto it = map.constBegin(); it != map.constEnd(); ++it) {
+            const auto &field = getDapField(it.key());
+            field.second->setText(it.value().toString());
+        }
+
+        return m_dapAdapterSettings[debuggerKey][debuggerProfile].index;
+    }
 }

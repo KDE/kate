@@ -1,0 +1,135 @@
+{
+    "dap": {
+        "delve": {
+            "url": "https://github.com/go-delve/delve",
+            "run": {
+                "command": ["dlv", "dap", "--listen", "127.0.0.1:${#run.port}"],
+                "port": 0,
+                "redirectStderr": true,
+                "redirectStdout": true,
+                "supportsSourceRequest": false
+            },
+            "configurations": {
+                "launch (debug)": {
+                    "request": {
+                        "command": "launch",
+                        "mode": "debug",
+                        "program": "${file}",
+                        "args": "${args|list}"
+                    }
+                },
+                "launch (test)": {
+                    "request": {
+                        "command": "launch",
+                        "mode": "test",
+                        "program": "${file}",
+                        "args": "${args|list}"
+                    }
+                },
+                "launch (exec)": {
+                    "request": {
+                        "command": "launch",
+                        "mode": "exec",
+                        "program": "${file}",
+                        "args": "${args|list}"
+                    }
+                },
+                "launch (core)": {
+                    "request": {
+                        "command": "launch",
+                        "mode": "core",
+                        "coreFilePath": "${corefilePath}"
+                    }
+                },
+                "launch (replay)": {
+                    "request": {
+                        "command": "launch",
+                        "mode": "replay",
+                        "traceDirPath": "${traceDirPath}"
+                    }
+                },
+                "attach (local)": {
+                    "request": {
+                        "command": "attach",
+                        "mode": "local",
+                        "processId": "${pid|int}"
+                    }
+                }
+            }
+        },
+        "debugpy": {
+            "url": "https://github.com/microsoft/debugpy",
+            "run": {
+                "command": ["python", "-m", "debugpy", "--listen", "${#run.port}", "--wait-for-client"],
+                "port": 0,
+                "supportsSourceRequest": false
+            },
+            "configurations": {
+                "launch": {
+                    "commandArgs": ["${file}", "${args|list}"],
+                    "request": {
+                        "command": "attach",
+                        "stopOnEntry": true,
+                        "redirectOutput": true
+                    }
+                },
+                "launch module": {
+                    "commandArgs": ["-m", "${module}"],
+                    "request": {
+                        "command": "attach",
+                        "stopOnEntry": true,
+                        "redirectOutput": true
+                    }
+                },
+                "attach": {
+                    "commandArgs": ["--pid", "${pid}"],
+                    "request": {
+                        "command": "attach",
+                        "stopOnEntry": true,
+                        "redirectOutput": true
+                    }
+                },
+                "launch (venv)": {
+                    "commandArgs": ["${file}", "${args|list}"],
+                    "request": {
+                        "command": "attach",
+                        "python": "${python}",
+                        "stopOnEntry": true,
+                        "redirectOutput": true
+                    }
+                }
+            }
+        },
+        "perl-ls": {
+            "url": "https://github.com/richterger/Perl-LanguageServer",
+            "run": {
+                "command": ["perl", "-MPerl::LanguageServer", "-e", "Perl::LanguageServer::run", "--", "--port", "${#run.port}"],
+                "port": 0,
+                "redirectStderr": false,
+                "redirectStdout": true,
+                "supportsSourceRequest": false
+            },
+            "configurations": {
+                "launch": {
+                    "request": {
+                        "command": "launch",
+                        "program": "${file}",
+                        "args": "${args|list}",
+                        "stopOnEntry": true
+                    }
+                },
+                "launch locallib": {
+                    "request": {
+                        "command": "launch",
+                        "program": "${file}",
+                        "args": "${args|list}",
+                        "stopOnEntry": true,
+                        "env": {
+                            "PERL5LIB": "${locallib}"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

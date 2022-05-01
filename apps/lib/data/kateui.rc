@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
-<gui name="kate" version="94" translationDomain="kate">
+<gui name="kate" version="95" translationDomain="kate">
   <MenuBar>
     <Menu name="file" noMerge="1">
       <text>&amp;File</text>
@@ -54,6 +54,9 @@
         <Action name="view_history_forward" group="edit_goto_history" />
         <Separator group="edit_goto_history" />
       </Menu>
+    </Menu>
+    <Menu name="selection" append="before_view">
+      <text>&amp;Selection</text>
     </Menu>
     <Menu name="view">
       <text>&amp;View</text>

@@ -454,14 +454,15 @@ private:
     KTextEditor::Application m_wrapper;
 
     /**
+     * dbus interface, must survive longer than m_docManager
+     * e.g. the destroyed signal of the document might access this
+     */
+    KateAppAdaptor m_adaptor;
+
+    /**
      * document manager
      */
     KateDocManager m_docManager;
-
-    /**
-     * dbus interface
-     */
-    KateAppAdaptor m_adaptor;
 
     /**
      * plugin manager

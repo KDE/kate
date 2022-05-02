@@ -329,6 +329,10 @@ void KateFileBrowser::setActiveDocumentDir()
     QUrl u = activeDocumentUrl();
     if (!u.isEmpty()) {
         setDir(KIO::upUrl(u));
+        if (m_autoSyncFolder->isChecked()) {
+            // Highlight current document
+            m_dirOperator->setCurrentItem(u);
+        }
     }
 }
 
@@ -336,8 +340,6 @@ void KateFileBrowser::autoSyncFolder()
 {
     if (m_autoSyncFolder->isChecked()) {
         setActiveDocumentDir();
-        // Highlight current document
-        m_dirOperator->setCurrentItem(activeDocumentUrl());
     }
 }
 

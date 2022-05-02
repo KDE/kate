@@ -36,6 +36,7 @@
 #include <QDir>
 #include <QLineEdit>
 #include <QStyle>
+#include <QTimer>
 #include <QVBoxLayout>
 
 // END Includes
@@ -329,6 +330,11 @@ void KateFileBrowser::autoSyncFolder()
 {
     if (m_autoSyncFolder->isChecked()) {
         setActiveDocumentDir();
+        // Highlight current document. 300 was the lowest delay working also on startup
+        QTimer::singleShot(300, this, [this] {
+            m_dirOperator->view()->clearSelection();
+            m_dirOperator->view()->keyboardSearch(activeDocumentUrl().fileName());
+        });
     }
 }
 

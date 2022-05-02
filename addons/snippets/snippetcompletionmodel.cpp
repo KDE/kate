@@ -71,9 +71,11 @@ void SnippetCompletionModel::completionInvoked(KTextEditor::View *view, const KT
 
 void SnippetCompletionModel::initData(KTextEditor::View *view)
 {
-    QString mode = view->document()->highlightingModeAt(view->cursorPosition());
-    if (mode.isEmpty()) {
-        mode = view->document()->highlightingMode();
+    QString posMode = view->document()->highlightingModeAt(view->cursorPosition());
+    QString docMode = view->document()->highlightingMode();
+    if (docMode.isEmpty() && posMode.isEmpty()) {
+        qWarning() << Q_FUNC_INFO << "Unexpected empty modes";
+        return;
     }
 
     beginResetModel();
@@ -86,7 +88,11 @@ void SnippetCompletionModel::initData(KTextEditor::View *view)
             continue;
         }
         SnippetRepository *repo = dynamic_cast<SnippetRepository *>(store->item(i, 0));
-        if (repo && (repo->fileTypes().isEmpty() || repo->fileTypes().contains(mode))) {
+        if (!repo) {
+            continue;
+        }
+        const QStringList fileTypes = repo->fileTypes();
+        if (fileTypes.isEmpty() || fileTypes.contains(docMode) || fileTypes.contains(posMode)) {
             for (int j = 0; j < repo->rowCount(); ++j) {
                 if (Snippet *snippet = dynamic_cast<Snippet *>(repo->child(j))) {
                     m_snippets << new SnippetCompletionItem(snippet, repo);

@@ -136,28 +136,6 @@ int SnippetCompletionModel::rowCount(const QModelIndex &parent) const
         return m_snippets.count(); // only the children
     }
 }
-KTextEditor::Range SnippetCompletionModel::completionRange(KTextEditor::View *view, const KTextEditor::Cursor &position)
-{
-    const QString &line = view->document()->line(position.line());
-    KTextEditor::Range range(position, position);
-    // include everything non-space before
-    for (int i = position.column() - 1; i >= 0; --i) {
-        if (line.at(i).isSpace()) {
-            break;
-        } else {
-            range.setStart(KTextEditor::Cursor(range.start().line(), i));
-        }
-    }
-    // include everything non-space after
-    for (int i = position.column() + 1; i < line.length(); ++i) {
-        if (line.at(i).isSpace()) {
-            break;
-        } else {
-            range.setEnd(KTextEditor::Cursor(range.end().line(), i));
-        }
-    }
-    return range;
-}
 
 bool SnippetCompletionModel::shouldAbortCompletion(KTextEditor::View *view, const KTextEditor::Range &range, const QString &currentCompletion)
 {

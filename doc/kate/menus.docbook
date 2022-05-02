@@ -634,7 +634,7 @@ switch to the incremental search bar.
 </shortcut>
 <guimenu>Edit</guimenu>
 <guisubmenu>Go To</guisubmenu>
-<guimenuitem>Move to Matching Bracket</guimenuitem>
+<guimenuitem>Go to Matching Bracket</guimenuitem>
 </menuchoice></term>
 <listitem>
 <para>Move the cursor to the associated opening or closing bracket.</para>
@@ -659,7 +659,7 @@ switch to the incremental search bar.
 <term><menuchoice>
 <guimenu>Edit</guimenu>
 <guisubmenu>Go To</guisubmenu>
-<guimenuitem>Move to Previous Modified Line</guimenuitem>
+<guimenuitem>Go to Previous Modified Line</guimenuitem>
 </menuchoice></term>
 <listitem>
 <para>Lines that were changed since opening the file are called modified lines. This action jumps the previous modified line.
@@ -671,7 +671,7 @@ switch to the incremental search bar.
 <term><menuchoice>
 <guimenu>Edit</guimenu>
 <guisubmenu>Go To</guisubmenu>
-<guimenuitem>Move to Next Modified Line</guimenuitem>
+<guimenuitem>Go to Next Modified Line</guimenuitem>
 </menuchoice></term>
 <listitem>
 <para>Lines that were changed since opening the file are called modified lines. This action jumps the next modified line.

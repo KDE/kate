@@ -317,48 +317,6 @@ highlighting and color scheme settings.</para>
 </listitem>
 </varlistentry>
 
-<varlistentry id="edit-select-all">
-<term><menuchoice>
-<shortcut>
-<keycombo action="simul">&Ctrl;<keycap>A</keycap></keycombo>
-</shortcut>
-<guimenu>Edit</guimenu>
-<guimenuitem>Select All</guimenuitem>
-</menuchoice></term>
-<listitem>
-<para>This will select the entire document. This could be very useful for
-copying the entire file to another application.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry id="edit-deselect">
-<term><menuchoice>
-<shortcut>
-<keycombo action="simul">&Ctrl;&Shift;<keycap>A</keycap></keycombo>
-</shortcut>
-<guimenu>Edit</guimenu>
-<guimenuitem>Deselect</guimenuitem>
-</menuchoice></term>
-<listitem>
-<para>Deselects the selected text in the editor if any.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry id="edit-toggle-block-selection">
-<term><menuchoice>
-<shortcut>
-<keycombo action="simul">&Ctrl;&Shift;<keycap>B</keycap></keycombo>
-</shortcut>
-<guimenu>Edit</guimenu>
-<guimenuitem>Block Selection Mode</guimenuitem>
-</menuchoice></term>
-<listitem>
-<para>Toggles Selection Mode. When the Selection Mode is <guilabel>BLOCK</guilabel>,
-the status bar contains the string <guilabel>[BLOCK]</guilabel> and
-you can make vertical selections, &eg; select column 5 to 10 in lines 9 to 15.</para>
-</listitem>
-</varlistentry>
-
 <varlistentry id="edit-input-modes">
 <term><menuchoice>
 <guimenu>Edit</guimenu>
@@ -539,71 +497,207 @@ switch to the incremental search bar.
 </shortcut>
 <guimenu>Edit</guimenu>
 <guisubmenu>Go To</guisubmenu>
-<guimenuitem>Move to Matching Bracket</guimenuitem>
+<guimenuitem>Go to Matching Bracket</guimenuitem>
 </menuchoice></term>
 <listitem>
 <para>Move the cursor to the associated opening or closing bracket.</para>
 </listitem>
 </varlistentry>
 
-<varlistentry id="edit-select-to-matching-bracket">
+</variablelist>
+
+</sect1>
+
+<sect1 id="selection-menu">
+
+<title>The Selection Menu</title>
+
+<variablelist>
+<varlistentry id="selection-select-all">
 <term><menuchoice>
 <shortcut>
-<keycombo action="simul">&Ctrl;&Shift;<keycap>6</keycap></keycombo>
+<keycombo action="simul">&Ctrl;<keycap>A</keycap></keycombo>
 </shortcut>
-<guimenu>Edit</guimenu>
-<guisubmenu>Go To</guisubmenu>
-<guimenuitem>Select to Matching Bracket</guimenuitem>
+<guimenu>Selection</guimenu>
+<guimenuitem>Select All</guimenuitem>
 </menuchoice></term>
 <listitem>
-<para>Selects the text between associated opening and closing brackets.</para>
+<para>This will select the entire document. This could be very useful for
+copying the entire file to another application.</para>
 </listitem>
 </varlistentry>
 
-<varlistentry id="edit-go-to-previous-modified-line">
-<term><menuchoice>
-<guimenu>Edit</guimenu>
-<guisubmenu>Go To</guisubmenu>
-<guimenuitem>Move to Previous Modified Line</guimenuitem>
-</menuchoice></term>
-<listitem>
-<para>Lines that were changed since opening the file are called modified lines. This action jumps the previous modified line.
-</para>
-</listitem>
-</varlistentry>
-
-<varlistentry id="edit-go-to-next-modified-line">
-<term><menuchoice>
-<guimenu>Edit</guimenu>
-<guisubmenu>Go To</guisubmenu>
-<guimenuitem>Move to Next Modified Line</guimenuitem>
-</menuchoice></term>
-<listitem>
-<para>Lines that were changed since opening the file are called modified lines. This action jumps the next modified line.
-</para>
-</listitem>
-</varlistentry>
-
-<varlistentry id="edit-edit-go-to-line">
+<varlistentry id="selection-deselect">
 <term><menuchoice>
 <shortcut>
-<keycombo action="simul">&Ctrl;<keycap>G</keycap></keycombo>
+<keycombo action="simul">&Ctrl;&Shift;<keycap>A</keycap></keycombo>
 </shortcut>
-<guimenu>Edit</guimenu>
-<guisubmenu>Go To</guisubmenu>
-<guimenuitem>Go to Line...</guimenuitem>
+<guimenu>Selection</guimenu>
+<guimenuitem>Deselect</guimenuitem>
 </menuchoice></term>
 <listitem>
-<para>
-This opens the goto line bar at the bottom of the window which is used to have the cursor
-jump to a particular line (specified by number) in the document.  The
-line number may be entered directly into the text box or graphically by
-clicking on the up or down arrow spin controls at the side of the text
-box. The little up arrow will increase the line number and the down
-arrow decrease it. Close the bar with a click on the button with an icon on the left side of the bar.
-</para>
+<para>Deselects the selected text in the editor if any.</para>
 </listitem>
 </varlistentry>
+
+<varlistentry id="selection-toggle-block-selection">
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;&Shift;<keycap>B</keycap></keycombo>
+</shortcut>
+<guimenu>Selection</guimenu>
+<guimenuitem>Block Selection Mode</guimenuitem>
+</menuchoice></term>
+<listitem>
+<para>Toggles Selection Mode. When the Selection Mode is <guilabel>BLOCK</guilabel>,
+the status bar contains the string <guilabel>[BLOCK]</guilabel> and
+you can make vertical selections, &eg; select column 5 to 10 in lines 9 to 15.</para>
+</listitem>
+</varlistentry>
+
+<!-- Indent/Unindent no longer in the menu ???, but shortcuts work-->
+<!--
+<varlistentry id="tools-indent">
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;<keycap>I</keycap></keycombo>
+</shortcut>
+<guimenu>Tools</guimenu>
+<guimenuitem>Indent</guimenuitem>
+</menuchoice></term>
+<listitem>
+<para>This increases the paragraph's indentation by one step. The size of the
+step depends on the <link linkend="pref-edit-indent"> indentation
+settings</link>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-unindent">
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;&Shift;<keycap>I</keycap></keycombo>
+</shortcut>
+<guimenu>Tools</guimenu>
+<guimenuitem>Unindent</guimenuitem>
+</menuchoice></term>
+<listitem>
+<para>This reduces the paragraph's indentation by one step. The size of the step
+depends on the <link linkend="pref-edit-indent"> indentation settings</link>.</para>
+</listitem>
+</varlistentry>
+-->
+<varlistentry id="selection-comment">
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;<keycap>D</keycap></keycombo>
+</shortcut>
+<guimenu>Selection</guimenu>
+<guimenuitem>Comment</guimenuitem>
+</menuchoice></term>
+<listitem><para>This adds one space to the beginning of the line
+where the text cursor is located or to the beginning of any
+selected lines.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="selection-uncomment">
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;&Shift;<keycap>D</keycap></keycombo>
+</shortcut>
+<guimenu>Selection</guimenu>
+<guimenuitem>Uncomment</guimenuitem>
+</menuchoice></term>
+<listitem><para>This removes one space (if any exist) from the beginning of the
+line where the text cursor is located or from the beginning of any
+selected lines.</para></listitem>
+</varlistentry>
+
+<varlistentry id="selection-join-lines">
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;<keycap>J</keycap></keycombo>
+</shortcut>
+<guimenu>Selection</guimenu>
+<guimenuitem>Join Lines</guimenuitem>
+</menuchoice></term>
+<listitem><para>Joins the selected lines, or the current line and the line below
+with one white space character as a separator. Leading/trailing white space on
+joined lines is removed in the affected ends.</para></listitem>
+</varlistentry>
+
+<varlistentry id="selection-capitalization">
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;&Alt;<keycap>U</keycap></keycombo>
+</shortcut>
+<guimenu>Selection</guimenu>
+<guimenuitem>Capitalization</guimenuitem>
+</menuchoice></term>
+<listitem><para>Capitalize the selected text or the current
+word.</para></listitem>
+</varlistentry>
+
+<varlistentry id="selection-uppercase">
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;<keycap>U</keycap></keycombo>
+</shortcut>
+<guimenu>Selection</guimenu>
+<guimenuitem>Uppercase</guimenuitem>
+</menuchoice></term>
+<listitem><para>Put the selected text or the letter after the cursor in
+uppercase.</para></listitem>
+</varlistentry>
+
+<varlistentry id="selection-lowercase">
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;&Shift;<keycap>U</keycap></keycombo>
+</shortcut>
+<guimenu>Selection</guimenu>
+<guimenuitem>Lowercase</guimenuitem>
+</menuchoice></term>
+<listitem><para>Put the selected text or the letter after the cursor in
+lowercase.</para></listitem>
+</varlistentry>
+
+<varlistentry id="selection-cleanindent">
+<term><menuchoice>
+<guimenu>Selection</guimenu>
+<guimenuitem>Clean Indentation</guimenuitem>
+</menuchoice></term>
+<listitem>
+<para>This cleans the indentation for the current selection or for the
+line the cursor is currently in. Cleaning the indentation ensures that
+all your selected text follows the indentation mode you choose.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="selection-align">
+<term><menuchoice>
+<guimenu>Selection</guimenu>
+<guimenuitem>Align</guimenuitem>
+</menuchoice></term>
+<listitem>
+<para>Causes a realign of the current line or selected lines using the
+indentation mode and indentation settings in the document.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="selection-word-wrap-document">
+<term><menuchoice>
+<guimenu>Selection</guimenu>
+<guimenuitem>Apply Word Wrap</guimenuitem>
+</menuchoice></term>
+<listitem><para>Apply static word wrapping on all the document. That means that
+a new line of text will automatically start when the current
+line exceeds the length specified by the <guilabel>Wrap words at</guilabel> option
+in the Editing tab in <menuchoice>
+<guimenu>Settings</guimenu><guimenuitem>Configure
+Editor...</guimenuitem></menuchoice> menu.</para></listitem>
+</varlistentry>
+
 </variablelist>
 
 </sect1>
@@ -662,18 +756,6 @@ Component Command Line</link>.</para>
 <guimenuitem>Shrink Font</guimenuitem>
 </menuchoice></term>
 <listitem><para>This decreases the display font size.</para></listitem>
-</varlistentry>
-
-<varlistentry id="view-schema">
-<term><menuchoice>
-<guimenu>View</guimenu>
-<guisubmenu>Schema</guisubmenu>
-</menuchoice></term>
-<listitem><para>This menu lists the available color schemes. You can change the
-schema for the current view here, to change the default schema you need to
-use the <ulink url="help:/katepart/config-dialog-editor.html#prefcolors">Fonts
-&amp; Colors</ulink> page of the config dialog.</para>
-</listitem>
 </varlistentry>
 
 <varlistentry id="view-dynamic-word-wrap">
@@ -847,23 +929,118 @@ Click on the right pointing triangle to expand all toplevel regions.</para></lis
 
 </sect1>
 
-<sect1 id="bookmarks-menu">
-<title>The Bookmarks Menu</title>
+<sect1 id="go-menu">
 
+<title>The Go Menu</title>
+
+<variablelist>
+<varlistentry id="go-go-to-line">
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;<keycap>G</keycap></keycombo>
+</shortcut>
+<guimenu>Go</guimenu>
+<guimenuitem>Go to Line...</guimenuitem>
+</menuchoice></term>
+<listitem>
+<para>
+This opens the goto line bar at the bottom of the window which is used to have the cursor
+jump to a particular line (specified by number) in the document.  The
+line number may be entered directly into the text box or graphically by
+clicking on the up or down arrow spin controls at the side of the text
+box. The little up arrow will increase the line number and the down
+arrow decrease it. Close the bar with a click on the button with an icon on the left side of the bar.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="go-go-to-previous-editing-line">
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;<keycap>E</keycap></keycombo>
+</shortcut>
+<guimenu>Go</guimenu>
+<guimenuitem>Go to Previous Editing Line</guimenuitem>
+</menuchoice></term>
+<listitem>
+<para>This action jumps the previous editing line in the <link linkend="multicursor-modifier-configure">multicursor configuration</link>.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="go-go-to-next-editing-line">
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;&Shift;<keycap>E</keycap></keycombo>
+</shortcut>
+<guimenu>Go</guimenu>
+<guimenuitem>Go to Next Editing Line</guimenuitem>
+</menuchoice></term>
+<listitem>
+<para>This action jumps the next editing line in the <link linkend="multicursor-modifier-configure">multicursor configuration</link>.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="go-go-to-previous-modified-line">
+<term><menuchoice>
+<guimenu>Go</guimenu>
+<guimenuitem>Go to Previous Modified Line</guimenuitem>
+</menuchoice></term>
+<listitem>
+<para>Lines that were changed since opening the file are called modified lines. This action jumps the previous modified line.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="go-go-to-next-modified-line">
+<term><menuchoice>
+<guimenu>Go</guimenu>
+<guimenuitem>Go to Next Modified Line</guimenuitem>
+</menuchoice></term>
+<listitem>
+<para>Lines that were changed since opening the file are called modified lines. This action jumps the next modified line.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="go-select-to-matching-bracket">
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;&Shift;<keycap>6</keycap></keycombo>
+</shortcut>
+<guimenu>Go</guimenu>
+<guimenuitem>Select to Matching Bracket</guimenuitem>
+</menuchoice></term>
+<listitem>
+<para>Selects the text between associated opening and closing brackets.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="go-bookmarks-menu">
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;&Shift;<keycap>6</keycap></keycombo>
+</shortcut>
+<guimenu>Go</guimenu>
+<guisubmenu>Bokmarks</guisubmenu>
+</menuchoice></term>
+<listitem>
 <para>Below the entries described here, one entry for each bookmark in
 the active document will be available. The text will be the first few
 words of the marked line. Choose an item to move the cursor to the
 start of that line. The editor will scroll as necessary to make that
 line visible.</para>
+</listitem>
+</varlistentry>
 
-<variablelist>
-
-<varlistentry id="bookmarks-set-bookmark">
+<varlistentry id="go-bookmarks-set-bookmark">
 <term><menuchoice>
 <shortcut>
 <keycombo action="simul">&Ctrl;<keycap>B</keycap></keycombo>
 </shortcut>
-<guimenu>Bookmarks</guimenu>
+<guimenu>Go</guimenu>
+<guisubmenu>Bokmarks</guisubmenu>
 <guimenuitem>Set Bookmark</guimenuitem>
 </menuchoice></term>
 <listitem>
@@ -872,9 +1049,10 @@ line visible.</para>
 </listitem>
 </varlistentry>
 
-<varlistentry id="bookmarks-clear-bookmarks">
+<varlistentry id="go-bookmarks-clear-bookmarks">
 <term><menuchoice>
-<guimenu>Bookmarks</guimenu>
+<guimenu>Go</guimenu>
+<guisubmenu>Bokmarks</guisubmenu>
 <guimenuitem>Clear All Bookmarks</guimenuitem>
 </menuchoice></term>
 <listitem>
@@ -885,12 +1063,13 @@ the list of markers which is appended at the bottom of this menu item.
 </listitem>
 </varlistentry>
 
-<varlistentry id="bookmarks-bookmarks-previous">
+<varlistentry id="go-bookmarks-bookmarks-previous">
 <term><menuchoice>
 <shortcut>
 <keycombo action="simul">&Alt;&PgUp;</keycombo>
 </shortcut>
-<guimenu>Bookmarks</guimenu>
+<guimenu>Go</guimenu>
+<guisubmenu>Bokmarks</guisubmenu>
 <guimenuitem>Previous</guimenuitem>
 </menuchoice></term>
 <listitem><para>This will move the cursor to beginning of the first above line
@@ -899,12 +1078,13 @@ piece of text on the line. This item is only available when there is a bookmark
 in a line above the cursor.</para></listitem>
 </varlistentry>
 
-<varlistentry id="bookmarks-bookmarks-next">
+<varlistentry id="go-bookmarks-bookmarks-next">
 <term><menuchoice>
 <shortcut>
 <keycombo action="simul">&Alt;&PgDn;</keycombo>
 </shortcut>
-<guimenu>Bookmarks</guimenu>
+<guimenu>Go</guimenu>
+<guisubmenu>Bokmarks</guisubmenu>
 <guimenuitem>Next</guimenuitem>
 </menuchoice></term>
 <listitem><para>This will move the cursor to beginning of the next line with a
@@ -1585,154 +1765,25 @@ dictionary &eg; for automatic spellcheck of text in different languages.</para>
 </listitem>
 </varlistentry>
 
-<!-- Indent/Unindent no longer in the menu ???, but shortcuts work-->
-<!--
-<varlistentry id="tools-indent">
-<term><menuchoice>
-<shortcut>
-<keycombo action="simul">&Ctrl;<keycap>I</keycap></keycombo>
-</shortcut>
-<guimenu>Tools</guimenu>
-<guimenuitem>Indent</guimenuitem>
-</menuchoice></term>
-<listitem>
-<para>This increases the paragraph's indentation by one step. The size of the
-step depends on the <link linkend="pref-edit-indent"> indentation
-settings</link>.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry id="tools-unindent">
-<term><menuchoice>
-<shortcut>
-<keycombo action="simul">&Ctrl;&Shift;<keycap>I</keycap></keycombo>
-</shortcut>
-<guimenu>Tools</guimenu>
-<guimenuitem>Unindent</guimenuitem>
-</menuchoice></term>
-<listitem>
-<para>This reduces the paragraph's indentation by one step. The size of the step
-depends on the <link linkend="pref-edit-indent"> indentation settings</link>.</para>
-</listitem>
-</varlistentry>
--->
-<varlistentry id="tools-cleanindent">
-<term><menuchoice>
-<guimenu>Tools</guimenu>
-<guimenuitem>Clean Indentation</guimenuitem>
-</menuchoice></term>
-<listitem>
-<para>This cleans the indentation for the current selection or for the
-line the cursor is currently in. Cleaning the indentation ensures that
-all your selected text follows the indentation mode you choose.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry id="tools-align">
-<term><menuchoice>
-<guimenu>Tools</guimenu>
-<guimenuitem>Align</guimenuitem>
-</menuchoice></term>
-<listitem>
-<para>Causes a realign of the current line or selected lines using the
-indentation mode and indentation settings in the document.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry id="tools-comment">
-<term><menuchoice>
-<shortcut>
-<keycombo action="simul">&Ctrl;<keycap>D</keycap></keycombo>
-</shortcut>
-<guimenu>Tools</guimenu>
-<guimenuitem>Comment</guimenuitem>
-</menuchoice></term>
-<listitem><para>This adds one space to the beginning of the line
-where the text cursor is located or to the beginning of any
-selected lines.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry id="tools-uncomment">
-<term><menuchoice>
-<shortcut>
-<keycombo action="simul">&Ctrl;&Shift;<keycap>D</keycap></keycombo>
-</shortcut>
-<guimenu>Tools</guimenu>
-<guimenuitem>Uncomment</guimenuitem>
-</menuchoice></term>
-<listitem><para>This removes one space (if any exist) from the beginning of the
-line where the text cursor is located or from the beginning of any
-selected lines.</para></listitem>
-</varlistentry>
-
-<varlistentry id="tools-uppercase">
-<term><menuchoice>
-<shortcut>
-<keycombo action="simul">&Ctrl;<keycap>U</keycap></keycombo>
-</shortcut>
-<guimenu>Tools</guimenu>
-<guimenuitem>Uppercase</guimenuitem>
-</menuchoice></term>
-<listitem><para>Put the selected text or the letter after the cursor in
-uppercase.</para></listitem>
-</varlistentry>
-
-<varlistentry id="tools-lowercase">
-<term><menuchoice>
-<shortcut>
-<keycombo action="simul">&Ctrl;&Shift;<keycap>U</keycap></keycombo>
-</shortcut>
-<guimenu>Tools</guimenu>
-<guimenuitem>Lowercase</guimenuitem>
-</menuchoice></term>
-<listitem><para>Put the selected text or the letter after the cursor in
-lowercase.</para></listitem>
-</varlistentry>
-
-<varlistentry id="tools-capitalize">
-<term><menuchoice>
-<shortcut>
-<keycombo action="simul">&Ctrl;&Alt;<keycap>U</keycap></keycombo>
-</shortcut>
-<guimenu>Tools</guimenu>
-<guimenuitem>Capitalize</guimenuitem>
-</menuchoice></term>
-<listitem><para>Capitalize the selected text or the current
-word.</para></listitem>
-</varlistentry>
-
-<varlistentry id="tools-join-lines">
-<term><menuchoice>
-<shortcut>
-<keycombo action="simul">&Ctrl;<keycap>J</keycap></keycombo>
-</shortcut>
-<guimenu>Tools</guimenu>
-<guimenuitem>Join Lines</guimenuitem>
-</menuchoice></term>
-<listitem><para>Joins the selected lines, or the current line and the line below
-with one white space character as a separator. Leading/trailing white space on
-joined lines is removed in the affected ends.</para></listitem>
-</varlistentry>
-
-<varlistentry id="tools-word-wrap-document">
-<term><menuchoice>
-<guimenu>Tools</guimenu>
-<guimenuitem>Apply Word Wrap</guimenuitem>
-</menuchoice></term>
-<listitem><para>Apply static word wrapping on all the document. That means that
-a new line of text will automatically start when the current
-line exceeds the length specified by the <guilabel>Wrap words at</guilabel> option
-in the Editing tab in <menuchoice>
-<guimenu>Settings</guimenu><guimenuitem>Configure
-Editor...</guimenuitem></menuchoice> menu.</para></listitem>
-</varlistentry>
-
 </variablelist>
 </sect1>
 
 <sect1 id="settings-help-menu">
 <title>The Settings and Help Menu</title>
+
+<variablelist>
+<varlistentry id="settings-color-theme">
+<term><menuchoice>
+<guimenu>Settings</guimenu>
+<guisubmenu>Editor Color Theme</guisubmenu>
+</menuchoice></term>
+<listitem><para>This menu lists the available color schemes. You can change the
+schema for the current view here, to change the default schema you need to
+use the <ulink url="help:/katepart/config-dialog-editor.html#prefcolors">Fonts
+&amp; Colors</ulink> page of the config dialog.</para>
+</listitem>
+</varlistentry>
+</variablelist>
 
 <para>
 &katepart; has the common &kde; <guimenu>Settings</guimenu> and <guimenu>Help</guimenu>

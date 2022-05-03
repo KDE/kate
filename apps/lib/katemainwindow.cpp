@@ -104,14 +104,6 @@ KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup)
      */
     KateUpdateDisabler disableUpdates(this);
 
-    /**
-     * get and set config revision
-     */
-    static const int currentConfigRevision = 10;
-    const int readConfigRevision = KConfigGroup(KSharedConfig::openConfig(), "General").readEntry("Config Revision", 0);
-    KConfigGroup(KSharedConfig::openConfig(), "General").writeEntry("Config Revision", currentConfigRevision);
-    const bool firstStart = readConfigRevision < currentConfigRevision;
-
     // start session restore if needed
     startRestore(sconfig, sgroup);
 
@@ -167,11 +159,6 @@ KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup)
     // prior to this there was (possibly) no view, therefore not context menu.
     // Hence, we have to take care of the menu bar here
     toggleShowMenuBar(false);
-
-    // on first start: deactivate toolbar for Kate
-    if (firstStart && KateApp::isKate()) {
-        toolBar(QStringLiteral("mainToolBar"))->hide();
-    }
 
     // in all cases: avoid that arbitrary plugin toolviews get focus, like terminal, bug 412227
     // we need to delay this a bit due to lazy view creation (and lazy e.g. terminal widget creation)

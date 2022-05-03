@@ -1023,7 +1023,7 @@ arrow decrease it. Close the bar with a click on the button with an icon on the 
 <keycombo action="simul">&Ctrl;&Shift;<keycap>6</keycap></keycombo>
 </shortcut>
 <guimenu>Go</guimenu>
-<guisubmenu>Bokmarks</guisubmenu>
+<guisubmenu>Bookmarks</guisubmenu>
 </menuchoice></term>
 <listitem>
 <para>Below the entries described here, one entry for each bookmark in
@@ -1040,7 +1040,7 @@ line visible.</para>
 <keycombo action="simul">&Ctrl;<keycap>B</keycap></keycombo>
 </shortcut>
 <guimenu>Go</guimenu>
-<guisubmenu>Bokmarks</guisubmenu>
+<guisubmenu>Bookmarks</guisubmenu>
 <guimenuitem>Set Bookmark</guimenuitem>
 </menuchoice></term>
 <listitem>
@@ -1052,7 +1052,7 @@ line visible.</para>
 <varlistentry id="go-bookmarks-clear-bookmarks">
 <term><menuchoice>
 <guimenu>Go</guimenu>
-<guisubmenu>Bokmarks</guisubmenu>
+<guisubmenu>Bookmarks</guisubmenu>
 <guimenuitem>Clear All Bookmarks</guimenuitem>
 </menuchoice></term>
 <listitem>
@@ -1069,7 +1069,7 @@ the list of markers which is appended at the bottom of this menu item.
 <keycombo action="simul">&Alt;&PgUp;</keycombo>
 </shortcut>
 <guimenu>Go</guimenu>
-<guisubmenu>Bokmarks</guisubmenu>
+<guisubmenu>Bookmarks</guisubmenu>
 <guimenuitem>Previous</guimenuitem>
 </menuchoice></term>
 <listitem><para>This will move the cursor to beginning of the first above line
@@ -1084,7 +1084,7 @@ in a line above the cursor.</para></listitem>
 <keycombo action="simul">&Alt;&PgDn;</keycombo>
 </shortcut>
 <guimenu>Go</guimenu>
-<guisubmenu>Bokmarks</guisubmenu>
+<guisubmenu>Bookmarks</guisubmenu>
 <guimenuitem>Next</guimenuitem>
 </menuchoice></term>
 <listitem><para>This will move the cursor to beginning of the next line with a

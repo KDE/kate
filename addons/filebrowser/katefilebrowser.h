@@ -102,6 +102,7 @@ private:
     KDirOperator *m_dirOperator;
     KHistoryComboBox *m_filter;
     QAction *m_autoSyncFolder = nullptr;
+    QAction *m_highlightCurrentFile = nullptr;
     KateFileBrowserOpenWithMenu *m_openWithMenu = nullptr;
 
     KTextEditor::MainWindow *m_mainWindow;

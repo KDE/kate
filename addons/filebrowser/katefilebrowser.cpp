@@ -118,7 +118,7 @@ KateFileBrowser::KateFileBrowser(KTextEditor::MainWindow *mainWindow, QWidget *p
 
     // Ensure highlight current document also works after directory change
     connect(m_dirOperator, &KDirOperator::finishedLoading, this, [this] {
-        if (m_autoSyncFolder->isChecked()) {
+        if (m_highlightCurrentFile->isChecked() && m_autoSyncFolder->isChecked()) {
             m_dirOperator->setCurrentItem(activeDocumentUrl());
         }
     });
@@ -170,6 +170,8 @@ void KateFileBrowser::readSessionConfig(const KConfigGroup &cg)
     m_urlNavigator->setLocationUrl(cg.readEntry("location", QUrl::fromLocalFile(QDir::homePath())));
     setDir(cg.readEntry("location", QUrl::fromLocalFile(QDir::homePath())));
     m_autoSyncFolder->setChecked(cg.readEntry("auto sync folder", true));
+    m_highlightCurrentFile->setChecked(cg.readEntry("highlight current file", true));
+    m_highlightCurrentFile->setEnabled(m_autoSyncFolder->isChecked());
     m_filter->setHistoryItems(cg.readEntry("filter history", QStringList()), true);
 }
 
@@ -179,6 +181,8 @@ void KateFileBrowser::writeSessionConfig(KConfigGroup &cg)
 
     cg.writeEntry("location", m_urlNavigator->locationUrl().url());
     cg.writeEntry("auto sync folder", m_autoSyncFolder->isChecked());
+    cg.writeEntry("auto sync folder", m_autoSyncFolder->isChecked());
+    cg.writeEntry("highlight current file", m_highlightCurrentFile->isChecked());
     cg.writeEntry("filter history", m_filter->historyItems());
 }
 
@@ -329,8 +333,7 @@ void KateFileBrowser::setActiveDocumentDir()
     QUrl u = activeDocumentUrl();
     if (!u.isEmpty()) {
         setDir(KIO::upUrl(u));
-        if (m_autoSyncFolder->isChecked()) {
-            // Highlight current document
+        if (m_highlightCurrentFile->isChecked() && m_autoSyncFolder->isChecked()) {
             m_dirOperator->setCurrentItem(u);
         }
     }
@@ -389,14 +392,29 @@ void KateFileBrowser::setupActions()
     optionsMenu->addSeparator();
     optionsMenu->addAction(m_dirOperator->actionCollection()->action(QStringLiteral("show hidden")));
 
-    // action for synchronising the dir operator with the current document path
+    // action for synchronising the dir operator with the current document path...
     m_autoSyncFolder = new QAction(this);
     m_autoSyncFolder->setCheckable(true);
     m_autoSyncFolder->setText(i18n("Automatically synchronize with current document"));
     m_autoSyncFolder->setChecked(true);
     m_autoSyncFolder->setIcon(QIcon::fromTheme(QStringLiteral("system-switch-user")));
-    connect(m_autoSyncFolder, &QAction::triggered, this, &KateFileBrowser::autoSyncFolder);
     optionsMenu->addAction(m_autoSyncFolder);
+    // ...and his buddy who depend on him...
+    m_highlightCurrentFile = new QAction(this);
+    m_highlightCurrentFile->setCheckable(true);
+    m_highlightCurrentFile->setText(i18n("Highlight current file"));
+    m_highlightCurrentFile->setChecked(true);
+    optionsMenu->addAction(m_highlightCurrentFile);
+    // ...needs some special handling in case of user action
+    connect(m_highlightCurrentFile, &QAction::triggered, this, [this] {
+        m_dirOperator->view()->clearSelection();
+        autoSyncFolder();
+    });
+    connect(m_autoSyncFolder, &QAction::triggered, this, [this](bool enabled) {
+        m_dirOperator->view()->clearSelection();
+        m_highlightCurrentFile->setEnabled(enabled);
+        autoSyncFolder();
+    });
 
     m_actionCollection->addAction(QStringLiteral("configure"), optionsMenu);
 

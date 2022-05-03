@@ -26,6 +26,7 @@ class KateProjectPluginView;
 class GitWidgetTreeView;
 class QStackedWidget;
 class QLineEdit;
+class KActionCollection;
 
 namespace KTextEditor
 {
@@ -94,7 +95,7 @@ private:
 
     QProcess *gitp(const QStringList &arguments);
 
-    void buildMenu();
+    void buildMenu(KActionCollection *ac);
     void setDotGitPath();
     void runGitCmd(const QStringList &args, const QString &i18error);
     void runPushPullCmd(const QStringList &args);
@@ -109,7 +110,8 @@ private:
     void applyDiff(const QString &fileName, bool staged, bool hunk, KTextEditor::View *v);
     void branchCompareFiles(const QString &from, const QString &to);
 
-    QMenu *stashMenu();
+    QMenu *stashMenu(KActionCollection *pCollection);
+    QAction *stashMenuAction(KActionCollection *ac, const QString &name, const QString &text, StashMode m);
 
     void hideEmptyTreeNodes();
     void treeViewContextMenuEvent(QContextMenuEvent *e);

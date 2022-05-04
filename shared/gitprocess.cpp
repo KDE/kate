@@ -6,9 +6,6 @@
 
 #include "gitprocess.h"
 
-#include <QRegularExpression>
-#include <QStandardPaths>
-
 bool setupGitProcess(QProcess &process, const QString &workingDirectory, const QStringList &arguments)
 {
     // only use git from PATH

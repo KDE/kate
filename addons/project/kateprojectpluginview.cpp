@@ -34,7 +34,6 @@
 #include <QFileDialog>
 #include <QHBoxLayout>
 #include <QKeyEvent>
-#include <QTimer>
 #include <QVBoxLayout>
 
 #define PROJECTCLOSEICON "window-close"

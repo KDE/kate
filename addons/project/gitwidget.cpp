@@ -36,7 +36,6 @@
 #include <QPushButton>
 #include <QStringListModel>
 #include <QStyledItemDelegate>
-#include <QTimer>
 #include <QToolButton>
 #include <QTreeView>
 #include <QVBoxLayout>

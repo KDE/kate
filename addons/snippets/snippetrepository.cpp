@@ -53,7 +53,9 @@ SnippetRepository::SnippetRepository(const QString &file)
 
     if (QFile::exists(file)) {
         // Tell the new repository to load it's snippets
-        QTimer::singleShot(0, this, &SnippetRepository::slotParseFile);
+        QTimer::singleShot(0, model(), [this] {
+            parseFile();
+        });
     }
 
     // qDebug() << "created new snippet repo" << file << this;
@@ -82,7 +84,7 @@ SnippetRepository *SnippetRepository::createRepoFromName(const QString &name)
 
     const auto &dir = dataPath();
     const auto &path = dir.absoluteFilePath(cleanName + QLatin1String(".xml"));
-    qDebug() << "repo path:" << path << cleanName;
+    //     qDebug() << "repo path:" << path << cleanName;
 
     SnippetRepository *repo = new SnippetRepository(path);
     repo->setText(name);
@@ -170,7 +172,7 @@ static void addAndCreateElement(QDomDocument &doc, QDomElement &item, const QStr
 
 void SnippetRepository::save()
 {
-    qDebug() << "*** called";
+    //     qDebug() << "*** called";
     /// based on the code from snippets_tng/lib/completionmodel.cpp
     ///@copyright 2009 Joseph Wenninger <jowenn@kde.org>
     /*
@@ -260,7 +262,7 @@ void SnippetRepository::save()
     config.sync();
 }
 
-void SnippetRepository::slotParseFile()
+void SnippetRepository::parseFile()
 {
     /// based on the code from snippets_tng/lib/completionmodel.cpp
     ///@copyright 2009 Joseph Wenninger <jowenn@kde.org>

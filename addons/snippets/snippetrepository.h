@@ -34,10 +34,8 @@ namespace KTextEditor
  * @author Robert Gruber <rgruber@users.sourceforge.net>
  * @author Milian Wolff <mail@milianw.de>
  */
-class SnippetRepository : public QObject, public QStandardItem
+class SnippetRepository : public QStandardItem
 {
-    Q_OBJECT
-
 public:
     /**
      * Creates a new SnippetRepository. When @p file exists it will be parsed (XML).
@@ -130,9 +128,8 @@ public:
     QVariant data(int role = Qt::UserRole + 1) const override;
     void setData(const QVariant &value, int role = Qt::UserRole + 1) override;
 
-private Q_SLOTS:
     /// parses the XML file and load the containing snippets.
-    void slotParseFile();
+    void parseFile();
 
 private:
     /// path to the repository file

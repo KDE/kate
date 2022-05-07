@@ -28,7 +28,6 @@
 <group choice="opt"><option>-s, --start</option> <replaceable>
 name</replaceable> </group>
 <group choice="opt"><option>--startanon</option></group>
-<group choice="opt"><option>--new-session</option></group>
 <group choice="opt"><option>-n, --new</option></group>
 <group choice="opt"><option>-b, --block</option></group>
 <group choice="opt"><option>-p, --pid</option><replaceable>
@@ -76,10 +75,6 @@ configuration files.  This document was written in &kate;.
 </varlistentry>
 <varlistentry>
 <term><option>--startanon</option></term>
-<listitem><para>Start &kate; with a new anonymous session, implies <option>-n</option> (deprecated).</para></listitem>
-</varlistentry>
-<varlistentry>
-<term><option>--new-session</option></term>
 <listitem><para>Start &kate; with a new anonymous session, implies <option>-n</option>.</para></listitem>
 </varlistentry>
 <varlistentry>

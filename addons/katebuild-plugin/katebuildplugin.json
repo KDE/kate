@@ -15,7 +15,7 @@
         "Description[hu]": "Fordítás és a hibaüzenetek feldolgozása",
         "Description[ia]": "Compila o face e analysa messages de error",
         "Description[it]": "Compila o esegui make ed elabora i messaggi di errore",
-        "Description[ko]": "컴파일, 메이크 실행 및 오류 메시지 처리",
+        "Description[ko]": "컴파일, 메이크 실행 및 오류 메시지 해석",
         "Description[nl]": "Compileer of voer Make uit en analyseer foutmeldingen",
         "Description[pl]": "Kompiluj lub uruchom make i przeanalizuj komunikaty o błędach",
         "Description[pt]": "Compilar e processar as mensagens de erro",

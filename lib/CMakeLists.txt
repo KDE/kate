@@ -3,6 +3,9 @@ add_library(kateprivate SHARED "")
 set_target_properties(kateprivate PROPERTIES VERSION ${RELEASE_SERVICE_VERSION})
 install(TARGETS kateprivate ${KDE_INSTALL_TARGETS_DEFAULT_ARGS} LIBRARY NAMELINK_SKIP)
 
+# ensure right translations domain
+target_compile_definitions(kateprivate PRIVATE TRANSLATION_DOMAIN="kateprivate")
+
 configure_file(config.h.in config.h)
 
 include(GenerateExportHeader)
@@ -52,8 +55,8 @@ endif()
 # optional KUserFeedback integration
 find_package(KUserFeedback)
 if (TARGET KUserFeedbackWidgets)
-    target_link_libraries(kateprivate PUBLIC KUserFeedbackWidgets)
-    target_compile_definitions(kateprivate PUBLIC -DWITH_KUSERFEEDBACK)
+    target_link_libraries(kateprivate PRIVATE KUserFeedbackWidgets)
+    target_compile_definitions(kateprivate PRIVATE -DWITH_KUSERFEEDBACK)
 endif()
 
 ki18n_wrap_ui(kateprivate ui/sessionconfigwidget.ui session/katesessionmanagedialog.ui)

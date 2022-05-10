@@ -10,6 +10,8 @@
 #include <QRegularExpression>
 #include <QStandardPaths>
 
+#include "katetests_export.h"
+
 /**
  * small helper function to setup a QProcess based "git" command.
  * you pass working directory & arguments
@@ -21,11 +23,11 @@
  * @param arguments arguments to pass to git
  * @return could set setup the process or did that fail, e.g. because the git executable is not available?
  */
-bool setupGitProcess(QProcess &process, const QString &workingDirectory, const QStringList &arguments);
+KATE_PRIVATE_EXPORT bool setupGitProcess(QProcess &process, const QString &workingDirectory, const QStringList &arguments);
 
 /**
  * helper function to get the git version
  * @param workingDirectory working directory to use for process
  * @return git major and minor version as pair, -1,-1 if infeasible to determine
  */
-std::pair<int, int> getGitVersion(const QString &workingDir);
+KATE_PRIVATE_EXPORT std::pair<int, int> getGitVersion(const QString &workingDir);

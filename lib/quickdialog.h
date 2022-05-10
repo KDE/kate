@@ -12,13 +12,15 @@
 #include <QSortFilterProxyModel>
 #include <QTreeView>
 
+#include "katetests_export.h"
+
 class QAbstractItemModel;
 namespace KTextEditor
 {
 class MainWindow;
 }
 
-class QuickDialog : public QMenu
+class KATE_PRIVATE_EXPORT QuickDialog : public QMenu
 {
     Q_OBJECT
 public:

@@ -1,0 +1,12 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource prefix="/kxmlgui5/kate">
+        <file>kateui.rc</file>
+    </qresource>
+    <qresource prefix="/kxmlgui5/kwrite">
+        <file>kateui.rc</file>
+    </qresource>
+    <qresource prefix="/kate">
+        <file>mascot.png</file>
+    </qresource>
+</RCC>

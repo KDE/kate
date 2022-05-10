@@ -97,6 +97,8 @@ target_sources(
     signal_watcher.cpp
     gitprocess.cpp
     quickdialog.cpp
+
+    data/kateprivate.qrc
 )
 
 if(BUILD_TESTING)

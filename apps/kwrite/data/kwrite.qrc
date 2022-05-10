@@ -1,10 +1,6 @@
 <!DOCTYPE RCC>
 <RCC version="1.0">
-    <qresource prefix="/kxmlgui5/kwrite">
-       <file alias="kateui.rc">../../../lib/data/kateui.rc</file>
-       </qresource>
-       <qresource prefix="/kwrite">
-       <file alias="kwrite.svg">../icons/sc-apps-kwrite.svg</file>
-       <file alias="mascot.png">../../../lib/data/mascot.png</file>
-       </qresource>
+    <qresource prefix="/kwrite">
+        <file alias="kwrite.svg">../icons/sc-apps-kwrite.svg</file>
+    </qresource>
 </RCC>

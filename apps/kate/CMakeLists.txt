@@ -13,6 +13,9 @@ target_link_libraries(kate-bin PRIVATE kateprivate)
 # ensure consistent SingleApplication usage
 target_compile_definitions(kate-bin PUBLIC -DQAPPLICATION_CLASS=QApplication)
 
+# ensure right translations domain
+target_compile_definitions(externaltoolsplugin PRIVATE TRANSLATION_DOMAIN="kateprivate")
+
 # we have different windows icons, less margins
 set(ICONS_FOLDER ${CMAKE_CURRENT_SOURCE_DIR}/icons/unix)
 if(WIN32)

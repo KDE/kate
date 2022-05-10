@@ -18,9 +18,9 @@
 #include "katedocmanager.h"
 #include "katemainwindow.h"
 #include "katepluginmanager.h"
+#include "kateprivate_export.h"
 #include "katesessionmanager.h"
 #include "katestashmanager.h"
-#include "katetests_export.h"
 
 #include <KConfig>
 #include <QList>

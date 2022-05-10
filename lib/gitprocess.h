@@ -10,7 +10,7 @@
 #include <QRegularExpression>
 #include <QStandardPaths>
 
-#include "katetests_export.h"
+#include "kateprivate_export.h"
 
 /**
  * small helper function to setup a QProcess based "git" command.

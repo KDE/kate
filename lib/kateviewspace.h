@@ -13,8 +13,8 @@
 #include <ktexteditor/modificationinterface.h>
 #include <ktexteditor/view.h>
 
+#include "kateprivate_export.h"
 #include "katetabbar.h"
-#include "katetests_export.h"
 
 #include <QHash>
 #include <QWidget>

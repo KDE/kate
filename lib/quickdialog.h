@@ -12,7 +12,7 @@
 #include <QSortFilterProxyModel>
 #include <QTreeView>
 
-#include "katetests_export.h"
+#include "kateprivate_export.h"
 
 class QAbstractItemModel;
 namespace KTextEditor

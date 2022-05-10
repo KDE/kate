@@ -10,8 +10,8 @@
 #define __KATE_VIEWMANAGER_H__
 
 #include "katedocmanager.h"
+#include "kateprivate_export.h"
 #include "katesplitter.h"
-#include "katetests_export.h"
 
 #include <QList>
 #include <QMap>

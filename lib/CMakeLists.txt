@@ -8,7 +8,7 @@ configure_file(config.h.in config.h)
 include(GenerateExportHeader)
 generate_export_header(
   kateprivate
-  EXPORT_FILE_NAME katetests_export.h
+  EXPORT_FILE_NAME kateprivate_export.h
   EXPORT_MACRO_NAME KATE_PRIVATE_EXPORT
 )
 
@@ -18,7 +18,7 @@ target_include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/session
     ${CMAKE_CURRENT_SOURCE_DIR}/quickopen
-    ${CMAKE_CURRENT_BINARY_DIR} # katetests_export.h + config.h
+    ${CMAKE_CURRENT_BINARY_DIR} # kateprivate_export.h + config.h
 )
 
 find_package(

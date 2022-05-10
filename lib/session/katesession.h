@@ -7,7 +7,7 @@
 #ifndef __KATE_SESSION_H__
 #define __KATE_SESSION_H__
 
-#include "katetests_export.h"
+#include "kateprivate_export.h"
 
 #include <QDateTime>
 #include <QExplicitlySharedDataPointer>

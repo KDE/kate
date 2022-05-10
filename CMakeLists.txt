@@ -52,9 +52,17 @@ find_package(KF5 ${KF5_DEP_VERSION}
 
 add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x050d00)
 
+# addons for Kate
 ecm_optional_add_subdirectory(addons)
+
+# libkate, used by the apps and addons
 ecm_optional_add_subdirectory(shared)
+ecm_optional_add_subdirectory(lib)
+
+# the Kate & KWrite applications
 ecm_optional_add_subdirectory(apps)
+
+# our documentation
 ecm_optional_add_subdirectory(doc)
 
 feature_summary(INCLUDE_QUIET_PACKAGES WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)

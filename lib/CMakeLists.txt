@@ -56,7 +56,7 @@ endif()
 find_package(KUserFeedback)
 if (TARGET KUserFeedbackWidgets)
     target_link_libraries(kateprivate PRIVATE KUserFeedbackWidgets)
-    target_compile_definitions(kateprivate PRIVATE -DWITH_KUSERFEEDBACK)
+    target_compile_definitions(kateprivate PUBLIC -DWITH_KUSERFEEDBACK)
 endif()
 
 ki18n_wrap_ui(kateprivate ui/sessionconfigwidget.ui session/katesessionmanagedialog.ui)

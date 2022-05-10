@@ -17,6 +17,7 @@ target_link_libraries(externaltoolsplugin PRIVATE
     KF5::IconThemes
     KF5::TextEditor
     KF5::I18n
+    kateprivate
 )
 
 ki18n_wrap_ui(externaltoolsplugin configwidget.ui
@@ -34,12 +35,6 @@ target_sources(
     kateexternaltoolscommand.cpp
     kateexternaltoolsconfigwidget.cpp
     plugin.qrc
-)
-
-target_include_directories(
-    externaltoolsplugin
-    PUBLIC
-    ${CMAKE_SOURCE_DIR}/shared
 )
 
 if (BUILD_TESTING)

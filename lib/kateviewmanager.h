@@ -11,6 +11,7 @@
 
 #include "katedocmanager.h"
 #include "katesplitter.h"
+#include "katetests_export.h"
 
 #include <QList>
 #include <QMap>
@@ -36,7 +37,7 @@ class KConfigBase;
 class KateMainWindow;
 class KateViewSpace;
 
-class KateViewManager : public KateSplitter
+class KATE_PRIVATE_EXPORT KateViewManager : public KateSplitter
 {
     Q_OBJECT
 

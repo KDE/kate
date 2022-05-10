@@ -1,18 +1,19 @@
-# We use an intermediate static library because linking tests directly to an executable is not
-# possible with CMake yet.
-add_library(kate-lib STATIC "")
+# Kate shared library, used by Kate/KWrite and the addons
+add_library(kateprivate SHARED "")
+set_target_properties(kateprivate PROPERTIES VERSION ${PROJECT_VERSION} SOVERSION ${PROJECT_VERSION_MAJOR})
+install(TARGETS kateprivate ${KDE_INSTALL_TARGETS_DEFAULT_ARGS} LIBRARY NAMELINK_SKIP)
 
 configure_file(config.h.in config.h)
 
 include(GenerateExportHeader)
 generate_export_header(
-  kate-lib
+  kateprivate
   EXPORT_FILE_NAME katetests_export.h
-  EXPORT_MACRO_NAME KATE_TESTS_EXPORT
+  EXPORT_MACRO_NAME KATE_PRIVATE_EXPORT
 )
 
 target_include_directories(
-  kate-lib
+  kateprivate
   PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/session
@@ -34,7 +35,7 @@ find_package(
 )
 
 target_link_libraries(
-  kate-lib
+  kateprivate
   PUBLIC
     KF5::I18n
     KF5::TextEditor
@@ -42,24 +43,23 @@ target_link_libraries(
     KF5::DBusAddons
     KF5::Crash
     KF5::TextWidgets
-    kateshared
 )
 
 if(KF5Activities_FOUND)
-  target_link_libraries(kate-lib PUBLIC KF5::Activities)
+  target_link_libraries(kateprivate PUBLIC KF5::Activities)
 endif()
 
 # optional KUserFeedback integration
 find_package(KUserFeedback)
 if (TARGET KUserFeedbackWidgets)
-    target_link_libraries(kate-lib PUBLIC KUserFeedbackWidgets)
-    target_compile_definitions(kate-lib PUBLIC -DWITH_KUSERFEEDBACK)
+    target_link_libraries(kateprivate PUBLIC KUserFeedbackWidgets)
+    target_compile_definitions(kateprivate PUBLIC -DWITH_KUSERFEEDBACK)
 endif()
 
-ki18n_wrap_ui(kate-lib ui/sessionconfigwidget.ui session/katesessionmanagedialog.ui)
+ki18n_wrap_ui(kateprivate ui/sessionconfigwidget.ui session/katesessionmanagedialog.ui)
 
 target_sources(
-  kate-lib
+  kateprivate
   PRIVATE
     session/katesession.cpp
     session/katesessionmanagedialog.cpp
@@ -87,7 +87,6 @@ target_sources(
     katesplitter.cpp
     kateviewmanager.cpp
     kateviewspace.cpp
-    katewaiter.cpp
     tabmimedata.cpp
 
     kateoutputview.cpp
@@ -96,14 +95,9 @@ target_sources(
     kateurlbar.cpp
 
     signal_watcher.cpp
-
-    # single application handing for the non-dbus case
-    SingleApplication/singleapplication.cpp
-    SingleApplication/singleapplication_p.cpp
+    gitprocess.cpp
+    quickdialog.cpp
 )
-
-# ensure consistent SingleApplication usage
-target_compile_definitions(kate-lib PUBLIC -DQAPPLICATION_CLASS=QApplication)
 
 if(BUILD_TESTING)
   add_subdirectory(autotests)

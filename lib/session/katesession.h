@@ -17,7 +17,7 @@
 
 class KConfig;
 
-class KATE_TESTS_EXPORT KateSession : public QSharedData
+class KATE_PRIVATE_EXPORT KateSession : public QSharedData
 {
 public:
     /**

@@ -1,6 +1,17 @@
-# Kate executable, just main.cpp & resource file & our large shared part in the static library
-add_executable(kate-bin main.cpp  data/kate.qrc)
-target_link_libraries(kate-bin PRIVATE kate-lib)
+# Kate application
+add_executable(kate-bin
+    main.cpp
+    data/kate.qrc
+
+    katewaiter.cpp
+
+    # single application handing for the non-dbus case
+    SingleApplication/singleapplication.cpp
+    SingleApplication/singleapplication_p.cpp)
+target_link_libraries(kate-bin PRIVATE kateprivate)
+
+# ensure consistent SingleApplication usage
+target_compile_definitions(kate-bin PUBLIC -DQAPPLICATION_CLASS=QApplication)
 
 # we have different windows icons, less margins
 set(ICONS_FOLDER ${CMAKE_CURRENT_SOURCE_DIR}/icons/unix)

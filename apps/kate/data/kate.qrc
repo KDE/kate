@@ -1,10 +1,10 @@
 <!DOCTYPE RCC>
 <RCC version="1.0">
     <qresource prefix="/kxmlgui5/kate">
-        <file alias="kateui.rc">../../lib/data/kateui.rc</file>
+        <file alias="kateui.rc">../../../lib/data/kateui.rc</file>
     </qresource>
     <qresource prefix="/kate">
         <file alias="kate.svg">../icons/unix/sc-apps-kate.svg</file>
-        <file alias="mascot.png">../../lib/data/mascot.png</file>
+        <file alias="mascot.png">../../../lib/data/mascot.png</file>
     </qresource>
 </RCC>

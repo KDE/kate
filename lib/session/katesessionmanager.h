@@ -15,7 +15,7 @@
 
 typedef QList<KateSession::Ptr> KateSessionList;
 
-class KATE_TESTS_EXPORT KateSessionManager : public QObject
+class KATE_PRIVATE_EXPORT KateSessionManager : public QObject
 {
     Q_OBJECT
 

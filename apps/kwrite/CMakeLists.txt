@@ -1,6 +1,6 @@
-# KWrite executable, just main.cpp & resource file & our large shared part in the static library
+# KWrite application
 add_executable(kwrite main.cpp  data/kwrite.qrc)
-target_link_libraries(kwrite PRIVATE kate-lib)
+target_link_libraries(kwrite PRIVATE kateprivate)
 
 # application icon, in all sizes needed to have e.g. nice Windows icons, too
 set(ICONS_FOLDER ${CMAKE_CURRENT_SOURCE_DIR}/icons)

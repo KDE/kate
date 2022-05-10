@@ -14,6 +14,7 @@
 #include <ktexteditor/view.h>
 
 #include "katetabbar.h"
+#include "katetests_export.h"
 
 #include <QHash>
 #include <QWidget>
@@ -24,7 +25,7 @@ class QStackedWidget;
 class QToolButton;
 class LocationHistoryTest;
 
-class KateViewSpace : public QWidget
+class KATE_PRIVATE_EXPORT KateViewSpace : public QWidget
 {
     Q_OBJECT
 

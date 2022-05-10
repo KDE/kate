@@ -12,7 +12,7 @@
 
 class KateSessionManager;
 
-class KATE_TESTS_EXPORT KateSessionsAction : public KActionMenu
+class KATE_PRIVATE_EXPORT KateSessionsAction : public KActionMenu
 {
     Q_OBJECT
 

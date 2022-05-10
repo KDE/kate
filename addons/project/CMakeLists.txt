@@ -20,7 +20,7 @@ target_compile_definitions(kateprojectplugin PRIVATE TRANSLATION_DOMAIN="katepro
 target_link_libraries(
     kateprojectplugin
     PRIVATE
-        kateshared
+        kateprivate
         Qt::Concurrent
         KF5::GuiAddons
         KF5::I18n

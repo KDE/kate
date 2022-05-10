@@ -16,12 +16,7 @@ target_link_libraries(
     KF5::I18n
     KF5::ItemViews
     KF5::TextEditor
-)
-
-target_include_directories(
-    katesearchplugin
-    PUBLIC
-    ${CMAKE_SOURCE_DIR}/shared
+    kateprivate
 )
 
 ki18n_wrap_ui(katesearchplugin search.ui results.ui MatchExportDialog.ui)

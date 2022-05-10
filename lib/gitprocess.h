@@ -7,8 +7,8 @@
 #pragma once
 
 #include <QProcess>
-#include <QStandardPaths>
 #include <QRegularExpression>
+#include <QStandardPaths>
 
 /**
  * small helper function to setup a QProcess based "git" command.

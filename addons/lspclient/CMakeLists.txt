@@ -4,7 +4,7 @@ target_compile_definitions(lspclientplugin PRIVATE TRANSLATION_DOMAIN="lspclient
 target_link_libraries(
   lspclientplugin
   PRIVATE
-    kateshared
+    kateprivate
 )
 
 include(ECMQtDeclareLoggingCategory)

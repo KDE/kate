@@ -38,7 +38,7 @@ class QCommandLineParser;
  * Kate Application
  * This class represents the core kate application object
  */
-class KATE_TESTS_EXPORT KateApp : public QObject
+class KATE_PRIVATE_EXPORT KateApp : public QObject
 {
     Q_OBJECT
 

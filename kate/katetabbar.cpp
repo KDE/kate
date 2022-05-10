@@ -250,7 +250,7 @@ void KateTabBar::mouseMoveEvent(QMouseEvent *event)
     int tab = tabAt(dragStartPos);
     QRect rect = tabRect(tab);
 
-    QPixmap p(rect.size());
+    QPixmap p(rect.size() * this->devicePixelRatioF());
     p.setDevicePixelRatio(this->devicePixelRatioF());
     p.fill(Qt::transparent);
 

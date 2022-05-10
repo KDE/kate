@@ -1,6 +1,6 @@
 # Kate shared library, used by Kate/KWrite and the addons
 add_library(kateprivate SHARED "")
-set_target_properties(kateprivate PROPERTIES VERSION ${PROJECT_VERSION} SOVERSION ${PROJECT_VERSION_MAJOR})
+set_target_properties(kateprivate PROPERTIES VERSION ${RELEASE_SERVICE_VERSION})
 install(TARGETS kateprivate ${KDE_INSTALL_TARGETS_DEFAULT_ARGS} LIBRARY NAMELINK_SKIP)
 
 configure_file(config.h.in config.h)

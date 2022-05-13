@@ -364,11 +364,21 @@ void KateViewSpace::removeView(KTextEditor::View *v)
 
     // switch to most recently used rather than letting stack choose one
     // (last element could well be v->document() being removed here)
+    bool shown = false;
     for (auto rit = m_registeredDocuments.rbegin(); rit != m_registeredDocuments.rend(); ++rit) {
         auto it = m_docToView.find(*rit);
         if (it != m_docToView.end()) {
-            showView(*rit);
+            shown = showView(*rit);
             break;
+        }
+    }
+
+    // This can happen if no other tab has a view in this viewspace
+    if (!shown) {
+        // At this point our current index has already changed
+        int idx = m_tabBar->currentIndex();
+        if (idx != -1) {
+            m_viewManager->activateView(m_tabBar->tabDocument(idx));
         }
     }
 }
@@ -523,11 +533,18 @@ void KateViewSpace::closeDocument(KTextEditor::Document *doc)
     if (doc->views().size() <= 1) {
         m_viewManager->slotDocumentClose(doc);
     } else {
+        // KTE::view for this tab has been created yet?
         auto it = m_docToView.find(doc);
-        Q_ASSERT(it != m_docToView.end());
-        // We have other views of this doc in other viewspaces
-        // Just remove the view
-        m_viewManager->deleteView(it->second);
+        if (it != m_docToView.end()) {
+            // - We have a view for this doc in this viewspace
+            // - We have other views of this doc in other viewspaces
+            // - Just remove the view in this viewspace
+            m_viewManager->deleteView(it->second);
+        } else {
+            // We don't have a view for this doc in this viewspace
+            // Just remove the document
+            documentDestroyed(doc);
+        }
     }
 
     /**

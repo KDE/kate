@@ -46,6 +46,9 @@ The **apps/lib** directory contains the shared sources of the Kate and KWrite ap
 
 Close to everything beside the main functions of the two applications is implemented there.
 
+This is installed a shared library kateprivate that can be used by addons, too.
+The library isn't BC over releases, no headers to use it are installed to the system.
+
 ### apps/kate
 
 The **apps/kate** directory contains the Kate application sources.
@@ -70,12 +73,6 @@ These plugins are not only used by Kate itself but other KTextEditor compatible 
 ## doc
 
 The **doc** directory contains the Kate, KWrite & KatePart manuals.
-
-## shared
-
-The **shared** directory contains common code parts needed by the applications & plugins.
-This avoids needless code duplication.
-This is purely internal, no libraries/headers are installed, this is meant to be just consumed inside this repository.
 
 ## LICENSES
 

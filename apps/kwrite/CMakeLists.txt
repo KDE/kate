@@ -2,6 +2,9 @@
 add_executable(kwrite main.cpp  data/kwrite.qrc)
 target_link_libraries(kwrite PRIVATE kateprivate)
 
+# ensure right translations domain, we use one kate.po(t) for lib + apps
+target_compile_definitions(kwrite PRIVATE TRANSLATION_DOMAIN="kate")
+
 # application icon, in all sizes needed to have e.g. nice Windows icons, too
 set(ICONS_FOLDER ${CMAKE_CURRENT_SOURCE_DIR}/icons)
 set(ICON_FILES

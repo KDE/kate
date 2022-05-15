@@ -3,8 +3,8 @@ add_library(kateprivate SHARED "")
 set_target_properties(kateprivate PROPERTIES VERSION ${RELEASE_SERVICE_VERSION})
 install(TARGETS kateprivate ${KDE_INSTALL_TARGETS_DEFAULT_ARGS} LIBRARY NAMELINK_SKIP)
 
-# ensure right translations domain
-target_compile_definitions(kateprivate PRIVATE TRANSLATION_DOMAIN="kateprivate")
+# ensure right translations domain, we use one kate.po(t) for lib + apps
+target_compile_definitions(kateprivate PRIVATE TRANSLATION_DOMAIN="kate")
 
 configure_file(config.h.in config.h)
 

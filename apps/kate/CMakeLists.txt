@@ -10,6 +10,9 @@ add_executable(kate-bin
     SingleApplication/singleapplication_p.cpp)
 target_link_libraries(kate-bin PRIVATE kateprivate)
 
+# ensure right translations domain, we use one kate.po(t) for lib + apps
+target_compile_definitions(kate-bin PRIVATE TRANSLATION_DOMAIN="kate")
+
 # ensure consistent SingleApplication usage
 target_compile_definitions(kate-bin PRIVATE -DQAPPLICATION_CLASS=QApplication)
 

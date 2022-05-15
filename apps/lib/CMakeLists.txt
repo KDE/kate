@@ -6,7 +6,8 @@ install(TARGETS kateprivate ${KDE_INSTALL_TARGETS_DEFAULT_ARGS} LIBRARY NAMELINK
 # ensure right translations domain, we use one kate.po(t) for lib + apps
 target_compile_definitions(kateprivate PRIVATE TRANSLATION_DOMAIN="kate")
 
-configure_file(config.h.in config.h)
+# export version to be used by Kate/KWrite/...
+target_compile_definitions(kateprivate PUBLIC KATE_VERSION="${RELEASE_SERVICE_VERSION}")
 
 include(GenerateExportHeader)
 generate_export_header(
@@ -21,7 +22,7 @@ target_include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/session
     ${CMAKE_CURRENT_SOURCE_DIR}/quickopen
-    ${CMAKE_CURRENT_BINARY_DIR} # kateprivate_export.h + config.h
+    ${CMAKE_CURRENT_BINARY_DIR} # kateprivate_export.h
 )
 
 find_package(
@@ -50,6 +51,7 @@ target_link_libraries(
 
 if(KF5Activities_FOUND)
   target_link_libraries(kateprivate PUBLIC KF5::Activities)
+  target_compile_definitions(kateprivate PUBLIC -DKF5Activities_FOUND)
 endif()
 
 # optional KUserFeedback integration

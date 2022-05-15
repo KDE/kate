@@ -9,7 +9,6 @@
 // BEGIN Includes
 #include "kateviewmanager.h"
 
-#include "config.h"
 #include "kateapp.h"
 #include "katemainwindow.h"
 #include "kateupdatedisabler.h"

@@ -122,8 +122,6 @@ KateFileBrowser::KateFileBrowser(KTextEditor::MainWindow *mainWindow, QWidget *p
             m_dirOperator->setCurrentItem(activeDocumentUrl());
         }
     });
-
-    autoSyncFolder();
 }
 
 KateFileBrowser::~KateFileBrowser()

@@ -52,10 +52,7 @@ KTextEditor::ConfigPage *KateFileBrowserPlugin::configPage(int number, QWidget *
     if (number != 0) {
         return nullptr;
     }
-    if (!m_views[0]->m_fileBrowser) {
-        m_views[0]->createFileBrowser(true);
-    }
-    return new KateFileBrowserConfigPage(parent, m_views[0]->m_fileBrowser.get());
+    return new KateFileBrowserConfigPage(parent, m_views[0]->m_fileBrowser);
 }
 // END KateFileBrowserPlugin
 
@@ -67,50 +64,34 @@ KateFileBrowserPluginView::KateFileBrowserPluginView(KTextEditor::Plugin *plugin
                                             KTextEditor::MainWindow::Left,
                                             QIcon::fromTheme(QStringLiteral("document-open")),
                                             i18n("Filesystem")))
+    , m_fileBrowser(new KateFileBrowser(mainWindow, m_toolView))
     , m_mainWindow(mainWindow)
 {
     m_toolView->installEventFilter(this);
-    connect(m_toolView.get(), SIGNAL(toolVisibleChanged(bool)), this, SLOT(createFileBrowser(bool)));
+}
+
+KateFileBrowserPluginView::~KateFileBrowserPluginView()
+{
+    // cleanup, kill toolview + console
+    delete m_fileBrowser->parentWidget();
 }
 
 void KateFileBrowserPluginView::readSessionConfig(const KConfigGroup &config)
 {
-    if (m_fileBrowser) {
-        m_fileBrowser->readSessionConfig(config);
-    } else {
-        cg.reset(new KConfigGroup(config));
-    }
+    m_fileBrowser->readSessionConfig(config);
 }
 
 void KateFileBrowserPluginView::writeSessionConfig(KConfigGroup &config)
 {
-    if (m_fileBrowser) {
-        m_fileBrowser->writeSessionConfig(config);
-    }
-}
-
-void KateFileBrowserPluginView::createFileBrowser(bool visible)
-{
-    if (!visible) {
-        return;
-    }
-
-    // we must not have a filebrowser
-    Q_ASSERT(!m_fileBrowser);
-
-    disconnect(m_toolView.get(), SIGNAL(toolVisibleChanged(bool)), this, SLOT(createFileBrowser(bool)));
-    m_fileBrowser = std::make_unique<KateFileBrowser>(m_mainWindow, m_toolView.get());
-    m_fileBrowser->readSessionConfig(*cg);
-    // delete the config now
-    cg.reset();
+    m_fileBrowser->writeSessionConfig(config);
 }
 
 bool KateFileBrowserPluginView::eventFilter(QObject *obj, QEvent *event)
 {
     if (event->type() == QEvent::KeyPress) {
         QKeyEvent *ke = static_cast<QKeyEvent *>(event);
-        if ((obj == m_toolView.get()) && (ke->key() == Qt::Key_Escape)) {
-            m_mainWindow->hideToolView(m_toolView.get());
+        if ((obj == m_toolView) && (ke->key() == Qt::Key_Escape)) {
+            m_mainWindow->hideToolView(m_toolView);
             event->accept();
             return true;
         }

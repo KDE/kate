@@ -673,11 +673,11 @@ or permanently in <link linkend="appearance-borders">the Appearance section of
 </sect2>
 
 <sect2><title>Working with multiple cursors</title>
-<para>Once you have created a few cursors, you can perform most editing operations on them as you would on a single cursor.
-For example, typing a letter will type it for each cursor. Similarly you can perform text transforms e.g., capitalization
+<para>Once you have created a few cursors, you can perform most of the editing operations on them as you would on a single cursor.
+For example, typing a letter will type it for each cursor. Similarly you can perform text transforms &eg;, capitalization
 for all the positions or selections.</para>
 
-<para>Sometimes you will want to remove cursors. To do so, you can &Alt; + &LMB; on the cursor that you want to remove. If you just want to remove cursors on lines that are empty, there is a ready made action for it that will do it for you. To invoke the action, open the Command Bar using <keycombo action="simul">&Ctrl;&Alt;<keycap>I</keycap></keycombo> and look for <guimenuitem>Remove cursors from empty lines</guimenuitem> and hit &Enter;. You can also configure a shortcut for this action.</para>
+<para>Sometimes you will want to remove cursors. To do so, you can &Alt; + &LMB; on the cursor that you want to remove. If you just want to remove cursors on lines that are empty, there is a ready-made action for it that will do it for you. To invoke the action, open the Command Bar using <keycombo action="simul">&Ctrl;&Alt;<keycap>I</keycap></keycombo> and look for <guimenuitem>Remove cursors from empty lines</guimenuitem> and hit &Enter;. You can also configure a shortcut for this action.</para>
 
 </sect2>
 

@@ -450,42 +450,35 @@ void KateApp::openDocUrlDocumentDestroyed(QObject *document)
 
 KTextEditor::Cursor KateApp::cursorFromArgs()
 {
-    int line = -1;
-    int column = -1;
+    bool hasLine = m_args.isSet(QStringLiteral("line"));
+    bool hasColumn = m_args.isSet(QStringLiteral("column"));
 
-    if (m_args.isSet(QStringLiteral("line"))) {
-        line = m_args.value(QStringLiteral("line")).toInt() - 1;
+    if (!hasLine && !hasColumn) {
+        return KTextEditor::Cursor::invalid();
     }
 
-    if (m_args.isSet(QStringLiteral("column"))) {
-        column = m_args.value(QStringLiteral("column")).toInt() - 1;
-    }
+    int line = qMax(m_args.value(QStringLiteral("line")).toInt() - 1, 0);
+    int column = qMax(m_args.value(QStringLiteral("column")).toInt() - 1, 0);
 
     return {line, column};
 }
 
 KTextEditor::Cursor KateApp::cursorFromQueryString(const QUrl &url)
 {
-    int line = -1;
-    int column = -1;
-
     if (!url.hasQuery()) {
-        return {line, column};
+        return KTextEditor::Cursor::invalid();
     }
 
     QUrlQuery urlQuery(url);
     QString lineStr = urlQuery.queryItemValue(QStringLiteral("line"));
     QString columnStr = urlQuery.queryItemValue(QStringLiteral("column"));
 
-    if (!lineStr.isEmpty()) {
-        line = lineStr.toInt();
-        line > 0 && line--;
+    if (lineStr.isEmpty() && columnStr.isEmpty()) {
+        return KTextEditor::Cursor::invalid();
     }
 
-    if (!columnStr.isEmpty()) {
-        column = columnStr.toInt();
-        column > 0 && column--;
-    }
+    int line = qMax(urlQuery.queryItemValue(QStringLiteral("line")).toInt() - 1, 0);
+    int column = qMax(urlQuery.queryItemValue(QStringLiteral("column")).toInt() - 1, 0);
 
     return {line, column};
 }

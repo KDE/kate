@@ -672,8 +672,8 @@ or permanently in <link linkend="appearance-borders">the Appearance section of
 
 </sect2>
 
-<sect2><title>Working with multiple cursros</title>
-<para>Once you have created a few cursors, you can perform most editing operation on them as you would on the single cursor.
+<sect2><title>Working with multiple cursors</title>
+<para>Once you have created a few cursors, you can perform most editing operations on them as you would on a single cursor.
 For example, typing a letter will type it for each cursor. Similarly you can perform text transforms e.g., capitalization
 for all the positions or selections.</para>
 

@@ -107,7 +107,7 @@ void GitBlameInlineNoteProvider::paintInlineNote(const KTextEditor::InlineNote &
     color.setAlpha(note.underMouse() ? 130 : 90);
     painter.setPen(color);
     painter.setBrush(color);
-    painter.drawText(rectangle, text);
+    painter.drawText(rectangle, Qt::AlignLeft | Qt::AlignVCenter, text);
 }
 
 void GitBlameInlineNoteProvider::inlineNoteActivated(const KTextEditor::InlineNote &note, Qt::MouseButtons buttons, const QPoint &)

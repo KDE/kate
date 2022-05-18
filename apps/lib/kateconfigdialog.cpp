@@ -157,8 +157,10 @@ void KateConfigDialog::addBehaviorPage()
     m_tabLimit->setValue(cgGeneral.readEntry("Tabbar Tab Limit", 0));
     connect(m_tabLimit, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &KateConfigDialog::slotChanged);
     vbox->addLayout(hlayout);
-    vbox->addWidget(new QLabel(
-        i18n("A high limit can increase the window size, please enable 'Allow tab scrolling' to prevent it. Unlimited tabs are always scrollable.")));
+    label =
+        new QLabel(i18n("A high limit can increase the window size, please enable 'Allow tab scrolling' to prevent it. Unlimited tabs are always scrollable."));
+    label->setWordWrap(true);
+    vbox->addWidget(label);
 
     m_autoHideTabs = new QCheckBox(i18n("&Auto hide tabs"), buttonGroup);
     m_autoHideTabs->setChecked(cgGeneral.readEntry("Auto Hide Tabs", true));

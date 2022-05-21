@@ -5,7 +5,7 @@ endif()
 
 kate_add_plugin(kategdbplugin)
 target_compile_definitions(kategdbplugin PRIVATE TRANSLATION_DOMAIN="kategdbplugin")
-target_link_libraries(kategdbplugin PRIVATE kateshared KF5::I18n KF5::TextEditor)
+target_link_libraries(kategdbplugin PRIVATE kateprivate KF5::I18n KF5::TextEditor)
 
 include(ECMQtDeclareLoggingCategory)
 ecm_qt_declare_logging_category(

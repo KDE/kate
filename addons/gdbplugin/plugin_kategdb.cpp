@@ -37,7 +37,6 @@
 #include <ktexteditor/editor.h>
 #include <ktexteditor/markinterface.h>
 #include <ktexteditor/view.h>
-#include <qboxlayout.h>
 
 K_PLUGIN_FACTORY_WITH_JSON(KatePluginGDBFactory, "kategdbplugin.json", registerPlugin<KatePluginGDB>();)
 

@@ -64,7 +64,6 @@ bool SocketProcessBus::start(const settings::BusSettings &configuration)
     m_connectionHandler.reset();
     m_connectionHandler = [this, connection]() {
         this->socket.connectToHost(connection.host, connection.port);
-        this->socket.waitForConnected();
     };
 
     configuration.command->start(process);

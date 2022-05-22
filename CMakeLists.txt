@@ -40,8 +40,7 @@ add_definitions(-DQT_NO_FOREACH)
 # Required here so that the version comparison below works
 find_package(Qt${QT_MAJOR_VERSION}Widgets ${QT_MIN_VERSION} CONFIG REQUIRED)
 
-# Required here so that the ki18n_install/kdoctools_install calls injected by
-# the release scripts work.
+# Required here so that the ki18n_install/kdoctools_install calls work.
 find_package(KF5 ${KF5_DEP_VERSION}
     REQUIRED COMPONENTS
         I18n
@@ -60,6 +59,11 @@ ecm_optional_add_subdirectory(apps)
 
 # our documentation
 ecm_optional_add_subdirectory(doc)
+
+ki18n_install(po)
+if(KF5DocTools_FOUND)
+    kdoctools_install(po)
+endif()
 
 feature_summary(INCLUDE_QUIET_PACKAGES WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
 

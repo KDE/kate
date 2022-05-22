@@ -52,6 +52,10 @@ The available application plugins are:
 - Show preview for known color names</para>
 </listitem>
 <listitem>
+<para><link linkend="kate-application-plugin-colored-brackets">Colored Brackets</link>
+- Colored brackets for readability</para>
+</listitem>
+<listitem>
 <para><link linkend="kate-application-plugin-ctags">CTags</link> -
 Look up definitions/declarations with CTags</para>
 </listitem>
@@ -862,6 +866,20 @@ Then select <guilabel>Color Picker</guilabel> and close the dialog.
 
 </sect2>
 
+</sect1>
+
+<sect1 id="kate-application-plugin-colored-brackets">
+<title>Colored Brackets</title>
+
+<sect2><title>Introduction</title>
+<para>
+Colored brackets plugin colors matching bracket pairs in different colors to enhance readability. However, not all brackets get colored. A bracket whose matching opener or closer is not visible will be ignored. Similarly, a bracket pair that is the sole bracket pair on a line will not get colored.
+</para>
+</sect2>
+
+<sect2><title>Configuration</title>
+<para>The plugin doesn't provide any configurations.</para>
+</sect2>
 </sect1>
 
 <sect1 id="kate-application-plugin-ctags">
@@ -4168,6 +4186,5 @@ You will have to repeat it when you start &kate; the next time.</para></listitem
 <para>Documentation copyright 2001,2002 &Daniel.Naber;</para>
 </sect2>
 </sect1>
-
 
 </chapter>

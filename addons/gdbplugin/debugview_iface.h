@@ -63,7 +63,6 @@ public:
      */
     virtual void runToCursor(QUrl const &url, int line) = 0;
 
-    // TODO
     virtual void issueCommand(QString const &cmd) = 0;
 
     virtual QString targetName() const = 0;
@@ -130,7 +129,6 @@ Q_SIGNALS:
     void variableScopeOpened();
     void variableScopeClosed();
     void scopesInfo(const QList<dap::Scope> &scopes, std::optional<int> activeId);
-    //     void infoLocal(QString const &line);
 
     void outputText(const QString &text);
     void outputError(const QString &text);

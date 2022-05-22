@@ -51,14 +51,12 @@ std::optional<QJsonDocument> loadJSON(const QString &path)
 {
     QFile file(path);
     if (!file.open(QIODevice::ReadOnly)) {
-        //         qCritical() << "file error: " << file.errorString();
         return std::nullopt;
     }
     QJsonParseError error;
     const auto json = QJsonDocument::fromJson(file.readAll(), &error);
     file.close();
     if (error.error != QJsonParseError::NoError) {
-        //         qCritical() << "JSON parse error: " << error.errorString();
         return std::nullopt;
     }
     return json;

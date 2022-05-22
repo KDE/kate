@@ -423,7 +423,6 @@ struct Variable {
     QString name;
     QString value;
     std::optional<QString> type;
-    // TODO std::optional<VariablePresentationHint> presentationHint;
     /**
      * @brief evaluateName Optional evaluatable name of tihs variable which can be
      * passed to the EvaluateRequest to fetch the variable's value
@@ -458,7 +457,6 @@ struct Variable {
 struct EvaluateInfo {
     QString result;
     std::optional<QString> type;
-    // std::optional<VariablePresentationHint> presentationHint;
     int variablesReference;
     std::optional<int> namedVariables;
     std::optional<int> indexedVariables;

@@ -429,7 +429,6 @@ void DebugView::processLine(QString line)
             QTimer::singleShot(0, this, &DebugView::issueNextCommand);
         } else {
             m_variableParser.addLocal(line);
-            //             Q_EMIT infoLocal(line);
         }
         break;
     case printThis:
@@ -438,18 +437,15 @@ void DebugView::processLine(QString line)
             QTimer::singleShot(0, this, &DebugView::issueNextCommand);
         } else {
             m_variableParser.addLocal(line);
-            //             Q_EMIT infoLocal(line);
         }
         break;
     case infoLocals:
         if (PromptStr == line) {
             m_state = ready;
             m_variableParser.addLocal(QString());
-            //             Q_EMIT infoLocal(QString());
             QTimer::singleShot(0, this, &DebugView::issueNextCommand);
         } else {
             m_variableParser.addLocal(line);
-            //             Q_EMIT infoLocal(line);
         }
         break;
     case infoStack:

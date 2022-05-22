@@ -65,7 +65,6 @@ QTreeWidgetItem *LocalsView::createWrappedItem(QTreeWidgetItem *parent, const da
     item->setData(1, Qt::UserRole, variable.value);
     item->setToolTip(0, nameTip(variable));
     item->setToolTip(1, valueTip(variable));
-    //     parent->setToolTip(0, QStringLiteral("<qt>%1<qt>").arg(parent->text(0)));
 
     return item;
 }
@@ -90,7 +89,6 @@ void LocalsView::openVariableScope()
 
 void LocalsView::closeVariableScope()
 {
-    //     this->resizeColumnToContents(0);
 }
 
 void LocalsView::addVariableLevel(int parentId, const dap::Variable &variable)

@@ -72,7 +72,6 @@ void Client::detach()
 
     disconnect(m_bus);
     if (m_managedBus) {
-        //         m_bus->blockSignals(true);
         m_bus->close();
         m_bus->deleteLater();
         m_bus = nullptr;
@@ -101,12 +100,6 @@ bool Client::supportsTerminate() const
  */
 void Client::processProtocolMessage(const QJsonObject &msg)
 {
-    //    const int seq = msg[DAP_SEQ].toInt(-1);
-    //    if(seq < 0){
-    //        qCWarning(DAPCLIENT) << "unknown or invalid ProtocolMessage::" << DAP_SEQ;
-    //        return;
-    //    }
-
     const auto type = msg[DAP_TYPE].toString();
 
     if (DAP_RESPONSE == type) {
@@ -177,9 +170,6 @@ void Client::processResponseInitialize(const Response &response, const QJsonValu
     m_adapterCapabilities = Capabilities(response.body.toObject());
     Q_EMIT capabilitiesReceived(m_adapterCapabilities);
 
-    //    if(!m_protocol.waitForInitializationEvents){
-    //        setState(State::Initialized);
-    //    }
     requestLaunchCommand();
 }
 

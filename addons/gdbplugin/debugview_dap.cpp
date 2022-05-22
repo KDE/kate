@@ -191,8 +191,6 @@ void DapDebugView::start()
     connect(m_client, &dap::Client::scopes, this, &DapDebugView::onScopes);
     connect(m_client, &dap::Client::variables, this, &DapDebugView::onVariables);
     connect(m_client, &dap::Client::modules, this, &DapDebugView::onModules);
-    // TODO
-    //     connect(m_client.get(), &dap::Client::sourceContent, this, &CLI::onSourceContent);
     connect(m_client, &dap::Client::sourceBreakpoints, this, &DapDebugView::onSourceBreakpoints);
     connect(m_client, &dap::Client::breakpointChanged, this, &DapDebugView::onBreakpointEvent);
     connect(m_client, &dap::Client::expressionEvaluated, this, &DapDebugView::onExpressionEvaluated);
@@ -785,7 +783,6 @@ bool DapDebugView::canMove() const
 
 bool DapDebugView::debuggerRunning() const
 {
-    //     return m_client && m_client->isServerConnected() && (m_state != None);
     return m_client && (m_state != None);
 }
 
@@ -1459,7 +1456,6 @@ void DapDebugView::slotStepInto()
     if (!m_currentThread)
         return;
 
-    //     resetState();
     m_client->requestStepIn(*m_currentThread);
 }
 
@@ -1474,7 +1470,6 @@ void DapDebugView::slotStepOut()
     if (!m_currentThread)
         return;
 
-    //     resetState();
     m_client->requestStepOut(*m_currentThread);
 }
 
@@ -1489,7 +1484,6 @@ void DapDebugView::slotStepOver()
     if (!m_currentThread)
         return;
 
-    //     resetState();
     m_client->requestNext(*m_currentThread);
 }
 
@@ -1501,7 +1495,6 @@ void DapDebugView::slotContinue()
     if (m_state == State::Initializing) {
         m_client->requestConfigurationDone();
     } else if (m_currentThread) {
-        //         resetState();
         m_client->requestContinue(*m_currentThread);
     }
 }
@@ -1526,7 +1519,6 @@ void DapDebugView::slotKill()
 {
     if (!isConnectedState()) {
         setState(None);
-        //         Q_EMIT outputError(newLine(QStringLiteral("GDB ENDED")));
         Q_EMIT readyForInput(false);
         Q_EMIT gdbEnded();
         return;

@@ -179,7 +179,6 @@ void GDBVariableParser::addStruct(int parentId, const QString &vString)
             break;
         }
         symbolAndValue << vString.mid(start, end - start);
-        // qDebug() << symbolAndValue;
         // Value
         start = end + 3;
         end = start;

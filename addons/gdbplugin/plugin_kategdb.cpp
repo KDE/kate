@@ -190,7 +190,6 @@ KatePluginGDBView::KatePluginGDBView(KTextEditor::Plugin *plugin, KTextEditor::M
     connect(m_debugView, &DebugViewInterface::variableScopeOpened, m_localsView, &LocalsView::openVariableScope);
     connect(m_debugView, &DebugViewInterface::variableScopeClosed, m_localsView, &LocalsView::closeVariableScope);
     connect(m_debugView, &DebugViewInterface::variableInfo, m_localsView, &LocalsView::addVariableLevel);
-    //     connect(m_debugView, &DebugView::infoLocal, m_localsView, &LocalsView::addLocal);
 
     connect(m_debugView, &DebugViewInterface::threadInfo, this, &KatePluginGDBView::insertThread);
 

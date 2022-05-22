@@ -103,7 +103,11 @@ private:
     void saveCurrentToIndex(int index);
     int loadFromIndex(int index);
     void setAdvancedOptions();
-    std::pair<QLabel *, QLineEdit *> &getDapField(const QString &fieldName);
+    struct Field {
+        QLabel *label;
+        QLineEdit *input;
+    };
+    Field &getDapField(const QString &fieldName);
     void refreshUI();
     void readDAPSettings();
 
@@ -140,7 +144,7 @@ private:
     QLabel *m_processIdLabel;
     KSelectAction *m_targetSelectAction = nullptr;
 
-    QHash<QString, std::pair<QLabel *, QLineEdit *>> m_dapFields;
+    QHash<QString, Field> m_dapFields;
     QHash<QString, QHash<QString, DAPAdapterSettings>> m_dapAdapterSettings;
 
     AdvancedGDBSettings *m_advanced;

@@ -655,7 +655,7 @@ void DapDebugView::onSourceBreakpoints(const QString &path, int reference, const
     }
 
     // if runToCursor is pending, a bpoint with hit condition has been added
-    const bool withRunToCursor = m_runToCursor && (m_runToCursor->second == path);
+    const bool withRunToCursor = m_runToCursor && (m_runToCursor->path == path);
     bool mustContinue = false;
     const auto &wanted = m_wantedBreakpoints[path];
 
@@ -673,7 +673,7 @@ void DapDebugView::onSourceBreakpoints(const QString &path, int reference, const
             informBreakpointAdded(id, point);
         }
         if (withRunToCursor) {
-            if (wanted[pointIdx].line == m_runToCursor->first) {
+            if (wanted[pointIdx].line == m_runToCursor->line) {
                 mustContinue = point.line.has_value();
                 m_runToCursor = std::nullopt;
             }
@@ -891,7 +891,7 @@ void DapDebugView::runToCursor(QUrl const &url, int line)
         m_breakpoints[path] << std::nullopt;
     }
 
-    m_runToCursor = std::make_pair(line, path);
+    m_runToCursor = Cursor{line, path};
     pushRequest();
     m_client->requestSetBreakpoints(path, m_wantedBreakpoints[path], true);
 }

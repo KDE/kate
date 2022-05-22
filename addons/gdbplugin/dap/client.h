@@ -125,12 +125,17 @@ private:
     void setState(const State &state);
     void bind();
     void read();
+
+    struct HeaderInfo {
+        int payloadStart;
+        int payloadLength;
+    };
     /**
      * @brief readHeader
      * @param headerEnd position of the header's end
-     * @return content length or -1
+     * @return info extracted from header or nullopt if incomplete
      */
-    std::optional<std::pair<int, int>> readHeader();
+    std::optional<HeaderInfo> readHeader();
 
     void processProtocolMessage(const QJsonObject &msg);
 

@@ -398,7 +398,7 @@ const DAPTargetConf ConfigView::currentDAPTarget(bool full) const
             cfg.variables[F_ARGS] = m_arguments->text();
             // other
         } else if (m_dapFields.contains(field)) {
-            cfg.variables[field] = m_dapFields[field].second->text();
+            cfg.variables[field] = m_dapFields[field].input->text();
         }
     }
     return cfg;
@@ -549,8 +549,8 @@ void ConfigView::resizeEvent(QResizeEvent *)
     // additional dap fields
     for (auto it = m_dapFields.cbegin(); it != m_dapFields.cend(); ++it) {
         const bool visible = debuggerVariables.contains(it.key());
-        it->first->setVisible(visible);
-        it->second->setVisible(visible);
+        it->label->setVisible(visible);
+        it->input->setVisible(visible);
     }
 
     if (toVertical) {
@@ -604,8 +604,8 @@ void ConfigView::resizeEvent(QResizeEvent *)
 
             const auto &field = getDapField(fieldName);
 
-            layout->addWidget(field.first, ++row, 0, Qt::AlignLeft);
-            layout->addWidget(field.second, ++row, 0, 1, 4);
+            layout->addWidget(field.label, ++row, 0, Qt::AlignLeft);
+            layout->addWidget(field.input, ++row, 0, 1, 4);
         }
 
         layout->addWidget(m_takeFocus, ++row, 0, 1, 4);
@@ -675,8 +675,8 @@ void ConfigView::resizeEvent(QResizeEvent *)
 
             const auto &field = getDapField(fieldName);
 
-            layout->addWidget(field.first, ++row, 5, Qt::AlignRight);
-            layout->addWidget(field.second, row, 6);
+            layout->addWidget(field.label, ++row, 5, Qt::AlignRight);
+            layout->addWidget(field.input, row, 6);
         }
 
         layout->addLayout(m_checBoxLayout, ++row, 5, 1, 3);
@@ -692,10 +692,10 @@ void ConfigView::resizeEvent(QResizeEvent *)
     }
 }
 
-std::pair<QLabel *, QLineEdit *> &ConfigView::getDapField(const QString &fieldName)
+ConfigView::Field &ConfigView::getDapField(const QString &fieldName)
 {
     if (!m_dapFields.contains(fieldName)) {
-        m_dapFields[fieldName] = std::make_pair(new QLabel(fieldName, this), new QLineEdit(this));
+        m_dapFields[fieldName] = Field{new QLabel(fieldName, this), new QLineEdit(this)};
     }
     return m_dapFields[fieldName];
 }
@@ -853,7 +853,7 @@ int ConfigView::loadFromIndex(int index)
 
         for (auto it = map.constBegin(); it != map.constEnd(); ++it) {
             const auto &field = getDapField(it.key());
-            field.second->setText(it.value().toString());
+            field.input->setText(it.value().toString());
         }
 
         return m_dapAdapterSettings[debuggerKey][debuggerProfile].index;

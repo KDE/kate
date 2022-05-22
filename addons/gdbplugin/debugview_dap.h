@@ -159,7 +159,11 @@ private:
     void shutdownUntil(std::optional<State> state = std::nullopt);
     bool continueShutdown() const;
 
-    std::optional<std::pair<int, QString>> m_runToCursor;
+    struct Cursor {
+        int line;
+        QString path;
+    };
+    std::optional<Cursor> m_runToCursor;
 
     int m_requests;
 

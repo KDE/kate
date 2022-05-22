@@ -738,18 +738,17 @@ void Client::read()
 
     while (true) {
         // read headers
-        const auto segment = readHeader();
-        if (!segment) {
+        const auto info = readHeader();
+        if (!info) {
             // incomplete header -> abort
             break; // PENDING
         }
         // read payload
-        const auto &[start, length] = segment.value();
-        const auto data = m_buffer.mid(start, length);
-        if (data.size() < length) {
+        const auto data = m_buffer.mid(info->payloadStart, info->payloadLength);
+        if (data.size() < info->payloadLength) {
             break; // PENDING
         }
-        m_buffer.remove(0, start + length);
+        m_buffer.remove(0, info->payloadStart + info->payloadLength);
 
         // parse payload
         QJsonParseError jsonError;
@@ -766,7 +765,7 @@ void Client::read()
     }
 }
 
-std::optional<std::pair<int, int>> Client::readHeader()
+std::optional<Client::HeaderInfo> Client::readHeader()
 {
     int length = -1;
     int start = 0;
@@ -827,7 +826,7 @@ std::optional<std::pair<int, int>> Client::readHeader()
         return std::nullopt;
     }
 
-    return std::make_pair(end, length);
+    return HeaderInfo{end, length};
 }
 
 void Client::start()

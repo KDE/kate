@@ -75,6 +75,8 @@ LSPClientConfigPage::LSPClientConfigPage(QWidget *parent, LSPClientPlugin *plugi
     connect(ui->edtConfigPath, &KUrlRequester::textChanged, this, &LSPClientConfigPage::configUrlChanged);
     connect(ui->edtConfigPath, &KUrlRequester::urlSelected, this, &LSPClientConfigPage::configUrlChanged);
 
+    connect(ui->allowedAndBlockedServers, &QListWidget::itemChanged, this, &LSPClientConfigPage::changed);
+
     auto cfgh = [this](int position, int added, int removed) {
         Q_UNUSED(position);
         // discard format change
@@ -147,6 +149,12 @@ void LSPClientConfigPage::apply()
 
     m_plugin->m_configPath = ui->edtConfigPath->url();
 
+    m_plugin->m_serverCommandLineToAllowedState.clear();
+    for (int i = 0; i < ui->allowedAndBlockedServers->count(); ++i) {
+        const auto item = ui->allowedAndBlockedServers->item(i);
+        m_plugin->m_serverCommandLineToAllowedState.emplace(item->text(), item->checkState() == Qt::Checked);
+    }
+
     // own scope to ensure file is flushed before we signal below in writeConfig!
     {
         QFile configFile(m_plugin->configPath().toLocalFile());
@@ -189,6 +197,13 @@ void LSPClientConfigPage::reset()
     ui->edtConfigPath->setUrl(m_plugin->m_configPath);
 
     readUserConfig(m_plugin->configPath().toLocalFile());
+
+    // fill in the allowed and blocked servers
+    ui->allowedAndBlockedServers->clear();
+    for (const auto &it : m_plugin->m_serverCommandLineToAllowedState) {
+        auto item = new QListWidgetItem(it.first, ui->allowedAndBlockedServers);
+        item->setCheckState(it.second ? Qt::Checked : Qt::Unchecked);
+    }
 }
 
 void LSPClientConfigPage::defaults()

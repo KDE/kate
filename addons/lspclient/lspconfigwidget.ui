@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>622</width>
+    <width>671</width>
     <height>751</height>
    </rect>
   </property>
@@ -259,6 +259,16 @@
        </item>
       </layout>
      </widget>
+     <widget class="QWidget" name="tab_4">
+      <attribute name="title">
+       <string>Allowed &amp;&amp; Blocked Servers</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QListWidget" name="allowedAndBlockedServers"/>
+       </item>
+      </layout>
+     </widget>
      <widget class="QWidget" name="tab_2">
       <attribute name="title">
        <string>User Server Settings</string>
@@ -274,8 +284,8 @@
           </widget>
          </item>
          <item>
-          <widget class="KUrlRequester" name="edtConfigPath" native="true">
-           <property name="text" stdset="0">
+          <widget class="KUrlRequester" name="edtConfigPath">
+           <property name="text">
             <string/>
            </property>
           </widget>

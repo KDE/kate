@@ -11,6 +11,7 @@
 #include <QUrl>
 #include <QVariant>
 
+#include <KTextEditor/Message>
 #include <KTextEditor/Plugin>
 
 class LSPClientPlugin : public KTextEditor::Plugin
@@ -70,10 +71,19 @@ public:
         return m_configPath.isEmpty() ? m_defaultConfigPath : m_configPath;
     }
 
-private:
+    /**
+     * Check if given command line is allowed to be executed.
+     * Might ask the user for permission.
+     * @param cmdline full command line including program to check
+     * @return execution allowed?
+     */
+    bool isCommandLineAllowed(const QStringList &cmdline);
+
 Q_SIGNALS:
     // signal settings update
     void update() const;
+
+    void showMessage(KTextEditor::Message::MessageType level, const QString &msg);
 };
 
 #endif

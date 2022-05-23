@@ -597,7 +597,7 @@ public:
         connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, &self_type::updateState);
         connect(m_mainWindow, &KTextEditor::MainWindow::unhandledShortcutOverride, this, &self_type::handleEsc);
         connect(m_serverManager.data(), &LSPClientServerManager::serverChanged, this, &self_type::onServerChanged);
-        connect(m_serverManager.data(), &LSPClientServerManager::showMessage, this, &self_type::onShowMessage);
+        connect(m_plugin, &LSPClientPlugin::showMessage, this, &self_type::onShowMessage);
         connect(m_serverManager.data(), &LSPClientServerManager::serverShowMessage, this, &self_type::onMessage);
         connect(m_serverManager.data(), &LSPClientServerManager::serverLogMessage, this, &self_type::onMessage);
         connect(m_serverManager.data(), &LSPClientServerManager::serverWorkDoneProgress, this, &self_type::onWorkDoneProgress);

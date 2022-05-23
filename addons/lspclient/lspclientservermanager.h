@@ -72,7 +72,6 @@ public:
 public:
 Q_SIGNALS:
     void serverChanged();
-    void showMessage(KTextEditor::Message::MessageType level, const QString &msg);
     // proxy server signals in case those are emitted very early
     void serverShowMessage(LSPClientServer *server, const LSPShowMessageParams &);
     void serverLogMessage(LSPClientServer *server, const LSPShowMessageParams &);

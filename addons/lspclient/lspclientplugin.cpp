@@ -40,6 +40,8 @@ static const QString CONFIG_SERVER_CONFIG{QStringLiteral("ServerConfiguration")}
 static const QString CONFIG_SEMANTIC_HIGHLIGHTING{QStringLiteral("SemanticHighlighting")};
 static const QString CONFIG_SIGNATURE_HELP{QStringLiteral("SignatureHelp")};
 static const QString CONFIG_AUTO_IMPORT{QStringLiteral("AutoImport")};
+static const QString CONFIG_ALLOWED_COMMANDS{QStringLiteral("AllowedServerCommandLines")};
+static const QString CONFIG_BLOCKED_COMMANDS{QStringLiteral("BlockedServerCommandLines")};
 
 K_PLUGIN_FACTORY_WITH_JSON(LSPClientPluginFactory, "lspclientplugin.json", registerPlugin<LSPClientPlugin>();)
 
@@ -113,6 +115,17 @@ void LSPClientPlugin::readConfig()
     m_signatureHelp = config.readEntry(CONFIG_SIGNATURE_HELP, true);
     m_autoImport = config.readEntry(CONFIG_AUTO_IMPORT, true);
 
+    // read allow + block lists as two separate keys, let block always win
+    const auto allowed = config.readEntry(CONFIG_ALLOWED_COMMANDS, QStringList());
+    const auto blocked = config.readEntry(CONFIG_BLOCKED_COMMANDS, QStringList());
+    m_serverCommandLineToAllowedState.clear();
+    for (const auto &cmd : allowed) {
+        m_serverCommandLineToAllowedState[cmd] = true;
+    }
+    for (const auto &cmd : blocked) {
+        m_serverCommandLineToAllowedState[cmd] = false;
+    }
+
     Q_EMIT update();
 }
 
@@ -140,6 +153,18 @@ void LSPClientPlugin::writeConfig() const
     config.writeEntry(CONFIG_SEMANTIC_HIGHLIGHTING, m_semanticHighlighting);
     config.writeEntry(CONFIG_SIGNATURE_HELP, m_signatureHelp);
     config.writeEntry(CONFIG_AUTO_IMPORT, m_autoImport);
+
+    // write allow + block lists as two separate keys
+    QStringList allowed, blocked;
+    for (const auto &it : m_serverCommandLineToAllowedState) {
+        if (it.second) {
+            allowed.push_back(it.first);
+        } else {
+            blocked.push_back(it.first);
+        }
+    }
+    config.writeEntry(CONFIG_ALLOWED_COMMANDS, allowed);
+    config.writeEntry(CONFIG_BLOCKED_COMMANDS, blocked);
 
     Q_EMIT update();
 }

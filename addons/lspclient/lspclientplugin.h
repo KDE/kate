@@ -61,6 +61,9 @@ public:
     // debug mode?
     bool m_debugMode = false;
 
+    // hash of allowed and blacklisted server command lines
+    std::map<QString, bool> m_serverCommandLineToAllowedState;
+
     // get current config path
     QUrl configPath() const
     {

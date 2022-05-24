@@ -31,8 +31,15 @@ include(KDEGitCommitHooks)
 include(ECMOptionalAddSubdirectory)
 include(ECMAddAppIcon)
 include(ECMInstallIcons)
+include(ECMDeprecationSettings)
 
 include(FeatureSummary)
+
+
+ecm_set_disabled_deprecation_versions(
+    QT 5.15
+    KF 5.90
+)
 
 # forbid some old things
 add_definitions(-DQT_NO_FOREACH)
@@ -48,8 +55,6 @@ find_package(KF5 ${KF5_DEP_VERSION}
     OPTIONAL_COMPONENTS
         DocTools
 )
-
-add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x050d00)
 
 # addons for Kate
 ecm_optional_add_subdirectory(addons)

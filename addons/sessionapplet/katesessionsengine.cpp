@@ -33,6 +33,6 @@ Plasma::Service *KateSessionsEngine::serviceForSource(const QString &source)
     return service;
 }
 
-K_EXPORT_PLASMA_DATAENGINE_WITH_JSON(org.kde.plasma.katesessions, KateSessionsEngine, "plasma-dataengine-katesessions.json")
+K_PLUGIN_CLASS_WITH_JSON(KateSessionsEngine, "plasma-dataengine-katesessions.json")
 
 #include "katesessionsengine.moc"

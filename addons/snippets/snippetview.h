@@ -12,6 +12,7 @@
 #ifndef SNIPPETVIEW_H
 #define SNIPPETVIEW_H
 
+#include <KNSWidgets/Action>
 #include <KTextEditor/MainWindow>
 
 #include "ui_snippetview.h"
@@ -76,11 +77,6 @@ private Q_SLOTS:
      */
     void slotAddSnippet();
 
-    /**
-     * Slot to get hot new stuff.
-     */
-    void slotGHNS();
-
     void contextMenu(const QPoint &pos);
     /// disables or enables available actions based on the currently selected item
     void validateActions();
@@ -100,7 +96,7 @@ private:
     QAction *m_addSnippetAction;
     QAction *m_removeSnippetAction;
     QAction *m_editSnippetAction;
-    QAction *m_getNewStuffAction;
+    KNSWidgets::Action *m_getNewStuffAction;
 };
 
 #endif

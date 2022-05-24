@@ -12,7 +12,7 @@ target_link_libraries(
   katesnippetsplugin 
   PRIVATE
     KF5::I18n
-    KF5::NewStuff 
+    KF5::NewStuffWidgets
     KF5::TextEditor
 )
 

@@ -26,9 +26,6 @@
 #include <QSortFilterProxyModel>
 #include <QTimer>
 
-#include <KNS3/QtQuickDialogWrapper>
-#include <kns3/uploaddialog.h>
-
 class SnippetFilterModel : public QSortFilterProxyModel
 {
 public:
@@ -121,9 +118,26 @@ SnippetView::SnippetView(KateSnippetGlobal *plugin, KTextEditor::MainWindow *mai
 
     addAction(separator);
 
-    m_getNewStuffAction = new QAction(QIcon::fromTheme(QStringLiteral("get-hot-new-stuff")), i18n("Get New Snippets"), this);
+    m_getNewStuffAction = new KNSWidgets::Action(i18n("Get New Snippets"), QStringLiteral(":/katesnippets/ktexteditor_codesnippets_core.knsrc"), this);
     m_getNewStuffAction->setVisible(newStuffAllowed);
-    connect(m_getNewStuffAction, &QAction::triggered, this, &SnippetView::slotGHNS);
+    connect(m_getNewStuffAction, &KNSWidgets::Action::dialogFinished, this, [this](const QList<KNSCore::Entry> &changedEntries) {
+        for (const auto &entry : changedEntries) {
+            const auto uninstalledFiles = entry.uninstalledFiles();
+            for (const QString &path : uninstalledFiles) {
+                if (path.endsWith(QLatin1String(".xml"))) {
+                    if (SnippetRepository *repo = SnippetStore::self()->repositoryForFile(path)) {
+                        repo->remove();
+                    }
+                }
+            }
+            const auto installedFiles = entry.installedFiles();
+            for (const QString &path : installedFiles) {
+                if (path.endsWith(QLatin1String(".xml"))) {
+                    SnippetStore::self()->appendRow(new SnippetRepository(path));
+                }
+            }
+        }
+    });
     addAction(m_getNewStuffAction);
 
     connect(snippetTree->selectionModel(), &QItemSelectionModel::selectionChanged, this, &SnippetView::validateActions);
@@ -310,31 +324,6 @@ void SnippetView::slotRemoveRepo()
                                                  i18n("Do you really want to delete the repository \"%1\" with all its snippets?", repo->text()));
     if (ans == KMessageBox::Continue) {
         repo->remove();
-    }
-}
-
-void SnippetView::slotGHNS()
-{
-    KNS3::QtQuickDialogWrapper dialog(QStringLiteral(":/katesnippets/ktexteditor_codesnippets_core.knsrc"));
-    const QList<KNSCore::EntryInternal> changedEntries = dialog.exec();
-    if (changedEntries.isEmpty()) {
-        return;
-    }
-    for (const auto &entry : changedEntries) {
-        const auto uninstalledFiles = entry.uninstalledFiles();
-        for (const QString &path : uninstalledFiles) {
-            if (path.endsWith(QLatin1String(".xml"))) {
-                if (SnippetRepository *repo = SnippetStore::self()->repositoryForFile(path)) {
-                    repo->remove();
-                }
-            }
-        }
-        const auto installedFiles = entry.installedFiles();
-        for (const QString &path : installedFiles) {
-            if (path.endsWith(QLatin1String(".xml"))) {
-                SnippetStore::self()->appendRow(new SnippetRepository(path));
-            }
-        }
     }
 }
 

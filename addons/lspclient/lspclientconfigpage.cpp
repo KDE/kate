@@ -19,6 +19,7 @@
 
 #include <QJsonDocument>
 #include <QJsonParseError>
+#include <QMenu>
 #include <QPalette>
 
 LSPClientConfigPage::LSPClientConfigPage(QWidget *parent, LSPClientPlugin *plugin)
@@ -76,6 +77,10 @@ LSPClientConfigPage::LSPClientConfigPage(QWidget *parent, LSPClientPlugin *plugi
     connect(ui->edtConfigPath, &KUrlRequester::urlSelected, this, &LSPClientConfigPage::configUrlChanged);
 
     connect(ui->allowedAndBlockedServers, &QListWidget::itemChanged, this, &LSPClientConfigPage::changed);
+
+    // own context menu to delete entries
+    ui->allowedAndBlockedServers->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(ui->allowedAndBlockedServers, &QWidget::customContextMenuRequested, this, &LSPClientConfigPage::showContextMenuAllowedBlocked);
 
     auto cfgh = [this](int position, int added, int removed) {
         Q_UNUSED(position);
@@ -283,4 +288,22 @@ void LSPClientConfigPage::updateHighlighters()
         highlighter->setTheme(theme);
         highlighter->rehighlight();
     }
+}
+
+void LSPClientConfigPage::showContextMenuAllowedBlocked(const QPoint &pos)
+{
+    // allow deletion of stuff
+    QMenu myMenu;
+
+    auto currentDelete = myMenu.addAction(i18n("Delete current entry"), this, [this]() {
+        qDeleteAll(ui->allowedAndBlockedServers->selectedItems());
+    });
+    currentDelete->setEnabled(!ui->allowedAndBlockedServers->selectedItems().isEmpty());
+
+    auto allDelete = myMenu.addAction(i18n("Delete all entries"), this, [this]() {
+        ui->allowedAndBlockedServers->clear();
+    });
+    allDelete->setEnabled(ui->allowedAndBlockedServers->count() > 0);
+
+    myMenu.exec(ui->allowedAndBlockedServers->mapToGlobal(pos));
 }

@@ -35,6 +35,7 @@ public Q_SLOTS:
     void configTextChanged();
     void configUrlChanged();
     void updateHighlighters();
+    void showContextMenuAllowedBlocked(const QPoint &pos);
 
 private:
     void readUserConfig(const QString &fileName);

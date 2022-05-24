@@ -573,9 +573,6 @@ public:
         setSpacing(0);
 
         connect(qApp, &QApplication::paletteChanged, this, &BreadCrumbView::updatePalette, Qt::QueuedConnection);
-        auto font = this->font();
-        font.setPointSize(font.pointSize() - 1);
-        setFont(font);
         updatePalette();
 
         connect(this, &QListView::clicked, this, &BreadCrumbView::onClicked);
@@ -1110,7 +1107,8 @@ KateUrlBar::KateUrlBar(KateViewSpace *parent)
     , m_parentViewSpace(parent)
 {
     setContentsMargins({});
-    setFixedHeight(22);
+    setFont(QApplication::font("QMenu")); // We wan't not the default system font
+    setFixedHeight(fontMetrics().height());
 
     setupLayout();
 

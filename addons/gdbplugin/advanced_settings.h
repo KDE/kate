@@ -21,9 +21,14 @@ public:
     AdvancedGDBSettings(QWidget *parent = nullptr);
     ~AdvancedGDBSettings() override;
 
-    const QStringList configs() const;
+    static QJsonObject upgradeConfigV4_5(const QStringList &cfgs);
+    static QStringList commandList(const QJsonObject &config);
+    const QJsonObject configs() const;
 
-    void setConfigs(const QStringList &cfgs);
+    void setConfigs(const QJsonObject &cfgs);
+
+    const static QString F_GDB;
+    const static QString F_SRC_PATHS;
 
 private:
     static void setComboText(QComboBox *combo, const QString &str);

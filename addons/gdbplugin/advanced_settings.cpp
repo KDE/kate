@@ -14,6 +14,16 @@ static const QLatin1Char pathSeparator(':');
 #endif
 
 #include <QFileDialog>
+#include <QJsonArray>
+#include <QJsonObject>
+
+const QString AdvancedGDBSettings::F_GDB = QStringLiteral("gdb");
+const QString AdvancedGDBSettings::F_SRC_PATHS = QStringLiteral("srcPaths");
+const static QString F_LOCAL_REMOTE = QStringLiteral("localRemote");
+const static QString F_REMOTE_BAUD = QStringLiteral("remoteBaud");
+const static QString F_SO_ABSOLUTE = QStringLiteral("soAbsolute");
+const static QString F_SO_RELATIVE = QStringLiteral("soRelative");
+const static QString F_CUSTOM_INIT = QStringLiteral("customInit");
 
 AdvancedGDBSettings::AdvancedGDBSettings(QWidget *parent)
     : QDialog(parent)
@@ -45,30 +55,32 @@ AdvancedGDBSettings::~AdvancedGDBSettings()
 {
 }
 
-const QStringList AdvancedGDBSettings::configs() const
+const QJsonObject AdvancedGDBSettings::configs() const
 {
-    QStringList tmp;
+    QJsonObject conf;
 
-    tmp << u_gdbCmd->text();
+    // gdb
+    conf[F_GDB] = u_gdbCmd->text();
+
+    // local/remote, baud
     switch (u_localRemote->currentIndex()) {
     case 1:
-        tmp << QStringLiteral("target remote %1:%2").arg(u_tcpHost->text(), u_tcpPort->text());
-        tmp << QString();
+        conf[F_LOCAL_REMOTE] = QStringLiteral("target remote %1:%2").arg(u_tcpHost->text(), u_tcpPort->text());
         break;
     case 2:
-        tmp << QStringLiteral("target remote %1").arg(u_ttyPort->text());
-        tmp << QStringLiteral("set remotebaud %1").arg(u_baudCombo->currentText());
+        conf[F_LOCAL_REMOTE] = QStringLiteral("target remote %1").arg(u_ttyPort->text());
+        conf[F_REMOTE_BAUD] = QStringLiteral("set remotebaud %1").arg(u_baudCombo->currentText());
         break;
     default:
-        tmp << QString();
-        tmp << QString();
-    }
-    if (!u_soAbsPrefix->text().isEmpty()) {
-        tmp << QStringLiteral("set solib-absolute-prefix %1").arg(u_soAbsPrefix->text());
-    } else {
-        tmp << QString();
+        break;
     }
 
+    // solib absolute
+    if (!u_soAbsPrefix->text().isEmpty()) {
+        conf[F_SO_ABSOLUTE] = QStringLiteral("set solib-absolute-prefix %1").arg(u_soAbsPrefix->text());
+    }
+
+    // solib search path
     if (u_soSearchPaths->count() > 0) {
         QString paths = QStringLiteral("set solib-search-path ");
         for (int i = 0; i < u_soSearchPaths->count(); ++i) {
@@ -77,29 +89,105 @@ const QStringList AdvancedGDBSettings::configs() const
             }
             paths += u_soSearchPaths->item(i)->text();
         }
-        tmp << paths;
-    } else {
-        tmp << QString();
+        conf[F_SO_RELATIVE] = paths;
     }
 
+    // source paths
     if (u_srcPaths->count() > 0) {
-        QString paths = QStringLiteral("set directories ");
+        QJsonArray paths;
         for (int i = 0; i < u_srcPaths->count(); ++i) {
-            if (i != 0) {
-                paths += pathSeparator;
+            const QString path = u_srcPaths->item(i)->text().trimmed();
+            if (!path.isEmpty()) {
+                paths << path;
             }
-            paths += u_srcPaths->item(i)->text();
         }
-        tmp << paths;
-    } else {
-        tmp << QString();
+        if (!paths.isEmpty()) {
+            conf[F_SRC_PATHS] = paths;
+        }
     }
-    tmp << u_customInit->toPlainText().split(QLatin1Char('\n'));
 
-    return tmp;
+    // custom init
+    const auto cinit = u_customInit->toPlainText().split(QLatin1Char('\n'), Qt::SkipEmptyParts);
+    if (!cinit.isEmpty()) {
+        conf[F_CUSTOM_INIT] = QJsonArray::fromStringList(cinit);
+    }
+
+    return conf;
 }
 
-void AdvancedGDBSettings::setConfigs(const QStringList &cfgs)
+QStringList AdvancedGDBSettings::commandList(const QJsonObject &config)
+{
+    QStringList commands;
+
+    auto insertString = [&commands, config](const QString &field) {
+        const QString value = config[field].toString().trimmed();
+        if (!value.isEmpty()) {
+            commands << value;
+        }
+    };
+
+    insertString(F_LOCAL_REMOTE);
+    insertString(F_REMOTE_BAUD);
+    insertString(F_SO_ABSOLUTE);
+    insertString(F_SO_RELATIVE);
+
+    for (const auto &value : config[F_CUSTOM_INIT].toArray()) {
+        commands << value.toString();
+    }
+
+    return commands;
+}
+
+QJsonObject AdvancedGDBSettings::upgradeConfigV4_5(const QStringList &cfgs)
+{
+    const int size = cfgs.count();
+
+    QJsonObject conf;
+
+    auto insert = [&conf, cfgs, size](CustomStringOrder index, const QString &field) {
+        if (index >= size)
+            return;
+
+        const QString value = cfgs[index].trimmed();
+        if (!value.isEmpty()) {
+            conf[field] = value;
+        }
+    };
+
+    // gdb
+    insert(GDBIndex, F_GDB);
+    // localremoteindex
+    insert(LocalRemoteIndex, F_LOCAL_REMOTE);
+    // remotebaudindex
+    insert(RemoteBaudIndex, F_REMOTE_BAUD);
+    // soabsoluteindex
+    insert(SoAbsoluteIndex, F_SO_ABSOLUTE);
+    // sorelativeindex
+    insert(SoRelativeIndex, F_SO_RELATIVE);
+    // srcpathsindex
+    if (SrcPathsIndex < size) {
+        QString allPaths = cfgs[SrcPathsIndex];
+        if (allPaths.startsWith(QStringLiteral("set directories "))) {
+            allPaths = allPaths.mid(16);
+        }
+        QStringList paths = allPaths.split(pathSeparator, Qt::SkipEmptyParts);
+        if (!paths.isEmpty()) {
+            conf[F_SRC_PATHS] = QJsonArray::fromStringList(paths);
+        }
+    }
+    // customstart
+    if (CustomStartIndex < size) {
+        QJsonArray parts;
+        for (int i = CustomStartIndex; i < size; i++) {
+            parts << cfgs[i];
+        }
+        conf[F_CUSTOM_INIT] = parts;
+    }
+
+    return conf;
+}
+
+void AdvancedGDBSettings::setConfigs(const QJsonObject &cfgs)
 {
     // clear all info
     u_gdbCmd->setText(QStringLiteral("gdb"));
@@ -114,63 +202,62 @@ void AdvancedGDBSettings::setConfigs(const QStringList &cfgs)
     u_baudCombo->setCurrentIndex(0);
 
     // GDB
-    if (cfgs.count() <= GDBIndex) {
-        return;
+    if (cfgs.contains(F_GDB)) {
+        u_gdbCmd->setText(cfgs[F_GDB].toString());
     }
-    u_gdbCmd->setText(cfgs[GDBIndex]);
 
     // Local / Remote
-    if (cfgs.count() <= LocalRemoteIndex) {
-        return;
-    }
+    const auto localRemote = cfgs[F_LOCAL_REMOTE].toString();
 
     int start;
     int end;
-    if (cfgs[LocalRemoteIndex].isEmpty()) {
+    if (localRemote.isEmpty()) {
         u_localRemote->setCurrentIndex(0);
         u_remoteStack->setCurrentIndex(0);
-    } else if (cfgs[LocalRemoteIndex].contains(pathSeparator)) {
+    } else if (localRemote.contains(pathSeparator)) {
         u_localRemote->setCurrentIndex(1);
         u_remoteStack->setCurrentIndex(1);
-        start = cfgs[LocalRemoteIndex].lastIndexOf(QLatin1Char(' '));
-        end = cfgs[LocalRemoteIndex].indexOf(pathSeparator);
-        u_tcpHost->setText(cfgs[LocalRemoteIndex].mid(start + 1, end - start - 1));
-        u_tcpPort->setText(cfgs[LocalRemoteIndex].mid(end + 1));
+        start = localRemote.lastIndexOf(QLatin1Char(' '));
+        end = localRemote.indexOf(pathSeparator);
+        u_tcpHost->setText(localRemote.mid(start + 1, end - start - 1));
+        u_tcpPort->setText(localRemote.mid(end + 1));
     } else {
         u_localRemote->setCurrentIndex(2);
         u_remoteStack->setCurrentIndex(2);
-        start = cfgs[LocalRemoteIndex].lastIndexOf(QLatin1Char(' '));
-        u_ttyPort->setText(cfgs[LocalRemoteIndex].mid(start + 1));
+        start = localRemote.lastIndexOf(QLatin1Char(' '));
+        u_ttyPort->setText(localRemote.mid(start + 1));
 
-        start = cfgs[RemoteBaudIndex].lastIndexOf(QLatin1Char(' '));
-        setComboText(u_baudCombo, cfgs[RemoteBaudIndex].mid(start + 1));
+        const auto remoteBaud = cfgs[F_REMOTE_BAUD].toString();
+        start = remoteBaud.lastIndexOf(QLatin1Char(' '));
+        setComboText(u_baudCombo, remoteBaud.mid(start + 1));
     }
 
     // Solib absolute path
-    if (cfgs.count() <= SoAbsoluteIndex) {
-        return;
+    if (cfgs.contains(F_SO_ABSOLUTE)) {
+        start = 26; // "set solib-absolute-prefix "
+        u_soAbsPrefix->setText(cfgs[F_SO_ABSOLUTE].toString().mid(start));
     }
-    start = 26; // "set solib-absolute-prefix "
-    u_soAbsPrefix->setText(cfgs[SoAbsoluteIndex].mid(start));
 
     // Solib search path
-    if (cfgs.count() <= SoRelativeIndex) {
-        return;
+    if (cfgs.contains(F_SO_RELATIVE)) {
+        start = 22; // "set solib-search-path "
+        QString tmp = cfgs[F_SO_RELATIVE].toString().mid(start);
+        u_soSearchPaths->addItems(tmp.split(pathSeparator));
     }
-    start = 22; // "set solib-search-path "
-    QString tmp = cfgs[SoRelativeIndex].mid(start);
-    u_soSearchPaths->addItems(tmp.split(pathSeparator));
 
-    if (cfgs.count() <= SrcPathsIndex) {
-        return;
+    if (cfgs.contains(F_SRC_PATHS)) {
+        QStringList paths;
+        for (const auto &value : cfgs[F_SRC_PATHS].toArray()) {
+            paths << value.toString();
+        }
+        u_srcPaths->addItems(paths);
     }
-    start = 16; // "set directories "
-    tmp = cfgs[SrcPathsIndex].mid(start);
-    u_srcPaths->addItems(tmp.split(pathSeparator, Qt::SkipEmptyParts));
 
     // Custom init
-    for (int i = CustomStartIndex; i < cfgs.count(); i++) {
-        u_customInit->appendPlainText(cfgs[i]);
+    if (cfgs.contains(F_CUSTOM_INIT)) {
+        for (const auto &line : cfgs[F_CUSTOM_INIT].toArray()) {
+            u_customInit->appendPlainText(line.toString());
+        }
     }
 
     slotLocalRemoteChanged();

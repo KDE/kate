@@ -64,7 +64,7 @@ class ConfigView : public QWidget
 {
     Q_OBJECT
 public:
-    enum TargetStringOrder { NameIndex = 0, ExecIndex, WorkDirIndex, ArgsIndex, GDBIndex, DebuggerKey, DebuggerProfile, DAPVariables, CustomStartIndex };
+    enum TargetStringOrder { NameIndex = 0, ExecIndex, WorkDirIndex, ArgsIndex, GDBIndex, CustomStartIndex };
 
     ConfigView(QWidget *parent, KTextEditor::MainWindow *mainWin);
     ~ConfigView() override;

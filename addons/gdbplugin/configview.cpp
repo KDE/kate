@@ -14,6 +14,7 @@
 #include <QCompleter>
 #include <QFileDialog>
 #include <QFileSystemModel>
+#include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QLayout>
@@ -37,6 +38,15 @@ static const QLatin1Char pathSeparator(';');
 #else
 static const QLatin1Char pathSeparator(':');
 #endif
+
+constexpr int CONFIG_VERSION = 5;
+const static QString F_TARGET = QStringLiteral("target");
+const static QString F_DEBUGGER = QStringLiteral("debuggerKey");
+const static QString F_PROFILE = QStringLiteral("debuggerProfile");
+const static QString F_FILE = QStringLiteral("file");
+const static QString F_WORKDIR = QStringLiteral("workdir");
+const static QString F_ARGS = QStringLiteral("args");
+const static QString F_PID = QStringLiteral("pid");
 
 void ConfigView::refreshUI()
 {
@@ -225,65 +235,128 @@ void ConfigView::registerActions(KActionCollection *actionCollection)
     connect(m_targetSelectAction, &KSelectAction::indexTriggered, this, &ConfigView::slotTargetSelected);
 }
 
+void upgradeConfigV1_3(QStringList &targetConfStrs)
+{
+    if (targetConfStrs.count() == 3) {
+        // valid old style config, translate it now; note the
+        // reordering happening here!
+        QStringList temp;
+        temp << targetConfStrs[2];
+        temp << targetConfStrs[1];
+        targetConfStrs.swap(temp);
+    }
+}
+
+void upgradeConfigV3_4(QStringList &targetConfStrs, const QStringList &args)
+{
+    targetConfStrs.prepend(targetConfStrs[0].right(15));
+
+    const QString targetName(QStringLiteral("%1<%2>"));
+
+    for (int i = 0; i < args.size(); ++i) {
+        const QString &argStr = args.at(i);
+        if (i > 0) {
+            // copy the firsts and change the arguments
+            targetConfStrs[0] = targetName.arg(targetConfStrs[0]).arg(i + 1);
+            if (targetConfStrs.count() > 3) {
+                targetConfStrs[3] = argStr;
+            }
+        }
+    }
+}
+
+void upgradeConfigV4_5(QStringList targetConfStrs, QJsonObject &conf)
+{
+    typedef ConfigView::TargetStringOrder I;
+
+    while (targetConfStrs.count() < I::CustomStartIndex) {
+        targetConfStrs << QString();
+    }
+
+    auto insertField = [&conf, targetConfStrs](const QString &field, I index) {
+        const QString value = targetConfStrs[index].trimmed();
+        if (!value.isEmpty()) {
+            conf[field] = value;
+        }
+    };
+
+    // read fields
+    insertField(F_TARGET, I::NameIndex);
+    insertField(F_FILE, I::ExecIndex);
+    insertField(F_WORKDIR, I::WorkDirIndex);
+    insertField(F_ARGS, I::ArgsIndex);
+    // read advanced settings
+    for (int i = 0; i < I::GDBIndex; ++i) {
+        targetConfStrs.takeFirst();
+    }
+    const auto advanced = AdvancedGDBSettings::upgradeConfigV4_5(targetConfStrs);
+    if (!advanced.isEmpty()) {
+        conf[QStringLiteral("advanced")] = advanced;
+    }
+}
+
+QByteArray serialize(const QJsonObject obj)
+{
+    const QJsonDocument doc(obj);
+    return doc.toJson(QJsonDocument::Compact);
+}
+
+QJsonObject unserialize(const QString map)
+{
+    const auto doc = QJsonDocument::fromJson(map.toLatin1());
+    return doc.object();
+}
+
 void ConfigView::readConfig(const KConfigGroup &group)
 {
     m_targetCombo->clear();
 
-    int version = group.readEntry(QStringLiteral("version"), 4);
-    int targetCount = group.readEntry(QStringLiteral("targetCount"), 1);
+    const int version = group.readEntry(QStringLiteral("version"), CONFIG_VERSION);
+    const int targetCount = group.readEntry(QStringLiteral("targetCount"), 1);
     int lastTarget = group.readEntry(QStringLiteral("lastTarget"), 0);
-    QString targetKey(QStringLiteral("target_%1"));
+    const QString targetKey(QStringLiteral("target_%1"));
 
-    QStringList targetConfStrs;
+    QStringList args;
+    if (version < 4) {
+        const int argsListsCount = group.readEntry(QStringLiteral("argsCount"), 0);
+        const QString argsKey(QStringLiteral("args_%1"));
+        const QString targetName(QStringLiteral("%1<%2>"));
+
+        for (int nArg = 0; nArg < argsListsCount; ++nArg) {
+            const QString argStr = group.readEntry(argsKey.arg(nArg), QString());
+        }
+    }
 
     for (int i = 0; i < targetCount; i++) {
-        targetConfStrs = group.readEntry(targetKey.arg(i), QStringList());
-        if (targetConfStrs.count() == 0) {
-            continue;
-        }
+        QJsonObject targetConf;
 
-        if ((version == 1) && (targetConfStrs.count() == 3)) {
-            // valid old style config, translate it now; note the
-            // reordering happening here!
-            QStringList temp;
-            temp << targetConfStrs[2];
-            temp << targetConfStrs[1];
-            targetConfStrs = temp;
-        }
-
-        if (version < 4) {
-            targetConfStrs.prepend(targetConfStrs[0].right(15));
-        }
-
-        if (targetConfStrs.count() > NameIndex) {
-            m_targetCombo->addItem(targetConfStrs[NameIndex], targetConfStrs);
-        }
-    }
-
-    if (version < 4) {
-        // all targets now have only one argument string
-        int argListsCount = group.readEntry(QStringLiteral("argsCount"), 0);
-        QString argsKey(QStringLiteral("args_%1"));
-        QString targetName(QStringLiteral("%1<%2>"));
-
-        QString argStr;
-        int count = m_targetCombo->count();
-
-        for (int i = 0; i < argListsCount; i++) {
-            argStr = group.readEntry(argsKey.arg(i), QString());
-            for (int j = 0; j < count; j++) {
-                targetConfStrs = m_targetCombo->itemData(j).toStringList();
-                if (i > 0) {
-                    // copy the firsts and change the arguments
-                    targetConfStrs[0] = targetName.arg(targetConfStrs[0]).arg(i + 1);
-                    if (targetConfStrs.count() > 3) {
-                        targetConfStrs[3] = argStr;
-                    }
-                    m_targetCombo->addItem(targetConfStrs[0], targetConfStrs);
-                }
+        if (version < 5) {
+            QStringList targetConfStrs;
+            targetConfStrs = group.readEntry(targetKey.arg(i), QStringList());
+            if (targetConfStrs.count() == 0) {
+                continue;
             }
+
+            if (version == 1) {
+                upgradeConfigV1_3(targetConfStrs);
+            }
+
+            if (version < 4) {
+                upgradeConfigV3_4(targetConfStrs, args);
+            }
+            if (version < 5) {
+                upgradeConfigV4_5(targetConfStrs, targetConf);
+            }
+        } else {
+            const QString data = group.readEntry(targetKey.arg(i), QString());
+            targetConf = unserialize(data);
+        }
+
+        if (!targetConf.isEmpty()) {
+            m_targetCombo->addItem(targetConf[QStringLiteral("target")].toString(), targetConf);
         }
     }
+
     // make sure there is at least one item.
     if (m_targetCombo->count() == 0) {
         slotAddTarget();
@@ -310,16 +383,15 @@ void ConfigView::writeConfig(KConfigGroup &group)
     // make sure the data is up to date before writing
     saveCurrentToIndex(m_currentTarget);
 
-    group.writeEntry("version", 4);
+    group.writeEntry("version", CONFIG_VERSION);
 
     QString targetKey(QStringLiteral("target_%1"));
-    QStringList targetConfStrs;
 
     group.writeEntry("targetCount", m_targetCombo->count());
     group.writeEntry("lastTarget", m_targetCombo->currentIndex());
     for (int i = 0; i < m_targetCombo->count(); i++) {
-        targetConfStrs = m_targetCombo->itemData(i).toStringList();
-        group.writeEntry(targetKey.arg(i), targetConfStrs);
+        QJsonObject targetConf = m_targetCombo->itemData(i).toJsonObject();
+        group.writeEntry(targetKey.arg(i), serialize(targetConf));
     }
 
     group.writeEntry("alwaysFocusOnInput", m_takeFocus->isChecked());
@@ -333,33 +405,19 @@ const GDBTargetConf ConfigView::currentGDBTarget() const
     cfg.executable = m_executable->text();
     cfg.workDir = m_workingDirectory->text();
     cfg.arguments = m_arguments->text();
-    cfg.customInit = m_advanced->configs();
-    // Note: AdvancedGDBSettings::GDBIndex == 0
-    if ((cfg.customInit.size() >= 0) && !cfg.customInit[0].isEmpty()) {
-        cfg.gdbCmd = cfg.customInit[0];
-        cfg.customInit.removeFirst();
-    } else {
-        cfg.gdbCmd = QStringLiteral("gdb");
-    }
-    // remove empty strings in the customInit
-    int i = cfg.customInit.size() - 1;
-    while (i >= 0) {
-        if (cfg.customInit[i].isEmpty()) {
-            cfg.customInit.removeAt(i);
-        } else if (cfg.customInit[i].startsWith(QLatin1String("set directories "))) {
-            QString paths = cfg.customInit[i];
-            paths.remove(QStringLiteral("set directories "));
-            cfg.srcPaths = paths.split(pathSeparator, Qt::SkipEmptyParts);
+
+    const auto advancedConfig = m_advanced->configs();
+    {
+        cfg.gdbCmd = advancedConfig[AdvancedGDBSettings::F_GDB].toString(QStringLiteral("gdb"));
+        cfg.srcPaths.clear();
+        for (const auto &value : advancedConfig[AdvancedGDBSettings::F_SRC_PATHS].toArray()) {
+            cfg.srcPaths << value.toString();
         }
-        i--;
+        cfg.customInit = AdvancedGDBSettings::commandList(advancedConfig);
     }
+
     return cfg;
 }
-
-const static QString F_FILE = QStringLiteral("file");
-const static QString F_WORKDIR = QStringLiteral("workdir");
-const static QString F_ARGS = QStringLiteral("args");
-const static QString F_PID = QStringLiteral("pid");
 
 const DAPTargetConf ConfigView::currentDAPTarget(bool full) const
 {
@@ -464,26 +522,23 @@ void ConfigView::slotTargetSelected(int index)
 
 void ConfigView::slotAddTarget()
 {
-    QStringList targetConfStrs;
+    QJsonObject targetConf;
 
-    targetConfStrs << i18n("Target %1", m_targetCombo->count() + 1);
-    targetConfStrs << QString();
-    targetConfStrs << QString();
-    targetConfStrs << QString();
+    targetConf[F_TARGET] = i18n("Target %1", m_targetCombo->count() + 1);
 
-    m_targetCombo->addItem(targetConfStrs[NameIndex], targetConfStrs);
+    m_targetCombo->addItem(targetConf[F_TARGET].toString(), targetConf);
     m_targetCombo->setCurrentIndex(m_targetCombo->count() - 1);
 }
 
 void ConfigView::slotCopyTarget()
 {
-    QStringList tmp = m_targetCombo->itemData(m_targetCombo->currentIndex()).toStringList();
-    if (tmp.empty()) {
+    QJsonObject tmp = m_targetCombo->itemData(m_targetCombo->currentIndex()).toJsonObject();
+    if (tmp.isEmpty()) {
         slotAddTarget();
         return;
     }
-    tmp[NameIndex] = i18n("Target %1", m_targetCombo->count() + 1);
-    m_targetCombo->addItem(tmp[NameIndex], tmp);
+    tmp[F_TARGET] = i18n("Target %1", m_targetCombo->count() + 1);
+    m_targetCombo->addItem(tmp[F_TARGET].toString(), tmp);
     m_targetCombo->setCurrentIndex(m_targetCombo->count() - 1);
 }
 
@@ -702,43 +757,28 @@ ConfigView::Field &ConfigView::getDapField(const QString &fieldName)
 
 void ConfigView::setAdvancedOptions()
 {
-    QStringList tmp = m_targetCombo->itemData(m_targetCombo->currentIndex()).toStringList();
+    const QJsonObject tmp = m_targetCombo->itemData(m_targetCombo->currentIndex()).toJsonObject();
 
-    // make sure we have enough strings;
-    while (tmp.count() < CustomStartIndex) {
-        tmp << QString();
+    QJsonObject advanced = tmp[QStringLiteral("advanced")].toObject();
+    const auto strGdb = advanced[QStringLiteral("gdb")].toString();
+    if (strGdb.isEmpty()) {
+        advanced[QStringLiteral("gdb")] = QStringLiteral("gdb");
     }
 
-    if (tmp[GDBIndex].isEmpty()) {
-        tmp[GDBIndex] = QStringLiteral("gdb");
-    }
-
-    // Remove the strings that are not part of the advanced settings
-    for (int i = 0; i < GDBIndex; i++) {
-        tmp.takeFirst();
-    }
-
-    m_advanced->setConfigs(tmp);
+    m_advanced->setConfigs(advanced);
 }
 
 void ConfigView::slotAdvancedClicked()
 {
     setAdvancedOptions();
 
-    QStringList newList = m_targetCombo->itemData(m_targetCombo->currentIndex()).toStringList();
-    // make sure we have enough strings;
-    while (newList.count() < GDBIndex) {
-        newList << QString();
-    }
-    // Remove old advanced settings
-    while (newList.count() > GDBIndex) {
-        newList.takeLast();
-    }
+    QJsonObject conf = m_targetCombo->itemData(m_targetCombo->currentIndex()).toJsonObject();
 
+    // Remove old advanced settings
     if (m_advanced->exec() == QDialog::Accepted) {
         // save the new values
-        newList << m_advanced->configs();
-        m_targetCombo->setItemData(m_targetCombo->currentIndex(), newList);
+        conf[QStringLiteral("advanced")] = m_advanced->configs();
+        m_targetCombo->setItemData(m_targetCombo->currentIndex(), conf);
         Q_EMIT configChanged();
     }
 }
@@ -773,17 +813,6 @@ void ConfigView::slotBrowseDir()
     m_workingDirectory->setText(QFileDialog::getExistingDirectory(this, QString(), dir));
 }
 
-QByteArray serializeHash(const QVariantHash map)
-{
-    const QJsonDocument doc(QJsonObject::fromVariantHash(map));
-    return doc.toJson(QJsonDocument::Compact);
-}
-
-QJsonObject unserializeDAPVariables(const QString map)
-{
-    const auto doc = QJsonDocument::fromJson(map.toLatin1());
-    return doc.object();
-}
 
 void ConfigView::saveCurrentToIndex(int index)
 {
@@ -791,22 +820,22 @@ void ConfigView::saveCurrentToIndex(int index)
         return;
     }
 
-    QStringList tmp = m_targetCombo->itemData(index).toStringList();
-    // make sure we have enough strings. The custom init strings are set in slotAdvancedClicked().
-    while (tmp.count() < CustomStartIndex) {
-        tmp << QString();
-    }
+    QJsonObject tmp = m_targetCombo->itemData(index).toJsonObject();
 
-    tmp[NameIndex] = m_targetCombo->itemText(index);
+    tmp[F_TARGET] = m_targetCombo->itemText(index);
     if (debuggerIsGDB()) {
-        tmp[ExecIndex] = m_executable->text();
-        tmp[WorkDirIndex] = m_workingDirectory->text();
-        tmp[ArgsIndex] = m_arguments->text();
+        if (tmp.contains(F_DEBUGGER))
+            tmp.remove(F_DEBUGGER);
+        if (tmp.contains(F_PROFILE))
+            tmp.remove(F_PROFILE);
+        tmp[F_FILE] = m_executable->text();
+        tmp[F_WORKDIR] = m_workingDirectory->text();
+        tmp[F_ARGS] = m_arguments->text();
     } else {
         const auto cfg = currentDAPTarget();
-        tmp[DebuggerKey] = cfg.debugger;
-        tmp[DebuggerProfile] = cfg.debuggerProfile;
-        tmp[DAPVariables] = QString::fromLatin1(serializeHash(cfg.variables));
+        tmp[F_DEBUGGER] = cfg.debugger;
+        tmp[F_PROFILE] = cfg.debuggerProfile;
+        tmp[QStringLiteral("variables")] = QJsonObject::fromVariantHash(cfg.variables);
     }
 
     m_targetCombo->setItemData(index, tmp);
@@ -818,29 +847,25 @@ int ConfigView::loadFromIndex(int index)
         return -1;
     }
 
-    QStringList tmp = m_targetCombo->itemData(index).toStringList();
-    // make sure we have enough strings. The custom init strings are set in slotAdvancedClicked().
-    while (tmp.count() < CustomStartIndex) {
-        tmp << QString();
-    }
+    QJsonObject tmp = m_targetCombo->itemData(index).toJsonObject();
+    // The custom init strings are set in slotAdvancedClicked().
 
-    const QString &debuggerKey = tmp[DebuggerKey];
+    const QString &debuggerKey = tmp[F_DEBUGGER].toString();
     if (debuggerKey.isNull() || debuggerKey.isEmpty()) {
         // GDB
-        m_executable->setText(tmp[ExecIndex]);
-        m_workingDirectory->setText(tmp[WorkDirIndex]);
-        m_arguments->setText(tmp[ArgsIndex]);
+        m_executable->setText(tmp[F_FILE].toString());
+        m_workingDirectory->setText(tmp[F_WORKDIR].toString());
+        m_arguments->setText(tmp[F_ARGS].toString());
 
         return 0;
     } else {
         // DAP
-        const QString &debuggerKey = tmp[DebuggerKey];
         if (!m_dapAdapterSettings.contains(debuggerKey))
             return -1;
-        const QString &debuggerProfile = tmp[DebuggerProfile];
+        const QString &debuggerProfile = tmp[F_PROFILE].toString();
         if (!m_dapAdapterSettings[debuggerKey].contains(debuggerProfile))
             return -1;
-        auto map = unserializeDAPVariables(tmp[DAPVariables]);
+        auto map = tmp[QStringLiteral("variables")].toObject();
 
         m_executable->setText(map[F_FILE].toString());
         map.remove(F_FILE);

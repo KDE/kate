@@ -7,12 +7,14 @@
 #ifndef LSPCLIENTPLUGIN_H
 #define LSPCLIENTPLUGIN_H
 
-#include <QMap>
 #include <QUrl>
 #include <QVariant>
 
 #include <KTextEditor/Message>
 #include <KTextEditor/Plugin>
+
+#include <map>
+#include <set>
 
 class LSPClientPlugin : public KTextEditor::Plugin
 {
@@ -65,6 +67,9 @@ public:
     // hash of allowed and blacklisted server command lines
     std::map<QString, bool> m_serverCommandLineToAllowedState;
 
+    // current active dialogs to ask for permission of some command line
+    std::set<QString> m_currentActiveCommandLineDialogs;
+
     // get current config path
     QUrl configPath() const
     {
@@ -84,6 +89,15 @@ Q_SIGNALS:
     void update() const;
 
     void showMessage(KTextEditor::Message::MessageType level, const QString &msg);
+
+private Q_SLOTS:
+    /**
+     * Ask the user via dialog if the given command line shall be allowed.
+     * Will store the result internally and trigger LSP server restart after config change.
+     * Will ensure we just ask once, even if multiple requests queue up.
+     * @param fullCommandLineString full command line string to get permission for
+     */
+    void askForCommandLinePermission(const QString &fullCommandLineString);
 };
 
 #endif

@@ -16,10 +16,10 @@
 #include <KPluginFactory>
 #include <KSharedConfig>
 
-#include <QCheckBox>
 #include <QDir>
 #include <QMessageBox>
 #include <QStandardPaths>
+#include <QTimer>
 
 static const QString CONFIG_LSPCLIENT{QStringLiteral("lspclient")};
 static const QString CONFIG_SYMBOL_DETAILS{QStringLiteral("SymbolDetails")};
@@ -175,46 +175,58 @@ void LSPClientPlugin::writeConfig() const
 bool LSPClientPlugin::isCommandLineAllowed(const QStringList &cmdline)
 {
     // check our allow list
+    // if we already have stored some value, perfect, just use that one
     const QString fullCommandLineString = cmdline.join(QStringLiteral(" "));
-    const auto it = m_serverCommandLineToAllowedState.find(fullCommandLineString);
-    bool startServerAllowed = false;
-    bool remembered = false;
-    if (it == m_serverCommandLineToAllowedState.end()) {
-        // ask user if the start should be allowed, allow to have this remembered to be permanent pain
-        QMessageBox msgBox;
-        msgBox.setText(i18n("LSP server start requested"));
-        msgBox.setInformativeText(i18n("Do you want the LSP server to be started? Full command line is '%1'", fullCommandLineString));
-        msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-        msgBox.setDefaultButton(QMessageBox::Yes);
-        msgBox.setCheckBox(new QCheckBox(i18n("Remember this for this command line."), &msgBox));
-        msgBox.checkBox()->setChecked(true);
-
-        // are we allowed?
-        startServerAllowed = (msgBox.exec() == QMessageBox::Yes);
-
-        // remember the state if wanted, ensure we store config directly to not loose this
-        if (msgBox.checkBox()->isChecked()) {
-            remembered = true;
-            m_serverCommandLineToAllowedState.emplace(fullCommandLineString, startServerAllowed);
-            writeConfig();
-        }
-    } else {
-        // use already stored result
-        remembered = true;
-        startServerAllowed = it->second;
+    if (const auto it = m_serverCommandLineToAllowedState.find(fullCommandLineString); it != m_serverCommandLineToAllowedState.end()) {
+        return it->second;
     }
 
-    // inform user this command line is forbidden
-    if (!startServerAllowed) {
-        QString message;
-        if (remembered) {
-            message = i18n("User permanently blocked start of: '%1'.\nUse the config page of the plugin to undo this block.", fullCommandLineString);
-        } else {
-            message = i18n("User blocked start of: '%1'", fullCommandLineString);
+    // else: queue asking the user async, will ensure we don't have duplicate dialogs
+    // tell the launching it is forbidden ATM
+    QTimer::singleShot(0, this, [this, fullCommandLineString]() {
+        askForCommandLinePermission(fullCommandLineString);
+    });
+    return false;
+}
+
+void LSPClientPlugin::askForCommandLinePermission(const QString &fullCommandLineString)
+{
+    // did we already store a new result for the given command line? just use that
+    if (const auto it = m_serverCommandLineToAllowedState.find(fullCommandLineString); it != m_serverCommandLineToAllowedState.end()) {
+        // we need to trigger config update if the command is not blocked any longer
+        if (it->second) {
+            Q_EMIT update();
         }
-        Q_EMIT showMessage(KTextEditor::Message::Information, message);
+        return;
     }
-    return startServerAllowed;
+
+    // is this command line request already open? => skip the new request, dialog is already there
+    if (!m_currentActiveCommandLineDialogs.insert(fullCommandLineString).second) {
+        return;
+    }
+
+    // ask user if the start should be allowed
+    QPointer<QMessageBox> msgBox(new QMessageBox());
+    msgBox->setText(i18n("LSP server start requested"));
+    msgBox->setInformativeText(i18n("Do you want the LSP server to be started? Full command line is '%1'", fullCommandLineString));
+    msgBox->setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    msgBox->setDefaultButton(QMessageBox::Yes);
+    const bool allowed = (msgBox->exec() == QMessageBox::Yes);
+
+    // store new configured value
+    m_serverCommandLineToAllowedState.emplace(fullCommandLineString, allowed);
+
+    // inform the user if it was forbidden! do this here to just emit this once
+    if (!allowed) {
+        Q_EMIT showMessage(KTextEditor::Message::Information,
+                           i18n("User permanently blocked start of: '%1'.\nUse the config page of the plugin to undo this block.", fullCommandLineString));
+    }
+
+    // purge dialog entry
+    m_currentActiveCommandLineDialogs.erase(fullCommandLineString);
+
+    // flush config, will trigger update()
+    writeConfig();
 }
 
 #include "lspclientplugin.moc"

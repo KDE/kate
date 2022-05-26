@@ -207,8 +207,12 @@ void LSPClientPlugin::askForCommandLinePermission(const QString &fullCommandLine
 
     // ask user if the start should be allowed
     QPointer<QMessageBox> msgBox(new QMessageBox());
-    msgBox->setText(i18n("LSP server start requested"));
-    msgBox->setInformativeText(i18n("Do you want the LSP server to be started? Full command line is '%1'", fullCommandLineString));
+    msgBox->setWindowTitle(i18n("LSP server start requested"));
+    msgBox->setTextFormat(Qt::RichText);
+    msgBox->setText(
+        i18n("Do you want the LSP server to be started?<br><br>The full command line is:<br><br><b>%1</b><br><br>The choice can be altered via the config page "
+             "of the plugin.",
+             fullCommandLineString.toHtmlEscaped()));
     msgBox->setStandardButtons(QMessageBox::Yes | QMessageBox::No);
     msgBox->setDefaultButton(QMessageBox::Yes);
     const bool allowed = (msgBox->exec() == QMessageBox::Yes);

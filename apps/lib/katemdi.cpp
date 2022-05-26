@@ -100,7 +100,11 @@ GUIClient::GUIClient(MainWindow *mw)
     m_showSidebarsAction->setChecked(m_mw->sidebarsVisible());
     connect(m_showSidebarsAction, &KToggleAction::toggled, m_mw, &MainWindow::setSidebarsVisible);
 
+    m_hideToolViews = actionCollection()->addAction(QStringLiteral("kate_mdi_hide_toolviews"), m_mw, &MainWindow::hideToolViews);
+    m_hideToolViews->setText(i18n("Hide All Tool Views"));
+
     m_toolMenu->addAction(m_showSidebarsAction);
+    m_toolMenu->addAction(m_hideToolViews);
     QAction *sep_act = new QAction(this);
     sep_act->setSeparator(true);
     m_toolMenu->addAction(sep_act);
@@ -1115,6 +1119,16 @@ bool MainWindow::hideToolView(ToolView *widget)
     const bool ret = widget->sidebar()->hideWidget(widget);
     m_centralWidget->setFocus();
     return ret;
+}
+
+void MainWindow::hideToolViews()
+{
+    for (const auto &tv : m_toolviews) {
+        if (tv) {
+            tv->sidebar()->hideWidget(tv);
+        }
+    }
+    m_centralWidget->setFocus();
 }
 
 void MainWindow::startRestore(KConfigBase *config, const QString &group)

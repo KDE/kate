@@ -78,6 +78,7 @@ private:
     std::vector<QAction *> m_toolViewActions;
     std::unordered_map<ToolView *, QAction *> m_toolToAction;
     KActionMenu *m_toolMenu;
+    QAction *m_hideToolViews;
 };
 
 class ToolView : public QFrame
@@ -349,6 +350,11 @@ public Q_SLOTS:
     {
         setSidebarsVisibleInternal(visible, false);
     }
+
+    /**
+     * hide all tool views
+     */
+    void hideToolViews();
 
 protected:
     /**

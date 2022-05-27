@@ -10,6 +10,7 @@
 #include <QObject>
 
 class LSPClientPlugin;
+class LSPClientServerManager;
 
 namespace KTextEditor
 {
@@ -20,7 +21,7 @@ class LSPClientPluginView
 {
 public:
     // only needs a factory; no other public interface
-    static QObject *new_(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin);
+    static QObject *new_(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin, QSharedPointer<LSPClientServerManager> manager);
 };
 
 #endif

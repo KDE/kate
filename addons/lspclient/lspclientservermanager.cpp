@@ -13,6 +13,7 @@
 #include "lspclient_debug.h"
 
 #include <KLocalizedString>
+#include <KTextEditor/Application>
 #include <KTextEditor/Document>
 #include <KTextEditor/Editor>
 #include <KTextEditor/MainWindow>
@@ -158,6 +159,8 @@ public:
     }
 };
 
+static const QString PROJECT_PLUGIN{QStringLiteral("kateprojectplugin")};
+
 // helper class to sync document changes to LSP server
 class LSPClientServerManagerImpl : public LSPClientServerManager
 {
@@ -191,7 +194,7 @@ class LSPClientServerManagerImpl : public LSPClientServerManager
     };
 
     LSPClientPlugin *m_plugin;
-    KTextEditor::MainWindow *m_mainWindow;
+    QPointer<QObject> m_projectPlugin;
     // merged default and user config
     QJsonObject m_serverConfig;
     // root -> (mode -> server)
@@ -211,27 +214,24 @@ class LSPClientServerManagerImpl : public LSPClientServerManager
     typedef QVector<QSharedPointer<LSPClientServer>> ServerList;
 
 public:
-    LSPClientServerManagerImpl(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin)
+    LSPClientServerManagerImpl(LSPClientPlugin *plugin)
         : m_plugin(plugin)
-        , m_mainWindow(mainWin)
     {
         connect(plugin, &LSPClientPlugin::update, this, &self_type::updateServerConfig);
         QTimer::singleShot(100, this, &self_type::updateServerConfig);
 
         // stay tuned on project situation
-        QObject *projectView = projectPluginView();
-        if (projectView) {
-            // clang-format off
-            connect(projectView,
-                    SIGNAL(pluginProjectAdded(QString,QString)),
-                    this,
-                    SLOT(onProjectAdded(QString,QString)));
-            connect(projectView,
-                    SIGNAL(pluginProjectRemoved(QString,QString)),
-                    this,
-                    SLOT(onProjectRemoved(QString,QString)));
-            // clang-format on
-        }
+        auto app = KTextEditor::Editor::instance()->application();
+        auto h = [this](const QString &name, KTextEditor::Plugin *plugin) {
+            if (name == PROJECT_PLUGIN) {
+                m_projectPlugin = plugin;
+                monitorProjects(plugin);
+            }
+        };
+        connect(app, &KTextEditor::Application::pluginCreated, this, h);
+        auto projectPlugin = app->plugin(PROJECT_PLUGIN);
+        m_projectPlugin = projectPlugin;
+        monitorProjects(projectPlugin);
     }
 
     ~LSPClientServerManagerImpl() override
@@ -320,9 +320,9 @@ public:
         return QString();
     }
 
-    QObject *projectPluginView()
+    QObject *projectPluginView(KTextEditor::MainWindow *mainWindow)
     {
-        return m_mainWindow->pluginView(QStringLiteral("kateprojectplugin"));
+        return mainWindow->pluginView(PROJECT_PLUGIN);
     }
 
     QString documentLanguageId(const QString mode)
@@ -558,7 +558,8 @@ private:
             return nullptr;
         }
 
-        QObject *projectView = projectPluginView();
+        // use mainwindow of specified view
+        QObject *projectView = projectPluginView(view->mainWindow());
         // preserve raw QString value so it can be used and tested that way below
         const auto projectBase = projectView ? projectView->property("projectBaseDir").toString() : QString();
         const auto &projectMap = projectView ? projectView->property("projectMap").toMap() : QVariantMap();
@@ -1032,14 +1033,19 @@ private:
         Q_EMIT serverWorkDoneProgress(server, params);
     }
 
+    static std::pair<QString, QString> getProjectNameDir(const QObject *kateProject)
+    {
+        return {kateProject->property("name").toString(), kateProject->property("baseDir").toString()};
+    }
+
     QList<LSPWorkspaceFolder> currentWorkspaceFolders()
     {
         QList<LSPWorkspaceFolder> folders;
-        auto projectView = projectPluginView();
-        if (projectView) {
-            auto projectsMap = projectView->property("allProjects").value<QStringMap>();
-            for (auto it = projectsMap.begin(); it != projectsMap.end(); ++it) {
-                folders.push_back(workspaceFolder(it.key(), it.value()));
+        if (m_projectPlugin) {
+            auto projects = m_projectPlugin->property("projects").value<QObjectList>();
+            for (auto proj : projects) {
+                auto props = getProjectNameDir(proj);
+                folders.push_back(workspaceFolder(props.second, props.first));
             }
         }
         return folders;
@@ -1050,8 +1056,11 @@ private:
         return {QUrl::fromLocalFile(baseDir), name};
     }
 
-    void updateWorkspace(bool added, const QString &baseDir, const QString &name)
+    void updateWorkspace(bool added, const QObject *project)
     {
+        auto props = getProjectNameDir(project);
+        auto &name = props.first;
+        auto &baseDir = props.second;
         qCInfo(LSPCLIENT) << "update workspace" << added << baseDir << name;
         for (const auto &u : qAsConst(m_servers)) {
             for (const auto &si : u) {
@@ -1067,14 +1076,32 @@ private:
         }
     }
 
-    Q_SLOT void onProjectAdded(QString baseDir, QString name)
+    Q_SLOT void onProjectAdded(QObject *project)
     {
-        updateWorkspace(true, baseDir, name);
+        updateWorkspace(true, project);
     }
 
-    Q_SLOT void onProjectRemoved(QString baseDir, QString name)
+    Q_SLOT void onProjectRemoved(QObject *project)
     {
-        updateWorkspace(false, baseDir, name);
+        updateWorkspace(false, project);
+    }
+
+    void monitorProjects(KTextEditor::Plugin *projectPlugin)
+    {
+        if (projectPlugin) {
+            // clang-format off
+            auto c = connect(projectPlugin,
+                        SIGNAL(projectAdded(QObject*)),
+                        this,
+                        SLOT(onProjectAdded(QObject*)),
+                        Qt::UniqueConnection);
+            c = connect(projectPlugin,
+                        SIGNAL(projectRemoved(QObject*)),
+                        this,
+                        SLOT(onProjectRemoved(QObject*)),
+                        Qt::UniqueConnection);
+            // clang-format on
+        }
     }
 
     void onWorkspaceFolders(const WorkspaceFoldersReplyHandler &h, bool &handled)
@@ -1090,9 +1117,9 @@ private:
     }
 };
 
-QSharedPointer<LSPClientServerManager> LSPClientServerManager::new_(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin)
+QSharedPointer<LSPClientServerManager> LSPClientServerManager::new_(LSPClientPlugin *plugin)
 {
-    return QSharedPointer<LSPClientServerManager>(new LSPClientServerManagerImpl(plugin, mainWin));
+    return QSharedPointer<LSPClientServerManager>(new LSPClientServerManagerImpl(plugin));
 }
 
 #include "lspclientservermanager.moc"

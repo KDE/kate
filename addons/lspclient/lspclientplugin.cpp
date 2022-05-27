@@ -7,6 +7,7 @@
 #include "lspclientplugin.h"
 #include "lspclientconfigpage.h"
 #include "lspclientpluginview.h"
+#include "lspclientservermanager.h"
 
 #include "lspclient_debug.h"
 
@@ -76,7 +77,10 @@ LSPClientPlugin::~LSPClientPlugin()
 
 QObject *LSPClientPlugin::createView(KTextEditor::MainWindow *mainWindow)
 {
-    return LSPClientPluginView::new_(this, mainWindow);
+    if (!m_serverManager) {
+        m_serverManager = LSPClientServerManager::new_(this);
+    }
+    return LSPClientPluginView::new_(this, mainWindow, m_serverManager);
 }
 
 int LSPClientPlugin::configPages() const

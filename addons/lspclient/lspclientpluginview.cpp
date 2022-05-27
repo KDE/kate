@@ -3073,20 +3073,18 @@ class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient, public KTe
     typedef LSPClientPluginViewImpl self_type;
 
     KTextEditor::MainWindow *m_mainWindow;
-    QSharedPointer<LSPClientServerManager> m_serverManager;
     QScopedPointer<class LSPClientActionView> m_actionView;
 
 public:
-    LSPClientPluginViewImpl(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin)
+    LSPClientPluginViewImpl(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin, QSharedPointer<LSPClientServerManager> serverManager)
         : QObject(mainWin)
         , m_mainWindow(mainWin)
-        , m_serverManager(LSPClientServerManager::new_(plugin, mainWin))
     {
         KXMLGUIClient::setComponentName(QStringLiteral("lspclient"), i18n("LSP Client"));
         setXMLFile(QStringLiteral("ui.rc"));
 
         // we need to do this AFTER the setComponentName above
-        m_actionView.reset(new LSPClientActionView(plugin, mainWin, this, m_serverManager));
+        m_actionView.reset(new LSPClientActionView(plugin, mainWin, this, serverManager));
 
         m_mainWindow->guiFactory()->addClient(this);
 
@@ -3101,7 +3099,6 @@ public:
         // signals are auto-disconnected when high-level "view" objects are broken down
         // so it only remains to clean up lowest level here then prior to removal
         m_actionView.reset();
-        m_serverManager.reset();
         m_mainWindow->guiFactory()->removeClient(this);
     }
 
@@ -3136,9 +3133,9 @@ Q_SIGNALS:
     void addPositionToHistory(const QUrl &url, KTextEditor::Cursor c);
 };
 
-QObject *LSPClientPluginView::new_(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin)
+QObject *LSPClientPluginView::new_(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin, QSharedPointer<LSPClientServerManager> manager)
 {
-    return new LSPClientPluginViewImpl(plugin, mainWin);
+    return new LSPClientPluginViewImpl(plugin, mainWin, manager);
 }
 
 #include "lspclientpluginview.moc"

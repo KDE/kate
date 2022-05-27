@@ -16,6 +16,8 @@
 #include <map>
 #include <set>
 
+class LSPClientServerManager;
+
 class LSPClientPlugin : public KTextEditor::Plugin
 {
     Q_OBJECT
@@ -98,6 +100,10 @@ private Q_SLOTS:
      * @param fullCommandLineString full command line string to get permission for
      */
     void askForCommandLinePermission(const QString &fullCommandLineString);
+
+private:
+    // server manager to pass along
+    QSharedPointer<LSPClientServerManager> m_serverManager;
 };
 
 #endif

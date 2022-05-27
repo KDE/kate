@@ -39,7 +39,7 @@ class LSPClientServerManager : public QObject
 
 public:
     // factory method; private implementation by interface
-    static QSharedPointer<LSPClientServerManager> new_(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin);
+    static QSharedPointer<LSPClientServerManager> new_(LSPClientPlugin *plugin);
 
     virtual QSharedPointer<LSPClientServer> findServer(KTextEditor::View *view, bool updatedoc = true) = 0;
 

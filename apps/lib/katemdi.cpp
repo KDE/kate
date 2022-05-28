@@ -91,6 +91,9 @@ GUIClient::GUIClient(MainWindow *mw)
         setXML(completeDescription, false /*merge*/);
     }
 
+    m_sidebarButtonsMenu = new KActionMenu(i18n("Sidebar Buttons"), this);
+    actionCollection()->addAction(QStringLiteral("kate_mdi_show_sidebar_buttons"), m_sidebarButtonsMenu);
+
     m_toolMenu = new KActionMenu(i18n("Tool &Views"), this);
     actionCollection()->addAction(QStringLiteral("kate_mdi_toolview_menu"), m_toolMenu);
     m_showSidebarsAction = new KToggleAction(i18n("Show Side&bars"), this);
@@ -135,40 +138,58 @@ void GUIClient::registerToolView(ToolView *tv)
     QString aname = QLatin1String("kate_mdi_toolview_") + tv->id;
 
     // try to read the action shortcut
-    QList<QKeySequence> shortcuts;
 
-    KSharedConfigPtr cfg = KSharedConfig::openConfig();
-    QString shortcutString = cfg->group("Shortcuts").readEntry(aname, QString());
+    auto shortcutsForActionName = [](const QString &aname) {
+        QList<QKeySequence> shortcuts;
+        KSharedConfigPtr cfg = KSharedConfig::openConfig();
+        const QString shortcutString = cfg->group("Shortcuts").readEntry(aname, QString());
+        const auto shortcutStrings = shortcutString.split(QLatin1Char(';'));
+        for (const QString &shortcut : shortcutStrings) {
+            shortcuts << QKeySequence::fromString(shortcut);
+        }
+        return shortcuts;
+    };
 
-    const auto shortcutStrings = shortcutString.split(QLatin1Char(';'));
-    for (const QString &shortcut : shortcutStrings) {
-        shortcuts << QKeySequence::fromString(shortcut);
-    }
-
+    /** Show ToolView Action **/
     KToggleAction *a = new ToggleToolViewAction(i18n("Show %1", tv->text), tv, this);
-    actionCollection()->setDefaultShortcuts(a, shortcuts);
+    actionCollection()->setDefaultShortcuts(a, shortcutsForActionName(aname));
     actionCollection()->addAction(aname, a);
 
-    m_toolViewActions.push_back(a);
     m_toolMenu->addAction(a);
 
-    m_toolToAction.emplace(tv, a);
+    auto &actionsForTool = m_toolToActions[tv];
+    actionsForTool.push_back(a);
+
+    /** Show Tab button in sidebar action **/
+    aname = QStringLiteral("kate_mdi_show_toolview_button_") + tv->id;
+    a = new KToggleAction(i18n("Show %1 Button", tv->text), this);
+    a->setChecked(true);
+    actionCollection()->setDefaultShortcuts(a, shortcutsForActionName(aname));
+    actionCollection()->addAction(aname, a);
+    connect(a, &KToggleAction::toggled, this, [toolview = QPointer<ToolView>(tv)](bool checked) {
+        if (toolview) {
+            const QSignalBlocker b(toolview);
+            toolview->sidebar()->showToolviewTab(toolview, checked);
+        }
+    });
+    connect(tv, &ToolView::tabButtonVisibleChanged, a, &QAction::setChecked);
+
+    m_sidebarButtonsMenu->addAction(a);
+    actionsForTool.push_back(a);
 
     updateActions();
 }
 
 void GUIClient::unregisterToolView(ToolView *tv)
 {
-    QAction *a = m_toolToAction[tv];
-
-    if (!a) {
+    auto &actionsForTool = m_toolToActions[tv];
+    if (actionsForTool.empty())
         return;
+
+    for (auto *a : actionsForTool) {
+        delete a;
     }
-
-    m_toolViewActions.erase(std::remove(m_toolViewActions.begin(), m_toolViewActions.end(), a), m_toolViewActions.end());
-    delete a;
-
-    m_toolToAction.erase(tv);
+    m_toolToActions.erase(tv);
 
     updateActions();
 }
@@ -190,6 +211,7 @@ void GUIClient::updateActions()
 
     QList<QAction *> addList;
     addList.append(m_toolMenu);
+    addList.append(m_sidebarButtonsMenu);
 
     plugActionList(actionListName, addList);
 }
@@ -236,6 +258,16 @@ QSize ToolView::sizeHint() const
 QSize ToolView::minimumSizeHint() const
 {
     return QSize(160, 160);
+}
+
+bool ToolView::tabButtonVisible() const
+{
+    return isTabButtonVisible;
+}
+
+void ToolView::setTabButtonVisible(bool visible)
+{
+    isTabButtonVisible = visible;
 }
 
 ToolView::~ToolView()
@@ -529,6 +561,23 @@ bool Sidebar::hideWidget(ToolView *widget)
     return true;
 }
 
+void Sidebar::showToolviewTab(ToolView *widget, bool show)
+{
+    auto it = m_widgetToId.find(widget);
+    if (it == m_widgetToId.end()) {
+        qWarning() << Q_FUNC_INFO << "Unexpected no id for widget " << widget;
+        return;
+    }
+    auto *tab = this->tab(it->second);
+    if (widget->tabButtonVisible() == show) {
+        return;
+    } else {
+        widget->setTabButtonVisible(show);
+        tab->setVisible(show);
+        Q_EMIT widget->tabButtonVisibleChanged(show);
+    }
+}
+
 bool Sidebar::isCollapsed()
 {
     if (!m_splitter) {
@@ -671,6 +720,8 @@ bool Sidebar::eventFilter(QObject *obj, QEvent *ev)
                                w->persistent ? i18n("Make Non-Persistent") : i18n("Make Persistent"))
                     ->setData(10);
 
+                menu.addAction(i18n("Hide Button"))->setData(11);
+
                 menu.addSection(QIcon::fromTheme(QStringLiteral("move")), i18n("Move To"));
 
                 if (position() != 0) {
@@ -745,6 +796,10 @@ void Sidebar::buttonPopupActivate(QAction *a)
                 Q_EMIT sigShowPluginConfigPage(w->plugin.data(), 0);
             }
         }
+    }
+
+    if (id == 11) {
+        showToolviewTab(w, false);
     }
 }
 
@@ -842,13 +897,16 @@ void Sidebar::restoreSession(KConfigGroup &config)
             anyVis = tv->toolVisible();
         }
 
-        setTab(m_widgetToId[tv], tv->toolVisible());
+        auto id = m_widgetToId[tv];
+        setTab(id, tv->toolVisible());
 
         if (tv->toolVisible()) {
             tv->show();
         } else {
             tv->hide();
         }
+        bool showTab = config.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Show-Button-In-Sidebar").arg(tv->id), true);
+        showToolviewTab(tv, showTab);
     }
 
     if (anyVis) {
@@ -876,6 +934,12 @@ void Sidebar::saveSession(KConfigGroup &config)
         config.writeEntry(QStringLiteral("Kate-MDI-ToolView-%1-Sidebar-Position").arg(tv->id), i);
         config.writeEntry(QStringLiteral("Kate-MDI-ToolView-%1-Visible").arg(tv->id), tv->toolVisible());
         config.writeEntry(QStringLiteral("Kate-MDI-ToolView-%1-Persistent").arg(tv->id), tv->persistent);
+        auto it = m_widgetToId.find(tv);
+        if (it == m_widgetToId.end()) {
+            qWarning() << Q_FUNC_INFO << "Unexpected no tab id for toolview: " << tv;
+            continue;
+        }
+        config.writeEntry(QStringLiteral("Kate-MDI-ToolView-%1-Show-Button-In-Sidebar").arg(tv->id), tv->tabButtonVisible());
     }
 }
 

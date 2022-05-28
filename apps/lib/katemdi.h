@@ -75,10 +75,10 @@ private Q_SLOTS:
 private:
     MainWindow *m_mw;
     KToggleAction *m_showSidebarsAction;
-    std::vector<QAction *> m_toolViewActions;
-    std::unordered_map<ToolView *, QAction *> m_toolToAction;
+    std::unordered_map<ToolView *, std::vector<QAction *>> m_toolToActions;
     KActionMenu *m_toolMenu;
     QAction *m_hideToolViews;
+    KActionMenu *m_sidebarButtonsMenu;
 };
 
 class ToolView : public QFrame
@@ -116,6 +116,8 @@ Q_SIGNALS:
      */
     void toolVisibleChanged(bool visible);
 
+    void tabButtonVisibleChanged(bool visible);
+
     /**
      * some internal methodes needed by the main window and the sidebars
      */
@@ -136,6 +138,13 @@ public:
     bool toolVisible() const;
     QSize sizeHint() const override;
     QSize minimumSizeHint() const override;
+
+    /**
+     * Whether the tab button for this toolview is visible
+     * in the sidebar or hidden
+     */
+    bool tabButtonVisible() const;
+    void setTabButtonVisible(bool visible);
 
 protected:
     void childEvent(QChildEvent *ev) override;
@@ -158,6 +167,11 @@ private:
      * is visible in sidebar
      */
     bool m_toolVisible;
+
+    /**
+     * Is the button visible in sidebar
+     */
+    bool isTabButtonVisible = true;
 
     /**
      * is this view persistent?
@@ -192,6 +206,8 @@ public:
 
     bool showWidget(ToolView *widget);
     bool hideWidget(ToolView *widget);
+
+    void showToolviewTab(ToolView *widget, bool show);
 
     bool isCollapsed();
     void handleCollapse(int pos, int index);

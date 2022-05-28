@@ -595,7 +595,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ar">وضع التحديد الكتليّ</li>
       <li xml:lang="az">Blok seçim rejimi</li>
       <li xml:lang="ca">Mode de selecció per blocs</li>
-      <li xml:lang="ca-valencia">Mode de selecció per blocs</li>
+      <li xml:lang="ca-valencia">Modo de selecció per blocs</li>
       <li xml:lang="cs">Režim blokového výběru</li>
       <li xml:lang="da">Blokmarkeringstilstand</li>
       <li xml:lang="de">Blockauswahlmodus</li>
@@ -775,7 +775,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ar">دعم واسع للموافيق (http، وftp، وssh وwebdav وغيرها) عبر «عبيد KIO»</li>
       <li xml:lang="az">Kioslaves ilə çoxsaylı fayllar protokolu dəstəyi (http, ftp, ssh, webdav və s.)</li>
       <li xml:lang="ca">Implementació àmplia de protocols (http, ftp, ssh, webdav, etc.) usant kioslaves</li>
-      <li xml:lang="ca-valencia">Implementació àmplia de protocols (http, ftp, ssh, webdav, etc.) utilitzant kioslaves</li>
+      <li xml:lang="ca-valencia">Implementació àmplia de protocols (http, ftp, ssh, webdav, etc.) utilisant kioslaves</li>
       <li xml:lang="cs">Široká podpora protokolů pomocí kioslaves (http, ftp, ssh, webdav atd.)</li>
       <li xml:lang="da">Bred understøttelse af protokoller (http, ftp, ssh, webdav osv.) ved brug af kioslaves</li>
       <li xml:lang="de">Unterstützung für viele Protokolle (http, ftp, ssh, webdav usw.) unter Verwendung von Ein-/Ausgabemodulen</li>
@@ -951,7 +951,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ar">يمكن سكربتته عبر جافاسكربت</li>
       <li xml:lang="az">JavaScript istifadə edən senarilər</li>
       <li xml:lang="ca">Es pot crear scripts usant JavaScript</li>
-      <li xml:lang="ca-valencia">Es pot crear scripts utilitzant JavaScript</li>
+      <li xml:lang="ca-valencia">Es pot crear scripts utilisant JavaScript</li>
       <li xml:lang="cs">Podpora skriptování v JavaScriptu</li>
       <li xml:lang="da">Scriptbar ved brug af JavaScript</li>
       <li xml:lang="de">Skriptfähig über JavaScript</li>

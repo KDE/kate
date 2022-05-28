@@ -73,7 +73,7 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
             }
         }
 
-        if (cl.indexOf(QRegularExpression(QLatin1String("^class [a-zA-Z0-9_,\\s\\(\\).]+:"))) >= 0) {
+        if (cl.indexOf(QRegularExpression(QLatin1String("^class ([a-zA-Z0-9_]+)(\(.*\))?:"))) >= 0) {
             in_class = 1;
         }
 

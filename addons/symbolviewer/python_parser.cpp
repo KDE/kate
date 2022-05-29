@@ -28,8 +28,9 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
     QPixmap mcr(macro_xpm);
 
     Symbol type;
-    int state = 0, j;
     QString name;
+    QString params;
+    QString current_class_name;
 
     QTreeWidgetItem *node = nullptr;
     QTreeWidgetItem *mcrNode = nullptr, *mtdNode = nullptr, *clsNode = nullptr;
@@ -57,8 +58,9 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
         m_symbols->setRootIsDecorated(0);
     }
 
-    static const QRegularExpression class_regexp(QStringLiteral("^class [a-zA-Z0-9_]+(\\((.*)\\))?:"));
-    static const QRegularExpression function_regexp(QStringLiteral("^def\\s+[a-zA-Z_]+[^#]*:"));
+    static const QRegularExpression class_regexp(QLatin1String("^class ([a-zA-Z0-9_]+)(\\((.*)\\))?:"));
+    static const QRegularExpression function_regexp(QLatin1String("^( *)def ([a-zA-Z_0-9]+)(\\(.*\\))?:"));
+    QRegularExpressionMatch match;
     for (int i = 0; i < kv->lines(); i++) {
         int line = i;
         cl = kv->line(i);
@@ -76,52 +78,34 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
             }
         }
 
-        if (cl.indexOf(class_regexp) >= 0) {
+        match = class_regexp.match(cl);
+        if (match.hasMatch()) {
             type = Symbol::Class;
-        }
-
-        // if(cl.find( QRegularExpression(QStringLiteral("[\\s]+def [a-zA-Z_]+[^#]*:")) ) >= 0) type = Symbol::Method;
-        if (cl.indexOf(function_regexp) >= 0) {
-            type = Symbol::Function;
-        }
-
-        if (cl.indexOf(QLatin1String("def ")) >= 0 || (cl.indexOf(QLatin1String("class ")) >= 0 && type == Symbol::Class)) {
-            if (cl.indexOf(QLatin1String("def ")) >= 0 && type == Symbol::Class) {
-                type = Symbol::Method;
-            }
-            state = 1;
-            if (cl.indexOf(QLatin1Char(':')) >= 0) {
-                state = 3; // found in the same line. Done
-            } else if (cl.indexOf(QLatin1Char('(')) >= 0) {
-                state = 2;
-            }
-
-            if (state == 2 || state == 3) {
-                name = cl.left(cl.indexOf(QLatin1Char('(')));
-            }
-        }
-
-        if (state > 0 && state < 3) {
-            for (j = 0; j < cl.length(); j++) {
-                if (cl.at(j) == QLatin1Char('(')) {
-                    state = 2;
-                } else if (cl.at(j) == QLatin1Char(':')) {
-                    state = 3;
-                    break;
-                }
-
-                if (state == 1) {
-                    name += cl.at(j);
+        } else {
+            match = function_regexp.match(cl);
+            if (match.hasMatch()) {
+                if (match.captured(1).isEmpty() ||
+                    current_class_name.isEmpty() // case where function is declared inside a block
+                ) {
+                    type = Symbol::Function;
+                    current_class_name.clear();
+                } else {
+                    type = Symbol::Method;
                 }
             }
         }
-        if (state == 3) {
-            // qDebug(13000)<<"Function -- Inserted : "<<name<<" at row : "<<i;
-            if (type == Symbol::Class) { // strip off the word "class "
-                name = name.trimmed().mid(6);
-                name = name.left(name.indexOf(QLatin1Char(':'))); // remove possible ':' at the end
-            } else { // strip off the word "def "
-                name = name.trimmed().mid(4);
+
+        if (match.hasMatch()) {
+            if (type == Symbol::Class) {
+                name = match.captured(1);
+                params = match.captured(2);
+                current_class_name = name;
+            } else {
+                name = match.captured(2);
+                params = match.captured(3);
+            }
+            if (m_typesOn->isChecked()) {
+                name += params;
             }
 
             if (m_func->isChecked() && type == Symbol::Class) {
@@ -168,8 +152,8 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
                 node->setText(1, QString::number(line, 10));
             }
 
-            state = 0;
             name.clear();
+            params.clear();
         }
     }
 }

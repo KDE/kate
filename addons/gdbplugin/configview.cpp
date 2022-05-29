@@ -76,28 +76,28 @@ ConfigView::ConfigView(QWidget *parent, KTextEditor::MainWindow *mainWin)
     : QWidget(parent)
     , m_mainWindow(mainWin)
 {
-    m_clientCombo = new QComboBox();
+    m_clientCombo = new QComboBox(this);
     m_clientCombo->setEditable(false);
     m_clientCombo->addItem(QStringLiteral("GDB"));
     m_clientCombo->insertSeparator(1);
     readDAPSettings();
 
-    m_targetCombo = new QComboBox();
+    m_targetCombo = new QComboBox(this);
     m_targetCombo->setEditable(true);
     // don't let Qt insert items when the user edits; new targets are only
     // added when the user explicitly says so
     m_targetCombo->setInsertPolicy(QComboBox::NoInsert);
     m_targetCombo->setDuplicatesEnabled(true);
 
-    m_addTarget = new QToolButton();
+    m_addTarget = new QToolButton(this);
     m_addTarget->setIcon(QIcon::fromTheme(QStringLiteral("document-new")));
     m_addTarget->setToolTip(i18n("Add new target"));
 
-    m_copyTarget = new QToolButton();
+    m_copyTarget = new QToolButton(this);
     m_copyTarget->setIcon(QIcon::fromTheme(QStringLiteral("document-copy")));
     m_copyTarget->setToolTip(i18n("Copy target"));
 
-    m_deleteTarget = new QToolButton();
+    m_deleteTarget = new QToolButton(this);
     m_deleteTarget->setIcon(QIcon::fromTheme(QStringLiteral("edit-delete")));
     m_deleteTarget->setToolTip(i18n("Delete target"));
 
@@ -107,7 +107,7 @@ ConfigView::ConfigView(QWidget *parent, KTextEditor::MainWindow *mainWin)
     m_execLabel = new QLabel(i18n("Executable:"));
     m_execLabel->setBuddy(m_targetCombo);
 
-    m_executable = new QLineEdit();
+    m_executable = new QLineEdit(this);
     QCompleter *completer1 = new QCompleter(this);
     QFileSystemModel *model = new QFileSystemModel(this);
     model->setFilter(QDir::AllDirs | QDir::NoDotAndDotDot);
@@ -117,7 +117,7 @@ ConfigView::ConfigView(QWidget *parent, KTextEditor::MainWindow *mainWin)
     m_browseExe = new QToolButton(this);
     m_browseExe->setIcon(QIcon::fromTheme(QStringLiteral("application-x-executable")));
 
-    m_workingDirectory = new QLineEdit();
+    m_workingDirectory = new QLineEdit(this);
     QCompleter *completer2 = new QCompleter(this);
     QFileSystemModel *model2 = new QFileSystemModel(completer2);
 
@@ -129,13 +129,13 @@ ConfigView::ConfigView(QWidget *parent, KTextEditor::MainWindow *mainWin)
     m_browseDir = new QToolButton(this);
     m_browseDir->setIcon(QIcon::fromTheme(QStringLiteral("inode-directory")));
 
-    m_processId = new QSpinBox();
+    m_processId = new QSpinBox(this);
     m_processId->setMinimum(1);
     m_processId->setMaximum(4194304);
     m_processIdLabel = new QLabel(i18n("Process Id:"));
     m_processIdLabel->setBuddy(m_processId);
 
-    m_arguments = new QLineEdit();
+    m_arguments = new QLineEdit(this);
     m_arguments->setClearButtonEnabled(true);
     m_argumentsLabel = new QLabel(i18nc("Program argument list", "Arguments:"));
     m_argumentsLabel->setBuddy(m_arguments);
@@ -576,37 +576,11 @@ void ConfigView::resizeEvent(QResizeEvent *)
     const QStringList debuggerVariables = m_clientCombo->currentData().toStringList();
 
     // check if preformatted inputs are required
-
     m_advancedSettings->setVisible(is_dbg);
-
-    // exe
     const bool needsExe = is_dbg || debuggerVariables.contains(F_FILE);
-    m_execLabel->setVisible(needsExe);
-    m_executable->setVisible(needsExe);
-    m_browseExe->setVisible(needsExe);
-
-    // working dir
     const bool needsWdir = is_dbg || debuggerVariables.contains(F_WORKDIR);
-    m_workDirLabel->setVisible(needsWdir);
-    m_workingDirectory->setVisible(needsWdir);
-    m_browseDir->setVisible(needsWdir);
-
-    // arguments
     const bool needsArgs = is_dbg || debuggerVariables.contains(F_ARGS);
-    m_argumentsLabel->setVisible(needsArgs);
-    m_arguments->setVisible(needsArgs);
-
-    // pid
     const bool needsPid = !is_dbg && debuggerVariables.contains(F_PID);
-    m_processIdLabel->setVisible(needsPid);
-    m_processId->setVisible(needsPid);
-
-    // additional dap fields
-    for (auto it = m_dapFields.cbegin(); it != m_dapFields.cend(); ++it) {
-        const bool visible = debuggerVariables.contains(it.key());
-        it->label->setVisible(visible);
-        it->input->setVisible(visible);
-    }
 
     if (toVertical) {
         // Set layout for the side
@@ -744,6 +718,35 @@ void ConfigView::resizeEvent(QResizeEvent *)
         layout->addWidget(m_line, 1, 3, row - 1, 1);
 
         m_useBottomLayout = true;
+    }
+
+    if (toVertical || toHorizontal) {
+        m_advancedSettings->setVisible(is_dbg);
+
+        // exe
+        m_execLabel->setVisible(needsExe);
+        m_executable->setVisible(needsExe);
+        m_browseExe->setVisible(needsExe);
+
+        // working dir
+        m_workDirLabel->setVisible(needsWdir);
+        m_workingDirectory->setVisible(needsWdir);
+        m_browseDir->setVisible(needsWdir);
+
+        // arguments
+        m_argumentsLabel->setVisible(needsArgs);
+        m_arguments->setVisible(needsArgs);
+
+        // pid
+        m_processIdLabel->setVisible(needsPid);
+        m_processId->setVisible(needsPid);
+
+        // additional dap fields
+        for (auto it = m_dapFields.cbegin(); it != m_dapFields.cend(); ++it) {
+            const bool visible = debuggerVariables.contains(it.key());
+            it->label->setVisible(visible);
+            it->input->setVisible(visible);
+        }
     }
 }
 

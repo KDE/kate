@@ -35,6 +35,7 @@ class KateProjectPlugin : public KTextEditor::Plugin, public KTextEditor::Sessio
 {
     Q_OBJECT
     Q_INTERFACES(KTextEditor::SessionConfigInterface)
+    Q_PROPERTY(QList<QObject *> projects READ projectsObjects)
 
 public:
     explicit KateProjectPlugin(QObject *parent = nullptr, const QList<QVariant> & = QList<QVariant>());
@@ -88,6 +89,11 @@ public:
     {
         return m_projects;
     }
+
+    /**
+     * As above, in different form for property access.
+     */
+    QList<QObject *> projectsObjects() const;
 
     /**
      * Has the given project open documents?
@@ -172,6 +178,12 @@ Q_SIGNALS:
      * @param project new created project
      */
     void projectCreated(KateProject *project);
+
+    /**
+     * As above, but with adjusted naming and meta-object type friendly.
+     */
+    void projectRemoved(QObject *project);
+    void projectAdded(QObject *project);
 
     /**
      * Signal that plugin configuration changed

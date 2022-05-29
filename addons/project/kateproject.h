@@ -41,6 +41,9 @@ class KateProject : public QObject
 {
     Q_OBJECT
 
+    Q_PROPERTY(QString baseDir READ baseDir)
+    Q_PROPERTY(QString name READ name)
+
 public:
     /**
      * Construct project by reading from given file.
@@ -174,7 +177,7 @@ public:
      * rename a file
      */
     void renameFile(const QString &newName, const QString &oldName);
-    
+
     /**
      * remove a file
      */

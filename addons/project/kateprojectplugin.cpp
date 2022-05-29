@@ -111,6 +111,12 @@ KateProjectPlugin::KateProjectPlugin(QObject *parent, const QList<QVariant> &)
             Q_EMIT activateProject(projectToActivate);
         });
     }
+
+    /**
+     * forward to meta-object system friendly version
+     */
+    connect(this, &KateProjectPlugin::projectCreated, this, &KateProjectPlugin::projectAdded);
+    connect(this, &KateProjectPlugin::pluginViewProjectClosing, this, &KateProjectPlugin::projectRemoved);
 }
 
 KateProjectPlugin::~KateProjectPlugin()
@@ -267,6 +273,15 @@ void KateProjectPlugin::closeProject(KateProject *project)
     }
 }
 
+QList<QObject *> KateProjectPlugin::projectsObjects() const
+{
+    QList<QObject *> list;
+    for (auto &p : m_projects) {
+        list.push_back(p);
+    }
+    return list;
+}
+
 bool KateProjectPlugin::projectHasOpenDocuments(KateProject *project) const
 {
     for (const auto &it : m_document2Project) {
@@ -395,7 +410,6 @@ KateProject *KateProjectPlugin::createProjectForDirectory(const QDir &dir)
     Q_EMIT projectCreated(project);
     return project;
 }
-
 
 KateProject *KateProjectPlugin::createProjectForDirectory(const QDir &dir, const QVariantMap &projectMap)
 {

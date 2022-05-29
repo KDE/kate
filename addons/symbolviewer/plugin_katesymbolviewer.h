@@ -35,6 +35,12 @@
 
 #include <KLocalizedString>
 
+enum class Symbol {
+    Function,
+    Class,
+    Method
+};
+
 /**
  * Plugin's config page
  */

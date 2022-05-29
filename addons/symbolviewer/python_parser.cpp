@@ -27,7 +27,8 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
     QPixmap mtd(method_xpm);
     QPixmap mcr(macro_xpm);
 
-    int in_class = 0, state = 0, j;
+    Symbol type;
+    int state = 0, j;
     QString name;
 
     QTreeWidgetItem *node = nullptr;
@@ -76,17 +77,17 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
         }
 
         if (cl.indexOf(class_regexp) >= 0) {
-            in_class = 1;
+            type = Symbol::Class;
         }
 
-        // if(cl.find( QRegularExpression(QStringLiteral("[\\s]+def [a-zA-Z_]+[^#]*:")) ) >= 0) in_class = 2;
+        // if(cl.find( QRegularExpression(QStringLiteral("[\\s]+def [a-zA-Z_]+[^#]*:")) ) >= 0) type = Symbol::Method;
         if (cl.indexOf(function_regexp) >= 0) {
-            in_class = 0;
+            type = Symbol::Function;
         }
 
-        if (cl.indexOf(QLatin1String("def ")) >= 0 || (cl.indexOf(QLatin1String("class ")) >= 0 && in_class == 1)) {
-            if (cl.indexOf(QLatin1String("def ")) >= 0 && in_class == 1) {
-                in_class = 2;
+        if (cl.indexOf(QLatin1String("def ")) >= 0 || (cl.indexOf(QLatin1String("class ")) >= 0 && type == Symbol::Class)) {
+            if (cl.indexOf(QLatin1String("def ")) >= 0 && type == Symbol::Class) {
+                type = Symbol::Method;
             }
             state = 1;
             if (cl.indexOf(QLatin1Char(':')) >= 0) {
@@ -116,14 +117,14 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
         }
         if (state == 3) {
             // qDebug(13000)<<"Function -- Inserted : "<<name<<" at row : "<<i;
-            if (in_class == 1) { // strip off the word "class "
+            if (type == Symbol::Class) { // strip off the word "class "
                 name = name.trimmed().mid(6);
                 name = name.left(name.indexOf(QLatin1Char(':'))); // remove possible ':' at the end
             } else { // strip off the word "def "
                 name = name.trimmed().mid(4);
             }
 
-            if (m_func->isChecked() && in_class == 1) {
+            if (m_func->isChecked() && type == Symbol::Class) {
                 if (m_treeOn->isChecked()) {
                     node = new QTreeWidgetItem(clsNode, lastClsNode);
                     if (m_expandOn->isChecked()) {
@@ -141,7 +142,7 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
                 node->setText(1, QString::number(line, 10));
             }
 
-            if (m_struct->isChecked() && in_class == 2) {
+            if (m_struct->isChecked() && type == Symbol::Method) {
                 if (m_treeOn->isChecked()) {
                     node = new QTreeWidgetItem(mtdNode, lastMtdNode);
                     lastMtdNode = node;
@@ -154,7 +155,7 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
                 node->setText(1, QString::number(line, 10));
             }
 
-            if (m_macro->isChecked() && in_class == 0) {
+            if (m_macro->isChecked() && type == Symbol::Function) {
                 if (m_treeOn->isChecked()) {
                     node = new QTreeWidgetItem(mcrNode, lastMcrNode);
                     lastMcrNode = node;

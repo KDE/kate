@@ -251,6 +251,8 @@ QJsonValue resolve(const QJsonValue &value, const VarMap &variables)
 
 void findVariables(const QJsonObject &map, QSet<QString> &variables)
 {
+    if (map.isEmpty())
+        return;
     for (const auto &value : map) {
         findVariables(value, variables);
     }
@@ -258,6 +260,8 @@ void findVariables(const QJsonObject &map, QSet<QString> &variables)
 
 void findVariables(const QJsonValue &value, QSet<QString> &variables)
 {
+    if (value.isNull() || value.isUndefined())
+        return;
     if (value.isObject()) {
         findVariables(value.toObject(), variables);
     } else if (value.isArray()) {
@@ -269,6 +273,8 @@ void findVariables(const QJsonValue &value, QSet<QString> &variables)
 
 void findVariables(const QJsonArray &array, QSet<QString> &variables)
 {
+    if (array.isEmpty())
+        return;
     for (const auto &value : array) {
         findVariables(value, variables);
     }
@@ -276,6 +282,8 @@ void findVariables(const QJsonArray &array, QSet<QString> &variables)
 
 void findVariables(const QString &text, QSet<QString> &variables)
 {
+    if (text.isNull() || text.isEmpty())
+        return;
     auto matches = rx_placeholder.globalMatch(text);
     while (matches.hasNext()) {
         const auto match = matches.next();

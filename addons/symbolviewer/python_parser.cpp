@@ -116,6 +116,7 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
             // qDebug(13000)<<"Function -- Inserted : "<<name<<" at row : "<<i;
             if (in_class == 1) { // strip off the word "class "
                 name = name.trimmed().mid(6);
+                name = name.left(name.indexOf(QLatin1Char(':'))); // remove possible ':' at the end
             } else { // strip off the word "def "
                 name = name.trimmed().mid(4);
             }

@@ -56,6 +56,8 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
         m_symbols->setRootIsDecorated(0);
     }
 
+    static const QRegularExpression class_regexp(QLatin1String("^class [a-zA-Z0-9_]+(\\((.*)\\))?:"));
+    static const QRegularExpression function_regexp(QLatin1String("^def\\s+[a-zA-Z_]+[^#]*:"));
     for (int i = 0; i < kv->lines(); i++) {
         int line = i;
         cl = kv->line(i);
@@ -73,12 +75,12 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
             }
         }
 
-        if (cl.indexOf(QRegularExpression(QLatin1String("^class [a-zA-Z0-9_]+(\\(.*\\))?:"))) >= 0) {
+        if (cl.indexOf(class_regexp) >= 0) {
             in_class = 1;
         }
 
         // if(cl.find( QRegularExpression(QLatin1String("[\\s]+def [a-zA-Z_]+[^#]*:")) ) >= 0) in_class = 2;
-        if (cl.indexOf(QRegularExpression(QLatin1String("^def\\s+[a-zA-Z_]+[^#]*:"))) >= 0) {
+        if (cl.indexOf(function_regexp) >= 0) {
             in_class = 0;
         }
 

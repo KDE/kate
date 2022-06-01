@@ -285,7 +285,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ar">دعم أسطر CR، وCRLF وLF الجديدة</li>
       <li xml:lang="az">CR, CRLF, LF yeni sətirə keçmə dəstəyi</li>
       <li xml:lang="ca">Implementació de línia nova CR, CRLF, LF</li>
-      <li xml:lang="ca-valencia">Implementació de línia nova CR, CRLF, LF</li>
+      <li xml:lang="ca-valencia">Implementació de llínea nova CR, CRLF, LF</li>
       <li xml:lang="cs">Podpora odřádkování CR, CRLF i LF</li>
       <li xml:lang="da">Understøttelse af CR-, CRLF-, LF-linjeskift</li>
       <li xml:lang="de">Unterstützung für CR, CRLF, LF am Zeilenende</li>
@@ -731,7 +731,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ast">Integración cola shell</li>
       <li xml:lang="az">Funksiyanın əmrlər sətrindən çağırılması</li>
       <li xml:lang="ca">Integració de l'intèrpret d'ordres</li>
-      <li xml:lang="ca-valencia">Integració de l'intèrpret d'ordres</li>
+      <li xml:lang="ca-valencia">Integració de l'intérpret d'ordres</li>
       <li xml:lang="cs">Integrace shellu</li>
       <li xml:lang="da">Skal-integration</li>
       <li xml:lang="de">Einbindung einer Shell</li>
@@ -907,7 +907,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ast">Llinia de comandos integrada</li>
       <li xml:lang="az">İnteqrasiya olunmuş əmrlər sətri</li>
       <li xml:lang="ca">Línia d'ordres integrada</li>
-      <li xml:lang="ca-valencia">Línia d'ordres integrada</li>
+      <li xml:lang="ca-valencia">Llínea d'ordres integrada</li>
       <li xml:lang="cs">Integrovaný příkazový řádek</li>
       <li xml:lang="da">Ingegreret kommandolinje</li>
       <li xml:lang="de">Integrierte Befehlszeile</li>

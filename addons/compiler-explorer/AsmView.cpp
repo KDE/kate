@@ -284,10 +284,14 @@ AsmView::AsmView(QWidget *parent)
         setPalette(palette);
 
         auto model = static_cast<AsmViewModel *>(this->model());
+        if (!model) {
+            qWarning() << Q_FUNC_INFO << "Unexpected null model!";
+            return;
+        }
         model->setFont(Utils::editorFont());
 
     };
-    updateColors();
+    QMetaObject::invokeMethod(this, updateColors, Qt::QueuedConnection);
     connect(KTextEditor::Editor::instance(), &KTextEditor::Editor::configChanged, this, updateColors);
 }
 

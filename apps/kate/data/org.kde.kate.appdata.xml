@@ -1049,6 +1049,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
   </custom>
   <content_rating type="oars-1.1"/>
   <releases>
+    <release version="22.04.2" date="2022-06-09"/>
     <release version="22.04.1" date="2022-05-12">
       <artifacts>
         <artifact type="binary" platform="x86_64-windows-msvc">
@@ -1068,6 +1069,5 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
         </artifact>
       </artifacts>
     </release>
-    <release version="21.12.2" date="2022-02-03"/>
   </releases>
 </component>

@@ -439,15 +439,15 @@ public:
     }
 };
 
-class LSPClientActionView : public QObject
+class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient, public KTextEditor::SessionConfigInterface
 {
     Q_OBJECT
+    Q_INTERFACES(KTextEditor::SessionConfigInterface)
 
-    typedef LSPClientActionView self_type;
+    typedef LSPClientPluginViewImpl self_type;
 
     LSPClientPlugin *m_plugin;
     KTextEditor::MainWindow *m_mainWindow;
-    KXMLGUIClient *m_client;
     QSharedPointer<LSPClientServerManager> m_serverManager;
     QScopedPointer<LSPClientViewTracker> m_viewTracker;
     QScopedPointer<LSPClientCompletion> m_completion;
@@ -546,15 +546,10 @@ class LSPClientActionView : public QObject
 
     CtrlHoverFeedback m_ctrlHoverFeedback = {};
 
-    KActionCollection *actionCollection() const
-    {
-        return m_client->actionCollection();
-    }
-
     // inner class that forwards directly to method for convenience
     class ForwardingTextHintProvider : public KTextEditor::TextHintProvider
     {
-        typedef LSPClientActionView parent_type;
+        typedef LSPClientPluginViewImpl parent_type;
         parent_type *m_parent;
 
     public:
@@ -580,14 +575,18 @@ Q_SIGNALS:
      */
     void message(const QVariantMap &message);
 
+    /**
+     * Signal for location changed.
+     * @param document url
+     * @param c pos in document
+     */
     void addPositionToHistory(const QUrl &url, KTextEditor::Cursor c);
 
 public:
-    LSPClientActionView(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin, KXMLGUIClient *client, QSharedPointer<LSPClientServerManager> serverManager)
+    LSPClientPluginViewImpl(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin, QSharedPointer<LSPClientServerManager> serverManager)
         : QObject(mainWin)
         , m_plugin(plugin)
         , m_mainWindow(mainWin)
-        , m_client(client)
         , m_serverManager(std::move(serverManager))
         , m_completion(LSPClientCompletion::new_(m_serverManager))
         , m_hover(LSPClientHover::new_(m_serverManager))
@@ -595,6 +594,9 @@ public:
         , m_symbolView(LSPClientSymbolView::new_(plugin, mainWin, m_serverManager))
         , m_semHighlightingManager(m_serverManager)
     {
+        KXMLGUIClient::setComponentName(QStringLiteral("lspclient"), i18n("LSP Client"));
+        setXMLFile(QStringLiteral("ui.rc"));
+
         connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, &self_type::updateState);
         connect(m_mainWindow, &KTextEditor::MainWindow::unhandledShortcutOverride, this, &self_type::handleEsc);
         connect(m_serverManager.data(), &LSPClientServerManager::serverChanged, this, &self_type::onServerChanged);
@@ -789,6 +791,8 @@ public:
 
         configUpdated();
         updateState();
+
+        m_mainWindow->guiFactory()->addClient(this);
     }
 
     SessionDiagnosticSuppressions &sessionDiagnosticSuppressions()
@@ -882,7 +886,6 @@ public:
             return false;
         }
 
-
         // The user pressed Ctrl + Click
         if (event->type() == QEvent::MouseButtonPress) {
             if (mouseEvent->button() == Qt::LeftButton && mouseEvent->modifiers() == Qt::ControlModifier) {
@@ -923,8 +926,10 @@ public:
         return false;
     }
 
-    ~LSPClientActionView() override
+    ~LSPClientPluginViewImpl() override
     {
+        m_mainWindow->guiFactory()->removeClient(this);
+
         // unregister all code-completion providers, else we might crash
         for (auto view : qAsConst(m_completionViews)) {
             qobject_cast<KTextEditor::CodeCompletionInterface *>(view)->unregisterCompletionModel(m_completion.data());
@@ -3060,78 +3065,20 @@ public:
         }
     }
 
-    QAbstractItemModel *documentSymbolsModel()
+    Q_INVOKABLE QAbstractItemModel *documentSymbolsModel()
     {
         return m_symbolView->documentSymbolsModel();
-    }
-};
-
-class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient, public KTextEditor::SessionConfigInterface
-{
-    Q_OBJECT
-    Q_INTERFACES(KTextEditor::SessionConfigInterface)
-
-    typedef LSPClientPluginViewImpl self_type;
-
-    KTextEditor::MainWindow *m_mainWindow;
-    QScopedPointer<class LSPClientActionView> m_actionView;
-
-public:
-    LSPClientPluginViewImpl(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin, QSharedPointer<LSPClientServerManager> serverManager)
-        : QObject(mainWin)
-        , m_mainWindow(mainWin)
-    {
-        KXMLGUIClient::setComponentName(QStringLiteral("lspclient"), i18n("LSP Client"));
-        setXMLFile(QStringLiteral("ui.rc"));
-
-        // we need to do this AFTER the setComponentName above
-        m_actionView.reset(new LSPClientActionView(plugin, mainWin, this, serverManager));
-
-        m_mainWindow->guiFactory()->addClient(this);
-
-        connect(m_actionView.get(), &LSPClientActionView::message, this, &LSPClientPluginViewImpl::message);
-        connect(m_actionView.get(), &LSPClientActionView::addPositionToHistory, this, &LSPClientPluginViewImpl::addPositionToHistory);
-    }
-
-    ~LSPClientPluginViewImpl() override
-    {
-        // minimize/avoid some surprises;
-        // safe construction/destruction by separate (helper) objects;
-        // signals are auto-disconnected when high-level "view" objects are broken down
-        // so it only remains to clean up lowest level here then prior to removal
-        m_actionView.reset();
-        m_mainWindow->guiFactory()->removeClient(this);
     }
 
     void readSessionConfig(const KConfigGroup &config) override
     {
-        m_actionView->sessionDiagnosticSuppressions().readSessionConfig(config);
+        sessionDiagnosticSuppressions().readSessionConfig(config);
     }
 
     void writeSessionConfig(KConfigGroup &config) override
     {
-        m_actionView->sessionDiagnosticSuppressions().writeSessionConfig(config);
+        sessionDiagnosticSuppressions().writeSessionConfig(config);
     }
-
-    Q_INVOKABLE QAbstractItemModel *documentSymbolsModel()
-    {
-        return m_actionView->documentSymbolsModel();
-    }
-
-Q_SIGNALS:
-    /**
-     * Signal for outgoing message, the host application will handle them!
-     * Will only be handled inside the main windows of this plugin view.
-     * @param message outgoing message we send to the host application
-     */
-    void message(const QVariantMap &message);
-
-    /**
-     * Signal for location changed.
-     * @param document url
-     * @param c pos in document
-     */
-    void addPositionToHistory(const QUrl &url, KTextEditor::Cursor c);
 };
 
 QObject *LSPClientPluginView::new_(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin, QSharedPointer<LSPClientServerManager> manager)

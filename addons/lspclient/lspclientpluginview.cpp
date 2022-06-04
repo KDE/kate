@@ -782,9 +782,9 @@ public:
         m_viewTracker.reset(LSPClientViewTracker::new_(plugin, mainWin, 0, 500));
         connect(m_viewTracker.data(), &LSPClientViewTracker::newState, this, &self_type::onViewState);
 
-        connect(m_mainWindow, &KTextEditor::MainWindow::viewCreated, this, &LSPClientActionView::onViewCreated);
+        connect(m_mainWindow, &KTextEditor::MainWindow::viewCreated, this, &self_type::onViewCreated);
 
-        connect(this, &LSPClientActionView::ctrlClickDefRecieved, this, &LSPClientActionView::onCtrlMouseMove);
+        connect(this, &self_type::ctrlClickDefRecieved, this, &self_type::onCtrlMouseMove);
 
         configUpdated();
         updateState();

@@ -554,10 +554,11 @@ class LSPClientActionView : public QObject
     // inner class that forwards directly to method for convenience
     class ForwardingTextHintProvider : public KTextEditor::TextHintProvider
     {
-        LSPClientActionView *m_parent;
+        typedef LSPClientActionView parent_type;
+        parent_type *m_parent;
 
     public:
-        ForwardingTextHintProvider(LSPClientActionView *parent)
+        ForwardingTextHintProvider(parent_type *parent)
             : m_parent(parent)
         {
             Q_ASSERT(m_parent);

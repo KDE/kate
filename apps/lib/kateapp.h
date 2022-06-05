@@ -362,7 +362,7 @@ public Q_SLOTS:
      */
     bool closeDocument(KTextEditor::Document *document)
     {
-        return m_docManager.closeDocument(document);
+        return closeDocuments({document});
     }
 
     /**
@@ -374,7 +374,16 @@ public Q_SLOTS:
      */
     bool closeDocuments(const QList<KTextEditor::Document *> &documents)
     {
-        return m_docManager.closeDocumentList(documents);
+        bool shutdownKate =
+            KateApp::self()->activeKateMainWindow()->modCloseAfterLast() && KateApp::self()->documentManager()->documentList().size() == documents.size();
+        bool success = m_docManager.closeDocumentList(documents);
+
+        if (success && shutdownKate) {
+            KateApp::self()->shutdownKate(KateApp::self()->activeKateMainWindow());
+            return true;
+        }
+
+        return success;
     }
 
     /**

@@ -99,6 +99,11 @@ int main(int argc, char **argv)
     app.setApplicationName(QStringLiteral("kate"));
 
     /**
+     * Connect application with translation catalogs, Kate & KWrite share the same one
+     */
+    KLocalizedString::setApplicationDomain("kate");
+
+    /**
      * construct about data for Kate
      */
     KAboutData aboutData(QStringLiteral("kate"),

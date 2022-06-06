@@ -16,8 +16,8 @@
 #include <KIO/JobUiDelegate>
 #include <KIO/OpenFileManagerWindowJob>
 #include <KLocalizedString>
-#include <KNS3/KMoreTools>
-#include <KNS3/KMoreToolsMenuFactory>
+#include <KMoreTools>
+#include <KMoreToolsMenuFactory>
 #include <KPropertiesDialog>
 #include <KTerminalLauncherJob>
 

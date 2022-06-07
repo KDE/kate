@@ -204,7 +204,7 @@
       <li xml:lang="ast">Rescamplíu de sintaxis acordies col tipu del ficheru</li>
       <li xml:lang="az">Fayl növündən asılı olaraq sintaksislərin vurğulanması</li>
       <li xml:lang="ca">Ressaltat de sintaxi d'acord amb el tipus de fitxer</li>
-      <li xml:lang="ca-valencia">Ressaltat de sintaxi d'acord amb el tipus de fitxer</li>
+      <li xml:lang="ca-valencia">Ressaltat de sintaxi d'acord amb el tipus de ficher</li>
       <li xml:lang="cs">Zvýraznění syntaxe podle typu souboru</li>
       <li xml:lang="da">Syntaksfremhævning i henhold til filtypen</li>
       <li xml:lang="de">Syntaxhervorhebung passend zum Dateityp</li>
@@ -349,7 +349,7 @@
       <li xml:lang="ast">Sofitu pa plugins</li>
       <li xml:lang="az">Plaqin dəstəyi</li>
       <li xml:lang="ca">Admet connectors</li>
-      <li xml:lang="ca-valencia">Admet connectors</li>
+      <li xml:lang="ca-valencia">Admet conectors</li>
       <li xml:lang="cs">Podpora modulů</li>
       <li xml:lang="da">Understøttelse af plugins</li>
       <li xml:lang="de">Unterstützung für Module</li>

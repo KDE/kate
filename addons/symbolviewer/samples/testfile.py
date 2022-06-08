@@ -26,5 +26,5 @@ class class3(class1, toto=1):
     pass
 
 class class4():
-    def foo1():
+    def foo1_in_class4():
         pass

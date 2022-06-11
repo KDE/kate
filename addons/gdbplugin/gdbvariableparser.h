@@ -4,6 +4,7 @@
 // SPDX-FileCopyrightText: 2010 Kåre Särs <kare.sars@iki.fi>
 //
 //  SPDX-License-Identifier: LGPL-2.0-only
+
 #ifndef GDB_VARIABLE_PARSER_H_
 #define GDB_VARIABLE_PARSER_H_
 

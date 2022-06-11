@@ -1,3 +1,9 @@
+//
+// Description: GDB variable parser (refactored from localsview)
+//
+// SPDX-FileCopyrightText: 2010 Kåre Särs <kare.sars@iki.fi>
+//
+//  SPDX-License-Identifier: LGPL-2.0-only
 
 #include <QRegularExpression>
 #include <QRegularExpressionMatch>

@@ -47,6 +47,10 @@ public:
      */
     virtual bool canSetBreakpoints() const = 0;
     /**
+     * true if execution can continue
+     */
+    virtual bool canContinue() const = 0;
+    /**
      * true if basic movement actions can be used
      */
     virtual bool canMove() const = 0;

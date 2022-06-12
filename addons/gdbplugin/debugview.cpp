@@ -73,6 +73,12 @@ bool DebugView::canMove() const
     return debuggerRunning();
 }
 
+bool DebugView::canContinue() const
+{
+    // true to preserve the behaviour previous to DAP
+    return true;
+}
+
 void DebugView::runDebugger(const GDBTargetConf &conf, const QStringList &ioFifos)
 {
     if (conf.executable.isEmpty()) {

@@ -50,7 +50,8 @@ void DapDebugView::resetState(State state)
 {
     m_requests = 0;
     m_runToCursor = std::nullopt;
-    m_currentThread = std::nullopt;
+    if (state != Running)
+        m_currentThread = std::nullopt;
     m_watchedThread = std::nullopt;
     m_currentFrame = std::nullopt;
     m_commandQueue.clear();
@@ -309,14 +310,26 @@ void DapDebugView::onContinuedEvent(const dap::ContinuedEvent &info)
 
 void DapDebugView::onRunning()
 {
+    setState(State::Running);
     Q_EMIT outputText(printEvent(i18n("(running)")));
+    // if there is not thread, request in case pause is called
+    if (!m_currentThread) {
+        pushRequest();
+        m_client->requestThreads();
+    }
 }
 
 void DapDebugView::onThreads(const QList<dap::Thread> &threads)
 {
-    Q_EMIT threadInfo(dap::Thread(-1), false);
-    for (const auto &thread : threads) {
-        Q_EMIT threadInfo(thread, thread.id == m_currentThread.value_or(-1));
+    if (!m_currentThread) {
+        if (!threads.isEmpty()) {
+            m_currentThread = threads[0].id;
+        }
+    } else {
+        Q_EMIT threadInfo(dap::Thread(-1), false);
+        for (const auto &thread : threads) {
+            Q_EMIT threadInfo(thread, thread.id == m_currentThread.value_or(-1));
+        }
     }
     popRequest();
 }
@@ -773,6 +786,11 @@ bool DapDebugView::canSetBreakpoints() const
 bool DapDebugView::canMove() const
 {
     return isRunningState();
+}
+
+bool DapDebugView::canContinue() const
+{
+    return (m_state == Initializing) || (m_state == Stopped);
 }
 
 bool DapDebugView::debuggerRunning() const
@@ -1432,11 +1450,16 @@ void DapDebugView::setFileSearchPaths(const QStringList & /*paths*/)
 
 void DapDebugView::slotInterrupt()
 {
-    if (isRunningState()) {
-        tryTerminate();
-    } else {
-        tryDisconnect();
+    if (!isRunningState()) {
+        return;
     }
+
+    if (!m_currentThread) {
+        Q_EMIT outputError(newLine(i18n("missing thread id")));
+        return;
+    }
+
+    m_client->requestPause(*m_currentThread);
 }
 
 void DapDebugView::slotStepInto()
@@ -1517,6 +1540,12 @@ void DapDebugView::slotKill()
         Q_EMIT gdbEnded();
         return;
     }
+    // if it is running, interrupt instead of killing
+    if (isRunningState() && !this->canContinue()) {
+        slotInterrupt();
+        return;
+    }
+
     if (!m_shutdown.userAction) {
         if (isRunningState()) {
             shutdownUntil(PostMortem);

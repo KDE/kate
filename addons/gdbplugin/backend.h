@@ -32,6 +32,7 @@ public:
     bool supportsRunToCursor() const override;
     bool canSetBreakpoints() const override;
     bool canMove() const override;
+    bool canContinue() const override;
     void toggleBreakpoint(QUrl const &url, int line) override;
     void movePC(QUrl const &url, int line) override;
     void runToCursor(QUrl const &url, int line) override;

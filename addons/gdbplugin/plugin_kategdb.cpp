@@ -456,7 +456,7 @@ void KatePluginGDBView::enableDebugActions(bool enable)
     actionCollection()->action(QStringLiteral("move_pc"))->setEnabled(enable && m_debugView->supportsMovePC());
     actionCollection()->action(QStringLiteral("run_to_cursor"))->setEnabled(enable && m_debugView->supportsRunToCursor());
     actionCollection()->action(QStringLiteral("popup_gdb"))->setEnabled(enable);
-    actionCollection()->action(QStringLiteral("continue"))->setEnabled(enable);
+    actionCollection()->action(QStringLiteral("continue"))->setEnabled(enable && m_debugView->canContinue());
     actionCollection()->action(QStringLiteral("print_value"))->setEnabled(enable);
 
     // "toggle breakpoint" doubles as interrupt while the program is running

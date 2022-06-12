@@ -133,6 +133,11 @@ bool Backend::canMove() const
     return m_debugger && m_debugger->canMove();
 }
 
+bool Backend::canContinue() const
+{
+    return m_debugger && m_debugger->canContinue();
+}
+
 void Backend::toggleBreakpoint(QUrl const &url, int line)
 {
     if (m_debugger)

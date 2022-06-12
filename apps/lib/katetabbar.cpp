@@ -107,6 +107,22 @@ KateTabBar::KateTabBar(QWidget *parent)
 
     // handle config changes
     connect(KateApp::self(), &KateApp::configurationChanged, this, &KateTabBar::readConfig);
+
+    // redo the style on palette change to avoid issues with cached wrong colors
+    // see bug 454864
+    connect(
+        qApp,
+        &QApplication::paletteChanged,
+        this,
+        [this] {
+            // get old style for deletion and replace it with a new instantiated one
+            auto s = style();
+            auto tabBarStyle = new KateTabStyle(this);
+            setStyle(tabBarStyle);
+            tabBarStyle->setParent(this);
+            delete s;
+        },
+        Qt::QueuedConnection);
 }
 
 void KateTabBar::readConfig()

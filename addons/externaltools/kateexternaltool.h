@@ -130,7 +130,23 @@ public:
     static QString configFileName(QString name)
     {
         // just percent encode the name, see bug 453272
-        return QString::fromUtf8(QUrl::toPercentEncoding(name));
+        // we add a special suffix to not clash with old files, old files were all lowercase
+        return QStringLiteral("PE_") + QString::fromUtf8(QUrl::toPercentEncoding(name));
+    }
+
+    /**
+     * OLD names: we need this to cleanup!
+     * Returns the config file name for this tool, created based on the tool "name", e.g.
+     * "Clang Format Full File" -> clang_format_full_file
+     * this will be the name of the config file in e.g. ~/.config/kate/externaltools/
+     */
+    static QString configFileNameOldStyleOnlyForRemove(QString name)
+    {
+        name.replace(QLatin1Char(' '), QLatin1Char('_'));
+        // '(' and ')' are problematic as file names in the .qrc file
+        name.replace(QLatin1Char('('), QLatin1Char('_'));
+        name.replace(QLatin1Char(')'), QLatin1Char('_'));
+        return name.toLower();
     }
 };
 

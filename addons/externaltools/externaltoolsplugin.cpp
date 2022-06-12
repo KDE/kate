@@ -144,10 +144,15 @@ void KateExternalToolsPlugin::removeTools(const std::vector<KateExternalTool *> 
             continue;
         }
 
-        QString configFile = KateExternalTool::configFileName(tool->name);
-        if (!configFile.isEmpty()) {
+        if (QString configFile = KateExternalTool::configFileName(tool->name); !configFile.isEmpty()) {
             QFile::remove(toolsConfigDir() + configFile);
         }
+
+        // remove old name variant, too
+        if (QString configFile = KateExternalTool::configFileNameOldStyleOnlyForRemove(tool->name); !configFile.isEmpty()) {
+            QFile::remove(toolsConfigDir() + configFile);
+        }
+
         delete tool;
     }
 
@@ -169,6 +174,10 @@ void KateExternalToolsPlugin::save(KateExternalTool *tool, const QString &oldNam
     if (!oldName.isEmpty()) {
         const QString oldFile = toolsConfigDir() + KateExternalTool::configFileName(oldName);
         QFile::remove(oldFile);
+
+        // remove old variant, too
+        const QString oldFile2 = toolsConfigDir() + KateExternalTool::configFileNameOldStyleOnlyForRemove(oldName);
+        QFile::remove(oldFile2);
     }
 }
 

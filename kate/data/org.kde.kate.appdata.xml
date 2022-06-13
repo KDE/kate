@@ -105,7 +105,7 @@
     <p xml:lang="ar">«كيت» هو محرّر نصوص بواسطة كدي يدعم عدّة مستندات وعدّة عروض. يقدّم «كيت» مزايا عديدة كلفّ الأكواد، وإبراز الصّياغة، ولفّ الكلمات الحركيّ، ومعراض مضمّن، وواجهة ملحقات واسعة ودعم بسيط للسّكربتة.</p>
     <p xml:lang="az">Kate, KDE-nin təqdim etdiyi çoxsənədli, bir neçə görünüşlü mətn redaktorudur. Kod bükümü, sintaksislərin vurğulanması, dinamik sətirə keçid, daxili konsol, geniş qoşma interfeysi və bəzi əmrlər faylı dəstəkləmə imkanlarına malikdir.</p>
     <p xml:lang="ca">El Kate és un editor de text multidocument i multivista, creat per la comunitat KDE. Té funcionalitats com el plegat de codi, ressaltat de la sintaxi, ajust dinàmic de les paraules, una consola incrustada, una interfície extensa de connectors i una implementació preliminar per a crear scripts.</p>
-    <p xml:lang="ca-valencia">Kate és un editor de text multidocument i multivista, creat per la comunitat KDE. Té funcionalitats com el plegat de codi, ressaltat de la sintaxi, ajust dinàmic de les paraules, una consola incrustada, una interfície extensa de conectors i una implementació preliminar per a crear scripts.</p>
+    <p xml:lang="ca-valencia">Kate és un editor de text multidocument i multivista, creat per la comunitat KDE. Té funcionalitats com el plegat de codi, ressaltat de la sintaxi, ajust dinàmic de les paraules, una consola incrustada, una interfície extensa de connectors i una implementació preliminar per a crear scripts.</p>
     <p xml:lang="cs">Kate je textový editor od KDE pro práci s více dokumenty najednou. Podporuje vlastnosti jako skládání kódu, zvýraznění syntaxe, dynamické zalamování slov, vloženou konzoli, rozsáhlou podporu modulů a základní podporu pro skriptování.</p>
     <p xml:lang="da">Kate er en multidokument-, multivisnings-teksteditor af KDE. Den har blandt andet kodefoldning, syntaksfremhævning, dynamisk ombrydning af ord, en indlejret konsol, en omfattende plugingrænseflade og foreløbig nogen understøttelse af scripting.</p>
     <p xml:lang="de">Kate ist ein KDE-Editor für mehrere Dokumente und Ansichten. Funktionen wie Quelltextausblendung, Syntaxhervorhebung, dynamischer Zeilenumbruch, eine eingebettete Konsole und eine umfangreiche Schnittstelle für Module sowie vorläufige Unterstützung für Skripte sind enthalten.</p>
@@ -285,7 +285,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ar">دعم أسطر CR، وCRLF وLF الجديدة</li>
       <li xml:lang="az">CR, CRLF, LF yeni sətirə keçmə dəstəyi</li>
       <li xml:lang="ca">Implementació de línia nova CR, CRLF, LF</li>
-      <li xml:lang="ca-valencia">Implementació de llínea nova CR, CRLF, LF</li>
+      <li xml:lang="ca-valencia">Implementació de línia nova CR, CRLF, LF</li>
       <li xml:lang="cs">Podpora odřádkování CR, CRLF i LF</li>
       <li xml:lang="da">Understøttelse af CR-, CRLF-, LF-linjeskift</li>
       <li xml:lang="de">Unterstützung für CR, CRLF, LF am Zeilenende</li>
@@ -595,7 +595,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ar">وضع التحديد الكتليّ</li>
       <li xml:lang="az">Blok seçim rejimi</li>
       <li xml:lang="ca">Mode de selecció per blocs</li>
-      <li xml:lang="ca-valencia">Modo de selecció per blocs</li>
+      <li xml:lang="ca-valencia">Mode de selecció per blocs</li>
       <li xml:lang="cs">Režim blokového výběru</li>
       <li xml:lang="da">Blokmarkeringstilstand</li>
       <li xml:lang="de">Blockauswahlmodus</li>
@@ -775,7 +775,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ar">دعم واسع للموافيق (http، وftp، وssh وwebdav وغيرها) عبر «عبيد KIO»</li>
       <li xml:lang="az">Kioslaves ilə çoxsaylı fayllar protokolu dəstəyi (http, ftp, ssh, webdav və s.)</li>
       <li xml:lang="ca">Implementació àmplia de protocols (http, ftp, ssh, webdav, etc.) usant kioslaves</li>
-      <li xml:lang="ca-valencia">Implementació àmplia de protocols (http, ftp, ssh, webdav, etc.) utilisant kioslaves</li>
+      <li xml:lang="ca-valencia">Implementació àmplia de protocols (http, ftp, ssh, webdav, etc.) utilitzant kioslaves</li>
       <li xml:lang="cs">Široká podpora protokolů pomocí kioslaves (http, ftp, ssh, webdav atd.)</li>
       <li xml:lang="da">Bred understøttelse af protokoller (http, ftp, ssh, webdav osv.) ved brug af kioslaves</li>
       <li xml:lang="de">Unterstützung für viele Protokolle (http, ftp, ssh, webdav usw.) unter Verwendung von Ein-/Ausgabemodulen</li>
@@ -818,7 +818,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ast">Arquiteutura de plugins pa l'aplicación y el componente del editor</li>
       <li xml:lang="az">Tətbiq və redaktor komponentləri üçün qoşma arxitekturası</li>
       <li xml:lang="ca">Arquitectura de connectors per a l'aplicació i el component d'edició</li>
-      <li xml:lang="ca-valencia">Arquitectura de conectors per a l'aplicació i el component d'edició</li>
+      <li xml:lang="ca-valencia">Arquitectura de connectors per a l'aplicació i el component d'edició</li>
       <li xml:lang="cs">Podpora rozšiřujících modulů pro aplikaci editor</li>
       <li xml:lang="da">Plugin-arkitektur til programmet og editorkomponenten</li>
       <li xml:lang="de">Modul-Architektur für das Programm und die Editorkomponente</li>
@@ -862,7 +862,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ast">Atayos personalizables</li>
       <li xml:lang="az">Ayarlanabilən qısayollar</li>
       <li xml:lang="ca">Dreceres personalitzables</li>
-      <li xml:lang="ca-valencia">Dreceres personalisables</li>
+      <li xml:lang="ca-valencia">Dreceres personalitzables</li>
       <li xml:lang="cs">Nastavitelné klávesové zkratky</li>
       <li xml:lang="da">Genveje som kan tilpasses</li>
       <li xml:lang="de">Benutzerdefinierte Kurzbefehle</li>
@@ -907,7 +907,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ast">Llinia de comandos integrada</li>
       <li xml:lang="az">İnteqrasiya olunmuş əmrlər sətri</li>
       <li xml:lang="ca">Línia d'ordres integrada</li>
-      <li xml:lang="ca-valencia">Llínea d'ordres integrada</li>
+      <li xml:lang="ca-valencia">Línia d'ordres integrada</li>
       <li xml:lang="cs">Integrovaný příkazový řádek</li>
       <li xml:lang="da">Ingegreret kommandolinje</li>
       <li xml:lang="de">Integrierte Befehlszeile</li>
@@ -951,7 +951,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ar">يمكن سكربتته عبر جافاسكربت</li>
       <li xml:lang="az">JavaScript istifadə edən senarilər</li>
       <li xml:lang="ca">Es pot crear scripts usant JavaScript</li>
-      <li xml:lang="ca-valencia">Es pot crear scripts utilisant JavaScript</li>
+      <li xml:lang="ca-valencia">Es pot crear scripts utilitzant JavaScript</li>
       <li xml:lang="cs">Podpora skriptování v JavaScriptu</li>
       <li xml:lang="da">Scriptbar ved brug af JavaScript</li>
       <li xml:lang="de">Skriptfähig über JavaScript</li>

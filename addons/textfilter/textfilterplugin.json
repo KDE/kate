@@ -2,7 +2,7 @@
     "KPlugin": {
         "Description": "Process text using terminal commands",
         "Description[az]": "Mətn üzərində terminal əmrləri ilə işləyin",
-        "Description[ca@valencia]": "Processa el text utilisant ordres de terminal",
+        "Description[ca@valencia]": "Processa el text utilitzant ordres de terminal",
         "Description[ca]": "Processa el text usant ordres de terminal",
         "Description[cs]": "Zpracujte text pomocí příkazů v terminálu",
         "Description[de]": "Bearbeitung von Text mit Terminal-Befehlen",

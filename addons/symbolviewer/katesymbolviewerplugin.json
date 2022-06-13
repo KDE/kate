@@ -2,7 +2,7 @@
     "KPlugin": {
         "Description": "Extract and show reference symbols from source",
         "Description[az]": "Mənbə kodundan C/C++ identifikatorlarını çıxarır və göstərir",
-        "Description[ca@valencia]": "Extreu i visualisa símbols de referència des del codi font",
+        "Description[ca@valencia]": "Extreu i visualitza símbols de referència des del codi font",
         "Description[ca]": "Extreu i visualitza símbols de referència des del codi font",
         "Description[cs]": "Rozbalit a ukázat referenční symboly ze zdroje",
         "Description[de]": "Referenzsymbole aus Quelldateien extrahieren und anzeigen",

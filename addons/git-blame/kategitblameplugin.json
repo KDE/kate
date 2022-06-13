@@ -2,7 +2,7 @@
     "KPlugin": {
         "Description": "Adds an inline git-blame preview at the end of the line",
         "Description[az]": "Git blame verilənlərinin daxili görünüşünü sətirin sonuna əlavə edir",
-        "Description[ca@valencia]": "Afig una vista prèvia inclosa de «git-blame» al final de la llínea",
+        "Description[ca@valencia]": "Afig una vista prèvia inclosa de «git-blame» al final de la línia",
         "Description[ca]": "Afegeix una vista prèvia inclosa de «git-blame» al final de la línia",
         "Description[de]": "Zeigt eine Vorschau von „git-blame“ am Zeilenende an",
         "Description[el]": "Προσθέτει μια εμβόλιμη προεπισκόπηση git-blame στο τέλος της γραμμής",

@@ -29,7 +29,7 @@
         "Description[zh_CN]": "在 SQL 数据库中执行查询",
         "Name": "SQL Plugin",
         "Name[az]": "SQL qoşması",
-        "Name[ca@valencia]": "Conector SQL",
+        "Name[ca@valencia]": "Connector SQL",
         "Name[ca]": "Connector SQL",
         "Name[cs]": "Modul SQL",
         "Name[de]": "SQL-Modul",

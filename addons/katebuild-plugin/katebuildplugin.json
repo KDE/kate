@@ -2,7 +2,7 @@
     "KPlugin": {
         "Description": "Compile or Make and parse error messages",
         "Description[az]": "Xəta ismarıclarını toplanması, hazırlanması və analizi",
-        "Description[ca@valencia]": "Compila o construeix amb Make i analitza els missatges d'error",
+        "Description[ca@valencia]": "Compila o construïx amb Make i analitza els missatges d'error",
         "Description[ca]": "Compila o construeix amb Make i analitza els missatges d'error",
         "Description[cs]": "Zkompilovat či sestavit a analyzovat chybová hlášení",
         "Description[de]": "Kompilieren oder Make aufrufen und Fehlermeldungen ausgeben",

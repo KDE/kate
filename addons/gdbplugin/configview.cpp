@@ -16,7 +16,6 @@
 #include <QFileSystemModel>
 #include <QJsonArray>
 #include <QJsonDocument>
-#include <QJsonObject>
 #include <QLayout>
 #include <QPushButton>
 #include <QStandardPaths>

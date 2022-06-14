@@ -10,7 +10,6 @@
 #include "debugview.h"
 #include "debugview_dap.h"
 #include <KMessageBox>
-#include <optional>
 
 Backend::Backend(QObject *parent)
     : DebugViewInterface(parent)

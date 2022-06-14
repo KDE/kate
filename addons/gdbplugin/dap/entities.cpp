@@ -9,11 +9,8 @@
 
 #include <QFile>
 #include <QFileInfo>
-#include <QHash>
 #include <QJsonArray>
 #include <QJsonObject>
-#include <QJsonValue>
-#include <QList>
 
 std::optional<int> parseOptionalInt(const QJsonValue &value)
 {

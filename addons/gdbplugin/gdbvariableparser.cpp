@@ -8,7 +8,6 @@
 #include <QRegularExpression>
 #include <QRegularExpressionMatch>
 
-#include "dap/entities.h"
 #include "gdbvariableparser.h"
 
 GDBVariableParser::GDBVariableParser(QObject *parent)

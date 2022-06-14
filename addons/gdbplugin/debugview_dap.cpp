@@ -7,16 +7,11 @@
 #include <QDir>
 #include <QFileInfo>
 #include <QJsonDocument>
-#include <optional>
 #include <pthread.h>
 #include <qregularexpression.h>
 
-#include "configview.h"
 #include "dap/bus_selector.h"
-#include "dap/entities.h"
-#include "dap/settings.h"
 #include "debugview_dap.h"
-#include "debugview_iface.h"
 #include "json_placeholders.h"
 
 QString newLine(const QString &text)

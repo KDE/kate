@@ -6,14 +6,12 @@
 #include "client.h"
 #include <QJsonArray>
 #include <QJsonDocument>
-#include <QJsonObject>
 #include <limits>
 
 #include "dap/bus_selector.h"
 #include "dap/settings.h"
 #include "dapclient_debug.h"
 
-#include "entities.h"
 #include "messages.h"
 
 namespace dap

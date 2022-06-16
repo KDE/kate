@@ -90,7 +90,7 @@ void KatePluginManager::setupPluginList()
 
         info.defaultLoad = defaultPlugins.contains(info.saveName());
         info.sortOrder = defaultPlugins.value(info.saveName());
-        info.load = false;
+        info.load = info.defaultLoad; // keep this in load, too, to avoid new sessions kill that info on writeConfig
         info.plugin = nullptr;
         m_pluginList.push_back(info);
         unique.insert(info.saveName());

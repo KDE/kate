@@ -344,7 +344,7 @@ void KateConfigDialog::addPluginPages()
 {
     const KatePluginList &pluginList(KateApp::self()->pluginManager()->pluginList());
     for (const KatePluginInfo &plugin : pluginList) {
-        if (plugin.load) {
+        if (plugin.plugin) {
             addPluginPage(plugin.plugin);
         }
     }

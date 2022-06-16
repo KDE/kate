@@ -190,6 +190,8 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
                             nameWithTypes = matchClass.captured(3) + QLatin1String(" [") + matchClass.captured(1).trimmed() + QLatin1Char(']');
                         } else if (!matchClass.captured(4).trimmed().isEmpty()) {
                             nameWithTypes = matchClass.captured(3) + QLatin1String(" [") + matchClass.captured(4).trimmed() + QLatin1Char(']');
+                        } else {
+                            nameWithTypes = matchClass.captured(3);
                         }
                         node->setText(0, nameWithTypes);
                     } else {

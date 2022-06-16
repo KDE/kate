@@ -64,7 +64,7 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
         // defines: https://www.php.net/manual/en/function.define.php
         static const QRegularExpression defineRegExp(QLatin1String("(^|\\W)define\\s*\\(\\s*['\"]([^'\"]+)['\"]"), QRegularExpression::CaseInsensitiveOption);
         // classes: https://www.php.net/manual/en/language.oop5.php
-        static const QRegularExpression classRegExp(QLatin1String("^((abstract\\s+|final\\s+)?)class\\s+([\\w_][\\w\\d_]*)\\s*(implements\\s+[\\w\\d_]*)?"), QRegularExpression::CaseInsensitiveOption);
+        static const QRegularExpression classRegExp(QLatin1String("^((abstract\\s+|final\\s+)?)class\\s+([\\w_][\\w\\d_]*)\\s*(implements\\s+[\\w\\d_]*|extends\\s+[\\w\\d_]*)?"), QRegularExpression::CaseInsensitiveOption);
         // interfaces: https://www.php.net/manual/en/language.oop5.php
         static const QRegularExpression interfaceRegExp(QLatin1String("^interface\\s+([\\w_][\\w\\d_]*)"), QRegularExpression::CaseInsensitiveOption);
         // classes constants: https://www.php.net/manual/en/language.oop5.constants.php

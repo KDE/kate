@@ -183,15 +183,13 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
                 }
                 if (matchClass.hasMatch()) {
                     if (m_typesOn->isChecked()) {
+                        nameWithTypes = matchClass.captured(3);
                         if (!matchClass.captured(1).trimmed().isEmpty() && !matchClass.captured(4).trimmed().isEmpty()) {
-                            nameWithTypes = matchClass.captured(3) + QLatin1String(" [") + matchClass.captured(1).trimmed() + QLatin1Char(',')
-                                + matchClass.captured(4).trimmed() + QLatin1Char(']');
+                            nameWithTypes += QLatin1String(" [") + matchClass.captured(1).trimmed() + QLatin1Char(',') + matchClass.captured(4).trimmed() + QLatin1Char(']');
                         } else if (!matchClass.captured(1).trimmed().isEmpty()) {
-                            nameWithTypes = matchClass.captured(3) + QLatin1String(" [") + matchClass.captured(1).trimmed() + QLatin1Char(']');
+                            nameWithTypes += QLatin1String(" [") + matchClass.captured(1).trimmed() + QLatin1Char(']');
                         } else if (!matchClass.captured(4).trimmed().isEmpty()) {
-                            nameWithTypes = matchClass.captured(3) + QLatin1String(" [") + matchClass.captured(4).trimmed() + QLatin1Char(']');
-                        } else {
-                            nameWithTypes = matchClass.captured(3);
+                            nameWithTypes += QLatin1String(" [") + matchClass.captured(4).trimmed() + QLatin1Char(']');
                         }
                         node->setText(0, nameWithTypes);
                     } else {

@@ -18,7 +18,7 @@
 void KatePluginSymbolViewerView::parsePhpSymbols(void)
 {
     if (m_mainWindow->activeView()) {
-        QString line, lineWithliterals;
+        QString line, lineWithliterals, realLine;
         QPixmap namespacePix(class_int_xpm);
         QPixmap definePix(macro_xpm);
         QPixmap varPix(struct_xpm);
@@ -70,7 +70,7 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
         // classes constants: https://www.php.net/manual/en/language.oop5.constants.php
         static const QRegularExpression constantRegExp(QLatin1String("^const\\s+([\\w_][\\w\\d_]*)"), QRegularExpression::CaseInsensitiveOption);
         // functions: https://www.php.net/manual/en/language.oop5.constants.php
-        static const QRegularExpression functionRegExp(QLatin1String("^((public|protected|private)?(\\s*static)?\\s+)?function\\s+&?\\s*([\\w_][\\w\\d_]*)\\s*(.*)$"), QRegularExpression::CaseInsensitiveOption);
+        static const QRegularExpression functionRegExp(QLatin1String("^(\\s*)((public|protected|private)?(\\s*static)?\\s+)?function\\s+&?\\s*([\\w_][\\w\\d_]*)\\s*(.*)$"), QRegularExpression::CaseInsensitiveOption);
         // variables: https://www.php.net/manual/en/language.oop5.properties.php
         static const QRegularExpression varRegExp(QLatin1String("^((var|public|protected|private)?(\\s*static)?\\s+)?\\$([\\w_][\\w\\d_]*)"), QRegularExpression::CaseInsensitiveOption);
 
@@ -95,7 +95,11 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
         for (i = 0; i < kv->lines(); i++) {
             // kdDebug(13000) << debugBuffer.arg(i, 4).arg("=origin", 10).arg(kv->line(i));
 
-            line = kv->line(i).simplified();
+            // keeping a copy of the line without any processing
+            realLine = kv->line(i);
+
+            line = realLine.simplified();
+
             // kdDebug(13000) << debugBuffer.arg(i, 4).arg("+simplified", 10).arg(line);
 
             // keeping a copy with literals for catching “defines()”
@@ -239,25 +243,28 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
             }
 
             // detect functions
-            match = functionRegExp.match(line);
+            match = functionRegExp.match(realLine);
             if (match.hasMatch()) {
-                if (m_treeOn->isChecked() && inClass) {
-                    node = new QTreeWidgetItem(lastClassNode);
-                } else if (m_treeOn->isChecked()) {
-                    node = new QTreeWidgetItem(lastFunctionNode);
+                if (m_treeOn->isChecked()) {
+                    if (match.captured(1).isEmpty() && match.captured(2).isEmpty()) {
+                        inClass = false;
+                        node = new QTreeWidgetItem(lastFunctionNode);
+                    } else {
+                        node = new QTreeWidgetItem(lastClassNode);
+                    }
                 } else {
                     node = new QTreeWidgetItem(m_symbols);
                 }
 
-                QString functionArgs(match.captured(5));
+                QString functionArgs(match.captured(6));
                 matchFunctionArgs = functionArgsRegExp.match(functionArgs);
                 functionArgsList = matchFunctionArgs.capturedTexts();
 
-                nameWithTypes = match.captured(4) + QLatin1Char('(') + functionArgsList.join(QLatin1String(", ")) + QLatin1Char(')');
+                nameWithTypes = match.captured(5) + QLatin1Char('(') + functionArgsList.join(QLatin1String(", ")) + QLatin1Char(')');
                 if (m_typesOn->isChecked()) {
                     node->setText(0, nameWithTypes);
                 } else {
-                    node->setText(0, match.captured(4));
+                    node->setText(0, match.captured(5));
                 }
 
                 node->setIcon(0, QIcon(functionPix));

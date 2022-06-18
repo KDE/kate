@@ -556,7 +556,7 @@ void KateProjectPlugin::readConfig()
     m_singleClickAction = (ClickAction)config.readEntry("gitStatusSingleClick", (int)ClickAction::ShowDiff);
     m_doubleClickAction = (ClickAction)config.readEntry("gitStatusDoubleClick", (int)ClickAction::StageUnstage);
 
-    m_restoreProjectsForSession = config.readEntry("restoreProjectsForSession", true);
+    m_restoreProjectsForSession = config.readEntry("restoreProjectsForSessions", false);
 
     Q_EMIT configUpdated();
 }
@@ -594,7 +594,7 @@ void KateProjectPlugin::writeConfig()
     config.writeEntry("gitStatusSingleClick", (int)m_singleClickAction);
     config.writeEntry("gitStatusDoubleClick", (int)m_doubleClickAction);
 
-    config.writeEntry("restoreProjectsForSession", m_restoreProjectsForSession);
+    config.writeEntry("restoreProjectsForSessions", m_restoreProjectsForSession);
 
     Q_EMIT configUpdated();
 }

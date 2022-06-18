@@ -62,7 +62,7 @@ KateFileBrowserPluginView::KateFileBrowserPluginView(KTextEditor::Plugin *plugin
     , m_toolView(mainWindow->createToolView(plugin,
                                             QStringLiteral("kate_private_plugin_katefileselectorplugin"),
                                             KTextEditor::MainWindow::Left,
-                                            QIcon::fromTheme(QStringLiteral("document-open")),
+                                            QIcon::fromTheme(QStringLiteral("document-open-folder")),
                                             i18n("Filesystem")))
     , m_fileBrowser(new KateFileBrowser(mainWindow, m_toolView))
     , m_mainWindow(mainWindow)

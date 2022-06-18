@@ -325,6 +325,40 @@ Sidebar::Sidebar(KMultiTabBar::KMultiTabBarPosition pos, MainWindow *mainwin, QW
     , m_lastSize(0)
 {
     hide();
+
+    // handle config changes & apply initial config
+    connect(KateApp::self(), &KateApp::configurationChanged, this, &Sidebar::readConfig);
+    readConfig();
+}
+
+void Sidebar::readConfig()
+{
+    // shall we show text for the left and right bars?
+    KSharedConfig::Ptr config = KSharedConfig::openConfig();
+    KConfigGroup cgGeneral = KConfigGroup(config, "General");
+    const bool showTextForLeftRight = cgGeneral.readEntry("Show text for left and right sidebar", false);
+    if (showTextForLeftRight != m_showTextForLeftRight) {
+        m_showTextForLeftRight = showTextForLeftRight;
+        for (const auto &tabs : m_idToWidget) {
+            updateButtonStyle(tab(tabs.first));
+        }
+    }
+}
+
+void Sidebar::updateButtonStyle(KMultiTabBarTab *button)
+{
+    const auto originalText = button->property("kate_original_text").toString();
+    if (!m_showTextForLeftRight && (position() == KMultiTabBar::Left || position() == KMultiTabBar::Right)) {
+        const int iconSize = style()->pixelMetric(QStyle::PM_LargeIconSize, nullptr, this);
+        button->setIconSize(QSize(iconSize, iconSize));
+        button->setText(QString());
+        button->setToolTip(originalText);
+    } else {
+        const int iconSize = style()->pixelMetric(QStyle::PM_ButtonIconSize, nullptr, this);
+        button->setIconSize(QSize(iconSize, iconSize));
+        button->setText(originalText);
+        button->setToolTip(QString());
+    }
 }
 
 QSize Sidebar::sizeHint() const
@@ -387,6 +421,9 @@ ToolView *Sidebar::addWidget(const QIcon &icon, const QString &text, ToolView *w
     connect(newTab, SIGNAL(clicked(int)), this, SLOT(tabClicked(int)));
     newTab->installEventFilter(this);
 
+    // remember original text, we will need it again if we update the style in updateButtonStyle
+    newTab->setProperty("kate_original_text", text);
+
     if (!widget) {
         widget = new ToolView(m_mainWin, this, m_ownSplit);
         widget->hide();
@@ -409,14 +446,7 @@ ToolView *Sidebar::addWidget(const QIcon &icon, const QString &text, ToolView *w
     // starts with invalid size
     m_widgetToSize.emplace(widget, QSize());
 
-    if (position() == KMultiTabBar::Left || position() == KMultiTabBar::Right) {
-        const int iconSize = style()->pixelMetric(QStyle::PM_LargeIconSize, nullptr, this);
-        newTab->setIconSize(QSize(iconSize, iconSize));
-        newTab->setText(QString());
-    } else {
-        newTab->setToolTip(QString());
-    }
-
+    updateButtonStyle(newTab);
     show();
     return widget;
 }

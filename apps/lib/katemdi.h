@@ -246,6 +246,10 @@ public Q_SLOTS:
     void setVisible(bool visible) override;
 private Q_SLOTS:
     void tabClicked(int);
+    void readConfig();
+
+private:
+    void updateButtonStyle(KMultiTabBarTab *button);
 
 protected:
     bool eventFilter(QObject *obj, QEvent *ev) override;
@@ -278,6 +282,8 @@ private:
 
     QLabel *m_resizePlaceholder;
     bool m_isPreviouslyCollapsed = false;
+
+    bool m_showTextForLeftRight = false;
 
 Q_SIGNALS:
     void sigShowPluginConfigPage(KTextEditor::Plugin *configpageinterface, int id);

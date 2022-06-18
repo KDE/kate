@@ -140,6 +140,15 @@ void KateConfigDialog::addBehaviorPage()
 
     vbox->addWidget(m_modNotifications);
 
+    // show text for the left and right side bars?
+    // only useful for Kate
+    if (KateApp::isKate()) {
+        m_showTextForLeftRightSidebars = new QCheckBox(i18n("Show text for left and right side bar buttons"), buttonGroup);
+        m_showTextForLeftRightSidebars->setChecked(cgGeneral.readEntry("Show text for left and right sidebar", false));
+        connect(m_showTextForLeftRightSidebars, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
+        vbox->addWidget(m_showTextForLeftRightSidebars);
+    }
+
     buttonGroup->setLayout(vbox);
 
     // tabbar => we allow to configure some limit on number of tabs to show
@@ -406,7 +415,12 @@ void KateConfigDialog::slotApply()
 
     // if data changed apply the kate app stuff
     if (m_dataChanged) {
-        KConfigGroup cg = KConfigGroup(config, "General");
+        KConfigGroup cg(config, "General");
+
+        // only there for kate
+        if (m_showTextForLeftRightSidebars) {
+            cg.writeEntry("Show text for left and right sidebar", m_showTextForLeftRightSidebars->isChecked());
+        }
 
         cg.writeEntry("Restore Window Configuration", sessionConfigUi.restoreVC->isChecked());
 

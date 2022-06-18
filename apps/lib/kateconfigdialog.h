@@ -89,6 +89,7 @@ private:
     QComboBox *m_mouseBackActions = nullptr;
     QComboBox *m_mouseForwardActions = nullptr;
     QCheckBox *m_modNotifications;
+    QCheckBox *m_showTextForLeftRightSidebars = nullptr;
     QComboBox *m_cmbQuickOpenListMode;
     QSpinBox *m_tabLimit;
     QCheckBox *m_autoHideTabs;

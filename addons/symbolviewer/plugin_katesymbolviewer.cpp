@@ -46,7 +46,9 @@
 #include <KSharedConfig>
 #include <KToggleAction>
 #include <KXMLGUIFactory>
+#include <KLineEdit>
 #include <QAction>
+#include <QLineEdit>
 
 #include <ktexteditor/configinterface.h>
 #include <ktexteditor/cursor.h>
@@ -115,7 +117,7 @@ KatePluginSymbolViewerView::KatePluginSymbolViewerView(KatePluginSymbolViewer *p
     m_toolview = m_mainWindow->createToolView(plugin, QStringLiteral("kate_plugin_symbolviewer"), KTextEditor::MainWindow::Left, cls, i18n("Symbol List"));
 
     QWidget *container = new QWidget(m_toolview);
-    QHBoxLayout *layout = new QHBoxLayout(container);
+    QVBoxLayout *layout = new QVBoxLayout(container);
 
     m_symbols = new QTreeWidget();
     m_symbols->setFocusPolicy(Qt::NoFocus);
@@ -127,6 +129,14 @@ KatePluginSymbolViewerView::KatePluginSymbolViewerView(KatePluginSymbolViewer *p
     connect(m_symbols, &QTreeWidget::customContextMenuRequested, this, &KatePluginSymbolViewerView::slotShowContextMenu);
     connect(m_symbols, &QTreeWidget::itemExpanded, this, &KatePluginSymbolViewerView::updateCurrTreeItem);
     connect(m_symbols, &QTreeWidget::itemCollapsed, this, &KatePluginSymbolViewerView::updateCurrTreeItem);
+
+    m_filter = new KLineEdit(container);
+    m_filter->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed));
+    m_filter->setPlaceholderText(i18n("Filter..."));
+    m_filter->setClearButtonEnabled(true);
+    layout->addWidget(m_filter);
+
+    connect(m_filter, &KLineEdit::textChanged, this, &KatePluginSymbolViewerView::slotFilterChange);
 
     connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, &KatePluginSymbolViewerView::slotDocChanged);
 
@@ -375,6 +385,31 @@ void KatePluginSymbolViewerView::goToSymbol(QTreeWidgetItem *it)
     }
 
     kv->setCursorPosition(KTextEditor::Cursor(it->text(1).toInt(nullptr, 10), 0));
+}
+
+void KatePluginSymbolViewerView::slotFilterChange(const QString &text)
+{
+    QString filter = text.trimmed();
+    for (int i = 0; i < m_symbols->invisibleRootItem()->childCount(); ++i) {
+        QTreeWidgetItem * group_item = m_symbols->invisibleRootItem()->child(i);
+        for (int j = 0; j < group_item->childCount(); ++j) {
+            filterSymbols(group_item->child(j), filter);
+        }
+    }
+}
+
+bool KatePluginSymbolViewerView::filterSymbols(QTreeWidgetItem * item, const QString & filter)
+{
+    bool at_least_one_child_shown = false;
+    for (int i = 0; i < item->childCount(); ++i) {
+        if (filterSymbols(item->child(i), filter)) {
+            at_least_one_child_shown = true;
+        }
+    }
+    bool is_item_match = item->text(0).contains(filter, Qt::CaseInsensitive);
+    bool is_item_shown = at_least_one_child_shown || filter.isEmpty() || is_item_match;
+    item->setHidden(!is_item_shown);
+    return is_item_shown;
 }
 
 KatePluginSymbolViewer::KatePluginSymbolViewer(QObject *parent, const QList<QVariant> &)

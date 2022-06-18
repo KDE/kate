@@ -41,6 +41,8 @@ enum class Symbol {
     Method
 };
 
+class KLineEdit;
+
 /**
  * Plugin's config page
  */
@@ -112,6 +114,7 @@ public Q_SLOTS:
     QTreeWidgetItem *newActveItem(int &currMinLine, int currLine, QTreeWidgetItem *item);
     void updateCurrTreeItem();
     void slotDocEdited();
+    void slotFilterChange(const QString &);
 
 protected:
     bool eventFilter(QObject *obj, QEvent *ev) override;
@@ -119,6 +122,7 @@ protected:
 private:
     KTextEditor::MainWindow *m_mainWindow;
     KatePluginSymbolViewer *m_plugin;
+    KLineEdit *m_filter;
     QMenu *m_popup;
     QWidget *m_toolview;
     QTreeWidget *m_symbols;
@@ -135,6 +139,8 @@ private:
     int m_oldCursorLine = 0;
 
     void updatePixmapScroll();
+
+    bool filterSymbols(QTreeWidgetItem *, const QString &);
 
     void parseCppSymbols(void);
     void parseTclSymbols(void);

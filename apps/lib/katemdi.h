@@ -191,7 +191,6 @@ public:
 
     void setSplitter(QSplitter *sp);
 
-    QSize minimumSizeHint() const override;
     QSize sizeHint() const override;
 
     /**

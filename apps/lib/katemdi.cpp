@@ -379,7 +379,6 @@ void Sidebar::updateLastSizeOnResize()
 
 ToolView *Sidebar::addWidget(const QIcon &icon, const QString &text, ToolView *widget)
 {
-    static int id = 0;
 
     if (widget) {
         if (widget->sidebar() == this) {
@@ -389,9 +388,13 @@ ToolView *Sidebar::addWidget(const QIcon &icon, const QString &text, ToolView *w
         widget->sidebar()->removeWidget(widget);
     }
 
+    static int id = 0;
     int newId = ++id;
-
     appendTab(icon, newId, text);
+    auto newTab = tab(newId);
+    Q_ASSERT(newTab);
+    connect(newTab, SIGNAL(clicked(int)), this, SLOT(tabClicked(int)));
+    newTab->installEventFilter(this);
 
     if (!widget) {
         widget = new ToolView(m_mainWin, this, m_ownSplit);
@@ -415,12 +418,15 @@ ToolView *Sidebar::addWidget(const QIcon &icon, const QString &text, ToolView *w
     // starts with invalid size
     m_widgetToSize.emplace(widget, QSize());
 
+    if (position() == KMultiTabBar::Left || position() == KMultiTabBar::Right) {
+        const int iconSize = style()->pixelMetric(QStyle::PM_LargeIconSize, nullptr, this);
+        newTab->setIconSize(QSize(iconSize, iconSize));
+        newTab->setText(QString());
+    } else {
+        newTab->setToolTip(QString());
+    }
+
     show();
-
-    connect(tab(newId), SIGNAL(clicked(int)), this, SLOT(tabClicked(int)));
-    tab(newId)->installEventFilter(this);
-    tab(newId)->setToolTip(QString());
-
     return widget;
 }
 

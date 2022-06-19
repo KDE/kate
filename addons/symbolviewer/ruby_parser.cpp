@@ -23,8 +23,6 @@ void KatePluginSymbolViewerView::parseRubySymbols(void)
     m_func->setText(i18n("Show Classes"));
 
     QString cl; // Current Line
-    QPixmap cls(class_xpm);
-    QPixmap mtd(method_xpm);
 
     int i;
     QString name;
@@ -39,7 +37,7 @@ void KatePluginSymbolViewerView::parseRubySymbols(void)
     if (m_treeOn->isChecked()) {
         clsNode = new QTreeWidgetItem(m_symbols);
         clsNode->setText(0, i18n("Classes"));
-        clsNode->setIcon(0, QIcon(cls));
+        clsNode->setIcon(0, m_icon_class);
         if (m_expandOn->isChecked()) {
             m_symbols->expandItem(clsNode);
         }
@@ -69,7 +67,7 @@ void KatePluginSymbolViewerView::parseRubySymbols(void)
                     node = new QTreeWidgetItem(m_symbols);
                 }
                 node->setText(0, cl.mid(6));
-                node->setIcon(0, QIcon(cls));
+                node->setIcon(0, m_icon_class);
                 node->setText(1, QString::number(i, 10));
             }
         }
@@ -88,7 +86,7 @@ void KatePluginSymbolViewerView::parseRubySymbols(void)
                     name = name.left(name.indexOf(QLatin1Char('(')));
                 }
                 node->setText(0, name);
-                node->setIcon(0, QIcon(mtd));
+                node->setIcon(0, m_icon_function);
                 node->setText(1, QString::number(i, 10));
             }
         }

@@ -134,6 +134,13 @@ private:
     QAction *m_typesOn;
     QAction *m_expandOn;
 
+    const QIcon m_icon_block = QIcon::fromTheme(QStringLiteral("code-block"));
+    const QIcon m_icon_class = QIcon::fromTheme(QStringLiteral("code-class"));
+    const QIcon m_icon_context = QIcon::fromTheme(QStringLiteral("code-context"));
+    const QIcon m_icon_function = QIcon::fromTheme(QStringLiteral("code-function"));
+    const QIcon m_icon_typedef = QIcon::fromTheme(QStringLiteral("code-typedef"));
+    const QIcon m_icon_variable = QIcon::fromTheme(QStringLiteral("code-variable"));
+
     QTimer m_updateTimer;
     QTimer m_currItemTimer;
     int m_oldCursorLine = 0;
@@ -178,8 +185,5 @@ public Q_SLOTS:
 private:
     QSet<KatePluginSymbolViewerView *> m_views;
 };
-
-// icons
-#include "icons.xpm"
 
 #endif

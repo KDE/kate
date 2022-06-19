@@ -513,7 +513,7 @@ QString KatePluginSymbolViewerConfigPage::fullName() const
 }
 QIcon KatePluginSymbolViewerConfigPage::icon() const
 {
-    return QPixmap(class_xpm);
+    return QIcon::fromTheme(QLatin1String("code-class"));
 }
 
 void KatePluginSymbolViewerConfigPage::apply()

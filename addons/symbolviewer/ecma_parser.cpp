@@ -38,8 +38,6 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
     // a list of inserted nodes with the index being the brace depth at insertion
     QList<QTreeWidgetItem *> nodes;
 
-    QPixmap cls(class_xpm);
-    QPixmap mtd(method_xpm);
     QTreeWidgetItem *node = nullptr;
 
     if (m_treeOn->isChecked()) {
@@ -139,7 +137,7 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
                 }
                 // add an entry for the class
                 node->setText(0, identifier);
-                node->setIcon(0, QIcon(cls));
+                node->setIcon(0, m_icon_class);
                 node->setText(1, QString::number(line, 10));
                 if (m_expandOn->isChecked()) {
                     m_symbols->expandItem(node);
@@ -219,13 +217,13 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
                     }
                     // mark the parent as a class (if it's not the root level)
                     if (parent != nullptr) {
-                        parent->setIcon(0, QIcon(cls));
+                        parent->setIcon(0, m_icon_class);
                         // mark this function as a method of the parent
-                        node->setIcon(0, QIcon(mtd));
+                        node->setIcon(0, m_icon_function);
                     }
                     // mark root-level functions as classes
                     else {
-                        node->setIcon(0, QIcon(cls));
+                        node->setIcon(0, m_icon_class);
                     }
                     // add the function
                     node->setText(0, identifier);
@@ -267,7 +265,7 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
                     }
 
                     // mark the node as a class
-                    node->setIcon(0, QIcon(cls));
+                    node->setIcon(0, m_icon_class);
 
                     // add the id
                     node->setText(0, identifier);

@@ -29,11 +29,6 @@ void KatePluginSymbolViewerView::parseXsltSymbols(void)
     char templ = 0;
     int i;
 
-    QPixmap cls(class_xpm);
-    QPixmap sct(struct_xpm);
-    QPixmap mcr(macro_xpm);
-    QPixmap cls_int(class_int_xpm);
-
     QTreeWidgetItem *node = nullptr;
     QTreeWidgetItem *mcrNode = nullptr, *sctNode = nullptr, *clsNode = nullptr;
     QTreeWidgetItem *lastMcrNode = nullptr, *lastSctNode = nullptr, *lastClsNode = nullptr;
@@ -45,9 +40,9 @@ void KatePluginSymbolViewerView::parseXsltSymbols(void)
         mcrNode = new QTreeWidgetItem(m_symbols, QStringList(i18n("Params")));
         sctNode = new QTreeWidgetItem(m_symbols, QStringList(i18n("Variables")));
         clsNode = new QTreeWidgetItem(m_symbols, QStringList(i18n("Templates")));
-        mcrNode->setIcon(0, QIcon(mcr));
-        sctNode->setIcon(0, QIcon(sct));
-        clsNode->setIcon(0, QIcon(cls));
+        mcrNode->setIcon(0, m_icon_typedef);
+        sctNode->setIcon(0, m_icon_variable);
+        clsNode->setIcon(0, m_icon_class);
 
         if (m_expandOn->isChecked()) {
             m_symbols->expandItem(mcrNode);
@@ -99,7 +94,7 @@ void KatePluginSymbolViewerView::parseXsltSymbols(void)
                 node = new QTreeWidgetItem(m_symbols);
             }
             node->setText(0, stripped);
-            node->setIcon(0, QIcon(mcr));
+            node->setIcon(0, m_icon_typedef);
             node->setText(1, QString::number(i, 10));
         }
 
@@ -114,7 +109,7 @@ void KatePluginSymbolViewerView::parseXsltSymbols(void)
                 node = new QTreeWidgetItem(m_symbols);
             }
             node->setText(0, stripped);
-            node->setIcon(0, QIcon(sct));
+            node->setIcon(0, m_icon_variable);
             node->setText(1, QString::number(i, 10));
         }
 
@@ -129,7 +124,7 @@ void KatePluginSymbolViewerView::parseXsltSymbols(void)
                 node = new QTreeWidgetItem(m_symbols);
             }
             node->setText(0, stripped);
-            node->setIcon(0, QIcon(cls_int));
+            node->setIcon(0, m_icon_context);
             node->setText(1, QString::number(i, 10));
         }
 
@@ -144,7 +139,7 @@ void KatePluginSymbolViewerView::parseXsltSymbols(void)
                 node = new QTreeWidgetItem(m_symbols);
             }
             node->setText(0, stripped);
-            node->setIcon(0, QIcon(cls));
+            node->setIcon(0, m_icon_class);
             node->setText(1, QString::number(i, 10));
         }
 

@@ -33,10 +33,6 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
     QTreeWidgetItem *subrNode = nullptr, *funcNode = nullptr, *modNode = nullptr;
     QTreeWidgetItem *lastSubrNode = nullptr, *lastFuncNode = nullptr, *lastModNode = nullptr;
 
-    QPixmap func(class_xpm);
-    QPixmap subr(macro_xpm);
-    QPixmap mod(struct_xpm);
-
     // It is necessary to change names
     m_macro->setText(i18n("Show Subroutines"));
     m_struct->setText(i18n("Show Modules"));
@@ -46,9 +42,9 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
         funcNode = new QTreeWidgetItem(m_symbols, QStringList(i18n("Functions")));
         subrNode = new QTreeWidgetItem(m_symbols, QStringList(i18n("Subroutines")));
         modNode = new QTreeWidgetItem(m_symbols, QStringList(i18n("Modules")));
-        funcNode->setIcon(0, QIcon(func));
-        modNode->setIcon(0, QIcon(mod));
-        subrNode->setIcon(0, QIcon(subr));
+        funcNode->setIcon(0, m_icon_function);
+        modNode->setIcon(0, m_icon_block);
+        subrNode->setIcon(0, m_icon_context);
 
         if (m_expandOn->isChecked()) {
             m_symbols->expandItem(funcNode);
@@ -144,7 +140,7 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
                                 node = new QTreeWidgetItem(m_symbols);
                             }
                             node->setText(0, stripped);
-                            node->setIcon(0, QIcon(subr));
+                            node->setIcon(0, m_icon_context);
                             node->setText(1, QString::number(i, 10));
                         }
                         stripped.clear();
@@ -178,7 +174,7 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
                             node = new QTreeWidgetItem(m_symbols);
                         }
                         node->setText(0, stripped);
-                        node->setIcon(0, QIcon(mod));
+                        node->setIcon(0, m_icon_context);
                         node->setText(1, QString::number(i, 10));
                     }
                     stripped.clear();
@@ -214,7 +210,7 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
                             node = new QTreeWidgetItem(m_symbols);
                         }
                         node->setText(0, stripped);
-                        node->setIcon(0, QIcon(func));
+                        node->setIcon(0, m_icon_function);
                         node->setText(1, QString::number(i, 10));
                         stripped.clear();
                         block = 0;

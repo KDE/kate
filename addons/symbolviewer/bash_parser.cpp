@@ -26,14 +26,12 @@ void KatePluginSymbolViewerView::parseBashSymbols(void)
     QTreeWidgetItem *funcNode = nullptr;
     QTreeWidgetItem *lastFuncNode = nullptr;
 
-    QPixmap func(class_xpm);
-
     // It is necessary to change names
     m_func->setText(i18n("Show Functions"));
 
     if (m_treeOn->isChecked()) {
         funcNode = new QTreeWidgetItem(m_symbols, QStringList(i18n("Functions")));
-        funcNode->setIcon(0, QIcon(func));
+        funcNode->setIcon(0, m_icon_function);
 
         if (m_expandOn->isChecked()) {
             m_symbols->expandItem(funcNode);
@@ -89,7 +87,7 @@ void KatePluginSymbolViewerView::parseBashSymbols(void)
             }
 
             node->setText(0, funcName);
-            node->setIcon(0, QIcon(func));
+            node->setIcon(0, m_icon_function);
             node->setText(1, QString::number(i, 10));
         }
     } // for i loop

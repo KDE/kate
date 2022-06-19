@@ -23,9 +23,6 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
     m_func->setText(i18n("Show Classes"));
 
     QString cl; // Current Line
-    QPixmap cls(class_xpm);
-    QPixmap mtd(method_xpm);
-    QPixmap mcr(macro_xpm);
 
     Symbol type;
     QString name;
@@ -42,8 +39,8 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
     if (m_treeOn->isChecked()) {
         clsNode = new QTreeWidgetItem(m_symbols, QStringList(i18n("Classes")));
         mcrNode = new QTreeWidgetItem(m_symbols, QStringList(i18n("Globals")));
-        mcrNode->setIcon(0, QIcon(mcr));
-        clsNode->setIcon(0, QIcon(cls));
+        mcrNode->setIcon(0, m_icon_function);
+        clsNode->setIcon(0, m_icon_class);
 
         if (m_expandOn->isChecked()) {
             m_symbols->expandItem(mcrNode);
@@ -122,7 +119,7 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
                 }
 
                 node->setText(0, name);
-                node->setIcon(0, QIcon(cls));
+                node->setIcon(0, m_icon_class);
                 node->setText(1, QString::number(line, 10));
             }
 
@@ -135,7 +132,7 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
                 }
 
                 node->setText(0, name);
-                node->setIcon(0, QIcon(mtd));
+                node->setIcon(0, m_icon_function);
                 node->setText(1, QString::number(line, 10));
             }
 
@@ -148,7 +145,7 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
                 }
 
                 node->setText(0, name);
-                node->setIcon(0, QIcon(mcr));
+                node->setIcon(0, m_icon_function);
                 node->setText(1, QString::number(line, 10));
             }
 

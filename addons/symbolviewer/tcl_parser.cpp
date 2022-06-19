@@ -32,14 +32,11 @@ void KatePluginSymbolViewerView::parseTclSymbols(void)
     QTreeWidgetItem *mcrNode = nullptr, *clsNode = nullptr;
     QTreeWidgetItem *lastMcrNode = nullptr, *lastClsNode = nullptr;
 
-    QPixmap mcr(macro_xpm);
-    QPixmap cls(class_xpm);
-
     if (m_treeOn->isChecked()) {
         clsNode = new QTreeWidgetItem(m_symbols, QStringList(i18n("Functions")));
         mcrNode = new QTreeWidgetItem(m_symbols, QStringList(i18n("Globals")));
-        clsNode->setIcon(0, QIcon(cls));
-        mcrNode->setIcon(0, QIcon(mcr));
+        clsNode->setIcon(0, m_icon_function);
+        mcrNode->setIcon(0, m_icon_variable);
 
         lastMcrNode = mcrNode;
         lastClsNode = clsNode;
@@ -97,7 +94,7 @@ void KatePluginSymbolViewerView::parseTclSymbols(void)
                         node = new QTreeWidgetItem(m_symbols);
                     }
                     node->setText(0, stripped);
-                    node->setIcon(0, QIcon(mcr));
+                    node->setIcon(0, m_icon_function);
                     node->setText(1, QString::number(i, 10));
                     stripped.clear();
                 } // macro
@@ -139,7 +136,7 @@ void KatePluginSymbolViewerView::parseTclSymbols(void)
                                         node = new QTreeWidgetItem(m_symbols);
                                     }
                                     node->setText(0, stripped);
-                                    node->setIcon(0, QIcon(cls));
+                                    node->setIcon(0, m_icon_variable);
                                     node->setText(1, QString::number(i, 10));
                                 }
                                 stripped.clear();

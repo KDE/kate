@@ -29,9 +29,6 @@ void KatePluginSymbolViewerView::parseXMLSymbols(void)
     char comment = 0;
     int i;
 
-    QPixmap cls(class_xpm);
-    QPixmap sct(struct_xpm);
-
     QTreeWidgetItem *node = nullptr;
     QTreeWidgetItem *topNode = nullptr;
 
@@ -74,7 +71,7 @@ void KatePluginSymbolViewerView::parseXMLSymbols(void)
                 QList<QTreeWidgetItem *> reslist = m_symbols->findItems(type, Qt::MatchExactly);
                 if (reslist.isEmpty()) {
                     topNode = new QTreeWidgetItem(m_symbols, QStringList(type));
-                    topNode->setIcon(0, QIcon(cls));
+                    topNode->setIcon(0, m_icon_class);
                     if (m_expandOn->isChecked()) {
                         m_symbols->expandItem(topNode);
                     }
@@ -86,7 +83,7 @@ void KatePluginSymbolViewerView::parseXMLSymbols(void)
             } else {
                 node = new QTreeWidgetItem(m_symbols);
             }
-            node->setIcon(0, QIcon(sct));
+            node->setIcon(0, m_icon_variable);
             node->setText(0, stripped);
             node->setText(1, QString::number(i, 10));
         }

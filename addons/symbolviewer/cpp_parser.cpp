@@ -25,10 +25,6 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
     char mclass = 0, block = 0, comment = 0; // comment: 0-no comment 1-inline comment 2-multiline comment 3-string
     char macro = 0 /*, macro_pos = 0*/, func_close = 0;
     bool structure = false;
-    QPixmap cls(class_xpm);
-    QPixmap sct(struct_xpm);
-    QPixmap mcr(macro_xpm);
-    QPixmap mtd(method_xpm);
 
     // It is necessary to change names to defaults
     m_macro->setText(i18n("Show Macros"));
@@ -46,9 +42,9 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
         mcrNode = new QTreeWidgetItem(m_symbols, QStringList(i18n("Macros")));
         sctNode = new QTreeWidgetItem(m_symbols, QStringList(i18n("Structures")));
         clsNode = new QTreeWidgetItem(m_symbols, QStringList(i18n("Functions")));
-        mcrNode->setIcon(0, QIcon(mcr));
-        sctNode->setIcon(0, QIcon(sct));
-        clsNode->setIcon(0, QIcon(cls));
+        mcrNode->setIcon(0, m_icon_context);
+        sctNode->setIcon(0, m_icon_typedef);
+        clsNode->setIcon(0, m_icon_class);
         if (m_expandOn->isChecked()) {
             m_symbols->expandItem(mcrNode);
             m_symbols->expandItem(sctNode);
@@ -125,7 +121,7 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
                             node = new QTreeWidgetItem(m_symbols);
                         }
                         node->setText(0, stripped);
-                        node->setIcon(0, QIcon(mcr));
+                        node->setIcon(0, m_icon_context);
                         node->setText(1, QString::number(i, 10));
                     }
                     macro = 0;
@@ -173,7 +169,7 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
                         node = new QTreeWidgetItem(m_symbols);
                     }
                     node->setText(0, stripped);
-                    node->setIcon(0, QIcon(cls));
+                    node->setIcon(0, m_icon_class);
                     node->setText(1, QString::number(i, 10));
                     stripped.clear();
                     if (mclass == 1) {
@@ -314,9 +310,9 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
                                     }
                                     node->setText(0, stripped);
                                     if (mclass == 4) {
-                                        node->setIcon(0, QIcon(mtd));
+                                        node->setIcon(0, m_icon_function);
                                     } else {
-                                        node->setIcon(0, QIcon(cls));
+                                        node->setIcon(0, m_icon_class);
                                     }
                                     node->setText(1, QString::number(tmpPos, 10));
                                     node->setToolTip(0, strippedWithTypes);
@@ -375,7 +371,7 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
                                         node = new QTreeWidgetItem(m_symbols);
                                     }
                                     node->setText(0, stripped);
-                                    node->setIcon(0, QIcon(sct));
+                                    node->setIcon(0, m_icon_typedef);
                                     node->setText(1, QString::number(tmpPos, 10));
                                 }
                                 // qDebug(13000)<<"Structure -- Inserted : "<<stripped<<" at row : "<<i;

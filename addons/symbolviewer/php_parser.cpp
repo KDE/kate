@@ -19,12 +19,7 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
 {
     if (m_mainWindow->activeView()) {
         QString line, lineWithliterals, realLine;
-        QPixmap namespacePix(class_int_xpm);
-        QPixmap definePix(macro_xpm);
-        QPixmap varPix(struct_xpm);
-        QPixmap classPix(class_xpm);
-        QPixmap constPix(macro_xpm);
-        QPixmap functionPix(method_xpm);
+
         QTreeWidgetItem *node = nullptr;
         QTreeWidgetItem *namespaceNode = nullptr, *defineNode = nullptr, *classNode = nullptr, *functionNode = nullptr;
         QTreeWidgetItem *lastNamespaceNode = nullptr, *lastDefineNode = nullptr, *lastClassNode = nullptr, *lastFunctionNode = nullptr;
@@ -37,10 +32,10 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
             classNode = new QTreeWidgetItem(m_symbols, QStringList(i18n("Classes")));
             functionNode = new QTreeWidgetItem(m_symbols, QStringList(i18n("Functions")));
 
-            namespaceNode->setIcon(0, QIcon(namespacePix));
-            defineNode->setIcon(0, QIcon(definePix));
-            classNode->setIcon(0, QIcon(classPix));
-            functionNode->setIcon(0, QIcon(functionPix));
+            namespaceNode->setIcon(0, m_icon_context);
+            defineNode->setIcon(0, m_icon_typedef);
+            classNode->setIcon(0, m_icon_class);
+            functionNode->setIcon(0, m_icon_function);
 
             if (m_expandOn->isChecked()) {
                 m_symbols->expandItem(namespaceNode);
@@ -154,7 +149,7 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
                     node = new QTreeWidgetItem(m_symbols);
                 }
                 node->setText(0, match.captured(1));
-                node->setIcon(0, QIcon(namespacePix));
+                node->setIcon(0, m_icon_context);
                 node->setText(1, QString::number(i, 10));
             }
 
@@ -168,7 +163,7 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
                     node = new QTreeWidgetItem(m_symbols);
                 }
                 node->setText(0, match.captured(2));
-                node->setIcon(0, QIcon(definePix));
+                node->setIcon(0, m_icon_typedef);
                 node->setText(1, QString::number(i, 10));
             }
 
@@ -207,7 +202,7 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
                         node->setText(0, matchInterface.captured(1));
                     }
                 }
-                node->setIcon(0, QIcon(classPix));
+                node->setIcon(0, m_icon_class);
                 node->setText(1, QString::number(i, 10));
                 node->setToolTip(0, nameWithTypes);
                 inClass = true;
@@ -223,7 +218,7 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
                     node = new QTreeWidgetItem(m_symbols);
                 }
                 node->setText(0, match.captured(1));
-                node->setIcon(0, QIcon(constPix));
+                node->setIcon(0, m_icon_typedef);
                 node->setText(1, QString::number(i, 10));
             }
 
@@ -237,7 +232,7 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
                         node = new QTreeWidgetItem(m_symbols);
                     }
                     node->setText(0, match.captured(4));
-                    node->setIcon(0, QIcon(varPix));
+                    node->setIcon(0, m_icon_variable);
                     node->setText(1, QString::number(i, 10));
                 }
             }
@@ -267,7 +262,7 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
                     node->setText(0, match.captured(5));
                 }
 
-                node->setIcon(0, QIcon(functionPix));
+                node->setIcon(0, m_icon_function);
                 node->setText(1, QString::number(i, 10));
                 node->setToolTip(0, nameWithTypes);
 

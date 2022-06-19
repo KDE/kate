@@ -53,7 +53,7 @@ K_PLUGIN_FACTORY_WITH_JSON(LSPClientPluginFactory, "lspclientplugin.json", regis
  * ensure we don't spam the user with debug output per-default
  */
 static const bool debug = (qgetenv("LSPCLIENT_DEBUG") == QByteArray("1"));
-static QLoggingCategory::CategoryFilter oldCategoryFilter;
+static QLoggingCategory::CategoryFilter oldCategoryFilter = nullptr;
 void myCategoryFilter(QLoggingCategory *category)
 {
     // deactivate info and debug if not debug mode

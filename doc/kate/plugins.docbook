@@ -3434,7 +3434,12 @@ the <ulink url="help:/katepart/dev-scripting.html#dev-scripting-api">&kate; scri
 to get the selected text, full text, file name and
 more by using the appropriate methods of the <userinput>document</userinput>
 and <userinput>view</userinput> objects. Refer to the scripting API
-documentation for more information</para>
+documentation for more information.</para>
+<para>For more complex scripts it may be important to understand that
+<emphasis>first</emphasis>, the raw snippet is inserted into the document, and <emphasis>then</emphasis>
+functions are being evaluated. E.g., if a function retrieves the text on the
+line where the snippet is being inserted, that text will also contain
+<userinput>${functionCall()}</userinput>.</para>
 </listitem>
 </varlistentry>
 

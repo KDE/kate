@@ -30,6 +30,7 @@
 #include <KSharedConfig>
 #include <KToolBar>
 #include <KUrlNavigator>
+#include <kio_version.h>
 
 #include <QAbstractItemView>
 #include <QAction>
@@ -79,9 +80,12 @@ KateFileBrowser::KateFileBrowser(KTextEditor::MainWindow *mainWindow, QWidget *p
 
     // Mime filter for the KDirOperator
     QStringList filter;
-
-    filter << QStringLiteral("text/plain") << QStringLiteral("text/html") << QStringLiteral("inode/directory") << QStringLiteral("application/x-zerosize");
-
+    filter << QStringLiteral("text/html") << QStringLiteral("inode/directory");
+#if KIO_VERSION < QT_VERSION_CHECK(5, 96, 0)
+    filter << QStringLiteral("text/plain");
+#else
+    filter << QStringLiteral("application/x-zerosize");
+#endif
     m_dirOperator->setNewFileMenuSupportedMimeTypes(filter);
 
     setFocusProxy(m_dirOperator);

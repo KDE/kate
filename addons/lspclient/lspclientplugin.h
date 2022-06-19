@@ -64,7 +64,7 @@ public:
     bool m_autoImport = true;
 
     // debug mode?
-    bool m_debugMode = false;
+    const bool m_debugMode;
 
     // hash of allowed and blacklisted server command lines
     std::map<QString, bool> m_serverCommandLineToAllowedState;

@@ -8,20 +8,20 @@ target_link_libraries(
 )
 
 target_sources(
-  katesymbolviewerplugin 
+  katesymbolviewerplugin
   PRIVATE
-    cpp_parser.cpp 
-    tcl_parser.cpp 
-    fortran_parser.cpp 
-    perl_parser.cpp 
-    php_parser.cpp 
-    xslt_parser.cpp 
-    xml_parser.cpp 
-    ruby_parser.cpp 
-    python_parser.cpp 
-    bash_parser.cpp 
-    ecma_parser.cpp 
-    plugin_katesymbolviewer.cpp 
+    cpp_parser.cpp
+    tcl_parser.cpp
+    fortran_parser.cpp
+    perl_parser.cpp
+    php_parser.cpp
+    xslt_parser.cpp
+    xml_parser.cpp
+    ruby_parser.cpp
+    python_parser.cpp
+    bash_parser.cpp
+    ecma_parser.cpp
+    plugin_katesymbolviewer.cpp
     plugin.qrc
 )
 

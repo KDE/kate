@@ -49,25 +49,35 @@ static const QString CONFIG_BLOCKED_COMMANDS{QStringLiteral("BlockedServerComman
 
 K_PLUGIN_FACTORY_WITH_JSON(LSPClientPluginFactory, "lspclientplugin.json", registerPlugin<LSPClientPlugin>();)
 
+/**
+ * ensure we don't spam the user with debug output per-default
+ */
+static const bool debug = (qgetenv("LSPCLIENT_DEBUG") == QByteArray("1"));
+static QLoggingCategory::CategoryFilter oldCategoryFilter;
+void myCategoryFilter(QLoggingCategory *category)
+{
+    // deactivate info and debug if not debug mode
+    if (qstrcmp(category->categoryName(), "katelspclientplugin") == 0) {
+        category->setEnabled(QtInfoMsg, debug);
+        category->setEnabled(QtDebugMsg, debug);
+    } else if (oldCategoryFilter) {
+        oldCategoryFilter(category);
+    }
+}
+
 LSPClientPlugin::LSPClientPlugin(QObject *parent, const QList<QVariant> &)
     : KTextEditor::Plugin(parent)
     , m_settingsPath(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + QStringLiteral("/lspclient"))
     , m_defaultConfigPath(QUrl::fromLocalFile(m_settingsPath + QStringLiteral("/settings.json")))
+    , m_debugMode(debug)
 {
     // ensure settings path exist, for e.g. local settings.json
     QDir().mkpath(m_settingsPath);
 
-    /**
-     * handle plugin verbosity
-     * the m_debugMode will be used to e.g. set debug level for started clangd, too
-     */
-    m_debugMode = (qgetenv("LSPCLIENT_DEBUG") == QByteArray("1"));
-    if (!m_debugMode) {
-        QLoggingCategory::setFilterRules(QStringLiteral("katelspclientplugin.debug=false\nkatelspclientplugin.info=false"));
-    } else {
-        QLoggingCategory::setFilterRules(QStringLiteral("katelspclientplugin.debug=true\nkatelspclientplugin.info=true"));
-    }
+    // ensure we don't spam the user with debug messages per default
+    oldCategoryFilter = QLoggingCategory::installFilter(myCategoryFilter);
 
+    // apply our config
     readConfig();
 }
 

@@ -114,9 +114,11 @@ KatePluginSymbolViewerView::KatePluginSymbolViewerView(KatePluginSymbolViewer *p
     m_currItemTimer.setSingleShot(true);
     connect(&m_currItemTimer, &QTimer::timeout, this, &KatePluginSymbolViewerView::updateCurrTreeItem);
 
-    QPixmap cls(class_xpm);
-
-    m_toolview = m_mainWindow->createToolView(plugin, QStringLiteral("kate_plugin_symbolviewer"), KTextEditor::MainWindow::Left, cls, i18n("Symbol List"));
+    m_toolview = m_mainWindow->createToolView(plugin,
+                                              QStringLiteral("kate_plugin_symbolviewer"),
+                                              KTextEditor::MainWindow::Left,
+                                              QIcon::fromTheme(QStringLiteral("class")),
+                                              i18n("Symbol List"));
 
     QWidget *container = new QWidget(m_toolview);
     QVBoxLayout *layout = new QVBoxLayout(container);

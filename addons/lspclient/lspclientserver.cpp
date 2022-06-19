@@ -1035,6 +1035,9 @@ class LSPClientServer::LSPClientServerPrivate
     static constexpr int MAX_REQUESTS = 5;
     QVector<int> m_requests{MAX_REQUESTS + 1};
 
+    // currently accumulated stderr output, used to output to the message view on line level
+    QString m_currentStderrOutput;
+
 public:
     LSPClientServerPrivate(LSPClientServer *_q,
                            const QStringList &server,
@@ -1050,7 +1053,8 @@ public:
         , m_folders(folders)
     {
         // setup async reading
-        QObject::connect(&m_sproc, &QProcess::readyRead, utils::mem_fun(&self_type::read, this));
+        QObject::connect(&m_sproc, &QProcess::readyReadStandardOutput, utils::mem_fun(&self_type::readStandardOutput, this));
+        QObject::connect(&m_sproc, &QProcess::readyReadStandardError, utils::mem_fun(&self_type::readStandardError, this));
         QObject::connect(&m_sproc, &QProcess::stateChanged, utils::mem_fun(&self_type::onStateChanged, this));
     }
 
@@ -1147,7 +1151,7 @@ private:
         return RequestHandle();
     }
 
-    void read()
+    void readStandardOutput()
     {
         // accumulate in buffer
         m_receive.append(m_sproc.readAllStandardOutput());
@@ -1247,6 +1251,26 @@ private:
                 // could have been canceled
                 qCDebug(LSPCLIENT) << "unexpected reply id" << msgid;
             }
+        }
+    }
+
+    void readStandardError()
+    {
+        // append new stuff to our buffer, we assume UTF-8 output
+        m_currentStderrOutput.append(QString::fromUtf8(m_sproc.readAllStandardError()));
+
+        // now, cut out all full lines
+        LSPShowMessageParams msg;
+        if (const int lastNewLineIndex = m_currentStderrOutput.lastIndexOf(QLatin1Char('\n')); lastNewLineIndex >= 0) {
+            msg.message = m_currentStderrOutput.left(lastNewLineIndex);
+            m_currentStderrOutput.remove(0, lastNewLineIndex + 1);
+        }
+
+        // emit the output lines if non-empty
+        // this might strip empty lines in error output, but that is better then a spammed output view
+        if (!msg.message.isEmpty()) {
+            msg.type = LSPMessageType::Log;
+            Q_EMIT q->logMessage(msg);
         }
     }
 
@@ -1374,8 +1398,8 @@ public:
         // start LSP server in project root
         m_sproc.setWorkingDirectory(m_root.toLocalFile());
 
-        // at least we see some errors somewhere then
-        m_sproc.setProcessChannelMode(QProcess::ForwardedErrorChannel);
+        // we handle stdout/stderr internally, important stuff via stdout
+        m_sproc.setProcessChannelMode(QProcess::SeparateChannels);
         m_sproc.setReadChannel(QProcess::QProcess::StandardOutput);
         m_sproc.start(program, args);
         const bool result = m_sproc.waitForStarted();

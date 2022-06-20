@@ -51,17 +51,13 @@ void KatePluginSymbolViewerView::parseBashSymbols(void)
         currline = currline.trimmed();
         currline = currline.simplified();
 
-        bool comment = false;
         // qDebug(13000)<<currline<<endl;
-        if (currline.isEmpty()) {
+        if (currline.isEmpty() || currline.at(0) == QLatin1Char('#')) {
             continue;
-        }
-        if (currline.at(0) == QLatin1Char('#')) {
-            comment = true;
         }
 
         // mainprog=false;
-        if (!comment && m_func->isChecked()) {
+        if (m_func->isChecked()) {
             QString funcName;
 
             // skip line if no function defined

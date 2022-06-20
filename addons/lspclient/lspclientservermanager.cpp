@@ -775,7 +775,7 @@ private:
             }
             server.reset(new LSPClientServer(cmdline, root, realLangId, serverConfig.value(QStringLiteral("initializationOptions")), folders));
             connect(server.data(), &LSPClientServer::stateChanged, this, &self_type::onStateChanged, Qt::UniqueConnection);
-            if (!server->start()) {
+            if (!server->start(m_plugin->m_debugMode)) {
                 QString message = i18n("Failed to start server: %1", cmdline.join(QLatin1Char(' ')));
                 const auto url = serverConfig.value(QStringLiteral("url")).toString();
                 if (!url.isEmpty()) {

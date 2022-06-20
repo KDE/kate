@@ -1384,7 +1384,7 @@ private:
     }
 
 public:
-    bool start()
+    bool start(bool forwardStdError)
     {
         if (m_state != State::None) {
             return true;
@@ -1399,7 +1399,7 @@ public:
         m_sproc.setWorkingDirectory(m_root.toLocalFile());
 
         // we handle stdout/stderr internally, important stuff via stdout
-        m_sproc.setProcessChannelMode(QProcess::SeparateChannels);
+        m_sproc.setProcessChannelMode(forwardStdError ? QProcess::ForwardedErrorChannel : QProcess::SeparateChannels);
         m_sproc.setReadChannel(QProcess::QProcess::StandardOutput);
         m_sproc.start(program, args);
         const bool result = m_sproc.waitForStarted();
@@ -1744,9 +1744,9 @@ const LSPServerCapabilities &LSPClientServer::capabilities() const
     return d->capabilities();
 }
 
-bool LSPClientServer::start()
+bool LSPClientServer::start(bool forwardStdError)
 {
-    return d->start();
+    return d->start(forwardStdError);
 }
 
 void LSPClientServer::stop(int to_t, int to_k)

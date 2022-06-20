@@ -108,7 +108,7 @@ public:
 
     // server management
     // request start
-    bool start();
+    bool start(bool forwardStdError);
     // request shutdown/stop
     // if to_xxx >= 0 -> send signal if not exit'ed after timeout
     void stop(int to_term_ms, int to_kill_ms);

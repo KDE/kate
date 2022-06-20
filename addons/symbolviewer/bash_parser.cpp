@@ -17,11 +17,6 @@ void KatePluginSymbolViewerView::parseBashSymbols(void)
         return;
     }
 
-    QString currline;
-
-    int i;
-    // bool mainprog;
-
     QTreeWidgetItem *node = nullptr;
     QTreeWidgetItem *funcNode = nullptr;
     QTreeWidgetItem *lastFuncNode = nullptr;
@@ -49,17 +44,13 @@ void KatePluginSymbolViewerView::parseBashSymbols(void)
     static const QRegularExpression function_regexp(QLatin1String("^(function )?([a-zA-Z0-9-_]+) *\\( *\\)"));
     QRegularExpressionMatch match;
 
-    for (i = 0; i < kDoc->lines(); i++) {
-        currline = kDoc->line(i);
-        currline = currline.trimmed();
-        currline = currline.simplified();
+    for (int i = 0; i < kDoc->lines(); i++) {
+        QString currline = kDoc->line(i).trimmed().simplified();
 
-        // qDebug(13000)<<currline<<endl;
         if (currline.isEmpty() || currline.at(0) == QLatin1Char('#')) {
             continue;
         }
 
-        // mainprog=false;
         if (m_func->isChecked()) {
             QString funcName;
 
@@ -80,5 +71,5 @@ void KatePluginSymbolViewerView::parseBashSymbols(void)
                 node->setText(1, QString::number(i, 10));
             }
         }
-    } // for i loop
+    }
 }

@@ -1,0 +1,19 @@
+<?XML version="1.0" encoding="utf-8"?>
+<!-- Comment one line -->
+<Root>
+    <Town name="Paris">
+        <Restaurant type="pizza">
+            Italian Restaurant
+        </Restaurant>
+        <Restaurant type="french">French Restaurant</Restaurant>
+        <Restaurant type="lebanese">
+            Lebanese
+            Restaurant
+        </Restaurant>
+<!--
+Comment multilines
+-->
+    </Town>
+    <Town name="Tokyo">
+    </Town>
+</Root>

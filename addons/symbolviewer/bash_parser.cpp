@@ -46,6 +46,9 @@ void KatePluginSymbolViewerView::parseBashSymbols(void)
 
     KTextEditor::Document *kDoc = m_mainWindow->activeView()->document();
 
+    static const QRegularExpression function_regexp(QLatin1String("^(function )?([a-zA-Z0-9-_]+) *\\( *\\)"));
+    QRegularExpressionMatch match;
+
     for (i = 0; i < kDoc->lines(); i++) {
         currline = kDoc->line(i);
         currline = currline.trimmed();
@@ -60,31 +63,22 @@ void KatePluginSymbolViewerView::parseBashSymbols(void)
         if (m_func->isChecked()) {
             QString funcName;
 
-            // skip line if no function defined
-            // note: function name must match regex: [a-zA-Z0-9-_]+
-            if (!currline.contains(QRegularExpression(QLatin1String("^(function )*[a-zA-Z0-9-_]+ *\\( *\\)")))
-                && !currline.contains(QRegularExpression(QLatin1String("^function [a-zA-Z0-9-_]+")))) {
-                continue;
-            }
+            match = function_regexp.match(currline);
+            if (match.hasMatch()) {
+                funcName = match.captured(2);
+                funcName.append(QLatin1String("()"));
 
-            // strip everything unneeded and get the function's name
-            currline.remove(QRegularExpression(QLatin1String("^(function )*")));
-            funcName = currline.split(QRegularExpression(QLatin1String("((\\( *\\))|[^a-zA-Z0-9-_])")))[0].simplified();
-            if (!funcName.size()) {
-                continue;
-            }
-            funcName.append(QLatin1String("()"));
+                if (m_treeOn->isChecked()) {
+                    node = new QTreeWidgetItem(funcNode, lastFuncNode);
+                    lastFuncNode = node;
+                } else {
+                    node = new QTreeWidgetItem(m_symbols);
+                }
 
-            if (m_treeOn->isChecked()) {
-                node = new QTreeWidgetItem(funcNode, lastFuncNode);
-                lastFuncNode = node;
-            } else {
-                node = new QTreeWidgetItem(m_symbols);
+                node->setText(0, funcName);
+                node->setIcon(0, m_icon_function);
+                node->setText(1, QString::number(i, 10));
             }
-
-            node->setText(0, funcName);
-            node->setIcon(0, m_icon_function);
-            node->setText(1, QString::number(i, 10));
         }
     } // for i loop
 }

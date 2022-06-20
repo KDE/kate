@@ -127,6 +127,18 @@ void KateConfigDialog::addBehaviorPage()
         m_messageTypes->setCurrentIndex(cgGeneral.readEntry("Show output view for message type", 1));
         connect(m_messageTypes, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &KateConfigDialog::slotChanged);
         vbox->addLayout(hlayout);
+
+        hlayout = new QHBoxLayout;
+        label = new QLabel(i18n("&Limit output view history:"), buttonGroup);
+        hlayout->addWidget(label);
+        m_outputHistoryLimit = new QSpinBox(buttonGroup);
+        hlayout->addWidget(m_outputHistoryLimit);
+        label->setBuddy(m_outputHistoryLimit);
+        m_outputHistoryLimit->setRange(-1, 10000);
+        m_outputHistoryLimit->setSpecialValueText(i18n("Unlimited"));
+        m_outputHistoryLimit->setValue(cgGeneral.readEntry("Output History Limit", 100));
+        connect(m_outputHistoryLimit, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &KateConfigDialog::slotChanged);
+        vbox->addLayout(hlayout);
     }
 
     // modified files notification
@@ -443,8 +455,9 @@ void KateConfigDialog::slotApply()
         cg.writeEntry("Close After Last", sessionConfigUi.modCloseAfterLast->isChecked());
         m_mainWindow->setModCloseAfterLast(sessionConfigUi.modCloseAfterLast->isChecked());
 
-        if (m_messageTypes) {
+        if (m_messageTypes && m_outputHistoryLimit) {
             cg.writeEntry("Show output view for message type", m_messageTypes->currentIndex());
+            cg.writeEntry("Output History Limit", m_outputHistoryLimit->value());
         }
 
         cg.writeEntry("Mouse back button action", m_mouseBackActions->currentIndex());

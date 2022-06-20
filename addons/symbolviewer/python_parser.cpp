@@ -18,7 +18,7 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
         return;
     }
 
-    m_macro->setText(i18n("Show Globals"));
+    m_macro->setText(i18n("Show Functions"));
     m_struct->setText(i18n("Show Methods"));
     m_func->setText(i18n("Show Classes"));
 
@@ -38,7 +38,7 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
     // kdDebug(13000)<<"Lines counted :"<<kv->numLines()<<endl;
     if (m_treeOn->isChecked()) {
         clsNode = new QTreeWidgetItem(m_symbols, QStringList(i18n("Classes")));
-        mcrNode = new QTreeWidgetItem(m_symbols, QStringList(i18n("Globals")));
+        mcrNode = new QTreeWidgetItem(m_symbols, QStringList(i18n("Functions")));
         mcrNode->setIcon(0, m_icon_function);
         clsNode->setIcon(0, m_icon_class);
 

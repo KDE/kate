@@ -127,6 +127,11 @@ private:
      */
     QVector<QString> m_seenLogTypes;
     QVector<QString> m_seenCategories;
+
+    /**
+     * history size limit, < 0 is unlimited
+     */
+    int m_historyLimit = -1;
 };
 
 #endif

@@ -216,12 +216,10 @@ KateOutputView::KateOutputView(KateMainWindow *mainWindow, QWidget *parent)
     layout->addLayout(hLayout);
     layout->addWidget(m_messagesTreeView);
 
-    // handle config changes
+    // handle config changes & apply initial configuration
     connect(KateApp::self(), &KateApp::configurationChanged, this, &KateOutputView::readConfig);
     connect(KTextEditor::Editor::instance(), &KTextEditor::Editor::configChanged, this, &KateOutputView::readConfig);
-
-    // needed to have some view, can be removed if Editor::font is there
-    QTimer::singleShot(0, this, &KateOutputView::readConfig);
+    readConfig();
 }
 
 void KateOutputView::readConfig()
@@ -229,6 +227,12 @@ void KateOutputView::readConfig()
     KSharedConfig::Ptr config = KSharedConfig::openConfig();
     KConfigGroup cgGeneral = KConfigGroup(config, "General");
     m_showOutputViewForMessageType = cgGeneral.readEntry("Show output view for message type", 1);
+    m_historyLimit = cgGeneral.readEntry("Output History Limit", 100);
+
+    // ensure we don't violate the history limit
+    if (m_historyLimit >= 0 && m_messagesModel.rowCount() > m_historyLimit) {
+        m_messagesModel.removeRows(0, m_messagesModel.rowCount() - m_historyLimit);
+    }
 
     // use editor fonts
     const auto theme = KTextEditor::Editor::instance()->theme();
@@ -237,7 +241,6 @@ void KateOutputView::readConfig()
     pal.setColor(QPalette::Highlight, QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::TextSelection)));
     pal.setColor(QPalette::Text, QColor::fromRgba(theme.textColor(KSyntaxHighlighting::Theme::Normal)));
     m_messagesTreeView->setPalette(pal);
-
     m_messagesTreeView->setFont(Utils::editorFont());
 }
 
@@ -333,6 +336,11 @@ void KateOutputView::slotMessage(const QVariantMap &message)
             m_messagesModel.setItem(row, column++, item);
         }
     } else {
+        // ensure we don't grow over the set limit, we just need to cut the first element if needed
+        if (m_historyLimit >= 0 && m_messagesModel.rowCount() >= m_historyLimit) {
+            m_messagesModel.removeRow(0);
+        }
+
         m_messagesModel.appendRow(items);
     }
 

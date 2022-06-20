@@ -83,6 +83,7 @@ SnippetView::SnippetView(KateSnippetGlobal *plugin, KTextEditor::MainWindow *mai
 
     m_proxy = new SnippetFilterModel(this);
     m_proxy->setFilterKeyColumn(0);
+    m_proxy->setFilterCaseSensitivity(Qt::CaseInsensitive);
     m_proxy->setSourceModel(SnippetStore::self());
 
     connect(filterText, &KLineEdit::textChanged, m_proxy, &QSortFilterProxyModel::setFilterFixedString);

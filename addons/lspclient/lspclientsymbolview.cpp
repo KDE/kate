@@ -235,7 +235,7 @@ public:
     {
         m_toolview.reset(m_mainWindow->createToolView(plugin,
                                                       QStringLiteral("lspclient_symbol_outline"),
-                                                      KTextEditor::MainWindow::Right,
+                                                      KTextEditor::MainWindow::Left,
                                                       QIcon::fromTheme(QStringLiteral("code-context")),
                                                       i18n("Symbol Outline")));
 

@@ -22,15 +22,13 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
     m_struct->setText(i18n("Show Methods"));
     m_func->setText(i18n("Show Classes"));
 
-    QString cl; // Current Line
-
     Symbol type;
     QString name;
     QString params;
     QString current_class_name;
 
     QTreeWidgetItem *node = nullptr;
-    QTreeWidgetItem *mcrNode = nullptr, *mtdNode = nullptr, *clsNode = nullptr;
+    QTreeWidgetItem *functionNode = nullptr, *mtdNode = nullptr, *clsNode = nullptr;
     QTreeWidgetItem *lastMcrNode = nullptr, *lastMtdNode = nullptr, *lastClsNode = nullptr;
 
     KTextEditor::Document *kv = m_mainWindow->activeView()->document();
@@ -38,16 +36,16 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
     // kdDebug(13000)<<"Lines counted :"<<kv->numLines()<<endl;
     if (m_treeOn->isChecked()) {
         clsNode = new QTreeWidgetItem(m_symbols, QStringList(i18n("Classes")));
-        mcrNode = new QTreeWidgetItem(m_symbols, QStringList(i18n("Functions")));
-        mcrNode->setIcon(0, m_icon_function);
+        functionNode = new QTreeWidgetItem(m_symbols, QStringList(i18n("Functions")));
+        functionNode->setIcon(0, m_icon_function);
         clsNode->setIcon(0, m_icon_class);
 
         if (m_expandOn->isChecked()) {
-            m_symbols->expandItem(mcrNode);
+            m_symbols->expandItem(functionNode);
             m_symbols->expandItem(clsNode);
         }
         lastClsNode = clsNode;
-        lastMcrNode = mcrNode;
+        lastMcrNode = functionNode;
         mtdNode = clsNode;
         lastMtdNode = clsNode;
         m_symbols->setRootIsDecorated(1);
@@ -60,7 +58,7 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
     QRegularExpressionMatch match;
     for (int i = 0; i < kv->lines(); i++) {
         int line = i;
-        cl = kv->line(i);
+        QString cl = kv->line(i);
         // concatenate continued lines and remove continuation marker
         if (cl.length() == 0) {
             continue;
@@ -138,7 +136,7 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
 
             if (m_macro->isChecked() && type == Symbol::Function) {
                 if (m_treeOn->isChecked()) {
-                    node = new QTreeWidgetItem(mcrNode, lastMcrNode);
+                    node = new QTreeWidgetItem(functionNode, lastMcrNode);
                     lastMcrNode = node;
                 } else {
                     node = new QTreeWidgetItem(m_symbols);

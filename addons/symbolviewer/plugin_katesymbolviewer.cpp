@@ -507,10 +507,12 @@ QString KatePluginSymbolViewerConfigPage::name() const
 {
     return i18n("Symbol Viewer");
 }
+
 QString KatePluginSymbolViewerConfigPage::fullName() const
 {
     return i18n("Symbol Viewer Configuration Page");
 }
+
 QIcon KatePluginSymbolViewerConfigPage::icon() const
 {
     return QIcon::fromTheme(QLatin1String("code-class"));

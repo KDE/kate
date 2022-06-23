@@ -24,11 +24,6 @@ void KatePluginSymbolViewerView::parseXMLSymbols(void)
 
     m_struct->setText(i18n("Show Tags"));
 
-    QString cl;
-
-    char comment = 0;
-    int i;
-
     QTreeWidgetItem *node = nullptr;
     QTreeWidgetItem *topNode = nullptr;
 
@@ -36,19 +31,20 @@ void KatePluginSymbolViewerView::parseXMLSymbols(void)
 
     m_symbols->setRootIsDecorated(0);
 
-    for (i = 0; i < kv->lines(); i++) {
-        cl = kv->line(i);
+    bool is_comment = false;
+    for (int i = 0; i < kv->lines(); i++) {
+        QString cl = kv->line(i);
         cl = cl.trimmed();
 
         if (cl.indexOf(QLatin1String("<!--")) >= 0) {
-            comment = 1;
+            is_comment = true;
         }
         if (cl.indexOf(QLatin1String("-->")) >= 0) {
-            comment = 0;
+            is_comment = false;
             continue;
         }
 
-        if (comment == 1) {
+        if (is_comment) {
             continue;
         }
 

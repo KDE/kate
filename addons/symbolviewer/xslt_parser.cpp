@@ -23,12 +23,6 @@ void KatePluginSymbolViewerView::parseXsltSymbols(void)
     m_struct->setText(i18n("Show Variables"));
     m_func->setText(i18n("Show Templates"));
 
-    QString cl; // Current Line
-
-    char comment = 0;
-    char templ = 0;
-    int i;
-
     QTreeWidgetItem *node = nullptr;
     QTreeWidgetItem *mcrNode = nullptr, *sctNode = nullptr, *clsNode = nullptr;
     QTreeWidgetItem *lastMcrNode = nullptr, *lastSctNode = nullptr, *lastClsNode = nullptr;
@@ -59,27 +53,28 @@ void KatePluginSymbolViewerView::parseXsltSymbols(void)
         m_symbols->setRootIsDecorated(0);
     }
 
-    for (i = 0; i < kv->lines(); i++) {
-        cl = kv->line(i);
+    bool is_comment, is_template = false;
+    for (int i = 0; i < kv->lines(); i++) {
+        QString cl = kv->line(i);
         cl = cl.trimmed();
 
         if (cl.indexOf(QLatin1String("<!--")) >= 0) {
-            comment = 1;
+            is_comment = true;
         }
         if (cl.indexOf(QLatin1String("-->")) >= 0) {
-            comment = 0;
+            is_comment = false;
             continue;
         }
 
         if (cl.indexOf(QRegularExpression(QLatin1String("^</xsl:template>"))) >= 0) {
-            templ = 0;
+            is_template = false;
             continue;
         }
 
-        if (comment == 1) {
+        if (is_comment) {
             continue;
         }
-        if (templ == 1) {
+        if (is_template) {
             continue;
         }
 
@@ -144,7 +139,7 @@ void KatePluginSymbolViewerView::parseXsltSymbols(void)
         }
 
         if (cl.indexOf(QLatin1String("<xsl:template")) >= 0) {
-            templ = 1;
+            is_template = true;
         }
     }
 }

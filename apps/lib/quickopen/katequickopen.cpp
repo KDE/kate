@@ -114,7 +114,7 @@ protected:
             // because otherwise getting to root files may
             // not be that easy
             if (!matchPath) {
-                score += (sm->idxToFilePath(sourceRow) == name) + name.size();
+                score += (sm->idxToFilePath(sourceRow) == name) * name.size();
             }
         }
 

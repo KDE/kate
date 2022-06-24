@@ -372,19 +372,7 @@ public Q_SLOTS:
      * \param documents list of documents to be closed
      * \return \e true on success, otherwise \e false
      */
-    bool closeDocuments(const QList<KTextEditor::Document *> &documents)
-    {
-        bool shutdownKate =
-            KateApp::self()->activeKateMainWindow()->modCloseAfterLast() && KateApp::self()->documentManager()->documentList().size() == documents.size();
-        bool success = m_docManager.closeDocumentList(documents);
-
-        if (success && shutdownKate) {
-            KateApp::self()->shutdownKate(KateApp::self()->activeKateMainWindow());
-            return true;
-        }
-
-        return success;
-    }
+    bool closeDocuments(const QList<KTextEditor::Document *> &documents);
 
     /**
      * Get a plugin for the plugin with with identifier \p name.

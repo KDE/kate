@@ -41,6 +41,7 @@
 #include <QLoggingCategory>
 #include <QRegularExpression>
 #include <QTextCodec>
+#include <QTimer>
 #include <QUrlQuery>
 
 #include <signal_watcher.h>
@@ -574,6 +575,22 @@ KateMainWindow *KateApp::mainWindow(int n)
     }
 
     return nullptr;
+}
+
+bool KateApp::closeDocuments(const QList<KTextEditor::Document *> &documents)
+{
+    bool shutdownKate =
+        KateApp::self()->activeKateMainWindow()->modCloseAfterLast() && KateApp::self()->documentManager()->documentList().size() == documents.size();
+    bool success = m_docManager.closeDocumentList(documents);
+
+    if (success && shutdownKate) {
+        QTimer::singleShot(0, this, []() {
+            KateApp::self()->shutdownKate(KateApp::self()->activeKateMainWindow());
+        });
+        return true;
+    }
+
+    return success;
 }
 
 KTextEditor::Plugin *KateApp::plugin(const QString &name)

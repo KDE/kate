@@ -152,10 +152,10 @@ void KateConfigDialog::addBehaviorPage()
 
     vbox->addWidget(m_modNotifications);
 
-    // show text for the left and right side bars?
+    // show text for the left and right sidebars?
     // only useful for Kate
     if (KateApp::isKate()) {
-        m_showTextForLeftRightSidebars = new QCheckBox(i18n("Show text for left and right side bar buttons"), buttonGroup);
+        m_showTextForLeftRightSidebars = new QCheckBox(i18n("Show text for left and right sidebar buttons"), buttonGroup);
         m_showTextForLeftRightSidebars->setChecked(cgGeneral.readEntry("Show text for left and right sidebar", false));
         connect(m_showTextForLeftRightSidebars, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
         vbox->addWidget(m_showTextForLeftRightSidebars);

@@ -5,10 +5,16 @@
 */
 #include "rainbowparens_plugin.h"
 
+#include <QIcon>
+#include <QLabel>
 #include <QScopeGuard>
 #include <QTimer>
+#include <QVBoxLayout>
 
+#include <KConfigGroup>
+#include <KLocalizedString>
 #include <KPluginFactory>
+#include <KSharedConfig>
 #include <KTextEditor/Document>
 #include <KTextEditor/MovingInterface>
 #include <KTextEditor/View>
@@ -22,6 +28,36 @@ K_PLUGIN_FACTORY_WITH_JSON(RainbowParenPluginFactory, "rainbowparens_plugin.json
 RainbowParenPlugin::RainbowParenPlugin(QObject *parent, const QVariantList &)
     : KTextEditor::Plugin(parent)
 {
+    readConfig();
+}
+
+KTextEditor::ConfigPage *RainbowParenPlugin::configPage(int number, QWidget *parent)
+{
+    if (number == 0) {
+        return new RainbowParenConfigPage(parent, this);
+    }
+    return nullptr;
+}
+
+void RainbowParenPlugin::readConfig()
+{
+    if (attrs.empty()) {
+        attrs.resize(5);
+        for (auto &attr : attrs) {
+            attr = new KTextEditor::Attribute;
+        }
+    }
+    KConfigGroup config(KSharedConfig::openConfig(), "ColoredBrackets");
+    QColor br = config.readEntry("color1", QStringLiteral("#FFFF00"));
+    attrs[0]->setForeground(br);
+    br = config.readEntry("color2", QStringLiteral("#FF4797"));
+    attrs[1]->setForeground(br);
+    br = config.readEntry("color3", QStringLiteral("#67F058"));
+    attrs[2]->setForeground(br);
+    br = config.readEntry("color4", QStringLiteral("#FC834A"));
+    attrs[3]->setForeground(br);
+    br = config.readEntry("color5", QStringLiteral("#3A86FF"));
+    attrs[4]->setForeground(br);
 }
 
 QObject *RainbowParenPlugin::createView(KTextEditor::MainWindow *mainWindow)
@@ -31,60 +67,15 @@ QObject *RainbowParenPlugin::createView(KTextEditor::MainWindow *mainWindow)
 
 RainbowParenPluginView::RainbowParenPluginView(RainbowParenPlugin *plugin, KTextEditor::MainWindow *mainWin)
     : QObject(plugin)
+    , m_plugin(plugin)
     , m_mainWindow(mainWin)
 {
     connect(mainWin, &KTextEditor::MainWindow::viewChanged, this, &RainbowParenPluginView::viewChanged);
-    connect(KTextEditor::Editor::instance(), &KTextEditor::Editor::configChanged, this, &RainbowParenPluginView::updateColors);
-    updateColors(KTextEditor::Editor::instance());
-
     QTimer::singleShot(50, this, [this] {
         if (auto *view = m_mainWindow->activeView()) {
             rehighlight(view);
         }
     });
-}
-
-void RainbowParenPluginView::updateColors(KTextEditor::Editor *editor)
-{
-    Q_ASSERT(editor);
-    QColor bg = editor->theme().editorColor(KSyntaxHighlighting::Theme::BackgroundColor);
-
-    if (attrs.empty()) {
-        attrs.resize(numberOfColors);
-    }
-
-    if (bg.lightness() < 127) {
-        // dark mode
-        QColor colors[] = {
-            QColor("#ffff00"), // Yellow
-            QColor("#FF4797"), // Pinkish
-            QColor("#67F058"), // Green
-            QColor("#FC834A"), // Orange
-            QColor("#3A86FF"), // Blue
-        };
-        for (int i = 0; i < numberOfColors; ++i) {
-            attrs[i] = new KTextEditor::Attribute;
-            attrs[i]->setForeground(colors[i]);
-        }
-    } else {
-        // light mode
-        QColor colors[] = {
-            QColor("#B3B305"), // Yellow
-            QColor("#E00061"), // Pinkish
-            QColor("#21BC10"), // Green
-            QColor("#DD4803"), // Orange
-            QColor("#004ECC"), // Blue
-        };
-        for (int i = 0; i < numberOfColors; ++i) {
-            attrs[i] = new KTextEditor::Attribute;
-            attrs[i]->setForeground(colors[i]);
-        }
-    }
-
-    ranges.clear();
-    if (auto view = m_mainWindow->activeView()) {
-        rehighlight(view);
-    }
 }
 
 static void getSavedRangesForDoc(std::vector<RainbowParenPluginView::SavedRanges> &ranges,
@@ -338,6 +329,7 @@ void RainbowParenPluginView::rehighlight(KTextEditor::View *view)
     size_t idx = 0;
     size_t color = m_lastUserColor;
     int lastParenLine = 0;
+    const auto &attrs = m_plugin->colorsList();
     for (auto p : parens) {
         // scope guard to ensure we always update stuff for every iteration
         auto updater = qScopeGuard([&idx, &lastParenLine, p] {
@@ -392,6 +384,71 @@ void RainbowParenPluginView::rehighlight(KTextEditor::View *view)
     }
     m_lastUserColor = color;
     oldRanges.clear();
+}
+
+RainbowParenConfigPage::RainbowParenConfigPage(QWidget *parent, RainbowParenPlugin *plugin)
+    : KTextEditor::ConfigPage(parent)
+    , m_plugin(plugin)
+{
+    auto layout = new QVBoxLayout(this);
+    layout->setContentsMargins({});
+
+    auto label = new QLabel(this);
+    label->setText(i18n("Choose colors that will be used for bracket coloring:"));
+    label->setWordWrap(true);
+    layout->addWidget(label);
+
+    for (auto &btn : m_btns) {
+        auto hl = new QHBoxLayout;
+        hl->addWidget(&btn);
+        hl->addStretch();
+        hl->setContentsMargins({});
+        layout->addLayout(hl);
+        btn.setMinimumWidth(150);
+        connect(&btn, &KColorButton::changed, this, &RainbowParenConfigPage::changed);
+    }
+    layout->addStretch();
+
+    reset();
+}
+
+QString RainbowParenConfigPage::name() const
+{
+    return i18n("Colored Brackets");
+}
+
+QString RainbowParenConfigPage::fullName() const
+{
+    return i18n("Colored Brackets Settings");
+}
+
+QIcon RainbowParenConfigPage::icon() const
+{
+    return {};
+}
+
+void RainbowParenConfigPage::apply()
+{
+    KConfigGroup config(KSharedConfig::openConfig(), "ColoredBrackets");
+    config.writeEntry("color1", m_btns[0].color().name(QColor::HexRgb));
+    config.writeEntry("color2", m_btns[1].color().name(QColor::HexRgb));
+    config.writeEntry("color3", m_btns[2].color().name(QColor::HexRgb));
+    config.writeEntry("color4", m_btns[3].color().name(QColor::HexRgb));
+    config.writeEntry("color5", m_btns[4].color().name(QColor::HexRgb));
+    config.sync();
+    Q_EMIT m_plugin->readConfig();
+}
+
+void RainbowParenConfigPage::reset()
+{
+    int i = 0;
+    for (const auto &attr : m_plugin->colorsList()) {
+        m_btns[i++].setColor(attr->foreground().color());
+    }
+}
+
+void RainbowParenConfigPage::defaults()
+{
 }
 
 #include "rainbowparens_plugin.moc"

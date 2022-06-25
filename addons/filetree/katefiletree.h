@@ -76,9 +76,15 @@ private Q_SLOTS:
     void onRowsMoved(const QModelIndex &parent, int start, int end, const QModelIndex &destination, int row);
 
 private:
-    QAction *setupOption(QActionGroup *group, const QIcon &, const QString &, const QString &, const char *slot, bool checked = false);
+    void setupContextMenuActionGroups();
+    using Func = void (KateFileTree::*)();
+    QAction *setupOption(QActionGroup *group,
+                         const QIcon &icon,
+                         const QString &text,
+                         const QString &whatisThis,
+                         const Func &slot,
+                         Qt::CheckState checked = Qt::Unchecked);
 
-private:
     QAction *m_filelistCloseDocument;
     QAction *m_filelistExpandRecursive;
     QAction *m_filelistCollapseRecursive;

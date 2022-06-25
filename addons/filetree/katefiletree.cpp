@@ -137,36 +137,7 @@ KateFileTree::KateFileTree(QWidget *parent)
     connect(m_filelistDeleteDocument, &QAction::triggered, this, &KateFileTree::slotDocumentDelete);
     m_filelistDeleteDocument->setWhatsThis(i18n("Close and delete selected file from storage."));
 
-    QActionGroup *modeGroup = new QActionGroup(this);
-
-    m_treeModeAction = setupOption(modeGroup,
-                                   QIcon::fromTheme(QStringLiteral("view-list-tree")),
-                                   i18nc("@action:inmenu", "Tree Mode"),
-                                   i18n("Set view style to Tree Mode"),
-                                   SLOT(slotTreeMode()),
-                                   true);
-
-    m_listModeAction = setupOption(modeGroup,
-                                   QIcon::fromTheme(QStringLiteral("view-list-text")),
-                                   i18nc("@action:inmenu", "List Mode"),
-                                   i18n("Set view style to List Mode"),
-                                   SLOT(slotListMode()),
-                                   false);
-
-    QActionGroup *sortGroup = new QActionGroup(this);
-
-    m_sortByFile =
-        setupOption(sortGroup, QIcon(), i18nc("@action:inmenu sorting option", "Document Name"), i18n("Sort by Document Name"), SLOT(slotSortName()), true);
-
-    m_sortByPath =
-        setupOption(sortGroup, QIcon(), i18nc("@action:inmenu sorting option", "Document Path"), i18n("Sort by Document Path"), SLOT(slotSortPath()), false);
-
-    m_sortByOpeningOrder = setupOption(sortGroup,
-                                       QIcon(),
-                                       i18nc("@action:inmenu sorting option", "Opening Order"),
-                                       i18n("Sort by Opening Order"),
-                                       SLOT(slotSortOpeningOrder()),
-                                       false);
+    setupContextMenuActionGroups();
 
     m_resetHistory = new QAction(QIcon::fromTheme(QStringLiteral("edit-clear-history")), i18nc("@action:inmenu", "Clear History"), this);
     connect(m_resetHistory, &QAction::triggered, this, &KateFileTree::slotResetHistory);
@@ -230,14 +201,55 @@ void KateFileTree::setShowCloseButton(bool show)
     header()->viewport()->update();
 }
 
-QAction *KateFileTree::setupOption(QActionGroup *group, const QIcon &icon, const QString &label, const QString &whatsThis, const char *slot, bool checked)
+void KateFileTree::setupContextMenuActionGroups()
 {
-    QAction *new_action = new QAction(icon, label, this);
+    QActionGroup *modeGroup = new QActionGroup(this);
+
+    m_treeModeAction = setupOption(modeGroup,
+                                   QIcon::fromTheme(QStringLiteral("view-list-tree")),
+                                   i18nc("@action:inmenu", "Tree Mode"),
+                                   i18n("Set view style to Tree Mode"),
+                                   &KateFileTree::slotTreeMode,
+                                   Qt::Checked);
+
+    m_listModeAction = setupOption(modeGroup,
+                                   QIcon::fromTheme(QStringLiteral("view-list-text")),
+                                   i18nc("@action:inmenu", "List Mode"),
+                                   i18n("Set view style to List Mode"),
+                                   &KateFileTree::slotListMode);
+
+    QActionGroup *sortGroup = new QActionGroup(this);
+
+    m_sortByFile = setupOption(sortGroup,
+                               QIcon(),
+                               i18nc("@action:inmenu sorting option", "Document Name"),
+                               i18n("Sort by Document Name"),
+                               &KateFileTree::slotSortName,
+                               Qt::Checked);
+
+    m_sortByPath =
+        setupOption(sortGroup, QIcon(), i18nc("@action:inmenu sorting option", "Document Path"), i18n("Sort by Document Path"), &KateFileTree::slotSortPath);
+
+    m_sortByOpeningOrder = setupOption(sortGroup,
+                                       QIcon(),
+                                       i18nc("@action:inmenu sorting option", "Opening Order"),
+                                       i18n("Sort by Opening Order"),
+                                       &KateFileTree::slotSortOpeningOrder);
+}
+
+QAction *KateFileTree::setupOption(QActionGroup *group,
+                                   const QIcon &icon,
+                                   const QString &text,
+                                   const QString &whatsThis,
+                                   const Func &slot,
+                                   Qt::CheckState checked /* = Qt::Unchecked */)
+{
+    QAction *new_action = new QAction(icon, text, this);
     new_action->setWhatsThis(whatsThis);
     new_action->setActionGroup(group);
     new_action->setCheckable(true);
-    new_action->setChecked(checked);
-    connect(new_action, SIGNAL(triggered()), this, slot);
+    new_action->setChecked(checked == Qt::Checked);
+    connect(new_action, &QAction::triggered, this, slot);
     return new_action;
 }
 

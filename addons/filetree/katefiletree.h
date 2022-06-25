@@ -18,6 +18,9 @@ class Document;
 
 class QActionGroup;
 
+class KateFileTreeModel;
+class KateFileTreeProxyModel;
+
 class KateFileTree : public QTreeView
 {
     Q_OBJECT
@@ -85,6 +88,8 @@ private:
                          const Func &slot,
                          Qt::CheckState checked = Qt::Unchecked);
 
+    void addChildrenTolist(const QModelIndex &index, QList<QPersistentModelIndex> *worklist);
+
     QAction *m_filelistCloseDocument;
     QAction *m_filelistExpandRecursive;
     QAction *m_filelistCollapseRecursive;
@@ -105,10 +110,12 @@ private:
     QAction *m_sortByOpeningOrder;
     QAction *m_resetHistory;
 
+    KateFileTreeProxyModel *m_proxyModel = nullptr;
+    KateFileTreeModel *m_sourceModel = nullptr;
     QPersistentModelIndex m_previouslySelected;
     QPersistentModelIndex m_indexContextMenu;
 
-    bool m_hasCloseButton;
+    bool m_hasCloseButton = false;
 };
 
 #endif // KATE_FILETREE_H

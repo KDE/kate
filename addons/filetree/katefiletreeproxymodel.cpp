@@ -22,6 +22,16 @@ void KateFileTreeProxyModel::setSourceModel(QAbstractItemModel *model)
     QSortFilterProxyModel::setSourceModel(model);
 }
 
+KTextEditor::Document *KateFileTreeProxyModel::docFromIndex(const QModelIndex &index)
+{
+    return data(index, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
+}
+
+QList<KTextEditor::Document *> KateFileTreeProxyModel::docTreeFromIndex(const QModelIndex &index)
+{
+    return data(index, KateFileTreeModel::DocumentTreeRole).value<QList<KTextEditor::Document *>>();
+}
+
 bool KateFileTreeProxyModel::lessThan(const QModelIndex &left, const QModelIndex &right) const
 {
     const KateFileTreeModel *model = static_cast<KateFileTreeModel *>(sourceModel());

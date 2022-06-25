@@ -39,6 +39,21 @@
 #include <QStyledItemDelegate>
 // END Includes
 
+static KTextEditor::Document *docFromIndex(const QModelIndex &index)
+{
+    return index.data(KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
+}
+
+static QList<KTextEditor::Document *> docTreeFromIndex(const QModelIndex &index)
+{
+    return index.data(KateFileTreeModel::DocumentTreeRole).value<QList<KTextEditor::Document *>>();
+}
+
+static bool closeDocs(const QList<KTextEditor::Document *> &docs)
+{
+    return KTextEditor::Editor::instance()->application()->closeDocuments(docs);
+}
+
 class StyleDelegate : public QStyledItemDelegate
 {
 public:
@@ -149,34 +164,31 @@ KateFileTree::KateFileTree(QWidget *parent)
     setPalette(p);
 }
 
-KateFileTree::~KateFileTree()
-{
-}
+KateFileTree::~KateFileTree() = default;
 
 void KateFileTree::setModel(QAbstractItemModel *model)
 {
-    auto proxy = qobject_cast<KateFileTreeProxyModel *>(model);
-    Q_ASSERT(proxy); // we don't really work with anything else
+    m_proxyModel = static_cast<KateFileTreeProxyModel *>(model);
+    Q_ASSERT(m_proxyModel); // we don't really work with anything else
     QTreeView::setModel(model);
+    m_sourceModel = static_cast<KateFileTreeModel *>(m_proxyModel->sourceModel());
 
     header()->hide();
     header()->setStretchLastSection(false);
     header()->setSectionResizeMode(0, QHeaderView::Stretch);
 
-    int minSize = m_hasCloseButton ? 16 : 1;
+    const int minSize = m_hasCloseButton ? 16 : 1;
     header()->setMinimumSectionSize(minSize);
     header()->setSectionResizeMode(1, QHeaderView::Fixed);
     header()->resizeSection(1, minSize);
 
     // proxy never emits rowsMoved
-    connect(proxy->sourceModel(), &QAbstractItemModel::rowsMoved, this, &KateFileTree::onRowsMoved);
+    connect(m_proxyModel, &QAbstractItemModel::rowsMoved, this, &KateFileTree::onRowsMoved);
 }
 
 void KateFileTree::onRowsMoved(const QModelIndex &, int, int, const QModelIndex &destination, int row)
 {
-    auto proxy = static_cast<KateFileTreeProxyModel *>(model());
-    auto source = proxy->sourceModel();
-    QModelIndex movedIndex = proxy->mapFromSource(source->index(row, 0, destination));
+    QModelIndex movedIndex = m_proxyModel->mapFromSource(m_sourceModel->index(row, 0, destination));
     // We moved stuff, make sure if child was expanded, we expand all parents too.
     if (movedIndex.isValid() && isExpanded(movedIndex) && !isExpanded(movedIndex.parent())) {
         QModelIndex movedParent = movedIndex.parent();
@@ -195,7 +207,7 @@ void KateFileTree::setShowCloseButton(bool show)
     if (!header())
         return;
 
-    int minSize = show ? 16 : 1;
+    const int minSize = show ? 16 : 1;
     header()->setMinimumSectionSize(minSize);
     header()->resizeSection(1, minSize);
     header()->viewport()->update();
@@ -285,7 +297,7 @@ void KateFileTree::slotCurrentChanged(const QModelIndex &current, const QModelIn
         return;
     }
 
-    KTextEditor::Document *doc = model()->data(current, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
+    KTextEditor::Document *doc = m_proxyModel->docFromIndex(current);
     if (doc) {
         m_previouslySelected = current;
     }
@@ -293,9 +305,9 @@ void KateFileTree::slotCurrentChanged(const QModelIndex &current, const QModelIn
 
 void KateFileTree::mouseClicked(const QModelIndex &index)
 {
-    if (auto doc = model()->data(index, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>()) {
+    if (auto doc = m_proxyModel->docFromIndex(index)) {
         if (m_hasCloseButton && index.column() == 1) {
-            KTextEditor::Editor::instance()->application()->closeDocuments({doc});
+            closeDocs({doc});
             return;
         }
         Q_EMIT activateDocument(doc);
@@ -308,19 +320,16 @@ void KateFileTree::contextMenuEvent(QContextMenuEvent *event)
 
     selectionModel()->setCurrentIndex(m_indexContextMenu, QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Rows);
 
-    KateFileTreeProxyModel *ftpm = static_cast<KateFileTreeProxyModel *>(model());
-    KateFileTreeModel *ftm = static_cast<KateFileTreeModel *>(ftpm->sourceModel());
-
-    bool listMode = ftm->listMode();
+    const bool listMode = m_sourceModel->listMode();
     m_treeModeAction->setChecked(!listMode);
     m_listModeAction->setChecked(listMode);
 
-    int sortRole = ftpm->sortRole();
+    const int sortRole = m_proxyModel->sortRole();
     m_sortByFile->setChecked(sortRole == Qt::DisplayRole);
     m_sortByPath->setChecked(sortRole == KateFileTreeModel::PathRole);
     m_sortByOpeningOrder->setChecked(sortRole == KateFileTreeModel::OpeningOrderRole);
 
-    KTextEditor::Document *doc = m_indexContextMenu.data(KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
+    KTextEditor::Document *doc = docFromIndex(m_indexContextMenu);
     const bool isFile = (nullptr != doc);
 
     QMenu menu;
@@ -375,7 +384,7 @@ void KateFileTree::slotFixOpenWithMenu()
     QMenu *menu = static_cast<QMenu *>(sender());
     menu->clear();
 
-    KTextEditor::Document *doc = model()->data(m_indexContextMenu, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
+    KTextEditor::Document *doc = m_proxyModel->docFromIndex(m_indexContextMenu);
     if (!doc) {
         return;
     }
@@ -384,24 +393,23 @@ void KateFileTree::slotFixOpenWithMenu()
     QMimeDatabase db;
     QMimeType mime = db.mimeTypeForName(doc->mimeType());
 
-    QAction *a = nullptr;
     const KService::List offers = KApplicationTrader::queryByMimeType(mime.name());
     // for each one, insert a menu item...
     for (const auto &service : offers) {
         if (service->name() == QLatin1String("Kate")) {
             continue;
         }
-        a = menu->addAction(QIcon::fromTheme(service->icon()), service->name());
+        QAction *a = menu->addAction(QIcon::fromTheme(service->icon()), service->name());
         a->setData(service->entryPath());
     }
     // append "Other..." to call the KDE "open with" dialog.
-    a = menu->addAction(i18n("&Other..."));
-    a->setData(QString());
+    QAction *other = menu->addAction(i18n("&Other..."));
+    other->setData(QString());
 }
 
 void KateFileTree::slotOpenWithMenuAction(QAction *a)
 {
-    KTextEditor::Document *doc = model()->data(m_indexContextMenu, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
+    KTextEditor::Document *doc = m_proxyModel->docFromIndex(m_indexContextMenu);
     if (!doc) {
         return;
     }
@@ -421,12 +429,17 @@ Q_DECLARE_METATYPE(QList<KTextEditor::Document *>)
 void KateFileTree::slotDocumentClose()
 {
     m_previouslySelected = QModelIndex();
-    QVariant v = m_indexContextMenu.data(KateFileTreeModel::DocumentTreeRole);
-    if (!v.isValid()) {
-        return;
+    const QList<KTextEditor::Document *> closingDocuments = docTreeFromIndex(m_indexContextMenu);
+    closeDocs(closingDocuments);
+}
+
+void KateFileTree::addChildrenTolist(const QModelIndex &index, QList<QPersistentModelIndex> *worklist)
+{
+    const int count = m_proxyModel->rowCount(index);
+    worklist->reserve(worklist->size() + count);
+    for (int i = 0; i < count; ++i) {
+        worklist->append(m_proxyModel->index(i, 0, index));
     }
-    QList<KTextEditor::Document *> closingDocuments = v.value<QList<KTextEditor::Document *>>();
-    KTextEditor::Editor::instance()->application()->closeDocuments(closingDocuments);
 }
 
 void KateFileTree::slotExpandRecursive()
@@ -445,9 +458,7 @@ void KateFileTree::slotExpandRecursive()
         expand(index);
 
         // Append all children of current item
-        for (int i = 0; i < model()->rowCount(index); ++i) {
-            worklist.append(model()->index(i, 0, index));
-        }
+        addChildrenTolist(index, &worklist);
     }
 }
 
@@ -467,43 +478,29 @@ void KateFileTree::slotCollapseRecursive()
         collapse(index);
 
         // Prepend all children of current item
-        for (int i = 0; i < model()->rowCount(index); ++i) {
-            worklist.append(model()->index(i, 0, index));
-        }
+        addChildrenTolist(index, &worklist);
     }
 }
 
 void KateFileTree::slotDocumentCloseOther()
 {
-    QVariant v = model()->data(m_indexContextMenu.parent(), KateFileTreeModel::DocumentTreeRole);
-    if (!v.isValid()) {
-        return;
-    }
-
-    QList<KTextEditor::Document *> closingDocuments = v.value<QList<KTextEditor::Document *>>();
-    KTextEditor::Document *doc = model()->data(m_indexContextMenu, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
-
+    QList<KTextEditor::Document *> closingDocuments = m_proxyModel->docTreeFromIndex(m_indexContextMenu.parent());
+    KTextEditor::Document *doc = m_proxyModel->docFromIndex(m_indexContextMenu);
     closingDocuments.removeOne(doc);
-
-    KTextEditor::Editor::instance()->application()->closeDocuments(closingDocuments);
+    closeDocs(closingDocuments);
 }
 
 void KateFileTree::slotDocumentReload()
 {
-    QVariant v = m_indexContextMenu.data(KateFileTreeModel::DocumentTreeRole);
-    if (!v.isValid()) {
-        return;
-    }
-
-    const QList<KTextEditor::Document *> docs = v.value<QList<KTextEditor::Document *>>();
-    for (KTextEditor::Document *doc : docs) {
+    const QList<KTextEditor::Document *> docs = docTreeFromIndex(m_indexContextMenu);
+    for (auto *doc : docs) {
         doc->documentReload();
     }
 }
 
 void KateFileTree::slotOpenContainingFolder()
 {
-    KTextEditor::Document *doc = model()->data(m_indexContextMenu, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
+    KTextEditor::Document *doc = m_proxyModel->docFromIndex(m_indexContextMenu);
     if (doc) {
         KIO::highlightInFileManager({doc->url()});
     }
@@ -511,24 +508,21 @@ void KateFileTree::slotOpenContainingFolder()
 
 void KateFileTree::slotCopyFilename()
 {
-    KTextEditor::Document *doc = model()->data(m_indexContextMenu, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
+    KTextEditor::Document *doc = m_proxyModel->docFromIndex(m_indexContextMenu);
 
     // TODO: the following code was improved in kate/katefileactions.cpp and should be reused here
     //       (make sure that the mentioned bug 381052 does not reappear)
 
     if (doc) {
+        const QUrl url = doc->url();
         // ensure we prefer native separators, bug 381052
-        if (doc->url().isLocalFile()) {
-            QApplication::clipboard()->setText(QDir::toNativeSeparators(doc->url().toLocalFile()));
-        } else {
-            QApplication::clipboard()->setText(doc->url().url());
-        }
+        QApplication::clipboard()->setText(url.isLocalFile() ? QDir::toNativeSeparators(url.toLocalFile()) : url.url());
     }
 }
 
 void KateFileTree::slotRenameFile()
 {
-    KTextEditor::Document *doc = model()->data(m_indexContextMenu, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
+    KTextEditor::Document *doc = m_proxyModel->docFromIndex(m_indexContextMenu);
 
     // TODO: the following code was improved in kate/katefileactions.cpp and should be reused here
 
@@ -575,7 +569,7 @@ void KateFileTree::slotRenameFile()
 
 void KateFileTree::slotDocumentFirst()
 {
-    KTextEditor::Document *doc = model()->data(model()->index(0, 0), KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
+    KTextEditor::Document *doc = m_proxyModel->docFromIndex(m_proxyModel->index(0, 0));
     if (doc) {
         Q_EMIT activateDocument(doc);
     }
@@ -583,8 +577,8 @@ void KateFileTree::slotDocumentFirst()
 
 void KateFileTree::slotDocumentLast()
 {
-    int count = model()->rowCount(model()->parent(currentIndex()));
-    KTextEditor::Document *doc = model()->data(model()->index(count - 1, 0), KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
+    int count = m_proxyModel->rowCount(m_proxyModel->parent(currentIndex()));
+    KTextEditor::Document *doc = m_proxyModel->docFromIndex(m_proxyModel->index(count - 1, 0));
     if (doc) {
         Q_EMIT activateDocument(doc);
     }
@@ -592,31 +586,29 @@ void KateFileTree::slotDocumentLast()
 
 void KateFileTree::slotDocumentPrev()
 {
-    KateFileTreeProxyModel *ftpm = static_cast<KateFileTreeProxyModel *>(model());
-
     QModelIndex current_index = currentIndex();
     QModelIndex prev;
 
     // scan up the tree skipping any dir nodes
     while (current_index.isValid()) {
         if (current_index.row() > 0) {
-            current_index = ftpm->sibling(current_index.row() - 1, current_index.column(), current_index);
+            current_index = m_proxyModel->sibling(current_index.row() - 1, current_index.column(), current_index);
             if (!current_index.isValid()) {
                 break;
             }
 
-            if (ftpm->isDir(current_index)) {
+            if (m_proxyModel->isDir(current_index)) {
                 // try and select the last child in this parent
-                int children = ftpm->rowCount(current_index);
-                current_index = ftpm->index(children - 1, 0, current_index);
-                if (ftpm->isDir(current_index)) {
+                int children = m_proxyModel->rowCount(current_index);
+                current_index = m_proxyModel->index(children - 1, 0, current_index);
+                if (m_proxyModel->isDir(current_index)) {
                     // since we're a dir, keep going
-                    while (ftpm->isDir(current_index)) {
-                        children = ftpm->rowCount(current_index);
-                        current_index = ftpm->index(children - 1, 0, current_index);
+                    while (m_proxyModel->isDir(current_index)) {
+                        children = m_proxyModel->rowCount(current_index);
+                        current_index = m_proxyModel->index(children - 1, 0, current_index);
                     }
 
-                    if (!ftpm->isDir(current_index)) {
+                    if (!m_proxyModel->isDir(current_index)) {
                         prev = current_index;
                         break;
                     }
@@ -633,20 +625,20 @@ void KateFileTree::slotDocumentPrev()
             }
         } else {
             // just select the parent, the logic above will handle the rest
-            current_index = ftpm->parent(current_index);
+            current_index = m_proxyModel->parent(current_index);
             if (!current_index.isValid()) {
                 // paste the root node here, try and wrap around
 
-                int children = ftpm->rowCount(current_index);
-                QModelIndex last_index = ftpm->index(children - 1, 0, current_index);
+                int children = m_proxyModel->rowCount(current_index);
+                QModelIndex last_index = m_proxyModel->index(children - 1, 0, current_index);
                 if (!last_index.isValid()) {
                     break;
                 }
 
-                if (ftpm->isDir(last_index)) {
+                if (m_proxyModel->isDir(last_index)) {
                     // last node is a dir, select last child row
-                    int last_children = ftpm->rowCount(last_index);
-                    prev = ftpm->index(last_children - 1, 0, last_index);
+                    int last_children = m_proxyModel->rowCount(last_index);
+                    prev = m_proxyModel->index(last_children - 1, 0, last_index);
                     // bug here?
                     break;
                 } else {
@@ -659,36 +651,34 @@ void KateFileTree::slotDocumentPrev()
     }
 
     if (prev.isValid()) {
-        KTextEditor::Document *doc = model()->data(prev, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
+        KTextEditor::Document *doc = m_proxyModel->docFromIndex(prev);
         Q_EMIT activateDocument(doc);
     }
 }
 
 void KateFileTree::slotDocumentNext()
 {
-    KateFileTreeProxyModel *ftpm = static_cast<KateFileTreeProxyModel *>(model());
-
     QModelIndex current_index = currentIndex();
-    int parent_row_count = ftpm->rowCount(ftpm->parent(current_index));
+    int parent_row_count = m_proxyModel->rowCount(m_proxyModel->parent(current_index));
     QModelIndex next;
 
     // scan down the tree skipping any dir nodes
     while (current_index.isValid()) {
         if (current_index.row() < parent_row_count - 1) {
-            current_index = ftpm->sibling(current_index.row() + 1, current_index.column(), current_index);
+            current_index = m_proxyModel->sibling(current_index.row() + 1, current_index.column(), current_index);
             if (!current_index.isValid()) {
                 break;
             }
 
-            if (ftpm->isDir(current_index)) {
+            if (m_proxyModel->isDir(current_index)) {
                 // we have a dir node
-                while (ftpm->isDir(current_index)) {
-                    current_index = ftpm->index(0, 0, current_index);
+                while (m_proxyModel->isDir(current_index)) {
+                    current_index = m_proxyModel->index(0, 0, current_index);
                 }
 
-                parent_row_count = ftpm->rowCount(ftpm->parent(current_index));
+                parent_row_count = m_proxyModel->rowCount(m_proxyModel->parent(current_index));
 
-                if (!ftpm->isDir(current_index)) {
+                if (!m_proxyModel->isDir(current_index)) {
                     next = current_index;
                     break;
                 }
@@ -698,8 +688,8 @@ void KateFileTree::slotDocumentNext()
             }
         } else {
             // select the parent's next sibling
-            QModelIndex parent_index = ftpm->parent(current_index);
-            int grandparent_row_count = ftpm->rowCount(ftpm->parent(parent_index));
+            QModelIndex parent_index = m_proxyModel->parent(current_index);
+            int grandparent_row_count = m_proxyModel->rowCount(m_proxyModel->parent(parent_index));
 
             current_index = parent_index;
             parent_row_count = grandparent_row_count;
@@ -707,17 +697,17 @@ void KateFileTree::slotDocumentNext()
             // at least if we're not past the last node
             if (!current_index.isValid()) {
                 // paste the root node here, try and wrap around
-                QModelIndex last_index = ftpm->index(0, 0, QModelIndex());
+                QModelIndex last_index = m_proxyModel->index(0, 0, QModelIndex());
                 if (!last_index.isValid()) {
                     break;
                 }
 
-                if (ftpm->isDir(last_index)) {
+                if (m_proxyModel->isDir(last_index)) {
                     // last node is a dir, select first child row
-                    while (ftpm->isDir(last_index)) {
-                        if (ftpm->rowCount(last_index)) {
+                    while (m_proxyModel->isDir(last_index)) {
+                        if (m_proxyModel->rowCount(last_index)) {
                             // has children, select first
-                            last_index = ftpm->index(0, 0, last_index);
+                            last_index = m_proxyModel->index(0, 0, last_index);
                         }
                     }
 
@@ -733,14 +723,14 @@ void KateFileTree::slotDocumentNext()
     }
 
     if (next.isValid()) {
-        KTextEditor::Document *doc = model()->data(next, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
+        KTextEditor::Document *doc = m_proxyModel->docFromIndex(next);
         Q_EMIT activateDocument(doc);
     }
 }
 
 void KateFileTree::slotPrintDocument()
 {
-    KTextEditor::Document *doc = model()->data(m_indexContextMenu, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
+    KTextEditor::Document *doc = m_proxyModel->docFromIndex(m_indexContextMenu);
 
     if (!doc) {
         return;
@@ -751,7 +741,7 @@ void KateFileTree::slotPrintDocument()
 
 void KateFileTree::slotPrintDocumentPreview()
 {
-    KTextEditor::Document *doc = model()->data(m_indexContextMenu, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
+    KTextEditor::Document *doc = m_proxyModel->docFromIndex(m_indexContextMenu);
 
     if (!doc) {
         return;
@@ -762,14 +752,12 @@ void KateFileTree::slotPrintDocumentPreview()
 
 void KateFileTree::slotResetHistory()
 {
-    KateFileTreeProxyModel *ftpm = static_cast<KateFileTreeProxyModel *>(model());
-    KateFileTreeModel *ftm = static_cast<KateFileTreeModel *>(ftpm->sourceModel());
-    ftm->resetHistory();
+    m_sourceModel->resetHistory();
 }
 
 void KateFileTree::slotDocumentDelete()
 {
-    KTextEditor::Document *doc = model()->data(m_indexContextMenu, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
+    KTextEditor::Document *doc = m_proxyModel->docFromIndex(m_indexContextMenu);
 
     // TODO: the following code was improved in kate/katefileactions.cpp and should be reused here
 
@@ -791,7 +779,7 @@ void KateFileTree::slotDocumentDelete()
         return;
     }
 
-    if (!KTextEditor::Editor::instance()->application()->closeDocument(doc)) {
+    if (!closeDocs({doc})) {
         return; // no extra message, the internals of ktexteditor should take care of that.
     }
 

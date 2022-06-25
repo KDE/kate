@@ -23,6 +23,8 @@ public:
     QModelIndex docIndex(const KTextEditor::Document *) const;
     bool isDir(const QModelIndex &i) const;
     void setSourceModel(QAbstractItemModel *model) override;
+    KTextEditor::Document *docFromIndex(const QModelIndex &index);
+    QList<KTextEditor::Document *> docTreeFromIndex(const QModelIndex &index);
 
 protected:
     bool lessThan(const QModelIndex &left, const QModelIndex &right) const override;

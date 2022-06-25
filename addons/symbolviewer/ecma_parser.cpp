@@ -19,18 +19,12 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
         return;
     }
 
-    // the current line
-    QString cl;
-    // the current line stripped of all comments and strings
-    QString stripped;
     // a parsed class/function identifier
     QString identifier;
     // temporary characters
     QChar current, next, string_start = QLatin1Char('\0');
     // whether we are in a multiline comment
     bool in_comment = false;
-    // the current line index
-    int line = 0;
     // indices into the string
     int c, function_start = 0;
     // the current depth of curly brace encapsulation
@@ -48,11 +42,10 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
 
     // read the document line by line
     KTextEditor::Document *kv = m_mainWindow->activeView()->document();
-    for (line = 0; line < kv->lines(); line++) {
+    for (int i = 0; i < kv->lines(); i++) {
         // get a line to process, trimming off whitespace
-        cl = kv->line(line);
-        cl = cl.trimmed();
-        stripped.clear();
+        QString cl = kv->line(i).trimmed();
+        QString stripped; // the current line stripped of all comments and strings
         bool in_string = false;
         for (c = 0; c < cl.length(); c++) {
             // get the current character and the next
@@ -138,7 +131,7 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
                 // add an entry for the class
                 node->setText(0, identifier);
                 node->setIcon(0, m_icon_class);
-                node->setText(1, QString::number(line, 10));
+                node->setText(1, QString::number(i, 10));
                 if (m_expandOn->isChecked()) {
                     m_symbols->expandItem(node);
                 }
@@ -227,7 +220,7 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
                     }
                     // add the function
                     node->setText(0, identifier);
-                    node->setText(1, QString::number(line, 10));
+                    node->setText(1, QString::number(i, 10));
                     if (m_expandOn->isChecked()) {
                         m_symbols->expandItem(node);
                     }
@@ -269,7 +262,7 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
 
                     // add the id
                     node->setText(0, identifier);
-                    node->setText(1, QString::number(line, 10));
+                    node->setText(1, QString::number(i, 10));
                     if (m_expandOn->isChecked()) {
                         m_symbols->expandItem(node);
                     }

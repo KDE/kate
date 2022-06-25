@@ -71,7 +71,7 @@ private Q_SLOTS:
     void slotSortName();
     void slotSortPath();
     void slotSortOpeningOrder();
-    void slotFixOpenWithMenu();
+    void slotFixOpenWithMenu(QMenu *menu);
     void slotOpenWithMenuAction(QAction *a);
 
     void slotRenameFile();

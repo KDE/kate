@@ -347,7 +347,9 @@ void KateFileTree::contextMenuEvent(QContextMenuEvent *event)
         menu.addAction(m_filelistPrintDocument);
         menu.addAction(m_filelistPrintDocumentPreview);
         QMenu *openWithMenu = menu.addMenu(i18nc("@action:inmenu", "Open With"));
-        connect(openWithMenu, &QMenu::aboutToShow, this, &KateFileTree::slotFixOpenWithMenu);
+        connect(openWithMenu, &QMenu::aboutToShow, this, [this, openWithMenu]() {
+            slotFixOpenWithMenu(openWithMenu);
+        });
         connect(openWithMenu, &QMenu::triggered, this, &KateFileTree::slotOpenWithMenuAction);
 
         const bool hasFileName = doc->url().isValid();
@@ -379,9 +381,8 @@ void KateFileTree::contextMenuEvent(QContextMenuEvent *event)
     event->accept();
 }
 
-void KateFileTree::slotFixOpenWithMenu()
+void KateFileTree::slotFixOpenWithMenu(QMenu *menu)
 {
-    QMenu *menu = static_cast<QMenu *>(sender());
     menu->clear();
 
     KTextEditor::Document *doc = m_proxyModel->docFromIndex(m_indexContextMenu);

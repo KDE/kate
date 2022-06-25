@@ -21,8 +21,7 @@ void KatePluginSymbolViewerView::parsePerlSymbols(void)
     m_macro->setText(i18n("Show Uses"));
     m_struct->setText(i18n("Show Pragmas"));
     m_func->setText(i18n("Show Subroutines"));
-    QString cl; // Current Line
-    char comment = 0;
+    bool is_comment = false;
     QTreeWidgetItem *node = nullptr;
     QTreeWidgetItem *mcrNode = nullptr, *sctNode = nullptr, *clsNode = nullptr;
     QTreeWidgetItem *lastMcrNode = nullptr, *lastSctNode = nullptr, *lastClsNode = nullptr;
@@ -52,20 +51,20 @@ void KatePluginSymbolViewerView::parsePerlSymbols(void)
     }
 
     for (int i = 0; i < kv->lines(); i++) {
-        cl = kv->line(i);
+        QString cl = kv->line(i);
         // qDebug()<< "Line " << i << " : "<< cl;
 
         if (cl.isEmpty() || cl.at(0) == QLatin1Char('#')) {
             continue;
         }
         if (cl.indexOf(QRegularExpression(QLatin1String("^=[a-zA-Z]"))) >= 0) {
-            comment = 1;
+            is_comment = true;
         }
         if (cl.indexOf(QRegularExpression(QLatin1String("^=cut$"))) >= 0) {
-            comment = 0;
+            is_comment = false;
             continue;
         }
-        if (comment == 1) {
+        if (is_comment) {
             continue;
         }
 

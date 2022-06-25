@@ -18,9 +18,8 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
         return;
     }
 
-    QString cl; // Current Line
     QString stripped;
-    int i, j, tmpPos = 0;
+    int j, tmpPos = 0;
     int par = 0, graph = 0 /*, retry = 0*/;
     char mclass = 0, block = 0, comment = 0; // comment: 0-no comment 1-inline comment 2-multiline comment 3-string
     char macro = 0 /*, macro_pos = 0*/, func_close = 0;
@@ -60,10 +59,9 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
         m_symbols->setRootIsDecorated(0);
     }
 
-    for (i = 0; i < kv->lines(); i++) {
+    for (int i = 0; i < kv->lines(); i++) {
         // qDebug(13000)<<"Current line :"<<i;
-        cl = kv->line(i);
-        cl = cl.trimmed();
+        QString cl = kv->line(i).trimmed();
         func_close = 0;
         if ((cl.length() >= 2) && (cl.at(0) == QLatin1Char('/') && cl.at(1) == QLatin1Char('/'))) {
             continue;

@@ -19,13 +19,11 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
         return;
     }
 
-    QString currline;
     QString subrStr(QStringLiteral("subroutine "));
     QString funcStr(QStringLiteral("function "));
     QString modStr(QStringLiteral("module "));
 
     QString stripped;
-    int i;
     int fnd, block = 0, blockend = 0, paro = 0, parc = 0;
     bool mainprog;
 
@@ -62,8 +60,8 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
 
     KTextEditor::Document *kDoc = m_mainWindow->activeView()->document();
 
-    for (i = 0; i < kDoc->lines(); i++) {
-        currline = kDoc->line(i);
+    for (int i = 0; i < kDoc->lines(); i++) {
+        QString currline = kDoc->line(i);
         currline = currline.trimmed();
         // currline = currline.simplified(); is this really needed ?
         // Fortran is case insensitive

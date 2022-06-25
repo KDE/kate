@@ -71,10 +71,7 @@ void KatePluginSymbolViewerView::parseXsltSymbols(void)
             continue;
         }
 
-        if (is_comment) {
-            continue;
-        }
-        if (is_template) {
+        if (is_comment || is_template) {
             continue;
         }
 

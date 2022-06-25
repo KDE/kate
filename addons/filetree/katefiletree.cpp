@@ -70,10 +70,9 @@ public:
             return;
         }
 
-        auto doc = index.data(KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
-        if (doc && index.column() == 1 && option.state & QStyle::State_MouseOver) {
+        if (index.column() == 1 && option.state & QStyle::State_MouseOver) {
             const QIcon icon = QIcon::fromTheme(QStringLiteral("tab-close"));
-            int w = option.decorationSize.width();
+            const int w = option.decorationSize.width();
             QRect iconRect(option.rect.right() - w, option.rect.top(), w, option.rect.height());
             icon.paint(painter, iconRect, Qt::AlignRight | Qt::AlignVCenter);
         }
@@ -305,8 +304,18 @@ void KateFileTree::slotCurrentChanged(const QModelIndex &current, const QModelIn
 
 void KateFileTree::mouseClicked(const QModelIndex &index)
 {
-    if (auto doc = m_proxyModel->docFromIndex(index)) {
-        if (m_hasCloseButton && index.column() == 1) {
+    const bool closeButtonClicked = m_hasCloseButton && index.column() == 1;
+
+    if (m_proxyModel->isDir(index)) {
+        if (closeButtonClicked) {
+            const QList<KTextEditor::Document *> list = m_proxyModel->docTreeFromIndex(index);
+            closeDocs(list);
+        }
+        return;
+    }
+
+    if (auto *doc = m_proxyModel->docFromIndex(index)) {
+        if (closeButtonClicked) {
             closeDocs({doc});
             return;
         }

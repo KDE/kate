@@ -18,8 +18,6 @@
 void KatePluginSymbolViewerView::parsePhpSymbols(void)
 {
     if (m_mainWindow->activeView()) {
-        QString line, lineWithliterals, realLine;
-
         QTreeWidgetItem *node = nullptr;
         QTreeWidgetItem *namespaceNode = nullptr, *defineNode = nullptr, *classNode = nullptr, *functionNode = nullptr;
         QTreeWidgetItem *lastNamespaceNode = nullptr, *lastDefineNode = nullptr, *lastClassNode = nullptr, *lastFunctionNode = nullptr;
@@ -91,14 +89,14 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
             // kdDebug(13000) << debugBuffer.arg(i, 4).arg("=origin", 10).arg(kv->line(i));
 
             // keeping a copy of the line without any processing
-            realLine = kv->line(i);
+            QString realLine = kv->line(i);
 
-            line = realLine.simplified();
+            QString line = realLine.simplified();
 
             // kdDebug(13000) << debugBuffer.arg(i, 4).arg("+simplified", 10).arg(line);
 
             // keeping a copy with literals for catching “defines()”
-            lineWithliterals = line;
+            QString lineWithliterals = line;
 
             // reduce literals to empty strings to not match comments separators in literals
             line.replace(literalRegExp, QLatin1String("\\1\\1"));

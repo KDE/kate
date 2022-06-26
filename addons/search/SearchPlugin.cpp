@@ -1998,12 +1998,12 @@ void KatePluginSearchView::addTab()
     m_tabBar->addTab(QString());
     m_tabBar->setCurrentIndex(m_tabBar->count() - 1);
     m_ui.stackedWidget->setCurrentIndex(0);
-    if (res->searchPlaceIndex < MatchModel::Folder) {
-        m_ui.displayOptions->setChecked(false);
-        res->displayFolderOptions = false;
-    } else {
-        m_ui.displayOptions->setChecked(true);
-        res->displayFolderOptions = true;
+
+    // Don't show folder options widget for every new tab
+    if (m_tabBar->count() == 1) {
+        const bool showFolderOpts = res->searchPlaceIndex < MatchModel::Folder;
+        m_ui.displayOptions->setChecked(showFolderOpts);
+        res->displayFolderOptions = showFolderOpts;
     }
 
     res->treeView->installEventFilter(this);

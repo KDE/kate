@@ -516,7 +516,7 @@ void KateViewSpace::registerDocument(KTextEditor::Document *doc)
      */
     connect(doc, &KTextEditor::Document::documentNameChanged, this, &KateViewSpace::updateDocumentName);
     connect(doc, &KTextEditor::Document::documentUrlChanged, this, &KateViewSpace::updateDocumentUrl);
-    connect(doc, &KTextEditor::Document::modifiedChanged, this, &KateViewSpace::updateDocumentState);
+    connect(doc, &KTextEditor::Document::modifiedChanged, this, &KateViewSpace::updateDocumentName);
 
     /**
      * allow signals again, now that the tab is there
@@ -676,12 +676,15 @@ void KateViewSpace::documentDestroyed(QObject *doc)
 
 void KateViewSpace::updateDocumentName(KTextEditor::Document *doc)
 {
-    // update tab button if available, might not be the case for tab limit set!
+    // update tab button if available, might not be the case for tab limit set!wee
     const int buttonId = m_tabBar->documentIdx(doc);
     if (buttonId >= 0) {
         // BUG: 441278 We need to escape the & because it is used for accelerators/shortcut mnemonic by default
         QString tabName = doc->documentName();
         tabName.replace(QLatin1Char('&'), QLatin1String("&&"));
+        if (doc->isModified()) {
+            tabName.append(QStringLiteral(" *"));
+        }
         m_tabBar->setTabText(buttonId, tabName);
     }
 }
@@ -692,15 +695,6 @@ void KateViewSpace::updateDocumentUrl(KTextEditor::Document *doc)
     const int buttonId = m_tabBar->documentIdx(doc);
     if (buttonId >= 0) {
         m_tabBar->setTabToolTip(buttonId, doc->url().toDisplayString());
-    }
-}
-
-void KateViewSpace::updateDocumentState(KTextEditor::Document *doc)
-{
-    // update tab button if available, might not be the case for tab limit set!
-    const int buttonId = m_tabBar->documentIdx(doc);
-    if (buttonId >= 0) {
-        m_tabBar->update(m_tabBar->tabRect(buttonId));
     }
 }
 

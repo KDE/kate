@@ -16,7 +16,6 @@
 #include <QMimeData>
 #include <QPainter>
 #include <QPixmap>
-#include <QProxyStyle>
 #include <QResizeEvent>
 #include <QStyleOptionTab>
 #include <QStylePainter>
@@ -32,49 +31,6 @@ struct KateTabButtonData {
     KTextEditor::Document *doc = nullptr;
 };
 
-class KateTabStyle : public QProxyStyle
-{
-public:
-    KateTabStyle(KateTabBar *parent)
-        : QProxyStyle()
-        , m_tabBar(parent)
-    {
-    }
-
-    void drawControl(ControlElement element, const QStyleOption *option, QPainter *painter, const QWidget *widget = nullptr) const override
-    {
-        if (m_tabBar && element == QStyle::CE_TabBarTabLabel) {
-#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
-            auto opt = const_cast<QStyleOptionTabV4 *>(qstyleoption_cast<const QStyleOptionTabV4 *>(option));
-#else
-            auto opt = const_cast<QStyleOptionTab *>(qstyleoption_cast<const QStyleOptionTab *>(option));
-#endif
-            if (auto doc = m_tabBar->tabDocument(opt->tabIndex)) {
-                // If doc is modified we paint its text italic
-                if (doc->isModified()) {
-                    // Draw whatever else is there without text
-                    auto text = opt->text;
-                    opt->text = QString();
-                    QProxyStyle::drawControl(element, option, painter, widget);
-
-                    // Draw the text as italic
-                    painter->save();
-                    auto font = m_tabBar->font();
-                    font.setItalic(true);
-                    painter->setFont(font);
-                    const auto rect = subElementRect(SE_TabBarTabText, opt, widget);
-                    drawItemText(painter, rect, Qt::AlignCenter, opt->palette, true, text, QPalette::WindowText);
-                    painter->restore();
-                }
-            }
-        }
-        QProxyStyle::drawControl(element, option, painter, widget);
-    }
-
-private:
-    const QPointer<KateTabBar> m_tabBar;
-};
-
 Q_DECLARE_METATYPE(KateTabButtonData)
 
 /**
@@ -83,11 +39,6 @@ Q_DECLARE_METATYPE(KateTabButtonData)
 KateTabBar::KateTabBar(QWidget *parent)
     : QTabBar(parent)
 {
-    // Set our style
-    auto tabBarStyle = new KateTabStyle(this);
-    setStyle(tabBarStyle);
-    tabBarStyle->setParent(this);
-
     // we want no auto-accelerators here
     KAcceleratorManager::setNoAccel(this);
 
@@ -107,22 +58,6 @@ KateTabBar::KateTabBar(QWidget *parent)
 
     // handle config changes
     connect(KateApp::self(), &KateApp::configurationChanged, this, &KateTabBar::readConfig);
-
-    // redo the style on palette change to avoid issues with cached wrong colors
-    // see bug 454864
-    connect(
-        qApp,
-        &QApplication::paletteChanged,
-        this,
-        [this] {
-            // get old style for deletion and replace it with a new instantiated one
-            auto s = style();
-            auto tabBarStyle = new KateTabStyle(this);
-            setStyle(tabBarStyle);
-            tabBarStyle->setParent(this);
-            delete s;
-        },
-        Qt::QueuedConnection);
 }
 
 void KateTabBar::readConfig()

@@ -258,6 +258,7 @@ static bool fuzzy_internal::fuzzy_match_recursive(QStringView::const_iterator pa
             i++;
         }
 
+        bool allConsecutive = true;
         // Apply ordering bonuses
         for (; i < nextMatch; ++i) {
             const uint8_t currIdx = matches[i];
@@ -272,6 +273,8 @@ static bool fuzzy_internal::fuzzy_match_recursive(QStringView::const_iterator pa
                         // In sequence, but not from first char
                         outScore += nonBeginSequenceBonus;
                     }
+                } else {
+                    allConsecutive = false;
                 }
             }
 
@@ -291,6 +294,10 @@ static bool fuzzy_internal::fuzzy_match_recursive(QStringView::const_iterator pa
             if (neighborSeparator) {
                 outScore += separatorBonus;
             }
+        }
+
+        if (allConsecutive && nextMatch >= 4) {
+            outScore *= 2;
         }
     }
 

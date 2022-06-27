@@ -251,49 +251,45 @@ static bool fuzzy_internal::fuzzy_match_recursive(QStringView::const_iterator pa
         const int unmatched = (int)(std::distance(strBegin, strEnd)) - nextMatch;
         outScore += unmatchedLetterPenalty * unmatched;
 
-        uint8_t seqs[maxMatches] = {0};
+        int i = 0;
+        if (matches[i] == 0) {
+            // First letter match has the highest score
+            outScore += firstLetterBonus;
+            i++;
+        }
 
         // Apply ordering bonuses
-        int j = 0;
-        for (int i = 0; i < nextMatch; ++i) {
+        for (; i < nextMatch; ++i) {
             const uint8_t currIdx = matches[i];
 
             if (i > 0) {
                 const uint8_t prevIdx = matches[i - 1];
-
                 // Sequential
                 if (currIdx == (prevIdx + 1)) {
-                    if (j > 0 && seqs[j - 1] == i - 1) {
+                    if (i == matches[i]) {
                         outScore += sequentialBonus;
-                        seqs[j++] = i;
                     } else {
-                        // In sequence, but from first char
+                        // In sequence, but not from first char
                         outScore += nonBeginSequenceBonus;
                     }
                 }
             }
 
             // Check for bonuses based on neighbor character value
-            if (currIdx > 0) {
-                // Camel case
-                const QChar neighbor = *(strBegin + currIdx - 1);
-                const QChar curr = *(strBegin + currIdx);
-                // if camel case bonus, then not snake / separator.
-                // This prevents double bonuses
-                const bool neighborSeparator = neighbor == QLatin1Char('_') || neighbor == QLatin1Char(' ');
-                if (!neighborSeparator && neighbor.isLower() && curr.isUpper()) {
-                    outScore += camelBonus;
-                    continue;
-                }
+            // Camel case
+            const QChar neighbor = *(strBegin + currIdx - 1);
+            const QChar curr = *(strBegin + currIdx);
+            // if camel case bonus, then not snake / separator.
+            // This prevents double bonuses
+            const bool neighborSeparator = neighbor == QLatin1Char('_') || neighbor == QLatin1Char(' ');
+            if (!neighborSeparator && neighbor.isLower() && curr.isUpper()) {
+                outScore += camelBonus;
+                continue;
+            }
 
-                // Separator
-                if (neighborSeparator) {
-                    outScore += separatorBonus;
-                }
-            } else {
-                // First letter match has the highest score
-                outScore += firstLetterBonus + separatorBonus;
-                seqs[j++] = i;
+            // Separator
+            if (neighborSeparator) {
+                outScore += separatorBonus;
             }
         }
     }

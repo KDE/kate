@@ -227,7 +227,7 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
         if (inClass && !inFunction) {
             match = varRegExp.match(line);
             if (match.hasMatch()) {
-                if (m_treeOn->isChecked() && inClass) {
+                if (m_treeOn->isChecked()) {
                     node = new QTreeWidgetItem(lastClassNode);
                 } else {
                     node = new QTreeWidgetItem(m_symbols);

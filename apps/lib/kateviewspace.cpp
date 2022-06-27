@@ -516,7 +516,12 @@ void KateViewSpace::registerDocument(KTextEditor::Document *doc)
      */
     connect(doc, &KTextEditor::Document::documentNameChanged, this, &KateViewSpace::updateDocumentName);
     connect(doc, &KTextEditor::Document::documentUrlChanged, this, &KateViewSpace::updateDocumentUrl);
-    connect(doc, &KTextEditor::Document::modifiedChanged, this, &KateViewSpace::updateDocumentName);
+    connect(doc, &KTextEditor::Document::modifiedChanged, this, [this](KTextEditor::Document *doc) {
+        int tab = m_tabBar->documentIdx(doc);
+        if (tab >= 0) {
+            m_tabBar->update(m_tabBar->tabRect(tab));
+        }
+    });
 
     /**
      * allow signals again, now that the tab is there
@@ -682,9 +687,6 @@ void KateViewSpace::updateDocumentName(KTextEditor::Document *doc)
         // BUG: 441278 We need to escape the & because it is used for accelerators/shortcut mnemonic by default
         QString tabName = doc->documentName();
         tabName.replace(QLatin1Char('&'), QLatin1String("&&"));
-        if (doc->isModified()) {
-            tabName.append(QStringLiteral(" *"));
-        }
         m_tabBar->setTabText(buttonId, tabName);
     }
 }

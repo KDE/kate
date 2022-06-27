@@ -129,6 +129,10 @@ protected:
     //! Cycle through tabs
     void wheelEvent(QWheelEvent *event) override;
 
+    void paintEvent(QPaintEvent *) override;
+
+    void mouseReleaseEvent(QMouseEvent *e) override;
+
 private:
     using QTabBar::addTab;
     using QTabBar::insertTab;
@@ -170,6 +174,8 @@ private:
     std::unordered_map<KTextEditor::Document *, std::pair<quint64, bool>> m_docToLruCounterAndHasTab;
 
     QPoint dragStartPos;
+
+    bool m_dragInProgress = false;
 };
 
 #endif // KATE_TAB_BAR_H

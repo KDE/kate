@@ -74,8 +74,10 @@ LSPClientPlugin::LSPClientPlugin(QObject *parent, const QList<QVariant> &)
     // ensure settings path exist, for e.g. local settings.json
     QDir().mkpath(m_settingsPath);
 
-    // ensure we don't spam the user with debug messages per default
-    oldCategoryFilter = QLoggingCategory::installFilter(myCategoryFilter);
+    // ensure we don't spam the user with debug messages per default, do this just once
+    if (!oldCategoryFilter) {
+        oldCategoryFilter = QLoggingCategory::installFilter(myCategoryFilter);
+    }
 
     // apply our config
     readConfig();

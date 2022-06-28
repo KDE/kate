@@ -345,6 +345,21 @@ void Sidebar::readConfig()
     }
 }
 
+void Sidebar::appendStyledTab(const QIcon &icon, int id, const QString &text)
+{
+    appendTab(icon, id, text);
+    auto newTab = tab(id);
+    Q_ASSERT(newTab);
+    connect(newTab, SIGNAL(clicked(int)), this, SLOT(tabClicked(int)));
+    newTab->installEventFilter(this);
+
+    // remember original text, we will need it again if we update the style in updateButtonStyle
+    newTab->setProperty("kate_original_text", text);
+
+    // fixup styling
+    updateButtonStyle(newTab);
+}
+
 void Sidebar::updateButtonStyle(KMultiTabBarTab *button)
 {
     const auto originalText = button->property("kate_original_text").toString();
@@ -415,14 +430,7 @@ ToolView *Sidebar::addWidget(const QIcon &icon, const QString &text, ToolView *w
 
     static int id = 0;
     int newId = ++id;
-    appendTab(icon, newId, text);
-    auto newTab = tab(newId);
-    Q_ASSERT(newTab);
-    connect(newTab, SIGNAL(clicked(int)), this, SLOT(tabClicked(int)));
-    newTab->installEventFilter(this);
-
-    // remember original text, we will need it again if we update the style in updateButtonStyle
-    newTab->setProperty("kate_original_text", text);
+    appendStyledTab(icon, newId, text);
 
     if (!widget) {
         widget = new ToolView(m_mainWin, this, m_ownSplit);
@@ -446,7 +454,6 @@ ToolView *Sidebar::addWidget(const QIcon &icon, const QString &text, ToolView *w
     // starts with invalid size
     m_widgetToSize.emplace(widget, QSize());
 
-    updateButtonStyle(newTab);
     show();
     return widget;
 }
@@ -895,12 +902,9 @@ void Sidebar::restoreSession(KConfigGroup &config)
 
             m_toolviews[firstWrong + i] = tv;
 
-            // readd the button
+            // re-add the button
             int newId = m_widgetToId[tv];
-            appendTab(tv->icon, newId, tv->text);
-            connect(tab(newId), &KMultiTabBarTab::clicked, this, &Sidebar::tabClicked);
-            tab(newId)->installEventFilter(this);
-            tab(newId)->setToolTip(QString());
+            appendStyledTab(tv->icon, newId, tv->text);
 
             // reshuffle in splitter: move to last
             m_ownSplit->addWidget(tv);

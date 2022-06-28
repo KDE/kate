@@ -249,6 +249,14 @@ private Q_SLOTS:
     void readConfig();
 
 private:
+    /**
+     * Append a tab with our styling & needed connections/event filter.
+     */
+    void appendStyledTab(const QIcon &icon, int id, const QString &text);
+
+    /**
+     * Update style of button to our style.
+     */
     void updateButtonStyle(KMultiTabBarTab *button);
 
 protected:

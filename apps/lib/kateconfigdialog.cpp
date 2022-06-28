@@ -184,7 +184,7 @@ void KateConfigDialog::addBehaviorPage()
     vbox->addWidget(label);
 
     m_autoHideTabs = new QCheckBox(i18n("&Auto hide tabs"), buttonGroup);
-    m_autoHideTabs->setChecked(cgGeneral.readEntry("Auto Hide Tabs", true));
+    m_autoHideTabs->setChecked(cgGeneral.readEntry("Auto Hide Tabs", KateApp::isKWrite()));
     m_autoHideTabs->setToolTip(i18n("When checked tabs will be hidden if only one document is open."));
     connect(m_autoHideTabs, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
     vbox->addWidget(m_autoHideTabs);

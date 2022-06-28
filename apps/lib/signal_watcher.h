@@ -15,7 +15,7 @@ class SignalWatcher : public QObject
 #if defined(Q_OS_UNIX)
 public:
     explicit SignalWatcher(QObject *parent = nullptr);
-    ~SignalWatcher() = default;
+    ~SignalWatcher() override = default;
 
     void watchForSignal(int signal);
 

@@ -43,7 +43,7 @@ class GitWidget : public QWidget
     Q_OBJECT
 public:
     explicit GitWidget(KateProject *project, KTextEditor::MainWindow *mainWindow = nullptr, KateProjectPluginView *pluginView = nullptr);
-    ~GitWidget();
+    ~GitWidget() override;
 
     bool eventFilter(QObject *o, QEvent *e) override;
 

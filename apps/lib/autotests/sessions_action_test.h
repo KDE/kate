@@ -15,7 +15,7 @@ class KateSessionsActionTest : public QObject
 
 public:
     KateSessionsActionTest();
-    ~KateSessionsActionTest();
+    ~KateSessionsActionTest() override;
 
 private Q_SLOTS:
     void basic();

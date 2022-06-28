@@ -16,7 +16,7 @@ class QuickOpenLineEdit : public QLineEdit
     Q_OBJECT
 public:
     explicit QuickOpenLineEdit(QWidget *parent);
-    ~QuickOpenLineEdit();
+    ~QuickOpenLineEdit() override;
 
     KateQuickOpenModelList listMode() const
     {

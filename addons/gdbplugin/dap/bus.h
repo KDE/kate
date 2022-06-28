@@ -25,7 +25,7 @@ public:
     enum class State { None, Running, Closed };
 
     explicit Bus(QObject *parent = nullptr);
-    virtual ~Bus() = default;
+    ~Bus() override = default;
 
     virtual QByteArray read() = 0;
     virtual quint16 write(const QByteArray &data) = 0;

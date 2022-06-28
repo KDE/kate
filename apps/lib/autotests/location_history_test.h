@@ -17,7 +17,7 @@ class LocationHistoryTest : public QObject
 
 public:
     LocationHistoryTest(QObject *parent = nullptr);
-    ~LocationHistoryTest();
+    ~LocationHistoryTest() override;
 
     KateViewSpace *viewSpace();
     KateViewManager *viewManager();

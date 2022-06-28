@@ -16,7 +16,7 @@ class FileHistoryWidget : public QWidget
     Q_OBJECT
 public:
     explicit FileHistoryWidget(const QString &file, QWidget *parent = nullptr);
-    ~FileHistoryWidget();
+    ~FileHistoryWidget() override;
 
 private Q_SLOTS:
     void itemClicked(const QModelIndex &idx);

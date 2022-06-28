@@ -13,7 +13,7 @@ class BranchCheckoutDialog : public BranchesDialog
     Q_OBJECT
 public:
     BranchCheckoutDialog(QWidget *mainWindow, KateProjectPluginView *pluginView, QString projectPath);
-    ~BranchCheckoutDialog();
+    ~BranchCheckoutDialog() override;
     void openDialog();
 
 private Q_SLOTS:

@@ -32,7 +32,7 @@ class KATE_PRIVATE_EXPORT KateViewSpace : public QWidget
 public:
     explicit KateViewSpace(KateViewManager *, QWidget *parent = nullptr, const char *name = nullptr);
 
-    ~KateViewSpace();
+    ~KateViewSpace() override;
 
     /**
      * Returns \e true, if this view space is currently the active view space.

@@ -14,7 +14,7 @@ class KateSessionManagerTest : public QObject
     Q_OBJECT
 
 public:
-    ~KateSessionManagerTest();
+    ~KateSessionManagerTest() override;
     KateSessionManagerTest();
 
 private Q_SLOTS:

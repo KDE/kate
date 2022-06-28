@@ -20,7 +20,7 @@ class DebugViewInterface : public QObject
     Q_OBJECT
 public:
     DebugViewInterface(QObject *parent);
-    virtual ~DebugViewInterface() = default;
+    ~DebugViewInterface() override = default;
 
     /**
      * true if debugger is running

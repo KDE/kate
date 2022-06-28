@@ -18,7 +18,7 @@ class MatchExportDialog : public QDialog, public Ui::MatchExportDialog
 public:
     MatchExportDialog(QWidget *parent, QAbstractItemModel *matchModel, QRegularExpression *regExp);
 
-    virtual ~MatchExportDialog();
+    ~MatchExportDialog() override;
 
 protected Q_SLOTS:
 

@@ -297,7 +297,7 @@ void KateTabBar::paintEvent(QPaintEvent *e)
 
     if (drawBase()) {
         QStyleOptionTabBarBase opt;
-        opt.init(this);
+        opt.initFrom(this);
         opt.documentMode = true;
         opt.shape = shape();
         for (int i = 0; i < count(); ++i) {

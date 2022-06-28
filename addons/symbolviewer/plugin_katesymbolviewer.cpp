@@ -284,6 +284,9 @@ bool KatePluginSymbolViewerView::eventFilter(QObject *obj, QEvent *event)
             event->accept();
             return true;
         }
+    } else if (event->type() == QEvent::Show) {
+        slotDocChanged();
+        return true;
     }
     return QObject::eventFilter(obj, event);
 }

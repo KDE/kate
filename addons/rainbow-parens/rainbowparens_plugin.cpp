@@ -19,8 +19,6 @@
 #include <KTextEditor/MovingInterface>
 #include <KTextEditor/View>
 
-#include <array>
-
 constexpr int numberOfColors = 5;
 
 K_PLUGIN_FACTORY_WITH_JSON(RainbowParenPluginFactory, "rainbowparens_plugin.json", registerPlugin<RainbowParenPlugin>();)

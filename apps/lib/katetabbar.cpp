@@ -165,7 +165,6 @@ void KateTabBar::mousePressEvent(QMouseEvent *event)
     if (!isActive()) {
         Q_EMIT activateViewSpaceRequested();
     }
-    m_dragInProgress = false;
 
     if (event->button() == Qt::LeftButton && tabAt(event->pos()) != -1) {
         dragStartPos = event->pos();
@@ -184,12 +183,6 @@ void KateTabBar::mousePressEvent(QMouseEvent *event)
     }
 }
 
-void KateTabBar::mouseReleaseEvent(QMouseEvent *e)
-{
-    m_dragInProgress = false;
-    QTabBar::mouseReleaseEvent(e);
-}
-
 void KateTabBar::mouseMoveEvent(QMouseEvent *event)
 {
     if (dragStartPos.isNull()) {
@@ -203,7 +196,6 @@ void KateTabBar::mouseMoveEvent(QMouseEvent *event)
     }
 
     if (rect().contains(event->pos())) {
-        m_dragInProgress = true;
         return QTabBar::mouseMoveEvent(event);
     }
 
@@ -284,51 +276,6 @@ void KateTabBar::wheelEvent(QWheelEvent *event)
     const int delta = event->angleDelta().x() + event->angleDelta().y();
     const int idx = (delta > 0) ? prevTab() : nextTab();
     setCurrentIndex(idx);
-}
-
-void KateTabBar::paintEvent(QPaintEvent *e)
-{
-    if (m_dragInProgress) {
-        QTabBar::paintEvent(e);
-        return;
-    }
-
-    QStylePainter painter(this);
-
-    if (drawBase()) {
-        QStyleOptionTabBarBase opt;
-        opt.initFrom(this);
-        opt.documentMode = true;
-        opt.shape = shape();
-        for (int i = 0; i < count(); ++i) {
-            opt.tabBarRect |= tabRect(i);
-        }
-        QStyleOptionTab tabOverlap;
-        tabOverlap.shape = shape();
-        int overlap = style()->pixelMetric(QStyle::PM_TabBarBaseOverlap, &tabOverlap, this);
-        opt.rect.setRect(0, size().height() - overlap, size().width(), overlap);
-        painter.drawPrimitive(QStyle::PE_FrameTabBarBase, opt);
-    }
-
-    const int closeBtnWidth = style()->pixelMetric(QStyle::PM_TabCloseIndicatorWidth, nullptr, this);
-    for (int i = 0; i < count(); i++) {
-        QStyleOptionTab opt;
-        initStyleOption(&opt, i);
-        opt.palette.setColor(QPalette::Button, Qt::red);
-        painter.drawControl(QStyle::CE_TabBarTabShape, opt);
-        QFont original = painter.font();
-        QRect r = tabRect(i);
-        r.adjust(-closeBtnWidth, 0, 0, 0);
-        if (tabDocument(i) && tabDocument(i)->isModified()) {
-            // move it back slightly so the text doesn't jump
-            auto original = painter.font();
-            auto copy = original;
-            copy.setItalic(true);
-            painter.setFont(copy);
-        }
-        painter.drawText(r, Qt::AlignCenter, tabText(i));
-        painter.setFont(original);
-    }
 }
 
 void KateTabBar::setTabDocument(int idx, KTextEditor::Document *doc)

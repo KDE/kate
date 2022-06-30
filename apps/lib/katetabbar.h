@@ -64,6 +64,7 @@ public:
     void setTabDocument(int idx, KTextEditor::Document *doc);
     KTextEditor::Document *tabDocument(int idx);
     void removeDocument(KTextEditor::Document *doc);
+    void setModifiedStateIcon(int idx, bool modified);
 
     /**
      * Marks this tabbar as active. That is, current-tab indicators are

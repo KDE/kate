@@ -519,7 +519,7 @@ void KateViewSpace::registerDocument(KTextEditor::Document *doc)
     connect(doc, &KTextEditor::Document::modifiedChanged, this, [this](KTextEditor::Document *doc) {
         int tab = m_tabBar->documentIdx(doc);
         if (tab >= 0) {
-            m_tabBar->setTabIcon(tab, QIcon::fromTheme(doc->isModified() ? QStringLiteral("document-save") : QStringLiteral("document-open")));
+            m_tabBar->setModifiedStateIcon(tab, doc->isModified());
         }
     });
 

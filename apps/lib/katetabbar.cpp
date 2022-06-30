@@ -287,9 +287,24 @@ void KateTabBar::setTabDocument(int idx, KTextEditor::Document *doc)
     // BUG: 441340 We need to escape the & because it is used for accelerators/shortcut mnemonic by default
     QString tabName = doc->documentName();
     tabName.replace(QLatin1Char('&'), QLatin1String("&&"));
-    setTabIcon(idx, QIcon::fromTheme(doc->isModified() ? QStringLiteral("document-save") : QStringLiteral("document-open")));
     setTabText(idx, tabName);
     setTabToolTip(idx, doc->url().toDisplayString());
+    setModifiedStateIcon(idx, doc->isModified());
+}
+
+void KateTabBar::setModifiedStateIcon(int idx, bool modified)
+{
+    // empty icon as place holder
+    if (!modified) {
+        QImage x(100, 100, QImage::Format_ARGB32_Premultiplied);
+        x.fill(0);
+        QIcon i(QPixmap::fromImage(x));
+        setTabIcon(idx, i);
+        return;
+    }
+
+    // modified indicator
+    setTabIcon(idx, QIcon::fromTheme(QStringLiteral("choice-round")));
 }
 
 void KateTabBar::setCurrentDocument(KTextEditor::Document *doc)

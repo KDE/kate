@@ -159,6 +159,22 @@ void KateConfigDialog::addBehaviorPage()
         m_showTextForLeftRightSidebars->setChecked(cgGeneral.readEntry("Show text for left and right sidebar", false));
         connect(m_showTextForLeftRightSidebars, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
         vbox->addWidget(m_showTextForLeftRightSidebars);
+
+        label = new QLabel(i18n("Icon size for left and right sidebar buttons"), buttonGroup);
+        m_leftRightSidebarsIconSize = new QSpinBox(buttonGroup);
+        m_leftRightSidebarsIconSize->setMinimum(16);
+        m_leftRightSidebarsIconSize->setMaximum(48);
+        m_leftRightSidebarsIconSize->setValue(cgGeneral.readEntry("Icon size for left and right sidebar buttons", 32));
+        connect(m_leftRightSidebarsIconSize, &QSpinBox::textChanged, this, &KateConfigDialog::slotChanged);
+        hlayout = new QHBoxLayout;
+        hlayout->addWidget(label);
+        hlayout->addWidget(m_leftRightSidebarsIconSize);
+        vbox->addLayout(hlayout);
+
+        connect(m_showTextForLeftRightSidebars, &QCheckBox::toggled, this, [l = QPointer(label), this](bool v) {
+            m_leftRightSidebarsIconSize->setEnabled(!v);
+            l->setEnabled(!v);
+        });
     }
 
     buttonGroup->setLayout(vbox);
@@ -432,6 +448,9 @@ void KateConfigDialog::slotApply()
         // only there for kate
         if (m_showTextForLeftRightSidebars) {
             cg.writeEntry("Show text for left and right sidebar", m_showTextForLeftRightSidebars->isChecked());
+        }
+        if (m_leftRightSidebarsIconSize) {
+            cg.writeEntry("Icon size for left and right sidebar buttons", m_leftRightSidebarsIconSize->value());
         }
 
         cg.writeEntry("Restore Window Configuration", sessionConfigUi.restoreVC->isChecked());

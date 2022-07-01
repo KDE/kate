@@ -333,15 +333,29 @@ Sidebar::Sidebar(KMultiTabBar::KMultiTabBarPosition pos, MainWindow *mainwin, QW
 
 void Sidebar::readConfig()
 {
+    bool needsUpdate = false;
+
     // shall we show text for the left and right bars?
     KSharedConfig::Ptr config = KSharedConfig::openConfig();
     KConfigGroup cgGeneral = KConfigGroup(config, "General");
     const bool showTextForLeftRight = cgGeneral.readEntry("Show text for left and right sidebar", false);
     if (showTextForLeftRight != m_showTextForLeftRight) {
         m_showTextForLeftRight = showTextForLeftRight;
-        for (const auto &tabs : m_idToWidget) {
-            updateButtonStyle(tab(tabs.first));
-        }
+        needsUpdate = true;
+    }
+
+    int size = cgGeneral.readEntry("Icon size for left and right sidebar buttons", 32);
+    if (size != m_leftRightSidebarIconSize) {
+        m_leftRightSidebarIconSize = size;
+        needsUpdate = true;
+    }
+
+    if (!needsUpdate) {
+        return;
+    }
+
+    for (const auto &tabs : m_idToWidget) {
+        updateButtonStyle(tab(tabs.first));
     }
 }
 
@@ -364,7 +378,7 @@ void Sidebar::updateButtonStyle(KMultiTabBarTab *button)
 {
     const auto originalText = button->property("kate_original_text").toString();
     if (!m_showTextForLeftRight && (position() == KMultiTabBar::Left || position() == KMultiTabBar::Right)) {
-        const int iconSize = style()->pixelMetric(QStyle::PM_LargeIconSize, nullptr, this);
+        const int iconSize = m_leftRightSidebarIconSize;
         button->setIconSize(QSize(iconSize, iconSize));
         button->setText(QString());
         button->setToolTip(originalText);

@@ -293,6 +293,8 @@ private:
 
     bool m_showTextForLeftRight = false;
 
+    int m_leftRightSidebarIconSize = 32;
+
 Q_SIGNALS:
     void sigShowPluginConfigPage(KTextEditor::Plugin *configpageinterface, int id);
 };

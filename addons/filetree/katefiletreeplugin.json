@@ -2,6 +2,7 @@
     "KPlugin": {
         "Description": "Displays the open documents in a file tree",
         "Description[az]": "Fayl ağacında açıq sənədləri göstərir",
+        "Description[bg]": "Показва отворените документи в йерархичен изглед",
         "Description[ca@valencia]": "Mostra els documents oberts en un arbre de fitxers",
         "Description[ca]": "Mostra els documents oberts en un arbre de fitxers",
         "Description[cs]": "Zobrazí otevřené dokumenty ve stromu souborů",
@@ -30,6 +31,7 @@
         "Description[zh_CN]": "在文件树中显示打开的文档",
         "Name": "Document Tree View",
         "Name[az]": "Sənədin budaqlanma görünüşü",
+        "Name[bg]": "Йерархичен изглед на документи",
         "Name[ca@valencia]": "Vista en arbre de documents",
         "Name[ca]": "Vista en arbre de documents",
         "Name[cs]": "Pohled na Strom dokumentu",

@@ -2,6 +2,7 @@
     "KPlugin": {
         "Description": "External Tools",
         "Description[az]": "Xarici alətlər",
+        "Description[bg]": "Външни инструменти",
         "Description[ca@valencia]": "Eines externes",
         "Description[ca]": "Eines externes",
         "Description[cs]": "Externí nástroje",
@@ -33,6 +34,7 @@
         "Icon": "system-run",
         "Name": "External Tools",
         "Name[az]": "Xarici alətlər",
+        "Name[bg]": "Външни инструменти",
         "Name[ca@valencia]": "Eines externes",
         "Name[ca]": "Eines externes",
         "Name[cs]": "Externí nástroje",

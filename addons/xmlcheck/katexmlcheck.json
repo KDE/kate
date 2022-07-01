@@ -2,6 +2,7 @@
     "KPlugin": {
         "Description": "Validates XML files using xmllint",
         "Description[az]": "XML fayllarını xmllint istifadə edərək doğrulayır",
+        "Description[bg]": "Валидира XML файлове с помощта на xmllint",
         "Description[ca@valencia]": "Valida els fitxers XML utilitzant «xmllint»",
         "Description[ca]": "Valida els fitxers XML usant el «xmllint»",
         "Description[cs]": "Ověřuje soubory XML pomocí xmllint",
@@ -29,6 +30,7 @@
         "Description[zh_CN]": "使用 xmllint 校验 XML 文件",
         "Name": "XML Validation",
         "Name[az]": "XML doğrulama",
+        "Name[bg]": "Валидиране на XML",
         "Name[ca@valencia]": "Validació de l'XML",
         "Name[ca]": "Validació de l'XML",
         "Name[cs]": "Validace XML",

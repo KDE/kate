@@ -2,6 +2,7 @@
     "KPlugin": {
         "Description": "Quick document switching with Alt+Tab behavior",
         "Description[az]": "Alt+Tab ilə sənədləri sürətlə dəyişdirmək",
+        "Description[bg]": "Бързо превключване на документи с комбинацията Alt+Tab",
         "Description[ca@valencia]": "Canvia ràpidament de document amb el comportament d'Alt+Tab",
         "Description[ca]": "Canvia ràpidament de document amb el comportament d'Alt+Tab",
         "Description[cs]": "Rychlé přepínání dokumentů s chováním jako ALT+Tab",
@@ -29,6 +30,7 @@
         "Description[zh_CN]": "使用 Alt+Tab 快速切换文档",
         "Name": "Document Switcher",
         "Name[az]": "Sənəd dəyişdricisi",
+        "Name[bg]": "Бързо превключване на документи",
         "Name[ca@valencia]": "Commutador de documents",
         "Name[ca]": "Commutador de documents",
         "Name[cs]": "Přepínač dokumentů ",

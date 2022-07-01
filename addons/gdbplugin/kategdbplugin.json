@@ -2,6 +2,7 @@
     "KPlugin": {
         "Description": "Provides a simple GDB frontend",
         "Description[az]": "Sadə bir GDB xarici interfeysi ilə təmin edir",
+        "Description[bg]": "Предоставя прост интерфейс за GDB",
         "Description[ca@valencia]": "Proporciona un frontal de GDB senzill",
         "Description[ca]": "Proporciona un frontal de GDB senzill",
         "Description[cs]": "Poskytuje jednoduché rozhraní pro GDB",
@@ -30,6 +31,7 @@
         "Description[zh_CN]": "提供一个简单的 GDB 前端",
         "Name": "GDB",
         "Name[az]": "GDB",
+        "Name[bg]": "GDB",
         "Name[ca@valencia]": "GDB",
         "Name[ca]": "GDB",
         "Name[cs]": "GDB",

@@ -2,6 +2,7 @@
     "KPlugin": {
         "Description": "Look up definitions/declarations with CTags",
         "Description[az]": "CTags ilə bildirişlərədə və tanıtmalarda axtarın",
+        "Description[bg]": "Търсене на  определения/декларации с CTags",
         "Description[ca@valencia]": "Busca definicions/declaracions amb CTags",
         "Description[ca]": "Cerca definicions/declaracions amb CTags",
         "Description[cs]": "Vyhledávání definic/deklarací pomocí CTags",
@@ -30,6 +31,7 @@
         "Icon": "text-x-csrc",
         "Name": "CTags",
         "Name[az]": "CTags",
+        "Name[bg]": "CTags",
         "Name[ca@valencia]": "CTags",
         "Name[ca]": "CTags",
         "Name[cs]": "CTags",

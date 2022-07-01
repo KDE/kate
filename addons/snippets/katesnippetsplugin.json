@@ -2,6 +2,7 @@
     "KPlugin": {
         "Description": "Manage your code snippets or download new ones",
         "Description[az]": "Kod fraqmentlərini idarə edin və yenilərini endirin",
+        "Description[bg]": "Управлявайте фрагментите си с код или изтегляйте нови",
         "Description[ca@valencia]": "Gestiona els retalls de codi o en baixa de nous",
         "Description[ca]": "Gestiona els retalls de codi o en baixa de nous",
         "Description[cs]": "Spravujte vaše ústřižky kódu nebo si stáhněte nové",
@@ -30,6 +31,7 @@
         "Icon": "document-new",
         "Name": "Snippets Tool View",
         "Name[az]": "Fraqmentlər paneli",
+        "Name[bg]": "Изглед  с инструменти за снипети",
         "Name[ca@valencia]": "Vista d'eina de retalls",
         "Name[ca]": "Vista d'eina de retalls",
         "Name[cs]": "Nástrojový pohled ústřižků",

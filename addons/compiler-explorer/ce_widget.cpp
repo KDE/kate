@@ -123,7 +123,8 @@ CEWidget::~CEWidget()
 
 bool CEWidget::shouldClose()
 {
-    int ret = KMessageBox::warningYesNo(this, i18n("Do you really want to close %1?", windowTitle()));
+    int ret =
+        KMessageBox::warningYesNo(this, i18n("Do you really want to close %1?", windowTitle()), {}, KStandardGuiItem::close(), KStandardGuiItem::cancel());
     return ret == KMessageBox::Yes;
 }
 

@@ -296,13 +296,21 @@ void KateTabBar::setTabDocument(int idx, KTextEditor::Document *doc)
 void KateTabBar::setModifiedStateIcon(int idx, KTextEditor::Document *doc)
 {
     // simple modified indicator if modified
+    QIcon tabIcon;
     if (doc->isModified()) {
-        setTabIcon(idx, QIcon::fromTheme(QStringLiteral("choice-round")));
-        return;
+        tabIcon = QIcon::fromTheme(QStringLiteral("choice-round"));
     }
 
     // else mime-type icon
-    setTabIcon(idx, QIcon(QMimeDatabase().mimeTypeForName(doc->mimeType()).iconName()));
+    else {
+        tabIcon = QIcon::fromTheme(QMimeDatabase().mimeTypeForName(doc->mimeType()).iconName());
+    }
+
+    // ensure we always have a valid icon
+    if (tabIcon.isNull()) {
+        tabIcon = QIcon::fromTheme(QStringLiteral("text-plain"));
+    }
+    setTabIcon(idx, tabIcon);
 }
 
 void KateTabBar::setCurrentDocument(KTextEditor::Document *doc)

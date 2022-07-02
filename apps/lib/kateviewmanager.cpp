@@ -987,7 +987,11 @@ void KateViewManager::removeViewSpace(KateViewSpace *viewspace)
     }
 
     if (viewspace->hasWidgets()) {
-        int ret = KMessageBox::warningYesNo(this, i18n("This view may have unsaved work. Do you really want to close it?"));
+        int ret = KMessageBox::warningYesNo(this,
+                                            i18n("This view may have unsaved work. Do you really want to close it?"),
+                                            {},
+                                            KStandardGuiItem::close(),
+                                            KStandardGuiItem::cancel());
         if (ret != KMessageBox::Yes) {
             return;
         }

@@ -134,6 +134,10 @@ void ColorPickerInlineNoteProvider::updateColorMatchingCriteria()
 
 void ColorPickerInlineNoteProvider::updateNotes(int startLine, int endLine)
 {
+    if (m_colorNoteIndices.isEmpty()) {
+        return;
+    }
+
     startLine = startLine < -1 ? -1 : startLine;
     if (startLine == -1) {
         startLine = 0;
@@ -147,16 +151,16 @@ void ColorPickerInlineNoteProvider::updateNotes(int startLine, int endLine)
     }
 
     for (int line = startLine; line < endLine; ++line) {
-        m_colorNoteIndices.remove(line);
-        Q_EMIT inlineNotesChanged(line);
+        int removed = m_colorNoteIndices.remove(line);
+        if (removed != 0) {
+            Q_EMIT inlineNotesChanged(line);
+        }
     }
 }
 
 QVector<int> ColorPickerInlineNoteProvider::inlineNotes(int line) const
 {
     if (!m_colorNoteIndices.contains(line)) {
-        m_colorNoteIndices.insert(line, {});
-
         const QString lineText = m_doc->line(line);
         auto matchIter = m_colorRegex.globalMatch(lineText);
         while (matchIter.hasNext()) {
@@ -177,8 +181,9 @@ QVector<int> ColorPickerInlineNoteProvider::inlineNotes(int line) const
                 end = match.capturedStart();
             }
 
-            m_colorNoteIndices[line].colorNoteIndices.append(start);
-            m_colorNoteIndices[line].otherColorIndices.append(end);
+            auto &colorIndices = m_colorNoteIndices[line];
+            colorIndices.colorNoteIndices.append(start);
+            colorIndices.otherColorIndices.append(end);
         }
     }
 

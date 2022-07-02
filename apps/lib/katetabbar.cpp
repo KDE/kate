@@ -298,7 +298,7 @@ void KateTabBar::setModifiedStateIcon(int idx, KTextEditor::Document *doc)
     // simple modified indicator if modified
     QIcon tabIcon;
     if (doc->isModified()) {
-        tabIcon = QIcon::fromTheme(QStringLiteral("choice-round"));
+        tabIcon = QIcon::fromTheme(QStringLiteral("modified"));
     }
 
     // else mime-type icon

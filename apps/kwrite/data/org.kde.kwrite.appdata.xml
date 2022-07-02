@@ -7,6 +7,7 @@
   <name xml:lang="ar">كاتبك</name>
   <name xml:lang="ast">KWrite</name>
   <name xml:lang="az">KWrite</name>
+  <name xml:lang="bg">KWrite</name>
   <name xml:lang="bs">Kwrite</name>
   <name xml:lang="ca">KWrite</name>
   <name xml:lang="ca-valencia">KWrite</name>
@@ -56,6 +57,7 @@
   <summary xml:lang="ar">محرّر نصوص</summary>
   <summary xml:lang="ast">Editor de testu</summary>
   <summary xml:lang="az">Mətn redaktoru</summary>
+  <summary xml:lang="bg">Текстов редактор</summary>
   <summary xml:lang="bs">Uređivač teksta</summary>
   <summary xml:lang="ca">Editor de text</summary>
   <summary xml:lang="ca-valencia">Editor de text</summary>
@@ -108,6 +110,7 @@
     <p xml:lang="ar">«كاتبك» هو محرّر نصوص لكدي، مبنيّ على مكوّن المحرّر ل‍كيت.</p>
     <p xml:lang="ast">KWrite ye un editor de testu fechu por KDE, básase nel componente del editor Kate.</p>
     <p xml:lang="az">KWrite KDE tərəfindən Kate komponentləri əsasında yaradılan mətn redaktorudur.</p>
+    <p xml:lang="bg">KWrite е текстов редактор на KDE, базиран на Kate.</p>
     <p xml:lang="ca">El KWrite és un editor de text, creat per la comunitat KDE, basat en el component d'edició del Kate.</p>
     <p xml:lang="ca-valencia">KWrite és un editor de text, creat per la comunitat KDE, basat en el component d'edició de Kate.</p>
     <p xml:lang="cs">KWrite je textový editor od KDE založený na komponentě editoru Kate.</p>
@@ -153,6 +156,7 @@
     <p xml:lang="ar">الميزات:</p>
     <p xml:lang="ast">Carauterístiques:</p>
     <p xml:lang="az">İmkanlar:</p>
+    <p xml:lang="bg">Функции:</p>
     <p xml:lang="bs">Svojstva:</p>
     <p xml:lang="ca">Característiques:</p>
     <p xml:lang="ca-valencia">Característiques:</p>
@@ -203,6 +207,7 @@
       <li xml:lang="ar">إبراز الصّياغة حسب نوع الملفّ</li>
       <li xml:lang="ast">Rescamplíu de sintaxis acordies col tipu del ficheru</li>
       <li xml:lang="az">Fayl növündən asılı olaraq sintaksislərin vurğulanması</li>
+      <li xml:lang="bg">Акцентиране на синтаксиса според типа на файла</li>
       <li xml:lang="ca">Ressaltat de sintaxi d'acord amb el tipus de fitxer</li>
       <li xml:lang="ca-valencia">Ressaltat de sintaxi d'acord amb el tipus de fitxer</li>
       <li xml:lang="cs">Zvýraznění syntaxe podle typu souboru</li>
@@ -250,6 +255,7 @@
       <li xml:lang="ar">إكمال الكلمات</li>
       <li xml:lang="ast">Completáu de pallabres</li>
       <li xml:lang="az">Soz tamamlama</li>
+      <li xml:lang="bg">Завършване на думи</li>
       <li xml:lang="bs">Dopuna riječi</li>
       <li xml:lang="ca">Compleció de paraules</li>
       <li xml:lang="ca-valencia">Compleció de paraules</li>
@@ -299,6 +305,7 @@
       <li xml:lang="ar">الإزاحة الآليّة</li>
       <li xml:lang="ast">Sangráu automáticu</li>
       <li xml:lang="az">Avtomatik boşluqlar</li>
+      <li xml:lang="bg">Автоматичен отстъп</li>
       <li xml:lang="bs">Automatsko uvlačenje</li>
       <li xml:lang="ca">Sagnat automàtic</li>
       <li xml:lang="ca-valencia">Sagnat automàtic</li>
@@ -348,6 +355,7 @@
       <li xml:lang="ar">دعم الملحقات</li>
       <li xml:lang="ast">Sofitu pa plugins</li>
       <li xml:lang="az">Plaqin dəstəyi</li>
+      <li xml:lang="bg">Поддръжка на приставки</li>
       <li xml:lang="ca">Admet connectors</li>
       <li xml:lang="ca-valencia">Admet connectors</li>
       <li xml:lang="cs">Podpora modulů</li>
@@ -396,6 +404,7 @@
       <li xml:lang="ar">وضع دخل ڤي-آي</li>
       <li xml:lang="ast">Mou d'entrada Vi</li>
       <li xml:lang="az">Vi daxiletmə rejimi</li>
+      <li xml:lang="bg">Режим на въвеждане Vi</li>
       <li xml:lang="bs">Vi editor režim unosa</li>
       <li xml:lang="ca">Mode d'entrada del Vi</li>
       <li xml:lang="ca-valencia">Mode d'entrada de Vi</li>
@@ -453,6 +462,7 @@
       <caption xml:lang="ar">يحرر الشفرات بكاتبك</caption>
       <caption xml:lang="ast">Edición de códigu con KWrite</caption>
       <caption xml:lang="az">KWrite ilə koda düzəliş edilməsi</caption>
+      <caption xml:lang="bg">Редактиране на код с KWrite</caption>
       <caption xml:lang="ca">Edició de codi amb el KWrite</caption>
       <caption xml:lang="ca-valencia">Edició de codi amb KWrite</caption>
       <caption xml:lang="cs">Úprava kódu pomocí KWrite</caption>

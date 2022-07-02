@@ -2,6 +2,7 @@
     "KPlugin": {
         "Description": "Have a terminal at the ready, using KDE's Konsole widget",
         "Description[az]": "KDE-nin Konsole vidjetinə əsaslanan hazır terminal",
+        "Description[bg]": "Използвайки приставката KDE Konsole, разполагате с терминал в готовност",
         "Description[ca@valencia]": "Té un terminal preparat, utilitzant el giny de Konsole de KDE",
         "Description[ca]": "Té un terminal preparat, usant el giny del Konsole de KDE",
         "Description[de]": "Stellt ein Terminal mit KDE's Konsole bereit",
@@ -28,6 +29,7 @@
         "Description[zh_CN]": "使用 KDE的 Konsole 小部件作为可用的终端。",
         "Name": "Terminal Tool View",
         "Name[az]": "Terminal görünüşü",
+        "Name[bg]": "Изглед с инструменти на терминала",
         "Name[ca@valencia]": "Vista d'eina del terminal",
         "Name[ca]": "Vista d'eina del terminal",
         "Name[cs]": "Nástroj zobrazující terminál",

@@ -2,6 +2,7 @@
     "KPlugin": {
         "Description": "Execute query on SQL databases",
         "Description[az]": "SQL verilənlər bazasında sorğu icra edin",
+        "Description[bg]": "Изпълнение на заявки за бази данни SQL",
         "Description[ca@valencia]": "Executa consultes a bases de dades SQL",
         "Description[ca]": "Executa consultes a bases de dades SQL",
         "Description[cs]": "Vykonat dotaz v SQL databázích",
@@ -29,6 +30,7 @@
         "Description[zh_CN]": "在 SQL 数据库中执行查询",
         "Name": "SQL Plugin",
         "Name[az]": "SQL qoşması",
+        "Name[bg]": "SQL приставка",
         "Name[ca@valencia]": "Connector SQL",
         "Name[ca]": "Connector SQL",
         "Name[cs]": "Modul SQL",

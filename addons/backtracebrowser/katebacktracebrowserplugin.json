@@ -2,6 +2,7 @@
     "KPlugin": {
         "Description": "C/C++ Backtrace navigation tool view",
         "Description[az]": "C/C++ geri izləmə naviqasiya aləti görünüşü",
+        "Description[bg]": "Изглед с инструменти за навигация на обратно проследяване на C/C++",
         "Description[ca@valencia]": "Vista d'eina del navegador per a la traça inversa de C/C++",
         "Description[ca]": "Vista d'eina del navegador per a la traça inversa de C/C++",
         "Description[cs]": "Nástroj pro procházení backtrace v C/C++",
@@ -29,6 +30,7 @@
         "Description[zh_CN]": "C/C++ 回溯导航工具视图",
         "Name": "Backtrace Browser",
         "Name[az]": "Geri izləmə bələdçisi",
+        "Name[bg]": "Проследяване на браузер",
         "Name[ca@valencia]": "Navegador de traça inversa",
         "Name[ca]": "Navegador de traça inversa",
         "Name[cs]": "Prohlížeč backtrace",

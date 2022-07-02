@@ -2,6 +2,7 @@
     "KPlugin": {
         "Description": "Language Server Protocol Client",
         "Description[az]": "Language Server Protocol dəstəyi",
+        "Description[bg]": "Клиент за Language Server Protocol",
         "Description[ca@valencia]": "Client del protocol de servidor de llenguatge",
         "Description[ca]": "Client del protocol de servidor de llenguatge",
         "Description[cs]": "Klient pro Language Server Protocol",
@@ -29,6 +30,7 @@
         "Description[zh_CN]": "语言服务器协议客户端",
         "Name": "LSP Client",
         "Name[az]": "LSP müştərisi",
+        "Name[bg]": "Клиент на LSP",
         "Name[ca@valencia]": "Client LSP",
         "Name[ca]": "Client LSP",
         "Name[cs]": "Klient LSP",

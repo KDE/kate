@@ -47,6 +47,7 @@
     "KPlugin": {
         "Description": "Replicode (constructivist AI language and runtime)",
         "Description[az]": "Replicode (konstruktivist Sİ dili və iş vaxtı)",
+        "Description[bg]": "Replicode (конструктивистки език и време за изпълнение на ИИ)",
         "Description[ca@valencia]": "Replicode (llenguatge i executable constructivista d'IA)",
         "Description[ca]": "Replicode (llenguatge i executable constructivista d'IA)",
         "Description[de]": "Replicode - eine konstruktivistische KI-Programmiersprache und Laufzeitumgebung",
@@ -74,6 +75,7 @@
         "Description[zh_CN]": "Replicode (构建主义的 AI 语言和运行时)",
         "Name": "Replicode",
         "Name[az]": "Təkrar kodlama",
+        "Name[bg]": "Репликод",
         "Name[ca@valencia]": "Replicode",
         "Name[ca]": "Replicode",
         "Name[cs]": "Replicode",

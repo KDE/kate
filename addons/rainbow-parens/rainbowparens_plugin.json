@@ -2,6 +2,7 @@
     "KPlugin": {
         "Description": "Colored brackets for readability",
         "Description[az]": "Oxunabilən rəngli mötərizələr",
+        "Description[bg]": "Оцветени скоби за по-добра прегледност",
         "Description[ca@valencia]": "Claus amb color per a llegir millor",
         "Description[ca]": "Claus amb color per a llegir millor",
         "Description[de]": "Farbige Klammern für bessere Lesbarkeit",
@@ -26,6 +27,7 @@
         "Description[zh_CN]": "提升可读性的彩色括号",
         "Name": "Colored Brackets",
         "Name[az]": "Rəngli mötərizələr",
+        "Name[bg]": "Оцветени скоби",
         "Name[ca@valencia]": "Claus amb color",
         "Name[ca]": "Claus amb color",
         "Name[cs]": "Obarvené závorky",

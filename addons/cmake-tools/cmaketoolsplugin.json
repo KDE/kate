@@ -2,6 +2,7 @@
     "KPlugin": {
         "Description": "CMake plugin for kate",
         "Description[az]": "Kate üçün CMake əlavəsi",
+        "Description[bg]": "Приставка на CMake за kate",
         "Description[ca@valencia]": "Connector de CMake per a Kate",
         "Description[ca]": "Connector de CMake per al Kate",
         "Description[de]": "CMake-Modul für Kate",
@@ -26,6 +27,7 @@
         "Description[zh_CN]": "Kate 的 CMake 插件",
         "Name": "CMake Tools",
         "Name[az]": "CMake alətləri",
+        "Name[bg]": "Инструменти на CMake",
         "Name[ca@valencia]": "Eines de CMake",
         "Name[ca]": "Eines de CMake",
         "Name[de]": "CMake-Tools",

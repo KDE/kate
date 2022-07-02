@@ -2,6 +2,7 @@
     "KPlugin": {
         "Description": "Compile or Make and parse error messages",
         "Description[az]": "Xəta ismarıclarını toplanması, hazırlanması və analizi",
+        "Description[bg]": "Compile или Make и анализиране на съобщения за грешки",
         "Description[ca@valencia]": "Compila o construïx amb Make i analitza els missatges d'error",
         "Description[ca]": "Compila o construeix amb Make i analitza els missatges d'error",
         "Description[cs]": "Zkompilovat či sestavit a analyzovat chybová hlášení",
@@ -29,6 +30,7 @@
         "Description[zh_CN]": "执行编译(Compile/Make)并分析错误消息",
         "Name": "Build Plugin",
         "Name[az]": "Yığılma qoşması",
+        "Name[bg]": "Приставка за компилиране",
         "Name[ca@valencia]": "Connector de construcció",
         "Name[ca]": "Connector de construcció",
         "Name[cs]": "Modul pro překlad",

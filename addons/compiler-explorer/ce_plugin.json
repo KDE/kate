@@ -2,6 +2,7 @@
     "KPlugin": {
         "Description": "View generated asm for C/C++ code",
         "Description[az]": "C/C++ kodu üçün yaradılmış asm göstərmək",
+        "Description[bg]": "Преглед на генериран asm за C/C++ код",
         "Description[ca@valencia]": "Visualitza el codi ASM generat per a C/C++",
         "Description[ca]": "Visualitza el codi ASM generat per a C/C++",
         "Description[cs]": "Zobrazit vygenerovaná kód asm pro kód C/C++",
@@ -27,6 +28,7 @@
         "Description[zh_CN]": "查看 C/C++ 代码生成的 asm",
         "Name": "Compiler Explorer",
         "Name[az]": "Kompliyator bələdçisi",
+        "Name[bg]": "Преглед на компилатор",
         "Name[ca@valencia]": "Explorador de compiladors",
         "Name[ca]": "Explorador de compiladors",
         "Name[de]": "Compiler Explorer",

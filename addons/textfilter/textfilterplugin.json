@@ -2,6 +2,7 @@
     "KPlugin": {
         "Description": "Process text using terminal commands",
         "Description[az]": "Mətn üzərində terminal əmrləri ilə işləyin",
+        "Description[bg]": "Обработка на текст с помощта на терминални команди",
         "Description[ca@valencia]": "Processa el text utilitzant ordres de terminal",
         "Description[ca]": "Processa el text usant ordres de terminal",
         "Description[cs]": "Zpracujte text pomocí příkazů v terminálu",
@@ -30,6 +31,7 @@
         "Description[zh_CN]": "使用终端命令处理文本",
         "Name": "Text Filter",
         "Name[az]": "Mətn süzgəci",
+        "Name[bg]": "Текстов филтър",
         "Name[ca@valencia]": "Filtre de text",
         "Name[ca]": "Filtre de text",
         "Name[cs]": "Textový filtr",

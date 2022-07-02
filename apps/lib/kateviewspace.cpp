@@ -33,6 +33,7 @@
 #include <QMessageBox>
 #include <QRubberBand>
 #include <QStackedWidget>
+#include <QTimer>
 #include <QToolButton>
 #include <QToolTip>
 #include <QWhatsThis>
@@ -884,7 +885,10 @@ void KateViewSpace::showContextMenu(int idx, const QPoint &globalPos)
         auto aCloseTab = menu.addAction(QIcon::fromTheme(QStringLiteral("tab-close")), i18n("Close Tab"));
         auto choice = menu.exec(globalPos);
         if (choice == aCloseTab) {
-            closeTabRequest(idx);
+            // use single shot as this action can trigger deletion of this viewspace!
+            QTimer::singleShot(0, this, [this, idx]() {
+                closeTabRequest(idx);
+            });
         }
         return;
     }
@@ -947,7 +951,10 @@ void KateViewSpace::showContextMenu(int idx, const QPoint &globalPos)
     }
 
     if (choice == aCloseTab) {
-        closeTabRequest(idx);
+        // use single shot as this action can trigger deletion of this viewspace!
+        QTimer::singleShot(0, this, [this, idx]() {
+            closeTabRequest(idx);
+        });
     } else if (choice == aCloseOthers) {
         KateApp::self()->documentManager()->closeOtherDocuments(doc);
     } else if (choice == aCopyPath) {

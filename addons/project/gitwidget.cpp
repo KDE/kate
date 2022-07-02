@@ -1012,9 +1012,9 @@ QAction *GitWidget::stashMenuAction(KActionCollection *ac, const QString &name, 
     return a;
 }
 
-static KMessageBox::ButtonCode confirm(GitWidget *_this, const QString &text)
+static KMessageBox::ButtonCode confirm(GitWidget *_this, const QString &text, const KGuiItem &confirmItem)
 {
-    return KMessageBox::questionYesNo(_this, text, {}, KStandardGuiItem::yes(), KStandardGuiItem::no(), {}, KMessageBox::Dangerous);
+    return KMessageBox::questionYesNo(_this, text, {}, confirmItem, KStandardGuiItem::cancel(), {}, KMessageBox::Dangerous);
 }
 
 void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
@@ -1055,12 +1055,12 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
         if (act == stageAct) {
             stage(files, treeItem == GitStatusModel::NodeUntrack);
         } else if (act == discardAct && !untracked) {
-            auto ret = confirm(this, i18n("Are you sure you want to remove these files?"));
+            auto ret = confirm(this, i18n("Are you sure you want to remove these files?"), KStandardGuiItem::remove());
             if (ret == KMessageBox::Yes) {
                 discard(files);
             }
         } else if (act == discardAct && untracked) {
-            auto ret = confirm(this, i18n("Are you sure you want to discard all changes?"));
+            auto ret = confirm(this, i18n("Are you sure you want to discard all changes?"), KStandardGuiItem::discard());
             if (ret == KMessageBox::Yes) {
                 clean(files);
             }
@@ -1106,7 +1106,7 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
             }
             return stage({file});
         } else if (act == discardAct && !untracked) {
-            auto ret = confirm(this, i18n("Are you sure you want to discard the changes in this file?"));
+            auto ret = confirm(this, i18n("Are you sure you want to discard the changes in this file?"), KStandardGuiItem::discard());
             if (ret == KMessageBox::Yes) {
                 discard({file});
             }
@@ -1115,7 +1115,7 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
         } else if (showDiffAct && act == showDiffAct && !untracked) {
             showDiff(file, staged);
         } else if (act == discardAct && untracked) {
-            auto ret = confirm(this, i18n("Are you sure you want to remove this file?"));
+            auto ret = confirm(this, i18n("Are you sure you want to remove this file?"), KStandardGuiItem::remove());
             if (ret == KMessageBox::Yes) {
                 clean({file});
             }
@@ -1206,12 +1206,12 @@ void GitWidget::selectedContextMenu(QContextMenuEvent *e)
             unstage(files);
         }
     } else if (selectionHasChangedItems && !selectionHasUntrackedItems && execAct == discardAct) {
-        auto ret = confirm(this, i18n("Are you sure you want to discard the changes?"));
+        auto ret = confirm(this, i18n("Are you sure you want to discard the changes?"), KStandardGuiItem::discard());
         if (ret == KMessageBox::Yes) {
             discard(files);
         }
     } else if (!selectionHasChangedItems && selectionHasUntrackedItems && execAct == removeAct) {
-        auto ret = confirm(this, i18n("Are you sure you want to remove these untracked changes?"));
+        auto ret = confirm(this, i18n("Are you sure you want to remove these untracked changes?"), KStandardGuiItem::remove());
         if (ret == KMessageBox::Yes) {
             clean(files);
         }

@@ -303,7 +303,10 @@ void KateFileBrowser::openSelectedFiles()
 
     if (list.count() > 20) {
         if (KMessageBox::questionYesNo(this,
-                                       i18np("You are trying to open 1 file, are you sure?", "You are trying to open %1 files, are you sure?", list.count()))
+                                       i18np("You are trying to open 1 file, are you sure?", "You are trying to open %1 files, are you sure?", list.count()),
+                                       {},
+                                       KGuiItem(i18nc("@action:button", "Open All Files"), QStringLiteral("document-open")),
+                                       KStandardGuiItem::cancel())
             == KMessageBox::No) {
             return;
         }

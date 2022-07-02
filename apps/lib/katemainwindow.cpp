@@ -835,9 +835,11 @@ void KateMainWindow::slotDropEvent(QDropEvent *event)
             if (kitem.isDir()) {
                 if (KMessageBox::questionYesNo(this,
                                                i18n("You dropped the directory %1 into Kate. "
-                                                    "Do you want to load all files contained in it ?",
+                                                    "Do you want to open all files contained in it?",
                                                     url.url()),
-                                               i18n("Load files recursively?"))
+                                               i18nc("@title:window", "Open Files Recursively"),
+                                               KGuiItem(i18nc("@action:button", "Open All Files"), QStringLiteral("document-open")),
+                                               KStandardGuiItem::cancel())
                     == KMessageBox::Yes) {
                     KIO::ListJob *list_job = KIO::listRecursive(url, KIO::DefaultFlags, false);
                     connect(list_job, &KIO::ListJob::entries, this, &KateMainWindow::slotListRecursiveEntries);

@@ -102,6 +102,7 @@ target_sources(
     signal_watcher.cpp
     gitprocess.cpp
     quickdialog.cpp
+    ktexteditor_utils.cpp
 
     data/kateprivate.qrc
 )

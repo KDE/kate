@@ -7,6 +7,7 @@
 
 #include "katetabbar.h"
 #include "kateapp.h"
+#include "ktexteditor_utils.h"
 #include "tabmimedata.h"
 
 #include <QApplication>
@@ -295,22 +296,8 @@ void KateTabBar::setTabDocument(int idx, KTextEditor::Document *doc)
 
 void KateTabBar::setModifiedStateIcon(int idx, KTextEditor::Document *doc)
 {
-    // simple modified indicator if modified
-    QIcon tabIcon;
-    if (doc->isModified()) {
-        tabIcon = QIcon::fromTheme(QStringLiteral("modified"));
-    }
-
-    // else mime-type icon
-    else {
-        tabIcon = QIcon::fromTheme(QMimeDatabase().mimeTypeForName(doc->mimeType()).iconName());
-    }
-
-    // ensure we always have a valid icon
-    if (tabIcon.isNull()) {
-        tabIcon = QIcon::fromTheme(QStringLiteral("text-plain"));
-    }
-    setTabIcon(idx, tabIcon);
+    // use common method, as e.g. in filetree plugin, too
+    setTabIcon(idx, Utils::iconForDocument(doc));
 }
 
 void KateTabBar::setCurrentDocument(KTextEditor::Document *doc)

@@ -3,12 +3,15 @@
     SPDX-License-Identifier: MIT
 */
 
+#include "kateprivate_export.h"
+
 #include <KTextEditor/ConfigInterface>
 #include <KTextEditor/Editor>
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/View>
 
 #include <QFontDatabase>
+#include <QIcon>
 #include <QPointer>
 #include <QScrollBar>
 
@@ -79,4 +82,11 @@ inline QFont viewFont(KTextEditor::View *view)
     return editorFont();
 }
 
+/**
+ * Return a matching icon for the given document.
+ * We use the mime type icon for unmodified stuff and the modified one for modified docs.
+ * @param doc document to get icon for
+ * @return icon, always valid
+ */
+KATE_PRIVATE_EXPORT QIcon iconForDocument(KTextEditor::Document *doc);
 }

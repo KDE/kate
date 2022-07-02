@@ -5,8 +5,9 @@ target_include_directories(filetree_model_test PRIVATE ${CMAKE_CURRENT_SOURCE_DI
 
 find_package(Qt${QT_MAJOR_VERSION}Test ${QT_MIN_VERSION} QUIET REQUIRED)
 target_link_libraries(
-  filetree_model_test 
+  filetree_model_test
   PRIVATE
+    kateprivate
     KF5::GuiAddons
     KF5::I18n
     KF5::TextEditor
@@ -14,10 +15,10 @@ target_link_libraries(
 )
 
 target_sources(
-  filetree_model_test 
+  filetree_model_test
   PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/../katefiletreemodel.cpp
-    filetree_model_test.cpp 
+    filetree_model_test.cpp
     document_dummy.cpp
 )
 

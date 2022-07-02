@@ -25,6 +25,7 @@
 #include <ktexteditor/editor.h>
 
 #include "katefiletreedebug.h"
+#include "ktexteditor_utils.h"
 
 static constexpr int MaxHistoryItems = 10;
 
@@ -1307,23 +1308,10 @@ void KateFileTreeModel::updateItemPathAndHost(ProxyItem *item)
 void KateFileTreeModel::setupIcon(ProxyItem *item)
 {
     Q_ASSERT(item != nullptr);
+    Q_ASSERT(item->doc() != nullptr);
 
-    QString icon_name;
-
-    if (item->flag(ProxyItem::Modified)) {
-        icon_name = QStringLiteral("document-save");
-    } else {
-        const QUrl url(item->path());
-        icon_name = QMimeDatabase().mimeTypeForFile(url.path(), QMimeDatabase::MatchExtension).iconName();
-    }
-
-    QIcon icon = QIcon::fromTheme(icon_name);
-
-    if (item->flag(ProxyItem::ModifiedExternally) || item->flag(ProxyItem::DeletedExternally)) {
-        icon = KIconUtils::addOverlay(icon, QIcon(QLatin1String("emblem-important")), Qt::TopLeftCorner);
-    }
-
-    item->setIcon(icon);
+    // use common method as e.g. in tabbar, too
+    item->setIcon(Utils::iconForDocument(item->doc()));
 }
 
 void KateFileTreeModel::resetHistory()

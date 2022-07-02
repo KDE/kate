@@ -46,7 +46,6 @@ target_link_libraries(
     KF5::WindowSystem
     KF5::DBusAddons
     KF5::Crash
-    KF5::TextWidgets
 )
 
 if(KF5Activities_FOUND)

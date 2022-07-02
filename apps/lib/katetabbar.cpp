@@ -14,6 +14,7 @@
 #include <QDrag>
 #include <QIcon>
 #include <QMimeData>
+#include <QMimeDatabase>
 #include <QPainter>
 #include <QPixmap>
 #include <QResizeEvent>
@@ -289,22 +290,19 @@ void KateTabBar::setTabDocument(int idx, KTextEditor::Document *doc)
     tabName.replace(QLatin1Char('&'), QLatin1String("&&"));
     setTabText(idx, tabName);
     setTabToolTip(idx, doc->url().toDisplayString());
-    setModifiedStateIcon(idx, doc->isModified());
+    setModifiedStateIcon(idx, doc);
 }
 
-void KateTabBar::setModifiedStateIcon(int idx, bool modified)
+void KateTabBar::setModifiedStateIcon(int idx, KTextEditor::Document *doc)
 {
-    // empty icon as place holder
-    if (!modified) {
-        QImage x(100, 100, QImage::Format_ARGB32_Premultiplied);
-        x.fill(0);
-        QIcon i(QPixmap::fromImage(x));
-        setTabIcon(idx, i);
+    // simple modified indicator if modified
+    if (doc->isModified()) {
+        setTabIcon(idx, QIcon::fromTheme(QStringLiteral("choice-round")));
         return;
     }
 
-    // modified indicator
-    setTabIcon(idx, QIcon::fromTheme(QStringLiteral("choice-round")));
+    // else mime-type icon
+    setTabIcon(idx, QIcon(QMimeDatabase().mimeTypeForName(doc->mimeType()).iconName()));
 }
 
 void KateTabBar::setCurrentDocument(KTextEditor::Document *doc)

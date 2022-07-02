@@ -519,7 +519,7 @@ void KateViewSpace::registerDocument(KTextEditor::Document *doc)
     connect(doc, &KTextEditor::Document::modifiedChanged, this, [this](KTextEditor::Document *doc) {
         int tab = m_tabBar->documentIdx(doc);
         if (tab >= 0) {
-            m_tabBar->setModifiedStateIcon(tab, doc->isModified());
+            m_tabBar->setModifiedStateIcon(tab, doc);
         }
     });
 
@@ -697,6 +697,7 @@ void KateViewSpace::updateDocumentUrl(KTextEditor::Document *doc)
     const int buttonId = m_tabBar->documentIdx(doc);
     if (buttonId >= 0) {
         m_tabBar->setTabToolTip(buttonId, doc->url().toDisplayString());
+        m_tabBar->setModifiedStateIcon(buttonId, doc);
     }
 }
 

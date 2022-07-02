@@ -15,7 +15,6 @@
 #include <QDrag>
 #include <QIcon>
 #include <QMimeData>
-#include <QMimeDatabase>
 #include <QPainter>
 #include <QPixmap>
 #include <QResizeEvent>

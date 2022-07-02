@@ -37,7 +37,7 @@ BranchDeleteDialog::BranchDeleteDialog(const QString &dotGitPath, QWidget *paren
         if (btn == deleteBtn) {
             auto count = branchesToDelete().count();
             QString ques = i18np("Are you sure you want to delete the selected branch?", "Are you sure you want to delete the selected branches?", count);
-            auto ret = KMessageBox::questionYesNo(this, ques, {}, KStandardGuiItem::yes(), KStandardGuiItem::no(), {}, KMessageBox::Dangerous);
+            auto ret = KMessageBox::questionYesNo(this, ques, {}, KStandardGuiItem::del(), KStandardGuiItem::cancel(), {}, KMessageBox::Dangerous);
             if (ret == KMessageBox::Yes) {
                 accept();
             } else {

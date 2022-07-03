@@ -16,7 +16,6 @@
 #include <KConfig>
 #include <KConfigGroup>
 #include <KPluginFactory>
-#include <KPluginLoader>
 
 #include <QFile>
 #include <QFileInfo>

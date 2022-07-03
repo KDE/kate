@@ -40,7 +40,6 @@
 #include <KAuthorized>
 #include <KConfigGroup>
 #include <KPluginFactory>
-#include <KPluginLoader>
 #include <KSharedConfig>
 #include <KXMLGUIFactory>
 

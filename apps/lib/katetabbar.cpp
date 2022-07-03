@@ -191,6 +191,17 @@ void KateTabBar::mouseMoveEvent(QMouseEvent *event)
         return;
     }
 
+    // We start our drag once the cursor leaves "current view space"
+    // Starting drag before that is a bit useless
+    // One disadvantage of the current approach is that the user
+    // might not know that kate's tabs can be dragged to other
+    // places, unless they drag it really far away
+    auto viewSpace = qobject_cast<KateViewSpace *>(parentWidget());
+    if (!viewSpace || viewSpace->rect().contains(event->pos())) {
+        QTabBar::mouseMoveEvent(event);
+        return;
+    }
+
     if ((event->pos() - dragStartPos).manhattanLength() < QApplication::startDragDistance()) {
         QTabBar::mouseMoveEvent(event);
         return;
@@ -229,12 +240,7 @@ void KateTabBar::mouseMoveEvent(QMouseEvent *event)
     paint.drawControl(QStyle::CE_TabBarTab, opt);
     paint.end();
 
-    auto parentViewSpace = qobject_cast<KateViewSpace *>(parentWidget());
-    if (!parentViewSpace) {
-        qWarning() << Q_FUNC_INFO << "parentViewSpace is null";
-    }
-
-    auto view = parentViewSpace->currentView();
+    auto view = viewSpace->currentView();
     if (!view) {
         return;
     }
@@ -246,7 +252,7 @@ void KateTabBar::mouseMoveEvent(QMouseEvent *event)
     ds << cp.column();
     ds << view->document()->url();
 
-    auto mime = new TabMimeData(parentViewSpace, tabDocument(tab));
+    auto mime = new TabMimeData(viewSpace, tabDocument(tab));
     mime->setData(QStringLiteral("application/kate.tab.mimedata"), data);
 
     drag->setMimeData(mime);
@@ -257,8 +263,11 @@ void KateTabBar::mouseMoveEvent(QMouseEvent *event)
     drag->setHotSpot(hp);
 
     dragStartPos = {};
-
     drag->exec();
+
+    // We send this even to ensure the "moveable tab" is properly reset and we have no dislocated tabs
+    QMouseEvent *e = new QMouseEvent(QEvent::MouseButtonPress, QPoint(), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
+    qApp->postEvent(this, e);
 }
 
 void KateTabBar::contextMenuEvent(QContextMenuEvent *ev)

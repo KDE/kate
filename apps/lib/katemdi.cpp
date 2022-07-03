@@ -757,7 +757,7 @@ bool Sidebar::eventFilter(QObject *obj, QEvent *ev)
 
                 if (!w->plugin.isNull()) {
                     if (w->plugin.data()->configPages() > 0) {
-                        menu.addAction(i18n("Configure ..."))->setData(20);
+                        menu.addAction(QIcon::fromTheme(QStringLiteral("configure")), i18n("Configure..."))->setData(20);
                     }
                 }
 

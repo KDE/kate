@@ -10,6 +10,7 @@
 
 #include <gitprocess.h>
 
+#include "hostprocess.h"
 #include <QDir>
 #include <QDirIterator>
 #include <QFile>
@@ -462,7 +463,7 @@ QVector<QString> KateProjectWorker::gitFiles(const QDir &dir, bool recursive, co
     if (!setupGitProcess(git, dir.absolutePath(), args)) {
         return files;
     }
-    git.start(QProcess::ReadOnly);
+    startHostProcess(git, QProcess::ReadOnly);
     if (!git.waitForStarted() || !git.waitForFinished(-1)) {
         return files;
     }
@@ -497,7 +498,7 @@ QVector<QString> KateProjectWorker::filesFromMercurial(const QDir &dir, bool rec
 {
     // only use version control from PATH
     QVector<QString> files;
-    static const auto fullExecutablePath = QStandardPaths::findExecutable(QStringLiteral("hg"));
+    static const auto fullExecutablePath = safeExecutableName(QStringLiteral("hg"));
     if (fullExecutablePath.isEmpty()) {
         return files;
     }
@@ -506,7 +507,7 @@ QVector<QString> KateProjectWorker::filesFromMercurial(const QDir &dir, bool rec
     hg.setWorkingDirectory(dir.absolutePath());
     QStringList args;
     args << QStringLiteral("manifest") << QStringLiteral(".");
-    hg.start(fullExecutablePath, args, QProcess::ReadOnly);
+    startHostProcess(hg, fullExecutablePath, args, QProcess::ReadOnly);
     if (!hg.waitForStarted() || !hg.waitForFinished(-1)) {
         return files;
     }
@@ -529,7 +530,7 @@ QVector<QString> KateProjectWorker::filesFromSubversion(const QDir &dir, bool re
 {
     // only use version control from PATH
     QVector<QString> files;
-    static const auto fullExecutablePath = QStandardPaths::findExecutable(QStringLiteral("svn"));
+    static const auto fullExecutablePath = safeExecutableName(QStringLiteral("svn"));
     if (fullExecutablePath.isEmpty()) {
         return files;
     }
@@ -543,7 +544,7 @@ QVector<QString> KateProjectWorker::filesFromSubversion(const QDir &dir, bool re
     } else {
         args << QStringLiteral("--depth=files");
     }
-    svn.start(fullExecutablePath, args, QProcess::ReadOnly);
+    startHostProcess(svn, fullExecutablePath, args, QProcess::ReadOnly);
     if (!svn.waitForStarted() || !svn.waitForFinished(-1)) {
         return files;
     }
@@ -596,7 +597,7 @@ QVector<QString> KateProjectWorker::filesFromDarcs(const QDir &dir, bool recursi
 {
     // only use version control from PATH
     QVector<QString> files;
-    static const auto fullExecutablePath = QStandardPaths::findExecutable(QStringLiteral("darcs"));
+    static const auto fullExecutablePath = safeExecutableName(QStringLiteral("darcs"));
     if (fullExecutablePath.isEmpty()) {
         return files;
     }
@@ -608,7 +609,7 @@ QVector<QString> KateProjectWorker::filesFromDarcs(const QDir &dir, bool recursi
         QStringList args;
         args << QStringLiteral("list") << QStringLiteral("repo");
 
-        darcs.start(fullExecutablePath, args, QProcess::ReadOnly);
+        startHostProcess(darcs, fullExecutablePath, args, QProcess::ReadOnly);
 
         if (!darcs.waitForStarted() || !darcs.waitForFinished(-1)) {
             return files;
@@ -632,7 +633,7 @@ QVector<QString> KateProjectWorker::filesFromDarcs(const QDir &dir, bool recursi
         darcs.setWorkingDirectory(dir.absolutePath());
         args << QStringLiteral("list") << QStringLiteral("files") << QStringLiteral("--no-directories") << QStringLiteral("--pending");
 
-        darcs.start(fullExecutablePath, args, QProcess::ReadOnly);
+        startHostProcess(darcs, fullExecutablePath, args, QProcess::ReadOnly);
 
         if (!darcs.waitForStarted() || !darcs.waitForFinished(-1)) {
             return files;
@@ -659,7 +660,7 @@ QVector<QString> KateProjectWorker::filesFromFossil(const QDir &dir, bool recurs
 {
     // only use version control from PATH
     QVector<QString> files;
-    static const auto fullExecutablePath = QStandardPaths::findExecutable(QStringLiteral("fossil"));
+    static const auto fullExecutablePath = safeExecutableName(QStringLiteral("fossil"));
     if (fullExecutablePath.isEmpty()) {
         return files;
     }
@@ -668,7 +669,7 @@ QVector<QString> KateProjectWorker::filesFromFossil(const QDir &dir, bool recurs
     fossil.setWorkingDirectory(dir.absolutePath());
     QStringList args;
     args << QStringLiteral("ls");
-    fossil.start(fullExecutablePath, args, QProcess::ReadOnly);
+    startHostProcess(fossil, fullExecutablePath, args, QProcess::ReadOnly);
     if (!fossil.waitForStarted() || !fossil.waitForFinished(-1)) {
         return files;
     }

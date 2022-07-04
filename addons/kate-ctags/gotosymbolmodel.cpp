@@ -5,6 +5,8 @@
 */
 #include "gotosymbolmodel.h"
 
+#include "hostprocess.h"
+
 #include <KLocalizedString>
 #include <QDebug>
 #include <QProcess>
@@ -60,7 +62,7 @@ void GotoSymbolModel::refresh(const QString &filePath)
     endResetModel();
 
     // only use ctags from PATH
-    static const auto fullExecutablePath = QStandardPaths::findExecutable(QStringLiteral("ctags"));
+    static const auto fullExecutablePath = safeExecutableName(QStringLiteral("ctags"));
     if (fullExecutablePath.isEmpty()) {
         beginResetModel();
         m_rows.append(SymbolItem{i18n("CTags executable not found."), -1, QIcon()});
@@ -69,7 +71,7 @@ void GotoSymbolModel::refresh(const QString &filePath)
     }
 
     QProcess p;
-    p.start(fullExecutablePath, {QStringLiteral("-x"), QStringLiteral("--_xformat=%{name}%{signature}\t%{kind}\t%{line}"), filePath});
+    startHostProcess(p, fullExecutablePath, {QStringLiteral("-x"), QStringLiteral("--_xformat=%{name}%{signature}\t%{kind}\t%{line}"), filePath});
 
     QByteArray out;
     if (p.waitForFinished()) {

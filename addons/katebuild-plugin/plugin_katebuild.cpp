@@ -24,6 +24,8 @@
 
 #include "plugin_katebuild.h"
 
+#include "hostprocess.h"
+
 #include <cassert>
 
 #include <QCompleter>
@@ -807,7 +809,7 @@ bool KateBuildView::startProcess(const QString &dir, const QString &command)
     m_proc.setProcessEnvironment(env);
     m_proc.setWorkingDirectory(m_make_dir);
     m_proc.setShellCommand(command);
-    m_proc.start();
+    startHostProcess(m_proc);
 
     if (!m_proc.waitForStarted(500)) {
         KMessageBox::error(nullptr, i18n("Failed to run \"%1\". exitStatus = %2", command, m_proc.exitStatus()));

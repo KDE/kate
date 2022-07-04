@@ -266,7 +266,7 @@ static std::optional<QString> getGitCmdOutput(const QString &workDir, const QStr
     if (!setupGitProcess(git, workDir, args)) {
         return {};
     }
-    git.start(QProcess::ReadOnly);
+    startHostProcess(git, QProcess::ReadOnly);
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         if (git.exitStatus() != QProcess::NormalExit || git.exitCode() != 0) {
             return std::nullopt;
@@ -386,7 +386,7 @@ void CommitDiffTreeView::openCommit(const QString &hash, const QString &filePath
         QByteArray numstat = contents.mid(firstNull + 1);
         createFileTreeForCommit(filePath, numstat);
     });
-    git->start();
+    startHostProcess(*git);
 }
 
 void CommitDiffTreeView::createFileTreeForCommit(const QString &filePath, const QByteArray &rawNumStat)
@@ -448,7 +448,7 @@ void CommitDiffTreeView::showDiff(const QModelIndex &idx)
     if (!setupGitProcess(git, m_gitDir, {QStringLiteral("show"), m_commitHash, QStringLiteral("--"), file})) {
         return;
     }
-    git.start(QProcess::ReadOnly);
+    startHostProcess(git, QProcess::ReadOnly);
 
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         if (git.exitStatus() != QProcess::NormalExit || git.exitCode() != 0) {

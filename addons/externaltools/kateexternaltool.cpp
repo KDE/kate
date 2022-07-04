@@ -6,6 +6,8 @@
  */
 #include "kateexternaltool.h"
 
+#include "hostprocess.h"
+
 #include <KConfigGroup>
 #include <KLocalizedString>
 #include <QStandardPaths>
@@ -124,7 +126,7 @@ QString toString(KateExternalTool::Trigger trigger)
 
 bool KateExternalTool::checkExec() const
 {
-    return !QStandardPaths::findExecutable(executable).isEmpty();
+    return safeExecutableName(executable).isEmpty();
 }
 
 bool KateExternalTool::matchesMimetype(const QString &mt) const

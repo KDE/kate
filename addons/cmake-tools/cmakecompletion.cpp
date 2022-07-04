@@ -5,6 +5,8 @@
 */
 #include "cmakecompletion.h"
 
+#include "hostprocess.h"
+
 #include <KTextEditor/Document>
 #include <KTextEditor/View>
 
@@ -19,14 +21,13 @@ struct CMakeComplData {
 
 static QByteArray runCMake(const QString &arg)
 {
-    // only use cmake from PATH
-    static const auto cmakeExecutable = QStandardPaths::findExecutable(QStringLiteral("cmake"));
+    static const auto cmakeExecutable = safeExecutableName(QStringLiteral("cmake"));
     if (cmakeExecutable.isEmpty()) {
         return {};
     }
 
     QProcess p;
-    p.start(cmakeExecutable, {arg});
+    startHostProcess(p, cmakeExecutable, {arg});
     if (p.waitForStarted() && p.waitForFinished()) {
         if (p.exitCode() == 0 && p.exitStatus() == QProcess::NormalExit) {
             return p.readAllStandardOutput();

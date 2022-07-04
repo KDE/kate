@@ -251,7 +251,7 @@ void FileHistoryWidget::getFileHistory(const QString &file)
         }
     });
 
-    m_git.start(QProcess::ReadOnly);
+    startHostProcess(m_git, QProcess::ReadOnly);
 }
 
 void FileHistoryWidget::itemClicked(const QModelIndex &idx)
@@ -265,7 +265,7 @@ void FileHistoryWidget::itemClicked(const QModelIndex &idx)
         return;
     }
 
-    git.start(QProcess::ReadOnly);
+    startHostProcess(git, QProcess::ReadOnly);
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         if (git.exitStatus() != QProcess::NormalExit || git.exitCode() != 0) {
             return;

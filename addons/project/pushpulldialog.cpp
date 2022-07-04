@@ -14,6 +14,7 @@
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/View>
 
+#include "hostprocess.h"
 #include <ktexteditor_utils.h>
 
 PushPullDialog::PushPullDialog(KTextEditor::MainWindow *mainWindow, const QString &repoPath)
@@ -104,7 +105,7 @@ static QString currentBranchName(const QString &repo)
 
     QStringList args{QStringLiteral("symbolic-ref"), QStringLiteral("--short"), QStringLiteral("HEAD")};
 
-    git.start(QStringLiteral("git"), args, QProcess::ReadOnly);
+    startHostProcess(git, QStringLiteral("git"), args, QProcess::ReadOnly);
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         if (git.exitStatus() == QProcess::NormalExit && git.exitCode() == 0) {
             return QString::fromUtf8(git.readAllStandardOutput().trimmed());
@@ -121,7 +122,7 @@ static QStringList remotesList(const QString &repo)
 
     QStringList args{QStringLiteral("remote")};
 
-    git.start(QStringLiteral("git"), args, QProcess::ReadOnly);
+    startHostProcess(git, QStringLiteral("git"), args, QProcess::ReadOnly);
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         if (git.exitStatus() == QProcess::NormalExit && git.exitCode() == 0) {
             return QString::fromUtf8(git.readAllStandardOutput()).split(QLatin1Char('\n'));

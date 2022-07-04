@@ -11,6 +11,7 @@
 
 #include "debugview.h"
 #include "dap/entities.h"
+#include "hostprocess.h"
 
 #include <QFile>
 #include <QFileInfo>
@@ -86,7 +87,7 @@ void DebugView::runDebugger(const GDBTargetConf &conf, const QStringList &ioFifo
     }
 
     // only run debugger from PATH or the absolute executable path we specified
-    const auto fullExecutable = QFileInfo(m_targetConf.gdbCmd).isAbsolute() ? m_targetConf.gdbCmd : QStandardPaths::findExecutable(m_targetConf.gdbCmd);
+    const auto fullExecutable = QFileInfo(m_targetConf.gdbCmd).isAbsolute() ? m_targetConf.gdbCmd : safeExecutableName(m_targetConf.gdbCmd);
     if (fullExecutable.isEmpty()) {
         return;
     }
@@ -111,7 +112,7 @@ void DebugView::runDebugger(const GDBTargetConf &conf, const QStringList &ioFifo
 
         connect(&m_debugProcess, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &DebugView::slotDebugFinished);
 
-        m_debugProcess.start(fullExecutable, QStringList());
+        startHostProcess(m_debugProcess, fullExecutable);
 
         m_nextCommands << QStringLiteral("set pagination off");
         m_state = ready;

@@ -46,6 +46,7 @@ target_link_libraries(
     KF5::WindowSystem
     KF5::DBusAddons
     KF5::Crash
+    KF5::CoreAddons
 )
 
 if(KF5Activities_FOUND)
@@ -104,6 +105,7 @@ target_sources(
     ktexteditor_utils.cpp
 
     data/kateprivate.qrc
+    hostprocess.cpp
 )
 
 if(BUILD_TESTING)

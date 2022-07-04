@@ -61,6 +61,7 @@
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KPluginFactory>
+#include "hostprocess.h"
 #include <QAction>
 #include <QTemporaryFile>
 
@@ -305,9 +306,10 @@ bool PluginKateXMLCheckView::slotValidate()
     s.flush();
 
     // ensure we only execute xmllint from PATH or application package
-    QString exe = QStandardPaths::findExecutable(QStringLiteral("xmllint"));
+    static const auto executableName = QStringLiteral("xmllint");
+    QString exe = safeExecutableName(executableName);
     if (exe.isEmpty()) {
-        exe = QStandardPaths::locate(QStandardPaths::ApplicationsLocation, QStringLiteral("xmllint"));
+        exe = QStandardPaths::locate(QStandardPaths::ApplicationsLocation, executableName);
     }
     if (exe.isEmpty()) {
         KMessageBox::error(nullptr,
@@ -392,7 +394,7 @@ bool PluginKateXMLCheckView::slotValidate()
     args << m_tmp_file->fileName();
     qDebug() << "m_tmp_file->fileName()=" << m_tmp_file->fileName();
 
-    m_proc.start(exe, args);
+    startHostProcess(m_proc, exe, args);
     qDebug() << "m_proc.program():" << m_proc.program(); // I want to see parameters
     qDebug() << "args=" << args;
     qDebug() << "exit code:" << m_proc.exitCode();

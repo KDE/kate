@@ -263,7 +263,7 @@ void KateGitBlamePluginView::startBlameProcess(const QUrl &url)
     if (!setupGitProcess(m_blameInfoProc, fi.absolutePath(), {QStringLiteral("blame"), QStringLiteral("-p"), fi.absoluteFilePath()})) {
         return;
     }
-    m_blameInfoProc.start(QIODevice::ReadOnly);
+    startHostProcess(m_blameInfoProc, QIODevice::ReadOnly);
     m_blameUrl = url;
 }
 
@@ -278,7 +278,7 @@ void KateGitBlamePluginView::startShowProcess(const QUrl &url, const QString &ha
     if (!setupGitProcess(m_showProc, fi.absolutePath(), {QStringLiteral("show"), hash, QStringLiteral("--numstat")})) {
         return;
     }
-    m_showProc.start(QIODevice::ReadOnly);
+    startHostProcess(m_showProc, QIODevice::ReadOnly);
 }
 
 void KateGitBlamePluginView::showCommitInfo(const QString &hash, KTextEditor::View *view)

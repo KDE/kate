@@ -7,6 +7,7 @@
 #include "lspclientserver.h"
 
 #include "lspclient_debug.h"
+#include "hostprocess.h"
 
 #include <QCoreApplication>
 #include <QFileInfo>
@@ -1401,7 +1402,7 @@ public:
         // we handle stdout/stderr internally, important stuff via stdout
         m_sproc.setProcessChannelMode(forwardStdError ? QProcess::ForwardedErrorChannel : QProcess::SeparateChannels);
         m_sproc.setReadChannel(QProcess::QProcess::StandardOutput);
-        m_sproc.start(program, args);
+        startHostProcess(m_sproc, program, args);
         const bool result = m_sproc.waitForStarted();
         if (result) {
             setState(State::Started);

@@ -19,7 +19,7 @@ bool GitUtils::isGitRepo(const QString &repo)
         return false;
     }
 
-    git.start(QProcess::ReadOnly);
+    startHostProcess(git, QProcess::ReadOnly);
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         return git.readAll().trimmed() == "true";
     }
@@ -34,7 +34,7 @@ std::optional<QString> GitUtils::getDotGitPath(const QString &repo)
         return std::nullopt;
     }
 
-    git.start(QProcess::ReadOnly);
+    startHostProcess(git, QProcess::ReadOnly);
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         if (git.exitStatus() != QProcess::NormalExit || git.exitCode() != 0) {
             return std::nullopt;
@@ -67,7 +67,7 @@ QString GitUtils::getCurrentBranchName(const QString &repo)
             return QString();
         }
 
-        git.start(QProcess::ReadOnly);
+        startHostProcess(git, QProcess::ReadOnly);
         if (git.waitForStarted() && git.waitForFinished(-1)) {
             if (git.exitStatus() == QProcess::NormalExit && git.exitCode() == 0) {
                 return QString::fromUtf8(git.readAllStandardOutput().trimmed());
@@ -86,7 +86,7 @@ GitUtils::CheckoutResult GitUtils::checkoutBranch(const QString &repo, const QSt
         return CheckoutResult{};
     }
 
-    git.start(QProcess::ReadOnly);
+    startHostProcess(git, QProcess::ReadOnly);
     CheckoutResult res;
     res.branch = branch;
     if (git.waitForStarted() && git.waitForFinished(-1)) {
@@ -108,7 +108,7 @@ GitUtils::CheckoutResult GitUtils::checkoutNewBranch(const QString &repo, const 
         return CheckoutResult{};
     }
 
-    git.start(QProcess::ReadOnly);
+    startHostProcess(git, QProcess::ReadOnly);
     CheckoutResult res;
     res.branch = newBranch;
     if (git.waitForStarted() && git.waitForFinished(-1)) {
@@ -152,7 +152,7 @@ QVector<GitUtils::Branch> GitUtils::getAllBranchesAndTags(const QString &repo, R
         return {};
     }
 
-    git.start(QProcess::ReadOnly);
+    startHostProcess(git, QProcess::ReadOnly);
     QVector<Branch> branches;
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         QString gitout = QString::fromUtf8(git.readAllStandardOutput());
@@ -191,7 +191,7 @@ QVector<GitUtils::Branch> GitUtils::getAllLocalBranchesWithLastCommitSubject(con
         return {};
     }
 
-    git.start(QProcess::ReadOnly);
+    startHostProcess(git, QProcess::ReadOnly);
     QVector<Branch> branches;
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         QByteArray gitout = git.readAllStandardOutput();
@@ -228,7 +228,7 @@ std::pair<QString, QString> GitUtils::getLastCommitMessage(const QString &repo)
         return {};
     }
 
-    git.start(QProcess::ReadOnly);
+    startHostProcess(git, QProcess::ReadOnly);
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         if (git.exitCode() != 0 || git.exitStatus() != QProcess::NormalExit) {
             return {};
@@ -262,7 +262,7 @@ GitUtils::Result GitUtils::deleteBranches(const QStringList &branches, const QSt
         return {};
     }
 
-    git.start(QProcess::ReadOnly);
+    startHostProcess(git, QProcess::ReadOnly);
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         QString out = QString::fromLatin1(git.readAllStandardError()) + QString::fromLatin1(git.readAllStandardOutput());
         return {out, git.exitCode()};

@@ -24,7 +24,7 @@ static void numStatForStatus(QVector<GitUtils::StatusItem> &list, const QString 
     if (!setupGitProcess(git, workDir, args)) {
         return;
     }
-    git.start(QProcess::ReadOnly);
+    startHostProcess(git, QProcess::ReadOnly);
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         if (git.exitStatus() != QProcess::NormalExit || git.exitCode() != 0) {
             return;

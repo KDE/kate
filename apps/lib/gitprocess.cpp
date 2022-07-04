@@ -9,7 +9,7 @@
 bool setupGitProcess(QProcess &process, const QString &workingDirectory, const QStringList &arguments)
 {
     // only use git from PATH
-    static const auto gitExecutable = QStandardPaths::findExecutable(QStringLiteral("git"));
+    static const auto gitExecutable = safeExecutableName(QStringLiteral("git"));
     if (gitExecutable.isEmpty()) {
         // ensure we have no valid QProcess setup
         process.setProgram(QString());
@@ -46,7 +46,7 @@ static std::pair<int, int> getGitVersionUncached(const QString &workingDir)
     }
 
     // try to run, no version output feasible if not possible
-    git.start(QProcess::ReadOnly);
+    startHostProcess(git, QProcess::ReadOnly);
     if (!git.waitForStarted() || !git.waitForFinished() || git.exitStatus() != QProcess::NormalExit || git.exitCode() != 0) {
         return {-1, -1};
     }

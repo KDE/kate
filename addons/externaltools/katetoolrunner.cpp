@@ -7,6 +7,7 @@
 
 #include "katetoolrunner.h"
 
+#include "hostprocess.h"
 #include "kateexternaltool.h"
 
 #include <KLocalizedString>
@@ -42,7 +43,7 @@ KateExternalTool *KateToolRunner::tool() const
 void KateToolRunner::run()
 {
     // always only execute the tool from PATH
-    const auto fullExecutable = QStandardPaths::findExecutable(m_tool->executable);
+    const auto fullExecutable = safeExecutableName(m_tool->executable);
     if (fullExecutable.isEmpty()) {
         return;
     }
@@ -79,7 +80,7 @@ void KateToolRunner::run()
     });
 
     const QStringList args = KShell::splitArgs(m_tool->arguments);
-    m_process->start(fullExecutable, args);
+    startHostProcess(*m_process, fullExecutable, args);
 }
 
 void KateToolRunner::waitForFinished()

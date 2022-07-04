@@ -7,6 +7,8 @@
 
 #include "katefileactions.h"
 
+#include "hostprocess.h"
+
 #include <ktexteditor/application.h>
 #include <ktexteditor/document.h>
 #include <ktexteditor/editor.h>
@@ -152,9 +154,9 @@ QVector<std::pair<QString, QString>> KateFileActions::supportedDiffTools()
 {
     // query once if the tools are there in the path and store that
     // we will disable the actions for the tools not found
-    static QVector<std::pair<QString, QString>> resultList{{QStringLiteral("kdiff3"), QStandardPaths::findExecutable(QStringLiteral("kdiff3"))},
-                                                           {QStringLiteral("kompare"), QStandardPaths::findExecutable(QStringLiteral("kompare"))},
-                                                           {QStringLiteral("meld"), QStandardPaths::findExecutable(QStringLiteral("meld"))}};
+    static QVector<std::pair<QString, QString>> resultList{{QStringLiteral("kdiff3"), safeExecutableName(QStringLiteral("kdiff3"))},
+                                                           {QStringLiteral("kompare"), safeExecutableName(QStringLiteral("kompare"))},
+                                                           {QStringLiteral("meld"), safeExecutableName(QStringLiteral("meld"))}};
     return resultList;
 }
 

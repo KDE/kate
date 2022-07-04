@@ -7,6 +7,7 @@
 
 #include "katemwmodonhddialog.h"
 
+#include "hostprocess.h"
 #include "kateapp.h"
 #include "katedocmanager.h"
 #include "katemainwindow.h"
@@ -53,7 +54,7 @@ public:
 
 KateMwModOnHdDialog::KateMwModOnHdDialog(DocVector docs, QWidget *parent, const char *name)
     : QDialog(parent)
-    , m_fullDiffPath(QStandardPaths::findExecutable(QStringLiteral("diff")))
+    , m_fullDiffPath(safeExecutableName(QStringLiteral("diff")))
     , m_proc(nullptr)
     , m_diffFile(nullptr)
     , m_blockAddDocument(false)
@@ -301,7 +302,7 @@ void KateMwModOnHdDialog::slotDiff()
     setCursor(Qt::WaitCursor);
     btnDiff->setEnabled(false);
 
-    m_proc->start();
+    startHostProcess(*m_proc);
 
     QTextStream ts(m_proc);
     int lastln = doc->lines() - 1;

@@ -6,6 +6,7 @@
 
 #include "replicodeview.h"
 
+#include "hostprocess.h"
 #include "replicodeconfig.h"
 #include "replicodesettings.h"
 
@@ -123,7 +124,7 @@ void ReplicodeView::runReplicode()
 
     // ensure we only call replicode from PATH if not given as absolute path already
     if (!executorPath.isEmpty() && !QFileInfo(executorPath).isAbsolute()) {
-        executorPath = QStandardPaths::findExecutable(executorPath);
+        executorPath = safeExecutableName(executorPath);
     }
 
     if (executorPath.isEmpty()) {
@@ -158,7 +159,7 @@ void ReplicodeView::runReplicode()
     connect(m_executor, static_cast<void (QProcess::*)(QProcess::ProcessError)>(&QProcess::errorOccurred), this, &ReplicodeView::runErrored);
     qDebug() << executorPath << sourceFile.canonicalPath();
     m_completed = false;
-    m_executor->start(executorPath, QStringList(), QProcess::ReadOnly);
+    startHostProcess(*m_executor, executorPath, {}, QProcess::ReadOnly);
 
     m_runAction->setEnabled(false);
     m_runButton->setEnabled(false);

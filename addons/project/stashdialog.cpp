@@ -255,13 +255,13 @@ void StashDialog::stash(bool keepIndex, bool includeUntracked)
         Q_EMIT done();
         git->deleteLater();
     });
-    git->start(QProcess::ReadOnly);
+    startHostProcess(*git, QProcess::ReadOnly);
 }
 
 void StashDialog::getStashList()
 {
     auto git = gitp({QStringLiteral("stash"), QStringLiteral("list")});
-    git->start(QProcess::ReadOnly);
+    startHostProcess(*git, QProcess::ReadOnly);
 
     QList<QByteArray> stashList;
     if (git->waitForStarted() && git->waitForFinished(-1)) {
@@ -320,7 +320,7 @@ void StashDialog::popStash(const QByteArray &index, const QString &command)
         Q_EMIT done();
         git->deleteLater();
     });
-    git->start(QProcess::ReadOnly);
+    startHostProcess(*git, QProcess::ReadOnly);
 }
 
 void StashDialog::applyStash(const QByteArray &index)
@@ -351,5 +351,5 @@ void StashDialog::showStash(const QByteArray &index)
         git->deleteLater();
     });
 
-    git->start(QProcess::ReadOnly);
+    startHostProcess(*git, QProcess::ReadOnly);
 }

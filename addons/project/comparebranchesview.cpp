@@ -161,7 +161,7 @@ void CompareBranchesView::showDiff(const QModelIndex &idx)
     if (!setupGitProcess(git, m_gitDir, {QStringLiteral("diff"), QStringLiteral("%1...%2").arg(m_fromBr).arg(m_toBr), QStringLiteral("--"), file})) {
         return;
     }
-    git.start(QProcess::ReadOnly);
+    startHostProcess(git, QProcess::ReadOnly);
 
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         if (git.exitStatus() != QProcess::NormalExit || git.exitCode() != 0) {

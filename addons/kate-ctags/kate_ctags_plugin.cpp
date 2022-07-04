@@ -21,6 +21,8 @@
 
 #include "kate_ctags_plugin.h"
 
+#include "hostprocess.h"
+
 #include <QCheckBox>
 #include <QFileDialog>
 #include <QFileInfo>
@@ -225,7 +227,7 @@ void KateCTagsConfigPage::updateGlobalDB()
     QString commandLine = QStringLiteral("%1 -f %2 %3").arg(m_confUi.cmdEdit->text(), file, targets);
     QStringList arguments = m_proc.splitCommand(commandLine);
     QString command = arguments.takeFirst();
-    m_proc.start(command, arguments);
+    startHostProcess(m_proc, command, arguments);
 
     if (!m_proc.waitForStarted(500)) {
         KMessageBox::error(nullptr, i18n("Failed to run \"%1\". exitStatus = %2", commandLine, m_proc.exitStatus()));

@@ -10,6 +10,7 @@
 #include <QRegularExpression>
 #include <QStandardPaths>
 
+#include "hostprocess.h"
 #include "kateprivate_export.h"
 
 /**

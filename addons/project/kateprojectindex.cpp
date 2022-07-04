@@ -11,6 +11,8 @@
 #include <QProcess>
 #include <QStandardPaths>
 
+#include "hostprocess.h"
+
 /**
  * include ctags reading
  */
@@ -75,7 +77,7 @@ void KateProjectIndex::loadCtags(const QStringList &files, const QVariantMap &ct
     m_ctagsIndexFile->close();
 
     // only use ctags from PATH
-    static const auto fullExecutablePath = QStandardPaths::findExecutable(QStringLiteral("ctags"));
+    static const auto fullExecutablePath = safeExecutableName(QStringLiteral("ctags"));
     if (fullExecutablePath.isEmpty()) {
         return;
     }
@@ -92,7 +94,7 @@ void KateProjectIndex::loadCtags(const QStringList &files, const QVariantMap &ct
     for (const QVariant &optVariant : opts) {
         args << optVariant.toString();
     }
-    ctags.start(fullExecutablePath, args);
+    startHostProcess(ctags, fullExecutablePath, args);
     if (!ctags.waitForStarted()) {
         return;
     }

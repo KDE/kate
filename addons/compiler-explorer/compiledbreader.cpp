@@ -24,7 +24,7 @@ std::optional<QString> getDotGitPath(const QString &repo)
     if (!setupGitProcess(git, repo, {QStringLiteral("rev-parse"), QStringLiteral("--absolute-git-dir")})) {
         return std::nullopt;
     }
-    git.start(QProcess::ReadOnly);
+    startHostProcess(git, QProcess::ReadOnly);
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         if (git.exitStatus() != QProcess::NormalExit || git.exitCode() != 0) {
             return std::nullopt;

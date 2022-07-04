@@ -5,6 +5,7 @@
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
+#include "hostprocess.h"
 #include "kateprojectinfoviewcodeanalysis.h"
 #include "kateproject.h"
 #include "kateprojectcodeanalysistool.h"
@@ -136,9 +137,9 @@ void KateProjectInfoViewCodeAnalysis::slotStartStopClicked()
     connect(m_analyzer, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &KateProjectInfoViewCodeAnalysis::finished);
 
     // ensure we only run the code analyzer from PATH
-    const QString fullExecutable = QStandardPaths::findExecutable(m_analysisTool->path());
+    const QString fullExecutable = safeExecutableName(m_analysisTool->path());
     if (!fullExecutable.isEmpty()) {
-        m_analyzer->start(fullExecutable, m_analysisTool->arguments());
+        startHostProcess(*m_analyzer, fullExecutable, m_analysisTool->arguments());
     }
 
     if (m_messageWidget) {

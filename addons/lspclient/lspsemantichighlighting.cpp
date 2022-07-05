@@ -69,12 +69,14 @@ void SemanticHighlighter::doSemanticHighlighting_impl(KTextEditor::View *view)
 
     auto doc = view->document();
     if (m_docResultId.count(doc) == 0) {
+        // clang-format off
         connect(doc,
                 SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document*)),
                 this,
                 SLOT(remove(KTextEditor::Document*)),
                 Qt::UniqueConnection);
         connect(doc, SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document*)), this, SLOT(remove(KTextEditor::Document*)), Qt::UniqueConnection);
+        // clang-format on
     }
 
     if (caps.semanticTokenProvider.range) {

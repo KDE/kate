@@ -14,7 +14,8 @@
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/View>
 
-#include "hostprocess.h"
+#include <gitprocess.h>
+#include <hostprocess.h>
 #include <ktexteditor_utils.h>
 
 PushPullDialog::PushPullDialog(KTextEditor::MainWindow *mainWindow, const QString &repoPath)
@@ -101,28 +102,28 @@ void PushPullDialog::saveCommand(const QString &command)
 static QString currentBranchName(const QString &repo)
 {
     QProcess git;
-    git.setWorkingDirectory(repo);
+    if (!setupGitProcess(git, repo, {QStringLiteral("symbolic-ref"), QStringLiteral("--short"), QStringLiteral("HEAD")})) {
+        return {};
+    }
 
-    QStringList args{QStringLiteral("symbolic-ref"), QStringLiteral("--short"), QStringLiteral("HEAD")};
-
-    startHostProcess(git, QStringLiteral("git"), args, QProcess::ReadOnly);
+    startHostProcess(git, QIODevice::ReadOnly);
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         if (git.exitStatus() == QProcess::NormalExit && git.exitCode() == 0) {
             return QString::fromUtf8(git.readAllStandardOutput().trimmed());
         }
     }
     // give up
-    return QString();
+    return {};
 }
 
 static QStringList remotesList(const QString &repo)
 {
     QProcess git;
-    git.setWorkingDirectory(repo);
+    if (!setupGitProcess(git, repo, {QStringLiteral("remote")})) {
+        return {};
+    }
 
-    QStringList args{QStringLiteral("remote")};
-
-    startHostProcess(git, QStringLiteral("git"), args, QProcess::ReadOnly);
+    startHostProcess(git, QIODevice::ReadOnly);
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         if (git.exitStatus() == QProcess::NormalExit && git.exitCode() == 0) {
             return QString::fromUtf8(git.readAllStandardOutput()).split(QLatin1Char('\n'));

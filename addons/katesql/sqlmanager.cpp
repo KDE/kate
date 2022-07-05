@@ -199,7 +199,8 @@ int SQLManager::storeCredentials(const Connection &conn)
         map[QStringLiteral("hostname")] = conn.hostname.toUpper();
         map[QStringLiteral("port")] = QString::number(conn.port);
     }
-    const int result = (wallet->writeMap(conn.name, map) == SQLManager::K_WALLET_CONNECTION_SUCCESSFUL) ? SQLManager::K_WALLET_CONNECTION_SUCCESSFUL : SQLManager::K_WALLET_CONNECTION_ERROR;
+    const int result = (wallet->writeMap(conn.name, map) == SQLManager::K_WALLET_CONNECTION_SUCCESSFUL) ? SQLManager::K_WALLET_CONNECTION_SUCCESSFUL
+                                                                                                        : SQLManager::K_WALLET_CONNECTION_ERROR;
     return result;
 }
 

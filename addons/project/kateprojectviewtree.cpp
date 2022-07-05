@@ -167,26 +167,23 @@ void KateProjectViewTree::addDirectory(const QModelIndex &idx, const QString &na
     item->sortChildren(0);
 }
 
-void KateProjectViewTree::removeFile(const QModelIndex& idx, const QString& fullFilePath)
+void KateProjectViewTree::removeFile(const QModelIndex &idx, const QString &fullFilePath)
 {
     auto proxyModel = static_cast<QSortFilterProxyModel *>(model());
     auto index = proxyModel->mapToSource(idx);
     auto item = m_project->model()->itemFromIndex(index);
-    QStandardItem* parent = item->parent();
+    QStandardItem *parent = item->parent();
 
     /**
      * Delete file
      */
     QFile file(fullFilePath);
-    if(file.remove())//.moveToTrash()
+    if (file.remove()) //.moveToTrash()
     {
-        if(parent != nullptr)
-        {
+        if (parent != nullptr) {
             parent->removeRow(item->row());
             parent->sortChildren(0);
-        }
-        else
-        {
+        } else {
             m_project->model()->removeRow(item->row());
             m_project->model()->sort(0);
         }

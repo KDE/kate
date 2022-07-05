@@ -79,8 +79,7 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
         } else {
             match = function_regexp.match(cl);
             if (match.hasMatch()) {
-                if (match.captured(1).isEmpty() ||
-                    current_class_name.isEmpty() // case where function is declared inside a block
+                if (match.captured(1).isEmpty() || current_class_name.isEmpty() // case where function is declared inside a block
                 ) {
                     type = Symbol::Function;
                     current_class_name.clear();

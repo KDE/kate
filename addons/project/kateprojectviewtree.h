@@ -62,7 +62,7 @@ public:
      * Add a new directory
      */
     void addDirectory(const QModelIndex &idx, const QString &name);
-    
+
     /**
      * remove a file, the function isn't closing document before removing'
      */

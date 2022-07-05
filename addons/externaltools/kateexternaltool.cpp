@@ -154,13 +154,12 @@ void KateExternalTool::load(const KConfigGroup &cg)
     hasexec = checkExec();
 }
 
-template < class Value >
+template<class Value>
 static inline void writeEntryMaybe(KConfigGroup &cg, const char *key, const Value &value)
 {
     if (value.isEmpty()) {
         cg.deleteEntry(key);
-    }
-    else {
+    } else {
         cg.writeEntry(key, value);
     }
 }

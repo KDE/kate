@@ -345,7 +345,6 @@ void DapDebugView::informStackFrame()
 
 void DapDebugView::onStackTrace(const int /* threadId */, const dap::StackTraceInfo &info)
 {
-
     m_currentFrame = std::nullopt;
     m_frames = info.stackFrames;
     informStackFrame();

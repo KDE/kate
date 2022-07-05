@@ -18,12 +18,12 @@
 #include <QTextBrowser>
 #include <QTimer>
 
-#include <KTextEditor/ConfigInterface>
-#include <KTextEditor/Editor>
-#include <KTextEditor/View>
 #include <KSyntaxHighlighting/Definition>
 #include <KSyntaxHighlighting/Repository>
 #include <KSyntaxHighlighting/SyntaxHighlighter>
+#include <KTextEditor/ConfigInterface>
+#include <KTextEditor/Editor>
+#include <KTextEditor/View>
 #include <KWindowSystem>
 
 #include <ktexteditor_utils.h>

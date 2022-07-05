@@ -60,15 +60,20 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
     // defines: https://www.php.net/manual/en/function.define.php
     static const QRegularExpression defineRegExp(QLatin1String("(^|\\W)define\\s*\\(\\s*['\"]([^'\"]+)['\"]"), QRegularExpression::CaseInsensitiveOption);
     // classes: https://www.php.net/manual/en/language.oop5.php
-    static const QRegularExpression classRegExp(QLatin1String("^((abstract\\s+|final\\s+)?)class\\s+([\\w_][\\w\\d_]*)\\s*(implements\\s+[\\w\\d_]*|extends\\s+[\\w\\d_]*)?"), QRegularExpression::CaseInsensitiveOption);
+    static const QRegularExpression classRegExp(
+        QLatin1String("^((abstract\\s+|final\\s+)?)class\\s+([\\w_][\\w\\d_]*)\\s*(implements\\s+[\\w\\d_]*|extends\\s+[\\w\\d_]*)?"),
+        QRegularExpression::CaseInsensitiveOption);
     // interfaces: https://www.php.net/manual/en/language.oop5.php
     static const QRegularExpression interfaceRegExp(QLatin1String("^interface\\s+([\\w_][\\w\\d_]*)"), QRegularExpression::CaseInsensitiveOption);
     // classes constants: https://www.php.net/manual/en/language.oop5.constants.php
     static const QRegularExpression constantRegExp(QLatin1String("^const\\s+([\\w_][\\w\\d_]*)"), QRegularExpression::CaseInsensitiveOption);
     // functions: https://www.php.net/manual/en/language.oop5.constants.php
-    static const QRegularExpression functionRegExp(QLatin1String("^(\\s*)((public|protected|private)?(\\s*static)?\\s+)?function\\s+&?\\s*([\\w_][\\w\\d_]*)\\s*(.*)$"), QRegularExpression::CaseInsensitiveOption);
+    static const QRegularExpression functionRegExp(
+        QLatin1String("^(\\s*)((public|protected|private)?(\\s*static)?\\s+)?function\\s+&?\\s*([\\w_][\\w\\d_]*)\\s*(.*)$"),
+        QRegularExpression::CaseInsensitiveOption);
     // variables: https://www.php.net/manual/en/language.oop5.properties.php
-    static const QRegularExpression varRegExp(QLatin1String("^((var|public|protected|private)?(\\s*static)?\\s+)?\\$([\\w_][\\w\\d_]*)"), QRegularExpression::CaseInsensitiveOption);
+    static const QRegularExpression varRegExp(QLatin1String("^((var|public|protected|private)?(\\s*static)?\\s+)?\\$([\\w_][\\w\\d_]*)"),
+                                              QRegularExpression::CaseInsensitiveOption);
 
     // function args detection: “function a($b, $c=null)” => “$b, $v”
     static const QRegularExpression functionArgsRegExp(QLatin1String("(\\$[\\w_]+)"), QRegularExpression::CaseInsensitiveOption);
@@ -185,7 +190,8 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
                 if (m_typesOn->isChecked()) {
                     nameWithTypes = matchClass.captured(3);
                     if (!matchClass.captured(1).trimmed().isEmpty() && !matchClass.captured(4).trimmed().isEmpty()) {
-                        nameWithTypes += QLatin1String(" [") + matchClass.captured(1).trimmed() + QLatin1Char(',') + matchClass.captured(4).trimmed() + QLatin1Char(']');
+                        nameWithTypes +=
+                            QLatin1String(" [") + matchClass.captured(1).trimmed() + QLatin1Char(',') + matchClass.captured(4).trimmed() + QLatin1Char(']');
                     } else if (!matchClass.captured(1).trimmed().isEmpty()) {
                         nameWithTypes += QLatin1String(" [") + matchClass.captured(1).trimmed() + QLatin1Char(']');
                     } else if (!matchClass.captured(4).trimmed().isEmpty()) {

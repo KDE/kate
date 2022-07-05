@@ -34,10 +34,8 @@
 #include <QMimeType>
 #include <QStandardPaths>
 
-#include <ktexteditor/editor.h>
 #include <ktexteditor/application.h>
-
-
+#include <ktexteditor/editor.h>
 
 static QString getName()
 {
@@ -149,20 +147,17 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
         job->setUiDelegate(new KIO::JobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, parent));
         job->start();
     };
-    
-    auto handleDeleteFile = [parent, index](const QString &path)
-    {
-        //message box
+
+    auto handleDeleteFile = [parent, index](const QString &path) {
+        // message box
         const QString title = i18n("Delete File");
         const QString text = i18n("Do you want to delete the file '%1'?", path);
         if (QMessageBox::Yes == QMessageBox::question(parent, title, text, QMessageBox::No | QMessageBox::Yes, QMessageBox::Yes)) {
-            const QList< KTextEditor::Document* > openDocuments = KTextEditor::Editor::instance()->application()->documents();
-              
-            //if is open, close
-            for(auto doc : openDocuments)
-            {
-                if(doc->url().adjusted(QUrl::RemoveScheme) == QUrl(path).adjusted(QUrl::RemoveScheme))
-                {
+            const QList<KTextEditor::Document *> openDocuments = KTextEditor::Editor::instance()->application()->documents();
+
+            // if is open, close
+            for (auto doc : openDocuments) {
+                if (doc->url().adjusted(QUrl::RemoveScheme) == QUrl(path).adjusted(QUrl::RemoveScheme)) {
                     KTextEditor::Editor::instance()->application()->closeDocument(doc);
                     break;
                 }

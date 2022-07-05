@@ -295,8 +295,7 @@ bool KateProjectPlugin::projectHasOpenDocuments(KateProject *project) const
 KateProject *KateProjectPlugin::projectForUrl(const QUrl &url)
 {
     if (url.isEmpty() || !url.isLocalFile()
-        || KNetworkMounts::self()->isOptionEnabledForPath(url.toLocalFile(), KNetworkMounts::MediumSideEffectsOptimizations)
-    ) {
+        || KNetworkMounts::self()->isOptionEnabledForPath(url.toLocalFile(), KNetworkMounts::MediumSideEffectsOptimizations)) {
         return nullptr;
     }
 

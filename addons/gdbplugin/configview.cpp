@@ -815,7 +815,6 @@ void ConfigView::slotBrowseDir()
     m_workingDirectory->setText(QFileDialog::getExistingDirectory(this, QString(), dir));
 }
 
-
 void ConfigView::saveCurrentToIndex(int index)
 {
     if ((index < 0) || (index >= m_targetCombo->count())) {

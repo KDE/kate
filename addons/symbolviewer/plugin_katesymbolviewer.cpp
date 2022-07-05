@@ -42,11 +42,11 @@
 #include <KAboutData>
 #include <KActionCollection>
 #include <KConfigGroup>
+#include <KLineEdit>
 #include <KPluginFactory>
 #include <KSharedConfig>
 #include <KToggleAction>
 #include <KXMLGUIFactory>
-#include <KLineEdit>
 #include <QAction>
 #include <QLineEdit>
 
@@ -398,14 +398,14 @@ void KatePluginSymbolViewerView::slotFilterChange(const QString &text)
 {
     QString filter = text.trimmed();
     for (int i = 0; i < m_symbols->invisibleRootItem()->childCount(); ++i) {
-        QTreeWidgetItem * group_item = m_symbols->invisibleRootItem()->child(i);
+        QTreeWidgetItem *group_item = m_symbols->invisibleRootItem()->child(i);
         for (int j = 0; j < group_item->childCount(); ++j) {
             filterSymbols(group_item->child(j), filter);
         }
     }
 }
 
-bool KatePluginSymbolViewerView::filterSymbols(QTreeWidgetItem * item, const QString & filter)
+bool KatePluginSymbolViewerView::filterSymbols(QTreeWidgetItem *item, const QString &filter)
 {
     bool at_least_one_child_shown = false;
     for (int i = 0; i < item->childCount(); ++i) {

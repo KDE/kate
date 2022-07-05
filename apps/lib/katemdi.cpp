@@ -433,7 +433,6 @@ void Sidebar::updateLastSizeOnResize()
 
 ToolView *Sidebar::addWidget(const QIcon &icon, const QString &text, ToolView *widget)
 {
-
     if (widget) {
         if (widget->sidebar() == this) {
             return widget;

@@ -45,7 +45,6 @@ public Q_SLOTS:
      * the model index of the copy. */
     QModelIndex copyTargetOrSet(const QModelIndex &index);
 
-
     /** This function deletes the index */
     void deleteItem(const QModelIndex &index);
 

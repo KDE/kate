@@ -438,10 +438,10 @@ QVector<QString> KateProjectWorker::filesFromGit(const QDir &dir, bool recursive
      * ls-files untracked
      */
     QStringList lsFilesUntrackedArgs{QStringLiteral("ls-files"),
-                                           QStringLiteral("-z"),
-                                           QStringLiteral("--others"),
-                                           QStringLiteral("--exclude-standard"),
-                                           QStringLiteral(".")};
+                                     QStringLiteral("-z"),
+                                     QStringLiteral("--others"),
+                                     QStringLiteral("--exclude-standard"),
+                                     QStringLiteral(".")};
 
     /**
      * for recent enough git versions ensure we don't show duplicated files

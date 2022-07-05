@@ -289,7 +289,6 @@ AsmView::AsmView(QWidget *parent)
             return;
         }
         model->setFont(Utils::editorFont());
-
     };
     QMetaObject::invokeMethod(this, updateColors, Qt::QueuedConnection);
     connect(KTextEditor::Editor::instance(), &KTextEditor::Editor::configChanged, this, updateColors);

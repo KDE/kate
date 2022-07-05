@@ -17,7 +17,6 @@ public:
     bool filterAcceptsRow(int sourceRow, const QModelIndex &parent) const override;
 
     Q_SLOT void setFilterText(const QString &text);
-
 };
 
 #endif

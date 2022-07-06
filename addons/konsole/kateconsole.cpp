@@ -45,7 +45,7 @@
 
 K_PLUGIN_FACTORY_WITH_JSON(KateKonsolePluginFactory, "katekonsoleplugin.json", registerPlugin<KateKonsolePlugin>();)
 
-static const QStringList s_escapeExceptions{QStringLiteral("vi"), QStringLiteral("vim"), QStringLiteral("nvim")};
+static const QStringList s_escapeExceptions{QStringLiteral("vi"), QStringLiteral("vim"), QStringLiteral("nvim"), QStringLiteral("git")};
 
 KateKonsolePlugin::KateKonsolePlugin(QObject *parent, const QList<QVariant> &)
     : KTextEditor::Plugin(parent)

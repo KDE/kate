@@ -127,9 +127,6 @@ protected:
     //! Request context menu
     void contextMenuEvent(QContextMenuEvent *ev) override;
 
-    //! Cycle through tabs
-    void wheelEvent(QWheelEvent *event) override;
-
 private:
     using QTabBar::addTab;
     using QTabBar::insertTab;

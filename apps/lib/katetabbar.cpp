@@ -278,16 +278,6 @@ void KateTabBar::contextMenuEvent(QContextMenuEvent *ev)
     }
 }
 
-void KateTabBar::wheelEvent(QWheelEvent *event)
-{
-    event->accept();
-
-    // cycle through the tabs
-    const int delta = event->angleDelta().x() + event->angleDelta().y();
-    const int idx = (delta > 0) ? prevTab() : nextTab();
-    setCurrentIndex(idx);
-}
-
 void KateTabBar::setTabDocument(int idx, KTextEditor::Document *doc)
 {
     QVariant data = ensureValidTabData(idx);

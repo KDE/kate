@@ -37,9 +37,9 @@
 #include <ktexteditor/application.h>
 #include <ktexteditor/editor.h>
 
-static QString getName()
+static QString getName(QWidget *parent)
 {
-    QInputDialog dlg;
+    QInputDialog dlg(parent);
     dlg.setLabelText(i18n("Enter name:"));
     dlg.setOkButtonText(i18n("Add"));
     dlg.setInputMode(QInputDialog::TextInput);
@@ -192,7 +192,7 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
         } else if (action == filePropertiesAction) {
             // code copied and adapted from frameworks/kio/src/filewidgets/knewfilemenu.cpp
             KFileItem fileItem(QUrl::fromLocalFile(filename));
-            QDialog *dlg = new KPropertiesDialog(fileItem);
+            QDialog *dlg = new KPropertiesDialog(fileItem, parent);
             dlg->setAttribute(Qt::WA_DeleteOnClose);
             dlg->show();
         } else if (rename && action == rename) {
@@ -212,12 +212,12 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
         } else if (action == fileHistory) {
             showFileHistory(index.data(Qt::UserRole).toString());
         } else if (addFile && action == addFile) {
-            QString name = getName();
+            QString name = getName(parent);
             if (!name.isEmpty()) {
                 parent->addFile(index, name);
             }
         } else if (addFolder && action == addFolder) {
-            QString name = getName();
+            QString name = getName(parent);
             if (!name.isEmpty()) {
                 parent->addDirectory(index, name);
             }

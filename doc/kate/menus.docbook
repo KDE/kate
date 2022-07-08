@@ -766,7 +766,7 @@ list view. Pressing the &Enter; key or double clicking on an item in the list sw
 the view to the document selected in the list view. This makes switching between
 documents easier, if there are a lot of them open.</para>
 <para>This action is available also using the
-<inlinemediaobject><imageobject><imagedata fileref="tab-duplicate-22.png" format="PNG"/></imageobject></inlinemediaobject>
+<inlinemediaobject><imageobject><imagedata fileref="quickopen-22.png" format="PNG"/></imageobject></inlinemediaobject>
 icon at the top right of the editor window.</para>
 </listitem>
 </varlistentry>
@@ -1755,7 +1755,7 @@ described in the &systemsettings; module <ulink url="help:/kcontrol/colors/index
 </menuchoice></term>
 <listitem><para>Tabs are moveable using the &LMB; and have actions in the context menu
 to close documents, copy the path to the clipboard or open the folder of the document in the filemanager.
-Using the <inlinemediaobject><imageobject><imagedata fileref="tab-duplicate-22.png" format="PNG"/></imageobject></inlinemediaobject>
+Using the <inlinemediaobject><imageobject><imagedata fileref="quickopen-22.png" format="PNG"/></imageobject></inlinemediaobject>
 <link linkend="view-quick-open"><guibutton>Quick Open</guibutton> </link> button makes switching between documents easy.
 Click the <inlinemediaobject><imageobject><imagedata fileref="view-split-left-right-22.png" format="PNG"/></imageobject></inlinemediaobject>
 button with the &LMB; to open a menu with actions from the <guimenu>View</guimenu><guisubmenu>Split View</guisubmenu> menu.

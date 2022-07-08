@@ -98,7 +98,7 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent, cons
     hLayout->addWidget(m_quickOpen);
 
     // forward tab bar quick open action to global quick open action
-    QAction *bridge = new QAction(QIcon::fromTheme(QStringLiteral("tab-duplicate")), i18nc("indicator for more documents", "+%1", 100), this);
+    QAction *bridge = new QAction(QIcon::fromTheme(QStringLiteral("quickopen")), i18nc("indicator for more documents", "+%1", 100), this);
     m_quickOpen->setDefaultAction(bridge);
     QAction *quickOpen = m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_quick_open"));
     Q_ASSERT(quickOpen);

@@ -312,8 +312,8 @@ void KateMainWindow::setupActions()
     a->setWhatsThis(i18n("Reload all open documents."));
 
     a = actionCollection()->addAction(QStringLiteral("file_copy_filepath"));
-    a->setIcon(QIcon::fromTheme(QStringLiteral("edit-copy")));
-    a->setText(i18n("Copy File &Path"));
+    a->setIcon(QIcon::fromTheme(QStringLiteral("edit-copy-path")));
+    a->setText(i18n("Copy Location"));
     connect(a, &QAction::triggered, KateApp::self()->documentManager(), [this]() {
         auto &&view = viewManager()->activeView();
         KateFileActions::copyFilePathToClipboard(view->document());

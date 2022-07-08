@@ -62,7 +62,7 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
     /**
      * Copy Path, always available, put that to the top
      */
-    QAction *copyAction = menu.addAction(QIcon::fromTheme(QStringLiteral("edit-copy")), i18n("Copy File Path"));
+    QAction *copyAction = menu.addAction(QIcon::fromTheme(QStringLiteral("edit-copy-path")), i18n("Copy Location"));
 
     QAction *addFile = nullptr;
     QAction *addFolder = nullptr;

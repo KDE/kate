@@ -133,7 +133,7 @@ KateFileTree::KateFileTree(QWidget *parent)
     connect(m_filelistOpenContainingFolder, &QAction::triggered, this, &KateFileTree::slotOpenContainingFolder);
     m_filelistOpenContainingFolder->setWhatsThis(i18n("Open the folder this file is located in."));
 
-    m_filelistCopyFilename = new QAction(QIcon::fromTheme(QStringLiteral("edit-copy")), i18nc("@action:inmenu", "Copy File Path"), this);
+    m_filelistCopyFilename = new QAction(QIcon::fromTheme(QStringLiteral("edit-copy-path")), i18nc("@action:inmenu", "Copy Location"), this);
     connect(m_filelistCopyFilename, &QAction::triggered, this, &KateFileTree::slotCopyFilename);
     m_filelistCopyFilename->setWhatsThis(i18n("Copy path and filename to the clipboard."));
 

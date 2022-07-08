@@ -237,7 +237,7 @@ void TabSwitcherPluginView::updateViewGeometry()
 
 void TabSwitcherPluginView::switchToClicked(const QModelIndex &index)
 {
-    m_treeView->selectionModel()->select(index, QItemSelectionModel::ClearAndSelect);
+    m_treeView->selectionModel()->select(index, QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Rows);
     activateView(index);
 }
 

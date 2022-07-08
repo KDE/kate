@@ -375,6 +375,8 @@ void KatePluginSymbolViewerView::parseSymbols()
         m_symbols->setSortingEnabled(true);
         m_symbols->sortItems(0, sortOrder);
     }
+
+    slotFilterChange(m_filter->text());
 }
 
 void KatePluginSymbolViewerView::goToSymbol(QTreeWidgetItem *it)

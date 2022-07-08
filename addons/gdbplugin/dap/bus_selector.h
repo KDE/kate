@@ -14,7 +14,7 @@ class Bus;
 
 namespace settings
 {
-class BusSettings;
+struct BusSettings;
 }
 
 Bus *createBus(const settings::BusSettings &configuration);

@@ -15,7 +15,7 @@ namespace dap
 {
 namespace settings
 {
-class BusSettings;
+struct BusSettings;
 }
 
 class Bus : public QObject

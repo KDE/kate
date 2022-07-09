@@ -352,7 +352,7 @@ void KateMainWindow::setupActions()
     a->setText(i18n("Properties"));
     connect(a, &QAction::triggered, KateApp::self()->documentManager(), [this]() {
         auto &&view = viewManager()->activeView();
-        KateFileActions::openFilePropertiesDialog(view->document());
+        KateFileActions::openFilePropertiesDialog(this, view->document());
     });
     a->setWhatsThis(i18n("Deletes the file belonging to the current document."));
 

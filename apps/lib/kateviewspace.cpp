@@ -962,7 +962,7 @@ void KateViewSpace::showContextMenu(int idx, const QPoint &globalPos)
     } else if (choice == aOpenFolder) {
         KateFileActions::openContainingFolder(doc);
     } else if (choice == aFileProperties) {
-        KateFileActions::openFilePropertiesDialog(doc);
+        KateFileActions::openFilePropertiesDialog(this, doc);
     } else if (choice == aRenameFile) {
         KateFileActions::renameDocumentFile(this, doc);
     } else if (choice == aDeleteFile) {

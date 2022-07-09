@@ -39,10 +39,10 @@ void KateFileActions::openContainingFolder(KTextEditor::Document *doc)
     KIO::highlightInFileManager({doc->url()});
 }
 
-void KateFileActions::openFilePropertiesDialog(KTextEditor::Document *doc)
+void KateFileActions::openFilePropertiesDialog(QWidget *parent, KTextEditor::Document *doc)
 {
     KFileItem fileItem(doc->url());
-    QDialog *dlg = new KPropertiesDialog(fileItem);
+    QDialog *dlg = new KPropertiesDialog(fileItem, parent);
     dlg->setAttribute(Qt::WA_DeleteOnClose);
     dlg->show();
 }

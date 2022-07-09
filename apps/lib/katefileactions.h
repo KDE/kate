@@ -40,7 +40,7 @@ void openContainingFolder(KTextEditor::Document *document);
  */
 void renameDocumentFile(QWidget *parent, KTextEditor::Document *document);
 
-void openFilePropertiesDialog(KTextEditor::Document *document);
+void openFilePropertiesDialog(QWidget *parent, KTextEditor::Document *document);
 
 /**
  * Asks the user if the file should really be deleted. If yes, the file

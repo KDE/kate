@@ -910,7 +910,7 @@ void KateViewSpace::showContextMenu(int idx, const QPoint &globalPos)
     QAction *aDeleteFile = addActionFromCollection(&menu, "file_delete");
     menu.addSeparator();
     QMenu *mCompareWithActive = new QMenu(i18n("Compare with active document"), &menu);
-    mCompareWithActive->setIcon(QIcon::fromTheme(QStringLiteral("kompare")));
+    mCompareWithActive->setIcon(QIcon::fromTheme(QStringLiteral("vcs-diff")));
     menu.addMenu(mCompareWithActive);
 
     if (KateApp::self()->documentManager()->documentList().size() < 2) {

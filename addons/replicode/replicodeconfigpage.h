@@ -19,6 +19,7 @@ public:
 
     QString name() const override;
     QString fullName() const override;
+    QIcon icon() const override;
 
 public Q_SLOTS:
     void apply() override;

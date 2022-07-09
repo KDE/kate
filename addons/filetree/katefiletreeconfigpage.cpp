@@ -143,7 +143,7 @@ QString KateFileTreeConfigPage::fullName() const
 
 QIcon KateFileTreeConfigPage::icon() const
 {
-    return QIcon::fromTheme(QLatin1String("view-list-tree"));
+    return QIcon::fromTheme(QLatin1String("document-open"));
 }
 
 void KateFileTreeConfigPage::apply()

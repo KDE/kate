@@ -90,7 +90,7 @@ QString KateFileBrowserConfigPage::fullName() const
 
 QIcon KateFileBrowserConfigPage::icon() const
 {
-    return QIcon::fromTheme(QStringLiteral("document-open"));
+    return QIcon::fromTheme(QStringLiteral("document-open-folder"));
 }
 
 void KateFileBrowserConfigPage::apply()

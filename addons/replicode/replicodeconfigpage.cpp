@@ -46,6 +46,11 @@ QString ReplicodeConfigPage::fullName() const
     return i18n("Replicode configuration");
 }
 
+QIcon ReplicodeConfigPage::icon() const
+{
+    return QIcon::fromTheme(QLatin1String("code-block"));
+}
+
 void ReplicodeConfigPage::apply()
 {
     KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("Replicode"));

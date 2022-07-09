@@ -606,7 +606,7 @@ QString KateKonsoleConfigPage::fullName() const
 
 QIcon KateKonsoleConfigPage::icon() const
 {
-    return QIcon::fromTheme(QStringLiteral("utilities-terminal"));
+    return QIcon::fromTheme(QStringLiteral("dialog-scripts"));
 }
 
 void KateKonsoleConfigPage::apply()

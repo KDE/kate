@@ -342,31 +342,44 @@ void KateFileTree::contextMenuEvent(QContextMenuEvent *event)
     const bool isFile = (nullptr != doc);
 
     QMenu menu;
-    menu.addAction(m_filelistReloadDocument);
-    menu.addAction(m_filelistCloseDocument);
-    menu.addAction(m_filelistExpandRecursive);
-    menu.addAction(m_filelistCollapseRecursive);
-
     if (isFile) {
-        menu.addAction(m_filelistCloseOtherDocument);
-        menu.addSeparator();
-        menu.addAction(m_filelistOpenContainingFolder);
-        menu.addAction(m_filelistCopyFilename);
-        menu.addAction(m_filelistRenameFile);
-        menu.addAction(m_filelistPrintDocument);
-        menu.addAction(m_filelistPrintDocumentPreview);
         QMenu *openWithMenu = menu.addMenu(i18nc("@action:inmenu", "Open With"));
         connect(openWithMenu, &QMenu::aboutToShow, this, [this, openWithMenu]() {
             slotFixOpenWithMenu(openWithMenu);
         });
         connect(openWithMenu, &QMenu::triggered, this, &KateFileTree::slotOpenWithMenuAction);
 
+        menu.addSeparator();
+        menu.addAction(m_filelistCopyFilename);
+        menu.addAction(m_filelistRenameFile);
+        menu.addAction(m_filelistDeleteDocument);
+        menu.addAction(m_filelistReloadDocument);
+
+        menu.addSeparator();
+        menu.addAction(m_filelistOpenContainingFolder);
+
+        menu.addSeparator();
+        menu.addAction(m_filelistCloseDocument);
+        menu.addAction(m_filelistCloseOtherDocument);
+
+        menu.addSeparator();
+        menu.addAction(m_filelistPrintDocument);
+        menu.addAction(m_filelistPrintDocumentPreview);
+
         const bool hasFileName = doc->url().isValid();
         m_filelistOpenContainingFolder->setEnabled(hasFileName);
         m_filelistCopyFilename->setEnabled(hasFileName);
         m_filelistRenameFile->setEnabled(hasFileName);
         m_filelistDeleteDocument->setEnabled(hasFileName);
-        menu.addAction(m_filelistDeleteDocument);
+    } else {
+        menu.addAction(m_filelistReloadDocument);
+
+        menu.addSeparator();
+        menu.addAction(m_filelistCloseDocument);
+
+        menu.addSeparator();
+        menu.addAction(m_filelistExpandRecursive);
+        menu.addAction(m_filelistCollapseRecursive);
     }
 
     menu.addSeparator();

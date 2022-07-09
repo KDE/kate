@@ -248,6 +248,7 @@ void KateFileBrowser::contextMenuAboutToShow(const KFileItem &item, QMenu *menu)
 {
     if (m_openWithMenu == nullptr) {
         m_openWithMenu = new KateFileBrowserOpenWithMenu(i18nc("@action:inmenu", "Open With"), this);
+        m_openWithMenu->setIcon(QIcon::fromTheme(QStringLiteral("system-run")));
         menu->insertMenu(menu->actions().at(1), m_openWithMenu);
         menu->insertSeparator(menu->actions().at(2));
         connect(m_openWithMenu, &QMenu::aboutToShow, this, &KateFileBrowser::fixOpenWithMenu);

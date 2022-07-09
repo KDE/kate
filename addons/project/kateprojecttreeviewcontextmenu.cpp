@@ -90,6 +90,7 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
      */
     menu.addSeparator();
     QMenu *openWithMenu = menu.addMenu(i18n("Open With"));
+    openWithMenu->setIcon(QIcon::fromTheme(QStringLiteral("system-run")));
     QMimeType mimeType = QMimeDatabase().mimeTypeForFile(filename);
     const KService::List offers = KApplicationTrader::queryByMimeType(mimeType.name());
     // For each one, insert a menu item...

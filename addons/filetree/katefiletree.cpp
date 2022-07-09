@@ -344,6 +344,7 @@ void KateFileTree::contextMenuEvent(QContextMenuEvent *event)
     QMenu menu;
     if (isFile) {
         QMenu *openWithMenu = menu.addMenu(i18nc("@action:inmenu", "Open With"));
+        openWithMenu->setIcon(QIcon::fromTheme(QStringLiteral("system-run")));
         connect(openWithMenu, &QMenu::aboutToShow, this, [this, openWithMenu]() {
             slotFixOpenWithMenu(openWithMenu);
         });

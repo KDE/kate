@@ -49,13 +49,13 @@ KateSQLView::KateSQLView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *m
     m_outputToolView = mw->createToolView(plugin,
                                           QStringLiteral("kate_private_plugin_katesql_output"),
                                           KTextEditor::MainWindow::Bottom,
-                                          QIcon::fromTheme(QStringLiteral("view-form-table")),
+                                          QIcon::fromTheme(QStringLiteral("server-database")),
                                           i18nc("@title:window", "SQL"));
 
     m_schemaBrowserToolView = mw->createToolView(plugin,
                                                  QStringLiteral("kate_private_plugin_katesql_schemabrowser"),
                                                  KTextEditor::MainWindow::Left,
-                                                 QIcon::fromTheme(QStringLiteral("view-list-tree")),
+                                                 QIcon::fromTheme(QStringLiteral("server-database")),
                                                  i18nc("@title:window", "SQL Schema"));
 
     m_outputWidget = new KateSQLOutputWidget(m_outputToolView);

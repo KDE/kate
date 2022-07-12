@@ -130,8 +130,8 @@ public:
     static QString configFileName(QString name)
     {
         // just percent encode the name, see bug 453272
-        // we add a special suffix to not clash with old files, old files were all lowercase
-        return QStringLiteral("PE_") + QString::fromUtf8(QUrl::toPercentEncoding(name));
+        // we add a file ending to not clash with old files, old files were all lowercase
+        return QString::fromUtf8(QUrl::toPercentEncoding(name)) + QStringLiteral(".ini");
     }
 
     /**

@@ -20,6 +20,7 @@ KateSessionsAction::KateSessionsAction(const QString &text, QObject *parent, Kat
     m_manager = manager ? manager : KateApp::self()->sessionManager();
 
     connect(menu(), &QMenu::aboutToShow, this, &KateSessionsAction::slotAboutToShow);
+    setPopupMode(QToolButton::InstantPopup);
 
     sessionsGroup = new QActionGroup(menu());
 

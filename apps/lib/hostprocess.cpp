@@ -5,6 +5,7 @@
 
 #include <QStandardPaths>
 
+#include <KProcess>
 #include <KSandbox>
 #include <kcoreaddons_version.h>
 
@@ -22,7 +23,13 @@ void startHostProcess(QProcess &proc, QProcess::OpenMode mode)
 #if KCOREADDONS_VERSION >= QT_VERSION_CHECK(5, 97, 0)
     KSandbox::startHostProcess(proc, mode);
 #else
-    proc.start(mode);
+    KProcess *kprocess = qobject_cast<KProcess *>(&proc);
+    if (kprocess) {
+        kprocess->setNextOpenMode(mode);
+        kprocess->start();
+    } else {
+        proc.start(mode);
+    }
 #endif
 }
 

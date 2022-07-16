@@ -31,6 +31,7 @@
 #include <KXMLGUIFactory>
 #include <QAction>
 
+#include <QActionGroup>
 #include <QApplication>
 #include <QMenu>
 #include <QSqlQuery>

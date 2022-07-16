@@ -87,6 +87,17 @@ KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject 
         m_project->reload(true);
     });
 
+    pluginView->actionCollection()
+        ->addAction(QStringLiteral("git_show_file_history"),
+                    this,
+                    [this] {
+                        auto file = m_treeView->currentIndex().data(Qt::UserRole).toString();
+                        if (!file.isEmpty()) {
+                            showFileGitHistory(file);
+                        }
+                    })
+        ->setText(i18n("Show File Git History"));
+
     // file history
     connect(m_treeView, &KateProjectViewTree::showFileHistory, this, &KateProjectView::showFileGitHistory);
 }

@@ -312,7 +312,7 @@ bool KateApp::startupKate()
             }
             doc = openDocUrl(info.url, codec_name, tempfileSet, /*activateView=*/false, info.cursor);
         } else if (!KateApp::self()->pluginManager()->plugin(QStringLiteral("kateprojectplugin"))) {
-            KMessageBox::sorry(activeKateMainWindow(), i18n("Folders can only be opened when the projects plugin is enabled"));
+            KMessageBox::error(activeKateMainWindow(), i18n("Folders can only be opened when the projects plugin is enabled"));
         }
     }
 
@@ -415,7 +415,7 @@ KTextEditor::Document *KateApp::openDocUrl(const QUrl &url, const QString &encod
             doc = mainWindow->viewManager()->openUrl(url, QString(), activateView, isTempFile, docInfo);
         }
     } else {
-        KMessageBox::sorry(mainWindow, i18n("The file '%1' could not be opened: it is not a normal file, it is a folder.", url.url()));
+        KMessageBox::error(mainWindow, i18n("The file '%1' could not be opened: it is not a normal file, it is a folder.", url.url()));
     }
 
     // document was successfully opened, ensure we will handle destroy properly

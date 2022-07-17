@@ -598,7 +598,7 @@ void KateFileTree::slotRenameFile()
     *sc = connect(job, &KIO::CopyJob::copyingDone, doc, success);
 
     if (!job->exec()) {
-        KMessageBox::sorry(this, i18n("File \"%1\" could not be moved to \"%2\"", oldFileUrl.toDisplayString(), newFileUrl.toDisplayString()));
+        KMessageBox::error(this, i18n("File \"%1\" could not be moved to \"%2\"", oldFileUrl.toDisplayString(), newFileUrl.toDisplayString()));
         doc->openUrl(oldFileUrl);
     }
 }
@@ -822,7 +822,7 @@ void KateFileTree::slotDocumentDelete()
     if (url.isValid()) {
         KIO::DeleteJob *job = KIO::del(url);
         if (!job->exec()) {
-            KMessageBox::sorry(this, i18n("File \"%1\" could not be deleted.", url.toDisplayString()));
+            KMessageBox::error(this, i18n("File \"%1\" could not be deleted.", url.toDisplayString()));
         }
     }
 }

@@ -130,7 +130,7 @@ KateCTagsView::KateCTagsView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     connect(&m_proc, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &KateCTagsView::updateDone);
     connect(&m_proc, &QProcess::readyReadStandardError, this, [this]() {
         QString error = QString::fromLocal8Bit(m_proc.readAllStandardError());
-        KMessageBox::sorry(nullptr, error);
+        KMessageBox::error(nullptr, error);
     });
 
     m_gotoSymbWidget.reset(new GotoSymbolWidget(mainWin, this));

@@ -197,7 +197,7 @@ void KateMwModOnHdDialog::handleSelected(int action)
             case Overwrite:
                 success = item->document->save();
                 if (!success) {
-                    KMessageBox::sorry(this, i18n("Could not save the document \n'%1'", item->document->url().toString()));
+                    KMessageBox::error(this, i18n("Could not save the document \n'%1'", item->document->url().toString()));
                 }
                 break;
 
@@ -329,7 +329,7 @@ void KateMwModOnHdDialog::slotPDone()
     m_proc = nullptr;
 
     if (es != QProcess::NormalExit) {
-        KMessageBox::sorry(this,
+        KMessageBox::error(this,
                            i18n("The diff command failed. Please make sure that "
                                 "diff(1) is installed and in your PATH."),
                            i18n("Error Creating Diff"));

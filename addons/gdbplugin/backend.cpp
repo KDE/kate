@@ -20,7 +20,7 @@ Backend::Backend(QObject *parent)
 void Backend::runDebugger(const GDBTargetConf &conf, const QStringList &ioFifos)
 {
     if (m_debugger && m_debugger->debuggerRunning()) {
-        KMessageBox::sorry(nullptr, i18n("A debugging session is on course. Please, use re-run or stop the current session."));
+        KMessageBox::error(nullptr, i18n("A debugging session is on course. Please, use re-run or stop the current session."));
         return;
     }
 
@@ -45,7 +45,7 @@ void Backend::runDebugger(const GDBTargetConf &conf, const QStringList &ioFifos)
 void Backend::runDebugger(const DAPTargetConf &conf)
 {
     if (m_debugger && m_debugger->debuggerRunning()) {
-        KMessageBox::sorry(nullptr, i18n("A debugging session is on course. Please, use re-run or stop the current session."));
+        KMessageBox::error(nullptr, i18n("A debugging session is on course. Please, use re-run or stop the current session."));
         return;
     }
 

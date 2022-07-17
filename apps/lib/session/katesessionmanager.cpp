@@ -299,7 +299,7 @@ QString KateSessionManager::renameSession(KateSession::Ptr session, const QStrin
     session->config()->sync();
 
     if (!QFile::rename(session->file(), newFile)) {
-        KMessageBox::sorry(QApplication::activeWindow(),
+        KMessageBox::error(QApplication::activeWindow(),
                            i18n("The session could not be renamed to \"%1\". Failed to write to \"%2\"", newName, newFile),
                            i18n("Session Renaming"));
         return QString();

@@ -52,7 +52,7 @@ KateKonsolePlugin::KateKonsolePlugin(QObject *parent, const QList<QVariant> &)
 {
     m_previousEditorEnv = qgetenv("EDITOR");
     if (!KAuthorized::authorize(QStringLiteral("shell_access"))) {
-        KMessageBox::sorry(nullptr, i18n("You do not have enough karma to access a shell or terminal emulation"));
+        KMessageBox::error(nullptr, i18n("You do not have enough karma to access a shell or terminal emulation"));
     }
 }
 

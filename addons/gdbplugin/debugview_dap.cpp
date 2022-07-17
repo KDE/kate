@@ -149,7 +149,7 @@ dap::settings::ClientSettings &DapDebugView::target2dap(const DAPTargetConf &tar
 void DapDebugView::start()
 {
     if ((m_state != None) && (m_state != PostMortem)) {
-        KMessageBox::sorry(nullptr, i18n("A debugging session is on course. Please, use re-run or stop the current session."));
+        KMessageBox::error(nullptr, i18n("A debugging session is on course. Please, use re-run or stop the current session."));
         return;
     }
     unsetClient();

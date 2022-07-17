@@ -102,7 +102,7 @@ void KateFileActions::renameDocumentFile(QWidget *parent, KTextEditor::Document 
             doc->openUrl(copyJob->destUrl());
             doc->documentSavedOrUploaded(doc, true);
         } else {
-            KMessageBox::sorry(parent,
+            KMessageBox::error(parent,
                                i18n("File \"%1\" could not be moved to \"%2\"",
                                     oldFileUrl.toDisplayString(QUrl::PreferLocalFile),
                                     copyJob->destUrl().toDisplayString(QUrl::PreferLocalFile)));
@@ -145,7 +145,7 @@ void KateFileActions::deleteDocumentFile(QWidget *parent, KTextEditor::Document 
     if (url.isValid()) {
         KIO::DeleteJob *job = KIO::del(url);
         if (!job->exec()) {
-            KMessageBox::sorry(parent, i18n("File \"%1\" could not be deleted.", url.toDisplayString()));
+            KMessageBox::error(parent, i18n("File \"%1\" could not be deleted.", url.toDisplayString()));
         }
     }
 }

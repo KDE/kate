@@ -743,10 +743,10 @@ QUrl KateBuildView::docUrl()
 bool KateBuildView::checkLocal(const QUrl &dir)
 {
     if (dir.path().isEmpty()) {
-        KMessageBox::sorry(nullptr, i18n("There is no file or directory specified for building."));
+        KMessageBox::error(nullptr, i18n("There is no file or directory specified for building."));
         return false;
     } else if (!dir.isLocalFile()) {
-        KMessageBox::sorry(nullptr,
+        KMessageBox::error(nullptr,
                            i18n("The file \"%1\" is not a local file. "
                                 "Non-local files cannot be compiled.",
                                 dir.path()));
@@ -895,7 +895,7 @@ bool KateBuildView::buildCurrentTarget()
     QModelIndex ind = m_targetsUi->targetsView->currentIndex();
     m_previousIndex = ind;
     if (!ind.isValid()) {
-        KMessageBox::sorry(nullptr, i18n("No target available for building."));
+        KMessageBox::error(nullptr, i18n("No target available for building."));
         return false;
     }
 
@@ -909,7 +909,7 @@ bool KateBuildView::buildCurrentTarget()
     if (workDir.isEmpty()) {
         dir = docFInfo.absolutePath();
         if (dir.isEmpty()) {
-            KMessageBox::sorry(nullptr, i18n("There is no local file or directory specified for building."));
+            KMessageBox::error(nullptr, i18n("There is no local file or directory specified for building."));
             return false;
         }
     }

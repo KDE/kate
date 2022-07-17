@@ -222,7 +222,7 @@ bool KateSaveModifiedDialog::doSave()
         if (cit->checkState(0) == Qt::Checked && (cit->state() != AbstractKateSaveModifiedDialogCheckListItem::SaveOKState)) {
             if (!cit->synchronousSave(this /*perhaps that should be the kate mainwindow*/)) {
                 if (cit->state() == AbstractKateSaveModifiedDialogCheckListItem::SaveFailedState) {
-                    KMessageBox::sorry(this, i18n("Data you requested to be saved could not be written. Please choose how you want to proceed."));
+                    KMessageBox::error(this, i18n("Data you requested to be saved could not be written. Please choose how you want to proceed."));
                 }
                 return false;
             }

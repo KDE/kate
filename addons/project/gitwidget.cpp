@@ -1025,7 +1025,9 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
         }
     }
 
-    const auto idx = m_treeView->currentIndex();
+    const auto idx = m_treeView->indexAt(e->pos());
+    if (!idx.isValid())
+        return;
     auto treeItem = idx.data(GitStatusModel::TreeItemType);
 
     if (treeItem == GitStatusModel::NodeChanges || treeItem == GitStatusModel::NodeUntrack) {
@@ -1128,6 +1130,11 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
         QMenu menu;
         auto stage = menu.addAction(i18n("Unstage All"));
         auto diff = menu.addAction(i18n("Show diff"));
+        auto model = m_treeView->model();
+        bool disable = model->rowCount(idx) == 0;
+        stage->setDisabled(disable);
+        diff->setDisabled(disable);
+
         auto act = menu.exec(m_treeView->viewport()->mapToGlobal(e->pos()));
         if (!act) {
             return;

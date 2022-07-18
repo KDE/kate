@@ -126,7 +126,7 @@ QString toString(KateExternalTool::Trigger trigger)
 
 bool KateExternalTool::checkExec() const
 {
-    return safeExecutableName(executable).isEmpty();
+    return !safeExecutableName(executable).isEmpty();
 }
 
 bool KateExternalTool::matchesMimetype(const QString &mt) const

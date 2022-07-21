@@ -392,9 +392,9 @@ void KateConsole::slotRun()
     }
 
     KTextEditor::Document *document = view->document();
-    QUrl u = document->url();
-    if (!u.isLocalFile()) {
-        QPointer<KTextEditor::Message> message = new KTextEditor::Message(i18n("Not a local file: '%1'", u.path()), KTextEditor::Message::Error);
+    const QUrl url = document->url();
+    if (!url.isLocalFile()) {
+        QPointer<KTextEditor::Message> message = new KTextEditor::Message(i18n("Not a local file: '%1'", url.toDisplayString()), KTextEditor::Message::Error);
         // auto hide is enabled and set to a sane default value of several seconds.
         message->setAutoHide(2000);
         message->setAutoHideMode(KTextEditor::Message::Immediate);
@@ -420,7 +420,7 @@ void KateConsole::slotRun()
     }
 
     // then filename
-    QFileInfo fileInfo(u.path());
+    QFileInfo fileInfo(url.path());
     const bool removeExt = cg.readEntry("RemoveExtension", true);
     // append filename without extension (i.e. keep only the basename)
     const QString path = fileInfo.absolutePath() + QLatin1Char('/') + (removeExt ? fileInfo.baseName() : fileInfo.fileName());

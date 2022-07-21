@@ -92,15 +92,20 @@ private:
 KateFileTree::KateFileTree(QWidget *parent)
     : QTreeView(parent)
 {
-    setAcceptDrops(false);
     setIndentation(12);
     setAllColumnsShowFocus(true);
     setFocusPolicy(Qt::NoFocus);
-    setDragEnabled(true);
-    setDragDropMode(QAbstractItemView::DragOnly);
     setSelectionBehavior(QAbstractItemView::SelectRows);
     // for hover close button
     viewport()->setAttribute(Qt::WA_Hover);
+
+    // DND
+    setDefaultDropAction(Qt::MoveAction);
+    setDragDropMode(QAbstractItemView::InternalMove);
+    setDragDropOverwriteMode(false);
+    setAcceptDrops(true);
+    setDropIndicatorShown(true);
+    setDragEnabled(true);
 
     setItemDelegate(new StyleDelegate(this));
 
@@ -246,6 +251,13 @@ void KateFileTree::setupContextMenuActionGroups()
                                        i18nc("@action:inmenu sorting option", "Opening Order"),
                                        i18n("Sort by Opening Order"),
                                        &KateFileTree::slotSortOpeningOrder);
+
+    m_customSorting = new QAction(QIcon(), i18n("Custom Sorting"), this);
+    m_customSorting->setCheckable(true);
+    m_customSorting->setActionGroup(sortGroup);
+    connect(m_customSorting, &QAction::triggered, this, [this] {
+        Q_EMIT sortRoleChanged(CustomSorting);
+    });
 }
 
 QAction *KateFileTree::setupOption(QActionGroup *group,
@@ -337,6 +349,7 @@ void KateFileTree::contextMenuEvent(QContextMenuEvent *event)
     m_sortByFile->setChecked(sortRole == Qt::DisplayRole);
     m_sortByPath->setChecked(sortRole == KateFileTreeModel::PathRole);
     m_sortByOpeningOrder->setChecked(sortRole == KateFileTreeModel::OpeningOrderRole);
+    m_customSorting->setChecked(sortRole == CustomSorting);
 
     KTextEditor::Document *doc = docFromIndex(m_indexContextMenu);
     const bool isFile = (nullptr != doc);
@@ -392,6 +405,7 @@ void KateFileTree::contextMenuEvent(QContextMenuEvent *event)
     sort_menu->addAction(m_sortByFile);
     sort_menu->addAction(m_sortByPath);
     sort_menu->addAction(m_sortByOpeningOrder);
+    sort_menu->addAction(m_customSorting);
 
     menu.addAction(m_resetHistory);
 
@@ -447,8 +461,6 @@ void KateFileTree::slotOpenWithMenuAction(QAction *a)
     job->setUiDelegate(new KIO::JobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, this));
     job->start();
 }
-
-Q_DECLARE_METATYPE(QList<KTextEditor::Document *>)
 
 void KateFileTree::slotDocumentClose()
 {

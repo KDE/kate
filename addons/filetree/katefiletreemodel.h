@@ -48,6 +48,8 @@ public:
 
     QMimeData *mimeData(const QModelIndexList &indexes) const override;
 
+    Qt::DropActions supportedDropActions() const override;
+
     /* extra api for view */
     QModelIndex docIndex(const KTextEditor::Document *) const;
 
@@ -70,6 +72,9 @@ public:
     void documentActivated(const KTextEditor::Document *);
     void documentEdited(const KTextEditor::Document *);
     void resetHistory();
+
+    bool dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent) override;
+    bool canDropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent) const override;
 
 public Q_SLOTS:
     void documentOpened(KTextEditor::Document *);
@@ -114,5 +119,7 @@ private:
 
     bool m_listMode;
 };
+
+Q_DECLARE_METATYPE(QList<KTextEditor::Document *>)
 
 #endif /* KATEFILETREEMODEL_H */

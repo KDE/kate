@@ -65,6 +65,7 @@ bool KateFileTreeProxyModel::lessThan(const QModelIndex &left, const QModelIndex
     }
 
     case KateFileTreeModel::OpeningOrderRole:
+    case CustomSorting:
         return (left.row() - right.row()) < 0;
     }
 

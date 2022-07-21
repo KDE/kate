@@ -108,6 +108,7 @@ private:
     QAction *m_sortByFile;
     QAction *m_sortByPath;
     QAction *m_sortByOpeningOrder;
+    QAction *m_customSorting;
     QAction *m_resetHistory;
 
     KateFileTreeProxyModel *m_proxyModel = nullptr;

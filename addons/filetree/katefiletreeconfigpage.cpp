@@ -71,6 +71,7 @@ KateFileTreeConfigPage::KateFileTreeConfigPage(QWidget *parent, KateFileTreePlug
     cmbSort->addItem(i18n("Opening Order"), static_cast<int>(KateFileTreeModel::OpeningOrderRole));
     cmbSort->addItem(i18n("Document Name"), static_cast<int>(Qt::DisplayRole));
     cmbSort->addItem(i18n("Url"), static_cast<int>(KateFileTreeModel::PathRole));
+    cmbSort->addItem(i18n("Custom Sorting"), static_cast<int>(CustomSorting));
 
     // view mode
     QHBoxLayout *lo3 = new QHBoxLayout;

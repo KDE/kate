@@ -29,6 +29,24 @@
 
 static constexpr int MaxHistoryItems = 10;
 
+class FileTreeMimeData : public QMimeData
+{
+    Q_OBJECT
+public:
+    FileTreeMimeData(const QModelIndex &index)
+        : m_index(index)
+    {
+    }
+
+    QModelIndex index() const
+    {
+        return m_index;
+    }
+
+private:
+    QPersistentModelIndex m_index;
+};
+
 class ProxyItemDir;
 class ProxyItem
 {
@@ -485,13 +503,17 @@ Qt::ItemFlags KateFileTreeModel::flags(const QModelIndex &index) const
     Qt::ItemFlags flags = Qt::ItemIsEnabled;
 
     if (!index.isValid()) {
-        return Qt::NoItemFlags;
+        return Qt::NoItemFlags | Qt::ItemIsDropEnabled;
     }
 
     const ProxyItem *item = static_cast<ProxyItem *>(index.internalPointer());
     if (item) {
         if (!item->childCount()) {
             flags |= Qt::ItemIsSelectable;
+        }
+
+        if (item->childCount() > 0) {
+            flags |= Qt::ItemIsDropEnabled;
         }
 
         if (item->doc() && item->doc()->url().isValid()) {
@@ -501,8 +523,6 @@ Qt::ItemFlags KateFileTreeModel::flags(const QModelIndex &index) const
 
     return flags;
 }
-
-Q_DECLARE_METATYPE(QList<KTextEditor::Document *>)
 
 QVariant KateFileTreeModel::data(const QModelIndex &index, int role) const
 {
@@ -572,26 +592,64 @@ QVariant KateFileTreeModel::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
+Qt::DropActions KateFileTreeModel::supportedDropActions() const
+{
+    Qt::DropActions a = QAbstractItemModel::supportedDropActions();
+    a |= Qt::MoveAction;
+    return a;
+}
+
 QMimeData *KateFileTreeModel::mimeData(const QModelIndexList &indexes) const
 {
-    QList<QUrl> urls;
-
-    for (const auto &index : indexes) {
-        ProxyItem *item = static_cast<ProxyItem *>(index.internalPointer());
-        if (!item || !item->doc() || !item->doc()->url().isValid()) {
-            continue;
-        }
-
-        urls.append(item->doc()->url());
-    }
-
-    if (urls.isEmpty()) {
+    if (indexes.size() != columnCount()) {
         return nullptr;
     }
 
-    QMimeData *mimeData = new QMimeData();
+    ProxyItem *item = static_cast<ProxyItem *>(indexes.at(0).internalPointer());
+    QList<QUrl> urls;
+    if (!item || !item->doc() || !item->doc()->url().isValid()) {
+        return nullptr;
+    }
+    urls.append(item->doc()->url());
+
+    FileTreeMimeData *mimeData = new FileTreeMimeData(indexes.at(0));
     mimeData->setUrls(urls);
     return mimeData;
+}
+
+bool KateFileTreeModel::canDropMimeData(const QMimeData *data, Qt::DropAction action, int, int, const QModelIndex &parent) const
+{
+    if (auto md = qobject_cast<const FileTreeMimeData *>(data)) {
+        return action == Qt::MoveAction && md->index().parent() == parent;
+    }
+    return false;
+}
+
+bool KateFileTreeModel::dropMimeData(const QMimeData *data, Qt::DropAction, int row, int, const QModelIndex &parent)
+{
+    auto md = qobject_cast<const FileTreeMimeData *>(data);
+    if (!md) {
+        return false;
+    }
+
+    const auto index = md->index();
+    Q_ASSERT(parent == index.parent());
+    if (!index.isValid() || index.row() > rowCount(parent) || index.row() == row) {
+        return false;
+    }
+
+    auto parentItem = parent.isValid() ? static_cast<ProxyItemDir *>(parent.internalPointer()) : m_root;
+    auto &childs = parentItem->children();
+    int sourceRow = index.row();
+
+    beginMoveRows(index.parent(), index.row(), index.row(), parent, row);
+    childs.insert(row, childs.at(index.row()));
+    if (sourceRow > row) {
+        sourceRow++;
+    }
+    childs.takeAt(sourceRow);
+    endMoveRows();
+    return true;
 }
 
 QVariant KateFileTreeModel::headerData(int section, Qt::Orientation orientation, int role) const
@@ -1328,3 +1386,5 @@ void KateFileTreeModel::resetHistory()
         dataChanged(idx, idx, QVector<int>(1, Qt::BackgroundRole));
     }
 }
+
+#include "katefiletreemodel.moc"

@@ -195,11 +195,6 @@ KateFileTreePluginView::KateFileTreePluginView(KTextEditor::MainWindow *mainWind
     });
 
     m_fileTree->setModel(m_proxyModel);
-
-    m_fileTree->setDragEnabled(false);
-    m_fileTree->setDragDropMode(QAbstractItemView::InternalMove);
-    m_fileTree->setDropIndicatorShown(false);
-
     m_fileTree->setSelectionMode(QAbstractItemView::SingleSelection);
 
     connect(m_fileTree->selectionModel(), &QItemSelectionModel::currentChanged, m_fileTree, &KateFileTree::slotCurrentChanged);

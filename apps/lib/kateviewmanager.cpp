@@ -820,6 +820,11 @@ void KateViewManager::moveViewToViewSpace(KateViewSpace *dest, KateViewSpace *sr
     }
 
     auto view = src->takeView(doc);
+    if (!view) {
+        qWarning() << Q_FUNC_INFO << "Unexpected null view when trying to drag the view to a different viewspace" << doc;
+        return;
+    }
+
     dest->addView(view);
     setActiveSpace(dest);
 }

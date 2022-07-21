@@ -167,8 +167,11 @@ void KateTabBar::mousePressEvent(QMouseEvent *event)
         Q_EMIT activateViewSpaceRequested();
     }
 
-    if (event->button() == Qt::LeftButton && tabAt(event->pos()) != -1) {
+    int tab = tabAt(event->pos());
+    if (event->button() == Qt::LeftButton && tab != -1) {
         dragStartPos = event->pos();
+        auto r = tabRect(tab);
+        dragHotspotPos = {dragStartPos.x() - r.x(), dragStartPos.y() - r.y()};
     } else {
         dragStartPos = {};
     }
@@ -197,7 +200,10 @@ void KateTabBar::mouseMoveEvent(QMouseEvent *event)
     // might not know that kate's tabs can be dragged to other
     // places, unless they drag it really far away
     auto viewSpace = qobject_cast<KateViewSpace *>(parentWidget());
-    if (!viewSpace || viewSpace->rect().contains(event->pos())) {
+    const auto viewspaceRect = viewSpace->rect();
+    QRect viewspaceRectTopArea = viewspaceRect;
+    viewspaceRectTopArea.setBottom(viewspaceRect.height() / 4);
+    if (!viewSpace || viewspaceRectTopArea.contains(event->pos())) {
         QTabBar::mouseMoveEvent(event);
         return;
     }
@@ -211,9 +217,11 @@ void KateTabBar::mouseMoveEvent(QMouseEvent *event)
         return QTabBar::mouseMoveEvent(event);
     }
 
-    QDrag *drag = new QDrag(this);
+    int tab = currentIndex();
+    if (tab < 0) {
+        return;
+    }
 
-    int tab = tabAt(dragStartPos);
     QRect rect = tabRect(tab);
 
     QPixmap p(rect.size() * this->devicePixelRatioF());
@@ -255,18 +263,17 @@ void KateTabBar::mouseMoveEvent(QMouseEvent *event)
     auto mime = new TabMimeData(viewSpace, tabDocument(tab));
     mime->setData(QStringLiteral("application/kate.tab.mimedata"), data);
 
+    QDrag *drag = new QDrag(this);
     drag->setMimeData(mime);
     drag->setPixmap(p);
-    QPoint hp;
-    hp.setX(dragStartPos.x() - rect.x());
-    hp.setY(dragStartPos.y() - rect.y());
-    drag->setHotSpot(hp);
+    drag->setHotSpot(dragHotspotPos);
 
     dragStartPos = {};
+    dragHotspotPos = {};
     drag->exec(Qt::CopyAction);
 
     // We send this even to ensure the "moveable tab" is properly reset and we have no dislocated tabs
-    QMouseEvent *e = new QMouseEvent(QEvent::MouseButtonPress, QPoint(), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
+    QMouseEvent *e = new QMouseEvent(QEvent::MouseButtonPress, dragStartPos, Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
     qApp->postEvent(this, e);
 }
 

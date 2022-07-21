@@ -420,14 +420,11 @@ void KateConsole::slotRun()
     }
 
     // then filename
-    QFileInfo file_path(u.path());
-    if (cg.readEntry("RemoveExtension", true)) {
-        // append filename without extension (i.e. keep only the basename)
-        output_str += QStringLiteral("\"") + file_path.absoluteFilePath().remove(file_path.suffix()) + QStringLiteral("\"");
-    } else {
-        // append filename to the terminal
-        output_str += QStringLiteral("\"") + file_path.absoluteFilePath() + QStringLiteral("\"");
-    }
+    QFileInfo fileInfo(u.path());
+    const bool removeExt = cg.readEntry("RemoveExtension", true);
+    // append filename without extension (i.e. keep only the basename)
+    const QString path = fileInfo.absolutePath() + QLatin1Char('/') + (removeExt ? fileInfo.baseName() : fileInfo.fileName());
+    output_str += KShell::quoteArg(path);
 
     const QString msg = i18n(
         "Do you really want to Run the document ?\n"

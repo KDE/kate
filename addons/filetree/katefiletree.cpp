@@ -182,7 +182,7 @@ void KateFileTree::setModel(QAbstractItemModel *model)
     header()->resizeSection(1, minSize);
 
     // proxy never emits rowsMoved
-    connect(m_proxyModel, &QAbstractItemModel::rowsMoved, this, &KateFileTree::onRowsMoved);
+    connect(m_proxyModel->sourceModel(), &QAbstractItemModel::rowsMoved, this, &KateFileTree::onRowsMoved);
 }
 
 void KateFileTree::onRowsMoved(const QModelIndex &, int, int, const QModelIndex &destination, int row)

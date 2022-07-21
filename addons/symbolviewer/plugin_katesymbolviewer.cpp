@@ -401,6 +401,7 @@ void KatePluginSymbolViewerView::slotFilterChange(const QString &text)
     QString filter = text.trimmed();
     for (int i = 0; i < m_symbols->invisibleRootItem()->childCount(); ++i) {
         QTreeWidgetItem *group_item = m_symbols->invisibleRootItem()->child(i);
+        filterSymbols(group_item, filter);
         for (int j = 0; j < group_item->childCount(); ++j) {
             filterSymbols(group_item->child(j), filter);
         }

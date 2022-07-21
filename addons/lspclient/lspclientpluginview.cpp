@@ -802,29 +802,17 @@ public:
 
     void onViewCreated(KTextEditor::View *view)
     {
-        if (view) {
-            view->installEventFilter(this);
-            auto childs = view->children();
-            for (auto c : childs) {
-                if (c) {
-                    c->installEventFilter(this);
-                }
-            }
+        if (view && view->focusProxy()) {
+            view->focusProxy()->installEventFilter(this);
         }
     }
 
-    // This is taken from KDevelop :)
     KTextEditor::View *viewFromWidget(QWidget *widget)
     {
-        if (!widget) {
-            return nullptr;
+        if (widget) {
+            return qobject_cast<KTextEditor::View *>(widget->parentWidget());
         }
-        auto *view = qobject_cast<KTextEditor::View *>(widget);
-        if (view) {
-            return view;
-        } else {
-            return viewFromWidget(widget->parentWidget());
-        }
+        return nullptr;
     }
 
     /**
@@ -860,21 +848,31 @@ public:
 
     bool eventFilter(QObject *obj, QEvent *event) override
     {
-        auto mouseEvent = dynamic_cast<QMouseEvent *>(event);
+        if (!obj->isWidgetType()) {
+            return QObject::eventFilter(obj, event);
+        }
 
+        // common stuff that we need for both events
+        auto viewInternal = static_cast<QWidget *>(obj);
+        KTextEditor::View *v = viewFromWidget(viewInternal);
+        if (!v) {
+            return false;
+        }
+
+        if (event->type() == QEvent::Leave) {
+            if (m_ctrlHoverFeedback.isValid()) {
+                m_ctrlHoverFeedback.clear(v);
+            }
+            return QObject::eventFilter(obj, event);
+        }
+
+        auto mouseEvent = dynamic_cast<QMouseEvent *>(event);
         // we are only concerned with mouse events for now :)
         if (!mouseEvent) {
             return false;
         }
 
-        // common stuff that we need for both events
-        auto wid = qobject_cast<QWidget *>(obj);
-        auto v = viewFromWidget(wid);
-        if (!v) {
-            return false;
-        }
-
-        const auto coords = wid->mapTo(v, mouseEvent->pos());
+        const auto coords = viewInternal->mapTo(v, mouseEvent->pos());
         const auto cur = v->coordinatesToCursor(coords);
         // there isn't much we can do now, just bail out
         if (!cur.isValid()) {
@@ -899,7 +897,7 @@ public:
         else if (event->type() == QEvent::MouseMove) {
             if (mouseEvent->modifiers() == Qt::ControlModifier) {
                 auto range = doc->wordRangeAt(cur);
-                if (range.isValid()) {
+                if (!range.isEmpty()) {
                     // check if we are in #include
                     // and expand the word range
                     auto lineText = doc->line(range.start().line());
@@ -907,7 +905,7 @@ public:
                         expandToFullHeaderRange(range, lineText);
                     }
 
-                    m_ctrlHoverFeedback.setRangeAndWidget(range, wid);
+                    m_ctrlHoverFeedback.setRangeAndWidget(range, viewInternal);
                     // this will not go anywhere actually, but just signal whether we have a definition
                     // Also, please rethink very hard if you are going to reuse this method. It's made
                     // only for Ctrl+Hover

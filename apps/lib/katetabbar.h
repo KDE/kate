@@ -168,6 +168,7 @@ private:
     std::unordered_map<KTextEditor::Document *, std::pair<quint64, bool>> m_docToLruCounterAndHasTab;
 
     QPoint dragStartPos;
+    QPoint dragHotspotPos;
 };
 
 #endif // KATE_TAB_BAR_H

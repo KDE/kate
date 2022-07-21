@@ -417,10 +417,10 @@ void KateConsole::slotRun()
         QFileInfo file_path = QFileInfo(u.path());
         if (KConfigGroup(KSharedConfig::openConfig(), "Konsole").readEntry("RemoveExtension", true)) {
             // append filename without extension (i.e. keep only the basename)
-            output_str += file_path.absoluteFilePath().remove(file_path.suffix());
+            output_str += QStringLiteral("\"") + file_path.absoluteFilePath().remove(file_path.suffix()) + QStringLiteral("\"");
         } else {
             // append filename to the terminal
-            output_str += file_path.absoluteFilePath();
+            output_str += QStringLiteral("\"") + file_path.absoluteFilePath() + QStringLiteral("\"");
         }
 
         if (KMessageBox::Continue

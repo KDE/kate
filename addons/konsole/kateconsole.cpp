@@ -386,59 +386,66 @@ void KateConsole::slotManualSync()
 
 void KateConsole::slotRun()
 {
-    if (m_mw->activeView()) {
-        KTextEditor::Document *document = m_mw->activeView()->document();
-        QUrl u = document->url();
-        if (!u.isLocalFile()) {
-            QPointer<KTextEditor::Message> message = new KTextEditor::Message(i18n("Not a local file: '%1'", u.path()), KTextEditor::Message::Error);
-            // auto hide is enabled and set to a sane default value of several seconds.
-            message->setAutoHide(2000);
-            message->setAutoHideMode(KTextEditor::Message::Immediate);
-            document->postMessage(message);
-            return;
-        }
-        // ensure that file is saved
-        if (document->isModified()) {
-            document->save();
-        }
-
-        // The string that should be output to terminal, upon acceptance
-        QString output_str;
-        // Set prefix first
-        QString first_line = document->line(0);
-        QString shebang = QString::fromLatin1("#!");
-        if (first_line.startsWith(shebang)) {
-            // If there's a shebang, respect it
-            output_str += first_line.remove(shebang).append(QLatin1Char(' '));
-        } else {
-            output_str += KConfigGroup(KSharedConfig::openConfig(), "Konsole").readEntry("RunPrefix", "");
-        }
-        // then filename
-        QFileInfo file_path = QFileInfo(u.path());
-        if (KConfigGroup(KSharedConfig::openConfig(), "Konsole").readEntry("RemoveExtension", true)) {
-            // append filename without extension (i.e. keep only the basename)
-            output_str += QStringLiteral("\"") + file_path.absoluteFilePath().remove(file_path.suffix()) + QStringLiteral("\"");
-        } else {
-            // append filename to the terminal
-            output_str += QStringLiteral("\"") + file_path.absoluteFilePath() + QStringLiteral("\"");
-        }
-
-        if (KMessageBox::Continue
-            != KMessageBox::warningContinueCancel(m_mw->window(),
-                                                  i18n("Do you really want to Run the document ?\n"
-                                                       "This will execute the following command,\n"
-                                                       "with your user rights, in the terminal:\n"
-                                                       "'%1'",
-                                                       output_str),
-                                                  i18n("Run in Terminal?"),
-                                                  KGuiItem(i18n("Run")),
-                                                  KStandardGuiItem::cancel(),
-                                                  QStringLiteral("Konsole: Run in Terminal Warning"))) {
-            return;
-        }
-        // echo to terminal
-        sendInput(output_str + QLatin1Char('\n'));
+    KTextEditor::View *view = m_mw->activeView();
+    if (!view) {
+        return;
     }
+
+    KTextEditor::Document *document = view->document();
+    QUrl u = document->url();
+    if (!u.isLocalFile()) {
+        QPointer<KTextEditor::Message> message = new KTextEditor::Message(i18n("Not a local file: '%1'", u.path()), KTextEditor::Message::Error);
+        // auto hide is enabled and set to a sane default value of several seconds.
+        message->setAutoHide(2000);
+        message->setAutoHideMode(KTextEditor::Message::Immediate);
+        document->postMessage(message);
+        return;
+    }
+    // ensure that file is saved
+    if (document->isModified()) {
+        document->save();
+    }
+
+    KConfigGroup cg(KSharedConfig::openConfig(), "Konsole");
+    // The string that should be output to terminal, upon acceptance
+    QString output_str;
+    // Set prefix first
+    QString first_line = document->line(0);
+    const QLatin1String shebang("#!");
+    if (first_line.startsWith(shebang)) {
+        // If there's a shebang, respect it
+        output_str += first_line.remove(0, shebang.size()).append(QLatin1Char(' '));
+    } else {
+        output_str += cg.readEntry("RunPrefix", "");
+    }
+
+    // then filename
+    QFileInfo file_path(u.path());
+    if (cg.readEntry("RemoveExtension", true)) {
+        // append filename without extension (i.e. keep only the basename)
+        output_str += QStringLiteral("\"") + file_path.absoluteFilePath().remove(file_path.suffix()) + QStringLiteral("\"");
+    } else {
+        // append filename to the terminal
+        output_str += QStringLiteral("\"") + file_path.absoluteFilePath() + QStringLiteral("\"");
+    }
+
+    const QString msg = i18n(
+        "Do you really want to Run the document ?\n"
+        "This will execute the following command,\n"
+        "with your user rights, in the terminal:\n"
+        "'%1'",
+        output_str);
+    const auto result = KMessageBox::warningContinueCancel(m_mw->window(),
+                                                           msg,
+                                                           i18n("Run in Terminal?"),
+                                                           KGuiItem(i18n("Run")),
+                                                           KStandardGuiItem::cancel(),
+                                                           QStringLiteral("Konsole: Run in Terminal Warning"));
+    if (result != KMessageBox::Continue) {
+        return;
+    }
+    // echo to terminal
+    sendInput(output_str + QLatin1Char('\n'));
 }
 
 void KateConsole::slotToggleVisibility()

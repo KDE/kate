@@ -85,7 +85,8 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
     // remove useless comments: “public/* static */ function a($b, $c=null) /* test */” => “public function a($b, $c=null)”
     static const QRegularExpression blockCommentInline(QLatin1String("/\\*.*\\*/"), QRegularExpression::InvertedGreedinessOption);
 
-    QRegularExpressionMatch match, matchClass, matchInterface, matchFunctionArgs;
+    QRegularExpressionMatch match, matchClass, matchInterface, matchFunctionArg;
+    QRegularExpressionMatchIterator matchFunctionArgs;
 
     int i, pos;
     bool inBlockComment = false;
@@ -259,8 +260,12 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
             }
 
             QString functionArgs(match.captured(6));
-            matchFunctionArgs = functionArgsRegExp.match(functionArgs);
-            functionArgsList = matchFunctionArgs.capturedTexts();
+            functionArgsList.clear();
+            matchFunctionArgs = functionArgsRegExp.globalMatch(functionArgs);
+            while (matchFunctionArgs.hasNext()) {
+                matchFunctionArg = matchFunctionArgs.next();
+                functionArgsList.append(matchFunctionArg.captured(0));
+            }
 
             nameWithTypes = match.captured(5) + QLatin1Char('(') + functionArgsList.join(QLatin1String(", ")) + QLatin1Char(')');
             if (m_typesOn->isChecked()) {

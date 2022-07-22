@@ -45,6 +45,7 @@
   <name xml:lang="sr-ijekavian">Кејт</name>
   <name xml:lang="sr-ijekavianlatin">Kate</name>
   <name xml:lang="sv">Kate</name>
+  <name xml:lang="ta">கேட்</name>
   <name xml:lang="tr">Kate</name>
   <name xml:lang="uk">Kate</name>
   <name xml:lang="vi">Kate</name>
@@ -93,6 +94,7 @@
   <summary xml:lang="sr-ijekavian">Напредни уређивач текста</summary>
   <summary xml:lang="sr-ijekavianlatin">Napredni uređivač teksta</summary>
   <summary xml:lang="sv">Avancerad texteditor</summary>
+  <summary xml:lang="ta">மேம்பட்ட உரைத்திருத்தி</summary>
   <summary xml:lang="tr">Gelişmiş Metin Düzenleyici</summary>
   <summary xml:lang="uk">Потужний текстовий редактор</summary>
   <summary xml:lang="vi">Trình biên tập văn bản nâng cao</summary>
@@ -187,6 +189,7 @@
     <p xml:lang="sr-ijekavian">Могућности:</p>
     <p xml:lang="sr-ijekavianlatin">Mogućnosti:</p>
     <p xml:lang="sv">Funktioner:</p>
+    <p xml:lang="ta">அம்சங்கள்:</p>
     <p xml:lang="tr">Özellikler:</p>
     <p xml:lang="uk">Можливості:</p>
     <p xml:lang="vi">Tính năng:</p>
@@ -281,6 +284,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="sr-ijekavian">провера правописа</li>
       <li xml:lang="sr-ijekavianlatin">provera pravopisa</li>
       <li xml:lang="sv">Stavningskontroll</li>
+      <li xml:lang="ta">சொல் திருத்தம்</li>
       <li xml:lang="tr">Yazım denetimi</li>
       <li xml:lang="uk">Перевірка правопису.</li>
       <li xml:lang="vi">Kiểm tra đánh vần</li>
@@ -326,6 +330,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="sr-ijekavian">подршка за различите крајеве редова (ЦР, ЛФ, ЦР+ЛФ)</li>
       <li xml:lang="sr-ijekavianlatin">podrška za različite krajeve redova (CR, LF, CR+LF)</li>
       <li xml:lang="sv">Stöd för nyrad med CR, CRLF, LF</li>
+      <li xml:lang="ta">CR, CRLF, LF போன்ற வரிமுடிவுகளை ஆதரிக்கும்</li>
       <li xml:lang="tr">CR, CRLF, LF yenisatır desteği</li>
       <li xml:lang="uk">Підтримка форматів розриву рядків CR, CRLF та LF.</li>
       <li xml:lang="vi">Hỗ trợ dòng mới kiểu CR, CRLF, LF</li>
@@ -372,6 +377,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="sr-ijekavian">подршка за кодирања (УТФ‑8, УТФ‑16, аски, итд.)</li>
       <li xml:lang="sr-ijekavianlatin">podrška za kodiranja (UTF‑8, UTF‑16, ASCII, itd.)</li>
       <li xml:lang="sv">Kodningsstöd (UTF-8, UTF-16, ASCII etc.)</li>
+      <li xml:lang="ta">குறியாக்க ஆதரவு (utf-8, utf-16, ascii etc.)</li>
       <li xml:lang="tr">Kodlama desteği (utf-8, utf-16, ascii vb.)</li>
       <li xml:lang="uk">Підтримка різноманітних кодувань (utf-8, utf-16, ascii тощо).</li>
       <li xml:lang="vi">Hỗ trợ mã hoá (utf-8, utf-16, ascii, v.v.)</li>
@@ -418,6 +424,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="sr-ijekavian">претварање кодирања</li>
       <li xml:lang="sr-ijekavianlatin">pretvaranje kodiranja</li>
       <li xml:lang="sv">Kodningskonvertering</li>
+      <li xml:lang="ta">குறியாக்க மாற்றம்</li>
       <li xml:lang="tr">Kodlama dönüştürme</li>
       <li xml:lang="uk">Підтримка можливості перетворення даних у різних кодуваннях.</li>
       <li xml:lang="vi">Chuyển đổi mã hoá</li>
@@ -598,6 +605,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="sr-ijekavian">неограничено опозивање и понављање</li>
       <li xml:lang="sr-ijekavianlatin">neograničeno opozivanje i ponavljanje</li>
       <li xml:lang="sv">Obegränsat stöd för ångra och gör om</li>
+      <li xml:lang="ta">வரம்பில்லா செயல்நீக்கம்/மீளச்செயல்</li>
       <li xml:lang="tr">Sınırsız geri alma/yineleme desteği</li>
       <li xml:lang="uk">Підтримка нескінченного буфера скасування і повторення дій.</li>
       <li xml:lang="vi">Hỗ trợ đảo ngược / làm lại không giới hạn</li>
@@ -643,6 +651,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="sr-ijekavian">режим блоковског избора</li>
       <li xml:lang="sr-ijekavianlatin">režim blokovskog izbora</li>
       <li xml:lang="sv">Blockmarkeringsläge</li>
+      <li xml:lang="ta">பாளம் பாளமாக தேர்ந்தெடுக்கும் பயன்முறை</li>
       <li xml:lang="tr">Blok seçim kipi</li>
       <li xml:lang="uk">Режим прямокутного вибору.</li>
       <li xml:lang="vi">Chế độ chọn khối</li>
@@ -736,6 +745,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="sr-ijekavian">аутоматска допуна</li>
       <li xml:lang="sr-ijekavianlatin">automatska dopuna</li>
       <li xml:lang="sv">Stöd för automatisk komplettering</li>
+      <li xml:lang="ta">தானியக்க உரைநிறைவு</li>
       <li xml:lang="tr">Otomatik tamamlama desteği</li>
       <li xml:lang="uk">Підтримка автодоповнення.</li>
       <li xml:lang="vi">Hỗ trợ hoàn tất tự động</li>
@@ -782,6 +792,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="sr-ijekavian">уклапање шкољке</li>
       <li xml:lang="sr-ijekavianlatin">uklapanje školjke</li>
       <li xml:lang="sv">Skalintegrering</li>
+      <li xml:lang="ta">முனைய ஒருங்கிணைப்பு</li>
       <li xml:lang="tr">Kabuk tümleştirmesi</li>
       <li xml:lang="uk">Інтеграція з командною оболонкою.</li>
       <li xml:lang="vi">Tích hợp hệ vỏ</li>
@@ -825,6 +836,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="sr-ijekavian">подршка за многобројне протоколе преко У/И захвата (ХТТП, ФТП, ССХ, вебДАВ, итд.)</li>
       <li xml:lang="sr-ijekavianlatin">podrška za mnogobrojne protokole preko U/I zahvata (HTTP, FTP, SSH, WebDAV, itd.)</li>
       <li xml:lang="sv">Brett protokollstöd (HTTP, FTP, SSH, WebDav, etc.) med användning av I/O-slavar</li>
+      <li xml:lang="ta">kioslave-களின் மூலம் பல நெறிமுறைகளை ஆதரிக்கும் (http, ftp, ssh, webdav போன்றவை.) </li>
       <li xml:lang="tr">Kioslaves kullanımıyla geniş protokol (http, ftp, ssh, webdav vb.) desteği</li>
       <li xml:lang="uk">Широка підтримка протоколів (http, ftp, ssh, webdav тощо) на основі допоміжних засобів KIO.</li>
       <li xml:lang="vi">Hỗ trợ nhiều giao thức (http, ftp, ssh, webdav, v.v.) sử dụng kioslaves</li>
@@ -870,6 +882,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="sr-ijekavian">архитектура прикључка за компоненте програма и уређивача</li>
       <li xml:lang="sr-ijekavianlatin">arhitektura priključka za komponente programa i uređivača</li>
       <li xml:lang="sv">Insticksarkitektur för programmet och editorkomponenten</li>
+      <li xml:lang="ta">செயலியையும் உரைத்திருத்தக்கூறையும் மேம்படுத்தும் செருகுநிரல்கள்</li>
       <li xml:lang="tr">Uygulama ve düzenleyici bileşeni için eklenti mimarisi</li>
       <li xml:lang="uk">Архітектура роботи з додатками для компонентів програми та редактора.</li>
       <li xml:lang="vi">Kiến trúc phần cài cắm cho ứng dụng và thành phần trình biên tập</li>
@@ -916,6 +929,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="sr-ijekavian">прилагодљиве пречице</li>
       <li xml:lang="sr-ijekavianlatin">prilagodljive prečice</li>
       <li xml:lang="sv">Anpassningsbara genvägar</li>
+      <li xml:lang="ta">மாற்றியமைக்கக்கூடிய சுருக்குவழிகள்</li>
       <li xml:lang="tr">Özelleştirilebilir kısayollar</li>
       <li xml:lang="uk">Придатні до налаштовування клавіатурні скорочення.</li>
       <li xml:lang="vi">Các phím tắt có thể tuỳ biến</li>
@@ -962,6 +976,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="sr-ijekavian">уклопљена командна линија</li>
       <li xml:lang="sr-ijekavianlatin">uklopljena komandna linija</li>
       <li xml:lang="sv">Integrerad kommandorad</li>
+      <li xml:lang="ta">உள்ளமைந்த கட்டளை வரி</li>
       <li xml:lang="tr">Tümleşik komut satırı</li>
       <li xml:lang="uk">Інтегрований засіб роботи з командним рядком.</li>
       <li xml:lang="vi">Dòng lệnh tích hợp</li>
@@ -1054,6 +1069,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="sk">Úprava kódu s Kate</caption>
       <caption xml:lang="sl">Urejanje kode s Kate</caption>
       <caption xml:lang="sv">Redigera kod med Kate</caption>
+      <caption xml:lang="ta">கேட்டில் நிரல்தொடரை திருத்துவது</caption>
       <caption xml:lang="tr">Kate ile kod düzenleme</caption>
       <caption xml:lang="uk">Редагування коду за допомогою Kate</caption>
       <caption xml:lang="vi">Chỉnh sửa mã bằng Kate</caption>

@@ -103,8 +103,13 @@ void KateProject::removeFile(const QString &file)
  *
  * In case of an error, the returned object verifies isNull() is true.
  */
-QJsonDocument KateProject::readJSONFile(const QString &fileName)
+QJsonDocument KateProject::readJSONFile(const QString &fileName) const
 {
+    /**
+     * keep each project file last modification time to warn the user only once per malformed file.
+     */
+    static QMap<QString, QDateTime> lastModifiedTimes;
+
     if (fileName.isEmpty()) {
         return QJsonDocument();
     }
@@ -122,6 +127,11 @@ QJsonDocument KateProject::readJSONFile(const QString &fileName)
     QJsonDocument document(QJsonDocument::fromJson(jsonData, &parseError));
 
     if (parseError.error != QJsonParseError::NoError) {
+        QDateTime lastModified = QFileInfo(fileName).lastModified();
+        if (lastModified > lastModifiedTimes.value(fileName, QDateTime())) {
+            lastModifiedTimes[fileName] = lastModified;
+            m_plugin->sendMessage(i18n("Malformed JSON file '%1': %2", fileName, parseError.errorString()), true);
+        }
         return QJsonDocument();
     }
 

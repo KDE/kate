@@ -698,3 +698,13 @@ void KateProjectPlugin::writeSessionConfig(KConfigGroup &config)
     }
     config.writeEntry("projects", projectList);
 }
+
+void KateProjectPlugin::sendMessage(const QString &text, bool error)
+{
+    QVariantMap genericMessage;
+    genericMessage.insert(QStringLiteral("type"), error ? QStringLiteral("Error") : QStringLiteral("Info"));
+    genericMessage.insert(QStringLiteral("category"), i18n("Project"));
+    genericMessage.insert(QStringLiteral("categoryIcon"), QIcon::fromTheme(QStringLiteral("project-open")));
+    genericMessage.insert(QStringLiteral("text"), text);
+    Q_EMIT message(genericMessage);
+}

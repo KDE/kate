@@ -286,7 +286,7 @@ private:
      *
      * In case of an error, the returned object verifies isNull() is true.
      */
-    static QJsonDocument readJSONFile(const QString &fileName);
+    QJsonDocument readJSONFile(const QString &fileName) const;
 
 private:
     /**

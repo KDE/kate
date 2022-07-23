@@ -165,6 +165,8 @@ public:
      */
     KateProject *openProjectForDirectory(const QDir &dir);
 
+    void sendMessage(const QString &text, bool error);
+
 Q_SIGNALS:
 
     /**

@@ -77,46 +77,47 @@ KateProjectPlugin::KateProjectPlugin(QObject *parent, const QList<QVariant> &)
     // make project plugin variables known to KTextEditor::Editor
     registerVariables();
 
-    // open directories as projects
-    KateProject *projectToActivate = nullptr;
-    auto args = qApp->arguments();
-    args.removeFirst(); // The first argument is the executable name
-    for (const QString &arg : qAsConst(args)) {
-        QFileInfo info(arg);
-        if (info.isDir()) {
-            projectToActivate = projectForDir(info.absoluteFilePath(), true);
-        }
-    }
-
-#ifdef HAVE_CTERMID
-    /**
-     * open project for our current working directory, if this kate has a terminal
-     * https://stackoverflow.com/questions/1312922/detect-if-stdin-is-a-terminal-or-pipe-in-c-c-qt
-     */
-    if (!projectToActivate) {
-        char tty[L_ctermid + 1] = {0};
-        ctermid(tty);
-        if (int fd = ::open(tty, O_RDONLY); fd >= 0) {
-            projectToActivate = projectForDir(QDir::current());
-            ::close(fd);
-        }
-    }
-#endif
+    // forward to meta-object system friendly version
+    connect(this, &KateProjectPlugin::projectCreated, this, &KateProjectPlugin::projectAdded);
+    connect(this, &KateProjectPlugin::pluginViewProjectClosing, this, &KateProjectPlugin::projectRemoved);
 
     /**
      * delay activation after session restore
+     * we do this both for session restoration to not take preference and
+     * to be able to signal errors during project loading via message() signals
      */
-    if (projectToActivate) {
-        QTimer::singleShot(0, projectToActivate, [this, projectToActivate]() {
-            Q_EMIT activateProject(projectToActivate);
-        });
-    }
+    QTimer::singleShot(0, this, [this]() {
+        // open directories as projects
+        KateProject *projectToActivate = nullptr;
+        auto args = qApp->arguments();
+        args.removeFirst(); // The first argument is the executable name
+        for (const QString &arg : qAsConst(args)) {
+            QFileInfo info(arg);
+            if (info.isDir()) {
+                projectToActivate = projectForDir(info.absoluteFilePath(), true);
+            }
+        }
 
-    /**
-     * forward to meta-object system friendly version
-     */
-    connect(this, &KateProjectPlugin::projectCreated, this, &KateProjectPlugin::projectAdded);
-    connect(this, &KateProjectPlugin::pluginViewProjectClosing, this, &KateProjectPlugin::projectRemoved);
+#ifdef HAVE_CTERMID
+        /**
+         * open project for our current working directory, if this kate has a terminal
+         * https://stackoverflow.com/questions/1312922/detect-if-stdin-is-a-terminal-or-pipe-in-c-c-qt
+         */
+        if (!projectToActivate) {
+            char tty[L_ctermid + 1] = {0};
+            ctermid(tty);
+            if (int fd = ::open(tty, O_RDONLY); fd >= 0) {
+                projectToActivate = projectForDir(QDir::current());
+                ::close(fd);
+            }
+        }
+#endif
+
+        // if we have some project opened, ensure it is the active one, this happens after session restore
+        if (projectToActivate) {
+            Q_EMIT activateProject(projectToActivate);
+        }
+    });
 }
 
 KateProjectPlugin::~KateProjectPlugin()

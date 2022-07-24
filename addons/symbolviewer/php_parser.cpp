@@ -88,13 +88,12 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
     QRegularExpressionMatch match, matchClass, matchInterface, matchFunctionArg;
     QRegularExpressionMatchIterator matchFunctionArgs;
 
-    int i, pos;
     bool inBlockComment = false;
     bool inClass = false, inFunction = false;
 
     // QString debugBuffer("SymbolViewer(PHP), line %1 %2 → [%3]");
 
-    for (i = 0; i < kv->lines(); i++) {
+    for (int i = 0; i < kv->lines(); i++) {
         // kdDebug(13000) << debugBuffer.arg(i, 4).arg("=origin", 10).arg(kv->line(i));
 
         // keeping a copy of the line without any processing
@@ -116,7 +115,7 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
         // kdDebug(13000) << debugBuffer.arg(i, 4).arg("-comments", 10).arg(line);
 
         // trying to find comments and to remove commented parts
-        pos = line.indexOf(QLatin1Char('#'));
+        int pos = line.indexOf(QLatin1Char('#'));
         if (pos >= 0) {
             line.truncate(pos);
         }

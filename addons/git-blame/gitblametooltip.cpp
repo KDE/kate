@@ -218,7 +218,7 @@ public:
         return false;
     }
 
-    void showTooltip(const QString &text, const QPointer<KTextEditor::View> view)
+    void showTooltip(const QString &text, KTextEditor::View *view)
     {
         if (text.isEmpty() || !view) {
             return;
@@ -313,25 +313,31 @@ private:
 };
 
 GitBlameTooltip::GitBlameTooltip(KateGitBlamePluginView *pv)
-    : d(new GitBlameTooltip::Private(pv))
+    : m_pluginView(pv)
+
 {
-}
-GitBlameTooltip::~GitBlameTooltip()
-{
-    delete d;
 }
 
-void GitBlameTooltip::show(const QString &text, QPointer<KTextEditor::View> view)
+GitBlameTooltip::~GitBlameTooltip() = default;
+
+void GitBlameTooltip::show(const QString &text, KTextEditor::View *view)
 {
     if (text.isEmpty() || !view || !view->document()) {
         return;
     }
 
+    if (!d) {
+        d = std::make_unique<GitBlameTooltip::Private>(m_pluginView);
+    }
+
     d->showTooltip(text, view);
 }
 
-void GitBlameTooltip::setIgnoreKeySequence(QKeySequence sequence)
+void GitBlameTooltip::setIgnoreKeySequence(const QKeySequence &sequence)
 {
+    if (!d) {
+        d = std::make_unique<GitBlameTooltip::Private>(m_pluginView);
+    }
     d->m_ignoreKeySequence = sequence;
 }
 

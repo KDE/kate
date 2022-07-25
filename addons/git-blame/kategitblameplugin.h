@@ -20,6 +20,7 @@
 #include <QHash>
 #include <QList>
 #include <QLocale>
+#include <QPointer>
 #include <QRegularExpression>
 #include <QVariant>
 #include <QVector>

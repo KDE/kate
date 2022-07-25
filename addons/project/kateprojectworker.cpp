@@ -453,10 +453,10 @@ QVector<QString> KateProjectWorker::filesFromGit(const QDir &dir, bool recursive
     }
 
     // ls-files + ls-files untracked
-    return gitFiles(dir, recursive, lsFilesArgs, false) << gitFiles(dir, recursive, lsFilesUntrackedArgs, true);
+    return gitFiles(dir, recursive, lsFilesArgs) << gitFiles(dir, recursive, lsFilesUntrackedArgs);
 }
 
-QVector<QString> KateProjectWorker::gitFiles(const QDir &dir, bool recursive, const QStringList &args, bool ignoreBinaryFiles)
+QVector<QString> KateProjectWorker::gitFiles(const QDir &dir, bool recursive, const QStringList &args)
 {
     QVector<QString> files;
     QProcess git;
@@ -479,18 +479,6 @@ QVector<QString> KateProjectWorker::gitFiles(const QDir &dir, bool recursive, co
         }
         files.append(QString::fromUtf8(byteArray));
     }
-
-    // Filter out binary files
-    if (ignoreBinaryFiles) {
-        QtConcurrent::blockingMap(files, [dir](const QString &file) {
-            const QMimeType mimeType = QMimeDatabase().mimeTypeForFile(dir.filePath(file));
-            if (!mimeType.inherits(QStringLiteral("text/plain"))) {
-                return QString();
-            }
-            return file;
-        });
-    }
-
     return files;
 }
 
@@ -710,25 +698,13 @@ QVector<QString> KateProjectWorker::filesFromDirectory(const QDir &_dir, bool re
     /**
      * create iterator and collect all files
      */
+    QVector<QString> files;
     QDirIterator dirIterator(dir, flags);
     const QString dirPath = dir.path() + QLatin1Char('/');
-
-    std::vector<QFileInfo> fileInfos;
-
     while (dirIterator.hasNext()) {
         dirIterator.next();
-        fileInfos.push_back(dirIterator.fileInfo());
+        // make it relative path
+        files.append(dirIterator.filePath().remove(dirPath));
     }
-
-    // Filter out binary files
-    std::function<QString(const QFileInfo &)> func = [dirPath](const QFileInfo &fi) {
-        // We only accept plainText files
-        const QMimeType mimeType = QMimeDatabase().mimeTypeForFile(fi);
-        if (!mimeType.inherits(QStringLiteral("text/plain"))) {
-            return QString();
-        }
-        return fi.filePath().remove(dirPath);
-    };
-
-    return QtConcurrent::blockingMapped<QVector<QString>>(fileInfos, func);
+    return files;
 }

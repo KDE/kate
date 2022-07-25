@@ -7,7 +7,10 @@
 
 #include <QAction>
 #include <QCoreApplication>
+#include <QKeyEvent>
+#include <QList>
 #include <QString>
+#include <QtAlgorithms>
 
 #include <KTextEditor/Editor>
 #include <KTextEditor/Message>
@@ -34,6 +37,7 @@ PluginKateKeyboardMacro::~PluginKateKeyboardMacro()
 {
     delete m_recCommand;
     delete m_runCommand;
+    reset();
 }
 
 QObject *PluginKateKeyboardMacro::createView(KTextEditor::MainWindow *mainWindow)
@@ -54,12 +58,18 @@ bool PluginKateKeyboardMacro::eventFilter(QObject *obj, QEvent *event)
 {
     if (event->type() == QEvent::KeyPress) {
         QKeyEvent *keyEvent = new QKeyEvent(*static_cast<QKeyEvent *>(event));
-        m_keyEvents.enqueue(keyEvent);
-        qDebug("Capture key press: %s", keyEvent->text().toUtf8().data());
+        m_keyEvents.append(keyEvent);
+        qDebug("Captured key press: %s", keyEvent->text().toUtf8().data());
         return true;
     } else {
         return QObject::eventFilter(obj, event);
     }
+}
+
+void PluginKateKeyboardMacro::reset()
+{
+    qDeleteAll(m_keyEvents.begin(), m_keyEvents.end());
+    m_keyEvents.clear();
 }
 
 bool PluginKateKeyboardMacro::record(KTextEditor::View *)
@@ -72,7 +82,10 @@ bool PluginKateKeyboardMacro::record(KTextEditor::View *)
         return true; // if success
     }
 
-    // start recording
+    // first reset ...
+    reset();
+
+    // ... then start recording
     std::cerr << "start recording" << std::endl;
     QCoreApplication::instance()->installEventFilter(this);
     m_recording = true;
@@ -86,11 +99,12 @@ bool PluginKateKeyboardMacro::run(KTextEditor::View *view)
         record(view);
     }
 
-    while (!m_keyEvents.isEmpty()) {
-        QKeyEvent *keyEvent = m_keyEvents.dequeue();
-        qDebug("Emit key press: %s", keyEvent->text().toUtf8().data());
-        QCoreApplication::sendEvent(QCoreApplication::instance(), keyEvent);
-        delete keyEvent;
+    if (!m_keyEvents.isEmpty()) {
+        QList<QKeyEvent *>::ConstIterator keyEvent;
+        for (keyEvent = m_keyEvents.constBegin(); keyEvent != m_keyEvents.constEnd(); keyEvent++) {
+            qDebug("Emitting key press: %s", (*keyEvent)->text().toUtf8().data());
+            QCoreApplication::sendEvent(QCoreApplication::instance(), *keyEvent);
+        }
     }
 
     return true;

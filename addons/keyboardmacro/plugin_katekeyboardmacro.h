@@ -7,7 +7,7 @@
 #define PLUGIN_KATEKEYBOARDMACRO_H
 
 #include <QKeyEvent>
-#include <QQueue>
+#include <QList>
 
 #include <KTextEditor/Application>
 #include <KTextEditor/Command>
@@ -31,6 +31,7 @@ public:
 
     bool eventFilter(QObject *obj, QEvent *event) override;
 
+    void reset();
     bool record(KTextEditor::View *view);
     bool run(KTextEditor::View *view);
     bool isRecording();
@@ -39,7 +40,7 @@ private:
     KTextEditor::MainWindow *m_mainWindow;
 
     bool m_recording = false;
-    QQueue<QKeyEvent *> m_keyEvents;
+    QList<QKeyEvent *> m_keyEvents;
 
     PluginKateKeyboardMacroRecordCommand *m_recCommand;
     PluginKateKeyboardMacroRunCommand *m_runCommand;

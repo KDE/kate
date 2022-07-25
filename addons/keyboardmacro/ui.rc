@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE gui SYSTEM "kpartgui.dtd">
+<gui name="katekeyboardmacro" library="libkatekeyboardmacroplugin" version="5" translationDomain="katekeyboardmacro">
+  <MenuBar>
+    <Menu name="tools">
+      <text>&amp;Tools</text>
+      <Action name="record_macro" group="tools_snippets"/>
+    </Menu>
+  </MenuBar>
+</gui>
+<!-- kate: space-indent on; indent-width 4; replace-tabs on; -->

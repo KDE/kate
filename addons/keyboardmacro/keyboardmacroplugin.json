@@ -1,0 +1,9 @@
+{
+    "KPlugin": {
+        "Description": "Record and replay keyboard action sequences",
+        "Name": "Keyboard Macro",
+        "ServiceTypes": [
+            "KTextEditor/Plugin"
+        ]
+    }
+}

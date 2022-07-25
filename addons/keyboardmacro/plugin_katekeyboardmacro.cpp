@@ -5,8 +5,8 @@
 
 #include "plugin_katekeyboardmacro.h"
 
-#include <ktexteditor/editor.h>
-#include <ktexteditor/message.h>
+#include <KTextEditor/Editor>
+#include <KTextEditor/Message>
 
 #include <KLocalizedString>
 #include <QAction>
@@ -14,11 +14,7 @@
 
 #include <KActionCollection>
 #include <KPluginFactory>
-#include <KSharedConfig>
 #include <KXMLGUIFactory>
-
-#include <QApplication>
-#include <QClipboard>
 
 #include <iostream>
 
@@ -38,9 +34,10 @@ PluginKateKeyboardMacro::~PluginKateKeyboardMacro()
     delete m_runCommand;
 }
 
-QObject *PluginKateKeyboardMacro::createView(KTextEditor::MainWindow *)
+QObject *PluginKateKeyboardMacro::createView(KTextEditor::MainWindow *mainWindow)
 {
-    return nullptr;
+    m_mainWindow = mainWindow;
+    return new PluginViewKateKeyboardMacro(this, mainWindow);
 }
 
 bool PluginKateKeyboardMacro::record(KTextEditor::View *)
@@ -173,10 +170,10 @@ PluginViewKateKeyboardMacro::PluginViewKateKeyboardMacro(PluginKateKeyboardMacro
     connect(rec, &QAction::triggered, plugin, &PluginKateKeyboardMacro::slotRecord);
 
     // create run action
-    QAction *exec = actionCollection()->addAction(QStringLiteral("run_macro"));
-    exec->setText(i18n("&Run Macro"));
-    actionCollection()->setDefaultShortcut(exec, Qt::CTRL | Qt::ALT | Qt::Key_K);
-    connect(exec, &QAction::triggered, plugin, &PluginKateKeyboardMacro::slotRun);
+    QAction *run = actionCollection()->addAction(QStringLiteral("run_macro"));
+    run->setText(i18n("&Run Macro"));
+    actionCollection()->setDefaultShortcut(run, Qt::CTRL | Qt::ALT | Qt::Key_K);
+    connect(run, &QAction::triggered, plugin, &PluginKateKeyboardMacro::slotRun);
 
     // register us at the UI
     mainwindow->guiFactory()->addClient(this);

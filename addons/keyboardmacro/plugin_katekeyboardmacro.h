@@ -8,7 +8,6 @@
 
 #include <KTextEditor/Application>
 #include <KTextEditor/Command>
-#include <KTextEditor/Document>
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/Plugin>
 #include <KTextEditor/View>
@@ -28,13 +27,15 @@ public:
 
     ~PluginKateKeyboardMacro() override;
 
-    virtual QObject *createView(KTextEditor::MainWindow *mainWindow) override;
+    QObject *createView(KTextEditor::MainWindow *mainWindow) override;
 
     bool record(KTextEditor::View *view);
     bool run(KTextEditor::View *view);
     bool isRecording();
 
 private:
+    KTextEditor::MainWindow *m_mainWindow;
+
     bool m_recording = false;
     QString m_macro;
 

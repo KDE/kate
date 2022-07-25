@@ -60,10 +60,20 @@ public:
 
     QString dotGitPath() const
     {
-        return m_gitPath;
+        return m_activeGitDirPath;
     }
 
 private:
+    /** These ends with "/", always remember this */
+
+    // This variable contains the current active git path
+    // being tracked by this widget
+    QString m_activeGitDirPath;
+    // This variable contains the topLevel git path
+    QString m_topLevelGitPath;
+    // This variable contains all submodule paths
+    QStringList m_submodulePaths;
+
     /**
      * Helper to avoid multiple reloads at a time
      * @see slotUpdateStatus
@@ -79,8 +89,6 @@ private:
     GitWidgetTreeView *m_treeView;
     GitStatusModel *m_model;
     QLineEdit *m_filterLineEdit;
-    /** This ends with "/", always remember this */
-    QString m_gitPath;
     QFutureWatcher<GitUtils::GitParsedStatus> m_gitStatusWatcher;
     QString m_commitMessage;
     KTextEditor::MainWindow *m_mainWin;
@@ -93,10 +101,13 @@ private:
     using CancelHandle = QPointer<QProcess>;
     CancelHandle m_cancelHandle;
 
+    void setDotGitPath();
+    void setSubmodulesPaths();
+    void setActiveGitDir();
+
     QProcess *gitp(const QStringList &arguments);
 
     void buildMenu(KActionCollection *ac);
-    void setDotGitPath();
     void runGitCmd(const QStringList &args, const QString &i18error);
     void runPushPullCmd(const QStringList &args);
     void stage(const QStringList &files, bool = false);

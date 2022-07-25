@@ -230,7 +230,7 @@ GitWidget::GitWidget(KateProject *project, KTextEditor::MainWindow *mainWindow, 
     const QString &pushText = i18n("Git push");
     m_pushBtn = toolButton();
     auto a = ac->addAction(QStringLiteral("vcs_push"), this, [this]() {
-        PushPullDialog ppd(m_mainWin, m_gitPath);
+        PushPullDialog ppd(m_mainWin, m_activeGitDirPath);
         connect(&ppd, &PushPullDialog::runGitCommand, this, &GitWidget::runPushPullCmd);
         ppd.openDialog(PushPullDialog::Push);
     });
@@ -242,7 +242,7 @@ GitWidget::GitWidget(KateProject *project, KTextEditor::MainWindow *mainWindow, 
     const QString &pullText = i18n("Git pull");
     m_pullBtn = toolButton(QStringLiteral("vcs-pull"), pullText);
     a = ac->addAction(QStringLiteral("vcs_pull"), this, [this]() {
-        PushPullDialog ppd(m_mainWin, m_gitPath);
+        PushPullDialog ppd(m_mainWin, m_activeGitDirPath);
         connect(&ppd, &PushPullDialog::runGitCommand, this, &GitWidget::runPushPullCmd);
         ppd.openDialog(PushPullDialog::Pull);
     });
@@ -340,6 +340,8 @@ GitWidget::GitWidget(KateProject *project, KTextEditor::MainWindow *mainWindow, 
     m_updateTrigger.setSingleShot(true);
     m_updateTrigger.setInterval(500);
     connect(&m_updateTrigger, &QTimer::timeout, this, &GitWidget::slotUpdateStatus);
+
+    connect(m_mainWin, &KTextEditor::MainWindow::viewChanged, this, &GitWidget::setActiveGitDir);
 }
 
 GitWidget::~GitWidget()
@@ -364,11 +366,86 @@ void GitWidget::setDotGitPath()
         QTimer::singleShot(1, this, [this] {
             sendMessage(i18n("Failed to find .git directory for '%1', things may not work correctly", m_project->baseDir()), false);
         });
-        m_gitPath = m_project->baseDir();
+        m_topLevelGitPath = m_project->baseDir();
         return;
     }
 
-    m_gitPath = dotGitPath.value();
+    m_topLevelGitPath = dotGitPath.value();
+    m_activeGitDirPath = m_topLevelGitPath;
+
+    QMetaObject::invokeMethod(this, &GitWidget::setSubmodulesPaths, Qt::QueuedConnection);
+}
+
+void GitWidget::setSubmodulesPaths()
+{
+    // git submodule foreach --recursive -q git rev-parse --show-toplevel
+    QStringList args{QStringLiteral("submodule"),
+                     QStringLiteral("foreach"),
+                     QStringLiteral("--recursive"),
+                     QStringLiteral("-q"),
+                     QStringLiteral("git"),
+                     QStringLiteral("rev-parse"),
+                     QStringLiteral("--show-toplevel")};
+    auto git = gitp(args);
+    git->start();
+    connect(git, &QProcess::finished, this, [this, git](int exitCode, QProcess::ExitStatus es) {
+        if (es != QProcess::NormalExit || exitCode != 0) {
+            // no error on status failure
+            sendMessage(QString::fromUtf8(git->readAllStandardError()), true);
+        } else {
+            QString s = QString::fromUtf8(git->readAllStandardOutput());
+            static const QRegularExpression lineEndings(QStringLiteral("\r\n?"));
+            s.replace(lineEndings, QStringLiteral("\n"));
+            m_submodulePaths = s.split(QLatin1Char('\n'), Qt::SkipEmptyParts);
+            for (auto &p : m_submodulePaths) {
+                if (!p.endsWith(QLatin1Char('/'))) {
+                    p.append(QLatin1Char('/'));
+                }
+            }
+            setActiveGitDir();
+        }
+        git->deleteLater();
+    });
+}
+
+void GitWidget::setActiveGitDir()
+{
+    // No submodules
+    if (m_submodulePaths.size() <= 1) {
+        return;
+    }
+
+    auto av = m_mainWin->activeView();
+    if (!av || !av->document() || !av->document()->url().isValid()) {
+        return;
+    }
+
+    int idx = 0;
+    int activeSubmoduleIdx = -1;
+    int maxMatchLen = 0;
+    QString path = av->document()->url().toLocalFile();
+    for (const auto &submodulePath : m_submodulePaths) {
+        if (path.indexOf(submodulePath) != -1) {
+            if (path.size() > maxMatchLen) {
+                maxMatchLen = path.size();
+                activeSubmoduleIdx = idx;
+            }
+        }
+        idx++;
+    }
+
+    if (activeSubmoduleIdx == -1 && m_activeGitDirPath != m_topLevelGitPath) {
+        m_activeGitDirPath = m_topLevelGitPath;
+        updateStatus();
+        return;
+    }
+
+    // Only trigger update if this is a different path
+    auto foundPath = m_submodulePaths.at(activeSubmoduleIdx);
+    if (foundPath != m_activeGitDirPath) {
+        m_activeGitDirPath = foundPath;
+        updateStatus();
+    }
 }
 
 void GitWidget::sendMessage(const QString &plainText, bool warn)
@@ -390,7 +467,7 @@ KTextEditor::MainWindow *GitWidget::mainWindow()
 QProcess *GitWidget::gitp(const QStringList &arguments)
 {
     auto git = new QProcess(this);
-    setupGitProcess(*git, m_gitPath, arguments);
+    setupGitProcess(*git, m_activeGitDirPath, arguments);
     connect(git, &QProcess::errorOccurred, this, [this, git](QProcess::ProcessError pe) {
         // git program missing is not an error
         sendMessage(git->errorString(), pe != QProcess::FailedToStart);
@@ -416,10 +493,10 @@ void GitWidget::slotUpdateStatus()
     connect(git, &QProcess::finished, this, [this, git](int exitCode, QProcess::ExitStatus es) {
         if (es != QProcess::NormalExit || exitCode != 0) {
             // no error on status failure
-            //            sendMessage(QString::fromUtf8(git->readAllStandardError()), true);
+            // sendMessage(QString::fromUtf8(git->readAllStandardError()), true);
         } else {
             const bool withNumStat = m_pluginView->plugin()->showGitStatusWithNumStat();
-            auto future = QtConcurrent::run(GitUtils::parseStatus, git->readAllStandardOutput(), withNumStat, m_gitPath);
+            auto future = QtConcurrent::run(GitUtils::parseStatus, git->readAllStandardOutput(), withNumStat, m_activeGitDirPath);
             m_gitStatusWatcher.setFuture(future);
         }
         git->deleteLater();
@@ -610,7 +687,7 @@ void GitWidget::launchExternalDiffTool(const QString &file, bool staged)
     args.append(file);
 
     QProcess git;
-    if (setupGitProcess(git, m_gitPath, args)) {
+    if (setupGitProcess(git, m_activeGitDirPath, args)) {
         git.startDetached();
     }
 }
@@ -660,7 +737,7 @@ QString GitWidget::getDiff(KTextEditor::View *v, bool hunk, bool alreadyStaged)
 
     VcsDiff full;
     full.setDiff(v->document()->text());
-    full.setBaseDiff(QUrl::fromUserInput(m_gitPath));
+    full.setBaseDiff(QUrl::fromUserInput(m_activeGitDirPath));
 
     const auto dir = alreadyStaged ? VcsDiff::Reverse : VcsDiff::Forward;
 
@@ -745,7 +822,7 @@ void GitWidget::handleClick(const QModelIndex &idx, ClickAction clickAction)
         return;
     }
 
-    const QString file = m_gitPath + idx.data(GitStatusModel::FileNameRole).toString();
+    const QString file = m_activeGitDirPath + idx.data(GitStatusModel::FileNameRole).toString();
     const auto statusItemType = idx.data(GitStatusModel::GitItemType).value<GitStatusModel::ItemType>();
     const bool staged = statusItemType == GitStatusModel::NodeStage;
 
@@ -794,6 +871,7 @@ void GitWidget::parseStatusReady()
 
     // Set new data
     GitUtils::GitParsedStatus s = m_gitStatusWatcher.result();
+    qDebug() << "Got status: " << s.changed.size();
     m_model->setStatusItems(std::move(s), m_pluginView->plugin()->showGitStatusWithNumStat());
 
     // Restore collapse/expand state
@@ -826,7 +904,7 @@ void GitWidget::branchCompareFiles(const QString &from, const QString &to)
     QProcess git;
 
     // early out if we can't find git
-    if (!setupGitProcess(git, m_gitPath, args)) {
+    if (!setupGitProcess(git, m_activeGitDirPath, args)) {
         return;
     }
 
@@ -853,7 +931,7 @@ void GitWidget::branchCompareFiles(const QString &from, const QString &to)
     args = QStringList{QStringLiteral("diff"), QStringLiteral("%1...%2").arg(from).arg(to), QStringLiteral("--numstat"), QStringLiteral("-z")};
 
     // early out if we can't find git
-    if (!setupGitProcess(git, m_gitPath, args)) {
+    if (!setupGitProcess(git, m_activeGitDirPath, args)) {
         return;
     }
 
@@ -867,7 +945,7 @@ void GitWidget::branchCompareFiles(const QString &from, const QString &to)
 
     GitUtils::parseDiffNumStat(filesWithNameStatus, git.readAllStandardOutput());
 
-    CompareBranchesView *w = new CompareBranchesView(this, m_gitPath, from, to, filesWithNameStatus);
+    CompareBranchesView *w = new CompareBranchesView(this, m_activeGitDirPath, from, to, filesWithNameStatus);
     w->setPluginView(m_pluginView);
     connect(w, &CompareBranchesView::backClicked, this, [this] {
         auto x = m_stackWidget->currentWidget();
@@ -919,9 +997,9 @@ void GitWidget::buildMenu(KActionCollection *ac)
     m_gitMenu->addAction(a);
 
     a = ac->addAction(QStringLiteral("vcs_branch_delete"), this, [this] {
-        BranchDeleteDialog dlg(m_gitPath, this);
+        BranchDeleteDialog dlg(m_activeGitDirPath, this);
         if (dlg.exec() == QDialog::Accepted) {
-            auto result = GitUtils::deleteBranches(dlg.branchesToDelete(), m_gitPath);
+            auto result = GitUtils::deleteBranches(dlg.branchesToDelete(), m_activeGitDirPath);
             sendMessage(result.error, result.returnCode != 0);
         }
     });
@@ -1006,7 +1084,7 @@ QMenu *GitWidget::stashMenu(KActionCollection *ac)
 QAction *GitWidget::stashMenuAction(KActionCollection *ac, const QString &name, const QString &text, StashMode m)
 {
     auto a = ac->addAction(name, this, [this, m] {
-        createStashDialog(m, m_gitPath);
+        createStashDialog(m, m_activeGitDirPath);
     });
     a->setText(text);
     return a;
@@ -1101,7 +1179,7 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
             return;
         }
 
-        const QString file = m_gitPath + idx.data(GitStatusModel::FileNameRole).toString();
+        const QString file = m_activeGitDirPath + idx.data(GitStatusModel::FileNameRole).toString();
         if (act == stageAct) {
             if (staged) {
                 return unstage({file});

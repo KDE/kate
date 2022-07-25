@@ -61,6 +61,9 @@ bool PluginKateKeyboardMacro::eventFilter(QObject *obj, QEvent *event)
         m_keyEvents.append(keyEvent);
         qDebug("Captured key press: %s", keyEvent->text().toUtf8().data());
         return true;
+        // FIXME: this should let the event pass through by returning false
+        // but also capture keypress only once and only the relevant ones
+        // (e.g., if pressing ctrl then c before releasing only capture ctrl+c)
     } else {
         return QObject::eventFilter(obj, event);
     }
@@ -84,6 +87,10 @@ bool PluginKateKeyboardMacro::record(KTextEditor::View *)
 
     // first reset ...
     reset();
+    // TODO (after first working release):
+    // either allow to record multiple macros with names (to pass to the runmac command)
+    // and/or have at least two slots to be able to cancel a recording and get the previously
+    // recorded macro back as the current one.
 
     // ... then start recording
     std::cerr << "start recording" << std::endl;
@@ -104,6 +111,7 @@ bool PluginKateKeyboardMacro::run(KTextEditor::View *view)
         for (keyEvent = m_keyEvents.constBegin(); keyEvent != m_keyEvents.constEnd(); keyEvent++) {
             qDebug("Emitting key press: %s", (*keyEvent)->text().toUtf8().data());
             QCoreApplication::sendEvent(QCoreApplication::instance(), *keyEvent);
+            // FIXME: the above doesn't work
         }
     }
 
@@ -155,7 +163,7 @@ PluginViewKateKeyboardMacro::PluginViewKateKeyboardMacro(PluginKateKeyboardMacro
 
     // create record action
     QAction *rec = actionCollection()->addAction(QStringLiteral("record_macro"));
-    rec->setText(i18n("&Record Macro..."));
+    rec->setText(i18n("Record &Macro..."));
     actionCollection()->setDefaultShortcut(rec, Qt::CTRL | Qt::SHIFT | Qt::Key_K);
     connect(rec, &QAction::triggered, plugin, &PluginKateKeyboardMacro::slotRecord);
 
@@ -164,6 +172,8 @@ PluginViewKateKeyboardMacro::PluginViewKateKeyboardMacro(PluginKateKeyboardMacro
     run->setText(i18n("&Run Macro"));
     actionCollection()->setDefaultShortcut(run, Qt::CTRL | Qt::ALT | Qt::Key_K);
     connect(run, &QAction::triggered, plugin, &PluginKateKeyboardMacro::slotRun);
+
+    // TODO: make an entire "Keyboard Macros" submenu with "record", "run", "save as", "run saved"
 
     // register our gui elements
     mainwindow->guiFactory()->addClient(this);
@@ -214,6 +224,7 @@ bool PluginKateKeyboardMacroRunCommand::exec(KTextEditor::View *view, const QStr
         // display fail in toolview
     }
     return true;
+    // TODO: allow the command to take a name as an argument to run a saved macro (default to the last recorded one)
 }
 
 bool PluginKateKeyboardMacroRunCommand::help(KTextEditor::View *, const QString &, QString &msg)
@@ -221,6 +232,8 @@ bool PluginKateKeyboardMacroRunCommand::help(KTextEditor::View *, const QString 
     msg = i18n("<qt><p>Usage: <code>runmac</code></p><p>Run recorded keyboard macro.</p></qt>");
     return true;
 }
+
+// TODO: add a new "savemac" command
 
 // END
 

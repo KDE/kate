@@ -1,19 +1,10 @@
-/***************************************************************************
-                         plugin_katekeyboardmacro.h  -  description
-                            -------------------
-   begin                : FRE Feb 23 2001
-   copyright            : (C) 2001 by Joseph Wenninger
-   email                : jowenn@bigfoot.com
-***************************************************************************/
+/*
+ * SPDX-FileCopyrightText: 2022 Pablo Rauzy <r .at. uzy .dot. me>
+ * SPDX-License-Identifier: GPL-2.0-or-later
+ */
 
-/***************************************************************************
- *                                                                         *
- *   SPDX-License-Identifier: GPL-2.0-or-later
- *                                                                         *
- ***************************************************************************/
-
-#ifndef PLUGIN_KATEKEYBOARDMACROS_H
-#define PLUGIN_KATEKEYBOARDMACROS_H
+#ifndef PLUGIN_KATEKEYBOARDMACRO_H
+#define PLUGIN_KATEKEYBOARDMACRO_H
 
 #include <KTextEditor/Application>
 #include <KTextEditor/Command>
@@ -22,8 +13,8 @@
 #include <KTextEditor/Plugin>
 #include <KTextEditor/View>
 
-#include <KProcess>
-#include <QVariantList>
+class PluginKateKeyboardMacroRecordCommand;
+class PluginKateKeyboardMacroRunCommand;
 
 class PluginKateKeyboardMacro : public KTextEditor::Plugin
 {
@@ -37,36 +28,53 @@ public:
 
     ~PluginKateKeyboardMacro() override;
 
-    QObject *createView(KTextEditor::MainWindow *mainWindow) override;
+    virtual QObject *createView(KTextEditor::MainWindow *mainWindow) override;
 
-    void runFilter(KTextEditor::View *kv, const QString &filter);
+    bool record(KTextEditor::View *view);
+    bool run(KTextEditor::View *view);
+    bool isRecording();
 
 private:
-    QString m_strFilterOutput;
-    QString m_stderrOutput;
-    QString m_last_command;
-    KProcess *m_pFilterProcess = nullptr;
-    QStringList completionList;
-    bool copyResult = false;
-    bool mergeOutput = false;
-    bool newDocument = false;
-    KTextEditor::MainWindow *m_mainWindow;
+    bool m_recording = false;
+    QString m_macro;
+
+    PluginKateKeyboardMacroRecordCommand *m_recCommand;
+    PluginKateKeyboardMacroRunCommand *m_runCommand;
+
 public Q_SLOTS:
-    void slotEditFilter();
-    void slotFilterReceivedStdout();
-    void slotFilterReceivedStderr();
-    void slotFilterProcessExited(int exitCode, QProcess::ExitStatus exitStatus);
+    void slotRecord();
+    void slotRun();
 };
 
-class PluginKateKeyboardMacroCommand : public KTextEditor::Command
+/**
+ * recmac command
+ */
+class PluginKateKeyboardMacroRecordCommand : public KTextEditor::Command
 {
     Q_OBJECT
 
 public:
-    PluginKateKeyboardMacroCommand(PluginKateKeyboardMacro *plugin);
+    PluginKateKeyboardMacroRecordCommand(PluginKateKeyboardMacro *plugin);
     // Kate::Command
-    bool exec(KTextEditor::View *view, const QString &cmd, QString &msg, const KTextEditor::Range &range = KTextEditor::Range::invalid()) override;
-    bool help(KTextEditor::View *view, const QString &cmd, QString &msg) override;
+    bool exec(KTextEditor::View *view, const QString &, QString &, const KTextEditor::Range & = KTextEditor::Range::invalid()) override;
+    bool help(KTextEditor::View *view, const QString &, QString &msg) override;
+
+private:
+    PluginKateKeyboardMacro *m_plugin;
+};
+
+/**
+ * runmac command
+ */
+class PluginKateKeyboardMacroRunCommand : public KTextEditor::Command
+{
+    Q_OBJECT
+
+public:
+    PluginKateKeyboardMacroRunCommand(PluginKateKeyboardMacro *plugin);
+    // Kate::Command
+    bool exec(KTextEditor::View *view, const QString &, QString &, const KTextEditor::Range & = KTextEditor::Range::invalid()) override;
+    bool help(KTextEditor::View *view, const QString &, QString &msg) override;
 
 private:
     PluginKateKeyboardMacro *m_plugin;

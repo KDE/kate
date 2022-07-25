@@ -5,6 +5,7 @@
     <Menu name="tools">
       <text>&amp;Tools</text>
       <Action name="record_macro" group="tools_snippets"/>
+      <Action name="run_macro" group="tools_snippets"/>
     </Menu>
   </MenuBar>
 </gui>

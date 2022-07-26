@@ -387,7 +387,7 @@ void GitWidget::setSubmodulesPaths()
                      QStringLiteral("rev-parse"),
                      QStringLiteral("--show-toplevel")};
     auto git = gitp(args);
-    git->start();
+    startHostProcess(*git, QProcess::ReadOnly);
     connect(git, &QProcess::finished, this, [this, git](int exitCode, QProcess::ExitStatus es) {
         if (es != QProcess::NormalExit || exitCode != 0) {
             // no error on status failure
@@ -871,7 +871,6 @@ void GitWidget::parseStatusReady()
 
     // Set new data
     GitUtils::GitParsedStatus s = m_gitStatusWatcher.result();
-    qDebug() << "Got status: " << s.changed.size();
     m_model->setStatusItems(std::move(s), m_pluginView->plugin()->showGitStatusWithNumStat());
 
     // Restore collapse/expand state

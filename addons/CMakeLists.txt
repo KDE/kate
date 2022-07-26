@@ -33,4 +33,4 @@ ecm_optional_add_subdirectory(textfilter) # Pipe text through some external comm
 ecm_optional_add_subdirectory(xmlcheck) # XML Validation plugin
 ecm_optional_add_subdirectory(xmltools) # XML completion
 ecm_optional_add_subdirectory(cmake-tools)
-ecm_optional_add_subdirectory(keyboardmacro)
+ecm_optional_add_subdirectory(keyboardmacros)

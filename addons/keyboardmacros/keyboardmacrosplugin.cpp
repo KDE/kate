@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: GPL-2.0-or-later
  */
 
-#include "plugin_katekeyboardmacro.h"
+#include "keyboardmacrosplugin.h"
 
 #include <QAction>
 #include <QCoreApplication>
@@ -15,35 +15,35 @@
 #include <KTextEditor/Editor>
 #include <KTextEditor/Message>
 
-#include <KLocalizedString>
 #include <KActionCollection>
+#include <KLocalizedString>
 #include <KPluginFactory>
 #include <KXMLGUIFactory>
 
 #include <iostream>
 #include <qevent.h>
 
-K_PLUGIN_FACTORY_WITH_JSON(KeyboardMacroPluginFactory, "keyboardmacroplugin.json", registerPlugin<PluginKateKeyboardMacro>();)
+K_PLUGIN_FACTORY_WITH_JSON(KeyboardMacrosPluginFactory, "keyboardmacrosplugin.json", registerPlugin<KeyboardMacrosPlugin>();)
 
-PluginKateKeyboardMacro::PluginKateKeyboardMacro(QObject *parent, const QList<QVariant> &)
+KeyboardMacrosPlugin::KeyboardMacrosPlugin(QObject *parent, const QList<QVariant> &)
     : KTextEditor::Plugin(parent)
 {
     // register "recmac" and "runmac" commands
-    m_recCommand = new PluginKateKeyboardMacroRecordCommand(this);
-    m_runCommand = new PluginKateKeyboardMacroRunCommand(this);
+    m_recCommand = new KeyboardMacrosPluginRecordCommand(this);
+    m_runCommand = new KeyboardMacrosPluginRunCommand(this);
 }
 
-PluginKateKeyboardMacro::~PluginKateKeyboardMacro()
+KeyboardMacrosPlugin::~KeyboardMacrosPlugin()
 {
     delete m_recCommand;
     delete m_runCommand;
     reset();
 }
 
-QObject *PluginKateKeyboardMacro::createView(KTextEditor::MainWindow *mainWindow)
+QObject *KeyboardMacrosPlugin::createView(KTextEditor::MainWindow *mainWindow)
 {
     m_mainWindow = mainWindow;
-    return new PluginViewKateKeyboardMacro(this, mainWindow);
+    return new KeyboardMacrosPluginView(this, mainWindow);
 }
 
 // https://doc.qt.io/qt-6/eventsandfilters.html
@@ -54,7 +54,7 @@ QObject *PluginKateKeyboardMacro::createView(KTextEditor::MainWindow *mainWindow
 // file:///usr/share/qt5/doc/qtcore/qcoreapplication.html#sendEvent
 // also see postEvent, sendPostedEvents, etc
 
-bool PluginKateKeyboardMacro::eventFilter(QObject *obj, QEvent *event)
+bool KeyboardMacrosPlugin::eventFilter(QObject *obj, QEvent *event)
 {
     if (event->type() == QEvent::KeyPress) {
         QKeyEvent *keyEvent = new QKeyEvent(*static_cast<QKeyEvent *>(event));
@@ -69,13 +69,13 @@ bool PluginKateKeyboardMacro::eventFilter(QObject *obj, QEvent *event)
     }
 }
 
-void PluginKateKeyboardMacro::reset()
+void KeyboardMacrosPlugin::reset()
 {
     qDeleteAll(m_keyEvents.begin(), m_keyEvents.end());
     m_keyEvents.clear();
 }
 
-bool PluginKateKeyboardMacro::record(KTextEditor::View *)
+bool KeyboardMacrosPlugin::record(KTextEditor::View *)
 {
     if (m_recording) { // end recording
         // KTextEditor::Editor::instance()->application()->activeMainWindow()->window()->removeEventFilter(this);
@@ -99,7 +99,7 @@ bool PluginKateKeyboardMacro::record(KTextEditor::View *)
     return true;
 }
 
-bool PluginKateKeyboardMacro::run(KTextEditor::View *view)
+bool KeyboardMacrosPlugin::run(KTextEditor::View *view)
 {
     if (m_recording) {
         // end recording before running macro
@@ -118,12 +118,12 @@ bool PluginKateKeyboardMacro::run(KTextEditor::View *view)
     return true;
 }
 
-bool PluginKateKeyboardMacro::isRecording()
+bool KeyboardMacrosPlugin::isRecording()
 {
     return m_recording;
 }
 
-void PluginKateKeyboardMacro::slotRecord()
+void KeyboardMacrosPlugin::slotRecord()
 {
     if (!KTextEditor::Editor::instance()->application()->activeMainWindow()) {
         return;
@@ -137,7 +137,7 @@ void PluginKateKeyboardMacro::slotRecord()
     record(view);
 }
 
-void PluginKateKeyboardMacro::slotRun()
+void KeyboardMacrosPlugin::slotRun()
 {
     if (!KTextEditor::Editor::instance()->application()->activeMainWindow()) {
         return;
@@ -153,25 +153,25 @@ void PluginKateKeyboardMacro::slotRun()
 
 // BEGIN Plugin view to add our actions to the gui
 
-PluginViewKateKeyboardMacro::PluginViewKateKeyboardMacro(PluginKateKeyboardMacro *plugin, KTextEditor::MainWindow *mainwindow)
+KeyboardMacrosPluginView::KeyboardMacrosPluginView(KeyboardMacrosPlugin *plugin, KTextEditor::MainWindow *mainwindow)
     : QObject(mainwindow)
     , m_mainWindow(mainwindow)
 {
     // setup xml gui
-    KXMLGUIClient::setComponentName(QStringLiteral("keyboardmacro"), i18n("Keyboard Macro"));
+    KXMLGUIClient::setComponentName(QStringLiteral("keyboardmacros"), i18n("Keyboard Macros"));
     setXMLFile(QStringLiteral("ui.rc"));
 
     // create record action
     QAction *rec = actionCollection()->addAction(QStringLiteral("record_macro"));
     rec->setText(i18n("Record &Macro..."));
     actionCollection()->setDefaultShortcut(rec, Qt::CTRL | Qt::SHIFT | Qt::Key_K);
-    connect(rec, &QAction::triggered, plugin, &PluginKateKeyboardMacro::slotRecord);
+    connect(rec, &QAction::triggered, plugin, &KeyboardMacrosPlugin::slotRecord);
 
     // create run action
     QAction *run = actionCollection()->addAction(QStringLiteral("run_macro"));
     run->setText(i18n("&Run Macro"));
     actionCollection()->setDefaultShortcut(run, Qt::CTRL | Qt::ALT | Qt::Key_K);
-    connect(run, &QAction::triggered, plugin, &PluginKateKeyboardMacro::slotRun);
+    connect(run, &QAction::triggered, plugin, &KeyboardMacrosPlugin::slotRun);
 
     // TODO: make an entire "Keyboard Macros" submenu with "record", "run", "save as", "run saved"
 
@@ -179,7 +179,7 @@ PluginViewKateKeyboardMacro::PluginViewKateKeyboardMacro(PluginKateKeyboardMacro
     mainwindow->guiFactory()->addClient(this);
 }
 
-PluginViewKateKeyboardMacro::~PluginViewKateKeyboardMacro()
+KeyboardMacrosPluginView::~KeyboardMacrosPluginView()
 {
     // remove us from the gui
     m_mainWindow->guiFactory()->removeClient(this);
@@ -189,13 +189,13 @@ PluginViewKateKeyboardMacro::~PluginViewKateKeyboardMacro()
 
 // BEGIN commands
 
-PluginKateKeyboardMacroRecordCommand::PluginKateKeyboardMacroRecordCommand(PluginKateKeyboardMacro *plugin)
+KeyboardMacrosPluginRecordCommand::KeyboardMacrosPluginRecordCommand(KeyboardMacrosPlugin *plugin)
     : KTextEditor::Command(QStringList() << QStringLiteral("recmac"), plugin)
     , m_plugin(plugin)
 {
 }
 
-bool PluginKateKeyboardMacroRecordCommand::exec(KTextEditor::View *view, const QString &, QString &, const KTextEditor::Range &)
+bool KeyboardMacrosPluginRecordCommand::exec(KTextEditor::View *view, const QString &, QString &, const KTextEditor::Range &)
 {
     if (m_plugin->isRecording()) {
         // remove from the recording the call to this command…
@@ -206,19 +206,19 @@ bool PluginKateKeyboardMacroRecordCommand::exec(KTextEditor::View *view, const Q
     return true;
 }
 
-bool PluginKateKeyboardMacroRecordCommand::help(KTextEditor::View *, const QString &, QString &msg)
+bool KeyboardMacrosPluginRecordCommand::help(KTextEditor::View *, const QString &, QString &msg)
 {
     msg = i18n("<qt><p>Usage: <code>recmac</code></p><p>Start/stop recording a keyboard macro.</p></qt>");
     return true;
 }
 
-PluginKateKeyboardMacroRunCommand::PluginKateKeyboardMacroRunCommand(PluginKateKeyboardMacro *plugin)
+KeyboardMacrosPluginRunCommand::KeyboardMacrosPluginRunCommand(KeyboardMacrosPlugin *plugin)
     : KTextEditor::Command(QStringList() << QStringLiteral("runmac"), plugin)
     , m_plugin(plugin)
 {
 }
 
-bool PluginKateKeyboardMacroRunCommand::exec(KTextEditor::View *view, const QString &, QString &, const KTextEditor::Range &)
+bool KeyboardMacrosPluginRunCommand::exec(KTextEditor::View *view, const QString &, QString &, const KTextEditor::Range &)
 {
     if (!m_plugin->run(view)) {
         // display fail in toolview
@@ -227,7 +227,7 @@ bool PluginKateKeyboardMacroRunCommand::exec(KTextEditor::View *view, const QStr
     // TODO: allow the command to take a name as an argument to run a saved macro (default to the last recorded one)
 }
 
-bool PluginKateKeyboardMacroRunCommand::help(KTextEditor::View *, const QString &, QString &msg)
+bool KeyboardMacrosPluginRunCommand::help(KTextEditor::View *, const QString &, QString &msg)
 {
     msg = i18n("<qt><p>Usage: <code>runmac</code></p><p>Run recorded keyboard macro.</p></qt>");
     return true;
@@ -237,5 +237,5 @@ bool PluginKateKeyboardMacroRunCommand::help(KTextEditor::View *, const QString 
 
 // END
 
-// required for KeyboardMacroPluginFactory vtable
-#include "plugin_katekeyboardmacro.moc"
+// required for KeyboardMacrosPluginFactory vtable
+#include "keyboardmacrosplugin.moc"

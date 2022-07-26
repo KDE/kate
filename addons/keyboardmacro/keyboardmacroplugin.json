@@ -1,9 +1,0 @@
-{
-    "KPlugin": {
-        "Description": "Record and run any keyboard action sequence",
-        "Name": "Keyboard Macro",
-        "ServiceTypes": [
-            "KTextEditor/Plugin"
-        ]
-    }
-}

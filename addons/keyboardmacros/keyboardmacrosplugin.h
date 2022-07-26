@@ -15,17 +15,17 @@
 #include <KTextEditor/Plugin>
 #include <KTextEditor/View>
 
-class PluginKateKeyboardMacroRecordCommand;
-class PluginKateKeyboardMacroRunCommand;
+class KeyboardMacrosPluginRecordCommand;
+class KeyboardMacrosPluginRunCommand;
 
-class PluginKateKeyboardMacro : public KTextEditor::Plugin
+class KeyboardMacrosPlugin : public KTextEditor::Plugin
 {
     Q_OBJECT
 
 public:
-    explicit PluginKateKeyboardMacro(QObject *parent = nullptr, const QList<QVariant> & = QList<QVariant>());
+    explicit KeyboardMacrosPlugin(QObject *parent = nullptr, const QList<QVariant> & = QList<QVariant>());
 
-    ~PluginKateKeyboardMacro() override;
+    ~KeyboardMacrosPlugin() override;
 
     QObject *createView(KTextEditor::MainWindow *mainWindow) override;
 
@@ -42,8 +42,8 @@ private:
     bool m_recording = false;
     QList<QKeyEvent *> m_keyEvents;
 
-    PluginKateKeyboardMacroRecordCommand *m_recCommand;
-    PluginKateKeyboardMacroRunCommand *m_runCommand;
+    KeyboardMacrosPluginRecordCommand *m_recCommand;
+    KeyboardMacrosPluginRunCommand *m_runCommand;
 
 public Q_SLOTS:
     void slotRecord();
@@ -53,13 +53,13 @@ public Q_SLOTS:
 /**
  * Plugin view to add our actions to the gui
  */
-class PluginViewKateKeyboardMacro : public QObject, public KXMLGUIClient
+class KeyboardMacrosPluginView : public QObject, public KXMLGUIClient
 {
     Q_OBJECT
 
 public:
-    explicit PluginViewKateKeyboardMacro(PluginKateKeyboardMacro *plugin, KTextEditor::MainWindow *mainwindow);
-    ~PluginViewKateKeyboardMacro() override;
+    explicit KeyboardMacrosPluginView(KeyboardMacrosPlugin *plugin, KTextEditor::MainWindow *mainwindow);
+    ~KeyboardMacrosPluginView() override;
 
 private:
     KTextEditor::MainWindow *m_mainWindow;
@@ -68,33 +68,33 @@ private:
 /**
  * recmac command
  */
-class PluginKateKeyboardMacroRecordCommand : public KTextEditor::Command
+class KeyboardMacrosPluginRecordCommand : public KTextEditor::Command
 {
     Q_OBJECT
 
 public:
-    PluginKateKeyboardMacroRecordCommand(PluginKateKeyboardMacro *plugin);
+    KeyboardMacrosPluginRecordCommand(KeyboardMacrosPlugin *plugin);
     bool exec(KTextEditor::View *view, const QString &, QString &, const KTextEditor::Range & = KTextEditor::Range::invalid()) override;
     bool help(KTextEditor::View *view, const QString &, QString &msg) override;
 
 private:
-    PluginKateKeyboardMacro *m_plugin;
+    KeyboardMacrosPlugin *m_plugin;
 };
 
 /**
  * runmac command
  */
-class PluginKateKeyboardMacroRunCommand : public KTextEditor::Command
+class KeyboardMacrosPluginRunCommand : public KTextEditor::Command
 {
     Q_OBJECT
 
 public:
-    PluginKateKeyboardMacroRunCommand(PluginKateKeyboardMacro *plugin);
+    KeyboardMacrosPluginRunCommand(KeyboardMacrosPlugin *plugin);
     bool exec(KTextEditor::View *view, const QString &, QString &, const KTextEditor::Range & = KTextEditor::Range::invalid()) override;
     bool help(KTextEditor::View *view, const QString &, QString &msg) override;
 
 private:
-    PluginKateKeyboardMacro *m_plugin;
+    KeyboardMacrosPlugin *m_plugin;
 };
 
 #endif

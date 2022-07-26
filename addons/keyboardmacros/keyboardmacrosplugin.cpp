@@ -8,6 +8,7 @@
 #include <QAction>
 #include <QCoreApplication>
 #include <QKeyEvent>
+#include <QKeySequence>
 #include <QList>
 #include <QString>
 #include <QtAlgorithms>
@@ -56,10 +57,11 @@ QObject *KeyboardMacrosPlugin::createView(KTextEditor::MainWindow *mainWindow)
 
 bool KeyboardMacrosPlugin::eventFilter(QObject *obj, QEvent *event)
 {
-    if (event->type() == QEvent::KeyPress) {
+    if (event->type() == QEvent::KeyPress || event->type() == QEvent::ShortcutOverride) {
         QKeyEvent *keyEvent = new QKeyEvent(*static_cast<QKeyEvent *>(event));
+        QKeySequence s(keyEvent->key() | keyEvent->modifiers());
+        qDebug("KeySeq: %s", s.toString().toUtf8().data());
         m_keyEvents.append(keyEvent);
-        qDebug("Captured key press: %s", keyEvent->text().toUtf8().data());
         return true;
         // FIXME: this should let the event pass through by returning false
         // but also capture keypress only once and only the relevant ones
@@ -107,10 +109,12 @@ bool KeyboardMacrosPlugin::run(KTextEditor::View *view)
     }
 
     if (!m_keyEvents.isEmpty()) {
-        QList<QKeyEvent *>::ConstIterator keyEvent;
-        for (keyEvent = m_keyEvents.constBegin(); keyEvent != m_keyEvents.constEnd(); keyEvent++) {
-            qDebug("Emitting key press: %s", (*keyEvent)->text().toUtf8().data());
-            QCoreApplication::sendEvent(QCoreApplication::instance(), *keyEvent);
+        QList<QKeyEvent *>::ConstIterator it;
+        for (it = m_keyEvents.constBegin(); it != m_keyEvents.constEnd(); it++) {
+            QKeyEvent *keyEvent = *it;
+            QKeySequence s(keyEvent->key() | keyEvent->modifiers());
+            qDebug("KeySeq: %s", s.toString().toUtf8().data());
+            QCoreApplication::sendEvent(QCoreApplication::instance(), keyEvent);
             // FIXME: the above doesn't work
         }
     }

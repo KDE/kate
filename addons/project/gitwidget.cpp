@@ -434,9 +434,11 @@ void GitWidget::setActiveGitDir()
         idx++;
     }
 
-    if (activeSubmoduleIdx == -1 && m_activeGitDirPath != m_topLevelGitPath) {
-        m_activeGitDirPath = m_topLevelGitPath;
-        updateStatus();
+    if (activeSubmoduleIdx == -1) {
+        if (m_activeGitDirPath != m_topLevelGitPath) {
+            m_activeGitDirPath = m_topLevelGitPath;
+            updateStatus();
+        }
         return;
     }
 

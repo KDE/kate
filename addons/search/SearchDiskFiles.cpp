@@ -24,7 +24,7 @@ SearchDiskFiles::SearchDiskFiles(SearchDiskFilesWorkList &worklist, const QRegul
 void SearchDiskFiles::run()
 {
     // do we need to search multiple lines?
-    const bool multiLineSearch = m_regExp.pattern().contains(QLatin1String("\\n"));
+    const bool multiLineSearch = m_regExp.patternOptions().testFlag(QRegularExpression::MultilineOption) && m_regExp.pattern().contains(QLatin1String("\\n"));
 
     // timer to emit matchesFound once in a time even for files without matches
     // this triggers process in the UI

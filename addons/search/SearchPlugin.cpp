@@ -987,7 +987,7 @@ void KatePluginSearchView::startSearch()
         patternOptions |= QRegularExpression::CaseInsensitiveOption;
     }
 
-    if (pattern.contains(QLatin1String("\\n"))) {
+    if (m_ui.useRegExp->isChecked() && pattern.contains(QLatin1String("\\n"))) {
         patternOptions |= QRegularExpression::MultilineOption;
     }
     QRegularExpression reg(pattern, patternOptions);
@@ -1166,7 +1166,7 @@ void KatePluginSearchView::startSearchWhileTyping()
     if (!m_ui.matchCase->isChecked()) {
         patternOptions |= QRegularExpression::CaseInsensitiveOption;
     }
-    if (pattern.contains(QLatin1String("\\n"))) {
+    if (m_curResults->useRegExp && pattern.contains(QLatin1String("\\n"))) {
         patternOptions |= QRegularExpression::MultilineOption;
     }
     QRegularExpression reg(pattern, patternOptions);

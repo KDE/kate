@@ -52,11 +52,9 @@ void KatePluginSymbolViewerView::parseBashSymbols(void)
         }
 
         if (m_func->isChecked()) {
-            QString funcName;
-
             match = function_regexp.match(currline);
             if (match.hasMatch()) {
-                funcName = match.captured(2);
+                QString funcName = match.captured(2);
                 funcName.append(QLatin1String("()"));
 
                 if (m_treeOn->isChecked()) {

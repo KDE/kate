@@ -115,21 +115,17 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
         // kdDebug(13000) << debugBuffer.arg(i, 4).arg("-comments", 10).arg(line);
 
         // trying to find comments and to remove commented parts
-        int pos = line.indexOf(QLatin1Char('#'));
-        if (pos >= 0) {
+        if (const int pos = line.indexOf(QLatin1Char('#')); pos >= 0) {
             line.truncate(pos);
         }
-        pos = line.indexOf(QLatin1String("//"));
-        if (pos >= 0) {
+        if (const int pos = line.indexOf(QLatin1String("//")); pos >= 0) {
             line.truncate(pos);
         }
-        pos = line.indexOf(QLatin1String("/*"));
-        if (pos >= 0) {
+        if (const int pos = line.indexOf(QLatin1String("/*")); pos >= 0) {
             line.truncate(pos);
             inBlockComment = true;
         }
-        pos = line.indexOf(QLatin1String("*/"));
-        if (pos >= 0) {
+        if (const int pos = line.indexOf(QLatin1String("*/")); pos >= 0) {
             line = line.right(line.length() - pos - 2);
             inBlockComment = false;
         }

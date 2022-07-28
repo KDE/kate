@@ -3440,6 +3440,25 @@ documentation for more information.</para>
 functions are being evaluated. E.g., if a function retrieves the text on the
 line where the snippet is being inserted, that text will also contain
 <userinput>${functionCall()}</userinput>.</para>
+<para>As an example of working with selections using the scripting API, a simple way
+to wrap selected text inside tags is this snippet:
+<userinput>&lt;strong&gt;${view.selectedText()}&lt;/strong&gt;</userinput>
+</para>
+<para>The following example invokes a script that inserts a default text in case
+there is no selection. Snippet:</para>
+<para>
+<userinput>${rangeCommand("&lt;strong&gt;%%1&lt;/strong&gt;", "Bold")}</userinput></para>
+<para>Script:
+<programlisting>
+function rangeCommand(command, def) {
+    if (view.selectedText().length > 0) {
+        return command.replace("%%1", view.selectedText());
+    } else {
+        return command.replace("%%1", def);
+    }
+}
+</programlisting>
+</para>
 </listitem>
 </varlistentry>
 

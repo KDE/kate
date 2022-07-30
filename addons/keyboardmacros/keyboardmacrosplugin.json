@@ -1,6 +1,6 @@
 {
     "KPlugin": {
-        "Description": "Record and run keyboard action sequences",
+        "Description": "Record and play keyboard action sequences",
         "Name": "Keyboard Macros",
         "ServiceTypes": [
             "KTextEditor/Plugin"

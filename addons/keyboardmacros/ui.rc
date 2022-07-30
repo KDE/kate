@@ -4,8 +4,13 @@
   <MenuBar>
     <Menu name="tools">
       <text>&amp;Tools</text>
-      <Action name="record_macro" group="tools_snippets"/>
-      <Action name="run_macro" group="tools_snippets"/>
+      <Separator/>
+      <Menu name="keyboardmacros" noMerge="1">
+        <text>&amp;Keyboard Macros</text>
+        <Action name="keyboardmacros_record"/>
+        <Action name="keyboardmacros_cancel"/>
+        <Action name="keyboardmacros_play"/>
+      </Menu>
     </Menu>
   </MenuBar>
 </gui>

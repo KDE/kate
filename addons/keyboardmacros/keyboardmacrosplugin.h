@@ -15,12 +15,15 @@
 #include <KTextEditor/Plugin>
 #include <KTextEditor/View>
 
-class KeyboardMacrosPluginRecordCommand;
-class KeyboardMacrosPluginRunCommand;
+class KeyboardMacrosPluginView;
+
+typedef QList<QKeyEvent *> Macro;
 
 class KeyboardMacrosPlugin : public KTextEditor::Plugin
 {
     Q_OBJECT
+
+    friend KeyboardMacrosPluginView;
 
 public:
     explicit KeyboardMacrosPlugin(QObject *parent = nullptr, const QList<QVariant> & = QList<QVariant>());
@@ -29,25 +32,35 @@ public:
 
     QObject *createView(KTextEditor::MainWindow *mainWindow) override;
 
-    bool eventFilter(QObject *obj, QEvent *event) override;
+    void sendMessage(const QString &text, bool error);
 
-    void reset();
-    bool record(KTextEditor::View *view);
-    bool run(KTextEditor::View *view);
-    bool isRecording();
+Q_SIGNALS:
+    void message(const QVariantMap &message);
+
+public:
+    bool eventFilter(QObject *obj, QEvent *event) override;
 
 private:
     KTextEditor::MainWindow *m_mainWindow;
+    QWidget *m_focusWidget;
+
+    QAction *m_recordAction;
+    QAction *m_cancelAction;
+    QAction *m_playAction;
 
     bool m_recording = false;
-    QList<QKeyEvent *> m_keyEvents;
+    Macro m_tape;
+    Macro m_macro;
 
-    KeyboardMacrosPluginRecordCommand *m_recCommand;
-    KeyboardMacrosPluginRunCommand *m_runCommand;
+    void record();
+    void stop(bool save);
+    void cancel();
+    bool play();
 
 public Q_SLOTS:
     void slotRecord();
-    void slotRun();
+    void slotCancel();
+    void slotPlay();
 };
 
 /**
@@ -63,38 +76,6 @@ public:
 
 private:
     KTextEditor::MainWindow *m_mainWindow;
-};
-
-/**
- * recmac command
- */
-class KeyboardMacrosPluginRecordCommand : public KTextEditor::Command
-{
-    Q_OBJECT
-
-public:
-    KeyboardMacrosPluginRecordCommand(KeyboardMacrosPlugin *plugin);
-    bool exec(KTextEditor::View *view, const QString &, QString &, const KTextEditor::Range & = KTextEditor::Range::invalid()) override;
-    bool help(KTextEditor::View *view, const QString &, QString &msg) override;
-
-private:
-    KeyboardMacrosPlugin *m_plugin;
-};
-
-/**
- * runmac command
- */
-class KeyboardMacrosPluginRunCommand : public KTextEditor::Command
-{
-    Q_OBJECT
-
-public:
-    KeyboardMacrosPluginRunCommand(KeyboardMacrosPlugin *plugin);
-    bool exec(KTextEditor::View *view, const QString &, QString &, const KTextEditor::Range & = KTextEditor::Range::invalid()) override;
-    bool help(KTextEditor::View *view, const QString &, QString &msg) override;
-
-private:
-    KeyboardMacrosPlugin *m_plugin;
 };
 
 #endif

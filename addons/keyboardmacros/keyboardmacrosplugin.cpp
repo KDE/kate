@@ -6,7 +6,9 @@
 #include "keyboardmacrosplugin.h"
 
 #include <QAction>
+#include <QApplication>
 #include <QCoreApplication>
+#include <QDateTime>
 #include <QKeyEvent>
 #include <QKeySequence>
 #include <QList>
@@ -21,24 +23,19 @@
 #include <KPluginFactory>
 #include <KXMLGUIFactory>
 
-#include <iostream>
-#include <qevent.h>
-
 K_PLUGIN_FACTORY_WITH_JSON(KeyboardMacrosPluginFactory, "keyboardmacrosplugin.json", registerPlugin<KeyboardMacrosPlugin>();)
 
 KeyboardMacrosPlugin::KeyboardMacrosPlugin(QObject *parent, const QList<QVariant> &)
     : KTextEditor::Plugin(parent)
 {
-    // register "recmac" and "runmac" commands
-    m_recCommand = new KeyboardMacrosPluginRecordCommand(this);
-    m_runCommand = new KeyboardMacrosPluginRunCommand(this);
 }
 
 KeyboardMacrosPlugin::~KeyboardMacrosPlugin()
 {
-    delete m_recCommand;
-    delete m_runCommand;
-    reset();
+    qDeleteAll(m_tape.begin(), m_tape.end());
+    m_tape.clear();
+    qDeleteAll(m_macro.begin(), m_macro.end());
+    m_macro.clear();
 }
 
 QObject *KeyboardMacrosPlugin::createView(KTextEditor::MainWindow *mainWindow)
@@ -47,112 +44,128 @@ QObject *KeyboardMacrosPlugin::createView(KTextEditor::MainWindow *mainWindow)
     return new KeyboardMacrosPluginView(this, mainWindow);
 }
 
-// https://doc.qt.io/qt-6/eventsandfilters.html
-// https://doc.qt.io/qt-6/qobject.html#installEventFilter
-// https://stackoverflow.com/questions/41631011/my-qt-eventfilter-doesnt-stop-events-as-it-should
-
-// file:///usr/share/qt5/doc/qtcore/qobject.html#installEventFilter
-// file:///usr/share/qt5/doc/qtcore/qcoreapplication.html#sendEvent
-// also see postEvent, sendPostedEvents, etc
+void KeyboardMacrosPlugin::sendMessage(const QString &text, bool error)
+{
+    QVariantMap genericMessage;
+    genericMessage.insert(QStringLiteral("type"), error ? QStringLiteral("Error") : QStringLiteral("Info"));
+    genericMessage.insert(QStringLiteral("category"), i18n("Macros"));
+    genericMessage.insert(QStringLiteral("categoryIcon"), QIcon::fromTheme(QStringLiteral("input-keyboard")));
+    genericMessage.insert(QStringLiteral("text"), text);
+    Q_EMIT message(genericMessage);
+}
 
 bool KeyboardMacrosPlugin::eventFilter(QObject *obj, QEvent *event)
 {
-    if (event->type() == QEvent::KeyPress || event->type() == QEvent::ShortcutOverride) {
-        QKeyEvent *keyEvent = new QKeyEvent(*static_cast<QKeyEvent *>(event));
-        QKeySequence s(keyEvent->key() | keyEvent->modifiers());
-        qDebug("KeySeq: %s", s.toString().toUtf8().data());
-        m_keyEvents.append(keyEvent);
-        return true;
-        // FIXME: this should let the event pass through by returning false
-        // but also capture keypress only once and only the relevant ones
-        // (e.g., if pressing ctrl then c before releasing only capture ctrl+c)
+    // Update which widget we filter events from if the focus has changed
+    m_focusWidget->removeEventFilter(this);
+    m_focusWidget = qApp->focusWidget();
+    m_focusWidget->installEventFilter(this);
+
+    // We only spy on keyboard events so we only need to check ShortcutOverride and return false
+    if (event->type() == QEvent::ShortcutOverride) {
+        QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
+        // if only modifiers are pressed, we don't care
+        switch (keyEvent->key()) {
+        case Qt::Key_Shift:
+        case Qt::Key_Control:
+        case Qt::Key_Alt:
+        case Qt::Key_Meta:
+        case Qt::Key_AltGr:
+            return false;
+        }
+        // we don't want to record the shortcut for recording
+        if (m_recordAction->shortcut().matches(QKeySequence(keyEvent->key() | keyEvent->modifiers())) == QKeySequence::ExactMatch) {
+            return false;
+        }
+        // otherwise we add the keyboard event to the macro
+        m_tape.append(new QKeyEvent(QEvent::KeyPress, keyEvent->key(), keyEvent->modifiers(), keyEvent->text()));
+        m_tape.append(new QKeyEvent(QEvent::KeyRelease, keyEvent->key(), keyEvent->modifiers(), keyEvent->text()));
+        return false;
     } else {
         return QObject::eventFilter(obj, event);
     }
 }
 
-void KeyboardMacrosPlugin::reset()
+void KeyboardMacrosPlugin::record()
 {
-    qDeleteAll(m_keyEvents.begin(), m_keyEvents.end());
-    m_keyEvents.clear();
-}
-
-bool KeyboardMacrosPlugin::record(KTextEditor::View *)
-{
-    if (m_recording) { // end recording
-        // KTextEditor::Editor::instance()->application()->activeMainWindow()->window()->removeEventFilter(this);
-        QCoreApplication::instance()->removeEventFilter(this);
-        std::cerr << "stop recording" << std::endl;
-        m_recording = false;
-        return true; // if success
-    }
-
-    // first reset ...
-    reset();
-    // TODO (after first working release):
-    // either allow to record multiple macros with names (to pass to the runmac command)
-    // and/or have at least two slots to be able to cancel a recording and get the previously
-    // recorded macro back as the current one.
-
-    // ... then start recording
-    std::cerr << "start recording" << std::endl;
-    QCoreApplication::instance()->installEventFilter(this);
+    // start recording
+    qDebug("[KeyboardMacrosPlugin] start recording");
+    m_focusWidget = qApp->focusWidget();
+    m_focusWidget->installEventFilter(this);
     m_recording = true;
-    return true;
+    m_recordAction->setText(i18n("End Macro &Recording"));
+    m_cancelAction->setEnabled(true);
 }
 
-bool KeyboardMacrosPlugin::run(KTextEditor::View *view)
+void KeyboardMacrosPlugin::stop(bool save)
 {
-    if (m_recording) {
-        // end recording before running macro
-        record(view);
+    // stop recording
+    qDebug("[KeyboardMacrosPlugin] %s recording", save ? "end" : "cancel");
+    m_focusWidget->removeEventFilter(this);
+    m_recording = false;
+    if (save) {
+        // delete current macro
+        qDeleteAll(m_macro.begin(), m_macro.end());
+        m_macro.clear();
+        // replace it with the tape
+        m_macro.swap(m_tape);
+        // clear tape
+        m_tape.clear();
+        m_playAction->setEnabled(!m_macro.isEmpty());
+    } else { // cancel
+        // delete tape
+        qDeleteAll(m_tape.begin(), m_tape.end());
+        m_tape.clear();
     }
-
-    if (!m_keyEvents.isEmpty()) {
-        QList<QKeyEvent *>::ConstIterator it;
-        for (it = m_keyEvents.constBegin(); it != m_keyEvents.constEnd(); it++) {
-            QKeyEvent *keyEvent = *it;
-            QKeySequence s(keyEvent->key() | keyEvent->modifiers());
-            qDebug("KeySeq: %s", s.toString().toUtf8().data());
-            QCoreApplication::sendEvent(QCoreApplication::instance(), keyEvent);
-            // FIXME: the above doesn't work
-        }
-    }
-
-    return true;
+    m_recordAction->setText(i18n("&Record Macro..."));
+    m_cancelAction->setEnabled(false);
 }
 
-bool KeyboardMacrosPlugin::isRecording()
+void KeyboardMacrosPlugin::cancel()
 {
-    return m_recording;
+    stop(false);
+}
+
+bool KeyboardMacrosPlugin::play()
+{
+    if (m_macro.isEmpty()) {
+        return false;
+    }
+    Macro::Iterator it;
+    for (it = m_macro.begin(); it != m_macro.end(); it++) {
+        QKeyEvent *keyEvent = *it;
+        QKeySequence s(keyEvent->key() | keyEvent->modifiers());
+        keyEvent->setAccepted(false);
+        qApp->sendEvent(qApp->focusWidget(), keyEvent);
+    }
+    return true;
 }
 
 void KeyboardMacrosPlugin::slotRecord()
 {
-    if (!KTextEditor::Editor::instance()->application()->activeMainWindow()) {
-        return;
+    if (m_recording) {
+        stop(true);
+    } else {
+        record();
     }
-
-    KTextEditor::View *view(KTextEditor::Editor::instance()->application()->activeMainWindow()->activeView());
-    if (!view) {
-        return;
-    }
-
-    record(view);
 }
 
-void KeyboardMacrosPlugin::slotRun()
+void KeyboardMacrosPlugin::slotPlay()
 {
-    if (!KTextEditor::Editor::instance()->application()->activeMainWindow()) {
+    if (m_recording) {
+        stop(true);
+    }
+    if (!play()) {
+        sendMessage(i18n("Macro is empty."), false);
+    }
+}
+
+void KeyboardMacrosPlugin::slotCancel()
+{
+    if (!m_recording) {
         return;
     }
-
-    KTextEditor::View *view(KTextEditor::Editor::instance()->application()->activeMainWindow()->activeView());
-    if (!view) {
-        return;
-    }
-
-    run(view);
+    cancel();
 }
 
 // BEGIN Plugin view to add our actions to the gui
@@ -166,18 +179,26 @@ KeyboardMacrosPluginView::KeyboardMacrosPluginView(KeyboardMacrosPlugin *plugin,
     setXMLFile(QStringLiteral("ui.rc"));
 
     // create record action
-    QAction *rec = actionCollection()->addAction(QStringLiteral("record_macro"));
-    rec->setText(i18n("Record &Macro..."));
+    QAction *rec = actionCollection()->addAction(QStringLiteral("keyboardmacros_record"));
+    rec->setText(i18n("&Record Macro..."));
     actionCollection()->setDefaultShortcut(rec, Qt::CTRL | Qt::SHIFT | Qt::Key_K);
     connect(rec, &QAction::triggered, plugin, &KeyboardMacrosPlugin::slotRecord);
+    plugin->m_recordAction = rec;
 
-    // create run action
-    QAction *run = actionCollection()->addAction(QStringLiteral("run_macro"));
-    run->setText(i18n("&Run Macro"));
-    actionCollection()->setDefaultShortcut(run, Qt::CTRL | Qt::ALT | Qt::Key_K);
-    connect(run, &QAction::triggered, plugin, &KeyboardMacrosPlugin::slotRun);
+    // create cancel action
+    QAction *cancel = actionCollection()->addAction(QStringLiteral("keyboardmacros_cancel"));
+    cancel->setText(i18n("&Cancel Macro Recording"));
+    cancel->setEnabled(false);
+    connect(cancel, &QAction::triggered, plugin, &KeyboardMacrosPlugin::slotCancel);
+    plugin->m_cancelAction = cancel;
 
-    // TODO: make an entire "Keyboard Macros" submenu with "record", "run", "save as", "run saved"
+    // create play action
+    QAction *play = actionCollection()->addAction(QStringLiteral("keyboardmacros_play"));
+    play->setText(i18n("&Play Macro"));
+    actionCollection()->setDefaultShortcut(play, Qt::CTRL | Qt::ALT | Qt::Key_K);
+    play->setEnabled(false);
+    connect(play, &QAction::triggered, plugin, &KeyboardMacrosPlugin::slotPlay);
+    plugin->m_playAction = play;
 
     // register our gui elements
     mainwindow->guiFactory()->addClient(this);
@@ -188,56 +209,6 @@ KeyboardMacrosPluginView::~KeyboardMacrosPluginView()
     // remove us from the gui
     m_mainWindow->guiFactory()->removeClient(this);
 }
-
-// END
-
-// BEGIN commands
-
-KeyboardMacrosPluginRecordCommand::KeyboardMacrosPluginRecordCommand(KeyboardMacrosPlugin *plugin)
-    : KTextEditor::Command(QStringList() << QStringLiteral("recmac"), plugin)
-    , m_plugin(plugin)
-{
-}
-
-bool KeyboardMacrosPluginRecordCommand::exec(KTextEditor::View *view, const QString &, QString &, const KTextEditor::Range &)
-{
-    if (m_plugin->isRecording()) {
-        // remove from the recording the call to this command…
-    }
-    if (!m_plugin->record(view)) {
-        // display fail in toolview
-    }
-    return true;
-}
-
-bool KeyboardMacrosPluginRecordCommand::help(KTextEditor::View *, const QString &, QString &msg)
-{
-    msg = i18n("<qt><p>Usage: <code>recmac</code></p><p>Start/stop recording a keyboard macro.</p></qt>");
-    return true;
-}
-
-KeyboardMacrosPluginRunCommand::KeyboardMacrosPluginRunCommand(KeyboardMacrosPlugin *plugin)
-    : KTextEditor::Command(QStringList() << QStringLiteral("runmac"), plugin)
-    , m_plugin(plugin)
-{
-}
-
-bool KeyboardMacrosPluginRunCommand::exec(KTextEditor::View *view, const QString &, QString &, const KTextEditor::Range &)
-{
-    if (!m_plugin->run(view)) {
-        // display fail in toolview
-    }
-    return true;
-    // TODO: allow the command to take a name as an argument to run a saved macro (default to the last recorded one)
-}
-
-bool KeyboardMacrosPluginRunCommand::help(KTextEditor::View *, const QString &, QString &msg)
-{
-    msg = i18n("<qt><p>Usage: <code>runmac</code></p><p>Run recorded keyboard macro.</p></qt>");
-    return true;
-}
-
-// TODO: add a new "savemac" command
 
 // END
 

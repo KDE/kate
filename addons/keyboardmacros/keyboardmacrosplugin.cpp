@@ -8,7 +8,6 @@
 #include <QAction>
 #include <QApplication>
 #include <QCoreApplication>
-#include <QDateTime>
 #include <QKeyEvent>
 #include <QKeySequence>
 #include <QList>
@@ -134,7 +133,6 @@ bool KeyboardMacrosPlugin::play()
     Macro::Iterator it;
     for (it = m_macro.begin(); it != m_macro.end(); it++) {
         QKeyEvent *keyEvent = *it;
-        QKeySequence s(keyEvent->key() | keyEvent->modifiers());
         keyEvent->setAccepted(false);
         qApp->sendEvent(qApp->focusWidget(), keyEvent);
     }

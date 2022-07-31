@@ -15,15 +15,13 @@
 #include <KTextEditor/Plugin>
 #include <KTextEditor/View>
 
-class KeyboardMacrosPluginView;
-
 typedef QList<QKeyEvent *> Macro;
 
 class KeyboardMacrosPlugin : public KTextEditor::Plugin
 {
     Q_OBJECT
 
-    friend KeyboardMacrosPluginView;
+    friend class KeyboardMacrosPluginView;
 
 public:
     explicit KeyboardMacrosPlugin(QObject *parent = nullptr, const QList<QVariant> & = QList<QVariant>());
@@ -41,12 +39,12 @@ public:
     bool eventFilter(QObject *obj, QEvent *event) override;
 
 private:
-    KTextEditor::MainWindow *m_mainWindow;
-    QWidget *m_focusWidget;
+    KTextEditor::MainWindow *m_mainWindow = nullptr;
+    QWidget *m_focusWidget = nullptr;
 
-    QAction *m_recordAction;
-    QAction *m_cancelAction;
-    QAction *m_playAction;
+    QAction *m_recordAction = nullptr;
+    QAction *m_cancelAction = nullptr;
+    QAction *m_playAction = nullptr;
 
     bool m_recording = false;
     Macro m_tape;

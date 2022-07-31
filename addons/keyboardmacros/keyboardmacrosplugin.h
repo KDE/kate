@@ -55,6 +55,8 @@ private:
     void cancel();
     bool play();
 
+    void applicationStateChanged(Qt::ApplicationState state);
+
 public Q_SLOTS:
     void slotRecord();
     void slotCancel();

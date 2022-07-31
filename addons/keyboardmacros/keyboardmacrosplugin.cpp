@@ -47,7 +47,7 @@ void KeyboardMacrosPlugin::sendMessage(const QString &text, bool error)
 {
     QVariantMap genericMessage;
     genericMessage.insert(QStringLiteral("type"), error ? QStringLiteral("Error") : QStringLiteral("Info"));
-    genericMessage.insert(QStringLiteral("category"), i18n("Macros"));
+    genericMessage.insert(QStringLiteral("category"), i18n("Keyboard Macros"));
     genericMessage.insert(QStringLiteral("categoryIcon"), QIcon::fromTheme(QStringLiteral("input-keyboard")));
     genericMessage.insert(QStringLiteral("text"), text);
     Q_EMIT message(genericMessage);
@@ -94,10 +94,14 @@ void KeyboardMacrosPlugin::record()
     m_recording = true;
     m_recordAction->setText(i18n("End Macro &Recording"));
     m_cancelAction->setEnabled(true);
+    // connect applicationStateChanged
+    connect(qApp, &QGuiApplication::applicationStateChanged, this, &KeyboardMacrosPlugin::applicationStateChanged);
 }
 
 void KeyboardMacrosPlugin::stop(bool save)
 {
+    // disconnect applicationStateChanged
+    disconnect(qApp, &QGuiApplication::applicationStateChanged, this, &KeyboardMacrosPlugin::applicationStateChanged);
     // stop recording
     qDebug("[KeyboardMacrosPlugin] %s recording", save ? "end" : "cancel");
     m_focusWidget->removeEventFilter(this);
@@ -137,6 +141,25 @@ bool KeyboardMacrosPlugin::play()
         qApp->sendEvent(qApp->focusWidget(), keyEvent);
     }
     return true;
+}
+
+void KeyboardMacrosPlugin::applicationStateChanged(Qt::ApplicationState state)
+{
+    switch (state) {
+    case Qt::ApplicationSuspended:
+        sendMessage(i18n("Application suspended, aborting record."), true);
+        cancel();
+        break;
+    case Qt::ApplicationHidden:
+    case Qt::ApplicationInactive:
+        // FIXME: would be nice to be able to pause recording
+        sendMessage(i18n("Application lost focus, aborting record."), true);
+        cancel();
+        break;
+    case Qt::ApplicationActive:
+        // and resume it here
+        break;
+    }
 }
 
 void KeyboardMacrosPlugin::slotRecord()

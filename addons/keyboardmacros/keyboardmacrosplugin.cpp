@@ -152,12 +152,12 @@ void KeyboardMacrosPlugin::applicationStateChanged(Qt::ApplicationState state)
         break;
     case Qt::ApplicationHidden:
     case Qt::ApplicationInactive:
-        // FIXME: would be nice to be able to pause recording
+        // TODO: would be nice to be able to pause recording
         sendMessage(i18n("Application lost focus, aborting record."), true);
         cancel();
         break;
     case Qt::ApplicationActive:
-        // and resume it here
+        // TODO: and resume it here
         break;
     }
 }

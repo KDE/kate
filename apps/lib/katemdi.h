@@ -269,9 +269,9 @@ private:
     MainWindow *m_mainWin;
 
     KMultiTabBar::KMultiTabBarPosition m_pos{};
-    QSplitter *m_splitter;
+    QSplitter *m_splitter = nullptr;
     KMultiTabBar *m_tabBar = nullptr;
-    QSplitter *m_ownSplit;
+    QSplitter *m_ownSplit = nullptr;
 
     std::map<int, ToolView *> m_idToWidget;
     std::map<ToolView *, int> m_widgetToId;
@@ -282,7 +282,7 @@ private:
      */
     std::vector<ToolView *> m_toolviews;
 
-    int m_lastSize;
+    int m_lastSize = 0;
 
     QSize m_preHideSize;
 

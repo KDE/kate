@@ -10,7 +10,7 @@
 #include "katemdi.h"
 #include "kateapp.h"
 
-// #include "katedebug.h"
+#include "katedebug.h"
 
 #include <KActionCollection>
 #include <KActionMenu>
@@ -293,10 +293,11 @@ bool ToolView::toolVisible() const
 void ToolView::childEvent(QChildEvent *ev)
 {
     // set the widget to be focus proxy if possible
-    if ((ev->type() == QEvent::ChildAdded) && qobject_cast<QWidget *>(ev->child())) {
-        QWidget *widget = qobject_cast<QWidget *>(ev->child());
-        setFocusProxy(widget);
-        layout()->addWidget(widget);
+    if (ev->type() == QEvent::ChildAdded) {
+        if (QWidget *widget = qobject_cast<QWidget *>(ev->child())) {
+            setFocusProxy(widget);
+            layout()->addWidget(widget);
+        }
     }
 
     QFrame::childEvent(ev);
@@ -320,9 +321,6 @@ void ToolView::actionEvent(QActionEvent *event)
 Sidebar::Sidebar(KMultiTabBar::KMultiTabBarPosition pos, MainWindow *mainwin, QWidget *parent)
     : KMultiTabBar(pos, parent)
     , m_mainWin(mainwin)
-    , m_splitter(nullptr)
-    , m_ownSplit(nullptr)
-    , m_lastSize(0)
 {
     hide();
 
@@ -362,9 +360,9 @@ void Sidebar::readConfig()
 void Sidebar::appendStyledTab(const QIcon &icon, int id, const QString &text)
 {
     appendTab(icon, id, text);
-    auto newTab = tab(id);
+    KMultiTabBarTab *newTab = tab(id);
     Q_ASSERT(newTab);
-    connect(newTab, SIGNAL(clicked(int)), this, SLOT(tabClicked(int)));
+    connect(newTab, &KMultiTabBarTab::clicked, this, &Sidebar::tabClicked);
     newTab->installEventFilter(this);
 
     // remember original text, we will need it again if we update the style in updateButtonStyle
@@ -612,7 +610,7 @@ void Sidebar::showToolviewTab(ToolView *widget, bool show)
 {
     auto it = m_widgetToId.find(widget);
     if (it == m_widgetToId.end()) {
-        qWarning() << Q_FUNC_INFO << "Unexpected no id for widget " << widget;
+        qCWarning(LOG_KATE) << Q_FUNC_INFO << "Unexpected no id for widget " << widget;
         return;
     }
     auto *tab = this->tab(it->second);
@@ -740,69 +738,82 @@ void Sidebar::tabClicked(int i)
     }
 }
 
+static void addMoveActions(QMenu &menu, KMultiTabBar::KMultiTabBarPosition position)
+{
+    struct ActionInfo {
+        KMultiTabBar::KMultiTabBarPosition pos;
+        const char *icon;
+        const char *text;
+    };
+    static const std::array<ActionInfo, 4> actionInfo = {{
+        {KMultiTabBar::Left, "go-previous", "Left Sidebar"},
+        {KMultiTabBar::Right, "go-next", "Right Sidebar"},
+        {KMultiTabBar::Top, "go-up", "Top Sidebar"},
+        {KMultiTabBar::Bottom, "go-down", "Bottom Sidebar"},
+    }};
+
+    menu.addSection(QIcon::fromTheme(QStringLiteral("move")), i18n("Move To"));
+
+    for (const auto &info : actionInfo) {
+        if (info.pos == position) {
+            continue;
+        }
+        menu.addAction(QIcon::fromTheme(QLatin1String(info.icon)), i18n(info.text))->setData(info.pos);
+    }
+}
+
 bool Sidebar::eventFilter(QObject *obj, QEvent *ev)
 {
-    if (ev->type() == QEvent::ContextMenu) {
-        QContextMenuEvent *e = static_cast<QContextMenuEvent *>(ev);
-        KMultiTabBarTab *bt = dynamic_cast<KMultiTabBarTab *>(obj);
-        if (bt) {
-            // qCDebug(LOG_KATE) << "Request for popup";
-
-            m_popupButton = bt->id();
-
-            ToolView *w = m_idToWidget[m_popupButton];
-
-            if (w) {
-                QMenu menu(this);
-
-                if (!w->plugin.isNull()) {
-                    if (w->plugin.data()->configPages() > 0) {
-                        menu.addAction(QIcon::fromTheme(QStringLiteral("configure")), i18n("Configure..."))->setData(20);
-                    }
-                }
-
-                menu.addSection(QIcon::fromTheme(QStringLiteral("view_remove")), i18n("Behavior"));
-
-                menu.addAction(w->persistent ? QIcon::fromTheme(QStringLiteral("view-restore")) : QIcon::fromTheme(QStringLiteral("view-fullscreen")),
-                               w->persistent ? i18n("Make Non-Persistent") : i18n("Make Persistent"))
-                    ->setData(10);
-
-                menu.addAction(i18n("Hide Button"))->setData(11);
-
-                menu.addSection(QIcon::fromTheme(QStringLiteral("move")), i18n("Move To"));
-
-                if (position() != 0) {
-                    menu.addAction(QIcon::fromTheme(QStringLiteral("go-previous")), i18n("Left Sidebar"))->setData(0);
-                }
-
-                if (position() != 1) {
-                    menu.addAction(QIcon::fromTheme(QStringLiteral("go-next")), i18n("Right Sidebar"))->setData(1);
-                }
-
-                if (position() != 2) {
-                    menu.addAction(QIcon::fromTheme(QStringLiteral("go-up")), i18n("Top Sidebar"))->setData(2);
-                }
-
-                if (position() != 3) {
-                    menu.addAction(QIcon::fromTheme(QStringLiteral("go-down")), i18n("Bottom Sidebar"))->setData(3);
-                }
-
-                connect(&menu, &QMenu::triggered, this, &Sidebar::buttonPopupActivate);
-
-                menu.exec(e->globalPos());
-
-                return true;
-            }
-        }
-    } else if (ev->type() == QEvent::MouseButtonRelease) {
+    if (ev->type() == QEvent::MouseButtonRelease) {
         // The sidebar's splitter handle handle is release, so we update the sidebar's size. See Sidebar::updateLastSizeOnResize
         QMouseEvent *e = static_cast<QMouseEvent *>(ev);
         if (e->button() == Qt::LeftButton) {
             updateLastSize();
         }
+
+        return false;
     }
 
-    return false;
+    if (ev->type() != QEvent::ContextMenu) {
+        return false;
+    }
+
+    KMultiTabBarTab *multiTabbar = dynamic_cast<KMultiTabBarTab *>(obj);
+    if (!multiTabbar) {
+        return false;
+    }
+    m_popupButton = multiTabbar->id();
+
+    QContextMenuEvent *e = static_cast<QContextMenuEvent *>(ev);
+    // qCDebug(LOG_KATE) << "Request for popup";
+
+    ToolView *tview = m_idToWidget[m_popupButton];
+    if (!tview) {
+        return false;
+    }
+
+    QMenu menu(this);
+
+    if (!tview->plugin.isNull()) {
+        if (tview->plugin.data()->configPages() > 0) {
+            menu.addAction(QIcon::fromTheme(QStringLiteral("configure")), i18n("Configure..."))->setData(20);
+        }
+    }
+
+    menu.addSection(QIcon::fromTheme(QStringLiteral("view_remove")), i18n("Behavior"));
+
+    const QIcon icon = tview->persistent ? QIcon::fromTheme(QStringLiteral("view-restore")) : QIcon::fromTheme(QStringLiteral("view-fullscreen"));
+    const QString txt = tview->persistent ? i18n("Make Non-Persistent") : i18n("Make Persistent");
+    menu.addAction(icon, txt)->setData(10);
+
+    menu.addAction(i18n("Hide Button"))->setData(11);
+
+    addMoveActions(menu, position());
+
+    connect(&menu, &QMenu::triggered, this, &Sidebar::buttonPopupActivate);
+    menu.exec(e->globalPos());
+
+    return true;
 }
 
 void Sidebar::setVisible(bool visible)
@@ -1057,7 +1068,7 @@ MainWindow::MainWindow(QWidget *parentWidget)
     toplevelVBox->addLayout(bottomHBoxLaout);
     m_sidebars[KMultiTabBar::Bottom]->setSplitter(m_vSplitter);
 
-    for (const auto &sidebar : qAsConst(m_sidebars)) {
+    for (const auto &sidebar : m_sidebars) {
         connect(sidebar.get(), &Sidebar::sigShowPluginConfigPage, this, &MainWindow::sigShowPluginConfigPage);
         // all sidebar splitter handles are instantiated, so we can now safely call this
         sidebar->updateLastSizeOnResize();
@@ -1141,10 +1152,9 @@ void MainWindow::setSidebarsVisibleInternal(bool visible, bool noWarning)
     bool old_visible = m_sidebarsVisible;
     m_sidebarsVisible = visible;
 
-    m_sidebars[0]->setVisible(visible);
-    m_sidebars[1]->setVisible(visible);
-    m_sidebars[2]->setVisible(visible);
-    m_sidebars[3]->setVisible(visible);
+    for (auto &sidebar : m_sidebars) {
+        sidebar->setVisible(visible);
+    }
 
     m_guiClient->updateSidebarsVisibleAction();
 
@@ -1170,10 +1180,9 @@ bool MainWindow::sidebarsVisible() const
 
 void MainWindow::setToolViewStyle(KMultiTabBar::KMultiTabBarStyle style)
 {
-    m_sidebars[0]->setStyle(style);
-    m_sidebars[1]->setStyle(style);
-    m_sidebars[2]->setStyle(style);
-    m_sidebars[3]->setStyle(style);
+    for (auto &sidebar : m_sidebars) {
+        sidebar->setStyle(style);
+    }
 }
 
 KMultiTabBar::KMultiTabBarStyle MainWindow::toolViewStyle() const
@@ -1252,10 +1261,10 @@ void MainWindow::startRestore(KConfigBase *config, const QString &group)
         QList<int> hs = (QList<int>() << 200 << 100 << 200);
         QList<int> vs = (QList<int>() << 150 << 100 << 200);
 
-        m_sidebars[0]->setLastSize(hs[0]);
-        m_sidebars[1]->setLastSize(hs[2]);
-        m_sidebars[2]->setLastSize(vs[0]);
-        m_sidebars[3]->setLastSize(vs[2]);
+        m_sidebars[KMultiTabBar::Left]->setLastSize(hs[0]);
+        m_sidebars[KMultiTabBar::Right]->setLastSize(hs[2]);
+        m_sidebars[KMultiTabBar::Top]->setLastSize(vs[0]);
+        m_sidebars[KMultiTabBar::Bottom]->setLastSize(vs[2]);
 
         m_hSplitter->setSizes(hs);
         m_vSplitter->setSizes(vs);
@@ -1294,22 +1303,19 @@ void MainWindow::finishRestore()
         }
 
         // restore the sidebars
-        for (auto &sidebar : qAsConst(m_sidebars)) {
+        for (auto &sidebar : m_sidebars) {
             sidebar->restoreSession(cg);
         }
 
         // restore splitter sizes
-        QList<int> hs = (QList<int>() << 200 << 100 << 200);
-        QList<int> vs = (QList<int>() << 150 << 100 << 200);
-
         // get main splitter sizes ;)
-        hs = cg.readEntry("Kate-MDI-H-Splitter", hs);
-        vs = cg.readEntry("Kate-MDI-V-Splitter", vs);
+        const QList<int> hs = cg.readEntry("Kate-MDI-H-Splitter", QList<int>{200, 100, 200});
+        const QList<int> vs = cg.readEntry("Kate-MDI-V-Splitter", QList<int>{150, 100, 200});
 
-        m_sidebars[0]->setLastSize(hs[0]);
-        m_sidebars[1]->setLastSize(hs[2]);
-        m_sidebars[2]->setLastSize(vs[0]);
-        m_sidebars[3]->setLastSize(vs[2]);
+        m_sidebars[KMultiTabBar::Left]->setLastSize(hs[0]);
+        m_sidebars[KMultiTabBar::Right]->setLastSize(hs[2]);
+        m_sidebars[KMultiTabBar::Top]->setLastSize(vs[0]);
+        m_sidebars[KMultiTabBar::Bottom]->setLastSize(vs[2]);
 
         m_hSplitter->setSizes(hs);
         m_vSplitter->setSizes(vs);
@@ -1328,17 +1334,17 @@ void MainWindow::saveSession(KConfigGroup &config)
     QList<int> hs = m_hSplitter->sizes();
     QList<int> vs = m_vSplitter->sizes();
 
-    if (hs[0] <= 2 && !m_sidebars[0]->splitterVisible()) {
-        hs[0] = m_sidebars[0]->lastSize();
+    if (hs[0] <= 2 && !m_sidebars[KMultiTabBar::Left]->splitterVisible()) {
+        hs[0] = m_sidebars[KMultiTabBar::Left]->lastSize();
     }
-    if (hs[2] <= 2 && !m_sidebars[1]->splitterVisible()) {
-        hs[2] = m_sidebars[1]->lastSize();
+    if (hs[2] <= 2 && !m_sidebars[KMultiTabBar::Right]->splitterVisible()) {
+        hs[2] = m_sidebars[KMultiTabBar::Right]->lastSize();
     }
-    if (vs[0] <= 2 && !m_sidebars[2]->splitterVisible()) {
-        vs[0] = m_sidebars[2]->lastSize();
+    if (vs[0] <= 2 && !m_sidebars[KMultiTabBar::Top]->splitterVisible()) {
+        vs[0] = m_sidebars[KMultiTabBar::Top]->lastSize();
     }
-    if (vs[2] <= 2 && !m_sidebars[3]->splitterVisible()) {
-        vs[2] = m_sidebars[3]->lastSize();
+    if (vs[2] <= 2 && !m_sidebars[KMultiTabBar::Bottom]->splitterVisible()) {
+        vs[2] = m_sidebars[KMultiTabBar::Bottom]->lastSize();
     }
 
     config.writeEntry("Kate-MDI-H-Splitter", hs);
@@ -1349,7 +1355,7 @@ void MainWindow::saveSession(KConfigGroup &config)
     config.writeEntry("Kate-MDI-Sidebar-Visible", m_sidebarsVisible);
 
     // save the sidebars
-    for (auto &sidebar : qAsConst(m_sidebars)) {
+    for (auto &sidebar : m_sidebars) {
         sidebar->saveSession(config);
     }
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
-<gui name="keyboardmacrosplugin" library="libkeyboardmacrosplugin" version="5" translationDomain="katekeyboardmacros">
+<gui name="keyboardmacrosplugin" library="libkeyboardmacrosplugin" version="1" translationDomain="katekeyboardmacros">
   <MenuBar>
     <Menu name="tools">
       <text>&amp;Tools</text>

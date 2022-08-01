@@ -136,9 +136,9 @@ bool KeyboardMacrosPlugin::play()
     if (m_macro.isEmpty()) {
         return false;
     }
-    QKeyEvent *keyEvent;
     Macro::Iterator it;
     for (it = m_macro.begin(); it != m_macro.end(); it++) {
+        QKeyEvent *keyEvent;
         // send key press
         keyEvent = (*it).keyPress();
         qApp->sendEvent(qApp->focusWidget(), keyEvent);

@@ -352,8 +352,8 @@ void Sidebar::readConfig()
         return;
     }
 
-    for (const auto &tabs : m_idToWidget) {
-        updateButtonStyle(tab(tabs.first));
+    for (const auto &info : m_toolviewInfo) {
+        updateButtonStyle(tab(info.index));
     }
 }
 
@@ -457,13 +457,11 @@ ToolView *Sidebar::addWidget(const QIcon &icon, const QString &text, ToolView *w
     // save its pos ;)
     widget->persistent = false;
 
-    m_idToWidget.emplace(newId, widget);
-    m_widgetToId.emplace(widget, newId);
-    m_toolviews.push_back(widget);
-
     // widget => size, for correct size restoration after hide/show
     // starts with invalid size
-    m_widgetToSize.emplace(widget, QSize());
+    m_toolviewInfo.push_back({widget, newId, QSize{}});
+
+    m_toolviews.push_back(widget);
 
     show();
     return widget;
@@ -471,30 +469,25 @@ ToolView *Sidebar::addWidget(const QIcon &icon, const QString &text, ToolView *w
 
 bool Sidebar::removeWidget(ToolView *widget)
 {
-    if (m_widgetToId.find(widget) == m_widgetToId.end()) {
+    auto it = findByView(widget);
+    if (it == m_toolviewInfo.end()) {
         return false;
     }
 
-    removeTab(m_widgetToId[widget]);
-
-    m_idToWidget.erase(m_widgetToId[widget]);
-    m_widgetToId.erase(widget);
-    m_widgetToSize.erase(widget);
+    removeTab(it->index);
+    m_toolviewInfo.erase(it);
     m_toolviews.erase(std::remove(m_toolviews.begin(), m_toolviews.end(), widget), m_toolviews.end());
 
-    bool anyVis = false;
-    for (const auto &[id, wid] : m_idToWidget) {
-        if (wid->isVisible()) {
-            anyVis = true;
-            break;
-        }
-    }
-
-    if (m_idToWidget.empty()) {
+    if (m_toolviewInfo.empty()) {
         m_ownSplit->hide();
         hide();
-    } else if (!anyVis) {
-        m_ownSplit->hide();
+    } else {
+        const bool anyVisible = std::any_of(m_toolviewInfo.cbegin(), m_toolviewInfo.cend(), [](const ToolViewInfo &info) {
+            return info.tview->isVisible();
+        });
+        if (!anyVisible) {
+            m_ownSplit->hide();
+        }
     }
 
     return true;
@@ -502,13 +495,15 @@ bool Sidebar::removeWidget(ToolView *widget)
 
 bool Sidebar::showWidget(ToolView *widget)
 {
-    if (m_widgetToId.find(widget) == m_widgetToId.end()) {
+    auto it = findByView(widget);
+    if (it == m_toolviewInfo.end()) {
         return false;
     }
 
     bool unfixSize = false;
     // hide other non-persistent views
-    for (const auto &[id, wid] : m_idToWidget) {
+    for (const auto &info : m_toolviewInfo) {
+        ToolView *wid = info.tview;
         if (wid != widget && !wid->persistent) {
             hideWidget(wid);
         }
@@ -522,13 +517,14 @@ bool Sidebar::showWidget(ToolView *widget)
         }
     }
 
-    setTab(m_widgetToId[widget], true);
+    ToolViewInfo &viewInfo = *it;
+    setTab(viewInfo.index, true);
 
     /**
      * resize to right size again and show, else artifacts
      */
-    if (m_widgetToSize[widget].isValid()) {
-        widget->resize(m_widgetToSize[widget]);
+    if (viewInfo.size.isValid()) {
+        widget->resize(viewInfo.size);
     }
 
     /**
@@ -546,10 +542,9 @@ bool Sidebar::showWidget(ToolView *widget)
     // (later on, when all event processing has happened)
     auto func = [this]() {
         auto wsizes = m_ownSplit->sizes();
-        for (const auto &[id, widget] : m_idToWidget) {
-            Q_UNUSED(id)
-            widget->setMinimumSize(QSize(0, 0));
-            widget->setMaximumSize(QSize(QWIDGETSIZE_MAX, QWIDGETSIZE_MAX));
+        for (const auto &info : m_toolviewInfo) {
+            info.tview->setMinimumSize(QSize(0, 0));
+            info.tview->setMaximumSize(QSize(QWIDGETSIZE_MAX, QWIDGETSIZE_MAX));
         }
         m_ownSplit->setSizes(wsizes);
     };
@@ -569,17 +564,18 @@ bool Sidebar::showWidget(ToolView *widget)
 
 bool Sidebar::hideWidget(ToolView *widget)
 {
-    if (m_widgetToId.find(widget) == m_widgetToId.end()) {
+    auto it = findByView(widget);
+    if (it == m_toolviewInfo.end()) {
         return false;
     }
 
     updateLastSize();
 
     bool anyVis = false;
-    for (const auto &[id, wid] : m_idToWidget) {
+    for (auto &[wid, _, size] : m_toolviewInfo) {
         if (wid == widget) {
             if (widget->isVisible()) {
-                m_widgetToSize[widget] = widget->size();
+                size = widget->size();
             }
         } else if (wid->isVisible()) {
             anyVis = true;
@@ -590,7 +586,7 @@ bool Sidebar::hideWidget(ToolView *widget)
     widget->hide();
 
     // lower tab
-    setTab(m_widgetToId[widget], false);
+    setTab(it->index, false);
 
     if (!anyVis) {
         if (m_ownSplit->isVisible()) {
@@ -608,12 +604,13 @@ bool Sidebar::hideWidget(ToolView *widget)
 
 void Sidebar::showToolviewTab(ToolView *widget, bool show)
 {
-    auto it = m_widgetToId.find(widget);
-    if (it == m_widgetToId.end()) {
+    auto it = findByView(widget);
+    if (it == m_toolviewInfo.end()) {
         qCWarning(LOG_KATE) << Q_FUNC_INFO << "Unexpected no id for widget " << widget;
         return;
     }
-    auto *tab = this->tab(it->second);
+
+    auto *tab = this->tab(it->index);
     if (widget->tabButtonVisible() == show) {
         return;
     } else {
@@ -663,9 +660,9 @@ void Sidebar::handleCollapse(int pos, int index)
 
         // If the sidebar is collapsed, we need to hide the activated plugin-views since they are,
         // visually speaking, hidden from the user but technically isVisible() would still return true
-        for (const auto &[id, wid] : m_idToWidget) {
-            if (wid->isVisible()) {
-                wid->hide();
+        for (const auto &info : m_toolviewInfo) {
+            if (info.tview->isVisible()) {
+                info.tview->hide();
             }
         }
 
@@ -674,7 +671,7 @@ void Sidebar::handleCollapse(int pos, int index)
         m_isPreviouslyCollapsed = true;
     } else if (m_isPreviouslyCollapsed && m_resizePlaceholder->isVisible()) {
         // If the sidebar is manually expanded again, we need to show the activated plugin-views again
-        for (const auto &[id, wid] : m_idToWidget) {
+        for (const auto &[wid, id, _] : m_toolviewInfo) {
             if (isTabRaised(id)) {
                 wid->show();
             }
@@ -687,7 +684,8 @@ void Sidebar::handleCollapse(int pos, int index)
 
 void Sidebar::expandSidebar(ToolView *widget)
 {
-    if (m_widgetToId.find(widget) == m_widgetToId.end()) {
+    auto it = findByView(widget);
+    if (it == m_toolviewInfo.end()) {
         return;
     }
 
@@ -700,14 +698,14 @@ void Sidebar::expandSidebar(ToolView *widget)
         if (m_lastSize > 2) { // use last size if available (see updateLastSize())
             wsizes[ownSplitIndex] = m_lastSize;
         } else if (m_splitter->orientation() == Qt::Vertical) {
-            wsizes[ownSplitIndex] = qMax(widget->minimumSizeHint().height(), m_widgetToSize[widget].height());
+            wsizes[ownSplitIndex] = qMax(widget->minimumSizeHint().height(), it->size.height());
         } else {
-            wsizes[ownSplitIndex] = qMax(widget->minimumSizeHint().width(), m_widgetToSize[widget].width());
+            wsizes[ownSplitIndex] = qMax(widget->minimumSizeHint().width(), it->size.width());
         }
 
         // when the sidebar was collapsed, the activated widgets were hidden, so we need to show them again
         // see Sidebar::handleCollapse
-        for (const auto &[id, wid] : m_idToWidget) {
+        for (const auto &[wid, id, _] : m_toolviewInfo) {
             if (isTabRaised(id)) {
                 wid->show();
             }
@@ -721,20 +719,20 @@ void Sidebar::expandSidebar(ToolView *widget)
 
 void Sidebar::tabClicked(int i)
 {
-    ToolView *w = m_idToWidget[i];
-
-    if (!w) {
+    auto it = findByIndex(i);
+    ToolView *toolView = it != m_toolviewInfo.end() ? it->tview : nullptr;
+    if (!toolView) {
         return;
     }
 
     if (isTabRaised(i) || isCollapsed()) {
-        showWidget(w);
-        w->setFocus();
+        showWidget(toolView);
+        toolView->setFocus();
         // When sidebar is collapsed and the toolview was pressed, we only expand
         // the toolview/sidebar, so the tab must remain activated
-        setTab(m_widgetToId[w], true);
+        setTab(it->index, true);
     } else {
-        hideWidget(w);
+        hideWidget(toolView);
     }
 }
 
@@ -787,7 +785,8 @@ bool Sidebar::eventFilter(QObject *obj, QEvent *ev)
     QContextMenuEvent *e = static_cast<QContextMenuEvent *>(ev);
     // qCDebug(LOG_KATE) << "Request for popup";
 
-    ToolView *tview = m_idToWidget[m_popupButton];
+    auto it = findByIndex(m_popupButton);
+    ToolView *tview = it != m_toolviewInfo.end() ? it->tview : nullptr;
     if (!tview) {
         return false;
     }
@@ -819,7 +818,7 @@ bool Sidebar::eventFilter(QObject *obj, QEvent *ev)
 void Sidebar::setVisible(bool visible)
 {
     // visible==true means show-request
-    if (visible && (m_idToWidget.empty() || !m_mainWin->sidebarsVisible())) {
+    if (visible && (m_toolviewInfo.empty() || !m_mainWin->sidebarsVisible())) {
         return;
     }
 
@@ -828,9 +827,9 @@ void Sidebar::setVisible(bool visible)
 
 void Sidebar::buttonPopupActivate(QAction *a)
 {
-    int id = a->data().toInt();
-    ToolView *w = m_idToWidget[m_popupButton];
-
+    const int id = a->data().toInt();
+    auto it = findByIndex(m_popupButton);
+    ToolView *w = it != m_toolviewInfo.end() ? it->tview : nullptr;
     if (!w) {
         return;
     }
@@ -917,7 +916,7 @@ void Sidebar::restoreSession(KConfigGroup &config)
         // then: remove this items from the button bar
         // do this backwards, to minimize the relayout efforts
         for (int i = toolViewsCount - 1; i >= firstWrong; --i) {
-            removeTab(m_widgetToId[m_toolviews[i]]);
+            removeTab(indexForView(m_toolviews[i]));
         }
 
         // insert the reshuffled things in order :)
@@ -927,7 +926,7 @@ void Sidebar::restoreSession(KConfigGroup &config)
             m_toolviews[firstWrong + i] = tv;
 
             // re-add the button
-            int newId = m_widgetToId[tv];
+            int newId = indexForView(tv);
             appendStyledTab(tv->icon, newId, tv->text);
 
             // reshuffle in splitter: move to last
@@ -952,7 +951,7 @@ void Sidebar::restoreSession(KConfigGroup &config)
             anyVis = tv->toolVisible();
         }
 
-        auto id = m_widgetToId[tv];
+        const int id = indexForView(tv);
         setTab(id, tv->toolVisible());
 
         if (tv->toolVisible()) {
@@ -978,8 +977,7 @@ void Sidebar::restoreSession(KConfigGroup &config)
 void Sidebar::saveSession(KConfigGroup &config)
 {
     // store the own splitter sizes
-    QList<int> s = m_ownSplit->sizes();
-    config.writeEntry(QStringLiteral("Kate-MDI-Sidebar-%1-Splitter").arg(position()), s);
+    config.writeEntry(QStringLiteral("Kate-MDI-Sidebar-%1-Splitter").arg(position()), m_ownSplit->sizes());
 
     // store the data about all toolviews in this sidebar ;)
     for (int i = 0; i < (int)m_toolviews.size(); ++i) {
@@ -989,8 +987,7 @@ void Sidebar::saveSession(KConfigGroup &config)
         config.writeEntry(QStringLiteral("Kate-MDI-ToolView-%1-Sidebar-Position").arg(tv->id), i);
         config.writeEntry(QStringLiteral("Kate-MDI-ToolView-%1-Visible").arg(tv->id), tv->toolVisible());
         config.writeEntry(QStringLiteral("Kate-MDI-ToolView-%1-Persistent").arg(tv->id), tv->persistent);
-        auto it = m_widgetToId.find(tv);
-        if (it == m_widgetToId.end()) {
+        if (findByView(tv) == m_toolviewInfo.end()) {
             qWarning() << Q_FUNC_INFO << "Unexpected no tab id for toolview: " << tv;
             continue;
         }

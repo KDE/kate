@@ -35,7 +35,7 @@ public:
     {
         return new QKeyEvent(QEvent::KeyRelease, key, modifiers, text);
     };
-    friend QDebug operator<<(QDebug dbg, KeyCombination &kc)
+    friend QDebug operator<<(QDebug dbg, const KeyCombination &kc)
     {
         return dbg << QKeySequence(kc.key | kc.modifiers).toString();
     };

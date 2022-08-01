@@ -23,7 +23,7 @@ private:
     QString text;
 
 public:
-    KeyCombination(QKeyEvent *keyEvent)
+    KeyCombination(const QKeyEvent *keyEvent)
         : key(keyEvent->key())
         , modifiers(keyEvent->modifiers())
         , text(keyEvent->text()){};

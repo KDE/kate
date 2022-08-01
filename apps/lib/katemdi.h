@@ -86,6 +86,7 @@ class ToolView : public QFrame
     Q_OBJECT
 
     friend class Sidebar;
+    friend class MultiTabBar;
     friend class MainWindow;
     friend class GUIClient;
     friend class ToggleToolViewAction;
@@ -182,14 +183,61 @@ private:
     QString text;
 };
 
-class Sidebar : public KMultiTabBar
+class MultiTabBar : public QWidget
 {
     Q_OBJECT
 
 public:
-    Sidebar(KMultiTabBar::KMultiTabBarPosition pos, class MainWindow *mainwin, QWidget *parent);
+    MultiTabBar(KMultiTabBar::KMultiTabBarPosition pos, Sidebar *sb, int idx);
+    ~MultiTabBar();
 
-    void setSplitter(QSplitter *sp);
+    KMultiTabBarTab *addTab(int id, ToolView *tv);
+    void setTabActive(int id, bool state);
+    void removeTab(int id);
+    void showToolView(int id);
+    void hideToolView(int id);
+
+    bool isToolActive() const;
+    void collapseToolView() const;
+    bool expandToolView() const;
+
+    KMultiTabBar *tabBar() const
+    {
+        return m_multiTabBar;
+    }
+
+    int tabCount() const
+    {
+        return m_tabList.size();
+    }
+
+    int lastAddedId() const
+    {
+        return m_tabList.constLast();
+    }
+
+Q_SIGNALS:
+    void lastTabRemoved(MultiTabBar *);
+
+private Q_SLOTS:
+    void tabClicked(int);
+
+private:
+    Sidebar *m_sb;
+    QStackedWidget *m_stack;
+    KMultiTabBar *m_multiTabBar;
+    QList<int> m_tabList;
+    int m_activeTab = 0;
+};
+
+class Sidebar : public QSplitter
+{
+    Q_OBJECT
+
+    friend class MultiTabBar;
+
+public:
+    Sidebar(KMultiTabBar::KMultiTabBarPosition pos, QSplitter *sp, class MainWindow *mainwin, QWidget *parent);
 
     QSize sizeHint() const override;
 
@@ -200,32 +248,46 @@ public:
     void updateLastSizeOnResize();
 
 public:
-    ToolView *addWidget(const QIcon &icon, const QString &text, ToolView *widget);
-    bool removeWidget(ToolView *widget);
+    ToolView *addToolView(const QIcon &icon, const QString &text, ToolView *widget);
+    bool removeToolView(ToolView *widget);
 
-    bool showWidget(ToolView *widget);
-    bool hideWidget(ToolView *widget);
+    bool showToolView(ToolView *widget);
+    bool hideToolView(ToolView *widget);
 
     void showToolviewTab(ToolView *widget, bool show);
 
     bool isCollapsed();
-    void handleCollapse(int pos, int index);
-    void expandSidebar(ToolView *widget);
+    void expandSidebar();
+    void collapseSidebar();
+
+    KMultiTabBar::KMultiTabBarPosition position() const
+    {
+        return m_tabBarPosition;
+    }
+
+    bool isVertical() const
+    {
+        return m_tabBarPosition == KMultiTabBar::Right || m_tabBarPosition == KMultiTabBar::Left;
+    }
+
+    void setStyle(KMultiTabBar::KMultiTabBarStyle style);
+
+    KMultiTabBar::KMultiTabBarStyle tabStyle() const
+    {
+        return m_tabBarStyle;
+    }
 
     void setLastSize(int s)
     {
         m_lastSize = s;
     }
+
     int lastSize() const
     {
         return m_lastSize;
     }
-    void updateLastSize();
 
-    bool splitterVisible() const
-    {
-        return m_ownSplit->isVisible();
-    }
+    void updateLastSize();
 
     void restoreSession();
 
@@ -244,20 +306,48 @@ public:
 public Q_SLOTS:
     // reimplemented, to block a show() call if all sidebars are forced hidden
     void setVisible(bool visible) override;
+
 private Q_SLOTS:
-    void tabClicked(int);
     void readConfig();
+    void handleCollapse(int pos, int index);
+    void ownSplitMoved(int pos, int index);
+    void barSplitMoved(int pos, int index);
+    void tabBarIsEmpty(MultiTabBar *bar);
 
 private:
+    bool adjustSplitterSections();
+
     /**
      * Append a tab with our styling & needed connections/event filter.
      */
-    void appendStyledTab(const QIcon &icon, int id, const QString &text);
+    void appendStyledTab(int id, MultiTabBar *bar, ToolView *widget);
 
     /**
      * Update style of button to our style.
      */
     void updateButtonStyle(KMultiTabBarTab *button);
+
+    MultiTabBar *insertTabBar(int idx = -1);
+
+    MultiTabBar *tabBar(int idx) const
+    {
+        return static_cast<MultiTabBar *>(widget(idx));
+    }
+
+    MultiTabBar *tabBar(ToolView *tv) const
+    {
+        return m_widgetToTabBar.at(tv);
+    }
+
+    KMultiTabBar *kmTabBar(ToolView *widget) const
+    {
+        return m_widgetToTabBar.at(widget)->tabBar();
+    }
+
+    int tabBarCount() const
+    {
+        return count();
+    }
 
 protected:
     bool eventFilter(QObject *obj, QEvent *ev) override;
@@ -266,83 +356,36 @@ private Q_SLOTS:
     void buttonPopupActivate(QAction *);
 
 private:
-    void showRaisedTabs();
-
     enum ActionIds {
-        PersistAction = 10,
         HideButtonAction = 11,
         ConfigureAction = 20,
+        ToOwnSectAction = 30,
+        UpLeftAction = 31,
+        DownRightAction = 32,
     };
 
     MainWindow *m_mainWin;
 
-    KMultiTabBar::KMultiTabBarPosition m_pos{};
-    QSplitter *m_splitter = nullptr;
-    KMultiTabBar *m_tabBar = nullptr;
-    QSplitter *m_ownSplit = nullptr;
+    KMultiTabBar::KMultiTabBarPosition m_tabBarPosition{};
+    KMultiTabBar::KMultiTabBarStyle m_tabBarStyle{};
+    QSplitter *m_splitter;
+    QSplitter *m_ownSplit;
+    const int m_ownSplitIndex;
 
-public:
-    struct ToolViewInfo {
-        ToolView *tview = nullptr;
-        int index = 0;
-        QSize size;
-    };
-
-private:
-    std::vector<ToolViewInfo> m_toolviewInfo;
-
-    using ToolViewVec = std::vector<Sidebar::ToolViewInfo>;
-
-    ToolViewVec::iterator findByView(KateMDI::ToolView *v)
-    {
-        return std::find_if(m_toolviewInfo.begin(), m_toolviewInfo.end(), [v](const Sidebar::ToolViewInfo &info) {
-            return info.tview == v;
-        });
-    }
-
-    ToolViewVec::const_iterator findByView(KateMDI::ToolView *v) const
-    {
-        return std::find_if(m_toolviewInfo.begin(), m_toolviewInfo.end(), [v](const Sidebar::ToolViewInfo &info) {
-            return info.tview == v;
-        });
-    }
-
-    ToolViewVec::iterator findByIndex(int id)
-    {
-        return std::find_if(m_toolviewInfo.begin(), m_toolviewInfo.end(), [id](const Sidebar::ToolViewInfo &info) {
-            return info.index == id;
-        });
-    }
-
-    ToolViewVec::const_iterator findByIndex(int id) const
-    {
-        return std::find_if(m_toolviewInfo.begin(), m_toolviewInfo.end(), [id](const Sidebar::ToolViewInfo &info) {
-            return info.index == id;
-        });
-    }
-
-    int indexForView(KateMDI::ToolView *v) const
-    {
-        auto it = findByView(v);
-        return it != m_toolviewInfo.end() ? it->index : 0;
-    }
+    std::map<int, ToolView *> m_idToWidget;
+    std::map<ToolView *, int> m_widgetToId;
+    std::map<ToolView *, MultiTabBar *> m_widgetToTabBar;
 
     /**
      * list of all toolviews around in this sidebar
      */
     std::vector<ToolView *> m_toolviews;
 
-    int m_lastSize = 0;
-
-    QSize m_preHideSize;
-
+    int m_lastSize;
     int m_popupButton = 0;
-
-    QLabel *m_resizePlaceholder;
+    QPointer<QLabel> m_resizePlaceholder;
     bool m_isPreviouslyCollapsed = false;
-
     bool m_showTextForLeftRight = false;
-
     int m_leftRightSidebarIconSize = 32;
 
 Q_SIGNALS:
@@ -444,6 +487,7 @@ protected:
      */
     void toolViewDeleted(ToolView *widget);
 
+public:
     /**
      * central widget ;)
      * use this as parent for your content
@@ -452,6 +496,7 @@ protected:
      */
     QWidget *centralWidget() const;
 
+protected:
     /**
      * Status bar area stacked widget.
      * We plug in our status bars from the KTextEditor::Views here

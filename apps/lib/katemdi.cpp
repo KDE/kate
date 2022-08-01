@@ -24,6 +24,7 @@
 
 #include <QContextMenuEvent>
 #include <QDomDocument>
+#include <QHBoxLayout>
 #include <QLabel>
 #include <QMenu>
 #include <QSizePolicy>
@@ -229,7 +230,6 @@ ToolView::ToolView(MainWindow *mainwin, Sidebar *sidebar, QWidget *parent)
     , m_sidebar(sidebar)
     , m_toolbar(nullptr)
     , m_toolVisible(false)
-    , persistent(false)
 {
     // try to fix resize policy
     QSizePolicy policy(QSizePolicy::Preferred, QSizePolicy::Preferred);
@@ -321,11 +321,178 @@ void ToolView::actionEvent(QActionEvent *event)
 
 // BEGIN SIDEBAR
 
-Sidebar::Sidebar(KMultiTabBar::KMultiTabBarPosition pos, MainWindow *mainwin, QWidget *parent)
-    : KMultiTabBar(pos, parent)
-    , m_mainWin(mainwin)
+MultiTabBar::MultiTabBar(KMultiTabBar::KMultiTabBarPosition pos, Sidebar *sb, int idx)
+    : m_sb(sb)
+    , m_stack(new QStackedWidget())
+    , m_multiTabBar(new KMultiTabBar(pos, this))
 {
-    hide();
+    setProperty("is-multi-tabbar", true);
+    QVBoxLayout *layout = new QVBoxLayout(this);
+    layout->setContentsMargins(0, 0, 0, 0);
+    layout->setSpacing(0);
+    layout->addWidget(m_multiTabBar);
+
+    m_sb->m_ownSplit->insertWidget(idx, m_stack);
+    m_stack->hide();
+}
+
+MultiTabBar::~MultiTabBar()
+{
+    // Don't forget to remove our stack from the splitter
+    m_stack->deleteLater();
+}
+
+KMultiTabBarTab *MultiTabBar::addTab(int id, ToolView *tv)
+{
+    m_stack->addWidget(tv);
+    m_tabList.append(id);
+    m_multiTabBar->appendTab(tv->icon, id, tv->text);
+    auto newTab = m_multiTabBar->tab(id);
+
+    connect(newTab, &KMultiTabBarTab::clicked, this, &MultiTabBar::tabClicked);
+
+    m_sb->m_widgetToTabBar.emplace(tv, this);
+
+    return newTab;
+}
+
+void MultiTabBar::tabClicked(int id)
+{
+    if (m_multiTabBar->isTabRaised(id) || m_sb->isCollapsed()) {
+        showToolView(id);
+    } else {
+        hideToolView(id);
+    }
+
+    m_sb->expandSidebar();
+}
+
+void MultiTabBar::removeTab(int id)
+{
+    m_tabList.removeAll(id);
+    m_multiTabBar->removeTab(id);
+    ToolView *tv = m_sb->m_idToWidget.at(id);
+    m_sb->m_widgetToTabBar.erase(tv);
+
+    bool hideView = (m_stack->currentWidget() == tv);
+    m_stack->removeWidget(tv);
+
+    if (tabCount() == 0) {
+        m_activeTab = 0; // Without any tab left, there is no one active
+        Q_EMIT lastTabRemoved(this);
+        return;
+    }
+
+    if (!hideView) {
+        // Some other than the active is removed, no more to do
+        return;
+    }
+
+    m_activeTab = 0; // Ensure we are up to date, reporting nonsense is dangerous
+    tv = static_cast<ToolView *>(m_stack->currentWidget());
+    if (tv) {
+        hideToolView(m_sb->m_widgetToId.at(tv));
+    }
+}
+
+void MultiTabBar::showToolView(int id)
+{
+    setTabActive(id, true);
+    expandToolView();
+}
+
+void MultiTabBar::hideToolView(int id)
+{
+    setTabActive(id, false);
+    collapseToolView();
+}
+
+void MultiTabBar::setTabActive(int id, bool state)
+{
+    // Only change m_activeTab when state is true
+
+    if (m_activeTab == id) {
+        // Well, normally should be state always==false, but who knows...
+        m_multiTabBar->setTab(id, state);
+        m_sb->m_idToWidget.at(id)->setToolVisible(state);
+        m_activeTab = state ? id : 0;
+        return;
+    }
+
+    if (m_activeTab && state) {
+        // Obviously the active tool is changed, disable the old one
+        m_multiTabBar->setTab(m_activeTab, false);
+        m_sb->m_idToWidget.at(m_activeTab)->setToolVisible(false);
+    }
+
+    m_multiTabBar->setTab(id, state);
+    m_sb->m_idToWidget.at(id)->setToolVisible(state);
+    m_activeTab = state ? id : m_activeTab;
+}
+
+bool MultiTabBar::isToolActive() const
+{
+    return m_activeTab > 0;
+}
+
+void MultiTabBar::collapseToolView() const
+{
+    m_stack->hide();
+
+    if (m_stack->count() < 1) {
+        return;
+    }
+
+    static_cast<ToolView *>(m_stack->currentWidget())->setToolVisible(false);
+}
+
+bool MultiTabBar::expandToolView() const
+{
+    if (!m_activeTab) {
+        return false;
+    }
+
+    if (m_stack->count() < 1) {
+        return false;
+    }
+
+    ToolView *tv = m_sb->m_idToWidget.at(m_activeTab);
+    tv->setToolVisible(true);
+    tv->setFocus(); // This is for some tools nice, for some other not
+    m_stack->setCurrentWidget(tv);
+    m_stack->show();
+
+    return true;
+}
+
+Sidebar::Sidebar(KMultiTabBar::KMultiTabBarPosition pos, QSplitter *sp, MainWindow *mainwin, QWidget *parent)
+    : QSplitter(parent)
+    , m_mainWin(mainwin)
+    , m_tabBarPosition(pos)
+    , m_splitter(sp)
+    , m_ownSplit(new QSplitter(sp))
+    , m_ownSplitIndex(sp->indexOf(m_ownSplit))
+    , m_lastSize(200) // Default used when no session to restore is around
+{
+    setChildrenCollapsible(false);
+
+    if (isVertical()) {
+        m_ownSplit->setOrientation(Qt::Vertical);
+        setOrientation(Qt::Vertical);
+        setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
+    } else {
+        m_ownSplit->setOrientation(Qt::Horizontal);
+        setOrientation(Qt::Horizontal);
+        setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    }
+
+    m_ownSplit->setChildrenCollapsible(false);
+
+    connect(this, &QSplitter::splitterMoved, this, &Sidebar::barSplitMoved);
+    connect(m_ownSplit, &QSplitter::splitterMoved, this, &Sidebar::ownSplitMoved);
+    connect(m_splitter, &QSplitter::splitterMoved, this, &Sidebar::handleCollapse);
+
+    insertTabBar();
 
     // handle config changes & apply initial config
     connect(KateApp::self(), &KateApp::configurationChanged, this, &Sidebar::readConfig);
@@ -355,21 +522,20 @@ void Sidebar::readConfig()
         return;
     }
 
-    for (const auto &info : m_toolviewInfo) {
-        updateButtonStyle(tab(info.index));
+    for (const auto &[id, wid] : m_idToWidget) {
+        updateButtonStyle(kmTabBar(wid)->tab(id));
     }
 }
 
-void Sidebar::appendStyledTab(const QIcon &icon, int id, const QString &text)
+void Sidebar::appendStyledTab(int id, MultiTabBar *bar, ToolView *widget)
 {
-    appendTab(icon, id, text);
-    KMultiTabBarTab *newTab = tab(id);
+    auto newTab = bar->addTab(id, widget);
+
     Q_ASSERT(newTab);
-    connect(newTab, &KMultiTabBarTab::clicked, this, &Sidebar::tabClicked);
     newTab->installEventFilter(this);
 
     // remember original text, we will need it again if we update the style in updateButtonStyle
-    newTab->setProperty("kate_original_text", text);
+    newTab->setProperty("kate_original_text", widget->text);
 
     // fixup styling
     updateButtonStyle(newTab);
@@ -391,37 +557,40 @@ void Sidebar::updateButtonStyle(KMultiTabBarTab *button)
     }
 }
 
+void Sidebar::setStyle(KMultiTabBar::KMultiTabBarStyle style)
+{
+    m_tabBarStyle = style;
+
+    for (int i = 0; i < tabBarCount(); ++i) {
+        tabBar(i)->tabBar()->setStyle(style);
+    }
+}
+
 QSize Sidebar::sizeHint() const
 {
     return minimumSizeHint();
 }
 
-void Sidebar::setSplitter(QSplitter *sp)
+MultiTabBar *Sidebar::insertTabBar(int idx /* = -1*/)
 {
-    // if splitter was set before, disconnect handler for collapse
-    if (m_splitter) {
-        disconnect(m_splitter, &QSplitter::splitterMoved, this, &Sidebar::handleCollapse);
-        const int ownSplitIndex = m_splitter->indexOf(m_ownSplit);
-        for (int i : {ownSplitIndex, ownSplitIndex + 1}) {
-            if (i > 0 && i < m_splitter->count()) {
-                m_splitter->handle(i)->removeEventFilter(this);
-            }
-        }
+    auto *newBar = new MultiTabBar(m_tabBarPosition, this, idx);
+    newBar->installEventFilter(this);
+    newBar->tabBar()->setStyle(tabStyle());
+    insertWidget(idx, newBar);
+    auto sections = sizes();
+    // For whatever reason need the splitter some help for halfway nice new
+    // section sizes. We only support with this math to insert below some section,
+    // not above like at first place, but that's ok atm
+    idx = idx < 0 ? sections.count() - 1 : idx;
+    if (idx) {
+        sections[idx] = sections.at(idx - 1) / 2;
+        sections[idx - 1] = sections.at(idx);
+        setSizes(sections);
     }
 
-    m_splitter = sp;
-    m_ownSplit = new QSplitter((position() == KMultiTabBar::Top || position() == KMultiTabBar::Bottom) ? Qt::Horizontal : Qt::Vertical, m_splitter);
-    m_ownSplit->setChildrenCollapsible(false);
-    m_ownSplit->hide();
+    connect(newBar, &MultiTabBar::lastTabRemoved, this, &Sidebar::tabBarIsEmpty);
 
-    // Add resize placeholder (an empty QLabel) so that sidebar will still be resizable after collapse
-    // see Sidebar::handleCollapse
-    m_resizePlaceholder = new QLabel();
-    m_ownSplit->addWidget(m_resizePlaceholder);
-    m_resizePlaceholder->hide();
-    m_resizePlaceholder->setMinimumSize(QSize(160, 160)); // Same minimum size set in ToolView::minimumSizeHint
-
-    connect(m_splitter, &QSplitter::splitterMoved, this, &Sidebar::handleCollapse);
+    return newBar;
 }
 
 void Sidebar::updateLastSizeOnResize()
@@ -432,188 +601,90 @@ void Sidebar::updateLastSizeOnResize()
     m_splitter->handle(splitHandleIndex)->installEventFilter(this);
 }
 
-ToolView *Sidebar::addWidget(const QIcon &icon, const QString &text, ToolView *widget)
+ToolView *Sidebar::addToolView(const QIcon &icon, const QString &text, ToolView *widget)
 {
     if (widget) {
         if (widget->sidebar() == this) {
             return widget;
         }
 
-        widget->sidebar()->removeWidget(widget);
+        widget->sidebar()->removeToolView(widget);
+    }
+
+    if (!widget) {
+        widget = new ToolView(m_mainWin, this, nullptr);
+        widget->icon = icon;
+        widget->text = text;
+    } else {
+        widget->m_sidebar = this;
     }
 
     static int id = 0;
     int newId = ++id;
-    appendStyledTab(icon, newId, text);
 
-    if (!widget) {
-        widget = new ToolView(m_mainWin, this, m_ownSplit);
-        widget->hide();
-        widget->icon = icon;
-        widget->text = text;
-    } else {
-        widget->hide();
-        widget->setParent(m_ownSplit);
-        widget->m_sidebar = this;
-    }
-
-    // save its pos ;)
-    widget->persistent = false;
-
-    // widget => size, for correct size restoration after hide/show
-    // starts with invalid size
-    m_toolviewInfo.push_back({widget, newId, QSize{}});
-
+    m_idToWidget.emplace(newId, widget);
+    m_widgetToId.emplace(widget, newId);
     m_toolviews.push_back(widget);
+
+    appendStyledTab(newId, tabBar(0), widget);
 
     show();
     return widget;
 }
 
-bool Sidebar::removeWidget(ToolView *widget)
+bool Sidebar::removeToolView(ToolView *widget)
 {
-    auto it = findByView(widget);
-    if (it == m_toolviewInfo.end()) {
+    if (m_widgetToId.find(widget) == m_widgetToId.end()) {
         return false;
     }
 
-    removeTab(it->index);
-    m_toolviewInfo.erase(it);
+    int id = m_widgetToId.at(widget);
+
+    auto tbar = m_widgetToTabBar.at(widget);
+    tbar->removeTab(id);
+
+    m_idToWidget.erase(id);
+    m_widgetToId.erase(widget);
     m_toolviews.erase(std::remove(m_toolviews.begin(), m_toolviews.end(), widget), m_toolviews.end());
 
-    if (m_toolviewInfo.empty()) {
-        m_ownSplit->hide();
-        hide();
-    } else {
-        const bool anyVisible = std::any_of(m_toolviewInfo.cbegin(), m_toolviewInfo.cend(), [](const ToolViewInfo &info) {
-            return info.tview->isVisible();
-        });
-        if (!anyVisible) {
-            m_ownSplit->hide();
-        }
-    }
+    expandSidebar();
 
     return true;
 }
 
-bool Sidebar::showWidget(ToolView *widget)
+bool Sidebar::showToolView(ToolView *widget)
 {
-    auto it = findByView(widget);
-    if (it == m_toolviewInfo.end()) {
+    if (m_widgetToId.find(widget) == m_widgetToId.end()) {
         return false;
     }
 
-    bool unfixSize = false;
-    // hide other non-persistent views
-    for (const auto &info : m_toolviewInfo) {
-        ToolView *wid = info.tview;
-        if (wid != widget && !wid->persistent) {
-            hideWidget(wid);
-        }
-        // lock persistents' size while show/hide reshuffle happens
-        // (could also make this behavior per-widget configurable)
-        if (wid->persistent) {
-            const auto size = wid->size();
-            wid->setMaximumSize(size);
-            wid->setMinimumSize(size);
-            unfixSize = true;
-        }
-    }
+    tabBar(widget)->showToolView(m_widgetToId.at(widget));
+    expandSidebar();
 
-    ToolViewInfo &viewInfo = *it;
-    setTab(viewInfo.index, true);
-
-    /**
-     * resize to right size again and show, else artifacts
-     */
-    if (viewInfo.size.isValid()) {
-        widget->resize(viewInfo.size);
-    }
-
-    /**
-     * resize to right size again and show, else artifacts
-     * same as for widget, both needed
-     */
-    if (m_preHideSize.isValid()) {
-        widget->resize(m_preHideSize);
-        m_ownSplit->resize(m_preHideSize);
-    }
-    m_ownSplit->show();
-    widget->show();
-
-    // release persistent size again
-    // (later on, when all event processing has happened)
-    auto func = [this]() {
-        auto wsizes = m_ownSplit->sizes();
-        for (const auto &info : m_toolviewInfo) {
-            info.tview->setMinimumSize(QSize(0, 0));
-            info.tview->setMaximumSize(QSize(QWIDGETSIZE_MAX, QWIDGETSIZE_MAX));
-        }
-        m_ownSplit->setSizes(wsizes);
-    };
-    if (unfixSize) {
-        QTimer::singleShot(0, this, func);
-    }
-
-    // ensure that the sidebar is expanded
-    expandSidebar(widget);
-
-    /**
-     * we are visible again!
-     */
-    widget->setToolVisible(true);
     return true;
 }
 
-bool Sidebar::hideWidget(ToolView *widget)
+bool Sidebar::hideToolView(ToolView *widget)
 {
-    auto it = findByView(widget);
-    if (it == m_toolviewInfo.end()) {
+    if (m_widgetToId.find(widget) == m_widgetToId.end()) {
         return false;
     }
 
     updateLastSize();
+    tabBar(widget)->hideToolView(m_widgetToId.at(widget));
+    expandSidebar();
 
-    bool anyVis = false;
-    for (auto &[wid, _, size] : m_toolviewInfo) {
-        if (wid == widget) {
-            if (widget->isVisible()) {
-                size = widget->size();
-            }
-        } else if (wid->isVisible()) {
-            anyVis = true;
-            break;
-        }
-    }
-
-    widget->hide();
-
-    // lower tab
-    setTab(it->index, false);
-
-    if (!anyVis) {
-        if (m_ownSplit->isVisible()) {
-            m_preHideSize = m_ownSplit->size();
-        }
-        m_ownSplit->hide();
-    } else {
-        // some toolviews are still visible, so we must ensure the sidebar is expanded
-        expandSidebar(widget);
-    }
-
-    widget->setToolVisible(false);
     return true;
 }
 
 void Sidebar::showToolviewTab(ToolView *widget, bool show)
 {
-    auto it = findByView(widget);
-    if (it == m_toolviewInfo.end()) {
-        qCWarning(LOG_KATE) << Q_FUNC_INFO << "Unexpected no id for widget " << widget;
+    auto it = m_widgetToId.find(widget);
+    if (it == m_widgetToId.end()) {
+        qWarning() << Q_FUNC_INFO << "Unexpected no id for widget " << widget;
         return;
     }
-
-    auto *tab = this->tab(it->index);
+    auto *tab = kmTabBar(widget)->tab(it->second);
     if (widget->tabButtonVisible() == show) {
         return;
     } else {
@@ -625,232 +696,278 @@ void Sidebar::showToolviewTab(ToolView *widget, bool show)
 
 bool Sidebar::isCollapsed()
 {
-    if (!m_splitter) {
-        // sidebar still has no splitter set
-        return false;
-    }
-
-    const int ownSplitIndex = m_splitter->indexOf(m_ownSplit);
-    if (ownSplitIndex == -1) {
-        // m_ownSplit should already be a child of m_splitter if it is set, but we check here just in case
-        return false;
-    }
-
-    return m_splitter->sizes().at(ownSplitIndex) == 0;
-}
-
-void Sidebar::showRaisedTabs()
-{
-    for (const auto &[wid, id, _] : m_toolviewInfo) {
-        if (isTabRaised(id)) {
-            wid->show();
-        }
-    }
+    return m_splitter->sizes().at(m_ownSplitIndex) == 0;
 }
 
 void Sidebar::handleCollapse(int pos, int index)
 {
     Q_UNUSED(pos);
-    if (!m_splitter) {
-        return;
-    }
 
-    // Verify that the sidebar really belongs to m_splitter
-    // and that we are handling the correct/matching sidebar
-    // 0 | 1 | 2  <- ownSplitIndex
+    // Verify that we are handling the correct/matching sidebar
+    // 0 | 1 | 2  <- m_ownSplitIndex (can be 0 or 2)
     //   1   2    <- index (of splitters, represented by |)
-    // ownSplitIndex should only be equal to index or (index - 1)
-    const int ownSplitIndex = m_splitter->indexOf(m_ownSplit);
-    if (ownSplitIndex == -1 || qAbs(index - ownSplitIndex) > 1) {
+    const bool myInterest = ((m_ownSplitIndex == 0) && (1 == index)) || (m_ownSplitIndex == index);
+    if (!myInterest) {
         return;
     }
 
-    if (isCollapsed()) {
-        if (m_isPreviouslyCollapsed) {
-            return;
+    if (isCollapsed() && !m_isPreviouslyCollapsed) {
+        if (!m_resizePlaceholder) {
+            m_resizePlaceholder = new QLabel();
+            m_ownSplit->addWidget(m_resizePlaceholder);
+            m_resizePlaceholder->show();
+            m_resizePlaceholder->setMinimumSize(QSize(160, 160)); // Same minimum size set in ToolView::minimumSizeHint
         }
-
-        // If the sidebar is collapsed, we need to hide the activated plugin-views since they are,
-        // visually speaking, hidden from the user but technically isVisible() would still return true
-        for (const auto &info : m_toolviewInfo) {
-            if (info.tview->isVisible()) {
-                info.tview->hide();
-            }
-        }
-
-        // show resize placeholder again, otherwise the sidebar splitter won't be manually resizable/expandable
-        m_resizePlaceholder->show();
-        m_isPreviouslyCollapsed = true;
-    } else if (m_isPreviouslyCollapsed && m_resizePlaceholder->isVisible()) {
-        // If the sidebar is manually expanded again, we need to show the activated plugin-views again
-        showRaisedTabs();
-
-        m_resizePlaceholder->hide();
-        m_isPreviouslyCollapsed = false;
+        collapseSidebar();
+    } else if (!isCollapsed() && m_isPreviouslyCollapsed) {
+        expandSidebar();
     }
 }
 
-void Sidebar::expandSidebar(ToolView *widget)
+void Sidebar::ownSplitMoved(int pos, int index)
 {
-    auto it = findByView(widget);
-    if (it == m_toolviewInfo.end()) {
+    moveSplitter(pos, index);
+}
+
+void Sidebar::barSplitMoved(int pos, int index)
+{
+    Q_UNUSED(pos);
+    Q_UNUSED(index);
+    adjustSplitterSections();
+}
+
+void Sidebar::tabBarIsEmpty(MultiTabBar *bar)
+{
+    // Don't remove the last bar!
+    if (!bar || bar->tabCount() > 0 || tabBarCount() == 1) {
         return;
     }
 
-    // If the sidebar is collapsed, we need to resize it so that it does not become "stuck" in the collapsed state
-    // see BUG: 439535
-    // NOTE: Even if the sidebar is expanded, this does not ensure that it is visible (might be hidden with hide() or setVisible(false))
-    if (m_isPreviouslyCollapsed && isCollapsed()) {
+    delete bar;
+
+    QTimer::singleShot(0, this, [this]() {
+        // We need to delay the update or m_ownSplit report wrong size count
+        expandSidebar();
+    });
+}
+
+void Sidebar::collapseSidebar()
+{
+    if (m_isPreviouslyCollapsed) {
+        return;
+    }
+
+    updateLastSize();
+
+    for (int i = 0; i < tabBarCount(); ++i) {
+        tabBar(i)->collapseToolView();
+    }
+
+    m_isPreviouslyCollapsed = true;
+
+    if (!m_resizePlaceholder) {
+        // Hiding m_ownSplit will cause that no resize handle is offered and
+        // as side effect the sidebar collapse
+        m_ownSplit->hide();
+    } else {
+        // We need to force collapse the sidebar by set a zero size
         QList<int> wsizes = m_splitter->sizes();
-        const int ownSplitIndex = m_splitter->indexOf(m_ownSplit);
-        if (m_lastSize > 2) { // use last size if available (see updateLastSize())
-            wsizes[ownSplitIndex] = m_lastSize;
-        } else if (m_splitter->orientation() == Qt::Vertical) {
-            wsizes[ownSplitIndex] = qMax(widget->minimumSizeHint().height(), it->size.height());
-        } else {
-            wsizes[ownSplitIndex] = qMax(widget->minimumSizeHint().width(), it->size.width());
-        }
-
-        // when the sidebar was collapsed, the activated widgets were hidden, so we need to show them again
-        // see Sidebar::handleCollapse
-        showRaisedTabs();
-
-        m_resizePlaceholder->hide();
-        m_isPreviouslyCollapsed = false;
+        wsizes[m_ownSplitIndex] = 0;
         m_splitter->setSizes(wsizes);
     }
+
+    // Now that tools are hidden, ensure the doc got the focus
+    m_mainWin->centralWidget()->setFocus();
 }
 
-void Sidebar::tabClicked(int i)
+bool Sidebar::adjustSplitterSections()
 {
-    auto it = findByIndex(i);
-    ToolView *toolView = it != m_toolviewInfo.end() ? it->tview : nullptr;
-    if (!toolView) {
+    // Here we catch two birds with one stone
+    // - Report some caller if any tool is in use or not
+    // - Adjust the m_ownSplit sizes to fit more sensible the active tools
+    //   To do so we run the loop in reverse order for a better result
+    bool anyVis = false;
+    QList<int> wsizes = sizes();
+    int sizeCollector = 0;
+    int lastExpandedId = -1;
+    for (int i = tabBarCount() - 1; i > -1; --i) {
+        sizeCollector += wsizes.at(i);
+        if (tabBar(i)->expandToolView()) {
+            anyVis = true;
+            wsizes[i] = sizeCollector;
+            sizeCollector = 0;
+            lastExpandedId = i;
+        } else {
+            wsizes[i] = 0;
+        }
+    }
+
+    if (!anyVis) {
+        // No need to go on
+        return false;
+    }
+
+    if (sizeCollector && lastExpandedId > -1) {
+        wsizes[lastExpandedId] += sizeCollector;
+    }
+
+    m_ownSplit->setSizes(wsizes);
+
+    return true;
+}
+
+void Sidebar::expandSidebar()
+{
+    if (!adjustSplitterSections()) {
+        // Nothing is shown, don't expand to a blank area
+        collapseSidebar();
         return;
     }
 
-    if (isTabRaised(i) || isCollapsed()) {
-        showWidget(toolView);
-        toolView->setFocus();
-        // When sidebar is collapsed and the toolview was pressed, we only expand
-        // the toolview/sidebar, so the tab must remain activated
-        setTab(it->index, true);
-    } else {
-        hideWidget(toolView);
+    if (m_resizePlaceholder) {
+        delete m_resizePlaceholder;
     }
-}
 
-static void addMoveActions(QMenu &menu, KMultiTabBar::KMultiTabBarPosition position)
-{
-    struct ActionInfo {
-        KMultiTabBar::KMultiTabBarPosition pos;
-        const char *icon;
-        const char *text;
-    };
-    static const std::array<ActionInfo, 4> actionInfo = {{
-        {KMultiTabBar::Left, "go-previous", "Left Sidebar"},
-        {KMultiTabBar::Right, "go-next", "Right Sidebar"},
-        {KMultiTabBar::Top, "go-up", "Top Sidebar"},
-        {KMultiTabBar::Bottom, "go-down", "Bottom Sidebar"},
-    }};
+    m_isPreviouslyCollapsed = false;
 
-    menu.addSection(QIcon::fromTheme(QStringLiteral("move")), i18n("Move To"));
-
-    for (const auto &info : actionInfo) {
-        if (info.pos == position) {
-            continue;
-        }
-        menu.addAction(QIcon::fromTheme(QLatin1String(info.icon)), i18n(info.text))->setData(info.pos);
+    if (isCollapsed()) {
+        QList<int> wsizes = m_splitter->sizes();
+        wsizes[m_ownSplitIndex] = m_lastSize;
+        m_splitter->setSizes(wsizes);
     }
+
+    // Ensure we are visible
+    m_ownSplit->show();
 }
 
 bool Sidebar::eventFilter(QObject *obj, QEvent *ev)
 {
-    if (ev->type() == QEvent::MouseButtonRelease) {
-        // The sidebar's splitter handle handle is release, so we update the sidebar's size. See Sidebar::updateLastSizeOnResize
+    if (ev->type() == QEvent::ContextMenu) {
+        QContextMenuEvent *e = static_cast<QContextMenuEvent *>(ev);
+        KMultiTabBarTab *bt = dynamic_cast<KMultiTabBarTab *>(obj);
+        if (bt) {
+            // qCDebug(LOG_KATE) << "Request for popup";
+
+            m_popupButton = bt->id();
+
+            ToolView *w = m_idToWidget[m_popupButton];
+
+            if (w) {
+                QMenu menu(this);
+
+                menu.addSection(w->icon, w->text);
+
+                if (!w->plugin.isNull()) {
+                    if (w->plugin.data()->configPages() > 0) {
+                        menu.addAction(QIcon::fromTheme(QStringLiteral("configure")), i18n("Configure..."))->setData(ConfigureAction);
+                    }
+                }
+
+                menu.addAction(i18n("Hide Button"))->setData(HideButtonAction);
+
+                menu.addSection(QIcon::fromTheme(QStringLiteral("move")), i18n("Move To"));
+
+                int tabBarId = indexOf(m_widgetToTabBar.at(w));
+
+                if (tabBar(tabBarId)->tabCount() > 1) {
+                    menu.addAction(QIcon::fromTheme(QStringLiteral("list-add")), i18n("Own Section"))->setData(ToOwnSectAction);
+                }
+
+                if (tabBarCount() > 1) {
+                    if (tabBarId < 1) {
+                        if (isVertical()) {
+                            menu.addAction(QIcon::fromTheme(QStringLiteral("go-down")), i18n("One Down"))->setData(DownRightAction);
+                        } else {
+                            menu.addAction(QIcon::fromTheme(QStringLiteral("go-next")), i18n("One Right"))->setData(DownRightAction);
+                        }
+                    } else {
+                        if (isVertical()) {
+                            menu.addAction(QIcon::fromTheme(QStringLiteral("go-up")), i18n("One Up"))->setData(UpLeftAction);
+                            if (tabBarId < tabBarCount() - 1) {
+                                menu.addAction(QIcon::fromTheme(QStringLiteral("go-down")), i18n("One Down"))->setData(DownRightAction);
+                            }
+                        } else {
+                            menu.addAction(QIcon::fromTheme(QStringLiteral("go-previous")), i18n("One Left"))->setData(UpLeftAction);
+                            if (tabBarId < tabBarCount() - 1) {
+                                menu.addAction(QIcon::fromTheme(QStringLiteral("go-next")), i18n("One Right"))->setData(DownRightAction);
+                            }
+                        }
+                    }
+                }
+
+                if (position() != 0) {
+                    menu.addAction(QIcon::fromTheme(QStringLiteral("go-previous")), i18n("Left Sidebar"))->setData(0);
+                }
+
+                if (position() != 1) {
+                    menu.addAction(QIcon::fromTheme(QStringLiteral("go-next")), i18n("Right Sidebar"))->setData(1);
+                }
+
+                if (position() != 2) {
+                    menu.addAction(QIcon::fromTheme(QStringLiteral("go-up")), i18n("Top Sidebar"))->setData(2);
+                }
+
+                if (position() != 3) {
+                    menu.addAction(QIcon::fromTheme(QStringLiteral("go-down")), i18n("Bottom Sidebar"))->setData(3);
+                }
+
+                connect(&menu, &QMenu::triggered, this, &Sidebar::buttonPopupActivate);
+
+                menu.exec(e->globalPos());
+
+                return true;
+            }
+        }
+    } else if (ev->type() == QEvent::MouseButtonRelease) {
+        // The sidebar's splitter handle handle was released, so we update the sidebar's size. See Sidebar::updateLastSizeOnResize
         QMouseEvent *e = static_cast<QMouseEvent *>(ev);
         if (e->button() == Qt::LeftButton) {
             updateLastSize();
         }
-
-        return false;
-    }
-
-    if (ev->type() != QEvent::ContextMenu) {
-        return false;
-    }
-
-    KMultiTabBarTab *multiTabbar = dynamic_cast<KMultiTabBarTab *>(obj);
-    if (!multiTabbar) {
-        return false;
-    }
-    m_popupButton = multiTabbar->id();
-
-    QContextMenuEvent *e = static_cast<QContextMenuEvent *>(ev);
-    // qCDebug(LOG_KATE) << "Request for popup";
-
-    auto it = findByIndex(m_popupButton);
-    ToolView *tview = it != m_toolviewInfo.end() ? it->tview : nullptr;
-    if (!tview) {
-        return false;
-    }
-
-    QMenu menu(this);
-
-    if (!tview->plugin.isNull()) {
-        if (tview->plugin.data()->configPages() > 0) {
-            menu.addAction(QIcon::fromTheme(QStringLiteral("configure")), i18n("Configure..."))->setData(ConfigureAction);
+    } else if (ev->type() == QEvent::MouseButtonPress) {
+        QMouseEvent *e = static_cast<QMouseEvent *>(ev);
+        // The non-tab area of the sidebar is clicked (well, pressed) => toggle collapse/expand
+        if (e->button() == Qt::LeftButton) {
+            if (obj->property("is-multi-tabbar").toBool()) {
+                if (isCollapsed()) {
+                    expandSidebar();
+                } else {
+                    collapseSidebar();
+                }
+                return true;
+            }
         }
     }
 
-    menu.addSection(QIcon::fromTheme(QStringLiteral("view_remove")), i18n("Behavior"));
-
-    const QIcon icon = tview->persistent ? QIcon::fromTheme(QStringLiteral("view-restore")) : QIcon::fromTheme(QStringLiteral("view-fullscreen"));
-    const QString txt = tview->persistent ? i18n("Make Non-Persistent") : i18n("Make Persistent");
-    menu.addAction(icon, txt)->setData(PersistAction);
-
-    menu.addAction(i18n("Hide Button"))->setData(HideButtonAction);
-
-    addMoveActions(menu, position());
-
-    connect(&menu, &QMenu::triggered, this, &Sidebar::buttonPopupActivate);
-    menu.exec(e->globalPos());
-
-    return true;
+    return false;
 }
 
 void Sidebar::setVisible(bool visible)
 {
     // visible==true means show-request
-    if (visible && (m_toolviewInfo.empty() || !m_mainWin->sidebarsVisible())) {
+    if (visible && (m_idToWidget.empty() || !m_mainWin->sidebarsVisible())) {
         return;
     }
 
-    KMultiTabBar::setVisible(visible);
+    QWidget::setVisible(visible);
 }
 
 void Sidebar::buttonPopupActivate(QAction *a)
 {
     const int id = a->data().toInt();
-    auto it = findByIndex(m_popupButton);
-    ToolView *w = it != m_toolviewInfo.end() ? it->tview : nullptr;
+    ToolView *w = m_idToWidget[m_popupButton];
+
     if (!w) {
         return;
     }
 
-    // move ids
+    // move to other Sidebar ids
     if (id < 4) {
         // move + show ;)
         m_mainWin->moveToolView(w, static_cast<KMultiTabBar::KMultiTabBarPosition>(id));
         m_mainWin->showToolView(w);
     }
 
-    // toggle persistent
-    if (id == PersistAction) {
-        w->persistent = !w->persistent;
-    }
-
-    // configure actionCollection
     if (id == ConfigureAction) {
         if (!w->plugin.isNull()) {
             if (w->plugin.data()->configPages() > 0) {
@@ -862,21 +979,36 @@ void Sidebar::buttonPopupActivate(QAction *a)
     if (id == HideButtonAction) {
         showToolviewTab(w, false);
     }
+
+    if (id == ToOwnSectAction) {
+        auto newBar = insertTabBar(indexOf(m_widgetToTabBar.at(w)) + 1);
+        tabBar(w)->removeTab(m_widgetToId.at(w));
+        appendStyledTab(m_widgetToId.at(w), newBar, w);
+        showToolView(w);
+    }
+    if (id == UpLeftAction) {
+        auto newBar = tabBar(indexOf(tabBar(w)) - 1);
+        tabBar(w)->removeTab(m_widgetToId.at(w));
+        appendStyledTab(m_widgetToId.at(w), newBar, w);
+    }
+    if (id == DownRightAction) {
+        auto newBar = tabBar(indexOf(tabBar(w)) + 1);
+        tabBar(w)->removeTab(m_widgetToId.at(w));
+        appendStyledTab(m_widgetToId.at(w), newBar, w);
+    }
 }
 
 void Sidebar::updateLastSize()
 {
+    if (isCollapsed()) {
+        // We are too late, don't update to stupid value
+        return;
+    }
+
     QList<int> s = m_splitter->sizes();
 
-    int i = 0;
-    if ((position() == KMultiTabBar::Right || position() == KMultiTabBar::Bottom)) {
-        i = 2;
-    }
-
-    // little threshold
-    if (s[i] > 2) {
-        m_lastSize = s[i];
-    }
+    // Ensure last size is always sensible
+    m_lastSize = qMax(s[m_ownSplitIndex], 160);
 }
 
 class TmpToolViewSorter
@@ -920,7 +1052,7 @@ void Sidebar::restoreSession(KConfigGroup &config)
         // then: remove this items from the button bar
         // do this backwards, to minimize the relayout efforts
         for (int i = toolViewsCount - 1; i >= firstWrong; --i) {
-            removeTab(indexForView(m_toolviews[i]));
+            tabBar(0)->removeTab(m_widgetToId[m_toolviews[i]]); // Just for now
         }
 
         // insert the reshuffled things in order :)
@@ -930,11 +1062,8 @@ void Sidebar::restoreSession(KConfigGroup &config)
             m_toolviews[firstWrong + i] = tv;
 
             // re-add the button
-            int newId = indexForView(tv);
-            appendStyledTab(tv->icon, newId, tv->text);
-
-            // reshuffle in splitter: move to last
-            m_ownSplit->addWidget(tv);
+            int newId = m_widgetToId[tv];
+            appendStyledTab(newId, tabBar(0), tv);
         }
     }
 
@@ -945,41 +1074,24 @@ void Sidebar::restoreSession(KConfigGroup &config)
     QList<int> s = config.readEntry(QStringLiteral("Kate-MDI-Sidebar-%1-Splitter").arg(position()), QList<int>());
     m_ownSplit->setSizes(s);
 
-    // show only correct toolviews, remember persistent values ;)
-    bool anyVis = false;
+    // show only correct toolviews ;)
     for (auto tv : m_toolviews) {
-        tv->persistent = config.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Persistent").arg(tv->id), false);
         tv->setToolVisible(config.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Visible").arg(tv->id), false));
 
-        if (!anyVis) {
-            anyVis = tv->toolVisible();
-        }
+        auto id = m_widgetToId[tv];
+        tabBar(tv)->setTabActive(id, tv->toolVisible());
 
-        const int id = indexForView(tv);
-        setTab(id, tv->toolVisible());
-
-        if (tv->toolVisible()) {
-            tv->show();
-        } else {
-            tv->hide();
-        }
         bool showTab = config.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Show-Button-In-Sidebar").arg(tv->id), true);
         showToolviewTab(tv, showTab);
     }
 
-    if (anyVis) {
-        m_ownSplit->show();
-        // if there are activated plugin-views but sidebar is collapsed, we must set m_isPreviouslyCollapsed to true so that it can be expanded
-        if (isCollapsed()) {
-            m_isPreviouslyCollapsed = true;
-        }
-    } else {
-        m_ownSplit->hide();
-    }
+    expandSidebar();
 }
 
 void Sidebar::saveSession(KConfigGroup &config)
 {
+    return; // Disabled, guess save/restore need more than S&R some variables
+
     // store the own splitter sizes
     config.writeEntry(QStringLiteral("Kate-MDI-Sidebar-%1-Splitter").arg(position()), m_ownSplit->sizes());
 
@@ -990,8 +1102,8 @@ void Sidebar::saveSession(KConfigGroup &config)
         config.writeEntry(QStringLiteral("Kate-MDI-ToolView-%1-Position").arg(tv->id), int(tv->sidebar()->position()));
         config.writeEntry(QStringLiteral("Kate-MDI-ToolView-%1-Sidebar-Position").arg(tv->id), i);
         config.writeEntry(QStringLiteral("Kate-MDI-ToolView-%1-Visible").arg(tv->id), tv->toolVisible());
-        config.writeEntry(QStringLiteral("Kate-MDI-ToolView-%1-Persistent").arg(tv->id), tv->persistent);
-        if (findByView(tv) == m_toolviewInfo.end()) {
+        auto it = m_widgetToId.find(tv);
+        if (it == m_widgetToId.end()) {
             qWarning() << Q_FUNC_INFO << "Unexpected no tab id for toolview: " << tv;
             continue;
         }
@@ -1022,13 +1134,10 @@ MainWindow::MainWindow(QWidget *parentWidget)
     hlayout->setSpacing(0);
     toplevelVBox->addLayout(hlayout);
 
-    m_sidebars[KMultiTabBar::Left] = std::make_unique<Sidebar>(KMultiTabBar::Left, this, hb);
-    hlayout->addWidget(m_sidebars[KMultiTabBar::Left].get());
-
     m_hSplitter = new QSplitter(Qt::Horizontal, hb);
+    m_sidebars[KMultiTabBar::Left] = std::make_unique<Sidebar>(KMultiTabBar::Left, m_hSplitter, this, hb);
+    hlayout->addWidget(m_sidebars[KMultiTabBar::Left].get());
     hlayout->addWidget(m_hSplitter);
-
-    m_sidebars[KMultiTabBar::Left]->setSplitter(m_hSplitter);
 
     QFrame *vb = new QFrame(m_hSplitter);
     QVBoxLayout *vlayout = new QVBoxLayout(vb);
@@ -1038,13 +1147,10 @@ MainWindow::MainWindow(QWidget *parentWidget)
     m_hSplitter->setCollapsible(m_hSplitter->indexOf(vb), false);
     m_hSplitter->setStretchFactor(m_hSplitter->indexOf(vb), 1);
 
-    m_sidebars[KMultiTabBar::Top] = std::make_unique<Sidebar>(KMultiTabBar::Top, this, vb);
-    vlayout->addWidget(m_sidebars[KMultiTabBar::Top].get());
-
     m_vSplitter = new QSplitter(Qt::Vertical, vb);
+    m_sidebars[KMultiTabBar::Top] = std::make_unique<Sidebar>(KMultiTabBar::Top, m_vSplitter, this, vb);
+    vlayout->addWidget(m_sidebars[KMultiTabBar::Top].get());
     vlayout->addWidget(m_vSplitter);
-
-    m_sidebars[KMultiTabBar::Top]->setSplitter(m_vSplitter);
 
     m_centralWidget = new QWidget(m_vSplitter);
     m_centralWidget->setLayout(new QVBoxLayout);
@@ -1054,12 +1160,11 @@ MainWindow::MainWindow(QWidget *parentWidget)
     m_vSplitter->setCollapsible(m_vSplitter->indexOf(m_centralWidget), false);
     m_vSplitter->setStretchFactor(m_vSplitter->indexOf(m_centralWidget), 1);
 
-    m_sidebars[KMultiTabBar::Right] = std::make_unique<Sidebar>(KMultiTabBar::Right, this, hb);
+    m_sidebars[KMultiTabBar::Right] = std::make_unique<Sidebar>(KMultiTabBar::Right, m_hSplitter, this, hb);
     hlayout->addWidget(m_sidebars[KMultiTabBar::Right].get());
-    m_sidebars[KMultiTabBar::Right]->setSplitter(m_hSplitter);
 
     // bottom side bar spans full windows, include status bar, too
-    m_sidebars[KMultiTabBar::Bottom] = std::make_unique<Sidebar>(KMultiTabBar::Bottom, this, vb);
+    m_sidebars[KMultiTabBar::Bottom] = std::make_unique<Sidebar>(KMultiTabBar::Bottom, m_vSplitter, this, vb);
     auto bottomHBoxLaout = new QHBoxLayout;
     bottomHBoxLaout->addWidget(m_sidebars[KMultiTabBar::Bottom].get());
     m_statusBarStackedWidget = new QStackedWidget(this);
@@ -1067,7 +1172,6 @@ MainWindow::MainWindow(QWidget *parentWidget)
     bottomHBoxLaout->addWidget(m_statusBarStackedWidget);
     bottomHBoxLaout->setStretch(0, 100);
     toplevelVBox->addLayout(bottomHBoxLaout);
-    m_sidebars[KMultiTabBar::Bottom]->setSplitter(m_vSplitter);
 
     for (const auto &sidebar : m_sidebars) {
         connect(sidebar.get(), &Sidebar::sigShowPluginConfigPage, this, &MainWindow::sigShowPluginConfigPage);
@@ -1106,7 +1210,7 @@ ToolView *MainWindow::createToolView(KTextEditor::Plugin *plugin,
         pos = static_cast<KMultiTabBar::KMultiTabBarPosition>(cg.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Position").arg(identifier), int(pos)));
     }
 
-    ToolView *v = m_sidebars[pos]->addWidget(icon, text, nullptr);
+    ToolView *v = m_sidebars[pos]->addToolView(icon, text, nullptr);
     v->id = identifier;
     v->plugin = plugin;
 
@@ -1141,7 +1245,7 @@ void MainWindow::toolViewDeleted(ToolView *widget)
     // unregister from menu stuff
     m_guiClient->unregisterToolView(widget);
 
-    widget->sidebar()->removeWidget(widget);
+    widget->sidebar()->removeToolView(widget);
 
     m_idToWidget.erase(widget->id);
 
@@ -1204,7 +1308,7 @@ bool MainWindow::moveToolView(ToolView *widget, KMultiTabBar::KMultiTabBarPositi
         pos = static_cast<KMultiTabBar::KMultiTabBarPosition>(cg.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Position").arg(widget->id), int(pos)));
     }
 
-    m_sidebars[pos]->addWidget(widget->icon, widget->text, widget);
+    m_sidebars[pos]->addToolView(widget->icon, widget->text, widget);
 
     return true;
 }
@@ -1220,7 +1324,7 @@ bool MainWindow::showToolView(ToolView *widget)
         return true;
     }
 
-    return widget->sidebar()->showWidget(widget);
+    return widget->sidebar()->showToolView(widget);
 }
 
 bool MainWindow::hideToolView(ToolView *widget)
@@ -1234,7 +1338,7 @@ bool MainWindow::hideToolView(ToolView *widget)
         return true;
     }
 
-    const bool ret = widget->sidebar()->hideWidget(widget);
+    const bool ret = widget->sidebar()->hideToolView(widget);
     m_centralWidget->setFocus();
     return ret;
 }
@@ -1243,7 +1347,7 @@ void MainWindow::hideToolViews()
 {
     for (const auto &tv : m_toolviews) {
         if (tv) {
-            tv->sidebar()->hideWidget(tv);
+            tv->sidebar()->hideToolView(tv);
         }
     }
     m_centralWidget->setFocus();

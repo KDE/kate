@@ -63,8 +63,9 @@ bool KeyboardMacrosPlugin::eventFilter(QObject *obj, QEvent *event)
         case Qt::Key_AltGr:
             return false;
         }
-        // we don't want to record the shortcut for recording (avoid infinite loop and stack overflow)
-        if (m_recordAction->shortcut().matches(QKeySequence(keyEvent->key() | keyEvent->modifiers())) == QKeySequence::ExactMatch) {
+        // we don't want to record the shortcut for recording or playing (avoid infinite loop and stack overflow)
+        if (m_recordAction->shortcut().matches(QKeySequence(keyEvent->key() | keyEvent->modifiers())) == QKeySequence::ExactMatch
+            || m_playAction->shortcut().matches(QKeySequence(keyEvent->key() | keyEvent->modifiers())) == QKeySequence::ExactMatch) {
             return false;
         }
         // otherwise we add the keyboard event to the macro
@@ -89,6 +90,7 @@ void KeyboardMacrosPlugin::record()
     // update GUI
     m_recordAction->setText(i18n("End Macro &Recording"));
     m_cancelAction->setEnabled(true);
+    m_playAction->setEnabled(true);
     // connect focus change events
     connect(qApp, &QGuiApplication::applicationStateChanged, this, &KeyboardMacrosPlugin::applicationStateChanged);
     connect(qApp, &QGuiApplication::focusObjectChanged, this, &KeyboardMacrosPlugin::focusObjectChanged);
@@ -130,6 +132,7 @@ void KeyboardMacrosPlugin::cancel()
 
 bool KeyboardMacrosPlugin::play()
 {
+    qDebug() << "[KeyboardMacrosPlugin] playing macro!";
     if (m_macro.isEmpty()) {
         return false;
     }
@@ -152,7 +155,7 @@ void KeyboardMacrosPlugin::focusObjectChanged(QObject *focusObject)
 {
     qDebug() << "[KeyboardMacrosPlugin] focusObjectChanged:" << focusObject;
     QWidget *focusWidget = dynamic_cast<QWidget *>(focusObject);
-    if (focusWidget == nullptr) {
+    if (focusWidget == nullptr || focusWidget == m_focusWidget) {
         return;
     }
     // update which widget we filter events from when the focus has changed

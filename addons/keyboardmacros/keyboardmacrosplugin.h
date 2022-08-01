@@ -15,7 +15,29 @@
 #include <KTextEditor/Plugin>
 #include <KTextEditor/View>
 
-typedef QList<QKeyEvent *> Macro;
+class KeyCombination
+{
+private:
+    int key;
+    Qt::KeyboardModifiers modifiers;
+    QString text;
+
+public:
+    KeyCombination(QKeyEvent *keyEvent)
+        : key(keyEvent->key())
+        , modifiers(keyEvent->modifiers())
+        , text(keyEvent->text()){};
+    QKeyEvent *keyPress()
+    {
+        return new QKeyEvent(QEvent::KeyPress, key, modifiers, text);
+    };
+    QKeyEvent *keyRelease()
+    {
+        return new QKeyEvent(QEvent::KeyRelease, key, modifiers, text);
+    };
+};
+
+typedef QList<KeyCombination> Macro;
 
 class KeyboardMacrosPlugin : public KTextEditor::Plugin
 {

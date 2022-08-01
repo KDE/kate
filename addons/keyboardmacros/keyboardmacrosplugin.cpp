@@ -31,10 +31,6 @@ KeyboardMacrosPlugin::KeyboardMacrosPlugin(QObject *parent, const QList<QVariant
 
 KeyboardMacrosPlugin::~KeyboardMacrosPlugin()
 {
-    qDeleteAll(m_tape.begin(), m_tape.end());
-    m_tape.clear();
-    qDeleteAll(m_macro.begin(), m_macro.end());
-    m_macro.clear();
 }
 
 QObject *KeyboardMacrosPlugin::createView(KTextEditor::MainWindow *mainWindow)
@@ -77,8 +73,7 @@ bool KeyboardMacrosPlugin::eventFilter(QObject *obj, QEvent *event)
             return false;
         }
         // otherwise we add the keyboard event to the macro
-        m_tape.append(new QKeyEvent(QEvent::KeyPress, keyEvent->key(), keyEvent->modifiers(), keyEvent->text()));
-        m_tape.append(new QKeyEvent(QEvent::KeyRelease, keyEvent->key(), keyEvent->modifiers(), keyEvent->text()));
+        m_tape.append(KeyCombination(keyEvent));
         return false;
     } else {
         return QObject::eventFilter(obj, event);
@@ -108,7 +103,6 @@ void KeyboardMacrosPlugin::stop(bool save)
     m_recording = false;
     if (save) {
         // delete current macro
-        qDeleteAll(m_macro.begin(), m_macro.end());
         m_macro.clear();
         // replace it with the tape
         m_macro.swap(m_tape);
@@ -117,7 +111,6 @@ void KeyboardMacrosPlugin::stop(bool save)
         m_playAction->setEnabled(!m_macro.isEmpty());
     } else { // cancel
         // delete tape
-        qDeleteAll(m_tape.begin(), m_tape.end());
         m_tape.clear();
     }
     m_recordAction->setText(i18n("&Record Macro..."));
@@ -134,10 +127,15 @@ bool KeyboardMacrosPlugin::play()
     if (m_macro.isEmpty()) {
         return false;
     }
+    QKeyEvent *keyEvent;
     Macro::Iterator it;
     for (it = m_macro.begin(); it != m_macro.end(); it++) {
-        QKeyEvent *keyEvent = *it;
+        keyEvent = (*it).keyPress();
         qApp->sendEvent(qApp->focusWidget(), keyEvent);
+        delete keyEvent;
+        keyEvent = (*it).keyRelease();
+        qApp->sendEvent(qApp->focusWidget(), keyEvent);
+        delete keyEvent;
     }
     return true;
 }

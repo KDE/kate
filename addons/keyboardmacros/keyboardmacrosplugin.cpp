@@ -219,6 +219,7 @@ KeyboardMacrosPluginView::KeyboardMacrosPluginView(KeyboardMacrosPlugin *plugin,
     // create record action
     QAction *record = actionCollection()->addAction(QStringLiteral("keyboardmacros_record"));
     record->setText(i18n("&Record Macro..."));
+    record->setToolTip(i18n("Start/stop recording a macro (i.e., keyboard action sequence)."));
     actionCollection()->setDefaultShortcut(record, Qt::CTRL | Qt::SHIFT | Qt::Key_K);
     connect(record, &QAction::triggered, plugin, &KeyboardMacrosPlugin::slotRecord);
     plugin->m_recordAction = record;
@@ -226,6 +227,7 @@ KeyboardMacrosPluginView::KeyboardMacrosPluginView(KeyboardMacrosPlugin *plugin,
     // create cancel action
     QAction *cancel = actionCollection()->addAction(QStringLiteral("keyboardmacros_cancel"));
     cancel->setText(i18n("&Cancel Macro Recording"));
+    cancel->setToolTip(i18n("Cancel ongoing recording (and keep the previous macro as the current one)."));
     cancel->setEnabled(false);
     connect(cancel, &QAction::triggered, plugin, &KeyboardMacrosPlugin::slotCancel);
     plugin->m_cancelAction = cancel;
@@ -233,6 +235,7 @@ KeyboardMacrosPluginView::KeyboardMacrosPluginView(KeyboardMacrosPlugin *plugin,
     // create play action
     QAction *play = actionCollection()->addAction(QStringLiteral("keyboardmacros_play"));
     play->setText(i18n("&Play Macro"));
+    play->setToolTip(i18n("Play current macro (i.e., execute the last recorded keyboard action sequence)."));
     actionCollection()->setDefaultShortcut(play, Qt::CTRL | Qt::ALT | Qt::Key_K);
     play->setEnabled(false);
     connect(play, &QAction::triggered, plugin, &KeyboardMacrosPlugin::slotPlay);

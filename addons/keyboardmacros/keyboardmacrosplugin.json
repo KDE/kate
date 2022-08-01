@@ -1,6 +1,6 @@
 {
     "KPlugin": {
-        "Description": "Record and play keyboard action sequences",
+        "Description": "Record and play keyboard macros (i.e., keyboard action sequences)",
         "Name": "Keyboard Macros"
     }
 }

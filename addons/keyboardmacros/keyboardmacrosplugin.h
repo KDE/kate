@@ -35,6 +35,10 @@ public:
     {
         return new QKeyEvent(QEvent::KeyRelease, key, modifiers, text);
     };
+    friend QDebug operator<<(QDebug dbg, KeyCombination &kc)
+    {
+        return dbg << QKeySequence(kc.key | kc.modifiers).toString();
+    };
 };
 
 typedef QList<KeyCombination> Macro;

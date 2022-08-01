@@ -51,7 +51,7 @@ void KeyboardMacrosPlugin::sendMessage(const QString &text, bool error)
 
 bool KeyboardMacrosPlugin::eventFilter(QObject *obj, QEvent *event)
 {
-    // We only spy on keyboard events so we only need to check ShortcutOverride and return false
+    // we only spy on keyboard events so we only need to check ShortcutOverride and return false
     if (event->type() == QEvent::ShortcutOverride) {
         QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
         // if only modifiers are pressed, we don't care
@@ -63,12 +63,14 @@ bool KeyboardMacrosPlugin::eventFilter(QObject *obj, QEvent *event)
         case Qt::Key_AltGr:
             return false;
         }
-        // we don't want to record the shortcut for recording
+        // we don't want to record the shortcut for recording (avoid infinite loop and stack overflow)
         if (m_recordAction->shortcut().matches(QKeySequence(keyEvent->key() | keyEvent->modifiers())) == QKeySequence::ExactMatch) {
             return false;
         }
         // otherwise we add the keyboard event to the macro
-        m_tape.append(KeyCombination(keyEvent));
+        KeyCombination kc(keyEvent);
+        qDebug() << "[KeyboardMacrosPlugin] key combination:" << kc;
+        m_tape.append(kc);
         return false;
     } else {
         return QObject::eventFilter(obj, event);
@@ -78,10 +80,13 @@ bool KeyboardMacrosPlugin::eventFilter(QObject *obj, QEvent *event)
 void KeyboardMacrosPlugin::record()
 {
     // start recording
-    qDebug("[KeyboardMacrosPlugin] start recording");
+    qDebug() << "[KeyboardMacrosPlugin] start recording";
+    // install our spy on currently focused widget
     m_focusWidget = qApp->focusWidget();
     m_focusWidget->installEventFilter(this);
+    // update recording status
     m_recording = true;
+    // update GUI
     m_recordAction->setText(i18n("End Macro &Recording"));
     m_cancelAction->setEnabled(true);
     // connect focus change events
@@ -92,21 +97,25 @@ void KeyboardMacrosPlugin::record()
 void KeyboardMacrosPlugin::stop(bool save)
 {
     // stop recording
-    qDebug("[KeyboardMacrosPlugin] %s recording", save ? "end" : "cancel");
+    qDebug() << "[KeyboardMacrosPlugin]" << (save ? "end" : "cancel") << "recording";
+    // uninstall our spy
     m_focusWidget->removeEventFilter(this);
+    // update recording status
     m_recording = false;
-    if (save) {
+    if (save) { // end recording
         // delete current macro
         m_macro.clear();
         // replace it with the tape
         m_macro.swap(m_tape);
         // clear tape
         m_tape.clear();
+        // update GUI
         m_playAction->setEnabled(!m_macro.isEmpty());
-    } else { // cancel
+    } else { // cancel recording
         // delete tape
         m_tape.clear();
     }
+    // update GUI
     m_recordAction->setText(i18n("&Record Macro..."));
     m_cancelAction->setEnabled(false);
     // disconnect focus change events
@@ -127,9 +136,11 @@ bool KeyboardMacrosPlugin::play()
     QKeyEvent *keyEvent;
     Macro::Iterator it;
     for (it = m_macro.begin(); it != m_macro.end(); it++) {
+        // send key press
         keyEvent = (*it).keyPress();
         qApp->sendEvent(qApp->focusWidget(), keyEvent);
         delete keyEvent;
+        // send key release
         keyEvent = (*it).keyRelease();
         qApp->sendEvent(qApp->focusWidget(), keyEvent);
         delete keyEvent;
@@ -152,6 +163,8 @@ void KeyboardMacrosPlugin::focusObjectChanged(QObject *focusObject)
 
 void KeyboardMacrosPlugin::applicationStateChanged(Qt::ApplicationState state)
 {
+    qDebug() << "[KeyboardMacrosPlugin] applicationStateChanged:" << state;
+    // somehow keeping our event filter on while the app is out of focus made Kate crash, we fix that here
     switch (state) {
     case Qt::ApplicationSuspended:
         sendMessage(i18n("Application suspended, aborting record."), true);
@@ -204,11 +217,11 @@ KeyboardMacrosPluginView::KeyboardMacrosPluginView(KeyboardMacrosPlugin *plugin,
     setXMLFile(QStringLiteral("ui.rc"));
 
     // create record action
-    QAction *rec = actionCollection()->addAction(QStringLiteral("keyboardmacros_record"));
-    rec->setText(i18n("&Record Macro..."));
-    actionCollection()->setDefaultShortcut(rec, Qt::CTRL | Qt::SHIFT | Qt::Key_K);
-    connect(rec, &QAction::triggered, plugin, &KeyboardMacrosPlugin::slotRecord);
-    plugin->m_recordAction = rec;
+    QAction *record = actionCollection()->addAction(QStringLiteral("keyboardmacros_record"));
+    record->setText(i18n("&Record Macro..."));
+    actionCollection()->setDefaultShortcut(record, Qt::CTRL | Qt::SHIFT | Qt::Key_K);
+    connect(record, &QAction::triggered, plugin, &KeyboardMacrosPlugin::slotRecord);
+    plugin->m_recordAction = record;
 
     // create cancel action
     QAction *cancel = actionCollection()->addAction(QStringLiteral("keyboardmacros_cancel"));
@@ -225,13 +238,13 @@ KeyboardMacrosPluginView::KeyboardMacrosPluginView(KeyboardMacrosPlugin *plugin,
     connect(play, &QAction::triggered, plugin, &KeyboardMacrosPlugin::slotPlay);
     plugin->m_playAction = play;
 
-    // register our gui elements
+    // add Keyboard Macros actions to the GUI
     mainwindow->guiFactory()->addClient(this);
 }
 
 KeyboardMacrosPluginView::~KeyboardMacrosPluginView()
 {
-    // remove us from the gui
+    // remove Keyboard Macros actions from the GUI
     m_mainWindow->guiFactory()->removeClient(this);
 }
 

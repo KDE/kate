@@ -77,6 +77,7 @@ private:
     void cancel();
     bool play();
 
+    void focusObjectChanged(QObject *focusObject);
     void applicationStateChanged(Qt::ApplicationState state);
 
 public Q_SLOTS:

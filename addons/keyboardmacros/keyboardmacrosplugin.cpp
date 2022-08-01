@@ -51,11 +51,6 @@ void KeyboardMacrosPlugin::sendMessage(const QString &text, bool error)
 
 bool KeyboardMacrosPlugin::eventFilter(QObject *obj, QEvent *event)
 {
-    // Update which widget we filter events from if the focus has changed
-    m_focusWidget->removeEventFilter(this);
-    m_focusWidget = qApp->focusWidget();
-    m_focusWidget->installEventFilter(this);
-
     // We only spy on keyboard events so we only need to check ShortcutOverride and return false
     if (event->type() == QEvent::ShortcutOverride) {
         QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
@@ -89,14 +84,13 @@ void KeyboardMacrosPlugin::record()
     m_recording = true;
     m_recordAction->setText(i18n("End Macro &Recording"));
     m_cancelAction->setEnabled(true);
-    // connect applicationStateChanged
+    // connect focus change events
     connect(qApp, &QGuiApplication::applicationStateChanged, this, &KeyboardMacrosPlugin::applicationStateChanged);
+    connect(qApp, &QGuiApplication::focusObjectChanged, this, &KeyboardMacrosPlugin::focusObjectChanged);
 }
 
 void KeyboardMacrosPlugin::stop(bool save)
 {
-    // disconnect applicationStateChanged
-    disconnect(qApp, &QGuiApplication::applicationStateChanged, this, &KeyboardMacrosPlugin::applicationStateChanged);
     // stop recording
     qDebug("[KeyboardMacrosPlugin] %s recording", save ? "end" : "cancel");
     m_focusWidget->removeEventFilter(this);
@@ -115,6 +109,9 @@ void KeyboardMacrosPlugin::stop(bool save)
     }
     m_recordAction->setText(i18n("&Record Macro..."));
     m_cancelAction->setEnabled(false);
+    // disconnect focus change events
+    disconnect(qApp, &QGuiApplication::applicationStateChanged, this, &KeyboardMacrosPlugin::applicationStateChanged);
+    disconnect(qApp, &QGuiApplication::focusObjectChanged, this, &KeyboardMacrosPlugin::focusObjectChanged);
 }
 
 void KeyboardMacrosPlugin::cancel()
@@ -140,6 +137,19 @@ bool KeyboardMacrosPlugin::play()
     return true;
 }
 
+void KeyboardMacrosPlugin::focusObjectChanged(QObject *focusObject)
+{
+    qDebug() << "[KeyboardMacrosPlugin] focusObjectChanged:" << focusObject;
+    QWidget *focusWidget = dynamic_cast<QWidget *>(focusObject);
+    if (focusWidget == nullptr) {
+        return;
+    }
+    // update which widget we filter events from when the focus has changed
+    m_focusWidget->removeEventFilter(this);
+    m_focusWidget = focusWidget;
+    m_focusWidget->installEventFilter(this);
+}
+
 void KeyboardMacrosPlugin::applicationStateChanged(Qt::ApplicationState state)
 {
     switch (state) {
@@ -149,12 +159,9 @@ void KeyboardMacrosPlugin::applicationStateChanged(Qt::ApplicationState state)
         break;
     case Qt::ApplicationHidden:
     case Qt::ApplicationInactive:
-        // TODO: would be nice to be able to pause recording
-        sendMessage(i18n("Application lost focus, aborting record."), true);
-        cancel();
+        m_focusWidget->removeEventFilter(this);
         break;
     case Qt::ApplicationActive:
-        // TODO: and resume it here
         break;
     }
 }

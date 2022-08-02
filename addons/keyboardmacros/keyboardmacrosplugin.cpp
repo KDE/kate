@@ -147,14 +147,20 @@ void KeyboardMacrosPlugin::cancel()
     stop(false);
 }
 
-bool KeyboardMacrosPlugin::play()
+bool KeyboardMacrosPlugin::play(QString name)
 {
-    qDebug() << "[KeyboardMacrosPlugin] playing macro!";
-    if (m_macro.isEmpty()) {
+    Macro m;
+    if (!name.isEmpty() && m_namedMacros.contains(name)) {
+        m = m_namedMacros.value(name);
+        qDebug() << "[KeyboardMacrosPlugin] playing macro:" << name;
+    } else if (!m_macro.isEmpty()) {
+        m = m_macro;
+        qDebug() << "[KeyboardMacrosPlugin] playing macro!";
+    } else {
         return false;
     }
     Macro::Iterator it;
-    for (it = m_macro.begin(); it != m_macro.end(); it++) {
+    for (it = m.begin(); it != m.end(); it++) {
         QKeyEvent *keyEvent;
         // send key press
         keyEvent = (*it).keyPress();
@@ -351,12 +357,13 @@ KeyboardMacrosPluginView::~KeyboardMacrosPluginView()
 // BEGIN Plugin commands to manage named keyboard macros
 
 KeyboardMacrosPluginCommands::KeyboardMacrosPluginCommands(KeyboardMacrosPlugin *plugin)
-    : KTextEditor::Command(QStringList() << QStringLiteral("kmsave") << QStringLiteral("kmload") << QStringLiteral("kmremove"), plugin)
+    : KTextEditor::Command(QStringList() << QStringLiteral("kmsave") << QStringLiteral("kmload") << QStringLiteral("kmremove") << QStringLiteral("kmplay"),
+                           plugin)
     , m_plugin(plugin)
 {
 }
 
-bool KeyboardMacrosPluginCommands::exec(KTextEditor::View *, const QString &cmd, QString &msg, const KTextEditor::Range &)
+bool KeyboardMacrosPluginCommands::exec(KTextEditor::View *view, const QString &cmd, QString &msg, const KTextEditor::Range &)
 {
     QStringList actionAndName = cmd.split(QRegExp(QStringLiteral("\\s+")));
     if (actionAndName.length() != 2) {
@@ -383,6 +390,15 @@ bool KeyboardMacrosPluginCommands::exec(KTextEditor::View *, const QString &cmd,
             return false;
         }
         return true;
+    } else if (action == QStringLiteral("kmplay")) {
+        // set focus on the view otherwise the macro is played with focus on the command line
+        view->setFocus();
+        // then attempt to play the given macro
+        if (!m_plugin->play(name)) {
+            msg = i18n("No keyboard macro named '%1' found.", name);
+            return false;
+        }
+        return true;
     }
     return false;
 }
@@ -397,6 +413,9 @@ bool KeyboardMacrosPluginCommands::help(KTextEditor::View *, const QString &cmd,
         return true;
     } else if (cmd == QStringLiteral("kmremove")) {
         msg = i18n("<qt><p>Usage: <code>kmremove &lt;name&gt;</code></p><p>Remove saved keyboard macro <code>&lt;name&gt;</code>.</p></qt>");
+        return true;
+    } else if (cmd == QStringLiteral("kmplay")) {
+        msg = i18n("<qt><p>Usage: <code>kmplay &lt;name&gt;</code></p><p>Play saved keyboard macro <code>&lt;name&gt;</code> without loading it.</p></qt>");
         return true;
     }
     return false;

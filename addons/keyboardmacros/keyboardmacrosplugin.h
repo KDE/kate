@@ -60,7 +60,7 @@ private:
     void record();
     void stop(bool save);
     void cancel();
-    bool play();
+    bool play(QString name = QString());
 
     bool save(QString name);
     bool load(QString name);
@@ -108,7 +108,7 @@ class KeyboardMacrosPluginCommands : public KTextEditor::Command
 
 public:
     KeyboardMacrosPluginCommands(KeyboardMacrosPlugin *plugin);
-    bool exec(KTextEditor::View *, const QString &cmd, QString &msg, const KTextEditor::Range & = KTextEditor::Range::invalid()) override;
+    bool exec(KTextEditor::View *view, const QString &cmd, QString &msg, const KTextEditor::Range & = KTextEditor::Range::invalid()) override;
     bool help(KTextEditor::View *, const QString &cmd, QString &msg) override;
 
 private:

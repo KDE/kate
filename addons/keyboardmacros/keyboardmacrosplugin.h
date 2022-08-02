@@ -3,11 +3,16 @@
  * SPDX-License-Identifier: GPL-2.0-or-later
  */
 
-#ifndef PLUGIN_KATEKEYBOARDMACRO_H
-#define PLUGIN_KATEKEYBOARDMACRO_H
+#ifndef KEYBOARDMACROSPLUGIN_H
+#define KEYBOARDMACROSPLUGIN_H
 
-#include <QKeyEvent>
+#include <QEvent>
 #include <QList>
+#include <QMap>
+#include <QObject>
+#include <QString>
+#include <QVariant>
+#include <QVariantMap>
 
 #include <KTextEditor/Application>
 #include <KTextEditor/Command>
@@ -15,39 +20,17 @@
 #include <KTextEditor/Plugin>
 #include <KTextEditor/View>
 
-class KeyCombination
-{
-private:
-    int key;
-    Qt::KeyboardModifiers modifiers;
-    QString text;
+#include "macro.h"
 
-public:
-    explicit KeyCombination(const QKeyEvent *keyEvent)
-        : key(keyEvent->key())
-        , modifiers(keyEvent->modifiers())
-        , text(keyEvent->text()){};
-    QKeyEvent *keyPress()
-    {
-        return new QKeyEvent(QEvent::KeyPress, key, modifiers, text);
-    };
-    QKeyEvent *keyRelease()
-    {
-        return new QKeyEvent(QEvent::KeyRelease, key, modifiers, text);
-    };
-    friend QDebug operator<<(QDebug dbg, const KeyCombination &kc)
-    {
-        return dbg << QKeySequence(kc.key | kc.modifiers).toString();
-    };
-};
-
-typedef QList<KeyCombination> Macro;
+class KeyboardMacrosPluginView;
+class KeyboardMacrosPluginCommands;
 
 class KeyboardMacrosPlugin : public KTextEditor::Plugin
 {
     Q_OBJECT
 
-    friend class KeyboardMacrosPluginView;
+    friend KeyboardMacrosPluginView;
+    friend KeyboardMacrosPluginCommands;
 
 public:
     explicit KeyboardMacrosPlugin(QObject *parent = nullptr, const QList<QVariant> & = QList<QVariant>());
@@ -68,18 +51,29 @@ private:
     KTextEditor::MainWindow *m_mainWindow = nullptr;
     QWidget *m_focusWidget = nullptr;
 
+    KeyboardMacrosPluginCommands *m_commands;
+
     QAction *m_recordAction = nullptr;
     QAction *m_cancelAction = nullptr;
     QAction *m_playAction = nullptr;
-
-    bool m_recording = false;
-    Macro m_tape;
-    Macro m_macro;
 
     void record();
     void stop(bool save);
     void cancel();
     bool play();
+
+    bool save(QString name);
+    bool load(QString name);
+    bool remove(QString name);
+
+    bool m_recording = false;
+    Macro m_tape;
+    Macro m_macro;
+    QMap<QString, Macro> m_namedMacros;
+    QString m_storage;
+
+    void loadNamedMacros();
+    void saveNamedMacros();
 
     void focusObjectChanged(QObject *focusObject);
     void applicationStateChanged(Qt::ApplicationState state);
@@ -91,7 +85,7 @@ public Q_SLOTS:
 };
 
 /**
- * Plugin view to add our actions to the gui
+ * Plugin view to add keyboard macros actions to the GUI
  */
 class KeyboardMacrosPluginView : public QObject, public KXMLGUIClient
 {
@@ -103,6 +97,22 @@ public:
 
 private:
     KTextEditor::MainWindow *m_mainWindow;
+};
+
+/**
+ * Plugin commands to manage named keyboard macros
+ */
+class KeyboardMacrosPluginCommands : public KTextEditor::Command
+{
+    Q_OBJECT
+
+public:
+    KeyboardMacrosPluginCommands(KeyboardMacrosPlugin *plugin);
+    bool exec(KTextEditor::View *, const QString &cmd, QString &msg, const KTextEditor::Range & = KTextEditor::Range::invalid()) override;
+    bool help(KTextEditor::View *, const QString &cmd, QString &msg) override;
+
+private:
+    KeyboardMacrosPlugin *m_plugin;
 };
 
 #endif

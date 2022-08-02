@@ -8,14 +8,26 @@
 #include <QAction>
 #include <QApplication>
 #include <QCoreApplication>
+#include <QFile>
+#include <QIODevice>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonParseError>
 #include <QKeyEvent>
 #include <QKeySequence>
 #include <QList>
+#include <QRegExp>
+#include <QStandardPaths>
 #include <QString>
-#include <QtAlgorithms>
+#include <QStringList>
 
+#include <KTextEditor/Application>
+#include <KTextEditor/Command>
 #include <KTextEditor/Editor>
+#include <KTextEditor/MainWindow>
 #include <KTextEditor/Message>
+#include <KTextEditor/Plugin>
+#include <KTextEditor/View>
 
 #include <KActionCollection>
 #include <KLocalizedString>
@@ -27,10 +39,15 @@ K_PLUGIN_FACTORY_WITH_JSON(KeyboardMacrosPluginFactory, "keyboardmacrosplugin.js
 KeyboardMacrosPlugin::KeyboardMacrosPlugin(QObject *parent, const QList<QVariant> &)
     : KTextEditor::Plugin(parent)
 {
+    m_commands = new KeyboardMacrosPluginCommands(this);
+    m_storage = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QStringLiteral("/kate/keyboardmacros.json");
+    loadNamedMacros();
 }
 
 KeyboardMacrosPlugin::~KeyboardMacrosPlugin()
 {
+    saveNamedMacros();
+    delete m_commands;
 }
 
 QObject *KeyboardMacrosPlugin::createView(KTextEditor::MainWindow *mainWindow)
@@ -151,6 +168,81 @@ bool KeyboardMacrosPlugin::play()
     return true;
 }
 
+bool KeyboardMacrosPlugin::save(QString name)
+{
+    // we don't need to save macros that do nothing
+    if (m_macro.isEmpty()) {
+        return false;
+    }
+    qDebug() << "[KeyboardMacrosPlugin] saving macro:" << name;
+    m_namedMacros.insert(name, m_macro);
+    return true;
+}
+
+bool KeyboardMacrosPlugin::load(QString name)
+{
+    if (!m_namedMacros.contains(name)) {
+        return false;
+    }
+    qDebug() << "[KeyboardMacrosPlugin] loading macro:" << name;
+    // clear current macro
+    m_macro.clear();
+    // load named macro
+    m_macro = m_namedMacros.value(name);
+    // update GUI
+    m_playAction->setEnabled(true);
+    return true;
+}
+
+bool KeyboardMacrosPlugin::remove(QString name)
+{
+    if (!m_namedMacros.contains(name)) {
+        return false;
+    }
+    qDebug() << "[KeyboardMacrosPlugin] removing macro:" << name;
+    m_namedMacros.remove(name);
+    return true;
+}
+
+void KeyboardMacrosPlugin::loadNamedMacros()
+{
+    QFile storage(m_storage);
+    if (!storage.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        sendMessage(i18n("Could not open file '%1'.", m_storage), false);
+        return;
+    }
+    QJsonParseError parseError;
+    QJsonDocument jsonDoc = QJsonDocument::fromJson(storage.readAll(), &parseError);
+    if (parseError.error != QJsonParseError::NoError) {
+        sendMessage(i18n("Malformed JSON file '%1': %2", m_storage, parseError.errorString()), true);
+    }
+    QJsonObject json = jsonDoc.object();
+    QJsonObject::ConstIterator it;
+    for (it = json.constBegin(); it != json.constEnd(); ++it) {
+        m_namedMacros.insert(it.key(), Macro(it.value()));
+    }
+    storage.close();
+}
+
+void KeyboardMacrosPlugin::saveNamedMacros()
+{
+    if (m_namedMacros.isEmpty()) {
+        return;
+    }
+    QFile storage(m_storage);
+    if (!storage.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        sendMessage(i18n("Could not open file '%1'.", m_storage), false);
+        return;
+    }
+    QJsonObject json;
+    QMap<QString, Macro>::ConstIterator it;
+    for (it = m_namedMacros.constBegin(); it != m_namedMacros.constEnd(); ++it) {
+        json.insert(it.key(), it.value().toJson());
+    }
+    storage.write(QJsonDocument(json).toJson(QJsonDocument::Compact));
+    storage.close();
+}
+
 void KeyboardMacrosPlugin::focusObjectChanged(QObject *focusObject)
 {
     qDebug() << "[KeyboardMacrosPlugin] focusObjectChanged:" << focusObject;
@@ -252,6 +344,62 @@ KeyboardMacrosPluginView::~KeyboardMacrosPluginView()
 {
     // remove Keyboard Macros actions from the GUI
     m_mainWindow->guiFactory()->removeClient(this);
+}
+
+// END
+
+// BEGIN Plugin commands to manage named keyboard macros
+
+KeyboardMacrosPluginCommands::KeyboardMacrosPluginCommands(KeyboardMacrosPlugin *plugin)
+    : KTextEditor::Command(QStringList() << QStringLiteral("kmsave") << QStringLiteral("kmload") << QStringLiteral("kmremove"), plugin)
+    , m_plugin(plugin)
+{
+}
+
+bool KeyboardMacrosPluginCommands::exec(KTextEditor::View *, const QString &cmd, QString &msg, const KTextEditor::Range &)
+{
+    QStringList actionAndName = cmd.split(QRegExp(QStringLiteral("\\s+")));
+    if (actionAndName.length() != 2) {
+        msg = i18n("Usage: %1 <name>.", actionAndName.at(0));
+        return false;
+    }
+    QString action = actionAndName.at(0);
+    QString name = actionAndName.at(1);
+    if (action == QStringLiteral("kmsave")) {
+        if (!m_plugin->save(name)) {
+            msg = i18n("Cannot save empty keyboard macro.");
+            return false;
+        }
+        return true;
+    } else if (action == QStringLiteral("kmload")) {
+        if (!m_plugin->load(name)) {
+            msg = i18n("No keyboard macro named '%1' found.", name);
+            return false;
+        }
+        return true;
+    } else if (action == QStringLiteral("kmremove")) {
+        if (!m_plugin->remove(name)) {
+            msg = i18n("No keyboard macro named '%1' found.", name);
+            return false;
+        }
+        return true;
+    }
+    return false;
+}
+
+bool KeyboardMacrosPluginCommands::help(KTextEditor::View *, const QString &cmd, QString &msg)
+{
+    if (cmd == QStringLiteral("kmsave")) {
+        msg = i18n("<qt><p>Usage: <code>kmsave &lt;name&gt;</code></p><p>Save current keyboard macro as <code>&lt;name&gt;</code>.</p></qt>");
+        return true;
+    } else if (cmd == QStringLiteral("kmload")) {
+        msg = i18n("<qt><p>Usage: <code>kmload &lt;name&gt;</code></p><p>Load saved keyboard macro <code>&lt;name&gt;</code> as current macro.</p></qt>");
+        return true;
+    } else if (cmd == QStringLiteral("kmremove")) {
+        msg = i18n("<qt><p>Usage: <code>kmremove &lt;name&gt;</code></p><p>Remove saved keyboard macro <code>&lt;name&gt;</code>.</p></qt>");
+        return true;
+    }
+    return false;
 }
 
 // END

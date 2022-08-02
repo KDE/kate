@@ -11,6 +11,8 @@
 class LSPClientServerManager;
 class LSPClientServer;
 
+#include <QObject>
+
 #include <KTextEditor/TextHintInterface>
 
 class LSPClientHover : public QObject, public KTextEditor::TextHintProvider

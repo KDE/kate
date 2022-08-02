@@ -232,9 +232,6 @@ void KeyboardMacrosPlugin::loadNamedMacros()
 
 void KeyboardMacrosPlugin::saveNamedMacros()
 {
-    if (m_namedMacros.isEmpty()) {
-        return;
-    }
     QFile storage(m_storage);
     if (!storage.open(QIODevice::WriteOnly | QIODevice::Text)) {
         sendMessage(i18n("Could not open file '%1'.", m_storage), false);

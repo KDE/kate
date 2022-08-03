@@ -28,7 +28,7 @@ public:
         , modifiers(keyEvent->modifiers())
         , text(keyEvent->text()){};
 
-    explicit KeyCombination(const QJsonArray json)
+    explicit KeyCombination(const QJsonArray &json)
     {
         Q_ASSERT(json.size() == 3);
         Q_ASSERT(json.at(0).type() == QJsonValue::Double);

@@ -20,7 +20,7 @@ public:
     explicit Macro()
         : QList<KeyCombination>(){};
 
-    explicit Macro(const QJsonValue json)
+    explicit Macro(const QJsonValue &json)
     {
         Q_ASSERT(json.type() == QJsonValue::Array);
         QJsonArray::ConstIterator it;

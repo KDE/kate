@@ -402,17 +402,30 @@ bool KeyboardMacrosPluginCommands::exec(KTextEditor::View *view, const QString &
 
 bool KeyboardMacrosPluginCommands::help(KTextEditor::View *, const QString &cmd, QString &msg)
 {
+    QString namedMacros;
+    if (!m_plugin->m_namedMacros.keys().isEmpty()) {
+        namedMacros += QStringLiteral("<p><b>Named macros:</b> ");
+        QList<QString> names = m_plugin->m_namedMacros.keys();
+        QList<QString>::ConstIterator it;
+        namedMacros += names.first();
+        for (it = ++names.constBegin(); it != names.constEnd(); ++it) {
+            namedMacros += QStringLiteral(", ") + *it;
+        }
+        namedMacros += QStringLiteral(".</p>");
+    }
     if (cmd == QStringLiteral("kmsave")) {
-        msg = i18n("<qt><p>Usage: <code>kmsave &lt;name&gt;</code></p><p>Save current keyboard macro as <code>&lt;name&gt;</code>.</p></qt>");
+        msg = i18n("<qt><p>Usage: <code>kmsave &lt;name&gt;</code></p><p>Save current keyboard macro as <code>&lt;name&gt;</code>.</p>%1</qt>", namedMacros);
         return true;
     } else if (cmd == QStringLiteral("kmload")) {
-        msg = i18n("<qt><p>Usage: <code>kmload &lt;name&gt;</code></p><p>Load saved keyboard macro <code>&lt;name&gt;</code> as current macro.</p></qt>");
+        msg = i18n("<qt><p>Usage: <code>kmload &lt;name&gt;</code></p><p>Load saved keyboard macro <code>&lt;name&gt;</code> as current macro.</p>%1</qt>",
+                   namedMacros);
         return true;
     } else if (cmd == QStringLiteral("kmremove")) {
-        msg = i18n("<qt><p>Usage: <code>kmremove &lt;name&gt;</code></p><p>Remove saved keyboard macro <code>&lt;name&gt;</code>.</p></qt>");
+        msg = i18n("<qt><p>Usage: <code>kmremove &lt;name&gt;</code></p><p>Remove saved keyboard macro <code>&lt;name&gt;</code>.</p>%1</qt>", namedMacros);
         return true;
     } else if (cmd == QStringLiteral("kmplay")) {
-        msg = i18n("<qt><p>Usage: <code>kmplay &lt;name&gt;</code></p><p>Play saved keyboard macro <code>&lt;name&gt;</code> without loading it.</p></qt>");
+        msg = i18n("<qt><p>Usage: <code>kmplay &lt;name&gt;</code></p><p>Play saved keyboard macro <code>&lt;name&gt;</code> without loading it.</p>%1</qt>",
+                   namedMacros);
         return true;
     }
     return false;

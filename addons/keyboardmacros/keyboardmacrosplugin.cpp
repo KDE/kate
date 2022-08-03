@@ -147,7 +147,7 @@ void KeyboardMacrosPlugin::cancel()
     stop(false);
 }
 
-bool KeyboardMacrosPlugin::play(QString name)
+bool KeyboardMacrosPlugin::play(const QString &name)
 {
     Macro m;
     if (!name.isEmpty() && m_namedMacros.contains(name)) {
@@ -174,7 +174,7 @@ bool KeyboardMacrosPlugin::play(QString name)
     return true;
 }
 
-bool KeyboardMacrosPlugin::save(QString name)
+bool KeyboardMacrosPlugin::save(const QString &name)
 {
     // we don't need to save macros that do nothing
     if (m_macro.isEmpty()) {
@@ -185,7 +185,7 @@ bool KeyboardMacrosPlugin::save(QString name)
     return true;
 }
 
-bool KeyboardMacrosPlugin::load(QString name)
+bool KeyboardMacrosPlugin::load(const QString &name)
 {
     if (!m_namedMacros.contains(name)) {
         return false;
@@ -200,7 +200,7 @@ bool KeyboardMacrosPlugin::load(QString name)
     return true;
 }
 
-bool KeyboardMacrosPlugin::remove(QString name)
+bool KeyboardMacrosPlugin::remove(const QString &name)
 {
     if (!m_namedMacros.contains(name)) {
         return false;

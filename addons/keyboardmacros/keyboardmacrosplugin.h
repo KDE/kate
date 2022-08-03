@@ -60,11 +60,11 @@ private:
     void record();
     void stop(bool save);
     void cancel();
-    bool play(QString name = QString());
+    bool play(const QString &name = QString());
 
-    bool save(QString name);
-    bool load(QString name);
-    bool remove(QString name);
+    bool save(const QString &name);
+    bool load(const QString &name);
+    bool remove(const QString &name);
 
     bool m_recording = false;
     Macro m_tape;
@@ -107,7 +107,7 @@ class KeyboardMacrosPluginCommands : public KTextEditor::Command
     Q_OBJECT
 
 public:
-    KeyboardMacrosPluginCommands(KeyboardMacrosPlugin *plugin);
+    explicit KeyboardMacrosPluginCommands(KeyboardMacrosPlugin *plugin);
     bool exec(KTextEditor::View *view, const QString &cmd, QString &msg, const KTextEditor::Range & = KTextEditor::Range::invalid()) override;
     bool help(KTextEditor::View *, const QString &cmd, QString &msg) override;
 

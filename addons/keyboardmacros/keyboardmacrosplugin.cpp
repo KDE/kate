@@ -232,6 +232,14 @@ void KeyboardMacrosPlugin::loadNamedMacros()
 
 void KeyboardMacrosPlugin::saveNamedMacros()
 {
+    // first keep a copy of the named macros of our instance
+    QMap<QString, Macro> ourNamedMacros;
+    ourNamedMacros.swap(m_namedMacros);
+    // then reload from storage in case another instance saved macros since we first loaded ours from storage
+    loadNamedMacros();
+    // then insert all of our macros, prioritizing ours in case of name conflict since we are the most recent save
+    m_namedMacros.insert(ourNamedMacros);
+    // and now save named macros
     QFile storage(m_storage);
     if (!storage.open(QIODevice::WriteOnly | QIODevice::Text)) {
         sendMessage(i18n("Could not open file '%1'.", m_storage), false);

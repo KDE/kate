@@ -16,7 +16,7 @@
 #include <QKeyEvent>
 #include <QKeySequence>
 #include <QList>
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QStandardPaths>
 #include <QString>
 #include <QStringList>
@@ -370,7 +370,7 @@ KeyboardMacrosPluginCommands::KeyboardMacrosPluginCommands(KeyboardMacrosPlugin 
 
 bool KeyboardMacrosPluginCommands::exec(KTextEditor::View *view, const QString &cmd, QString &msg, const KTextEditor::Range &)
 {
-    QStringList actionAndName = cmd.split(QRegExp(QStringLiteral("\\s+")));
+    QStringList actionAndName = cmd.split(QRegularExpression(QStringLiteral("\\s+")));
     if (actionAndName.length() != 2) {
         msg = i18n("Usage: %1 <name>.", actionAndName.at(0));
         return false;

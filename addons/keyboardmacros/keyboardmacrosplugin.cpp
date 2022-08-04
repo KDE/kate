@@ -34,6 +34,9 @@
 #include <KPluginFactory>
 #include <KXMLGUIFactory>
 
+#include "keycombination.h"
+#include "macro.h"
+
 K_PLUGIN_FACTORY_WITH_JSON(KeyboardMacrosPluginFactory, "keyboardmacrosplugin.json", registerPlugin<KeyboardMacrosPlugin>();)
 
 KeyboardMacrosPlugin::KeyboardMacrosPlugin(QObject *parent, const QList<QVariant> &)

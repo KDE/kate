@@ -56,6 +56,10 @@ private:
     QAction *m_recordAction = nullptr;
     QAction *m_cancelAction = nullptr;
     QAction *m_playAction = nullptr;
+    QAction *m_saveNamedAction = nullptr;
+    QAction *m_loadNamedAction = nullptr;
+    // QAction *m_playNamedAction = nullptr;
+    QAction *m_deleteNamedAction = nullptr;
 
     void record();
     void stop(bool save);
@@ -65,6 +69,8 @@ private:
     bool save(const QString &name);
     bool load(const QString &name);
     bool remove(const QString &name);
+
+    QString queryName(const QString &query, const QString &action);
 
     bool m_recording = false;
     Macro m_tape;
@@ -82,6 +88,10 @@ public Q_SLOTS:
     void slotRecord();
     void slotCancel();
     void slotPlay();
+    void slotSaveNamed();
+    void slotLoadNamed();
+    // void slotPlayNamed();
+    void slotDeleteNamed();
 };
 
 /**

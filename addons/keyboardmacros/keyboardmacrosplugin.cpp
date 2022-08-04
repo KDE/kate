@@ -7,15 +7,20 @@
 
 #include <QAction>
 #include <QApplication>
+#include <QCompleter>
 #include <QCoreApplication>
+#include <QDialog>
 #include <QFile>
 #include <QIODevice>
+#include <QInputDialog>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonParseError>
 #include <QKeyEvent>
 #include <QKeySequence>
+#include <QLineEdit>
 #include <QList>
+#include <QObject>
 #include <QRegularExpression>
 #include <QStandardPaths>
 #include <QString>
@@ -133,6 +138,7 @@ void KeyboardMacrosPlugin::stop(bool save)
         m_tape.clear();
         // update GUI
         m_playAction->setEnabled(!m_macro.isEmpty());
+        m_saveNamedAction->setEnabled(!m_macro.isEmpty());
     } else { // cancel recording
         // delete tape
         m_tape.clear();
@@ -185,6 +191,10 @@ bool KeyboardMacrosPlugin::save(const QString &name)
     }
     qDebug() << "[KeyboardMacrosPlugin] saving macro:" << name;
     m_namedMacros.insert(name, m_macro);
+    // update GUI
+    m_loadNamedAction->setEnabled(true);
+    // m_playNamedAction->setEnabled(true);
+    m_deleteNamedAction->setEnabled(true);
     return true;
 }
 
@@ -210,7 +220,32 @@ bool KeyboardMacrosPlugin::remove(const QString &name)
     }
     qDebug() << "[KeyboardMacrosPlugin] removing macro:" << name;
     m_namedMacros.remove(name);
+    // update GUI
+    m_loadNamedAction->setEnabled(!m_namedMacros.isEmpty());
+    // m_playNamedAction->setEnabled(!m_namedMacros.isEmpty());
+    m_deleteNamedAction->setEnabled(!m_namedMacros.isEmpty());
     return true;
+}
+
+QString KeyboardMacrosPlugin::queryName(const QString &query, const QString &action)
+{
+    QInputDialog dialog(qApp->focusWidget());
+    dialog.setWindowTitle(i18n("Keyboard Macros"));
+    dialog.setLabelText(query);
+    dialog.setInputMode(QInputDialog::TextInput);
+    dialog.setOkButtonText(action);
+    QLineEdit *lineEdit = dialog.findChild<QLineEdit *>();
+    QCompleter *completer = new QCompleter(QStringList(m_namedMacros.keys()), lineEdit);
+    completer->setCompletionMode(QCompleter::UnfilteredPopupCompletion);
+    completer->setFilterMode(Qt::MatchContains);
+    if (lineEdit != nullptr) {
+        lineEdit->setCompleter(completer);
+    }
+    if (dialog.exec() != QDialog::Accepted) {
+        return QString();
+    }
+    delete completer;
+    return dialog.textValue();
 }
 
 void KeyboardMacrosPlugin::loadNamedMacros()
@@ -315,6 +350,59 @@ void KeyboardMacrosPlugin::slotCancel()
     cancel();
 }
 
+void KeyboardMacrosPlugin::slotSaveNamed()
+{
+    if (m_recording) {
+        return;
+    }
+    QString name = queryName(i18n("Under which name should the current macro be saved?"), i18n("Save Macro"));
+    if (name.isEmpty()) {
+        return;
+    }
+    save(name);
+}
+
+void KeyboardMacrosPlugin::slotLoadNamed()
+{
+    if (m_recording) {
+        return;
+    }
+    QString name = queryName(i18n("Which named macro do you want to load?"), i18n("Load Macro"));
+    if (name.isEmpty()) {
+        return;
+    }
+    load(name);
+}
+
+// void KeyboardMacrosPlugin::slotPlayNamed()
+// {
+//     if (m_recording) {
+//         return;
+//     }
+//     QWidget *focused = qApp->focusWidget();
+//     qDebug() << focused;
+//     QString name = queryName(i18n("Which named macro do you want to play?"), i18n("Play Macro"));
+//     if (name.isEmpty()) {
+//         return;
+//     }
+//     // set focus back to the widget which had it before the dialog otherwise the macro is
+//     // sometimes played with focus on the deleted input dialog which makes Kate crash
+//     focused->setFocus(); // FIXME: this "fix" isn't enough
+//     play(name);
+// }
+
+void KeyboardMacrosPlugin::slotDeleteNamed()
+{
+    if (m_recording) {
+        return;
+    }
+    QString name = queryName(i18n("Which named macro do you want to delete?"), i18n("Delete Macro"));
+    if (name.isEmpty()) {
+        return;
+    }
+    remove(name);
+}
+
 // BEGIN Plugin view to add our actions to the gui
 
 KeyboardMacrosPluginView::KeyboardMacrosPluginView(KeyboardMacrosPlugin *plugin, KTextEditor::MainWindow *mainwindow)
@@ -349,6 +437,38 @@ KeyboardMacrosPluginView::KeyboardMacrosPluginView(KeyboardMacrosPlugin *plugin,
     play->setEnabled(false);
     connect(play, &QAction::triggered, plugin, &KeyboardMacrosPlugin::slotPlay);
     plugin->m_playAction = play;
+
+    // create save named action
+    QAction *saveNamed = actionCollection()->addAction(QStringLiteral("keyboardmacros_named_save"));
+    saveNamed->setText(i18n("&Save Current Macro"));
+    saveNamed->setToolTip(i18n("Give a name to the current macro and persistently save it."));
+    saveNamed->setEnabled(false);
+    connect(saveNamed, &QAction::triggered, plugin, &KeyboardMacrosPlugin::slotSaveNamed);
+    plugin->m_saveNamedAction = saveNamed;
+
+    // create load named action
+    QAction *loadNamed = actionCollection()->addAction(QStringLiteral("keyboardmacros_named_load"));
+    loadNamed->setText(i18n("&Load Named Macro"));
+    loadNamed->setToolTip(i18n("Load a named macro as the current one."));
+    loadNamed->setEnabled(!plugin->m_namedMacros.isEmpty());
+    connect(loadNamed, &QAction::triggered, plugin, &KeyboardMacrosPlugin::slotLoadNamed);
+    plugin->m_loadNamedAction = loadNamed;
+
+    // // create play named action
+    // QAction *playNamed = actionCollection()->addAction(QStringLiteral("keyboardmacros_named_play"));
+    // playNamed->setText(i18n("&Play Named Macro"));
+    // playNamed->setToolTip(i18n("Play a named macro without loading it."));
+    // playNamed->setEnabled(!plugin->m_namedMacros.isEmpty());
+    // connect(playNamed, &QAction::triggered, plugin, &KeyboardMacrosPlugin::slotPlayNamed);
+    // plugin->m_playNamedAction = playNamed;
+
+    // create delete named action
+    QAction *deleteNamed = actionCollection()->addAction(QStringLiteral("keyboardmacros_named_delete"));
+    deleteNamed->setText(i18n("&Delete Named Macro"));
+    deleteNamed->setToolTip(i18n("Delete a named macro."));
+    deleteNamed->setEnabled(!plugin->m_namedMacros.isEmpty());
+    connect(deleteNamed, &QAction::triggered, plugin, &KeyboardMacrosPlugin::slotDeleteNamed);
+    plugin->m_deleteNamedAction = deleteNamed;
 
     // add Keyboard Macros actions to the GUI
     mainwindow->guiFactory()->addClient(this);

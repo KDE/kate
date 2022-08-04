@@ -156,7 +156,7 @@ bool KeyboardMacrosPlugin::play(const QString &name)
     if (!name.isEmpty() && m_namedMacros.contains(name)) {
         m = m_namedMacros.value(name);
         qDebug() << "[KeyboardMacrosPlugin] playing macro:" << name;
-    } else if (!m_macro.isEmpty()) {
+    } else if (name.isEmpty() && !m_macro.isEmpty()) {
         m = m_macro;
         qDebug() << "[KeyboardMacrosPlugin] playing macro!";
     } else {

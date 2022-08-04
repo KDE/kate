@@ -365,7 +365,7 @@ KeyboardMacrosPluginView::~KeyboardMacrosPluginView()
 // BEGIN Plugin commands to manage named keyboard macros
 
 KeyboardMacrosPluginCommands::KeyboardMacrosPluginCommands(KeyboardMacrosPlugin *plugin)
-    : KTextEditor::Command(QStringList() << QStringLiteral("kmsave") << QStringLiteral("kmload") << QStringLiteral("kmremove") << QStringLiteral("kmplay"),
+    : KTextEditor::Command(QStringList() << QStringLiteral("kmsave") << QStringLiteral("kmload") << QStringLiteral("kmplay") << QStringLiteral("kmdelete"),
                            plugin)
     , m_plugin(plugin)
 {
@@ -392,7 +392,7 @@ bool KeyboardMacrosPluginCommands::exec(KTextEditor::View *view, const QString &
             return false;
         }
         return true;
-    } else if (action == QStringLiteral("kmremove")) {
+    } else if (action == QStringLiteral("kmdelete")) {
         if (!m_plugin->remove(name)) {
             msg = i18n("No keyboard macro named '%1' found.", name);
             return false;
@@ -431,8 +431,8 @@ bool KeyboardMacrosPluginCommands::help(KTextEditor::View *, const QString &cmd,
         msg = i18n("<qt><p>Usage: <code>kmload &lt;name&gt;</code></p><p>Load saved keyboard macro <code>&lt;name&gt;</code> as current macro.</p>%1</qt>",
                    namedMacros);
         return true;
-    } else if (cmd == QStringLiteral("kmremove")) {
-        msg = i18n("<qt><p>Usage: <code>kmremove &lt;name&gt;</code></p><p>Remove saved keyboard macro <code>&lt;name&gt;</code>.</p>%1</qt>", namedMacros);
+    } else if (cmd == QStringLiteral("kmdelete")) {
+        msg = i18n("<qt><p>Usage: <code>kmdelete &lt;name&gt;</code></p><p>Delete saved keyboard macro <code>&lt;name&gt;</code>.</p>%1</qt>", namedMacros);
         return true;
     } else if (cmd == QStringLiteral("kmplay")) {
         msg = i18n("<qt><p>Usage: <code>kmplay &lt;name&gt;</code></p><p>Play saved keyboard macro <code>&lt;name&gt;</code> without loading it.</p>%1</qt>",

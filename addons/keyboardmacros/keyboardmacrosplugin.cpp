@@ -417,7 +417,7 @@ KeyboardMacrosPluginView::KeyboardMacrosPluginView(KeyboardMacrosPlugin *plugin,
     QAction *record = actionCollection()->addAction(QStringLiteral("keyboardmacros_record"));
     record->setText(i18n("&Record Macro..."));
     record->setToolTip(i18n("Start/stop recording a macro (i.e., keyboard action sequence)."));
-    actionCollection()->setDefaultShortcut(record, Qt::CTRL | Qt::SHIFT | Qt::Key_K);
+    actionCollection()->setDefaultShortcut(record, QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_K));
     connect(record, &QAction::triggered, plugin, &KeyboardMacrosPlugin::slotRecord);
     plugin->m_recordAction = record;
 
@@ -425,6 +425,7 @@ KeyboardMacrosPluginView::KeyboardMacrosPluginView(KeyboardMacrosPlugin *plugin,
     QAction *cancel = actionCollection()->addAction(QStringLiteral("keyboardmacros_cancel"));
     cancel->setText(i18n("&Cancel Macro Recording"));
     cancel->setToolTip(i18n("Cancel ongoing recording (and keep the previous macro as the current one)."));
+    actionCollection()->setDefaultShortcut(cancel, QKeySequence(Qt::ALT | Qt::SHIFT | Qt::Key_K, Qt::Key_C));
     cancel->setEnabled(false);
     connect(cancel, &QAction::triggered, plugin, &KeyboardMacrosPlugin::slotCancel);
     plugin->m_cancelAction = cancel;
@@ -433,7 +434,7 @@ KeyboardMacrosPluginView::KeyboardMacrosPluginView(KeyboardMacrosPlugin *plugin,
     QAction *play = actionCollection()->addAction(QStringLiteral("keyboardmacros_play"));
     play->setText(i18n("&Play Macro"));
     play->setToolTip(i18n("Play current macro (i.e., execute the last recorded keyboard action sequence)."));
-    actionCollection()->setDefaultShortcut(play, Qt::CTRL | Qt::ALT | Qt::Key_K);
+    actionCollection()->setDefaultShortcut(play, QKeySequence(Qt::CTRL | Qt::ALT | Qt::Key_K));
     play->setEnabled(false);
     connect(play, &QAction::triggered, plugin, &KeyboardMacrosPlugin::slotPlay);
     plugin->m_playAction = play;
@@ -442,6 +443,7 @@ KeyboardMacrosPluginView::KeyboardMacrosPluginView(KeyboardMacrosPlugin *plugin,
     QAction *saveNamed = actionCollection()->addAction(QStringLiteral("keyboardmacros_named_save"));
     saveNamed->setText(i18n("&Save Current Macro"));
     saveNamed->setToolTip(i18n("Give a name to the current macro and persistently save it."));
+    actionCollection()->setDefaultShortcut(saveNamed, QKeySequence(Qt::ALT | Qt::SHIFT | Qt::Key_K, Qt::Key_S));
     saveNamed->setEnabled(false);
     connect(saveNamed, &QAction::triggered, plugin, &KeyboardMacrosPlugin::slotSaveNamed);
     plugin->m_saveNamedAction = saveNamed;
@@ -450,6 +452,7 @@ KeyboardMacrosPluginView::KeyboardMacrosPluginView(KeyboardMacrosPlugin *plugin,
     QAction *loadNamed = actionCollection()->addAction(QStringLiteral("keyboardmacros_named_load"));
     loadNamed->setText(i18n("&Load Named Macro"));
     loadNamed->setToolTip(i18n("Load a named macro as the current one."));
+    actionCollection()->setDefaultShortcut(loadNamed, QKeySequence(Qt::ALT | Qt::SHIFT | Qt::Key_K, Qt::Key_L));
     loadNamed->setEnabled(!plugin->m_namedMacros.isEmpty());
     connect(loadNamed, &QAction::triggered, plugin, &KeyboardMacrosPlugin::slotLoadNamed);
     plugin->m_loadNamedAction = loadNamed;
@@ -458,6 +461,7 @@ KeyboardMacrosPluginView::KeyboardMacrosPluginView(KeyboardMacrosPlugin *plugin,
     // QAction *playNamed = actionCollection()->addAction(QStringLiteral("keyboardmacros_named_play"));
     // playNamed->setText(i18n("&Play Named Macro"));
     // playNamed->setToolTip(i18n("Play a named macro without loading it."));
+    // actionCollection()->setDefaultShortcut(playNamed, QKeySequence(Qt::ALT | Qt::SHIFT | Qt::Key_K, Qt::Key_P));
     // playNamed->setEnabled(!plugin->m_namedMacros.isEmpty());
     // connect(playNamed, &QAction::triggered, plugin, &KeyboardMacrosPlugin::slotPlayNamed);
     // plugin->m_playNamedAction = playNamed;
@@ -466,6 +470,7 @@ KeyboardMacrosPluginView::KeyboardMacrosPluginView(KeyboardMacrosPlugin *plugin,
     QAction *deleteNamed = actionCollection()->addAction(QStringLiteral("keyboardmacros_named_delete"));
     deleteNamed->setText(i18n("&Delete Named Macro"));
     deleteNamed->setToolTip(i18n("Delete a named macro."));
+    actionCollection()->setDefaultShortcut(deleteNamed, QKeySequence(Qt::ALT | Qt::SHIFT | Qt::Key_K, Qt::Key_D));
     deleteNamed->setEnabled(!plugin->m_namedMacros.isEmpty());
     connect(deleteNamed, &QAction::triggered, plugin, &KeyboardMacrosPlugin::slotDeleteNamed);
     plugin->m_deleteNamedAction = deleteNamed;

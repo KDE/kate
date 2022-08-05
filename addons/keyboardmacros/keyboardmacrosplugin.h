@@ -122,7 +122,7 @@ class KeyboardMacrosPluginCommands : public KTextEditor::Command
 
 public:
     explicit KeyboardMacrosPluginCommands(KeyboardMacrosPlugin *plugin);
-    bool exec(KTextEditor::View *view, const QString &cmd, QString &msg, const KTextEditor::Range & = KTextEditor::Range::invalid()) override;
+    bool exec(KTextEditor::View *view, const QString &cmd, QString &msg, const KTextEditor::Range &) override;
     bool help(KTextEditor::View *, const QString &cmd, QString &msg) override;
 
 private:

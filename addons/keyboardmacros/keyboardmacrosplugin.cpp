@@ -9,6 +9,7 @@
 #include <QApplication>
 #include <QCompleter>
 #include <QCoreApplication>
+#include <QDebug>
 #include <QDialog>
 #include <QFile>
 #include <QIODevice>
@@ -20,6 +21,7 @@
 #include <QKeySequence>
 #include <QLineEdit>
 #include <QList>
+#include <QLoggingCategory>
 #include <QObject>
 #include <QPointer>
 #include <QRegularExpression>
@@ -42,6 +44,8 @@
 
 #include "keycombination.h"
 #include "macro.h"
+
+Q_LOGGING_CATEGORY(KM_DBG, "kate.plugin.keyboardmacros")
 
 K_PLUGIN_FACTORY_WITH_JSON(KeyboardMacrosPluginFactory, "keyboardmacrosplugin.json", registerPlugin<KeyboardMacrosPlugin>();)
 
@@ -86,7 +90,7 @@ void KeyboardMacrosPlugin::displayMessage(const QString &text, KTextEditor::Mess
     m_message->setIcon(QIcon::fromTheme(QStringLiteral("input-keyboard")));
     m_message->setWordWrap(true);
     m_message->setPosition(KTextEditor::Message::BottomInView);
-    m_message->setAutoHide(type == KTextEditor::Message::Information ? 600000 : 1500);
+    m_message->setAutoHide(type == KTextEditor::Message::Information ? 3600000 : 1500);
     m_message->setAutoHideMode(KTextEditor::Message::Immediate);
     m_message->setView(view);
     view->document()->postMessage(m_message);
@@ -113,7 +117,7 @@ bool KeyboardMacrosPlugin::eventFilter(QObject *obj, QEvent *event)
         }
         // otherwise we add the keyboard event to the macro
         KeyCombination kc(keyEvent);
-        qDebug() << "[KeyboardMacrosPlugin] key combination:" << kc;
+        qCDebug(KM_DBG) << "key combination:" << kc;
         m_tape.append(kc);
         return false;
     } else {
@@ -124,7 +128,7 @@ bool KeyboardMacrosPlugin::eventFilter(QObject *obj, QEvent *event)
 void KeyboardMacrosPlugin::record()
 {
     // start recording
-    qDebug() << "[KeyboardMacrosPlugin] start recording";
+    qCDebug(KM_DBG) << "start recording";
     // install our spy on currently focused widget
     m_focusWidget = qApp->focusWidget();
     m_focusWidget->installEventFilter(this);
@@ -144,7 +148,7 @@ void KeyboardMacrosPlugin::record()
 void KeyboardMacrosPlugin::stop(bool save)
 {
     // stop recording
-    qDebug() << "[KeyboardMacrosPlugin]" << (save ? "end" : "cancel") << "recording";
+    qCDebug(KM_DBG) << (save ? "end" : "cancel") << "recording";
     // uninstall our spy
     m_focusWidget->removeEventFilter(this);
     // update recording status
@@ -180,27 +184,23 @@ void KeyboardMacrosPlugin::cancel()
 
 bool KeyboardMacrosPlugin::play(const QString &name)
 {
-    Macro m;
+    Macro macro;
     if (!name.isEmpty() && m_namedMacros.contains(name)) {
-        m = m_namedMacros.value(name);
-        qDebug() << "[KeyboardMacrosPlugin] playing macro:" << name;
+        macro = m_namedMacros.value(name);
+        qCDebug(KM_DBG) << "playing macro:" << name;
     } else if (name.isEmpty() && !m_macro.isEmpty()) {
-        m = m_macro;
-        qDebug() << "[KeyboardMacrosPlugin] playing macro!";
+        macro = m_macro;
+        qCDebug(KM_DBG) << "playing macro!";
     } else {
         return false;
     }
-    Macro::Iterator it;
-    for (it = m.begin(); it != m.end(); it++) {
-        QKeyEvent *keyEvent;
+    for (const auto &keyCombination : macro) {
         // send key press
-        keyEvent = (*it).keyPress();
-        qApp->sendEvent(qApp->focusWidget(), keyEvent);
-        delete keyEvent;
+        QKeyEvent keyPress = keyCombination.keyPress();
+        qApp->sendEvent(qApp->focusWidget(), &keyPress);
         // send key release
-        keyEvent = (*it).keyRelease();
-        qApp->sendEvent(qApp->focusWidget(), keyEvent);
-        delete keyEvent;
+        QKeyEvent keyRelease = keyCombination.keyRelease();
+        qApp->sendEvent(qApp->focusWidget(), &keyRelease);
     }
     return true;
 }
@@ -211,7 +211,7 @@ bool KeyboardMacrosPlugin::save(const QString &name)
     if (m_macro.isEmpty()) {
         return false;
     }
-    qDebug() << "[KeyboardMacrosPlugin] saving macro:" << name;
+    qCDebug(KM_DBG) << "saving macro:" << name;
     m_namedMacros.insert(name, m_macro);
     // update GUI
     m_loadNamedAction->setEnabled(true);
@@ -227,7 +227,7 @@ bool KeyboardMacrosPlugin::load(const QString &name)
     if (!m_namedMacros.contains(name)) {
         return false;
     }
-    qDebug() << "[KeyboardMacrosPlugin] loading macro:" << name;
+    qCDebug(KM_DBG) << "loading macro:" << name;
     // clear current macro
     m_macro.clear();
     // load named macro
@@ -244,7 +244,7 @@ bool KeyboardMacrosPlugin::remove(const QString &name)
     if (!m_namedMacros.contains(name)) {
         return false;
     }
-    qDebug() << "[KeyboardMacrosPlugin] removing macro:" << name;
+    qCDebug(KM_DBG) << "removing macro:" << name;
     m_namedMacros.remove(name);
     // update GUI
     m_loadNamedAction->setEnabled(!m_namedMacros.isEmpty());
@@ -272,7 +272,6 @@ QString KeyboardMacrosPlugin::queryName(const QString &query, const QString &act
     if (dialog.exec() != QDialog::Accepted) {
         return QString();
     }
-    delete completer;
     return dialog.textValue();
 }
 
@@ -289,8 +288,7 @@ void KeyboardMacrosPlugin::loadNamedMacros()
         sendMessage(i18n("Malformed JSON file '%1': %2", m_storage, parseError.errorString()), true);
     }
     QJsonObject json = jsonDoc.object();
-    QJsonObject::ConstIterator it;
-    for (it = json.constBegin(); it != json.constEnd(); ++it) {
+    for (auto it = json.constBegin(); it != json.constEnd(); ++it) {
         m_namedMacros.insert(it.key(), Macro(it.value()));
     }
     storage.close();
@@ -312,9 +310,8 @@ void KeyboardMacrosPlugin::saveNamedMacros()
         return;
     }
     QJsonObject json;
-    QMap<QString, Macro>::ConstIterator it;
-    for (it = m_namedMacros.constBegin(); it != m_namedMacros.constEnd(); ++it) {
-        json.insert(it.key(), it.value().toJson());
+    for (const auto &[name, macro] : m_namedMacros.toStdMap()) {
+        json.insert(name, macro.toJson());
     }
     storage.write(QJsonDocument(json).toJson(QJsonDocument::Compact));
     storage.close();
@@ -322,20 +319,22 @@ void KeyboardMacrosPlugin::saveNamedMacros()
 
 void KeyboardMacrosPlugin::focusObjectChanged(QObject *focusObject)
 {
-    qDebug() << "[KeyboardMacrosPlugin] focusObjectChanged:" << focusObject;
-    QWidget *focusWidget = dynamic_cast<QWidget *>(focusObject);
+    qCDebug(KM_DBG) << "focusObjectChanged:" << focusObject;
+    QPointer<QWidget> focusWidget = qobject_cast<QWidget *>(focusObject);
     if (focusWidget == nullptr || focusWidget == m_focusWidget) {
         return;
     }
     // update which widget we filter events from when the focus has changed
-    m_focusWidget->removeEventFilter(this);
+    if (m_focusWidget != nullptr) {
+        m_focusWidget->removeEventFilter(this);
+    }
     m_focusWidget = focusWidget;
     m_focusWidget->installEventFilter(this);
 }
 
 void KeyboardMacrosPlugin::applicationStateChanged(Qt::ApplicationState state)
 {
-    qDebug() << "[KeyboardMacrosPlugin] applicationStateChanged:" << state;
+    qCDebug(KM_DBG) << "applicationStateChanged:" << state;
     // somehow keeping our event filter on while the app is out of focus made Kate crash, we fix that here
     switch (state) {
     case Qt::ApplicationSuspended:
@@ -407,8 +406,7 @@ void KeyboardMacrosPlugin::slotLoadNamed()
 //     if (m_recording) {
 //         return;
 //     }
-//     QWidget *focused = qApp->focusWidget();
-//     qDebug() << focused;
+//     QPointer<QWidget> focused = qApp->focusWidget();
 //     QString name = queryName(i18n("Which named macro do you want to play?"), i18n("Play Macro"));
 //     if (name.isEmpty()) {
 //         return;
@@ -531,8 +529,8 @@ bool KeyboardMacrosPluginCommands::exec(KTextEditor::View *view, const QString &
         msg = i18n("Usage: %1 <name>.", actionAndName.at(0));
         return false;
     }
-    QString action = actionAndName.at(0);
-    QString name = actionAndName.at(1);
+    const QString &action = actionAndName.at(0);
+    const QString &name = actionAndName.at(1);
     if (action == QStringLiteral("kmsave")) {
         if (!m_plugin->save(name)) {
             msg = i18n("Cannot save empty keyboard macro.");
@@ -566,30 +564,23 @@ bool KeyboardMacrosPluginCommands::exec(KTextEditor::View *view, const QString &
 
 bool KeyboardMacrosPluginCommands::help(KTextEditor::View *, const QString &cmd, QString &msg)
 {
-    QString namedMacros;
+    QString macros;
     if (!m_plugin->m_namedMacros.keys().isEmpty()) {
-        namedMacros += QStringLiteral("<p><b>Named macros:</b> ");
-        QList<QString> names = m_plugin->m_namedMacros.keys();
-        QList<QString>::ConstIterator it;
-        namedMacros += names.first();
-        for (it = ++names.constBegin(); it != names.constEnd(); ++it) {
-            namedMacros += QStringLiteral(", ") + *it;
-        }
-        namedMacros += QStringLiteral(".</p>");
+        macros = QStringLiteral("<p><b>Named macros:</b> ") + QStringList(m_plugin->m_namedMacros.keys()).join(QStringLiteral(", ")) + QStringLiteral(".</p>");
     }
     if (cmd == QStringLiteral("kmsave")) {
-        msg = i18n("<qt><p>Usage: <code>kmsave &lt;name&gt;</code></p><p>Save current keyboard macro as <code>&lt;name&gt;</code>.</p>%1</qt>", namedMacros);
+        msg = i18n("<qt><p>Usage: <code>kmsave &lt;name&gt;</code></p><p>Save current keyboard macro as <code>&lt;name&gt;</code>.</p>%1</qt>", macros);
         return true;
     } else if (cmd == QStringLiteral("kmload")) {
         msg = i18n("<qt><p>Usage: <code>kmload &lt;name&gt;</code></p><p>Load saved keyboard macro <code>&lt;name&gt;</code> as current macro.</p>%1</qt>",
-                   namedMacros);
+                   macros);
         return true;
     } else if (cmd == QStringLiteral("kmdelete")) {
-        msg = i18n("<qt><p>Usage: <code>kmdelete &lt;name&gt;</code></p><p>Delete saved keyboard macro <code>&lt;name&gt;</code>.</p>%1</qt>", namedMacros);
+        msg = i18n("<qt><p>Usage: <code>kmdelete &lt;name&gt;</code></p><p>Delete saved keyboard macro <code>&lt;name&gt;</code>.</p>%1</qt>", macros);
         return true;
     } else if (cmd == QStringLiteral("kmplay")) {
         msg = i18n("<qt><p>Usage: <code>kmplay &lt;name&gt;</code></p><p>Play saved keyboard macro <code>&lt;name&gt;</code> without loading it.</p>%1</qt>",
-                   namedMacros);
+                   macros);
         return true;
     }
     return false;

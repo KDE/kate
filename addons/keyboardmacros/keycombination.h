@@ -39,17 +39,17 @@ public:
         text = json.at(2).toString();
     };
 
-    QKeyEvent *keyPress()
+    const QKeyEvent keyPress() const
     {
-        return new QKeyEvent(QEvent::KeyPress, key, modifiers, text);
+        return QKeyEvent(QEvent::KeyPress, key, modifiers, text);
     };
 
-    QKeyEvent *keyRelease()
+    const QKeyEvent keyRelease() const
     {
-        return new QKeyEvent(QEvent::KeyRelease, key, modifiers, text);
+        return QKeyEvent(QEvent::KeyRelease, key, modifiers, text);
     };
 
-    QJsonArray toJson() const
+    const QJsonArray toJson() const
     {
         QJsonArray json;
         json.append(QJsonValue(key));

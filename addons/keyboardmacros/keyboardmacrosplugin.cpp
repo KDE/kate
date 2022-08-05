@@ -321,7 +321,7 @@ void KeyboardMacrosPlugin::focusObjectChanged(QObject *focusObject)
 {
     qCDebug(KM_DBG) << "focusObjectChanged:" << focusObject;
     QPointer<QWidget> focusWidget = qobject_cast<QWidget *>(focusObject);
-    if (focusWidget == nullptr || focusWidget == m_focusWidget) {
+    if (focusWidget == nullptr) {
         return;
     }
     // update which widget we filter events from when the focus has changed
@@ -338,12 +338,11 @@ void KeyboardMacrosPlugin::applicationStateChanged(Qt::ApplicationState state)
     // somehow keeping our event filter on while the app is out of focus made Kate crash, we fix that here
     switch (state) {
     case Qt::ApplicationSuspended:
-        sendMessage(i18n("Application suspended, aborting record."), true);
-        cancel();
-        break;
     case Qt::ApplicationHidden:
     case Qt::ApplicationInactive:
-        m_focusWidget->removeEventFilter(this);
+        if (m_focusWidget != nullptr) {
+            m_focusWidget->removeEventFilter(this);
+        }
         break;
     case Qt::ApplicationActive:
         break;

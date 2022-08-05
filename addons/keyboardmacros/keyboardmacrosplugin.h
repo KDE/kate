@@ -18,6 +18,7 @@
 #include <KTextEditor/Application>
 #include <KTextEditor/Command>
 #include <KTextEditor/MainWindow>
+#include <KTextEditor/Message>
 #include <KTextEditor/Plugin>
 #include <KTextEditor/View>
 
@@ -41,6 +42,7 @@ public:
     QObject *createView(KTextEditor::MainWindow *mainWindow) override;
 
     void sendMessage(const QString &text, bool error);
+    void displayMessage(const QString &text, KTextEditor::Message::MessageType type);
 
 Q_SIGNALS:
     void message(const QVariantMap &message);
@@ -51,6 +53,7 @@ public:
 private:
     KTextEditor::MainWindow *m_mainWindow = nullptr;
     QPointer<QWidget> m_focusWidget;
+    QPointer<KTextEditor::Message> m_message;
 
     KeyboardMacrosPluginCommands *m_commands;
 

@@ -21,6 +21,7 @@
 #include <QLineEdit>
 #include <QList>
 #include <QObject>
+#include <QPointer>
 #include <QRegularExpression>
 #include <QStandardPaths>
 #include <QString>
@@ -74,6 +75,23 @@ void KeyboardMacrosPlugin::sendMessage(const QString &text, bool error)
     Q_EMIT message(genericMessage);
 }
 
+void KeyboardMacrosPlugin::displayMessage(const QString &text, KTextEditor::Message::MessageType type)
+{
+    delete m_message;
+    KTextEditor::View *view = m_mainWindow->activeView();
+    if (!view) {
+        return;
+    }
+    m_message = new KTextEditor::Message(i18n("<b>Keyboard Macros:</b> %1", text), type);
+    m_message->setIcon(QIcon::fromTheme(QStringLiteral("input-keyboard")));
+    m_message->setWordWrap(true);
+    m_message->setPosition(KTextEditor::Message::BottomInView);
+    m_message->setAutoHide(type == KTextEditor::Message::Information ? 600000 : 1500);
+    m_message->setAutoHideMode(KTextEditor::Message::Immediate);
+    m_message->setView(view);
+    view->document()->postMessage(m_message);
+}
+
 bool KeyboardMacrosPlugin::eventFilter(QObject *obj, QEvent *event)
 {
     // we only spy on keyboard events so we only need to check ShortcutOverride and return false
@@ -119,6 +137,8 @@ void KeyboardMacrosPlugin::record()
     // connect focus change events
     connect(qApp, &QGuiApplication::applicationStateChanged, this, &KeyboardMacrosPlugin::applicationStateChanged);
     connect(qApp, &QGuiApplication::focusObjectChanged, this, &KeyboardMacrosPlugin::focusObjectChanged);
+    // display feedback
+    displayMessage(i18n("Recording…"), KTextEditor::Message::Information);
 }
 
 void KeyboardMacrosPlugin::stop(bool save)
@@ -149,6 +169,8 @@ void KeyboardMacrosPlugin::stop(bool save)
     // disconnect focus change events
     disconnect(qApp, &QGuiApplication::applicationStateChanged, this, &KeyboardMacrosPlugin::applicationStateChanged);
     disconnect(qApp, &QGuiApplication::focusObjectChanged, this, &KeyboardMacrosPlugin::focusObjectChanged);
+    // display feedback
+    displayMessage(i18n("Recording %1", (save ? i18n("ended") : i18n("canceled"))), KTextEditor::Message::Positive);
 }
 
 void KeyboardMacrosPlugin::cancel()
@@ -195,6 +217,8 @@ bool KeyboardMacrosPlugin::save(const QString &name)
     m_loadNamedAction->setEnabled(true);
     // m_playNamedAction->setEnabled(true);
     m_deleteNamedAction->setEnabled(true);
+    // display feedback
+    displayMessage(i18n("Saved '%1'", name), KTextEditor::Message::Positive);
     return true;
 }
 
@@ -210,6 +234,8 @@ bool KeyboardMacrosPlugin::load(const QString &name)
     m_macro = m_namedMacros.value(name);
     // update GUI
     m_playAction->setEnabled(true);
+    // display feedback
+    displayMessage(i18n("Loaded '%1'", name), KTextEditor::Message::Positive);
     return true;
 }
 
@@ -224,6 +250,8 @@ bool KeyboardMacrosPlugin::remove(const QString &name)
     m_loadNamedAction->setEnabled(!m_namedMacros.isEmpty());
     // m_playNamedAction->setEnabled(!m_namedMacros.isEmpty());
     m_deleteNamedAction->setEnabled(!m_namedMacros.isEmpty());
+    // display feedback
+    displayMessage(i18n("Deleted '%1'", name), KTextEditor::Message::Positive);
     return true;
 }
 

@@ -10,6 +10,7 @@
 #include <QList>
 #include <QMap>
 #include <QObject>
+#include <QPointer>
 #include <QString>
 #include <QVariant>
 #include <QVariantMap>
@@ -49,7 +50,7 @@ public:
 
 private:
     KTextEditor::MainWindow *m_mainWindow = nullptr;
-    QWidget *m_focusWidget = nullptr;
+    QPointer<QWidget> m_focusWidget;
 
     KeyboardMacrosPluginCommands *m_commands;
 

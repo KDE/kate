@@ -14,7 +14,7 @@
         <Separator/>
         <Action name="keyboardmacros_named_load"/>
         <Action name="keyboardmacros_named_play"/>
-        <Action name="keyboardmacros_named_delete"/>
+        <Action name="keyboardmacros_named_wipe"/>
       </Menu>
     </Menu>
   </MenuBar>

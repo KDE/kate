@@ -88,8 +88,8 @@ void KeyboardMacrosPlugin::loadNamedMacros()
     }
     QJsonObject json = jsonDoc.object();
     for (auto it = json.constBegin(); it != json.constEnd(); ++it) {
-        // don't load macros we have deleted during this session
-        if (!m_deletedMacros.contains(it.key())) {
+        // don't load macros we have wiped during this session
+        if (!m_wipedMacros.contains(it.key())) {
             m_namedMacros.insert(it.key(), Macro(it.value()));
         }
     }
@@ -239,6 +239,11 @@ void KeyboardMacrosPlugin::record()
     displayMessage(i18n("Recording…"), KTextEditor::Message::Information);
 }
 
+void KeyboardMacrosPlugin::cancel()
+{
+    stop(false);
+}
+
 void KeyboardMacrosPlugin::stop(bool save)
 {
     // stop recording
@@ -248,7 +253,7 @@ void KeyboardMacrosPlugin::stop(bool save)
     // update recording status
     m_recording = false;
     if (save) { // end recording
-        // delete current macro
+        // clear current macro
         m_macro.clear();
         // replace it with the tape
         m_macro.swap(m_tape);
@@ -258,7 +263,7 @@ void KeyboardMacrosPlugin::stop(bool save)
         m_playAction->setEnabled(!m_macro.isEmpty());
         m_saveAction->setEnabled(!m_macro.isEmpty());
     } else { // cancel recording
-        // delete tape
+        // clear tape
         m_tape.clear();
     }
     // update GUI
@@ -270,11 +275,6 @@ void KeyboardMacrosPlugin::stop(bool save)
     disconnect(qApp, &QGuiApplication::focusObjectChanged, this, &KeyboardMacrosPlugin::focusObjectChanged);
     // display feedback
     displayMessage(i18n("Recording %1", (save ? i18n("ended") : i18n("canceled"))), KTextEditor::Message::Positive);
-}
-
-void KeyboardMacrosPlugin::cancel()
-{
-    stop(false);
 }
 
 bool KeyboardMacrosPlugin::play(const QString &name)
@@ -335,18 +335,18 @@ bool KeyboardMacrosPlugin::load(const QString &name)
     return true;
 }
 
-bool KeyboardMacrosPlugin::remove(const QString &name)
+bool KeyboardMacrosPlugin::wipe(const QString &name)
 {
     if (!m_namedMacros.contains(name)) {
         return false;
     }
-    qDebug(KM_DBG) << "removing macro:" << name;
+    qDebug(KM_DBG) << "wiping macro:" << name;
     m_namedMacros.remove(name);
-    m_deletedMacros.insert(name);
+    m_wipedMacros.insert(name);
     // update GUI
     m_pluginView->removeNamedMacro(name);
     // display feedback
-    displayMessage(i18n("Deleted '%1'", name), KTextEditor::Message::Positive);
+    displayMessage(i18n("Wiped '%1'", name), KTextEditor::Message::Positive);
     return true;
 }
 
@@ -419,15 +419,15 @@ void KeyboardMacrosPlugin::slotPlayNamed(const QString &name)
     play(name);
 }
 
-void KeyboardMacrosPlugin::slotDeleteNamed(const QString &name)
+void KeyboardMacrosPlugin::slotWipeNamed(const QString &name)
 {
     if (m_recording) {
         return;
     }
-    if (QMessageBox::question(m_mainWindow->window(), i18n("Keyboard Macros"), i18n("Delete the '%1' macro?", name)) != QMessageBox::Yes) {
+    if (QMessageBox::question(m_mainWindow->window(), i18n("Keyboard Macros"), i18n("Wipe the '%1' macro?", name)) != QMessageBox::Yes) {
         return;
     }
-    remove(name);
+    wipe(name);
 }
 
 // END
@@ -499,12 +499,12 @@ KeyboardMacrosPluginView::KeyboardMacrosPluginView(KeyboardMacrosPlugin *plugin,
     m_playMenu->setToolTip(i18n("Play a named macro without loading it."));
     m_playMenu->setEnabled(!plugin->m_namedMacros.isEmpty());
 
-    // create delete named menu
-    m_deleteMenu = new KActionMenu(i18n("&Delete Named Macro..."), this);
-    m_deleteMenu->setIcon(QIcon::fromTheme(QStringLiteral("delete")));
-    actionCollection()->addAction(QStringLiteral("keyboardmacros_named_delete"), m_deleteMenu);
-    m_deleteMenu->setToolTip(i18n("Delete a named macro."));
-    m_deleteMenu->setEnabled(!plugin->m_namedMacros.isEmpty());
+    // create wipe named menu
+    m_wipeMenu = new KActionMenu(i18n("&Wipe Named Macro..."), this);
+    m_wipeMenu->setIcon(QIcon::fromTheme(QStringLiteral("wipe")));
+    actionCollection()->addAction(QStringLiteral("keyboardmacros_named_wipe"), m_wipeMenu);
+    m_wipeMenu->setToolTip(i18n("Wipe a named macro."));
+    m_wipeMenu->setEnabled(!plugin->m_namedMacros.isEmpty());
 
     // add named macros to our menus
     for (const auto &[name, macro] : plugin->m_namedMacros.toStdMap()) {
@@ -554,19 +554,19 @@ void KeyboardMacrosPluginView::addNamedMacro(const QString &name, const Macro &m
     // update play menu state
     m_playMenu->setEnabled(true);
 
-    // add delete action
-    action = actionCollection()->addAction(QStringLiteral("keyboardmacros_named_delete_") + name);
-    action->setText(QStringLiteral("Delete ") + definition);
-    action->setToolTip(i18n("Delete the '%1' macro.", name));
+    // add wipe action
+    action = actionCollection()->addAction(QStringLiteral("keyboardmacros_named_wipe_") + name);
+    action->setText(QStringLiteral("Wipe ") + definition);
+    action->setToolTip(i18n("Wipe the '%1' macro.", name));
     action->setEnabled(true);
     connect(action, &QAction::triggered, m_plugin, [this, name] {
-        m_plugin->slotDeleteNamed(name);
+        m_plugin->slotWipeNamed(name);
     });
-    m_deleteMenu->addAction(action);
-    // remember delete action pointer
-    m_namedMacrosDeleteActions.insert(name, action);
-    // update delete menu state
-    m_deleteMenu->setEnabled(true);
+    m_wipeMenu->addAction(action);
+    // remember wipe action pointer
+    m_namedMacrosWipeActions.insert(name, action);
+    // update wipe menu state
+    m_wipeMenu->setEnabled(true);
 }
 
 void KeyboardMacrosPluginView::removeNamedMacro(const QString &name)
@@ -591,14 +591,14 @@ void KeyboardMacrosPluginView::removeNamedMacro(const QString &name)
     // update play menu state
     m_playMenu->setEnabled(!m_namedMacrosPlayActions.isEmpty());
 
-    // remove delete action
-    action = m_namedMacrosDeleteActions.value(name);
-    m_deleteMenu->removeAction(action);
+    // remove wipe action
+    action = m_namedMacrosWipeActions.value(name);
+    m_wipeMenu->removeAction(action);
     actionCollection()->removeAction(action);
-    // forget delete action pointer
-    m_namedMacrosDeleteActions.remove(name);
-    // update delete menu state
-    m_deleteMenu->setEnabled(!m_namedMacrosDeleteActions.isEmpty());
+    // forget wipe action pointer
+    m_namedMacrosWipeActions.remove(name);
+    // update wipe menu state
+    m_wipeMenu->setEnabled(!m_namedMacrosWipeActions.isEmpty());
 }
 
 // END
@@ -606,7 +606,7 @@ void KeyboardMacrosPluginView::removeNamedMacro(const QString &name)
 // BEGIN Plugin commands to manage named keyboard macros
 
 KeyboardMacrosPluginCommands::KeyboardMacrosPluginCommands(KeyboardMacrosPlugin *plugin)
-    : KTextEditor::Command(QStringList() << QStringLiteral("kmsave") << QStringLiteral("kmload") << QStringLiteral("kmplay") << QStringLiteral("kmdelete"),
+    : KTextEditor::Command(QStringList() << QStringLiteral("kmsave") << QStringLiteral("kmload") << QStringLiteral("kmplay") << QStringLiteral("kmwipe"),
                            plugin)
     , m_plugin(plugin)
 {
@@ -651,8 +651,8 @@ bool KeyboardMacrosPluginCommands::exec(KTextEditor::View *view, const QString &
             return false;
         }
         return true;
-    } else if (action == QStringLiteral("kmdelete")) {
-        if (!m_plugin->remove(name)) {
+    } else if (action == QStringLiteral("kmwipe")) {
+        if (!m_plugin->wipe(name)) {
             msg = i18n("No keyboard macro named '%1' found.", name);
             return false;
         }
@@ -678,8 +678,8 @@ bool KeyboardMacrosPluginCommands::help(KTextEditor::View *, const QString &cmd,
         msg = i18n("<qt><p>Usage: <code>kmplay &lt;name&gt;</code></p><p>Play saved keyboard macro <code>&lt;name&gt;</code> without loading it.</p>%1</qt>",
                    macros);
         return true;
-    } else if (cmd == QStringLiteral("kmdelete")) {
-        msg = i18n("<qt><p>Usage: <code>kmdelete &lt;name&gt;</code></p><p>Delete saved keyboard macro <code>&lt;name&gt;</code>.</p>%1</qt>", macros);
+    } else if (cmd == QStringLiteral("kmwipe")) {
+        msg = i18n("<qt><p>Usage: <code>kmwipe &lt;name&gt;</code></p><p>Wipe saved keyboard macro <code>&lt;name&gt;</code>.</p>%1</qt>", macros);
         return true;
     }
     return false;

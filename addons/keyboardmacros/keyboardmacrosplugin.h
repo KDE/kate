@@ -52,7 +52,7 @@ class KeyboardMacrosPlugin : public KTextEditor::Plugin
     Macro m_macro;
     QString m_storage;
     QMap<QString, Macro> m_namedMacros;
-    QSet<QString> m_deletedMacros;
+    QSet<QString> m_wipedMacros;
 
 public:
     // Plugin creation and destruction
@@ -81,12 +81,12 @@ private:
 
     // Core functions
     void record();
-    void stop(bool save);
     void cancel();
+    void stop(bool save);
     bool play(const QString &name = QString());
     bool save(const QString &name);
     bool load(const QString &name);
-    bool remove(const QString &name);
+    bool wipe(const QString &name);
 
     // Action slots
 public Q_SLOTS:
@@ -96,7 +96,7 @@ public Q_SLOTS:
     void slotSave();
     void slotLoadNamed(const QString &name = QString());
     void slotPlayNamed(const QString &name = QString());
-    void slotDeleteNamed(const QString &name = QString());
+    void slotWipeNamed(const QString &name = QString());
 };
 
 /**
@@ -118,11 +118,11 @@ private:
     KTextEditor::MainWindow *m_mainWindow;
     QMap<QString, QAction *> m_namedMacrosLoadActions;
     QMap<QString, QAction *> m_namedMacrosPlayActions;
-    QMap<QString, QAction *> m_namedMacrosDeleteActions;
+    QMap<QString, QAction *> m_namedMacrosWipeActions;
 
     KActionMenu *m_loadMenu;
     KActionMenu *m_playMenu;
-    KActionMenu *m_deleteMenu;
+    KActionMenu *m_wipeMenu;
 };
 
 /**

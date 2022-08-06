@@ -674,12 +674,12 @@ bool KeyboardMacrosPluginCommands::help(KTextEditor::View *, const QString &cmd,
         msg = i18n("<qt><p>Usage: <code>kmload &lt;name&gt;</code></p><p>Load saved keyboard macro <code>&lt;name&gt;</code> as current macro.</p>%1</qt>",
                    macros);
         return true;
-    } else if (cmd == QStringLiteral("kmdelete")) {
-        msg = i18n("<qt><p>Usage: <code>kmdelete &lt;name&gt;</code></p><p>Delete saved keyboard macro <code>&lt;name&gt;</code>.</p>%1</qt>", macros);
-        return true;
     } else if (cmd == QStringLiteral("kmplay")) {
         msg = i18n("<qt><p>Usage: <code>kmplay &lt;name&gt;</code></p><p>Play saved keyboard macro <code>&lt;name&gt;</code> without loading it.</p>%1</qt>",
                    macros);
+        return true;
+    } else if (cmd == QStringLiteral("kmdelete")) {
+        msg = i18n("<qt><p>Usage: <code>kmdelete &lt;name&gt;</code></p><p>Delete saved keyboard macro <code>&lt;name&gt;</code>.</p>%1</qt>", macros);
         return true;
     }
     return false;

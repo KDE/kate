@@ -5,17 +5,7 @@
     <Menu name="tools">
       <text>&amp;Tools</text>
       <Separator/>
-      <Menu name="keyboardmacros" noMerge="1">
-        <text>&amp;Keyboard Macros</text>
-        <Action name="keyboardmacros_record"/>
-        <Action name="keyboardmacros_cancel"/>
-        <Action name="keyboardmacros_play"/>
-        <Action name="keyboardmacros_save"/>
-        <Separator/>
-        <Action name="keyboardmacros_named_load"/>
-        <Action name="keyboardmacros_named_play"/>
-        <Action name="keyboardmacros_named_wipe"/>
-      </Menu>
+      <Action name="keyboardmacros" />
     </Menu>
   </MenuBar>
 </gui>

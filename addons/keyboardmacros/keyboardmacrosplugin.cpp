@@ -443,8 +443,11 @@ KeyboardMacrosPluginView::KeyboardMacrosPluginView(KeyboardMacrosPlugin *plugin,
     KXMLGUIClient::setComponentName(QStringLiteral("keyboardmacros"), i18n("Keyboard Macros"));
     setXMLFile(QStringLiteral("ui.rc"));
 
-    // TODO: set an icon for the "Keyboard Macros" menu at the toplevel of this plugin; but how?
-    // ??->setIcon(QIcon::fromTheme(QStringLiteral("input-keyboard")));
+    KActionMenu *menu = new KActionMenu(i18n("&Keyboard Macros"), this);
+    menu->setIcon(QIcon::fromTheme(QStringLiteral("input-keyboard")));
+    actionCollection()->addAction(QStringLiteral("keyboardmacros"), menu);
+    menu->setToolTip(i18n("Record and play keyboard macros."));
+    menu->setEnabled(true);
 
     // create record action
     QAction *record = actionCollection()->addAction(QStringLiteral("keyboardmacros_record"));
@@ -454,6 +457,7 @@ KeyboardMacrosPluginView::KeyboardMacrosPluginView(KeyboardMacrosPlugin *plugin,
     actionCollection()->setDefaultShortcut(record, QKeySequence(QStringLiteral("Ctrl+Shift+K"), QKeySequence::PortableText));
     connect(record, &QAction::triggered, plugin, &KeyboardMacrosPlugin::slotRecord);
     plugin->m_recordAction = record;
+    menu->addAction(record);
 
     // create cancel action
     QAction *cancel = actionCollection()->addAction(QStringLiteral("keyboardmacros_cancel"));
@@ -464,6 +468,7 @@ KeyboardMacrosPluginView::KeyboardMacrosPluginView(KeyboardMacrosPlugin *plugin,
     cancel->setEnabled(false);
     connect(cancel, &QAction::triggered, plugin, &KeyboardMacrosPlugin::slotCancel);
     plugin->m_cancelAction = cancel;
+    menu->addAction(cancel);
 
     // create play action
     QAction *play = actionCollection()->addAction(QStringLiteral("keyboardmacros_play"));
@@ -474,6 +479,7 @@ KeyboardMacrosPluginView::KeyboardMacrosPluginView(KeyboardMacrosPlugin *plugin,
     play->setEnabled(false);
     connect(play, &QAction::triggered, plugin, &KeyboardMacrosPlugin::slotPlay);
     plugin->m_playAction = play;
+    menu->addAction(play);
 
     // create save action
     QAction *save = actionCollection()->addAction(QStringLiteral("keyboardmacros_save"));
@@ -484,6 +490,12 @@ KeyboardMacrosPluginView::KeyboardMacrosPluginView(KeyboardMacrosPlugin *plugin,
     save->setEnabled(false);
     connect(save, &QAction::triggered, plugin, &KeyboardMacrosPlugin::slotSave);
     plugin->m_saveAction = save;
+    menu->addAction(save);
+
+    // add separator
+    QAction *sep = actionCollection()->addAction(QStringLiteral("keyboardmacros_sep"));
+    sep->setSeparator(true);
+    menu->addAction(sep);
 
     // create load named menu
     m_loadMenu = new KActionMenu(i18n("&Load Named Macro..."), this);
@@ -491,6 +503,7 @@ KeyboardMacrosPluginView::KeyboardMacrosPluginView(KeyboardMacrosPlugin *plugin,
     actionCollection()->addAction(QStringLiteral("keyboardmacros_named_load"), m_loadMenu);
     m_loadMenu->setToolTip(i18n("Load a named macro as the current one."));
     m_loadMenu->setEnabled(!plugin->m_namedMacros.isEmpty());
+    menu->addAction(m_loadMenu);
 
     // create play named menu
     m_playMenu = new KActionMenu(i18n("&Play Named Macro..."), this);
@@ -498,6 +511,7 @@ KeyboardMacrosPluginView::KeyboardMacrosPluginView(KeyboardMacrosPlugin *plugin,
     actionCollection()->addAction(QStringLiteral("keyboardmacros_named_play"), m_playMenu);
     m_playMenu->setToolTip(i18n("Play a named macro without loading it."));
     m_playMenu->setEnabled(!plugin->m_namedMacros.isEmpty());
+    menu->addAction(m_playMenu);
 
     // create wipe named menu
     m_wipeMenu = new KActionMenu(i18n("&Wipe Named Macro..."), this);
@@ -505,6 +519,7 @@ KeyboardMacrosPluginView::KeyboardMacrosPluginView(KeyboardMacrosPlugin *plugin,
     actionCollection()->addAction(QStringLiteral("keyboardmacros_named_wipe"), m_wipeMenu);
     m_wipeMenu->setToolTip(i18n("Wipe a named macro."));
     m_wipeMenu->setEnabled(!plugin->m_namedMacros.isEmpty());
+    menu->addAction(m_wipeMenu);
 
     // add named macros to our menus
     for (const auto &[name, macro] : plugin->m_namedMacros.toStdMap()) {

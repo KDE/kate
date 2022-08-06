@@ -6,16 +6,12 @@
 #ifndef KEYBOARDMACROSPLUGIN_KEYCOMBINATION_H
 #define KEYBOARDMACROSPLUGIN_KEYCOMBINATION_H
 
-#include <QApplication>
 #include <QDebug>
 #include <QJsonArray>
 #include <QJsonValue>
 #include <QKeyEvent>
 #include <QKeySequence>
-#include <QList>
-#include <QPointer>
 #include <QString>
-#include <QWidget>
 #include <QtGlobal>
 
 class KeyCombination

@@ -10,10 +10,10 @@
         <Action name="keyboardmacros_record"/>
         <Action name="keyboardmacros_cancel"/>
         <Action name="keyboardmacros_play"/>
+        <Action name="keyboardmacros_save"/>
         <Separator/>
-        <Action name="keyboardmacros_named_save"/>
         <Action name="keyboardmacros_named_load"/>
-        <!-- <Action name="keyboardmacros_named_play"/> -->
+        <Action name="keyboardmacros_named_play"/>
         <Action name="keyboardmacros_named_delete"/>
       </Menu>
     </Menu>

@@ -15,6 +15,8 @@
 #include <QVariant>
 #include <QVariantMap>
 
+#include <KActionMenu>
+
 #include <KTextEditor/Application>
 #include <KTextEditor/Command>
 #include <KTextEditor/MainWindow>
@@ -34,68 +36,67 @@ class KeyboardMacrosPlugin : public KTextEditor::Plugin
     friend KeyboardMacrosPluginView;
     friend KeyboardMacrosPluginCommands;
 
+    // GUI elements
+    KTextEditor::MainWindow *m_mainWindow = nullptr;
+    KeyboardMacrosPluginView *m_pluginView = nullptr;
+    QAction *m_recordAction = nullptr;
+    QAction *m_cancelAction = nullptr;
+    QAction *m_playAction = nullptr;
+    QAction *m_saveAction = nullptr;
+    QPointer<QWidget> m_focusWidget;
+    KeyboardMacrosPluginCommands *m_commands;
+
+    // state and logic
+    bool m_recording = false;
+    Macro m_tape;
+    Macro m_macro;
+    QString m_storage;
+    QMap<QString, Macro> m_namedMacros;
+    QSet<QString> m_deletedMacros;
+
 public:
+    // Plugin creation and destruction
     explicit KeyboardMacrosPlugin(QObject *parent = nullptr, const QList<QVariant> & = QList<QVariant>());
-
     ~KeyboardMacrosPlugin() override;
-
     QObject *createView(KTextEditor::MainWindow *mainWindow) override;
 
+private:
+    void loadNamedMacros();
+    void saveNamedMacros();
+
+    // GUI feedback helpers
     void sendMessage(const QString &text, bool error);
     void displayMessage(const QString &text, KTextEditor::Message::MessageType type);
 
 Q_SIGNALS:
     void message(const QVariantMap &message);
 
+    // Events filter and focus management helpers
 public:
     bool eventFilter(QObject *obj, QEvent *event) override;
 
 private:
-    KTextEditor::MainWindow *m_mainWindow = nullptr;
-    QPointer<QWidget> m_focusWidget;
-    QPointer<KTextEditor::Message> m_message;
+    void focusObjectChanged(QObject *focusObject);
+    void applicationStateChanged(Qt::ApplicationState state);
 
-    KeyboardMacrosPluginCommands *m_commands;
-
-    QAction *m_recordAction = nullptr;
-    QAction *m_cancelAction = nullptr;
-    QAction *m_playAction = nullptr;
-    QAction *m_saveNamedAction = nullptr;
-    QAction *m_loadNamedAction = nullptr;
-    // QAction *m_playNamedAction = nullptr;
-    QAction *m_deleteNamedAction = nullptr;
-
+    // Core functions
     void record();
     void stop(bool save);
     void cancel();
     bool play(const QString &name = QString());
-
     bool save(const QString &name);
     bool load(const QString &name);
     bool remove(const QString &name);
 
-    QString queryName(const QString &query, const QString &action);
-
-    bool m_recording = false;
-    Macro m_tape;
-    Macro m_macro;
-    QMap<QString, Macro> m_namedMacros;
-    QString m_storage;
-
-    void loadNamedMacros();
-    void saveNamedMacros();
-
-    void focusObjectChanged(QObject *focusObject);
-    void applicationStateChanged(Qt::ApplicationState state);
-
+    // Action slots
 public Q_SLOTS:
     void slotRecord();
     void slotCancel();
     void slotPlay();
-    void slotSaveNamed();
-    void slotLoadNamed();
-    // void slotPlayNamed();
-    void slotDeleteNamed();
+    void slotSave();
+    void slotLoadNamed(const QString &name = QString());
+    void slotPlayNamed(const QString &name = QString());
+    void slotDeleteNamed(const QString &name = QString());
 };
 
 /**
@@ -109,8 +110,19 @@ public:
     explicit KeyboardMacrosPluginView(KeyboardMacrosPlugin *plugin, KTextEditor::MainWindow *mainwindow);
     ~KeyboardMacrosPluginView() override;
 
+    void addNamedMacro(const QString &name, const Macro &macro);
+    void removeNamedMacro(const QString &name);
+
 private:
+    KeyboardMacrosPlugin *m_plugin;
     KTextEditor::MainWindow *m_mainWindow;
+    QMap<QString, QAction *> m_namedMacrosLoadActions;
+    QMap<QString, QAction *> m_namedMacrosPlayActions;
+    QMap<QString, QAction *> m_namedMacrosDeleteActions;
+
+    KActionMenu *m_loadMenu;
+    KActionMenu *m_playMenu;
+    KActionMenu *m_deleteMenu;
 };
 
 /**

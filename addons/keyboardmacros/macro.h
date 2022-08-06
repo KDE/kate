@@ -39,6 +39,24 @@ public:
         }
         return json;
     };
+
+    const QString toString() const
+    {
+        QString str;
+        for (const auto &kc : *this) {
+            if (kc.isVisibleInput()) {
+                str += kc.toString();
+            } else {
+                str += QStringLiteral(" ") + kc.toString() + QStringLiteral(" ");
+            }
+        }
+        int len = str.size();
+        str = str.trimmed().replace(QStringLiteral("  "), QStringLiteral(" ")).left(32);
+        if (len > str.size()) {
+            str += QStringLiteral("...");
+        }
+        return str;
+    };
 };
 
 #endif

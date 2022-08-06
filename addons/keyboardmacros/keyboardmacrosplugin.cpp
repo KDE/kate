@@ -174,7 +174,7 @@ bool KeyboardMacrosPlugin::eventFilter(QObject *obj, QEvent *event)
         }
         // otherwise we add the keyboard event to the macro
         KeyCombination kc(keyEvent);
-        qCDebug(KM_DBG) << "key combination:" << kc;
+        qDebug(KM_DBG) << "key combination:" << kc;
         m_tape.append(kc);
         return false;
     } else {
@@ -184,7 +184,7 @@ bool KeyboardMacrosPlugin::eventFilter(QObject *obj, QEvent *event)
 
 void KeyboardMacrosPlugin::focusObjectChanged(QObject *focusObject)
 {
-    qCDebug(KM_DBG) << "focusObjectChanged:" << focusObject;
+    qDebug(KM_DBG) << "focusObjectChanged:" << focusObject;
     QPointer<QWidget> focusWidget = qobject_cast<QWidget *>(focusObject);
     if (focusWidget == nullptr) {
         return;
@@ -199,7 +199,7 @@ void KeyboardMacrosPlugin::focusObjectChanged(QObject *focusObject)
 
 void KeyboardMacrosPlugin::applicationStateChanged(Qt::ApplicationState state)
 {
-    qCDebug(KM_DBG) << "applicationStateChanged:" << state;
+    qDebug(KM_DBG) << "applicationStateChanged:" << state;
     // somehow keeping our event filter on while the app is out of focus made Kate crash, we fix that here
     switch (state) {
     case Qt::ApplicationSuspended:
@@ -221,7 +221,7 @@ void KeyboardMacrosPlugin::applicationStateChanged(Qt::ApplicationState state)
 void KeyboardMacrosPlugin::record()
 {
     // start recording
-    qCDebug(KM_DBG) << "start recording";
+    qDebug(KM_DBG) << "start recording";
     // install our spy on currently focused widget
     m_focusWidget = qApp->focusWidget();
     m_focusWidget->installEventFilter(this);
@@ -242,7 +242,7 @@ void KeyboardMacrosPlugin::record()
 void KeyboardMacrosPlugin::stop(bool save)
 {
     // stop recording
-    qCDebug(KM_DBG) << (save ? "end" : "cancel") << "recording";
+    qDebug(KM_DBG) << (save ? "end" : "cancel") << "recording";
     // uninstall our spy
     m_focusWidget->removeEventFilter(this);
     // update recording status
@@ -282,10 +282,10 @@ bool KeyboardMacrosPlugin::play(const QString &name)
     Macro macro;
     if (!name.isEmpty() && m_namedMacros.contains(name)) {
         macro = m_namedMacros.value(name);
-        qCDebug(KM_DBG) << "playing macro:" << name;
+        qDebug(KM_DBG) << "playing macro:" << name;
     } else if (name.isEmpty() && !m_macro.isEmpty()) {
         macro = m_macro;
-        qCDebug(KM_DBG) << "playing macro!";
+        qDebug(KM_DBG) << "playing macro!";
     } else {
         return false;
     }
@@ -308,7 +308,7 @@ bool KeyboardMacrosPlugin::save(const QString &name)
     if (m_macro.isEmpty()) {
         return false;
     }
-    qCDebug(KM_DBG) << "saving macro:" << name;
+    qDebug(KM_DBG) << "saving macro:" << name;
     m_namedMacros.insert(name, m_macro);
     // update GUI:
     m_pluginView->addNamedMacro(name, m_macro);
@@ -322,7 +322,7 @@ bool KeyboardMacrosPlugin::load(const QString &name)
     if (!m_namedMacros.contains(name)) {
         return false;
     }
-    qCDebug(KM_DBG) << "loading macro:" << name;
+    qDebug(KM_DBG) << "loading macro:" << name;
     // clear current macro
     m_macro.clear();
     // load named macro
@@ -340,7 +340,7 @@ bool KeyboardMacrosPlugin::remove(const QString &name)
     if (!m_namedMacros.contains(name)) {
         return false;
     }
-    qCDebug(KM_DBG) << "removing macro:" << name;
+    qDebug(KM_DBG) << "removing macro:" << name;
     m_namedMacros.remove(name);
     m_deletedMacros.insert(name);
     // update GUI

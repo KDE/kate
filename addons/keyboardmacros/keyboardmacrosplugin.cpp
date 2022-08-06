@@ -501,7 +501,7 @@ KeyboardMacrosPluginView::KeyboardMacrosPluginView(KeyboardMacrosPlugin *plugin,
 
     // create wipe named menu
     m_wipeMenu = new KActionMenu(i18n("&Wipe Named Macro..."), this);
-    m_wipeMenu->setIcon(QIcon::fromTheme(QStringLiteral("wipe")));
+    m_wipeMenu->setIcon(QIcon::fromTheme(QStringLiteral("delete")));
     actionCollection()->addAction(QStringLiteral("keyboardmacros_named_wipe"), m_wipeMenu);
     m_wipeMenu->setToolTip(i18n("Wipe a named macro."));
     m_wipeMenu->setEnabled(!plugin->m_namedMacros.isEmpty());

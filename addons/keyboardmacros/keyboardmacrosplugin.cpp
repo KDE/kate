@@ -47,7 +47,7 @@
 #include "keycombination.h"
 #include "macro.h"
 
-Q_LOGGING_CATEGORY(KM_DBG, "kate.plugin.keyboardmacros")
+Q_LOGGING_CATEGORY(KM_DBG, "kate.plugin.keyboardmacros", QtWarningMsg)
 
 K_PLUGIN_FACTORY_WITH_JSON(KeyboardMacrosPluginFactory, "keyboardmacrosplugin.json", registerPlugin<KeyboardMacrosPlugin>();)
 

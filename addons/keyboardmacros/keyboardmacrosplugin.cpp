@@ -29,6 +29,12 @@
 #include <QString>
 #include <QStringList>
 
+#include <KActionCollection>
+#include <KActionMenu>
+#include <KLocalizedString>
+#include <KPluginFactory>
+#include <KXMLGUIFactory>
+
 #include <KTextEditor/Application>
 #include <KTextEditor/Command>
 #include <KTextEditor/Editor>
@@ -36,11 +42,6 @@
 #include <KTextEditor/Message>
 #include <KTextEditor/Plugin>
 #include <KTextEditor/View>
-
-#include <KActionCollection>
-#include <KLocalizedString>
-#include <KPluginFactory>
-#include <KXMLGUIFactory>
 
 #include "keycombination.h"
 #include "macro.h"

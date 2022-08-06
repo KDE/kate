@@ -266,6 +266,12 @@ private Q_SLOTS:
     void buttonPopupActivate(QAction *);
 
 private:
+    enum ActionIds {
+        PersistAction = 10,
+        HideButtonAction = 11,
+        ConfigureAction = 20,
+    };
+
     MainWindow *m_mainWin;
 
     KMultiTabBar::KMultiTabBarPosition m_pos{};

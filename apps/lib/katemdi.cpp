@@ -796,7 +796,7 @@ bool Sidebar::eventFilter(QObject *obj, QEvent *ev)
 
     if (!tview->plugin.isNull()) {
         if (tview->plugin.data()->configPages() > 0) {
-            menu.addAction(QIcon::fromTheme(QStringLiteral("configure")), i18n("Configure..."))->setData(20);
+            menu.addAction(QIcon::fromTheme(QStringLiteral("configure")), i18n("Configure..."))->setData(ConfigureAction);
         }
     }
 
@@ -804,9 +804,9 @@ bool Sidebar::eventFilter(QObject *obj, QEvent *ev)
 
     const QIcon icon = tview->persistent ? QIcon::fromTheme(QStringLiteral("view-restore")) : QIcon::fromTheme(QStringLiteral("view-fullscreen"));
     const QString txt = tview->persistent ? i18n("Make Non-Persistent") : i18n("Make Persistent");
-    menu.addAction(icon, txt)->setData(10);
+    menu.addAction(icon, txt)->setData(PersistAction);
 
-    menu.addAction(i18n("Hide Button"))->setData(11);
+    menu.addAction(i18n("Hide Button"))->setData(HideButtonAction);
 
     addMoveActions(menu, position());
 
@@ -843,12 +843,12 @@ void Sidebar::buttonPopupActivate(QAction *a)
     }
 
     // toggle persistent
-    if (id == 10) {
+    if (id == PersistAction) {
         w->persistent = !w->persistent;
     }
 
     // configure actionCollection
-    if (id == 20) {
+    if (id == ConfigureAction) {
         if (!w->plugin.isNull()) {
             if (w->plugin.data()->configPages() > 0) {
                 Q_EMIT sigShowPluginConfigPage(w->plugin.data(), 0);
@@ -856,7 +856,7 @@ void Sidebar::buttonPopupActivate(QAction *a)
         }
     }
 
-    if (id == 11) {
+    if (id == HideButtonAction) {
         showToolviewTab(w, false);
     }
 }

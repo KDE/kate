@@ -34,6 +34,7 @@
 #include <KActionMenu>
 #include <KLocalizedString>
 #include <KPluginFactory>
+#include <KStringHandler>
 #include <KXMLGUIFactory>
 
 #include <KTextEditor/Application>
@@ -539,7 +540,9 @@ KeyboardMacrosPluginView::~KeyboardMacrosPluginView()
 void KeyboardMacrosPluginView::addNamedMacro(const QString &name, const Macro &macro)
 {
     QAction *action;
-    QString definition = name + QStringLiteral(": ") + macro.toString();
+    QString label = KStringHandler::rsqueeze(name + QStringLiteral(": ") + macro.toString(), 50)
+                        // avoid unwanted accelerators
+                        .replace(QRegularExpression(QStringLiteral("&(?!&)")), QStringLiteral("&&"));
 
     // add load action
     action = actionCollection()->addAction(QStringLiteral("keyboardmacros_named_load_") + name);

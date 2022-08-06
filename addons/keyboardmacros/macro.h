@@ -10,6 +10,7 @@
 #include <QJsonArray>
 #include <QJsonValue>
 #include <QList>
+#include <QRegularExpression>
 #include <QtGlobal>
 
 #include "keycombination.h"
@@ -50,12 +51,7 @@ public:
                 str += QStringLiteral(" ") + kc.toString() + QStringLiteral(" ");
             }
         }
-        int len = str.size();
-        str = str.trimmed().replace(QStringLiteral("  "), QStringLiteral(" ")).left(32);
-        if (len > str.size()) {
-            str += QStringLiteral("...");
-        }
-        return str;
+        return str.trimmed().replace(QRegularExpression(QStringLiteral("\\s+")), QStringLiteral(" "));
     };
 };
 

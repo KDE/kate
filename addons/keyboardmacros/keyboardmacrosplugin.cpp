@@ -494,9 +494,7 @@ KeyboardMacrosPluginView::KeyboardMacrosPluginView(KeyboardMacrosPlugin *plugin,
     menu->addAction(save);
 
     // add separator
-    QAction *sep = actionCollection()->addAction(QStringLiteral("keyboardmacros_sep"));
-    sep->setSeparator(true);
-    menu->addAction(sep);
+    menu->addSeparator();
 
     // create load named menu
     m_loadMenu = new KActionMenu(i18n("&Load Named Macro..."), this);

@@ -543,8 +543,7 @@ void KeyboardMacrosPluginView::addNamedMacro(const QString &name, const Macro &m
                         .replace(QRegularExpression(QStringLiteral("&(?!&)")), QStringLiteral("&&"));
 
     // add load action
-    action = actionCollection()->addAction(QStringLiteral("keyboardmacros_named_load_") + name);
-    action->setText(QStringLiteral("Load ") + definition);
+    action = new QAction(QStringLiteral("Load ") + label);
     action->setToolTip(i18n("Load the '%1' macro as the current one.", name));
     action->setEnabled(true);
     connect(action, &QAction::triggered, m_plugin, [this, name] {
@@ -557,22 +556,22 @@ void KeyboardMacrosPluginView::addNamedMacro(const QString &name, const Macro &m
     m_loadMenu->setEnabled(true);
 
     // add play action
-    action = actionCollection()->addAction(QStringLiteral("keyboardmacros_named_play_") + name);
-    action->setText(QStringLiteral("Play ") + definition);
+    action = new QAction(QStringLiteral("Play ") + label);
     action->setToolTip(i18n("Play the '%1' macro without loading it.", name));
     action->setEnabled(true);
     connect(action, &QAction::triggered, m_plugin, [this, name] {
         m_plugin->slotPlayNamed(name);
     });
     m_playMenu->addAction(action);
+    // add the play action to the collection (a user may want to set a shortcut for a macro they use very often)
+    actionCollection()->addAction(QStringLiteral("keyboardmacros_named_play_") + name, action);
     // remember play action pointer
     m_namedMacrosPlayActions.insert(name, action);
     // update play menu state
     m_playMenu->setEnabled(true);
 
     // add wipe action
-    action = actionCollection()->addAction(QStringLiteral("keyboardmacros_named_wipe_") + name);
-    action->setText(QStringLiteral("Wipe ") + definition);
+    action = new QAction(QStringLiteral("Wipe ") + label);
     action->setToolTip(i18n("Wipe the '%1' macro.", name));
     action->setEnabled(true);
     connect(action, &QAction::triggered, m_plugin, [this, name] {

@@ -432,14 +432,14 @@ void KeyboardMacrosPlugin::slotDeleteNamed(const QString &name)
 
 // END
 
-// BEGIN Plugin view to add our actions to the gui
+// BEGIN Plugin view to add our actions to the GUI
 
 KeyboardMacrosPluginView::KeyboardMacrosPluginView(KeyboardMacrosPlugin *plugin, KTextEditor::MainWindow *mainwindow)
     : QObject(mainwindow)
     , m_plugin(plugin)
     , m_mainWindow(mainwindow)
 {
-    // setup xml gui
+    // setup XML GUI
     KXMLGUIClient::setComponentName(QStringLiteral("keyboardmacros"), i18n("Keyboard Macros"));
     setXMLFile(QStringLiteral("ui.rc"));
 
@@ -460,7 +460,7 @@ KeyboardMacrosPluginView::KeyboardMacrosPluginView(KeyboardMacrosPlugin *plugin,
     cancel->setText(i18n("&Cancel Macro Recording"));
     cancel->setIcon(QIcon::fromTheme(QStringLiteral("process-stop")));
     cancel->setToolTip(i18n("Cancel ongoing recording (and keep the previous macro as the current one)."));
-    actionCollection()->setDefaultShortcut(cancel, QKeySequence(QStringLiteral("Alt+Shift+K, C"), QKeySequence::PortableText));
+    actionCollection()->setDefaultShortcut(cancel, QKeySequence(QStringLiteral("Ctrl+Alt+Shift+K"), QKeySequence::PortableText));
     cancel->setEnabled(false);
     connect(cancel, &QAction::triggered, plugin, &KeyboardMacrosPlugin::slotCancel);
     plugin->m_cancelAction = cancel;
@@ -480,7 +480,7 @@ KeyboardMacrosPluginView::KeyboardMacrosPluginView(KeyboardMacrosPlugin *plugin,
     save->setText(i18n("&Save Current Macro"));
     save->setIcon(QIcon::fromTheme(QStringLiteral("media-playlist-append")));
     save->setToolTip(i18n("Give a name to the current macro and persistently save it."));
-    actionCollection()->setDefaultShortcut(save, QKeySequence(QStringLiteral("Alt+Shift+K, S"), QKeySequence::PortableText));
+    actionCollection()->setDefaultShortcut(save, QKeySequence(QStringLiteral("Alt+Shift+K"), QKeySequence::PortableText));
     save->setEnabled(false);
     connect(save, &QAction::triggered, plugin, &KeyboardMacrosPlugin::slotSave);
     plugin->m_saveAction = save;

@@ -3511,7 +3511,8 @@ writing much of this section.</para>
 <sect1 id="kate-application-plugin-keyboardmacros">
 <sect1info>
 <authorgroup>
-<author>&Pablo.Rauzy; &Pablo.Rauzy.mail;</author>
+<!--author>&Pablo.Rauzy; &Pablo.Rauzy.mail;</author--> <!-- TODO: use that when the version of KDocTools that Kate depends on has it -->
+<author><firstname>Pablo</firstname> <surname>Rauzy</surname> <email>r .at. uzy.me</email></author>
 </authorgroup>
 </sect1info>
 <title>Keyboard Macros Plugin</title>

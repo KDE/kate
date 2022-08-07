@@ -592,6 +592,18 @@ document.</para></listitem>
 </varlistentry>
 
 <varlistentry>
+<term><cmdsynopsis><command>alignon</command></cmdsynopsis></term>
+<listitem>
+<para>This command aligns lines in the selected block or whole document on the column given by a regular expression given as an argument.</para>
+<para>If you give an empty pattern it will align on the first non-blank character by default.</para>
+<para>If the pattern has a capture it will indent on the captured match.</para>
+<para><emphasis>Examples:</emphasis></para>
+<para><userinput>alignon -</userinput> will insert spaces before the first '-' of each lines to align them all on the same column.</para>
+<para><userinput>alignon :\\s+(.)</userinput> will insert spaces before the first non-blank character that occurs after a colon to align them all on the same column.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
 <term><cmdsynopsis><command>unwrap</command></cmdsynopsis></term>
 <listitem><para>Unwrap the selected text or the whole document.</para></listitem>
 </varlistentry>

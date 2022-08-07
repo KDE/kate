@@ -266,6 +266,8 @@ private Q_SLOTS:
     void buttonPopupActivate(QAction *);
 
 private:
+    void showRaisedTabs();
+
     enum ActionIds {
         PersistAction = 10,
         HideButtonAction = 11,

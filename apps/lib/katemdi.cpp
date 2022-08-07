@@ -636,6 +636,15 @@ bool Sidebar::isCollapsed()
     return m_splitter->sizes().at(ownSplitIndex) == 0;
 }
 
+void Sidebar::showRaisedTabs()
+{
+    for (const auto &[wid, id, _] : m_toolviewInfo) {
+        if (isTabRaised(id)) {
+            wid->show();
+        }
+    }
+}
+
 void Sidebar::handleCollapse(int pos, int index)
 {
     Q_UNUSED(pos);
@@ -671,11 +680,7 @@ void Sidebar::handleCollapse(int pos, int index)
         m_isPreviouslyCollapsed = true;
     } else if (m_isPreviouslyCollapsed && m_resizePlaceholder->isVisible()) {
         // If the sidebar is manually expanded again, we need to show the activated plugin-views again
-        for (const auto &[wid, id, _] : m_toolviewInfo) {
-            if (isTabRaised(id)) {
-                wid->show();
-            }
-        }
+        showRaisedTabs();
 
         m_resizePlaceholder->hide();
         m_isPreviouslyCollapsed = false;
@@ -705,11 +710,7 @@ void Sidebar::expandSidebar(ToolView *widget)
 
         // when the sidebar was collapsed, the activated widgets were hidden, so we need to show them again
         // see Sidebar::handleCollapse
-        for (const auto &[wid, id, _] : m_toolviewInfo) {
-            if (isTabRaised(id)) {
-                wid->show();
-            }
-        }
+        showRaisedTabs();
 
         m_resizePlaceholder->hide();
         m_isPreviouslyCollapsed = false;

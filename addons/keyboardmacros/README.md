@@ -1,22 +1,22 @@
-Keyboard Macros Plugin {#kate-application-plugin-keyboardmacros}
+Keyboard Macros Plugin
 ======================
 
-Introduction {#keyboardmacros-intro}
+Introduction
 ------------
 
 Record and play keyboard macros (i.e., keyboard action sequences).
 
-Basic usage {#keyboardmacros-basicusage}
+Basic usage
 -----------
 
-### To start recording a keyboard macro: {#keyboardmacros-basicusage-record}
+### To start recording a keyboard macro:
 
 [Tools \> Keyboard Macros \> Record Macro\...]
 [`Ctrl+Shift+K`].
 
 The plugin will record every key presses until you end recording.
 
-### To end recording: {#keyboardmacros-basicusage-record-end}
+### To end recording:
 
 [Tools \> Keyboard Macros \> End Macro Recording]
 [`Ctrl+Shift+K`].
@@ -24,7 +24,7 @@ The plugin will record every key presses until you end recording.
 The plugin will stop recording key presses and save the key presses
 sequences as the current macro.
 
-### To cancel recording: {#keyboardmacros-basicusage-record-cancel}
+### To cancel recording:
 
 [Tools \> Keyboard Macros \> Cancel Macro Recording]
 [`Ctrl+Alt+Shift+K`].
@@ -32,7 +32,7 @@ sequences as the current macro.
 The plugin will stop recording key presses but the current macro won\'t
 change.
 
-### To play the current macro: {#keyboardmacros-basicusage-play}
+### To play the current macro:
 
 [Tools \> Keyboard Macros \> Play Macro]
 [`Ctrl+Alt+K`].
@@ -42,7 +42,7 @@ The plugin will play the current macro.
 The `kmplay` command without any arguments will also play the current
 macro.
 
-Named macros {#keyboardmacros-namedmacros}
+Named macros
 ------------
 
 It is possible to save keyboard macros by giving them a name.
@@ -51,7 +51,7 @@ Named macros are persistent between Kate\'s sessions, they\'re saved in
 the `keyboardmacros.json` file in Kate\'s user data directory (usually
 `~/.local/share/kate/`).
 
-### To save the current macro: {#keyboardmacros-namedmacros-save}
+### To save the current macro:
 
 [Tools \> Keyboard Macros \> Save Current Macro]
 [`Alt+Shift+K`].
@@ -61,7 +61,7 @@ The plugin will prompt you for a name and save the macro under it.
 The `kmsave name` command will save the current macro under the name
 `name`.
 
-### To load a saved macro as the current one: {#keyboardmacros-namedmacros-load}
+### To load a saved macro as the current one:
 
 [Tools \> Keyboard Macros \> Load Named Macro\...].
 
@@ -71,7 +71,7 @@ item will load the corresponding macro as the current one.
 The `kmload name` command will load the macro saved under the name
 `name` as the current one.
 
-### To play a saved macro without loading it: {#keyboardmacros-namedmacros-play}
+### To play a saved macro without loading it:
 
 [Tools \> Keyboard Macros \> Play Named Macro\...].
 
@@ -86,7 +86,7 @@ interface.
 The `kmplay name` command will play the macro saved under the name
 `name` without loading it.
 
-### To wipe (e.g., delete) a saved macro: {#keyboardmacros-namedmacros-wipe}
+### To wipe (e.g., delete) a saved macro:
 
 [Tools \> Keyboard Macros \> Wipe Named Macro\...].
 
@@ -96,12 +96,12 @@ item will wipe (i.e., delete) the corresponding macro.
 The `kmwipe name` command will wipe the macro saved under the name
 `name`.
 
-### Tips for commands: {#keyboardmacros-namedmacros-command-tips}
+### Tips for commands:
 
 Note that after the `km` prefix, all these commands use a different
 letter so you can efficiently call them using tab-completion!
 
-Limitations {#keyboardmacros-limitations}
+Limitations
 -----------
 
 As of now, keyboard macros fail to play properly if some types of GUI

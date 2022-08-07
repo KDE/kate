@@ -101,6 +101,10 @@ Search and replace in documents, folders, or projects</para>
 <para><link linkend="kate-application-plugin-snippets">Snippets tool view</link> - Tool view embedding the snippets management</para>
 </listitem>
 <listitem>
+<para><link linkend="kate-application-plugin-keyboardmacros">Keyboard Macros</link>
+- Record and play keyboard macros (i.e., keyboard action sequences)</para>
+</listitem>
+<listitem>
 <para><link linkend="kate-application-plugin-sql">SQL Plugin</link> - Execute
 query on SQL databases</para>
 </listitem>
@@ -3500,6 +3504,122 @@ to the next variable, and so on.</para>
 <para>&kate; Snippets was written by Joseph Wenninger.</para>
 <para>Special thanks to Google Code-In 2011 participant Martin Gergov for
 writing much of this section.</para>
+</sect2>
+
+</sect1>
+
+<sect1 id="kate-application-plugin-keyboardmacros">
+<sect1info>
+<authorgroup>
+<author>&Pablo.Rauzy; &Pablo.Rauzy.mail;</author>
+</authorgroup>
+</sect1info>
+<title>Keyboard Macros Plugin</title>
+
+<sect2 id="keyboardmacros-intro">
+<title>Introduction</title>
+<para>Record and play keyboard macros (i.e., keyboard action sequences).</para>
+</sect2>
+
+<sect2 id="keyboardmacros-basicusage">
+<title>Basic usage</title>
+
+<sect3 id="keyboardmacros-basicusage-record">
+<title>To start recording a keyboard macro:</title>
+<para>
+<menuchoice><guimenu>Tools</guimenu><guimenuitem>Keyboard Macros</guimenuitem><guimenuitem>Record Macro...</guimenuitem></menuchoice>
+(<keycombo action="simul">&Ctrl;&Shift;<keycap>K</keycap></keycombo>).
+</para>
+<para>The plugin will record every key presses until you end recording.</para>
+</sect3>
+
+<sect3 id="keyboardmacros-basicusage-record-end">
+<title>To end recording:</title>
+<para>
+<menuchoice><guimenu>Tools</guimenu><guimenuitem>Keyboard Macros</guimenuitem><guimenuitem>End Macro Recording</guimenuitem></menuchoice>
+(<keycombo action="simul">&Ctrl;&Shift;<keycap>K</keycap></keycombo>).
+</para>
+<para>The plugin will stop recording key presses and save the key presses sequences as the current macro.</para>
+</sect3>
+
+<sect3 id="keyboardmacros-basicusage-record-cancel">
+<title>To cancel recording:</title>
+<para>
+<menuchoice><guimenu>Tools</guimenu><guimenuitem>Keyboard Macros</guimenuitem><guimenuitem>Cancel Macro Recording</guimenuitem></menuchoice>
+(<keycombo action="simul">&Ctrl;&Alt;&Shift;<keycap>K</keycap></keycombo>).
+</para>
+<para>The plugin will stop recording key presses but the current macro won't change.</para>
+</sect3>
+
+<sect3 id="keyboardmacros-basicusage-play">
+<title>To play the current macro:</title>
+<para>
+<menuchoice><guimenu>Tools</guimenu><guimenuitem>Keyboard Macros</guimenuitem><guimenuitem>Play Macro</guimenuitem></menuchoice>
+(<keycombo action="simul">&Ctrl;&Alt;<keycap>K</keycap></keycombo>).
+</para>
+<para>The plugin will play the current macro.</para>
+<para>The <userinput>kmplay</userinput> command without any arguments will also play the current macro.</para>
+</sect3>
+
+</sect2>
+
+<sect2 id="keyboardmacros-namedmacros">
+<title>Named macros</title>
+
+<para>It is possible to save keyboard macros by giving them a name.</para>
+<para>Named macros are persistent between Kate's sessions, they're saved in the <filename>keyboardmacros.json</filename> file in Kate's user data directory (usually <filename>~/.local/share/kate/</filename>).</para>
+
+<sect3 id="keyboardmacros-namedmacros-save">
+<title>To save the current macro:</title>
+<para>
+<menuchoice><guimenu>Tools</guimenu><guimenuitem>Keyboard Macros</guimenuitem><guimenuitem>Save Current Macro</guimenuitem></menuchoice>
+(<keycombo action="simul">&Alt;&Shift;<keycap>K</keycap></keycombo>).
+</para>
+<para>The plugin will prompt you for a name and save the macro under it.</para>
+<para>The <userinput>kmsave <replaceable>name</replaceable></userinput> command will save the current macro under the name <replaceable>name</replaceable>.</para>
+</sect3>
+
+<sect3 id="keyboardmacros-namedmacros-load">
+<title>To load a saved macro as the current one:</title>
+<para>
+<menuchoice><guimenu>Tools</guimenu><guimenuitem>Keyboard Macros</guimenuitem><guimenuitem>Load Named Macro...</guimenuitem></menuchoice>.
+</para>
+<para>The plugin lists saved macros as items in this submenu, activating an item will load the corresponding macro as the current one.</para>
+<para>The <userinput>kmload <replaceable>name</replaceable></userinput> command will load the macro saved under the name <replaceable>name</replaceable> as the current one.</para>
+</sect3>
+
+<sect3 id="keyboardmacros-namedmacros-play">
+<title>To play a saved macro without loading it:</title>
+<para>
+<menuchoice><guimenu>Tools</guimenu><guimenuitem>Keyboard Macros</guimenuitem><guimenuitem>Play Named Macro...</guimenuitem></menuchoice>.
+</para>
+<para>The plugin lists saved macros as items in this submenu, activating an item will play the corresponding macro without loading it.</para>
+<para>Note that each saved macros is an action that is part of the current action collection so that a custom shortcut can be assigned to it through the <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure Keyboard Shortcuts...</guimenuitem></menuchoice> interface.</para>
+<para>The <userinput>kmplay <replaceable>name</replaceable></userinput> command will play the macro saved under the name <replaceable>name</replaceable> without loading it.</para>
+</sect3>
+
+<sect3 id="keyboardmacros-namedmacros-wipe">
+<title>To wipe (e.g., delete) a saved macro:</title>
+<para>
+<menuchoice><guimenu>Tools</guimenu><guimenuitem>Keyboard Macros</guimenuitem><guimenuitem>Wipe Named Macro...</guimenuitem></menuchoice>.
+</para>
+<para>The plugin lists saved macros as items in this submenu, activating an item will wipe (i.e., delete) the corresponding macro.</para>
+<para>The <userinput>kmwipe <replaceable>name</replaceable></userinput> command will wipe the macro saved under the name <replaceable>name</replaceable>.</para>
+</sect3>
+
+<sect3 id="keyboardmacros-namedmacros-command-tips">
+<title>Tips for commands:</title>
+<para>Note that after the <userinput>km</userinput> prefix, all these commands use a different letter so you can efficiently call them using tab-completion!</para>
+</sect3>
+
+</sect2>
+
+<sect2 id="keyboardmacros-limitations">
+<title>Limitations</title>
+
+<para>As of now, keyboard macros fail to play properly if some types of GUI widgets are used: QMenu, QuickOpenLineEdit, or TabSwitcherTreeView, for example.
+I'm not sure why but my first guess would be that these widgets work in a non-standard way regarding keyboard events.</para>
+
 </sect2>
 
 </sect1>

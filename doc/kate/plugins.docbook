@@ -3540,7 +3540,7 @@ writing much of this section.</para>
 <menuchoice><guimenu>Tools</guimenu><guimenuitem>Keyboard Macros</guimenuitem><guimenuitem>End Macro Recording</guimenuitem></menuchoice>
 (<keycombo action="simul">&Ctrl;&Shift;<keycap>K</keycap></keycombo>).
 </para>
-<para>The plugin will stop recording key presses and save the key presses sequences as the current macro.</para>
+<para>The plugin will stop recording key presses and save the sequence as the current macro.</para>
 </sect3>
 
 <sect3 id="keyboardmacros-basicusage-record-cancel">

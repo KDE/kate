@@ -21,8 +21,8 @@ The plugin will record every key presses until you end recording.
 [Tools \> Keyboard Macros \> End Macro Recording]
 [`Ctrl+Shift+K`].
 
-The plugin will stop recording key presses and save the key presses
-sequences as the current macro.
+The plugin will stop recording key presses and save the sequence as the
+current macro.
 
 ### To cancel recording:
 

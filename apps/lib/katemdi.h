@@ -266,23 +266,73 @@ private Q_SLOTS:
     void buttonPopupActivate(QAction *);
 
 private:
+    void showRaisedTabs();
+
+    enum ActionIds {
+        PersistAction = 10,
+        HideButtonAction = 11,
+        ConfigureAction = 20,
+    };
+
     MainWindow *m_mainWin;
 
     KMultiTabBar::KMultiTabBarPosition m_pos{};
-    QSplitter *m_splitter;
+    QSplitter *m_splitter = nullptr;
     KMultiTabBar *m_tabBar = nullptr;
-    QSplitter *m_ownSplit;
+    QSplitter *m_ownSplit = nullptr;
 
-    std::map<int, ToolView *> m_idToWidget;
-    std::map<ToolView *, int> m_widgetToId;
-    std::map<ToolView *, QSize> m_widgetToSize;
+public:
+    struct ToolViewInfo {
+        ToolView *tview = nullptr;
+        int index = 0;
+        QSize size;
+    };
+
+private:
+    std::vector<ToolViewInfo> m_toolviewInfo;
+
+    using ToolViewVec = std::vector<Sidebar::ToolViewInfo>;
+
+    ToolViewVec::iterator findByView(KateMDI::ToolView *v)
+    {
+        return std::find_if(m_toolviewInfo.begin(), m_toolviewInfo.end(), [v](const Sidebar::ToolViewInfo &info) {
+            return info.tview == v;
+        });
+    }
+
+    ToolViewVec::const_iterator findByView(KateMDI::ToolView *v) const
+    {
+        return std::find_if(m_toolviewInfo.begin(), m_toolviewInfo.end(), [v](const Sidebar::ToolViewInfo &info) {
+            return info.tview == v;
+        });
+    }
+
+    ToolViewVec::iterator findByIndex(int id)
+    {
+        return std::find_if(m_toolviewInfo.begin(), m_toolviewInfo.end(), [id](const Sidebar::ToolViewInfo &info) {
+            return info.index == id;
+        });
+    }
+
+    ToolViewVec::const_iterator findByIndex(int id) const
+    {
+        return std::find_if(m_toolviewInfo.begin(), m_toolviewInfo.end(), [id](const Sidebar::ToolViewInfo &info) {
+            return info.index == id;
+        });
+    }
+
+    int indexForView(KateMDI::ToolView *v) const
+    {
+        auto it = findByView(v);
+        return it != m_toolviewInfo.end() ? it->index : 0;
+    }
 
     /**
      * list of all toolviews around in this sidebar
      */
     std::vector<ToolView *> m_toolviews;
 
-    int m_lastSize;
+    int m_lastSize = 0;
 
     QSize m_preHideSize;
 

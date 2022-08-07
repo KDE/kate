@@ -32,6 +32,8 @@
 #include <QTimer>
 #include <QVBoxLayout>
 
+#include <array>
+
 namespace KateMDI
 {
 // BEGIN TOGGLETOOLVIEWACTION

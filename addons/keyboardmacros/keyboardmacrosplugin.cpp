@@ -297,8 +297,10 @@ bool KeyboardMacrosPlugin::play(const QString &name)
         // send key release
         QKeyEvent keyRelease = keyCombination.keyRelease();
         qApp->sendEvent(qApp->focusWidget(), &keyRelease);
-        // process events
-        qApp->processEvents(QEventLoop::AllEvents);
+        // process events immediately if a shortcut may have been triggered
+        if (!keyCombination.isVisibleInput()) {
+            qApp->processEvents(QEventLoop::AllEvents);
+        }
     }
     return true;
 }

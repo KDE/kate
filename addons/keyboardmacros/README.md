@@ -86,7 +86,7 @@ interface.
 The `kmplay name` command will play the macro saved under the name
 `name` without loading it.
 
-### To wipe (e.g., delete) a saved macro:
+### To wipe (i.e., delete) a saved macro:
 
 [Tools \> Keyboard Macros \> Wipe Named Macro\...].
 

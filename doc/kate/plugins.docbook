@@ -3599,7 +3599,7 @@ writing much of this section.</para>
 </sect3>
 
 <sect3 id="keyboardmacros-namedmacros-wipe">
-<title>To wipe (e.g., delete) a saved macro:</title>
+<title>To wipe (i.e., delete) a saved macro:</title>
 <para>
 <menuchoice><guimenu>Tools</guimenu><guimenuitem>Keyboard Macros</guimenuitem><guimenuitem>Wipe Named Macro...</guimenuitem></menuchoice>.
 </para>

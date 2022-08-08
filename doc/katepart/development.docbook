@@ -3541,6 +3541,23 @@ In case of an error, the string <replaceable>object.status</replaceable> contain
 </listitem>
 </varlistentry>
 
+<varlistentry>
+<term><synopsis>
+Range view.searchText(<parameter>Range <replaceable>range</replaceable></parameter>,
+                      <parameter>String <replaceable>pattern</replaceable></parameter>,
+                      <parameter>bool <replaceable>backwards</replaceable> = false</parameter>);
+</synopsis></term>
+<listitem><para>
+Search for the first occurrence of <replaceable>pattern</replaceable> in <replaceable>range</replaceable> and returns the matched range.
+Search is performed backwards if the optional boolean parameter <replaceable>backwards</replaceable> is set to <literal>true</literal>.
+</para>
+<para>
+The returned range is invalid (see Range.isValid()) if <replaceable>pattern</replaceable> is not found in <replaceable>range</replaceable>.
+</para>
+<para>Since: &kde-frameworks; 5.97</para>
+</listitem>
+</varlistentry>
+
 </variablelist>
 </para>
 </sect3>

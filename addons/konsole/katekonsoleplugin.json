@@ -26,7 +26,7 @@
         "Description[uk]": "Термінал на основі віджета Konsole KDE",
         "Description[vi]": "Có một trình dòng lệnh luôn sẵn sàng, với phụ kiện Konsole của KDE",
         "Description[x-test]": "xxHave a terminal at the ready, using KDE's Konsole widgetxx",
-        "Description[zh_CN]": "使用 KDE的 Konsole 小部件作为可用的终端。",
+        "Description[zh_CN]": "随处均可调用的命令行终端，基于 KDE 的 Konsole 部件构建。",
         "Name": "Terminal Tool View",
         "Name[az]": "Terminal görünüşü",
         "Name[bg]": "Изглед с инструменти на терминала",

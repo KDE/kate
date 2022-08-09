@@ -721,7 +721,7 @@ KeyboardMacrosPluginCommands::KeyboardMacrosPluginCommands(KeyboardMacrosPlugin 
 bool KeyboardMacrosPluginCommands::exec(KTextEditor::View *view, const QString &cmd, QString &msg, const KTextEditor::Range &)
 {
     const QStringList &actionAndName = cmd.split(QRegularExpression(QStringLiteral("\\s+")));
-    const QString &action = actionAndName.at(0);
+    const QString &action = actionAndName[0];
     // kmplay can take either zero or one argument, all other commands require exactly one
     if (actionAndName.length() > 2 || (action != QStringLiteral("kmplay") && actionAndName.length() != 2)) {
         msg = i18n("Usage: %1 <name>.", action);
@@ -736,7 +736,7 @@ bool KeyboardMacrosPluginCommands::exec(KTextEditor::View *view, const QString &
             return true;
         } else {
             // otherwise play the given macro
-            const QString &name = actionAndName.at(1);
+            const QString &name = actionAndName[1];
             if (!m_plugin->play(name)) {
                 msg = i18n("No keyboard macro named '%1' found.", name);
                 return false;
@@ -744,7 +744,7 @@ bool KeyboardMacrosPluginCommands::exec(KTextEditor::View *view, const QString &
             return true;
         }
     }
-    const QString &name = actionAndName.at(1);
+    const QString &name = actionAndName[1];
     if (action == QStringLiteral("kmsave")) {
         if (!m_plugin->save(name)) {
             msg = i18n("Cannot save empty keyboard macro.");

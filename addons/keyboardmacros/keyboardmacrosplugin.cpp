@@ -358,7 +358,7 @@ bool KeyboardMacrosPlugin::save(const QString &name)
     // update GUI:
     clearPluginViews();
     for (auto &pluginView : m_pluginViews) {
-        pluginView->addNamedMacro(name, m_macro);
+        pluginView->addNamedMacro(name, m_macro.toString());
     }
     // display feedback
     displayMessage(i18n("Saved '%1'", name), KTextEditor::Message::Positive);
@@ -498,7 +498,7 @@ KeyboardMacrosPluginView::KeyboardMacrosPluginView(KeyboardMacrosPlugin *plugin,
 
     // add named macros to our menus
     for (const auto &[name, macro] : plugin->m_namedMacros.toStdMap()) {
-        addNamedMacro(name, macro);
+        addNamedMacro(name, macro.toString());
     }
 
     // update current state if necessary
@@ -550,10 +550,10 @@ void KeyboardMacrosPluginView::macroLoaded(bool enable)
     m_saveAction->setEnabled(enable);
 }
 
-void KeyboardMacrosPluginView::addNamedMacro(const QString &name, const Macro &macro)
+void KeyboardMacrosPluginView::addNamedMacro(const QString &name, const QString &description)
 {
     QAction *action;
-    QString label = KStringHandler::rsqueeze(name + QStringLiteral(": ") + macro.toString(), 50)
+    QString label = KStringHandler::rsqueeze(name + QStringLiteral(": ") + description, 50)
                         // avoid unwanted accelerators
                         .replace(QRegularExpression(QStringLiteral("&(?!&)")), QStringLiteral("&&"));
 

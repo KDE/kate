@@ -122,7 +122,7 @@ public:
     void recordingOn();
     void recordingOff();
     void macroLoaded(bool enable);
-    void addNamedMacro(const QString &name, const Macro &macro);
+    void addNamedMacro(const QString &name, const QString &description);
     void removeNamedMacro(const QString &name);
 
     // Action slots

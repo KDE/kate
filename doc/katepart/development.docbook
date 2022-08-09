@@ -3536,6 +3536,21 @@ Properly re-indent lines within <replaceable>range</replaceable> according to cu
 
 <varlistentry>
 <term><synopsis>
+void view.alignOn(<parameter>Range <replaceable>range</replaceable></parameter>, <parameter>String <replaceable>pattern</replaceable> = &quot;&quot;</parameter>);
+</synopsis></term>
+<listitem><para>
+Aligns lines in <replaceable>range</replaceable> on the column given by the regular expression <replaceable>pattern</replaceable>.
+With an empty <replaceable>pattern</replaceable> it will align on the first non-blank character by default.
+If the pattern has a capture it will indent on the captured match.
+</para>
+<para><emphasis>Examples:</emphasis></para>
+<para><literal>view.alignOn(document.documentRange(), '-');</literal> will insert spaces before the first <literal>-</literal> of each lines to align them all on the same column.</para>
+<para><literal>view.alignOn(document.documentRange(), ':\\s+(.)');</literal> will insert spaces before the first non-blank character that occurs after a colon to align them all on the same column.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><synopsis>
 object view.executeCommand(<parameter>String <replaceable>command</replaceable></parameter>,
                            <parameter>String <replaceable>args</replaceable></parameter>,
                            <parameter>Range <replaceable>range</replaceable></parameter>);
@@ -4414,21 +4429,6 @@ void document.indent(<parameter>Range <replaceable>range</replaceable></paramete
 <listitem><para>
 Indents all lines in <replaceable>range</replaceable> by <replaceable>change</replaceable> tabs or <replaceable>change</replaceable> times <literal>tabSize</literal> spaces depending on the users preferences. The <replaceable>change</replaceable> parameter can be negative.
 </para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><synopsis>
-void document.alignOn(<parameter>Range <replaceable>range</replaceable></parameter>, <parameter>String <replaceable>pattern</replaceable> = &quot;&quot;</parameter>);
-</synopsis></term>
-<listitem><para>
-Aligns lines in <replaceable>range</replaceable> on the column given by the regular expression <replaceable>pattern</replaceable>.
-With an empty <replaceable>pattern</replaceable> it will align on the first non-blank character by default.
-If the pattern has a capture it will indent on the captured match.
-</para>
-<para><emphasis>Examples:</emphasis></para>
-<para><literal>document.alignOn(document.documentRange(), '-');</literal> will insert spaces before the first <literal>-</literal> of each lines to align them all on the same column.</para>
-<para><literal>document.alignOn(document.documentRange(), ':\\s+(.)');</literal> will insert spaces before the first non-blank character that occurs after a colon to align them all on the same column.</para>
-</listitem>
 </varlistentry>
 
 </variablelist>

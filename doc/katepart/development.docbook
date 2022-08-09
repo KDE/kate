@@ -3526,6 +3526,16 @@ Clears the text selection without removing the text.
 
 <varlistentry>
 <term><synopsis>
+void view.align(<parameter>Range <replaceable>range</replaceable></parameter>);
+</synopsis></term>
+<listitem><para>
+Properly re-indent lines within <replaceable>range</replaceable> according to current indentation settings.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><synopsis>
 object view.executeCommand(<parameter>String <replaceable>command</replaceable></parameter>,
                            <parameter>String <replaceable>args</replaceable></parameter>,
                            <parameter>Range <replaceable>range</replaceable></parameter>);

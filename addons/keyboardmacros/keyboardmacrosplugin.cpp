@@ -60,7 +60,6 @@ KeyboardMacrosPlugin::KeyboardMacrosPlugin(QObject *parent, const QList<QVariant
 {
     m_commands = new KeyboardMacrosPluginCommands(this);
     m_storage = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QStringLiteral("/kate/keyboardmacros.json");
-    loadNamedMacros();
     m_storageLock = new QLockFile(m_storage + QStringLiteral(".lock"));
 }
 
@@ -73,6 +72,7 @@ KeyboardMacrosPlugin::~KeyboardMacrosPlugin()
 
 QObject *KeyboardMacrosPlugin::createView(KTextEditor::MainWindow *mainWindow)
 {
+    loadNamedMacros();
     m_mainWindow = mainWindow;
     m_pluginView = new KeyboardMacrosPluginView(this, mainWindow);
     return m_pluginView;

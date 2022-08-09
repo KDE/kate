@@ -24,7 +24,7 @@ private:
 public:
     KeyCombination(){};
 
-    KeyCombination(int key, Qt::KeyboardModifiers modifiers, QString text)
+    KeyCombination(const int key, const Qt::KeyboardModifiers modifiers, const QString text)
         : m_key(key)
         , m_modifiers(modifiers)
         , m_text(text){};
@@ -34,7 +34,7 @@ public:
         , m_modifiers(keyEvent->modifiers())
         , m_text(keyEvent->text()){};
 
-    static const QPair<KeyCombination, bool> fromJson(const QJsonArray &json)
+    static const QPair<const KeyCombination, bool> fromJson(const QJsonArray &json)
     {
         if (json.size() != 3 || json[0].type() != QJsonValue::Double || json[1].type() != QJsonValue::Double || json[2].type() != QJsonValue::String) {
             return QPair(KeyCombination(), false);
@@ -72,7 +72,7 @@ public:
     bool isVisibleInput() const
     {
         return m_text.size() == 1 && (m_modifiers == Qt::NoModifier || m_modifiers == Qt::ShiftModifier) && m_text[0].isPrint();
-    }
+    };
 
     friend QDebug operator<<(QDebug dbg, const KeyCombination &kc)
     {

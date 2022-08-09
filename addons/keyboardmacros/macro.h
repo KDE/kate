@@ -21,7 +21,7 @@ public:
     explicit Macro()
         : QList<KeyCombination>(){};
 
-    static const QPair<Macro, bool> fromJson(const QJsonValue &json)
+    static const QPair<const Macro, bool> fromJson(const QJsonValue &json)
     {
         if (json.type() != QJsonValue::Array) {
             QPair(Macro(), false);
@@ -40,7 +40,7 @@ public:
         return QPair(macro, true);
     };
 
-    QJsonArray toJson() const
+    const QJsonArray toJson() const
     {
         QJsonArray json;
         Macro::ConstIterator it;

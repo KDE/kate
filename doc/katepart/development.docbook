@@ -2642,7 +2642,7 @@ triggerCharacters = "{}/:;";
 function indent(line, indentWidth, ch)
 {
     // called for each newline (ch == '\n') and all characters specified in
-    // the global variable triggerCharacters. When calling <menuchoice><guimenu>Tools</guimenu><guimenuitem>Align</guimenuitem></menuchoice>
+    // the global variable triggerCharacters. When calling <menuchoice><guimenu>Tools</guimenu><guimenuitem>Format Indentation</guimenuitem></menuchoice>
     // the variable ch is empty, i.e. ch == ''.
     //
     // see also: Scripting API
@@ -2654,7 +2654,7 @@ The function <function>indent()</function> has three parameters:
 <itemizedlist>
 <listitem><para><literal>line</literal>: the line that has to be indented</para></listitem>
 <listitem><para><literal>indentWidth</literal>: the indentation width in number of spaces</para></listitem>
-<listitem><para><literal>ch</literal>: either a newline character (<literal>ch == '\n'</literal>), the trigger character specified in <literal>triggerCharacters</literal> or empty if the user invoked the action <menuchoice><guimenu>Tools</guimenu><guimenuitem>Align</guimenuitem></menuchoice>.</para></listitem>
+<listitem><para><literal>ch</literal>: either a newline character (<literal>ch == '\n'</literal>), the trigger character specified in <literal>triggerCharacters</literal> or empty if the user invoked the action <menuchoice><guimenu>Tools</guimenu><guimenuitem>Format Indentation</guimenuitem></menuchoice>.</para></listitem>
 </itemizedlist>
 The return value of the <function>indent()</function> function specifies how
 the line will be indented. If the return value is a simple integer number, it

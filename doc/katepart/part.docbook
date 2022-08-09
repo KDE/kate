@@ -533,7 +533,7 @@ the feature on a per document level. This will be fixed in a future version of &
 designed for different text formats. You can pick from the available modes using
 the <menuchoice><guimenu>Tools</guimenu><guisubmenu>Indentation</guisubmenu></menuchoice>
 menu. The autoindent modules also provide a function
-<menuchoice><guimenu>Tools</guimenu><guimenuitem>Align</guimenuitem></menuchoice>
+<menuchoice><guimenu>Tools</guimenu><guimenuitem>Format Indentation</guimenuitem></menuchoice>
 which will recalculate the indentation of the selected or current line. Thus,
 you may reindent your entire document by selecting all the text and activating
 that action.</para>

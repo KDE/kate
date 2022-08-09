@@ -634,7 +634,7 @@ if the cursor is located in the leading blank space of a line.</para>
 <listitem>
 <para>
 If you want &Tab; to align the current line in the current code block
-like in &Emacs;, make &Tab; a shortcut to the action <guimenuitem>Align</guimenuitem>.
+like in &Emacs;, make &Tab; a shortcut to the action <guimenuitem>Format Indentation</guimenuitem>.
 </para>
 <variablelist>
 <varlistentry>

@@ -1611,6 +1611,9 @@ depends on the <link linkend="pref-edit-indent"> indentation settings</link>.</p
 </listitem>
 </varlistentry>
 -->
+
+<!-- <Pablo> These are in the selection menu now, and are documented in doc/katepart/menus.docbook -->
+<!--
 <varlistentry id="tools-cleanindent">
 <term><menuchoice>
 <guimenu>Tools</guimenu>
@@ -1623,14 +1626,29 @@ all your selected text follows the indentation mode you choose.</para>
 </listitem>
 </varlistentry>
 
-<varlistentry id="tools-align">
+<varlistentry id="tools-formatindent">
 <term><menuchoice>
 <guimenu>Tools</guimenu>
-<guimenuitem>Align</guimenuitem>
+<guimenuitem>Format Indent</guimenuitem>
 </menuchoice></term>
 <listitem>
 <para>Causes a realign of the current line or selected lines using the
 indentation mode and indentation settings in the document.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-alignon">
+<term><menuchoice>
+<guimenu>Tools</guimenu>
+<guimenuitem>Align On...</guimenuitem>
+</menuchoice></term>
+<listitem>
+<para>This command aligns lines in the selected block or whole document on the column given by a regular expression that you will be prompted for.</para>
+<para>If you give an empty pattern it will align on the first non-blank character by default.</para>
+<para>If the pattern has a capture it will indent on the captured match.</para>
+<para><emphasis>Examples:</emphasis></para>
+<para>With '<userinput>-</userinput>' it will insert spaces before the first '-' of each lines to align them all on the same column.</para>
+<para>With '<userinput>alignon :\\s+(.)</userinput>' it will insert spaces before the first non-blank character that occurs after a colon to align them all on the same column.</para>
 </listitem>
 </varlistentry>
 
@@ -1722,6 +1740,7 @@ in the Editing tab in <menuchoice>
 <guimenu>Settings</guimenu><guimenuitem>Configure
 Editor...</guimenuitem></menuchoice>.</para></listitem>
 </varlistentry>
+-->
 
 </variablelist>
 </sect1>

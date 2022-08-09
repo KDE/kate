@@ -25,6 +25,7 @@ class KATE_PRIVATE_EXPORT QuickDialog : public QMenu
     Q_OBJECT
 public:
     QuickDialog(QWidget *parent, QWidget *mainWindow);
+    ~QuickDialog();
 
 protected:
     bool eventFilter(QObject *obj, QEvent *event) override;

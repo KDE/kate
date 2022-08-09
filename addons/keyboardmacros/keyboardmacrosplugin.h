@@ -8,6 +8,7 @@
 
 #include <QEvent>
 #include <QList>
+#include <QLockFile>
 #include <QMap>
 #include <QObject>
 #include <QPointer>
@@ -51,6 +52,7 @@ class KeyboardMacrosPlugin : public KTextEditor::Plugin
     Macro m_tape;
     Macro m_macro;
     QString m_storage;
+    QLockFile *m_storageLock;
     QMap<QString, Macro> m_namedMacros;
     QSet<QString> m_wipedMacros;
 
@@ -61,7 +63,7 @@ public:
     QObject *createView(KTextEditor::MainWindow *mainWindow) override;
 
 private:
-    void loadNamedMacros();
+    void loadNamedMacros(bool locked = false);
     void saveNamedMacros();
 
     // GUI feedback helpers

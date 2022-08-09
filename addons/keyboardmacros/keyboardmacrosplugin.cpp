@@ -21,6 +21,7 @@
 #include <QKeySequence>
 #include <QLineEdit>
 #include <QList>
+#include <QLockFile>
 #include <QLoggingCategory>
 #include <QMessageBox>
 #include <QObject>
@@ -60,11 +61,13 @@ KeyboardMacrosPlugin::KeyboardMacrosPlugin(QObject *parent, const QList<QVariant
     m_commands = new KeyboardMacrosPluginCommands(this);
     m_storage = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QStringLiteral("/kate/keyboardmacros.json");
     loadNamedMacros();
+    m_storageLock = new QLockFile(m_storage + QStringLiteral(".lock"));
 }
 
 KeyboardMacrosPlugin::~KeyboardMacrosPlugin()
 {
     saveNamedMacros();
+    delete m_storageLock;
     delete m_commands;
 }
 
@@ -75,8 +78,12 @@ QObject *KeyboardMacrosPlugin::createView(KTextEditor::MainWindow *mainWindow)
     return m_pluginView;
 }
 
-void KeyboardMacrosPlugin::loadNamedMacros()
+void KeyboardMacrosPlugin::loadNamedMacros(bool locked)
 {
+    if (!locked && !m_storageLock->tryLock()) {
+        sendMessage(i18n("Could not acquire macros storage lock; abort loading macros."), true);
+        return;
+    }
     QFile storage(m_storage);
     if (!storage.open(QIODevice::ReadOnly | QIODevice::Text)) {
         sendMessage(i18n("Could not open file '%1'.", m_storage), false);
@@ -95,15 +102,22 @@ void KeyboardMacrosPlugin::loadNamedMacros()
         }
     }
     storage.close();
+    if (!locked) {
+        m_storageLock->unlock();
+    }
 }
 
 void KeyboardMacrosPlugin::saveNamedMacros()
 {
+    if (!m_storageLock->tryLock()) {
+        sendMessage(i18n("Could not acquire macros storage lock; abort saving macros."), true);
+        return;
+    }
     // first keep a copy of the named macros of our instance
     QMap<QString, Macro> ourNamedMacros;
     ourNamedMacros.swap(m_namedMacros);
     // then reload from storage in case another instance saved macros since we first loaded ours from storage
-    loadNamedMacros();
+    loadNamedMacros(true);
     // then insert all of our macros, prioritizing ours in case of name conflict since we are the most recent save
     m_namedMacros.insert(ourNamedMacros);
     // and now save named macros
@@ -118,6 +132,7 @@ void KeyboardMacrosPlugin::saveNamedMacros()
     }
     storage.write(QJsonDocument(json).toJson(QJsonDocument::Compact));
     storage.close();
+    m_storageLock->unlock();
 }
 
 // END

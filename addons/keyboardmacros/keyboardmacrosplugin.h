@@ -7,6 +7,7 @@
 #define KEYBOARDMACROSPLUGIN_H
 
 #include <QEvent>
+#include <QKeySequence>
 #include <QList>
 #include <QLockFile>
 #include <QMap>
@@ -38,17 +39,14 @@ class KeyboardMacrosPlugin : public KTextEditor::Plugin
     friend KeyboardMacrosPluginCommands;
 
     // GUI elements
-    KTextEditor::MainWindow *m_mainWindow = nullptr;
-    KeyboardMacrosPluginView *m_pluginView = nullptr;
-    QAction *m_recordAction = nullptr;
-    QAction *m_cancelAction = nullptr;
-    QAction *m_playAction = nullptr;
-    QAction *m_saveAction = nullptr;
-    QPointer<QWidget> m_focusWidget;
+    QList<QPointer<KeyboardMacrosPluginView>> m_pluginViews;
     KeyboardMacrosPluginCommands *m_commands;
 
-    // state and logic
+    // State and logic
     bool m_recording = false;
+    QPointer<QWidget> m_focusWidget;
+    QKeySequence m_recordActionShortcut;
+    QKeySequence m_playActionShortcut;
     Macro m_tape;
     Macro m_macro;
     QString m_storage;
@@ -61,6 +59,7 @@ public:
     explicit KeyboardMacrosPlugin(QObject *parent = nullptr, const QList<QVariant> & = QList<QVariant>());
     ~KeyboardMacrosPlugin() override;
     QObject *createView(KTextEditor::MainWindow *mainWindow) override;
+    void clearPluginViews();
 
 private:
     void loadNamedMacros(bool locked = false);
@@ -89,6 +88,42 @@ private:
     bool save(const QString &name);
     bool load(const QString &name);
     bool wipe(const QString &name);
+};
+
+/**
+ * Plugin view to add keyboard macros actions to the GUI
+ */
+class KeyboardMacrosPluginView : public QObject, public KXMLGUIClient
+{
+    Q_OBJECT
+
+    KeyboardMacrosPlugin *m_plugin;
+    KTextEditor::MainWindow *m_mainWindow;
+    QPointer<QAction> m_recordAction;
+    QPointer<QAction> m_cancelAction;
+    QPointer<QAction> m_playAction;
+    QPointer<QAction> m_saveAction;
+    QPointer<KActionMenu> m_loadMenu;
+    QMap<QString, QPointer<QAction>> m_namedMacrosLoadActions;
+    QPointer<KActionMenu> m_playMenu;
+    QMap<QString, QPointer<QAction>> m_namedMacrosPlayActions;
+    QPointer<KActionMenu> m_wipeMenu;
+    QMap<QString, QPointer<QAction>> m_namedMacrosWipeActions;
+
+public:
+    explicit KeyboardMacrosPluginView(KeyboardMacrosPlugin *plugin, KTextEditor::MainWindow *mainwindow);
+    ~KeyboardMacrosPluginView() override;
+
+    // shortcut getter
+    QKeySequence recordActionShortcut() const;
+    QKeySequence playActionShortcut() const;
+
+    // GUI update helpers
+    void recordingOn();
+    void recordingOff();
+    void macroLoaded(bool enable);
+    void addNamedMacro(const QString &name, const Macro &macro);
+    void removeNamedMacro(const QString &name);
 
     // Action slots
 public Q_SLOTS:
@@ -99,32 +134,6 @@ public Q_SLOTS:
     void slotLoadNamed(const QString &name = QString());
     void slotPlayNamed(const QString &name = QString());
     void slotWipeNamed(const QString &name = QString());
-};
-
-/**
- * Plugin view to add keyboard macros actions to the GUI
- */
-class KeyboardMacrosPluginView : public QObject, public KXMLGUIClient
-{
-    Q_OBJECT
-
-public:
-    explicit KeyboardMacrosPluginView(KeyboardMacrosPlugin *plugin, KTextEditor::MainWindow *mainwindow);
-    ~KeyboardMacrosPluginView() override;
-
-    void addNamedMacro(const QString &name, const Macro &macro);
-    void removeNamedMacro(const QString &name);
-
-private:
-    KeyboardMacrosPlugin *m_plugin;
-    KTextEditor::MainWindow *m_mainWindow;
-    QMap<QString, QAction *> m_namedMacrosLoadActions;
-    QMap<QString, QAction *> m_namedMacrosPlayActions;
-    QMap<QString, QAction *> m_namedMacrosWipeActions;
-
-    KActionMenu *m_loadMenu;
-    KActionMenu *m_playMenu;
-    KActionMenu *m_wipeMenu;
 };
 
 /**

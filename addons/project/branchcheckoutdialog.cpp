@@ -59,7 +59,7 @@ void BranchCheckoutDialog::onCheckoutDone()
     sendMessage(msgStr, warn);
 }
 
-void BranchCheckoutDialog::slotReturnPressed()
+void BranchCheckoutDialog::slotReturnPressed(const QModelIndex &index)
 {
     // we cleared the model to checkout new branch
     if (m_model->rowCount() == 0) {
@@ -70,7 +70,7 @@ void BranchCheckoutDialog::slotReturnPressed()
     // branch is selected, do actual checkout
     if (m_checkingOutFromBranch) {
         m_checkingOutFromBranch = false;
-        const auto fromBranch = m_proxyModel->data(m_treeView.currentIndex(), BranchesDialogModel::CheckoutName).toString();
+        const auto fromBranch = index.data(BranchesDialogModel::CheckoutName).toString();
         m_checkoutBranchName = fromBranch;
         m_model->clear();
         clearLineEdit();
@@ -78,8 +78,8 @@ void BranchCheckoutDialog::slotReturnPressed()
         return;
     }
 
-    const auto branch = m_proxyModel->data(m_treeView.currentIndex(), BranchesDialogModel::CheckoutName).toString();
-    const auto itemType = (BranchesDialogModel::ItemType)m_proxyModel->data(m_treeView.currentIndex(), BranchesDialogModel::ItemTypeRole).toInt();
+    const auto branch = index.data(BranchesDialogModel::CheckoutName).toString();
+    const auto itemType = (BranchesDialogModel::ItemType)index.data(BranchesDialogModel::ItemTypeRole).toInt();
 
     if (itemType == BranchesDialogModel::BranchItem) {
         QFuture<GitUtils::CheckoutResult> future = QtConcurrent::run(&GitUtils::checkoutBranch, m_projectPath, branch);
@@ -98,12 +98,6 @@ void BranchCheckoutDialog::slotReturnPressed()
 
     clearLineEdit();
     hide();
-}
-
-void BranchCheckoutDialog::reselectFirst()
-{
-    QModelIndex index = m_proxyModel->index(0, 0);
-    m_treeView.setCurrentIndex(index);
 }
 
 void BranchCheckoutDialog::createNewBranch(const QString &branch, const QString &fromBranch)

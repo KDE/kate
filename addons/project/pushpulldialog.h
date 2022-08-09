@@ -8,7 +8,7 @@
 
 #include "quickdialog.h"
 
-class PushPullDialog : public QuickDialog
+class PushPullDialog : public HUDDialog
 {
     Q_OBJECT
 public:
@@ -31,7 +31,7 @@ private:
     QStringList m_lastExecutedCommands;
 
 protected Q_SLOTS:
-    void slotReturnPressed() override;
+    void slotReturnPressed(const QModelIndex &index) override;
 };
 
 #endif // PUSHPULLDIALOG_H

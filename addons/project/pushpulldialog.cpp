@@ -19,7 +19,7 @@
 #include <ktexteditor_utils.h>
 
 PushPullDialog::PushPullDialog(KTextEditor::MainWindow *mainWindow, const QString &repoPath)
-    : QuickDialog(nullptr, mainWindow->window())
+    : HUDDialog(nullptr, mainWindow->window())
     , m_repo(repoPath)
 {
     m_lineEdit.setFont(Utils::editorFont());
@@ -162,7 +162,7 @@ QString PushPullDialog::buildPullString()
     return QStringLiteral("git pull %1 %2").arg(QStringLiteral("origin")).arg(br);
 }
 
-void PushPullDialog::slotReturnPressed()
+void PushPullDialog::slotReturnPressed(const QModelIndex &)
 {
     if (!m_lineEdit.text().isEmpty()) {
         auto args = m_lineEdit.text().split(QLatin1Char(' '));

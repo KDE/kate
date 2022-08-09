@@ -24,7 +24,7 @@ private:
 public:
     KeyCombination(){};
 
-    KeyCombination(const int key, const Qt::KeyboardModifiers modifiers, const QString text)
+    KeyCombination(const int key, const Qt::KeyboardModifiers modifiers, const QString &text)
         : m_key(key)
         , m_modifiers(modifiers)
         , m_text(text){};

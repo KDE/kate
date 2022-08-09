@@ -113,7 +113,13 @@ void KeyboardMacrosPlugin::loadNamedMacros(bool locked)
     for (auto it = json.constBegin(); it != json.constEnd(); ++it) {
         // don't load macros we have wiped during this session
         if (!m_wipedMacros.contains(it.key())) {
-            m_namedMacros.insert(it.key(), Macro(it.value()));
+            auto maybeMacro = Macro::fromJson(it.value());
+            if (!maybeMacro.second) {
+                sendMessage(i18n("Could not load '%1': malformed macro; wiping it.", it.key()), false);
+                m_wipedMacros.insert(it.key());
+                continue;
+            }
+            m_namedMacros.insert(it.key(), maybeMacro.first);
         }
     }
     storage.close();

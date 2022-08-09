@@ -21,14 +21,23 @@ public:
     explicit Macro()
         : QList<KeyCombination>(){};
 
-    explicit Macro(const QJsonValue &json)
+    static const QPair<Macro, bool> fromJson(const QJsonValue &json)
     {
-        Q_ASSERT(json.type() == QJsonValue::Array);
-        QJsonArray::ConstIterator it;
-        for (it = json.toArray().constBegin(); it != json.toArray().constEnd(); ++it) {
-            Q_ASSERT(it->type() == QJsonValue::Array);
-            this->append(KeyCombination(it->toArray()));
+        if (json.type() != QJsonValue::Array) {
+            QPair(Macro(), false);
         }
+        Macro macro;
+        for (const auto &jsonKeyCombination : json.toArray()) {
+            if (jsonKeyCombination.type() != QJsonValue::Array) {
+                return QPair(Macro(), false);
+            }
+            auto maybeKeyCombination = KeyCombination::fromJson(jsonKeyCombination.toArray());
+            if (!maybeKeyCombination.second) {
+                return QPair(Macro(), false);
+            }
+            macro.append(maybeKeyCombination.first);
+        }
+        return QPair(macro, true);
     };
 
     QJsonArray toJson() const

@@ -760,7 +760,7 @@ public:
         m_toolView.reset(mainWin->createToolView(plugin,
                                                  QStringLiteral("kate_lspclient"),
                                                  KTextEditor::MainWindow::Bottom,
-                                                 QIcon::fromTheme(QStringLiteral("application-x-ms-dos-executable")),
+                                                 QIcon::fromTheme(QStringLiteral("format-text-code")),
                                                  i18n("LSP")));
         m_tabWidget = new QTabWidget(m_toolView.data());
         m_toolView->layout()->addWidget(m_tabWidget);

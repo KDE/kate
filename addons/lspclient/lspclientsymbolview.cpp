@@ -236,7 +236,7 @@ public:
         m_toolview.reset(m_mainWindow->createToolView(plugin,
                                                       QStringLiteral("lspclient_symbol_outline"),
                                                       KTextEditor::MainWindow::Left,
-                                                      QIcon::fromTheme(QStringLiteral("code-context")),
+                                                      QIcon::fromTheme(QStringLiteral("quickopen-class")),
                                                       i18n("Symbol Outline")));
 
         m_symbols = new QTreeView(m_toolview.data());

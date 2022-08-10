@@ -130,7 +130,7 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     m_toolView = mw->createToolView(plugin,
                                     QStringLiteral("kate_plugin_katebuildplugin"),
                                     KTextEditor::MainWindow::Bottom,
-                                    QIcon::fromTheme(QStringLiteral("application-x-ms-dos-executable")),
+                                    QIcon::fromTheme(QStringLiteral("run-build-clean")),
                                     i18n("Build"));
 
     QAction *a = actionCollection()->addAction(QStringLiteral("select_target"));

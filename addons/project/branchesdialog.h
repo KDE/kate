@@ -25,7 +25,7 @@ namespace KTextEditor
 class MainWindow;
 }
 
-class BranchesDialog : public QuickDialog
+class BranchesDialog : public HUDDialog
 {
     Q_OBJECT
 public:
@@ -41,12 +41,10 @@ Q_SIGNALS:
     void branchSelected(const QString &branch);
 
 private Q_SLOTS:
-    void slotReturnPressed() override;
-    void reselectFirst();
+    void slotReturnPressed(const QModelIndex &index) override;
 
 protected:
-    BranchesDialogModel *m_model;
-    QSortFilterProxyModel *m_proxyModel;
+    BranchesDialogModel *const m_model;
     QString m_projectPath;
 
 private:

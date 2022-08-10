@@ -16,7 +16,7 @@ class BranchesDialogModel : public QAbstractTableModel
 {
     Q_OBJECT
 public:
-    enum Role { FuzzyScore = Qt::UserRole + 1, OriginalSorting, CheckoutName, RefType, Creator, ItemTypeRole };
+    enum Role { FuzzyScore = Qt::UserRole + 1, CheckoutName, RefType, Creator, ItemTypeRole };
     enum ItemType { BranchItem, CreateBranch, CreateBranchFrom };
 
     explicit BranchesDialogModel(QObject *parent = nullptr);
@@ -45,7 +45,6 @@ private:
         QString remote;
         GitUtils::RefType refType;
         int score;
-        int dateSort;
         ItemType itemType;
     };
 

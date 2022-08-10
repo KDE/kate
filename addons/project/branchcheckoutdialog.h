@@ -17,8 +17,7 @@ public:
     void openDialog();
 
 private Q_SLOTS:
-    void slotReturnPressed() override;
-    void reselectFirst();
+    void slotReturnPressed(const QModelIndex &index) override;
     void onCheckoutDone();
 
 private:

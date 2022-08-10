@@ -86,7 +86,7 @@ int SearchOpenFiles::searchOpenFile(KTextEditor::Document *doc, const QRegularEx
         Q_EMIT searching(doc->url().toString());
     }
 
-    if (regExp.pattern().contains(QLatin1String("\\n"))) {
+    if (regExp.patternOptions().testFlag(QRegularExpression::MultilineOption) && regExp.pattern().contains(QLatin1String("\\n"))) {
         return searchMultiLineRegExp(doc, regExp, startLine);
     }
 

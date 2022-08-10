@@ -40,7 +40,7 @@ enum class StashMode : uint8_t {
     ShowStashContent,
 };
 
-class StashDialog : public QuickDialog
+class StashDialog : public HUDDialog
 {
     Q_OBJECT
 public:
@@ -53,19 +53,17 @@ public:
     Q_SIGNAL void showStashDiff(const QByteArray &diff);
 
 protected Q_SLOTS:
-    void slotReturnPressed() override;
+    void slotReturnPressed(const QModelIndex &index) override;
 
 private:
     QProcess *gitp(const QStringList &arguments);
     void stash(bool keepIndex, bool includeUntracked);
     void getStashList();
-    void popStash(const QByteArray &index, const QString &command = QStringLiteral("pop"));
-    void applyStash(const QByteArray &index);
-    void dropStash(const QByteArray &index);
-    void showStash(const QByteArray &index);
+    void popStash(const QString &index, const QString &command = QStringLiteral("pop"));
+    void applyStash(const QString &index);
+    void dropStash(const QString &index);
+    void showStash(const QString &index);
 
-    QStandardItemModel *m_model;
-    StashFilterModel *m_proxyModel;
     QString m_gitPath;
     QString m_projectPath;
     StashMode m_currentMode = StashMode::None;

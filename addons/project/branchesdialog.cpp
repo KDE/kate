@@ -28,59 +28,10 @@
 #include <drawing_utils.h>
 #include <kfts_fuzzy_match.h>
 
-class BranchFilterModel : public QSortFilterProxyModel
+class StyleDelegate : public HUDStyleDelegate
 {
 public:
-    BranchFilterModel(QObject *parent = nullptr)
-        : QSortFilterProxyModel(parent)
-    {
-    }
-
-    Q_SLOT void setFilterString(const QString &string)
-    {
-        beginResetModel();
-        m_pattern = string;
-        endResetModel();
-    }
-
-protected:
-    bool lessThan(const QModelIndex &sourceLeft, const QModelIndex &sourceRight) const override
-    {
-        if (m_pattern.isEmpty()) {
-            const int l = sourceLeft.data(BranchesDialogModel::OriginalSorting).toInt();
-            const int r = sourceRight.data(BranchesDialogModel::OriginalSorting).toInt();
-            return l > r;
-        }
-        const int l = sourceLeft.data(BranchesDialogModel::FuzzyScore).toInt();
-        const int r = sourceRight.data(BranchesDialogModel::FuzzyScore).toInt();
-        return l < r;
-    }
-
-    bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const override
-    {
-        if (m_pattern.isEmpty()) {
-            return true;
-        }
-
-        int score = 0;
-        const auto idx = sourceModel()->index(sourceRow, 0, sourceParent);
-        const QString string = idx.data().toString();
-        const bool res = kfts::fuzzy_match(m_pattern, string, score);
-        sourceModel()->setData(idx, score, BranchesDialogModel::FuzzyScore);
-        return res;
-    }
-
-private:
-    QString m_pattern;
-};
-
-class StyleDelegate : public QStyledItemDelegate
-{
-public:
-    StyleDelegate(QObject *parent = nullptr)
-        : QStyledItemDelegate(parent)
-    {
-    }
+    using HUDStyleDelegate::HUDStyleDelegate;
 
     void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override
     {
@@ -123,51 +74,32 @@ public:
 
         painter->save();
 
-        // paint background
-        if (option.state & QStyle::State_Selected) {
-            painter->fillRect(option.rect, option.palette.highlight());
-        } else {
-            painter->fillRect(option.rect, option.palette.base());
-        }
-
+        auto *style = options.widget->style();
         options.text = QString(); // clear old text
-        options.widget->style()->drawControl(QStyle::CE_ItemViewItem, &options, painter, options.widget);
+        style->drawControl(QStyle::CE_ItemViewItem, &options, painter, options.widget);
 
         // leave space for icon
+        const int hMargin = style->pixelMetric(QStyle::PM_FocusFrameHMargin, &option, option.widget);
+        const int iconWidth = option.decorationSize.width() + (hMargin * 2);
         if (itemType == BranchesDialogModel::BranchItem) {
-            painter->translate(25, 0);
+            options.rect.adjust(iconWidth, 0, 0, 0);
+        } else {
+            options.rect.adjust((hMargin * 2), 0, 0, 0);
         }
         Utils::paintItemViewText(painter, name, options, formats);
 
         painter->restore();
     }
-
-public Q_SLOTS:
-    void setFilterString(const QString &text)
-    {
-        m_filterString = text;
-    }
-
-private:
-    QString m_filterString;
 };
 
 BranchesDialog::BranchesDialog(QWidget *window, KateProjectPluginView *pluginView, QString projectPath)
-    : QuickDialog(nullptr, window)
+    : HUDDialog(nullptr, window)
+    , m_model(new BranchesDialogModel(this))
     , m_projectPath(projectPath)
     , m_pluginView(pluginView)
 {
-    m_model = new BranchesDialogModel(this);
-    m_proxyModel = new BranchFilterModel(this);
-    m_proxyModel->setSourceModel(m_model);
-    m_treeView.setModel(m_proxyModel);
-
-    auto delegate = new StyleDelegate(this);
-
-    connect(&m_lineEdit, &QLineEdit::textChanged, this, [this, delegate](const QString &s) {
-        static_cast<BranchFilterModel *>(m_proxyModel)->setFilterString(s);
-        delegate->setFilterString(s);
-    });
+    setModel(m_model, FilterType::ScoredFuzzy, 0, Qt::DisplayRole, BranchesDialogModel::FuzzyScore);
+    setDelegate(new StyleDelegate(this));
 }
 
 void BranchesDialog::openDialog(GitUtils::RefType r)
@@ -181,24 +113,14 @@ void BranchesDialog::openDialog(GitUtils::RefType r)
     exec();
 }
 
-void BranchesDialog::slotReturnPressed()
+void BranchesDialog::slotReturnPressed(const QModelIndex &index)
 {
-    /** We want display role here */
-    const auto branch = m_proxyModel->data(m_treeView.currentIndex(), Qt::DisplayRole).toString();
-    const auto itemType = (BranchesDialogModel::ItemType)m_proxyModel->data(m_treeView.currentIndex(), BranchesDialogModel::ItemTypeRole).toInt();
+    const auto branch = index.data().toString();
+    const auto itemType = (BranchesDialogModel::ItemType)index.data(BranchesDialogModel::ItemTypeRole).toInt();
     Q_ASSERT(itemType == BranchesDialogModel::BranchItem);
 
     m_branch = branch;
     Q_EMIT branchSelected(branch);
-
-    clearLineEdit();
-    hide();
-}
-
-void BranchesDialog::reselectFirst()
-{
-    QModelIndex index = m_proxyModel->index(0, 0);
-    m_treeView.setCurrentIndex(index);
 }
 
 void BranchesDialog::sendMessage(const QString &plainText, bool warn)

@@ -113,6 +113,7 @@ void KateFileTreePlugin::applyConfig(bool shadingEnabled,
         view->model()->setEditShade(editShade);
         view->setListMode(listMode);
         view->proxy()->setSortRole(sortRole);
+        view->tree()->setDragDropMode(sortRole == CustomSorting ? QAbstractItemView::InternalMove : QAbstractItemView::DragOnly);
         view->model()->setShowFullPathOnRoots(showFullPath);
         view->setToolbarVisible(showToolbar);
         view->tree()->setShowCloseButton(showCloseButton);
@@ -211,6 +212,7 @@ KateFileTreePluginView::KateFileTreePluginView(KTextEditor::MainWindow *mainWind
     setToolbarVisible(m_plug->settings().showToolbar());
 
     m_proxyModel->setSortRole(Qt::DisplayRole);
+    m_fileTree->setDragDropMode(QAbstractItemView::DragOnly);
 
     m_proxyModel->sort(0, Qt::AscendingOrder);
     m_proxyModel->invalidate();
@@ -363,6 +365,7 @@ void KateFileTreePluginView::sortRoleChanged(int role)
     setHasLocalPrefs(true);
     m_proxyModel->setSortRole(role);
     m_proxyModel->invalidate();
+    m_fileTree->setDragDropMode(role == CustomSorting ? QAbstractItemView::InternalMove : QAbstractItemView::DragOnly);
 }
 
 void KateFileTreePluginView::activateDocument(KTextEditor::Document *doc)
@@ -417,6 +420,7 @@ void KateFileTreePluginView::readSessionConfig(const KConfigGroup &g)
 
     int sortRole = g.readEntry("sortRole", defaults.sortRole());
     m_proxyModel->setSortRole(sortRole);
+    m_fileTree->setDragDropMode(sortRole == CustomSorting ? QAbstractItemView::InternalMove : QAbstractItemView::DragOnly);
 }
 
 void KateFileTreePluginView::writeSessionConfig(KConfigGroup &g)

@@ -40,8 +40,6 @@ QVariant BranchesDialogModel::data(const QModelIndex &idx, int role) const
         return branch.name;
     } else if (role == Role::FuzzyScore) {
         return branch.score;
-    } else if (role == Role::OriginalSorting) {
-        return branch.dateSort;
     } else if (role == Qt::DecorationRole) {
         if (branch.itemType == BranchItem) {
             static const auto branchIcon = QIcon::fromTheme(QStringLiteral("vcs-branch"));
@@ -68,15 +66,15 @@ void BranchesDialogModel::refresh(const QVector<GitUtils::Branch> &branches, boo
 {
     QVector<Branch> temp;
     if (checkingOut) {
-        Branch create{branches.at(0).name, {}, {}, 0, 0, ItemType::CreateBranch};
-        Branch createFrom{branches.at(1).name, {}, {}, 0, 1, ItemType::CreateBranchFrom};
+        Branch create{branches.at(0).name, {}, {}, 0, ItemType::CreateBranch};
+        Branch createFrom{branches.at(1).name, {}, {}, 0, ItemType::CreateBranchFrom};
         temp.push_back(create);
         temp.push_back(createFrom);
     }
 
     int i = checkingOut ? 2 : 0;
     for (; i < branches.size(); ++i) {
-        temp.append({branches.at(i).name, branches.at(i).remote, branches.at(i).type, -1, i, ItemType::BranchItem});
+        temp.append({branches.at(i).name, branches.at(i).remote, branches.at(i).type, -1, ItemType::BranchItem});
     }
 
     beginResetModel();

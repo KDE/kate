@@ -18,7 +18,7 @@ namespace KTextEditor
 class MainWindow;
 }
 
-class GotoSymbolHUDDialog : public QuickDialog
+class GotoSymbolHUDDialog : public HUDDialog
 {
 public:
     GotoSymbolHUDDialog(KTextEditor::MainWindow *mainWindow, QSharedPointer<LSPClientServer> server);
@@ -26,7 +26,7 @@ public:
     void openDialog();
 
 protected Q_SLOTS:
-    void slotReturnPressed() override final;
+    void slotReturnPressed(const QModelIndex &index) override final;
 
 private:
     void slotTextChanged(const QString &text);

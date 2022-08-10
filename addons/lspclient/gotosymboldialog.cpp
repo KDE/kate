@@ -151,7 +151,7 @@ private:
 };
 
 GotoSymbolHUDDialog::GotoSymbolHUDDialog(KTextEditor::MainWindow *mainWindow, QSharedPointer<LSPClientServer> server)
-    : QuickDialog(nullptr, mainWindow->window())
+    : HUDDialog(nullptr, mainWindow->window())
     , model(new QStandardItemModel(this))
     , mainWindow(mainWindow)
     , server(std::move(server))
@@ -184,9 +184,9 @@ void GotoSymbolHUDDialog::setPaletteToEditorColors()
     delegate->setFont(Utils::editorFont());
 }
 
-void GotoSymbolHUDDialog::slotReturnPressed()
+void GotoSymbolHUDDialog::slotReturnPressed(const QModelIndex &index)
 {
-    auto symbol = m_treeView.currentIndex().data(SymbolInfoRole).value<GotoSymbolItem>();
+    auto symbol = index.data(SymbolInfoRole).value<GotoSymbolItem>();
     if (!symbol.fileUrl.isValid() || symbol.fileUrl.isEmpty()) {
         return;
     }

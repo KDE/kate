@@ -254,7 +254,7 @@ KateToolRunner *KateExternalToolsPlugin::runnerForTool(const KateExternalTool &t
     if (!executingSaveTrigger) {
         if (tool.saveMode == KateExternalTool::SaveMode::CurrentDocument) {
             // only save if modified, to avoid unnecessary recompiles
-            if (view->document()->isModified()) {
+            if (view->document()->isModified() && view->document()->url().isValid()) {
                 view->document()->save();
             }
         } else if (tool.saveMode == KateExternalTool::SaveMode::AllDocuments) {

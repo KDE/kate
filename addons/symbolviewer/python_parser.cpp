@@ -60,7 +60,7 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
         int line = i;
         QString cl = kv->line(i);
         // concatenate continued lines and remove continuation marker
-        if (cl.length() == 0) {
+        if (cl.isEmpty()) {
             continue;
         }
         while (cl[cl.length() - 1] == QLatin1Char('\\')) {
@@ -69,6 +69,9 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
             if (i < kv->lines()) {
                 cl += kv->line(i);
             } else {
+                break;
+            }
+            if (cl.isEmpty()) {
                 break;
             }
         }

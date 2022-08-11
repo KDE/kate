@@ -192,10 +192,14 @@ public:
     ~MultiTabBar();
 
     KMultiTabBarTab *addTab(int id, ToolView *tv);
-    void setTabActive(int id, bool state);
+    int addBlankTab();
+    void removeBlankTab(int id);
     void removeTab(int id);
+
     void showToolView(int id);
     void hideToolView(int id);
+
+    void setTabActive(int id, bool state);
 
     bool isToolActive() const;
     void collapseToolView() const;
@@ -206,14 +210,14 @@ public:
         return m_multiTabBar;
     }
 
+    QList<int> tabList() const
+    {
+        return m_tabList;
+    }
+
     int tabCount() const
     {
         return m_tabList.size();
-    }
-
-    int lastAddedId() const
-    {
-        return m_tabList.constLast();
     }
 
 Q_SIGNALS:
@@ -248,7 +252,7 @@ public:
     void updateLastSizeOnResize();
 
 public:
-    ToolView *addToolView(const QIcon &icon, const QString &text, ToolView *widget);
+    ToolView *addToolView(const QIcon &icon, const QString &text, const QString &identifier, ToolView *widget);
     bool removeToolView(ToolView *widget);
 
     bool showToolView(ToolView *widget);
@@ -277,19 +281,9 @@ public:
         return m_tabBarStyle;
     }
 
-    void setLastSize(int s)
-    {
-        m_lastSize = s;
-    }
-
-    int lastSize() const
-    {
-        return m_lastSize;
-    }
-
     void updateLastSize();
 
-    void restoreSession();
+    void startRestoreSession(KConfigGroup &config);
 
     /**
      * restore the current session config from given object, use current group
@@ -312,9 +306,10 @@ private Q_SLOTS:
     void handleCollapse(int pos, int index);
     void ownSplitMoved(int pos, int index);
     void barSplitMoved(int pos, int index);
-    void tabBarIsEmpty(MultiTabBar *bar);
+    bool tabBarIsEmpty(MultiTabBar *bar);
 
 private:
+    int nextId();
     bool adjustSplitterSections();
 
     /**
@@ -376,10 +371,9 @@ private:
     std::map<ToolView *, int> m_widgetToId;
     std::map<ToolView *, MultiTabBar *> m_widgetToTabBar;
 
-    /**
-     * list of all toolviews around in this sidebar
-     */
-    std::vector<ToolView *> m_toolviews;
+    // Session restore only
+    std::map<QString, int> m_tvIdToTabId;
+    std::map<QString, int> m_tvIdToTabBar;
 
     int m_lastSize;
     int m_popupButton = 0;

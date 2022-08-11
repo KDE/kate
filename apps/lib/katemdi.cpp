@@ -345,15 +345,32 @@ MultiTabBar::~MultiTabBar()
 KMultiTabBarTab *MultiTabBar::addTab(int id, ToolView *tv)
 {
     m_stack->addWidget(tv);
-    m_tabList.append(id);
-    m_multiTabBar->appendTab(tv->icon, id, tv->text);
-    auto newTab = m_multiTabBar->tab(id);
+    KMultiTabBarTab *newTab;
+
+    if (m_tabList.contains(id)) {
+        // We are in session restore
+        newTab = m_multiTabBar->tab(id);
+        newTab->setIcon(tv->icon);
+        newTab->setText(tv->text);
+    } else {
+        m_tabList.append(id);
+        m_multiTabBar->appendTab(tv->icon, id, tv->text);
+        newTab = m_multiTabBar->tab(id);
+    }
 
     connect(newTab, &KMultiTabBarTab::clicked, this, &MultiTabBar::tabClicked);
 
     m_sb->m_widgetToTabBar.emplace(tv, this);
 
     return newTab;
+}
+
+int MultiTabBar::addBlankTab()
+{
+    int id = m_sb->nextId();
+    m_tabList.append(id);
+    m_multiTabBar->appendTab(QIcon(), id, QStringLiteral("placeholder"));
+    return id;
 }
 
 void MultiTabBar::tabClicked(int id)
@@ -365,6 +382,16 @@ void MultiTabBar::tabClicked(int id)
     }
 
     m_sb->expandSidebar();
+}
+
+void MultiTabBar::removeBlankTab(int id)
+{
+    m_tabList.removeAll(id);
+    m_multiTabBar->removeTab(id);
+    if (tabCount() == 0) {
+        m_activeTab = 0;
+        Q_EMIT lastTabRemoved(this);
+    }
 }
 
 void MultiTabBar::removeTab(int id)
@@ -601,7 +628,13 @@ void Sidebar::updateLastSizeOnResize()
     m_splitter->handle(splitHandleIndex)->installEventFilter(this);
 }
 
-ToolView *Sidebar::addToolView(const QIcon &icon, const QString &text, ToolView *widget)
+int Sidebar::nextId()
+{
+    static int id = 0;
+    return ++id;
+}
+
+ToolView *Sidebar::addToolView(const QIcon &icon, const QString &text, const QString &identifier, ToolView *widget)
 {
     if (widget) {
         if (widget->sidebar() == this) {
@@ -609,26 +642,34 @@ ToolView *Sidebar::addToolView(const QIcon &icon, const QString &text, ToolView 
         }
 
         widget->sidebar()->removeToolView(widget);
-    }
 
-    if (!widget) {
+    } else {
         widget = new ToolView(m_mainWin, this, nullptr);
         widget->icon = icon;
         widget->text = text;
-    } else {
-        widget->m_sidebar = this;
+        widget->id = identifier;
     }
 
-    static int id = 0;
-    int newId = ++id;
+    widget->m_sidebar = this;
 
-    m_idToWidget.emplace(newId, widget);
-    m_widgetToId.emplace(widget, newId);
-    m_toolviews.push_back(widget);
-
-    appendStyledTab(newId, tabBar(0), widget);
+    auto blankTabId = m_tvIdToTabId.find(identifier);
+    if (blankTabId != m_tvIdToTabId.end()) {
+        int newId = blankTabId->second;
+        m_idToWidget.emplace(newId, widget);
+        m_widgetToId.emplace(widget, newId);
+        appendStyledTab(newId, tabBar(m_tvIdToTabBar.at(identifier)), widget);
+        // Indicate the blank tab is re-used
+        m_tvIdToTabId.erase(identifier);
+        m_tvIdToTabBar.erase(identifier);
+    } else {
+        int newId = nextId();
+        m_idToWidget.emplace(newId, widget);
+        m_widgetToId.emplace(widget, newId);
+        appendStyledTab(newId, tabBar(0), widget);
+    }
 
     show();
+
     return widget;
 }
 
@@ -645,7 +686,6 @@ bool Sidebar::removeToolView(ToolView *widget)
 
     m_idToWidget.erase(id);
     m_widgetToId.erase(widget);
-    m_toolviews.erase(std::remove(m_toolviews.begin(), m_toolviews.end(), widget), m_toolviews.end());
 
     expandSidebar();
 
@@ -736,11 +776,11 @@ void Sidebar::barSplitMoved(int pos, int index)
     adjustSplitterSections();
 }
 
-void Sidebar::tabBarIsEmpty(MultiTabBar *bar)
+bool Sidebar::tabBarIsEmpty(MultiTabBar *bar)
 {
     // Don't remove the last bar!
     if (!bar || bar->tabCount() > 0 || tabBarCount() == 1) {
-        return;
+        return false;
     }
 
     delete bar;
@@ -749,6 +789,8 @@ void Sidebar::tabBarIsEmpty(MultiTabBar *bar)
         // We need to delay the update or m_ownSplit report wrong size count
         expandSidebar();
     });
+
+    return true;
 }
 
 void Sidebar::collapseSidebar()
@@ -1011,103 +1053,80 @@ void Sidebar::updateLastSize()
     m_lastSize = qMax(s[m_ownSplitIndex], 160);
 }
 
-class TmpToolViewSorter
+void Sidebar::startRestoreSession(KConfigGroup &config)
 {
-public:
-    ToolView *tv;
-    unsigned int pos;
-};
+    // Using splitter data avoid to store tabBarCount explicit ;-)
+    QList<int> s = config.readEntry(QStringLiteral("Kate-MDI-Sidebar-%1-Splitter").arg(position()), QList<int>());
+    // Notice the start value of 1, only add extra tab bars
+    for (int i = 1; i < s.size(); ++i) {
+        insertTabBar();
+    }
+    // Create for each tool we expect, in the correct order, a tab in advance, a blank one
+    for (int i = 0; i < s.size(); ++i) {
+        QStringList tvList = config.readEntry(QStringLiteral("Kate-MDI-Sidebar-%1-Bar-%2-TvList").arg(position()).arg(i), QStringList());
+        for (int j = 0; j < tvList.size(); ++j) {
+            // Don't add in case of a config mismatch blank tabs for some stuff twice
+            auto search = m_tvIdToTabId.find(tvList.at(j));
+            if (search == m_tvIdToTabId.end()) {
+                int id = tabBar(i)->addBlankTab();
+                m_tvIdToTabId.emplace(tvList.at(j), id);
+                m_tvIdToTabBar.emplace(tvList.at(j), i);
+            }
+        }
+    }
+}
 
 void Sidebar::restoreSession(KConfigGroup &config)
 {
-    // get the last correct placed toolview
-    int firstWrong = 0;
-    const int toolViewsCount = (int)m_toolviews.size();
-    for (; firstWrong < toolViewsCount; ++firstWrong) {
-        ToolView *tv = m_toolviews[firstWrong];
-
-        int pos = config.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Sidebar-Position").arg(tv->id), firstWrong);
-
-        if (pos != firstWrong) {
-            break;
-        }
-    }
-
-    // we need to reshuffle, ahhh :(
-    if (firstWrong < toolViewsCount) {
-        // first: collect the items to reshuffle
-        std::vector<TmpToolViewSorter> toSort;
-        for (int i = firstWrong; i < toolViewsCount; ++i) {
-            TmpToolViewSorter s;
-            s.tv = m_toolviews[i];
-            s.pos = config.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Sidebar-Position").arg(m_toolviews[i]->id), i);
-            toSort.push_back(s);
-        }
-
-        // now: sort the stuff we need to reshuffle
-        std::sort(toSort.begin(), toSort.end(), [](const TmpToolViewSorter &l, const TmpToolViewSorter &r) {
-            return l.pos < r.pos;
-        });
-
-        // then: remove this items from the button bar
-        // do this backwards, to minimize the relayout efforts
-        for (int i = toolViewsCount - 1; i >= firstWrong; --i) {
-            tabBar(0)->removeTab(m_widgetToId[m_toolviews[i]]); // Just for now
-        }
-
-        // insert the reshuffled things in order :)
-        for (int i = 0; i < (int)toSort.size(); ++i) {
-            ToolView *tv = toSort[i].tv;
-
-            m_toolviews[firstWrong + i] = tv;
-
-            // re-add the button
-            int newId = m_widgetToId[tv];
-            appendStyledTab(newId, tabBar(0), tv);
-        }
-    }
-
-    // update last size if needed
-    updateLastSize();
-
-    // restore the own splitter sizes
-    QList<int> s = config.readEntry(QStringLiteral("Kate-MDI-Sidebar-%1-Splitter").arg(position()), QList<int>());
-    m_ownSplit->setSizes(s);
-
     // show only correct toolviews ;)
-    for (auto tv : m_toolviews) {
-        tv->setToolVisible(config.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Visible").arg(tv->id), false));
-
-        auto id = m_widgetToId[tv];
-        tabBar(tv)->setTabActive(id, tv->toolVisible());
-
-        bool showTab = config.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Show-Button-In-Sidebar").arg(tv->id), true);
-        showToolviewTab(tv, showTab);
+    for (const auto &[id, tv] : m_idToWidget) {
+        tabBar(tv)->setTabActive(id, config.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Visible").arg(tv->id), false));
+        showToolviewTab(tv, config.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Show-Button-In-Sidebar").arg(tv->id), true));
     }
 
+    // In case of some config mismatch, we should remove left over blank tabs
+    for (const auto &[tv, id] : m_tvIdToTabId) {
+        tabBar(m_tvIdToTabBar.at(tv))->removeBlankTab(id);
+    }
+    m_tvIdToTabId.clear();
+    m_tvIdToTabBar.clear();
+
+    // In case of some config mismatch, we may have some ugly empty bars
+    for (int i = 0; i < tabBarCount(); ++i) {
+        // Don't panic! Function take care not to remove non empty bar
+        if (tabBarIsEmpty(tabBar(i))) {
+            // Now that the bar is gone, we need to adjust our index or we would skip some bar
+            --i;
+        }
+    }
+
+    // Collapse now, and before! we restore m_lastSize, will hide (all) m_stack(s) so that
+    // expanding will work fine...
+    collapseSidebar();
+    m_lastSize = config.readEntry(QStringLiteral("Kate-MDI-Sidebar-%1-LastSize").arg(position()), 160);
+    setSizes(config.readEntry(QStringLiteral("Kate-MDI-Sidebar-%1-Splitter").arg(position()), QList<int>()));
+    // ...now we are ready to get the final splitter sizes by MainWindow::finishRestore
     expandSidebar();
 }
 
 void Sidebar::saveSession(KConfigGroup &config)
 {
-    return; // Disabled, guess save/restore need more than S&R some variables
-
-    // store the own splitter sizes
-    config.writeEntry(QStringLiteral("Kate-MDI-Sidebar-%1-Splitter").arg(position()), m_ownSplit->sizes());
+    config.writeEntry(QStringLiteral("Kate-MDI-Sidebar-%1-Splitter").arg(position()), sizes());
+    config.writeEntry(QStringLiteral("Kate-MDI-Sidebar-%1-LastSize").arg(position()), m_lastSize);
 
     // store the data about all toolviews in this sidebar ;)
-    for (int i = 0; i < (int)m_toolviews.size(); ++i) {
-        ToolView *tv = m_toolviews[i];
-
+    for (const auto &[id, tv] : m_idToWidget) {
         config.writeEntry(QStringLiteral("Kate-MDI-ToolView-%1-Position").arg(tv->id), int(tv->sidebar()->position()));
-        config.writeEntry(QStringLiteral("Kate-MDI-ToolView-%1-Sidebar-Position").arg(tv->id), i);
         config.writeEntry(QStringLiteral("Kate-MDI-ToolView-%1-Visible").arg(tv->id), tv->toolVisible());
-        auto it = m_widgetToId.find(tv);
-        if (it == m_widgetToId.end()) {
-            qWarning() << Q_FUNC_INFO << "Unexpected no tab id for toolview: " << tv;
-            continue;
-        }
         config.writeEntry(QStringLiteral("Kate-MDI-ToolView-%1-Show-Button-In-Sidebar").arg(tv->id), tv->tabButtonVisible());
+    }
+
+    for (int i = 0; i < tabBarCount(); ++i) {
+        QStringList tvList;
+        for (int j : tabBar(i)->tabList()) {
+            tvList << m_idToWidget.at(j)->id;
+        }
+        config.writeEntry(QStringLiteral("Kate-MDI-Sidebar-%1-Bar-%2-TvList").arg(position()).arg(i), tvList);
     }
 }
 
@@ -1210,8 +1229,7 @@ ToolView *MainWindow::createToolView(KTextEditor::Plugin *plugin,
         pos = static_cast<KMultiTabBar::KMultiTabBarPosition>(cg.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Position").arg(identifier), int(pos)));
     }
 
-    ToolView *v = m_sidebars[pos]->addToolView(icon, text, nullptr);
-    v->id = identifier;
+    ToolView *v = m_sidebars[pos]->addToolView(icon, text, identifier, nullptr);
     v->plugin = plugin;
 
     m_idToWidget.emplace(identifier, v);
@@ -1308,7 +1326,7 @@ bool MainWindow::moveToolView(ToolView *widget, KMultiTabBar::KMultiTabBarPositi
         pos = static_cast<KMultiTabBar::KMultiTabBarPosition>(cg.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Position").arg(widget->id), int(pos)));
     }
 
-    m_sidebars[pos]->addToolView(widget->icon, widget->text, widget);
+    m_sidebars[pos]->addToolView(widget->icon, widget->text, widget->id, widget);
 
     return true;
 }
@@ -1360,25 +1378,17 @@ void MainWindow::startRestore(KConfigBase *config, const QString &group)
     m_restoreGroup = group;
 
     if (!m_restoreConfig || !m_restoreConfig->hasGroup(m_restoreGroup)) {
-        // if no config around, set already now sane default sizes
-        // otherwise, set later in ::finishRestore(), since it does not work
-        // if set already now (see bug #164438)
-        QList<int> hs = (QList<int>() << 200 << 100 << 200);
-        QList<int> vs = (QList<int>() << 150 << 100 << 200);
-
-        m_sidebars[KMultiTabBar::Left]->setLastSize(hs[0]);
-        m_sidebars[KMultiTabBar::Right]->setLastSize(hs[2]);
-        m_sidebars[KMultiTabBar::Top]->setLastSize(vs[0]);
-        m_sidebars[KMultiTabBar::Bottom]->setLastSize(vs[2]);
-
-        m_hSplitter->setSizes(hs);
-        m_vSplitter->setSizes(vs);
         return;
     }
 
     // apply size once, to get sizes ready ;)
     KConfigGroup cg(m_restoreConfig, m_restoreGroup);
     KWindowConfig::restoreWindowSize(windowHandle(), cg);
+
+    // restore the sidebars
+    for (auto &sidebar : qAsConst(m_sidebars)) {
+        sidebar->startRestoreSession(cg);
+    }
 
     setToolViewStyle(static_cast<KMultiTabBar::KMultiTabBarStyle>(cg.readEntry("Kate-MDI-Sidebar-Style", static_cast<int>(toolViewStyle()))));
     // after reading m_sidebarsVisible, update the GUI toggle action
@@ -1407,23 +1417,21 @@ void MainWindow::finishRestore()
             }
         }
 
-        // restore the sidebars
+        // Restore the sidebars before we restore h/vSplitter..
         for (auto &sidebar : m_sidebars) {
             sidebar->restoreSession(cg);
         }
 
-        // restore splitter sizes
         // get main splitter sizes ;)
-        const QList<int> hs = cg.readEntry("Kate-MDI-H-Splitter", QList<int>{200, 100, 200});
-        const QList<int> vs = cg.readEntry("Kate-MDI-V-Splitter", QList<int>{150, 100, 200});
+        m_hSplitter->setSizes(cg.readEntry("Kate-MDI-H-Splitter", QList<int>{200, 100, 200}));
+        m_vSplitter->setSizes(cg.readEntry("Kate-MDI-V-Splitter", QList<int>{150, 100, 200}));
 
-        m_sidebars[KMultiTabBar::Left]->setLastSize(hs[0]);
-        m_sidebars[KMultiTabBar::Right]->setLastSize(hs[2]);
-        m_sidebars[KMultiTabBar::Top]->setLastSize(vs[0]);
-        m_sidebars[KMultiTabBar::Bottom]->setLastSize(vs[2]);
-
-        m_hSplitter->setSizes(hs);
-        m_vSplitter->setSizes(vs);
+        // Expand again to trigger splitter sync tabs/tools, but for any reason works this sometimes only after enough delay
+        QTimer::singleShot(400, this, [this]() {
+            for (auto &sidebar : m_sidebars) {
+                sidebar->expandSidebar();
+            }
+        });
     }
 
     // clear this stuff, we are done ;)
@@ -1436,24 +1444,8 @@ void MainWindow::saveSession(KConfigGroup &config)
     saveMainWindowSettings(config);
 
     // save main splitter sizes ;)
-    QList<int> hs = m_hSplitter->sizes();
-    QList<int> vs = m_vSplitter->sizes();
-
-    if (hs[0] <= 2 && !m_sidebars[KMultiTabBar::Left]->splitterVisible()) {
-        hs[0] = m_sidebars[KMultiTabBar::Left]->lastSize();
-    }
-    if (hs[2] <= 2 && !m_sidebars[KMultiTabBar::Right]->splitterVisible()) {
-        hs[2] = m_sidebars[KMultiTabBar::Right]->lastSize();
-    }
-    if (vs[0] <= 2 && !m_sidebars[KMultiTabBar::Top]->splitterVisible()) {
-        vs[0] = m_sidebars[KMultiTabBar::Top]->lastSize();
-    }
-    if (vs[2] <= 2 && !m_sidebars[KMultiTabBar::Bottom]->splitterVisible()) {
-        vs[2] = m_sidebars[KMultiTabBar::Bottom]->lastSize();
-    }
-
-    config.writeEntry("Kate-MDI-H-Splitter", hs);
-    config.writeEntry("Kate-MDI-V-Splitter", vs);
+    config.writeEntry("Kate-MDI-H-Splitter", m_hSplitter->sizes());
+    config.writeEntry("Kate-MDI-V-Splitter", m_vSplitter->sizes());
 
     // save sidebar style
     config.writeEntry("Kate-MDI-Sidebar-Style", static_cast<int>(toolViewStyle()));

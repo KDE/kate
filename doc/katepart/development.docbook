@@ -3524,6 +3524,26 @@ Clears the text selection without removing the text.
 </para></listitem>
 </varlistentry>
 
+
+<varlistentry>
+<term><synopsis>
+void view.setBlockSelection(bool on);
+</synopsis></term>
+<listitem><para>
+Set block selection mode on or off.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><synopsis>
+bool view.blockSelection();
+</synopsis></term>
+<listitem><para>
+Returns <literal>true</literal>, if block selection mode is on, otherwise <literal>false</literal>.
+</para></listitem>
+</varlistentry>
+
+
 <varlistentry>
 <term><synopsis>
 void view.align(<parameter>Range <replaceable>range</replaceable></parameter>);

@@ -49,15 +49,19 @@ ToggleToolViewAction::ToggleToolViewAction(const QString &text, ToolView *tv, QO
     setChecked(m_tv->toolVisible());
 }
 
-void ToggleToolViewAction::toolVisibleChanged(bool)
+void ToggleToolViewAction::toolVisibleChanged(bool v)
 {
-    if (isChecked() != m_tv->toolVisible()) {
-        setChecked(m_tv->toolVisible());
+    if (isChecked() != v) {
+        setChecked(v);
     }
 }
 
 void ToggleToolViewAction::slotToggled(bool t)
 {
+    if (m_tv->toolVisible() == t) {
+        return;
+    }
+
     if (t) {
         m_tv->mainWindow()->showToolView(m_tv);
         m_tv->setFocus();

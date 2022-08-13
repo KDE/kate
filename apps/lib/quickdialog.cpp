@@ -146,7 +146,6 @@ HUDDialog::HUDDialog(QWidget *parent, QWidget *mainWindow)
         if (index.isValid()) {
             slotReturnPressed(index);
         }
-        hide();
     });
     // user can add this as necessary
     setFilteringEnabled(true);

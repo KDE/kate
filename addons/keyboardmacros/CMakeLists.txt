@@ -6,5 +6,7 @@ target_sources(
   keyboardmacrosplugin
   PRIVATE
     keyboardmacrosplugin.cpp
+    keyboardmacrospluginview.cpp
+    keyboardmacrosplugincommands.cpp
     plugin.qrc
 )

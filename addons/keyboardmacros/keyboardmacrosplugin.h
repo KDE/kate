@@ -16,10 +16,7 @@
 #include <QVariant>
 #include <QVariantMap>
 
-#include <KActionMenu>
-
 #include <KTextEditor/Application>
-#include <KTextEditor/Command>
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/Message>
 #include <KTextEditor/Plugin>
@@ -53,8 +50,8 @@ class KeyboardMacrosPlugin : public KTextEditor::Plugin
     QMap<QString, Macro> m_namedMacros;
     QSet<QString> m_wipedMacros;
 
-public:
     // Plugin creation and destruction
+public:
     explicit KeyboardMacrosPlugin(QObject *parent = nullptr, const QList<QVariant> & = QList<QVariant>());
     ~KeyboardMacrosPlugin() override;
     QObject *createView(KTextEditor::MainWindow *mainWindow) override;
@@ -86,68 +83,6 @@ private:
     bool save(const QString &name);
     bool load(const QString &name);
     bool wipe(const QString &name);
-};
-
-/**
- * Plugin view to add keyboard macros actions to the GUI
- */
-class KeyboardMacrosPluginView : public QObject, public KXMLGUIClient
-{
-    Q_OBJECT
-
-    KeyboardMacrosPlugin *m_plugin;
-    KTextEditor::MainWindow *m_mainWindow;
-    QPointer<QAction> m_recordAction;
-    QPointer<QAction> m_cancelAction;
-    QPointer<QAction> m_playAction;
-    QPointer<QAction> m_saveAction;
-    QPointer<KActionMenu> m_loadMenu;
-    QMap<QString, QPointer<QAction>> m_namedMacrosLoadActions;
-    QPointer<KActionMenu> m_playMenu;
-    QMap<QString, QPointer<QAction>> m_namedMacrosPlayActions;
-    QPointer<KActionMenu> m_wipeMenu;
-    QMap<QString, QPointer<QAction>> m_namedMacrosWipeActions;
-
-public:
-    explicit KeyboardMacrosPluginView(KeyboardMacrosPlugin *plugin, KTextEditor::MainWindow *mainwindow);
-    ~KeyboardMacrosPluginView() override;
-
-    // shortcut getter
-    QKeySequence recordActionShortcut() const;
-    QKeySequence playActionShortcut() const;
-
-    // GUI update helpers
-    void recordingOn();
-    void recordingOff();
-    void macroLoaded(bool enable);
-    void addNamedMacro(const QString &name, const QString &description);
-    void removeNamedMacro(const QString &name);
-
-    // Action slots
-public Q_SLOTS:
-    void slotRecord();
-    void slotCancel();
-    void slotPlay();
-    void slotSave();
-    void slotLoadNamed(const QString &name = QString());
-    void slotPlayNamed(const QString &name = QString());
-    void slotWipeNamed(const QString &name = QString());
-};
-
-/**
- * Plugin commands to manage named keyboard macros
- */
-class KeyboardMacrosPluginCommands : public KTextEditor::Command
-{
-    Q_OBJECT
-
-public:
-    explicit KeyboardMacrosPluginCommands(KeyboardMacrosPlugin *plugin);
-    bool exec(KTextEditor::View *view, const QString &cmd, QString &msg, const KTextEditor::Range &) override;
-    bool help(KTextEditor::View *, const QString &cmd, QString &msg) override;
-
-private:
-    KeyboardMacrosPlugin *m_plugin;
 };
 
 #endif

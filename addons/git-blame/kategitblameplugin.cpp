@@ -13,6 +13,7 @@
 
 #include <KActionCollection>
 #include <KConfigGroup>
+#include <KIconLoader>
 #include <KLocalizedString>
 #include <KPluginFactory>
 #include <KSharedConfig>
@@ -307,7 +308,7 @@ void KateGitBlamePluginView::sendMessage(const QString &text, bool error)
     QVariantMap genericMessage;
     genericMessage.insert(QStringLiteral("type"), error ? QStringLiteral("Error") : QStringLiteral("Info"));
     genericMessage.insert(QStringLiteral("category"), i18n("Git"));
-    genericMessage.insert(QStringLiteral("categoryIcon"), QIcon(QStringLiteral(":/icons/icons/sc-apps-git.svg")));
+    genericMessage.insert(QStringLiteral("categoryIcon"), KDE::icon(QStringLiteral(":/icons/icons/sc-apps-git.svg")));
     genericMessage.insert(QStringLiteral("text"), text);
     Q_EMIT message(genericMessage);
 }
@@ -567,7 +568,7 @@ void KateGitBlamePluginView::createToolView()
     m_toolView.reset(m_mainWindow->createToolView(plugin,
                                                   QStringLiteral("commitfilesview"),
                                                   KTextEditor::MainWindow::Left,
-                                                  QIcon::fromTheme(QStringLiteral(":/icons/icons/sc-apps-git.svg")),
+                                                  KDE::icon(QStringLiteral(":/icons/icons/sc-apps-git.svg")),
                                                   i18n("Commit")));
 
     m_commitFilesView = new CommitDiffTreeView(m_toolView.get());

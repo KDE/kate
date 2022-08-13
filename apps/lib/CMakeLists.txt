@@ -30,10 +30,11 @@ find_package(
   QUIET
   REQUIRED
   COMPONENTS
+    Crash
+    DBusAddons
+    IconThemes
     TextEditor
     WindowSystem
-    DBusAddons
-    Crash
   OPTIONAL_COMPONENTS
     Activities
 )
@@ -41,12 +42,13 @@ find_package(
 target_link_libraries(
   kateprivate
   PUBLIC
+    KF5::CoreAddons
+    KF5::Crash
+    KF5::DBusAddons
     KF5::I18n
+    KF5::IconThemes
     KF5::TextEditor
     KF5::WindowSystem
-    KF5::DBusAddons
-    KF5::Crash
-    KF5::CoreAddons
 )
 
 if(KF5Activities_FOUND)

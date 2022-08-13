@@ -20,6 +20,7 @@
 
 #include <KAcceleratorManager>
 #include <KActionCollection>
+#include <KIconLoader>
 #include <KLineEdit>
 #include <KLocalizedString>
 
@@ -77,7 +78,7 @@ KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject 
         BranchCheckoutDialog bd(mainWindow->window(), m_pluginView, m_project->baseDir());
         bd.openDialog();
     });
-    currBranchAct->setIcon(QIcon(QStringLiteral(":/icons/icons/sc-apps-git.svg")));
+    currBranchAct->setIcon(KDE::icon(QStringLiteral(":/icons/icons/sc-apps-git.svg")));
     m_branchBtn->setDefaultAction(currBranchAct);
 
     checkAndRefreshGit();
@@ -154,7 +155,7 @@ void KateProjectView::showFileGitHistory(const QString &file)
         QVariantMap genericMessage;
         genericMessage.insert(QStringLiteral("type"), warn ? QStringLiteral("Error") : QStringLiteral("Info"));
         genericMessage.insert(QStringLiteral("category"), i18n("Git"));
-        genericMessage.insert(QStringLiteral("categoryIcon"), QIcon(QStringLiteral(":/icons/icons/sc-apps-git.svg")));
+        genericMessage.insert(QStringLiteral("categoryIcon"), KDE::icon(QStringLiteral(":/icons/icons/sc-apps-git.svg")));
         genericMessage.insert(QStringLiteral("text"), s);
         Q_EMIT m_pluginView->message(genericMessage);
     });

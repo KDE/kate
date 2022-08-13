@@ -95,6 +95,14 @@ public Q_SLOTS:
 
     void activateNextView();
     void activatePrevView();
+    void activateLeftView();
+    void activateRightView();
+    void activateUpwardView();
+    void activateDownwardView();
+
+private:
+    void activateIntuitiveNeighborView(Qt::Orientation o, int dir);
+    KateViewSpace *findIntuitiveNeighborView(KateSplitter *splitter, QWidget *widget, Qt::Orientation o, int dir);
 
 Q_SIGNALS:
     void viewChanged(KTextEditor::View *);
@@ -307,6 +315,10 @@ private:
     QAction *m_hideOtherViews = nullptr;
     QAction *goNext = nullptr;
     QAction *goPrev = nullptr;
+    QAction *goLeft = nullptr;
+    QAction *goRight = nullptr;
+    QAction *goUp = nullptr;
+    QAction *goDown = nullptr;
 
     std::vector<KateViewSpace *> m_viewSpaceList;
 

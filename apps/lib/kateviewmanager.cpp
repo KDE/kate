@@ -176,6 +176,7 @@ void KateViewManager::setupActions()
 
     goNext = m_mainWindow->actionCollection()->addAction(QStringLiteral("go_next_split_view"));
     goNext->setText(i18n("Next Split View"));
+    goNext->setIcon(QIcon::fromTheme(QStringLiteral("go-next-view")));
     m_mainWindow->actionCollection()->setDefaultShortcut(goNext, Qt::Key_F8);
     connect(goNext, &QAction::triggered, this, &KateViewManager::activateNextView);
 
@@ -183,10 +184,43 @@ void KateViewManager::setupActions()
 
     goPrev = m_mainWindow->actionCollection()->addAction(QStringLiteral("go_prev_split_view"));
     goPrev->setText(i18n("Previous Split View"));
+    goPrev->setIcon(QIcon::fromTheme(QStringLiteral("go-previous-view")));
     m_mainWindow->actionCollection()->setDefaultShortcut(goPrev, Qt::SHIFT | Qt::Key_F8);
     connect(goPrev, &QAction::triggered, this, &KateViewManager::activatePrevView);
 
     goPrev->setWhatsThis(i18n("Make the previous split view the active one."));
+
+    goLeft = m_mainWindow->actionCollection()->addAction(QStringLiteral("go_left_split_view"));
+    goLeft->setText(i18n("Left Split View"));
+    goLeft->setIcon(QIcon::fromTheme(QStringLiteral("arrow-left")));
+    // m_mainWindow->actionCollection()->setDefaultShortcut(goLeft, Qt::ALT | Qt::Key_Left);
+    connect(goLeft, &QAction::triggered, this, &KateViewManager::activateLeftView);
+
+    goLeft->setWhatsThis(i18n("Make the split view intuitively on the left the active one."));
+
+    goRight = m_mainWindow->actionCollection()->addAction(QStringLiteral("go_right_split_view"));
+    goRight->setText(i18n("Right Split View"));
+    goRight->setIcon(QIcon::fromTheme(QStringLiteral("arrow-right")));
+    // m_mainWindow->actionCollection()->setDefaultShortcut(goRight, Qt::ALT | Qt::Key_Right);
+    connect(goRight, &QAction::triggered, this, &KateViewManager::activateRightView);
+
+    goRight->setWhatsThis(i18n("Make the split view intuitively on the right the active one."));
+
+    goUp = m_mainWindow->actionCollection()->addAction(QStringLiteral("go_upward_split_view"));
+    goUp->setText(i18n("Upward Split View"));
+    goUp->setIcon(QIcon::fromTheme(QStringLiteral("arrow-up")));
+    // m_mainWindow->actionCollection()->setDefaultShortcut(goUp, Qt::ALT | Qt::Key_Up);
+    connect(goUp, &QAction::triggered, this, &KateViewManager::activateUpwardView);
+
+    goUp->setWhatsThis(i18n("Make the split view intuitively upward the active one."));
+
+    goDown = m_mainWindow->actionCollection()->addAction(QStringLiteral("go_downward_split_view"));
+    goDown->setText(i18n("Downward Split View"));
+    goDown->setIcon(QIcon::fromTheme(QStringLiteral("arrow-down")));
+    // m_mainWindow->actionCollection()->setDefaultShortcut(goDown, Qt::ALT | Qt::Key_Down);
+    connect(goDown, &QAction::triggered, this, &KateViewManager::activateDownwardView);
+
+    goDown->setWhatsThis(i18n("Make the split view intuitively downward the active one."));
 
     QAction *a = m_mainWindow->actionCollection()->addAction(QStringLiteral("view_split_move_right"));
     a->setText(i18n("Move Splitter Right"));
@@ -773,6 +807,90 @@ void KateViewManager::activatePrevView()
 
     setActiveSpace(*it);
     activateView((*it)->currentView());
+}
+
+void KateViewManager::activateLeftView()
+{
+    activateIntuitiveNeighborView(Qt::Horizontal, 0);
+}
+
+void KateViewManager::activateRightView()
+{
+    activateIntuitiveNeighborView(Qt::Horizontal, 1);
+}
+
+void KateViewManager::activateUpwardView()
+{
+    activateIntuitiveNeighborView(Qt::Vertical, 0);
+}
+
+void KateViewManager::activateDownwardView()
+{
+    activateIntuitiveNeighborView(Qt::Vertical, 1);
+}
+
+void KateViewManager::activateIntuitiveNeighborView(Qt::Orientation o, int dir)
+{
+    KateViewSpace *currentViewSpace = activeViewSpace();
+    if (!currentViewSpace) {
+        return;
+    }
+    KateViewSpace *target = findIntuitiveNeighborView(qobject_cast<KateSplitter *>(currentViewSpace->parentWidget()), currentViewSpace, o, dir);
+    if (target) {
+        setActiveSpace(target);
+        activateView(target->currentView());
+    }
+}
+
+KateViewSpace *KateViewManager::findIntuitiveNeighborView(KateSplitter *splitter, QWidget *widget, Qt::Orientation o, int dir)
+{
+    Q_ASSERT(dir == 0 || dir == 1); // 0 for right or up ; 1 for left or down: 1
+    if (!splitter) {
+        return nullptr;
+    }
+    if (splitter->count() == 1) { // root view space, nothing to do
+        return nullptr;
+    }
+    int widgetIndex = splitter->indexOf(widget);
+    // if the orientation is the same as the desired move, maybe we can move in the current splitter
+    if (splitter->orientation() == o && ((dir == 1 && widgetIndex == 0) || (dir == 0 && widgetIndex == 1))) {
+        // make our move
+        QWidget *target = splitter->widget(dir);
+        // try to see if we are next to a view space and move to it
+        KateViewSpace *targetViewSpace = qobject_cast<KateViewSpace *>(target);
+        if (targetViewSpace) {
+            return targetViewSpace;
+        }
+        // otherwise we found a splitter and need to go down the splitter tree to the desired view space
+        KateSplitter *targetSplitter = qobject_cast<KateSplitter *>(target);
+        // we already made our move so we need to go down to the opposite direction :
+        // e.g.: [ active | [ [ x | y ] | z ] ] going right we find a splitter and want to go to x
+        int childIndex = 1 - dir;
+        QWidget *targetChild = nullptr;
+        while (targetSplitter) {
+            if (targetSplitter->orientation() == o) { // as long as the orientation is the same we move down in the desired direction
+                targetChild = targetSplitter->widget(childIndex);
+            } else { // otherwise we need to find in which of the two child to go based on the cursor position
+                QPoint cursorCoord = activeViewSpace()->mapToGlobal(QPoint(0, 0)) + activeView()->cursorPositionCoordinates();
+                QPoint targetSplitterCoord = targetSplitter->widget(0)->mapToGlobal(QPoint(0, 0));
+                if ((o == Qt::Horizontal && (targetSplitterCoord.y() + targetSplitter->sizes()[0] > cursorCoord.y()))
+                    || (o == Qt::Vertical && (targetSplitterCoord.x() + targetSplitter->sizes()[0] > cursorCoord.x()))) {
+                    targetChild = targetSplitter->widget(0);
+                } else {
+                    targetChild = targetSplitter->widget(1);
+                }
+            }
+            // if we found a view space we're done!
+            targetViewSpace = qobject_cast<KateViewSpace *>(targetChild);
+            if (targetViewSpace) {
+                return targetViewSpace;
+            }
+            // otherwise continue
+            targetSplitter = qobject_cast<KateSplitter *>(targetChild);
+        }
+    }
+    // otherwise try to go up in the splitter tree
+    return findIntuitiveNeighborView(qobject_cast<KateSplitter *>(splitter->parentWidget()), splitter, o, dir);
 }
 
 void KateViewManager::documentWillBeDeleted(KTextEditor::Document *doc)

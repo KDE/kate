@@ -4,6 +4,7 @@ find_package(
   QUIET
   COMPONENTS
     GuiAddons
+    IconThemes
     NewStuff
 )
 
@@ -24,6 +25,7 @@ target_link_libraries(
         Qt::Concurrent
         KF5::GuiAddons
         KF5::I18n
+        KF5::IconThemes
         KF5::NewStuff
         KF5::TextEditor
 )

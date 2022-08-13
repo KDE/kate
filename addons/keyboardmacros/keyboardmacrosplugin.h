@@ -49,6 +49,7 @@ class KeyboardMacrosPlugin : public KTextEditor::Plugin
     Macro m_tape;
     Macro m_macro;
     QString m_storage;
+    bool m_namedMacrosLoaded = false;
     QMap<QString, Macro> m_namedMacros;
     QSet<QString> m_wipedMacros;
 

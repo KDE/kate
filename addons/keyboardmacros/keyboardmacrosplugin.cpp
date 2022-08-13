@@ -71,10 +71,9 @@ KeyboardMacrosPlugin::~KeyboardMacrosPlugin()
 QObject *KeyboardMacrosPlugin::createView(KTextEditor::MainWindow *mainWindow)
 {
     // avoid reloading macros from storage when creating a new mainWindow from an existing instance
-    static bool namedMacrosLoaded = false;
-    if (!namedMacrosLoaded) {
+    if (!m_namedMacrosLoaded) {
         loadNamedMacros();
-        namedMacrosLoaded = true;
+        m_namedMacrosLoaded = true;
     }
     QPointer<KeyboardMacrosPluginView> pluginView = new KeyboardMacrosPluginView(this, mainWindow);
     m_pluginViews.append(pluginView);

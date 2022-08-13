@@ -80,16 +80,6 @@ QObject *KeyboardMacrosPlugin::createView(KTextEditor::MainWindow *mainWindow)
     return pluginView;
 }
 
-void KeyboardMacrosPlugin::clearPluginViews()
-{
-    // when Kate depends on Qt6, we can directly use QList::removeIf
-    for (auto &pluginView : m_pluginViews) {
-        if (pluginView.isNull()) {
-            m_pluginViews.removeOne(pluginView);
-        }
-    }
-}
-
 void KeyboardMacrosPlugin::loadNamedMacros()
 {
     QFile storage(m_storage);
@@ -245,7 +235,6 @@ void KeyboardMacrosPlugin::record()
     // start recording
     qDebug(KM_DBG) << "start recording";
     // retrieve current record and play shortcuts
-    clearPluginViews();
     m_recordActionShortcut = m_pluginViews.first()->recordActionShortcut();
     m_playActionShortcut = m_pluginViews.first()->playActionShortcut();
     // install our spy on currently focused widget
@@ -275,8 +264,6 @@ void KeyboardMacrosPlugin::stop(bool save)
     qDebug(KM_DBG) << (save ? "end" : "cancel") << "recording";
     // uninstall our spy
     m_focusWidget->removeEventFilter(this);
-    // call clearPluginViews once
-    clearPluginViews();
     // update recording status
     m_recording = false;
     if (save) { // end recording
@@ -341,7 +328,6 @@ bool KeyboardMacrosPlugin::save(const QString &name)
     qDebug(KM_DBG) << "saving macro:" << name;
     m_namedMacros.insert(name, m_macro);
     // update GUI:
-    clearPluginViews();
     for (auto &pluginView : m_pluginViews) {
         pluginView->addNamedMacro(name, m_macro.toString());
     }
@@ -361,7 +347,6 @@ bool KeyboardMacrosPlugin::load(const QString &name)
     // load named macro
     m_macro = m_namedMacros.value(name);
     // update GUI
-    clearPluginViews();
     for (auto &pluginView : m_pluginViews) {
         pluginView->macroLoaded(true);
     }
@@ -379,7 +364,6 @@ bool KeyboardMacrosPlugin::wipe(const QString &name)
     m_namedMacros.remove(name);
     m_wipedMacros.insert(name);
     // update GUI
-    clearPluginViews();
     for (auto &pluginView : m_pluginViews) {
         pluginView->removeNamedMacro(name);
     }
@@ -502,6 +486,8 @@ KeyboardMacrosPluginView::~KeyboardMacrosPluginView()
 {
     // remove Keyboard Macros actions from the GUI
     m_mainWindow->guiFactory()->removeClient(this);
+    // deregister this view from the plugin
+    m_plugin->m_pluginViews.removeOne(this);
 }
 
 QKeySequence KeyboardMacrosPluginView::recordActionShortcut() const

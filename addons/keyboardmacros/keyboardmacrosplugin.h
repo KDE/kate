@@ -58,7 +58,6 @@ public:
     explicit KeyboardMacrosPlugin(QObject *parent = nullptr, const QList<QVariant> & = QList<QVariant>());
     ~KeyboardMacrosPlugin() override;
     QObject *createView(KTextEditor::MainWindow *mainWindow) override;
-    void clearPluginViews();
 
 private:
     void loadNamedMacros();

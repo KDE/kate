@@ -24,6 +24,7 @@
 #include <KAboutData>
 #include <KActionCollection>
 #include <KActionMenu>
+#include <KIconLoader>
 #include <KLocalizedString>
 #include <KPluginFactory>
 #include <KStringHandler>
@@ -65,7 +66,7 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     m_gitToolView.reset(m_mainWindow->createToolView(m_plugin,
                                                      QStringLiteral("kateprojectgit"),
                                                      KTextEditor::MainWindow::Left,
-                                                     QIcon(QStringLiteral(":/icons/icons/sc-apps-git.svg")),
+                                                     KDE::icon(QStringLiteral(":/icons/icons/sc-apps-git.svg")),
                                                      i18n("Git")));
     m_toolInfoView = m_mainWindow->createToolView(m_plugin,
                                                   QStringLiteral("kateprojectinfo"),

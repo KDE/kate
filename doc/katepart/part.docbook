@@ -665,9 +665,10 @@ or permanently in <link linkend="appearance-borders">the Appearance section of
 
 <listitem><para>To create cursors out of a selection, first select some text and then press <keycombo action="simul">&Shift;&Alt;<keycap>I</keycap></keycombo>. This will create a cursor at the end of each line in selection.</para></listitem>
 
-<listitem><para>Use <keycombo action="simul">&Alt;<keycap>J</keycap></keycombo> to find the next occurrence of the word under cursor and select it + create a cursor.</para></listitem>
+<listitem><para>Use <keycombo action="simul">&Alt;<keycap>J</keycap></keycombo> to find the next occurrence of the word under cursor and select it + create a cursor. If you want to skip the current word under cursor, press <keycombo action="simul">&Alt;<keycap>K</keycap></keycombo> and it will mark the currently selected word as skipped. When you press <keycombo action="simul">&Alt;<keycap>J</keycap></keycombo> again it will unselect the current word and move to the next word.</para>
+</listitem>
 
-<listitem><para>Use <keycombo action="simul">&Ctrl;&Alt;&Shift;<keycap>J</keycap></keycombo> to find all occurrences of the word under cursor and select them with a cursor at the end of each selection.</para></listitem>
+<listitem><para>Use <keycombo action="simul">&Ctrl;&Alt;&Shift;<keycap>J</keycap></keycombo> to find all occurrences of the word under cursor and select them with a cursor at the end of each selection. You can use <keycombo action="simul">&Alt;<keycap>J</keycap></keycombo> to cycle through the selected words and use <keycombo action="simul">&Alt;<keycap>K</keycap></keycombo> to unselect any word as mentioned in the previous paragraph.</para></listitem>
 </itemizedlist>
 
 </sect2>

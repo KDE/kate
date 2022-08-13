@@ -60,6 +60,8 @@ public:
 
     void setModel(QAbstractItemModel *, FilterType, int filterKeyCol = 0, int filterRole = Qt::DisplayRole, int scoreRole = -1);
 
+    void setFilteringEnabled(bool enabled);
+
 protected:
     bool eventFilter(QObject *obj, QEvent *event) override;
     void updateViewGeometry();

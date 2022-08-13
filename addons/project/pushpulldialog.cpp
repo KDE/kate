@@ -23,6 +23,8 @@ PushPullDialog::PushPullDialog(KTextEditor::MainWindow *mainWindow, const QStrin
     , m_repo(repoPath)
 {
     m_lineEdit.setFont(Utils::editorFont());
+    m_treeView.setFont(Utils::editorFont());
+    setFilteringEnabled(false);
     loadLastExecutedCommands();
 }
 
@@ -45,22 +47,13 @@ void PushPullDialog::openDialog(PushPullDialog::Mode m)
         lastExecCmds.push_front(lastCmd);
     }
 
-    auto *model = new QStandardItemModel(this);
-    m_treeView.setModel(model);
-
-    auto monoFont = m_lineEdit.font();
-
-    for (const QString &cmd : std::as_const(lastExecCmds)) {
-        auto *item = new QStandardItem(cmd);
-        item->setFont(monoFont);
-        model->appendRow(item);
-    }
+    setStringList(lastExecCmds);
 
     connect(m_treeView.selectionModel(), &QItemSelectionModel::currentChanged, this, [this](const QModelIndex &current, const QModelIndex &) {
         m_lineEdit.setText(current.data().toString());
     });
 
-    m_treeView.setCurrentIndex(model->index(0, 0));
+    reselectFirst();
 
     exec();
 }

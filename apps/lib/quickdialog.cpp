@@ -146,15 +146,9 @@ HUDDialog::HUDDialog(QWidget *parent, QWidget *mainWindow)
         if (index.isValid()) {
             slotReturnPressed(index);
         }
-        hide();
     });
     // user can add this as necessary
-    connect(&m_lineEdit, &QLineEdit::textChanged, this, [this](const QString &txt) {
-        static_cast<FuzzyFilterModel *>(m_proxy.data())->setFilterString(txt);
-        m_delegate->setFilterString(txt);
-        m_treeView.viewport()->update();
-        m_treeView.setCurrentIndex(m_treeView.model()->index(0, 0));
-    });
+    setFilteringEnabled(true);
     connect(&m_treeView, &QTreeView::clicked, this, &HUDDialog::slotReturnPressed);
     m_treeView.setSortingEnabled(true);
 
@@ -276,4 +270,24 @@ void HUDDialog::setModel(QAbstractItemModel *model, FilterType type, int filterK
     auto proxy = static_cast<FuzzyFilterModel *>(m_proxy.data());
     proxy->setFilterType(type);
     proxy->setScoreRole(scoreRole);
+}
+
+void HUDDialog::setFilteringEnabled(bool enabled)
+{
+    if (!enabled) {
+        disconnect(&m_lineEdit, &QLineEdit::textChanged, this, nullptr);
+        m_treeView.setModel(m_model);
+    } else {
+        Q_ASSERT(m_proxy);
+        if (m_treeView.model() != m_proxy) {
+            Q_ASSERT(m_proxy->sourceModel());
+            m_treeView.setModel(m_proxy);
+        }
+        connect(&m_lineEdit, &QLineEdit::textChanged, this, [this](const QString &txt) {
+            static_cast<FuzzyFilterModel *>(m_proxy.data())->setFilterString(txt);
+            m_delegate->setFilterString(txt);
+            m_treeView.viewport()->update();
+            m_treeView.setCurrentIndex(m_treeView.model()->index(0, 0));
+        });
+    }
 }

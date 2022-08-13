@@ -134,7 +134,7 @@ KateFileTreePluginView::KateFileTreePluginView(KTextEditor::MainWindow *mainWind
     m_toolView = mainWindow->createToolView(plug,
                                             QStringLiteral("kate_private_plugin_katefiletreeplugin"),
                                             KTextEditor::MainWindow::Left,
-                                            QIcon::fromTheme(QStringLiteral("document-open")),
+                                            QIcon::fromTheme(QStringLiteral("folder-documents-symbolic")),
                                             i18n("Documents"));
 
     // create toolbar

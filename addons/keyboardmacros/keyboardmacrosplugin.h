@@ -9,7 +9,6 @@
 #include <QEvent>
 #include <QKeySequence>
 #include <QList>
-#include <QLockFile>
 #include <QMap>
 #include <QObject>
 #include <QPointer>
@@ -50,7 +49,6 @@ class KeyboardMacrosPlugin : public KTextEditor::Plugin
     Macro m_tape;
     Macro m_macro;
     QString m_storage;
-    QLockFile *m_storageLock;
     QMap<QString, Macro> m_namedMacros;
     QSet<QString> m_wipedMacros;
 
@@ -62,7 +60,7 @@ public:
     void clearPluginViews();
 
 private:
-    void loadNamedMacros(bool locked = false);
+    void loadNamedMacros();
     void saveNamedMacros();
 
     // GUI feedback helpers

@@ -844,7 +844,7 @@ void KateViewManager::activateIntuitiveNeighborView(Qt::Orientation o, int dir)
 
 KateViewSpace *KateViewManager::findIntuitiveNeighborView(KateSplitter *splitter, QWidget *widget, Qt::Orientation o, int dir)
 {
-    Q_ASSERT(dir == 0 || dir == 1); // 0 for right or up ; 1 for left or down: 1
+    Q_ASSERT(dir == 0 || dir == 1); // 0 for right or up ; 1 for left or down
     if (!splitter) {
         return nullptr;
     }

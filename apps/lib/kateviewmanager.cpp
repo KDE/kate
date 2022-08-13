@@ -933,7 +933,7 @@ void KateViewManager::moveViewToViewSpace(KateViewSpace *dest, KateViewSpace *sr
 
     // Are we trying to drop into some other mainWindow of current app session?
     // shouldn't happen, but just a safe guard
-    if (src->viewManger() != dest->viewManger()) {
+    if (src->viewManager() != dest->viewManager()) {
         return;
     }
 

@@ -1112,7 +1112,7 @@ KateUrlBar::KateUrlBar(KateViewSpace *parent)
 
     setupLayout();
 
-    auto *vm = parent->viewManger();
+    auto *vm = parent->viewManager();
     connect(vm, &KateViewManager::viewChanged, this, &KateUrlBar::onViewChanged);
 
     connect(vm, &KateViewManager::showUrlNavBarChanged, this, [this, vm](bool show) {
@@ -1134,7 +1134,7 @@ void KateUrlBar::open()
 
 KateViewManager *KateUrlBar::viewManager()
 {
-    return m_parentViewSpace->viewManger();
+    return m_parentViewSpace->viewManager();
 }
 
 KateViewSpace *KateUrlBar::viewSpace()

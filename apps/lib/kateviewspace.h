@@ -48,7 +48,7 @@ public:
     /**
      * @return the view manager that this viewspace belongs to
      */
-    KateViewManager *viewManger() const
+    KateViewManager *viewManager() const
     {
         return m_viewManager;
     }

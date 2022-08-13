@@ -565,7 +565,7 @@ bool KateViewSpace::acceptsDroppedTab(const QMimeData *md)
 {
     if (auto tabMimeData = qobject_cast<const TabMimeData *>(md)) {
         return this != tabMimeData->sourceVS && // must not be same viewspace
-            viewManger() == tabMimeData->sourceVS->viewManger() && // for now we don't support dropping into different windows
+            viewManager() == tabMimeData->sourceVS->viewManager() && // for now we don't support dropping into different windows
             !hasDocument(tabMimeData->doc);
     }
     return TabMimeData::hasValidData(md);

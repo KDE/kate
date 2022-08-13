@@ -5,10 +5,11 @@ Dependencies:
 - 'on': ['Linux', 'FreeBSD', 'Windows', 'macOS']
   'require':
     'frameworks/extra-cmake-modules': '@stable'
-    'frameworks/ki18n': '@stable'
     'frameworks/kdoctools': '@stable'
-    'frameworks/ktexteditor': '@stable'
+    'frameworks/ki18n': '@stable'
+    'frameworks/kiconthemes': '@stable'
     'frameworks/knewstuff': '@stable'
+    'frameworks/ktexteditor': '@stable'
     'libraries/kuserfeedback': '@stable'
 
 - 'on': ['Linux', 'FreeBSD']

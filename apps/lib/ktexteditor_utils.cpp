@@ -6,6 +6,8 @@
 
 #include "ktexteditor_utils.h"
 
+#include <KActionCollection>
+#include <KXMLGUIFactory>
 #include <QMimeDatabase>
 
 namespace Utils
@@ -31,4 +33,33 @@ QIcon iconForDocument(KTextEditor::Document *doc)
     return icon;
 }
 
+QAction *toolviewShowAction(KXMLGUIClient *client, const QString &toolviewName)
+{
+    if (!client) {
+        qWarning() << Q_FUNC_INFO << "invalid null client, toolviewName: " << toolviewName;
+        Q_ASSERT(false);
+        return nullptr;
+    }
+
+    static const QString prefix = QStringLiteral("kate_mdi_toolview_");
+    if (client->componentName() == QStringLiteral("toolviewmanager")) {
+        return client->actionCollection()->action(prefix + toolviewName);
+    }
+
+    KXMLGUIClient *toolviewmanager = nullptr;
+    const auto clients = client->factory()->clients();
+    for (auto client : clients) {
+        if (client->componentName() == QStringLiteral("toolviewmanager")) {
+            toolviewmanager = client;
+            break;
+        }
+    }
+
+    if (!toolviewmanager) {
+        qWarning() << Q_FUNC_INFO << "Unexpected unable to find toolviewmanager KXMLGUIClient, toolviewName: " << toolviewName;
+        return nullptr;
+    }
+
+    return toolviewmanager->actionCollection()->action(prefix + toolviewName);
+}
 }

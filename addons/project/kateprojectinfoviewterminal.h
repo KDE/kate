@@ -13,6 +13,7 @@
 
 #include <kparts/readonlypart.h>
 
+#include <QPointer>
 #include <QWidget>
 
 class KateProjectPluginView;
@@ -63,7 +64,7 @@ private Q_SLOTS:
     /**
      * Handle that shortcuts are not eaten by console
      */
-    static void overrideShortcut(QKeyEvent *event, bool &override);
+    void overrideShortcut(QKeyEvent *event, bool &override);
 
 protected:
     /**
@@ -105,6 +106,8 @@ private:
      * konsole part
      */
     KParts::ReadOnlyPart *m_konsolePart;
+
+    QPointer<QAction> m_showProjectInfoViewAction;
 };
 
 #endif

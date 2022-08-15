@@ -13,6 +13,7 @@
 #include <KPluginFactory>
 #include <KSharedConfig>
 #include <kde_terminal_interface.h>
+#include <ktexteditor_utils.h>
 
 #include <QTabWidget>
 
@@ -29,6 +30,8 @@ KateProjectInfoViewTerminal::KateProjectInfoViewTerminal(KateProjectPluginView *
     m_layout = new QVBoxLayout(this);
     m_layout->setSpacing(0);
     m_layout->setContentsMargins(0, 0, 0, 0);
+
+    m_showProjectInfoViewAction = Utils::toolviewShowAction(pluginView, QStringLiteral("kateprojectinfo"));
 }
 
 KateProjectInfoViewTerminal::~KateProjectInfoViewTerminal()
@@ -110,8 +113,18 @@ void KateProjectInfoViewTerminal::loadTerminal()
     // clang-format on
 }
 
-void KateProjectInfoViewTerminal::overrideShortcut(QKeyEvent *, bool &override)
+void KateProjectInfoViewTerminal::overrideShortcut(QKeyEvent *keyEvent, bool &override)
 {
+    if (m_showProjectInfoViewAction && !m_showProjectInfoViewAction->shortcut().isEmpty()) {
+        int modifiers = keyEvent->modifiers();
+        int key = keyEvent->key();
+        QKeySequence k(modifiers | key);
+        if (m_showProjectInfoViewAction->shortcut().matches(k)) {
+            override = false;
+            return;
+        }
+    }
+
     /**
      * let konsole handle all shortcuts
      */

@@ -806,7 +806,11 @@ void KateProjectPluginView::openDirectoryOrProject()
 
     // switch to this project if there
     if (auto project = m_plugin->projectForDir(dir, true)) {
+        // just activate the right plugin in the toolview
         slotActivateProject(project);
+
+        // this is a user action, ensure the toolview is visible
+        mainWindow()->showToolView(m_toolView);
     }
 }
 
@@ -886,7 +890,6 @@ void KateProjectPluginView::slotActivateProject(KateProject *project)
     const int index = m_projectsCombo->findData(project->fileName());
     if (index >= 0) {
         m_projectsCombo->setCurrentIndex(index);
-        mainWindow()->showToolView(m_toolView);
     }
 }
 

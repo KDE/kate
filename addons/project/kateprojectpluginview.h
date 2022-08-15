@@ -223,7 +223,9 @@ private Q_SLOTS:
     void slotGotoSymbol();
 
     /**
-     * activate the given project
+     * activate the given project inside the project tool view
+     * will NOT show the project toolview
+     * @param project project to activate
      */
     void slotActivateProject(KateProject *project);
 

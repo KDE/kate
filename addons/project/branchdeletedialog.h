@@ -13,6 +13,7 @@ public:
 private:
     void loadBranches(const QString &dotGitPath);
     void updateLabel(QStandardItem *item);
+    void onCheckAllClicked(bool);
     QStandardItemModel m_model;
     QTreeView m_listView;
 };

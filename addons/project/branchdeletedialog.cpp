@@ -5,6 +5,9 @@
 #include <QDialogButtonBox>
 #include <QFont>
 #include <QFontDatabase>
+#include <QHeaderView>
+#include <QMouseEvent>
+#include <QPainter>
 #include <QPushButton>
 #include <QVBoxLayout>
 
@@ -12,6 +15,100 @@
 #include <KMessageBox>
 #include <ktexteditor/editor.h>
 #include <ktexteditor_version.h>
+
+class CheckableHeaderView : public QHeaderView
+{
+    Q_OBJECT
+public:
+    CheckableHeaderView(Qt::Orientation orientation, QWidget *parent = nullptr)
+        : QHeaderView(orientation, parent)
+    {
+    }
+
+protected:
+    void paintSection(QPainter *painter, const QRect &rect, int logicalIndex) const override
+    {
+        const int w = style()->pixelMetric(QStyle::PM_IndicatorWidth);
+        const int h = style()->pixelMetric(QStyle::PM_IndicatorHeight);
+        const int margin = style()->pixelMetric(QStyle::PM_FocusFrameHMargin) * 2;
+
+        QStyleOptionHeader optHeader;
+        initStyleOption(&optHeader);
+        optHeader.rect = rect;
+        painter->save();
+        style()->drawControl(QStyle::CE_Header, &optHeader, painter, this);
+        painter->restore();
+
+        painter->save();
+        QHeaderView::paintSection(painter, rect.adjusted(margin + w, 0, 0, 0), logicalIndex);
+        painter->restore();
+
+        if (logicalIndex == 0) {
+            QStyleOptionButton option;
+
+            option.rect = QRect(0, 0, w, h);
+            option.rect = QStyle::alignedRect(layoutDirection(), Qt::AlignVCenter, option.rect.size(), rect);
+            option.rect.moveLeft(rect.left() + margin);
+            option.state = QStyle::State_Enabled;
+            if (m_isChecked) {
+                option.state |= QStyle::State_On;
+            } else {
+                option.state |= QStyle::State_Off;
+            }
+            option.state.setFlag(QStyle::State_MouseOver, m_hovered);
+            painter->save();
+            this->style()->drawPrimitive(QStyle::PE_IndicatorCheckBox, &option, painter);
+            painter->restore();
+        }
+    }
+    void mousePressEvent(QMouseEvent *event) override
+    {
+        if (!isPosOnCheckBox(event->pos())) {
+            return;
+        }
+
+        m_isChecked = !m_isChecked;
+        viewport()->update();
+        QMetaObject::invokeMethod(
+            this,
+            [this] {
+                checkAll(m_isChecked);
+            },
+            Qt::QueuedConnection);
+
+        QHeaderView::mousePressEvent(event);
+    }
+
+    void mouseMoveEvent(QMouseEvent *e) override
+    {
+        m_hovered = isPosOnCheckBox(e->pos());
+        viewport()->update();
+    }
+
+    void leaveEvent(QEvent *) override
+    {
+        m_hovered = false;
+        viewport()->update();
+    }
+
+private:
+    bool isPosOnCheckBox(QPoint p)
+    {
+        const int pos = sectionPosition(0);
+        const int w = style()->pixelMetric(QStyle::PM_IndicatorWidth);
+        const int h = style()->pixelMetric(QStyle::PM_IndicatorHeight);
+        const int margin = style()->pixelMetric(QStyle::PM_FocusFrameHMargin) * 2;
+        QRect rect = QStyle::alignedRect(layoutDirection(), Qt::AlignVCenter, {w, h}, this->rect());
+        rect.moveLeft(pos + margin);
+        return rect.contains(p);
+    }
+
+    bool m_isChecked = false;
+    bool m_hovered = false;
+
+Q_SIGNALS:
+    void checkAll(bool);
+};
 
 BranchDeleteDialog::BranchDeleteDialog(const QString &dotGitPath, QWidget *parent)
     : QDialog(parent)
@@ -27,6 +124,10 @@ BranchDeleteDialog::BranchDeleteDialog(const QString &dotGitPath, QWidget *paren
     m_listView.setUniformRowHeights(true);
     m_listView.setRootIsDecorated(false);
     m_listView.setModel(&m_model);
+    auto header = new CheckableHeaderView(Qt::Horizontal, this);
+    connect(header, &CheckableHeaderView::checkAll, this, &BranchDeleteDialog::onCheckAllClicked);
+    header->setStretchLastSection(true);
+    m_listView.setHeader(header);
 
     // setup the buttons
     using Btns = QDialogButtonBox::StandardButton;
@@ -85,3 +186,15 @@ QStringList BranchDeleteDialog::branchesToDelete() const
     }
     return branches;
 }
+
+void BranchDeleteDialog::onCheckAllClicked(bool checked)
+{
+    const int rowCount = m_model.rowCount();
+    for (int i = 0; i < rowCount; ++i) {
+        if (auto item = m_model.item(i)) {
+            item->setCheckState(checked ? Qt::Checked : Qt::Unchecked);
+        }
+    }
+}
+
+#include "branchdeletedialog.moc"

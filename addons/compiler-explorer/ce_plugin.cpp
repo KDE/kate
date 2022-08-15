@@ -31,6 +31,7 @@ CEPluginView::CEPluginView(CEPlugin *, KTextEditor::MainWindow *mainwindow)
     : QObject(mainwindow)
     , m_mainWindow(mainwindow)
 {
+    setComponentName(QStringLiteral("compilerexplorer"), i18n("Compiler Explorer"));
     // create our one and only action
     QAction *a = actionCollection()->addAction(QStringLiteral("kate_open_ce_tab"));
     a->setText(i18n("&Open Current File in Compiler Explorer"));

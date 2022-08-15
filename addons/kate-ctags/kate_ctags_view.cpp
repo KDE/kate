@@ -42,7 +42,7 @@ KateCTagsView::KateCTagsView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     : QObject(mainWin)
     , m_proc(nullptr)
 {
-    KXMLGUIClient::setComponentName(QStringLiteral("katectags"), i18n("Kate CTags"));
+    KXMLGUIClient::setComponentName(QStringLiteral("katectags"), i18n("CTags"));
     setXMLFile(QStringLiteral("ui.rc"));
 
     m_toolView = mainWin->createToolView(plugin,

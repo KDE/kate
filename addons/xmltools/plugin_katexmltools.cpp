@@ -115,7 +115,7 @@ PluginKateXMLToolsView::PluginKateXMLToolsView(KTextEditor::MainWindow *mainWin)
 {
     // qDebug() << "PluginKateXMLTools constructor called";
 
-    KXMLGUIClient::setComponentName(QStringLiteral("katexmltools"), i18n("Kate XML Tools"));
+    KXMLGUIClient::setComponentName(QStringLiteral("katexmltools"), i18n("XML Tools"));
     setXMLFile(QStringLiteral("ui.rc"));
 
     QAction *actionInsert = new QAction(i18n("&Insert Element..."), this);

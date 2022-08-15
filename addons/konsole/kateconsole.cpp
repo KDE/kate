@@ -130,7 +130,7 @@ KateConsole::KateConsole(KateKonsolePlugin *plugin, KTextEditor::MainWindow *mw,
     , m_toolView(parent)
     , m_plugin(plugin)
 {
-    KXMLGUIClient::setComponentName(QStringLiteral("katekonsole"), i18n("Kate Terminal"));
+    KXMLGUIClient::setComponentName(QStringLiteral("katekonsole"), i18n("Terminal"));
     setXMLFile(QStringLiteral("ui.rc"));
 
     // make sure we have a vertical layout

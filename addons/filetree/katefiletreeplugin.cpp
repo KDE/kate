@@ -128,7 +128,7 @@ KateFileTreePluginView::KateFileTreePluginView(KTextEditor::MainWindow *mainWind
     , m_plug(plug)
     , m_mainWindow(mainWindow)
 {
-    KXMLGUIClient::setComponentName(QStringLiteral("katefiletree"), i18n("Kate File Tree"));
+    KXMLGUIClient::setComponentName(QStringLiteral("katefiletree"), i18n("Documents"));
     setXMLFile(QStringLiteral("ui.rc"));
 
     m_toolView = mainWindow->createToolView(plug,

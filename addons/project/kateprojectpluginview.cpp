@@ -52,7 +52,7 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     , m_gotoSymbolAction(nullptr)
     , m_gotoSymbolActionAppMenu(nullptr)
 {
-    KXMLGUIClient::setComponentName(QStringLiteral("kateproject"), i18n("Kate Project Manager"));
+    KXMLGUIClient::setComponentName(QStringLiteral("kateproject"), i18n("Project Manager"));
     setXMLFile(QStringLiteral("ui.rc"));
 
     /**

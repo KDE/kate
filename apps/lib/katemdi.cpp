@@ -76,6 +76,7 @@ GUIClient::GUIClient(MainWindow *mw)
     , KXMLGUIClient(mw)
     , m_mw(mw)
 {
+    setComponentName(QStringLiteral("toolviewmanager"), i18n("Toolview Manager"));
     connect(m_mw->guiFactory(), &KXMLGUIFactory::clientAdded, this, &GUIClient::clientAdded);
     const QString guiDescription = QStringLiteral(
         ""

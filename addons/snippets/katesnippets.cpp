@@ -44,7 +44,7 @@ KateSnippetsPluginView::KateSnippetsPluginView(KateSnippetsPlugin *plugin, KText
     , m_toolView(nullptr)
     , m_snippets(nullptr)
 {
-    KXMLGUIClient::setComponentName(QStringLiteral("katesnippets"), i18n("Snippets tool view"));
+    KXMLGUIClient::setComponentName(QStringLiteral("katesnippets"), i18n("Snippets"));
     setXMLFile(QStringLiteral("ui.rc"));
 
     // Toolview for snippets

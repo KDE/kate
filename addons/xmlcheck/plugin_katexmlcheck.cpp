@@ -104,7 +104,7 @@ PluginKateXMLCheckView::PluginKateXMLCheckView(KTextEditor::Plugin *plugin, KTex
     : QObject(mainwin)
     , m_mainWindow(mainwin)
 {
-    KXMLGUIClient::setComponentName(QStringLiteral("katexmlcheck"), i18n("Kate XML check")); // where i18n resources?
+    KXMLGUIClient::setComponentName(QStringLiteral("katexmlcheck"), i18n("XML Check")); // where i18n resources?
     setXMLFile(QStringLiteral("ui.rc"));
 
     dock = m_mainWindow->createToolView(plugin,

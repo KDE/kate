@@ -124,7 +124,7 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     , m_filenameDetector(QStringLiteral("((?:[a-np-zA-Z]:[\\\\/])?[^\\s:(]+)[:\\(](\\d+)[,:]?(\\d+)?[\\):]* (.*)"))
     , m_newDirDetector(QStringLiteral("make\\[.+\\]: .+ '(.*)'"))
 {
-    KXMLGUIClient::setComponentName(QStringLiteral("katebuild"), i18n("Kate Build Plugin"));
+    KXMLGUIClient::setComponentName(QStringLiteral("katebuild"), i18n("Build"));
     setXMLFile(QStringLiteral("ui.rc"));
 
     m_toolView = mw->createToolView(plugin,

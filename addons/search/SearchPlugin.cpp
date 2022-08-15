@@ -293,7 +293,7 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
     , m_kateApp(application)
     , m_mainWindow(mainWin)
 {
-    KXMLGUIClient::setComponentName(QStringLiteral("katesearch"), i18n("Kate Search & Replace"));
+    KXMLGUIClient::setComponentName(QStringLiteral("katesearch"), i18n("Search & Replace"));
     setXMLFile(QStringLiteral("ui.rc"));
 
     m_toolView = mainWin->createToolView(plugin,

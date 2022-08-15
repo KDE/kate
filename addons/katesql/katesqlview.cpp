@@ -44,7 +44,7 @@ KateSQLView::KateSQLView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *m
     , m_manager(new SQLManager(this))
     , m_mainWindow(mw)
 {
-    KXMLGUIClient::setComponentName(QStringLiteral("katesql"), i18n("Kate SQL Plugin"));
+    KXMLGUIClient::setComponentName(QStringLiteral("katesql"), i18n("SQL"));
     setXMLFile(QStringLiteral("ui.rc"));
 
     m_outputToolView = mw->createToolView(plugin,

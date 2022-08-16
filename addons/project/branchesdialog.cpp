@@ -122,6 +122,9 @@ void BranchesDialog::slotReturnPressed(const QModelIndex &index)
 
     m_branch = branch;
     Q_EMIT branchSelected(branch);
+
+    clearLineEdit();
+    hide();
 }
 
 void BranchesDialog::sendMessage(const QString &plainText, bool warn)

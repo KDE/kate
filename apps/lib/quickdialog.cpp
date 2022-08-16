@@ -142,10 +142,7 @@ HUDDialog::HUDDialog(QWidget *parent, QWidget *mainWindow)
     m_treeView.setItemDelegate(m_delegate);
 
     connect(&m_lineEdit, &QLineEdit::returnPressed, this, [this] {
-        auto index = m_treeView.currentIndex();
-        if (index.isValid()) {
-            slotReturnPressed(index);
-        }
+        slotReturnPressed(m_treeView.currentIndex());
     });
     // user can add this as necessary
     setFilteringEnabled(true);
@@ -173,6 +170,9 @@ HUDDialog::~HUDDialog()
 void HUDDialog::slotReturnPressed(const QModelIndex &index)
 {
     Q_EMIT itemExecuted(index);
+
+    clearLineEdit();
+    hide();
 }
 
 void HUDDialog::setDelegate(HUDStyleDelegate *delegate)

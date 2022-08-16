@@ -26,7 +26,7 @@ private:
 
 private:
     QFutureWatcher<GitUtils::CheckoutResult> m_checkoutWatcher;
-    QString m_checkoutBranchName;
+    QString m_checkoutFromBranchName;
     bool m_checkingOutFromBranch = false;
 };
 

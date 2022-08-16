@@ -24,7 +24,7 @@ BranchCheckoutDialog::~BranchCheckoutDialog()
 
 void BranchCheckoutDialog::resetValues()
 {
-    m_checkoutBranchName.clear();
+    m_checkoutFromBranchName.clear();
     m_checkingOutFromBranch = false;
     m_lineEdit.setPlaceholderText(i18n("Select branch to checkout. Press 'Esc' to cancel."));
 }
@@ -63,7 +63,13 @@ void BranchCheckoutDialog::slotReturnPressed(const QModelIndex &index)
 {
     // we cleared the model to checkout new branch
     if (m_model->rowCount() == 0) {
-        createNewBranch(m_lineEdit.text(), m_checkoutBranchName);
+        createNewBranch(m_lineEdit.text(), m_checkoutFromBranchName);
+        return;
+    }
+
+    if (!index.isValid()) {
+        clearLineEdit();
+        hide();
         return;
     }
 
@@ -71,7 +77,7 @@ void BranchCheckoutDialog::slotReturnPressed(const QModelIndex &index)
     if (m_checkingOutFromBranch) {
         m_checkingOutFromBranch = false;
         const auto fromBranch = index.data(BranchesDialogModel::CheckoutName).toString();
-        m_checkoutBranchName = fromBranch;
+        m_checkoutFromBranchName = fromBranch;
         m_model->clear();
         clearLineEdit();
         m_lineEdit.setPlaceholderText(i18n("Enter new branch name. Press 'Esc' to cancel."));

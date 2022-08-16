@@ -116,12 +116,14 @@ void BranchesDialog::openDialog(GitUtils::RefType r)
 
 void BranchesDialog::slotReturnPressed(const QModelIndex &index)
 {
-    const auto branch = index.data().toString();
-    const auto itemType = (BranchesDialogModel::ItemType)index.data(BranchesDialogModel::ItemTypeRole).toInt();
-    Q_ASSERT(itemType == BranchesDialogModel::BranchItem);
+    if (index.isValid()) {
+        const auto branch = index.data().toString();
+        const auto itemType = (BranchesDialogModel::ItemType)index.data(BranchesDialogModel::ItemTypeRole).toInt();
+        Q_ASSERT(itemType == BranchesDialogModel::BranchItem);
 
-    m_branch = branch;
-    Q_EMIT branchSelected(branch);
+        m_branch = branch;
+        Q_EMIT branchSelected(branch);
+    }
 
     clearLineEdit();
     hide();

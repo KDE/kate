@@ -403,6 +403,10 @@ void GitWidget::setSubmodulesPaths()
                     p.append(QLatin1Char('/'));
                 }
             }
+            // Sort by size so that we can early out on matching paths later.
+            std::sort(m_submodulePaths.begin(), m_submodulePaths.end(), [](const QString &l, const QString &r) {
+                return l.size() > r.size();
+            });
             setActiveGitDir();
         }
         git->deleteLater();
@@ -423,14 +427,11 @@ void GitWidget::setActiveGitDir()
 
     int idx = 0;
     int activeSubmoduleIdx = -1;
-    int maxMatchLen = 0;
-    QString path = av->document()->url().toLocalFile();
-    for (const auto &submodulePath : m_submodulePaths) {
-        if (path.indexOf(submodulePath) != -1) {
-            if (path.size() > maxMatchLen) {
-                maxMatchLen = path.size();
-                activeSubmoduleIdx = idx;
-            }
+    const QString path = av->document()->url().toLocalFile();
+    for (const auto &submodulePath : std::as_const(m_submodulePaths)) {
+        if (path.startsWith(submodulePath)) {
+            activeSubmoduleIdx = idx;
+            break;
         }
         idx++;
     }

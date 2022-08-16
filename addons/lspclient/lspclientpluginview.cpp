@@ -2538,6 +2538,9 @@ public:
             if (diag.source.length()) {
                 source = QStringLiteral("[%1] ").arg(diag.source);
             }
+            if (diag.code.length()) {
+                source += QStringLiteral("(%1) ").arg(diag.code);
+            }
             item->setData(diagnosticsIcon(diag.severity), Qt::DecorationRole);
             // rendering of lines with embedded newlines does not work so well
             // so ... split message by lines

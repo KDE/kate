@@ -385,7 +385,7 @@ void MultiTabBar::tabClicked(int id)
         hideToolView(id);
     }
 
-    m_sb->expandSidebar();
+    m_sb->updateSidebar();
 }
 
 void MultiTabBar::removeBlankTab(int id)
@@ -691,7 +691,7 @@ bool Sidebar::removeToolView(ToolView *widget)
     m_idToWidget.erase(id);
     m_widgetToId.erase(widget);
 
-    expandSidebar();
+    updateSidebar();
 
     return true;
 }
@@ -703,7 +703,7 @@ bool Sidebar::showToolView(ToolView *widget)
     }
 
     tabBar(widget)->showToolView(m_widgetToId.at(widget));
-    expandSidebar();
+    updateSidebar();
 
     return true;
 }
@@ -716,7 +716,7 @@ bool Sidebar::hideToolView(ToolView *widget)
 
     updateLastSize();
     tabBar(widget)->hideToolView(m_widgetToId.at(widget));
-    expandSidebar();
+    updateSidebar();
 
     return true;
 }
@@ -764,7 +764,7 @@ void Sidebar::handleCollapse(int pos, int index)
         }
         collapseSidebar();
     } else if (!isCollapsed() && m_isPreviouslyCollapsed) {
-        expandSidebar();
+        updateSidebar();
     }
 }
 
@@ -791,7 +791,7 @@ bool Sidebar::tabBarIsEmpty(MultiTabBar *bar)
 
     QTimer::singleShot(0, this, [this]() {
         // We need to delay the update or m_ownSplit report wrong size count
-        expandSidebar();
+        updateSidebar();
     });
 
     return true;
@@ -862,7 +862,7 @@ bool Sidebar::adjustSplitterSections()
     return true;
 }
 
-void Sidebar::expandSidebar()
+void Sidebar::updateSidebar()
 {
     if (!adjustSplitterSections()) {
         // Nothing is shown, don't expand to a blank area
@@ -976,7 +976,7 @@ bool Sidebar::eventFilter(QObject *obj, QEvent *ev)
         if (e->button() == Qt::LeftButton) {
             if (obj->property("is-multi-tabbar").toBool()) {
                 if (isCollapsed()) {
-                    expandSidebar();
+                    updateSidebar();
                 } else {
                     collapseSidebar();
                 }
@@ -1110,7 +1110,7 @@ void Sidebar::restoreSession(KConfigGroup &config)
     m_lastSize = config.readEntry(QStringLiteral("Kate-MDI-Sidebar-%1-LastSize").arg(position()), 160);
     setSizes(config.readEntry(QStringLiteral("Kate-MDI-Sidebar-%1-Splitter").arg(position()), QList<int>()));
     // ...now we are ready to get the final splitter sizes by MainWindow::finishRestore
-    expandSidebar();
+    updateSidebar();
 }
 
 void Sidebar::saveSession(KConfigGroup &config)
@@ -1433,7 +1433,7 @@ void MainWindow::finishRestore()
         // Expand again to trigger splitter sync tabs/tools, but for any reason works this sometimes only after enough delay
         QTimer::singleShot(400, this, [this]() {
             for (auto &sidebar : m_sidebars) {
-                sidebar->expandSidebar();
+                sidebar->updateSidebar();
             }
         });
     }

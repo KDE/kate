@@ -261,7 +261,12 @@ public:
     void showToolviewTab(ToolView *widget, bool show);
 
     bool isCollapsed();
-    void expandSidebar();
+
+    /**
+     * Will the sidebar expand when some tool has to be visible in any section,
+     * or calling collapseSidebar() if non such tool is found
+     */
+    void updateSidebar();
     void collapseSidebar();
 
     KMultiTabBar::KMultiTabBarPosition position() const

@@ -1198,8 +1198,6 @@ MainWindow::MainWindow(QWidget *parentWidget)
 
     for (const auto &sidebar : m_sidebars) {
         connect(sidebar.get(), &Sidebar::sigShowPluginConfigPage, this, &MainWindow::sigShowPluginConfigPage);
-        // all sidebar splitter handles are instantiated, so we can now safely call this
-        sidebar->updateLastSizeOnResize();
     }
 }
 

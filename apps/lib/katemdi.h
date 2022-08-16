@@ -245,13 +245,6 @@ public:
 
     QSize sizeHint() const override;
 
-    /**
-     * Monitor resizes using the mouse and update the last size accordingly.
-     * Only call this when the sidebar has siblings in the splitter (i.e. m_splitter->count() >= 2) to guarantee that resize handles exist
-     */
-    void updateLastSizeOnResize();
-
-public:
     ToolView *addToolView(const QIcon &icon, const QString &text, const QString &identifier, ToolView *widget);
     bool removeToolView(ToolView *widget);
 
@@ -286,8 +279,6 @@ public:
         return m_tabBarStyle;
     }
 
-    void updateLastSize();
-
     void startRestoreSession(KConfigGroup &config);
 
     /**
@@ -306,7 +297,11 @@ public Q_SLOTS:
     // reimplemented, to block a show() call if all sidebars are forced hidden
     void setVisible(bool visible) override;
 
+protected:
+    bool eventFilter(QObject *obj, QEvent *ev) override;
+
 private Q_SLOTS:
+    void buttonPopupActivate(QAction *);
     void readConfig();
     void handleCollapse(int pos, int index);
     void ownSplitMoved(int pos, int index);
@@ -314,6 +309,7 @@ private Q_SLOTS:
     bool tabBarIsEmpty(MultiTabBar *bar);
 
 private:
+    void updateLastSize();
     int nextId();
     bool adjustSplitterSections();
 
@@ -326,6 +322,11 @@ private:
      * Update style of button to our style.
      */
     void updateButtonStyle(KMultiTabBarTab *button);
+
+    /**
+     * Monitor resizes using the mouse and update the last size accordingly.
+     */
+    void updateLastSizeOnResize();
 
     MultiTabBar *insertTabBar(int idx = -1);
 
@@ -348,12 +349,6 @@ private:
     {
         return count();
     }
-
-protected:
-    bool eventFilter(QObject *obj, QEvent *ev) override;
-
-private Q_SLOTS:
-    void buttonPopupActivate(QAction *);
 
 private:
     enum ActionIds {

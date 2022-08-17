@@ -15,7 +15,7 @@ class FileHistoryWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit FileHistoryWidget(const QString &file, QWidget *parent = nullptr);
+    explicit FileHistoryWidget(const QString &gitDir, const QString &file, QWidget *parent = nullptr);
     ~FileHistoryWidget() override;
 
 private Q_SLOTS:
@@ -26,8 +26,8 @@ private:
 
     QPushButton m_backBtn;
     QListView *m_listView;
-    QString m_file;
     QProcess m_git;
+    QString m_gitDir;
 
 Q_SIGNALS:
     void backClicked();

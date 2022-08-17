@@ -25,6 +25,7 @@ struct Commit {
     qint64 commitDate;
     QByteArray parentHash;
     QString msg;
+    QByteArray fileName;
 };
 Q_DECLARE_METATYPE(Commit)
 
@@ -43,8 +44,12 @@ static QVector<Commit> parseCommits(const QList<QByteArray> &raw)
     QVector<Commit> commits;
     commits.reserve(raw.size());
 
-    for (const auto &r : raw) {
-        const auto lines = r.split('\n');
+    for (int i = 0; i < raw.size(); ++i) {
+        const auto &commitDetails = raw.at(i);
+        if (commitDetails.isEmpty()) {
+            continue;
+        }
+        const auto lines = commitDetails.split('\n');
         if (lines.length() < 7) {
             continue;
         }
@@ -66,7 +71,13 @@ static QVector<Commit> parseCommits(const QList<QByteArray> &raw)
 
         QByteArray parent = lines.at(5);
         QString msg = QString::fromUtf8(lines.at(6));
-        commits << Commit{hash, author, email, authorDate, commitDate, parent, msg};
+
+        QByteArray file;
+        if (i + 1 < raw.size()) {
+            file = raw.at(i + 1).trimmed();
+        }
+
+        commits << Commit{hash, author, email, authorDate, commitDate, parent, msg, file};
     }
 
     return commits;
@@ -80,7 +91,7 @@ public:
     {
     }
 
-    enum Role { CommitRole = Qt::UserRole + 1, CommitHash };
+    enum Role { CommitRole = Qt::UserRole + 1 };
 
     int rowCount(const QModelIndex &) const override
     {
@@ -95,8 +106,6 @@ public:
         switch (role) {
         case Role::CommitRole:
             return QVariant::fromValue(m_rows.at(row));
-        case Role::CommitHash:
-            return m_rows.at(row).hash;
         case Qt::ToolTipRole: {
             QString ret = m_rows.at(row).authorName + QStringLiteral("<br>") + m_rows.at(row).email;
             return ret;
@@ -200,9 +209,9 @@ public:
     }
 };
 
-FileHistoryWidget::FileHistoryWidget(const QString &file, QWidget *parent)
+FileHistoryWidget::FileHistoryWidget(const QString &gitDir, const QString &file, QWidget *parent)
     : QWidget(parent)
-    , m_file(file)
+    , m_gitDir(gitDir)
 {
     auto model = new CommitListModel(this);
     m_listView = new QListView;
@@ -232,8 +241,13 @@ FileHistoryWidget::~FileHistoryWidget()
 void FileHistoryWidget::getFileHistory(const QString &file)
 {
     if (!setupGitProcess(m_git,
-                         QFileInfo(file).absolutePath(),
-                         {QStringLiteral("log"), QStringLiteral("--format=%H%n%aN%n%aE%n%at%n%ct%n%P%n%B"), QStringLiteral("-z"), file})) {
+                         m_gitDir,
+                         {QStringLiteral("log"),
+                          QStringLiteral("--follow"), // get history accross renames
+                          QStringLiteral("--name-only"), // get file name also, it could be different if renamed
+                          QStringLiteral("--format=%H%n%aN%n%aE%n%at%n%ct%n%P%n%B"),
+                          QStringLiteral("-z"),
+                          file})) {
         Q_EMIT errorMessage(i18n("Failed to get file history: git executable not found in PATH"), true);
         return;
     }
@@ -257,11 +271,11 @@ void FileHistoryWidget::getFileHistory(const QString &file)
 void FileHistoryWidget::itemClicked(const QModelIndex &idx)
 {
     QProcess git;
-    QFileInfo fi(m_file);
 
     const auto commit = idx.data(CommitListModel::CommitRole).value<Commit>();
+    const QString file = QString::fromUtf8(commit.fileName);
 
-    if (!setupGitProcess(git, fi.absolutePath(), {QStringLiteral("show"), QString::fromUtf8(commit.hash), QStringLiteral("--"), m_file})) {
+    if (!setupGitProcess(git, m_gitDir, {QStringLiteral("show"), QString::fromUtf8(commit.hash), QStringLiteral("--"), file})) {
         return;
     }
 

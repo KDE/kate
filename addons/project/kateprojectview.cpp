@@ -24,6 +24,7 @@
 #include <KLineEdit>
 #include <KLocalizedString>
 
+#include <QFileInfo>
 #include <QPushButton>
 #include <QSortFilterProxyModel>
 #include <QTimer>
@@ -146,7 +147,13 @@ void KateProjectView::setTreeViewAsCurrent()
 void KateProjectView::showFileGitHistory(const QString &file)
 {
     // create on demand and on switch back delete
-    auto fhs = new FileHistoryWidget(file);
+    const auto dotGitPath = GitUtils::getDotGitPath(QFileInfo(file).absolutePath());
+    if (!dotGitPath.has_value()) {
+        // TODO: Show message in output
+        return;
+    }
+
+    auto fhs = new FileHistoryWidget(dotGitPath.value(), file);
     connect(fhs, &FileHistoryWidget::backClicked, this, &KateProjectView::setTreeViewAsCurrent);
     connect(fhs, &FileHistoryWidget::commitClicked, this, [this](const QByteArray &diff) {
         m_pluginView->showDiffInFixedView(diff);

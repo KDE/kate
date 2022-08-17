@@ -801,6 +801,50 @@ area in more views.</para>
 </listitem>
 </varlistentry>
 
+<varlistentry id="view-split-left">
+<term><menuchoice>
+<guimenu>View</guimenu>
+<guisubmenu>Split View</guisubmenu>
+<guimenuitem>Left Split View</guimenuitem>
+</menuchoice>
+</term><listitem>
+<para>Focus the split view intuitively on the left, using the cursor position to disambiguate if necessary.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-split-right">
+<term><menuchoice>
+<guimenu>View</guimenu>
+<guisubmenu>Split View</guisubmenu>
+<guimenuitem>Right Split View</guimenuitem>
+</menuchoice>
+</term><listitem>
+<para>Focus the split view intuitively on the right, using the cursor position to disambiguate if necessary.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-split-upward">
+<term><menuchoice>
+<guimenu>View</guimenu>
+<guisubmenu>Split View</guisubmenu>
+<guimenuitem>Upward Split View</guimenuitem>
+</menuchoice>
+</term><listitem>
+<para>Focus the split view intuitively upward, using the cursor position to disambiguate if necessary.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-split-downward">
+<term><menuchoice>
+<guimenu>View</guimenu>
+<guisubmenu>Split View</guisubmenu>
+<guimenuitem>Downward Split View</guimenuitem>
+</menuchoice>
+</term><listitem>
+<para>Focus the split view intuitively downward, using the cursor position to disambiguate if necessary.</para>
+</listitem>
+</varlistentry>
+
 <varlistentry id="view-split-vertical">
 <term>
 <menuchoice>

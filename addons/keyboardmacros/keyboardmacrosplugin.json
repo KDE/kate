@@ -1,8 +1,11 @@
 {
     "KPlugin": {
         "Description": "Record and play keyboard macros (i.e., keyboard action sequences)",
+        "Description[bg]": "Записване и възпроизвеждане на макроси на клавиатурата (т.е. последователности от действия на клавиатурата)",
+        "Description[ca@valencia]": "Grava i reproduïx macros de teclat (és a dir, una seqüència d'acció de teclat)",
         "Description[ca]": "Enregistra i reprodueix macros de teclat (és a dir, una seqüència d'acció de teclat)",
         "Description[es]": "Guardar y reproducir macros de teclado (es decir, secuencias de acciones de teclado)",
+        "Description[fr]": "Enregistrer et lire les macros de clavier (Par exemple, séquences d'actions au clavier)",
         "Description[nl]": "Neem toetsenbordmacro's op en speel ze af (d.w.z., toetsenbordactiereeksen).",
         "Description[pl]": "Nagraj i odtwórz makra klawiaturowe (tj. naciśnięcia klawiszy na klawiaturze)",
         "Description[pt]": "Gravar e reproduzir macros do teclado (i.e., sequências de acções do teclado)",
@@ -11,6 +14,8 @@
         "Description[uk]": "Запис і відтворення клавіатурних макросів (тобто послідовностей дій з клавіатури)",
         "Description[x-test]": "xxRecord and play keyboard macros (i.e., keyboard action sequences)xx",
         "Name": "Keyboard Macros",
+        "Name[bg]": "Клавиатурни макроси",
+        "Name[ca@valencia]": "Macros de teclat",
         "Name[ca]": "Macros de teclat",
         "Name[es]": "Macros de teclado",
         "Name[fr]": "Macros pour le clavier",

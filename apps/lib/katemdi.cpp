@@ -776,6 +776,13 @@ void Sidebar::handleCollapse(int pos, int index)
 
 void Sidebar::ownSplitMoved(int pos, int index)
 {
+    QList<int> wsizes = m_ownSplit->sizes();
+    for (int i = 0; i < tabBarCount(); ++i) {
+        if (tabBar(i)->isToolActive()) {
+            tabBar(i)->setSectionSize(wsizes.at(i));
+        }
+    }
+
     if (m_syncWithTabs) {
         moveSplitter(pos, index);
     }
@@ -895,6 +902,14 @@ void Sidebar::updateSidebar()
         QList<int> wsizes = m_splitter->sizes();
         wsizes[m_ownSplitIndex] = m_lastSize;
         m_splitter->setSizes(wsizes);
+    }
+
+    if (!m_syncWithTabs) {
+        QList<int> wsizes = m_ownSplit->sizes();
+        for (int i = 0; i < tabBarCount(); ++i) {
+            wsizes[i] = tabBar(i)->isToolActive() ? tabBar(i)->sectionSize() : 0;
+        }
+        m_ownSplit->setSizes(wsizes);
     }
 
     // Ensure we are visible

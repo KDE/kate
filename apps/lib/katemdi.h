@@ -220,6 +220,16 @@ public:
         return m_tabList.size();
     }
 
+    int sectionSize() const
+    {
+        return m_sectionSize;
+    }
+
+    void setSectionSize(int size)
+    {
+        m_sectionSize = size;
+    }
+
 Q_SIGNALS:
     void lastTabRemoved(MultiTabBar *);
 
@@ -232,6 +242,7 @@ private:
     KMultiTabBar *m_multiTabBar;
     QList<int> m_tabList;
     int m_activeTab = 0;
+    int m_sectionSize = 0;
 };
 
 class Sidebar : public QSplitter
@@ -379,6 +390,7 @@ private:
     int m_popupButton = 0;
     QPointer<QLabel> m_resizePlaceholder;
     bool m_isPreviouslyCollapsed = false;
+    bool m_syncWithTabs = false;
     bool m_showTextForLeftRight = false;
     int m_leftRightSidebarIconSize = 32;
 

@@ -534,9 +534,15 @@ void Sidebar::readConfig()
 {
     bool needsUpdate = false;
 
-    // shall we show text for the left and right bars?
     KSharedConfig::Ptr config = KSharedConfig::openConfig();
     KConfigGroup cgGeneral = KConfigGroup(config, "General");
+    const bool syncWithTabs = cgGeneral.readEntry("Sync section size with tab positions", false);
+    if (syncWithTabs != m_syncWithTabs) {
+        m_syncWithTabs = syncWithTabs;
+        needsUpdate = true;
+    }
+
+    // shall we show text for the left and right bars?
     const bool showTextForLeftRight = cgGeneral.readEntry("Show text for left and right sidebar", false);
     if (showTextForLeftRight != m_showTextForLeftRight) {
         m_showTextForLeftRight = showTextForLeftRight;
@@ -770,14 +776,19 @@ void Sidebar::handleCollapse(int pos, int index)
 
 void Sidebar::ownSplitMoved(int pos, int index)
 {
-    moveSplitter(pos, index);
+    if (m_syncWithTabs) {
+        moveSplitter(pos, index);
+    }
 }
 
 void Sidebar::barSplitMoved(int pos, int index)
 {
     Q_UNUSED(pos);
     Q_UNUSED(index);
-    adjustSplitterSections();
+
+    if (m_syncWithTabs) {
+        adjustSplitterSections();
+    }
 }
 
 bool Sidebar::tabBarIsEmpty(MultiTabBar *bar)
@@ -851,6 +862,10 @@ bool Sidebar::adjustSplitterSections()
     if (!anyVis) {
         // No need to go on
         return false;
+    }
+
+    if (!m_syncWithTabs) {
+        return true;
     }
 
     if (sizeCollector && lastExpandedId > -1) {
@@ -1104,6 +1119,15 @@ void Sidebar::restoreSession(KConfigGroup &config)
         }
     }
 
+    QList<int> sectSizes = config.readEntry(QStringLiteral("Kate-MDI-Sidebar-%1-SectSizes").arg(position()), QList<int>());
+    for (int i = 0; i < sectSizes.count(); ++i) {
+        if (tabBarCount() - 1 < i) {
+            // Config mismatch!
+            break;
+        }
+        tabBar(i)->setSectionSize(sectSizes.at(i));
+    }
+
     // Collapse now, and before! we restore m_lastSize, will hide (all) m_stack(s) so that
     // expanding will work fine...
     collapseSidebar();
@@ -1125,13 +1149,18 @@ void Sidebar::saveSession(KConfigGroup &config)
         config.writeEntry(QStringLiteral("Kate-MDI-ToolView-%1-Show-Button-In-Sidebar").arg(tv->id), tv->tabButtonVisible());
     }
 
+    QList<int> sectSizes;
     for (int i = 0; i < tabBarCount(); ++i) {
+        sectSizes << tabBar(i)->sectionSize();
+
         QStringList tvList;
         for (int j : tabBar(i)->tabList()) {
             tvList << m_idToWidget.at(j)->id;
         }
         config.writeEntry(QStringLiteral("Kate-MDI-Sidebar-%1-Bar-%2-TvList").arg(position()).arg(i), tvList);
     }
+
+    config.writeEntry(QStringLiteral("Kate-MDI-Sidebar-%1-SectSizes").arg(position()), sectSizes);
 }
 
 // END SIDEBAR

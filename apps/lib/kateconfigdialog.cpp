@@ -151,10 +151,19 @@ void KateConfigDialog::addBehaviorPage()
     connect(m_modNotifications, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
 
     vbox->addWidget(m_modNotifications);
+    buttonGroup->setLayout(vbox);
 
     // show text for the left and right sidebars?
     // only useful for Kate
     if (KateApp::isKate()) {
+        QGroupBox *buttonGroup = new QGroupBox(i18n("&Sidebars"), generalFrame);
+        layout->addWidget(buttonGroup);
+        QVBoxLayout *vbox = new QVBoxLayout;
+        m_syncSectionSizeWithSidebarTabs = new QCheckBox(i18n("Sync section size with tab positions"), buttonGroup);
+        m_syncSectionSizeWithSidebarTabs->setChecked(cgGeneral.readEntry("Sync section size with tab positions", false));
+        connect(m_syncSectionSizeWithSidebarTabs, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
+        vbox->addWidget(m_syncSectionSizeWithSidebarTabs);
+
         m_showTextForLeftRightSidebars = new QCheckBox(i18n("Show text for left and right sidebar buttons"), buttonGroup);
         m_showTextForLeftRightSidebars->setChecked(cgGeneral.readEntry("Show text for left and right sidebar", false));
         connect(m_showTextForLeftRightSidebars, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
@@ -175,9 +184,8 @@ void KateConfigDialog::addBehaviorPage()
             m_leftRightSidebarsIconSize->setEnabled(!v);
             l->setEnabled(!v);
         });
+        buttonGroup->setLayout(vbox);
     }
-
-    buttonGroup->setLayout(vbox);
 
     // tabbar => we allow to configure some limit on number of tabs to show
     buttonGroup = new QGroupBox(i18n("&Tabs"), generalFrame);
@@ -446,6 +454,9 @@ void KateConfigDialog::slotApply()
         KConfigGroup cg(config, "General");
 
         // only there for kate
+        if (m_syncSectionSizeWithSidebarTabs) {
+            cg.writeEntry("Sync section size with tab positions", m_syncSectionSizeWithSidebarTabs->isChecked());
+        }
         if (m_showTextForLeftRightSidebars) {
             cg.writeEntry("Show text for left and right sidebar", m_showTextForLeftRightSidebars->isChecked());
         }

@@ -263,10 +263,6 @@ void KeyboardMacrosPlugin::stop(bool save)
         m_macro.swap(m_tape);
         // clear tape
         m_tape.clear();
-        // update GUI
-        for (auto &pluginView : m_pluginViews) {
-            pluginView->macroLoaded(!m_macro.isEmpty());
-        }
     } else { // cancel recording
         // clear tape
         m_tape.clear();
@@ -274,6 +270,7 @@ void KeyboardMacrosPlugin::stop(bool save)
     // update GUI
     for (auto &pluginView : m_pluginViews) {
         pluginView->recordingOff();
+        pluginView->macroLoaded(!m_macro.isEmpty());
     }
     // disconnect focus change events
     disconnect(qApp, &QGuiApplication::applicationStateChanged, this, &KeyboardMacrosPlugin::applicationStateChanged);

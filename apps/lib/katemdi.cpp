@@ -613,16 +613,44 @@ MultiTabBar *Sidebar::insertTabBar(int idx /* = -1*/)
     auto *newBar = new MultiTabBar(m_tabBarPosition, this, idx);
     newBar->installEventFilter(this);
     newBar->tabBar()->setStyle(tabStyle());
-    insertWidget(idx, newBar);
+    // Fetch user set tabBar splitting before the new bar is inserted
     auto sections = sizes();
-    // For whatever reason need the splitter some help for halfway nice new
-    // section sizes. We only support with this math to insert below some section,
+    insertWidget(idx, newBar);
+
+    // For a halfway nice new section distribution we need to help the splitter.
+    // We only support with this math to insert below some section,
     // not above like at first place, but that's ok atm
-    idx = idx < 0 ? sections.count() - 1 : idx;
+    idx = idx < 0 ? sections.count() : idx;
     if (idx) {
-        sections[idx] = sections.at(idx - 1) / 2;
-        sections[idx - 1] = sections.at(idx);
-        setSizes(sections);
+        if (m_syncWithTabs) {
+            // Share the space where the tab came from with the new bar
+            sections[idx - 1] = sections.at(idx - 1) / 2;
+            sections.insert(idx, sections.at(idx - 1));
+            setSizes(sections);
+        } else {
+            // We try here to keep the user manipulated tabBar splitting, but that works not perfect.
+            // For proper calculations we need to ask for sizeHint, otherwise would tabs with text crunched,
+            // but because the to be moved tab is still at the old place, we need to delay that.
+            QTimer::singleShot(100, this, [this, idx, sections]() {
+                if (tabBarCount() - 1 < idx) {
+                    // Config mismatch, the add bar was removed in the meanwhile
+                    return;
+                }
+                QList<int> sectionsC(sections); // To manipulate, we need a C-opy
+                if (sectionsC.count() == 1) {
+                    int oldTabSize = isVertical() ? tabBar(idx - 1)->sizeHint().height() : tabBar(idx - 1)->sizeHint().width();
+                    sectionsC[0] -= oldTabSize;
+                    sectionsC.insert(0, oldTabSize);
+                } else {
+                    int newTabSize = isVertical() ? tabBar(idx)->sizeHint().height() : tabBar(idx)->sizeHint().width();
+                    for (int i = 0; i < sections.size(); ++i) {
+                        sectionsC[i] -= newTabSize;
+                    }
+                    sectionsC.insert(idx, newTabSize);
+                }
+                setSizes(sectionsC);
+            });
+        }
     }
 
     connect(newBar, &MultiTabBar::lastTabRemoved, this, &Sidebar::tabBarIsEmpty);
@@ -1147,7 +1175,11 @@ void Sidebar::restoreSession(KConfigGroup &config)
     // expanding will work fine...
     collapseSidebar();
     m_lastSize = config.readEntry(QStringLiteral("Kate-MDI-Sidebar-%1-LastSize").arg(position()), 160);
-    setSizes(config.readEntry(QStringLiteral("Kate-MDI-Sidebar-%1-Splitter").arg(position()), QList<int>()));
+    // Since we delay in insertTabBar(..) to adjust the sizes, we need it here too or the now set data will overwritten
+    auto sz = config.readEntry(QStringLiteral("Kate-MDI-Sidebar-%1-Splitter").arg(position()), QList<int>());
+    QTimer::singleShot(100, this, [this, sz]() {
+        setSizes(sz);
+    });
     // ...now we are ready to get the final splitter sizes by MainWindow::finishRestore
     updateSidebar();
 }

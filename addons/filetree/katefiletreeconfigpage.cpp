@@ -144,7 +144,7 @@ QString KateFileTreeConfigPage::fullName() const
 
 QIcon KateFileTreeConfigPage::icon() const
 {
-    return QIcon::fromTheme(QLatin1String("document-open"));
+    return QIcon::fromTheme(QLatin1String("folder-documents-symbolic"));
 }
 
 void KateFileTreeConfigPage::apply()

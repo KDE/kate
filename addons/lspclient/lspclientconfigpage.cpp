@@ -122,7 +122,7 @@ QString LSPClientConfigPage::fullName() const
 
 QIcon LSPClientConfigPage::icon() const
 {
-    return QIcon::fromTheme(QLatin1String("code-context"));
+    return QIcon::fromTheme(QLatin1String("format-text-code"));
 }
 
 void LSPClientConfigPage::apply()

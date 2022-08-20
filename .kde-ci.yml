@@ -6,6 +6,7 @@ Dependencies:
   'require':
     'frameworks/extra-cmake-modules': '@stable'
     'frameworks/ki18n': '@stable'
+    'frameworks/ktextwidgets': '@stable'
     'frameworks/kdoctools': '@stable'
     'frameworks/ktexteditor': '@stable'
     'frameworks/knewstuff': '@stable'

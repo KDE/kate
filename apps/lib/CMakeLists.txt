@@ -31,6 +31,7 @@ find_package(
   REQUIRED
   COMPONENTS
     TextEditor
+    TextWidgets
     WindowSystem
     DBusAddons
     Crash
@@ -47,6 +48,7 @@ target_link_libraries(
     KF5::DBusAddons
     KF5::Crash
     KF5::CoreAddons
+    KF5::TextWidgets
 )
 
 if(KF5Activities_FOUND)

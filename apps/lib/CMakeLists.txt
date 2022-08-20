@@ -33,7 +33,6 @@ find_package(
     TextEditor
     TextWidgets
     WindowSystem
-    DBusAddons
     Crash
   OPTIONAL_COMPONENTS
     Activities
@@ -45,7 +44,6 @@ target_link_libraries(
     KF5::I18n
     KF5::TextEditor
     KF5::WindowSystem
-    KF5::DBusAddons
     KF5::Crash
     KF5::CoreAddons
     KF5::TextWidgets

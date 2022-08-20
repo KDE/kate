@@ -10,6 +10,7 @@ Dependencies:
     'frameworks/kiconthemes': '@stable'
     'frameworks/knewstuff': '@stable'
     'frameworks/ktexteditor': '@stable'
+    'frameworks/ktextwidgets': '@stable'
     'libraries/kuserfeedback': '@stable'
 
 - 'on': ['Linux', 'FreeBSD']

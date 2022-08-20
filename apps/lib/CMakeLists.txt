@@ -34,6 +34,7 @@ find_package(
     DBusAddons
     IconThemes
     TextEditor
+    TextWidgets
     WindowSystem
   OPTIONAL_COMPONENTS
     Activities

@@ -1,4 +1,7 @@
 # Kate application
+
+find_package(KF5DBusAddons ${KF5_DEP_VERSION} REQUIRED)
+
 add_executable(kate-bin
     main.cpp
     data/kate.qrc
@@ -8,7 +11,7 @@ add_executable(kate-bin
     # single application handing for the non-dbus case
     SingleApplication/singleapplication.cpp
     SingleApplication/singleapplication_p.cpp)
-target_link_libraries(kate-bin PRIVATE kateprivate)
+target_link_libraries(kate-bin PRIVATE kateprivate PUBLIC KF5::DBusAddons)
 
 # ensure right translations domain, we use one kate.po(t) for lib + apps
 target_compile_definitions(kate-bin PRIVATE TRANSLATION_DOMAIN="kate")

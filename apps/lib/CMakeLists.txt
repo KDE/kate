@@ -31,7 +31,6 @@ find_package(
   REQUIRED
   COMPONENTS
     Crash
-    DBusAddons
     IconThemes
     TextEditor
     TextWidgets
@@ -45,10 +44,10 @@ target_link_libraries(
   PUBLIC
     KF5::CoreAddons
     KF5::Crash
-    KF5::DBusAddons
     KF5::I18n
     KF5::IconThemes
     KF5::TextEditor
+    KF5::TextWidgets
     KF5::WindowSystem
 )
 

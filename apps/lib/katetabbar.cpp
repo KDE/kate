@@ -73,8 +73,8 @@ void KateTabBar::readConfig()
     // use scroll buttons if we have no limit
     setUsesScrollButtons(m_tabCountLimit == 0 || cgGeneral.readEntry("Allow Tab Scrolling", true));
 
-    // elide if we have some limit
-    setElideMode((m_tabCountLimit == 0 || !cgGeneral.readEntry("Elide Tab Text", false)) ? Qt::ElideNone : Qt::ElideMiddle);
+    // elide if requested, this is independent of the limit, just honor the users wish
+    setElideMode(cgGeneral.readEntry("Elide Tab Text", false) ? Qt::ElideMiddle : Qt::ElideNone);
 
     const std::vector<int> documentTabIndexes = this->documentTabIndexes();
 

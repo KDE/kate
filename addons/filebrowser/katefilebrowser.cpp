@@ -24,7 +24,12 @@
 #include <KFilePlacesModel>
 #include <KHistoryComboBox>
 #include <KIO/ApplicationLauncherJob>
+#include <kio_version.h>
+#if KIO_VERSION >= QT_VERSION_CHECK(5, 98, 0)
+#include <KIO/JobUiDelegateFactory>
+#else
 #include <KIO/JobUiDelegate>
+#endif
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KSharedConfig>
@@ -290,7 +295,11 @@ void KateFileBrowser::openWithMenuAction(QAction *a)
     // If app is null, ApplicationLauncherJob will invoke the open-with dialog
     auto *job = new KIO::ApplicationLauncherJob(app);
     job->setUrls(list);
+#if KIO_VERSION >= QT_VERSION_CHECK(5, 98, 0)
+    job->setUiDelegate(KIO::createDefaultJobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, this));
+#else
     job->setUiDelegate(new KIO::JobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, this));
+#endif
     job->start();
 }
 // END Public Slots

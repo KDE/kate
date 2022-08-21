@@ -13,7 +13,12 @@
 
 #include <KApplicationTrader>
 #include <KIO/ApplicationLauncherJob>
+#include <kio_version.h>
+#if KIO_VERSION >= QT_VERSION_CHECK(5, 98, 0)
+#include <KIO/JobUiDelegateFactory>
+#else
 #include <KIO/JobUiDelegate>
+#endif
 #include <KIO/OpenFileManagerWindowJob>
 #include <KLocalizedString>
 #include <KMoreTools>
@@ -145,7 +150,11 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
         // If app is null, ApplicationLauncherJob will invoke the open-with dialog
         auto *job = new KIO::ApplicationLauncherJob(app);
         job->setUrls({QUrl::fromLocalFile(filename)});
+#if KIO_VERSION >= QT_VERSION_CHECK(5, 98, 0)
+        job->setUiDelegate(KIO::createDefaultJobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, parent));
+#else
         job->setUiDelegate(new KIO::JobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, parent));
+#endif
         job->start();
     };
 

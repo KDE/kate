@@ -12,7 +12,6 @@
 #include "katedocmanager.h"
 #include "katemainwindow.h"
 
-#include <KIO/JobUiDelegate>
 #include <KIO/OpenUrlJob>
 
 #include <KLocalizedString>

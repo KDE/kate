@@ -35,9 +35,11 @@ find_package(
     TextEditor
     TextWidgets
     WindowSystem
-  OPTIONAL_COMPONENTS
-    Activities
 )
+
+if (NOT WIN32 AND NOT APPLE)
+    find_package(KF5 ${KF5_DEP_VERSION} OPTIONAL_COMPONENTS Activities)
+endif()
 
 target_link_libraries(
   kateprivate

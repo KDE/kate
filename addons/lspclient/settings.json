@@ -133,6 +133,12 @@
             "url": "https://github.com/jeapostrophe/racket-langserver",
             "highlightingModeRegex": "^Racket$"
         },
+        "ruby": {
+            "command": ["solargraph", "stdio"],
+            "rootIndicationFileNames": ["Gemfile", "Gemfile.lock", "gems.rb", "gems.lock", "Rakefile"],
+            "url": "https://solargraph.org",
+            "highlightingModeRegex": "^Ruby$"
+        },
         "rust": {
             "command": ["rust-analyzer"],
             "path": ["%{ENV:HOME}/.cargo/bin", "%{ENV:USERPROFILE}/.cargo/bin"],

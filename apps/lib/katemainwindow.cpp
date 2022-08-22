@@ -1071,18 +1071,25 @@ void KateMainWindow::updateCaption(KTextEditor::Document *doc)
     }
 
     QString c;
+    const auto url = m_viewManager->activeView()->document()->url();
     if (m_viewManager->activeView()->document()->url().isEmpty() || (!m_paShowPath || !m_paShowPath->isChecked())) {
         c = m_viewManager->activeView()->document()->documentName();
     } else {
-        c = m_viewManager->activeView()->document()->url().toString(QUrl::PreferLocalFile);
-
-        const QString homePath = QDir::homePath();
-        if (c.startsWith(homePath)) {
-            c = QLatin1String("~") + c.right(c.length() - homePath.length());
+        // we want some filename @ folder output to have chance to keep important stuff even on elide
+        if (url.isLocalFile()) {
+            // perhaps shorten the path
+            const QString homePath = QDir::homePath();
+            QString path = url.toString(QUrl::RemoveFilename | QUrl::PreferLocalFile | QUrl::StripTrailingSlash);
+            if (path.startsWith(homePath)) {
+                path = QLatin1String("~") + path.right(path.length() - homePath.length());
+            }
+            c = url.fileName() + QStringLiteral(" @ ") + path;
+        } else {
+            c = url.toDisplayString();
         }
     }
 
-    setWindowFilePath(m_viewManager->activeView()->document()->url().toString(QUrl::PreferLocalFile));
+    setWindowFilePath(url.toString(QUrl::PreferLocalFile));
 
     QString sessName = KateApp::self()->sessionManager()->activeSession()->name();
     if (!sessName.isEmpty()) {

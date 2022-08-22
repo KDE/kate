@@ -47,6 +47,10 @@ QAction *toolviewShowAction(KXMLGUIClient *client, const QString &toolviewName)
     }
 
     KXMLGUIClient *toolviewmanager = nullptr;
+    if (!client->factory()) {
+        qWarning() << Q_FUNC_INFO << "don't have a client factory, toolviewName: " << toolviewName;
+        return nullptr;
+    }
     const auto clients = client->factory()->clients();
     for (auto client : clients) {
         if (client->componentName() == QStringLiteral("toolviewmanager")) {

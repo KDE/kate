@@ -429,7 +429,6 @@ void KateMainWindow::setupActions()
     }
 
     connect(m_viewManager, &KateViewManager::viewChanged, this, &KateMainWindow::slotWindowActivated);
-    connect(m_viewManager, &KateViewManager::viewChanged, this, &KateMainWindow::slotUpdateOpenWith);
     connect(m_viewManager, &KateViewManager::viewChanged, this, &KateMainWindow::slotUpdateActionsNeedingUrl);
     connect(m_viewManager, &KateViewManager::viewChanged, this, &KateMainWindow::slotUpdateBottomViewBar);
 
@@ -772,15 +771,6 @@ void KateMainWindow::slotWindowActivated()
     centralWidget()->setFocusProxy(m_viewManager->activeView());
 }
 
-void KateMainWindow::slotUpdateOpenWith()
-{
-    if (m_viewManager->activeView()) {
-        documentOpenWith->setEnabled(!m_viewManager->activeView()->document()->url().isEmpty());
-    } else {
-        documentOpenWith->setEnabled(false);
-    }
-}
-
 void KateMainWindow::slotUpdateActionsNeedingUrl()
 {
     auto &&view = viewManager()->activeView();
@@ -791,6 +781,7 @@ void KateMainWindow::slotUpdateActionsNeedingUrl()
     action("file_rename")->setEnabled(hasUrl);
     action("file_delete")->setEnabled(hasUrl);
     action("file_properties")->setEnabled(hasUrl);
+    documentOpenWith->setEnabled(hasUrl);
 }
 
 void KateMainWindow::dragEnterEvent(QDragEnterEvent *event)
@@ -1044,7 +1035,6 @@ void KateMainWindow::slotDocumentCreated(KTextEditor::Document *doc)
     connect(doc, &KTextEditor::Document::readWriteChanged, this, QOverload<KTextEditor::Document *>::of(&KateMainWindow::updateCaption));
     connect(doc, &KTextEditor::Document::documentNameChanged, this, QOverload<KTextEditor::Document *>::of(&KateMainWindow::updateCaption));
     connect(doc, &KTextEditor::Document::documentUrlChanged, this, QOverload<KTextEditor::Document *>::of(&KateMainWindow::updateCaption));
-    connect(doc, &KTextEditor::Document::documentUrlChanged, this, &KateMainWindow::slotUpdateOpenWith);
     connect(doc, &KTextEditor::Document::documentUrlChanged, this, &KateMainWindow::slotUpdateActionsNeedingUrl);
 
     updateCaption(doc);

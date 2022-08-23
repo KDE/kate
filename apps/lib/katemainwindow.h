@@ -187,7 +187,6 @@ private Q_SLOTS:
 
     void slotEditToolbars();
     void slotNewToolbarConfig();
-    void slotUpdateOpenWith();
     void slotUpdateActionsNeedingUrl();
     void slotOpenDocument(const QUrl &);
 

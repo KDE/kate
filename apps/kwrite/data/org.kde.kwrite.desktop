@@ -174,7 +174,6 @@ StartupNotify=true
 Icon=kwrite
 X-DocPath=kwrite/index.html
 Type=Application
-Terminal=false
 InitialPreference=8
 X-DBUS-StartupType=Multi
 X-DBUS-ServiceName=org.kde.kwrite

@@ -4,6 +4,7 @@
         "Description[bg]": "Записване и възпроизвеждане на макроси на клавиатурата (т.е. последователности от действия на клавиатурата)",
         "Description[ca@valencia]": "Grava i reproduïx macros de teclat (és a dir, una seqüència d'acció de teclat)",
         "Description[ca]": "Enregistra i reprodueix macros de teclat (és a dir, una seqüència d'acció de teclat)",
+        "Description[en_GB]": "Record and play keyboard macros (i.e., keyboard action sequences)",
         "Description[es]": "Guardar y reproducir macros de teclado (es decir, secuencias de acciones de teclado)",
         "Description[eu]": "Grabatu eta ekin teklatuko makroak (adib. teklatuko ekintza sekuentziak)",
         "Description[fr]": "Enregistrer et lire les macros de clavier (Par exemple, séquences d'actions au clavier)",
@@ -13,11 +14,13 @@
         "Description[sl]": "Posnemi in poženi makroje tipkovnice (npr. zaporedja pritiskov tipk)",
         "Description[tr]": "Klavye makroları kaydet ve oynat (örn. klavye eylem sıralaması)",
         "Description[uk]": "Запис і відтворення клавіатурних макросів (тобто послідовностей дій з клавіатури)",
+        "Description[vi]": "Ghi và chạy vĩ lệnh bàn phím (chuỗi hành động bàn phím)",
         "Description[x-test]": "xxRecord and play keyboard macros (i.e., keyboard action sequences)xx",
         "Name": "Keyboard Macros",
         "Name[bg]": "Клавиатурни макроси",
         "Name[ca@valencia]": "Macros de teclat",
         "Name[ca]": "Macros de teclat",
+        "Name[en_GB]": "Keyboard Macros",
         "Name[es]": "Macros de teclado",
         "Name[eu]": "Teklatuko makroak",
         "Name[fr]": "Macros pour le clavier",
@@ -27,6 +30,7 @@
         "Name[sl]": "Makroji tipkovnice",
         "Name[tr]": "Klavye Makroları",
         "Name[uk]": "Клавіатурні макроси",
+        "Name[vi]": "Vĩ lệnh bàn phím",
         "Name[x-test]": "xxKeyboard Macrosxx"
     }
 }

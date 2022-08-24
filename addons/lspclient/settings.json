@@ -146,6 +146,12 @@
             "url": "https://rust-analyzer.github.io",
             "highlightingModeRegex": "^Rust$"
         },
+        "scala": {
+            "command": ["metals"],
+            "rootIndicationFileNames": ["build.sbt"],
+            "url": "https://scalameta.org/metals/",
+            "highlightingModeRegex": "^Scala$"
+        },
         "typescript": {
             "use": "javascript",
             "highlightingModeRegex": "^TypeScript.*$",

@@ -2139,7 +2139,7 @@ void KatePluginSearchView::customResMenuRequested(const QPoint &pos)
     menu->addAction(copyExpanded);
 
     QAction *exportMatches = new QAction(i18n("Export matches"), tree);
-    if (m_curResults->useRegExp) {
+    if (m_curResults && m_curResults->useRegExp) {
         menu->addAction(exportMatches);
     }
 

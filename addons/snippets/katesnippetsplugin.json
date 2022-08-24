@@ -30,6 +30,7 @@
         "Description[zh_CN]": "管理您的代码片段或下载新代码片段",
         "Icon": "document-new",
         "Name": "Snippets Tool View",
+        "Name[ar]": "منظور أداة للقصاصات",
         "Name[az]": "Fraqmentlər paneli",
         "Name[bg]": "Изглед  с инструменти за снипети",
         "Name[ca@valencia]": "Vista d'eina de fragments",

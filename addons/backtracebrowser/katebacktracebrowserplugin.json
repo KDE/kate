@@ -29,6 +29,7 @@
         "Description[x-test]": "xxC/C++ Backtrace navigation tool viewxx",
         "Description[zh_CN]": "C/C++ 回溯导航工具视图",
         "Name": "Backtrace Browser",
+        "Name[ar]": "متصفّح التّتبّع الخلفيّ",
         "Name[az]": "Geri izləmə bələdçisi",
         "Name[bg]": "Проследяване на браузер",
         "Name[ca@valencia]": "Navegador de traça inversa",

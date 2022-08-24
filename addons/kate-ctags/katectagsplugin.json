@@ -30,6 +30,7 @@
         "Description[zh_CN]": "使用 CTags 查找定义/声明",
         "Icon": "text-x-csrc",
         "Name": "CTags",
+        "Name[ar]": "وسوم‌سي",
         "Name[az]": "CTags",
         "Name[bg]": "CTags",
         "Name[ca@valencia]": "CTags",

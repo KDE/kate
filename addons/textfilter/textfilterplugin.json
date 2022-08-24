@@ -30,6 +30,7 @@
         "Description[x-test]": "xxProcess text using terminal commandsxx",
         "Description[zh_CN]": "使用终端命令处理文本",
         "Name": "Text Filter",
+        "Name[ar]": "مرشّح النّصوص",
         "Name[az]": "Mətn süzgəci",
         "Name[bg]": "Текстов филтър",
         "Name[ca@valencia]": "Filtre de text",

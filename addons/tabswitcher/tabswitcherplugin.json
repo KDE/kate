@@ -29,6 +29,7 @@
         "Description[x-test]": "xxQuick document switching with Alt+Tab behaviorxx",
         "Description[zh_CN]": "使用 Alt+Tab 快速切换文档",
         "Name": "Document Switcher",
+        "Name[ar]": "مبدّل المستندات",
         "Name[az]": "Sənəd dəyişdricisi",
         "Name[bg]": "Бързо превключване на документи",
         "Name[ca@valencia]": "Commutador de documents",

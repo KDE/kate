@@ -29,6 +29,7 @@
         "Description[x-test]": "xxExtract and show reference symbols from sourcexx",
         "Description[zh_CN]": "从源代码中提取并显示引用符号",
         "Name": "Symbol Viewer",
+        "Name[ar]": "عارض الرّموز",
         "Name[az]": "Simvol Görünüşü",
         "Name[bg]": "Преглед на символи",
         "Name[ca@valencia]": "Visor de símbols",

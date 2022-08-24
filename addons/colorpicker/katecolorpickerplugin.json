@@ -29,6 +29,7 @@
         "Description[x-test]": "xxAdds an inline Color preview/picker to colors in the text (e.g. #FFFFFF, white)xx",
         "Description[zh_CN]": "在文本中添加内联的颜色预览/拾色器 (例如 #FFFFFF, 白色)",
         "Name": "Color Picker",
+        "Name[ar]": "منتق الألوان",
         "Name[az]": "Rəng seçici",
         "Name[bg]": "Избиране на цвят",
         "Name[ca@valencia]": "Selector de color",

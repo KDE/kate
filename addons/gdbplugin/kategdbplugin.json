@@ -30,6 +30,7 @@
         "Description[x-test]": "xxProvides a simple GDB frontendxx",
         "Description[zh_CN]": "提供一个简单的 GDB 前端",
         "Name": "GDB",
+        "Name[ar]": "منقّح غنو GDB",
         "Name[az]": "GDB",
         "Name[bg]": "GDB",
         "Name[ca@valencia]": "GDB",

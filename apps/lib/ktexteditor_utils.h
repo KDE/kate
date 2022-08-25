@@ -90,5 +90,5 @@ inline QFont viewFont(KTextEditor::View *view)
  */
 KATE_PRIVATE_EXPORT QIcon iconForDocument(KTextEditor::Document *doc);
 
-KATE_PRIVATE_EXPORT QAction *toolviewShowAction(KXMLGUIClient *client, const QString &toolviewName);
+KATE_PRIVATE_EXPORT QAction *toolviewShowAction(KTextEditor::MainWindow *, const QString &toolviewName);
 }

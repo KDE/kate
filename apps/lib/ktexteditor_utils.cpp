@@ -33,37 +33,20 @@ QIcon iconForDocument(KTextEditor::Document *doc)
     return icon;
 }
 
-QAction *toolviewShowAction(KXMLGUIClient *client, const QString &toolviewName)
+QAction *toolviewShowAction(KTextEditor::MainWindow *mainWindow, const QString &toolviewName)
 {
-    if (!client) {
-        qWarning() << Q_FUNC_INFO << "invalid null client, toolviewName: " << toolviewName;
-        Q_ASSERT(false);
-        return nullptr;
-    }
+    Q_ASSERT(mainWindow);
 
+    const auto clients = mainWindow->guiFactory()->clients();
     static const QString prefix = QStringLiteral("kate_mdi_toolview_");
-    if (client->componentName() == QStringLiteral("toolviewmanager")) {
-        return client->actionCollection()->action(prefix + toolviewName);
-    }
+    auto it = std::find_if(clients.begin(), clients.end(), [](const KXMLGUIClient *c) {
+        return c->componentName() == QStringLiteral("toolviewmanager");
+    });
 
-    KXMLGUIClient *toolviewmanager = nullptr;
-    if (!client->factory()) {
-        qWarning() << Q_FUNC_INFO << "don't have a client factory, toolviewName: " << toolviewName;
-        return nullptr;
-    }
-    const auto clients = client->factory()->clients();
-    for (auto client : clients) {
-        if (client->componentName() == QStringLiteral("toolviewmanager")) {
-            toolviewmanager = client;
-            break;
-        }
-    }
-
-    if (!toolviewmanager) {
+    if (it == clients.end()) {
         qWarning() << Q_FUNC_INFO << "Unexpected unable to find toolviewmanager KXMLGUIClient, toolviewName: " << toolviewName;
         return nullptr;
     }
-
-    return toolviewmanager->actionCollection()->action(prefix + toolviewName);
+    return (*it)->actionCollection()->action(prefix + toolviewName);
 }
 }

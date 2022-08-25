@@ -31,7 +31,7 @@ KateProjectInfoViewTerminal::KateProjectInfoViewTerminal(KateProjectPluginView *
     m_layout->setSpacing(0);
     m_layout->setContentsMargins(0, 0, 0, 0);
 
-    m_showProjectInfoViewAction = Utils::toolviewShowAction(pluginView, QStringLiteral("kateprojectinfo"));
+    m_showProjectInfoViewAction = Utils::toolviewShowAction(m_pluginView->mainWindow(), QStringLiteral("kateprojectinfo"));
 }
 
 KateProjectInfoViewTerminal::~KateProjectInfoViewTerminal()

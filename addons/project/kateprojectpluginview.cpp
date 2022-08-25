@@ -133,11 +133,6 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     });
 
     /**
-     * add us to gui
-     */
-    m_mainWindow->guiFactory()->addClient(this);
-
-    /**
      * create views for all already existing projects
      * will create toolviews on demand!
      */
@@ -226,6 +221,11 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
 
     // update git status on toolview visibility change
     connect(m_gitToolView.get(), SIGNAL(toolVisibleChanged(bool)), this, SLOT(slotUpdateStatus(bool)));
+
+    /**
+     * add us to gui
+     */
+    m_mainWindow->guiFactory()->addClient(this);
 
     /**
      * align to current config

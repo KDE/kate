@@ -697,7 +697,7 @@ void KateViewSpace::updateDocumentUrl(KTextEditor::Document *doc)
     // update tab button if available, might not be the case for tab limit set!
     const int buttonId = m_tabBar->documentIdx(doc);
     if (buttonId >= 0) {
-        m_tabBar->setTabToolTip(buttonId, doc->url().toDisplayString());
+        m_tabBar->setTabToolTip(buttonId, doc->url().toDisplayString(QUrl::PreferLocalFile));
         m_tabBar->setModifiedStateIcon(buttonId, doc);
     }
 }

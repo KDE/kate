@@ -295,7 +295,7 @@ void KateTabBar::setTabDocument(int idx, KTextEditor::Document *doc)
     QString tabName = doc->documentName();
     tabName.replace(QLatin1Char('&'), QLatin1String("&&"));
     setTabText(idx, tabName);
-    setTabToolTip(idx, doc->url().toDisplayString());
+    setTabToolTip(idx, doc->url().isValid() ? doc->url().toDisplayString(QUrl::PreferLocalFile) : doc->documentName());
     setModifiedStateIcon(idx, doc);
 }
 

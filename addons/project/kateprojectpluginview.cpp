@@ -82,6 +82,7 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     m_reloadButton = new QToolButton(m_toolView);
     m_reloadButton->setAutoRaise(true);
     m_reloadButton->setIcon(QIcon::fromTheme(QStringLiteral("view-refresh")));
+    m_reloadButton->setToolTip(i18n("Reload project"));
     m_closeProjectButton = new QToolButton(m_toolView);
     m_closeProjectButton->setAutoRaise(true);
     m_closeProjectButton->setIcon(QIcon::fromTheme(QStringLiteral(PROJECTCLOSEICON)));
@@ -98,6 +99,7 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     m_gitStatusRefreshButton = new QToolButton(m_gitToolView.get());
     m_gitStatusRefreshButton->setAutoRaise(true);
     m_gitStatusRefreshButton->setIcon(QIcon::fromTheme(QStringLiteral("view-refresh")));
+    m_gitStatusRefreshButton->setToolTip(i18n("Refresh git status"));
     layout = new QHBoxLayout();
     layout->setSpacing(0);
     layout->addWidget(m_projectsComboGit);

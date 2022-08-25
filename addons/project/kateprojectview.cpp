@@ -80,6 +80,7 @@ KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject 
         bd.openDialog();
     });
     currBranchAct->setIcon(KDE::icon(QStringLiteral(":/icons/icons/sc-apps-git.svg")));
+    currBranchAct->setToolTip(i18n("Checkout branch"));
     m_branchBtn->setDefaultAction(currBranchAct);
 
     checkAndRefreshGit();

@@ -553,7 +553,7 @@ void KateProjectPlugin::readConfig()
     m_multiProjectGoto = config.readEntry("multiProjectCompletion", false);
 
     m_gitNumStat = config.readEntry("gitStatusNumStat", true);
-    m_singleClickAction = (ClickAction)config.readEntry("gitStatusSingleClick", (int)ClickAction::ShowDiff);
+    m_singleClickAction = (ClickAction)config.readEntry("gitStatusSingleClick", (int)ClickAction::NoAction);
     m_doubleClickAction = (ClickAction)config.readEntry("gitStatusDoubleClick", (int)ClickAction::StageUnstage);
 
     m_restoreProjectsForSession = config.readEntry("restoreProjectsForSessions", false);

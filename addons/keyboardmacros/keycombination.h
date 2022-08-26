@@ -6,6 +6,8 @@
 #ifndef KEYBOARDMACROSPLUGIN_KEYCOMBINATION_H
 #define KEYBOARDMACROSPLUGIN_KEYCOMBINATION_H
 
+#include <utility>
+
 #include <QDebug>
 #include <QJsonArray>
 #include <QJsonValue>
@@ -34,12 +36,12 @@ public:
         , m_modifiers(keyEvent->modifiers())
         , m_text(keyEvent->text()){};
 
-    static const QPair<const KeyCombination, bool> fromJson(const QJsonArray &json)
+    static const std::pair<const KeyCombination, bool> fromJson(const QJsonArray &json)
     {
         if (json.size() != 3 || json[0].type() != QJsonValue::Double || json[1].type() != QJsonValue::Double || json[2].type() != QJsonValue::String) {
-            return QPair(KeyCombination(), false);
+            return std::pair(KeyCombination(), false);
         }
-        return QPair(KeyCombination(json[0].toInt(0), static_cast<Qt::KeyboardModifiers>(json[1].toInt(0)), json[2].toString()), true);
+        return std::pair(KeyCombination(json[0].toInt(0), static_cast<Qt::KeyboardModifiers>(json[1].toInt(0)), json[2].toString()), true);
     };
 
     const QKeyEvent keyPress() const

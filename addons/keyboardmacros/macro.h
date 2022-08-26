@@ -6,6 +6,8 @@
 #ifndef KEYBOARDMACROSPLUGIN_MACRO_H
 #define KEYBOARDMACROSPLUGIN_MACRO_H
 
+#include <utility>
+
 #include <QDebug>
 #include <QJsonArray>
 #include <QJsonValue>
@@ -21,23 +23,23 @@ public:
     explicit Macro()
         : QList<KeyCombination>(){};
 
-    static const QPair<const Macro, bool> fromJson(const QJsonValue &json)
+    static const std::pair<const Macro, bool> fromJson(const QJsonValue &json)
     {
         if (json.type() != QJsonValue::Array) {
-            QPair(Macro(), false);
+            std::pair(Macro(), false);
         }
         Macro macro;
         for (const auto &jsonKeyCombination : json.toArray()) {
             if (jsonKeyCombination.type() != QJsonValue::Array) {
-                return QPair(Macro(), false);
+                return std::pair(Macro(), false);
             }
             auto maybeKeyCombination = KeyCombination::fromJson(jsonKeyCombination.toArray());
             if (!maybeKeyCombination.second) {
-                return QPair(Macro(), false);
+                return std::pair(Macro(), false);
             }
             macro.append(maybeKeyCombination.first);
         }
-        return QPair(macro, true);
+        return std::pair(macro, true);
     };
 
     const QJsonArray toJson() const

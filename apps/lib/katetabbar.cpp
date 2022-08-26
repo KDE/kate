@@ -67,30 +67,31 @@ void KateTabBar::readConfig()
     KConfigGroup cgGeneral = KConfigGroup(config, "General");
 
     // 0 == unlimited, normalized other inputs
-    const int tabCountLimit = cgGeneral.readEntry("Tabbar Tab Limit", 0);
-    m_tabCountLimit = (tabCountLimit <= 0) ? 0 : tabCountLimit;
+    const int tabCountLimit = std::max(cgGeneral.readEntry("Tabbar Tab Limit", 0), 0);
+    if (m_tabCountLimit != tabCountLimit) {
+        m_tabCountLimit = tabCountLimit;
+        const QVector<KTextEditor::Document*> docList = documentList();
+        if (m_tabCountLimit > 0 && docList.count() > m_tabCountLimit) {
+            // close N least used tabs
+            QMap<quint64, KTextEditor::Document*> lruDocs;
+            for (KTextEditor::Document *doc : docList) {
+                lruDocs[m_docToLruCounterAndHasTab[doc].first] = doc;
+            }
+            int toRemove = docList.count() - m_tabCountLimit;
+            for (KTextEditor::Document *doc : lruDocs) {
+                if (toRemove-- == 0) {
+                    break;
+                }
+                removeTab(documentIdx(doc));
+            }
+        }
+    }
 
     // use scroll buttons if we have no limit
     setUsesScrollButtons(m_tabCountLimit == 0 || cgGeneral.readEntry("Allow Tab Scrolling", true));
 
     // elide if requested, this is independent of the limit, just honor the users wish
     setElideMode(cgGeneral.readEntry("Elide Tab Text", false) ? Qt::ElideMiddle : Qt::ElideNone);
-
-    const std::vector<int> documentTabIndexes = this->documentTabIndexes();
-
-    // if we enforce a limit: purge tabs that violate it
-    if (m_tabCountLimit > 0 && ((int)documentTabIndexes.size() > m_tabCountLimit)) {
-        // just purge last X tabs, this isn't that clever but happens only on config changes!
-        size_t toRemove = documentTabIndexes.size() - (size_t)m_tabCountLimit;
-        size_t removed = 0;
-        for (auto rit = documentTabIndexes.rbegin(); rit != documentTabIndexes.rend(); ++rit) {
-            if (removed == toRemove)
-                break;
-            removeTab(*rit);
-            removed++;
-        }
-        setCurrentIndex(0);
-    }
 
     // handle tab close button and expansion
     setExpanding(cgGeneral.readEntry("Expand Tabs", false));

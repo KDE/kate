@@ -118,6 +118,7 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent, cons
     m_split->addAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_close_current_space")));
     m_split->addAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_close_others")));
     m_split->addAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_hide_others")));
+    m_split->setToolTip(i18n("Split View"));
     m_split->setWhatsThis(i18n("Control view space splitting"));
     m_split->installEventFilter(this); // on click, active this view space
     hLayout->addWidget(m_split);

@@ -95,7 +95,7 @@ public:
 
         // add file name to the text we are going to display
         auto file = QFileInfo(symbol.fileUrl.toLocalFile()).fileName();
-        auto textLength = text.length();
+        int textLength = text.length();
         text += QStringLiteral(" ") + file;
 
         // file name

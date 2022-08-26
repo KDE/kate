@@ -32,12 +32,6 @@
 
 #include <json_utils.h>
 
-#ifdef WIN32
-static const QLatin1Char pathSeparator(';');
-#else
-static const QLatin1Char pathSeparator(':');
-#endif
-
 constexpr int CONFIG_VERSION = 5;
 const static QString F_TARGET = QStringLiteral("target");
 const static QString F_DEBUGGER = QStringLiteral("debuggerKey");

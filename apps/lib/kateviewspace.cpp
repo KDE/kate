@@ -902,6 +902,7 @@ void KateViewSpace::showContextMenu(int idx, const QPoint &globalPos)
     QMenu menu(this);
     QAction *aCloseTab = menu.addAction(QIcon::fromTheme(QStringLiteral("tab-close")), i18n("&Close Document"));
     QAction *aCloseOthers = menu.addAction(QIcon::fromTheme(QStringLiteral("tab-close-other")), i18n("Close Other &Documents"));
+    QAction *aCloseAll = menu.addAction(QIcon::fromTheme(QStringLiteral("tab-close-all")), i18n("Close &All Documents"));
     menu.addSeparator();
     QAction *aCopyPath = addActionFromCollection(&menu, "file_copy_filepath");
     QAction *aOpenFolder = addActionFromCollection(&menu, "file_open_containing_folder");
@@ -958,6 +959,11 @@ void KateViewSpace::showContextMenu(int idx, const QPoint &globalPos)
         });
     } else if (choice == aCloseOthers) {
         KateApp::self()->documentManager()->closeOtherDocuments(doc);
+    } else if (choice == aCloseAll) {
+        // use single shot as this action can trigger deletion of this viewspace!
+        QTimer::singleShot(0, this, []() {
+            KateApp::self()->documentManager()->closeAllDocuments();
+        });
     } else if (choice == aCopyPath) {
         KateFileActions::copyFilePathToClipboard(doc);
     } else if (choice == aOpenFolder) {

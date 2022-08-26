@@ -75,7 +75,7 @@ public:
         auto kind = symbol.kind;
 
         QVector<QTextLayout::FormatRange> fmts;
-        auto colons = text.indexOf(QStringLiteral("::"));
+        int colons = text.indexOf(QStringLiteral("::"));
         int i = 0;
         // container name
         if (colons != -1) {
@@ -90,7 +90,7 @@ public:
             QTextCharFormat f;
             f.setForeground(colorForSymbolKind(kind));
             f.setFont(monoFont);
-            fmts.append({i, text.length() - i, f});
+            fmts.append({i, int(text.length() - i), f});
         }
 
         // add file name to the text we are going to display
@@ -102,7 +102,7 @@ public:
         {
             QTextCharFormat f;
             f.setForeground(Qt::gray);
-            fmts.append({textLength, text.length() - textLength, f});
+            fmts.append({textLength, int(text.length() - textLength), f});
         }
 
         options.rect = textRect;

@@ -32,6 +32,9 @@ KateProjectViewTree::KateProjectViewTree(KateProjectPluginView *pluginView, Kate
     setAllColumnsShowFocus(true);
     setIndentation(12);
 
+    setDragDropMode(QAbstractItemView::DropOnly);
+    setDragDropOverwriteMode(false);
+
     /**
      * attach view => project
      * do this once, model is stable for whole project life time

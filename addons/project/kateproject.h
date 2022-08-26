@@ -17,6 +17,25 @@
 #include <QSharedPointer>
 #include <QTextDocument>
 
+class KateProjectModel : public QStandardItemModel
+{
+    Q_OBJECT
+public:
+    using QStandardItemModel::QStandardItemModel;
+
+    Qt::DropActions supportedDropActions() const override
+    {
+        return Qt::CopyAction;
+    }
+
+    bool dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent) override;
+    bool canDropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent) const override;
+
+private:
+    friend class KateProject;
+    class KateProject *m_project = nullptr;
+};
+
 /**
  * Shared pointer data types.
  * Used to pass pointers over queued connected slots
@@ -327,7 +346,7 @@ private:
     /**
      * standard item model with content of this project
      */
-    QStandardItemModel m_model;
+    KateProjectModel m_model;
 
     /**
      * mapping files => items

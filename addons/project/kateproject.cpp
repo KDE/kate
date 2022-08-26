@@ -15,6 +15,7 @@
 
 #include <json_utils.h>
 
+#include <QApplication>
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
@@ -22,8 +23,94 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonParseError>
+#include <QMimeData>
 #include <QPlainTextDocumentLayout>
+#include <QPointer>
 #include <utility>
+
+#include <KIO/CopyJob>
+#include <KJobWidgets>
+
+bool KateProjectModel::dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent)
+{
+    if (!canDropMimeData(data, action, row, column, parent)) {
+        return false;
+    }
+
+    const auto index = this->index(row, column, parent);
+    const auto type = (KateProjectItem::Type)index.data(KateProjectItem::TypeRole).toInt();
+    const auto parentType = (KateProjectItem::Type)parent.data(KateProjectItem::TypeRole).toInt();
+    QString pathToCopyTo;
+    if (!index.isValid() && parent.isValid() && parentType == KateProjectItem::Directory) {
+        pathToCopyTo = parent.data(Qt::UserRole).toString();
+    } else if (index.isValid() && type == KateProjectItem::File) {
+        if (index.parent().isValid()) {
+            pathToCopyTo = index.parent().data(Qt::UserRole).toString();
+        } else {
+            pathToCopyTo = m_project->baseDir();
+        }
+    } else if (!index.isValid() && !parent.isValid()) {
+        pathToCopyTo = m_project->baseDir();
+    }
+
+    const QDir d = pathToCopyTo;
+    if (!d.exists()) {
+        return false;
+    }
+
+    const auto urls = data->urls();
+    const QUrl dest = QUrl::fromLocalFile(d.absolutePath());
+    QPointer<KIO::CopyJob> job = KIO::copy(urls, dest);
+    KJobWidgets::setWindow(job, QApplication::activeWindow());
+    connect(job, &KIO::Job::finished, this, [this, job, destDir = d.absolutePath()] {
+        if (!job || job->error() != 0)
+            return;
+
+        bool needsReload = false;
+        QStandardItem *item = invisibleRootItem();
+        if (destDir != m_project->baseDir()) {
+            const auto indexes = match(this->index(0, 0), Qt::UserRole, destDir, 1, Qt::MatchStartsWith);
+            if (indexes.empty()) {
+                needsReload = true;
+            } else {
+                item = itemFromIndex(indexes.constFirst());
+            }
+        }
+
+        const auto urls = job->srcUrls();
+        if (!needsReload) {
+            for (const auto &url : urls) {
+                const QString newFile = destDir + QStringLiteral("/") + url.fileName();
+                const QFileInfo fi(newFile);
+                if (fi.exists() && fi.isFile()) {
+                    KateProjectItem *i = new KateProjectItem(KateProjectItem::File, url.fileName());
+                    item->appendRow(i);
+                    m_project->addFile(newFile, i);
+                } else {
+                    // not a file? Just do a reload of the project on finish
+                    needsReload = true;
+                    break;
+                }
+            }
+        }
+        if (needsReload && m_project) {
+            QMetaObject::invokeMethod(
+                this,
+                [this] {
+                    m_project->reload(true);
+                },
+                Qt::QueuedConnection);
+        }
+    });
+    job->start();
+
+    return true;
+}
+
+bool KateProjectModel::canDropMimeData(const QMimeData *data, Qt::DropAction action, int, int, const QModelIndex &) const
+{
+    return data && data->hasUrls() && action == Qt::CopyAction;
+}
 
 KateProject::KateProject(QThreadPool &threadPool, KateProjectPlugin *plugin, const QString &fileName)
     : m_threadPool(threadPool)
@@ -40,6 +127,8 @@ KateProject::KateProject(QThreadPool &threadPool, KateProjectPlugin *plugin, con
     // ensure we get notified for project file changes
     connect(&m_plugin->fileWatcher(), &QFileSystemWatcher::fileChanged, this, &KateProject::slotFileChanged);
     m_plugin->fileWatcher().addPath(m_fileName);
+
+    m_model.m_project = this;
 
     // try to load the project map from our file, will start worker thread, too
     reload();

@@ -26,6 +26,11 @@ KateProjectItem::KateProjectItem(Type type, const QString &text)
     : QStandardItem(text)
     , m_type(type)
 {
+    if (type == File) {
+        auto flags = this->flags();
+        flags.setFlag(Qt::ItemIsDropEnabled, false);
+        setFlags(flags);
+    }
 }
 
 KateProjectItem::~KateProjectItem()

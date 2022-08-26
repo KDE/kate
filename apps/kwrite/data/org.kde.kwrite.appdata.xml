@@ -27,6 +27,7 @@
   <name xml:lang="ia">Kwrite</name>
   <name xml:lang="id">KWrite</name>
   <name xml:lang="it">KWrite</name>
+  <name xml:lang="ka">KWrite</name>
   <name xml:lang="ko">KWrite</name>
   <name xml:lang="lt">KWrite</name>
   <name xml:lang="ml">കെഎഴുത്ത്</name>
@@ -78,6 +79,7 @@
   <summary xml:lang="ia">Editor de texto</summary>
   <summary xml:lang="id">Pengedit Teks</summary>
   <summary xml:lang="it">Editor di testo</summary>
+  <summary xml:lang="ka">ტექსტური რედაქტორი</summary>
   <summary xml:lang="ko">텍스트 편집기</summary>
   <summary xml:lang="lt">Rašyklė</summary>
   <summary xml:lang="ml">ടെക്സ്റ്റ് എഡിറ്റർ</summary>
@@ -130,6 +132,7 @@
     <p xml:lang="ia">KWrite es un editor de texto per KDE, basate sur le componente de editor de Kate.</p>
     <p xml:lang="id">KWrite adalah sebuah pengedit teks oleh KDE, berdasarkan pada komponen editor Kate.</p>
     <p xml:lang="it">KWrite è un editor di testo di KDE, basato sul componente dell'editor di Kate.</p>
+    <p xml:lang="ka">KWrite-ი KDE-ის ტექსტური რედაქტორია, რომელიც Kate-ის რედაქტორის კომპონენტზეა აგებული.</p>
     <p xml:lang="ko">KWrite는 Kate 편집기 구성 요소를 사용하는 KDE 텍스트 편집기입니다.</p>
     <p xml:lang="ml">KWrite എന്നത് KDE യുടെ  Kate നെ അടിസ്ഥാന ഭാഗമായ ടെക്സ്റ്റ് എഡിറ്റർ ആണ്.</p>
     <p xml:lang="my">ကေရိုက်သည် ကိတ်၏အယ်ဒီတာအစိတ်အပိုင်းပေါ် အခြေခံထားသော စာသားတည်းဖြတ်ကိရိယာဖြစ်သည်။</p>
@@ -178,6 +181,7 @@
     <p xml:lang="ia">Characteristicas:</p>
     <p xml:lang="id">Fitur:</p>
     <p xml:lang="it">Funzionalità:</p>
+    <p xml:lang="ka">თვისებები:</p>
     <p xml:lang="ko">기능:</p>
     <p xml:lang="lt">Ypatybės:</p>
     <p xml:lang="ml">വിശേഷതകൾ:</p>
@@ -229,6 +233,7 @@
       <li xml:lang="ia">Evidentiation de syntaxe secundo le typo de file</li>
       <li xml:lang="id">Penyorotan sintaks sesuai dengan jenis file </li>
       <li xml:lang="it">Evidenziazione della sintassi in base al tipo di file</li>
+      <li xml:lang="ka">სინტაქსის გამოკვეთა ფაილის ტიპის მიხედვით</li>
       <li xml:lang="ko">파일 형식별 구문 강조</li>
       <li xml:lang="lt">Sintaksės paryškinimas, priklausomai nuo dokumento tipo</li>
       <li xml:lang="ml">ഫയൽ രീതി അനുസരിച്ച് പദവിന്യാസം പ്രമുഖമാണ്</li>
@@ -279,6 +284,7 @@
       <li xml:lang="ia">Completion de parola</li>
       <li xml:lang="id">Penyelesaian kata</li>
       <li xml:lang="it">Completamento delle parole</li>
+      <li xml:lang="ka">სიტყვების ავტომატური დასრულება</li>
       <li xml:lang="ko">단어 완성</li>
       <li xml:lang="lt">Žodžių užbaigimas</li>
       <li xml:lang="ml">വാക്യ പൂർത്തീകരണം</li>
@@ -330,6 +336,7 @@
       <li xml:lang="ia">Auto indentation</li>
       <li xml:lang="id">Indentasi otomatis</li>
       <li xml:lang="it">Rientro automatico</li>
+      <li xml:lang="ka">ავტომატური სწორება</li>
       <li xml:lang="ko">자동 들여쓰기</li>
       <li xml:lang="lt">Automatinė įtrauka</li>
       <li xml:lang="ml">സ്വയം-അകലക്രമീകരണം</li>
@@ -379,6 +386,7 @@
       <li xml:lang="ia">Supporto de plugin</li>
       <li xml:lang="id">Dukungan plugin</li>
       <li xml:lang="it">Supporto delle estensioni</li>
+      <li xml:lang="ka">დამატებების მხარდაჭერა</li>
       <li xml:lang="ko">플러그인 지원</li>
       <li xml:lang="lt">Papildinių palaikymas</li>
       <li xml:lang="ml">സംയോജക പിന്തുണ</li>
@@ -430,6 +438,7 @@
       <li xml:lang="ia">Modo de ingresso de Vi</li>
       <li xml:lang="id">Mode input Vi</li>
       <li xml:lang="it">Modalità di inserimento Vi.</li>
+      <li xml:lang="ka">Vi-ის შეყვანის რეჟიმი</li>
       <li xml:lang="ko">VI 입력 모드</li>
       <li xml:lang="lt">Vi įvesties režimas</li>
       <li xml:lang="ml">Vi എഴുത്ത് രീതി</li>
@@ -486,6 +495,7 @@
       <caption xml:lang="ia">Modificante codice con KWrite</caption>
       <caption xml:lang="id">Pengeditan kode menggunakan KWrite</caption>
       <caption xml:lang="it">Modificare il codice con KWrite</caption>
+      <caption xml:lang="ka">KWrite-ის საშუალებით კოდის რედაქტირება</caption>
       <caption xml:lang="ko">KWrite로 코드 편집</caption>
       <caption xml:lang="ml">KWrite ഉപയോഗിച്ചു കോഡ് മാറ്റം വരുത്തൽ</caption>
       <caption xml:lang="my">ကေရိုက်ဖြင့် ကုတ်များ တည်းဖြတ်မည်</caption>

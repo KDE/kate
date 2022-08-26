@@ -26,6 +26,7 @@
   <name xml:lang="ia">Kate</name>
   <name xml:lang="id">Kate</name>
   <name xml:lang="it">Kate</name>
+  <name xml:lang="ka">Kate</name>
   <name xml:lang="ko">Kate</name>
   <name xml:lang="ml">കെയ്റ്റ്</name>
   <name xml:lang="my">ကိတ်</name>
@@ -75,6 +76,7 @@
   <summary xml:lang="ia">Editor avantiate de texto</summary>
   <summary xml:lang="id">Pengedit Teks Tingkat Lanjut</summary>
   <summary xml:lang="it">Editor di testi avanzato</summary>
+  <summary xml:lang="ka">გაუმჯობესებული ტექსტური რედაქტორი</summary>
   <summary xml:lang="ko">고급 텍스트 편집기</summary>
   <summary xml:lang="ml">വിസ്തൃതമായ പദാവലി എഡിറ്റർ</summary>
   <summary xml:lang="my">အဆင့်မြင့်စာသားတည်းဖြတ်ကိရိယာ</summary>
@@ -170,6 +172,7 @@
     <p xml:lang="ia">Characteristicas:</p>
     <p xml:lang="id">Fitur:</p>
     <p xml:lang="it">Funzionalità:</p>
+    <p xml:lang="ka">თვისებები:</p>
     <p xml:lang="ko">기능:</p>
     <p xml:lang="ml">വിശേഷതകൾ:</p>
     <p xml:lang="my">စွမ်းဆောင်ရည်များ -</p>
@@ -219,6 +222,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ia">MDI, window splitting (division de fenestra), window tabbing (schedas de fenestra)</li>
       <li xml:lang="id">MDI, pemisahan window, penambahan tab window</li>
       <li xml:lang="it">MDI, divisione della finestra, schede delle finestre</li>
+      <li xml:lang="ka">MDI, ფანჯრის გაყოფა, ჩანართები</li>
       <li xml:lang="ko">MDI, 창 나누기, 탭 기능</li>
       <li xml:lang="ml">MDI, ജാലക വേർതിരിക്കൽ, ജാലക ടാബിംഗ്</li>
       <li xml:lang="nb">MDI, vindusdeling, vindusfaner</li>
@@ -265,6 +269,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ia">Controlo Orthographic</li>
       <li xml:lang="id">Pengecekan ejaan</li>
       <li xml:lang="it">Controllo ortografico</li>
+      <li xml:lang="ka">მართლწერის შემოწმება</li>
       <li xml:lang="ko">맞춤법 검사</li>
       <li xml:lang="ml">അക്ഷര പരിശോധന</li>
       <li xml:lang="my">သတ်ပုံစစ်ဆေးခြင်း</li>
@@ -312,6 +317,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ia">CR, CRLF, LF supporto de nove linea</li>
       <li xml:lang="id">Dukungan CR, CRLF, LF newline</li>
       <li xml:lang="it">Supporto ritorno a capo CR, CRLF, LF</li>
+      <li xml:lang="ka">ახალი ხაზის CR, CRLF, LF მხარდაჭერა</li>
       <li xml:lang="ko">CR, CRLF, LF 새 줄지 원</li>
       <li xml:lang="ml">CR, CRLF, LF അന്ത്യാക്ഷര പിന്തുണ</li>
       <li xml:lang="my">စီအာ၊ စီအာအယ်အက်ဖ်၊ အယ်အက်ဖ် စာကြောင်းအသစ်အက္ခရာထောက်ပံ့မှု</li>
@@ -359,6 +365,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ia">Supporto de codifica (utf-8, utf-16, ascii etc.)</li>
       <li xml:lang="id">Dukungan pengkodean (utf-8, utf-16, ascii dll.)</li>
       <li xml:lang="it">Supporto di codifica (utf-8, utf-16, ascii, ecc.)</li>
+      <li xml:lang="ka">კოდირების მხარდაჭერა (utf-8, utf-16, ascii და ა.შ.)</li>
       <li xml:lang="ko">인코딩 지원(UTF-8, UTF-16, ASCII 등)</li>
       <li xml:lang="ml">എൻകോഡിംഗ് പിന്തുണ (utf-8, utf-16, ascii etc.)</li>
       <li xml:lang="my">ကုတ်ဝှက်စနစ် ထောက်ပံ့မှု (ယူတီအက်ဖ်-၈၊ ယူတီအက်ဖ်-၁၆၊ အေအက်စ်စီအိုင်အိုင်၊ စသည်)</li>
@@ -405,6 +412,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ia">Conversion de codifica</li>
       <li xml:lang="id">Konversi pengkodean</li>
       <li xml:lang="it">Conversione di codifica</li>
+      <li xml:lang="ka">კოდირების გადაყვანა</li>
       <li xml:lang="ko">인코딩 변환</li>
       <li xml:lang="ml">എൻകോഡിംഗ് പരിവർത്തനം</li>
       <li xml:lang="my">ကုတ်ဝှက်စနစ် ပြောင်းလဲခြင်း</li>
@@ -496,6 +504,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ia">Potente evidentiation de syntaxhe e coincidentia de parenthesis</li>
       <li xml:lang="id">Penyorotan sintaks dan pencocokan tandakurungsiku yang ampuh</li>
       <li xml:lang="it">Potente evidenziazione della sintassi e verifica delle parentesi</li>
+      <li xml:lang="ka">მძლავრი კოდის გამოკვეთისა და ბრჭყალების დამთხვევის ძრავი</li>
       <li xml:lang="ko">강력한 구문 강조 및 괄호 일치</li>
       <li xml:lang="ml">ശക്തിയേറിയ സിന്റാക്സ് പ്രധാനീകരിക്കലും ബ്രാക്കറ്റ് ചേർച്ചയും</li>
       <li xml:lang="nb">Kraftig syntaksfremheving og parentesparing</li>
@@ -539,6 +548,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ia">Codice e texto plicabile</li>
       <li xml:lang="id">Pelipatan kode dan teks</li>
       <li xml:lang="it">Raggruppamento del codice e del testo</li>
+      <li xml:lang="ka">კოდისა და ტექსტის აკეცვა</li>
       <li xml:lang="ko">코드 및 텍스트 접기</li>
       <li xml:lang="ml">കോഡും അക്ഷര മടക്കലും</li>
       <li xml:lang="my">ကုတ်နှင့် စာသား ခေါက်ခြင်း</li>
@@ -586,6 +596,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ia">Supporto per annullation e re-facer infinite</li>
       <li xml:lang="id">Dukungan urung/ulang tak terbatas</li>
       <li xml:lang="it">Supporto annulla/rifai infinito</li>
+      <li xml:lang="ka">უსასრულო გაუქმება/გამეორების მხარდაჭერა</li>
       <li xml:lang="ko">무한 실행 취소/다시 실행 지원</li>
       <li xml:lang="ml">അനന്തമായ നിഷ്‍ഫലമാക്കൽ / വീണ്ടും ചെയ്യൽ പിന്തുണ</li>
       <li xml:lang="my">အကန့်အသတ်မရှိ ပြန်ဆုတ်/ပြန်လုပ် နိုင်ခြင်း</li>
@@ -633,6 +644,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ia">Modo de selection de bloco</li>
       <li xml:lang="id">Mode seleksi blok</li>
       <li xml:lang="it">Modalità di selezione a blocchi</li>
+      <li xml:lang="ka">ბლოკის მონიშვნის რეჟიმი</li>
       <li xml:lang="ko">블록 선택 모드</li>
       <li xml:lang="ml">ബ്ലോക്ക് തെരഞ്ഞെടുക്കൽ രീതി</li>
       <li xml:lang="my">အကွက်ရွေးချယ်မှုထုံးနည်း</li>
@@ -681,6 +693,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ia">Auto indentation</li>
       <li xml:lang="id">Indentasi otomatis</li>
       <li xml:lang="it">Rientro automatico</li>
+      <li xml:lang="ka">ავტომატური სწორება</li>
       <li xml:lang="ko">자동 들여쓰기</li>
       <li xml:lang="ml">സ്വയം അകലക്രമീകരണം</li>
       <li xml:lang="my">အလိုအလျောက်-အင်တင်းလုပ်ခြင်း</li>
@@ -727,6 +740,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ia">Supporto de auto completion</li>
       <li xml:lang="id">Dukungan penyelesaian otomatis</li>
       <li xml:lang="it">Supporto completamento automatico</li>
+      <li xml:lang="ka">სიტყვების ავტომატური დასრულების მხარდაჭერა</li>
       <li xml:lang="ko">자동 완성 지원</li>
       <li xml:lang="ml">സ്വയ പൂർത്തീകരണ പിന്തുണ</li>
       <li xml:lang="my">စကားလုံး အလိုလိုပြီးစေခြင်း</li>
@@ -774,6 +788,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ia">Integration de shell</li>
       <li xml:lang="id">Integrasi dengan Shell</li>
       <li xml:lang="it">Integrazione con la shell</li>
+      <li xml:lang="ka">გარსთან ინტეგრაცია</li>
       <li xml:lang="ko">셸 통합</li>
       <li xml:lang="ml">ഷെൽ ഏകീകരണം</li>
       <li xml:lang="nb">Skall-integrasjon</li>
@@ -820,6 +835,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ia">Supporto de protocollo large (http, ftp, ssh, webdav etc.) usante kioslaves</li>
       <li xml:lang="id">Dukungan protokol yang luas (http, ftp, ssh, webdav dll.) menggunakan kioslaves</li>
       <li xml:lang="it">Ampio supporto di protocolli (http, ftp, ssh, WebDAV, ecc.) utilizzando i kioslave</li>
+      <li xml:lang="ka">Kioslave-ის გამოყენებით მრავალი (http, ftp, ssh, WebDAV და სხვა) პროტოკოლის მხარდაჭერა</li>
       <li xml:lang="ko">KIO 슬레이브를 사용한 다양한 프로토콜 지원(HTTP, FTP, SSH, WebDAV 등)</li>
       <li xml:lang="ml">kioslaves ഉപയോഗിച്ചുള്ള വിസ്തൃതമായ നിയമാവലി പിന്തുണ (http, ftp, ssh, webdav etc.)</li>
       <li xml:lang="nb">Bred protokollstøtte (http, ftp, ssh, webdav osv.) ved bruk av kioslaver</li>
@@ -865,6 +881,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ia">Archiutectura de plugin per le componente de editor e application</li>
       <li xml:lang="id">Arsitektur pengaya untuk aplikasi dan komponen penyunting</li>
       <li xml:lang="it">Architettura con estensioni per i componenti dell'applicazione e dell'editor</li>
+      <li xml:lang="ka">გაფართოებების მხარდაჭერის მქონე აპლიკაციისა და რედაქტორის კომპონენტი</li>
       <li xml:lang="ko">프로그램과 편집기 구성 요소 플러그인 구조</li>
       <li xml:lang="ml">ആപ്ലിക്കേഷനും ചിട്ടപ്പെടുത്തൽ ഉപകരണത്തിനും പ്ലഗ് ഇൻ രൂപകല്പന</li>
       <li xml:lang="nb">Modularkitektur for programmet og redigeringskomponenten</li>
@@ -911,6 +928,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ia">Vias breve personalisabile</li>
       <li xml:lang="id">Pintasan dapat dikustomisasi</li>
       <li xml:lang="it">Scorciatoie personalizzabili</li>
+      <li xml:lang="ka">მორგებადი მალსახმობები</li>
       <li xml:lang="ko">사용자 정의 가능한 단축키</li>
       <li xml:lang="ml">അഭിരുചിക്കനുസൃതമാക്കാവുന്ന കുറുക്കുവഴികൾ</li>
       <li xml:lang="my">စိတ်ကြိုက်ပြင်ဆင်နိုင်သော ဖြတ်လမ်းများ</li>
@@ -958,6 +976,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ia">Linea de commando integrate</li>
       <li xml:lang="id">Baris perintah yang terintegrasi</li>
       <li xml:lang="it">Riga di comando integrata</li>
+      <li xml:lang="ka">ინტეგრირებული ბრძანების სტრიქონი</li>
       <li xml:lang="ko">내장 명령행</li>
       <li xml:lang="ml">ഏകീകരിച്ച ആജ്ഞാസ്ഥാനം</li>
       <li xml:lang="nb">Integrert kommandolinje</li>
@@ -1004,6 +1023,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ia">Scribibile per scripts usante JavaScript</li>
       <li xml:lang="id">Skrip menggunakan JavaScript</li>
       <li xml:lang="it">Creazione di script con JavaScript</li>
+      <li xml:lang="ka">შეგიძლიათ დასკრიპტოთ JavaScript-ით</li>
       <li xml:lang="ko">JavaScript를 사용한 스크립트</li>
       <li xml:lang="ml">ജാവാസ്ക്രിപ്റ്റ് ഉപയോഗിച്ച് സ്ക്രിപ്റ്റ് ചെയ്യാവുന്നത്</li>
       <li xml:lang="my">ဂျာဗားစခရစ် သုံး၍ ညွှန်ကြားကုတ်ရေးသားနိုင်ခြင်း</li>
@@ -1056,6 +1076,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="ia">Modificante codice con Kate</caption>
       <caption xml:lang="id">Pengeditan kode menggunakan Kate</caption>
       <caption xml:lang="it">Modificare il codice con Kate</caption>
+      <caption xml:lang="ka">KWrite-ის საშუალებით კოდის რედაქტირება</caption>
       <caption xml:lang="ko">Kate로 코드 편집</caption>
       <caption xml:lang="ml">കെയ്റ്റ് ഉപയോഗിച്ചുള്ള കോഡ് ചിട്ടപ്പെടുത്തൽ</caption>
       <caption xml:lang="my">ကိတ်ဖြင့် ကုတ်တည်းဖြတ်ခြင်း</caption>

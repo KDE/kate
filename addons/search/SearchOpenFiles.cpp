@@ -122,7 +122,7 @@ int SearchOpenFiles::searchSingleLineRegExp(KTextEditor::Document *doc, const QR
                                               match.captured(),
                                               postContext,
                                               QString(),
-                                              KTextEditor::Range{line, column, line, column + match.capturedLength()},
+                                              KTextEditor::Range{line, column, line, int(column + match.capturedLength())},
                                               true,
                                               true});
             match = regExp.match(doc->line(line), column + match.capturedLength());

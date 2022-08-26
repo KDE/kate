@@ -102,7 +102,7 @@ QVector<KateSearchMatch> SearchDiskFiles::searchSingleLineRegExp(QFile &file)
                                               match.captured(),
                                               postContext,
                                               QString(),
-                                              KTextEditor::Range{currentLineNumber, column, currentLineNumber, column + match.capturedLength()},
+                                              KTextEditor::Range{currentLineNumber, column, currentLineNumber, int(column + match.capturedLength())},
                                               true,
                                               true});
 

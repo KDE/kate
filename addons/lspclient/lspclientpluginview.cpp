@@ -230,7 +230,7 @@ public:
             if (lastSlash != -1) {
                 QTextCharFormat fmt;
                 fmt.setFontWeight(QFont::Bold);
-                formats.append({lastSlash + 1, text.length() - (lastSlash + 1), fmt});
+                formats.append({lastSlash + 1, int(text.length() - (lastSlash + 1)), fmt});
             }
         } else {
             // mind translation; let's hope/assume the colon survived
@@ -242,7 +242,7 @@ public:
                 QTextCharFormat fmt;
                 fmt.setFont(m_monoFont);
                 int codeStart = nextColon + 1;
-                formats.append({codeStart, text.length() - codeStart, fmt});
+                formats.append({codeStart, int(text.length() - codeStart), fmt});
             }
         }
 

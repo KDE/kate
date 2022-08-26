@@ -105,17 +105,17 @@ void KateSQLView::setupActions()
     KActionCollection *collection = actionCollection();
 
     action = collection->addAction(QStringLiteral("connection_create"));
-    action->setText(i18nc("@action:inmenu", "Add connection..."));
+    action->setText(i18nc("@action:inmenu", "Add Connection..."));
     action->setIcon(QIcon::fromTheme(QStringLiteral("list-add")));
     connect(action, &QAction::triggered, this, &KateSQLView::slotConnectionCreate);
 
     action = collection->addAction(QStringLiteral("connection_remove"));
-    action->setText(i18nc("@action:inmenu", "Remove connection"));
+    action->setText(i18nc("@action:inmenu", "Remove Connection"));
     action->setIcon(QIcon::fromTheme(QStringLiteral("list-remove")));
     connect(action, &QAction::triggered, this, &KateSQLView::slotConnectionRemove);
 
     action = collection->addAction(QStringLiteral("connection_edit"));
-    action->setText(i18nc("@action:inmenu", "Edit connection..."));
+    action->setText(i18nc("@action:inmenu", "Edit Connection..."));
     action->setIcon(QIcon::fromTheme(QStringLiteral("configure")));
     connect(action, &QAction::triggered, this, &KateSQLView::slotConnectionEdit);
 
@@ -130,7 +130,7 @@ void KateSQLView::setupActions()
     wa->setDefaultWidget(m_connectionsComboBox);
 
     action = collection->addAction(QStringLiteral("query_run"));
-    action->setText(i18nc("@action:inmenu", "Run query"));
+    action->setText(i18nc("@action:inmenu", "Run Query"));
     action->setIcon(QIcon::fromTheme(QStringLiteral("quickopen")));
     connect(action, &QAction::triggered, this, &KateSQLView::slotRunQuery);
 

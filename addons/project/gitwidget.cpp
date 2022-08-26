@@ -228,7 +228,7 @@ GitWidget::GitWidget(KateProject *project, KTextEditor::MainWindow *mainWindow, 
     m_commitBtn->setToolTip(commitText);
     m_commitBtn->setMinimumHeight(16);
 
-    const QString &pushText = i18n("Git push");
+    const QString &pushText = i18n("Git Push");
     m_pushBtn = toolButton();
     auto a = ac->addAction(QStringLiteral("vcs_push"), this, [this]() {
         PushPullDialog ppd(m_mainWin, m_activeGitDirPath);
@@ -240,7 +240,7 @@ GitWidget::GitWidget(KateProject *project, KTextEditor::MainWindow *mainWindow, 
     a->setToolTip(pushText);
     m_pushBtn->setDefaultAction(a);
 
-    const QString &pullText = i18n("Git pull");
+    const QString &pullText = i18n("Git Pull");
     m_pullBtn = toolButton(QStringLiteral("vcs-pull"), pullText);
     a = ac->addAction(QStringLiteral("vcs_pull"), this, [this]() {
         PushPullDialog ppd(m_mainWin, m_activeGitDirPath);
@@ -1018,7 +1018,7 @@ void GitWidget::buildMenu(KActionCollection *ac)
         branchCompareFiles(branch, QString());
     });
     a->setIcon(QIcon::fromTheme(QStringLiteral("vcs-diff")));
-    a->setText(i18n("Compare Branch with ..."));
+    a->setText(i18n("Compare Branch with..."));
     m_gitMenu->addAction(a);
 
     auto stashMenu = m_gitMenu->addAction(QIcon::fromTheme(QStringLiteral("vcs-stash")), i18n("Stash"));
@@ -1167,11 +1167,11 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
         const bool staged = statusItemType == GitStatusModel::NodeStage;
         const bool untracked = statusItemType == GitStatusModel::NodeUntrack;
 
-        auto openFile = menu.addAction(i18n("Open file"));
-        auto showDiffAct = untracked ? nullptr : menu.addAction(QIcon::fromTheme(QStringLiteral("vcs-diff")), i18n("Show raw diff"));
-        auto launchDifftoolAct = untracked ? nullptr : menu.addAction(QIcon::fromTheme(QStringLiteral("kdiff3")), i18n("Show in external git diff tool"));
+        auto openFile = menu.addAction(i18n("Open File"));
+        auto showDiffAct = untracked ? nullptr : menu.addAction(QIcon::fromTheme(QStringLiteral("vcs-diff")), i18n("Show Raw Diff"));
+        auto launchDifftoolAct = untracked ? nullptr : menu.addAction(QIcon::fromTheme(QStringLiteral("kdiff3")), i18n("Show in External Git Diff Tool"));
         auto openAtHead = untracked ? nullptr : menu.addAction(i18n("Open at HEAD"));
-        auto stageAct = staged ? menu.addAction(i18n("Unstage file")) : menu.addAction(i18n("Stage file"));
+        auto stageAct = staged ? menu.addAction(i18n("Unstage File")) : menu.addAction(i18n("Stage File"));
         auto discardAct = staged ? nullptr : untracked ? menu.addAction(i18n("Remove")) : menu.addAction(i18n("Discard"));
         if (discardAct) {
             discardAct->setIcon(QIcon::fromTheme(QStringLiteral("edit-delete-remove")));
@@ -1210,7 +1210,7 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
     } else if (treeItem == GitStatusModel::NodeStage) {
         QMenu menu;
         auto stage = menu.addAction(i18n("Unstage All"));
-        auto diff = menu.addAction(i18n("Show diff"));
+        auto diff = menu.addAction(i18n("Show Diff"));
         auto model = m_treeView->model();
         bool disable = model->rowCount(idx) == 0;
         stage->setDisabled(disable);

@@ -339,7 +339,7 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
     connect(a, &QAction::triggered, this, &KatePluginSearchView::openSearchView);
 
     a = actionCollection()->addAction(QStringLiteral("search_in_files_new_tab"));
-    a->setText(i18n("Find in Files (in new tab)"));
+    a->setText(i18n("Find in Files (in a New Tab)"));
     // first add tab, then open search view, since open search view switches to show the search options
     connect(a, &QAction::triggered, this, &KatePluginSearchView::addTab);
     connect(a, &QAction::triggered, this, &KatePluginSearchView::openSearchView);

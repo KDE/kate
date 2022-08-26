@@ -126,11 +126,11 @@ KateFileTree::KateFileTree(QWidget *parent)
     connect(m_filelistCloseDocument, &QAction::triggered, this, &KateFileTree::slotDocumentClose);
     m_filelistCloseDocument->setWhatsThis(i18n("Close the current document."));
 
-    m_filelistExpandRecursive = new QAction(QIcon::fromTheme(QStringLiteral("view-list-tree")), i18nc("@action:inmenu", "Expand recursively"), this);
+    m_filelistExpandRecursive = new QAction(QIcon::fromTheme(QStringLiteral("view-list-tree")), i18nc("@action:inmenu", "Expand Recursively"), this);
     connect(m_filelistExpandRecursive, &QAction::triggered, this, &KateFileTree::slotExpandRecursive);
     m_filelistExpandRecursive->setWhatsThis(i18n("Expand the file list sub tree recursively."));
 
-    m_filelistCollapseRecursive = new QAction(QIcon::fromTheme(QStringLiteral("view-list-tree")), i18nc("@action:inmenu", "Collapse recursively"), this);
+    m_filelistCollapseRecursive = new QAction(QIcon::fromTheme(QStringLiteral("view-list-tree")), i18nc("@action:inmenu", "Collapse Recursively"), this);
     connect(m_filelistCollapseRecursive, &QAction::triggered, this, &KateFileTree::slotCollapseRecursive);
     m_filelistCollapseRecursive->setWhatsThis(i18n("Collapse the file list sub tree recursively."));
 

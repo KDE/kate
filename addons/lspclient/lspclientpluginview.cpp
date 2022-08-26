@@ -673,32 +673,32 @@ public:
 
         // diagnostics
         m_diagnostics = actionCollection()->addAction(QStringLiteral("lspclient_diagnostics"), this, &self_type::displayOptionChanged);
-        m_diagnostics->setText(i18n("Show diagnostics notifications"));
+        m_diagnostics->setText(i18n("Show Diagnostics Notifications"));
         m_diagnostics->setCheckable(true);
         m_diagnosticsHighlight = actionCollection()->addAction(QStringLiteral("lspclient_diagnostics_highlight"), this, &self_type::displayOptionChanged);
-        m_diagnosticsHighlight->setText(i18n("Show diagnostics highlights"));
+        m_diagnosticsHighlight->setText(i18n("Show Diagnostics Highlights"));
         m_diagnosticsHighlight->setCheckable(true);
         m_diagnosticsMark = actionCollection()->addAction(QStringLiteral("lspclient_diagnostics_mark"), this, &self_type::displayOptionChanged);
-        m_diagnosticsMark->setText(i18n("Show diagnostics marks"));
+        m_diagnosticsMark->setText(i18n("Show Diagnostics Marks"));
         m_diagnosticsMark->setCheckable(true);
         m_diagnosticsHover = actionCollection()->addAction(QStringLiteral("lspclient_diagnostics_hover"), this, &self_type::displayOptionChanged);
-        m_diagnosticsHover->setText(i18n("Show diagnostics on hover"));
+        m_diagnosticsHover->setText(i18n("Show Diagnostics on Hover"));
         m_diagnosticsHover->setCheckable(true);
         m_diagnosticsSwitch = actionCollection()->addAction(QStringLiteral("lspclient_diagnostic_switch"), this, &self_type::switchToDiagnostics);
-        m_diagnosticsSwitch->setText(i18n("Switch to diagnostics tab"));
+        m_diagnosticsSwitch->setText(i18n("Switch to Diagnostics Tab"));
 
         // messages
         m_messages = actionCollection()->addAction(QStringLiteral("lspclient_messages"), this, &self_type::displayOptionChanged);
-        m_messages->setText(i18n("Show messages"));
+        m_messages->setText(i18n("Show Messages"));
         m_messages->setCheckable(true);
 
         // extra
         m_memoryUsage = actionCollection()->addAction(QStringLiteral("lspclient_clangd_memoryusage"), this, &self_type::clangdMemoryUsage);
-        m_memoryUsage->setText(i18n("Server memory usage"));
+        m_memoryUsage->setText(i18n("Server Memory Usage"));
 
         // server control and misc actions
         m_closeDynamic = actionCollection()->addAction(QStringLiteral("lspclient_close_dynamic"), this, &self_type::closeDynamic);
-        m_closeDynamic->setText(i18n("Close all dynamic reference tabs"));
+        m_closeDynamic->setText(i18n("Close All Dynamic Reference Tabs"));
         m_restartServer = actionCollection()->addAction(QStringLiteral("lspclient_restart_server"), this, &self_type::restartCurrent);
         m_restartServer->setText(i18n("Restart LSP Server"));
         m_restartAll = actionCollection()->addAction(QStringLiteral("lspclient_restart_all"), this, &self_type::restartAll);

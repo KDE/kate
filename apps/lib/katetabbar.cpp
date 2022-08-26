@@ -84,6 +84,23 @@ void KateTabBar::readConfig()
                 }
                 removeTab(documentIdx(doc));
             }
+        } else if (m_docToLruCounterAndHasTab.size() > (size_t)docList.size()) {
+            // populate N recently user documents
+            std::map<quint64, KTextEditor::Document*, std::greater<quint64>> mruDocs;
+            for (const auto &i : m_docToLruCounterAndHasTab) {
+                KTextEditor::Document *doc = i.first;
+                if (!docList.contains(doc)) {
+                    mruDocs[i.second.first] = doc;
+                }
+            }
+            int toAdd = m_tabCountLimit - docList.count();
+            for (const auto &i : mruDocs) {
+                if (toAdd-- == 0) {
+                    break;
+                }
+                KTextEditor::Document *doc = i.second;
+                setTabDocument(addTab(doc->documentName()), doc);
+            }
         }
     }
 

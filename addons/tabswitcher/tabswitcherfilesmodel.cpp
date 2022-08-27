@@ -40,16 +40,13 @@ QString FilenameListItem::fullPath() const
 }
 
 /**
- * Note that if strs contains the empty string, the result will be ""
+ * Note that if strs contains less than 2 items, the result will be an empty string.
  */
 QString longestCommonPrefix(std::vector<QString> const &strs)
 {
-    if (strs.empty()) {
+    // only 2 or more items can have a common prefix
+    if (strs.size() < 2) {
         return QString();
-    }
-
-    if (strs.size() == 1) {
-        return strs.front();
     }
 
     // get the min length

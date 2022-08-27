@@ -67,4 +67,11 @@ void KateTabSwitcherTest::testLongestCommonPrefix_data()
     strs.push_back(QStringLiteral("/home/autolink"));
     strs.push_back(QStringLiteral("/home/async"));
     QTest::newRow("find correct path prefix") << strs << QStringLiteral("/home/");
+
+    strs.clear();
+    QTest::newRow("empty list") << strs << QString();
+
+    strs.clear();
+    strs.push_back(QStringLiteral("/home/a"));
+    QTest::newRow("list with one item") << strs << QString();
 }

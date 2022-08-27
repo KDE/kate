@@ -541,6 +541,11 @@ void Sidebar::readConfig()
         m_syncWithTabs = syncWithTabs;
         needsUpdate = true;
     }
+    // Ignore the option for the bottom bar! Due to it's special design would that never looks good
+    if (position() == KMultiTabBar::Bottom) {
+        m_syncWithTabs = false;
+        needsUpdate = false;
+    }
 
     // shall we show text for the left and right bars?
     const bool showTextForLeftRight = cgGeneral.readEntry("Show text for left and right sidebar", false);

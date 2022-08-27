@@ -144,6 +144,7 @@ void KateConfigDialog::addBehaviorPage()
     // modified files notification
     m_modNotifications = new QCheckBox(i18n("Use a separate &dialog for handling externally modified files"), buttonGroup);
     m_modNotifications->setChecked(m_mainWindow->modNotificationEnabled());
+    m_modNotifications->setCursor(Qt::WhatsThisCursor);
     m_modNotifications->setWhatsThis(
         i18n("If enabled, a modal dialog will be used to show all of the modified files. "
              "If not enabled, you will be individually asked what to do for each modified file "
@@ -153,14 +154,16 @@ void KateConfigDialog::addBehaviorPage()
     vbox->addWidget(m_modNotifications);
     buttonGroup->setLayout(vbox);
 
-    // show text for the left and right sidebars?
-    // only useful for Kate
     if (KateApp::isKate()) {
         QGroupBox *buttonGroup = new QGroupBox(i18n("&Sidebars"), generalFrame);
         layout->addWidget(buttonGroup);
         QVBoxLayout *vbox = new QVBoxLayout;
         m_syncSectionSizeWithSidebarTabs = new QCheckBox(i18n("Sync section size with tab positions"), buttonGroup);
         m_syncSectionSizeWithSidebarTabs->setChecked(cgGeneral.readEntry("Sync section size with tab positions", false));
+        m_syncSectionSizeWithSidebarTabs->setCursor(Qt::WhatsThisCursor);
+        m_syncSectionSizeWithSidebarTabs->setWhatsThis(
+            i18n("When enabled the section size will be determined by the position of the tabs.\n"
+                 "This option does not affect the bottom sidebar."));
         connect(m_syncSectionSizeWithSidebarTabs, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
         vbox->addWidget(m_syncSectionSizeWithSidebarTabs);
 

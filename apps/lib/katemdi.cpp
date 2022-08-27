@@ -546,6 +546,19 @@ void Sidebar::readConfig()
         m_syncWithTabs = false;
         needsUpdate = false;
     }
+    if (m_syncWithTabs && needsUpdate) {
+        // Give the user an immediate feedback that the option has an effect, works not perfect
+        // when some section is not active, but may better that to do nothing
+        QList<int> wsizes = m_ownSplit->sizes();
+        for (int i = 0; i < wsizes.count(); ++i) {
+            if (wsizes.at(i) == 0) {
+                wsizes[i] = tabBar(i)->sectionSize();
+            }
+        }
+        setSizes(wsizes);
+        adjustSplitterSections();
+        needsUpdate = false;
+    }
 
     // shall we show text for the left and right bars?
     const bool showTextForLeftRight = cgGeneral.readEntry("Show text for left and right sidebar", false);

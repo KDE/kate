@@ -59,11 +59,12 @@ bool KateProjectModel::dropMimeData(const QMimeData *data, Qt::DropAction action
     }
 
     const auto urls = data->urls();
-    const QUrl dest = QUrl::fromLocalFile(d.absolutePath());
+    const QString destDir = d.absolutePath();
+    const QUrl dest = QUrl::fromLocalFile(destDir);
     QPointer<KIO::CopyJob> job = KIO::copy(urls, dest);
     KJobWidgets::setWindow(job, QApplication::activeWindow());
-    connect(job, &KIO::Job::finished, this, [this, job, destDir = d.absolutePath()] {
-        if (!job || job->error() != 0)
+    connect(job, &KIO::Job::finished, this, [this, job, destDir] {
+        if (!job || job->error() != 0 || !m_project)
             return;
 
         bool needsReload = false;

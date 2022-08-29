@@ -14,6 +14,7 @@
 #include <KTextEditor/ModificationInterface>
 
 #include <QHash>
+#include <QPointer>
 #include <QSharedPointer>
 #include <QTextDocument>
 
@@ -33,7 +34,7 @@ public:
 
 private:
     friend class KateProject;
-    class KateProject *m_project = nullptr;
+    QPointer<class KateProject> m_project;
 };
 
 /**

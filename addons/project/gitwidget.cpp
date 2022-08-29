@@ -641,34 +641,34 @@ void GitWidget::showDiff(const QString &file, bool staged)
             sendMessage(i18n("Failed to get Diff of file: %1", QString::fromUtf8(git->readAllStandardError())), true);
         } else {
             auto addContextMenuActions = [this, file, staged](KTextEditor::View *v) {
-                auto m = v->contextMenu();
+                QMenu *menu = new QMenu(v);
                 if (!staged) {
-                    QMenu *menu = new QMenu(v);
                     auto sh = menu->addAction(i18n("Stage Hunk"));
                     auto sl = menu->addAction(i18n("Stage Lines"));
-                    menu->addActions(m->actions());
-                    v->setContextMenu(menu);
+                    auto dl = menu->addAction(i18n("Discard Lines"));
 
                     connect(sh, &QAction::triggered, v, [=] {
-                        applyDiff(file, false, true, v);
+                        applyDiff(file, ApplyFlags::Hunk, v);
                     });
                     connect(sl, &QAction::triggered, v, [=] {
-                        applyDiff(file, false, false, v);
+                        applyDiff(file, ApplyFlags::None, v);
+                    });
+                    connect(dl, &QAction::triggered, v, [=] {
+                        applyDiff(file, ApplyFlags::Discard, v);
                     });
                 } else {
-                    QMenu *menu = new QMenu(v);
                     auto ush = menu->addAction(i18n("Unstage Hunk"));
                     auto usl = menu->addAction(i18n("Unstage Lines"));
-                    menu->addActions(m->actions());
-                    v->setContextMenu(menu);
 
                     connect(ush, &QAction::triggered, v, [=] {
-                        applyDiff(file, true, true, v);
+                        applyDiff(file, ApplyFlags(Staged | Hunk), v);
                     });
                     connect(usl, &QAction::triggered, v, [=] {
-                        applyDiff(file, true, false, v);
+                        applyDiff(file, ApplyFlags::Staged, v);
                     });
                 }
+                menu->addActions(v->contextMenu()->actions());
+                v->setContextMenu(menu);
             };
 
             m_pluginView->showDiffInFixedView(git->readAllStandardOutput(), addContextMenuActions);
@@ -749,13 +749,13 @@ QString GitWidget::getDiff(KTextEditor::View *v, bool hunk, bool alreadyStaged)
     return selected.diff();
 }
 
-void GitWidget::applyDiff(const QString &fileName, bool staged, bool hunk, KTextEditor::View *v)
+void GitWidget::applyDiff(const QString &fileName, ApplyFlags flags, KTextEditor::View *v)
 {
     if (!v) {
         return;
     }
 
-    const QString diff = getDiff(v, hunk, staged);
+    const QString diff = getDiff(v, flags & Hunk, flags & (Staged | Discard));
     if (diff.isEmpty()) {
         return;
     }
@@ -768,7 +768,12 @@ void GitWidget::applyDiff(const QString &fileName, bool staged, bool hunk, KText
     file->write(diff.toUtf8());
     file->close();
 
-    auto git = gitp({QStringLiteral("apply"), QStringLiteral("--index"), QStringLiteral("--cached"), file->fileName()});
+    QProcess *git = nullptr;
+    if (flags & Discard) {
+        git = gitp({QStringLiteral("apply"), file->fileName()});
+    } else {
+        git = gitp({QStringLiteral("apply"), QStringLiteral("--index"), QStringLiteral("--cached"), file->fileName()});
+    }
 
     connect(git, &QProcess::finished, this, [=](int exitCode, QProcess::ExitStatus es) {
         if (es != QProcess::NormalExit || exitCode != 0) {
@@ -776,7 +781,7 @@ void GitWidget::applyDiff(const QString &fileName, bool staged, bool hunk, KText
         } else {
             // close and reopen doc to show updated diff
             if (v && v->document()) {
-                showDiff(fileName, staged);
+                showDiff(fileName, flags & Staged);
             }
             // must come at the end
             QTimer::singleShot(10, this, [this] {

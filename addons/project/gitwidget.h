@@ -127,7 +127,8 @@ private:
     void showDiff(const QString &file, bool staged);
     void launchExternalDiffTool(const QString &file, bool staged);
     void commitChanges(const QString &msg, const QString &desc, bool signOff, bool amend = false);
-    void applyDiff(const QString &fileName, bool staged, bool hunk, KTextEditor::View *v);
+    enum ApplyFlags { None = 0, Staged = 1, Hunk = 2, Discard = 4 };
+    void applyDiff(const QString &fileName, ApplyFlags flags, KTextEditor::View *v);
     void branchCompareFiles(const QString &from, const QString &to);
 
     QMenu *stashMenu(KActionCollection *pCollection);

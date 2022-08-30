@@ -72,6 +72,8 @@
 #include <QTimer>
 #include <QToolButton>
 
+#include "diffwidget.h"
+
 #include <ktexteditor/sessionconfiginterface.h>
 
 // END
@@ -1303,6 +1305,22 @@ void KateMainWindow::addWidgetAsTab(QWidget *widget)
 {
     auto vs = m_viewManager->activeViewSpace();
     vs->addWidgetAsTab(widget);
+}
+
+void KateMainWindow::showWordDiff(const QByteArray &wordDiff, const QString &fileName1, const QString &fileName2)
+{
+    auto getFileName = [](const QString &s) {
+        int lastSlash = s.lastIndexOf(QLatin1Char('/'));
+        return lastSlash == -1 ? s : s.mid(lastSlash + 1);
+    };
+
+    auto w = new DiffWidget(this);
+    if (fileName2.isEmpty())
+        w->setWindowTitle(i18n("Diff %1", getFileName(fileName1)));
+    else
+        w->setWindowTitle(i18n("Diff %1..%2", getFileName(fileName1), getFileName(fileName2)));
+    addWidgetAsTab(w);
+    w->openWordDiff(wordDiff);
 }
 
 void KateMainWindow::mousePressEvent(QMouseEvent *e)

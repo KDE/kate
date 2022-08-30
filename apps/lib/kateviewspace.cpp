@@ -7,6 +7,7 @@
 */
 #include "kateviewspace.h"
 
+#include "diffwidget.h"
 #include "kateapp.h"
 #include "katedebug.h"
 #include "katedocmanager.h"
@@ -18,9 +19,8 @@
 #include "kateviewmanager.h"
 #include "tabmimedata.h"
 
-#include <KActionCollection>
-
 #include <KAcceleratorManager>
+#include <KActionCollection>
 #include <KConfigGroup>
 #include <KLocalizedString>
 #include <KSharedConfig>
@@ -877,6 +877,8 @@ void KateViewSpace::showContextMenu(int idx, const QPoint &globalPos)
     }
 
     auto *doc = m_tabBar->tabDocument(idx);
+    auto activeDocument =
+        KTextEditor::Editor::instance()->application()->activeMainWindow()->activeView()->document(); // used for mCompareWithActive which is used with another
     if (!doc) {
         // This tab is holding some other widget
         // Show only "close tab" for now
@@ -911,6 +913,14 @@ void KateViewSpace::showContextMenu(int idx, const QPoint &globalPos)
     QAction *aRenameFile = addActionFromCollection(&menu, "file_rename");
     QAction *aDeleteFile = addActionFromCollection(&menu, "file_delete");
     menu.addSeparator();
+    QAction *compare = menu.addAction(i18n("Compare with active document"));
+    connect(compare, &QAction::triggered, this, [this, activeDocument, doc] {
+        auto w = new DiffWidget(this);
+        w->setWindowTitle(i18n("Diff %1 .. %2", activeDocument->documentName(), doc->documentName()));
+        w->diffDocs(activeDocument, doc);
+        addWidgetAsTab(w);
+    });
+    compare->setVisible(doc != activeDocument);
     QMenu *mCompareWithActive = new QMenu(i18n("Compare with active document"), &menu);
     mCompareWithActive->setIcon(QIcon::fromTheme(QStringLiteral("vcs-diff")));
     menu.addMenu(mCompareWithActive);
@@ -927,9 +937,6 @@ void KateViewSpace::showContextMenu(int idx, const QPoint &globalPos)
         aFileProperties->setEnabled(false);
         mCompareWithActive->setEnabled(false);
     }
-
-    auto activeDocument =
-        KTextEditor::Editor::instance()->application()->activeMainWindow()->activeView()->document(); // used for mCompareWithActive which is used with another
                                                                                                       // tab which is not active
     // both documents must have urls and must not be the same to have the compare feature enabled
     if (activeDocument->url().isEmpty() || activeDocument == doc) {

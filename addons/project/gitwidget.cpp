@@ -623,11 +623,14 @@ void GitWidget::openAtHEAD(const QString &file)
     startHostProcess(*git, QProcess::ReadOnly);
 }
 
-void GitWidget::showDiff(const QString &file, bool staged)
+void GitWidget::showDiff(const QString &file, bool staged, bool showInKate)
 {
     auto args = QStringList{QStringLiteral("diff")};
     if (staged) {
         args.append(QStringLiteral("--staged"));
+    }
+    if (showInKate) {
+        args.append(QStringLiteral("--word-diff=porcelain"));
     }
 
     if (!file.isEmpty()) {
@@ -636,10 +639,15 @@ void GitWidget::showDiff(const QString &file, bool staged)
     }
 
     auto git = gitp(args);
-    connect(git, &QProcess::finished, this, [this, file, staged, git](int exitCode, QProcess::ExitStatus es) {
+    connect(git, &QProcess::finished, this, [this, file, staged, git, showInKate](int exitCode, QProcess::ExitStatus es) {
         if (es != QProcess::NormalExit || exitCode != 0) {
             sendMessage(i18n("Failed to get Diff of file: %1", QString::fromUtf8(git->readAllStandardError())), true);
         } else {
+            if (showInKate) {
+                auto mw = mainWindow()->window();
+                QMetaObject::invokeMethod(mw, "showWordDiff", Q_ARG(QByteArray, git->readAllStandardOutput()), Q_ARG(QString, file), Q_ARG(QString, {}));
+                return;
+            }
             auto addContextMenuActions = [this, file, staged](KTextEditor::View *v) {
                 QMenu *menu = new QMenu(v);
                 if (!staged) {
@@ -781,7 +789,7 @@ void GitWidget::applyDiff(const QString &fileName, ApplyFlags flags, KTextEditor
         } else {
             // close and reopen doc to show updated diff
             if (v && v->document()) {
-                showDiff(fileName, flags & Staged);
+                showDiff(fileName, flags & Staged, false);
             }
             // must come at the end
             QTimer::singleShot(10, this, [this] {
@@ -1173,6 +1181,7 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
         const bool untracked = statusItemType == GitStatusModel::NodeUntrack;
 
         auto openFile = menu.addAction(i18n("Open File"));
+        auto diff = untracked ? nullptr : menu.addAction(QIcon::fromTheme(QStringLiteral("vcs-diff")), i18n("Diff"));
         auto showDiffAct = untracked ? nullptr : menu.addAction(QIcon::fromTheme(QStringLiteral("vcs-diff")), i18n("Show Raw Diff"));
         auto launchDifftoolAct = untracked ? nullptr : menu.addAction(QIcon::fromTheme(QStringLiteral("kdiff3")), i18n("Show in External Git Diff Tool"));
         auto openAtHead = untracked ? nullptr : menu.addAction(i18n("Open at HEAD"));
@@ -1200,8 +1209,8 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
             }
         } else if (act == openAtHead && !untracked) {
             openAtHEAD(idx.data(GitStatusModel::FileNameRole).toString());
-        } else if (showDiffAct && act == showDiffAct && !untracked) {
-            showDiff(file, staged);
+        } else if ((showDiffAct || diff) && (act == showDiffAct || act == diff) && !untracked) {
+            showDiff(file, staged, /*showInKate=*/act == diff);
         } else if (act == discardAct && untracked) {
             auto ret = confirm(this, i18n("Are you sure you want to remove this file?"), KStandardGuiItem::remove());
             if (ret == KMessageBox::Yes) {

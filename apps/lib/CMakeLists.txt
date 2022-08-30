@@ -110,6 +110,8 @@ target_sources(
 
     data/kateprivate.qrc
     hostprocess.cpp
+
+    diffwidget.cpp
 )
 
 if(BUILD_TESTING)

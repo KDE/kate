@@ -78,7 +78,7 @@ void KateTabBar::readConfig()
                 lruDocs[m_docToLruCounterAndHasTab[doc].first] = doc;
             }
             int toRemove = docList.count() - m_tabCountLimit;
-            for (KTextEditor::Document *doc : lruDocs) {
+            for (KTextEditor::Document *doc : std::as_const(lruDocs)) {
                 if (toRemove-- == 0) {
                     break;
                 }

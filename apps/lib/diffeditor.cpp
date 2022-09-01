@@ -10,35 +10,25 @@ DiffEditor::DiffEditor(QWidget *parent)
     : QPlainTextEdit(parent)
     , m_lineNumArea(new LineNumArea(this))
 {
-    setFont(Utils::editorFont());
-    red1 = QColor("#c87872");
-    red1.setAlphaF(0.2);
-    green1 = QColor("#678528");
-    green1.setAlphaF(0.2);
-
-    auto c = QColor(254, 147, 140);
-    c.setAlphaF(0.1);
-    red2 = c;
-
-    c = QColor(166, 226, 46);
-    c.setAlphaF(0.1);
-    green2 = c;
-
     setFrameStyle(QFrame::NoFrame);
 
     auto updateEditorColors = [this](KTextEditor::Editor *e) {
         if (!e)
             return;
+        using namespace KSyntaxHighlighting;
         auto theme = e->theme();
-        auto bg = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::BackgroundColor));
-        auto fg = QColor::fromRgba(theme.textColor(KSyntaxHighlighting::Theme::TextStyle::Normal));
-        auto sel = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::TextSelection));
+        auto bg = QColor::fromRgba(theme.editorColor(Theme::EditorColorRole::BackgroundColor));
+        auto fg = QColor::fromRgba(theme.textColor(Theme::TextStyle::Normal));
+        auto sel = QColor::fromRgba(theme.editorColor(Theme::EditorColorRole::TextSelection));
         auto pal = palette();
         pal.setColor(QPalette::Base, bg);
         pal.setColor(QPalette::Text, fg);
         pal.setColor(QPalette::Highlight, sel);
         pal.setColor(QPalette::HighlightedText, fg);
+        setFont(Utils::editorFont());
         setPalette(pal);
+
+        updateDiffColors(bg.lightness() < 127);
     };
     connect(KTextEditor::Editor::instance(), &KTextEditor::Editor::configChanged, this, updateEditorColors);
     updateEditorColors(KTextEditor::Editor::instance());
@@ -51,6 +41,19 @@ DiffEditor::DiffEditor(QWidget *parent)
     });
     connect(document(), &QTextDocument::blockCountChanged, this, &DiffEditor::updateLineNumberAreaWidth);
     connect(this, &QPlainTextEdit::updateRequest, this, &DiffEditor::updateLineNumberArea);
+}
+
+void DiffEditor::updateDiffColors(bool darkMode)
+{
+    red1 = darkMode ? QColor(Qt::red).darker(150) : QColor(Qt::red).lighter(140);
+    red1.setAlphaF(0.1);
+    green1 = darkMode ? QColor(Qt::green).darker(150) : QColor(Qt::green).lighter(140);
+    green1.setAlphaF(0.1);
+
+    red2 = darkMode ? QColor(Qt::red).darker(130) : QColor(Qt::darkRed).lighter(120);
+    red2.setAlphaF(0.20);
+    green2 = darkMode ? QColor(Qt::green).darker(130) : QColor(Qt::darkGreen).lighter(120);
+    green2.setAlphaF(0.20);
 }
 
 void DiffEditor::resizeEvent(QResizeEvent *event)

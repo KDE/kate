@@ -48,6 +48,7 @@ private:
     void updateLineNumberArea(const QRect &rect, int dy);
     void updateLineNumAreaGeometry();
     void updateLineNumberAreaWidth(int);
+    void updateDiffColors(bool darkMode);
 
     QVector<LineHighlight> m_data;
     QColor red1;

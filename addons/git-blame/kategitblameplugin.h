@@ -107,7 +107,7 @@ private:
     void createToolView();
     void hideToolView();
 
-    void showDiffForFile(const QByteArray &diffContents);
+    void showDiffForFile(const QByteArray &diffContents, const QString &file);
 
     const CommitInfo &blameGetUpdateInfo(int lineNr);
 

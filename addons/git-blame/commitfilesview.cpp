@@ -456,5 +456,5 @@ void CommitDiffTreeView::showDiff(const QModelIndex &idx)
         }
     }
 
-    Q_EMIT showDiffRequested(git.readAllStandardOutput());
+    Q_EMIT showDiffRequested(git.readAllStandardOutput(), file);
 }

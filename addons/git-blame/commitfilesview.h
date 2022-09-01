@@ -36,7 +36,7 @@ public:
     void openCommit(const QString &hash, const QString &filePath);
 
     Q_SIGNAL void closeRequested();
-    Q_SIGNAL void showDiffRequested(const QByteArray &diffContents);
+    Q_SIGNAL void showDiffRequested(const QByteArray &diffContents, const QString &file);
 
 public:
     void createFileTreeForCommit(const QString &filePath, const QByteArray &rawNumStat);

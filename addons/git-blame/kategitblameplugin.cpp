@@ -584,21 +584,10 @@ void KateGitBlamePluginView::hideToolView()
     // CommitFileView will be destroyed as well as it is the child of m_ToolView
 }
 
-void KateGitBlamePluginView::showDiffForFile(const QByteArray &diffContents)
+void KateGitBlamePluginView::showDiffForFile(const QByteArray &diffContents, const QString &file)
 {
-    if (m_diffView) {
-        m_diffView->document()->setText(QString::fromUtf8(diffContents));
-        m_diffView->document()->setModified(false);
-        m_mainWindow->activateView(m_diffView->document());
-        m_diffView->setCursorPosition({0, 0});
-        return;
-    }
-    m_diffView = m_mainWindow->openUrl(QUrl());
-    m_diffView->document()->setHighlightingMode(QStringLiteral("Diff"));
-    m_diffView->document()->setText(QString::fromUtf8(diffContents));
-    m_diffView->document()->setModified(false);
-    m_mainWindow->activateView(m_diffView->document());
-    m_diffView->setCursorPosition({0, 0});
+    auto mw = m_mainWindow->window();
+    QMetaObject::invokeMethod(mw, "showDiff", Q_ARG(QByteArray, diffContents), Q_ARG(QString, file), Q_ARG(QString, {}));
 }
 
 #include "kategitblameplugin.moc"

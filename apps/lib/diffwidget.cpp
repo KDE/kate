@@ -3,8 +3,11 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 #include "diffwidget.h"
-#include "gitprocess.h"
+#include "diffeditor.h"
 #include "ktexteditor_utils.h"
+
+#include "gitprocess.h"
+
 #include <QApplication>
 #include <QHBoxLayout>
 #include <QPainter>
@@ -18,199 +21,18 @@
 #include <KSyntaxHighlighting/Repository>
 #include <KSyntaxHighlighting/SyntaxHighlighter>
 
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
-using IntT = qsizetype;
+std::pair<uint, uint> parseRange(const QString &range)
+{
+    int commaPos = range.indexOf(QLatin1Char(','));
+    if (commaPos > -1) {
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
+        return {range.midRef(0, commaPos).toInt(), range.midRef(commaPos + 1).toInt()};
 #else
-using IntT = int;
+        return {QStringView(range).sliced(0, commaPos).toInt(), QStringView(range).sliced(commaPos + 1).toInt()};
 #endif
-
-struct Change {
-    IntT pos;
-    IntT len;
-};
-
-struct LineHilight {
-    QVector<Change> changes;
-    IntT line;
-    bool added;
-};
-
-class DiffHighlighter : public QSyntaxHighlighter
-{
-public:
-    DiffHighlighter(QTextDocument *parent)
-        : QSyntaxHighlighter(parent)
-    {
     }
-
-    void highlightBlock(const QString &) override
-    {
-        auto block = currentBlock();
-        int num = block.blockNumber();
-        auto it = std::find_if(data.cbegin(), data.cend(), [num](LineHilight hl) {
-            return hl.line == num;
-        });
-        if (it != data.cend()) {
-            QColor color = it->added ? Qt::green : Qt::red;
-            const auto changes = it->changes;
-            for (const auto c : changes) {
-                setFormat(c.pos, c.len, color);
-            }
-        }
-    }
-
-    void clearData()
-    {
-        data.clear();
-    }
-    void appendData(const QVector<LineHilight> &newData)
-    {
-        data.append(newData);
-    }
-
-private:
-    QVector<LineHilight> data;
-};
-
-class DiffEditor : public QPlainTextEdit
-{
-public:
-    DiffEditor(QWidget *parent = nullptr)
-        : QPlainTextEdit(parent)
-    {
-        red1 = QColor("#c87872");
-        red1.setAlphaF(0.2);
-        green1 = QColor("#678528");
-        green1.setAlphaF(0.2);
-
-        auto c = QColor(254, 147, 140);
-        c.setAlphaF(0.1);
-        red2 = c;
-
-        c = QColor(166, 226, 46);
-        c.setAlphaF(0.1);
-        green2 = c;
-
-        auto updateEditorColors = [this](KTextEditor::Editor *e) {
-            if (!e)
-                return;
-            auto theme = e->theme();
-            auto bg = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::BackgroundColor));
-            auto fg = QColor::fromRgba(theme.textColor(KSyntaxHighlighting::Theme::TextStyle::Normal));
-            auto sel = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::TextSelection));
-            auto pal = palette();
-            pal.setColor(QPalette::Base, bg);
-            pal.setColor(QPalette::Text, fg);
-            pal.setColor(QPalette::Highlight, sel);
-            pal.setColor(QPalette::HighlightedText, fg);
-            setPalette(pal);
-        };
-        connect(KTextEditor::Editor::instance(), &KTextEditor::Editor::configChanged, this, updateEditorColors);
-        updateEditorColors(KTextEditor::Editor::instance());
-    }
-
-    void paintEvent(QPaintEvent *e) override
-    {
-        bool textPainted = false;
-        if (!getPaintContext().selections.isEmpty()) {
-            QPlainTextEdit::paintEvent(e);
-            textPainted = true;
-        }
-
-        QPainter p(viewport());
-        QPointF offset(contentOffset());
-        QTextBlock block = firstVisibleBlock();
-        const auto viewportRect = viewport()->rect();
-
-        while (block.isValid()) {
-            QRectF r = blockBoundingRect(block).translated(offset);
-            auto layout = block.layout();
-
-            auto hl = dataForLine(block.blockNumber());
-            if (hl && layout) {
-                const auto changes = hl->changes;
-                for (auto c : changes) {
-                    // full line background is colored
-                    p.fillRect(r, hl->added ? green1 : red1);
-                    QTextLine sl = layout->lineForTextPosition(c.pos);
-                    QTextLine el = layout->lineForTextPosition(c.pos + c.len);
-                    // color any word diffs
-                    if (sl.isValid() && sl.lineNumber() == el.lineNumber()) {
-                        int sx = sl.cursorToX(c.pos);
-                        int ex = el.cursorToX(c.pos + c.len);
-                        QRectF r = sl.naturalTextRect();
-                        r.setLeft(sx);
-                        r.setRight(ex);
-                        r.moveTop(offset.y() + (sl.height() * sl.lineNumber()));
-                        p.fillRect(r, hl->added ? green2 : red2);
-                    } else {
-                        QPainterPath path;
-                        int i = sl.lineNumber() + 1;
-                        int end = el.lineNumber();
-                        QRectF rect = sl.naturalTextRect();
-                        rect.setLeft(sl.cursorToX(c.pos));
-                        rect.moveTop(offset.y() + (sl.height() * sl.lineNumber()));
-                        path.addRect(rect);
-                        for (; i <= end; ++i) {
-                            auto line = layout->lineAt(i);
-                            rect = line.naturalTextRect();
-                            rect.moveTop(offset.y() + (line.height() * line.lineNumber()));
-                            if (i == end) {
-                                rect.setRight(el.cursorToX(c.pos + c.len));
-                            }
-                            path.addRect(rect);
-                        }
-                        p.fillPath(path, hl->added ? green2 : red2);
-                    }
-                }
-            }
-
-            if (block.text().startsWith(QStringLiteral("@@ "))) {
-                p.save();
-                p.setPen(Qt::red);
-                p.setBrush(Qt::NoBrush);
-                QRectF copy = r;
-                copy.setRight(copy.right() - 1);
-                p.drawRect(copy);
-                p.restore();
-            }
-
-            offset.ry() += r.height();
-            if (offset.y() > viewportRect.height()) {
-                break;
-            }
-            block = block.next();
-        }
-
-        if (!textPainted) {
-            QPlainTextEdit::paintEvent(e);
-        }
-    }
-
-    void clearData()
-    {
-        data.clear();
-    }
-    void appendData(const QVector<LineHilight> &newData)
-    {
-        data.append(newData);
-    }
-
-    const LineHilight *dataForLine(int line)
-    {
-        auto it = std::find_if(data.cbegin(), data.cend(), [line](LineHilight hl) {
-            return hl.line == line;
-        });
-        return it == data.cend() ? nullptr : &(*it);
-    }
-
-private:
-    QVector<LineHilight> data;
-    QColor red1;
-    QColor red2;
-    QColor green1;
-    QColor green2;
-};
+    return {range.toInt(), 1};
+}
 
 DiffWidget::DiffWidget(QWidget *parent)
     : QWidget(parent)
@@ -221,8 +43,6 @@ DiffWidget::DiffWidget(QWidget *parent)
     layout->addWidget(m_left);
     layout->addWidget(m_right);
 
-    m_left->setFont(Utils::editorFont());
-    m_right->setFont(Utils::editorFont());
     leftHl = new KSyntaxHighlighting::SyntaxHighlighter(m_left->document());
     rightHl = new KSyntaxHighlighting::SyntaxHighlighter(m_right->document());
     leftHl->setTheme(KTextEditor::Editor::instance()->theme());
@@ -261,7 +81,7 @@ void DiffWidget::diffDocs(KTextEditor::Document *l, KTextEditor::Document *r)
     QPointer<QProcess> git = new QProcess(this);
     setupGitProcess(*git,
                     qApp->applicationDirPath(),
-                    {QStringLiteral("diff"), QStringLiteral("--word-diff=porcelain"), QStringLiteral("--no-index"), left, right});
+                    {QStringLiteral("diff"), /*QStringLiteral("--word-diff=porcelain"),*/ QStringLiteral("--no-index"), left, right});
 
     connect(git, &QProcess::readyReadStandardOutput, this, [this, git]() {
         onTextReceived(git->readAllStandardOutput());
@@ -278,29 +98,185 @@ void DiffWidget::diffDocs(KTextEditor::Document *l, KTextEditor::Document *r)
     git->start();
 }
 
-void DiffWidget::openWordDiff(const QByteArray &raw)
+static void balanceHunkLines(QStringList &left, QStringList &right, int &lineA, int &lineB, QVector<int> &lineNosA, QVector<int> &lineNosB)
+{
+    while (left.size() < right.size()) {
+        lineA++;
+        left.push_back({});
+        lineNosA.append(-1);
+    }
+    while (right.size() < left.size()) {
+        lineB++;
+        right.push_back({});
+        lineNosB.append(-1);
+    }
+}
+
+void DiffWidget::openDiff(const QByteArray &raw)
 {
     //     printf("show diff:\n%s\n================================", raw.constData());
-    const QStringList text = QString::fromUtf8(raw).replace(QStringLiteral("\r\n"), QStringLiteral("\n")).split(QLatin1Char('\n'));
+    const QStringList text = QString::fromUtf8(raw).replace(QStringLiteral("\r\n"), QStringLiteral("\n")).split(QLatin1Char('\n'), Qt::SkipEmptyParts);
 
     static const QRegularExpression HUNK_HEADER_RE(QStringLiteral("^@@ -([0-9,]+) \\+([0-9,]+) @@(.*)"));
 
     QStringList left;
     QStringList right;
 
-    left.append(QString());
-    right.append(QString());
+    QVector<LineHighlight> leftHlts;
+    QVector<LineHighlight> rightHlts;
+    // QVector<QPair<int, HunkData>> hunkDatas; // lineNo => HunkData
 
-    QVector<LineHilight> leftHlts;
-    QVector<LineHilight> rightHlts;
+    QVector<int> lineToLineNumLeft;
+    QVector<int> lineToLineNumRight;
 
+    int maxLineNoFound = 0;
+    //     int lineNo = 0;
+    int lineA = 0;
+    int lineB = 0;
+    for (int i = 0; i < text.size(); ++i) {
+        const QString &line = text.at(i);
+        const auto match = HUNK_HEADER_RE.match(line);
+        if (!match.hasMatch())
+            continue;
+
+        const auto oldRange = parseRange(match.captured(1));
+        const auto newRange = parseRange(match.captured(2));
+        const QString headingLeft = QStringLiteral("@@ ") + match.captured(1) + match.captured(3);
+        const QString headingRight = QStringLiteral("@@ ") + match.captured(2) + match.captured(3);
+
+        lineToLineNumLeft.append(-1);
+        lineToLineNumRight.append(-1);
+        left.append(headingLeft);
+        right.append(headingRight);
+        lineA++;
+        lineB++;
+
+        int srcLine = oldRange.first;
+        const int oldCount = oldRange.second;
+
+        int tgtLine = newRange.first;
+        const int newCount = newRange.second;
+        maxLineNoFound = qMax(qMax(srcLine + oldCount, tgtLine + newCount), maxLineNoFound);
+
+        for (int j = i + 1; j < text.size(); j++) {
+            QString l = text.at(j);
+            if (l.startsWith(QLatin1Char(' '))) {
+                // Insert dummy lines when left/right are unequal
+                balanceHunkLines(left, right, lineA, lineB, lineToLineNumLeft, lineToLineNumRight);
+
+                l = l.mid(1);
+                left.append(l);
+                right.append(l);
+                //                 lineNo++;
+                lineToLineNumLeft.append(srcLine++);
+                lineToLineNumRight.append(tgtLine++);
+                lineA++;
+                lineB++;
+            } else if (l.startsWith(QLatin1Char('+'))) {
+                //                 qDebug() << "- line";
+                l = l.mid(1);
+                LineHighlight h;
+                h.line = lineB;
+                h.added = true;
+                h.changes.push_back({0, l.size()});
+                rightHlts.push_back(h);
+                lineToLineNumRight.append(tgtLine++);
+                right.append(l);
+
+                //                 lineNo++;
+                lineB++;
+            } else if (l.startsWith(QLatin1Char('-'))) {
+                l = l.mid(1);
+                //                 qDebug() << "+ line: " << l;
+                LineHighlight h;
+                h.line = lineA;
+                h.added = false;
+                h.changes.push_back({0, l.size()});
+
+                leftHlts.push_back(h);
+                lineToLineNumLeft.append(srcLine++);
+                left.append(l);
+                lineA++;
+            } else if (l.startsWith(QStringLiteral("@@ ")) && HUNK_HEADER_RE.match(l).hasMatch()) {
+                i = j - 1;
+
+                // add line number for current line
+                lineToLineNumLeft.append(-1);
+                lineToLineNumRight.append(-1);
+
+                // add new line
+                left.append(QString());
+                right.append(QString());
+                lineA += 1;
+                lineB += 1;
+                break;
+            }
+            if (j + 1 >= text.size()) {
+                i = j; // ensure outer loop also exits after this
+            }
+        }
+    }
+
+    balanceHunkLines(left, right, lineA, lineB, lineToLineNumLeft, lineToLineNumRight);
+
+    QString leftText = left.join(QLatin1Char('\n'));
+    QString rightText = right.join(QLatin1Char('\n'));
+
+    //     printf("(%d), lt %d ln %d -- rt %d rn %d\n", lineNo, left.size(), lineToLineNumLeft.size(), right.size(), lineToLineNumRight.size());
+    m_left->appendData(leftHlts);
+    m_right->appendData(rightHlts);
+    m_left->appendPlainText(leftText);
+    m_right->appendPlainText(rightText);
+    m_left->setLineNumberData(lineToLineNumLeft, maxLineNoFound);
+    m_right->setLineNumberData(lineToLineNumRight, maxLineNoFound);
+}
+
+void DiffWidget::openWordDiff(const QByteArray &raw)
+{
+    //     printf("show diff:\n%s\n================================", raw.constData());
+    openDiff(raw);
+    return;
+    const QStringList text = QString::fromUtf8(raw).replace(QStringLiteral("\r\n"), QStringLiteral("\n")).split(QLatin1Char('\n'), Qt::SkipEmptyParts);
+
+    static const QRegularExpression HUNK_HEADER_RE(QStringLiteral("^@@ -([0-9,]+) \\+([0-9,]+) @@(.*)"));
+
+    QStringList left;
+    QStringList right;
+
+    QVector<LineHighlight> leftHlts;
+    QVector<LineHighlight> rightHlts;
+    // QVector<QPair<int, HunkData>> hunkDatas; // lineNo => HunkData
+
+    QVector<int> lineToLineNumLeft;
+    QVector<int> lineToLineNumRight;
+
+    int maxFound = 0;
     int lineNo = 0;
     for (int i = 0; i < text.size(); ++i) {
         const QString &line = text.at(i);
         const auto match = HUNK_HEADER_RE.match(line);
         if (!match.hasMatch())
             continue;
-        //         printf("new hunk");
+
+        const auto oldRange = parseRange(match.captured(1));
+        const auto newRange = parseRange(match.captured(2));
+
+        lineToLineNumLeft.append(-1);
+        lineToLineNumRight.append(-1);
+        left.append(line);
+        right.append(line);
+        lineNo++;
+        left.append(QString());
+        right.append(QString());
+
+        const int srcStart = oldRange.first;
+        int srcLine = oldRange.first;
+        const int oldCount = oldRange.second;
+        const int tgtStart = newRange.first;
+        int tgtLine = newRange.first;
+        const int newCount = newRange.second;
+        maxFound = qMax(qMax(srcStart + oldCount, tgtStart + newCount), maxFound);
+        const int oldSize = left.size();
 
         for (int j = i + 1; j < text.size(); j++) {
             QString l = text.at(j);
@@ -311,7 +287,7 @@ void DiffWidget::openWordDiff(const QByteArray &raw)
             } else if (l.startsWith(QLatin1Char('+'))) {
                 //                 qDebug() << "- line";
                 l = l.mid(1);
-                LineHilight h;
+                LineHighlight h;
                 h.line = lineNo;
                 h.added = true;
                 h.changes.push_back({right.back().size(), l.size()});
@@ -326,7 +302,7 @@ void DiffWidget::openWordDiff(const QByteArray &raw)
             } else if (l.startsWith(QLatin1Char('-'))) {
                 l = l.mid(1);
                 //                 qDebug() << "+ line: " << l;
-                LineHilight h;
+                LineHighlight h;
                 h.line = lineNo;
                 h.added = false;
                 h.changes.push_back({left.back().size(), l.size()});
@@ -340,37 +316,74 @@ void DiffWidget::openWordDiff(const QByteArray &raw)
             } else if (l.startsWith(QLatin1Char('~'))) {
                 left.append(QString());
                 right.append(QString());
+                lineToLineNumLeft.append(tgtLine++);
+                lineToLineNumRight.append(srcLine++);
                 lineNo++;
-            }
-
-            if (l.startsWith(QStringLiteral("@@ ")) && HUNK_HEADER_RE.match(l).hasMatch()) {
-                //                 printf("break: %s\n", l.toUtf8().constData());
+            } else if (l.startsWith(QStringLiteral("@@ ")) && HUNK_HEADER_RE.match(l).hasMatch()) {
                 i = j - 1;
 
-                // 2 empty lines for hunk
+                // add line number for current line
+                lineToLineNumLeft.append(tgtStart);
+                lineToLineNumRight.append(srcStart);
+
+                // add new line
                 left.append(QString());
                 right.append(QString());
-                left.append(l);
-                right.append(l);
-                lineNo += 2;
+                lineNo++;
+                // line number for this line
+                lineToLineNumLeft.append(-1);
+                lineToLineNumRight.append(-1);
+
+                lineNo++;
                 break;
             }
+
+            if (j + 1 >= text.size()) {
+                lineToLineNumLeft.append(tgtLine++);
+                lineToLineNumRight.append(srcLine++);
+                i = j; // ensure outer loop also exits after this
+            }
         }
+
+        // Adjust line numbers
+        Q_ASSERT(left.size() == right.size() && left.size() == lineToLineNumLeft.size() && right.size() == lineToLineNumRight.size());
+        const int newSize = left.size();
+        int s = srcStart;
+        int t = tgtStart;
+        for (int i = oldSize - 1; i < newSize; ++i) {
+            if (left.at(i).isNull() || t > tgtStart + newCount) {
+                lineToLineNumLeft[i] = -1;
+            } else {
+                lineToLineNumLeft[i] = t++;
+            }
+            if (right.at(i).isNull() || s > srcStart + oldCount) {
+                lineToLineNumRight[i] = -1;
+            } else {
+                lineToLineNumRight[i] = s++;
+            }
+        }
+        qDebug() << srcStart << tgtStart << s << t << oldCount << newCount;
     }
+
+    Q_ASSERT(left.size() == right.size() && left.size() == lineToLineNumLeft.size() && right.size() == lineToLineNumRight.size());
 
     QString leftText = left.join(QLatin1Char('\n'));
     QString rightText = right.join(QLatin1Char('\n'));
 
+    //     printf("(%d), lt %d ln %d -- rt %d rn %d\n", lineNo, left.size(), lineToLineNumLeft.size(), right.size(), lineToLineNumRight.size());
     m_left->appendData(leftHlts);
     m_right->appendData(rightHlts);
     m_left->appendPlainText(leftText);
     m_right->appendPlainText(rightText);
+    m_left->setLineNumberData(lineToLineNumLeft, maxFound);
+    m_right->setLineNumberData(lineToLineNumRight, maxFound);
 }
 
 void DiffWidget::onTextReceived(const QByteArray &raw)
 {
     //     printf("Got Text: \n%s\n==============\n", raw.constData());
-    openWordDiff(raw);
+    openDiff(raw);
+    //     openWordDiff(raw);
 }
 
 void DiffWidget::onError(const QByteArray &error, int /*code*/)

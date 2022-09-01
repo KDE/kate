@@ -112,6 +112,8 @@ target_sources(
     hostprocess.cpp
 
     diffwidget.cpp
+    diffeditor.cpp
+    difflinenumarea.cpp
 )
 
 if(BUILD_TESTING)

@@ -630,7 +630,7 @@ void GitWidget::showDiff(const QString &file, bool staged, bool showInKate)
         args.append(QStringLiteral("--staged"));
     }
     if (showInKate) {
-        args.append(QStringLiteral("--word-diff=porcelain"));
+        //         args.append(QStringLiteral("--word-diff=porcelain"));
     }
 
     if (!file.isEmpty()) {

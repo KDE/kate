@@ -156,17 +156,24 @@ static std::pair<Change, Change> inlineDiff(QStringView l, QStringView r)
     return {cl, cr};
 }
 
+// Struct representing a changed line in hunk
 struct HunkChangedLine {
+    HunkChangedLine(const QString &ln, int lineNum)
+        : line(ln)
+        , lineNo(lineNum)
+    {
+    }
+    // Line Text
     const QString line;
-    bool added;
+    // Line Number in text editor (not hunk)
     int lineNo;
+    // Which portion of the line changed (len, pos)
     Change c = {-1, -1};
 };
+using HunkChangedLines = std::vector<HunkChangedLine>;
 
-static void markInlineDiffs(QVector<HunkChangedLine> &hunkChangedLinesA,
-                            QVector<HunkChangedLine> &hunkChangedLinesB,
-                            QVector<LineHighlight> &leftHlts,
-                            QVector<LineHighlight> &rightHlts)
+static void
+markInlineDiffs(HunkChangedLines &hunkChangedLinesA, HunkChangedLines &hunkChangedLinesB, QVector<LineHighlight> &leftHlts, QVector<LineHighlight> &rightHlts)
 {
     if (hunkChangedLinesA.size() != hunkChangedLinesB.size()) {
         hunkChangedLinesA.clear();
@@ -180,8 +187,8 @@ static void markInlineDiffs(QVector<HunkChangedLine> &hunkChangedLinesA,
         hunkChangedLinesB[i].c = rightChange;
     }
 
-    auto addHighlights = [](QVector<HunkChangedLine> &hunkChangedLines, QVector<LineHighlight> &hlts) {
-        for (int i = 0; i < hunkChangedLines.size(); ++i) {
+    auto addHighlights = [](HunkChangedLines &hunkChangedLines, QVector<LineHighlight> &hlts) {
+        for (int i = 0; i < (int)hunkChangedLines.size(); ++i) {
             auto &change = hunkChangedLines[i];
             for (int j = hlts.size() - 1; j >= 0; --j) {
                 if (hlts.at(j).line == change.lineNo) {
@@ -208,18 +215,22 @@ void DiffWidget::parseAndShowDiff(const QByteArray &raw)
     static const QRegularExpression HUNK_HEADER_RE(QStringLiteral("^@@ -([0-9,]+) \\+([0-9,]+) @@(.*)"));
     static const QRegularExpression DIFF_FILENAME_RE(QStringLiteral("^[-+]{3} [ab]/(.*)"));
 
+    // Actual lines that will get added to the text editor
     QStringList left;
     QStringList right;
 
+    // Highlighting data for modified lines
     QVector<LineHighlight> leftHlts;
     QVector<LineHighlight> rightHlts;
     // QVector<QPair<int, HunkData>> hunkDatas; // lineNo => HunkData
 
-    QVector<int> lineToLineNumLeft;
-    QVector<int> lineToLineNumRight;
+    // Line numbers that will be shown in the editor
+    QVector<int> lineNumsA;
+    QVector<int> lineNumsB;
 
-    QVector<HunkChangedLine> hunkChangedLinesA;
-    QVector<HunkChangedLine> hunkChangedLinesB;
+    // Changed lines of hunk, used to determine differences between two lines
+    HunkChangedLines hunkChangedLinesA;
+    HunkChangedLines hunkChangedLinesB;
 
     QSet<QString> mimeTypes;
     QString srcFile;
@@ -252,8 +263,8 @@ void DiffWidget::parseAndShowDiff(const QByteArray &raw)
         const QString headingLeft = QStringLiteral("@@ ") + match.captured(1) + match.captured(3) /* + QStringLiteral(" ") + srcFile*/;
         const QString headingRight = QStringLiteral("@@ ") + match.captured(2) + match.captured(3) /* + QStringLiteral(" ") + tgtFile*/;
 
-        lineToLineNumLeft.append(-1);
-        lineToLineNumRight.append(-1);
+        lineNumsA.append(-1);
+        lineNumsB.append(-1);
         left.append(headingLeft);
         right.append(headingRight);
         lineA++;
@@ -273,15 +284,15 @@ void DiffWidget::parseAndShowDiff(const QByteArray &raw)
             QString l = text.at(j);
             if (l.startsWith(QLatin1Char(' '))) {
                 // Insert dummy lines when left/right are unequal
-                balanceHunkLines(left, right, lineA, lineB, lineToLineNumLeft, lineToLineNumRight);
+                balanceHunkLines(left, right, lineA, lineB, lineNumsA, lineNumsB);
                 markInlineDiffs(hunkChangedLinesA, hunkChangedLinesB, leftHlts, rightHlts);
 
                 l = l.mid(1);
                 left.append(l);
                 right.append(l);
                 //                 lineNo++;
-                lineToLineNumLeft.append(srcLine++);
-                lineToLineNumRight.append(tgtLine++);
+                lineNumsA.append(srcLine++);
+                lineNumsB.append(tgtLine++);
                 lineA++;
                 lineB++;
             } else if (l.startsWith(QLatin1Char('+'))) {
@@ -292,10 +303,10 @@ void DiffWidget::parseAndShowDiff(const QByteArray &raw)
                 h.added = true;
                 h.changes.push_back({0, l.size()});
                 rightHlts.push_back(h);
-                lineToLineNumRight.append(tgtLine++);
+                lineNumsB.append(tgtLine++);
                 right.append(l);
 
-                hunkChangedLinesB.append({l, true, lineB});
+                hunkChangedLinesB.emplace_back(l, lineB);
 
                 //                 lineNo++;
                 lineB++;
@@ -308,9 +319,9 @@ void DiffWidget::parseAndShowDiff(const QByteArray &raw)
                 h.changes.push_back({0, l.size()});
 
                 leftHlts.push_back(h);
-                lineToLineNumLeft.append(srcLine++);
+                lineNumsA.append(srcLine++);
                 left.append(l);
-                hunkChangedLinesA.append({l, false, lineA});
+                hunkChangedLinesA.emplace_back(l, lineA);
 
                 lineA++;
             } else if (l.startsWith(QStringLiteral("@@ ")) && HUNK_HEADER_RE.match(l).hasMatch()) {
@@ -319,8 +330,8 @@ void DiffWidget::parseAndShowDiff(const QByteArray &raw)
                 markInlineDiffs(hunkChangedLinesA, hunkChangedLinesB, leftHlts, rightHlts);
 
                 // add line number for current line
-                lineToLineNumLeft.append(-1);
-                lineToLineNumRight.append(-1);
+                lineNumsA.append(-1);
+                lineNumsB.append(-1);
 
                 // add new line
                 left.append(QString());
@@ -336,7 +347,7 @@ void DiffWidget::parseAndShowDiff(const QByteArray &raw)
         }
     }
 
-    balanceHunkLines(left, right, lineA, lineB, lineToLineNumLeft, lineToLineNumRight);
+    balanceHunkLines(left, right, lineA, lineB, lineNumsA, lineNumsB);
 
     QString leftText = left.join(QLatin1Char('\n'));
     QString rightText = right.join(QLatin1Char('\n'));
@@ -345,8 +356,8 @@ void DiffWidget::parseAndShowDiff(const QByteArray &raw)
     m_right->appendData(rightHlts);
     m_left->appendPlainText(leftText);
     m_right->appendPlainText(rightText);
-    m_left->setLineNumberData(lineToLineNumLeft, maxLineNoFound);
-    m_right->setLineNumberData(lineToLineNumRight, maxLineNoFound);
+    m_left->setLineNumberData(lineNumsA, maxLineNoFound);
+    m_right->setLineNumberData(lineNumsB, maxLineNoFound);
     // Only do highlighting if there is one mimetype found, multiple different files not supported
     if (mimeTypes.size() == 1) {
         const auto def = KTextEditor::Editor::instance()->repository().definitionForMimeType(*mimeTypes.begin());

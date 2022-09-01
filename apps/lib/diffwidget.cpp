@@ -10,6 +10,7 @@
 
 #include <QApplication>
 #include <QHBoxLayout>
+#include <QMimeDatabase>
 #include <QPainter>
 #include <QPainterPath>
 #include <QRegularExpression>
@@ -112,12 +113,102 @@ static void balanceHunkLines(QStringList &left, QStringList &right, int &lineA, 
     }
 }
 
+static std::pair<Change, Change> inlineDiff(QStringView l, QStringView r)
+{
+    auto sitl = l.begin();
+    auto sitr = r.begin();
+    while (sitl != l.end() || sitr != r.end()) {
+        if (*sitl != *sitr) {
+            break;
+        }
+        ++sitl;
+        ++sitr;
+    }
+
+    int lStart = std::distance(l.begin(), sitl);
+    int rStart = std::distance(r.begin(), sitr);
+
+    auto eitl = l.rbegin();
+    auto eitr = r.rbegin();
+    int lcount = l.size();
+    int rcount = r.size();
+    while (eitl != l.rend() || eitr != r.rend()) {
+        if (*eitl != *eitr) {
+            break;
+        }
+        // do not allow overlap
+        if (lcount == lStart || rcount == rStart) {
+            break;
+        }
+        --lcount;
+        --rcount;
+        ++eitl;
+        ++eitr;
+    }
+
+    int lEnd = l.size() - std::distance(l.rbegin(), eitl);
+    int rEnd = r.size() - std::distance(r.rbegin(), eitr);
+
+    Change cl;
+    cl.pos = lStart;
+    cl.len = lEnd - lStart;
+    Change cr;
+    cr.pos = rStart;
+    cr.len = rEnd - rStart;
+    return {cl, cr};
+}
+
+struct HunkChangedLine {
+    const QString line;
+    bool added;
+    int lineNo;
+    Change c = {-1, -1};
+};
+
+static void markInlineDiffs(QVector<HunkChangedLine> &hunkChangedLinesA,
+                            QVector<HunkChangedLine> &hunkChangedLinesB,
+                            QVector<LineHighlight> &leftHlts,
+                            QVector<LineHighlight> &rightHlts)
+{
+    if (hunkChangedLinesA.size() != hunkChangedLinesB.size()) {
+        hunkChangedLinesA.clear();
+        hunkChangedLinesB.clear();
+        return;
+    }
+    const int size = hunkChangedLinesA.size();
+    for (int i = 0; i < size; ++i) {
+        const auto [leftChange, rightChange] = inlineDiff(hunkChangedLinesA.at(i).line, hunkChangedLinesB.at(i).line);
+        hunkChangedLinesA[i].c = leftChange;
+        hunkChangedLinesB[i].c = rightChange;
+    }
+
+    auto addHighlights = [](QVector<HunkChangedLine> &hunkChangedLines, QVector<LineHighlight> &hlts) {
+        for (int i = 0; i < hunkChangedLines.size(); ++i) {
+            auto &change = hunkChangedLines[i];
+            for (int j = hlts.size() - 1; j >= 0; --j) {
+                if (hlts.at(j).line == change.lineNo) {
+                    hlts[j].changes.push_back(change.c);
+                    break;
+                } else if (hlts.at(j).line < change.lineNo) {
+                    break;
+                }
+            }
+        }
+    };
+
+    addHighlights(hunkChangedLinesA, leftHlts);
+    addHighlights(hunkChangedLinesB, rightHlts);
+    hunkChangedLinesA.clear();
+    hunkChangedLinesB.clear();
+}
+
 void DiffWidget::openDiff(const QByteArray &raw)
 {
     //     printf("show diff:\n%s\n================================", raw.constData());
     const QStringList text = QString::fromUtf8(raw).replace(QStringLiteral("\r\n"), QStringLiteral("\n")).split(QLatin1Char('\n'), Qt::SkipEmptyParts);
 
     static const QRegularExpression HUNK_HEADER_RE(QStringLiteral("^@@ -([0-9,]+) \\+([0-9,]+) @@(.*)"));
+    static const QRegularExpression DIFF_FILENAME_RE(QStringLiteral("^[-+]{3} [ab]/(.*)"));
 
     QStringList left;
     QStringList right;
@@ -129,20 +220,39 @@ void DiffWidget::openDiff(const QByteArray &raw)
     QVector<int> lineToLineNumLeft;
     QVector<int> lineToLineNumRight;
 
+    QVector<HunkChangedLine> hunkChangedLinesA;
+    QVector<HunkChangedLine> hunkChangedLinesB;
+
+    QSet<QString> mimeTypes;
+    QString srcFile;
+    QString tgtFile;
+
     int maxLineNoFound = 0;
-    //     int lineNo = 0;
     int lineA = 0;
     int lineB = 0;
     for (int i = 0; i < text.size(); ++i) {
         const QString &line = text.at(i);
-        const auto match = HUNK_HEADER_RE.match(line);
+        auto match = DIFF_FILENAME_RE.match(line);
+        if (match.hasMatch()) {
+            if (line.startsWith(QLatin1Char('-'))) {
+                srcFile = match.captured(1);
+            } else if (line.startsWith(QLatin1Char('+'))) {
+                tgtFile = match.captured(1);
+            }
+            if (!match.captured(1).isEmpty()) {
+                mimeTypes.insert(QMimeDatabase().mimeTypeForFile(match.captured(1), QMimeDatabase::MatchExtension).name());
+            }
+            continue;
+        }
+
+        match = HUNK_HEADER_RE.match(line);
         if (!match.hasMatch())
             continue;
 
         const auto oldRange = parseRange(match.captured(1));
         const auto newRange = parseRange(match.captured(2));
-        const QString headingLeft = QStringLiteral("@@ ") + match.captured(1) + match.captured(3);
-        const QString headingRight = QStringLiteral("@@ ") + match.captured(2) + match.captured(3);
+        const QString headingLeft = QStringLiteral("@@ ") + match.captured(1) + match.captured(3) /* + QStringLiteral(" ") + srcFile*/;
+        const QString headingRight = QStringLiteral("@@ ") + match.captured(2) + match.captured(3) /* + QStringLiteral(" ") + tgtFile*/;
 
         lineToLineNumLeft.append(-1);
         lineToLineNumRight.append(-1);
@@ -150,6 +260,9 @@ void DiffWidget::openDiff(const QByteArray &raw)
         right.append(headingRight);
         lineA++;
         lineB++;
+
+        hunkChangedLinesA.clear();
+        hunkChangedLinesB.clear();
 
         int srcLine = oldRange.first;
         const int oldCount = oldRange.second;
@@ -163,6 +276,7 @@ void DiffWidget::openDiff(const QByteArray &raw)
             if (l.startsWith(QLatin1Char(' '))) {
                 // Insert dummy lines when left/right are unequal
                 balanceHunkLines(left, right, lineA, lineB, lineToLineNumLeft, lineToLineNumRight);
+                markInlineDiffs(hunkChangedLinesA, hunkChangedLinesB, leftHlts, rightHlts);
 
                 l = l.mid(1);
                 left.append(l);
@@ -183,6 +297,8 @@ void DiffWidget::openDiff(const QByteArray &raw)
                 lineToLineNumRight.append(tgtLine++);
                 right.append(l);
 
+                hunkChangedLinesB.append({l, true, lineB});
+
                 //                 lineNo++;
                 lineB++;
             } else if (l.startsWith(QLatin1Char('-'))) {
@@ -196,9 +312,13 @@ void DiffWidget::openDiff(const QByteArray &raw)
                 leftHlts.push_back(h);
                 lineToLineNumLeft.append(srcLine++);
                 left.append(l);
+                hunkChangedLinesA.append({l, false, lineA});
+
                 lineA++;
             } else if (l.startsWith(QStringLiteral("@@ ")) && HUNK_HEADER_RE.match(l).hasMatch()) {
                 i = j - 1;
+
+                markInlineDiffs(hunkChangedLinesA, hunkChangedLinesB, leftHlts, rightHlts);
 
                 // add line number for current line
                 lineToLineNumLeft.append(-1);
@@ -212,6 +332,7 @@ void DiffWidget::openDiff(const QByteArray &raw)
                 break;
             }
             if (j + 1 >= text.size()) {
+                markInlineDiffs(hunkChangedLinesA, hunkChangedLinesB, leftHlts, rightHlts);
                 i = j; // ensure outer loop also exits after this
             }
         }
@@ -222,13 +343,22 @@ void DiffWidget::openDiff(const QByteArray &raw)
     QString leftText = left.join(QLatin1Char('\n'));
     QString rightText = right.join(QLatin1Char('\n'));
 
-    //     printf("(%d), lt %d ln %d -- rt %d rn %d\n", lineNo, left.size(), lineToLineNumLeft.size(), right.size(), lineToLineNumRight.size());
     m_left->appendData(leftHlts);
     m_right->appendData(rightHlts);
     m_left->appendPlainText(leftText);
     m_right->appendPlainText(rightText);
     m_left->setLineNumberData(lineToLineNumLeft, maxLineNoFound);
     m_right->setLineNumberData(lineToLineNumRight, maxLineNoFound);
+    // Only do highlighting if there is one mimetype found, multiple different files not supported
+    if (mimeTypes.size() == 1) {
+        const auto def = KTextEditor::Editor::instance()->repository().definitionForMimeType(*mimeTypes.begin());
+        leftHl->setDefinition(def);
+        rightHl->setDefinition(def);
+    } else {
+        const auto def = KTextEditor::Editor::instance()->repository().definitionForMimeType(QStringLiteral("None"));
+        leftHl->setDefinition(def);
+        rightHl->setDefinition(def);
+    }
 }
 
 void DiffWidget::openWordDiff(const QByteArray &raw)

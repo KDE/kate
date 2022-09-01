@@ -339,6 +339,15 @@ void DiffWidget::parseAndShowDiff(const QByteArray &raw)
                 lineA += 1;
                 lineB += 1;
                 break;
+            } else if (l.startsWith(QStringLiteral("diff --git "))) {
+                // Start of a new file
+                markInlineDiffs(hunkChangedLinesA, hunkChangedLinesB, leftHlts, rightHlts);
+                // add new line
+                left.append(QString());
+                right.append(QString());
+                lineA += 1;
+                lineB += 1;
+                break;
             }
             if (j + 1 >= text.size()) {
                 markInlineDiffs(hunkChangedLinesA, hunkChangedLinesB, leftHlts, rightHlts);

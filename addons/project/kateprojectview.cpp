@@ -156,8 +156,9 @@ void KateProjectView::showFileGitHistory(const QString &file)
 
     auto fhs = new FileHistoryWidget(dotGitPath.value(), file);
     connect(fhs, &FileHistoryWidget::backClicked, this, &KateProjectView::setTreeViewAsCurrent);
-    connect(fhs, &FileHistoryWidget::commitClicked, this, [this](const QByteArray &diff) {
-        m_pluginView->showDiffInFixedView(diff);
+    connect(fhs, &FileHistoryWidget::commitClicked, this, [this, file](const QByteArray &diff) {
+        auto mw = m_pluginView->mainWindow()->window();
+        QMetaObject::invokeMethod(mw, "showDiff", Q_ARG(QByteArray, diff), Q_ARG(QString, file), Q_ARG(QString, {}));
     });
     connect(fhs, &FileHistoryWidget::errorMessage, m_pluginView, [this](const QString &s, bool warn) {
         QVariantMap genericMessage;

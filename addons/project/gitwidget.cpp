@@ -629,9 +629,6 @@ void GitWidget::showDiff(const QString &file, bool staged, bool showInKate)
     if (staged) {
         args.append(QStringLiteral("--staged"));
     }
-    if (showInKate) {
-        //         args.append(QStringLiteral("--word-diff=porcelain"));
-    }
 
     if (!file.isEmpty()) {
         args.append(QStringLiteral("--"));
@@ -645,7 +642,7 @@ void GitWidget::showDiff(const QString &file, bool staged, bool showInKate)
         } else {
             if (showInKate) {
                 auto mw = mainWindow()->window();
-                QMetaObject::invokeMethod(mw, "showWordDiff", Q_ARG(QByteArray, git->readAllStandardOutput()), Q_ARG(QString, file), Q_ARG(QString, {}));
+                QMetaObject::invokeMethod(mw, "showDiff", Q_ARG(QByteArray, git->readAllStandardOutput()), Q_ARG(QString, file), Q_ARG(QString, {}));
                 return;
             }
             auto addContextMenuActions = [this, file, staged](KTextEditor::View *v) {
@@ -1172,7 +1169,7 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
                 m_mainWin->openUrl(QUrl::fromLocalFile(*it));
             }
         } else if (!untracked && act == diff) {
-            showDiff(QString(), false);
+            showDiff(QString(), false, true);
         }
     } else if (treeItem == GitStatusModel::NodeFile) {
         QMenu menu;

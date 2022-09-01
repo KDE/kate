@@ -22,7 +22,6 @@ public:
     void diffDocs(KTextEditor::Document *l, KTextEditor::Document *r);
 
     void openDiff(const QByteArray &diff);
-    void openWordDiff(const QByteArray &diff);
 
     Q_INVOKABLE bool shouldClose()
     {
@@ -32,6 +31,7 @@ public:
 private:
     void onTextReceived(const QByteArray &text);
     void onError(const QByteArray &error, int code);
+    void parseAndShowDiff(const QByteArray &raw);
 
     class DiffEditor *m_left;
     class DiffEditor *m_right;

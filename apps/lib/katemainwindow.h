@@ -512,7 +512,7 @@ public Q_SLOTS:
 
     void addWidgetAsTab(QWidget *widget);
 
-    void showWordDiff(const QByteArray &wordDiff, const QString &fileName1, const QString &fileName2);
+    void showDiff(const QByteArray &wordDiff, const QString &fileName1, const QString &fileName2);
 
 private Q_SLOTS:
     void slotUpdateBottomViewBar();

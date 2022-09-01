@@ -1307,7 +1307,7 @@ void KateMainWindow::addWidgetAsTab(QWidget *widget)
     vs->addWidgetAsTab(widget);
 }
 
-void KateMainWindow::showWordDiff(const QByteArray &wordDiff, const QString &fileName1, const QString &fileName2)
+void KateMainWindow::showDiff(const QByteArray &wordDiff, const QString &fileName1, const QString &fileName2)
 {
     auto getFileName = [](const QString &s) {
         int lastSlash = s.lastIndexOf(QLatin1Char('/'));
@@ -1320,7 +1320,7 @@ void KateMainWindow::showWordDiff(const QByteArray &wordDiff, const QString &fil
     else
         w->setWindowTitle(i18n("Diff %1..%2", getFileName(fileName1), getFileName(fileName2)));
     addWidgetAsTab(w);
-    w->openWordDiff(wordDiff);
+    w->openDiff(wordDiff);
 }
 
 void KateMainWindow::mousePressEvent(QMouseEvent *e)

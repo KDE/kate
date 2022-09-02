@@ -141,7 +141,7 @@ void DiffEditor::paintEvent(QPaintEvent *e)
         QRectF r = blockBoundingRect(block).translated(offset);
         auto layout = block.layout();
 
-        auto hl = dataForLine(block.blockNumber());
+        auto hl = highlightingForLine(block.blockNumber());
         if (hl && layout) {
             const auto changes = hl->changes;
             for (auto c : changes) {
@@ -206,7 +206,7 @@ void DiffEditor::paintEvent(QPaintEvent *e)
     }
 }
 
-const LineHighlight *DiffEditor::dataForLine(int line)
+const LineHighlight *DiffEditor::highlightingForLine(int line)
 {
     auto it = std::find_if(m_data.cbegin(), m_data.cend(), [line](LineHighlight hl) {
         return hl.line == line;

@@ -49,7 +49,7 @@ protected:
     void contextMenuEvent(QContextMenuEvent *e) override;
 
 private:
-    const LineHighlight *dataForLine(int line);
+    const LineHighlight *highlightingForLine(int line);
     void updateLineNumberArea(const QRect &rect, int dy);
     void updateLineNumAreaGeometry();
     void updateLineNumberAreaWidth(int);

@@ -282,6 +282,21 @@ void KateConfigDialog::addBehaviorPage()
 
     buttonGroup->setLayout(vbox);
 
+    /** DIFF **/
+    buttonGroup = new QGroupBox(i18n("Diff"), generalFrame);
+    vbox = new QVBoxLayout(buttonGroup);
+    hlayout = new QHBoxLayout;
+    vbox->addLayout(hlayout);
+    layout->addWidget(buttonGroup);
+    m_diffStyle = new QComboBox;
+    m_diffStyle->addItem(i18n("Side By Side"));
+    m_diffStyle->addItem(i18n("Unified"));
+    m_diffStyle->addItem(i18n("Raw"));
+    hlayout->addWidget(new QLabel(i18n("Diff Style:")));
+    hlayout->addWidget(m_diffStyle);
+    m_diffStyle->setCurrentIndex(cgGeneral.readEntry("Diff Show Style", 0));
+    connect(m_diffStyle, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &KateConfigDialog::slotChanged);
+
     layout->addStretch(1); // :-] works correct without autoadd
 }
 
@@ -517,6 +532,8 @@ void KateConfigDialog::slotApply()
 
         cg.writeEntry("Allow Tab Scrolling", m_tabsScrollable->isChecked());
         cg.writeEntry("Elide Tab Text", m_tabsElided->isChecked());
+
+        cg.writeEntry("Diff Show Style", m_diffStyle->currentIndex());
 
         // patch document modified warn state
         const QList<KTextEditor::Document *> &docs = KateApp::self()->documentManager()->documentList();

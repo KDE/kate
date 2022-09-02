@@ -3,7 +3,6 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 #include "diffwidget.h"
-#include "diffeditor.h"
 #include "ktexteditor_utils.h"
 
 #include "gitprocess.h"
@@ -17,6 +16,8 @@
 #include <QScrollBar>
 #include <QSyntaxHighlighter>
 
+#include <KConfigGroup>
+#include <KSharedConfig>
 #include <KSyntaxHighlighting/Definition>
 #include <KSyntaxHighlighting/Format>
 #include <KSyntaxHighlighting/Repository>
@@ -61,6 +62,10 @@ DiffWidget::DiffWidget(QWidget *parent)
     for (auto *e : {m_left, m_right}) {
         connect(e, &DiffEditor::switchStyle, this, &DiffWidget::handleStyleChange);
     }
+
+    KSharedConfig::Ptr config = KSharedConfig::openConfig();
+    KConfigGroup cgGeneral = KConfigGroup(config, "General");
+    handleStyleChange(cgGeneral.readEntry("Diff Show Style", (int)SideBySide));
 }
 
 void DiffWidget::handleStyleChange(int newStyle)
@@ -69,21 +74,21 @@ void DiffWidget::handleStyleChange(int newStyle)
         return;
     }
     m_style = (DiffStyle)newStyle;
-    m_left->clearData();
-    m_right->clearData();
+    const auto diff = m_rawDiff;
+    clearData();
 
     if (m_style == SideBySide) {
         m_left->setVisible(true);
         m_right->setVisible(true);
-        openDiff(m_rawDiff);
+        openDiff(diff);
     } else if (m_style == Unified) {
         m_left->setVisible(true);
         m_right->setVisible(false);
-        openDiff(m_rawDiff);
+        openDiff(diff);
     } else if (m_style == Raw) {
         m_left->setVisible(true);
         m_right->setVisible(false);
-        openDiff(m_rawDiff);
+        openDiff(diff);
     } else {
         qWarning() << "Unexpected diff style value: " << newStyle;
         Q_UNREACHABLE();

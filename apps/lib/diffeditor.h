@@ -20,7 +20,7 @@ struct LineHighlight {
     bool added;
 };
 
-enum DiffStyle { SideBySide, Unified, Raw };
+enum DiffStyle { SideBySide = 0, Unified, Raw };
 
 class DiffEditor : public QPlainTextEdit
 {

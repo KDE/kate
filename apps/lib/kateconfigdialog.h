@@ -102,6 +102,7 @@ private:
     QCheckBox *m_tabMiddleClickCloseDocument;
     QCheckBox *m_tabsScrollable = nullptr;
     QCheckBox *m_tabsElided = nullptr;
+    QComboBox *m_diffStyle = nullptr;
 
     Ui::SessionConfigWidget sessionConfigUi;
 

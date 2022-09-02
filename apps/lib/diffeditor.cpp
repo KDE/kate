@@ -2,9 +2,12 @@
 #include "difflinenumarea.h"
 #include "ktexteditor_utils.h"
 
+#include <QMenu>
 #include <QPainter>
 #include <QPainterPath>
 #include <QTextBlock>
+
+#include <KLocalizedString>
 
 DiffEditor::DiffEditor(QWidget *parent)
     : QPlainTextEdit(parent)
@@ -60,6 +63,29 @@ void DiffEditor::resizeEvent(QResizeEvent *event)
 {
     QPlainTextEdit::resizeEvent(event);
     updateLineNumAreaGeometry();
+}
+
+void DiffEditor::contextMenuEvent(QContextMenuEvent *e)
+{
+    auto menu = createStandardContextMenu();
+    QAction *before = nullptr;
+    if (!menu->actions().isEmpty())
+        before = menu->actions().constFirst();
+    auto a = new QAction(i18n("Change Style"));
+    auto styleMenu = new QMenu(this);
+    styleMenu->addAction(i18n("Side By Side"), this, [this] {
+        Q_EMIT switchStyle(SideBySide);
+    });
+    styleMenu->addAction(i18n("Unified"), this, [this] {
+        Q_EMIT switchStyle(Unified);
+    });
+    styleMenu->addAction(i18n("Raw"), this, [this] {
+        Q_EMIT switchStyle(Raw);
+    });
+    a->setMenu(styleMenu);
+    menu->insertAction(before, a);
+
+    menu->exec(mapToGlobal(e->pos()));
 }
 
 void DiffEditor::updateLineNumberArea(const QRect &rect, int dy)

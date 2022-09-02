@@ -20,6 +20,8 @@ struct LineHighlight {
     bool added;
 };
 
+enum DiffStyle { SideBySide, Unified, Raw };
+
 class DiffEditor : public QPlainTextEdit
 {
     Q_OBJECT
@@ -30,7 +32,9 @@ public:
 
     void clearData()
     {
+        clear();
         m_data.clear();
+        setLineNumberData({}, 0);
     }
     void appendData(const QVector<LineHighlight> &newData)
     {
@@ -42,6 +46,7 @@ public:
 protected:
     void resizeEvent(QResizeEvent *event) override;
     void paintEvent(QPaintEvent *e) override;
+    void contextMenuEvent(QContextMenuEvent *e) override;
 
 private:
     const LineHighlight *dataForLine(int line);
@@ -49,6 +54,7 @@ private:
     void updateLineNumAreaGeometry();
     void updateLineNumberAreaWidth(int);
     void updateDiffColors(bool darkMode);
+    void onContextMenuRequest();
 
     QVector<LineHighlight> m_data;
     QColor red1;
@@ -56,6 +62,9 @@ private:
     QColor green1;
     QColor green2;
     class LineNumArea *const m_lineNumArea;
+
+Q_SIGNALS:
+    void switchStyle(int);
 };
 
 #endif

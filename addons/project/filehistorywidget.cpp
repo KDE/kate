@@ -287,6 +287,6 @@ void FileHistoryWidget::itemClicked(const QModelIndex &idx)
         QByteArray contents(git.readAllStandardOutput());
         // we send this signal to the parent, which will pass it on to
         // the GitWidget from where a temporary file is opened
-        Q_EMIT commitClicked(contents);
+        Q_EMIT commitClicked(contents, QString::fromUtf8(commit.hash.mid(0, 7)));
     }
 }

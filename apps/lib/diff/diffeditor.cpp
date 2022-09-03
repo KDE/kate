@@ -30,6 +30,7 @@ DiffEditor::DiffEditor(DiffParams::Flags f, QWidget *parent)
         auto bg = QColor::fromRgba(theme.editorColor(Theme::EditorColorRole::BackgroundColor));
         auto fg = QColor::fromRgba(theme.textColor(Theme::TextStyle::Normal));
         auto sel = QColor::fromRgba(theme.editorColor(Theme::EditorColorRole::TextSelection));
+        hunkSeparatorColor = QColor::fromRgba(theme.textColor(Theme::TextStyle::Keyword));
         auto pal = palette();
         pal.setColor(QPalette::Base, bg);
         pal.setColor(QPalette::Text, fg);
@@ -227,7 +228,7 @@ void DiffEditor::paintEvent(QPaintEvent *e)
     const auto viewportRect = viewport()->rect();
 
     while (block.isValid()) {
-        QRectF r = blockBoundingRect(block).translated(offset);
+        const QRectF r = blockBoundingRect(block).translated(offset);
         auto layout = block.layout();
 
         auto hl = highlightingForLine(block.blockNumber());
@@ -275,11 +276,13 @@ void DiffEditor::paintEvent(QPaintEvent *e)
 
         if (block.text().startsWith(QStringLiteral("@@ "))) {
             p.save();
-            p.setPen(Qt::red);
+            QPen pen;
+            pen.setColor(hunkSeparatorColor);
+            pen.setWidthF(1.1);
+            p.setPen(pen);
             p.setBrush(Qt::NoBrush);
-            QRectF copy = r;
-            copy.setRight(copy.right() - 1);
-            p.drawRect(copy);
+            p.drawLine(r.topLeft(), r.topRight());
+            p.drawLine(r.bottomLeft(), r.bottomRight());
             p.restore();
         }
 

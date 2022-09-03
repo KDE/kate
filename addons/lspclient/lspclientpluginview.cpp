@@ -1458,7 +1458,7 @@ public:
     // (execution of command may lead to an applyEdit request from server)
     void triggerCodeAction(const QModelIndex &index)
     {
-        triggerCodeActionItem(getPrimaryModelIndex(index), false);
+        triggerCodeActionItem(index, false);
     }
 
     void triggerCodeActionItem(const QModelIndex &index, bool autoApply)

@@ -511,7 +511,16 @@ public Q_SLOTS:
      */
     QObject *pluginView(const QString &name);
 
-    void addWidgetAsTab(QWidget *widget);
+    /**
+     * Add a widget to the main window.
+     * This is useful to show non-KTextEditor::View widgets in the main window.
+     * The host application should try to manage this like some KTextEditor::View (e.g. as a tab) and provide
+     * the means to close it.
+     * \param widget widget to add
+     * \return success, if false, the plugin needs to take care to show the widget itself, otherwise
+     *         the main window will take ownership of the widget
+     */
+    bool addWidget(QWidget *widget);
 
     void showDiff(const QByteArray &wordDiff, const DiffParams &params);
 

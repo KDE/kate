@@ -1302,10 +1302,11 @@ QObject *KateMainWindow::pluginView(const QString &name)
     return m_pluginViews.contains(plugin) ? m_pluginViews.value(plugin) : nullptr;
 }
 
-void KateMainWindow::addWidgetAsTab(QWidget *widget)
+bool KateMainWindow::addWidget(QWidget *widget)
 {
     auto vs = m_viewManager->activeViewSpace();
     vs->addWidgetAsTab(widget);
+    return true;
 }
 
 void KateMainWindow::showDiff(const QByteArray &wordDiff, const DiffParams &params)
@@ -1319,7 +1320,7 @@ void KateMainWindow::showDiff(const QByteArray &wordDiff, const DiffParams &para
         else
             w->setWindowTitle(i18n("Diff %1..%2", Utils::fileNameFromPath(params.srcFile), Utils::fileNameFromPath(params.destFile)));
     }
-    addWidgetAsTab(w);
+    addWidget(w);
     w->openDiff(wordDiff);
 }
 

@@ -53,7 +53,7 @@ void CEPluginView::openANewTab()
 
     QWidget *mw = m_mainWindow->window();
     // clang-format off
-    QMetaObject::invokeMethod(mw, "addWidgetAsTab", Q_ARG(QWidget*, m_mainWidget));
+    QMetaObject::invokeMethod(mw, "addWidget", Q_ARG(QWidget*, m_mainWidget));
     // clang-format on
 }
 

@@ -7,6 +7,7 @@
 
 #include "kateprojectview.h"
 #include "branchcheckoutdialog.h"
+#include "diffparams.h"
 #include "filehistorywidget.h"
 #include "git/gitutils.h"
 #include "gitwidget.h"
@@ -158,8 +159,9 @@ void KateProjectView::showFileGitHistory(const QString &file)
     connect(fhs, &FileHistoryWidget::backClicked, this, &KateProjectView::setTreeViewAsCurrent);
     connect(fhs, &FileHistoryWidget::commitClicked, this, [this, file](const QByteArray &diff, const QString &commit) {
         auto mw = m_pluginView->mainWindow()->window();
-        const QString name = QStringLiteral("%1[%2]").arg(file, commit);
-        QMetaObject::invokeMethod(mw, "showDiff", Q_ARG(QByteArray, diff), Q_ARG(QString, name), Q_ARG(QString, {}));
+        DiffParams d;
+        d.tabTitle = QStringLiteral("%1[%2]").arg(file, commit);
+        QMetaObject::invokeMethod(mw, "showDiff", Q_ARG(QByteArray, diff), Q_ARG(DiffParams, d));
     });
     connect(fhs, &FileHistoryWidget::errorMessage, m_pluginView, [this](const QString &s, bool warn) {
         QVariantMap genericMessage;

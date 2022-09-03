@@ -1,5 +1,6 @@
 #include "diffeditor.h"
 #include "difflinenumarea.h"
+#include "diffwidget.h"
 #include "ktexteditor_utils.h"
 
 #include <QMenu>
@@ -9,9 +10,11 @@
 
 #include <KLocalizedString>
 
-DiffEditor::DiffEditor(QWidget *parent)
+DiffEditor::DiffEditor(DiffParams::Flags f, QWidget *parent)
     : QPlainTextEdit(parent)
     , m_lineNumArea(new LineNumArea(this))
+    , m_diffWidget(static_cast<DiffWidget *>(parent))
+    , m_flags(f)
 {
     setFrameStyle(QFrame::NoFrame);
 
@@ -65,27 +68,109 @@ void DiffEditor::resizeEvent(QResizeEvent *event)
     updateLineNumAreaGeometry();
 }
 
+KTextEditor::Range DiffEditor::selectionRange() const
+{
+    const auto cursor = textCursor();
+    if (!cursor.hasSelection())
+        return KTextEditor::Range::invalid();
+
+    QTextCursor start = cursor;
+    start.setPosition(qMin(cursor.selectionStart(), cursor.selectionEnd()));
+    QTextCursor end = cursor;
+    end.setPosition(qMax(cursor.selectionStart(), cursor.selectionEnd()));
+
+    const int startLine = start.blockNumber();
+    const int endLine = end.blockNumber();
+    const int startColumn = start.selectionStart() - start.block().position();
+    const int endColumn = end.selectionEnd() - end.block().position();
+    return {startLine, startColumn, endLine, endColumn};
+}
+
 void DiffEditor::contextMenuEvent(QContextMenuEvent *e)
 {
+    // Follow KTextEditor behaviour
+    if (!textCursor().hasSelection()) {
+        setTextCursor(cursorForPosition(e->pos()));
+    }
+
     auto menu = createStandardContextMenu();
     QAction *before = nullptr;
     if (!menu->actions().isEmpty())
         before = menu->actions().constFirst();
-    auto a = new QAction(i18n("Change Style"));
-    auto styleMenu = new QMenu(this);
-    styleMenu->addAction(i18n("Side By Side"), this, [this] {
-        Q_EMIT switchStyle(SideBySide);
-    });
-    styleMenu->addAction(i18n("Unified"), this, [this] {
-        Q_EMIT switchStyle(Unified);
-    });
-    styleMenu->addAction(i18n("Raw"), this, [this] {
-        Q_EMIT switchStyle(Raw);
-    });
-    a->setMenu(styleMenu);
-    menu->insertAction(before, a);
 
-    menu->exec(mapToGlobal(e->pos()));
+    {
+        auto a = new QAction(i18n("Change Style"));
+        auto styleMenu = new QMenu(this);
+        styleMenu->addAction(i18n("Side By Side"), this, [this] {
+            Q_EMIT switchStyle(SideBySide);
+        });
+        styleMenu->addAction(i18n("Unified"), this, [this] {
+            Q_EMIT switchStyle(Unified);
+        });
+        styleMenu->addAction(i18n("Raw"), this, [this] {
+            Q_EMIT switchStyle(Raw);
+        });
+        a->setMenu(styleMenu);
+        menu->insertAction(before, a);
+    }
+
+    addStageUnstageDiscardActions(menu);
+
+    menu->exec(viewport()->mapToGlobal(e->pos()));
+}
+
+void DiffEditor::addStageUnstageDiscardActions(QMenu *menu)
+{
+    const auto selection = selectionRange();
+    const int lineCount = !selection.isValid() ? 1 : selection.numberOfLines() + 1;
+
+    int startLine = textCursor().blockNumber();
+    int endLine = startLine;
+    if (selection.isValid()) {
+        startLine = selection.start().line();
+        endLine = selection.end().line();
+    }
+
+    QAction *before = nullptr;
+    if (!menu->actions().isEmpty())
+        before = menu->actions().constFirst();
+
+    if (m_flags.testFlag(DiffParams::Flag::ShowStage)) {
+        auto a = new QAction(i18np("Stage Line", "Stage Lines", lineCount));
+        connect(a, &QAction::triggered, this, [=] {
+            Q_EMIT actionTriggered(this, startLine, endLine, (int)Line, DiffParams::Flag::ShowStage);
+        });
+        menu->insertAction(before, a);
+        a = new QAction(i18n("Stage Hunk"));
+        connect(a, &QAction::triggered, this, [=] {
+            Q_EMIT actionTriggered(this, startLine, endLine, (int)Hunk, DiffParams::Flag::ShowStage);
+        });
+        menu->insertAction(before, a);
+    }
+    if (m_flags.testFlag(DiffParams::Flag::ShowDiscard)) {
+        auto a = new QAction(i18np("Discard Line", "Discard Lines", lineCount));
+        connect(a, &QAction::triggered, this, [=] {
+            Q_EMIT actionTriggered(this, startLine, endLine, (int)Line, DiffParams::Flag::ShowDiscard);
+        });
+        menu->insertAction(before, a);
+        a = new QAction(i18n("Discard Hunk"));
+        connect(a, &QAction::triggered, this, [=] {
+            Q_EMIT actionTriggered(this, startLine, endLine, (int)Hunk, DiffParams::Flag::ShowDiscard);
+        });
+        menu->insertAction(before, a);
+    }
+    if (m_flags.testFlag(DiffParams::Flag::ShowUnstage)) {
+        auto a = new QAction(i18np("Unstage Line", "Unstage Lines", lineCount));
+        connect(a, &QAction::triggered, this, [=] {
+            Q_EMIT actionTriggered(this, startLine, endLine, (int)Line, DiffParams::Flag::ShowUnstage);
+        });
+        menu->insertAction(before, a);
+        a = new QAction(i18n("Unstage Hunk"));
+        connect(a, &QAction::triggered, this, [=] {
+            Q_EMIT actionTriggered(this, startLine, endLine, (int)Hunk, DiffParams::Flag::ShowUnstage);
+        });
+        menu->insertAction(before, a);
+    }
 }
 
 void DiffEditor::updateLineNumberArea(const QRect &rect, int dy)
@@ -219,4 +304,21 @@ void DiffEditor::setLineNumberData(QVector<int> data, int maxLineNum)
     m_lineNumArea->setLineNumData(std::move(data));
     m_lineNumArea->setMaxLineNum(maxLineNum);
     updateLineNumberAreaWidth(0);
+}
+
+DiffEditor::State DiffEditor::saveState() const
+{
+    return {verticalScrollBar()->value(), textCursor().position()};
+}
+
+void DiffEditor::restoreState(State s)
+{
+    if (document() && document()->isEmpty()) {
+        return;
+    }
+
+    verticalScrollBar()->setValue(qMax(0, s.scrollValue));
+    auto cursor = textCursor();
+    cursor.setPosition(qMin(cursor.document()->characterCount(), s.cursorPosition));
+    setTextCursor(cursor);
 }

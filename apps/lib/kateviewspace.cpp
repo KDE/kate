@@ -915,7 +915,7 @@ void KateViewSpace::showContextMenu(int idx, const QPoint &globalPos)
     menu.addSeparator();
     QAction *compare = menu.addAction(i18n("Compare with active document"));
     connect(compare, &QAction::triggered, this, [this, activeDocument, doc] {
-        auto w = new DiffWidget(this);
+        auto w = new DiffWidget({}, this);
         w->setWindowTitle(i18n("Diff %1 .. %2", activeDocument->documentName(), doc->documentName()));
         w->diffDocs(activeDocument, doc);
         addWidgetAsTab(w);

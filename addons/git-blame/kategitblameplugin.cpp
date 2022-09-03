@@ -6,6 +6,7 @@
 
 #include "kategitblameplugin.h"
 #include "commitfilesview.h"
+#include "diffparams.h"
 
 #include <gitprocess.h>
 
@@ -587,7 +588,9 @@ void KateGitBlamePluginView::hideToolView()
 void KateGitBlamePluginView::showDiffForFile(const QByteArray &diffContents, const QString &file)
 {
     auto mw = m_mainWindow->window();
-    QMetaObject::invokeMethod(mw, "showDiff", Q_ARG(QByteArray, diffContents), Q_ARG(QString, file), Q_ARG(QString, {}));
+    DiffParams d;
+    d.tabTitle = file;
+    QMetaObject::invokeMethod(mw, "showDiff", Q_ARG(QByteArray, diffContents), Q_ARG(DiffParams, d));
 }
 
 #include "kategitblameplugin.moc"

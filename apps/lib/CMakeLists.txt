@@ -22,6 +22,7 @@ target_include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/session
     ${CMAKE_CURRENT_SOURCE_DIR}/quickopen
+    ${CMAKE_CURRENT_SOURCE_DIR}/diff
     ${CMAKE_CURRENT_BINARY_DIR} # kateprivate_export.h
 )
 
@@ -111,9 +112,10 @@ target_sources(
     data/kateprivate.qrc
     hostprocess.cpp
 
-    diffwidget.cpp
-    diffeditor.cpp
-    difflinenumarea.cpp
+    diff/diffwidget.cpp
+    diff/diffeditor.cpp
+    diff/difflinenumarea.cpp
+    diff/gitdiff.cpp
 )
 
 if(BUILD_TESTING)

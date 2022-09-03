@@ -9,6 +9,7 @@
 #include "branchdeletedialog.h"
 #include "branchesdialog.h"
 #include "comparebranchesview.h"
+#include "diffparams.h"
 #include "git/gitdiff.h"
 #include "gitcommitdialog.h"
 #include "gitstatusmodel.h"
@@ -642,7 +643,14 @@ void GitWidget::showDiff(const QString &file, bool staged, bool showInKate)
         } else {
             if (showInKate) {
                 auto mw = mainWindow()->window();
-                QMetaObject::invokeMethod(mw, "showDiff", Q_ARG(QByteArray, git->readAllStandardOutput()), Q_ARG(QString, file), Q_ARG(QString, {}));
+                DiffParams d;
+                d.srcFile = file;
+                d.workingDir = m_activeGitDirPath;
+                d.arguments = git->arguments();
+                d.flags.setFlag(DiffParams::Flag::ShowStage, !staged);
+                d.flags.setFlag(DiffParams::Flag::ShowUnstage, staged);
+                d.flags.setFlag(DiffParams::Flag::ShowDiscard, !staged);
+                QMetaObject::invokeMethod(mw, "showDiff", Q_ARG(QByteArray, git->readAllStandardOutput()), Q_ARG(DiffParams, d));
                 return;
             }
             auto addContextMenuActions = [this, file, staged](KTextEditor::View *v) {

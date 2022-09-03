@@ -1307,18 +1307,22 @@ void KateMainWindow::addWidgetAsTab(QWidget *widget)
     vs->addWidgetAsTab(widget);
 }
 
-void KateMainWindow::showDiff(const QByteArray &wordDiff, const QString &fileName1, const QString &fileName2)
+void KateMainWindow::showDiff(const QByteArray &wordDiff, const DiffParams &params)
 {
     auto getFileName = [](const QString &s) {
         int lastSlash = s.lastIndexOf(QLatin1Char('/'));
         return lastSlash == -1 ? s : s.mid(lastSlash + 1);
     };
 
-    auto w = new DiffWidget(this);
-    if (fileName2.isEmpty())
-        w->setWindowTitle(i18n("Diff %1", getFileName(fileName1)));
-    else
-        w->setWindowTitle(i18n("Diff %1..%2", getFileName(fileName1), getFileName(fileName2)));
+    auto w = new DiffWidget(params, this);
+    if (!params.tabTitle.isEmpty()) {
+        w->setWindowTitle(i18n("Diff %1", params.tabTitle));
+    } else {
+        if (params.destFile.isEmpty())
+            w->setWindowTitle(i18n("Diff %1", getFileName(params.srcFile)));
+        else
+            w->setWindowTitle(i18n("Diff %1..%2", getFileName(params.srcFile), getFileName(params.destFile)));
+    }
     addWidgetAsTab(w);
     w->openDiff(wordDiff);
 }

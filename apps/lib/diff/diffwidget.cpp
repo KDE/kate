@@ -3,9 +3,9 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 #include "diffwidget.h"
-#include "ktexteditor_utils.h"
-
+#include "gitdiff.h"
 #include "gitprocess.h"
+#include "ktexteditor_utils.h"
 
 #include <QApplication>
 #include <QHBoxLayout>
@@ -15,6 +15,7 @@
 #include <QRegularExpression>
 #include <QScrollBar>
 #include <QSyntaxHighlighter>
+#include <QTemporaryFile>
 
 #include <KConfigGroup>
 #include <KSharedConfig>
@@ -23,23 +24,11 @@
 #include <KSyntaxHighlighting/Repository>
 #include <KSyntaxHighlighting/SyntaxHighlighter>
 
-std::pair<uint, uint> parseRange(const QString &range)
-{
-    int commaPos = range.indexOf(QLatin1Char(','));
-    if (commaPos > -1) {
-#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
-        return {range.midRef(0, commaPos).toInt(), range.midRef(commaPos + 1).toInt()};
-#else
-        return {QStringView(range).sliced(0, commaPos).toInt(), QStringView(range).sliced(commaPos + 1).toInt()};
-#endif
-    }
-    return {range.toInt(), 1};
-}
-
-DiffWidget::DiffWidget(QWidget *parent)
+DiffWidget::DiffWidget(DiffParams p, QWidget *parent)
     : QWidget(parent)
-    , m_left(new DiffEditor(this))
-    , m_right(new DiffEditor(this))
+    , m_left(new DiffEditor(p.flags, this))
+    , m_right(new DiffEditor(p.flags, this))
+    , m_params(p)
 {
     auto layout = new QHBoxLayout(this);
     layout->addWidget(m_left);
@@ -61,6 +50,7 @@ DiffWidget::DiffWidget(QWidget *parent)
 
     for (auto *e : {m_left, m_right}) {
         connect(e, &DiffEditor::switchStyle, this, &DiffWidget::handleStyleChange);
+        connect(e, &DiffEditor::actionTriggered, this, &DiffWidget::handleStageUnstage);
     }
 
     KSharedConfig::Ptr config = KSharedConfig::openConfig();
@@ -75,7 +65,9 @@ void DiffWidget::handleStyleChange(int newStyle)
     }
     m_style = (DiffStyle)newStyle;
     const auto diff = m_rawDiff;
+    const auto params = m_params;
     clearData();
+    m_params = params;
 
     if (m_style == SideBySide) {
         m_left->setVisible(true);
@@ -95,11 +87,151 @@ void DiffWidget::handleStyleChange(int newStyle)
     }
 }
 
+void DiffWidget::handleStageUnstage(DiffEditor *e, int startLine, int endLine, int actionType, DiffParams::Flag f)
+{
+    if (m_style == SideBySide) {
+        handleStageUnstage_sideBySide(e, startLine, endLine, actionType, f);
+    } else if (m_style == Unified) {
+        handleStageUnstage_unified(startLine, endLine, actionType, f);
+    } else if (m_style == Raw) {
+        handleStageUnstage_raw(startLine, endLine, actionType, f);
+    }
+}
+
+void DiffWidget::handleStageUnstage_unified(int startLine, int endLine, int actionType, DiffParams::Flag f)
+{
+    handleStageUnstage_sideBySide(m_left, startLine, endLine, actionType, f);
+}
+
+void DiffWidget::handleStageUnstage_sideBySide(DiffEditor *e, int startLine, int endLine, int actionType, DiffParams::Flag flags)
+{
+    bool added = e == m_right;
+    int diffLine = -1;
+    if (actionType == DiffEditor::Line) {
+        for (auto vToD : std::as_const(m_lineToRawDiffLine)) {
+            if (vToD.line == startLine && vToD.added == added) {
+                diffLine = vToD.diffLine;
+                break;
+            }
+        }
+    } else if (actionType == DiffEditor::Hunk) {
+        // find the first hunk smaller than/equal this line
+        for (auto it = m_lineToDiffHunkLine.crbegin(); it != m_lineToDiffHunkLine.crend(); ++it) {
+            if (it->line <= startLine) {
+                diffLine = it->diffLine;
+                break;
+            }
+        }
+    }
+
+    if (diffLine == -1) {
+        // Nothing found somehow
+        return;
+    }
+
+    doStageUnStage(diffLine, diffLine + (endLine - startLine), actionType, flags);
+}
+
+void DiffWidget::handleStageUnstage_raw(int startLine, int endLine, int actionType, DiffParams::Flag flags)
+{
+    doStageUnStage(startLine, endLine + (endLine - startLine), actionType, flags);
+}
+
+void DiffWidget::doStageUnStage(int startLine, int endLine, int actionType, DiffParams::Flag flags)
+{
+    VcsDiff d;
+    const auto stageOrDiscard = flags == DiffParams::Flag::ShowDiscard || flags == DiffParams::Flag::ShowUnstage;
+    const auto dir = stageOrDiscard ? VcsDiff::Reverse : VcsDiff::Forward;
+    d.setDiff(QString::fromUtf8(m_rawDiff));
+    const auto x = actionType == DiffEditor::Line ? d.subDiff(startLine, startLine + (endLine - startLine), dir) : d.subDiffHunk(startLine, dir);
+
+    if (flags & DiffParams::Flag::ShowStage) {
+        applyDiff(x.diff(), ApplyFlags::None);
+    } else if (flags & DiffParams::ShowUnstage) {
+        applyDiff(x.diff(), ApplyFlags::Staged);
+    } else if (flags & DiffParams::ShowDiscard) {
+        applyDiff(x.diff(), ApplyFlags::Discard);
+    }
+}
+
+void DiffWidget::applyDiff(const QString &diff, ApplyFlags flags)
+{
+    //     const QString diff = getDiff(v, flags & Hunk, flags & (Staged | Discard));
+    if (diff.isEmpty()) {
+        return;
+    }
+
+    QTemporaryFile *file = new QTemporaryFile(this);
+    if (!file->open()) {
+        //         sendMessage(i18n("Failed to stage selection"), true);
+        return;
+    }
+    file->write(diff.toUtf8());
+    file->close();
+
+    Q_ASSERT(!m_params.workingDir.isEmpty());
+    QProcess *git = new QProcess(this);
+    QStringList args;
+    if (flags & Discard) {
+        args = QStringList{QStringLiteral("apply"), file->fileName()};
+    } else {
+        args = QStringList{QStringLiteral("apply"), QStringLiteral("--index"), QStringLiteral("--cached"), file->fileName()};
+    }
+    setupGitProcess(*git, m_params.workingDir, args);
+
+    connect(git, &QProcess::finished, this, [=](int exitCode, QProcess::ExitStatus es) {
+        if (es != QProcess::NormalExit || exitCode != 0) {
+            onError(git->readAllStandardError(), git->exitCode());
+        } else {
+            runGitDiff();
+        }
+        delete file;
+        git->deleteLater();
+    });
+    startHostProcess(*git, QProcess::ReadOnly);
+}
+
+void DiffWidget::runGitDiff()
+{
+    const QStringList arguments = m_params.arguments;
+    const QString workingDir = m_params.workingDir;
+    if (workingDir.isEmpty() || arguments.isEmpty()) {
+        return;
+    }
+
+    auto leftState = m_left->saveState();
+    auto rightState = m_right->saveState();
+
+    QProcess *git = new QProcess(this);
+    setupGitProcess(*git, workingDir, arguments);
+    connect(git, &QProcess::finished, this, [=](int exitCode, QProcess::ExitStatus es) {
+        const auto params = m_params;
+        clearData();
+        m_params = params;
+        m_left->setUpdatesEnabled(false);
+        m_right->setUpdatesEnabled(false);
+        if (es != QProcess::NormalExit || exitCode != 0) {
+            onError(git->readAllStandardError(), git->exitCode());
+        } else {
+            openDiff(git->readAllStandardOutput());
+            m_left->restoreState(leftState);
+            m_right->restoreState(rightState);
+        }
+        m_left->setUpdatesEnabled(true);
+        m_right->setUpdatesEnabled(true);
+        git->deleteLater();
+    });
+    startHostProcess(*git, QProcess::ReadOnly);
+}
+
 void DiffWidget::clearData()
 {
     m_left->clearData();
     m_right->clearData();
     m_rawDiff.clear();
+    m_lineToRawDiffLine.clear();
+    m_lineToDiffHunkLine.clear();
+    m_params.clear();
 }
 
 void DiffWidget::diffDocs(KTextEditor::Document *l, KTextEditor::Document *r)
@@ -277,6 +409,11 @@ void DiffWidget::parseAndShowDiff(const QByteArray &raw)
     QString srcFile;
     QString tgtFile;
 
+    // viewLine => rawDiffLine
+    QVector<ViewLineToDiffLine> lineToRawDiffLine;
+    // for Folding/stage/unstage hunk
+    QVector<ViewLineToDiffLine> linesWithHunkHeading;
+
     int maxLineNoFound = 0;
     int lineA = 0;
     int lineB = 0;
@@ -308,6 +445,7 @@ void DiffWidget::parseAndShowDiff(const QByteArray &raw)
         lineNumsB.append(-1);
         left.append(headingLeft);
         right.append(headingRight);
+        linesWithHunkHeading.append({lineA, i, /*unused*/ false});
         lineA++;
         lineB++;
 
@@ -345,6 +483,7 @@ void DiffWidget::parseAndShowDiff(const QByteArray &raw)
                 h.changes.push_back({0, l.size()});
                 rightHlts.push_back(h);
                 lineNumsB.append(tgtLine++);
+                lineToRawDiffLine.append({lineB, j, true});
                 right.append(l);
 
                 hunkChangedLinesB.emplace_back(l, lineB, h.added);
@@ -363,6 +502,7 @@ void DiffWidget::parseAndShowDiff(const QByteArray &raw)
                 lineNumsA.append(srcLine++);
                 left.append(l);
                 hunkChangedLinesA.emplace_back(l, lineA, h.added);
+                lineToRawDiffLine.append({lineA, j, false});
 
                 lineA++;
             } else if (l.startsWith(QStringLiteral("@@ ")) && HUNK_HEADER_RE.match(l).hasMatch()) {
@@ -402,12 +542,17 @@ void DiffWidget::parseAndShowDiff(const QByteArray &raw)
     QString leftText = left.join(QLatin1Char('\n'));
     QString rightText = right.join(QLatin1Char('\n'));
 
+    Q_ASSERT(lineA == lineB && left.size() == right.size() && lineNumsA.size() == lineNumsB.size());
+
     m_left->appendData(leftHlts);
     m_right->appendData(rightHlts);
     m_left->appendPlainText(leftText);
     m_right->appendPlainText(rightText);
     m_left->setLineNumberData(lineNumsA, maxLineNoFound);
     m_right->setLineNumberData(lineNumsB, maxLineNoFound);
+    m_lineToRawDiffLine += lineToRawDiffLine;
+    m_lineToDiffHunkLine += linesWithHunkHeading;
+
     // Only do highlighting if there is one mimetype found, multiple different files not supported
     if (mimeTypes.size() == 1) {
         const auto def = KTextEditor::Editor::instance()->repository().definitionForMimeType(*mimeTypes.begin());
@@ -440,6 +585,11 @@ void DiffWidget::parseAndShowDiffUnified(const QByteArray &raw)
     // Changed lines of hunk, used to determine differences between two lines
     HunkChangedLines hunkChangedLinesA;
     HunkChangedLines hunkChangedLinesB;
+
+    // viewLine => rawDiffLine
+    QVector<ViewLineToDiffLine> lineToRawDiffLine;
+    // for Folding/stage/unstage hunk
+    QVector<ViewLineToDiffLine> linesWithHunkHeading;
 
     QSet<QString> mimeTypes;
     QString srcFile;
@@ -474,6 +624,7 @@ void DiffWidget::parseAndShowDiffUnified(const QByteArray &raw)
 
         lines.push_back(line);
         lineNums.append(-1);
+        linesWithHunkHeading.append({lineNo, i, false});
         lineNo++;
 
         hunkChangedLinesA.clear();
@@ -507,6 +658,7 @@ void DiffWidget::parseAndShowDiffUnified(const QByteArray &raw)
                 lines.append(l);
                 hlts.push_back(h);
                 lineNums.append(tgtLine++);
+                lineToRawDiffLine.append({lineNo, j, false});
 
                 hunkChangedLinesB.emplace_back(l, lineNo, h.added);
                 lineNo++;
@@ -521,6 +673,7 @@ void DiffWidget::parseAndShowDiffUnified(const QByteArray &raw)
                 lineNums.append(srcLine++);
                 lines.append(l);
                 hunkChangedLinesA.emplace_back(l, lineNo, h.added);
+                lineToRawDiffLine.append({lineNo, j, false});
 
                 lineNo++;
             } else if (l.startsWith(QStringLiteral("@@ ")) && HUNK_HEADER_RE.match(l).hasMatch()) {
@@ -551,6 +704,8 @@ void DiffWidget::parseAndShowDiffUnified(const QByteArray &raw)
     m_left->appendData(hlts);
     m_left->appendPlainText(lines.join(QLatin1Char('\n')));
     m_left->setLineNumberData(lineNums, maxLineNoFound);
+    m_lineToDiffHunkLine = linesWithHunkHeading;
+    m_lineToRawDiffLine = lineToRawDiffLine;
 
     // Only do highlighting if there is one mimetype found, multiple different files not supported
     if (mimeTypes.size() == 1) {

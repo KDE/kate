@@ -114,26 +114,6 @@ public:
     }
 
     /**
-     * @brief Shows diff in a fixed view, i.e., the view is recycled instead
-     * of creating new view every time
-     * @param contents diff contents
-     */
-    void showDiffInFixedView(const QByteArray &contents);
-
-    /**
-     * Same as above with call back for setting a context menu
-     *
-     * @param cb Callback on the view. This should always take KTextEditor::View*
-     * as a parameter. This is mainly used to plug-in context-menu actions.
-     */
-    template<typename ViewCallback>
-    void showDiffInFixedView(const QByteArray &contents, ViewCallback cb)
-    {
-        showDiffInFixedView(contents);
-        cb(m_fixedView.view);
-    }
-
-    /**
      * Open terminal view at \p dirPath location for project \p project
      */
     void openTerminal(const QString &dirPath, KateProject *project);

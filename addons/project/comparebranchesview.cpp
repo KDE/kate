@@ -5,8 +5,10 @@
 */
 
 #include "comparebranchesview.h"
+#include "diffparams.h"
 #include "kateprojectpluginview.h"
 #include "kateprojectworker.h"
+#include "ktexteditor_utils.h"
 
 #include <gitprocess.h>
 
@@ -18,6 +20,7 @@
 
 #include <KColorScheme>
 #include <KLocalizedString>
+#include <KTextEditor/MainWindow>
 
 class DiffStyleDelegate : public QStyledItemDelegate
 {
@@ -168,5 +171,10 @@ void CompareBranchesView::showDiff(const QModelIndex &idx)
             return;
         }
     }
-    m_pluginView->showDiffInFixedView(git.readAllStandardOutput());
+    auto mw = m_pluginView->mainWindow()->window();
+    DiffParams d;
+    d.tabTitle = QStringLiteral("Diff %1[%2 .. %3]").arg(Utils::fileNameFromPath(file)).arg(m_fromBr).arg(m_toBr);
+    d.workingDir = m_gitDir;
+    d.arguments = git.arguments();
+    QMetaObject::invokeMethod(mw, "showDiff", Q_ARG(QByteArray, git.readAllStandardOutput()), Q_ARG(DiffParams, d));
 }

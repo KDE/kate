@@ -82,6 +82,12 @@ inline QFont viewFont(KTextEditor::View *view)
     return editorFont();
 }
 
+inline QString fileNameFromPath(const QString &path)
+{
+    int lastSlash = path.lastIndexOf(QLatin1Char('/'));
+    return lastSlash == -1 ? path : path.mid(lastSlash + 1);
+}
+
 /**
  * Return a matching icon for the given document.
  * We use the mime type icon for unmodified stuff and the modified one for modified docs.

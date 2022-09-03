@@ -75,7 +75,6 @@ target_sources(
     tools/flake8.cpp
     tools/shellcheck.cpp
 
-    git/gitdiff.cpp
     git/gitutils.cpp
     git/gitstatus.cpp
 

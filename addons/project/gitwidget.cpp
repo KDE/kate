@@ -10,7 +10,6 @@
 #include "branchesdialog.h"
 #include "comparebranchesview.h"
 #include "diffparams.h"
-#include "git/gitdiff.h"
 #include "gitcommitdialog.h"
 #include "gitstatusmodel.h"
 #include "kateproject.h"
@@ -624,7 +623,7 @@ void GitWidget::openAtHEAD(const QString &file)
     startHostProcess(*git, QProcess::ReadOnly);
 }
 
-void GitWidget::showDiff(const QString &file, bool staged, bool showInKate)
+void GitWidget::showDiff(const QString &file, bool staged)
 {
     auto args = QStringList{QStringLiteral("diff")};
     if (staged) {
@@ -637,54 +636,19 @@ void GitWidget::showDiff(const QString &file, bool staged, bool showInKate)
     }
 
     auto git = gitp(args);
-    connect(git, &QProcess::finished, this, [this, file, staged, git, showInKate](int exitCode, QProcess::ExitStatus es) {
+    connect(git, &QProcess::finished, this, [this, file, staged, git](int exitCode, QProcess::ExitStatus es) {
         if (es != QProcess::NormalExit || exitCode != 0) {
             sendMessage(i18n("Failed to get Diff of file: %1", QString::fromUtf8(git->readAllStandardError())), true);
         } else {
-            if (showInKate) {
-                auto mw = mainWindow()->window();
-                DiffParams d;
-                d.srcFile = file;
-                d.workingDir = m_activeGitDirPath;
-                d.arguments = git->arguments();
-                d.flags.setFlag(DiffParams::Flag::ShowStage, !staged);
-                d.flags.setFlag(DiffParams::Flag::ShowUnstage, staged);
-                d.flags.setFlag(DiffParams::Flag::ShowDiscard, !staged);
-                QMetaObject::invokeMethod(mw, "showDiff", Q_ARG(QByteArray, git->readAllStandardOutput()), Q_ARG(DiffParams, d));
-                return;
-            }
-            auto addContextMenuActions = [this, file, staged](KTextEditor::View *v) {
-                QMenu *menu = new QMenu(v);
-                if (!staged) {
-                    auto sh = menu->addAction(i18n("Stage Hunk"));
-                    auto sl = menu->addAction(i18n("Stage Lines"));
-                    auto dl = menu->addAction(i18n("Discard Lines"));
-
-                    connect(sh, &QAction::triggered, v, [=] {
-                        applyDiff(file, ApplyFlags::Hunk, v);
-                    });
-                    connect(sl, &QAction::triggered, v, [=] {
-                        applyDiff(file, ApplyFlags::None, v);
-                    });
-                    connect(dl, &QAction::triggered, v, [=] {
-                        applyDiff(file, ApplyFlags::Discard, v);
-                    });
-                } else {
-                    auto ush = menu->addAction(i18n("Unstage Hunk"));
-                    auto usl = menu->addAction(i18n("Unstage Lines"));
-
-                    connect(ush, &QAction::triggered, v, [=] {
-                        applyDiff(file, ApplyFlags(Staged | Hunk), v);
-                    });
-                    connect(usl, &QAction::triggered, v, [=] {
-                        applyDiff(file, ApplyFlags::Staged, v);
-                    });
-                }
-                menu->addActions(v->contextMenu()->actions());
-                v->setContextMenu(menu);
-            };
-
-            m_pluginView->showDiffInFixedView(git->readAllStandardOutput(), addContextMenuActions);
+            auto mw = mainWindow()->window();
+            DiffParams d;
+            d.srcFile = file;
+            d.workingDir = m_activeGitDirPath;
+            d.arguments = git->arguments();
+            d.flags.setFlag(DiffParams::Flag::ShowStage, !staged);
+            d.flags.setFlag(DiffParams::Flag::ShowUnstage, staged);
+            d.flags.setFlag(DiffParams::Flag::ShowDiscard, !staged);
+            QMetaObject::invokeMethod(mw, "showDiff", Q_ARG(QByteArray, git->readAllStandardOutput()), Q_ARG(DiffParams, d));
         }
         git->deleteLater();
     });
@@ -738,70 +702,6 @@ void GitWidget::commitChanges(const QString &msg, const QString &desc, bool sign
             updateStatus();
             sendMessage(i18n("Changes committed successfully."), false);
         }
-        git->deleteLater();
-    });
-    startHostProcess(*git, QProcess::ReadOnly);
-}
-
-QString GitWidget::getDiff(KTextEditor::View *v, bool hunk, bool alreadyStaged)
-{
-    auto range = v->selectionRange();
-    int startLine = range.start().line();
-    int endLine = range.end().line();
-    if (range.isEmpty() || hunk) {
-        startLine = endLine = v->cursorPosition().line();
-    }
-
-    VcsDiff full;
-    full.setDiff(v->document()->text());
-    full.setBaseDiff(QUrl::fromUserInput(m_activeGitDirPath));
-
-    const auto dir = alreadyStaged ? VcsDiff::Reverse : VcsDiff::Forward;
-
-    VcsDiff selected = hunk ? full.subDiffHunk(startLine, dir) : full.subDiff(startLine, endLine, dir);
-    return selected.diff();
-}
-
-void GitWidget::applyDiff(const QString &fileName, ApplyFlags flags, KTextEditor::View *v)
-{
-    if (!v) {
-        return;
-    }
-
-    const QString diff = getDiff(v, flags & Hunk, flags & (Staged | Discard));
-    if (diff.isEmpty()) {
-        return;
-    }
-
-    QTemporaryFile *file = new QTemporaryFile(this);
-    if (!file->open()) {
-        sendMessage(i18n("Failed to stage selection"), true);
-        return;
-    }
-    file->write(diff.toUtf8());
-    file->close();
-
-    QProcess *git = nullptr;
-    if (flags & Discard) {
-        git = gitp({QStringLiteral("apply"), file->fileName()});
-    } else {
-        git = gitp({QStringLiteral("apply"), QStringLiteral("--index"), QStringLiteral("--cached"), file->fileName()});
-    }
-
-    connect(git, &QProcess::finished, this, [=](int exitCode, QProcess::ExitStatus es) {
-        if (es != QProcess::NormalExit || exitCode != 0) {
-            sendMessage(i18n("Failed to stage: %1", QString::fromUtf8(git->readAllStandardError())), true);
-        } else {
-            // close and reopen doc to show updated diff
-            if (v && v->document()) {
-                showDiff(fileName, flags & Staged, false);
-            }
-            // must come at the end
-            QTimer::singleShot(10, this, [this] {
-                updateStatus();
-            });
-        }
-        delete file;
         git->deleteLater();
     });
     startHostProcess(*git, QProcess::ReadOnly);
@@ -1048,7 +948,11 @@ void GitWidget::createStashDialog(StashMode m, const QString &gitPath)
     auto stashDialog = new StashDialog(this, mainWindow()->window(), gitPath);
     connect(stashDialog, &StashDialog::message, this, &GitWidget::sendMessage);
     connect(stashDialog, &StashDialog::showStashDiff, this, [this](const QByteArray &r) {
-        m_pluginView->showDiffInFixedView(r);
+        auto mw = mainWindow()->window();
+        DiffParams d;
+        d.tabTitle = i18n("Diff - stash");
+        d.workingDir = m_activeGitDirPath;
+        QMetaObject::invokeMethod(mw, "showDiff", Q_ARG(QByteArray, r), Q_ARG(DiffParams, d));
     });
     connect(stashDialog, &StashDialog::done, this, [this, stashDialog] {
         updateStatus();
@@ -1139,7 +1043,7 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
         discardAct->setIcon(QIcon::fromTheme(QStringLiteral("edit-delete-remove")));
 
         auto ignoreAct = untracked ? menu.addAction(i18n("Open .gitignore")) : nullptr;
-        auto diff = !untracked ? menu.addAction(QIcon::fromTheme(QStringLiteral("vcs-diff")), i18n("Show diff")) : nullptr;
+        auto diff = !untracked ? menu.addAction(QIcon::fromTheme(QStringLiteral("vcs-diff")), i18n("Show Diff")) : nullptr;
         // get files
         auto act = menu.exec(m_treeView->viewport()->mapToGlobal(e->pos()));
         if (!act) {
@@ -1177,7 +1081,7 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
                 m_mainWin->openUrl(QUrl::fromLocalFile(*it));
             }
         } else if (!untracked && act == diff) {
-            showDiff(QString(), false, true);
+            showDiff(QString(), false);
         }
     } else if (treeItem == GitStatusModel::NodeFile) {
         QMenu menu;
@@ -1186,8 +1090,7 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
         const bool untracked = statusItemType == GitStatusModel::NodeUntrack;
 
         auto openFile = menu.addAction(i18n("Open File"));
-        auto diff = untracked ? nullptr : menu.addAction(QIcon::fromTheme(QStringLiteral("vcs-diff")), i18n("Diff"));
-        auto showDiffAct = untracked ? nullptr : menu.addAction(QIcon::fromTheme(QStringLiteral("vcs-diff")), i18n("Show Raw Diff"));
+        auto showDiffAct = untracked ? nullptr : menu.addAction(QIcon::fromTheme(QStringLiteral("vcs-diff")), i18n("Show Diff"));
         auto launchDifftoolAct = untracked ? nullptr : menu.addAction(QIcon::fromTheme(QStringLiteral("kdiff3")), i18n("Show in External Git Diff Tool"));
         auto openAtHead = untracked ? nullptr : menu.addAction(i18n("Open at HEAD"));
         auto stageAct = staged ? menu.addAction(i18n("Unstage File")) : menu.addAction(i18n("Stage File"));
@@ -1214,8 +1117,8 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
             }
         } else if (act == openAtHead && !untracked) {
             openAtHEAD(idx.data(GitStatusModel::FileNameRole).toString());
-        } else if ((showDiffAct || diff) && (act == showDiffAct || act == diff) && !untracked) {
-            showDiff(file, staged, /*showInKate=*/act == diff);
+        } else if (showDiffAct && act == showDiffAct && !untracked) {
+            showDiff(file, staged);
         } else if (act == discardAct && untracked) {
             auto ret = confirm(this, i18n("Are you sure you want to remove this file?"), KStandardGuiItem::remove());
             if (ret == KMessageBox::Yes) {

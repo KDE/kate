@@ -124,11 +124,9 @@ private:
     void discard(const QStringList &files);
     void clean(const QStringList &files);
     void openAtHEAD(const QString &file);
-    void showDiff(const QString &file, bool staged, bool showInKate = false);
+    void showDiff(const QString &file, bool staged);
     void launchExternalDiffTool(const QString &file, bool staged);
     void commitChanges(const QString &msg, const QString &desc, bool signOff, bool amend = false);
-    enum ApplyFlags { None = 0, Staged = 1, Hunk = 2, Discard = 4 };
-    void applyDiff(const QString &fileName, ApplyFlags flags, KTextEditor::View *v);
     void branchCompareFiles(const QString &from, const QString &to);
 
     QMenu *stashMenu(KActionCollection *pCollection);
@@ -137,7 +135,6 @@ private:
     void treeViewContextMenuEvent(QContextMenuEvent *e);
     void selectedContextMenu(QContextMenuEvent *e);
 
-    QString getDiff(KTextEditor::View *view, bool hunk, bool alreadyStaged);
     void createStashDialog(StashMode m, const QString &gitPath);
 
     void enableCancel(QProcess *git);

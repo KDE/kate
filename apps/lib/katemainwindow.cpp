@@ -26,6 +26,7 @@
 #include "katestashmanager.h"
 #include "kateupdatedisabler.h"
 #include "kateviewspace.h"
+#include "ktexteditor_utils.h"
 
 #include <KAboutData>
 #include <KActionCollection>
@@ -1309,19 +1310,14 @@ void KateMainWindow::addWidgetAsTab(QWidget *widget)
 
 void KateMainWindow::showDiff(const QByteArray &wordDiff, const DiffParams &params)
 {
-    auto getFileName = [](const QString &s) {
-        int lastSlash = s.lastIndexOf(QLatin1Char('/'));
-        return lastSlash == -1 ? s : s.mid(lastSlash + 1);
-    };
-
     auto w = new DiffWidget(params, this);
     if (!params.tabTitle.isEmpty()) {
-        w->setWindowTitle(i18n("Diff %1", params.tabTitle));
+        w->setWindowTitle(params.tabTitle);
     } else {
         if (params.destFile.isEmpty())
-            w->setWindowTitle(i18n("Diff %1", getFileName(params.srcFile)));
+            w->setWindowTitle(i18n("Diff %1", Utils::fileNameFromPath(params.srcFile)));
         else
-            w->setWindowTitle(i18n("Diff %1..%2", getFileName(params.srcFile), getFileName(params.destFile)));
+            w->setWindowTitle(i18n("Diff %1..%2", Utils::fileNameFromPath(params.srcFile), Utils::fileNameFromPath(params.destFile)));
     }
     addWidgetAsTab(w);
     w->openDiff(wordDiff);

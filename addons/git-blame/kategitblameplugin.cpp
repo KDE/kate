@@ -589,7 +589,7 @@ void KateGitBlamePluginView::showDiffForFile(const QByteArray &diffContents, con
 {
     auto mw = m_mainWindow->window();
     DiffParams d;
-    d.tabTitle = file;
+    d.srcFile = file;
     QMetaObject::invokeMethod(mw, "showDiff", Q_ARG(QByteArray, diffContents), Q_ARG(DiffParams, d));
 }
 

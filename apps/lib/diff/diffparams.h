@@ -1,3 +1,7 @@
+/*
+    SPDX-FileCopyrightText: 2022 Waqar Ahmed <waqar.17a@gmail.com>
+    SPDX-License-Identifier: MIT
+*/
 #ifndef KATE_DIFF_PARAMS
 #define KATE_DIFF_PARAMS
 

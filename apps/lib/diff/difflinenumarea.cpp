@@ -10,6 +10,8 @@
 
 #include <KTextEditor/Editor>
 
+static constexpr int Margin = 4;
+
 LineNumArea::LineNumArea(DiffEditor *parent)
     : QWidget(parent)
     , textEdit(parent)
@@ -33,7 +35,7 @@ LineNumArea::LineNumArea(DiffEditor *parent)
 
 int LineNumArea::lineNumAreaWidth() const
 {
-    int digits = 2;
+    int digits = 1;
     int max = std::max(1, maxLineNum);
     while (max >= 10) {
         max /= 10;
@@ -81,7 +83,9 @@ void LineNumArea::paintEvent(QPaintEvent *event)
                 const QString number = QString::number(n);
                 auto isCurrentLine = textEdit->textCursor().blockNumber() == blockNumber;
                 painter.setPen(isCurrentLine ? currentLine : otherLines);
-                painter.drawText(-5, top, sizeHint().width(), textEdit->fontMetrics().height(), Qt::AlignRight, number);
+                QRect numRect(0, top, sizeHint().width(), textEdit->fontMetrics().height());
+                numRect.adjust(0, 0, -(Margin * 2), 0);
+                painter.drawText(numRect, Qt::AlignRight | Qt::AlignVCenter | Qt::TextDontClip, number);
             }
         }
 

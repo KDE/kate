@@ -9,7 +9,16 @@
 #include <QStringList>
 
 struct DiffParams {
-    enum Flag { ShowStage = 1, ShowUnstage = 2, ShowDiscard = 4 };
+    enum Flag {
+        /** show stage action in context menu **/
+        ShowStage = 1,
+        /** show unstage action in context menu **/
+        ShowUnstage = 2,
+        /** show discard action in context menu **/
+        ShowDiscard = 4,
+        /** show filename with diff. Appears right before hunk heading **/
+        ShowFileName,
+    };
     Q_DECLARE_FLAGS(Flags, Flag)
     Q_FLAGS(Flags)
 

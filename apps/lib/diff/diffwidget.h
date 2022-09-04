@@ -30,6 +30,10 @@ public:
     }
 
     bool isHunk(int line) const;
+    bool isFileNameLine(int line) const
+    {
+        return m_linesWithFileName.contains(line);
+    }
 
 private:
     void clearData();
@@ -66,4 +70,5 @@ private:
     QByteArray m_rawDiff; // Raw diff saved as is
     QVector<ViewLineToDiffLine> m_lineToRawDiffLine;
     QVector<ViewLineToDiffLine> m_lineToDiffHunkLine;
+    QVector<int> m_linesWithFileName;
 };

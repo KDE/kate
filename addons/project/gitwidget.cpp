@@ -648,6 +648,9 @@ void GitWidget::showDiff(const QString &file, bool staged)
             d.flags.setFlag(DiffParams::Flag::ShowStage, !staged);
             d.flags.setFlag(DiffParams::Flag::ShowUnstage, staged);
             d.flags.setFlag(DiffParams::Flag::ShowDiscard, !staged);
+            // When file is empty, we are showing diff of multiple file usually
+            const bool showfile = file.isEmpty() && (staged ? m_model->stagedFiles().size() > 1 : m_model->changedFiles().size() > 1);
+            d.flags.setFlag(DiffParams::Flag::ShowFileName, showfile);
             QMetaObject::invokeMethod(mw, "showDiff", Q_ARG(QByteArray, git->readAllStandardOutput()), Q_ARG(DiffParams, d));
         }
         git->deleteLater();

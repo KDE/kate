@@ -294,6 +294,20 @@ void DiffEditor::paintEvent(QPaintEvent *e)
             p.restore();
         }
 
+        if (m_diffWidget->isFileNameLine(block.blockNumber())) {
+            p.save();
+            QPen pen;
+            pen.setColor(hunkSeparatorColor);
+            pen.setWidthF(1.1);
+            p.setPen(pen);
+            p.setBrush(Qt::NoBrush);
+            auto rCopy = r;
+            rCopy.setRight(block.layout()->lineAt(0).naturalTextRect().right() + 4);
+            rCopy.setLeft(rCopy.left() - 2);
+            p.drawRect(rCopy);
+            p.restore();
+        }
+
         offset.ry() += r.height();
         if (offset.y() > viewportRect.height()) {
             break;

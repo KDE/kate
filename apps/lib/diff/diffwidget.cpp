@@ -379,6 +379,31 @@ markInlineDiffs(HunkChangedLines &hunkChangedLinesA, HunkChangedLines &hunkChang
     hunkChangedLinesB.clear();
 }
 
+static QVector<KSyntaxHighlighting::Definition> defsForMimeTypes(const QSet<QString> &mimeTypes)
+{
+    if (mimeTypes.size() == 1) {
+        return {KTextEditor::Editor::instance()->repository().definitionForMimeType(*mimeTypes.begin())};
+    }
+
+    QVector<KSyntaxHighlighting::Definition> defs;
+    for (const auto &mt : mimeTypes) {
+        defs.push_back(KTextEditor::Editor::instance()->repository().definitionForMimeType(mt));
+    }
+    QSet<QString> seenDefs;
+    QVector<KSyntaxHighlighting::Definition> uniqueDefs;
+    for (const auto &def : defs) {
+        if (!seenDefs.contains(def.name())) {
+            uniqueDefs.push_back(def);
+            seenDefs.insert(def.name());
+        }
+    }
+    if (uniqueDefs.size() == 1) {
+        return uniqueDefs;
+    } else {
+        return {KTextEditor::Editor::instance()->repository().definitionForMimeType(QStringLiteral("None"))};
+    }
+}
+
 void DiffWidget::parseAndShowDiff(const QByteArray &raw)
 {
     //     printf("show diff:\n%s\n================================", raw.constData());
@@ -552,16 +577,9 @@ void DiffWidget::parseAndShowDiff(const QByteArray &raw)
     m_lineToRawDiffLine += lineToRawDiffLine;
     m_lineToDiffHunkLine += linesWithHunkHeading;
 
-    // Only do highlighting if there is one mimetype found, multiple different files not supported
-    if (mimeTypes.size() == 1) {
-        const auto def = KTextEditor::Editor::instance()->repository().definitionForMimeType(*mimeTypes.begin());
-        leftHl->setDefinition(def);
-        rightHl->setDefinition(def);
-    } else {
-        const auto def = KTextEditor::Editor::instance()->repository().definitionForMimeType(QStringLiteral("None"));
-        leftHl->setDefinition(def);
-        rightHl->setDefinition(def);
-    }
+    const auto defs = defsForMimeTypes(mimeTypes);
+    leftHl->setDefinition(defs.constFirst());
+    rightHl->setDefinition(defs.constFirst());
 }
 
 void DiffWidget::parseAndShowDiffUnified(const QByteArray &raw)
@@ -706,14 +724,8 @@ void DiffWidget::parseAndShowDiffUnified(const QByteArray &raw)
     m_lineToDiffHunkLine = linesWithHunkHeading;
     m_lineToRawDiffLine = lineToRawDiffLine;
 
-    // Only do highlighting if there is one mimetype found, multiple different files not supported
-    if (mimeTypes.size() == 1) {
-        const auto def = KTextEditor::Editor::instance()->repository().definitionForMimeType(*mimeTypes.begin());
-        leftHl->setDefinition(def);
-    } else {
-        const auto def = KTextEditor::Editor::instance()->repository().definitionForName(QStringLiteral("None"));
-        leftHl->setDefinition(def);
-    }
+    const auto defs = defsForMimeTypes(mimeTypes);
+    leftHl->setDefinition(defs.constFirst());
 }
 
 void DiffWidget::openDiff(const QByteArray &raw)

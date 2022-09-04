@@ -548,6 +548,8 @@ void DiffWidget::parseAndShowDiff(const QByteArray &raw)
                 // Start of a new file
                 markInlineDiffs(hunkChangedLinesA, hunkChangedLinesB, leftHlts, rightHlts);
                 // add new line
+                lineNumsA.append(-1);
+                lineNumsB.append(-1);
                 left.append(QString());
                 right.append(QString());
                 lineA += 1;
@@ -618,8 +620,6 @@ void DiffWidget::parseAndShowDiffUnified(const QByteArray &raw)
     for (int i = 0; i < text.size(); ++i) {
         const QString &line = text.at(i);
         auto match = DIFF_FILENAME_RE.match(line);
-        if (match.hasMatch()) {
-            if (line.startsWith(QLatin1Char('-'))) {
                 srcFile = match.captured(1);
             } else if (line.startsWith(QLatin1Char('+'))) {
                 tgtFile = match.captured(1);
@@ -708,6 +708,7 @@ void DiffWidget::parseAndShowDiffUnified(const QByteArray &raw)
                 markInlineDiffs(hunkChangedLinesA, hunkChangedLinesB, hlts, hlts);
                 // add new line
                 lines.append(QString());
+                lineNums.append(-1);
                 lineNo += 1;
                 break;
             }

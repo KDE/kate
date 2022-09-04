@@ -372,6 +372,9 @@ void DiffEditor::toggleFoldHunk(int blockNumber)
     if (count == -1) {
         count = blockCount() - blockNumber;
     }
+    if (count <= 0) {
+        return;
+    }
 
     auto block = document()->findBlockByNumber(blockNumber).next();
     int i = 0;

@@ -480,7 +480,7 @@ void DiffWidget::parseAndShowDiff(const QByteArray &raw)
                 LineHighlight h;
                 h.line = lineB;
                 h.added = true;
-                h.changes.push_back({0, l.size()});
+                h.changes.push_back({0, Change::FullBlock});
                 rightHlts.push_back(h);
                 lineNumsB.append(tgtLine++);
                 lineToRawDiffLine.append({lineB, j, true});
@@ -496,7 +496,7 @@ void DiffWidget::parseAndShowDiff(const QByteArray &raw)
                 LineHighlight h;
                 h.line = lineA;
                 h.added = false;
-                h.changes.push_back({0, l.size()});
+                h.changes.push_back({0, Change::FullBlock});
 
                 leftHlts.push_back(h);
                 lineNumsA.append(srcLine++);
@@ -654,7 +654,7 @@ void DiffWidget::parseAndShowDiffUnified(const QByteArray &raw)
                 LineHighlight h;
                 h.line = lineNo;
                 h.added = true;
-                h.changes.push_back({0, l.size()});
+                h.changes.push_back({0, Change::FullBlock});
                 lines.append(l);
                 hlts.push_back(h);
                 lineNums.append(tgtLine++);
@@ -667,7 +667,7 @@ void DiffWidget::parseAndShowDiffUnified(const QByteArray &raw)
                 LineHighlight h;
                 h.line = lineNo;
                 h.added = false;
-                h.changes.push_back({0, l.size()});
+                h.changes.push_back({0, Change::FullBlock});
 
                 hlts.push_back(h);
                 lineNums.append(srcLine++);
@@ -747,4 +747,11 @@ void DiffWidget::onTextReceived(const QByteArray &raw)
 void DiffWidget::onError(const QByteArray & /*error*/, int /*code*/)
 {
     //     printf("Got error: \n%s\n==============\n", error.constData());
+}
+
+bool DiffWidget::isHunk(const int line) const
+{
+    return std::any_of(m_lineToDiffHunkLine.begin(), m_lineToDiffHunkLine.end(), [line](const ViewLineToDiffLine l) {
+        return l.line == line;
+    });
 }

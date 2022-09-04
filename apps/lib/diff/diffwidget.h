@@ -29,6 +29,8 @@ public:
         return true;
     }
 
+    bool isHunk(int line) const;
+
 private:
     void clearData();
     void handleStyleChange(int);

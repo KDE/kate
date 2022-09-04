@@ -18,6 +18,7 @@ using IntT = int;
 struct Change {
     IntT pos;
     IntT len;
+    enum { FullBlock = -2 };
 };
 
 struct LineHighlight {

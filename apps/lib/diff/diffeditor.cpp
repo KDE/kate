@@ -216,12 +216,6 @@ void DiffEditor::updateLineNumberAreaWidth(int)
 
 void DiffEditor::paintEvent(QPaintEvent *e)
 {
-    bool textPainted = false;
-    if (!getPaintContext().selections.isEmpty()) {
-        QPlainTextEdit::paintEvent(e);
-        textPainted = true;
-    }
-
     QPainter p(viewport());
     QPointF offset(contentOffset());
     QTextBlock block = firstVisibleBlock();
@@ -237,10 +231,10 @@ void DiffEditor::paintEvent(QPaintEvent *e)
             for (auto c : changes) {
                 // full line background is colored
                 p.fillRect(r, hl->added ? green1 : red1);
-                if (c.len >= block.text().length()) {
+                if (c.len == Change::FullBlock) {
                     continue;
                 }
-                //                 qDebug() << "..." << c.len << block.text().length();
+
                 QTextLine sl = layout->lineForTextPosition(c.pos);
                 QTextLine el = layout->lineForTextPosition(c.pos + c.len);
                 // color any word diffs
@@ -274,7 +268,7 @@ void DiffEditor::paintEvent(QPaintEvent *e)
             }
         }
 
-        if (block.text().startsWith(QStringLiteral("@@ "))) {
+        if (m_diffWidget->isHunk(block.blockNumber())) {
             p.save();
             QPen pen;
             pen.setColor(hunkSeparatorColor);
@@ -293,9 +287,7 @@ void DiffEditor::paintEvent(QPaintEvent *e)
         block = block.next();
     }
 
-    if (!textPainted) {
-        QPlainTextEdit::paintEvent(e);
-    }
+    QPlainTextEdit::paintEvent(e);
 }
 
 const LineHighlight *DiffEditor::highlightingForLine(int line)

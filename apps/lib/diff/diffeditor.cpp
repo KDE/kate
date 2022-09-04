@@ -13,6 +13,15 @@
 #include <QTextBlock>
 
 #include <KLocalizedString>
+#include <KSyntaxHighlighting/Format>
+
+void DiffSyntaxHighlighter::applyFormat(int offset, int length, const KSyntaxHighlighting::Format &format)
+{
+    if (format.textStyle() == KSyntaxHighlighting::Theme::TextStyle::Error) {
+        return;
+    }
+    KSyntaxHighlighting::SyntaxHighlighter::applyFormat(offset, length, format);
+}
 
 DiffEditor::DiffEditor(DiffParams::Flags f, QWidget *parent)
     : QPlainTextEdit(parent)

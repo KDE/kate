@@ -9,6 +9,21 @@
 #include <KTextEditor/Range>
 #include <QPlainTextEdit>
 
+#include <KSyntaxHighlighting/FoldingRegion>
+#include <KSyntaxHighlighting/SyntaxHighlighter>
+
+class DiffSyntaxHighlighter final : public KSyntaxHighlighting::SyntaxHighlighter
+{
+public:
+    using KSyntaxHighlighting::SyntaxHighlighter::SyntaxHighlighter;
+    void applyFormat(int offset, int length, const KSyntaxHighlighting::Format &format) override;
+
+    void applyFolding(int, int, KSyntaxHighlighting::FoldingRegion) override
+    {
+        // no folding
+    }
+};
+
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 using IntT = qsizetype;
 #else

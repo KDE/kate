@@ -22,7 +22,6 @@
 #include <KSyntaxHighlighting/Definition>
 #include <KSyntaxHighlighting/Format>
 #include <KSyntaxHighlighting/Repository>
-#include <KSyntaxHighlighting/SyntaxHighlighter>
 
 DiffWidget::DiffWidget(DiffParams p, QWidget *parent)
     : QWidget(parent)
@@ -34,8 +33,8 @@ DiffWidget::DiffWidget(DiffParams p, QWidget *parent)
     layout->addWidget(m_left);
     layout->addWidget(m_right);
 
-    leftHl = new KSyntaxHighlighting::SyntaxHighlighter(m_left->document());
-    rightHl = new KSyntaxHighlighting::SyntaxHighlighter(m_right->document());
+    leftHl = new DiffSyntaxHighlighter(m_left->document());
+    rightHl = new DiffSyntaxHighlighter(m_right->document());
     leftHl->setTheme(KTextEditor::Editor::instance()->theme());
     rightHl->setTheme(KTextEditor::Editor::instance()->theme());
 

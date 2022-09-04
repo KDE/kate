@@ -34,6 +34,11 @@ DiffEditor::DiffEditor(DiffParams::Flags f, QWidget *parent)
         auto pal = palette();
         pal.setColor(QPalette::Base, bg);
         pal.setColor(QPalette::Text, fg);
+        // set a small alpha to be able to see the red/green bg
+        // with selection
+        if (fg.alpha() == 255) {
+            sel.setAlphaF(0.8);
+        }
         pal.setColor(QPalette::Highlight, sel);
         pal.setColor(QPalette::HighlightedText, fg);
         setFont(Utils::editorFont());

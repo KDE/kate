@@ -794,3 +794,22 @@ bool DiffWidget::isHunk(const int line) const
         return l.line == line;
     });
 }
+
+int DiffWidget::hunkLineCount(int hunkLine)
+{
+    for (int i = 0; i < m_lineToDiffHunkLine.size(); ++i) {
+        const auto h = m_lineToDiffHunkLine.at(i);
+        if (h.line == hunkLine) {
+            // last hunk?
+            if (i + 1 >= m_lineToDiffHunkLine.size()) {
+                return -1;
+            }
+            auto nextHunk = m_lineToDiffHunkLine.at(i + 1);
+            auto count = nextHunk.line - h.line;
+            count -= 1; // one separator line is ignored
+            return count;
+        }
+    }
+
+    return 0;
+}

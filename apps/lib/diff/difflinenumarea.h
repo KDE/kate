@@ -24,6 +24,7 @@ public:
 
 protected:
     void paintEvent(QPaintEvent *event) override;
+    void mousePressEvent(QMouseEvent *e) override;
 
 private:
     class DiffEditor *const textEdit;

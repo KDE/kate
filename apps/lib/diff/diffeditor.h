@@ -75,6 +75,10 @@ public:
 
     KTextEditor::Range selectionRange() const;
 
+    bool isHunkLine(int line) const;
+    void toggleFoldHunk(int block);
+    bool isHunkFolded(int blockNumber);
+
 protected:
     void resizeEvent(QResizeEvent *event) override;
     void paintEvent(QPaintEvent *e) override;

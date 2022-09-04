@@ -34,6 +34,7 @@ public:
     {
         return m_linesWithFileName.contains(line);
     }
+    int hunkLineCount(int hunkLine);
 
 private:
     void clearData();

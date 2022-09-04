@@ -240,7 +240,7 @@ void DiffEditor::paintEvent(QPaintEvent *e)
         auto layout = block.layout();
 
         auto hl = highlightingForLine(block.blockNumber());
-        if (hl && layout) {
+        if (block.isVisible() && hl && layout) {
             const auto changes = hl->changes;
             for (auto c : changes) {
                 // full line background is colored
@@ -282,7 +282,7 @@ void DiffEditor::paintEvent(QPaintEvent *e)
             }
         }
 
-        if (m_diffWidget->isHunk(block.blockNumber())) {
+        if (isHunkLine(block.blockNumber())) {
             p.save();
             QPen pen;
             pen.setColor(hunkSeparatorColor);
@@ -348,4 +348,43 @@ void DiffEditor::restoreState(State s)
     auto cursor = textCursor();
     cursor.setPosition(qMin(cursor.document()->characterCount(), s.cursorPosition));
     setTextCursor(cursor);
+}
+
+bool DiffEditor::isHunkLine(int line) const
+{
+    return m_diffWidget->isHunk(line);
+}
+
+bool DiffEditor::isHunkFolded(int blockNumber)
+{
+    Q_ASSERT(isHunkLine(blockNumber));
+    const auto block = document()->findBlockByNumber(blockNumber).next();
+    return block.isValid() && !block.isVisible();
+}
+
+void DiffEditor::toggleFoldHunk(int blockNumber)
+{
+    Q_ASSERT(isHunkLine(blockNumber));
+    int count = m_diffWidget->hunkLineCount(blockNumber);
+    if (count == 0) {
+        return;
+    }
+    if (count == -1) {
+        count = blockCount() - blockNumber;
+    }
+
+    auto block = document()->findBlockByNumber(blockNumber).next();
+    int i = 0;
+    bool visible = !block.isVisible();
+    while (true) {
+        i++;
+        if (i == count || !block.isValid()) {
+            break;
+        }
+        block.setVisible(visible);
+        block = block.next();
+    }
+
+    viewport()->update();
+    m_lineNumArea->update();
 }

@@ -293,13 +293,7 @@
         </layout>
        </item>
        <item>
-        <widget class="QTextEdit" name="userConfig">
-         <property name="lineWrapMode">
-          <enum>QTextEdit::NoWrap</enum>
-         </property>
-         <property name="acceptRichText">
-          <bool>false</bool>
-         </property>
+        <widget class="QPlainTextEdit" name="userConfig">
         </widget>
        </item>
        <item>
@@ -317,12 +311,9 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_9">
        <item>
-        <widget class="QTextBrowser" name="defaultConfig">
-         <property name="lineWrapMode">
-          <enum>QTextEdit::NoWrap</enum>
-         </property>
-         <property name="acceptRichText">
-          <bool>false</bool>
+        <widget class="QPlainTextEdit" name="defaultConfig">
+         <property name="readOnly">
+          <bool>true</bool>
          </property>
         </widget>
        </item>

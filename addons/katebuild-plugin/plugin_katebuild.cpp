@@ -1025,6 +1025,30 @@ void KateBuildView::slotProcExited(int exitCode, QProcess::ExitStatus)
     }
 }
 
+static void appendPlainTextTo(QPlainTextEdit *edit, const QString &text)
+{
+    // NOTE We can't use edit->appendPlainText() as that adds a new paragraph
+    // and we might need to add text that finishes the previous line.
+
+    // Get the scroll position to restore it if not at the end
+    int scrollValue = edit->verticalScrollBar()->value();
+    int scrollMax = edit->verticalScrollBar()->maximum();
+    // Save the selection and restore it after adding the text
+    QTextCursor cursor = edit->textCursor();
+
+    // Insert the new text
+    edit->moveCursor(QTextCursor::End);
+    edit->insertPlainText(text);
+
+    // Restore selection and scroll position
+    edit->setTextCursor(cursor);
+    if (scrollValue == scrollMax) {
+        edit->verticalScrollBar()->setValue(edit->verticalScrollBar()->maximum());
+    } else {
+        edit->verticalScrollBar()->setValue(scrollValue);
+    }
+}
+
 /******************************************************************/
 void KateBuildView::slotReadReadyStdOut()
 {
@@ -1038,8 +1062,7 @@ void KateBuildView::slotReadReadyStdOut()
 
     // Remove the Ninja workaround string
     l.remove(NinjaPrefix);
-    m_buildUi.plainTextEdit->moveCursor(QTextCursor::End);
-    m_buildUi.plainTextEdit->insertPlainText(l);
+    appendPlainTextTo(m_buildUi.plainTextEdit, l);
 
     // handle one line at a time
     do {
@@ -1085,8 +1108,7 @@ void KateBuildView::slotReadReadyStdErr()
     // FIXME This works for utf8 but not for all charsets
     QString l = QString::fromUtf8(m_proc.readAllStandardError());
     l.remove(QLatin1Char('\r'));
-    m_buildUi.plainTextEdit->moveCursor(QTextCursor::End);
-    m_buildUi.plainTextEdit->insertPlainText(l);
+    appendPlainTextTo(m_buildUi.plainTextEdit, l);
     m_stdErr += l;
 
     do {

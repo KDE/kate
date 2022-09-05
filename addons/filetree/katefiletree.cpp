@@ -8,6 +8,7 @@
 // BEGIN Includes
 #include "katefiletree.h"
 
+#include "filehistorywidget.h"
 #include "katefiletreedebug.h"
 #include "katefiletreemodel.h"
 #include "katefiletreeproxymodel.h"
@@ -373,6 +374,14 @@ void KateFileTree::contextMenuEvent(QContextMenuEvent *event)
         menu.addAction(m_filelistRenameFile);
         menu.addAction(m_filelistDeleteDocument);
         menu.addAction(m_filelistReloadDocument);
+
+        auto a = menu.addAction(i18n("Show File Git History"));
+        connect(a, &QAction::triggered, this, [doc] {
+            auto url = doc->url();
+            if (url.isValid() && url.isLocalFile()) {
+                FileHistory::showFileHistory(url.toLocalFile());
+            }
+        });
 
         menu.addSeparator();
         menu.addAction(m_filelistOpenContainingFolder);

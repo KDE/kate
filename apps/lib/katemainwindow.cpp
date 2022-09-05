@@ -10,6 +10,7 @@
 // BEGIN Includes
 #include "katemainwindow.h"
 
+#include "filehistorywidget.h"
 #include "kateapp.h"
 #include "kateconfigdialog.h"
 #include "kateconfigplugindialogpage.h"
@@ -503,6 +504,17 @@ void KateMainWindow::setupActions()
         m_viewManager->activeViewSpace()->goForward();
     });
     connect(this->m_viewManager, &KateViewManager::historyForwardEnabled, a, &QAction::setEnabled);
+
+    a = actionCollection()->addAction(QStringLiteral("git_show_file_history"));
+    a->setText(i18n("Show File Git History"));
+    connect(a, &QAction::triggered, this, [this] {
+        if (activeView()) {
+            auto url = activeView()->document()->url();
+            if (url.isValid() && url.isLocalFile()) {
+                FileHistory::showFileHistory(url.toLocalFile(), m_wrapper);
+            }
+        }
+    });
 }
 
 void KateMainWindow::slotDocumentCloseAll()

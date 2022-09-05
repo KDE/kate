@@ -6,6 +6,8 @@
 #ifndef FILEHISTORYWIDGET_H
 #define FILEHISTORYWIDGET_H
 
+#include "kateprivate_export.h"
+
 class QString;
 namespace KTextEditor
 {
@@ -21,7 +23,7 @@ public:
      * @param mainWindow the mainWindow where the toolview with history will open. If null, active mainWindow
      * will be used
      */
-    static void showFileHistory(const QString &file, KTextEditor::MainWindow *mainWindow = nullptr);
+    static KATE_PRIVATE_EXPORT void showFileHistory(const QString &file, KTextEditor::MainWindow *mainWindow = nullptr);
 };
 
 #endif // FILEHISTORYWIDGET_H

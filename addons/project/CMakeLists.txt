@@ -63,7 +63,6 @@ target_sources(
     gitstatusmodel.cpp
     gitcommitdialog.cpp
     stashdialog.cpp
-    filehistorywidget.cpp
     pushpulldialog.cpp
     comparebranchesview.cpp
     branchdeletedialog.cpp

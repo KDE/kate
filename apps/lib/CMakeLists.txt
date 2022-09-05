@@ -116,6 +116,8 @@ target_sources(
     diff/diffeditor.cpp
     diff/difflinenumarea.cpp
     diff/gitdiff.cpp
+
+    filehistorywidget.cpp
 )
 
 if(BUILD_TESTING)

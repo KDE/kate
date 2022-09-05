@@ -13,6 +13,8 @@
 #include "hostprocess.h"
 #include "kateprivate_export.h"
 
+#include <optional>
+
 /**
  * small helper function to setup a QProcess based "git" command.
  * you pass working directory & arguments
@@ -32,3 +34,10 @@ KATE_PRIVATE_EXPORT bool setupGitProcess(QProcess &process, const QString &worki
  * @return git major and minor version as pair, -1,-1 if infeasible to determine
  */
 KATE_PRIVATE_EXPORT std::pair<int, int> getGitVersion(const QString &workingDir);
+
+/**
+ * @brief get the git repo base path
+ * Returned path has a `/` at the end
+ * @param workingDir the dir where
+ */
+KATE_PRIVATE_EXPORT std::optional<QString> getRepoBasePath(const QString &workingDir);

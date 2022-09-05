@@ -276,36 +276,6 @@ static std::optional<QString> getGitCmdOutput(const QString &workDir, const QStr
     return {};
 }
 
-static std::optional<QString> getDotGitPath(const QString &repo)
-{
-    /* This call is intentionally blocking because we need git path for everything else */
-    auto dotGitPathRes = getGitCmdOutput(repo, {QStringLiteral("rev-parse"), QStringLiteral("--absolute-git-dir")});
-    if (!dotGitPathRes.has_value()) {
-        return {};
-    }
-    QString dotGitPath = dotGitPathRes.value();
-
-    if (dotGitPath.endsWith(QLatin1String(".git"))) {
-        dotGitPath.remove(QLatin1String(".git"));
-    } else if (dotGitPath.contains(QLatin1String(".git/modules"))) {
-        // maybe this is some submodule
-        auto topLevelRes = getGitCmdOutput(repo, {QStringLiteral("rev-parse"), QStringLiteral("--show-toplevel")});
-        if (!topLevelRes.has_value()) {
-            return {};
-        }
-        QString topLevel = QDir::cleanPath(topLevelRes.value());
-        if (!topLevel.endsWith(QLatin1Char('/'))) {
-            topLevel += QStringLiteral("/");
-        }
-        return topLevel;
-    } else {
-        qWarning() << "[blame] Got invalid dot git path: " << dotGitPath;
-        return {};
-    }
-    return dotGitPath;
-    return std::nullopt;
-}
-
 static bool getNum(const QByteArray &numBytes, int *num)
 {
     bool res = false;
@@ -393,7 +363,7 @@ void CommitDiffTreeView::createFileTreeForCommit(const QString &filePath, const 
 {
     QFileInfo fi(filePath);
     QString path = fi.absolutePath();
-    auto value = getDotGitPath(path);
+    auto value = getRepoBasePath(path);
     if (value.has_value()) {
         m_gitDir = value.value();
     }

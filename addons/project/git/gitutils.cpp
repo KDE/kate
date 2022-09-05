@@ -26,30 +26,6 @@ bool GitUtils::isGitRepo(const QString &repo)
     return false;
 }
 
-std::optional<QString> GitUtils::getDotGitPath(const QString &repo)
-{
-    /* This call is intentionally blocking because we need git path for everything else */
-    QProcess git;
-    if (!setupGitProcess(git, repo, {QStringLiteral("rev-parse"), QStringLiteral("--absolute-git-dir")})) {
-        return std::nullopt;
-    }
-
-    startHostProcess(git, QProcess::ReadOnly);
-    if (git.waitForStarted() && git.waitForFinished(-1)) {
-        if (git.exitStatus() != QProcess::NormalExit || git.exitCode() != 0) {
-            return std::nullopt;
-        }
-        QString dotGitPath = QString::fromUtf8(git.readAllStandardOutput());
-        if (dotGitPath.endsWith(QLatin1String("\n"))) {
-            dotGitPath.remove(QLatin1String(".git\n"));
-        } else {
-            dotGitPath.remove(QLatin1String(".git"));
-        }
-        return dotGitPath;
-    }
-    return std::nullopt;
-}
-
 QString GitUtils::getCurrentBranchName(const QString &repo)
 {
     // clang-format off

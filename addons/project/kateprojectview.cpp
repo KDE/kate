@@ -10,6 +10,7 @@
 #include "diffparams.h"
 #include "filehistorywidget.h"
 #include "git/gitutils.h"
+#include "gitprocess.h"
 #include "gitwidget.h"
 #include "kateprojectfiltermodel.h"
 #include "kateprojectpluginview.h"
@@ -150,7 +151,7 @@ void KateProjectView::setTreeViewAsCurrent()
 void KateProjectView::showFileGitHistory(const QString &file)
 {
     // create on demand and on switch back delete
-    const auto dotGitPath = GitUtils::getDotGitPath(QFileInfo(file).absolutePath());
+    const auto dotGitPath = getRepoBasePath(QFileInfo(file).absolutePath());
     if (!dotGitPath.has_value()) {
         // TODO: Show message in output
         return;
@@ -178,7 +179,7 @@ void KateProjectView::showFileGitHistory(const QString &file)
 
 void KateProjectView::checkAndRefreshGit()
 {
-    const auto dotGitPath = GitUtils::getDotGitPath(m_project->baseDir());
+    const auto dotGitPath = getRepoBasePath(m_project->baseDir());
     /**
      * Not in a git repo or git was removed
      */

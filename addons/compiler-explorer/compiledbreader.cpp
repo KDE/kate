@@ -16,30 +16,6 @@
 
 #include <optional>
 
-// TODO: copied from kate project plugin, move to shared/
-std::optional<QString> getDotGitPath(const QString &repo)
-{
-    /* This call is intentionally blocking because we need git path for everything else */
-    QProcess git;
-    if (!setupGitProcess(git, repo, {QStringLiteral("rev-parse"), QStringLiteral("--absolute-git-dir")})) {
-        return std::nullopt;
-    }
-    startHostProcess(git, QProcess::ReadOnly);
-    if (git.waitForStarted() && git.waitForFinished(-1)) {
-        if (git.exitStatus() != QProcess::NormalExit || git.exitCode() != 0) {
-            return std::nullopt;
-        }
-        QString dotGitPath = QString::fromUtf8(git.readAllStandardOutput());
-        if (dotGitPath.endsWith(QLatin1String("\n"))) {
-            dotGitPath.remove(QLatin1String(".git\n"));
-        } else {
-            dotGitPath.remove(QLatin1String(".git"));
-        }
-        return dotGitPath;
-    }
-    return std::nullopt;
-}
-
 QString CompileDBReader::locateCompileCommands(KTextEditor::MainWindow *mw, const QString &openedFile)
 {
     Q_ASSERT(mw);
@@ -61,8 +37,7 @@ QString CompileDBReader::locateCompileCommands(KTextEditor::MainWindow *mw, cons
     // For now it only checks for compile_commands in the .git/../ directory
     QFileInfo fi(openedFile);
     if (fi.exists()) {
-        QString base = fi.absolutePath();
-        auto basePathOptional = getDotGitPath(base);
+        auto basePathOptional = getRepoBasePath(fi.absolutePath());
         if (basePathOptional.has_value()) {
             auto basePath = basePathOptional.value();
             if (basePath.endsWith(QLatin1Char('/'))) {

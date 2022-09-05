@@ -74,3 +74,25 @@ std::pair<int, int> getGitVersion(const QString &workingDir)
     static const auto cachedVersion = getGitVersionUncached(workingDir);
     return cachedVersion;
 }
+
+std::optional<QString> getRepoBasePath(const QString &repo)
+{
+    /* This call is intentionally blocking because we need git path for everything else */
+    QProcess git;
+    if (!setupGitProcess(git, repo, {QStringLiteral("rev-parse"), QStringLiteral("--show-toplevel")})) {
+        return std::nullopt;
+    }
+
+    startHostProcess(git, QProcess::ReadOnly);
+    if (git.waitForStarted() && git.waitForFinished(-1)) {
+        if (git.exitStatus() != QProcess::NormalExit || git.exitCode() != 0) {
+            return std::nullopt;
+        }
+        QString dotGitPath = QString::fromUtf8(git.readAllStandardOutput().trimmed());
+        if (!dotGitPath.endsWith(QLatin1Char('/'))) {
+            dotGitPath.append(QLatin1Char('/'));
+        }
+        return dotGitPath;
+    }
+    return std::nullopt;
+}

@@ -6,33 +6,22 @@
 #ifndef FILEHISTORYWIDGET_H
 #define FILEHISTORYWIDGET_H
 
-#include <QListView>
-#include <QProcess>
-#include <QPushButton>
-#include <QWidget>
-
-class FileHistoryWidget : public QWidget
+class QString;
+namespace KTextEditor
 {
-    Q_OBJECT
+class MainWindow;
+}
+
+class FileHistory
+{
 public:
-    explicit FileHistoryWidget(const QString &gitDir, const QString &file, QWidget *parent = nullptr);
-    ~FileHistoryWidget() override;
-
-private Q_SLOTS:
-    void itemClicked(const QModelIndex &idx);
-
-private:
-    void getFileHistory(const QString &file);
-
-    QPushButton m_backBtn;
-    QListView *m_listView;
-    QProcess m_git;
-    QString m_gitDir;
-
-Q_SIGNALS:
-    void backClicked();
-    void commitClicked(const QByteArray &contents, const QString &commit);
-    void errorMessage(const QString &msg, bool warn);
+    /**
+     * @brief shows git file history of @p file
+     * @param file the file whose history you want to see
+     * @param mainWindow the mainWindow where the toolview with history will open. If null, active mainWindow
+     * will be used
+     */
+    static void showFileHistory(const QString &file, KTextEditor::MainWindow *mainWindow = nullptr);
 };
 
 #endif // FILEHISTORYWIDGET_H

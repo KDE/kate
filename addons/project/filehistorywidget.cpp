@@ -5,17 +5,27 @@
 */
 
 #include "filehistorywidget.h"
-
+#include "diffparams.h"
+#include "ktexteditor_utils.h"
 #include <gitprocess.h>
 
 #include <QDate>
+#include <QDebug>
 #include <QFileInfo>
+#include <QListView>
 #include <QPainter>
+#include <QPointer>
+#include <QProcess>
+#include <QPushButton>
 #include <QStyledItemDelegate>
 #include <QVBoxLayout>
-#include <optional>
+#include <QWidget>
 
+#include <KIconLoader>
 #include <KLocalizedString>
+#include <KTextEditor/Application>
+#include <KTextEditor/Editor>
+#include <KTextEditor/MainWindow>
 
 struct Commit {
     QByteArray hash;
@@ -209,9 +219,35 @@ public:
     }
 };
 
-FileHistoryWidget::FileHistoryWidget(const QString &gitDir, const QString &file, QWidget *parent)
+class FileHistoryWidget : public QWidget
+{
+    Q_OBJECT
+public:
+    void itemClicked(const QModelIndex &idx);
+
+    void getFileHistory(const QString &file);
+    explicit FileHistoryWidget(const QString &gitDir, const QString &file, KTextEditor::MainWindow *mw, QWidget *parent = nullptr);
+    ~FileHistoryWidget() override;
+
+    QPushButton m_backBtn;
+    QListView *m_listView;
+    QProcess m_git;
+    const QString m_file;
+    const QString m_gitDir;
+    const QPointer<QWidget> m_toolView;
+    const QPointer<KTextEditor::MainWindow> m_mainWindow;
+
+Q_SIGNALS:
+    void backClicked();
+    void errorMessage(const QString &msg, bool warn);
+};
+
+FileHistoryWidget::FileHistoryWidget(const QString &gitDir, const QString &file, KTextEditor::MainWindow *mw, QWidget *parent)
     : QWidget(parent)
+    , m_file(file)
     , m_gitDir(gitDir)
+    , m_toolView(parent)
+    , m_mainWindow(mw)
 {
     auto model = new CommitListModel(this);
     m_listView = new QListView;
@@ -220,11 +256,15 @@ FileHistoryWidget::FileHistoryWidget(const QString &gitDir, const QString &file,
 
     setLayout(new QVBoxLayout);
 
-    m_backBtn.setText(i18n("Back"));
-    m_backBtn.setIcon(QIcon::fromTheme(QStringLiteral("go-previous")));
-    connect(&m_backBtn, &QPushButton::clicked, this, &FileHistoryWidget::backClicked);
-
+    m_backBtn.setText(i18n("Close"));
+    m_backBtn.setIcon(QIcon::fromTheme(QStringLiteral("tab-close")));
+    connect(&m_backBtn, &QPushButton::clicked, this, [this] {
+        deleteLater();
+        m_mainWindow->hideToolView(m_toolView);
+        m_toolView->deleteLater();
+    });
     connect(m_listView, &QListView::clicked, this, &FileHistoryWidget::itemClicked);
+
     m_listView->setItemDelegate(new CommitDelegate(this));
 
     layout()->addWidget(&m_backBtn);
@@ -284,9 +324,38 @@ void FileHistoryWidget::itemClicked(const QModelIndex &idx)
         if (git.exitStatus() != QProcess::NormalExit || git.exitCode() != 0) {
             return;
         }
-        QByteArray contents(git.readAllStandardOutput());
-        // we send this signal to the parent, which will pass it on to
-        // the GitWidget from where a temporary file is opened
-        Q_EMIT commitClicked(contents, QString::fromUtf8(commit.hash.mid(0, 7)));
+        const QByteArray contents(git.readAllStandardOutput());
+
+        auto mw = m_mainWindow->window();
+        DiffParams d;
+        const QString shortCommit = QString::fromUtf8(commit.hash.mid(0, 7));
+        d.tabTitle = QStringLiteral("%1[%2]").arg(Utils::fileNameFromPath(m_file), shortCommit);
+        QMetaObject::invokeMethod(mw, "showDiff", Q_ARG(QByteArray, contents), Q_ARG(DiffParams, d));
     }
 }
+
+void FileHistory::showFileHistory(const QString &file, KTextEditor::MainWindow *mainWindow)
+{
+    QFileInfo fi(file);
+    if (!fi.exists()) {
+        qWarning() << "Unexpected non-existent file: " << file;
+        return;
+    }
+
+    const auto repoBase = getRepoBasePath(fi.absolutePath());
+    if (!repoBase.has_value()) {
+        // TODO: show message;
+        return;
+    }
+
+    if (!mainWindow) {
+        mainWindow = KTextEditor::Editor::instance()->application()->activeMainWindow();
+    }
+
+    const auto gitIcon = KDE::icon(QStringLiteral(":/icons/icons/sc-apps-git.svg"));
+    auto toolView = mainWindow->createToolView(nullptr, QStringLiteral("git_file_history"), KTextEditor::MainWindow::Left, gitIcon, i18n("File History"));
+    new FileHistoryWidget(repoBase.value(), file, mainWindow, toolView);
+    mainWindow->showToolView(toolView);
+}
+
+#include "filehistorywidget.moc"

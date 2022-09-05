@@ -7,14 +7,11 @@
 
 #include "kateprojectview.h"
 #include "branchcheckoutdialog.h"
-#include "diffparams.h"
 #include "filehistorywidget.h"
-#include "git/gitutils.h"
 #include "gitprocess.h"
 #include "gitwidget.h"
 #include "kateprojectfiltermodel.h"
 #include "kateprojectpluginview.h"
-#include "ktexteditor_utils.h"
 
 #include <KTextEditor/Document>
 #include <KTextEditor/Editor>
@@ -150,31 +147,7 @@ void KateProjectView::setTreeViewAsCurrent()
 
 void KateProjectView::showFileGitHistory(const QString &file)
 {
-    // create on demand and on switch back delete
-    const auto dotGitPath = getRepoBasePath(QFileInfo(file).absolutePath());
-    if (!dotGitPath.has_value()) {
-        // TODO: Show message in output
-        return;
-    }
-
-    auto fhs = new FileHistoryWidget(dotGitPath.value(), file);
-    connect(fhs, &FileHistoryWidget::backClicked, this, &KateProjectView::setTreeViewAsCurrent);
-    connect(fhs, &FileHistoryWidget::commitClicked, this, [this, file](const QByteArray &diff, const QString &commit) {
-        auto mw = m_pluginView->mainWindow()->window();
-        DiffParams d;
-        d.tabTitle = QStringLiteral("%1[%2]").arg(Utils::fileNameFromPath(file), commit);
-        QMetaObject::invokeMethod(mw, "showDiff", Q_ARG(QByteArray, diff), Q_ARG(DiffParams, d));
-    });
-    connect(fhs, &FileHistoryWidget::errorMessage, m_pluginView, [this](const QString &s, bool warn) {
-        QVariantMap genericMessage;
-        genericMessage.insert(QStringLiteral("type"), warn ? QStringLiteral("Error") : QStringLiteral("Info"));
-        genericMessage.insert(QStringLiteral("category"), i18n("Git"));
-        genericMessage.insert(QStringLiteral("categoryIcon"), KDE::icon(QStringLiteral(":/icons/icons/sc-apps-git.svg")));
-        genericMessage.insert(QStringLiteral("text"), s);
-        Q_EMIT m_pluginView->message(genericMessage);
-    });
-    m_stackWidget->addWidget(fhs);
-    m_stackWidget->setCurrentWidget(fhs);
+    FileHistory::showFileHistory(file);
 }
 
 void KateProjectView::checkAndRefreshGit()

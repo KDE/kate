@@ -34,7 +34,6 @@ KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject 
     : m_pluginView(pluginView)
     , m_project(project)
     , m_treeView(new KateProjectViewTree(pluginView, project))
-    , m_stackWidget(new QStackedWidget(this))
     , m_filter(new KLineEdit())
     , m_branchBtn(new QToolButton)
 {
@@ -45,11 +44,9 @@ KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject 
     layout->setSpacing(0);
     layout->setContentsMargins(0, 0, 0, 0);
     layout->addWidget(m_branchBtn);
-    layout->addWidget(m_stackWidget);
+    layout->addWidget(m_treeView);
     layout->addWidget(m_filter);
     setLayout(layout);
-
-    m_stackWidget->addWidget(m_treeView);
 
     m_branchBtn->setAutoRaise(true);
     m_branchBtn->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
@@ -132,17 +129,6 @@ void KateProjectView::filterTextChanged(const QString &filterText)
     if (!filterText.isEmpty()) {
         QTimer::singleShot(100, m_treeView, &QTreeView::expandAll);
     }
-}
-
-void KateProjectView::setTreeViewAsCurrent()
-{
-    Q_ASSERT(m_treeView != m_stackWidget->currentWidget());
-
-    auto currentFileHistory = m_stackWidget->currentWidget();
-    m_stackWidget->removeWidget(currentFileHistory);
-    delete currentFileHistory;
-
-    m_stackWidget->setCurrentWidget(m_treeView);
 }
 
 void KateProjectView::showFileGitHistory(const QString &file)

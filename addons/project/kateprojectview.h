@@ -69,8 +69,6 @@ private Q_SLOTS:
      */
     void filterTextChanged(const QString &filterText);
 
-    void setTreeViewAsCurrent();
-
     void showFileGitHistory(const QString &file);
 
     /**
@@ -95,11 +93,6 @@ private:
      * our tree view
      */
     KateProjectViewTree *m_treeView;
-
-    /**
-     * Contains treeview + file history commit list
-     */
-    QStackedWidget *m_stackWidget;
 
     /**
      * filter

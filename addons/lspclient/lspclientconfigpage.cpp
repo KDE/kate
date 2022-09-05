@@ -271,7 +271,7 @@ void LSPClientConfigPage::configUrlChanged()
 
 void LSPClientConfigPage::updateHighlighters()
 {
-    for (auto textEdit : {ui->userConfig, static_cast<QTextEdit *>(ui->defaultConfig)}) {
+    for (auto textEdit : {ui->userConfig, ui->defaultConfig}) {
         // setup JSON highlighter for the default json stuff
         auto highlighter = new KSyntaxHighlighting::SyntaxHighlighter(textEdit->document());
         highlighter->setDefinition(KTextEditor::Editor::instance()->repository().definitionForFileName(QStringLiteral("settings.json")));

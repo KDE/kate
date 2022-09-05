@@ -6,6 +6,7 @@
  */
 
 #include "kateprojecttreeviewcontextmenu.h"
+#include "filehistorywidget.h"
 #include "git/gitutils.h"
 #include "kateproject.h"
 #include "kateprojectinfoviewterminal.h"
@@ -220,7 +221,7 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
             /** start the edit */
             parent->edit(index);
         } else if (action == fileHistory) {
-            showFileHistory(index.data(Qt::UserRole).toString());
+            FileHistory::showFileHistory(index.data(Qt::UserRole).toString());
         } else if (addFile && action == addFile) {
             QString name = getName(parent);
             if (!name.isEmpty()) {

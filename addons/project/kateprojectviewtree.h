@@ -103,9 +103,6 @@ private:
      * our project
      */
     KateProject *m_project;
-
-Q_SIGNALS:
-    void showFileHistory(const QString &file);
 };
 
 #endif

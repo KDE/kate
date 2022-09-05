@@ -7,7 +7,6 @@
 
 #include "kateprojectview.h"
 #include "branchcheckoutdialog.h"
-#include "filehistorywidget.h"
 #include "gitprocess.h"
 #include "gitwidget.h"
 #include "kateprojectfiltermodel.h"
@@ -86,20 +85,6 @@ KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject 
     connect(&m_branchChangedWatcher, &QFileSystemWatcher::fileChanged, this, [this] {
         m_project->reload(true);
     });
-
-    pluginView->actionCollection()
-        ->addAction(QStringLiteral("git_show_file_history"),
-                    this,
-                    [this] {
-                        auto file = m_treeView->currentIndex().data(Qt::UserRole).toString();
-                        if (!file.isEmpty()) {
-                            showFileGitHistory(file);
-                        }
-                    })
-        ->setText(i18n("Show File Git History"));
-
-    // file history
-    connect(m_treeView, &KateProjectViewTree::showFileHistory, this, &KateProjectView::showFileGitHistory);
 }
 
 KateProjectView::~KateProjectView()
@@ -129,11 +114,6 @@ void KateProjectView::filterTextChanged(const QString &filterText)
     if (!filterText.isEmpty()) {
         QTimer::singleShot(100, m_treeView, &QTreeView::expandAll);
     }
-}
-
-void KateProjectView::showFileGitHistory(const QString &file)
-{
-    FileHistory::showFileHistory(file);
 }
 
 void KateProjectView::checkAndRefreshGit()

@@ -69,8 +69,6 @@ private Q_SLOTS:
      */
     void filterTextChanged(const QString &filterText);
 
-    void showFileGitHistory(const QString &file);
-
     /**
      * On project model change, check if project
      * is a git repo and then show/hide the branch

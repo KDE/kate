@@ -13,6 +13,7 @@
 #include "gitwidget.h"
 #include "kateprojectfiltermodel.h"
 #include "kateprojectpluginview.h"
+#include "ktexteditor_utils.h"
 
 #include <KTextEditor/Document>
 #include <KTextEditor/Editor>
@@ -160,7 +161,7 @@ void KateProjectView::showFileGitHistory(const QString &file)
     connect(fhs, &FileHistoryWidget::commitClicked, this, [this, file](const QByteArray &diff, const QString &commit) {
         auto mw = m_pluginView->mainWindow()->window();
         DiffParams d;
-        d.tabTitle = QStringLiteral("%1[%2]").arg(file, commit);
+        d.tabTitle = QStringLiteral("%1[%2]").arg(Utils::fileNameFromPath(file), commit);
         QMetaObject::invokeMethod(mw, "showDiff", Q_ARG(QByteArray, diff), Q_ARG(DiffParams, d));
     });
     connect(fhs, &FileHistoryWidget::errorMessage, m_pluginView, [this](const QString &s, bool warn) {

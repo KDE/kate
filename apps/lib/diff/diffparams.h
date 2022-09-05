@@ -17,7 +17,7 @@ struct DiffParams {
         /** show discard action in context menu **/
         ShowDiscard = 4,
         /** show filename with diff. Appears right before hunk heading **/
-        ShowFileName,
+        ShowFileName = 8,
     };
     Q_DECLARE_FLAGS(Flags, Flag)
     Q_FLAGS(Flags)

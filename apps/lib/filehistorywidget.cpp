@@ -21,7 +21,6 @@
 #include <QVBoxLayout>
 #include <QWidget>
 
-#include <KIconLoader>
 #include <KLocalizedString>
 #include <KTextEditor/Application>
 #include <KTextEditor/Editor>
@@ -352,8 +351,7 @@ void FileHistory::showFileHistory(const QString &file, KTextEditor::MainWindow *
         mainWindow = KTextEditor::Editor::instance()->application()->activeMainWindow();
     }
 
-    const auto gitIcon = KDE::icon(QStringLiteral(":/icons/icons/sc-apps-git.svg"));
-    auto toolView = mainWindow->createToolView(nullptr, QStringLiteral("git_file_history"), KTextEditor::MainWindow::Left, gitIcon, i18n("File History"));
+    auto toolView = mainWindow->createToolView(nullptr, QStringLiteral("git_file_history"), KTextEditor::MainWindow::Left, gitIcon(), i18n("File History"));
     new FileHistoryWidget(repoBase.value(), file, mainWindow, toolView);
     mainWindow->showToolView(toolView);
 }

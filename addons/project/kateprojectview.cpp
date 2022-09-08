@@ -19,7 +19,6 @@
 
 #include <KAcceleratorManager>
 #include <KActionCollection>
-#include <KIconLoader>
 #include <KLineEdit>
 #include <KLocalizedString>
 
@@ -75,7 +74,7 @@ KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject 
         BranchCheckoutDialog bd(mainWindow->window(), m_pluginView, m_project->baseDir());
         bd.openDialog();
     });
-    currBranchAct->setIcon(KDE::icon(QStringLiteral(":/icons/icons/sc-apps-git.svg")));
+    currBranchAct->setIcon(gitIcon());
     currBranchAct->setToolTip(i18n("Checkout branch"));
     m_branchBtn->setDefaultAction(currBranchAct);
 

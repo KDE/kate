@@ -6,6 +6,14 @@
 
 #include "gitprocess.h"
 
+#include <QProcess>
+#include <QRegularExpression>
+#include <QStandardPaths>
+
+#include <QIcon>
+
+#include <KIconLoader>
+
 bool setupGitProcess(QProcess &process, const QString &workingDirectory, const QStringList &arguments)
 {
     // only use git from PATH
@@ -95,4 +103,10 @@ std::optional<QString> getRepoBasePath(const QString &repo)
         return dotGitPath;
     }
     return std::nullopt;
+}
+
+QIcon gitIcon()
+{
+    static const auto icon = KDE::icon(QStringLiteral(":/icons/icons/sc-apps-git.svg"));
+    return icon;
 }

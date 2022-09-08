@@ -7,6 +7,7 @@
 
 #include "kateprojectpluginview.h"
 #include "fileutil.h"
+#include "gitprocess.h"
 #include "gitwidget.h"
 #include "kateproject.h"
 #include "kateprojectinfoview.h"
@@ -24,7 +25,6 @@
 #include <KAboutData>
 #include <KActionCollection>
 #include <KActionMenu>
-#include <KIconLoader>
 #include <KLocalizedString>
 #include <KPluginFactory>
 #include <KStringHandler>
@@ -63,11 +63,7 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
                                               KTextEditor::MainWindow::Left,
                                               QIcon::fromTheme(QStringLiteral("project-open")),
                                               i18n("Projects"));
-    m_gitToolView.reset(m_mainWindow->createToolView(m_plugin,
-                                                     QStringLiteral("kateprojectgit"),
-                                                     KTextEditor::MainWindow::Left,
-                                                     KDE::icon(QStringLiteral(":/icons/icons/sc-apps-git.svg")),
-                                                     i18n("Git")));
+    m_gitToolView.reset(m_mainWindow->createToolView(m_plugin, QStringLiteral("kateprojectgit"), KTextEditor::MainWindow::Left, gitIcon(), i18n("Git")));
     m_toolInfoView = m_mainWindow->createToolView(m_plugin,
                                                   QStringLiteral("kateprojectinfo"),
                                                   KTextEditor::MainWindow::Bottom,

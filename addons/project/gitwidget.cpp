@@ -43,7 +43,6 @@
 #include <QtConcurrentRun>
 
 #include <KActionCollection>
-#include <KIconLoader>
 #include <KLocalizedString>
 #include <KMessageBox>
 
@@ -458,7 +457,7 @@ void GitWidget::sendMessage(const QString &plainText, bool warn)
     QVariantMap genericMessage;
     genericMessage.insert(QStringLiteral("type"), warn ? QStringLiteral("Error") : QStringLiteral("Info"));
     genericMessage.insert(QStringLiteral("category"), i18n("Git"));
-    genericMessage.insert(QStringLiteral("categoryIcon"), KDE::icon(QStringLiteral(":/icons/icons/sc-apps-git.svg")));
+    genericMessage.insert(QStringLiteral("categoryIcon"), gitIcon());
     genericMessage.insert(QStringLiteral("text"), plainText);
     Q_EMIT m_pluginView->message(genericMessage);
 }

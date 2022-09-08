@@ -6,14 +6,13 @@
 
 #pragma once
 
-#include <QProcess>
-#include <QRegularExpression>
-#include <QStandardPaths>
-
 #include "hostprocess.h"
 #include "kateprivate_export.h"
 
 #include <optional>
+#include <utility>
+
+class QIcon;
 
 /**
  * small helper function to setup a QProcess based "git" command.
@@ -41,3 +40,8 @@ KATE_PRIVATE_EXPORT std::pair<int, int> getGitVersion(const QString &workingDir)
  * @param workingDir the dir where
  */
 KATE_PRIVATE_EXPORT std::optional<QString> getRepoBasePath(const QString &workingDir);
+
+/**
+ * @brief returns the git icon for use in UI
+ */
+KATE_PRIVATE_EXPORT QIcon gitIcon();

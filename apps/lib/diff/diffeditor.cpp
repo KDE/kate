@@ -10,10 +10,12 @@
 #include <QMenu>
 #include <QPainter>
 #include <QPainterPath>
+#include <QScrollBar>
 #include <QTextBlock>
 
 #include <KLocalizedString>
 #include <KSyntaxHighlighting/Format>
+#include <KTextEditor/Editor>
 
 void DiffSyntaxHighlighter::applyFormat(int offset, int length, const KSyntaxHighlighting::Format &format)
 {

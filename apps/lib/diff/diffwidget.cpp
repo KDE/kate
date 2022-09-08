@@ -12,6 +12,7 @@
 #include <QMimeDatabase>
 #include <QPainter>
 #include <QPainterPath>
+#include <QPointer>
 #include <QRegularExpression>
 #include <QScrollBar>
 #include <QSyntaxHighlighter>
@@ -22,6 +23,7 @@
 #include <KSyntaxHighlighting/Definition>
 #include <KSyntaxHighlighting/Format>
 #include <KSyntaxHighlighting/Repository>
+#include <KTextEditor/Editor>
 
 DiffWidget::DiffWidget(DiffParams p, QWidget *parent)
     : QWidget(parent)

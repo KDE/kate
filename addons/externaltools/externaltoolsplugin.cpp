@@ -286,12 +286,7 @@ KateToolRunner *KateExternalToolsPlugin::runnerForTool(const KateExternalTool &t
                                                       : i18n("Running %1: %2 %3 with input %4", copy->name, copy->executable, copy->arguments, tool.input);
 
     // use generic output view for status
-    QVariantMap genericMessage;
-    genericMessage.insert(QStringLiteral("type"), QStringLiteral("Info"));
-    genericMessage.insert(QStringLiteral("category"), i18n("External Tools"));
-    genericMessage.insert(QStringLiteral("categoryIcon"), QIcon::fromTheme(QStringLiteral("system-run")));
-    genericMessage.insert(QStringLiteral("text"), messageText);
-    Q_EMIT pluginView->message(genericMessage);
+    Utils::showMessage(messageText, QIcon::fromTheme(QStringLiteral("system-run")), i18n("External Tools"), QStringLiteral("Info"), pluginView->mainWindow());
 
     // Allocate runner on heap such that it lives as long as the child
     // process is running and does not block the main thread.
@@ -402,12 +397,7 @@ void KateExternalToolsPlugin::handleToolFinished(KateToolRunner *runner, int exi
         }
 
         // use generic output view for status
-        QVariantMap genericMessage;
-        genericMessage.insert(QStringLiteral("type"), messageType);
-        genericMessage.insert(QStringLiteral("category"), i18n("External Tools"));
-        genericMessage.insert(QStringLiteral("categoryIcon"), QIcon::fromTheme(QStringLiteral("system-run")));
-        genericMessage.insert(QStringLiteral("text"), messageBody);
-        Q_EMIT pluginView->message(genericMessage);
+        Utils::showMessage(messageBody, QIcon::fromTheme(QStringLiteral("system-run")), i18n("External Tools"), messageType, pluginView->mainWindow());
 
         // on successful execution => show output
         // otherwise the global output pane settings will ensure we see the error output

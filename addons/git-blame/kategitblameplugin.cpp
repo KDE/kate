@@ -7,6 +7,7 @@
 #include "kategitblameplugin.h"
 #include "commitfilesview.h"
 #include "diffparams.h"
+#include "ktexteditor_utils.h"
 
 #include <gitprocess.h>
 
@@ -310,7 +311,7 @@ void KateGitBlamePluginView::sendMessage(const QString &text, bool error)
     genericMessage.insert(QStringLiteral("category"), i18n("Git"));
     genericMessage.insert(QStringLiteral("categoryIcon"), gitIcon());
     genericMessage.insert(QStringLiteral("text"), text);
-    Q_EMIT message(genericMessage);
+    Utils::showMessage(genericMessage, m_mainWindow);
 }
 
 void KateGitBlamePluginView::blameFinished(int exitCode, QProcess::ExitStatus exitStatus)
@@ -582,10 +583,9 @@ void KateGitBlamePluginView::hideToolView()
 
 void KateGitBlamePluginView::showDiffForFile(const QByteArray &diffContents, const QString &file)
 {
-    auto mw = m_mainWindow->window();
     DiffParams d;
     d.srcFile = file;
-    QMetaObject::invokeMethod(mw, "showDiff", Q_ARG(QByteArray, diffContents), Q_ARG(DiffParams, d));
+    Utils::showDiff(diffContents, d, m_mainWindow);
 }
 
 #include "kategitblameplugin.moc"

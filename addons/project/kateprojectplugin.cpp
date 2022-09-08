@@ -10,6 +10,7 @@
 #include "kateproject.h"
 #include "kateprojectconfigpage.h"
 #include "kateprojectpluginview.h"
+#include "ktexteditor_utils.h"
 
 #include <kcoreaddons_version.h>
 #include <ktexteditor/application.h>
@@ -707,5 +708,5 @@ void KateProjectPlugin::sendMessage(const QString &text, bool error)
     genericMessage.insert(QStringLiteral("category"), i18n("Project"));
     genericMessage.insert(QStringLiteral("categoryIcon"), QIcon::fromTheme(QStringLiteral("project-open")));
     genericMessage.insert(QStringLiteral("text"), text);
-    Q_EMIT message(genericMessage);
+    Utils::showMessage(genericMessage);
 }

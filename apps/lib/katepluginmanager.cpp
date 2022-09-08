@@ -225,20 +225,10 @@ void KatePluginManager::enablePluginGUI(KatePluginInfo *item, KateMainWindow *wi
     // lookup if there is already a view for it..
     QObject *createdView = nullptr;
     if (!win->pluginViews().contains(item->plugin)) {
-        // ensure messaging is connected, if available, for the complete plugin
-        if (item->plugin->metaObject()->indexOfSignal("message(QVariantMap)") != -1) {
-            connect(item->plugin, SIGNAL(message(QVariantMap)), win->outputView(), SLOT(slotMessage(QVariantMap)), Qt::UniqueConnection);
-        }
-
         // create the view + try to correctly load shortcuts, if it's a GUI Client
         createdView = item->plugin->createView(win->wrapper());
         if (createdView) {
             win->pluginViews().insert(item->plugin, createdView);
-
-            // ensure messaging is connected, if available, for view, too!
-            if (createdView->metaObject()->indexOfSignal("message(QVariantMap)") != -1) {
-                connect(createdView, SIGNAL(message(QVariantMap)), win->outputView(), SLOT(slotMessage(QVariantMap)), Qt::UniqueConnection);
-            }
 
             // ensure location tracking is connected for view
             if (createdView->metaObject()->indexOfSignal("addPositionToHistory(QUrl,KTextEditor::Cursor)") != -1) {

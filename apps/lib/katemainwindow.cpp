@@ -1338,6 +1338,14 @@ void KateMainWindow::showDiff(const QByteArray &wordDiff, const DiffParams &para
     w->openDiff(wordDiff);
 }
 
+void KateMainWindow::showMessage(const QVariantMap &map)
+{
+    if (!m_outputView) {
+        return;
+    }
+    m_outputView->slotMessage(map);
+}
+
 void KateMainWindow::mousePressEvent(QMouseEvent *e)
 {
     switch (e->button()) {

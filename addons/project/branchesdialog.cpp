@@ -7,6 +7,7 @@
 #include "branchesdialogmodel.h"
 #include "gitprocess.h"
 #include "kateprojectpluginview.h"
+#include "ktexteditor_utils.h"
 
 #include <QCoreApplication>
 #include <QKeyEvent>
@@ -137,5 +138,5 @@ void BranchesDialog::sendMessage(const QString &plainText, bool warn)
     genericMessage.insert(QStringLiteral("category"), i18n("Git"));
     genericMessage.insert(QStringLiteral("categoryIcon"), gitIcon());
     genericMessage.insert(QStringLiteral("text"), plainText);
-    Q_EMIT m_pluginView->message(genericMessage);
+    Utils::showMessage(genericMessage, m_pluginView->mainWindow());
 }

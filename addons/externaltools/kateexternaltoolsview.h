@@ -143,14 +143,6 @@ private Q_SLOTS:
     void onDocumentSaved(KTextEditor::Document *doc);
     void onDocumentAboutToSave(KTextEditor::Document *doc);
 
-Q_SIGNALS:
-    /**
-     * Signal for outgoing message, the host application will handle them!
-     * Will only be handled inside the main windows of this plugin view.
-     * @param message outgoing message we send to the host application
-     */
-    void message(const QVariantMap &message);
-
 private:
     KateExternalToolsPlugin *m_plugin;
     KTextEditor::MainWindow *m_mainWindow;

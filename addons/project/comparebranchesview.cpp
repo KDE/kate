@@ -171,10 +171,10 @@ void CompareBranchesView::showDiff(const QModelIndex &idx)
             return;
         }
     }
-    auto mw = m_pluginView->mainWindow()->window();
+
     DiffParams d;
     d.tabTitle = QStringLiteral("Diff %1[%2 .. %3]").arg(Utils::fileNameFromPath(file)).arg(m_fromBr).arg(m_toBr);
     d.workingDir = m_gitDir;
     d.arguments = git.arguments();
-    QMetaObject::invokeMethod(mw, "showDiff", Q_ARG(QByteArray, git.readAllStandardOutput()), Q_ARG(DiffParams, d));
+    Utils::showDiff(git.readAllStandardOutput(), d, m_pluginView->mainWindow());
 }

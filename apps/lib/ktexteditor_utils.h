@@ -12,6 +12,9 @@ class QScrollBar;
 class QAction;
 class QFont;
 class QIcon;
+class QVariant;
+class QWidget;
+typedef QMap<QString, QVariant> QVariantMap;
 QT_END_NAMESPACE
 
 namespace KTextEditor
@@ -20,6 +23,7 @@ class View;
 class Document;
 class MainWindow;
 }
+struct DiffParams;
 
 namespace Utils
 {
@@ -63,4 +67,15 @@ KATE_PRIVATE_EXPORT inline QString fileNameFromPath(const QString &path)
 KATE_PRIVATE_EXPORT QIcon iconForDocument(KTextEditor::Document *doc);
 
 KATE_PRIVATE_EXPORT QAction *toolviewShowAction(KTextEditor::MainWindow *, const QString &toolviewName);
+
+/*** BEGIN KTextEditor::MainWindow extensions **/
+
+KATE_PRIVATE_EXPORT void
+showMessage(const QString &message, const QIcon &icon, const QString &category, const QString &type, KTextEditor::MainWindow *mainWindow = nullptr);
+KATE_PRIVATE_EXPORT void showMessage(const QVariantMap &map, KTextEditor::MainWindow *mainWindow = nullptr);
+
+KATE_PRIVATE_EXPORT void showDiff(const QByteArray &diff, const DiffParams &params, KTextEditor::MainWindow *mainWindow);
+
+KATE_PRIVATE_EXPORT void addWidget(QWidget *widget, KTextEditor::MainWindow *mainWindow);
+/*** END KTextEditor::MainWindow extensions **/
 }

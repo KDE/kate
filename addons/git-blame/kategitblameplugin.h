@@ -91,8 +91,6 @@ public:
 
     void showCommitTreeView(const QUrl &url);
 
-    Q_SIGNAL void message(const QVariantMap &);
-
 private:
     void sendMessage(const QString &text, bool error);
 

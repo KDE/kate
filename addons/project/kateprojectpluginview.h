@@ -249,13 +249,6 @@ Q_SIGNALS:
     void gotoSymbol(const QString &word, int &results);
 
     /**
-     * Signal for outgoing message, the host application will handle them!
-     * Will only be handled inside the main windows of this plugin view.
-     * @param message outgoing message we send to the host application
-     */
-    void message(const QVariantMap &message);
-
-    /**
      * Signal for location changed. Location gets saved in history
      * of the current KateViewSpace
      * @param document url

@@ -10,6 +10,7 @@
 #include "kateprojectfiltermodel.h"
 #include "kateprojectpluginview.h"
 #include "kateprojecttreeviewcontextmenu.h"
+#include "ktexteditor_utils.h"
 
 #include <KTextEditor/Document>
 #include <KTextEditor/MainWindow>
@@ -135,7 +136,7 @@ void KateProjectViewTree::addFile(const QModelIndex &idx, const QString &fileNam
         genericMessage.insert(QStringLiteral("category"), i18n("Project"));
         genericMessage.insert(QStringLiteral("categoryIcon"), QIcon::fromTheme(QStringLiteral("document-new")));
         genericMessage.insert(QStringLiteral("text"), i18n("Failed to create file: %1, Error: %2", fileName, f.errorString()));
-        Q_EMIT m_pluginView->message(genericMessage);
+        Utils::showMessage(genericMessage, m_pluginView->mainWindow());
         return;
     }
 
@@ -160,7 +161,7 @@ void KateProjectViewTree::addDirectory(const QModelIndex &idx, const QString &na
         genericMessage.insert(QStringLiteral("category"), i18n("Project"));
         genericMessage.insert(QStringLiteral("categoryIcon"), QIcon::fromTheme(QStringLiteral("folder-new")));
         genericMessage.insert(QStringLiteral("text"), i18n("Failed to create dir: %1", name));
-        Q_EMIT m_pluginView->message(genericMessage);
+        Utils::showMessage(genericMessage, m_pluginView->mainWindow());
         return;
     }
 

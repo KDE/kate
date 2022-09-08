@@ -524,6 +524,11 @@ public Q_SLOTS:
 
     void showDiff(const QByteArray &wordDiff, const DiffParams &params);
 
+    /**
+     * @brief show a message in the output view. See KTextEditor::MainWindow::showMessage for details
+     */
+    void showMessage(const QVariantMap &map);
+
 private Q_SLOTS:
     void slotUpdateBottomViewBar();
 

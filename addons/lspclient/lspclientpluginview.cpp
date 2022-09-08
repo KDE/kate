@@ -568,12 +568,6 @@ class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient, public KTe
     SemanticHighlighter m_semHighlightingManager;
 
 Q_SIGNALS:
-    /**
-     * Signal for outgoing message, the host application will handle them!
-     * Will only be handled inside the main windows of this plugin view.
-     * @param message outgoing message we send to the host application
-     */
-    void message(const QVariantMap &message);
 
     /**
      * Signal for location changed.
@@ -2738,7 +2732,7 @@ public:
         }
 
         // host application will handle these message for us, including auto-show settings
-        Q_EMIT message(genericMessage);
+        Utils::showMessage(genericMessage, m_mainWindow);
     }
 
     // params type is same for show or log and is treated the same way

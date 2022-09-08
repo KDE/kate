@@ -15,6 +15,7 @@
 #include "kateproject.h"
 #include "kateprojectplugin.h"
 #include "kateprojectpluginview.h"
+#include "ktexteditor_utils.h"
 #include "pushpulldialog.h"
 #include "stashdialog.h"
 
@@ -459,7 +460,7 @@ void GitWidget::sendMessage(const QString &plainText, bool warn)
     genericMessage.insert(QStringLiteral("category"), i18n("Git"));
     genericMessage.insert(QStringLiteral("categoryIcon"), gitIcon());
     genericMessage.insert(QStringLiteral("text"), plainText);
-    Q_EMIT m_pluginView->message(genericMessage);
+    Utils::showMessage(genericMessage, mainWindow());
 }
 
 KTextEditor::MainWindow *GitWidget::mainWindow()
@@ -639,7 +640,6 @@ void GitWidget::showDiff(const QString &file, bool staged)
         if (es != QProcess::NormalExit || exitCode != 0) {
             sendMessage(i18n("Failed to get Diff of file: %1", QString::fromUtf8(git->readAllStandardError())), true);
         } else {
-            auto mw = mainWindow()->window();
             DiffParams d;
             d.srcFile = file;
             d.workingDir = m_activeGitDirPath;
@@ -650,7 +650,7 @@ void GitWidget::showDiff(const QString &file, bool staged)
             // When file is empty, we are showing diff of multiple file usually
             const bool showfile = file.isEmpty() && (staged ? m_model->stagedFiles().size() > 1 : m_model->changedFiles().size() > 1);
             d.flags.setFlag(DiffParams::Flag::ShowFileName, showfile);
-            QMetaObject::invokeMethod(mw, "showDiff", Q_ARG(QByteArray, git->readAllStandardOutput()), Q_ARG(DiffParams, d));
+            Utils::showDiff(git->readAllStandardOutput(), d, mainWindow());
         }
         git->deleteLater();
     });
@@ -950,11 +950,10 @@ void GitWidget::createStashDialog(StashMode m, const QString &gitPath)
     auto stashDialog = new StashDialog(this, mainWindow()->window(), gitPath);
     connect(stashDialog, &StashDialog::message, this, &GitWidget::sendMessage);
     connect(stashDialog, &StashDialog::showStashDiff, this, [this](const QByteArray &r) {
-        auto mw = mainWindow()->window();
         DiffParams d;
         d.tabTitle = i18n("Diff - stash");
         d.workingDir = m_activeGitDirPath;
-        QMetaObject::invokeMethod(mw, "showDiff", Q_ARG(QByteArray, r), Q_ARG(DiffParams, d));
+        Utils::showDiff(r, d, mainWindow());
     });
     connect(stashDialog, &StashDialog::done, this, [this, stashDialog] {
         updateStatus();

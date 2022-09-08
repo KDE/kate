@@ -4,6 +4,7 @@
 #include "ce_plugin.h"
 #include "ce_service.h"
 #include "compiledbreader.h"
+#include "ktexteditor_utils.h"
 
 #include <QComboBox>
 #include <QEvent>
@@ -569,7 +570,7 @@ void CEWidget::sendMessage(const QString &plainText, bool warn)
     genericMessage.insert(QStringLiteral("type"), warn ? QStringLiteral("Error") : QStringLiteral("Info"));
     genericMessage.insert(QStringLiteral("category"), i18n("CompilerExplorer"));
     genericMessage.insert(QStringLiteral("text"), plainText);
-    Q_EMIT m_pluginView->message(genericMessage);
+    Utils::showMessage(genericMessage, m_mainWindow);
 }
 
 void CEWidget::warnIfBadArgs(const QStringList &args)

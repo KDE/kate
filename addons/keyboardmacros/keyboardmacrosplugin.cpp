@@ -3,6 +3,13 @@
  * SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
+#include "keyboardmacrosplugin.h"
+#include "keyboardmacrosplugincommands.h"
+#include "keyboardmacrospluginview.h"
+#include "keycombination.h"
+#include "ktexteditor_utils.h"
+#include "macro.h"
+
 #include <QAction>
 #include <QApplication>
 #include <QCoreApplication>
@@ -32,12 +39,6 @@
 #include <KTextEditor/Message>
 #include <KTextEditor/Plugin>
 #include <KTextEditor/View>
-
-#include "keyboardmacrosplugin.h"
-#include "keyboardmacrosplugincommands.h"
-#include "keyboardmacrospluginview.h"
-#include "keycombination.h"
-#include "macro.h"
 
 Q_LOGGING_CATEGORY(KM_DBG, "kate.plugin.keyboardmacros", QtWarningMsg)
 
@@ -132,7 +133,7 @@ void KeyboardMacrosPlugin::sendMessage(const QString &text, bool error)
     genericMessage.insert(QStringLiteral("category"), i18n("Keyboard Macros"));
     genericMessage.insert(QStringLiteral("categoryIcon"), QIcon::fromTheme(QStringLiteral("input-keyboard")));
     genericMessage.insert(QStringLiteral("text"), text);
-    Q_EMIT message(genericMessage);
+    Utils::showMessage(genericMessage, KTextEditor::Editor::instance()->application()->activeMainWindow());
 }
 
 void KeyboardMacrosPlugin::displayMessage(const QString &text, KTextEditor::Message::MessageType type)

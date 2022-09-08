@@ -193,13 +193,6 @@ Q_SIGNALS:
     void configUpdated();
 
     /**
-     * Signal for outgoing message, the host application will handle them!
-     * Will be handled in all open main windows.
-     * @param message outgoing message we send to the host application
-     */
-    void message(const QVariantMap &message);
-
-    /**
      * Signal emitted to tell the views to activate some project.
      * Used for loading projects from the command line.
      * @param project project to activate in the views

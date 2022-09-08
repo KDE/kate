@@ -64,9 +64,6 @@ private:
     void sendMessage(const QString &text, bool error);
     void displayMessage(const QString &text, KTextEditor::Message::MessageType type);
 
-Q_SIGNALS:
-    void message(const QVariantMap &message);
-
     // Events filter and focus management helpers
 public:
     bool eventFilter(QObject *obj, QEvent *event) override;

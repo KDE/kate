@@ -325,11 +325,10 @@ void FileHistoryWidget::itemClicked(const QModelIndex &idx)
         }
         const QByteArray contents(git.readAllStandardOutput());
 
-        auto mw = m_mainWindow->window();
         DiffParams d;
         const QString shortCommit = QString::fromUtf8(commit.hash.mid(0, 7));
         d.tabTitle = QStringLiteral("%1[%2]").arg(Utils::fileNameFromPath(m_file), shortCommit);
-        QMetaObject::invokeMethod(mw, "showDiff", Q_ARG(QByteArray, contents), Q_ARG(DiffParams, d));
+        Utils::showDiff(contents, d, m_mainWindow);
     }
 }
 
@@ -343,7 +342,7 @@ void FileHistory::showFileHistory(const QString &file, KTextEditor::MainWindow *
 
     const auto repoBase = getRepoBasePath(fi.absolutePath());
     if (!repoBase.has_value()) {
-        // TODO: show message;
+        Utils::showMessage(i18n("%1 doesn't exist in a git repo.", file), gitIcon(), i18n("Git"), i18n("Error"), mainWindow);
         return;
     }
 

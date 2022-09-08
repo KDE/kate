@@ -5,20 +5,22 @@
 */
 
 #include "ktexteditor_utils.h"
+#include "katemainwindow.h"
 
+#include <QFontDatabase>
+#include <QIcon>
+#include <QMimeDatabase>
+#include <QPointer>
+#include <QScrollBar>
+#include <QVariant>
+
+#include <KActionCollection>
+#include <KTextEditor/Application>
 #include <KTextEditor/ConfigInterface>
 #include <KTextEditor/Editor>
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/View>
-
-#include <QFontDatabase>
-#include <QIcon>
-#include <QPointer>
-#include <QScrollBar>
-
-#include <KActionCollection>
 #include <KXMLGUIFactory>
-#include <QMimeDatabase>
 
 namespace Utils
 {
@@ -134,5 +136,39 @@ QAction *toolviewShowAction(KTextEditor::MainWindow *mainWindow, const QString &
         return nullptr;
     }
     return (*it)->actionCollection()->action(prefix + toolviewName);
+}
+
+void showMessage(const QString &message, const QIcon &icon, const QString &category, const QString &type, KTextEditor::MainWindow *mainWindow)
+{
+    QVariantMap msg;
+    msg.insert(QStringLiteral("type"), type);
+    msg.insert(QStringLiteral("category"), category);
+    msg.insert(QStringLiteral("categoryIcon"), icon);
+    msg.insert(QStringLiteral("text"), message);
+    showMessage(msg, mainWindow);
+}
+
+void showMessage(const QVariantMap &map, KTextEditor::MainWindow *mainWindow)
+{
+    if (!mainWindow) {
+        mainWindow = KTextEditor::Editor::instance()->application()->activeMainWindow();
+    }
+    if (auto kmw = qobject_cast<KateMainWindow *>(mainWindow->window())) {
+        kmw->showMessage(map);
+    }
+}
+
+void showDiff(const QByteArray &diff, const DiffParams &params, KTextEditor::MainWindow *mainWindow)
+{
+    if (auto kmw = qobject_cast<KateMainWindow *>(mainWindow->window())) {
+        kmw->showDiff(diff, params);
+    }
+}
+
+void addWidget(QWidget *widget, KTextEditor::MainWindow *mainWindow)
+{
+    if (auto kmw = qobject_cast<KateMainWindow *>(mainWindow->window())) {
+        kmw->addWidget(widget);
+    }
 }
 }

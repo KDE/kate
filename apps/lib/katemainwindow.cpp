@@ -1332,6 +1332,8 @@ void KateMainWindow::showDiff(const QByteArray &wordDiff, const DiffParams &para
         else
             w->setWindowTitle(i18n("Diff %1..%2", Utils::fileNameFromPath(params.srcFile), Utils::fileNameFromPath(params.destFile)));
     }
+
+    w->setWindowIcon(QIcon::fromTheme(QStringLiteral("text-x-patch")));
     addWidget(w);
     w->openDiff(wordDiff);
 }

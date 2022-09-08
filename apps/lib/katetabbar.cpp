@@ -482,6 +482,7 @@ QVector<KTextEditor::Document *> KateTabBar::documentList() const
 void KateTabBar::setCurrentWidget(QWidget *widget)
 {
     int idx = insertTab(-1, widget->windowTitle());
+    setTabIcon(idx, widget->windowIcon());
     setTabData(idx, QVariant::fromValue(widget));
     setCurrentIndex(idx);
 }

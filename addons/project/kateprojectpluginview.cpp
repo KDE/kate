@@ -291,8 +291,7 @@ void KateProjectPluginView::slotConfigUpdated()
     }
 
     // update action state
-    m_gotoSymbolActionAppMenu->setEnabled(m_toolMultiView);
-    m_gotoSymbolAction->setEnabled(m_toolMultiView);
+    updateActions();
 }
 
 QPair<KateProjectView *, KateProjectInfoView *> KateProjectPluginView::viewForProject(KateProject *project)
@@ -850,6 +849,7 @@ QString KateProjectPluginView::projectBaseDirForUrl(const QUrl &url)
 
 void KateProjectPluginView::updateActions()
 {
+    const bool hasMultipleProjects = m_projectsCombo->count() > 1;
     // currently some project active?
     const bool projectActive = !projectBaseDir().isEmpty();
     m_projectsCombo->setEnabled(projectActive);
@@ -857,16 +857,19 @@ void KateProjectPluginView::updateActions()
     m_reloadButton->setEnabled(projectActive);
     m_closeProjectButton->setEnabled(projectActive);
     m_gitStatusRefreshButton->setEnabled(projectActive);
-    m_lookupAction->setEnabled(projectActive);
-    m_gotoSymbolAction->setEnabled(projectActive);
-    m_gotoSymbolActionAppMenu->setEnabled(projectActive);
     m_projectTodosAction->setEnabled(projectActive);
-    m_projectPrevAction->setEnabled(projectActive);
-    m_projectNextAction->setEnabled(projectActive);
-    m_projectGotoIndexAction->setEnabled(projectActive);
+    m_projectPrevAction->setEnabled(projectActive && hasMultipleProjects);
+    m_projectNextAction->setEnabled(projectActive && hasMultipleProjects);
     m_projectCloseAction->setEnabled(projectActive);
-    m_projectCloseAllAction->setEnabled(m_projectsCombo->count() > 0);
+    m_projectCloseAllAction->setEnabled(hasMultipleProjects);
     m_projectCloseWithoutDocumentsAction->setEnabled(m_projectsCombo->count() > 0);
+
+    const bool hasIndex = projectActive && m_plugin->getIndexEnabled();
+    m_lookupAction->setVisible(hasIndex);
+    m_gotoSymbolAction->setVisible(hasIndex);
+    m_projectGotoIndexAction->setVisible(hasIndex);
+    m_gotoSymbolActionAppMenu->setVisible(hasIndex);
+    actionCollection()->action(QStringLiteral("popup_project"))->setVisible(hasIndex);
 }
 
 void KateProjectPluginView::slotActivateProject(KateProject *project)

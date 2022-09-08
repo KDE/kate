@@ -260,22 +260,6 @@ static void createFileTree(QStandardItem *parent, const QString &basePath, const
     }
 }
 
-static std::optional<QString> getGitCmdOutput(const QString &workDir, const QStringList &args)
-{
-    QProcess git;
-    if (!setupGitProcess(git, workDir, args)) {
-        return {};
-    }
-    startHostProcess(git, QProcess::ReadOnly);
-    if (git.waitForStarted() && git.waitForFinished(-1)) {
-        if (git.exitStatus() != QProcess::NormalExit || git.exitCode() != 0) {
-            return std::nullopt;
-        }
-        return {QString::fromUtf8(git.readAllStandardOutput().trimmed())};
-    }
-    return {};
-}
-
 static bool getNum(const QByteArray &numBytes, int *num)
 {
     bool res = false;

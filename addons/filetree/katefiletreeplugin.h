@@ -135,6 +135,10 @@ private Q_SLOTS:
     void slotDocumentsCreated();
     void slotDocumentSave() const;
     void slotDocumentSaveAs() const;
+
+    void widgetActivated(QWidget *);
+    void slotWidgetCreated(QWidget *);
+    void slotWidgetRemoved(QWidget *);
 };
 
 #endif // KATE_FILETREE_PLUGIN_H

@@ -30,7 +30,13 @@ class KateFileTreeModel : public QAbstractItemModel
     Q_OBJECT
 
 public:
-    enum { DocumentRole = Qt::UserRole + 1, PathRole, OpeningOrderRole, DocumentTreeRole };
+    enum {
+        DocumentRole = Qt::UserRole + 1,
+        PathRole,
+        OpeningOrderRole,
+        DocumentTreeRole,
+        WidgetRole,
+    };
 
     KateFileTreeModel(QObject *p);
     ~KateFileTreeModel() override;
@@ -52,6 +58,8 @@ public:
 
     /* extra api for view */
     QModelIndex docIndex(const KTextEditor::Document *) const;
+
+    QModelIndex widgetIndex(QWidget *) const;
 
     static bool isDir(const QModelIndex &index);
 
@@ -83,6 +91,9 @@ public Q_SLOTS:
     void documentModifiedChanged(KTextEditor::Document *);
     void documentModifiedOnDisc(KTextEditor::Document *, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason);
 
+    void addWidget(QWidget *w);
+    void removeWidget(QWidget *w);
+
 Q_SIGNALS:
     void triggerViewChangeAfterNameChange();
 
@@ -105,6 +116,7 @@ private:
 
 private:
     ProxyItemDir *m_root;
+    ProxyItem *m_widgetsRoot = nullptr;
     QHash<const KTextEditor::Document *, ProxyItem *> m_docmap;
 
     bool m_shadingEnabled;

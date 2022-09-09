@@ -1318,7 +1318,34 @@ bool KateMainWindow::addWidget(QWidget *widget)
 {
     auto vs = m_viewManager->activeViewSpace();
     vs->addWidgetAsTab(widget);
+    Q_EMIT widgetAdded(widget);
+    Q_EMIT widgetActivated(widget);
     return true;
+}
+
+bool KateMainWindow::removeWidget(QWidget *widget)
+{
+    auto success = m_viewManager->removeWidget(widget);
+    if (success) {
+        Q_EMIT widgetRemoved(widget);
+    }
+    return success;
+}
+
+QWidget *KateMainWindow::activeWidget()
+{
+    auto vs = m_viewManager->activeViewSpace();
+    if (auto w = vs->currentWidget()) {
+        return w;
+    }
+    return activeView();
+}
+
+void KateMainWindow::activateWidget(QWidget *widget)
+{
+    if (m_viewManager->activateWidget(widget)) {
+        Q_EMIT widgetActivated(widget);
+    }
 }
 
 void KateMainWindow::showDiff(const QByteArray &wordDiff, const DiffParams &params)
@@ -1344,6 +1371,11 @@ void KateMainWindow::showMessage(const QVariantMap &map)
         return;
     }
     m_outputView->slotMessage(map);
+}
+
+QWidgetList KateMainWindow::widgets() const
+{
+    return m_viewManager->widgets();
 }
 
 void KateMainWindow::mousePressEvent(QMouseEvent *e)

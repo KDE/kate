@@ -153,7 +153,12 @@ public:
      */
     QWidget *currentWidget();
 
-    void closeTabWithWidget(QWidget *widget);
+    /// Returns all non-KTE::View widgets
+    QWidgetList widgets() const;
+
+    bool closeTabWithWidget(QWidget *widget);
+
+    bool activateWidget(QWidget *widget);
 
     // BEGIN Location History Stuff
 

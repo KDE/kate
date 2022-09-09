@@ -14,18 +14,22 @@
 #include <QMimeData>
 #include <QMimeDatabase>
 #include <QStack>
+#include <QWidget>
 
 #include <KColorScheme>
 #include <KColorUtils>
 #include <KIconUtils>
 #include <KLocalizedString>
 
+#include <KTextEditor/MainWindow>
 #include <ktexteditor/application.h>
 #include <ktexteditor/document.h>
 #include <ktexteditor/editor.h>
 
 #include "katefiletreedebug.h"
 #include "ktexteditor_utils.h"
+
+#include <variant>
 
 static constexpr int MaxHistoryItems = 10;
 
@@ -53,7 +57,17 @@ class ProxyItem
     friend class KateFileTreeModel;
 
 public:
-    enum Flag { None = 0, Dir = 1, Modified = 2, ModifiedExternally = 4, DeletedExternally = 8, Empty = 16, ShowFullPath = 32, Host = 64 };
+    enum Flag {
+        None = 0,
+        Dir = 1,
+        Modified = 2,
+        ModifiedExternally = 4,
+        DeletedExternally = 8,
+        Empty = 16,
+        ShowFullPath = 32,
+        Host = 64,
+        Widget = 128,
+    };
     Q_DECLARE_FLAGS(Flags, Flag)
 
     ProxyItem(const QString &n, ProxyItemDir *p = nullptr, Flags f = ProxyItem::None);
@@ -87,6 +101,9 @@ public:
     void setDoc(KTextEditor::Document *doc);
     KTextEditor::Document *doc() const;
 
+    void setWidget(QWidget *);
+    QWidget *widget() const;
+
     /**
      * the view uses this to close all the documents under the folder
      * @returns list of all the (nested) documents under this node
@@ -108,7 +125,7 @@ private:
 
     QString m_display;
     QIcon m_icon;
-    KTextEditor::Document *m_doc;
+    std::variant<KTextEditor::Document *, QWidget *> m_object;
     QString m_host;
 
 protected:
@@ -167,9 +184,12 @@ ProxyItem::ProxyItem(const QString &d, ProxyItemDir *p, ProxyItem::Flags f)
     , m_parent(Q_NULLPTR)
     , m_row(-1)
     , m_flags(f)
-    , m_doc(nullptr)
 {
     updateDisplay();
+
+    if (f.testFlag(Widget) && f.testFlag(Dir)) {
+        m_documentName = display();
+    }
 
     /**
      * add to parent, if parent passed
@@ -300,21 +320,37 @@ QList<ProxyItem *> &ProxyItem::children()
 void ProxyItem::setDoc(KTextEditor::Document *doc)
 {
     Q_ASSERT(doc);
-    m_doc = doc;
+    m_object = doc;
     updateDocumentName();
+}
+
+void ProxyItem::setWidget(QWidget *w)
+{
+    Q_ASSERT(w);
+    m_object = w;
+    updateDocumentName();
+}
+
+QWidget *ProxyItem::widget() const
+{
+    if (!std::holds_alternative<QWidget *>(m_object))
+        return nullptr;
+    return std::get<QWidget *>(m_object);
 }
 
 KTextEditor::Document *ProxyItem::doc() const
 {
-    return m_doc;
+    if (!std::holds_alternative<KTextEditor::Document *>(m_object))
+        return nullptr;
+    return std::get<KTextEditor::Document *>(m_object);
 }
 
 QList<KTextEditor::Document *> ProxyItem::docTree() const
 {
     QList<KTextEditor::Document *> result;
 
-    if (m_doc) {
-        result.append(m_doc);
+    if (doc()) {
+        result.append(doc());
         return result;
     }
 
@@ -366,12 +402,17 @@ const QString &ProxyItem::host() const
 
 void ProxyItem::updateDocumentName()
 {
-    const QString docName = m_doc ? m_doc->documentName() : QString();
+    QString name;
+    if (doc()) {
+        name = doc()->documentName();
+    } else if (widget()) {
+        name = widget()->windowTitle();
+    }
 
     if (flag(ProxyItem::Host)) {
-        m_documentName = QStringLiteral("[%1]%2").arg(m_host, docName);
+        m_documentName = QStringLiteral("[%1]%2").arg(m_host, name);
     } else {
-        m_documentName = docName;
+        m_documentName = name;
     }
 }
 
@@ -450,10 +491,25 @@ void KateFileTreeModel::setShowFullPathOnRoots(bool s)
 
 void KateFileTreeModel::initModel()
 {
+    beginInsertRows(QModelIndex(), 0, 0);
+    Q_ASSERT(!m_widgetsRoot);
+    m_widgetsRoot = new ProxyItem(i18n("Open Widgets"), nullptr, ProxyItem::Flags(ProxyItem::Dir | ProxyItem::Widget));
+    m_widgetsRoot->setFlags(ProxyItem::Flags(ProxyItem::Dir | ProxyItem::Widget));
+    m_widgetsRoot->setIcon(QIcon::fromTheme(QStringLiteral("folder-windows")));
+    m_root->addChild(m_widgetsRoot);
+    endInsertRows();
+
     // add already existing documents
     const auto documents = KTextEditor::Editor::instance()->application()->documents();
     for (KTextEditor::Document *doc : documents) {
         documentOpened(doc);
+    }
+
+    auto mw = KTextEditor::Editor::instance()->application()->activeMainWindow();
+    QWidgetList widgets;
+    QMetaObject::invokeMethod(mw->window(), "widgets", Q_RETURN_ARG(QWidgetList, widgets));
+    for (auto *w : std::as_const(widgets)) {
+        addWidget(w);
     }
 }
 
@@ -466,6 +522,8 @@ void KateFileTreeModel::clearModel()
 
     delete m_root;
     m_root = new ProxyItemDir(QStringLiteral("m_root"), nullptr);
+
+    m_widgetsRoot = nullptr;
 
     m_docmap.clear();
     m_viewHistory.clear();
@@ -498,6 +556,23 @@ QModelIndex KateFileTreeModel::docIndex(const KTextEditor::Document *doc) const
     return createIndex(item->row(), 0, item);
 }
 
+QModelIndex KateFileTreeModel::widgetIndex(QWidget *widget) const
+{
+    ProxyItem *item = nullptr;
+    const auto items = m_widgetsRoot->children();
+    for (auto *it : items) {
+        if (it->widget() == widget) {
+            item = it;
+            break;
+        }
+    }
+    if (!item) {
+        return {};
+    }
+
+    return createIndex(item->row(), 0, item);
+}
+
 Qt::ItemFlags KateFileTreeModel::flags(const QModelIndex &index) const
 {
     Qt::ItemFlags flags = Qt::ItemIsEnabled;
@@ -508,12 +583,16 @@ Qt::ItemFlags KateFileTreeModel::flags(const QModelIndex &index) const
 
     const ProxyItem *item = static_cast<ProxyItem *>(index.internalPointer());
     if (item) {
-        if (!item->childCount()) {
+        if (!item->flag(ProxyItem::Dir)) {
             flags |= Qt::ItemIsSelectable;
         }
 
-        if (item->childCount() > 0) {
+        if (item->flag(ProxyItem::Dir) && !item->flag(ProxyItem::Widget)) {
             flags |= Qt::ItemIsDropEnabled;
+        }
+
+        if (item->flag(ProxyItem::Dir) && item->flag(ProxyItem::Widget) && item->childCount() == 0) {
+            flags.setFlag(Qt::ItemIsEnabled, false);
         }
 
         if (item->doc() && item->doc()->url().isValid()) {
@@ -542,6 +621,9 @@ QVariant KateFileTreeModel::data(const QModelIndex &index, int role) const
 
     case KateFileTreeModel::DocumentRole:
         return QVariant::fromValue(item->doc());
+
+    case KateFileTreeModel::WidgetRole:
+        return QVariant::fromValue(item->widget());
 
     case KateFileTreeModel::OpeningOrderRole:
         return item->row();
@@ -574,7 +656,7 @@ QVariant KateFileTreeModel::data(const QModelIndex &index, int role) const
     }
 
     case Qt::ForegroundRole: {
-        if (!item->flag(ProxyItem::Dir) && (!item->doc() || item->doc()->openingError())) {
+        if (!item->flag(ProxyItem::Widget) && !item->flag(ProxyItem::Dir) && (!item->doc() || item->doc()->openingError())) {
             return m_inactiveDocColor;
         }
     } break;
@@ -1385,6 +1467,42 @@ void KateFileTreeModel::resetHistory()
         QModelIndex idx = createIndex(item->row(), 0, item);
         dataChanged(idx, idx, QVector<int>(1, Qt::BackgroundRole));
     }
+}
+
+void KateFileTreeModel::addWidget(QWidget *w)
+{
+    if (!w) {
+        return;
+    }
+
+    const QModelIndex parentIdx = createIndex(m_widgetsRoot->row(), 0, m_widgetsRoot);
+    beginInsertRows(parentIdx, m_widgetsRoot->childCount(), m_widgetsRoot->childCount());
+    auto item = new ProxyItem(w->windowTitle());
+    item->setFlag(ProxyItem::Widget);
+    item->setIcon(w->windowIcon());
+    item->setWidget(w);
+    m_widgetsRoot->addChild(item);
+    endInsertRows();
+}
+
+void KateFileTreeModel::removeWidget(QWidget *w)
+{
+    ProxyItem *item = nullptr;
+    const auto items = m_widgetsRoot->children();
+    for (auto *it : items) {
+        if (it->widget() == w) {
+            item = it;
+            break;
+        }
+    }
+    if (!item) {
+        return;
+    }
+
+    const QModelIndex parentIdx = createIndex(m_widgetsRoot->row(), 0, m_widgetsRoot);
+    beginRemoveRows(parentIdx, item->row(), item->row());
+    m_widgetsRoot->removeChild(item);
+    endRemoveRows();
 }
 
 #include "katefiletreemodel.moc"

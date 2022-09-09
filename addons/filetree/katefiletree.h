@@ -62,6 +62,9 @@ Q_SIGNALS:
     void viewModeChanged(bool treeMode);
     void sortRoleChanged(int);
 
+    void closeWidget(QWidget *);
+    void activateWidget(QWidget *);
+
 private Q_SLOTS:
     void mouseClicked(const QModelIndex &index);
 

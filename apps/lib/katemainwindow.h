@@ -220,6 +220,10 @@ Q_SIGNALS:
     void tabBarToggled();
     void unhandledShortcutOverride(QEvent *e);
 
+    void widgetAdded(QWidget *);
+    void widgetRemoved(QWidget *);
+    void widgetActivated(QWidget *);
+
 public:
     void openUrl(const QString &name = QString());
 
@@ -521,6 +525,31 @@ public Q_SLOTS:
      *         the main window will take ownership of the widget
      */
     bool addWidget(QWidget *widget);
+
+    /**
+     * \brief returns the list of non-KTextEditor::View widgets in this main window.
+     * \see addWidget
+     */
+    QWidgetList widgets() const;
+
+    /**
+     * \brief remove this \p widget from this mainwindow.
+     * \param widget the widget to be removed
+     * \return true on success
+     */
+    bool removeWidget(QWidget *widget);
+
+    /**
+     * \brief returns the currently active widget. It can be a
+     * non-KTextEditor::View widget or a KTextEditor::View
+     */
+    QWidget *activeWidget();
+
+    /**
+     * \brief activate @p widget
+     * \param widget the widget to activate
+     */
+    void activateWidget(QWidget *widget);
 
     void showDiff(const QByteArray &wordDiff, const DiffParams &params);
 

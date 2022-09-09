@@ -202,6 +202,20 @@ KateFileTreePluginView::KateFileTreePluginView(KTextEditor::MainWindow *mainWind
 
     connect(mainWindow, &KTextEditor::MainWindow::viewChanged, this, &KateFileTreePluginView::viewChanged);
 
+    auto mw = mainWindow->window();
+    connect(mw, SIGNAL(widgetAdded(QWidget *)), this, SLOT(slotWidgetCreated(QWidget *)));
+    connect(mw, SIGNAL(widgetRemoved(QWidget *)), this, SLOT(slotWidgetRemoved(QWidget *)));
+    connect(mw, SIGNAL(widgetActivated(QWidget *)), this, SLOT(widgetActivated(QWidget *)));
+
+    connect(m_fileTree, &KateFileTree::closeWidget, this, [this](QWidget *w) {
+        auto mw = m_mainWindow->window();
+        QMetaObject::invokeMethod(mw, "removeWidget", Q_ARG(QWidget *, w));
+    });
+    connect(m_fileTree, &KateFileTree::activateWidget, this, [this](QWidget *w) {
+        auto mw = m_mainWindow->window();
+        QMetaObject::invokeMethod(mw, "activateWidget", Q_ARG(QWidget *, w));
+    });
+
     //
     // actions
     //
@@ -319,16 +333,22 @@ void KateFileTreePluginView::setToolbarVisible(bool visible)
 
 void KateFileTreePluginView::viewChanged(KTextEditor::View *)
 {
-    KTextEditor::View *view = m_mainWindow->activeView();
-    if (!view) {
+    auto mw = m_mainWindow->window();
+    QWidget *activeWidget = nullptr;
+    QMetaObject::invokeMethod(mw, "activeWidget", Q_RETURN_ARG(QWidget *, activeWidget));
+    if (!activeWidget) {
         return;
     }
 
-    KTextEditor::Document *doc = view->document();
-    QModelIndex index = m_proxyModel->docIndex(doc);
-
-    // update the model on which doc is active
-    m_documentModel->documentActivated(doc);
+    QModelIndex index;
+    if (auto view = qobject_cast<KTextEditor::View *>(activeWidget)) {
+        KTextEditor::Document *doc = view->document();
+        index = m_proxyModel->docIndex(doc);
+        // update the model on which doc is active
+        m_documentModel->documentActivated(doc);
+    } else {
+        index = m_proxyModel->widgetIndex(activeWidget);
+    }
 
     m_fileTree->selectionModel()->setCurrentIndex(index, QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Rows);
 
@@ -456,6 +476,21 @@ void KateFileTreePluginView::slotDocumentSaveAs() const
     if (auto view = m_mainWindow->activeView()) {
         view->document()->documentSaveAs();
     }
+}
+
+void KateFileTreePluginView::widgetActivated(QWidget *)
+{
+    viewChanged(nullptr);
+}
+
+void KateFileTreePluginView::slotWidgetCreated(QWidget *w)
+{
+    m_documentModel->addWidget(w);
+}
+
+void KateFileTreePluginView::slotWidgetRemoved(QWidget *w)
+{
+    m_documentModel->removeWidget(w);
 }
 
 // END KateFileTreePluginView

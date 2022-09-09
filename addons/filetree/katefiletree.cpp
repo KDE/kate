@@ -339,6 +339,12 @@ void KateFileTree::mouseClicked(const QModelIndex &index)
             return;
         }
         Q_EMIT activateDocument(doc);
+    } else if (auto *w = index.data(KateFileTreeModel::WidgetRole).value<QWidget *>()) {
+        if (closeButtonClicked) {
+            Q_EMIT closeWidget(w);
+        } else {
+            Q_EMIT activateWidget(w);
+        }
     }
 }
 
@@ -359,7 +365,9 @@ void KateFileTree::contextMenuEvent(QContextMenuEvent *event)
     m_customSorting->setChecked(sortRole == CustomSorting);
 
     KTextEditor::Document *doc = docFromIndex(m_indexContextMenu);
+    QWidget *w = m_indexContextMenu.data(KateFileTreeModel::WidgetRole).value<QWidget *>();
     const bool isFile = (nullptr != doc);
+    const bool isWidget = (w != nullptr);
 
     QMenu menu;
     if (isFile) {
@@ -402,6 +410,11 @@ void KateFileTree::contextMenuEvent(QContextMenuEvent *event)
         m_filelistCopyFilename->setEnabled(hasFileName);
         m_filelistRenameFile->setEnabled(hasFileName);
         m_filelistDeleteDocument->setEnabled(hasFileName);
+    } else if (isWidget) {
+        auto a = menu.addAction(i18n("Close Widget"), this, [this, w] {
+            Q_EMIT closeWidget(w);
+        });
+        a->setIcon(QIcon::fromTheme(QStringLiteral("tab-close")));
     } else {
         menu.addAction(m_filelistReloadDocument);
 

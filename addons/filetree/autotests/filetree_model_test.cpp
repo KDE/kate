@@ -95,6 +95,8 @@ public:
 
 Q_DECLARE_METATYPE(ResultNode)
 
+static const ResultNode openWidgetsNode("Open Widgets", true);
+
 namespace QTest
 {
 inline bool qCompare(const ResultNode &t1, const ResultNode &t2, const char *actual, const char *expected, const char *file, int line)
@@ -136,13 +138,14 @@ void FileTreeModelTest::basic()
     QScopedPointer<DummyDocument> d2(new DummyDocument());
 
     KateFileTreeModel m(this);
-    QCOMPARE(m.rowCount(QModelIndex()), 0);
-
-    m.documentOpened(d1.data());
+    // 1 because, there is always a "open widgets" node
     QCOMPARE(m.rowCount(QModelIndex()), 1);
 
-    m.documentOpened(d2.data());
+    m.documentOpened(d1.data());
     QCOMPARE(m.rowCount(QModelIndex()), 2);
+
+    m.documentOpened(d2.data());
+    QCOMPARE(m.rowCount(QModelIndex()), 3);
 }
 
 void FileTreeModelTest::buildTree_data()
@@ -333,6 +336,7 @@ void FileTreeModelTest::walkTree(KateFileTreeModel &model, const QModelIndex &ro
         walkTree(model, idx, node);
         rootNode << node;
     }
+    rootNode.children.removeAll(openWidgetsNode);
 }
 
 void FileTreeModelTest::buildTreeFullPath_data()

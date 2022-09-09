@@ -144,6 +144,11 @@ public:
     KTextEditor::View *activeView();
     KateViewSpace *activeViewSpace();
 
+    /// Returns all non-KTE::View widgets in this viewManager
+    QWidgetList widgets() const;
+    bool removeWidget(QWidget *w);
+    bool activateWidget(QWidget *w);
+
 private Q_SLOTS:
     void slotViewChanged();
 

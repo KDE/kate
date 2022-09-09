@@ -614,6 +614,35 @@ KateViewSpace *KateViewManager::activeViewSpace()
     return nullptr;
 }
 
+QWidgetList KateViewManager::widgets() const
+{
+    QWidgetList widgets;
+    for (auto *vs : m_viewSpaceList) {
+        widgets << vs->widgets();
+    }
+    return widgets;
+}
+
+bool KateViewManager::removeWidget(QWidget *w)
+{
+    for (auto *vs : m_viewSpaceList) {
+        if (vs->closeTabWithWidget(w)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool KateViewManager::activateWidget(QWidget *w)
+{
+    for (auto *vs : m_viewSpaceList) {
+        if (vs->activateWidget(w)) {
+            return true;
+        }
+    }
+    return false;
+}
+
 KTextEditor::View *KateViewManager::activeView()
 {
     if (m_activeViewRunning) {

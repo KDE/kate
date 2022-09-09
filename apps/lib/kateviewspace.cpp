@@ -448,11 +448,20 @@ void KateViewSpace::changeView(int idx)
             return;
         }
         stack->setCurrentWidget(w);
+        Q_EMIT m_viewManager->mainWindow()->widgetActivated(w);
         return;
     }
 
+    auto currentActiveWidget = currentWidget();
+
     // tell the view manager to show the view
     m_viewManager->activateView(doc);
+
+    // If we had a non-KTE::View widget as active, emit the signal
+    // so that any listeners can tell that tab was changed
+    if (currentActiveWidget) {
+        Q_EMIT m_viewManager->viewChanged(m_viewManager->activeView());
+    }
 }
 
 KTextEditor::View *KateViewSpace::currentView()
@@ -775,18 +784,48 @@ QWidget *KateViewSpace::currentWidget()
     return nullptr;
 }
 
-void KateViewSpace::closeTabWithWidget(QWidget *widget)
+QWidgetList KateViewSpace::widgets() const
+{
+    QWidgetList widgets;
+    for (int i = 0; i < m_tabBar->count(); ++i) {
+        auto widget = m_tabBar->tabData(i).value<QWidget *>();
+        if (widget) {
+            widgets << widget;
+        }
+    }
+    return widgets;
+}
+
+bool KateViewSpace::closeTabWithWidget(QWidget *widget)
 {
     if (!widget) {
-        return;
+        return false;
     }
 
     for (int i = 0; i < m_tabBar->count(); ++i) {
         if (m_tabBar->tabData(i).value<QWidget *>() == widget) {
             closeTabRequest(i);
-            break;
+            return true;
         }
     }
+    return false;
+}
+
+bool KateViewSpace::activateWidget(QWidget *widget)
+{
+    if (stack->indexOf(widget) == -1) {
+        addWidgetAsTab(widget);
+        return true;
+    }
+
+    stack->setCurrentWidget(widget);
+    for (int i = 0; i < m_tabBar->count(); ++i) {
+        if (m_tabBar->tabData(i).value<QWidget *>() == widget) {
+            m_tabBar->setCurrentIndex(i);
+            return true;
+        }
+    }
+    return false;
 }
 
 void KateViewSpace::focusNavigationBar()
@@ -913,15 +952,15 @@ void KateViewSpace::showContextMenu(int idx, const QPoint &globalPos)
     QAction *aRenameFile = addActionFromCollection(&menu, "file_rename");
     QAction *aDeleteFile = addActionFromCollection(&menu, "file_delete");
     menu.addSeparator();
-    QAction *compare = menu.addAction(i18n("Compare with active document"));
+    QAction *compare = menu.addAction(i18n("Compare with Active Document"));
     connect(compare, &QAction::triggered, this, [this, activeDocument, doc] {
         auto w = new DiffWidget({}, this);
         w->setWindowTitle(i18n("Diff %1 .. %2", activeDocument->documentName(), doc->documentName()));
         w->diffDocs(activeDocument, doc);
-        addWidgetAsTab(w);
+        m_viewManager->mainWindow()->addWidget(w);
     });
     compare->setVisible(doc != activeDocument);
-    QMenu *mCompareWithActive = new QMenu(i18n("Compare with active document"), &menu);
+    QMenu *mCompareWithActive = new QMenu(i18n("Compare with Active Document Using"), &menu);
     mCompareWithActive->setIcon(QIcon::fromTheme(QStringLiteral("vcs-diff")));
     menu.addMenu(mCompareWithActive);
 

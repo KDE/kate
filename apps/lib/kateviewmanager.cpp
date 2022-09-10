@@ -60,8 +60,6 @@ KateViewManager::KateViewManager(QWidget *parentW, KateMainWindow *parent)
 
     connect(this, &KateViewManager::viewChanged, this, &KateViewManager::slotViewChanged);
 
-    connect(KateApp::self()->documentManager(), &KateDocManager::documentCreatedViewManager, this, &KateViewManager::documentCreated);
-
     /**
      * before document is really deleted: cleanup all views!
      */
@@ -74,25 +72,6 @@ KateViewManager::KateViewManager(QWidget *parentW, KateMainWindow *parent)
      */
     connect(KateApp::self()->documentManager(), &KateDocManager::aboutToDeleteDocuments, this, &KateViewManager::aboutToDeleteDocuments);
     connect(KateApp::self()->documentManager(), &KateDocManager::documentsDeleted, this, &KateViewManager::documentsDeleted);
-
-    // Do it on next event loop iteration *after* the viewspace
-    // config has been read. This avoids
-    // - useless work (because current ViewSpace is destroyed when we restore config)
-    // - creates views for stashed docs correctly.
-    QTimer::singleShot(0, this, [this] {
-        // register all already existing documents
-        m_blockViewCreationAndActivation = true;
-
-        const auto &docs = KateApp::self()->documentManager()->documentList();
-        for (KTextEditor::Document *doc : docs) {
-            documentCreated(doc);
-        }
-
-        m_blockViewCreationAndActivation = false;
-
-        // update actions once
-        updateViewSpaceActions();
-    });
 }
 
 KateViewManager::~KateViewManager()

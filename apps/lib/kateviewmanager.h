@@ -41,6 +41,8 @@ class KATE_PRIVATE_EXPORT KateViewManager : public KateSplitter
 {
     Q_OBJECT
 
+    friend class KateViewManagementTests;
+
 public:
     KateViewManager(QWidget *parentW, KateMainWindow *parent);
     ~KateViewManager() override;

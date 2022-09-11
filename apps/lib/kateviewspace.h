@@ -29,6 +29,9 @@ class KATE_PRIVATE_EXPORT KateViewSpace : public QWidget
 {
     Q_OBJECT
 
+    friend class LocationHistoryTest;
+    friend class KateViewManagementTests;
+
 public:
     explicit KateViewSpace(KateViewManager *, QWidget *parent = nullptr, const char *name = nullptr);
 
@@ -326,8 +329,6 @@ private:
         class QHBoxLayout *tabBarLayout = nullptr;
         class QVBoxLayout *mainLayout = nullptr;
     } m_layout;
-
-    friend class LocationHistoryTest;
 
     // should the tab bar be auto hidden if just one document is open?
     bool m_autoHideTabBar = false;

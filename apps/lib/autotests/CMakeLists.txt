@@ -25,4 +25,5 @@ kate_executable_tests(
   urlinfo_test
   json_utils_test
   location_history_test
+  kate_view_mgmt_tests
 )

@@ -22,6 +22,7 @@
 #include <QLocale>
 #include <QPointer>
 #include <QRegularExpression>
+#include <QTimer>
 #include <QVariant>
 #include <QVector>
 
@@ -94,7 +95,7 @@ public:
 private:
     void sendMessage(const QString &text, bool error);
 
-    void viewChanged(KTextEditor::View *view);
+    void startGitBlameForActiveView();
 
     void startBlameProcess(const QUrl &url);
     void blameFinished(int exitCode, QProcess::ExitStatus exitStatus);
@@ -125,6 +126,7 @@ private:
     class CommitDiffTreeView *m_commitFilesView;
     std::unique_ptr<QWidget> m_toolView;
     QPointer<KTextEditor::View> m_diffView;
+    QTimer m_startBlameTimer;
 };
 
 #endif // KateGitBlamePlugin_h

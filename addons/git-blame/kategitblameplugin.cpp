@@ -186,7 +186,13 @@ KateGitBlamePluginView::KateGitBlamePluginView(KateGitBlamePlugin *plugin, KText
         m_inlineNoteProvider.cycleMode();
     });
 
-    connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, &KateGitBlamePluginView::viewChanged);
+    m_startBlameTimer.setSingleShot(true);
+    m_startBlameTimer.setInterval(400);
+    m_startBlameTimer.callOnTimeout(this, &KateGitBlamePluginView::startGitBlameForActiveView);
+
+    connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, [this](KTextEditor::View *) {
+        m_startBlameTimer.start();
+    });
 
     connect(&m_blameInfoProc, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &KateGitBlamePluginView::blameFinished);
 
@@ -220,13 +226,14 @@ QPointer<KTextEditor::Document> KateGitBlamePluginView::activeDocument() const
     return nullptr;
 }
 
-void KateGitBlamePluginView::viewChanged(KTextEditor::View *view)
+void KateGitBlamePluginView::startGitBlameForActiveView()
 {
     if (m_lastView) {
         qobject_cast<KTextEditor::InlineNoteInterface *>(m_lastView)->unregisterInlineNoteProvider(&m_inlineNoteProvider);
     }
-    m_lastView = view;
 
+    auto *view = m_mainWindow->activeView();
+    m_lastView = view;
     if (view == nullptr || view->document() == nullptr) {
         return;
     }

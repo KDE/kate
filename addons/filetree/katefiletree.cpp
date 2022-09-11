@@ -76,7 +76,7 @@ public:
             return;
         }
 
-        if (index.column() == 1 && option.state & QStyle::State_MouseOver) {
+        if (index.column() == 1 && option.state & QStyle::State_Enabled && option.state & QStyle::State_MouseOver) {
             const QIcon icon = QIcon::fromTheme(QStringLiteral("tab-close"));
             const int w = option.decorationSize.width();
             QRect iconRect(option.rect.right() - w, option.rect.top(), w, option.rect.height());

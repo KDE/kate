@@ -170,3 +170,20 @@ void KateViewManagementTests::testTwoMainWindowsCloseInitialDocument2()
     // create a new document, this did crash due to empty view space
     second->viewManager()->slotDocumentNew();
 }
+
+void KateViewManagementTests::testTwoMainWindowsCloseInitialDocument3()
+{
+    // get first main window
+    KateMainWindow *first = app->activeKateMainWindow();
+    QVERIFY(first);
+
+    // create a second one
+    KateMainWindow *second = app->newMainWindow();
+    QVERIFY(second);
+
+    // close the initial document tab in second window
+    second->viewManager()->closeView(second->viewManager()->activeView());
+
+    // create a new document, this did crash due to empty view space
+    second->viewManager()->slotDocumentNew();
+}

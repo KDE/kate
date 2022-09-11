@@ -300,8 +300,10 @@ void KateViewSpace::urlBarToggled(bool show)
 
 KTextEditor::View *KateViewSpace::createView(KTextEditor::Document *doc)
 {
-    // should only be called if a view does not yet exist
-    Q_ASSERT(m_docToView.find(doc) == m_docToView.end());
+    // do nothing if we already have some view
+    if (const auto it = m_docToView.find(doc); it != m_docToView.end()) {
+        return it->second;
+    }
 
     /**
      * Create a fresh view

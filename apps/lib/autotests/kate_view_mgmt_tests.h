@@ -30,6 +30,7 @@ private Q_SLOTS:
     void testMoveViewBetweenViewspaces();
     void testTwoMainWindowsCloseInitialDocument1();
     void testTwoMainWindowsCloseInitialDocument2();
+    void testTwoMainWindowsCloseInitialDocument3();
 
 private:
     class QTemporaryDir *m_tempdir;

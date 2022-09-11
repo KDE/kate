@@ -28,6 +28,8 @@ private Q_SLOTS:
     void testViewspaceClosesWhenLastViewClosed();
     void testViewspaceClosesWhenThereIsWidget();
     void testMoveViewBetweenViewspaces();
+    void testTwoMainWindowsCloseInitialDocument1();
+    void testTwoMainWindowsCloseInitialDocument2();
 
 private:
     class QTemporaryDir *m_tempdir;

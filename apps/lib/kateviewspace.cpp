@@ -346,9 +346,11 @@ KTextEditor::View *KateViewSpace::createView(KTextEditor::Document *doc)
 
 void KateViewSpace::removeView(KTextEditor::View *v)
 {
-    // remove view mappings
-    auto it = m_docToView.find(v->document());
-    Q_ASSERT(it != m_docToView.end());
+    // remove view mappings, if we have none, this document didn't have any view here at all, just ignore it
+    const auto it = m_docToView.find(v->document());
+    if (it == m_docToView.end()) {
+        return;
+    }
     m_docToView.erase(it);
 
     // ...and now: remove from view space
@@ -670,11 +672,13 @@ void KateViewSpace::documentDestroyed(QObject *doc)
 {
     /**
      * WARNING: this pointer is half destroyed
-     * only good enough to check pointer value e.g. for hashs
+     * only good enough to check pointer value e.g. for hashes
      */
     KTextEditor::Document *invalidDoc = static_cast<KTextEditor::Document *>(doc);
-    Q_ASSERT(m_registeredDocuments.contains(invalidDoc));
-    m_registeredDocuments.removeAll(invalidDoc);
+    if (m_registeredDocuments.removeAll(invalidDoc) == 0) {
+        // do nothing if this document wasn't registered for this viewspace
+        return;
+    }
 
     /**
      * we shall have no views for this document at this point in time!

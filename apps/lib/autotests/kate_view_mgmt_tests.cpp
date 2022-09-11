@@ -136,3 +136,37 @@ void KateViewManagementTests::testMoveViewBetweenViewspaces()
     QCOMPARE(vm->m_viewSpaceList.size(), 1);
     QCOMPARE(vm->m_views.size(), 2);
 }
+
+void KateViewManagementTests::testTwoMainWindowsCloseInitialDocument1()
+{
+    // get first main window
+    KateMainWindow *first = app->activeKateMainWindow();
+    QVERIFY(first);
+
+    // create a second one
+    KateMainWindow *second = app->newMainWindow();
+    QVERIFY(second);
+
+    // close the initial document
+    QVERIFY(app->closeDocument(first->viewManager()->activeView()->document()));
+
+    // create a new document, this did crash due to empty view space
+    second->viewManager()->slotDocumentNew();
+}
+
+void KateViewManagementTests::testTwoMainWindowsCloseInitialDocument2()
+{
+    // get first main window
+    KateMainWindow *first = app->activeKateMainWindow();
+    QVERIFY(first);
+
+    // create a second one
+    KateMainWindow *second = app->newMainWindow();
+    QVERIFY(second);
+
+    // close the initial document tab in second window
+    second->viewManager()->activeViewSpace()->closeDocument(first->viewManager()->activeView()->document());
+
+    // create a new document, this did crash due to empty view space
+    second->viewManager()->slotDocumentNew();
+}

@@ -112,6 +112,7 @@ KateFileTree::KateFileTree(QWidget *parent)
     setAcceptDrops(true);
     setDropIndicatorShown(true);
     setDragEnabled(true);
+    setUniformRowHeights(true);
 
     setItemDelegate(new StyleDelegate(this));
 

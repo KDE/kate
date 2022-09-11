@@ -45,25 +45,27 @@
 #include <QStyledItemDelegate>
 // END Includes
 
-static KTextEditor::Document *docFromIndex(const QModelIndex &index)
+namespace
+{
+KTextEditor::Document *docFromIndex(const QModelIndex &index)
 {
     return index.data(KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
 }
 
-static QList<KTextEditor::Document *> docTreeFromIndex(const QModelIndex &index)
+QList<KTextEditor::Document *> docTreeFromIndex(const QModelIndex &index)
 {
     return index.data(KateFileTreeModel::DocumentTreeRole).value<QList<KTextEditor::Document *>>();
 }
 
-static bool closeDocs(const QList<KTextEditor::Document *> &docs)
+bool closeDocs(const QList<KTextEditor::Document *> &docs)
 {
     return KTextEditor::Editor::instance()->application()->closeDocuments(docs);
 }
 
-class StyleDelegate : public QStyledItemDelegate
+class CloseIconStyleDelegate : public QStyledItemDelegate
 {
 public:
-    StyleDelegate(QObject *parent = nullptr)
+    CloseIconStyleDelegate(QObject *parent = nullptr)
         : QStyledItemDelegate(parent)
     {
     }
@@ -72,7 +74,7 @@ public:
     {
         QStyledItemDelegate::paint(painter, option, index);
 
-        if (!m_closeBtn) {
+        if (!m_showCloseBtn) {
             return;
         }
 
@@ -86,12 +88,13 @@ public:
 
     void setShowCloseButton(bool s)
     {
-        m_closeBtn = s;
+        m_showCloseBtn = s;
     }
 
 private:
-    bool m_closeBtn = false;
+    bool m_showCloseBtn = false;
 };
+} // namespace
 
 // BEGIN KateFileTree
 
@@ -114,7 +117,7 @@ KateFileTree::KateFileTree(QWidget *parent)
     setDragEnabled(true);
     setUniformRowHeights(true);
 
-    setItemDelegate(new StyleDelegate(this));
+    setItemDelegate(new CloseIconStyleDelegate(this));
 
     // handle activated (e.g. for pressing enter) + clicked (to avoid to need to do double-click e.g. on Windows)
     connect(this, &KateFileTree::activated, this, &KateFileTree::mouseClicked);
@@ -213,7 +216,7 @@ void KateFileTree::onRowsMoved(const QModelIndex &, int, int, const QModelIndex 
 void KateFileTree::setShowCloseButton(bool show)
 {
     m_hasCloseButton = show;
-    static_cast<StyleDelegate *>(itemDelegate())->setShowCloseButton(show);
+    static_cast<CloseIconStyleDelegate *>(itemDelegate())->setShowCloseButton(show);
 
     if (!header())
         return;

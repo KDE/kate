@@ -363,9 +363,10 @@ void KateFileTree::mouseClicked(const QModelIndex &index)
 
 void KateFileTree::contextMenuEvent(QContextMenuEvent *event)
 {
-    m_indexContextMenu = selectionModel()->currentIndex();
-
-    selectionModel()->setCurrentIndex(m_indexContextMenu, QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Rows);
+    m_indexContextMenu = indexAt(event->pos());
+    if (m_indexContextMenu.isValid()) {
+        selectionModel()->setCurrentIndex(m_indexContextMenu, QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Rows);
+    }
 
     const bool listMode = m_sourceModel->listMode();
     m_treeModeAction->setChecked(!listMode);
@@ -378,9 +379,7 @@ void KateFileTree::contextMenuEvent(QContextMenuEvent *event)
     m_customSorting->setChecked(sortRole == CustomSorting);
 
     KTextEditor::Document *doc = docFromIndex(m_indexContextMenu);
-    QWidget *w = m_indexContextMenu.data(KateFileTreeModel::WidgetRole).value<QWidget *>();
     const bool isFile = (nullptr != doc);
-    const bool isWidget = (w != nullptr);
 
     QMenu menu;
     if (isFile) {
@@ -423,11 +422,6 @@ void KateFileTree::contextMenuEvent(QContextMenuEvent *event)
         m_filelistCopyFilename->setEnabled(hasFileName);
         m_filelistRenameFile->setEnabled(hasFileName);
         m_filelistDeleteDocument->setEnabled(hasFileName);
-    } else if (isWidget) {
-        auto a = menu.addAction(i18n("Close Widget"), this, [this, w] {
-            Q_EMIT closeWidget(w);
-        });
-        a->setIcon(QIcon::fromTheme(QStringLiteral("tab-close")));
     } else {
         menu.addAction(m_filelistReloadDocument);
 
@@ -449,6 +443,8 @@ void KateFileTree::contextMenuEvent(QContextMenuEvent *event)
     sort_menu->addAction(m_sortByPath);
     sort_menu->addAction(m_sortByOpeningOrder);
     sort_menu->addAction(m_customSorting);
+
+    m_filelistCloseDocument->setEnabled(m_indexContextMenu.isValid());
 
     menu.addAction(m_resetHistory);
 
@@ -512,8 +508,11 @@ void KateFileTree::slotOpenWithMenuAction(QAction *a)
 void KateFileTree::slotDocumentClose()
 {
     m_previouslySelected = QModelIndex();
-    const QList<KTextEditor::Document *> closingDocuments = docTreeFromIndex(m_indexContextMenu);
-    closeDocs(closingDocuments);
+    if (!m_indexContextMenu.isValid()) {
+        return;
+    }
+    const auto closeColumnIndex = m_indexContextMenu.sibling(m_indexContextMenu.row(), 1);
+    mouseClicked(closeColumnIndex);
 }
 
 void KateFileTree::addChildrenTolist(const QModelIndex &index, QList<QPersistentModelIndex> *worklist)

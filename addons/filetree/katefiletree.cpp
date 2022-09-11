@@ -325,12 +325,22 @@ void KateFileTree::mouseClicked(const QModelIndex &index)
 {
     const bool closeButtonClicked = m_hasCloseButton && index.column() == 1;
 
-    if (m_proxyModel->isDir(index)) {
-        if (closeButtonClicked) {
-            const QList<KTextEditor::Document *> list = m_proxyModel->docTreeFromIndex(index);
-            closeDocs(list);
-        }
+    if (m_proxyModel->isDir(index) && closeButtonClicked) {
+        const QList<KTextEditor::Document *> list = m_proxyModel->docTreeFromIndex(index);
+        closeDocs(list);
         return;
+    } else if (m_proxyModel->isWidgetDir(index) && closeButtonClicked) {
+        const auto idx = index.siblingAtColumn(0);
+        const auto count = m_proxyModel->rowCount(idx);
+        QWidgetList widgets;
+        widgets.reserve(count);
+        for (int i = 0; i < count; ++i) {
+            widgets << m_proxyModel->index(i, 0, idx).data(KateFileTreeModel::WidgetRole).value<QWidget *>();
+        }
+
+        for (const auto &w : widgets) {
+            closeWidget(w);
+        }
     }
 
     if (auto *doc = m_proxyModel->docFromIndex(index)) {

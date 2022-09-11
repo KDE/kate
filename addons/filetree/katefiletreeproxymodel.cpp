@@ -86,3 +86,8 @@ QModelIndex KateFileTreeProxyModel::widgetIndex(QWidget *w) const
 {
     return mapFromSource(static_cast<KateFileTreeModel *>(sourceModel())->widgetIndex(w));
 }
+
+bool KateFileTreeProxyModel::isWidgetDir(const QModelIndex &i) const
+{
+    return static_cast<KateFileTreeModel *>(sourceModel())->isWidgetDir(mapToSource(i));
+}

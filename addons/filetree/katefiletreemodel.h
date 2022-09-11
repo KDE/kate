@@ -61,7 +61,8 @@ public:
 
     QModelIndex widgetIndex(QWidget *) const;
 
-    static bool isDir(const QModelIndex &index);
+    bool isDir(const QModelIndex &index) const;
+    bool isWidgetDir(const QModelIndex &index) const;
 
     bool listMode() const;
     void setListMode(bool);
@@ -113,6 +114,7 @@ private:
     void initModel();
     void clearModel();
     void connectDocument(const KTextEditor::Document *);
+    ProxyItem *itemForIndex(const QModelIndex &index) const;
 
 private:
     ProxyItemDir *m_root;

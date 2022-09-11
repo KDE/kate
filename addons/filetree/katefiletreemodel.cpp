@@ -836,18 +836,33 @@ bool KateFileTreeModel::hasChildren(const QModelIndex &parent) const
     return item->childCount() > 0;
 }
 
-bool KateFileTreeModel::isDir(const QModelIndex &index)
+ProxyItem *KateFileTreeModel::itemForIndex(const QModelIndex &index) const
 {
     if (!index.isValid()) {
-        return true;
+        return m_root;
     }
 
-    const ProxyItem *item = static_cast<ProxyItem *>(index.internalPointer());
+    ProxyItem *item = static_cast<ProxyItem *>(index.internalPointer());
     if (!item) {
-        return false;
+        return nullptr;
     }
+    return item;
+}
 
-    return item->flag(ProxyItem::Dir);
+bool KateFileTreeModel::isDir(const QModelIndex &index) const
+{
+    if (auto item = itemForIndex(index)) {
+        return item->flag(ProxyItem::Dir) && !item->flag(ProxyItem::Widget);
+    }
+    return false;
+}
+
+bool KateFileTreeModel::isWidgetDir(const QModelIndex &index) const
+{
+    if (auto item = itemForIndex(index)) {
+        return item->flag(ProxyItem::Dir) && item->flag(ProxyItem::Widget);
+    }
+    return false;
 }
 
 bool KateFileTreeModel::listMode() const

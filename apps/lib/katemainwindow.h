@@ -533,7 +533,7 @@ public Q_SLOTS:
     QWidgetList widgets() const;
 
     /**
-     * \brief remove this \p widget from this mainwindow.
+     * \brief remove this \p widget from this mainwindow. The widget will be deleted afterwards
      * \param widget the widget to be removed
      * \return true on success
      */
@@ -546,7 +546,7 @@ public Q_SLOTS:
     QWidget *activeWidget();
 
     /**
-     * \brief activate @p widget
+     * \brief activate @p widget. If the widget is not present in the window, it will be added to the window
      * \param widget the widget to activate
      */
     void activateWidget(QWidget *widget);

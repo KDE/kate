@@ -95,7 +95,7 @@ public:
 
 Q_DECLARE_METATYPE(ResultNode)
 
-static const ResultNode openWidgetsNode("Open Widgets", true);
+static const ResultNode openWidgetsNode("Open Widgets", false);
 
 namespace QTest
 {

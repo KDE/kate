@@ -1319,17 +1319,12 @@ bool KateMainWindow::addWidget(QWidget *widget)
     auto vs = m_viewManager->activeViewSpace();
     vs->addWidgetAsTab(widget);
     Q_EMIT widgetAdded(widget);
-    Q_EMIT widgetActivated(widget);
     return true;
 }
 
 bool KateMainWindow::removeWidget(QWidget *widget)
 {
-    auto success = m_viewManager->removeWidget(widget);
-    if (success) {
-        Q_EMIT widgetRemoved(widget);
-    }
-    return success;
+    return m_viewManager->removeWidget(widget);
 }
 
 QWidget *KateMainWindow::activeWidget()
@@ -1343,8 +1338,8 @@ QWidget *KateMainWindow::activeWidget()
 
 void KateMainWindow::activateWidget(QWidget *widget)
 {
-    if (m_viewManager->activateWidget(widget)) {
-        Q_EMIT widgetActivated(widget);
+    if (!m_viewManager->activateWidget(widget)) {
+        addWidget(widget);
     }
 }
 

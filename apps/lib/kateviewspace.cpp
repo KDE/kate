@@ -727,6 +727,8 @@ void KateViewSpace::closeTabRequest(int idx)
         if (shouldClose) {
             stack->removeWidget(widget);
             m_tabBar->removeTab(idx);
+            widget->deleteLater();
+            Q_EMIT m_viewManager->mainWindow()->widgetRemoved(widget);
         }
         return;
     }
@@ -814,8 +816,7 @@ bool KateViewSpace::closeTabWithWidget(QWidget *widget)
 bool KateViewSpace::activateWidget(QWidget *widget)
 {
     if (stack->indexOf(widget) == -1) {
-        addWidgetAsTab(widget);
-        return true;
+        return false;
     }
 
     stack->setCurrentWidget(widget);

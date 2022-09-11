@@ -398,9 +398,9 @@ void KateMainWindow::setupActions()
 
     a = actionCollection()->addAction(QStringLiteral("view_new_view"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("window-new")));
-    a->setText(i18n("&New Synchronized Window"));
+    a->setText(i18n("&New Window"));
     connect(a, &QAction::triggered, this, &KateMainWindow::newWindow);
-    a->setWhatsThis(i18n("Create a new Kate window with a synchronized document list."));
+    a->setWhatsThis(i18n("Create a new window."));
 
     m_showFullScreenAction = KStandardAction::fullScreen(nullptr, nullptr, this, this);
     actionCollection()->addAction(m_showFullScreenAction->objectName(), m_showFullScreenAction);

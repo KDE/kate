@@ -91,7 +91,6 @@ KTextEditor::Document *KateDocManager::createDoc(const KateDocumentInfo &docInfo
 
     // we have a new document, show it the world
     Q_EMIT documentCreated(doc);
-    Q_EMIT documentCreatedViewManager(doc);
 
     // return our new document
     return doc;

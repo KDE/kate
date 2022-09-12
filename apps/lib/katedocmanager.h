@@ -123,12 +123,6 @@ Q_SIGNALS:
     void documentCreated(KTextEditor::Document *document);
 
     /**
-     * This signal is emitted when the \p document was created.
-     * This is emitted after the initial documentCreated for internal use in view manager
-     */
-    void documentCreatedViewManager(KTextEditor::Document *document);
-
-    /**
      * This signal is emitted before a \p document which should be closed is deleted
      * The document is still accessible and usable, but it will be deleted
      * after this signal was send.

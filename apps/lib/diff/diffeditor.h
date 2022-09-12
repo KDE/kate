@@ -15,13 +15,17 @@
 class DiffSyntaxHighlighter final : public KSyntaxHighlighting::SyntaxHighlighter
 {
 public:
-    using KSyntaxHighlighting::SyntaxHighlighter::SyntaxHighlighter;
-    void applyFormat(int offset, int length, const KSyntaxHighlighting::Format &format) override;
+    DiffSyntaxHighlighter(QTextDocument *parent, class DiffWidget *diffWidget);
 
+    void highlightBlock(const QString &text) override;
+    void applyFormat(int offset, int length, const KSyntaxHighlighting::Format &format) override;
     void applyFolding(int, int, KSyntaxHighlighting::FoldingRegion) override
     {
         // no folding
     }
+
+private:
+    class DiffWidget *const m_diffWidget;
 };
 
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)

@@ -64,8 +64,8 @@ private:
 
     class DiffEditor *m_left;
     class DiffEditor *m_right;
-    KSyntaxHighlighting::SyntaxHighlighter *leftHl;
-    KSyntaxHighlighting::SyntaxHighlighter *rightHl;
+    KSyntaxHighlighting::AbstractHighlighter *leftHl;
+    KSyntaxHighlighting::AbstractHighlighter *rightHl;
     DiffStyle m_style = SideBySide;
     DiffParams m_params;
     QByteArray m_rawDiff; // Raw diff saved as is

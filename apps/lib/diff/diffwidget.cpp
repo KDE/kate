@@ -35,8 +35,8 @@ DiffWidget::DiffWidget(DiffParams p, QWidget *parent)
     layout->addWidget(m_left);
     layout->addWidget(m_right);
 
-    leftHl = new DiffSyntaxHighlighter(m_left->document());
-    rightHl = new DiffSyntaxHighlighter(m_right->document());
+    leftHl = new DiffSyntaxHighlighter(m_left->document(), this);
+    rightHl = new DiffSyntaxHighlighter(m_right->document(), this);
     leftHl->setTheme(KTextEditor::Editor::instance()->theme());
     rightHl->setTheme(KTextEditor::Editor::instance()->theme());
 

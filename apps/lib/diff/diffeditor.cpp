@@ -14,8 +14,16 @@
 #include <QTextBlock>
 
 #include <KLocalizedString>
+#include <KSyntaxHighlighting/Definition>
 #include <KSyntaxHighlighting/Format>
+#include <KSyntaxHighlighting/State>
 #include <KTextEditor/Editor>
+
+DiffSyntaxHighlighter::DiffSyntaxHighlighter(QTextDocument *parent, DiffWidget *diffWidget)
+    : KSyntaxHighlighting::SyntaxHighlighter(parent)
+    , m_diffWidget(diffWidget)
+{
+}
 
 void DiffSyntaxHighlighter::applyFormat(int offset, int length, const KSyntaxHighlighting::Format &format)
 {
@@ -23,6 +31,21 @@ void DiffSyntaxHighlighter::applyFormat(int offset, int length, const KSyntaxHig
         return;
     }
     KSyntaxHighlighting::SyntaxHighlighter::applyFormat(offset, length, format);
+}
+
+void DiffSyntaxHighlighter::highlightBlock(const QString &text)
+{
+    // Delete user data i.e., the stored state in the block
+    // when we encounter a hunk to avoid issues like everything
+    // is commented because previous hunk ended with an unclosed
+    // comment block
+    if (m_diffWidget->isHunk(currentBlock().blockNumber())) {
+        auto prevBlock = currentBlock().previous();
+        const auto prevData = prevBlock.userData();
+        delete prevData;
+        prevBlock.setUserData(new QTextBlockUserData);
+    }
+    KSyntaxHighlighting::SyntaxHighlighter::highlightBlock(text);
 }
 
 DiffEditor::DiffEditor(DiffParams::Flags f, QWidget *parent)

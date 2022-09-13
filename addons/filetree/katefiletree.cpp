@@ -9,7 +9,6 @@
 #include "katefiletree.h"
 
 #include "filehistorywidget.h"
-#include "katefiletreedebug.h"
 #include "katefiletreemodel.h"
 #include "katefiletreeproxymodel.h"
 

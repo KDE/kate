@@ -7,7 +7,6 @@
 #include "kateexternaltoolsconfigwidget.h"
 #include "externaltoolsplugin.h"
 #include "kateexternaltool.h"
-#include "katetoolrunner.h"
 
 #include <KLineEdit>
 #include <KTextEditor/Document>

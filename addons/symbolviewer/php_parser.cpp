@@ -65,6 +65,8 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
         QRegularExpression::CaseInsensitiveOption);
     // interfaces: https://www.php.net/manual/en/language.oop5.interfaces.php
     static const QRegularExpression interfaceRegExp(QLatin1String("^interface\\s+([\\w_][\\w\\d_]*)"), QRegularExpression::CaseInsensitiveOption);
+    // traits: https://www.php.net/manual/en/language.oop5.traits.php
+    static const QRegularExpression traitRegExp(QLatin1String("^trait\\s+([\\w_][\\w\\d_]*)"), QRegularExpression::CaseInsensitiveOption);
     // classes constants: https://www.php.net/manual/en/language.oop5.constants.php
     static const QRegularExpression constantRegExp(QLatin1String("^const\\s+([\\w_][\\w\\d_]*)"), QRegularExpression::CaseInsensitiveOption);
     // functions: https://www.php.net/manual/en/language.oop5.constants.php
@@ -85,7 +87,7 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
     // remove useless comments: “public/* static */ function a($b, $c=null) /* test */” => “public function a($b, $c=null)”
     static const QRegularExpression blockCommentInline(QLatin1String("/\\*.*\\*/"), QRegularExpression::InvertedGreedinessOption);
 
-    QRegularExpressionMatch match, matchClass, matchInterface, matchFunctionArg;
+    QRegularExpressionMatch match, matchClass, matchInterface, matchTrait, matchFunctionArg;
     QRegularExpressionMatchIterator matchFunctionArgs;
 
     bool inBlockComment = false;
@@ -169,10 +171,11 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
             node->setText(1, QString::number(i, 10));
         }
 
-        // detect classes, interfaces
+        // detect classes, interfaces and trait
         matchClass = classRegExp.match(line);
         matchInterface = interfaceRegExp.match(line);
-        if (matchClass.hasMatch() || matchInterface.hasMatch()) {
+        matchTrait = traitRegExp.match(line);
+        if (matchClass.hasMatch() || matchInterface.hasMatch() || matchTrait.hasMatch()) {
             if (m_treeOn->isChecked()) {
                 node = new QTreeWidgetItem(classNode, lastClassNode);
                 if (m_expandOn->isChecked()) {
@@ -197,12 +200,19 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
                 } else {
                     node->setText(0, matchClass.captured(3));
                 }
-            } else {
+            } else if(matchInterface.hasMatch()) {
                 if (m_typesOn->isChecked()) {
                     nameWithTypes = matchInterface.captured(1) + QLatin1String(" [interface]");
                     node->setText(0, nameWithTypes);
                 } else {
                     node->setText(0, matchInterface.captured(1));
+                }
+            } else {
+                if (m_typesOn->isChecked()) {
+                    nameWithTypes = matchTrait.captured(1) + QLatin1String(" [trait]");
+                    node->setText(0, nameWithTypes);
+                } else {
+                    node->setText(0, matchTrait.captured(1));
                 }
             }
             node->setIcon(0, m_icon_class);

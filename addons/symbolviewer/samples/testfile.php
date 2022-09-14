@@ -22,6 +22,10 @@ class classExtendClass1 extends class1 {
     function foo1_in_classExtendClass1() { }
 }
 
+trait trait1 {
+    function foo1_in_trait1() { }
+}
+
 class classImplementInterface implements interface1 {
 }
 

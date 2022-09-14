@@ -91,6 +91,8 @@ DiffEditor::DiffEditor(DiffParams::Flags f, QWidget *parent)
     });
     connect(document(), &QTextDocument::blockCountChanged, this, &DiffEditor::updateLineNumberAreaWidth);
     connect(this, &QPlainTextEdit::updateRequest, this, &DiffEditor::updateLineNumberArea);
+
+    setReadOnly(true);
 }
 
 void DiffEditor::updateDiffColors(bool darkMode)

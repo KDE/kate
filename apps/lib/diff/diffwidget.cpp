@@ -589,8 +589,8 @@ void DiffWidget::parseAndShowDiff(const QByteArray &raw)
     m_right->appendData(rightHlts);
     m_left->appendPlainText(leftText);
     m_right->appendPlainText(rightText);
-    m_left->setLineNumberData(lineNumsA, maxLineNoFound);
-    m_right->setLineNumberData(lineNumsB, maxLineNoFound);
+    m_left->setLineNumberData(lineNumsA, {}, maxLineNoFound);
+    m_right->setLineNumberData(lineNumsB, {}, maxLineNoFound);
     m_lineToRawDiffLine += lineToRawDiffLine;
     m_lineToDiffHunkLine += linesWithHunkHeading;
     m_linesWithFileName += linesWithFileName;
@@ -615,7 +615,8 @@ void DiffWidget::parseAndShowDiffUnified(const QByteArray &raw)
     QVector<LineHighlight> hlts;
 
     // Line numbers that will be shown in the editor
-    QVector<int> lineNums;
+    QVector<int> lineNumsA;
+    QVector<int> lineNumsB;
 
     // Changed lines of hunk, used to determine differences between two lines
     HunkChangedLines hunkChangedLinesA;
@@ -651,7 +652,8 @@ void DiffWidget::parseAndShowDiffUnified(const QByteArray &raw)
 
             if (m_params.flags.testFlag(DiffParams::ShowFileName)) {
                 lines.append(QStringLiteral("%1 → %2").arg(Utils::fileNameFromPath(srcFile), Utils::fileNameFromPath(tgtFile)));
-                lineNums.append(-1);
+                lineNumsA.append(-1);
+                lineNumsB.append(-1);
                 linesWithFileName.append(lineNo);
                 lineNo++;
             }
@@ -668,7 +670,8 @@ void DiffWidget::parseAndShowDiffUnified(const QByteArray &raw)
         //         const QString headingRight = QStringLiteral("@@ ") + match.captured(2) + match.captured(3) /* + QStringLiteral(" ") + tgtFile*/;
 
         lines.push_back(line);
-        lineNums.append(-1);
+        lineNumsA.append(-1);
+        lineNumsB.append(-1);
         linesWithHunkHeading.append({lineNo, i, false});
         lineNo++;
 
@@ -689,8 +692,8 @@ void DiffWidget::parseAndShowDiffUnified(const QByteArray &raw)
 
                 l = l.mid(1);
                 lines.append(l);
-                lineNums.append(srcLine++);
-                tgtLine++;
+                lineNumsA.append(srcLine++);
+                lineNumsB.append(tgtLine++);
                 lineNo++;
                 //                 lineB++;
             } else if (l.startsWith(QLatin1Char('+'))) {
@@ -702,7 +705,8 @@ void DiffWidget::parseAndShowDiffUnified(const QByteArray &raw)
                 h.changes.push_back({0, Change::FullBlock});
                 lines.append(l);
                 hlts.push_back(h);
-                lineNums.append(tgtLine++);
+                lineNumsA.append(-1);
+                lineNumsB.append(tgtLine++);
                 lineToRawDiffLine.append({lineNo, j, false});
 
                 hunkChangedLinesB.emplace_back(l, lineNo, h.added);
@@ -715,7 +719,8 @@ void DiffWidget::parseAndShowDiffUnified(const QByteArray &raw)
                 h.changes.push_back({0, Change::FullBlock});
 
                 hlts.push_back(h);
-                lineNums.append(srcLine++);
+                lineNumsA.append(srcLine++);
+                lineNumsB.append(-1);
                 lines.append(l);
                 hunkChangedLinesA.emplace_back(l, lineNo, h.added);
                 lineToRawDiffLine.append({lineNo, j, false});
@@ -725,7 +730,8 @@ void DiffWidget::parseAndShowDiffUnified(const QByteArray &raw)
                 i = j - 1;
                 markInlineDiffs(hunkChangedLinesA, hunkChangedLinesB, hlts, hlts);
                 // add line number for current line
-                lineNums.append(-1);
+                lineNumsA.append(-1);
+                lineNumsB.append(-1);
 
                 // add new line
                 lines.append(QString());
@@ -736,7 +742,8 @@ void DiffWidget::parseAndShowDiffUnified(const QByteArray &raw)
                 markInlineDiffs(hunkChangedLinesA, hunkChangedLinesB, hlts, hlts);
                 // add new line
                 lines.append(QString());
-                lineNums.append(-1);
+                lineNumsA.append(-1);
+                lineNumsB.append(-1);
                 lineNo += 1;
                 break;
             }
@@ -749,7 +756,7 @@ void DiffWidget::parseAndShowDiffUnified(const QByteArray &raw)
 
     m_left->appendData(hlts);
     m_left->appendPlainText(lines.join(QLatin1Char('\n')));
-    m_left->setLineNumberData(lineNums, maxLineNoFound);
+    m_left->setLineNumberData(lineNumsA, lineNumsB, maxLineNoFound);
     m_lineToDiffHunkLine += linesWithHunkHeading;
     m_lineToRawDiffLine += lineToRawDiffLine;
     m_linesWithFileName += linesWithFileName;

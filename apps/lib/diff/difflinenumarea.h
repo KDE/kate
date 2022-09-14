@@ -16,7 +16,7 @@ public:
     int lineNumAreaWidth() const;
     QSize sizeHint() const override;
 
-    void setLineNumData(QVector<int>);
+    void setLineNumData(QVector<int> leftLineNos, QVector<int> rightLineNos);
     void setMaxLineNum(int n)
     {
         maxLineNum = n;
@@ -27,11 +27,15 @@ protected:
     void mousePressEvent(QMouseEvent *e) override;
 
 private:
+    void drawLineNumber(QPainter &painter, QRect rect, int blockNumber, int num, const struct LineNumColors &c);
+
     class DiffEditor *const textEdit;
-    QColor m_currentLineColor;
+    //     QColor m_currentLineColor;
+    //     QBrush m_currentLineBgColor;
     QColor m_otherLinesColor;
     QColor m_borderColor;
-    QVector<int> m_lineToNum;
+    QVector<int> m_lineToNumA;
+    QVector<int> m_lineToNumB;
     int maxLineNum = 0;
 };
 

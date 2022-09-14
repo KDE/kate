@@ -68,20 +68,30 @@ public:
     {
         clear();
         m_data.clear();
-        setLineNumberData({}, 0);
+        setLineNumberData({}, {}, 0);
     }
     void appendData(const QVector<LineHighlight> &newData)
     {
         m_data.append(newData);
     }
 
-    void setLineNumberData(QVector<int> data, int maxLineNum);
+    void setLineNumberData(QVector<int> lineNosA, QVector<int> lineNosB, int maxLineNum);
 
     KTextEditor::Range selectionRange() const;
 
     bool isHunkLine(int line) const;
     void toggleFoldHunk(int block);
     bool isHunkFolded(int blockNumber);
+    const LineHighlight *highlightingForLine(int line);
+
+    QColor removedColor() const
+    {
+        return red1;
+    }
+    QColor addedColor() const
+    {
+        return green1;
+    }
 
 protected:
     void resizeEvent(QResizeEvent *event) override;
@@ -89,7 +99,6 @@ protected:
     void contextMenuEvent(QContextMenuEvent *e) override;
 
 private:
-    const LineHighlight *highlightingForLine(int line);
     void updateLineNumberArea(const QRect &rect, int dy);
     void updateLineNumAreaGeometry();
     void updateLineNumberAreaWidth(int);

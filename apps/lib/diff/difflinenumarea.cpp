@@ -9,9 +9,15 @@
 #include <QTextBlock>
 
 #include <KTextEditor/Editor>
-// #include <KColorUtils>
 
 static constexpr int Margin = 4;
+
+struct LineNumColors {
+    const QPen &otherLine;
+    //     const QPen &currentLine;
+    const QPen &added;
+    const QPen &removed;
+};
 
 LineNumArea::LineNumArea(DiffEditor *parent)
     : QWidget(parent)
@@ -22,7 +28,8 @@ LineNumArea::LineNumArea(DiffEditor *parent)
         if (!e)
             return;
         auto theme = e->theme();
-        m_currentLineColor = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::CurrentLineNumber));
+        //         m_currentLineBgColor = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::CurrentLine));
+        //         m_currentLineColor = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::CurrentLineNumber));
         m_otherLinesColor = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::LineNumbers));
         m_borderColor = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::Separator));
         auto bg = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::IconBorder));
@@ -45,14 +52,19 @@ int LineNumArea::lineNumAreaWidth() const
     return 13 + textEdit->fontMetrics().horizontalAdvance(u'9') * digits;
 }
 
-void LineNumArea::setLineNumData(QVector<int> data)
+void LineNumArea::setLineNumData(QVector<int> leftLineNos, QVector<int> rightLineNos)
 {
-    m_lineToNum = std::move(data);
+    m_lineToNumA = std::move(leftLineNos);
+    m_lineToNumB = std::move(rightLineNos);
 }
 
 QSize LineNumArea::sizeHint() const
 {
-    return {lineNumAreaWidth() + textEdit->fontMetrics().height(), 0};
+    int lineNosWidth = lineNumAreaWidth();
+    if (!m_lineToNumB.empty()) {
+        lineNosWidth *= 2;
+    }
+    return {lineNosWidth + textEdit->fontMetrics().height(), 0};
 }
 
 static void paintTriangle(QPainter &painter, QColor c, int xOffset, int yOffset, int width, int height, bool open)
@@ -88,7 +100,7 @@ static void paintTriangle(QPainter &painter, QColor c, int xOffset, int yOffset,
 
 void LineNumArea::paintEvent(QPaintEvent *event)
 {
-    if (m_lineToNum.isEmpty()) {
+    if (m_lineToNumA.isEmpty()) {
         return;
     }
     QPainter painter(this);
@@ -102,25 +114,45 @@ void LineNumArea::paintEvent(QPaintEvent *event)
     top += textEdit->viewportMargins().top();
     qreal bottom = top;
 
-    const QPen currentLine = m_currentLineColor;
+    //     const QPen currentLine = m_currentLineColor;
     const QPen otherLines = m_otherLinesColor;
-    painter.setFont(font());
 
+    QColor c = textEdit->addedColor();
+    c.setAlphaF(0.6);
+    const QPen added = c;
+    c = textEdit->removedColor();
+    c.setAlphaF(0.6);
+    const QPen removed = c;
+
+    LineNumColors colors{otherLines /*, currentLine*/, added, removed};
+
+    painter.setFont(font());
     const int w = lineNumAreaWidth();
 
     while (block.isValid() && top <= event->rect().bottom()) {
         top = bottom;
         bottom = top + textEdit->blockBoundingRect(block).height();
         if (block.isVisible() && bottom >= event->rect().top()) {
-            int n = m_lineToNum.value(blockNumber, -1);
-            if (n > -1) {
-                const QString number = QString::number(n);
-                auto isCurrentLine = textEdit->textCursor().blockNumber() == blockNumber;
-                painter.setPen(isCurrentLine ? currentLine : otherLines);
-                QRect numRect(0, top, w, textEdit->fontMetrics().height());
-                numRect.adjust(0, 0, -(Margin * 2), 0);
-                painter.drawText(numRect, Qt::AlignRight | Qt::AlignVCenter | Qt::TextDontClip, number);
-            } else if (textEdit->isHunkLine(blockNumber)) {
+            // Current line background
+            //             const auto isCurrentLine = textEdit->textCursor().blockNumber() == blockNumber;
+            //             if (isCurrentLine) {
+            //                 painter.fillRect(0, top, rect().width(), textEdit->fontMetrics().height(), m_currentLineBgColor);
+            //             }
+
+            // Line number left
+            int n = m_lineToNumA.value(blockNumber, -1);
+            QRect numRect(0, top, w, textEdit->fontMetrics().height());
+            drawLineNumber(painter, numRect, blockNumber, n, colors);
+
+            if (!m_lineToNumB.empty()) {
+                // we are in unified mode, draw the right line number
+                int n = m_lineToNumB.value(blockNumber, -1);
+                QRect numRect(w, top, w, textEdit->fontMetrics().height());
+                drawLineNumber(painter, numRect, blockNumber, n, colors);
+            }
+
+            // Hunk fold marker
+            if (textEdit->isHunkLine(blockNumber)) {
                 const int x = rect().width() - (textEdit->fontMetrics().height() + Margin);
                 const int y = top;
                 const int width = textEdit->fontMetrics().height();
@@ -133,8 +165,36 @@ void LineNumArea::paintEvent(QPaintEvent *event)
         ++blockNumber;
     }
 
-    painter.setPen(m_borderColor);
-    painter.drawLine(rect().topRight() - QPoint(1, 0), rect().bottomRight() - QPoint(1, 0));
+    // draw the line num area border
+    if (m_lineToNumB.empty()) {
+        // side by side
+        painter.setPen(m_borderColor);
+        painter.drawLine(rect().topRight() - QPoint(1, 0), rect().bottomRight() - QPoint(1, 0));
+    } else {
+        // unified
+        painter.setPen(m_borderColor);
+        painter.drawLine(QPoint(w, 0) - QPoint(1, 0), QPoint(w, rect().bottom()) - QPoint(1, 0));
+        painter.setPen(m_borderColor);
+        painter.drawLine(rect().topRight() - QPoint(1, 0), rect().bottomRight() - QPoint(1, 0));
+    }
+}
+
+void LineNumArea::drawLineNumber(QPainter &painter, QRect rect, int blockNumber, int num, const LineNumColors &c)
+{
+    if (num < 0) {
+        return;
+    }
+
+    const QString number = QString::number(num);
+    QPen p = c.otherLine;
+    auto hl = textEdit->highlightingForLine(blockNumber);
+    if (hl) {
+        p = hl->added ? c.added : c.removed;
+    }
+
+    painter.setPen(p);
+    rect.adjust(0, 0, -(Margin * 2), 0);
+    painter.drawText(rect, Qt::AlignRight | Qt::AlignVCenter | Qt::TextDontClip, number);
 }
 
 void LineNumArea::mousePressEvent(QMouseEvent *e)

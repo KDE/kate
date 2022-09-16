@@ -121,7 +121,7 @@ SnippetView::SnippetView(KateSnippetGlobal *plugin, KTextEditor::MainWindow *mai
 
     m_getNewStuffAction = new KNSWidgets::Action(i18n("Get New Snippets"), QStringLiteral(":/katesnippets/ktexteditor_codesnippets_core.knsrc"), this);
     m_getNewStuffAction->setVisible(newStuffAllowed);
-    connect(m_getNewStuffAction, &KNSWidgets::Action::dialogFinished, this, [this](const QList<KNSCore::Entry> &changedEntries) {
+    connect(m_getNewStuffAction, &KNSWidgets::Action::dialogFinished, this, [](const auto &changedEntries) {
         for (const auto &entry : changedEntries) {
             const auto uninstalledFiles = entry.uninstalledFiles();
             for (const QString &path : uninstalledFiles) {

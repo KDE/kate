@@ -39,9 +39,6 @@ KateDocManager::KateDocManager(QObject *parent)
 {
     // set our application wrapper
     KTextEditor::Editor::instance()->setApplication(KateApp::self()->wrapper());
-
-    // create one doc, we always have at least one around!
-    createDoc();
 }
 
 KateDocManager::~KateDocManager()
@@ -210,14 +207,6 @@ bool KateDocManager::closeDocuments(const QList<KTextEditor::Document *> documen
         Q_EMIT documentDeleted(doc);
 
         last++;
-    }
-
-    /**
-     * never ever empty the whole document list
-     * do this before documentsDeleted is emitted, to have no flicker
-     */
-    if (m_docList.empty()) {
-        createDoc();
     }
 
     Q_EMIT documentsDeleted(QList<KTextEditor::Document *>{documents.begin() + last, documents.end()});
@@ -409,13 +398,7 @@ void KateDocManager::restoreDocumentList(KConfig *config)
 
     for (unsigned int i = 0; i < count; i++) {
         KConfigGroup cg(config, QStringLiteral("Document %1").arg(i));
-        KTextEditor::Document *doc = nullptr;
-
-        if (i == 0) {
-            doc = m_docList.front();
-        } else {
-            doc = createDoc();
-        }
+        KTextEditor::Document *doc = createDoc();
 
         connect(doc, SIGNAL(completed()), this, SLOT(documentOpened()));
         connect(doc, &KParts::ReadOnlyPart::canceled, this, &KateDocManager::documentOpened);

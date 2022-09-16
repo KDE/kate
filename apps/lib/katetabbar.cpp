@@ -485,4 +485,5 @@ void KateTabBar::setCurrentWidget(QWidget *widget)
     setTabIcon(idx, widget->windowIcon());
     setTabData(idx, QVariant::fromValue(widget));
     setCurrentIndex(idx);
+    Q_EMIT currentChanged(idx);
 }

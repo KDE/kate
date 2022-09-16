@@ -27,6 +27,7 @@
 #include "katestashmanager.h"
 #include "kateupdatedisabler.h"
 #include "kateviewspace.h"
+#include "katewelcomeview.h"
 #include "ktexteditor_utils.h"
 
 #include <KAboutData>
@@ -177,6 +178,14 @@ KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup)
     if (KateApp::isKWrite()) {
         setSidebarsVisibleInternal(false, true);
     }
+
+    // ensure we have the welcome view if no active view is there
+    // delay this after initialisation
+    QTimer::singleShot(0, this, [this]() {
+        if (activeView())
+            return;
+        addWidget(new KateWelcomeView(m_viewManager->activeViewSpace(), nullptr));
+    });
 }
 
 KateMainWindow::~KateMainWindow()

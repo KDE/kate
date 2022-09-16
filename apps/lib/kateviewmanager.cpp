@@ -1298,7 +1298,7 @@ void KateViewManager::restoreViewConfiguration(const KConfigGroup &config)
         // activate correct view (wish #195435, #188764)
         activateView(m_viewSpaceList.at(lastViewSpace)->currentView());
         // give view the focus to avoid focus stealing by toolviews / plugins
-        m_viewSpaceList.at(lastViewSpace)->currentView()->setFocus();
+        m_viewSpaceList.at(lastViewSpace)->setFocus();
     }
 
     // emergency
@@ -1312,14 +1312,6 @@ void KateViewManager::restoreViewConfiguration(const KConfigGroup &config)
         addWidget(vs);
         vs->setActive(true);
         m_viewSpaceList.push_back(vs);
-
-        /**
-         * activate at least one document!
-         */
-        activateView(KateApp::self()->documentManager()->documentList().back());
-        if (!vs->currentView()) {
-            createView(activeView()->document(), vs);
-        }
     }
 
     updateViewSpaceActions();

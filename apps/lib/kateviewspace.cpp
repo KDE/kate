@@ -448,7 +448,7 @@ void KateViewSpace::changeView(int idx)
     if (!doc) {
         auto w = m_tabBar->tabData(idx).value<QWidget *>();
         if (!w) {
-            Q_ASSERT(false);
+            // can happen during widget creation if no view is there initially
             return;
         }
         stack->setCurrentWidget(w);
@@ -1122,26 +1122,8 @@ void KateViewSpace::restoreConfig(KateViewManager *viewMan, const KConfigBase *c
         }
     }
 
-    // avoid empty view space
-    if (m_docToView.empty()) {
-        auto *doc = KateApp::self()->documentManager()->documentList().first();
-        if (!fn.isEmpty()) {
-            QUrl url(fn);
-            auto *docInfo = KateApp::self()->documentManager()->documentInfo(doc);
-            if (KateApp::self()->hasCursorInArgs()) {
-                docInfo->startCursor = KateApp::self()->cursorFromArgs();
-            } else if (url.hasQuery()) {
-                docInfo->startCursor = KateApp::self()->cursorFromQueryString(url);
-            }
-        }
-        viewMan->createView(doc, this);
-    }
-
-    // there must be a view now
-    Q_ASSERT(currentView());
-
     // ensure we update the urlbar at least once
-    m_urlBar->updateForDocument(currentView()->document());
+    m_urlBar->updateForDocument(currentView() ? currentView()->document() : nullptr);
 
     m_group = groupname; // used for restroing view configs later
 }

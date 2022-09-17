@@ -13,6 +13,7 @@
 #include "katemainwindow.h"
 #include "kateupdatedisabler.h"
 #include "kateviewspace.h"
+#include "katewelcomeview.h"
 
 #include <KTextEditor/Attribute>
 #include <KTextEditor/Document>
@@ -72,6 +73,9 @@ KateViewManager::KateViewManager(QWidget *parentW, KateMainWindow *parent)
      */
     connect(KateApp::self()->documentManager(), &KateDocManager::aboutToDeleteDocuments, this, &KateViewManager::aboutToDeleteDocuments);
     connect(KateApp::self()->documentManager(), &KateDocManager::documentsDeleted, this, &KateViewManager::documentsDeleted);
+
+    // ensure we have the welcome view if no active view is there
+    showWelcomeViewIfNeeded();
 }
 
 KateViewManager::~KateViewManager()
@@ -490,6 +494,16 @@ KTextEditor::View *KateViewManager::createView(KTextEditor::Document *doc, KateV
     // create doc
     if (!doc) {
         doc = KateApp::self()->documentManager()->createDoc();
+    }
+
+    /**
+     * ensure the initial welcome view vanishes as soon as we have some real view!
+     */
+    if (auto welcomeView = qobject_cast<KateWelcomeView *>((vs ? vs : activeViewSpace())->currentWidget())) {
+        // delay the deletion, we might be in event handling of some action from the welcome view itself!
+        QTimer::singleShot(0, welcomeView, [this, welcomeView]() {
+            mainWindow()->removeWidget(welcomeView);
+        });
     }
 
     /**
@@ -1081,7 +1095,7 @@ void KateViewManager::onViewSpaceEmptied(KateViewSpace *vs)
     }
 
     // else we want to trigger showing of the welcome view
-    m_mainWindow->showWelcomeViewIfNeeded();
+    showWelcomeViewIfNeeded();
 }
 
 void KateViewManager::setShowUrlNavBar(bool show)
@@ -1494,4 +1508,14 @@ void KateViewManager::moveSplitter(Qt::Key key, int repeats)
         // the parent of the current splitter will become the current splitter
         currentSplitter = qobject_cast<KateSplitter *>(currentSplitter->parentWidget());
     }
+}
+
+void KateViewManager::showWelcomeViewIfNeeded()
+{
+    // delay the creation, e.g. used on startup
+    QTimer::singleShot(0, this, [this]() {
+        if (activeView())
+            return;
+        mainWindow()->addWidget(new KateWelcomeView());
+    });
 }

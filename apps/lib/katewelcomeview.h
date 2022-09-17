@@ -13,6 +13,7 @@ class KateViewSpace;
 /**
  * Placeholder if a view space has no real views.
  * Allows for a nice welcome experience :P
+ * The KateViewManager will ensure we instantiate the welcome view when needed and remove it later on.
  */
 class KateWelcomeView : public QWidget
 {

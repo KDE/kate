@@ -27,7 +27,6 @@
 #include "katestashmanager.h"
 #include "kateupdatedisabler.h"
 #include "kateviewspace.h"
-#include "katewelcomeview.h"
 #include "ktexteditor_utils.h"
 
 #include <KAboutData>
@@ -178,9 +177,6 @@ KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup)
     if (KateApp::isKWrite()) {
         setSidebarsVisibleInternal(false, true);
     }
-
-    // ensure we have the welcome view if no active view is there
-    showWelcomeViewIfNeeded();
 }
 
 KateMainWindow::~KateMainWindow()
@@ -1494,14 +1490,4 @@ void KateMainWindow::addRecentOpenedFile(const QUrl &url)
      renable when it is 0/ms again*/
     // to the global "Recent Document Menu", see bug 420504
     // KRecentDocument::add(url);
-}
-
-void KateMainWindow::showWelcomeViewIfNeeded()
-{
-    // delay the creation, e.g. used on startup
-    QTimer::singleShot(0, this, [this]() {
-        if (activeView())
-            return;
-        addWidget(new KateWelcomeView());
-    });
 }

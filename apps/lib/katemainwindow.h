@@ -138,12 +138,6 @@ public:
      */
     void saveOptions();
 
-    /**
-     * Trigger creation of welcome view via timer.
-     * Will do nothing if we have some view around when the timer triggers.
-     */
-    void showWelcomeViewIfNeeded();
-
 private:
     /**
      * Setup actions which pointers are needed already in setupMainWindow

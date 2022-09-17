@@ -18,24 +18,20 @@ KateWelcomeView::KateWelcomeView()
     m_ui.setupUi(this);
     setWindowTitle(i18n("Welcome"));
 
-    // new file action, closes welcome after creating a new document
+    // new file action, view manager will trigger close of the welcome view
     m_ui.fileNew->setText(i18n("New File"));
     m_ui.fileNew->setIcon(QIcon::fromTheme(QStringLiteral("file-new")));
     connect(m_ui.fileNew, &QPushButton::clicked, this, [this]() {
+        // we ensure that we use the current view space
         viewSpace()->viewManager()->slotDocumentNew();
-        QTimer::singleShot(0, this, [this]() {
-            viewSpace()->viewManager()->mainWindow()->removeWidget(this);
-        });
     });
 
-    // open file action, closes welcome after creating a new document
+    // open file action, view manager will trigger close of the welcome view
     m_ui.fileOpen->setText(i18n("Open File..."));
     m_ui.fileOpen->setIcon(QIcon::fromTheme(QStringLiteral("file-open")));
     connect(m_ui.fileOpen, &QPushButton::clicked, this, [this]() {
+        // we ensure that we use the current view space
         viewSpace()->viewManager()->slotDocumentOpen();
-        QTimer::singleShot(0, this, [this]() {
-            viewSpace()->viewManager()->mainWindow()->removeWidget(this);
-        });
     });
 }
 

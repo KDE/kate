@@ -128,7 +128,9 @@ KateFileBrowser::KateFileBrowser(KTextEditor::MainWindow *mainWindow, QWidget *p
     // Ensure highlight current document also works after directory change
     connect(m_dirOperator, &KDirOperator::finishedLoading, this, [this] {
         if (m_highlightCurrentFile->isChecked() && m_autoSyncFolder->isChecked()) {
-            m_dirOperator->setCurrentItem(activeDocumentUrl());
+            if (const auto u = activeDocumentUrl(); u.isValid()) {
+                m_dirOperator->setCurrentItem(u);
+            }
         }
     });
 }

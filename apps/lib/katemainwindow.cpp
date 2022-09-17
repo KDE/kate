@@ -180,12 +180,7 @@ KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup)
     }
 
     // ensure we have the welcome view if no active view is there
-    // delay this after initialisation
-    QTimer::singleShot(0, this, [this]() {
-        if (activeView())
-            return;
-        addWidget(new KateWelcomeView(m_viewManager->activeViewSpace(), nullptr));
-    });
+    showWelcomeViewIfNeeded();
 }
 
 KateMainWindow::~KateMainWindow()
@@ -1499,4 +1494,14 @@ void KateMainWindow::addRecentOpenedFile(const QUrl &url)
      renable when it is 0/ms again*/
     // to the global "Recent Document Menu", see bug 420504
     // KRecentDocument::add(url);
+}
+
+void KateMainWindow::showWelcomeViewIfNeeded()
+{
+    // delay the creation, e.g. used on startup
+    QTimer::singleShot(0, this, [this]() {
+        if (activeView())
+            return;
+        addWidget(new KateWelcomeView(m_viewManager->activeViewSpace(), nullptr));
+    });
 }

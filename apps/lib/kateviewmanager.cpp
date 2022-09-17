@@ -1077,7 +1077,11 @@ void KateViewManager::onViewSpaceEmptied(KateViewSpace *vs)
     // got empty, remove it
     if (m_viewSpaceList.size() > 1) {
         removeViewSpace(vs);
+        return;
     }
+
+    // else we want to trigger showing of the welcome view
+    m_mainWindow->showWelcomeViewIfNeeded();
 }
 
 void KateViewManager::setShowUrlNavBar(bool show)

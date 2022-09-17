@@ -1024,10 +1024,12 @@ void KateViewManager::splitViewSpace(KateViewSpace *vs, // = 0
     vsNew->setActive(true);
     vsNew->show();
 
-    createView(activeView()->document());
+    if (auto v = vs->currentView()) {
+        createView(v->document());
 
-    if (moveDocument) {
-        vs->closeDocument(vs->currentView()->document());
+        if (moveDocument) {
+            vs->closeDocument(v->document());
+        }
     }
 
     updateViewSpaceActions();

@@ -925,10 +925,6 @@ void KateMainWindow::slotConfigure()
 
 bool KateMainWindow::showPluginConfigPage(KTextEditor::Plugin *configpageinterface, int id)
 {
-    if (!m_viewManager->activeView()) {
-        return false;
-    }
-
     KateConfigDialog *dlg = new KateConfigDialog(this);
     if (configpageinterface) {
         dlg->showAppPluginPage(configpageinterface, id);

@@ -444,14 +444,7 @@ void KateViewManager::documentsDeleted(const QList<KTextEditor::Document *> &)
     m_blockViewCreationAndActivation = false;
 
     /**
-     * try to have active view around!
-     */
-    if (!activeView() && !KateApp::self()->documentManager()->documentList().empty()) {
-        createView(KateApp::self()->documentManager()->documentList().back());
-    }
-
-    /**
-     * if we have one now, show them in all viewspaces that got empty!
+     * if we have some active view, show them in all viewspaces that got empty!
      */
     if (KTextEditor::View *const newActiveView = activeView()) {
         /**

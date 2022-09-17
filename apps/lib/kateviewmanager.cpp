@@ -248,8 +248,13 @@ void KateViewManager::updateViewSpaceActions()
     goNext->setEnabled(multipleViewSpaces);
     goPrev->setEnabled(multipleViewSpaces);
 
+    // only allow to split if we have a view that we could show in the new view space
+    const bool allowSplit = activeViewSpace() && activeViewSpace()->currentView();
+    m_splitViewVert->setEnabled(allowSplit);
+    m_splitViewHoriz->setEnabled(allowSplit);
+
     // only allow move if we have more than one document in the current view space
-    const bool allowMove = activeViewSpace() && (activeViewSpace()->numberOfRegisteredDocuments() > 1);
+    const bool allowMove = allowSplit && (activeViewSpace()->numberOfRegisteredDocuments() > 1);
     m_splitViewVertMove->setEnabled(allowMove);
     m_splitViewHorizMove->setEnabled(allowMove);
 }
@@ -977,6 +982,13 @@ void KateViewManager::splitViewSpace(KateViewSpace *vs, // = 0
         return;
     }
 
+    // if we have no current view, splitting makes ATM no sense, as we have
+    // nothing to put into the new viewspace
+    auto v = vs->currentView();
+    if (!v) {
+        return;
+    }
+
     // get current splitter, and abort if null
     KateSplitter *currentSplitter = qobject_cast<KateSplitter *>(vs->parentWidget());
     if (!currentSplitter) {
@@ -1031,12 +1043,10 @@ void KateViewManager::splitViewSpace(KateViewSpace *vs, // = 0
     vsNew->setActive(true);
     vsNew->show();
 
-    if (auto v = vs->currentView()) {
-        createView(v->document());
+    createView(v->document());
 
-        if (moveDocument) {
-            vs->closeDocument(v->document());
-        }
+    if (moveDocument) {
+        vs->closeDocument(v->document());
     }
 
     updateViewSpaceActions();

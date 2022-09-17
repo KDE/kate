@@ -26,6 +26,15 @@ public:
      */
     KateWelcomeView(KateViewSpace *viewSpace, QWidget *parent);
 
+public Q_SLOTS:
+    /**
+     * Welcome view can always be closed.
+     */
+    bool shouldClose()
+    {
+        return true;
+    }
+
 private:
     // our viewspace we belong to
     KateViewSpace *const m_viewSpace = nullptr;

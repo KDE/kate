@@ -23,11 +23,13 @@ KateViewManagementTests::KateViewManagementTests(QObject *)
     // create KWrite variant to avoid plugin loading!
     static QCommandLineParser parser;
     app = std::make_unique<KateApp>(parser, KateApp::ApplicationKWrite, m_tempdir->path());
-    app->sessionManager()->activateAnonymousSession();
 }
 
 void KateViewManagementTests::testSingleViewspaceDoesntCloseWhenLastViewClosed()
 {
+    app->sessionManager()->activateAnonymousSession();
+    app->activeKateMainWindow()->viewManager()->slotDocumentNew();
+
     // Test that if we have 1 viewspaces then
     // closing the last view doesn't close the viewspace
 
@@ -42,12 +44,15 @@ void KateViewManagementTests::testSingleViewspaceDoesntCloseWhenLastViewClosed()
     vm->closeView(vm->activeView());
 
     // still same
-    QCOMPARE(vm->m_views.size(), 1);
+    QCOMPARE(vm->m_views.size(), 0);
     QCOMPARE(vm->m_viewSpaceList.size(), 1);
 }
 
 void KateViewManagementTests::testViewspaceClosesWhenLastViewClosed()
 {
+    app->sessionManager()->activateAnonymousSession();
+    app->activeKateMainWindow()->viewManager()->slotDocumentNew();
+
     // Test that if we have greater than 1 viewspaces then
     // closing the last view in a viewspace closes that view
     // space
@@ -74,6 +79,9 @@ void KateViewManagementTests::testViewspaceClosesWhenLastViewClosed()
 
 void KateViewManagementTests::testViewspaceClosesWhenThereIsWidget()
 {
+    app->sessionManager()->activateAnonymousSession();
+    app->activeKateMainWindow()->viewManager()->slotDocumentNew();
+
     // Test that if we have greater than 1 viewspaces then
     // closing the last view in a viewspace closes that view
     // space
@@ -118,6 +126,9 @@ void KateViewManagementTests::testViewspaceClosesWhenThereIsWidget()
 
 void KateViewManagementTests::testMoveViewBetweenViewspaces()
 {
+    app->sessionManager()->activateAnonymousSession();
+    app->activeKateMainWindow()->viewManager()->slotDocumentNew();
+
     KateMainWindow *mw = app->activeKateMainWindow();
     auto vm = mw->viewManager();
     vm->slotSplitViewSpaceVert();
@@ -139,6 +150,9 @@ void KateViewManagementTests::testMoveViewBetweenViewspaces()
 
 void KateViewManagementTests::testTwoMainWindowsCloseInitialDocument1()
 {
+    app->sessionManager()->activateAnonymousSession();
+    app->activeKateMainWindow()->viewManager()->slotDocumentNew();
+
     // get first main window
     KateMainWindow *first = app->activeKateMainWindow();
     QVERIFY(first);
@@ -156,6 +170,9 @@ void KateViewManagementTests::testTwoMainWindowsCloseInitialDocument1()
 
 void KateViewManagementTests::testTwoMainWindowsCloseInitialDocument2()
 {
+    app->sessionManager()->activateAnonymousSession();
+    app->activeKateMainWindow()->viewManager()->slotDocumentNew();
+
     // get first main window
     KateMainWindow *first = app->activeKateMainWindow();
     QVERIFY(first);
@@ -173,6 +190,9 @@ void KateViewManagementTests::testTwoMainWindowsCloseInitialDocument2()
 
 void KateViewManagementTests::testTwoMainWindowsCloseInitialDocument3()
 {
+    app->sessionManager()->activateAnonymousSession();
+    app->activeKateMainWindow()->viewManager()->slotDocumentNew();
+
     // get first main window
     KateMainWindow *first = app->activeKateMainWindow();
     QVERIFY(first);

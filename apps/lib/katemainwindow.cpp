@@ -1502,6 +1502,6 @@ void KateMainWindow::showWelcomeViewIfNeeded()
     QTimer::singleShot(0, this, [this]() {
         if (activeView())
             return;
-        addWidget(new KateWelcomeView(m_viewManager->activeViewSpace(), nullptr));
+        addWidget(new KateWelcomeView());
     });
 }

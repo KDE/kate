@@ -21,14 +21,13 @@ class KateWelcomeView : public QWidget
 public:
     /**
      * Construct new output, we do that once per main window
-     * @param viewSpace parent view space
-     * @param parent parent widget
      */
-    KateWelcomeView(KateViewSpace *viewSpace, QWidget *parent);
+    KateWelcomeView();
 
 public Q_SLOTS:
     /**
      * Welcome view can always be closed.
+     * @return can always be closed
      */
     bool shouldClose()
     {
@@ -36,9 +35,14 @@ public Q_SLOTS:
     }
 
 private:
-    // our viewspace we belong to
-    KateViewSpace *const m_viewSpace = nullptr;
+    /**
+     * Get the view space we belong to.
+     * As we can in principle be dragged around.
+     * @return view space we belong to
+     */
+    KateViewSpace *viewSpace();
 
+private:
     // designer UI for this widget
     Ui::WelcomeViewWidget m_ui;
 };

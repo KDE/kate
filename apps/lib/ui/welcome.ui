@@ -32,21 +32,14 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout">
           <item>
-           <widget class="QPushButton" name="pushButton">
+           <widget class="QPushButton" name="fileNew">
             <property name="text">
              <string>PushButton</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_2">
-            <property name="text">
-             <string>PushButton</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="pushButton_3">
+           <widget class="QPushButton" name="fileOpen">
             <property name="text">
              <string>PushButton</string>
             </property>

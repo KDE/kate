@@ -38,6 +38,7 @@ public Q_SLOTS:
 
 Q_SIGNALS:
     void openClicked();
+    void newClicked();
     void recentItemClicked(QUrl const &url);
     void forgetAllRecents();
     void forgetRecentItem(QUrl const &url);

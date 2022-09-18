@@ -110,7 +110,7 @@
         </property>
         <property name="maximumSize">
          <size>
-          <width>192</width>
+          <width>272</width>
           <height>16777215</height>
          </size>
         </property>
@@ -213,22 +213,6 @@
             <enum>QLayout::SetMinimumSize</enum>
            </property>
            <item>
-            <spacer name="horizontalSpacer">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeType">
-              <enum>QSizePolicy::Expanding</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>48</width>
-               <height>0</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item>
             <widget class="QPushButton" name="openButton">
              <property name="text">
               <string comment="on welcome screen">Open Document...</string>
@@ -240,7 +224,7 @@
             </widget>
            </item>
            <item>
-            <spacer name="horizontalSpacer_2">
+            <spacer name="horizontalSpacer">
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
              </property>
@@ -249,11 +233,22 @@
              </property>
              <property name="sizeHint" stdset="0">
               <size>
-               <width>48</width>
-               <height>0</height>
+               <width>40</width>
+               <height>20</height>
               </size>
              </property>
             </spacer>
+           </item>
+           <item>
+            <widget class="QPushButton" name="newButton">
+             <property name="text">
+              <string comment="on welcome screen">New Document</string>
+             </property>
+             <property name="icon">
+              <iconset theme="document-new">
+               <normaloff>.</normaloff>.</iconset>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>

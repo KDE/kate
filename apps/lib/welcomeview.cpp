@@ -131,6 +131,7 @@ WelcomeView::WelcomeView(QWidget *parent)
     appIcon->setPixmap(qApp->windowIcon().pixmap(KIconLoader::SizeEnormous, KIconLoader::SizeEnormous));
 
     connect(openButton, &QPushButton::clicked, this, &WelcomeView::openClicked);
+    connect(newButton, &QPushButton::clicked, this, &WelcomeView::newClicked);
 
     recentsListView->setContextMenuPolicy(Qt::DefaultContextMenu);
     recentsListView->setModel(m_recentsModel);

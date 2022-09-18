@@ -1501,19 +1501,20 @@ void KateViewManager::showWelcomeView()
         if (activeViewSpace() && (activeViewSpace()->currentView() || activeViewSpace()->currentWidget()))
             return;
 
-        auto welcomeVeiw = new WelcomeView(this);
-        connect(welcomeVeiw, &WelcomeView::openClicked, this, &KateViewManager::slotDocumentOpen);
-        connect(welcomeVeiw, &WelcomeView::recentItemClicked, this, [this](const QUrl &url) {
+        auto welcomeView = new WelcomeView(this);
+        connect(welcomeView, &WelcomeView::openClicked, this, &KateViewManager::slotDocumentOpen);
+        connect(welcomeView, &WelcomeView::newClicked, this, &KateViewManager::slotDocumentNew);
+        connect(welcomeView, &WelcomeView::recentItemClicked, this, [this](const QUrl &url) {
             openUrl(url);
         });
-        connect(welcomeVeiw, &WelcomeView::forgetRecentItem, this, &KateViewManager::forgetRecentItem);
+        connect(welcomeView, &WelcomeView::forgetRecentItem, this, &KateViewManager::forgetRecentItem);
 
         auto recentFilesAction = mainWindow()->recentFilesAction();
         connect(recentFilesAction, &KRecentFilesAction::recentListCleared, this, &KateViewManager::refreshRecentsOnWelcomeView);
-        connect(welcomeVeiw, &WelcomeView::forgetAllRecents, recentFilesAction, &KRecentFilesAction::clear);
-        connect(this, &KateViewManager::loadRecentFiles, welcomeVeiw, &WelcomeView::loadRecents);
+        connect(welcomeView, &WelcomeView::forgetAllRecents, recentFilesAction, &KRecentFilesAction::clear);
+        connect(this, &KateViewManager::loadRecentFiles, welcomeView, &WelcomeView::loadRecents);
 
-        mainWindow()->addWidget(welcomeVeiw);
+        mainWindow()->addWidget(welcomeView);
         refreshRecentsOnWelcomeView();
     });
 }

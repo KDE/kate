@@ -427,25 +427,19 @@ void KateViewManager::documentsDeleted(const QList<KTextEditor::Document *> &)
     m_blockViewCreationAndActivation = false;
 
     /**
-     * if we have some active view, show them in all viewspaces that got empty!
+     * ensure we don't end up with empty tabs in some view spaces
+     * we did block view creation, re-trigger it
      */
-    if (KTextEditor::View *const newActiveView = activeView()) {
-        /**
-         * check if we have any empty viewspaces and give them a view
-         */
-        for (KateViewSpace *vs : m_viewSpaceList) {
-            if (!vs->currentView()) {
-                createView(newActiveView->document(), vs);
-            }
-        }
-
-        /**
-         * reactivate will ensure we really merge up the GUI again
-         * this might be missed as above we had m_blockViewCreationAndActivation set to true
-         * see bug 426605, no view XMLGUI stuff merged after tab close
-         */
-        reactivateActiveView();
+    for (auto vs : m_viewSpaceList) {
+        vs->ensureViewForCurrentTab();
     }
+
+    /**
+     * reactivate will ensure we really merge up the GUI again
+     * this might be missed as above we had m_blockViewCreationAndActivation set to true
+     * see bug 426605, no view XMLGUI stuff merged after tab close
+     */
+    reactivateActiveView();
 
     // trigger action update
     updateViewSpaceActions();

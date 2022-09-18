@@ -194,6 +194,13 @@ public:
 
     void focusNavigationBar();
 
+    // ensure we have a view for the current document tab, e.g. after document closing
+    void ensureViewForCurrentTab()
+    {
+        // just trigger change view, will do the needful
+        changeView(m_tabBar->currentIndex());
+    }
+
 protected:
     // DND
     void dragEnterEvent(QDragEnterEvent *e) override;

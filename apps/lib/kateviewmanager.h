@@ -158,7 +158,6 @@ public:
 private Q_SLOTS:
     void slotViewChanged();
 
-    void documentCreated(KTextEditor::Document *doc);
     void documentWillBeDeleted(KTextEditor::Document *doc);
 
     void documentSavedOrUploaded(KTextEditor::Document *document, bool saveAs);

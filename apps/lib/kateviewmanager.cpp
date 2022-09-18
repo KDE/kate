@@ -348,7 +348,16 @@ void KateViewManager::slotDocumentClose()
 KTextEditor::Document *
 KateViewManager::openUrl(const QUrl &url, const QString &encoding, bool activate, bool ignoreForRecentFiles, const KateDocumentInfo &docInfo)
 {
-    KTextEditor::Document *doc = KateApp::self()->documentManager()->openUrl(url, encoding, docInfo);
+    auto doc = KateApp::self()->documentManager()->openUrl(url, encoding, docInfo);
+    if (!doc) {
+        return nullptr;
+    }
+
+    // forward to currently active view space
+    activeViewSpace()->registerDocument(doc);
+
+    // to update open recent files on saving
+    connect(doc, &KTextEditor::Document::documentSavedOrUploaded, this, &KateViewManager::documentSavedOrUploaded);
 
     if (!ignoreForRecentFiles) {
         m_mainWindow->addRecentOpenedFile(doc->url());
@@ -395,36 +404,6 @@ void KateViewManager::addPositionToHistory(const QUrl &url, KTextEditor::Cursor 
 KateMainWindow *KateViewManager::mainWindow()
 {
     return m_mainWindow;
-}
-
-void KateViewManager::documentCreated(KTextEditor::Document *doc)
-{
-    // forward to currently active view space
-    activeViewSpace()->registerDocument(doc);
-
-    // to update open recent files on saving
-    connect(doc, &KTextEditor::Document::documentSavedOrUploaded, this, &KateViewManager::documentSavedOrUploaded);
-
-    if (m_blockViewCreationAndActivation) {
-        return;
-    }
-
-    auto view = activeView();
-    if (!view) {
-        view = activateView(doc);
-    }
-
-    /**
-     * check if we have any empty viewspaces and give them a view
-     */
-    for (KateViewSpace *vs : m_viewSpaceList) {
-        if (!vs->currentView() && !vs->currentWidget()) {
-            createView(view->document(), vs);
-        }
-    }
-
-    // trigger action update
-    updateViewSpaceActions();
 }
 
 void KateViewManager::aboutToDeleteDocuments(const QList<KTextEditor::Document *> &)

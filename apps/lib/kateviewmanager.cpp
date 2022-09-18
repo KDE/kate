@@ -1334,6 +1334,9 @@ void KateViewManager::restoreViewConfiguration(const KConfigGroup &config)
     }
 
     updateViewSpaceActions();
+
+    // ensure we have the welcome view if no active view is there
+    showWelcomeView();
 }
 
 QString KateViewManager::saveSplitterConfig(KateSplitter *s, KConfigBase *configBase, const QString &viewConfGrp)
@@ -1522,7 +1525,9 @@ void KateViewManager::showWelcomeView()
 {
     // delay the creation, e.g. used on startup
     QTimer::singleShot(0, this, [this]() {
-        if (activeView())
+        // we really want to show up only if nothing is in the current view space
+        // this guard versus double invocation of this function, too
+        if (activeViewSpace() && (activeViewSpace()->currentView() || activeViewSpace()->currentWidget()))
             return;
 
         auto welcomeVeiw = new WelcomeView(this);

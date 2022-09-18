@@ -67,8 +67,8 @@ public:
 
                 QMenu menu;
 
-                QAction *copyPathAction = new QAction(i18n("&Copy Path"));
-                copyPathAction->setIcon(QIcon::fromTheme(QStringLiteral("edit-copy")));
+                QAction *copyPathAction = new QAction(i18n("&Copy Location"));
+                copyPathAction->setIcon(QIcon::fromTheme(QStringLiteral("edit-copy-path")));
                 connect(copyPathAction, &QAction::triggered, this, [item]() {
                     QString path;
                     if (item->url.isLocalFile()) {

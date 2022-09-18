@@ -208,37 +208,10 @@
           </spacer>
          </item>
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout">
+          <layout class="QVBoxLayout" name="verticalLayout_2">
            <property name="sizeConstraint">
             <enum>QLayout::SetMinimumSize</enum>
            </property>
-           <item>
-            <widget class="QPushButton" name="openButton">
-             <property name="text">
-              <string comment="on welcome screen">Open Document...</string>
-             </property>
-             <property name="icon">
-              <iconset theme="document-open">
-               <normaloff>.</normaloff>.</iconset>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <spacer name="horizontalSpacer">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeType">
-              <enum>QSizePolicy::Expanding</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
            <item>
             <widget class="QPushButton" name="newButton">
              <property name="text">
@@ -246,6 +219,17 @@
              </property>
              <property name="icon">
               <iconset theme="document-new">
+               <normaloff>.</normaloff>.</iconset>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="openButton">
+             <property name="text">
+              <string comment="on welcome screen">Open Document...</string>
+             </property>
+             <property name="icon">
+              <iconset theme="document-open">
                <normaloff>.</normaloff>.</iconset>
              </property>
             </widget>

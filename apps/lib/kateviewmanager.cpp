@@ -24,6 +24,7 @@
 #include <KConfigGroup>
 #include <KLocalizedString>
 #include <KMessageBox>
+#include <KSharedConfig>
 #include <KToolBar>
 #include <KXMLGUIFactory>
 
@@ -75,7 +76,7 @@ KateViewManager::KateViewManager(QWidget *parentW, KateMainWindow *parent)
     connect(KateApp::self()->documentManager(), &KateDocManager::documentsDeleted, this, &KateViewManager::documentsDeleted);
 
     // ensure we have the welcome view if no active view is there
-    mainWindow()->showWelcomeView();
+    showWelcomeView();
 }
 
 KateViewManager::~KateViewManager()
@@ -497,7 +498,7 @@ KTextEditor::View *KateViewManager::createView(KTextEditor::Document *doc, KateV
     /**
      * ensure the initial welcome view vanishes as soon as we have some real view!
      */
-    mainWindow()->hideWelcomeView();
+    hideWelcomeView(vs);
 
     /**
      * create view, registers its XML gui itself
@@ -1093,7 +1094,7 @@ void KateViewManager::onViewSpaceEmptied(KateViewSpace *vs)
     }
 
     // else we want to trigger showing of the welcome view
-    mainWindow()->showWelcomeView();
+    showWelcomeView();
 }
 
 void KateViewManager::setShowUrlNavBar(bool show)
@@ -1506,4 +1507,59 @@ void KateViewManager::moveSplitter(Qt::Key key, int repeats)
         // the parent of the current splitter will become the current splitter
         currentSplitter = qobject_cast<KateSplitter *>(currentSplitter->parentWidget());
     }
+}
+
+void KateViewManager::hideWelcomeView(KateViewSpace *vs)
+{
+    if (auto welcomeView = qobject_cast<WelcomeView *>(vs ? vs : activeViewSpace()->currentWidget())) {
+        QTimer::singleShot(0, welcomeView, [this, welcomeView]() {
+            mainWindow()->removeWidget(welcomeView);
+        });
+    }
+}
+
+void KateViewManager::showWelcomeView()
+{
+    // delay the creation, e.g. used on startup
+    QTimer::singleShot(0, this, [this]() {
+        if (activeView())
+            return;
+
+        if (!m_welcomeView) {
+            m_welcomeView = new WelcomeView(this);
+            connect(m_welcomeView, &WelcomeView::openClicked, this, &KateViewManager::slotDocumentOpen);
+            connect(m_welcomeView, &WelcomeView::recentItemClicked, this, [this](const QUrl &url) {
+                openUrl(url);
+            });
+            connect(m_welcomeView, &WelcomeView::forgetRecentItem, this, &KateViewManager::forgetRecentItem);
+
+            auto recentFilesAction = mainWindow()->recentFilesAction();
+            connect(recentFilesAction, &KRecentFilesAction::recentListCleared, this, &KateViewManager::refreshRecentsOnWelcomeView);
+            connect(m_welcomeView, &WelcomeView::forgetAllRecents, recentFilesAction, &KRecentFilesAction::clear);
+        }
+
+        mainWindow()->addWidget(m_welcomeView);
+        refreshRecentsOnWelcomeView();
+    });
+}
+
+void KateViewManager::refreshRecentsOnWelcomeView()
+{
+    saveRecents();
+    m_welcomeView->loadRecents();
+}
+
+void KateViewManager::forgetRecentItem(QUrl const &url)
+{
+    auto recentFilesAction = mainWindow()->recentFilesAction();
+    if (recentFilesAction != nullptr) {
+        recentFilesAction->removeUrl(url);
+        saveRecents();
+        refreshRecentsOnWelcomeView();
+    }
+}
+
+void KateViewManager::saveRecents()
+{
+    mainWindow()->recentFilesAction()->saveEntries(KSharedConfig::openConfig()->group("Recent Files"));
 }

@@ -75,7 +75,6 @@
 #include <QToolButton>
 
 #include "diffwidget.h"
-#include "welcomeview.h"
 
 #include <ktexteditor/sessionconfiginterface.h>
 
@@ -308,8 +307,6 @@ void KateMainWindow::setupActions()
     m_fileOpenRecent->setMaxItems(KateConfigDialog::recentFilesMaxCount());
     actionCollection()->addAction(m_fileOpenRecent->objectName(), m_fileOpenRecent);
     m_fileOpenRecent->setWhatsThis(i18n("This lists files which you have opened recently, and allows you to easily open them again."));
-    connect(m_fileOpenRecent, &KRecentFilesAction::recentListCleared, this, &KateMainWindow::refreshRecentsOnWelcomeView);
-    connect(m_welcomeView, &WelcomeView::forgetAllRecents, m_fileOpenRecent, &KRecentFilesAction::clear);
 
     a = actionCollection()->addAction(QStringLiteral("file_save_all"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("document-save-all")));
@@ -1493,58 +1490,4 @@ void KateMainWindow::addRecentOpenedFile(const QUrl &url)
      renable when it is 0/ms again*/
     // to the global "Recent Document Menu", see bug 420504
     // KRecentDocument::add(url);
-}
-
-void KateMainWindow::hideWelcomeView()
-{
-    if (auto welcomeView = qobject_cast<WelcomeView *>((viewManager()->activeViewSpace())->currentWidget())) {
-        QTimer::singleShot(0, welcomeView, [this, welcomeView]() {
-            removeWidget(welcomeView);
-        });
-    }
-}
-
-void KateMainWindow::showWelcomeView()
-{
-    // delay the creation, e.g. used on startup
-    QTimer::singleShot(0, this, [this]() {
-        if (activeView())
-            return;
-
-        auto vs = viewManager()->activeViewSpace();
-        if (vs) {
-            m_welcomeView = new WelcomeView(this);
-            // todo m_welcomeView->installEventFilter(this);
-            connect(m_welcomeView, &WelcomeView::openClicked, this, [this]() {
-                viewManager()->slotDocumentOpen();
-            });
-            connect(m_welcomeView, &WelcomeView::recentItemClicked, this, [this](const QUrl &url) {
-                openUrl(url);
-            });
-            connect(m_welcomeView, &WelcomeView::forgetRecentItem, this, &KateMainWindow::forgetRecentItem);
-
-            addWidget(m_welcomeView);
-            refreshRecentsOnWelcomeView();
-        }
-    });
-}
-
-void KateMainWindow::refreshRecentsOnWelcomeView()
-{
-    saveRecents();
-    m_welcomeView->loadRecents();
-}
-
-void KateMainWindow::forgetRecentItem(QUrl const &url)
-{
-    if (m_fileOpenRecent != nullptr) {
-        m_fileOpenRecent->removeUrl(url);
-        saveRecents();
-        refreshRecentsOnWelcomeView();
-    }
-}
-
-void KateMainWindow::saveRecents()
-{
-    m_fileOpenRecent->saveEntries(KSharedConfig::openConfig()->group("Recent Files"));
 }

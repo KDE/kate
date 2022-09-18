@@ -36,6 +36,7 @@ class KConfigGroup;
 class KConfigBase;
 class KateMainWindow;
 class KateViewSpace;
+class WelcomeView;
 
 class KATE_PRIVATE_EXPORT KateViewManager : public KateSplitter
 {
@@ -141,6 +142,8 @@ private:
     void restoreSplitter(const KConfigBase *config, const QString &group, KateSplitter *parent, const QString &viewConfGrp);
 
     void removeViewSpace(KateViewSpace *viewspace);
+
+    void saveRecents();
 
 public:
     KTextEditor::View *activeView();
@@ -309,6 +312,11 @@ public Q_SLOTS:
     void setShowUrlNavBar(bool show);
     bool showUrlNavBar() const;
 
+    void hideWelcomeView(KateViewSpace *vs);
+    void showWelcomeView();
+    void refreshRecentsOnWelcomeView();
+    void forgetRecentItem(QUrl const &url);
+
 private:
     KateMainWindow *m_mainWindow;
 
@@ -380,6 +388,8 @@ private:
      * last url of open file dialog, used if current document has no valid url
      */
     QUrl m_lastOpenDialogUrl;
+
+    WelcomeView *m_welcomeView = nullptr;
 };
 
 #endif

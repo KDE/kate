@@ -27,7 +27,14 @@ public:
     explicit WelcomeView(QWidget *parent = nullptr);
     ~WelcomeView() override;
 
+public Q_SLOTS:
     void loadRecents();
+
+    // ensure we can always close this view
+    bool shouldClose()
+    {
+        return true;
+    }
 
 Q_SIGNALS:
     void openClicked();

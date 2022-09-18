@@ -36,7 +36,6 @@ class KConfigGroup;
 class KConfigBase;
 class KateMainWindow;
 class KateViewSpace;
-class WelcomeView;
 
 class KATE_PRIVATE_EXPORT KateViewManager : public KateSplitter
 {
@@ -115,6 +114,8 @@ Q_SIGNALS:
     void historyForwardEnabled(bool e);
 
     void showUrlNavBarChanged(bool);
+
+    void loadRecentFiles();
 
 public:
     /**
@@ -388,8 +389,6 @@ private:
      * last url of open file dialog, used if current document has no valid url
      */
     QUrl m_lastOpenDialogUrl;
-
-    WelcomeView *m_welcomeView = nullptr;
 };
 
 #endif

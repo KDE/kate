@@ -1525,20 +1525,19 @@ void KateViewManager::showWelcomeView()
         if (activeView())
             return;
 
-        if (!m_welcomeView) {
-            m_welcomeView = new WelcomeView(this);
-            connect(m_welcomeView, &WelcomeView::openClicked, this, &KateViewManager::slotDocumentOpen);
-            connect(m_welcomeView, &WelcomeView::recentItemClicked, this, [this](const QUrl &url) {
-                openUrl(url);
-            });
-            connect(m_welcomeView, &WelcomeView::forgetRecentItem, this, &KateViewManager::forgetRecentItem);
+        auto welcomeVeiw = new WelcomeView(this);
+        connect(welcomeVeiw, &WelcomeView::openClicked, this, &KateViewManager::slotDocumentOpen);
+        connect(welcomeVeiw, &WelcomeView::recentItemClicked, this, [this](const QUrl &url) {
+            openUrl(url);
+        });
+        connect(welcomeVeiw, &WelcomeView::forgetRecentItem, this, &KateViewManager::forgetRecentItem);
 
-            auto recentFilesAction = mainWindow()->recentFilesAction();
-            connect(recentFilesAction, &KRecentFilesAction::recentListCleared, this, &KateViewManager::refreshRecentsOnWelcomeView);
-            connect(m_welcomeView, &WelcomeView::forgetAllRecents, recentFilesAction, &KRecentFilesAction::clear);
-        }
+        auto recentFilesAction = mainWindow()->recentFilesAction();
+        connect(recentFilesAction, &KRecentFilesAction::recentListCleared, this, &KateViewManager::refreshRecentsOnWelcomeView);
+        connect(welcomeVeiw, &WelcomeView::forgetAllRecents, recentFilesAction, &KRecentFilesAction::clear);
+        connect(this, &KateViewManager::loadRecentFiles, welcomeVeiw, &WelcomeView::loadRecents);
 
-        mainWindow()->addWidget(m_welcomeView);
+        mainWindow()->addWidget(welcomeVeiw);
         refreshRecentsOnWelcomeView();
     });
 }
@@ -1546,7 +1545,9 @@ void KateViewManager::showWelcomeView()
 void KateViewManager::refreshRecentsOnWelcomeView()
 {
     saveRecents();
-    m_welcomeView->loadRecents();
+
+    // ensure welcome view updates
+    Q_EMIT loadRecentFiles();
 }
 
 void KateViewManager::forgetRecentItem(QUrl const &url)

@@ -927,9 +927,13 @@ void KateViewSpace::showContextMenu(int idx, const QPoint &globalPos)
         return;
     }
 
+    auto activeView = KTextEditor::Editor::instance()->application()->activeMainWindow()->activeView();
+    if (!activeView) {
+        return; // the welcome screen is open
+    }
+
     auto *doc = m_tabBar->tabDocument(idx);
-    auto activeDocument =
-        KTextEditor::Editor::instance()->application()->activeMainWindow()->activeView()->document(); // used for compareUsing which is used with another
+    auto activeDocument = activeView->document(); // used for compareUsing which is used with another
     if (!doc) {
         // This tab is holding some other widget
         // Show only "close tab" for now

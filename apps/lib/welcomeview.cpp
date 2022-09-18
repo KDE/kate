@@ -125,9 +125,7 @@ WelcomeView::WelcomeView(QWidget *parent)
 
     setWindowTitle(i18n("Welcome"));
 
-    KIconLoader loader;
-
-    appIcon->setPixmap(loader.loadIcon(QStringLiteral("kate"), KIconLoader::Group::Desktop, KIconLoader::SizeEnormous));
+    appIcon->setPixmap(qApp->windowIcon().pixmap(KIconLoader::SizeEnormous, KIconLoader::SizeEnormous));
 
     connect(openButton, &QPushButton::clicked, this, &WelcomeView::openClicked);
 

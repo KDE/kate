@@ -44,6 +44,7 @@ class KRecentFilesAction;
 class KateOutputView;
 class KateViewManager;
 class KateMwModOnHdDialog;
+class WelcomeView;
 
 // Helper layout class to always provide minimum size
 class KateContainerStackedLayout : public QStackedLayout
@@ -303,6 +304,9 @@ public:
      */
     void addRecentOpenedFile(const QUrl &url);
 
+    // TODO
+    void saveRecents();
+
     //
     // KTextEditor::MainWindow interface, get called by invokeMethod from our wrapper object!
     //
@@ -558,6 +562,13 @@ public Q_SLOTS:
      */
     void showMessage(const QVariantMap &map);
 
+    // TODO
+public Q_SLOTS:
+    void hideWelcomeView();
+    void showWelcomeView();
+    void refreshRecentsOnWelcomeView();
+    void forgetRecentItem(QUrl const &url);
+
 private Q_SLOTS:
     void slotUpdateBottomViewBar();
 
@@ -671,6 +682,8 @@ private:
      * output widget contained in above tool view
      */
     KateOutputView *m_outputView = nullptr;
+
+    WelcomeView *m_welcomeView = nullptr;
 
 public:
     /**

@@ -309,12 +309,6 @@ public Q_SLOTS:
     void setShowUrlNavBar(bool show);
     bool showUrlNavBar() const;
 
-    /**
-     * Trigger creation of welcome view via timer.
-     * Will do nothing if we have some view around when the timer triggers.
-     */
-    void showWelcomeViewIfNeeded();
-
 private:
     KateMainWindow *m_mainWindow;
 

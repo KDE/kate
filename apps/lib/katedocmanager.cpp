@@ -139,42 +139,25 @@ std::vector<KTextEditor::Document *> KateDocManager::openUrls(const QList<QUrl> 
 
 KTextEditor::Document *KateDocManager::openUrl(const QUrl &url, const QString &encoding, const KateDocumentInfo &docInfo)
 {
-    // special handling: if only one unmodified empty buffer in the list,
-    // keep this buffer in mind to close it after opening the new url
-    KTextEditor::Document *untitledDoc = nullptr;
-    if ((documentList().size() == 1) && (!documentList().at(0)->isModified() && documentList().at(0)->url().isEmpty())) {
-        untitledDoc = documentList().front();
-    }
-
-    //
-    // create new document
-    //
+    // we want to work on normalized urls
     const QUrl u(normalizeUrl(url));
-    KTextEditor::Document *doc = nullptr;
 
-    // always new document if url is empty...
+    // try to find already open document
     if (!u.isEmpty()) {
-        doc = findDocument(u);
-    }
-
-    if (!doc) {
-        if (untitledDoc) {
-            QTimer::singleShot(0, untitledDoc, [this, untitledDoc] {
-                closeDocument(untitledDoc);
-            });
-        }
-        doc = createDoc(docInfo);
-
-        if (!encoding.isEmpty()) {
-            doc->setEncoding(encoding);
-        }
-
-        if (!u.isEmpty()) {
-            doc->openUrl(u);
-            loadMetaInfos(doc, u);
+        if (auto doc = findDocument(u)) {
+            return doc;
         }
     }
 
+    // else: create new document
+    auto doc = createDoc(docInfo);
+    if (!encoding.isEmpty()) {
+        doc->setEncoding(encoding);
+    }
+    if (!u.isEmpty()) {
+        doc->openUrl(u);
+        loadMetaInfos(doc, u);
+    }
     return doc;
 }
 

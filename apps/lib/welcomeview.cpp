@@ -23,6 +23,7 @@
 
 #include <klocalizedstring.h>
 
+#include "kateapp.h"
 #include "kateviewspace.h"
 #include "recentitemsmodel.h"
 
@@ -125,6 +126,8 @@ WelcomeView::WelcomeView(QWidget *parent)
 
     setWindowTitle(i18n("Welcome"));
 
+    // ensure proper title and icon for both applications
+    welcomeLabel->setText(KateApp::isKate() ? i18n("Welcome to Kate") : i18n("Welcome to KWrite"));
     appIcon->setPixmap(qApp->windowIcon().pixmap(KIconLoader::SizeEnormous, KIconLoader::SizeEnormous));
 
     connect(openButton, &QPushButton::clicked, this, &WelcomeView::openClicked);

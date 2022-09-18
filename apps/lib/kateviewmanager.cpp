@@ -348,16 +348,10 @@ void KateViewManager::slotDocumentClose()
 KTextEditor::Document *
 KateViewManager::openUrl(const QUrl &url, const QString &encoding, bool activate, bool ignoreForRecentFiles, const KateDocumentInfo &docInfo)
 {
-    auto doc = KateApp::self()->documentManager()->openUrl(url, encoding, docInfo);
+    auto doc = openUrls({url}, encoding, docInfo);
     if (!doc) {
         return nullptr;
     }
-
-    // forward to currently active view space
-    activeViewSpace()->registerDocument(doc);
-
-    // to update open recent files on saving
-    connect(doc, &KTextEditor::Document::documentSavedOrUploaded, this, &KateViewManager::documentSavedOrUploaded);
 
     if (!ignoreForRecentFiles) {
         m_mainWindow->addRecentOpenedFile(doc->url());
@@ -373,13 +367,17 @@ KateViewManager::openUrl(const QUrl &url, const QString &encoding, bool activate
 KTextEditor::Document *KateViewManager::openUrls(const QList<QUrl> &urls, const QString &encoding, const KateDocumentInfo &docInfo)
 {
     const std::vector<KTextEditor::Document *> docs = KateApp::self()->documentManager()->openUrls(urls, encoding, docInfo);
+    for (auto doc : docs) {
+        // forward to currently active view space
+        activeViewSpace()->registerDocument(doc);
+        connect(doc, &KTextEditor::Document::documentSavedOrUploaded, this, &KateViewManager::documentSavedOrUploaded);
+    }
     return docs.empty() ? nullptr : docs.back();
 }
 
 KTextEditor::View *KateViewManager::openUrlWithView(const QUrl &url, const QString &encoding)
 {
-    KTextEditor::Document *doc = KateApp::self()->documentManager()->openUrl(url, encoding);
-
+    KTextEditor::Document *doc = openUrls({url}, encoding);
     if (!doc) {
         return nullptr;
     }

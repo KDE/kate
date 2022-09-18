@@ -929,7 +929,7 @@ void KateViewSpace::showContextMenu(int idx, const QPoint &globalPos)
 
     auto *doc = m_tabBar->tabDocument(idx);
     auto activeDocument =
-        KTextEditor::Editor::instance()->application()->activeMainWindow()->activeView()->document(); // used for mCompareWithActive which is used with another
+        KTextEditor::Editor::instance()->application()->activeMainWindow()->activeView()->document(); // used for compareUsing which is used with another
     if (!doc) {
         // This tab is holding some other widget
         // Show only "close tab" for now
@@ -965,16 +965,17 @@ void KateViewSpace::showContextMenu(int idx, const QPoint &globalPos)
     QAction *aDeleteFile = addActionFromCollection(&menu, "file_delete");
     menu.addSeparator();
     QAction *compare = menu.addAction(i18n("Compare with Active Document"));
+    compare->setIcon(QIcon::fromTheme(QStringLiteral("vcs-diff")));
     connect(compare, &QAction::triggered, this, [this, activeDocument, doc] {
         auto w = new DiffWidget({}, this);
         w->setWindowTitle(i18n("Diff %1 .. %2", activeDocument->documentName(), doc->documentName()));
         w->diffDocs(activeDocument, doc);
         m_viewManager->mainWindow()->addWidget(w);
     });
-    compare->setVisible(doc != activeDocument);
-    QMenu *mCompareWithActive = new QMenu(i18n("Compare with Active Document Using"), &menu);
-    mCompareWithActive->setIcon(QIcon::fromTheme(QStringLiteral("vcs-diff")));
-    menu.addMenu(mCompareWithActive);
+
+    QMenu *compareUsing = new QMenu(i18n("Compare with Active Document Using"), &menu);
+    compareUsing->setIcon(QIcon::fromTheme(QStringLiteral("vcs-diff")));
+    menu.addMenu(compareUsing);
 
     if (KateApp::self()->documentManager()->documentList().size() < 2) {
         aCloseOthers->setEnabled(false);
@@ -986,17 +987,18 @@ void KateViewSpace::showContextMenu(int idx, const QPoint &globalPos)
         aRenameFile->setEnabled(false);
         aDeleteFile->setEnabled(false);
         aFileProperties->setEnabled(false);
-        mCompareWithActive->setEnabled(false);
-    }
-                                                                                                      // tab which is not active
-    // both documents must have urls and must not be the same to have the compare feature enabled
-    if (activeDocument->url().isEmpty() || activeDocument == doc) {
-        mCompareWithActive->setEnabled(false);
+        compareUsing->setEnabled(false);
     }
 
-    if (mCompareWithActive->isEnabled()) {
+    // both documents must have urls and must not be the same to have the compare feature enabled
+    if (activeDocument->url().isEmpty() || activeDocument == doc) {
+        compare->setEnabled(false);
+        compareUsing->setEnabled(false);
+    }
+
+    if (compareUsing->isEnabled()) {
         for (auto &&diffTool : KateFileActions::supportedDiffTools()) {
-            QAction *compareAction = mCompareWithActive->addAction(diffTool.first);
+            QAction *compareAction = compareUsing->addAction(diffTool.first);
 
             // we use the full path to safely execute the tool, disable action if no full path => tool not found
             compareAction->setData(diffTool.second);
@@ -1032,7 +1034,7 @@ void KateViewSpace::showContextMenu(int idx, const QPoint &globalPos)
         KateFileActions::renameDocumentFile(this, doc);
     } else if (choice == aDeleteFile) {
         KateFileActions::deleteDocumentFile(this, doc);
-    } else if (choice->parent() == mCompareWithActive) {
+    } else if (choice->parent() == compareUsing) {
         QString actionData = choice->data().toString(); // name of the executable of the diff program
         if (!KateFileActions::compareWithExternalProgram(activeDocument, doc, actionData)) {
             QMessageBox::information(this,

@@ -76,7 +76,7 @@ KateViewManager::KateViewManager(QWidget *parentW, KateMainWindow *parent)
     connect(KateApp::self()->documentManager(), &KateDocManager::documentsDeleted, this, &KateViewManager::documentsDeleted);
 
     // ensure we have the welcome view if no active view is there
-    showWelcomeView();
+    showWelcomeViewIfNeeded();
 }
 
 KateViewManager::~KateViewManager()
@@ -237,6 +237,24 @@ void KateViewManager::setupActions()
     connect(a, &QAction::triggered, this, [this] {
         activeViewSpace()->focusNavigationBar();
     });
+
+    a = m_mainWindow->actionCollection()->addAction(QStringLiteral("help_welcome_page"));
+    a->setText(i18n("Welcome Page"));
+    a->setIcon(qApp->windowIcon());
+    connect(a, &QAction::triggered, this, [this]() {
+        if (activeViewSpace()) {
+            const auto widgets = activeViewSpace()->widgets();
+            for (const auto &widget : widgets) {
+                // check if there is already a welcome view
+                if (qobject_cast<WelcomeView *>(widget)) {
+                    return;
+                }
+            }
+
+            showWelcomeView();
+        }
+    });
+    a->setWhatsThis(i18n("Show the welcome page"));
 }
 
 void KateViewManager::updateViewSpaceActions()
@@ -1065,7 +1083,7 @@ void KateViewManager::onViewSpaceEmptied(KateViewSpace *vs)
     }
 
     // else we want to trigger showing of the welcome view
-    showWelcomeView();
+    showWelcomeViewIfNeeded();
 }
 
 void KateViewManager::setShowUrlNavBar(bool show)
@@ -1307,7 +1325,7 @@ void KateViewManager::restoreViewConfiguration(const KConfigGroup &config)
     updateViewSpaceActions();
 
     // ensure we have the welcome view if no active view is there
-    showWelcomeView();
+    showWelcomeViewIfNeeded();
 }
 
 QString KateViewManager::saveSplitterConfig(KateSplitter *s, KConfigBase *configBase, const QString &viewConfGrp)
@@ -1492,15 +1510,20 @@ void KateViewManager::hideWelcomeView(KateViewSpace *vs)
     }
 }
 
+void KateViewManager::showWelcomeViewIfNeeded()
+{
+    // we really want to show up only if nothing is in the current view space
+    // this guard versus double invocation of this function, too
+    if (activeViewSpace() && (activeViewSpace()->currentView() || activeViewSpace()->currentWidget()))
+        return;
+
+    showWelcomeView();
+}
+
 void KateViewManager::showWelcomeView()
 {
     // delay the creation, e.g. used on startup
     QTimer::singleShot(0, this, [this]() {
-        // we really want to show up only if nothing is in the current view space
-        // this guard versus double invocation of this function, too
-        if (activeViewSpace() && (activeViewSpace()->currentView() || activeViewSpace()->currentWidget()))
-            return;
-
         auto welcomeView = new WelcomeView(this);
         auto recentFilesAction = mainWindow()->recentFilesAction();
         connect(recentFilesAction, &KRecentFilesAction::recentListCleared, this, &KateViewManager::refreshRecentsOnWelcomeView);

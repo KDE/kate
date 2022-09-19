@@ -313,6 +313,7 @@ public Q_SLOTS:
     bool showUrlNavBar() const;
 
     void hideWelcomeView(KateViewSpace *vs);
+    void showWelcomeViewIfNeeded();
     void showWelcomeView();
     void refreshRecentsOnWelcomeView();
     void forgetRecentItem(QUrl const &url);

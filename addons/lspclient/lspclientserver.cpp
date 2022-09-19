@@ -1350,6 +1350,12 @@ private:
                                             {QStringLiteral("semanticTokens"), semanticTokens},
                                             {QStringLiteral("synchronization"), QJsonObject{{QStringLiteral("didSave"), true}}},
                                             {QStringLiteral("selectionRange"), QJsonObject{{QStringLiteral("dynamicRegistration"), false}}},
+                                            {QStringLiteral("hover"), QJsonObject{
+                                                {QStringLiteral("contentFormat"), QJsonArray{
+                                                    QStringLiteral("markdown"),
+                                                    QStringLiteral("plaintext")
+                                                }}
+                                            }}
                                         },
                                   },
                                   {QStringLiteral("window"),

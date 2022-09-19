@@ -213,7 +213,7 @@
             <enum>QLayout::SetMinimumSize</enum>
            </property>
            <item>
-            <widget class="QPushButton" name="newButton">
+            <widget class="QPushButton" name="newDocumentButton">
              <property name="text">
               <string comment="on welcome screen">New Document</string>
              </property>
@@ -224,12 +224,23 @@
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="openButton">
+            <widget class="QPushButton" name="openDocumentButton">
              <property name="text">
               <string comment="on welcome screen">Open Document...</string>
              </property>
              <property name="icon">
               <iconset theme="document-open">
+               <normaloff>.</normaloff>.</iconset>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="openFolderButton">
+             <property name="text">
+              <string comment="on welcome screen">Open Folder...</string>
+             </property>
+             <property name="icon">
+              <iconset theme="document-open-folder">
                <normaloff>.</normaloff>.</iconset>
              </property>
             </widget>
@@ -442,7 +453,7 @@
   </layout>
  </widget>
  <tabstops>
-  <tabstop>openButton</tabstop>
+  <tabstop>openDocumentButton</tabstop>
  </tabstops>
  <resources/>
  <connections/>

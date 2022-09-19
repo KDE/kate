@@ -130,8 +130,9 @@ WelcomeView::WelcomeView(QWidget *parent)
     welcomeLabel->setText(KateApp::isKate() ? i18n("Welcome to Kate") : i18n("Welcome to KWrite"));
     appIcon->setPixmap(qApp->windowIcon().pixmap(KIconLoader::SizeEnormous, KIconLoader::SizeEnormous));
 
-    connect(openButton, &QPushButton::clicked, this, &WelcomeView::openClicked);
-    connect(newButton, &QPushButton::clicked, this, &WelcomeView::newClicked);
+    connect(openDocumentButton, &QPushButton::clicked, this, &WelcomeView::openDocumentClicked);
+    connect(openFolderButton, &QPushButton::clicked, this, &WelcomeView::openFolderClicked);
+    connect(newDocumentButton, &QPushButton::clicked, this, &WelcomeView::newDocumentClicked);
 
     recentsListView->setContextMenuPolicy(Qt::DefaultContextMenu);
     recentsListView->setModel(m_recentsModel);

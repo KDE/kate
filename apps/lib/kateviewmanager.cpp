@@ -1502,12 +1502,19 @@ void KateViewManager::showWelcomeView()
             return;
 
         auto welcomeView = new WelcomeView(this);
-        connect(welcomeView, &WelcomeView::openClicked, this, &KateViewManager::slotDocumentOpen);
-        connect(welcomeView, &WelcomeView::newClicked, this, &KateViewManager::slotDocumentNew);
+        connect(welcomeView, &WelcomeView::openDocumentClicked, this, &KateViewManager::slotDocumentOpen);
+        connect(welcomeView, &WelcomeView::newDocumentClicked, this, &KateViewManager::slotDocumentNew);
         connect(welcomeView, &WelcomeView::recentItemClicked, this, [this](const QUrl &url) {
             openUrl(url);
         });
         connect(welcomeView, &WelcomeView::forgetRecentItem, this, &KateViewManager::forgetRecentItem);
+
+        QObject *project = mainWindow()->pluginView(QStringLiteral("kateprojectplugin"));
+        if (project) {
+            connect(welcomeView, &WelcomeView::openFolderClicked, this, [this, project]() {
+                QMetaObject::invokeMethod(project, "openDirectoryOrProject");
+            });
+        }
 
         auto recentFilesAction = mainWindow()->recentFilesAction();
         connect(recentFilesAction, &KRecentFilesAction::recentListCleared, this, &KateViewManager::refreshRecentsOnWelcomeView);

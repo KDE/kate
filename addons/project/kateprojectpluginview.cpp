@@ -172,6 +172,7 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
      */
     auto a = actionCollection()->addAction(QStringLiteral("projects_open_project"), this, SLOT(openDirectoryOrProject()));
     a->setText(i18n("Open Folder..."));
+    a->setIcon(QIcon::fromTheme(QStringLiteral("document-open-folder")));
 
     m_projectTodosAction = a = actionCollection()->addAction(QStringLiteral("projects_todos"), this, SLOT(showProjectTodos()));
     a->setText(i18n("Project TODOs"));

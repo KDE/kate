@@ -1512,27 +1512,27 @@ void KateViewManager::hideWelcomeView(KateViewSpace *vs)
 
 void KateViewManager::showWelcomeViewIfNeeded()
 {
-    // we really want to show up only if nothing is in the current view space
-    // this guard versus double invocation of this function, too
-    if (activeViewSpace() && (activeViewSpace()->currentView() || activeViewSpace()->currentWidget()))
-        return;
+    // delay the creation, e.g. used on startup
+    QTimer::singleShot(0, this, [this]() {
+        // we really want to show up only if nothing is in the current view space
+        // this guard versus double invocation of this function, too
+        if (activeViewSpace() && (activeViewSpace()->currentView() || activeViewSpace()->currentWidget()))
+            return;
 
-    showWelcomeView();
+        showWelcomeView();
+    });
 }
 
 void KateViewManager::showWelcomeView()
 {
-    // delay the creation, e.g. used on startup
-    QTimer::singleShot(0, this, [this]() {
-        auto welcomeView = new WelcomeView(this);
-        auto recentFilesAction = mainWindow()->recentFilesAction();
-        connect(recentFilesAction, &KRecentFilesAction::recentListCleared, this, &KateViewManager::refreshRecentsOnWelcomeView);
-        connect(welcomeView, &WelcomeView::forgetAllRecents, recentFilesAction, &KRecentFilesAction::clear);
-        connect(this, &KateViewManager::loadRecentFiles, welcomeView, &WelcomeView::loadRecents);
+    auto welcomeView = new WelcomeView(this);
+    auto recentFilesAction = mainWindow()->recentFilesAction();
+    connect(recentFilesAction, &KRecentFilesAction::recentListCleared, this, &KateViewManager::refreshRecentsOnWelcomeView);
+    connect(welcomeView, &WelcomeView::forgetAllRecents, recentFilesAction, &KRecentFilesAction::clear);
+    connect(this, &KateViewManager::loadRecentFiles, welcomeView, &WelcomeView::loadRecents);
 
-        mainWindow()->addWidget(welcomeView);
-        refreshRecentsOnWelcomeView();
-    });
+    mainWindow()->addWidget(welcomeView);
+    refreshRecentsOnWelcomeView();
 }
 
 void KateViewManager::refreshRecentsOnWelcomeView()

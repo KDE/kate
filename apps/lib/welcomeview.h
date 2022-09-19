@@ -37,9 +37,6 @@ public Q_SLOTS:
     }
 
 Q_SIGNALS:
-    void openDocumentClicked();
-    void openFolderClicked();
-    void newDocumentClicked();
     void recentItemClicked(QUrl const &url);
     void forgetAllRecents();
     void forgetRecentItem(QUrl const &url);

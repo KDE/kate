@@ -24,6 +24,7 @@
 #include <klocalizedstring.h>
 
 #include "kateapp.h"
+#include "kateviewmanager.h"
 #include "kateviewspace.h"
 #include "recentitemsmodel.h"
 
@@ -130,9 +131,23 @@ WelcomeView::WelcomeView(QWidget *parent)
     welcomeLabel->setText(KateApp::isKate() ? i18n("Welcome to Kate") : i18n("Welcome to KWrite"));
     appIcon->setPixmap(qApp->windowIcon().pixmap(KIconLoader::SizeEnormous, KIconLoader::SizeEnormous));
 
-    connect(openDocumentButton, &QPushButton::clicked, this, &WelcomeView::openDocumentClicked);
-    connect(openFolderButton, &QPushButton::clicked, this, &WelcomeView::openFolderClicked);
-    connect(newDocumentButton, &QPushButton::clicked, this, &WelcomeView::newDocumentClicked);
+    auto viewManager = qobject_cast<KateViewManager *>(parent);
+
+    connect(this, &WelcomeView::recentItemClicked, viewManager, [viewManager](const QUrl &url) {
+        viewManager->openUrl(url);
+    });
+    connect(this, &WelcomeView::forgetRecentItem, viewManager, &KateViewManager::forgetRecentItem);
+    connect(openDocumentButton, &QPushButton::clicked, viewManager, &KateViewManager::slotDocumentOpen);
+    connect(newDocumentButton, &QPushButton::clicked, viewManager, &KateViewManager::slotDocumentNew);
+
+    QObject *project = viewManager->mainWindow()->pluginView(QStringLiteral("kateprojectplugin"));
+    if (project) {
+        connect(openFolderButton, &QPushButton::clicked, viewManager, [project]() {
+            QMetaObject::invokeMethod(project, "openDirectoryOrProject");
+        });
+    } else {
+        openFolderButton->setVisible(false);
+    }
 
     recentsListView->setContextMenuPolicy(Qt::DefaultContextMenu);
     recentsListView->setModel(m_recentsModel);

@@ -51,7 +51,7 @@ void RecentItemsModel::loadEntries(const KConfigGroup &cg)
 
         nameKey = QStringLiteral("Name%1").arg(i);
         nameValue = cg.readPathEntry(nameKey, url.fileName());
-        m_recentItems.append(RecentItem{.name = nameValue, .url = url});
+        m_recentItems.append(RecentItem{nameValue, url});
     }
 
     Q_EMIT layoutChanged();

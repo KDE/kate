@@ -75,8 +75,23 @@ KateViewManager::KateViewManager(QWidget *parentW, KateMainWindow *parent)
     connect(KateApp::self()->documentManager(), &KateDocManager::aboutToDeleteDocuments, this, &KateViewManager::aboutToDeleteDocuments);
     connect(KateApp::self()->documentManager(), &KateDocManager::documentsDeleted, this, &KateViewManager::documentsDeleted);
 
-    // ensure we have the welcome view if no active view is there
-    showWelcomeViewIfNeeded();
+    // the user can decide: welcome page or a new untitled document for a new window?
+    KSharedConfig::Ptr config = KSharedConfig::openConfig();
+    KConfigGroup cgGeneral = KConfigGroup(config, "General");
+    if (cgGeneral.readEntry("Open untitled document for new window", false)) {
+        // we only open one, if we have no other proper view around
+        QTimer::singleShot(0, this, [this]() {
+            // we really want to show up only if nothing is in the current view space
+            // this guard versus double invocation of this function, too
+            if (activeViewSpace() && (activeViewSpace()->currentView() || activeViewSpace()->currentWidget()))
+                return;
+
+            slotDocumentNew();
+        });
+    } else {
+        // ensure we have the welcome view if no active view is there
+        showWelcomeViewIfNeeded();
+    }
 }
 
 KateViewManager::~KateViewManager()

@@ -264,7 +264,7 @@ frequently.</para></listitem>
 
 <varlistentry>
 <term><anchor id="config-dialog-sessions-shutdown-behavior"/>
-<guilabel>Application Shutdown Behavior</guilabel></term>
+<guilabel>Application Startup/Shutdown Behavior</guilabel></term>
 <listitem>
 <para>Select how you want &kate; to behave at shutdown. It is possible to define what
 &kate; should <guilabel>Automatically save and restore</guilabel>.</para>

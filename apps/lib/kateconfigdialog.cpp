@@ -346,6 +346,10 @@ void KateConfigDialog::addSessionPage()
     connect(sessionConfigUi.loadLastUserSessionRadioButton, &QRadioButton::toggled, this, &KateConfigDialog::slotChanged);
     connect(sessionConfigUi.manuallyChooseSessionRadioButton, &QRadioButton::toggled, this, &KateConfigDialog::slotChanged);
 
+    // New main windows open always a new document if none there
+    sessionConfigUi.openNewDocumentPerWindow->setChecked(cgGeneral.readEntry("Open untitled document for new window", false));
+    connect(sessionConfigUi.openNewDocumentPerWindow, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
+
     // Closing last file closes Kate
     sessionConfigUi.modCloseAfterLast->setChecked(m_mainWindow->modCloseAfterLast());
     connect(sessionConfigUi.modCloseAfterLast, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
@@ -499,6 +503,8 @@ void KateConfigDialog::slotApply()
 
         cg.writeEntry("Days Meta Infos", sessionConfigUi.daysMetaInfos->value());
         KateApp::self()->documentManager()->setDaysMetaInfos(sessionConfigUi.daysMetaInfos->value());
+
+        cg.writeEntry("Open untitled document for new window", sessionConfigUi.openNewDocumentPerWindow->isChecked());
 
         cg.writeEntry("Close After Last", sessionConfigUi.modCloseAfterLast->isChecked());
         m_mainWindow->setModCloseAfterLast(sessionConfigUi.modCloseAfterLast->isChecked());

@@ -44,7 +44,7 @@
    <item>
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
-      <string>Application Shutdown Behavior</string>
+      <string>Application Startup/Shutdown Behavior</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_5">
       <item>
@@ -81,6 +81,13 @@
          </layout>
         </item>
        </layout>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="openNewDocumentPerWindow">
+        <property name="text">
+         <string>Open new window with fresh untitled document</string>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QCheckBox" name="modCloseAfterLast">

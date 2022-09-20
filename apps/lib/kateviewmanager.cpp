@@ -710,6 +710,11 @@ void KateViewManager::reactivateActiveView()
 void KateViewManager::activateView(KTextEditor::View *view)
 {
     if (!view) {
+        if (m_guiMergedView) {
+            mainWindow()->guiFactory()->removeClient(m_guiMergedView);
+            m_guiMergedView = nullptr;
+        }
+        Q_EMIT viewChanged(nullptr);
         return;
     }
 
@@ -765,8 +770,9 @@ void KateViewManager::activateView(KTextEditor::View *view)
 
 KTextEditor::View *KateViewManager::activateView(KTextEditor::Document *d)
 {
-    // no doc with this id found
+    // ensure we disable the current active view if we have none
     if (!d) {
+        activateView(static_cast<KTextEditor::View *>(nullptr));
         return activeView();
     }
 

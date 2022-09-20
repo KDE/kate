@@ -496,28 +496,6 @@ KTextEditor::View *KateViewManager::createView(KTextEditor::Document *doc, KateV
     KTextEditor::View *view = (vs ? vs : activeViewSpace())->createView(doc);
 
     /**
-     * connect to signal here so we can handle post-load
-     * set cursor position for this view if we need to
-     */
-    KateDocumentInfo *docInfo = KateApp::self()->documentManager()->documentInfo(doc);
-    if (docInfo->startCursor.isValid()) {
-        KTextEditor::Cursor c = docInfo->startCursor; // Was a cursor position requested?
-        docInfo->startCursor = KTextEditor::Cursor::invalid(); // do this only once
-
-        if (!doc->url().isLocalFile()) {
-            QSharedPointer<QMetaObject::Connection> conn(new QMetaObject::Connection());
-            auto handler = [view, conn, c](KTextEditor::Document *) {
-                QObject::disconnect(*conn);
-                view->setCursorPosition(c);
-            };
-
-            *conn = connect(doc, &KTextEditor::Document::textChanged, view, handler);
-        } else if (c.isValid()) {
-            view->setCursorPosition(c);
-        }
-    }
-
-    /**
      * remember this view, active == false, min age set
      * create activity resource
      */
@@ -544,6 +522,30 @@ KTextEditor::View *KateViewManager::createView(KTextEditor::Document *doc, KateV
     }
 
     updateViewSpaceActions();
+
+    /**
+     * connect to signal here so we can handle post-load
+     * set cursor position for this view if we need to
+     * do this after the view is properly registered, else we might trigger assertions
+     * about unknown views in the connected lambdas
+     */
+    KateDocumentInfo *docInfo = KateApp::self()->documentManager()->documentInfo(doc);
+    if (docInfo->startCursor.isValid()) {
+        KTextEditor::Cursor c = docInfo->startCursor; // Was a cursor position requested?
+        docInfo->startCursor = KTextEditor::Cursor::invalid(); // do this only once
+
+        if (!doc->url().isLocalFile()) {
+            QSharedPointer<QMetaObject::Connection> conn(new QMetaObject::Connection());
+            auto handler = [view, conn, c](KTextEditor::Document *) {
+                QObject::disconnect(*conn);
+                view->setCursorPosition(c);
+            };
+
+            *conn = connect(doc, &KTextEditor::Document::textChanged, view, handler);
+        } else if (c.isValid()) {
+            view->setCursorPosition(c);
+        }
+    }
 
     return view;
 }

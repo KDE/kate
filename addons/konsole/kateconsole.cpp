@@ -173,6 +173,9 @@ KateConsole::KateConsole(KateKonsolePlugin *plugin, KTextEditor::MainWindow *mw,
 
 KateConsole::~KateConsole()
 {
+    // we unplug our actions below, avoid that we trigger their usage
+    disconnect(qApp, &QApplication::focusChanged, this, &KateConsole::focusChanged);
+
     m_mw->guiFactory()->removeClient(this);
     if (m_part) {
         disconnect(m_part, &KParts::ReadOnlyPart::destroyed, this, &KateConsole::slotDestroyed);

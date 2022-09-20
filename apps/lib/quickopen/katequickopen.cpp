@@ -355,11 +355,9 @@ void KateQuickOpen::updateState()
 void KateQuickOpen::slotReturnPressed()
 {
     // save current position before opening new url for location history
-    KateViewManager *vm = m_mainWindow->viewManager();
-    if (vm) {
-        if (KTextEditor::View *v = vm->activeView()) {
-            vm->addPositionToHistory(v->document()->url(), v->cursorPosition());
-        }
+    auto vm = m_mainWindow->viewManager();
+    if (auto v = vm->activeView()) {
+        vm->addPositionToHistory(v->document()->url(), v->cursorPosition());
     }
 
     // either get view via document pointer or url

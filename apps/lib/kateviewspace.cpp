@@ -133,7 +133,7 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent, cons
         // try if reuse of view make sense
         const bool shiftPress = mod == Qt::ShiftModifier;
         if (!shiftPress && !KateApp::self()->documentManager()->findDocument(url)) {
-            if (auto activeView = m_viewManager->activeView(); activeView) {
+            if (auto activeView = m_viewManager->activeView()) {
                 KateDocumentInfo *info = KateApp::self()->documentManager()->documentInfo(activeView->document());
                 if (info && !info->wasDocumentEverModified) {
                     activeView->document()->openUrl(url);
@@ -863,11 +863,10 @@ void KateViewSpace::addPositionToHistory(const QUrl &url, KTextEditor::Cursor c,
     }
 
     // Check if the location is at least "viewLineCount" away from the "current" position in m_locations
-    if (!calledExternally && currentLocation < m_locations.size() && m_locations.at(currentLocation).url == url) {
+    if (const auto view = m_viewManager->activeView();
+        view && !calledExternally && currentLocation < m_locations.size() && m_locations.at(currentLocation).url == url) {
         const int currentLine = m_locations.at(currentLocation).cursor.line();
         const int newPosLine = c.line();
-
-        const auto view = m_viewManager->activeView();
         const int viewLineCount = view->lastDisplayedLine() - view->firstDisplayedLine();
         const int lowerBound = currentLine - viewLineCount;
         const int upperBound = currentLine + viewLineCount;
@@ -1148,7 +1147,7 @@ void KateViewSpace::goBack()
     }
 
     if (auto v = m_viewManager->activeView()) {
-        if (v->document() && v->document()->url() == location.url) {
+        if (v->document()->url() == location.url) {
             const QSignalBlocker blocker(v);
             v->setCursorPosition(location.cursor);
             // enable forward
@@ -1204,7 +1203,7 @@ void KateViewSpace::goForward()
     Q_EMIT m_viewManager->historyBackEnabled(true);
 
     if (auto v = m_viewManager->activeView()) {
-        if (v->document() && v->document()->url() == location.url) {
+        if (v->document()->url() == location.url) {
             const QSignalBlocker blocker(v);
             v->setCursorPosition(location.cursor);
             return;

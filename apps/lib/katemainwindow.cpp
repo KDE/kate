@@ -169,14 +169,14 @@ KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup)
     // Hence, we have to take care of the menu bar here
     toggleShowMenuBar(false);
 
-    // in all cases: avoid that arbitrary plugin toolviews get focus, like terminal, bug 412227
-    // we need to delay this a bit due to lazy view creation (and lazy e.g. terminal widget creation)
-    QTimer::singleShot(0, m_viewManager->activeView(), SLOT(setFocus()));
-
     // kwrite doesn't want sidebars, we have no plugins
     if (KateApp::isKWrite()) {
         setSidebarsVisibleInternal(false, true);
     }
+
+    // in all cases: avoid that arbitrary plugin toolviews get focus, like terminal, bug 412227
+    // we need to delay this a bit due to lazy view creation (and lazy e.g. terminal widget creation)
+    QTimer::singleShot(0, m_viewManager->activeViewSpace(), SLOT(setFocus()));
 }
 
 KateMainWindow::~KateMainWindow()

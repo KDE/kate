@@ -209,6 +209,9 @@
          </item>
          <item>
           <layout class="QVBoxLayout" name="verticalLayout_2">
+           <property name="spacing">
+            <number>12</number>
+           </property>
            <property name="sizeConstraint">
             <enum>QLayout::SetMinimumSize</enum>
            </property>

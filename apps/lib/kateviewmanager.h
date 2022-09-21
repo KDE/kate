@@ -72,6 +72,8 @@ public:
 
     KTextEditor::View *openUrlWithView(const QUrl &url, const QString &encoding);
 
+    KTextEditor::View *openViewForDoc(KTextEditor::Document *doc);
+
 public Q_SLOTS:
     void openUrl(const QUrl &url);
     void addPositionToHistory(const QUrl &url, KTextEditor::Cursor pos);

@@ -425,6 +425,15 @@ void KateViewManager::openUrl(const QUrl &url)
     openUrl(url, QString());
 }
 
+KTextEditor::View *KateViewManager::openViewForDoc(KTextEditor::Document *doc)
+{
+    // forward to currently active view space
+    activeViewSpace()->registerDocument(doc);
+    connect(doc, &KTextEditor::Document::documentSavedOrUploaded, this, &KateViewManager::documentSavedOrUploaded);
+
+    return activateView(doc);
+}
+
 void KateViewManager::addPositionToHistory(const QUrl &url, KTextEditor::Cursor pos)
 {
     if (KateViewSpace *avs = activeViewSpace()) {

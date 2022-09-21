@@ -961,6 +961,9 @@ void KateViewSpace::showContextMenu(int idx, const QPoint &globalPos)
     QAction *aCloseOthers = menu.addAction(QIcon::fromTheme(QStringLiteral("tab-close-other")), i18n("Close Other &Documents"));
     QAction *aCloseAll = menu.addAction(QIcon::fromTheme(QStringLiteral("tab-close-all")), i18n("Close &All Documents"));
     menu.addSeparator();
+    QAction *aDetachTab = menu.addAction(QIcon::fromTheme(QStringLiteral("tab-detach")), i18n("D&etach Document"));
+    aDetachTab->setWhatsThis(i18n("Opens the document in a new window and closes it in the current window"));
+    menu.addSeparator();
     QAction *aCopyPath = addActionFromCollection(&menu, "file_copy_filepath");
     QAction *aOpenFolder = addActionFromCollection(&menu, "file_open_containing_folder");
     QAction *aFileProperties = addActionFromCollection(&menu, "file_properties");
@@ -983,6 +986,7 @@ void KateViewSpace::showContextMenu(int idx, const QPoint &globalPos)
 
     if (KateApp::self()->documentManager()->documentList().size() < 2) {
         aCloseOthers->setEnabled(false);
+        aDetachTab->setEnabled(false);
     }
 
     if (doc->url().isEmpty()) {
@@ -992,6 +996,7 @@ void KateViewSpace::showContextMenu(int idx, const QPoint &globalPos)
         aDeleteFile->setEnabled(false);
         aFileProperties->setEnabled(false);
         compareUsing->setEnabled(false);
+        aDetachTab->setEnabled(false);
     }
 
     // both documents must have urls and must not be the same to have the compare feature enabled
@@ -1046,6 +1051,14 @@ void KateViewSpace::showContextMenu(int idx, const QPoint &globalPos)
                                      i18n("The selected program could not be started. Maybe it is not installed."),
                                      QMessageBox::StandardButton::Ok);
         }
+    } else if (choice == aDetachTab) {
+        auto mainWindow = KateApp::self()->newMainWindow();
+        mainWindow->viewManager()->openViewForDoc(doc);
+
+        // use single shot as this action can trigger deletion of this viewspace!
+        QTimer::singleShot(0, this, [this, idx]() {
+            closeTabRequest(idx);
+        });
     }
 }
 

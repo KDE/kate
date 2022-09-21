@@ -1662,19 +1662,44 @@ public:
         item->setData(static_cast<int>(kind), RangeData::KindRole);
     }
 
+    QString getProjectBaseDir()
+    {
+        QObject *project = m_mainWindow->pluginView(QStringLiteral("kateprojectplugin"));
+        if (project) {
+            return project->property("projectBaseDir").toString();
+        }
+
+        return {};
+    }
+
+    QString shortenPath(QString projectBaseDir, QString url)
+    {
+        if (!projectBaseDir.isEmpty() && url.startsWith(projectBaseDir)) {
+            QString res = url.mid(projectBaseDir.length());
+            if (res.startsWith(QLatin1Char('/'))) {
+                return res.mid(1);
+            }
+
+            return res;
+        }
+
+        return url;
+    }
+
     void makeTree(const QVector<RangeItem> &locations, const LSPClientRevisionSnapshot *snapshot)
     {
         // group by url, assuming input is suitably sorted that way
         auto treeModel = new QStandardItemModel();
         treeModel->setColumnCount(1);
 
+        QString baseDir = getProjectBaseDir();
         QUrl lastUrl;
         QStandardItem *parent = nullptr;
         for (const auto &loc : locations) {
             // ensure we create a parent, if not already there (bug 427270) or we have a different url
             if (!parent || loc.uri != lastUrl) {
                 if (parent) {
-                    parent->setText(QStringLiteral("%1: %2").arg(lastUrl.toLocalFile()).arg(parent->rowCount()));
+                    parent->setText(QStringLiteral("%1: %2").arg(shortenPath(baseDir, lastUrl.toLocalFile())).arg(parent->rowCount()));
                 }
                 lastUrl = loc.uri;
                 parent = new QStandardItem();
@@ -1687,7 +1712,7 @@ public:
             fillItemRoles(item, loc.uri, loc.range, loc.kind, snapshot);
         }
         if (parent) {
-            parent->setText(QStringLiteral("%1: %2").arg(lastUrl.toLocalFile()).arg(parent->rowCount()));
+            parent->setText(QStringLiteral("%1: %2").arg(shortenPath(baseDir, lastUrl.toLocalFile())).arg(parent->rowCount()));
         }
 
         // plain heuristic; mark for auto-expand all when safe and/or useful to do so

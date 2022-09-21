@@ -17,6 +17,7 @@
         "Description[uk]": "Запис і відтворення клавіатурних макросів (тобто послідовностей дій з клавіатури)",
         "Description[vi]": "Ghi và chạy vĩ lệnh bàn phím (chuỗi hành động bàn phím)",
         "Description[x-test]": "xxRecord and play keyboard macros (i.e., keyboard action sequences)xx",
+        "Description[zh_CN]": "录制并播放键盘宏 (即击键序列)",
         "Name": "Keyboard Macros",
         "Name[bg]": "Клавиатурни макроси",
         "Name[ca@valencia]": "Macros de teclat",
@@ -34,6 +35,7 @@
         "Name[tr]": "Klavye Makroları",
         "Name[uk]": "Клавіатурні макроси",
         "Name[vi]": "Vĩ lệnh bàn phím",
-        "Name[x-test]": "xxKeyboard Macrosxx"
+        "Name[x-test]": "xxKeyboard Macrosxx",
+        "Name[zh_CN]": "键盘宏"
     }
 }

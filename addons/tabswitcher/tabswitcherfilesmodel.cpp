@@ -98,6 +98,8 @@ void post_process(FilenameList &data)
         if (len > 0) { // only assign in case item.fullPath() is not empty
             // "PREFIXPATH/REMAININGPATH/BASENAME" --> "REMAININGPATH"
             item.displayPathPrefix = item.fullPath().mid(prefix_length, len);
+        } else {
+            item.displayPathPrefix.clear();
         }
     }
 }

@@ -1204,6 +1204,11 @@ void Sidebar::restoreSession(KConfigGroup &config)
 
 void Sidebar::saveSession(KConfigGroup &config)
 {
+    // Don't try to save a session while we are still in "session restore mode" BUG:459108
+    if (m_sessionRestoreRunning) {
+        return;
+    }
+
     config.writeEntry(QStringLiteral("Kate-MDI-Sidebar-%1-Splitter").arg(position()), sizes());
     config.writeEntry(QStringLiteral("Kate-MDI-Sidebar-%1-LastSize").arg(position()), m_lastSize);
 

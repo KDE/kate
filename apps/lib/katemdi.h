@@ -385,6 +385,7 @@ private:
     // Session restore only
     std::map<QString, int> m_tvIdToTabId;
     std::map<QString, int> m_tvIdToTabBar;
+    bool m_sessionRestoreRunning = false;
 
     int m_lastSize;
     int m_popupButton = 0;

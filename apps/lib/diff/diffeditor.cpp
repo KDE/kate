@@ -39,7 +39,8 @@ void DiffSyntaxHighlighter::highlightBlock(const QString &text)
     // when we encounter a hunk to avoid issues like everything
     // is commented because previous hunk ended with an unclosed
     // comment block
-    if (m_diffWidget->isHunk(currentBlock().blockNumber())) {
+    // do this only if not anyways first block, there user data is not existing
+    if (currentBlock().position() > 0 && m_diffWidget->isHunk(currentBlock().blockNumber())) {
         auto prevBlock = currentBlock().previous();
         const auto prevData = prevBlock.userData();
         delete prevData;

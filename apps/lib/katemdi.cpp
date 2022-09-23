@@ -1158,6 +1158,12 @@ void Sidebar::startRestoreSession(KConfigGroup &config)
 
 void Sidebar::restoreSession(KConfigGroup &config)
 {
+    // ensure we only run once and we don't start a saveSession in addition
+    if (m_sessionRestoreRunning) {
+        return;
+    }
+    m_sessionRestoreRunning = true;
+
     // show only correct toolviews ;)
     for (const auto &[id, tv] : m_idToWidget) {
         tabBar(tv)->setTabActive(id, config.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Visible").arg(tv->id), false));
@@ -1200,6 +1206,9 @@ void Sidebar::restoreSession(KConfigGroup &config)
     });
     // ...now we are ready to get the final splitter sizes by MainWindow::finishRestore
     updateSidebar();
+
+    // be done, e.g. saveSession is now allowed again
+    m_sessionRestoreRunning = false;
 }
 
 void Sidebar::saveSession(KConfigGroup &config)

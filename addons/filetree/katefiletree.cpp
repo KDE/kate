@@ -382,51 +382,57 @@ void KateFileTree::contextMenuEvent(QContextMenuEvent *event)
     m_customSorting->setChecked(sortRole == CustomSorting);
 
     KTextEditor::Document *doc = docFromIndex(m_indexContextMenu);
-    const bool isFile = (nullptr != doc);
+
+    bool isDir = m_proxyModel->isDir(m_indexContextMenu);
+    bool isWidgetDir = m_proxyModel->isWidgetDir(m_indexContextMenu);
+    bool isWidget = m_indexContextMenu.data(KateFileTreeModel::WidgetRole).value<QWidget *>() != nullptr;
 
     QMenu menu;
-    if (isFile) {
-        QMenu *openWithMenu = menu.addMenu(i18nc("@action:inmenu", "Open With"));
-        openWithMenu->setIcon(QIcon::fromTheme(QStringLiteral("system-run")));
-        connect(openWithMenu, &QMenu::aboutToShow, this, [this, openWithMenu]() {
-            slotFixOpenWithMenu(openWithMenu);
-        });
-        connect(openWithMenu, &QMenu::triggered, this, &KateFileTree::slotOpenWithMenuAction);
-
-        menu.addSeparator();
-        menu.addAction(m_filelistCopyFilename);
-        menu.addAction(m_filelistRenameFile);
-        menu.addAction(m_filelistDeleteDocument);
-        menu.addAction(m_filelistReloadDocument);
-
-        if (doc->url().isValid() && doc->url().isLocalFile()) {
-            auto a = menu.addAction(i18n("Show File Git History"));
-            connect(a, &QAction::triggered, this, [doc] {
-                auto url = doc->url();
-                if (url.isValid() && url.isLocalFile()) {
-                    FileHistory::showFileHistory(url.toLocalFile());
-                }
+    if (doc) {
+        if (doc->url().isValid()) {
+            QMenu *openWithMenu = menu.addMenu(i18nc("@action:inmenu", "Open With"));
+            openWithMenu->setIcon(QIcon::fromTheme(QStringLiteral("system-run")));
+            connect(openWithMenu, &QMenu::aboutToShow, this, [this, openWithMenu]() {
+                slotFixOpenWithMenu(openWithMenu);
             });
+            connect(openWithMenu, &QMenu::triggered, this, &KateFileTree::slotOpenWithMenuAction);
+
+            menu.addSeparator();
+            menu.addAction(m_filelistCopyFilename);
+            menu.addAction(m_filelistRenameFile);
+            menu.addAction(m_filelistDeleteDocument);
+            menu.addAction(m_filelistReloadDocument);
+
+            if (doc->url().isLocalFile()) {
+                auto a = menu.addAction(i18n("Show File Git History"));
+                connect(a, &QAction::triggered, this, [doc] {
+                    auto url = doc->url();
+                    if (url.isValid() && url.isLocalFile()) {
+                        FileHistory::showFileHistory(url.toLocalFile());
+                    }
+                });
+            }
+
+            menu.addSeparator();
+            menu.addAction(m_filelistOpenContainingFolder);
+
+            menu.addSeparator();
+            menu.addAction(m_filelistCloseDocument);
+            menu.addAction(m_filelistCloseOtherDocument);
+
+            menu.addSeparator();
+            menu.addAction(m_filelistPrintDocument);
+            menu.addAction(m_filelistPrintDocumentPreview);
+        } else {
+            // untitled documents
+            menu.addAction(m_filelistCloseDocument);
+
+            menu.addSeparator();
         }
-
-        menu.addSeparator();
-        menu.addAction(m_filelistOpenContainingFolder);
-
-        menu.addSeparator();
-        menu.addAction(m_filelistCloseDocument);
-        menu.addAction(m_filelistCloseOtherDocument);
-
-        menu.addSeparator();
-        menu.addAction(m_filelistPrintDocument);
-        menu.addAction(m_filelistPrintDocumentPreview);
-
-        const bool hasFileName = doc->url().isValid();
-        m_filelistOpenContainingFolder->setEnabled(hasFileName);
-        m_filelistCopyFilename->setEnabled(hasFileName);
-        m_filelistRenameFile->setEnabled(hasFileName);
-        m_filelistDeleteDocument->setEnabled(hasFileName);
-    } else {
-        menu.addAction(m_filelistReloadDocument);
+    } else if (isDir || isWidgetDir || isWidget) {
+        if (isDir) {
+            menu.addAction(m_filelistReloadDocument);
+        }
 
         menu.addSeparator();
         menu.addAction(m_filelistCloseDocument);

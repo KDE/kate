@@ -323,15 +323,13 @@ void KateFileTree::slotCurrentChanged(const QModelIndex &current, const QModelIn
     }
 }
 
-void KateFileTree::mouseClicked(const QModelIndex &index)
+void KateFileTree::closeClicked(const QModelIndex &index)
 {
-    const bool closeButtonClicked = m_hasCloseButton && index.column() == 1;
-
-    if (m_proxyModel->isDir(index) && closeButtonClicked) {
+    if (m_proxyModel->isDir(index)) {
         const QList<KTextEditor::Document *> list = m_proxyModel->docTreeFromIndex(index);
         closeDocs(list);
         return;
-    } else if (m_proxyModel->isWidgetDir(index) && closeButtonClicked) {
+    } else if (m_proxyModel->isWidgetDir(index)) {
         const auto idx = index.siblingAtColumn(0);
         const auto count = m_proxyModel->rowCount(idx);
         QWidgetList widgets;
@@ -346,17 +344,23 @@ void KateFileTree::mouseClicked(const QModelIndex &index)
     }
 
     if (auto *doc = m_proxyModel->docFromIndex(index)) {
-        if (closeButtonClicked) {
-            closeDocs({doc});
-            return;
-        }
+        closeDocs({doc});
+    } else if (auto *w = index.data(KateFileTreeModel::WidgetRole).value<QWidget *>()) {
+        Q_EMIT closeWidget(w);
+    }
+}
+
+void KateFileTree::mouseClicked(const QModelIndex &index)
+{
+    if (m_hasCloseButton && index.column() == 1) {
+        closeClicked(index);
+        return;
+    }
+
+    if (auto *doc = m_proxyModel->docFromIndex(index)) {
         Q_EMIT activateDocument(doc);
     } else if (auto *w = index.data(KateFileTreeModel::WidgetRole).value<QWidget *>()) {
-        if (closeButtonClicked) {
-            Q_EMIT closeWidget(w);
-        } else {
-            Q_EMIT activateWidget(w);
-        }
+        Q_EMIT activateWidget(w);
     }
 }
 
@@ -511,7 +515,7 @@ void KateFileTree::slotDocumentClose()
         return;
     }
     const auto closeColumnIndex = m_indexContextMenu.sibling(m_indexContextMenu.row(), 1);
-    mouseClicked(closeColumnIndex);
+    closeClicked(closeColumnIndex);
 }
 
 void KateFileTree::addChildrenTolist(const QModelIndex &index, QList<QPersistentModelIndex> *worklist)

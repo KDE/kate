@@ -82,6 +82,7 @@ private Q_SLOTS:
     void onRowsMoved(const QModelIndex &parent, int start, int end, const QModelIndex &destination, int row);
 
 private:
+    void closeClicked(const QModelIndex &index);
     void setupContextMenuActionGroups();
     using Func = void (KateFileTree::*)();
     QAction *setupOption(QActionGroup *group,

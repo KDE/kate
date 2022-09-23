@@ -41,10 +41,8 @@ void DiffSyntaxHighlighter::highlightBlock(const QString &text)
     // comment block
     // do this only if not anyways first block, there user data is not existing
     if (currentBlock().position() > 0 && m_diffWidget->isHunk(currentBlock().blockNumber())) {
-        auto prevBlock = currentBlock().previous();
-        const auto prevData = prevBlock.userData();
-        delete prevData;
-        prevBlock.setUserData(new QTextBlockUserData);
+        // ownership of the data is in the block, just reset it by assigning a new dummy data
+        currentBlock().previous().setUserData(new QTextBlockUserData);
     }
     KSyntaxHighlighting::SyntaxHighlighter::highlightBlock(text);
 }

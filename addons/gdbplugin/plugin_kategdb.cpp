@@ -471,7 +471,9 @@ void KatePluginGDBView::enableDebugActions(bool enable)
             m_inputArea->setFocus();
             m_focusOnInput = false;
         } else {
-            m_mainWin->activeView()->setFocus();
+            if (m_mainWin->activeView()) {
+                m_mainWin->activeView()->setFocus();
+            }
         }
     } else {
         m_inputArea->setFocusPolicy(Qt::NoFocus);

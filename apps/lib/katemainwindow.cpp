@@ -259,9 +259,7 @@ void KateMainWindow::setupImportantActions()
     a->setWhatsThis(i18n("Open a form to quick open documents."));
 
     // enable hamburger menu
-    auto hamburgerMenu = KStandardAction::hamburgerMenu(nullptr, nullptr, actionCollection());
-    QAction *const seperator = toolBar()->addSeparator();
-    toolBar()->insertAction(seperator, hamburgerMenu);
+    auto hamburgerMenu = static_cast<KHamburgerMenu *>(actionCollection()->addAction(KStandardAction::HamburgerMenu, QStringLiteral("hamburger_menu")));
     hamburgerMenu->setMenuBar(menuBar());
     hamburgerMenu->setShowMenuBarAction(m_paShowMenuBar);
 }

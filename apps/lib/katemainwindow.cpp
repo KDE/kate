@@ -64,6 +64,7 @@
 #include <QApplication>
 #include <QDir>
 #include <QFontDatabase>
+#include <QKeySequence>
 #include <QList>
 #include <QMenu>
 #include <QMenuBar>
@@ -397,6 +398,7 @@ void KateMainWindow::setupActions()
     a = actionCollection()->addAction(QStringLiteral("view_new_view"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("window-new")));
     a->setText(i18n("&New Window"));
+    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_N));
     connect(a, &QAction::triggered, this, &KateMainWindow::newWindow);
     a->setWhatsThis(i18n("Create a new window."));
 
@@ -490,6 +492,7 @@ void KateMainWindow::setupActions()
     a = actionCollection()->addAction(QStringLiteral("view_history_back"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("arrow-left")));
     a->setText(i18n("Go to Previous Location"));
+    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::Key_1));
     connect(a, &QAction::triggered, this, [this] {
         m_viewManager->activeViewSpace()->goBack();
     });
@@ -498,6 +501,7 @@ void KateMainWindow::setupActions()
     a = actionCollection()->addAction(QStringLiteral("view_history_forward"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("arrow-right")));
     a->setText(i18n("Go to Next Location"));
+    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_1));
     connect(a, &QAction::triggered, this, [this] {
         m_viewManager->activeViewSpace()->goForward();
     });

@@ -215,50 +215,60 @@ KatePluginGDBView::KatePluginGDBView(KTextEditor::Plugin *plugin, KTextEditor::M
     QAction *a = actionCollection()->addAction(QStringLiteral("debug"));
     a->setText(i18n("Start Debugging"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("debug-run")));
+    actionCollection()->setDefaultShortcut(a, QKeySequence((Qt::CTRL | Qt::Key_F7)));
     connect(a, &QAction::triggered, this, &KatePluginGDBView::slotDebug);
 
     a = actionCollection()->addAction(QStringLiteral("kill"));
     a->setText(i18n("Kill / Stop Debugging"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("media-playback-stop")));
+    actionCollection()->setDefaultShortcut(a, QKeySequence((Qt::ALT | Qt::Key_F7)));
     connect(a, &QAction::triggered, m_debugView, &DebugViewInterface::slotKill);
 
     a = actionCollection()->addAction(QStringLiteral("rerun"));
     a->setText(i18n("Restart Debugging"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("view-refresh")));
+    actionCollection()->setDefaultShortcut(a, QKeySequence((Qt::CTRL | Qt::SHIFT | Qt::Key_F7)));
     connect(a, &QAction::triggered, this, &KatePluginGDBView::slotRestart);
 
     a = actionCollection()->addAction(QStringLiteral("toggle_breakpoint"));
     a->setText(i18n("Toggle Breakpoint / Break"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("media-playback-pause")));
+    actionCollection()->setDefaultShortcut(a, QKeySequence((Qt::SHIFT | Qt::Key_F11)));
     connect(a, &QAction::triggered, this, &KatePluginGDBView::slotToggleBreakpoint);
 
     a = actionCollection()->addAction(QStringLiteral("step_in"));
     a->setText(i18n("Step In"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("debug-step-into")));
+    actionCollection()->setDefaultShortcut(a, QKeySequence((Qt::Key_F10)));
     connect(a, &QAction::triggered, m_debugView, &DebugViewInterface::slotStepInto);
 
     a = actionCollection()->addAction(QStringLiteral("step_over"));
     a->setText(i18n("Step Over"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("debug-step-over")));
+    actionCollection()->setDefaultShortcut(a, QKeySequence((Qt::Key_F9)));
     connect(a, &QAction::triggered, m_debugView, &DebugViewInterface::slotStepOver);
 
     a = actionCollection()->addAction(QStringLiteral("step_out"));
     a->setText(i18n("Step Out"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("debug-step-out")));
+    actionCollection()->setDefaultShortcut(a, QKeySequence((Qt::SHIFT | Qt::Key_F10)));
     connect(a, &QAction::triggered, m_debugView, &DebugViewInterface::slotStepOut);
 
     a = actionCollection()->addAction(QStringLiteral("move_pc"));
     a->setText(i18nc("Move Program Counter (next execution)", "Move PC"));
     connect(a, &QAction::triggered, this, &KatePluginGDBView::slotMovePC);
+    actionCollection()->setDefaultShortcut(a, QKeySequence((Qt::ALT | Qt::Key_F9)));
 
     a = actionCollection()->addAction(QStringLiteral("run_to_cursor"));
     a->setText(i18n("Run To Cursor"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("debug-run-cursor")));
+    actionCollection()->setDefaultShortcut(a, QKeySequence((Qt::SHIFT | Qt::Key_F9)));
     connect(a, &QAction::triggered, this, &KatePluginGDBView::slotRunToCursor);
 
     a = actionCollection()->addAction(QStringLiteral("continue"));
     a->setText(i18n("Continue"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("media-playback-start")));
+    actionCollection()->setDefaultShortcut(a, QKeySequence((Qt::CTRL | Qt::Key_F7)));
     connect(a, &QAction::triggered, m_debugView, &DebugViewInterface::slotContinue);
 
     a = actionCollection()->addAction(QStringLiteral("print_value"));

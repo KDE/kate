@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
-<gui name="kate" version="98" translationDomain="kate">
+<gui name="kate" version="99" translationDomain="kate">
   <MenuBar>
     <Menu name="file" noMerge="1">
       <text>&amp;File</text>
@@ -143,8 +143,6 @@
     <DefineGroup name="file_operations"/>
     <Separator/>
     <DefineGroup name="print_merge"/>
-    <Separator/>
-    <Action name="file_close"/>
     <Separator/>
     <DefineGroup name="edit_operations"/>
     <Separator/>

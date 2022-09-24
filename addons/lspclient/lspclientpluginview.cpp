@@ -50,6 +50,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QKeyEvent>
+#include <QKeySequence>
 #include <QMenu>
 #include <QPainter>
 #include <QPlainTextEdit>
@@ -620,6 +621,7 @@ public:
             format();
         });
         m_triggerFormat->setText(i18n("Format"));
+        actionCollection()->setDefaultShortcut(m_triggerFormat, QKeySequence(QStringLiteral("Ctrl+T, F"), QKeySequence::PortableText));
         m_triggerRename = actionCollection()->addAction(QStringLiteral("lspclient_rename"), this, &self_type::rename);
         m_triggerRename->setText(i18n("Rename"));
 #if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5, 95, 0)

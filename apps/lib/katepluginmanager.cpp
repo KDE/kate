@@ -305,11 +305,6 @@ KTextEditor::Plugin *KatePluginManager::plugin(const QString &name)
     return (it == m_name2Plugin.end()) ? nullptr : it.value()->plugin;
 }
 
-bool KatePluginManager::pluginAvailable(const QString &name)
-{
-    return m_name2Plugin.contains(name);
-}
-
 class KTextEditor::Plugin *KatePluginManager::loadPlugin(const QString &name, bool permanent)
 {
     /**

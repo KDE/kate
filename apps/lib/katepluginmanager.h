@@ -66,7 +66,6 @@ public:
     }
 
     KTextEditor::Plugin *plugin(const QString &name);
-    bool pluginAvailable(const QString &name);
 
     KTextEditor::Plugin *loadPlugin(const QString &name, bool permanent = true);
     void unloadPlugin(const QString &name, bool permanent = true);

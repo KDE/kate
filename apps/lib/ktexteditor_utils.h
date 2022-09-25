@@ -78,4 +78,14 @@ KATE_PRIVATE_EXPORT void showDiff(const QByteArray &diff, const DiffParams &para
 
 KATE_PRIVATE_EXPORT void addWidget(QWidget *widget, KTextEditor::MainWindow *mainWindow);
 /*** END KTextEditor::MainWindow extensions **/
+
+/**
+ * Returns project base dir for provided document
+ */
+KATE_PRIVATE_EXPORT QString projectBaseDirForDocument(KTextEditor::Document *doc);
+
+/**
+ * Returns project map for provided document
+ */
+KATE_PRIVATE_EXPORT QVariantMap projectMapForDocument(KTextEditor::Document *doc);
 }

@@ -171,4 +171,22 @@ void addWidget(QWidget *widget, KTextEditor::MainWindow *mainWindow)
         kmw->addWidget(widget);
     }
 }
+
+QString projectBaseDirForDocument(KTextEditor::Document *doc)
+{
+    QString baseDir;
+    if (QObject *plugin = KTextEditor::Editor::instance()->application()->plugin(QStringLiteral("kateprojectplugin"))) {
+        QMetaObject::invokeMethod(plugin, "projectBaseDirForDocument", Q_RETURN_ARG(QString, baseDir), Q_ARG(KTextEditor::Document *, doc));
+    }
+    return baseDir;
+}
+
+QVariantMap projectMapForDocument(KTextEditor::Document *doc)
+{
+    QVariantMap projectMap;
+    if (QObject *plugin = KTextEditor::Editor::instance()->application()->plugin(QStringLiteral("kateprojectplugin"))) {
+        QMetaObject::invokeMethod(plugin, "projectMapForDocument", Q_RETURN_ARG(QVariantMap, projectMap), Q_ARG(KTextEditor::Document *, doc));
+    }
+    return projectMap;
+}
 }

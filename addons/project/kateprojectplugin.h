@@ -167,6 +167,16 @@ public:
 
     void sendMessage(const QString &text, bool error);
 
+    /**
+     * Returns project base dir for provided document
+     */
+    Q_INVOKABLE QString projectBaseDirForDocument(KTextEditor::Document *doc);
+
+    /**
+     * Returns project map for provided document
+     */
+    Q_INVOKABLE QVariantMap projectMapForDocument(KTextEditor::Document *doc);
+
 Q_SIGNALS:
 
     /**

@@ -6,6 +6,7 @@
 #include "kateurlbar.h"
 #include "kateapp.h"
 #include "kateviewmanager.h"
+#include "ktexteditor_utils.h"
 
 #include <KTextEditor/Document>
 #include <KTextEditor/View>
@@ -1011,13 +1012,9 @@ public:
         }
     }
 
-    void setUrl(const QUrl &url)
+    void setUrl(KTextEditor::Document *doc)
     {
-        QObject *project = m_urlBar->viewManager()->mainWindow()->pluginView(QStringLiteral("kateprojectplugin"));
-        QString baseDir;
-        if (project) {
-            QMetaObject::invokeMethod(project, "projectBaseDirForUrl", Q_RETURN_ARG(QString, baseDir), Q_ARG(QUrl, url));
-        }
+        const QString baseDir = Utils::projectBaseDirForDocument(doc);
 
         m_currBaseDir = baseDir;
         if (m_currBaseDir.isEmpty()) {
@@ -1026,7 +1023,7 @@ public:
         } else {
             m_ellipses->show();
         }
-        m_mainCrumbView->setUrl(baseDir, url);
+        m_mainCrumbView->setUrl(baseDir, doc->url());
     }
 
     QPixmap separatorPixmap()
@@ -1208,7 +1205,7 @@ void KateUrlBar::updateForDocument(KTextEditor::Document *doc)
         return;
     }
 
-    m_urlBarView->setUrl(doc->url());
+    m_urlBarView->setUrl(doc);
 }
 
 #include "kateurlbar.moc"

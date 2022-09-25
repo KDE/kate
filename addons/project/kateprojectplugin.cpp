@@ -710,3 +710,23 @@ void KateProjectPlugin::sendMessage(const QString &text, bool error)
     genericMessage.insert(QStringLiteral("text"), text);
     Utils::showMessage(genericMessage);
 }
+
+QString KateProjectPlugin::projectBaseDirForDocument(KTextEditor::Document *doc)
+{
+    // quick lookup first, then search
+    auto project = projectForDocument(doc);
+    if (!project) {
+        project = projectForUrl(doc->url());
+    }
+    return project ? project->baseDir() : QString();
+}
+
+QVariantMap KateProjectPlugin::projectMapForDocument(KTextEditor::Document *doc)
+{
+    // quick lookup first, then search
+    auto project = projectForDocument(doc);
+    if (!project) {
+        project = projectForUrl(doc->url());
+    }
+    return project ? project->projectMap() : QVariantMap();
+}

@@ -301,17 +301,8 @@ void KatePluginManager::disablePluginGUI(KatePluginInfo *item)
 
 KTextEditor::Plugin *KatePluginManager::plugin(const QString &name)
 {
-    /**
-     * name known?
-     */
-    if (!m_name2Plugin.contains(name)) {
-        return nullptr;
-    }
-
-    /**
-     * real plugin instance, if any ;)
-     */
-    return m_name2Plugin.value(name)->plugin;
+    const auto it = m_name2Plugin.find(name);
+    return (it == m_name2Plugin.end()) ? nullptr : it.value()->plugin;
 }
 
 bool KatePluginManager::pluginAvailable(const QString &name)

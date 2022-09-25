@@ -5,9 +5,11 @@
 
 #include <QStandardPaths>
 
-#include <KProcess>
-#include <KSandbox>
 #include <kcoreaddons_version.h>
+#if KCOREADDONS_VERSION >= QT_VERSION_CHECK(5, 97, 0)
+#include <KSandbox>
+#endif
+#include <KProcess>
 
 QString safeExecutableName(const QString &executableName, const QStringList &paths)
 {

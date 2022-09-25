@@ -96,8 +96,8 @@ protected:
         }
 
         if (res) {
-            // +1 point for opened files
-            score += (sm->isOpened(sourceRow));
+            // extra points for opened files
+            score += (sm->isOpened(sourceRow)) * (score / 8);
 
             // extra points if file exists in project root
             // This gives priority to the files at the root

@@ -11,6 +11,7 @@
 #include "lspclientservermanager.h"
 
 #include "hostprocess.h"
+#include "ktexteditor_utils.h"
 #include "lspclient_debug.h"
 
 #include <KLocalizedString>
@@ -559,11 +560,9 @@ private:
             return nullptr;
         }
 
-        // use mainwindow of specified view
-        QObject *projectView = projectPluginView(view->mainWindow());
-        // preserve raw QString value so it can be used and tested that way below
-        const auto projectBase = projectView ? projectView->property("projectBaseDir").toString() : QString();
-        const auto &projectMap = projectView ? projectView->property("projectMap").toMap() : QVariantMap();
+        // get project plugin infos if available
+        const auto projectBase = Utils::projectBaseDirForDocument(document);
+        const auto projectMap = Utils::projectMapForDocument(document);
 
         // merge with project specific
         auto projectConfig = QJsonDocument::fromVariant(projectMap).object().value(QStringLiteral("lspclient")).toObject();

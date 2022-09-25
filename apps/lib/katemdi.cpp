@@ -1135,6 +1135,12 @@ void Sidebar::updateLastSize()
 
 void Sidebar::startRestoreSession(KConfigGroup &config)
 {
+    // ensure we only run once and we don't start a saveSession in addition
+    if (m_sessionRestoreRunning) {
+        return;
+    }
+    m_sessionRestoreRunning = true;
+
     // Using splitter data avoid to store tabBarCount explicit ;-)
     QList<int> s = config.readEntry(QStringLiteral("Kate-MDI-Sidebar-%1-Splitter").arg(position()), QList<int>());
     // Notice the start value of 1, only add extra tab bars
@@ -1158,11 +1164,10 @@ void Sidebar::startRestoreSession(KConfigGroup &config)
 
 void Sidebar::restoreSession(KConfigGroup &config)
 {
-    // ensure we only run once and we don't start a saveSession in addition
-    if (m_sessionRestoreRunning) {
+    // Only continue when restore was started properly
+    if (!m_sessionRestoreRunning) {
         return;
     }
-    m_sessionRestoreRunning = true;
 
     // show only correct toolviews ;)
     for (const auto &[id, tv] : m_idToWidget) {

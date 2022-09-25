@@ -91,6 +91,10 @@ static void getSavedRangesForDoc(std::vector<RainbowParenPluginView::SavedRanges
 
 void RainbowParenPluginView::viewChanged(KTextEditor::View *view)
 {
+    if (!view) {
+        return;
+    }
+
     // disconnect and clear previous doc stuff
     if (m_activeView) {
         disconnect(m_activeView, &KTextEditor::View::verticalScrollPositionChanged, this, &RainbowParenPluginView::rehighlight);

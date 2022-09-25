@@ -1666,7 +1666,12 @@ public:
     {
         QObject *project = m_mainWindow->pluginView(QStringLiteral("kateprojectplugin"));
         if (project) {
-            return project->property("projectBaseDir").toString();
+            auto baseDir = project->property("projectBaseDir").toString();
+            if (!baseDir.endsWith(QLatin1Char('/'))) {
+                return baseDir + QLatin1Char('/');
+            }
+
+            return baseDir;
         }
 
         return {};
@@ -1675,12 +1680,7 @@ public:
     QString shortenPath(QString projectBaseDir, QString url)
     {
         if (!projectBaseDir.isEmpty() && url.startsWith(projectBaseDir)) {
-            QString res = url.mid(projectBaseDir.length());
-            if (res.startsWith(QLatin1Char('/'))) {
-                return res.mid(1);
-            }
-
-            return res;
+            return url.mid(projectBaseDir.length());
         }
 
         return url;

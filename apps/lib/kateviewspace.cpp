@@ -384,6 +384,18 @@ void KateViewSpace::removeView(KTextEditor::View *v)
             m_viewManager->activateView(m_tabBar->tabDocument(idx));
         }
     }
+
+    // Did we just loose our last doc?
+    // Send a delayed signal. Delay is important as we want to kill
+    // the viewspace after the view transfer was done
+    if (m_tabBar->count() == 0 && m_registeredDocuments.empty()) {
+        QMetaObject::invokeMethod(
+            this,
+            [this] {
+                Q_EMIT viewSpaceEmptied(this);
+            },
+            Qt::QueuedConnection);
+    }
 }
 
 bool KateViewSpace::showView(KTextEditor::Document *document)
@@ -563,13 +575,6 @@ void KateViewSpace::closeDocument(KTextEditor::Document *doc)
             // Just remove the document
             documentDestroyed(doc);
         }
-    }
-
-    /**
-     * if this was the last doc, let viewManager know we are empty
-     */
-    if (m_registeredDocuments.isEmpty() && m_tabBar->count() == 0) {
-        Q_EMIT viewSpaceEmptied(this);
     }
 }
 

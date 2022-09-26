@@ -9,6 +9,7 @@
 #include "katesessionmanager.h"
 #include "katesessionsaction.h"
 
+#include <QActionGroup>
 #include <QCommandLineParser>
 #include <QSignalSpy>
 #include <QTemporaryDir>

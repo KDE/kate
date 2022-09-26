@@ -5,7 +5,6 @@
 */
 #include "gotoglobalsymbolmodel.h"
 
-#include <QFileInfo>
 #include <QIcon>
 
 GotoGlobalSymbolModel::GotoGlobalSymbolModel(QObject *parent)

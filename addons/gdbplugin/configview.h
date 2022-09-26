@@ -29,8 +29,6 @@
 #include <optional>
 #include <utility>
 
-#include <QList>
-
 #include <KActionCollection>
 #include <KConfigGroup>
 #include <KSelectAction>

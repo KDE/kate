@@ -5,9 +5,7 @@
 */
 #include "branchesdialogmodel.h"
 
-#include <KTextEditor/Document>
-#include <KTextEditor/View>
-
+#include <QFont>
 #include <QIcon>
 
 BranchesDialogModel::BranchesDialogModel(QObject *parent)

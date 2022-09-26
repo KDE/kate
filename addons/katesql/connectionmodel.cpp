@@ -11,7 +11,6 @@
 #include <QFontDatabase>
 #include <QFontMetrics>
 #include <QSize>
-#include <QStringList>
 #include <QVariant>
 
 ConnectionModel::ConnectionModel(QObject *parent)

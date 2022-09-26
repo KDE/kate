@@ -16,7 +16,6 @@
 #include "kateprivate_export.h"
 #include "katetabbar.h"
 
-#include <QHash>
 #include <QWidget>
 
 class KConfigBase;

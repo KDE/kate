@@ -10,7 +10,6 @@
 #ifndef KATE_BOOKMARK_HANDLER_H
 #define KATE_BOOKMARK_HANDLER_H
 
-#include <KBookmarkManager>
 #include <KBookmarkMenu>
 #include <KBookmarkOwner>
 

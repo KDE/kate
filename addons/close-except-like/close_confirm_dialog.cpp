@@ -30,9 +30,8 @@
 #include <KConfigGroup>
 #include <KLocalizedString> /// \todo Where is \c i18n() defined?
 #include <KSharedConfig>
-#include <QBoxLayout>
+#include <KWindowConfig>
 #include <QHeaderView>
-#include <QLabel>
 #include <QPushButton>
 #include <QStyle>
 

@@ -8,7 +8,6 @@
 
 #include <QObject>
 #include <QTemporaryDir>
-#include <QTemporaryFile>
 
 #include <memory>
 

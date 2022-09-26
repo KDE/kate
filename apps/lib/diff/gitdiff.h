@@ -8,9 +8,7 @@
 #ifndef KDEVPLATFORM_VCSDIFF_H
 #define KDEVPLATFORM_VCSDIFF_H
 
-#include <QMetaType>
 #include <QVector>
-#include <QtGlobal>
 #include <memory>
 
 class QUrl;

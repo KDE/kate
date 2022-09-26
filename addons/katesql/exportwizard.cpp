@@ -16,7 +16,6 @@
 #include <QGridLayout>
 #include <QGroupBox>
 #include <QLabel>
-#include <QLayout>
 #include <QRadioButton>
 
 // BEGIN ExportWizard

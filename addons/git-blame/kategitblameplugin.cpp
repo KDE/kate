@@ -14,7 +14,6 @@
 #include <algorithm>
 
 #include <KActionCollection>
-#include <KConfigGroup>
 #include <KLocalizedString>
 #include <KPluginFactory>
 #include <KSharedConfig>

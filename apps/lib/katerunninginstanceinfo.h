@@ -9,7 +9,6 @@
 
 #include <QDBusConnection>
 #include <QDBusInterface>
-#include <QMap>
 #include <QVariant>
 #include <iostream>
 #include <memory>

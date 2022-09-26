@@ -23,9 +23,7 @@
 #include <KTextEditor/View>
 
 #include <QDir>
-#include <QEventLoop>
 #include <QFileInfo>
-#include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonParseError>

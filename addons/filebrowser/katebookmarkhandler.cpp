@@ -11,6 +11,7 @@
 #include "katefilebrowser.h"
 
 #include <KActionCollection>
+#include <KBookmarkManager>
 #include <KDirOperator>
 
 #include <QMenu>

@@ -24,7 +24,6 @@
 #include <QContextMenuEvent>
 #include <QMenu>
 #include <QSortFilterProxyModel>
-#include <QTimer>
 
 class SnippetFilterModel : public QSortFilterProxyModel
 {

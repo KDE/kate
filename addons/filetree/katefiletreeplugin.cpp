@@ -15,7 +15,6 @@
 #include <ktexteditor/application.h>
 #include <ktexteditor/view.h>
 
-#include <KAboutData>
 #include <KActionCollection>
 #include <KConfigGroup>
 #include <KLocalizedString>
@@ -24,7 +23,6 @@
 #include <KXmlGuiWindow>
 
 #include <QAction>
-#include <QApplication>
 #include <QLayout>
 #include <QLineEdit>
 #include <QStyle>

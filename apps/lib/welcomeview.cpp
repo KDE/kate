@@ -6,7 +6,6 @@
 
 #include "welcomeview.h"
 
-#include <KConfigGroup>
 #include <KIconLoader>
 #include <KSharedConfig>
 
@@ -17,7 +16,6 @@
 #include <QGraphicsOpacityEffect>
 #include <QGuiApplication>
 #include <QMenu>
-#include <QResizeEvent>
 #include <QStyledItemDelegate>
 #include <QVBoxLayout>
 

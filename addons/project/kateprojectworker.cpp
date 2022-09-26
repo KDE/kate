@@ -18,10 +18,8 @@
 #include <QProcess>
 #include <QRegularExpression>
 #include <QSet>
-#include <QSettings>
 #include <QStandardPaths>
 #include <QThread>
-#include <QTime>
 #include <QtConcurrent>
 
 #include <algorithm>

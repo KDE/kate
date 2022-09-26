@@ -8,24 +8,10 @@
 #include "gitwidget.h"
 #include "kateprojectpluginview.h"
 
-#include <QCoreApplication>
-#include <QFileInfo>
-#include <QKeyEvent>
-#include <QLineEdit>
-#include <QPainter>
 #include <QProcess>
-#include <QSortFilterProxyModel>
-#include <QStandardItemModel>
-#include <QStyledItemDelegate>
-#include <QTemporaryFile>
-#include <QTextDocument>
 #include <QTreeView>
-#include <QVBoxLayout>
 #include <QWidget>
-#include <QtConcurrentRun>
 
-#include <KTextEditor/MainWindow>
-#include <KTextEditor/Message>
 #include <KTextEditor/View>
 
 #include <KLocalizedString>

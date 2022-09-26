@@ -10,7 +10,6 @@
 #include <QBrush>
 #include <QFont>
 #include <QMetaType>
-#include <QString>
 
 struct OutputStyle {
     QFont font;

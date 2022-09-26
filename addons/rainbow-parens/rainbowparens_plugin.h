@@ -15,7 +15,6 @@
 #include <KXMLGUIClient>
 
 #include <QPointer>
-#include <QVariantList>
 
 #include <array>
 

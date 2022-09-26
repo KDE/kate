@@ -23,20 +23,15 @@
 
 #include <KColorScheme>
 #include <QContextMenuEvent>
-#include <QCoreApplication>
-#include <QDebug>
 #include <QDialog>
 #include <QEvent>
-#include <QFileInfo>
 #include <QHeaderView>
 #include <QInputMethodEvent>
 #include <QLineEdit>
 #include <QMap>
 #include <QMenu>
 #include <QPainter>
-#include <QPlainTextEdit>
 #include <QPushButton>
-#include <QStringListModel>
 #include <QStyledItemDelegate>
 #include <QToolButton>
 #include <QTreeView>
@@ -49,8 +44,6 @@
 
 #include <KSyntaxHighlighting/Definition>
 #include <KSyntaxHighlighting/Repository>
-#include <KTextEditor/Application>
-#include <KTextEditor/ConfigInterface>
 #include <KTextEditor/Editor>
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/Message>

@@ -9,9 +9,7 @@
 #include <QHash>
 #include <QJsonValue>
 #include <QList>
-#include <QObject>
 #include <QString>
-#include <QVariant>
 #include <optional>
 #include <utility>
 

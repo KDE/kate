@@ -24,11 +24,9 @@
 #include <QDropEvent>
 #include <QEvent>
 #include <QHash>
-#include <QModelIndex>
 #include <QStackedLayout>
 #include <QStackedWidget>
 #include <QUrl>
-#include <QVBoxLayout>
 
 class QMenu;
 

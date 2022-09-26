@@ -8,7 +8,6 @@
 #include "hostprocess.h"
 
 #include <KLocalizedString>
-#include <QDebug>
 #include <QProcess>
 #include <QStandardPaths>
 

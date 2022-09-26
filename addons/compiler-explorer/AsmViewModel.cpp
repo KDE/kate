@@ -1,8 +1,6 @@
 #include "AsmViewModel.h"
 
 #include <QColor>
-#include <QDebug>
-#include <QFontDatabase>
 
 AsmViewModel::AsmViewModel(QObject *parent)
     : QAbstractTableModel(parent)

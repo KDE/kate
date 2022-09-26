@@ -13,6 +13,7 @@
 #include "dap/entities.h"
 #include "hostprocess.h"
 
+#include <QDir>
 #include <QFile>
 #include <QFileInfo>
 #include <QRegularExpression>
@@ -21,7 +22,6 @@
 
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <KUrlRequester>
 
 #include <signal.h>
 #include <stdlib.h>

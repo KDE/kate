@@ -4,7 +4,6 @@
 */
 
 #include "diffeditor.h"
-#include <QPlainTextEdit>
 #include <QWidget>
 
 #include <KTextEditor/Document>

@@ -9,7 +9,6 @@
 #include "katesessionmanager.h"
 
 #include <KConfig>
-#include <KConfigGroup>
 
 #include <QCommandLineParser>
 #include <QTemporaryDir>

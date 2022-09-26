@@ -13,7 +13,6 @@
 #include <KTextEditor/Document>
 #include <KTextEditor/Editor>
 #include <KTextEditor/Plugin>
-#include <KTextEditor/View>
 
 #include <KPageDialog>
 

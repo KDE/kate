@@ -12,8 +12,6 @@
 
 #include <QPushButton>
 #include <QStandardPaths>
-#include <QTemporaryFile>
-#include <QtGlobal>
 
 #include <KLocalizedString>
 #include <KXMLGUIFactory>
@@ -23,11 +21,8 @@
 #include <QFileInfo>
 #include <QFormLayout>
 #include <QListWidget>
-#include <QLocale>
 #include <QMessageBox>
-#include <QVBoxLayout>
 
-#include <KAboutData>
 #include <KActionCollection>
 #include <KConfigGroup>
 #include <KSharedConfig>

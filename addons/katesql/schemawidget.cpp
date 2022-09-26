@@ -15,7 +15,6 @@
 
 #include <QApplication>
 #include <QDrag>
-#include <QEvent>
 #include <QMenu>
 #include <QMimeData>
 #include <QMouseEvent>
@@ -24,7 +23,6 @@
 #include <QSqlIndex>
 #include <QSqlRecord>
 #include <QStringList>
-#include <QVariant>
 
 SchemaWidget::SchemaWidget(QWidget *parent, SQLManager *manager)
     : QTreeWidget(parent)

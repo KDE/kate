@@ -9,7 +9,6 @@
 
 #include "gitblametooltip.h"
 
-#include <KTextEditor/ConfigPage>
 #include <KTextEditor/InlineNoteProvider>
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/Plugin>
@@ -21,7 +20,6 @@
 #include <QList>
 #include <QLocale>
 #include <QPointer>
-#include <QRegularExpression>
 #include <QTimer>
 #include <QVariant>
 #include <QVector>

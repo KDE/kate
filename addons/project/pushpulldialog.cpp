@@ -6,11 +6,9 @@
 #include "pushpulldialog.h"
 
 #include <QProcess>
-#include <QStandardItemModel>
 
 #include <KConfigGroup>
 #include <KSharedConfig>
-#include <KTextEditor/ConfigInterface>
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/View>
 

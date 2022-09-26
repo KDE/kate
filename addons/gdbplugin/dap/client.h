@@ -10,7 +10,6 @@
 #include <QHash>
 #include <QJsonObject>
 #include <QObject>
-#include <QSet>
 #include <functional>
 #include <memory>
 #include <optional>

@@ -9,22 +9,16 @@
 #include "kateexternaltool.h"
 
 #include <KLineEdit>
-#include <KTextEditor/Document>
 #include <KTextEditor/Editor>
 #include <KTextEditor/View>
 #include <ktexteditor_version.h>
 
 #include <KConfig>
 #include <KConfigGroup>
-#include <KIconButton>
 #include <KIconLoader>
 #include <KMimeTypeChooser>
 #include <KSharedConfig>
-#include <KXMLGUIFactory>
-#include <KXmlGuiWindow>
 #include <QBitmap>
-#include <QComboBox>
-#include <QListView>
 #include <QMenu>
 #include <QMessageBox>
 #include <QRegularExpression>

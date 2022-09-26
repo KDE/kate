@@ -8,13 +8,11 @@
 
 #include <gitprocess.h>
 
-#include <QDebug>
 #include <QDir>
 #include <QMimeDatabase>
 #include <QPainter>
 #include <QProcess>
 #include <QStyledItemDelegate>
-#include <QUrl>
 #include <QVBoxLayout>
 
 #include <KColorScheme>

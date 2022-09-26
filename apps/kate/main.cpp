@@ -18,18 +18,14 @@
 #include <algorithm>
 
 #include <QApplication>
-#include <QByteArray>
 #include <QCommandLineParser>
-#include <QDBusInterface>
 #include <QDBusMessage>
 #include <QDBusReply>
-#include <QDir>
 #include <QJsonDocument>
 #include <QRegularExpression>
 #include <QSessionManager>
 #include <QStandardPaths>
 #include <QTextCodec>
-#include <QUrl>
 #include <QVariant>
 
 #include <qglobal.h>

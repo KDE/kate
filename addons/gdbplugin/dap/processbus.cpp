@@ -3,9 +3,6 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#include <QDebug>
-#include <QJsonArray>
-#include <QJsonObject>
 #include <QString>
 #include <QTextCodec>
 

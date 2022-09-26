@@ -10,7 +10,6 @@
 
 #include <QCommandLineParser>
 #include <QPointer>
-#include <QSignalSpy>
 #include <QTest>
 
 QTEST_MAIN(KateViewManagementTests)

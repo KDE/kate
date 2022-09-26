@@ -9,7 +9,6 @@
 
 #include "btparser.h"
 
-#include <KAboutData>
 #include <KConfigGroup>
 #include <KLineEdit>
 #include <KLocalizedString> // i18n
@@ -18,7 +17,6 @@
 #include <ktexteditor/view.h>
 
 #include <QClipboard>
-#include <QDataStream>
 #include <QDialogButtonBox>
 #include <QDir>
 #include <QFile>

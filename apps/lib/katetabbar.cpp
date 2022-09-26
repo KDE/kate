@@ -13,11 +13,7 @@
 #include <QApplication>
 #include <QDataStream>
 #include <QDrag>
-#include <QIcon>
-#include <QMimeData>
-#include <QPainter>
 #include <QPixmap>
-#include <QResizeEvent>
 #include <QStyleOptionTab>
 #include <QStylePainter>
 #include <QWheelEvent>

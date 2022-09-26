@@ -19,7 +19,6 @@
 
 #include <QFile>
 #include <QFileInfo>
-#include <QMetaObject>
 
 #include <ktexteditor/sessionconfiginterface.h>
 

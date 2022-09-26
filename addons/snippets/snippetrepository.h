@@ -12,7 +12,6 @@
 #define __SNIPPETREPOSITORY_H__
 
 #include <QDir>
-#include <QObject>
 #include <QStandardItem>
 #include <QStringList>
 

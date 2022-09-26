@@ -14,7 +14,6 @@
 #include "ktexteditor/editor.h"
 #include "ktexteditor/mainwindow.h"
 
-#include <KActionCollection>
 #include <KColorScheme>
 #include <KLocalizedString>
 

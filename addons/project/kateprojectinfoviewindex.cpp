@@ -15,8 +15,6 @@
 #include <QAction>
 #include <QVBoxLayout>
 
-#include <KTextEditor/MainWindow>
-
 KateProjectInfoViewIndex::KateProjectInfoViewIndex(KateProjectPluginView *pluginView, KateProject *project, QWidget *parent)
     : QWidget(parent)
     , m_pluginView(pluginView)

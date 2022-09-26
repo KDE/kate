@@ -15,25 +15,16 @@
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
 
-#include <KAboutData>
-#include <KActionCollection>
-#include <KConfigGroup>
 #include <KLocalizedString>
 #include <KPluginFactory>
 #include <KSharedConfig>
 
-#include <QBoxLayout>
 #include <QCoreApplication>
 #include <QEvent>
-#include <QFileInfo>
-#include <QHeaderView>
-#include <QLabel>
 #include <QPainter>
 #include <QPointer>
 #include <QSortFilterProxyModel>
-#include <QStandardItemModel>
 #include <QStyledItemDelegate>
-#include <QTextDocument>
 #include <QTreeView>
 
 #include <drawing_utils.h>

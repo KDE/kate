@@ -19,7 +19,6 @@
 #include <ktexteditor/editor.h>
 #include <ktexteditor/message.h>
 
-#include <KLineEdit>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <QAction>

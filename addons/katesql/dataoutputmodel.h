@@ -11,9 +11,6 @@ struct OutputStyle;
 
 #include "cachedsqlquerymodel.h"
 
-#include <QColor>
-#include <QFont>
-
 /// provide colors and styles
 class DataOutputModel : public CachedSqlQueryModel
 {

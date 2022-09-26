@@ -9,7 +9,6 @@
 #include "tags.h"
 
 #include <QAbstractTableModel>
-#include <QPair>
 
 class GotoGlobalSymbolModel : public QAbstractTableModel
 {

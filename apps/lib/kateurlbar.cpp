@@ -11,13 +11,10 @@
 #include <KTextEditor/Document>
 #include <KTextEditor/View>
 
-#include <KAcceleratorManager>
-#include <KActionCollection>
 #include <KColorScheme>
 #include <KLocalizedString>
 
 #include <QAbstractListModel>
-#include <QAction>
 #include <QApplication>
 #include <QDir>
 #include <QHBoxLayout>

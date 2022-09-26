@@ -12,13 +12,10 @@
 #include "katedocmanager.h"
 #include "katemainwindow.h"
 
-#include <KIO/OpenUrlJob>
-
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KProcess>
 
-#include <QDir>
 #include <QHeaderView>
 #include <QLabel>
 #include <QPushButton>

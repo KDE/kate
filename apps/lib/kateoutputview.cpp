@@ -12,7 +12,6 @@
 #include <KLocalizedString>
 #include <KSharedConfig>
 
-#include <KTextEditor/ConfigInterface>
 #include <KTextEditor/Editor>
 
 #include <QClipboard>
@@ -21,8 +20,6 @@
 #include <QMenu>
 #include <QPainter>
 #include <QSortFilterProxyModel>
-#include <QTextDocument>
-#include <QTimer>
 #include <QToolButton>
 #include <QTreeView>
 #include <QVBoxLayout>

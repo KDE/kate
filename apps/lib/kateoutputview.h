@@ -9,7 +9,6 @@
 
 #include <QLineEdit>
 #include <QStandardItemModel>
-#include <QStyledItemDelegate>
 #include <QWidget>
 
 class KateMainWindow;

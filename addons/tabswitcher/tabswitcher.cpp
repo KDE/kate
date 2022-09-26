@@ -21,7 +21,6 @@
 
 #include <QAction>
 #include <QScrollBar>
-#include <QStandardItemModel>
 
 K_PLUGIN_FACTORY_WITH_JSON(TabSwitcherPluginFactory, "tabswitcherplugin.json", registerPlugin<TabSwitcherPlugin>();)
 

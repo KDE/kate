@@ -8,7 +8,6 @@
 #include "tabswitchertreeview.h"
 #include "tabswitcher.h"
 
-#include <QDebug>
 #include <QKeyEvent>
 
 TabSwitcherTreeView::TabSwitcherTreeView()

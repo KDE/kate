@@ -39,16 +39,12 @@
 
 #include "plugin_katesymbolviewer.h"
 
-#include <KAboutData>
-#include <KActionCollection>
 #include <KConfigGroup>
 #include <KLineEdit>
 #include <KPluginFactory>
 #include <KSharedConfig>
-#include <KToggleAction>
 #include <KXMLGUIFactory>
 #include <QAction>
-#include <QLineEdit>
 
 #include <ktexteditor/configinterface.h>
 #include <ktexteditor/cursor.h>
@@ -59,7 +55,6 @@
 #include <QVBoxLayout>
 
 #include <QHeaderView>
-#include <QPainter>
 
 K_PLUGIN_FACTORY_WITH_JSON(KatePluginSymbolViewerFactory, "katesymbolviewerplugin.json", registerPlugin<KatePluginSymbolViewer>();)
 

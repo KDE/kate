@@ -25,9 +25,6 @@
 #include <KLocalizedString>
 #include <KSharedConfig>
 
-#include <QApplication>
-#include <QClipboard>
-#include <QDataStream>
 #include <QHelpEvent>
 #include <QMenu>
 #include <QMessageBox>

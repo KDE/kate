@@ -19,13 +19,11 @@
 #include <QLayout>
 #include <QPushButton>
 #include <QStandardPaths>
-#include <QTimer>
 
 #include <KTextEditor/Document>
 #include <KTextEditor/View>
 
 #include <KLocalizedString>
-#include <KMessageBox>
 
 #include "dap/settings.h"
 #include "json_placeholders.h"

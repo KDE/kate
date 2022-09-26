@@ -10,7 +10,6 @@
 #include <ktexteditor/document.h>
 
 #include <QDialog>
-#include <QList>
 
 class QTreeWidget;
 class QTreeWidgetItem;

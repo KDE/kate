@@ -4,7 +4,6 @@
 
 #include <QDialogButtonBox>
 #include <QFont>
-#include <QFontDatabase>
 #include <QHeaderView>
 #include <QMouseEvent>
 #include <QPainter>

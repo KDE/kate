@@ -12,7 +12,6 @@
 #include <QMenu>
 #include <QPointer>
 #include <QStackedWidget>
-#include <QTimer>
 #include <QToolButton>
 
 #include <KTextEditor/View>

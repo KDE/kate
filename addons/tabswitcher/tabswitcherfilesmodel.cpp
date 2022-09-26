@@ -9,7 +9,6 @@
 #include "tabswitcherfilesmodel.h"
 
 #include <QBrush>
-#include <QDebug>
 #include <QFileInfo>
 #include <QMimeDatabase>
 

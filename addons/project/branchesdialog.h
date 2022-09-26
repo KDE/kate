@@ -7,7 +7,6 @@
 #define BRANCHES_DIALOG_H
 
 #include <QFutureWatcher>
-#include <QMenu>
 
 #include "git/gitutils.h"
 #include "quickdialog.h"

@@ -12,7 +12,7 @@
 
 #include <QDateTime>
 #include <QFontDatabase>
-#include <QLayout>
+#include <QHBoxLayout>
 #include <QLocale>
 #include <QStyle>
 #include <QTextEdit>

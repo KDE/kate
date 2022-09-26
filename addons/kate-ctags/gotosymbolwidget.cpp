@@ -16,7 +16,6 @@
 #include <QLineEdit>
 #include <QPainter>
 #include <QPropertyAnimation>
-#include <QScrollBar>
 #include <QSortFilterProxyModel>
 #include <QStyledItemDelegate>
 #include <QTextDocument>

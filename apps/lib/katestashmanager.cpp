@@ -16,7 +16,6 @@
 
 #include <QDir>
 #include <QFile>
-#include <QSaveFile>
 #include <QTextCodec>
 #include <QUrl>
 

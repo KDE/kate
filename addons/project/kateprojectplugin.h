@@ -16,7 +16,6 @@
 
 #include <KTextEditor/Plugin>
 #include <KTextEditor/SessionConfigInterface>
-#include <KXMLGUIClient>
 #include <ktexteditor/document.h>
 #include <ktexteditor/mainwindow.h>
 

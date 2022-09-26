@@ -9,9 +9,7 @@
 #include "kateproject.h"
 
 #include <QCoreApplication>
-#include <QDir>
 #include <QFile>
-#include <QFileInfo>
 #include <QIcon>
 #include <QMessageBox>
 #include <QMimeDatabase>

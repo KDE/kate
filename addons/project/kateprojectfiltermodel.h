@@ -9,7 +9,6 @@
 #ifndef KATEPROJECTFILTERMODEL_H
 #define KATEPROJECTFILTERMODEL_H
 
-#include <QDebug>
 #include <QSortFilterProxyModel>
 
 #include <kfts_fuzzy_match.h>

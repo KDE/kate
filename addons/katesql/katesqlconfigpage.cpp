@@ -11,9 +11,9 @@
 #include <KLocalizedString>
 #include <KSharedConfig>
 
-#include <QBoxLayout>
 #include <QCheckBox>
 #include <QGroupBox>
+#include <QVBoxLayout>
 
 KateSQLConfigPage::KateSQLConfigPage(QWidget *parent)
     : KTextEditor::ConfigPage(parent)

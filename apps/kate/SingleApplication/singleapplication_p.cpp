@@ -32,7 +32,6 @@
 #include <cstdlib>
 #include <cstddef>
 
-#include <QtCore/QDir>
 #include <QtCore/QThread>
 #include <QtCore/QByteArray>
 #include <QtCore/QDataStream>

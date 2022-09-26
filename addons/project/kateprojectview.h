@@ -12,7 +12,6 @@
 #include "kateprojectviewtree.h"
 
 #include <QFileSystemWatcher>
-#include <QPointer>
 
 class KLineEdit;
 class KateProjectPluginView;

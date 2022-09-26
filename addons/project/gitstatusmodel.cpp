@@ -6,7 +6,6 @@
 #include "gitstatusmodel.h"
 
 #include <KColorScheme>
-#include <QDebug>
 #include <QFileInfo>
 #include <QFont>
 #include <QIcon>

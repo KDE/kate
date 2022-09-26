@@ -36,7 +36,6 @@
 #include <QTabWidget>
 #include <QVBoxLayout>
 
-#include <KAboutData>
 #include <KAuthorized>
 #include <KConfigGroup>
 #include <KPluginFactory>

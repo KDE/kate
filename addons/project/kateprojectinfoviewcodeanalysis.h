@@ -9,7 +9,6 @@
 #define KATE_PROJECT_INFO_VIEW_CODE_ANALYSIS_H
 
 #include <QComboBox>
-#include <QLabel>
 #include <QPointer>
 #include <QProcess>
 #include <QPushButton>

@@ -7,10 +7,8 @@
 #ifndef KATE_FILETREE_PLUGIN_H
 #define KATE_FILETREE_PLUGIN_H
 
-#include <QIcon>
 #include <QTimer>
 
-#include <KTextEditor/Command>
 #include <KTextEditor/Plugin>
 #include <ktexteditor/document.h>
 #include <ktexteditor/editor.h>

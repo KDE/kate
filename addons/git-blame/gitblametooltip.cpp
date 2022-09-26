@@ -7,18 +7,15 @@
 #include "gitblametooltip.h"
 #include "kategitblameplugin.h"
 
-#include <QApplication>
 #include <QDebug>
 #include <QEvent>
 #include <QFontMetrics>
 #include <QMouseEvent>
-#include <QScreen>
 #include <QScrollBar>
 #include <QString>
 #include <QTextBrowser>
 #include <QTimer>
 
-#include <KTextEditor/ConfigInterface>
 #include <KTextEditor/Editor>
 #include <KTextEditor/View>
 

@@ -8,12 +8,10 @@
 
 #include <KLocalizedString>
 #include <KSyntaxHighlighting/Theme>
-#include <KTextEditor/ConfigInterface>
 #include <KTextEditor/Editor>
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/View>
 
-#include <QBitmap>
 #include <QFileInfo>
 #include <QPainter>
 #include <QStandardItemModel>

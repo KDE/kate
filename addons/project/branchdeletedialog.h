@@ -1,5 +1,4 @@
 #include <QDialog>
-#include <QLabel>
 #include <QStandardItemModel>
 #include <QTreeView>
 

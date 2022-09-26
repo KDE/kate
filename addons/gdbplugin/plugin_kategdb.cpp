@@ -10,15 +10,12 @@
 #include "plugin_kategdb.h"
 
 #include <QFile>
-#include <QFileInfo>
 #include <QFontDatabase>
 #include <QKeyEvent>
-#include <QLayout>
 #include <QScrollBar>
 #include <QSplitter>
 #include <QTabWidget>
 #include <QTextEdit>
-#include <QToolBar>
 #include <QTreeWidget>
 
 #include <KActionCollection>
@@ -27,7 +24,6 @@
 #include <QAction>
 #include <QMenu>
 
-#include <KAboutData>
 #include <KColorScheme>
 #include <KHistoryComboBox>
 #include <KLocalizedString>

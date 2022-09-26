@@ -21,10 +21,8 @@
  * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <KTextEditor/Document>
 #include <KTextEditor/View>
 
-#include <KTextEditor/Application>
 #include <KTextEditor/MainWindow>
 #include <ktexteditor/sessionconfiginterface.h>
 

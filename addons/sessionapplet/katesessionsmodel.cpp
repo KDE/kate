@@ -18,19 +18,15 @@
 #include "katesessionsmodel.h"
 #include <KDirWatch>
 #include <KLocalizedString>
-#include <KStringHandler>
 #include <QDebug>
 #include <QDir>
-#include <QFile>
 #include <QGraphicsGridLayout>
 #include <QGraphicsLinearLayout>
 #include <QGraphicsProxyWidget>
 #include <QIcon>
-#include <QListWidgetItem>
 #include <QStandardPaths>
 #include <QStyleOptionGraphicsItem>
 #include <QTreeView>
-#include <QVBoxLayout>
 
 bool katesessions_compare_sessions(const QString &s1, const QString &s2)
 {

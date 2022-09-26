@@ -8,12 +8,10 @@
 
 #include <utility>
 
-#include <QDebug>
 #include <QJsonArray>
 #include <QJsonValue>
 #include <QList>
 #include <QRegularExpression>
-#include <QtGlobal>
 
 #include "keycombination.h"
 

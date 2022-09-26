@@ -16,19 +16,14 @@
 #define _PLUGIN_KATE_SYMBOLVIEWER_H_
 
 #include <KTextEditor/ConfigPage>
-#include <KTextEditor/Document>
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/Plugin>
-#include <KTextEditor/SessionConfigInterface>
 #include <KTextEditor/View>
 
 #include <QCheckBox>
 #include <QMenu>
 
-#include <QLabel>
 #include <QList>
-#include <QPixmap>
-#include <QResizeEvent>
 #include <QSet>
 #include <QTimer>
 #include <QTreeWidget>

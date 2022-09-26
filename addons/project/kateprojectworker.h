@@ -12,7 +12,6 @@
 
 #include <QHash>
 #include <QRunnable>
-#include <QStandardItemModel>
 
 class QDir;
 class KateProjectItem;

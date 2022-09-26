@@ -11,7 +11,6 @@
 #include <ktexteditor/document.h>
 #include <ktexteditor/modificationinterface.h>
 
-#include <QDateTime>
 #include <QList>
 #include <QObject>
 

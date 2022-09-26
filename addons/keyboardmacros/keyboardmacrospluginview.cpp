@@ -4,14 +4,11 @@
  */
 
 #include <QAction>
-#include <QDebug>
 #include <QInputDialog>
 #include <QKeySequence>
 #include <QLineEdit>
-#include <QList>
 #include <QMessageBox>
 #include <QObject>
-#include <QPointer>
 #include <QRegularExpression>
 #include <QString>
 
@@ -21,7 +18,6 @@
 #include <KStringHandler>
 #include <KXMLGUIFactory>
 
-#include <KTextEditor/Application>
 #include <KTextEditor/Editor>
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/Message>

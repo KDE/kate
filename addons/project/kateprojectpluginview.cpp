@@ -22,7 +22,6 @@
 #include <ktexteditor/editor.h>
 #include <ktexteditor/view.h>
 
-#include <KAboutData>
 #include <KActionCollection>
 #include <KActionMenu>
 #include <KLocalizedString>
@@ -31,11 +30,9 @@
 #include <KXMLGUIFactory>
 
 #include <QAction>
-#include <QDialog>
 #include <QFileDialog>
 #include <QHBoxLayout>
 #include <QKeyEvent>
-#include <QVBoxLayout>
 
 #define PROJECTCLOSEICON "window-close"
 

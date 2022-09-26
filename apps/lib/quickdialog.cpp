@@ -11,7 +11,6 @@
 #include <QKeyEvent>
 #include <QPainter>
 #include <QStringListModel>
-#include <QStyledItemDelegate>
 #include <QTextLayout>
 #include <QVBoxLayout>
 

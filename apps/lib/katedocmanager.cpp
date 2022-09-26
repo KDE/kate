@@ -19,17 +19,13 @@
 #include <ktexteditor/view.h>
 
 #include <KConfigGroup>
-#include <KIO/DeleteJob>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KNetworkMounts>
 #include <KSharedConfig>
 
-#include <QApplication>
 #include <QFileDialog>
 #include <QProgressDialog>
-#include <QTextCodec>
-#include <QTimer>
 
 KateDocManager::KateDocManager(QObject *parent)
     : QObject(parent)

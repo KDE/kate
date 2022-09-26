@@ -7,7 +7,6 @@
 
 #include "kateviewspace.h"
 
-#include <QFrame>
 #include <QPointer>
 
 class KateUrlBar : public QWidget

@@ -10,13 +10,10 @@
 #include "ui_configwidget.h"
 #include "ui_tooldialog.h"
 
-#include <KTextEditor/Application>
 #include <KTextEditor/ConfigPage>
-#include <KTextEditor/MainWindow>
 #include <KTextEditor/Plugin>
 
 #include <QDialog>
-#include <QPixmap>
 #include <QStandardItemModel>
 
 class KConfig;

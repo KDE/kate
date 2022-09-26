@@ -32,11 +32,9 @@
 #include <QAction>
 
 #include <QActionGroup>
-#include <QApplication>
 #include <QMenu>
 #include <QSqlQuery>
 #include <QString>
-#include <QVBoxLayout>
 #include <QWidgetAction>
 
 KateSQLView::KateSQLView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mw)

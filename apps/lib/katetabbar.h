@@ -9,7 +9,6 @@
 #define KATE_TAB_BAR_H
 
 #include <QTabBar>
-#include <QUrl>
 
 #include <unordered_map>
 

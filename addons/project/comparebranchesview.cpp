@@ -20,7 +20,6 @@
 
 #include <KColorScheme>
 #include <KLocalizedString>
-#include <KTextEditor/MainWindow>
 
 class DiffStyleDelegate : public QStyledItemDelegate
 {

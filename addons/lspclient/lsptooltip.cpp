@@ -6,10 +6,8 @@
 #include "lsptooltip.h"
 
 #include <QApplication>
-#include <QDebug>
 #include <QEvent>
 #include <QFontMetrics>
-#include <QLabel>
 #include <QMouseEvent>
 #include <QPointer>
 #include <QScreen>
@@ -21,7 +19,6 @@
 #include <KSyntaxHighlighting/Definition>
 #include <KSyntaxHighlighting/Repository>
 #include <KSyntaxHighlighting/SyntaxHighlighter>
-#include <KTextEditor/ConfigInterface>
 #include <KTextEditor/Editor>
 #include <KTextEditor/View>
 #include <KWindowSystem>

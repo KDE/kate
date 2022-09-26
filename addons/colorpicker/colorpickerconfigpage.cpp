@@ -12,9 +12,7 @@
 #include <KLocalizedString>
 #include <KSharedConfig>
 
-#include <QApplication>
 #include <QGroupBox>
-#include <QStyle>
 #include <QVBoxLayout>
 
 KTextEditor::ConfigPage *KateColorPickerPlugin::configPage(int number, QWidget *parent)

@@ -14,7 +14,6 @@
 #include "katesplitter.h"
 
 #include <QList>
-#include <QMap>
 #include <QPointer>
 
 #include <unordered_map>

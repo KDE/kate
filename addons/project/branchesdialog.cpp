@@ -9,19 +9,10 @@
 #include "kateprojectpluginview.h"
 #include "ktexteditor_utils.h"
 
-#include <QCoreApplication>
-#include <QKeyEvent>
-#include <QLineEdit>
 #include <QPainter>
-#include <QSortFilterProxyModel>
-#include <QStyledItemDelegate>
-#include <QTextDocument>
 #include <QTreeView>
-#include <QVBoxLayout>
 #include <QWidget>
-#include <QtConcurrentRun>
 
-#include <KTextEditor/MainWindow>
 #include <KTextEditor/Message>
 #include <KTextEditor/View>
 

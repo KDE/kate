@@ -10,8 +10,6 @@
 #include <KTextEditor/Plugin>
 #include <KTextEditor/View>
 
-#include <QVariantList>
-
 class CEPlugin : public KTextEditor::Plugin
 {
     Q_OBJECT

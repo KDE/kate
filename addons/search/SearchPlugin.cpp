@@ -36,7 +36,6 @@
 #include <QKeyEvent>
 #include <QMenu>
 #include <QPoint>
-#include <QScrollBar>
 
 #include <ktexteditor_utils.h>
 

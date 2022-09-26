@@ -6,7 +6,6 @@
 #ifndef KEYBOARDMACROSPLUGINVIEW_H
 #define KEYBOARDMACROSPLUGINVIEW_H
 
-#include <QList>
 #include <QMap>
 #include <QObject>
 #include <QPointer>

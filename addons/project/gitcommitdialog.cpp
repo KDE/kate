@@ -8,7 +8,6 @@
 #include "gitwidget.h"
 
 #include <QCoreApplication>
-#include <QDebug>
 #include <QInputMethodEvent>
 #include <QSyntaxHighlighter>
 #include <QVBoxLayout>

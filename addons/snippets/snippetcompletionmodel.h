@@ -13,8 +13,6 @@
 #include <ktexteditor/codecompletionmodel.h>
 #include <ktexteditor/codecompletionmodelcontrollerinterface.h>
 
-#include <QPointer>
-
 namespace KTextEditor
 {
 class View;

@@ -12,7 +12,6 @@
 #include "lspclient_debug.h"
 
 #include <KConfigGroup>
-#include <KDirWatch>
 #include <KLocalizedString>
 #include <KPluginFactory>
 #include <KSharedConfig>

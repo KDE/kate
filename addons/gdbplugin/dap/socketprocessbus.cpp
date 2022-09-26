@@ -4,7 +4,6 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 #include "settings.h"
-#include <QEventLoop>
 #include <QTextCodec>
 #include <QTimer>
 #include <memory>

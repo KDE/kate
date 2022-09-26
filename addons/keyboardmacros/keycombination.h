@@ -14,7 +14,6 @@
 #include <QKeyEvent>
 #include <QKeySequence>
 #include <QString>
-#include <QtGlobal>
 
 class KeyCombination
 {

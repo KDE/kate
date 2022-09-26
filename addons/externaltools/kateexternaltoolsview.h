@@ -18,7 +18,6 @@ class View;
 }
 
 #include <KActionMenu>
-#include <KMacroExpander>
 #include <KXMLGUIClient>
 
 #include <QPointer>

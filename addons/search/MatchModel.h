@@ -8,7 +8,6 @@
 #define MatchModel_h
 
 #include <QAbstractItemModel>
-#include <QBrush>
 #include <QPointer>
 #include <QRegularExpression>
 #include <QString>

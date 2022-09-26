@@ -17,15 +17,12 @@
 #include "snippetstore.h"
 
 #include <KConfigGroup>
-#include <KHelpClient>
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <KMessageWidget>
 #include <KSharedConfig>
 
 #include <QAction>
 #include <QPushButton>
-#include <QToolButton>
 #include <QWhatsThis>
 
 #include <KTextEditor/Document>

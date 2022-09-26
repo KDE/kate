@@ -10,10 +10,7 @@
 
 #include <ktexteditor/document.h>
 
-#include <KAboutData>
 #include <KLocalizedString>
-
-#include <QIcon>
 
 K_PLUGIN_FACTORY_WITH_JSON(KateSQLFactory, "katesql.json", registerPlugin<KateSQLPlugin>();)
 

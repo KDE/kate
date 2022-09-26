@@ -9,7 +9,6 @@
 #include "lsptooltip.h"
 
 #include <KTextEditor/Cursor>
-#include <KTextEditor/Document>
 #include <KTextEditor/View>
 
 #include "lspclientserver.h"

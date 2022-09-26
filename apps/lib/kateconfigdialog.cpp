@@ -29,7 +29,6 @@
 #include <KMessageBox>
 #include <KPluralHandlingSpinBox>
 #include <KSharedConfig>
-#include <KStandardAction>
 
 #include <kwidgetsaddons_version.h>
 

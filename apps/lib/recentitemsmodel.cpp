@@ -8,7 +8,6 @@
 #include "kateconfigdialog.h"
 
 #include <QFile>
-#include <QFileIconProvider>
 #include <QFileInfo>
 #include <QIcon>
 

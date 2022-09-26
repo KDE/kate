@@ -44,20 +44,17 @@
 // Maybe use QXmlReader to take dtds and xsds?
 
 #include "plugin_katexmlcheck.h"
-#include <QHBoxLayout>
 //#include "plugin_katexmlcheck.moc" this goes to end
 
 #include <KActionCollection>
 #include <QApplication>
 #include <QFile>
 #include <QHeaderView>
-#include <QInputDialog>
 #include <QRegExp>
 #include <QString>
 #include <QTextStream>
 #include <QTreeWidget>
 
-#include <KCursor>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KPluginFactory>
@@ -65,18 +62,12 @@
 #include <QAction>
 #include <QTemporaryFile>
 
-#include <QComboBox>
 #include <QFile>
-#include <QFileDialog>
-#include <QGuiApplication>
-#include <QLabel>
-#include <QLineEdit>
 #include <QPushButton>
 #include <QRegExp>
 #include <QStandardPaths>
 #include <QString>
 #include <QUrl>
-#include <QVBoxLayout>
 
 #include <ktexteditor/editor.h>
 

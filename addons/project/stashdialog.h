@@ -3,7 +3,6 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#include <QMenu>
 
 #include "quickdialog.h"
 

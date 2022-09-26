@@ -8,7 +8,6 @@
 #include <KTextEditor/Cursor>
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/View>
-#include <QHeaderView>
 
 GotoSymbolTreeView::GotoSymbolTreeView(KTextEditor::MainWindow *mainWindow, QWidget *parent)
     : QTreeView(parent)

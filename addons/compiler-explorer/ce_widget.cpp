@@ -18,8 +18,6 @@
 #include <QMenu>
 #include <QPushButton>
 #include <QSplitter>
-#include <QStandardItemModel>
-#include <QStringListModel>
 #include <QToolButton>
 #include <QTreeView>
 
@@ -27,7 +25,6 @@
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KSharedConfig>
-#include <KTextEditor/ConfigInterface>
 #include <KTextEditor/MainWindow>
 #include <KXMLGUIFactory>
 

@@ -9,7 +9,6 @@
 #define KFTS_FUZZY_MATCH_H
 
 #include <QString>
-#include <QStyleOptionViewItem>
 #include <QTextLayout>
 
 /**

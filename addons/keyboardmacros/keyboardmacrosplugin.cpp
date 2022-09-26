@@ -10,7 +10,6 @@
 #include "ktexteditor_utils.h"
 #include "macro.h"
 
-#include <QAction>
 #include <QApplication>
 #include <QCoreApplication>
 #include <QDebug>
@@ -28,7 +27,6 @@
 #include <QSaveFile>
 #include <QStandardPaths>
 #include <QString>
-#include <QStringList>
 
 #include <KLocalizedString>
 #include <KPluginFactory>

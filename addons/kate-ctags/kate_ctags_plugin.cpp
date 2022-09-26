@@ -25,18 +25,14 @@
 
 #include <QCheckBox>
 #include <QFileDialog>
-#include <QFileInfo>
 
 #include <KConfigGroup>
 #include <KSharedConfig>
 
-#include <KActionCollection>
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <KStringHandler>
 #include <ktexteditor/editor.h>
 
-#include <KAboutData>
 #include <KPluginFactory>
 
 K_PLUGIN_FACTORY_WITH_JSON(KateCTagsPluginFactory, "katectagsplugin.json", registerPlugin<KateCTagsPlugin>();)

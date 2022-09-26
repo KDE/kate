@@ -6,7 +6,6 @@
 */
 
 #include "katesplitter.h"
-#include <QDebug>
 #include <QEvent>
 
 class SplitterHandle : public QSplitterHandle

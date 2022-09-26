@@ -23,7 +23,6 @@
 
 #include <QApplication>
 #include <QClipboard>
-#include <QDebug>
 #include <QInputDialog>
 #include <QProcess>
 #include <QStandardPaths>

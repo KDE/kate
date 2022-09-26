@@ -9,7 +9,6 @@
 
 #include "ui_welcomeview.h"
 
-#include <QFrame>
 #include <QUrl>
 
 class QListWidgetItem;

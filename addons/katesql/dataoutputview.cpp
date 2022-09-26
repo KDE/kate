@@ -6,8 +6,6 @@
 
 #include "dataoutputview.h"
 
-#include <QAction>
-
 #include <QCursor>
 #include <QMenu>
 

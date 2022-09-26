@@ -16,7 +16,6 @@
 #include <KTextEditor/View>
 
 #include <QIcon>
-#include <QUrl>
 
 #include <algorithm>
 #include <utility>

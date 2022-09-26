@@ -7,7 +7,6 @@
 
 #include "hostprocess.h"
 
-#include <KTextEditor/Document>
 #include <KTextEditor/View>
 
 #include <QProcess>

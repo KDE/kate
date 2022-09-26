@@ -68,7 +68,6 @@ TODO:
 #include "plugin_katexmltools.h"
 
 #include <QAction>
-#include <QComboBox>
 #include <QFile>
 #include <QFileDialog>
 #include <QGuiApplication>

@@ -16,9 +16,7 @@
 #include <KGuiItem>
 #include <KLocalizedString>
 #include <KParts/PartLoader>
-#include <KParts/ReadOnlyPart>
 #include <KPluginMetaData>
-#include <KService>
 #include <KSharedConfig>
 #include <KTextEditor/Document>
 #include <KTextEditor/MainWindow>

@@ -16,11 +16,11 @@
 #include <KLocalizedString>
 #include <KTextEditor/Document>
 #include <KTextEditor/Editor>
+#include <KTextEditor/MainWindow>
 #include <KTextEditor/View>
 #include <QAction>
 #include <kparts/part.h>
 
-#include <KAboutData>
 #include <KAuthorized>
 #include <KConfig>
 #include <KConfigGroup>
@@ -29,7 +29,6 @@
 
 #include <QClipboard>
 #include <QGuiApplication>
-#include <QScrollBar>
 
 #include <ktexteditor_utils.h>
 

@@ -22,9 +22,7 @@
 #include <KLineEdit>
 #include <KLocalizedString>
 
-#include <QFileInfo>
 #include <QPushButton>
-#include <QSortFilterProxyModel>
 #include <QTimer>
 #include <QVBoxLayout>
 

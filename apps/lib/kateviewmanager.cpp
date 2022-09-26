@@ -33,7 +33,6 @@
 #endif
 
 #include <QFileDialog>
-#include <QStyle>
 #include <QTimer>
 
 // END Includes

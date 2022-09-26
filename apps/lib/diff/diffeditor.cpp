@@ -14,7 +14,6 @@
 #include <QTextBlock>
 
 #include <KLocalizedString>
-#include <KSyntaxHighlighting/Definition>
 #include <KSyntaxHighlighting/Format>
 #include <KSyntaxHighlighting/State>
 #include <KTextEditor/Editor>

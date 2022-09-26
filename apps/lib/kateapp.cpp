@@ -12,7 +12,6 @@
 #include <kcoreaddons_version.h>
 
 #include <KAboutData>
-#include <KConfigGroup>
 #include <KConfigGui>
 #include <KCrash>
 #include <KLocalizedString>

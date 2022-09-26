@@ -8,8 +8,6 @@
 
 #include <gitprocess.h>
 
-#include <QDateTime>
-#include <QDebug>
 #include <QProcess>
 
 bool GitUtils::isGitRepo(const QString &repo)

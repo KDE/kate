@@ -29,7 +29,6 @@
 #include "kateviewspace.h"
 #include "ktexteditor_utils.h"
 
-#include <KAboutData>
 #include <KActionCollection>
 #include <KActionMenu>
 #include <KApplicationTrader>
@@ -56,7 +55,6 @@
 #include <KShortcutsDialog>
 #include <KStandardAction>
 #include <KToggleFullScreenAction>
-#include <KToolBar>
 #include <KWindowConfig>
 #include <KXMLGUIFactory>
 #include <kconfigwidgets_version.h>
@@ -70,7 +68,6 @@
 #include <QMimeData>
 #include <QMimeDatabase>
 #include <QScreen>
-#include <QStyle>
 #include <QTimer>
 #include <QToolButton>
 

@@ -8,16 +8,9 @@
 #include "tstestapp.h"
 #include "../tabswitcherfilesmodel.h"
 
-#include <QAbstractTableModel>
 #include <QApplication>
-#include <QDebug>
-#include <QIcon>
-#include <QLabel>
 #include <QListView>
-#include <QMenu>
 #include <QPushButton>
-#include <QStandardItem>
-#include <QStringRef>
 #include <QTreeView>
 #include <QVBoxLayout>
 

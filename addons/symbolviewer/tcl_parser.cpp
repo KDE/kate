@@ -12,7 +12,6 @@
  ***************************************************************************/
 
 #include "plugin_katesymbolviewer.h"
-#include <QPixmap>
 
 void KatePluginSymbolViewerView::parseTclSymbols(void)
 {

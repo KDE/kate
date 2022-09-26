@@ -10,7 +10,6 @@
 #include "snippetview.h"
 
 #include <QAction>
-#include <QBoxLayout>
 
 #include <KActionCollection>
 #include <KLocalizedString>

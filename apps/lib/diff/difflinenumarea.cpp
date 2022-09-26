@@ -6,7 +6,6 @@
 #include "diffeditor.h"
 
 #include <QPainter>
-#include <QTextBlock>
 
 #include <KTextEditor/Editor>
 

@@ -14,7 +14,6 @@
 #include <QPointer>
 #include <QString>
 #include <QVariant>
-#include <QVariantMap>
 
 #include <KTextEditor/Application>
 #include <KTextEditor/MainWindow>

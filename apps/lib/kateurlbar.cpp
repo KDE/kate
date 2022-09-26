@@ -798,9 +798,14 @@ public:
                 return;
             }
             SymbolsTreeView t(this);
-            connect(&t, &SymbolsTreeView::navigateLeftRight, this, [this](int k) {
-                onNavigateLeftRight(k, true);
-            });
+            connect(
+                &t,
+                &SymbolsTreeView::navigateLeftRight,
+                this,
+                [this](int k) {
+                    onNavigateLeftRight(k, true);
+                },
+                Qt::QueuedConnection);
             const QString symbolName = idx.data().toString();
             t.setSymbolsModel(m_symbolsModel, activeView, symbolName);
             const auto pos = mapToGlobal(rectForIndex(idx).bottomLeft());
@@ -821,9 +826,14 @@ public:
         DirFilesList m(this);
         connect(&m, &DirFilesList::openUrl, m_urlBar, &KateUrlBar::openUrlRequested);
         connect(&m, &DirFilesList::openUrl, this, &BreadCrumbView::unsetFocus);
-        connect(&m, &DirFilesList::navigateLeftRight, this, [this](int k) {
-            onNavigateLeftRight(k, true);
-        });
+        connect(
+            &m,
+            &DirFilesList::navigateLeftRight,
+            this,
+            [this](int k) {
+                onNavigateLeftRight(k, true);
+            },
+            Qt::QueuedConnection);
         m.setDir(d, idx.data().toString());
         m.setFocus();
         m.exec(pos);

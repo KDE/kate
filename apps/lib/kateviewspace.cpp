@@ -981,10 +981,11 @@ void KateViewSpace::showContextMenu(int idx, const QPoint &globalPos)
     compareUsing->setIcon(QIcon::fromTheme(QStringLiteral("vcs-diff")));
     menu.addMenu(compareUsing);
 
-    if (KateApp::self()->documentManager()->documentList().size() < 2) {
-        aCloseOthers->setEnabled(false);
-        aDetachTab->setEnabled(false);
-    }
+    // if we have other documents, allow to close them
+    aCloseOthers->setEnabled(KateApp::self()->documentManager()->documentList().size() > 1);
+
+    // make it feasible to detach tabs if we have more then one
+    aDetachTab->setEnabled(m_tabBar->count() > 1);
 
     if (doc->url().isEmpty()) {
         aCopyPath->setEnabled(false);
@@ -993,7 +994,6 @@ void KateViewSpace::showContextMenu(int idx, const QPoint &globalPos)
         aDeleteFile->setEnabled(false);
         aFileProperties->setEnabled(false);
         compareUsing->setEnabled(false);
-        aDetachTab->setEnabled(false);
     }
 
     // both documents must have urls and must not be the same to have the compare feature enabled

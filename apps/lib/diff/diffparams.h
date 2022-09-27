@@ -18,6 +18,8 @@ struct DiffParams {
         ShowDiscard = 4,
         /** show filename with diff. Appears right before hunk heading **/
         ShowFileName = 8,
+        /** show commit info with diff **/
+        ShowCommitInfo = 16,
     };
     Q_DECLARE_FLAGS(Flags, Flag)
     Q_FLAGS(Flags)

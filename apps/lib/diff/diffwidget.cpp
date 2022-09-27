@@ -9,6 +9,7 @@
 
 #include <QApplication>
 #include <QHBoxLayout>
+#include <QLabel>
 #include <QMimeDatabase>
 #include <QPainter>
 #include <QPainterPath>
@@ -29,11 +30,17 @@ DiffWidget::DiffWidget(DiffParams p, QWidget *parent)
     : QWidget(parent)
     , m_left(new DiffEditor(p.flags, this))
     , m_right(new DiffEditor(p.flags, this))
+    , m_commitInfo(new QLabel(this))
     , m_params(p)
 {
-    auto layout = new QHBoxLayout(this);
-    layout->addWidget(m_left);
-    layout->addWidget(m_right);
+    auto layout = new QVBoxLayout(this);
+    layout->setContentsMargins({});
+    layout->addWidget(m_commitInfo);
+    auto diffLayout = new QHBoxLayout;
+    diffLayout->setContentsMargins({});
+    diffLayout->addWidget(m_left);
+    diffLayout->addWidget(m_right);
+    layout->addLayout(diffLayout);
 
     leftHl = new DiffSyntaxHighlighter(m_left->document(), this);
     rightHl = new DiffSyntaxHighlighter(m_right->document(), this);
@@ -53,6 +60,12 @@ DiffWidget::DiffWidget(DiffParams p, QWidget *parent)
         connect(e, &DiffEditor::switchStyle, this, &DiffWidget::handleStyleChange);
         connect(e, &DiffEditor::actionTriggered, this, &DiffWidget::handleStageUnstage);
     }
+
+    m_commitInfo->hide();
+    m_commitInfo->setWordWrap(true);
+    m_commitInfo->setFont(Utils::editorFont());
+    m_commitInfo->setTextInteractionFlags(Qt::TextSelectableByMouse);
+    m_commitInfo->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
 
     KSharedConfig::Ptr config = KSharedConfig::openConfig();
     KConfigGroup cgGeneral = KConfigGroup(config, "General");
@@ -234,6 +247,8 @@ void DiffWidget::clearData()
     m_lineToDiffHunkLine.clear();
     m_params.clear();
     m_linesWithFileName.clear();
+    m_commitInfo->clear();
+    m_commitInfo->hide();
 }
 
 void DiffWidget::diffDocs(KTextEditor::Document *l, KTextEditor::Document *r)
@@ -765,8 +780,27 @@ void DiffWidget::parseAndShowDiffUnified(const QByteArray &raw)
     leftHl->setDefinition(defs.constFirst());
 }
 
+static QString commitInfoFromDiff(const QByteArray &raw)
+{
+    if (!raw.startsWith("commit ")) {
+        return {};
+    }
+    int commitEnd = raw.indexOf("diff --git");
+    if (commitEnd == -1) {
+        return {};
+    }
+    return QString::fromUtf8(raw.mid(0, commitEnd).trimmed());
+}
+
 void DiffWidget::openDiff(const QByteArray &raw)
 {
+    if (m_params.flags & DiffParams::ShowCommitInfo) {
+        m_commitInfo->setText(commitInfoFromDiff(raw));
+        m_commitInfo->show();
+    } else {
+        m_commitInfo->hide();
+    }
+
     if (m_style == SideBySide) {
         parseAndShowDiff(raw);
     } else if (m_style == Unified) {

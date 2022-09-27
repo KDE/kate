@@ -591,6 +591,7 @@ void KateGitBlamePluginView::showDiffForFile(const QByteArray &diffContents, con
 {
     DiffParams d;
     d.srcFile = file;
+    d.flags.setFlag(DiffParams::ShowCommitInfo);
     Utils::showDiff(diffContents, d, m_mainWindow);
 }
 

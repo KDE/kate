@@ -360,16 +360,15 @@ void KateViewManager::slotDocumentClose(KTextEditor::Document *document)
 
 void KateViewManager::slotDocumentClose()
 {
-    // no active view, do nothing
-    auto view = activeView();
-    if (!view) {
-        return;
-    }
-
-    auto vs = activeViewSpace();
-    if (vs) {
+    if (auto vs = activeViewSpace()) {
         if (auto w = vs->currentWidget()) {
             vs->closeTabWithWidget(w);
+            return;
+        }
+
+        // no active view, do nothing
+        auto view = activeView();
+        if (!view) {
             return;
         }
 

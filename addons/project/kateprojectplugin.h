@@ -261,6 +261,9 @@ private:
      */
     std::unordered_map<KTextEditor::Document *, KateProject *> m_document2Project;
 
+    // remember if we did the initial read session config
+    bool m_initialReadSessionConfigDone = false;
+
     /**
      * Project completion
      */

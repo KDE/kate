@@ -576,6 +576,13 @@ void KateViewSpace::closeDocument(KTextEditor::Document *doc)
             documentDestroyed(doc);
         }
     }
+
+    /**
+     * if this was the last doc, let viewManager know we are empty
+     */
+    if (m_registeredDocuments.isEmpty() && m_tabBar->count() == 0) {
+        Q_EMIT viewSpaceEmptied(this);
+    }
 }
 
 bool KateViewSpace::acceptsDroppedTab(const QMimeData *md)

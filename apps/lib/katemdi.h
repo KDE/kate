@@ -504,8 +504,11 @@ public:
 
     /**
      * Called if focus should go to the important part of the central widget.
+     * Default doesn't do a thing, if we are called in destructor by accident.
      */
-    virtual void triggerFocusForCentralWidget() = 0;
+    virtual void triggerFocusForCentralWidget()
+    {
+    }
 
 protected:
     /**

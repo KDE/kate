@@ -887,7 +887,7 @@ void Sidebar::collapseSidebar()
     }
 
     // Now that tools are hidden, ensure the doc got the focus
-    m_mainWin->centralWidget()->setFocus();
+    m_mainWin->triggerFocusForCentralWidget();
 }
 
 bool Sidebar::adjustSplitterSections()
@@ -1208,6 +1208,9 @@ void Sidebar::restoreSession(KConfigGroup &config)
     auto sz = config.readEntry(QStringLiteral("Kate-MDI-Sidebar-%1-Splitter").arg(position()), QList<int>());
     QTimer::singleShot(100, this, [this, sz]() {
         setSizes(sz);
+
+        // ensure focus is not stolen
+        m_mainWin->triggerFocusForCentralWidget();
     });
     // ...now we are ready to get the final splitter sizes by MainWindow::finishRestore
     updateSidebar();
@@ -1472,7 +1475,7 @@ bool MainWindow::hideToolView(ToolView *widget)
     }
 
     const bool ret = widget->sidebar()->hideToolView(widget);
-    m_centralWidget->setFocus();
+    triggerFocusForCentralWidget();
     return ret;
 }
 
@@ -1483,7 +1486,7 @@ void MainWindow::hideToolViews()
             tv->sidebar()->hideToolView(tv);
         }
     }
-    m_centralWidget->setFocus();
+    triggerFocusForCentralWidget();
 }
 
 void MainWindow::startRestore(KConfigBase *config, const QString &group)
@@ -1546,6 +1549,9 @@ void MainWindow::finishRestore()
             for (auto &sidebar : m_sidebars) {
                 sidebar->updateSidebar();
             }
+
+            // ensure focus is not stolen
+            triggerFocusForCentralWidget();
         });
     }
 

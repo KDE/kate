@@ -85,7 +85,9 @@ KateViewManager::KateViewManager(QWidget *parentW, KateMainWindow *parent)
             if (activeViewSpace() && (activeViewSpace()->currentView() || activeViewSpace()->currentWidget()))
                 return;
 
+            // create new view & ensure focus
             slotDocumentNew();
+            triggerActiveViewFocus();
         });
     } else {
         // ensure we have the welcome view if no active view is there
@@ -1549,7 +1551,9 @@ void KateViewManager::showWelcomeViewIfNeeded()
         if (activeViewSpace() && (activeViewSpace()->currentView() || activeViewSpace()->currentWidget()))
             return;
 
+        // create welcome view & trigger focus of active view/widget
         showWelcomeView();
+        triggerActiveViewFocus();
     });
 }
 
@@ -1586,4 +1590,25 @@ void KateViewManager::forgetRecentItem(QUrl const &url)
 void KateViewManager::saveRecents()
 {
     mainWindow()->recentFilesAction()->saveEntries(KSharedConfig::openConfig()->group("Recent Files"));
+}
+
+void KateViewManager::triggerActiveViewFocus()
+{
+    // delay the focus, needed e.g. on startup
+    QTimer::singleShot(0, this, [this]() {
+        // no active view space, bad!
+        if (!activeViewSpace()) {
+            return;
+        }
+
+        // else: try to focus either the current active view or widget
+        if (auto v = activeViewSpace()->currentView()) {
+            v->setFocus();
+            return;
+        }
+        if (auto v = activeViewSpace()->currentWidget()) {
+            v->setFocus();
+            return;
+        }
+    });
 }

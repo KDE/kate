@@ -498,10 +498,14 @@ public:
     /**
      * central widget ;)
      * use this as parent for your content
-     * this widget will get focus if a toolview is hidden
      * @return central widget
      */
     QWidget *centralWidget() const;
+
+    /**
+     * Called if focus should go to the important part of the central widget.
+     */
+    virtual void triggerFocusForCentralWidget() = 0;
 
 protected:
     /**

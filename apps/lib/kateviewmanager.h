@@ -46,6 +46,11 @@ public:
     KateViewManager(QWidget *parentW, KateMainWindow *parent);
     ~KateViewManager() override;
 
+    /**
+     * triggered delayed focus set to current active view
+     */
+    void triggerActiveViewFocus();
+
 private:
     /**
      * create all actions needed for the view manager

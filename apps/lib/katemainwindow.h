@@ -136,6 +136,15 @@ public:
      */
     void saveOptions();
 
+    /**
+     * Called if focus should go to the important part of the central widget.
+     */
+    void triggerFocusForCentralWidget() override
+    {
+        // just dispatch to view manager
+        m_viewManager->triggerActiveViewFocus();
+    }
+
 private:
     /**
      * Setup actions which pointers are needed already in setupMainWindow

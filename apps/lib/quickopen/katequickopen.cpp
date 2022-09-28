@@ -108,6 +108,8 @@ protected:
                 score += (sm->idxToFilePath(sourceRow) == name) * name.size();
             }
         }
+        //         if (res && pattern == QStringLiteral(""))
+        //             qDebug() << score << ", " << name << "==================== END\n";
 
         sm->setScoreForIndex(sourceRow, score);
 

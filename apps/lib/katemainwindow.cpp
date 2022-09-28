@@ -68,6 +68,7 @@
 #include <QMimeData>
 #include <QMimeDatabase>
 #include <QScreen>
+#include <QStackedWidget>
 #include <QTimer>
 #include <QToolButton>
 
@@ -257,20 +258,9 @@ void KateMainWindow::setupImportantActions()
 
 void KateMainWindow::setupMainWindow()
 {
-    setToolViewStyle(KMultiTabBar::KDEV3ICON);
-
-    /**
-     * create central stacked widget with its children
-     */
-    m_mainStackedWidget = new QStackedWidget(centralWidget());
-    centralWidget()->layout()->addWidget(m_mainStackedWidget);
-    (static_cast<QBoxLayout *>(centralWidget()->layout()))->setStretchFactor(m_mainStackedWidget, 100);
-
-    m_viewManager = new KateViewManager(m_mainStackedWidget, this);
-    m_mainStackedWidget->addWidget(m_viewManager);
-
-    // make view manager default visible!
-    m_mainStackedWidget->setCurrentWidget(m_viewManager);
+    m_viewManager = new KateViewManager(centralWidget(), this);
+    centralWidget()->layout()->addWidget(m_viewManager);
+    (static_cast<QBoxLayout *>(centralWidget()->layout()))->setStretchFactor(m_viewManager, 100);
 
     m_bottomViewBarContainer = new QWidget(centralWidget());
     centralWidget()->layout()->addWidget(m_bottomViewBarContainer);
@@ -771,11 +761,6 @@ void KateMainWindow::slotWindowActivated()
 {
     if (m_viewManager->activeView()) {
         updateCaption(m_viewManager->activeView()->document());
-    }
-
-    // show view manager in any case
-    if (m_mainStackedWidget->currentWidget() != m_viewManager) {
-        m_mainStackedWidget->setCurrentWidget(m_viewManager);
     }
 
     // update proxy

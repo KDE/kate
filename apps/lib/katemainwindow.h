@@ -25,7 +25,6 @@
 #include <QEvent>
 #include <QHash>
 #include <QStackedLayout>
-#include <QStackedWidget>
 #include <QUrl>
 
 class QMenu;
@@ -589,11 +588,6 @@ private:
      * Shutdown Kate after last file is closed
      */
     bool m_modCloseAfterLast = false;
-
-    /**
-     * stacked widget containing the central area, aka view manager, quickopen, ...
-     */
-    QStackedWidget *m_mainStackedWidget = nullptr;
 
     /**
      * keeps track of views

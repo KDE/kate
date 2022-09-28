@@ -1312,6 +1312,9 @@ MainWindow::MainWindow(QWidget *parentWidget)
     bottomHBoxLaout->setStretch(0, 100);
     toplevelVBox->addLayout(bottomHBoxLaout);
 
+    // ensure proper toolview style
+    setToolViewStyle(KMultiTabBar::KDEV3ICON);
+
     for (const auto &sidebar : m_sidebars) {
         connect(sidebar.get(), &Sidebar::sigShowPluginConfigPage, this, &MainWindow::sigShowPluginConfigPage);
     }

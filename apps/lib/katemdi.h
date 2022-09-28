@@ -443,19 +443,6 @@ public:
     ToolView *toolView(const QString &identifier) const;
 
     /**
-     * set the toolview's tabbar style.
-     * @param style the tabbar style.
-     */
-    void setToolViewStyle(KMultiTabBar::KMultiTabBarStyle style);
-
-    /**
-     * get the toolview's tabbar style. Call this before @p startRestore(),
-     * otherwise you overwrite the usersettings.
-     * @return toolview's tabbar style
-     */
-    KMultiTabBar::KMultiTabBarStyle toolViewStyle() const;
-
-    /**
      * get the sidebars' visibility.
      * @return false, if the sidebars' visibility is forced hidden, otherwise true
      */
@@ -493,6 +480,19 @@ protected:
      * @param widget toolview which is destroyed
      */
     void toolViewDeleted(ToolView *widget);
+
+    /**
+     * set the toolview's tabbar style.
+     * @param style the tabbar style.
+     */
+    void setToolViewStyle(KMultiTabBar::KMultiTabBarStyle style);
+
+    /**
+     * get the toolview's tabbar style. Call this before @p startRestore(),
+     * otherwise you overwrite the usersettings.
+     * @return toolview's tabbar style
+     */
+    KMultiTabBar::KMultiTabBarStyle toolViewStyle() const;
 
 public:
     /**

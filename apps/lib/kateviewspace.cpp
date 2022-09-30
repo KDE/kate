@@ -369,9 +369,12 @@ void KateViewSpace::removeView(KTextEditor::View *v)
     // (last element could well be v->document() being removed here)
     bool shown = false;
     for (auto rit = m_registeredDocuments.rbegin(); rit != m_registeredDocuments.rend(); ++rit) {
-        auto it = m_docToView.find(*rit);
-        if (it != m_docToView.end()) {
-            shown = showView(*rit);
+        if (auto doc = rit->doc()) {
+            shown = showView(doc);
+            break;
+        } else if (auto wid = rit->widget()) {
+            activateWidget(wid);
+            shown = true;
             break;
         }
     }
@@ -742,9 +745,25 @@ void KateViewSpace::closeTabRequest(int idx)
         QMetaObject::invokeMethod(widget, "shouldClose", Q_RETURN_ARG(bool, shouldClose));
         if (shouldClose) {
             stack->removeWidget(widget);
+            m_registeredDocuments.removeOne(widget);
+
+            m_tabBar->blockSignals(true);
             m_tabBar->removeTab(idx);
+            m_tabBar->blockSignals(false);
+
             widget->deleteLater();
             Q_EMIT m_viewManager->mainWindow()->widgetRemoved(widget);
+
+            // switch to most recently used doc
+            for (auto rit = m_registeredDocuments.rbegin(); rit != m_registeredDocuments.rend(); ++rit) {
+                if (auto doc = rit->doc()) {
+                    showView(doc);
+                    break;
+                } else if (auto wid = rit->widget()) {
+                    activateWidget(wid);
+                    break;
+                }
+            }
 
             // if this was the last doc, let viewManager know we are empty
             if (m_registeredDocuments.isEmpty() && m_tabBar->count() == 0) {
@@ -792,6 +811,7 @@ void KateViewSpace::addWidgetAsTab(QWidget *widget)
     stack->addWidget(widget);
     m_tabBar->setCurrentWidget(widget);
     stack->setCurrentWidget(widget);
+    m_registeredDocuments.append(widget);
 }
 
 bool KateViewSpace::hasWidgets() const
@@ -844,6 +864,9 @@ bool KateViewSpace::activateWidget(QWidget *widget)
     for (int i = 0; i < m_tabBar->count(); ++i) {
         if (m_tabBar->tabData(i).value<QWidget *>() == widget) {
             m_tabBar->setCurrentIndex(i);
+
+            m_registeredDocuments.removeOne(widget);
+            m_registeredDocuments.append(widget);
             return true;
         }
     }

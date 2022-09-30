@@ -298,13 +298,35 @@ private:
     std::vector<Location> m_locations;
     size_t currentLocation = 0;
 
+    struct DocOrWidget : public std::variant<KTextEditor::Document *, QWidget *> {
+        using variant::variant;
+
+        auto *doc() const
+        {
+            return std::holds_alternative<KTextEditor::Document *>(*this) ? std::get<KTextEditor::Document *>(*this) : nullptr;
+        }
+
+        auto widget() const
+        {
+            return std::holds_alternative<QWidget *>(*this) ? std::get<QWidget *>(*this) : nullptr;
+        }
+
+        bool operator==(KTextEditor::Document *doc) const
+        {
+            return this->doc() == doc;
+        }
+        bool operator==(QWidget *w) const
+        {
+            return this->widget() == w;
+        }
+    };
     /**
      * all documents this view space is aware of
      * depending on the limit of tabs, not all will have a corresponding
      * tab in the KateTabBar
      * these are stored in used order (MRU last)
      */
-    QVector<KTextEditor::Document *> m_registeredDocuments;
+    QVector<DocOrWidget> m_registeredDocuments;
 
     // the list of views that are contained in this view space,
     // mapped through a hash from Document to View.

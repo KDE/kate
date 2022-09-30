@@ -104,7 +104,7 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
             current = stripped.at(c);
 
             // look for class definitions (for ActionScript)
-            if ((current == QLatin1Char('c')) && (stripped.indexOf(QLatin1String("class"), c) == c)) {
+            if ((current == QLatin1Char('c')) && (stripped.indexOf(QLatin1String("class "), c) == c)) {
                 identifier.clear();
                 c += 6;
                 for (/*c = c*/; c < stripped.length(); c++) {
@@ -138,7 +138,7 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
             } // (look for classes)
 
             // look for function definitions
-            if ((current == QLatin1Char('f')) && (stripped.indexOf(QLatin1String("function"), c) == c)) {
+            if ((current == QLatin1Char('f')) && (stripped.indexOf(QLatin1String("function "), c) == c)) {
                 function_start = c;
                 c += 8;
                 // look for the beginning of the parameters

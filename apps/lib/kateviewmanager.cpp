@@ -27,6 +27,7 @@
 #include <KSharedConfig>
 #include <KToolBar>
 #include <KXMLGUIFactory>
+#include <kwidgetsaddons_version.h>
 
 #ifdef KF5Activities_FOUND
 #include <KActivities/ResourceInstance>
@@ -336,8 +337,20 @@ void KateViewManager::slotDocumentOpen()
             "<p>You are attempting to open one or more large files:</p><ul>%1</ul><p>Do you want to proceed?</p><p><strong>Beware that kate may stop "
             "responding for some time when opening large files.</strong></p>",
             fileListWithTooLargeFiles);
-        const auto ret = KMessageBox::warningYesNo(this, text, i18n("Opening Large File"), KStandardGuiItem::cont(), KStandardGuiItem::stop());
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+        const auto ret = KMessageBox::warningTwoActions(this,
+#else
+        const auto ret = KMessageBox::warningYesNo(this,
+#endif
+                                                        text,
+                                                        i18n("Opening Large File"),
+                                                        KStandardGuiItem::cont(),
+                                                        KStandardGuiItem::stop());
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+        if (ret == KMessageBox::SecondaryAction) {
+#else
         if (ret == KMessageBox::No) {
+#endif
             return;
         }
     }
@@ -1181,12 +1194,20 @@ void KateViewManager::removeViewSpace(KateViewSpace *viewspace)
     }
 
     if (viewspace->hasWidgets()) {
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+        int ret = KMessageBox::questionTwoActions(this,
+#else
         int ret = KMessageBox::warningYesNo(this,
-                                            i18n("This view may have unsaved work. Do you really want to close it?"),
-                                            {},
-                                            KStandardGuiItem::close(),
-                                            KStandardGuiItem::cancel());
+#endif
+                                                  i18n("This view may have unsaved work. Do you really want to close it?"),
+                                                  {},
+                                                  KStandardGuiItem::close(),
+                                                  KStandardGuiItem::cancel());
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+        if (ret != KMessageBox::PrimaryAction) {
+#else
         if (ret != KMessageBox::Yes) {
+#endif
             return;
         }
     }

@@ -40,6 +40,7 @@
 #include <KIO/ApplicationLauncherJob>
 #include <KIO/Job>
 #include <kio_version.h>
+#include <kwidgetsaddons_version.h>
 #if KIO_VERSION >= QT_VERSION_CHECK(5, 98, 0)
 #include <KIO/JobUiDelegateFactory>
 #else
@@ -837,14 +838,22 @@ void KateMainWindow::slotDropEvent(QDropEvent *event)
             KFileItem kitem(url);
             kitem.setDelayedMimeTypes(true);
             if (kitem.isDir()) {
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+                if (KMessageBox::questionTwoActions(this,
+#else
                 if (KMessageBox::questionYesNo(this,
-                                               i18n("You dropped the directory %1 into Kate. "
-                                                    "Do you want to open all files contained in it?",
-                                                    url.url()),
-                                               i18nc("@title:window", "Open Files Recursively"),
-                                               KGuiItem(i18nc("@action:button", "Open All Files"), QStringLiteral("document-open")),
-                                               KStandardGuiItem::cancel())
+#endif
+                                                    i18n("You dropped the directory %1 into Kate. "
+                                                         "Do you want to open all files contained in it?",
+                                                         url.url()),
+                                                    i18nc("@title:window", "Open Files Recursively"),
+                                                    KGuiItem(i18nc("@action:button", "Open All Files"), QStringLiteral("document-open")),
+                                                    KStandardGuiItem::cancel())
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+                    == KMessageBox::PrimaryAction) {
+#else
                     == KMessageBox::Yes) {
+#endif
                     KIO::ListJob *list_job = KIO::listRecursive(url, KIO::DefaultFlags, false);
                     connect(list_job, &KIO::ListJob::entries, this, &KateMainWindow::slotListRecursiveEntries);
                 }

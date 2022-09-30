@@ -25,6 +25,7 @@
 #include <KHistoryComboBox>
 #include <KIO/ApplicationLauncherJob>
 #include <kio_version.h>
+#include <kwidgetsaddons_version.h>
 #if KIO_VERSION >= QT_VERSION_CHECK(5, 98, 0)
 #include <KIO/JobUiDelegateFactory>
 #else
@@ -357,12 +358,21 @@ void KateFileBrowser::openSelectedFiles()
     const KFileItemList list = m_dirOperator->selectedItems();
 
     if (list.count() > 20) {
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+        if (KMessageBox::questionTwoActions(
+                this,
+#else
         if (KMessageBox::questionYesNo(this,
-                                       i18np("You are trying to open 1 file, are you sure?", "You are trying to open %1 files, are you sure?", list.count()),
-                                       {},
-                                       KGuiItem(i18nc("@action:button", "Open All Files"), QStringLiteral("document-open")),
-                                       KStandardGuiItem::cancel())
+#endif
+                i18np("You are trying to open 1 file, are you sure?", "You are trying to open %1 files, are you sure?", list.count()),
+                {},
+                KGuiItem(i18nc("@action:button", "Open All Files"), QStringLiteral("document-open")),
+                KStandardGuiItem::cancel())
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+            == KMessageBox::SecondaryAction) {
+#else
             == KMessageBox::No) {
+#endif
             return;
         }
     }

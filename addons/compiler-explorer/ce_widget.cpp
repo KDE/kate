@@ -27,6 +27,7 @@
 #include <KSharedConfig>
 #include <KTextEditor/MainWindow>
 #include <KXMLGUIFactory>
+#include <kwidgetsaddons_version.h>
 
 enum CE_Options {
     CE_Option_FilterLabel = 1,
@@ -122,8 +123,20 @@ CEWidget::~CEWidget()
 bool CEWidget::shouldClose()
 {
     int ret =
-        KMessageBox::warningYesNo(this, i18n("Do you really want to close %1?", windowTitle()), {}, KStandardGuiItem::close(), KStandardGuiItem::cancel());
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+        KMessageBox::warningTwoActions(this,
+#else
+        KMessageBox::warningYesNo(this,
+#endif
+                                       i18n("Do you really want to close %1?", windowTitle()),
+                                       {},
+                                       KStandardGuiItem::close(),
+                                       KStandardGuiItem::cancel());
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+    return ret == KMessageBox::PrimaryAction;
+#else
     return ret == KMessageBox::Yes;
+#endif
 }
 
 void CEWidget::removeViewAsActiveXMLGuiClient()

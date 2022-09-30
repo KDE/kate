@@ -23,6 +23,7 @@
 #include <KMessageBox>
 #include <KNetworkMounts>
 #include <KSharedConfig>
+#include <kwidgetsaddons_version.h>
 
 #include <QFileDialog>
 #include <QProgressDialog>
@@ -260,19 +261,27 @@ bool KateDocManager::queryCloseDocuments(KateMainWindow *w)
     const auto docCount = m_docList.size();
     for (KTextEditor::Document *doc : qAsConst(m_docList)) {
         if (doc->url().isEmpty() && doc->isModified()) {
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+            int msgres = KMessageBox::warningTwoActionsCancel(w,
+#else
             int msgres = KMessageBox::warningYesNoCancel(w,
-                                                         i18n("<p>The document '%1' has been modified, but not saved.</p>"
-                                                              "<p>Do you want to save your changes or discard them?</p>",
-                                                              doc->documentName()),
-                                                         i18n("Close Document"),
-                                                         KStandardGuiItem::save(),
-                                                         KStandardGuiItem::discard());
+#endif
+                                                              i18n("<p>The document '%1' has been modified, but not saved.</p>"
+                                                                   "<p>Do you want to save your changes or discard them?</p>",
+                                                                   doc->documentName()),
+                                                              i18n("Close Document"),
+                                                              KStandardGuiItem::save(),
+                                                              KStandardGuiItem::discard());
 
             if (msgres == KMessageBox::Cancel) {
                 return false;
             }
 
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+            if (msgres == KMessageBox::PrimaryAction) {
+#else
             if (msgres == KMessageBox::Yes) {
+#endif
                 const QUrl url = QFileDialog::getSaveFileUrl(w, i18n("Save As"));
                 if (!url.isEmpty()) {
                     if (!doc->saveAs(url)) {

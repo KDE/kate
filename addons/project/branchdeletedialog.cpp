@@ -14,6 +14,7 @@
 #include <KMessageBox>
 #include <ktexteditor/editor.h>
 #include <ktexteditor_version.h>
+#include <kwidgetsaddons_version.h>
 
 class CheckableHeaderView : public QHeaderView
 {
@@ -137,8 +138,22 @@ BranchDeleteDialog::BranchDeleteDialog(const QString &dotGitPath, QWidget *paren
         if (btn == deleteBtn) {
             auto count = branchesToDelete().count();
             QString ques = i18np("Are you sure you want to delete the selected branch?", "Are you sure you want to delete the selected branches?", count);
-            auto ret = KMessageBox::questionYesNo(this, ques, {}, KStandardGuiItem::del(), KStandardGuiItem::cancel(), {}, KMessageBox::Dangerous);
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+            auto ret = KMessageBox::questionTwoActions(this,
+#else
+            auto ret = KMessageBox::questionYesNo(this,
+#endif
+                                                       ques,
+                                                       {},
+                                                       KStandardGuiItem::del(),
+                                                       KStandardGuiItem::cancel(),
+                                                       {},
+                                                       KMessageBox::Dangerous);
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+            if (ret == KMessageBox::PrimaryAction) {
+#else
             if (ret == KMessageBox::Yes) {
+#endif
                 accept();
             } else {
                 // do nothing

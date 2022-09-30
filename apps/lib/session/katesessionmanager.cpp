@@ -19,6 +19,7 @@
 #include <KService>
 #include <KSharedConfig>
 #include <KShell>
+#include <kwidgetsaddons_version.h>
 
 #include <QApplication>
 #include <QCryptographicHash>
@@ -107,14 +108,22 @@ bool KateSessionManager::activateSession(KateSession::Ptr session, const bool cl
         }
 
         if (instances.find(session->name()) != instances.end()) {
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+            if (KMessageBox::questionTwoActions(
+#else
             if (KMessageBox::questionYesNo(
+#endif
                     nullptr,
                     i18n("Session '%1' is already opened in another Kate instance. Switch to that or reopen in this instance?", session->name()),
                     QString(),
                     KGuiItem(i18nc("@action:button", "Switch to Instance"), QStringLiteral("window")),
                     KGuiItem(i18nc("@action:button", "Reopen"), QStringLiteral("document-open")),
                     QStringLiteral("katesessionmanager_switch_instance"))
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+                == KMessageBox::PrimaryAction) {
+#else
                 == KMessageBox::Yes) {
+#endif
                 instances[session->name()].dbus_if->call(QStringLiteral("activate"));
                 return false;
             }

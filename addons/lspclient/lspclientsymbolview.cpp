@@ -7,6 +7,7 @@
 
 #include "lspclientsymbolview.h"
 
+#include <KFuzzyMatcher>
 #include <KLineEdit>
 #include <KLocalizedString>
 #include <QSortFilterProxyModel>
@@ -26,8 +27,6 @@
 
 #include <memory>
 #include <utility>
-
-#include <kfts_fuzzy_match.h>
 
 // TODO: Make this globally available in shared/
 enum SymbolViewRoles { SymbolRange = Qt::UserRole, ScoreRole, IsPlaceholder };
@@ -148,12 +147,11 @@ protected:
             return true;
         }
 
-        int score = 0;
         const auto idx = sourceModel()->index(sourceRow, 0, sourceParent);
         const QString symbol = idx.data().toString();
-        const bool res = kfts::fuzzy_match(m_pattern, symbol, score);
-        sourceModel()->setData(idx, score, SymbolViewRoles::ScoreRole);
-        return res;
+        const auto res = KFuzzyMatcher::match(m_pattern, symbol);
+        sourceModel()->setData(idx, res.score, SymbolViewRoles::ScoreRole);
+        return res.matched;
     }
 
 private:

@@ -17,7 +17,6 @@
 #include <KLocalizedString>
 
 #include <drawing_utils.h>
-#include <kfts_fuzzy_match.h>
 
 #include <gitprocess.h>
 

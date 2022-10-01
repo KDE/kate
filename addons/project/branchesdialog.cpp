@@ -13,13 +13,12 @@
 #include <QTreeView>
 #include <QWidget>
 
+#include <KFuzzyMatcher>
+#include <KLocalizedString>
 #include <KTextEditor/Message>
 #include <KTextEditor/View>
 
-#include <KLocalizedString>
-
 #include <drawing_utils.h>
-#include <kfts_fuzzy_match.h>
 
 class StyleDelegate : public HUDStyleDelegate
 {
@@ -42,7 +41,10 @@ public:
         const bool branchItem = itemType == BranchesDialogModel::BranchItem;
         const int offset = branchItem ? 0 : 2;
 
-        formats = kfts::get_fuzzy_match_formats(m_filterString, name, offset, fmt);
+        const auto ranges = KFuzzyMatcher::matchedRanges(m_filterString, name);
+        std::transform(ranges.begin(), ranges.end(), std::back_inserter(formats), [offset, fmt](const KFuzzyMatcher::Range &fr) {
+            return QTextLayout::FormatRange{fr.start + offset, fr.length, fmt};
+        });
 
         if (!branchItem) {
             name = QStringLiteral("+ ") + name;

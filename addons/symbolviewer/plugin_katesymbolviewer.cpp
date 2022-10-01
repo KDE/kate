@@ -40,16 +40,16 @@
 #include "plugin_katesymbolviewer.h"
 
 #include <KConfigGroup>
+#include <KFuzzyMatcher>
 #include <KLineEdit>
 #include <KPluginFactory>
 #include <KSharedConfig>
 #include <KXMLGUIFactory>
 #include <QAction>
+#include <QKeyEvent>
 
 #include <ktexteditor/configinterface.h>
 #include <ktexteditor/cursor.h>
-
-#include <kfts_fuzzy_match.h>
 
 #include <QGroupBox>
 #include <QVBoxLayout>
@@ -411,7 +411,7 @@ bool KatePluginSymbolViewerView::filterSymbols(QTreeWidgetItem *item, const QStr
             at_least_one_child_shown = true;
         }
     }
-    bool is_item_match = kfts::fuzzy_match_simple(filter, item->text(0));
+    bool is_item_match = KFuzzyMatcher::matchSimple(filter, item->text(0));
     bool is_item_shown = at_least_one_child_shown || filter.isEmpty() || is_item_match;
     item->setHidden(!is_item_shown);
     return is_item_shown;

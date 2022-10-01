@@ -11,7 +11,7 @@
 
 #include <QSortFilterProxyModel>
 
-#include <kfts_fuzzy_match.h>
+#include <KFuzzyMatcher>
 
 class KateProjectFilterProxyModel : public QSortFilterProxyModel
 {
@@ -44,7 +44,7 @@ protected:
         }
 
         const QString file = index.data().toString();
-        return kfts::fuzzy_match_simple(m_pattern, file);
+        return KFuzzyMatcher::matchSimple(m_pattern, file);
     }
 
 private:

@@ -24,7 +24,7 @@
 #include <QTreeView>
 #include <QVBoxLayout>
 
-#include <kfts_fuzzy_match.h>
+#include <KFuzzyMatcher>
 #include <ktexteditor_utils.h>
 
 class KateOutputTreeView : public QTreeView
@@ -145,15 +145,13 @@ protected:
         const QString type = idxType.data().toString();
         const QString body = idxBody.data().toString();
 
-        int scorec = 0;
-        int scoret = 0;
-        const bool resc = kfts::fuzzy_match(m_pattern, cat, scorec);
-        const bool rest = kfts::fuzzy_match(m_pattern, type, scoret);
+        const auto resc = KFuzzyMatcher::match(m_pattern, cat);
+        const auto rest = KFuzzyMatcher::match(m_pattern, type);
         const bool resb = body.contains(m_pattern, Qt::CaseInsensitive);
 
         const auto idx = sourceModel()->index(sourceRow, KateOutputView::Column_Time, sourceParent);
-        sourceModel()->setData(idx, scorec + scoret, WeightRole);
-        return resc || rest || resb;
+        sourceModel()->setData(idx, resc.score + rest.score, WeightRole);
+        return resc.matched || rest.matched || resb;
     }
 
 private:

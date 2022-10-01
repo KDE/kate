@@ -43,15 +43,13 @@
 #include <KLocalizedString>
 #include <KMessageBox>
 
+#include <KFuzzyMatcher>
 #include <KSyntaxHighlighting/Definition>
 #include <KSyntaxHighlighting/Repository>
 #include <KTextEditor/Editor>
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/Message>
 #include <KTextEditor/View>
-
-#include <kfts_fuzzy_match.h>
-#include <qkeysequence.h>
 
 class NumStatStyle final : public QStyledItemDelegate
 {
@@ -147,8 +145,8 @@ public:
         }
 
         const QString file = index.data().toString();
-        int s = 0; // not using score atm
-        return kfts::fuzzy_match(m_text, file, s);
+        // not using score atm
+        return KFuzzyMatcher::matchSimple(m_text, file);
     }
 
     void setFilterText(const QString &text)

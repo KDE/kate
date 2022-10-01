@@ -52,10 +52,14 @@ protected:
         return l < r;
     }
 
-    bool filterAcceptsRow(int sourceRow, const QModelIndex &) const override
+    bool filterAcceptsRow(int sourceRow, const QModelIndex &parent) const override
     {
         if (pattern.isEmpty()) {
             return true;
+        }
+
+        if (filterMode == Wildcard) {
+            return QSortFilterProxyModel::filterAcceptsRow(sourceRow, parent);
         }
 
         auto sm = static_cast<KateQuickOpenModel *>(sourceModel());
@@ -125,12 +129,28 @@ public Q_SLOTS:
             return false;
         }
 
+        if (filterMode == Wildcard) {
+            pattern = splitted;
+            setFilterWildcard(pattern);
+            return true;
+        }
+
         beginResetModel();
         pattern = splitted;
         matchPath = pattern.contains(QLatin1Char('/'));
         endResetModel();
 
         return true;
+    }
+
+    void setFilterMode(FilterMode m)
+    {
+        beginResetModel();
+        filterMode = m;
+        if (!pattern.isEmpty() && m == Wildcard) {
+            setFilterWildcard(pattern);
+        }
+        endResetModel();
     }
 
 private:
@@ -147,6 +167,7 @@ private:
 private:
     QString pattern;
     bool matchPath = false;
+    FilterMode filterMode = Fuzzy;
 };
 
 class QuickOpenStyleDelegate : public QStyledItemDelegate
@@ -159,6 +180,11 @@ public:
 
     void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override
     {
+        if (m_filterMode != Fuzzy) {
+            QStyledItemDelegate::paint(painter, option, index);
+            return;
+        }
+
         QStyleOptionViewItem options = option;
         initStyleOption(&options, index);
 
@@ -228,8 +254,14 @@ public Q_SLOTS:
         m_filterString = text;
     }
 
+    void setFilterMode(FilterMode m)
+    {
+        m_filterMode = m;
+    }
+
 private:
     QString m_filterString;
+    FilterMode m_filterMode;
 };
 
 Q_DECLARE_METATYPE(QPointer<KTextEditor::Document>)
@@ -254,35 +286,17 @@ KateQuickOpen::KateQuickOpen(KateMainWindow *mainWindow)
     m_listView->setTextElideMode(Qt::ElideLeft);
     m_listView->setUniformRowHeights(true);
 
-    m_base_model = new KateQuickOpenModel(this);
-
-    m_model = new QuickOpenFilterProxyModel(this);
-    m_model->setFilterRole(Qt::DisplayRole);
-    m_model->setSortRole(KateQuickOpenModel::Score);
-    m_model->setFilterCaseSensitivity(Qt::CaseInsensitive);
-    m_model->setSortCaseSensitivity(Qt::CaseInsensitive);
-    m_model->setFilterKeyColumn(Qt::DisplayRole);
-
+    m_model = new KateQuickOpenModel(this);
     m_styleDelegate = new QuickOpenStyleDelegate(this);
     m_listView->setItemDelegate(m_styleDelegate);
 
-    connect(m_inputLine, &QuickOpenLineEdit::textChanged, m_styleDelegate, &QuickOpenStyleDelegate::setFilterString);
-    connect(m_inputLine, &QuickOpenLineEdit::textChanged, this, [this](const QString &text) {
-        if (m_model->setFilterText(text)) {
-            m_styleDelegate->setFilterString(text);
-            m_listView->viewport()->update();
-            reselectFirst(); // hacky way
-        }
-    });
+    connect(m_inputLine, &QuickOpenLineEdit::textChanged, this, &KateQuickOpen::reselectFirst, Qt::QueuedConnection);
     connect(m_inputLine, &QuickOpenLineEdit::returnPressed, this, &KateQuickOpen::slotReturnPressed);
     connect(m_inputLine, &QuickOpenLineEdit::listModeChanged, this, &KateQuickOpen::slotListModeChanged);
+    connect(m_inputLine, &QuickOpenLineEdit::filterModeChanged, this, &KateQuickOpen::setFilterMode);
 
     connect(m_listView, &QTreeView::activated, this, &KateQuickOpen::slotReturnPressed);
     connect(m_listView, &QTreeView::clicked, this, &KateQuickOpen::slotReturnPressed); // for single click
-
-    m_listView->setModel(m_model);
-    m_listView->setSortingEnabled(true);
-    m_model->setSourceModel(m_base_model);
 
     m_inputLine->installEventFilter(this);
     m_listView->installEventFilter(this);
@@ -290,9 +304,21 @@ KateQuickOpen::KateQuickOpen(KateMainWindow *mainWindow)
     m_listView->setRootIsDecorated(false);
     m_listView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
+    m_proxyModel = new QuickOpenFilterProxyModel(this);
+    m_proxyModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
+    m_proxyModel->setSourceModel(m_model);
+    m_listView->setModel(m_proxyModel);
+    connect(m_inputLine, &QuickOpenLineEdit::textChanged, m_proxyModel, [this](const QString &text) {
+        if (m_proxyModel->setFilterText(text)) {
+            m_styleDelegate->setFilterString(text);
+            m_listView->viewport()->update();
+        }
+    });
+
     setHidden(true);
 
-    m_base_model->setListMode(m_inputLine->listMode());
+    setFilterMode();
+    m_model->setListMode(m_inputLine->listMode());
 
     // fill stuff
     updateState();
@@ -327,17 +353,18 @@ bool KateQuickOpen::eventFilter(QObject *obj, QEvent *event)
 void KateQuickOpen::reselectFirst()
 {
     int first = 0;
-    if (m_mainWindow->viewManager()->views().size() > 1 && m_model->rowCount() > 1 && m_inputLine->text().isEmpty()) {
+    const auto *model = m_listView->model();
+    if (m_mainWindow->viewManager()->views().size() > 1 && model->rowCount() > 1 && m_inputLine->text().isEmpty()) {
         first = 1;
     }
 
-    QModelIndex index = m_model->index(first, 0);
+    QModelIndex index = model->index(first, 0);
     m_listView->setCurrentIndex(index);
 }
 
 void KateQuickOpen::updateState()
 {
-    m_base_model->refresh(m_mainWindow);
+    m_model->refresh(m_mainWindow);
     reselectFirst();
 
     updateViewGeometry();
@@ -399,9 +426,18 @@ void KateQuickOpen::slotReturnPressed()
 
 void KateQuickOpen::slotListModeChanged(KateQuickOpenModel::List mode)
 {
-    m_base_model->setListMode(mode);
+    m_model->setListMode(mode);
     // this changes things again, needs refresh, let's go all the way
     updateState();
+}
+
+void KateQuickOpen::setFilterMode()
+{
+    auto newMode = m_inputLine->filterMode();
+    m_proxyModel->setFilterMode(newMode);
+    m_listView->setSortingEnabled(newMode == Fuzzy);
+    m_styleDelegate->setFilterMode(newMode);
+    m_listView->viewport()->update();
 }
 
 void KateQuickOpen::updateViewGeometry()

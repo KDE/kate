@@ -51,6 +51,8 @@ private Q_SLOTS:
 
     void slotListModeChanged(KateQuickOpenModelList mode);
 
+    void setFilterMode();
+
 private:
     KateMainWindow *m_mainWindow;
     QTreeView *m_listView;
@@ -60,12 +62,12 @@ private:
     /**
      * our model we search in
      */
-    KateQuickOpenModel *m_base_model;
+    KateQuickOpenModel *m_model = nullptr;
 
     /**
-     * filtered model we search in
+     * fuzzy filter model
      */
-    QuickOpenFilterProxyModel *m_model;
+    QuickOpenFilterProxyModel *m_proxyModel = nullptr;
 };
 
 #endif

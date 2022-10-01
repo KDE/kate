@@ -11,6 +11,11 @@
 
 #include "katequickopenmodel.h"
 
+enum FilterMode {
+    Fuzzy = 0,
+    Wildcard,
+};
+
 class QuickOpenLineEdit : public QLineEdit
 {
     Q_OBJECT
@@ -23,6 +28,11 @@ public:
         return m_listMode;
     }
 
+    FilterMode filterMode() const
+    {
+        return m_filterMode;
+    }
+
 protected:
     void contextMenuEvent(QContextMenuEvent *event) override;
 
@@ -32,9 +42,11 @@ private:
 private:
     std::unique_ptr<QMenu> menu;
     KateQuickOpenModelList m_listMode;
+    FilterMode m_filterMode;
 
 Q_SIGNALS:
     void listModeChanged(KateQuickOpenModelList mode);
+    void filterModeChanged();
 };
 
 #endif // QUICKOPENLINEEDIT_H

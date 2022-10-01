@@ -14,6 +14,7 @@
 #include <KSharedConfig>
 
 static const QString CONFIG_QUICKOPEN_LISTMODE{QStringLiteral("Quickopen List Mode")};
+static const QString CONFIG_QUICKOPEN_FILTERMODE{QStringLiteral("Quickopen Filter Mode")};
 
 QuickOpenLineEdit::QuickOpenLineEdit(QWidget *parent)
     : QLineEdit(parent)
@@ -26,6 +27,8 @@ QuickOpenLineEdit::QuickOpenLineEdit(QWidget *parent)
 
     const bool cfgListMode = cg.readEntry(CONFIG_QUICKOPEN_LISTMODE, true);
     m_listMode = cfgListMode ? KateQuickOpenModelList::CurrentProject : KateQuickOpenModelList::AllProjects;
+
+    m_filterMode = (FilterMode)cg.readEntry(CONFIG_QUICKOPEN_FILTERMODE, (int)Fuzzy);
 }
 
 QuickOpenLineEdit::~QuickOpenLineEdit()
@@ -34,6 +37,7 @@ QuickOpenLineEdit::~QuickOpenLineEdit()
     KConfigGroup cg(cfg, "General");
 
     cg.writeEntry(CONFIG_QUICKOPEN_LISTMODE, m_listMode == KateQuickOpenModelList::CurrentProject);
+    cg.writeEntry(CONFIG_QUICKOPEN_FILTERMODE, (int)m_filterMode);
 }
 
 void QuickOpenLineEdit::contextMenuEvent(QContextMenuEvent *event)
@@ -75,6 +79,31 @@ void QuickOpenLineEdit::setupMenu()
         }
     });
     act->setChecked(cfgListMode);
+    actGp->addAction(act);
 
+    // filter mode
+    menu->addSeparator();
+
+    actGp = new QActionGroup(this);
+    act = menu->addAction(i18n("Fuzzy Filtering"));
+    act->setCheckable(true);
+    connect(act, &QAction::toggled, this, [this](bool checked) {
+        if (checked) {
+            m_filterMode = Fuzzy;
+            Q_EMIT filterModeChanged();
+        }
+    });
+    act->setChecked(m_filterMode == Fuzzy);
+    actGp->addAction(act);
+
+    act = menu->addAction(i18n("Wildcard Filtering"));
+    act->setCheckable(true);
+    connect(act, &QAction::toggled, this, [this](bool checked) {
+        if (checked) {
+            m_filterMode = Wildcard;
+            Q_EMIT filterModeChanged();
+        }
+    });
+    act->setChecked(m_filterMode == Wildcard);
     actGp->addAction(act);
 }

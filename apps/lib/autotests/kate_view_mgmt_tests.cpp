@@ -206,3 +206,47 @@ void KateViewManagementTests::testTwoMainWindowsCloseInitialDocument3()
     // create a new document, this did crash due to empty view space
     second->viewManager()->slotDocumentNew();
 }
+
+void KateViewManagementTests::testTabLRUWithWidgets()
+{
+    app->sessionManager()->activateAnonymousSession();
+    app->activeKateMainWindow()->viewManager()->slotDocumentNew();
+
+    // get first main window
+    KateMainWindow *mw = app->activeKateMainWindow();
+    auto vm = mw->viewManager();
+    auto vs = vm->activeViewSpace();
+
+    auto view1 = vm->createView(nullptr);
+    auto view2 = vm->createView(nullptr);
+
+    QCOMPARE(vs->m_registeredDocuments.size(), 3);
+    // view2 should be active
+    QCOMPARE(vm->activeView(), view2);
+
+    // Add a widget
+    QWidget *widget = new QWidget;
+    Utils::addWidget(widget, app->activeMainWindow());
+    QCOMPARE(vs->currentWidget(), widget);
+
+    QCOMPARE(vs->m_registeredDocuments.size(), 4);
+    // activate view1
+    vm->activateView(view1->document());
+
+    // activate widget again
+    QCOMPARE(vs->currentWidget(), nullptr);
+    vm->activateWidget(widget);
+    QCOMPARE(vs->currentWidget(), widget);
+
+    // close "widget"
+    vm->slotDocumentClose();
+
+    // on closing the widget we should fallback to view1
+    // as it was the last visited view
+    QCOMPARE(vs->m_registeredDocuments.size(), 3);
+    QCOMPARE(vm->activeView(), view1);
+    vm->slotDocumentClose();
+    // and view2 after closing view1
+    QCOMPARE(vs->m_registeredDocuments.size(), 2);
+    QCOMPARE(vm->activeView(), view2);
+}

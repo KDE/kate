@@ -216,7 +216,7 @@ void KateTabBar::mouseMoveEvent(QMouseEvent *event)
     auto viewSpace = qobject_cast<KateViewSpace *>(parentWidget());
     const auto viewspaceRect = viewSpace->rect();
     QRect viewspaceRectTopArea = viewspaceRect;
-    viewspaceRectTopArea.setBottom(viewspaceRect.height() / 4);
+    viewspaceRectTopArea.setBottom(viewspaceRect.height() / 2);
     if (!viewSpace || viewspaceRectTopArea.contains(event->pos())) {
         QTabBar::mouseMoveEvent(event);
         return;

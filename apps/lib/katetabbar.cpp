@@ -287,7 +287,7 @@ void KateTabBar::mouseMoveEvent(QMouseEvent *event)
     drag->exec(Qt::CopyAction);
 
     // We send this even to ensure the "moveable tab" is properly reset and we have no dislocated tabs
-    QMouseEvent *e = new QMouseEvent(QEvent::MouseButtonPress, dragStartPos, Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
+    QMouseEvent *e = new QMouseEvent(QEvent::MouseButtonPress, mapToGlobal(dragStartPos), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
     qApp->postEvent(this, e);
 }
 

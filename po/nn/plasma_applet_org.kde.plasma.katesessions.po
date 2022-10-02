@@ -1,0 +1,61 @@
+# Translation of plasma_applet_org.kde.plasma.katesessions to Norwegian Nynorsk
+#
+# Karl Ove Hufthammer <karl@huftis.org>, 2008, 2015, 2021.
+# Eirik U. Birkeland <eirbir@gmail.com>, 2011.
+msgid ""
+msgstr ""
+"Project-Id-Version: plasma_applet_katesession\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"PO-Revision-Date: 2021-09-18 20:01+0200\n"
+"Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
+"Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
+"Language: nn\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 21.11.70\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Environment: kde\n"
+"X-Accelerator-Marker: &\n"
+"X-Text-Markup: kde4\n"
+
+#: applet/contents/ui/katesessions.qml:28
+#, kde-format
+msgid "Kate Sessions"
+msgstr "Kate-øktveljar"
+
+#: applet/contents/ui/katesessions.qml:57
+#, kde-format
+msgid "Search…"
+msgstr "Søk …"
+
+#: applet/contents/ui/KateSessionsItemDelegate.qml:93
+#, kde-format
+msgid "Session name"
+msgstr "Øktnamn"
+
+#: applet/contents/ui/KateSessionsItemDelegate.qml:104
+#, kde-format
+msgid "Create new session and start Kate"
+msgstr "Lag ny økt og start Kate"
+
+#: applet/contents/ui/KateSessionsItemDelegate.qml:113
+#, kde-format
+msgid "Cancel session creation"
+msgstr "Avbryt øktlaging"
+
+#: applet/contents/ui/KateSessionsItemDelegate.qml:130
+#, kde-format
+msgid "Delete session"
+msgstr "Slett økt"
+
+#: katesessionsmodel.cpp:63
+#, kde-format
+msgid "Start Kate (no arguments)"
+msgstr "Start Kate (utan argument)"
+
+#: katesessionsmodel.cpp:71
+#, kde-format
+msgid "New Kate Session"
+msgstr "Ny Kate-økt"

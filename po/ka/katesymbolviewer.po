@@ -1,0 +1,262 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR This file is copyright:
+# This file is distributed under the same license as the kate package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"PO-Revision-Date: 2022-08-24 18:51+0200\n"
+"Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
+"Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
+"Language: ka\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.1.1\n"
+
+#: bash_parser.cpp:25 cpp_parser.cpp:31 fortran_parser.cpp:37
+#: plugin_katesymbolviewer.cpp:88 python_parser.cpp:21 ruby_parser.cpp:21
+#, kde-format
+msgid "Show Functions"
+msgstr "ფუნქციების ჩვენება"
+
+#: bash_parser.cpp:28 cpp_parser.cpp:43 fortran_parser.cpp:40 php_parser.cpp:34
+#: python_parser.cpp:39 ruby_parser.cpp:33 tcl_parser.cpp:35
+#, kde-format
+msgid "Functions"
+msgstr "ფუნქციები"
+
+#: cpp_parser.cpp:29 plugin_katesymbolviewer.cpp:84
+#, kde-format
+msgid "Show Macros"
+msgstr "მაკროების ჩვენება"
+
+#: cpp_parser.cpp:30 plugin_katesymbolviewer.cpp:86
+#, kde-format
+msgid "Show Structures"
+msgstr "სტრუქტურების ჩვენება"
+
+#: cpp_parser.cpp:41
+#, kde-format
+msgid "Macros"
+msgstr "მაკროები"
+
+#: cpp_parser.cpp:42
+#, kde-format
+msgid "Structures"
+msgstr "სტრუქტურები"
+
+#: fortran_parser.cpp:35 perl_parser.cpp:23
+#, kde-format
+msgid "Show Subroutines"
+msgstr "ქვეფუნქციების ჩვენება"
+
+#: fortran_parser.cpp:36
+#, kde-format
+msgid "Show Modules"
+msgstr "მოდულების ჩვენება"
+
+#: fortran_parser.cpp:41 perl_parser.cpp:35
+#, kde-format
+msgid "Subroutines"
+msgstr "ქვეფუნქციები"
+
+#: fortran_parser.cpp:42
+#, kde-format
+msgid "Modules"
+msgstr "მოდულები"
+
+#: perl_parser.cpp:21
+#, kde-format
+msgid "Show Uses"
+msgstr "გამოყენების ჩვენება"
+
+#: perl_parser.cpp:22
+#, kde-format
+msgid "Show Pragmas"
+msgstr "პრაგმების ჩვენება"
+
+#: perl_parser.cpp:33
+#, kde-format
+msgid "Uses"
+msgstr "გამოყენებები"
+
+#: perl_parser.cpp:34
+#, kde-format
+msgid "Pragmas"
+msgstr "პრაგმები"
+
+#: php_parser.cpp:31
+#, kde-format
+msgid "Namespaces"
+msgstr "სახელების სივრცეები"
+
+#: php_parser.cpp:32
+#, kde-format
+msgid "Defines"
+msgstr "აღწერები"
+
+#: php_parser.cpp:33 python_parser.cpp:38 ruby_parser.cpp:32
+#, kde-format
+msgid "Classes"
+msgstr "კლასები"
+
+#: plugin_katesymbolviewer.cpp:68
+#, kde-format
+msgid "SymbolViewer"
+msgstr "სიმბოლოების ნახვა"
+
+#: plugin_katesymbolviewer.cpp:77
+#, kde-format
+msgid "Tree Mode"
+msgstr "ხის რეჟიმი"
+
+#: plugin_katesymbolviewer.cpp:79
+#, kde-format
+msgid "Expand Tree"
+msgstr "ხის გაშლა"
+
+#: plugin_katesymbolviewer.cpp:81
+#, kde-format
+msgid "Show Sorted"
+msgstr "დალაგებულად ჩვენება"
+
+#: plugin_katesymbolviewer.cpp:90
+#, kde-format
+msgid "Show Parameters"
+msgstr "პარამეტრების ჩვენება"
+
+#: plugin_katesymbolviewer.cpp:116
+#, kde-format
+msgid "Symbol List"
+msgstr "სიმბოლოების სია"
+
+#: plugin_katesymbolviewer.cpp:134
+#, kde-format
+msgid "Filter..."
+msgstr "გაფილტვრა..."
+
+#: plugin_katesymbolviewer.cpp:143
+#, kde-format
+msgctxt "@title:column"
+msgid "Symbols"
+msgstr "სიმბოლოები"
+
+#: plugin_katesymbolviewer.cpp:143
+#, kde-format
+msgctxt "@title:column"
+msgid "Position"
+msgstr "თანამდებობა"
+
+#: plugin_katesymbolviewer.cpp:359
+#, kde-format
+msgid "Sorry, not supported yet!"
+msgstr "ჯერ მხარდაჭერილი არაა!"
+
+#: plugin_katesymbolviewer.cpp:363
+#, kde-format
+msgid "File type: %1"
+msgstr "ფაილის ტიპი: %1"
+
+#: plugin_katesymbolviewer.cpp:476
+#, kde-format
+msgid "Display functions parameters"
+msgstr "ფუნქციის პარამეტრების ჩვენება"
+
+#: plugin_katesymbolviewer.cpp:477
+#, kde-format
+msgid "Automatically expand nodes in tree mode"
+msgstr "ხის რეჟიმში კვანძების ავტომატური გაფართოება"
+
+#: plugin_katesymbolviewer.cpp:478
+#, kde-format
+msgid "Always display symbols in tree mode"
+msgstr "ხის რეჟიმში სიმბოლოების ყოველთვის ჩვენება"
+
+#: plugin_katesymbolviewer.cpp:479
+#, kde-format
+msgid "Always sort symbols"
+msgstr "სიმბოლოები ყოველთვის დალაგდება"
+
+#: plugin_katesymbolviewer.cpp:481
+#, kde-format
+msgid "Parser Options"
+msgstr "მუშვებლის მორგება"
+
+#: plugin_katesymbolviewer.cpp:509
+#, kde-format
+msgid "Symbol Viewer"
+msgstr "სიმბოლოს ნახვა"
+
+#: plugin_katesymbolviewer.cpp:514
+#, kde-format
+msgid "Symbol Viewer Configuration Page"
+msgstr "სიმბოლოს ნახვის მორგების გვერდი"
+
+#: python_parser.cpp:22 ruby_parser.cpp:22
+#, kde-format
+msgid "Show Methods"
+msgstr "მეთოდების ჩვენება"
+
+#: python_parser.cpp:23 ruby_parser.cpp:23
+#, kde-format
+msgid "Show Classes"
+msgstr "კლასების ჩვენება"
+
+#: tcl_parser.cpp:36
+#, kde-format
+msgid "Globals"
+msgstr "გლობალები"
+
+#. i18n: ectx: Menu (view)
+#: ui.rc:6
+#, kde-format
+msgid "&Settings"
+msgstr "&პარამეტრები"
+
+#: xml_parser.cpp:25
+#, kde-format
+msgid "Show Tags"
+msgstr "ჭდეების ჩვენება"
+
+#: xslt_parser.cpp:22
+#, kde-format
+msgid "Show Params"
+msgstr "პარამეტრების ჩვენება"
+
+#: xslt_parser.cpp:23
+#, kde-format
+msgid "Show Variables"
+msgstr "ცვლადების ჩვენება"
+
+#: xslt_parser.cpp:24
+#, kde-format
+msgid "Show Templates"
+msgstr "შაბლონების ჩვენება"
+
+#: xslt_parser.cpp:34
+#, kde-format
+msgid "Params"
+msgstr "პარამეტრები"
+
+#: xslt_parser.cpp:35
+#, kde-format
+msgid "Variables"
+msgstr "ცვლადები"
+
+#: xslt_parser.cpp:36
+#, kde-format
+msgid "Templates"
+msgstr "ნიმუშები"
+
+#~ msgctxt "NAME OF TRANSLATORS"
+#~ msgid "Your names"
+#~ msgstr "Temuri Doghonadze"
+
+#~ msgctxt "EMAIL OF TRANSLATORS"
+#~ msgid "Your emails"
+#~ msgstr "Temuri.doghonadze@gmail.com"

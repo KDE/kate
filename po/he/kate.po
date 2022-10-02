@@ -1,0 +1,2629 @@
+# translation of kate.po to
+# translation of kate.po to Hebrew
+# KDE Hebrew Localization Project
+# Translation of kate.po into Hebrew
+#
+# In addition to the copyright owners of the program
+# which this translation accompanies, this translation is
+# Copyright (C) 2001-2002 Meni Livne <livne@kde.org>
+#
+# This translation is subject to the same Open Source
+# license as the program which it accompanies.
+#
+# Dror Levin <spatz@012.net.il>, 2003.
+# Shlomi Loubaton <shlomil@hotmail.com>, 2003.
+# Diego Iastrubni <elcuco@kde.org>, 2004, 2005.
+# Diego Iastrubni <elcuco@kde.org>, 2005, 2006.
+# דיאגו יסטרובני <elcuco@kde.org>, 2005, 2012, 2013, 2014.
+# Tahmar1900 <tahmar1900@gmail.com>, 2011.
+# elkana bardugo <ttv200@gmail.com>, 2016.
+# Elkana Bardugo <ttv200@gmail.com>, 2017. #zanata
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-10-02 00:49+0000\n"
+"PO-Revision-Date: 2017-05-16 06:36-0400\n"
+"Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
+"Language-Team: Hebrew <kde-i18n-doc@kde.org>\n"
+"Language: he\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Zanata 3.9.6\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "דרור לוין "
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "spatz@012.net.il"
+
+#: kate/main.cpp:106
+#, kde-format
+msgid "Kate"
+msgstr "Kate"
+
+#: kate/main.cpp:108
+#, kde-format
+msgid "Kate - Advanced Text Editor"
+msgstr "Kate - עורך טקסט מתקדם"
+
+#: kate/main.cpp:110 kwrite/main.cpp:89
+#, fuzzy, kde-format
+msgid "(c) 2000-2022 The Kate Authors"
+msgstr "(c) 2000-2013 Kate יוצרי"
+
+#: kate/main.cpp:156
+#, kde-format
+msgid "Start Kate with a given session."
+msgstr "התחל את Kate עם ההפעלה הנתונה "
+
+#: kate/main.cpp:157
+#, fuzzy, kde-format
+msgid "session"
+msgstr "הפעלה"
+
+#: kate/main.cpp:162
+#, fuzzy, kde-format
+#| msgid "Start Kate with a new anonymous session, implies '-n'."
+msgid "Start Kate with a new anonymous session, implies '-n'."
+msgstr "התחל את Kate עם הפעלה אנונימית חדשה, על ידי '-n'."
+
+#: kate/main.cpp:167
+#, kde-format
+msgid ""
+"Force start of a new kate instance (is ignored if start is used and another "
+"kate instance already has the given session opened), forced if no parameters "
+"and no URLs are given at all."
+msgstr ""
+
+#: kate/main.cpp:173
+#, kde-format
+msgid ""
+"If using an already running kate instance, block until it exits, if URLs "
+"given to open."
+msgstr ""
+
+#: kate/main.cpp:179
+#, kde-format
+msgid ""
+"Only try to reuse kate instance with this pid (is ignored if start is used "
+"and another kate instance already has the given session opened)."
+msgstr ""
+
+#: kate/main.cpp:180
+#, kde-format
+msgid "pid"
+msgstr ""
+
+#: kate/main.cpp:185 kwrite/main.cpp:140
+#, kde-format
+msgid "Set encoding for the file to open."
+msgstr "קבע קידוד עבור הקובץ שיפתח."
+
+#: kate/main.cpp:186 kwrite/main.cpp:141
+#, fuzzy, kde-format
+msgid "encoding"
+msgstr "הצג קידוד"
+
+#: kate/main.cpp:190 kwrite/main.cpp:145
+#, kde-format
+msgid "Navigate to this line."
+msgstr "דלג לשורה זו."
+
+#: kate/main.cpp:190 kwrite/main.cpp:145
+#, kde-format
+msgid "line"
+msgstr ""
+
+#: kate/main.cpp:195 kwrite/main.cpp:149
+#, kde-format
+msgid "Navigate to this column."
+msgstr ".דלג לטור זה"
+
+#: kate/main.cpp:196 kwrite/main.cpp:149
+#, fuzzy, kde-format
+msgid "column"
+msgstr "הערה"
+
+#: kate/main.cpp:200 kwrite/main.cpp:153
+#, kde-format
+msgid "Read the contents of stdin."
+msgstr "קרא את תוכן הקלט."
+
+#: kate/main.cpp:205 kwrite/main.cpp:157
+#, kde-format
+msgid "The files/URLs opened by the application will be deleted after use"
+msgstr "הקובץ או הכתובת שנפתחה ע\"י האפליקציה תמחק אחרי השימוש"
+
+#: kate/main.cpp:209 kwrite/main.cpp:161
+#, kde-format
+msgid "Documents to open."
+msgstr "מסמך לפתיחה."
+
+#: kate/main.cpp:209 kwrite/main.cpp:161
+#, kde-format
+msgid "[urls...]"
+msgstr ""
+
+#: kwrite/main.cpp:85
+#, fuzzy, kde-format
+#| msgid "KWrite Author"
+msgid "KWrite"
+msgstr "הכותב של KWrite"
+
+#: kwrite/main.cpp:87
+#, fuzzy, kde-format
+#| msgid "Kate - Advanced Text Editor"
+msgid "KWrite - Text Editor"
+msgstr "Kate - עורך טקסט מתקדם"
+
+#. i18n: ectx: Menu (file)
+#: lib/data/kateui.rc:6
+#, kde-format
+msgid "&File"
+msgstr "&קובץ"
+
+#. i18n: ectx: Menu (file_file_actions)
+#: lib/data/kateui.rc:30
+#, fuzzy, kde-format
+#| msgid "Sessions"
+msgid "File Actions"
+msgstr "הפעלות"
+
+#. i18n: ectx: Menu (edit)
+#: lib/data/kateui.rc:43
+#, kde-format
+msgid "&Edit"
+msgstr "&עריכה"
+
+#. i18n: ectx: Menu (selection)
+#: lib/data/kateui.rc:54
+#, fuzzy, kde-format
+#| msgid "Sessions"
+msgid "&Selection"
+msgstr "הפעלות"
+
+#. i18n: ectx: Menu (go)
+#: lib/data/kateui.rc:57
+#, kde-format
+msgid "&Go"
+msgstr ""
+
+#. i18n: ectx: Menu (view)
+#: lib/data/kateui.rc:73
+#, kde-format
+msgid "&View"
+msgstr "&תצוגה"
+
+#. i18n: ectx: Menu (view-split)
+#: lib/data/kateui.rc:75 lib/kateviewspace.cpp:118
+#, kde-format
+msgid "Split View"
+msgstr "תצוגה מפוצלת"
+
+#. i18n: ectx: Menu (tools)
+#: lib/data/kateui.rc:109
+#, kde-format
+msgid "&Tools"
+msgstr "&כלים"
+
+#. i18n: ectx: Menu (settings)
+#: lib/data/kateui.rc:126
+#, kde-format
+msgid "&Settings"
+msgstr "&הגדרות"
+
+#. i18n: ectx: Menu (help)
+#: lib/data/kateui.rc:134
+#, kde-format
+msgid "&Help"
+msgstr "&עזרה"
+
+#. i18n: ectx: ToolBar (mainToolBar)
+#: lib/data/kateui.rc:139
+#, kde-format
+msgid "Main Toolbar"
+msgstr "סרגל כלים ראשי"
+
+#. i18n: ectx: Menu (viewspace_popup_statusbar)
+#: lib/data/kateui.rc:167
+#, kde-format
+msgid "&Status Bar Items"
+msgstr "&פרטי שורת מצב"
+
+#: lib/diff/diffeditor.cpp:146
+#, kde-format
+msgid "Change Style"
+msgstr ""
+
+#: lib/diff/diffeditor.cpp:148 lib/kateconfigdialog.cpp:291
+#, kde-format
+msgid "Side By Side"
+msgstr ""
+
+#: lib/diff/diffeditor.cpp:151 lib/kateconfigdialog.cpp:292
+#, fuzzy, kde-format
+#| msgid "Modified"
+msgid "Unified"
+msgstr "שונה"
+
+#: lib/diff/diffeditor.cpp:154 lib/kateconfigdialog.cpp:293
+#, kde-format
+msgid "Raw"
+msgstr ""
+
+#: lib/diff/diffeditor.cpp:183
+#, kde-format
+msgid "Stage Line"
+msgid_plural "Stage Lines"
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/diff/diffeditor.cpp:188
+#, kde-format
+msgid "Stage Hunk"
+msgstr ""
+
+#: lib/diff/diffeditor.cpp:195
+#, kde-format
+msgid "Discard Line"
+msgid_plural "Discard Lines"
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/diff/diffeditor.cpp:200
+#, kde-format
+msgid "Discard Hunk"
+msgstr ""
+
+#: lib/diff/diffeditor.cpp:207
+#, kde-format
+msgid "Unstage Line"
+msgid_plural "Unstage Lines"
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/diff/diffeditor.cpp:212
+#, kde-format
+msgid "Unstage Hunk"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
+#: lib/filehistorywidget.cpp:258 lib/session/katesessionmanagedialog.ui:184
+#, fuzzy, kde-format
+#| msgid "Clos&e All"
+msgid "Close"
+msgstr "ס&גור הכל"
+
+#: lib/filehistorywidget.cpp:290
+#, kde-format
+msgid "Failed to get file history: git executable not found in PATH"
+msgstr ""
+
+#: lib/filehistorywidget.cpp:303
+#, kde-format
+msgid "Failed to get file history: %1"
+msgstr ""
+
+#: lib/filehistorywidget.cpp:346 lib/kateconfigdialog.cpp:125
+#, kde-format
+msgid "Error"
+msgstr ""
+
+#: lib/filehistorywidget.cpp:346
+#, kde-format
+msgid "%1 doesn't exist in a git repo."
+msgstr ""
+
+#: lib/filehistorywidget.cpp:346
+#, kde-format
+msgid "Git"
+msgstr ""
+
+#: lib/filehistorywidget.cpp:354
+#, kde-format
+msgid "File History"
+msgstr ""
+
+#: lib/kateapp.cpp:146
+#, kde-format
+msgid "Christoph Cullmann"
+msgstr "Christoph Cullmann"
+
+#: lib/kateapp.cpp:146
+#, kde-format
+msgid "Maintainer"
+msgstr "מתחזק"
+
+#: lib/kateapp.cpp:147
+#, kde-format
+msgid "Dominik Haumann"
+msgstr "Dominik Haumann"
+
+#: lib/kateapp.cpp:147 lib/kateapp.cpp:150 lib/kateapp.cpp:152
+#: lib/kateapp.cpp:155 lib/kateapp.cpp:161
+#, kde-format
+msgid "Core Developer"
+msgstr "מפתח מרכזי"
+
+#: lib/kateapp.cpp:148
+#, kde-format
+msgid "Sven Brauch"
+msgstr ""
+
+#: lib/kateapp.cpp:148 lib/kateapp.cpp:149 lib/kateapp.cpp:156
+#, kde-format
+msgid "Developer"
+msgstr "מפתח"
+
+#: lib/kateapp.cpp:149
+#, kde-format
+msgid "Kåre Särs"
+msgstr ""
+
+#: lib/kateapp.cpp:150
+#, kde-format
+msgid "Anders Lund"
+msgstr "Anders Lund"
+
+#: lib/kateapp.cpp:151
+#, kde-format
+msgid "Joseph Wenninger"
+msgstr "Joseph Wenninger"
+
+#: lib/kateapp.cpp:155
+#, kde-format
+msgid "Hamish Rodda"
+msgstr "Hamish Rodda"
+
+#: lib/kateapp.cpp:156
+#, kde-format
+msgid "Alexander Neundorf"
+msgstr "Anders Lund"
+
+#: lib/kateapp.cpp:157
+#, kde-format
+msgid "Waldo Bastian"
+msgstr "Waldo Bastian"
+
+#: lib/kateapp.cpp:157
+#, kde-format
+msgid "The cool buffersystem"
+msgstr "מערכת המאגרים המגניבה"
+
+#: lib/kateapp.cpp:158
+#, kde-format
+msgid "Charles Samuels"
+msgstr "Charles Samuels"
+
+#: lib/kateapp.cpp:158
+#, kde-format
+msgid "The Editing Commands"
+msgstr "פקודות העריכה"
+
+#: lib/kateapp.cpp:159
+#, kde-format
+msgid "Matt Newell"
+msgstr "Matt Newell"
+
+#: lib/kateapp.cpp:159
+#, kde-format
+msgid "Testing, ..."
+msgstr "בדיקה, ..."
+
+#: lib/kateapp.cpp:160
+#, kde-format
+msgid "Michael Bartl"
+msgstr "Michael Bartl"
+
+#: lib/kateapp.cpp:160
+#, kde-format
+msgid "Former Core Developer"
+msgstr "מפתח מרכזי לשעבר"
+
+#: lib/kateapp.cpp:161
+#, kde-format
+msgid "Michael McCallum"
+msgstr "Michael McCallum"
+
+#: lib/kateapp.cpp:162
+#, kde-format
+msgid "Jochen Wilhemly"
+msgstr "Jochen Wilhemly"
+
+#: lib/kateapp.cpp:162
+#, kde-format
+msgid "KWrite Author"
+msgstr "הכותב של KWrite"
+
+#: lib/kateapp.cpp:163
+#, kde-format
+msgid "Michael Koch"
+msgstr "Michael Koch"
+
+#: lib/kateapp.cpp:163
+#, kde-format
+msgid "KWrite port to KParts"
+msgstr "הסבת KWrite ל־KParts"
+
+#: lib/kateapp.cpp:164
+#, kde-format
+msgid "Christian Gebauer"
+msgstr "Christian Gebauer"
+
+#: lib/kateapp.cpp:165
+#, kde-format
+msgid "Simon Hausmann"
+msgstr "Simon Hausmann"
+
+#: lib/kateapp.cpp:166
+#, kde-format
+msgid "Glen Parker"
+msgstr "Glen Parker"
+
+#: lib/kateapp.cpp:166
+#, kde-format
+msgid "KWrite Undo History, Kspell integration"
+msgstr "היסטוריית הביטול של KWrite, שילוב עם Kspell"
+
+#: lib/kateapp.cpp:167
+#, kde-format
+msgid "Scott Manson"
+msgstr "Scott Manson"
+
+#: lib/kateapp.cpp:167
+#, kde-format
+msgid "KWrite XML Syntax highlighting support"
+msgstr "התמיכה של KWrite בהדגשת תחביר XML"
+
+#: lib/kateapp.cpp:168
+#, kde-format
+msgid "John Firebaugh"
+msgstr "John Firebaugh"
+
+#: lib/kateapp.cpp:168
+#, kde-format
+msgid "Patches and more"
+msgstr "טלאים ועוד"
+
+#: lib/kateapp.cpp:169
+#, kde-format
+msgid "Pablo Martín"
+msgstr "Pablo Martín"
+
+#: lib/kateapp.cpp:170
+#, kde-format
+msgid "Python Plugin Developer"
+msgstr "מפתח תוספים של Python"
+
+#: lib/kateapp.cpp:173
+#, kde-format
+msgid "Gerald Senarclens de Grancy"
+msgstr "Gerald Senarclens de Grancy"
+
+#: lib/kateapp.cpp:174
+#, kde-format
+msgid "QA and Scripting"
+msgstr "בקרת איכות ותסרוט"
+
+#: lib/kateapp.cpp:178
+#, kde-format
+msgid "Tyson Tan"
+msgstr ""
+
+#: lib/kateapp.cpp:179
+#, kde-format
+msgid "Designer of Kate's mascot 'Kate the Cyber Woodpecker'"
+msgstr ""
+
+#: lib/kateapp.cpp:182
+#, kde-format
+msgid "Matteo Merli"
+msgstr "Matteo Merli"
+
+#: lib/kateapp.cpp:182
+#, kde-format
+msgid "Highlighting for RPM Spec-Files, Perl, Diff and more"
+msgstr "הדגשה עבור קבצי Spec של RPM וגם Perl, Diff ועוד"
+
+#: lib/kateapp.cpp:183
+#, kde-format
+msgid "Rocky Scaletta"
+msgstr "Rocky Scaletta"
+
+#: lib/kateapp.cpp:183
+#, kde-format
+msgid "Highlighting for VHDL"
+msgstr "הדגשת VHDL"
+
+#: lib/kateapp.cpp:184
+#, kde-format
+msgid "Yury Lebedev"
+msgstr "Yury Lebedev"
+
+#: lib/kateapp.cpp:184
+#, kde-format
+msgid "Highlighting for SQL"
+msgstr "הדגש SQL"
+
+#: lib/kateapp.cpp:185
+#, kde-format
+msgid "Chris Ross"
+msgstr "Chris Ross"
+
+#: lib/kateapp.cpp:185
+#, kde-format
+msgid "Highlighting for Ferite"
+msgstr "הדגשת Ferite"
+
+#: lib/kateapp.cpp:186
+#, kde-format
+msgid "Nick Roux"
+msgstr "Nick Roux"
+
+#: lib/kateapp.cpp:186
+#, kde-format
+msgid "Highlighting for ILERPG"
+msgstr "הדגשת ILERPG"
+
+#: lib/kateapp.cpp:187
+#, kde-format
+msgid "Carsten Niehaus"
+msgstr "Carsten Niehaus"
+
+#: lib/kateapp.cpp:187
+#, kde-format
+msgid "Highlighting for LaTeX"
+msgstr "הדגשת LaTeX"
+
+#: lib/kateapp.cpp:188
+#, kde-format
+msgid "Per Wigren"
+msgstr "Per Wigren"
+
+#: lib/kateapp.cpp:188
+#, kde-format
+msgid "Highlighting for Makefiles, Python"
+msgstr "הדגשת קבצי Make, Python"
+
+#: lib/kateapp.cpp:189
+#, kde-format
+msgid "Jan Fritz"
+msgstr "Jan Fritz"
+
+#: lib/kateapp.cpp:189
+#, kde-format
+msgid "Highlighting for Python"
+msgstr "הדגשת Python"
+
+#: lib/kateapp.cpp:190
+#, kde-format
+msgid "Daniel Naber"
+msgstr "Daniel Naber"
+
+#: lib/kateapp.cpp:191
+#, kde-format
+msgid "Roland Pabel"
+msgstr "Roland Pabel"
+
+#: lib/kateapp.cpp:191
+#, kde-format
+msgid "Highlighting for Scheme"
+msgstr "הדגשת Scheme"
+
+#: lib/kateapp.cpp:192
+#, kde-format
+msgid "Cristi Dumitrescu"
+msgstr "Cristi Dumitrescu"
+
+#: lib/kateapp.cpp:192
+#, kde-format
+msgid "PHP Keyword/Datatype list"
+msgstr "רשימת טיפוסי נתונים\\מילות מפתח של PHP"
+
+#: lib/kateapp.cpp:193
+#, kde-format
+msgid "Carsten Pfeiffer"
+msgstr "Carsten Pfeiffer"
+
+#: lib/kateapp.cpp:193
+#, kde-format
+msgid "Very nice help"
+msgstr "עזרה אדיבה מאוד"
+
+#: lib/kateapp.cpp:194
+#, kde-format
+msgid "All people who have contributed and I have forgotten to mention"
+msgstr "כל האנשים שתרמו וששכחתי להזכיר"
+
+#: lib/kateapp.cpp:314
+#, kde-format
+msgid "Folders can only be opened when the projects plugin is enabled"
+msgstr ""
+
+#: lib/kateapp.cpp:417
+#, kde-format
+msgid ""
+"The file '%1' could not be opened: it is not a normal file, it is a folder."
+msgstr "לא ניתן לפתוח את הקובץ \"%1\", הוא לא קובץ רגיל אלא תיקייה."
+
+#: lib/kateconfigdialog.cpp:51
+#, kde-format
+msgid "Configure"
+msgstr "הגדר"
+
+#: lib/kateconfigdialog.cpp:103
+#, kde-format
+msgid "Behavior"
+msgstr "התנהגות"
+
+#: lib/kateconfigdialog.cpp:104
+#, fuzzy, kde-format
+#| msgid "Behavior"
+msgid "Behavior Options"
+msgstr "התנהגות"
+
+#: lib/kateconfigdialog.cpp:111
+#, kde-format
+msgid "&Behavior"
+msgstr "&התנהגות"
+
+#: lib/kateconfigdialog.cpp:120
+#, kde-format
+msgid "&Switch to output view upon message type:"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:125
+#, fuzzy, kde-format
+#| msgctxt "The special case of 'Delete unused meta-information after'"
+#| msgid "(never)"
+msgid "Never"
+msgstr "(אף פעם)"
+
+#: lib/kateconfigdialog.cpp:125 lib/kateconfigdialog.cpp:623
+#, kde-format
+msgid "Warning"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:125
+#, kde-format
+msgid "Info"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:125
+#, kde-format
+msgid "Log"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:131
+#, kde-format
+msgid "&Limit output view history:"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:137 lib/kateconfigdialog.cpp:203
+#, kde-format
+msgid "Unlimited"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:144
+#, kde-format
+msgid "Use a separate &dialog for handling externally modified files"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:148
+#, fuzzy, kde-format
+#| msgid ""
+#| "If enabled, when Kate receives focus you will be asked what to do with "
+#| "files that have been modified on the hard disk. If not enabled, you will "
+#| "be asked what to do with a file that has been modified on the hard disk "
+#| "only when that file is tried to be saved."
+msgid ""
+"If enabled, a modal dialog will be used to show all of the modified files. "
+"If not enabled, you will be individually asked what to do for each modified "
+"file only when that file's view receives focus."
+msgstr ""
+"אם מופעל, כאשר kate מקבלת פוקוס אתה תתבקש מה לעשות עם קבצים ששונו בדיסק. אם "
+"לא מאופשר, אתה תישאל מה לעשות עם הקובץ ששונה רק כאשר תשמור את הקובץ לדיסק."
+
+#: lib/kateconfigdialog.cpp:157
+#, fuzzy, kde-format
+#| msgid "Top Sidebar"
+msgid "&Sidebars"
+msgstr "סרגל עליון"
+
+#: lib/kateconfigdialog.cpp:160
+#, kde-format
+msgid "Sync section size with tab positions"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:164
+#, kde-format
+msgid ""
+"When enabled the section size will be determined by the position of the "
+"tabs.\n"
+"This option does not affect the bottom sidebar."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:169
+#, kde-format
+msgid "Show text for left and right sidebar buttons"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:174
+#, kde-format
+msgid "Icon size for left and right sidebar buttons"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:193
+#, fuzzy, kde-format
+#| msgid "Show &Tabs"
+msgid "&Tabs"
+msgstr "הצג לשוניות"
+
+#: lib/kateconfigdialog.cpp:197
+#, kde-format
+msgid "&Limit number of tabs:"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:208
+#, kde-format
+msgid ""
+"A high limit can increase the window size, please enable 'Allow tab "
+"scrolling' to prevent it. Unlimited tabs are always scrollable."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:212
+#, kde-format
+msgid "&Auto hide tabs"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:214
+#, kde-format
+msgid "When checked tabs will be hidden if only one document is open."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:218
+#, kde-format
+msgid "&Show close button"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:220
+#, kde-format
+msgid "When checked each tab will display a close button."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:224
+#, kde-format
+msgid "&Expand tabs"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:226
+#, kde-format
+msgid "When checked tabs take as much size as possible."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:230
+#, fuzzy, kde-format
+#| msgid "Create a new document"
+msgid "&Double click opens a new document"
+msgstr "צור מסמך חדש"
+
+#: lib/kateconfigdialog.cpp:232
+#, kde-format
+msgid "When checked double click opens a new document."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:236
+#, fuzzy, kde-format
+#| msgid "Close all documents"
+msgid "&Middle click closes a document"
+msgstr "סגור את כל המסמכים"
+
+#: lib/kateconfigdialog.cpp:238
+#, kde-format
+msgid "When checked middle click closes a document."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:242
+#, kde-format
+msgid "Allow tab scrolling"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:244
+#, kde-format
+msgid ""
+"When checked this will allow scrolling in tab bar when number of tabs is "
+"large."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:248
+#, kde-format
+msgid "Elide tab text"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:250
+#, kde-format
+msgid "When checked tab text might be elided if its too long."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:256
+#, kde-format
+msgid "&Mouse"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:261
+#, kde-format
+msgid "&Backward button pressed:"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:266
+#, fuzzy, kde-format
+#| msgid "&Previous Tab"
+msgid "Previous tab"
+msgstr "הלשונית הקודמת"
+
+#: lib/kateconfigdialog.cpp:266
+#, kde-format
+msgid "History back"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:272
+#, kde-format
+msgid "&Forward button pressed:"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:277
+#, fuzzy, kde-format
+#| msgid "&Next Tab"
+msgid "Next tab"
+msgstr "הלשונית הבאה"
+
+#: lib/kateconfigdialog.cpp:277
+#, kde-format
+msgid "History forward"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:285
+#, kde-format
+msgid "Diff"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:294
+#, kde-format
+msgid "Diff Style:"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:308
+#, fuzzy, kde-format
+#| msgid "Sessions"
+msgid "Session"
+msgstr "הפעלות"
+
+#: lib/kateconfigdialog.cpp:309
+#, kde-format
+msgid "Session Management"
+msgstr "ניהול הפעלות"
+
+#: lib/kateconfigdialog.cpp:320
+#, kde-format
+msgctxt "The special case of 'Delete unused meta-information after'"
+msgid "(never)"
+msgstr "(אף פעם)"
+
+#: lib/kateconfigdialog.cpp:321
+#, kde-format
+msgctxt "The suffix of 'Delete unused meta-information after'"
+msgid " day"
+msgid_plural " days"
+msgstr[0] " יום"
+msgstr[1] " ימים"
+
+#: lib/kateconfigdialog.cpp:384
+#, kde-format
+msgid "Plugins"
+msgstr "תוספים"
+
+#: lib/kateconfigdialog.cpp:385
+#, kde-format
+msgid "Plugin Manager"
+msgstr "מנהל התוספים"
+
+#: lib/kateconfigdialog.cpp:403 lib/kateconfigdialog.cpp:404
+#, kde-format
+msgid "User Feedback"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:622
+#, fuzzy, kde-format
+#| msgid ""
+#| "<p>The document '%1' has been modified, but not saved.</p><p>Do you want "
+#| "to save your changes or discard them?</p>"
+msgid ""
+"You have unsaved changes. Do you want to apply the changes or discard them?"
+msgstr ""
+"<p>המסמך \"%1\" עבר שינוי, אך לא נשמר</p><p>האם אתה רוצה לשמור את השינויים, "
+"או לבטל אותם?</p>"
+
+#: lib/kateconfigplugindialogpage.cpp:66
+#, kde-format
+msgid "Name"
+msgstr "שם"
+
+#: lib/kateconfigplugindialogpage.cpp:66
+#, kde-format
+msgid "Description"
+msgstr "תיאור"
+
+#: lib/kateconfigplugindialogpage.cpp:69
+#, kde-format
+msgid ""
+"Here you can see all available Kate plugins. Those with a check mark are "
+"loaded, and will be loaded again the next time Kate is started."
+msgstr ""
+"כאן באפשרותך לראות את כל התוספים הזמינים של Kate. התוספים המסומנים טעונים "
+"כרגע וייטענו שוב בפעם הבאה ש־Kate יופעל."
+
+#: lib/katedocmanager.cpp:264
+#, kde-format
+msgid ""
+"<p>The document '%1' has been modified, but not saved.</p><p>Do you want to "
+"save your changes or discard them?</p>"
+msgstr ""
+"<p>המסמך \"%1\" עבר שינוי, אך לא נשמר</p><p>האם אתה רוצה לשמור את השינויים, "
+"או לבטל אותם?</p>"
+
+#: lib/katedocmanager.cpp:267
+#, kde-format
+msgid "Close Document"
+msgstr "סגור מסמך"
+
+#: lib/katedocmanager.cpp:276
+#, kde-format
+msgid "Save As"
+msgstr "שמירה בשם"
+
+#: lib/katedocmanager.cpp:294 lib/katemainwindow.cpp:583
+#, kde-format
+msgid "New file opened while trying to close Kate, closing aborted."
+msgstr "נפתח קובץ חדש בעת סגירת Kate, הסגירה בוטלה."
+
+#: lib/katedocmanager.cpp:294 lib/katemainwindow.cpp:583
+#, kde-format
+msgid "Closing Aborted"
+msgstr "הסגירה בוטלה"
+
+#: lib/katedocmanager.cpp:372
+#, kde-format
+msgid "Starting Up"
+msgstr "מפעיל"
+
+#: lib/katedocmanager.cpp:373
+#, kde-format
+msgid "Reopening files from the last session..."
+msgstr "פותח מחדש קבצים מההפעלה הקודמת..."
+
+#: lib/katefileactions.cpp:67
+#, kde-format
+msgid "Rename file"
+msgstr ""
+
+#: lib/katefileactions.cpp:68
+#, fuzzy, kde-format
+#| msgid "Filename"
+msgid "New file name"
+msgstr "שם הקובץ"
+
+#: lib/katefileactions.cpp:105
+#, kde-format
+msgid "File \"%1\" could not be moved to \"%2\""
+msgstr ""
+
+#: lib/katefileactions.cpp:129
+#, kde-format
+msgid "Do you really want to delete file \"%1\"?"
+msgstr ""
+
+#: lib/katefileactions.cpp:130
+#, fuzzy, kde-format
+#| msgid "Delete File?"
+msgid "Delete file"
+msgstr "למחוק קובץ?"
+
+#: lib/katefileactions.cpp:147
+#, kde-format
+msgid "File \"%1\" could not be deleted."
+msgstr ""
+
+#: lib/katemainwindow.cpp:212
+#, kde-format
+msgid "Use this command to show or hide the view's statusbar"
+msgstr "השתמש בפקודה זו כדי להציג או להסתיר את שורת המצב של התצוגה"
+
+#: lib/katemainwindow.cpp:215
+#, kde-format
+msgid "Show &Tabs"
+msgstr "הצג לשוניות"
+
+#: lib/katemainwindow.cpp:218
+#, kde-format
+msgid "Use this command to show or hide the tabs for the views"
+msgstr "השתמש בפקודה זו כדי להציג או להסתיר את הלשוניות לתצוגה"
+
+#: lib/katemainwindow.cpp:220
+#, kde-format
+msgid "Sho&w Path in Titlebar"
+msgstr "הצ&ג נתיב מלא בכותרת"
+
+#: lib/katemainwindow.cpp:223
+#, kde-format
+msgid "Show the complete document path in the window caption"
+msgstr "הצגת הנתיב המלא של המסמך בכותרת החלון"
+
+#: lib/katemainwindow.cpp:225
+#, kde-format
+msgid "Show Navigation Bar"
+msgstr ""
+
+#: lib/katemainwindow.cpp:235
+#, kde-format
+msgid "&Window Color Scheme"
+msgstr ""
+
+#: lib/katemainwindow.cpp:239
+#, kde-format
+msgid "&Previous Tab"
+msgstr "הלשונית הקודמת"
+
+#: lib/katemainwindow.cpp:240
+#, kde-format
+msgid "Focus the previous tab."
+msgstr "התמקד בלשונית הקודמת"
+
+#: lib/katemainwindow.cpp:245
+#, kde-format
+msgid "&Next Tab"
+msgstr "הלשונית הבאה"
+
+#: lib/katemainwindow.cpp:246
+#, kde-format
+msgid "Focus the next tab."
+msgstr "התמקד בלשונית הבאה"
+
+#: lib/katemainwindow.cpp:253
+#, kde-format
+msgid "&Quick Open"
+msgstr "פתיחה &מהירה"
+
+#: lib/katemainwindow.cpp:256
+#, kde-format
+msgid "Open a form to quick open documents."
+msgstr "פתח חלון לפתיחה מהירה של מסמכים"
+
+#: lib/katemainwindow.cpp:277
+#, fuzzy, kde-format
+#| msgid "Diff Output"
+msgid "Output"
+msgstr "פלט של diff"
+
+#: lib/katemainwindow.cpp:287
+#, kde-format
+msgid "Create a new document"
+msgstr "צור מסמך חדש"
+
+#: lib/katemainwindow.cpp:290
+#, kde-format
+msgid "Open an existing document for editing"
+msgstr "פתיחת מסמך קיים לעריכה"
+
+#: lib/katemainwindow.cpp:295
+#, kde-format
+msgid ""
+"This lists files which you have opened recently, and allows you to easily "
+"open them again."
+msgstr "מציג את רשימת הקבצים שפתחת לאחרונה, ומאפשר לך לפתוח אותם שוב בקלות."
+
+#: lib/katemainwindow.cpp:299
+#, kde-format
+msgid "Save A&ll"
+msgstr "שמור ה&כל"
+
+#: lib/katemainwindow.cpp:302
+#, kde-format
+msgid "Save all open, modified documents to disk."
+msgstr "שמירה לדיסק של כל המסמכים הפתוחים ששונו."
+
+#: lib/katemainwindow.cpp:305
+#, kde-format
+msgid "&Reload All"
+msgstr "&טען מחדש הכול"
+
+#: lib/katemainwindow.cpp:307
+#, kde-format
+msgid "Reload all open documents."
+msgstr "טען מחדש את כל המסמכים הפתוחים."
+
+#: lib/katemainwindow.cpp:311
+#, fuzzy, kde-format
+#| msgid "Location"
+msgid "Copy Location"
+msgstr "מיקום"
+
+#: lib/katemainwindow.cpp:316 lib/katemainwindow.cpp:325
+#, fuzzy, kde-format
+#| msgid "Toggles the orientation of the current split view"
+msgid "Copies the file path of the current file to clipboard."
+msgstr "שנה את  הכיוון של התצוגה המפוצלת"
+
+#: lib/katemainwindow.cpp:320 lib/welcomeview.cpp:82
+#, kde-format
+msgid "&Open Containing Folder"
+msgstr "פתח תיקיה מכילה"
+
+#: lib/katemainwindow.cpp:329
+#, fuzzy, kde-format
+#| msgid "&Rename..."
+msgctxt "@action:inmenu"
+msgid "Rename..."
+msgstr "&שינוי שם..."
+
+#: lib/katemainwindow.cpp:334
+#, fuzzy, kde-format
+#| msgid "Close the current document."
+msgid "Renames the file belonging to the current document."
+msgstr "סגירת המסמך הנוכחי."
+
+#: lib/katemainwindow.cpp:338
+#, fuzzy, kde-format
+#| msgid "Deleted"
+msgctxt "@action:inmenu"
+msgid "Delete"
+msgstr "נמחק"
+
+#: lib/katemainwindow.cpp:343 lib/katemainwindow.cpp:352
+#, fuzzy, kde-format
+#| msgid "Close the current document."
+msgid "Deletes the file belonging to the current document."
+msgstr "סגירת המסמך הנוכחי."
+
+#: lib/katemainwindow.cpp:347
+#, kde-format
+msgid "Properties"
+msgstr ""
+
+#: lib/katemainwindow.cpp:355 lib/katemainwindow.cpp:357
+#, kde-format
+msgid "Compare"
+msgstr ""
+
+#: lib/katemainwindow.cpp:357
+#, kde-format
+msgid "Use the Tabbar context menu to compare two documents"
+msgstr ""
+
+#: lib/katemainwindow.cpp:359
+#, fuzzy, kde-format
+#| msgid "Open a form to quick open documents."
+msgid "Shows a hint how to compare documents."
+msgstr "פתח חלון לפתיחה מהירה של מסמכים"
+
+#: lib/katemainwindow.cpp:362
+#, kde-format
+msgid "Close Orphaned"
+msgstr "סגור מסמכים יתומים"
+
+#: lib/katemainwindow.cpp:364
+#, kde-format
+msgid ""
+"Close all documents in the file list that could not be reopened, because "
+"they are not accessible anymore."
+msgstr ""
+"סגור את כל המסמכים ברשימת הקבצים שאין אפשרות לפתוח, כיוון שהם לא נגישים עוד."
+
+#: lib/katemainwindow.cpp:368
+#, kde-format
+msgid "Close the current document."
+msgstr "סגירת המסמך הנוכחי."
+
+#: lib/katemainwindow.cpp:371
+#, kde-format
+msgid "Close Other"
+msgstr "סגור אחר"
+
+#: lib/katemainwindow.cpp:373
+#, kde-format
+msgid "Close other open documents."
+msgstr "סגור מסמכים פתוחים אחרים."
+
+#: lib/katemainwindow.cpp:376
+#, kde-format
+msgid "Clos&e All"
+msgstr "ס&גור הכל"
+
+#: lib/katemainwindow.cpp:378
+#, kde-format
+msgid "Close all open documents."
+msgstr "סגור כל המסמכים הפתוחים."
+
+#: lib/katemainwindow.cpp:383
+#, kde-format
+msgid "Close this window"
+msgstr "סגור חלון זה"
+
+#: lib/katemainwindow.cpp:387
+#, fuzzy, kde-format
+#| msgid "&New Window"
+msgid "&New Window"
+msgstr "&חלון חדש"
+
+#: lib/katemainwindow.cpp:389
+#, fuzzy, kde-format
+#| msgid "Create a new document"
+msgid "Create a new window."
+msgstr "צור מסמך חדש"
+
+#: lib/katemainwindow.cpp:396
+#, kde-format
+msgid "Open W&ith"
+msgstr "פ&תח באמצעות"
+
+#: lib/katemainwindow.cpp:398
+#, kde-format
+msgid ""
+"Open the current document using another application registered for its file "
+"type, or an application of your choice."
+msgstr ""
+"פתיחת המסמך הנוכחי באמצעות יישום אחר אשר רשום עבור סוג קובץ זה, או יישום אחר "
+"שתבחר."
+
+#: lib/katemainwindow.cpp:406
+#, kde-format
+msgid "Configure the application's keyboard shortcut assignments."
+msgstr "הגדרת הקצאות קיצורי המקשים של היישום."
+
+#: lib/katemainwindow.cpp:409
+#, kde-format
+msgid "Configure which items should appear in the toolbar(s)."
+msgstr "בחירת הפריטים שיופיעו בסרגלי הכלים."
+
+#: lib/katemainwindow.cpp:412
+#, kde-format
+msgid ""
+"Configure various aspects of this application and the editing component."
+msgstr "שינוי הגדרות של היבטים מסוימים של יישום זה ושל רכיב העריכה."
+
+#: lib/katemainwindow.cpp:416
+#, kde-format
+msgid "&Plugins Handbook"
+msgstr "עזרה אודות ה&תוספים"
+
+#: lib/katemainwindow.cpp:418
+#, kde-format
+msgid "This shows help files for various available plugins."
+msgstr "הצגת קבצי עזרה של התוספים השונים הזמינים במערכת."
+
+#: lib/katemainwindow.cpp:435
+#, kde-format
+msgid "Sess&ions"
+msgstr "ה&פעלות"
+
+#: lib/katemainwindow.cpp:441
+#, fuzzy, kde-format
+#| msgid "New Session"
+msgctxt "Menu entry Session->New Session"
+msgid "&New Session"
+msgstr "הפעלה חדשה"
+
+#: lib/katemainwindow.cpp:446
+#, fuzzy, kde-format
+#| msgid "&Open Session"
+msgid "&Recent Sessions"
+msgstr "&פתח הפעלה"
+
+#: lib/katemainwindow.cpp:451
+#, fuzzy, kde-format
+#| msgid "Sess&ions"
+msgid "&All Sessions"
+msgstr "ה&פעלות"
+
+#: lib/katemainwindow.cpp:458
+#, kde-format
+msgid "&Manage Sessions..."
+msgstr "&נהל הפעלות..."
+
+#: lib/katemainwindow.cpp:467
+#, kde-format
+msgid "&Save Session"
+msgstr "&שמור הפעלה"
+
+#: lib/katemainwindow.cpp:473
+#, kde-format
+msgid "Save Session &As..."
+msgstr "שמור &הפעלה בשם..."
+
+#: lib/katemainwindow.cpp:480 lib/kateviewspace.cpp:58
+#, kde-format
+msgid "Go to Previous Location"
+msgstr ""
+
+#: lib/katemainwindow.cpp:488 lib/kateviewspace.cpp:71
+#, kde-format
+msgid "Go to Next Location"
+msgstr ""
+
+#: lib/katemainwindow.cpp:495
+#, kde-format
+msgid "Show File Git History"
+msgstr ""
+
+#: lib/katemainwindow.cpp:510
+#, kde-format
+msgid "This will close all open documents. Are you sure you want to continue?"
+msgstr "פעולה זו תסגור את כל המסמכים הפתוחים. האם אתה בטוח שברצונך להמשיך?"
+
+#: lib/katemainwindow.cpp:511
+#, kde-format
+msgid "Close all documents"
+msgstr "סגור את כל המסמכים"
+
+#: lib/katemainwindow.cpp:526
+#, kde-format
+msgid ""
+"This will close all open documents beside the current one. Are you sure you "
+"want to continue?"
+msgstr ""
+"פעולה זו תסגור את כל המסמכים הפתוחים חוץ מהנוכחי. אתה בטוח שברצונך להמשיך?"
+
+#: lib/katemainwindow.cpp:527
+#, kde-format
+msgid "Close all documents beside current one"
+msgstr "סגור את כל המסמכים חוץ מהנוכחי"
+
+#: lib/katemainwindow.cpp:726
+#, kde-format
+msgid ""
+"This will hide the menu bar completely. You can show it again by typing %1."
+msgstr ""
+"<qt> זה יחביא את שורת התפריט לגמרי. באפשרותך להציג אותה שוב על ידי הפקודה: "
+"%1. </qt>"
+
+#: lib/katemainwindow.cpp:729
+#, kde-format
+msgid "Hide menu bar"
+msgstr "הסתר תפריט"
+
+#: lib/katemainwindow.cpp:829
+#, kde-format
+msgid ""
+"You dropped the directory %1 into Kate. Do you want to open all files "
+"contained in it?"
+msgstr ""
+
+#: lib/katemainwindow.cpp:832
+#, kde-format
+msgctxt "@title:window"
+msgid "Open Files Recursively"
+msgstr ""
+
+#: lib/katemainwindow.cpp:833
+#, fuzzy, kde-format
+#| msgid "Open File"
+msgctxt "@action:button"
+msgid "Open All Files"
+msgstr "פתיחת קובץ"
+
+#: lib/katemainwindow.cpp:958
+#, kde-format
+msgid "&Other..."
+msgstr "&אחר..."
+
+#: lib/katemainwindow.cpp:1083
+#, kde-format
+msgid " [read only]"
+msgstr " [קריאה בלבד]"
+
+#: lib/katemainwindow.cpp:1330
+#, kde-format
+msgid "Diff %1"
+msgstr ""
+
+#: lib/katemainwindow.cpp:1332
+#, kde-format
+msgid "Diff %1..%2"
+msgstr ""
+
+#: lib/katemdi.cpp:84
+#, fuzzy, kde-format
+#| msgid "Plugin Manager"
+msgid "Toolview Manager"
+msgstr "מנהל התוספים"
+
+#: lib/katemdi.cpp:102
+#, kde-format
+msgid "Sidebar Buttons"
+msgstr ""
+
+#: lib/katemdi.cpp:105
+#, kde-format
+msgid "Tool &Views"
+msgstr "&תצוגות כלים"
+
+#: lib/katemdi.cpp:107
+#, kde-format
+msgid "Show Side&bars"
+msgstr "הצג סרגלי &כלים"
+
+#: lib/katemdi.cpp:115
+#, fuzzy, kde-format
+#| msgid "Tool &Views"
+msgid "Hide All Tool Views"
+msgstr "&תצוגות כלים"
+
+#: lib/katemdi.cpp:162
+#, kde-format
+msgid "Show %1"
+msgstr "הצג %1"
+
+#: lib/katemdi.cpp:173
+#, fuzzy, kde-format
+#| msgid "Show %1"
+msgid "Show %1 Button"
+msgstr "הצג %1"
+
+#: lib/katemdi.cpp:984
+#, fuzzy, kde-format
+#| msgid "Configure ..."
+msgid "Configure..."
+msgstr "הגדר ..."
+
+#: lib/katemdi.cpp:988
+#, kde-format
+msgid "Hide Button"
+msgstr ""
+
+#: lib/katemdi.cpp:990
+#, kde-format
+msgid "Move To"
+msgstr "העבר אל..."
+
+#: lib/katemdi.cpp:995
+#, fuzzy, kde-format
+#| msgid "Open Session"
+msgid "Own Section"
+msgstr "פתח הפעלה"
+
+#: lib/katemdi.cpp:1001 lib/katemdi.cpp:1009
+#, kde-format
+msgid "One Down"
+msgstr ""
+
+#: lib/katemdi.cpp:1003 lib/katemdi.cpp:1014
+#, kde-format
+msgid "One Right"
+msgstr ""
+
+#: lib/katemdi.cpp:1007
+#, kde-format
+msgid "One Up"
+msgstr ""
+
+#: lib/katemdi.cpp:1012
+#, kde-format
+msgid "One Left"
+msgstr ""
+
+#: lib/katemdi.cpp:1021
+#, kde-format
+msgid "Left Sidebar"
+msgstr "סרגל שמאלי"
+
+#: lib/katemdi.cpp:1025
+#, kde-format
+msgid "Right Sidebar"
+msgstr "סרגל ימני"
+
+#: lib/katemdi.cpp:1029
+#, kde-format
+msgid "Top Sidebar"
+msgstr "סרגל עליון"
+
+#: lib/katemdi.cpp:1033
+#, kde-format
+msgid "Bottom Sidebar"
+msgstr "סרגל תחתון"
+
+#: lib/katemdi.cpp:1408
+#, kde-format
+msgid ""
+"<qt>You are about to hide the sidebars. With hidden sidebars it is not "
+"possible to directly access the tool views with the mouse anymore, so if you "
+"need to access the sidebars again invoke <b>View &gt; Tool Views &gt; Show "
+"Sidebars</b> in the menu. It is still possible to show/hide the tool views "
+"with the assigned shortcuts.</qt>"
+msgstr ""
+"<qt> אתה עומד להסתיר סרגלים. אם סרגלי הכלים מוסתרים, לא ניתן להגיע אל "
+"התצוגות הכלים באופן ישיר עם העכבר, כך שאם ברצונך להגיע אל תצוגה מסויימת בחר "
+"בתפריט <b>תצוגה -&lt; תצוגת כלים -&lt; הצג סרגלי כלים</b>.עדיין ניתן להסתיר "
+"או להציג את התצוגות עם מקשי קיצור. </qt>"
+
+#: lib/katemwmodonhddialog.cpp:58
+#, kde-format
+msgid "Documents Modified on Disk"
+msgstr "מסמכים ששונו בכונן"
+
+#: lib/katemwmodonhddialog.cpp:74
+#, kde-format
+msgid ""
+"<qt>The documents listed below have changed on disk.<p>Select one or more at "
+"once, and press an action button until the list is empty.</p></qt>"
+msgstr ""
+"<qt> המסמכים שמוצגים כאן השתנו על הכונן. <p> סמן באחד או יותר ולחץ על הכפתור "
+"הפעולה המתאים עד שהרשימה ריקה. </p> </qt>"
+
+#: lib/katemwmodonhddialog.cpp:84
+#, kde-format
+msgid "Filename"
+msgstr "שם הקובץ"
+
+#: lib/katemwmodonhddialog.cpp:84
+#, kde-format
+msgid "Status on Disk"
+msgstr "מצב בכונן"
+
+#: lib/katemwmodonhddialog.cpp:89
+#, kde-format
+msgid "Modified"
+msgstr "שונה"
+
+#: lib/katemwmodonhddialog.cpp:89
+#, kde-format
+msgid "Created"
+msgstr "נוצר"
+
+#: lib/katemwmodonhddialog.cpp:89
+#, kde-format
+msgid "Deleted"
+msgstr "נמחק"
+
+#: lib/katemwmodonhddialog.cpp:104
+#, kde-format
+msgid "&View Difference"
+msgstr "&הצג הבדלים"
+
+#: lib/katemwmodonhddialog.cpp:106
+#, kde-format
+msgid ""
+"Calculates the difference between the editor contents and the disk file for "
+"the selected document, and shows the difference with the default "
+"application. Requires diff(1)."
+msgstr ""
+"מחשב את ההבדלים בין תוכן העורך והתוכן של הקובץ בדיסק עבור המסמך הנבחר ומציג "
+"את ההבדל באמצעות יישום ברירת המחדל. מצריך את התוכנית diff."
+
+#: lib/katemwmodonhddialog.cpp:117
+#, kde-format
+msgid "&Ignore Changes"
+msgstr "&התעלם משינויים"
+
+#: lib/katemwmodonhddialog.cpp:118
+#, kde-format
+msgid "Remove modified flag from selected documents"
+msgstr "הסר את סימון השינוי מהמסמכים הנבחרים"
+
+#: lib/katemwmodonhddialog.cpp:124
+#, kde-format
+msgid "Overwrite selected documents, discarding disk changes"
+msgstr "שכתב את המסמכים הנבחרים, והתעלם מהשינויים בכונן"
+
+#: lib/katemwmodonhddialog.cpp:128
+#, kde-format
+msgid "&Reload"
+msgstr "&טען מחדש"
+
+#: lib/katemwmodonhddialog.cpp:130
+#, kde-format
+msgid "Reload selected documents from disk"
+msgstr "טען מחדש את המסמכים מהכונן"
+
+#: lib/katemwmodonhddialog.cpp:196
+#, kde-format
+msgid ""
+"Could not save the document \n"
+"'%1'"
+msgstr ""
+"לא יכול לשמור את המסמך\n"
+"\"%1\""
+
+#: lib/katemwmodonhddialog.cpp:329
+#, kde-format
+msgid ""
+"The diff command failed. Please make sure that diff(1) is installed and in "
+"your PATH."
+msgstr "הפקודה diff נכשלה. אנא בדוק שתוכנה diff נמצאת בנתיב שלך (PATH$)"
+
+#: lib/katemwmodonhddialog.cpp:331
+#, kde-format
+msgid "Error Creating Diff"
+msgstr "אירעה שגיאה בעת יצירת ה־diff"
+
+#: lib/katemwmodonhddialog.cpp:338
+#, kde-format
+msgid "Ignoring amount of white space changed, the files are identical."
+msgstr "פרט לשינוי ברווחים, הקבצים זהים."
+
+#: lib/katemwmodonhddialog.cpp:338
+#, kde-format
+msgid "Diff Output"
+msgstr "פלט של diff"
+
+#: lib/kateoutputview.cpp:37
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Copy to Clipboard"
+msgstr ""
+
+#: lib/kateoutputview.cpp:184
+#, fuzzy, kde-format
+#| msgid "&Other..."
+msgid "Filter..."
+msgstr "&אחר..."
+
+#: lib/kateoutputview.cpp:197
+#, kde-format
+msgid "Clear all messages"
+msgstr ""
+
+#: lib/kateoutputview.cpp:290
+#, kde-format
+msgctxt "@info"
+msgid "Error"
+msgstr ""
+
+#: lib/kateoutputview.cpp:294
+#, kde-format
+msgctxt "@info"
+msgid "Warning"
+msgstr ""
+
+#: lib/kateoutputview.cpp:298
+#, kde-format
+msgctxt "@info"
+msgid "Info"
+msgstr ""
+
+#: lib/kateoutputview.cpp:302
+#, kde-format
+msgctxt "@info"
+msgid "Log"
+msgstr ""
+
+#: lib/katesavemodifieddialog.cpp:77
+#, kde-format
+msgid "Save As (%1)"
+msgstr "שמור בשם (%1)"
+
+#: lib/katesavemodifieddialog.cpp:127
+#, kde-format
+msgid "Save Documents"
+msgstr "שמור מסמכים"
+
+#: lib/katesavemodifieddialog.cpp:135
+#, kde-format
+msgid ""
+"<qt>The following documents have been modified. Do you want to save them "
+"before closing?</qt>"
+msgstr "<qt>המסמכים הבאים שונו. האם לשמור אותם לפני הסגירה? </qt>"
+
+#: lib/katesavemodifieddialog.cpp:142
+#, kde-format
+msgid "Documents"
+msgstr "מסמכים"
+
+#: lib/katesavemodifieddialog.cpp:142
+#, kde-format
+msgid "Location"
+msgstr "מיקום"
+
+#: lib/katesavemodifieddialog.cpp:152
+#, kde-format
+msgid "Se&lect All"
+msgstr "&בחר הכל"
+
+#: lib/katesavemodifieddialog.cpp:225
+#, kde-format
+msgid ""
+"Data you requested to be saved could not be written. Please choose how you "
+"want to proceed."
+msgstr "לא ניתן לכתוב את המידע שבחרת לשמור. אנא בחר איך להמשיך."
+
+#: lib/kateurlbar.cpp:1178
+#, kde-format
+msgid "Untitled"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:116
+#, kde-format
+msgid "Split Ve&rtical"
+msgstr "&פצל אנכית"
+
+#: lib/kateviewmanager.cpp:120
+#, kde-format
+msgid "Split the currently active view vertically into two views."
+msgstr "פיצול אנכי של התצוגה הפעילה כרגע לשתי תצוגות."
+
+#: lib/kateviewmanager.cpp:124
+#, kde-format
+msgid "Split &Horizontal"
+msgstr "פ&צל אופקית"
+
+#: lib/kateviewmanager.cpp:128
+#, kde-format
+msgid "Split the currently active view horizontally into two views."
+msgstr "פיצול אופקי של התצוגה הפעילה כרגע לשתי תצוגות."
+
+#: lib/kateviewmanager.cpp:132
+#, kde-format
+msgid "Move Document to New Vertical Split"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:136
+#, fuzzy, kde-format
+#| msgid "Split the currently active view vertically into two views."
+msgid ""
+"Split the currently active view vertically into two views and move the "
+"currently active document to right view."
+msgstr "פיצול אנכי של התצוגה הפעילה כרגע לשתי תצוגות."
+
+#: lib/kateviewmanager.cpp:141
+#, kde-format
+msgid "Move Document to New Horizontal Split"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:145
+#, fuzzy, kde-format
+#| msgid "Split the currently active view horizontally into two views."
+msgid ""
+"Split the currently active view horizontally into two views and move the "
+"currently active document to view below."
+msgstr "פיצול אופקי של התצוגה הפעילה כרגע לשתי תצוגות."
+
+#: lib/kateviewmanager.cpp:150
+#, kde-format
+msgid "Cl&ose Current View"
+msgstr "&סגור תצוגה נוכחית"
+
+#: lib/kateviewmanager.cpp:154
+#, kde-format
+msgid "Close the currently active split view"
+msgstr "סגור את התצוגה המפוצלת הפעילה כרגע"
+
+#: lib/kateviewmanager.cpp:158
+#, kde-format
+msgid "Close Inactive Views"
+msgstr "סגור תצוגות לא פעילות"
+
+#: lib/kateviewmanager.cpp:161
+#, kde-format
+msgid "Close every view but the active one"
+msgstr "סגור כל תצוגה פרט לנוכחית"
+
+#: lib/kateviewmanager.cpp:165
+#, kde-format
+msgid "Hide Inactive Views"
+msgstr "הסתר תצוגות לא פעילות"
+
+#: lib/kateviewmanager.cpp:169
+#, kde-format
+msgid "Hide every view but the active one"
+msgstr "הסתר את כל התצוגות חוץ מהפעילה"
+
+#: lib/kateviewmanager.cpp:172
+#, kde-format
+msgid "Toggle Orientation"
+msgstr "שנה כיוון"
+
+#: lib/kateviewmanager.cpp:175
+#, kde-format
+msgid "Toggles the orientation of the current split view"
+msgstr "שנה את  הכיוון של התצוגה המפוצלת"
+
+#: lib/kateviewmanager.cpp:178
+#, kde-format
+msgid "Next Split View"
+msgstr "התצוגה המפוצלת הבאה"
+
+#: lib/kateviewmanager.cpp:183
+#, kde-format
+msgid "Make the next split view the active one."
+msgstr "הפיכת התצוגה המפוצלת הבאה לתצוגה הפעילה."
+
+#: lib/kateviewmanager.cpp:186
+#, kde-format
+msgid "Previous Split View"
+msgstr "התצוגה המפוצלת הקודמת"
+
+#: lib/kateviewmanager.cpp:191
+#, kde-format
+msgid "Make the previous split view the active one."
+msgstr "הפיכת התצוגה המפוצלת הקודמת לתצוגה הפעילה."
+
+#: lib/kateviewmanager.cpp:194
+#, fuzzy, kde-format
+#| msgid "Next Split View"
+msgid "Left Split View"
+msgstr "התצוגה המפוצלת הבאה"
+
+#: lib/kateviewmanager.cpp:199
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Make the split view intuitively on the left the active one."
+msgstr "הפיכת התצוגה המפוצלת הבאה לתצוגה הפעילה."
+
+#: lib/kateviewmanager.cpp:202
+#, fuzzy, kde-format
+#| msgid "Next Split View"
+msgid "Right Split View"
+msgstr "התצוגה המפוצלת הבאה"
+
+#: lib/kateviewmanager.cpp:207
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Make the split view intuitively on the right the active one."
+msgstr "הפיכת התצוגה המפוצלת הבאה לתצוגה הפעילה."
+
+#: lib/kateviewmanager.cpp:210
+#, fuzzy, kde-format
+#| msgid "Split View"
+msgid "Upward Split View"
+msgstr "תצוגה מפוצלת"
+
+#: lib/kateviewmanager.cpp:215
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Make the split view intuitively upward the active one."
+msgstr "הפיכת התצוגה המפוצלת הבאה לתצוגה הפעילה."
+
+#: lib/kateviewmanager.cpp:218
+#, fuzzy, kde-format
+#| msgid "Split View"
+msgid "Downward Split View"
+msgstr "תצוגה מפוצלת"
+
+#: lib/kateviewmanager.cpp:223
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Make the split view intuitively downward the active one."
+msgstr "הפיכת התצוגה המפוצלת הבאה לתצוגה הפעילה."
+
+#: lib/kateviewmanager.cpp:226
+#, kde-format
+msgid "Move Splitter Right"
+msgstr "הזז את המפריד ימינה"
+
+#: lib/kateviewmanager.cpp:229
+#, kde-format
+msgid "Move the splitter of the current view to the right"
+msgstr "הזז את המפריד של התצוגה הנוכחית ימינה"
+
+#: lib/kateviewmanager.cpp:232
+#, kde-format
+msgid "Move Splitter Left"
+msgstr "הזז את המפריד שמאלה"
+
+#: lib/kateviewmanager.cpp:235
+#, kde-format
+msgid "Move the splitter of the current view to the left"
+msgstr "הזז את המפריד של התצוגה הנוכחית שמאלה"
+
+#: lib/kateviewmanager.cpp:238
+#, kde-format
+msgid "Move Splitter Up"
+msgstr "הזז את המפריד מעלה"
+
+#: lib/kateviewmanager.cpp:241
+#, kde-format
+msgid "Move the splitter of the current view up"
+msgstr "הזז את המפריד של התצוגה הנוכחית מעלה"
+
+#: lib/kateviewmanager.cpp:244
+#, kde-format
+msgid "Move Splitter Down"
+msgstr "הזז את המפריד מטה"
+
+#: lib/kateviewmanager.cpp:247
+#, kde-format
+msgid "Move the splitter of the current view down"
+msgstr "הזז את המפריד של התצוגה הנוכחית מטה"
+
+#: lib/kateviewmanager.cpp:250
+#, kde-format
+msgid "Focus Navigation Bar"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:251
+#, fuzzy, kde-format
+#| msgid "Focus the next tab."
+msgid "Focus the navigation bar"
+msgstr "התמקד בלשונית הבאה"
+
+#: lib/kateviewmanager.cpp:258
+#, kde-format
+msgid "Welcome Page"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:273
+#, kde-format
+msgid "Show the welcome page"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:315 lib/kateviewmanager.cpp:317
+#, kde-format
+msgid "Open File"
+msgstr "פתיחת קובץ"
+
+#: lib/kateviewmanager.cpp:336
+#, kde-format
+msgid ""
+"<p>You are attempting to open one or more large files:</p><ul>%1</ul><p>Do "
+"you want to proceed?</p><p><strong>Beware that kate may stop responding for "
+"some time when opening large files.</strong></p>"
+msgstr ""
+"<p> אתה מנסה לפתוח קובץ אחד או יותר שהם גדולים מדי: </p> <ul>%1</ul><p> האם "
+"אתה רוצה להמשיך? </p><p><strong> ייתכן והיישום kate יפסיק להגיד לכמה זמן בעת "
+"פתיחת מסמכים גדולים. </strong></p>"
+
+#: lib/kateviewmanager.cpp:339
+#, kde-format
+msgid "Opening Large File"
+msgstr "פותח קובץ גדול"
+
+#: lib/kateviewmanager.cpp:1162
+#, kde-format
+msgid "This view may have unsaved work. Do you really want to close it?"
+msgstr ""
+
+#: lib/kateviewspace.cpp:98
+#, kde-format
+msgctxt "indicator for more documents"
+msgid "+%1"
+msgstr "+%1"
+
+#: lib/kateviewspace.cpp:103 lib/kateviewspace.cpp:208
+#, kde-format
+msgid "Click here to switch to the Quick Open view."
+msgstr "לחץ כאן כדי להחליף לפתיחת תצוגה מהירה"
+
+#: lib/kateviewspace.cpp:119
+#, kde-format
+msgid "Control view space splitting"
+msgstr "שלוט על רווח הפיצול"
+
+#: lib/kateviewspace.cpp:209
+#, kde-format
+msgid ""
+"Currently, there is one more document open. To see all open documents, "
+"switch to the Quick Open view by clicking here."
+msgid_plural ""
+"Currently, there are %1 more documents open. To see all open documents, "
+"switch to the Quick Open view by clicking here."
+msgstr[0] ""
+"כרגע יש עוד %1 מסמכים פתוחים. כדי לראות את כולם, החלף לתצוגת פתיחה מהירה ע"
+"\"י לחיצה כאן"
+msgstr[1] ""
+"כרגע יש עוד %1 מסמכים פתוחים. כדי לראות את כולם, החלף לתצוגת פתיחה מהירה ע"
+"\"י לחיצה כאן"
+
+#: lib/kateviewspace.cpp:975
+#, fuzzy, kde-format
+#| msgid "Clos&e All"
+msgid "Close Tab"
+msgstr "ס&גור הכל"
+
+#: lib/kateviewspace.cpp:992
+#, kde-format
+msgid "&Close Document"
+msgstr "סגור מסמך "
+
+#: lib/kateviewspace.cpp:993
+#, kde-format
+msgid "Close Other &Documents"
+msgstr "סגור מסמכים אחרים"
+
+#: lib/kateviewspace.cpp:994
+#, fuzzy, kde-format
+#| msgid "Close all documents"
+msgid "Close &All Documents"
+msgstr "סגור את כל המסמכים"
+
+#: lib/kateviewspace.cpp:996
+#, fuzzy, kde-format
+#| msgid "Close Document"
+msgid "D&etach Document"
+msgstr "סגור מסמך"
+
+#: lib/kateviewspace.cpp:997
+#, kde-format
+msgid "Opens the document in a new window and closes it in the current window"
+msgstr ""
+
+#: lib/kateviewspace.cpp:1006
+#, fuzzy, kde-format
+#| msgid "Close the current document."
+msgid "Compare with Active Document"
+msgstr "סגירת המסמך הנוכחי."
+
+#: lib/kateviewspace.cpp:1010
+#, kde-format
+msgid "Diff %1 .. %2"
+msgstr ""
+
+#: lib/kateviewspace.cpp:1015
+#, fuzzy, kde-format
+#| msgid "Close the current document."
+msgid "Compare with Active Document Using"
+msgstr "סגירת המסמך הנוכחי."
+
+#: lib/kateviewspace.cpp:1082
+#, kde-format
+msgid "Could not start program"
+msgstr ""
+
+#: lib/kateviewspace.cpp:1083
+#, kde-format
+msgid "The selected program could not be started. Maybe it is not installed."
+msgstr ""
+
+#: lib/quickopen/katequickopenlineedit.cpp:22
+#, kde-format
+msgid "Quick Open Search (configure via context menu)"
+msgstr ""
+
+#: lib/quickopen/katequickopenlineedit.cpp:61
+#, kde-format
+msgid "All Projects"
+msgstr ""
+
+#: lib/quickopen/katequickopenlineedit.cpp:73
+#, kde-format
+msgid "Current Project"
+msgstr ""
+
+#: lib/quickopen/katequickopenlineedit.cpp:88
+#, kde-format
+msgid "Fuzzy Filtering"
+msgstr ""
+
+#: lib/quickopen/katequickopenlineedit.cpp:99
+#, kde-format
+msgid "Wildcard Filtering"
+msgstr ""
+
+#: lib/session/katesessionmanagedialog.cpp:26
+#, kde-format
+msgid "Manage Sessions"
+msgstr "נהל הפעלות"
+
+#: lib/session/katesessionmanagedialog.cpp:62
+#, kde-format
+msgid "Session Chooser"
+msgstr "בוחר ההפעלות"
+
+#: lib/session/katesessionmanagedialog.cpp:146
+#, kde-format
+msgid "Restore"
+msgstr ""
+
+#: lib/session/katesessionmanagedialog.cpp:303
+#, kde-format
+msgid "Session will be deleted on dialog close"
+msgstr ""
+
+#. i18n: ectx: property (placeholderText), widget (QLineEdit, m_filterBox)
+#: lib/session/katesessionmanagedialog.ui:30
+#, fuzzy, kde-format
+#| msgid "Sessions"
+msgid "Filter Sessions"
+msgstr "הפעלות"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, m_sessionList)
+#: lib/session/katesessionmanagedialog.ui:55
+#, kde-format
+msgid "Session Name"
+msgstr "שם ההפעלה"
+
+#. i18n: The number of open documents
+#. i18n: ectx: property (text), widget (QTreeWidget, m_sessionList)
+#: lib/session/katesessionmanagedialog.ui:60
+#, fuzzy, kde-format
+#| msgid "&File"
+msgid "Files"
+msgstr "&קובץ"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, m_sessionList)
+#: lib/session/katesessionmanagedialog.ui:68
+#, kde-format
+msgid "Last opened"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, m_openButton)
+#: lib/session/katesessionmanagedialog.ui:87
+#, kde-format
+msgid "&Open"
+msgstr "&פתח"
+
+#. i18n: ectx: property (text), widget (QPushButton, m_newButton)
+#: lib/session/katesessionmanagedialog.ui:98
+#, kde-format
+msgid "New Session"
+msgstr "הפעלה חדשה"
+
+#. i18n: ectx: property (text), widget (QPushButton, m_templateButton)
+#: lib/session/katesessionmanagedialog.ui:108
+#, kde-format
+msgid "Open as Template"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_dontAskCheckBox)
+#: lib/session/katesessionmanagedialog.ui:115
+#, kde-format
+msgid "Don't ask again"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, m_copyButton)
+#: lib/session/katesessionmanagedialog.ui:135
+#, kde-format
+msgid "Duplicate..."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, m_renameButton)
+#: lib/session/katesessionmanagedialog.ui:142
+#, kde-format
+msgid "&Rename..."
+msgstr "&שינוי שם..."
+
+#. i18n: ectx: property (text), widget (QPushButton, m_deleteButton)
+#: lib/session/katesessionmanagedialog.ui:162
+#, fuzzy, kde-format
+#| msgid "Deleted"
+msgid "Delete"
+msgstr "נמחק"
+
+#: lib/session/katesessionmanager.cpp:105
+#, kde-format
+msgid ""
+"Internal error: there is more than one instance open for a given session."
+msgstr "שגיאה פנימית: יש יותר מאשר מופע אחד פתוח עבור הפעלה נתונה."
+
+#: lib/session/katesessionmanager.cpp:112
+#, fuzzy, kde-format
+#| msgid ""
+#| "Session '%1' is already opened in another kate instance, change there "
+#| "instead of reopening?"
+msgid ""
+"Session '%1' is already opened in another Kate instance. Switch to that or "
+"reopen in this instance?"
+msgstr ""
+"ההפעלה \"%1\" כבר פתוחה על ידי מופע אחר של kate, האם לשנות שם במקום לפתוח "
+"מחדש?"
+
+#: lib/session/katesessionmanager.cpp:114
+#, kde-format
+msgctxt "@action:button"
+msgid "Switch to Instance"
+msgstr ""
+
+#: lib/session/katesessionmanager.cpp:115
+#, kde-format
+msgctxt "@action:button"
+msgid "Reopen"
+msgstr ""
+
+#: lib/session/katesessionmanager.cpp:303
+#, fuzzy, kde-format
+#| msgid ""
+#| "The session could not be renamed to \"%1\". Failed to write to \"%2\""
+msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
+msgstr "אין אפשרות לשנות את ההפעלה אל \"%1\", נכשל בכתיבה ל־\"%2\""
+
+#: lib/session/katesessionmanager.cpp:304
+#, kde-format
+msgid "Session Renaming"
+msgstr "שינוי שם ההפעלה"
+
+#: lib/session/katesessionmanager.cpp:451
+#, kde-format
+msgid "Session name:"
+msgstr "שם ההפעלה:"
+
+#: lib/session/katesessionmanager.cpp:453
+#, fuzzy, kde-format
+#| msgid ""
+#| "There is already an existing session with your chosen name.\n"
+#| "Please choose a different one\n"
+#| "Session name:"
+msgid ""
+"There is already an existing session with your chosen name: %1\n"
+"Please choose a different one."
+msgstr ""
+"יש כבר הפעלה פתוחה עם השם שבחרת.\n"
+"אנא בחר שם אחר\n"
+"שם ההפעלה:"
+
+#: lib/session/katesessionmanager.cpp:455
+#, kde-format
+msgid "To save a session, you must specify a name."
+msgstr "בכדי לשמור הפעלה, אליך לתת לה שם."
+
+#: lib/session/katesessionmanager.cpp:482
+#, fuzzy, kde-format
+#| msgid "Specify New Name for Session"
+msgid "Specify a name for this session"
+msgstr "קבע שם להפעלה החדשה"
+
+#: lib/session/katesessionmanager.cpp:484
+#, fuzzy, kde-format
+#| msgid "Specify New Name for Session"
+msgid "Specify a new name for session: %1"
+msgstr "קבע שם להפעלה החדשה"
+
+#. i18n: ectx: property (title), widget (QGroupBox, gbAppStartup)
+#: lib/ui/sessionconfigwidget.ui:17
+#, fuzzy, kde-format
+#| msgid "Application Options"
+msgid "Application Startup Behavior"
+msgstr "אפשרויות יישום"
+
+#. i18n: ectx: property (text), widget (QRadioButton, startNewSessionRadioButton)
+#: lib/ui/sessionconfigwidget.ui:23
+#, kde-format
+msgid "&Start new session"
+msgstr "&התחל הפעלה חדשה"
+
+#. i18n: ectx: property (text), widget (QRadioButton, loadLastUserSessionRadioButton)
+#: lib/ui/sessionconfigwidget.ui:30
+#, kde-format
+msgid "&Load last used session"
+msgstr "טען את ההפעלה &אחרונה"
+
+#. i18n: ectx: property (text), widget (QRadioButton, manuallyChooseSessionRadioButton)
+#: lib/ui/sessionconfigwidget.ui:37
+#, kde-format
+msgid "&Manually choose a session"
+msgstr "בחר הפעלה באופן &ידני"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: lib/ui/sessionconfigwidget.ui:47
+#, fuzzy, kde-format
+#| msgid "Application Options"
+msgid "Application Startup/Shutdown Behavior"
+msgstr "אפשרויות יישום"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: lib/ui/sessionconfigwidget.ui:55
+#, kde-format
+msgid "Automatically save and restore:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, stashNewUnsavedFiles)
+#: lib/ui/sessionconfigwidget.ui:67
+#, kde-format
+msgid "Newly-created unsaved files"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, stashUnsavedFilesChanges)
+#: lib/ui/sessionconfigwidget.ui:77
+#, kde-format
+msgid "Files with unsaved changes"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, openNewDocumentPerWindow)
+#: lib/ui/sessionconfigwidget.ui:88
+#, fuzzy, kde-format
+#| msgid "Create a new Kate view (a new window with the same document list)."
+msgid "Open new window with fresh untitled document"
+msgstr "יצירת תצוגה חדשה של Kate (חלון חדש עם אותה רשימת מסמכים)."
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, modCloseAfterLast)
+#: lib/ui/sessionconfigwidget.ui:95
+#, kde-format
+msgid ""
+"If enabled, the application will shutdown when the last file being edited is "
+"closed, otherwise a blank page will open so that you can start a new file."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, modCloseAfterLast)
+#: lib/ui/sessionconfigwidget.ui:98
+#, kde-format
+msgid "Close the application entirely when the last file is closed"
+msgstr ""
+
+#. i18n: ectx: property (title), widget (QGroupBox, gbElements)
+#: lib/ui/sessionconfigwidget.ui:108
+#, kde-format
+msgid "Session Elements"
+msgstr "רכיבי הפעלות"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: lib/ui/sessionconfigwidget.ui:114
+#, kde-format
+msgid ""
+"The session contains the list of open documents, recently opened files list, "
+"bookmarks, cursor position etc. When the session is loaded all elements are "
+"restored."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: lib/ui/sessionconfigwidget.ui:126
+#, kde-format
+msgid "Maximum number of entries in recent file list:"
+msgstr "מספר מקסימלי לרשומות ברשימת קבצים אחרונים:"
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, restoreVC)
+#: lib/ui/sessionconfigwidget.ui:154
+#, fuzzy, kde-format
+#| msgid ""
+#| "Check this if you want all your views and frames restored each time you "
+#| "open Kate."
+msgid ""
+"Check this if you want all your views and frames restored each time you open "
+"the application."
+msgstr ""
+"בחר באפשרות זו אם ברצונך שכל התצוגות והמסגרות שלך ישוחזרו בכל פעם שתפעיל את "
+"Kate."
+
+#. i18n: ectx: property (text), widget (QCheckBox, restoreVC)
+#: lib/ui/sessionconfigwidget.ui:157
+#, kde-format
+msgid "Include &window configuration"
+msgstr "&כלול תצורת חלונות"
+
+#. i18n: ectx: property (whatsThis), widget (QGroupBox, saveMetaInfos)
+#: lib/ui/sessionconfigwidget.ui:167
+#, kde-format
+msgid ""
+"Check this if you want document configuration like for example bookmarks to "
+"be saved past editor sessions. The configuration will be restored if the "
+"document has not changed when reopened."
+msgstr ""
+"בחר בזה אם אתה רוצה תצורה של המסמך כגון סימניות תישמר לאחר הפעלות של עורך. "
+"התצורה תשוחזר עם המסמך לא שונה כאשר ייפתח מחדש."
+
+#. i18n: ectx: property (title), widget (QGroupBox, saveMetaInfos)
+#: lib/ui/sessionconfigwidget.ui:170
+#, kde-format
+msgid "Keep &meta-information past sessions"
+msgstr "שמור &מטא מידע וכניסות ישנות"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: lib/ui/sessionconfigwidget.ui:181
+#, fuzzy, kde-format
+#| msgid "&Delete unused meta-information after:"
+msgid "Delete unused meta-information after:"
+msgstr "&מחק מטא מידע ללא שימוש לאחר:"
+
+#: lib/welcomeview.cpp:69
+#, fuzzy, kde-format
+#| msgid "Location"
+msgid "&Copy Location"
+msgstr "מיקום"
+
+#: lib/welcomeview.cpp:97
+#, kde-format
+msgctxt "recent items context menu"
+msgid "&Forget This Item"
+msgstr ""
+
+#: lib/welcomeview.cpp:126
+#, kde-format
+msgid "Welcome"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, welcomeLabel)
+#: lib/welcomeview.cpp:129 lib/welcomeview.ui:158
+#, kde-format
+msgid "Welcome to Kate"
+msgstr ""
+
+#: lib/welcomeview.cpp:129
+#, kde-format
+msgid "Welcome to KWrite"
+msgstr ""
+
+#: lib/welcomeview.cpp:168
+#, fuzzy, kde-format
+#| msgid "Close the current document."
+msgctxt "on welcome screen"
+msgid "No recent documents"
+msgstr "סגירת המסמך הנוכחי."
+
+#. i18n: ectx: property (windowTitle), widget (QWidget, WelcomeView)
+#: lib/welcomeview.ui:17
+#, kde-format
+msgid "Form"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, newDocumentButton)
+#: lib/welcomeview.ui:221
+#, fuzzy, kde-format
+#| msgid "Close Document"
+msgctxt "on welcome screen"
+msgid "New Document"
+msgstr "סגור מסמך"
+
+#. i18n: ectx: property (text), widget (QPushButton, openDocumentButton)
+#: lib/welcomeview.ui:232
+#, fuzzy, kde-format
+#| msgctxt "The number of open documents"
+#| msgid "Open Documents"
+msgctxt "on welcome screen"
+msgid "Open Document..."
+msgstr "מסמכים פתוחים"
+
+#. i18n: ectx: property (text), widget (QPushButton, openFolderButton)
+#: lib/welcomeview.ui:243
+#, fuzzy, kde-format
+#| msgid "Open File"
+msgctxt "on welcome screen"
+msgid "Open Folder..."
+msgstr "פתיחת קובץ"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: lib/welcomeview.ui:372
+#, fuzzy, kde-format
+#| msgctxt "The number of open documents"
+#| msgid "Open Documents"
+msgctxt "on welcome screen"
+msgid "Recent documents"
+msgstr "מסמכים פתוחים"
+
+#. i18n: ectx: property (text), widget (QToolButton, forgetAllButton)
+#: lib/welcomeview.ui:382
+#, fuzzy, kde-format
+#| msgid "Clos&e All"
+msgctxt "on welcome screen (recent document list)"
+msgid "Forget All"
+msgstr "ס&גור הכל"
+
+#~ msgid "Make Non-Persistent"
+#~ msgstr "הפוך ללא קבוע"
+
+#~ msgid "Make Persistent"
+#~ msgstr "הפוך לקבוע"
+
+#, fuzzy
+#~| msgid "Copy &Path"
+#~ msgid "Copy File &Path"
+#~ msgstr "העתק נתיב"
+
+#~ msgid ""
+#~ "The supposedly temporary file %1 has been modified. Do you want to delete "
+#~ "it anyway?"
+#~ msgstr "הקובץ הזמני %1 שונה, אם ברצונך למחוק אותו בכל זאת?"
+
+#~ msgid "Delete File?"
+#~ msgstr "למחוק קובץ?"
+
+#~ msgid "&Quick Open Session"
+#~ msgstr "פתיחה &מהירה של הפעלה"
+
+#, fuzzy
+#~| msgid "Start Kate with a new anonymous session, implies '-n'."
+#~ msgid "Start Kate with a new session, implies '-n' (deprecated)."
+#~ msgstr "התחל את Kate עם הפעלה אנונימית חדשה, על ידי '-n'."
+
+#~ msgid "Wa&rn about files modified by foreign processes"
+#~ msgstr "ה&זהר מפני קבצים ששונו על־ידי תהליכים אחרים"
+
+#~ msgid "Application '%1' not found."
+#~ msgstr "היישום \"%1\" לא נמצא."
+
+#~ msgid "Application not found"
+#~ msgstr "היישום לא נמצא"
+
+#, fuzzy
+#~| msgid "Copy &Path"
+#~ msgid "Filter By Path"
+#~ msgstr "העתק נתיב"
+
+#~ msgid "Quick Open Search"
+#~ msgstr "חיפוש פתיחה מהירה"
+
+#, fuzzy
+#~| msgid "Filename"
+#~ msgid "Filepath"
+#~ msgstr "שם הקובץ"
+
+#~ msgid "Application"
+#~ msgstr "יישום"
+
+#~ msgid "General"
+#~ msgstr "כללי"
+
+#~ msgid "General Options"
+#~ msgstr "אפשרויות כלליות"
+
+#~ msgid "Meta-Information"
+#~ msgstr "מטא מידע"
+
+#~ msgid "Editor Component"
+#~ msgstr "רכיב עריכה"
+
+#~ msgid "Editor Component Options"
+#~ msgstr "אפשרויות רכיב עריכה"
+
+#~ msgid "Behaviour on Application Startup"
+#~ msgstr "התנהגות בעת הפעלת היישום"
+
+#~ msgid "&About Editor Component"
+#~ msgstr "&אודות רכיב עריכה"
+
+#~ msgctxt "Menu entry Session->New"
+#~ msgid "&New"
+#~ msgstr "&חדש"
+
+#~ msgid ""
+#~ "A file named \"%1\" already exists. Are you sure you want to overwrite it?"
+#~ msgstr "קובץ בשם \"%1\" כבר קיים. האם אתה בטוח שברצונך לשכתב אותו?"
+
+#~ msgid "Overwrite File?"
+#~ msgstr "האם לשכתב קובץ?"
+
+#, fuzzy
+#~| msgid "&Rename..."
+#~ msgctxt "@action:inmenu"
+#~ msgid "Rename File..."
+#~ msgstr "&שינוי שם..."
+
+#, fuzzy
+#~| msgid "Delete File?"
+#~ msgctxt "@action:inmenu"
+#~ msgid "Delete File"
+#~ msgstr "למחוק קובץ?"
+
+#, fuzzy
+#~| msgid "Meta-Information"
+#~ msgctxt "@title:window"
+#~ msgid "Confirmation"
+#~ msgstr "מטא מידע"
+
+#, fuzzy
+#~| msgid "Close the current document."
+#~ msgid "C&lose Current Document"
+#~ msgstr "סגירת המסמך הנוכחי."
+
+#, fuzzy
+#~| msgid ""
+#~| "This will close all open documents. Are you sure you want to continue?"
+#~ msgid "You have multiple documents open, are you sure you want to quit?"
+#~ msgstr "פעולה זו תסגור את כל המסמכים הפתוחים. האם אתה בטוח שברצונך להמשיך?"
+
+#~ msgid "Errors/Warnings while opening documents"
+#~ msgstr "שגיאה/אזהרה בזמן פתיחת מסמכים"
+
+#~ msgid "Clone session settings"
+#~ msgstr "סגור את ההפעלה של ההגדרות"
+
+#~ msgid "Delete this session"
+#~ msgstr "מחק את ההפעלה הנוכחית"
+
+#~ msgid "&Always use this choice"
+#~ msgstr "&השתמש תמיד בבחירה זו"
+
+#~ msgid "Missing Session Name"
+#~ msgstr "חבר שם ההפעלה"
+
+#~ msgid ""
+#~ "The session could not be renamed to \"%1\", there already exists another "
+#~ "session with the same name"
+#~ msgstr "אין אפשרות לשנות את ההפעלה אל \"%1\", יש כבר הפעלה קיימת עם השם הזה"
+
+#~ msgid "Specify New Name for Current Session"
+#~ msgstr "קבע שם חדש עבוד ההפעלה הנוכחית"
+
+#~ msgid "Developer & Highlight wizard"
+#~ msgstr "אשף מפתח והדגשת תחביר"

@@ -1,0 +1,1913 @@
+<chapter id="advanced-editing-tools">
+<chapterinfo>
+<authorgroup>
+<author
+>&Anders.Lund; &Anders.Lund.mail;</author>
+<author
+>&Dominik.Haumann; &Dominik.Haumann.mail;</author>
+<othercredit role="translator"
+><firstname
+>Андрей</firstname
+><surname
+>Балагута</surname
+><affiliation
+><address
+><email
+>uj2@mail.ru</email
+></address
+></affiliation
+><contrib
+>Перевод на русский язык</contrib
+></othercredit
+> <othercredit role="translator"
+><firstname
+>Алексей</firstname
+><surname
+>Опарин</surname
+><affiliation
+><address
+><email
+>opaleksej@yandex.ru</email
+></address
+></affiliation
+><contrib
+>Перевод на русский язык</contrib
+></othercredit
+><othercredit role="translator"
+><firstname
+>Олеся</firstname
+><surname
+>Герасименко</surname
+><affiliation
+><address
+><email
+>translation-team@basealt.ru</email
+></address
+></affiliation
+><contrib
+>Обновление перевода</contrib
+></othercredit
+> 
+</authorgroup>
+</chapterinfo>
+<title
+>Дополнительные возможности редактирования</title>
+
+<sect1 id="advanced-editing-tools-comment">
+
+<title
+>Комментирование</title>
+
+<para
+>Команды <guimenuitem
+>Закомментировать</guimenuitem
+> и <guimenuitem
+>Раскомментировать</guimenuitem
+>, которые доступны в меню <guimenu
+>Сервис</guimenu
+>, позволяют добавить или убрать маркеры комментариев для выделенного блока текста (или для текущей строки, если текст не выделен) при условии, что комментарии поддерживаются форматом редактируемого текста.</para>
+
+<para
+>Правила комментирования определяются синтаксисом; таким образом, если подсветка синтаксиса не включена, то команды «Закомментировать» и «Раскомментировать» будут недоступны. </para>
+
+<para
+>Некоторые форматы поддерживают только однострочные маркеры комментариев, другие — только многострочные, третьи — и те, и другие. Если многострочные маркеры недоступны, то комментирование блока, в котором не до конца выделена последняя строка, будет невозможным.</para>
+
+<para
+>Предпочтение отдаётся комментированию отдельных строк однострочными маркерами, если последние допустимы синтаксисом и если такое комментирование возможно — это помогает избежать проблем со вложенными комментариями.</para>
+
+<para
+>При удалении маркеров комментариев выделение снимается с раскомментированного текста. При удалении маркеров многострочного комментария пробелы снаружи маркеров игнорируются.</para>
+
+<para
+><indexterm
+><primary
+>закомментировать</primary
+></indexterm
+> Чтобы закомментировать выделенный текст (или текущую строку), выберите пункт меню <menuchoice
+><guimenu
+>Сервис</guimenu
+><guimenuitem
+>Закомментировать</guimenuitem
+></menuchoice
+> или воспользуйтесь соответствующей комбинацией клавиш (по умолчанию <keycombo action="simul"
+>&Ctrl;<keycap
+>D</keycap
+></keycombo
+>).</para>
+
+<para
+><indexterm
+><primary
+>раскомментировать</primary
+></indexterm
+> Чтобы удалить маркеры комментариев, выберите пункт меню <menuchoice
+><guimenu
+>Сервис</guimenu
+><guimenuitem
+>Раскомментировать</guimenuitem
+> </menuchoice
+> или воспользуйтесь соответствующей комбинацией клавиш ( по умолчанию <keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>D</keycap
+></keycombo
+>).</para>
+
+</sect1>
+
+<sect1 id="advanced-editing-tools-commandline">
+<title
+>Командная строка компонента редактирования</title>
+
+<para
+>Компонент редактирования &kappname; имеет встроенную командную строку, позволяющую производить различные действия, оставляя интерфейс минималистичным. Она представляет собой поле ввода в нижней части области редактора. Чтобы получить доступ к командной строке, выберите пункт меню <menuchoice
+><guimenu
+>Вид</guimenu
+><guimenuitem
+>Командная строка</guimenuitem
+></menuchoice
+> или нажмите клавишу <keycombo action="simul"
+><keycap
+>F7</keycap
+></keycombo
+> (по умолчанию). Описание доступных команд приводится далее. Кроме того, в модулях могут быть доступны дополнительные команды.</para>
+
+<para
+>Для выполнения команды введите её и нажмите клавишу Enter. На месте команды будет выведено сообщение об успешном её выполнении или об ошибке. Если командная строка была вызвана с помощью клавиши <keycap
+>F7</keycap
+>, она будет автоматически скрыта по прошествии нескольких секунд. Чтобы убрать сообщение и ввести новую команду, нажмите клавишу <keycap
+>F7</keycap
+> ещё раз.</para>
+
+<para
+>Чтобы получить справку, введите команду <command
+>help</command
+>. Для получения списка всех доступных команд введите команду <command
+>help list</command
+>, для просмотра справки по определённой команде — <command
+>help <replaceable
+>команда</replaceable
+></command
+>.</para>
+
+<para
+>В командной строке имеется встроенный журнал введённых команд, который позволяет использовать их повторно. Для перехода от одной команды к другой воспользуйтесь клавишами со стрелками <keycap
+>Вверх</keycap
+> и <keycap
+>Вниз</keycap
+>. При отображении команды из журнала её аргументы будут выделены, так что заменить их на другие легко.</para>
+
+<sect2 id="advanced-editing-tools-commandline-commands">
+<title
+>Стандартные команды</title>
+
+<variablelist>
+<title
+>Типы аргументов</title>
+
+<varlistentry>
+<term
+>BOOLEAN</term>
+<listitem
+><para
+>Используется для команд включения или отключения. Допустимые значения: <userinput
+>on</userinput
+>, <userinput
+>off</userinput
+>, <userinput
+>true</userinput
+>, <userinput
+>false</userinput
+>, <userinput
+>1</userinput
+> или <userinput
+>0</userinput
+></para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>INTEGER</term>
+<listitem
+><para
+>Целое число.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>STRING</term>
+<listitem
+><para
+>Строка, заключённая в одинарные (') кавычки (или двойные (") кавычки, если она содержит пробелы).</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+
+
+<sect3 id="advanced-editing-tools-commandline-commands-configure">
+<title
+>Параметры редактора</title>
+
+<para
+>Эти команды предоставляются компонентом редактирования и позволяют настроить только текущие документ и представление. Удобно, если требуется установить параметры, отличные от стандартных (например, отступ). </para>
+
+<variablelist>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-tab-width</command
+><arg choice="req"
+>INTEGER width</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Устанавливает ширину табуляции.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-indent-width</command
+><arg choice="req"
+>INTEGER width</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Устанавливает ширину отступа. Только при создании отступов пробелами.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-word-wrap-column</command
+><arg choice="req"
+>INTEGER width</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Устанавливает максимальную длину строк в случае, если включён автоматический перенос.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-icon-border</command
+><arg choice="req"
+>BOOLEAN enable</arg
+> </cmdsynopsis
+></term>
+<listitem
+><para
+>Устанавливает видимость полосы отметок.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-folding-markers</command
+><arg choice="req"
+>BOOLEAN enable</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Устанавливает видимость маркеров сворачивания блоков кода.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-line-numbers</command
+><arg choice="req"
+>BOOLEAN enable</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Устанавливает видимость нумерации строк.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-replace-tabs</command
+><arg choice="req"
+>BOOLEAN enable</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Заменять при вводе символы табуляции на пробелы. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-remove-trailing-space</command
+><arg choice="req"
+>BOOLEAN enable</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Удалять пробелы в конце строки при снятии с неё курсора.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-show-tabs</command
+><arg
+>BOOLEAN enable</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Представлять символы табуляции и пробельное пространство в конце строк маленькими точками.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-show-indent</command
+><arg choice="req"
+>BOOLEAN enable</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Представлять отступы вертикальной пунктирной линией.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-indent-spaces</command
+><arg choice="req"
+>BOOLEAN enable</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Вставлять заданное количество пробелов для каждого уровня отступа, вместо одного символа табуляции.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-mixed-indent</command
+><arg choice="req"
+>BOOLEAN enable</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Использовать для отступов как символы табуляции, так и пробелы. Это реализуется путём замены пробелов в количестве, кратном ширине символа табуляции, на последние.</para>
+<para
+>Эта команда также включит расстановку отступов пробелами и установит ширину отступов, если она не указана, в половину значения <option
+>tab-width</option
+> (для текущего документа во время выполнения).</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-word-wrap</command
+><arg choice="req"
+>BOOLEAN enable</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Выполнять динамический перенос строк.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-replace-tabs-save</command
+><arg choice="req"
+>BOOLEAN enable </arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Заменять символы табуляции на пробелы при сохранении.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-remove-trailing-space-save</command
+><arg choice="req"
+>BOOLEAN enable</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Удалить пробелы в конце строк при сохранении.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-indent-mode</command
+><arg choice="req"
+>STRING name</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Выбрать режим расстановки отступов. Параметр <userinput
+>name</userinput
+> может иметь следующие значения: «none», «normal», «cstyle», «haskell», «lilypond», «lisp», «python», «ruby» или «xml». При указании других значений используется «none».</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-auto-ident</command
+><arg choice="req"
+>BOOLEAN script</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Включить или отключить автоматическую расстановку отступов.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-highlight</command
+><arg choice="req"
+>STRING highlight</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Выбрать формат для подсветки синтаксиса (один из содержащихся в меню <menuchoice
+><guimenu
+>Сервис</guimenu
+><guisubmenu
+>Подсветка</guisubmenu
+></menuchoice
+>). Доступно также автозавершение параметра.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>reload-scripts</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Перезагрузить <link linkend="dev-scripting"
+>сценарии &javascript;</link
+>, которые используются &kate;, включая сценарии расстановки отступов и сценарии командной строки.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>set-mode</command
+><arg choice="req"
+>STRING mode</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Выбрать тип файла для текущего документа. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>nn[oremap]</command
+><arg choice="req"
+>STRING original</arg
+> <arg choice="req"
+>STRING mapped</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Сопоставить комбинацию клавиш <userinput
+>original</userinput
+> комбинации <userinput
+>mapped</userinput
+>.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect3>
+
+<sect3 id="advanced-editing-tools-commandline-commands-edit">
+<title
+>Команды редактирования</title>
+
+<para
+>Команды, которые непосредственно изменяют текущий документ.</para>
+
+<variablelist>
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>indent</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Подставить отступы к выделенным строкам или к текущей.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>unindent</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Снять отступы с выделенных строк или с текущей.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>cleanindent</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Очистить отступы в выделенных строках или в текущей в соответствии с параметрами расстановки отступов для текущего документа. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>comment</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Вставить маркеры, отмечающие выделенные строки или текущую как комментарии, в соответствии с форматом текущего файла (определяется способом подсветки синтаксиса).</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>uncomment</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Удалить маркеры, отмечающие выделенные строки или текущую как комментарии, в соответствии с форматом текущего файла (определяется способом подсветки синтаксиса).</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>kill-line</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Удалить текущую строку.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>replace</command
+><arg choice="req"
+> STRING pattern</arg
+> <arg choice="req"
+>STRING replacement</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Заменить текст, совпадающий с <userinput
+>pattern</userinput
+>, на <userinput
+>replacement</userinput
+>. Чтобы включить в <userinput
+>pattern</userinput
+> пробелы, следует заключить в двойные или одинарные кавычки и <userinput
+>pattern</userinput
+>, и <userinput
+>replacement</userinput
+>. Если аргументы не заключены в кавычки, первое слово будет принято за <userinput
+>pattern</userinput
+>, а остальное — за <userinput
+>replacement</userinput
+>. Если не указать <userinput
+>replacement</userinput
+>, все вхождения <userinput
+>pattern</userinput
+> будут удалены.</para>
+<para
+>Для настройки параметров поиска следует указать соответствующие флаги после двоеточия (<userinput
+>replace:options pattern replacement</userinput
+>). Возможные параметры: <variablelist>
+
+<varlistentry>
+<term
+><userinput
+>b</userinput
+></term>
+<listitem
+><para
+>Искать в обратном направлении.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>c</userinput
+></term>
+<listitem
+><para
+>Искать от позиции курсора.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>e</userinput
+></term>
+<listitem
+><para
+>Искать только в выделенном тексте.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>r</userinput
+></term>
+<listitem
+><para
+>Аргумент <userinput
+>pattern</userinput
+> — регулярное выражение. Возможно использовать <userinput
+>\N</userinput
+> в <userinput
+>replacement</userinput
+> для получения энной подстроки найденного текста.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>s</userinput
+></term>
+<listitem
+><para
+>С учётом регистра.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>p</userinput
+></term>
+<listitem
+><para
+>Запрашивать у пользователя подтверждение каждой замены.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>w</userinput
+></term>
+<listitem
+><para
+>Только целые слова.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>date</command
+><arg choice="req"
+>STRING format</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Вставить строку с датой/временем в указанном формате (задаётся параметром <userinput
+>format</userinput
+>). Если параметр не указан, используется формат <quote
+>yyyy-MM-dd hh:mm:ss</quote
+>. Доступны следующие подстановки: <informaltable
+> <tgroup cols="2"
+> <tbody>
+<row
+><entry
+><literal
+>d</literal
+></entry
+><entry
+>Номер дня в месяце без ведущего нуля (1-31).</entry
+></row>
+<row
+><entry
+><literal
+>dd</literal
+></entry
+><entry
+>Номер дня в месяце с ведущим нулём (01-31).</entry
+></row>
+<row
+><entry
+><literal
+>ddd</literal
+></entry
+><entry
+>Сокращённое локализованное название дня недели («пн»...«вс»).</entry
+></row>
+<row
+><entry
+><literal
+>dddd</literal
+></entry
+><entry
+>Полное локализованное название дня недели («понедельник»...«воскресенье»).</entry
+></row>
+<row
+><entry
+><literal
+>M</literal
+></entry
+><entry
+>Номер месяца без ведущего нуля (1-12).</entry
+></row>
+<row
+><entry
+><literal
+>MM</literal
+></entry
+><entry
+>Номер месяца с ведущим нулём (01-12).</entry
+></row>
+<row
+><entry
+><literal
+>MMMM</literal
+></entry
+><entry
+>Полное локализованное название месяца («января»...«декабря»).</entry
+></row>
+<row
+><entry
+><literal
+>MMM</literal
+></entry
+><entry
+>Сокращённое локализованное название месяца («янв.»...«дек.»).</entry
+></row>
+<row
+><entry
+><literal
+>yy</literal
+></entry
+><entry
+>Год двумя цифрами (00-99).</entry
+></row>
+<row
+><entry
+><literal
+>yyyy</literal
+></entry
+><entry
+>Год четырьмя цифрами (1752-8000).</entry
+></row>
+<row
+><entry
+><literal
+>h</literal
+></entry
+><entry
+>Час без ведущего нуля (0...23 или 1...12, в зависимости от параметра формата часов).</entry
+></row>
+<row
+><entry
+><literal
+>hh</literal
+></entry
+><entry
+>Час с ведущим нулём (00...23 или 01...12, в зависимости от параметра формата часов).</entry
+></row>
+<row
+><entry
+><literal
+>m</literal
+></entry
+><entry
+>Минуты без ведущего нуля (0...59).</entry
+></row>
+<row
+><entry
+><literal
+>mm</literal
+></entry
+><entry
+>Минуты с ведущим нулём (00...59).</entry
+></row>
+<row
+><entry
+><literal
+>s</literal
+></entry
+><entry
+>Секунды без ведущего нуля (0...59).</entry
+></row>
+<row
+><entry
+><literal
+>ss</literal
+></entry
+><entry
+>Секунды с ведущим нулём (00...59).</entry
+></row>
+<row
+><entry
+><literal
+>z</literal
+></entry
+><entry
+>Миллисекунды без ведущих нулей (0...999).</entry
+></row>
+<row
+><entry
+><literal
+>zzz</literal
+></entry
+><entry
+>Миллисекунды с ведущими нулями (000...999).</entry
+></row>
+<row
+><entry
+><literal
+>AP</literal
+></entry
+><entry
+>Использовать 12-часовой формат часов. AP будет заменено на «AM» или «PM».</entry
+></row>
+<row
+><entry
+><literal
+>ap</literal
+></entry
+><entry
+>Использовать 12-часовой формат часов. ap будет заменено на «am» или «pm».</entry
+></row>
+</tbody>
+</tgroup>
+</informaltable>
+
+</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>char</command
+><arg choice="req"
+>STRING identifier</arg
+></cmdsynopsis
+></term>
+<listitem>
+<para
+>Эта команда позволяет вставить символ по его числовому идентификатору в десятичной, восьмеричной или шестнадцатеричной системах счисления. Чтобы использовать её, откройте командную строку и наберите <userinput
+>char [числовой_идентификатор]</userinput
+>.</para>
+
+<example>
+<title
+>Примеры использования команды <command
+>char</command
+></title>
+
+<para
+>Введите: <userinput
+>char 234</userinput
+></para>
+<para
+>Получите: <computeroutput
+>&#234;</computeroutput
+></para>
+<para
+>Введите: <userinput
+>char 0x1234</userinput
+></para>
+<para
+>Получите: <computeroutput
+>&#x1234;</computeroutput
+></para>
+</example>
+
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
+<indexterm
+><primary
+>замена в стиле sed</primary>
+<secondary
+>поиск в стиле sed</secondary
+></indexterm
+><command
+>s///[ig]</command
+> <command
+>%s///[ig]</command
+></term>
+
+<listitem>
+<para
+>Попробуем разобраться в этих двух sed-подобных командах. Первая выполняет поиск/замену в текущей строке, вторая — во всём файле (<command
+>%s///</command
+>).</para>
+
+<para
+>Команды производят поиск текста, заданного <emphasis
+>маской поиска</emphasis
+> (регулярным выражением между первой и второй наклонной чертой) и, при нахождении, замену на выражение, которое задано между второй и третьей чертой. Круглые скобки в маске поиска позволяют задать подстроки в найденном тексте, на которые возможно потом ссылаться в выражении замены. Обратная ссылка — это регулярное выражение, которое при совпадении заменяется на фактический текст и может быть использовано в шаблоне замены. Для этого необходимо поставить в нужном месте обратную черту, а за ней указать номер подстроки по порядку (<userinput
+>\1</userinput
+> — для первой пары скобок, <userinput
+>\2</userinput
+> — для второй и так далее).</para>
+
+<para
+>Чтобы искать сами скобки <literal
+>(</literal
+> или <literal
+>)</literal
+>, следует предварить их обратной чертой: <userinput
+>\(\)</userinput
+></para>
+
+<para
+>Если в самом конце указать <userinput
+>i</userinput
+>, поиск будет выполняться с учётом регистра, а если <userinput
+>g</userinput
+> — будут заменены все вхождения текста, совпадающего с регулярным выражением (иначе — только первое).</para>
+
+<example>
+
+<title
+>Замена текста в текущей строке</title>
+
+<para
+>Предположим, что получено сообщение об ошибке компиляции: класс <classname
+>myClass</classname
+>, упомянутый в строке 3902, не определён.</para>
+
+<para
+>Добравшись до строки 3902, вместо того, чтобы пытаться найти слово <classname
+>MyClass</classname
+> в тексте, возможно просто открыть диалоговое окно «Команда правки», ввести <userinput
+>s/myclass/MyClass/i</userinput
+>, нажать кнопку <guibutton
+>OK</guibutton
+>, сохранить файл и выполнить компиляцию — успешно и без ошибок.</para>
+
+</example>
+
+<example>
+<title
+>Замена текста во всём файле</title>
+
+<para
+>Предположим, что имеется файл, в котором несколько раз упомянута <quote
+>госпожа Иванова</quote
+>. Но вдруг стало известно, что она вышла замуж за господина по фамилии <quote
+>Петров</quote
+>, в связи с чем требуется заменить все упоминания о госпоже Ивановой на текст <quote
+>госпожа Петрова</quote
+>.</para>
+
+<para
+>Вызовите командную строку и введите следующий текст: <userinput
+>%s/госпожа Иванова/госпожа Петрова/</userinput
+> — и всё будет готово.</para>
+
+</example>
+
+<example>
+<title
+>Более сложный пример</title>
+
+<para
+>Этот пример показывает, как пользоваться <emphasis
+>обратными ссылками</emphasis
+> и <emphasis
+>классами символов</emphasis
+> (сведения о том, что это такое, доступны в документации, которая упоминается далее).</para>
+
+<para
+>Допустим, набрана такая строка: <programlisting
+>void MyClass::DoStringOps( String      &amp;foo, String &amp;bar, String *p, int  &amp;a, int &amp;b )</programlisting>
+</para>
+<para
+>Предположим, что этот код недостаточно «красив» и решено использовать ключевое слово <constant
+>const</constant
+> с параметрами, передаваемыми по ссылке (теми, перед которыми стоит амперсанд), а также удалить лишние пробелы.</para>
+
+<para
+>Откройте диалоговое окно «Команда правки» и введите: <userinput
+>s/\s+(\w+)\s+(&amp;)/ const \1 \2/g</userinput
+>, затем нажмите кнопку <guibutton
+>OK</guibutton
+>. Символ <userinput
+>g</userinput
+> в конце команды указывает компилятору «пересчитывать» регулярное выражение обратной ссылки каждый раз, когда встречаются совпадения.</para>
+
+<para
+>Вывод: <computeroutput
+>void MyClass::DoStringOps( const String &amp;foo, const String &amp;bar, String *p, const int &amp;a, const int &amp;b )</computeroutput
+></para>
+
+<para
+>Всё готово! Что было сделано? Выполнялся поиск некоторого количества пробелов (<literal
+>\s+</literal
+>), за которыми следуют один или несколько буквенных символов (<literal
+>\w+</literal
+>), за которыми находятся пробелы (<literal
+>\s+</literal
+>), после которых расположен амперсанд, и в процессе эти буквенные символы и амперсанд сохранялись для использования в операции замены. После этого совпадающие части строки были заменены следующей последовательностью: один пробел, за которым следует спецификатор <quote
+>const</quote
+>, за ним ещё один пробел, после которого ранее сохранённые символы (<literal
+>\1</literal
+>), ещё один пробел и сохранённый амперсанд (<literal
+>\2</literal
+>)</para>
+
+<para
+>В одних случаях буквенные символы составили слово <quote
+>String</quote
+>, в других — слово <quote
+>int</quote
+>, то есть символьный класс <literal
+>\w</literal
+> с последующим знаком <literal
+>+</literal
+> определяет символьный набор произвольной длины.</para>
+
+</example>
+
+</listitem>
+
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>sort</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Упорядочить выделенный текст или весь документ.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>natsort</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Упорядочить выделенные строки или весь документ в естественном порядке.</para>
+
+<example>
+<title
+><command
+>sort</command
+> в сравнении с <command
+>natsort</command
+></title>
+<para
+><userinput
+><command
+>sort</command
+>(a10, a1, a2)</userinput
+>: результатом будет <computeroutput
+>a1, a10, a2</computeroutput
+></para>
+<para
+><userinput
+><command
+>natsort</command
+>(a10, a1, a2)</userinput
+>: результатом будет <computeroutput
+>a1, a2, a10</computeroutput
+></para>
+</example
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>moveLinesDown</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Переместить выделенные строки ниже.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>moveLinesUp</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Переместить выделенные строки выше.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>uniq</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Удалить дубликаты строк из выделенного текста или всего документа.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>rtrim</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Удалить пробелы в конце строк из выделенного текста или всего документа.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>ltrim</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Удалить пробелы в начале строк из выделенного текста или всего документа.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>join</command
+><arg choice="opt"
+>STRING separator</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Объединить выделенные строки или весь документ. Возможно указать параметр, который определяет разделитель, например: <userinput
+><command
+>join</command
+> ', '</userinput
+> </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>rmblank</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Удалить все пробелы из выделенного текста или всего документа.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>unwrap</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Отключить перенос строк выделенного текста или всего документа.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>each</command
+><arg choice="req"
+>STRING script</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Вызвать указанную в качестве аргумента функцию &javascript; для списка выделенных строк и заменить их возвращаемым значением этого обратного вызова.</para>
+
+<example>
+<title
+>Объединить выделенные строки</title>
+<para
+><userinput
+><command
+>each</command
+> 'function(lines){return lines.join(", ")}' </userinput
+></para>
+
+<para
+>Или более краткий вариант:</para>
+<para
+><userinput
+><command
+>each</command
+> 'lines.join(", ")'</userinput
+></para>
+</example>
+
+</listitem>
+</varlistentry>
+
+
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>filter</command
+><arg choice="req"
+>STRING script</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Вызвать указанную в качестве аргумента функцию &javascript; для списка выделенных строк и удалить те, для которых этот обратный вызов возвращает значение false.</para>
+
+<example>
+<title
+>Удалить пустые строки</title>
+<para
+><userinput
+><command
+>filter</command
+> 'function(1){return 1.length 
+> 0;}' </userinput
+></para>
+
+<para
+>Или более краткий вариант:</para>
+<para
+><userinput
+><command
+>filter</command
+> 'line.length 
+> 0'</userinput
+></para>
+</example>
+
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>map</command
+><arg choice="req"
+>STRING script</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Вызвать указанную в качестве аргумента функцию &javascript; для списка выделенных строк и заменить строку значением этого обратного вызова.</para>
+
+<example>
+<title
+>Удалить пустые строки</title>
+<para
+><userinput
+><command
+>map</command
+> 'function(line){return line.replace(/^s+/,"");}' </userinput
+></para>
+
+<para
+>Или более краткий вариант:</para>
+<para
+><userinput
+><command
+>map</command
+> 'line.replace(/^s+/,"")'</userinput
+></para>
+</example>
+
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>duplicateLinesUp</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Дублировать выделенные строки над текущим выделенным текстом.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>duplicateLinesDown</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Дублировать выделенные строки под текущим выделенным текстом.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect3>
+
+<sect3 id="advanced-editing-tools-commandline-commands-navigation">
+<title
+>Команды навигации</title>
+
+<variablelist>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>goto</command
+><arg choice="req"
+>INT line</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Перейти к указанной строке.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>grep</command
+> <arg choice="req"
+>STRING pattern</arg
+> </cmdsynopsis
+></term>
+<listitem
+><para
+>Выполнить поиск регулярного выражения <userinput
+>pattern</userinput
+> в документе. Дополнительные сведения: <xref linkend="regular-expressions"/>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>find</command
+><arg choice="req"
+>STRING pattern</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Перейти к первому вхождению, заданному параметром <userinput
+>pattern</userinput
+>. Последующие вхождения возможно найти с помощью пункта меню <menuchoice
+><guimenu
+>Правка</guimenu
+><guimenuitem
+>Продолжить поиск</guimenuitem
+></menuchoice
+> (клавиша по умолчанию — <keycap
+>F3</keycap
+>).</para>
+<para
+>Параметры команды поиска возможно настраивать с помощью добавления двоеточия и флагов после её имени (<userinput
+>find:options pattern</userinput
+>). Возможные параметры:</para>
+
+<variablelist>
+
+<varlistentry>
+<term
+><userinput
+>b</userinput
+></term>
+<listitem
+><para
+>Искать в обратном направлении.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>c</userinput
+></term>
+<listitem
+><para
+>Искать от позиции курсора.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>e</userinput
+></term>
+<listitem
+><para
+>Искать только в выделенном тексте.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>r</userinput
+></term>
+<listitem
+><para
+>Аргумент <userinput
+>pattern</userinput
+> — регулярное выражение. Возможно использовать <userinput
+>\N</userinput
+> в <userinput
+>replacement</userinput
+> для получения энной подстроки найденного текста.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>s</userinput
+></term>
+<listitem
+><para
+>С учётом регистра.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>w</userinput
+></term>
+<listitem
+><para
+>Только целые слова.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+</listitem>
+
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>ifind</command
+><arg choice="req"
+>STRING pattern</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Поиск <quote
+>по мере набора</quote
+>. Для настройки параметров поиска следует указать один или несколько флагов после двоеточия: <userinput
+>ifind:options pattern</userinput
+>. Допустимые параметры: <variablelist>
+<varlistentry>
+<term
+><userinput
+>b</userinput
+></term>
+<listitem
+><para
+>Искать в обратном направлении.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>r</userinput
+></term>
+<listitem
+><para
+>Поиск по регулярному выражению.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>s</userinput
+></term>
+<listitem
+><para
+>С учётом регистра.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>c</userinput
+></term>
+<listitem
+><para
+>Искать от позиции курсора.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect3>
+
+
+<sect3 id="advanced-editing-tools-commandline-commands-basic">
+<title
+>Команды базовых функций редактора (определяются приложением, в котором используется компонент редактирования)</title>
+
+<variablelist>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>w</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Сохранить текущий документ.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>wa</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Сохранить все открытые документы.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>q</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Закрыть текущий документ.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>qa</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Закрыть все открытые документы.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>wq</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Сохранить и закрыть текущий документ.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>wqa</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Сохранить и закрыть все открытые документы.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>x</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Сохранить и закрыть текущий документ только в том случае, если он был изменён. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>x</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Сохранить и закрыть все открытые документы только в том случае, если они были изменены.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>bp</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Перейти к предыдущему документу в списке документов. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>bn</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Перейти к следующему документу в списке документов. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>new</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Открыть новый документ в представлении, разделённом по горизонтали. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>vnew</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Открыть новый документ в представлении, разделённом по вертикали. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>e</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Обновить текущий документ, если файл этого документа на диске был изменён. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>enew</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Редактировать новый документ. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
+>print</command
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Открыть диалог печати текущего документа. </para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect3>
+
+
+</sect2>
+
+</sect1>
+
+<sect1 id="advanced-editing-tools-code-folding">
+<title
+>Использование сворачивания кода</title>
+
+<para
+>Сворачивание кода позволяет скрывать участки документа в редакторе, упрощая просмотр больших документов. В &kappname; разделение на сворачиваемые участки определяется правилами подсветки синтаксиса. Следовательно, оно доступно не для всех форматов файлов. В основном сворачивание кода доступно в режиме написания исходного кода, XML-разметки и тому подобного. Большинство способов подсветки позволяют также самостоятельно определять скрываемые области, чаще всего с помощью ключевых слов <userinput
+>BEGIN</userinput
+> и <userinput
+>END</userinput
+>.</para>
+
+<para
+>Чтобы использовать функцию сворачивания, включите отображение полосы сворачивания блоков (пункт меню <menuchoice
+><guimenu
+>Вид</guimenu
+><guimenuitem
+>Полоса сворачивания блоков</guimenuitem
+></menuchoice
+>), если она ещё не отображается. В этой полосе, расположенной с левой стороны документа, содержится графическое представление сворачиваемых участков. Треугольник, указывающий вниз, обозначает, что участок развёрнут. Треугольник, указывающий вправо, обозначает свёрнутый участок. Щелчок по треугольнику приведёт, соответственно, к сворачиванию или разворачиванию участка (с одновременным изменением графического представления).</para>
+<!--FIXME change Three to Four when Unfold Toplevel Nodes action is back-->
+<para
+>Для управления состоянием сворачиваемых участков доступны три команды, смотрите <link linkend="view-code-folding"
+>справку по меню</link
+>. </para>
+
+<para
+>Состояние сворачивания сохраняется при закрытии файла, поэтому при его повторном открытии свёрнутые участки останутся таковыми. Это справедливо также и для действий обновления.</para>
+
+<para
+>Если в использовании функции сворачивания нет необходимости, возможно отключить параметр <guilabel
+>Полоса сворачивания блоков</guilabel
+> на странице <link linkend="appearance"
+>Внешний вид</link
+> диалога настройки редактора.</para>
+
+</sect1>
+
+</chapter>

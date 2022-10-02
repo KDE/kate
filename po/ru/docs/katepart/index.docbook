@@ -1,0 +1,326 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN"
+"dtd/kdedbx45.dtd" [
+  <!ENTITY kappname "&katepart;">
+  <!ENTITY fundamentals-chapter SYSTEM "fundamentals.docbook">
+  <!ENTITY configuring-chapter SYSTEM "configuring.docbook">
+  <!ENTITY menus-chapter SYSTEM "menus.docbook">
+  <!ENTITY part-chapter SYSTEM "part.docbook">
+  <!ENTITY advanced-chapter SYSTEM "advanced.docbook">
+  <!ENTITY dev-chapter SYSTEM "development.docbook">
+  <!ENTITY vi-appendix SYSTEM "vi.docbook">
+  <!ENTITY regexp-appendix SYSTEM "regular-expressions.docbook">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Russian "INCLUDE"
+> <!-- change language only here -->
+]>
+
+<book id="katepart" lang="&language;">
+
+<bookinfo>
+<title
+>Руководство пользователя &katepart;</title>
+<authorgroup>
+<author
+>&Thad.McGinnis; &Thad.McGinnis.mail;</author>
+<author
+>&Anne-Marie.Mahfouf; &Anne-Marie.Mahfouf.mail;</author>
+<author
+>&Anders.Lund; &Anders.Lund.mail;</author>
+<author
+>&TC.Hollingsworth; &TC.Hollingsworth.mail;</author>
+<othercredit role="developer"
+>&Christoph.Cullmann; &Christoph.Cullmann.mail; </othercredit>
+
+<othercredit role="reviewer"
+>&Lauri.Watts; &Lauri.Watts.mail; </othercredit>
+
+<othercredit role="translator"
+><firstname
+>Екатерина</firstname
+><surname
+>Пыжова</surname
+> <affiliation
+><address
+><email
+>haleth@yandex.ru</email
+></address
+></affiliation
+> <contrib
+>Перевод на русский язык</contrib
+></othercredit
+><othercredit role="translator"
+><firstname
+>Олег</firstname
+><surname
+>Баталов</surname
+><affiliation
+><address
+><email
+>olegbatalov@mail.ru</email
+></address
+></affiliation
+><contrib
+>Обновление перевода</contrib
+></othercredit
+> <othercredit role="translator"
+><firstname
+>Виктор</firstname
+><surname
+>Ерёмин</surname
+> <affiliation
+><address
+><email
+>ErV2005@rambler.ru</email
+></address
+></affiliation
+> <contrib
+>Обновление перевода</contrib
+></othercredit
+> <othercredit role="translator"
+><firstname
+>Олеся</firstname
+><surname
+>Герасименко</surname
+> <affiliation
+><address
+><email
+>translation-team@basealt.ru</email
+></address
+></affiliation
+> <contrib
+>Редактирование перевода</contrib
+></othercredit
+> 
+
+</authorgroup>
+
+<copyright>
+<year
+>2000</year
+><year
+>2001</year>
+<holder
+>&Thad.McGinnis;</holder>
+</copyright>
+<copyright>
+<year
+>2005</year>
+<holder
+>&Anne-Marie.Mahfouf; &Anne-Marie.Mahfouf.mail;</holder>
+<holder
+>&Anders.Lund; &Anders.Lund.mail;</holder>
+</copyright>
+<copyright>
+<year
+>2011</year
+><year
+>2012</year
+><year
+>2013</year
+><year
+>2014</year>
+<holder
+>&TC.Hollingsworth; &TC.Hollingsworth.mail;</holder>
+</copyright>
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>22 января 2012 г.</date>
+<releaseinfo
+>&frameworks; 5.90</releaseinfo>
+
+<abstract>
+<para
+>&katepart; — полнофункциональный компонент редактирования &kde;.</para>
+</abstract>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>KatePart</keyword>
+<keyword
+>KWrite</keyword>
+<keyword
+>текст</keyword>
+<keyword
+>редактор</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Введение</title>
+
+<para
+>&katepart; — это полнофункциональный компонент редактирования, который используется различными приложениями &Qt; и &kde;. &katepart; представляет собой не просто текстовый редактор: приложение создавалось для использования программистами и может считаться, по крайней мере, частичной альтернативой более мощным редакторам. Одна из главных особенностей &kwrite; — это подсветка синтаксиса, настроенная для множества разных языков программирования, таких как C/C++, &Java;, Python, Perl, Bash, Modula 2, &HTML; и Ada. </para>
+<para
+>&kwrite; — простой текстовый редактор, созданный на основе &katepart;. В его окне возможно работать одновременно только с одним документом (<acronym
+>SDI</acronym
+>). Так как редактор &kwrite; представляет собой очень простую реализацию &katepart;, для него не требуется отдельная документация. Если освоить работу в &kwrite;, будет возможно использовать &katepart; где угодно! </para>
+</chapter>
+
+&fundamentals-chapter;
+
+&part-chapter;
+
+&menus-chapter;
+
+&advanced-chapter;
+
+&dev-chapter;
+
+&configuring-chapter;
+
+<chapter id="credits">
+<title
+>Авторские права и лицензия</title>
+
+<para
+>Авторские права на &katepart; и &kwrite;: &copy; Команда разработчиков &kate;, 2001—2022.</para>
+
+<para
+>Программа основана на первоначальной версии &kwrite;, авторские права на которую принадлежат Jochen Wilhelmy <email
+>digisnap@cs.tu-berlin.de</email
+>, 2000. </para>
+
+<para
+>Участники проекта:</para>
+
+<itemizedlist>
+<listitem>
+<para
+>&Christoph.Cullmann; &Christoph.Cullmann.mail;</para>
+</listitem>
+
+<listitem>
+<para
+>Michael Bartl <email
+>michael.bartl1@chello.at</email
+></para>
+</listitem>
+
+<listitem>
+<para
+>Phlip <email
+>phlip_cpp@my-deja.com</email
+></para>
+</listitem>
+
+<listitem>
+<para
+>&Anders.Lund; &Anders.Lund.mail;</para>
+</listitem>
+
+<listitem>
+<para
+>Matt Newell <email
+>newellm@proaxis.com</email
+></para>
+</listitem>
+
+<listitem>
+<para
+>&Joseph.Wenninger; &Joseph.Wenninger.mail;</para>
+</listitem>
+
+<listitem>
+<para
+>Jochen Wilhelmy <email
+>digisnap@cs.tu-berlin.de</email
+></para>
+</listitem>
+
+<listitem>
+<para
+>&Michael.Koch; &Michael.Koch.mail;</para>
+</listitem>
+
+<listitem>
+<para
+>&Christian.Gebauer; &Christian.Gebauer.mail;</para>
+</listitem>
+
+<listitem>
+<para
+>&Simon.Hausmann; &Simon.Hausmann.mail;</para>
+</listitem>
+
+<listitem>
+<para
+>Glen Parker <email
+>glenebob@nwlink.com</email
+></para>
+</listitem>
+
+<listitem>
+<para
+>Scott Manson <email
+>sdmanson@altel.net</email
+></para>
+</listitem>
+
+<listitem>
+<para
+>&John.Firebaugh; &John.Firebaugh.mail;</para>
+</listitem>
+
+<listitem>
+<para
+>Nibaldo González <email
+>nibgonz@gmail.com</email
+></para>
+</listitem>
+</itemizedlist>
+
+<para
+>Документация &katepart; основана на оригинальной документации &kwrite; и содержит изменения, которые делают её актуальной для всех пользователей &katepart;. </para>
+
+<para
+>Автор оригинальной документации &kwrite; — &Thad.McGinnis; &Thad.McGinnis.mail;, при этом большое количество изменений внесено &Cristian.Tibirna; &Cristian.Tibirna.mail;. Преобразование в формат .docbook и вычитку выполнено &Lauri.Watts; &Lauri.Watts.mail;, а обновление — &Anne-Marie.Mahfouf; &Anne-Marie.Mahfouf.mail; и &Anders.Lund; &Anders.Lund.mail; </para>
+
+<para
+>Сопровождающий текущей документации &katepart; — &TC.Hollingsworth; &TC.Hollingsworth.mail;. Направляйте комментарии и предложения по развитию &katepart; в список рассылки: <email
+>kwrite-devel@kde.org</email
+>. Сообщение об ошибке возможно отправить с помощью <ulink url="https://bugs.kde.org/"
+>системы отслеживания ошибок &kde;</ulink
+>.</para>
+
+<para
+>Перевод на русский язык: Екатерина С. Пыжова <email
+>haleth@yandex.ru</email
+></para
+> <para
+>Обновление перевода: Олег Баталов<email
+>olegbatalov@mail.ru</email
+> и Виктор В. Ерёмин <email
+>ErV2005@rambler.ru</email
+>, <email
+>erv@box.vsi.ru</email
+></para
+><para
+>Редактирование перевода: Олеся Герасименко<email
+>translation-team@basealt.ru</email
+></para
+> &underFDL; &underGPL; </chapter>
+
+&vi-appendix;
+
+&regexp-appendix;
+
+&documentation.index;
+</book>
+<!--
+Local Variables:
+mode: sgml
+sgml-namecase-general: t
+sgml-namecase-entity: nil
+sgml-general-insert-case: lower
+sgml-minimize-attributes: nil
+sgml-omittag: nil
+End:
+-->
+

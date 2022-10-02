@@ -1,0 +1,3483 @@
+# translation of kate.po to
+# Copyright (C) 2003, 2004, 2005, 2006 Free Software Foundation, Inc.
+#
+# Mashrab Kuvatov <kmashrab@uni-bremen.de>, 2003, 2004, 2005, 2006.
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-10-02 00:49+0000\n"
+"PO-Revision-Date: 2006-12-17 12:02+0000\n"
+"Last-Translator: Mashrab Kuvatov <kmashrab@uni-bremen.de>\n"
+"Language-Team: Uzbek <floss-uz-l10n@googlegroups.com>\n"
+"Language: uz@cyrillic\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Машраб Қуватов"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "kmashrab@uni-bremen.de"
+
+#: kate/main.cpp:106
+#, kde-format
+msgid "Kate"
+msgstr "Kate"
+
+#: kate/main.cpp:108
+#, kde-format
+msgid "Kate - Advanced Text Editor"
+msgstr "Kate - Кенгайтирилган матн таҳрирчи"
+
+#: kate/main.cpp:110 kwrite/main.cpp:89
+#, fuzzy, kde-format
+#| msgid "(c) 2000-2005 The Kate Authors"
+msgid "(c) 2000-2022 The Kate Authors"
+msgstr "(C) 2000-2005, Kate муаллифлари"
+
+#: kate/main.cpp:156
+#, fuzzy, kde-format
+#| msgid "Start Kate with a given session"
+msgid "Start Kate with a given session."
+msgstr "Дастурни кўрсатилган сеанс билан ишга тушириш"
+
+#: kate/main.cpp:157
+#, fuzzy, kde-format
+#| msgid "Session"
+msgid "session"
+msgstr "Сеанс"
+
+#: kate/main.cpp:162
+#, fuzzy, kde-format
+#| msgid "Start Kate with a given session"
+msgid "Start Kate with a new anonymous session, implies '-n'."
+msgstr "Дастурни кўрсатилган сеанс билан ишга тушириш"
+
+#: kate/main.cpp:167
+#, kde-format
+msgid ""
+"Force start of a new kate instance (is ignored if start is used and another "
+"kate instance already has the given session opened), forced if no parameters "
+"and no URLs are given at all."
+msgstr ""
+
+#: kate/main.cpp:173
+#, kde-format
+msgid ""
+"If using an already running kate instance, block until it exits, if URLs "
+"given to open."
+msgstr ""
+
+#: kate/main.cpp:179
+#, kde-format
+msgid ""
+"Only try to reuse kate instance with this pid (is ignored if start is used "
+"and another kate instance already has the given session opened)."
+msgstr ""
+
+#: kate/main.cpp:180
+#, kde-format
+msgid "pid"
+msgstr ""
+
+#: kate/main.cpp:185 kwrite/main.cpp:140
+#, fuzzy, kde-format
+#| msgid "Set encoding for the file to open"
+msgid "Set encoding for the file to open."
+msgstr "Очиш керак бўлган файл учун кодлаш усулини танлаш"
+
+#: kate/main.cpp:186 kwrite/main.cpp:141
+#, kde-format
+msgid "encoding"
+msgstr ""
+
+#: kate/main.cpp:190 kwrite/main.cpp:145
+#, fuzzy, kde-format
+#| msgid "Navigate to this line"
+msgid "Navigate to this line."
+msgstr "Шу сатрга ўтиш"
+
+#: kate/main.cpp:190 kwrite/main.cpp:145
+#, kde-format
+msgid "line"
+msgstr ""
+
+#: kate/main.cpp:195 kwrite/main.cpp:149
+#, fuzzy, kde-format
+#| msgid "Navigate to this column"
+msgid "Navigate to this column."
+msgstr "Шу устунга ўтиш"
+
+#: kate/main.cpp:196 kwrite/main.cpp:149
+#, fuzzy, kde-format
+msgid "column"
+msgstr "Изоҳ"
+
+#: kate/main.cpp:200 kwrite/main.cpp:153
+#, kde-format
+msgid "Read the contents of stdin."
+msgstr ""
+
+#: kate/main.cpp:205 kwrite/main.cpp:157
+#, kde-format
+msgid "The files/URLs opened by the application will be deleted after use"
+msgstr ""
+
+#: kate/main.cpp:209 kwrite/main.cpp:161
+#, fuzzy, kde-format
+#| msgid "Document to open"
+msgid "Documents to open."
+msgstr "Очиш учун ҳужжат"
+
+#: kate/main.cpp:209 kwrite/main.cpp:161
+#, kde-format
+msgid "[urls...]"
+msgstr ""
+
+#: kwrite/main.cpp:85
+#, kde-format
+msgid "KWrite"
+msgstr "KWrite"
+
+#: kwrite/main.cpp:87
+#, kde-format
+msgid "KWrite - Text Editor"
+msgstr "KWrite - Матн таҳрирчи"
+
+#. i18n: ectx: Menu (file)
+#: lib/data/kateui.rc:6
+#, fuzzy, kde-format
+msgid "&File"
+msgstr "Файллар:"
+
+#. i18n: ectx: Menu (file_file_actions)
+#: lib/data/kateui.rc:30
+#, fuzzy, kde-format
+#| msgid "Location"
+msgid "File Actions"
+msgstr "Манзил"
+
+#. i18n: ectx: Menu (edit)
+#: lib/data/kateui.rc:43
+#, fuzzy, kde-format
+msgid "&Edit"
+msgstr "&Таҳрирлаш"
+
+#. i18n: ectx: Menu (selection)
+#: lib/data/kateui.rc:54
+#, fuzzy, kde-format
+#| msgid "S&elected actions:"
+msgid "&Selection"
+msgstr "&Танланган аммалар:"
+
+#. i18n: ectx: Menu (go)
+#: lib/data/kateui.rc:57
+#, kde-format
+msgid "&Go"
+msgstr ""
+
+#. i18n: ectx: Menu (view)
+#: lib/data/kateui.rc:73
+#, fuzzy, kde-format
+msgid "&View"
+msgstr "&Янги"
+
+#. i18n: ectx: Menu (view-split)
+#: lib/data/kateui.rc:75 lib/kateviewspace.cpp:118
+#, fuzzy, kde-format
+#| msgid "Split Ve&rtical"
+msgid "Split View"
+msgstr "&Бўйига бўлиш"
+
+#. i18n: ectx: Menu (tools)
+#: lib/data/kateui.rc:109
+#, fuzzy, kde-format
+msgid "&Tools"
+msgstr "Асбоблар панели"
+
+#. i18n: ectx: Menu (settings)
+#: lib/data/kateui.rc:126
+#, fuzzy, kde-format
+msgid "&Settings"
+msgstr "Ишга тушмоқда"
+
+#. i18n: ectx: Menu (help)
+#: lib/data/kateui.rc:134
+#, kde-format
+msgid "&Help"
+msgstr ""
+
+#. i18n: ectx: ToolBar (mainToolBar)
+#: lib/data/kateui.rc:139
+#, fuzzy, kde-format
+msgid "Main Toolbar"
+msgstr "Асбоблар панели"
+
+#. i18n: ectx: Menu (viewspace_popup_statusbar)
+#: lib/data/kateui.rc:167
+#, kde-format
+msgid "&Status Bar Items"
+msgstr ""
+
+#: lib/diff/diffeditor.cpp:146
+#, kde-format
+msgid "Change Style"
+msgstr ""
+
+#: lib/diff/diffeditor.cpp:148 lib/kateconfigdialog.cpp:291
+#, kde-format
+msgid "Side By Side"
+msgstr ""
+
+#: lib/diff/diffeditor.cpp:151 lib/kateconfigdialog.cpp:292
+#, fuzzy, kde-format
+#| msgid "Modified"
+msgid "Unified"
+msgstr "Ўзгарган"
+
+#: lib/diff/diffeditor.cpp:154 lib/kateconfigdialog.cpp:293
+#, kde-format
+msgid "Raw"
+msgstr ""
+
+#: lib/diff/diffeditor.cpp:183
+#, fuzzy, kde-format
+msgid "Stage Line"
+msgid_plural "Stage Lines"
+msgstr[0] "&Ойна"
+
+#: lib/diff/diffeditor.cpp:188
+#, kde-format
+msgid "Stage Hunk"
+msgstr ""
+
+#: lib/diff/diffeditor.cpp:195
+#, kde-format
+msgid "Discard Line"
+msgid_plural "Discard Lines"
+msgstr[0] ""
+
+#: lib/diff/diffeditor.cpp:200
+#, kde-format
+msgid "Discard Hunk"
+msgstr ""
+
+#: lib/diff/diffeditor.cpp:207
+#, fuzzy, kde-format
+msgid "Unstage Line"
+msgid_plural "Unstage Lines"
+msgstr[0] "&Ойна"
+
+#: lib/diff/diffeditor.cpp:212
+#, kde-format
+msgid "Unstage Hunk"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
+#: lib/filehistorywidget.cpp:258 lib/session/katesessionmanagedialog.ui:184
+#, fuzzy, kde-format
+#| msgid "Clos&e All"
+msgid "Close"
+msgstr "Ҳаммасини ё&пиш"
+
+#: lib/filehistorywidget.cpp:290
+#, kde-format
+msgid "Failed to get file history: git executable not found in PATH"
+msgstr ""
+
+#: lib/filehistorywidget.cpp:303
+#, kde-format
+msgid "Failed to get file history: %1"
+msgstr ""
+
+#: lib/filehistorywidget.cpp:346 lib/kateconfigdialog.cpp:125
+#, kde-format
+msgid "Error"
+msgstr ""
+
+#: lib/filehistorywidget.cpp:346
+#, kde-format
+msgid "%1 doesn't exist in a git repo."
+msgstr ""
+
+#: lib/filehistorywidget.cpp:346
+#, kde-format
+msgid "Git"
+msgstr ""
+
+#: lib/filehistorywidget.cpp:354
+#, fuzzy, kde-format
+#| msgid "File Selector"
+msgid "File History"
+msgstr "Файл танлагич"
+
+#: lib/kateapp.cpp:146
+#, kde-format
+msgid "Christoph Cullmann"
+msgstr ""
+
+#: lib/kateapp.cpp:146
+#, kde-format
+msgid "Maintainer"
+msgstr "Таъминловчи"
+
+#: lib/kateapp.cpp:147
+#, kde-format
+msgid "Dominik Haumann"
+msgstr ""
+
+#: lib/kateapp.cpp:147 lib/kateapp.cpp:150 lib/kateapp.cpp:152
+#: lib/kateapp.cpp:155 lib/kateapp.cpp:161
+#, kde-format
+msgid "Core Developer"
+msgstr "Асосий тузувчи"
+
+#: lib/kateapp.cpp:148
+#, kde-format
+msgid "Sven Brauch"
+msgstr ""
+
+#: lib/kateapp.cpp:148 lib/kateapp.cpp:149 lib/kateapp.cpp:156
+#, fuzzy, kde-format
+#| msgid "Core Developer"
+msgid "Developer"
+msgstr "Асосий тузувчи"
+
+#: lib/kateapp.cpp:149
+#, kde-format
+msgid "Kåre Särs"
+msgstr ""
+
+#: lib/kateapp.cpp:150
+#, kde-format
+msgid "Anders Lund"
+msgstr ""
+
+#: lib/kateapp.cpp:151
+#, fuzzy, kde-format
+msgid "Joseph Wenninger"
+msgstr "Очиш тартиби"
+
+#: lib/kateapp.cpp:155
+#, kde-format
+msgid "Hamish Rodda"
+msgstr ""
+
+#: lib/kateapp.cpp:156
+#, kde-format
+msgid "Alexander Neundorf"
+msgstr ""
+
+#: lib/kateapp.cpp:157
+#, kde-format
+msgid "Waldo Bastian"
+msgstr ""
+
+#: lib/kateapp.cpp:157
+#, kde-format
+msgid "The cool buffersystem"
+msgstr ""
+
+#: lib/kateapp.cpp:158
+#, kde-format
+msgid "Charles Samuels"
+msgstr ""
+
+#: lib/kateapp.cpp:158
+#, kde-format
+msgid "The Editing Commands"
+msgstr "Таҳрирлаш буйруқлари"
+
+#: lib/kateapp.cpp:159
+#, kde-format
+msgid "Matt Newell"
+msgstr ""
+
+#: lib/kateapp.cpp:159
+#, kde-format
+msgid "Testing, ..."
+msgstr "Синаш, ..."
+
+#: lib/kateapp.cpp:160
+#, kde-format
+msgid "Michael Bartl"
+msgstr ""
+
+#: lib/kateapp.cpp:160
+#, kde-format
+msgid "Former Core Developer"
+msgstr "Олдинги асосий тузувчи"
+
+#: lib/kateapp.cpp:161
+#, kde-format
+msgid "Michael McCallum"
+msgstr ""
+
+#: lib/kateapp.cpp:162
+#, kde-format
+msgid "Jochen Wilhemly"
+msgstr ""
+
+#: lib/kateapp.cpp:162
+#, kde-format
+msgid "KWrite Author"
+msgstr "KWrite муаллифи"
+
+#: lib/kateapp.cpp:163
+#, kde-format
+msgid "Michael Koch"
+msgstr ""
+
+#: lib/kateapp.cpp:163
+#, kde-format
+msgid "KWrite port to KParts"
+msgstr ""
+
+#: lib/kateapp.cpp:164
+#, kde-format
+msgid "Christian Gebauer"
+msgstr ""
+
+#: lib/kateapp.cpp:165
+#, kde-format
+msgid "Simon Hausmann"
+msgstr ""
+
+#: lib/kateapp.cpp:166
+#, kde-format
+msgid "Glen Parker"
+msgstr ""
+
+#: lib/kateapp.cpp:166
+#, kde-format
+msgid "KWrite Undo History, Kspell integration"
+msgstr ""
+
+#: lib/kateapp.cpp:167
+#, kde-format
+msgid "Scott Manson"
+msgstr ""
+
+#: lib/kateapp.cpp:167
+#, kde-format
+msgid "KWrite XML Syntax highlighting support"
+msgstr ""
+
+#: lib/kateapp.cpp:168
+#, kde-format
+msgid "John Firebaugh"
+msgstr ""
+
+#: lib/kateapp.cpp:168
+#, kde-format
+msgid "Patches and more"
+msgstr "Пачлар ва бошқа нарсалар"
+
+#: lib/kateapp.cpp:169
+#, kde-format
+msgid "Pablo Martín"
+msgstr ""
+
+#: lib/kateapp.cpp:170
+#, fuzzy, kde-format
+#| msgid "Plugins"
+msgid "Python Plugin Developer"
+msgstr "Плагинлар"
+
+#: lib/kateapp.cpp:173
+#, kde-format
+msgid "Gerald Senarclens de Grancy"
+msgstr ""
+
+#: lib/kateapp.cpp:174
+#, kde-format
+msgid "QA and Scripting"
+msgstr ""
+
+#: lib/kateapp.cpp:178
+#, kde-format
+msgid "Tyson Tan"
+msgstr ""
+
+#: lib/kateapp.cpp:179
+#, kde-format
+msgid "Designer of Kate's mascot 'Kate the Cyber Woodpecker'"
+msgstr ""
+
+#: lib/kateapp.cpp:182
+#, kde-format
+msgid "Matteo Merli"
+msgstr ""
+
+#: lib/kateapp.cpp:182
+#, kde-format
+msgid "Highlighting for RPM Spec-Files, Perl, Diff and more"
+msgstr ""
+
+#: lib/kateapp.cpp:183
+#, kde-format
+msgid "Rocky Scaletta"
+msgstr ""
+
+#: lib/kateapp.cpp:183
+#, kde-format
+msgid "Highlighting for VHDL"
+msgstr ""
+
+#: lib/kateapp.cpp:184
+#, kde-format
+msgid "Yury Lebedev"
+msgstr ""
+
+#: lib/kateapp.cpp:184
+#, kde-format
+msgid "Highlighting for SQL"
+msgstr ""
+
+#: lib/kateapp.cpp:185
+#, kde-format
+msgid "Chris Ross"
+msgstr ""
+
+#: lib/kateapp.cpp:185
+#, kde-format
+msgid "Highlighting for Ferite"
+msgstr ""
+
+#: lib/kateapp.cpp:186
+#, kde-format
+msgid "Nick Roux"
+msgstr ""
+
+#: lib/kateapp.cpp:186
+#, kde-format
+msgid "Highlighting for ILERPG"
+msgstr ""
+
+#: lib/kateapp.cpp:187
+#, kde-format
+msgid "Carsten Niehaus"
+msgstr ""
+
+#: lib/kateapp.cpp:187
+#, kde-format
+msgid "Highlighting for LaTeX"
+msgstr ""
+
+#: lib/kateapp.cpp:188
+#, kde-format
+msgid "Per Wigren"
+msgstr ""
+
+#: lib/kateapp.cpp:188
+#, kde-format
+msgid "Highlighting for Makefiles, Python"
+msgstr ""
+
+#: lib/kateapp.cpp:189
+#, kde-format
+msgid "Jan Fritz"
+msgstr ""
+
+#: lib/kateapp.cpp:189
+#, kde-format
+msgid "Highlighting for Python"
+msgstr ""
+
+#: lib/kateapp.cpp:190
+#, kde-format
+msgid "Daniel Naber"
+msgstr ""
+
+#: lib/kateapp.cpp:191
+#, kde-format
+msgid "Roland Pabel"
+msgstr ""
+
+#: lib/kateapp.cpp:191
+#, kde-format
+msgid "Highlighting for Scheme"
+msgstr ""
+
+#: lib/kateapp.cpp:192
+#, kde-format
+msgid "Cristi Dumitrescu"
+msgstr ""
+
+#: lib/kateapp.cpp:192
+#, kde-format
+msgid "PHP Keyword/Datatype list"
+msgstr "PHP таянч сўз/маълумот тури рўйхати"
+
+#: lib/kateapp.cpp:193
+#, kde-format
+msgid "Carsten Pfeiffer"
+msgstr ""
+
+#: lib/kateapp.cpp:193
+#, kde-format
+msgid "Very nice help"
+msgstr ""
+
+#: lib/kateapp.cpp:194
+#, kde-format
+msgid "All people who have contributed and I have forgotten to mention"
+msgstr "Ҳисса қўшган, аммо уларни ёд этиш менинг эсимдан чиқан кишилар"
+
+#: lib/kateapp.cpp:314
+#, kde-format
+msgid "Folders can only be opened when the projects plugin is enabled"
+msgstr ""
+
+#: lib/kateapp.cpp:417
+#, kde-format
+msgid ""
+"The file '%1' could not be opened: it is not a normal file, it is a folder."
+msgstr "'%1' файлини очиб бўлмади. У оддий файл эмас, у жилд."
+
+#: lib/kateconfigdialog.cpp:51
+#, kde-format
+msgid "Configure"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:103
+#, kde-format
+msgid "Behavior"
+msgstr "Хусусиятлар"
+
+#: lib/kateconfigdialog.cpp:104
+#, fuzzy, kde-format
+msgid "Behavior Options"
+msgstr "Умумий параметрлар"
+
+#: lib/kateconfigdialog.cpp:111
+#, kde-format
+msgid "&Behavior"
+msgstr "&Хусусиятлар"
+
+#: lib/kateconfigdialog.cpp:120
+#, kde-format
+msgid "&Switch to output view upon message type:"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:125
+#, fuzzy, kde-format
+#| msgid "(never)"
+msgid "Never"
+msgstr "(ҳеч қачон)"
+
+#: lib/kateconfigdialog.cpp:125 lib/kateconfigdialog.cpp:623
+#, kde-format
+msgid "Warning"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:125
+#, kde-format
+msgid "Info"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:125
+#, kde-format
+msgid "Log"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:131
+#, kde-format
+msgid "&Limit output view history:"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:137 lib/kateconfigdialog.cpp:203
+#, kde-format
+msgid "Unlimited"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:144
+#, kde-format
+msgid "Use a separate &dialog for handling externally modified files"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:148
+#, kde-format
+msgid ""
+"If enabled, a modal dialog will be used to show all of the modified files. "
+"If not enabled, you will be individually asked what to do for each modified "
+"file only when that file's view receives focus."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:157
+#, fuzzy, kde-format
+#| msgid "Top Sidebar"
+msgid "&Sidebars"
+msgstr "Юқори ён панели"
+
+#: lib/kateconfigdialog.cpp:160
+#, kde-format
+msgid "Sync section size with tab positions"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:164
+#, kde-format
+msgid ""
+"When enabled the section size will be determined by the position of the "
+"tabs.\n"
+"This option does not affect the bottom sidebar."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:169
+#, kde-format
+msgid "Show text for left and right sidebar buttons"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:174
+#, kde-format
+msgid "Icon size for left and right sidebar buttons"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:193
+#, fuzzy, kde-format
+#| msgid "Show Side&bars"
+msgid "&Tabs"
+msgstr "Ён &панелларни кўрсатиш"
+
+#: lib/kateconfigdialog.cpp:197
+#, kde-format
+msgid "&Limit number of tabs:"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:208
+#, kde-format
+msgid ""
+"A high limit can increase the window size, please enable 'Allow tab "
+"scrolling' to prevent it. Unlimited tabs are always scrollable."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:212
+#, kde-format
+msgid "&Auto hide tabs"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:214
+#, kde-format
+msgid "When checked tabs will be hidden if only one document is open."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:218
+#, kde-format
+msgid "&Show close button"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:220
+#, kde-format
+msgid "When checked each tab will display a close button."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:224
+#, kde-format
+msgid "&Expand tabs"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:226
+#, kde-format
+msgid "When checked tabs take as much size as possible."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:230
+#, fuzzy, kde-format
+#| msgid "Create a new document"
+msgid "&Double click opens a new document"
+msgstr "Янги ҳужжатни яратиш"
+
+#: lib/kateconfigdialog.cpp:232
+#, kde-format
+msgid "When checked double click opens a new document."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:236
+#, fuzzy, kde-format
+#| msgid "Close all open documents."
+msgid "&Middle click closes a document"
+msgstr "Ҳамма очиқ ҳужжатларни ёпиш."
+
+#: lib/kateconfigdialog.cpp:238
+#, kde-format
+msgid "When checked middle click closes a document."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:242
+#, kde-format
+msgid "Allow tab scrolling"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:244
+#, kde-format
+msgid ""
+"When checked this will allow scrolling in tab bar when number of tabs is "
+"large."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:248
+#, kde-format
+msgid "Elide tab text"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:250
+#, kde-format
+msgid "When checked tab text might be elided if its too long."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:256
+#, kde-format
+msgid "&Mouse"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:261
+#, kde-format
+msgid "&Backward button pressed:"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:266
+#, fuzzy, kde-format
+#| msgid "Activate Previous Tab"
+msgid "Previous tab"
+msgstr "Олдинги табни активлаш"
+
+#: lib/kateconfigdialog.cpp:266
+#, kde-format
+msgid "History back"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:272
+#, kde-format
+msgid "&Forward button pressed:"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:277
+#, fuzzy, kde-format
+#| msgid "New Tab"
+msgid "Next tab"
+msgstr "Янги таб"
+
+#: lib/kateconfigdialog.cpp:277
+#, kde-format
+msgid "History forward"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:285
+#, kde-format
+msgid "Diff"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:294
+#, kde-format
+msgid "Diff Style:"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:308
+#, fuzzy, kde-format
+#| msgid "Sessions"
+msgid "Session"
+msgstr "Сеанслар"
+
+#: lib/kateconfigdialog.cpp:309
+#, kde-format
+msgid "Session Management"
+msgstr "Сеанс бошқаруви"
+
+#: lib/kateconfigdialog.cpp:320
+#, fuzzy, kde-format
+#| msgid "(never)"
+msgctxt "The special case of 'Delete unused meta-information after'"
+msgid "(never)"
+msgstr "(ҳеч қачон)"
+
+#: lib/kateconfigdialog.cpp:321
+#, fuzzy, kde-format
+#| msgid " day(s)"
+msgctxt "The suffix of 'Delete unused meta-information after'"
+msgid " day"
+msgid_plural " days"
+msgstr[0] " кун"
+
+#: lib/kateconfigdialog.cpp:384
+#, kde-format
+msgid "Plugins"
+msgstr "Плагинлар"
+
+#: lib/kateconfigdialog.cpp:385
+#, kde-format
+msgid "Plugin Manager"
+msgstr "Плагин бошқарувчиси"
+
+#: lib/kateconfigdialog.cpp:403 lib/kateconfigdialog.cpp:404
+#, kde-format
+msgid "User Feedback"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:622
+#, fuzzy, kde-format
+#| msgid ""
+#| "<p>The document '%1' has been modified, but not saved.<p>Do you want to "
+#| "save your changes or discard them?"
+msgid ""
+"You have unsaved changes. Do you want to apply the changes or discard them?"
+msgstr "<p>'%1' ҳужжатига ўзариш киритилди.<p>Уни сақлашни истайсизми?"
+
+#: lib/kateconfigplugindialogpage.cpp:66
+#, kde-format
+msgid "Name"
+msgstr "Номи"
+
+#: lib/kateconfigplugindialogpage.cpp:66
+#, fuzzy, kde-format
+msgid "Description"
+msgstr "&Скрипт:"
+
+#: lib/kateconfigplugindialogpage.cpp:69
+#, kde-format
+msgid ""
+"Here you can see all available Kate plugins. Those with a check mark are "
+"loaded, and will be loaded again the next time Kate is started."
+msgstr ""
+"Бу ерда, ҳамма мавжуд бўлган плагинларини кўришингиз мумкин. Белгиланган "
+"плагинлар юкланган. Kate ишга тушганда улар юкланади."
+
+#: lib/katedocmanager.cpp:264
+#, fuzzy, kde-format
+#| msgid ""
+#| "<p>The document '%1' has been modified, but not saved.<p>Do you want to "
+#| "save your changes or discard them?"
+msgid ""
+"<p>The document '%1' has been modified, but not saved.</p><p>Do you want to "
+"save your changes or discard them?</p>"
+msgstr "<p>'%1' ҳужжатига ўзариш киритилди.<p>Уни сақлашни истайсизми?"
+
+#: lib/katedocmanager.cpp:267
+#, kde-format
+msgid "Close Document"
+msgstr "Ҳужжатни ёпиш"
+
+#: lib/katedocmanager.cpp:276
+#, fuzzy, kde-format
+msgid "Save As"
+msgstr "...сифатида с&ақлаш"
+
+#: lib/katedocmanager.cpp:294 lib/katemainwindow.cpp:583
+#, kde-format
+msgid "New file opened while trying to close Kate, closing aborted."
+msgstr ""
+
+#: lib/katedocmanager.cpp:294 lib/katemainwindow.cpp:583
+#, kde-format
+msgid "Closing Aborted"
+msgstr "Ёпиш тўхтатилди"
+
+#: lib/katedocmanager.cpp:372
+#, kde-format
+msgid "Starting Up"
+msgstr "Ишга тушмоқда"
+
+#: lib/katedocmanager.cpp:373
+#, kde-format
+msgid "Reopening files from the last session..."
+msgstr "Охирги сеанснинг файллари қайтадан очилмоқда..."
+
+#: lib/katefileactions.cpp:67
+#, fuzzy, kde-format
+msgid "Rename file"
+msgstr "Намуна:"
+
+#: lib/katefileactions.cpp:68
+#, fuzzy, kde-format
+#| msgid "Filename"
+msgid "New file name"
+msgstr "Файлнинг номи"
+
+#: lib/katefileactions.cpp:105
+#, kde-format
+msgid "File \"%1\" could not be moved to \"%2\""
+msgstr ""
+
+#: lib/katefileactions.cpp:129
+#, kde-format
+msgid "Do you really want to delete file \"%1\"?"
+msgstr ""
+
+#: lib/katefileactions.cpp:130
+#, fuzzy, kde-format
+msgid "Delete file"
+msgstr "Ўчирилган"
+
+#: lib/katefileactions.cpp:147
+#, kde-format
+msgid "File \"%1\" could not be deleted."
+msgstr ""
+
+#: lib/katemainwindow.cpp:212
+#, kde-format
+msgid "Use this command to show or hide the view's statusbar"
+msgstr ""
+"Кўринишнинг ҳолат панелини кўрсатиш ёки бекитиш учун шу буйруқдан фойдаланинг"
+
+#: lib/katemainwindow.cpp:215
+#, fuzzy, kde-format
+#| msgid "Show Side&bars"
+msgid "Show &Tabs"
+msgstr "Ён &панелларни кўрсатиш"
+
+#: lib/katemainwindow.cpp:218
+#, fuzzy, kde-format
+#| msgid "Use this command to show or hide the view's statusbar"
+msgid "Use this command to show or hide the tabs for the views"
+msgstr ""
+"Кўринишнинг ҳолат панелини кўрсатиш ёки бекитиш учун шу буйруқдан фойдаланинг"
+
+#: lib/katemainwindow.cpp:220
+#, fuzzy, kde-format
+#| msgid "&Show full path in title"
+msgid "Sho&w Path in Titlebar"
+msgstr "&Сарлавҳада тўлиқ йўлни кўрсатиш"
+
+#: lib/katemainwindow.cpp:223
+#, kde-format
+msgid "Show the complete document path in the window caption"
+msgstr "Ҳужжатнинг тўлиқ йўлини ойнанинг сарлавҳасида кўрсатиш"
+
+#: lib/katemainwindow.cpp:225
+#, kde-format
+msgid "Show Navigation Bar"
+msgstr ""
+
+#: lib/katemainwindow.cpp:235
+#, kde-format
+msgid "&Window Color Scheme"
+msgstr ""
+
+#: lib/katemainwindow.cpp:239
+#, fuzzy, kde-format
+#| msgid "Activate Previous Tab"
+msgid "&Previous Tab"
+msgstr "Олдинги табни активлаш"
+
+#: lib/katemainwindow.cpp:240
+#, fuzzy, kde-format
+#| msgid "Activate Previous Tab"
+msgid "Focus the previous tab."
+msgstr "Олдинги табни активлаш"
+
+#: lib/katemainwindow.cpp:245
+#, fuzzy, kde-format
+#| msgid "New Tab"
+msgid "&Next Tab"
+msgstr "Янги таб"
+
+#: lib/katemainwindow.cpp:246
+#, fuzzy, kde-format
+#| msgid "Close the current tab"
+msgid "Focus the next tab."
+msgstr "Жорий табни ёпиш"
+
+#: lib/katemainwindow.cpp:253
+#, kde-format
+msgid "&Quick Open"
+msgstr "&Тез очиш"
+
+#: lib/katemainwindow.cpp:256
+#, fuzzy, kde-format
+msgid "Open a form to quick open documents."
+msgstr "Ҳамма очиқ ҳужжатларни ёпиш."
+
+#: lib/katemainwindow.cpp:277
+#, kde-format
+msgid "Output"
+msgstr ""
+
+#: lib/katemainwindow.cpp:287
+#, kde-format
+msgid "Create a new document"
+msgstr "Янги ҳужжатни яратиш"
+
+#: lib/katemainwindow.cpp:290
+#, kde-format
+msgid "Open an existing document for editing"
+msgstr "Таҳрирлаш учун мавжуд ҳужжатни очиш"
+
+#: lib/katemainwindow.cpp:295
+#, kde-format
+msgid ""
+"This lists files which you have opened recently, and allows you to easily "
+"open them again."
+msgstr ""
+"Яқинда очилган файлларнинг рўйхатини кўрсатади ва уларни осонгина очиш учун "
+"имконият яратади."
+
+#: lib/katemainwindow.cpp:299
+#, kde-format
+msgid "Save A&ll"
+msgstr "Ҳа&ммасини сақлаш"
+
+#: lib/katemainwindow.cpp:302
+#, kde-format
+msgid "Save all open, modified documents to disk."
+msgstr "Ҳамма очиқ, ўзгартирилган ҳужжатларни сақлаш."
+
+#: lib/katemainwindow.cpp:305
+#, kde-format
+msgid "&Reload All"
+msgstr ""
+
+#: lib/katemainwindow.cpp:307
+#, fuzzy, kde-format
+#| msgid "Close all open documents."
+msgid "Reload all open documents."
+msgstr "Ҳамма очиқ ҳужжатларни ёпиш."
+
+#: lib/katemainwindow.cpp:311
+#, fuzzy, kde-format
+msgid "Copy Location"
+msgstr "Манзил"
+
+#: lib/katemainwindow.cpp:316 lib/katemainwindow.cpp:325
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Copies the file path of the current file to clipboard."
+msgstr "Кейинги бўлинган кўринишни актив қилиш."
+
+#: lib/katemainwindow.cpp:320 lib/welcomeview.cpp:82
+#, fuzzy, kde-format
+msgid "&Open Containing Folder"
+msgstr "Очиш тартиби"
+
+#: lib/katemainwindow.cpp:329
+#, fuzzy, kde-format
+#| msgid "&Rename..."
+msgctxt "@action:inmenu"
+msgid "Rename..."
+msgstr "Но&мини ўзгартириш"
+
+#: lib/katemainwindow.cpp:334
+#, fuzzy, kde-format
+#| msgid "Create another view containing the current document"
+msgid "Renames the file belonging to the current document."
+msgstr "Жорий ҳужжатдан иборат бошқа кўринишни яратиш"
+
+#: lib/katemainwindow.cpp:338
+#, fuzzy, kde-format
+#| msgid "Deleted"
+msgctxt "@action:inmenu"
+msgid "Delete"
+msgstr "Ўчирилган"
+
+#: lib/katemainwindow.cpp:343 lib/katemainwindow.cpp:352
+#, fuzzy, kde-format
+#| msgid "Create another view containing the current document"
+msgid "Deletes the file belonging to the current document."
+msgstr "Жорий ҳужжатдан иборат бошқа кўринишни яратиш"
+
+#: lib/katemainwindow.cpp:347
+#, kde-format
+msgid "Properties"
+msgstr ""
+
+#: lib/katemainwindow.cpp:355 lib/katemainwindow.cpp:357
+#, kde-format
+msgid "Compare"
+msgstr ""
+
+#: lib/katemainwindow.cpp:357
+#, fuzzy, kde-format
+#| msgid "Use this command to create a new document"
+msgid "Use the Tabbar context menu to compare two documents"
+msgstr "Янги ҳужжатни яратиш учун шу буйруқдан фойдаланинг"
+
+#: lib/katemainwindow.cpp:359
+#, fuzzy, kde-format
+msgid "Shows a hint how to compare documents."
+msgstr "Ҳамма очиқ ҳужжатларни ёпиш."
+
+#: lib/katemainwindow.cpp:362
+#, fuzzy, kde-format
+msgid "Close Orphaned"
+msgstr "Жорий табни ёпиш"
+
+#: lib/katemainwindow.cpp:364
+#, kde-format
+msgid ""
+"Close all documents in the file list that could not be reopened, because "
+"they are not accessible anymore."
+msgstr ""
+
+#: lib/katemainwindow.cpp:368
+#, kde-format
+msgid "Close the current document."
+msgstr "Жорий ҳужжатни ёпиш."
+
+#: lib/katemainwindow.cpp:371
+#, fuzzy, kde-format
+msgid "Close Other"
+msgstr "Жорий табни ёпиш"
+
+#: lib/katemainwindow.cpp:373
+#, fuzzy, kde-format
+msgid "Close other open documents."
+msgstr "Ҳамма очиқ ҳужжатларни ёпиш."
+
+#: lib/katemainwindow.cpp:376
+#, kde-format
+msgid "Clos&e All"
+msgstr "Ҳаммасини ё&пиш"
+
+#: lib/katemainwindow.cpp:378
+#, kde-format
+msgid "Close all open documents."
+msgstr "Ҳамма очиқ ҳужжатларни ёпиш."
+
+#: lib/katemainwindow.cpp:383
+#, kde-format
+msgid "Close this window"
+msgstr "Шу ойнани ёпиш"
+
+#: lib/katemainwindow.cpp:387
+#, fuzzy, kde-format
+#| msgid "&Window"
+msgid "&New Window"
+msgstr "&Ойна"
+
+#: lib/katemainwindow.cpp:389
+#, fuzzy, kde-format
+#| msgid "Create a new document"
+msgid "Create a new window."
+msgstr "Янги ҳужжатни яратиш"
+
+#: lib/katemainwindow.cpp:396
+#, kde-format
+msgid "Open W&ith"
+msgstr "...билан &очиш"
+
+#: lib/katemainwindow.cpp:398
+#, kde-format
+msgid ""
+"Open the current document using another application registered for its file "
+"type, or an application of your choice."
+msgstr ""
+"Жорий ҳужжатни ушбу файл тури учун қайд қилинган бошқа дастур ёки сиз "
+"истаган дастур билан очиш."
+
+#: lib/katemainwindow.cpp:406
+#, kde-format
+msgid "Configure the application's keyboard shortcut assignments."
+msgstr "Дастурнинг тугмалар бирикмасини мослаш."
+
+#: lib/katemainwindow.cpp:409
+#, kde-format
+msgid "Configure which items should appear in the toolbar(s)."
+msgstr "Асбоблар панел(лар)ида қайси элемент кўринишини мослаш."
+
+#: lib/katemainwindow.cpp:412
+#, kde-format
+msgid ""
+"Configure various aspects of this application and the editing component."
+msgstr "Дастурнинг хар ҳил параметрларини ва таҳрирлаш компонентини мослаш."
+
+#: lib/katemainwindow.cpp:416
+#, kde-format
+msgid "&Plugins Handbook"
+msgstr ""
+
+#: lib/katemainwindow.cpp:418
+#, kde-format
+msgid "This shows help files for various available plugins."
+msgstr "Мавжуд бўлган плагинлар учун ёрдам файлларини кўрсатиш."
+
+#: lib/katemainwindow.cpp:435
+#, kde-format
+msgid "Sess&ions"
+msgstr "&Сеанслар"
+
+#: lib/katemainwindow.cpp:441
+#, fuzzy, kde-format
+#| msgid "New Session"
+msgctxt "Menu entry Session->New Session"
+msgid "&New Session"
+msgstr "Янги сеанс"
+
+#: lib/katemainwindow.cpp:446
+#, fuzzy, kde-format
+#| msgid "Open Session"
+msgid "&Recent Sessions"
+msgstr "Сеансни очиш"
+
+#: lib/katemainwindow.cpp:451
+#, fuzzy, kde-format
+#| msgid "Sess&ions"
+msgid "&All Sessions"
+msgstr "&Сеанслар"
+
+#: lib/katemainwindow.cpp:458
+#, fuzzy, kde-format
+#| msgid "Manage Sessions"
+msgid "&Manage Sessions..."
+msgstr "Сеансларни бошқариш"
+
+#: lib/katemainwindow.cpp:467
+#, fuzzy, kde-format
+#| msgid "&Save session"
+msgid "&Save Session"
+msgstr "Сеа&нсни сақлаш"
+
+#: lib/katemainwindow.cpp:473
+#, fuzzy, kde-format
+#| msgid "Save Session?"
+msgid "Save Session &As..."
+msgstr "Сеансни сақлашни истайсизми?"
+
+#: lib/katemainwindow.cpp:480 lib/kateviewspace.cpp:58
+#, fuzzy, kde-format
+#| msgid "Restore loca&tion"
+msgid "Go to Previous Location"
+msgstr "Манзилларни &тиклаш"
+
+#: lib/katemainwindow.cpp:488 lib/kateviewspace.cpp:71
+#, fuzzy, kde-format
+msgid "Go to Next Location"
+msgstr "Манзилларни &тиклаш"
+
+#: lib/katemainwindow.cpp:495
+#, kde-format
+msgid "Show File Git History"
+msgstr ""
+
+#: lib/katemainwindow.cpp:510
+#, kde-format
+msgid "This will close all open documents. Are you sure you want to continue?"
+msgstr ""
+
+#: lib/katemainwindow.cpp:511
+#, fuzzy, kde-format
+#| msgid "Close all open documents."
+msgid "Close all documents"
+msgstr "Ҳамма очиқ ҳужжатларни ёпиш."
+
+#: lib/katemainwindow.cpp:526
+#, kde-format
+msgid ""
+"This will close all open documents beside the current one. Are you sure you "
+"want to continue?"
+msgstr ""
+
+#: lib/katemainwindow.cpp:527
+#, fuzzy, kde-format
+#| msgid "Close all open documents."
+msgid "Close all documents beside current one"
+msgstr "Ҳамма очиқ ҳужжатларни ёпиш."
+
+#: lib/katemainwindow.cpp:726
+#, kde-format
+msgid ""
+"This will hide the menu bar completely. You can show it again by typing %1."
+msgstr ""
+
+#: lib/katemainwindow.cpp:729
+#, fuzzy, kde-format
+#| msgid "Hide Side&bars"
+msgid "Hide menu bar"
+msgstr "Ён панелларни &бекитиш"
+
+#: lib/katemainwindow.cpp:829
+#, kde-format
+msgid ""
+"You dropped the directory %1 into Kate. Do you want to open all files "
+"contained in it?"
+msgstr ""
+
+#: lib/katemainwindow.cpp:832
+#, kde-format
+msgctxt "@title:window"
+msgid "Open Files Recursively"
+msgstr ""
+
+#: lib/katemainwindow.cpp:833
+#, fuzzy, kde-format
+#| msgid "Open File"
+msgctxt "@action:button"
+msgid "Open All Files"
+msgstr "Файлни очиш"
+
+#: lib/katemainwindow.cpp:958
+#, kde-format
+msgid "&Other..."
+msgstr "&Бошқа..."
+
+#: lib/katemainwindow.cpp:1083
+#, kde-format
+msgid " [read only]"
+msgstr ""
+
+#: lib/katemainwindow.cpp:1330
+#, kde-format
+msgid "Diff %1"
+msgstr ""
+
+#: lib/katemainwindow.cpp:1332
+#, kde-format
+msgid "Diff %1..%2"
+msgstr ""
+
+#: lib/katemdi.cpp:84
+#, fuzzy, kde-format
+#| msgid "Plugin Manager"
+msgid "Toolview Manager"
+msgstr "Плагин бошқарувчиси"
+
+#: lib/katemdi.cpp:102
+#, kde-format
+msgid "Sidebar Buttons"
+msgstr ""
+
+#: lib/katemdi.cpp:105
+#, kde-format
+msgid "Tool &Views"
+msgstr ""
+
+#: lib/katemdi.cpp:107
+#, kde-format
+msgid "Show Side&bars"
+msgstr "Ён &панелларни кўрсатиш"
+
+#: lib/katemdi.cpp:115
+#, kde-format
+msgid "Hide All Tool Views"
+msgstr ""
+
+#: lib/katemdi.cpp:162
+#, kde-format
+msgid "Show %1"
+msgstr ""
+
+#: lib/katemdi.cpp:173
+#, kde-format
+msgid "Show %1 Button"
+msgstr ""
+
+#: lib/katemdi.cpp:984
+#, fuzzy, kde-format
+msgid "Configure..."
+msgstr "Олдинги кўриниш"
+
+#: lib/katemdi.cpp:988
+#, fuzzy, kde-format
+#| msgid "Hide Path"
+msgid "Hide Button"
+msgstr "Йўлни бекитиш"
+
+#: lib/katemdi.cpp:990
+#, kde-format
+msgid "Move To"
+msgstr "Кўчириш"
+
+#: lib/katemdi.cpp:995
+#, fuzzy, kde-format
+#| msgid "Open Session"
+msgid "Own Section"
+msgstr "Сеансни очиш"
+
+#: lib/katemdi.cpp:1001 lib/katemdi.cpp:1009
+#, kde-format
+msgid "One Down"
+msgstr ""
+
+#: lib/katemdi.cpp:1003 lib/katemdi.cpp:1014
+#, kde-format
+msgid "One Right"
+msgstr ""
+
+#: lib/katemdi.cpp:1007
+#, kde-format
+msgid "One Up"
+msgstr ""
+
+#: lib/katemdi.cpp:1012
+#, kde-format
+msgid "One Left"
+msgstr ""
+
+#: lib/katemdi.cpp:1021
+#, kde-format
+msgid "Left Sidebar"
+msgstr "Чап ён панели"
+
+#: lib/katemdi.cpp:1025
+#, kde-format
+msgid "Right Sidebar"
+msgstr "Ўнг ён панели"
+
+#: lib/katemdi.cpp:1029
+#, kde-format
+msgid "Top Sidebar"
+msgstr "Юқори ён панели"
+
+#: lib/katemdi.cpp:1033
+#, kde-format
+msgid "Bottom Sidebar"
+msgstr "Паст ён панели"
+
+#: lib/katemdi.cpp:1408
+#, kde-format
+msgid ""
+"<qt>You are about to hide the sidebars. With hidden sidebars it is not "
+"possible to directly access the tool views with the mouse anymore, so if you "
+"need to access the sidebars again invoke <b>View &gt; Tool Views &gt; Show "
+"Sidebars</b> in the menu. It is still possible to show/hide the tool views "
+"with the assigned shortcuts.</qt>"
+msgstr ""
+
+#: lib/katemwmodonhddialog.cpp:58
+#, kde-format
+msgid "Documents Modified on Disk"
+msgstr "Ҳужжат дискда ўзгарди"
+
+#: lib/katemwmodonhddialog.cpp:74
+#, fuzzy, kde-format
+#| msgid ""
+#| "<qt>The documents listed below has changed on disk.<p>Select one or more "
+#| "at the time and press an action button until the list is empty.</qt>"
+msgid ""
+"<qt>The documents listed below have changed on disk.<p>Select one or more at "
+"once, and press an action button until the list is empty.</p></qt>"
+msgstr ""
+"<qt>Қуйидаги рўйхатдаги файллар дискда ўзгарди.<p>То рўйхат бўшагунча уларни "
+"танлаб амал тугмасини босинг.</qt>"
+
+#: lib/katemwmodonhddialog.cpp:84
+#, kde-format
+msgid "Filename"
+msgstr "Файлнинг номи"
+
+#: lib/katemwmodonhddialog.cpp:84
+#, kde-format
+msgid "Status on Disk"
+msgstr "Дискдаги ҳолати"
+
+#: lib/katemwmodonhddialog.cpp:89
+#, kde-format
+msgid "Modified"
+msgstr "Ўзгарган"
+
+#: lib/katemwmodonhddialog.cpp:89
+#, kde-format
+msgid "Created"
+msgstr "Яратилган"
+
+#: lib/katemwmodonhddialog.cpp:89
+#, kde-format
+msgid "Deleted"
+msgstr "Ўчирилган"
+
+#: lib/katemwmodonhddialog.cpp:104
+#, kde-format
+msgid "&View Difference"
+msgstr "&Фарқни кўриш"
+
+#: lib/katemwmodonhddialog.cpp:106
+#, kde-format
+msgid ""
+"Calculates the difference between the editor contents and the disk file for "
+"the selected document, and shows the difference with the default "
+"application. Requires diff(1)."
+msgstr ""
+
+#: lib/katemwmodonhddialog.cpp:117
+#, fuzzy, kde-format
+#| msgid "&Ignore"
+msgid "&Ignore Changes"
+msgstr "&Эътибор берилмасин"
+
+#: lib/katemwmodonhddialog.cpp:118
+#, kde-format
+msgid "Remove modified flag from selected documents"
+msgstr ""
+
+#: lib/katemwmodonhddialog.cpp:124
+#, kde-format
+msgid "Overwrite selected documents, discarding disk changes"
+msgstr ""
+
+#: lib/katemwmodonhddialog.cpp:128
+#, kde-format
+msgid "&Reload"
+msgstr ""
+
+#: lib/katemwmodonhddialog.cpp:130
+#, fuzzy, kde-format
+msgid "Reload selected documents from disk"
+msgstr "Ҳамма очиқ ҳужжатларни ёпиш."
+
+#: lib/katemwmodonhddialog.cpp:196
+#, kde-format
+msgid ""
+"Could not save the document \n"
+"'%1'"
+msgstr ""
+"'%1'\n"
+"ҳужжатини сақлаб бўлмади"
+
+#: lib/katemwmodonhddialog.cpp:329
+#, kde-format
+msgid ""
+"The diff command failed. Please make sure that diff(1) is installed and in "
+"your PATH."
+msgstr ""
+"diff буйруғи муваффақиятсиз тугади. Илтимос дастури $PATH муҳит "
+"ўзгарувчисида кўрсатилган директориялардан бирига ўрнатилганлигини текширинг."
+
+#: lib/katemwmodonhddialog.cpp:331
+#, kde-format
+msgid "Error Creating Diff"
+msgstr "Фарқни яратишда хато"
+
+#: lib/katemwmodonhddialog.cpp:338
+#, kde-format
+msgid "Ignoring amount of white space changed, the files are identical."
+msgstr ""
+
+#: lib/katemwmodonhddialog.cpp:338
+#, kde-format
+msgid "Diff Output"
+msgstr ""
+
+#: lib/kateoutputview.cpp:37
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Copy to Clipboard"
+msgstr ""
+
+#: lib/kateoutputview.cpp:184
+#, fuzzy, kde-format
+msgid "Filter..."
+msgstr "Файллар:"
+
+#: lib/kateoutputview.cpp:197
+#, kde-format
+msgid "Clear all messages"
+msgstr ""
+
+#: lib/kateoutputview.cpp:290
+#, kde-format
+msgctxt "@info"
+msgid "Error"
+msgstr ""
+
+#: lib/kateoutputview.cpp:294
+#, kde-format
+msgctxt "@info"
+msgid "Warning"
+msgstr ""
+
+#: lib/kateoutputview.cpp:298
+#, kde-format
+msgctxt "@info"
+msgid "Info"
+msgstr ""
+
+#: lib/kateoutputview.cpp:302
+#, kde-format
+msgctxt "@info"
+msgid "Log"
+msgstr ""
+
+#: lib/katesavemodifieddialog.cpp:77
+#, kde-format
+msgid "Save As (%1)"
+msgstr "Сақлаш (%1)"
+
+#: lib/katesavemodifieddialog.cpp:127
+#, kde-format
+msgid "Save Documents"
+msgstr "Ҳужжатларни сақлаш"
+
+#: lib/katesavemodifieddialog.cpp:135
+#, kde-format
+msgid ""
+"<qt>The following documents have been modified. Do you want to save them "
+"before closing?</qt>"
+msgstr ""
+"<qt>Қуйидаги ҳужжатларга ўзариш киритилди. Уларни ёпишдан олдин сақлашни "
+"истайсизми?</qt>"
+
+#: lib/katesavemodifieddialog.cpp:142
+#, kde-format
+msgid "Documents"
+msgstr "Ҳужжатлар"
+
+#: lib/katesavemodifieddialog.cpp:142
+#, kde-format
+msgid "Location"
+msgstr "Манзил"
+
+#: lib/katesavemodifieddialog.cpp:152
+#, kde-format
+msgid "Se&lect All"
+msgstr "&Ҳаммасини танлаш"
+
+#: lib/katesavemodifieddialog.cpp:225
+#, kde-format
+msgid ""
+"Data you requested to be saved could not be written. Please choose how you "
+"want to proceed."
+msgstr "Талаб қилинган маълумотни сақлаб бўлмади. Қандай давом этишни танланг."
+
+#: lib/kateurlbar.cpp:1178
+#, kde-format
+msgid "Untitled"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:116
+#, kde-format
+msgid "Split Ve&rtical"
+msgstr "&Бўйига бўлиш"
+
+#: lib/kateviewmanager.cpp:120
+#, kde-format
+msgid "Split the currently active view vertically into two views."
+msgstr "Жорий актив кўринишни бўйига иккита кўринишга бўлиш."
+
+#: lib/kateviewmanager.cpp:124
+#, kde-format
+msgid "Split &Horizontal"
+msgstr "&Энига бўлиш"
+
+#: lib/kateviewmanager.cpp:128
+#, kde-format
+msgid "Split the currently active view horizontally into two views."
+msgstr "Жорий актив кўринишни энига иккита кўринишга бўлиш."
+
+#: lib/kateviewmanager.cpp:132
+#, kde-format
+msgid "Move Document to New Vertical Split"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:136
+#, fuzzy, kde-format
+#| msgid "Split the currently active view vertically into two views."
+msgid ""
+"Split the currently active view vertically into two views and move the "
+"currently active document to right view."
+msgstr "Жорий актив кўринишни бўйига иккита кўринишга бўлиш."
+
+#: lib/kateviewmanager.cpp:141
+#, kde-format
+msgid "Move Document to New Horizontal Split"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:145
+#, fuzzy, kde-format
+#| msgid "Split the currently active view horizontally into two views."
+msgid ""
+"Split the currently active view horizontally into two views and move the "
+"currently active document to view below."
+msgstr "Жорий актив кўринишни энига иккита кўринишга бўлиш."
+
+#: lib/kateviewmanager.cpp:150
+#, kde-format
+msgid "Cl&ose Current View"
+msgstr "Жорий &кўринишни ёпиш"
+
+#: lib/kateviewmanager.cpp:154
+#, fuzzy, kde-format
+#| msgid "Close the currently active splitted view"
+msgid "Close the currently active split view"
+msgstr "Жорий актив бўлинган кўринишни ёпиш."
+
+#: lib/kateviewmanager.cpp:158
+#, fuzzy, kde-format
+#| msgid "Cl&ose Current View"
+msgid "Close Inactive Views"
+msgstr "Жорий &кўринишни ёпиш"
+
+#: lib/kateviewmanager.cpp:161
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Close every view but the active one"
+msgstr "Кейинги бўлинган кўринишни актив қилиш."
+
+#: lib/kateviewmanager.cpp:165
+#, fuzzy, kde-format
+#| msgid "Cl&ose Current View"
+msgid "Hide Inactive Views"
+msgstr "Жорий &кўринишни ёпиш"
+
+#: lib/kateviewmanager.cpp:169
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Hide every view but the active one"
+msgstr "Кейинги бўлинган кўринишни актив қилиш."
+
+#: lib/kateviewmanager.cpp:172
+#, kde-format
+msgid "Toggle Orientation"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:175
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Toggles the orientation of the current split view"
+msgstr "Кейинги бўлинган кўринишни актив қилиш."
+
+#: lib/kateviewmanager.cpp:178
+#, fuzzy, kde-format
+#| msgid "Next View"
+msgid "Next Split View"
+msgstr "Кейинги кўриниш"
+
+#: lib/kateviewmanager.cpp:183
+#, kde-format
+msgid "Make the next split view the active one."
+msgstr "Кейинги бўлинган кўринишни актив қилиш."
+
+#: lib/kateviewmanager.cpp:186
+#, fuzzy, kde-format
+#| msgid "Previous View"
+msgid "Previous Split View"
+msgstr "Олдинги кўриниш"
+
+#: lib/kateviewmanager.cpp:191
+#, kde-format
+msgid "Make the previous split view the active one."
+msgstr "Олдинги бўлинган кўринишни актив қилиш."
+
+#: lib/kateviewmanager.cpp:194
+#, fuzzy, kde-format
+#| msgid "Next View"
+msgid "Left Split View"
+msgstr "Кейинги кўриниш"
+
+#: lib/kateviewmanager.cpp:199
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Make the split view intuitively on the left the active one."
+msgstr "Кейинги бўлинган кўринишни актив қилиш."
+
+#: lib/kateviewmanager.cpp:202
+#, fuzzy, kde-format
+#| msgid "Next View"
+msgid "Right Split View"
+msgstr "Кейинги кўриниш"
+
+#: lib/kateviewmanager.cpp:207
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Make the split view intuitively on the right the active one."
+msgstr "Кейинги бўлинган кўринишни актив қилиш."
+
+#: lib/kateviewmanager.cpp:210
+#, fuzzy, kde-format
+#| msgid "Split Ve&rtical"
+msgid "Upward Split View"
+msgstr "&Бўйига бўлиш"
+
+#: lib/kateviewmanager.cpp:215
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Make the split view intuitively upward the active one."
+msgstr "Кейинги бўлинган кўринишни актив қилиш."
+
+#: lib/kateviewmanager.cpp:218
+#, fuzzy, kde-format
+#| msgid "Split Ve&rtical"
+msgid "Downward Split View"
+msgstr "&Бўйига бўлиш"
+
+#: lib/kateviewmanager.cpp:223
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Make the split view intuitively downward the active one."
+msgstr "Кейинги бўлинган кўринишни актив қилиш."
+
+#: lib/kateviewmanager.cpp:226
+#, kde-format
+msgid "Move Splitter Right"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:229
+#, kde-format
+msgid "Move the splitter of the current view to the right"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:232
+#, kde-format
+msgid "Move Splitter Left"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:235
+#, kde-format
+msgid "Move the splitter of the current view to the left"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:238
+#, kde-format
+msgid "Move Splitter Up"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:241
+#, kde-format
+msgid "Move the splitter of the current view up"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:244
+#, kde-format
+msgid "Move Splitter Down"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:247
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Move the splitter of the current view down"
+msgstr "Кейинги бўлинган кўринишни актив қилиш."
+
+#: lib/kateviewmanager.cpp:250
+#, kde-format
+msgid "Focus Navigation Bar"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:251
+#, fuzzy, kde-format
+#| msgid "Close the current tab"
+msgid "Focus the navigation bar"
+msgstr "Жорий табни ёпиш"
+
+#: lib/kateviewmanager.cpp:258
+#, kde-format
+msgid "Welcome Page"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:273
+#, kde-format
+msgid "Show the welcome page"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:315 lib/kateviewmanager.cpp:317
+#, kde-format
+msgid "Open File"
+msgstr "Файлни очиш"
+
+#: lib/kateviewmanager.cpp:336
+#, kde-format
+msgid ""
+"<p>You are attempting to open one or more large files:</p><ul>%1</ul><p>Do "
+"you want to proceed?</p><p><strong>Beware that kate may stop responding for "
+"some time when opening large files.</strong></p>"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:339
+#, fuzzy, kde-format
+#| msgid "Open File"
+msgid "Opening Large File"
+msgstr "Файлни очиш"
+
+#: lib/kateviewmanager.cpp:1162
+#, kde-format
+msgid "This view may have unsaved work. Do you really want to close it?"
+msgstr ""
+
+#: lib/kateviewspace.cpp:98
+#, kde-format
+msgctxt "indicator for more documents"
+msgid "+%1"
+msgstr ""
+
+#: lib/kateviewspace.cpp:103 lib/kateviewspace.cpp:208
+#, kde-format
+msgid "Click here to switch to the Quick Open view."
+msgstr ""
+
+#: lib/kateviewspace.cpp:119
+#, kde-format
+msgid "Control view space splitting"
+msgstr ""
+
+#: lib/kateviewspace.cpp:209
+#, kde-format
+msgid ""
+"Currently, there is one more document open. To see all open documents, "
+"switch to the Quick Open view by clicking here."
+msgid_plural ""
+"Currently, there are %1 more documents open. To see all open documents, "
+"switch to the Quick Open view by clicking here."
+msgstr[0] ""
+
+#: lib/kateviewspace.cpp:975
+#, fuzzy, kde-format
+msgid "Close Tab"
+msgstr "Жорий табни ёпиш"
+
+#: lib/kateviewspace.cpp:992
+#, fuzzy, kde-format
+#| msgid "Close Document"
+msgid "&Close Document"
+msgstr "Ҳужжатни ёпиш"
+
+#: lib/kateviewspace.cpp:993
+#, fuzzy, kde-format
+#| msgid "Close Document"
+msgid "Close Other &Documents"
+msgstr "Ҳужжатни ёпиш"
+
+#: lib/kateviewspace.cpp:994
+#, fuzzy, kde-format
+#| msgid "Close all open documents."
+msgid "Close &All Documents"
+msgstr "Ҳамма очиқ ҳужжатларни ёпиш."
+
+#: lib/kateviewspace.cpp:996
+#, fuzzy, kde-format
+#| msgid "&Document"
+msgid "D&etach Document"
+msgstr "Ҳ&ужжат"
+
+#: lib/kateviewspace.cpp:997
+#, kde-format
+msgid "Opens the document in a new window and closes it in the current window"
+msgstr ""
+
+#: lib/kateviewspace.cpp:1006
+#, fuzzy, kde-format
+msgid "Compare with Active Document"
+msgstr "Янги ҳужжатни яратиш"
+
+#: lib/kateviewspace.cpp:1010
+#, kde-format
+msgid "Diff %1 .. %2"
+msgstr ""
+
+#: lib/kateviewspace.cpp:1015
+#, fuzzy, kde-format
+msgid "Compare with Active Document Using"
+msgstr "Янги ҳужжатни яратиш"
+
+#: lib/kateviewspace.cpp:1082
+#, kde-format
+msgid "Could not start program"
+msgstr ""
+
+#: lib/kateviewspace.cpp:1083
+#, kde-format
+msgid "The selected program could not be started. Maybe it is not installed."
+msgstr ""
+
+#: lib/quickopen/katequickopenlineedit.cpp:22
+#, kde-format
+msgid "Quick Open Search (configure via context menu)"
+msgstr ""
+
+#: lib/quickopen/katequickopenlineedit.cpp:61
+#, fuzzy, kde-format
+#| msgid "Projects"
+msgid "All Projects"
+msgstr "Лойиҳалар"
+
+#: lib/quickopen/katequickopenlineedit.cpp:73
+#, kde-format
+msgid "Current Project"
+msgstr ""
+
+#: lib/quickopen/katequickopenlineedit.cpp:88
+#, kde-format
+msgid "Fuzzy Filtering"
+msgstr ""
+
+#: lib/quickopen/katequickopenlineedit.cpp:99
+#, kde-format
+msgid "Wildcard Filtering"
+msgstr ""
+
+#: lib/session/katesessionmanagedialog.cpp:26
+#, kde-format
+msgid "Manage Sessions"
+msgstr "Сеансларни бошқариш"
+
+#: lib/session/katesessionmanagedialog.cpp:62
+#, kde-format
+msgid "Session Chooser"
+msgstr "Сеансни танлагич"
+
+#: lib/session/katesessionmanagedialog.cpp:146
+#, kde-format
+msgid "Restore"
+msgstr ""
+
+#: lib/session/katesessionmanagedialog.cpp:303
+#, kde-format
+msgid "Session will be deleted on dialog close"
+msgstr ""
+
+#. i18n: ectx: property (placeholderText), widget (QLineEdit, m_filterBox)
+#: lib/session/katesessionmanagedialog.ui:30
+#, fuzzy, kde-format
+#| msgid "Sessions"
+msgid "Filter Sessions"
+msgstr "Сеанслар"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, m_sessionList)
+#: lib/session/katesessionmanagedialog.ui:55
+#, kde-format
+msgid "Session Name"
+msgstr "Сеанснинг номи"
+
+#. i18n: The number of open documents
+#. i18n: ectx: property (text), widget (QTreeWidget, m_sessionList)
+#: lib/session/katesessionmanagedialog.ui:60
+#, fuzzy, kde-format
+msgid "Files"
+msgstr "Файллар:"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, m_sessionList)
+#: lib/session/katesessionmanagedialog.ui:68
+#, kde-format
+msgid "Last opened"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, m_openButton)
+#: lib/session/katesessionmanagedialog.ui:87
+#, fuzzy, kde-format
+msgid "&Open"
+msgstr "&Очиш"
+
+#. i18n: ectx: property (text), widget (QPushButton, m_newButton)
+#: lib/session/katesessionmanagedialog.ui:98
+#, kde-format
+msgid "New Session"
+msgstr "Янги сеанс"
+
+#. i18n: ectx: property (text), widget (QPushButton, m_templateButton)
+#: lib/session/katesessionmanagedialog.ui:108
+#, fuzzy, kde-format
+msgid "Open as Template"
+msgstr "Намуна:"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_dontAskCheckBox)
+#: lib/session/katesessionmanagedialog.ui:115
+#, fuzzy, kde-format
+#| msgid "Do not ask again"
+msgid "Don't ask again"
+msgstr "Бошқа сўралмасин"
+
+#. i18n: ectx: property (text), widget (QPushButton, m_copyButton)
+#: lib/session/katesessionmanagedialog.ui:135
+#, kde-format
+msgid "Duplicate..."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, m_renameButton)
+#: lib/session/katesessionmanagedialog.ui:142
+#, kde-format
+msgid "&Rename..."
+msgstr "Но&мини ўзгартириш"
+
+#. i18n: ectx: property (text), widget (QPushButton, m_deleteButton)
+#: lib/session/katesessionmanagedialog.ui:162
+#, fuzzy, kde-format
+#| msgid "Deleted"
+msgid "Delete"
+msgstr "Ўчирилган"
+
+#: lib/session/katesessionmanager.cpp:105
+#, kde-format
+msgid ""
+"Internal error: there is more than one instance open for a given session."
+msgstr ""
+
+#: lib/session/katesessionmanager.cpp:112
+#, kde-format
+msgid ""
+"Session '%1' is already opened in another Kate instance. Switch to that or "
+"reopen in this instance?"
+msgstr ""
+
+#: lib/session/katesessionmanager.cpp:114
+#, kde-format
+msgctxt "@action:button"
+msgid "Switch to Instance"
+msgstr ""
+
+#: lib/session/katesessionmanager.cpp:115
+#, kde-format
+msgctxt "@action:button"
+msgid "Reopen"
+msgstr ""
+
+#: lib/session/katesessionmanager.cpp:303
+#, kde-format
+msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
+msgstr ""
+
+#: lib/session/katesessionmanager.cpp:304
+#, fuzzy, kde-format
+msgid "Session Renaming"
+msgstr "Сеанснинг номи:"
+
+#: lib/session/katesessionmanager.cpp:451
+#, kde-format
+msgid "Session name:"
+msgstr "Сеанснинг номи:"
+
+#: lib/session/katesessionmanager.cpp:453
+#, kde-format
+msgid ""
+"There is already an existing session with your chosen name: %1\n"
+"Please choose a different one."
+msgstr ""
+
+#: lib/session/katesessionmanager.cpp:455
+#, kde-format
+msgid "To save a session, you must specify a name."
+msgstr "Сеансни сақлаш учун унинг номини кўрсатиш керак."
+
+#: lib/session/katesessionmanager.cpp:482
+#, fuzzy, kde-format
+#| msgid "Specify New Name for Session"
+msgid "Specify a name for this session"
+msgstr "Сеанс учун номни кўрсатиш"
+
+#: lib/session/katesessionmanager.cpp:484
+#, fuzzy, kde-format
+#| msgid "Specify New Name for Session"
+msgid "Specify a new name for session: %1"
+msgstr "Сеанс учун номни кўрсатиш"
+
+#. i18n: ectx: property (title), widget (QGroupBox, gbAppStartup)
+#: lib/ui/sessionconfigwidget.ui:17
+#, fuzzy, kde-format
+msgid "Application Startup Behavior"
+msgstr "Дастур"
+
+#. i18n: ectx: property (text), widget (QRadioButton, startNewSessionRadioButton)
+#: lib/ui/sessionconfigwidget.ui:23
+#, kde-format
+msgid "&Start new session"
+msgstr "&Янги сеансни бошлаш"
+
+#. i18n: ectx: property (text), widget (QRadioButton, loadLastUserSessionRadioButton)
+#: lib/ui/sessionconfigwidget.ui:30
+#, fuzzy, kde-format
+#| msgid "&Load last-used session"
+msgid "&Load last used session"
+msgstr "&Охирги ишлатилган сеансни юклаш"
+
+#. i18n: ectx: property (text), widget (QRadioButton, manuallyChooseSessionRadioButton)
+#: lib/ui/sessionconfigwidget.ui:37
+#, kde-format
+msgid "&Manually choose a session"
+msgstr "&Сеансни кўлбола танлаш"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: lib/ui/sessionconfigwidget.ui:47
+#, fuzzy, kde-format
+msgid "Application Startup/Shutdown Behavior"
+msgstr "Дастур"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: lib/ui/sessionconfigwidget.ui:55
+#, kde-format
+msgid "Automatically save and restore:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, stashNewUnsavedFiles)
+#: lib/ui/sessionconfigwidget.ui:67
+#, kde-format
+msgid "Newly-created unsaved files"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, stashUnsavedFilesChanges)
+#: lib/ui/sessionconfigwidget.ui:77
+#, kde-format
+msgid "Files with unsaved changes"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, openNewDocumentPerWindow)
+#: lib/ui/sessionconfigwidget.ui:88
+#, fuzzy, kde-format
+#| msgid "Create a new Kate view (a new window with the same document list)."
+msgid "Open new window with fresh untitled document"
+msgstr "Янги Kate кўринишини (ҳудди шу ҳужжатлар билан янги ойна) яратиш."
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, modCloseAfterLast)
+#: lib/ui/sessionconfigwidget.ui:95
+#, kde-format
+msgid ""
+"If enabled, the application will shutdown when the last file being edited is "
+"closed, otherwise a blank page will open so that you can start a new file."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, modCloseAfterLast)
+#: lib/ui/sessionconfigwidget.ui:98
+#, kde-format
+msgid "Close the application entirely when the last file is closed"
+msgstr ""
+
+#. i18n: ectx: property (title), widget (QGroupBox, gbElements)
+#: lib/ui/sessionconfigwidget.ui:108
+#, fuzzy, kde-format
+#| msgid "Session Management"
+msgid "Session Elements"
+msgstr "Сеанс бошқаруви"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: lib/ui/sessionconfigwidget.ui:114
+#, kde-format
+msgid ""
+"The session contains the list of open documents, recently opened files list, "
+"bookmarks, cursor position etc. When the session is loaded all elements are "
+"restored."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: lib/ui/sessionconfigwidget.ui:126
+#, kde-format
+msgid "Maximum number of entries in recent file list:"
+msgstr ""
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, restoreVC)
+#: lib/ui/sessionconfigwidget.ui:154
+#, kde-format
+msgid ""
+"Check this if you want all your views and frames restored each time you open "
+"the application."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, restoreVC)
+#: lib/ui/sessionconfigwidget.ui:157
+#, kde-format
+msgid "Include &window configuration"
+msgstr "&Ойна мосламалари билан"
+
+#. i18n: ectx: property (whatsThis), widget (QGroupBox, saveMetaInfos)
+#: lib/ui/sessionconfigwidget.ui:167
+#, kde-format
+msgid ""
+"Check this if you want document configuration like for example bookmarks to "
+"be saved past editor sessions. The configuration will be restored if the "
+"document has not changed when reopened."
+msgstr ""
+
+#. i18n: ectx: property (title), widget (QGroupBox, saveMetaInfos)
+#: lib/ui/sessionconfigwidget.ui:170
+#, kde-format
+msgid "Keep &meta-information past sessions"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: lib/ui/sessionconfigwidget.ui:181
+#, kde-format
+msgid "Delete unused meta-information after:"
+msgstr ""
+
+#: lib/welcomeview.cpp:69
+#, fuzzy, kde-format
+msgid "&Copy Location"
+msgstr "Манзил"
+
+#: lib/welcomeview.cpp:97
+#, kde-format
+msgctxt "recent items context menu"
+msgid "&Forget This Item"
+msgstr ""
+
+#: lib/welcomeview.cpp:126
+#, kde-format
+msgid "Welcome"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, welcomeLabel)
+#: lib/welcomeview.cpp:129 lib/welcomeview.ui:158
+#, kde-format
+msgid "Welcome to Kate"
+msgstr ""
+
+#: lib/welcomeview.cpp:129
+#, kde-format
+msgid "Welcome to KWrite"
+msgstr ""
+
+#: lib/welcomeview.cpp:168
+#, fuzzy, kde-format
+#| msgid "Close the current document."
+msgctxt "on welcome screen"
+msgid "No recent documents"
+msgstr "Жорий ҳужжатни ёпиш."
+
+#. i18n: ectx: property (windowTitle), widget (QWidget, WelcomeView)
+#: lib/welcomeview.ui:17
+#, kde-format
+msgid "Form"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, newDocumentButton)
+#: lib/welcomeview.ui:221
+#, fuzzy, kde-format
+#| msgid "&Document"
+msgctxt "on welcome screen"
+msgid "New Document"
+msgstr "Ҳ&ужжат"
+
+#. i18n: ectx: property (text), widget (QPushButton, openDocumentButton)
+#: lib/welcomeview.ui:232
+#, fuzzy, kde-format
+msgctxt "on welcome screen"
+msgid "Open Document..."
+msgstr "Ҳужжатларни очиш"
+
+#. i18n: ectx: property (text), widget (QPushButton, openFolderButton)
+#: lib/welcomeview.ui:243
+#, fuzzy, kde-format
+#| msgid "Open File"
+msgctxt "on welcome screen"
+msgid "Open Folder..."
+msgstr "Файлни очиш"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: lib/welcomeview.ui:372
+#, fuzzy, kde-format
+msgctxt "on welcome screen"
+msgid "Recent documents"
+msgstr "Ҳужжатларни очиш"
+
+#. i18n: ectx: property (text), widget (QToolButton, forgetAllButton)
+#: lib/welcomeview.ui:382
+#, fuzzy, kde-format
+#| msgid "Clos&e All"
+msgctxt "on welcome screen (recent document list)"
+msgid "Forget All"
+msgstr "Ҳаммасини ё&пиш"
+
+#, fuzzy
+#~ msgid "&New Synchronized Window"
+#~ msgstr "&Ойна"
+
+#, fuzzy
+#~| msgid "Sho&w Path"
+#~ msgid "Copy File &Path"
+#~ msgstr "Йўлни &кўрсатиш"
+
+#, fuzzy
+#~| msgid "Restore loca&tion"
+#~ msgid "Go to previous edit location"
+#~ msgstr "Манзилларни &тиклаш"
+
+#, fuzzy
+#~ msgid "Go to next edit location"
+#~ msgstr "Манзилларни &тиклаш"
+
+#, fuzzy
+#~ msgid "Delete File?"
+#~ msgstr "Ўчирилган"
+
+#, fuzzy
+#~ msgid "&Command Bar"
+#~ msgstr "Изоҳ"
+
+#, fuzzy
+#~| msgid "Open Session"
+#~ msgid "&Quick Open Session"
+#~ msgstr "Сеансни очиш"
+
+#, fuzzy
+#~| msgid "Save &As..."
+#~ msgid "&Save as defaults"
+#~ msgstr "...сифатида с&ақлаш"
+
+#, fuzzy
+#~| msgid "Start Kate with a given session"
+#~ msgid "Start Kate with a new session, implies '-n' (deprecated)."
+#~ msgstr "Дастурни кўрсатилган сеанс билан ишга тушириш"
+
+#~ msgid "Wa&rn about files modified by foreign processes"
+#~ msgstr "&Файл ўзгарганда хабар бериш"
+
+#, fuzzy
+#~| msgid "Application '%1' not found!"
+#~ msgid "Application '%1' not found."
+#~ msgstr "Дастур '%1' топилмади."
+
+#, fuzzy
+#~ msgid "Application not found"
+#~ msgstr "Дастур топилмади!"
+
+#, fuzzy
+#~| msgid "Sho&w Path"
+#~ msgid "Filter By Path"
+#~ msgstr "Йўлни &кўрсатиш"
+
+#, fuzzy
+#~ msgid "Filter By Name"
+#~ msgstr "Файллар:"
+
+#, fuzzy
+#~| msgid "Open Session"
+#~ msgid "Quick Open Search"
+#~ msgstr "Сеансни очиш"
+
+#, fuzzy
+#~ msgid "&Match Mode:"
+#~ msgstr "&Янги"
+
+#, fuzzy
+#~ msgid "Filepath"
+#~ msgstr "Файллар:"
+
+#, fuzzy
+#~ msgid "&List Mode:"
+#~ msgstr "&Янги"
+
+#~ msgid "Application"
+#~ msgstr "Дастур"
+
+#~ msgid "General"
+#~ msgstr "Умумий"
+
+#~ msgid "General Options"
+#~ msgstr "Умумий параметрлар"
+
+#~ msgid "Meta-Information"
+#~ msgstr "Мета-маълумот"
+
+#, fuzzy
+#~ msgid "Editor Component"
+#~ msgstr "Таҳрирчи компонентини танлаш"
+
+#, fuzzy
+#~ msgid "Editor Component Options"
+#~ msgstr "Таҳрирчи компонентини танлаш"
+
+#, fuzzy
+#~| msgid "Behavior on Application Startup"
+#~ msgid "Behaviour on Application Startup"
+#~ msgstr "Дастурни ишга тушиши"
+
+#, fuzzy
+#~ msgid "&About Editor Component"
+#~ msgstr "Таҳрирчи компонентини танлаш"
+
+#~ msgctxt "Menu entry Session->New"
+#~ msgid "&New"
+#~ msgstr "&Янги"
+
+#, fuzzy
+#~ msgid "Overwrite File?"
+#~ msgstr "&Алмаштириш"
+
+#, fuzzy
+#~| msgid "&Rename..."
+#~ msgctxt "@action:inmenu"
+#~ msgid "Rename File..."
+#~ msgstr "Но&мини ўзгартириш"
+
+#, fuzzy
+#~ msgctxt "@action:inmenu"
+#~ msgid "Delete File"
+#~ msgstr "Ўчирилган"
+
+#, fuzzy
+#~| msgid "Meta-Information"
+#~ msgctxt "@title:window"
+#~ msgid "Confirmation"
+#~ msgstr "Мета-маълумот"
+
+#, fuzzy
+#~| msgid "Close the current document."
+#~ msgid "C&lose Current Document"
+#~ msgstr "Жорий ҳужжатни ёпиш."
+
+#, fuzzy
+#~| msgid "Do not ask again"
+#~ msgid "Do not ask again"
+#~ msgstr "Бошқа сўралмасин"
+
+#, fuzzy
+#~| msgid "No session selected to open."
+#~ msgid "Clone session settings"
+#~ msgstr "Очиш учун ҳеч қандай сеанс танлангани йўқ."
+
+#, fuzzy
+#~| msgid "Default Session"
+#~ msgid "Delete this session"
+#~ msgstr "Андоза сеанс"
+
+#~ msgid "&Always use this choice"
+#~ msgstr "&Доим шуни ишлатиш"
+
+#~ msgid "Missing Session Name"
+#~ msgstr "Сеанснинг номи кўрсатилмаган"
+
+#~ msgid "Specify New Name for Current Session"
+#~ msgstr "Жорий сеанс учун номни кўрсатиш"
+
+#~ msgid "Comment"
+#~ msgstr "Изоҳ"
+
+#, fuzzy
+#~ msgid "&None"
+#~ msgstr "Йўқ"
+
+#, fuzzy
+#~ msgid "&Blue"
+#~ msgstr "Файллар:"
+
+#, fuzzy
+#~| msgid "Documents Modified on Disk"
+#~ msgid "All documents written to disk"
+#~ msgstr "Ҳужжат дискда ўзгарди"
+
+#, fuzzy
+#~| msgid "Documents Modified on Disk"
+#~ msgid "Document written to disk"
+#~ msgstr "Ҳужжат дискда ўзгарди"
+
+#, fuzzy
+#~| msgid ""
+#~| "A KDE text-editor component could not be found;\n"
+#~| "please check your KDE installation."
+#~ msgid ""
+#~ "A KDE text-editor component could not be found.\n"
+#~ "Please check your KDE installation."
+#~ msgstr ""
+#~ "KDE матн тахрирчи компоненти топилмади.\n"
+#~ "Илтимос KDE тўғри ўрнатилганлигини текширинг."
+
+#~ msgid "This shows useful tips on the use of this application."
+#~ msgstr "Дастурни ишлатиш ҳақида фойдали маслаҳатларни кўрсатиш."
+
+#~ msgid "No Session Selected"
+#~ msgstr "Ҳеч қандай сеанс танлангани йўқ"
+
+#, fuzzy
+#~| msgid "No session selected to open."
+#~ msgid "No session selected to copy."
+#~ msgstr "Очиш учун ҳеч қандай сеанс танлангани йўқ."
+
+#, fuzzy
+#~ msgid "Show Cursor Position"
+#~ msgstr "Ён &панелларни кўрсатиш"
+
+#, fuzzy
+#~ msgid "Show Selection Mode"
+#~ msgstr "&Танланган аммалар:"
+
+#, fuzzy
+#~| msgid "Document Name"
+#~ msgid "Show Document Name"
+#~ msgstr "Ҳужжатнинг номи"
+
+#~ msgid " Line: %1 Col: %2 "
+#~ msgstr " Сатр: %1 Устун: %2 "
+
+#, fuzzy
+#~| msgid " INS "
+#~ msgid " LINE "
+#~ msgstr " ҚЎЙ "
+
+#~ msgid " INS "
+#~ msgstr " ҚЎЙ "
+
+#, fuzzy
+#~| msgid " Line: %1 Col: %2 "
+#~ msgid " Line: %1 of %2 Col: %3 "
+#~ msgstr " Сатр: %1 Устун: %2 "
+
+#, fuzzy
+#~| msgid "Filename"
+#~ msgid "Copy Filename"
+#~ msgstr "Файлнинг номи"
+
+#~ msgid "Document Name"
+#~ msgstr "Ҳужжатнинг номи"
+
+#, fuzzy
+#~| msgid "Document Name"
+#~ msgid "Sort by Document Name"
+#~ msgstr "Ҳужжатнинг номи"
+
+#, fuzzy
+#~| msgid "Document List"
+#~ msgid "Document Path"
+#~ msgstr "Ҳужжатлар рўйхати"
+
+#, fuzzy
+#~| msgid "&Show All Documents >>"
+#~ msgid "Sort by Document Path"
+#~ msgstr "Ҳамма ҳужжа&тларни кўрсатиш >>"
+
+#~ msgid "Opening Order"
+#~ msgstr "Очиш тартиби"
+
+#, fuzzy
+#~| msgid "Opening Order"
+#~ msgid "Sort by Opening Order"
+#~ msgstr "Очиш тартиби"
+
+#, fuzzy
+#~| msgid "Open W&ith"
+#~ msgid "Open With"
+#~ msgstr "...билан &очиш"
+
+#, fuzzy
+#~ msgid "Sort By"
+#~ msgstr "&Саралаш"
+
+#~ msgid "&Sort by:"
+#~ msgstr "&Саралаш:"
+
+#, fuzzy
+#~ msgid "Tree View"
+#~ msgstr "Олдинги кўриниш"
+
+#, fuzzy
+#~| msgid "Split Ve&rtical"
+#~ msgid "List View"
+#~ msgstr "&Бўйига бўлиш"
+
+#, fuzzy
+#~| msgid "Sho&w Path"
+#~ msgid "&Show Full Path"
+#~ msgstr "Йўлни &кўрсатиш"
+
+#, fuzzy
+#~| msgid "Document Name"
+#~ msgid "Document Tree"
+#~ msgstr "Ҳужжатнинг номи"
+
+#, fuzzy
+#~| msgid "Current Document"
+#~ msgid "Configure Documents"
+#~ msgstr "Жорий ҳужжат"
+
+#, fuzzy
+#~| msgid "&Document"
+#~ msgid "Previous Document"
+#~ msgstr "Ҳ&ужжат"
+
+#~ msgid ""
+#~ "<p>You can swap the characters on each side of the cursor just by "
+#~ "pressing\n"
+#~ "<strong>Ctrl+T</strong></p>\n"
+#~ msgstr ""
+#~ "<p>Курсорнинг икки тарафидаги ҳарфларнинг жойини <strong>Ctrl+T</strong> "
+#~ "тугмаси ёрдамида ўзгартиришингиз мумкин</p>\n"
+
+#~ msgid ""
+#~ "<p>Kate has a built-in terminal emulator, just click on <strong>\"Terminal"
+#~ "\"</strong> at\n"
+#~ "the bottom to show or hide it as you desire.</p>\n"
+#~ msgstr ""
+#~ "<p>Kate дастурининг ичига терминал эмулятори қурилган, уни кўрсатиш ёки "
+#~ "бекитиш\n"
+#~ "учун пастдаги <strong>Терминал</strong> тугмасини босинг.</p>\n"
+
+#~ msgid ""
+#~ "<p>You can cycle through all open documents by pressing <strong>Alt+Left</"
+#~ "strong>\n"
+#~ "or <strong>Alt+Right</strong>. The next/previous document will "
+#~ "immediately be displayed\n"
+#~ "in the active frame.</p>\n"
+#~ msgstr ""
+#~ "<p>Очиқ ҳужжатларнинг улисидан-булисига <strong>Alt+Чапга</strong> ёки "
+#~ "<strong>\n"
+#~ "Alt+Ўнгга</strong> тугмалар ёрдамида ўтишингиз мумкин. Олдинги/кейинги "
+#~ "ҳужжат\n"
+#~ "актив фреймда дарҳол кўринади.</p>\n"
+
+#~ msgid ""
+#~ "<p>You can repeat your last search by just pressing <strong>F3</strong>, "
+#~ "or\n"
+#~ "<strong>Shift+F3</strong> if you want to search backwards.</p>\n"
+#~ msgstr ""
+#~ "<p>Охирги қидиришни қайтариш учун <strong>F3</strong> ёки орқага қидириш "
+#~ "учун\n"
+#~ "<strong>Shift+F3</strong> тугмаларидан фойдаланишингиз мумкин.</p>\n"
+
+#~ msgid ""
+#~ "<p>Press <strong>F8</strong> or <strong>Shift+F8</strong> to switch to "
+#~ "the\n"
+#~ "next/previous frame.</p>\n"
+#~ msgstr ""
+#~ "<p>Олдинги/кейинги фреймга ўтиш учун <strong>F8</strong> ёки\n"
+#~ "<strong>Shift+F8</strong> тугмалридан фойдаланишингиз мумкин.</p>\n"
+
+#, fuzzy
+#~| msgid "Document to open"
+#~ msgctxt "@item:inmenu"
+#~ msgid "Documentation"
+#~ msgstr "Очиш учун ҳужжат"
+
+#, fuzzy
+#~| msgid "Location"
+#~ msgid "Action:"
+#~ msgstr "Манзил"
+
+#, fuzzy
+#~| msgid "Title"
+#~ msgid "Title:"
+#~ msgstr "Сарлавҳа"
+
+#, fuzzy
+#~| msgid "Name"
+#~ msgid "Name:"
+#~ msgstr "Номи"
+
+#, fuzzy
+#~| msgid "&Manage..."
+#~ msgid "Manager"
+#~ msgstr "&Бошқариш..."
+
+#, fuzzy
+#~| msgid "Plugins"
+#~ msgid "Reload Plugins"
+#~ msgstr "Плагинлар"
+
+#, fuzzy
+#~| msgid "Plugins"
+#~ msgid "Python Plugins"
+#~ msgstr "Плагинлар"
+
+#, fuzzy
+#~| msgid "Document to open"
+#~ msgid "Documentation"
+#~ msgstr "Очиш учун ҳужжат"
+
+#, fuzzy
+#~| msgid "Current Document Folder"
+#~ msgid "Rescan current document for #colors"
+#~ msgstr "Жорий ҳужжатнинг жилди"
+
+#, fuzzy
+#~| msgid "Filename"
+#~ msgid "Transform Filenames"
+#~ msgstr "Файлнинг номи"
+
+#, fuzzy
+#~ msgid "Settings..."
+#~ msgstr "Ишга тушмоқда"
+
+#, fuzzy
+#~ msgid "..."
+#~ msgstr "&Янги"
+
+#, fuzzy
+#~| msgid "Location"
+#~ msgid "Exception:"
+#~ msgstr "Манзил"
+
+#, fuzzy
+#~| msgid "Document List"
+#~ msgid "Drop List"
+#~ msgstr "Ҳужжатлар рўйхати"
+
+#, fuzzy
+#~ msgid "Module:"
+#~ msgstr "Ён &панелларни кўрсатиш"
+
+#, fuzzy
+#~| msgid "&View Difference"
+#~ msgid "Reference"
+#~ msgstr "&Фарқни кўриш"
+
+#, fuzzy
+#~| msgid "Name"
+#~ msgid "Full Name:"
+#~ msgstr "Номи"
+
+#, fuzzy
+#~ msgid "Modules"
+#~ msgstr "Ён &панелларни кўрсатиш"
+
+#~ msgid "&Save Selected"
+#~ msgstr "Танланганни с&ақлаш"
+
+#, fuzzy
+#~| msgid "Do Not Save"
+#~ msgid "Do &Not Close"
+#~ msgstr "Сақланмасин"
+
+#, fuzzy
+#~| msgid "Create a new document"
+#~ msgid "Cannot go to the document"
+#~ msgstr "Янги ҳужжатни яратиш"
+
+#, fuzzy
+#~| msgid "Plugins"
+#~ msgid "GDB Plugin"
+#~ msgstr "Плагинлар"
+
+#, fuzzy
+#~| msgid "General Options"
+#~ msgid "GDB Integration"
+#~ msgstr "Умумий параметрлар"
+
+#, fuzzy
+#~ msgid "Debug View"
+#~ msgstr "Олдинги кўриниш"
+
+#, fuzzy
+#~| msgid "Name"
+#~ msgid "Frame"
+#~ msgstr "Номи"
+
+#, fuzzy
+#~| msgid "Starting Up"
+#~ msgid "Start Debugging"
+#~ msgstr "Ишга тушмоқда"
+
+#, fuzzy
+#~ msgid "Step In"
+#~ msgstr "Ишга тушмоқда"
+
+#, fuzzy
+#~| msgid "Move To"
+#~ msgid "Move PC"
+#~ msgstr "Кўчириш"
+
+#~ msgid "Document List Settings"
+#~ msgstr "Ҳужжат рўйхатининг мосламаси"
+
+#, fuzzy
+#~| msgid "&Save Selected"
+#~ msgid "Close Selected"
+#~ msgstr "Танланганни с&ақлаш"
+
+#, fuzzy
+#~| msgid "&Save Selected"
+#~ msgid "Save Selected"
+#~ msgstr "Танланганни с&ақлаш"
+
+#, fuzzy
+#~ msgid "Save selected open documents."
+#~ msgstr "Ҳамма очиқ ҳужжатларни ёпиш."
+
+#~ msgid "Sort &By"
+#~ msgstr "&Саралаш"
+
+#~ msgid "URL"
+#~ msgstr "URL"
+
+#, fuzzy
+#~ msgid "Tabify Plugin"
+#~ msgstr "Намуна:"
+
+#, fuzzy
+#~ msgid "TabifyPlugin"
+#~ msgstr "Намуна:"
+
+#~ msgid "Filesystem Browser"
+#~ msgstr "Файл-браузери"
+
+#, fuzzy
+#~ msgid "&Open..."
+#~ msgstr "&Очиш"
+
+#, fuzzy
+#~ msgid "&Save"
+#~ msgstr "&Сақлаш:"
+
+#~ msgid "Save &As..."
+#~ msgstr "...сифатида с&ақлаш"
+
+#~ msgid "&Abort Closing"
+#~ msgstr "Ёпишни &бекор қилиш"
+
+#~ msgid "&Do not save session"
+#~ msgstr "Сеанс сақлан&масин"
+
+#~ msgid "&Ask user"
+#~ msgstr "&Фойдаланувчидан сўраш"
+
+#~ msgid "Use a already running kate instance (if possible)"
+#~ msgstr "Ишга туширилган дастурни ишлатиш, агар иложи бўлса"
+
+#~ msgid "Save current session?"
+#~ msgstr "Жорий сеансни сақлашни истайсизми?"
+
+#~ msgid "File Selector Settings"
+#~ msgstr "Файл танлагичнинг мосламалари"
+
+#, fuzzy
+#~| msgid "Clear filter"
+#~ msgid "Search folders"
+#~ msgstr "Филтерни яратиш"
+
+#, fuzzy
+#~| msgid "&Mime types:"
+#~ msgid "File types:"
+#~ msgstr "MIME т&урлари:"
+
+#, fuzzy
+#~ msgid "Load File..."
+#~ msgstr "Файлни очиш"
+
+#, fuzzy
+#~| msgid "Find in Files"
+#~ msgid "Indexing files..."
+#~ msgstr "Файлларда қидириш"
+
+#, fuzzy
+#~| msgid "Open File"
+#~ msgid "Opened file: %1"
+#~ msgstr "Файлни очиш"
+
+#, fuzzy
+#~ msgid "D-Bus Call Failed"
+#~ msgstr "Файлларни хат билан жўнатиш"
+
+#, fuzzy
+#~ msgid "Start Kate (no arguments)"
+#~ msgstr "Дастурни кўрсатилган сеанс билан ишга тушириш"
+
+#, fuzzy
+#~ msgid "New Kate Session"
+#~ msgstr "Янги сеанс"
+
+#, fuzzy
+#~ msgid "New Anonymous Session"
+#~ msgstr "Янги сеанс"
+
+#, fuzzy
+#~ msgid "Reload Session List"
+#~ msgstr "Янги сеанс"
+
+#, fuzzy
+#~ msgid "Session exists"
+#~ msgstr "Сеанслар"
+
+#~ msgid " NORM "
+#~ msgstr " ОДДИЙ "
+
+#~ msgid "Folder:"
+#~ msgstr "Жилд:"
+
+#~ msgid "Case sensitive"
+#~ msgstr "Катта-кичик ҳарфни фарқлаш"
+
+#~ msgid "Recursive"
+#~ msgstr "Рекурсив"
+
+#, fuzzy
+#~| msgid "Close the current document."
+#~ msgid "Use the current document's path."
+#~ msgstr "Жорий ҳужжатни ёпиш."
+
+#~ msgid "Terminal"
+#~ msgstr "Терминал"
+
+#~ msgid "Check this box to search in all subfolders."
+#~ msgstr "Агар белгиланса, қидирув ҳамма қуйи жилдларда бажарилади."
+
+#~ msgid ""
+#~ "If this option is enabled (the default), the search will be case "
+#~ "sensitive."
+#~ msgstr "Агар белгиланса, қидирув катта-кичик ҳарфни фарқлаб бажарилади."
+
+#, fuzzy
+#~| msgid "Use this to close the current document"
+#~ msgid "Click to close the current search results."
+#~ msgstr "Жорий ҳужжатни ёпиш учун шундан фойдаланинг"
+
+#~ msgid "You must enter an existing local folder in the 'Folder' entry."
+#~ msgstr "Мавжуд бўлган локал жилднинг номини киритиш керак."
+
+#~ msgid "Invalid Folder"
+#~ msgstr "Жилд ҳақиқий эмас"
+
+#~ msgid "Apply last filter (\"%1\")"
+#~ msgstr "Охирги филтерни (\"%1\") қўллаш"
+
+#~ msgid "Toolbar"
+#~ msgstr "Асбоблар панели"
+
+#~ msgid "A&vailable actions:"
+#~ msgstr "&Мавжуд бўлган амаллар:"
+
+#~ msgid "When a docu&ment becomes active"
+#~ msgstr "Ҳужжат &актив бўлганда"
+
+#~ msgid "Remember &locations:"
+#~ msgstr "Манзилларни &эслаб қолиш:"
+
+#~ msgid "Remember &filters:"
+#~ msgstr "&Филтерларни эслаб қолиш:"
+
+#~ msgid "Restore last f&ilter"
+#~ msgstr "&Охирги филтерни тиклаш"
+
+#, fuzzy
+#~ msgid "Document Quick Switch"
+#~ msgstr "Ҳужжатлар рўйхати"
+
+#~ msgid "Failed to expand the command '%1'."
+#~ msgstr "Буйруқни '%1' кенгайтириб бўлмади."
+
+#~ msgid "Kate External Tools"
+#~ msgstr "Ташқи воситалар"
+
+#~ msgid "Edit External Tool"
+#~ msgstr "Ташқи воситани таҳрирлаш"
+
+#~ msgid "The name will be displayed in the 'Tools->External' menu"
+#~ msgstr "Номи 'Воситалар->Ташқи' менюсида кўринади"
+
+#~ msgid "S&cript:"
+#~ msgstr "&Скрипт:"
+
+#~ msgid "&Executable:"
+#~ msgstr "&Бажариб бўладиган файл:"
+
+#~ msgid "&Save:"
+#~ msgstr "&Сақлаш:"
+
+#~ msgid "None"
+#~ msgstr "Йўқ"
+
+#~ msgid "All Documents"
+#~ msgstr "Ҳамма ҳужжатлар"
+
+#~ msgid "&Command line name:"
+#~ msgstr "&Буйруқ:"
+
+#~ msgid "You must specify at least a name and a command"
+#~ msgstr "Камида ном ва буйруқни кўрсатиш керак"
+
+#~ msgid "Select the MimeTypes for which to enable this tool."
+#~ msgstr "Бу восита учун MIME турларини танланг."
+
+#~ msgid "Select Mime Types"
+#~ msgstr "MIME турларини танлаш"
+
+#~ msgid "&New..."
+#~ msgstr "&Янги"
+
+#~ msgid "&Edit..."
+#~ msgstr "&Таҳрирлаш"
+
+#~ msgid "Insert &Separator"
+#~ msgstr "&Ажратувчини қўйиш"
+
+#~ msgid ""
+#~ "This list shows all the configured tools, represented by their menu text."
+#~ msgstr "Бу рўйхат ҳамма мосланган воситаларни кўрсатади."
+
+#~ msgid "Send one or more of the open documents as email attachments."
+#~ msgstr "Битта ёки бир қанча очиқ ҳужжатларни хатга илова қилиб жўнатиш."
+
+#~ msgid ""
+#~ "<p>The current document has not been saved, and cannot be attached to an "
+#~ "email message.<p>Do you want to save it and proceed?"
+#~ msgstr ""
+#~ "<p>Жорий ҳужжат сақланмаган ва шунинг учун уни хатга илова қилиб жўнатиб "
+#~ "бўлмайди.<p>Давом этиш учун уни сақлашни истайсизми?"
+
+#~ msgid "Cannot Send Unsaved File"
+#~ msgstr "Сақланмаган файлни жўнатиб бўлмайди"
+
+#~ msgid ""
+#~ "The file could not be saved. Please check if you have write permission."
+#~ msgstr ""
+#~ "Файлни сақлаб бўлмади. Илтимос ёзиш учун сизда етарли ҳуқуқлар борлигини "
+#~ "текширинг."
+
+#~ msgid ""
+#~ "<p>The current file:<br><strong>%1</strong><br>has been modified. "
+#~ "Modifications will not be available in the attachment.<p>Do you want to "
+#~ "save it before sending it?"
+#~ msgstr ""
+#~ "<p>Жорий:<br><strong>%1</strong><br>файлга ўзгаришлар киритилди. Улар "
+#~ "илова қилинаётган файлга киритилмайди.<p>Жўнатишдан олдин файлни сақлашни "
+#~ "истайсизми?"
+
+#~ msgid "Save Before Sending?"
+#~ msgstr "Жўнатишдан олдин сақлайми?"
+
+#~ msgid "Email Files"
+#~ msgstr "Файлларни хат билан жўнатиш"
+
+#~ msgid "&Mail..."
+#~ msgstr "&Хат билан жўнатиш"
+
+#~ msgid ""
+#~ "<p>Press <strong>Mail...</strong> to email the current document.<p>To "
+#~ "select more documents to send, press <strong>Show All Documents&nbsp;&gt;"
+#~ "&gt;</strong>."
+#~ msgstr ""
+#~ "<p>Жорий ҳужжатни хат билан жўнатиш учун \"<strong>Хат билан жўнатиш</"
+#~ "strong>\" тугмасини босинг.<p>Бошқа ҳужжатларни танлаш учун "
+#~ "\"<strong>Ҳамма ҳужжатларни кўрсатиш&nbsp;&gt;&gt;</strong>\" тугмасини "
+#~ "босинг."
+
+#~ msgid "&Hide Document List <<"
+#~ msgstr "Ҳужжатлар рўйхатини &бекитиш <<"
+
+#~ msgid "Press <strong>Mail...</strong> to send selected documents"
+#~ msgstr ""
+#~ "Танланган ҳужжатларни хат билан жўнатиш учун \"<strong>Хат билан жўнатиш</"
+#~ "strong>\" тугмасини босинг"
+
+#, fuzzy
+#~ msgid "Previous Error"
+#~ msgstr "Олдинги кўриниш"
+
+#, fuzzy
+#~ msgid "HT&ML Tag..."
+#~ msgstr "&Бошқариш..."
+
+#, fuzzy
+#~ msgid "Python Browser"
+#~ msgstr "Файл-браузери"
+
+#~ msgid "&Appearance"
+#~ msgstr "&Кўриниши"
+
+#, fuzzy
+#~ msgid "&Top"
+#~ msgstr "Асбоблар панели"
+
+#, fuzzy
+#~ msgid "&follow current tab"
+#~ msgstr "Жорий табни ёпиш"
+
+#, fuzzy
+#~ msgid "document &name"
+#~ msgstr "Ҳужжатнинг номи"
+
+#, fuzzy
+#~ msgid "document &URL"
+#~ msgstr "Ҳужжатлар рўйхати"
+
+#, fuzzy
+#~ msgid "Frame Colors"
+#~ msgstr "Олдинги асосий тузувчи"
+
+#, fuzzy
+#~ msgid "Sorting Behavior"
+#~ msgstr "Хусусиятлар"
+
+#, fuzzy
+#~ msgid "Close &Other Tabs"
+#~ msgstr "Жорий табни ёпиш"
+
+#, fuzzy
+#~ msgid "Close &All Tabs"
+#~ msgstr "Жорий табни ёпиш"
+
+#, fuzzy
+#~ msgid "&Print command name"
+#~ msgstr "&Буйруқ:"
+
+#, fuzzy
+#~ msgid "Remember"
+#~ msgstr "&Филтерларни эслаб қолиш:"
+
+#, fuzzy
+#~ msgid "Application &working folder"
+#~ msgstr "Дастур топилмади!"
+
+#, fuzzy
+#~ msgid "&Document folder"
+#~ msgstr "Ҳ&ужжат"
+
+#, fuzzy
+#~ msgid "Show Params"
+#~ msgstr "Йўлни &кўрсатиш"
+
+#, fuzzy
+#~ msgid "Show Variables"
+#~ msgstr "Ён &панелларни кўрсатиш"
+
+#, fuzzy
+#~ msgid "Show Templates"
+#~ msgstr "Намуна:"
+
+#, fuzzy
+#~ msgid "Templates"
+#~ msgstr "Намуна:"
+
+#, fuzzy
+#~ msgid "Show Globals"
+#~ msgstr "Ён &панелларни кўрсатиш"
+
+#, fuzzy
+#~ msgid "Show Methods"
+#~ msgstr "Йўлни &кўрсатиш"
+
+#, fuzzy
+#~ msgid "Hide Symbols"
+#~ msgstr "Ён панелларни &бекитиш"
+
+#, fuzzy
+#~ msgid "Show Symbols"
+#~ msgstr "Ён &панелларни кўрсатиш"
+
+#, fuzzy
+#~ msgid "Show Macros"
+#~ msgstr "Ён &панелларни кўрсатиш"
+
+#, fuzzy
+#~ msgid "Show Uses"
+#~ msgstr "Ён &панелларни кўрсатиш"
+
+#, fuzzy
+#~ msgid "Show Pragmas"
+#~ msgstr "Йўлни &кўрсатиш"
+
+#, fuzzy
+#~ msgid "&Manage Templates..."
+#~ msgstr "&Бошқариш..."
+
+#, fuzzy
+#~ msgid "&Template:"
+#~ msgstr "Намуна:"
+
+#, fuzzy
+#~ msgid "Document &name:"
+#~ msgstr "Ҳужжатнинг номи"
+
+#, fuzzy
+#~ msgid "Choose Template Origin"
+#~ msgstr "Намуна:"
+
+#, fuzzy
+#~ msgid "Open the template for editing"
+#~ msgstr "Таҳрирлаш учун мавжуд ҳужжатни очиш"
+
+#, fuzzy
+#~ msgid "Create Template"
+#~ msgstr "Намуна:"
+
+#, fuzzy
+#~ msgid "Save Failed"
+#~ msgstr "Танланганни с&ақлаш"
+
+#, fuzzy
+#~ msgid "Template"
+#~ msgstr "Намуна:"
+
+#, fuzzy
+#~ msgid "Edit..."
+#~ msgstr "&Таҳрирлаш"
+
+#, fuzzy
+#~ msgid ""
+#~ "The file '%1' could not be parsed. Please check that the file is well-"
+#~ "formed XML."
+#~ msgstr ""
+#~ "Файлни сақлаб бўлмади. Илтимос ёзиш учун сизда етарли ҳуқуқлар борлигини "
+#~ "текширинг."
+
+#, fuzzy
+#~ msgid "&Close Element"
+#~ msgstr "Ҳужжатни ёпиш"
+
+#, fuzzy
+#~ msgid "The file '%1' could not be opened. The server returned an error."
+#~ msgstr "'%1' файлини очиб бўлмади. У оддий файл эмас, у жилд."
+
+#, fuzzy
+#~ msgid "Open .h/.cpp/.c"
+#~ msgstr "&Очиш"
+
+#, fuzzy
+#~| msgid "Open Session"
+#~ msgid "Empty session"
+#~ msgstr "Сеансни очиш"
+
+#~ msgid "Close Current Tab"
+#~ msgstr "Жорий табни ёпиш"
+
+#~ msgid "Activate Next Tab"
+#~ msgstr "Кейинги табни активлаш"
+
+#~ msgid "Open a new tab"
+#~ msgstr "Янги табни очиш"
+
+#, fuzzy
+#~ msgid "Position"
+#~ msgstr "Манзил"
+
+#~ msgid " OVR "
+#~ msgstr " АЛМ "
+
+#~ msgid "External Tools"
+#~ msgstr "Ташқи воситалар"
+
+#~ msgid "Launch external helper applications"
+#~ msgstr "Ташқи ёрдамчи дастурларни ишга тушириш"
+
+#~ msgid "Other..."
+#~ msgstr "Бошқа..."
+
+#~ msgid ""
+#~ "If this option is checked, the full document path will be shown in the "
+#~ "window caption."
+#~ msgstr ""
+#~ "Агар белгиланса, ҳужжатнинг тўлиқ йўли ойнанинг сарлавҳасида кўрсатилади."
+
+#~ msgid "Editor"
+#~ msgstr "Таҳрирчи"
+
+#~ msgid "Regular expression"
+#~ msgstr "Доимий ифода"
+
+#~ msgid "Find"
+#~ msgstr "Қидириш"
+
+#~ msgid "<strong>Error:</strong><p>"
+#~ msgstr "<strong>Хато:</strong><p>"
+
+#~ msgid "Grep Tool Error"
+#~ msgstr "Grep воситасининг хатоси"
+
+#~ msgid "Unnamed Session"
+#~ msgstr "Номсиз сеанс"
+
+#~ msgid "Session (%1)"
+#~ msgstr "Сеанс (%1)"
+
+#~ msgid "Specify Name for Current Session"
+#~ msgstr "Жорий сеанс учун номни кўрсатинг"
+
+#~ msgid "To save a new session, you must specify a name."
+#~ msgstr "Янги сеансни сақлаш учун унинг номини кўрсатиш керак."
+
+#~ msgid ""
+#~ "<b>This file was changed (modified) on disk by another program.</b><br />"
+#~ msgstr "<b>Бу файлни бошқа дастур дискда ўзгартирди.</b><br />"
+
+#~ msgid ""
+#~ "<b>This file was changed (created) on disk by another program.</b><br />"
+#~ msgstr "<b>Бу файлни бошқа дастур дискда яратди.</b><br />"
+
+#~ msgid ""
+#~ "<b>This file was changed (deleted) on disk by another program.</b><br />"
+#~ msgstr "<b>Бу файлни бошқа дастур дискдан ўчирди.</b><br />"
+
+#~ msgid "Use this command to print the current document"
+#~ msgstr "Жорий ҳужжатни босиб чиқариш учун шу буйруқдан фойдаланинг"
+
+#~ msgid "Use this command to open an existing document for editing"
+#~ msgstr ""
+#~ "Мавжуд бўлган ҳужжатни таҳрирлашга очиш учун шу буйруқдан фойдаланинг"
+
+#~ msgid "Choose Editor..."
+#~ msgstr "Таҳрирчини танлаш"
+
+#~ msgid "Close the current document view"
+#~ msgstr "Жорий ҳужжатни ёпиш"
+
+#~ msgid ""
+#~ "The given file could not be read, check if it exists or if it is readable "
+#~ "for the current user."
+#~ msgstr ""
+#~ "Кўрсатилган файлни ўқиб бўлмади. Илтимос файл мавжудлигини ва уни ўқиш "
+#~ "учун сизда етарли ҳуқуқлар борлигини текширинг."

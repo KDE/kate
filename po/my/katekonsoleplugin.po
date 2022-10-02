@@ -1,0 +1,204 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR This file is copyright:
+# This file is distributed under the same license as the kate package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"PO-Revision-Date: 2021-09-15 05:11+0630\n"
+"Last-Translator: \n"
+"Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
+"Language: my\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 2.2.1\n"
+
+#: kateconsole.cpp:54
+#, kde-format
+msgid "You do not have enough karma to access a shell or terminal emulation"
+msgstr ""
+
+#: kateconsole.cpp:102 kateconsole.cpp:132 kateconsole.cpp:605
+#, kde-format
+msgid "Terminal"
+msgstr "တာမီနယ်"
+
+#: kateconsole.cpp:141
+#, kde-format
+msgctxt "@action"
+msgid "&Pipe to Terminal"
+msgstr ""
+
+#: kateconsole.cpp:145
+#, kde-format
+msgctxt "@action"
+msgid "S&ynchronize Terminal with Current Document"
+msgstr ""
+
+#: kateconsole.cpp:149
+#, kde-format
+msgctxt "@action"
+msgid "Run Current Document"
+msgstr "လက်ရှိမှတ်တမ်းပုံနှိပ်မူကို မောင်းနှင်မည်"
+
+#: kateconsole.cpp:154 kateconsole.cpp:458
+#, kde-format
+msgctxt "@action"
+msgid "S&how Terminal Panel"
+msgstr "&hတာမီနယ်ပန်နယ်ပြမည်"
+
+#: kateconsole.cpp:160
+#, kde-format
+msgctxt "@action"
+msgid "&Focus Terminal Panel"
+msgstr "&Fတာမီနယ်ပန်နယ် အာရုံစိုက်မည်"
+
+#: kateconsole.cpp:334
+#, kde-format
+msgid ""
+"Do you really want to pipe the text to the console? This will execute any "
+"contained commands with your user rights."
+msgstr ""
+
+#: kateconsole.cpp:335
+#, fuzzy, kde-format
+msgid "Pipe to Terminal?"
+msgstr "တာမီနယ်"
+
+#: kateconsole.cpp:336
+#, kde-format
+msgid "Pipe to Terminal"
+msgstr ""
+
+#: kateconsole.cpp:364
+#, kde-format
+msgid "Sorry, cannot cd into '%1'"
+msgstr ""
+
+#: kateconsole.cpp:399
+#, kde-format
+msgid "Not a local file: '%1'"
+msgstr ""
+
+#: kateconsole.cpp:432
+#, kde-format
+msgid ""
+"Do you really want to Run the document ?\n"
+"This will execute the following command,\n"
+"with your user rights, in the terminal:\n"
+"'%1'"
+msgstr ""
+
+#: kateconsole.cpp:439
+#, kde-format
+msgid "Run in Terminal?"
+msgstr "တာမီနယ်တွင် မောင်းနှင်မည်လား။"
+
+#: kateconsole.cpp:440
+#, kde-format
+msgid "Run"
+msgstr "မောင်းနှင်မည်"
+
+#: kateconsole.cpp:455
+#, kde-format
+msgctxt "@action"
+msgid "&Hide Terminal Panel"
+msgstr "&Hတာမီနယ်ပန်နယ်ဖွက်ထားမည်"
+
+#: kateconsole.cpp:466
+#, kde-format
+msgid "Defocus Terminal Panel"
+msgstr "တာမီနယ်ပန်နယ် အာရုံမစိုက်တော့ပါ"
+
+#: kateconsole.cpp:467 kateconsole.cpp:468
+#, kde-format
+msgid "Focus Terminal Panel"
+msgstr "တာမီနယ်ပန်နယ် အာရုံစိုက်မည်"
+
+#: kateconsole.cpp:538
+#, kde-format
+msgid ""
+"&Automatically synchronize the terminal with the current document when "
+"possible"
+msgstr ""
+
+#: kateconsole.cpp:542 kateconsole.cpp:563
+#, kde-format
+msgid "Run in terminal"
+msgstr "တာမီနယ်တွင် မောင်းနှင်မည်"
+
+#: kateconsole.cpp:544
+#, kde-format
+msgid "&Remove extension"
+msgstr "&Rတိုးချဲ့ပရိုဂရမ် ဖယ်ရှားမည်"
+
+#: kateconsole.cpp:549
+#, kde-format
+msgid "Prefix:"
+msgstr ""
+
+#: kateconsole.cpp:557
+#, kde-format
+msgid "&Show warning next time"
+msgstr "&Sနောက်တစ်ကြိမ်တွင် သတ်ိပေးချက် ပြပါ"
+
+#: kateconsole.cpp:559
+#, kde-format
+msgid ""
+"The next time '%1' is executed, make sure a warning window will pop up, "
+"displaying the command to be sent to terminal, for review."
+msgstr ""
+
+#: kateconsole.cpp:570
+#, kde-format
+msgid "Set &EDITOR environment variable to 'kate -b'"
+msgstr ""
+
+#: kateconsole.cpp:573
+#, kde-format
+msgid ""
+"Important: The document has to be closed to make the console application "
+"continue"
+msgstr ""
+
+#: kateconsole.cpp:576
+#, kde-format
+msgid "Hide Konsole on pressing 'Esc'"
+msgstr ""
+
+#: kateconsole.cpp:579
+#, kde-format
+msgid ""
+"This may cause issues with terminal apps that use Esc key, for e.g., vim. "
+"Add these apps in the input below (Comma separated list)"
+msgstr ""
+
+#: kateconsole.cpp:610
+#, kde-format
+msgid "Terminal Settings"
+msgstr "တာမီနယ်ဆက်တင်"
+
+#. i18n: ectx: Menu (tools)
+#: ui.rc:6
+#, kde-format
+msgid "&Tools"
+msgstr "&Tကိရိယာများ"
+
+#~ msgctxt "NAME OF TRANSLATORS"
+#~ msgid "Your names"
+#~ msgstr "ဇေယျာလွင်"
+
+#~ msgctxt "EMAIL OF TRANSLATORS"
+#~ msgid "Your emails"
+#~ msgstr "lw1nzayar@yandex.com"
+
+#~ msgid "Kate Terminal"
+#~ msgstr "ကိတ် တာမီနယ်"
+
+#~ msgid "Terminal Panel"
+#~ msgstr "တာမီနယ်ပန်နယ်"

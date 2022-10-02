@@ -1,0 +1,475 @@
+# Translation of kate-ctags-plugin.po to Catalan
+# Copyright (C) 2009-2022 This_file_is_part_of_KDE
+# This file is distributed under the license LGPL version 2.1 or
+# version 3 or later versions approved by the membership of KDE e.V.
+#
+# Manuel Tortosa <manutortosa@chakra-project.org>, 2009, 2010.
+# Josep M. Ferrer <txemaq@gmail.com>, 2010, 2011, 2012, 2014, 2015, 2018, 2020, 2021, 2022.
+# Antoni Bella Pérez <antonibella5@yahoo.com>, 2014, 2015, 2020, 2021.
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"PO-Revision-Date: 2022-01-25 09:37+0100\n"
+"Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
+"Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
+"Language: ca\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 20.12.0\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Accelerator-Marker: &\n"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: CTagsGlobalConfig.ui:9
+#, kde-format
+msgid "Session-global index targets"
+msgstr "Objectius de l'índex global de la sessió"
+
+#. i18n: ectx: property (text), widget (QPushButton, addButton)
+#: CTagsGlobalConfig.ui:33 kate_ctags.ui:65
+#, kde-format
+msgid "Add"
+msgstr "Afegeix"
+
+#. i18n: ectx: property (text), widget (QPushButton, delButton)
+#: CTagsGlobalConfig.ui:40 kate_ctags.ui:72
+#, kde-format
+msgid "Remove"
+msgstr "Elimina"
+
+#. i18n: ectx: property (text), widget (QPushButton, updateDB)
+#: CTagsGlobalConfig.ui:54
+#, kde-format
+msgid "Update"
+msgstr "Actualitza"
+
+#. i18n: ectx: property (text), widget (QLabel, cmdLabel)
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
+#: CTagsGlobalConfig.ui:66 kate_ctags.ui:119
+#, kde-format
+msgid "CTags command"
+msgstr "Ordre de CTags"
+
+#: ctagskinds.cpp:23
+msgctxt "Tag Type"
+msgid "define"
+msgstr "defineix"
+
+#: ctagskinds.cpp:24 ctagskinds.cpp:66
+msgctxt "Tag Type"
+msgid "label"
+msgstr "etiqueta"
+
+#: ctagskinds.cpp:25 ctagskinds.cpp:39 ctagskinds.cpp:85
+msgctxt "Tag Type"
+msgid "macro"
+msgstr "macro"
+
+#: ctagskinds.cpp:28 ctagskinds.cpp:30 ctagskinds.cpp:41 ctagskinds.cpp:63
+#: ctagskinds.cpp:83 ctagskinds.cpp:87 ctagskinds.cpp:91 ctagskinds.cpp:93
+#: ctagskinds.cpp:98 ctagskinds.cpp:102 ctagskinds.cpp:104 ctagskinds.cpp:106
+#: ctagskinds.cpp:110
+msgctxt "Tag Type"
+msgid "function"
+msgstr "funció"
+
+#: ctagskinds.cpp:28 ctagskinds.cpp:71 ctagskinds.cpp:89 ctagskinds.cpp:95
+msgctxt "Tag Type"
+msgid "subroutine"
+msgstr "subrutina"
+
+#: ctagskinds.cpp:32
+msgctxt "Tag Type"
+msgid "fragment definition"
+msgstr "definició del fragment"
+
+#: ctagskinds.cpp:33
+msgctxt "Tag Type"
+msgid "any pattern"
+msgstr "qualsevol patró"
+
+#: ctagskinds.cpp:34
+msgctxt "Tag Type"
+msgid "slot"
+msgstr "ranura"
+
+#: ctagskinds.cpp:35
+msgctxt "Tag Type"
+msgid "pattern"
+msgstr "patró"
+
+#: ctagskinds.cpp:38 ctagskinds.cpp:55 ctagskinds.cpp:76 ctagskinds.cpp:91
+#: ctagskinds.cpp:93 ctagskinds.cpp:97
+msgctxt "Tag Type"
+msgid "class"
+msgstr "classe"
+
+#: ctagskinds.cpp:40
+msgctxt "Tag Type"
+msgid "enumerator"
+msgstr "numerador"
+
+#: ctagskinds.cpp:42
+msgctxt "Tag Type"
+msgid "enumeration"
+msgstr "enumeració"
+
+#: ctagskinds.cpp:43
+msgctxt "Tag Type"
+msgid "member"
+msgstr "membre"
+
+#: ctagskinds.cpp:44 ctagskinds.cpp:106
+msgctxt "Tag Type"
+msgid "namespace"
+msgstr "espai de nom"
+
+#: ctagskinds.cpp:45
+msgctxt "Tag Type"
+msgid "prototype"
+msgstr "prototipus"
+
+#: ctagskinds.cpp:46
+msgctxt "Tag Type"
+msgid "struct"
+msgstr "estructura"
+
+#: ctagskinds.cpp:47
+msgctxt "Tag Type"
+msgid "typedef"
+msgstr "definició del tipus"
+
+#: ctagskinds.cpp:48
+msgctxt "Tag Type"
+msgid "union"
+msgstr "unió"
+
+#: ctagskinds.cpp:49 ctagskinds.cpp:73
+msgctxt "Tag Type"
+msgid "variable"
+msgstr "variable"
+
+#: ctagskinds.cpp:50
+msgctxt "Tag Type"
+msgid "external variable"
+msgstr "variable externa"
+
+#: ctagskinds.cpp:53
+msgctxt "Tag Type"
+msgid "paragraph"
+msgstr "paràgraf"
+
+#: ctagskinds.cpp:56
+msgctxt "Tag Type"
+msgid "feature"
+msgstr "característica"
+
+#: ctagskinds.cpp:57
+msgctxt "Tag Type"
+msgid "local entity"
+msgstr "entitat local"
+
+#: ctagskinds.cpp:60
+msgctxt "Tag Type"
+msgid "block"
+msgstr "bloqueig"
+
+#: ctagskinds.cpp:61
+msgctxt "Tag Type"
+msgid "common"
+msgstr "comú"
+
+#: ctagskinds.cpp:62
+msgctxt "Tag Type"
+msgid "entry"
+msgstr "entrada"
+
+#: ctagskinds.cpp:64 ctagskinds.cpp:78
+msgctxt "Tag Type"
+msgid "interface"
+msgstr "interfície"
+
+#: ctagskinds.cpp:65
+msgctxt "Tag Type"
+msgid "type component"
+msgstr "component de tipus"
+
+#: ctagskinds.cpp:67
+msgctxt "Tag Type"
+msgid "local"
+msgstr "local"
+
+#: ctagskinds.cpp:68
+msgctxt "Tag Type"
+msgid "module"
+msgstr "mòdul"
+
+#: ctagskinds.cpp:69
+msgctxt "Tag Type"
+msgid "namelist"
+msgstr "llistat de noms"
+
+#: ctagskinds.cpp:70
+msgctxt "Tag Type"
+msgid "program"
+msgstr "programa"
+
+#: ctagskinds.cpp:72
+msgctxt "Tag Type"
+msgid "type"
+msgstr "tipus"
+
+#: ctagskinds.cpp:77
+msgctxt "Tag Type"
+msgid "field"
+msgstr "camp"
+
+#: ctagskinds.cpp:79
+msgctxt "Tag Type"
+msgid "method"
+msgstr "mètode"
+
+#: ctagskinds.cpp:80
+msgctxt "Tag Type"
+msgid "package"
+msgstr "paquet"
+
+#: ctagskinds.cpp:87 ctagskinds.cpp:108
+msgctxt "Tag Type"
+msgid "procedure"
+msgstr "procediment"
+
+#: ctagskinds.cpp:99
+msgctxt "Tag Type"
+msgid "mixin"
+msgstr "mescla"
+
+#: ctagskinds.cpp:102
+msgctxt "Tag Type"
+msgid "set"
+msgstr "estableix"
+
+#: gotosymbolmodel.cpp:67
+#, kde-format
+msgid "CTags executable not found."
+msgstr "No s'ha trobat l'executable del CTags."
+
+#: gotosymbolmodel.cpp:80
+#, kde-format
+msgid "CTags executable failed to execute."
+msgstr "Ha fallat l'execució de l'executable del CTags."
+
+#: gotosymbolmodel.cpp:148
+#, kde-format
+msgid "CTags was unable to parse this file."
+msgstr "El CTags no ha pogut interpretar aquest fitxer."
+
+#: gotosymbolwidget.cpp:245
+#, kde-format
+msgid ""
+"Tags file not found. Please generate one manually or using the CTags plugin"
+msgstr ""
+"No s'ha trobat el fitxer d'etiquetes. Genereu-ne un manualment o utilitzant "
+"el connector CTags"
+
+#: gotosymbolwidget.cpp:314
+#, kde-format
+msgid "File for '%1' not found."
+msgstr "No s'ha trobat el fitxer per a «%1»."
+
+#. i18n: ectx: attribute (title), widget (QWidget, widget)
+#: kate_ctags.ui:13
+#, kde-format
+msgid "Lookup"
+msgstr "Cerca"
+
+#. i18n: ectx: property (text), widget (QPushButton, updateButton)
+#. i18n: ectx: property (text), widget (QPushButton, updateButton2)
+#: kate_ctags.ui:26 kate_ctags.ui:92
+#, kde-format
+msgid "Update Index"
+msgstr "Actualitza l'índex"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, tagTreeWidget)
+#: kate_ctags.ui:37
+#, kde-format
+msgid "Tag"
+msgstr "Etiqueta"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, tagTreeWidget)
+#: kate_ctags.ui:42
+#, kde-format
+msgid "Type"
+msgstr "Tipus"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, tagTreeWidget)
+#: kate_ctags.ui:47
+#, kde-format
+msgid "File"
+msgstr "Fitxer"
+
+#. i18n: ectx: attribute (title), widget (QWidget, targets)
+#: kate_ctags.ui:56
+#, kde-format
+msgid "Index Targets"
+msgstr "Objectius de l'índex"
+
+#. i18n: ectx: attribute (title), widget (QWidget, database)
+#: kate_ctags.ui:100
+#, kde-format
+msgid "Database"
+msgstr "Base de dades"
+
+#. i18n: ectx: property (text), widget (QLabel, fileLabel)
+#: kate_ctags.ui:109
+#, kde-format
+msgid "CTags database file"
+msgstr "Fitxer de base de dades CTags"
+
+#. i18n: ectx: property (toolTip), widget (QToolButton, resetCMD)
+#: kate_ctags.ui:152
+#, kde-format
+msgid "Revert to the default command"
+msgstr "Reverteix a l'ordre per omissió"
+
+#. i18n: ectx: property (text), widget (QToolButton, resetCMD)
+#: kate_ctags.ui:155
+#, kde-format
+msgid "..."
+msgstr "..."
+
+#: kate_ctags_plugin.cpp:77 kate_ctags_view.cpp:108
+#, kde-format
+msgid "Add a directory to index."
+msgstr "Afegeix un directori a indexar."
+
+#: kate_ctags_plugin.cpp:80 kate_ctags_view.cpp:111
+#, kde-format
+msgid "Remove a directory."
+msgstr "Elimina un directori."
+
+#: kate_ctags_plugin.cpp:83
+#, kde-format
+msgid "(Re-)generate the common CTags database."
+msgstr "(Re)genera la base de dades comuna de CTags."
+
+#: kate_ctags_plugin.cpp:101 kate_ctags_view.cpp:45 kate_ctags_view.cpp:52
+#: kate_ctags_view.cpp:95
+#, kde-format
+msgid "CTags"
+msgstr "CTags"
+
+#: kate_ctags_plugin.cpp:107
+#, kde-format
+msgid "CTags Settings"
+msgstr "Arranjament de CTags"
+
+#: kate_ctags_plugin.cpp:229 kate_ctags_view.cpp:551
+#, kde-format
+msgid "Failed to run \"%1\". exitStatus = %2"
+msgstr "Ha fallat en executar «%1». Estat de la sortida = %2"
+
+#: kate_ctags_plugin.cpp:240 kate_ctags_view.cpp:563
+#, kde-format
+msgid "The CTags executable crashed."
+msgstr "L'executable CTags ha fallat."
+
+#: kate_ctags_plugin.cpp:242
+#, kde-format
+msgid "The CTags command exited with code %1"
+msgstr "L'ordre CTags ha finalitzat amb el codi %1"
+
+#: kate_ctags_view.cpp:56
+#, kde-format
+msgid "Jump back one step"
+msgstr "Fes un pas enrere"
+
+#: kate_ctags_view.cpp:60
+#, kde-format
+msgid "Go to Declaration"
+msgstr "Ves a la declaració"
+
+#: kate_ctags_view.cpp:64
+#, kde-format
+msgid "Go to Definition"
+msgstr "Ves a la definició"
+
+#: kate_ctags_view.cpp:68
+#, kde-format
+msgid "Lookup Current Text"
+msgstr "Cerca el text actual"
+
+#: kate_ctags_view.cpp:72
+#, kde-format
+msgid "Configure ..."
+msgstr "Configura..."
+
+#: kate_ctags_view.cpp:87
+#, kde-format
+msgctxt "@title:window"
+msgid "Configure CTags Plugin"
+msgstr "Configura el connector de CTags"
+
+#: kate_ctags_view.cpp:98 kate_ctags_view.cpp:187
+#, kde-format
+msgid "Go to Declaration: %1"
+msgstr "Ves a la declaració: %1"
+
+#: kate_ctags_view.cpp:99 kate_ctags_view.cpp:188
+#, kde-format
+msgid "Go to Definition: %1"
+msgstr "Ves a la definició: %1"
+
+#: kate_ctags_view.cpp:100 kate_ctags_view.cpp:189
+#, kde-format
+msgid "Lookup: %1"
+msgstr "Cerca: %1"
+
+#: kate_ctags_view.cpp:114 kate_ctags_view.cpp:117
+#, kde-format
+msgid "(Re-)generate the session specific CTags database."
+msgstr "(Re)genera la base de dades de CTags específica de la sessió."
+
+#: kate_ctags_view.cpp:122
+#, kde-format
+msgid "Select new or existing database file."
+msgstr "Seleccioneu un fitxer de base de dades nou o existent."
+
+#: kate_ctags_view.cpp:138
+#, kde-format
+msgid "Go To Local Symbol"
+msgstr "Ves al símbol local"
+
+#: kate_ctags_view.cpp:143
+#, kde-format
+msgid "Go To Global Symbol"
+msgstr "Ves al símbol global"
+
+#: kate_ctags_view.cpp:315 kate_ctags_view.cpp:347
+#, kde-format
+msgid "No hits found"
+msgstr "No s'ha trobat cap coincidència"
+
+#: kate_ctags_view.cpp:540
+#, kde-format
+msgid "No folders or files to index"
+msgstr "No hi ha carpetes o fitxers per a indexar"
+
+#: kate_ctags_view.cpp:565
+#, kde-format
+msgid "The CTags program exited with code %1: %2"
+msgstr "El programa CTags ha finalitzat amb el codi %1: %2"
+
+#~ msgctxt "NAME OF TRANSLATORS"
+#~ msgid "Your names"
+#~ msgstr "Manuel Tortosa Moreno"
+
+#~ msgctxt "EMAIL OF TRANSLATORS"
+#~ msgid "Your emails"
+#~ msgstr "manutortosa@gmail.com"
+
+#~ msgid "Kate CTags"
+#~ msgstr "CTags del Kate"

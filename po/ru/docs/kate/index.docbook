@@ -1,0 +1,558 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN"
+"dtd/kdedbx45.dtd" [
+  <!ENTITY gdb "<acronym
+>GDB</acronym
+>">
+  <!ENTITY kparts "<acronym
+>KParts</acronym
+>">
+  <!ENTITY configuring-chapter SYSTEM "configuring.docbook">
+  <!ENTITY fundamentals-chapter SYSTEM "fundamentals.docbook">
+  <!ENTITY menu-chapter SYSTEM "menus.docbook">
+  <!ENTITY plugins-chapter SYSTEM "plugins.docbook">
+  <!ENTITY development-chapter SYSTEM "development.docbook">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Russian "INCLUDE"
+><!-- change language only here -->
+]>
+
+<book id="kate" lang="&language;">
+<title
+>Руководство пользователя &kate;</title>
+
+<bookinfo>
+<authorgroup>
+<author
+>&Anders.Lund; &Anders.Lund.mail;</author>
+<author
+>&Seth.Rothberg; &Seth.Rothberg.mail;</author>
+<author
+>&Dominik.Haumann; &Dominik.Haumann.mail;</author>
+<author
+>&TC.Hollingsworth; &TC.Hollingsworth.mail;</author>
+<othercredit role="translator"
+><firstname
+>Андрей</firstname
+><surname
+>Балагута</surname
+> <affiliation
+><address
+><email
+>uj2@mail.ru</email
+></address
+></affiliation
+><contrib
+>Перевод на русский</contrib
+></othercredit
+><othercredit role="translator"
+><firstname
+>Николай</firstname
+><surname
+>Шафоростов</surname
+><affiliation
+><address
+><email
+>shafff@ukr.net</email
+></address
+></affiliation
+><contrib
+>Редактирование перевода</contrib
+></othercredit
+><othercredit role="translator"
+><firstname
+>Алексей</firstname
+><surname
+>Опарин</surname
+><affiliation
+><address
+><email
+>opaleksej@yandex.ru</email
+></address
+></affiliation
+><contrib
+>Перевод на русский</contrib
+></othercredit
+> <othercredit role="translator"
+><firstname
+>Мария</firstname
+><surname
+>Шикунова</surname
+><affiliation
+><address
+><email
+>translation-team@basealt.ru</email
+></address
+></affiliation
+><contrib
+>Обновление перевода</contrib
+></othercredit
+> 
+</authorgroup>
+
+<copyright>
+<year
+>2000</year>
+<year
+>2001</year>
+<holder
+>&Seth.Rothberg;</holder>
+</copyright>
+<copyright>
+<year
+>2002</year
+><year
+>2003</year
+><year
+>2005</year>
+<holder
+>&Anders.Lund;</holder>
+</copyright>
+<copyright>
+<year
+>2005</year
+><year
+>2009</year>
+<holder
+>&Dominik.Haumann;</holder>
+</copyright>
+<copyright>
+<year
+>2011</year
+><year
+>2012</year
+><year
+>2013</year
+><year
+>2014</year>
+<holder
+>&TC.Hollingsworth;</holder>
+</copyright>
+<legalnotice
+>&FDLNotice;</legalnotice>
+
+<date
+>2 сентября 2021 г.</date>
+<releaseinfo
+>Приложения KDE 21.12</releaseinfo>
+
+<abstract>
+<para
+>&kate; — это текстовый редактор для программистов, разработанный &kde;.</para>
+
+<para
+>В данном руководстве описан редактор &kate; версии 18.12</para>
+</abstract>
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>kdebase</keyword>
+<keyword
+>Kate</keyword>
+<keyword
+>текст</keyword>
+<keyword
+>редактор</keyword>
+<keyword
+>программист</keyword>
+<keyword
+>программирование</keyword>
+<keyword
+>проекты</keyword>
+<keyword
+>MDI</keyword>
+<keyword
+>Многодокументный</keyword>
+<keyword
+>Документы</keyword>
+<keyword
+>Интерфейс</keyword>
+<keyword
+>терминал</keyword>
+<keyword
+>консоль</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title
+>Введение</title>
+
+<para
+>Добро пожаловать в &kate; — улучшенный текстовый редактор для программистов, который работает в среде &kde;. Настраиваемая подсветка синтаксических конструкций для широкого диапазона языков программирования (начиная от C, C++ и &HTML; и заканчивая сценариями bash), возможность создавать и разрабатывать проекты, многодокументный интерфейс (<acronym
+>MDI</acronym
+>), встроенный эмулятор терминала — вот лишь небольшая часть возможностей &kate;. </para>
+
+<para
+>&kate; — это больше, чем текстовый редактор для программистов. Многодокументный интерфейс позволяет открывать и редактировать сразу несколько конфигурационных файлов &UNIX;. Это руководство пользователя было создано с помощью &kate;. </para>
+
+<para>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="kate.png"/></imageobject>
+<caption
+><para
+>Редактирование этого руководства...</para
+></caption>
+</mediaobject>
+</para>
+
+</chapter>
+
+&fundamentals-chapter;
+
+<chapter id="kate-part">
+<title
+>Работа с редактором &kate;</title>
+<para
+>Более подробные сведения об основах работы с компонентом редактирования &kate; доступны в разделе <ulink url="help:/katepart/kate-part.html"
+>«Работа с редактором &katepart;» руководства пользователя &katepart;</ulink
+>.</para>
+</chapter>
+
+&plugins-chapter;
+
+<chapter id="advanced-editing-tools">
+<title
+>Дополнительные возможности редактирования</title>
+<para
+>Более подробные сведения о дополнительных возможностях редактирования доступны в разделе <ulink url="help:/katepart/advanced-editing-tools.html"
+>«Дополнительные возможности редактирования» руководства пользователя &katepart;</ulink
+>.</para>
+</chapter>
+
+&development-chapter;
+
+<chapter id="vi-input-mode-chapter">
+<title
+>Режим ввода Vi</title>
+<para
+>Более подробные сведения об использовании режима ввода Vi в &kate; доступны в разделе <ulink url="help:/katepart/vi-input-mode-chapter.html"
+>«Режим ввода Vi» руководства пользователя &katepart;</ulink
+>.</para>
+</chapter>
+
+&menu-chapter;
+
+&configuring-chapter;
+
+<chapter id="credits">
+
+<title
+>Авторские права и лицензия</title>
+
+<para
+>&kate;. Авторские права на программу: &copy; Команда разработчиков &kate;, 2000, 2001, 2002—2005 </para>
+
+<variablelist>
+<title
+>Команда &kate;:</title>
+<varlistentry>
+<term
+>&Christoph.Cullmann; &Christoph.Cullmann.mail;</term>
+<listitem
+><para
+>Координатор проекта и ключевой разработчик</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>&Anders.Lund; &Anders.Lund.mail;</term>
+<listitem
+><para
+>Ключевой разработчик, подсветка синтаксиса для языка Perl, документация</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>&Joseph.Wenninger; &Joseph.Wenninger.mail;</term>
+<listitem
+><para
+>Ключевой разработчик, подсветка синтаксиса</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>Michael Bartl <email
+>michael.bartl1@chello.at</email
+></term>
+<listitem
+><para
+>Ключевой разработчик</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>Phlip <email
+>phlip_cpp@my-deja.com</email
+></term>
+<listitem
+><para
+>Компилятор проекта</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>&Waldo.Bastian; &Waldo.Bastian.mail;</term>
+<listitem
+><para
+>Отличная система буферизации</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>Matt Newell <email
+>newellm@proaxis.com</email
+></term>
+<listitem
+><para
+>Тестирование...</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>Michael McCallum <email
+>gholam@xtra.co.nz</email
+></term>
+<listitem
+><para
+>Ключевой разработчик</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>Jochen Wilhemly <email
+>digisnap@cs.tu-berlin.de</email
+></term>
+<listitem
+><para
+>Автор &kwrite;</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>&Michael.Koch; &Michael.Koch.mail;</term>
+<listitem
+><para
+>Перенос &kwrite; на &kparts;</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>&Christian.Gebauer; <email
+>gebauer@bigfoot.com</email
+></term>
+<listitem
+><para
+>Точно не определено</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>&Simon.Hausmann; &Simon.Hausmann.mail;</term>
+<listitem
+><para
+>Точно не определено</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>Glen Parker <email
+>glenebob@nwlink.com</email
+></term>
+<listitem
+><para
+>Журнал действий &kwrite;, интеграция KSpell</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>Scott Manson <email
+>sdmanson@alltel.net</email
+></term>
+<listitem
+><para
+>Подсветка синтаксиса &XML; в &kwrite;</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>&John.Firebaugh; &John.Firebaugh.mail;</term>
+<listitem
+><para
+>Исправления и прочее</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>&Dominik.Haumann; &Dominik.Haumann.mail;</term>
+<listitem
+><para
+>Разработчик, мастер подсветки синтаксиса</para
+></listitem>
+</varlistentry>
+</variablelist>
+
+<variablelist>
+<title
+>Много других людей внесли свой вклад:</title>
+<varlistentry>
+<term
+>Matteo Merli <email
+>merlim@libero.it</email
+></term>
+<listitem
+><para
+>Подсветка для spec-файлов RPM, diff и прочее</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>Rocky Scaletta <email
+>rocky@purdue.edu</email
+></term>
+<listitem
+><para
+>Подсветка для VHDL</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>Юрий Лебедев </term>
+<listitem
+><para
+>Подсветка для SQL</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>Chris Ross</term>
+<listitem
+><para
+>Подсветка для Ferite</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>Nick Roux</term>
+<listitem
+><para
+>Подсветка для ILERPG</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>&John.Firebaugh;</term>
+<listitem
+><para
+>Подсветка для &Java; и прочее</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>&Carsten.Niehaus;</term>
+<listitem
+><para
+>Подсветка для &latex;</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>Per Wigren</term>
+<listitem
+><para
+>Подсветка файлов сборки, а также для Python</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>Jan Fritz</term>
+<listitem
+><para
+>Подсветка для Python</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>&Daniel.Naber;</term>
+<listitem
+><para
+>Исправление ошибок, модуль &XML;</para
+></listitem>
+</varlistentry>
+</variablelist>
+
+<para
+>Авторские права на документацию: &copy; &Seth.Rothberg; &Seth.Rothberg.mail;, 2000—2001</para>
+
+<para
+>Авторские права на документацию: &copy; &Anders.Lund; &Anders.Lund.mail;, 2002, 2003, 2005</para>
+
+<para
+>Перевод на русский язык: Андрей Балагута <email
+>uj2@mail.ru</email
+></para
+><para
+>Редакция и обновление перевода: Николай Шафоростов <email
+>shafff@ukr.net</email
+></para
+><para
+>Обновление перевода: Алексей Опарин <email
+>opaleksej@yandex.ru</email
+></para
+> <para
+>Обновление перевода: Мария Шикунова<email
+>translation-team@basealt.ru</email
+></para
+><para
+>Редактирование перевода: Олеся Герасименко<email
+>translation-team@basealt.ru</email
+></para
+> &underFDL; &underGPL; </chapter>
+
+<appendix id="regular-expressions">
+<title
+>Регулярные выражения</title>
+
+<para
+>Более подробные сведения об основах работы с регулярными выражениями доступны в <ulink url="help:/katepart/regular-expressions.html"
+>приложении «Регулярные выражения» руководства пользователя &katepart;</ulink
+>.</para>
+
+</appendix>
+
+&documentation.index;
+
+<!--
+Index Word List:
+menu - context - syntax - markup - shortcuts - highlighting
+embedded terminal - editing - search - replace - regexp -> Regular Expression
+split window - selection - insert overwrite - selection -
+configure/customize/preferences - insert/overwrite - non-printing characters
+font - unicode - wordwrap/linewrap - project - bookmarks - docks - plugins
+block selection / rectangles - view - indenting - editor - word processor
+copy - paste - find - spelling - language (both kinds) - encoding -
+pretty printing - formatting - line numbers - icon border -
+folding - insert time - sed
+
+done
+comment / uncomment
+configure / settings / preferences
+
+-->
+
+</book>
+
+<!--
+Local Variables:
+mode: sgml
+sgml-namecase-general: t
+sgml-namecase-entity: nil
+sgml-general-insert-case: lower
+sgml-minimize-attributes: nil
+sgml-omittag: nil
+End:
+-->

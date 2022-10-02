@@ -1,0 +1,711 @@
+# kategdbplugin Bahasa Melayu (Malay) (ms)
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Sharuzzaman Ahmat Raslan <sharuzzaman@gmail.com>, 2011.
+msgid ""
+msgstr ""
+"Project-Id-Version: kategdbplugin\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"PO-Revision-Date: 2011-06-23 22:47+0800\n"
+"Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@gmail.com>\n"
+"Language-Team: Malay <kedidiemas@yahoogroups.com>\n"
+"Language: ms\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=1;\n"
+
+#. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
+#: advanced_settings.ui:17
+#, kde-format
+msgid "GDB command"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QToolButton, u_gdbBrowse)
+#. i18n: ectx: property (text), widget (QToolButton, u_addSrcPath)
+#. i18n: ectx: property (text), widget (QToolButton, u_delSrcPath)
+#. i18n: ectx: property (text), widget (QToolButton, u_setSoPrefix)
+#. i18n: ectx: property (text), widget (QToolButton, u_addSoSearchPath)
+#. i18n: ectx: property (text), widget (QToolButton, u_delSoSearchPath)
+#: advanced_settings.ui:30 advanced_settings.ui:62 advanced_settings.ui:69
+#: advanced_settings.ui:241 advanced_settings.ui:274 advanced_settings.ui:281
+#, kde-format
+msgid "..."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, u_srcPathsLabel)
+#: advanced_settings.ui:37
+#, kde-format
+msgid "Source file search paths"
+msgstr ""
+
+#. i18n: ectx: property (text), item, widget (QComboBox, u_localRemote)
+#: advanced_settings.ui:92
+#, kde-format
+msgid "Local application"
+msgstr ""
+
+#. i18n: ectx: property (text), item, widget (QComboBox, u_localRemote)
+#: advanced_settings.ui:97
+#, kde-format
+msgid "Remote TCP"
+msgstr ""
+
+#. i18n: ectx: property (text), item, widget (QComboBox, u_localRemote)
+#: advanced_settings.ui:102
+#, fuzzy, kde-format
+msgid "Remote Serial Port"
+msgstr "Buang"
+
+#. i18n: ectx: property (text), widget (QLabel, u_hostLabel)
+#: advanced_settings.ui:127
+#, kde-format
+msgid "Host"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, u_tcpPortLabel)
+#. i18n: ectx: property (text), widget (QLabel, u_ttyLabel)
+#: advanced_settings.ui:141 advanced_settings.ui:166
+#, kde-format
+msgid "Port"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, u_ttyBaudLabel)
+#: advanced_settings.ui:183
+#, kde-format
+msgid "Baud"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, u_soAbsPrefixLabel)
+#: advanced_settings.ui:231
+#, kde-format
+msgid "solib-absolute-prefix"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, u_soSearchLabel)
+#: advanced_settings.ui:248
+#, kde-format
+msgid "solib-search-path"
+msgstr ""
+
+#. i18n: ectx: property (title), widget (QGroupBox, u_customInitGB)
+#: advanced_settings.ui:317
+#, kde-format
+msgid "Custom Init Commands"
+msgstr ""
+
+#: backend.cpp:23 backend.cpp:48 debugview_dap.cpp:152
+#, kde-format
+msgid ""
+"A debugging session is on course. Please, use re-run or stop the current "
+"session."
+msgstr ""
+
+#: configview.cpp:85
+#, fuzzy, kde-format
+#| msgid "Add executable target"
+msgid "Add new target"
+msgstr "Tambah sasaran bolehlaksana"
+
+#: configview.cpp:89
+#, fuzzy, kde-format
+#| msgid "Remove target"
+msgid "Copy target"
+msgstr "Buang sasaran"
+
+#: configview.cpp:93
+#, fuzzy, kde-format
+#| msgid "Remove target"
+msgid "Delete target"
+msgstr "Buang sasaran"
+
+#: configview.cpp:98
+#, kde-format
+msgid "Executable:"
+msgstr ""
+
+#: configview.cpp:118
+#, kde-format
+msgid "Working Directory:"
+msgstr ""
+
+#: configview.cpp:126
+#, kde-format
+msgid "Process Id:"
+msgstr ""
+
+#: configview.cpp:131
+#, fuzzy, kde-format
+msgctxt "Program argument list"
+msgid "Arguments:"
+msgstr "Tambah Senarai"
+
+#: configview.cpp:134
+#, fuzzy, kde-format
+msgctxt "Checkbox to for keeping focus on the command line"
+msgid "Keep focus"
+msgstr "Kekalkan"
+
+#: configview.cpp:135
+#, fuzzy, kde-format
+msgid "Keep the focus on the command line"
+msgstr "Kekalkan buka"
+
+#: configview.cpp:137
+#, kde-format
+msgid "Redirect IO"
+msgstr ""
+
+#: configview.cpp:138
+#, fuzzy, kde-format
+msgid "Redirect the debugged programs IO to a separate tab"
+msgstr "ke  a"
+
+#: configview.cpp:140
+#, fuzzy, kde-format
+msgid "Advanced Settings"
+msgstr "Seting"
+
+#: configview.cpp:225
+#, kde-format
+msgid "Targets"
+msgstr ""
+
+#: configview.cpp:518 configview.cpp:531
+#, fuzzy, kde-format
+#| msgid "&Target:"
+msgid "Target %1"
+msgstr "&Sasaran:"
+
+#: debugview.cpp:29
+#, kde-format
+msgid "Locals"
+msgstr ""
+
+#: debugview.cpp:166
+#, kde-format
+msgid "Could not start debugger process"
+msgstr ""
+
+#: debugview.cpp:209
+#, kde-format
+msgid "*** gdb exited normally ***"
+msgstr ""
+
+#: debugview_dap.cpp:166
+#, kde-format
+msgid "DAP backend failed"
+msgstr ""
+
+#: debugview_dap.cpp:208
+#, kde-format
+msgid "program terminated"
+msgstr ""
+
+#: debugview_dap.cpp:220
+#, kde-format
+msgid "requesting disconnection"
+msgstr ""
+
+#: debugview_dap.cpp:234
+#, kde-format
+msgid "requesting shutdown"
+msgstr ""
+
+#: debugview_dap.cpp:258
+#, kde-format
+msgid "DAP backend: %1"
+msgstr ""
+
+#: debugview_dap.cpp:267
+#, kde-format
+msgid "stopped (%1)."
+msgstr ""
+
+#: debugview_dap.cpp:275
+#, kde-format
+msgid "Active thread: %1 (all threads stopped)."
+msgstr ""
+
+#: debugview_dap.cpp:277
+#, kde-format
+msgid "Active thread: %1."
+msgstr ""
+
+#: debugview_dap.cpp:282
+#, kde-format
+msgid "Breakpoint(s) reached:"
+msgstr ""
+
+#: debugview_dap.cpp:304
+#, kde-format
+msgid "(continued) thread %1"
+msgstr ""
+
+#: debugview_dap.cpp:306
+#, kde-format
+msgid "all threads continued"
+msgstr ""
+
+#: debugview_dap.cpp:312
+#, kde-format
+msgid "(running)"
+msgstr ""
+
+#: debugview_dap.cpp:389
+#, kde-format
+msgid "*** connection with server closed ***"
+msgstr ""
+
+#: debugview_dap.cpp:396
+#, kde-format
+msgid "program exited with code %1"
+msgstr ""
+
+#: debugview_dap.cpp:410
+#, kde-format
+msgid "*** waiting for user actions ***"
+msgstr ""
+
+#: debugview_dap.cpp:415
+#, kde-format
+msgid "error on response: %1"
+msgstr ""
+
+#: debugview_dap.cpp:430
+#, kde-format
+msgid "important"
+msgstr ""
+
+#: debugview_dap.cpp:433
+#, kde-format
+msgid "telemetry"
+msgstr ""
+
+#: debugview_dap.cpp:452
+#, kde-format
+msgid "debugging process [%1] %2"
+msgstr ""
+
+#: debugview_dap.cpp:454
+#, kde-format
+msgid "debugging process %1"
+msgstr ""
+
+#: debugview_dap.cpp:457
+#, kde-format
+msgid "Start method: %1"
+msgstr ""
+
+#: debugview_dap.cpp:464
+#, kde-format
+msgid "thread %1"
+msgstr ""
+
+#: debugview_dap.cpp:618
+#, fuzzy, kde-format
+msgid "breakpoint set"
+msgstr "Selit"
+
+#: debugview_dap.cpp:627
+#, kde-format
+msgid "breakpoint cleared"
+msgstr ""
+
+#: debugview_dap.cpp:687
+#, fuzzy, kde-format
+msgid "(%1) breakpoint"
+msgstr "Selit"
+
+#: debugview_dap.cpp:704
+#, kde-format
+msgid "<not evaluated>"
+msgstr ""
+
+#: debugview_dap.cpp:726
+#, kde-format
+msgid "server capabilities"
+msgstr ""
+
+#: debugview_dap.cpp:729
+#, kde-format
+msgid "supported"
+msgstr ""
+
+#: debugview_dap.cpp:729
+#, kde-format
+msgid "unsupported"
+msgstr ""
+
+#: debugview_dap.cpp:732
+#, fuzzy, kde-format
+msgid "conditional breakpoints"
+msgstr "Selit"
+
+#: debugview_dap.cpp:733
+#, fuzzy, kde-format
+msgid "function breakpoints"
+msgstr "Selit"
+
+#: debugview_dap.cpp:734
+#, kde-format
+msgid "hit conditional breakpoints"
+msgstr ""
+
+#: debugview_dap.cpp:735
+#, kde-format
+msgid "log points"
+msgstr ""
+
+#: debugview_dap.cpp:735
+#, kde-format
+msgid "modules request"
+msgstr ""
+
+#: debugview_dap.cpp:736
+#, kde-format
+msgid "goto targets request"
+msgstr ""
+
+#: debugview_dap.cpp:737
+#, kde-format
+msgid "terminate request"
+msgstr ""
+
+#: debugview_dap.cpp:738
+#, kde-format
+msgid "terminate debuggee"
+msgstr ""
+
+#: debugview_dap.cpp:902
+#, kde-format
+msgid "syntax error: expression not found"
+msgstr ""
+
+#: debugview_dap.cpp:920 debugview_dap.cpp:955 debugview_dap.cpp:993
+#: debugview_dap.cpp:1027 debugview_dap.cpp:1063 debugview_dap.cpp:1099
+#: debugview_dap.cpp:1135 debugview_dap.cpp:1235 debugview_dap.cpp:1292
+#, kde-format
+msgid "syntax error: %1"
+msgstr ""
+
+#: debugview_dap.cpp:928 debugview_dap.cpp:963 debugview_dap.cpp:1242
+#: debugview_dap.cpp:1300
+#, kde-format
+msgid "invalid line: %1"
+msgstr ""
+
+#: debugview_dap.cpp:935 debugview_dap.cpp:940 debugview_dap.cpp:970
+#: debugview_dap.cpp:975 debugview_dap.cpp:1266 debugview_dap.cpp:1271
+#: debugview_dap.cpp:1307 debugview_dap.cpp:1312
+#, kde-format
+msgid "file not specified: %1"
+msgstr ""
+
+#: debugview_dap.cpp:1005 debugview_dap.cpp:1039 debugview_dap.cpp:1075
+#: debugview_dap.cpp:1111 debugview_dap.cpp:1147
+#, kde-format
+msgid "invalid thread id: %1"
+msgstr ""
+
+#: debugview_dap.cpp:1011 debugview_dap.cpp:1045 debugview_dap.cpp:1081
+#: debugview_dap.cpp:1117 debugview_dap.cpp:1153
+#, kde-format
+msgid "thread id not specified: %1"
+msgstr ""
+
+#: debugview_dap.cpp:1164
+#, kde-format
+msgid "Available commands:"
+msgstr ""
+
+#: debugview_dap.cpp:1252
+#, kde-format
+msgid "conditional breakpoints are not supported by the server"
+msgstr ""
+
+#: debugview_dap.cpp:1260
+#, kde-format
+msgid "hit conditional breakpoints are not supported by the server"
+msgstr ""
+
+#: debugview_dap.cpp:1321
+#, kde-format
+msgid "breakpoint not found (%1:%2)"
+msgstr ""
+
+#: debugview_dap.cpp:1330
+#, kde-format
+msgid "Current thread: "
+msgstr ""
+
+#: debugview_dap.cpp:1335 debugview_dap.cpp:1342 debugview_dap.cpp:1366
+#, kde-format
+msgid "none"
+msgstr ""
+
+#: debugview_dap.cpp:1338
+#, kde-format
+msgid "Current frame: "
+msgstr ""
+
+#: debugview_dap.cpp:1345
+#, kde-format
+msgid "Session state: "
+msgstr ""
+
+#: debugview_dap.cpp:1348
+#, kde-format
+msgid "initializing"
+msgstr ""
+
+#: debugview_dap.cpp:1351
+#, kde-format
+msgid "running"
+msgstr ""
+
+#: debugview_dap.cpp:1354
+#, kde-format
+msgid "stopped"
+msgstr ""
+
+#: debugview_dap.cpp:1357
+#, kde-format
+msgid "terminated"
+msgstr ""
+
+#: debugview_dap.cpp:1360
+#, kde-format
+msgid "disconnected"
+msgstr ""
+
+#: debugview_dap.cpp:1363
+#, kde-format
+msgid "post mortem"
+msgstr ""
+
+#: debugview_dap.cpp:1419
+#, kde-format
+msgid "command not found"
+msgstr ""
+
+#: debugview_dap.cpp:1537
+#, kde-format
+msgid "killing backend"
+msgstr ""
+
+#: debugview_dap.cpp:1595
+#, kde-format
+msgid "Current frame [%3]: %1:%2 (%4)"
+msgstr ""
+
+#: localsview.cpp:17
+#, fuzzy, kde-format
+msgid "Symbol"
+msgstr "Simbol"
+
+#: localsview.cpp:18
+#, fuzzy, kde-format
+msgid "Value"
+msgstr "Nilai"
+
+#: localsview.cpp:41
+#, kde-format
+msgid "type"
+msgstr ""
+
+#: localsview.cpp:50
+#, kde-format
+msgid "indexed items"
+msgstr ""
+
+#: localsview.cpp:53
+#, kde-format
+msgid "named items"
+msgstr ""
+
+#: plugin_kategdb.cpp:65
+#, kde-format
+msgid "Kate GDB"
+msgstr ""
+
+#: plugin_kategdb.cpp:69
+#, fuzzy, kde-format
+msgid "Debug View"
+msgstr "Nyahpepijat Paparkan"
+
+#: plugin_kategdb.cpp:69 plugin_kategdb.cpp:270
+#, fuzzy, kde-format
+msgid "Debug"
+msgstr "Nyahpepijat"
+
+#: plugin_kategdb.cpp:72 plugin_kategdb.cpp:75
+#, fuzzy, kde-format
+msgid "Locals and Stack"
+msgstr "Panggil Tindan"
+
+#: plugin_kategdb.cpp:120
+#, fuzzy, kde-format
+msgctxt "Column label (frame number)"
+msgid "Nr"
+msgstr "Nr"
+
+#: plugin_kategdb.cpp:120
+#, fuzzy, kde-format
+msgctxt "Column label"
+msgid "Frame"
+msgstr "Bingkai"
+
+#: plugin_kategdb.cpp:152
+#, fuzzy, kde-format
+msgctxt "Tab label"
+msgid "GDB Output"
+msgstr "Output"
+
+#: plugin_kategdb.cpp:153
+#, fuzzy, kde-format
+msgctxt "Tab label"
+msgid "Settings"
+msgstr "Seting"
+
+#: plugin_kategdb.cpp:195
+#, kde-kuit-format
+msgctxt "@info"
+msgid ""
+"<title>Could not open file:</title><nl/>%1<br/>Try adding a search path to "
+"Advanced Settings -> Source file search paths"
+msgstr ""
+
+#: plugin_kategdb.cpp:216
+#, fuzzy, kde-format
+msgid "Start Debugging"
+msgstr "Mula Nyahpepijat"
+
+#: plugin_kategdb.cpp:221
+#, fuzzy, kde-format
+msgid "Kill / Stop Debugging"
+msgstr "Henti Nyahpepijat"
+
+#: plugin_kategdb.cpp:226
+#, fuzzy, kde-format
+msgid "Restart Debugging"
+msgstr "Ulangmula Nyahpepijat"
+
+#: plugin_kategdb.cpp:231
+#, kde-format
+msgid "Toggle Breakpoint / Break"
+msgstr ""
+
+#: plugin_kategdb.cpp:236
+#, fuzzy, kde-format
+msgid "Step In"
+msgstr "Langkah"
+
+#: plugin_kategdb.cpp:241
+#, fuzzy, kde-format
+msgid "Step Over"
+msgstr "Langkah Langkau"
+
+#: plugin_kategdb.cpp:246
+#, fuzzy, kde-format
+msgid "Step Out"
+msgstr "Langkah Keluar"
+
+#: plugin_kategdb.cpp:251 plugin_kategdb.cpp:279
+#, fuzzy, kde-format
+msgctxt "Move Program Counter (next execution)"
+msgid "Move PC"
+msgstr "Pindah PC"
+
+#: plugin_kategdb.cpp:255 plugin_kategdb.cpp:277
+#, fuzzy, kde-format
+msgid "Run To Cursor"
+msgstr "Laksana Kepada"
+
+#: plugin_kategdb.cpp:260
+#, fuzzy, kde-format
+msgid "Continue"
+msgstr "Teruskan"
+
+#: plugin_kategdb.cpp:265
+#, fuzzy, kde-format
+msgid "Print Value"
+msgstr "Cetak Nilai"
+
+#: plugin_kategdb.cpp:274
+#, kde-format
+msgid "popup_breakpoint"
+msgstr ""
+
+#: plugin_kategdb.cpp:276
+#, fuzzy, kde-format
+msgid "popup_run_to_cursor"
+msgstr "ke "
+
+#: plugin_kategdb.cpp:351 plugin_kategdb.cpp:367
+#, fuzzy, kde-format
+msgid "Insert breakpoint"
+msgstr "Selit"
+
+#: plugin_kategdb.cpp:365
+#, fuzzy, kde-format
+msgid "Remove breakpoint"
+msgstr "Buang"
+
+#: plugin_kategdb.cpp:389
+#, kde-format
+msgid "Breakpoint"
+msgstr ""
+
+#: plugin_kategdb.cpp:488
+#, fuzzy, kde-format
+msgid "Execution point"
+msgstr "Pelaksanaan"
+
+#: plugin_kategdb.cpp:631
+#, kde-format
+msgid "Thread %1"
+msgstr ""
+
+#: plugin_kategdb.cpp:731
+#, kde-format
+msgid "IO"
+msgstr ""
+
+#. i18n: ectx: Menu (debug)
+#: ui.rc:6
+#, fuzzy, kde-format
+msgid "&Debug"
+msgstr "&Nyahpepijat"
+
+#. i18n: ectx: ToolBar (gdbplugin)
+#: ui.rc:29
+#, fuzzy, kde-format
+msgid "GDB Plugin"
+msgstr "Plugin"
+
+#, fuzzy
+#~ msgctxt "NAME OF TRANSLATORS"
+#~ msgid "Your names"
+#~ msgstr "Sharuzzaman Ahmat Raslan"
+
+#, fuzzy
+#~ msgctxt "EMAIL OF TRANSLATORS"
+#~ msgid "Your emails"
+#~ msgstr "sharuzzaman@myrealbox.com"
+
+#, fuzzy
+#~ msgid "Kate GDB Integration"
+#~ msgstr "Kate"
+
+#, fuzzy
+#~ msgctxt "Program argument list"
+#~ msgid "&Arg List:"
+#~ msgstr "Sen&arai:"
+
+#, fuzzy
+#~ msgid "Remove Argument List"
+#~ msgstr "Buang Senarai"

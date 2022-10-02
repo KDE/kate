@@ -1,0 +1,2271 @@
+<!--pulled in by kwrite too-->
+<chapter id="vi-input-mode-chapter">
+<chapterinfo>
+<authorgroup
+><author
+>&Erlend.Hamberg; &Erlend.Hamberg.mail; </author>
+<othercredit role="translator"
+><firstname
+>Олеся</firstname
+><surname
+>Герасименко</surname
+><affiliation
+><address
+><email
+>translation-team@basealt.ru</email
+></address
+></affiliation
+><contrib
+>Перевод на русский язык</contrib
+></othercredit
+> 
+</authorgroup>
+</chapterinfo>
+
+<title
+>Режим ввода Vi</title>
+
+<sect1 id="vi-mode-sect1">
+<title
+>Режим ввода Vi</title>
+
+<para
+>Задача режима ввода Vi состоит не в том, чтобы полностью заменить Vim, обеспечив поддержку всех возможностей Vim. Она заключается в том, чтобы в программах, которые используют текстовый редактор &kappname; в качестве встроенного, было возможно выполнять редактирование в <quote
+>стиле Vim</quote
+> и применять изученные приёмы работы с Vim.</para>
+
+<para
+>Режим ввода Vi прекрасно интегрируется в сторонние программы и отклоняется от поведения Vim там, где это имеет смысл. Например, команда <userinput
+><command
+>:w</command
+></userinput
+> в режиме Vi &kappname; позволяет открыть диалог сохранения.</para>
+
+<para
+>Включить режим ввода Vi для всех новых областей просмотра возможно с помощью пункта меню <menuchoice
+><guimenu
+>Настройка</guimenu
+><guimenuitem
+>Настроить &kappname;...</guimenuitem
+> <guimenu
+>Редактирование</guimenu
+><guimenuitem
+>Режим ввода Vi</guimenuitem
+></menuchoice
+>. На этой вкладке возможно установить параметры режима ввода Vi, а также определить и отредактировать привязки клавиш. Также режим ввода Vi возможно включать или отключать с помощью пункта <guimenuitem
+>Режим ввода Vi</guimenuitem
+> в меню <guimenu
+>Правка</guimenu
+>. (Комбинация клавиш по умолчанию: <keycombo action="simul"
+>&Meta;&Ctrl;<keycap
+>V</keycap
+></keycombo
+>, где &Meta; обычно представляет собой клавишу <keysym
+>Windows</keysym
+>.)</para>
+
+<note>
+<para
+>В отличие от большинства комбинаций клавиш &kde;, многие клавиатурные команды режима Vi зависят от регистра символов. Это означает, что команды <userinput
+>y</userinput
+> и <userinput
+>Y</userinput
+> имеют совершенно разное назначение. Чтобы ввести команду <userinput
+>y</userinput
+> (копировать), убедитесь, что режим <keysym
+>Caps Lock</keysym
+> отключён, и нажмите клавишу <keycap
+>Y</keycap
+>. Чтобы ввести команду <userinput
+>Y</userinput
+> (копировать до конца строки), воспользуйтесь комбинацией клавиш <keycombo action="simul"
+>&Shift;<keycap
+>Y</keycap
+></keycombo
+>.</para>
+
+<para
+>Вышеприведённое замечание не касается команд, в которых используется клавиша &Ctrl;. Эти команды возможно вводить независимо от состояния режима <keycap
+>Caps Lock</keycap
+> и без нажатия клавиши &Shift;. Тем не менее, для ввода некоторых команд требуется использовать &Ctrl;-комбинацию, за которой следует другая клавиша, регистр которой следует принимать во внимание. Например, чтобы ввести <quote
+><keycombo action="simul"
+>&Ctrl;<keycap
+>W</keycap
+></keycombo
+>, <userinput
+>h</userinput
+></quote
+> (переключиться на левую створку в разделённой области просмотра), убедитесь, что режим <keycap
+>Caps Lock</keycap
+> отключён, используйте комбинацию клавиш <keycombo action="simul"
+>&Ctrl;<keycap
+>W</keycap
+></keycombo
+>, затем отпустите эти клавиши и нажмите клавишу <keycap
+>H</keycap
+>.</para>
+</note>
+
+<sect2 id="vi-incompatibilities">
+<title
+>Расхождения с Vim</title>
+
+<para
+>C Vim несовместимы лишь несколько функций режима ввода Vi &kappname; (не принимая во внимание различные функции, которые просто не реализованы). Их перечень (с указанием соответствующих причин несовместимости) приводится далее.</para>
+<itemizedlist>
+<listitem>
+<para
+>&kappname;: <userinput
+>U</userinput
+> и <keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+> — повторное выполнение отменённой команды.</para>
+<para
+>Vim: <keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+> — обычное повторение действия, <keycap
+>U</keycap
+> — отмена всех последних изменений в одной строке. </para>
+<para
+>Клавиша <keycap
+>U</keycap
+> привязана к повторению отменённого действия в режиме Vi &kappname;, потому что комбинация клавиш <keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+> по умолчанию используется для функции замены &kappname; (поиск и замена). По умолчанию режим Vi не переопределяет комбинации клавиш &kappname; (это возможно сделать вручную: <menuchoice
+><guimenu
+>Настройка</guimenu
+><guimenuitem
+>Настроить &kappname;...</guimenuitem
+> <guimenu
+>Редактирование</guimenu
+><guimenuitem
+>Режим ввода Vi</guimenuitem
+></menuchoice
+>), следовательно, возврат действия должен быть доступен в <quote
+>обычном</quote
+> режиме нажатия комбинаций клавиш. Кроме того, поведение команды <userinput
+>U</userinput
+> в Vim не очень хорошо совпадает с внутренней системой отмены &kappname;, поэтому её поддержка была бы довольно сложной задачей.</para>
+</listitem>
+<listitem>
+<para
+>&kappname;: <userinput
+><command
+>print</command
+></userinput
+> — открытие диалога <guilabel
+>Печать</guilabel
+>.</para>
+<para
+>Vim: <userinput
+><command
+>print</command
+></userinput
+> — печать строк указанного диапазона (как в ed).</para>
+<para
+>Такие команды, как <userinput
+><command
+>:print</command
+></userinput
+>, доступны не только в режиме Vi, но и в <quote
+>обычном</quote
+> режиме ввода &kappname;. Следовательно, при использовании команды <userinput
+><command
+>:print</command
+></userinput
+> будет открыт диалог печати (соблюдается принцип однородности, а не имитируется поведение Vim).</para>
+</listitem>
+<listitem>
+<para
+>&kappname;: <userinput
+>Y</userinput
+> — копирование данных до конца строки.</para>
+<para
+>Vim: <userinput
+>Y</userinput
+> — копирование всей строки, аналогично <userinput
+>y</userinput
+><userinput
+>y</userinput
+>.</para>
+<para
+>Поведение команды <userinput
+>Y</userinput
+> в режиме Vi на самом деле является внутренней ошибкой. Для обеих команд, изменения и удаления, <userinput
+>c</userinput
+><userinput
+>c</userinput
+>/ <userinput
+>d</userinput
+><userinput
+>d</userinput
+> выполняет действие над текущей строкой, а <userinput
+>C</userinput
+>/<userinput
+>D</userinput
+> выполняет действие над данными от позиции курсора до конца строки. Но обе команды, <userinput
+>y</userinput
+><userinput
+>y</userinput
+> и <userinput
+>Y</userinput
+>, копируют текущую строку. В режиме Vi &kappname; <userinput
+>Y</userinput
+> копирует данные до конца строки. Такое поведение описывается как <quote
+>более логичное</quote
+> в <ulink url="http://vimdoc.sourceforge.net/htmldoc/change.html#Y"
+>документации</ulink
+> Vim. </para>
+</listitem>
+<listitem>
+<para
+>&kappname;: <userinput
+>O</userinput
+> и <userinput
+>o</userinput
+> — открытие [<replaceable
+>количество</replaceable
+>] новых строк и переход в режим вставки.</para>
+<para
+>Vim: <userinput
+>O</userinput
+> и <userinput
+>o</userinput
+> — открытие новой строки и вставка текста [<replaceable
+>количество</replaceable
+>] раз при выходе из режима вставки.</para>
+<para
+>Так сделано в результате обобщения опыта многих людей, которые выражали удивление поведением Vim на соответствующем канале в &irc; (#vim на Libera Chat).</para>
+</listitem>
+</itemizedlist>
+
+</sect2>
+
+<sect2 id="vi-switching-modes">
+<title
+>Переключение режимов</title>
+
+<itemizedlist>
+<listitem>
+<para
+>В <emphasis
+>обычном режиме</emphasis
+> возможно вводить команды для навигации по документу или его редактирования. Этот режим используется по умолчанию. Чтобы вернуться в этот режим из любого другого, нажмите клавишу &Esc;. </para
+></listitem>
+<listitem>
+<para
+><emphasis
+>Визуальный режим</emphasis
+> позволяет выделять цветом текст в документе. В этом режиме также возможно применять большинство команд обычного режима. Чтобы перейти в этот режим, нажмите клавишу <userinput
+>v</userinput
+> (для выбора символов) или <userinput
+>V</userinput
+> (для выбора строк). </para
+></listitem>
+<listitem>
+<para
+><emphasis
+>Режим вставки</emphasis
+> позволяет выполнять непосредственное редактирование документа. Чтобы перейти в этот режим, нажмите клавишу <userinput
+>i</userinput
+> или введите одну из нескольких перечисленных далее команд. </para
+></listitem>
+<listitem>
+<para
+><emphasis
+>Режим команд</emphasis
+> позволяет вызвать командную строку  &kappname; для выполнения значительной части команд, доступных в реализациях Vi, а также некоторых специфичных для &kappname; команд. Более подробные сведения об этих командах: <xref linkend="advanced-editing-tools-commandline"/>. Чтобы перейти в этот режим, нажмите клавишу <keycap
+>:</keycap
+>, введите команду и нажмите клавишу &Enter;.</para>
+</listitem>
+</itemizedlist>
+<!-- add a picture like https://de.wikipedia.org/wiki/Vi#Arbeitsmodi here? -->
+</sect2>
+
+<sect2 id="vi-integration">
+<title
+>Интеграция с командами &kate;</title>
+<itemizedlist>
+
+<listitem>
+<para
+>Визуальный режим автоматически включается при выборе текста с помощью мыши. Переход в этот режим также выполняется при использовании команд выбора текста &kate;, например, «Выделить все» (при выборе соответствующего пункта меню или нажатии комбинации клавиш <keycombo action="simul"
+>&Ctrl;<keycap
+>A</keycap
+> </keycombo
+>).</para>
+</listitem>
+
+<listitem>
+<para
+>Предусмотрена поддержка отметок Vi и <link linkend="kate-part-bookmarks"
+>закладок &kate;</link
+>. Когда в режиме Vi создаётся отметка, также создаётся и соответствующая закладка &kate;, доступная в меню <guimenu
+>Закладки</guimenu
+>. И наоборот: при создании закладки &kate; создаётся соответствующая отметка Vi в нулевой позиции строки.</para>
+</listitem>
+
+</itemizedlist>
+</sect2>
+
+<sect2 id="vi-normal-visual-mode-commands">
+<title
+>Поддерживаемые команды обычного/визуального режимов</title>
+
+<informaltable>
+<tgroup cols="2">
+<!--thead>
+<row>
+<entry
+><para
+>Key</para
+></entry>
+<entry
+><para
+>Command</para
+></entry>
+</row>
+</thead-->
+<tbody>
+<row
+><entry
+><para
+><userinput
+>a</userinput
+></para
+></entry>
+<entry
+><para
+>Перейти в режим вставки, добавлять символы после курсора</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>A</userinput
+></para
+></entry>
+<entry
+><para
+>Перейти в режим вставки, добавлять символы после строки</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>i</userinput
+></para
+></entry>
+<entry
+><para
+>Перейти в режим вставки, добавлять символы перед курсором</para
+></entry>
+</row>
+<row
+><entry
+><para
+>&Ins;</para
+></entry>
+<entry
+><para
+>Перейти в режим вставки, добавлять символы перед курсором</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>I</userinput
+></para
+></entry>
+<entry
+><para
+>Перейти в режим вставки, вставлять символы перед первым непустым символом строки</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>gi</userinput
+></para
+></entry>
+<entry
+><para
+>Перейти в режим вставки, вставлять символы перед местом, в котором был совершён последний выход из режима вставки</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>v</userinput
+></para
+></entry>
+<entry
+><para
+>Перейти в визуальный режим, обозначить символы</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>V</userinput
+></para
+></entry>
+<entry
+><para
+>Перейти в визуальный режим, обозначить строки</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>v</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Перейти в визуальный режим, обозначить блоки</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>gb</userinput
+></para
+></entry>
+<entry
+><para
+>Перейти в визуальный режим, повторно обозначить последний обозначенный фрагмент</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>o</userinput
+></para
+></entry>
+<entry
+><para
+>Открыть новую строку под текущей</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>O</userinput
+></para
+></entry>
+<entry
+><para
+>Открыть новую строку над текущей</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>J</userinput
+></para
+></entry>
+<entry
+><para
+>Объединить строки</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>c</userinput
+></para
+></entry>
+<entry
+><para
+>Изменить: с определением позиции для удаления и переходом в режим вставки</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>C</userinput
+></para
+></entry>
+<entry
+><para
+>Изменить до конца строки: удалить текст до конца строки и перейти в режим вставки</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>cc</userinput
+></para
+></entry>
+<entry
+><para
+>Изменить строку: удалить строку и перейти в режим вставки</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>s</userinput
+></para
+></entry>
+<entry
+><para
+>Заменить символ</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>S</userinput
+></para
+></entry>
+<entry
+><para
+>Заменить строку</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>dd</userinput
+></para
+></entry>
+<entry
+><para
+>Удалить строку</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>d</userinput
+></para
+></entry>
+<entry
+><para
+>С определением позиции для удаления</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>D</userinput
+></para
+></entry>
+<entry
+><para
+>Удалить до конца строки</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>x</userinput
+></para
+></entry>
+<entry
+><para
+>Удалить символ справа от курсора</para
+></entry>
+</row>
+<row
+><entry
+><para
+>&Del;</para
+></entry>
+<entry
+><para
+>Удалить символ справа от курсора</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>X</userinput
+></para
+></entry>
+<entry
+><para
+>Удалить символ слева от курсора</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>gu</userinput
+></para
+></entry>
+<entry
+><para
+>С определением позиции для перевода в нижний регистр</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>guu</userinput
+></para
+></entry>
+<entry
+><para
+>Перевести текущую строку в нижний регистр</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>gU</userinput
+></para
+></entry>
+<entry
+><para
+>С определением позиции для перевода в верхний регистр</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>gUU</userinput
+></para
+></entry>
+<entry
+><para
+>Перевести текущую строку в верхний регистр</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>y</userinput
+></para
+></entry>
+<entry
+><para
+>С определением позиции для <quote
+>копирования</quote
+></para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>yy</userinput
+></para
+></entry>
+<entry
+><para
+>Копировать строку</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>Y</userinput
+></para
+></entry>
+<entry
+><para
+>Копировать строку</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>p</userinput
+></para
+></entry>
+<entry
+><para
+>Вставить после курсора</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>P</userinput
+></para
+></entry>
+<entry
+><para
+>Вставить перед курсором</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>]p</userinput
+></para
+></entry>
+<entry
+><para
+>Вставить после курсора с отступом</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>[p</userinput
+></para
+></entry>
+<entry
+><para
+>Вставить перед курсором с отступом</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>r</userinput
+></para
+></entry>
+<entry
+><para
+>С определением символа, который должен заменить символ, следующий за курсором</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>R</userinput
+></para
+></entry>
+<entry
+><para
+>Перейти в режим замены</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>:</userinput
+></para
+></entry>
+<entry
+><para
+>Перейти в режим команд</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>/</userinput
+></para
+></entry>
+<entry
+><para
+>Поиск</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>u</userinput
+></para
+></entry>
+<entry
+><para
+>Отменить</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Повторить</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>U</userinput
+></para
+></entry>
+<entry
+><para
+>Повторить</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>m</userinput
+></para
+></entry>
+<entry
+><para
+>Установить отметку (возможно использовать для последующих определений позиции)</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>n</userinput
+></para
+></entry>
+<entry
+><para
+>Найти следующее совпадение</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>N</userinput
+></para
+></entry>
+<entry
+><para
+>Найти предыдущее совпадение</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>&gt;&gt;</userinput
+></para
+></entry>
+<entry
+><para
+>Увеличить отступ строки</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>&lt;&lt;</userinput
+></para
+></entry>
+<entry
+><para
+>Уменьшить отступ строки</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>&gt;</userinput
+></para
+></entry>
+<entry
+><para
+>Увеличить отступ строк</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>&lt;</userinput
+></para
+></entry>
+<entry
+><para
+>Уменьшить отступ строк</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>F</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Страница вниз</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>B</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Страница вверх</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>ga</userinput
+></para
+></entry>
+<entry
+><para
+>Вывести &ASCII;-значение символа</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>.</userinput
+></para
+></entry>
+<entry
+><para
+>Повторить последнее изменение</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>==</userinput
+></para
+></entry>
+<entry
+><para
+>Команда выравнивания строки</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>=</userinput
+></para
+></entry>
+<entry
+><para
+>Команда выравнивания строк</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>~</userinput
+></para
+></entry>
+<entry
+><para
+>Изменить регистр текущего символа</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>S</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Разделить область просмотра по горизонтали</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>V</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Разделить область просмотра по вертикали</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl; <keycap
+>W</keycap
+></keycombo
+>, <userinput
+>w</userinput
+></para
+></entry>
+<entry
+><para
+>Циклический переход к следующей части разделённой области просмотра</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl; <keycap
+>W</keycap
+></keycombo
+>, <userinput
+>h</userinput
+></para>
+<para
+><keycombo action="seq"
+><keycombo action="simul"
+>&Ctrl; <keycap
+>W</keycap
+></keycombo
+><keycap
+>Влево</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Перейти к левой части разделённой области просмотра</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl; <keycap
+>W</keycap
+></keycombo
+>, <userinput
+>l</userinput
+></para>
+<para
+><keycombo action="seq"
+><keycombo action="simul"
+>&Ctrl; <keycap
+>W</keycap
+></keycombo
+><keycap
+>Вправо</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Перейти к правой части разделённой области просмотра</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl; <keycap
+>W</keycap
+></keycombo
+>, <userinput
+>k</userinput
+></para>
+<para
+><keycombo action="seq"
+><keycombo action="simul"
+>&Ctrl; <keycap
+>W</keycap
+></keycombo
+><keycap
+>Вверх</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Перейти к верхней части разделённой области просмотра</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl; <keycap
+>W</keycap
+></keycombo
+>, <userinput
+>j</userinput
+></para>
+<para
+><keycombo action="seq"
+><keycombo action="simul"
+>&Ctrl; <keycap
+>W</keycap
+></keycombo
+><keycap
+>Вниз</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Перейти к нижней части разделённой области просмотра</para
+></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+</sect2>
+
+<sect2 id="vi-supported-motions">
+<title
+>Поддерживаемые команды перемещения</title>
+
+<para
+>Эти команды возможно использовать для перемещения по документу в обычном или визуальном режимах, а также совместно с какой-либо из вышеприведённых команд. Эти команды могут предваряться числом, которое обозначает количество соответствующих перемещений.</para>
+
+<informaltable>
+<tgroup cols="2">
+<!--thead>
+<row>
+<entry
+><para
+>Key</para
+></entry>
+<entry
+><para
+>Command</para
+></entry>
+</row>
+</thead-->
+<tbody>
+<row
+><entry
+><para
+><userinput
+>h</userinput
+></para
+></entry>
+<entry
+><para
+>Влево</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycap
+>Влево</keycap
+></para
+></entry>
+<entry
+><para
+>Влево</para
+></entry>
+</row>
+<row
+><entry
+><para
+>&Backspace;</para
+></entry>
+<entry
+><para
+>Влево</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>j</userinput
+></para
+></entry>
+<entry
+><para
+>Вниз</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycap
+>Вниз</keycap
+></para
+></entry>
+<entry
+><para
+>Вниз</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>k</userinput
+></para
+></entry>
+<entry
+><para
+>Вверх</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycap
+>Вверх</keycap
+></para
+></entry>
+<entry
+><para
+>Вверх</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>l</userinput
+></para
+></entry>
+<entry
+><para
+>Вправо</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycap
+>Вверх</keycap
+></para
+></entry>
+<entry
+><para
+>Вправо</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycap
+>Пробел</keycap
+></para
+></entry>
+<entry
+><para
+>Вправо</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>$</userinput
+></para
+></entry>
+<entry
+><para
+>Конец строки</para
+></entry>
+</row>
+<row
+><entry
+><para
+>&End;</para
+></entry>
+<entry
+><para
+>Конец строки</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>0</userinput
+></para
+></entry>
+<entry
+><para
+>Первый символ в строке (позиция 0)</para
+></entry>
+</row>
+<row
+><entry
+><para
+>&Home;</para
+></entry>
+<entry
+><para
+>Первый символ в строке</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>^</userinput
+></para
+></entry>
+<entry
+><para
+>Первый непустой символ в строке</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>f</userinput
+></para
+></entry>
+<entry
+><para
+>С определением символа, к которому следует перейти справа от курсора</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>F</userinput
+></para
+></entry>
+<entry
+><para
+>С определением символа, к которому следует перейти слева от курсора</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>t</userinput
+></para
+></entry>
+<entry
+><para
+>С определением символа, к которому следует перейти справа от курсора, поместив курсор на символ перед ним</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>T</userinput
+></para
+></entry>
+<entry
+><para
+>С определением символа, к которому следует перейти слева от курсора, поместив курсор на символ перед ним</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>gg</userinput
+></para
+></entry>
+<entry
+><para
+>Первая строка</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>G</userinput
+></para
+></entry>
+<entry
+><para
+>Последняя строка</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>w</userinput
+></para
+></entry>
+<entry
+><para
+>Следующее слово</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>W</userinput
+></para
+></entry>
+<entry
+><para
+>Следующее слово, отделённое пробелом</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>b</userinput
+></para
+></entry>
+<entry
+><para
+>Предыдущее слово</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>B</userinput
+></para
+></entry>
+<entry
+><para
+>Предыдущее слово, отделённое пробелом</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>e</userinput
+></para
+></entry>
+<entry
+><para
+>Конец слова</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>E</userinput
+></para
+></entry>
+<entry
+><para
+>Конец слова, отделённого пробелом</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>ge</userinput
+></para
+></entry>
+<entry
+><para
+>Конец предыдущего слова</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>gE</userinput
+></para
+></entry>
+<entry
+><para
+>Конец предыдущего слова, отделённого пробелом</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>|</userinput
+></para
+></entry>
+<entry
+><para
+>С определением номера позиции в строке для перехода</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>%</userinput
+></para
+></entry>
+<entry
+><para
+>С определением элемента для перехода</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>`</userinput
+></para
+></entry>
+<entry
+><para
+>Отметка</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>‘</userinput
+></para
+></entry>
+<entry
+><para
+>Первый непробельный символ строки с отметкой</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>[[</userinput
+></para
+></entry>
+<entry
+><para
+>Предыдущая открывающая скобка</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>]]</userinput
+></para
+></entry>
+<entry
+><para
+>Следующая открывающая скобка</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>[]</userinput
+></para
+></entry>
+<entry
+><para
+>Предыдущая закрывающая скобка</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>][</userinput
+></para
+></entry>
+<entry
+><para
+>Следующая закрывающая скобка</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>I</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Перейти к следующему расположению</para
+></entry
+></row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>O</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Вернуться к предыдущему расположению</para
+></entry
+></row>
+<row
+><entry
+><para
+><userinput
+>H</userinput
+></para
+></entry>
+<entry
+>Перейти к первой строке на экране</entry
+></row>
+<row
+><entry
+><para
+><userinput
+>M</userinput
+></para
+></entry>
+<entry
+>Перейти к строке в середине экрана</entry
+></row>
+<row
+><entry
+><para
+><userinput
+>L</userinput
+></para
+></entry>
+<entry
+>Перейти к последней строке на экране</entry
+></row>
+<row
+><entry
+><para
+><userinput
+>%<replaceable
+> (значение в процентах)</replaceable
+></userinput
+></para
+></entry>
+<entry
+><para
+>Перейти к указанной в процентах позиции в документе</para
+></entry
+></row>
+<row
+><entry
+><para
+><userinput
+>gk</userinput
+></para
+></entry>
+<entry
+><para
+>Перейти на строку выше визуально (в случае использования динамического переноса строк)</para
+></entry
+></row>
+<row
+><entry
+><para
+><userinput
+>gj</userinput
+></para
+></entry>
+<entry
+><para
+>Перейти на строку ниже визуально (в случае использования динамического переноса строк)</para
+></entry
+></row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>Влево</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Перейти на слово влево</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>Вправо</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Перейти на слово вправо</para
+></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+</sect2>
+
+<sect2 id="vi-supported-text-objects">
+<title
+>Поддерживаемые текстовые объекты</title>
+
+<para
+>Текстовые объекты возможно использовать для выбора определённых частей документа.</para>
+
+<informaltable>
+<tgroup cols="2">
+<!--thead>
+<row>
+<entry
+><para
+>Key</para
+></entry>
+<entry
+><para
+>Command</para
+></entry>
+</row>
+</thead-->
+<tbody>
+<row
+><entry
+><para
+><userinput
+>iw</userinput
+></para
+></entry>
+<entry
+><para
+>Блок слова: слово с пробелами</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>aw</userinput
+></para
+></entry>
+<entry
+><para
+>Слово: слово без пробелов</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>i"</userinput
+></para
+></entry>
+<entry
+><para
+>От предыдущих двойных кавычек (<userinput
+>"</userinput
+>) до следующих, включая сами кавычки</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>a”</userinput
+></para
+></entry>
+<entry
+><para
+>От предыдущих двойных кавычек (<userinput
+>"</userinput
+>) до следующих, исключая сами кавычки</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>i'</userinput
+></para
+></entry>
+<entry
+><para
+>От предыдущих одинарных кавычек (<userinput
+>'</userinput
+>) до следующих, включая сами кавычки</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>a'</userinput
+></para
+></entry>
+<entry
+><para
+>От предыдущих одинарных кавычек (<userinput
+>'</userinput
+>) до следующих, исключая сами кавычки</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>i(</userinput
+></para
+></entry>
+<entry
+><para
+>От предыдущей открывающей круглой скобки [<userinput
+>(</userinput
+>] до следующей закрывающей круглой скобки [<userinput
+>)</userinput
+>], включая сами скобки</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>a(</userinput
+></para
+></entry>
+<entry
+><para
+>От предыдущей открывающей круглой скобки [<userinput
+>(</userinput
+>] до следующей закрывающей круглой скобки [<userinput
+>)</userinput
+>], исключая сами скобки</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>i[</userinput
+></para
+></entry>
+<entry
+><para
+>От предыдущей открывающей квадратной скобки (<userinput
+>[</userinput
+>) до следующей закрывающей квадратной скобки (<userinput
+>]</userinput
+>), включая сами скобки</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>a[</userinput
+></para
+></entry>
+<entry
+><para
+>От предыдущей открывающей квадратной скобки (<userinput
+>[</userinput
+>) до следующей закрывающей квадратной скобки (<userinput
+>]</userinput
+>), исключая сами скобки</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>i{</userinput
+></para
+></entry>
+<entry
+><para
+>От предыдущей открывающей фигурной скобки (<userinput
+>{</userinput
+>) до следующей закрывающей фигурной скобки (<userinput
+>}</userinput
+>), включая сами скобки</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>a{</userinput
+></para
+></entry>
+<entry
+><para
+>От предыдущей открывающей фигурной скобки (<userinput
+>{</userinput
+>) до следующей закрывающей фигурной скобки (<userinput
+>}</userinput
+>), исключая сами скобки</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>i&lt;</userinput
+></para
+></entry>
+<entry
+><para
+>От предыдущей открывающей угловой скобки (<userinput
+>&lt;</userinput
+>) до следующей закрывающей угловой скобки (<userinput
+>&gt;</userinput
+>), включая сами скобки</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>a&lt;</userinput
+></para
+></entry>
+<entry
+><para
+>От предыдущей открывающей угловой скобки (<userinput
+>&lt;</userinput
+>) до следующей закрывающей угловой скобки (<userinput
+>&gt;</userinput
+>), исключая сами скобки</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>i`</userinput
+></para
+></entry>
+<entry
+><para
+>От предыдущего обратного апострофа (<userinput
+>`</userinput
+>) до следующего, включая сами обратные апострофы</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>a`</userinput
+></para
+></entry>
+<entry
+><para
+>От предыдущего обратного апострофа (<userinput
+>`</userinput
+>) до следующего, исключая сами обратные апострофы</para
+></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+</sect2>
+
+<sect2 id="vi-insert-mode-commands">
+<title
+>Поддерживаемые команды режима вставки</title>
+
+<informaltable>
+<tgroup cols="2">
+<!--thead>
+<row>
+<entry
+><para
+>Key</para
+></entry>
+<entry
+><para
+>Command</para
+></entry>
+</row>
+</thead-->
+<tbody>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>D</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Уменьшить отступ</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>T</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Увеличить отступ</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>E</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Вставить снизу</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>Y</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Удалить слово</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>W</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Удалить слово</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>U</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Удалить строку</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>J</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Новая строка</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>H</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Удалить символ в обратном направлении</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Home;</keycombo
+></para
+></entry>
+<entry
+><para
+>Перейти к первому символу в документе</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+> <userinput
+>n</userinput
+></para
+></entry>
+<entry
+>Вставить содержимое регистра <literal
+>n</literal
+></entry
+></row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>O</keycap
+></keycombo
+>, <replaceable
+>команда</replaceable
+></para
+></entry>
+<entry
+><para
+>Перейти в обычный режим только для одной команды</para
+></entry
+></row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>A</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Увеличить текущее выбранное число</para
+></entry
+></row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>X</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Уменьшить текущее выбранное число</para
+></entry
+></row>
+</tbody>
+</tgroup>
+</informaltable>
+</sect2>
+
+<sect2 id="vi-text-object">
+<title
+>Текстовый объект, ограниченный запятыми</title>
+
+<para
+>Этого объекта нет в Vim. Текстовый объект, ограниченный запятыми, упрощает изменение списков параметров на C-подобных языках и других списков, разделённых запятыми. Таким текстовым объектом является фрагмент текста между двумя запятыми или между запятой и скобкой. На снимке обозначены красным фоном три диапазона текстовых объектов.</para>
+
+<screenshot id="screenshot-resources">
+<screeninfo
+>Пример текстового объекта, ограниченного запятыми</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="comma-to.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>Пример текстового объекта, ограниченного запятыми</phrase
+></textobject>
+<caption
+><para
+>Диапазоны текстовых объектов. Если курсор находится в пределах &eg; <replaceable
+>arg2</replaceable
+>, при нажатии клавиш <userinput
+>ci</userinput
+>, (<quote
+>изменить между запятыми</quote
+>) текст <replaceable
+>double arg2</replaceable
+> будет удалён, а курсор — помещён между двумя запятыми в режиме вставки. Это очень удобный способ изменения параметров функции.</para
+></caption>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+<sect2 id="vi-missing-features">
+<title
+>Нереализованные возможности</title>
+
+<para
+>Как было отмечено выше, задачей режима Vi &kappname; не является стопроцентная поддержка возможностей Vim.</para>
+</sect2>
+
+</sect1>
+
+</chapter>

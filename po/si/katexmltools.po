@@ -1,0 +1,138 @@
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Danishka Navin <danishka@gmail.com>, 2011.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"PO-Revision-Date: 2011-08-09 06:06+0530\n"
+"Last-Translator: Danishka Navin <danishka@gmail.com>\n"
+"Language-Team: Sinhala <info@hanthana.org>\n"
+"Language: si\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 1.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: plugin_katexmltools.cpp:117
+#, kde-format
+msgid "XML Tools"
+msgstr ""
+
+#: plugin_katexmltools.cpp:120
+#, kde-format
+msgid "&Insert Element..."
+msgstr "මූලාංගයක් එක් කරන්න (&I)..."
+
+#: plugin_katexmltools.cpp:125
+#, kde-format
+msgid "&Close Element"
+msgstr "මූලාංගයක් වසන්න (&C)"
+
+#: plugin_katexmltools.cpp:130
+#, kde-format
+msgid "Assign Meta &DTD..."
+msgstr "මෙටා &DTD යොදන්න..."
+
+#: plugin_katexmltools.cpp:441
+#, kde-format
+msgid "Assign Meta DTD in XML Format"
+msgstr "මෙටා DTD XML ප්‍රකාරයෙන් යොදන්න"
+
+#: plugin_katexmltools.cpp:447
+#, kde-format
+msgid ""
+"The current file has been identified as a document of type \"%1\". The meta "
+"DTD for this document type will now be loaded."
+msgstr ""
+"වත්මන් ගොනුව \"%1\" වර්ගයේ ලේඛනයක් ලෙස හඳුනාගෙන ඇත. මෙම ලේඛන වර්ගයට අදාලා මෙටා DTD "
+"දැන් පූර්ණය වනු ඇත."
+
+#: plugin_katexmltools.cpp:451
+#, kde-format
+msgid "Loading XML Meta DTD"
+msgstr "XML මෙටා DTD පූර්ණය වෙමින්"
+
+#: plugin_katexmltools.cpp:483
+#, kde-format
+msgid "The file '%1' could not be opened. The server returned an error."
+msgstr "'%1' ගොනුව විවෘත කල නොහැක. සේවාදායකට දෝශයක් පැණනැගිනි."
+
+#: plugin_katexmltools.cpp:486 pseudo_dtd.cpp:48 pseudo_dtd.cpp:60
+#, kde-format
+msgid "XML Plugin Error"
+msgstr "XML ප්ලගීන දෝශය"
+
+#: plugin_katexmltools.cpp:991
+#, kde-format
+msgid "XML entities"
+msgstr ""
+
+#: plugin_katexmltools.cpp:993
+#, kde-format
+msgid "XML attribute values"
+msgstr ""
+
+#: plugin_katexmltools.cpp:995
+#, kde-format
+msgid "XML attributes"
+msgstr ""
+
+#: plugin_katexmltools.cpp:998
+#, fuzzy, kde-format
+#| msgid "Insert XML Element"
+msgid "XML elements"
+msgstr "XML මූලාංගයක් ඇතුළත් කරන්න"
+
+#: plugin_katexmltools.cpp:1038
+#, kde-format
+msgid "Insert XML Element"
+msgstr "XML මූලාංගයක් ඇතුළත් කරන්න"
+
+#: plugin_katexmltools.cpp:1043
+#, kde-format
+msgid ""
+"Enter XML tag name and attributes (\"<\", \">\" and closing tag will be "
+"supplied):"
+msgstr ""
+"XML ටැග් නාමයක් හා උපලක්‍ෂන ඇතුලත් කරන්න (\"<\", \">\" සහ වැසීමේ ටැග ලබා දෙනු ඇත):"
+
+#: pseudo_dtd.cpp:45
+#, kde-format
+msgid ""
+"The file '%1' could not be parsed. Please check that the file is well-formed "
+"XML."
+msgstr "'%1' ගොනුව කොටස්කල නොහැක. කරුණාකර ගොනුව නිසිලෙස සැකසූ XML යක්ද පිරික්සන්න."
+
+#: pseudo_dtd.cpp:54
+#, kde-format
+msgid ""
+"The file '%1' is not in the expected format. Please check that the file is "
+"of this type:\n"
+"-//Norman Walsh//DTD DTDParse V2.0//EN\n"
+"You can produce such files with dtdparse. See the Kate Plugin documentation "
+"for more information."
+msgstr ""
+"'%1' ගොනුව බලාපොරොත්තු වූ හැඩසවියේ නොපවතී. කරුණාකර ගොනුව පහත වර්ගයේ දැයි පිරික්සන්න:\n"
+"-//Norman Walsh//DTD DTDParse V2.0//EN\n"
+"ඔබට මෙවැනි ගොනු dtdparse මගින් තැනිය හැක. වැඩිදුර තොරතුරු සඳහා Kate ප්ලගින ලේඛන වෙත "
+"යොමුවෙන්න."
+
+#: pseudo_dtd.cpp:70
+#, kde-format
+msgid "Analyzing meta DTD..."
+msgstr "මෙටා DTD විශ්ලේෂණය කරන්න..."
+
+#: pseudo_dtd.cpp:70
+#, kde-format
+msgid "Cancel"
+msgstr "අවලංගු"
+
+#. i18n: ectx: Menu (xml)
+#: ui.rc:6
+#, kde-format
+msgid "&XML"
+msgstr "&XML"

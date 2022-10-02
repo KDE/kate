@@ -1,0 +1,1378 @@
+<appendix id="regular-expressions">
+<appendixinfo>
+<authorgroup>
+<author
+>&Anders.Lund; &Anders.Lund.mail;</author>
+<othercredit role="translator"
+><firstname
+>Андрей</firstname
+><surname
+>Балагута</surname
+><affiliation
+><address
+><email
+>uj2@mail.ru</email
+></address
+></affiliation
+><contrib
+>Перевод на русский язык</contrib
+></othercredit
+><othercredit role="translator"
+><firstname
+>Олеся</firstname
+><surname
+>Герасименко</surname
+><affiliation
+><address
+><email
+>translation-team@basealt.ru</email
+></address
+></affiliation
+><contrib
+>Обновление перевода</contrib
+></othercredit
+> 
+</authorgroup>
+</appendixinfo>
+
+<title
+>Регулярные выражения</title>
+
+<synopsis
+>Это приложение содержит краткое, но достаточно ёмкое описание <emphasis
+>регулярных выражений</emphasis
+> в той форме, в которой они используются в &kappname; (они не совместимы с регулярными выражениями perl и <command
+>grep</command
+>).</synopsis>
+
+<sect1>
+
+<title
+>Введение</title>
+
+<para
+><emphasis
+>Регулярные выражения</emphasis
+> — это средство, позволяющее описывать содержание строк в некотором формализованном виде, что позволяет приложениям определять принадлежность той или иной строки определённому формату. В дополнение ко всему некоторые приложения могут сохранять части совпавшей строки для их последующего использования.</para>
+
+<para
+>Приведём небольшой пример. Допустим, требуется найти в тексте все абзацы, которые начинаются с фамилий <quote
+>Петров</quote
+> или <quote
+>Иванов</quote
+>, за которыми следует любая форма глагола <quote
+>рассказывать</quote
+> (для чистоты эксперимента возьмём всего две формы: <quote
+>рассказал</quote
+> и <quote
+>рассказывал</quote
+>).</para>
+
+<para
+>С помощью обычного поиска понадобилось бы сначала найти фамилию  <quote
+>Петров</quote
+>, возможно, дополненную буквами <quote
+>рассказ</quote
+>, что-то вроде этого: <userinput
+>Петров рассказ</userinput
+>. При поиске совпадений пришлось бы пропускать все строки, которые стоят не в начале абзаца. После этого последовал бы повторный поиск для второй фамилии...</para>
+
+<para
+>Регулярные выражения позволяют произвести такую операцию поиска за один раз, причём с гораздо большей точностью.</para>
+
+<para
+>Регулярные выражения содержат правила, позволяющие точно выразить вид строки для поиска. Приведённый пример возможно выразить словесно: <quote
+>Строка, начинающаяся со слов <quote
+>Петров</quote
+> или <quote
+>Иванов</quote
+>, перед которыми могут стоять до четырёх пробелов или символов табуляции, после фамилии должен стоять пробел, за пробелом — <quote
+>рассказ</quote
+>, после чего может (необязательно!) стоять суффикс <quote
+>ыв</quote
+>, и, наконец, суффикс <quote
+>ал</quote
+></quote
+>. Это возможно записать в форме регулярного выражения:</para
+> <para
+><userinput
+>^[ \t]{0,4}(Петров|Иванов) рассказ(ыв)?ал</userinput
+></para>
+
+<para
+>Этот пример демонстрирует четыре основных понятия современных регулярных выражений:</para>
+
+<itemizedlist>
+<listitem
+><para
+>Шаблоны</para
+></listitem>
+<listitem
+><para
+>Утверждения</para
+></listitem>
+<listitem
+><para
+>Кванторы</para
+></listitem>
+<listitem
+><para
+>Обратные ссылки</para
+></listitem>
+</itemizedlist>
+
+<para
+>Знак <literal
+>^</literal
+>, с которого начинается выражение, — это утверждение, которое подтверждает совпадение только в том случае, если совпавшая цепочка символов начинается с новой строки.</para>
+
+<para
+><literal
+>[ \t]</literal
+> и <literal
+>(Петров|Иванов) рассказ(ыв)?ал</literal
+> — это шаблоны. Первый представляет собой <emphasis
+>символьный класс</emphasis
+>, который совпадает либо с пробелом, либо с символом табуляции. Второй содержит вложенный шаблон, совпадающий со словами <literal
+>Петров</literal
+> <emphasis
+>или</emphasis
+> <literal
+>Иванов</literal
+>, затем идёт проверка на точное совпадение со строкой <literal
+> рассказ</literal
+>, потом ещё один вложенный шаблон, который определяет вхождение символов <literal
+>ыв</literal
+>, и, в самом конце, проверка на точное совпадение с символами <literal
+>ал</literal
+></para>
+
+<para
+>Строка <literal
+>{0,4}</literal
+> и символ вопроса после вложенного шаблона <literal
+>(ыв)</literal
+> — это кванторы. Первый интерпретируется следующим образом: <quote
+>возможен повтор предыдущего символа от 0 до 4 раз</quote
+>. Второй квантор действует аналогично, позволяя повторить стоящий перед ним вложенный шаблон 0 или 1 раз.</para>
+
+<para
+>Все приложения, работающие с регулярными выражениями и поддерживающие <emphasis
+>обратные ссылки</emphasis
+>, при совпадении сохраняют всю строку и вложенные шаблоны в некоторой области памяти и предоставляют средства для получения этих значений. Поэтому возможно получить всю совпавшую строку (при поиске в редакторе она обычно выделяется цветом) или, например, только фамилию.</para>
+
+<para
+>Как было показано в предыдущем примере, регулярные выражения — это очень эффективное средство поиска, позволяющее найти именно то, что требуется, без особых усилий.</para>
+
+<para
+>В следующих разделах подробно рассмотрены шаблоны, символьные классы, утверждения, кванторы и обратные ссылки. В конце этой главы приведено несколько полезных примеров.</para>
+
+</sect1>
+
+<sect1 id="regex-patterns">
+
+<title
+>Шаблоны</title>
+
+<para
+>Шаблоны состоят из символов и символьных классов. Допускается вложенность, в этом случае вложенные шаблоны заключаются в круглые скобки.</para>
+
+<sect2>
+<title
+>Управляющие последовательности</title>
+
+<para
+>И в шаблонах, и в символьных классах некоторые символы имеют специальное значение. Если требуется использовать эти символы при поиске именно как символы, необходимо записать их определённым образом, чтобы анализатор регулярных выражений интерпретировал их как обычные символы.</para>
+
+<para
+>Делается это очень просто, необходимо всего лишь поставить перед таким символом обратную черту (<literal
+>\</literal
+>).</para>
+
+
+<para
+>Анализатор регулярных выражений игнорирует обратную черту перед символами, которые не имеют специального значения в контексте; например, если вместо обычного символа <quote
+>j</quote
+> ввести <userinput
+>\j</userinput
+>, анализатор будет интерпретировать его просто как <quote
+>j</quote
+>. Таким образом, если неизвестно, имеет ли символ специальное значение, возможно без опасений предварить его обратной чертой.</para>
+
+<para
+>Для указания собственно обратной черты (в качестве обычного символа) необходимо продублировать её: <userinput
+>\\</userinput
+>.</para>
+
+</sect2>
+
+<sect2>
+<title
+>Символьные классы и сокращения</title>
+
+<para
+><emphasis
+>Символьный класс</emphasis
+> — это выражение, которое позволяет проверить один символ на принадлежность определённому набору символов. Чтобы использовать его в регулярных выражениях, требуется в квадратных скобках записать все верные символы или сокращённые классы, описание которых приводится далее.</para>
+
+<para
+>Простые символьные классы содержат один или несколько символов, например, <userinput
+>[abc]</userinput
+> (проверка на любой из символов <quote
+>a</quote
+>, <quote
+>b</quote
+> или <quote
+>c</quote
+>) или <userinput
+>[0123456789]</userinput
+> (проверка на любую цифру).</para>
+
+<para
+>Поскольку буквы и цифры упорядочены логически, возможно сокращать классы, используя диапазоны: <userinput
+>[a-c]</userinput
+> аналогично <userinput
+>[abc]</userinput
+>, <userinput
+>[0-9]</userinput
+> аналогично <userinput
+>[0123456789]</userinput
+>. Возможно комбинировать диапазоны с обычным перечислением символов: <userinput
+>[a-fynot1-38]</userinput
+> (проверка на любой из символов <quote
+>a</quote
+>,<quote
+>b</quote
+>,<quote
+>c</quote
+>,<quote
+>d</quote
+>, <quote
+>e</quote
+>,<quote
+>f</quote
+>,<quote
+>y</quote
+>,<quote
+>n</quote
+>,<quote
+>o</quote
+>,<quote
+>t</quote
+>, <quote
+>1</quote
+>,<quote
+>2</quote
+>,<quote
+>3</quote
+> или <quote
+>8</quote
+>).</para>
+
+<para
+>Чтобы проверить символ без учёта регистра в любом случае (регулярное выражение позволяет учитывать или не учитывать регистр символов), следует написать примерно следующее: <userinput
+>[aAbB]</userinput
+>.</para>
+
+<para
+>Возможно создать <quote
+>исключающий</quote
+> класс, который проверяет символ на <quote
+>невхождение</quote
+> в заданный набор символов. Обычный символьный класс превращается в исключающий добавлением символа <quote
+><literal
+>^</literal
+></quote
+> перед набором символов:  </para>
+
+<para
+><userinput
+>[^abc]</userinput
+> — проверка на любой символ, <emphasis
+>кроме</emphasis
+> <quote
+>a</quote
+>, <quote
+>b</quote
+> и <quote
+>c</quote
+>.</para>
+
+<para
+>В дополнение к обычным символам возможно использовать следующие сокращения: <variablelist>
+
+<varlistentry>
+<term
+><userinput
+>\a</userinput
+></term>
+<listitem
+><para
+>Проверка на &ASCII;-символ звонка (BEL, 0x07).</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\f</userinput
+></term>
+<listitem
+><para
+>Проверка на &ASCII;-символ перевода страницы (FF, 0x0C).</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\n</userinput
+></term>
+<listitem
+><para
+>Проверка на &ASCII;-символ перевода строки (LF, 0x0A, символ перехода на новую строку в Unix).</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\r</userinput
+></term>
+<listitem
+><para
+>Проверка на &ASCII;-символ возврата каретки (CR, 0x0D).</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\t</userinput
+></term>
+<listitem
+><para
+>Проверка на &ASCII;-символ горизонтальной табуляции (HT, 0x09).</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\v</userinput
+></term>
+<listitem
+><para
+>Проверка на &ASCII;-символ вертикальной табуляции (VT, 0x0B).</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><userinput
+>\xhhhh</userinput
+></term>
+
+<listitem
+><para
+>Проверка на символ Юникода, соответствующий шестнадцатеричному числу hhhh (в пределах 0x0000-0xFFFF). \0ooo (первый символ — ноль) — проверка на символ в кодировке &ASCII;/Latin-1, соответствующий восьмеричному числу ooo (в пределах 0-0377).</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>.</userinput
+> (точка)</term>
+<listitem
+><para
+>Проверка на любой символ (включая переход на новую строку).</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\d</userinput
+></term>
+<listitem
+><para
+>Проверка на цифровой символ. Аналогично классу <literal
+>[0-9]</literal
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\D</userinput
+></term>
+<listitem
+><para
+>Проверка на любой символ, не являющийся цифровым. Аналогично <literal
+>[^0-9]</literal
+> или <literal
+>[^\d]</literal
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\s</userinput
+></term>
+<listitem
+><para
+>Проверка на пробельный символ. Фактически аналогично классу <literal
+>[ \t\n\r]</literal
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\S</userinput
+></term>
+<listitem
+><para
+>Проверка на любой символ, не являющийся пробельным. Фактически равнозначно <literal
+>[^ \t\r\n]</literal
+> и аналогично <literal
+>[^\s]</literal
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\w</userinput
+></term>
+<listitem
+><para
+>Проверка на любой <quote
+>словообразующий символ</quote
+> (все буквы и цифры, а также символ подчёркивания). Аналогично классу <literal
+>[a-zA-Z0-9_]</literal
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\W</userinput
+></term>
+<listitem
+><para
+>Проверка на любой символ, не являющийся словообразующим (все символы, кроме букв, цифр и подчёркиваний). Аналогично классу <literal
+>[^a-zA-Z0-9_]</literal
+> или <literal
+>[^\w]</literal
+>.</para
+></listitem>
+</varlistentry>
+
+
+</variablelist>
+
+</para>
+
+<para
+><emphasis
+>Нотация классов POSIX</emphasis
+>, <userinput
+>[:&lt;имя класса&gt;:]</userinput
+>, также поддерживается. Например, <userinput
+>[:digit:]</userinput
+> аналогично <userinput
+>\d</userinput
+>, а <userinput
+>[:space:]</userinput
+> — <userinput
+>\s</userinput
+>. Полный перечень символьных классов POSIX доступен <ulink url="https://www.regular-expressions.info/posixbrackets.html"
+>здесь</ulink
+>.</para>
+
+<para
+>Аббревиатурные классы возможно помещать в обычные классы; например, чтобы выполнить проверку на словообразующий символ, точку или пробел, возможно ввести следующее: <userinput
+>[\w \.]</userinput
+></para>
+
+<sect3>
+<title
+>Символы со специальным значением в символьных классах</title>
+
+<para
+>Далее перечислены символы, имеющие специальное значение в определениях символьных классов (<quote
+>[]</quote
+>). Для использования в качестве обычных символов они должны быть предварены обратной чертой.</para>
+
+<variablelist>
+<varlistentry>
+<term
+><userinput
+>]</userinput
+></term>
+<listitem
+><para
+>Закрывает символьный класс. Этот символ должен быть предварён обратной чертой, кроме тех случаев, когда он находится непосредственно в начале класса или сразу после символа <userinput
+>^</userinput
+>.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><userinput
+>^</userinput
+></term>
+<listitem
+><para
+>Если находится в начале, объявляет исключающий класс. Чтобы использовать этот символ как обычный символ в начале класса, следует предварить его обратной чертой.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><userinput
+>-</userinput
+> (дефис)</term>
+<listitem
+><para
+>Объявляет логический диапазон. При использовании внутри символьного класса этот символ всегда следует предварять обратной чертой.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><userinput
+>\</userinput
+> (обратная черта)</term>
+<listitem
+><para
+>Спецсимвол (escape character). Чтобы использовать его как обычный символ, продублируйте.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect3>
+
+</sect2>
+
+<sect2>
+
+<title
+>Альтернативы: проверка на <quote
+>один из</quote
+> нескольких шаблонов</title>
+
+<para
+>Если требуется выполнить проверку на один (любой) шаблон из определённого набора, используйте альтернативы. Чтобы объявить альтернативу, следует все шаблоны набора записать через вертикальную черту (<literal
+>|</literal
+>).</para>
+
+<para
+>Например, чтобы найти любое из имён <quote
+>Вася</quote
+> и <quote
+>Петя</quote
+>, необходимо использовать такое выражение: <userinput
+>Вася|Петя</userinput
+>.</para>
+
+</sect2>
+
+<sect2>
+
+<title
+>Вложенные шаблоны</title>
+
+<para
+><emphasis
+>Вложенными</emphasis
+> называются шаблоны, заключённые в круглые скобки. Они используются в разных целях:</para>
+
+<sect3>
+
+<title
+>Определение альтернатив</title>
+
+<para
+>С помощью вложенных шаблонов возможно группировать набор альтернатив внутри сложных шаблонов. Альтернативы разделяются символом вертикальной черты (<quote
+>|</quote
+>).</para>
+
+<para
+>Например, чтобы найти одно из слов <quote
+>int</quote
+>, <quote
+>float</quote
+> или <quote
+>double</quote
+>, возможно использовать шаблон <userinput
+>int|float|double</userinput
+>. Если же требуется найти одно из этих слов, за которым следуют пробелы, а за ними — какие-то символы, то необходимо оформить альтернативу как вложенный шаблон: <userinput
+>(int|float|double)\s+\w+</userinput
+>.</para>
+
+</sect3>
+
+<sect3 id="regex-capturing">
+
+<title
+>Захват совпавшего текста (обратные ссылки)</title>
+
+<para
+>Вложенный шаблон <userinput
+>(ШАБЛОН)</userinput
+> позволяет использовать обратную ссылку благодаря запоминанию нужной части шаблона. Чтобы не выполнялось запоминание вложенного шаблона, необходимо использовать группу без захвата <userinput
+>(?:ШАБЛОН)</userinput
+>.</para>
+
+<para
+>Например, если требуется найти два одинаковых слова, разделённых запятой и, возможно, пробелами, возможно использовать такое выражение: <userinput
+>(\w+),\s*\1</userinput
+>. Вложенный шаблон <literal
+>\w+</literal
+> выполняет поиск цепочки словообразующих символов, а всё выражение выполняет поиск той же цепочки, за которой следует запятая, далее могут идти пробелы, а за ними — точно такая же цепочка (строка <literal
+>\1</literal
+> ссылается на <emphasis
+>первый вложенный шаблон, заключённый в круглые скобки</emphasis
+>).</para>
+
+<note>
+<para
+>Чтобы избежать неясности при использовании символов <userinput
+>\1</userinput
+>, за которыми следуют цифры (например, <userinput
+>\12</userinput
+> может являться двенадцатым вложенным шаблоном или просто первым вложенным шаблоном с цифрой <userinput
+>2</userinput
+>), вложенные шаблоны, состоящие из нескольких цифр, указываются в формате <userinput
+>\{12}</userinput
+>.</para>
+<para
+>Примеры:</para>
+<itemizedlist>
+<listitem
+><para
+><userinput
+>\{12}1</userinput
+> = <quote
+>использовать вложенный шаблон 12</quote
+></para
+></listitem>
+<listitem
+><para
+><userinput
+>\123</userinput
+> = <quote
+>запомнить 1, а 23 — обычный текст</quote
+></para
+></listitem>
+</itemizedlist>
+
+</note>
+
+<!-- <para
+>See also <link linkend="backreferences"
+>Back references</link
+>.</para
+> -->
+
+</sect3>
+
+<sect3 id="lookahead-assertions">
+<title
+>Утверждения просмотра вперёд</title>
+
+<para
+>Утверждение просмотра вперёд — это вложенный шаблон, который начинается с символов <literal
+>?=</literal
+> или <literal
+>?!</literal
+>.</para>
+
+<para
+>Например, чтобы найти слово <quote
+>Билл</quote
+>, за которым может следовать что угодно, кроме слова <quote
+> Гейтс</quote
+>, следует составить такое выражение: <userinput
+>Билл(?! Гейтс)</userinput
+> (оно совпадёт с <quote
+>Билл Клинтон</quote
+>, <quote
+>Билли хороший мальчик</quote
+>, но не с именем известного магната).</para>
+
+<para
+>Вложенные шаблоны, использующиеся в качестве утверждений, не запоминаются.</para>
+
+<para
+>Смотрите также раздел <link linkend="assertions"
+>Утверждения</link
+>.</para>
+
+</sect3>
+
+<sect3 id="lookbehind-assertions">
+<title
+>Утверждения просмотра назад</title>
+
+<para
+>Утверждение просмотра назад — это вложенный шаблон, который начинается с символов <literal
+>?&lt;=</literal
+> или <literal
+>?&lt;!</literal
+>.</para>
+
+<para
+>Утверждение просмотра назад работает так же, как и утверждение просмотра вперёд, отличие лишь в направлении просмотра. Например, чтобы найти слово <quote
+>град</quote
+>, которому не предшествуют символы <quote
+>вино</quote
+>, следует использовать следующее выражение: <userinput
+>(?&lt;!вино)град</userinput
+>.</para>
+
+<para
+>Вложенные шаблоны, использующиеся в качестве утверждений, не запоминаются.</para>
+
+<para
+>Смотрите также раздел <link linkend="assertions"
+>Утверждения</link
+>.</para>
+
+</sect3>
+
+</sect2>
+
+<sect2 id="special-characters-in-patterns">
+<title
+>Символы со специальным значением в шаблонах</title>
+
+<para
+>Следующие символы имеют специальное значение в шаблонах, поэтому, чтобы использовать их в качестве обычных символов, необходимо впереди ставить обратную черту: <variablelist>
+
+<varlistentry>
+<term
+><userinput
+>\</userinput
+> (обратная черта)</term>
+<listitem
+><para
+>С этого символа должны начинаться все спецсимволы.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>^</userinput
+></term>
+<listitem
+><para
+>Проверка на начало строки.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>$</userinput
+></term>
+<listitem
+><para
+>Проверка на конец строки.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>()</userinput
+> (левая и правая круглые скобки)</term>
+<listitem
+><para
+>Объявление вложенного шаблона.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>{}</userinput
+> (левая и правая фигурные скобки)</term>
+<listitem
+><para
+>Объявление численного квантора.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>[]</userinput
+> (левая и правая квадратные скобки)</term>
+<listitem
+><para
+>Объявление символьного класса.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>|</userinput
+> (вертикальная черта)</term>
+<listitem
+><para
+>Логическое ИЛИ. Используется для разделения альтернатив.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>+</userinput
+> (плюс)</term>
+<listitem
+><para
+>Квантор <quote
+>один или более</quote
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>*</userinput
+> (звёздочка)</term>
+<listitem
+><para
+>Квантор <quote
+>ноль или более</quote
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>?</userinput
+> (знак вопроса)</term>
+<listitem
+><para
+>Необязательный символ. Можно считать его квантором <quote
+>ноль или один</quote
+>.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</para>
+
+</sect2>
+
+</sect1>
+
+<sect1 id="quantifiers">
+<title
+>Кванторы</title>
+
+<para
+><emphasis
+>Кванторы</emphasis
+> выполняют проверку на определённое количество повторений символа, шаблона или символьного класса.</para>
+
+<para
+>Кванторы записываются в фигурных скобках (<literal
+>{</literal
+> и <literal
+>}</literal
+>). Общий вид квантора: <literal
+>{[минимальное-количество-совпадений][,[максимальное-количество-совпадений]]}</literal
+> </para>
+
+<para
+>Использование кванторов лучше пояснить на примерах: <variablelist>
+
+<varlistentry>
+<term
+><userinput
+>{1}</userinput
+></term>
+<listitem
+><para
+>Ровно одно появление</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>{0,1}</userinput
+></term>
+<listitem
+><para
+>Ноль или одно появление</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>{,1}</userinput
+></term>
+<listitem
+><para
+>То же самое, только короче.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>{5,10}</userinput
+></term>
+<listitem
+><para
+>Как минимум 5 повторений, максимум — 10.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>{5,}</userinput
+></term>
+<listitem
+><para
+>Как минимум 5 повторений (без верхней границы).</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</para>
+
+<para
+>Также определены несколько сокращений: <variablelist>
+
+<varlistentry>
+<term
+><userinput
+>*</userinput
+> (звёздочка)</term>
+<listitem
+><para
+>аналогично <literal
+>{0,}</literal
+>, найти любое количество повторений (вплоть до нуля повторений).</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>+</userinput
+> (плюс)</term>
+<listitem
+><para
+>аналогично <literal
+>{1,}</literal
+>, как минимум одно появление.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>?</userinput
+> (знак вопроса)</term>
+<listitem
+><para
+>аналогично <literal
+>{0,1}</literal
+>, ноль или одно появление.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</para>
+
+<sect2>
+
+<title
+>Жадность</title>
+
+<para
+>Используя кванторы без ограничений максимума, регулярное выражение захватывает строку по максимуму, такое поведение называется <emphasis
+>жадным</emphasis
+>.</para>
+
+<para
+>Современные анализаторы позволяют определять как жадные, так и нежадные регулярные выражения. В основном это проявляется в соответствующих элементах графического интерфейса, например, в диалоге поиска может присутствовать опция <quote
+>Минимальное совпадение</quote
+>.</para>
+
+</sect2>
+
+<sect2>
+<title
+>Примеры использования</title>
+
+<para
+>Несколько примеров использования кванторов.</para>
+
+<variablelist>
+
+<varlistentry>
+<term
+><userinput
+>^\d{4,5}\s</userinput
+></term>
+<listitem
+><para
+>Совпадёт с <quote
+>1234 вперед</quote
+> и <quote
+>12345 стоп</quote
+>, но не совпадёт ни с <quote
+>567 восемь</quote
+>, ни с <quote
+>223459 много</quote
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\s+</userinput
+></term>
+<listitem
+><para
+>Проверка на один или более пробельных символов.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>(ля){1,}</userinput
+></term>
+<listitem
+><para
+>Совпадёт с <quote
+>ляляля</quote
+> и с подстрокой <quote
+>ля</quote
+> в словах <quote
+>кляча</quote
+> и <quote
+>земля</quote
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>/?&gt;</userinput
+></term>
+<listitem
+><para
+>Совпадёт с <quote
+>/&gt;</quote
+> в <quote
+>&lt;closeditem/&gt;</quote
+>, а также с <quote
+>&gt;</quote
+> в строке <quote
+>&lt;openitem&gt;</quote
+>.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect2>
+
+</sect1>
+
+<sect1 id="assertions">
+<title
+>Утверждения</title>
+
+<para
+><emphasis
+>Утверждения</emphasis
+> накладывают дополнительные условия на проверку регулярного выражения.</para>
+
+<para
+>Утверждение не проверяет символы, скорее, оно анализирует совпавшую строку перед тем как подтвердить совпадение. Например, утверждение <emphasis
+>граница слова</emphasis
+> не пытается найти символ-разделитель слов, наоборот, оно проверяет, что в данной позиции нет словообразующего символа. Это означает, что утверждение будет верно даже в случае отсутствия символа-разделителя, например, в конце строки поиска.</para>
+
+<para
+>Некоторые утверждения являются шаблонами, но они лишь проверяют, есть или нет в данном месте строки соответствие заданному шаблону, не включая его в конечный результат (то есть в «совпавший текст»).</para>
+
+<para
+>Регулярные выражения, описанные в этом руководстве, поддерживают следующие утверждения: <variablelist>
+
+<varlistentry>
+<term
+><userinput
+>^</userinput
+> (начало строки)</term>
+<listitem
+><para
+>Проверка на начало строки.</para
+> <para
+>Выражение <userinput
+>^Пётр</userinput
+> совпадёт с <quote
+>Пётр</quote
+> в строке <quote
+>Пётр, здравствуйте!</quote
+>, но не в строке <quote
+>Здравствуйте, Пётр!</quote
+>. </para
+> </listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>$</userinput
+> (конец строки)</term>
+<listitem
+><para
+>Проверка на конец строки поиска.</para>
+
+<para
+>Выражение <userinput
+>ты\?$</userinput
+> совпадёт с последним <quote
+>ты</quote
+> в строке <quote
+>— Ты не сделаешь этого! — А ты?</quote
+>, но не совпадёт ни с какой частью строки <quote
+>Ты не сделал этого, так?</quote
+>.</para>
+
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\b</userinput
+> (граница слова)</term>
+<listitem
+><para
+>Проверяет, есть ли в данном месте с одной стороны словообразующий символ, а с другой — отличный от словообразующего (необязательно разделитель!).</para>
+<para
+>Это утверждение используется для поиска границ слов; например, можно использовать два таких утверждения, чтобы найти целое слово. Выражение <userinput
+>\bиз\b</userinput
+> совпадёт с отдельным словом <quote
+>из</quote
+> во фразе <quote
+>Он выпал из этого окна, хорошо хоть, что тут низко</quote
+>, но не совпадёт с <quote
+>из</quote
+> в слове <quote
+>низко</quote
+>.</para
+></listitem>
+
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>\B</userinput
+> (нет границы слова)</term>
+<listitem
+><para
+>Действие этого утверждения обратно утверждению <quote
+>\b</quote
+>.</para>
+<para
+>Это значит, что данное утверждение будет совпадать, например, в середине слова: выражение <userinput
+>\Bце\B</userinput
+> совпадёт с <quote
+>це</quote
+> в строке <quote
+>сцена</quote
+>, но не в <quote
+>целое</quote
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>(?=ШАБЛОН)</userinput
+> (подтверждающий просмотр вперёд)</term>
+<listitem
+><para
+>Утверждения просмотра вперёд действуют аналогично обычным шаблонам, с той лишь разницей, что текст, совпавший (или не совпавший, в зависимости от типа просмотра) с утверждением, не будет включен в результирующее совпадение. Подтверждающий просмотр вперёд проверяет текст на предмет совпадения с <emphasis
+>ШАБЛОНОМ</emphasis
+> утверждения.</para>
+<para
+>Выражение <userinput
+>программ(?=\w)</userinput
+> совпадёт с <quote
+>программ</quote
+> в слове <quote
+>программист</quote
+>, но не во фразе <quote
+>Он написал много хороших программ!</quote
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>(?!ШАБЛОН)</userinput
+> (отрицающий просмотр вперёд)</term>
+
+<listitem
+><para
+>Отрицающий просмотр вперёд проверяет текст на предмет несовпадения с <emphasis
+>ШАБЛОНОМ</emphasis
+>.</para>
+<para
+>Выражение  <userinput
+>const \w+\b(?!\s*&amp;)</userinput
+> совпадёт с <quote
+>const char</quote
+> в строке <quote
+>const char* foo</quote
+>, но не совпадёт с <quote
+>const QString</quote
+> в <quote
+>const QString&amp; bar</quote
+>, поскольку <quote
+>&amp;</quote
+> совпадает с шаблоном отрицающего просмотра вперёд.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>(?&lt;=ШАБЛОН)</userinput
+> (подтверждающий просмотр назад)</term>
+<listitem
+><para
+>Утверждения просмотра назад действуют аналогично утверждениям просмотра вперёд, разница заключается только в направлении просмотра. Утверждение просмотра назад проверяет часть строки, которая предшествует возможному совпадению. Подтверждающее утверждение просмотра назад будет совпадать со строкой только в том случае, если ей предшествует <emphasis
+>ШАБЛОН</emphasis
+> утверждения, но найденное совпадение не будет включено в результат.</para>
+<para
+>Выражение <userinput
+>(?&lt;=цвет)ок</userinput
+> совпадёт с <quote
+>ок</quote
+>, если этим символам предшествуют символы <quote
+>цвет</quote
+> (в слове <quote
+>цветок</quote
+>, но не в слове <quote
+>росток</quote
+> или в отдельном слове <quote
+>ок</quote
+>).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>(?&lt;!ШАБЛОН)</userinput
+> (отрицающий просмотр назад)</term>
+<listitem
+><para
+>Отрицающий просмотр назад проверяет текст на предмет несовпадения с <emphasis
+>ШАБЛОНОМ</emphasis
+>.</para>
+<para
+>Выражение <userinput
+>(?&lt;![\w\.])[0-9]+</userinput
+> совпадёт с <quote
+>123</quote
+> в строках <quote
+>=123</quote
+> и <quote
+>-123</quote
+>, но не совпадёт с <quote
+>123</quote
+> в строках <quote
+>.123</quote
+> и <quote
+>слово123</quote
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>(ШАБЛОН)</userinput
+> (захватываемая группа)</term>
+
+<listitem
+><para
+>Вложенный шаблон в круглых скобках будет захвачен и запомнен, что позволяет использовать его в обратных ссылках. Например, выражение <userinput
+>(&amp;quot;+)[^&amp;quot;]*\1</userinput
+> совпадает с <userinput
+>&quot;&quot;&quot;&quot;текст&quot;&quot;&quot;&quot;</userinput
+> и <userinput
+>&quot;текст&quot;</userinput
+>.</para>
+<para
+>Подробные сведения доступны в разделе <link linkend="regex-capturing"
+>Захват совпавшего текста (обратные ссылки)</link
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>(?:ШАБЛОН)</userinput
+> (группа без захвата)</term>
+
+<listitem
+><para
+>Вложенный шаблон в круглых скобках не будет захвачен и запомнен. Если захват текста не требуется, рекомендуется всегда использовать группы без захвата.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</para>
+
+</sect1>
+
+<!-- TODO sect1 id="backreferences">
+
+<title
+>Back References</title>
+
+<para
+></para>
+
+</sect1 -->
+
+</appendix>

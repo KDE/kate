@@ -1,0 +1,405 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR This file is copyright:
+# This file is distributed under the same license as the kate package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"PO-Revision-Date: 2021-09-15 01:19+0630\n"
+"Last-Translator: \n"
+"Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
+"Language: my\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 2.2.1\n"
+
+#. i18n: ectx: attribute (title), widget (QWidget, run)
+#: config.ui:18
+#, kde-format
+msgid "Run"
+msgstr "မောင်းနှင်မည်"
+
+#. i18n: ectx: property (text), widget (QLabel, label_34)
+#: config.ui:24
+#, kde-format
+msgid "Run time (milliseconds):"
+msgstr "မောင်းနှင်ကြာချိန် (မီလီစက္ကန့်) -"
+
+#. i18n: ectx: property (text), widget (QLabel, label_35)
+#: config.ui:41
+#, kde-format
+msgid "Probe level:"
+msgstr "စုံစမ်းစစ်ဆေးမှုအဆင့် -"
+
+#. i18n: ectx: property (text), widget (QLabel, userOpsLabel)
+#: config.ui:58
+#, kde-format
+msgid "User operations layout module:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, userClassLabel)
+#: config.ui:71
+#, kde-format
+msgid "User classes file:"
+msgstr "အသုံးပြုသူ classes ဖိုင်လ် -"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: config.ui:84
+#, kde-format
+msgid "Base period:"
+msgstr "အခြေခံကာလ -"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: config.ui:101
+#, kde-format
+msgid "Reduction core count:"
+msgstr "လျော့နည်းမှု ရေတွက်ခြင်း-"
+
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: config.ui:118
+#, kde-format
+msgid "Time core count:"
+msgstr "အချိန်ရေတွက်ခြင်း -"
+
+#. i18n: ectx: attribute (title), widget (QWidget, system)
+#: config.ui:136
+#, kde-format
+msgid "System"
+msgstr "စစ်စတမ်"
+
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#: config.ui:142
+#, kde-format
+msgid "Model inertia success rate threshold:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label_7)
+#: config.ui:159
+#, kde-format
+msgid "Model inertia count threshold:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label_8)
+#: config.ui:176
+#, kde-format
+msgid "Targeted pattern extractor delta success rate threshold:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label_9)
+#: config.ui:193
+#, kde-format
+msgid "Minimum simulation time horizon:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label_10)
+#: config.ui:210
+#, kde-format
+msgid "Maximum simulation time horizon:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label_11)
+#: config.ui:227
+#, kde-format
+msgid "Simulation time horizon:"
+msgstr "သရုပ်သကန် အချိန်ကန့်သတ်ချက် -"
+
+#. i18n: ectx: property (text), widget (QLabel, label_12)
+#: config.ui:247
+#, kde-format
+msgid "Targeted pattern extractor time horizon:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label_13)
+#: config.ui:264
+#, kde-format
+msgid "Perf sampling period:"
+msgstr "နမူနာစုဆောင်းကာလ -"
+
+#. i18n: ectx: property (text), widget (QLabel, label_14)
+#: config.ui:281
+#, kde-format
+msgid "Float tolerance:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label_15)
+#: config.ui:298
+#, kde-format
+msgid "Timer tolerance:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label_16)
+#: config.ui:318
+#, kde-format
+msgid "Primary time horizon:"
+msgstr "ပင်မ အချိန်ကန့်သတ်ချက် -"
+
+#. i18n: ectx: property (text), widget (QLabel, label_17)
+#: config.ui:335
+#, kde-format
+msgid "Secondary time horizon:"
+msgstr "ဒုတိယအရံ အချိန်ကန့်သတ်ချက် -"
+
+#. i18n: ectx: property (text), widget (QLabel, label_18)
+#: config.ui:352
+#, kde-format
+msgid "Notification marker resilience:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label_19)
+#: config.ui:369
+#, kde-format
+msgid "Goal prediction success resilience:"
+msgstr ""
+
+#. i18n: ectx: attribute (title), widget (QWidget, debugtab)
+#: config.ui:387
+#, kde-format
+msgid "Debug"
+msgstr "ဒီဘက်"
+
+#. i18n: ectx: property (text), widget (QLabel, label_22)
+#: config.ui:396
+#, kde-format
+msgid "Debug:"
+msgstr "ဒီဘက် -"
+
+#. i18n: ectx: property (text), widget (QLabel, label_23)
+#: config.ui:413
+#, kde-format
+msgid "Debug windows:"
+msgstr "ဒီဘက်ဝင်းဒိုးများ-"
+
+#. i18n: ectx: property (text), widget (QLabel, label_24)
+#: config.ui:426
+#, kde-format
+msgid "Traces:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, traceCompInputs)
+#: config.ui:433
+#, kde-format
+msgid "Composite inputs"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, traceCompOutputs)
+#: config.ui:440
+#, kde-format
+msgid "Composite outputs"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, traceModelIn)
+#: config.ui:447
+#, kde-format
+msgid "Model inputs"
+msgstr "မော်ဒယ် အသွင်းများ"
+
+#. i18n: ectx: property (text), widget (QCheckBox, traceModelOut)
+#: config.ui:454
+#, kde-format
+msgid "Model outputs"
+msgstr "မော်ဒယ် အထုတ်များ"
+
+#. i18n: ectx: property (text), widget (QCheckBox, tracePredMon)
+#: config.ui:461
+#, kde-format
+msgid "Prediction monitoring"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, traceGoalMon)
+#: config.ui:468
+#, kde-format
+msgid "Goal monitoring"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, traceModelRev)
+#: config.ui:475
+#, kde-format
+msgid "Model revision"
+msgstr "မော်ဒယ် ရီဗွီရှင်"
+
+#. i18n: ectx: property (text), widget (QCheckBox, traceModComInj)
+#: config.ui:482
+#, kde-format
+msgid "Model/composite injections"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label_21)
+#: config.ui:489
+#, kde-format
+msgid "Decompile objects:"
+msgstr "ပရိုဂရမ်အရာဝတ္ထုများ ဒီကွန်ပိုင်းလုပ်မည် -"
+
+#. i18n: ectx: property (text), widget (QLabel, decompileFileLabel)
+#: config.ui:506
+#, kde-format
+msgid "Decompile to file:"
+msgstr "ဖိုင်လ်သို့ ဒီကွန်ပိုင်းလုပ်မည် -"
+
+#. i18n: ectx: property (text), widget (QLabel, label_26)
+#: config.ui:516
+#, kde-format
+msgid "Ignore named objects:"
+msgstr "အမည်ပေးထားသော ပရိုဂရမ်အရာဝတ္ထုများ လစ်လျူရှုမည် -"
+
+#. i18n: ectx: property (text), widget (QLabel, label_27)
+#: config.ui:533
+#, kde-format
+msgid "Dump objects to file:"
+msgstr "ပရိုဂရမ်အရာဝတ္ထုများကို ဖိုင်လ်သို့ စွန့်ပစ်မည် -"
+
+#. i18n: ectx: property (text), widget (QLabel, label_28)
+#: config.ui:543
+#, kde-format
+msgid "Test objects:"
+msgstr "စမ်းသပ် ပရိုဂရမ်အရာဝတ္ထုများ -"
+
+#. i18n: ectx: property (text), widget (QLabel, label_30)
+#: config.ui:560
+#, kde-format
+msgid "Decompile models:"
+msgstr "ပရိုဂရမ်မော်ဒယ်များ ဒီကွန်ပိုင်းလုပ်မည် -"
+
+#. i18n: ectx: property (text), widget (QLabel, label_31)
+#: config.ui:577
+#, kde-format
+msgid "Ignore named models:"
+msgstr "အမည်ပေးထားသော ပရိုဂရမ်မော်ဒယ်များ လစ်လျူရှုမည် -"
+
+#. i18n: ectx: property (text), widget (QLabel, dumpFileLabel)
+#: config.ui:594
+#, kde-format
+msgid "Dump models to file:"
+msgstr "ပရိုဂရမ်မော်ဒယ်များကို ဖိုင်လ်သို့ စွန့်ပစ်မည် -"
+
+#. i18n: ectx: property (text), widget (QLabel, label_33)
+#: config.ui:604
+#, kde-format
+msgid "Test models:"
+msgstr "စမ်းသပ် ပရိုဂရမ်မော်ဒယ်များ -"
+
+#: replicodeconfigpage.cpp:24
+#, kde-format
+msgid "Path to replicode executor:"
+msgstr "ရီပလီကုတ် လုပ်ဆောင်ဖိုင်လ်သို့ လမ်းကြောင်း -"
+
+#: replicodeconfigpage.cpp:39 replicodeview.cpp:51
+#, kde-format
+msgid "Replicode"
+msgstr "ရီပလီကုတ်"
+
+#: replicodeconfigpage.cpp:44
+#, kde-format
+msgid "Replicode configuration"
+msgstr "ရီပလီကုတ် ပြင်ဆင်မှု"
+
+#: replicodeview.cpp:38
+#, kde-format
+msgid "Run replicode"
+msgstr "ရီပလီကုတ် မောင်းနှင်မည်"
+
+#: replicodeview.cpp:42
+#, kde-format
+msgid "Stop replicode"
+msgstr "ရီပလီကုတ် ရပ်မည်"
+
+#: replicodeview.cpp:61
+#, kde-format
+msgid "Replicode Config"
+msgstr "ရီပလီကုတ် ကွန်ဖစ်"
+
+#: replicodeview.cpp:64
+#, kde-format
+msgctxt "shortcut for action"
+msgid "Run (%1)"
+msgstr "မောင်းနှင်မည် (%1)"
+
+#: replicodeview.cpp:65
+#, kde-format
+msgctxt "shortcut for action"
+msgid "Stop (%1)"
+msgstr "ရပ်မည် (%1)"
+
+#: replicodeview.cpp:100
+#, kde-format
+msgctxt "@title:window"
+msgid "Active Document Not Found"
+msgstr "သက်ဝင်နေသော မှတ်တမ်းပုံနှိပ်မူ မတွေ့ပါ"
+
+#: replicodeview.cpp:100
+#, kde-format
+msgid "Could not find an active document to run."
+msgstr ""
+
+#: replicodeview.cpp:105
+#, kde-format
+msgctxt "@title:window"
+msgid "Empty Document"
+msgstr "ဗလာ မှတ်တမ်းပုံနှိပ်မူ"
+
+#: replicodeview.cpp:105
+#, kde-format
+msgid "Cannot execute an empty document."
+msgstr "ဗလာ မှတ်တမ်းပုံနှိပ်မူ ကို မလုပ်ဆောင်နိုင်ပါ။"
+
+#: replicodeview.cpp:112
+#, kde-format
+msgctxt "@title:window"
+msgid "File Not Found"
+msgstr "ဖိုင်လ်မတွေ့ပါ"
+
+#: replicodeview.cpp:112
+#, kde-format
+msgid "Unable to open source file for reading."
+msgstr ""
+
+#: replicodeview.cpp:127
+#, kde-format
+msgctxt "@title:window"
+msgid "Replicode Executable Not Found"
+msgstr "ရီပလီကုတ် လုပ်ဆောင်-ဖိုင်လ် မတွေ့ပါ"
+
+#: replicodeview.cpp:128
+#, kde-format
+msgid ""
+"Unable to find replicode executor.\n"
+"Please go to settings and set the path to the Replicode executable."
+msgstr ""
+
+#: replicodeview.cpp:135
+#, kde-format
+msgctxt "@title:window"
+msgid "User Operator Library Not Found"
+msgstr ""
+
+#: replicodeview.cpp:136
+#, kde-format
+msgid ""
+"Unable to find user operator library.\n"
+"Please go to settings and set the path to the library."
+msgstr ""
+
+#: replicodeview.cpp:201
+#, kde-format
+msgid "Replicode execution failed: %1"
+msgstr "ရီပလီကုတ် ဆောင်ရွက်မှု ကျရှုံးခဲ့သည် - %1"
+
+#: replicodeview.cpp:211
+#, kde-format
+msgid "Replicode execution finished."
+msgstr "ရီပလီကုတ် ဆောင်ရွက်မှု ပြီးပါပြီ။"
+
+#~ msgctxt "NAME OF TRANSLATORS"
+#~ msgid "Your names"
+#~ msgstr "ဇေယျာလွင်"
+
+#~ msgctxt "EMAIL OF TRANSLATORS"
+#~ msgid "Your emails"
+#~ msgstr "lw1nzayar@yandex.com"
+
+#~ msgid "Replicode Output"
+#~ msgstr "ရီပလီကုတ် အထုတ်"

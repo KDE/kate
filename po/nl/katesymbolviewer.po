@@ -1,0 +1,293 @@
+# translation of katesymbolviewer.po to Dutch
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Rinse de Vries <rinsedevries@kde.nl>, 2007.
+# Kristof Bal <kristof.bal@gmail.com>, 2009.
+# Freek de Kruijf <freekdekruijf@kde.nl>, 2009, 2011, 2012, 2013, 2018, 2019, 2022.
+msgid ""
+msgstr ""
+"Project-Id-Version: katesymbolviewer\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"PO-Revision-Date: 2022-06-20 10:16+0200\n"
+"Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
+"Language-Team: \n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 22.04.2\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#: bash_parser.cpp:25 cpp_parser.cpp:31 fortran_parser.cpp:37
+#: plugin_katesymbolviewer.cpp:88 python_parser.cpp:21 ruby_parser.cpp:21
+#, kde-format
+msgid "Show Functions"
+msgstr "Functies tonen"
+
+#: bash_parser.cpp:28 cpp_parser.cpp:43 fortran_parser.cpp:40 php_parser.cpp:34
+#: python_parser.cpp:39 ruby_parser.cpp:33 tcl_parser.cpp:35
+#, kde-format
+msgid "Functions"
+msgstr "Functies"
+
+#: cpp_parser.cpp:29 plugin_katesymbolviewer.cpp:84
+#, kde-format
+msgid "Show Macros"
+msgstr "Macro's tonen"
+
+#: cpp_parser.cpp:30 plugin_katesymbolviewer.cpp:86
+#, kde-format
+msgid "Show Structures"
+msgstr "Structuren tonen"
+
+#: cpp_parser.cpp:41
+#, kde-format
+msgid "Macros"
+msgstr "Macro's"
+
+#: cpp_parser.cpp:42
+#, kde-format
+msgid "Structures"
+msgstr "Structuren"
+
+#: fortran_parser.cpp:35 perl_parser.cpp:23
+#, kde-format
+msgid "Show Subroutines"
+msgstr "Subroutines tonen"
+
+#: fortran_parser.cpp:36
+#, kde-format
+msgid "Show Modules"
+msgstr "Modules tonen"
+
+#: fortran_parser.cpp:41 perl_parser.cpp:35
+#, kde-format
+msgid "Subroutines"
+msgstr "Subroutines"
+
+#: fortran_parser.cpp:42
+#, kde-format
+msgid "Modules"
+msgstr "Modules"
+
+#: perl_parser.cpp:21
+#, kde-format
+msgid "Show Uses"
+msgstr "Gebruiken tonen"
+
+#: perl_parser.cpp:22
+#, kde-format
+msgid "Show Pragmas"
+msgstr "Pragma's tonen"
+
+#: perl_parser.cpp:33
+#, kde-format
+msgid "Uses"
+msgstr "Gebruiken"
+
+#: perl_parser.cpp:34
+#, kde-format
+msgid "Pragmas"
+msgstr "Pragma's"
+
+#: php_parser.cpp:31
+#, kde-format
+msgid "Namespaces"
+msgstr "Naamruimtes"
+
+#: php_parser.cpp:32
+#, kde-format
+msgid "Defines"
+msgstr "Definieert"
+
+#: php_parser.cpp:33 python_parser.cpp:38 ruby_parser.cpp:32
+#, kde-format
+msgid "Classes"
+msgstr "Klassen"
+
+#: plugin_katesymbolviewer.cpp:68
+#, kde-format
+msgid "SymbolViewer"
+msgstr "Symboolviewer"
+
+#: plugin_katesymbolviewer.cpp:77
+#, kde-format
+msgid "Tree Mode"
+msgstr "Boomstructuurmodus"
+
+#: plugin_katesymbolviewer.cpp:79
+#, kde-format
+msgid "Expand Tree"
+msgstr "Boomstructuur uitvouwen"
+
+#: plugin_katesymbolviewer.cpp:81
+#, kde-format
+msgid "Show Sorted"
+msgstr "Gesorteerd tonen"
+
+#: plugin_katesymbolviewer.cpp:90
+#, kde-format
+msgid "Show Parameters"
+msgstr "Parameters tonen"
+
+#: plugin_katesymbolviewer.cpp:116
+#, kde-format
+msgid "Symbol List"
+msgstr "Symbolenlijst"
+
+#: plugin_katesymbolviewer.cpp:134
+#, kde-format
+msgid "Filter..."
+msgstr "Filteren..."
+
+#: plugin_katesymbolviewer.cpp:143
+#, kde-format
+msgctxt "@title:column"
+msgid "Symbols"
+msgstr "Symbolen"
+
+#: plugin_katesymbolviewer.cpp:143
+#, kde-format
+msgctxt "@title:column"
+msgid "Position"
+msgstr "Positie"
+
+#: plugin_katesymbolviewer.cpp:359
+#, kde-format
+msgid "Sorry, not supported yet!"
+msgstr "Helaas, wordt nog niet ondersteund!"
+
+#: plugin_katesymbolviewer.cpp:363
+#, kde-format
+msgid "File type: %1"
+msgstr "Bestandstype: %1"
+
+#: plugin_katesymbolviewer.cpp:476
+#, kde-format
+msgid "Display functions parameters"
+msgstr "Parameters van functie tonen"
+
+#: plugin_katesymbolviewer.cpp:477
+#, kde-format
+msgid "Automatically expand nodes in tree mode"
+msgstr "Items in boomstructuur automatisch uitvouwen"
+
+#: plugin_katesymbolviewer.cpp:478
+#, kde-format
+msgid "Always display symbols in tree mode"
+msgstr "Symbolen altijd in modus boomstructuur weergeven"
+
+#: plugin_katesymbolviewer.cpp:479
+#, kde-format
+msgid "Always sort symbols"
+msgstr "Symbolen altijd sorteren"
+
+#: plugin_katesymbolviewer.cpp:481
+#, kde-format
+msgid "Parser Options"
+msgstr "Ontlederopties"
+
+#: plugin_katesymbolviewer.cpp:509
+#, kde-format
+msgid "Symbol Viewer"
+msgstr "Symboolviewer"
+
+#: plugin_katesymbolviewer.cpp:514
+#, kde-format
+msgid "Symbol Viewer Configuration Page"
+msgstr "Configuratiepagina van symboolviewer"
+
+#: python_parser.cpp:22 ruby_parser.cpp:22
+#, kde-format
+msgid "Show Methods"
+msgstr "Methoden tonen"
+
+#: python_parser.cpp:23 ruby_parser.cpp:23
+#, kde-format
+msgid "Show Classes"
+msgstr "Klassen tonen"
+
+#: tcl_parser.cpp:36
+#, kde-format
+msgid "Globals"
+msgstr "Globalen"
+
+#. i18n: ectx: Menu (view)
+#: ui.rc:6
+#, kde-format
+msgid "&Settings"
+msgstr "&Instellingen"
+
+#: xml_parser.cpp:25
+#, kde-format
+msgid "Show Tags"
+msgstr "Tags tonen"
+
+#: xslt_parser.cpp:22
+#, kde-format
+msgid "Show Params"
+msgstr "Param's tonen"
+
+#: xslt_parser.cpp:23
+#, kde-format
+msgid "Show Variables"
+msgstr "Variabelen tonen"
+
+#: xslt_parser.cpp:24
+#, kde-format
+msgid "Show Templates"
+msgstr "Sjablonen tonen"
+
+#: xslt_parser.cpp:34
+#, kde-format
+msgid "Params"
+msgstr "Param's"
+
+#: xslt_parser.cpp:35
+#, kde-format
+msgid "Variables"
+msgstr "Variabelen"
+
+#: xslt_parser.cpp:36
+#, kde-format
+msgid "Templates"
+msgstr "Sjablonen"
+
+#~ msgctxt "NAME OF TRANSLATORS"
+#~ msgid "Your names"
+#~ msgstr "Rinse de Vries,Kristof Bal,Freek de Kruijf - t/m 2022"
+
+#~ msgctxt "EMAIL OF TRANSLATORS"
+#~ msgid "Your emails"
+#~ msgstr "rinsedevries@kde.nl,kristof.bal@gmail.com,freekdekruijf@kde.nl"
+
+#~ msgid "Show Globals"
+#~ msgstr "Globalen tonen"
+
+#~ msgid "Refresh List"
+#~ msgstr "Lijst verversen"
+
+#~ msgid "Enable Sorting"
+#~ msgstr "Sorteren inschakelen"
+
+#~ msgid "View symbols"
+#~ msgstr "Symbolen weergeven"
+
+#~| msgid "Show Functions"
+#~ msgid "Show Clojure Functions"
+#~ msgstr "Clojure-functies tonen"
+
+#~ msgid "Display a document minimap"
+#~ msgstr "Een minimap van een document tonen"
+
+#~| msgid "Parser Options"
+#~ msgid "General Options"
+#~ msgstr "Algemene opties"
+
+#~ msgid "Hide Symbols"
+#~ msgstr "Symbolen verbergen"
+
+#~ msgid "Show Symbols"
+#~ msgstr "Symbolen tonen"

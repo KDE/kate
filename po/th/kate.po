@@ -1,0 +1,3095 @@
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Thanomsub Noppaburana <donga.nb@gmail.com>, 2008, 2010.
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-10-02 00:49+0000\n"
+"PO-Revision-Date: 2010-03-01 22:47+0700\n"
+"Last-Translator: Thanomsub Noppaburana <donga.nb@gmail.com>\n"
+"Language-Team: Thai <thai-l10n@googlegroups.com>\n"
+"Language: th\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 1.0\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "ถนอมทรัพย์ นพบูรณ์"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "donga.nb@gmail.com"
+
+#: kate/main.cpp:106
+#, kde-format
+msgid "Kate"
+msgstr "Kate"
+
+#: kate/main.cpp:108
+#, kde-format
+msgid "Kate - Advanced Text Editor"
+msgstr "Kate - เครื่องมือแก้ไขข้อความขั้นสูง"
+
+#: kate/main.cpp:110 kwrite/main.cpp:89
+#, fuzzy, kde-format
+#| msgid "(c) 2000-2005 The Kate Authors"
+msgid "(c) 2000-2022 The Kate Authors"
+msgstr "สงวนลิขสิทธิ์ (c) 2000-2005 กลุ่มผู้พัฒนา Kate"
+
+#: kate/main.cpp:156
+#, fuzzy, kde-format
+#| msgid "Start Kate with a given session"
+msgid "Start Kate with a given session."
+msgstr "เริ่มการทำงานของ Kate ด้วยกลุ่มงานที่กำหนด"
+
+#: kate/main.cpp:157
+#, fuzzy, kde-format
+#| msgid "Sessions"
+msgid "session"
+msgstr "กลุ่มงาน"
+
+#: kate/main.cpp:162
+#, fuzzy, kde-format
+#| msgid "Start Kate with a given session"
+msgid "Start Kate with a new anonymous session, implies '-n'."
+msgstr "เริ่มการทำงานของ Kate ด้วยกลุ่มงานที่กำหนด"
+
+#: kate/main.cpp:167
+#, kde-format
+msgid ""
+"Force start of a new kate instance (is ignored if start is used and another "
+"kate instance already has the given session opened), forced if no parameters "
+"and no URLs are given at all."
+msgstr ""
+
+#: kate/main.cpp:173
+#, kde-format
+msgid ""
+"If using an already running kate instance, block until it exits, if URLs "
+"given to open."
+msgstr ""
+
+#: kate/main.cpp:179
+#, kde-format
+msgid ""
+"Only try to reuse kate instance with this pid (is ignored if start is used "
+"and another kate instance already has the given session opened)."
+msgstr ""
+
+#: kate/main.cpp:180
+#, kde-format
+msgid "pid"
+msgstr ""
+
+#: kate/main.cpp:185 kwrite/main.cpp:140
+#, fuzzy, kde-format
+#| msgid "Set encoding for the file to open"
+msgid "Set encoding for the file to open."
+msgstr "ตั้งค่ารหัสอักขระสำหรับแฟ้มที่จะเปิด"
+
+#: kate/main.cpp:186 kwrite/main.cpp:141
+#, kde-format
+msgid "encoding"
+msgstr ""
+
+#: kate/main.cpp:190 kwrite/main.cpp:145
+#, fuzzy, kde-format
+#| msgid "Navigate to this line"
+msgid "Navigate to this line."
+msgstr "นำมายังบรรทัดนี้"
+
+#: kate/main.cpp:190 kwrite/main.cpp:145
+#, kde-format
+msgid "line"
+msgstr ""
+
+#: kate/main.cpp:195 kwrite/main.cpp:149
+#, fuzzy, kde-format
+#| msgid "Navigate to this column"
+msgid "Navigate to this column."
+msgstr "นำมายังคอลัมน์นี้"
+
+#: kate/main.cpp:196 kwrite/main.cpp:149
+#, kde-format
+msgid "column"
+msgstr ""
+
+#: kate/main.cpp:200 kwrite/main.cpp:153
+#, fuzzy, kde-format
+#| msgid "Read the contents of stdin"
+msgid "Read the contents of stdin."
+msgstr "อ่านเนื้อหาจากการนำเข้าข้อมูลมาตรฐาน"
+
+#: kate/main.cpp:205 kwrite/main.cpp:157
+#, kde-format
+msgid "The files/URLs opened by the application will be deleted after use"
+msgstr ""
+
+#: kate/main.cpp:209 kwrite/main.cpp:161
+#, fuzzy, kde-format
+#| msgid "Document to open"
+msgid "Documents to open."
+msgstr "เอกสารที่จะเปิด"
+
+#: kate/main.cpp:209 kwrite/main.cpp:161
+#, kde-format
+msgid "[urls...]"
+msgstr ""
+
+#: kwrite/main.cpp:85
+#, fuzzy, kde-format
+#| msgid "KWrite Author"
+msgid "KWrite"
+msgstr "ผู้เขียน KWrite"
+
+#: kwrite/main.cpp:87
+#, fuzzy, kde-format
+#| msgid "Kate - Advanced Text Editor"
+msgid "KWrite - Text Editor"
+msgstr "Kate - เครื่องมือแก้ไขข้อความขั้นสูง"
+
+#. i18n: ectx: Menu (file)
+#: lib/data/kateui.rc:6
+#, kde-format
+msgid "&File"
+msgstr "แ&ฟ้ม"
+
+#. i18n: ectx: Menu (file_file_actions)
+#: lib/data/kateui.rc:30
+#, fuzzy, kde-format
+#| msgid "Location"
+msgid "File Actions"
+msgstr "ตำแหน่ง"
+
+#. i18n: ectx: Menu (edit)
+#: lib/data/kateui.rc:43
+#, kde-format
+msgid "&Edit"
+msgstr "แ&ก้ไข"
+
+#. i18n: ectx: Menu (selection)
+#: lib/data/kateui.rc:54
+#, fuzzy, kde-format
+#| msgid "Location"
+msgid "&Selection"
+msgstr "ตำแหน่ง"
+
+#. i18n: ectx: Menu (go)
+#: lib/data/kateui.rc:57
+#, kde-format
+msgid "&Go"
+msgstr "ไ&ป"
+
+#. i18n: ectx: Menu (view)
+#: lib/data/kateui.rc:73
+#, kde-format
+msgid "&View"
+msgstr "มุ&มมอง"
+
+#. i18n: ectx: Menu (view-split)
+#: lib/data/kateui.rc:75 lib/kateviewspace.cpp:118
+#, kde-format
+msgid "Split View"
+msgstr "แยกมุมมอง"
+
+#. i18n: ectx: Menu (tools)
+#: lib/data/kateui.rc:109
+#, kde-format
+msgid "&Tools"
+msgstr "เครื่&องมือ"
+
+#. i18n: ectx: Menu (settings)
+#: lib/data/kateui.rc:126
+#, kde-format
+msgid "&Settings"
+msgstr "&ตั้งค่า"
+
+#. i18n: ectx: Menu (help)
+#: lib/data/kateui.rc:134
+#, kde-format
+msgid "&Help"
+msgstr "ช่วยเ&หลือ"
+
+#. i18n: ectx: ToolBar (mainToolBar)
+#: lib/data/kateui.rc:139
+#, kde-format
+msgid "Main Toolbar"
+msgstr "แถบเครื่องมือหลัก"
+
+#. i18n: ectx: Menu (viewspace_popup_statusbar)
+#: lib/data/kateui.rc:167
+#, kde-format
+msgid "&Status Bar Items"
+msgstr ""
+
+#: lib/diff/diffeditor.cpp:146
+#, kde-format
+msgid "Change Style"
+msgstr ""
+
+#: lib/diff/diffeditor.cpp:148 lib/kateconfigdialog.cpp:291
+#, kde-format
+msgid "Side By Side"
+msgstr ""
+
+#: lib/diff/diffeditor.cpp:151 lib/kateconfigdialog.cpp:292
+#, fuzzy, kde-format
+#| msgid "Modified"
+msgid "Unified"
+msgstr "แก้ไขเมื่อ"
+
+#: lib/diff/diffeditor.cpp:154 lib/kateconfigdialog.cpp:293
+#, kde-format
+msgid "Raw"
+msgstr ""
+
+#: lib/diff/diffeditor.cpp:183
+#, fuzzy, kde-format
+#| msgid "&New Window"
+msgid "Stage Line"
+msgid_plural "Stage Lines"
+msgstr[0] "&หน้าต่างใหม่"
+
+#: lib/diff/diffeditor.cpp:188
+#, kde-format
+msgid "Stage Hunk"
+msgstr ""
+
+#: lib/diff/diffeditor.cpp:195
+#, kde-format
+msgid "Discard Line"
+msgid_plural "Discard Lines"
+msgstr[0] ""
+
+#: lib/diff/diffeditor.cpp:200
+#, kde-format
+msgid "Discard Hunk"
+msgstr ""
+
+#: lib/diff/diffeditor.cpp:207
+#, fuzzy, kde-format
+#| msgid "&New Window"
+msgid "Unstage Line"
+msgid_plural "Unstage Lines"
+msgstr[0] "&หน้าต่างใหม่"
+
+#: lib/diff/diffeditor.cpp:212
+#, kde-format
+msgid "Unstage Hunk"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
+#: lib/filehistorywidget.cpp:258 lib/session/katesessionmanagedialog.ui:184
+#, kde-format
+msgid "Close"
+msgstr "ปิด"
+
+#: lib/filehistorywidget.cpp:290
+#, kde-format
+msgid "Failed to get file history: git executable not found in PATH"
+msgstr ""
+
+#: lib/filehistorywidget.cpp:303
+#, kde-format
+msgid "Failed to get file history: %1"
+msgstr ""
+
+#: lib/filehistorywidget.cpp:346 lib/kateconfigdialog.cpp:125
+#, kde-format
+msgid "Error"
+msgstr ""
+
+#: lib/filehistorywidget.cpp:346
+#, kde-format
+msgid "%1 doesn't exist in a git repo."
+msgstr ""
+
+#: lib/filehistorywidget.cpp:346
+#, kde-format
+msgid "Git"
+msgstr ""
+
+#: lib/filehistorywidget.cpp:354
+#, fuzzy, kde-format
+#| msgid "File Selector"
+msgid "File History"
+msgstr "เครื่องมือเลือกแฟ้ม"
+
+#: lib/kateapp.cpp:146
+#, kde-format
+msgid "Christoph Cullmann"
+msgstr "Christoph Cullmann"
+
+#: lib/kateapp.cpp:146
+#, kde-format
+msgid "Maintainer"
+msgstr "ผู้ดูแลหลัก"
+
+#: lib/kateapp.cpp:147
+#, kde-format
+msgid "Dominik Haumann"
+msgstr "Dominik Haumann"
+
+#: lib/kateapp.cpp:147 lib/kateapp.cpp:150 lib/kateapp.cpp:152
+#: lib/kateapp.cpp:155 lib/kateapp.cpp:161
+#, kde-format
+msgid "Core Developer"
+msgstr "ผู้พัฒนาแกนหลัก"
+
+#: lib/kateapp.cpp:148
+#, kde-format
+msgid "Sven Brauch"
+msgstr ""
+
+#: lib/kateapp.cpp:148 lib/kateapp.cpp:149 lib/kateapp.cpp:156
+#, fuzzy, kde-format
+#| msgid "Core Developer"
+msgid "Developer"
+msgstr "ผู้พัฒนาแกนหลัก"
+
+#: lib/kateapp.cpp:149
+#, kde-format
+msgid "Kåre Särs"
+msgstr ""
+
+#: lib/kateapp.cpp:150
+#, kde-format
+msgid "Anders Lund"
+msgstr "Anders Lund"
+
+#: lib/kateapp.cpp:151
+#, kde-format
+msgid "Joseph Wenninger"
+msgstr "Joseph Wenninger"
+
+#: lib/kateapp.cpp:155
+#, kde-format
+msgid "Hamish Rodda"
+msgstr "Hamish Rodda"
+
+#: lib/kateapp.cpp:156
+#, fuzzy, kde-format
+#| msgid "Anders Lund"
+msgid "Alexander Neundorf"
+msgstr "Anders Lund"
+
+#: lib/kateapp.cpp:157
+#, kde-format
+msgid "Waldo Bastian"
+msgstr "Waldo Bastian"
+
+#: lib/kateapp.cpp:157
+#, kde-format
+msgid "The cool buffersystem"
+msgstr "ระบบบัฟเฟอร์สุดเจ๋ง"
+
+#: lib/kateapp.cpp:158
+#, kde-format
+msgid "Charles Samuels"
+msgstr "Charles Samuels"
+
+#: lib/kateapp.cpp:158
+#, kde-format
+msgid "The Editing Commands"
+msgstr "คำสั่งในการแก้ไข"
+
+#: lib/kateapp.cpp:159
+#, kde-format
+msgid "Matt Newell"
+msgstr "Matt Newell"
+
+#: lib/kateapp.cpp:159
+#, kde-format
+msgid "Testing, ..."
+msgstr "ทดสอบ, ..."
+
+#: lib/kateapp.cpp:160
+#, kde-format
+msgid "Michael Bartl"
+msgstr "Michael Bartl"
+
+#: lib/kateapp.cpp:160
+#, kde-format
+msgid "Former Core Developer"
+msgstr "อดีตนักพัฒนาหลัก"
+
+#: lib/kateapp.cpp:161
+#, kde-format
+msgid "Michael McCallum"
+msgstr "Michael McCallum"
+
+#: lib/kateapp.cpp:162
+#, kde-format
+msgid "Jochen Wilhemly"
+msgstr "Jochen Wilhemly"
+
+#: lib/kateapp.cpp:162
+#, kde-format
+msgid "KWrite Author"
+msgstr "ผู้เขียน KWrite"
+
+#: lib/kateapp.cpp:163
+#, kde-format
+msgid "Michael Koch"
+msgstr "Michael Koch"
+
+#: lib/kateapp.cpp:163
+#, kde-format
+msgid "KWrite port to KParts"
+msgstr "ทำการพอร์ต KWrite มายัง KParts"
+
+#: lib/kateapp.cpp:164
+#, kde-format
+msgid "Christian Gebauer"
+msgstr "Christian Gebauer"
+
+#: lib/kateapp.cpp:165
+#, kde-format
+msgid "Simon Hausmann"
+msgstr "Simon Hausmann"
+
+#: lib/kateapp.cpp:166
+#, kde-format
+msgid "Glen Parker"
+msgstr "Glen Parker"
+
+#: lib/kateapp.cpp:166
+#, kde-format
+msgid "KWrite Undo History, Kspell integration"
+msgstr "ประวัติการย้อนการกระทำของ KWrite, การรวม Kspell เข้ามา"
+
+#: lib/kateapp.cpp:167
+#, kde-format
+msgid "Scott Manson"
+msgstr "Scott Manson"
+
+#: lib/kateapp.cpp:167
+#, kde-format
+msgid "KWrite XML Syntax highlighting support"
+msgstr "การรองรับการเน้นไวยากรณ์ XML ของ KWrtite"
+
+#: lib/kateapp.cpp:168
+#, kde-format
+msgid "John Firebaugh"
+msgstr "John Firebaugh"
+
+#: lib/kateapp.cpp:168
+#, kde-format
+msgid "Patches and more"
+msgstr "แพตช์และอื่น ๆ อีกมากมาย"
+
+#: lib/kateapp.cpp:169
+#, kde-format
+msgid "Pablo Martín"
+msgstr ""
+
+#: lib/kateapp.cpp:170
+#, fuzzy, kde-format
+#| msgid "Plugins"
+msgid "Python Plugin Developer"
+msgstr "ส่วนเสริมต่าง ๆ"
+
+#: lib/kateapp.cpp:173
+#, kde-format
+msgid "Gerald Senarclens de Grancy"
+msgstr ""
+
+#: lib/kateapp.cpp:174
+#, kde-format
+msgid "QA and Scripting"
+msgstr ""
+
+#: lib/kateapp.cpp:178
+#, kde-format
+msgid "Tyson Tan"
+msgstr ""
+
+#: lib/kateapp.cpp:179
+#, kde-format
+msgid "Designer of Kate's mascot 'Kate the Cyber Woodpecker'"
+msgstr ""
+
+#: lib/kateapp.cpp:182
+#, kde-format
+msgid "Matteo Merli"
+msgstr "Matteo Merli"
+
+#: lib/kateapp.cpp:182
+#, kde-format
+msgid "Highlighting for RPM Spec-Files, Perl, Diff and more"
+msgstr "ระบบเน้นข้อความสำหรับแฟ้ม Spec ในการสร้าง RPM, Perl, Diff และอีกมากมาย"
+
+#: lib/kateapp.cpp:183
+#, kde-format
+msgid "Rocky Scaletta"
+msgstr "Rocky Scaletta"
+
+#: lib/kateapp.cpp:183
+#, kde-format
+msgid "Highlighting for VHDL"
+msgstr "ระบบเน้นข้อความสำหรับ VHDL"
+
+#: lib/kateapp.cpp:184
+#, kde-format
+msgid "Yury Lebedev"
+msgstr "Yury Lebedev"
+
+#: lib/kateapp.cpp:184
+#, kde-format
+msgid "Highlighting for SQL"
+msgstr "ระบบเน้นข้อความสำหรับ SQL"
+
+#: lib/kateapp.cpp:185
+#, kde-format
+msgid "Chris Ross"
+msgstr "Chris Ross"
+
+#: lib/kateapp.cpp:185
+#, kde-format
+msgid "Highlighting for Ferite"
+msgstr "ระบบเน้นข้อความสำหรับ Ferite"
+
+#: lib/kateapp.cpp:186
+#, kde-format
+msgid "Nick Roux"
+msgstr "Nick Roux"
+
+#: lib/kateapp.cpp:186
+#, kde-format
+msgid "Highlighting for ILERPG"
+msgstr "ระบบเน้นข้อความสำหรับ ILERPG"
+
+#: lib/kateapp.cpp:187
+#, kde-format
+msgid "Carsten Niehaus"
+msgstr "Carsten Niehaus"
+
+#: lib/kateapp.cpp:187
+#, kde-format
+msgid "Highlighting for LaTeX"
+msgstr "ระบบเน้นข้อความสำหรับ LaTeX"
+
+#: lib/kateapp.cpp:188
+#, kde-format
+msgid "Per Wigren"
+msgstr "Per Wigren"
+
+#: lib/kateapp.cpp:188
+#, kde-format
+msgid "Highlighting for Makefiles, Python"
+msgstr "ระบบเน้นข้อความสำหรับ Makefiles, Python"
+
+#: lib/kateapp.cpp:189
+#, kde-format
+msgid "Jan Fritz"
+msgstr "Jan Fritz"
+
+#: lib/kateapp.cpp:189
+#, kde-format
+msgid "Highlighting for Python"
+msgstr "ระบบเน้นข้อความสำหรับ Python"
+
+#: lib/kateapp.cpp:190
+#, kde-format
+msgid "Daniel Naber"
+msgstr "Daniel Naber"
+
+#: lib/kateapp.cpp:191
+#, kde-format
+msgid "Roland Pabel"
+msgstr "Roland Pabel"
+
+#: lib/kateapp.cpp:191
+#, kde-format
+msgid "Highlighting for Scheme"
+msgstr "ระบบเน้นข้อความสำหรับ Scheme"
+
+#: lib/kateapp.cpp:192
+#, kde-format
+msgid "Cristi Dumitrescu"
+msgstr "Cristi Dumitrescu"
+
+#: lib/kateapp.cpp:192
+#, kde-format
+msgid "PHP Keyword/Datatype list"
+msgstr "รายการคำหลัก/ชนิดข้อมูลของ PHP"
+
+#: lib/kateapp.cpp:193
+#, kde-format
+msgid "Carsten Pfeiffer"
+msgstr "Carsten Pfeiffer"
+
+#: lib/kateapp.cpp:193
+#, kde-format
+msgid "Very nice help"
+msgstr "ความช่วยเหลือดี ๆ"
+
+#: lib/kateapp.cpp:194
+#, kde-format
+msgid "All people who have contributed and I have forgotten to mention"
+msgstr "บุคคลทั้งหมดที่ให้ความช่วยเหลือรวมถึงบุคคลที่ผมลืมเอ่ยชื่อ"
+
+#: lib/kateapp.cpp:314
+#, kde-format
+msgid "Folders can only be opened when the projects plugin is enabled"
+msgstr ""
+
+#: lib/kateapp.cpp:417
+#, kde-format
+msgid ""
+"The file '%1' could not be opened: it is not a normal file, it is a folder."
+msgstr "ไม่สามารถเปิดแฟ้ม '%1' ได้ เนื่องจากมันไม่ใช่แฟ้มปกติ แต่มันเป็นโฟลเดอร์"
+
+#: lib/kateconfigdialog.cpp:51
+#, kde-format
+msgid "Configure"
+msgstr "ปรับแต่ง"
+
+#: lib/kateconfigdialog.cpp:103
+#, kde-format
+msgid "Behavior"
+msgstr "พฤติกรรม"
+
+#: lib/kateconfigdialog.cpp:104
+#, fuzzy, kde-format
+#| msgid "Behavior"
+msgid "Behavior Options"
+msgstr "พฤติกรรม"
+
+#: lib/kateconfigdialog.cpp:111
+#, kde-format
+msgid "&Behavior"
+msgstr "&พฤติกรรม"
+
+#: lib/kateconfigdialog.cpp:120
+#, kde-format
+msgid "&Switch to output view upon message type:"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:125
+#, fuzzy, kde-format
+#| msgid "(never)"
+msgid "Never"
+msgstr "(ไม่ต้องลบ)"
+
+#: lib/kateconfigdialog.cpp:125 lib/kateconfigdialog.cpp:623
+#, kde-format
+msgid "Warning"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:125
+#, kde-format
+msgid "Info"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:125
+#, kde-format
+msgid "Log"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:131
+#, kde-format
+msgid "&Limit output view history:"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:137 lib/kateconfigdialog.cpp:203
+#, kde-format
+msgid "Unlimited"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:144
+#, kde-format
+msgid "Use a separate &dialog for handling externally modified files"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:148
+#, kde-format
+msgid ""
+"If enabled, a modal dialog will be used to show all of the modified files. "
+"If not enabled, you will be individually asked what to do for each modified "
+"file only when that file's view receives focus."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:157
+#, fuzzy, kde-format
+#| msgid "Top Sidebar"
+msgid "&Sidebars"
+msgstr "แถบข้างด้านบน"
+
+#: lib/kateconfigdialog.cpp:160
+#, kde-format
+msgid "Sync section size with tab positions"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:164
+#, kde-format
+msgid ""
+"When enabled the section size will be determined by the position of the "
+"tabs.\n"
+"This option does not affect the bottom sidebar."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:169
+#, kde-format
+msgid "Show text for left and right sidebar buttons"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:174
+#, kde-format
+msgid "Icon size for left and right sidebar buttons"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:193
+#, fuzzy, kde-format
+#| msgid "Show Side&bars"
+msgid "&Tabs"
+msgstr "แสดงแถบข้าง"
+
+#: lib/kateconfigdialog.cpp:197
+#, kde-format
+msgid "&Limit number of tabs:"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:208
+#, kde-format
+msgid ""
+"A high limit can increase the window size, please enable 'Allow tab "
+"scrolling' to prevent it. Unlimited tabs are always scrollable."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:212
+#, kde-format
+msgid "&Auto hide tabs"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:214
+#, kde-format
+msgid "When checked tabs will be hidden if only one document is open."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:218
+#, kde-format
+msgid "&Show close button"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:220
+#, kde-format
+msgid "When checked each tab will display a close button."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:224
+#, kde-format
+msgid "&Expand tabs"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:226
+#, kde-format
+msgid "When checked tabs take as much size as possible."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:230
+#, fuzzy, kde-format
+#| msgid "Create a new document"
+msgid "&Double click opens a new document"
+msgstr "สร้างเอกสารใหม่"
+
+#: lib/kateconfigdialog.cpp:232
+#, kde-format
+msgid "When checked double click opens a new document."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:236
+#, fuzzy, kde-format
+#| msgid "Close all open documents."
+msgid "&Middle click closes a document"
+msgstr "ปิดเอกสารที่เปิดอยู่ทั้งหมด"
+
+#: lib/kateconfigdialog.cpp:238
+#, kde-format
+msgid "When checked middle click closes a document."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:242
+#, kde-format
+msgid "Allow tab scrolling"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:244
+#, kde-format
+msgid ""
+"When checked this will allow scrolling in tab bar when number of tabs is "
+"large."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:248
+#, kde-format
+msgid "Elide tab text"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:250
+#, kde-format
+msgid "When checked tab text might be elided if its too long."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:256
+#, kde-format
+msgid "&Mouse"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:261
+#, kde-format
+msgid "&Backward button pressed:"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:266
+#, fuzzy, kde-format
+#| msgid "&Document"
+msgid "Previous tab"
+msgstr "เ&อกสาร"
+
+#: lib/kateconfigdialog.cpp:266
+#, kde-format
+msgid "History back"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:272
+#, kde-format
+msgid "&Forward button pressed:"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:277
+#, kde-format
+msgid "Next tab"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:277
+#, kde-format
+msgid "History forward"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:285
+#, kde-format
+msgid "Diff"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:294
+#, kde-format
+msgid "Diff Style:"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:308
+#, fuzzy, kde-format
+#| msgid "Sessions"
+msgid "Session"
+msgstr "กลุ่มงาน"
+
+#: lib/kateconfigdialog.cpp:309
+#, kde-format
+msgid "Session Management"
+msgstr "การจัดการกลุ่มงาน"
+
+#: lib/kateconfigdialog.cpp:320
+#, fuzzy, kde-format
+#| msgid "(never)"
+msgctxt "The special case of 'Delete unused meta-information after'"
+msgid "(never)"
+msgstr "(ไม่ต้องลบ)"
+
+#: lib/kateconfigdialog.cpp:321
+#, kde-format
+msgctxt "The suffix of 'Delete unused meta-information after'"
+msgid " day"
+msgid_plural " days"
+msgstr[0] " วัน"
+
+#: lib/kateconfigdialog.cpp:384
+#, kde-format
+msgid "Plugins"
+msgstr "ส่วนเสริมต่าง ๆ"
+
+#: lib/kateconfigdialog.cpp:385
+#, kde-format
+msgid "Plugin Manager"
+msgstr "ตัวจัดการส่วนเสริม"
+
+#: lib/kateconfigdialog.cpp:403 lib/kateconfigdialog.cpp:404
+#, kde-format
+msgid "User Feedback"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:622
+#, fuzzy, kde-format
+#| msgid ""
+#| "<p>The document '%1' has been modified, but not saved.</p><p>Do you want "
+#| "to save your changes or discard them?</p>"
+msgid ""
+"You have unsaved changes. Do you want to apply the changes or discard them?"
+msgstr ""
+"<p>เอกสาร '%1' มีการเปลี่ยนแปลง แต่ยังไม่มีการบันทึก</"
+"p><p>คุณต้องการจะบันทึกการเปลี่ยนแปลงหรือจะละทิ้งมัน ?</p>"
+
+#: lib/kateconfigplugindialogpage.cpp:66
+#, kde-format
+msgid "Name"
+msgstr "ชื่อ"
+
+#: lib/kateconfigplugindialogpage.cpp:66
+#, fuzzy, kde-format
+#| msgid "Location"
+msgid "Description"
+msgstr "ตำแหน่ง"
+
+#: lib/kateconfigplugindialogpage.cpp:69
+#, kde-format
+msgid ""
+"Here you can see all available Kate plugins. Those with a check mark are "
+"loaded, and will be loaded again the next time Kate is started."
+msgstr ""
+
+#: lib/katedocmanager.cpp:264
+#, kde-format
+msgid ""
+"<p>The document '%1' has been modified, but not saved.</p><p>Do you want to "
+"save your changes or discard them?</p>"
+msgstr ""
+"<p>เอกสาร '%1' มีการเปลี่ยนแปลง แต่ยังไม่มีการบันทึก</"
+"p><p>คุณต้องการจะบันทึกการเปลี่ยนแปลงหรือจะละทิ้งมัน ?</p>"
+
+#: lib/katedocmanager.cpp:267
+#, kde-format
+msgid "Close Document"
+msgstr "ปิดเอกสาร"
+
+#: lib/katedocmanager.cpp:276
+#, kde-format
+msgid "Save As"
+msgstr "บันทึกเป็น"
+
+#: lib/katedocmanager.cpp:294 lib/katemainwindow.cpp:583
+#, kde-format
+msgid "New file opened while trying to close Kate, closing aborted."
+msgstr "มีการเปิดแฟ้มใหม่ขึ้นมาในระหว่างกำลังทำการปิด Kate การปิดโปรแกรมจึงถูกยกเลิก"
+
+#: lib/katedocmanager.cpp:294 lib/katemainwindow.cpp:583
+#, kde-format
+msgid "Closing Aborted"
+msgstr "ยกเลิกการปิดแล้ว"
+
+#: lib/katedocmanager.cpp:372
+#, kde-format
+msgid "Starting Up"
+msgstr "กำลังเริ่มการทำงาน"
+
+#: lib/katedocmanager.cpp:373
+#, kde-format
+msgid "Reopening files from the last session..."
+msgstr "กำลังทำการเปิดแฟ้มที่ถูกเปิดใช้กับกลุ่มงานที่ใช้ครั้งล่าสุด..."
+
+#: lib/katefileactions.cpp:67
+#, fuzzy, kde-format
+#| msgid "Open File"
+msgid "Rename file"
+msgstr "เปิดแฟ้ม"
+
+#: lib/katefileactions.cpp:68
+#, fuzzy, kde-format
+#| msgid "Filename"
+msgid "New file name"
+msgstr "ชื่อแฟ้ม"
+
+#: lib/katefileactions.cpp:105
+#, kde-format
+msgid "File \"%1\" could not be moved to \"%2\""
+msgstr ""
+
+#: lib/katefileactions.cpp:129
+#, kde-format
+msgid "Do you really want to delete file \"%1\"?"
+msgstr ""
+
+#: lib/katefileactions.cpp:130
+#, fuzzy, kde-format
+#| msgid "Delete File?"
+msgid "Delete file"
+msgstr "จะลบแฟ้มหรือไม่ ?"
+
+#: lib/katefileactions.cpp:147
+#, kde-format
+msgid "File \"%1\" could not be deleted."
+msgstr ""
+
+#: lib/katemainwindow.cpp:212
+#, kde-format
+msgid "Use this command to show or hide the view's statusbar"
+msgstr "ใช้คำสั่งนี้เพื่อแสดงหรือซ่อนแถบสถานะของมุมมอง"
+
+#: lib/katemainwindow.cpp:215
+#, fuzzy, kde-format
+#| msgid "Show Side&bars"
+msgid "Show &Tabs"
+msgstr "แสดงแถบข้าง"
+
+#: lib/katemainwindow.cpp:218
+#, fuzzy, kde-format
+#| msgid "Use this command to show or hide the view's statusbar"
+msgid "Use this command to show or hide the tabs for the views"
+msgstr "ใช้คำสั่งนี้เพื่อแสดงหรือซ่อนแถบสถานะของมุมมอง"
+
+#: lib/katemainwindow.cpp:220
+#, fuzzy, kde-format
+#| msgid "Sho&w Path"
+msgid "Sho&w Path in Titlebar"
+msgstr "แ&สดงตำแหน่งแฟ้ม"
+
+#: lib/katemainwindow.cpp:223
+#, kde-format
+msgid "Show the complete document path in the window caption"
+msgstr "แสดงพาธเต็มของเอกสารในหัวหน้าต่าง"
+
+#: lib/katemainwindow.cpp:225
+#, kde-format
+msgid "Show Navigation Bar"
+msgstr ""
+
+#: lib/katemainwindow.cpp:235
+#, kde-format
+msgid "&Window Color Scheme"
+msgstr ""
+
+#: lib/katemainwindow.cpp:239
+#, fuzzy, kde-format
+#| msgid "&Document"
+msgid "&Previous Tab"
+msgstr "เ&อกสาร"
+
+#: lib/katemainwindow.cpp:240
+#, kde-format
+msgid "Focus the previous tab."
+msgstr ""
+
+#: lib/katemainwindow.cpp:245
+#, kde-format
+msgid "&Next Tab"
+msgstr ""
+
+#: lib/katemainwindow.cpp:246
+#, kde-format
+msgid "Focus the next tab."
+msgstr ""
+
+#: lib/katemainwindow.cpp:253
+#, kde-format
+msgid "&Quick Open"
+msgstr "เปิดใช้&ด่วน"
+
+#: lib/katemainwindow.cpp:256
+#, fuzzy, kde-format
+#| msgid "Close other open documents."
+msgid "Open a form to quick open documents."
+msgstr "ปิดเอกสารที่เปิดอยู่ตัวอื่น ๆ"
+
+#: lib/katemainwindow.cpp:277
+#, fuzzy, kde-format
+#| msgid "Diff Output"
+msgid "Output"
+msgstr "ผลลัพธ์ของคำสั่ง Diff"
+
+#: lib/katemainwindow.cpp:287
+#, kde-format
+msgid "Create a new document"
+msgstr "สร้างเอกสารใหม่"
+
+#: lib/katemainwindow.cpp:290
+#, kde-format
+msgid "Open an existing document for editing"
+msgstr "เปิดเอกสารที่มีอยู่แล้วเพื่อทำการแก้ไข"
+
+#: lib/katemainwindow.cpp:295
+#, kde-format
+msgid ""
+"This lists files which you have opened recently, and allows you to easily "
+"open them again."
+msgstr ""
+"รายการแฟ้มนี้เป็นรายการของแฟ้มที่คุณเคยเปิดใช้งานมาก่อน "
+"และอนุญาตให้คุณได้เปิดมันอีกครั้งอย่างง่ายดาย"
+
+#: lib/katemainwindow.cpp:299
+#, kde-format
+msgid "Save A&ll"
+msgstr "บันทึก&ทั้งหมด"
+
+#: lib/katemainwindow.cpp:302
+#, kde-format
+msgid "Save all open, modified documents to disk."
+msgstr "บันทึกเอกสารที่เปิดอยู่ทั้้งหมด และจัดเก็บลงดิสก์"
+
+#: lib/katemainwindow.cpp:305
+#, kde-format
+msgid "&Reload All"
+msgstr "เรียกใหม่ทั้งหมด"
+
+#: lib/katemainwindow.cpp:307
+#, kde-format
+msgid "Reload all open documents."
+msgstr "เรียกเอกสารที่เปิดอยู่ทั้งหมดใหม่"
+
+#: lib/katemainwindow.cpp:311
+#, fuzzy, kde-format
+#| msgid "Location"
+msgid "Copy Location"
+msgstr "ตำแหน่ง"
+
+#: lib/katemainwindow.cpp:316 lib/katemainwindow.cpp:325
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Copies the file path of the current file to clipboard."
+msgstr "ทำให้มุมมองที่แยกออกมาตัวถัดไปเป็นตัวที่กำลังทำงานอยู่"
+
+#: lib/katemainwindow.cpp:320 lib/welcomeview.cpp:82
+#, fuzzy, kde-format
+#| msgid "Opening Order"
+msgid "&Open Containing Folder"
+msgstr "ลำดับการเปิด"
+
+#: lib/katemainwindow.cpp:329
+#, fuzzy, kde-format
+#| msgid "&Rename..."
+msgctxt "@action:inmenu"
+msgid "Rename..."
+msgstr "เปลี่&ยนชื่อ..."
+
+#: lib/katemainwindow.cpp:334
+#, fuzzy, kde-format
+#| msgid "Close the current document."
+msgid "Renames the file belonging to the current document."
+msgstr "ปิดเอกสารปัจจุบัน"
+
+#: lib/katemainwindow.cpp:338
+#, fuzzy, kde-format
+#| msgid "Deleted"
+msgctxt "@action:inmenu"
+msgid "Delete"
+msgstr "ลบเมื่อ"
+
+#: lib/katemainwindow.cpp:343 lib/katemainwindow.cpp:352
+#, fuzzy, kde-format
+#| msgid "Close the current document."
+msgid "Deletes the file belonging to the current document."
+msgstr "ปิดเอกสารปัจจุบัน"
+
+#: lib/katemainwindow.cpp:347
+#, kde-format
+msgid "Properties"
+msgstr ""
+
+#: lib/katemainwindow.cpp:355 lib/katemainwindow.cpp:357
+#, kde-format
+msgid "Compare"
+msgstr ""
+
+#: lib/katemainwindow.cpp:357
+#, kde-format
+msgid "Use the Tabbar context menu to compare two documents"
+msgstr ""
+
+#: lib/katemainwindow.cpp:359
+#, fuzzy, kde-format
+#| msgid "Close other open documents."
+msgid "Shows a hint how to compare documents."
+msgstr "ปิดเอกสารที่เปิดอยู่ตัวอื่น ๆ"
+
+#: lib/katemainwindow.cpp:362
+#, fuzzy, kde-format
+#| msgid "Close Other"
+msgid "Close Orphaned"
+msgstr "ปิดเอกสารอื่น ๆ"
+
+#: lib/katemainwindow.cpp:364
+#, kde-format
+msgid ""
+"Close all documents in the file list that could not be reopened, because "
+"they are not accessible anymore."
+msgstr ""
+
+#: lib/katemainwindow.cpp:368
+#, kde-format
+msgid "Close the current document."
+msgstr "ปิดเอกสารปัจจุบัน"
+
+#: lib/katemainwindow.cpp:371
+#, kde-format
+msgid "Close Other"
+msgstr "ปิดเอกสารอื่น ๆ"
+
+#: lib/katemainwindow.cpp:373
+#, kde-format
+msgid "Close other open documents."
+msgstr "ปิดเอกสารที่เปิดอยู่ตัวอื่น ๆ"
+
+#: lib/katemainwindow.cpp:376
+#, kde-format
+msgid "Clos&e All"
+msgstr "ปิดทั้&งหมด"
+
+#: lib/katemainwindow.cpp:378
+#, kde-format
+msgid "Close all open documents."
+msgstr "ปิดเอกสารที่เปิดอยู่ทั้งหมด"
+
+#: lib/katemainwindow.cpp:383
+#, kde-format
+msgid "Close this window"
+msgstr "ปิดหน้าต่างนี้"
+
+#: lib/katemainwindow.cpp:387
+#, fuzzy, kde-format
+#| msgid "&Window"
+msgid "&New Window"
+msgstr "หน้า&ต่าง"
+
+#: lib/katemainwindow.cpp:389
+#, fuzzy, kde-format
+#| msgid "Create a new document"
+msgid "Create a new window."
+msgstr "สร้างเอกสารใหม่"
+
+#: lib/katemainwindow.cpp:396
+#, kde-format
+msgid "Open W&ith"
+msgstr "เปิดใช้&ด้วย"
+
+#: lib/katemainwindow.cpp:398
+#, kde-format
+msgid ""
+"Open the current document using another application registered for its file "
+"type, or an application of your choice."
+msgstr ""
+"เปิดเอกสารปัจจุบันด้วยโปรแกรมอื่นที่ถูกลงทะเบียนให้ใช้งานได้กับแฟ้มชนิดนี้ "
+"หรือด้วยโปรแกรมที่คุณเป็นคนเลือกเอง"
+
+#: lib/katemainwindow.cpp:406
+#, kde-format
+msgid "Configure the application's keyboard shortcut assignments."
+msgstr "ปรับแต่งการกำหนดปุ่มพิมพ์ลัดสำหรับใช้กับโปรแกรม"
+
+#: lib/katemainwindow.cpp:409
+#, kde-format
+msgid "Configure which items should appear in the toolbar(s)."
+msgstr "ปรับแต่งว่าจะให้ปรากฎรายการต่าง ๆ ในแถบเครื่องมืออย่างไรบ้าง"
+
+#: lib/katemainwindow.cpp:412
+#, kde-format
+msgid ""
+"Configure various aspects of this application and the editing component."
+msgstr ""
+
+#: lib/katemainwindow.cpp:416
+#, kde-format
+msgid "&Plugins Handbook"
+msgstr "คู่มือโปรแกรมเ&สริม"
+
+#: lib/katemainwindow.cpp:418
+#, kde-format
+msgid "This shows help files for various available plugins."
+msgstr "ใช้สำหรับแสดงแฟ้มความช่วยเหลือของส่วนเสริมต่าง ๆ ที่มีอยู่"
+
+#: lib/katemainwindow.cpp:435
+#, kde-format
+msgid "Sess&ions"
+msgstr "&กลุ่มงาน"
+
+#: lib/katemainwindow.cpp:441
+#, fuzzy, kde-format
+#| msgid "New Session"
+msgctxt "Menu entry Session->New Session"
+msgid "&New Session"
+msgstr "กลุ่มงานใหม่"
+
+#: lib/katemainwindow.cpp:446
+#, fuzzy, kde-format
+#| msgid "&Open Session"
+msgid "&Recent Sessions"
+msgstr "เปิด&กลุ่มงาน"
+
+#: lib/katemainwindow.cpp:451
+#, fuzzy, kde-format
+#| msgid "Sess&ions"
+msgid "&All Sessions"
+msgstr "&กลุ่มงาน"
+
+#: lib/katemainwindow.cpp:458
+#, kde-format
+msgid "&Manage Sessions..."
+msgstr "&จัดการกลุ่มงาน..."
+
+#: lib/katemainwindow.cpp:467
+#, kde-format
+msgid "&Save Session"
+msgstr "&บันทึกกลุ่มงาน"
+
+#: lib/katemainwindow.cpp:473
+#, kde-format
+msgid "Save Session &As..."
+msgstr "บันทึกกลุ่มงานเป็&น..."
+
+#: lib/katemainwindow.cpp:480 lib/kateviewspace.cpp:58
+#, kde-format
+msgid "Go to Previous Location"
+msgstr ""
+
+#: lib/katemainwindow.cpp:488 lib/kateviewspace.cpp:71
+#, kde-format
+msgid "Go to Next Location"
+msgstr ""
+
+#: lib/katemainwindow.cpp:495
+#, kde-format
+msgid "Show File Git History"
+msgstr ""
+
+#: lib/katemainwindow.cpp:510
+#, kde-format
+msgid "This will close all open documents. Are you sure you want to continue?"
+msgstr ""
+
+#: lib/katemainwindow.cpp:511
+#, fuzzy, kde-format
+#| msgid "Close all open documents."
+msgid "Close all documents"
+msgstr "ปิดเอกสารที่เปิดอยู่ทั้งหมด"
+
+#: lib/katemainwindow.cpp:526
+#, kde-format
+msgid ""
+"This will close all open documents beside the current one. Are you sure you "
+"want to continue?"
+msgstr ""
+
+#: lib/katemainwindow.cpp:527
+#, fuzzy, kde-format
+#| msgid "Close all open documents."
+msgid "Close all documents beside current one"
+msgstr "ปิดเอกสารที่เปิดอยู่ทั้งหมด"
+
+#: lib/katemainwindow.cpp:726
+#, kde-format
+msgid ""
+"This will hide the menu bar completely. You can show it again by typing %1."
+msgstr ""
+
+#: lib/katemainwindow.cpp:729
+#, kde-format
+msgid "Hide menu bar"
+msgstr ""
+
+#: lib/katemainwindow.cpp:829
+#, kde-format
+msgid ""
+"You dropped the directory %1 into Kate. Do you want to open all files "
+"contained in it?"
+msgstr ""
+
+#: lib/katemainwindow.cpp:832
+#, kde-format
+msgctxt "@title:window"
+msgid "Open Files Recursively"
+msgstr ""
+
+#: lib/katemainwindow.cpp:833
+#, fuzzy, kde-format
+#| msgid "Open File"
+msgctxt "@action:button"
+msgid "Open All Files"
+msgstr "เปิดแฟ้ม"
+
+#: lib/katemainwindow.cpp:958
+#, kde-format
+msgid "&Other..."
+msgstr "อื่น ๆ..."
+
+#: lib/katemainwindow.cpp:1083
+#, kde-format
+msgid " [read only]"
+msgstr ""
+
+#: lib/katemainwindow.cpp:1330
+#, kde-format
+msgid "Diff %1"
+msgstr ""
+
+#: lib/katemainwindow.cpp:1332
+#, kde-format
+msgid "Diff %1..%2"
+msgstr ""
+
+#: lib/katemdi.cpp:84
+#, fuzzy, kde-format
+#| msgid "Plugin Manager"
+msgid "Toolview Manager"
+msgstr "ตัวจัดการส่วนเสริม"
+
+#: lib/katemdi.cpp:102
+#, kde-format
+msgid "Sidebar Buttons"
+msgstr ""
+
+#: lib/katemdi.cpp:105
+#, kde-format
+msgid "Tool &Views"
+msgstr "มุมมองเครื่องมือ"
+
+#: lib/katemdi.cpp:107
+#, kde-format
+msgid "Show Side&bars"
+msgstr "แสดงแถบข้าง"
+
+#: lib/katemdi.cpp:115
+#, fuzzy, kde-format
+#| msgid "Tool &Views"
+msgid "Hide All Tool Views"
+msgstr "มุมมองเครื่องมือ"
+
+#: lib/katemdi.cpp:162
+#, kde-format
+msgid "Show %1"
+msgstr "แสดง%1"
+
+#: lib/katemdi.cpp:173
+#, fuzzy, kde-format
+#| msgid "Show %1"
+msgid "Show %1 Button"
+msgstr "แสดง%1"
+
+#: lib/katemdi.cpp:984
+#, fuzzy, kde-format
+#| msgid "Configure"
+msgid "Configure..."
+msgstr "ปรับแต่ง"
+
+#: lib/katemdi.cpp:988
+#, kde-format
+msgid "Hide Button"
+msgstr ""
+
+#: lib/katemdi.cpp:990
+#, kde-format
+msgid "Move To"
+msgstr "ย้ายไปยัง"
+
+#: lib/katemdi.cpp:995
+#, fuzzy, kde-format
+#| msgid "Open Session"
+msgid "Own Section"
+msgstr "เปิดกลุ่มงาน"
+
+#: lib/katemdi.cpp:1001 lib/katemdi.cpp:1009
+#, kde-format
+msgid "One Down"
+msgstr ""
+
+#: lib/katemdi.cpp:1003 lib/katemdi.cpp:1014
+#, kde-format
+msgid "One Right"
+msgstr ""
+
+#: lib/katemdi.cpp:1007
+#, kde-format
+msgid "One Up"
+msgstr ""
+
+#: lib/katemdi.cpp:1012
+#, kde-format
+msgid "One Left"
+msgstr ""
+
+#: lib/katemdi.cpp:1021
+#, kde-format
+msgid "Left Sidebar"
+msgstr "แถบข้างด้านซ้าย"
+
+#: lib/katemdi.cpp:1025
+#, kde-format
+msgid "Right Sidebar"
+msgstr "แถบข้างด้านขวา"
+
+#: lib/katemdi.cpp:1029
+#, kde-format
+msgid "Top Sidebar"
+msgstr "แถบข้างด้านบน"
+
+#: lib/katemdi.cpp:1033
+#, kde-format
+msgid "Bottom Sidebar"
+msgstr "แถบข้างด้านล่าง"
+
+#: lib/katemdi.cpp:1408
+#, kde-format
+msgid ""
+"<qt>You are about to hide the sidebars. With hidden sidebars it is not "
+"possible to directly access the tool views with the mouse anymore, so if you "
+"need to access the sidebars again invoke <b>View &gt; Tool Views &gt; Show "
+"Sidebars</b> in the menu. It is still possible to show/hide the tool views "
+"with the assigned shortcuts.</qt>"
+msgstr ""
+
+#: lib/katemwmodonhddialog.cpp:58
+#, kde-format
+msgid "Documents Modified on Disk"
+msgstr "เอกสารถูกแก้ไขบนดิสก์"
+
+#: lib/katemwmodonhddialog.cpp:74
+#, kde-format
+msgid ""
+"<qt>The documents listed below have changed on disk.<p>Select one or more at "
+"once, and press an action button until the list is empty.</p></qt>"
+msgstr ""
+"<qt>เอกสารที่แสดงในช่องรายการด้านล่างนี้ถูกแก้ไขบนดิสก์ "
+"<p>โปรดเลือกมาหนึ่งรายการหรือมากกว่าก็ได้ แล้วกดปุ่มการกระทำจนกว่าช่องรายการจะว่าง</p></"
+"qt>"
+
+#: lib/katemwmodonhddialog.cpp:84
+#, kde-format
+msgid "Filename"
+msgstr "ชื่อแฟ้ม"
+
+#: lib/katemwmodonhddialog.cpp:84
+#, kde-format
+msgid "Status on Disk"
+msgstr "สถานะบนดิสก์"
+
+#: lib/katemwmodonhddialog.cpp:89
+#, kde-format
+msgid "Modified"
+msgstr "แก้ไขเมื่อ"
+
+#: lib/katemwmodonhddialog.cpp:89
+#, kde-format
+msgid "Created"
+msgstr "สร้างเมื่อ"
+
+#: lib/katemwmodonhddialog.cpp:89
+#, kde-format
+msgid "Deleted"
+msgstr "ลบเมื่อ"
+
+#: lib/katemwmodonhddialog.cpp:104
+#, kde-format
+msgid "&View Difference"
+msgstr "แสดงความแตกต่าง"
+
+#: lib/katemwmodonhddialog.cpp:106
+#, kde-format
+msgid ""
+"Calculates the difference between the editor contents and the disk file for "
+"the selected document, and shows the difference with the default "
+"application. Requires diff(1)."
+msgstr ""
+
+#: lib/katemwmodonhddialog.cpp:117
+#, fuzzy, kde-format
+#| msgid "&Ignore"
+msgid "&Ignore Changes"
+msgstr "&ละทิ้ง"
+
+#: lib/katemwmodonhddialog.cpp:118
+#, kde-format
+msgid "Remove modified flag from selected documents"
+msgstr ""
+
+#: lib/katemwmodonhddialog.cpp:124
+#, fuzzy, kde-format
+#| msgid ""
+#| "Overwrite selected documents, discarding the disk changes and closes the "
+#| "dialog if there are no more unhandled documents."
+msgid "Overwrite selected documents, discarding disk changes"
+msgstr ""
+"เขียนทับเอกสารที่เลือกไว้ และละทิ้งการเปลี่ยนแปลงที่มีบนดิสก์ "
+"แล้วทำการปิดกล่องโต้ตอบหากไม่มีเอกสารที่ยังไม่ได้จัดการอยู่แล้ว"
+
+#: lib/katemwmodonhddialog.cpp:128
+#, kde-format
+msgid "&Reload"
+msgstr "เ&รียกใหม่"
+
+#: lib/katemwmodonhddialog.cpp:130
+#, fuzzy, kde-format
+#| msgid "Close selected open documents."
+msgid "Reload selected documents from disk"
+msgstr "ปิดเอกสารที่เปิดอยู่ตัวที่เลือกไว้"
+
+#: lib/katemwmodonhddialog.cpp:196
+#, kde-format
+msgid ""
+"Could not save the document \n"
+"'%1'"
+msgstr ""
+"ไม่สามารถบันทึกเอกสาร \n"
+"'%1' ได้"
+
+#: lib/katemwmodonhddialog.cpp:329
+#, kde-format
+msgid ""
+"The diff command failed. Please make sure that diff(1) is installed and in "
+"your PATH."
+msgstr ""
+
+#: lib/katemwmodonhddialog.cpp:331
+#, kde-format
+msgid "Error Creating Diff"
+msgstr ""
+
+#: lib/katemwmodonhddialog.cpp:338
+#, kde-format
+msgid "Ignoring amount of white space changed, the files are identical."
+msgstr ""
+
+#: lib/katemwmodonhddialog.cpp:338
+#, kde-format
+msgid "Diff Output"
+msgstr "ผลลัพธ์ของคำสั่ง Diff"
+
+#: lib/kateoutputview.cpp:37
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Copy to Clipboard"
+msgstr ""
+
+#: lib/kateoutputview.cpp:184
+#, fuzzy, kde-format
+#| msgid "&Other..."
+msgid "Filter..."
+msgstr "อื่น ๆ..."
+
+#: lib/kateoutputview.cpp:197
+#, kde-format
+msgid "Clear all messages"
+msgstr ""
+
+#: lib/kateoutputview.cpp:290
+#, kde-format
+msgctxt "@info"
+msgid "Error"
+msgstr ""
+
+#: lib/kateoutputview.cpp:294
+#, kde-format
+msgctxt "@info"
+msgid "Warning"
+msgstr ""
+
+#: lib/kateoutputview.cpp:298
+#, kde-format
+msgctxt "@info"
+msgid "Info"
+msgstr ""
+
+#: lib/kateoutputview.cpp:302
+#, kde-format
+msgctxt "@info"
+msgid "Log"
+msgstr ""
+
+#: lib/katesavemodifieddialog.cpp:77
+#, kde-format
+msgid "Save As (%1)"
+msgstr "บันทึกเป็น (%1)"
+
+#: lib/katesavemodifieddialog.cpp:127
+#, kde-format
+msgid "Save Documents"
+msgstr "บันทึกเอกสาร"
+
+#: lib/katesavemodifieddialog.cpp:135
+#, kde-format
+msgid ""
+"<qt>The following documents have been modified. Do you want to save them "
+"before closing?</qt>"
+msgstr ""
+"<qt>เอกสารต่อไปนี้ถูกแก้ไข คุณต้องการจะทำการบันทึกมันก่อนจะทำการปิดโปรแกรมหรือไม่ ?</qt>"
+
+#: lib/katesavemodifieddialog.cpp:142
+#, kde-format
+msgid "Documents"
+msgstr "เอกสาร"
+
+#: lib/katesavemodifieddialog.cpp:142
+#, kde-format
+msgid "Location"
+msgstr "ตำแหน่ง"
+
+#: lib/katesavemodifieddialog.cpp:152
+#, kde-format
+msgid "Se&lect All"
+msgstr "เลือกทั้ง&หมด"
+
+#: lib/katesavemodifieddialog.cpp:225
+#, kde-format
+msgid ""
+"Data you requested to be saved could not be written. Please choose how you "
+"want to proceed."
+msgstr "ไม่สามารถเขียนข้อมูลตามที่คุณได้ร้องขอมาได้ โปรดเลือกสิ่งที่คุณต้องการจะทำต่อไป"
+
+#: lib/kateurlbar.cpp:1178
+#, kde-format
+msgid "Untitled"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:116
+#, kde-format
+msgid "Split Ve&rtical"
+msgstr "แยกทางแนวตั้ง"
+
+#: lib/kateviewmanager.cpp:120
+#, kde-format
+msgid "Split the currently active view vertically into two views."
+msgstr "แยกมุมมองที่ทำงานอยู่ในปัจจุบันออกเป็นสองมุมมองในทางแนวตั้ง"
+
+#: lib/kateviewmanager.cpp:124
+#, kde-format
+msgid "Split &Horizontal"
+msgstr "แยกทางแนวนอน"
+
+#: lib/kateviewmanager.cpp:128
+#, kde-format
+msgid "Split the currently active view horizontally into two views."
+msgstr "แยกมุมมองที่ทำงานอยู่ในปัจจุบันออกเป็นสองมุมมองในทางแนวนอน"
+
+#: lib/kateviewmanager.cpp:132
+#, kde-format
+msgid "Move Document to New Vertical Split"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:136
+#, fuzzy, kde-format
+#| msgid "Split the currently active view vertically into two views."
+msgid ""
+"Split the currently active view vertically into two views and move the "
+"currently active document to right view."
+msgstr "แยกมุมมองที่ทำงานอยู่ในปัจจุบันออกเป็นสองมุมมองในทางแนวตั้ง"
+
+#: lib/kateviewmanager.cpp:141
+#, kde-format
+msgid "Move Document to New Horizontal Split"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:145
+#, fuzzy, kde-format
+#| msgid "Split the currently active view horizontally into two views."
+msgid ""
+"Split the currently active view horizontally into two views and move the "
+"currently active document to view below."
+msgstr "แยกมุมมองที่ทำงานอยู่ในปัจจุบันออกเป็นสองมุมมองในทางแนวนอน"
+
+#: lib/kateviewmanager.cpp:150
+#, kde-format
+msgid "Cl&ose Current View"
+msgstr "ปิดมุมมองปัจจุบัน"
+
+#: lib/kateviewmanager.cpp:154
+#, fuzzy, kde-format
+#| msgid "Close the currently active splitted view"
+msgid "Close the currently active split view"
+msgstr "ปิดมุมมองที่ถูกแยกออกมาตัวปัจจุบัน"
+
+#: lib/kateviewmanager.cpp:158
+#, fuzzy, kde-format
+#| msgid "Cl&ose Current View"
+msgid "Close Inactive Views"
+msgstr "ปิดมุมมองปัจจุบัน"
+
+#: lib/kateviewmanager.cpp:161
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Close every view but the active one"
+msgstr "ทำให้มุมมองที่แยกออกมาตัวถัดไปเป็นตัวที่กำลังทำงานอยู่"
+
+#: lib/kateviewmanager.cpp:165
+#, fuzzy, kde-format
+#| msgid "Cl&ose Current View"
+msgid "Hide Inactive Views"
+msgstr "ปิดมุมมองปัจจุบัน"
+
+#: lib/kateviewmanager.cpp:169
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Hide every view but the active one"
+msgstr "ทำให้มุมมองที่แยกออกมาตัวถัดไปเป็นตัวที่กำลังทำงานอยู่"
+
+#: lib/kateviewmanager.cpp:172
+#, kde-format
+msgid "Toggle Orientation"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:175
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Toggles the orientation of the current split view"
+msgstr "ทำให้มุมมองที่แยกออกมาตัวถัดไปเป็นตัวที่กำลังทำงานอยู่"
+
+#: lib/kateviewmanager.cpp:178
+#, kde-format
+msgid "Next Split View"
+msgstr "มุมมองแยกถัดไป"
+
+#: lib/kateviewmanager.cpp:183
+#, kde-format
+msgid "Make the next split view the active one."
+msgstr "ทำให้มุมมองที่แยกออกมาตัวถัดไปเป็นตัวที่กำลังทำงานอยู่"
+
+#: lib/kateviewmanager.cpp:186
+#, kde-format
+msgid "Previous Split View"
+msgstr "มุมมองแยกก่อนหน้า"
+
+#: lib/kateviewmanager.cpp:191
+#, kde-format
+msgid "Make the previous split view the active one."
+msgstr "ทำให้มุมมองที่แยกออกมาตัวก่อนหน้าเป็นตัวที่กำลังทำงานอยู่"
+
+#: lib/kateviewmanager.cpp:194
+#, fuzzy, kde-format
+#| msgid "Next Split View"
+msgid "Left Split View"
+msgstr "มุมมองแยกถัดไป"
+
+#: lib/kateviewmanager.cpp:199
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Make the split view intuitively on the left the active one."
+msgstr "ทำให้มุมมองที่แยกออกมาตัวถัดไปเป็นตัวที่กำลังทำงานอยู่"
+
+#: lib/kateviewmanager.cpp:202
+#, fuzzy, kde-format
+#| msgid "Next Split View"
+msgid "Right Split View"
+msgstr "มุมมองแยกถัดไป"
+
+#: lib/kateviewmanager.cpp:207
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Make the split view intuitively on the right the active one."
+msgstr "ทำให้มุมมองที่แยกออกมาตัวถัดไปเป็นตัวที่กำลังทำงานอยู่"
+
+#: lib/kateviewmanager.cpp:210
+#, fuzzy, kde-format
+#| msgid "Split View"
+msgid "Upward Split View"
+msgstr "แยกมุมมอง"
+
+#: lib/kateviewmanager.cpp:215
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Make the split view intuitively upward the active one."
+msgstr "ทำให้มุมมองที่แยกออกมาตัวถัดไปเป็นตัวที่กำลังทำงานอยู่"
+
+#: lib/kateviewmanager.cpp:218
+#, fuzzy, kde-format
+#| msgid "Split View"
+msgid "Downward Split View"
+msgstr "แยกมุมมอง"
+
+#: lib/kateviewmanager.cpp:223
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Make the split view intuitively downward the active one."
+msgstr "ทำให้มุมมองที่แยกออกมาตัวถัดไปเป็นตัวที่กำลังทำงานอยู่"
+
+#: lib/kateviewmanager.cpp:226
+#, kde-format
+msgid "Move Splitter Right"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:229
+#, kde-format
+msgid "Move the splitter of the current view to the right"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:232
+#, kde-format
+msgid "Move Splitter Left"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:235
+#, kde-format
+msgid "Move the splitter of the current view to the left"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:238
+#, kde-format
+msgid "Move Splitter Up"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:241
+#, kde-format
+msgid "Move the splitter of the current view up"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:244
+#, kde-format
+msgid "Move Splitter Down"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:247
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Move the splitter of the current view down"
+msgstr "ทำให้มุมมองที่แยกออกมาตัวถัดไปเป็นตัวที่กำลังทำงานอยู่"
+
+#: lib/kateviewmanager.cpp:250
+#, kde-format
+msgid "Focus Navigation Bar"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:251
+#, kde-format
+msgid "Focus the navigation bar"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:258
+#, kde-format
+msgid "Welcome Page"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:273
+#, kde-format
+msgid "Show the welcome page"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:315 lib/kateviewmanager.cpp:317
+#, kde-format
+msgid "Open File"
+msgstr "เปิดแฟ้ม"
+
+#: lib/kateviewmanager.cpp:336
+#, kde-format
+msgid ""
+"<p>You are attempting to open one or more large files:</p><ul>%1</ul><p>Do "
+"you want to proceed?</p><p><strong>Beware that kate may stop responding for "
+"some time when opening large files.</strong></p>"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:339
+#, fuzzy, kde-format
+#| msgid "Open File"
+msgid "Opening Large File"
+msgstr "เปิดแฟ้ม"
+
+#: lib/kateviewmanager.cpp:1162
+#, kde-format
+msgid "This view may have unsaved work. Do you really want to close it?"
+msgstr ""
+
+#: lib/kateviewspace.cpp:98
+#, kde-format
+msgctxt "indicator for more documents"
+msgid "+%1"
+msgstr ""
+
+#: lib/kateviewspace.cpp:103 lib/kateviewspace.cpp:208
+#, kde-format
+msgid "Click here to switch to the Quick Open view."
+msgstr ""
+
+#: lib/kateviewspace.cpp:119
+#, kde-format
+msgid "Control view space splitting"
+msgstr ""
+
+#: lib/kateviewspace.cpp:209
+#, kde-format
+msgid ""
+"Currently, there is one more document open. To see all open documents, "
+"switch to the Quick Open view by clicking here."
+msgid_plural ""
+"Currently, there are %1 more documents open. To see all open documents, "
+"switch to the Quick Open view by clicking here."
+msgstr[0] ""
+
+#: lib/kateviewspace.cpp:975
+#, fuzzy, kde-format
+#| msgid "Close"
+msgid "Close Tab"
+msgstr "ปิด"
+
+#: lib/kateviewspace.cpp:992
+#, fuzzy, kde-format
+#| msgid "Close Document"
+msgid "&Close Document"
+msgstr "ปิดเอกสาร"
+
+#: lib/kateviewspace.cpp:993
+#, fuzzy, kde-format
+#| msgid "Close Document"
+msgid "Close Other &Documents"
+msgstr "ปิดเอกสาร"
+
+#: lib/kateviewspace.cpp:994
+#, fuzzy, kde-format
+#| msgid "Close all open documents."
+msgid "Close &All Documents"
+msgstr "ปิดเอกสารที่เปิดอยู่ทั้งหมด"
+
+#: lib/kateviewspace.cpp:996
+#, fuzzy, kde-format
+#| msgid "&Document"
+msgid "D&etach Document"
+msgstr "เ&อกสาร"
+
+#: lib/kateviewspace.cpp:997
+#, kde-format
+msgid "Opens the document in a new window and closes it in the current window"
+msgstr ""
+
+#: lib/kateviewspace.cpp:1006
+#, fuzzy, kde-format
+#| msgid "Close the current document."
+msgid "Compare with Active Document"
+msgstr "ปิดเอกสารปัจจุบัน"
+
+#: lib/kateviewspace.cpp:1010
+#, kde-format
+msgid "Diff %1 .. %2"
+msgstr ""
+
+#: lib/kateviewspace.cpp:1015
+#, fuzzy, kde-format
+#| msgid "Close the current document."
+msgid "Compare with Active Document Using"
+msgstr "ปิดเอกสารปัจจุบัน"
+
+#: lib/kateviewspace.cpp:1082
+#, kde-format
+msgid "Could not start program"
+msgstr ""
+
+#: lib/kateviewspace.cpp:1083
+#, kde-format
+msgid "The selected program could not be started. Maybe it is not installed."
+msgstr ""
+
+#: lib/quickopen/katequickopenlineedit.cpp:22
+#, kde-format
+msgid "Quick Open Search (configure via context menu)"
+msgstr ""
+
+#: lib/quickopen/katequickopenlineedit.cpp:61
+#, fuzzy, kde-format
+#| msgid "Projects"
+msgid "All Projects"
+msgstr "โครงงาน"
+
+#: lib/quickopen/katequickopenlineedit.cpp:73
+#, kde-format
+msgid "Current Project"
+msgstr ""
+
+#: lib/quickopen/katequickopenlineedit.cpp:88
+#, kde-format
+msgid "Fuzzy Filtering"
+msgstr ""
+
+#: lib/quickopen/katequickopenlineedit.cpp:99
+#, kde-format
+msgid "Wildcard Filtering"
+msgstr ""
+
+#: lib/session/katesessionmanagedialog.cpp:26
+#, kde-format
+msgid "Manage Sessions"
+msgstr "จัดการกลุ่มงาน"
+
+#: lib/session/katesessionmanagedialog.cpp:62
+#, kde-format
+msgid "Session Chooser"
+msgstr "เลือกกลุ่มงาน"
+
+#: lib/session/katesessionmanagedialog.cpp:146
+#, kde-format
+msgid "Restore"
+msgstr ""
+
+#: lib/session/katesessionmanagedialog.cpp:303
+#, kde-format
+msgid "Session will be deleted on dialog close"
+msgstr ""
+
+#. i18n: ectx: property (placeholderText), widget (QLineEdit, m_filterBox)
+#: lib/session/katesessionmanagedialog.ui:30
+#, fuzzy, kde-format
+#| msgid "Sessions"
+msgid "Filter Sessions"
+msgstr "กลุ่มงาน"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, m_sessionList)
+#: lib/session/katesessionmanagedialog.ui:55
+#, kde-format
+msgid "Session Name"
+msgstr "ชื่อกลุ่มงาน"
+
+#. i18n: The number of open documents
+#. i18n: ectx: property (text), widget (QTreeWidget, m_sessionList)
+#: lib/session/katesessionmanagedialog.ui:60
+#, fuzzy, kde-format
+#| msgid "&File"
+msgid "Files"
+msgstr "แ&ฟ้ม"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, m_sessionList)
+#: lib/session/katesessionmanagedialog.ui:68
+#, kde-format
+msgid "Last opened"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, m_openButton)
+#: lib/session/katesessionmanagedialog.ui:87
+#, kde-format
+msgid "&Open"
+msgstr "เ&ปิด"
+
+#. i18n: ectx: property (text), widget (QPushButton, m_newButton)
+#: lib/session/katesessionmanagedialog.ui:98
+#, kde-format
+msgid "New Session"
+msgstr "กลุ่มงานใหม่"
+
+#. i18n: ectx: property (text), widget (QPushButton, m_templateButton)
+#: lib/session/katesessionmanagedialog.ui:108
+#, kde-format
+msgid "Open as Template"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_dontAskCheckBox)
+#: lib/session/katesessionmanagedialog.ui:115
+#, fuzzy, kde-format
+#| msgid "Do not ask again"
+msgid "Don't ask again"
+msgstr "ไม่ต้องถามอีก"
+
+#. i18n: ectx: property (text), widget (QPushButton, m_copyButton)
+#: lib/session/katesessionmanagedialog.ui:135
+#, kde-format
+msgid "Duplicate..."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, m_renameButton)
+#: lib/session/katesessionmanagedialog.ui:142
+#, kde-format
+msgid "&Rename..."
+msgstr "เปลี่&ยนชื่อ..."
+
+#. i18n: ectx: property (text), widget (QPushButton, m_deleteButton)
+#: lib/session/katesessionmanagedialog.ui:162
+#, fuzzy, kde-format
+#| msgid "Deleted"
+msgid "Delete"
+msgstr "ลบเมื่อ"
+
+#: lib/session/katesessionmanager.cpp:105
+#, kde-format
+msgid ""
+"Internal error: there is more than one instance open for a given session."
+msgstr ""
+
+#: lib/session/katesessionmanager.cpp:112
+#, kde-format
+msgid ""
+"Session '%1' is already opened in another Kate instance. Switch to that or "
+"reopen in this instance?"
+msgstr ""
+
+#: lib/session/katesessionmanager.cpp:114
+#, kde-format
+msgctxt "@action:button"
+msgid "Switch to Instance"
+msgstr ""
+
+#: lib/session/katesessionmanager.cpp:115
+#, kde-format
+msgctxt "@action:button"
+msgid "Reopen"
+msgstr ""
+
+#: lib/session/katesessionmanager.cpp:303
+#, fuzzy, kde-format
+#| msgid ""
+#| "The session could not be renamed to \"%1\", there already exists another "
+#| "session with the same name"
+msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
+msgstr "ไม่สามารถเปลี่ยนชื่อกลุ่มงานไปเป็นชื่อ \"%1\" ได้ เนื่องจากว่ามีกลุ่มงานที่มีชื่อนี้อยู่แล้ว"
+
+#: lib/session/katesessionmanager.cpp:304
+#, kde-format
+msgid "Session Renaming"
+msgstr "การเปลี่ยนชื่อกลุ่มงาน"
+
+#: lib/session/katesessionmanager.cpp:451
+#, kde-format
+msgid "Session name:"
+msgstr "ชื่อกลุ่มงาน:"
+
+#: lib/session/katesessionmanager.cpp:453
+#, fuzzy, kde-format
+#| msgid ""
+#| "There is already an existing session with your chosen name.\n"
+#| "Please choose a different one\n"
+#| "Session name:"
+msgid ""
+"There is already an existing session with your chosen name: %1\n"
+"Please choose a different one."
+msgstr ""
+"มีกลุ่มงานที่มีชื่อเดียวกันกับชื่อที่คุณระบุมาอยู่แล้ว\n"
+"โปรดเลือกชื่ออื่น\n"
+"ที่ต่างจากชื่อกลุ่มงาน:"
+
+#: lib/session/katesessionmanager.cpp:455
+#, kde-format
+msgid "To save a session, you must specify a name."
+msgstr "ในการบันทึกกลุ่มงาน คุณจะต้องระบุชื่อของกลุ่มงานก่อน"
+
+#: lib/session/katesessionmanager.cpp:482
+#, fuzzy, kde-format
+#| msgid "Specify New Name for Session"
+msgid "Specify a name for this session"
+msgstr "ระบุชื่อใหม่ของกลุ่มงาน"
+
+#: lib/session/katesessionmanager.cpp:484
+#, fuzzy, kde-format
+#| msgid "Specify New Name for Session"
+msgid "Specify a new name for session: %1"
+msgstr "ระบุชื่อใหม่ของกลุ่มงาน"
+
+#. i18n: ectx: property (title), widget (QGroupBox, gbAppStartup)
+#: lib/ui/sessionconfigwidget.ui:17
+#, fuzzy, kde-format
+#| msgid "Application Options"
+msgid "Application Startup Behavior"
+msgstr "ตัวเลือกของโปรแกรม"
+
+#. i18n: ectx: property (text), widget (QRadioButton, startNewSessionRadioButton)
+#: lib/ui/sessionconfigwidget.ui:23
+#, kde-format
+msgid "&Start new session"
+msgstr "เริ่มกลุ่มงานใหม่"
+
+#. i18n: ectx: property (text), widget (QRadioButton, loadLastUserSessionRadioButton)
+#: lib/ui/sessionconfigwidget.ui:30
+#, fuzzy, kde-format
+#| msgid "&Load last-used session"
+msgid "&Load last used session"
+msgstr "โหลดกลุ่มงานที่ใช้ล่าสุด"
+
+#. i18n: ectx: property (text), widget (QRadioButton, manuallyChooseSessionRadioButton)
+#: lib/ui/sessionconfigwidget.ui:37
+#, kde-format
+msgid "&Manually choose a session"
+msgstr "เลือกกลุ่มงานด้วยตนเอง"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: lib/ui/sessionconfigwidget.ui:47
+#, fuzzy, kde-format
+#| msgid "Application Options"
+msgid "Application Startup/Shutdown Behavior"
+msgstr "ตัวเลือกของโปรแกรม"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: lib/ui/sessionconfigwidget.ui:55
+#, kde-format
+msgid "Automatically save and restore:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, stashNewUnsavedFiles)
+#: lib/ui/sessionconfigwidget.ui:67
+#, kde-format
+msgid "Newly-created unsaved files"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, stashUnsavedFilesChanges)
+#: lib/ui/sessionconfigwidget.ui:77
+#, kde-format
+msgid "Files with unsaved changes"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, openNewDocumentPerWindow)
+#: lib/ui/sessionconfigwidget.ui:88
+#, fuzzy, kde-format
+#| msgid "Create a new Kate view (a new window with the same document list)."
+msgid "Open new window with fresh untitled document"
+msgstr ""
+"สร้างมุมมองของ Kate ตัวใหม่ (เปิดหน้าต่างใหม่พร้อมกับเปิดรายการเอกสารแบบเดียวกันทั้งหมด)"
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, modCloseAfterLast)
+#: lib/ui/sessionconfigwidget.ui:95
+#, kde-format
+msgid ""
+"If enabled, the application will shutdown when the last file being edited is "
+"closed, otherwise a blank page will open so that you can start a new file."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, modCloseAfterLast)
+#: lib/ui/sessionconfigwidget.ui:98
+#, kde-format
+msgid "Close the application entirely when the last file is closed"
+msgstr ""
+
+#. i18n: ectx: property (title), widget (QGroupBox, gbElements)
+#: lib/ui/sessionconfigwidget.ui:108
+#, fuzzy, kde-format
+#| msgid "Session Management"
+msgid "Session Elements"
+msgstr "การจัดการกลุ่มงาน"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: lib/ui/sessionconfigwidget.ui:114
+#, kde-format
+msgid ""
+"The session contains the list of open documents, recently opened files list, "
+"bookmarks, cursor position etc. When the session is loaded all elements are "
+"restored."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: lib/ui/sessionconfigwidget.ui:126
+#, kde-format
+msgid "Maximum number of entries in recent file list:"
+msgstr ""
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, restoreVC)
+#: lib/ui/sessionconfigwidget.ui:154
+#, kde-format
+msgid ""
+"Check this if you want all your views and frames restored each time you open "
+"the application."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, restoreVC)
+#: lib/ui/sessionconfigwidget.ui:157
+#, kde-format
+msgid "Include &window configuration"
+msgstr "รวมการปรับแต่งค่าของหน้าต่างด้วย"
+
+#. i18n: ectx: property (whatsThis), widget (QGroupBox, saveMetaInfos)
+#: lib/ui/sessionconfigwidget.ui:167
+#, kde-format
+msgid ""
+"Check this if you want document configuration like for example bookmarks to "
+"be saved past editor sessions. The configuration will be restored if the "
+"document has not changed when reopened."
+msgstr ""
+
+#. i18n: ectx: property (title), widget (QGroupBox, saveMetaInfos)
+#: lib/ui/sessionconfigwidget.ui:170
+#, kde-format
+msgid "Keep &meta-information past sessions"
+msgstr "เก็บรักษาข้อมูลกำกับของกลุ่มงานเก่า ๆ ไว้"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: lib/ui/sessionconfigwidget.ui:181
+#, fuzzy, kde-format
+#| msgid "&Delete unused meta-information after:"
+msgid "Delete unused meta-information after:"
+msgstr "ลบข้อมูลกำกับออกหลังจาก:"
+
+#: lib/welcomeview.cpp:69
+#, fuzzy, kde-format
+#| msgid "Location"
+msgid "&Copy Location"
+msgstr "ตำแหน่ง"
+
+#: lib/welcomeview.cpp:97
+#, kde-format
+msgctxt "recent items context menu"
+msgid "&Forget This Item"
+msgstr ""
+
+#: lib/welcomeview.cpp:126
+#, kde-format
+msgid "Welcome"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, welcomeLabel)
+#: lib/welcomeview.cpp:129 lib/welcomeview.ui:158
+#, kde-format
+msgid "Welcome to Kate"
+msgstr ""
+
+#: lib/welcomeview.cpp:129
+#, kde-format
+msgid "Welcome to KWrite"
+msgstr ""
+
+#: lib/welcomeview.cpp:168
+#, fuzzy, kde-format
+#| msgid "Close the current document."
+msgctxt "on welcome screen"
+msgid "No recent documents"
+msgstr "ปิดเอกสารปัจจุบัน"
+
+#. i18n: ectx: property (windowTitle), widget (QWidget, WelcomeView)
+#: lib/welcomeview.ui:17
+#, kde-format
+msgid "Form"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, newDocumentButton)
+#: lib/welcomeview.ui:221
+#, fuzzy, kde-format
+#| msgid "&Document"
+msgctxt "on welcome screen"
+msgid "New Document"
+msgstr "เ&อกสาร"
+
+#. i18n: ectx: property (text), widget (QPushButton, openDocumentButton)
+#: lib/welcomeview.ui:232
+#, fuzzy, kde-format
+#| msgctxt "The number of open documents"
+#| msgid "Open Documents"
+msgctxt "on welcome screen"
+msgid "Open Document..."
+msgstr "เปิดเอกสาร"
+
+#. i18n: ectx: property (text), widget (QPushButton, openFolderButton)
+#: lib/welcomeview.ui:243
+#, fuzzy, kde-format
+#| msgid "Open File"
+msgctxt "on welcome screen"
+msgid "Open Folder..."
+msgstr "เปิดแฟ้ม"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: lib/welcomeview.ui:372
+#, fuzzy, kde-format
+#| msgctxt "The number of open documents"
+#| msgid "Open Documents"
+msgctxt "on welcome screen"
+msgid "Recent documents"
+msgstr "เปิดเอกสาร"
+
+#. i18n: ectx: property (text), widget (QToolButton, forgetAllButton)
+#: lib/welcomeview.ui:382
+#, fuzzy, kde-format
+#| msgid "Clos&e All"
+msgctxt "on welcome screen (recent document list)"
+msgid "Forget All"
+msgstr "ปิดทั้&งหมด"
+
+#, fuzzy
+#~| msgid "&New Window"
+#~ msgid "&New Synchronized Window"
+#~ msgstr "&หน้าต่างใหม่"
+
+#~ msgid "Make Non-Persistent"
+#~ msgstr "ทำให้ไม่ถาวร"
+
+#~ msgid "Make Persistent"
+#~ msgstr "ทำให้เป็นถาวร"
+
+#, fuzzy
+#~| msgid "Filename"
+#~ msgid "Copy File &Path"
+#~ msgstr "ชื่อแฟ้ม"
+
+#~ msgid ""
+#~ "The supposedly temporary file %1 has been modified. Do you want to delete "
+#~ "it anyway?"
+#~ msgstr "แฟ้มชั่วคราว '%1' ถูกแก้ไข คุณต้องการจะลบหรือไม่ ?"
+
+#~ msgid "Delete File?"
+#~ msgstr "จะลบแฟ้มหรือไม่ ?"
+
+#~ msgid "&Quick Open Session"
+#~ msgstr "เปิดกลุ่มงาน&ด่วน..."
+
+#, fuzzy
+#~| msgid "Save Session as &Default..."
+#~ msgid "&Save as defaults"
+#~ msgstr "บันทึกเป็นกลุ่มงาน&ปริยาย..."
+
+#, fuzzy
+#~| msgid "Start Kate with a given session"
+#~ msgid "Start Kate with a new session, implies '-n' (deprecated)."
+#~ msgstr "เริ่มการทำงานของ Kate ด้วยกลุ่มงานที่กำหนด"
+
+#~ msgid "Wa&rn about files modified by foreign processes"
+#~ msgstr "แจ้งเตือนเมื่อแฟ้มถูกแก้ไขจากโพรเซสภายนอก"
+
+#~ msgid "Application '%1' not found."
+#~ msgstr "ไม่พบโปรแกรม '%1'"
+
+#~ msgid "Application not found"
+#~ msgstr "ไม่พบโปรแกรม"
+
+#, fuzzy
+#~| msgid "Filename"
+#~ msgid "Filter By Path"
+#~ msgstr "ชื่อแฟ้ม"
+
+#, fuzzy
+#~| msgid "&Quick Open Session"
+#~ msgid "Quick Open Search"
+#~ msgstr "เปิดกลุ่มงาน&ด่วน..."
+
+#, fuzzy
+#~| msgid "&View"
+#~ msgid "&Match Mode:"
+#~ msgstr "มุ&มมอง"
+
+#, fuzzy
+#~| msgid "Filename"
+#~ msgid "Filepath"
+#~ msgstr "ชื่อแฟ้ม"
+
+#, fuzzy
+#~| msgid "&View"
+#~ msgid "&List Mode:"
+#~ msgstr "มุ&มมอง"
+
+#~ msgid "Application"
+#~ msgstr "โปรแกรม"
+
+#~ msgid "General"
+#~ msgstr "ค่าทั่วไป"
+
+#~ msgid "General Options"
+#~ msgstr "ตัวเลือกทั่วไป"
+
+#~ msgid "Meta-Information"
+#~ msgstr "ข้อมูลกำกับ"
+
+#~ msgid "Editor Component"
+#~ msgstr "ส่วนแก้ไขข้อความ"
+
+#~ msgid "Editor Component Options"
+#~ msgstr "ตัวเลือกของส่วนแก้ไขข้อความ"
+
+#, fuzzy
+#~| msgid "Behavior on Application Startup"
+#~ msgid "Behaviour on Application Startup"
+#~ msgstr "พฤติกรรมเมื่อโปรแกรมเริ่มการทำงาน"
+
+#~ msgid "&About Editor Component"
+#~ msgstr "เกี่ยวกับส่วนแก้ไขข้อความ"
+
+#~ msgctxt "Menu entry Session->New"
+#~ msgid "&New"
+#~ msgstr "สร้างให&ม่"
+
+#, fuzzy
+#~| msgid "Delete File?"
+#~ msgid "Overwrite File?"
+#~ msgstr "จะลบแฟ้มหรือไม่ ?"
+
+#, fuzzy
+#~| msgid "&Rename..."
+#~ msgctxt "@action:inmenu"
+#~ msgid "Rename File..."
+#~ msgstr "เปลี่&ยนชื่อ..."
+
+#, fuzzy
+#~| msgid "Delete File?"
+#~ msgctxt "@action:inmenu"
+#~ msgid "Delete File"
+#~ msgstr "จะลบแฟ้มหรือไม่ ?"
+
+#, fuzzy
+#~| msgid "Configure"
+#~ msgctxt "@title:window"
+#~ msgid "Confirmation"
+#~ msgstr "ปรับแต่ง"
+
+#, fuzzy
+#~| msgid "Close the current document."
+#~ msgid "C&lose Current Document"
+#~ msgstr "ปิดเอกสารปัจจุบัน"
+
+#, fuzzy
+#~| msgid "Do not ask again"
+#~ msgid "Do not ask again"
+#~ msgstr "ไม่ต้องถามอีก"
+
+#~ msgid "Errors/Warnings while opening documents"
+#~ msgstr "เกิดข้อผิดพลาด/การแจ้งเตือน ขณะกำลังทำการเปิดเอกสาร"
+
+#, fuzzy
+#~| msgid "No session selected to open."
+#~ msgid "Clone session settings"
+#~ msgstr "ยังไม่มีการเลือกกลุ่มงานที่จะเปิดใช้"
+
+#, fuzzy
+#~| msgid "Default Session"
+#~ msgid "Delete this session"
+#~ msgstr "กลุ่มงานปริยาย"
+
+#~ msgid "&Always use this choice"
+#~ msgstr "ใช้การเลือกนี้เสมอ"
+
+#~ msgid "Missing Session Name"
+#~ msgstr "ไม่มีชื่อของกลุ่มงาน"
+
+#~ msgid ""
+#~ "The session could not be renamed to \"%1\", there already exists another "
+#~ "session with the same name"
+#~ msgstr "ไม่สามารถเปลี่ยนชื่อกลุ่มงานไปเป็นชื่อ \"%1\" ได้ เนื่องจากว่ามีกลุ่มงานที่มีชื่อนี้อยู่แล้ว"
+
+#~ msgid "Specify New Name for Current Session"
+#~ msgstr "ระบุชื่อใหม่ของกลุ่มงานปัจจุบัน"
+
+#~ msgid "Developer & Highlight wizard"
+#~ msgstr "ผู้พัฒนา และทำตัวช่วยเน้น"
+
+#~ msgid "Comment"
+#~ msgstr "หมายเหตุ"
+
+#, fuzzy
+#~| msgid "Highlighting for Scheme"
+#~ msgid "&Highlight Tab"
+#~ msgstr "ระบบเน้นข้อความสำหรับ Scheme"
+
+#, fuzzy
+#~| msgid "Documents Modified on Disk"
+#~ msgid "All documents written to disk"
+#~ msgstr "เอกสารถูกแก้ไขบนดิสก์"
+
+#, fuzzy
+#~| msgid "Documents Modified on Disk"
+#~ msgid "Document written to disk"
+#~ msgstr "เอกสารถูกแก้ไขบนดิสก์"
+
+#~ msgid "Elements of Sessions"
+#~ msgstr "ส่วนประกอบของกลุ่มงาน"
+
+#~ msgid "This shows useful tips on the use of this application."
+#~ msgstr "ใช้แสดงคำแนะนำที่มีประโยชน์เกี่ยวกับการใช้งานโปรแกรม"
+
+#~ msgid "No Session Selected"
+#~ msgstr "ยังไม่มีการเลือกกลุ่มงาน"
+
+#~ msgid "No session selected to copy."
+#~ msgstr "ยังไม่มีการเลือกกลุ่มงานที่จะคัดลอก"
+
+#~ msgid "Use selected session as template"
+#~ msgstr "ใช้กลุ่มงานที่เลือกไว้เป็นแม่แบบ"
+
+#, fuzzy
+#~| msgid "Document Name"
+#~ msgid "Show Document Name"
+#~ msgstr "ชื่อเอกสาร"
+
+#~ msgid " Line: %1 Col: %2 "
+#~ msgstr " บรรทัด: %1 คอลัมน์: %2 "
+
+#~ msgid " LINE "
+#~ msgstr " บรรทัด "
+
+#~ msgid " INS "
+#~ msgstr " แทรก "
+
+#, fuzzy
+#~| msgid " Line: %1 Col: %2 "
+#~ msgid " Line: %1 of %2 Col: %3 "
+#~ msgstr " บรรทัด: %1 คอลัมน์: %2 "
+
+#~ msgid " BLOCK "
+#~ msgstr " บล็อค "
+
+#~ msgid "Document Name"
+#~ msgstr "ชื่อเอกสาร"
+
+#, fuzzy
+#~| msgid "Document Name"
+#~ msgid "Sort by Document Name"
+#~ msgstr "ชื่อเอกสาร"
+
+#, fuzzy
+#~| msgid "Document List"
+#~ msgid "Document Path"
+#~ msgstr "รายการเอกสาร"
+
+#, fuzzy
+#~| msgid "Opening Order"
+#~ msgid "Sort by Opening Order"
+#~ msgstr "ลำดับการเปิด"
+
+#, fuzzy
+#~| msgid "Open W&ith"
+#~ msgid "Open With"
+#~ msgstr "เปิดใช้&ด้วย"
+
+#, fuzzy
+#~| msgid "Sort &By"
+#~ msgid "Sort By"
+#~ msgstr "เรียงลำดับ&ตาม"
+
+#~ msgid "Background Shading"
+#~ msgstr "เน้นสีพื้นหลัง"
+
+#~ msgid "&Viewed documents' shade:"
+#~ msgstr "สีเน้นของเอกสารที่ถูกแสดง:"
+
+#~ msgid "&Modified documents' shade:"
+#~ msgstr "สีเน้นของเอกสารที่ถูกแก้ไข:"
+
+#~ msgid "&Sort by:"
+#~ msgstr "เรียงลำดับตาม:"
+
+#~ msgid "Url"
+#~ msgstr "ที่อยู่ Url"
+
+#, fuzzy
+#~| msgid "Tool &Views"
+#~ msgid "Tree View"
+#~ msgstr "มุมมองเครื่องมือ"
+
+#, fuzzy
+#~| msgid "Split View"
+#~ msgid "List View"
+#~ msgstr "แยกมุมมอง"
+
+#, fuzzy
+#~| msgid "Sho&w Path"
+#~ msgid "&Show Full Path"
+#~ msgstr "แ&สดงตำแหน่งแฟ้ม"
+
+#~ msgid "Set the color for shading viewed documents."
+#~ msgstr "ตั้งค่าสีสำหรับการเน้นเอกสารที่ถูกแสดงแล้ว"
+
+#, fuzzy
+#~| msgid "Document Name"
+#~ msgid "Document Tree"
+#~ msgstr "ชื่อเอกสาร"
+
+#, fuzzy
+#~| msgid "Close Document"
+#~ msgid "Configure Documents"
+#~ msgstr "ปิดเอกสาร"
+
+#~ msgctxt "@item:inmenu"
+#~ msgid "C++ Source File (GPL)"
+#~ msgstr "แฟ้มต้นฉบับภาษา C++ (GPL)"
+
+#~ msgctxt "@item:inmenu"
+#~ msgid "Source Code"
+#~ msgstr "แฟ้มต้นฉบับ"
+
+#~ msgctxt "@info:whatsthis"
+#~ msgid "A very simple GPL C++ source file"
+#~ msgstr "แฟ้มต้นฉบับภาษา C++ แบบ GPL อย่างง่าย"
+
+#~ msgctxt "@info:credit"
+#~ msgid "Anders Lund <anders@alweb.dk>"
+#~ msgstr "Anders Lund <anders@alweb.dk>"
+
+#~ msgctxt "@item:inmenu"
+#~ msgid "C++ Header (GPL)"
+#~ msgstr "แฟ้มส่วนหัวภาษา C++ (GPL)"
+
+#~ msgctxt "@info:whatsthis"
+#~ msgid "A very simple GPL C++ header file"
+#~ msgstr "แฟ้มส่วนหัวภาษา C++ แบบ GPL อย่างง่าย"
+
+#~ msgctxt "@item:inmenu"
+#~ msgid "C++ Source File (LGPL)"
+#~ msgstr "แฟ้มต้นฉบับภาษา C++ (LGPL)"
+
+#~ msgctxt "@info:whatsthis"
+#~ msgid "A very simple LGPL C++ source file"
+#~ msgstr "แฟ้มต้นฉบับภาษา C++ แบบ LGPL อย่างง่าย"
+
+#~ msgctxt "@item:inmenu"
+#~ msgid "C++ Header (LGPL)"
+#~ msgstr "แฟ้มส่วนหัวภาษา C++ (LGPL)"
+
+#~ msgctxt "@info:whatsthis"
+#~ msgid "A very simple LGPL C++ header file"
+#~ msgstr "แฟ้มต้นฉบับภาษา C++ แบบ LGPL อย่างง่าย"
+
+#~ msgctxt "@item:inmenu"
+#~ msgid "Kate Plugin Docbook Chapter"
+#~ msgstr "ส่วนเสริม Docbook Chapter ของ Kate"
+
+#~ msgctxt "@item:inmenu"
+#~ msgid "Documentation"
+#~ msgstr "ระบบเอกสาร"
+
+#~ msgctxt "@info:whatsthis"
+#~ msgid ""
+#~ "This creates a suitable beginning of a docbook chapter for a Kate plugin."
+#~ msgstr "รายการนี้จะสร้างการเริ่มของ docbook chapter สำหรับส่วนเสริมของ Kate"
+
+#~ msgctxt "@item:inmenu"
+#~ msgid "HTML 4.01 Strict Document"
+#~ msgstr "เอกสารตามข้อกำหนด HTML 4.01"
+
+#~ msgctxt "@item:inmenu"
+#~ msgid "Internet"
+#~ msgstr "อินเทอร์เน็ต"
+
+#~ msgctxt "@info:whatsthis"
+#~ msgid ""
+#~ "This will create a very basic HTML file with the HTML 4.01 strict DTD."
+#~ msgstr ""
+#~ "รายการนี้จะทำการสร้างแฟ้ม HTML แบบพื้นฐานที่สุด โดยใช้ความเข้มงวดของ DTD ตามมาตรฐาน "
+#~ "HTML 4.01"
+
+#~ msgctxt "@item:inmenu"
+#~ msgid "Kate Highlight Definition"
+#~ msgstr "การนิยามการทำตัวเน้นของ Kate"
+
+#~ msgctxt "@info:whatsthis"
+#~ msgid ""
+#~ "This template will create the basics of a kate highlight definition file."
+#~ msgstr "ต้นแบบนี้จะสร้างแฟ้มนิยามการทำตัวเน้นพื้นฐานสำหรับใช้กับ kate"
+
+#~ msgctxt "@info:credit"
+#~ msgid "Dominik Haumann <dhdev@gmx.de>"
+#~ msgstr "Dominik Haumann <dhdev@gmx.de>"
+
+#, fuzzy
+#~| msgid "Location"
+#~ msgid "Action:"
+#~ msgstr "ตำแหน่ง"
+
+#, fuzzy
+#~| msgid "Title"
+#~ msgid "Title:"
+#~ msgstr "เรื่อง"
+
+#, fuzzy
+#~| msgid "Name"
+#~ msgid "Name:"
+#~ msgstr "ชื่อ"
+
+#, fuzzy
+#~| msgid "&Manage..."
+#~ msgid "Manager"
+#~ msgstr "&จัดการ..."
+
+#, fuzzy
+#~| msgid "Plugins"
+#~ msgid "Reload Plugins"
+#~ msgstr "ส่วนเสริมต่าง ๆ"
+
+#, fuzzy
+#~| msgid "Plugins"
+#~ msgid "Python Plugins"
+#~ msgstr "ส่วนเสริมต่าง ๆ"
+
+#, fuzzy
+#~| msgctxt "@item:inmenu"
+#~| msgid "Documentation"
+#~ msgid "Documentation"
+#~ msgstr "ระบบเอกสาร"
+
+#, fuzzy
+#~| msgid "Matteo Merli"
+#~ msgid "Pattern Model"
+#~ msgstr "Matteo Merli"
+
+#, fuzzy
+#~| msgid "Filename"
+#~ msgid "Transform Filenames"
+#~ msgstr "ชื่อแฟ้ม"
+
+#, fuzzy
+#~| msgctxt "@item:inmenu"
+#~| msgid "Kate Highlight Definition"
+#~ msgid "Highlight definitions using etags(1):"
+#~ msgstr "การนิยามการทำตัวเน้นของ Kate"
+
+#, fuzzy
+#~| msgid "&Settings"
+#~ msgid "Settings..."
+#~ msgstr "&ตั้งค่า"
+
+#, fuzzy
+#~| msgid "Configure"
+#~ msgid "Continuation Prompt:"
+#~ msgstr "ปรับแต่ง"
+
+#, fuzzy
+#~| msgid "Highlighting for SQL"
+#~ msgid "Highlighting"
+#~ msgstr "ระบบเน้นข้อความสำหรับ SQL"
+
+#, fuzzy
+#~| msgctxt "@item:inmenu"
+#~| msgid "Internet"
+#~ msgid "Integer:"
+#~ msgstr "อินเทอร์เน็ต"
+
+#, fuzzy
+#~| msgid "&Help"
+#~ msgid "Help:"
+#~ msgstr "ช่วยเ&หลือ"
+
+#, fuzzy
+#~| msgid "Location"
+#~ msgid "Exception:"
+#~ msgstr "ตำแหน่ง"
+
+#, fuzzy
+#~| msgid "Document List"
+#~ msgid "Drop List"
+#~ msgstr "รายการเอกสาร"
+
+#, fuzzy
+#~| msgid "Configure"
+#~ msgid "ConfigWidget"
+#~ msgstr "ปรับแต่ง"
+
+#, fuzzy
+#~| msgid "&View Difference"
+#~ msgid "Reference"
+#~ msgstr "แสดงความแตกต่าง"
+
+#, fuzzy
+#~| msgid "Name"
+#~ msgid "Full Name:"
+#~ msgstr "ชื่อ"
+
+#, fuzzy
+#~| msgid "&Reload"
+#~ msgid "Reload"
+#~ msgstr "เ&รียกใหม่"
+
+#~ msgid "&Save Selected"
+#~ msgstr "&บันทึกเอกสารที่เลือก"
+
+#~ msgid "Do &Not Close"
+#~ msgstr "ไม่ต้อ&งปิด"
+
+#~ msgid ""
+#~ "Removes the modified flag from the selected documents and closes the "
+#~ "dialog if there are no more unhandled documents."
+#~ msgstr ""
+#~ "เอาแฟล็กที่ระบุว่ามีการแก้ไขออกจากเอกสารที่เลือกไว้ "
+#~ "แล้วทำการปิดกล่องโต้ตอบหากไม่มีเอกสารที่ยังไม่ได้จัดการอยู่แล้ว"
+
+#~ msgid ""
+#~ "Reloads the selected documents from disk and closes the dialog if there "
+#~ "are no more unhandled documents."
+#~ msgstr ""
+#~ "โหลดเอกสารที่เลือกไว้ขึ้นมาจากดิสก์ใหม่อีกครั้ง "
+#~ "และปิดกล่องโต้ตอบหากไม่มีเอกสารที่ยังไม่ได้จัดการอยู่แล้ว"
+
+#, fuzzy
+#~| msgid "Create a new document"
+#~ msgid "Cannot go to the document"
+#~ msgstr "สร้างเอกสารใหม่"
+
+#, fuzzy
+#~| msgid "Configure"
+#~ msgid "Configure Tree View"
+#~ msgstr "ปรับแต่ง"
+
+#~ msgctxt "'document name [*]', [*] means modified"
+#~ msgid "%1 [*]"
+#~ msgstr "%1 [*]"
+
+#, fuzzy
+#~| msgid "Plugins"
+#~ msgid "GDB Plugin"
+#~ msgstr "ส่วนเสริมต่าง ๆ"
+
+#, fuzzy
+#~| msgid "General Options"
+#~ msgid "GDB Integration"
+#~ msgstr "ตัวเลือกทั่วไป"
+
+#, fuzzy
+#~| msgid "Tool &Views"
+#~ msgid "Debug View"
+#~ msgstr "มุมมองเครื่องมือ"
+
+#, fuzzy
+#~| msgid "Name"
+#~ msgid "Frame"
+#~ msgstr "ชื่อ"
+
+#, fuzzy
+#~| msgid "Starting Up"
+#~ msgid "Start Debugging"
+#~ msgstr "กำลังเริ่มการทำงาน"
+
+#, fuzzy
+#~| msgid "Move To"
+#~ msgid "Move PC"
+#~ msgstr "ย้ายไปยัง"
+
+#, fuzzy
+#~| msgid "Configure"
+#~ msgid "Continue"
+#~ msgstr "ปรับแต่ง"
+
+#~ msgid "Document List Settings"
+#~ msgstr "ตั้งค่ารายการเอกสาร"
+
+#~ msgid "Close Selected"
+#~ msgstr "ปิดเอกสารที่เลือก"
+
+#~ msgid "Save Selected"
+#~ msgstr "บันทึกเอกสารที่เลือก"
+
+#~ msgid "Save selected open documents."
+#~ msgstr "ปิดเอกสารที่เปิดอยู่ตัวที่เลือกไว้"
+
+#~ msgid "Sort &By"
+#~ msgstr "เรียงลำดับ&ตาม"
+
+#~ msgid "URL"
+#~ msgstr "ที่อยู่ URL"
+
+#~ msgid "Custom"
+#~ msgstr "กำหนดเอง"
+
+#, fuzzy
+#~| msgid "Plugins"
+#~ msgid "Tabify Plugin"
+#~ msgstr "ส่วนเสริมต่าง ๆ"
+
+#, fuzzy
+#~| msgid "Plugins"
+#~ msgid "TabifyPlugin"
+#~ msgstr "ส่วนเสริมต่าง ๆ"
+
+#~ msgid "Filesystem Browser"
+#~ msgstr "เบราว์เซอร์ระบบแฟ้ม"
+
+#~ msgid "&Open..."
+#~ msgstr "เปิ&ด..."
+
+#~ msgid "&Save"
+#~ msgstr "บั&นทึก"
+
+#~ msgid "Save &As..."
+#~ msgstr "บั&นทึกเป็น..."
+
+#~ msgid "Only try to reuse kate instance with this pid"
+#~ msgstr "พยายามใช้ kate ตัวที่กำลังทำงานอยู่ด้วยเลขโพรเซศ (pid) นี้เท่านั้น"
+
+#~ msgid "&Abort Closing"
+#~ msgstr "ยกเ&ลิกการปิด"
+
+#~ msgid "Behavior on Application Exit or Session Switch"
+#~ msgstr "พฤติกรรมเมื่อโปรแกรมจบการทำงานหรือสลับกลุ่มงาน"
+
+#~ msgid "&Do not save session"
+#~ msgstr "ไม่ต้องบันทึกกลุ่มงาน"
+
+#~ msgid "&Ask user"
+#~ msgstr "ถามผู้ใช้ก่อน"
+
+#~ msgid "Use a already running kate instance (if possible)"
+#~ msgstr "ใช้ kate ตัวที่กำลังทำงานอยู่ (หากเป็นไปได้)"
+
+#~ msgid "Save current session?"
+#~ msgstr "บันทึกกลุ่มงานตัวปัจจุบันหรือไม่ ?"
+
+#~ msgid "File Selector Settings"
+#~ msgstr "ตั้งค่าเครื่องมือเลือกแฟ้ม"

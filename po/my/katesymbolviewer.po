@@ -1,0 +1,265 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR This file is copyright:
+# This file is distributed under the same license as the kate package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"PO-Revision-Date: 2021-09-15 05:08+0630\n"
+"Last-Translator: \n"
+"Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
+"Language: my\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 2.2.1\n"
+
+#: bash_parser.cpp:25 cpp_parser.cpp:31 fortran_parser.cpp:37
+#: plugin_katesymbolviewer.cpp:88 python_parser.cpp:21 ruby_parser.cpp:21
+#, kde-format
+msgid "Show Functions"
+msgstr "Functionများ ပြမည်"
+
+#: bash_parser.cpp:28 cpp_parser.cpp:43 fortran_parser.cpp:40 php_parser.cpp:34
+#: python_parser.cpp:39 ruby_parser.cpp:33 tcl_parser.cpp:35
+#, kde-format
+msgid "Functions"
+msgstr "Functions"
+
+#: cpp_parser.cpp:29 plugin_katesymbolviewer.cpp:84
+#, kde-format
+msgid "Show Macros"
+msgstr "Macros ပြမည်"
+
+#: cpp_parser.cpp:30 plugin_katesymbolviewer.cpp:86
+#, kde-format
+msgid "Show Structures"
+msgstr "Structures ပြမည်"
+
+#: cpp_parser.cpp:41
+#, kde-format
+msgid "Macros"
+msgstr "Macros"
+
+#: cpp_parser.cpp:42
+#, kde-format
+msgid "Structures"
+msgstr "Structures"
+
+#: fortran_parser.cpp:35 perl_parser.cpp:23
+#, kde-format
+msgid "Show Subroutines"
+msgstr "Subroutines ပြမည်"
+
+#: fortran_parser.cpp:36
+#, kde-format
+msgid "Show Modules"
+msgstr "Modules ပြမည်"
+
+#: fortran_parser.cpp:41 perl_parser.cpp:35
+#, kde-format
+msgid "Subroutines"
+msgstr "Subroutines"
+
+#: fortran_parser.cpp:42
+#, kde-format
+msgid "Modules"
+msgstr "Modules"
+
+#: perl_parser.cpp:21
+#, kde-format
+msgid "Show Uses"
+msgstr "Uses ပြမည်"
+
+#: perl_parser.cpp:22
+#, kde-format
+msgid "Show Pragmas"
+msgstr "Pragmas ပြမည်"
+
+#: perl_parser.cpp:33
+#, kde-format
+msgid "Uses"
+msgstr "Uses"
+
+#: perl_parser.cpp:34
+#, kde-format
+msgid "Pragmas"
+msgstr "Pragmas"
+
+#: php_parser.cpp:31
+#, kde-format
+msgid "Namespaces"
+msgstr "Namespaces"
+
+#: php_parser.cpp:32
+#, kde-format
+msgid "Defines"
+msgstr "Defines"
+
+#: php_parser.cpp:33 python_parser.cpp:38 ruby_parser.cpp:32
+#, kde-format
+msgid "Classes"
+msgstr "Classes"
+
+#: plugin_katesymbolviewer.cpp:68
+#, kde-format
+msgid "SymbolViewer"
+msgstr "သင်္ကေတကြည့်ရှုကိရိယာ"
+
+#: plugin_katesymbolviewer.cpp:77
+#, kde-format
+msgid "Tree Mode"
+msgstr "သစ်ပင်ပုံစံမြင်ကွင်း"
+
+#: plugin_katesymbolviewer.cpp:79
+#, kde-format
+msgid "Expand Tree"
+msgstr "သစ်ပင် ဖြန့်မည်"
+
+#: plugin_katesymbolviewer.cpp:81
+#, kde-format
+msgid "Show Sorted"
+msgstr "စီထားသည်များ ပြမည်"
+
+#: plugin_katesymbolviewer.cpp:90
+#, kde-format
+msgid "Show Parameters"
+msgstr "Parameters ပြမည်"
+
+#: plugin_katesymbolviewer.cpp:116
+#, kde-format
+msgid "Symbol List"
+msgstr "သင်္ကေတ စာရင်း"
+
+#: plugin_katesymbolviewer.cpp:134
+#, kde-format
+msgid "Filter..."
+msgstr ""
+
+#: plugin_katesymbolviewer.cpp:143
+#, kde-format
+msgctxt "@title:column"
+msgid "Symbols"
+msgstr "သင်္ကေတများ"
+
+#: plugin_katesymbolviewer.cpp:143
+#, kde-format
+msgctxt "@title:column"
+msgid "Position"
+msgstr "တည်နေရာ"
+
+#: plugin_katesymbolviewer.cpp:359
+#, kde-format
+msgid "Sorry, not supported yet!"
+msgstr "စိတ်မကောင်းပါဘူး။ မလုပ်နိုင်ပါ။"
+
+#: plugin_katesymbolviewer.cpp:363
+#, kde-format
+msgid "File type: %1"
+msgstr "ဖိုင်လ်အမျိုးအစား - %1"
+
+#: plugin_katesymbolviewer.cpp:476
+#, kde-format
+msgid "Display functions parameters"
+msgstr "functions ပေးချက်များ ပြမည်"
+
+#: plugin_katesymbolviewer.cpp:477
+#, kde-format
+msgid "Automatically expand nodes in tree mode"
+msgstr "သစ်ပင်ပုံစံမြင်ကွင်းတွင် အမြဲတမ်း ဆုံမှတ်များတွင် ဖြန့်ပါ"
+
+#: plugin_katesymbolviewer.cpp:478
+#, kde-format
+msgid "Always display symbols in tree mode"
+msgstr "သင်္ကေတများကို အမြဲတမ်း သစ်ပင်ပုံစံမြင်ကွင်းတွင် ပြပါ"
+
+#: plugin_katesymbolviewer.cpp:479
+#, kde-format
+msgid "Always sort symbols"
+msgstr "သင်္ကေတများကို အမြဲစီပါ"
+
+#: plugin_katesymbolviewer.cpp:481
+#, kde-format
+msgid "Parser Options"
+msgstr "Parserရွေးချယ်စရာများ"
+
+#: plugin_katesymbolviewer.cpp:509
+#, kde-format
+msgid "Symbol Viewer"
+msgstr "သင်္ကေတ ကြည့်ရှုကိရိယာ"
+
+#: plugin_katesymbolviewer.cpp:514
+#, kde-format
+msgid "Symbol Viewer Configuration Page"
+msgstr "သင်္ကေတ ကြည့်ရှုကိရိယာ ပြင်ဆင်မှုစာမျက်နှာ"
+
+#: python_parser.cpp:22 ruby_parser.cpp:22
+#, kde-format
+msgid "Show Methods"
+msgstr "Methods ပြမည်"
+
+#: python_parser.cpp:23 ruby_parser.cpp:23
+#, kde-format
+msgid "Show Classes"
+msgstr "Classများ ပြမည်"
+
+#: tcl_parser.cpp:36
+#, kde-format
+msgid "Globals"
+msgstr "Globals"
+
+#. i18n: ectx: Menu (view)
+#: ui.rc:6
+#, kde-format
+msgid "&Settings"
+msgstr "&Sဆက်တင်"
+
+#: xml_parser.cpp:25
+#, kde-format
+msgid "Show Tags"
+msgstr "တပ်ဂ်များ ပြမည်"
+
+#: xslt_parser.cpp:22
+#, kde-format
+msgid "Show Params"
+msgstr "Params ပြမည်"
+
+#: xslt_parser.cpp:23
+#, kde-format
+msgid "Show Variables"
+msgstr "ကိန်းရှင်းများ ပြမည်"
+
+#: xslt_parser.cpp:24
+#, kde-format
+msgid "Show Templates"
+msgstr "Templates ပြမည်"
+
+#: xslt_parser.cpp:34
+#, kde-format
+msgid "Params"
+msgstr "Params"
+
+#: xslt_parser.cpp:35
+#, kde-format
+msgid "Variables"
+msgstr "ကိန်းရှင်းများ"
+
+#: xslt_parser.cpp:36
+#, kde-format
+msgid "Templates"
+msgstr "Templates"
+
+#~ msgctxt "NAME OF TRANSLATORS"
+#~ msgid "Your names"
+#~ msgstr "ဇေယျာလွင်"
+
+#~ msgctxt "EMAIL OF TRANSLATORS"
+#~ msgid "Your emails"
+#~ msgstr "lw1nzayar@yandex.com"
+
+#~ msgid "Show Globals"
+#~ msgstr "Globalများပြမည်"

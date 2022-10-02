@@ -1,0 +1,3633 @@
+# translation of kate.po to
+# translation of kate.po to
+# translation of kate.po to
+# translation of kate.po to
+# translation of kate.po to Xhosa
+# K Desktop Environment - kdebase
+# Copyright (C) 2001 translate.org.za
+# Antoinette Dekeni <antoinette@transalate.org.za>, 2001.
+# Lwandle Mgidlana <lwandle@translate.org.za>, 2002
+# Thelma Lungcuzo <thelma@translate.org.za>, 2002
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-10-02 00:49+0000\n"
+"PO-Revision-Date: 2002-11-15 12:44+0200\n"
+"Last-Translator: Thelma Lungcuzo <thelma@translate.org.za>\n"
+"Language-Team: Xhosa <xhosa@translate.org.za>\n"
+"Language: xh\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.0beta2\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Lwandle Mgidlana"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "lwandle@translate.org.za"
+
+#: kate/main.cpp:106
+#, kde-format
+msgid "Kate"
+msgstr "Kate"
+
+#: kate/main.cpp:108
+#, fuzzy, kde-format
+msgid "Kate - Advanced Text Editor"
+msgstr "Kate - Umhleli Wombhalo we Wokubhekiswe phambili we KDE"
+
+#: kate/main.cpp:110 kwrite/main.cpp:89
+#, fuzzy, kde-format
+msgid "(c) 2000-2022 The Kate Authors"
+msgstr "(c) 2000-2001 Ababhali be Kate"
+
+#: kate/main.cpp:156
+#, fuzzy, kde-format
+msgid "Start Kate with a given session."
+msgstr "Intlanganiso"
+
+#: kate/main.cpp:157
+#, fuzzy, kde-format
+#| msgid "Session"
+msgid "session"
+msgstr "Intlanganiso"
+
+#: kate/main.cpp:162
+#, fuzzy, kde-format
+msgid "Start Kate with a new anonymous session, implies '-n'."
+msgstr "Intlanganiso"
+
+#: kate/main.cpp:167
+#, kde-format
+msgid ""
+"Force start of a new kate instance (is ignored if start is used and another "
+"kate instance already has the given session opened), forced if no parameters "
+"and no URLs are given at all."
+msgstr ""
+
+#: kate/main.cpp:173
+#, kde-format
+msgid ""
+"If using an already running kate instance, block until it exits, if URLs "
+"given to open."
+msgstr ""
+
+#: kate/main.cpp:179
+#, kde-format
+msgid ""
+"Only try to reuse kate instance with this pid (is ignored if start is used "
+"and another kate instance already has the given session opened)."
+msgstr ""
+
+#: kate/main.cpp:180
+#, kde-format
+msgid "pid"
+msgstr ""
+
+#: kate/main.cpp:185 kwrite/main.cpp:140
+#, kde-format
+msgid "Set encoding for the file to open."
+msgstr ""
+
+#: kate/main.cpp:186 kwrite/main.cpp:141
+#, kde-format
+msgid "encoding"
+msgstr ""
+
+#: kate/main.cpp:190 kwrite/main.cpp:145
+#, fuzzy, kde-format
+#| msgid "Navigate to this line"
+msgid "Navigate to this line."
+msgstr "Lawulela kulomgca"
+
+#: kate/main.cpp:190 kwrite/main.cpp:145
+#, kde-format
+msgid "line"
+msgstr ""
+
+#: kate/main.cpp:195 kwrite/main.cpp:149
+#, fuzzy, kde-format
+#| msgid "Navigate to this column"
+msgid "Navigate to this column."
+msgstr "Lawula kulomhlathi"
+
+#: kate/main.cpp:196 kwrite/main.cpp:149
+#, fuzzy, kde-format
+msgid "column"
+msgstr "Gq&abaza"
+
+#: kate/main.cpp:200 kwrite/main.cpp:153
+#, kde-format
+msgid "Read the contents of stdin."
+msgstr ""
+
+#: kate/main.cpp:205 kwrite/main.cpp:157
+#, kde-format
+msgid "The files/URLs opened by the application will be deleted after use"
+msgstr ""
+
+#: kate/main.cpp:209 kwrite/main.cpp:161
+#, fuzzy, kde-format
+msgid "Documents to open."
+msgstr "Uxwebhu luzakuvula."
+
+#: kate/main.cpp:209 kwrite/main.cpp:161
+#, kde-format
+msgid "[urls...]"
+msgstr ""
+
+#: kwrite/main.cpp:85
+#, kde-format
+msgid "KWrite"
+msgstr "KWrite"
+
+#: kwrite/main.cpp:87
+#, fuzzy, kde-format
+msgid "KWrite - Text Editor"
+msgstr "Kate - Umhleli Wombhalo we Wokubhekiswe phambili we KDE"
+
+#. i18n: ectx: Menu (file)
+#: lib/data/kateui.rc:6
+#, fuzzy, kde-format
+msgid "&File"
+msgstr "&Iifayile:"
+
+#. i18n: ectx: Menu (file_file_actions)
+#: lib/data/kateui.rc:30
+#, fuzzy, kde-format
+msgid "File Actions"
+msgstr "Isicelo"
+
+#. i18n: ectx: Menu (edit)
+#: lib/data/kateui.rc:43
+#, fuzzy, kde-format
+msgid "&Edit"
+msgstr "&Iposi..."
+
+#. i18n: ectx: Menu (selection)
+#: lib/data/kateui.rc:54
+#, fuzzy, kde-format
+#| msgid "S&elected actions:"
+msgid "&Selection"
+msgstr "Iintshukumo Ezi&khethiweyo:"
+
+#. i18n: ectx: Menu (go)
+#: lib/data/kateui.rc:57
+#, kde-format
+msgid "&Go"
+msgstr ""
+
+#. i18n: ectx: Menu (view)
+#: lib/data/kateui.rc:73
+#, fuzzy, kde-format
+msgid "&View"
+msgstr "Iimboniselo Zesixhobo"
+
+#. i18n: ectx: Menu (view-split)
+#: lib/data/kateui.rc:75 lib/kateviewspace.cpp:118
+#, fuzzy, kde-format
+msgid "Split View"
+msgstr "&Saa Ngokuthe nkqo"
+
+#. i18n: ectx: Menu (tools)
+#: lib/data/kateui.rc:109
+#, fuzzy, kde-format
+msgid "&Tools"
+msgstr "Ibar yesixhobo"
+
+#. i18n: ectx: Menu (settings)
+#: lib/data/kateui.rc:126
+#, fuzzy, kde-format
+msgid "&Settings"
+msgstr "Qalisa kwakhona"
+
+#. i18n: ectx: Menu (help)
+#: lib/data/kateui.rc:134
+#, kde-format
+msgid "&Help"
+msgstr ""
+
+#. i18n: ectx: ToolBar (mainToolBar)
+#: lib/data/kateui.rc:139
+#, fuzzy, kde-format
+msgid "Main Toolbar"
+msgstr "Ibar yesixhobo"
+
+#. i18n: ectx: Menu (viewspace_popup_statusbar)
+#: lib/data/kateui.rc:167
+#, kde-format
+msgid "&Status Bar Items"
+msgstr ""
+
+#: lib/diff/diffeditor.cpp:146
+#, kde-format
+msgid "Change Style"
+msgstr ""
+
+#: lib/diff/diffeditor.cpp:148 lib/kateconfigdialog.cpp:291
+#, kde-format
+msgid "Side By Side"
+msgstr ""
+
+#: lib/diff/diffeditor.cpp:151 lib/kateconfigdialog.cpp:292
+#, fuzzy, kde-format
+msgid "Unified"
+msgstr " - Iguqulwe kancinane"
+
+#: lib/diff/diffeditor.cpp:154 lib/kateconfigdialog.cpp:293
+#, kde-format
+msgid "Raw"
+msgstr ""
+
+#: lib/diff/diffeditor.cpp:183
+#, kde-format
+msgid "Stage Line"
+msgid_plural "Stage Lines"
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/diff/diffeditor.cpp:188
+#, kde-format
+msgid "Stage Hunk"
+msgstr ""
+
+#: lib/diff/diffeditor.cpp:195
+#, kde-format
+msgid "Discard Line"
+msgid_plural "Discard Lines"
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/diff/diffeditor.cpp:200
+#, kde-format
+msgid "Discard Hunk"
+msgstr ""
+
+#: lib/diff/diffeditor.cpp:207
+#, kde-format
+msgid "Unstage Line"
+msgid_plural "Unstage Lines"
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/diff/diffeditor.cpp:212
+#, kde-format
+msgid "Unstage Hunk"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
+#: lib/filehistorywidget.cpp:258 lib/session/katesessionmanagedialog.ui:184
+#, fuzzy, kde-format
+#| msgid "Clos&e All"
+msgid "Close"
+msgstr "&Vala Konke"
+
+#: lib/filehistorywidget.cpp:290
+#, kde-format
+msgid "Failed to get file history: git executable not found in PATH"
+msgstr ""
+
+#: lib/filehistorywidget.cpp:303
+#, kde-format
+msgid "Failed to get file history: %1"
+msgstr ""
+
+#: lib/filehistorywidget.cpp:346 lib/kateconfigdialog.cpp:125
+#, kde-format
+msgid "Error"
+msgstr ""
+
+#: lib/filehistorywidget.cpp:346
+#, kde-format
+msgid "%1 doesn't exist in a git repo."
+msgstr ""
+
+#: lib/filehistorywidget.cpp:346
+#, kde-format
+msgid "Git"
+msgstr ""
+
+#: lib/filehistorywidget.cpp:354
+#, fuzzy, kde-format
+#| msgid "File Selector"
+msgid "File History"
+msgstr "Umkhethi Wefayile"
+
+#: lib/kateapp.cpp:146
+#, kde-format
+msgid "Christoph Cullmann"
+msgstr ""
+
+#: lib/kateapp.cpp:146
+#, fuzzy, kde-format
+msgid "Maintainer"
+msgstr "Umphathi"
+
+#: lib/kateapp.cpp:147
+#, kde-format
+msgid "Dominik Haumann"
+msgstr ""
+
+#: lib/kateapp.cpp:147 lib/kateapp.cpp:150 lib/kateapp.cpp:152
+#: lib/kateapp.cpp:155 lib/kateapp.cpp:161
+#, kde-format
+msgid "Core Developer"
+msgstr "Umbhekisi phambili Wengaphakathi lento/umntu"
+
+#: lib/kateapp.cpp:148
+#, kde-format
+msgid "Sven Brauch"
+msgstr ""
+
+#: lib/kateapp.cpp:148 lib/kateapp.cpp:149 lib/kateapp.cpp:156
+#, fuzzy, kde-format
+#| msgid "Core Developer"
+msgid "Developer"
+msgstr "Umbhekisi phambili Wengaphakathi lento/umntu"
+
+#: lib/kateapp.cpp:149
+#, kde-format
+msgid "Kåre Särs"
+msgstr ""
+
+#: lib/kateapp.cpp:150
+#, kde-format
+msgid "Anders Lund"
+msgstr ""
+
+#: lib/kateapp.cpp:151
+#, kde-format
+msgid "Joseph Wenninger"
+msgstr ""
+
+#: lib/kateapp.cpp:155
+#, kde-format
+msgid "Hamish Rodda"
+msgstr ""
+
+#: lib/kateapp.cpp:156
+#, kde-format
+msgid "Alexander Neundorf"
+msgstr ""
+
+#: lib/kateapp.cpp:157
+#, kde-format
+msgid "Waldo Bastian"
+msgstr ""
+
+#: lib/kateapp.cpp:157
+#, kde-format
+msgid "The cool buffersystem"
+msgstr "Indlela epholileyo yesixhobo sokubulala ungqubano"
+
+#: lib/kateapp.cpp:158
+#, kde-format
+msgid "Charles Samuels"
+msgstr ""
+
+#: lib/kateapp.cpp:158
+#, fuzzy, kde-format
+msgid "The Editing Commands"
+msgstr "&Hlela Umyalelo..."
+
+#: lib/kateapp.cpp:159
+#, kde-format
+msgid "Matt Newell"
+msgstr ""
+
+#: lib/kateapp.cpp:159
+#, kde-format
+msgid "Testing, ..."
+msgstr "Iyavavanya, ..."
+
+#: lib/kateapp.cpp:160
+#, kde-format
+msgid "Michael Bartl"
+msgstr ""
+
+#: lib/kateapp.cpp:160
+#, fuzzy, kde-format
+msgid "Former Core Developer"
+msgstr "Umbhekisi phambili Wengaphakathi lento/umntu"
+
+#: lib/kateapp.cpp:161
+#, kde-format
+msgid "Michael McCallum"
+msgstr ""
+
+#: lib/kateapp.cpp:162
+#, kde-format
+msgid "Jochen Wilhemly"
+msgstr ""
+
+#: lib/kateapp.cpp:162
+#, kde-format
+msgid "KWrite Author"
+msgstr "Umbhali we KWrite"
+
+#: lib/kateapp.cpp:163
+#, kde-format
+msgid "Michael Koch"
+msgstr ""
+
+#: lib/kateapp.cpp:163
+#, kde-format
+msgid "KWrite port to KParts"
+msgstr "KWrite efakelwa kwi KParts"
+
+#: lib/kateapp.cpp:164
+#, kde-format
+msgid "Christian Gebauer"
+msgstr ""
+
+#: lib/kateapp.cpp:165
+#, kde-format
+msgid "Simon Hausmann"
+msgstr ""
+
+#: lib/kateapp.cpp:166
+#, kde-format
+msgid "Glen Parker"
+msgstr ""
+
+#: lib/kateapp.cpp:166
+#, kde-format
+msgid "KWrite Undo History, Kspell integration"
+msgstr "KWrite Imbali Yokungenziwa, Okupheleleyo kwe Kspell"
+
+#: lib/kateapp.cpp:167
+#, kde-format
+msgid "Scott Manson"
+msgstr ""
+
+#: lib/kateapp.cpp:167
+#, kde-format
+msgid "KWrite XML Syntax highlighting support"
+msgstr "KWrite XML Inkxaso yophawu ngokwesivakalisi"
+
+#: lib/kateapp.cpp:168
+#, kde-format
+msgid "John Firebaugh"
+msgstr ""
+
+#: lib/kateapp.cpp:168
+#, kde-format
+msgid "Patches and more"
+msgstr "Iziziba nokunye"
+
+#: lib/kateapp.cpp:169
+#, kde-format
+msgid "Pablo Martín"
+msgstr ""
+
+#: lib/kateapp.cpp:170
+#, fuzzy, kde-format
+#| msgid "Plugins"
+msgid "Python Plugin Developer"
+msgstr "Iiplagi ezifakiweyo"
+
+#: lib/kateapp.cpp:173
+#, kde-format
+msgid "Gerald Senarclens de Grancy"
+msgstr ""
+
+#: lib/kateapp.cpp:174
+#, kde-format
+msgid "QA and Scripting"
+msgstr ""
+
+#: lib/kateapp.cpp:178
+#, kde-format
+msgid "Tyson Tan"
+msgstr ""
+
+#: lib/kateapp.cpp:179
+#, kde-format
+msgid "Designer of Kate's mascot 'Kate the Cyber Woodpecker'"
+msgstr ""
+
+#: lib/kateapp.cpp:182
+#, kde-format
+msgid "Matteo Merli"
+msgstr ""
+
+#: lib/kateapp.cpp:182
+#, kde-format
+msgid "Highlighting for RPM Spec-Files, Perl, Diff and more"
+msgstr "Yenza uphawu lwe RPM Spec-iifayile, Perl, Diff nokunye"
+
+#: lib/kateapp.cpp:183
+#, kde-format
+msgid "Rocky Scaletta"
+msgstr ""
+
+#: lib/kateapp.cpp:183
+#, kde-format
+msgid "Highlighting for VHDL"
+msgstr "Yenza uphawu lwe VHDL"
+
+#: lib/kateapp.cpp:184
+#, kde-format
+msgid "Yury Lebedev"
+msgstr ""
+
+#: lib/kateapp.cpp:184
+#, kde-format
+msgid "Highlighting for SQL"
+msgstr "Yenza uphawu lwe SQL"
+
+#: lib/kateapp.cpp:185
+#, kde-format
+msgid "Chris Ross"
+msgstr ""
+
+#: lib/kateapp.cpp:185
+#, kde-format
+msgid "Highlighting for Ferite"
+msgstr "Yenza uphawu lwe Ferite"
+
+#: lib/kateapp.cpp:186
+#, kde-format
+msgid "Nick Roux"
+msgstr ""
+
+#: lib/kateapp.cpp:186
+#, kde-format
+msgid "Highlighting for ILERPG"
+msgstr "Yenza uphawu lwe ILERPG"
+
+#: lib/kateapp.cpp:187
+#, kde-format
+msgid "Carsten Niehaus"
+msgstr ""
+
+#: lib/kateapp.cpp:187
+#, kde-format
+msgid "Highlighting for LaTeX"
+msgstr "Yenza uphawu lwe LaTex"
+
+#: lib/kateapp.cpp:188
+#, kde-format
+msgid "Per Wigren"
+msgstr ""
+
+#: lib/kateapp.cpp:188
+#, kde-format
+msgid "Highlighting for Makefiles, Python"
+msgstr "Iphawulela Iifayile zokwenza, Python"
+
+#: lib/kateapp.cpp:189
+#, kde-format
+msgid "Jan Fritz"
+msgstr ""
+
+#: lib/kateapp.cpp:189
+#, kde-format
+msgid "Highlighting for Python"
+msgstr "Yenza uphawu lwe Python"
+
+#: lib/kateapp.cpp:190
+#, kde-format
+msgid "Daniel Naber"
+msgstr ""
+
+#: lib/kateapp.cpp:191
+#, kde-format
+msgid "Roland Pabel"
+msgstr ""
+
+#: lib/kateapp.cpp:191
+#, kde-format
+msgid "Highlighting for Scheme"
+msgstr "Yenza uphawu Lodweliso"
+
+#: lib/kateapp.cpp:192
+#, kde-format
+msgid "Cristi Dumitrescu"
+msgstr ""
+
+#: lib/kateapp.cpp:192
+#, kde-format
+msgid "PHP Keyword/Datatype list"
+msgstr "PHP Igama elingundoqo/Uluhlu lohlobo lwe data"
+
+#: lib/kateapp.cpp:193
+#, kde-format
+msgid "Carsten Pfeiffer"
+msgstr ""
+
+#: lib/kateapp.cpp:193
+#, kde-format
+msgid "Very nice help"
+msgstr "Uncedo oluhle kakhulu"
+
+#: lib/kateapp.cpp:194
+#, kde-format
+msgid "All people who have contributed and I have forgotten to mention"
+msgstr "Bonke abantu abanikeleyo kwaye endibalibeleyo ukubakhankanya"
+
+#: lib/kateapp.cpp:314
+#, kde-format
+msgid "Folders can only be opened when the projects plugin is enabled"
+msgstr ""
+
+#: lib/kateapp.cpp:417
+#, kde-format
+msgid ""
+"The file '%1' could not be opened: it is not a normal file, it is a folder."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:51
+#, kde-format
+msgid "Configure"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:103
+#, kde-format
+msgid "Behavior"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:104
+#, fuzzy, kde-format
+msgid "Behavior Options"
+msgstr "Iinketho Eziqhelekileyo"
+
+#: lib/kateconfigdialog.cpp:111
+#, kde-format
+msgid "&Behavior"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:120
+#, kde-format
+msgid "&Switch to output view upon message type:"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:125
+#, kde-format
+msgid "Never"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:125 lib/kateconfigdialog.cpp:623
+#, kde-format
+msgid "Warning"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:125
+#, kde-format
+msgid "Info"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:125
+#, kde-format
+msgid "Log"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:131
+#, kde-format
+msgid "&Limit output view history:"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:137 lib/kateconfigdialog.cpp:203
+#, kde-format
+msgid "Unlimited"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:144
+#, kde-format
+msgid "Use a separate &dialog for handling externally modified files"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:148
+#, kde-format
+msgid ""
+"If enabled, a modal dialog will be used to show all of the modified files. "
+"If not enabled, you will be individually asked what to do for each modified "
+"file only when that file's view receives focus."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:157
+#, fuzzy, kde-format
+msgid "&Sidebars"
+msgstr "Bonisa &Amanani Elayini"
+
+#: lib/kateconfigdialog.cpp:160
+#, kde-format
+msgid "Sync section size with tab positions"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:164
+#, kde-format
+msgid ""
+"When enabled the section size will be determined by the position of the "
+"tabs.\n"
+"This option does not affect the bottom sidebar."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:169
+#, kde-format
+msgid "Show text for left and right sidebar buttons"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:174
+#, kde-format
+msgid "Icon size for left and right sidebar buttons"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:193
+#, fuzzy, kde-format
+msgid "&Tabs"
+msgstr "Bonisa &Amanani Elayini"
+
+#: lib/kateconfigdialog.cpp:197
+#, kde-format
+msgid "&Limit number of tabs:"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:208
+#, kde-format
+msgid ""
+"A high limit can increase the window size, please enable 'Allow tab "
+"scrolling' to prevent it. Unlimited tabs are always scrollable."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:212
+#, kde-format
+msgid "&Auto hide tabs"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:214
+#, kde-format
+msgid "When checked tabs will be hidden if only one document is open."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:218
+#, kde-format
+msgid "&Show close button"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:220
+#, kde-format
+msgid "When checked each tab will display a close button."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:224
+#, kde-format
+msgid "&Expand tabs"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:226
+#, kde-format
+msgid "When checked tabs take as much size as possible."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:230
+#, fuzzy, kde-format
+#| msgid "Create a new document"
+msgid "&Double click opens a new document"
+msgstr "Yenza uxwebhu olutsha"
+
+#: lib/kateconfigdialog.cpp:232
+#, kde-format
+msgid "When checked double click opens a new document."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:236
+#, fuzzy, kde-format
+#| msgid "Close all open documents."
+msgid "&Middle click closes a document"
+msgstr "Vala onke amaxwebhu avuliweyo."
+
+#: lib/kateconfigdialog.cpp:238
+#, kde-format
+msgid "When checked middle click closes a document."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:242
+#, kde-format
+msgid "Allow tab scrolling"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:244
+#, kde-format
+msgid ""
+"When checked this will allow scrolling in tab bar when number of tabs is "
+"large."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:248
+#, kde-format
+msgid "Elide tab text"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:250
+#, kde-format
+msgid "When checked tab text might be elided if its too long."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:256
+#, kde-format
+msgid "&Mouse"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:261
+#, kde-format
+msgid "&Backward button pressed:"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:266
+#, fuzzy, kde-format
+msgid "Previous tab"
+msgstr "Imboniselo Edlulileyo"
+
+#: lib/kateconfigdialog.cpp:266
+#, kde-format
+msgid "History back"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:272
+#, kde-format
+msgid "&Forward button pressed:"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:277
+#, fuzzy, kde-format
+msgid "Next tab"
+msgstr "&Vala Okwangoku"
+
+#: lib/kateconfigdialog.cpp:277
+#, kde-format
+msgid "History forward"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:285
+#, kde-format
+msgid "Diff"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:294
+#, kde-format
+msgid "Diff Style:"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:308
+#, fuzzy, kde-format
+msgid "Session"
+msgstr "Intlanganiso"
+
+#: lib/kateconfigdialog.cpp:309
+#, fuzzy, kde-format
+msgid "Session Management"
+msgstr "Intlanganiso"
+
+#: lib/kateconfigdialog.cpp:320
+#, kde-format
+msgctxt "The special case of 'Delete unused meta-information after'"
+msgid "(never)"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:321
+#, kde-format
+msgctxt "The suffix of 'Delete unused meta-information after'"
+msgid " day"
+msgid_plural " days"
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/kateconfigdialog.cpp:384
+#, kde-format
+msgid "Plugins"
+msgstr "Iiplagi ezifakiweyo"
+
+#: lib/kateconfigdialog.cpp:385
+#, kde-format
+msgid "Plugin Manager"
+msgstr "Umphathi Weplagi Yangaphakathi"
+
+#: lib/kateconfigdialog.cpp:403 lib/kateconfigdialog.cpp:404
+#, kde-format
+msgid "User Feedback"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:622
+#, kde-format
+msgid ""
+"You have unsaved changes. Do you want to apply the changes or discard them?"
+msgstr ""
+
+#: lib/kateconfigplugindialogpage.cpp:66
+#, kde-format
+msgid "Name"
+msgstr "Igama"
+
+#: lib/kateconfigplugindialogpage.cpp:66
+#, fuzzy, kde-format
+msgid "Description"
+msgstr "Amagama ashicilelwe pha&ntsi e KDE"
+
+#: lib/kateconfigplugindialogpage.cpp:69
+#, kde-format
+msgid ""
+"Here you can see all available Kate plugins. Those with a check mark are "
+"loaded, and will be loaded again the next time Kate is started."
+msgstr ""
+"uuApha uyakwazi ukubona zonke i plugins ze Kate ezifumanekayo. Zilayishiwe "
+"ezinophawu lokukhangela, kwaye zizakulayishwa kwakhona kwixesha elizayo xa i "
+"Kate iqaliswa."
+
+#: lib/katedocmanager.cpp:264
+#, kde-format
+msgid ""
+"<p>The document '%1' has been modified, but not saved.</p><p>Do you want to "
+"save your changes or discard them?</p>"
+msgstr ""
+
+#: lib/katedocmanager.cpp:267
+#, fuzzy, kde-format
+msgid "Close Document"
+msgstr "&Uxwebhu"
+
+#: lib/katedocmanager.cpp:276
+#, fuzzy, kde-format
+msgid "Save As"
+msgstr "&Gcina Konke"
+
+#: lib/katedocmanager.cpp:294 lib/katemainwindow.cpp:583
+#, kde-format
+msgid "New file opened while trying to close Kate, closing aborted."
+msgstr ""
+
+#: lib/katedocmanager.cpp:294 lib/katemainwindow.cpp:583
+#, kde-format
+msgid "Closing Aborted"
+msgstr ""
+
+#: lib/katedocmanager.cpp:372
+#, fuzzy, kde-format
+msgid "Starting Up"
+msgstr "Qalisa kwakhona"
+
+#: lib/katedocmanager.cpp:373
+#, kde-format
+msgid "Reopening files from the last session..."
+msgstr "Ivula kwakhona iifayile ezivela kwintlanganiso yokugqibela..."
+
+#: lib/katefileactions.cpp:67
+#, fuzzy, kde-format
+msgid "Rename file"
+msgstr "&Template:"
+
+#: lib/katefileactions.cpp:68
+#, fuzzy, kde-format
+msgid "New file name"
+msgstr "Intlanganiso"
+
+#: lib/katefileactions.cpp:105
+#, kde-format
+msgid "File \"%1\" could not be moved to \"%2\""
+msgstr ""
+
+#: lib/katefileactions.cpp:129
+#, kde-format
+msgid "Do you really want to delete file \"%1\"?"
+msgstr ""
+
+#: lib/katefileactions.cpp:130
+#, fuzzy, kde-format
+msgid "Delete file"
+msgstr "&Template:"
+
+#: lib/katefileactions.cpp:147
+#, kde-format
+msgid "File \"%1\" could not be deleted."
+msgstr ""
+
+#: lib/katemainwindow.cpp:212
+#, kde-format
+msgid "Use this command to show or hide the view's statusbar"
+msgstr "Sebenzisa umyalelo ukubonisa okanye ukufihla iwonga le bar yemboniselo"
+
+#: lib/katemainwindow.cpp:215
+#, fuzzy, kde-format
+msgid "Show &Tabs"
+msgstr "Bonisa &Amanani Elayini"
+
+#: lib/katemainwindow.cpp:218
+#, fuzzy, kde-format
+#| msgid "Use this command to show or hide the view's statusbar"
+msgid "Use this command to show or hide the tabs for the views"
+msgstr "Sebenzisa umyalelo ukubonisa okanye ukufihla iwonga le bar yemboniselo"
+
+#: lib/katemainwindow.cpp:220
+#, fuzzy, kde-format
+msgid "Sho&w Path in Titlebar"
+msgstr "&Bonisa umendo opheleleyo kwisihloko"
+
+#: lib/katemainwindow.cpp:223
+#, kde-format
+msgid "Show the complete document path in the window caption"
+msgstr "Bonisa umendo opheleleyo woxwebhu kumzobo we window"
+
+#: lib/katemainwindow.cpp:225
+#, kde-format
+msgid "Show Navigation Bar"
+msgstr ""
+
+#: lib/katemainwindow.cpp:235
+#, kde-format
+msgid "&Window Color Scheme"
+msgstr ""
+
+#: lib/katemainwindow.cpp:239
+#, fuzzy, kde-format
+msgid "&Previous Tab"
+msgstr "Imboniselo Edlulileyo"
+
+#: lib/katemainwindow.cpp:240
+#, kde-format
+msgid "Focus the previous tab."
+msgstr ""
+
+#: lib/katemainwindow.cpp:245
+#, fuzzy, kde-format
+msgid "&Next Tab"
+msgstr "&Vala Okwangoku"
+
+#: lib/katemainwindow.cpp:246
+#, fuzzy, kde-format
+msgid "Focus the next tab."
+msgstr "Vala uxwebhu lwangoku."
+
+#: lib/katemainwindow.cpp:253
+#, fuzzy, kde-format
+msgid "&Quick Open"
+msgstr "Intlanganiso"
+
+#: lib/katemainwindow.cpp:256
+#, fuzzy, kde-format
+msgid "Open a form to quick open documents."
+msgstr "Vala onke amaxwebhu avuliweyo."
+
+#: lib/katemainwindow.cpp:277
+#, kde-format
+msgid "Output"
+msgstr ""
+
+#: lib/katemainwindow.cpp:287
+#, kde-format
+msgid "Create a new document"
+msgstr "Yenza uxwebhu olutsha"
+
+#: lib/katemainwindow.cpp:290
+#, kde-format
+msgid "Open an existing document for editing"
+msgstr "Vula uxwebhu olukhoyo xa uhlela"
+
+#: lib/katemainwindow.cpp:295
+#, kde-format
+msgid ""
+"This lists files which you have opened recently, and allows you to easily "
+"open them again."
+msgstr ""
+"Udweliso leefayile osandukulivula, likuvumela ukuba uzivulu lula kwixesha "
+"elizayo."
+
+#: lib/katemainwindow.cpp:299
+#, kde-format
+msgid "Save A&ll"
+msgstr "&Gcina Konke"
+
+#: lib/katemainwindow.cpp:302
+#, fuzzy, kde-format
+msgid "Save all open, modified documents to disk."
+msgstr "Gcina onke amaxwebhu avulekileyo, naguqulwe kancincane kwi diski."
+
+#: lib/katemainwindow.cpp:305
+#, kde-format
+msgid "&Reload All"
+msgstr ""
+
+#: lib/katemainwindow.cpp:307
+#, fuzzy, kde-format
+#| msgid "Close all open documents."
+msgid "Reload all open documents."
+msgstr "Vala onke amaxwebhu avuliweyo."
+
+#: lib/katemainwindow.cpp:311
+#, fuzzy, kde-format
+msgid "Copy Location"
+msgstr "Isicelo"
+
+#: lib/katemainwindow.cpp:316 lib/katemainwindow.cpp:325
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Copies the file path of the current file to clipboard."
+msgstr "Yenza imboniselo yolwahlulo olulandlelayo kwesebenzayo."
+
+#: lib/katemainwindow.cpp:320 lib/welcomeview.cpp:82
+#, kde-format
+msgid "&Open Containing Folder"
+msgstr ""
+
+#: lib/katemainwindow.cpp:329
+#, fuzzy, kde-format
+msgctxt "@action:inmenu"
+msgid "Rename..."
+msgstr "&Iposi..."
+
+#: lib/katemainwindow.cpp:334
+#, fuzzy, kde-format
+#| msgid "Create another view containing the current document"
+msgid "Renames the file belonging to the current document."
+msgstr "Yenza enye imboniselo equlathe uxwebhu lwangoku"
+
+#: lib/katemainwindow.cpp:338
+#, fuzzy, kde-format
+msgctxt "@action:inmenu"
+msgid "Delete"
+msgstr "&Template:"
+
+#: lib/katemainwindow.cpp:343 lib/katemainwindow.cpp:352
+#, fuzzy, kde-format
+#| msgid "Create another view containing the current document"
+msgid "Deletes the file belonging to the current document."
+msgstr "Yenza enye imboniselo equlathe uxwebhu lwangoku"
+
+#: lib/katemainwindow.cpp:347
+#, kde-format
+msgid "Properties"
+msgstr ""
+
+#: lib/katemainwindow.cpp:355 lib/katemainwindow.cpp:357
+#, kde-format
+msgid "Compare"
+msgstr ""
+
+#: lib/katemainwindow.cpp:357
+#, fuzzy, kde-format
+#| msgid "Use this command to create a new document"
+msgid "Use the Tabbar context menu to compare two documents"
+msgstr "Sebenzisa lomyalelo ukwenza uxwebhu olutsha"
+
+#: lib/katemainwindow.cpp:359
+#, fuzzy, kde-format
+msgid "Shows a hint how to compare documents."
+msgstr "Vala onke amaxwebhu avuliweyo."
+
+#: lib/katemainwindow.cpp:362
+#, fuzzy, kde-format
+msgid "Close Orphaned"
+msgstr "Vala uxwebhu lwangoku."
+
+#: lib/katemainwindow.cpp:364
+#, kde-format
+msgid ""
+"Close all documents in the file list that could not be reopened, because "
+"they are not accessible anymore."
+msgstr ""
+
+#: lib/katemainwindow.cpp:368
+#, kde-format
+msgid "Close the current document."
+msgstr "Vala uxwebhu lwangoku."
+
+#: lib/katemainwindow.cpp:371
+#, fuzzy, kde-format
+msgid "Close Other"
+msgstr "Vala uxwebhu lwangoku."
+
+#: lib/katemainwindow.cpp:373
+#, fuzzy, kde-format
+msgid "Close other open documents."
+msgstr "Vala onke amaxwebhu avuliweyo."
+
+#: lib/katemainwindow.cpp:376
+#, kde-format
+msgid "Clos&e All"
+msgstr "&Vala Konke"
+
+#: lib/katemainwindow.cpp:378
+#, kde-format
+msgid "Close all open documents."
+msgstr "Vala onke amaxwebhu avuliweyo."
+
+#: lib/katemainwindow.cpp:383
+#, kde-format
+msgid "Close this window"
+msgstr "Vala le window"
+
+#: lib/katemainwindow.cpp:387
+#, fuzzy, kde-format
+msgid "&New Window"
+msgstr "Intlanganiso"
+
+#: lib/katemainwindow.cpp:389
+#, fuzzy, kde-format
+#| msgid "Create a new document"
+msgid "Create a new window."
+msgstr "Yenza uxwebhu olutsha"
+
+#: lib/katemainwindow.cpp:396
+#, kde-format
+msgid "Open W&ith"
+msgstr "&Vula Nge"
+
+#: lib/katemainwindow.cpp:398
+#, kde-format
+msgid ""
+"Open the current document using another application registered for its file "
+"type, or an application of your choice."
+msgstr ""
+"Vula uxwebhu lwangoku usebenzise esinye isicelo esibhalisiweyo koludidi lwe "
+"fayile, okanye isicelo sakho osithandayo."
+
+#: lib/katemainwindow.cpp:406
+#, kde-format
+msgid "Configure the application's keyboard shortcut assignments."
+msgstr "Qwalasela uyalelo lwendlela ezimfutshane zebhodi yesitshixo yesicelo."
+
+#: lib/katemainwindow.cpp:409
+#, kde-format
+msgid "Configure which items should appear in the toolbar(s)."
+msgstr "Qwalaselo owuphi umba ozakubonakala kwisixhobo se bar(ii)."
+
+#: lib/katemainwindow.cpp:412
+#, kde-format
+msgid ""
+"Configure various aspects of this application and the editing component."
+msgstr "Qwalsela indawo ezithile zesicelo uhlele ingxenye."
+
+#: lib/katemainwindow.cpp:416
+#, kde-format
+msgid "&Plugins Handbook"
+msgstr ""
+
+#: lib/katemainwindow.cpp:418
+#, kde-format
+msgid "This shows help files for various available plugins."
+msgstr ""
+"Oku kubonisa iifayile zoncedo kwi plagi zangaphakathi eziliqela ezikhona."
+
+#: lib/katemainwindow.cpp:435
+#, fuzzy, kde-format
+msgid "Sess&ions"
+msgstr "Intlanganiso"
+
+#: lib/katemainwindow.cpp:441
+#, fuzzy, kde-format
+msgctxt "Menu entry Session->New Session"
+msgid "&New Session"
+msgstr "Intlanganiso"
+
+#: lib/katemainwindow.cpp:446
+#, fuzzy, kde-format
+msgid "&Recent Sessions"
+msgstr "Intlanganiso"
+
+#: lib/katemainwindow.cpp:451
+#, fuzzy, kde-format
+msgid "&All Sessions"
+msgstr "Intlanganiso"
+
+#: lib/katemainwindow.cpp:458
+#, fuzzy, kde-format
+msgid "&Manage Sessions..."
+msgstr "Intlanganiso"
+
+#: lib/katemainwindow.cpp:467
+#, fuzzy, kde-format
+msgid "&Save Session"
+msgstr "Intlanganiso"
+
+#: lib/katemainwindow.cpp:473
+#, fuzzy, kde-format
+msgid "Save Session &As..."
+msgstr "Intlanganiso"
+
+#: lib/katemainwindow.cpp:480 lib/kateviewspace.cpp:58
+#, fuzzy, kde-format
+#| msgid "Restore loca&tion"
+msgid "Go to Previous Location"
+msgstr "Buyisela kwakhona indawo eku&yo"
+
+#: lib/katemainwindow.cpp:488 lib/kateviewspace.cpp:71
+#, fuzzy, kde-format
+msgid "Go to Next Location"
+msgstr "Buyisela kwakhona indawo eku&yo"
+
+#: lib/katemainwindow.cpp:495
+#, kde-format
+msgid "Show File Git History"
+msgstr ""
+
+#: lib/katemainwindow.cpp:510
+#, kde-format
+msgid "This will close all open documents. Are you sure you want to continue?"
+msgstr ""
+
+#: lib/katemainwindow.cpp:511
+#, fuzzy, kde-format
+#| msgid "Close all open documents."
+msgid "Close all documents"
+msgstr "Vala onke amaxwebhu avuliweyo."
+
+#: lib/katemainwindow.cpp:526
+#, kde-format
+msgid ""
+"This will close all open documents beside the current one. Are you sure you "
+"want to continue?"
+msgstr ""
+
+#: lib/katemainwindow.cpp:527
+#, fuzzy, kde-format
+#| msgid "Close all open documents."
+msgid "Close all documents beside current one"
+msgstr "Vala onke amaxwebhu avuliweyo."
+
+#: lib/katemainwindow.cpp:726
+#, kde-format
+msgid ""
+"This will hide the menu bar completely. You can show it again by typing %1."
+msgstr ""
+
+#: lib/katemainwindow.cpp:729
+#, kde-format
+msgid "Hide menu bar"
+msgstr ""
+
+#: lib/katemainwindow.cpp:829
+#, kde-format
+msgid ""
+"You dropped the directory %1 into Kate. Do you want to open all files "
+"contained in it?"
+msgstr ""
+
+#: lib/katemainwindow.cpp:832
+#, kde-format
+msgctxt "@title:window"
+msgid "Open Files Recursively"
+msgstr ""
+
+#: lib/katemainwindow.cpp:833
+#, fuzzy, kde-format
+#| msgid "Open File"
+msgctxt "@action:button"
+msgid "Open All Files"
+msgstr "Vula Ifayile"
+
+#: lib/katemainwindow.cpp:958
+#, kde-format
+msgid "&Other..."
+msgstr "&Enye..."
+
+#: lib/katemainwindow.cpp:1083
+#, kde-format
+msgid " [read only]"
+msgstr ""
+
+#: lib/katemainwindow.cpp:1330
+#, kde-format
+msgid "Diff %1"
+msgstr ""
+
+#: lib/katemainwindow.cpp:1332
+#, kde-format
+msgid "Diff %1..%2"
+msgstr ""
+
+#: lib/katemdi.cpp:84
+#, fuzzy, kde-format
+#| msgid "Plugin Manager"
+msgid "Toolview Manager"
+msgstr "Umphathi Weplagi Yangaphakathi"
+
+#: lib/katemdi.cpp:102
+#, kde-format
+msgid "Sidebar Buttons"
+msgstr ""
+
+#: lib/katemdi.cpp:105
+#, fuzzy, kde-format
+msgid "Tool &Views"
+msgstr "Iimboniselo Zesixhobo"
+
+#: lib/katemdi.cpp:107
+#, fuzzy, kde-format
+msgid "Show Side&bars"
+msgstr "Bonisa &Amanani Elayini"
+
+#: lib/katemdi.cpp:115
+#, fuzzy, kde-format
+msgid "Hide All Tool Views"
+msgstr "Iimboniselo Zesixhobo"
+
+#: lib/katemdi.cpp:162
+#, kde-format
+msgid "Show %1"
+msgstr "Bonisa %1"
+
+#: lib/katemdi.cpp:173
+#, fuzzy, kde-format
+#| msgid "Show %1"
+msgid "Show %1 Button"
+msgstr "Bonisa %1"
+
+#: lib/katemdi.cpp:984
+#, fuzzy, kde-format
+msgid "Configure..."
+msgstr "Imboniselo Edlulileyo"
+
+#: lib/katemdi.cpp:988
+#, kde-format
+msgid "Hide Button"
+msgstr ""
+
+#: lib/katemdi.cpp:990
+#, fuzzy, kde-format
+msgid "Move To"
+msgstr "Khetha Umhleli..."
+
+#: lib/katemdi.cpp:995
+#, fuzzy, kde-format
+msgid "Own Section"
+msgstr "Intlanganiso"
+
+#: lib/katemdi.cpp:1001 lib/katemdi.cpp:1009
+#, kde-format
+msgid "One Down"
+msgstr ""
+
+#: lib/katemdi.cpp:1003 lib/katemdi.cpp:1014
+#, kde-format
+msgid "One Right"
+msgstr ""
+
+#: lib/katemdi.cpp:1007
+#, kde-format
+msgid "One Up"
+msgstr ""
+
+#: lib/katemdi.cpp:1012
+#, kde-format
+msgid "One Left"
+msgstr ""
+
+#: lib/katemdi.cpp:1021
+#, fuzzy, kde-format
+msgid "Left Sidebar"
+msgstr "Bonisa &Amanani Elayini"
+
+#: lib/katemdi.cpp:1025
+#, fuzzy, kde-format
+msgid "Right Sidebar"
+msgstr "Bonisa &Amanani Elayini"
+
+#: lib/katemdi.cpp:1029
+#, fuzzy, kde-format
+msgid "Top Sidebar"
+msgstr "Bonisa &Amanani Elayini"
+
+#: lib/katemdi.cpp:1033
+#, fuzzy, kde-format
+msgid "Bottom Sidebar"
+msgstr "Bonisa &Amanani Elayini"
+
+#: lib/katemdi.cpp:1408
+#, kde-format
+msgid ""
+"<qt>You are about to hide the sidebars. With hidden sidebars it is not "
+"possible to directly access the tool views with the mouse anymore, so if you "
+"need to access the sidebars again invoke <b>View &gt; Tool Views &gt; Show "
+"Sidebars</b> in the menu. It is still possible to show/hide the tool views "
+"with the assigned shortcuts.</qt>"
+msgstr ""
+
+#: lib/katemwmodonhddialog.cpp:58
+#, fuzzy, kde-format
+msgid "Documents Modified on Disk"
+msgstr "Uxwebhu luzakuvula."
+
+#: lib/katemwmodonhddialog.cpp:74
+#, kde-format
+msgid ""
+"<qt>The documents listed below have changed on disk.<p>Select one or more at "
+"once, and press an action button until the list is empty.</p></qt>"
+msgstr ""
+
+#: lib/katemwmodonhddialog.cpp:84
+#, kde-format
+msgid "Filename"
+msgstr ""
+
+#: lib/katemwmodonhddialog.cpp:84
+#, kde-format
+msgid "Status on Disk"
+msgstr ""
+
+#: lib/katemwmodonhddialog.cpp:89
+#, fuzzy, kde-format
+msgid "Modified"
+msgstr " - Iguqulwe kancinane"
+
+#: lib/katemwmodonhddialog.cpp:89
+#, kde-format
+msgid "Created"
+msgstr ""
+
+#: lib/katemwmodonhddialog.cpp:89
+#, kde-format
+msgid "Deleted"
+msgstr ""
+
+#: lib/katemwmodonhddialog.cpp:104
+#, kde-format
+msgid "&View Difference"
+msgstr ""
+
+#: lib/katemwmodonhddialog.cpp:106
+#, kde-format
+msgid ""
+"Calculates the difference between the editor contents and the disk file for "
+"the selected document, and shows the difference with the default "
+"application. Requires diff(1)."
+msgstr ""
+
+#: lib/katemwmodonhddialog.cpp:117
+#, kde-format
+msgid "&Ignore Changes"
+msgstr ""
+
+#: lib/katemwmodonhddialog.cpp:118
+#, kde-format
+msgid "Remove modified flag from selected documents"
+msgstr ""
+
+#: lib/katemwmodonhddialog.cpp:124
+#, kde-format
+msgid "Overwrite selected documents, discarding disk changes"
+msgstr ""
+
+#: lib/katemwmodonhddialog.cpp:128
+#, kde-format
+msgid "&Reload"
+msgstr ""
+
+#: lib/katemwmodonhddialog.cpp:130
+#, fuzzy, kde-format
+msgid "Reload selected documents from disk"
+msgstr "Vala onke amaxwebhu avuliweyo."
+
+#: lib/katemwmodonhddialog.cpp:196
+#, fuzzy, kde-format
+msgid ""
+"Could not save the document \n"
+"'%1'"
+msgstr "Vala uxwebhu lwangoku."
+
+#: lib/katemwmodonhddialog.cpp:329
+#, kde-format
+msgid ""
+"The diff command failed. Please make sure that diff(1) is installed and in "
+"your PATH."
+msgstr ""
+
+#: lib/katemwmodonhddialog.cpp:331
+#, kde-format
+msgid "Error Creating Diff"
+msgstr ""
+
+#: lib/katemwmodonhddialog.cpp:338
+#, kde-format
+msgid "Ignoring amount of white space changed, the files are identical."
+msgstr ""
+
+#: lib/katemwmodonhddialog.cpp:338
+#, kde-format
+msgid "Diff Output"
+msgstr ""
+
+#: lib/kateoutputview.cpp:37
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Copy to Clipboard"
+msgstr ""
+
+#: lib/kateoutputview.cpp:184
+#, fuzzy, kde-format
+msgid "Filter..."
+msgstr "&Iifayile:"
+
+#: lib/kateoutputview.cpp:197
+#, kde-format
+msgid "Clear all messages"
+msgstr ""
+
+#: lib/kateoutputview.cpp:290
+#, kde-format
+msgctxt "@info"
+msgid "Error"
+msgstr ""
+
+#: lib/kateoutputview.cpp:294
+#, kde-format
+msgctxt "@info"
+msgid "Warning"
+msgstr ""
+
+#: lib/kateoutputview.cpp:298
+#, kde-format
+msgctxt "@info"
+msgid "Info"
+msgstr ""
+
+#: lib/kateoutputview.cpp:302
+#, kde-format
+msgctxt "@info"
+msgid "Log"
+msgstr ""
+
+#: lib/katesavemodifieddialog.cpp:77
+#, kde-format
+msgid "Save As (%1)"
+msgstr ""
+
+#: lib/katesavemodifieddialog.cpp:127
+#, fuzzy, kde-format
+msgid "Save Documents"
+msgstr "&Uxwebhu"
+
+#: lib/katesavemodifieddialog.cpp:135
+#, kde-format
+msgid ""
+"<qt>The following documents have been modified. Do you want to save them "
+"before closing?</qt>"
+msgstr ""
+
+#: lib/katesavemodifieddialog.cpp:142
+#, fuzzy, kde-format
+msgid "Documents"
+msgstr "&Uxwebhu"
+
+#: lib/katesavemodifieddialog.cpp:142
+#, fuzzy, kde-format
+msgid "Location"
+msgstr "Isicelo"
+
+#: lib/katesavemodifieddialog.cpp:152
+#, fuzzy, kde-format
+msgid "Se&lect All"
+msgstr "Umkhethi"
+
+#: lib/katesavemodifieddialog.cpp:225
+#, kde-format
+msgid ""
+"Data you requested to be saved could not be written. Please choose how you "
+"want to proceed."
+msgstr ""
+
+#: lib/kateurlbar.cpp:1178
+#, kde-format
+msgid "Untitled"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:116
+#, fuzzy, kde-format
+msgid "Split Ve&rtical"
+msgstr "&Saa Ngokuthe nkqo"
+
+#: lib/kateviewmanager.cpp:120
+#, kde-format
+msgid "Split the currently active view vertically into two views."
+msgstr ""
+"Yahlula imboniselo yangoku esebenzayo ngokuthe nkqo kwimboniselo ezimbini."
+
+#: lib/kateviewmanager.cpp:124
+#, kde-format
+msgid "Split &Horizontal"
+msgstr "&Saa Ngokuthe tye"
+
+#: lib/kateviewmanager.cpp:128
+#, kde-format
+msgid "Split the currently active view horizontally into two views."
+msgstr ""
+"Yahlula kabini imboniselo yangoku esebenzayo ngokuthe tye kwimboniselo "
+"ezimbini."
+
+#: lib/kateviewmanager.cpp:132
+#, kde-format
+msgid "Move Document to New Vertical Split"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:136
+#, fuzzy, kde-format
+#| msgid "Split the currently active view vertically into two views."
+msgid ""
+"Split the currently active view vertically into two views and move the "
+"currently active document to right view."
+msgstr ""
+"Yahlula imboniselo yangoku esebenzayo ngokuthe nkqo kwimboniselo ezimbini."
+
+#: lib/kateviewmanager.cpp:141
+#, kde-format
+msgid "Move Document to New Horizontal Split"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:145
+#, fuzzy, kde-format
+#| msgid "Split the currently active view horizontally into two views."
+msgid ""
+"Split the currently active view horizontally into two views and move the "
+"currently active document to view below."
+msgstr ""
+"Yahlula kabini imboniselo yangoku esebenzayo ngokuthe tye kwimboniselo "
+"ezimbini."
+
+#: lib/kateviewmanager.cpp:150
+#, fuzzy, kde-format
+msgid "Cl&ose Current View"
+msgstr "&Vala Okwangoku"
+
+#: lib/kateviewmanager.cpp:154
+#, fuzzy, kde-format
+#| msgid "Close the currently active splitted view"
+msgid "Close the currently active split view"
+msgstr "Vala imboniselo yangoku eyahluliweyo esebenzayo"
+
+#: lib/kateviewmanager.cpp:158
+#, fuzzy, kde-format
+msgid "Close Inactive Views"
+msgstr "&Vala Okwangoku"
+
+#: lib/kateviewmanager.cpp:161
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Close every view but the active one"
+msgstr "Yenza imboniselo yolwahlulo olulandlelayo kwesebenzayo."
+
+#: lib/kateviewmanager.cpp:165
+#, fuzzy, kde-format
+msgid "Hide Inactive Views"
+msgstr "&Vala Okwangoku"
+
+#: lib/kateviewmanager.cpp:169
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Hide every view but the active one"
+msgstr "Yenza imboniselo yolwahlulo olulandlelayo kwesebenzayo."
+
+#: lib/kateviewmanager.cpp:172
+#, kde-format
+msgid "Toggle Orientation"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:175
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Toggles the orientation of the current split view"
+msgstr "Yenza imboniselo yolwahlulo olulandlelayo kwesebenzayo."
+
+#: lib/kateviewmanager.cpp:178
+#, fuzzy, kde-format
+#| msgid "Next View"
+msgid "Next Split View"
+msgstr "Imboniselo Elandelayo"
+
+#: lib/kateviewmanager.cpp:183
+#, kde-format
+msgid "Make the next split view the active one."
+msgstr "Yenza imboniselo yolwahlulo olulandlelayo kwesebenzayo."
+
+#: lib/kateviewmanager.cpp:186
+#, fuzzy, kde-format
+#| msgid "Previous View"
+msgid "Previous Split View"
+msgstr "Imboniselo Edlulileyo"
+
+#: lib/kateviewmanager.cpp:191
+#, kde-format
+msgid "Make the previous split view the active one."
+msgstr "Yenza uhlulo oludlulileyo lubonise olusebenzayo."
+
+#: lib/kateviewmanager.cpp:194
+#, fuzzy, kde-format
+#| msgid "Next View"
+msgid "Left Split View"
+msgstr "Imboniselo Elandelayo"
+
+#: lib/kateviewmanager.cpp:199
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Make the split view intuitively on the left the active one."
+msgstr "Yenza imboniselo yolwahlulo olulandlelayo kwesebenzayo."
+
+#: lib/kateviewmanager.cpp:202
+#, fuzzy, kde-format
+#| msgid "Next View"
+msgid "Right Split View"
+msgstr "Imboniselo Elandelayo"
+
+#: lib/kateviewmanager.cpp:207
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Make the split view intuitively on the right the active one."
+msgstr "Yenza imboniselo yolwahlulo olulandlelayo kwesebenzayo."
+
+#: lib/kateviewmanager.cpp:210
+#, fuzzy, kde-format
+msgid "Upward Split View"
+msgstr "&Saa Ngokuthe nkqo"
+
+#: lib/kateviewmanager.cpp:215
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Make the split view intuitively upward the active one."
+msgstr "Yenza imboniselo yolwahlulo olulandlelayo kwesebenzayo."
+
+#: lib/kateviewmanager.cpp:218
+#, fuzzy, kde-format
+msgid "Downward Split View"
+msgstr "&Saa Ngokuthe nkqo"
+
+#: lib/kateviewmanager.cpp:223
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Make the split view intuitively downward the active one."
+msgstr "Yenza imboniselo yolwahlulo olulandlelayo kwesebenzayo."
+
+#: lib/kateviewmanager.cpp:226
+#, kde-format
+msgid "Move Splitter Right"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:229
+#, kde-format
+msgid "Move the splitter of the current view to the right"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:232
+#, kde-format
+msgid "Move Splitter Left"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:235
+#, kde-format
+msgid "Move the splitter of the current view to the left"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:238
+#, kde-format
+msgid "Move Splitter Up"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:241
+#, kde-format
+msgid "Move the splitter of the current view up"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:244
+#, kde-format
+msgid "Move Splitter Down"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:247
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Move the splitter of the current view down"
+msgstr "Yenza imboniselo yolwahlulo olulandlelayo kwesebenzayo."
+
+#: lib/kateviewmanager.cpp:250
+#, kde-format
+msgid "Focus Navigation Bar"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:251
+#, fuzzy, kde-format
+msgid "Focus the navigation bar"
+msgstr "Vala uxwebhu lwangoku."
+
+#: lib/kateviewmanager.cpp:258
+#, kde-format
+msgid "Welcome Page"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:273
+#, kde-format
+msgid "Show the welcome page"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:315 lib/kateviewmanager.cpp:317
+#, kde-format
+msgid "Open File"
+msgstr "Vula Ifayile"
+
+#: lib/kateviewmanager.cpp:336
+#, kde-format
+msgid ""
+"<p>You are attempting to open one or more large files:</p><ul>%1</ul><p>Do "
+"you want to proceed?</p><p><strong>Beware that kate may stop responding for "
+"some time when opening large files.</strong></p>"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:339
+#, fuzzy, kde-format
+#| msgid "Open File"
+msgid "Opening Large File"
+msgstr "Vula Ifayile"
+
+#: lib/kateviewmanager.cpp:1162
+#, kde-format
+msgid "This view may have unsaved work. Do you really want to close it?"
+msgstr ""
+
+#: lib/kateviewspace.cpp:98
+#, kde-format
+msgctxt "indicator for more documents"
+msgid "+%1"
+msgstr ""
+
+#: lib/kateviewspace.cpp:103 lib/kateviewspace.cpp:208
+#, kde-format
+msgid "Click here to switch to the Quick Open view."
+msgstr ""
+
+#: lib/kateviewspace.cpp:119
+#, kde-format
+msgid "Control view space splitting"
+msgstr ""
+
+#: lib/kateviewspace.cpp:209
+#, kde-format
+msgid ""
+"Currently, there is one more document open. To see all open documents, "
+"switch to the Quick Open view by clicking here."
+msgid_plural ""
+"Currently, there are %1 more documents open. To see all open documents, "
+"switch to the Quick Open view by clicking here."
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/kateviewspace.cpp:975
+#, fuzzy, kde-format
+msgid "Close Tab"
+msgstr "&Vala Okwangoku"
+
+#: lib/kateviewspace.cpp:992
+#, fuzzy, kde-format
+msgid "&Close Document"
+msgstr "&Uxwebhu"
+
+#: lib/kateviewspace.cpp:993
+#, fuzzy, kde-format
+msgid "Close Other &Documents"
+msgstr "&Uxwebhu"
+
+#: lib/kateviewspace.cpp:994
+#, fuzzy, kde-format
+#| msgid "Close all open documents."
+msgid "Close &All Documents"
+msgstr "Vala onke amaxwebhu avuliweyo."
+
+#: lib/kateviewspace.cpp:996
+#, fuzzy, kde-format
+#| msgid "&Document"
+msgid "D&etach Document"
+msgstr "&Uxwebhu"
+
+#: lib/kateviewspace.cpp:997
+#, kde-format
+msgid "Opens the document in a new window and closes it in the current window"
+msgstr ""
+
+#: lib/kateviewspace.cpp:1006
+#, fuzzy, kde-format
+#| msgid "Sync &terminal emulator with active document"
+msgid "Compare with Active Document"
+msgstr "Sync &isiphelo sendlela yokulinganisa ngoxwebhu olusebenzayo"
+
+#: lib/kateviewspace.cpp:1010
+#, kde-format
+msgid "Diff %1 .. %2"
+msgstr ""
+
+#: lib/kateviewspace.cpp:1015
+#, fuzzy, kde-format
+#| msgid "Sync &terminal emulator with active document"
+msgid "Compare with Active Document Using"
+msgstr "Sync &isiphelo sendlela yokulinganisa ngoxwebhu olusebenzayo"
+
+#: lib/kateviewspace.cpp:1082
+#, kde-format
+msgid "Could not start program"
+msgstr ""
+
+#: lib/kateviewspace.cpp:1083
+#, kde-format
+msgid "The selected program could not be started. Maybe it is not installed."
+msgstr ""
+
+#: lib/quickopen/katequickopenlineedit.cpp:22
+#, kde-format
+msgid "Quick Open Search (configure via context menu)"
+msgstr ""
+
+#: lib/quickopen/katequickopenlineedit.cpp:61
+#, fuzzy, kde-format
+msgid "All Projects"
+msgstr "Umqokeleli ndawonye Weprojekti"
+
+#: lib/quickopen/katequickopenlineedit.cpp:73
+#, kde-format
+msgid "Current Project"
+msgstr ""
+
+#: lib/quickopen/katequickopenlineedit.cpp:88
+#, kde-format
+msgid "Fuzzy Filtering"
+msgstr ""
+
+#: lib/quickopen/katequickopenlineedit.cpp:99
+#, kde-format
+msgid "Wildcard Filtering"
+msgstr ""
+
+#: lib/session/katesessionmanagedialog.cpp:26
+#, fuzzy, kde-format
+msgid "Manage Sessions"
+msgstr "Intlanganiso"
+
+#: lib/session/katesessionmanagedialog.cpp:62
+#, fuzzy, kde-format
+msgid "Session Chooser"
+msgstr "Intlanganiso"
+
+#: lib/session/katesessionmanagedialog.cpp:146
+#, kde-format
+msgid "Restore"
+msgstr ""
+
+#: lib/session/katesessionmanagedialog.cpp:303
+#, kde-format
+msgid "Session will be deleted on dialog close"
+msgstr ""
+
+#. i18n: ectx: property (placeholderText), widget (QLineEdit, m_filterBox)
+#: lib/session/katesessionmanagedialog.ui:30
+#, fuzzy, kde-format
+msgid "Filter Sessions"
+msgstr "Intlanganiso"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, m_sessionList)
+#: lib/session/katesessionmanagedialog.ui:55
+#, fuzzy, kde-format
+msgid "Session Name"
+msgstr "Intlanganiso"
+
+#. i18n: The number of open documents
+#. i18n: ectx: property (text), widget (QTreeWidget, m_sessionList)
+#: lib/session/katesessionmanagedialog.ui:60
+#, fuzzy, kde-format
+msgid "Files"
+msgstr "&Iifayile:"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, m_sessionList)
+#: lib/session/katesessionmanagedialog.ui:68
+#, kde-format
+msgid "Last opened"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, m_openButton)
+#: lib/session/katesessionmanagedialog.ui:87
+#, fuzzy, kde-format
+msgid "&Open"
+msgstr "&Enye..."
+
+#. i18n: ectx: property (text), widget (QPushButton, m_newButton)
+#: lib/session/katesessionmanagedialog.ui:98
+#, fuzzy, kde-format
+msgid "New Session"
+msgstr "Intlanganiso"
+
+#. i18n: ectx: property (text), widget (QPushButton, m_templateButton)
+#: lib/session/katesessionmanagedialog.ui:108
+#, fuzzy, kde-format
+msgid "Open as Template"
+msgstr "&Template:"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_dontAskCheckBox)
+#: lib/session/katesessionmanagedialog.ui:115
+#, kde-format
+msgid "Don't ask again"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, m_copyButton)
+#: lib/session/katesessionmanagedialog.ui:135
+#, kde-format
+msgid "Duplicate..."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, m_renameButton)
+#: lib/session/katesessionmanagedialog.ui:142
+#, fuzzy, kde-format
+msgid "&Rename..."
+msgstr "&Iposi..."
+
+#. i18n: ectx: property (text), widget (QPushButton, m_deleteButton)
+#: lib/session/katesessionmanagedialog.ui:162
+#, fuzzy, kde-format
+msgid "Delete"
+msgstr "&Template:"
+
+#: lib/session/katesessionmanager.cpp:105
+#, kde-format
+msgid ""
+"Internal error: there is more than one instance open for a given session."
+msgstr ""
+
+#: lib/session/katesessionmanager.cpp:112
+#, kde-format
+msgid ""
+"Session '%1' is already opened in another Kate instance. Switch to that or "
+"reopen in this instance?"
+msgstr ""
+
+#: lib/session/katesessionmanager.cpp:114
+#, kde-format
+msgctxt "@action:button"
+msgid "Switch to Instance"
+msgstr ""
+
+#: lib/session/katesessionmanager.cpp:115
+#, kde-format
+msgctxt "@action:button"
+msgid "Reopen"
+msgstr ""
+
+#: lib/session/katesessionmanager.cpp:303
+#, kde-format
+msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
+msgstr ""
+
+#: lib/session/katesessionmanager.cpp:304
+#, fuzzy, kde-format
+msgid "Session Renaming"
+msgstr "Intlanganiso"
+
+#: lib/session/katesessionmanager.cpp:451
+#, fuzzy, kde-format
+msgid "Session name:"
+msgstr "Intlanganiso"
+
+#: lib/session/katesessionmanager.cpp:453
+#, kde-format
+msgid ""
+"There is already an existing session with your chosen name: %1\n"
+"Please choose a different one."
+msgstr ""
+
+#: lib/session/katesessionmanager.cpp:455
+#, kde-format
+msgid "To save a session, you must specify a name."
+msgstr ""
+
+#: lib/session/katesessionmanager.cpp:482
+#, fuzzy, kde-format
+msgid "Specify a name for this session"
+msgstr "&Uxwebhu"
+
+#: lib/session/katesessionmanager.cpp:484
+#, fuzzy, kde-format
+msgid "Specify a new name for session: %1"
+msgstr "&Uxwebhu"
+
+#. i18n: ectx: property (title), widget (QGroupBox, gbAppStartup)
+#: lib/ui/sessionconfigwidget.ui:17
+#, fuzzy, kde-format
+msgid "Application Startup Behavior"
+msgstr "Isicelo"
+
+#. i18n: ectx: property (text), widget (QRadioButton, startNewSessionRadioButton)
+#: lib/ui/sessionconfigwidget.ui:23
+#, fuzzy, kde-format
+msgid "&Start new session"
+msgstr "Intlanganiso"
+
+#. i18n: ectx: property (text), widget (QRadioButton, loadLastUserSessionRadioButton)
+#: lib/ui/sessionconfigwidget.ui:30
+#, fuzzy, kde-format
+msgid "&Load last used session"
+msgstr "Intlanganiso"
+
+#. i18n: ectx: property (text), widget (QRadioButton, manuallyChooseSessionRadioButton)
+#: lib/ui/sessionconfigwidget.ui:37
+#, kde-format
+msgid "&Manually choose a session"
+msgstr ""
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: lib/ui/sessionconfigwidget.ui:47
+#, fuzzy, kde-format
+msgid "Application Startup/Shutdown Behavior"
+msgstr "Isicelo"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: lib/ui/sessionconfigwidget.ui:55
+#, kde-format
+msgid "Automatically save and restore:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, stashNewUnsavedFiles)
+#: lib/ui/sessionconfigwidget.ui:67
+#, kde-format
+msgid "Newly-created unsaved files"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, stashUnsavedFilesChanges)
+#: lib/ui/sessionconfigwidget.ui:77
+#, kde-format
+msgid "Files with unsaved changes"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, openNewDocumentPerWindow)
+#: lib/ui/sessionconfigwidget.ui:88
+#, fuzzy, kde-format
+#| msgid "Create a new Kate view (a new window with the same document list)."
+msgid "Open new window with fresh untitled document"
+msgstr "Yenza imboniselo ye Kate (window entsha enoluhlu loxwebhu olufanayo)."
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, modCloseAfterLast)
+#: lib/ui/sessionconfigwidget.ui:95
+#, kde-format
+msgid ""
+"If enabled, the application will shutdown when the last file being edited is "
+"closed, otherwise a blank page will open so that you can start a new file."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, modCloseAfterLast)
+#: lib/ui/sessionconfigwidget.ui:98
+#, kde-format
+msgid "Close the application entirely when the last file is closed"
+msgstr ""
+
+#. i18n: ectx: property (title), widget (QGroupBox, gbElements)
+#: lib/ui/sessionconfigwidget.ui:108
+#, fuzzy, kde-format
+msgid "Session Elements"
+msgstr "Intlanganiso"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: lib/ui/sessionconfigwidget.ui:114
+#, kde-format
+msgid ""
+"The session contains the list of open documents, recently opened files list, "
+"bookmarks, cursor position etc. When the session is loaded all elements are "
+"restored."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: lib/ui/sessionconfigwidget.ui:126
+#, kde-format
+msgid "Maximum number of entries in recent file list:"
+msgstr ""
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, restoreVC)
+#: lib/ui/sessionconfigwidget.ui:154
+#, fuzzy, kde-format
+#| msgid ""
+#| "Check this if you want all your views and frames restored each time you "
+#| "open Kate"
+msgid ""
+"Check this if you want all your views and frames restored each time you open "
+"the application."
+msgstr ""
+"UKhangela le nto ukuba ufuna zonke iimboniselo zigcinwe kwakhona ixesha "
+"ngalinye uvula i Kate"
+
+#. i18n: ectx: property (text), widget (QCheckBox, restoreVC)
+#: lib/ui/sessionconfigwidget.ui:157
+#, fuzzy, kde-format
+msgid "Include &window configuration"
+msgstr "&Gcina kwakhona uqwalaselo lwemboniselo"
+
+#. i18n: ectx: property (whatsThis), widget (QGroupBox, saveMetaInfos)
+#: lib/ui/sessionconfigwidget.ui:167
+#, kde-format
+msgid ""
+"Check this if you want document configuration like for example bookmarks to "
+"be saved past editor sessions. The configuration will be restored if the "
+"document has not changed when reopened."
+msgstr ""
+
+#. i18n: ectx: property (title), widget (QGroupBox, saveMetaInfos)
+#: lib/ui/sessionconfigwidget.ui:170
+#, kde-format
+msgid "Keep &meta-information past sessions"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: lib/ui/sessionconfigwidget.ui:181
+#, kde-format
+msgid "Delete unused meta-information after:"
+msgstr ""
+
+#: lib/welcomeview.cpp:69
+#, fuzzy, kde-format
+msgid "&Copy Location"
+msgstr "Isicelo"
+
+#: lib/welcomeview.cpp:97
+#, kde-format
+msgctxt "recent items context menu"
+msgid "&Forget This Item"
+msgstr ""
+
+#: lib/welcomeview.cpp:126
+#, kde-format
+msgid "Welcome"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, welcomeLabel)
+#: lib/welcomeview.cpp:129 lib/welcomeview.ui:158
+#, kde-format
+msgid "Welcome to Kate"
+msgstr ""
+
+#: lib/welcomeview.cpp:129
+#, kde-format
+msgid "Welcome to KWrite"
+msgstr ""
+
+#: lib/welcomeview.cpp:168
+#, fuzzy, kde-format
+#| msgid "Close the current document."
+msgctxt "on welcome screen"
+msgid "No recent documents"
+msgstr "Vala uxwebhu lwangoku."
+
+#. i18n: ectx: property (windowTitle), widget (QWidget, WelcomeView)
+#: lib/welcomeview.ui:17
+#, kde-format
+msgid "Form"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, newDocumentButton)
+#: lib/welcomeview.ui:221
+#, fuzzy, kde-format
+#| msgid "&Document"
+msgctxt "on welcome screen"
+msgid "New Document"
+msgstr "&Uxwebhu"
+
+#. i18n: ectx: property (text), widget (QPushButton, openDocumentButton)
+#: lib/welcomeview.ui:232
+#, fuzzy, kde-format
+msgctxt "on welcome screen"
+msgid "Open Document..."
+msgstr "&Uxwebhu"
+
+#. i18n: ectx: property (text), widget (QPushButton, openFolderButton)
+#: lib/welcomeview.ui:243
+#, fuzzy, kde-format
+#| msgid "Open File"
+msgctxt "on welcome screen"
+msgid "Open Folder..."
+msgstr "Vula Ifayile"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: lib/welcomeview.ui:372
+#, fuzzy, kde-format
+msgctxt "on welcome screen"
+msgid "Recent documents"
+msgstr "&Uxwebhu"
+
+#. i18n: ectx: property (text), widget (QToolButton, forgetAllButton)
+#: lib/welcomeview.ui:382
+#, fuzzy, kde-format
+#| msgid "Clos&e All"
+msgctxt "on welcome screen (recent document list)"
+msgid "Forget All"
+msgstr "&Vala Konke"
+
+#, fuzzy
+#~| msgid "Sho&w Path"
+#~ msgid "Copy File &Path"
+#~ msgstr "&Bonisa Umendo"
+
+#, fuzzy
+#~| msgid "Restore loca&tion"
+#~ msgid "Go to previous edit location"
+#~ msgstr "Buyisela kwakhona indawo eku&yo"
+
+#, fuzzy
+#~ msgid "Go to next edit location"
+#~ msgstr "Buyisela kwakhona indawo eku&yo"
+
+#, fuzzy
+#~ msgid "&Command Bar"
+#~ msgstr "Gq&abaza"
+
+#, fuzzy
+#~ msgid "&Quick Open Session"
+#~ msgstr "Intlanganiso"
+
+#, fuzzy
+#~ msgid "&Save as defaults"
+#~ msgstr "&Gcina Konke"
+
+#, fuzzy
+#~ msgid "Start Kate with a new session, implies '-n' (deprecated)."
+#~ msgstr "Intlanganiso"
+
+#, fuzzy
+#~ msgid "Application '%1' not found."
+#~ msgstr "Isicelo seMode"
+
+#, fuzzy
+#~ msgid "Application not found"
+#~ msgstr "Isicelo seMode"
+
+#, fuzzy
+#~| msgid "Sho&w Path"
+#~ msgid "Filter By Path"
+#~ msgstr "&Bonisa Umendo"
+
+#, fuzzy
+#~ msgid "Filter By Name"
+#~ msgstr "&Iifayile:"
+
+#, fuzzy
+#~ msgid "Quick Open Search"
+#~ msgstr "Intlanganiso"
+
+#, fuzzy
+#~ msgid "&Match Mode:"
+#~ msgstr "Iimboniselo Zesixhobo"
+
+#, fuzzy
+#~ msgid "Filepath"
+#~ msgstr "&Iifayile:"
+
+#, fuzzy
+#~ msgid "&List Mode:"
+#~ msgstr "Iimboniselo Zesixhobo"
+
+#~ msgid "Application"
+#~ msgstr "Isicelo"
+
+#~ msgid "General"
+#~ msgstr "Ngokubanzi"
+
+#~ msgid "General Options"
+#~ msgstr "Iinketho Eziqhelekileyo"
+
+#, fuzzy
+#~ msgid "Editor Component"
+#~ msgstr "Khetha Ingxenye Yomhleli"
+
+#, fuzzy
+#~ msgid "Editor Component Options"
+#~ msgstr "Khetha Ingxenye Yomhleli"
+
+#, fuzzy
+#~ msgid "&About Editor Component"
+#~ msgstr "Khetha Ingxenye Yomhleli"
+
+#, fuzzy
+#~ msgctxt "@action:inmenu"
+#~ msgid "Rename File..."
+#~ msgstr "&Iposi..."
+
+#, fuzzy
+#~ msgctxt "@action:inmenu"
+#~ msgid "Delete File"
+#~ msgstr "Intlanganiso"
+
+#, fuzzy
+#~ msgctxt "@title:window"
+#~ msgid "Confirmation"
+#~ msgstr "Isicelo"
+
+#, fuzzy
+#~| msgid "Close the current document."
+#~ msgid "C&lose Current Document"
+#~ msgstr "Vala uxwebhu lwangoku."
+
+#, fuzzy
+#~ msgid "Do not ask again"
+#~ msgstr "Intlanganiso"
+
+#, fuzzy
+#~ msgid "Clone session settings"
+#~ msgstr "&Ekhethiweyo:"
+
+#, fuzzy
+#~ msgid "Delete this session"
+#~ msgstr "Intlanganiso"
+
+#, fuzzy
+#~ msgid "Comment"
+#~ msgstr "Gq&abaza"
+
+#, fuzzy
+#~ msgid "&Highlight Tab"
+#~ msgstr "Yenza uphawu lwe LaTex"
+
+#, fuzzy
+#~ msgid "&None"
+#~ msgstr "Yenzekile"
+
+#, fuzzy
+#~ msgid "&Blue"
+#~ msgstr "&Iifayile:"
+
+#, fuzzy
+#~ msgid "All documents written to disk"
+#~ msgstr "Uxwebhu luzakuvula."
+
+#, fuzzy
+#~ msgid "Document written to disk"
+#~ msgstr "Uxwebhu luzakuvula."
+
+#, fuzzy
+#~ msgid "Elements of Sessions"
+#~ msgstr "Intlanganiso"
+
+#, fuzzy
+#~ msgid ""
+#~ "A KDE text-editor component could not be found.\n"
+#~ "Please check your KDE installation."
+#~ msgstr ""
+#~ "Umhleli wengxenye yokubhaliweyo kwe KDE akafumanekanga!\n"
+#~ "Nceda khangela ufakelo lwakho lwe KDE."
+
+#~ msgid "This shows useful tips on the use of this application."
+#~ msgstr "Oku kubonisa amancam aluncedo asebenzisiweyo kwesicelo."
+
+#, fuzzy
+#~ msgid "No Session Selected"
+#~ msgstr "&Ekhethiweyo:"
+
+#, fuzzy
+#~ msgid "No session selected to copy."
+#~ msgstr "&Ekhethiweyo:"
+
+#, fuzzy
+#~ msgid "Show Cursor Position"
+#~ msgstr "Bonisa &Amanani Elayini"
+
+#, fuzzy
+#~ msgid "Show Selection Mode"
+#~ msgstr "Iintshukumo Ezi&khethiweyo:"
+
+#, fuzzy
+#~ msgid "Show Document Name"
+#~ msgstr "&Uxwebhu"
+
+#~ msgid " Line: %1 Col: %2 "
+#~ msgstr "Ilayini: %1 umhlathi: %2"
+
+#, fuzzy
+#~| msgid " INS "
+#~ msgid " LINE "
+#~ msgstr " INS "
+
+#~ msgid " INS "
+#~ msgstr " INS "
+
+#, fuzzy
+#~| msgid " Line: %1 Col: %2 "
+#~ msgid " Line: %1 of %2 Col: %3 "
+#~ msgstr "Ilayini: %1 umhlathi: %2"
+
+#, fuzzy
+#~| msgid " BLK "
+#~ msgid " BLOCK "
+#~ msgstr " BLK "
+
+#, fuzzy
+#~ msgid "Document Name"
+#~ msgstr "&Uxwebhu"
+
+#, fuzzy
+#~ msgid "Sort by Document Name"
+#~ msgstr "&Uxwebhu"
+
+#, fuzzy
+#~ msgid "Document Path"
+#~ msgstr "&Uxwebhu"
+
+#, fuzzy
+#~| msgid "&Show All Documents >>"
+#~ msgid "Sort by Document Path"
+#~ msgstr "&Bonisa Onke Amaxwebhu >>"
+
+#, fuzzy
+#~| msgid "Open W&ith"
+#~ msgid "Open With"
+#~ msgstr "&Vula Nge"
+
+#, fuzzy
+#~ msgid "&Viewed documents' shade:"
+#~ msgstr "&Uxwebhu"
+
+#, fuzzy
+#~ msgid "&Modified documents' shade:"
+#~ msgstr "&Uxwebhu"
+
+#, fuzzy
+#~ msgid "Tree View"
+#~ msgstr "Imboniselo Edlulileyo"
+
+#, fuzzy
+#~ msgid "List View"
+#~ msgstr "&Saa Ngokuthe nkqo"
+
+#, fuzzy
+#~| msgid "Sho&w Path"
+#~ msgid "&Show Full Path"
+#~ msgstr "&Bonisa Umendo"
+
+#, fuzzy
+#~ msgid "Document Tree"
+#~ msgstr "&Uxwebhu"
+
+#, fuzzy
+#~ msgid "Configure Documents"
+#~ msgstr "Ulawulo lwexwebhu lwangoku"
+
+#, fuzzy
+#~| msgid "&Document"
+#~ msgid "Previous Document"
+#~ msgstr "&Uxwebhu"
+
+#~ msgid ""
+#~ "<p>Kate comes with a nice set of plugins, providing simple\n"
+#~ "and advanced features of all sorts.</p>\n"
+#~ "<p>You can enable/disable plugins to suit your needs in the configuration "
+#~ "dialog,\n"
+#~ "choose <strong>Settings -&gt;configure</strong> to launch that.</p>\n"
+#~ msgstr ""
+#~ "<p>Kate iza neplagi ezintle ezingaphakathi, enikezela nezilula\n"
+#~ "nezibhekisa phambili eziluncedo zalolonke udidi.</p>\n"
+#~ "<p>Uyakwazi ukwenza/ukukhubaza iplagi zangaphakathi ukulingiselela "
+#~ "uqwalaselo lwakho lwencoko yababini,\n"
+#~ "khetha <strong>Izicwangciso -&gt;qwalaselo</strong> ukuqalisa lonto.</p>\n"
+
+#~ msgid ""
+#~ "<p>You can swap the characters on each side of the cursor just by "
+#~ "pressing\n"
+#~ "<strong>Ctrl+T</strong></p>\n"
+#~ msgstr ""
+#~ "<p>Uyakwazi ukutshintsha abasebenzisi kwicala nganye lesalathisi "
+#~ "ngokucinizela\n"
+#~ "<strong>CTRL+T</strong></p>\n"
+
+#~ msgid ""
+#~ "<p>You can export the current document as a HTML file, including\n"
+#~ "syntax highlighting.</p>\n"
+#~ "<p>Just choose <strong>File -&gt; Export -&gt; HTML...</strong></p>\n"
+#~ msgstr ""
+#~ "<p>Uyakwazi ukurhweba ngaphandle uxwebhu lwangoku njenge fayile le HTML, "
+#~ "equlatha uphawuliso lwesivakalisi.</p>\n"
+#~ "<p>Ngokukhetha <strong>Ifayile -&gt; Rhweba ngaphandle -&gt; HTML... </"
+#~ "strong></p>\n"
+
+#, fuzzy
+#~| msgid ""
+#~| "<p>You can split the Kate editor as many times as you like and\n"
+#~| "in either direction. Each frame has its own status bar and\n"
+#~| "can display any open document.</p>\n"
+#~| "<p>Just choose <br><strong>View -&gt; Split [ Horizontal | Vertical ]</"
+#~| "strong></p>\n"
+#~ msgid ""
+#~ "<p>You can split the Kate editor as many times as you like and\n"
+#~ "in either direction. Each frame has its own status bar and\n"
+#~ "can display any open document.</p>\n"
+#~ "<p>Just choose <br><strong>View -&gt; Split View -&gt; Split [ Horizontal "
+#~ "| Vertical ]</strong></p>\n"
+#~ msgstr ""
+#~ "<p>Uyakwazi ukwahlula umhleli we Kate nakangakanani na kwaye\n"
+#~ "kuyo naliphi icala. Isakhela ngasinye sine bar yewonga kwaye\n"
+#~ "siyabonisa naluphi uxwebhu.</p>\n"
+#~ "<p>Ngokukhetha <br><strong>imboniselo -&gt; Yahlula [ Okuthe tye | "
+#~ "Nkqo ]</strong></p>\n"
+
+#, fuzzy
+#~ msgid ""
+#~ "<p>Kate has a built-in terminal emulator, just click on <strong>\"Terminal"
+#~ "\"</strong> at\n"
+#~ "the bottom to show or hide it as you desire.</p>\n"
+#~ msgstr ""
+#~ "<p>Kaye yakha ulunganiselo lwesiphelo sendlela, vele ucinizela "
+#~ "<strong>F7</strong> kwi\n"
+#~ "bonisa okanye fihla njengokuba ufuna.</p>\n"
+
+#, fuzzy
+#~ msgid ""
+#~ "<p>Kate can highlight the current line with a\n"
+#~ "<table bgcolor=\"yellow\" border=\"0\" cellspacing=\"0\" cellpadding="
+#~ "\"0\" width=\"100%\"><tr><td>different\n"
+#~ "background color.<strong>|</strong></td></tr></table></p>\n"
+#~ "<p>You can set the color in the <em>Colors</em> page of the "
+#~ "configuration\n"
+#~ "dialog.</p>\n"
+#~ msgstr ""
+#~ "<p>Kate iyakwazi ukuphawula umgca nge \n"
+#~ "<table bgcolor=\"yellow\" border=\"0\" cellspacing=\"0\" cellpadding="
+#~ "\"0\" width=\"100%\"><tr><td>eyahlukileyo \n"
+#~ "umbala wesiqala.<strong>|</strong></td></tr></table></p>\n"
+#~ "<p>uyakwazi ukucwangcisa umbala kwi <em>Imibala</em> iphepha "
+#~ "loqwalaselo \n"
+#~ "incoko yababini.</p>\n"
+
+#, fuzzy
+#~ msgid ""
+#~ "<p>You can open the currently edited file in any other application from "
+#~ "within\n"
+#~ "Kate.</p>\n"
+#~ "<p>Choose <strong>File -&gt; Open With</strong> for the list of programs\n"
+#~ "configured\n"
+#~ "for the document type. There is also an option <strong>Other...</strong> "
+#~ "to\n"
+#~ "choose any application on your system.</p>\n"
+#~ msgstr ""
+#~ "<p>Uyakwazi ukuvula ifayile yangoku ehleliweyo kuso nasiphi na isicelo "
+#~ "esivela ngaphakathi \n"
+#~ "Kate.</p>\n"
+#~ "<p>Khetha <strong>Ifayile -&gt; Vulam Nge</strong> xa ufunba udweliso "
+#~ "lwenkqubo \n"
+#~ "iqwalaselwe\n"
+#~ "yoludidi loxwebhu. Kukho ukhetho <strong>Olunye...</strong> kwi \n"
+#~ "khetha nasiphi na isicelo kwindlela yakho yokusebenza.</p>\n"
+
+#, fuzzy
+#~ msgid ""
+#~ "<p>You can configure the editor to always display the line numbers and/"
+#~ "or\n"
+#~ "bookmark panes when started from the <strong>Appearance</strong> page of "
+#~ "the\n"
+#~ "configuration dialog.</p>\n"
+#~ msgstr ""
+#~ "<p>Uyakwazi ukuqwalasela umhleli ukuba abonakalise ilayini yamanani ne/"
+#~ "okanye \n"
+#~ "inqaku lencwadi lamaqela eenjongo athile eqaliswe ukuvela kwi "
+#~ "<strong>Imboniselo Yokungagqibekanga </strong> iphepha le\n"
+#~ "uqwalaselo lwencoko yababini.</p>\n"
+
+#, fuzzy
+#~ msgid ""
+#~ "<p>You can download new or updated <em>Syntax highlight definitions</em> "
+#~ "from\n"
+#~ "the <strong>Open/Save</strong> page in the configuration dialog.</p>\n"
+#~ "<p>Just click the <em>Download...</em> button on the <em>Open/Save -&gt; "
+#~ "Modes &amp; Filetypes</em>\n"
+#~ "tab (You have to be online, of course...).</p>\n"
+#~ msgstr ""
+#~ "<p>Uyakwazi ukulayisha ezansti entsha okanye egqibiweyo <em>Isivakalisi "
+#~ "zochazo lophawulo</em> evela\n"
+#~ " kwi <strong>Uphawulo</strong> iphepha lwencoko yababini yoqwalaselo.</"
+#~ "p>\n"
+#~ "<p>Nqakraza i <em>Layisha ezansti...</em> iqosha kwi <em>Phawula "
+#~ "Iindlela</em>\n"
+#~ "isthuba (Kufuneka ubengaphakathi, kwelayini...).</p>\n"
+
+#, fuzzy
+#~ msgid ""
+#~ "<p>You can cycle through all open documents by pressing <strong>Alt+Left</"
+#~ "strong>\n"
+#~ "or <strong>Alt+Right</strong>. The next/previous document will "
+#~ "immediately be displayed\n"
+#~ "in the active frame.</p>\n"
+#~ msgstr ""
+#~ "<p>Uyakwazi ukujonga onke amaxwebhu avulekileyo <strong>Alt+Ekohlo</"
+#~ "strong> \n"
+#~ "okanye <strong>Alt+Ekunene</strong>. Uxwebhu olulandlelayo/oludlulileyo "
+#~ "lizakuboniswa ngoku \n"
+#~ "kwisakhela esisebenzayo.</p>\n"
+
+#, fuzzy
+#~ msgid ""
+#~ "<p>You can do cool sed-like regular expression replacements using "
+#~ "<em>Command Line</em>.</p>\n"
+#~ "<p>For example, press <strong>F7</strong> and enter <code>s /oldtext/"
+#~ "newtext/g</code>\n"
+#~ "to replace &quot;oldtext&quot; with &quot;newtext&quot; throughout the "
+#~ "current\n"
+#~ "line.</p>\n"
+#~ msgstr ""
+#~ "<p>Uyakwazi ukwenza ezibukekayo i sed-ezifanayo zezitsho eziqhelekileyo "
+#~ "ngokusebenzisa <em>Ngokuhlela \n"
+#~ "Umyalelo</em>.</p>\n"
+#~ "<p>Umzekelo,cinizela  <strong>Ctrl+M</strong> ungenise <code>s/"
+#~ "okubhaliweyo okudala/okubhaliweyo okutsha/g</code> \n"
+#~ "ukubuyisela &quot;okubhaliweyo okudala&quot; nge &quot;okubhaliweyo "
+#~ "okutsha&quot; ngapha kwelayini\n"
+#~ "yangoku.</p>\n"
+
+#, fuzzy
+#~ msgid ""
+#~ "<p>You can repeat your last search by just pressing <strong>F3</strong>, "
+#~ "or\n"
+#~ "<strong>Shift+F3</strong> if you want to search backwards.</p>\n"
+#~ msgstr ""
+#~ "<p>Uyakwazi ukuphinda uphendlo lokugqibela ngokucinizela <strong>F3</"
+#~ "strong>, okanye \n"
+#~ "<strong>Shift+F3</strong> ukuba ufuna ukuphendla ngasemva.</p>\n"
+
+#, fuzzy
+#~ msgid ""
+#~ "<p>You can filter the files displayed in the <em>Filesystem Browser</em> "
+#~ "tool view.\n"
+#~ "</p>\n"
+#~ "<p>Simply enter your filter in the filter entry at the bottom, for "
+#~ "example:\n"
+#~ "<code>*.html *.php</code> if you only want to see HTML and PHP files in "
+#~ "the\n"
+#~ "current folder.</p>\n"
+#~ "<p>The Filesystem Browser will even remember your filters for you.</p>\n"
+#~ msgstr ""
+#~ "<p>Uyakwazi ukucoca iifayile kwi <em>Umkhethi Wefayile</em> imboniselo "
+#~ "yesixhobo. \n"
+#~ "</p>\n"
+#~ "<p>Ngokungenisa icebo lokucoca ulwelo kwingeniso lecebo lokucoca ulwelo "
+#~ "ezantsi. umzekelo: \n"
+#~ "<code>*.html *.php</code> ukuba ufuna ukubona iifayile ze  HTML neze PHP "
+#~ "kwisilawuli.</p>\n"
+#~ "<p>Umkhethi Wefayile uzakukhumbula amacebo akho okucoca ulwelo. </"
+#~ "strong></p>\n"
+
+#, fuzzy
+#~ msgid ""
+#~ "<p>You can have two views - or even more - of the same document in Kate. "
+#~ "Editing\n"
+#~ "in either will be reflected in both.</p>\n"
+#~ "<p>So if you find yourself scrolling up and down to look at text at the "
+#~ "other\n"
+#~ "end of a document, just press <strong>Ctrl+Shift+T</strong> to split\n"
+#~ "horizontally.</p>\n"
+#~ msgstr ""
+#~ "<p>Uyakwazi ukuba neemboniselo ezimbini - okanye nezingaphezulu - "
+#~ "lwexwebhu elifanayo kwi Kate. Uhlelo \n"
+#~ "nakuyiphi lizakuboniswa kuzozombini.</p>\n"
+#~ "<p>Ukuba uzufumana urholela ngaphezulu nasezansti xa ukhangela "
+#~ "okubhaliweyo kwelinye\n"
+#~ "icala loxwebhu, vele ucinizele <strong>Ctrl-Shift+T</strong> ukwahlula\n"
+#~ "oluthe tye.</p>\n"
+
+#, fuzzy
+#~ msgid ""
+#~ "<p>Press <strong>F8</strong> or <strong>Shift+F8</strong> to switch to "
+#~ "the\n"
+#~ "next/previous frame.</p>\n"
+#~ msgstr ""
+#~ "<p>Cinizela <strong>F8</strong> okanye <strong>Shift+F8</strong> "
+#~ "ukutshintshela\n"
+#~ "kwisakhelo esilandelayo/esidlulileyo.</p>\n"
+
+#, fuzzy
+#~ msgctxt "@item:inmenu"
+#~ msgid "Documentation"
+#~ msgstr "Uxwebhu luzakuvula."
+
+#, fuzzy
+#~ msgctxt "@item:inmenu"
+#~ msgid "Kate Highlight Definition"
+#~ msgstr "Yenza uphawu lwe SQL"
+
+#, fuzzy
+#~ msgid "Action:"
+#~ msgstr "Isicelo"
+
+#, fuzzy
+#~| msgid "Name"
+#~ msgid "Name:"
+#~ msgstr "Igama"
+
+#, fuzzy
+#~ msgid "Manager"
+#~ msgstr "&Iposi..."
+
+#, fuzzy
+#~| msgid "Plugins"
+#~ msgid "Reload Plugins"
+#~ msgstr "Iiplagi ezifakiweyo"
+
+#, fuzzy
+#~| msgid "Plugins"
+#~ msgid "Python Plugins"
+#~ msgstr "Iiplagi ezifakiweyo"
+
+#, fuzzy
+#~ msgid "Documentation"
+#~ msgstr "Uxwebhu luzakuvula."
+
+#, fuzzy
+#~ msgid "Rescan current document for #colors"
+#~ msgstr "Ulawulo lwexwebhu lwangoku"
+
+#, fuzzy
+#~ msgid "Pattern Model"
+#~ msgstr "&Umlinganiselo:"
+
+#, fuzzy
+#~ msgid "Highlight definitions using etags(1):"
+#~ msgstr "Yenza uphawu lwe SQL"
+
+#, fuzzy
+#~ msgid "Settings..."
+#~ msgstr "Qalisa kwakhona"
+
+#, fuzzy
+#~ msgid "..."
+#~ msgstr "&Vala Okwangoku"
+
+#, fuzzy
+#~| msgid "Highlighting for SQL"
+#~ msgid "Highlighting"
+#~ msgstr "Yenza uphawu lwe SQL"
+
+#, fuzzy
+#~ msgid "Exception:"
+#~ msgstr "Isicelo"
+
+#, fuzzy
+#~ msgid "Drop List"
+#~ msgstr "&Uxwebhu"
+
+#, fuzzy
+#~ msgid "Module:"
+#~ msgstr "Bonisa &Amanani Elayini"
+
+#, fuzzy
+#~| msgid "Name"
+#~ msgid "Full Name:"
+#~ msgstr "Igama"
+
+#, fuzzy
+#~ msgid "Modules"
+#~ msgstr "Bonisa &Amanani Elayini"
+
+#~ msgid ""
+#~ "<p>You can drag the Tool views (<em>File List</em> and <em>File Selector</"
+#~ "em>)\n"
+#~ "to any side that you want them in Kate, or stack them, or even tear them "
+#~ "off the\n"
+#~ "main window.</p>\n"
+#~ msgstr ""
+#~ "<p>Unga rhuqa Isixhobo seemboniselo (<em>Uluhlu Lwefayile</em> ne <em> "
+#~ "Umkhethi Wefayile</em>\n"
+#~ "kulo naliphi na icala olifunayo kwi Kate, okanye ziphakishe. okanye vele "
+#~ "uzisike kwi window engundoqo.</p>\n"
+
+#, fuzzy
+#~ msgid "&Save Selected"
+#~ msgstr "&Ekhethiweyo:"
+
+#, fuzzy
+#~| msgid "Create a new document"
+#~ msgid "Cannot go to the document"
+#~ msgstr "Yenza uxwebhu olutsha"
+
+#, fuzzy
+#~| msgid "Plugins"
+#~ msgid "GDB Plugin"
+#~ msgstr "Iiplagi ezifakiweyo"
+
+#, fuzzy
+#~| msgid "General Options"
+#~ msgid "GDB Integration"
+#~ msgstr "Iinketho Eziqhelekileyo"
+
+#, fuzzy
+#~ msgid "Debug View"
+#~ msgstr "Imboniselo Edlulileyo"
+
+#, fuzzy
+#~| msgid "Name"
+#~ msgid "Frame"
+#~ msgstr "Igama"
+
+#, fuzzy
+#~ msgid "Start Debugging"
+#~ msgstr "Qalisa kwakhona"
+
+#, fuzzy
+#~ msgid "Step In"
+#~ msgstr "Qalisa kwakhona"
+
+#, fuzzy
+#~ msgid "Move PC"
+#~ msgstr "Khetha Umhleli..."
+
+#, fuzzy
+#~ msgid "Document List Settings"
+#~ msgstr "Izicwangciso zemigca"
+
+#, fuzzy
+#~ msgid "Close Selected"
+#~ msgstr "&Ekhethiweyo:"
+
+#, fuzzy
+#~ msgid "Save Selected"
+#~ msgstr "&Ekhethiweyo:"
+
+#, fuzzy
+#~ msgid "Save selected open documents."
+#~ msgstr "Vala onke amaxwebhu avuliweyo."
+
+#~ msgid "URL"
+#~ msgstr "URL"
+
+#, fuzzy
+#~ msgid "Tabify Plugin"
+#~ msgstr "&Template:"
+
+#, fuzzy
+#~ msgid "TabifyPlugin"
+#~ msgstr "&Template:"
+
+#, fuzzy
+#~ msgid "&Open..."
+#~ msgstr "&Enye..."
+
+#, fuzzy
+#~ msgid "&Save"
+#~ msgstr "Igama: "
+
+#, fuzzy
+#~ msgid "Save &As..."
+#~ msgstr "&Gcina Konke"
+
+#, fuzzy
+#~ msgid "Save current session?"
+#~ msgstr "&Uxwebhu"
+
+#~ msgid "File Selector Settings"
+#~ msgstr "Izicwangciso Zomkhethi Wefayile"
+
+#, fuzzy
+#~ msgid "Search folders"
+#~ msgstr " Ulwelo Lokucima"
+
+#, fuzzy
+#~ msgid "File types:"
+#~ msgstr "&Iifayile:"
+
+#, fuzzy
+#~ msgid "Load File..."
+#~ msgstr "Vula Ifayile"
+
+#, fuzzy
+#~| msgid "Find in Files"
+#~ msgid "Indexing files..."
+#~ msgstr "Fumana Kwiifayile"
+
+#, fuzzy
+#~| msgid "Open File"
+#~ msgid "Opened file: %1"
+#~ msgstr "Vula Ifayile"
+
+#, fuzzy
+#~ msgid "D-Bus Call Failed"
+#~ msgstr "Ifayile ye Email(ii)"
+
+#, fuzzy
+#~ msgid "Start Kate (no arguments)"
+#~ msgstr "Intlanganiso"
+
+#, fuzzy
+#~ msgid "New Kate Session"
+#~ msgstr "Intlanganiso"
+
+#, fuzzy
+#~ msgid "New Anonymous Session"
+#~ msgstr "Intlanganiso"
+
+#, fuzzy
+#~ msgid "Reload Session List"
+#~ msgstr "Intlanganiso"
+
+#, fuzzy
+#~ msgid "Session exists"
+#~ msgstr "Intlanganiso"
+
+#, fuzzy
+#~ msgid "Hide %1"
+#~ msgstr "Ilayini: %1"
+
+#~ msgid " NORM "
+#~ msgstr " NORM "
+
+#, fuzzy
+#~ msgid "Folder:"
+#~ msgstr "&Iifayile:"
+
+#, fuzzy
+#~ msgid "Recursive"
+#~ msgstr "&Yenziwe  kwakhona ngaphandle kosiba"
+
+#, fuzzy
+#~| msgid "Close the current document."
+#~ msgid "Use the current document's path."
+#~ msgstr "Vala uxwebhu lwangoku."
+
+#~ msgid "Terminal"
+#~ msgstr "Isixhobo sangaphandle sekhumpyutha"
+
+#, fuzzy
+#~ msgid ""
+#~ "<p>Enter the expression you want to search for here.<p>If 'regular "
+#~ "expression' is unchecked, any non-space letters in your expression will "
+#~ "be escaped with a backslash character.<p>Possible meta characters are:"
+#~ "<br><b>.</b> - Matches any character<br><b>^</b> - Matches the beginning "
+#~ "of a line<br><b>$</b> - Matches the end of a line<br><b>\\&lt;</b> - "
+#~ "Matches the beginning of a word<br><b>\\&gt;</b> - Matches the end of a "
+#~ "word<p>The following repetition operators exist:<br><b>?</b> - The "
+#~ "preceding item is matched at most once<br><b>*</b> - The preceding item "
+#~ "is matched zero or more times<br><b>+</b> - The preceding item is matched "
+#~ "one or more times<br><b>{<i>n</i>}</b> - The preceding item is matched "
+#~ "exactly <i>n</i> times<br><b>{<i>n</i>,}</b> - The preceding item is "
+#~ "matched <i>n</i> or more times<br><b>{,<i>n</i>}</b> - The preceding item "
+#~ "is matched at most <i>n</i> times<br><b>{<i>n</i>,<i>m</i>}</b> - The "
+#~ "preceding item is matched at least <i>n</i>, but at most <i>m</i> times."
+#~ "<p>Furthermore, backreferences to bracketed subexpressions are available "
+#~ "via the notation <code>\\#</code>.<p>See the grep(1) documentation for "
+#~ "the full documentation."
+#~ msgstr ""
+#~ "Ngenisa isisho esiqhlekileyo ofuna ukusikhangela apha. <br>Okungenzeka "
+#~ "kubadlai be meta i: <br><b>.</b> - ifanisa nomamuphi umdlali\n"
+#~ "<b>^</b> - ifanisa ukuqala kwelayini r><b>$</b> - ifanisa ukugqibela "
+#~ "kwelayini <br><b>\\\\\\&lt;</b> - ifanisa ukuqala kwegama "
+#~ "<br><br>lloluphindo olulandelayo lwabaphatha iintsebenziso lukho: <br><b>?"
+#~ "</b> - lento elandelayo ifaniswa ngokufanayo ngokukanye <br><b>*</b> - "
+#~ "lento elandelayo ifaniswa ngeqanda noma amathuba amanitsi <br><b>+</b> - "
+#~ "lento elandelayo ifaniswa ngokukanye noma amathuba amanitsi <br><b>{<i>n</"
+#~ "i>,}</b> - lento elandelayo ifaniswa <i>n</i> noma amathuba amanitsi "
+#~ "<br><b>{<i>n</i>,<i>m</i>}</b> - ento elandelayo ifaniswa okungenani "
+#~ "<i>n</i>, <br>   kodwa okungenani  <i>m</i> "
+#~ "amathuba<br><br>Ngokwedluleleyo, okunconywa emva  kokufaka iibhrakethi "
+#~ "zezitsho zincinane ii <br>ezifumanekayo ngokudlula kubhalelo lwe \\"
+#~ "\\<i>n</i>."
+
+#, fuzzy
+#~ msgid ""
+#~ "Enter the file name pattern of the files to search here.\n"
+#~ "You may give several patterns separated by commas."
+#~ msgstr ""
+#~ "Ngenisa umlinganiselo wegama lefayile yeefayile ozakuziphendla apha.\n"
+#~ "Unganika imilinganiselo emininzi eyahlulwe ngeziphumlisi"
+
+#, fuzzy
+#~ msgid ""
+#~ "Enter the folder which contains the files in which you want to search."
+#~ msgstr "Ngenisa ulawulo oluqulathe iifayile ofuna ukuziphendla."
+
+#, fuzzy
+#~ msgid "Check this box to search in all subfolders."
+#~ msgstr "Khangela lebhokisi ukuphendla bonke abalawuli abasezantsi."
+
+#, fuzzy
+#~ msgid ""
+#~ "If this option is enabled (the default), the search will be case "
+#~ "sensitive."
+#~ msgstr ""
+#~ "Ukuba olukhetho lukhangelwe, kuzakuboniswa kwi window caption umendo "
+#~ "opheleleyo woxwebhu."
+
+#, fuzzy
+#~ msgid ""
+#~ "The results of the grep run are listed here. Select a\n"
+#~ "filename/line number combination and press Enter or doubleclick\n"
+#~ "on the item to show the respective line in the editor."
+#~ msgstr ""
+#~ "Iziphumo ze grep ezisebenzayo zidweliswe apha. Khetha i\n"
+#~ "igama lefayile/udibaniso lenani lelayini kwaye cinezela Ngena okanye "
+#~ "nqakraza kabini\n"
+#~ "kumba ukubonisa ilayini eyiyo kumhleli."
+
+#, fuzzy
+#~| msgid "Use this to close the current document"
+#~ msgid "Click to close the current search results."
+#~ msgstr "Sebenzisa oku ukuvala uxwebhu lwangoku"
+
+#, fuzzy
+#~ msgid ""
+#~ "<p>Here you can enter a path for a folder to display.<p>To go to a folder "
+#~ "previously entered, press the arrow on the right and choose one. <p>The "
+#~ "entry has folder completion. Right-click to choose how completion should "
+#~ "behave."
+#~ msgstr ""
+#~ "<p>Apha uyakwazi ukungenisa isilawulo esizakuboniswa.<p>Ukuya kwisilawulo "
+#~ "esingeniswe ngexesha elidlulileyo, cofa itolo kwisiphelo esisekenene "
+#~ "ukhethe enye.<p>Ingeniso linogqibo lolawulo. Nqakraza-ekohlo ukukhetha "
+#~ "indlela ofuna ugqibo luziphathe ngayo."
+
+#~ msgid ""
+#~ "<p>Here you can enter a name filter to limit which files are displayed."
+#~ "<p>To clear the filter, toggle off the filter button to the left.<p>To "
+#~ "reapply the last filter used, toggle on the filter button."
+#~ msgstr ""
+#~ "<p>Apha uyakwazi ukungenisa igama lecebo lokucoca ulwelo elibonisiweyo."
+#~ "<p> Ukucoca icebo lokucoca ulwelo, qhoboshela ngaphandle iqosha lokucoca "
+#~ "ulwelo ekunene.<p>Ukufaka kwakhona icebo lokucoca ulwelo lokugqibela, "
+#~ "qoboshela phezulu kwiqosha lecebo lokucoca ulwelo."
+
+#~ msgid ""
+#~ "<p>This button clears the name filter when toggled off, or reapplies the "
+#~ "last filter used when toggled on."
+#~ msgstr ""
+#~ "Eki qhosha licima igama lecebo lokucoca ulwelo xa uqoboshelo lucinyiwe, "
+#~ "okanye ifaka kwakhona icebo lokugqibela lokucoca ulwelo lokugqibela "
+#~ "elisetyenziswa xa iqoboshelwe  i qoboshelwe."
+
+#, fuzzy
+#~ msgid "Apply last filter (\"%1\")"
+#~ msgstr "Faka Icebo lokucoca ulwelo Lokugqibela (\"%1\")"
+
+#~ msgid "Toolbar"
+#~ msgstr "Ibar yesixhobo"
+
+#~ msgid "A&vailable actions:"
+#~ msgstr "&Iintshukumo ezikhoyo:"
+
+#~ msgid "Auto Synchronization"
+#~ msgstr "Yenza zisebenze kunye Ngokuzenzekelayo"
+
+#~ msgid "When a docu&ment becomes active"
+#~ msgstr "Xa uxw&ebhu lusebenza"
+
+#~ msgid "When the file selector becomes visible"
+#~ msgstr "Xa umkhethi wefayile ubonakala"
+
+#~ msgid "Remember &locations:"
+#~ msgstr "Khumbula iinda&wo ezikuyo:"
+
+#~ msgid "Remember &filters:"
+#~ msgstr "Khumbula &amacebo okucoca ulwelo:"
+
+#~ msgid "Restore last f&ilter"
+#~ msgstr "Buyiselisa icebo lokucoca ulwelo lokugq&ibela"
+
+#, fuzzy
+#~ msgid ""
+#~ "<p>Decides how many locations to keep in the history of the location "
+#~ "combo box."
+#~ msgstr ""
+#~ "<p>Igqiba ukuba izakugcina iindawo ezingaphi kwimbali ye combo yendawo "
+#~ "yebhokisi"
+
+#, fuzzy
+#~ msgid ""
+#~ "<p>Decides how many filters to keep in the history of the filter combo "
+#~ "box."
+#~ msgstr ""
+#~ "<p>Igqiba ukuba mangaphi amacebo okucoca ulwelo azakugcinwa kwimbali ye "
+#~ "combo yecebo lokucoca ulwelo"
+
+#, fuzzy
+#~ msgid ""
+#~ "<p>These options allow you to have the File Selector automatically change "
+#~ "location to the folder of the active document on certain events.<p>Auto "
+#~ "synchronization is <em>lazy</em>, meaning it will not take effect until "
+#~ "the file selector is visible.<p>None of these are enabled by default, but "
+#~ "you can always sync the location by pressing the sync button in the "
+#~ "toolbar."
+#~ msgstr ""
+#~ " <p>Ezi nketho zivumela ulwenzo Lomkhethi Wefayile atshintshe indawo "
+#~ "kulawulo loxwebhu olusebenzayo kwezinye izenzakalo. <p>Ulweziwo lwezinto "
+#~ "zisebenze ngokufanayo yi <em>eyonqenayo</em>, ithetha ukuba ayisebenzi "
+#~ "kude umkhethi wefayile abonakale.<p>Akukho nanye eyenziwe "
+#~ "ngokungagqibekange, kodwa iyakwazi ukwenza usebenze ngexesha elinye "
+#~ "ngokunqakraza iqhosha le sync kwi bar yesixhobo."
+
+#~ msgid ""
+#~ "<p>If this option is enabled (default), the location will be restored "
+#~ "when you start Kate.<p><strong>Note</strong> that if the session is "
+#~ "handled by the KDE session manager, the location is always restored."
+#~ msgstr ""
+#~ "<p>Ukuba olukhetho lwenziwe (okwendalo), indawo izakubuyiselwa xa uqala i "
+#~ "Kate.<p><strong>Qaphela</strong> ukuba intlanganiso iphathwa nguphathi "
+#~ "wentlanganiso we KDE, indawo igcinwa ngalolonke ixesha."
+
+#~ msgid ""
+#~ "<p>If this option is enabled (default), the current filter will be "
+#~ "restored when you start Kate.<p><strong>Note</strong> that if the session "
+#~ "is handled by the KDE session manager, the filter is always restored."
+#~ "<p><strong>Note</strong> that some of the autosync settings may override "
+#~ "the restored location if on."
+#~ msgstr ""
+#~ "<p>Ukuba olukhetho lwenziwe (ngokungagqibekanga), icebo lokucoca ulkwelo "
+#~ "lizakubuyiselwa xa uqala i Kate.<p><strong>Qaphela</strong> ukuba "
+#~ "intlanganiso iphathwa ngumphathi wentlanganiso we KDE, icebo lokucoca "
+#~ "ulwelo liyabuyiselwa ngalolonke ixesha.<p><strong>Qaphela</strong> ukuba "
+#~ "ezinye izicwangciso ze autosync zingabhala ngaphazulu kwendawo ukuba "
+#~ "zilayiyhiwe."
+
+#, fuzzy
+#~ msgid "Document Quick Switch"
+#~ msgstr "&Uxwebhu"
+
+#, fuzzy
+#~ msgid "&Label:"
+#~ msgstr "Igama: "
+
+#, fuzzy
+#~ msgid "S&cript:"
+#~ msgstr "Amagama ashicilelwe pha&ntsi e KDE"
+
+#, fuzzy
+#~ msgid "&Save:"
+#~ msgstr "Igama: "
+
+#, fuzzy
+#~ msgid "None"
+#~ msgstr "Yenzekile"
+
+#, fuzzy
+#~ msgid "All Documents"
+#~ msgstr "&Uxwebhu"
+
+#, fuzzy
+#~ msgid "&New..."
+#~ msgstr "&Vala Okwangoku"
+
+#, fuzzy
+#~ msgid "&Edit..."
+#~ msgstr "&Iposi..."
+
+#~ msgid "Send one or more of the open documents as email attachments."
+#~ msgstr ""
+#~ "Thumela uxwebhu olunye okanye elingaphezulu kwenye njengofakelelo lwe "
+#~ "email."
+
+#, fuzzy
+#~ msgid ""
+#~ "<p>The current document has not been saved, and cannot be attached to an "
+#~ "email message.<p>Do you want to save it and proceed?"
+#~ msgstr ""
+#~ "<p>Uxwebhu lwangoku aligcinwanga, kwaye alikwazi ukufakelelwa kumyalezo "
+#~ "we email.<p>Ingaba ufuna ukuyigcina uqhubeke?"
+
+#~ msgid "Cannot Send Unsaved File"
+#~ msgstr "Ayinakuthumela Ifayile Engagcinwanga"
+
+#~ msgid ""
+#~ "The file could not be saved. Please check if you have write permission."
+#~ msgstr "Ifayile ayinakugcinwa. Nceda khangela ukuba uneemvume zokubhala."
+
+#, fuzzy
+#~ msgid ""
+#~ "<p>The current file:<br><strong>%1</strong><br>has been modified. "
+#~ "Modifications will not be available in the attachment.<p>Do you want to "
+#~ "save it before sending it?"
+#~ msgstr ""
+#~ "<p>Ifayile yangoku:<br><strong>%1</strong><br>iguqulwe kancincane. "
+#~ "Inguqulo ezincincane azizukufumaneka njenge zifakelo. <p>Ingaba ufuna "
+#~ "ukuyigcina phambi kokuyithumela?"
+
+#, fuzzy
+#~ msgid "Save Before Sending?"
+#~ msgstr "Gcina phambi kokuthumela?"
+
+#, fuzzy
+#~ msgid "Email Files"
+#~ msgstr "Ifayile ye Email(ii)"
+
+#~ msgid "&Mail..."
+#~ msgstr "&Iposi..."
+
+#~ msgid ""
+#~ "<p>Press <strong>Mail...</strong> to email the current document.<p>To "
+#~ "select more documents to send, press <strong>Show All Documents&nbsp;&gt;"
+#~ "&gt;</strong>."
+#~ msgstr ""
+#~ "<p>Nqakraza <strong>Iposi...</strong> kwi email yoxwebhu lwangoku.<p> "
+#~ "Ukukhetha amaxwebhu amaninzi azakuthunyelwa, nqakraza <strong>Bonisa Onke "
+#~ "Amaxwebhu&nbsp;&gt;&gt;</strong>."
+
+#~ msgid "&Hide Document List <<"
+#~ msgstr "&Fihla Uluhlu Lwamaxwebhu <<"
+
+#~ msgid "Press <strong>Mail...</strong> to send selected documents"
+#~ msgstr "Cinizela <strong>Iposi...</strong> ukuthumela uxwebhu olukhethiweyo"
+
+#, fuzzy
+#~ msgid "HT&ML Tag..."
+#~ msgstr "&Iposi..."
+
+#, fuzzy
+#~ msgid "&Top"
+#~ msgstr "Ibar yesixhobo"
+
+#, fuzzy
+#~ msgid "&follow current tab"
+#~ msgstr "Vala uxwebhu lwangoku."
+
+#, fuzzy
+#~ msgid "document &name"
+#~ msgstr "&Uxwebhu"
+
+#, fuzzy
+#~ msgid "document &URL"
+#~ msgstr "&Uxwebhu"
+
+#, fuzzy
+#~ msgid "Frame Colors"
+#~ msgstr "Umbhekisi phambili Wengaphakathi lento/umntu"
+
+#, fuzzy
+#~ msgid "Close &Other Tabs"
+#~ msgstr "Vala uxwebhu lwangoku."
+
+#, fuzzy
+#~ msgid "Remember"
+#~ msgstr "Khumbula &amacebo okucoca ulwelo:"
+
+#, fuzzy
+#~ msgid "Application &working folder"
+#~ msgstr "Isicelo seMode"
+
+#, fuzzy
+#~ msgid "&Document folder"
+#~ msgstr "&Uxwebhu"
+
+#, fuzzy
+#~ msgid "Show Params"
+#~ msgstr "&Bonisa Umendo"
+
+#, fuzzy
+#~ msgid "Show Variables"
+#~ msgstr "Bonisa &Amanani Elayini"
+
+#, fuzzy
+#~ msgid "Show Templates"
+#~ msgstr "&Template:"
+
+#, fuzzy
+#~ msgid "Templates"
+#~ msgstr "&Template:"
+
+#, fuzzy
+#~ msgid "Show Globals"
+#~ msgstr "Bonisa &Amanani Elayini"
+
+#, fuzzy
+#~ msgid "Show Methods"
+#~ msgstr "&Bonisa Umendo"
+
+#, fuzzy
+#~ msgid "Show Symbols"
+#~ msgstr "Bonisa &Amanani Elayini"
+
+#, fuzzy
+#~ msgid "Show Macros"
+#~ msgstr "Bonisa &Amanani Elayini"
+
+#, fuzzy
+#~ msgid "Show Uses"
+#~ msgstr "Bonisa %1"
+
+#, fuzzy
+#~ msgid "Show Pragmas"
+#~ msgstr "&Bonisa Umendo"
+
+#, fuzzy
+#~ msgid "&Manage Templates..."
+#~ msgstr "&Iposi..."
+
+#, fuzzy
+#~ msgid "&Template:"
+#~ msgstr "&Template:"
+
+#, fuzzy
+#~ msgid "Document &name:"
+#~ msgstr "&Uxwebhu"
+
+#, fuzzy
+#~ msgid "Start with an &empty document"
+#~ msgstr "Yenza uxwebhu olutsha"
+
+#, fuzzy
+#~ msgid "Choose Template Origin"
+#~ msgstr "&Template:"
+
+#, fuzzy
+#~ msgid "Open the template for editing"
+#~ msgstr "Vula uxwebhu olukhoyo xa uhlela"
+
+#, fuzzy
+#~ msgid "Create Template"
+#~ msgstr "&Template:"
+
+#, fuzzy
+#~ msgid "Save Failed"
+#~ msgstr "&Ekhethiweyo:"
+
+#, fuzzy
+#~ msgid "Template"
+#~ msgstr "&Template:"
+
+#, fuzzy
+#~ msgid "Edit..."
+#~ msgstr "&Iposi..."
+
+#, fuzzy
+#~ msgid ""
+#~ "The file '%1' could not be parsed. Please check that the file is well-"
+#~ "formed XML."
+#~ msgstr "Ifayile ayinakugcinwa. Nceda khangela ukuba uneemvume zokubhala."
+
+#, fuzzy
+#~ msgid "&Close Element"
+#~ msgstr "&Uxwebhu"
+
+#, fuzzy
+#~ msgid "Open .h/.cpp/.c"
+#~ msgstr "&Enye..."
+
+#, fuzzy
+#~ msgid "Empty session"
+#~ msgstr "Intlanganiso"
+
+#, fuzzy
+#~ msgid "Close Current Tab"
+#~ msgstr "&Vala Okwangoku"
+
+#, fuzzy
+#~ msgid "Open a new tab"
+#~ msgstr "Ivula i window ye Kate entsha"
+
+#, fuzzy
+#~ msgid "Position"
+#~ msgstr "Isicelo"
+
+#~ msgid " R/O "
+#~ msgstr " R/O "
+
+#~ msgid " OVR "
+#~ msgstr " OVR "
+
+#, fuzzy
+#~ msgid "Other..."
+#~ msgstr "&Enye..."
+
+#~ msgid ""
+#~ "If this option is checked, the full document path will be shown in the "
+#~ "window caption."
+#~ msgstr ""
+#~ "Ukuba olukhetho lukhangelwe, kuzakuboniswa kwi window caption umendo "
+#~ "opheleleyo woxwebhu."
+
+#~ msgid ""
+#~ "If this is checked, the built in Konsole will <code>cd</code> to the "
+#~ "directory of the active document when started and whenever the active "
+#~ "document changes, if the document is a local file."
+#~ msgstr ""
+#~ "Ukuba ikhangelwe i Konsole yangapakati izaku <code>cd</code>ku lawulo "
+#~ "lwencwadi xa iqaliwe okanye xa incwadi esebenzayo itshintsha iyi fayile "
+#~ "yasebulalini."
+
+#~ msgid "Editor"
+#~ msgstr "Umhleli"
+
+#~ msgid ""
+#~ "You can choose a template for the pattern from the combo box\n"
+#~ "and edit it here. The string %s in the template is replaced\n"
+#~ "by the pattern input field, resulting in the regular expression\n"
+#~ "to search for."
+#~ msgstr ""
+#~ "Ungakhetha itemplate yomlinganiselo kwibhokisi yokubini\n"
+#~ "kwaye uyihlele apha. Umtya %s kwi template ubuyiselwa\n"
+#~ "ngomhlaba wegalelo lomlinganiselo, iphuma kuchazo rhoqo\n"
+#~ "ozakuliphendla"
+
+#, fuzzy
+#~ msgid "Unnamed Session"
+#~ msgstr "Intlanganiso"
+
+#, fuzzy
+#~ msgid "Session (%1)"
+#~ msgstr "Intlanganiso"
+
+#~ msgid "Use this command to print the current document"
+#~ msgstr "Sebenzisa lomyalelo ukushicilela uxwebhu lwangoku"
+
+#~ msgid "Use this command to open an existing document for editing"
+#~ msgstr "Sebenzisa lomyalelo ukuvula uxwebhu lwangoku lohlelo"
+
+#~ msgid "Choose Editor..."
+#~ msgstr "Khetha Umhleli..."
+
+#~ msgid "Override the system wide setting for the default editing component"
+#~ msgstr ""
+#~ "Bhala ngaphezulu kwendlela yokusebenza ebanzi yohlelo lwengxenye "
+#~ "engagqibekanga"
+
+#~ msgid "Close the current document view"
+#~ msgstr "Vala imboniselo yoxwebhu lwangoku"

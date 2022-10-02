@@ -1,0 +1,3850 @@
+# translation of kate.po to Cymraeg
+# Translation of kate.po to Cymraeg
+# Bwrdd Gwaith yn Gymraeg.
+# Copyright (C) 2003, 2004 Free Software Foundation, Inc.
+# www.kyfieithu.co.uk<kyfieithu@dotmon.com>, www.gyfieithu.co.uk<kyfieithu@dotmon.com>, 2003.
+# KGyfieithu <kyfieithu@dotmon.com>, 2003.
+# KD at KGyfieithu <kyfieithu@dotmon.com>, 2003, 2004.
+#
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-10-02 00:49+0000\n"
+"PO-Revision-Date: 2004-06-30 15:15+0100\n"
+"Last-Translator: KD at KGyfieithu <kyfieithu@dotmon.com>\n"
+"Language-Team: Cymraeg <cy@li.org>\n"
+"Language: cy\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.2\n"
+"\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Owain Green drwy KGyfieithu - Meddalwedd Gymraeg"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "kyfieithu@dotmon.com"
+
+#: kate/main.cpp:106
+#, kde-format
+msgid "Kate"
+msgstr "Kate"
+
+#: kate/main.cpp:108
+#, kde-format
+msgid "Kate - Advanced Text Editor"
+msgstr "Kate - Golygydd Testun Uwch"
+
+#: kate/main.cpp:110 kwrite/main.cpp:89
+#, fuzzy, kde-format
+msgid "(c) 2000-2022 The Kate Authors"
+msgstr "(h)(c) 2000-2003 Yr Awduron Kate"
+
+#: kate/main.cpp:156
+#, fuzzy, kde-format
+msgid "Start Kate with a given session."
+msgstr "Sesiwn"
+
+#: kate/main.cpp:157
+#, fuzzy, kde-format
+#| msgid "Session"
+msgid "session"
+msgstr "Sesiwn"
+
+#: kate/main.cpp:162
+#, fuzzy, kde-format
+msgid "Start Kate with a new anonymous session, implies '-n'."
+msgstr "Sesiwn"
+
+#: kate/main.cpp:167
+#, kde-format
+msgid ""
+"Force start of a new kate instance (is ignored if start is used and another "
+"kate instance already has the given session opened), forced if no parameters "
+"and no URLs are given at all."
+msgstr ""
+
+#: kate/main.cpp:173
+#, kde-format
+msgid ""
+"If using an already running kate instance, block until it exits, if URLs "
+"given to open."
+msgstr ""
+
+#: kate/main.cpp:179
+#, kde-format
+msgid ""
+"Only try to reuse kate instance with this pid (is ignored if start is used "
+"and another kate instance already has the given session opened)."
+msgstr ""
+
+#: kate/main.cpp:180
+#, kde-format
+msgid "pid"
+msgstr ""
+
+#: kate/main.cpp:185 kwrite/main.cpp:140
+#, kde-format
+msgid "Set encoding for the file to open."
+msgstr ""
+
+#: kate/main.cpp:186 kwrite/main.cpp:141
+#, kde-format
+msgid "encoding"
+msgstr ""
+
+#: kate/main.cpp:190 kwrite/main.cpp:145
+#, fuzzy, kde-format
+#| msgid "Navigate to this line"
+msgid "Navigate to this line."
+msgstr "Llywio i'r linell hon"
+
+#: kate/main.cpp:190 kwrite/main.cpp:145
+#, kde-format
+msgid "line"
+msgstr ""
+
+#: kate/main.cpp:195 kwrite/main.cpp:149
+#, fuzzy, kde-format
+#| msgid "Navigate to this column"
+msgid "Navigate to this column."
+msgstr "Llywio i'r golofn hon"
+
+#: kate/main.cpp:196 kwrite/main.cpp:149
+#, fuzzy, kde-format
+msgid "column"
+msgstr "Sylwad"
+
+#: kate/main.cpp:200 kwrite/main.cpp:153
+#, fuzzy, kde-format
+#| msgid "Read the contents of stdin"
+msgid "Read the contents of stdin."
+msgstr "Darllen cynnwys stdin (y mewnbwn safonol)"
+
+#: kate/main.cpp:205 kwrite/main.cpp:157
+#, kde-format
+msgid "The files/URLs opened by the application will be deleted after use"
+msgstr ""
+
+#: kate/main.cpp:209 kwrite/main.cpp:161
+#, fuzzy, kde-format
+#| msgid "Document to open"
+msgid "Documents to open."
+msgstr "Dogfen i'w hagor"
+
+#: kate/main.cpp:209 kwrite/main.cpp:161
+#, kde-format
+msgid "[urls...]"
+msgstr ""
+
+#: kwrite/main.cpp:85
+#, kde-format
+msgid "KWrite"
+msgstr "KWrite"
+
+#: kwrite/main.cpp:87
+#, kde-format
+msgid "KWrite - Text Editor"
+msgstr "KWrite - Golygydd Testun"
+
+#. i18n: ectx: Menu (file)
+#: lib/data/kateui.rc:6
+#, fuzzy, kde-format
+msgid "&File"
+msgstr "Ffeiliau:"
+
+#. i18n: ectx: Menu (file_file_actions)
+#: lib/data/kateui.rc:30
+#, fuzzy, kde-format
+#| msgid "Location"
+msgid "File Actions"
+msgstr "Lleoliad"
+
+#. i18n: ectx: Menu (edit)
+#: lib/data/kateui.rc:43
+#, fuzzy, kde-format
+msgid "&Edit"
+msgstr "&Golygu..."
+
+#. i18n: ectx: Menu (selection)
+#: lib/data/kateui.rc:54
+#, fuzzy, kde-format
+#| msgid "S&elected actions:"
+msgid "&Selection"
+msgstr "Gweithredoedd d&ewisiedig:"
+
+#. i18n: ectx: Menu (go)
+#: lib/data/kateui.rc:57
+#, kde-format
+msgid "&Go"
+msgstr ""
+
+#. i18n: ectx: Menu (view)
+#: lib/data/kateui.rc:73
+#, fuzzy, kde-format
+msgid "&View"
+msgstr "&Newydd"
+
+#. i18n: ectx: Menu (view-split)
+#: lib/data/kateui.rc:75 lib/kateviewspace.cpp:118
+#, fuzzy, kde-format
+#| msgid "Split Ve&rtical"
+msgid "Split View"
+msgstr "Hollti'n& Fertigol"
+
+#. i18n: ectx: Menu (tools)
+#: lib/data/kateui.rc:109
+#, fuzzy, kde-format
+msgid "&Tools"
+msgstr "Bar offer"
+
+#. i18n: ectx: Menu (settings)
+#: lib/data/kateui.rc:126
+#, fuzzy, kde-format
+msgid "&Settings"
+msgstr "Ymgyc&hwyn"
+
+#. i18n: ectx: Menu (help)
+#: lib/data/kateui.rc:134
+#, kde-format
+msgid "&Help"
+msgstr ""
+
+#. i18n: ectx: ToolBar (mainToolBar)
+#: lib/data/kateui.rc:139
+#, fuzzy, kde-format
+msgid "Main Toolbar"
+msgstr "Bar offer"
+
+#. i18n: ectx: Menu (viewspace_popup_statusbar)
+#: lib/data/kateui.rc:167
+#, kde-format
+msgid "&Status Bar Items"
+msgstr ""
+
+#: lib/diff/diffeditor.cpp:146
+#, kde-format
+msgid "Change Style"
+msgstr ""
+
+#: lib/diff/diffeditor.cpp:148 lib/kateconfigdialog.cpp:291
+#, kde-format
+msgid "Side By Side"
+msgstr ""
+
+#: lib/diff/diffeditor.cpp:151 lib/kateconfigdialog.cpp:292
+#, fuzzy, kde-format
+#| msgid "Modified"
+msgid "Unified"
+msgstr "Addaswyd"
+
+#: lib/diff/diffeditor.cpp:154 lib/kateconfigdialog.cpp:293
+#, kde-format
+msgid "Raw"
+msgstr ""
+
+#: lib/diff/diffeditor.cpp:183
+#, fuzzy, kde-format
+msgid "Stage Line"
+msgid_plural "Stage Lines"
+msgstr[0] "&Ffenestr"
+msgstr[1] "&Ffenestr"
+
+#: lib/diff/diffeditor.cpp:188
+#, kde-format
+msgid "Stage Hunk"
+msgstr ""
+
+#: lib/diff/diffeditor.cpp:195
+#, kde-format
+msgid "Discard Line"
+msgid_plural "Discard Lines"
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/diff/diffeditor.cpp:200
+#, kde-format
+msgid "Discard Hunk"
+msgstr ""
+
+#: lib/diff/diffeditor.cpp:207
+#, fuzzy, kde-format
+msgid "Unstage Line"
+msgid_plural "Unstage Lines"
+msgstr[0] "&Ffenestr"
+msgstr[1] "&Ffenestr"
+
+#: lib/diff/diffeditor.cpp:212
+#, kde-format
+msgid "Unstage Hunk"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
+#: lib/filehistorywidget.cpp:258 lib/session/katesessionmanagedialog.ui:184
+#, fuzzy, kde-format
+#| msgid "Clos&e All"
+msgid "Close"
+msgstr "Cau pop&eth"
+
+#: lib/filehistorywidget.cpp:290
+#, kde-format
+msgid "Failed to get file history: git executable not found in PATH"
+msgstr ""
+
+#: lib/filehistorywidget.cpp:303
+#, kde-format
+msgid "Failed to get file history: %1"
+msgstr ""
+
+#: lib/filehistorywidget.cpp:346 lib/kateconfigdialog.cpp:125
+#, kde-format
+msgid "Error"
+msgstr ""
+
+#: lib/filehistorywidget.cpp:346
+#, kde-format
+msgid "%1 doesn't exist in a git repo."
+msgstr ""
+
+#: lib/filehistorywidget.cpp:346
+#, kde-format
+msgid "Git"
+msgstr ""
+
+#: lib/filehistorywidget.cpp:354
+#, fuzzy, kde-format
+#| msgid "File Selector"
+msgid "File History"
+msgstr "Dewisydd Ffeiliau"
+
+#: lib/kateapp.cpp:146
+#, kde-format
+msgid "Christoph Cullmann"
+msgstr ""
+
+#: lib/kateapp.cpp:146
+#, kde-format
+msgid "Maintainer"
+msgstr "Cynhaliwr"
+
+#: lib/kateapp.cpp:147
+#, kde-format
+msgid "Dominik Haumann"
+msgstr ""
+
+#: lib/kateapp.cpp:147 lib/kateapp.cpp:150 lib/kateapp.cpp:152
+#: lib/kateapp.cpp:155 lib/kateapp.cpp:161
+#, kde-format
+msgid "Core Developer"
+msgstr "Datblygwr Craidd"
+
+#: lib/kateapp.cpp:148
+#, kde-format
+msgid "Sven Brauch"
+msgstr ""
+
+#: lib/kateapp.cpp:148 lib/kateapp.cpp:149 lib/kateapp.cpp:156
+#, fuzzy, kde-format
+#| msgid "Core Developer"
+msgid "Developer"
+msgstr "Datblygwr Craidd"
+
+#: lib/kateapp.cpp:149
+#, kde-format
+msgid "Kåre Särs"
+msgstr ""
+
+#: lib/kateapp.cpp:150
+#, kde-format
+msgid "Anders Lund"
+msgstr ""
+
+#: lib/kateapp.cpp:151
+#, kde-format
+msgid "Joseph Wenninger"
+msgstr ""
+
+#: lib/kateapp.cpp:155
+#, kde-format
+msgid "Hamish Rodda"
+msgstr ""
+
+#: lib/kateapp.cpp:156
+#, kde-format
+msgid "Alexander Neundorf"
+msgstr ""
+
+#: lib/kateapp.cpp:157
+#, kde-format
+msgid "Waldo Bastian"
+msgstr ""
+
+#: lib/kateapp.cpp:157
+#, kde-format
+msgid "The cool buffersystem"
+msgstr "Y gyfundrefn byfferi cŵl"
+
+#: lib/kateapp.cpp:158
+#, kde-format
+msgid "Charles Samuels"
+msgstr ""
+
+#: lib/kateapp.cpp:158
+#, kde-format
+msgid "The Editing Commands"
+msgstr "Y Gorchmynion Golygu"
+
+#: lib/kateapp.cpp:159
+#, kde-format
+msgid "Matt Newell"
+msgstr ""
+
+#: lib/kateapp.cpp:159
+#, kde-format
+msgid "Testing, ..."
+msgstr "Profi,..."
+
+#: lib/kateapp.cpp:160
+#, kde-format
+msgid "Michael Bartl"
+msgstr ""
+
+#: lib/kateapp.cpp:160
+#, kde-format
+msgid "Former Core Developer"
+msgstr "Cyn-ddatblygwr Craidd"
+
+#: lib/kateapp.cpp:161
+#, kde-format
+msgid "Michael McCallum"
+msgstr ""
+
+#: lib/kateapp.cpp:162
+#, kde-format
+msgid "Jochen Wilhemly"
+msgstr ""
+
+#: lib/kateapp.cpp:162
+#, kde-format
+msgid "KWrite Author"
+msgstr "Awdur KWrite"
+
+#: lib/kateapp.cpp:163
+#, kde-format
+msgid "Michael Koch"
+msgstr ""
+
+#: lib/kateapp.cpp:163
+#, kde-format
+msgid "KWrite port to KParts"
+msgstr "Porthiad KWrite i KParts"
+
+#: lib/kateapp.cpp:164
+#, kde-format
+msgid "Christian Gebauer"
+msgstr ""
+
+#: lib/kateapp.cpp:165
+#, kde-format
+msgid "Simon Hausmann"
+msgstr ""
+
+#: lib/kateapp.cpp:166
+#, kde-format
+msgid "Glen Parker"
+msgstr ""
+
+#: lib/kateapp.cpp:166
+#, kde-format
+msgid "KWrite Undo History, Kspell integration"
+msgstr "Hanes Datwneud KWrite, cyfuno Kspell"
+
+#: lib/kateapp.cpp:167
+#, kde-format
+msgid "Scott Manson"
+msgstr ""
+
+#: lib/kateapp.cpp:167
+#, kde-format
+msgid "KWrite XML Syntax highlighting support"
+msgstr "Cynhaliaeth amlygu cystrawen XML KWrite"
+
+#: lib/kateapp.cpp:168
+#, kde-format
+msgid "John Firebaugh"
+msgstr ""
+
+#: lib/kateapp.cpp:168
+#, kde-format
+msgid "Patches and more"
+msgstr "Clytiau a mwy"
+
+#: lib/kateapp.cpp:169
+#, kde-format
+msgid "Pablo Martín"
+msgstr ""
+
+#: lib/kateapp.cpp:170
+#, fuzzy, kde-format
+#| msgid "Plugins"
+msgid "Python Plugin Developer"
+msgstr "Ategion"
+
+#: lib/kateapp.cpp:173
+#, kde-format
+msgid "Gerald Senarclens de Grancy"
+msgstr ""
+
+#: lib/kateapp.cpp:174
+#, kde-format
+msgid "QA and Scripting"
+msgstr ""
+
+#: lib/kateapp.cpp:178
+#, kde-format
+msgid "Tyson Tan"
+msgstr ""
+
+#: lib/kateapp.cpp:179
+#, kde-format
+msgid "Designer of Kate's mascot 'Kate the Cyber Woodpecker'"
+msgstr ""
+
+#: lib/kateapp.cpp:182
+#, kde-format
+msgid "Matteo Merli"
+msgstr ""
+
+#: lib/kateapp.cpp:182
+#, kde-format
+msgid "Highlighting for RPM Spec-Files, Perl, Diff and more"
+msgstr "Amlygu ffeiliau manyleb RPM, Perl, Diff a mwy"
+
+#: lib/kateapp.cpp:183
+#, kde-format
+msgid "Rocky Scaletta"
+msgstr ""
+
+#: lib/kateapp.cpp:183
+#, kde-format
+msgid "Highlighting for VHDL"
+msgstr "Amlygu ar gyfer VHDL"
+
+#: lib/kateapp.cpp:184
+#, kde-format
+msgid "Yury Lebedev"
+msgstr ""
+
+#: lib/kateapp.cpp:184
+#, kde-format
+msgid "Highlighting for SQL"
+msgstr "Amlygu ar gyfer SQL"
+
+#: lib/kateapp.cpp:185
+#, kde-format
+msgid "Chris Ross"
+msgstr ""
+
+#: lib/kateapp.cpp:185
+#, kde-format
+msgid "Highlighting for Ferite"
+msgstr "Amlygu ar gyfer Ferite"
+
+#: lib/kateapp.cpp:186
+#, kde-format
+msgid "Nick Roux"
+msgstr ""
+
+#: lib/kateapp.cpp:186
+#, kde-format
+msgid "Highlighting for ILERPG"
+msgstr "Amlygu ar gyfer ILERPG"
+
+#: lib/kateapp.cpp:187
+#, kde-format
+msgid "Carsten Niehaus"
+msgstr ""
+
+#: lib/kateapp.cpp:187
+#, kde-format
+msgid "Highlighting for LaTeX"
+msgstr "Amlygu ar gyfer LaTeX"
+
+#: lib/kateapp.cpp:188
+#, kde-format
+msgid "Per Wigren"
+msgstr ""
+
+#: lib/kateapp.cpp:188
+#, kde-format
+msgid "Highlighting for Makefiles, Python"
+msgstr "Amlygu ar gyfer ffeiliau gwneud, Python"
+
+#: lib/kateapp.cpp:189
+#, kde-format
+msgid "Jan Fritz"
+msgstr ""
+
+#: lib/kateapp.cpp:189
+#, kde-format
+msgid "Highlighting for Python"
+msgstr "Amlygu ar gyfer Python"
+
+#: lib/kateapp.cpp:190
+#, kde-format
+msgid "Daniel Naber"
+msgstr ""
+
+#: lib/kateapp.cpp:191
+#, kde-format
+msgid "Roland Pabel"
+msgstr ""
+
+#: lib/kateapp.cpp:191
+#, kde-format
+msgid "Highlighting for Scheme"
+msgstr "Amlygu ar gyfer Scheme"
+
+#: lib/kateapp.cpp:192
+#, kde-format
+msgid "Cristi Dumitrescu"
+msgstr ""
+
+#: lib/kateapp.cpp:192
+#, kde-format
+msgid "PHP Keyword/Datatype list"
+msgstr "Rhestr Allweddair/Math data PHP"
+
+#: lib/kateapp.cpp:193
+#, kde-format
+msgid "Carsten Pfeiffer"
+msgstr ""
+
+#: lib/kateapp.cpp:193
+#, kde-format
+msgid "Very nice help"
+msgstr "Cymorth hyfryd iawn"
+
+#: lib/kateapp.cpp:194
+#, kde-format
+msgid "All people who have contributed and I have forgotten to mention"
+msgstr "Pawb sydd wedi cyfrannu a rwy wedi anghofio eu crybwyll"
+
+#: lib/kateapp.cpp:314
+#, kde-format
+msgid "Folders can only be opened when the projects plugin is enabled"
+msgstr ""
+
+#: lib/kateapp.cpp:417
+#, kde-format
+msgid ""
+"The file '%1' could not be opened: it is not a normal file, it is a folder."
+msgstr "Methwyd agor y ffeil '%1'; plygell yw hi, dim ffeil arferol."
+
+#: lib/kateconfigdialog.cpp:51
+#, kde-format
+msgid "Configure"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:103
+#, kde-format
+msgid "Behavior"
+msgstr "Ymddygiad"
+
+#: lib/kateconfigdialog.cpp:104
+#, fuzzy, kde-format
+msgid "Behavior Options"
+msgstr "Dewisiadau Cyffredinol"
+
+#: lib/kateconfigdialog.cpp:111
+#, kde-format
+msgid "&Behavior"
+msgstr "&Ymddygiad"
+
+#: lib/kateconfigdialog.cpp:120
+#, kde-format
+msgid "&Switch to output view upon message type:"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:125
+#, fuzzy, kde-format
+#| msgid "(never)"
+msgid "Never"
+msgstr "(byth)"
+
+#: lib/kateconfigdialog.cpp:125 lib/kateconfigdialog.cpp:623
+#, kde-format
+msgid "Warning"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:125
+#, kde-format
+msgid "Info"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:125
+#, kde-format
+msgid "Log"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:131
+#, kde-format
+msgid "&Limit output view history:"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:137 lib/kateconfigdialog.cpp:203
+#, kde-format
+msgid "Unlimited"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:144
+#, kde-format
+msgid "Use a separate &dialog for handling externally modified files"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:148
+#, kde-format
+msgid ""
+"If enabled, a modal dialog will be used to show all of the modified files. "
+"If not enabled, you will be individually asked what to do for each modified "
+"file only when that file's view receives focus."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:157
+#, kde-format
+msgid "&Sidebars"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:160
+#, kde-format
+msgid "Sync section size with tab positions"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:164
+#, kde-format
+msgid ""
+"When enabled the section size will be determined by the position of the "
+"tabs.\n"
+"This option does not affect the bottom sidebar."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:169
+#, kde-format
+msgid "Show text for left and right sidebar buttons"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:174
+#, kde-format
+msgid "Icon size for left and right sidebar buttons"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:193
+#, fuzzy, kde-format
+msgid "&Tabs"
+msgstr "Dang&os Llwybr"
+
+#: lib/kateconfigdialog.cpp:197
+#, kde-format
+msgid "&Limit number of tabs:"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:208
+#, kde-format
+msgid ""
+"A high limit can increase the window size, please enable 'Allow tab "
+"scrolling' to prevent it. Unlimited tabs are always scrollable."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:212
+#, kde-format
+msgid "&Auto hide tabs"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:214
+#, kde-format
+msgid "When checked tabs will be hidden if only one document is open."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:218
+#, kde-format
+msgid "&Show close button"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:220
+#, kde-format
+msgid "When checked each tab will display a close button."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:224
+#, kde-format
+msgid "&Expand tabs"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:226
+#, kde-format
+msgid "When checked tabs take as much size as possible."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:230
+#, fuzzy, kde-format
+#| msgid "Create a new document"
+msgid "&Double click opens a new document"
+msgstr "Creu dogfen newydd"
+
+#: lib/kateconfigdialog.cpp:232
+#, kde-format
+msgid "When checked double click opens a new document."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:236
+#, fuzzy, kde-format
+#| msgid "Close all open documents."
+msgid "&Middle click closes a document"
+msgstr "Cau bob dogfen agored."
+
+#: lib/kateconfigdialog.cpp:238
+#, kde-format
+msgid "When checked middle click closes a document."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:242
+#, kde-format
+msgid "Allow tab scrolling"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:244
+#, kde-format
+msgid ""
+"When checked this will allow scrolling in tab bar when number of tabs is "
+"large."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:248
+#, kde-format
+msgid "Elide tab text"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:250
+#, kde-format
+msgid "When checked tab text might be elided if its too long."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:256
+#, kde-format
+msgid "&Mouse"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:261
+#, kde-format
+msgid "&Backward button pressed:"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:266
+#, fuzzy, kde-format
+#| msgid "Activate Previous Tab"
+msgid "Previous tab"
+msgstr "Gweithredu'r Tab Cynt"
+
+#: lib/kateconfigdialog.cpp:266
+#, kde-format
+msgid "History back"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:272
+#, kde-format
+msgid "&Forward button pressed:"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:277
+#, fuzzy, kde-format
+#| msgid "New Tab"
+msgid "Next tab"
+msgstr "Tab Newydd"
+
+#: lib/kateconfigdialog.cpp:277
+#, kde-format
+msgid "History forward"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:285
+#, kde-format
+msgid "Diff"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:294
+#, kde-format
+msgid "Diff Style:"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:308
+#, fuzzy, kde-format
+#| msgid "Sessions"
+msgid "Session"
+msgstr "Sesiynau"
+
+#: lib/kateconfigdialog.cpp:309
+#, fuzzy, kde-format
+msgid "Session Management"
+msgstr "Sesiwn"
+
+#: lib/kateconfigdialog.cpp:320
+#, fuzzy, kde-format
+#| msgid "(never)"
+msgctxt "The special case of 'Delete unused meta-information after'"
+msgid "(never)"
+msgstr "(byth)"
+
+#: lib/kateconfigdialog.cpp:321
+#, fuzzy, kde-format
+#| msgid " day(s)"
+msgctxt "The suffix of 'Delete unused meta-information after'"
+msgid " day"
+msgid_plural " days"
+msgstr[0] "diwrnod(au)"
+msgstr[1] "diwrnod(au)"
+
+#: lib/kateconfigdialog.cpp:384
+#, kde-format
+msgid "Plugins"
+msgstr "Ategion"
+
+#: lib/kateconfigdialog.cpp:385
+#, kde-format
+msgid "Plugin Manager"
+msgstr "Trefnydd Ategion"
+
+#: lib/kateconfigdialog.cpp:403 lib/kateconfigdialog.cpp:404
+#, kde-format
+msgid "User Feedback"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:622
+#, fuzzy, kde-format
+#| msgid ""
+#| "<p>The document '%1' has been modified, but not saved.<p>Do you want to "
+#| "save your changes or discard them?"
+msgid ""
+"You have unsaved changes. Do you want to apply the changes or discard them?"
+msgstr ""
+"<p>Addaswyd y ddogfen '%1', ond ni'i gadwyd. <p>Ydych am gadw eich "
+"newidiadu, neu eu taflu?"
+
+#: lib/kateconfigplugindialogpage.cpp:66
+#, kde-format
+msgid "Name"
+msgstr "Enw"
+
+#: lib/kateconfigplugindialogpage.cpp:66
+#, fuzzy, kde-format
+msgid "Description"
+msgstr "S&gript :"
+
+#: lib/kateconfigplugindialogpage.cpp:69
+#, kde-format
+msgid ""
+"Here you can see all available Kate plugins. Those with a check mark are "
+"loaded, and will be loaded again the next time Kate is started."
+msgstr ""
+"Yma gallwch weld pob ategyn Kate sydd ar gael. Mae'r sawl a nôd brith yn eu "
+"herbyn yn llwythiedig, ac fe'i llwythir tro nesaf y cychwynnir Kate."
+
+#: lib/katedocmanager.cpp:264
+#, fuzzy, kde-format
+#| msgid ""
+#| "<p>The document '%1' has been modified, but not saved.<p>Do you want to "
+#| "save your changes or discard them?"
+msgid ""
+"<p>The document '%1' has been modified, but not saved.</p><p>Do you want to "
+"save your changes or discard them?</p>"
+msgstr ""
+"<p>Addaswyd y ddogfen '%1', ond ni'i gadwyd. <p>Ydych am gadw eich "
+"newidiadu, neu eu taflu?"
+
+#: lib/katedocmanager.cpp:267
+#, kde-format
+msgid "Close Document"
+msgstr "Cau Dogfen"
+
+#: lib/katedocmanager.cpp:276
+#, fuzzy, kde-format
+msgid "Save As"
+msgstr "Cadw &Fel..."
+
+#: lib/katedocmanager.cpp:294 lib/katemainwindow.cpp:583
+#, kde-format
+msgid "New file opened while trying to close Kate, closing aborted."
+msgstr ""
+
+#: lib/katedocmanager.cpp:294 lib/katemainwindow.cpp:583
+#, kde-format
+msgid "Closing Aborted"
+msgstr ""
+
+#: lib/katedocmanager.cpp:372
+#, fuzzy, kde-format
+msgid "Starting Up"
+msgstr "Ymgyc&hwyn"
+
+#: lib/katedocmanager.cpp:373
+#, kde-format
+msgid "Reopening files from the last session..."
+msgstr "Ailagor ffeiliau o'r sesiwn blaenorol..."
+
+#: lib/katefileactions.cpp:67
+#, fuzzy, kde-format
+msgid "Rename file"
+msgstr "Patrymlun:"
+
+#: lib/katefileactions.cpp:68
+#, fuzzy, kde-format
+#| msgid "Filename"
+msgid "New file name"
+msgstr "Enw Ffeil"
+
+#: lib/katefileactions.cpp:105
+#, kde-format
+msgid "File \"%1\" could not be moved to \"%2\""
+msgstr ""
+
+#: lib/katefileactions.cpp:129
+#, kde-format
+msgid "Do you really want to delete file \"%1\"?"
+msgstr ""
+
+#: lib/katefileactions.cpp:130
+#, fuzzy, kde-format
+msgid "Delete file"
+msgstr "Wedi'u dileu"
+
+#: lib/katefileactions.cpp:147
+#, kde-format
+msgid "File \"%1\" could not be deleted."
+msgstr ""
+
+#: lib/katemainwindow.cpp:212
+#, kde-format
+msgid "Use this command to show or hide the view's statusbar"
+msgstr "Defnyddiwch y gorchymyn yma i ddangos neu guddio bar cyflwr yr olwg"
+
+#: lib/katemainwindow.cpp:215
+#, fuzzy, kde-format
+msgid "Show &Tabs"
+msgstr "Dang&os Llwybr"
+
+#: lib/katemainwindow.cpp:218
+#, fuzzy, kde-format
+#| msgid "Use this command to show or hide the view's statusbar"
+msgid "Use this command to show or hide the tabs for the views"
+msgstr "Defnyddiwch y gorchymyn yma i ddangos neu guddio bar cyflwr yr olwg"
+
+#: lib/katemainwindow.cpp:220
+#, fuzzy, kde-format
+#| msgid "&Show full path in title"
+msgid "Sho&w Path in Titlebar"
+msgstr "&Dangos llwybr llawn yn y teitl"
+
+#: lib/katemainwindow.cpp:223
+#, kde-format
+msgid "Show the complete document path in the window caption"
+msgstr "Dangos llwybr cyflawn y ddogfen ym mhennawd y ffenestr"
+
+#: lib/katemainwindow.cpp:225
+#, kde-format
+msgid "Show Navigation Bar"
+msgstr ""
+
+#: lib/katemainwindow.cpp:235
+#, kde-format
+msgid "&Window Color Scheme"
+msgstr ""
+
+#: lib/katemainwindow.cpp:239
+#, fuzzy, kde-format
+#| msgid "Activate Previous Tab"
+msgid "&Previous Tab"
+msgstr "Gweithredu'r Tab Cynt"
+
+#: lib/katemainwindow.cpp:240
+#, fuzzy, kde-format
+#| msgid "Activate Previous Tab"
+msgid "Focus the previous tab."
+msgstr "Gweithredu'r Tab Cynt"
+
+#: lib/katemainwindow.cpp:245
+#, fuzzy, kde-format
+#| msgid "New Tab"
+msgid "&Next Tab"
+msgstr "Tab Newydd"
+
+#: lib/katemainwindow.cpp:246
+#, fuzzy, kde-format
+#| msgid "Close the current tab"
+msgid "Focus the next tab."
+msgstr "Cau'r tab cyfredol"
+
+#: lib/katemainwindow.cpp:253
+#, fuzzy, kde-format
+msgid "&Quick Open"
+msgstr "Sesiwn"
+
+#: lib/katemainwindow.cpp:256
+#, fuzzy, kde-format
+msgid "Open a form to quick open documents."
+msgstr "Cau bob dogfen agored."
+
+#: lib/katemainwindow.cpp:277
+#, kde-format
+msgid "Output"
+msgstr ""
+
+#: lib/katemainwindow.cpp:287
+#, kde-format
+msgid "Create a new document"
+msgstr "Creu dogfen newydd"
+
+#: lib/katemainwindow.cpp:290
+#, kde-format
+msgid "Open an existing document for editing"
+msgstr "Agor hen ddogfen er mwyn golygu"
+
+#: lib/katemainwindow.cpp:295
+#, kde-format
+msgid ""
+"This lists files which you have opened recently, and allows you to easily "
+"open them again."
+msgstr ""
+"Mae hyn yn rhestru`r ffeiliau yr ydych wedi eu hagor yn ddiweddar, ac yn "
+"eich gadael i`w hagor eto yn hawdd."
+
+#: lib/katemainwindow.cpp:299
+#, kde-format
+msgid "Save A&ll"
+msgstr "Cadw P&opeth"
+
+#: lib/katemainwindow.cpp:302
+#, fuzzy, kde-format
+msgid "Save all open, modified documents to disk."
+msgstr "Cadw pob dogfen agored neu addasiedig i ddisg"
+
+#: lib/katemainwindow.cpp:305
+#, kde-format
+msgid "&Reload All"
+msgstr ""
+
+#: lib/katemainwindow.cpp:307
+#, fuzzy, kde-format
+#| msgid "Close all open documents."
+msgid "Reload all open documents."
+msgstr "Cau bob dogfen agored."
+
+#: lib/katemainwindow.cpp:311
+#, fuzzy, kde-format
+msgid "Copy Location"
+msgstr "Lleoliad"
+
+#: lib/katemainwindow.cpp:316 lib/katemainwindow.cpp:325
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Copies the file path of the current file to clipboard."
+msgstr "Dewis yr olwg ranedig nesaf fel yr un weithredol."
+
+#: lib/katemainwindow.cpp:320 lib/welcomeview.cpp:82
+#, kde-format
+msgid "&Open Containing Folder"
+msgstr ""
+
+#: lib/katemainwindow.cpp:329
+#, fuzzy, kde-format
+#| msgid "&Rename..."
+msgctxt "@action:inmenu"
+msgid "Rename..."
+msgstr "Ail-&enwi..."
+
+#: lib/katemainwindow.cpp:334
+#, fuzzy, kde-format
+#| msgid "Create another view containing the current document"
+msgid "Renames the file belonging to the current document."
+msgstr "Creu golwg arall yn cynnwys y ddogfen gyfredol"
+
+#: lib/katemainwindow.cpp:338
+#, fuzzy, kde-format
+#| msgid "Deleted"
+msgctxt "@action:inmenu"
+msgid "Delete"
+msgstr "Wedi'u dileu"
+
+#: lib/katemainwindow.cpp:343 lib/katemainwindow.cpp:352
+#, fuzzy, kde-format
+#| msgid "Create another view containing the current document"
+msgid "Deletes the file belonging to the current document."
+msgstr "Creu golwg arall yn cynnwys y ddogfen gyfredol"
+
+#: lib/katemainwindow.cpp:347
+#, kde-format
+msgid "Properties"
+msgstr ""
+
+#: lib/katemainwindow.cpp:355 lib/katemainwindow.cpp:357
+#, kde-format
+msgid "Compare"
+msgstr ""
+
+#: lib/katemainwindow.cpp:357
+#, fuzzy, kde-format
+#| msgid "Use this command to create a new document"
+msgid "Use the Tabbar context menu to compare two documents"
+msgstr "Defnyddiwch y gorchymyn yma i greu dogfen newydd"
+
+#: lib/katemainwindow.cpp:359
+#, fuzzy, kde-format
+msgid "Shows a hint how to compare documents."
+msgstr "Cau bob dogfen agored."
+
+#: lib/katemainwindow.cpp:362
+#, fuzzy, kde-format
+msgid "Close Orphaned"
+msgstr "Cau'r tab cyfredol"
+
+#: lib/katemainwindow.cpp:364
+#, kde-format
+msgid ""
+"Close all documents in the file list that could not be reopened, because "
+"they are not accessible anymore."
+msgstr ""
+
+#: lib/katemainwindow.cpp:368
+#, kde-format
+msgid "Close the current document."
+msgstr "Cau`r ddogfen cyfredol"
+
+#: lib/katemainwindow.cpp:371
+#, fuzzy, kde-format
+msgid "Close Other"
+msgstr "Cau'r tab cyfredol"
+
+#: lib/katemainwindow.cpp:373
+#, fuzzy, kde-format
+msgid "Close other open documents."
+msgstr "Cau bob dogfen agored."
+
+#: lib/katemainwindow.cpp:376
+#, kde-format
+msgid "Clos&e All"
+msgstr "Cau pop&eth"
+
+#: lib/katemainwindow.cpp:378
+#, kde-format
+msgid "Close all open documents."
+msgstr "Cau bob dogfen agored."
+
+#: lib/katemainwindow.cpp:383
+#, kde-format
+msgid "Close this window"
+msgstr "Cau'r ffenestr hon"
+
+#: lib/katemainwindow.cpp:387
+#, fuzzy, kde-format
+#| msgid "&Window"
+msgid "&New Window"
+msgstr "&Ffenestr"
+
+#: lib/katemainwindow.cpp:389
+#, fuzzy, kde-format
+#| msgid "Create a new document"
+msgid "Create a new window."
+msgstr "Creu dogfen newydd"
+
+#: lib/katemainwindow.cpp:396
+#, kde-format
+msgid "Open W&ith"
+msgstr "Agor &Gyda"
+
+#: lib/katemainwindow.cpp:398
+#, kde-format
+msgid ""
+"Open the current document using another application registered for its file "
+"type, or an application of your choice."
+msgstr ""
+"uAgor y ddogfen gyfredol gyda cymhwysiad arall cofrestredig i'w math ffeil, "
+"neu cyhwysiad o'ch dewis chi."
+
+#: lib/katemainwindow.cpp:406
+#, kde-format
+msgid "Configure the application's keyboard shortcut assignments."
+msgstr "Ffurfweddu neilltuadau byrlwybrau bysellfwrdd y cymhwysiad."
+
+#: lib/katemainwindow.cpp:409
+#, kde-format
+msgid "Configure which items should appear in the toolbar(s)."
+msgstr "Ffurfweddu pa eitemau ddylai ymddangos yn y bar(iau) offer."
+
+#: lib/katemainwindow.cpp:412
+#, kde-format
+msgid ""
+"Configure various aspects of this application and the editing component."
+msgstr "Ffurfweddu agweddau amrywiol y cymhwysiad yma a'r gydran olygu."
+
+#: lib/katemainwindow.cpp:416
+#, kde-format
+msgid "&Plugins Handbook"
+msgstr ""
+
+#: lib/katemainwindow.cpp:418
+#, kde-format
+msgid "This shows help files for various available plugins."
+msgstr "Dengys hwn ffeiliau cymorth ar gyfer amryw o ategion sydd ar gael."
+
+#: lib/katemainwindow.cpp:435
+#, kde-format
+msgid "Sess&ions"
+msgstr "Ses&iynau"
+
+#: lib/katemainwindow.cpp:441
+#, fuzzy, kde-format
+#| msgid "New Session"
+msgctxt "Menu entry Session->New Session"
+msgid "&New Session"
+msgstr "Sesiwn Newydd"
+
+#: lib/katemainwindow.cpp:446
+#, fuzzy, kde-format
+msgid "&Recent Sessions"
+msgstr "Sesiwn"
+
+#: lib/katemainwindow.cpp:451
+#, fuzzy, kde-format
+#| msgid "Sess&ions"
+msgid "&All Sessions"
+msgstr "Ses&iynau"
+
+#: lib/katemainwindow.cpp:458
+#, fuzzy, kde-format
+msgid "&Manage Sessions..."
+msgstr "Sesiwn"
+
+#: lib/katemainwindow.cpp:467
+#, fuzzy, kde-format
+msgid "&Save Session"
+msgstr "Sesiwn"
+
+#: lib/katemainwindow.cpp:473
+#, fuzzy, kde-format
+#| msgid "Save Session?"
+msgid "Save Session &As..."
+msgstr "Cadw Sesiwn?"
+
+#: lib/katemainwindow.cpp:480 lib/kateviewspace.cpp:58
+#, fuzzy, kde-format
+#| msgid "Restore loca&tion"
+msgid "Go to Previous Location"
+msgstr "Adfer lleolia&dau:"
+
+#: lib/katemainwindow.cpp:488 lib/kateviewspace.cpp:71
+#, fuzzy, kde-format
+msgid "Go to Next Location"
+msgstr "Adfer lleolia&dau:"
+
+#: lib/katemainwindow.cpp:495
+#, kde-format
+msgid "Show File Git History"
+msgstr ""
+
+#: lib/katemainwindow.cpp:510
+#, kde-format
+msgid "This will close all open documents. Are you sure you want to continue?"
+msgstr ""
+
+#: lib/katemainwindow.cpp:511
+#, fuzzy, kde-format
+#| msgid "Close all open documents."
+msgid "Close all documents"
+msgstr "Cau bob dogfen agored."
+
+#: lib/katemainwindow.cpp:526
+#, kde-format
+msgid ""
+"This will close all open documents beside the current one. Are you sure you "
+"want to continue?"
+msgstr ""
+
+#: lib/katemainwindow.cpp:527
+#, fuzzy, kde-format
+#| msgid "Close all open documents."
+msgid "Close all documents beside current one"
+msgstr "Cau bob dogfen agored."
+
+#: lib/katemainwindow.cpp:726
+#, kde-format
+msgid ""
+"This will hide the menu bar completely. You can show it again by typing %1."
+msgstr ""
+
+#: lib/katemainwindow.cpp:729
+#, kde-format
+msgid "Hide menu bar"
+msgstr ""
+
+#: lib/katemainwindow.cpp:829
+#, kde-format
+msgid ""
+"You dropped the directory %1 into Kate. Do you want to open all files "
+"contained in it?"
+msgstr ""
+
+#: lib/katemainwindow.cpp:832
+#, kde-format
+msgctxt "@title:window"
+msgid "Open Files Recursively"
+msgstr ""
+
+#: lib/katemainwindow.cpp:833
+#, fuzzy, kde-format
+#| msgid "Open File"
+msgctxt "@action:button"
+msgid "Open All Files"
+msgstr "Agor Ffeil"
+
+#: lib/katemainwindow.cpp:958
+#, kde-format
+msgid "&Other..."
+msgstr "A&rall..."
+
+#: lib/katemainwindow.cpp:1083
+#, kde-format
+msgid " [read only]"
+msgstr ""
+
+#: lib/katemainwindow.cpp:1330
+#, kde-format
+msgid "Diff %1"
+msgstr ""
+
+#: lib/katemainwindow.cpp:1332
+#, kde-format
+msgid "Diff %1..%2"
+msgstr ""
+
+#: lib/katemdi.cpp:84
+#, fuzzy, kde-format
+#| msgid "Plugin Manager"
+msgid "Toolview Manager"
+msgstr "Trefnydd Ategion"
+
+#: lib/katemdi.cpp:102
+#, kde-format
+msgid "Sidebar Buttons"
+msgstr ""
+
+#: lib/katemdi.cpp:105
+#, kde-format
+msgid "Tool &Views"
+msgstr "Golygfeydd &Offer"
+
+#: lib/katemdi.cpp:107
+#, kde-format
+msgid "Show Side&bars"
+msgstr ""
+
+#: lib/katemdi.cpp:115
+#, fuzzy, kde-format
+#| msgid "Tool &Views"
+msgid "Hide All Tool Views"
+msgstr "Golygfeydd &Offer"
+
+#: lib/katemdi.cpp:162
+#, kde-format
+msgid "Show %1"
+msgstr "Dangos %1"
+
+#: lib/katemdi.cpp:173
+#, fuzzy, kde-format
+#| msgid "Show %1"
+msgid "Show %1 Button"
+msgstr "Dangos %1"
+
+#: lib/katemdi.cpp:984
+#, fuzzy, kde-format
+msgid "Configure..."
+msgstr "Golwg Blaenorol"
+
+#: lib/katemdi.cpp:988
+#, fuzzy, kde-format
+#| msgid "Hide Path"
+msgid "Hide Button"
+msgstr "Cuddio Llwybr"
+
+#: lib/katemdi.cpp:990
+#, kde-format
+msgid "Move To"
+msgstr "Symud I"
+
+#: lib/katemdi.cpp:995
+#, fuzzy, kde-format
+msgid "Own Section"
+msgstr "Sesiwn"
+
+#: lib/katemdi.cpp:1001 lib/katemdi.cpp:1009
+#, kde-format
+msgid "One Down"
+msgstr ""
+
+#: lib/katemdi.cpp:1003 lib/katemdi.cpp:1014
+#, kde-format
+msgid "One Right"
+msgstr ""
+
+#: lib/katemdi.cpp:1007
+#, kde-format
+msgid "One Up"
+msgstr ""
+
+#: lib/katemdi.cpp:1012
+#, kde-format
+msgid "One Left"
+msgstr ""
+
+#: lib/katemdi.cpp:1021
+#, kde-format
+msgid "Left Sidebar"
+msgstr ""
+
+#: lib/katemdi.cpp:1025
+#, fuzzy, kde-format
+#| msgid "Next View"
+msgid "Right Sidebar"
+msgstr "Golwg Nesaf"
+
+#: lib/katemdi.cpp:1029
+#, kde-format
+msgid "Top Sidebar"
+msgstr ""
+
+#: lib/katemdi.cpp:1033
+#, kde-format
+msgid "Bottom Sidebar"
+msgstr ""
+
+#: lib/katemdi.cpp:1408
+#, kde-format
+msgid ""
+"<qt>You are about to hide the sidebars. With hidden sidebars it is not "
+"possible to directly access the tool views with the mouse anymore, so if you "
+"need to access the sidebars again invoke <b>View &gt; Tool Views &gt; Show "
+"Sidebars</b> in the menu. It is still possible to show/hide the tool views "
+"with the assigned shortcuts.</qt>"
+msgstr ""
+
+#: lib/katemwmodonhddialog.cpp:58
+#, fuzzy, kde-format
+msgid "Documents Modified on Disk"
+msgstr "Dogfen i'w hagor"
+
+#: lib/katemwmodonhddialog.cpp:74
+#, kde-format
+msgid ""
+"<qt>The documents listed below have changed on disk.<p>Select one or more at "
+"once, and press an action button until the list is empty.</p></qt>"
+msgstr ""
+
+#: lib/katemwmodonhddialog.cpp:84
+#, kde-format
+msgid "Filename"
+msgstr "Enw Ffeil"
+
+#: lib/katemwmodonhddialog.cpp:84
+#, kde-format
+msgid "Status on Disk"
+msgstr ""
+
+#: lib/katemwmodonhddialog.cpp:89
+#, kde-format
+msgid "Modified"
+msgstr "Addaswyd"
+
+#: lib/katemwmodonhddialog.cpp:89
+#, kde-format
+msgid "Created"
+msgstr "Crëwyd"
+
+#: lib/katemwmodonhddialog.cpp:89
+#, kde-format
+msgid "Deleted"
+msgstr "Wedi'u dileu"
+
+#: lib/katemwmodonhddialog.cpp:104
+#, kde-format
+msgid "&View Difference"
+msgstr ""
+
+#: lib/katemwmodonhddialog.cpp:106
+#, kde-format
+msgid ""
+"Calculates the difference between the editor contents and the disk file for "
+"the selected document, and shows the difference with the default "
+"application. Requires diff(1)."
+msgstr ""
+
+#: lib/katemwmodonhddialog.cpp:117
+#, fuzzy, kde-format
+#| msgid "&Ignore"
+msgid "&Ignore Changes"
+msgstr "&Anwybyddu"
+
+#: lib/katemwmodonhddialog.cpp:118
+#, kde-format
+msgid "Remove modified flag from selected documents"
+msgstr ""
+
+#: lib/katemwmodonhddialog.cpp:124
+#, kde-format
+msgid "Overwrite selected documents, discarding disk changes"
+msgstr ""
+
+#: lib/katemwmodonhddialog.cpp:128
+#, kde-format
+msgid "&Reload"
+msgstr ""
+
+#: lib/katemwmodonhddialog.cpp:130
+#, fuzzy, kde-format
+msgid "Reload selected documents from disk"
+msgstr "Cau bob dogfen agored."
+
+#: lib/katemwmodonhddialog.cpp:196
+#, fuzzy, kde-format
+msgid ""
+"Could not save the document \n"
+"'%1'"
+msgstr "Cau`r ddogfen cyfredol"
+
+#: lib/katemwmodonhddialog.cpp:329
+#, kde-format
+msgid ""
+"The diff command failed. Please make sure that diff(1) is installed and in "
+"your PATH."
+msgstr ""
+
+#: lib/katemwmodonhddialog.cpp:331
+#, kde-format
+msgid "Error Creating Diff"
+msgstr ""
+
+#: lib/katemwmodonhddialog.cpp:338
+#, kde-format
+msgid "Ignoring amount of white space changed, the files are identical."
+msgstr ""
+
+#: lib/katemwmodonhddialog.cpp:338
+#, kde-format
+msgid "Diff Output"
+msgstr ""
+
+#: lib/kateoutputview.cpp:37
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Copy to Clipboard"
+msgstr ""
+
+#: lib/kateoutputview.cpp:184
+#, fuzzy, kde-format
+msgid "Filter..."
+msgstr "Ffeiliau:"
+
+#: lib/kateoutputview.cpp:197
+#, kde-format
+msgid "Clear all messages"
+msgstr ""
+
+#: lib/kateoutputview.cpp:290
+#, kde-format
+msgctxt "@info"
+msgid "Error"
+msgstr ""
+
+#: lib/kateoutputview.cpp:294
+#, kde-format
+msgctxt "@info"
+msgid "Warning"
+msgstr ""
+
+#: lib/kateoutputview.cpp:298
+#, kde-format
+msgctxt "@info"
+msgid "Info"
+msgstr ""
+
+#: lib/kateoutputview.cpp:302
+#, kde-format
+msgctxt "@info"
+msgid "Log"
+msgstr ""
+
+#: lib/katesavemodifieddialog.cpp:77
+#, kde-format
+msgid "Save As (%1)"
+msgstr ""
+
+#: lib/katesavemodifieddialog.cpp:127
+#, fuzzy, kde-format
+msgid "Save Documents"
+msgstr "Dogfennau"
+
+#: lib/katesavemodifieddialog.cpp:135
+#, fuzzy, kde-format
+msgid ""
+"<qt>The following documents have been modified. Do you want to save them "
+"before closing?</qt>"
+msgstr ""
+"<p>Addaswyd y ddogfen '%1', ond ni'i gadwyd. <p>Ydych am gadw eich "
+"newidiadu, neu eu taflu?"
+
+#: lib/katesavemodifieddialog.cpp:142
+#, kde-format
+msgid "Documents"
+msgstr "Dogfennau"
+
+#: lib/katesavemodifieddialog.cpp:142
+#, kde-format
+msgid "Location"
+msgstr "Lleoliad"
+
+#: lib/katesavemodifieddialog.cpp:152
+#, kde-format
+msgid "Se&lect All"
+msgstr "De&wis Popeth"
+
+#: lib/katesavemodifieddialog.cpp:225
+#, kde-format
+msgid ""
+"Data you requested to be saved could not be written. Please choose how you "
+"want to proceed."
+msgstr ""
+
+#: lib/kateurlbar.cpp:1178
+#, kde-format
+msgid "Untitled"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:116
+#, kde-format
+msgid "Split Ve&rtical"
+msgstr "Hollti'n &Fertigol"
+
+#: lib/kateviewmanager.cpp:120
+#, kde-format
+msgid "Split the currently active view vertically into two views."
+msgstr "Rhannu'r golwg gweithredol cyfredol yn fertigol yn ddau olwg."
+
+#: lib/kateviewmanager.cpp:124
+#, kde-format
+msgid "Split &Horizontal"
+msgstr "Rhannu'n &Llorweddol"
+
+#: lib/kateviewmanager.cpp:128
+#, kde-format
+msgid "Split the currently active view horizontally into two views."
+msgstr "Rhannu'r golwg gweithredol cyfredol yn llorweddol yn ddau olwg."
+
+#: lib/kateviewmanager.cpp:132
+#, kde-format
+msgid "Move Document to New Vertical Split"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:136
+#, fuzzy, kde-format
+#| msgid "Split the currently active view vertically into two views."
+msgid ""
+"Split the currently active view vertically into two views and move the "
+"currently active document to right view."
+msgstr "Rhannu'r golwg gweithredol cyfredol yn fertigol yn ddau olwg."
+
+#: lib/kateviewmanager.cpp:141
+#, kde-format
+msgid "Move Document to New Horizontal Split"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:145
+#, fuzzy, kde-format
+#| msgid "Split the currently active view horizontally into two views."
+msgid ""
+"Split the currently active view horizontally into two views and move the "
+"currently active document to view below."
+msgstr "Rhannu'r golwg gweithredol cyfredol yn llorweddol yn ddau olwg."
+
+#: lib/kateviewmanager.cpp:150
+#, kde-format
+msgid "Cl&ose Current View"
+msgstr "C&au'r Olwg Cyfredol"
+
+#: lib/kateviewmanager.cpp:154
+#, fuzzy, kde-format
+#| msgid "Close the currently active splitted view"
+msgid "Close the currently active split view"
+msgstr "Cau'r olwg rhanedig gweithredol cyfredol"
+
+#: lib/kateviewmanager.cpp:158
+#, fuzzy, kde-format
+#| msgid "Cl&ose Current View"
+msgid "Close Inactive Views"
+msgstr "C&au'r Olwg Cyfredol"
+
+#: lib/kateviewmanager.cpp:161
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Close every view but the active one"
+msgstr "Dewis yr olwg ranedig nesaf fel yr un weithredol."
+
+#: lib/kateviewmanager.cpp:165
+#, fuzzy, kde-format
+#| msgid "Cl&ose Current View"
+msgid "Hide Inactive Views"
+msgstr "C&au'r Olwg Cyfredol"
+
+#: lib/kateviewmanager.cpp:169
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Hide every view but the active one"
+msgstr "Dewis yr olwg ranedig nesaf fel yr un weithredol."
+
+#: lib/kateviewmanager.cpp:172
+#, kde-format
+msgid "Toggle Orientation"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:175
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Toggles the orientation of the current split view"
+msgstr "Dewis yr olwg ranedig nesaf fel yr un weithredol."
+
+#: lib/kateviewmanager.cpp:178
+#, fuzzy, kde-format
+#| msgid "Next View"
+msgid "Next Split View"
+msgstr "Golwg Nesaf"
+
+#: lib/kateviewmanager.cpp:183
+#, kde-format
+msgid "Make the next split view the active one."
+msgstr "Dewis yr olwg ranedig nesaf fel yr un weithredol."
+
+#: lib/kateviewmanager.cpp:186
+#, fuzzy, kde-format
+#| msgid "Previous View"
+msgid "Previous Split View"
+msgstr "Golwg Blaenorol"
+
+#: lib/kateviewmanager.cpp:191
+#, kde-format
+msgid "Make the previous split view the active one."
+msgstr "Dewis yr olwg ranedig flaenorol fel yr un weithredol."
+
+#: lib/kateviewmanager.cpp:194
+#, fuzzy, kde-format
+#| msgid "Next View"
+msgid "Left Split View"
+msgstr "Golwg Nesaf"
+
+#: lib/kateviewmanager.cpp:199
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Make the split view intuitively on the left the active one."
+msgstr "Dewis yr olwg ranedig nesaf fel yr un weithredol."
+
+#: lib/kateviewmanager.cpp:202
+#, fuzzy, kde-format
+#| msgid "Next View"
+msgid "Right Split View"
+msgstr "Golwg Nesaf"
+
+#: lib/kateviewmanager.cpp:207
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Make the split view intuitively on the right the active one."
+msgstr "Dewis yr olwg ranedig nesaf fel yr un weithredol."
+
+#: lib/kateviewmanager.cpp:210
+#, fuzzy, kde-format
+#| msgid "Split Ve&rtical"
+msgid "Upward Split View"
+msgstr "Hollti'n& Fertigol"
+
+#: lib/kateviewmanager.cpp:215
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Make the split view intuitively upward the active one."
+msgstr "Dewis yr olwg ranedig nesaf fel yr un weithredol."
+
+#: lib/kateviewmanager.cpp:218
+#, fuzzy, kde-format
+#| msgid "Split Ve&rtical"
+msgid "Downward Split View"
+msgstr "Hollti'n& Fertigol"
+
+#: lib/kateviewmanager.cpp:223
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Make the split view intuitively downward the active one."
+msgstr "Dewis yr olwg ranedig nesaf fel yr un weithredol."
+
+#: lib/kateviewmanager.cpp:226
+#, kde-format
+msgid "Move Splitter Right"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:229
+#, kde-format
+msgid "Move the splitter of the current view to the right"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:232
+#, kde-format
+msgid "Move Splitter Left"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:235
+#, kde-format
+msgid "Move the splitter of the current view to the left"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:238
+#, kde-format
+msgid "Move Splitter Up"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:241
+#, kde-format
+msgid "Move the splitter of the current view up"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:244
+#, kde-format
+msgid "Move Splitter Down"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:247
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Move the splitter of the current view down"
+msgstr "Dewis yr olwg ranedig nesaf fel yr un weithredol."
+
+#: lib/kateviewmanager.cpp:250
+#, kde-format
+msgid "Focus Navigation Bar"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:251
+#, fuzzy, kde-format
+#| msgid "Close the current tab"
+msgid "Focus the navigation bar"
+msgstr "Cau'r tab cyfredol"
+
+#: lib/kateviewmanager.cpp:258
+#, kde-format
+msgid "Welcome Page"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:273
+#, kde-format
+msgid "Show the welcome page"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:315 lib/kateviewmanager.cpp:317
+#, kde-format
+msgid "Open File"
+msgstr "Agor Ffeil"
+
+#: lib/kateviewmanager.cpp:336
+#, kde-format
+msgid ""
+"<p>You are attempting to open one or more large files:</p><ul>%1</ul><p>Do "
+"you want to proceed?</p><p><strong>Beware that kate may stop responding for "
+"some time when opening large files.</strong></p>"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:339
+#, fuzzy, kde-format
+#| msgid "Open File"
+msgid "Opening Large File"
+msgstr "Agor Ffeil"
+
+#: lib/kateviewmanager.cpp:1162
+#, kde-format
+msgid "This view may have unsaved work. Do you really want to close it?"
+msgstr ""
+
+#: lib/kateviewspace.cpp:98
+#, kde-format
+msgctxt "indicator for more documents"
+msgid "+%1"
+msgstr ""
+
+#: lib/kateviewspace.cpp:103 lib/kateviewspace.cpp:208
+#, kde-format
+msgid "Click here to switch to the Quick Open view."
+msgstr ""
+
+#: lib/kateviewspace.cpp:119
+#, kde-format
+msgid "Control view space splitting"
+msgstr ""
+
+#: lib/kateviewspace.cpp:209
+#, kde-format
+msgid ""
+"Currently, there is one more document open. To see all open documents, "
+"switch to the Quick Open view by clicking here."
+msgid_plural ""
+"Currently, there are %1 more documents open. To see all open documents, "
+"switch to the Quick Open view by clicking here."
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/kateviewspace.cpp:975
+#, fuzzy, kde-format
+msgid "Close Tab"
+msgstr "Cau'r Tab Cyfredol"
+
+#: lib/kateviewspace.cpp:992
+#, fuzzy, kde-format
+#| msgid "Close Document"
+msgid "&Close Document"
+msgstr "Cau Dogfen"
+
+#: lib/kateviewspace.cpp:993
+#, fuzzy, kde-format
+#| msgid "Close Document"
+msgid "Close Other &Documents"
+msgstr "Cau Dogfen"
+
+#: lib/kateviewspace.cpp:994
+#, fuzzy, kde-format
+#| msgid "Close all open documents."
+msgid "Close &All Documents"
+msgstr "Cau bob dogfen agored."
+
+#: lib/kateviewspace.cpp:996
+#, fuzzy, kde-format
+#| msgid "&Document"
+msgid "D&etach Document"
+msgstr "&Dogfen"
+
+#: lib/kateviewspace.cpp:997
+#, kde-format
+msgid "Opens the document in a new window and closes it in the current window"
+msgstr ""
+
+#: lib/kateviewspace.cpp:1006
+#, fuzzy, kde-format
+#| msgid "Sync &terminal emulator with active document"
+msgid "Compare with Active Document"
+msgstr "Cydweddu efelychydd &terfynell â'r ddogfen weithredol"
+
+#: lib/kateviewspace.cpp:1010
+#, kde-format
+msgid "Diff %1 .. %2"
+msgstr ""
+
+#: lib/kateviewspace.cpp:1015
+#, fuzzy, kde-format
+#| msgid "Sync &terminal emulator with active document"
+msgid "Compare with Active Document Using"
+msgstr "Cydweddu efelychydd &terfynell â'r ddogfen weithredol"
+
+#: lib/kateviewspace.cpp:1082
+#, kde-format
+msgid "Could not start program"
+msgstr ""
+
+#: lib/kateviewspace.cpp:1083
+#, kde-format
+msgid "The selected program could not be started. Maybe it is not installed."
+msgstr ""
+
+#: lib/quickopen/katequickopenlineedit.cpp:22
+#, kde-format
+msgid "Quick Open Search (configure via context menu)"
+msgstr ""
+
+#: lib/quickopen/katequickopenlineedit.cpp:61
+#, fuzzy, kde-format
+#| msgid "Projects"
+msgid "All Projects"
+msgstr "Prosiectau"
+
+#: lib/quickopen/katequickopenlineedit.cpp:73
+#, kde-format
+msgid "Current Project"
+msgstr ""
+
+#: lib/quickopen/katequickopenlineedit.cpp:88
+#, kde-format
+msgid "Fuzzy Filtering"
+msgstr ""
+
+#: lib/quickopen/katequickopenlineedit.cpp:99
+#, kde-format
+msgid "Wildcard Filtering"
+msgstr ""
+
+#: lib/session/katesessionmanagedialog.cpp:26
+#, fuzzy, kde-format
+msgid "Manage Sessions"
+msgstr "Sesiwn"
+
+#: lib/session/katesessionmanagedialog.cpp:62
+#, fuzzy, kde-format
+msgid "Session Chooser"
+msgstr "Sesiwn"
+
+#: lib/session/katesessionmanagedialog.cpp:146
+#, kde-format
+msgid "Restore"
+msgstr ""
+
+#: lib/session/katesessionmanagedialog.cpp:303
+#, kde-format
+msgid "Session will be deleted on dialog close"
+msgstr ""
+
+#. i18n: ectx: property (placeholderText), widget (QLineEdit, m_filterBox)
+#: lib/session/katesessionmanagedialog.ui:30
+#, fuzzy, kde-format
+#| msgid "Sessions"
+msgid "Filter Sessions"
+msgstr "Sesiynau"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, m_sessionList)
+#: lib/session/katesessionmanagedialog.ui:55
+#, fuzzy, kde-format
+msgid "Session Name"
+msgstr "Sesiwn"
+
+#. i18n: The number of open documents
+#. i18n: ectx: property (text), widget (QTreeWidget, m_sessionList)
+#: lib/session/katesessionmanagedialog.ui:60
+#, fuzzy, kde-format
+msgid "Files"
+msgstr "Ffeiliau:"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, m_sessionList)
+#: lib/session/katesessionmanagedialog.ui:68
+#, kde-format
+msgid "Last opened"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, m_openButton)
+#: lib/session/katesessionmanagedialog.ui:87
+#, fuzzy, kde-format
+msgid "&Open"
+msgstr "A&gor"
+
+#. i18n: ectx: property (text), widget (QPushButton, m_newButton)
+#: lib/session/katesessionmanagedialog.ui:98
+#, kde-format
+msgid "New Session"
+msgstr "Sesiwn Newydd"
+
+#. i18n: ectx: property (text), widget (QPushButton, m_templateButton)
+#: lib/session/katesessionmanagedialog.ui:108
+#, fuzzy, kde-format
+msgid "Open as Template"
+msgstr "Patrymlun:"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_dontAskCheckBox)
+#: lib/session/katesessionmanagedialog.ui:115
+#, fuzzy, kde-format
+#| msgid "Do not ask again"
+msgid "Don't ask again"
+msgstr "Peidiwch a gofyn eto"
+
+#. i18n: ectx: property (text), widget (QPushButton, m_copyButton)
+#: lib/session/katesessionmanagedialog.ui:135
+#, kde-format
+msgid "Duplicate..."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, m_renameButton)
+#: lib/session/katesessionmanagedialog.ui:142
+#, kde-format
+msgid "&Rename..."
+msgstr "Ail-&enwi..."
+
+#. i18n: ectx: property (text), widget (QPushButton, m_deleteButton)
+#: lib/session/katesessionmanagedialog.ui:162
+#, fuzzy, kde-format
+#| msgid "Deleted"
+msgid "Delete"
+msgstr "Wedi'u dileu"
+
+#: lib/session/katesessionmanager.cpp:105
+#, kde-format
+msgid ""
+"Internal error: there is more than one instance open for a given session."
+msgstr ""
+
+#: lib/session/katesessionmanager.cpp:112
+#, kde-format
+msgid ""
+"Session '%1' is already opened in another Kate instance. Switch to that or "
+"reopen in this instance?"
+msgstr ""
+
+#: lib/session/katesessionmanager.cpp:114
+#, kde-format
+msgctxt "@action:button"
+msgid "Switch to Instance"
+msgstr ""
+
+#: lib/session/katesessionmanager.cpp:115
+#, kde-format
+msgctxt "@action:button"
+msgid "Reopen"
+msgstr ""
+
+#: lib/session/katesessionmanager.cpp:303
+#, kde-format
+msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
+msgstr ""
+
+#: lib/session/katesessionmanager.cpp:304
+#, fuzzy, kde-format
+msgid "Session Renaming"
+msgstr "Enw sesiwn:"
+
+#: lib/session/katesessionmanager.cpp:451
+#, kde-format
+msgid "Session name:"
+msgstr "Enw sesiwn:"
+
+#: lib/session/katesessionmanager.cpp:453
+#, kde-format
+msgid ""
+"There is already an existing session with your chosen name: %1\n"
+"Please choose a different one."
+msgstr ""
+
+#: lib/session/katesessionmanager.cpp:455
+#, kde-format
+msgid "To save a session, you must specify a name."
+msgstr ""
+
+#: lib/session/katesessionmanager.cpp:482
+#, fuzzy, kde-format
+msgid "Specify a name for this session"
+msgstr "Dogfennau"
+
+#: lib/session/katesessionmanager.cpp:484
+#, fuzzy, kde-format
+msgid "Specify a new name for session: %1"
+msgstr "Dogfennau"
+
+#. i18n: ectx: property (title), widget (QGroupBox, gbAppStartup)
+#: lib/ui/sessionconfigwidget.ui:17
+#, fuzzy, kde-format
+msgid "Application Startup Behavior"
+msgstr "Cymhwysiad"
+
+#. i18n: ectx: property (text), widget (QRadioButton, startNewSessionRadioButton)
+#: lib/ui/sessionconfigwidget.ui:23
+#, kde-format
+msgid "&Start new session"
+msgstr "Dechrau &Sesiwn Newydd"
+
+#. i18n: ectx: property (text), widget (QRadioButton, loadLastUserSessionRadioButton)
+#: lib/ui/sessionconfigwidget.ui:30
+#, fuzzy, kde-format
+msgid "&Load last used session"
+msgstr "Sesiwn"
+
+#. i18n: ectx: property (text), widget (QRadioButton, manuallyChooseSessionRadioButton)
+#: lib/ui/sessionconfigwidget.ui:37
+#, kde-format
+msgid "&Manually choose a session"
+msgstr ""
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: lib/ui/sessionconfigwidget.ui:47
+#, fuzzy, kde-format
+msgid "Application Startup/Shutdown Behavior"
+msgstr "Cymhwysiad"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: lib/ui/sessionconfigwidget.ui:55
+#, kde-format
+msgid "Automatically save and restore:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, stashNewUnsavedFiles)
+#: lib/ui/sessionconfigwidget.ui:67
+#, kde-format
+msgid "Newly-created unsaved files"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, stashUnsavedFilesChanges)
+#: lib/ui/sessionconfigwidget.ui:77
+#, kde-format
+msgid "Files with unsaved changes"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, openNewDocumentPerWindow)
+#: lib/ui/sessionconfigwidget.ui:88
+#, fuzzy, kde-format
+#| msgid "Create a new Kate view (a new window with the same document list)."
+msgid "Open new window with fresh untitled document"
+msgstr "Creu golwg newydd Kate (ffenestr newydd â'r un rhestr ddogfennau)"
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, modCloseAfterLast)
+#: lib/ui/sessionconfigwidget.ui:95
+#, kde-format
+msgid ""
+"If enabled, the application will shutdown when the last file being edited is "
+"closed, otherwise a blank page will open so that you can start a new file."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, modCloseAfterLast)
+#: lib/ui/sessionconfigwidget.ui:98
+#, kde-format
+msgid "Close the application entirely when the last file is closed"
+msgstr ""
+
+#. i18n: ectx: property (title), widget (QGroupBox, gbElements)
+#: lib/ui/sessionconfigwidget.ui:108
+#, fuzzy, kde-format
+msgid "Session Elements"
+msgstr "Sesiwn"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: lib/ui/sessionconfigwidget.ui:114
+#, kde-format
+msgid ""
+"The session contains the list of open documents, recently opened files list, "
+"bookmarks, cursor position etc. When the session is loaded all elements are "
+"restored."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: lib/ui/sessionconfigwidget.ui:126
+#, kde-format
+msgid "Maximum number of entries in recent file list:"
+msgstr ""
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, restoreVC)
+#: lib/ui/sessionconfigwidget.ui:154
+#, fuzzy, kde-format
+#| msgid ""
+#| "Check this if you want all your views and frames restored each time you "
+#| "open Kate"
+msgid ""
+"Check this if you want all your views and frames restored each time you open "
+"the application."
+msgstr ""
+"Dewiswch hwn os ydych am adfer eich holl olygon a'ch holl fframau bob tro yr "
+"agorwch Kate"
+
+#. i18n: ectx: property (text), widget (QCheckBox, restoreVC)
+#: lib/ui/sessionconfigwidget.ui:157
+#, fuzzy, kde-format
+msgid "Include &window configuration"
+msgstr "Adfer ffurfwedd &golwg"
+
+#. i18n: ectx: property (whatsThis), widget (QGroupBox, saveMetaInfos)
+#: lib/ui/sessionconfigwidget.ui:167
+#, kde-format
+msgid ""
+"Check this if you want document configuration like for example bookmarks to "
+"be saved past editor sessions. The configuration will be restored if the "
+"document has not changed when reopened."
+msgstr ""
+"Brithwch hyn os hoffech i ffurfweddiad dogfennau, fel tudnodau er "
+"enghraifft, gael ei gadw tu hwnt i'r sesiwn golygydd.  Adferir y "
+"ffurfweddiad os nid yw'r ddogfen wedi'i newid pan ail-agorir."
+
+#. i18n: ectx: property (title), widget (QGroupBox, saveMetaInfos)
+#: lib/ui/sessionconfigwidget.ui:170
+#, kde-format
+msgid "Keep &meta-information past sessions"
+msgstr "Cadw m&eta-wybodaeth tu hwnt i'r sesiwn"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: lib/ui/sessionconfigwidget.ui:181
+#, fuzzy, kde-format
+#| msgid "&Delete unused meta-information after:"
+msgid "Delete unused meta-information after:"
+msgstr "&Dileu meta-wybodaeth nas defnyddwyd ar ôl:"
+
+#: lib/welcomeview.cpp:69
+#, fuzzy, kde-format
+msgid "&Copy Location"
+msgstr "Lleoliad"
+
+#: lib/welcomeview.cpp:97
+#, kde-format
+msgctxt "recent items context menu"
+msgid "&Forget This Item"
+msgstr ""
+
+#: lib/welcomeview.cpp:126
+#, kde-format
+msgid "Welcome"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, welcomeLabel)
+#: lib/welcomeview.cpp:129 lib/welcomeview.ui:158
+#, kde-format
+msgid "Welcome to Kate"
+msgstr ""
+
+#: lib/welcomeview.cpp:129
+#, kde-format
+msgid "Welcome to KWrite"
+msgstr ""
+
+#: lib/welcomeview.cpp:168
+#, fuzzy, kde-format
+#| msgid "Close the current document."
+msgctxt "on welcome screen"
+msgid "No recent documents"
+msgstr "Cau`r ddogfen cyfredol"
+
+#. i18n: ectx: property (windowTitle), widget (QWidget, WelcomeView)
+#: lib/welcomeview.ui:17
+#, kde-format
+msgid "Form"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, newDocumentButton)
+#: lib/welcomeview.ui:221
+#, fuzzy, kde-format
+#| msgid "&Document"
+msgctxt "on welcome screen"
+msgid "New Document"
+msgstr "&Dogfen"
+
+#. i18n: ectx: property (text), widget (QPushButton, openDocumentButton)
+#: lib/welcomeview.ui:232
+#, fuzzy, kde-format
+msgctxt "on welcome screen"
+msgid "Open Document..."
+msgstr "Dogfennau"
+
+#. i18n: ectx: property (text), widget (QPushButton, openFolderButton)
+#: lib/welcomeview.ui:243
+#, fuzzy, kde-format
+#| msgid "Open File"
+msgctxt "on welcome screen"
+msgid "Open Folder..."
+msgstr "Agor Ffeil"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: lib/welcomeview.ui:372
+#, fuzzy, kde-format
+msgctxt "on welcome screen"
+msgid "Recent documents"
+msgstr "Dogfennau"
+
+#. i18n: ectx: property (text), widget (QToolButton, forgetAllButton)
+#: lib/welcomeview.ui:382
+#, fuzzy, kde-format
+#| msgid "Clos&e All"
+msgctxt "on welcome screen (recent document list)"
+msgid "Forget All"
+msgstr "Cau pop&eth"
+
+#, fuzzy
+#~ msgid "&New Synchronized Window"
+#~ msgstr "&Ffenestr"
+
+#, fuzzy
+#~| msgid "Sho&w Path"
+#~ msgid "Copy File &Path"
+#~ msgstr "Dang&os Llwybr"
+
+#, fuzzy
+#~| msgid "Restore loca&tion"
+#~ msgid "Go to previous edit location"
+#~ msgstr "Adfer lleolia&dau:"
+
+#, fuzzy
+#~ msgid "Go to next edit location"
+#~ msgstr "Adfer lleolia&dau:"
+
+#, fuzzy
+#~ msgid "Delete File?"
+#~ msgstr "Wedi'u dileu"
+
+#, fuzzy
+#~ msgid "&Command Bar"
+#~ msgstr "Sylwad"
+
+#, fuzzy
+#~ msgid "&Quick Open Session"
+#~ msgstr "Sesiwn"
+
+#, fuzzy
+#~| msgid "Save &As..."
+#~ msgid "&Save as defaults"
+#~ msgstr "Cadw &Fel..."
+
+#, fuzzy
+#~ msgid "Start Kate with a new session, implies '-n' (deprecated)."
+#~ msgstr "Sesiwn"
+
+#~ msgid "Wa&rn about files modified by foreign processes"
+#~ msgstr "Rhy&buddio am ffeiliau a addasir gan brosesau allanol"
+
+#, fuzzy
+#~ msgid "Application '%1' not found."
+#~ msgstr "Cymhwysiad"
+
+#, fuzzy
+#~ msgid "Application not found"
+#~ msgstr "Cymhwysiad"
+
+#, fuzzy
+#~| msgid "Sho&w Path"
+#~ msgid "Filter By Path"
+#~ msgstr "Dang&os Llwybr"
+
+#, fuzzy
+#~ msgid "Filter By Name"
+#~ msgstr "Ffeiliau:"
+
+#, fuzzy
+#~ msgid "Quick Open Search"
+#~ msgstr "Sesiwn"
+
+#, fuzzy
+#~ msgid "&Match Mode:"
+#~ msgstr "&Newydd"
+
+#, fuzzy
+#~ msgid "Filepath"
+#~ msgstr "Ffeiliau:"
+
+#, fuzzy
+#~ msgid "&List Mode:"
+#~ msgstr "&Newydd"
+
+#~ msgid "Application"
+#~ msgstr "Cymhwysiad"
+
+#~ msgid "General"
+#~ msgstr "Cyffredinol"
+
+#~ msgid "General Options"
+#~ msgstr "Dewisiadau Cyffredinol"
+
+#, fuzzy
+#~ msgid "Meta-Information"
+#~ msgstr "Meta-wybodaeth"
+
+#, fuzzy
+#~ msgid "Editor Component"
+#~ msgstr "Dewiswch Gydran Olygu"
+
+#, fuzzy
+#~ msgid "Editor Component Options"
+#~ msgstr "Dewiswch Gydran Olygu"
+
+#, fuzzy
+#~ msgid "&About Editor Component"
+#~ msgstr "Dewiswch Gydran Olygu"
+
+#~ msgctxt "Menu entry Session->New"
+#~ msgid "&New"
+#~ msgstr "&Newydd"
+
+#, fuzzy
+#~ msgid "Overwrite File?"
+#~ msgstr "&Trosysgrifo"
+
+#, fuzzy
+#~| msgid "&Rename..."
+#~ msgctxt "@action:inmenu"
+#~ msgid "Rename File..."
+#~ msgstr "Ail-&enwi..."
+
+#, fuzzy
+#~ msgctxt "@action:inmenu"
+#~ msgid "Delete File"
+#~ msgstr "Wedi'u dileu"
+
+#, fuzzy
+#~ msgctxt "@title:window"
+#~ msgid "Confirmation"
+#~ msgstr "Meta-wybodaeth"
+
+#, fuzzy
+#~| msgid "Close the current document."
+#~ msgid "C&lose Current Document"
+#~ msgstr "Cau`r ddogfen cyfredol"
+
+#, fuzzy
+#~| msgid "Do not ask again"
+#~ msgid "Do not ask again"
+#~ msgstr "Peidiwch a gofyn eto"
+
+#, fuzzy
+#~ msgid "Clone session settings"
+#~ msgstr "&Dewisiedig:"
+
+#, fuzzy
+#~ msgid "Delete this session"
+#~ msgstr "Sesiwn"
+
+#~ msgid "Developer & Highlight wizard"
+#~ msgstr "Dewin Datblygu ac Amlygu"
+
+#~ msgid "Comment"
+#~ msgstr "Sylwad"
+
+#, fuzzy
+#~ msgid "&Highlight Tab"
+#~ msgstr "Amlygu ar gyfer LaTeX"
+
+#, fuzzy
+#~ msgid "&None"
+#~ msgstr "Dim"
+
+#, fuzzy
+#~ msgid "&Blue"
+#~ msgstr "Ffeiliau:"
+
+#, fuzzy
+#~ msgid "All documents written to disk"
+#~ msgstr "Dogfen i'w hagor"
+
+#, fuzzy
+#~ msgid "Document written to disk"
+#~ msgstr "Dogfen i'w hagor"
+
+#, fuzzy
+#~ msgid "Elements of Sessions"
+#~ msgstr "Sesiwn"
+
+#, fuzzy
+#~| msgid ""
+#~| "A KDE text-editor component could not be found;\n"
+#~| "please check your KDE installation."
+#~ msgid ""
+#~ "A KDE text-editor component could not be found.\n"
+#~ "Please check your KDE installation."
+#~ msgstr ""
+#~ "Methwyd canfod cydran olygu testun KDE;\n"
+#~ "gwiriwch eich gosodiad KDE os gwelwch yn dda."
+
+#~ msgid "This shows useful tips on the use of this application."
+#~ msgstr "Dengys hwn gynghorion defnyddiol ar ddefnydd y cymhwysiad yma."
+
+#, fuzzy
+#~ msgid "No Session Selected"
+#~ msgstr "&Dewisiedig:"
+
+#, fuzzy
+#~ msgid "No session selected to copy."
+#~ msgstr "&Dewisiedig:"
+
+#, fuzzy
+#~ msgid "Show Selection Mode"
+#~ msgstr "Gweithredoedd d&ewisiedig:"
+
+#, fuzzy
+#~ msgid "Show Document Name"
+#~ msgstr "Dogfennau"
+
+#~ msgid " Line: %1 Col: %2 "
+#~ msgstr "Llinell: %1 Col: %2"
+
+#, fuzzy
+#~| msgid " INS "
+#~ msgid " LINE "
+#~ msgstr "MEWN"
+
+#~ msgid " INS "
+#~ msgstr "MEWN"
+
+#, fuzzy
+#~| msgid " Line: %1 Col: %2 "
+#~ msgid " Line: %1 of %2 Col: %3 "
+#~ msgstr "Llinell: %1 Col: %2"
+
+#, fuzzy
+#~| msgid " BLK "
+#~ msgid " BLOCK "
+#~ msgstr "BLC"
+
+#, fuzzy
+#~| msgid "Filename"
+#~ msgid "Copy Filename"
+#~ msgstr "Enw Ffeil"
+
+#, fuzzy
+#~ msgid "Document Name"
+#~ msgstr "Dogfennau"
+
+#, fuzzy
+#~ msgid "Sort by Document Name"
+#~ msgstr "Dogfennau"
+
+#, fuzzy
+#~ msgid "Document Path"
+#~ msgstr "Dogfennau"
+
+#, fuzzy
+#~| msgid "&Show All Documents >>"
+#~ msgid "Sort by Document Path"
+#~ msgstr "&Dangos Pob Dogfen >>"
+
+#, fuzzy
+#~| msgid "Open W&ith"
+#~ msgid "Open With"
+#~ msgstr "Agor &Gyda"
+
+#, fuzzy
+#~ msgid "Sort By"
+#~ msgstr "Trefn&u Gan"
+
+#, fuzzy
+#~ msgid "&Viewed documents' shade:"
+#~ msgstr "Dogfennau"
+
+#, fuzzy
+#~ msgid "&Modified documents' shade:"
+#~ msgstr "Dogfennau"
+
+#, fuzzy
+#~ msgid "&Sort by:"
+#~ msgstr "Trefn&u Gan"
+
+#, fuzzy
+#~ msgid "Tree View"
+#~ msgstr "Golwg Blaenorol"
+
+#, fuzzy
+#~| msgid "Split Ve&rtical"
+#~ msgid "List View"
+#~ msgstr "Hollti'n& Fertigol"
+
+#, fuzzy
+#~| msgid "Sho&w Path"
+#~ msgid "&Show Full Path"
+#~ msgstr "Dang&os Llwybr"
+
+#, fuzzy
+#~ msgid "Document Tree"
+#~ msgstr "Dogfennau"
+
+#, fuzzy
+#~ msgid "Configure Documents"
+#~ msgstr "Plygell Dogfen Gyfredol"
+
+#, fuzzy
+#~| msgid "&Document"
+#~ msgid "Previous Document"
+#~ msgstr "&Dogfen"
+
+#~ msgid ""
+#~ "<p>Kate comes with a nice set of plugins, providing simple\n"
+#~ "and advanced features of all sorts.</p>\n"
+#~ "<p>You can enable/disable plugins to suit your needs in the configuration "
+#~ "dialog,\n"
+#~ "choose <strong>Settings -&gt;configure</strong> to launch that.</p>\n"
+#~ msgstr ""
+#~ "<p>Daw set o ategion dymunol gyda Kate, gan ddarparu\n"
+#~ " nodweddion syml ac uwch o bob math.</p>\n"
+#~ "<p>Gallwch alluogi/analluogi ategion yn ôl eich anghenion yn yr ymgom "
+#~ "ffurfweddu,\n"
+#~ " dewiswch <strong>Gosodiadau ->ffurfweddu</strong> i gychwyn hwnna.</p>\n"
+
+#~ msgid ""
+#~ "<p>You can swap the characters on each side of the cursor just by "
+#~ "pressing\n"
+#~ "<strong>Ctrl+T</strong></p>\n"
+#~ msgstr ""
+#~ "<p>Gallwch gyfnewid y nôdau ar naill ochr y cyrchydd drwy wasgu\n"
+#~ "<strong>Ctrl+T</strong></p>\n"
+
+#~ msgid ""
+#~ "<p>You can export the current document as a HTML file, including\n"
+#~ "syntax highlighting.</p>\n"
+#~ "<p>Just choose <strong>File -&gt; Export -&gt; HTML...</strong></p>\n"
+#~ msgstr ""
+#~ "<p>Gallwch allforio'r ddogfen cyfredol yn ffeil HTML, gan gynnwys\n"
+#~ " amlygu cystrawen.</p>\n"
+#~ "<p>Dewiswch <strong>Ffeil -> Allforio -> HTML...</strong></p>\n"
+
+#, fuzzy
+#~| msgid ""
+#~| "<p>You can split the Kate editor as many times as you like and\n"
+#~| "in either direction. Each frame has its own status bar and\n"
+#~| "can display any open document.</p>\n"
+#~| "<p>Just choose <br><strong>View -&gt; Split [ Horizontal | Vertical ]</"
+#~| "strong></p>\n"
+#~ msgid ""
+#~ "<p>You can split the Kate editor as many times as you like and\n"
+#~ "in either direction. Each frame has its own status bar and\n"
+#~ "can display any open document.</p>\n"
+#~ "<p>Just choose <br><strong>View -&gt; Split View -&gt; Split [ Horizontal "
+#~ "| Vertical ]</strong></p>\n"
+#~ msgstr ""
+#~ "<p>Gallwch rannu'r golygydd Kate faint bynnag o weithiau yr hoffech ac\n"
+#~ " yn yn naill gyferiad neu'r llall. Mae gan bob ffrâm ei far cyflwr ei hun "
+#~ "a gall ddangos unrhwy ddogfen sydd ar agor.</p>\n"
+#~ "<p>Dewiswch <br><strong>Golwg -> Rhannu'n [ Llorweddol | Fertigol ]</"
+#~ "strong></p>\n"
+
+#, fuzzy
+#~ msgid ""
+#~ "<p>Kate has a built-in terminal emulator, just click on <strong>\"Terminal"
+#~ "\"</strong> at\n"
+#~ "the bottom to show or hide it as you desire.</p>\n"
+#~ msgstr ""
+#~ "<p>Mae gan Kate efelychydd terfynell mewnadeiladedig, gwasgwch "
+#~ "<strong>F7</strong> i'w\n"
+#~ " ddangos neu'i guddio fel y mynnoch.</p>\n"
+
+#, fuzzy
+#~ msgid ""
+#~ "<p>Kate can highlight the current line with a\n"
+#~ "<table bgcolor=\"yellow\" border=\"0\" cellspacing=\"0\" cellpadding="
+#~ "\"0\" width=\"100%\"><tr><td>different\n"
+#~ "background color.<strong>|</strong></td></tr></table></p>\n"
+#~ "<p>You can set the color in the <em>Colors</em> page of the "
+#~ "configuration\n"
+#~ "dialog.</p>\n"
+#~ msgstr ""
+#~ "<p>Gall Kate amlygu'r llinell gyfredol â\n"
+#~ " <table bgcolor=\"yellow\" border=\"0\" cellspacing=\"0\" cellpadding="
+#~ "\"0\" width=\"100%\"><tr><td>lliw \n"
+#~ " cefndir gwahanol.<strong>|</strong></td></tr></table></p>\n"
+#~ " <p>Gallwch osod y lliw ar y dudalen <em>Lliwiau</em> yn yr ymgom\n"
+#~ " ffurfweddu.</p>\n"
+
+#, fuzzy
+#~ msgid ""
+#~ "<p>You can open the currently edited file in any other application from "
+#~ "within\n"
+#~ "Kate.</p>\n"
+#~ "<p>Choose <strong>File -&gt; Open With</strong> for the list of programs\n"
+#~ "configured\n"
+#~ "for the document type. There is also an option <strong>Other...</strong> "
+#~ "to\n"
+#~ "choose any application on your system.</p>\n"
+#~ msgstr ""
+#~ "<p>Gallwch agor y ffeil golygedig cyfredol mewn unrhyw gymhwysiad arall "
+#~ "oddi mewn \n"
+#~ " Kate.</p>\n"
+#~ " <p>Dewiswch <strong>Ffeil -> Agor Gyda</strong> am y restr o raglenni\n"
+#~ "ffurfweddwyd\n"
+#~ " ar gyfer math y ddogfen. Mae hefyd dewisiad <strong>Arall...</strong> "
+#~ "i \n"
+#~ " ddewis unrhyw gymhwysiad ar eich cysawd.</p>\n"
+
+#, fuzzy
+#~ msgid ""
+#~ "<p>You can configure the editor to always display the line numbers and/"
+#~ "or\n"
+#~ "bookmark panes when started from the <strong>Appearance</strong> page of "
+#~ "the\n"
+#~ "configuration dialog.</p>\n"
+#~ msgstr ""
+#~ "<p>Gallwch ffurfweddu'r golygydd i ddangos rhifau llinellau bob amser a/"
+#~ "neu \n"
+#~ " cwareli nôdau tudalen pan yn cychwyn o dudalen <strong>Rhagosodion "
+#~ "Golwg</strong> \n"
+#~ " yr ymgom ffurfweddu.</p>\n"
+#~ "\n"
+
+#, fuzzy
+#~ msgid ""
+#~ "<p>You can download new or updated <em>Syntax highlight definitions</em> "
+#~ "from\n"
+#~ "the <strong>Open/Save</strong> page in the configuration dialog.</p>\n"
+#~ "<p>Just click the <em>Download...</em> button on the <em>Open/Save -&gt; "
+#~ "Modes &amp; Filetypes</em>\n"
+#~ "tab (You have to be online, of course...).</p>\n"
+#~ msgstr ""
+#~ "<p>Gallwch lawrlwytho <em>ddiffiniadau amlygu Cystrawen</em> newydd neu "
+#~ "diweddaredig \n"
+#~ " o'r dudalen <strong>Amlygu</strong> yn yr ymgom ffurfweddu.</p>\n"
+#~ "<p>Cliciwch y botwm <em>Lawrlwytho...</em> ar y tab\n"
+#~ " <em>Moddau Amlygu</em> (Rhaid i chi fod ar-lein, wrth gwrs...).</p>\n"
+
+#, fuzzy
+#~ msgid ""
+#~ "<p>You can cycle through all open documents by pressing <strong>Alt+Left</"
+#~ "strong>\n"
+#~ "or <strong>Alt+Right</strong>. The next/previous document will "
+#~ "immediately be displayed\n"
+#~ "in the active frame.</p>\n"
+#~ msgstr ""
+#~ "<p>Gallwch gylchu drwy bob dogfen agored drwy wasgu <strong>Alt+Chwith</"
+#~ "strong> \n"
+#~ " neu <strong>Alt+Dde</strong>. Dangosir y ddogfen nesaf/blaenorol ar "
+#~ "unwaith\n"
+#~ " yn y ffrâm weithredol.</p>\n"
+
+#, fuzzy
+#~ msgid ""
+#~ "<p>You can do cool sed-like regular expression replacements using "
+#~ "<em>Command Line</em>.</p>\n"
+#~ "<p>For example, press <strong>F7</strong> and enter <code>s /oldtext/"
+#~ "newtext/g</code>\n"
+#~ "to replace &quot;oldtext&quot; with &quot;newtext&quot; throughout the "
+#~ "current\n"
+#~ "line.</p>\n"
+#~ msgstr ""
+#~ "<p>Gallwch wneud amnewidiadau mynegiad rheolaidd fel sed gan ddefnyddio "
+#~ "<em>Golygu \n"
+#~ " Gorchymyn</em>.</p>\n"
+#~ "<p>Er enghraifft, gwasgwch <strong>Ctrl+M</strong> a rhowch <code>s/hen-"
+#~ "destun/ testun-newydd/g</code> \n"
+#~ " i amnewid &quot;hen-destun&quot; gyda &quot;testun-newydd&quot; drwy "
+#~ "gydol y llinell \n"
+#~ " gyfredol.</p>\n"
+
+#, fuzzy
+#~ msgid ""
+#~ "<p>You can repeat your last search by just pressing <strong>F3</strong>, "
+#~ "or\n"
+#~ "<strong>Shift+F3</strong> if you want to search backwards.</p>\n"
+#~ msgstr ""
+#~ "<p>Gallwch ailadrodd eich chwiliad diwethaf drwy wasgu <strong>F3</"
+#~ "strong>, neu \n"
+#~ " <strong>Syflydd+F3</strong> os ydych am chwilio am yn ôl.</p>\n"
+
+#, fuzzy
+#~ msgid ""
+#~ "<p>You can filter the files displayed in the <em>Filesystem Browser</em> "
+#~ "tool view.\n"
+#~ "</p>\n"
+#~ "<p>Simply enter your filter in the filter entry at the bottom, for "
+#~ "example:\n"
+#~ "<code>*.html *.php</code> if you only want to see HTML and PHP files in "
+#~ "the\n"
+#~ "current folder.</p>\n"
+#~ "<p>The Filesystem Browser will even remember your filters for you.</p>\n"
+#~ msgstr ""
+#~ "<p>Gallwch hidlo'r ffeiliau a ddengys yn y golwg offer <em>Dewisydd "
+#~ "Ffeiliau</em>.\n"
+#~ " </p>\n"
+#~ "<p>Rhowch eich hidlen yn y gofnod hidlen ar y gwaelod, er enghraifft: \n"
+#~ " <code>*.html *.php</code> os ydych am weld dim ond ffeiliau HTML a PHP "
+#~ "yn y \n"
+#~ " plygell cyfredol.</p>\n"
+#~ "<p>Bydd y Dewisydd Ffeiliau hyd yn oed yn cofio eich hidlenni i chi.</"
+#~ "strong></p>\n"
+
+#, fuzzy
+#~ msgid ""
+#~ "<p>You can have two views - or even more - of the same document in Kate. "
+#~ "Editing\n"
+#~ "in either will be reflected in both.</p>\n"
+#~ "<p>So if you find yourself scrolling up and down to look at text at the "
+#~ "other\n"
+#~ "end of a document, just press <strong>Ctrl+Shift+T</strong> to split\n"
+#~ "horizontally.</p>\n"
+#~ msgstr ""
+#~ "<p>Gallwch gael dau olwg - neu hyd yn oed mwy - o'r un ddogfen yn Kate.\n"
+#~ " Adlewyrchir golygu yn unrhyw un ohonynt yn y ddau.</p>\n"
+#~ "<p>Felly cewch eich hunan yn sgrolio i fyny ac i lawr i edrych ar destun "
+#~ "ar ben \n"
+#~ " arall dogfen, gwasgwch <strong>Ctrl+Syflydd+T</strong> i rannu\n"
+#~ " yn llorweddol.</p>\n"
+
+#, fuzzy
+#~ msgid ""
+#~ "<p>Press <strong>F8</strong> or <strong>Shift+F8</strong> to switch to "
+#~ "the\n"
+#~ "next/previous frame.</p>\n"
+#~ msgstr ""
+#~ "<p>Gwasgwch <strong>F8</strong> neu <strong>Syflydd+F8</strong> i newid "
+#~ "i'r \n"
+#~ " ffrâm nesaf/blaenorol.</p>\n"
+
+#, fuzzy
+#~| msgid "Document to open"
+#~ msgctxt "@item:inmenu"
+#~ msgid "Documentation"
+#~ msgstr "Dogfen i'w hagor"
+
+#, fuzzy
+#~ msgctxt "@item:inmenu"
+#~ msgid "Kate Highlight Definition"
+#~ msgstr "Amlygu ar gyfer SQL"
+
+#, fuzzy
+#~| msgid "Location"
+#~ msgid "Action:"
+#~ msgstr "Lleoliad"
+
+#, fuzzy
+#~| msgid "Title"
+#~ msgid "Title:"
+#~ msgstr "Teitl"
+
+#, fuzzy
+#~| msgid "Name"
+#~ msgid "Name:"
+#~ msgstr "Enw"
+
+#, fuzzy
+#~ msgid "Manager"
+#~ msgstr "&Postio..."
+
+#, fuzzy
+#~| msgid "Plugins"
+#~ msgid "Reload Plugins"
+#~ msgstr "Ategion"
+
+#, fuzzy
+#~| msgid "Plugins"
+#~ msgid "Python Plugins"
+#~ msgstr "Ategion"
+
+#, fuzzy
+#~| msgid "Document to open"
+#~ msgid "Documentation"
+#~ msgstr "Dogfen i'w hagor"
+
+#, fuzzy
+#~| msgid "Current Document Folder"
+#~ msgid "Rescan current document for #colors"
+#~ msgstr "Plygell Dogfen Gyfredol"
+
+#, fuzzy
+#~| msgid "Pattern:"
+#~ msgid "Pattern Model"
+#~ msgstr "Patrwm:"
+
+#, fuzzy
+#~| msgid "Filename"
+#~ msgid "Transform Filenames"
+#~ msgstr "Enw Ffeil"
+
+#, fuzzy
+#~ msgid "Highlight definitions using etags(1):"
+#~ msgstr "Amlygu ar gyfer SQL"
+
+#, fuzzy
+#~ msgid "Settings..."
+#~ msgstr "Ymgyc&hwyn"
+
+#, fuzzy
+#~ msgid "..."
+#~ msgstr "&Newydd..."
+
+#, fuzzy
+#~| msgid "Highlighting for SQL"
+#~ msgid "Highlighting"
+#~ msgstr "Amlygu ar gyfer SQL"
+
+#, fuzzy
+#~| msgid "Location"
+#~ msgid "Exception:"
+#~ msgstr "Lleoliad"
+
+#, fuzzy
+#~ msgid "Drop List"
+#~ msgstr "Dogfennau"
+
+#, fuzzy
+#~| msgid "Name"
+#~ msgid "Full Name:"
+#~ msgstr "Enw"
+
+#~ msgid ""
+#~ "<p>You can drag the Tool views (<em>File List</em> and <em>File Selector</"
+#~ "em>)\n"
+#~ "to any side that you want them in Kate, or stack them, or even tear them "
+#~ "off the\n"
+#~ "main window.</p>\n"
+#~ msgstr ""
+#~ "<p>Gallwch lusgo'r golygon Offer (<em>Rhestr Ffeiliau</em> a <em>Dewisydd "
+#~ "Ffeiliau</em>)\n"
+#~ " i unrhyw ochr yr hoffech nhw yng Kate, neu eu pentyru, neu hyd yn oed eu "
+#~ "rhwygo o'r\n"
+#~ " prif-ffenestr.</p>\n"
+
+#, fuzzy
+#~ msgid "&Save Selected"
+#~ msgstr "&Dewisiedig:"
+
+#, fuzzy
+#~| msgid "Do Not Save"
+#~ msgid "Do &Not Close"
+#~ msgstr "Peidiwch â Chadw"
+
+#, fuzzy
+#~| msgid "Create a new document"
+#~ msgid "Cannot go to the document"
+#~ msgstr "Creu dogfen newydd"
+
+#, fuzzy
+#~| msgid "Plugins"
+#~ msgid "GDB Plugin"
+#~ msgstr "Ategion"
+
+#, fuzzy
+#~| msgid "General Options"
+#~ msgid "GDB Integration"
+#~ msgstr "Dewisiadau Cyffredinol"
+
+#, fuzzy
+#~ msgid "Debug View"
+#~ msgstr "Golwg Blaenorol"
+
+#, fuzzy
+#~| msgid "Name"
+#~ msgid "Frame"
+#~ msgstr "Enw"
+
+#, fuzzy
+#~ msgid "Start Debugging"
+#~ msgstr "Ymgyc&hwyn"
+
+#, fuzzy
+#~ msgid "Step In"
+#~ msgstr "Ymgyc&hwyn"
+
+#, fuzzy
+#~| msgid "Move To"
+#~ msgid "Move PC"
+#~ msgstr "Symud I"
+
+#, fuzzy
+#~ msgid "Document List Settings"
+#~ msgstr "Dogfen i'w hagor"
+
+#, fuzzy
+#~ msgid "Close Selected"
+#~ msgstr "&Dewisiedig:"
+
+#, fuzzy
+#~ msgid "Save Selected"
+#~ msgstr "&Dewisiedig:"
+
+#, fuzzy
+#~ msgid "Save selected open documents."
+#~ msgstr "Cau bob dogfen agored."
+
+#~ msgid "Sort &By"
+#~ msgstr "Trefn&u Gan"
+
+#~ msgid "URL"
+#~ msgstr "URL"
+
+#, fuzzy
+#~ msgid "Tabify Plugin"
+#~ msgstr "Patrymlun:"
+
+#, fuzzy
+#~ msgid "TabifyPlugin"
+#~ msgstr "Patrymlun:"
+
+#, fuzzy
+#~ msgid "&Open..."
+#~ msgstr "A&gor"
+
+#, fuzzy
+#~ msgid "&Save"
+#~ msgstr "&Cadw :"
+
+#~ msgid "Save &As..."
+#~ msgstr "Cadw &Fel..."
+
+#, fuzzy
+#~ msgid "&Do not save session"
+#~ msgstr "Sesiwn"
+
+#, fuzzy
+#~ msgid "Save current session?"
+#~ msgstr "Dogfennau"
+
+#~ msgid "File Selector Settings"
+#~ msgstr "Gosodiadau Dewisydd Ffeiliau"
+
+#, fuzzy
+#~| msgid "Clear filter"
+#~ msgid "Search folders"
+#~ msgstr "Gwagio hidlen"
+
+#, fuzzy
+#~| msgid "&Mime types:"
+#~ msgid "File types:"
+#~ msgstr "&Mathau mime:"
+
+#, fuzzy
+#~ msgid "Load File..."
+#~ msgstr "Agor Ffeil"
+
+#, fuzzy
+#~| msgid "Find in Files"
+#~ msgid "Indexing files..."
+#~ msgstr "Canfod mewn Ffeiliau"
+
+#, fuzzy
+#~| msgid "Open File"
+#~ msgid "Opened file: %1"
+#~ msgstr "Agor Ffeil"
+
+#, fuzzy
+#~ msgid "D-Bus Call Failed"
+#~ msgstr "Ebostio Ffeiliau"
+
+#, fuzzy
+#~ msgid "Start Kate (no arguments)"
+#~ msgstr "Sesiwn"
+
+#, fuzzy
+#~ msgid "New Kate Session"
+#~ msgstr "Sesiwn Newydd"
+
+#, fuzzy
+#~ msgid "New Anonymous Session"
+#~ msgstr "Sesiwn Newydd"
+
+#, fuzzy
+#~ msgid "Reload Session List"
+#~ msgstr "Sesiwn Newydd"
+
+#, fuzzy
+#~ msgid "Session exists"
+#~ msgstr "Sesiynau"
+
+#~ msgid "Hide %1"
+#~ msgstr "Cuddio %1"
+
+#~ msgid " NORM "
+#~ msgstr "ARF"
+
+#~ msgid "Folder:"
+#~ msgstr "Plygell:"
+
+#~ msgid "Case sensitive"
+#~ msgstr "Llythrennau mawr/bach o bwys"
+
+#~ msgid "Recursive"
+#~ msgstr "Ymgylchol"
+
+#, fuzzy
+#~| msgid "Close the current document."
+#~ msgid "Use the current document's path."
+#~ msgstr "Cau`r ddogfen cyfredol"
+
+#~ msgid "Terminal"
+#~ msgstr "Terfynell"
+
+#~ msgid "&Pipe to Console"
+#~ msgstr "&Pibellu i Derfynnell"
+
+#~ msgid "Pipe to Console?"
+#~ msgstr "Pibellu i Derfynnell?"
+
+#~ msgid "Pipe to Console"
+#~ msgstr "Pibellu i Derfynnell"
+
+#~ msgid ""
+#~ "<p>Enter the expression you want to search for here.<p>If 'regular "
+#~ "expression' is unchecked, any non-space letters in your expression will "
+#~ "be escaped with a backslash character.<p>Possible meta characters are:"
+#~ "<br><b>.</b> - Matches any character<br><b>^</b> - Matches the beginning "
+#~ "of a line<br><b>$</b> - Matches the end of a line<br><b>\\&lt;</b> - "
+#~ "Matches the beginning of a word<br><b>\\&gt;</b> - Matches the end of a "
+#~ "word<p>The following repetition operators exist:<br><b>?</b> - The "
+#~ "preceding item is matched at most once<br><b>*</b> - The preceding item "
+#~ "is matched zero or more times<br><b>+</b> - The preceding item is matched "
+#~ "one or more times<br><b>{<i>n</i>}</b> - The preceding item is matched "
+#~ "exactly <i>n</i> times<br><b>{<i>n</i>,}</b> - The preceding item is "
+#~ "matched <i>n</i> or more times<br><b>{,<i>n</i>}</b> - The preceding item "
+#~ "is matched at most <i>n</i> times<br><b>{<i>n</i>,<i>m</i>}</b> - The "
+#~ "preceding item is matched at least <i>n</i>, but at most <i>m</i> times."
+#~ "<p>Furthermore, backreferences to bracketed subexpressions are available "
+#~ "via the notation <code>\\#</code>.<p>See the grep(1) documentation for "
+#~ "the full documentation."
+#~ msgstr ""
+#~ "<p>Rhowch fynegiad rheolaidd rydych am chwilio amdano yma. <p>Os na "
+#~ "frithir 'mynegiad rheolaidd', bydd unrhyw lythyren nid bwlch yn eich "
+#~ "mynegiad yn cael ei dianc gan nod slaes ôl.<p>Nôdau meta posib:<br><b>.</"
+#~ "b> - Cydwedda âg unrhyw nôd<br><b>^</b> - Cydwedda â dechrau "
+#~ "llinell<br><b>$</b> - Cydwedda â diwedd llinell<br><b>\\&lt;</b> - "
+#~ "Cydwedda â dechrau gair<br><b>\\&gt;</b> - Cydwedda â diwedd gair<p>Mae'r "
+#~ "gweithredyddion ailadrodd yma'n bodoli:<br><b>?</b> - Cydweddir yr eitem "
+#~ "blaenorol unwaith yn unig neu ddim o gwbl<br><b>*</b> - Cydweddir yr "
+#~ "eitem blaenorol sero neu fwy o weithiau<br><b>+</b> -Cydweddir yr eitem "
+#~ "blaenorol unwaith neu ragor<br><b>{<i>n</i>}</b> - Cydweddir yr eitem "
+#~ "blaenorol yn union <i>n</i>gwaith<br><b>{<i>n</i>,}</b> - Cydweddir yr "
+#~ "eitem blaenorol <i>n</i> gwaith neu ragor<br><b>{,<i>n</i>}</b> - "
+#~ "Cydweddir yr eitem blaenorol hyd at <i>n</i> gwaith<br><b>{<i>n</i>,<i>m</"
+#~ "i>}</b> - Cydweddir yr eitem blaenorol o leiaf <i>n</i> gwaith ond hyd at "
+#~ "<i>m</i>gwaith.<p>Ymhellach, mae ôl-gyfeiriadau i is-fynegiadau "
+#~ "cromfachog argael drwy'r nodiant <code>\\#</code>. <p>Gweler y "
+#~ "ddogfennaeth grep(1) am y ddogennaeth lawn."
+
+#~ msgid ""
+#~ "Enter the file name pattern of the files to search here.\n"
+#~ "You may give several patterns separated by commas."
+#~ msgstr ""
+#~ "Rhowch batrwm enw ffeiliau'r ffeiliau i chwilio yma.\n"
+#~ "Cewch roi sawl patrwm wedi'u gwahanu ag atalnodau."
+
+#, fuzzy
+#~ msgid ""
+#~ "Enter the folder which contains the files in which you want to search."
+#~ msgstr ""
+#~ "Rhowch y cyfeiriadur sy'n cynnwys y ffeiliau yr ydych am chwilio ynddynt."
+
+#, fuzzy
+#~ msgid "Check this box to search in all subfolders."
+#~ msgstr "Dewiswch y blwch yma i chwilio ym mhob is-gyfeiriadur."
+
+#~ msgid ""
+#~ "If this option is enabled (the default), the search will be case "
+#~ "sensitive."
+#~ msgstr ""
+#~ "Os alluogir y dewisiad hwn (y rhagosodiad), bydd y chwiliad yn ystyried "
+#~ "llythrennau mawr a bach o bwys."
+
+#, fuzzy
+#~ msgid ""
+#~ "The results of the grep run are listed here. Select a\n"
+#~ "filename/line number combination and press Enter or doubleclick\n"
+#~ "on the item to show the respective line in the editor."
+#~ msgstr ""
+#~ "Rhestrir canlyniadau'r rhediad grep yma. Dewiswch\n"
+#~ " gyfuniad enw ffeil/rhif llinell a gwasgwch Enter neu cliciwch\n"
+#~ " yn ddwbl ar yr eitem i ddangos y linell gyfatebol yn y golygydd."
+
+#, fuzzy
+#~| msgid "Use this to close the current document"
+#~ msgid "Click to close the current search results."
+#~ msgstr "Defnyddiwch hwn i gau'r ddogfen gyfredol"
+
+#~ msgid ""
+#~ "<p>Here you can enter a path for a folder to display.<p>To go to a folder "
+#~ "previously entered, press the arrow on the right and choose one. <p>The "
+#~ "entry has folder completion. Right-click to choose how completion should "
+#~ "behave."
+#~ msgstr ""
+#~ "<p>Yma gallwch roi llwybr ar gyfer plygell i'w ddangos.<p> I fynd i "
+#~ "blygell a roddwyd eisioes, gwasgwch y saeth ar y dde a dewis un ohonynt."
+#~ "<p>Mae cyflawni plygyll ar y gofnod. Rhowch glic-dde i ddewis sut y "
+#~ "dylai'r cyflawni ymddwyn."
+
+#~ msgid ""
+#~ "<p>Here you can enter a name filter to limit which files are displayed."
+#~ "<p>To clear the filter, toggle off the filter button to the left.<p>To "
+#~ "reapply the last filter used, toggle on the filter button."
+#~ msgstr ""
+#~ "<p>Yma gallwch roi hidlen enwau i gyfyngu pa ffeiliau a ddengys.<p>I "
+#~ "wagio'r hidlen, diffoddwch y botwm hidlen ar y chwith.<p>I ailweithredu'r "
+#~ "hidlen ddefnyddiwyd ddiwethaf, cynnwch y botwm hidlen."
+
+#~ msgid ""
+#~ "<p>This button clears the name filter when toggled off, or reapplies the "
+#~ "last filter used when toggled on."
+#~ msgstr ""
+#~ "<p>Gwagia'r botwm yma'r hidlen enwau pan yn ddiffodd, neu ailweithreda'r "
+#~ "hidlen ddefnyddiwyd ddiwethaf pan ynghyn."
+
+#~ msgid "Apply last filter (\"%1\")"
+#~ msgstr "Gweithredu'r hidlen ddiwethaf (\"%1\")"
+
+#~ msgid "Toolbar"
+#~ msgstr "Bar offer"
+
+#~ msgid "A&vailable actions:"
+#~ msgstr "&Gweithredoedd ar gael:"
+
+#~ msgid "Auto Synchronization"
+#~ msgstr "Cydweddu Ymysgogol"
+
+#~ msgid "When a docu&ment becomes active"
+#~ msgstr "Pan ddaw dog&fen yn weithredol"
+
+#~ msgid "When the file selector becomes visible"
+#~ msgstr "Pan ymddengys y dewisydd ffeiliau"
+
+#~ msgid "Remember &locations:"
+#~ msgstr "Cofio &lleoliadau:"
+
+#~ msgid "Remember &filters:"
+#~ msgstr "Cofio &hidlenni:"
+
+#~ msgid "Restore last f&ilter"
+#~ msgstr "Adfer h&idlen ddiwethaf:"
+
+#~ msgid ""
+#~ "<p>Decides how many locations to keep in the history of the location "
+#~ "combo box."
+#~ msgstr ""
+#~ "<p>Penderfynna sawl lleoliad i gadw yn hanes y blwch cyfuno lleoliadau."
+
+#~ msgid ""
+#~ "<p>Decides how many filters to keep in the history of the filter combo "
+#~ "box."
+#~ msgstr "<p>Penderfynna sawl hidlen i gadw yn hanes y blwch cyfuno hidlenni."
+
+#~ msgid ""
+#~ "<p>These options allow you to have the File Selector automatically change "
+#~ "location to the folder of the active document on certain events.<p>Auto "
+#~ "synchronization is <em>lazy</em>, meaning it will not take effect until "
+#~ "the file selector is visible.<p>None of these are enabled by default, but "
+#~ "you can always sync the location by pressing the sync button in the "
+#~ "toolbar."
+#~ msgstr ""
+#~ "<p>Galluoga'r dewisiadau yma i chi beri i'r Dewisydd Ffeiliau newid "
+#~ "lleoliad i blygell y ddogfen gyfredol yn ymysgogol ar ddigwyddiadau "
+#~ "penodol.<p>Mae cydweddu ymysgogol yn <em>ddiog</em>, sy'n golygu na ddaw "
+#~ "i rym nes ymddengys y dewisydd ffeiliau.<p>Ni ddewisir yr un o'r rhain yn "
+#~ "ragosod, ond gallwch gydweddu'r lleoliad trwy wasgu'r botwm cydweddu yn y "
+#~ "bar offer ar unrhyw adeg."
+
+#~ msgid ""
+#~ "<p>If this option is enabled (default), the location will be restored "
+#~ "when you start Kate.<p><strong>Note</strong> that if the session is "
+#~ "handled by the KDE session manager, the location is always restored."
+#~ msgstr ""
+#~ "<p>Os yw'r dewisiad yma'n alluog (rhagosodyn), adferir y lleoliad pan "
+#~ "gychwynnwch Kate.<p><strong>Noder</strong> yr adferir y lleoliad bob tro "
+#~ "os trinir y sesiwn gan y trefnydd sesiynau KDE."
+
+#~ msgid ""
+#~ "<p>If this option is enabled (default), the current filter will be "
+#~ "restored when you start Kate.<p><strong>Note</strong> that if the session "
+#~ "is handled by the KDE session manager, the filter is always restored."
+#~ "<p><strong>Note</strong> that some of the autosync settings may override "
+#~ "the restored location if on."
+#~ msgstr ""
+#~ "<p>Os yw'r dewisiad yma'n alluog (rhagosodyn), adferir yr hidlen pan "
+#~ "gychwynnwch Kate.<p><strong>Noder</strong> yr adferir yr hidlen bob tro "
+#~ "os trinir y sesiwn gan y trefnydd sesiynau KDE. <p><strong>Noder</strong> "
+#~ "y gall rhai o'r gosodiadau hunan-gydamseru gymryd blaenoriaeth dros y "
+#~ "lleoliad a adferir, os mae'n nhw mewn bod."
+
+#, fuzzy
+#~ msgid "Document Quick Switch"
+#~ msgstr "Dogfennau"
+
+#, fuzzy
+#~ msgid "Kate External Tools"
+#~ msgstr "Offer Allanol"
+
+#~ msgid "Edit External Tool"
+#~ msgstr "Golygu Erfyn Allanol"
+
+#~ msgid "&Label:"
+#~ msgstr "&Label:"
+
+#~ msgid "The name will be displayed in the 'Tools->External' menu"
+#~ msgstr "Dangosir yr enw yn y ddewislen 'Offer->Allanol'"
+
+#~ msgid "S&cript:"
+#~ msgstr "S&gript :"
+
+#, fuzzy
+#~ msgid ""
+#~ "<p>The script to execute to invoke the tool. The script is passed to /bin/"
+#~ "sh for execution. The following macros will be expanded:</p><ul><li><code>"
+#~ "%URL</code> - the URL of the current document.<li><code>%URLs</code> - a "
+#~ "list of the URLs of all open documents.<li><code>%directory</code> - the "
+#~ "URL of the directory containing the current document.<li><code>%filename</"
+#~ "code> - the filename of the current document.<li><code>%line</code> - the "
+#~ "current line of the text cursor in the current view.<li><code>%column</"
+#~ "code> - the column of the text cursor in the current view.<li><code>"
+#~ "%selection</code> - the selected text in the current view.<li><code>"
+#~ "%text</code> - the text of the current document.</ul>"
+#~ msgstr ""
+#~ "<p>Y gorchymyn i weithredu i alw'r erfyn.  Ehangir y macros dilynnol:</"
+#~ "p><ul><li><code>%URL</code> - URL y ddogfen gyfredol.<li><code>%URLs</"
+#~ "code> - rhestr o URLau pob dogfen agored.<li><code>%directory</code> - "
+#~ "URL y cyfeiriadur sy'n cynnwys y ddogfen gyfredol.<li><code>filename</"
+#~ "code> - enw ffeil y ddogfen gyfredol.<li><code>%line</code> - llinell "
+#~ "gyfredol y cyrchydd testun yn y golwg gyfredol.<li><code>%column</code> - "
+#~ "colofn y cyrchydd testun yn y golwg gyfredol.<li><code>%selection</code> "
+#~ "- y testun dewisiedig yn y golwg gyfredol. <li><code>%text</code> - "
+#~ "testun y ddogfen gyfredol. </ul>"
+
+#~ msgid "&Executable:"
+#~ msgstr "&Gweithredadwyn:"
+
+#~ msgid ""
+#~ "The executable used by the command. This is used to check if a tool "
+#~ "should be displayed; if not set, the first word of <em>command</em> will "
+#~ "be used."
+#~ msgstr ""
+#~ "Y gweithredadwyn a ddefnyddir gan y gorchymyn.  Defnyddir hyn i wirio a "
+#~ "ddylai erfyn gael ei ddangos; os ni osodir, defnyddir y gair cyntaf o "
+#~ "<em>gorchymyn</em>."
+
+#, fuzzy
+#~ msgid ""
+#~ "A semicolon-separated list of mime types for which this tool should be "
+#~ "available; if this is left empty, the tool is always available. To choose "
+#~ "from known mimetypes, press the button on the right."
+#~ msgstr ""
+#~ "Rhestr o fathau mime wedi'u gwahanu gan wahannod y ddylai'r erfyn yma fod "
+#~ "ar gael iddynt; os gadewir yn wag, mae'r erfyn ar gael yn wastad.  I "
+#~ "ddewis o'r mathau mime a gwyddys, gwasgwch y botwm ar y dde."
+
+#~ msgid "&Save:"
+#~ msgstr "&Cadw :"
+
+#~ msgid "None"
+#~ msgstr "Dim"
+
+#, fuzzy
+#~ msgid "All Documents"
+#~ msgstr "&Dogfen"
+
+#~ msgid "You must specify at least a name and a command"
+#~ msgstr "Rhaid i chi benodi o leiaf enw a gorchymyn."
+
+#, fuzzy
+#~ msgid "Select Mime Types"
+#~ msgstr "&Mathau mime:"
+
+#~ msgid "&New..."
+#~ msgstr "&Newydd..."
+
+#~ msgid "&Edit..."
+#~ msgstr "&Golygu..."
+
+#~ msgid "Insert &Separator"
+#~ msgstr "Mewnosod &Gwahanydd"
+
+#~ msgid ""
+#~ "This list shows all the configured tools, represented by their menu text."
+#~ msgstr ""
+#~ "Dangosa'r rhestr yma pob erfyn a ffurfweddir, wedi'u cynrychioli gan eu "
+#~ "testun dewislen."
+
+#~ msgid "Send one or more of the open documents as email attachments."
+#~ msgstr "Anfon un neu fwy o'r dogfennau agored fel atodiad ebost."
+
+#~ msgid ""
+#~ "<p>The current document has not been saved, and cannot be attached to an "
+#~ "email message.<p>Do you want to save it and proceed?"
+#~ msgstr ""
+#~ "<p>Ni gedwid y ddogfen gyfredol, a ni fedr ei atodi i neges ebost.<p>A "
+#~ "ydych am ei gadw a mynd ymlaen?"
+
+#~ msgid "Cannot Send Unsaved File"
+#~ msgstr "Methu Anfon Ffeil Heb ei Gadw"
+
+#~ msgid ""
+#~ "The file could not be saved. Please check if you have write permission."
+#~ msgstr "Methwyd cadw'r ffeil. Gwiriwch os oes gennych caniatâd ysgrifennu."
+
+#~ msgid ""
+#~ "<p>The current file:<br><strong>%1</strong><br>has been modified. "
+#~ "Modifications will not be available in the attachment.<p>Do you want to "
+#~ "save it before sending it?"
+#~ msgstr ""
+#~ "<p>Addaswyd y ffeil cyfredol:<br><strong>%1</strong><br>. Ni fydd y "
+#~ "newidiadau ar gael yn yr atodiad.<p>A ydych am ei gadw cyn ei anfon?"
+
+#~ msgid "Save Before Sending?"
+#~ msgstr "Cadw Cyn Anfon?"
+
+#~ msgid "Email Files"
+#~ msgstr "Ebostio Ffeiliau"
+
+#~ msgid "&Mail..."
+#~ msgstr "&Postio..."
+
+#~ msgid ""
+#~ "<p>Press <strong>Mail...</strong> to email the current document.<p>To "
+#~ "select more documents to send, press <strong>Show All Documents&nbsp;&gt;"
+#~ "&gt;</strong>."
+#~ msgstr ""
+#~ "<p>Gwasgwch <strong>Postio...</strong> i ebostio'r ddogfen cyfredol.<p>I "
+#~ "ddewis rhagor o ddogfennau i'w hanfon, gwasgwch <strong>Dangos Pob Dogfen "
+#~ "&nbsp;&gt;&gt;</ strong>."
+
+#~ msgid "&Hide Document List <<"
+#~ msgstr "&Cuddio Rhestr Ddogfennau <<"
+
+#~ msgid "Press <strong>Mail...</strong> to send selected documents"
+#~ msgstr "Gwasgwch <strong>Postio...</strong> i anfon dogfennau dewisiedig"
+
+#, fuzzy
+#~ msgid "Previous Error"
+#~ msgstr "Golwg Blaenorol"
+
+#, fuzzy
+#~ msgid "HT&ML Tag..."
+#~ msgstr "&Postio..."
+
+#~ msgid "&Appearance"
+#~ msgstr "&Ymddangosiad"
+
+#, fuzzy
+#~ msgid "&Top"
+#~ msgstr "Bar offer"
+
+#, fuzzy
+#~ msgid "&follow current tab"
+#~ msgstr "Cau'r tab cyfredol"
+
+#, fuzzy
+#~ msgid "document &name"
+#~ msgstr "Dogfennau"
+
+#, fuzzy
+#~ msgid "document &URL"
+#~ msgstr "Dogfennau"
+
+#, fuzzy
+#~ msgid "Frame Colors"
+#~ msgstr "Cyn-ddatblygwr Craidd"
+
+#, fuzzy
+#~ msgid "Sorting Behavior"
+#~ msgstr "Ymddygiad"
+
+#, fuzzy
+#~ msgid "Close &Other Tabs"
+#~ msgstr "Cau'r tab cyfredol"
+
+#, fuzzy
+#~ msgid "Close &All Tabs"
+#~ msgstr "Cau'r Tab Cyfredol"
+
+#, fuzzy
+#~ msgid "Remember"
+#~ msgstr "Cofio &hidlenni:"
+
+#, fuzzy
+#~ msgid "Application &working folder"
+#~ msgstr "Cymhwysiad"
+
+#, fuzzy
+#~ msgid "&Document folder"
+#~ msgstr "&Dogfen"
+
+#, fuzzy
+#~ msgid "Show Variables"
+#~ msgstr "Dang&os Llwybr"
+
+#, fuzzy
+#~ msgid "Show Templates"
+#~ msgstr "Patrymlun:"
+
+#, fuzzy
+#~ msgid "Templates"
+#~ msgstr "Patrymlun:"
+
+#, fuzzy
+#~ msgid "Show Methods"
+#~ msgstr "Dang&os Llwybr"
+
+#, fuzzy
+#~ msgid "Show Uses"
+#~ msgstr "Dangos %1"
+
+#, fuzzy
+#~ msgid "Show Pragmas"
+#~ msgstr "Dang&os Llwybr"
+
+#, fuzzy
+#~ msgid "&Manage Templates..."
+#~ msgstr "&Postio..."
+
+#, fuzzy
+#~ msgid "&Template:"
+#~ msgstr "Patrymlun:"
+
+#, fuzzy
+#~ msgid "Document &name:"
+#~ msgstr "Dogfennau"
+
+#, fuzzy
+#~ msgid "Start with an &empty document"
+#~ msgstr "Creu dogfen newydd"
+
+#, fuzzy
+#~ msgid "Choose Template Origin"
+#~ msgstr "Patrymlun:"
+
+#, fuzzy
+#~ msgid "Open the template for editing"
+#~ msgstr "Agor hen ddogfen er mwyn golygu"
+
+#, fuzzy
+#~ msgid "Create Template"
+#~ msgstr "Patrymlun:"
+
+#, fuzzy
+#~ msgid "Save Failed"
+#~ msgstr "&Dewisiedig:"
+
+#, fuzzy
+#~ msgid "Template"
+#~ msgstr "Patrymlun:"
+
+#, fuzzy
+#~ msgid "Edit..."
+#~ msgstr "&Golygu..."
+
+#, fuzzy
+#~ msgid ""
+#~ "The file '%1' could not be parsed. Please check that the file is well-"
+#~ "formed XML."
+#~ msgstr "Methwyd cadw'r ffeil. Gwiriwch os oes gennych caniatâd ysgrifennu."
+
+#, fuzzy
+#~ msgid "&Close Element"
+#~ msgstr "Cau Dogfen"
+
+#, fuzzy
+#~ msgid "The file '%1' could not be opened. The server returned an error."
+#~ msgstr "Methwyd agor y ffeil '%1'; plygell yw hi, dim ffeil arferol."
+
+#, fuzzy
+#~ msgid "Open .h/.cpp/.c"
+#~ msgstr "A&gor"
+
+#, fuzzy
+#~ msgid "Empty session"
+#~ msgstr "Sesiwn"
+
+#~ msgid "Close Current Tab"
+#~ msgstr "Cau'r Tab Cyfredol"
+
+#~ msgid "Activate Next Tab"
+#~ msgstr "Gweithredu'r Tab Nesaf"
+
+#~ msgid "Open a new tab"
+#~ msgstr "Agor tab newydd"
+
+#, fuzzy
+#~ msgid "Position"
+#~ msgstr "Lleoliad"
+
+#~ msgid " R/O "
+#~ msgstr "DyU"
+
+#~ msgid " OVR "
+#~ msgstr "DROS"
+
+#~ msgid "External Tools"
+#~ msgstr "Offer Allanol"
+
+#~ msgid "Launch external helper applications"
+#~ msgstr "Cychwyn cymhwysiadau cynorthwyol allanol"
+
+#~ msgid "Other..."
+#~ msgstr "Eraill..."
+
+#~ msgid ""
+#~ "If this option is checked, the full document path will be shown in the "
+#~ "window caption."
+#~ msgstr ""
+#~ "Os dewisir y dewisiad hwn, dengys llwybr llawn y ddogfen ym mhennawd y "
+#~ "ffenestr.  "
+
+#~ msgid ""
+#~ "If this is checked, the built in Konsole will <code>cd</code> to the "
+#~ "directory of the active document when started and whenever the active "
+#~ "document changes, if the document is a local file."
+#~ msgstr ""
+#~ "uOs yw hwn yn ddewisiedig, bydd y Konsole mewnadeiladedig yn <code>cd</"
+#~ "code> (newid cyfeiriadur) i gyfeiriadur y ddogfen cyfredol pan ei "
+#~ "gychwynnir a phryd bynnag y newida'r ddogfen weithredol, os yw'r ddogfen "
+#~ "yn ffeil lleol."
+
+#~ msgid "Editor"
+#~ msgstr "Golygydd"
+
+#~ msgid "Regular expression"
+#~ msgstr "Mynegiad rheolaidd"
+
+#~ msgid "Find"
+#~ msgstr "Canfod:"
+
+#~ msgid ""
+#~ "You can choose a template for the pattern from the combo box\n"
+#~ "and edit it here. The string %s in the template is replaced\n"
+#~ "by the pattern input field, resulting in the regular expression\n"
+#~ "to search for."
+#~ msgstr ""
+#~ "Gallwch ddewis canllaw i'r patrwm o'r blwch cyfunol\n"
+#~ " a'i olygu yma. Amnewidir y llinyn %s yn y canllaw gan\n"
+#~ " y maes mewnbwn patrwm, gan achosi'r mynegiad rheolaidd\n"
+#~ " i chwilio amdano."
+
+#~ msgid ""
+#~ "<p>If this is enabled, your pattern will be passed unmodified to "
+#~ "<em>grep(1)</em>. Otherwise, all characters that are not letters will be "
+#~ "escaped using a backslash character to prevent grep from interpreting "
+#~ "them as part of the expression."
+#~ msgstr ""
+#~ "<p>Os alluogir, bydd eich patrwm yn cael ei basio heb ei addasu i "
+#~ "<em>grep(1)</em>.  Os arall, bydd pob nod nad yw'n lythyren yn cael ei "
+#~ "ddianc gan ddefnyddio nod slaes ôl i atal grep rhag eu dehongli fel rhan "
+#~ "o'r mynegiad."
+
+#~ msgid "<strong>Error:</strong><p>"
+#~ msgstr "<strong>Gwall:</strong><p>"
+
+#~ msgid "Grep Tool Error"
+#~ msgstr "Gwall Erfyn grep"
+
+#, fuzzy
+#~ msgid "Unnamed Session"
+#~ msgstr "Sesiwn"
+
+#~ msgid "Session (%1)"
+#~ msgstr "Sesiwn (%1)"
+
+#, fuzzy
+#~ msgid ""
+#~ "<b>This file was changed (modified) on disk by another program.</b><br />"
+#~ msgstr ""
+#~ "<b>Newidwyd (addaswyd) y ffeil yma ar y ddisg gan raglen arall!</b><br />"
+
+#, fuzzy
+#~ msgid ""
+#~ "<b>This file was changed (created) on disk by another program.</b><br />"
+#~ msgstr ""
+#~ "<b>Newidwyd (creuwyd) y ffeil yma ar y ddisg gan raglen arall!</b><br />"
+
+#, fuzzy
+#~ msgid ""
+#~ "<b>This file was changed (deleted) on disk by another program.</b><br />"
+#~ msgstr ""
+#~ "<b>Newidwyd (dileuwyd) y ffeil yma ar y ddisg gan raglen arall!</b><br />"
+
+#~ msgid "Use this command to print the current document"
+#~ msgstr "Defnyddiwch y gorchymyn yma i argraffu'r ddogfen gyfredol"
+
+#~ msgid "Use this command to open an existing document for editing"
+#~ msgstr "Defnyddiwch y gorchymyn yma i agor dogfen i'w olygu"
+
+#~ msgid "Choose Editor..."
+#~ msgstr "Dewis Golygydd..."
+
+#~ msgid "Override the system wide setting for the default editing component"
+#~ msgstr ""
+#~ "Cymryd blaenoriaeth dros y gosodiad cysawd-eang am gydran golygu testun "
+#~ "rhagosod."
+
+#~ msgid "Close the current document view"
+#~ msgstr "Cau'r golwg ddogfen cyfredol"
+
+#~ msgid ""
+#~ "The given file could not be read, check if it exists or if it is readable "
+#~ "for the current user."
+#~ msgstr ""
+#~ "Ni ellid darllen y ffeil a roddwyd, gwiriwch os yw'n bodoli neu os yw'n "
+#~ "ddarllenadwy i'r defnyddiwr cyfredol."

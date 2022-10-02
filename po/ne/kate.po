@@ -1,0 +1,4581 @@
+# translation of kate.po to Nepali
+# Nabin Gautam <nabin@mpp.org.np>, 2006, 2007.
+# Mahesh Subedi <submanesh@gmail.com>, 2007.
+# shyam krishna bal <shyamkrishna_bal@yahoo.com>, 2007.
+# Narayan Kumar Magar <narayan@mpp.org.np>, 2007.
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-10-02 00:49+0000\n"
+"PO-Revision-Date: 2007-09-13 12:58+0545\n"
+"Last-Translator: Narayan Kumar Magar <narayan@mpp.org.np>\n"
+"Language-Team: Nepali <info@mpp.org.np>\n"
+"Language: ne\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n !=1\n"
+"\n"
+"X-Generator: KBabel 1.11.4\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Nabin Gautam, नारायण कुमार मगर"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "nabin@mpp.org.np, narayan@mpp.org.np"
+
+#: kate/main.cpp:106
+#, kde-format
+msgid "Kate"
+msgstr "क्येट"
+
+#: kate/main.cpp:108
+#, kde-format
+msgid "Kate - Advanced Text Editor"
+msgstr "क्येट - उन्नत पाठ सम्पादक"
+
+#: kate/main.cpp:110 kwrite/main.cpp:89
+#, fuzzy, kde-format
+#| msgid "(c) 2000-2005 The Kate Authors"
+msgid "(c) 2000-2022 The Kate Authors"
+msgstr "(c) 2000-2005 क्येट लेखक"
+
+#: kate/main.cpp:156
+#, fuzzy, kde-format
+#| msgid "Start Kate with a given session"
+msgid "Start Kate with a given session."
+msgstr "दिएको सत्रमा क्येट सुरुआत गर्नुहोस्"
+
+#: kate/main.cpp:157
+#, fuzzy, kde-format
+#| msgid "Session"
+msgid "session"
+msgstr "सत्र"
+
+#: kate/main.cpp:162
+#, fuzzy, kde-format
+#| msgid "Start Kate with a given session"
+msgid "Start Kate with a new anonymous session, implies '-n'."
+msgstr "दिएको सत्रमा क्येट सुरुआत गर्नुहोस्"
+
+#: kate/main.cpp:167
+#, kde-format
+msgid ""
+"Force start of a new kate instance (is ignored if start is used and another "
+"kate instance already has the given session opened), forced if no parameters "
+"and no URLs are given at all."
+msgstr ""
+
+#: kate/main.cpp:173
+#, kde-format
+msgid ""
+"If using an already running kate instance, block until it exits, if URLs "
+"given to open."
+msgstr ""
+
+#: kate/main.cpp:179
+#, kde-format
+msgid ""
+"Only try to reuse kate instance with this pid (is ignored if start is used "
+"and another kate instance already has the given session opened)."
+msgstr ""
+
+#: kate/main.cpp:180
+#, kde-format
+msgid "pid"
+msgstr ""
+
+#: kate/main.cpp:185 kwrite/main.cpp:140
+#, fuzzy, kde-format
+#| msgid "Set encoding for the file to open"
+msgid "Set encoding for the file to open."
+msgstr "फाइल खोल्नका लागि सङ्केतन सेट गर्नुहोस्"
+
+#: kate/main.cpp:186 kwrite/main.cpp:141
+#, kde-format
+msgid "encoding"
+msgstr ""
+
+#: kate/main.cpp:190 kwrite/main.cpp:145
+#, fuzzy, kde-format
+#| msgid "Navigate to this line"
+msgid "Navigate to this line."
+msgstr "यो रेखामा नेभिगेट गर्नुहोस्"
+
+#: kate/main.cpp:190 kwrite/main.cpp:145
+#, kde-format
+msgid "line"
+msgstr ""
+
+#: kate/main.cpp:195 kwrite/main.cpp:149
+#, fuzzy, kde-format
+#| msgid "Navigate to this column"
+msgid "Navigate to this column."
+msgstr "यो स्तम्भमा नेभिगेट गर्नुहोस्"
+
+#: kate/main.cpp:196 kwrite/main.cpp:149
+#, fuzzy, kde-format
+#| msgid "Column"
+msgid "column"
+msgstr "स्तम्भ"
+
+#: kate/main.cpp:200 kwrite/main.cpp:153
+#, fuzzy, kde-format
+#| msgid "Read the contents of stdin"
+msgid "Read the contents of stdin."
+msgstr "stdin को सामाग्री पढ्नुहोस्"
+
+#: kate/main.cpp:205 kwrite/main.cpp:157
+#, kde-format
+msgid "The files/URLs opened by the application will be deleted after use"
+msgstr ""
+
+#: kate/main.cpp:209 kwrite/main.cpp:161
+#, fuzzy, kde-format
+#| msgid "Document to open"
+msgid "Documents to open."
+msgstr "खोल्नका लागि कागजात"
+
+#: kate/main.cpp:209 kwrite/main.cpp:161
+#, kde-format
+msgid "[urls...]"
+msgstr ""
+
+#: kwrite/main.cpp:85
+#, fuzzy, kde-format
+#| msgid "KWrite Author"
+msgid "KWrite"
+msgstr "केडीई राइट लेखक"
+
+#: kwrite/main.cpp:87
+#, fuzzy, kde-format
+#| msgid "Kate - Advanced Text Editor"
+msgid "KWrite - Text Editor"
+msgstr "क्येट - उन्नत पाठ सम्पादक"
+
+#. i18n: ectx: Menu (file)
+#: lib/data/kateui.rc:6
+#, kde-format
+msgid "&File"
+msgstr "फाइल"
+
+#. i18n: ectx: Menu (file_file_actions)
+#: lib/data/kateui.rc:30
+#, fuzzy, kde-format
+#| msgid "Functions"
+msgid "File Actions"
+msgstr "प्रकार्य"
+
+#. i18n: ectx: Menu (edit)
+#: lib/data/kateui.rc:43
+#, kde-format
+msgid "&Edit"
+msgstr "सम्पादन गर्नुहोस्"
+
+#. i18n: ectx: Menu (selection)
+#: lib/data/kateui.rc:54
+#, fuzzy, kde-format
+#| msgid "S&elected actions:"
+msgid "&Selection"
+msgstr "चयन गरेको कार्य:"
+
+#. i18n: ectx: Menu (go)
+#: lib/data/kateui.rc:57
+#, fuzzy, kde-format
+#| msgid "&Group:"
+msgid "&Go"
+msgstr "समूह:"
+
+#. i18n: ectx: Menu (view)
+#: lib/data/kateui.rc:73
+#, kde-format
+msgid "&View"
+msgstr "दृश्य"
+
+#. i18n: ectx: Menu (view-split)
+#: lib/data/kateui.rc:75 lib/kateviewspace.cpp:118
+#, fuzzy, kde-format
+#| msgid "Split Ve&rtical"
+msgid "Split View"
+msgstr "ठाडो विभाजन गर्नुहोस्"
+
+#. i18n: ectx: Menu (tools)
+#: lib/data/kateui.rc:109
+#, kde-format
+msgid "&Tools"
+msgstr "उपकरण"
+
+#. i18n: ectx: Menu (settings)
+#: lib/data/kateui.rc:126
+#, kde-format
+msgid "&Settings"
+msgstr "सेटिङ"
+
+#. i18n: ectx: Menu (help)
+#: lib/data/kateui.rc:134
+#, kde-format
+msgid "&Help"
+msgstr "मद्दत"
+
+#. i18n: ectx: ToolBar (mainToolBar)
+#: lib/data/kateui.rc:139
+#, kde-format
+msgid "Main Toolbar"
+msgstr "मुख्य उपकरणपट्टी"
+
+#. i18n: ectx: Menu (viewspace_popup_statusbar)
+#: lib/data/kateui.rc:167
+#, kde-format
+msgid "&Status Bar Items"
+msgstr ""
+
+#: lib/diff/diffeditor.cpp:146
+#, kde-format
+msgid "Change Style"
+msgstr ""
+
+#: lib/diff/diffeditor.cpp:148 lib/kateconfigdialog.cpp:291
+#, kde-format
+msgid "Side By Side"
+msgstr ""
+
+#: lib/diff/diffeditor.cpp:151 lib/kateconfigdialog.cpp:292
+#, fuzzy, kde-format
+#| msgid "Modified"
+msgid "Unified"
+msgstr "परिमार्जित"
+
+#: lib/diff/diffeditor.cpp:154 lib/kateconfigdialog.cpp:293
+#, kde-format
+msgid "Raw"
+msgstr ""
+
+#: lib/diff/diffeditor.cpp:183
+#, fuzzy, kde-format
+#| msgid "Line"
+msgid "Stage Line"
+msgid_plural "Stage Lines"
+msgstr[0] "रेखा"
+msgstr[1] "रेखा"
+
+#: lib/diff/diffeditor.cpp:188
+#, kde-format
+msgid "Stage Hunk"
+msgstr ""
+
+#: lib/diff/diffeditor.cpp:195
+#, kde-format
+msgid "Discard Line"
+msgid_plural "Discard Lines"
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/diff/diffeditor.cpp:200
+#, kde-format
+msgid "Discard Hunk"
+msgstr ""
+
+#: lib/diff/diffeditor.cpp:207
+#, fuzzy, kde-format
+#| msgid "Line"
+msgid "Unstage Line"
+msgid_plural "Unstage Lines"
+msgstr[0] "रेखा"
+msgstr[1] "रेखा"
+
+#: lib/diff/diffeditor.cpp:212
+#, kde-format
+msgid "Unstage Hunk"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
+#: lib/filehistorywidget.cpp:258 lib/session/katesessionmanagedialog.ui:184
+#, fuzzy, kde-format
+#| msgid "Clos&e All"
+msgid "Close"
+msgstr "सबै बन्द गर्नुहोस्"
+
+#: lib/filehistorywidget.cpp:290
+#, kde-format
+msgid "Failed to get file history: git executable not found in PATH"
+msgstr ""
+
+#: lib/filehistorywidget.cpp:303
+#, kde-format
+msgid "Failed to get file history: %1"
+msgstr ""
+
+#: lib/filehistorywidget.cpp:346 lib/kateconfigdialog.cpp:125
+#, kde-format
+msgid "Error"
+msgstr "त्रुटि"
+
+#: lib/filehistorywidget.cpp:346
+#, kde-format
+msgid "%1 doesn't exist in a git repo."
+msgstr ""
+
+#: lib/filehistorywidget.cpp:346
+#, kde-format
+msgid "Git"
+msgstr ""
+
+#: lib/filehistorywidget.cpp:354
+#, fuzzy, kde-format
+#| msgid "File Exists"
+msgid "File History"
+msgstr "फाइल अवस्थित छ"
+
+#: lib/kateapp.cpp:146
+#, kde-format
+msgid "Christoph Cullmann"
+msgstr "क्रिस्टोफ कुलम्यान"
+
+#: lib/kateapp.cpp:146
+#, kde-format
+msgid "Maintainer"
+msgstr "सम्भारकर्ता"
+
+#: lib/kateapp.cpp:147
+#, kde-format
+msgid "Dominik Haumann"
+msgstr "डोमिनिक हाउम्यान"
+
+#: lib/kateapp.cpp:147 lib/kateapp.cpp:150 lib/kateapp.cpp:152
+#: lib/kateapp.cpp:155 lib/kateapp.cpp:161
+#, kde-format
+msgid "Core Developer"
+msgstr "कोर विकासकर्ता"
+
+#: lib/kateapp.cpp:148
+#, kde-format
+msgid "Sven Brauch"
+msgstr ""
+
+#: lib/kateapp.cpp:148 lib/kateapp.cpp:149 lib/kateapp.cpp:156
+#, fuzzy, kde-format
+#| msgid "Core Developer"
+msgid "Developer"
+msgstr "कोर विकासकर्ता"
+
+#: lib/kateapp.cpp:149
+#, kde-format
+msgid "Kåre Särs"
+msgstr ""
+
+#: lib/kateapp.cpp:150
+#, kde-format
+msgid "Anders Lund"
+msgstr "एन्डर्स लुन्ड"
+
+#: lib/kateapp.cpp:151
+#, kde-format
+msgid "Joseph Wenninger"
+msgstr "जोसेफ वेन्निन्गेर"
+
+#: lib/kateapp.cpp:155
+#, kde-format
+msgid "Hamish Rodda"
+msgstr "हामिश रोड्दा"
+
+#: lib/kateapp.cpp:156
+#, fuzzy, kde-format
+#| msgid "Anders Lund"
+msgid "Alexander Neundorf"
+msgstr "एन्डर्स लुन्ड"
+
+#: lib/kateapp.cpp:157
+#, kde-format
+msgid "Waldo Bastian"
+msgstr "वाल्डो बास्टियन"
+
+#: lib/kateapp.cpp:157
+#, kde-format
+msgid "The cool buffersystem"
+msgstr "कूल बफर प्रणाली"
+
+#: lib/kateapp.cpp:158
+#, kde-format
+msgid "Charles Samuels"
+msgstr "चार्ल्स स्यामुएल्स"
+
+#: lib/kateapp.cpp:158
+#, kde-format
+msgid "The Editing Commands"
+msgstr "सम्पादन आदेश"
+
+#: lib/kateapp.cpp:159
+#, kde-format
+msgid "Matt Newell"
+msgstr "म्याट नेवेल"
+
+#: lib/kateapp.cpp:159
+#, kde-format
+msgid "Testing, ..."
+msgstr "परिक्षण, ..."
+
+#: lib/kateapp.cpp:160
+#, kde-format
+msgid "Michael Bartl"
+msgstr "माइकल बार्टल"
+
+#: lib/kateapp.cpp:160
+#, kde-format
+msgid "Former Core Developer"
+msgstr "अघिल्लो कोर विकासकर्ता"
+
+#: lib/kateapp.cpp:161
+#, kde-format
+msgid "Michael McCallum"
+msgstr "माइकल म्याक्कलुम"
+
+#: lib/kateapp.cpp:162
+#, kde-format
+msgid "Jochen Wilhemly"
+msgstr "जोचेन विल्हेम्लि"
+
+#: lib/kateapp.cpp:162
+#, kde-format
+msgid "KWrite Author"
+msgstr "केडीई राइट लेखक"
+
+#: lib/kateapp.cpp:163
+#, kde-format
+msgid "Michael Koch"
+msgstr "माइकल कोच"
+
+#: lib/kateapp.cpp:163
+#, kde-format
+msgid "KWrite port to KParts"
+msgstr "KParts मा KWrite पोर्ट"
+
+#: lib/kateapp.cpp:164
+#, kde-format
+msgid "Christian Gebauer"
+msgstr "क्रिस्टियन गेबाउएर"
+
+#: lib/kateapp.cpp:165
+#, kde-format
+msgid "Simon Hausmann"
+msgstr "सिमोन हाउस्म्यान"
+
+#: lib/kateapp.cpp:166
+#, kde-format
+msgid "Glen Parker"
+msgstr "ग्लेन पार्कर"
+
+#: lib/kateapp.cpp:166
+#, kde-format
+msgid "KWrite Undo History, Kspell integration"
+msgstr "KWrite पुर्वस्थितिमा फर्काउने इतिहास, Kspell एकिकरण"
+
+#: lib/kateapp.cpp:167
+#, kde-format
+msgid "Scott Manson"
+msgstr "स्कट मानसुन"
+
+#: lib/kateapp.cpp:167
+#, kde-format
+msgid "KWrite XML Syntax highlighting support"
+msgstr "KWrite XML वाक्य संरचना हाइलाइटिङ समर्थन"
+
+#: lib/kateapp.cpp:168
+#, kde-format
+msgid "John Firebaugh"
+msgstr "जोन फायरबौह"
+
+#: lib/kateapp.cpp:168
+#, kde-format
+msgid "Patches and more"
+msgstr "प्याच र बढी"
+
+#: lib/kateapp.cpp:169
+#, kde-format
+msgid "Pablo Martín"
+msgstr ""
+
+#: lib/kateapp.cpp:170
+#, fuzzy, kde-format
+#| msgid "Plugins"
+msgid "Python Plugin Developer"
+msgstr "प्लगइन"
+
+#: lib/kateapp.cpp:173
+#, kde-format
+msgid "Gerald Senarclens de Grancy"
+msgstr ""
+
+#: lib/kateapp.cpp:174
+#, kde-format
+msgid "QA and Scripting"
+msgstr ""
+
+#: lib/kateapp.cpp:178
+#, kde-format
+msgid "Tyson Tan"
+msgstr ""
+
+#: lib/kateapp.cpp:179
+#, kde-format
+msgid "Designer of Kate's mascot 'Kate the Cyber Woodpecker'"
+msgstr ""
+
+#: lib/kateapp.cpp:182
+#, kde-format
+msgid "Matteo Merli"
+msgstr "म्याट्टेओ मेर्लि"
+
+#: lib/kateapp.cpp:182
+#, kde-format
+msgid "Highlighting for RPM Spec-Files, Perl, Diff and more"
+msgstr "RPM Spec-फाइल, पर्ल, भिन्न र बढीका लागि हाइलाइटिङ"
+
+#: lib/kateapp.cpp:183
+#, kde-format
+msgid "Rocky Scaletta"
+msgstr "रक्कि स्केलेट्टा"
+
+#: lib/kateapp.cpp:183
+#, kde-format
+msgid "Highlighting for VHDL"
+msgstr "VHDL का लागि हाइलाइटिङ"
+
+#: lib/kateapp.cpp:184
+#, kde-format
+msgid "Yury Lebedev"
+msgstr "युरि लेबेदेभ"
+
+#: lib/kateapp.cpp:184
+#, kde-format
+msgid "Highlighting for SQL"
+msgstr "SQL का लागि हाइलाइटिङ"
+
+#: lib/kateapp.cpp:185
+#, kde-format
+msgid "Chris Ross"
+msgstr "क्रिस रोज"
+
+#: lib/kateapp.cpp:185
+#, kde-format
+msgid "Highlighting for Ferite"
+msgstr "फिराइटका लागि हाइलाइटिङ"
+
+#: lib/kateapp.cpp:186
+#, kde-format
+msgid "Nick Roux"
+msgstr "निक रअक्स"
+
+#: lib/kateapp.cpp:186
+#, kde-format
+msgid "Highlighting for ILERPG"
+msgstr "ILERPG का लागि हाइलाइटिङ"
+
+#: lib/kateapp.cpp:187
+#, kde-format
+msgid "Carsten Niehaus"
+msgstr "कार्स्टेन नियहउस"
+
+#: lib/kateapp.cpp:187
+#, kde-format
+msgid "Highlighting for LaTeX"
+msgstr "LaTeX का लागि हाइलाइटिङ"
+
+#: lib/kateapp.cpp:188
+#, kde-format
+msgid "Per Wigren"
+msgstr "पेर विग्रेन"
+
+#: lib/kateapp.cpp:188
+#, kde-format
+msgid "Highlighting for Makefiles, Python"
+msgstr "मेक फाइलहरूका लागि हाइलाइटिङ, पाइथोन"
+
+#: lib/kateapp.cpp:189
+#, kde-format
+msgid "Jan Fritz"
+msgstr "जान फ्रित्ज"
+
+#: lib/kateapp.cpp:189
+#, kde-format
+msgid "Highlighting for Python"
+msgstr "पाइथोनका लागि हाइलाइटिङ"
+
+#: lib/kateapp.cpp:190
+#, kde-format
+msgid "Daniel Naber"
+msgstr "ड्यानियेल नाबेर"
+
+#: lib/kateapp.cpp:191
+#, kde-format
+msgid "Roland Pabel"
+msgstr "रोल्यान्ड पाबेल"
+
+#: lib/kateapp.cpp:191
+#, kde-format
+msgid "Highlighting for Scheme"
+msgstr "योजनाका लागि हाइलाइटिङ"
+
+#: lib/kateapp.cpp:192
+#, kde-format
+msgid "Cristi Dumitrescu"
+msgstr "क्रिस्टि डुमिट्रेस्कु"
+
+#: lib/kateapp.cpp:192
+#, kde-format
+msgid "PHP Keyword/Datatype list"
+msgstr "PHP शब्दकुञ्जी/डेटा प्रकार सूची"
+
+#: lib/kateapp.cpp:193
+#, kde-format
+msgid "Carsten Pfeiffer"
+msgstr "कार्सटेन फेइफर"
+
+#: lib/kateapp.cpp:193
+#, kde-format
+msgid "Very nice help"
+msgstr "धेरै राम्रो मद्दत"
+
+#: lib/kateapp.cpp:194
+#, kde-format
+msgid "All people who have contributed and I have forgotten to mention"
+msgstr "योगदान गरेका र मैले उल्लेख गर्न बिर्सेका सबै मानिस"
+
+#: lib/kateapp.cpp:314
+#, kde-format
+msgid "Folders can only be opened when the projects plugin is enabled"
+msgstr ""
+
+#: lib/kateapp.cpp:417
+#, kde-format
+msgid ""
+"The file '%1' could not be opened: it is not a normal file, it is a folder."
+msgstr "'%1' फाइल खोल्न सकिने छैन: यो सामान्य फाइल नभएर फोल्डर हो ।"
+
+#: lib/kateconfigdialog.cpp:51
+#, kde-format
+msgid "Configure"
+msgstr "कन्फिगर गर्नुहोस्"
+
+#: lib/kateconfigdialog.cpp:103
+#, kde-format
+msgid "Behavior"
+msgstr "व्यवहार"
+
+#: lib/kateconfigdialog.cpp:104
+#, fuzzy, kde-format
+#| msgid "Parser Options"
+msgid "Behavior Options"
+msgstr "पार्सर विकल्प"
+
+#: lib/kateconfigdialog.cpp:111
+#, kde-format
+msgid "&Behavior"
+msgstr "व्यवहार"
+
+#: lib/kateconfigdialog.cpp:120
+#, kde-format
+msgid "&Switch to output view upon message type:"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:125
+#, fuzzy, kde-format
+#| msgid "(never)"
+msgid "Never"
+msgstr "(कहिल्यै पनि)"
+
+#: lib/kateconfigdialog.cpp:125 lib/kateconfigdialog.cpp:623
+#, kde-format
+msgid "Warning"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:125
+#, kde-format
+msgid "Info"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:125
+#, kde-format
+msgid "Log"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:131
+#, kde-format
+msgid "&Limit output view history:"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:137 lib/kateconfigdialog.cpp:203
+#, kde-format
+msgid "Unlimited"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:144
+#, kde-format
+msgid "Use a separate &dialog for handling externally modified files"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:148
+#, fuzzy, kde-format
+#| msgid ""
+#| "If enabled, when Kate receives focus you will be asked what to do with "
+#| "files that have been modified on the hard disk. If not enabled, you will "
+#| "be asked what to do with a file that has been modified on the hard disk "
+#| "only when that file gains focus inside Kate."
+msgid ""
+"If enabled, a modal dialog will be used to show all of the modified files. "
+"If not enabled, you will be individually asked what to do for each modified "
+"file only when that file's view receives focus."
+msgstr ""
+"यदि सक्षम पारेमा, क्येटलाई फोकस गरेको बेलामा हार्ड डिस्कमा परिमार्जन गरेको फाइलका "
+"बारेमा सोधिन्छ । यदि सक्षम नपारिएमा, हार्ड डिस्कमा मात्र परिमार्जन गरिएको क्येट "
+"भित्रपट्टीको फाइलमा फोकस गर्दा हार्ड डिस्कमा परिमार्जन गरेको फाइलका बारेमा सोधिन्छ ।"
+
+#: lib/kateconfigdialog.cpp:157
+#, fuzzy, kde-format
+#| msgid "Top Sidebar"
+msgid "&Sidebars"
+msgstr "माथिल्लो छेउपट्टी"
+
+#: lib/kateconfigdialog.cpp:160
+#, kde-format
+msgid "Sync section size with tab positions"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:164
+#, kde-format
+msgid ""
+"When enabled the section size will be determined by the position of the "
+"tabs.\n"
+"This option does not affect the bottom sidebar."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:169
+#, kde-format
+msgid "Show text for left and right sidebar buttons"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:174
+#, kde-format
+msgid "Icon size for left and right sidebar buttons"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:193
+#, fuzzy, kde-format
+#| msgid "Show Side&bars"
+msgid "&Tabs"
+msgstr "छेउपट्टी देखाउनुहोस्"
+
+#: lib/kateconfigdialog.cpp:197
+#, kde-format
+msgid "&Limit number of tabs:"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:208
+#, kde-format
+msgid ""
+"A high limit can increase the window size, please enable 'Allow tab "
+"scrolling' to prevent it. Unlimited tabs are always scrollable."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:212
+#, kde-format
+msgid "&Auto hide tabs"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:214
+#, kde-format
+msgid "When checked tabs will be hidden if only one document is open."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:218
+#, fuzzy, kde-format
+#| msgid "&Hovered button"
+msgid "&Show close button"
+msgstr "झुण्डिएको बटन"
+
+#: lib/kateconfigdialog.cpp:220
+#, kde-format
+msgid "When checked each tab will display a close button."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:224
+#, kde-format
+msgid "&Expand tabs"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:226
+#, kde-format
+msgid "When checked tabs take as much size as possible."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:230
+#, fuzzy, kde-format
+#| msgid "Create a new document"
+msgid "&Double click opens a new document"
+msgstr "नयाँ कागजात सिर्जना गर्नुहोस्"
+
+#: lib/kateconfigdialog.cpp:232
+#, kde-format
+msgid "When checked double click opens a new document."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:236
+#, fuzzy, kde-format
+#| msgid "Close all open documents."
+msgid "&Middle click closes a document"
+msgstr "सबै खुला कागजात बन्द गर्नुहोस् ।"
+
+#: lib/kateconfigdialog.cpp:238
+#, kde-format
+msgid "When checked middle click closes a document."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:242
+#, kde-format
+msgid "Allow tab scrolling"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:244
+#, kde-format
+msgid ""
+"When checked this will allow scrolling in tab bar when number of tabs is "
+"large."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:248
+#, kde-format
+msgid "Elide tab text"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:250
+#, kde-format
+msgid "When checked tab text might be elided if its too long."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:256
+#, kde-format
+msgid "&Mouse"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:261
+#, kde-format
+msgid "&Backward button pressed:"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:266
+#, fuzzy, kde-format
+#| msgid "Previous Error"
+msgid "Previous tab"
+msgstr "अघिल्लो त्रुटि"
+
+#: lib/kateconfigdialog.cpp:266
+#, kde-format
+msgid "History back"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:272
+#, kde-format
+msgid "&Forward button pressed:"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:277
+#, fuzzy, kde-format
+#| msgid "&Close Tab"
+msgid "Next tab"
+msgstr "ट्याब बन्द गर्नुहोस्"
+
+#: lib/kateconfigdialog.cpp:277
+#, kde-format
+msgid "History forward"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:285
+#, kde-format
+msgid "Diff"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:294
+#, kde-format
+msgid "Diff Style:"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:308
+#, fuzzy, kde-format
+#| msgid "Sessions"
+msgid "Session"
+msgstr "सत्र"
+
+#: lib/kateconfigdialog.cpp:309
+#, kde-format
+msgid "Session Management"
+msgstr "सत्र व्यवस्थापन"
+
+#: lib/kateconfigdialog.cpp:320
+#, fuzzy, kde-format
+#| msgid "(never)"
+msgctxt "The special case of 'Delete unused meta-information after'"
+msgid "(never)"
+msgstr "(कहिल्यै पनि)"
+
+#: lib/kateconfigdialog.cpp:321
+#, fuzzy, kde-format
+#| msgid " day(s)"
+msgctxt "The suffix of 'Delete unused meta-information after'"
+msgid " day"
+msgid_plural " days"
+msgstr[0] " दिन"
+msgstr[1] " दिन"
+
+#: lib/kateconfigdialog.cpp:384
+#, kde-format
+msgid "Plugins"
+msgstr "प्लगइन"
+
+#: lib/kateconfigdialog.cpp:385
+#, kde-format
+msgid "Plugin Manager"
+msgstr "प्लगइन प्रबन्धक"
+
+#: lib/kateconfigdialog.cpp:403 lib/kateconfigdialog.cpp:404
+#, kde-format
+msgid "User Feedback"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:622
+#, fuzzy, kde-format
+#| msgid ""
+#| "<p>The document '%1' has been modified, but not saved.<p>Do you want to "
+#| "save your changes or discard them?"
+msgid ""
+"You have unsaved changes. Do you want to apply the changes or discard them?"
+msgstr ""
+"<p>कागजात '%1' परिमार्जन गरिएको छ, तर बचत गरिएको छैन ।<p>तपाईँ परिवर्तनहरू बचत "
+"गर्न चाहनुहुन्छ वा तीनिहरूलाई छोड्न ?"
+
+#: lib/kateconfigplugindialogpage.cpp:66
+#, kde-format
+msgid "Name"
+msgstr "नाम"
+
+#: lib/kateconfigplugindialogpage.cpp:66
+#, fuzzy, kde-format
+#| msgid "&Description:"
+msgid "Description"
+msgstr "वर्णन:"
+
+#: lib/kateconfigplugindialogpage.cpp:69
+#, kde-format
+msgid ""
+"Here you can see all available Kate plugins. Those with a check mark are "
+"loaded, and will be loaded again the next time Kate is started."
+msgstr ""
+"तपाईँले यहाँ सबै उपलब्ध क्येट प्लगइन हेर्न सक्नुहुन्छ । तीनिहरू जाँच चिन्हसँग लोड गरिएका छन् र "
+"क्येट पछिल्लो समयमा सुरु हुँदा पुन: लोड हुन्छन् ।"
+
+#: lib/katedocmanager.cpp:264
+#, fuzzy, kde-format
+#| msgid ""
+#| "<p>The document '%1' has been modified, but not saved.<p>Do you want to "
+#| "save your changes or discard them?"
+msgid ""
+"<p>The document '%1' has been modified, but not saved.</p><p>Do you want to "
+"save your changes or discard them?</p>"
+msgstr ""
+"<p>कागजात '%1' परिमार्जन गरिएको छ, तर बचत गरिएको छैन ।<p>तपाईँ परिवर्तनहरू बचत "
+"गर्न चाहनुहुन्छ वा तीनिहरूलाई छोड्न ?"
+
+#: lib/katedocmanager.cpp:267
+#, kde-format
+msgid "Close Document"
+msgstr "कागजात बन्द गर्नुहोस्"
+
+#: lib/katedocmanager.cpp:276
+#, kde-format
+msgid "Save As"
+msgstr "यस रुपमा बचत गर्नुहोस्"
+
+#: lib/katedocmanager.cpp:294 lib/katemainwindow.cpp:583
+#, kde-format
+msgid "New file opened while trying to close Kate, closing aborted."
+msgstr "क्येट बन्द गर्ने प्रयास गर्दा नयाँ फाइल खुल्यो, बन्द परित्याग गरियो ।"
+
+#: lib/katedocmanager.cpp:294 lib/katemainwindow.cpp:583
+#, kde-format
+msgid "Closing Aborted"
+msgstr "बन्द परित्याग गरियो"
+
+#: lib/katedocmanager.cpp:372
+#, kde-format
+msgid "Starting Up"
+msgstr "सुरुआत हुँदैछ"
+
+#: lib/katedocmanager.cpp:373
+#, kde-format
+msgid "Reopening files from the last session..."
+msgstr "अन्तिम सत्रबाट फाइलहरू पुन: खोल्दैछ..."
+
+#: lib/katefileactions.cpp:67
+#, fuzzy, kde-format
+#| msgid "Template &file name:"
+msgid "Rename file"
+msgstr "टेम्प्लेट फाइल नाम:"
+
+#: lib/katefileactions.cpp:68
+#, fuzzy, kde-format
+#| msgid "Filename"
+msgid "New file name"
+msgstr "फाइल नाम"
+
+#: lib/katefileactions.cpp:105
+#, kde-format
+msgid "File \"%1\" could not be moved to \"%2\""
+msgstr ""
+
+#: lib/katefileactions.cpp:129
+#, kde-format
+msgid "Do you really want to delete file \"%1\"?"
+msgstr ""
+
+#: lib/katefileactions.cpp:130
+#, fuzzy, kde-format
+#| msgid "Delete File?"
+msgid "Delete file"
+msgstr "फाइल मेट्नुहुन्छ?"
+
+#: lib/katefileactions.cpp:147
+#, kde-format
+msgid "File \"%1\" could not be deleted."
+msgstr ""
+
+#: lib/katemainwindow.cpp:212
+#, kde-format
+msgid "Use this command to show or hide the view's statusbar"
+msgstr "दृश्यको स्थितिपट्टी लुकाउन वा देखाउनका लागि यो आदेश प्रयोग गर्नुहोस्"
+
+#: lib/katemainwindow.cpp:215
+#, fuzzy, kde-format
+#| msgid "Show Side&bars"
+msgid "Show &Tabs"
+msgstr "छेउपट्टी देखाउनुहोस्"
+
+#: lib/katemainwindow.cpp:218
+#, fuzzy, kde-format
+#| msgid "Use this command to show or hide the view's statusbar"
+msgid "Use this command to show or hide the tabs for the views"
+msgstr "दृश्यको स्थितिपट्टी लुकाउन वा देखाउनका लागि यो आदेश प्रयोग गर्नुहोस्"
+
+#: lib/katemainwindow.cpp:220
+#, fuzzy, kde-format
+#| msgid "Sho&w Path"
+msgid "Sho&w Path in Titlebar"
+msgstr "मार्ग देखाउनुहोस्"
+
+#: lib/katemainwindow.cpp:223
+#, kde-format
+msgid "Show the complete document path in the window caption"
+msgstr "सञ्झ्याल क्याप्सनमा सम्पूर्ण कागजात मार्ग देखाउनुहोस्"
+
+#: lib/katemainwindow.cpp:225
+#, kde-format
+msgid "Show Navigation Bar"
+msgstr ""
+
+#: lib/katemainwindow.cpp:235
+#, kde-format
+msgid "&Window Color Scheme"
+msgstr ""
+
+#: lib/katemainwindow.cpp:239
+#, fuzzy, kde-format
+#| msgid "Previous Error"
+msgid "&Previous Tab"
+msgstr "अघिल्लो त्रुटि"
+
+#: lib/katemainwindow.cpp:240
+#, fuzzy, kde-format
+#| msgid "highlight pr&evious tab"
+msgid "Focus the previous tab."
+msgstr "अघिल्लो ट्याब हाइलाइट गर्नुहोस्"
+
+#: lib/katemainwindow.cpp:245
+#, fuzzy, kde-format
+#| msgid "&Close Tab"
+msgid "&Next Tab"
+msgstr "ट्याब बन्द गर्नुहोस्"
+
+#: lib/katemainwindow.cpp:246
+#, kde-format
+msgid "Focus the next tab."
+msgstr ""
+
+#: lib/katemainwindow.cpp:253
+#, kde-format
+msgid "&Quick Open"
+msgstr "छिटो खोल्नुहोस्"
+
+#: lib/katemainwindow.cpp:256
+#, fuzzy, kde-format
+#| msgid "Close other open documents."
+msgid "Open a form to quick open documents."
+msgstr "अन्य खुला कागजात बन्द गर्नुहोस् ।"
+
+#: lib/katemainwindow.cpp:277
+#, fuzzy, kde-format
+#| msgid "Diff Output"
+msgid "Output"
+msgstr "भिन्न निर्गत"
+
+#: lib/katemainwindow.cpp:287
+#, kde-format
+msgid "Create a new document"
+msgstr "नयाँ कागजात सिर्जना गर्नुहोस्"
+
+#: lib/katemainwindow.cpp:290
+#, kde-format
+msgid "Open an existing document for editing"
+msgstr "सम्पादनका लागि अवस्थित कागजात खोल्नुहोस्"
+
+#: lib/katemainwindow.cpp:295
+#, kde-format
+msgid ""
+"This lists files which you have opened recently, and allows you to easily "
+"open them again."
+msgstr ""
+"तपाईँले हालै खोल्नुभएको फाइल यसले सूचीकृत गर्छ र तीनिहरूलाई फेरि सजिलै खोल्न अनुमति दिन्छ ।"
+
+#: lib/katemainwindow.cpp:299
+#, kde-format
+msgid "Save A&ll"
+msgstr "सबै बचत गर्नुहोस्"
+
+#: lib/katemainwindow.cpp:302
+#, kde-format
+msgid "Save all open, modified documents to disk."
+msgstr "सबै खुला, परिमार्जित कागजातहरू डिस्कमा बचत गर्नुहोस् ।"
+
+#: lib/katemainwindow.cpp:305
+#, fuzzy, kde-format
+#| msgid "&Reload"
+msgid "&Reload All"
+msgstr "पुन: लोड गर्नुहोस्"
+
+#: lib/katemainwindow.cpp:307
+#, fuzzy, kde-format
+#| msgid "Close all open documents."
+msgid "Reload all open documents."
+msgstr "सबै खुला कागजात बन्द गर्नुहोस् ।"
+
+#: lib/katemainwindow.cpp:311
+#, fuzzy, kde-format
+#| msgid "Choose Location"
+msgid "Copy Location"
+msgstr "स्थान रोज्नुहोस्"
+
+#: lib/katemainwindow.cpp:316 lib/katemainwindow.cpp:325
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Copies the file path of the current file to clipboard."
+msgstr "पछिल्लो विभाजन दृश्य सक्रिय बनाउनुहोस् ।"
+
+#: lib/katemainwindow.cpp:320 lib/welcomeview.cpp:82
+#, fuzzy, kde-format
+#| msgid "&opening order"
+msgid "&Open Containing Folder"
+msgstr "खोल्ने आदेश"
+
+#: lib/katemainwindow.cpp:329
+#, fuzzy, kde-format
+#| msgid "&Rename..."
+msgctxt "@action:inmenu"
+msgid "Rename..."
+msgstr "पुन: नामकरण गर्नुहोस्..."
+
+#: lib/katemainwindow.cpp:334
+#, fuzzy, kde-format
+#| msgid "Close the current document."
+msgid "Renames the file belonging to the current document."
+msgstr "हालको कागजात बन्द गर्नुहोस् ।"
+
+#: lib/katemainwindow.cpp:338
+#, fuzzy, kde-format
+#| msgid "Deleted"
+msgctxt "@action:inmenu"
+msgid "Delete"
+msgstr "मेटिएको"
+
+#: lib/katemainwindow.cpp:343 lib/katemainwindow.cpp:352
+#, fuzzy, kde-format
+#| msgid "Close the current document."
+msgid "Deletes the file belonging to the current document."
+msgstr "हालको कागजात बन्द गर्नुहोस् ।"
+
+#: lib/katemainwindow.cpp:347
+#, kde-format
+msgid "Properties"
+msgstr ""
+
+#: lib/katemainwindow.cpp:355 lib/katemainwindow.cpp:357
+#, kde-format
+msgid "Compare"
+msgstr ""
+
+#: lib/katemainwindow.cpp:357
+#, kde-format
+msgid "Use the Tabbar context menu to compare two documents"
+msgstr ""
+
+#: lib/katemainwindow.cpp:359
+#, fuzzy, kde-format
+#| msgid "Close other open documents."
+msgid "Shows a hint how to compare documents."
+msgstr "अन्य खुला कागजात बन्द गर्नुहोस् ।"
+
+#: lib/katemainwindow.cpp:362
+#, fuzzy, kde-format
+#| msgid "Close Other"
+msgid "Close Orphaned"
+msgstr "अन्य बन्द गर्नुहोस्"
+
+#: lib/katemainwindow.cpp:364
+#, kde-format
+msgid ""
+"Close all documents in the file list that could not be reopened, because "
+"they are not accessible anymore."
+msgstr ""
+
+#: lib/katemainwindow.cpp:368
+#, kde-format
+msgid "Close the current document."
+msgstr "हालको कागजात बन्द गर्नुहोस् ।"
+
+#: lib/katemainwindow.cpp:371
+#, kde-format
+msgid "Close Other"
+msgstr "अन्य बन्द गर्नुहोस्"
+
+#: lib/katemainwindow.cpp:373
+#, kde-format
+msgid "Close other open documents."
+msgstr "अन्य खुला कागजात बन्द गर्नुहोस् ।"
+
+#: lib/katemainwindow.cpp:376
+#, kde-format
+msgid "Clos&e All"
+msgstr "सबै बन्द गर्नुहोस्"
+
+#: lib/katemainwindow.cpp:378
+#, kde-format
+msgid "Close all open documents."
+msgstr "सबै खुला कागजात बन्द गर्नुहोस् ।"
+
+#: lib/katemainwindow.cpp:383
+#, kde-format
+msgid "Close this window"
+msgstr "यो सञ्झ्याल बन्द गर्नुहोस्"
+
+#: lib/katemainwindow.cpp:387
+#, fuzzy, kde-format
+#| msgid "&Window"
+msgid "&New Window"
+msgstr "सञ्झ्याल"
+
+#: lib/katemainwindow.cpp:389
+#, fuzzy, kde-format
+#| msgid "Create a new document"
+msgid "Create a new window."
+msgstr "नयाँ कागजात सिर्जना गर्नुहोस्"
+
+#: lib/katemainwindow.cpp:396
+#, kde-format
+msgid "Open W&ith"
+msgstr "यससँग खोल्नुहोस्"
+
+#: lib/katemainwindow.cpp:398
+#, kde-format
+msgid ""
+"Open the current document using another application registered for its file "
+"type, or an application of your choice."
+msgstr ""
+"यसको फाइल प्रकारका लागि दर्ता गरिएको अन्य अनुप्रयोग वा तपाईँको रोजाइको एउटा "
+"अनुप्रयोग प्रयोग गर्दै हालको कागजात खोल्नुहोस् ।"
+
+#: lib/katemainwindow.cpp:406
+#, kde-format
+msgid "Configure the application's keyboard shortcut assignments."
+msgstr "अनुप्रयोगको कुञ्जीपाटी सर्टकट कार्य कन्फिगर गर्नुहोस् ।"
+
+#: lib/katemainwindow.cpp:409
+#, kde-format
+msgid "Configure which items should appear in the toolbar(s)."
+msgstr "उपकरणपट्टी मा देखिनु पर्ने वस्तुहरू कन्फिगर गर्नुहोस् ।"
+
+#: lib/katemainwindow.cpp:412
+#, kde-format
+msgid ""
+"Configure various aspects of this application and the editing component."
+msgstr "यो अनुप्रयोगको विभिन्न पक्ष र सम्पादन अवयव कन्फिगर गर्नुहोस् ।"
+
+#: lib/katemainwindow.cpp:416
+#, kde-format
+msgid "&Plugins Handbook"
+msgstr "प्लगइन हातेपुस्तक"
+
+#: lib/katemainwindow.cpp:418
+#, kde-format
+msgid "This shows help files for various available plugins."
+msgstr "यसले विभिन्न उपलब्ध प्लगइनका लागि मद्दत फाइलहरू देखाउँछ ।"
+
+#: lib/katemainwindow.cpp:435
+#, kde-format
+msgid "Sess&ions"
+msgstr "सत्र"
+
+#: lib/katemainwindow.cpp:441
+#, fuzzy, kde-format
+#| msgid "New Session"
+msgctxt "Menu entry Session->New Session"
+msgid "&New Session"
+msgstr "नयाँ सत्र"
+
+#: lib/katemainwindow.cpp:446
+#, fuzzy, kde-format
+#| msgid "Open Session"
+msgid "&Recent Sessions"
+msgstr "खुला सत्र"
+
+#: lib/katemainwindow.cpp:451
+#, fuzzy, kde-format
+#| msgid "Sess&ions"
+msgid "&All Sessions"
+msgstr "सत्र"
+
+#: lib/katemainwindow.cpp:458
+#, fuzzy, kde-format
+#| msgid "Manage Sessions"
+msgid "&Manage Sessions..."
+msgstr "सत्र व्यवस्थापन गर्नुहोस्"
+
+#: lib/katemainwindow.cpp:467
+#, fuzzy, kde-format
+#| msgid "&Save session"
+msgid "&Save Session"
+msgstr "सत्र बचत गर्नुहोस्"
+
+#: lib/katemainwindow.cpp:473
+#, fuzzy, kde-format
+#| msgid "Save Session?"
+msgid "Save Session &As..."
+msgstr "सत्र बचत गर्नुहुन्छ ?"
+
+#: lib/katemainwindow.cpp:480 lib/kateviewspace.cpp:58
+#, fuzzy, kde-format
+#| msgid "Restore loca&tion"
+msgid "Go to Previous Location"
+msgstr "स्थान पूर्वावस्थामा लैजानुहोस्"
+
+#: lib/katemainwindow.cpp:488 lib/kateviewspace.cpp:71
+#, fuzzy, kde-format
+#| msgid "Custom location:"
+msgid "Go to Next Location"
+msgstr "अनुकुल स्थान:"
+
+#: lib/katemainwindow.cpp:495
+#, kde-format
+msgid "Show File Git History"
+msgstr ""
+
+#: lib/katemainwindow.cpp:510
+#, kde-format
+msgid "This will close all open documents. Are you sure you want to continue?"
+msgstr ""
+
+#: lib/katemainwindow.cpp:511
+#, fuzzy, kde-format
+#| msgid "Close all open documents."
+msgid "Close all documents"
+msgstr "सबै खुला कागजात बन्द गर्नुहोस् ।"
+
+#: lib/katemainwindow.cpp:526
+#, kde-format
+msgid ""
+"This will close all open documents beside the current one. Are you sure you "
+"want to continue?"
+msgstr ""
+
+#: lib/katemainwindow.cpp:527
+#, fuzzy, kde-format
+#| msgid "Close all open documents."
+msgid "Close all documents beside current one"
+msgstr "सबै खुला कागजात बन्द गर्नुहोस् ।"
+
+#: lib/katemainwindow.cpp:726
+#, kde-format
+msgid ""
+"This will hide the menu bar completely. You can show it again by typing %1."
+msgstr ""
+
+#: lib/katemainwindow.cpp:729
+#, fuzzy, kde-format
+#| msgid "Hide Side&bars"
+msgid "Hide menu bar"
+msgstr "छेउपट्टी लुकाउनुहोस्"
+
+#: lib/katemainwindow.cpp:829
+#, kde-format
+msgid ""
+"You dropped the directory %1 into Kate. Do you want to open all files "
+"contained in it?"
+msgstr ""
+
+#: lib/katemainwindow.cpp:832
+#, kde-format
+msgctxt "@title:window"
+msgid "Open Files Recursively"
+msgstr ""
+
+#: lib/katemainwindow.cpp:833
+#, fuzzy, kde-format
+#| msgid "Open File"
+msgctxt "@action:button"
+msgid "Open All Files"
+msgstr "फाइल खोल्नुहोस्"
+
+#: lib/katemainwindow.cpp:958
+#, kde-format
+msgid "&Other..."
+msgstr "अन्य..."
+
+#: lib/katemainwindow.cpp:1083
+#, kde-format
+msgid " [read only]"
+msgstr ""
+
+#: lib/katemainwindow.cpp:1330
+#, kde-format
+msgid "Diff %1"
+msgstr ""
+
+#: lib/katemainwindow.cpp:1332
+#, kde-format
+msgid "Diff %1..%2"
+msgstr ""
+
+#: lib/katemdi.cpp:84
+#, fuzzy, kde-format
+#| msgid "Plugin Manager"
+msgid "Toolview Manager"
+msgstr "प्लगइन प्रबन्धक"
+
+#: lib/katemdi.cpp:102
+#, kde-format
+msgid "Sidebar Buttons"
+msgstr ""
+
+#: lib/katemdi.cpp:105
+#, kde-format
+msgid "Tool &Views"
+msgstr "उपरकण दृश्य"
+
+#: lib/katemdi.cpp:107
+#, kde-format
+msgid "Show Side&bars"
+msgstr "छेउपट्टी देखाउनुहोस्"
+
+#: lib/katemdi.cpp:115
+#, fuzzy, kde-format
+#| msgid "Tool &Views"
+msgid "Hide All Tool Views"
+msgstr "उपरकण दृश्य"
+
+#: lib/katemdi.cpp:162
+#, kde-format
+msgid "Show %1"
+msgstr "%1 देखाउनुहोस्"
+
+#: lib/katemdi.cpp:173
+#, fuzzy, kde-format
+#| msgid "&Hovered button"
+msgid "Show %1 Button"
+msgstr "झुण्डिएको बटन"
+
+#: lib/katemdi.cpp:984
+#, fuzzy, kde-format
+#| msgid "Configure..."
+msgid "Configure..."
+msgstr "कन्फिगर गर्नुहोस्..."
+
+#: lib/katemdi.cpp:988
+#, fuzzy, kde-format
+#| msgid "Hide Path"
+msgid "Hide Button"
+msgstr "मार्ग लुकाउनुहोस्"
+
+#: lib/katemdi.cpp:990
+#, kde-format
+msgid "Move To"
+msgstr "यसमा सार्नुहोस्"
+
+#: lib/katemdi.cpp:995
+#, fuzzy, kde-format
+#| msgid "Open Session"
+msgid "Own Section"
+msgstr "खुला सत्र"
+
+#: lib/katemdi.cpp:1001 lib/katemdi.cpp:1009
+#, kde-format
+msgid "One Down"
+msgstr ""
+
+#: lib/katemdi.cpp:1003 lib/katemdi.cpp:1014
+#, kde-format
+msgid "One Right"
+msgstr ""
+
+#: lib/katemdi.cpp:1007
+#, kde-format
+msgid "One Up"
+msgstr ""
+
+#: lib/katemdi.cpp:1012
+#, kde-format
+msgid "One Left"
+msgstr ""
+
+#: lib/katemdi.cpp:1021
+#, kde-format
+msgid "Left Sidebar"
+msgstr "बायाँ छेउपट्टी"
+
+#: lib/katemdi.cpp:1025
+#, kde-format
+msgid "Right Sidebar"
+msgstr "दायाँ छेउपट्टी"
+
+#: lib/katemdi.cpp:1029
+#, kde-format
+msgid "Top Sidebar"
+msgstr "माथिल्लो छेउपट्टी"
+
+#: lib/katemdi.cpp:1033
+#, kde-format
+msgid "Bottom Sidebar"
+msgstr "तल्लो छेउपट्टी"
+
+#: lib/katemdi.cpp:1408
+#, fuzzy, kde-format
+#| msgid ""
+#| "<qt>You are about to hide the sidebars. With hidden sidebars it is not "
+#| "possible to directly access the tool views with the mouse anymore, so if "
+#| "you need to access the sidebars again invoke <b>Window &gt; Tool Views "
+#| "&gt; Show Sidebars</b> in the menu. It is still possible to show/hide the "
+#| "tool views with the assigned shortcuts.</qt>"
+msgid ""
+"<qt>You are about to hide the sidebars. With hidden sidebars it is not "
+"possible to directly access the tool views with the mouse anymore, so if you "
+"need to access the sidebars again invoke <b>View &gt; Tool Views &gt; Show "
+"Sidebars</b> in the menu. It is still possible to show/hide the tool views "
+"with the assigned shortcuts.</qt>"
+msgstr ""
+"<qt>तपाईँले छेउपट्टीहरू लुकाउन लाग्नुभएको छ । लुकेका छेउपट्टीसँग उपकरण दृश्यमा माउस प्रत्यक्ष "
+"पहुँच सम्भव छैन, त्यसैले तपाईँलाई छेउपट्टीहरूको पहुँच आवश्यक भएमा, मेनुमा <b>सञ्झ्याल &gt; "
+"उपकरण दृश्य &gt; देखाउने छेउपट्टी</b> फेरि: आह्वान गर्नुहोस् । उपरणपट्टीसँग मानाङ्कन "
+"गरिएका सर्टकट देखाउन/लुकाउन अझै सम्भव छ ।</qt>"
+
+#: lib/katemwmodonhddialog.cpp:58
+#, kde-format
+msgid "Documents Modified on Disk"
+msgstr "डिस्कमा कागजात परिमार्जन गरियो"
+
+#: lib/katemwmodonhddialog.cpp:74
+#, fuzzy, kde-format
+#| msgid ""
+#| "<qt>The documents listed below has changed on disk.<p>Select one or more "
+#| "at the time and press an action button until the list is empty.</qt>"
+msgid ""
+"<qt>The documents listed below have changed on disk.<p>Select one or more at "
+"once, and press an action button until the list is empty.</p></qt>"
+msgstr ""
+"<qt>तल सूचीकृत गरिएका कागजातहरू डिस्कमा परिवर्तन गरिएको छ ।<p>उहि समयमा एक वा बढी "
+"चयन गर्नुहोस् र सूची खाली नभएसम्म एउटा कार्य बटन थिच्नुहोस् ।</qt>"
+
+#: lib/katemwmodonhddialog.cpp:84
+#, kde-format
+msgid "Filename"
+msgstr "फाइल नाम"
+
+#: lib/katemwmodonhddialog.cpp:84
+#, kde-format
+msgid "Status on Disk"
+msgstr "डिस्कमा वस्तुस्थिति"
+
+#: lib/katemwmodonhddialog.cpp:89
+#, kde-format
+msgid "Modified"
+msgstr "परिमार्जित"
+
+#: lib/katemwmodonhddialog.cpp:89
+#, kde-format
+msgid "Created"
+msgstr "सिर्जित"
+
+#: lib/katemwmodonhddialog.cpp:89
+#, kde-format
+msgid "Deleted"
+msgstr "मेटिएको"
+
+#: lib/katemwmodonhddialog.cpp:104
+#, kde-format
+msgid "&View Difference"
+msgstr "फरक हेर्नुहोस्"
+
+#: lib/katemwmodonhddialog.cpp:106
+#, fuzzy, kde-format
+#| msgid ""
+#| "Calculates the difference between the the editor contents and the disk "
+#| "file for the selected document, and shows the difference with the default "
+#| "application. Requires diff(1)."
+msgid ""
+"Calculates the difference between the editor contents and the disk file for "
+"the selected document, and shows the difference with the default "
+"application. Requires diff(1)."
+msgstr ""
+"चयन गरिएका कागजातका लागि डिस्क फाइल र सम्पादक सामाग्री बीचको फरक गणना गर्छ, र "
+"पूर्वनिर्धारित अनुप्रयोगसँग फरक देखाउँदछ । diff(1) आवश्यक हुन्छ ।"
+
+#: lib/katemwmodonhddialog.cpp:117
+#, fuzzy, kde-format
+#| msgid "&Ignore"
+msgid "&Ignore Changes"
+msgstr "उपेक्षा गर्नुहोस्"
+
+#: lib/katemwmodonhddialog.cpp:118
+#, kde-format
+msgid "Remove modified flag from selected documents"
+msgstr ""
+
+#: lib/katemwmodonhddialog.cpp:124
+#, fuzzy, kde-format
+#| msgid ""
+#| "Overwrite selected documents, discarding the disk changes and closes the "
+#| "dialog if there are no more unhandled documents."
+msgid "Overwrite selected documents, discarding disk changes"
+msgstr ""
+"डिस्क परिवर्तनलाई छोडी, चयन गरेको कागजात अधिलेखन गर्नुहोस्, र यदि केही ह्यान्डल "
+"नगरिएका कागजात छन् भने संवाद बन्द गर्नुहोस् ।"
+
+#: lib/katemwmodonhddialog.cpp:128
+#, kde-format
+msgid "&Reload"
+msgstr "पुन: लोड गर्नुहोस्"
+
+#: lib/katemwmodonhddialog.cpp:130
+#, fuzzy, kde-format
+#| msgid "Close other open documents."
+msgid "Reload selected documents from disk"
+msgstr "अन्य खुला कागजात बन्द गर्नुहोस् ।"
+
+#: lib/katemwmodonhddialog.cpp:196
+#, kde-format
+msgid ""
+"Could not save the document \n"
+"'%1'"
+msgstr ""
+"कागजात बचत गर्न सकेन\n"
+"'%1'"
+
+#: lib/katemwmodonhddialog.cpp:329
+#, kde-format
+msgid ""
+"The diff command failed. Please make sure that diff(1) is installed and in "
+"your PATH."
+msgstr ""
+"फरक आदेश असफल भयो । कृपया diff(1)  तपाईँको PATH मा स्थापना भएको निश्चित गर्नुहोस् ।"
+
+#: lib/katemwmodonhddialog.cpp:331
+#, kde-format
+msgid "Error Creating Diff"
+msgstr "Diff सिर्जना गर्दा त्रुटि"
+
+#: lib/katemwmodonhddialog.cpp:338
+#, fuzzy, kde-format
+#| msgid "Besides white space changes, the files are identical."
+msgid "Ignoring amount of white space changed, the files are identical."
+msgstr "सेतो खालीस्थान परिवर्तन बाहेक फाइलहरू समान छन् ।"
+
+#: lib/katemwmodonhddialog.cpp:338
+#, kde-format
+msgid "Diff Output"
+msgstr "भिन्न निर्गत"
+
+#: lib/kateoutputview.cpp:37
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Copy to Clipboard"
+msgstr ""
+
+#: lib/kateoutputview.cpp:184
+#, fuzzy, kde-format
+#| msgid "&Filter:"
+msgid "Filter..."
+msgstr "फिल्टर:"
+
+#: lib/kateoutputview.cpp:197
+#, kde-format
+msgid "Clear all messages"
+msgstr ""
+
+#: lib/kateoutputview.cpp:290
+#, fuzzy, kde-format
+#| msgid "Error"
+msgctxt "@info"
+msgid "Error"
+msgstr "त्रुटि"
+
+#: lib/kateoutputview.cpp:294
+#, kde-format
+msgctxt "@info"
+msgid "Warning"
+msgstr ""
+
+#: lib/kateoutputview.cpp:298
+#, kde-format
+msgctxt "@info"
+msgid "Info"
+msgstr ""
+
+#: lib/kateoutputview.cpp:302
+#, kde-format
+msgctxt "@info"
+msgid "Log"
+msgstr ""
+
+#: lib/katesavemodifieddialog.cpp:77
+#, kde-format
+msgid "Save As (%1)"
+msgstr "(%1) को रुपमा बचत गर्नुहोस्"
+
+#: lib/katesavemodifieddialog.cpp:127
+#, kde-format
+msgid "Save Documents"
+msgstr "कागजात बचत गर्नुहोस्"
+
+#: lib/katesavemodifieddialog.cpp:135
+#, kde-format
+msgid ""
+"<qt>The following documents have been modified. Do you want to save them "
+"before closing?</qt>"
+msgstr ""
+"<qt>निम्न कागजात परिमार्जन गरिएका छन् । तपाईँ बन्द गर्नुभन्दा अघि तीनिहरूलाई बचत गर्न "
+"चाहनुहुन्छ?</qt>"
+
+#: lib/katesavemodifieddialog.cpp:142
+#, kde-format
+msgid "Documents"
+msgstr "कागजात"
+
+#: lib/katesavemodifieddialog.cpp:142
+#, kde-format
+msgid "Location"
+msgstr "स्थान"
+
+#: lib/katesavemodifieddialog.cpp:152
+#, kde-format
+msgid "Se&lect All"
+msgstr "सबै चयन गर्नुहोस्"
+
+#: lib/katesavemodifieddialog.cpp:225
+#, kde-format
+msgid ""
+"Data you requested to be saved could not be written. Please choose how you "
+"want to proceed."
+msgstr ""
+"तपाईँले बचत गर्न अनुरोध गरेको डेटा लेख्न सकेन । तपाईँ कसरी अगाडि बढ्न चाहनुहुन्छ कृपया छनोट "
+"गर्नुहोस् ।"
+
+#: lib/kateurlbar.cpp:1178
+#, fuzzy, kde-format
+#| msgid "Untitled %1"
+msgid "Untitled"
+msgstr "शिर्षक नभएको %1"
+
+#: lib/kateviewmanager.cpp:116
+#, kde-format
+msgid "Split Ve&rtical"
+msgstr "ठाडो विभाजन गर्नुहोस्"
+
+#: lib/kateviewmanager.cpp:120
+#, kde-format
+msgid "Split the currently active view vertically into two views."
+msgstr "हालको सक्रिय दृश्य ठाडो गरी दुई दृश्यमा विभाजन गर्नुहोस् ।"
+
+#: lib/kateviewmanager.cpp:124
+#, kde-format
+msgid "Split &Horizontal"
+msgstr "तेर्सो विभाजन गर्नुहोस्"
+
+#: lib/kateviewmanager.cpp:128
+#, kde-format
+msgid "Split the currently active view horizontally into two views."
+msgstr "हालको सक्रिय दृश्य तेर्सो गरी दुई दृश्यमा विभाजन गर्नुहोस् ।"
+
+#: lib/kateviewmanager.cpp:132
+#, kde-format
+msgid "Move Document to New Vertical Split"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:136
+#, fuzzy, kde-format
+#| msgid "Split the currently active view vertically into two views."
+msgid ""
+"Split the currently active view vertically into two views and move the "
+"currently active document to right view."
+msgstr "हालको सक्रिय दृश्य ठाडो गरी दुई दृश्यमा विभाजन गर्नुहोस् ।"
+
+#: lib/kateviewmanager.cpp:141
+#, kde-format
+msgid "Move Document to New Horizontal Split"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:145
+#, fuzzy, kde-format
+#| msgid "Split the currently active view horizontally into two views."
+msgid ""
+"Split the currently active view horizontally into two views and move the "
+"currently active document to view below."
+msgstr "हालको सक्रिय दृश्य तेर्सो गरी दुई दृश्यमा विभाजन गर्नुहोस् ।"
+
+#: lib/kateviewmanager.cpp:150
+#, kde-format
+msgid "Cl&ose Current View"
+msgstr "हालको दृश्य बन्द गर्नुहोस्"
+
+#: lib/kateviewmanager.cpp:154
+#, fuzzy, kde-format
+#| msgid "Close the currently active splitted view"
+msgid "Close the currently active split view"
+msgstr "विभाजन गरिएको हालको सक्रिय दृश्य बन्द गर्नुहोस्"
+
+#: lib/kateviewmanager.cpp:158
+#, fuzzy, kde-format
+#| msgid "Cl&ose Current View"
+msgid "Close Inactive Views"
+msgstr "हालको दृश्य बन्द गर्नुहोस्"
+
+#: lib/kateviewmanager.cpp:161
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Close every view but the active one"
+msgstr "पछिल्लो विभाजन दृश्य सक्रिय बनाउनुहोस् ।"
+
+#: lib/kateviewmanager.cpp:165
+#, fuzzy, kde-format
+#| msgid "Cl&ose Current View"
+msgid "Hide Inactive Views"
+msgstr "हालको दृश्य बन्द गर्नुहोस्"
+
+#: lib/kateviewmanager.cpp:169
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Hide every view but the active one"
+msgstr "पछिल्लो विभाजन दृश्य सक्रिय बनाउनुहोस् ।"
+
+#: lib/kateviewmanager.cpp:172
+#, kde-format
+msgid "Toggle Orientation"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:175
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Toggles the orientation of the current split view"
+msgstr "पछिल्लो विभाजन दृश्य सक्रिय बनाउनुहोस् ।"
+
+#: lib/kateviewmanager.cpp:178
+#, fuzzy, kde-format
+#| msgid "Next View"
+msgid "Next Split View"
+msgstr "पछिल्लो दृश्य"
+
+#: lib/kateviewmanager.cpp:183
+#, kde-format
+msgid "Make the next split view the active one."
+msgstr "पछिल्लो विभाजन दृश्य सक्रिय बनाउनुहोस् ।"
+
+#: lib/kateviewmanager.cpp:186
+#, fuzzy, kde-format
+#| msgid "Previous View"
+msgid "Previous Split View"
+msgstr "अघिल्लो दृश्य"
+
+#: lib/kateviewmanager.cpp:191
+#, kde-format
+msgid "Make the previous split view the active one."
+msgstr "अघिल्लो विभाजन दृश्य सक्रिय बनाउनुहोस् ।"
+
+#: lib/kateviewmanager.cpp:194
+#, fuzzy, kde-format
+#| msgid "Next View"
+msgid "Left Split View"
+msgstr "पछिल्लो दृश्य"
+
+#: lib/kateviewmanager.cpp:199
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Make the split view intuitively on the left the active one."
+msgstr "पछिल्लो विभाजन दृश्य सक्रिय बनाउनुहोस् ।"
+
+#: lib/kateviewmanager.cpp:202
+#, fuzzy, kde-format
+#| msgid "Next View"
+msgid "Right Split View"
+msgstr "पछिल्लो दृश्य"
+
+#: lib/kateviewmanager.cpp:207
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Make the split view intuitively on the right the active one."
+msgstr "पछिल्लो विभाजन दृश्य सक्रिय बनाउनुहोस् ।"
+
+#: lib/kateviewmanager.cpp:210
+#, fuzzy, kde-format
+#| msgid "Split Ve&rtical"
+msgid "Upward Split View"
+msgstr "ठाडो विभाजन गर्नुहोस्"
+
+#: lib/kateviewmanager.cpp:215
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Make the split view intuitively upward the active one."
+msgstr "पछिल्लो विभाजन दृश्य सक्रिय बनाउनुहोस् ।"
+
+#: lib/kateviewmanager.cpp:218
+#, fuzzy, kde-format
+#| msgid "Split Ve&rtical"
+msgid "Downward Split View"
+msgstr "ठाडो विभाजन गर्नुहोस्"
+
+#: lib/kateviewmanager.cpp:223
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Make the split view intuitively downward the active one."
+msgstr "पछिल्लो विभाजन दृश्य सक्रिय बनाउनुहोस् ।"
+
+#: lib/kateviewmanager.cpp:226
+#, kde-format
+msgid "Move Splitter Right"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:229
+#, kde-format
+msgid "Move the splitter of the current view to the right"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:232
+#, kde-format
+msgid "Move Splitter Left"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:235
+#, kde-format
+msgid "Move the splitter of the current view to the left"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:238
+#, kde-format
+msgid "Move Splitter Up"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:241
+#, kde-format
+msgid "Move the splitter of the current view up"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:244
+#, kde-format
+msgid "Move Splitter Down"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:247
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Move the splitter of the current view down"
+msgstr "पछिल्लो विभाजन दृश्य सक्रिय बनाउनुहोस् ।"
+
+#: lib/kateviewmanager.cpp:250
+#, kde-format
+msgid "Focus Navigation Bar"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:251
+#, fuzzy, kde-format
+#| msgid "highlight pr&evious tab"
+msgid "Focus the navigation bar"
+msgstr "अघिल्लो ट्याब हाइलाइट गर्नुहोस्"
+
+#: lib/kateviewmanager.cpp:258
+#, kde-format
+msgid "Welcome Page"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:273
+#, kde-format
+msgid "Show the welcome page"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:315 lib/kateviewmanager.cpp:317
+#, kde-format
+msgid "Open File"
+msgstr "फाइल खोल्नुहोस्"
+
+#: lib/kateviewmanager.cpp:336
+#, kde-format
+msgid ""
+"<p>You are attempting to open one or more large files:</p><ul>%1</ul><p>Do "
+"you want to proceed?</p><p><strong>Beware that kate may stop responding for "
+"some time when opening large files.</strong></p>"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:339
+#, fuzzy, kde-format
+#| msgid "Open File"
+msgid "Opening Large File"
+msgstr "फाइल खोल्नुहोस्"
+
+#: lib/kateviewmanager.cpp:1162
+#, kde-format
+msgid "This view may have unsaved work. Do you really want to close it?"
+msgstr ""
+
+#: lib/kateviewspace.cpp:98
+#, fuzzy, kde-format
+#| msgid "%1"
+msgctxt "indicator for more documents"
+msgid "+%1"
+msgstr "%1"
+
+#: lib/kateviewspace.cpp:103 lib/kateviewspace.cpp:208
+#, kde-format
+msgid "Click here to switch to the Quick Open view."
+msgstr ""
+
+#: lib/kateviewspace.cpp:119
+#, kde-format
+msgid "Control view space splitting"
+msgstr ""
+
+#: lib/kateviewspace.cpp:209
+#, kde-format
+msgid ""
+"Currently, there is one more document open. To see all open documents, "
+"switch to the Quick Open view by clicking here."
+msgid_plural ""
+"Currently, there are %1 more documents open. To see all open documents, "
+"switch to the Quick Open view by clicking here."
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/kateviewspace.cpp:975
+#, fuzzy, kde-format
+#| msgid "Close &All Tabs"
+msgid "Close Tab"
+msgstr "सबै ट्याब बन्द गर्नुहोस्"
+
+#: lib/kateviewspace.cpp:992
+#, fuzzy, kde-format
+#| msgid "Close Document"
+msgid "&Close Document"
+msgstr "कागजात बन्द गर्नुहोस्"
+
+#: lib/kateviewspace.cpp:993
+#, fuzzy, kde-format
+#| msgid "Close Document"
+msgid "Close Other &Documents"
+msgstr "कागजात बन्द गर्नुहोस्"
+
+#: lib/kateviewspace.cpp:994
+#, fuzzy, kde-format
+#| msgid "Close all open documents."
+msgid "Close &All Documents"
+msgstr "सबै खुला कागजात बन्द गर्नुहोस् ।"
+
+#: lib/kateviewspace.cpp:996
+#, fuzzy, kde-format
+#| msgid "&Document"
+msgid "D&etach Document"
+msgstr "कागजात"
+
+#: lib/kateviewspace.cpp:997
+#, kde-format
+msgid "Opens the document in a new window and closes it in the current window"
+msgstr ""
+
+#: lib/kateviewspace.cpp:1006
+#, fuzzy, kde-format
+#| msgid "Start with an &empty document"
+msgid "Compare with Active Document"
+msgstr "एउटा खाली कागजातसँग सुरु गर्नुहोस्"
+
+#: lib/kateviewspace.cpp:1010
+#, kde-format
+msgid "Diff %1 .. %2"
+msgstr ""
+
+#: lib/kateviewspace.cpp:1015
+#, fuzzy, kde-format
+#| msgid "Start with an &empty document"
+msgid "Compare with Active Document Using"
+msgstr "एउटा खाली कागजातसँग सुरु गर्नुहोस्"
+
+#: lib/kateviewspace.cpp:1082
+#, kde-format
+msgid "Could not start program"
+msgstr ""
+
+#: lib/kateviewspace.cpp:1083
+#, kde-format
+msgid "The selected program could not be started. Maybe it is not installed."
+msgstr ""
+
+#: lib/quickopen/katequickopenlineedit.cpp:22
+#, kde-format
+msgid "Quick Open Search (configure via context menu)"
+msgstr ""
+
+#: lib/quickopen/katequickopenlineedit.cpp:61
+#, fuzzy, kde-format
+#| msgid "Projects"
+msgid "All Projects"
+msgstr "परियोजना"
+
+#: lib/quickopen/katequickopenlineedit.cpp:73
+#, kde-format
+msgid "Current Project"
+msgstr ""
+
+#: lib/quickopen/katequickopenlineedit.cpp:88
+#, kde-format
+msgid "Fuzzy Filtering"
+msgstr ""
+
+#: lib/quickopen/katequickopenlineedit.cpp:99
+#, kde-format
+msgid "Wildcard Filtering"
+msgstr ""
+
+#: lib/session/katesessionmanagedialog.cpp:26
+#, kde-format
+msgid "Manage Sessions"
+msgstr "सत्र व्यवस्थापन गर्नुहोस्"
+
+#: lib/session/katesessionmanagedialog.cpp:62
+#, kde-format
+msgid "Session Chooser"
+msgstr "सत्र चयनकर्ता"
+
+#: lib/session/katesessionmanagedialog.cpp:146
+#, kde-format
+msgid "Restore"
+msgstr ""
+
+#: lib/session/katesessionmanagedialog.cpp:303
+#, kde-format
+msgid "Session will be deleted on dialog close"
+msgstr ""
+
+#. i18n: ectx: property (placeholderText), widget (QLineEdit, m_filterBox)
+#: lib/session/katesessionmanagedialog.ui:30
+#, fuzzy, kde-format
+#| msgid "Sessions"
+msgid "Filter Sessions"
+msgstr "सत्र"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, m_sessionList)
+#: lib/session/katesessionmanagedialog.ui:55
+#, kde-format
+msgid "Session Name"
+msgstr "सत्र नाम"
+
+#. i18n: The number of open documents
+#. i18n: ectx: property (text), widget (QTreeWidget, m_sessionList)
+#: lib/session/katesessionmanagedialog.ui:60
+#, fuzzy, kde-format
+#| msgid "File"
+msgid "Files"
+msgstr "फाइल"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, m_sessionList)
+#: lib/session/katesessionmanagedialog.ui:68
+#, kde-format
+msgid "Last opened"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, m_openButton)
+#: lib/session/katesessionmanagedialog.ui:87
+#, kde-format
+msgid "&Open"
+msgstr "खोल्नुहोस्"
+
+#. i18n: ectx: property (text), widget (QPushButton, m_newButton)
+#: lib/session/katesessionmanagedialog.ui:98
+#, kde-format
+msgid "New Session"
+msgstr "नयाँ सत्र"
+
+#. i18n: ectx: property (text), widget (QPushButton, m_templateButton)
+#: lib/session/katesessionmanagedialog.ui:108
+#, kde-format
+msgid "Open as Template"
+msgstr "टेम्प्लेटको रुपमा खोल्नुहोस्"
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_dontAskCheckBox)
+#: lib/session/katesessionmanagedialog.ui:115
+#, fuzzy, kde-format
+#| msgid "Do not ask again"
+msgid "Don't ask again"
+msgstr "फेरि नसोध्नुहोस्"
+
+#. i18n: ectx: property (text), widget (QPushButton, m_copyButton)
+#: lib/session/katesessionmanagedialog.ui:135
+#, kde-format
+msgid "Duplicate..."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, m_renameButton)
+#: lib/session/katesessionmanagedialog.ui:142
+#, kde-format
+msgid "&Rename..."
+msgstr "पुन: नामकरण गर्नुहोस्..."
+
+#. i18n: ectx: property (text), widget (QPushButton, m_deleteButton)
+#: lib/session/katesessionmanagedialog.ui:162
+#, fuzzy, kde-format
+#| msgid "Deleted"
+msgid "Delete"
+msgstr "मेटिएको"
+
+#: lib/session/katesessionmanager.cpp:105
+#, kde-format
+msgid ""
+"Internal error: there is more than one instance open for a given session."
+msgstr ""
+
+#: lib/session/katesessionmanager.cpp:112
+#, kde-format
+msgid ""
+"Session '%1' is already opened in another Kate instance. Switch to that or "
+"reopen in this instance?"
+msgstr ""
+
+#: lib/session/katesessionmanager.cpp:114
+#, kde-format
+msgctxt "@action:button"
+msgid "Switch to Instance"
+msgstr ""
+
+#: lib/session/katesessionmanager.cpp:115
+#, kde-format
+msgctxt "@action:button"
+msgid "Reopen"
+msgstr ""
+
+#: lib/session/katesessionmanager.cpp:303
+#, fuzzy, kde-format
+#| msgid ""
+#| "The session could not be renamed to \"%1\", there already exists another "
+#| "session with the same name"
+msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
+msgstr ""
+"\"%1\" मा सत्र पुन: नामाकरण गर्न सकेन, त्यहाँ एउटै नामको अर्को सत्र पहिल्यै अवस्थित छ"
+
+#: lib/session/katesessionmanager.cpp:304
+#, kde-format
+msgid "Session Renaming"
+msgstr "सत्र पुन: नामाकरण गर्दै"
+
+#: lib/session/katesessionmanager.cpp:451
+#, kde-format
+msgid "Session name:"
+msgstr "सत्र नाम:"
+
+#: lib/session/katesessionmanager.cpp:453
+#, fuzzy, kde-format
+#| msgid ""
+#| "There is already an existing session with your chosen name.\n"
+#| "Please choose a different one\n"
+#| "Session name:"
+msgid ""
+"There is already an existing session with your chosen name: %1\n"
+"Please choose a different one."
+msgstr ""
+"तपाईँले रोज्नु भएको नामको सत्र पहिल्यै अवस्थित छ ।\n"
+" कृपया एउटा भिन्न सत्र नाम\n"
+" रोज्नुहोस्:"
+
+#: lib/session/katesessionmanager.cpp:455
+#, kde-format
+msgid "To save a session, you must specify a name."
+msgstr "तपाईँले सत्र बचत गर्नका लागि नाम निर्दिष्ट गर्नुपर्छ ।"
+
+#: lib/session/katesessionmanager.cpp:482
+#, fuzzy, kde-format
+#| msgid "Specify New Name for Session"
+msgid "Specify a name for this session"
+msgstr "सत्रका लागि नयाँ नाम निर्दिष्ट गर्नुहोस्"
+
+#: lib/session/katesessionmanager.cpp:484
+#, fuzzy, kde-format
+#| msgid "Specify New Name for Session"
+msgid "Specify a new name for session: %1"
+msgstr "सत्रका लागि नयाँ नाम निर्दिष्ट गर्नुहोस्"
+
+#. i18n: ectx: property (title), widget (QGroupBox, gbAppStartup)
+#: lib/ui/sessionconfigwidget.ui:17
+#, fuzzy, kde-format
+#| msgid "Application Options"
+msgid "Application Startup Behavior"
+msgstr "अनुप्रयोग विकल्प"
+
+#. i18n: ectx: property (text), widget (QRadioButton, startNewSessionRadioButton)
+#: lib/ui/sessionconfigwidget.ui:23
+#, kde-format
+msgid "&Start new session"
+msgstr "नयाँ सत्र सुरु गर्नुहोस्"
+
+#. i18n: ectx: property (text), widget (QRadioButton, loadLastUserSessionRadioButton)
+#: lib/ui/sessionconfigwidget.ui:30
+#, fuzzy, kde-format
+#| msgid "&Load last-used session"
+msgid "&Load last used session"
+msgstr "अन्तिम-प्रयोग भएको सत्र लोड गर्नुहोस्"
+
+#. i18n: ectx: property (text), widget (QRadioButton, manuallyChooseSessionRadioButton)
+#: lib/ui/sessionconfigwidget.ui:37
+#, kde-format
+msgid "&Manually choose a session"
+msgstr "सत्र म्यानुअल रुपमा रोज्नुहोस्"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: lib/ui/sessionconfigwidget.ui:47
+#, fuzzy, kde-format
+#| msgid "Application Options"
+msgid "Application Startup/Shutdown Behavior"
+msgstr "अनुप्रयोग विकल्प"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: lib/ui/sessionconfigwidget.ui:55
+#, fuzzy, kde-format
+#| msgid "Automatically expand nodes in tree mode"
+msgid "Automatically save and restore:"
+msgstr "ट्री मोडमा स्वत: रुपमा नोड विस्तार गर्नुहोस्"
+
+#. i18n: ectx: property (text), widget (QCheckBox, stashNewUnsavedFiles)
+#: lib/ui/sessionconfigwidget.ui:67
+#, kde-format
+msgid "Newly-created unsaved files"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, stashUnsavedFilesChanges)
+#: lib/ui/sessionconfigwidget.ui:77
+#, kde-format
+msgid "Files with unsaved changes"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, openNewDocumentPerWindow)
+#: lib/ui/sessionconfigwidget.ui:88
+#, fuzzy, kde-format
+#| msgid "Create a new Kate view (a new window with the same document list)."
+msgid "Open new window with fresh untitled document"
+msgstr "नयाँ क्येट दृश्य (समान कागजात सूचीसँग एक नयाँ सञ्झ्याल) सिर्जना गर्नुहोस् ।"
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, modCloseAfterLast)
+#: lib/ui/sessionconfigwidget.ui:95
+#, kde-format
+msgid ""
+"If enabled, the application will shutdown when the last file being edited is "
+"closed, otherwise a blank page will open so that you can start a new file."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, modCloseAfterLast)
+#: lib/ui/sessionconfigwidget.ui:98
+#, kde-format
+msgid "Close the application entirely when the last file is closed"
+msgstr ""
+
+#. i18n: ectx: property (title), widget (QGroupBox, gbElements)
+#: lib/ui/sessionconfigwidget.ui:108
+#, fuzzy, kde-format
+#| msgid "Session Management"
+msgid "Session Elements"
+msgstr "सत्र व्यवस्थापन"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: lib/ui/sessionconfigwidget.ui:114
+#, kde-format
+msgid ""
+"The session contains the list of open documents, recently opened files list, "
+"bookmarks, cursor position etc. When the session is loaded all elements are "
+"restored."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: lib/ui/sessionconfigwidget.ui:126
+#, kde-format
+msgid "Maximum number of entries in recent file list:"
+msgstr ""
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, restoreVC)
+#: lib/ui/sessionconfigwidget.ui:154
+#, fuzzy, kde-format
+#| msgid ""
+#| "Check this if you want all your views and frames restored each time you "
+#| "open Kate"
+msgid ""
+"Check this if you want all your views and frames restored each time you open "
+"the application."
+msgstr ""
+"तपाईँले क्येट खोल्दा सबै दृश्य र फ्रेमहरू प्रत्येक पटक पूर्वावस्थामा ल्याउन चाहेमा यो जाँच "
+"गर्नुहोस् ।"
+
+#. i18n: ectx: property (text), widget (QCheckBox, restoreVC)
+#: lib/ui/sessionconfigwidget.ui:157
+#, kde-format
+msgid "Include &window configuration"
+msgstr "सञ्झ्याल कन्फिगरेसन समावेश गर्नुहोस्"
+
+#. i18n: ectx: property (whatsThis), widget (QGroupBox, saveMetaInfos)
+#: lib/ui/sessionconfigwidget.ui:167
+#, kde-format
+msgid ""
+"Check this if you want document configuration like for example bookmarks to "
+"be saved past editor sessions. The configuration will be restored if the "
+"document has not changed when reopened."
+msgstr ""
+"यदि तपाईँ कागजात कन्फिगरेसन उदाहरणको लागि: बिगतको सम्पादक सत्रमा बचत पुस्तक चिनोहरू "
+"चाहनुहुन्छ भने यो जाँच गर्नुहोस्  । यदि कागजात पुन: खोल्दा परिवर्तन गरिएको छैन भने "
+"कन्फिगरेसन पूर्वावस्थामा ल्याइएको हुनेछ ।"
+
+#. i18n: ectx: property (title), widget (QGroupBox, saveMetaInfos)
+#: lib/ui/sessionconfigwidget.ui:170
+#, kde-format
+msgid "Keep &meta-information past sessions"
+msgstr "बिगतका सत्रहरूको मेटा सूचना राख्नुहोस्"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: lib/ui/sessionconfigwidget.ui:181
+#, fuzzy, kde-format
+#| msgid "&Delete unused meta-information after:"
+msgid "Delete unused meta-information after:"
+msgstr "यस पछाडि प्रयोग नगरिएका मेटा सूचना मेट्नुहोस्:"
+
+#: lib/welcomeview.cpp:69
+#, fuzzy, kde-format
+#| msgid "Choose Location"
+msgid "&Copy Location"
+msgstr "स्थान रोज्नुहोस्"
+
+#: lib/welcomeview.cpp:97
+#, kde-format
+msgctxt "recent items context menu"
+msgid "&Forget This Item"
+msgstr ""
+
+#: lib/welcomeview.cpp:126
+#, kde-format
+msgid "Welcome"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, welcomeLabel)
+#: lib/welcomeview.cpp:129 lib/welcomeview.ui:158
+#, kde-format
+msgid "Welcome to Kate"
+msgstr ""
+
+#: lib/welcomeview.cpp:129
+#, kde-format
+msgid "Welcome to KWrite"
+msgstr ""
+
+#: lib/welcomeview.cpp:168
+#, fuzzy, kde-format
+#| msgid "Close the current document."
+msgctxt "on welcome screen"
+msgid "No recent documents"
+msgstr "हालको कागजात बन्द गर्नुहोस् ।"
+
+#. i18n: ectx: property (windowTitle), widget (QWidget, WelcomeView)
+#: lib/welcomeview.ui:17
+#, kde-format
+msgid "Form"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, newDocumentButton)
+#: lib/welcomeview.ui:221
+#, fuzzy, kde-format
+#| msgid "&Document"
+msgctxt "on welcome screen"
+msgid "New Document"
+msgstr "कागजात"
+
+#. i18n: ectx: property (text), widget (QPushButton, openDocumentButton)
+#: lib/welcomeview.ui:232
+#, fuzzy, kde-format
+#| msgctxt "The number of open documents"
+#| msgid "Open Documents"
+msgctxt "on welcome screen"
+msgid "Open Document..."
+msgstr "खुला कागजात"
+
+#. i18n: ectx: property (text), widget (QPushButton, openFolderButton)
+#: lib/welcomeview.ui:243
+#, fuzzy, kde-format
+#| msgid "Open File"
+msgctxt "on welcome screen"
+msgid "Open Folder..."
+msgstr "फाइल खोल्नुहोस्"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: lib/welcomeview.ui:372
+#, fuzzy, kde-format
+#| msgctxt "The number of open documents"
+#| msgid "Open Documents"
+msgctxt "on welcome screen"
+msgid "Recent documents"
+msgstr "खुला कागजात"
+
+#. i18n: ectx: property (text), widget (QToolButton, forgetAllButton)
+#: lib/welcomeview.ui:382
+#, fuzzy, kde-format
+#| msgid "Clos&e All"
+msgctxt "on welcome screen (recent document list)"
+msgid "Forget All"
+msgstr "सबै बन्द गर्नुहोस्"
+
+#, fuzzy
+#~| msgid "&New Window"
+#~ msgid "&New Synchronized Window"
+#~ msgstr "नयाँ सञ्झ्याल"
+
+#~ msgid "Make Non-Persistent"
+#~ msgstr "अस्थायी बनाउनुहोस्"
+
+#~ msgid "Make Persistent"
+#~ msgstr "स्थायी बनाउनुहोस्"
+
+#, fuzzy
+#~| msgid "Filename"
+#~ msgid "Copy File &Path"
+#~ msgstr "फाइल नाम"
+
+#, fuzzy
+#~| msgid "Restore loca&tion"
+#~ msgid "Go to previous edit location"
+#~ msgstr "स्थान पूर्वावस्थामा लैजानुहोस्"
+
+#, fuzzy
+#~| msgid "Custom location:"
+#~ msgid "Go to next edit location"
+#~ msgstr "अनुकुल स्थान:"
+
+#~ msgid ""
+#~ "The supposedly temporary file %1 has been modified. Do you want to delete "
+#~ "it anyway?"
+#~ msgstr ""
+#~ "अस्थायी मानिएको %1फाइल पारिमार्जन गरिएको छ । यसलाई जसरी पानि मेट्न चाहानुहुन्छ?"
+
+#~ msgid "Delete File?"
+#~ msgstr "फाइल मेट्नुहुन्छ?"
+
+#, fuzzy
+#~| msgid "Co&mmands"
+#~ msgid "&Command Bar"
+#~ msgstr "आदेश"
+
+#, fuzzy
+#~| msgid "Open Session"
+#~ msgid "&Quick Open Session"
+#~ msgstr "खुला सत्र"
+
+#, fuzzy
+#~| msgid "Save As &Default..."
+#~ msgid "&Save as defaults"
+#~ msgstr "पूर्वनिर्धारित रुपमा बचत गर्नुहोस्..."
+
+#, fuzzy
+#~| msgid "Start Kate with a given session"
+#~ msgid "Start Kate with a new session, implies '-n' (deprecated)."
+#~ msgstr "दिएको सत्रमा क्येट सुरुआत गर्नुहोस्"
+
+#, fuzzy
+#~| msgid "Create anonymous session?"
+#~ msgid "Do you want to save current anonymous session?"
+#~ msgstr "बेनामी सत्र सिर्जना गर्नुहुन्छ?"
+
+#~ msgid "Wa&rn about files modified by foreign processes"
+#~ msgstr "बाहिरी प्रक्रियाद्वारा परिमार्जित फाइलहरूको बारेमा चेतावनी दिनुहोस्"
+
+#, fuzzy
+#~| msgid "Application '%1' not found!"
+#~ msgid "Application '%1' not found."
+#~ msgstr "अनुप्रयोग '%1' फेला परेन !"
+
+#, fuzzy
+#~| msgid "Application not found!"
+#~ msgid "Application not found"
+#~ msgstr "अनुप्रयोग फेला परेन !"
+
+#, fuzzy
+#~| msgid "Filename"
+#~ msgid "Filter By Path"
+#~ msgstr "फाइल नाम"
+
+#, fuzzy
+#~| msgid "Filter"
+#~ msgid "Filter By Name"
+#~ msgstr "फिल्टर गर्नुहोस्"
+
+#, fuzzy
+#~| msgid "Open Session"
+#~ msgid "Quick Open Search"
+#~ msgstr "खुला सत्र"
+
+#, fuzzy
+#~| msgid "&View"
+#~ msgid "&Match Mode:"
+#~ msgstr "दृश्य"
+
+#, fuzzy
+#~| msgid "Filename"
+#~ msgid "Filepath"
+#~ msgstr "फाइल नाम"
+
+#, fuzzy
+#~| msgid "List/Tree Mode"
+#~ msgid "&List Mode:"
+#~ msgstr "सूची/ट्री मोड"
+
+#~ msgid "Application"
+#~ msgstr "अनुप्रयोग"
+
+#~ msgid "General"
+#~ msgstr "सामान्य"
+
+#~ msgid "General Options"
+#~ msgstr "सामान्य विकल्प"
+
+#~ msgid "Meta-Information"
+#~ msgstr "मेटा सूचना"
+
+#~ msgid "Editor Component"
+#~ msgstr "सम्पादक अवयव"
+
+#~ msgid "Editor Component Options"
+#~ msgstr "सम्पादक अवयव विकल्प"
+
+#, fuzzy
+#~| msgid "Behavior on Application Startup"
+#~ msgid "Behaviour on Application Startup"
+#~ msgstr "अनुप्रयोग सुरुआतको व्यवहार"
+
+#~ msgid "&About Editor Component"
+#~ msgstr "सम्पादक अवयवको बारेमा"
+
+#~ msgctxt "Menu entry Session->New"
+#~ msgid "&New"
+#~ msgstr "नयाँ"
+
+#, fuzzy
+#~| msgid "Sort files alphabetically"
+#~ msgid "Sort Alphabetical"
+#~ msgstr "वर्णानुक्रम अनुरुप फाइल क्रमबद्ध गर्नुहोस्"
+
+#, fuzzy
+#~| msgid "Overwrite"
+#~ msgid "Overwrite File?"
+#~ msgstr "अधिलेखन गर्नुहोस्"
+
+#, fuzzy
+#~| msgid "&Rename..."
+#~ msgctxt "@action:inmenu"
+#~ msgid "Rename File..."
+#~ msgstr "पुन: नामकरण गर्नुहोस्..."
+
+#, fuzzy
+#~| msgid "Delete File?"
+#~ msgctxt "@action:inmenu"
+#~ msgid "Delete File"
+#~ msgstr "फाइल मेट्नुहुन्छ?"
+
+#, fuzzy
+#~| msgid "Configure"
+#~ msgctxt "@title:window"
+#~ msgid "Confirmation"
+#~ msgstr "कन्फिगर गर्नुहोस्"
+
+#, fuzzy
+#~| msgid "Close the current document."
+#~ msgid "C&lose Current Document"
+#~ msgstr "हालको कागजात बन्द गर्नुहोस् ।"
+
+#, fuzzy
+#~| msgid "Do not ask again"
+#~ msgid "Do not ask again"
+#~ msgstr "फेरि नसोध्नुहोस्"
+
+#~ msgid "Errors/Warnings while opening documents"
+#~ msgstr "कागजात खोल्दा त्रुटि/चेतावनी"
+
+#, fuzzy
+#~| msgid "No session selected to open."
+#~ msgid "Clone session settings"
+#~ msgstr "खोल्नका लागि सत्र चयन गरिएको छैन ।"
+
+#, fuzzy
+#~| msgid "New Kate Session"
+#~ msgid "Delete this session"
+#~ msgstr "नयाँ क्येट सत्र"
+
+#~ msgid "&Always use this choice"
+#~ msgstr "सधै यो छनोट प्रयोग गर्नुहोस्"
+
+#~ msgid "Missing Session Name"
+#~ msgstr "सत्र नाम छुटेको छ"
+
+#~ msgid ""
+#~ "The session could not be renamed to \"%1\", there already exists another "
+#~ "session with the same name"
+#~ msgstr ""
+#~ "\"%1\" मा सत्र पुन: नामाकरण गर्न सकेन, त्यहाँ एउटै नामको अर्को सत्र पहिल्यै अवस्थित छ"
+
+#~ msgid "Specify New Name for Current Session"
+#~ msgstr "हालको सत्रका लागि नयाँ नाम निर्दिष्ट गर्नुहोस्"
+
+#~ msgid "Developer & Highlight wizard"
+#~ msgstr "विकासकर्ता र हाइलाइट विजार्ड"
+
+#~ msgid "Comment"
+#~ msgstr "टिप्पणी"
+
+#, fuzzy
+#~| msgid "&Highlight Tab"
+#~ msgid "&Highlight Tab"
+#~ msgstr "ट्याब हाइलाइट गर्नुहोस्"
+
+#~ msgid "&None"
+#~ msgstr "कुनै होइन"
+
+#~ msgid "&Red"
+#~ msgstr "रातो"
+
+#~ msgid "&Yellow"
+#~ msgstr "पँहेलो"
+
+#~ msgid "&Green"
+#~ msgstr "हरियो"
+
+#~ msgid "&Cyan"
+#~ msgstr "सायन"
+
+#~ msgid "&Blue"
+#~ msgstr "निलो"
+
+#~ msgid "&Magenta"
+#~ msgstr "म्याजेन्टा"
+
+#~ msgid "C&ustom Color..."
+#~ msgstr "अनुकुल रङ..."
+
+#, fuzzy
+#~| msgid "Documents Modified on Disk"
+#~ msgid "All documents written to disk"
+#~ msgstr "डिस्कमा कागजात परिमार्जन गरियो"
+
+#, fuzzy
+#~| msgid "Documents Modified on Disk"
+#~ msgid "Document written to disk"
+#~ msgstr "डिस्कमा कागजात परिमार्जन गरियो"
+
+#~ msgid "Elements of Sessions"
+#~ msgstr "सत्रका तत्व"
+
+#~ msgid "This shows useful tips on the use of this application."
+#~ msgstr "यो अनुप्रयोगको प्रयोगमा उपयोगी हुने टिपहरू यसले देखाउँदछ ।"
+
+#~ msgid "No Session Selected"
+#~ msgstr "सत्र चयन गरिएको छैन"
+
+#~ msgid "No session selected to copy."
+#~ msgstr "प्रतिलिपि बनाउनका लागि सत्र चयन गरिएको छैन ।"
+
+#~ msgid "Use selected session as template"
+#~ msgstr "टेम्प्लेटको रुपमा चयन गरिएको सत्र प्रयोग गर्नुहोस्"
+
+#, fuzzy
+#~| msgid "Show Subroutines"
+#~ msgid "Show Cursor Position"
+#~ msgstr "सहायक कार्यसूची देखाउनुहोस्"
+
+#, fuzzy
+#~| msgid "Selection"
+#~ msgid "Show Selection Mode"
+#~ msgstr "चयन"
+
+#, fuzzy
+#~| msgid "Document Name"
+#~ msgid "Show Document Name"
+#~ msgstr "कागजात नाम"
+
+#~ msgid " Line: %1 Col: %2 "
+#~ msgstr " लाइन: %1 स्तम्भ: %2 "
+
+#, fuzzy
+#~| msgid " INS "
+#~ msgid " LINE "
+#~ msgstr " INS "
+
+#~ msgid " INS "
+#~ msgstr " INS "
+
+#, fuzzy
+#~| msgid " Line: %1 Col: %2 "
+#~ msgid " Line: %1 of %2 Col: %3 "
+#~ msgstr " लाइन: %1 स्तम्भ: %2 "
+
+#, fuzzy
+#~| msgid " BLK "
+#~ msgid " BLOCK "
+#~ msgstr " BLK "
+
+#, fuzzy
+#~| msgid "List/Tree Mode"
+#~ msgid "Tree Mode"
+#~ msgstr "सूची/ट्री मोड"
+
+#~ msgid "Document Name"
+#~ msgstr "कागजात नाम"
+
+#, fuzzy
+#~| msgid "Document Name"
+#~ msgid "Sort by Document Name"
+#~ msgstr "कागजात नाम"
+
+#, fuzzy
+#~| msgid "Document List"
+#~ msgid "Document Path"
+#~ msgstr "कागजात सूची"
+
+#, fuzzy
+#~| msgid "&Show All Documents >>"
+#~ msgid "Sort by Document Path"
+#~ msgstr "सबै कागजात देखाउनुहोस् >>"
+
+#~ msgid "Opening Order"
+#~ msgstr "खोल्ने आदेश"
+
+#, fuzzy
+#~| msgid "Opening Order"
+#~ msgid "Sort by Opening Order"
+#~ msgstr "खोल्ने आदेश"
+
+#, fuzzy
+#~| msgid "Open W&ith"
+#~ msgid "Open With"
+#~ msgstr "यससँग खोल्नुहोस्"
+
+#, fuzzy
+#~| msgid "List/Tree Mode"
+#~ msgid "View Mode"
+#~ msgstr "सूची/ट्री मोड"
+
+#, fuzzy
+#~| msgid "Sort &By"
+#~ msgid "Sort By"
+#~ msgstr "यसद्वारा क्रमबद्ध गर्नुहोस्"
+
+#, fuzzy
+#~| msgid "Sort By"
+#~ msgid "&Sort by:"
+#~ msgstr "यसद्वारा क्रमबद्ध गर्नुहोस्"
+
+#, fuzzy
+#~| msgid "Preview"
+#~ msgid "Tree View"
+#~ msgstr "पूर्वावोलोकन"
+
+#, fuzzy
+#~| msgid "Split Ve&rtical"
+#~ msgid "List View"
+#~ msgstr "ठाडो विभाजन गर्नुहोस्"
+
+#, fuzzy
+#~| msgid "Sho&w Path"
+#~ msgid "&Show Full Path"
+#~ msgstr "मार्ग देखाउनुहोस्"
+
+#, fuzzy
+#~| msgid "Document Name"
+#~ msgid "Document Tree"
+#~ msgstr "कागजात नाम"
+
+#, fuzzy
+#~| msgid "Current Document"
+#~ msgid "Configure Documents"
+#~ msgstr "हालको कागजात"
+
+#, fuzzy
+#~| msgid "Show Functions"
+#~ msgid "&Show Active"
+#~ msgstr "प्रकार्य देखाउनुहोस्"
+
+#, fuzzy
+#~| msgid "&Document"
+#~ msgid "Previous Document"
+#~ msgstr "कागजात"
+
+#~ msgid ""
+#~ "<p>Kate comes with a nice set of plugins, providing simple\n"
+#~ "and advanced features of all sorts.</p>\n"
+#~ "<p>You can enable/disable plugins to suit your needs in the configuration "
+#~ "dialog,\n"
+#~ "choose <strong>Settings -&gt;configure</strong> to launch that.</p>\n"
+#~ msgstr ""
+#~ "<p>सबै क्रमबद्धताको साधारण र उन्नत आकार उपलब्ध गराएर, क्येट प्लगइन\n"
+#~ " राम्रो सेटमा आउँछ ।</p>\n"
+#~ "<p>कन्फिगरेसन संवादमा तपाईँको आवश्यकताहरू मिलाउन प्लगइन सक्षम/अक्षम पार्न सक्नुहुन्छ,\n"
+#~ "त्यो सुरुआत गर्न<strong>सेटिङ -&gt;कन्फिगर</strong> रोज्नुहोस् ।</p>\n"
+
+#~ msgid ""
+#~ "<p>You can swap the characters on each side of the cursor just by "
+#~ "pressing\n"
+#~ "<strong>Ctrl+T</strong></p>\n"
+#~ msgstr ""
+#~ "<p>तपाईँले केबल \n"
+#~ "<strong>Ctrl+T</strong>थिचेर कर्सरको प्रत्येक छेउमा क्यारेक्टर साटासाट गर्न सक्नुहुन्छ</"
+#~ "p>\n"
+
+#~ msgid ""
+#~ "<p>You can export the current document as a HTML file, including\n"
+#~ "syntax highlighting.</p>\n"
+#~ "<p>Just choose <strong>File -&gt; Export -&gt; HTML...</strong></p>\n"
+#~ msgstr ""
+#~ "<p>तपाईँले हालको कागजात हाइलाइट गरिएको वाक्य संरचना\n"
+#~ "समाबेश गरि एउटा HTML फाइलको रुपमा निर्यात गर्न सक्नुहुन्छ ।</p>\n"
+#~ "<p><strong>फाइल -&gt; निर्यात -&gt; HTML...</strong> मात्र रोज्नुहोस्</p>\n"
+
+#, fuzzy
+#~| msgid ""
+#~| "<p>You can split the Kate editor as many times as you like and\n"
+#~| "in either direction. Each frame has its own status bar and\n"
+#~| "can display any open document.</p>\n"
+#~| "<p>Just choose <br><strong>View -&gt; Split [ Horizontal | Vertical ]</"
+#~| "strong></p>\n"
+#~ msgid ""
+#~ "<p>You can split the Kate editor as many times as you like and\n"
+#~ "in either direction. Each frame has its own status bar and\n"
+#~ "can display any open document.</p>\n"
+#~ "<p>Just choose <br><strong>View -&gt; Split View -&gt; Split [ Horizontal "
+#~ "| Vertical ]</strong></p>\n"
+#~ msgstr ""
+#~ "<p>तपाईँले क्येट सम्पादक चाहाना अनुसार जति पटक पनि र कुनै दिशामा विभाजन गर्न\n"
+#~ "सक्नुहुन्छ । प्रत्येक फ्रेममा यसको आफ्नो स्थितिपट्टी छ र\n"
+#~ "कुनै पनि खुला कागजात प्रदर्शन गर्न सक्दछ ।</p>\n"
+#~ "<p><br><strong>दृश्य -&gt; विभाजन [ तेर्सो | ठाडो ]</strong> मात्र रोज्नुहोस्</"
+#~ "p>\n"
+
+#~ msgid ""
+#~ "<p>Kate has a built-in terminal emulator, just click on <strong>\"Terminal"
+#~ "\"</strong> at\n"
+#~ "the bottom to show or hide it as you desire.</p>\n"
+#~ msgstr ""
+#~ "<p>क्येट टर्मिनल इमुलेटरमा बनाइएको छ, तपाईँको इच्छा अनुरुप देखाउन वा लुकाउन<strong>"
+#~ "\"टर्मिनल\"</strong> बटनमा\n"
+#~ "मात्र क्लिक गर्नुहोस् ।</p>\n"
+
+#~ msgid ""
+#~ "<p>Kate can highlight the current line with a\n"
+#~ "<table bgcolor=\"yellow\" border=\"0\" cellspacing=\"0\" cellpadding="
+#~ "\"0\" width=\"100%\"><tr><td>different\n"
+#~ "background color.<strong>|</strong></td></tr></table></p>\n"
+#~ "<p>You can set the color in the <em>Colors</em> page of the "
+#~ "configuration\n"
+#~ "dialog.</p>\n"
+#~ msgstr ""
+#~ "<p>क्येटले हालको रेखा \n"
+#~ "<table bgcolor=\"yellow\" border=\"0\" cellspacing=\"0\" cellpadding="
+#~ "\"0\" width=\"100%\"><tr><td>फरक \n"
+#~ "पृष्ठभूमि रङले हाइलाइट गर्न सक्छ ।<strong>|</strong></td></tr></table></p>\n"
+#~ "<p>तपाईँले <em>रङहरू</em> कन्फिगरेसन संवादको पृष्ठमा\n"
+#~ "रङ सेट गर्न सक्नुहुन्छ ।</p>\n"
+
+#~ msgid ""
+#~ "<p>You can open the currently edited file in any other application from "
+#~ "within\n"
+#~ "Kate.</p>\n"
+#~ "<p>Choose <strong>File -&gt; Open With</strong> for the list of programs\n"
+#~ "configured\n"
+#~ "for the document type. There is also an option <strong>Other...</strong> "
+#~ "to\n"
+#~ "choose any application on your system.</p>\n"
+#~ msgstr ""
+#~ "<p>तपाईँले हालै सम्पादन गरिएको फाइल अन्य कुनै अनुप्रयोगमा क्येटबाट खोल्न सक्नुहुन्छ ।</"
+#~ "p>\n"
+#~ "<p>कागजात प्रकारका लागि कन्फिगर गरिएका कार्यक्रमको सूचीका लागि\n"
+#~ " <strong>फाइल -&gt; सँग खोल्न</strong> रोज्नुहोस् ।\n"
+#~ "तपाईँको प्रणालीमा कुनै पनि अनुप्रयोग रोज्न त्यहाँ<strong>अन्य...</strong> एउटा\n"
+#~ "विकल्प पनि छ ।</p>\n"
+
+#, fuzzy
+#~| msgid ""
+#~| "<p>You can configure the editor to always display the line numbers and/"
+#~| "or\n"
+#~| "bookmark panes when started from the <strong>View Defaults</strong> page "
+#~| "of the\n"
+#~| "configuration dialog.</p>\n"
+#~ msgid ""
+#~ "<p>You can configure the editor to always display the line numbers and/"
+#~ "or\n"
+#~ "bookmark panes when started from the <strong>Appearance</strong> page of "
+#~ "the\n"
+#~ "configuration dialog.</p>\n"
+#~ msgstr ""
+#~ "<p>तपाईँले सधैँ लाइन नम्बरहरू र/वा पुस्तक चिनो प्यानहरू सुरु गर्ने बेलामा प्रदर्शन गर्न\n"
+#~ "कन्फिगरेसन संवादको <strong>पूर्वनिर्धारित दृश्य</strong> पृष्ठबाट \n"
+#~ "सम्पादक कन्फिगर गर्न सक्नुहुन्छ ।</p>\n"
+
+#, fuzzy
+#~| msgid ""
+#~| "<p>You can download new or updated <em>Syntax highlight definitions</em> "
+#~| "from\n"
+#~| "the <strong>Highlighting</strong> page in the configuration dialog.</p>\n"
+#~| "<p>Just click the <em>Download...</em> button on the <em>Highlight "
+#~| "Modes</em>\n"
+#~| "tab (You have to be online, of course...).</p>\n"
+#~ msgid ""
+#~ "<p>You can download new or updated <em>Syntax highlight definitions</em> "
+#~ "from\n"
+#~ "the <strong>Open/Save</strong> page in the configuration dialog.</p>\n"
+#~ "<p>Just click the <em>Download...</em> button on the <em>Open/Save -&gt; "
+#~ "Modes &amp; Filetypes</em>\n"
+#~ "tab (You have to be online, of course...).</p>\n"
+#~ msgstr ""
+#~ "<p>तपाईँले नयाँ वा अद्यावधिक <em>वाक्य संरचना हाइलाइट परिभाषाहरू</em> \n"
+#~ "<strong>हाइलाइटिङ</strong> पृष्ठ कन्फिगरेसन संवादमा डाउनलोड गर्न सक्नुहुन्छ ।</p>\n"
+#~ "<p><em>डाउनलोड...</em> हाइलाइट मोडको <em>बटन</em>\n"
+#~ "ट्याबमा मात्र क्लिक गर्नुहोस् (तपाईँ निश्चय नै, अनलाइन हुनु पर्ने छ...) ।</p>\n"
+
+#~ msgid ""
+#~ "<p>You can cycle through all open documents by pressing <strong>Alt+Left</"
+#~ "strong>\n"
+#~ "or <strong>Alt+Right</strong>. The next/previous document will "
+#~ "immediately be displayed\n"
+#~ "in the active frame.</p>\n"
+#~ msgstr ""
+#~ "<p>तपाईँले <strong>Alt+Left</strong>\n"
+#~ "वा <strong>Alt+Right</strong> थिचेर सबै खुला\n"
+#~ " कागजात मार्फत चक्र लगाउन सक्नुहुन्छ । सक्रिय फ्रेममा पछिल्लो वा अघिल्लो कागजात तरुन्तै "
+#~ "प्रदर्शीत हुनेछ ।</p>\n"
+
+#~ msgid ""
+#~ "<p>You can do cool sed-like regular expression replacements using "
+#~ "<em>Command Line</em>.</p>\n"
+#~ "<p>For example, press <strong>F7</strong> and enter <code>s /oldtext/"
+#~ "newtext/g</code>\n"
+#~ "to replace &quot;oldtext&quot; with &quot;newtext&quot; throughout the "
+#~ "current\n"
+#~ "line.</p>\n"
+#~ msgstr ""
+#~ "<p>तपाईँले <em>आदेश लाइन</em>प्रयोग गरेर सेड-जस्तो नियमित अभिव्यक्ति शान्त गर्न "
+#~ "सक्नुहुन्छ ।</p>\n"
+#~ "<p>उदाहरणका लागि, हालको लाइनबाट &quot;oldtext&quot; सँग &quot;"
+#~ "newtext&quot; बदल्न <strong>F7</strong> थिच्नुहोस् र <code>s /oldtext/newtext/"
+#~ "g</code>\n"
+#~ "प्रविष्ट\n"
+#~ "गर्नुहोस् ।</p>\n"
+
+#~ msgid ""
+#~ "<p>You can repeat your last search by just pressing <strong>F3</strong>, "
+#~ "or\n"
+#~ "<strong>Shift+F3</strong> if you want to search backwards.</p>\n"
+#~ msgstr ""
+#~ "<p>तपईँले पछाडितिर खोज्न चाहेमा\n"
+#~ "<strong>Shift+F3</strong> वा अन्तिम खोजी <strong>F3</strong> थिचेर "
+#~ "दोहोर्याउन सक्नुहुन्छ ।</p>\n"
+
+#, fuzzy
+#~| msgid ""
+#~| "<p>You can filter the files displayed in the <em>File Selector</em> tool "
+#~| "view.\n"
+#~| "</p>\n"
+#~| "<p>Simply enter your filter in the filter entry at the bottom, for "
+#~| "example:\n"
+#~| "<code>*.html *.php</code> if you only want to see HTML and PHP files in "
+#~| "the\n"
+#~| "current folder.</p>\n"
+#~| "<p>The File Selector will even remember your filters for you.</strong></"
+#~| "p>\n"
+#~ msgid ""
+#~ "<p>You can filter the files displayed in the <em>Filesystem Browser</em> "
+#~ "tool view.\n"
+#~ "</p>\n"
+#~ "<p>Simply enter your filter in the filter entry at the bottom, for "
+#~ "example:\n"
+#~ "<code>*.html *.php</code> if you only want to see HTML and PHP files in "
+#~ "the\n"
+#~ "current folder.</p>\n"
+#~ "<p>The Filesystem Browser will even remember your filters for you.</p>\n"
+#~ msgstr ""
+#~ "<p>तपाईँले <em>फाइल चयनकर्ता</em> उपकरण दृश्यमा प्रदर्शित फाइलहरू फिल्टर गर्न "
+#~ "सक्नुहुन्छ ।\n"
+#~ "</p>\n"
+#~ "<p>सरल रुपमा तलको फिल्टर प्रविष्टिमा तपाईँको फिल्टर प्रविष्ट गर्नुहोस्, उदाहरणका "
+#~ "लागि:\n"
+#~ "<code>*.html *.php</code> यदि तपाईँ HTML र PHP फाइलहरू \n"
+#~ "हालको फोल्डरमा हेर्न चाहेमा ।</p>\n"
+#~ "<p>फाइल चयनकर्ताले तपाईँलाई फिल्टरहरू सम्झाउने छ ।</strong></p>\n"
+
+#~ msgid ""
+#~ "<p>You can have two views - or even more - of the same document in Kate. "
+#~ "Editing\n"
+#~ "in either will be reflected in both.</p>\n"
+#~ "<p>So if you find yourself scrolling up and down to look at text at the "
+#~ "other\n"
+#~ "end of a document, just press <strong>Ctrl+Shift+T</strong> to split\n"
+#~ "horizontally.</p>\n"
+#~ msgstr ""
+#~ "<p>तपाईँसँग क्येटमा उहि कागजातका दुई - वा धेरै - दृश्य हुन सक्छन् । कनै एकमा\n"
+#~ "सम्पादन गर्दा दुवैमा प्रतिबिम्बित हुनेछन् ।</p>\n"
+#~ "<p>त्यसैले तपाईँ आफैले अन्य कागजातको अन्त्यमा पाठ हेर्न माथि र तल स्क्रोलिङ गर्दा फेला "
+#~ "पारेमा,\n"
+#~ "तेर्सो रुपमा विभाजन गर्न <strong>Ctrl+Shift+T</strong>\n"
+#~ "मात्र थिच्नुहोस् ।</p>\n"
+
+#~ msgid ""
+#~ "<p>Press <strong>F8</strong> or <strong>Shift+F8</strong> to switch to "
+#~ "the\n"
+#~ "next/previous frame.</p>\n"
+#~ msgstr ""
+#~ "<p>पछिल्लो/अघिल्लो फ्रेममा स्विच गर्न <strong>F8</strong> वा <strong>Shift+F8</"
+#~ "strong>\n"
+#~ "थिच्नुहोस् ।</p>\n"
+
+#~ msgid "Snippets"
+#~ msgstr "स्निपेटस्"
+
+#, fuzzy
+#~| msgid "Source prefix:"
+#~ msgctxt "@item:inmenu"
+#~ msgid "Source Code"
+#~ msgstr "स्रोत उपसर्ग:"
+
+#, fuzzy
+#~| msgid "Document to open"
+#~ msgctxt "@item:inmenu"
+#~ msgid "Documentation"
+#~ msgstr "खोल्नका लागि कागजात"
+
+#, fuzzy
+#~| msgid "Tab Highlighting"
+#~ msgctxt "@item:inmenu"
+#~ msgid "Kate Highlight Definition"
+#~ msgstr "ट्याब हाइलाइटिङ"
+
+#, fuzzy
+#~| msgid "Dominik Haumann"
+#~ msgctxt "@info:credit"
+#~ msgid "Dominik Haumann <dhdev@gmx.de>"
+#~ msgstr "डोमिनिक हाउम्यान"
+
+#, fuzzy
+#~| msgid "Functions"
+#~ msgid "Action:"
+#~ msgstr "प्रकार्य"
+
+#, fuzzy
+#~| msgid "Title"
+#~ msgid "Title:"
+#~ msgstr "शीर्षक"
+
+#, fuzzy
+#~| msgid "Name"
+#~ msgid "Name:"
+#~ msgstr "नाम"
+
+#, fuzzy
+#~| msgid "&Manage..."
+#~ msgid "Manager"
+#~ msgstr "प्रबन्ध गर्नुहोस्..."
+
+#, fuzzy
+#~| msgid "Plugins"
+#~ msgid "Reload Plugins"
+#~ msgstr "प्लगइन"
+
+#, fuzzy
+#~| msgid "Plugins"
+#~ msgid "Python Plugins"
+#~ msgstr "प्लगइन"
+
+#, fuzzy
+#~| msgid "Document to open"
+#~ msgid "Documentation"
+#~ msgstr "खोल्नका लागि कागजात"
+
+#, fuzzy
+#~| msgid "Current Document Folder"
+#~ msgid "Rescan current document for #colors"
+#~ msgstr "हालको कागजात फोल्डर"
+
+#, fuzzy
+#~| msgid "Matteo Merli"
+#~ msgid "Pattern Model"
+#~ msgstr "म्याट्टेओ मेर्लि"
+
+#, fuzzy
+#~| msgid "Filename"
+#~ msgid "Transform Filenames"
+#~ msgstr "फाइल नाम"
+
+#, fuzzy
+#~| msgid "Tab Highlighting"
+#~ msgid "Highlight definitions using etags(1):"
+#~ msgstr "ट्याब हाइलाइटिङ"
+
+#, fuzzy
+#~| msgid "&Settings"
+#~ msgid "Settings..."
+#~ msgstr "सेटिङ"
+
+#, fuzzy
+#~| msgid "New..."
+#~ msgid "..."
+#~ msgstr "नयाँ..."
+
+#, fuzzy
+#~| msgid "Configure"
+#~ msgid "Continuation Prompt:"
+#~ msgstr "कन्फिगर गर्नुहोस्"
+
+#, fuzzy
+#~| msgid "&Highlight:"
+#~ msgid "Highlighting"
+#~ msgstr "हाइलाइट गर्नुहोस्:"
+
+#, fuzzy
+#~| msgid "&Help"
+#~ msgid "Help:"
+#~ msgstr "मद्दत"
+
+#, fuzzy
+#~| msgid "Functions"
+#~ msgid "Exception:"
+#~ msgstr "प्रकार्य"
+
+#, fuzzy
+#~| msgid "Document List"
+#~ msgid "Drop List"
+#~ msgstr "कागजात सूची"
+
+#, fuzzy
+#~| msgid "Configure"
+#~ msgid "ConfigWidget"
+#~ msgstr "कन्फिगर गर्नुहोस्"
+
+#, fuzzy
+#~| msgid "Modules"
+#~ msgid "Module:"
+#~ msgstr "मोड्युल"
+
+#, fuzzy
+#~| msgid "&View Difference"
+#~ msgid "Reference"
+#~ msgstr "फरक हेर्नुहोस्"
+
+#, fuzzy
+#~| msgid "Text"
+#~ msgid "Text:"
+#~ msgstr "पाठ"
+
+#, fuzzy
+#~| msgid "Name"
+#~ msgid "Full Name:"
+#~ msgstr "नाम"
+
+#, fuzzy
+#~| msgid "&Reload"
+#~ msgid "Reload"
+#~ msgstr "पुन: लोड गर्नुहोस्"
+
+#~ msgid "Modules"
+#~ msgstr "मोड्युल"
+
+#~ msgid ""
+#~ "<p>You can drag the Tool views (<em>File List</em> and <em>File Selector</"
+#~ "em>)\n"
+#~ "to any side that you want them in Kate, or stack them, or even tear them "
+#~ "off the\n"
+#~ "main window.</p>\n"
+#~ msgstr ""
+#~ "<p>तपाईँले उपकरण दृश्यहरू (<em>फाइल सूची</em> र <em>फाइल चयनकर्ता</em>)\n"
+#~ "क्येटको कुनै पनि भागमा तान्न, वा तीनिहरूलाई टाँस्न वा मुख्य सञ्झ्यालबाट\n"
+#~ "हटाउन सक्नुहुन्छ ।</p>\n"
+
+#~ msgid "&Save Selected"
+#~ msgstr "चयन गरिएको बचत गर्नुहोस्"
+
+#, fuzzy
+#~| msgid "Do Not Save"
+#~ msgid "Do &Not Close"
+#~ msgstr "बचत नगर्नुहोस्"
+
+#~ msgid ""
+#~ "Removes the modified flag from the selected documents and closes the "
+#~ "dialog if there are no more unhandled documents."
+#~ msgstr ""
+#~ "यदि त्यहाँ धेरै ह्यान्डल नगरेको कागजात छैनन् भने चयन गरिएका कागजातबाट परिमार्जित "
+#~ "झण्डा हटाउँछ र संवाद बन्द गर्छ ।"
+
+#~ msgid ""
+#~ "Reloads the selected documents from disk and closes the dialog if there "
+#~ "are no more unhandled documents."
+#~ msgstr ""
+#~ "चयन गरिएका कागजातहरू डिस्कबाट पुन: लोड गर्दछ र यदि केही ह्यान्डल नगरिएका कागजात "
+#~ "छन् भने संवाद बन्द गर्दछ ।"
+
+#, fuzzy
+#~| msgid "Create a new document"
+#~ msgid "Cannot go to the document"
+#~ msgstr "नयाँ कागजात सिर्जना गर्नुहोस्"
+
+#, fuzzy
+#~| msgid "Configure Tab Bar"
+#~ msgid "Configure Tree View"
+#~ msgstr "ट्याब पट्टी कन्फिगर गर्नुहोस्"
+
+#~ msgctxt "'document name [*]', [*] means modified"
+#~ msgid "%1 [*]"
+#~ msgstr "%1 [*]"
+
+#, fuzzy
+#~| msgid "Manage File Templates"
+#~ msgid "Kate File Tree"
+#~ msgstr "फाइल टेम्प्लेट व्यावस्थापन गर्नुहोस्"
+
+#, fuzzy
+#~| msgid "Plugins"
+#~ msgid "GDB Plugin"
+#~ msgstr "प्लगइन"
+
+#, fuzzy
+#~| msgid "General Options"
+#~ msgid "GDB Integration"
+#~ msgstr "सामान्य विकल्प"
+
+#, fuzzy
+#~| msgid "Preview"
+#~ msgid "Debug View"
+#~ msgstr "पूर्वावोलोकन"
+
+#, fuzzy
+#~| msgid "Name"
+#~ msgid "Frame"
+#~ msgstr "नाम"
+
+#, fuzzy
+#~| msgid "Starting Up"
+#~ msgid "Start Debugging"
+#~ msgstr "सुरुआत हुँदैछ"
+
+#, fuzzy
+#~| msgid "Start In"
+#~ msgid "Step In"
+#~ msgstr "यसमा सुरुआत गर्नुहोस्"
+
+#, fuzzy
+#~| msgid "Move To"
+#~ msgid "Move PC"
+#~ msgstr "यसमा सार्नुहोस्"
+
+#, fuzzy
+#~| msgid "Configure"
+#~ msgid "Continue"
+#~ msgstr "कन्फिगर गर्नुहोस्"
+
+#, fuzzy
+#~| msgid "Remove"
+#~ msgid "Remove target"
+#~ msgstr "हटाउनुहोस्"
+
+#~ msgid "Document List Settings"
+#~ msgstr "कागजाता सूची सेटिङ"
+
+#, fuzzy
+#~| msgid "&Save Selected"
+#~ msgid "Close Selected"
+#~ msgstr "चयन गरिएको बचत गर्नुहोस्"
+
+#, fuzzy
+#~| msgid "&Save Selected"
+#~ msgid "Save Selected"
+#~ msgstr "चयन गरिएको बचत गर्नुहोस्"
+
+#, fuzzy
+#~| msgid "Close other open documents."
+#~ msgid "Save selected open documents."
+#~ msgstr "अन्य खुला कागजात बन्द गर्नुहोस् ।"
+
+#~ msgid "Sort &By"
+#~ msgstr "यसद्वारा क्रमबद्ध गर्नुहोस्"
+
+#~ msgid "URL"
+#~ msgstr "यू आर एल"
+
+#~ msgid "Custom"
+#~ msgstr "अनुकुल"
+
+#, fuzzy
+#~| msgid "Template Plugin"
+#~ msgid "Tabify Plugin"
+#~ msgstr "टेम्प्लेट प्लगइन"
+
+#, fuzzy
+#~| msgid "Template Plugin"
+#~ msgid "TabifyPlugin"
+#~ msgstr "टेम्प्लेट प्लगइन"
+
+#~ msgid "Filesystem Browser"
+#~ msgstr "फाइल प्रणाली ब्राउजर"
+
+#~ msgid "&Open..."
+#~ msgstr "खोल्नुहोस्..."
+
+#~ msgid "&Save"
+#~ msgstr "बचत गर्नुहोस्"
+
+#~ msgid "Save &As..."
+#~ msgstr "यस रुपमा बचत गर्नुहोस्..."
+
+#~ msgid "Only try to reuse kate instance with this pid"
+#~ msgstr "यो पिडसँग क्येट दृष्टान्त पून: प्रयोग गर्न मात्र प्रयास गर्नुहोस् ।"
+
+#~ msgid "&Abort Closing"
+#~ msgstr "बन्द परित्याग गर्नुहोस्"
+
+#~ msgid "Behavior on Application Exit or Session Switch"
+#~ msgstr "अनुप्रयोग अन्त्य वा सत्र स्विचमा व्यवहार"
+
+#~ msgid "&Do not save session"
+#~ msgstr "सत्र बचत नगर्नुहोस्"
+
+#~ msgid "&Ask user"
+#~ msgstr "प्रयोगकर्ता माग्नुहोस्"
+
+#~ msgid "Use a already running kate instance (if possible)"
+#~ msgstr "पहिले चलिराखेको क्येट दृष्टान्त प्रयोग गर्नुहोस् (यदि सम्भव भएमा)"
+
+#~ msgid "Save current session?"
+#~ msgstr "हालको सत्र बचत गर्नुहुन्छ ?"
+
+#~ msgid "File Selector"
+#~ msgstr "फाइल चयनकर्ता"
+
+#~ msgid "File Selector Settings"
+#~ msgstr "फाइल चयनकर्ता सेटिङ"
+
+#, fuzzy
+#~| msgid "Clear filter"
+#~ msgid "Search folders"
+#~ msgstr "फिल्टर खाली गर्नुहोस्"
+
+#~ msgid "&Remove"
+#~ msgstr "हटाउनुहोस्"
+
+#, fuzzy
+#~| msgid "&Mime types:"
+#~ msgid "File types:"
+#~ msgstr "माइम प्रकार:"
+
+#~ msgid "#"
+#~ msgstr "#"
+
+#, fuzzy
+#~| msgid "&Mail..."
+#~ msgid "Load File..."
+#~ msgstr "पत्र..."
+
+#, fuzzy
+#~| msgid "Find in Files"
+#~ msgid "Indexing files..."
+#~ msgstr "फाइलमा फेला पार्नुहोस्"
+
+#, fuzzy
+#~| msgid "Open File"
+#~ msgid "Opened file: %1"
+#~ msgstr "फाइल खोल्नुहोस्"
+
+#, fuzzy
+#~| msgid "Kill Failed"
+#~ msgid "D-Bus Call Failed"
+#~ msgstr "नष्ट गर्न असफल भयो"
+
+#~ msgid "Start Kate (no arguments)"
+#~ msgstr "क्येट सुरुआत गर्नुहोस् (तर्क छैन)"
+
+#~ msgid "New Kate Session"
+#~ msgstr "नयाँ क्येट सत्र"
+
+#~ msgid "New Anonymous Session"
+#~ msgstr "नयाँ बेनामी सत्र"
+
+#~ msgid "Reload Session List"
+#~ msgstr "सत्र सूची पुन: लोड गर्नुहोस्"
+
+#~ msgid "Please enter a name for the new session"
+#~ msgstr "कृपया नयाँ सत्रका लागि नाम प्रविष्टि गर्नुहोस्"
+
+#~ msgid ""
+#~ "An unnamed session will not be saved automatically. Do you want to create "
+#~ "such a session?"
+#~ msgstr ""
+#~ "नामाकरण नगरिएको सत्र स्वत: बचत हुनेछैन । तपाईँ त्यस्तो सत्र सिर्जना गर्न चाहानुहुन्छ?"
+
+#~ msgid ""
+#~ "You already have a session named %1. Do you want to open that session?"
+#~ msgstr "तपाईँसँग %1 नाम गरिएको सत्र पहिल्यै छ । तपाईँ त्यो सत्र खोल्न चाहानुहुन्छ?"
+
+#~ msgid "Session exists"
+#~ msgstr "सत्र अवस्थित छ"
+
+#~ msgid "Hide %1"
+#~ msgstr "%1 लुकाउनुहोस्"
+
+#~ msgid " NORM "
+#~ msgstr " NORM "
+
+#~ msgid "Make Output"
+#~ msgstr "निर्गत गर्नुहोस्"
+
+#~ msgid "Running make..."
+#~ msgstr "चलिरहेको बनाउनुहोस्..."
+
+#~ msgid "No Errors."
+#~ msgstr "त्रुटि छैन ।"
+
+#~ msgid "Next Error"
+#~ msgstr "पछिल्लो त्रुटि"
+
+#~ msgid "Make"
+#~ msgstr "बनाउनुहोस्"
+
+#~ msgid "Message"
+#~ msgstr "सन्देश"
+
+#~ msgid "Make Results"
+#~ msgstr "परिणाम बनाउनुहोस्"
+
+#~ msgid "No errors."
+#~ msgstr "त्रुटि छैन ।"
+
+#~ msgid ""
+#~ "The file <i>%1</i> is not a local file. Non-local files cannot be "
+#~ "compiled."
+#~ msgstr ""
+#~ "<i>%1</i> फाइल स्थानीय फाइल होइन । स्थानीय बिहिन फाइल कम्पाइल गर्न सकिँदैन ।"
+
+#~ msgid "<b>Error:</b> Failed to run gmake."
+#~ msgstr "<b>त्रुटि:</b> gmake चलाउन असफल भयो ।"
+
+#~ msgid "Directories"
+#~ msgstr "डाइरेक्ट्री"
+
+#~ msgid "Build prefix:"
+#~ msgstr "उपसर्ग निर्माण गर्नुहोस्:"
+
+#~ msgid "HT&ML Tag..."
+#~ msgstr "HTML ट्याग..."
+
+#~ msgid "HTML Tag"
+#~ msgstr "HTML ट्याग"
+
+#~ msgid ""
+#~ "Enter HTML tag contents (the <, >, and closing tag will be supplied):"
+#~ msgstr "HTML ट्याग सामाग्री प्रविष्टि गर्नुहोस् (<, >, र बन्द गर्ने ट्याग आपूर्ती हुनेछ):"
+
+#~ msgid "Filter Te&xt..."
+#~ msgstr "पाठ फिल्टर गर्नुहोस्..."
+
+#~ msgid ""
+#~ "You are not allowed to execute arbitrary external applications. If you "
+#~ "want to be able to do this, contact your system administrator."
+#~ msgstr ""
+#~ "स्वेच्छिक बाह्य अनुप्रयोग कार्यान्वनयन गर्न तपाईँलाई अनुमति छैन । यदि तपाईँ यो सक्षम "
+#~ "पार्न चाहानुहुन्छ भने तपाईँको प्रणाली प्रशासकसँग सम्पर्क गर्नुहोस् ।"
+
+#~ msgid "Access Restrictions"
+#~ msgstr "पहुँच निषेध"
+
+#~ msgid "Enter command to pipe selected text through:"
+#~ msgstr "यस मार्फत चयन गरिएको पाठ पाइप बनाउन आदेश प्रविष्टि गर्नुहोस्:"
+
+#~ msgid ""
+#~ "<qt><p>Usage: <code>textfilter COMMAND</code></p><p>Replace the selection "
+#~ "with the output of the specified shell command.</p></qt>"
+#~ msgstr ""
+#~ "<qt><p>प्रयोग: <code>पाठ फिल्टर आदेश</code></p><p>निर्दिष्ट गरिएको शेल आदेशको "
+#~ "निर्गतसँग चयन प्रतिस्थापन गर्नुहोस् ।</p></qt>"
+
+#~ msgid "You need to have a selection to use textfilter"
+#~ msgstr "पाठ फिल्टर प्रयोग गर्न तपाईँसँग चयन हुन आवश्यक छ"
+
+#~ msgid "Usage: textfilter COMMAND"
+#~ msgstr "प्रयोग: पाठ फिलटर COMMAND"
+
+#~ msgid "You do not have enough karma to access a shell or terminal emulation"
+#~ msgstr "शेल वा टर्मिनल यंत्रानुकरण पहुँच गर्न तपाईँसँग प्रशस्त कर्म छैन"
+
+#~ msgid "Terminal"
+#~ msgstr "टर्मिनल"
+
+#~ msgid "&Pipe to Console"
+#~ msgstr "कन्सोलमा पाइप गर्नुहोस्"
+
+#~ msgid ""
+#~ "Do you really want to pipe the text to the console? This will execute any "
+#~ "contained commands with your user rights."
+#~ msgstr ""
+#~ "तपाईँ साँच्चै पाठलाई कन्सोलमा पाइप गर्न चाहनुहुन्छ? यसले तपाईँको अधिकारमा रहेको कुनै "
+#~ "आदेश कार्यान्वयन गर्नेछ ।"
+
+#~ msgid "Pipe to Console?"
+#~ msgstr "कन्सोलमा पाइप गर्नुहुन्छ ?"
+
+#~ msgid "Pipe to Console"
+#~ msgstr "कन्सोलमा पाइप गर्नुहोस्"
+
+#~ msgid "Call of DocumentManager member on destroyed object"
+#~ msgstr "नष्ट गरिएको वस्तुमा कागजात प्रबन्धक सदस्यको वोलावट"
+
+#~ msgid "Method %1 called with wrong signature"
+#~ msgstr "गलत हस्ताक्षरसँग %1 विधि बोलाइयो"
+
+#~ msgid "One parameter expected"
+#~ msgstr "एक परिमिति अपेक्षा गरियो"
+
+#~ msgid "One or no parameter expected"
+#~ msgstr "एक वा पारिमिति अपेक्षा गरिएन"
+
+#~ msgid "A maximum of three parameters expected"
+#~ msgstr "अपेक्षित तिन परिमितिको अधिकतम"
+
+#~ msgid "Call of KATE  member on destroyed object"
+#~ msgstr "नष्ट गरिएको वस्तुमा क्येट  सदस्यको बोलावट"
+
+#~ msgid "Call of MainWindow  member on destroyed object"
+#~ msgstr "नष्ट गरिएको वस्तुमा मुख्य सञ्झ्याल  सदस्यको बोलावट"
+
+#~ msgid ""
+#~ "<p>Enter the expression you want to search for here.<p>If 'regular "
+#~ "expression' is unchecked, any non-space letters in your expression will "
+#~ "be escaped with a backslash character.<p>Possible meta characters are:"
+#~ "<br><b>.</b> - Matches any character<br><b>^</b> - Matches the beginning "
+#~ "of a line<br><b>$</b> - Matches the end of a line<br><b>\\&lt;</b> - "
+#~ "Matches the beginning of a word<br><b>\\&gt;</b> - Matches the end of a "
+#~ "word<p>The following repetition operators exist:<br><b>?</b> - The "
+#~ "preceding item is matched at most once<br><b>*</b> - The preceding item "
+#~ "is matched zero or more times<br><b>+</b> - The preceding item is matched "
+#~ "one or more times<br><b>{<i>n</i>}</b> - The preceding item is matched "
+#~ "exactly <i>n</i> times<br><b>{<i>n</i>,}</b> - The preceding item is "
+#~ "matched <i>n</i> or more times<br><b>{,<i>n</i>}</b> - The preceding item "
+#~ "is matched at most <i>n</i> times<br><b>{<i>n</i>,<i>m</i>}</b> - The "
+#~ "preceding item is matched at least <i>n</i>, but at most <i>m</i> times."
+#~ "<p>Furthermore, backreferences to bracketed subexpressions are available "
+#~ "via the notation <code>\\#</code>.<p>See the grep(1) documentation for "
+#~ "the full documentation."
+#~ msgstr ""
+#~ "<p>तपाईँले खोज्न चाहेको अभिव्यक्ति यहाँ प्रविष्ट गर्नुहोस् ।<p>यदि नियमित अभिव्यक्ति "
+#~ "जाँच गरिएको छैन भने, तपाईँको अभिव्यक्तिका कुनै पनि खाली ठाउँ नभएका अक्षरहरू ब्याक "
+#~ "स्ल्यास क्यारेक्टरहरूसँग इस्केप गरिनेछ ।<p>सम्भावित मेटा क्यारेक्टरहरू:<br><b> हुन् ।</b> - "
+#~ "सबै क्यारेक्टरसँग मिल्दछ<br><b>^</b> - रेखाको सुरुसँग मिल्दछ <br><b>$</b> - रेखाको "
+#~ "अन्त्यसँग मिल्दछ <br><b>\\&lt;</b> - शब्दको सुरुसँग मिल्दछ <br><b>\\&gt;</b> - "
+#~ "शब्दको अन्त्यसँग मिल्दछ <p>निम्न दोहोरिने सञ्चालनकर्ता अवस्थित छ:<br><b>?</b> - "
+#~ "अघिल्लो वस्तु बढिमा एक पटक मिलेको छ<br><b>*</b> - अघिल्लो वस्तु शून्य वा धेरै पटक "
+#~ "मिलेको छ<br><b>+</b> - अघिल्लो वस्तु एक वा धेरै पटक मिलेको छ<br><b>{<i>n</i>}</"
+#~ "b> - अघिल्लो वस्तु ठ्याक्कै मिलेको छ <i>n</i> पटक<br><b>{<i>n</i>,}</b> - अघिल्लो "
+#~ "वस्तु <i>n</i> वा धेरै पटक मिलेको छ <br><b>{,<i>n</i>}</b> - अघिल्लो वस्तु बढिमा "
+#~ "<i>n</i> पटक मिलेको छ <br><b>{<i>n</i>,<i>m</i>}</b> - अघिल्लो वस्तु कम्तिमा "
+#~ "<i>n</i>, तर बढिमा <i>m</i> पटक मिलेको छ ।<p>यस बाहेक, कोष्टक भित्रका सहायक "
+#~ "अभिव्यक्तिहरूमा पछिल्ला सन्दर्भहरू <code>\\#</code>नोटेसन हुदैँ उपलब्ध हुन्छन् ।<p>पुरै "
+#~ "प्रलेखनका लागि ग्रेप (1) प्रलेखन हेर्नुहोस् ।"
+
+#~ msgid ""
+#~ "Enter the file name pattern of the files to search here.\n"
+#~ "You may give several patterns separated by commas."
+#~ msgstr ""
+#~ "यहाँ खोज्नका लागि फाइलहरूको फाइलनाम बान्की प्रविष्ट गर्नुहोस् ।\n"
+#~ "तपाईँले अल्पविरामद्वारा विभाजित विभिन्न बान्कीहरू दिन सक्नुहुन्छ ।"
+
+#~ msgid ""
+#~ "Enter the folder which contains the files in which you want to search."
+#~ msgstr "तपाईँले खोज्न चाहनु भएको फाइलहरू समावेश गर्ने फोल्डर प्रविष्टि गर्नुहोस् ।"
+
+#~ msgid "Check this box to search in all subfolders."
+#~ msgstr "सबै साहायक फोल्डरहरूमा खोज्नका लागि यो बाकस जाँच गर्नुहोस् ।"
+
+#~ msgid ""
+#~ "If this option is enabled (the default), the search will be case "
+#~ "sensitive."
+#~ msgstr "यदि यो (पूर्वनिर्धारित) विकल्प सक्षम पारिएमा, खोजी केस सम्वेदनशील हुनेछ ।"
+
+#~ msgid ""
+#~ "The results of the grep run are listed here. Select a\n"
+#~ "filename/line number combination and press Enter or doubleclick\n"
+#~ "on the item to show the respective line in the editor."
+#~ msgstr ""
+#~ "ग्रेप रनको परिणाम यहाँ सूचीकृत गरिएको छ ।\n"
+#~ "फाइल नाम/लाइन सङ्ख्या संयोजन चयन गर्नुहोस् र प्रविष्टि थिच्नुहोस् वा\n"
+#~ "सम्पादकमा विशिष्ट रेखा देखाउन वस्तुमा डबल क्लिक गर्नुहोस् ।"
+
+#~| msgid "Use this to close the current document"
+#~ msgid "Click to close the current search results."
+#~ msgstr "हालको खोजी परिणाम बन्द गर्न क्लिक गर्नुहोस् ।"
+
+#~ msgid "You must enter an existing local folder in the 'Folder' entry."
+#~ msgstr "तपाईँले 'फोल्डर' प्रविष्टिमा एक अवस्थित स्थानीय फोल्डर प्रविष्ट गर्नुपर्छ ।"
+
+#~ msgid "Invalid Folder"
+#~ msgstr "अवैध फोल्डर"
+
+#~ msgid "Classes"
+#~ msgstr "वर्गहरू"
+
+#~ msgid "Globals"
+#~ msgstr "विश्वव्यापी"
+
+#~ msgid "Update Python Browser"
+#~ msgstr "पाइथन ब्राउजर अद्यावधिक गर्नुहोस्"
+
+#~ msgid "Python Browser"
+#~ msgstr "पाइथन ब्राउजर"
+
+#~ msgid "Could not find method/class %1."
+#~ msgstr "%1 वर्ग्/विधि फेला पार्न सकेन ।"
+
+#~ msgid "&Appearance"
+#~ msgstr "देखावट"
+
+#~ msgid "&Style"
+#~ msgstr "शैली"
+
+#~ msgid "Rows"
+#~ msgstr "पङ्क्तिहरू"
+
+#~ msgid "Tab Sizes"
+#~ msgstr "ट्याब साइज"
+
+#~ msgid "&Top"
+#~ msgstr "माथि"
+
+#~ msgid "&Bottom"
+#~ msgstr "तल"
+
+#~ msgid "Number of &rows (1-10):"
+#~ msgstr "पङ्क्तिहरूको सङ्ख्या (१-१०):"
+
+#~ msgid "row(s)"
+#~ msgstr "पङ्क्ति(हरू)"
+
+#~ msgid "&follow current tab"
+#~ msgstr "हालको ट्याब पछ्याउनुहोस्"
+
+#~ msgid "document &name"
+#~ msgstr "कागजात नाम"
+
+#~ msgid "document &URL"
+#~ msgstr "कागजात URL"
+
+#~ msgid "file e&xtension"
+#~ msgstr "फाइल विस्तार"
+
+#~ msgid "&Minimum tab width:"
+#~ msgstr "न्यूनतम ट्याब चौडाइ:"
+
+#~ msgid "M&aximum tab width:"
+#~ msgstr "अधिकतम ट्याब चौडाइ:"
+
+#~ msgid "F&ixed tab height:"
+#~ msgstr "स्थिर ट्याब उचाइ:"
+
+#~ msgid "pixels"
+#~ msgstr "पिक्सेल"
+
+#~ msgid "Button Style"
+#~ msgstr "बटन शैली"
+
+#~ msgid "Frame Colors"
+#~ msgstr "फ्रेम रङ"
+
+#~ msgid "&default push button"
+#~ msgstr "पूर्वनिर्धारित धकेल्ने बटन"
+
+#~ msgid "f&lat push button"
+#~ msgstr "फ्ल्याट धकेल्ने बटन"
+
+#~ msgid "&plain frames"
+#~ msgstr "साधा फ्रेम"
+
+#~ msgid "Acti&vated button"
+#~ msgstr "सक्रिय पारिएको बटन"
+
+#~ msgid "P&ressed button"
+#~ msgstr "थिचिएको बटन"
+
+#~ msgid "highlight &modified tabs"
+#~ msgstr "परिमार्जित ट्याब हाइलाइट गर्नुहोस्"
+
+#~ msgid "highlight a&ctive tab"
+#~ msgstr "सक्रिय ट्याब हाइलाइट गर्नुहोस्"
+
+#~ msgid "&Opacity of highlighted button (100%):"
+#~ msgstr "हाइलाइट गरिएको बटनको अस्पष्टता (१००%):"
+
+#~ msgid "Remove all highlight mar&ks"
+#~ msgstr "सबै हाइलाइट चिनो हटाउनुहोस्"
+
+#~ msgid "Remove all highlight marks in the current session."
+#~ msgstr "हालको सत्रमा सबै हाइलाइट चिनो हटाउनुहोस् ।"
+
+#~ msgid "Note: Use the context menu to highlight a tab."
+#~ msgstr "द्रष्टव्य: ट्याब हाइलाइट गर्न प्रसङ्ग मेनु प्रयोग गर्नुहोस् ।"
+
+#~ msgid "minimum size"
+#~ msgstr "न्यूनतम साइज"
+
+#~ msgid "maximum size"
+#~ msgstr "अधिकतम साइज"
+
+#~ msgid "&Opacity of highlighted button (%1%):"
+#~ msgstr "हाइलाइट गरिएको बटनको अस्पष्टता (%1%):"
+
+#~ msgid "Sorting Behavior"
+#~ msgstr "व्यवहार क्रमबद्ध गर्दै"
+
+#~ msgid "Close &Other Tabs"
+#~ msgstr "अन्य ट्याब बन्द गर्नुहोस्"
+
+#~ msgid "Insert Command..."
+#~ msgstr "आदेश घुसाउनुहोस्..."
+
+#~ msgid "A process is currently being executed."
+#~ msgstr "प्रक्रिया हालै कार्यान्वनयन गरिएको छ ।"
+
+#~ msgid "Could not kill command."
+#~ msgstr "आदेश नष्ट गर्न सकेन ।"
+
+#~ msgid ""
+#~ "Executing command:\n"
+#~ "%1\n"
+#~ "\n"
+#~ "Press 'Cancel' to abort."
+#~ msgstr ""
+#~ "आदेश कार्यान्वयन गर्दैछ:\n"
+#~ "%1\n"
+#~ "\n"
+#~ "परित्याग गर्न 'Cancel' थिच्नुहोस् ।"
+
+#~ msgid "Command exited with status %1"
+#~ msgstr "%1 वस्तुस्थितिसँग आदेश निस्कियो"
+
+#~ msgid "Insert Command"
+#~ msgstr "आदेश घुसाउनुहोस्"
+
+#~ msgid "Enter &command:"
+#~ msgstr "आदैश प्रविष्ट गर्नुहोस्:"
+
+#~ msgid "Choose &working folder:"
+#~ msgstr "कार्य फोल्डर रोज्नुहोस्:"
+
+#~ msgid "Insert Std&Err messages"
+#~ msgstr "मानङ्क त्रुटि सन्देश घुसाउनुहोस्"
+
+#~ msgid "&Print command name"
+#~ msgstr "आदेश नाम मुद्रण गर्नुहोस्"
+
+#~ msgid ""
+#~ "Enter the shell command, the output of which you want inserted into your "
+#~ "document. Feel free to use a pipe or two if you wish."
+#~ msgstr ""
+#~ "शेल आदेश जसको निर्गत तपाईँले तपाईँको कागजातमा घुसाउन चाहानुभएको छ प्रविष्ट गर्नुहोस् । "
+#~ "तपाईँले चाहेमा एउटा पाइप वा दुईटा प्रयोग गर्न स्वतन्त्र महशुस गर्नुहोस् ।"
+
+#~ msgid ""
+#~ "Sets the working folder of the command. The command executed is 'cd <dir> "
+#~ "&& <command>'"
+#~ msgstr ""
+#~ "आदेशको कार्य फोल्डर सेट गर्दछ । आदेश कार्यान्वयन गरिएको छ 'cd <dir> && <command>'"
+
+#~ msgid ""
+#~ "Check this if you want the error output from <command> inserted as well.\n"
+#~ "Some commands, such as locate, print everything to STDERR"
+#~ msgstr ""
+#~ "तपाईँ राम्रोसँग घुसाइएको <command> बाट निर्गत त्रुटि चाहानुहुन्छ भने यो जाँच गर्नुहोस् "
+#~ "।\n"
+#~ "केही आदेश, जस्तै locate, print र STDERR मा भएको सबै"
+
+#~ msgid ""
+#~ "If you check this, the command string will be printed followed by a "
+#~ "newline before the output."
+#~ msgstr ""
+#~ "यदि तपाईँले यो जाँच गरेमा आदेश स्ट्रिङ निर्गत अघि नयाँ रेखाद्वारा पछ्याइँदै मुद्रण हुनेछ ।"
+
+#~ msgid "Remember"
+#~ msgstr "सम्झनुहोस्"
+
+#~ msgid "Application &working folder"
+#~ msgstr "अनुप्रयोग कार्य फोल्डर"
+
+#~ msgid "&Document folder"
+#~ msgstr "कागजात फोल्डर"
+
+#~ msgid "&Latest used working folder"
+#~ msgstr "नविनतम प्रयोग गरिएको कार्य फोल्डर"
+
+#~ msgid ""
+#~ "Sets the number of commands to remember. The command history is saved "
+#~ "over sessions."
+#~ msgstr "सम्झनलाई आदेशको सङ्ख्या सेट गर्दछ । आदेश इतिहास सत्रमा बचत गरिएको छ ।"
+
+#~ msgid ""
+#~ "<qt><p>Decides what is suggested as <em>working folder</em> for the "
+#~ "command.</p><p><strong>Application Working Folder (default):</strong> The "
+#~ "folder from which you launched the application hosting the plugin, "
+#~ "usually your home folder.</p><p><strong>Document Folder:</strong> The "
+#~ "folder of the document. Used only for local documents.</"
+#~ "p><p><strong>Latest Working Folder:</strong> The folder used last time "
+#~ "you used this plugin.</p></qt>"
+#~ msgstr ""
+#~ "<qt><p>आदेशका लागि<em> कार्य फोल्डरको रुपमा</em> के सल्लाह दिइएको हो निर्णय गर्दछ "
+#~ "।</p><p><strong>अनुप्रयोग कार्य फोल्डर (पूर्वनिर्धारित):</strong> फोल्डर जसबाट "
+#~ "तपाईँले प्लगइन होस्ट गरिरहेको अनुप्रयोग सुरुआत गर्नुभएको छ प्रायजसो तपाईँको गृह फोल्डर "
+#~ "हो ।</p><p><strong>कागजात फोल्डर:</strong> कागजातको फोल्डर । स्थानीय "
+#~ "कागजातका लागि मात्र प्रयोग गरियो ।</p><p><strong>नविनतम कार्य फोल्डर:</"
+#~ "strong> तपाईँले यो प्लगइन प्रयोग गर्दा अन्तिम पटक फोल्डर प्रयोग गरियो ।</p></qt>"
+
+#~ msgid "Macros"
+#~ msgstr "म्याक्रो"
+
+#~ msgid "Structures"
+#~ msgstr "बनावट"
+
+#~ msgid "Show Params"
+#~ msgstr "पारम देखाउनुहोस्"
+
+#~ msgid "Show Variables"
+#~ msgstr "चल देखाउनुहोस्"
+
+#~ msgid "Show Templates"
+#~ msgstr "टेम्प्लेट देखाउनुहोस्"
+
+#~ msgid "Params"
+#~ msgstr "पाराम"
+
+#~ msgid "Variables"
+#~ msgstr "चल"
+
+#~ msgid "Templates"
+#~ msgstr "टेम्प्लेट"
+
+#~ msgid "Show Modules"
+#~ msgstr "मोड्युल देखाउनुहोस्"
+
+#~ msgid "Subroutines"
+#~ msgstr "सहायक कार्यसूची"
+
+#~ msgid "Show Globals"
+#~ msgstr "विश्र्व देखाउनुहोस्"
+
+#~ msgid "Show Methods"
+#~ msgstr "विधि देखाउनुहोस्"
+
+#~ msgid "Show Classes"
+#~ msgstr "वर्गहरू देखाउनुहोस्"
+
+#~ msgid "Hide Symbols"
+#~ msgstr "प्रतिक लुकाउनुहोस्"
+
+#~ msgid "Show Symbols"
+#~ msgstr "प्रतिक देखाउनुहोस्"
+
+#~ msgid "Refresh List"
+#~ msgstr "सूची ताजा पार्नुहोस्"
+
+#~ msgid "Show Macros"
+#~ msgstr "म्याक्रो देखाउनुहोस्"
+
+#~ msgid "Show Structures"
+#~ msgstr "बनावट देखाउनुहोस्"
+
+#~ msgid "Enable sorting"
+#~ msgstr "क्रमबद्धता सक्षम पार्नुहोस्"
+
+#~ msgid "Symbol List"
+#~ msgstr "प्रतिक सूची"
+
+#~ msgid "Sorry. Language not supported yet"
+#~ msgstr "माफ गर्नुहोस् । भाषा अझै समर्थित छैन"
+
+#~ msgid "Display functions parameters"
+#~ msgstr "प्रकार्य परिमिति प्रदर्शन गर्नुहोस्"
+
+#~ msgid "Show Uses"
+#~ msgstr "प्रयोग देखाउनुहोस्"
+
+#~ msgid "Show Pragmas"
+#~ msgstr "प्रागमा देखाउनुहोस्"
+
+#~ msgid "Uses"
+#~ msgstr "प्रयोग"
+
+#~ msgid "Pragmas"
+#~ msgstr "प्रागमा"
+
+#~ msgid "Insert Hello World"
+#~ msgstr "हेल्लो शब्द घुसाउनुहोस्"
+
+#~ msgid "&Manage Templates..."
+#~ msgstr "टेम्प्लेट व्यवस्थापन गर्नुहोस्..."
+
+#~ msgid "New From &Template"
+#~ msgstr "टेम्प्लेटबाट नयाँ"
+
+#~ msgid ""
+#~ "<qt>Error opening the file<br><strong>%1</strong><br>for reading. The "
+#~ "document will not be created.</qt>"
+#~ msgstr ""
+#~ "<qt>पढ्नका लागि<br><strong>%1</strong><br>फाइल खोल्दा त्रुटि । कागजात सिर्जना "
+#~ "गरिनेछैन ।</qt>"
+
+#~ msgid "&Template:"
+#~ msgstr "टेम्प्लेट:"
+
+#~ msgid ""
+#~ "<p>This string is used as the template's name and is displayed, for "
+#~ "example, in the Template menu. It should describe the meaning of the "
+#~ "template, for example 'HTML Document'.</p>"
+#~ msgstr ""
+#~ "<p>उद्दाहरणका लागि टेम्प्लेट मेनुमा यो स्ट्रिङ टेम्प्लेटको नामको रुपमा प्रयोग गरिएको छ र "
+#~ "प्रदर्शन गरिएको छ । यसले टेम्प्लेटको अर्थ वर्णन गर्नुपर्छ उद्दाहरणका लागि 'HTML "
+#~ "कागजात' ।</p>"
+
+#~ msgid "Press to select or change the icon for this template"
+#~ msgstr "यो टेम्प्लेटका लागि प्रतिमा चयन गर्न वा परिवर्तन गर्न थिच्नुहोस्"
+
+#~ msgid ""
+#~ "<p>The group is used for chosing a submenu for the plugin. If it is "
+#~ "empty, 'Other' is used.</p><p>You can type any string to add a new group "
+#~ "to your menu.</p>"
+#~ msgstr ""
+#~ "<p>प्लगइनका लागि सहायक मेनु रज्नलाई समूह प्रयोग गरिएको छ । यदि यो खाली भएमा अन्य "
+#~ "प्रयोग गरिन्छ ।</p><p>तपाईँले तपाईँको मेनुमा नयाँ समूह थप्न कुनै स्ट्रिङ टाइप गर्न "
+#~ "सक्नुहुन्छ ।</p>"
+
+#~ msgid "Document &name:"
+#~ msgstr "कागजात नाम:"
+
+#~ msgid ""
+#~ "<p>This string will be used to set a name for the new document, to "
+#~ "display in the title bar and file list.</p><p>If the string contains "
+#~ "'%N', that will be replaced with a number increasing with each similarly "
+#~ "named file.</p><p> For example, if the Document Name is 'New shellscript "
+#~ "(%N).sh', the first document will be named 'New shellscript (1).sh', the "
+#~ "second 'New shellscipt (2).sh', and so on.</p>"
+#~ msgstr ""
+#~ "<p>यो स्ट्रिङ नयाँ कागजातका लागि नाम सेट गर्न, शिर्षक पट्टी र फाइल सूचीमा प्रदर्शन "
+#~ "गर्न प्रयोग गरिनेछ ।</p><p>यदि स्ट्रिङले '%N' समावेश गर्दछ भने उस्तै नाम भएको फाइलसँगै "
+#~ "वढ्दो नम्बरले त्यो प्रतिस्थापित हुनेछ ।</p><p> उद्दाहरणका लागि, यदि कागजात नाम "
+#~ "'New shellscript (%N).sh' छ भने पहिलो कागजातलाई 'New shellscript (1).sh', "
+#~ "दोश्रो 'New shellscipt (2).sh', त्यसै अनुरुप नामाकरण गरिनेछ ।</p>"
+
+#~ msgid "None"
+#~ msgstr "कुनै होइन"
+
+#~ msgid ""
+#~ "<p>Select the highlight to use for the template. If 'None' is chosen, the "
+#~ "property will not be set.</p>"
+#~ msgstr ""
+#~ "<p>टेम्प्लेटका लागि प्रयोग गर्न हाइलाइट चयन गर्नुहोस् । यदि 'None' छनौट गरिएमा गुण "
+#~ "सेट भएको हुने छैन ।</p>"
+
+#~ msgid ""
+#~ "<p>This string is used, for example, as context help for this template "
+#~ "(such as the 'whatsthis' help for the menu item.)</p>"
+#~ msgstr ""
+#~ "<p>उद्दाहरणका लागि यो टेम्प्लेट का लागि प्रसङ्ग मद्दतको रुपमा यो स्ट्रिङ प्रयोग "
+#~ "गरिएको छ (जस्तै मेनु वस्तुका लागि 'whatsthis' मद्दत ।)</p>"
+
+#~ msgid "&Author:"
+#~ msgstr "लेखक:"
+
+#~ msgid ""
+#~ "<p>You can set this if you want to share your template with other users.</"
+#~ "p><p>the recommended form is like an Email address: 'Anders Lund &lt;"
+#~ "anders@alweb.dk&gt;'</p>"
+#~ msgstr ""
+#~ "<p>यदि तपाईँको टेम्प्लेट अन्य प्रयोगकर्तासँग बाँडफाँट गर्न चाहानुहुन्छ भने तपाईँ यो सेट गर्न "
+#~ "सक्नुहुन्छ ।</p><p>सिफारिश फारम इमेल ठेगाना जस्तै छ : 'Anders Lund &lt;"
+#~ "anders@alweb.dk&gt;'</p>"
+
+#~ msgid ""
+#~ "<p>If you want to base this template on an existing file or template, "
+#~ "select the appropriate option below.</p>"
+#~ msgstr ""
+#~ "<p>यदि तपाईँ अवस्थित फाइल वा टेम्प्लेटमा यो टेम्प्लेट आधार गर्न चाहानुहुन्छ भने तल "
+#~ "उपर्युक्त विकल्प चयन गर्नुहोस् ।</p>"
+
+#~ msgid "Use an existing file:"
+#~ msgstr "अवस्थित फाइल प्रयोग गर्नुहोस्:"
+
+#~ msgid "Use an existing template:"
+#~ msgstr "एउटा अवस्थित टेम्प्लेट प्रयोग गर्नुहोस्:"
+
+#~ msgid "Choose Template Origin"
+#~ msgstr "टेम्प्लेट मौलिक रोज्नुहोस्"
+
+#~ msgid "Edit Template Properties"
+#~ msgstr "टेम्प्लेट गुण सम्पादन गर्नुहोस्"
+
+#~ msgid ""
+#~ "<p>Choose a location for the template. If you store it in the template "
+#~ "directory, it will automatically be added to the template menu.</p>"
+#~ msgstr ""
+#~ "<p>टेम्प्लेटका लागि स्थान रोज्नुहोस् । यदि तपाईँले टेम्प्लेटमा प्रत्यक्ष भण्डार गर्नुभएमा यो "
+#~ "टेम्प्लेट मेनुमा स्वत: थपिनेछ ।</p>"
+
+#~ msgid "Template directory"
+#~ msgstr "टेम्प्लेट डाइरेक्ट्री"
+
+#~ msgid ""
+#~ "<p>You can replace certain strings in the text with template macros.<p>If "
+#~ "any of the data below is incorrect or missing, edit the data in the KDE "
+#~ "email information."
+#~ msgstr ""
+#~ "<p>तपाईँले पाठमा टेम्प्लेट म्याक्रोसँग निश्चित स्ट्रिङ प्रतिस्थापन गर्न सक्नुहुन्छ ।<p>यदि "
+#~ "तलका कुनै पानि डेटा गलत छ वा हराइरहेको छ भने केडीई इमेल जानकारीमा डेटा सम्पादन "
+#~ "गर्नुहोस् ।"
+
+#~ msgid "Replace full name '%1' with the '%{fullname}' macro"
+#~ msgstr "%{fullname}' म्याक्रोसँग '%1' पूरा नाम प्रतिस्थापन गर्नुहोस्"
+
+#~ msgid "Replace email address '%1' with the '%email' macro"
+#~ msgstr "'%email' म्याक्रोसँग '%1' इमेल ठगाना प्रतिस्थापन गर्नुहोस्"
+
+#~ msgid "Autoreplace Macros"
+#~ msgstr "म्याक्रो स्वत: प्रतिस्थापन गर्नुहोस्"
+
+#~ msgid ""
+#~ "<p>The template will now be created and saved to the chosen location. To "
+#~ "position the cursor put a caret ('^') character where you want it in "
+#~ "files created from the template.</p>"
+#~ msgstr ""
+#~ "<p>छनौट गरिएको स्थानमा टेम्प्लेट अब सिर्जना गरिनेछ र बचत गरिनेछ । कर्सर स्थिति "
+#~ "निश्चय गर्न टेम्प्लेटबाट सिर्जना गरिएको फाइल भित्र तपाईँले चाहानुभएको ठाँउमा एउटा "
+#~ "क्यारेट ('^') क्यारेक्टर राख्नुहोस् ।</p>"
+
+#~ msgid "Open the template for editing"
+#~ msgstr "सम्पादनका लागि टेम्प्लेट खोल्नुहोस्"
+
+#~ msgid "Create Template"
+#~ msgstr "टेम्प्लेट सिर्जना गर्नुहोस्"
+
+#~ msgid ""
+#~ "<p>The file <br><strong>'%1'</strong><br> already exists; if you do not "
+#~ "want to overwrite it, change the template file name to something else."
+#~ msgstr ""
+#~ "<p>फाइल <br><strong>'%1'</strong><br> पहिल्यै अवस्थित छ; यदि तपाईँ यसलाई "
+#~ "अधिलेखन गर्न चाहानुहुन्न भने कतैतिर टेम्प्लेट फाइल नाम परिवर्तन गर्नुहोस् ।"
+
+#~ msgid ""
+#~ "<qt>Error opening the file<br><strong>%1</strong><br>for reading. The "
+#~ "document will not be created</qt>"
+#~ msgstr ""
+#~ "<qt>पढ्नका लागि <br><strong>%1</strong><br>फाइल खोल्दा त्रुटि । कागजात सिर्जना "
+#~ "गरिने छैन</qt>"
+
+#~ msgid ""
+#~ "Unable to save the template to '%1'.\n"
+#~ "\n"
+#~ "The template will be opened, so you can save it from the editor."
+#~ msgstr ""
+#~ "'%1' मा टेम्प्लेट बचत गर्न असक्षम ।\n"
+#~ "\n"
+#~ "टेम्प्लेट खोलिनेछ, त्यसैले तपाईँले यसलाई सम्पादकबाट बचत गर्न सक्नुहुन्छ ।"
+
+#~ msgid "Save Failed"
+#~ msgstr "बचत असफल भयो"
+
+#~ msgid "Template"
+#~ msgstr "टेम्प्लेट"
+
+#~ msgid "Edit..."
+#~ msgstr "सम्पादन गर्नुहोस्..."
+
+#~ msgid "Upload..."
+#~ msgstr "अपलोड गर्नुहोस्..."
+
+#~ msgid "Download..."
+#~ msgstr "डाउनलोड गर्नुहोस्..."
+
+#~ msgid "Bookmarks"
+#~ msgstr "पुस्तकचिनो"
+
+#~ msgid ""
+#~ "<p>Here you can enter a path for a folder to display.<p>To go to a folder "
+#~ "previously entered, press the arrow on the right and choose one. <p>The "
+#~ "entry has folder completion. Right-click to choose how completion should "
+#~ "behave."
+#~ msgstr ""
+#~ "<p>यहाँ तपाईँले फोल्डर प्रदर्शन गर्नका लागि बाटो प्रविष्ट गर्न सक्नुहुन्छ ।<p>अगाडि "
+#~ "प्रविष्ट गरेको फोल्डरमा जानका लागि, दायाँ बाण थिच्नुहोस् र एउटा रोज्नुहोस् । "
+#~ "<p>प्रविष्टिसँग फोल्डर समाप्ति भएको छ । कसरी समाप्तिले व्यवहार गर्नुपर्छ रोज्न दायाँ "
+#~ "क्लिक गर्नुहोस् ।"
+
+#~ msgid ""
+#~ "<p>Here you can enter a name filter to limit which files are displayed."
+#~ "<p>To clear the filter, toggle off the filter button to the left.<p>To "
+#~ "reapply the last filter used, toggle on the filter button."
+#~ msgstr ""
+#~ "<p>तपाईँले यहाँ कुन फाइलहरू प्रदर्शीत गर्ने सिमित गर्न नाम फिल्टर प्रविष्ट गर्न सक्नुहुन्छ ।"
+#~ "<p>फिल्टर खाली गर्नका लागि, बायाँतिर फिल्टर बटन टगल अफ गर्नुहोस् ।<p>प्रयोग "
+#~ "गरिएको अन्तिम फिल्टर पुन: लागू गर्न फिल्टर बटन टगल अन गर्नुहोस् ।"
+
+#~ msgid ""
+#~ "<p>This button clears the name filter when toggled off, or reapplies the "
+#~ "last filter used when toggled on."
+#~ msgstr ""
+#~ "<p>टगल अफ गर्दा यो बटनले नाम फिल्टर खाली गर्छ वा टगल अन गर्दा प्रयोग गरिएको "
+#~ "अन्तिम फिल्टर पुन: लागू गर्छ ।"
+
+#~ msgid "Apply last filter (\"%1\")"
+#~ msgstr "अन्तिम फिल्टर (\"%1\") लागू गर्नुहोस्"
+
+#~ msgid "Toolbar"
+#~ msgstr "उपकरणपट्टी"
+
+#~ msgid "A&vailable actions:"
+#~ msgstr "उपलब्ध कार्य:"
+
+#~ msgid "Auto Synchronization"
+#~ msgstr "स्वत: समक्रमण"
+
+#~ msgid "When a docu&ment becomes active"
+#~ msgstr "जब कागजात सक्रिय हुन्छ"
+
+#~ msgid "When the file selector becomes visible"
+#~ msgstr "जब फाइल चयनकर्ता दृश्यात्मक हुन्छ"
+
+#~ msgid "Remember &locations:"
+#~ msgstr "स्थान सम्झनुहोस्:"
+
+#~ msgid "Remember &filters:"
+#~ msgstr "फिल्टर सम्झनुहोस्:"
+
+#~ msgid "Restore last f&ilter"
+#~ msgstr "अन्तिम फिल्टर पूर्वावस्थामा लैजानुहोस्"
+
+#~ msgid ""
+#~ "<p>Decides how many locations to keep in the history of the location "
+#~ "combo box."
+#~ msgstr "<p>स्थान कम्बो बाकसको इतिहासमा कति स्थानहरू राख्ने निर्णय गर्छ ।"
+
+#~ msgid ""
+#~ "<p>Decides how many filters to keep in the history of the filter combo "
+#~ "box."
+#~ msgstr "<p>फिल्टर कम्बो बाकसको इतिहासमा कति फिल्टरहरू राख्ने निर्णय गर्छ ।"
+
+#~ msgid ""
+#~ "<p>These options allow you to have the File Selector automatically change "
+#~ "location to the folder of the active document on certain events.<p>Auto "
+#~ "synchronization is <em>lazy</em>, meaning it will not take effect until "
+#~ "the file selector is visible.<p>None of these are enabled by default, but "
+#~ "you can always sync the location by pressing the sync button in the "
+#~ "toolbar."
+#~ msgstr ""
+#~ "<p>यि विकल्पले तपाईँलाई निश्चित घटनाहरूमा सक्रिय कागजातको फोल्डरमा स्वचालित "
+#~ "तरिकाले स्थान परिवर्तन हुने फाइल चयनकर्ता राख्न अनुमति दिन्छ । <p>स्वत: समक्रमण "
+#~ "<em>सुस्त</em>छ, मतलब फाइल चयनकर्ता नदेखिएसम्म यसमा प्रभाव पर्ने छैन ।<p>यिनिहरू कुनै "
+#~ "पनि पूर्वनिर्धारितद्वारा सक्षम परिएको छैन, तर तपाईँले उपकरणपट्टीको समक्रमण बटन "
+#~ "थिचाइद्वारा स्थान समक्रमण गर्न सक्नुहुन्छ ।"
+
+#~ msgid ""
+#~ "<p>If this option is enabled (default), the location will be restored "
+#~ "when you start Kate.<p><strong>Note</strong> that if the session is "
+#~ "handled by the KDE session manager, the location is always restored."
+#~ msgstr ""
+#~ "<p>यो (पूर्वनिर्धारित) विकल्प सक्षम पारिएमा, तपाईँले क्येट सुरु गर्दा स्थानहरू "
+#~ "पूर्वावस्थामा ल्याइने छन् ।<p><strong>याद गर्नुहोस्</strong> यदि सत्र केडीई सत्र "
+#~ "प्रबन्धकद्वारा ह्यान्डल गरेको छ भने, स्थान सधैँ पूर्वावस्थामा ल्याइएको हुन्छ ।"
+
+#~ msgid ""
+#~ "<p>If this option is enabled (default), the current filter will be "
+#~ "restored when you start Kate.<p><strong>Note</strong> that if the session "
+#~ "is handled by the KDE session manager, the filter is always restored."
+#~ "<p><strong>Note</strong> that some of the autosync settings may override "
+#~ "the restored location if on."
+#~ msgstr ""
+#~ "<p>यदि यो (पूर्वनिर्धारित) विकल्प सक्षम पारिएमा, तपाईँले क्येट सुरु गर्दा हालको फिल्टर "
+#~ "पूर्वावस्थामा ल्याइएका हुनेछन् ।<p><strong>याद गर्नुहोस्</strong> यदि सत्र केडीई सत्र "
+#~ "प्रबन्धकद्वारा ह्यान्डल गरिएको छ भने, फाइल सधैँ पूर्वावस्थामा ल्याइएको हुन्छ ।"
+#~ "<p><strong>याद गर्नुहोस्</strong> यदि सुरु भएमा स्वत: समक्रमण सेटिङले पूर्वावस्थामा "
+#~ "ल्याएको स्थानलाई अधिरोहण गर्न सक्छ ।"
+
+#~ msgid "XML Checker Output"
+#~ msgstr "XML जाँचकर्ता निर्गत"
+
+#~ msgid "Validate XML"
+#~ msgstr "XML प्रमाणित गर्नुहोस्"
+
+#~ msgid "<b>Error:</b> Could not create temporary file '%1'."
+#~ msgstr "<b>त्रुटि:</b> अस्थायी फाइल '%1' सिर्जना गर्न सकेन ।"
+
+#~ msgid ""
+#~ "<b>Error:</b> Failed to execute xmllint. Please make sure that xmllint is "
+#~ "installed. It is part of libxml2."
+#~ msgstr ""
+#~ "<b>त्रुटि:</b> xmllint कार्यान्वनयन गर्न असफल भयो ।कृपया xmllint स्थापना गरिएको "
+#~ "छ भनी निश्चित गर्नुहोस् । यो libxml2 को भाग हो ।"
+
+#~ msgid ""
+#~ "The file '%1' could not be parsed. Please check that the file is well-"
+#~ "formed XML."
+#~ msgstr ""
+#~ "'%1' फाइल पद वर्णन गर्न सकेन । कृपया फाइल राम्रोसँग बनाइएको XML भएको जाँच गर्नुहोस् "
+#~ "।"
+
+#~ msgid "XML Plugin Error"
+#~ msgstr "XML प्लगइन त्रुटि"
+
+#~ msgid ""
+#~ "The file '%1' is not in the expected format. Please check that the file "
+#~ "is of this type:\n"
+#~ "-//Norman Walsh//DTD DTDParse V2.0//EN\n"
+#~ "You can produce such files with dtdparse. See the Kate Plugin "
+#~ "documentation for more information."
+#~ msgstr ""
+#~ "%1 फाइल आशा गरिएको ढाँचामा छैन । कृपया यो प्रकारको फाइल भएको जाँच गर्नुहोस्:\n"
+#~ "-//Norman Walsh//DTD DTDParse V2.0//EN\n"
+#~ "तपाईँले dtdparse सँग त्यस्तो फाइल बनाउन सक्नुहुन्छ । अरु जानकारीका लागि क्येट प्लगइन "
+#~ "मिसिलिकरण हेर्नुहोस् ।"
+
+#~ msgid "Analyzing meta DTD..."
+#~ msgstr "मेटा DTD विश्लेषण गर्दै..."
+
+#~ msgid "Cancel"
+#~ msgstr "रद्द गर्नुहोस्"
+
+#~ msgid "&Insert Element..."
+#~ msgstr "तत्व घुसाउनुहोस्..."
+
+#~ msgid "&Close Element"
+#~ msgstr "तत्व बन्द गर्नुहोस्"
+
+#~ msgid "Assign Meta &DTD..."
+#~ msgstr "मेटा DTD मानाङ्कन गर्नुहोस्..."
+
+#~ msgid "Assign Meta DTD in XML Format"
+#~ msgstr "XML ढाँचामा मेटा DTD मानाङ्कन गर्नुहोस्"
+
+#~ msgid ""
+#~ "The current file has been identified as a document of type \"%1\". The "
+#~ "meta DTD for this document type will now be loaded."
+#~ msgstr ""
+#~ "हालको फाइल \"%1\" प्रकारको कागजातको रुपमा पहिचान गरिएको छ । यो कागजात "
+#~ "प्रकारका लागि मेटा DTD लोड हुने छैन ।"
+
+#~ msgid "Loading XML Meta DTD"
+#~ msgstr "XML मेटा DTD लोड हुँदैछ"
+
+#~ msgid "The file '%1' could not be opened. The server returned an error."
+#~ msgstr "फाइल '%1' खोल्न सकिएन: यो सर्भरले एउटा त्रुटि फर्कायो ।"
+
+#~ msgid "Insert XML Element"
+#~ msgstr "XML तत्व घुसाउनुहोस्"
+
+#~ msgid ""
+#~ "Enter XML tag name and attributes (\"<\", \">\" and closing tag will be "
+#~ "supplied):"
+#~ msgstr ""
+#~ "XML ट्याग नाम र विशेषता प्रविष्ट गर्नुहोस् (\"<\", \">\" र बन्द ट्याग आपूर्ती हुनेछ):"
+
+#~ msgid "Quickswitch"
+#~ msgstr "क्विकस्विच"
+
+#~ msgid "Document Quick Switch"
+#~ msgstr "कागजात शिघ्र स्विच"
+
+#~ msgid "%1: %2"
+#~ msgstr "%1: %2"
+
+#~ msgid "Open .h/.cpp/.c"
+#~ msgstr ".h/.cpp/.c खोल्नुहोस्"
+
+#~ msgid "Failed to expand the command '%1'."
+#~ msgstr "'%1' आदेश विस्तार गर्न असफल भयो ।"
+
+#~ msgid "Kate External Tools"
+#~ msgstr "क्येट बाह्य उपकरण"
+
+#~ msgid "Edit External Tool"
+#~ msgstr "बाह्य उपकरण सम्पादन गर्नुहोस्"
+
+#~ msgid "&Label:"
+#~ msgstr "लेबुल:"
+
+#~ msgid "The name will be displayed in the 'Tools->External' menu"
+#~ msgstr "'उपकरण->बाह्य' मेनुमा नाम प्रदर्शीत भएको हुनेछ ।"
+
+#~ msgid "S&cript:"
+#~ msgstr "स्क्रिप्ट:"
+
+#~ msgid ""
+#~ "<p>The script to execute to invoke the tool. The script is passed to /bin/"
+#~ "sh for execution. The following macros will be expanded:</p><ul><li><code>"
+#~ "%URL</code> - the URL of the current document.<li><code>%URLs</code> - a "
+#~ "list of the URLs of all open documents.<li><code>%directory</code> - the "
+#~ "URL of the directory containing the current document.<li><code>%filename</"
+#~ "code> - the filename of the current document.<li><code>%line</code> - the "
+#~ "current line of the text cursor in the current view.<li><code>%column</"
+#~ "code> - the column of the text cursor in the current view.<li><code>"
+#~ "%selection</code> - the selected text in the current view.<li><code>"
+#~ "%text</code> - the text of the current document.</ul>"
+#~ msgstr ""
+#~ "<p><p>उपकरण आव्हान गर्न कार्यान्वयन गर्नुपार्ने स्क्रिप्ट । कार्यान्वयनका लागि स्क्रिप्ट /"
+#~ "bin/sh पठाइएको छ । निम्न म्याक्रोहरू विस्तार गरिने छ:</p><ul><li><code>%URL</"
+#~ "code> - हालको कागजातको यू आर एल । <li><code>%URLs</code> -  सबै खुला "
+#~ "कागजातका यू आर एल हरूको सूची ।<li><code>%directory</code> - हालको कागजात "
+#~ "रहेको डाइरेक्टरीको यू आर एल ।<li><code>%filename</code> - हालको कागजातकको "
+#~ "फाइल नाम ।<li><code>%line</code> - हालको दृश्यमा पाठ कर्सरको हालको लाइन ।"
+#~ "<li><code>%column</code> - हालको दृश्यमा पाठ कर्सरको स्तम्भ ।<li><code>"
+#~ "%selection</code> - हालको दृश्यमा चयन गरिएको पाठ ।<li><code>%text</"
+#~ "code>हालको कागजातको पाठ ।</ul>"
+
+#~ msgid "&Executable:"
+#~ msgstr "कार्यान्वयन योग्य:"
+
+#~ msgid ""
+#~ "The executable used by the command. This is used to check if a tool "
+#~ "should be displayed; if not set, the first word of <em>command</em> will "
+#~ "be used."
+#~ msgstr ""
+#~ "आदेशद्वारा प्रयोग गरिएको कार्यान्वयन योग्य । यदि उपकरण प्रदर्शीत गरिनुपर्ने भएमा यो "
+#~ "जाँच गर्न प्रयोग गरिन्छ; यदि सेट नभएमा, <em>आदेश</em> को पहिलो शब्द प्रयोग गरिनेछ ।"
+
+#~ msgid ""
+#~ "A semicolon-separated list of mime types for which this tool should be "
+#~ "available; if this is left empty, the tool is always available. To choose "
+#~ "from known mimetypes, press the button on the right."
+#~ msgstr ""
+#~ "माइम प्रकारको अर्धविरामद्वरा विभाजित सूचीका लागि उपलब्ध हुनुपर्ने उपकरण; यदि यो "
+#~ "खाली छोडिएमा, उपकरण सधैँ उपलब्ध हुन्छ । ज्ञात माइमप्रकारबाट रोज्नका लागि, "
+#~ "दायाँतिरको बटन थिच्नुहोस् ।"
+
+#~ msgid "Click for a dialog that can help you creating a list of mimetypes."
+#~ msgstr ""
+#~ "संवादमा क्लिक गर्नुहोस् त्यसले तपाईँलाई माइम प्रकारहरूको सूची सिर्जना गर्न मद्दत गर्न "
+#~ "सक्छ ।"
+
+#~ msgid "&Save:"
+#~ msgstr "बचत गर्नुहोस्:"
+
+#~ msgid "All Documents"
+#~ msgstr "सबै कागजात"
+
+#~ msgid ""
+#~ "You can elect to save the current or all [modified] documents prior to "
+#~ "running the command. This is helpful if you want to pass URLs to an "
+#~ "application like, for example, an FTP client."
+#~ msgstr ""
+#~ "तपाईँले हालको वा सबै [परिमार्जन गरिएका] कागजातहरू बचत गर्न आदेश चलाउन पहिला रोज्न "
+#~ "सक्नुहुन्छ । तपाईँ यू आर एलहरू अनुप्रयोगमा पठाउन चाहेमा यो उपयोगि हुन्छ, उदाहरणका "
+#~ "लागि, एउटा FTP क्लाइन्ट ।"
+
+#~ msgid "&Command line name:"
+#~ msgstr "आदेश रेखा नाम:"
+
+#~ msgid ""
+#~ "If you specify a name here, you can invoke the command from the view "
+#~ "command lines with exttool-the_name_you_specified_here. Please do not use "
+#~ "spaces or tabs in the name."
+#~ msgstr ""
+#~ "तपाईँले यहाँ एउटा नाम निर्दिष्ट गरेमा, तपाईँले यहाँ निर्दिष्ट गर्नुभएको नाम exttool-सँग "
+#~ "दृश्य आदेश रेखाबाट आव्हान गर्न सक्नुहुन्छ । कृपया नाममा खाली ठाउँ र ट्याब प्रयोग "
+#~ "नगर्नुहोस् ।"
+
+#~ msgid "You must specify at least a name and a command"
+#~ msgstr "तपाईँले कम्तिमा एउटा नाम र आदेश निर्दिष्ट गर्नुपर्छ"
+
+#~ msgid "Select the MimeTypes for which to enable this tool."
+#~ msgstr "माइम प्रकार चयन गर्नुहोस् जसको लागि यो उपकरण सक्षम पार्नुपर्छ ।"
+
+#~ msgid "Select Mime Types"
+#~ msgstr "माइम प्रकार चयन गर्नुहोस्"
+
+#~ msgid "&New..."
+#~ msgstr "नयाँ..."
+
+#~ msgid "&Edit..."
+#~ msgstr "सम्पादन गर्नुहोस्..."
+
+#~ msgid "Insert &Separator"
+#~ msgstr "विभाजक घुसाउनुहोस्"
+
+#~ msgid ""
+#~ "This list shows all the configured tools, represented by their menu text."
+#~ msgstr ""
+#~ "यो सूचीले मेनु पाठद्वारा प्रतिनिधित्व गर्ने, सबै कन्फिगर गरिएका उपकरणहरू दखाउँछ ।"
+
+#~ msgid "Send one or more of the open documents as email attachments."
+#~ msgstr "एक वा धेरै खुला कागजात इमेल संलग्र फाइलको रुपमा पठाउँनुहोस् ।"
+
+#~ msgid ""
+#~ "<p>The current document has not been saved, and cannot be attached to an "
+#~ "email message.<p>Do you want to save it and proceed?"
+#~ msgstr ""
+#~ "<p>हालको कागजात बचत गरिएको छैन, र इमेल सन्देशमा सङ्लग्न गर्न सकिँदैन ।<p> तपाईँ "
+#~ "यसलाई बचत गर्न र अघि बढाउन चाहनुहुन्छ?"
+
+#~ msgid "Cannot Send Unsaved File"
+#~ msgstr "बचत नगरिएका फाइल पठाउँन सकिँदैन"
+
+#~ msgid ""
+#~ "The file could not be saved. Please check if you have write permission."
+#~ msgstr "फाइल बचत गर्न सकिने छैन । कृपया तपाईँलाई लेख्ने अनुमति भएमा जाँच गर्नुहोस् ।"
+
+#~ msgid ""
+#~ "<p>The current file:<br><strong>%1</strong><br>has been modified. "
+#~ "Modifications will not be available in the attachment.<p>Do you want to "
+#~ "save it before sending it?"
+#~ msgstr ""
+#~ "<p>हालको फाइल:<br><strong>%1</strong><br>परिमार्जन गरिएको छ । संलग्र फाइलमा "
+#~ "परिमार्जन उपलब्ध हुने छैन ।<p> तपाईँ यसलाई पठाउन भन्दा पहिले बचत गर्न चाहनुहुन्छ ?"
+
+#~ msgid "Save Before Sending?"
+#~ msgstr "पठाउन भन्दा पहिले बचत गर्नुहुन्छ ?"
+
+#~ msgid "Email Files"
+#~ msgstr "इमेल फाइल"
+
+#~ msgid ""
+#~ "<p>Press <strong>Mail...</strong> to email the current document.<p>To "
+#~ "select more documents to send, press <strong>Show All Documents&nbsp;&gt;"
+#~ "&gt;</strong>."
+#~ msgstr ""
+#~ "<p>हालको कागजात इमेल गर्न<strong>मेल...</strong> थिच्नुहोस् ।<p>पठाउनका लागि अरु "
+#~ "कागजात चयन गर्न, <strong>सबै कागजात देखाउनुहोस्&nbsp;&gt;&gt;</strong> थिच्नुहोस् "
+#~ "।"
+
+#~ msgid "&Hide Document List <<"
+#~ msgstr "कागजात सूची लुकाउनुहोस् <<"
+
+#~ msgid "Press <strong>Mail...</strong> to send selected documents"
+#~ msgstr "चयन गरिएको कागजात पठाउन <strong>पत्र...</strong> थिच्नुहोस्"

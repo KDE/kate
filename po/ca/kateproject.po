@@ -1,0 +1,1036 @@
+# Translation of kateproject.po to Catalan
+# Copyright (C) 2012-2022 This_file_is_part_of_KDE
+# This file is distributed under the license LGPL version 2.1 or
+# version 3 or later versions approved by the membership of KDE e.V.
+#
+# Josep M. Ferrer <txemaq@gmail.com>, 2012, 2013, 2015, 2016, 2018, 2019, 2020, 2021, 2022.
+# Antoni Bella Pérez <antonibella5@yahoo.com>, 2014, 2018, 2021.
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-10-02 00:49+0000\n"
+"PO-Revision-Date: 2022-09-04 14:37+0200\n"
+"Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
+"Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
+"Language: ca\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Accelerator-Marker: &\n"
+"X-Generator: Lokalize 20.12.0\n"
+
+#: branchcheckoutdialog.cpp:29
+#, kde-format
+msgid "Select branch to checkout. Press 'Esc' to cancel."
+msgstr "Seleccioneu la branca a baixar. Premeu «Esc» per a cancel·lar."
+
+#: branchcheckoutdialog.cpp:36
+#, kde-format
+msgid "Create New Branch"
+msgstr "Crea una branca nova"
+
+#: branchcheckoutdialog.cpp:38
+#, kde-format
+msgid "Create New Branch From..."
+msgstr "Crea una branca nova des de..."
+
+#: branchcheckoutdialog.cpp:53
+#, kde-format
+msgid "Branch %1 checked out"
+msgstr "S'ha baixat la branca %1"
+
+#: branchcheckoutdialog.cpp:56
+#, kde-format
+msgid "Failed to checkout to branch %1, Error: %2"
+msgstr "Ha fallat en baixar la branca %1, Error: %2"
+
+#: branchcheckoutdialog.cpp:83 branchcheckoutdialog.cpp:95
+#, kde-format
+msgid "Enter new branch name. Press 'Esc' to cancel."
+msgstr "Introduïu el nom de la nova branca. Premeu «Esc» per a cancel·lar."
+
+#: branchcheckoutdialog.cpp:100
+#, kde-format
+msgid "Select branch to checkout from. Press 'Esc' to cancel."
+msgstr "Seleccioneu la branca a baixar. Premeu «Esc» per a cancel·lar."
+
+#: branchcheckoutdialog.cpp:121
+#, kde-format
+msgid "Checked out to new branch: %1"
+msgstr "Baixant a la branca nova: %1"
+
+#: branchcheckoutdialog.cpp:123
+#, kde-format
+msgid "Failed to create new branch. Error \"%1\""
+msgstr "Ha fallat en crear la branca nova. Error «%1»"
+
+#: branchdeletedialog.cpp:121
+#, kde-format
+msgid "Branch"
+msgstr "Branca"
+
+#: branchdeletedialog.cpp:121
+#, kde-format
+msgid "Last Commit"
+msgstr "Darrera publicació"
+
+#: branchdeletedialog.cpp:134 kateprojecttreeviewcontextmenu.cpp:85
+#, kde-format
+msgid "Delete"
+msgstr "Suprimeix"
+
+#: branchdeletedialog.cpp:139
+#, kde-format
+msgid "Are you sure you want to delete the selected branch?"
+msgid_plural "Are you sure you want to delete the selected branches?"
+msgstr[0] "Esteu segur que voleu suprimir la branca seleccionada?"
+msgstr[1] "Esteu segur que voleu suprimir les branques seleccionades?"
+
+#: branchesdialog.cpp:102
+#, kde-format
+msgid "Select Branch..."
+msgstr "Selecciona la branca..."
+
+#: branchesdialog.cpp:131 gitwidget.cpp:456 kateprojectpluginview.cpp:63
+#, kde-format
+msgid "Git"
+msgstr "Git"
+
+#: comparebranchesview.cpp:143
+#, kde-format
+msgid "Back"
+msgstr "Enrere"
+
+#: gitcommitdialog.cpp:69 gitcommitdialog.cpp:116
+#, kde-format
+msgid "Commit Changes"
+msgstr "Entrega els canvis"
+
+#: gitcommitdialog.cpp:73 gitcommitdialog.cpp:115 gitwidget.cpp:216
+#, kde-format
+msgid "Commit"
+msgstr "Entrega"
+
+#: gitcommitdialog.cpp:74
+#, kde-format
+msgid "Cancel"
+msgstr "Cancel·la"
+
+#: gitcommitdialog.cpp:76
+#, kde-format
+msgid "Write commit message..."
+msgstr "Escriviu el missatge d'entrega..."
+
+#: gitcommitdialog.cpp:83
+#, kde-format
+msgid "Extended commit description..."
+msgstr "Descripció estesa de l'entrega..."
+
+#: gitcommitdialog.cpp:107
+#, kde-format
+msgid "Sign off"
+msgstr "Tanca la sessió"
+
+#: gitcommitdialog.cpp:111 gitcommitdialog.cpp:120
+#, kde-format
+msgid "Amend"
+msgstr "Esmena"
+
+#: gitcommitdialog.cpp:112 gitwidget.cpp:907
+#, kde-format
+msgid "Amend Last Commit"
+msgstr "Esmena de la darrera publicació"
+
+#: gitcommitdialog.cpp:119
+#, kde-format
+msgid "Amending Commit"
+msgstr "Esmena la publicació"
+
+#: gitcommitdialog.cpp:203
+#, kde-format
+msgctxt "Number of characters"
+msgid "%1 / 52"
+msgstr "%1 / 52"
+
+#: gitcommitdialog.cpp:207
+#, kde-format
+msgctxt "Number of characters"
+msgid "<span style=\"color:%1;\">%2</span> / 52"
+msgstr "<span style=\"color:%1;\">%2</span> / 52"
+
+#: gitstatusmodel.cpp:85
+#, kde-format
+msgid "Staged"
+msgstr "Marcat"
+
+#: gitstatusmodel.cpp:87
+#, kde-format
+msgid "Untracked"
+msgstr "Sense seguiment"
+
+#: gitstatusmodel.cpp:89
+#, kde-format
+msgid "Conflict"
+msgstr "Conflicte"
+
+#: gitstatusmodel.cpp:91
+#, kde-format
+msgid "Modified"
+msgstr "Modificat"
+
+#: gitwidget.cpp:224
+#, kde-format
+msgid "Git Push"
+msgstr "Git push"
+
+#: gitwidget.cpp:237
+#, kde-format
+msgid "Git Pull"
+msgstr "Git pull"
+
+#: gitwidget.cpp:250
+#, kde-format
+msgid "Cancel Operation"
+msgstr "Cancel·la l'operació"
+
+#: gitwidget.cpp:258
+#, kde-format
+msgid " canceled."
+msgstr " s'ha cancel·lat."
+
+#: gitwidget.cpp:279 kateprojectview.cpp:64
+#, kde-format
+msgid "Filter..."
+msgstr "Filtre..."
+
+#: gitwidget.cpp:364
+#, kde-format
+msgid "Failed to find .git directory for '%1', things may not work correctly"
+msgstr ""
+"Ha fallat en trobar el directori «.git» per a «%1», potser hi haurà quelcom "
+"que no funcioni correctament"
+
+#: gitwidget.cpp:528
+#, kde-format
+msgid " error: %1"
+msgstr " error: %1"
+
+#: gitwidget.cpp:534
+#, kde-format
+msgid "\"%1\" executed successfully: %2"
+msgstr "«%1» s'ha executat correctament: %2"
+
+#: gitwidget.cpp:554
+#, kde-format
+msgid "Failed to stage file. Error:"
+msgstr "Ha fallat en marcar el fitxer. Error:"
+
+#: gitwidget.cpp:567
+#, kde-format
+msgid "Failed to unstage file. Error:"
+msgstr "Ha fallat en desmarcar el fitxer. Error:"
+
+#: gitwidget.cpp:578
+#, kde-format
+msgid "Failed to discard changes. Error:"
+msgstr "Ha fallat en descartar els canvis. Error:"
+
+#: gitwidget.cpp:589
+#, kde-format
+msgid "Failed to remove. Error:"
+msgstr "Ha fallat en eliminar. Error:"
+
+#: gitwidget.cpp:605
+#, kde-format
+msgid "Failed to open file at HEAD: %1"
+msgstr "Ha fallat en obrir el fitxer a HEAD: %1"
+
+#: gitwidget.cpp:637
+#, kde-format
+msgid "Failed to get Diff of file: %1"
+msgstr "Ha fallat en obtenir el «diff» del fitxer: %1"
+
+#: gitwidget.cpp:697
+#, kde-format
+msgid "Failed to commit: %1"
+msgstr "Ha fallat en entregar: %1"
+
+#: gitwidget.cpp:701
+#, kde-format
+msgid "Changes committed successfully."
+msgstr "Els canvis s'han entregat correctament."
+
+#: gitwidget.cpp:711
+#, kde-format
+msgid "Nothing to commit. Please stage your changes first."
+msgstr "No hi ha res a entregar (commit). Primer, marqueu els vostres canvis."
+
+#: gitwidget.cpp:724
+#, kde-format
+msgid "Commit message cannot be empty."
+msgstr "El missatge d'entrega no pot estar buit."
+
+#: gitwidget.cpp:839
+#, kde-format
+msgid "No diff for %1...%2"
+msgstr "No hi ha «diff» per a %1...%2"
+
+#: gitwidget.cpp:845
+#, kde-format
+msgid "Failed to compare %1...%2"
+msgstr "Ha fallat en comparar %1...%2"
+
+#: gitwidget.cpp:860
+#, kde-format
+msgid "Failed to get numstat when diffing %1...%2"
+msgstr "Ha fallat en obtenir el número d'estat en diferenciar %1...%2"
+
+#: gitwidget.cpp:899
+#, kde-format
+msgid "Refresh"
+msgstr "Actualitza"
+
+#: gitwidget.cpp:915
+#, kde-format
+msgid "Checkout Branch"
+msgstr "Entrega la branca"
+
+#: gitwidget.cpp:927
+#, kde-format
+msgid "Delete Branch"
+msgstr "Suprimeix la branca"
+
+#: gitwidget.cpp:939
+#, kde-format
+msgid "Compare Branch with..."
+msgstr "Compara la branca amb..."
+
+#: gitwidget.cpp:942 gitwidget.cpp:979
+#, kde-format
+msgid "Stash"
+msgstr "Modificació temporal"
+
+#: gitwidget.cpp:952
+#, kde-format
+msgid "Diff - stash"
+msgstr "Diff - modificació temporal"
+
+#: gitwidget.cpp:983
+#, kde-format
+msgid "Pop Last Stash"
+msgstr "Aplica («pop») la darrera modificació temporal"
+
+#: gitwidget.cpp:987
+#, kde-format
+msgid "Pop Stash"
+msgstr "Aplica («Pop») una modificació temporal"
+
+#: gitwidget.cpp:991
+#, kde-format
+msgid "Apply Last Stash"
+msgstr "Aplica la darrera modificació temporal"
+
+#: gitwidget.cpp:993
+#, kde-format
+msgid "Stash (Keep Staged)"
+msgstr "Modificació temporal (mantén marcada)"
+
+#: gitwidget.cpp:997
+#, kde-format
+msgid "Stash (Include Untracked)"
+msgstr "Modificació temporal (inclou les no seguides)"
+
+#: gitwidget.cpp:1001
+#, kde-format
+msgid "Apply Stash"
+msgstr "Aplica la modificació temporal"
+
+#: gitwidget.cpp:1002
+#, kde-format
+msgid "Drop Stash"
+msgstr "Llença la modificació temporal"
+
+#: gitwidget.cpp:1003
+#, kde-format
+msgid "Show Stash Content"
+msgstr "Mostra el contingut de la modificació temporal"
+
+#: gitwidget.cpp:1039
+#, kde-format
+msgid "Stage All"
+msgstr "Marca-ho tot"
+
+#: gitwidget.cpp:1041
+#, kde-format
+msgid "Remove All"
+msgstr "Elimina-ho tot"
+
+#: gitwidget.cpp:1041
+#, kde-format
+msgid "Discard All"
+msgstr "Descarta-ho tot"
+
+# skip-rule: t-sp_pu
+#: gitwidget.cpp:1044
+#, kde-format
+msgid "Open .gitignore"
+msgstr "Obre el .gitignore"
+
+#: gitwidget.cpp:1045 gitwidget.cpp:1092 gitwidget.cpp:1134
+#: kateprojectconfigpage.cpp:91 kateprojectconfigpage.cpp:102
+#, kde-format
+msgid "Show Diff"
+msgstr "Mostra el «diff»"
+
+#: gitwidget.cpp:1062
+#, kde-format
+msgid "Are you sure you want to remove these files?"
+msgstr "Esteu segur que voleu eliminar aquests fitxers?"
+
+#: gitwidget.cpp:1067
+#, kde-format
+msgid "Are you sure you want to discard all changes?"
+msgstr "Esteu segur de voler descartar tots els canvis?"
+
+#: gitwidget.cpp:1091
+#, kde-format
+msgid "Open File"
+msgstr "Obre un fitxer"
+
+#: gitwidget.cpp:1093
+#, kde-format
+msgid "Show in External Git Diff Tool"
+msgstr "Mostra-ho en l'eina de «git diff» externa"
+
+#: gitwidget.cpp:1094
+#, kde-format
+msgid "Open at HEAD"
+msgstr "Obre a HEAD"
+
+#: gitwidget.cpp:1095
+#, kde-format
+msgid "Unstage File"
+msgstr "Desmarca el fitxer"
+
+#: gitwidget.cpp:1095
+#, kde-format
+msgid "Stage File"
+msgstr "Marca el fitxer"
+
+#: gitwidget.cpp:1096
+#, kde-format
+msgid "Remove"
+msgstr "Elimina"
+
+#: gitwidget.cpp:1096
+#, kde-format
+msgid "Discard"
+msgstr "Descarta"
+
+#: gitwidget.cpp:1113
+#, kde-format
+msgid "Are you sure you want to discard the changes in this file?"
+msgstr "Esteu segur de voler descartar tots els canvis en aquest fitxer?"
+
+#: gitwidget.cpp:1122
+#, kde-format
+msgid "Are you sure you want to remove this file?"
+msgstr "Esteu segur que voleu eliminar aquest fitxer?"
+
+#: gitwidget.cpp:1133
+#, kde-format
+msgid "Unstage All"
+msgstr "Desmarca-ho tot"
+
+#: gitwidget.cpp:1200
+#, kde-format
+msgid "Unstage Selected Files"
+msgstr "Desmarca els fitxers seleccionats"
+
+#: gitwidget.cpp:1200
+#, kde-format
+msgid "Stage Selected Files"
+msgstr "Marca els fitxers seleccionats"
+
+#: gitwidget.cpp:1201
+#, kde-format
+msgid "Discard Selected Files"
+msgstr "Descarta els fitxers seleccionats"
+
+#: gitwidget.cpp:1205
+#, kde-format
+msgid "Remove Selected Files"
+msgstr "Elimina els fitxers seleccionats"
+
+#: gitwidget.cpp:1218
+#, kde-format
+msgid "Are you sure you want to discard the changes?"
+msgstr "Esteu segur de voler descartar els canvis?"
+
+#: gitwidget.cpp:1223
+#, kde-format
+msgid "Are you sure you want to remove these untracked changes?"
+msgstr "Esteu segur que voleu eliminar aquests canvis sense seguir?"
+
+#: kateproject.cpp:223
+#, kde-format
+msgid "Malformed JSON file '%1': %2"
+msgstr "Fitxer JSON «%1» amb format incorrecte: %2"
+
+#: kateproject.cpp:528
+#, kde-format
+msgid "<untracked>"
+msgstr "<sense seguiment>"
+
+#: kateprojectcompletion.cpp:43
+#, kde-format
+msgid "Project Completion"
+msgstr "Compleció del projecte"
+
+#: kateprojectconfigpage.cpp:25
+#, kde-format
+msgctxt "Groupbox title"
+msgid "Autoload Repositories"
+msgstr "Carrega automàticament els repositoris"
+
+#: kateprojectconfigpage.cpp:27
+#, kde-format
+msgid ""
+"Project plugin is able to autoload repository working copies when there is "
+"no .kateproject file defined yet."
+msgstr ""
+"El connector Projecte és capaç de carregar automàticament les còpies de "
+"treball quan encara no hi ha cap fitxer «.kateproject» definit."
+
+#: kateprojectconfigpage.cpp:30
+#, kde-format
+msgid "&Git"
+msgstr "&Git"
+
+#: kateprojectconfigpage.cpp:33
+#, kde-format
+msgid "&Subversion"
+msgstr "&Subversion"
+
+#: kateprojectconfigpage.cpp:35
+#, kde-format
+msgid "&Mercurial"
+msgstr "&Mercurial"
+
+#: kateprojectconfigpage.cpp:37
+#, kde-format
+msgid "&Fossil"
+msgstr "&Fossil"
+
+#: kateprojectconfigpage.cpp:46
+#, kde-format
+msgctxt "Groupbox title"
+msgid "Session Behavior"
+msgstr "Comportament de la sessió"
+
+#: kateprojectconfigpage.cpp:47
+#, kde-format
+msgid "Session settings for projects"
+msgstr "Configuració de la sessió per als projectes"
+
+#: kateprojectconfigpage.cpp:48
+#, kde-format
+msgid "Restore Open Projects"
+msgstr "Restaura els projectes oberts"
+
+#: kateprojectconfigpage.cpp:55
+#, kde-format
+msgctxt "Groupbox title"
+msgid "Project Index"
+msgstr "Índex del projecte"
+
+#: kateprojectconfigpage.cpp:56
+#, kde-format
+msgid "Project ctags index settings"
+msgstr "Paràmetres de l'índex de les «ctags» del projecte"
+
+#: kateprojectconfigpage.cpp:57 kateprojectinfoviewindex.cpp:205
+#, kde-format
+msgid "Enable indexing"
+msgstr "Activa la indexació"
+
+#: kateprojectconfigpage.cpp:60
+#, kde-format
+msgid "Directory for index files"
+msgstr "Directori per als fitxers d'índex"
+
+#: kateprojectconfigpage.cpp:64
+#, kde-format
+msgid ""
+"The system temporary directory is used if not specified, which may overflow "
+"for very large repositories"
+msgstr ""
+"S'usa el directori temporal del sistema si no s'especifica, que pot "
+"desbordar amb repositoris molt grans"
+
+#: kateprojectconfigpage.cpp:71
+#, kde-format
+msgctxt "Groupbox title"
+msgid "Cross-Project Functionality"
+msgstr "Funcionalitat interprojectes"
+
+#: kateprojectconfigpage.cpp:72
+#, kde-format
+msgid ""
+"Project plugin is able to perform some operations across multiple projects"
+msgstr ""
+"Connector de projecte que pot portar a terme diverses operacions a múltiples "
+"projectes"
+
+#: kateprojectconfigpage.cpp:73
+#, kde-format
+msgid "Cross-Project Completion"
+msgstr "Compleció interprojectes"
+
+#: kateprojectconfigpage.cpp:75
+#, kde-format
+msgid "Cross-Project Goto Symbol"
+msgstr "Ves a símbols interprojectes"
+
+#: kateprojectconfigpage.cpp:83
+#, kde-format
+msgctxt "Groupbox title"
+msgid "Git"
+msgstr "Git"
+
+#: kateprojectconfigpage.cpp:84
+#, kde-format
+msgid "Show number of changed lines in git status"
+msgstr "Mostra el nombre de línies canviades en el «git status»"
+
+#: kateprojectconfigpage.cpp:88
+#, kde-format
+msgid "Single click action in the git status view"
+msgstr "Acció d'un sol clic a la vista de «git status»"
+
+#: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:101
+#, kde-format
+msgid "No Action"
+msgstr "Cap acció"
+
+#: kateprojectconfigpage.cpp:92 kateprojectconfigpage.cpp:103
+#, kde-format
+msgid "Open file"
+msgstr "Obre un fitxer"
+
+#: kateprojectconfigpage.cpp:93 kateprojectconfigpage.cpp:104
+#, kde-format
+msgid "Stage / Unstage"
+msgstr "Marca / Desmarca"
+
+#: kateprojectconfigpage.cpp:99
+#, kde-format
+msgid "Double click action in the git status view"
+msgstr "Acció de doble clic a la vista de «git status»"
+
+#: kateprojectconfigpage.cpp:135 kateprojectpluginview.cpp:62
+#, kde-format
+msgid "Projects"
+msgstr "Projectes"
+
+#: kateprojectconfigpage.cpp:140
+#, kde-format
+msgctxt "Groupbox title"
+msgid "Projects Properties"
+msgstr "Propietats del projecte"
+
+#: kateprojectinfoview.cpp:35
+#, kde-format
+msgid "Terminal (.kateproject)"
+msgstr "Terminal (.kateproject)"
+
+#: kateprojectinfoview.cpp:43
+#, kde-format
+msgid "Terminal (Base)"
+msgstr "Terminal (base)"
+
+#: kateprojectinfoview.cpp:50
+#, kde-format
+msgid "Code Index"
+msgstr "Índex del codi"
+
+#: kateprojectinfoview.cpp:55
+#, kde-format
+msgid "Code Analysis"
+msgstr "Anàlisi del codi"
+
+#: kateprojectinfoview.cpp:60
+#, kde-format
+msgid "Notes"
+msgstr "Notes"
+
+#: kateprojectinfoviewcodeanalysis.cpp:31
+#, kde-format
+msgid "Start Analysis..."
+msgstr "Inicia l'anàlisi..."
+
+#: kateprojectinfoviewcodeanalysis.cpp:44 kateprojectinfoviewindex.cpp:33
+#, kde-format
+msgid "File"
+msgstr "Fitxer"
+
+#: kateprojectinfoviewcodeanalysis.cpp:44 kateprojectinfoviewindex.cpp:33
+#, kde-format
+msgid "Line"
+msgstr "Línia"
+
+#: kateprojectinfoviewcodeanalysis.cpp:44
+#, kde-format
+msgid "Severity"
+msgstr "Severitat"
+
+#: kateprojectinfoviewcodeanalysis.cpp:44
+#, kde-format
+msgid "Message"
+msgstr "Missatge"
+
+#: kateprojectinfoviewcodeanalysis.cpp:110
+#, kde-format
+msgid ""
+"%1<br/><br/>The tool will be run on all project files which match this list "
+"of file extensions:<br/><br/><b>%2</b>"
+msgstr ""
+"%1<br/><br/>Aquesta eina s'executarà a tots els fitxers de projectes que "
+"coincideixin amb aquesta llista d'extensions de fitxer:<br/><br/><b>%2</b>"
+
+#: kateprojectinfoviewcodeanalysis.cpp:249
+#, kde-format
+msgid "Analysis on %1 file finished."
+msgid_plural "Analysis on %1 files finished."
+msgstr[0] "Anàlisi en finalitzar %1 fitxer."
+msgstr[1] "Anàlisi en finalitzar %1 fitxers."
+
+#: kateprojectinfoviewcodeanalysis.cpp:261
+#, kde-format
+msgid "Analysis on %1 file failed with exit code %2."
+msgid_plural "Analysis on %1 files failed with exit code %2."
+msgstr[0] "Anàlisi en fallar %1 fitxer amb el codi de sortida %2."
+msgstr[1] "Anàlisi en fallar %1 fitxers amb el codi de sortida %2."
+
+#: kateprojectinfoviewindex.cpp:33
+#, kde-format
+msgid "Name"
+msgstr "Nom"
+
+#: kateprojectinfoviewindex.cpp:33
+#, kde-format
+msgid "Kind"
+msgstr "Classe"
+
+#: kateprojectinfoviewindex.cpp:34
+#, kde-format
+msgid "Search"
+msgstr "Cerca"
+
+#: kateprojectinfoviewindex.cpp:194
+#, kde-format
+msgid "The index could not be created. Please install 'ctags'."
+msgstr "No s'ha pogut crear l'índex. Si us plau, instal·leu «ctags»."
+
+#: kateprojectinfoviewindex.cpp:204
+#, kde-format
+msgid "Indexing is not enabled"
+msgstr "La indexació no està activa"
+
+#: kateprojectitem.cpp:166
+#, kde-format
+msgid "Error"
+msgstr "Error"
+
+#: kateprojectitem.cpp:166
+#, kde-format
+msgid "File name already exists"
+msgstr "El nom de fitxer ja existeix"
+
+#: kateprojectplugin.cpp:222
+#, kde-format
+msgid "Confirm project closing: %1"
+msgstr "Confirma el tancament del projecte: %1"
+
+#: kateprojectplugin.cpp:223
+#, kde-format
+msgid "Do you want to close the project %1 and the related %2 open documents?"
+msgstr "Voleu tancar el projecte %1 i els %2 documents oberts relacionats?"
+
+#: kateprojectplugin.cpp:575
+#, kde-format
+msgid "Full path to current project excluding the file name."
+msgstr "Camí complet del projecte actual excloent el nom del fitxer."
+
+#: kateprojectplugin.cpp:592
+#, kde-format
+msgid ""
+"Full path to current project excluding the file name, with native path "
+"separator (backslash on Windows)."
+msgstr ""
+"Camí complet del projecte actual excloent el nom del fitxer, amb el "
+"separador de camí natiu (barra inversa al Windows)."
+
+#: kateprojectplugin.cpp:713 kateprojectpluginview.cpp:68
+#: kateprojectpluginview.cpp:209 kateprojectviewtree.cpp:136
+#: kateprojectviewtree.cpp:161
+#, kde-format
+msgid "Project"
+msgstr "Projecte"
+
+#: kateprojectpluginview.cpp:52
+#, kde-format
+msgid "Project Manager"
+msgstr "Gestor de projectes"
+
+#: kateprojectpluginview.cpp:78
+#, kde-format
+msgid "Reload project"
+msgstr "Torna a carregar el projecte"
+
+#: kateprojectpluginview.cpp:95
+#, kde-format
+msgid "Refresh git status"
+msgstr "Actualitza l'estat del «git»"
+
+#: kateprojectpluginview.cpp:171
+#, kde-format
+msgid "Open Folder..."
+msgstr "Obre una carpeta..."
+
+# skip-rule: kct-todo
+#: kateprojectpluginview.cpp:176
+#, kde-format
+msgid "Project TODOs"
+msgstr "TODO del projecte"
+
+#: kateprojectpluginview.cpp:180
+#, kde-format
+msgid "Activate Previous Project"
+msgstr "Activa el projecte anterior"
+
+#: kateprojectpluginview.cpp:185
+#, kde-format
+msgid "Activate Next Project"
+msgstr "Activa el projecte següent"
+
+#: kateprojectpluginview.cpp:190
+#, kde-format
+msgid "Lookup"
+msgstr "Cerca"
+
+#: kateprojectpluginview.cpp:194
+#, kde-format
+msgid "Close Project"
+msgstr "Tanca el projecte"
+
+#: kateprojectpluginview.cpp:198
+#, kde-format
+msgid "Close All Projects"
+msgstr "Tanca tots els projectes"
+
+#: kateprojectpluginview.cpp:203
+#, kde-format
+msgid "Close Orphaned Projects"
+msgstr "Tanca els projectes orfes"
+
+#: kateprojectpluginview.cpp:212 kateprojectpluginview.cpp:762
+#, kde-format
+msgid "Lookup: %1"
+msgstr "Cerca: %1"
+
+#: kateprojectpluginview.cpp:213 kateprojectpluginview.cpp:763
+#, kde-format
+msgid "Goto: %1"
+msgstr "Ves a: %1"
+
+#: kateprojectpluginview.cpp:287
+#, kde-format
+msgid "Projects Index"
+msgstr "Índex dels projectes"
+
+#: kateprojectpluginview.cpp:801
+#, kde-format
+msgid "Choose a directory"
+msgstr "Seleccioneu un directori"
+
+#: kateprojecttreeviewcontextmenu.cpp:49
+#, kde-format
+msgid "Enter name:"
+msgstr "Introduïu un nom:"
+
+#: kateprojecttreeviewcontextmenu.cpp:50
+#, kde-format
+msgid "Add"
+msgstr "Afegeix"
+
+#: kateprojecttreeviewcontextmenu.cpp:71
+#, kde-format
+msgid "Copy Location"
+msgstr "Copia la ubicació"
+
+#: kateprojecttreeviewcontextmenu.cpp:76
+#, kde-format
+msgid "Add File"
+msgstr "Afegeix un fitxer"
+
+#: kateprojecttreeviewcontextmenu.cpp:77
+#, kde-format
+msgid "Add Folder"
+msgstr "Afegeix una carpeta"
+
+#: kateprojecttreeviewcontextmenu.cpp:84
+#, kde-format
+msgid "&Rename"
+msgstr "&Reanomena"
+
+#: kateprojecttreeviewcontextmenu.cpp:91
+#, kde-format
+msgid "Properties"
+msgstr "Propietats"
+
+#: kateprojecttreeviewcontextmenu.cpp:98
+#, kde-format
+msgid "Open With"
+msgstr "Obre amb"
+
+#: kateprojecttreeviewcontextmenu.cpp:117
+#, kde-format
+msgid "Open Internal Terminal Here"
+msgstr "Obre aquí un terminal intern"
+
+#: kateprojecttreeviewcontextmenu.cpp:126
+#, kde-format
+msgid "Open External Terminal Here"
+msgstr "Obre aquí un terminal extern"
+
+#: kateprojecttreeviewcontextmenu.cpp:131
+#, kde-format
+msgid "&Open Containing Folder"
+msgstr "&Obre la carpeta contenidora"
+
+#: kateprojecttreeviewcontextmenu.cpp:141
+#, kde-format
+msgid "Show Git History"
+msgstr "Mostra l'historial del Git"
+
+#: kateprojecttreeviewcontextmenu.cpp:164
+#, kde-format
+msgid "Delete File"
+msgstr "Suprimeix el fitxer"
+
+#: kateprojecttreeviewcontextmenu.cpp:165
+#, kde-format
+msgid "Do you want to delete the file '%1'?"
+msgstr "Voleu suprimir el fitxer «%1»?"
+
+#: kateprojectview.cpp:59
+#, kde-format
+msgid "Checkout Git Branch"
+msgstr "Entrega la branca del Git"
+
+#: kateprojectview.cpp:76
+#, kde-format
+msgid "Checkout branch"
+msgstr "Entrega la branca"
+
+#: kateprojectviewtree.cpp:138
+#, kde-format
+msgid "Failed to create file: %1, Error: %2"
+msgstr "Ha fallat en crear el fitxer: %1, Error: %2"
+
+#: kateprojectviewtree.cpp:163
+#, kde-format
+msgid "Failed to create dir: %1"
+msgstr "Ha fallat en crear el directori: %1"
+
+#: stashdialog.cpp:37
+#, kde-format
+msgid "Stash message (optional). Enter to confirm, Esc to leave."
+msgstr ""
+"Missatge de modificació temporal (opcional). Premeu «Retorn» per a "
+"confirmar, «Esc» per a sortir."
+
+#: stashdialog.cpp:44
+#, kde-format
+msgid "Type to filter, Enter to pop stash, Esc to leave."
+msgstr ""
+"Escriviu per a filtrar, premeu «Retorn» per a aplicar una modificació "
+"temporal, «Esc» per a sortir."
+
+#: stashdialog.cpp:143
+#, kde-format
+msgid "Failed to stash changes %1"
+msgstr "Ha fallat en fer dels canvis %1 una modificació temporal"
+
+#: stashdialog.cpp:145
+#, kde-format
+msgid "Changes stashed successfully."
+msgstr "Els canvis s'han fet modificació temporal correctament."
+
+#: stashdialog.cpp:164
+#, kde-format
+msgid "Failed to get stash list. Error: "
+msgstr "Ha fallat en obtenir la llista de modificacions temporals. Error: "
+
+#: stashdialog.cpp:180
+#, kde-format
+msgid "Failed to apply stash. Error: "
+msgstr "Ha fallat en aplicar les modificacions temporals. Error: "
+
+#: stashdialog.cpp:182
+#, kde-format
+msgid "Failed to drop stash. Error: "
+msgstr "Ha fallat en llençar les modificacions temporals. Error: "
+
+#: stashdialog.cpp:184
+#, kde-format
+msgid "Failed to pop stash. Error: "
+msgstr "Ha fallat en aplicar («pop») les modificacions temporals. Error: "
+
+#: stashdialog.cpp:188
+#, kde-format
+msgid "Stash applied successfully."
+msgstr "Les modificacions temporals s'han aplicat correctament."
+
+#: stashdialog.cpp:190
+#, kde-format
+msgid "Stash dropped successfully."
+msgstr "Les modificacions temporals s'han llençat correctament."
+
+#: stashdialog.cpp:192
+#, kde-format
+msgid "Stash popped successfully."
+msgstr "Les modificacions temporals s'han aplicat correctament."
+
+#: stashdialog.cpp:221
+#, kde-format
+msgid "Show stash failed. Error: "
+msgstr "Ha fallat en mostrar la modificació temporal. Error: "
+
+#. i18n: ectx: Menu (projects)
+#: ui.rc:9
+#, kde-format
+msgid "&Projects"
+msgstr "&Projectes"
+
+#~ msgctxt "NAME OF TRANSLATORS"
+#~ msgid "Your names"
+#~ msgstr "Josep M. Ferrer"
+
+#~ msgctxt "EMAIL OF TRANSLATORS"
+#~ msgid "Your emails"
+#~ msgstr "txemaq@gmail.com"
+
+#~ msgid "Failed to get file history: git executable not found in PATH"
+#~ msgstr ""
+#~ "Ha fallat en obtenir l'historial de fitxers: no s'ha trobat l'executable "
+#~ "«git» en el PATH"
+
+#~ msgid "Failed to get file history: %1"
+#~ msgstr "Ha fallat en obtenir l'historial de fitxers: %1"
+
+#~ msgid "Show File Git History"
+#~ msgstr "Mostra l'historial del Git dels fitxers"

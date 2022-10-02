@@ -1,0 +1,2602 @@
+<chapter id="the-menu-entries">
+<title
+>Команды меню</title>
+
+<sect1 id="file-menu">
+<title
+>Меню «Файл»</title>
+
+<variablelist>
+
+<varlistentry id="file-new">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>N</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Файл</guimenu
+> <guimenuitem
+>Создать</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Создаёт новый документ</action
+>. Он будет добавлен в список <guibutton
+>Документы</guibutton
+>, который находится слева на боковой панели, и назван <emphasis
+>Безымянный</emphasis
+>. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="file-open">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>O</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Файл</guimenu
+> <guimenuitem
+>Открыть...</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Вызывает стандартное диалоговое окно &kde; <guilabel
+>Открыть файл</guilabel
+>. Выберите нужный файл с помощью средства просмотра файлов и нажмите кнопку <guibutton
+>Открыть</guibutton
+> для его открытия.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="file-open-recent">
+<term
+><menuchoice
+><guimenu
+>Файл</guimenu
+> <guimenuitem
+>Последние файлы</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Это быстрый способ открыть какой-либо из последних сохранённых документов. При выборе этого пункта меню появится список последних сохранённых файлов. Щёлкните по одному из них, чтобы открыть его в &kappname; (файл будет открыт, если его расположение не изменилось). </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="file-open-with">
+<term>
+<menuchoice
+><guimenu
+>Файл</guimenu
+> <guisubmenu
+>Открыть в</guisubmenu
+> </menuchoice>
+</term>
+<listitem>
+<para
+>Во вложенном меню доступен список приложений, связанных с типом &MIME; текущего документа. Выберите один из пунктов списка, чтобы открыть файл в соответствующем приложении.</para>
+<para
+>При выборе пункта <guimenuitem
+>Другое приложение...</guimenuitem
+> будет открыт диалог со списком доступных программ, что позволяет <action
+>выбрать другое приложение и открыть в нём текущий файл</action
+> (после этого файл также продолжит оставаться открытым в &kate;). </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="file-save">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>S</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Файл</guimenu
+> <guimenuitem
+>Сохранить</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Сохраняет текущий документ. Если он уже был сохранён, то старый файл будет перезаписан без предупреждения. Если документ сохраняется впервые, будет открыт диалог сохранения (подробнее об этом далее). </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="file-save-as">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>S</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Файл</guimenu
+> <guimenuitem
+>Сохранить как...</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Сохраняет документ в другой файл. Для этого используется диалоговое окно со списком файлов, описание которого приведено ранее в разделе <link linkend="file-open"
+>Открыть</link
+>. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="file-save-as-encoding">
+<term
+><menuchoice
+><guimenu
+>Файл</guimenu
+> <guimenuitem
+>Сохранить в другой кодировке...</guimenuitem
+> </menuchoice>
+</term
+><listitem>
+<para
+>Сохраняет документ в другой файл с другой кодировкой.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="file-save-copy-as">
+<term
+><menuchoice
+><guimenu
+>Файл</guimenu
+> <guimenuitem
+>Сохранить копию как...</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Сохраняет документ в другой файл; возможно продолжить редактировать оригинальный документ.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="file-save-all">
+<term>
+<menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>L</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Файл</guimenu
+> <guimenuitem
+>Сохранить все</guimenuitem
+> </menuchoice>
+</term>
+<listitem>
+<para
+><action
+>Сохраняет все открытые файлы</action
+>. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="file-reload">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+><keycap
+>F5</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Файл</guimenu
+> <guimenuitem
+>Обновить</guimenuitem
+> </menuchoice>
+</term
+><listitem>
+<para
+><action
+>Обновляет текущий файл</action
+>. Эта команда удобна, если файл, открытый в &kate;, был изменён другой программой. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="file-reload-all">
+<term>
+<menuchoice
+><guimenu
+>Файл</guimenu
+> <guimenuitem
+>Обновить все</guimenuitem
+> </menuchoice>
+</term>
+<listitem>
+<para
+><action
+>Обновляет все открытые файлы</action
+>. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="file-print">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>P</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Файл</guimenu
+> <guimenuitem
+>Печать...</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Открывает диалог распечатки текущего документа, позволяющий пользователю указать параметры печати. </para>
+</listitem>
+</varlistentry>
+
+<!--FIXME Print Preview -->
+
+<varlistentry id="file-export-as-html">
+<term
+><menuchoice
+><guimenu
+>Файл</guimenu
+> <guimenuitem
+>Экспорт в HTML...</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Сохраняет текущий документ в качестве файла &HTML;, отформатированного согласно текущим параметрам подсветки синтаксиса и цветовой схемы.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="file-close">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>W</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Файл</guimenu
+> <guimenuitem
+>Закрыть</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Закрывает текущий файл</action
+>. Если файл был изменён со времени последнего сохранения, будет предложено сохранить его перед закрытием. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="file-close-other">
+<term>
+<menuchoice
+><guimenu
+>Файл</guimenu
+> <guimenuitem
+>Закрыть остальные</guimenuitem
+> </menuchoice>
+</term>
+<listitem>
+<para
+>Закрывает остальные открытые документы. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="file-close-all">
+<term>
+<menuchoice
+><guimenu
+>Файл</guimenu
+> <guimenuitem
+>Закрыть все</guimenuitem
+> </menuchoice>
+</term>
+<listitem>
+<para
+><action
+>Закрывает все файлы, которые были открыты</action
+> в &kate;. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="file-close-orphaned">
+<term>
+<menuchoice
+><guimenu
+>Файл</guimenu
+> <guimenuitem
+>Закрыть недоступные</guimenuitem
+> </menuchoice>
+</term>
+<listitem>
+<para
+><action
+>Закрывает</action
+> все открытые документы, которые уже невозможно открыть заново из-за того, что соответствующие файлы стали недоступны. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="file-quit">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Q</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Файл</guimenu
+> <guimenuitem
+>Выход</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Закрывает &kate;</action
+> и все открытые файлы. Те файлы, в которых с момента последнего сохранения производились изменения, будет предложено сохранить. </para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect1>
+
+<sect1 id="edit-menu">
+<title
+>Меню «Правка»</title>
+
+<variablelist>
+
+<varlistentry id="edit-undo">
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>Z</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Правка</guimenu
+> <guimenuitem
+>Отменить действие</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Отменяет последнюю команду редактирования (ввод, копирование, вырезание и так далее).</para>
+<note
+><para
+>Если включён режим группировки отмены, эта команда отменяет несколько однотипных команд вроде ввода символов.</para
+></note>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-redo">
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>Z</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Правка</guimenu
+> <guimenuitem
+>Повторить</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Выполняет последнее отменённое действие.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-cut">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>X</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Правка</guimenu
+> <guimenuitem
+>Вырезать</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Удаляет текущий выделенный фрагмент и помещает его в буфер обмена. Буфер обмена работает незаметно и позволяет передавать данные между приложениями.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-copy">
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>C</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Правка</guimenu
+> <guimenuitem
+>Копировать</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Копирует текущий выбранный текст в буфер обмена, чтобы его было возможно вставить в другое место. Буфер обмена работает незаметно и позволяет передавать данные между приложениями.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-paste">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>V</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Правка</guimenu
+> <guimenuitem
+>Вставить</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Вставляет первый элемент из буфера обмена в позиции курсора. Буфер обмена работает незаметно и позволяет передавать данные между приложениями.</para>
+<note
+><para
+>Если включён режим замены выделенного фрагмента, вставленный текст заменит выделенный фрагмент (если он есть).</para
+></note>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-paste-selection">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Shift;&Ins;</keycombo
+> </shortcut
+> <guimenu
+>Правка</guimenu
+> <guimenuitem
+>Вставить выделенное</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Будет вставлено содержимое ранее выбранного <ulink url="https://ru.wikipedia.org/wiki/Буфер_обмена#Просмотр_содержимого_буфера_обмена_в_ОС_Windows"
+>выделения мышью</ulink
+>. Выделите какой-либо текст указателем мыши, чтобы вставить его в текущий открытый файл с помощью этого пункта меню.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-swap-with-clipboard-contents">
+<term
+><menuchoice
+><guimenu
+>Правка</guimenu
+> <guimenuitem
+>Вставить с заменой буфера обмена выделением</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Выделенный текст будет заменён содержимым <ulink url="https://ru.wikipedia.org/wiki/Буфер_обмена#Просмотр_содержимого_буфера_обмена_в_ОС_Windows"
+>буфера обмена</ulink
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-clipboard-history">
+<term
+><menuchoice
+><guimenu
+>Правка</guimenu
+> <guisubmenu
+>История буфера обмена</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>Во вложенном меню будет отображаться начало фрагментов текста, недавно скопированных в буфер обмена. Чтобы вставить один из фрагментов в текущий открытый файл, выберите соответствующий пункт в этом вложенном меню.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-copy-as-html">
+<term
+><menuchoice
+><guimenu
+>Правка</guimenu
+> <guimenuitem
+>Копировать в формате HTML</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Сохраняет текущий документ в качестве файла &HTML;, отформатированного согласно текущим параметрам подсветки синтаксиса и цветовой схемы.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-select-all">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>A</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Правка</guimenu
+> <guimenuitem
+>Выделить все</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Выделяет весь текст в документе. Полезно, если требуется скопировать в другое приложение весь файл.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-deselect">
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>A</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Правка</guimenu
+> <guimenuitem
+>Снять выделение</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Снимает выделение с текста (если есть).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-toggle-block-selection">
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>B</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Правка</guimenu
+> <guimenuitem
+>Блочное выделение</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Переключает режим выделения. Когда установлен режим <guilabel
+>Блок</guilabel
+> (он обозначается тестом «[Блок]» в строке состояния), возможно выполнять вертикальное выделение, например, выделить столбцы с пятого по десятый в строках 9-15.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-input-modes">
+<term
+><menuchoice
+><guimenu
+>Правка</guimenu
+> <guimenuitem
+>Режимы ввода</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Переключает между обычным режимом ввода и режимом Vi. В режиме ввода Vi поддерживаются наиболее часто используемые команды и движения из обычного и визуального режима vim и отображается дополнительная строка состояния режима Vi. Строка состояния показывает команды во время их ввода, вывод команд и текущий режим. Поведение этого режима возможно настроить на вкладке <ulink url="help:/katepart/config-dialog-editor.html#pref-edit-vi-input-mode"
+>«Режим ввода Vi»</ulink
+> страницы <guilabel
+>«Редактирование»</guilabel
+> диалога настройки этого приложения.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-overwrite-mode">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+><keycap
+>Ins</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Правка</guimenu
+> <guimenuitem
+>Режим замены</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Переключает между режимами вставки и замены. Если включён режим <guilabel
+>ВСТАВКА</guilabel
+>, символы будут вставляться в позиции курсора. Если включён режим <guilabel
+>ЗАМЕНА</guilabel
+>, набираемые символы будут заменять текущие, если курсор расположен перед каким-либо символом. В строке состояния показан текущий режим: <guilabel
+>ВСТАВКА</guilabel
+> или <guilabel
+>ЗАМЕНА</guilabel
+>.</para>
+</listitem>
+</varlistentry>
+<!--FIXME keep in sync with katepart/part.docbook <sect2 id="finding-text"
+> -->
+<varlistentry id="edit-find">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>F</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Правка</guimenu
+> <guimenuitem
+>Найти...</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Открывает панель поиска в нижней части окна редактора. Слева от поля ввода текста расположена кнопка закрытия панели.</para>
+<para
+>Поиск выполняется по мере ввода текста. Обнаруженные совпадения выделяются в тексте, при этом цвет фона поля ввода становится светло-зелёным. Если для поискового запроса не обнаружено совпадений, цвет фона поля ввода станет светло-красным.</para>
+<para
+>Чтобы перейти к следующему или предыдущему совпадению в документе, используйте кнопки <inlinemediaobject
+><imageobject
+><imagedata fileref="arrow-up-double-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> или <inlinemediaobject
+><imageobject
+><imagedata fileref="arrow-down-double-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+>.</para>
+<para
+>Обнаруженные в документе совпадения останутся выделенными даже после закрытия панели поиска. Чтобы снять это выделение, нажмите клавишу &Esc;.</para>
+<para
+>Возможно указать, следует ли учитывать регистр при поиске. Если кнопка <inlinemediaobject
+><imageobject
+><imagedata fileref="format-text-superscript-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> нажата, будет выполняться поиск только тех записей, которые соответствуют указанному регистру (верхнему или нижнему) всех символов шаблона поиска. </para>
+<para
+>Чтобы перейти к расширенной панели поиска и замены, нажмите кнопку <inlinemediaobject
+><imageobject
+><imagedata fileref="configure-shortcuts-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+>, которая расположена с правой стороны панели пошагового поиска. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-find-next">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+><keycap
+>F3</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Правка</guimenu
+> <guisubmenu
+>Варианты поиска</guisubmenu
+> <guimenuitem
+>Продолжить поиск</guimenuitem
+> </menuchoice
+></term>
+ <listitem>
+<para
+>Повторяет последний поисковый запрос (при наличии), не вызывая панель пошагового поиска; поиск начинается с текущей позиции курсора. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-find-previous">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Shift;<keycap
+>F3</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Правка</guimenu
+> <guisubmenu
+>Варианты поиска</guisubmenu
+> <guimenuitem
+>Найти предыдущее</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Повторяет последний поисковый запрос (при наличии), не вызывая панель пошагового поиска; поиск начинается с текущей позиции курсора и выполняется в обратном направлении. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-find-selected">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>H</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Правка</guimenu
+> <guisubmenu
+>Варианты поиска</guisubmenu
+> <guimenuitem
+>Следующее вхождение выделенного текста</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Находит следующее вхождение выделенного текста.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-find-selected-backwards">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>H</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Правка</guimenu
+> <guisubmenu
+>Варианты поиска</guisubmenu
+> <guimenuitem
+>Предыдущее вхождение выделенного текста</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Находит предыдущее вхождение выделенного текста.</para>
+</listitem>
+</varlistentry>
+<!--FIXME keep in sync with katepart/part.docbook <sect2 id="replacing-text"
+> -->
+<varlistentry id="edit-replace">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Правка</guimenu
+> <guimenuitem
+>Заменить...</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Открывает панель расширенного поиска и замены. Слева от поля ввода текста расположена кнопка закрытия панели.</para>
+<para
+>Режимом поиска возможно управлять с помощью следующих параметров, которые доступны в раскрывающемся списке: <guilabel
+>Обычный текст</guilabel
+>, <guilabel
+>Только полные слова</guilabel
+>, <guilabel
+>Управляющие последовательности</guilabel
+> и <guilabel
+>Регулярное выражение</guilabel
+>. </para>
+<para
+>Если выбрана опция <guilabel
+>Управляющие последовательности</guilabel
+> или <guilabel
+>Регулярное выражение</guilabel
+>, в конце контекстного меню поля ввода текста будет доступен пункт <guibutton
+>Добавить...</guibutton
+>. С его помощью к шаблону поиска или замены возможно добавить управляющие последовательности или регулярные выражения из предустановленных списков.</para>
+<para
+>Чтобы перейти к следующему или предыдущему совпадению в документе, используйте кнопки <inlinemediaobject
+><imageobject
+><imagedata fileref="arrow-up-double-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> или <inlinemediaobject
+><imageobject
+><imagedata fileref="arrow-down-double-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+>.</para>
+<para
+>Введите текст, на который следует выполнить замену, в поле <guilabel
+>Заменить на</guilabel
+> и нажмите кнопку <guibutton
+>Заменить</guibutton
+> (будет заменено только текущее выделенное вхождение) <guibutton
+>Заменить все</guibutton
+> (будут заменены все вхождения в документе). </para>
+<para
+>Чтобы изменить поведение функции поиска и замены, возможно выбрать другие параметры (они доступны в нижней части панели). Если кнопка <inlinemediaobject
+><imageobject
+><imagedata fileref="format-text-superscript-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> нажата, будет выполняться поиск только тех записей, которые соответствуют указанному регистру (верхнему или нижнему) всех символов шаблона поиска. Чтобы поиск и замена выполнялись только в пределах текущего выбранного фрагмента, должна быть нажата кнопка <inlinemediaobject
+><imageobject
+><imagedata fileref="edit-select-all-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+>. При нажатии кнопки <guilabel
+>Найти все</guilabel
+> в документе будут выделены все вхождения и показано их количество. </para>
+<para
+>Чтобы перейти к панели пошагового поиска, нажмите кнопку <inlinemediaobject
+><imageobject
+><imagedata fileref="configure-shortcuts-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+>, которая расположена с правой стороны панели расширенного поиска и замены. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-go-to-matching-bracket">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>6</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Правка</guimenu
+> <guisubmenu
+>Перейти</guisubmenu
+> <guimenuitem
+>На открывающую/закрывающую скобку</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Перемещает курсор к парной открывающей или закрывающей скобке.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-select-to-matching-bracket">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>6</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Правка</guimenu
+> <guisubmenu
+>Перейти</guisubmenu
+> <guimenuitem
+>Выделить до открывающей/закрывающей скобки</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Выделяет текст между парными открывающей и закрывающей скобками.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-go-to-previous-modified-line">
+<term
+><menuchoice
+><guimenu
+>Правка</guimenu
+> <guisubmenu
+>Перейти</guisubmenu
+> <guimenuitem
+>Перейти к предыдущей изменённой строке</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Строки, в которые были внесены изменения с момента открытия файла, называются изменёнными строками. Это действие позволяет перейти к предыдущей изменённой строке. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-go-to-next-modified-line">
+<term
+><menuchoice
+><guimenu
+>Правка</guimenu
+> <guisubmenu
+>Перейти</guisubmenu
+> <guimenuitem
+>Перейти к следующей изменённой строке</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Строки, в которые были внесены изменения с момента открытия файла, называются изменёнными строками. Это действие позволяет перейти к следующей изменённой строке. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-edit-go-to-line">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>G</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Правка</guimenu
+> <guisubmenu
+>Перейти</guisubmenu
+> <guimenuitem
+>Перейти на строку...</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Открывает панель строки перехода в нижней части окна и переводит курсор на указанный пользователем номер строки в документе. Номер строки возможно ввести вручную или выбрать с помощью стрелок в правой части поля ввода. Маленькая стрелка вверх увеличивает число, маленькая стрелка вниз — уменьшает. Чтобы закрыть панель, нажмите на кнопку, расположенную в её левой части. </para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect1>
+
+<sect1 id="view-menu">
+<title
+>Меню «Вид»</title>
+
+<variablelist>
+
+<varlistentry id="view-new-window">
+<term
+><menuchoice
+><guimenu
+>Вид</guimenu
+><guimenuitem
+>Новое окно</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>Открывает ещё один экземпляр &kate;</action
+>. Новый экземпляр будет точно таким же, как предыдущий. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-next-tab">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Alt;<keysym
+>Вправо</keysym
+></keycombo
+> </shortcut
+> <guimenu
+>Вид</guimenu
+> <guimenuitem
+>Следующая вкладка</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Активирует следующую вкладку на панели вкладок.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-previous-tab">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Alt;<keysym
+>Влево</keysym
+></keycombo
+> </shortcut
+> <guimenu
+>Вид</guimenu
+> <guimenuitem
+>Предыдущая вкладка</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Активирует предыдущую вкладку на панели вкладок.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-quick-open">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Alt;<keycap
+>O</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Вид</guimenu
+> <guimenuitem
+>Быстрый переход</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Отображает поле ввода и список открытых файлов в области редактора. Ввод текста в поле для ввода инициирует поиск по именам и расположению документов. Для навигации по списку используйте клавиши «Вверх» и «Вниз». Чтобы переключиться на выбранный из списка документ, нажмите клавишу &Enter; или дважды щёлкните по документу левой кнопкой мыши. Это позволяет быстрее переключаться между документами, если их открыто очень много.</para>
+<para
+>Это действие также доступно с помощью кнопки <inlinemediaobject
+><imageobject
+><imagedata fileref="tab-duplicate-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> в верхней правой части окна редактора.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-split-previous">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Shift;<keycap
+>F8</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Вид</guimenu
+> <guisubmenu
+>Разделить окно</guisubmenu
+> <guimenuitem
+>Предыдущая створка</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Передаёт фокус предыдущей створке, если окно разделено.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-split-next">
+<term
+><menuchoice
+><shortcut
+> <keycap
+>F8</keycap
+> </shortcut
+> <guimenu
+>Вид</guimenu
+> <guisubmenu
+>Разделить окно</guisubmenu
+> <guimenuitem
+>Следующая створка</guimenuitem
+> </menuchoice>
+</term
+><listitem>
+<para
+>Передаёт фокус следующей створке, если окно разделено.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-split-vertical">
+<term>
+<menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>L</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Вид</guimenu
+><guisubmenu
+>Разделить окно</guisubmenu
+> <guimenuitem
+>Разделить по вертикали</guimenuitem
+> </menuchoice>
+</term>
+<listitem>
+<para
+>Разделяет область (которой может быть главная область редактирования) на две части одинакового размера, при этом новая часть будет располагаться слева от текущей. Новая часть становится активной, и в ней отображается тот же документ.</para>
+<para
+>Смотрите также раздел <link linkend="kate-mdi"
+>Работа с многодокументным интерфейсом &kate;</link
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-split-horizontal">
+<term>
+<menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>T</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Вид</guimenu
+><guisubmenu
+>Разделить окно</guisubmenu
+> <guimenuitem
+>Разделить по горизонтали</guimenuitem
+> </menuchoice>
+</term>
+<listitem>
+<para
+>Разделяет область (которой может быть главная область редактирования) на две части одинакового размера, при этом новая часть будет располагаться под текущей. Новая часть становится активной, и в ней отображается тот же документ.</para>
+<para
+>Смотрите также раздел <link linkend="kate-mdi"
+>Работа с многодокументным интерфейсом &kate;</link
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-split-toggle-orientation">
+<term>
+<menuchoice
+><guimenu
+>Вид</guimenu
+><guisubmenu
+>Разделить окно</guisubmenu
+> <guimenuitem
+>Сменить ориентацию створок</guimenuitem
+> </menuchoice>
+</term>
+<listitem>
+<para
+>Переключает между горизонтальным и вертикальным разделением.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-close-current">
+<term>
+<menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>R</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Вид</guimenu
+><guisubmenu
+>Разделить окно</guisubmenu
+> <guimenuitem
+>Закрыть текущую створку</guimenuitem
+> </menuchoice>
+</term>
+<listitem>
+<para
+>Закрывает текущую часть. Эта опция недоступна, если область редактирования не разделена на части.</para
+> <para
+>При закрытии части документ, который отображается в ней, не закрывается: он всё ещё будет доступен в <link linkend="view-menu"
+>меню <guimenu
+>«Вид»</guimenu
+></link
+> и в списке файлов.</para
+> <para
+>Смотрите также раздел <link linkend="kate-mdi"
+>Работа с многодокументным интерфейсом &kate;</link
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-close-inactive">
+<term>
+<menuchoice
+><guimenu
+>Вид</guimenu
+><guisubmenu
+>Разделить окно</guisubmenu
+> <guimenuitem
+>Закрыть неактивные створки</guimenuitem
+> </menuchoice>
+</term>
+<listitem>
+<para
+>Закрывает все части, кроме активной (с мигающим курсором). Эта опция недоступна, если область редактирования не разделена на части.</para>
+<para
+>При закрытии части документ, который отображается в ней, не закрывается: он всё ещё будет доступен в <link linkend="view-menu"
+>меню <guimenu
+>«Вид»</guimenu
+></link
+> и в списке файлов.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-hide-inactive">
+<term>
+<menuchoice
+><guimenu
+>Вид</guimenu
+><guisubmenu
+>Разделить окно</guisubmenu
+> <guimenuitem
+>Скрыть неактивные створки</guimenuitem
+> </menuchoice>
+</term>
+<listitem>
+<para
+>Скрывает все створки, кроме активной.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-move-splitter-left">
+<term>
+<menuchoice
+><guimenu
+>Вид</guimenu
+><guisubmenu
+>Разделить окно</guisubmenu
+> <guimenuitem
+>Переместить разделитель влево</guimenuitem
+> </menuchoice>
+</term>
+<listitem>
+<para
+>Если включён режим разделения окна, эта функция переместит границу между двумя вертикально разделёнными документами левее.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-move-splitter-right">
+<term>
+<menuchoice
+><guimenu
+>Вид</guimenu
+><guisubmenu
+>Разделить окно</guisubmenu
+> <guimenuitem
+>Переместить разделитель вправо</guimenuitem
+> </menuchoice>
+</term>
+<listitem>
+<para
+>Если включён режим разделения окна, эта функция переместит границу между двумя вертикально разделёнными документами правее.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-move-splitter-up">
+<term>
+<menuchoice
+><guimenu
+>Вид</guimenu
+><guisubmenu
+>Разделить окно</guisubmenu
+> <guimenuitem
+>Переместить разделитель вверх</guimenuitem
+> </menuchoice>
+</term>
+<listitem>
+<para
+>Если включён режим разделения окна, эта функция переместит границу между двумя горизонтально разделёнными документами выше.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-move-splitter-down">
+<term>
+<menuchoice
+><guimenu
+>Вид</guimenu
+><guisubmenu
+>Разделить окно</guisubmenu
+> <guimenuitem
+>Переместить разделитель вниз</guimenuitem
+> </menuchoice>
+</term>
+<listitem>
+<para
+>Если включён режим разделения окна, эта функция переместит границу между двумя горизонтально разделёнными документами ниже.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+<note
+><para
+>Некоторые опции из меню <guimenu
+>Вид</guimenu
+><guisubmenu
+>Разделить окно</guisubmenu
+> также доступны с помощью кнопки <guiicon
+><inlinemediaobject
+><imageobject
+><imagedata fileref="view-split-left-right-22.png" format="PNG"/> </imageobject
+></inlinemediaobject
+></guiicon
+> в верхнем правом углу окна редактора. </para
+></note>
+
+<variablelist>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>Вид</guimenu
+> <guisubmenu
+>Боковые панели</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<variablelist>
+<varlistentry id="view-toolviews-show-sidebars">
+<term>
+<menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;&Alt;&Shift;<keycap
+>F</keycap
+> </keycombo
+></shortcut
+><guimenu
+>Вид</guimenu
+><guisubmenu
+>Боковые панели</guisubmenu
+> <guimenuitem
+>Показать боковые панели</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>Включает или отключает отображение боковых панелей. Команда не действует на средства управления содержимым боковых панелей, они остаются видимыми, и, конечно, продолжают действовать заданные для них комбинации клавиши (если имеются).</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="view-toolviews-show-plugins">
+<term
+><menuchoice
+><guimenu
+>Вид</guimenu
+> <guisubmenu
+>Боковые панели</guisubmenu
+> <guimenuitem
+>Показать панель <replaceable
+>модуля</replaceable
+></guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Список всех подключённых модулей. Чтобы отобразить или скрыть боковую панель того или иного модуля, установите или снимите флажок  напротив соответствующего элемента.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-command-line">
+<term
+><menuchoice
+><shortcut
+> <keycap
+>F7</keycap
+> </shortcut
+> <guimenu
+>Вид</guimenu
+> <guimenuitem
+>Командная строка</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Перемещает фокус ввода из области редактирования на <ulink url="help:/katepart/advanced-editing-tools-commandline.html"
+>командную строку</ulink
+> и обратно. </para
+></listitem>
+</varlistentry>
+
+<varlistentry id="view-enlarge-font">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>+</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Вид</guimenu
+> <guimenuitem
+>Увеличить размер шрифта</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Увеличивает размер шрифта текста документа.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="view-shrink-font">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>-</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Вид</guimenu
+> <guimenuitem
+>Уменьшить размер шрифта</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Уменьшает размер шрифта текста документа.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="view-schema">
+<term
+><menuchoice
+><guimenu
+>Вид</guimenu
+> <guisubmenu
+>Схема</guisubmenu
+> </menuchoice
+></term>
+<listitem
+><para
+>Это меню содержит доступные схемы. Здесь возможно изменить схему для текущего документа. Чтобы изменить схему по умолчанию, откройте <ulink url="help:/katepart/config-dialog-editor.html#prefcolors"
+>страницу «Шрифты и цвета»</ulink
+> диалога настройки.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-dynamic-word-wrap">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+><keycap
+>F10</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Вид</guimenu
+> <guisubmenu
+>Перенос строк</guisubmenu
+> <guimenuitem
+>Динамический перенос строк</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Включает или отключает динамический перенос строк текущего документа. При динамическом переносе текст в окне возможно просматривать без горизонтального прокручивания, то есть строка, непрерывная на самом деле, для удобства делится на несколько.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-dynamic-word-wrap-indicators">
+<term
+><menuchoice
+><guimenu
+>Вид</guimenu
+> <guisubmenu
+>Перенос строк</guisubmenu
+> <guisubmenu
+>Маркеры динамического переноса строк</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>Позволяет выбрать, когда и как должны показываться маркеры динамического переноса строк. Список доступен только в том случае, если включён параметр <guilabel
+>Динамический перенос строк</guilabel
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-show-statik-word-wrap-markers">
+<term
+><menuchoice
+><guimenu
+>Вид</guimenu
+> <guisubmenu
+>Перенос строк</guisubmenu
+> <guimenuitem
+>Маркеры статического переноса строк</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Включает или отключает отображение вертикальной линии, указывающей позицию переноса строк, заданную в <ulink url="help:/katepart/config-dialog-editor.html#pref-wrap-words-at"
+>диалоге настройки</ulink
+>. Эта функция доступна только для моноширинных шрифтов. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-show-icon-border">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+><keycap
+>F6</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Вид</guimenu
+> <guisubmenu
+>Границы</guisubmenu
+> <guimenuitem
+>Полоса закладок</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Это переключаемый элемент. Если флажок установлен, в левой части активной области редактирования будет показана полоса закладок, которая обозначает позиции отмеченных в редакторе строк.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-show-line-numbers">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+><keycap
+>F11</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Вид</guimenu
+> <guisubmenu
+>Границы</guisubmenu
+> <guimenuitem
+>Номера строк</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Позволяет показать или скрыть номера строк слева от текста.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-scrollbar-marks">
+<term
+><menuchoice
+><guimenu
+>Вид</guimenu
+> <guisubmenu
+>Границы</guisubmenu
+> <guimenuitem
+>Отметки на полосе прокрутки</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Включает или отключает отображение закладок (и других отметок) на полосе вертикальной прокрутки. Если флажок установлен, на полосе прокрутки отображаются тонкие линии, окрашенные в цвет отметки. Щёлкните по такой линии средней кнопкой мыши, и в области просмотра будет показано место отметки.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="view-border-show-scrollbar-minimap">
+<term
+><menuchoice
+><guimenu
+>Вид</guimenu
+> <guisubmenu
+>Границы</guisubmenu
+> <guimenuitem
+>Мини-карта в полосе прокрутки</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Заменяет полосу прокрутки визуализацией текущего документа. Более подробные сведения доступны в разделе <ulink url="help:/katepart/kate-part-scrollbar-minimap.html"
+>«Мини-карта в полосе прокрутки» руководства пользователя &katepart;</ulink
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="view-code-folding">
+<term
+><menuchoice
+><guimenu
+>Вид</guimenu
+> <guimenuitem
+>Сворачивание блоков кода</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Эти параметры позволяют настроить <ulink url="help:/katepart/advanced-editing-tools-code-folding.html"
+>сворачивание блоков кода</ulink
+>:</para>
+<variablelist>
+
+<varlistentry id="view-show-folding-markers">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+><keycap
+>F9</keycap
+></keycombo
+> </shortcut
+> <guimenuitem
+>Полоса сворачивания блоков</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Позволяет включать и отключать отображение полосы сворачивания блоков в левой части области просмотра.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="view-fold-current-node">
+<term
+><menuchoice>
+<guimenuitem
+>Свернуть текущий блок кода</guimenuitem>
+</menuchoice
+></term>
+<listitem
+><para
+>Сворачивает ближайший к курсору блок.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="view-unfold-current-node">
+<term
+><menuchoice>
+<guimenuitem
+>Развернуть текущий блок кода</guimenuitem>
+</menuchoice
+></term>
+<listitem
+><para
+>Разворачивает ближайший к курсору блок.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="view-fold-toplevel-nodes">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>-</keycap
+></keycombo
+> </shortcut
+> <guimenuitem
+>Свернуть блоки 1-го уровня</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Сворачивает все блоки верхнего уровня в документе. Чтобы развернуть блоки верхнего уровня, нажмите треугольник, который указывает вправо.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="view-unfold-toplevel-nodes">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>+</keycap
+></keycombo
+> </shortcut
+> <guimenuitem
+>Развернуть блоки 1-го уровня</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Разворачивает все блоки верхнего уровня в документе.</para
+></listitem>
+</varlistentry>
+</variablelist>
+
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-show-non-printable-spaces">
+<term
+><menuchoice>
+<guimenuitem
+>Показать непечатаемые пробелы</guimenuitem>
+</menuchoice
+></term>
+<listitem
+><para
+>Показывает или скрывает рамку вокруг непечатаемых пробельных символов.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect1>
+
+<sect1 id="bookmarks-menu">
+<title
+>Меню «Закладки»</title>
+
+<para
+>Под пунктами меню, описание которых приводится далее, доступны пункты самих закладок. Текст каждого такого пункта — это номер и несколько символов строки, на которую указывает эта закладка. При выборе пункта меню закладки курсор перейдёт на начало отмеченной строки. Редактор автоматически выполнит прокрутку текста, если эта строка не видна.</para>
+
+<variablelist>
+
+<varlistentry id="bookmarks-set-bookmark">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>B</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Закладки</guimenu
+> <guimenuitem
+>Поставить закладку</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Устанавливает или удаляет закладку для текущей строки активного документа (если закладки не было, она устанавливается, если была — удаляется).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="bookmarks-clear-bookmarks">
+<term
+><menuchoice
+><guimenu
+>Закладки</guimenu
+> <guimenuitem
+>Убрать все закладки</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Убирает все закладки из документа и из списка, который располагается в конце этого меню. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="bookmarks-bookmarks-previous">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Alt;<keycap
+>Page Up</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Закладки</guimenu
+> <guimenuitem
+>Предыдущая</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Перемещает курсор к ближайшей предыдущей закладке. Пункт меню будет содержать номер строки и начало текста на ней. Этот пункт доступен, только если выше курсора есть строка с закладкой.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="bookmarks-bookmarks-next">
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Alt; <keycap
+>Page Down</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Закладки</guimenu
+><guimenuitem
+>Следующая</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Перемещает курсор к ближайшей следующей закладке. Пункт меню будет содержать номер строки и начало текста на ней. Этот пункт доступен, только если ниже курсора есть строка с закладкой.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect1>
+
+<sect1 id="sessions-menu">
+<title
+>Меню «Сеанс»</title>
+
+<para
+>С помощью пунктов этого меню возможно использовать сеансы и управлять ими. Более подробные сведения доступны в разделе <link linkend="fundamentals-using-sessions"
+>Работа с сеансами</link
+>.</para>
+
+<variablelist>
+
+<varlistentry id="sessions-new">
+<term
+><menuchoice
+><guimenu
+>Сеанс</guimenu
+> <guimenuitem
+>Создать</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Создаёт новый сеанс. Все текущие файлы будут закрыты.</para
+></listitem>
+
+</varlistentry>
+
+<varlistentry id="sessions-open">
+<term
+><menuchoice
+><guimenu
+>Сеанс</guimenu
+><guimenuitem
+>Открыть сеанс</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Открывает один из существующих сеансов, для выбора предоставляется диалоговое окно.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="sessions-quick-open">
+<term
+><menuchoice
+><guimenu
+>Сеанс</guimenu
+><guisubmenu
+>Быстрое открытие</guisubmenu
+> </menuchoice
+></term>
+<listitem
+><para
+>Это вложенное меню позволяет быстро открыть существующий сеанс.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="sessions-save">
+<term
+><menuchoice
+><guimenu
+>Сеанс</guimenu
+><guimenuitem
+>Сохранить сеанс</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Сохраняет текущий сеанс. Если сеанс безымянный, будет предложено назвать его.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="sessions-save-as">
+<term
+><menuchoice
+><guimenu
+>Сеанс</guimenu
+><guimenuitem
+>Сохранить сеанс как...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Сохраняет текущий сеанс под именем, которое будет предложено ввести.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="sessions-manage">
+<term
+><menuchoice
+><guimenu
+>Сеанс</guimenu
+><guimenuitem
+>Управление сеансами...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Отображает диалог управления сеансами, с помощью которого возможно их переименовывать и удалять.</para
+></listitem>
+</varlistentry>
+
+
+</variablelist>
+
+</sect1>
+
+<sect1 id="tools-menu">
+
+<title
+>Меню «Сервис»</title>
+
+<variablelist>
+
+<varlistentry id="tools-read-only">
+<term
+><menuchoice
+><guimenu
+>Сервис</guimenu
+> <guimenuitem
+>Заблокировать изменение текста</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Устанавливает режим «только для чтения» для текущего документа, тем самым предохраняя его от любых возможных изменений.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-filetype">
+<term
+><menuchoice
+><guimenu
+>Сервис</guimenu
+> <guisubmenu
+>Тип документа</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>Позволяет выбрать тип файла для текущего документа. Переопределяет глобальный <ulink url="help:/katepart/pref-open-save-modes-filetypes.html"
+>тип файла</ulink
+>, указанный с помощью пункта меню <menuchoice
+> <guimenu
+>Настройка</guimenu
+> <guimenuitem
+>Настроить &kate;...</guimenuitem
+></menuchoice
+> на вкладке «Типы файлов», но только для текущего документа.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-highlighting">
+<term
+><menuchoice
+><guimenu
+>Сервис</guimenu
+> <guimenuitem
+>Подсветка</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Позволяет выбрать нестандартную схему подсветки для текущего документа. Переопределяет глобальный режим подсветки, указанный с помощью пункта меню <menuchoice
+> <guimenu
+>Настройка</guimenu
+> <guimenuitem
+>Настроить редактор...</guimenuitem
+> </menuchoice
+>, но только для текущего документа.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-indentation">
+<term
+><menuchoice
+><guimenu
+>Сервис</guimenu
+> <guimenuitem
+>Расстановка отступов</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Позволяет выбрать <ulink url="help:/katepart/kate-part-autoindent.html"
+>режим отступов</ulink
+> для текущего документа. Переопределяет глобальный режим отступов, указанный с помощью пункта меню <menuchoice
+> <guimenu
+>Настройка</guimenu
+> <guimenuitem
+>Настроить редактор...</guimenuitem
+> </menuchoice
+>, но только для текущего документа.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-encoding">
+<term
+><menuchoice
+><guimenu
+>Сервис</guimenu
+> <guimenuitem
+>Кодировка</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Позволяет выбрать для текущего документа кодировку, отличную от указанной с помощью пункта меню <menuchoice
+> <guimenu
+>Настройка</guimenu
+> <guimenuitem
+>Настроить редактор...</guimenuitem
+></menuchoice
+> на вкладке <guilabel
+>Открытие и сохранение</guilabel
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-end-of-line">
+<term
+><menuchoice
+><guimenu
+>Сервис</guimenu
+> <guimenuitem
+>Конец строки</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Позволяет выбрать режим конца строки для текущего документа. Переопределяет глобальный режим конца строки, заданный с помощью пункта меню <menuchoice
+> <guimenu
+>Настройка</guimenu
+> <guimenuitem
+>Настроить редактор...</guimenuitem
+> </menuchoice
+>, но только для текущего документа.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-add-byte-mark-order">
+<term
+><menuchoice
+><guimenu
+>Сервис</guimenu
+> <guisubmenu
+>Добавлять отметку о порядке байтов (BOM)</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>Позволяет явным образом добавить маркер последовательности байтов в документах, закодированных в формате Юникод. Маркер последовательности байтов — это символ из стандарта Юникод, используемый для обозначения порядка байтов в текстовом файле или потоке. Дополнительные сведения: <ulink url="https://ru.wikipedia.org/wiki/Маркер_последовательности_байтов"
+>Маркер последовательности байтов</ulink
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-scripts">
+<term
+><menuchoice
+><guimenu
+>Сервис</guimenu
+> <guisubmenu
+>Сценарии</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>Это вложенное меню содержит список сценариев. Возможно также <ulink url="help:/katepart/dev-scripting.html#dev-scripting-command-line"
+>написать собственные сценарии</ulink
+>. Это позволяет расширить функционал &kate; инструментами, определёнными пользователем. </para>
+<para
+><ulink url="help:/katepart/dev-scripting.html"
+>В документации &katepart; есть полный список сценариев.</ulink
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-invoke-code-completition">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Пробел</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Сервис</guimenu
+> <guimenuitem
+>Дополнить код</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Вручную вызывает функцию дополнения кода (обычно это выполняется с помощью соответствующей комбинации клавиш).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-word-completition">
+<term
+><menuchoice
+><guimenu
+>Сервис</guimenu
+> <guimenuitem
+>Автодополнение слов</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Опции <guimenuitem
+>Использовать нижестоящее слово</guimenuitem
+> (<keycombo action="simul"
+>&Ctrl; <keycap
+>9</keycap
+></keycombo
+>) и <guimenuitem
+>Использовать вышестоящее слово</guimenuitem
+> (<keycombo action="simul"
+>&Ctrl; <keycap
+>8</keycap
+></keycombo
+>) автоматически дополняют введённый текст посредством поиска похожих слов выше или ниже позиции курсора. <guimenuitem
+>Автодополнение как в командной оболочке</guimenuitem
+> выводит на экран всплывающее окно автодополнения с совпадающими записями.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="spelling-automatic-spell-checking">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>O</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Сервис</guimenu
+> <guisubmenu
+>Орфография</guisubmenu
+> <guimenuitem
+>Автоматическая проверка орфографии</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>При включённой опции <guimenuitem
+>Автоматическая проверка орфографии</guimenuitem
+> неправильно написанное слово будет подчёркнуто сразу же.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="spelling-spelling">
+<term
+><menuchoice
+><guimenu
+>Сервис</guimenu
+> <guisubmenu
+>Орфография</guisubmenu
+> <guimenuitem
+>Проверка орфографии...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>Запускает программу проверки орфографии, которая позволяет пользователю найти и исправить орфографические ошибки.</action
+></para>
+
+<para
+>Более подробные сведения о программе проверки орфографии &kde; доступны в разделе <ulink url="help:/fundamentals/spellcheck.html"
+><emphasis
+>Проверка орфографии</emphasis
+> в <emphasis
+>Основах &kde;</emphasis
+></ulink
+>. </para
+></listitem>
+</varlistentry>
+
+<varlistentry id="tools-spelling-from-cursor">
+<term
+><menuchoice
+><guimenu
+>Сервис</guimenu
+> <guisubmenu
+>Орфография</guisubmenu
+> <guimenuitem
+>Проверка орфографии от курсора...</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Запускает проверку правописания, но начинается она от позиции курсора, а не от начала документа.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-spellcheck-selection">
+<term
+><menuchoice
+><guimenu
+>Сервис</guimenu
+> <guisubmenu
+>Орфография</guisubmenu
+> <guimenuitem
+>Проверка орфографии в выделенном фрагменте...</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Проверяет орфографию в выделенном фрагменте текста.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-change-dictionary">
+<term
+><menuchoice
+><guimenu
+>Сервис</guimenu
+> <guisubmenu
+>Орфография</guisubmenu
+> <guimenuitem
+>Выбрать словарь...</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Отображает в нижней части окна редактора поле с раскрывающимся списком всех доступных словарей для проверки орфографии. Это поле позволяет легко переключаться между орфографическими словарями, например, для автоматической проверки орфографии в тексте на разных языках.</para>
+</listitem>
+</varlistentry>
+
+<!-- Indent/Unindent no longer in the menu ???, but shortcuts work-->
+<!--
+<varlistentry id="tools-indent">
+<term
+><menuchoice>
+<shortcut>
+<keycombo action="simul"
+>&Ctrl;<keycap
+>I</keycap
+></keycombo>
+</shortcut>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Indent</guimenuitem>
+</menuchoice
+></term>
+<listitem>
+<para
+>This increases the paragraph's indentation by one step. The size of the
+step depends on the <link linkend="pref-edit-indent"
+> indentation
+settings</link
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-unindent">
+<term
+><menuchoice>
+<shortcut>
+<keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>I</keycap
+></keycombo>
+</shortcut>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Unindent</guimenuitem>
+</menuchoice
+></term>
+<listitem>
+<para
+>This reduces the paragraph's indentation by one step. The size of the step
+depends on the <link linkend="pref-edit-indent"
+> indentation settings</link
+>.</para>
+</listitem>
+</varlistentry>
+-->
+<varlistentry id="tools-cleanindent">
+<term
+><menuchoice
+><guimenu
+>Сервис</guimenu
+> <guimenuitem
+>Привести отступы в порядок</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Убирает все отступы в выделенном фрагменте текста или в строке, на которой находится курсор. Это действие будет осуществлено с учётом выбранного режима расстановки отступов.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-align">
+<term
+><menuchoice
+><guimenu
+>Сервис</guimenu
+> <guimenuitem
+>Выровнять</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Заново выравнивает текущую строку или строки в выделенном фрагменте согласно правилам отступа для документа.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-comment">
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>D</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Сервис</guimenu
+> <guimenuitem
+>Закомментировать</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Добавляет знак комментария, отделённый от начала текста в строке пробелом.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-uncomment">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>D</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Сервис</guimenu
+> <guimenuitem
+>Раскомментировать</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Удаляет знак комментария и пробел, которым этот знак отделялся от начала текста в строке.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="tools-uppercase">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>U</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Сервис</guimenu
+> <guimenuitem
+>Перевести в ВЕРХНИЙ РЕГИСТР</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Переводит выделенный текст (или букву под курсором) в верхний регистр.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="tools-lowercase">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>U</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Сервис</guimenu
+> <guimenuitem
+>Перевести в нижний регистр</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Переводит выделенный текст (или букву под курсором) в нижний регистр.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="tools-capitalize">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Alt;<keycap
+>U</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Сервис</guimenu
+> <guimenuitem
+>Перевести в регистр Как в предложениях</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Переводит заглавные буквы выделенного текста в верхний регистр.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="tools-join-lines">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>J</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Сервис</guimenu
+> <guimenuitem
+>Объединить строки</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Объединяет выделенные строки (или текущую строку с расположенной ниже) в одну, разделяя их пробелом. Пробелы в начале и конце строк удаляются.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="tools-word-wrap-document">
+<term
+><menuchoice
+><guimenu
+>Сервис</guimenu
+> <guimenuitem
+>Выполнить перенос строк</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Включает статический перенос строк в документе. Символ новой строки будет вставлен автоматически, когда текущая строка достигнет длины, указанной на вкладке <guilabel
+>Переносить слова на новую строку после</guilabel
+> (<menuchoice
+> <guimenu
+>Настройка</guimenu
+><guimenuitem
+>Настроить редактор...</guimenuitem
+></menuchoice
+>).</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+</sect1>
+
+<sect1 id="settings-help-menu">
+<title
+>Меню «Настройка» и «Справка»</title>
+
+<para
+>В приложении редактора &kate; присутствуют стандартные меню &kde;: <guimenu
+>Настройка</guimenu
+> и <guimenu
+>Справка</guimenu
+>. Более подробно они описаны в соответствующих разделах «Основ KDE» (<ulink url="help:/fundamentals/menus.html#menus-settings"
+>Меню «Настройка»»</ulink
+> и <ulink url="help:/fundamentals/menus.html#menus-help"
+>Меню «Справка»</ulink
+>). В редакторе эти меню содержат следующие дополнительные пункты: </para>
+
+<variablelist>
+
+<varlistentry id="settings-colorscheme">
+<term
+><menuchoice
+><guimenu
+>Настройка</guimenu
+> <guimenuitem
+>Цветовая схема</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Возможно использовать отличную от системной цветовую схему (описание системных цветовых схем доступно в разделе <ulink url="help:/kcontrol/colors/index.html"
+>Цвета</ulink
+> справки к приложению «Параметры системы»). </para
+></listitem>
+</varlistentry>
+
+<varlistentry id="settings-show-tabs">
+<term
+><menuchoice
+><guimenu
+>Настройка</guimenu
+> <guimenuitem
+>Показать заголовки вкладок</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Вкладки возможно перемещать с помощью левой кнопки мыши, а также взаимодействовать с ними с помощью контекстного меню (для закрытия, копирования пути в буфер обмена или открытия расположения документа с помощью диспетчера файлов). Кнопка <inlinemediaobject
+><imageobject
+><imagedata fileref="tab-duplicate-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> <link linkend="view-quick-open"
+><guibutton
+>Быстрый переход</guibutton
+> </link
+> позволяет легко переключаться между документами. Кнопка <inlinemediaobject
+><imageobject
+><imagedata fileref="view-split-left-right-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> вызывает контекстное меню из панели инструментов <guimenu
+>Вид</guimenu
+><guisubmenu
+>Разделить окно</guisubmenu
+> </para
+></listitem>
+</varlistentry>
+
+<varlistentry id="settings-show-path">
+<term
+><menuchoice
+><guimenu
+>Настройка</guimenu
+> <guimenuitem
+>Показывать путь в заголовке окна</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Если этот параметр включён, отображается полный путь к активному документу, в противном случае — только имя файла. Если редактируются несколько файлов с одним и тем же именем, их будет возможно различать.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect1>
+</chapter>

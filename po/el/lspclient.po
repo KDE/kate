@@ -1,0 +1,821 @@
+# Copyright (C) YEAR This file is copyright:
+# This file is distributed under the same license as the kate package.
+#
+# Stelios <sstavra@gmail.com>, 2019, 2020, 2021.
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-10-02 00:49+0000\n"
+"PO-Revision-Date: 2021-10-11 08:14+0300\n"
+"Last-Translator: Stelios <sstavra@gmail.com>\n"
+"Language-Team: Greek <kde-i18n-el@kde.org>\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 20.04.2\n"
+
+#: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:250
+#, kde-format
+msgid "Filter..."
+msgstr "Φιλτράρισμα..."
+
+#. i18n: ectx: Menu (LSPClient Menubar)
+#: lspclientconfigpage.cpp:115 lspclientconfigpage.cpp:120
+#: lspclientpluginview.cpp:592 lspclientpluginview.cpp:704 ui.rc:6
+#, kde-format
+msgid "LSP Client"
+msgstr "Πελάτης LSP"
+
+#: lspclientconfigpage.cpp:236
+#, kde-format
+msgid "No JSON data to validate."
+msgstr "Δεν υπάρχουν JSON δεδομένα για επικύρωση."
+
+#: lspclientconfigpage.cpp:245
+#, kde-format
+msgid "JSON data is valid."
+msgstr "Τα δεδομένα JSON είναι έγκυρα."
+
+#: lspclientconfigpage.cpp:247
+#, kde-format
+msgid "JSON data is invalid: no JSON object"
+msgstr "Τα δεδομένα JSON δεν είναι έγκυρα: δεν υπάρχει JSON αντικείμενο."
+
+#: lspclientconfigpage.cpp:250
+#, kde-format
+msgid "JSON data is invalid: %1"
+msgstr "Τα δεδομένα JSON δεν είναι έγκυρα: %1"
+
+#: lspclientconfigpage.cpp:298
+#, kde-format
+msgid "Delete selected entries"
+msgstr ""
+
+#: lspclientconfigpage.cpp:303
+#, kde-format
+msgid "Delete all entries"
+msgstr ""
+
+#: lspclientplugin.cpp:225
+#, kde-format
+msgid "LSP server start requested"
+msgstr ""
+
+#: lspclientplugin.cpp:228
+#, kde-format
+msgid ""
+"Do you want the LSP server to be started?<br><br>The full command line is:"
+"<br><br><b>%1</b><br><br>The choice can be altered via the config page of "
+"the plugin."
+msgstr ""
+
+#: lspclientplugin.cpp:241
+#, kde-format
+msgid ""
+"User permanently blocked start of: '%1'.\n"
+"Use the config page of the plugin to undo this block."
+msgstr ""
+
+#: lspclientpluginview.cpp:604
+#, kde-format
+msgid "Go to Definition"
+msgstr "Μετάβαση στον ορισμό"
+
+#: lspclientpluginview.cpp:606
+#, kde-format
+msgid "Go to Declaration"
+msgstr "Μετάβαση στη δήλωση"
+
+#: lspclientpluginview.cpp:608
+#, kde-format
+msgid "Go to Type Definition"
+msgstr "Μετάβαση στον ορισμό τύπου"
+
+#: lspclientpluginview.cpp:610
+#, kde-format
+msgid "Find References"
+msgstr "Εύρεση αναφορών"
+
+#: lspclientpluginview.cpp:612
+#, kde-format
+msgid "Find Implementations"
+msgstr "Εύρεση υλοποιήσεων"
+
+#: lspclientpluginview.cpp:614
+#, kde-format
+msgid "Highlight"
+msgstr "Τονισμός"
+
+#: lspclientpluginview.cpp:616
+#, kde-format
+msgid "Symbol Info"
+msgstr "Πληροφορίες συμβόλων"
+
+#: lspclientpluginview.cpp:618
+#, kde-format
+msgid "Search and Go to Symbol"
+msgstr "Αναζήτηση και μετάβαση στο σύμβολο"
+
+#: lspclientpluginview.cpp:623
+#, kde-format
+msgid "Format"
+msgstr "Τύπος"
+
+#: lspclientpluginview.cpp:626
+#, kde-format
+msgid "Rename"
+msgstr "Μετονομασία"
+
+#: lspclientpluginview.cpp:629
+#, fuzzy, kde-format
+#| msgid "Expand All"
+msgid "Expand Selection"
+msgstr "Επέκταση όλων"
+
+#: lspclientpluginview.cpp:631
+#, kde-format
+msgid "Shrink Selection"
+msgstr ""
+
+#: lspclientpluginview.cpp:634
+#, kde-format
+msgid "Switch Source Header"
+msgstr "Εναλλαγή επικεφαλίδας πηγής"
+
+#: lspclientpluginview.cpp:637
+#, fuzzy, kde-format
+#| msgid "Expand All"
+msgid "Expand Macro"
+msgstr "Επέκταση όλων"
+
+#: lspclientpluginview.cpp:639
+#, kde-format
+msgid "Quick Fix"
+msgstr "Γρήγορη διόρθωση"
+
+#: lspclientpluginview.cpp:641
+#, kde-format
+msgid "Code Action"
+msgstr "Ενέργεια κώδικα"
+
+#: lspclientpluginview.cpp:646
+#, kde-format
+msgid "Show selected completion documentation"
+msgstr "Εμφάνιση επιλεγμένης τεκμηρίωσης"
+
+#: lspclientpluginview.cpp:649
+#, kde-format
+msgid "Enable signature help with auto completion"
+msgstr "Ενεργοποίηση βοήθειας υπογραφής με αυτόματη συμπλήρωση"
+
+#: lspclientpluginview.cpp:652
+#, kde-format
+msgid "Include declaration in references"
+msgstr "Να περιλαμβάνεται η δήλωση σε αναφορές"
+
+#. i18n: ectx: property (text), widget (QCheckBox, chkComplParens)
+#: lspclientpluginview.cpp:655 lspconfigwidget.ui:68
+#, kde-format
+msgid "Add parentheses upon function completion"
+msgstr "Προσθήκη παρενθέσεων με την ολοκλήρωση της συνάρτησης"
+
+#: lspclientpluginview.cpp:658
+#, kde-format
+msgid "Show hover information"
+msgstr "Εμφάνιση πληροφοριών αιώρησης"
+
+#. i18n: ectx: property (text), widget (QCheckBox, chkOnTypeFormatting)
+#: lspclientpluginview.cpp:661 lspconfigwidget.ui:234
+#, kde-format
+msgid "Format on typing"
+msgstr "Διαμόρφωση στην πληκτρολόγηση"
+
+#: lspclientpluginview.cpp:664
+#, kde-format
+msgid "Incremental document synchronization"
+msgstr "Σταδιακός συγχρονισμός εγγράφωυ"
+
+#: lspclientpluginview.cpp:667
+#, kde-format
+msgid "Highlight goto location"
+msgstr "Τονισμός θέσης μετάβασης"
+
+#: lspclientpluginview.cpp:672
+#, fuzzy, kde-format
+#| msgid "Show diagnostics notifications"
+msgid "Show Diagnostics Notifications"
+msgstr "Εμφάνιση ειδοποιήσεων διαγνωστικών"
+
+#: lspclientpluginview.cpp:675
+#, fuzzy, kde-format
+#| msgid "Show diagnostics highlights"
+msgid "Show Diagnostics Highlights"
+msgstr "Εμφάνιση τονισμών διαγνωστικών"
+
+#: lspclientpluginview.cpp:678
+#, fuzzy, kde-format
+#| msgid "Show diagnostics marks"
+msgid "Show Diagnostics Marks"
+msgstr "Εμφάνιση σημείων διαγνωστικών"
+
+#: lspclientpluginview.cpp:681
+#, fuzzy, kde-format
+#| msgid "Show diagnostics on hover"
+msgid "Show Diagnostics on Hover"
+msgstr "Εμφάνιση διαγνωστικών σε αιώρηση"
+
+#: lspclientpluginview.cpp:684
+#, fuzzy, kde-format
+#| msgid "Switch to diagnostics tab"
+msgid "Switch to Diagnostics Tab"
+msgstr "Εναλλαγή στην καρτέλα διαγνωστικών"
+
+#: lspclientpluginview.cpp:688
+#, fuzzy, kde-format
+#| msgid "Show messages"
+msgid "Show Messages"
+msgstr "Εμφάνιση μηνυμάτων"
+
+#: lspclientpluginview.cpp:693
+#, fuzzy, kde-format
+#| msgid "Server memory usage"
+msgid "Server Memory Usage"
+msgstr "Χρήση μνήμης εξυπηρετητή"
+
+#: lspclientpluginview.cpp:697
+#, fuzzy, kde-format
+#| msgid "Close all dynamic reference tabs"
+msgid "Close All Dynamic Reference Tabs"
+msgstr "Κλείσιμο όλων των δυναμικών καρτελών αναφοράς"
+
+#: lspclientpluginview.cpp:699
+#, kde-format
+msgid "Restart LSP Server"
+msgstr "Επανεκκίνηση εξυπηρετητή LSP"
+
+#: lspclientpluginview.cpp:701
+#, kde-format
+msgid "Restart All LSP Servers"
+msgstr "Επανεκκίνηση όλων των εξυπηρετητών LSP"
+
+#: lspclientpluginview.cpp:732
+#, kde-format
+msgid "More options"
+msgstr "Περισσότερες επιλογές"
+
+#: lspclientpluginview.cpp:760
+#, kde-format
+msgid "LSP"
+msgstr ""
+
+#: lspclientpluginview.cpp:955 lspclientpluginview.cpp:2457
+#: lspclientsymbolview.cpp:285
+#, kde-format
+msgid "Expand All"
+msgstr "Επέκταση όλων"
+
+#: lspclientpluginview.cpp:956 lspclientpluginview.cpp:2458
+#: lspclientsymbolview.cpp:286
+#, kde-format
+msgid "Collapse All"
+msgstr "Σύμπτυξη όλων"
+
+#: lspclientpluginview.cpp:978
+#, kde-format
+msgctxt "@title:tab"
+msgid "Diagnostics"
+msgstr "Διαγνωστικά"
+
+#: lspclientpluginview.cpp:1194
+#, kde-format
+msgid "RangeHighLight"
+msgstr "RangeHighLight"
+
+#: lspclientpluginview.cpp:1200
+#, kde-format
+msgid "Error"
+msgstr "Σφάλμα"
+
+#: lspclientpluginview.cpp:1204
+#, kde-format
+msgid "Warning"
+msgstr "Προειδοποίηση"
+
+#: lspclientpluginview.cpp:1208
+#, kde-format
+msgid "Information"
+msgstr "Πληροφορίες"
+
+#: lspclientpluginview.cpp:1386
+#, kde-format
+msgctxt "@info"
+msgid ""
+"Error in regular expression: %1\n"
+"offset %2: %3"
+msgstr ""
+"Σφάλμα σε κανονική έκφραση: %1\n"
+"μετατόπιση %2: %3"
+
+#: lspclientpluginview.cpp:1713
+#, kde-format
+msgid "Line: %1: "
+msgstr "Γραμμή: %1: "
+
+#: lspclientpluginview.cpp:1860 lspclientpluginview.cpp:2207
+#: lspclientpluginview.cpp:2328
+#, kde-format
+msgid "No results"
+msgstr "Χωρίς αποτέλεσμα"
+
+#: lspclientpluginview.cpp:1919
+#, kde-format
+msgctxt "@title:tab"
+msgid "Definition: %1"
+msgstr "Ορισμός: %1"
+
+#: lspclientpluginview.cpp:1925
+#, kde-format
+msgctxt "@title:tab"
+msgid "Declaration: %1"
+msgstr "Δήλωση: %1"
+
+#: lspclientpluginview.cpp:1931
+#, kde-format
+msgctxt "@title:tab"
+msgid "Type Definition: %1"
+msgstr "Ορισμός τύπου: %1"
+
+#: lspclientpluginview.cpp:1937
+#, kde-format
+msgctxt "@title:tab"
+msgid "References: %1"
+msgstr "Αναφορές: %1"
+
+#: lspclientpluginview.cpp:1949
+#, kde-format
+msgctxt "@title:tab"
+msgid "Implementation: %1"
+msgstr "Υλοποίηση: %1"
+
+#: lspclientpluginview.cpp:1962
+#, kde-format
+msgctxt "@title:tab"
+msgid "Highlight: %1"
+msgstr "Τονισμός: %1"
+
+#: lspclientpluginview.cpp:1986 lspclientpluginview.cpp:1998
+#: lspclientpluginview.cpp:2011
+#, kde-format
+msgid "No Actions"
+msgstr "Καμία ενέργεια"
+
+#: lspclientpluginview.cpp:2002
+#, kde-format
+msgid "Loading..."
+msgstr "Φόρτωση..."
+
+#: lspclientpluginview.cpp:2094
+#, kde-format
+msgid "No edits"
+msgstr "Χωρίς επεξεργασίες"
+
+#: lspclientpluginview.cpp:2165
+#, kde-format
+msgctxt "@title:window"
+msgid "Rename"
+msgstr "Μετονομασία"
+
+#: lspclientpluginview.cpp:2166
+#, kde-format
+msgctxt "@label:textbox"
+msgid "New name (caution: not all references may be replaced)"
+msgstr "Νέο όνομα (προσοχή: δεν αντικαθίστανται όλες οι αναφορές)"
+
+#: lspclientpluginview.cpp:2213
+#, fuzzy, kde-format
+#| msgid "No results"
+msgid "Not enough results"
+msgstr "Χωρίς αποτέλεσμα"
+
+#: lspclientpluginview.cpp:2283
+#, kde-format
+msgid "Corresponding Header/Source not found"
+msgstr "Η σχετική επικεφαλίδα/πηγή δεν βρέθηκε"
+
+#: lspclientpluginview.cpp:2467
+#, kde-format
+msgid "Copy to Clipboard"
+msgstr "Αντιγραφή στο πρόχειρο"
+
+#: lspclientpluginview.cpp:2490
+#, kde-format
+msgid "Remove Global Suppression"
+msgstr "Αφαίρεση καθολικής συμπίεσης"
+
+#: lspclientpluginview.cpp:2492
+#, kde-format
+msgid "Add Global Suppression"
+msgstr "Προσθήκη καθολικής συμπίεσης"
+
+#: lspclientpluginview.cpp:2496
+#, kde-format
+msgid "Remove Local Suppression"
+msgstr "Αφαίρεση τοπικής συμπίεσης"
+
+#: lspclientpluginview.cpp:2498
+#, kde-format
+msgid "Add Local Suppression"
+msgstr "Προσθήκη τοπικής συμπίεσης"
+
+#: lspclientpluginview.cpp:2510
+#, kde-format
+msgid "Disable Suppression"
+msgstr "Απενεργοποίηση συμπίεσης"
+
+#: lspclientpluginview.cpp:2512
+#, kde-format
+msgid "Enable Suppression"
+msgstr "Ενεργοποίηση συμπίεσης"
+
+#: lspclientpluginview.cpp:2658
+#, kde-format
+msgctxt "@info"
+msgid "%1 [suppressed: %2]"
+msgstr "%1 [έγινε συμπίεση: %2]"
+
+#: lspclientpluginview.cpp:2773 lspclientpluginview.cpp:2810
+#, kde-format
+msgctxt "@info"
+msgid "LSP Server"
+msgstr "LSP εξυπηρετητής"
+
+#: lspclientpluginview.cpp:2833
+#, kde-format
+msgctxt "@info"
+msgid "LSP Client"
+msgstr "LSP πελάτης"
+
+#: lspclientservermanager.cpp:542
+#, kde-format
+msgid "Restarting"
+msgstr "Επανεκκινεί"
+
+#: lspclientservermanager.cpp:542
+#, kde-format
+msgid "NOT Restarting"
+msgstr "ΔΕΝ επανεκκινεί"
+
+#: lspclientservermanager.cpp:543
+#, kde-format
+msgid "Server terminated unexpectedly ... %1 [%2] [homepage: %3] "
+msgstr "Απρόσμενος τερματισμός εξυπηρετητή ... %1 [%2] [αρχική σελίδα: %3] "
+
+#: lspclientservermanager.cpp:746
+#, fuzzy, kde-format
+#| msgid "Failed to start server: %1"
+msgid "Failed to find server binary: %1"
+msgstr "Αποτυχία εκκίνησης εξυπηρετητή: %1"
+
+#: lspclientservermanager.cpp:749 lspclientservermanager.cpp:780
+#, kde-format
+msgid "Please check your PATH for the binary"
+msgstr "Ελέγξτε τη ΔΙΑΔΡΟΜΗ για το εκτελέσιμο"
+
+#: lspclientservermanager.cpp:750 lspclientservermanager.cpp:781
+#, kde-format
+msgid "See also %1 for installation or details"
+msgstr "Δείτε και στο %1 για εγκατάσταση ή λεπτομέρειες"
+
+#: lspclientservermanager.cpp:777
+#, kde-format
+msgid "Failed to start server: %1"
+msgstr "Αποτυχία εκκίνησης εξυπηρετητή: %1"
+
+#: lspclientservermanager.cpp:785
+#, kde-format
+msgid "Started server %2: %1"
+msgstr "Ξεκίνησε ο εξυπηρετητής %2: %1"
+
+#: lspclientservermanager.cpp:819
+#, kde-format
+msgid "Failed to parse server configuration '%1': no JSON object"
+msgstr ""
+"Αποτυχία συντακτικής ανάλυσης της διαμόρφωσης '%1': δεν υπάρχει JSON "
+"αντικείμενο"
+
+#: lspclientservermanager.cpp:822
+#, kde-format
+msgid "Failed to parse server configuration '%1': %2"
+msgstr "Αποτυχία συντακτικής ανάλυσης της διαμόρφωσης '%1': %2"
+
+#: lspclientservermanager.cpp:826
+#, kde-format
+msgid "Failed to read server configuration: %1"
+msgstr "Αποτυχία ανάγνωσης της διαμόρφωσης του εξυπηρετητή: %1"
+
+#: lspclientsymbolview.cpp:238
+#, fuzzy, kde-format
+#| msgid "Symbol Outline Options"
+msgid "Symbol Outline"
+msgstr "Επιλογές περιγράμματος συμβόλων"
+
+#: lspclientsymbolview.cpp:276
+#, kde-format
+msgid "Tree Mode"
+msgstr "Δενδρική λειτουργία"
+
+#: lspclientsymbolview.cpp:278
+#, kde-format
+msgid "Automatically Expand Tree"
+msgstr "Αυτόματη επέκταση δένδρου"
+
+#: lspclientsymbolview.cpp:280
+#, kde-format
+msgid "Sort Alphabetically"
+msgstr "Αλφαβητική ταξινόμηση"
+
+#: lspclientsymbolview.cpp:282
+#, kde-format
+msgid "Show Details"
+msgstr "Εμφάνιση λεπτομερειών"
+
+#: lspclientsymbolview.cpp:437
+#, kde-format
+msgid "Symbols"
+msgstr "Σύμβολα"
+
+#: lspclientsymbolview.cpp:568
+#, kde-format
+msgid "No LSP server for this document."
+msgstr "Δεν υπάρχει εξυπηρετητής LSP για αυτό το έγγραφο."
+
+#. i18n: ectx: attribute (title), widget (QWidget, tab)
+#: lspconfigwidget.ui:33
+#, kde-format
+msgid "Client Settings"
+msgstr "Ρυθμίσεις πελάτη"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: lspconfigwidget.ui:47
+#, fuzzy, kde-format
+#| msgid "Code Action"
+msgid "Completions:"
+msgstr "Ενέργεια κώδικα"
+
+#. i18n: ectx: property (text), widget (QCheckBox, chkComplDoc)
+#: lspconfigwidget.ui:54
+#, fuzzy, kde-format
+#| msgid "Show selected completion documentation"
+msgid "Show inline docs for selected completion"
+msgstr "Εμφάνιση επιλεγμένης τεκμηρίωσης"
+
+#. i18n: ectx: property (text), widget (QCheckBox, chkSignatureHelp)
+#: lspconfigwidget.ui:61
+#, kde-format
+msgid "Show function signature when typing a function call"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: lspconfigwidget.ui:75
+#, fuzzy, kde-format
+#| msgctxt "@title:tab"
+#| msgid "Diagnostics"
+msgid "Diagnostics:"
+msgstr "Διαγνωστικά"
+
+#. i18n: ectx: property (text), widget (QCheckBox, chkDiagnostics)
+#: lspconfigwidget.ui:82
+#, fuzzy, kde-format
+#| msgid "Show diagnostics marks"
+msgid "Show program diagnostics"
+msgstr "Εμφάνιση σημείων διαγνωστικών"
+
+#. i18n: ectx: property (text), widget (QCheckBox, chkDiagnosticsHighlight)
+#: lspconfigwidget.ui:97
+#, kde-format
+msgid "Highlight lines with diagnostics"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, chkDiagnosticsMark)
+#: lspconfigwidget.ui:104
+#, kde-format
+msgid "Show markers in the margins for lines with diagnostics"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, chkDiagnosticsHover)
+#: lspconfigwidget.ui:111
+#, kde-format
+msgid "Show diagnostics on hover"
+msgstr "Εμφάνιση διαγνωστικών σε αιώρηση"
+
+#. i18n: ectx: property (toolTip), widget (QSpinBox, spinDiagnosticsSize)
+#: lspconfigwidget.ui:118
+#, kde-format
+msgid "max diagnostics tooltip size"
+msgstr "μέγιστο μέγεθος υποδείξεων διαγνωστικών"
+
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: lspconfigwidget.ui:133
+#, kde-format
+msgid "Navigation:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, chkRefDeclaration)
+#: lspconfigwidget.ui:140
+#, kde-format
+msgid "Count declarations when searching for references to a symbol"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, chkAutoHover)
+#: lspconfigwidget.ui:147
+#, kde-format
+msgid "Show information about currently hovered symbol"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, chkHighlightGoto)
+#: lspconfigwidget.ui:154
+#, kde-format
+msgid "Highlight target line when hopping to it"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: lspconfigwidget.ui:161
+#, fuzzy, kde-format
+#| msgctxt "@info"
+#| msgid "LSP Server"
+msgid "Server:"
+msgstr "LSP εξυπηρετητής"
+
+#. i18n: ectx: property (text), widget (QCheckBox, chkMessages)
+#: lspconfigwidget.ui:168
+#, kde-format
+msgid "Show notifications from the LSP server"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, chkIncrementalSync)
+#: lspconfigwidget.ui:175
+#, kde-format
+msgid "Incrementally synchronize documents with the LSP server"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, chkSymbolDetails)
+#: lspconfigwidget.ui:182
+#, fuzzy, kde-format
+#| msgid "Display symbol details"
+msgid "Display additional details for symbols"
+msgstr "Εμφάνιση λεπτομερειών συμβόλων"
+
+#. i18n: ectx: property (text), widget (QCheckBox, chkSymbolTree)
+#: lspconfigwidget.ui:189
+#, kde-format
+msgid "Present symbols in a hierarchy instead of a flat list"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, chkSymbolExpand)
+#: lspconfigwidget.ui:204
+#, fuzzy, kde-format
+#| msgid "Automatically Expand Tree"
+msgid "Automatically expand tree"
+msgstr "Αυτόματη επέκταση δένδρου"
+
+#. i18n: ectx: property (text), widget (QCheckBox, chkSymbolSort)
+#: lspconfigwidget.ui:213
+#, kde-format
+msgid "Sort symbols alphabetically"
+msgstr "Αλφαβητική ταξινόμηση συμβόλων"
+
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#: lspconfigwidget.ui:220
+#, kde-format
+msgid "Document outline:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, chkSemanticHighlighting)
+#: lspconfigwidget.ui:227
+#, kde-format
+msgid "Enable semantic highlighting"
+msgstr "Ενεργοποίηση τονισμού σημασιολογίας"
+
+#. i18n: ectx: property (text), widget (QCheckBox, chkAutoImport)
+#: lspconfigwidget.ui:241
+#, kde-format
+msgid "Add imports automatically if needed upon completion"
+msgstr ""
+
+#. i18n: ectx: attribute (title), widget (QWidget, tab_4)
+#: lspconfigwidget.ui:264
+#, kde-format
+msgid "Allowed && Blocked Servers"
+msgstr ""
+
+#. i18n: ectx: attribute (title), widget (QWidget, tab_2)
+#: lspconfigwidget.ui:274
+#, kde-format
+msgid "User Server Settings"
+msgstr "Ρυθμίσεις εξυπηρετητή χρήστη"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: lspconfigwidget.ui:282
+#, kde-format
+msgid "Settings File:"
+msgstr "Αρχείο ρυθμίσεων:"
+
+#. i18n: ectx: attribute (title), widget (QWidget, tab_3)
+#: lspconfigwidget.ui:310
+#, kde-format
+msgid "Default Server Settings"
+msgstr "Προκαθορισμένες ρυθμίσεις εξυπηρετητή"
+
+#. i18n: ectx: Menu (lspclient_more_options)
+#: ui.rc:31
+#, kde-format
+msgid "More Options"
+msgstr "Περισσότερες επιλογές"
+
+#~ msgid "Type to filter through symbols in your project..."
+#~ msgstr "Πληκτρολογήστε για φιλτράρισμα των συμβόλων στο έργο σας..."
+
+#~ msgid "LSP Client Symbol Outline"
+#~ msgstr "Περίγραμμα συμβόλων πελάτη LSP"
+
+#~ msgid "General Options"
+#~ msgstr "Γενικές επιλογές"
+
+#~ msgid "Add highlights"
+#~ msgstr "Προσθήκη τονισμών"
+
+#~ msgid "Add markers"
+#~ msgstr "Προσθήκη δεικτών"
+
+#~ msgid "On hover"
+#~ msgstr "Σε αιώρηση"
+
+#~ msgid "Tree mode outline"
+#~ msgstr "Περίγραμμα δενδρικής λειτουργίας"
+
+#~ msgid "Automatically expand nodes in tree mode"
+#~ msgstr "Αυτόματη επέκταση κόμβων σε δενδρική λειτουργία"
+
+#~ msgid "Switch to messages tab upon message level"
+#~ msgstr "Εναλλαγή στην καρτέλα μηνυμάτων με το επίπεδο μηνυμάτων"
+
+#~ msgctxt "@info"
+#~ msgid "Never"
+#~ msgstr "Ποτέ"
+
+#~ msgctxt "@info"
+#~ msgid "Error"
+#~ msgstr "Σφάλμα"
+
+#~ msgctxt "@info"
+#~ msgid "Warning"
+#~ msgstr "Προειδοποίηση"
+
+#~ msgctxt "@info"
+#~ msgid "Information"
+#~ msgstr "Πληροφορίες"
+
+#~ msgctxt "@info"
+#~ msgid "Log"
+#~ msgstr "Καταγραφή"
+
+#~ msgid "Switch to messages tab"
+#~ msgstr "Εναλλαγή στην καρτέλα μηνυμάτων"
+
+#~ msgctxt "@title:tab"
+#~ msgid "Messages"
+#~ msgstr "Μηνύματα"
+
+#~ msgctxt "@info"
+#~ msgid "Unknown"
+#~ msgstr "Άγνωστο"
+
+#~ msgid "Switch to messages tab upon level"
+#~ msgstr "Εναλλαγή στην καρτέλα μηνυμάτων με το επίπεδο"
+
+#~ msgid "Never"
+#~ msgstr "Ποτέ"
+
+#~ msgid "Log"
+#~ msgstr "Καταγραφή"
+
+#~ msgid "Hover"
+#~ msgstr "Αιώρηση"
+
+#~ msgctxt "@info"
+#~ msgid "<b>LSP Client:</b> %1"
+#~ msgstr "<b>Πελάτης LSP :</b> %1"
+
+#~ msgid "Server Configuration"
+#~ msgstr "Διαμόρφωση εξυπηρετητή"
+
+#, fuzzy
+#~| msgid "Format"
+#~ msgid "Form"
+#~ msgstr "Τύπος"
+
+#~ msgid "Format on typing (newline)"
+#~ msgstr "Διαμόρφωση στην πληκτρολόγηση (newline)"

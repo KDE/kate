@@ -1,0 +1,1010 @@
+<!--pulled in by kwrite too-->
+<chapter id="kate-part">
+<chapterinfo>
+<authorgroup>
+<author
+>&Anders.Lund; &Anders.Lund.mail;</author>
+<author
+>&Dominik.Haumann; &Dominik.Haumann.mail;</author>
+<othercredit role="translator"
+><firstname
+>Андрей</firstname
+><surname
+>Балагута</surname
+><affiliation
+><address
+><email
+>uj2@mail.ru</email
+></address
+></affiliation
+><contrib
+>Перевод на русский язык</contrib
+></othercredit
+><othercredit role="translator"
+><firstname
+>Олеся</firstname
+><surname
+>Герасименко</surname
+><affiliation
+><address
+><email
+>translation-team@basealt.ru</email
+></address
+></affiliation
+><contrib
+>Обновление и редактирование перевода</contrib
+></othercredit
+> 
+</authorgroup>
+</chapterinfo>
+<title
+>Работа с редактором &kappname;</title>
+
+<sect1 id="kate-part-overview">
+
+<title
+>Обзор</title>
+
+<para
+>Редактор &kappname; — это область редактирования в главном окне &kappname;. Этот редактор используется как в &kate;, так и в &kwrite;, а также в &konqueror; для отображения текстовых файлов, расположенных на локальном компьютере или в сети.</para>
+
+<para
+>Редактор состоит из следующих частей:</para>
+
+<variablelist>
+
+<varlistentry>
+<term
+>Область редактирования</term>
+<listitem
+><para
+>Здесь отображается текст документа.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>Полосы прокрутки</term>
+<listitem>
+<para
+>Полосы прокрутки показывают положение видимой части текста документа; они используются для перемещения по документу. При перемещении ползунка курсор вставки остаётся на месте.</para>
+<para
+>Полосы прокрутки отображаются, если текст документа не помещается в пределах области редактирования и возникает необходимость в его прокручивании.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>Полоса закладок</term>
+<listitem>
+<para
+>Полоса закладок — это небольшая панель, расположенная в левой части редактора. На ней отображаются небольшие значки напротив отмеченных строк.</para>
+<para
+>Чтобы установить или убрать <link linkend="kate-part-bookmarks"
+>закладку</link
+> на какой-либо строке, щёлкните левой кнопкой мыши по полосе закладок напротив этой строки.</para>
+<para
+>Отображение полосы закладок возможно включить или отключить с помощью пункта меню <menuchoice
+><guimenu
+>Вид</guimenu
+> <guimenuitem
+>Полоса закладок</guimenuitem
+></menuchoice
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>Панель номеров строк</term>
+<listitem>
+<para
+>Панель номеров строк показывает номера видимых строк документа.</para>
+<para
+>Отображение панели номеров строк возможно включить или отключить с помощью пункта меню <menuchoice
+><guimenu
+>Вид</guimenu
+> <guimenuitem
+>Номера строк</guimenuitem
+></menuchoice
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>Полоса сворачивания блоков</term>
+<listitem>
+<para
+>Полоса сворачивания блоков позволяет сворачивать и разворачивать отдельные блоки кода. Группировка строк в блоки осуществляется на основе правил подсветки синтаксиса.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+<itemizedlist>
+<title
+>Содержание этой главы:</title>
+<listitem
+><para
+><link linkend="kate-part-navigation"
+>Навигация по тексту</link
+> </para
+></listitem>
+<listitem
+><para
+><link linkend="kate-part-selection"
+>Работа с выделением</link
+></para
+></listitem>
+<listitem
+><para
+><link linkend="kate-part-copy-and-paste"
+>Копирование и вставка текста</link
+></para
+></listitem>
+<listitem
+><para
+><link linkend="kate-part-find-replace"
+>Поиск и замена текста</link
+></para
+></listitem>
+<listitem
+><para
+><link linkend="kate-part-bookmarks"
+>Использование закладок</link
+></para
+></listitem>
+<listitem
+><para
+><link linkend="kate-part-auto-wrap"
+>Автоматический перенос по словам</link
+></para
+></listitem>
+<listitem
+><para
+><link linkend="kate-part-autoindent"
+>Использование автоматической расстановки отступов</link
+></para
+></listitem>
+</itemizedlist>
+
+</sect1>
+
+<sect1 id="kate-part-navigation">
+<title
+>Навигация по тексту</title>
+
+<para
+>Перемещение по тексту в &kappname; выполняется так же, как и в большинстве текстовых редакторов с графическим интерфейсом: с помощью клавиш со стрелками и клавиш <keycap
+>Page Up</keycap
+>, <keycap
+>Page Down</keycap
+>, <keycap
+>Home</keycap
+>, <keycap
+>End</keycap
+>, а также их разных комбинаций с клавишами &Ctrl; и &Shift;. Клавиша &Shift; позволяет выделять текст, а работа &Ctrl; зависит от конкретной клавиши, с которой она выступает в комбинации: <itemizedlist>
+<listitem
+><para
+>Для клавиш <keycap
+>Вверх</keycap
+> и <keycap
+>Вниз</keycap
+>: прокрутка документа вместо перемещения курсора.</para
+></listitem>
+<listitem
+><para
+>Для клавиш <keycap
+>Влево</keycap
+> и <keycap
+>Вправо</keycap
+>: перемещение по словам, а не по символам.</para
+></listitem>
+<listitem
+><para
+>Для клавиш <keycap
+>Page Up</keycap
+> и <keycap
+>Page Down</keycap
+>: перемещение на край видимой области.</para>
+</listitem>
+<listitem
+><para
+>Для клавиш <keycap
+>Home</keycap
+> и <keycap
+>End</keycap
+>: перемещение в начало или конец документа, а не строки.</para
+></listitem>
+</itemizedlist>
+</para>
+
+<para
+>&kappname; также предоставляет возможность перехода от открывающей скобки (в том числе фигурной и квадратной) к соответствующей закрывающей и наоборот: поместите курсор непосредственно перед скобкой или после неё (обе скобки должны выделиться жёлтым фоном) и нажмите <keycombo action="simul"
+>&Ctrl;<keycap
+>6</keycap
+></keycombo
+>.</para>
+
+<para
+>Кроме того, для быстрого перехода в заданную позицию в документе возможно использовать <link linkend="kate-part-bookmarks"
+>закладки</link
+>.</para>
+
+</sect1>
+
+<sect1 id="kate-part-selection">
+<title
+>Работа с выделением</title>
+
+<para
+>В &kappname; существует два основных способа выделения текста: с помощью мыши и с помощью клавиатуры.</para>
+
+<para
+>Чтобы выделить текст мышью, щёлкните левой кнопкой в начале текста, который следует выделить, и, не отпуская кнопку, переместите указатель мыши в конец текста. Выделенная область текста меняется по мере перемещения указателя.</para>
+
+<para
+>Двойной щелчок левой кнопкой мыши позволяет выделить слово.</para>
+
+<para
+>Тройной щелчок выделяет всю строку.</para>
+
+<para
+>Если при нажатии левой кнопки мыши была нажата клавиша &Shift;, текст будет выделен следующим образом:</para>
+
+<itemizedlist>
+<listitem
+><para
+>Если ничего не было выделено, от позиции ввода (текстовый курсор) до позиции указателя мыши.</para
+></listitem>
+<listitem
+><para
+>Если был выделен текст, то от начала этого выделенного фрагмента и до позиции указателя мыши, включая сам выделенный фрагмент.</para
+></listitem>
+</itemizedlist>
+
+<note>
+<para
+>При выделении текста мышью он автоматически копируется в буфер обмена. Чтобы вставить его в редактор или другое приложение, щёлкните средней кнопкой мыши в том месте, где следует выполнить вставку. </para>
+</note>
+
+<para
+>Чтобы выделить текст с помощью клавиатуры, удерживайте клавишу &Shift; при выделении нужного фрагмента с использованием клавиш навигации (клавиши со стрелками, <keycap
+>Page Up</keycap
+>, <keycap
+>Page Down</keycap
+>, <keycap
+>Home</keycap
+> и <keycap
+>End</keycap
+>, возможно, в сочетании с &Ctrl;).</para>
+
+<para
+>Дополнительные сведения доступны в разделе <link linkend="kate-part-navigation"
+>Навигация по тексту</link
+> этой главы.</para>
+
+<para
+>Чтобы <action
+>скопировать</action
+> выделенный фрагмент текста, выберите пункт меню <menuchoice
+><guimenu
+>Правка</guimenu
+> <guimenuitem
+>Копировать</guimenuitem
+></menuchoice
+> или воспользуйтесь соответствующей комбинацией клавиш (по умолчанию <keycombo action="simul"
+>&Ctrl;<keycap
+>C</keycap
+></keycombo
+>).</para>
+
+<para
+>Чтобы <action
+>снять выделение</action
+>, выберите пункт меню <menuchoice
+><guimenu
+>Правка</guimenu
+> <guimenuitem
+>Снять выделение</guimenuitem
+></menuchoice
+> или воспользуйтесь соответствующей комбинацией клавиш (по умолчанию <keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>A</keycap
+></keycombo
+>), или просто щёлкните левой кнопкой мыши в редакторе.</para>
+
+<sect2 id="kate-part-selection-block">
+<title
+>Блочное выделение</title>
+
+<para
+>Когда режим блочного (вертикального) выделения включён, возможно выделить определённые столбцы символов в нескольких строках (проще говоря, выделить прямоугольный блок текста). Этот режим выделения может быть полезен, если строки разделены табуляцией.</para>
+
+<para
+>Чтобы включить или отключить режим блочного выделения, выберите пункт меню <menuchoice
+><guimenu
+>Правка</guimenu
+> <guimenuitem
+>Блочное выделение</guimenuitem
+></menuchoice
+> или воспользуйтесь соответствующей комбинацией клавиш (по умолчанию <keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>B</keycap
+> </keycombo
+>).</para>
+
+</sect2>
+
+<sect2 id="kate-part-selection-overwrite">
+<!-- term not used in settings Editing Text Seöection Mode, it is called "Normal"-->
+<title
+>Замена выделенного фрагмента</title>
+
+<para
+>Если режим замены выделенного фрагмента включён, любой ввод или вставка текста приведёт к замене выделенного к этому моменту текста на новый текст. Если этот режим отключён, новый текст будет добавлен в позиции текстового курсора.</para>
+
+<para
+>По умолчанию режим замены выделенного фрагмента включён.</para>
+
+<para
+>Включить или отключить этот режим возможно на <link linkend="pref-edit-cursor-selection"
+>странице «Редактирование»</link
+> <link linkend="config-dialog"
+>диалога настройки</link
+>.</para>
+
+</sect2>
+
+<sect2 id="kate-part-selection-persistent">
+
+<title
+>Постоянное выделение</title>
+
+<para
+>Если режим постоянного выделения включён, ввод символов или перемещение текстового курсора не вызовет снятия выделения с ранее выделенного фрагмента. Это означает, что возможно перемещать курсор за пределы выделения и вводить текст.</para>
+
+<para
+>По умолчанию режим постоянного выделения отключён.</para>
+
+<para
+>Включить этот режим возможно на <link linkend="pref-edit-cursor-selection"
+>странице «Редактирование»</link
+> <link linkend="config-dialog"
+>диалога настройки</link
+>.</para>
+
+<warning
+> <!-- is that still possible in 4.4? radio button Normal + Persistent!-->
+<para
+>Если режимы постоянного выделения и замены выделенного фрагмента включены, ввод или вставка текста в позицию курсора, если последний находится в пределах выделенного фрагмента, вызовет его замену и снятие выделения.</para>
+</warning>
+
+</sect2>
+
+</sect1>
+
+<sect1 id="kate-part-copy-and-paste">
+
+<title
+>Копирование и вставка текста</title>
+
+<para
+>Чтобы скопировать текст, выделите его и выберите пункт меню <menuchoice
+><guimenu
+>Правка</guimenu
+> <guimenuitem
+>Копировать</guimenuitem
+></menuchoice
+>. Кроме того, выделенный с помощью мыши текст автоматически копируется в буфер выделения X-сервера.</para>
+
+<para
+>Для вставки текста, находящегося в буфере обмена, выберите пункт меню <menuchoice
+> <guimenu
+>Правка</guimenu
+><guimenuitem
+>Вставить</guimenuitem
+></menuchoice
+>.</para>
+
+<para
+>Текст, выделенный с помощью мыши, также возможно вставить щелчком средней кнопки мыши.</para>
+
+<tip>
+<para
+>Если используется рабочий стол &kde;, возможно выбрать ранее скопированный текст с помощью программы &klipper;, значок которой находится в системном лотке.</para>
+</tip>
+
+</sect1>
+
+<!-- changed in 4.5-->
+<sect1 id="kate-part-find-replace">
+<title
+>Поиск и замена текста</title>
+
+<sect2 id="find-replace-bars">
+<title
+>Поиск и замена</title>
+
+
+<para
+>В &kappname; присутствует панель пошагового поиска, а также панель расширенного поиска и замены текста, в которой возможно ввести строку замены и указать несколько дополнительных параметров.</para>
+
+<para
+>Следующие параметры являются общими:</para>
+
+<variablelist>
+
+<varlistentry>
+<term
+><guilabel
+>Искать</guilabel
+></term>
+<listitem
+><para
+>Здесь следует ввести строку поиска. Интерпретация строки зависит от параметров, описание которых приводится далее.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>С учётом регистра</guilabel
+></term>
+<listitem>
+<para
+>Если этот параметр включён, будет выполняться поиск только тех записей, которые соответствуют указанному регистру (верхнему или нижнему) всех символов шаблона поиска.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+<para
+>На панели расширенного поиска и замены доступны несколько дополнительных опций:</para>
+
+<variablelist>
+
+<varlistentry>
+<term
+><guilabel
+>Обычный текст</guilabel
+></term>
+<listitem>
+<para
+>Поиск буквальных совпадений со строкой поиска.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Только полные слова</guilabel
+></term>
+<listitem>
+<para
+>Если выбрана эта опция, сопоставление будет положительным только в том случае, если с обеих сторон найденной строки будут стоять разделители слов (то есть не буквенно-цифровые символы, а любые другие отображаемые символы или конец строки).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Управляющие последовательности</guilabel
+></term>
+<listitem>
+<para
+>Если выбрана эта опция, в шаблон поиска будет возможно добавить управляющие последовательности из предустановленного списка. Для этого следует открыть контекстное меню поля ввода и выбрать последний пункт — <guibutton
+>Добавить</guibutton
+> (он будет доступен после выбора этой опции).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Регулярное выражение</guilabel
+></term>
+<listitem>
+<para
+>Если выбрана эта опция, строка поиска интерпретируется как регулярное выражение. В шаблон поиска будет возможно добавить регулярные выражения из предустановленного списка. Для этого следует открыть контекстное меню поля ввода и выбрать последний пункт — <guibutton
+>Добавить</guibutton
+> (он будет доступен после выбора этой опции).</para>
+<para
+>Подробные сведения доступны в разделе <link linkend="regular-expressions"
+>Регулярные выражения</link
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Искать только в выделенном фрагменте</guilabel
+></term>
+<listitem>
+<para
+>Если этот параметр включён, поиск и замена будут выполняться только в пределах выделенного фрагмента текста.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Найти все</guilabel
+></term>
+<listitem>
+<para
+>При нажатии этой кнопки все найденные в документе совпадения будут выделены, а в небольшом всплывающем окне будет показано их количество. </para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect2>
+<!--FIXME keep in sync with kate/menus.docbook <varlistentry id="edit-find"
+> -->
+<sect2 id="finding-text">
+<title
+>Поиск текста</title>
+
+<para
+>Чтобы начать поиск текста, откройте панель пошагового поиска с помощью комбинации клавиш <keycombo action="simul"
+>&Ctrl;<keycap
+>F</keycap
+></keycombo
+> или пункта меню <menuchoice
+><guimenu
+>Правка</guimenu
+> <guimenuitem
+>Найти...</guimenuitem
+></menuchoice
+>.</para>
+<para
+>В нижней части окна редактора появится панель пошагового поиска. Слева от поля ввода текста расположена кнопка закрытия панели.</para>
+<para
+>Поиск выполняется по мере ввода текста. Обнаруженные совпадения выделяются в тексте, при этом цвет фона поля ввода становится светло-зелёным. Если для поискового запроса не обнаружено совпадений, цвет фона поля ввода станет светло-красным.</para>
+<para
+>Кнопки <inlinemediaobject
+><imageobject
+><imagedata fileref="arrow-up-double-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> и <inlinemediaobject
+><imageobject
+><imagedata fileref="arrow-down-double-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> позволяют перейти к следующему или предыдущему вхождению.</para>
+<para
+>Обнаруженные в документе совпадения останутся выделенными даже после закрытия панели поиска. Чтобы снять это выделение, нажмите клавишу &Esc;.</para>
+<para
+>Возможно указать, следует ли учитывать регистр при поиске. Если кнопка <inlinemediaobject
+><imageobject
+><imagedata fileref="format-text-superscript-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> нажата, будет выполняться поиск только тех записей, которые соответствуют указанному регистру (верхнему или нижнему) всех символов шаблона поиска.</para>
+<para
+>Чтобы перейти к панели расширенного поиска и замены, нажмите кнопку <inlinemediaobject
+><imageobject
+><imagedata fileref="configure-shortcuts-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+>, которая расположена с правой стороны панели пошагового поиска. </para>
+<para
+>Если требуется повторить последний поисковый запрос (при наличии) без открытия панели пошагового поиска, воспользуйтесь пунктом меню <menuchoice
+> <shortcut
+><keycombo action="simul"
+><keycap
+>F3</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Правка</guimenu
+><guimenuitem
+>Продолжить поиск</guimenuitem
+></menuchoice
+> или <menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Shift;<keycap
+>F3</keycap
+></keycombo
+></shortcut
+> <guimenu
+>Правка</guimenu
+><guimenuitem
+>Найти предыдущее</guimenuitem
+></menuchoice
+>. </para>
+
+</sect2>
+<!--FIXME keep in sync with kate/menus.docbook <varlistentry id="edit-replace"
+> -->
+<sect2 id="replacing-text">
+<title
+>Замена текста</title>
+
+<para
+>Чтобы заменить текст, откройте панель расширенного поиска и замены с помощью пункта меню <menuchoice
+><guimenu
+>Правка</guimenu
+> <guimenuitem
+>Заменить...</guimenuitem
+></menuchoice
+> или комбинации клавиш <keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+>.</para>
+<para
+>Слева от панели расположена кнопка закрытия панели. Рядом с ней находится небольшое поле со списком, предназначенное для указания шаблона поиска. В этом поле сохраняется информация о последних использованных шаблонах.</para>
+<para
+>Режимом поиска возможно управлять с помощью следующих параметров, которые доступны в раскрывающемся списке: <guilabel
+>Обычный текст</guilabel
+>, <guilabel
+>Только полные слова</guilabel
+>, <guilabel
+>Управляющие последовательности</guilabel
+> и <guilabel
+>Регулярное выражение</guilabel
+>. </para>
+<para
+>Если выбрана опция <guilabel
+>Управляющие последовательности</guilabel
+> или <guilabel
+>Регулярное выражение</guilabel
+>, в конце контекстного меню поля ввода текста будет доступен пункт <guibutton
+>Добавить...</guibutton
+>. С его помощью к шаблону поиска или замены возможно добавить управляющие последовательности или регулярные выражения из предустановленных списков.</para>
+<para
+>Кнопки <inlinemediaobject
+><imageobject
+><imagedata fileref="arrow-up-double-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> и <inlinemediaobject
+><imageobject
+><imagedata fileref="arrow-down-double-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> позволяют перейти к следующему или предыдущему вхождению.</para>
+<para
+>Введите текст, на который следует выполнить замену, в поле <guilabel
+>Заменить на</guilabel
+> и нажмите кнопку <guibutton
+>Заменить</guibutton
+> (будет заменено только текущее выделенное вхождение) <guibutton
+>Заменить все</guibutton
+> (будут заменены все вхождения в документе). </para>
+<para
+>Чтобы изменить поведение функции поиска и замены, возможно выбрать другие параметры (они доступны в нижней части панели). Если кнопка <inlinemediaobject
+><imageobject
+><imagedata fileref="format-text-superscript-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> нажата, будет выполняться поиск только тех записей, которые соответствуют указанному регистру (верхнему или нижнему) всех символов шаблона поиска. Чтобы поиск и замена выполнялись только в пределах текущего выбранного фрагмента, должна быть нажата кнопка <inlinemediaobject
+><imageobject
+><imagedata fileref="edit-select-all-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+>. При нажатии кнопки <guilabel
+>Найти все</guilabel
+> в документе будут выделены все вхождения и показано их количество. </para>
+<para
+>Чтобы перейти к панели пошагового поиска, нажмите кнопку <inlinemediaobject
+><imageobject
+><imagedata fileref="configure-shortcuts-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+>, которая расположена с правой стороны панели расширенного поиска и замены. </para>
+<tip>
+<para
+>При использовании регулярных выражений в поиске и замене текста возможно добавлять обратные ссылки, чтобы использовать текст документа, совпавший с подвыражением, заключённым в скобки (собственно, это подвыражение и есть обратная ссылка).</para>
+<para
+>Подробные сведения доступны в разделе <link linkend="regular-expressions"
+>Регулярные выражения</link
+>.</para>
+</tip>
+
+<tip
+><para
+>Команды <command
+>find</command
+> (найти), <command
+>replace</command
+> (заменить) и <command
+>ifind</command
+> (пошаговый поиск) возможно выполнять из <link linkend="advanced-editing-tools-commandline"
+>командной строки</link
+>.</para>
+</tip>
+
+</sect2>
+
+</sect1>
+
+<sect1 id="kate-part-bookmarks">
+<title
+>Использование закладок</title>
+
+<para
+>Закладки позволяют отметить некоторые строки, чтобы потом было легко их найти.</para>
+
+<para
+>Возможно установить или убрать закладку двумя способами:</para>
+
+<itemizedlist>
+<listitem>
+<para
+>Переместите курсор вставки на нужную строку и выберите пункт меню <menuchoice
+><guimenu
+>Закладки</guimenu
+><guimenuitem
+>Поставить закладку</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+>&Ctrl;<keycap
+>B</keycap
+></keycombo
+>).</para>
+</listitem>
+<listitem>
+<para
+>Щёлкните по полосе закладок напротив нужной строки.</para>
+</listitem>
+</itemizedlist>
+
+
+<para
+>Закладки доступны в меню <guimenu
+>Закладки</guimenu
+>. Каждая из них представлена в виде отдельного пункта меню с названием, состоящем из номера строки и первых нескольких символов этой строки. Чтобы переместить курсор вставки на строку, отмеченную закладкой, откройте это меню и выберите нужную закладку.</para>
+
+<para
+>Для быстрого перехода между закладками выберите пункт меню <menuchoice
+><guimenu
+>Закладки</guimenu
+><guimenuitem
+>Следующая</guimenuitem
+> </menuchoice
+> (<keycombo action="simul"
+><keycap
+>Alt</keycap
+> <keycap
+>Page Down</keycap
+></keycombo
+>) или <menuchoice
+> <guimenu
+>Закладки</guimenu
+><guimenuitem
+>Предыдущая</guimenuitem
+></menuchoice
+> (<keycombo action="simul"
+><keycap
+>Alt</keycap
+><keycap
+>Page Up</keycap
+> </keycombo
+>).</para>
+
+</sect1>
+
+<sect1 id="kate-part-auto-wrap">
+<!--dynamic word wrap needs description here-->
+<title
+>Автоматический перенос по словам</title>
+
+<para
+>Эта функция позволяет отформатировать текст таким образом, чтобы ни одна строка не выходила за пределы определённой максимальной длины строки; для этого длинная строка разбивается на две или более строк, причём она разбивается на границе ближайших двух слов.</para>
+
+<para
+>Чтобы включить или отключить эту функцию, установите или снимите флажок <guibutton
+>Переносить строки</guibutton
+> на <link linkend="pref-word-wrap"
+>странице «Редактирование»</link
+> <link linkend="config-dialog"
+>диалога настройки</link
+>.</para>
+
+<para
+>Чтобы указать максимальную длину строки (в символах), воспользуйтесь параметром <link linkend="pref-wrap-words-at"
+><guibutton
+>Переносить слова на новую строку после</guibutton
+></link
+> на <link linkend="pref-edit"
+>странице «Редактирование»</link
+> <link linkend="config-dialog"
+>диалога настройки</link
+>.</para>
+
+<para
+>Если перенос строк включён, возможны следующие нежелательные последствия: <itemizedlist>
+<listitem
+><para
+>При наборе редактор автоматически вставит разрыв строки при достижении максимальной длины строки.</para
+></listitem>
+<listitem
+><para
+>При загрузке документа редактор автоматически разобьёт длинные строки на несколько строк нормальной длины (если они содержат пробелы — иначе перенос строк невозможен).</para
+></listitem>
+</itemizedlist>
+
+</para>
+
+<note
+><para
+>В текущей версии программы невозможно установить перенос строк только для определённых типов файлов или хотя бы ограничить действие этого параметра на уровне документа. Это будет исправлено в будущих версиях &kappname;.</para
+></note>
+
+</sect1>
+
+<sect1 id="kate-part-autoindent">
+<title
+>Использование автоматической расстановки отступов</title>
+
+<para
+>Компонент редактирования &kappname; поддерживает множество различных режимов автоматической расстановки отступов для разных форматов. Выбрать один из них возможно с помощью пункта меню <menuchoice
+><guimenu
+>Сервис</guimenu
+><guisubmenu
+>Расстановка отступов</guisubmenu
+></menuchoice
+>. Модуль расстановки отступов также предоставляет пункт меню <menuchoice
+><guimenu
+>Сервис</guimenu
+><guimenuitem
+>Выровнять</guimenuitem
+></menuchoice
+>, который пересчитывает отступ выделенного текста или текущей строки.</para>
+
+<para
+>Во всех режимах отступа используются параметры текущего документа, связанные с расстановкой отступов.</para>
+
+<tip
+><para
+>Все такие параметры возможно задать с помощью <link linkend="config-variables"
+>переменных документа</link
+> и <link linkend="pref-open-save-modes-filetypes"
+>типов файлов</link
+>.</para
+></tip>
+
+<variablelist>
+
+<title
+>Доступные режимы расстановки отступов</title>
+
+<varlistentry>
+<term
+>Без автоматического отступа</term>
+<listitem
+><para
+>Полностью отключить автоматическую расстановку отступов.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>Обычный</term>
+<listitem
+><para
+>Расстановка отступов аналогично предыдущей непустой строке. Этот режим возможно сочетать с установкой и отменой отступов вручную. </para
+></listitem>
+</varlistentry>
+
+<varlistentry
+><term
+>Стиль C</term>
+<listitem
+><para
+>Для исходных текстов на языке C и других подобных языках (C++, C#, &Java;, &javascript; и так далее). Этот режим не будет работать со сценарными языками, такими как Perl или PHP.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>Haskell</term>
+<listitem
+><para
+>Для языка функционального программирования Haskell. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>Lilypond</term>
+<listitem
+><para
+>Для описания музыкальных нот на языке Lilypond. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>Lisp</term>
+<listitem
+><para
+>Специально для сценариев на языке Lisp и диалектов Lisp. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>Python</term>
+<listitem
+><para
+>Специально для сценариев на языке Python. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>Стиль XML</term>
+<listitem
+><para
+>Специально для языков, близких к XML. </para
+></listitem>
+</varlistentry>
+<!--Ruby + Lua missing -->
+</variablelist>
+
+</sect1>
+
+<sect1 id="kate-part-line-modification">
+<title
+>Маркеры изменённых строк</title>
+
+<para
+>Маркеры изменённых строк &kappname; позволяют сразу увидеть места последних изменений в файле. По умолчанию сохранённые изменения обозначаются зелёной полосой слева от документа, а несохранённые изменения — оранжевой полосой.</para>
+
+<para>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="line-modification-system.png"/></imageobject>
+<caption
+><para
+>Использование маркеров изменённых строк.</para
+></caption>
+</mediaobject>
+</para>
+
+<para
+>Используемые цвета возможно изменить на странице <link linkend="prefcolors"
+><guilabel
+>Шрифты и цвета</guilabel
+> диалога настройки</link
+>. Чтобы полностью отключить показ маркеров изменённых строк, следует снять соответствующий флажок на вкладке <link linkend="appearance-borders"
+><guilabel
+>Границы</guilabel
+> страницы <guilabel
+>Внешний вид</guilabel
+> диалога настройки</link
+>.</para>
+
+</sect1>
+
+<sect1 id="kate-part-scrollbar-minimap">
+<title
+>Мини-карта в полосе прокрутки</title>
+
+<para
+>&kappname; поддерживает отображение мини-карты в полосе прокрутки. Эта функция позволяет выполнять предварительный просмотр документа в окне, которое всплывает при наведении указателя мыши на мини-карту. Текущая видимая часть документа выделяется на мини-карте. </para>
+
+<para>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="minimap.png"/></imageobject>
+<caption
+><para
+>Предварительный просмотр исходного кода &kate; с помощью мини-карты в полосе прокрутки. </para
+></caption>
+</mediaobject>
+</para>
+
+<para
+>Мини-карту возможно временно включить или отключить с помощью пункта меню <menuchoice
+><guimenu
+>Вид</guimenu
+><guimenuitem
+>Мини-карта в полосе прокрутки</guimenuitem
+></menuchoice
+>. Чтобы сделать это на постоянной основе, воспользуйтесь соответствующим флажком на <link linkend="appearance-borders"
+>странице «Внешний вид» диалога настройки &kappname;</link
+>.</para>
+
+</sect1>
+
+</chapter>

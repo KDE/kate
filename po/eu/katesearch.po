@@ -1,0 +1,772 @@
+# Translation for katesearch.po to Euskara/Basque (eu).
+# Copyright (C) 2011-2018, Free Software Foundation.
+# Copyright (C) 2019-2022, This file is copyright:
+# This file is distributed under the same license as the kate package.
+# KDE euskaratzeko proiektuko arduraduna <xalba@ni.eus>.
+#
+# Translators:
+# Iñigo Salvador Azurmendi <xalba@ni.eus>, 2011, 2018, 2019, 2020, 2022.
+# Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>, 2011.
+msgid ""
+msgstr ""
+"Project-Id-Version: katesearch\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"PO-Revision-Date: 2022-09-25 21:38+0200\n"
+"Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
+"Language-Team: Basque <kde-i18n-eu@kde.org>\n"
+"Language: eu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 22.08.0\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: KateSearchCommand.cpp:80
+#, kde-format
+msgid "Usage: grep [pattern to search for in folder]"
+msgstr "Erabilera: grep [karpetan bilatu beharreko eredua]"
+
+#: KateSearchCommand.cpp:82
+#, kde-format
+msgid "Usage: newGrep [pattern to search for in folder]"
+msgstr "Erabilera: newGrep [karpetan bilatu beharreko eredua]"
+
+#: KateSearchCommand.cpp:86 KateSearchCommand.cpp:88
+#, kde-format
+msgid "Usage: search [pattern to search for in open files]"
+msgstr "Erabilera: search [irekitako fitxategietan bilatu beharreko eredua]"
+
+#: KateSearchCommand.cpp:92
+#, kde-format
+msgid "Usage: pgrep [pattern to search for in current project]"
+msgstr "Erabilera: pgrep [uneko proiektuan bilatu beharreko eredua]"
+
+#: KateSearchCommand.cpp:94
+#, kde-format
+msgid "Usage: newPGrep [pattern to search for in current project]"
+msgstr "Erabilera: newPGrep [uneko proiektuan bilatu beharreko eredua]"
+
+#: KateSearchCommand.cpp:98
+#, kde-format
+msgid "Usage: preg [regex pattern to search for in current project]"
+msgstr ""
+"Erabilera: prep [uneko proiektuan bilatu beharreko adierazpen erregular "
+"eredua]"
+
+#: MatchExportDialog.cpp:20
+#, kde-format
+msgid "Export Search Result Matches"
+msgstr "Esportatu bilaketaren bat-etortze emaitzak"
+
+#. i18n: ectx: property (placeholderText), widget (QLineEdit, exportPatternText)
+#: MatchExportDialog.ui:31
+#, kde-format
+msgid "Export Pattern"
+msgstr "Esportatu eredua"
+
+#. i18n: ectx: property (text), widget (QPushButton, pushButton)
+#: MatchExportDialog.ui:38
+#, kde-format
+msgid "Generate"
+msgstr "Sortu"
+
+#. i18n: ectx: property (placeholderText), widget (QPlainTextEdit, exportResultText)
+#: MatchExportDialog.ui:50
+#, kde-format
+msgid "Result"
+msgstr "Emaitza"
+
+#: MatchModel.cpp:548 MatchModel.cpp:550
+#, kde-format
+msgid "<b><i>Generating file list: ...%1</i></b>"
+msgstr "<b><i>Fitxategi zerrenda sortzen: ...%1</i></b>"
+
+#: MatchModel.cpp:558
+#, kde-format
+msgid "<b><i>One match found, searching: ...%2</i></b>"
+msgid_plural "<b><i>%1 matches found, searching: ...%2</i></b>"
+msgstr[0] "<b><i>Bat-etortze bat aurkitu da: ...%2</i></b>"
+msgstr[1] "<b><i>%1 bat-etortze aurkitu dira: ...%2</i></b>"
+
+#: MatchModel.cpp:563
+#, kde-format
+msgid "<b><i>One match found, searching: %2</i></b>"
+msgid_plural "<b><i>%1 matches found, searching: %2</i></b>"
+msgstr[0] "<b><i>Bat-etortze bat aurkitu da, bilatzen: %2</i></b>"
+msgstr[1] "<b><i>%1 bat-etortze aurkitu dira, bilatzen: %2</i></b>"
+
+#: MatchModel.cpp:570 MatchModel.cpp:713
+#, kde-format
+msgid "One checked"
+msgid_plural "%1 checked"
+msgstr[0] "Bat egiaztatua"
+msgstr[1] "%1 egiaztatu"
+
+#: MatchModel.cpp:574
+#, kde-format
+msgid "<b><i>One match (%2) found in file</i></b>"
+msgid_plural "<b><i>%1 matches (%2) found in current file</i></b>"
+msgstr[0] "<b><i>Bat-etortze bat (%2) aurkitu da fitxategian</i></b>"
+msgstr[1] "<b><i>%1 bat-etortze (%2) aurkitu dira uneko fitxategian</i></b>"
+
+#: MatchModel.cpp:576
+#, kde-format
+msgid "<b><i>One match (%2) found in open files</i></b>"
+msgid_plural "<b><i>%1 matches (%2) found in open files</i></b>"
+msgstr[0] ""
+"<b><i>Bat-etortze bat (%2) aurkitu da irekitako fitxategietan</i></b>"
+msgstr[1] ""
+"<b><i>%1 bat-etortze (%2) aurkitu dira irekitako fitxategietan</i></b>"
+
+#: MatchModel.cpp:579
+#, kde-format
+msgid "<b><i>One match (%3) found in folder %2</i></b>"
+msgid_plural "<b><i>%1 matches (%3) found in folder %2</i></b>"
+msgstr[0] "<b><i>Bat-etortze bat (%3) aurkitu da %2 karpetan</i></b>"
+msgstr[1] "<b><i>%1 bat-etortze (%3) aurkitu dira %2 karpetan</i></b>"
+
+#: MatchModel.cpp:586
+#, kde-format
+msgid "<b><i>One match (%4) found in project %2 (%3)</i></b>"
+msgid_plural "<b><i>%1 matches (%4) found in project %2 (%3)</i></b>"
+msgstr[0] "<b><i>Bat-etortze (%4) aurkitu da %2 proiektuan (%3)</i></b>"
+msgstr[1] "<b><i>%1 bat-etortze (%4) aurkitu dira %2 proiektuan (%3)</i></b>"
+
+#: MatchModel.cpp:595
+#, kde-format
+msgid ""
+"<b><i>One match (%3) found in all open projects (common parent: %2)</i></b>"
+msgid_plural ""
+"<b><i>%1 matches (%3) found in all open projects (common parent: %2)</i></b>"
+msgstr[0] ""
+"<b><i>Bat-etortze bat (%3) aurkitu da irekitako proiektu guztien artean "
+"(guraso bera: %2)</i></b>"
+msgstr[1] ""
+"<b><i>%1 bat-etortze (%3) aurkitu dira irekitako proiektu guztien artean "
+"(guraso bera: %2)</i></b>"
+
+#: MatchModel.cpp:697 MatchModel.cpp:699
+#, kde-format
+msgid "Generating file list: ...%1"
+msgstr "Fitxategi zerrenda sortzen: ...%1"
+
+#: MatchModel.cpp:707
+#, kde-format
+msgid "One match found, searching: ...%2"
+msgid_plural "%1 matches found, searching: ...%2"
+msgstr[0] "Bat-etortze bat aurkitu da: ...%2"
+msgstr[1] "%1 bat-etortze aurkitu dira: ...%2"
+
+#: MatchModel.cpp:709
+#, kde-format
+msgid "One match found, searching: %2"
+msgid_plural "%1 matches found, searching: %2"
+msgstr[0] "Bat-etortze bat aurkitu da, bilatzen: %2"
+msgstr[1] "%1 bat-etortze aurkitu dira, bilatzen: %2"
+
+#: MatchModel.cpp:717
+#, kde-format
+msgid "One match (%2) found in file"
+msgid_plural "%1 matches (%2) found in current file"
+msgstr[0] "Bat-etortze bat (%2) aurkitu da fitxategian"
+msgstr[1] "%1 bat-etortze (%2) aurkitu dira uneko fitxategian"
+
+#: MatchModel.cpp:719
+#, kde-format
+msgid "One match (%2) found in open files"
+msgid_plural "%1 matches (%2) found in open files"
+msgstr[0] "Bat-etortze bat (%2) aurkitu da irekitako fitxategietan"
+msgstr[1] "%1 bat-etortze (%2) aurkitu dira irekitako fitxategietan"
+
+#: MatchModel.cpp:722
+#, kde-format
+msgid "One match (%3) found in folder %2"
+msgid_plural "%1 matches (%3) found in folder %2"
+msgstr[0] "Bat-etortze bat (%3) aurkitu da %2 karpetan"
+msgstr[1] "%1 bat-etortze (%3) aurkitu dira %2 karpetan"
+
+#: MatchModel.cpp:725
+#, kde-format
+msgid "One match (%4) found in project %2 (%3)"
+msgid_plural "%1 matches (%4) found in project %2 (%3)"
+msgstr[0] "Bat-etortze bat (%4) aurkitu da %2 proiektuan (%3)"
+msgstr[1] "%1 bat-etortze (%4) aurkitu dira %2 proiektuan (%3)"
+
+#: MatchModel.cpp:734
+#, kde-format
+msgid "One match (%3) found in all open projects (common parent: %2)"
+msgid_plural "%1 matches (%3) found in all open projects (common parent: %2)"
+msgstr[0] ""
+"Bat-etortze bat (%3) aurkitu da irekitako proiektu guztietan (guraso bera: "
+"%2)"
+msgstr[1] ""
+"%1 bat-etortze (%3) aurkitu dira irekitako proiektu guztietan (guraso bera: "
+"%2)"
+
+#: Results.cpp:28
+#, kde-format
+msgid "Filter..."
+msgstr "Iragazi..."
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
+#. i18n: ectx: property (text), widget (QPushButton, searchButton)
+#: search.ui:34 search.ui:37 SearchPlugin.cpp:302
+#, kde-format
+msgid "Search"
+msgstr "Bilatu"
+
+#. i18n: ectx: property (text), widget (QPushButton, replaceCheckedBtn)
+#: search.ui:47
+#, kde-format
+msgid "Replace Checked"
+msgstr "Ordeztu hauta-markadunak"
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, nextButton)
+#. i18n: ectx: property (text), widget (QPushButton, nextButton)
+#: search.ui:67 search.ui:70
+#, kde-format
+msgid "Next"
+msgstr "Hurrengoa"
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, stopButton)
+#. i18n: ectx: property (text), widget (QPushButton, stopButton)
+#: search.ui:75 search.ui:78
+#, kde-format
+msgid "Stop"
+msgstr "Gelditu"
+
+#. i18n: ectx: property (toolTip), widget (QToolButton, matchCase)
+#: search.ui:115
+#, kde-format
+msgid "Match case"
+msgstr "Bereizi maiuskulak"
+
+#. i18n: ectx: property (toolTip), widget (QToolButton, useRegExp)
+#: search.ui:131
+#, kde-format
+msgid ""
+"<html><head/><body><p>Enable regular expressions. Find help for regex syntax "
+"by using the buttons in the search and replace text fields.</p></body></html>"
+msgstr ""
+"<html><head/><body><p>Gaitu adierazpen erregularrak. Aurkitu «regex» "
+"sintaxiaren laguntza bilatu eta ordeztu testu eremuetako botoiak erabiliz.</"
+"p></body></html>"
+
+#. i18n: ectx: property (toolTip), widget (QToolButton, expandResults)
+#: search.ui:160
+#, kde-format
+msgid "Expand results"
+msgstr "Zabaldu emaitzak"
+
+#. i18n: ectx: property (text), widget (QToolButton, filterBtn)
+#. i18n: ectx: property (text), widget (QToolButton, displayOptions)
+#. i18n: ectx: property (text), widget (QToolButton, newTabButton)
+#: search.ui:176 search.ui:246 search.ui:259
+#, kde-format
+msgid "..."
+msgstr "..."
+
+#. i18n: ectx: property (text), widget (QPushButton, replaceButton)
+#: search.ui:192 SearchPlugin.cpp:493
+#, kde-format
+msgid "Replace"
+msgstr "Ordeztu"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, searchPlaceCombo)
+#: search.ui:215
+#, kde-format
+msgid "In Current File"
+msgstr "Uneko fitxategian"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, searchPlaceCombo)
+#: search.ui:220
+#, kde-format
+msgid "In Open Files"
+msgstr "Irekitako fitxategietan"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, searchPlaceCombo)
+#: search.ui:225
+#, kde-format
+msgid "In Folder"
+msgstr "karpetan"
+
+#. i18n: ectx: property (toolTip), widget (QToolButton, currentFolderButton)
+#: search.ui:233
+#, kde-format
+msgid "Use the current document's path."
+msgstr "Erabili uneko dokumentuaren bide-izena."
+
+#. i18n: ectx: property (toolTip), widget (QToolButton, displayOptions)
+#: search.ui:243
+#, kde-format
+msgid "Show more search options"
+msgstr "Erakutsi bilaketa aukera gehiago"
+
+#. i18n: ectx: property (toolTip), widget (QToolButton, newTabButton)
+#: search.ui:256
+#, kde-format
+msgid "Add new search tab"
+msgstr "Gehitu bilaketa fitxa berria"
+
+#. i18n: ectx: property (text), widget (QLabel, folderLabel)
+#: search.ui:353
+#, kde-format
+msgid "Folder:"
+msgstr "Karpeta:"
+
+#. i18n: ectx: property (toolTip), widget (QToolButton, folderUpButton)
+#: search.ui:371
+#, kde-format
+msgid "Go one folder up."
+msgstr "Joan karpeta bat gora."
+
+#. i18n: ectx: property (text), widget (QLabel, filterLabel)
+#: search.ui:380
+#, kde-format
+msgid "Filter:"
+msgstr "Iragazkia:"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, filterCombo)
+#: search.ui:402
+#, kde-format
+msgid "*"
+msgstr "*"
+
+#. i18n: ectx: property (text), widget (QLabel, excludeLabel)
+#: search.ui:410
+#, kde-format
+msgid "Exclude:"
+msgstr "Kanporatu:"
+
+#. i18n: ectx: property (text), widget (QCheckBox, recursiveCheckBox)
+#: search.ui:431
+#, kde-format
+msgid "Recursive"
+msgstr "Errepikaria"
+
+#. i18n: ectx: property (text), widget (QCheckBox, hiddenCheckBox)
+#: search.ui:441
+#, kde-format
+msgid "Include hidden"
+msgstr "Barneratu ezkutukoak"
+
+#. i18n: ectx: property (text), widget (QCheckBox, symLinkCheckBox)
+#: search.ui:448
+#, kde-format
+msgid "Follow symbolic links"
+msgstr "Jarraitu esteka sinbolikoei"
+
+#. i18n: ectx: property (text), widget (QCheckBox, binaryCheckBox)
+#: search.ui:455
+#, kde-format
+msgid "Include binary files"
+msgstr "Barneratu fitxategi bitarrak"
+
+#: SearchPlugin.cpp:84 SearchPlugin.cpp:117
+#, kde-format
+msgid "Line break"
+msgstr "Lerro-jauzia"
+
+#: SearchPlugin.cpp:85 SearchPlugin.cpp:118
+#, kde-format
+msgid "Tab"
+msgstr "Tabulatzea"
+
+#: SearchPlugin.cpp:96
+#, kde-format
+msgid "Beginning of line"
+msgstr "Lerroaren hasiera"
+
+#: SearchPlugin.cpp:97
+#, kde-format
+msgid "End of line"
+msgstr "Lerroaren amaiera"
+
+#: SearchPlugin.cpp:99
+#, kde-format
+msgid "Any single character (excluding line breaks)"
+msgstr "Edozein karaktere bakun (lerro-jauziak kanporatuta)"
+
+#: SearchPlugin.cpp:100
+#, kde-format
+msgid "Literal dot"
+msgstr "Puntu literala"
+
+#: SearchPlugin.cpp:102
+#, kde-format
+msgid "One or more occurrences"
+msgstr "Agerraldi bat edo gehiago"
+
+#: SearchPlugin.cpp:103
+#, kde-format
+msgid "Zero or more occurrences"
+msgstr "Zero agerraldi edo gehiago"
+
+#: SearchPlugin.cpp:104
+#, kde-format
+msgid "Zero or one occurrences"
+msgstr "Zero agerraldi edo bat"
+
+#: SearchPlugin.cpp:106
+#, kde-format
+msgid "<a> through <b> occurrences"
+msgstr "<a> eta <b> agerpenetan zehar"
+
+#: SearchPlugin.cpp:108
+#, kde-format
+msgid "Group, capturing"
+msgstr "Taldea, atzematea"
+
+#: SearchPlugin.cpp:109
+#, kde-format
+msgid "Or"
+msgstr "Edo"
+
+#: SearchPlugin.cpp:110
+#, kde-format
+msgid "Set of characters"
+msgstr "Karaktere multzoa"
+
+#: SearchPlugin.cpp:111
+#, kde-format
+msgid "Negative set of characters"
+msgstr "Karaktere multzo negatiboa"
+
+#: SearchPlugin.cpp:112
+#, kde-format
+msgid "Group, non-capturing"
+msgstr "Taldea, ez-atzematea"
+
+#: SearchPlugin.cpp:113
+#, kde-format
+msgid "Lookahead"
+msgstr "Aurrerantz begiratu"
+
+#: SearchPlugin.cpp:114
+#, kde-format
+msgid "Negative lookahead"
+msgstr "Aurrerantz begiratze negatiboa"
+
+#: SearchPlugin.cpp:119
+#, kde-format
+msgid "Word boundary"
+msgstr "Hitz-muga"
+
+#: SearchPlugin.cpp:120
+#, kde-format
+msgid "Not word boundary"
+msgstr "Ez hitz-muga"
+
+#: SearchPlugin.cpp:121
+#, kde-format
+msgid "Digit"
+msgstr "Digitua"
+
+#: SearchPlugin.cpp:122
+#, kde-format
+msgid "Non-digit"
+msgstr "Ez-digitua"
+
+#: SearchPlugin.cpp:123
+#, kde-format
+msgid "Whitespace (excluding line breaks)"
+msgstr "Zuriunea (lerro-jauziak kanporatuta)"
+
+#: SearchPlugin.cpp:124
+#, kde-format
+msgid "Non-whitespace (excluding line breaks)"
+msgstr "Ez-zuriunea (lerro-jauziak kanporatuta)"
+
+#: SearchPlugin.cpp:125
+#, kde-format
+msgid "Word character (alphanumerics plus '_')"
+msgstr "Hitz karakterea (alfazenbakizkoak gehi '_')"
+
+#: SearchPlugin.cpp:126
+#, kde-format
+msgid "Non-word character"
+msgstr "Ez-hitz karakterea"
+
+#: SearchPlugin.cpp:138
+#, kde-format
+msgid "Regular expression capture 0 (whole match)"
+msgstr "Adierazpen erregularraren atzematea 0 (bat-etortze erabatekoa)"
+
+#: SearchPlugin.cpp:139
+#, kde-format
+msgid "Regular expression capture 1-9"
+msgstr "Adierazpen erregularraren atzematea 1-9"
+
+#: SearchPlugin.cpp:140
+#, kde-format
+msgid "Regular expression capture 0-999"
+msgstr "Adierazpen erregularraren atzematea 0-999"
+
+#: SearchPlugin.cpp:142
+#, kde-format
+msgid "Upper-cased capture 0-9"
+msgstr "Maiuskuladun atzematea 0-9"
+
+#: SearchPlugin.cpp:143
+#, kde-format
+msgid "Upper-cased capture 0-999"
+msgstr "Maiuskuladun atzematea 0-999"
+
+#: SearchPlugin.cpp:144
+#, kde-format
+msgid "Lower-cased capture 0-9"
+msgstr "Minuskuladun atzematea 0-9"
+
+#: SearchPlugin.cpp:145
+#, kde-format
+msgid "Lower-cased capture 0-999"
+msgstr "Minuskuladun atzematea 0-999"
+
+#: SearchPlugin.cpp:295
+#, kde-format
+msgid "Search & Replace"
+msgstr "Bilatu eta ordeztu"
+
+#: SearchPlugin.cpp:336
+#, kde-format
+msgid "Find in Files"
+msgstr "Bilatu fitxategietan"
+
+#: SearchPlugin.cpp:341
+#, kde-format
+msgid "Find in Files (in a New Tab)"
+msgstr "Bilatu fitxategietan (fitxa berri batean)"
+
+#: SearchPlugin.cpp:347
+#, kde-format
+msgid "Go to Next Match"
+msgstr "Joan hurrengo bat-etortzera"
+
+#: SearchPlugin.cpp:352
+#, kde-format
+msgid "Go to Previous Match"
+msgstr "Joan aurreko bat-etortzera"
+
+#: SearchPlugin.cpp:380
+#, kde-format
+msgid ""
+"Comma separated list of file types to search in. Example: \"*.cpp,*.h\"\n"
+msgstr ""
+"Koma bidez banatutako, barnean bilatu beharreko fitxategi moten zerrenda: "
+"\"*.cpp,*.h\"\n"
+
+#: SearchPlugin.cpp:381
+#, kde-format
+msgid ""
+"Comma separated list of files and directories to exclude from the search. "
+"Example: \"build*\""
+msgstr ""
+"Koma bidez banatutako, bilaketatik kanporatu beharreko fitxategien eta "
+"direktorioen zerrenda. Adibidez: \"*build\""
+
+#: SearchPlugin.cpp:383
+#, kde-format
+msgid "Click to filter through results"
+msgstr "Egin klik emaitzak iragazteko"
+
+#: SearchPlugin.cpp:473
+#, kde-format
+msgid "Find"
+msgstr "Aurkitu"
+
+#: SearchPlugin.cpp:1222
+#, kde-format
+msgid "Searching while you type was interrupted. It would have taken too long."
+msgstr "Tekleatu ahala bilatzea eten egin da. Luzeegia zatekeen."
+
+#: SearchPlugin.cpp:1564
+#, kde-format
+msgid "Search Match"
+msgstr "Bilaketa bat etortzea"
+
+#: SearchPlugin.cpp:1747 SearchPlugin.cpp:1824
+#, kde-format
+msgid "Next from cursor"
+msgstr "Hurrengoa kurtsoretik"
+
+#: SearchPlugin.cpp:1764
+#, kde-format
+msgid "Starting from first match"
+msgstr "Lehen bat-etortzetik hasten"
+
+#: SearchPlugin.cpp:1784
+#, kde-format
+msgid "Continuing from first match"
+msgstr "Lehen bat-etortzetik jarraitzen"
+
+#: SearchPlugin.cpp:1841
+#, kde-format
+msgid "Starting from last match"
+msgstr "Azken bat-etortzetik hasita"
+
+#: SearchPlugin.cpp:1861
+#, kde-format
+msgid "Continuing from last match"
+msgstr "Azken bat-etortzetik jarraitzen"
+
+#: SearchPlugin.cpp:2132
+#, kde-format
+msgid "Copy all"
+msgstr "Kopiatu guztia"
+
+#: SearchPlugin.cpp:2137
+#, kde-format
+msgid "Copy expanded"
+msgstr "Kopiatu hedatua"
+
+#: SearchPlugin.cpp:2140
+#, kde-format
+msgid "Export matches"
+msgstr "Esportatu bat-etortzeak"
+
+#: SearchPlugin.cpp:2145
+#, kde-format
+msgid "Clear"
+msgstr "Garbitu"
+
+#: SearchPlugin.cpp:2253 SearchPlugin.cpp:2287
+#, kde-format
+msgid "Add..."
+msgstr "Gehitu..."
+
+#: SearchPlugin.cpp:2265
+#, kde-format
+msgid "Search As You Type"
+msgstr "Bilatu tekleatu ahala"
+
+#: SearchPlugin.cpp:2336
+#, kde-format
+msgid "In Current Project"
+msgstr "Uneko proiektuan"
+
+#: SearchPlugin.cpp:2338
+#, kde-format
+msgid "In All Open Projects"
+msgstr "Proiektu guztietan"
+
+#. i18n: ectx: Menu (edit)
+#: ui.rc:6
+#, kde-format
+msgid "&Edit"
+msgstr "&Editatu"
+
+#. i18n: ectx: Menu (search_more)
+#: ui.rc:9
+#, kde-format
+msgid "Find in Files Variants"
+msgstr "Bilatu fitxategien aldaeretan"
+
+#~ msgid "Kate Search & Replace"
+#~ msgstr "Kate bilatu eta &ordeztu"
+
+#~ msgid "Search in Files"
+#~ msgstr "Bilatu fitxategietan"
+
+#~ msgid "Search More"
+#~ msgstr "Bilatu gehiago"
+
+#~ msgctxt "NAME OF TRANSLATORS"
+#~ msgid "Your names"
+#~ msgstr "Iñigo Salvador Azurmendi, Iñaki Larrañaga Murgoitio"
+
+#~ msgctxt "EMAIL OF TRANSLATORS"
+#~ msgid "Your emails"
+#~ msgstr "xalba@euskalnet.net, dooteo@euskalgnu.org"
+
+#~ msgid "<b>Searching: ...%1</b>"
+#~ msgstr "<b>Bilatzen: ...%1</b>"
+
+#~ msgid "<b>Searching: %1</b>"
+#~ msgstr "<b>Bilatzen: %1</b>"
+
+#~ msgid "<b>Processed %1 of %2 matches in: ...%3</b>"
+#~ msgstr "<b>%1/%2 bat-etortze prozesatu dira hemen: ...%3</b>"
+
+#~ msgid "<b>Processed %1 of %2 matches in: %3</b>"
+#~ msgstr "<b>%1/%2 bat-etortze prozesatu dira hemen: %3</b>"
+
+#~ msgid "A total of %1 match found\n"
+#~ msgid_plural "A total of %1 matches found\n"
+#~ msgstr[0] "Guztira bat-etortze %1 aurkitu da\n"
+#~ msgstr[1] "Guztira %1 bat-etortze aurkitu dira\n"
+
+#~ msgid "\tLine: %1 column: %2: %3\n"
+#~ msgstr "\tLerroa: %1 zutabea: %2: %3\n"
+
+#~ msgid "No matches found\n"
+#~ msgstr "Ez da bat-etortzerik aurkitu\n"
+
+#~ msgid "SearchHighLight"
+#~ msgstr "Bilaketa nabarmentzea"
+
+#~ msgid "Line: <b>%1</b>: %2"
+#~ msgstr "Lerroa: <b>%1</b>: %2"
+
+#~ msgid "Line: <b>%1</b> Column: <b>%2</b>: %3"
+#~ msgstr "Lerroa: <b>%1</b> Zutabea: <b>%2</b>: %3"
+
+#~ msgid "Replace:"
+#~ msgstr "Ordeztu:"
+
+#~ msgid "Use regular expressions"
+#~ msgstr "Erabili adierazpen erregularrak"
+
+#~ msgid "<b>Replacing in: %1</b>"
+#~ msgstr "<b>Hemen ordezten: %1</b>"
+
+#~ msgid "<b><i>%1 match found in current file</i></b>"
+#~ msgid_plural "<b><i>%1 matches (%2 checked) found in current file</i></b>"
+#~ msgstr[0] "<b><i>Bat-etortze %1 aurkitu da uneko fitxategian</i></b>"
+#~ msgstr[1] ""
+#~ "<b><i>%1 bat-etortze (%2 egiaztatu dira) aurkitu dira uneko fitxategian</"
+#~ "i></b>"
+
+#, fuzzy
+#~| msgid "Folder"
+#~ msgid "Folder"
+#~ msgstr "Karpeta"
+
+#, fuzzy
+#~| msgid "Folder"
+#~ msgid "F&older"
+#~ msgstr "Karpeta"
+
+#, fuzzy
+#~| msgid "Search in files"
+#~ msgid "Search & replace in files"
+#~ msgstr "Bilatu fitxategietan"
+
+#~ msgid "stop"
+#~ msgstr "gelditu"
+
+#~ msgid "Select all 9999 matches"
+#~ msgstr "Hautatu 9999 parekide guztiak"
+
+#~ msgid "Select all"
+#~ msgstr "Hautatu denak"
+
+#~ msgid "Select %1 match"
+#~ msgid_plural "Select all %1 matches"
+#~ msgstr[0] "Hautatu parekide %1"
+#~ msgstr[1] "Hautatu %1 parekide guztiak"
+
+#~ msgid "Options"
+#~ msgstr "Aukerak"
+
+#~ msgid "Found matches: xxx"
+#~ msgstr "Aurkitutako parekideak: xxx"
+
+#~ msgid "File"
+#~ msgstr "Fitxategia"
+
+#~ msgid "Text"
+#~ msgstr "Testua"
+
+#~ msgid "Line"
+#~ msgstr "Lerroa"

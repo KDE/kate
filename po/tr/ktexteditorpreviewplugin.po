@@ -1,0 +1,92 @@
+# Copyright (C) YEAR This file is copyright:
+# This file is distributed under the same license as the kate package.
+#
+# Volkan Gezer <volkangezer@gmail.com>, 2022.
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"PO-Revision-Date: 2022-02-27 14:01+0100\n"
+"Last-Translator: Volkan Gezer <volkangezer@gmail.com>\n"
+"Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 20.12.3\n"
+
+#: ktexteditorpreviewview.cpp:31
+#, kde-format
+msgid "Preview"
+msgstr "Önizleme"
+
+#: previewwidget.cpp:45
+#, kde-format
+msgid "Lock Current Document"
+msgstr "Geçerli Belgeyi Kilitle"
+
+#: previewwidget.cpp:46
+#, kde-format
+msgid "Lock preview to current document"
+msgstr "Önizlemeyi geçerli belgeye kilitle"
+
+#: previewwidget.cpp:47
+#, kde-format
+msgid "Unlock Current View"
+msgstr "Geçerli Görünüm Kilidini Aç"
+
+#: previewwidget.cpp:47
+#, kde-format
+msgid "Unlock current view"
+msgstr "Geçerli görünümün kilidini aç"
+
+#: previewwidget.cpp:54
+#, kde-format
+msgid "Automatically Update Preview"
+msgstr "Önizlemeyi Kendiliğinden Güncelle"
+
+#: previewwidget.cpp:55
+#, kde-format
+msgid "Enable automatic updates of the preview to the current document content"
+msgstr ""
+"Geçerli belge içeriği önizlemesinin kendiliğinden güncellenmesini etkinleştir"
+
+#: previewwidget.cpp:56
+#, kde-format
+msgid "Manually Update Preview"
+msgstr "Önizlemeyi Elle Güncelle"
+
+#: previewwidget.cpp:58
+#, kde-format
+msgid ""
+"Disable automatic updates of the preview to the current document content"
+msgstr ""
+"Geçerli belge içeriği önizlemesinin kendiliğinden güncellenmesini devre dışı "
+"bırak"
+
+#: previewwidget.cpp:63
+#, kde-format
+msgid "Update Preview"
+msgstr "Önizlemeyi Güncelle"
+
+#: previewwidget.cpp:64
+#, kde-format
+msgid "Update the preview to the current document content"
+msgstr "Geçerli belge içeriği önizlemesini güncelle"
+
+#: previewwidget.cpp:72
+#, kde-format
+msgid "View"
+msgstr "Görünüm"
+
+#: previewwidget.cpp:97
+#, kde-format
+msgid "No preview available."
+msgstr "Önizleme yok."
+
+#: previewwidget.cpp:228
+#, kde-format
+msgid "About %1"
+msgstr "%1 Hakkında"

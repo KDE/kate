@@ -1,0 +1,58 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR This file is copyright:
+# This file is distributed under the same license as the kate package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"PO-Revision-Date: 2022-01-02 14:17+0100\n"
+"Last-Translator: mkkDr2010 <mkondarev@yahoo.de>\n"
+"Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
+"Language: bg\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#: applet/contents/ui/katesessions.qml:28
+#, kde-format
+msgid "Kate Sessions"
+msgstr "Сесии на Kate"
+
+#: applet/contents/ui/katesessions.qml:57
+#, kde-format
+msgid "Search…"
+msgstr "Търсене…"
+
+#: applet/contents/ui/KateSessionsItemDelegate.qml:93
+#, kde-format
+msgid "Session name"
+msgstr "Име на сесия"
+
+#: applet/contents/ui/KateSessionsItemDelegate.qml:104
+#, kde-format
+msgid "Create new session and start Kate"
+msgstr "Създаване на нова сесия и стартиране на Kate"
+
+#: applet/contents/ui/KateSessionsItemDelegate.qml:113
+#, kde-format
+msgid "Cancel session creation"
+msgstr "Отменяне създаване на сесия"
+
+#: applet/contents/ui/KateSessionsItemDelegate.qml:130
+#, kde-format
+msgid "Delete session"
+msgstr "Изтриване на сесия"
+
+#: katesessionsmodel.cpp:63
+#, kde-format
+msgid "Start Kate (no arguments)"
+msgstr "Стартиране на Kate (без аргументи)"
+
+#: katesessionsmodel.cpp:71
+#, kde-format
+msgid "New Kate Session"
+msgstr "Нова сесия на Kate"

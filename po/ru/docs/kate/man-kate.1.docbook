@@ -1,0 +1,372 @@
+<?xml version="1.0" ?>
+<!DOCTYPE refentry PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+<!ENTITY % Russian "INCLUDE">
+]>
+
+<refentry lang="&language;">
+<refentryinfo>
+<title
+>Руководство пользователя &kate;</title>
+<author
+>&Lauri.Watts; &Lauri.Watts.mail;</author>
+<date
+>12 июля 2021 г.</date>
+<releaseinfo
+>KDE Gear 21.08</releaseinfo>
+<productname
+>KDE Gear</productname>
+</refentryinfo>
+
+<refmeta>
+<refentrytitle
+><command
+>kate</command
+></refentrytitle>
+<manvolnum
+>1</manvolnum>
+</refmeta>
+
+<refnamediv>
+<refname
+><command
+>kate</command
+></refname>
+<refpurpose
+>Улучшенный текстовый редактор, разработанный &kde;</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<cmdsynopsis
+><command
+>kate</command
+> <group choice="opt"
+><option
+>-s, --start</option
+> <replaceable
+> имя</replaceable
+> </group
+> <group choice="opt"
+><option
+>--startanon</option
+></group
+> <group choice="opt"
+><option
+>--new-session</option
+></group
+> <group choice="opt"
+><option
+>-n, --new</option
+></group
+> <group choice="opt"
+><option
+>-b, --block</option
+></group
+> <group choice="opt"
+><option
+>-p, --pid</option
+><replaceable
+> pid</replaceable
+></group
+> <group choice="opt"
+><option
+>-e, --encoding</option
+> <replaceable
+> имя</replaceable
+></group
+> <group choice="opt"
+><option
+>-l, --line</option
+> <replaceable
+> строка</replaceable
+></group
+> <group choice="opt"
+><option
+>-c, --column</option
+> <replaceable
+> столбец</replaceable
+></group
+> <group choice="opt"
+><option
+>-i, --stdin</option
+></group
+> <group choice="opt"
+><option
+>--tempfile</option
+></group
+> <group choice="opt"
+><option
+><replaceable
+>файл</replaceable
+></option
+></group
+> </cmdsynopsis>
+</refsynopsisdiv>
+
+<refsect1>
+<title
+>Описание</title>
+<para
+>&kate; — улучшенный текстовый редактор, разработанный &kde;. </para>
+<para
+>&kate; также позволяет осуществлять редактирование в различных приложениях (эта часть редактора называется &kwrite;).</para>
+<para
+>Среди многочисленных опций &kate;: настраиваемая подсветка синтаксиса для различных языков (от C и C++ до &HTML; и bash-сценариев), возможность создания и сохранения проектов, интерфейс для работы с несколькими документами (<acronym
+>MDI</acronym
+>) и встроенный эмулятор терминала. </para>
+
+<para
+>Но &kate; — это далеко не только редактор для программистов. Благодаря возможности открывать несколько файлов сразу программа идеально подходит для редактирования многочисленных конфигурационных файлов &UNIX;. Этот документ был создан с помощью &kate;. </para>
+
+
+</refsect1>
+
+<refsect1>
+<title
+>Параметры</title>
+
+<variablelist>
+<varlistentry>
+<term
+><option
+>-s</option
+>, <option
+>--start</option
+> <replaceable
+>имя_сеанса</replaceable
+></term>
+<listitem
+><para
+>Запустить &kate; с указанным сеансом.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><option
+>--startanon</option
+></term>
+<listitem
+><para
+>Запустить &kate; с новым анонимным сеансом, подразумевает параметр <option
+>-n</option
+> (устарел).</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><option
+>--new-session</option
+></term>
+<listitem
+><para
+>Запустить &kate; с новым анонимным сеансом, подразумевает параметр <option
+>-n</option
+>.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><option
+>-n</option
+>, <option
+>--new</option
+></term>
+<listitem
+><para
+>Принудительно запустить новый экземпляр &kate; (игнорируется, если используется <option
+>start</option
+> и указанный сеанс уже открыт в другом экземпляре &kate;); данный параметр применяется автоматически, если не указаны какие-либо параметры или ссылки.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><option
+>-b</option
+>, <option
+>--block</option
+></term>
+<listitem
+><para
+>Если используется уже запущенный экземпляр &kate;, выполняет блокировку до выхода из него, если указаны ссылки для открытия.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><option
+>-p, --pid</option
+> <replaceable
+> pid</replaceable
+></term>
+<listitem
+><para
+>Попытаться снова использовать экземпляр &kate; с указанным <replaceable
+>pid</replaceable
+> (игнорируется, если используется <option
+>start</option
+> и указанный сеанс уже открыт в другом экземпляре &kate;).</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><option
+>-e, --encoding</option
+> <replaceable
+> имя_файла</replaceable
+></term>
+<listitem
+><para
+>Задать кодировку для файла, который следует открыть.</para
+><para
+>Возможно, например, принудительно открыть файл в формате UTF-8. (Воспользуйтесь командой <command
+>iconv -l</command
+> для просмотра списка кодировок.)</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><option
+>-l, --line</option
+> <replaceable
+> номер_строки</replaceable
+></term>
+<listitem
+><para
+>Перейти к этой строке.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><option
+>-c, --column</option
+> <replaceable
+> позиция</replaceable
+></term>
+<listitem
+><para
+>Перейти в указанную позицию.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><option
+>-i, --stdin</option
+></term>
+<listitem
+><para
+>Прочитать содержимое <filename
+>stdin</filename
+>.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><option
+>--tempfile</option
+></term>
+<listitem
+><para
+>Файлы и ссылки, открытые приложением, будут удалены.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><option
+><replaceable
+>файл</replaceable
+></option
+></term>
+<listitem
+><para
+>Файл, который следует открыть.</para
+></listitem>
+</varlistentry>
+</variablelist>
+
+</refsect1>
+
+<refsect1>
+<title
+>Смотрите также</title>
+
+<simplelist
+><member
+>Более подробная документация доступна по адресу <ulink url="help:/kate"
+>help:/kate</ulink
+> (либо введите этот адрес в &konqueror;, либо выполните команду <userinput
+><command
+>khelpcenter</command
+> <parameter
+>help:/kate</parameter
+></userinput
+>).</member>
+<member
+>kf5options(7)</member>
+<member
+>qt5options(7)</member>
+<member
+>Чтобы получить больше информации, посетите <ulink url="https://kate-editor.org/"
+>веб-сайт &kate;</ulink
+>.</member>
+</simplelist>
+</refsect1>
+
+<refsect1>
+<title
+>Примеры</title>
+
+<para
+>Чтобы открыть строку 25 в позиции 15 файла <filename
+>source.cpp</filename
+>, выполните следующую команду:</para>
+<screen
+><userinput
+><command
+>kate</command
+> <option
+>-c 15</option
+> <option
+>-l 25</option
+> <filename
+>source.cpp</filename
+></userinput
+>
+</screen>
+
+<para
+>При наличии доступа в Интернету возможно открыть файл с &FTP;-сайта благодаря реализации «прозрачной» работы с сетью в &kde;. Если разрешение на запись на сетевом сервере отсутствует, файл будет доступен только для чтения и при внесении изменений будет предложено сохранить его локально. Если разрешение на запись имеется, вносимые изменения будут прозрачно сохранены по сети.</para>
+<screen
+><userinput
+><command
+>kate</command
+> <option
+><replaceable
+>&kde-ftp;README</replaceable
+></option
+></userinput
+></screen>
+
+<!-- FIXME: Some more useful examples would be cool, how about this snagged -->
+<!-- from a mail of anders (slightly edited /line/l to remove the double -->
+<!-- dashes:
+> /some/file/path/file.name:lineno
+
+> it would rock if Kate could understand that and not only open up file.name,
+
+> but jump to lineno after the file is opened.
+
+How bad is it to have to convert that into
+-l lineno /some/file/path/file.name
+
+sed s,([^:]*):(\d+),-l \2 \1,
+
+will do that, for example.-->
+
+</refsect1>
+
+<refsect1>
+<title
+>Авторы</title>
+<para
+>Сопровождающий &kate; — &Christoph.Cullmann; &Christoph.Cullmann.mail;. Полный перечень авторов и участников доступен в вышеупомянутом полном руководстве пользователя.</para>
+</refsect1>
+
+</refentry>

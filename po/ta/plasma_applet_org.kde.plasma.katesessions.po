@@ -1,0 +1,58 @@
+# Copyright (C) YEAR This file is copyright:
+# This file is distributed under the same license as the kate package.
+#
+# Kishore G <kishore96@gmail.com>, 2022.
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"PO-Revision-Date: 2022-08-25 21:39+0530\n"
+"Last-Translator: Kishore G <kishore96@gmail.com>\n"
+"Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
+"Language: ta\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 22.08.0\n"
+
+#: applet/contents/ui/katesessions.qml:28
+#, kde-format
+msgid "Kate Sessions"
+msgstr "கேட் அமர்வுகள்"
+
+#: applet/contents/ui/katesessions.qml:57
+#, kde-format
+msgid "Search…"
+msgstr "தேடு…"
+
+#: applet/contents/ui/KateSessionsItemDelegate.qml:93
+#, kde-format
+msgid "Session name"
+msgstr "அமர்வின் பெயர்"
+
+#: applet/contents/ui/KateSessionsItemDelegate.qml:104
+#, kde-format
+msgid "Create new session and start Kate"
+msgstr "கேட்டை புதிய அமர்வுடன் திற"
+
+#: applet/contents/ui/KateSessionsItemDelegate.qml:113
+#, kde-format
+msgid "Cancel session creation"
+msgstr "அமர்வை உருவாக்குவதை ரத்து செய்"
+
+#: applet/contents/ui/KateSessionsItemDelegate.qml:130
+#, kde-format
+msgid "Delete session"
+msgstr "அமர்வை நீக்கு"
+
+#: katesessionsmodel.cpp:63
+#, kde-format
+msgid "Start Kate (no arguments)"
+msgstr "கேட்டைத் துவக்கு (தருமதிப்புகள் இல்லாமல்)"
+
+#: katesessionsmodel.cpp:71
+#, kde-format
+msgid "New Kate Session"
+msgstr "புதிய கேட் அமர்வு"

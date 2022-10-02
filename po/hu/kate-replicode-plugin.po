@@ -1,0 +1,409 @@
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Kiszel Kristóf <kiszel.kristof@gmail.com>, 2017.
+# Kristof Kiszel <ulysses@fsf.hu>, 2021.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"PO-Revision-Date: 2021-12-27 16:16+0100\n"
+"Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
+"Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
+"Language: hu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 21.12.0\n"
+
+#. i18n: ectx: attribute (title), widget (QWidget, run)
+#: config.ui:18
+#, kde-format
+msgid "Run"
+msgstr "Futtatás"
+
+#. i18n: ectx: property (text), widget (QLabel, label_34)
+#: config.ui:24
+#, kde-format
+msgid "Run time (milliseconds):"
+msgstr "Futási idő (ezredmásodpercben):"
+
+#. i18n: ectx: property (text), widget (QLabel, label_35)
+#: config.ui:41
+#, kde-format
+msgid "Probe level:"
+msgstr "Mintavételi szint:"
+
+#. i18n: ectx: property (text), widget (QLabel, userOpsLabel)
+#: config.ui:58
+#, kde-format
+msgid "User operations layout module:"
+msgstr "Felhasználói műveletek elrendezésmodul:"
+
+#. i18n: ectx: property (text), widget (QLabel, userClassLabel)
+#: config.ui:71
+#, kde-format
+msgid "User classes file:"
+msgstr "Felhasználói osztályfájl:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: config.ui:84
+#, kde-format
+msgid "Base period:"
+msgstr "Bázosperiódus:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: config.ui:101
+#, kde-format
+msgid "Reduction core count:"
+msgstr "Csökkentési alapszám:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: config.ui:118
+#, kde-format
+msgid "Time core count:"
+msgstr "Idő alapszám:"
+
+#. i18n: ectx: attribute (title), widget (QWidget, system)
+#: config.ui:136
+#, kde-format
+msgid "System"
+msgstr "Rendszer"
+
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#: config.ui:142
+#, kde-format
+msgid "Model inertia success rate threshold:"
+msgstr "Modell tehetetlenségi sikerességi küszöbértéke:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_7)
+#: config.ui:159
+#, kde-format
+msgid "Model inertia count threshold:"
+msgstr "Modell tehetetlenségi küszöbérték:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_8)
+#: config.ui:176
+#, kde-format
+msgid "Targeted pattern extractor delta success rate threshold:"
+msgstr "Célzott mintakivonatoló eltérés sikerességi küszöbérték:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_9)
+#: config.ui:193
+#, kde-format
+msgid "Minimum simulation time horizon:"
+msgstr "Minimális szimulációs időhorizont:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_10)
+#: config.ui:210
+#, kde-format
+msgid "Maximum simulation time horizon:"
+msgstr "Maximális szimulációs időhorizont:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_11)
+#: config.ui:227
+#, kde-format
+msgid "Simulation time horizon:"
+msgstr "Szimulációs időhorizont:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_12)
+#: config.ui:247
+#, kde-format
+msgid "Targeted pattern extractor time horizon:"
+msgstr "Célzott mintakivonatoló időhorizont:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_13)
+#: config.ui:264
+#, kde-format
+msgid "Perf sampling period:"
+msgstr "Teljesítmény mintavételi időszak:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_14)
+#: config.ui:281
+#, kde-format
+msgid "Float tolerance:"
+msgstr "Lebegő tűréshatár:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_15)
+#: config.ui:298
+#, kde-format
+msgid "Timer tolerance:"
+msgstr "Időzítő tűréshatár:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_16)
+#: config.ui:318
+#, kde-format
+msgid "Primary time horizon:"
+msgstr "Elsődleges időhorizont:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_17)
+#: config.ui:335
+#, kde-format
+msgid "Secondary time horizon:"
+msgstr "Másodlagos időhorizont:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_18)
+#: config.ui:352
+#, kde-format
+msgid "Notification marker resilience:"
+msgstr "Értesítési jelölő rugalmassága:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_19)
+#: config.ui:369
+#, kde-format
+msgid "Goal prediction success resilience:"
+msgstr "Célelőrejelzési siker rugalmassága:"
+
+#. i18n: ectx: attribute (title), widget (QWidget, debugtab)
+#: config.ui:387
+#, kde-format
+msgid "Debug"
+msgstr "Hibakeresés"
+
+#. i18n: ectx: property (text), widget (QLabel, label_22)
+#: config.ui:396
+#, kde-format
+msgid "Debug:"
+msgstr "Hibakeresés:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_23)
+#: config.ui:413
+#, kde-format
+msgid "Debug windows:"
+msgstr "Hibakeresési ablak:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_24)
+#: config.ui:426
+#, kde-format
+msgid "Traces:"
+msgstr "Nyomkövetések:"
+
+#. i18n: ectx: property (text), widget (QCheckBox, traceCompInputs)
+#: config.ui:433
+#, kde-format
+msgid "Composite inputs"
+msgstr "Összetett bemenetek"
+
+#. i18n: ectx: property (text), widget (QCheckBox, traceCompOutputs)
+#: config.ui:440
+#, kde-format
+msgid "Composite outputs"
+msgstr "Összetett kimenetek"
+
+#. i18n: ectx: property (text), widget (QCheckBox, traceModelIn)
+#: config.ui:447
+#, kde-format
+msgid "Model inputs"
+msgstr "Modellbemenetek"
+
+#. i18n: ectx: property (text), widget (QCheckBox, traceModelOut)
+#: config.ui:454
+#, kde-format
+msgid "Model outputs"
+msgstr "Modellkimenetek"
+
+#. i18n: ectx: property (text), widget (QCheckBox, tracePredMon)
+#: config.ui:461
+#, kde-format
+msgid "Prediction monitoring"
+msgstr "Előrejelzés figyelése"
+
+#. i18n: ectx: property (text), widget (QCheckBox, traceGoalMon)
+#: config.ui:468
+#, kde-format
+msgid "Goal monitoring"
+msgstr "Cél figyelése"
+
+#. i18n: ectx: property (text), widget (QCheckBox, traceModelRev)
+#: config.ui:475
+#, kde-format
+msgid "Model revision"
+msgstr "Modellrevízió"
+
+#. i18n: ectx: property (text), widget (QCheckBox, traceModComInj)
+#: config.ui:482
+#, kde-format
+msgid "Model/composite injections"
+msgstr "Modell/kompozit bevitelek"
+
+#. i18n: ectx: property (text), widget (QLabel, label_21)
+#: config.ui:489
+#, kde-format
+msgid "Decompile objects:"
+msgstr "Objektumok visszafejtése:"
+
+#. i18n: ectx: property (text), widget (QLabel, decompileFileLabel)
+#: config.ui:506
+#, kde-format
+msgid "Decompile to file:"
+msgstr "Visszafejtés fájlba:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_26)
+#: config.ui:516
+#, kde-format
+msgid "Ignore named objects:"
+msgstr "Nevesített objektumok mellőzése:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_27)
+#: config.ui:533
+#, kde-format
+msgid "Dump objects to file:"
+msgstr "Objektumok kiírása fájlba:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_28)
+#: config.ui:543
+#, kde-format
+msgid "Test objects:"
+msgstr "Tesztobjektumok:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_30)
+#: config.ui:560
+#, kde-format
+msgid "Decompile models:"
+msgstr "Modellek visszafejtése:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_31)
+#: config.ui:577
+#, kde-format
+msgid "Ignore named models:"
+msgstr "Nevesített modellek mellőzése:"
+
+#. i18n: ectx: property (text), widget (QLabel, dumpFileLabel)
+#: config.ui:594
+#, kde-format
+msgid "Dump models to file:"
+msgstr "Modellek kiírása fájlba:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_33)
+#: config.ui:604
+#, kde-format
+msgid "Test models:"
+msgstr "Tesztmodellek:"
+
+#: replicodeconfigpage.cpp:24
+#, kde-format
+msgid "Path to replicode executor:"
+msgstr "A replicode program elérés útja:"
+
+#: replicodeconfigpage.cpp:39 replicodeview.cpp:51
+#, kde-format
+msgid "Replicode"
+msgstr "Replicode"
+
+#: replicodeconfigpage.cpp:44
+#, kde-format
+msgid "Replicode configuration"
+msgstr "Replicode beállítások"
+
+#: replicodeview.cpp:38
+#, kde-format
+msgid "Run replicode"
+msgstr "Replicode futtatása"
+
+#: replicodeview.cpp:42
+#, kde-format
+msgid "Stop replicode"
+msgstr "Replicode leállítása"
+
+#: replicodeview.cpp:61
+#, kde-format
+msgid "Replicode Config"
+msgstr "Replicode beállítás"
+
+#: replicodeview.cpp:64
+#, kde-format
+msgctxt "shortcut for action"
+msgid "Run (%1)"
+msgstr "Futtatás (%1)"
+
+#: replicodeview.cpp:65
+#, kde-format
+msgctxt "shortcut for action"
+msgid "Stop (%1)"
+msgstr "Leállítás (%1)"
+
+#: replicodeview.cpp:100
+#, kde-format
+msgctxt "@title:window"
+msgid "Active Document Not Found"
+msgstr "Nem található aktív dokumentum."
+
+#: replicodeview.cpp:100
+#, kde-format
+msgid "Could not find an active document to run."
+msgstr "Nem található aktív dokumentum a futtatáshoz."
+
+#: replicodeview.cpp:105
+#, kde-format
+msgctxt "@title:window"
+msgid "Empty Document"
+msgstr "Üres dokumentum"
+
+#: replicodeview.cpp:105
+#, kde-format
+msgid "Cannot execute an empty document."
+msgstr "Nem lehet végrehajtani üres dokumentumot."
+
+#: replicodeview.cpp:112
+#, kde-format
+msgctxt "@title:window"
+msgid "File Not Found"
+msgstr "A fájl nem található"
+
+#: replicodeview.cpp:112
+#, kde-format
+msgid "Unable to open source file for reading."
+msgstr "Nem lehet megnyitni a forrásfájlt olvasásra."
+
+#: replicodeview.cpp:127
+#, kde-format
+msgctxt "@title:window"
+msgid "Replicode Executable Not Found"
+msgstr "A Replicode program nem található"
+
+#: replicodeview.cpp:128
+#, kde-format
+msgid ""
+"Unable to find replicode executor.\n"
+"Please go to settings and set the path to the Replicode executable."
+msgstr ""
+"A replicode program nem található.\n"
+"Adja meg az elérési útját a beállításokban."
+
+#: replicodeview.cpp:135
+#, kde-format
+msgctxt "@title:window"
+msgid "User Operator Library Not Found"
+msgstr "A felhasználói operátorkönyvtár nem található"
+
+#: replicodeview.cpp:136
+#, kde-format
+msgid ""
+"Unable to find user operator library.\n"
+"Please go to settings and set the path to the library."
+msgstr ""
+"A felhasználói operátorkönyvtár nem található.\n"
+"Adja meg a könyvtár elérési útját a beállításokban."
+
+#: replicodeview.cpp:201
+#, kde-format
+msgid "Replicode execution failed: %1"
+msgstr "A Replicoda futtatása sikertelen: %1"
+
+#: replicodeview.cpp:211
+#, kde-format
+msgid "Replicode execution finished."
+msgstr "A Replicode végrehajtása befejeződött."
+
+#~ msgctxt "NAME OF TRANSLATORS"
+#~ msgid "Your names"
+#~ msgstr "Kiszel Kristóf"
+
+#~ msgctxt "EMAIL OF TRANSLATORS"
+#~ msgid "Your emails"
+#~ msgstr "ulysses@fsf.hu"
+
+#~ msgid "Replicode Output"
+#~ msgstr "Replicode kimenet"

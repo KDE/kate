@@ -1,0 +1,567 @@
+# Copyright (C) YEAR This file is copyright:
+# This file is distributed under the same license as the kate package.
+#
+# Mincho Kondarev <mkondarev@yahoo.de>, 2022.
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"PO-Revision-Date: 2022-06-28 09:53+0200\n"
+"Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
+"Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
+"Language: bg\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 22.04.2\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#. i18n: file: 7
+#, kde-format
+msgctxt "External tool name"
+msgid "Clang Format Full File"
+msgstr "Clang форматиране на целия файл"
+
+#. i18n: file: 4
+#, kde-format
+msgctxt "External tool category"
+msgid "Tools"
+msgstr "Инструменти"
+
+#. i18n: file: 8
+#, kde-format
+msgctxt "External tool name"
+msgid "Clang Format Selected Text"
+msgstr "Clang форматиране на избрания текст"
+
+#. i18n: file: 7
+#, kde-format
+msgctxt "External tool name"
+msgid "Compile and Run cpp"
+msgstr "Компилиране и изпълнение на cpp"
+
+#. i18n: file: 7
+#, kde-format
+msgctxt "External tool name"
+msgid "git blame"
+msgstr "git blame"
+
+#. i18n: file: 4
+#. i18n: file: 3
+#, kde-format
+msgctxt "External tool category"
+msgid "Git"
+msgstr "Git"
+
+#. i18n: file: 8
+#, kde-format
+msgctxt "External tool name"
+msgid "git-cola"
+msgstr "git-cola"
+
+#. i18n: file: 7
+#, kde-format
+msgctxt "External tool name"
+msgid "gitk"
+msgstr "gitk"
+
+#. i18n: file: 9
+#, kde-format
+msgctxt "External tool name"
+msgid "Go Fmt Full File"
+msgstr "Go форматиране на целия файл"
+
+#. i18n: file: 4
+#, kde-format
+msgctxt "External tool category"
+msgid "Go"
+msgstr "Отиване"
+
+#. i18n: file: 9
+#, kde-format
+msgctxt "External tool name"
+msgid "GoImports Full File"
+msgstr "GoImports целия файл"
+
+#. i18n: file: 8
+#, kde-format
+msgctxt "External tool name"
+msgid "Google Selected Text"
+msgstr "Google избрания текст"
+
+#. i18n: file: 7
+#, kde-format
+msgctxt "External tool name"
+msgid "Insert UUID"
+msgstr "Вмъкване на UUID"
+
+#. i18n: file: 9
+#, kde-format
+msgctxt "External tool name"
+msgid "JSON Format Full File"
+msgstr "SON форматиране на целия файл"
+
+#. i18n: file: 7
+#, kde-format
+msgctxt "External tool name"
+msgid "Prettier Format Current File"
+msgstr "Prettier форматиране на текущия файл"
+
+#. i18n: file: 8
+#, kde-format
+msgctxt "External tool name"
+msgid "Qt Quick 2 Preview (qmlscene)"
+msgstr "Qt Quick 2 предварителен преглед (qmlscene)"
+
+#. i18n: file: 4
+#, kde-format
+msgctxt "External tool category"
+msgid "Qt"
+msgstr "Qt"
+
+#. i18n: file: 8
+#, kde-format
+msgctxt "External tool name"
+msgid "Run Shell Script"
+msgstr "Изпълнение на скрипт"
+
+#. i18n: file: 9
+#, kde-format
+msgctxt "External tool name"
+msgid "Rust Fmt Full File"
+msgstr "Rust форматиране на целия файл"
+
+#. i18n: file: 10
+#, kde-format
+msgctxt "External tool name"
+msgid "Search KDE API"
+msgstr "Търсене KDE API"
+
+#. i18n: file: 10
+#, kde-format
+msgctxt "External tool name"
+msgid "Search Qt API"
+msgstr "Търсене Qt API"
+
+#. i18n: file: 8
+#, kde-format
+msgctxt "External tool name"
+msgid "XML Format Full File"
+msgstr "XML форматиране на целия файл"
+
+#. i18n: ectx: property (whatsThis), widget (QTreeView, lbTools)
+#: configwidget.ui:17
+#, kde-format
+msgid ""
+"This list shows all the configured tools, represented by their menu text."
+msgstr ""
+"Този списък показва всички конфигурирани инструменти, представени от техния "
+"текст в менюто."
+
+#. i18n: ectx: property (text), widget (QPushButton, btnAdd)
+#: configwidget.ui:29
+#, kde-format
+msgid "&Add"
+msgstr "&Добавяне"
+
+#. i18n: ectx: property (text), widget (QPushButton, btnEdit)
+#: configwidget.ui:36
+#, kde-format
+msgid "&Edit..."
+msgstr "&Редактиране..."
+
+#. i18n: ectx: property (text), widget (QPushButton, btnRemove)
+#: configwidget.ui:43
+#, kde-format
+msgid "&Remove"
+msgstr "Премахване"
+
+#: externaltoolsplugin.cpp:284
+#, kde-format
+msgid "Running %1: %2 %3"
+msgstr "Изпълнение %1: %2 %3"
+
+#: externaltoolsplugin.cpp:285
+#, kde-format
+msgid "Running %1: %2 %3 with input %4"
+msgstr "Изпълнение %1: %2 %3 с вход %4"
+
+#: externaltoolsplugin.cpp:288 externaltoolsplugin.cpp:399
+#: kateexternaltoolsconfigwidget.cpp:264 kateexternaltoolsconfigwidget.cpp:269
+#: kateexternaltoolsview.cpp:160 kateexternaltoolsview.cpp:164
+#: kateexternaltoolsview.cpp:212
+#, kde-format
+msgid "External Tools"
+msgstr "Външни инструменти"
+
+#: externaltoolsplugin.cpp:382
+#, kde-format
+msgid "Data written to stderr:\n"
+msgstr "Данни, записани в stderr:\n"
+
+#: externaltoolsplugin.cpp:393
+#, kde-format
+msgid "%1 crashed"
+msgstr "%1 се срина"
+
+#: externaltoolsplugin.cpp:395
+#, kde-format
+msgid "%1 finished with exit code %2"
+msgstr "%1 завърши с изходен код %2"
+
+#: kateexternaltoolscommand.cpp:38
+#, kde-format
+msgid "Starts the external tool '%1'"
+msgstr "Стартиране на външен инструмент: '%1'"
+
+#: kateexternaltoolsconfigwidget.cpp:132
+#, kde-format
+msgid "Edit External Tool"
+msgstr "Редактиране на външен инструмент"
+
+#: kateexternaltoolsconfigwidget.cpp:165
+#, kde-format
+msgid "Revert tool to default settings"
+msgstr "Връщане на стандартните настройки на инструмента"
+
+#: kateexternaltoolsconfigwidget.cpp:190 kateexternaltoolsconfigwidget.cpp:196
+#, kde-format
+msgid "External Tool"
+msgstr "Външен инструмент"
+
+#: kateexternaltoolsconfigwidget.cpp:190
+#, kde-format
+msgid "You must specify at least a name and an executable"
+msgstr "Трябва да посочите поне име и изпълним файл"
+
+#: kateexternaltoolsconfigwidget.cpp:196
+#, kde-format
+msgid "With 'Trigger' enabled, at least one mimetype needs to be specified."
+msgstr ""
+"Когато е активирана опцията \"Задействане\" е необходимо задаването на поне "
+"един тип MIME."
+
+#: kateexternaltoolsconfigwidget.cpp:205
+#, kde-format
+msgid "Select the MimeTypes for which to enable this tool."
+msgstr "Изберете MimeTypes, за които да активирате този инструмент."
+
+#: kateexternaltoolsconfigwidget.cpp:207
+#, kde-format
+msgid "Select Mime Types"
+msgstr "Избиране на Mime Types"
+
+#: kateexternaltoolsconfigwidget.cpp:233
+#, kde-format
+msgid "Add Tool..."
+msgstr "Добавяне на инструмент..."
+
+#: kateexternaltoolsconfigwidget.cpp:234
+#, kde-format
+msgid "Add Tool from Defaults"
+msgstr "Добавяне на инструмент от стандартни"
+
+#: kateexternaltoolsconfigwidget.cpp:236
+#, kde-format
+msgid "Add Category"
+msgstr "Добавяне на категория"
+
+#: kateexternaltoolsconfigwidget.cpp:283 kateexternaltoolsconfigwidget.cpp:390
+#: kateexternaltoolsconfigwidget.cpp:436
+#, kde-format
+msgid "Uncategorized"
+msgstr "Некатегоризирани"
+
+#: kateexternaltoolsconfigwidget.cpp:478
+#, kde-format
+msgid "New Category"
+msgstr "Нова категория"
+
+#: kateexternaltoolsconfigwidget.cpp:481
+#, kde-format
+msgid "New Category %1"
+msgstr "Нова категория %1"
+
+#: kateexternaltoolsview.cpp:101
+#, kde-format
+msgid "Configure..."
+msgstr "Конфигуриране..."
+
+#: kateexternaltoolsview.cpp:166
+#, kde-format
+msgid "Launch external helper applications"
+msgstr "Стартиране на външни помощни приложения"
+
+#. i18n: ectx: property (windowTitle), widget (QDialog, ToolDialog)
+#: tooldialog.ui:14
+#, kde-format
+msgid "Edit Tool"
+msgstr "Редактиране на инструмент"
+
+#. i18n: ectx: property (text), widget (QLabel, lblName)
+#: tooldialog.ui:20
+#, kde-format
+msgid "Na&me:"
+msgstr "&Име:"
+
+#. i18n: ectx: property (whatsThis), widget (QLineEdit, edtName)
+#: tooldialog.ui:32
+#, kde-format
+msgid "The name will be displayed in the 'Tools->External Tools' menu."
+msgstr "Името ще се покаже в менюто \"Инструменти-> Външни инструменти\"."
+
+#. i18n: ectx: property (placeholderText), widget (QLineEdit, edtName)
+#: tooldialog.ui:35
+#, kde-format
+msgid "Short name of the tool"
+msgstr "Кратко име на инструмент"
+
+#. i18n: ectx: property (text), widget (QLabel, lblExecutable)
+#: tooldialog.ui:47
+#, kde-format
+msgid "Executable:"
+msgstr "Изпълним файл:"
+
+#. i18n: ectx: property (placeholderText), widget (KUrlRequester, edtExecutable)
+#: tooldialog.ui:57
+#, kde-format
+msgid "Application or interpreter"
+msgstr "Програма или интерпретатор"
+
+#. i18n: ectx: property (text), widget (QLabel, lblArgs)
+#: tooldialog.ui:64
+#, kde-format
+msgid "Ar&guments:"
+msgstr "&Аргументи:"
+
+#. i18n: ectx: property (placeholderText), widget (QLineEdit, edtArgs)
+#: tooldialog.ui:74
+#, kde-format
+msgid "Command line arguments"
+msgstr "Аргументи на командния ред"
+
+#. i18n: ectx: property (text), widget (QLabel, lblInput)
+#: tooldialog.ui:81
+#, kde-format
+msgid "&Input:"
+msgstr "&Входни данни:"
+
+#. i18n: ectx: property (placeholderText), widget (QTextEdit, edtInput)
+#: tooldialog.ui:91
+#, kde-format
+msgid "Optional standard input"
+msgstr "Опционален стандартен вход"
+
+#. i18n: ectx: property (text), widget (QLabel, lblWorkingDir)
+#: tooldialog.ui:98
+#, kde-format
+msgid "Working directory:"
+msgstr "Работна директория:"
+
+#. i18n: ectx: property (placeholderText), widget (KUrlRequester, edtWorkingDir)
+#: tooldialog.ui:108
+#, kde-format
+msgid "Uses current document path if empty"
+msgstr "Използване на текущия път до документ, ако е празно"
+
+#. i18n: ectx: property (text), widget (QLabel, lblMimeType)
+#: tooldialog.ui:115
+#, kde-format
+msgid "Mime &types:"
+msgstr "&MIME типове:"
+
+#. i18n: ectx: property (whatsThis), widget (QLineEdit, edtMimeType)
+#: tooldialog.ui:127
+#, kde-format
+msgid ""
+"A semicolon-separated list of mime types for which this tool should be "
+"available. If empty, the tool is always available."
+msgstr ""
+"Разделен с точка и запетая списък на mime типовете, за които този инструмент "
+"трябва да е на разположение. Ако е празен, инструментът е винаги на "
+"разположение."
+
+#. i18n: ectx: property (placeholderText), widget (QLineEdit, edtMimeType)
+#: tooldialog.ui:130
+#, kde-format
+msgid "Show tool only for given mime types"
+msgstr "Показване на инструмента само за дадени mime типове"
+
+#. i18n: ectx: property (whatsThis), widget (QToolButton, btnMimeType)
+#: tooldialog.ui:137
+#, kde-format
+msgid "Opens a dialog that helps in creating a list of mimetypes."
+msgstr ""
+"Отваря диалогов прозорец, който помага при създаването на списък на mimeypes."
+
+#. i18n: ectx: property (text), widget (QLabel, lblSave)
+#: tooldialog.ui:150
+#, kde-format
+msgid "Save:"
+msgstr "Запазване:"
+
+#. i18n: ectx: property (whatsThis), widget (QComboBox, cmbSave)
+#: tooldialog.ui:160
+#, kde-format
+msgid ""
+"Optionally save the current or all modified documents prior to running the "
+"command. This is helpful if you want to pass URLs to an application like, "
+"for example, an FTP client."
+msgstr ""
+"По желание запазете текущия или всички модифицирани документи, преди да "
+"стартирате командата. Това е полезно, ако искате да предавате URL адреси на "
+"приложение като например FTP клиент."
+
+#. i18n: ectx: property (text), item, widget (QComboBox, cmbSave)
+#. i18n: ectx: property (text), item, widget (QComboBox, cmbTrigger)
+#: tooldialog.ui:164 tooldialog.ui:190
+#, kde-format
+msgid "None"
+msgstr "Без"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, cmbSave)
+#: tooldialog.ui:169
+#, kde-format
+msgid "Current Document"
+msgstr "Текущ документ"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, cmbSave)
+#: tooldialog.ui:174
+#, kde-format
+msgid "All Documents"
+msgstr "Всички документи"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: tooldialog.ui:182
+#, kde-format
+msgid "Trigger"
+msgstr "Задействане"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, cmbTrigger)
+#: tooldialog.ui:195
+#, kde-format
+msgid "Before Save"
+msgstr "Преди запазване"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, cmbTrigger)
+#: tooldialog.ui:200
+#, kde-format
+msgid "After Save"
+msgstr "След запазване"
+
+#. i18n: ectx: property (text), widget (QCheckBox, chkReload)
+#: tooldialog.ui:208
+#, kde-format
+msgid "Reload current document after execution"
+msgstr "Презареждане на текущия документ след изпълнение на програмата"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: tooldialog.ui:215
+#, kde-format
+msgid "O&utput:"
+msgstr "&Изход:"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, cmbOutput)
+#: tooldialog.ui:226
+#, kde-format
+msgid "Ignore"
+msgstr "Пренебрегване"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, cmbOutput)
+#: tooldialog.ui:231
+#, kde-format
+msgid "Insert at Cursor Position"
+msgstr "Вмъкване от позицията на курсора"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, cmbOutput)
+#: tooldialog.ui:236
+#, kde-format
+msgid "Replace Selected Text"
+msgstr "Заместване на избрания текст"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, cmbOutput)
+#: tooldialog.ui:241
+#, kde-format
+msgid "Replace Current Document"
+msgstr "Заместване на текущия документ"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, cmbOutput)
+#: tooldialog.ui:246
+#, kde-format
+msgid "Append to Current Document"
+msgstr "Добавяне към текущия документ"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, cmbOutput)
+#: tooldialog.ui:251
+#, kde-format
+msgid "Insert in New Document"
+msgstr "Поставяне в нов документ"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, cmbOutput)
+#: tooldialog.ui:256
+#, kde-format
+msgid "Copy to Clipboard"
+msgstr "Копиране в клипборда"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, cmbOutput)
+#: tooldialog.ui:261
+#, kde-format
+msgid "Display in Pane"
+msgstr "Показване в Pane"
+
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#: tooldialog.ui:269
+#, kde-format
+msgid "Editor command:"
+msgstr "Команда на редактора:"
+
+#. i18n: ectx: property (whatsThis), widget (QLineEdit, edtCommand)
+#: tooldialog.ui:279
+#, kde-format
+msgid ""
+"If you specify a name here, you can invoke the command from the view command "
+"line with the_name_you_specified_here. Please do not use spaces or tabs in "
+"the name."
+msgstr ""
+"Ако посочите име тук, можете да извикате командата от командния ред на "
+"изгледа с името_указано_тук. Моля, не използвайте интервали или раздели в "
+"името."
+
+#. i18n: ectx: property (placeholderText), widget (QLineEdit, edtCommand)
+#: tooldialog.ui:282
+#, kde-format
+msgid "Optional view command line name"
+msgstr "Опционална име на командния ред"
+
+#. i18n: ectx: attribute (title), widget (QWidget, tabOutput)
+#: toolview.ui:27
+#, kde-format
+msgid "Output"
+msgstr "Изходни данни"
+
+#. i18n: ectx: property (placeholderText), widget (QTextEdit, teOutput)
+#: toolview.ui:36
+#, kde-format
+msgid "Displays output from the external tool"
+msgstr "Показва изходните данни от външния инструмент"
+
+#. i18n: ectx: Menu (tools)
+#: ui.rc:5
+#, kde-format
+msgid "&Tools"
+msgstr "&Инструменти"
+
+#. i18n: ectx: ToolBar (mainToolBar)
+#: ui.rc:9
+#, kde-format
+msgid "Main Toolbar"
+msgstr "Основна лента с инструменти"
+
+#~ msgctxt "NAME OF TRANSLATORS"
+#~ msgid "Your names"
+#~ msgstr "Ясен Праматаров"
+
+#~ msgctxt "EMAIL OF TRANSLATORS"
+#~ msgid "Your emails"
+#~ msgstr "yasen@lindeas.com"

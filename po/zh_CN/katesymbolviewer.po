@@ -1,0 +1,261 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: kdeorg\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"PO-Revision-Date: 2022-09-20 01:55\n"
+"Last-Translator: \n"
+"Language-Team: Chinese Simplified\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Crowdin-Project: kdeorg\n"
+"X-Crowdin-Project-ID: 269464\n"
+"X-Crowdin-Language: zh-CN\n"
+"X-Crowdin-File: /kf5-trunk/messages/kate/katesymbolviewer.pot\n"
+"X-Crowdin-File-ID: 5329\n"
+
+#: bash_parser.cpp:25 cpp_parser.cpp:31 fortran_parser.cpp:37
+#: plugin_katesymbolviewer.cpp:88 python_parser.cpp:21 ruby_parser.cpp:21
+#, kde-format
+msgid "Show Functions"
+msgstr "显示函数"
+
+#: bash_parser.cpp:28 cpp_parser.cpp:43 fortran_parser.cpp:40 php_parser.cpp:34
+#: python_parser.cpp:39 ruby_parser.cpp:33 tcl_parser.cpp:35
+#, kde-format
+msgid "Functions"
+msgstr "函数"
+
+#: cpp_parser.cpp:29 plugin_katesymbolviewer.cpp:84
+#, kde-format
+msgid "Show Macros"
+msgstr "显示宏"
+
+#: cpp_parser.cpp:30 plugin_katesymbolviewer.cpp:86
+#, kde-format
+msgid "Show Structures"
+msgstr "显示结构体"
+
+#: cpp_parser.cpp:41
+#, kde-format
+msgid "Macros"
+msgstr "宏"
+
+#: cpp_parser.cpp:42
+#, kde-format
+msgid "Structures"
+msgstr "结构体"
+
+#: fortran_parser.cpp:35 perl_parser.cpp:23
+#, kde-format
+msgid "Show Subroutines"
+msgstr "显示子程序"
+
+#: fortran_parser.cpp:36
+#, kde-format
+msgid "Show Modules"
+msgstr "显示模块"
+
+#: fortran_parser.cpp:41 perl_parser.cpp:35
+#, kde-format
+msgid "Subroutines"
+msgstr "子程序"
+
+#: fortran_parser.cpp:42
+#, kde-format
+msgid "Modules"
+msgstr "模块"
+
+#: perl_parser.cpp:21
+#, kde-format
+msgid "Show Uses"
+msgstr "显示 Use 语块"
+
+#: perl_parser.cpp:22
+#, kde-format
+msgid "Show Pragmas"
+msgstr "显示杂注"
+
+#: perl_parser.cpp:33
+#, kde-format
+msgid "Uses"
+msgstr "Use 语块"
+
+#: perl_parser.cpp:34
+#, kde-format
+msgid "Pragmas"
+msgstr "杂注"
+
+#: php_parser.cpp:31
+#, kde-format
+msgid "Namespaces"
+msgstr "命名空间"
+
+#: php_parser.cpp:32
+#, kde-format
+msgid "Defines"
+msgstr "定义"
+
+#: php_parser.cpp:33 python_parser.cpp:38 ruby_parser.cpp:32
+#, kde-format
+msgid "Classes"
+msgstr "类"
+
+#: plugin_katesymbolviewer.cpp:68
+#, kde-format
+msgid "SymbolViewer"
+msgstr "符号查看器"
+
+#: plugin_katesymbolviewer.cpp:77
+#, kde-format
+msgid "Tree Mode"
+msgstr "树状模式"
+
+#: plugin_katesymbolviewer.cpp:79
+#, kde-format
+msgid "Expand Tree"
+msgstr "展开树"
+
+#: plugin_katesymbolviewer.cpp:81
+#, kde-format
+msgid "Show Sorted"
+msgstr "显示已排序"
+
+#: plugin_katesymbolviewer.cpp:90
+#, kde-format
+msgid "Show Parameters"
+msgstr "显示参数"
+
+#: plugin_katesymbolviewer.cpp:116
+#, kde-format
+msgid "Symbol List"
+msgstr "符号列表"
+
+#: plugin_katesymbolviewer.cpp:134
+#, kde-format
+msgid "Filter..."
+msgstr "筛选..."
+
+#: plugin_katesymbolviewer.cpp:143
+#, kde-format
+msgctxt "@title:column"
+msgid "Symbols"
+msgstr "符号"
+
+#: plugin_katesymbolviewer.cpp:143
+#, kde-format
+msgctxt "@title:column"
+msgid "Position"
+msgstr "地址"
+
+#: plugin_katesymbolviewer.cpp:359
+#, kde-format
+msgid "Sorry, not supported yet!"
+msgstr "抱歉，尚未支持！"
+
+#: plugin_katesymbolviewer.cpp:363
+#, kde-format
+msgid "File type: %1"
+msgstr "文件类型：%1"
+
+#: plugin_katesymbolviewer.cpp:476
+#, kde-format
+msgid "Display functions parameters"
+msgstr "显示函数参数"
+
+#: plugin_katesymbolviewer.cpp:477
+#, kde-format
+msgid "Automatically expand nodes in tree mode"
+msgstr "树状模式下自动扩展节点"
+
+#: plugin_katesymbolviewer.cpp:478
+#, kde-format
+msgid "Always display symbols in tree mode"
+msgstr "树状模式中总是显示符号"
+
+#: plugin_katesymbolviewer.cpp:479
+#, kde-format
+msgid "Always sort symbols"
+msgstr "总是排序符号"
+
+#: plugin_katesymbolviewer.cpp:481
+#, kde-format
+msgid "Parser Options"
+msgstr "解析选项"
+
+#: plugin_katesymbolviewer.cpp:509
+#, kde-format
+msgid "Symbol Viewer"
+msgstr "符号查看器"
+
+#: plugin_katesymbolviewer.cpp:514
+#, kde-format
+msgid "Symbol Viewer Configuration Page"
+msgstr "符号查看器配置页"
+
+#: python_parser.cpp:22 ruby_parser.cpp:22
+#, kde-format
+msgid "Show Methods"
+msgstr "显示方法"
+
+#: python_parser.cpp:23 ruby_parser.cpp:23
+#, kde-format
+msgid "Show Classes"
+msgstr "显示类"
+
+#: tcl_parser.cpp:36
+#, kde-format
+msgid "Globals"
+msgstr "全局声明"
+
+#. i18n: ectx: Menu (view)
+#: ui.rc:6
+#, kde-format
+msgid "&Settings"
+msgstr "设置(&S)"
+
+#: xml_parser.cpp:25
+#, kde-format
+msgid "Show Tags"
+msgstr "显示标签"
+
+#: xslt_parser.cpp:22
+#, kde-format
+msgid "Show Params"
+msgstr "显示杂注"
+
+#: xslt_parser.cpp:23
+#, kde-format
+msgid "Show Variables"
+msgstr "显示变量"
+
+#: xslt_parser.cpp:24
+#, kde-format
+msgid "Show Templates"
+msgstr "显示模板"
+
+#: xslt_parser.cpp:34
+#, kde-format
+msgid "Params"
+msgstr "参数"
+
+#: xslt_parser.cpp:35
+#, kde-format
+msgid "Variables"
+msgstr "变量"
+
+#: xslt_parser.cpp:36
+#, kde-format
+msgid "Templates"
+msgstr "模板"
+
+#~ msgctxt "NAME OF TRANSLATORS"
+#~ msgid "Your names"
+#~ msgstr "Guo Yunhe, Tyson Tan"
+
+#~ msgctxt "EMAIL OF TRANSLATORS"
+#~ msgid "Your emails"
+#~ msgstr "i@guoyunhe.me, tysontan@tysontan.com"

@@ -1,0 +1,755 @@
+# translation of katesearch.po to Slovak
+# Richard Fric <Richard.Fric@kdemail.net>, 2011.
+# Richard Frič <Richard.Fric@kdemail.net>, 2012.
+# Roman Paholík <wizzardsk@gmail.com>, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019.
+# Mthw <jari_45@hotmail.com>, 2018, 2019.
+# Matej Mrenica <matejm98mthw@gmail.com>, 2019, 2020, 2021, 2022.
+msgid ""
+msgstr ""
+"Project-Id-Version: katesearch\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"PO-Revision-Date: 2022-08-22 16:53+0200\n"
+"Last-Translator: Matej Mrenica <matejm98mthw@gmail.com>\n"
+"Language-Team: Slovak <kde-i18n-doc@kde.org>\n"
+"Language: sk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 22.07.90\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+
+#: KateSearchCommand.cpp:80
+#, kde-format
+msgid "Usage: grep [pattern to search for in folder]"
+msgstr "Použitie: grep [vzor na hľadanie v priečinku]"
+
+#: KateSearchCommand.cpp:82
+#, kde-format
+msgid "Usage: newGrep [pattern to search for in folder]"
+msgstr "Použitie: newGrep [vzor na hľadanie v priečinku]"
+
+#: KateSearchCommand.cpp:86 KateSearchCommand.cpp:88
+#, kde-format
+msgid "Usage: search [pattern to search for in open files]"
+msgstr "Použitie: search [vzor na hľadanie v otvorených súboroch]"
+
+#: KateSearchCommand.cpp:92
+#, kde-format
+msgid "Usage: pgrep [pattern to search for in current project]"
+msgstr "Použitie: pgrep [vzor na hľadanie v aktuálnom projekte]"
+
+#: KateSearchCommand.cpp:94
+#, kde-format
+msgid "Usage: newPGrep [pattern to search for in current project]"
+msgstr "Použitie: newPGrep [vzor na hľadanie v aktuálnom projekte]"
+
+#: KateSearchCommand.cpp:98
+#, kde-format
+msgid "Usage: preg [regex pattern to search for in current project]"
+msgstr "Použitie: preg [regex vzor na hľadanie v aktuálnom projekte]"
+
+#: MatchExportDialog.cpp:20
+#, kde-format
+msgid "Export Search Result Matches"
+msgstr "Exportovať zhody výsledkov vyhľadávania"
+
+#. i18n: ectx: property (placeholderText), widget (QLineEdit, exportPatternText)
+#: MatchExportDialog.ui:31
+#, kde-format
+msgid "Export Pattern"
+msgstr "Exportovať vzor"
+
+#. i18n: ectx: property (text), widget (QPushButton, pushButton)
+#: MatchExportDialog.ui:38
+#, kde-format
+msgid "Generate"
+msgstr "Generovať"
+
+#. i18n: ectx: property (placeholderText), widget (QPlainTextEdit, exportResultText)
+#: MatchExportDialog.ui:50
+#, kde-format
+msgid "Result"
+msgstr "Výsledok"
+
+#: MatchModel.cpp:548 MatchModel.cpp:550
+#, kde-format
+msgid "<b><i>Generating file list: ...%1</i></b>"
+msgstr "<b><i>Generuje sa zoznam súborov: ...%1</i></b>"
+
+#: MatchModel.cpp:558
+#, kde-format
+msgid "<b><i>One match found, searching: ...%2</i></b>"
+msgid_plural "<b><i>%1 matches found, searching: ...%2</i></b>"
+msgstr[0] "<b><i>%1 zhoda nájdená, hľadá sa: ...%2</i></b>"
+msgstr[1] "<b><i>%1 zhôd nájdených, hľadá sa: ...%2</i></b>"
+msgstr[2] "<b><i>%1 zhôd nájdených, hľadá sa: ...%2</i></b>"
+
+#: MatchModel.cpp:563
+#, kde-format
+msgid "<b><i>One match found, searching: %2</i></b>"
+msgid_plural "<b><i>%1 matches found, searching: %2</i></b>"
+msgstr[0] "<b><i>%1 zhoda nájdená, hľadá sa: %2</i></b>"
+msgstr[1] "<b><i>%1 zhôd nájdených, hľadá sa: %2</i></b>"
+msgstr[2] "<b><i>%1 zhôd nájdených, hľadá sa: %2</i></b>"
+
+#: MatchModel.cpp:570 MatchModel.cpp:713
+#, kde-format
+msgid "One checked"
+msgid_plural "%1 checked"
+msgstr[0] "Jeden skontrolovaný"
+msgstr[1] "%1 skontrolované"
+msgstr[2] "%1 skontrolovaných"
+
+#: MatchModel.cpp:574
+#, kde-format
+msgid "<b><i>One match (%2) found in file</i></b>"
+msgid_plural "<b><i>%1 matches (%2) found in current file</i></b>"
+msgstr[0] "<b><i>Jedna zhoda (%2) nájdená v súbore</i></b>"
+msgstr[1] "<b><i>%1 zhôd (%2) nájdených v aktuálnom súbore</i></b>"
+msgstr[2] "<b><i>%1 zhôd (%2) nájdených v aktuálnom súbore</i></b>"
+
+#: MatchModel.cpp:576
+#, kde-format
+msgid "<b><i>One match (%2) found in open files</i></b>"
+msgid_plural "<b><i>%1 matches (%2) found in open files</i></b>"
+msgstr[0] "<b><i>%1 zhoda nájdená v otvorených súboroch</i></b>"
+msgstr[1] "<b><i>%1 zhody (%2) nájdené v otvorených súboroch</i></b>"
+msgstr[2] "<b><i>%1 zhôd nájdených (%2) v otvorených súboroch</i></b>"
+
+#: MatchModel.cpp:579
+#, kde-format
+msgid "<b><i>One match (%3) found in folder %2</i></b>"
+msgid_plural "<b><i>%1 matches (%3) found in folder %2</i></b>"
+msgstr[0] "<b><i>Jedna zhoda (%3) nájdená v priečinku %2</i></b>"
+msgstr[1] "<b><i>%1 zhody (%3) nájdené v priečinku %2</i></b>"
+msgstr[2] "<b><i>%1 zhôd (%3) nájdených v priečinku %2</i></b>"
+
+#: MatchModel.cpp:586
+#, kde-format
+msgid "<b><i>One match (%4) found in project %2 (%3)</i></b>"
+msgid_plural "<b><i>%1 matches (%4) found in project %2 (%3)</i></b>"
+msgstr[0] "<b><i>Jedna zhoda (%4) nájdená projekte %2 (%3)</i></b>"
+msgstr[1] "<b><i>%1 zhody (%4) nájdené v projekte %2 (%3)</i></b>"
+msgstr[2] "<b><i>%1 zhôd (%4) nájdených v projekte %2 (%3)</i></b>"
+
+#: MatchModel.cpp:595
+#, kde-format
+msgid ""
+"<b><i>One match (%3) found in all open projects (common parent: %2)</i></b>"
+msgid_plural ""
+"<b><i>%1 matches (%3) found in all open projects (common parent: %2)</i></b>"
+msgstr[0] ""
+"<b><i>Jedna zhoda (%3) nájdená vo všetkých otvorených projektoch (spoločný "
+"rodič: %2)</i></b>"
+msgstr[1] ""
+"<b><i>%1 zhody (%3) nájdené vo všetkých otvorených projektoch (spoločný "
+"rodič: %2)</i></b>"
+msgstr[2] ""
+"<b><i>%1 zhôd (%3) nájdených vo všetkých otvorených projektoch (spoločný "
+"rodič: %2)</i></b>"
+
+#: MatchModel.cpp:697 MatchModel.cpp:699
+#, kde-format
+msgid "Generating file list: ...%1"
+msgstr "Generuje sa zoznam súborov: ...%1"
+
+#: MatchModel.cpp:707
+#, kde-format
+msgid "One match found, searching: ...%2"
+msgid_plural "%1 matches found, searching: ...%2"
+msgstr[0] "%1 zhoda nájdená, hľadá sa: ...%2"
+msgstr[1] "%1 zhôd nájdených, hľadá sa: ...%2"
+msgstr[2] "%1 zhôd nájdených, hľadá sa: ...%2"
+
+#: MatchModel.cpp:709
+#, kde-format
+msgid "One match found, searching: %2"
+msgid_plural "%1 matches found, searching: %2"
+msgstr[0] "%1 zhoda nájdená, hľadá sa: %2"
+msgstr[1] "%1 zhôd nájdených, hľadá sa: %2"
+msgstr[2] "%1 zhôd nájdených, hľadá sa: %2"
+
+#: MatchModel.cpp:717
+#, kde-format
+msgid "One match (%2) found in file"
+msgid_plural "%1 matches (%2) found in current file"
+msgstr[0] "<b><i>Jedna zhoda (%2) nájdená v súbore</i></b>"
+msgstr[1] "%1 zhôd (%2) nájdených v aktuálnom súbore"
+msgstr[2] "%1 zhôd (%2) nájdených v aktuálnom súbore"
+
+#: MatchModel.cpp:719
+#, kde-format
+msgid "One match (%2) found in open files"
+msgid_plural "%1 matches (%2) found in open files"
+msgstr[0] "<b><i>%1 zhoda nájdená v otvorených súboroch</i></b>"
+msgstr[1] "%1 zhôd (%2) nájdených v otvorených súboroch"
+msgstr[2] "%1 zhôd (%2) nájdených v otvorených súboroch"
+
+#: MatchModel.cpp:722
+#, kde-format
+msgid "One match (%3) found in folder %2"
+msgid_plural "%1 matches (%3) found in folder %2"
+msgstr[0] "<b><i>Jedna zhoda (%3) nájdená v priečinku %2</i></b>"
+msgstr[1] "%1 zhôd (%3) nájdených v priečinku %2"
+msgstr[2] "%1 zhôd (%3) nájdených v priečinku %2"
+
+#: MatchModel.cpp:725
+#, kde-format
+msgid "One match (%4) found in project %2 (%3)"
+msgid_plural "%1 matches (%4) found in project %2 (%3)"
+msgstr[0] "<b><i>Jedna zhoda (%4) nájdená projekte %2 (%3)</i></b>"
+msgstr[1] "%1 zhôd (%4) nájdených v projekte %2 (%3)"
+msgstr[2] "%1 zhôd (%4) nájdených v projekte %2 (%3)"
+
+#: MatchModel.cpp:734
+#, kde-format
+msgid "One match (%3) found in all open projects (common parent: %2)"
+msgid_plural "%1 matches (%3) found in all open projects (common parent: %2)"
+msgstr[0] ""
+"<b><i>Jedna zhoda (%3) nájdená vo všetkých otvorených projektoch (spoločný "
+"rodič: %2)</i></b>"
+msgstr[1] ""
+"%1 zhôd (%3) nájdených vo všetkých otvorených projektoch (spoločný rodič: %2)"
+msgstr[2] ""
+"%1 zhôd (%3) nájdených vo všetkých otvorených projektoch (spoločný rodič: %2)"
+
+#: Results.cpp:28
+#, kde-format
+msgid "Filter..."
+msgstr "Filtrovať..."
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
+#. i18n: ectx: property (text), widget (QPushButton, searchButton)
+#: search.ui:34 search.ui:37 SearchPlugin.cpp:302
+#, kde-format
+msgid "Search"
+msgstr "Hľadať"
+
+#. i18n: ectx: property (text), widget (QPushButton, replaceCheckedBtn)
+#: search.ui:47
+#, kde-format
+msgid "Replace Checked"
+msgstr "Nahradiť vybrané"
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, nextButton)
+#. i18n: ectx: property (text), widget (QPushButton, nextButton)
+#: search.ui:67 search.ui:70
+#, kde-format
+msgid "Next"
+msgstr "Ďalej"
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, stopButton)
+#. i18n: ectx: property (text), widget (QPushButton, stopButton)
+#: search.ui:75 search.ui:78
+#, kde-format
+msgid "Stop"
+msgstr "Zastaviť"
+
+#. i18n: ectx: property (toolTip), widget (QToolButton, matchCase)
+#: search.ui:115
+#, kde-format
+msgid "Match case"
+msgstr "Rozlišovať veľkosť"
+
+#. i18n: ectx: property (toolTip), widget (QToolButton, useRegExp)
+#: search.ui:131
+#, kde-format
+msgid ""
+"<html><head/><body><p>Enable regular expressions. Find help for regex syntax "
+"by using the buttons in the search and replace text fields.</p></body></html>"
+msgstr ""
+"<html><head/><body><p>Povoliť regulárne výrazy. Nápovedu k syntaxi "
+"regulárneho výrazu nájdete pomocou tlačidiel v textových poliach "
+"vyhľadávania a nahradzovania.</p></body></html>"
+
+#. i18n: ectx: property (toolTip), widget (QToolButton, expandResults)
+#: search.ui:160
+#, kde-format
+msgid "Expand results"
+msgstr "Rozbaliť výsledky"
+
+#. i18n: ectx: property (text), widget (QToolButton, filterBtn)
+#. i18n: ectx: property (text), widget (QToolButton, displayOptions)
+#. i18n: ectx: property (text), widget (QToolButton, newTabButton)
+#: search.ui:176 search.ui:246 search.ui:259
+#, kde-format
+msgid "..."
+msgstr "..."
+
+#. i18n: ectx: property (text), widget (QPushButton, replaceButton)
+#: search.ui:192 SearchPlugin.cpp:493
+#, kde-format
+msgid "Replace"
+msgstr "Nahradiť"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, searchPlaceCombo)
+#: search.ui:215
+#, kde-format
+msgid "In Current File"
+msgstr "v aktuálnom súbore"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, searchPlaceCombo)
+#: search.ui:220
+#, kde-format
+msgid "In Open Files"
+msgstr "V otvorených súboroch"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, searchPlaceCombo)
+#: search.ui:225
+#, kde-format
+msgid "In Folder"
+msgstr "V priečinku"
+
+#. i18n: ectx: property (toolTip), widget (QToolButton, currentFolderButton)
+#: search.ui:233
+#, kde-format
+msgid "Use the current document's path."
+msgstr "Použiť aktuálnu cestu dokumentu."
+
+#. i18n: ectx: property (toolTip), widget (QToolButton, displayOptions)
+#: search.ui:243
+#, kde-format
+msgid "Show more search options"
+msgstr "Zobraziť viac možností hľadania"
+
+#. i18n: ectx: property (toolTip), widget (QToolButton, newTabButton)
+#: search.ui:256
+#, kde-format
+msgid "Add new search tab"
+msgstr "Pridať novú kartu na vyhľadávanie"
+
+#. i18n: ectx: property (text), widget (QLabel, folderLabel)
+#: search.ui:353
+#, kde-format
+msgid "Folder:"
+msgstr "Priečinok:"
+
+#. i18n: ectx: property (toolTip), widget (QToolButton, folderUpButton)
+#: search.ui:371
+#, kde-format
+msgid "Go one folder up."
+msgstr "Prejsť o priečinok vyššie."
+
+#. i18n: ectx: property (text), widget (QLabel, filterLabel)
+#: search.ui:380
+#, kde-format
+msgid "Filter:"
+msgstr "Filter:"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, filterCombo)
+#: search.ui:402
+#, kde-format
+msgid "*"
+msgstr "*"
+
+#. i18n: ectx: property (text), widget (QLabel, excludeLabel)
+#: search.ui:410
+#, kde-format
+msgid "Exclude:"
+msgstr "Vylúčiť:"
+
+#. i18n: ectx: property (text), widget (QCheckBox, recursiveCheckBox)
+#: search.ui:431
+#, kde-format
+msgid "Recursive"
+msgstr "Rekurzívne"
+
+#. i18n: ectx: property (text), widget (QCheckBox, hiddenCheckBox)
+#: search.ui:441
+#, kde-format
+msgid "Include hidden"
+msgstr "Zahrnúť skryté"
+
+#. i18n: ectx: property (text), widget (QCheckBox, symLinkCheckBox)
+#: search.ui:448
+#, kde-format
+msgid "Follow symbolic links"
+msgstr "Sledovať s&ymbolické odkazy"
+
+#. i18n: ectx: property (text), widget (QCheckBox, binaryCheckBox)
+#: search.ui:455
+#, kde-format
+msgid "Include binary files"
+msgstr "Aj binárne súbory"
+
+#: SearchPlugin.cpp:84 SearchPlugin.cpp:117
+#, kde-format
+msgid "Line break"
+msgstr "Zalomenie riadku"
+
+#: SearchPlugin.cpp:85 SearchPlugin.cpp:118
+#, kde-format
+msgid "Tab"
+msgstr "Karta"
+
+#: SearchPlugin.cpp:96
+#, kde-format
+msgid "Beginning of line"
+msgstr "Začiatok riadku"
+
+#: SearchPlugin.cpp:97
+#, kde-format
+msgid "End of line"
+msgstr "Koniec riadku"
+
+#: SearchPlugin.cpp:99
+#, kde-format
+msgid "Any single character (excluding line breaks)"
+msgstr "Akýkoľvek samostatný znak (mimo zalomenia riadku)"
+
+#: SearchPlugin.cpp:100
+#, kde-format
+msgid "Literal dot"
+msgstr "Bodka"
+
+#: SearchPlugin.cpp:102
+#, kde-format
+msgid "One or more occurrences"
+msgstr "Jeden alebo viac výskytov"
+
+#: SearchPlugin.cpp:103
+#, kde-format
+msgid "Zero or more occurrences"
+msgstr "Žiadny alebo viac výskytov"
+
+#: SearchPlugin.cpp:104
+#, kde-format
+msgid "Zero or one occurrences"
+msgstr "Žiadny alebo jeden výskyt"
+
+#: SearchPlugin.cpp:106
+#, kde-format
+msgid "<a> through <b> occurrences"
+msgstr "<a> do <b> výskytov"
+
+#: SearchPlugin.cpp:108
+#, kde-format
+msgid "Group, capturing"
+msgstr "Skupina, odchytávanie"
+
+#: SearchPlugin.cpp:109
+#, kde-format
+msgid "Or"
+msgstr "Alebo"
+
+#: SearchPlugin.cpp:110
+#, kde-format
+msgid "Set of characters"
+msgstr "Sada znakov"
+
+#: SearchPlugin.cpp:111
+#, kde-format
+msgid "Negative set of characters"
+msgstr "Záporná sada znakov"
+
+#: SearchPlugin.cpp:112
+#, kde-format
+msgid "Group, non-capturing"
+msgstr "Skupina, nezachytávanie"
+
+#: SearchPlugin.cpp:113
+#, kde-format
+msgid "Lookahead"
+msgstr "Predvídavý"
+
+#: SearchPlugin.cpp:114
+#, kde-format
+msgid "Negative lookahead"
+msgstr "Spätne predvídavý"
+
+#: SearchPlugin.cpp:119
+#, kde-format
+msgid "Word boundary"
+msgstr "Hranice slova"
+
+#: SearchPlugin.cpp:120
+#, kde-format
+msgid "Not word boundary"
+msgstr "Nie hranica slova"
+
+#: SearchPlugin.cpp:121
+#, kde-format
+msgid "Digit"
+msgstr "%Císlica"
+
+#: SearchPlugin.cpp:122
+#, kde-format
+msgid "Non-digit"
+msgstr "Nečíslica"
+
+#: SearchPlugin.cpp:123
+#, kde-format
+msgid "Whitespace (excluding line breaks)"
+msgstr "Medzera (mimo zalomení riadkov)"
+
+#: SearchPlugin.cpp:124
+#, kde-format
+msgid "Non-whitespace (excluding line breaks)"
+msgstr "Nie-medzery (mimo zalomení riadkov)"
+
+#: SearchPlugin.cpp:125
+#, kde-format
+msgid "Word character (alphanumerics plus '_')"
+msgstr "Znak slova (alfanumerický a '_')"
+
+#: SearchPlugin.cpp:126
+#, kde-format
+msgid "Non-word character"
+msgstr "Neslovný znak"
+
+#: SearchPlugin.cpp:138
+#, kde-format
+msgid "Regular expression capture 0 (whole match)"
+msgstr "Zachytenie regulérnych výrazov 0 (úplná zhoda)"
+
+#: SearchPlugin.cpp:139
+#, kde-format
+msgid "Regular expression capture 1-9"
+msgstr "Zachytenie regulérnych výrazov 1-9"
+
+#: SearchPlugin.cpp:140
+#, kde-format
+msgid "Regular expression capture 0-999"
+msgstr "Zachytenie regulérnych výrazov 0-999"
+
+#: SearchPlugin.cpp:142
+#, kde-format
+msgid "Upper-cased capture 0-9"
+msgstr "Zachytenie veľkých písmen 0-9"
+
+#: SearchPlugin.cpp:143
+#, kde-format
+msgid "Upper-cased capture 0-999"
+msgstr "Zachytenie veľkých písmen 0-999"
+
+#: SearchPlugin.cpp:144
+#, kde-format
+msgid "Lower-cased capture 0-9"
+msgstr "Zachytenie malých písmen 0-9"
+
+#: SearchPlugin.cpp:145
+#, kde-format
+msgid "Lower-cased capture 0-999"
+msgstr "Zachytenie malých písmen 0-999"
+
+#: SearchPlugin.cpp:295
+#, kde-format
+msgid "Search & Replace"
+msgstr "Hľadať a nahradiť"
+
+#: SearchPlugin.cpp:336
+#, kde-format
+msgid "Find in Files"
+msgstr "Hľadať v súboroch"
+
+#: SearchPlugin.cpp:341
+#, fuzzy, kde-format
+#| msgid "Find in Files (in new tab)"
+msgid "Find in Files (in a New Tab)"
+msgstr "Hľadať v súboroch (v novej karte)"
+
+#: SearchPlugin.cpp:347
+#, kde-format
+msgid "Go to Next Match"
+msgstr "Prejsť na ďaľšiu zhodu"
+
+#: SearchPlugin.cpp:352
+#, kde-format
+msgid "Go to Previous Match"
+msgstr "Prejsť na predošlú zhodu"
+
+#: SearchPlugin.cpp:380
+#, kde-format
+msgid ""
+"Comma separated list of file types to search in. Example: \"*.cpp,*.h\"\n"
+msgstr ""
+"Čiarkou oddelený zoznam typov súborov na prehľadávanie. Príklad: \"*.cpp,*.h"
+"\"\n"
+
+#: SearchPlugin.cpp:381
+#, kde-format
+msgid ""
+"Comma separated list of files and directories to exclude from the search. "
+"Example: \"build*\""
+msgstr ""
+"Čiarkou oddelený zoznam súborov a adresárov na vylúčenie z hľadania. "
+"Príklad: \"build*\""
+
+#: SearchPlugin.cpp:383
+#, kde-format
+msgid "Click to filter through results"
+msgstr ""
+
+#: SearchPlugin.cpp:473
+#, kde-format
+msgid "Find"
+msgstr "Nájsť"
+
+#: SearchPlugin.cpp:1222
+#, kde-format
+msgid "Searching while you type was interrupted. It would have taken too long."
+msgstr ""
+"Hľadanie počas vášho písania bolo prerušené. Možno by to trvalo pridlho."
+
+#: SearchPlugin.cpp:1564
+#, kde-format
+msgid "Search Match"
+msgstr "Hľadať zhodu"
+
+#: SearchPlugin.cpp:1747 SearchPlugin.cpp:1824
+#, kde-format
+msgid "Next from cursor"
+msgstr "Ďalšie od kurzora"
+
+#: SearchPlugin.cpp:1764
+#, kde-format
+msgid "Starting from first match"
+msgstr "Začínam od prvej zhody"
+
+#: SearchPlugin.cpp:1784
+#, kde-format
+msgid "Continuing from first match"
+msgstr "Pokračujem od prvej zhody"
+
+#: SearchPlugin.cpp:1841
+#, kde-format
+msgid "Starting from last match"
+msgstr "Začínať od poslednej zhody"
+
+#: SearchPlugin.cpp:1861
+#, kde-format
+msgid "Continuing from last match"
+msgstr "Pokračujem od poslednej zhody"
+
+#: SearchPlugin.cpp:2132
+#, kde-format
+msgid "Copy all"
+msgstr "Skopírovať všetko"
+
+#: SearchPlugin.cpp:2137
+#, kde-format
+msgid "Copy expanded"
+msgstr "Kópia bola rozbalená"
+
+#: SearchPlugin.cpp:2140
+#, kde-format
+msgid "Export matches"
+msgstr "Exportovať zhody"
+
+#: SearchPlugin.cpp:2145
+#, kde-format
+msgid "Clear"
+msgstr "Vyčistiť"
+
+#: SearchPlugin.cpp:2253 SearchPlugin.cpp:2287
+#, kde-format
+msgid "Add..."
+msgstr "Pridať..."
+
+#: SearchPlugin.cpp:2265
+#, kde-format
+msgid "Search As You Type"
+msgstr "Hľadať ako píšete"
+
+#: SearchPlugin.cpp:2336
+#, kde-format
+msgid "In Current Project"
+msgstr "v aktuálnom projekte"
+
+#: SearchPlugin.cpp:2338
+#, kde-format
+msgid "In All Open Projects"
+msgstr "vo všetkých otvorených projektoch"
+
+#. i18n: ectx: Menu (edit)
+#: ui.rc:6
+#, kde-format
+msgid "&Edit"
+msgstr "&Upraviť"
+
+#. i18n: ectx: Menu (search_more)
+#: ui.rc:9
+#, kde-format
+msgid "Find in Files Variants"
+msgstr ""
+
+#~ msgid "Kate Search & Replace"
+#~ msgstr "Kate Hľadať & Nahradiť"
+
+#~ msgid "Search in Files"
+#~ msgstr "Hľadať v súboroch"
+
+#~ msgid "Search More"
+#~ msgstr "Hľadať viac"
+
+#~ msgctxt "NAME OF TRANSLATORS"
+#~ msgid "Your names"
+#~ msgstr "Roman Paholík"
+
+#~ msgctxt "EMAIL OF TRANSLATORS"
+#~ msgid "Your emails"
+#~ msgstr "wizzardsk@gmail.com"
+
+#~ msgid "<b>Searching: ...%1</b>"
+#~ msgstr "<b>Hľadám: ...%1</b>"
+
+#~ msgid "<b>Searching: %1</b>"
+#~ msgstr "<b>Hľadám: %1</b>"
+
+#~ msgid "<b>Processed %1 of %2 matches in: ...%3</b>"
+#~ msgstr "<b>Spracovaných %1 z %2 zhôd v: ...%3</b>"
+
+#~ msgid "<b>Processed %1 of %2 matches in: %3</b>"
+#~ msgstr "<b>Spracovaných %1 z %2 zhôd v: %3</b>"
+
+#~ msgid "A total of %1 match found\n"
+#~ msgid_plural "A total of %1 matches found\n"
+#~ msgstr[0] "Nájdený celkom %1 výsledok\n"
+#~ msgstr[1] "Nájdené celkom %1 výsledky\n"
+#~ msgstr[2] "Nájdených celkom %1 výsledkov\n"
+
+#~ msgid "\tLine: %1 column: %2: %3\n"
+#~ msgstr "\tRiadok: %1 stĺpec: %2: %3\n"
+
+#~ msgid "No matches found\n"
+#~ msgstr "Nenašli sa žiadne zhody\n"
+
+#~ msgid "SearchHighLight"
+#~ msgstr "SearchHighLight"
+
+#~ msgid "Line: <b>%1</b>: %2"
+#~ msgstr "Riadok: <b>%1</b>: %2"
+
+#~ msgid "Line: <b>%1</b> Column: <b>%2</b>: %3"
+#~ msgstr "Riadok: <b>%1</b> Stĺpec: <b>%2</b>: %3"
+
+#~ msgid "Replace:"
+#~ msgstr "Nahradiť:"
+
+#~ msgid "Use regular expressions"
+#~ msgstr "Použiť regulárne výrazy"
+
+#~ msgid "<b>Replacing in: %1</b>"
+#~ msgstr "<b>Nahradzujem v: %1</b>"
+
+#~ msgid "<b><i>%1 match found in current file</i></b>"
+#~ msgid_plural "<b><i>%1 matches (%2 checked) found in current file</i></b>"
+#~ msgstr[0] ""
+#~ "<b><i>%1 zhoda (%2 kontrolované) nájdená v aktuálnom súbore</i></b>"
+#~ msgstr[1] ""
+#~ "<b><i>%1 (%2 kontrolované) zhody nájdené v aktuálnom súbore</i></b>"
+#~ msgstr[2] ""
+#~ "<b><i>%1 (%2 kontrolované) zhôd nájdených v aktuálnom súbore</i></b>"
+
+#~ msgid "Folder"
+#~ msgstr "Priečinok"
+
+#~ msgid "Fi&nd:"
+#~ msgstr "Nájsť:"
+
+#~ msgid "F&older"
+#~ msgstr "Priečinok"
+
+#~ msgid "Search & replace in files"
+#~ msgstr "Hľadať a nahradiť v súboroch"

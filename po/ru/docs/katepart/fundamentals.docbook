@@ -1,0 +1,1249 @@
+<chapter id="on-screen-fundamentals">
+<title
+>Основы</title>
+
+<para
+>Работа с &kwrite; и многими другими модулями &kate; очень проста. При наличии опыта работы с текстовым редактором проблем возникнуть не должно. </para>
+
+<sect1 id="drag-and-drop">
+<title
+>Перетаскивание</title>
+
+<para
+>&katepart; поддерживает протокол перетаскивания мышью &kde;. Файлы возможно перетащить в &katepart; с рабочего стола, из диспетчера файлов &dolphin; или с какого-либо сетевого &FTP;-сайта, открытого в окне &dolphin;. </para>
+</sect1>
+
+<sect1 id="keybindings">
+<title
+>Комбинации клавиш</title>
+
+<para
+>Многие комбинации клавиш возможно перенастроить с помощью меню <link linkend="settings-help-menu"
+>Настройка</link
+>. По умолчанию комбинации клавиш в &katepart; настроены следующим образом:</para>
+<informaltable>
+<tgroup cols="2">
+<tbody>
+
+<row
+><entry
+><para
+>&Ins;</para
+></entry>
+<entry
+><para
+>Переключение между режимами вставки и замены. В режиме вставки редактор будет добавлять все вводимые символы, перемещая текст справа от курсора дальше. В режиме замены каждый вводимый символ будет удалять символ справа от курсора.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+>&Left;</para
+></entry>
+<entry
+><para
+>Переместить курсор на символ влево.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+>&Right;</para
+></entry>
+<entry
+><para
+>Переместить курсор на символ вправо.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+>&Up;</para
+></entry>
+<entry
+><para
+>Переместить курсор на строку выше.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+>&Down;</para
+></entry>
+<entry
+><para
+>Переместить курсор на строку ниже.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>E</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Перейти к предыдущей редактируемой строке.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>E</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Перейти к следующей редактируемой строке.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Alt;&Shift;&Up;</keycombo
+></para
+></entry>
+<entry
+><para
+>Переместить курсор к предыдущему совпадающему отступу.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Alt;&Shift;&Down;</keycombo
+></para
+></entry>
+<entry
+><para
+>Переместить курсор к предыдущему совпадающему отступу.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>6</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Переместить курсор к парной скобке.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+>&PgUp;</para
+></entry>
+<entry
+><para
+>Переместить курсор на страницу выше.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+>&PgDn;</para
+></entry>
+<entry
+><para
+>Переместить курсор на страницу ниже.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+>&Home;</para
+></entry>
+<entry
+><para
+>Переместить курсор к началу текущей строки.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+>&End;</para
+></entry>
+<entry
+><para
+>Переместить курсор к концу текущей строки.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Home;</keycombo
+></para
+></entry>
+<entry
+><para
+>Перейти к началу документа.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&End;</keycombo
+></para
+></entry>
+<entry
+><para
+>Перейти к концу документа.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Up;</keycombo
+></para
+></entry>
+<entry
+><para
+>Прокрутить строку вверх.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Down;</keycombo
+></para
+></entry>
+<entry
+><para
+>Прокрутить строку вниз.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Right;</keycombo
+></para
+></entry>
+<entry
+><para
+>Переместить слово вправо.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Left;</keycombo
+></para
+></entry>
+<entry
+><para
+>Переместить слово влево.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Shift;&Up;</keycombo
+></para
+></entry>
+<entry
+><para
+>Переместить строки вверх.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Shift;&Down;</keycombo
+></para
+></entry>
+<entry
+><para
+>Переместить строки вниз.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Alt;&Up;</keycombo
+></para
+></entry>
+<entry
+><para
+>Дублировать выделенные строки выше.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Alt;&Down;</keycombo
+></para
+></entry>
+<entry
+><para
+>Дублировать выделенные строки ниже.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>B</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Установить закладку.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Alt;&PgUp;</keycombo
+></para
+></entry>
+<entry
+><para
+>Предыдущая закладка.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Alt;&PgDn;</keycombo
+></para
+></entry>
+<entry
+><para
+>Следующая закладка.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+>&Del;</para
+></entry>
+<entry
+><para
+>Удалить символ справа от курсора (или выделенный текст).</para
+></entry>
+</row>
+<row>
+<entry
+><para
+>&Backspace;</para
+></entry>
+<entry
+><para
+>Удалить символ слева от курсора.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Del;</keycombo
+></para
+></entry>
+<entry
+><para
+>Удалить слово справа.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Backspace;</keycombo
+></para
+></entry>
+<entry
+><para
+>Удалить слово слева.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>K</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Удалить строку.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Shift;&Enter;</keycombo
+></para
+></entry>
+<entry
+><para
+>Вставить символ начала новой строки, включая начальные символы текущей строки, отличные от букв или цифр. Эта возможность полезна при написании комментариев в коде: в конце строки <quote
+>// какой-либо текст</quote
+> используйте эту комбинацию клавиш, и следующая строка уже будет начинаться с символов <quote
+>// </quote
+>. Поэтому символы комментария не потребуется вводить в начале каждой новой строки комментариев.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Shift;&Left;</keycombo
+></para
+></entry>
+<entry
+><para
+>Выделить символ слева от курсора.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Shift;&Right;</keycombo
+></para
+></entry>
+<entry
+><para
+>Выделить символ справа от курсора.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo
+action="simul"
+>&Ctrl;<keycap
+>F</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+><link linkend="edit-find"
+>Найти</link
+>.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo
+action="simul"
+><keycap
+>F3</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+><link linkend="edit-find-next"
+>Следующее совпадение</link
+>.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo
+action="simul"
+>&Shift;<keycap
+>F3</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+><link linkend="edit-find-previous"
+>Предыдущее совпадение</link
+>.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo
+action="simul"
+>&Ctrl;<keycap
+>H</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+><link linkend="edit-find-selected"
+>Найти выделенное</link
+>.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo
+action="simul"
+>&Ctrl;&Shift;<keycap
+>H</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+><link linkend="edit-find-selected-backwards"
+>Найти выделенное (в обратном направлении)</link
+>.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Shift;&Right;</keycombo
+></para
+></entry>
+<entry
+><para
+>Выделить слово справа.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Shift;&Left;</keycombo
+></para
+></entry>
+<entry
+><para
+>Выделить слово слева.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Shift;&Home;</keycombo
+></para
+></entry>
+<entry
+><para
+>Выделить до начала строки.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Shift;&End;</keycombo
+></para
+></entry>
+<entry
+><para
+>Выделить до конца строки.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Shift;&Up;</keycombo
+></para
+></entry>
+<entry
+><para
+>Выделить до предыдущей строки.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Shift;&Down;</keycombo
+></para
+></entry>
+<entry
+><para
+>Выделить до следующей строки.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>6</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Выделить до парной скобки.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Shift;&PgUp;</keycombo
+></para
+></entry>
+<entry
+><para
+>Выделить до начала области просмотра.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Shift;&PgDn;</keycombo
+></para
+></entry>
+<entry
+><para
+>Выделить до конца области просмотра.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Shift;&PgUp;</keycombo
+></para
+></entry>
+<entry
+><para
+>Выделить страницу вверх.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Shift;&PgDn;</keycombo
+></para
+></entry>
+<entry
+><para
+>Выделить страницу вниз.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Shift;&Home;</keycombo
+></para
+></entry>
+<entry
+><para
+>Выделить до начала документа.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Shift;&End;</keycombo
+></para
+></entry>
+<entry
+><para
+>Выделить до конца документа.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo
+action="simul"
+>&Ctrl;&Home;</keycombo
+></para
+></entry>
+<entry
+><para
+>Выделить всё.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo
+action="simul"
+>&Ctrl;&Shift;<keycap
+>A</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Снять выделение.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo
+action="simul"
+>&Ctrl;&Shift;<keycap
+>B</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Блочное выделение.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>C</keycap
+></keycombo
+> / <keycombo action="simul"
+>&Ctrl;&Ins;</keycombo
+></para
+></entry>
+<entry
+><para
+>Скопировать выделенный текст в буфер обмена.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo
+action="simul"
+>&Ctrl;<keycap
+>D</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Закомментировать.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo
+action="simul"
+>&Ctrl;&Shift;<keycap
+>D</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Раскомментировать.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo
+action="simul"
+>&Ctrl;<keycap
+>G</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Перейти на строку</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo
+action="simul"
+>&Ctrl;<keycap
+>I</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Вставить отступ для выделенного фрагмента.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo
+action="simul"
+>&Ctrl;&Shift;<keycap
+>I</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Снять отступ для выделенного фрагмента.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo
+action="simul"
+>&Ctrl;<keycap
+>J</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Объединить строки.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo
+action="simul"
+>&Ctrl;<keycap
+>P</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+><link linkend="file-print"
+>Печать</link
+>.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo
+action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+><link linkend="edit-replace"
+>Замена</link
+>.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo
+action="simul"
+>&Ctrl;<keycap
+>S</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Выполнить команду <link linkend="file-save"
+><guilabel
+>Сохранить</guilabel
+></link
+>.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo
+action="simul"
+>&Ctrl;&Shift;<keycap
+>S</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Сохранить как.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo
+action="simul"
+>&Ctrl;<keycap
+>U</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Перевести в верхний регистр.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo
+action="simul"
+>&Ctrl;&Shift;<keycap
+>U</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Перевести в нижний регистр.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo
+action="simul"
+>&Ctrl;&Alt;<keycap
+>U</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>С заглавной буквы.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>V</keycap
+></keycombo
+> / <keycombo action="simul"
+>&Shift;&Ins;</keycombo
+></para
+></entry>
+<entry
+><para
+>Вставить текст из буфера обмена.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>X</keycap
+></keycombo
+> / <keycombo action="simul"
+>&Shift;&Ins;</keycombo
+></para
+></entry>
+<entry
+><para
+>Скопировать выделенный текст в буфер обмена и удалить его из документа. </para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo
+action="simul"
+>&Ctrl;<keycap
+>Z</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+><link linkend="edit-undo"
+>Отменить</link
+>.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo
+action="simul"
+>&Ctrl;&Shift;<keycap
+>Z</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+><link linkend="edit-redo"
+>Повторить</link
+>.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo
+action="simul"
+>&Ctrl;<keycap
+>-</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Уменьшить размер шрифта.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>+</keycap
+></keycombo
+><keycombo action="simul"
+>&Ctrl;<keycap
+>=</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Увеличить размер шрифта.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo
+action="simul"
+>&Ctrl;&Shift;<keycap
+>-</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Свернуть узлы верхнего уровня.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo
+action="simul"
+>&Ctrl;&Shift;<keycap
+>+</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Развернуть узлы верхнего уровня.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo
+action="simul"
+>&Ctrl;&Space;</keycombo
+></para
+></entry>
+<entry
+><para
+>Завершение кода.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycap
+>F5</keycap
+></para
+></entry>
+<entry
+><para
+><link linkend="file-reload"
+> Обновить</link
+>.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycap
+>F6</keycap
+></para
+></entry>
+<entry
+><para
+>Показать/скрыть полосу отметок.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycap
+>F7</keycap
+></para
+></entry>
+<entry
+><para
+>Переключиться в командную строку.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycap
+>F9</keycap
+></para
+></entry>
+<entry
+><para
+>Показать/скрыть полосу сворачивания блоков.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycap
+>F10</keycap
+></para
+></entry>
+<entry
+><para
+>Динамический перенос строк.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycap
+>F11</keycap
+></para
+></entry>
+<entry
+><para
+>Показать/скрыть номера строк.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>T</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Переставить символы.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>O</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Автопроверка орфографии.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>V</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Перейти к следующему режиму ввода.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>8</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Повторить слово выше.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>9</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Повторить слово ниже.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Alt;<keycap
+>#</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Развернуть аббревиатуру.</para
+></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+</sect1>
+</chapter>

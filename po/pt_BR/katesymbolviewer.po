@@ -1,0 +1,268 @@
+# Translation of katesymbolviewer.po to Brazilian Portuguese
+# Copyright 2007-2019 This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Marcus Gama <marcus.gama@gmail.com>, 2007, 2008.
+# Luiz Fernando Ranghetti <elchevive@opensuse.org>, 2009, 2012, 2020, 2022.
+# Marcus Vinícius de Andrade Gama <marcus.gama@gmail.com>, 2010.
+# André Marcelo Alvarenga <alvarenga@kde.org>, 2010, 2013, 2018, 2019.
+msgid ""
+msgstr ""
+"Project-Id-Version: katesymbolviewer\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"PO-Revision-Date: 2022-07-14 09:56-0300\n"
+"Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
+"Language-Team: Portuguese <kde-i18n-pt_BR@kde.org>\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 21.12.3\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: bash_parser.cpp:25 cpp_parser.cpp:31 fortran_parser.cpp:37
+#: plugin_katesymbolviewer.cpp:88 python_parser.cpp:21 ruby_parser.cpp:21
+#, kde-format
+msgid "Show Functions"
+msgstr "Mostrar funções"
+
+#: bash_parser.cpp:28 cpp_parser.cpp:43 fortran_parser.cpp:40 php_parser.cpp:34
+#: python_parser.cpp:39 ruby_parser.cpp:33 tcl_parser.cpp:35
+#, kde-format
+msgid "Functions"
+msgstr "Funções"
+
+#: cpp_parser.cpp:29 plugin_katesymbolviewer.cpp:84
+#, kde-format
+msgid "Show Macros"
+msgstr "Mostrar macros"
+
+#: cpp_parser.cpp:30 plugin_katesymbolviewer.cpp:86
+#, kde-format
+msgid "Show Structures"
+msgstr "Mostrar estruturas"
+
+#: cpp_parser.cpp:41
+#, kde-format
+msgid "Macros"
+msgstr "Macros"
+
+#: cpp_parser.cpp:42
+#, kde-format
+msgid "Structures"
+msgstr "Estruturas"
+
+#: fortran_parser.cpp:35 perl_parser.cpp:23
+#, kde-format
+msgid "Show Subroutines"
+msgstr "Mostrar sub-rotinas"
+
+#: fortran_parser.cpp:36
+#, kde-format
+msgid "Show Modules"
+msgstr "Mostrar módulos"
+
+#: fortran_parser.cpp:41 perl_parser.cpp:35
+#, kde-format
+msgid "Subroutines"
+msgstr "Sub-rotinas"
+
+#: fortran_parser.cpp:42
+#, kde-format
+msgid "Modules"
+msgstr "Módulos"
+
+#: perl_parser.cpp:21
+#, kde-format
+msgid "Show Uses"
+msgstr "Mostrar usos"
+
+#: perl_parser.cpp:22
+#, kde-format
+msgid "Show Pragmas"
+msgstr "Mostrar pragmas"
+
+#: perl_parser.cpp:33
+#, kde-format
+msgid "Uses"
+msgstr "Usos"
+
+#: perl_parser.cpp:34
+#, kde-format
+msgid "Pragmas"
+msgstr "Pragmas"
+
+#: php_parser.cpp:31
+#, kde-format
+msgid "Namespaces"
+msgstr "Espaços de nomes"
+
+#: php_parser.cpp:32
+#, kde-format
+msgid "Defines"
+msgstr "Definições"
+
+#: php_parser.cpp:33 python_parser.cpp:38 ruby_parser.cpp:32
+#, kde-format
+msgid "Classes"
+msgstr "Classes"
+
+#: plugin_katesymbolviewer.cpp:68
+#, kde-format
+msgid "SymbolViewer"
+msgstr "Visualizador de símbolos"
+
+#: plugin_katesymbolviewer.cpp:77
+#, kde-format
+msgid "Tree Mode"
+msgstr "Modo em árvore"
+
+#: plugin_katesymbolviewer.cpp:79
+#, kde-format
+msgid "Expand Tree"
+msgstr "Expandir árvore"
+
+#: plugin_katesymbolviewer.cpp:81
+#, kde-format
+msgid "Show Sorted"
+msgstr "Mostrar ordenados"
+
+#: plugin_katesymbolviewer.cpp:90
+#, kde-format
+msgid "Show Parameters"
+msgstr "Mostrar parâmetros"
+
+#: plugin_katesymbolviewer.cpp:116
+#, kde-format
+msgid "Symbol List"
+msgstr "Lista de símbolos"
+
+#: plugin_katesymbolviewer.cpp:134
+#, kde-format
+msgid "Filter..."
+msgstr "Filtrar..."
+
+#: plugin_katesymbolviewer.cpp:143
+#, kde-format
+msgctxt "@title:column"
+msgid "Symbols"
+msgstr "Símbolos"
+
+#: plugin_katesymbolviewer.cpp:143
+#, kde-format
+msgctxt "@title:column"
+msgid "Position"
+msgstr "Posição"
+
+#: plugin_katesymbolviewer.cpp:359
+#, kde-format
+msgid "Sorry, not supported yet!"
+msgstr "Infelizmente ainda não há suporte!"
+
+#: plugin_katesymbolviewer.cpp:363
+#, kde-format
+msgid "File type: %1"
+msgstr "Tipo de arquivo: %1"
+
+#: plugin_katesymbolviewer.cpp:476
+#, kde-format
+msgid "Display functions parameters"
+msgstr "Mostrar os parâmetros das funções"
+
+#: plugin_katesymbolviewer.cpp:477
+#, kde-format
+msgid "Automatically expand nodes in tree mode"
+msgstr "Expandir automaticamente os nós no modo em árvore"
+
+#: plugin_katesymbolviewer.cpp:478
+#, kde-format
+msgid "Always display symbols in tree mode"
+msgstr "Sempre mostrar símbolos no modo em árvore"
+
+#: plugin_katesymbolviewer.cpp:479
+#, kde-format
+msgid "Always sort symbols"
+msgstr "Sempre ordenar os símbolos"
+
+#: plugin_katesymbolviewer.cpp:481
+#, kde-format
+msgid "Parser Options"
+msgstr "Opções do processador"
+
+#: plugin_katesymbolviewer.cpp:509
+#, kde-format
+msgid "Symbol Viewer"
+msgstr "Visualizador de símbolos"
+
+#: plugin_katesymbolviewer.cpp:514
+#, kde-format
+msgid "Symbol Viewer Configuration Page"
+msgstr "Página de configuração do visualizador de símbolos"
+
+#: python_parser.cpp:22 ruby_parser.cpp:22
+#, kde-format
+msgid "Show Methods"
+msgstr "Mostrar métodos"
+
+#: python_parser.cpp:23 ruby_parser.cpp:23
+#, kde-format
+msgid "Show Classes"
+msgstr "Mostrar classes"
+
+#: tcl_parser.cpp:36
+#, kde-format
+msgid "Globals"
+msgstr "Globais"
+
+#. i18n: ectx: Menu (view)
+#: ui.rc:6
+#, kde-format
+msgid "&Settings"
+msgstr "&Configurações"
+
+#: xml_parser.cpp:25
+#, kde-format
+msgid "Show Tags"
+msgstr "Mostrar etiquetas"
+
+#: xslt_parser.cpp:22
+#, kde-format
+msgid "Show Params"
+msgstr "Mostrar parâmetros"
+
+#: xslt_parser.cpp:23
+#, kde-format
+msgid "Show Variables"
+msgstr "Mostrar variáveis"
+
+#: xslt_parser.cpp:24
+#, kde-format
+msgid "Show Templates"
+msgstr "Mostrar modelos"
+
+#: xslt_parser.cpp:34
+#, kde-format
+msgid "Params"
+msgstr "Parâmetros"
+
+#: xslt_parser.cpp:35
+#, kde-format
+msgid "Variables"
+msgstr "Variáveis"
+
+#: xslt_parser.cpp:36
+#, kde-format
+msgid "Templates"
+msgstr "Modelos"
+
+#~ msgctxt "NAME OF TRANSLATORS"
+#~ msgid "Your names"
+#~ msgstr "André Marcelo Alvarenga"
+
+#~ msgctxt "EMAIL OF TRANSLATORS"
+#~ msgid "Your emails"
+#~ msgstr "alvarenga@kde.org"
+
+#~ msgid "Show Globals"
+#~ msgstr "Mostrar globais"

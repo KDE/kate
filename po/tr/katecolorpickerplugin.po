@@ -1,0 +1,89 @@
+# Copyright (C) YEAR This file is copyright:
+# This file is distributed under the same license as the kate package.
+#
+# Volkan Gezer <volkangezer@gmail.com>, 2022.
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"PO-Revision-Date: 2022-02-27 13:50+0100\n"
+"Last-Translator: Volkan Gezer <volkangezer@gmail.com>\n"
+"Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 20.12.3\n"
+
+#: colorpickerconfigpage.cpp:34
+#, kde-format
+msgid "Show preview for known color names"
+msgstr "Bilinen renk adları için önizlemeyi göster"
+
+#: colorpickerconfigpage.cpp:36
+#, kde-format
+msgid ""
+"Also show the color picker for known color names (e.g. skyblue).\n"
+"See https://www.w3.org/TR/SVG11/types.html#ColorKeywords for the list of "
+"colors."
+msgstr ""
+"Ayrıca bilinen renk adları için renk seçicisini göster (örn. gök mavisi).\n"
+"Renklerin listesi için https://www.w3.org/TR/SVG11/types.html#ColorKeywords "
+"adresine bakın."
+
+#: colorpickerconfigpage.cpp:39
+#, kde-format
+msgid "Place preview after text color"
+msgstr "Metin renginden sonra önizlemeyi yerleştir"
+
+#: colorpickerconfigpage.cpp:45
+#, kde-format
+msgid "Hex color matching"
+msgstr "Onaltılı renk eşleşmesi"
+
+#: colorpickerconfigpage.cpp:48
+#, kde-format
+msgid "12 digits (#RRRRGGGGBBBB)"
+msgstr "12 rakam (#RRRRGGGGBBBB)"
+
+#: colorpickerconfigpage.cpp:49
+#, kde-format
+msgid "9 digits (#RRRGGGBBB)"
+msgstr "9 rakam (#RRRGGGBBB)"
+
+#: colorpickerconfigpage.cpp:50
+#, kde-format
+msgid "8 digits (#AARRGGBB)"
+msgstr "8 rakam (#AARRGGBB)"
+
+#: colorpickerconfigpage.cpp:51
+#, kde-format
+msgid "6 digits (#RRGGBB)"
+msgstr "6 rakam (#RRGGBB)"
+
+#: colorpickerconfigpage.cpp:52
+#, kde-format
+msgid "3 digits (#RGB)"
+msgstr "3 rakam (#RGB)"
+
+#: colorpickerconfigpage.cpp:72
+#, kde-format
+msgid "Color Picker"
+msgstr "Renk Seçici"
+
+#: colorpickerconfigpage.cpp:77
+#, kde-format
+msgid "Color Picker Settings"
+msgstr "Renk Seçici Ayarları"
+
+#: katecolorpickerplugin.cpp:246
+#, kde-format
+msgid "Select Color (Hex output)"
+msgstr "Renk Seç (Onaltılı çıktı)"
+
+#: katecolorpickerplugin.cpp:249
+#, kde-format
+msgid "View Color [Read only]"
+msgstr "Renk Görüntüle [Salt okunur]"

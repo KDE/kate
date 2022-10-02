@@ -1,0 +1,429 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR This file is copyright:
+# This file is distributed under the same license as the kate package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-09-06 00:48+0000\n"
+"PO-Revision-Date: 2021-09-15 04:13+0630\n"
+"Last-Translator: \n"
+"Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
+"Language: my\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 2.2.1\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "ဇေယျာလွင်"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "lw1nzayar@yandex.com"
+
+#. i18n: ectx: attribute (title), widget (QWidget, errs)
+#: build.ui:27
+#, kde-format
+msgid "Output"
+msgstr "အထုတ်"
+
+#. i18n: ectx: property (text), widget (QLabel, showLabel)
+#: build.ui:35
+#, kde-format
+msgid "Show:"
+msgstr "ပြမည် -"
+
+#. i18n: ectx: property (text), widget (QPushButton, buildAgainButton)
+#. i18n: ectx: property (text), widget (QPushButton, buildAgainButton2)
+#: build.ui:100 build.ui:125
+#, kde-format
+msgid "Build again"
+msgstr "ထပ်၍ တည်ဆောက်မည်"
+
+#. i18n: ectx: property (text), widget (QPushButton, cancelBuildButton)
+#. i18n: ectx: property (text), widget (QPushButton, cancelBuildButton2)
+#: build.ui:107 build.ui:132
+#, kde-format
+msgid "Cancel"
+msgstr "ပယ်ဖျက်မည်"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, errTreeWidget)
+#: build.ui:163
+#, kde-format
+msgctxt "Header for the file name column"
+msgid "File"
+msgstr "ဖိုင်လ်"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, errTreeWidget)
+#: build.ui:168
+#, kde-format
+msgctxt "Header for the line number column"
+msgid "Line"
+msgstr "စာကြောင်း"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, errTreeWidget)
+#: build.ui:173
+#, kde-format
+msgctxt "Header for the error message column"
+msgid "Message"
+msgstr "မှတ်စာ"
+
+#: plugin_katebuild.cpp:127 plugin_katebuild.cpp:134 plugin_katebuild.cpp:1194
+#, kde-format
+msgid "Build"
+msgstr "တည်ဆောက်မည်"
+
+#: plugin_katebuild.cpp:137
+#, kde-format
+msgid "Select Target..."
+msgstr "ဦိးတည်ပစ်မှတ် ရွေးမည်..."
+
+#: plugin_katebuild.cpp:141
+#, kde-format
+msgid "Build Default Target"
+msgstr "မူလသတ်မှတ်ထားသော ဦးတည်ပစ်မှတ် တည်ဆောက်မည်"
+
+#: plugin_katebuild.cpp:145
+#, kde-format
+msgid "Build Previous Target"
+msgstr "ရှေ့ဦးတည်ပစ်မှတ် တည်ဆောက်မည်"
+
+#: plugin_katebuild.cpp:149
+#, kde-format
+msgid "Stop"
+msgstr "ရပ်မည်"
+
+#: plugin_katebuild.cpp:154
+#, kde-format
+msgid "Next Error"
+msgstr "နောက်အမှား"
+
+#: plugin_katebuild.cpp:160
+#, kde-format
+msgid "Previous Error"
+msgstr "ရှေ့အမှား"
+
+#: plugin_katebuild.cpp:166
+#, kde-format
+msgid "Show Marks"
+msgstr "အမှတ်အသားများ ပြမည်"
+
+#: plugin_katebuild.cpp:173
+#, kde-format
+msgctxt "Tab label"
+msgid "Target Settings"
+msgstr "ဦိးတည်ပစ်မှတ် ဆက်တင်"
+
+#: plugin_katebuild.cpp:267 plugin_katebuild.cpp:1193
+#, kde-format
+msgid "Target Set"
+msgstr "ဦိးတည်ပစ်မှတ်အစု"
+
+#: plugin_katebuild.cpp:268 plugin_katebuild.cpp:288 plugin_katebuild.cpp:293
+#: plugin_katebuild.cpp:1356
+#, kde-format
+msgid "build"
+msgstr "တည်ဆောက်မည်"
+
+#: plugin_katebuild.cpp:269 plugin_katebuild.cpp:289 plugin_katebuild.cpp:1359
+#, kde-format
+msgid "clean"
+msgstr "ရှင်းမည်"
+
+#: plugin_katebuild.cpp:270
+#, kde-format
+msgid "config"
+msgstr "ကွန်ဖစ်"
+
+#: plugin_katebuild.cpp:274 plugin_katebuild.cpp:291 plugin_katebuild.cpp:1362
+#, kde-format
+msgid "quick"
+msgstr "အလျင်အမြန်"
+
+#: plugin_katebuild.cpp:327 plugin_katebuild.cpp:1296 plugin_katebuild.cpp:1307
+#: plugin_katebuild.cpp:1328 plugin_katebuild.cpp:1336
+#, fuzzy, kde-format
+msgid "Project Plugin Targets"
+msgstr "ဦးတည်းဖိုင်လ်များကို အညွှန်းစီမည်"
+
+#: plugin_katebuild.cpp:494
+#, kde-kuit-format
+msgctxt "@info"
+msgid ""
+"<title>Could not open file:</title><nl/>%1<br/>Try adding a search path to "
+"the working directory in the Target Settings"
+msgstr ""
+
+#: plugin_katebuild.cpp:514
+#, kde-format
+msgctxt "The same word as 'make' uses to mark an error."
+msgid "error"
+msgstr "အမှား"
+
+#: plugin_katebuild.cpp:517
+#, kde-format
+msgctxt "The same word as 'ld' uses to mark an ..."
+msgid "undefined reference"
+msgstr "မသတ်မှတ်ထားသော အကိုးအကား"
+
+#: plugin_katebuild.cpp:524
+#, kde-format
+msgctxt "The same word as 'make' uses to mark a warning."
+msgid "warning"
+msgstr "သတိ"
+
+#: plugin_katebuild.cpp:610
+#, kde-format
+msgid "Error"
+msgstr "အမှား"
+
+#: plugin_katebuild.cpp:615
+#, kde-format
+msgid "Warning"
+msgstr "သတိ"
+
+#: plugin_katebuild.cpp:746
+#, kde-format
+msgid "There is no file or directory specified for building."
+msgstr "တည်ဆောက်ရန် ဖိုင်လ် သို့မဟုတ် ဒါရိုက်ထရီ သတ်မှတ်ထားခြင်းမရှိပါ။"
+
+#: plugin_katebuild.cpp:750
+#, kde-format
+msgid ""
+"The file \"%1\" is not a local file. Non-local files cannot be compiled."
+msgstr ""
+
+#: plugin_katebuild.cpp:796
+#, kde-format
+msgid ""
+"Cannot run command: %1\n"
+"Work path does not exist: %2"
+msgstr ""
+
+#: plugin_katebuild.cpp:815
+#, kde-format
+msgid "Failed to run \"%1\". exitStatus = %2"
+msgstr "\"%1\" ကို မမောင်းနှင်နိုင်ခဲ့ပါ။ အထွက်အခြေအနေ = %2"
+
+#: plugin_katebuild.cpp:834
+#, kde-format
+msgid "Building <b>%1</b> cancelled"
+msgstr "တည်ဆောက်မှု <b>%1</b> ပယ်ဖျက်ခဲ့သည်"
+
+#: plugin_katebuild.cpp:889
+#, kde-format
+msgid "Already building..."
+msgstr "တည်ဆောက်နေပြီးဖြစ်သည်..."
+
+#: plugin_katebuild.cpp:898
+#, kde-format
+msgid "No target available for building."
+msgstr "တည်ဆောက်ရန် ဦးတည်ပစ်မှတ် မရှိပါ"
+
+#: plugin_katebuild.cpp:912
+#, kde-format
+msgid "There is no local file or directory specified for building."
+msgstr ""
+
+#: plugin_katebuild.cpp:936
+#, kde-format
+msgid "Building target <b>%1</b> ..."
+msgstr "<b>%1</b> ဦးတည်ပစ်မှတ် တည်ဆောက်နေသည်..."
+
+#: plugin_katebuild.cpp:951
+#, kde-kuit-format
+msgctxt "@info"
+msgid "<title>Make Results:</title><nl/>%1"
+msgstr ""
+
+#: plugin_katebuild.cpp:987
+#, kde-format
+msgid "Building <b>%1</b> completed."
+msgstr "<b>%1</b> တည်ဆောက်မှု ပြီးပါပြီ"
+
+#: plugin_katebuild.cpp:1006
+#, kde-format
+msgid "Found one error."
+msgid_plural "Found %1 errors."
+msgstr[0] "အမှား %1ခု တွေ့ရှိသည်။"
+
+#: plugin_katebuild.cpp:1007
+#, kde-format
+msgid "Building <b>%1</b> had errors."
+msgstr ""
+
+#: plugin_katebuild.cpp:1009
+#, kde-format
+msgid "Found one warning."
+msgid_plural "Found %1 warnings."
+msgstr[0] "သတိပေးချက် %1ခု တွေ့ရှိသည်"
+
+#: plugin_katebuild.cpp:1010
+#, kde-format
+msgid "Building <b>%1</b> had warnings."
+msgstr ""
+
+#: plugin_katebuild.cpp:1014
+#, kde-format
+msgid "Build failed."
+msgstr "တည်ဆောက်မှု မအောင်မြင်ပါ။"
+
+#: plugin_katebuild.cpp:1016
+#, kde-format
+msgid "Build completed without problems."
+msgstr ""
+
+#: plugin_katebuild.cpp:1195
+#, kde-format
+msgid "Clean"
+msgstr "ရှင်းမည်"
+
+#: plugin_katebuild.cpp:1196
+#, kde-format
+msgid "Config"
+msgstr "ကွန်ဖစ်"
+
+#: plugin_katebuild.cpp:1197
+#, kde-format
+msgid "ConfigClean"
+msgstr ""
+
+#: plugin_katebuild.cpp:1240
+#, kde-format
+msgid "Only Errors"
+msgstr "အမှားများသာ"
+
+#: plugin_katebuild.cpp:1243
+#, kde-format
+msgid "Errors and Warnings"
+msgstr "အမှားနှင့် သတိပေးချက်များ"
+
+#: plugin_katebuild.cpp:1246
+#, fuzzy, kde-format
+msgid "Parsed Output"
+msgstr "အထုတ်"
+
+#: plugin_katebuild.cpp:1249
+#, fuzzy, kde-format
+msgid "Full Output"
+msgstr "အထုတ်"
+
+#: TargetHtmlDelegate.cpp:47
+#, kde-format
+msgctxt "T as in Target set"
+msgid "<B>T:</B> %1"
+msgstr "<B>ပစ်မှတ် -</B> %1"
+
+#: TargetHtmlDelegate.cpp:49
+#, kde-format
+msgctxt "D as in working Directory"
+msgid "<B>Dir:</B> %1"
+msgstr "<B>ဒါရိုက် -</B> %1"
+
+#: TargetHtmlDelegate.cpp:101
+#, kde-format
+msgid ""
+"Leave empty to use the directory of the current document.\n"
+"Add search directories by adding paths separated by ';'"
+msgstr ""
+
+#: TargetHtmlDelegate.cpp:105
+#, kde-format
+msgid ""
+"Use:\n"
+"\"%f\" for current file\n"
+"\"%d\" for directory of current file\n"
+"\"%n\" for current file name without suffix"
+msgstr ""
+
+#: TargetModel.cpp:310
+#, kde-format
+msgid "Check the check-box to make the command the default for the target-set."
+msgstr ""
+
+#: TargetModel.cpp:368
+#, kde-format
+msgid "Command/Target-set Name"
+msgstr ""
+
+#: TargetModel.cpp:371
+#, kde-format
+msgid "Working Directory / Command"
+msgstr "အလုပ်လုပ်မည့်ဒါရိုက်ထရီ / အမိန့်"
+
+#: targets.cpp:22
+#, kde-format
+msgid "Active target-set:"
+msgstr "သက်ဝင်သော ဦိးတည်ပစ်မှတ်အစု -"
+
+#: targets.cpp:24
+#, kde-format
+msgid "Select active target set"
+msgstr "သက်ဝင်သော ဦိးတည်ပစ်မှတ်အစု ရွေးပါ။"
+
+#: targets.cpp:29
+#, fuzzy, kde-format
+#| msgid "Build selected target"
+msgid "Filter targets"
+msgstr "ရွေးထားသော ဦးတည်ပစ်မှတ် တည်ဆောက်မည်"
+
+#: targets.cpp:33
+#, fuzzy, kde-format
+msgid "Create new set of targets"
+msgstr "ကုတ်ကိုင်း အသစ်တည်ဆောက်မည်"
+
+#: targets.cpp:37
+#, kde-format
+msgid "Copy command or target set"
+msgstr ""
+
+#: targets.cpp:41
+#, kde-format
+msgid "Delete current target or current set of targets"
+msgstr ""
+
+#: targets.cpp:46
+#, kde-format
+msgid "Add new target"
+msgstr "ဦးတည်ပစ်မှတ်အသစ် ထည့်မည်"
+
+#: targets.cpp:50
+#, kde-format
+msgid "Build selected target"
+msgstr "ရွေးထားသော ဦးတည်ပစ်မှတ် တည်ဆောက်မည်"
+
+#. i18n: ectx: Menu (Build Menubar)
+#: ui.rc:6
+#, kde-format
+msgid "&Build"
+msgstr "&Bတည်ဆောက်မည်"
+
+#: UrlInserter.cpp:32
+#, kde-format
+msgid "Insert path"
+msgstr "လမ်းကြောင်းထည့်သွင်းမည်"
+
+#: UrlInserter.cpp:51
+#, kde-format
+msgid "Select directory to insert"
+msgstr "ထည့်သွင်းရန် ဒါရိုက်ထရီ ရွေးမည်"
+
+#~ msgid "Kate Build Plugin"
+#~ msgstr "ကိတ် တည်ဆောက်မှု ပလပ်ဂင်"
+
+#~ msgid "Select build target"
+#~ msgstr "တည်ဆောက်မှု ဦိးတည်ပစ်မှတ် ရွေးမည်"
+
+#~ msgid "Filter"
+#~ msgstr "စစ်ထုတ်မည်"
+
+#, fuzzy
+#~ msgid "Build Output"
+#~ msgstr "ပတ်ကေ့ချ်ကို မဆောက်နိုင်ခဲ့ပါ"

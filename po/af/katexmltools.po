@@ -1,0 +1,145 @@
+# WEB-Translator generated file. UTF-8 test:äëïöü
+# Copyright (C) 2001 Free Software Foundation, Inc.
+# Frikkie Thirion <frix@expertron.co.za>, 2001,2002.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: katexmltools VERSION\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"PO-Revision-Date: 2002-11-07 11:26+0200\n"
+"Last-Translator: WEB-Translator <http://kde.af.org.za>\n"
+"Language-Team: AFRIKAANS <AF@lia.org.za>\n"
+"Language: af\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#: plugin_katexmltools.cpp:117
+#, kde-format
+msgid "XML Tools"
+msgstr ""
+
+#: plugin_katexmltools.cpp:120
+#, kde-format
+msgid "&Insert Element..."
+msgstr "Voeg by Element..."
+
+#: plugin_katexmltools.cpp:125
+#, kde-format
+msgid "&Close Element"
+msgstr "Maak toe Element"
+
+#: plugin_katexmltools.cpp:130
+#, kde-format
+msgid "Assign Meta &DTD..."
+msgstr "Toeken Meta Dtd..."
+
+#: plugin_katexmltools.cpp:441
+#, kde-format
+msgid "Assign Meta DTD in XML Format"
+msgstr "Toeken Meta Dtd in Xml Formaat"
+
+#: plugin_katexmltools.cpp:447
+#, kde-format
+msgid ""
+"The current file has been identified as a document of type \"%1\". The meta "
+"DTD for this document type will now be loaded."
+msgstr ""
+"Die huidige lêer het al geïdentifiseer as 'n dokument van tipe \"%1\". Die "
+"meta Dtd vir hierdie dokument tipe sal nou wees gelaai."
+
+#: plugin_katexmltools.cpp:451
+#, kde-format
+msgid "Loading XML Meta DTD"
+msgstr "Laaiïng van Xml Meta Dtd"
+
+#: plugin_katexmltools.cpp:483
+#, kde-format
+msgid "The file '%1' could not be opened. The server returned an error."
+msgstr ""
+"Die lêer '%1' kon nie wees geöpende. Die bediener teruggestuur 'n fout."
+
+#: plugin_katexmltools.cpp:486 pseudo_dtd.cpp:48 pseudo_dtd.cpp:60
+#, kde-format
+msgid "XML Plugin Error"
+msgstr "Xml Inplak Fout"
+
+#: plugin_katexmltools.cpp:991
+#, kde-format
+msgid "XML entities"
+msgstr ""
+
+#: plugin_katexmltools.cpp:993
+#, kde-format
+msgid "XML attribute values"
+msgstr ""
+
+#: plugin_katexmltools.cpp:995
+#, kde-format
+msgid "XML attributes"
+msgstr ""
+
+#: plugin_katexmltools.cpp:998
+#, fuzzy, kde-format
+#| msgid "Insert XML Element"
+msgid "XML elements"
+msgstr "Voeg by Xml Element"
+
+#: plugin_katexmltools.cpp:1038
+#, kde-format
+msgid "Insert XML Element"
+msgstr "Voeg by Xml Element"
+
+#: plugin_katexmltools.cpp:1043
+#, fuzzy, kde-format
+msgid ""
+"Enter XML tag name and attributes (\"<\", \">\" and closing tag will be "
+"supplied):"
+msgstr ""
+"Invoer Xml etiket naam en eienskappe. Die \"<\", \">\" en maak toe etiket "
+"sal wees verskaf."
+
+#: pseudo_dtd.cpp:45
+#, fuzzy, kde-format
+msgid ""
+"The file '%1' could not be parsed. Please check that the file is well-formed "
+"XML."
+msgstr ""
+"Die lêer '%1' kon nie wees gelees. Asseblief bevestig wat Die lêer is well-"
+"formed Xml.\n"
+
+#: pseudo_dtd.cpp:54
+#, kde-format
+msgid ""
+"The file '%1' is not in the expected format. Please check that the file is "
+"of this type:\n"
+"-//Norman Walsh//DTD DTDParse V2.0//EN\n"
+"You can produce such files with dtdparse. See the Kate Plugin documentation "
+"for more information."
+msgstr ""
+"Die lêer '%1' is nie in Die verwag formaat. Asseblief bevestig wat Die lêer "
+"is van hierdie tipe:\n"
+"-// norman  walsh//Dtd dtdparse V2.0//En\n"
+"Jy kan produseer soos lêers met dtdparse. Sien Die Kate Inplak dokumentasie "
+"vir meer informasie."
+
+#: pseudo_dtd.cpp:70
+#, kde-format
+msgid "Analyzing meta DTD..."
+msgstr "Besig om te analiseer meta Dtd..."
+
+#: pseudo_dtd.cpp:70
+#, kde-format
+msgid "Cancel"
+msgstr ""
+
+#. i18n: ectx: Menu (xml)
+#: ui.rc:6
+#, kde-format
+msgid "&XML"
+msgstr ""
+
+#~ msgid "&XML Plugin"
+#~ msgstr "Xml Inplak"

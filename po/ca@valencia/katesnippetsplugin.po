@@ -1,0 +1,368 @@
+# Translation of katesnippetsplugin.po to Catalan (Valencian)
+# Copyright (C) 2012-2022 This_file_is_part_of_KDE
+# This file is distributed under the license LGPL version 2.1 or
+# version 3 or later versions approved by the membership of KDE e.V.
+#
+# Josep M. Ferrer <txemaq@gmail.com>, 2012, 2014, 2015, 2016, 2020.
+# Antoni Bella Pérez <antonibella5@yahoo.com>, 2014, 2015, 2019, 2020, 2022.
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"PO-Revision-Date: 2022-08-14 16:31+0200\n"
+"Last-Translator: Antoni Bella Pérez <antonibella5@yahoo.com>\n"
+"Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
+"Language: ca@valencia\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Accelerator-Marker: &\n"
+"X-Generator: Lokalize 22.04.3\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Antoni Bella"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "antonibella5@yahoo.com"
+
+#: editrepository.cpp:81 editrepository.cpp:126
+#, kde-format
+msgid "Edit Snippet Repository %1"
+msgstr "Edita el repositori de fragments %1"
+
+#: editrepository.cpp:83
+#, kde-format
+msgid "Create New Snippet Repository"
+msgstr "Crea un repositori nou de fragments"
+
+#: editrepository.cpp:142
+#, kde-format
+msgid "<i>leave empty for general purpose snippets</i>"
+msgstr "<i>deixeu-ho buit per als fragments d'ús general</i>"
+
+#. i18n: ectx: property (text), widget (QLabel, repoNameLabel)
+#. i18n: ectx: property (text), widget (QLabel, snippetName)
+#: editrepository.ui:29 editsnippet.ui:35
+#, kde-format
+msgid "Name:"
+msgstr "Nom:"
+
+#. i18n: ectx: property (text), widget (QLabel, repoNamespaceLabel)
+#: editrepository.ui:36
+#, kde-format
+msgid "Namespace:"
+msgstr "Espai de nom:"
+
+#. i18n: ectx: property (text), widget (QLabel, repoLicenseLabel)
+#: editrepository.ui:43
+#, kde-format
+msgid "&License:"
+msgstr "&Llicència:"
+
+#. i18n: ectx: property (text), widget (QLabel, repoAuthorsLabel)
+#: editrepository.ui:56
+#, kde-format
+msgid "&Authors:"
+msgstr "&Autoria:"
+
+#. i18n: ectx: property (text), widget (QLabel, repoFileTypesLabel)
+#: editrepository.ui:69
+#, kde-format
+msgid "&File types:"
+msgstr "Tipus de &fitxer:"
+
+#. i18n: ectx: property (placeholderText), widget (QLineEdit, repoNameEdit)
+#: editrepository.ui:96
+#, kde-format
+msgid "A short name for the repository"
+msgstr "Un nom curt per al repositori"
+
+#. i18n: ectx: property (placeholderText), widget (QLineEdit, repoNamespaceEdit)
+#: editrepository.ui:103
+#, kde-format
+msgid "Prefix to show in code completion"
+msgstr "Prefix que es mostrarà en la compleció de codi"
+
+#: editsnippet.cpp:97 editsnippet.cpp:177
+#, kde-format
+msgid "Edit Snippet %1 in %2"
+msgstr "Edita el fragment %1 a %2"
+
+#: editsnippet.cpp:107
+#, kde-format
+msgid "Create New Snippet in Repository %1"
+msgstr "Crea un fragment nou en el repositori %1"
+
+#: editsnippet.cpp:145
+#, kde-format
+msgid "Snippet name cannot contain spaces"
+msgstr "El nom del fragment no pot contindre espais"
+
+#: editsnippet.cpp:189
+#, kde-format
+msgid ""
+"The snippet contains unsaved changes. Do you want to continue and lose all "
+"changes?"
+msgstr ""
+"El fragment conté canvis sense guardar. Voleu continuar i perdre tots els "
+"canvis?"
+
+#: editsnippet.cpp:190
+#, kde-format
+msgid "Warning - Unsaved Changes"
+msgstr "Avís: Canvis sense guardar"
+
+#. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
+#: editsnippet.ui:42
+#, kde-format
+msgid "will be shown in the completion list"
+msgstr "es mostrarà en la llista de compleció"
+
+#. i18n: ectx: attribute (title), widget (QWidget, snippetTab)
+#: editsnippet.ui:62
+#, kde-format
+msgid "&Snippet"
+msgstr "F&ragment"
+
+#. i18n: ectx: property (text), widget (QLabel, snippetLabel)
+#: editsnippet.ui:68
+#, kde-format
+msgid ""
+"The text your snippet will insert into the document. <a href=\"A snippet can "
+"contain editable fields. They can be cycled by pressing Tab. The following "
+"expressions can be used in the template text to create fields: <br><tt>"
+"${field_name}</tt> creates a simple, editable field. All subsequent "
+"occurrences of the same field_name create fields which mirror the contents "
+"of the first during editing.<br><tt>${field_name=default}</tt> can be used "
+"to specify a default value for the field. <tt>default</tt> can be any "
+"JavaScript expression.<br>Use <tt>${field_name=text}</tt> to specify a fixed "
+"string as default value.<br><tt>${func(other_field1, other_field2, ...)}</"
+"tt> can be used to create a field which evaluates a JavaScript function on "
+"each edit and contains its contents. See the Scripts tab for more "
+"information.<br><tt>${cursor}</tt> can be used to mark the end position of "
+"the cursor after everything else was filled in.\">More...</a>"
+msgstr ""
+"El text amb el que heu creat un fragment s'inserirà en el document. <a href="
+"\"Un fragment pot contindre camps editables. Es poden recórrer prement Tab. "
+"Es poden emprar les expressions següents en el text de plantilla per a crear "
+"camps:<br><tt>${nom_camp}</tt> crea un camp editable senzill. totes les "
+"ocurrències subsegüents del mateix nom_camp crearan camps que reflectiran el "
+"contingut del primer durant l'edició.<br><tt>${nom_camp=defecte}</tt> es pot "
+"emprar per indicar un valor predeterminat del camp. <tt>defecte</tt> pot ser "
+"qualsevol expressió JavaScript.<br>Utilitzeu <tt>${nom_camp=text}</tt> per "
+"indicar una cadena fixa com a valor predeterminat.<br><tt>"
+"${func(altre_camp1, altre_camp2, ...)}</tt> es pot emprar per crear un camp "
+"que avalue una funció JavaScript en cada edició i continga el seu contingut. "
+"Per a més informació, vegeu la pestanya «Scripts».<br><tt>${cursor}</tt> es "
+"pot emprar per a marcar la posició final del cursor després d'omplir-ho tot."
+"\">Més...</a>"
+
+#. i18n: ectx: attribute (title), widget (QWidget, scriptTab)
+#: editsnippet.ui:82
+#, kde-format
+msgid "S&cripts"
+msgstr "S&cripts"
+
+#. i18n: ectx: property (text), widget (QLabel, scriptLabel)
+#: editsnippet.ui:88
+#, kde-format
+msgid ""
+"Write down JavaScript helper functions to use in your snippets here. <a href="
+"\"All JavaScript functions should return the contents you want to place in a "
+"template field as a string.<br>Functions are called in a scope which "
+"contains the contents of all editable template fields as local variables. "
+"For example in a snippet containing <tt>${field}</tt>, a variable called "
+"<tt>field</tt> will be present which contains the up-to-date contents of the "
+"template field. Those variables can either be used in the function "
+"statically or passed as arguments, by using the <tt>${func(field)}</tt> or "
+"<tt>${field2=func(field)}</tt> syntax in the snippet string.<br>You can use "
+"the kate scripting API to get the selected text, full text, file name and "
+"more by using the appropriate methods of the <tt>document</tt> and <tt>view</"
+"tt> objects. Refer to the scripting API documentation for more information."
+"\">More...</a>"
+msgstr ""
+"Escriviu ací les funcions auxiliars en JavaScript per a utilitzar-les en els "
+"fragments. <a href=\"Totes les funcions en JavaScript han de retornar el "
+"contingut que voleu per a situar-lo en un camp de plantilla com una cadena."
+"<br>Les funcions s'invoquen en un àmbit que conté el contingut de tots els "
+"camps de plantilla editables com a variables locals. Per exemple, en un "
+"fragment que continga <tt>${camp}</tt>, es presentarà una variable anomenada "
+"<tt>camp</tt> que contindrà el contingut actualitzat del camp de plantilla. "
+"Estes variables es poden utilitzar estàticament en la funció o es poden "
+"passar com arguments, utilitzant la sintaxi <tt>${func(camp)}</tt> o <tt>"
+"${camp2=func(camp)}</tt> en la cadena del fragment.<br>Podeu utilitzar la "
+"API per a crear scripts de Kate per a obtindre el text seleccionat, tot el "
+"text, el nom del fitxer i més utilitzant els mètodes adequats dels objectes "
+"<tt>document</tt> i <tt>view</tt>. Per a més informació, consulteu la "
+"documentació de la API per a crear scripts.\">Més...</a>"
+
+#. i18n: ectx: property (text), widget (QPushButton, dotest_button)
+#: editsnippet.ui:105
+#, kde-format
+msgid "Test this snippet"
+msgstr "Prova este fragment"
+
+#: katesnippetglobal.cpp:104
+#, kde-format
+msgctxt "Autogenerated repository name for a programming language"
+msgid "%1 snippets"
+msgstr "%1 fragments"
+
+#: katesnippets.cpp:46 katesnippets.cpp:54 snippetcompletionmodel.cpp:43
+#: snippetview.cpp:76 snippetview.cpp:202
+#, kde-format
+msgid "Snippets"
+msgstr "Fragments"
+
+#: katesnippets.cpp:65
+#, kde-format
+msgid "Create Snippet"
+msgstr "Crea un fragment"
+
+#: snippet.cpp:23
+#, kde-format
+msgid "<empty snippet>"
+msgstr "<fragment buit>"
+
+#: snippet.cpp:61
+#, kde-format
+msgid "insert snippet %1"
+msgstr "inserix el fragment %1"
+
+#: snippetrepository.cpp:45
+#, kde-format
+msgid "<empty repository>"
+msgstr "<repositori buit>"
+
+#: snippetrepository.cpp:232
+#, kde-format
+msgid ""
+"You have edited a snippet repository file not located in your personal "
+"directory; as such, a copy of the original file has been created within your "
+"personal data directory."
+msgstr ""
+"Heu editat un fitxer del repositori de fragments que no està ubicat en el "
+"vostre directori de dades personal; per tant, s'ha creat una còpia del "
+"fitxer de dades original en el vostre directori personal de dades."
+
+#: snippetrepository.cpp:238
+#, kde-format
+msgid "Output file '%1' could not be opened for writing"
+msgstr "No s'ha pogut obrir el fitxer d'eixida «%1» per a escriptura"
+
+#: snippetrepository.cpp:273
+#, kde-format
+msgid "Cannot open snippet repository %1."
+msgstr "No s'ha pogut obrir el repositori de fragments %1."
+
+#: snippetrepository.cpp:286
+#, kde-format
+msgid ""
+"<qt>The error <b>%4</b><br /> has been detected in the file %1 at %2/%3</qt>"
+msgstr ""
+"<qt>S'ha detectat l'error <b>%4</b><br /> en el fitxer %1 en %2/%3</qt>"
+
+#: snippetrepository.cpp:293
+#, kde-format
+msgid "Invalid XML snippet file: %1"
+msgstr "Fitxer de fragment en XML no vàlid: %1"
+
+#: snippetrepository.cpp:355
+#, kde-format
+msgid ""
+"Repository is disabled, the contained snippets will not be shown during code-"
+"completion."
+msgstr ""
+"El repositori està inhabilitat, els fragments que conté no es mostraran "
+"durant la compleció de codi."
+
+#: snippetrepository.cpp:358
+#, kde-format
+msgid "Applies to all filetypes"
+msgstr "Aplica a tots els tipus de fitxer"
+
+#: snippetrepository.cpp:360
+#, kde-format
+msgid "Applies to the following filetypes: %1"
+msgstr "Aplica als següents tipus de fitxer: %1"
+
+#: snippetview.cpp:93
+#, kde-format
+msgid "Add Repository"
+msgstr "Afig un repositori"
+
+#: snippetview.cpp:96
+#, kde-format
+msgid "Edit Repository"
+msgstr "Edita el repositori"
+
+#: snippetview.cpp:99
+#, kde-format
+msgid "Remove Repository"
+msgstr "Elimina el repositori"
+
+#: snippetview.cpp:109
+#, kde-format
+msgid "Add Snippet"
+msgstr "Afig un fragment"
+
+#: snippetview.cpp:112
+#, kde-format
+msgid "Edit Snippet"
+msgstr "Edita el fragment"
+
+#: snippetview.cpp:115
+#, kde-format
+msgid "Remove Snippet"
+msgstr "Elimina el fragment"
+
+#: snippetview.cpp:121
+#, kde-format
+msgid "Get New Snippets"
+msgstr "Obtín fragments nous"
+
+#: snippetview.cpp:210
+#, kde-format
+msgid "Snippet: %1"
+msgstr "Fragment: %1"
+
+#: snippetview.cpp:218
+#, kde-format
+msgid "Repository: %1"
+msgstr "Repositori: %1"
+
+#: snippetview.cpp:282
+#, kde-format
+msgid "Do you really want to delete the snippet \"%1\"?"
+msgstr "Segur que voleu suprimir el fragment «%1»?"
+
+#: snippetview.cpp:324
+#, kde-format
+msgid ""
+"Do you really want to delete the repository \"%1\" with all its snippets?"
+msgstr ""
+"Segur que voleu suprimir el repositori «%1» amb tots els seus fragments?"
+
+#. i18n: ectx: property (toolTip), widget (KLineEdit, filterText)
+#: snippetview.ui:35
+#, kde-format
+msgid "Define filter here"
+msgstr "Definiu ací el filtre"
+
+#. i18n: ectx: property (placeholderText), widget (KLineEdit, filterText)
+#: snippetview.ui:38
+#, kde-format
+msgid "Filter..."
+msgstr "Filtre..."
+
+#. i18n: ectx: Menu (tools)
+#: ui.rc:6
+#, kde-format
+msgid "&Tools"
+msgstr "&Eines"

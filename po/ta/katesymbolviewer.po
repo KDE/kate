@@ -1,0 +1,297 @@
+# Copyright (C) 2020 Free Software Foundation, Inc.
+#
+# Kishore G <kishore96@gmail.com>, 2020, 2021.
+msgid ""
+msgstr ""
+"Project-Id-Version: katecppsymbolviewer\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"PO-Revision-Date: 2021-01-09 19:22+0530\n"
+"Last-Translator: Kishore G <kishore96@gmail.com>\n"
+"Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
+"Language: ta\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 20.12.0\n"
+
+#: bash_parser.cpp:25 cpp_parser.cpp:31 fortran_parser.cpp:37
+#: plugin_katesymbolviewer.cpp:88 python_parser.cpp:21 ruby_parser.cpp:21
+#, kde-format
+msgid "Show Functions"
+msgstr "செயல்கூறு காட்டு"
+
+#: bash_parser.cpp:28 cpp_parser.cpp:43 fortran_parser.cpp:40 php_parser.cpp:34
+#: python_parser.cpp:39 ruby_parser.cpp:33 tcl_parser.cpp:35
+#, kde-format
+msgid "Functions"
+msgstr "செயல்கூறு "
+
+#: cpp_parser.cpp:29 plugin_katesymbolviewer.cpp:84
+#, kde-format
+msgid "Show Macros"
+msgstr "மேக்ரோசை காட்டு"
+
+#: cpp_parser.cpp:30 plugin_katesymbolviewer.cpp:86
+#, kde-format
+msgid "Show Structures"
+msgstr "கட்டமைப்பை காட்டு"
+
+#: cpp_parser.cpp:41
+#, kde-format
+msgid "Macros"
+msgstr "மேக்ரோஸ்"
+
+#: cpp_parser.cpp:42
+#, kde-format
+msgid "Structures"
+msgstr "கட்டமைப்பு"
+
+#: fortran_parser.cpp:35 perl_parser.cpp:23
+#, fuzzy, kde-format
+#| msgid "Show Structures"
+msgid "Show Subroutines"
+msgstr "கட்டமைப்பை காட்டு"
+
+#: fortran_parser.cpp:36
+#, fuzzy, kde-format
+#| msgid "Show Macros"
+msgid "Show Modules"
+msgstr "மேக்ரோசை காட்டு"
+
+#: fortran_parser.cpp:41 perl_parser.cpp:35
+#, kde-format
+msgid "Subroutines"
+msgstr ""
+
+#: fortran_parser.cpp:42
+#, kde-format
+msgid "Modules"
+msgstr ""
+
+#: perl_parser.cpp:21
+#, fuzzy, kde-format
+#| msgid "Show Macros"
+msgid "Show Uses"
+msgstr "மேக்ரோசை காட்டு"
+
+#: perl_parser.cpp:22
+#, fuzzy, kde-format
+#| msgid "Show Macros"
+msgid "Show Pragmas"
+msgstr "மேக்ரோசை காட்டு"
+
+#: perl_parser.cpp:33
+#, kde-format
+msgid "Uses"
+msgstr ""
+
+#: perl_parser.cpp:34
+#, kde-format
+msgid "Pragmas"
+msgstr ""
+
+#: php_parser.cpp:31
+#, kde-format
+msgid "Namespaces"
+msgstr ""
+
+#: php_parser.cpp:32
+#, kde-format
+msgid "Defines"
+msgstr ""
+
+#: php_parser.cpp:33 python_parser.cpp:38 ruby_parser.cpp:32
+#, kde-format
+msgid "Classes"
+msgstr ""
+
+#: plugin_katesymbolviewer.cpp:68
+#, fuzzy, kde-format
+#| msgid "Symbol Viewer"
+msgid "SymbolViewer"
+msgstr "குறியீடு காட்சியாளன்"
+
+#: plugin_katesymbolviewer.cpp:77
+#, fuzzy, kde-format
+#| msgid "List/Tree Mode"
+msgid "Tree Mode"
+msgstr "பட்டியல்/கிளை முறை"
+
+#: plugin_katesymbolviewer.cpp:79
+#, kde-format
+msgid "Expand Tree"
+msgstr ""
+
+#: plugin_katesymbolviewer.cpp:81
+#, kde-format
+msgid "Show Sorted"
+msgstr "வரிசைப்படுத்தி காட்டு"
+
+#: plugin_katesymbolviewer.cpp:90
+#, fuzzy, kde-format
+#| msgid "Show Macros"
+msgid "Show Parameters"
+msgstr "மேக்ரோசை காட்டு"
+
+#: plugin_katesymbolviewer.cpp:116
+#, kde-format
+msgid "Symbol List"
+msgstr "குறி பட்டியல்"
+
+#: plugin_katesymbolviewer.cpp:134
+#, kde-format
+msgid "Filter..."
+msgstr ""
+
+#: plugin_katesymbolviewer.cpp:143
+#, fuzzy, kde-format
+#| msgid "Symbols"
+msgctxt "@title:column"
+msgid "Symbols"
+msgstr "குறிகள்"
+
+#: plugin_katesymbolviewer.cpp:143
+#, fuzzy, kde-format
+#| msgid "Position"
+msgctxt "@title:column"
+msgid "Position"
+msgstr "இடம்"
+
+#: plugin_katesymbolviewer.cpp:359
+#, kde-format
+msgid "Sorry, not supported yet!"
+msgstr "இதற்கு ஆதரவு இல்லை! "
+
+#: plugin_katesymbolviewer.cpp:363
+#, kde-format
+msgid "File type: %1"
+msgstr "கோப்பு வகை: %1"
+
+#: plugin_katesymbolviewer.cpp:476
+#, fuzzy, kde-format
+#| msgid "Display functions' parameters"
+msgid "Display functions parameters"
+msgstr "செயல்பாடுகளின் அளபுருக்களை காட்டு"
+
+#: plugin_katesymbolviewer.cpp:477
+#, kde-format
+msgid "Automatically expand nodes in tree mode"
+msgstr ""
+
+#: plugin_katesymbolviewer.cpp:478
+#, kde-format
+msgid "Always display symbols in tree mode"
+msgstr ""
+
+#: plugin_katesymbolviewer.cpp:479
+#, kde-format
+msgid "Always sort symbols"
+msgstr "எப்போதும் குறியீடுகளை வரிசைப்படுத்து"
+
+#: plugin_katesymbolviewer.cpp:481
+#, kde-format
+msgid "Parser Options"
+msgstr "பார்சர் விருப்பத் தேர்வுகள்"
+
+#: plugin_katesymbolviewer.cpp:509
+#, kde-format
+msgid "Symbol Viewer"
+msgstr "குறியீடு காட்சியாளன்"
+
+#: plugin_katesymbolviewer.cpp:514
+#, kde-format
+msgid "Symbol Viewer Configuration Page"
+msgstr "குறியீடு பார்க்கும் வடிவமைப்பு பக்கம்"
+
+#: python_parser.cpp:22 ruby_parser.cpp:22
+#, fuzzy, kde-format
+#| msgid "Show Macros"
+msgid "Show Methods"
+msgstr "மேக்ரோசை காட்டு"
+
+#: python_parser.cpp:23 ruby_parser.cpp:23
+#, fuzzy, kde-format
+#| msgid "Show Macros"
+msgid "Show Classes"
+msgstr "மேக்ரோசை காட்டு"
+
+#: tcl_parser.cpp:36
+#, kde-format
+msgid "Globals"
+msgstr "உலகளாவிய"
+
+#. i18n: ectx: Menu (view)
+#: ui.rc:6
+#, kde-format
+msgid "&Settings"
+msgstr ""
+
+#: xml_parser.cpp:25
+#, fuzzy, kde-format
+#| msgid "Show Macros"
+msgid "Show Tags"
+msgstr "மேக்ரோசை காட்டு"
+
+#: xslt_parser.cpp:22
+#, fuzzy, kde-format
+#| msgid "Show Macros"
+msgid "Show Params"
+msgstr "மேக்ரோசை காட்டு"
+
+#: xslt_parser.cpp:23
+#, fuzzy, kde-format
+#| msgid "Show Macros"
+msgid "Show Variables"
+msgstr "மேக்ரோசை காட்டு"
+
+#: xslt_parser.cpp:24
+#, fuzzy, kde-format
+#| msgid "Show Symbols"
+msgid "Show Templates"
+msgstr "குறிகளைக் காட்டவும்"
+
+#: xslt_parser.cpp:34
+#, kde-format
+msgid "Params"
+msgstr ""
+
+#: xslt_parser.cpp:35
+#, kde-format
+msgid "Variables"
+msgstr ""
+
+#: xslt_parser.cpp:36
+#, kde-format
+msgid "Templates"
+msgstr ""
+
+#, fuzzy
+#~| msgid "Globals"
+#~ msgid "Show Globals"
+#~ msgstr "உலகளாவிய"
+
+#~ msgid "Refresh List"
+#~ msgstr "பட்டியலை புதிப்பி"
+
+#, fuzzy
+#~| msgid "Hide Symbols"
+#~ msgid "View symbols"
+#~ msgstr "குறிகளை மறை"
+
+#, fuzzy
+#~| msgid "Show Functions"
+#~ msgid "Show Clojure Functions"
+#~ msgstr "செயல்கூறு காட்டு"
+
+#, fuzzy
+#~| msgid "Parser Options"
+#~ msgid "General Options"
+#~ msgstr "பார்சர் விருப்பத் தேர்வுகள்"
+
+#~ msgid "Hide Symbols"
+#~ msgstr "குறிகளை மறை"
+
+#~ msgid "Show Symbols"
+#~ msgstr "குறிகளைக் காட்டவும்"

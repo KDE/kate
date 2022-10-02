@@ -1,0 +1,89 @@
+# Copyright (C) YEAR This file is copyright:
+# This file is distributed under the same license as the kate package.
+#
+# Kishore G <kishore96@gmail.com>, 2022.
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"PO-Revision-Date: 2022-08-23 21:17+0530\n"
+"Last-Translator: Kishore G <kishore96@gmail.com>\n"
+"Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
+"Language: ta\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 22.07.90\n"
+
+#: colorpickerconfigpage.cpp:34
+#, kde-format
+msgid "Show preview for known color names"
+msgstr "குறிப்பிட்ட நிறப்பெயர்களுக்கான முன்னோட்டத்தைக் காட்டு"
+
+#: colorpickerconfigpage.cpp:36
+#, kde-format
+msgid ""
+"Also show the color picker for known color names (e.g. skyblue).\n"
+"See https://www.w3.org/TR/SVG11/types.html#ColorKeywords for the list of "
+"colors."
+msgstr ""
+"குறிப்பிட்ட நிறப்பெயர்களுக்கு (எ.கா. skyblue) நிறத்தேர்வியைக் காட்டும்.\n"
+"நிறங்களின் பட்டியலைக் காண https://www.w3.org/TR/SVG11/types.html#ColorKeywords "
+"என்ற இணையதளத்திற்கு செல்லுங்கள்."
+
+#: colorpickerconfigpage.cpp:39
+#, kde-format
+msgid "Place preview after text color"
+msgstr "உரைக்குப் பின் முன்னோட்டத்தைக் காட்டு"
+
+#: colorpickerconfigpage.cpp:45
+#, kde-format
+msgid "Hex color matching"
+msgstr "பதின‍றும நிற பொருத்தம்"
+
+#: colorpickerconfigpage.cpp:48
+#, kde-format
+msgid "12 digits (#RRRRGGGGBBBB)"
+msgstr "12 இலக்கங்கள் (#RRRRGGGGBBBB)"
+
+#: colorpickerconfigpage.cpp:49
+#, kde-format
+msgid "9 digits (#RRRGGGBBB)"
+msgstr "9 இலக்கங்கள் (#RRRGGGBBB)"
+
+#: colorpickerconfigpage.cpp:50
+#, kde-format
+msgid "8 digits (#AARRGGBB)"
+msgstr "8 இலக்கங்கள் (#AARRGGBB)"
+
+#: colorpickerconfigpage.cpp:51
+#, kde-format
+msgid "6 digits (#RRGGBB)"
+msgstr "6 இலக்கங்கள் (#RRGGBB)"
+
+#: colorpickerconfigpage.cpp:52
+#, kde-format
+msgid "3 digits (#RGB)"
+msgstr "3 இலக்கங்கள் (#RGB)"
+
+#: colorpickerconfigpage.cpp:72
+#, kde-format
+msgid "Color Picker"
+msgstr "நிறத் தேர்வி"
+
+#: colorpickerconfigpage.cpp:77
+#, kde-format
+msgid "Color Picker Settings"
+msgstr "நிறத் தேர்விக்கான அமைப்புகள்"
+
+#: katecolorpickerplugin.cpp:246
+#, kde-format
+msgid "Select Color (Hex output)"
+msgstr "நிறத்தைத் தேர்ந்தெடுங்கள் (பதின‍றும எண் கிடைக்கும்)"
+
+#: katecolorpickerplugin.cpp:249
+#, kde-format
+msgid "View Color [Read only]"
+msgstr "நிறத்தைப் பார் (படித்தல் மட்டும்)"

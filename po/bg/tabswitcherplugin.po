@@ -1,0 +1,67 @@
+# Language  translations for kate package.
+# Copyright (C) 2022 This file is copyright:
+# This file is distributed under the same license as the kate package.
+#
+# Automatically generated, 2022.
+# Mincho Kondarev <mkondarev@yahoo.de>, 2022.
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"PO-Revision-Date: 2022-05-16 21:18+0200\n"
+"Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
+"Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
+"Language: bg\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 22.04.0\n"
+
+#: tabswitcher.cpp:49
+#, kde-format
+msgid "Document Switcher"
+msgstr "Бързо превключване на документи"
+
+#: tabswitcher.cpp:88
+#, kde-format
+msgid "Last Used Views"
+msgstr "Последно използвани изгледи"
+
+#: tabswitcher.cpp:91
+#, kde-format
+msgid "Opens a list to walk through the list of last used views."
+msgstr "Отваря списък за прелистване на последно използвани изгледи."
+
+#: tabswitcher.cpp:92 tabswitcher.cpp:100
+#, kde-format
+msgid "Walk through the list of last used views"
+msgstr "Прелистване на последно използвани изгледи"
+
+#: tabswitcher.cpp:96
+#, kde-format
+msgid "Last Used Views (Reverse)"
+msgstr "Последно използвани изгледи (В обратен ред)."
+
+#: tabswitcher.cpp:99
+#, kde-format
+msgid "Opens a list to walk through the list of last used views in reverse."
+msgstr ""
+"Отваря списък за прелистване на последно използвани изгледи в обратен ред."
+
+#: tabswitcher.cpp:104
+#, kde-format
+msgid "Close View"
+msgstr "Затваряне на изглед"
+
+#: tabswitcher.cpp:107 tabswitcher.cpp:108
+#, kde-format
+msgid "Closes the selected view in the list of last used views."
+msgstr "Затваря избрания изглед в списъка на последно използвани изгледи."
+
+#. i18n: ectx: Menu (go)
+#: ui.rc:6
+#, kde-format
+msgid "&Go"
+msgstr "Навига&ция"

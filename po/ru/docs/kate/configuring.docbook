@@ -1,0 +1,543 @@
+<chapter id="configuring-kate">
+<chapterinfo>
+<authorgroup>
+<author
+>&Anders.Lund; &Anders.Lund.mail;</author>
+<othercredit role="translator"
+><firstname
+>Андрей</firstname
+><surname
+>Балагута</surname
+><affiliation
+><address
+><email
+>uj2@mail.ru</email
+></address
+></affiliation
+><contrib
+>Перевод на русский язык</contrib
+></othercredit
+><othercredit role="translator"
+><firstname
+>Алексей</firstname
+><surname
+>Опарин</surname
+><affiliation
+><address
+><email
+>opaleksej@yandex.ru</email
+></address
+></affiliation
+><contrib
+>Перевод на русский</contrib
+></othercredit
+><othercredit role="translator"
+><firstname
+>Мария</firstname
+><surname
+>Шикунова</surname
+><affiliation
+><address
+><email
+>translation-team@basealt.ru</email
+></address
+></affiliation
+><contrib
+>Обновление перевода</contrib
+></othercredit
+><othercredit role="translator"
+><firstname
+>Олеся</firstname
+><surname
+>Герасименко</surname
+><affiliation
+><address
+><email
+>translation-team@basealt.ru</email
+></address
+></affiliation
+><contrib
+>Редактирование перевода</contrib
+></othercredit
+> 
+</authorgroup>
+</chapterinfo>
+<title
+>Настройка &kate;</title>
+
+<sect1 id="configuring-overview">
+<title
+>Обзор</title>
+<para>
+<indexterm>
+<primary
+>конфигурация</primary>
+<secondary
+>настройка</secondary>
+<tertiary
+>параметры</tertiary
+></indexterm
+><anchor id="find"/> <anchor id="find-again"/> <anchor id="replace"/> <anchor id="undo"/> <anchor id="redo"/> &kate; предоставляет несколько средств настройки. Наиболее важные из них: </para>
+
+<variablelist>
+<varlistentry>
+<term id="configure"
+>Диалог настройки</term>
+<listitem
+><para
+>Главный инструмент настройки приложения &kate;, редактора и дополнительных модулей.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term id="settings"
+>Меню <guimenu
+>Настройка</guimenu
+></term>
+<listitem
+><para
+>Позволяет настраивать часто используемые параметры и открывать диалоги настройки.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+>Меню <guimenu
+>Вид</guimenu
+></term>
+<listitem
+><para
+>Позволяет разделить текущее окно, включить/отключить отображение панелей значков и номеров строк для редактируемого документа.</para
+></listitem>
+</varlistentry>
+</variablelist>
+
+<para
+>Поведение встроенного терминала определяется его настройкой в параметрах системы и может быть изменено с помощью контекстного меню.</para>
+
+</sect1>
+
+<sect1 id="configuring-kate-configdialog">
+<title
+>Основной диалог настройки</title>
+
+<mediaobject>
+<imageobject>
+<imagedata format="PNG" fileref="configdialog01.png"/>
+</imageobject>
+</mediaobject>
+
+<para
+>В диалоге настройки слева отображаются разделы, организованные в древовидную структуру, а справа — страница настройки, соответствующая выбранному разделу.</para>
+
+<para
+>Параметры настройки делятся на две основные группы: <itemizedlist>
+<listitem
+><para
+><link linkend="config-dialog"
+>Настройка приложения</link>
+</para
+></listitem>
+<listitem
+><para
+><link linkend="config-dialog-editor"
+>Настройка компонента редактора</link
+></para
+></listitem>
+
+</itemizedlist>
+
+</para>
+
+</sect1>
+
+<sect1 id="config-dialog">
+<title
+>Настройка приложения &kate;</title>
+<para
+>Эта группа содержит страницы общей настройки приложения &kate;</para>
+
+<sect2 id="config-dialog-general">
+<title
+>Общие</title>
+<para
+>Здесь возможно настроить несколько основных параметров &kate;</para>
+
+<variablelist>
+
+<varlistentry>
+<term
+><anchor id="config-general-behavior"/>
+<guilabel
+>Поведение</guilabel
+></term>
+<listitem>
+<variablelist>
+
+<varlistentry>
+<term
+><anchor id="config-dialog-general-switch-to-output"/>
+<guilabel
+>Переход к представлению вывода при получении сообщения следующего типа</guilabel
+></term>
+<listitem
+><para
+>Позволяет указать, когда &kate; следует показывать панель вывода.</para>
+<para
+>Доступные варианты: <guimenuitem
+>Никогда</guimenuitem
+>, <guimenuitem
+>Ошибка</guimenuitem
+> (при ошибке), <guimenuitem
+>Предупреждение</guimenuitem
+> (при предупреждении или ошибке), <guimenuitem
+>Информация</guimenuitem
+> (при информационном сообщении, предупреждении или ошибке) и <guimenuitem
+>Журнал</guimenuitem
+> (при записи журнала, информационном сообщении, предупреждении или ошибке).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><anchor id="config-dialog-general-separate-dialog"/>
+<guilabel
+>Использовать отдельный диалог для обработки файлов, изменённых внешней программой</guilabel
+></term>
+<listitem
+><para
+>Если флажок установлен, &kate; (в модальном диалоговом окне) уведомит об изменении файлов другой программой, как только главное окно получит фокус ввода. Возможно производить обновления, сохранять или отменять изменения сразу для группы файлов.</para>
+<para
+>Если флажок снят, &kate; будет выводить отдельный запрос для каждого изменённого файла, как только представление этого файла получит фокус ввода.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</listitem>
+</varlistentry
+><!-- /behavior group -->
+
+<varlistentry>
+<term
+><anchor id="config-general-quick-open"/>
+<guilabel
+>Быстрый переход</guilabel
+></term>
+ <listitem>
+
+<variablelist>
+<varlistentry>
+<term
+><anchor id="config-general-quick-open-match-mode"/>
+<guilabel
+>Режим сопоставления</guilabel
+></term>
+<listitem
+><para
+>Настройка списка для инструмента <link linkend="view-quick-open"
+>«Быстрый переход»</link
+>. Файлы могут быть сопоставлены по имени или пути.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><anchor id="config-general-quick-open-list-mode"/>
+<guilabel
+>Содержимое списка</guilabel
+></term>
+<listitem
+><para
+>Настройка списка для инструмента <link linkend="view-quick-open"
+>«Быстрый переход»</link
+>. Доступны следующие варианты: <guilabel
+>Файлы текущего проекта</guilabel
+> и <guilabel
+>Файлы всех проектов</guilabel
+>.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</listitem>
+</varlistentry
+><!-- /quick open group -->
+
+<varlistentry>
+<term
+><anchor id="config-general-tabs"/>
+<guilabel
+>Вкладки</guilabel
+></term>
+ <listitem>
+
+<variablelist>
+<varlistentry>
+<term
+><anchor id="config-general-limit-number-of-tabs"/>
+<guilabel
+>Ограничение количества вкладок</guilabel
+></term>
+<listitem
+><para
+>Настройка максимального числа вкладок. Если ограничивать количество не требуется, выберите вариант <guimenuitem
+>Без ограничений</guimenuitem
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><anchor id="config-general-show-close-button"/>
+<guilabel
+>Показывать кнопку закрытия</guilabel
+></term>
+<listitem
+><para
+>Если этот параметр отмечен флажком, на каждой вкладке будет отображаться кнопка закрытия.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><anchor id="config-general-expand-tabs"/>
+<guilabel
+>Расширить вкладки</guilabel
+></term>
+<listitem
+><para
+>Если флажок установлен, вкладки будут развёрнуты на максимально возможную величину.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><anchor id="config-general-double-click"/>
+<guilabel
+>Создать новый документ двойным щелчком</guilabel
+></term>
+<listitem
+><para
+>Если флажок установлен, при двойном щелчке открывается новый документ.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><anchor id="config-general-middle-click"/>
+<guilabel
+>Закрытие документа средней кнопкой мыши</guilabel
+></term>
+<listitem
+><para
+>Если флажок установлен, нажатие средней кнопки мыши закрывает документ.</para
+></listitem>
+</varlistentry>
+</variablelist>
+
+</listitem>
+</varlistentry
+><!-- /tabs group -->
+</variablelist>
+</sect2>
+
+<sect2 id="config-dialog-sessions">
+<title
+>Сеансы</title>
+
+<para
+>Раздел содержит параметры, связанные с <link linkend="fundamentals-using-sessions"
+>использованием сеансов</link
+>.</para>
+
+<variablelist>
+
+<varlistentry>
+<term
+><anchor id="config-dialog-sessions-startup-behavior"/>
+<guilabel
+>Поведение при запуске приложения</guilabel
+></term>
+<listitem>
+<para
+>Определяет поведение &kate; при запуске. Этот параметр возможно переопределить, указав другое значение с помощью <link linkend="command-line-options"
+>командной строки</link
+>.</para>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Начать новый сеанс</guilabel
+></term>
+<listitem
+><para
+>Если установить этот флажок, &kate; при каждом запуске будет начинать новый безымянный сеанс.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Загрузить последний сеанс</guilabel
+></term>
+<listitem
+><para
+>При запуске &kate; будет открывать прошлый сеанс. Удобно, если не требуется изменять параметры настройки.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Выбрать сеанс</guilabel
+></term>
+<listitem
+><para
+>&kate; будет отображать диалог выбора одного из сохранённых сеансов (или загружать сеанс по умолчанию, если сохранённые сеансы отсутствуют). Это поведение по умолчанию. Удобно для пользователей, которые часто работают с разными сеансами.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry
+><!-- /startup behavior -->
+
+<varlistentry>
+<term
+><anchor id="config-dialog-sessions-shutdown-behavior"/>
+<guilabel
+>Поведение при завершении приложения</guilabel
+></term>
+<listitem>
+<para
+>Выберите поведение &kate; при завершении работы приложения. Возможно указать, что &kate; следует <guilabel
+>Автоматически сохранять и восстанавливать</guilabel
+>.</para>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Новые несохранённые файлы</guilabel
+></term>
+<listitem
+><para
+>Если флажок установлен, &kate; будет автоматически сохранять все новые несохранённые файлы.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Несохранённые изменённые файлы</guilabel
+></term>
+<listitem
+><para
+>При выборе этого пункта &kate; будет автоматически сохранять все файлы с несохранёнными изменениями при завершении работы приложения.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><anchor id="config-dialog-sessions-close-mod"/>
+<guilabel
+>Закрывать Kate после закрытия всех открытых файлов</guilabel
+></term>
+<listitem
+><para
+>Если флажок установлен, &kate; прекратит работу после того, как будет закрыт последний редактируемый файл. Если флажок снят, откроется пустая страница, что позволит сразу создать новый файл.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</listitem>
+</varlistentry
+><!-- /shutdown behavior -->
+
+<varlistentry>
+<term
+><anchor id="config-dialog-sessions-elements"/>
+<guilabel
+>Состав сеанса</guilabel
+></term>
+<listitem>
+<variablelist>
+<!--FIXME Maximum number of entries in recent file list-->
+<varlistentry>
+<term
+><guilabel
+>Восстанавливать положение и размеры окна</guilabel
+></term>
+<listitem
+><para
+>Если флажок установлен, &kate; будет восстанавливать конфигурацию окна в каждом новом сеансе.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry
+><!-- /elements of sessions -->
+
+<varlistentry>
+<term
+><anchor id="config-sessions-keep-meta-information"/>
+<guilabel
+>Сохранять метаинформацию сеанса</guilabel
+></term>
+<listitem
+><para
+>Если флажок установлен, &kate; сохранит метаданные (закладки, конфигурацию сеанса) даже при закрытии документа пользователем. Эти данные будут использованы, если документ вновь будет открыт в прежнем виде.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><anchor id="config-sessions-delete-meta-information-after"/>
+<guilabel
+>Удалять неиспользуемые данные через</guilabel
+></term>
+<listitem
+><para
+>Устанавливает максимальное количество дней, в течение которого будут храниться метаданные ранее открытых файлов. Долговременное хранение приводит к избыточному увеличению размера базы данных.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+<para
+>Любые изменения в данных сеанса (открытые файлы, параметры окна) всегда будут сохраняться.</para>
+
+</sect2>
+
+<sect2 id="config-dialog-plugins">
+<title
+>Модули</title>
+
+<para
+>На этой странице представлены установленные модули &kate;. Для каждого отображается название и краткое описание. Для подключения модуля требуется установить соответствующий флажок. </para>
+
+<para
+>Если модуль настраиваемый, к параметрам его настройки будет возможно перейти с помощью соответствующего дочернего элемента на этой странице.</para>
+
+<para
+>Более подробные сведения о модулях доступны в разделе <xref linkend="plugins"/>.</para>
+
+</sect2>
+
+<sect2 id="config-dialog-editor">
+<title
+>Настройка компонента редактирования</title>
+
+<para
+>Более подробные сведения об этой части диалога конфигурации доступны в разделе <ulink url="help:/katepart/config-dialog.html"
+>«Настройка компонента редактирования» руководства пользователя &katepart;</ulink
+>.</para>
+
+</sect2>
+
+<sect2 id="config-variables">
+<title
+>Настройка с помощью переменных документа</title>
+
+<para
+>Более подробные сведения об этой части диалога конфигурации доступны в разделе <ulink url="help:/katepart/config-variables.html"
+>«Настройка с помощью переменных документа» руководства пользователя &katepart;</ulink
+>.</para>
+
+</sect2>
+
+</sect1>
+
+</chapter>

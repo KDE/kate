@@ -1,0 +1,253 @@
+# Copyright (C) YEAR This file is copyright:
+# This file is distributed under the same license as the kate package.
+#
+# Matjaž Jeran <matjaz.jeran@amis.net>, 2022.
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"PO-Revision-Date: 2022-08-16 10:07+0200\n"
+"Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
+"Language-Team: Slovenian <lugos-slo@lugos.si>\n"
+"Language: sl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
+"%100==4 ? 3 : 0);\n"
+"X-Generator: Poedit 3.1.1\n"
+
+#: keyboardmacrosplugin.cpp:76 keyboardmacrosplugin.cpp:112
+#, kde-format
+msgid "Could not open file '%1'."
+msgstr "Ni bilo mogoče odpreti datoteke '%1'."
+
+#: keyboardmacrosplugin.cpp:82
+#, kde-format
+msgid "Malformed JSON file '%1': %2"
+msgstr "Pokvarjena datoteka JSON '%1': %2"
+
+#: keyboardmacrosplugin.cpp:90
+#, kde-format
+msgid "Could not load '%1': malformed macro; wiping it."
+msgstr "Ni bilo mogoče naložiti '%1': pokvarjen makro; ga brišem."
+
+#: keyboardmacrosplugin.cpp:131 keyboardmacrospluginview.cpp:35
+#: keyboardmacrospluginview.cpp:289 keyboardmacrospluginview.cpp:323
+#, kde-format
+msgid "Keyboard Macros"
+msgstr "Makroji na tipkovnici"
+
+#: keyboardmacrosplugin.cpp:143
+#, kde-format
+msgid "<b>Keyboard Macros:</b> %1"
+msgstr "<b>Makroji na tipkovnici:</b> %1"
+
+#: keyboardmacrosplugin.cpp:242
+#, kde-format
+msgid "Recording…"
+msgstr "Snemanje…"
+
+#: keyboardmacrosplugin.cpp:278
+#, kde-format
+msgid "ended"
+msgstr "končano"
+
+#: keyboardmacrosplugin.cpp:278
+#, kde-format
+msgid "canceled"
+msgstr "prekinjeno"
+
+#: keyboardmacrosplugin.cpp:278
+#, kde-format
+msgid "Recording %1"
+msgstr "Snemanje %1"
+
+#: keyboardmacrosplugin.cpp:321
+#, kde-format
+msgid "Saved '%1'"
+msgstr "Shranjevanje '%1'"
+
+#: keyboardmacrosplugin.cpp:340
+#, kde-format
+msgid "Loaded '%1'"
+msgstr "Nalaganje '%1'"
+
+#: keyboardmacrosplugin.cpp:357
+#, kde-format
+msgid "Wiped '%1'"
+msgstr "Brisanje '%1'"
+
+#: keyboardmacrosplugincommands.cpp:31
+#, kde-format
+msgid "Usage: %1 <name>."
+msgstr "Uporaba: %1 <ime>."
+
+#: keyboardmacrosplugincommands.cpp:45 keyboardmacrosplugincommands.cpp:60
+#: keyboardmacrosplugincommands.cpp:66
+#, kde-format
+msgid "No keyboard macro named '%1' found."
+msgstr "Ni najdenega makroja tipkovnice z imenom '%1'."
+
+#: keyboardmacrosplugincommands.cpp:54
+#, kde-format
+msgid "Cannot save empty keyboard macro."
+msgstr "Ni mogoče shraniti praznega makroja."
+
+#: keyboardmacrosplugincommands.cpp:81
+#, kde-format
+msgid ""
+"<qt><p>Usage: <code>kmsave &lt;name&gt;</code></p><p>Save current keyboard "
+"macro as <code>&lt;name&gt;</code>.</p>%1</qt>"
+msgstr ""
+"<qt><p>Uporaba: <code>kmsave &lt;ime&gt;</code></p><p>Shrani trenutni makro "
+"tipkovnice kot <code>&lt;ime&gt;</code>.</p>%1</qt>"
+
+#: keyboardmacrosplugincommands.cpp:84
+#, kde-format
+msgid ""
+"<qt><p>Usage: <code>kmload &lt;name&gt;</code></p><p>Load saved keyboard "
+"macro <code>&lt;name&gt;</code> as current macro.</p>%1</qt>"
+msgstr ""
+"<qt><p>Uporaba: <code>kmload &lt;ime&gt;</code></p><p>Naloži shranjen makro "
+"tipkovnice <code>&lt;ime&gt;</code> kot trenutni makro.</p>%1</qt>"
+
+#: keyboardmacrosplugincommands.cpp:88
+#, kde-format
+msgid ""
+"<qt><p>Usage: <code>kmplay &lt;name&gt;</code></p><p>Play saved keyboard "
+"macro <code>&lt;name&gt;</code> without loading it.</p>%1</qt>"
+msgstr ""
+"<qt><p>Uporaba: <code>kmplay &lt;ime&gt;</code></p><p>Zaženi shranjeni makro "
+"tipkovnice <code>&lt;ime&gt;</code> brez nalaganja.</p>%1</qt>"
+
+#: keyboardmacrosplugincommands.cpp:92
+#, kde-format
+msgid ""
+"<qt><p>Usage: <code>kmwipe &lt;name&gt;</code></p><p>Wipe saved keyboard "
+"macro <code>&lt;name&gt;</code>.</p>%1</qt>"
+msgstr ""
+"<qt><p>Uporaba: <code>kmwipe &lt;ime&gt;</code></p><p>Obriši shranjeni makro "
+"tipkovnice  <code>&lt;ime&gt;</code>.</p>%1</qt>"
+
+#: keyboardmacrospluginview.cpp:38
+#, kde-format
+msgid "&Keyboard Macros"
+msgstr "Makroji tipkovnice"
+
+#: keyboardmacrospluginview.cpp:41
+#, kde-format
+msgid "Record and play keyboard macros."
+msgstr "Posnemi in zaženi makroje tipkovnice."
+
+#: keyboardmacrospluginview.cpp:46 keyboardmacrospluginview.cpp:163
+#, kde-format
+msgid "&Record Macro..."
+msgstr "Posnemi makro..."
+
+#: keyboardmacrospluginview.cpp:48
+#, kde-format
+msgid "Start/stop recording a macro (i.e., keyboard action sequence)."
+msgstr "Začni/ustavi snemanje makroja (npr. zaporedje pritiskov tipk)."
+
+#: keyboardmacrospluginview.cpp:57
+#, kde-format
+msgid "&Cancel Macro Recording"
+msgstr "Prekliči snemanje makroja"
+
+#: keyboardmacrospluginview.cpp:59
+#, kde-format
+msgid ""
+"Cancel ongoing recording (and keep the previous macro as the current one)."
+msgstr "Prekliči snemanje v teku (in obdrži prejšnji makro kot trenutnega)."
+
+#: keyboardmacrospluginview.cpp:69
+#, kde-format
+msgid "&Play Macro"
+msgstr "Poženi makro"
+
+#: keyboardmacrospluginview.cpp:71
+#, kde-format
+msgid ""
+"Play current macro (i.e., execute the last recorded keyboard action "
+"sequence)."
+msgstr ""
+"Poženi trenutni makro (npr. izvedi zadnje posneto zaporedje pritiskov "
+"tipkovnice)."
+
+#: keyboardmacrospluginview.cpp:81
+#, kde-format
+msgid "&Save Current Macro"
+msgstr "&Shrani trenutni makro"
+
+#: keyboardmacrospluginview.cpp:83
+#, kde-format
+msgid "Give a name to the current macro and persistently save it."
+msgstr "Podeli ime trenutnemu makroju in ga shrani za stalno."
+
+#: keyboardmacrospluginview.cpp:95
+#, kde-format
+msgid "&Load Named Macro..."
+msgstr "Na&loži poimenovani makro..."
+
+#: keyboardmacrospluginview.cpp:98
+#, kde-format
+msgid "Load a named macro as the current one."
+msgstr "Naloži poimenovani makro kot trenutnega."
+
+#: keyboardmacrospluginview.cpp:103
+#, kde-format
+msgid "&Play Named Macro..."
+msgstr "Zaženi poimenovani makro..."
+
+#: keyboardmacrospluginview.cpp:106
+#, kde-format
+msgid "Play a named macro without loading it."
+msgstr "Poženi poimenovani makro ne da bi ga naložili."
+
+#: keyboardmacrospluginview.cpp:111
+#, kde-format
+msgid "&Wipe Named Macro..."
+msgstr "Pobriši poimenovani makro..."
+
+#: keyboardmacrospluginview.cpp:114
+#, kde-format
+msgid "Wipe a named macro."
+msgstr "Pobriši poimenovani makro."
+
+#: keyboardmacrospluginview.cpp:155
+#, kde-format
+msgid "End Macro &Recording"
+msgstr "Končaj snemanje makroja"
+
+#: keyboardmacrospluginview.cpp:183
+#, kde-format
+msgid "Load the '%1' macro as the current one."
+msgstr "Naloži makro '%1' kot trenutnega."
+
+#: keyboardmacrospluginview.cpp:196
+#, kde-format
+msgid "Play the '%1' macro without loading it."
+msgstr "Poženi makro '%1', ne da bi ga naložili."
+
+#: keyboardmacrospluginview.cpp:211
+#, kde-format
+msgid "Wipe the '%1' macro."
+msgstr "Pobriši makro '%1'."
+
+#: keyboardmacrospluginview.cpp:289
+#, kde-format
+msgid "Save current macro as?"
+msgstr "Naj shranim trenutni makro kot?"
+
+#: keyboardmacrospluginview.cpp:323
+#, kde-format
+msgid "Wipe the '%1' macro?"
+msgstr "Naj pobrišem makro '%1'?"
+
+#. i18n: ectx: Menu (tools)
+#: ui.rc:6
+#, kde-format
+msgid "&Tools"
+msgstr "Orodja"

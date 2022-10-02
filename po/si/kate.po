@@ -1,0 +1,3396 @@
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Danishka Navin <danishka@gmail.com>, 2009, 2011.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-10-02 00:49+0000\n"
+"PO-Revision-Date: 2011-08-04 10:19+0530\n"
+"Last-Translator: Danishka Navin <danishka@gmail.com>\n"
+"Language-Team: Sinhala <danishka@gmail.com>\n"
+"Language: si\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 1.1\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "ඩනිෂ්ක නවින්"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "danishka@gmail.com"
+
+#: kate/main.cpp:106
+#, kde-format
+msgid "Kate"
+msgstr "Kate"
+
+#: kate/main.cpp:108
+#, kde-format
+msgid "Kate - Advanced Text Editor"
+msgstr "Kate - උසස් පෙළ සකසනය"
+
+#: kate/main.cpp:110 kwrite/main.cpp:89
+#, fuzzy, kde-format
+#| msgid "(c) 2000-2005 The Kate Authors"
+msgid "(c) 2000-2022 The Kate Authors"
+msgstr "(c) 2000-2005 The Kate Authors"
+
+#: kate/main.cpp:156
+#, fuzzy, kde-format
+#| msgid "Start Kate with a given session"
+msgid "Start Kate with a given session."
+msgstr "දෙනලද වාරයෙන් Kate අරඹන්න"
+
+#: kate/main.cpp:157
+#, fuzzy, kde-format
+#| msgid "Sessions"
+msgid "session"
+msgstr "සැසි"
+
+#: kate/main.cpp:162
+#, fuzzy, kde-format
+#| msgid "Start Kate with a new anonymous session, implies '-n'"
+msgid "Start Kate with a new anonymous session, implies '-n'."
+msgstr "නව නිර්නාමික වාරයක් සමඟ Kate අරඹයි, '-n' මගින්"
+
+#: kate/main.cpp:167
+#, fuzzy, kde-format
+#| msgid ""
+#| "Force start of a new kate instance (is ignored if start is used and "
+#| "another kate instance already has the given session opened), forced if no "
+#| "parameters and no URLs are given at all"
+msgid ""
+"Force start of a new kate instance (is ignored if start is used and another "
+"kate instance already has the given session opened), forced if no parameters "
+"and no URLs are given at all."
+msgstr ""
+"නව kate අවස්ථාවක් බලයෙන් ආරම්භ කිරීමට (ආරම්භය භාවිත කර ඇතිනම් හා වෙනත් kate අවස්ථාවක් සතුව "
+"දෙනලද වාරය විවෘත ඇතිනම් නොසලකා හැරේ). කිසිඳු පරාමිතියක් හෝ URL ලබාදී නොමැතිනම් බලපැවැත්වේ."
+
+#: kate/main.cpp:173
+#, fuzzy, kde-format
+#| msgid ""
+#| "If using an already running kate instance, block until it exits, if URLs "
+#| "given to open"
+msgid ""
+"If using an already running kate instance, block until it exits, if URLs "
+"given to open."
+msgstr ""
+"දැනටමත් kate අවස්ථාවක් ධාවනය වේනම්, විවෘත කිරීමට URL දී ඇතිවිට එය අවසන් වන තෙක් අවහිර "
+"කරන්න."
+
+#: kate/main.cpp:179
+#, fuzzy, kde-format
+#| msgid ""
+#| "Only try to reuse kate instance with this pid (is ignored if start is "
+#| "used and another kate instance already has the given session opened)"
+msgid ""
+"Only try to reuse kate instance with this pid (is ignored if start is used "
+"and another kate instance already has the given session opened)."
+msgstr ""
+"මෙම pid සමඟ පමණක් kate අවස්ථාව නැවත භාවිත කරන්න (ආරම්භය භාවිත කර ඇතිනම් හා වෙනත් kate "
+"අවස්ථාවක් සතුව දෙනලද වාරය විවෘත ඇතිනම් නොසලකා හැරේ)"
+
+#: kate/main.cpp:180
+#, kde-format
+msgid "pid"
+msgstr ""
+
+#: kate/main.cpp:185 kwrite/main.cpp:140
+#, fuzzy, kde-format
+#| msgid "Set encoding for the file to open"
+msgid "Set encoding for the file to open."
+msgstr "විවෘත කිරීම සඳහා ගොනුවට සංඛේතනය සකසන්න"
+
+#: kate/main.cpp:186 kwrite/main.cpp:141
+#, kde-format
+msgid "encoding"
+msgstr ""
+
+#: kate/main.cpp:190 kwrite/main.cpp:145
+#, fuzzy, kde-format
+#| msgid "Navigate to this line"
+msgid "Navigate to this line."
+msgstr "මෙම පේළියට යන්න"
+
+#: kate/main.cpp:190 kwrite/main.cpp:145
+#, kde-format
+msgid "line"
+msgstr ""
+
+#: kate/main.cpp:195 kwrite/main.cpp:149
+#, fuzzy, kde-format
+#| msgid "Navigate to this column"
+msgid "Navigate to this column."
+msgstr "මෙම තීරුවට යන්න"
+
+#: kate/main.cpp:196 kwrite/main.cpp:149
+#, kde-format
+msgid "column"
+msgstr ""
+
+#: kate/main.cpp:200 kwrite/main.cpp:153
+#, fuzzy, kde-format
+#| msgid "Read the contents of stdin"
+msgid "Read the contents of stdin."
+msgstr "stdin හි අන්තර්ගතයන් කියවන්න"
+
+#: kate/main.cpp:205 kwrite/main.cpp:157
+#, kde-format
+msgid "The files/URLs opened by the application will be deleted after use"
+msgstr ""
+
+#: kate/main.cpp:209 kwrite/main.cpp:161
+#, fuzzy, kde-format
+#| msgid "Document to open"
+msgid "Documents to open."
+msgstr "විවෘත කිරීමට ලේඛනය"
+
+#: kate/main.cpp:209 kwrite/main.cpp:161
+#, kde-format
+msgid "[urls...]"
+msgstr ""
+
+#: kwrite/main.cpp:85
+#, fuzzy, kde-format
+#| msgid "KWrite Author"
+msgid "KWrite"
+msgstr "KWrite කතෲ"
+
+#: kwrite/main.cpp:87
+#, fuzzy, kde-format
+#| msgid "Kate - Advanced Text Editor"
+msgid "KWrite - Text Editor"
+msgstr "Kate - උසස් පෙළ සකසනය"
+
+#. i18n: ectx: Menu (file)
+#: lib/data/kateui.rc:6
+#, kde-format
+msgid "&File"
+msgstr "ගොනුව (&F)"
+
+#. i18n: ectx: Menu (file_file_actions)
+#: lib/data/kateui.rc:30
+#, fuzzy, kde-format
+#| msgid "Application"
+msgid "File Actions"
+msgstr "යෙදුම"
+
+#. i18n: ectx: Menu (edit)
+#: lib/data/kateui.rc:43
+#, kde-format
+msgid "&Edit"
+msgstr "සැකසුම (&E)"
+
+#. i18n: ectx: Menu (selection)
+#: lib/data/kateui.rc:54
+#, fuzzy, kde-format
+#| msgid "Application"
+msgid "&Selection"
+msgstr "යෙදුම"
+
+#. i18n: ectx: Menu (go)
+#: lib/data/kateui.rc:57
+#, kde-format
+msgid "&Go"
+msgstr "යන්න (&G)"
+
+#. i18n: ectx: Menu (view)
+#: lib/data/kateui.rc:73
+#, kde-format
+msgid "&View"
+msgstr "දසුන් (&V)"
+
+#. i18n: ectx: Menu (view-split)
+#: lib/data/kateui.rc:75 lib/kateviewspace.cpp:118
+#, kde-format
+msgid "Split View"
+msgstr "බෙදුන දසුන"
+
+#. i18n: ectx: Menu (tools)
+#: lib/data/kateui.rc:109
+#, kde-format
+msgid "&Tools"
+msgstr "මෙවලම් (&T)"
+
+#. i18n: ectx: Menu (settings)
+#: lib/data/kateui.rc:126
+#, kde-format
+msgid "&Settings"
+msgstr "සැකසුම් (&S)"
+
+#. i18n: ectx: Menu (help)
+#: lib/data/kateui.rc:134
+#, kde-format
+msgid "&Help"
+msgstr "උදව් (&H)"
+
+#. i18n: ectx: ToolBar (mainToolBar)
+#: lib/data/kateui.rc:139
+#, kde-format
+msgid "Main Toolbar"
+msgstr "ප්‍රධාන මෙවලම් තීරුව"
+
+#. i18n: ectx: Menu (viewspace_popup_statusbar)
+#: lib/data/kateui.rc:167
+#, kde-format
+msgid "&Status Bar Items"
+msgstr ""
+
+#: lib/diff/diffeditor.cpp:146
+#, kde-format
+msgid "Change Style"
+msgstr ""
+
+#: lib/diff/diffeditor.cpp:148 lib/kateconfigdialog.cpp:291
+#, kde-format
+msgid "Side By Side"
+msgstr ""
+
+#: lib/diff/diffeditor.cpp:151 lib/kateconfigdialog.cpp:292
+#, fuzzy, kde-format
+#| msgid "Modified"
+msgid "Unified"
+msgstr "වෙනස් කළ"
+
+#: lib/diff/diffeditor.cpp:154 lib/kateconfigdialog.cpp:293
+#, kde-format
+msgid "Raw"
+msgstr ""
+
+#: lib/diff/diffeditor.cpp:183
+#, fuzzy, kde-format
+#| msgid "&New Window"
+msgid "Stage Line"
+msgid_plural "Stage Lines"
+msgstr[0] "නව කවුළුව (&N)"
+msgstr[1] "නව කවුළුව (&N)"
+
+#: lib/diff/diffeditor.cpp:188
+#, kde-format
+msgid "Stage Hunk"
+msgstr ""
+
+#: lib/diff/diffeditor.cpp:195
+#, kde-format
+msgid "Discard Line"
+msgid_plural "Discard Lines"
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/diff/diffeditor.cpp:200
+#, kde-format
+msgid "Discard Hunk"
+msgstr ""
+
+#: lib/diff/diffeditor.cpp:207
+#, fuzzy, kde-format
+#| msgid "&New Window"
+msgid "Unstage Line"
+msgid_plural "Unstage Lines"
+msgstr[0] "නව කවුළුව (&N)"
+msgstr[1] "නව කවුළුව (&N)"
+
+#: lib/diff/diffeditor.cpp:212
+#, kde-format
+msgid "Unstage Hunk"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
+#: lib/filehistorywidget.cpp:258 lib/session/katesessionmanagedialog.ui:184
+#, kde-format
+msgid "Close"
+msgstr "වසන්න"
+
+#: lib/filehistorywidget.cpp:290
+#, kde-format
+msgid "Failed to get file history: git executable not found in PATH"
+msgstr ""
+
+#: lib/filehistorywidget.cpp:303
+#, kde-format
+msgid "Failed to get file history: %1"
+msgstr ""
+
+#: lib/filehistorywidget.cpp:346 lib/kateconfigdialog.cpp:125
+#, kde-format
+msgid "Error"
+msgstr ""
+
+#: lib/filehistorywidget.cpp:346
+#, kde-format
+msgid "%1 doesn't exist in a git repo."
+msgstr ""
+
+#: lib/filehistorywidget.cpp:346
+#, kde-format
+msgid "Git"
+msgstr ""
+
+#: lib/filehistorywidget.cpp:354
+#, kde-format
+msgid "File History"
+msgstr ""
+
+#: lib/kateapp.cpp:146
+#, kde-format
+msgid "Christoph Cullmann"
+msgstr "Christoph Cullmann"
+
+#: lib/kateapp.cpp:146
+#, kde-format
+msgid "Maintainer"
+msgstr "නඩත්තුකරු"
+
+#: lib/kateapp.cpp:147
+#, kde-format
+msgid "Dominik Haumann"
+msgstr "Dominik Haumann"
+
+#: lib/kateapp.cpp:147 lib/kateapp.cpp:150 lib/kateapp.cpp:152
+#: lib/kateapp.cpp:155 lib/kateapp.cpp:161
+#, kde-format
+msgid "Core Developer"
+msgstr "ප්‍රධාන සංවර්ධක"
+
+#: lib/kateapp.cpp:148
+#, kde-format
+msgid "Sven Brauch"
+msgstr ""
+
+#: lib/kateapp.cpp:148 lib/kateapp.cpp:149 lib/kateapp.cpp:156
+#, fuzzy, kde-format
+#| msgid "Core Developer"
+msgid "Developer"
+msgstr "ප්‍රධාන සංවර්ධක"
+
+#: lib/kateapp.cpp:149
+#, kde-format
+msgid "Kåre Särs"
+msgstr ""
+
+#: lib/kateapp.cpp:150
+#, kde-format
+msgid "Anders Lund"
+msgstr "Anders Lund"
+
+#: lib/kateapp.cpp:151
+#, kde-format
+msgid "Joseph Wenninger"
+msgstr "Joseph Wenninger"
+
+#: lib/kateapp.cpp:155
+#, kde-format
+msgid "Hamish Rodda"
+msgstr "Hamish Rodda"
+
+#: lib/kateapp.cpp:156
+#, fuzzy, kde-format
+#| msgid "Anders Lund"
+msgid "Alexander Neundorf"
+msgstr "Anders Lund"
+
+#: lib/kateapp.cpp:157
+#, kde-format
+msgid "Waldo Bastian"
+msgstr "Waldo Bastian"
+
+#: lib/kateapp.cpp:157
+#, kde-format
+msgid "The cool buffersystem"
+msgstr "අගනා බෆර පද්ධතිය"
+
+#: lib/kateapp.cpp:158
+#, kde-format
+msgid "Charles Samuels"
+msgstr "Charles Samuels"
+
+#: lib/kateapp.cpp:158
+#, kde-format
+msgid "The Editing Commands"
+msgstr "සැකසුම් විධාන"
+
+#: lib/kateapp.cpp:159
+#, kde-format
+msgid "Matt Newell"
+msgstr "Matt Newell"
+
+#: lib/kateapp.cpp:159
+#, kde-format
+msgid "Testing, ..."
+msgstr "පිරික්සීම්, ..."
+
+#: lib/kateapp.cpp:160
+#, kde-format
+msgid "Michael Bartl"
+msgstr "Michael Bartl"
+
+#: lib/kateapp.cpp:160
+#, kde-format
+msgid "Former Core Developer"
+msgstr "හිටපු ප්‍රධාන සංවර්ධක"
+
+#: lib/kateapp.cpp:161
+#, kde-format
+msgid "Michael McCallum"
+msgstr "Michael McCallum"
+
+#: lib/kateapp.cpp:162
+#, kde-format
+msgid "Jochen Wilhemly"
+msgstr "Jochen Wilhemly"
+
+#: lib/kateapp.cpp:162
+#, kde-format
+msgid "KWrite Author"
+msgstr "KWrite කතෲ"
+
+#: lib/kateapp.cpp:163
+#, kde-format
+msgid "Michael Koch"
+msgstr "Michael Koch"
+
+#: lib/kateapp.cpp:163
+#, kde-format
+msgid "KWrite port to KParts"
+msgstr "KParts සඳහා KWrite පේනුව"
+
+#: lib/kateapp.cpp:164
+#, kde-format
+msgid "Christian Gebauer"
+msgstr "Christian Gebauer"
+
+#: lib/kateapp.cpp:165
+#, kde-format
+msgid "Simon Hausmann"
+msgstr "Simon Hausmann"
+
+#: lib/kateapp.cpp:166
+#, kde-format
+msgid "Glen Parker"
+msgstr "Glen Parker"
+
+#: lib/kateapp.cpp:166
+#, kde-format
+msgid "KWrite Undo History, Kspell integration"
+msgstr "KWrite අවලංගු ඉතිහාසය, Kspell තිළැලිකරණය"
+
+#: lib/kateapp.cpp:167
+#, kde-format
+msgid "Scott Manson"
+msgstr "Scott Manson"
+
+#: lib/kateapp.cpp:167
+#, kde-format
+msgid "KWrite XML Syntax highlighting support"
+msgstr "KWrite XML කේත උපුටන සහාය"
+
+#: lib/kateapp.cpp:168
+#, kde-format
+msgid "John Firebaugh"
+msgstr "John Firebaugh"
+
+#: lib/kateapp.cpp:168
+#, kde-format
+msgid "Patches and more"
+msgstr "පැලැස්තර සහ තවත්"
+
+#: lib/kateapp.cpp:169
+#, kde-format
+msgid "Pablo Martín"
+msgstr ""
+
+#: lib/kateapp.cpp:170
+#, fuzzy, kde-format
+#| msgid "Plugins"
+msgid "Python Plugin Developer"
+msgstr "ප්ලගීන"
+
+#: lib/kateapp.cpp:173
+#, kde-format
+msgid "Gerald Senarclens de Grancy"
+msgstr ""
+
+#: lib/kateapp.cpp:174
+#, kde-format
+msgid "QA and Scripting"
+msgstr ""
+
+#: lib/kateapp.cpp:178
+#, kde-format
+msgid "Tyson Tan"
+msgstr ""
+
+#: lib/kateapp.cpp:179
+#, kde-format
+msgid "Designer of Kate's mascot 'Kate the Cyber Woodpecker'"
+msgstr ""
+
+#: lib/kateapp.cpp:182
+#, kde-format
+msgid "Matteo Merli"
+msgstr "Matteo Merli"
+
+#: lib/kateapp.cpp:182
+#, kde-format
+msgid "Highlighting for RPM Spec-Files, Perl, Diff and more"
+msgstr "RPM නිවේශන-ගොනු, Perl, Diff හා තවත් සඳහා උපුටනය"
+
+#: lib/kateapp.cpp:183
+#, kde-format
+msgid "Rocky Scaletta"
+msgstr "Rocky Scaletta"
+
+#: lib/kateapp.cpp:183
+#, kde-format
+msgid "Highlighting for VHDL"
+msgstr "VHDL සඳහා උපුටනය"
+
+#: lib/kateapp.cpp:184
+#, kde-format
+msgid "Yury Lebedev"
+msgstr "Yury Lebedev"
+
+#: lib/kateapp.cpp:184
+#, kde-format
+msgid "Highlighting for SQL"
+msgstr "SQL සඳහා උපුටනය"
+
+#: lib/kateapp.cpp:185
+#, kde-format
+msgid "Chris Ross"
+msgstr "Chris Ross"
+
+#: lib/kateapp.cpp:185
+#, kde-format
+msgid "Highlighting for Ferite"
+msgstr "Ferite සඳහා උපුටනය"
+
+#: lib/kateapp.cpp:186
+#, kde-format
+msgid "Nick Roux"
+msgstr "Nick Roux"
+
+#: lib/kateapp.cpp:186
+#, kde-format
+msgid "Highlighting for ILERPG"
+msgstr "ILERPG සඳහා උපුටනය"
+
+#: lib/kateapp.cpp:187
+#, kde-format
+msgid "Carsten Niehaus"
+msgstr "Carsten Niehaus"
+
+#: lib/kateapp.cpp:187
+#, kde-format
+msgid "Highlighting for LaTeX"
+msgstr "LaTeX සඳහා උපුටනය"
+
+#: lib/kateapp.cpp:188
+#, kde-format
+msgid "Per Wigren"
+msgstr "Per Wigren"
+
+#: lib/kateapp.cpp:188
+#, kde-format
+msgid "Highlighting for Makefiles, Python"
+msgstr "Python සැකසුම් ගොනු සඳහා සඳහා උපුටනය"
+
+#: lib/kateapp.cpp:189
+#, kde-format
+msgid "Jan Fritz"
+msgstr "Jan Fritz"
+
+#: lib/kateapp.cpp:189
+#, kde-format
+msgid "Highlighting for Python"
+msgstr "Python සඳහා උපුටනය"
+
+#: lib/kateapp.cpp:190
+#, kde-format
+msgid "Daniel Naber"
+msgstr "Daniel Naber"
+
+#: lib/kateapp.cpp:191
+#, kde-format
+msgid "Roland Pabel"
+msgstr "Roland Pabel"
+
+#: lib/kateapp.cpp:191
+#, kde-format
+msgid "Highlighting for Scheme"
+msgstr "පටිපාටිය සඳහා උපුටනය"
+
+#: lib/kateapp.cpp:192
+#, kde-format
+msgid "Cristi Dumitrescu"
+msgstr "Cristi Dumitrescu"
+
+#: lib/kateapp.cpp:192
+#, kde-format
+msgid "PHP Keyword/Datatype list"
+msgstr "PHP යතුරු වදන්/දත්ත වර්ග ලැයිස්තුව"
+
+#: lib/kateapp.cpp:193
+#, kde-format
+msgid "Carsten Pfeiffer"
+msgstr "Carsten Pfeiffer"
+
+#: lib/kateapp.cpp:193
+#, kde-format
+msgid "Very nice help"
+msgstr "ඉතා අගනා උදව්"
+
+#: lib/kateapp.cpp:194
+#, kde-format
+msgid "All people who have contributed and I have forgotten to mention"
+msgstr "මා හට සඳහන් කිරීමට අමතක වූ සහාය දැක්වූ සියළු දෙනා"
+
+#: lib/kateapp.cpp:314
+#, kde-format
+msgid "Folders can only be opened when the projects plugin is enabled"
+msgstr ""
+
+#: lib/kateapp.cpp:417
+#, kde-format
+msgid ""
+"The file '%1' could not be opened: it is not a normal file, it is a folder."
+msgstr "'%1' ගොනුව විවෘත කල නොහැක: එය සාමාන්‍ය ගොනුවක් නොවේ, එය බහලුමකි."
+
+#: lib/kateconfigdialog.cpp:51
+#, kde-format
+msgid "Configure"
+msgstr "සකසන්න"
+
+#: lib/kateconfigdialog.cpp:103
+#, kde-format
+msgid "Behavior"
+msgstr "හැසිරීම"
+
+#: lib/kateconfigdialog.cpp:104
+#, fuzzy, kde-format
+#| msgid "Behavior"
+msgid "Behavior Options"
+msgstr "හැසිරීම"
+
+#: lib/kateconfigdialog.cpp:111
+#, kde-format
+msgid "&Behavior"
+msgstr "හැසිරීම (&B)"
+
+#: lib/kateconfigdialog.cpp:120
+#, kde-format
+msgid "&Switch to output view upon message type:"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:125
+#, fuzzy, kde-format
+#| msgid "(never)"
+msgid "Never"
+msgstr "(නොමැත)"
+
+#: lib/kateconfigdialog.cpp:125 lib/kateconfigdialog.cpp:623
+#, kde-format
+msgid "Warning"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:125
+#, kde-format
+msgid "Info"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:125
+#, kde-format
+msgid "Log"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:131
+#, kde-format
+msgid "&Limit output view history:"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:137 lib/kateconfigdialog.cpp:203
+#, kde-format
+msgid "Unlimited"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:144
+#, kde-format
+msgid "Use a separate &dialog for handling externally modified files"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:148
+#, fuzzy, kde-format
+#| msgid ""
+#| "If enabled, when Kate receives focus you will be asked what to do with "
+#| "files that have been modified on the hard disk. If not enabled, you will "
+#| "be asked what to do with a file that has been modified on the hard disk "
+#| "only when that file is tried to be saved."
+msgid ""
+"If enabled, a modal dialog will be used to show all of the modified files. "
+"If not enabled, you will be individually asked what to do for each modified "
+"file only when that file's view receives focus."
+msgstr ""
+"සක්‍රීය කල විට, Kate නාඹියක් ලබන විට ඔබ තැටිය මත වෙනස්කරමින් සිටි ගොනු වෙත කුමක් කරයිදැයි විමසනු "
+"ඇත. අක්‍රීය නම්, එවන් වෙනස්කරමින් සිටි ගොනුවකට කුමක් කරන්නදැයි විමසන්නේ සුරැකීමේදී පමණයි."
+
+#: lib/kateconfigdialog.cpp:157
+#, fuzzy, kde-format
+#| msgid "Top Sidebar"
+msgid "&Sidebars"
+msgstr "ඉහළ පැතිතීරුව"
+
+#: lib/kateconfigdialog.cpp:160
+#, kde-format
+msgid "Sync section size with tab positions"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:164
+#, kde-format
+msgid ""
+"When enabled the section size will be determined by the position of the "
+"tabs.\n"
+"This option does not affect the bottom sidebar."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:169
+#, kde-format
+msgid "Show text for left and right sidebar buttons"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:174
+#, kde-format
+msgid "Icon size for left and right sidebar buttons"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:193
+#, fuzzy, kde-format
+#| msgid "Show Side&bars"
+msgid "&Tabs"
+msgstr "පැතිතීරු පෙන්වන්න (&b)"
+
+#: lib/kateconfigdialog.cpp:197
+#, kde-format
+msgid "&Limit number of tabs:"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:208
+#, kde-format
+msgid ""
+"A high limit can increase the window size, please enable 'Allow tab "
+"scrolling' to prevent it. Unlimited tabs are always scrollable."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:212
+#, kde-format
+msgid "&Auto hide tabs"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:214
+#, kde-format
+msgid "When checked tabs will be hidden if only one document is open."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:218
+#, kde-format
+msgid "&Show close button"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:220
+#, kde-format
+msgid "When checked each tab will display a close button."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:224
+#, kde-format
+msgid "&Expand tabs"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:226
+#, kde-format
+msgid "When checked tabs take as much size as possible."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:230
+#, fuzzy, kde-format
+#| msgid "Create a new document"
+msgid "&Double click opens a new document"
+msgstr "නව ලේඛනය නිර්මාණය"
+
+#: lib/kateconfigdialog.cpp:232
+#, kde-format
+msgid "When checked double click opens a new document."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:236
+#, fuzzy, kde-format
+#| msgid "Close all documents"
+msgid "&Middle click closes a document"
+msgstr "සියලු ලේඛන වසන්න"
+
+#: lib/kateconfigdialog.cpp:238
+#, kde-format
+msgid "When checked middle click closes a document."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:242
+#, kde-format
+msgid "Allow tab scrolling"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:244
+#, kde-format
+msgid ""
+"When checked this will allow scrolling in tab bar when number of tabs is "
+"large."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:248
+#, kde-format
+msgid "Elide tab text"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:250
+#, kde-format
+msgid "When checked tab text might be elided if its too long."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:256
+#, kde-format
+msgid "&Mouse"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:261
+#, kde-format
+msgid "&Backward button pressed:"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:266
+#, fuzzy, kde-format
+#| msgid "Documents"
+msgid "Previous tab"
+msgstr "ලේඛන"
+
+#: lib/kateconfigdialog.cpp:266
+#, kde-format
+msgid "History back"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:272
+#, kde-format
+msgid "&Forward button pressed:"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:277
+#, kde-format
+msgid "Next tab"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:277
+#, kde-format
+msgid "History forward"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:285
+#, kde-format
+msgid "Diff"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:294
+#, kde-format
+msgid "Diff Style:"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:308
+#, fuzzy, kde-format
+#| msgid "Sessions"
+msgid "Session"
+msgstr "සැසි"
+
+#: lib/kateconfigdialog.cpp:309
+#, kde-format
+msgid "Session Management"
+msgstr "වාර පරිපාලනය"
+
+#: lib/kateconfigdialog.cpp:320
+#, fuzzy, kde-format
+#| msgid "(never)"
+msgctxt "The special case of 'Delete unused meta-information after'"
+msgid "(never)"
+msgstr "(නොමැත)"
+
+#: lib/kateconfigdialog.cpp:321
+#, kde-format
+msgctxt "The suffix of 'Delete unused meta-information after'"
+msgid " day"
+msgid_plural " days"
+msgstr[0] " දිනය"
+msgstr[1] " දින"
+
+#: lib/kateconfigdialog.cpp:384
+#, kde-format
+msgid "Plugins"
+msgstr "ප්ලගීන"
+
+#: lib/kateconfigdialog.cpp:385
+#, kde-format
+msgid "Plugin Manager"
+msgstr "ප්ලගින පාලකය"
+
+#: lib/kateconfigdialog.cpp:403 lib/kateconfigdialog.cpp:404
+#, kde-format
+msgid "User Feedback"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:622
+#, fuzzy, kde-format
+#| msgid ""
+#| "<p>The document '%1' has been modified, but not saved.</p><p>Do you want "
+#| "to save your changes or discard them?</p>"
+msgid ""
+"You have unsaved changes. Do you want to apply the changes or discard them?"
+msgstr ""
+"<p>'%1' ලේඛනය වෙනස් කර ඇති නමුත්, සුරැක නොමැත.</p><p>ඔබට අවශ්‍ය වෙනස්කම් සුරැකීමටද ඉවත "
+"දැමීමටද?</p>"
+
+#: lib/kateconfigplugindialogpage.cpp:66
+#, kde-format
+msgid "Name"
+msgstr "න"
+
+#: lib/kateconfigplugindialogpage.cpp:66
+#, fuzzy, kde-format
+#| msgid "Location"
+msgid "Description"
+msgstr "පිහිටුම"
+
+#: lib/kateconfigplugindialogpage.cpp:69
+#, kde-format
+msgid ""
+"Here you can see all available Kate plugins. Those with a check mark are "
+"loaded, and will be loaded again the next time Kate is started."
+msgstr ""
+"මෙහිදී ඔබට පවතින සියළු Kate ප්ලගින දැකගත හැක. සලකුණු කර ඇත්තේ පූර්ණිත සහ ඊලඟ වතාවේ Kate "
+"ඇරඹෙන විට නැවත පූර්ණය වන ප්ලගිනයි."
+
+#: lib/katedocmanager.cpp:264
+#, kde-format
+msgid ""
+"<p>The document '%1' has been modified, but not saved.</p><p>Do you want to "
+"save your changes or discard them?</p>"
+msgstr ""
+"<p>'%1' ලේඛනය වෙනස් කර ඇති නමුත්, සුරැක නොමැත.</p><p>ඔබට අවශ්‍ය වෙනස්කම් සුරැකීමටද ඉවත "
+"දැමීමටද?</p>"
+
+#: lib/katedocmanager.cpp:267
+#, kde-format
+msgid "Close Document"
+msgstr "ලේඛනය වසන්න"
+
+#: lib/katedocmanager.cpp:276
+#, kde-format
+msgid "Save As"
+msgstr "සුරකින අයුර"
+
+#: lib/katedocmanager.cpp:294 lib/katemainwindow.cpp:583
+#, kde-format
+msgid "New file opened while trying to close Kate, closing aborted."
+msgstr "Kate වසාදැමීමට උත්සාහයේදී නව ගොනුවක් විවෘත විය, වැසීම නවතාදැමිනි."
+
+#: lib/katedocmanager.cpp:294 lib/katemainwindow.cpp:583
+#, kde-format
+msgid "Closing Aborted"
+msgstr "වැසීම නැවතිනි"
+
+#: lib/katedocmanager.cpp:372
+#, kde-format
+msgid "Starting Up"
+msgstr "අරඹමින්"
+
+#: lib/katedocmanager.cpp:373
+#, kde-format
+msgid "Reopening files from the last session..."
+msgstr "පෙර වාරයෙන් ගොනු නැවත විවෘත කරමින්..."
+
+#: lib/katefileactions.cpp:67
+#, kde-format
+msgid "Rename file"
+msgstr ""
+
+#: lib/katefileactions.cpp:68
+#, fuzzy, kde-format
+#| msgid "Filename"
+msgid "New file name"
+msgstr "ගොනු නාමය"
+
+#: lib/katefileactions.cpp:105
+#, kde-format
+msgid "File \"%1\" could not be moved to \"%2\""
+msgstr ""
+
+#: lib/katefileactions.cpp:129
+#, kde-format
+msgid "Do you really want to delete file \"%1\"?"
+msgstr ""
+
+#: lib/katefileactions.cpp:130
+#, fuzzy, kde-format
+#| msgid "Delete File?"
+msgid "Delete file"
+msgstr "ගොනුව වසන්න ද?"
+
+#: lib/katefileactions.cpp:147
+#, kde-format
+msgid "File \"%1\" could not be deleted."
+msgstr ""
+
+#: lib/katemainwindow.cpp:212
+#, kde-format
+msgid "Use this command to show or hide the view's statusbar"
+msgstr "මෙම විධානය දසුනේ තත්ව තීරුව සැඟවීමට හා පෙන්වීමට භාවිත කරන්න"
+
+#: lib/katemainwindow.cpp:215
+#, fuzzy, kde-format
+#| msgid "Show Side&bars"
+msgid "Show &Tabs"
+msgstr "පැතිතීරු පෙන්වන්න (&b)"
+
+#: lib/katemainwindow.cpp:218
+#, fuzzy, kde-format
+#| msgid "Use this command to show or hide the view's statusbar"
+msgid "Use this command to show or hide the tabs for the views"
+msgstr "මෙම විධානය දසුනේ තත්ව තීරුව සැඟවීමට හා පෙන්වීමට භාවිත කරන්න"
+
+#: lib/katemainwindow.cpp:220
+#, fuzzy, kde-format
+#| msgid "Sho&w Path"
+msgid "Sho&w Path in Titlebar"
+msgstr "මග පෙන්වන්න (&w)"
+
+#: lib/katemainwindow.cpp:223
+#, kde-format
+msgid "Show the complete document path in the window caption"
+msgstr "කවුළු මාතෘකාවේදී සම්පූර්ණ ලේඛන මාර්ගය පෙන්වන්න"
+
+#: lib/katemainwindow.cpp:225
+#, kde-format
+msgid "Show Navigation Bar"
+msgstr ""
+
+#: lib/katemainwindow.cpp:235
+#, kde-format
+msgid "&Window Color Scheme"
+msgstr ""
+
+#: lib/katemainwindow.cpp:239
+#, fuzzy, kde-format
+#| msgid "Documents"
+msgid "&Previous Tab"
+msgstr "ලේඛන"
+
+#: lib/katemainwindow.cpp:240
+#, kde-format
+msgid "Focus the previous tab."
+msgstr ""
+
+#: lib/katemainwindow.cpp:245
+#, kde-format
+msgid "&Next Tab"
+msgstr ""
+
+#: lib/katemainwindow.cpp:246
+#, kde-format
+msgid "Focus the next tab."
+msgstr ""
+
+#: lib/katemainwindow.cpp:253
+#, fuzzy, kde-format
+#| msgid "&Quick Open Session"
+msgid "&Quick Open"
+msgstr "වාරය ක්‍ෂණිකව විවෘත කරන්න (&Q)"
+
+#: lib/katemainwindow.cpp:256
+#, fuzzy, kde-format
+#| msgid "Close other open documents."
+msgid "Open a form to quick open documents."
+msgstr "වෙනත් විවෘත ලේඛන වසන්න."
+
+#: lib/katemainwindow.cpp:277
+#, fuzzy, kde-format
+#| msgid "Diff Output"
+msgid "Output"
+msgstr "වෙනස ප්‍රතිදානය"
+
+#: lib/katemainwindow.cpp:287
+#, kde-format
+msgid "Create a new document"
+msgstr "නව ලේඛනය නිර්මාණය"
+
+#: lib/katemainwindow.cpp:290
+#, kde-format
+msgid "Open an existing document for editing"
+msgstr "පවතින ලේඛනයක් සැකසීම සඳහා විවෘත කරන්න"
+
+#: lib/katemainwindow.cpp:295
+#, kde-format
+msgid ""
+"This lists files which you have opened recently, and allows you to easily "
+"open them again."
+msgstr "මෙය ඔබ මෑතදී විවෘත කල ගොනු ලැයිස්තුගත කරන අතර, ඒවා පහසුවෙන් විවෘත කරවීමට ඉඩ දෙයි."
+
+#: lib/katemainwindow.cpp:299
+#, kde-format
+msgid "Save A&ll"
+msgstr "සියල්ල සුරකින්න (&l)"
+
+#: lib/katemainwindow.cpp:302
+#, kde-format
+msgid "Save all open, modified documents to disk."
+msgstr "සියළු විවෘත, වෙනස් කල ලේඛන සුරකින්න."
+
+#: lib/katemainwindow.cpp:305
+#, kde-format
+msgid "&Reload All"
+msgstr "සියල්ල ප්‍රතිපූර්ණය කරන්න (&R)"
+
+#: lib/katemainwindow.cpp:307
+#, kde-format
+msgid "Reload all open documents."
+msgstr "සියළු විවෘත ලේඛන ප්‍රතිපූර්ණය කරන්න"
+
+#: lib/katemainwindow.cpp:311
+#, fuzzy, kde-format
+#| msgid "Location"
+msgid "Copy Location"
+msgstr "පිහිටුම"
+
+#: lib/katemainwindow.cpp:316 lib/katemainwindow.cpp:325
+#, fuzzy, kde-format
+#| msgid "Move the splitter of the current view up"
+msgid "Copies the file path of the current file to clipboard."
+msgstr "වත්මන් දසුනේ බෙදීම ඉහළට ගෙනයන්න"
+
+#: lib/katemainwindow.cpp:320 lib/welcomeview.cpp:82
+#, fuzzy, kde-format
+#| msgid "Opening Order"
+msgid "&Open Containing Folder"
+msgstr "විවෘතකිරිම් පෙළගැස්ම"
+
+#: lib/katemainwindow.cpp:329
+#, fuzzy, kde-format
+#| msgid "&Rename..."
+msgctxt "@action:inmenu"
+msgid "Rename..."
+msgstr "නම වෙනස් කරන්න... (&R)"
+
+#: lib/katemainwindow.cpp:334
+#, fuzzy, kde-format
+#| msgid "Close the current document."
+msgid "Renames the file belonging to the current document."
+msgstr "වත්මන් ලේඛනය වසන්න"
+
+#: lib/katemainwindow.cpp:338
+#, fuzzy, kde-format
+#| msgid "Deleted"
+msgctxt "@action:inmenu"
+msgid "Delete"
+msgstr "මැකුවා"
+
+#: lib/katemainwindow.cpp:343 lib/katemainwindow.cpp:352
+#, fuzzy, kde-format
+#| msgid "Close the current document."
+msgid "Deletes the file belonging to the current document."
+msgstr "වත්මන් ලේඛනය වසන්න"
+
+#: lib/katemainwindow.cpp:347
+#, kde-format
+msgid "Properties"
+msgstr ""
+
+#: lib/katemainwindow.cpp:355 lib/katemainwindow.cpp:357
+#, kde-format
+msgid "Compare"
+msgstr ""
+
+#: lib/katemainwindow.cpp:357
+#, kde-format
+msgid "Use the Tabbar context menu to compare two documents"
+msgstr ""
+
+#: lib/katemainwindow.cpp:359
+#, fuzzy, kde-format
+#| msgid "Close other open documents."
+msgid "Shows a hint how to compare documents."
+msgstr "වෙනත් විවෘත ලේඛන වසන්න."
+
+#: lib/katemainwindow.cpp:362
+#, kde-format
+msgid "Close Orphaned"
+msgstr "වැසීම අතහැරදැමිනි"
+
+#: lib/katemainwindow.cpp:364
+#, kde-format
+msgid ""
+"Close all documents in the file list that could not be reopened, because "
+"they are not accessible anymore."
+msgstr "නැවත විවෘත කල නොහැකි සියළුම ලේඛන වෙත තවදුරටත් පිවිසිය නොහැකි නිසා වසාදමන්න."
+
+#: lib/katemainwindow.cpp:368
+#, kde-format
+msgid "Close the current document."
+msgstr "වත්මන් ලේඛනය වසන්න"
+
+#: lib/katemainwindow.cpp:371
+#, kde-format
+msgid "Close Other"
+msgstr "වෙනකක් වසන්න"
+
+#: lib/katemainwindow.cpp:373
+#, kde-format
+msgid "Close other open documents."
+msgstr "වෙනත් විවෘත ලේඛන වසන්න."
+
+#: lib/katemainwindow.cpp:376
+#, kde-format
+msgid "Clos&e All"
+msgstr "සියල්ල වසන්න (&C)"
+
+#: lib/katemainwindow.cpp:378
+#, kde-format
+msgid "Close all open documents."
+msgstr "සියළු විවෘත ලේඛන වසන්න."
+
+#: lib/katemainwindow.cpp:383
+#, kde-format
+msgid "Close this window"
+msgstr "මෙම කවුළුව වසන්න"
+
+#: lib/katemainwindow.cpp:387
+#, fuzzy, kde-format
+#| msgid "&New Window"
+msgid "&New Window"
+msgstr "නව කවුළුව (&N)"
+
+#: lib/katemainwindow.cpp:389
+#, fuzzy, kde-format
+#| msgid "Create a new document"
+msgid "Create a new window."
+msgstr "නව ලේඛනය නිර්මාණය"
+
+#: lib/katemainwindow.cpp:396
+#, kde-format
+msgid "Open W&ith"
+msgstr "සමඟ විවෘත කරන්න (&i)"
+
+#: lib/katemainwindow.cpp:398
+#, kde-format
+msgid ""
+"Open the current document using another application registered for its file "
+"type, or an application of your choice."
+msgstr ""
+"ගොනුව එම වර්ගය සඳහා ලියාපදිංචි කර ඇති හෝ ඔබට කැමති වෙනස් යෙදුමක් භාවිතයෙන් විවෘත කරන්න"
+
+#: lib/katemainwindow.cpp:406
+#, kde-format
+msgid "Configure the application's keyboard shortcut assignments."
+msgstr "යෙදුමේ යතුරුපුවරු කෙටිමං සැකසුම් සකසන්න."
+
+#: lib/katemainwindow.cpp:409
+#, kde-format
+msgid "Configure which items should appear in the toolbar(s)."
+msgstr "මෙවලම් තීරුවේ පැවතිය යුතු අයිතම සකසන්න."
+
+#: lib/katemainwindow.cpp:412
+#, kde-format
+msgid ""
+"Configure various aspects of this application and the editing component."
+msgstr "මෙම යෙදුමේ හා සැකසීම් සංරචකයේ විවිධ දසුන් සකසන්න."
+
+#: lib/katemainwindow.cpp:416
+#, kde-format
+msgid "&Plugins Handbook"
+msgstr "ප්ලගින අත්පොත (&P)"
+
+#: lib/katemainwindow.cpp:418
+#, kde-format
+msgid "This shows help files for various available plugins."
+msgstr "මෙය පවතින විවිධ ප්ලගින සඳහා වන උදව් ගොනු පෙන්වයි."
+
+#: lib/katemainwindow.cpp:435
+#, kde-format
+msgid "Sess&ions"
+msgstr "වාර (&i)"
+
+#: lib/katemainwindow.cpp:441
+#, fuzzy, kde-format
+#| msgid "New Session"
+msgctxt "Menu entry Session->New Session"
+msgid "&New Session"
+msgstr "නව සැසිය"
+
+#: lib/katemainwindow.cpp:446
+#, fuzzy, kde-format
+#| msgid "&Open Session"
+msgid "&Recent Sessions"
+msgstr "සැසිය විවෘත කරන්න (&O)"
+
+#: lib/katemainwindow.cpp:451
+#, fuzzy, kde-format
+#| msgid "Sess&ions"
+msgid "&All Sessions"
+msgstr "වාර (&i)"
+
+#: lib/katemainwindow.cpp:458
+#, kde-format
+msgid "&Manage Sessions..."
+msgstr "වාර පරිපාලනය... (&M)"
+
+#: lib/katemainwindow.cpp:467
+#, kde-format
+msgid "&Save Session"
+msgstr "සැසිය සුරකින්න (&O)"
+
+#: lib/katemainwindow.cpp:473
+#, kde-format
+msgid "Save Session &As..."
+msgstr "ලෙස වාරය සුරකින්න... (&A)"
+
+#: lib/katemainwindow.cpp:480 lib/kateviewspace.cpp:58
+#, kde-format
+msgid "Go to Previous Location"
+msgstr ""
+
+#: lib/katemainwindow.cpp:488 lib/kateviewspace.cpp:71
+#, kde-format
+msgid "Go to Next Location"
+msgstr ""
+
+#: lib/katemainwindow.cpp:495
+#, kde-format
+msgid "Show File Git History"
+msgstr ""
+
+#: lib/katemainwindow.cpp:510
+#, kde-format
+msgid "This will close all open documents. Are you sure you want to continue?"
+msgstr "මෙය සියළු විවෘත ලේඛන වසාදමනු ඇත. ඔබට ඉදිරියට යාමට ඇවැසිද?"
+
+#: lib/katemainwindow.cpp:511
+#, kde-format
+msgid "Close all documents"
+msgstr "සියලු ලේඛන වසන්න"
+
+#: lib/katemainwindow.cpp:526
+#, fuzzy, kde-format
+#| msgid ""
+#| "This will close all open documents. Are you sure you want to continue?"
+msgid ""
+"This will close all open documents beside the current one. Are you sure you "
+"want to continue?"
+msgstr "මෙය සියළු විවෘත ලේඛන වසාදමනු ඇත. ඔබට ඉදිරියට යාමට ඇවැසිද?"
+
+#: lib/katemainwindow.cpp:527
+#, fuzzy, kde-format
+#| msgid "Close all documents"
+msgid "Close all documents beside current one"
+msgstr "සියලු ලේඛන වසන්න"
+
+#: lib/katemainwindow.cpp:726
+#, kde-format
+msgid ""
+"This will hide the menu bar completely. You can show it again by typing %1."
+msgstr ""
+
+#: lib/katemainwindow.cpp:729
+#, kde-format
+msgid "Hide menu bar"
+msgstr ""
+
+#: lib/katemainwindow.cpp:829
+#, kde-format
+msgid ""
+"You dropped the directory %1 into Kate. Do you want to open all files "
+"contained in it?"
+msgstr ""
+
+#: lib/katemainwindow.cpp:832
+#, kde-format
+msgctxt "@title:window"
+msgid "Open Files Recursively"
+msgstr ""
+
+#: lib/katemainwindow.cpp:833
+#, fuzzy, kde-format
+#| msgid "Open File"
+msgctxt "@action:button"
+msgid "Open All Files"
+msgstr "ගොනුව විවෘත කරන්න"
+
+#: lib/katemainwindow.cpp:958
+#, kde-format
+msgid "&Other..."
+msgstr "වෙනත්... (&O)"
+
+#: lib/katemainwindow.cpp:1083
+#, kde-format
+msgid " [read only]"
+msgstr ""
+
+#: lib/katemainwindow.cpp:1330
+#, kde-format
+msgid "Diff %1"
+msgstr ""
+
+#: lib/katemainwindow.cpp:1332
+#, kde-format
+msgid "Diff %1..%2"
+msgstr ""
+
+#: lib/katemdi.cpp:84
+#, fuzzy, kde-format
+#| msgid "Plugin Manager"
+msgid "Toolview Manager"
+msgstr "ප්ලගින පාලකය"
+
+#: lib/katemdi.cpp:102
+#, kde-format
+msgid "Sidebar Buttons"
+msgstr ""
+
+#: lib/katemdi.cpp:105
+#, kde-format
+msgid "Tool &Views"
+msgstr "මෙවලම් දසුන් (&V)"
+
+#: lib/katemdi.cpp:107
+#, kde-format
+msgid "Show Side&bars"
+msgstr "පැතිතීරු පෙන්වන්න (&b)"
+
+#: lib/katemdi.cpp:115
+#, fuzzy, kde-format
+#| msgid "Tool &Views"
+msgid "Hide All Tool Views"
+msgstr "මෙවලම් දසුන් (&V)"
+
+#: lib/katemdi.cpp:162
+#, kde-format
+msgid "Show %1"
+msgstr "%1 පෙන්වන්න"
+
+#: lib/katemdi.cpp:173
+#, fuzzy, kde-format
+#| msgid "Show %1"
+msgid "Show %1 Button"
+msgstr "%1 පෙන්වන්න"
+
+#: lib/katemdi.cpp:984
+#, fuzzy, kde-format
+#| msgid "Configure"
+msgid "Configure..."
+msgstr "සකසන්න"
+
+#: lib/katemdi.cpp:988
+#, kde-format
+msgid "Hide Button"
+msgstr ""
+
+#: lib/katemdi.cpp:990
+#, kde-format
+msgid "Move To"
+msgstr "වෙත ගෙනයන්න"
+
+#: lib/katemdi.cpp:995
+#, fuzzy, kde-format
+#| msgid "Open Session"
+msgid "Own Section"
+msgstr "සැසියක් අරඹන්න"
+
+#: lib/katemdi.cpp:1001 lib/katemdi.cpp:1009
+#, kde-format
+msgid "One Down"
+msgstr ""
+
+#: lib/katemdi.cpp:1003 lib/katemdi.cpp:1014
+#, kde-format
+msgid "One Right"
+msgstr ""
+
+#: lib/katemdi.cpp:1007
+#, kde-format
+msgid "One Up"
+msgstr ""
+
+#: lib/katemdi.cpp:1012
+#, kde-format
+msgid "One Left"
+msgstr ""
+
+#: lib/katemdi.cpp:1021
+#, kde-format
+msgid "Left Sidebar"
+msgstr "වම් පැතිතීරුව"
+
+#: lib/katemdi.cpp:1025
+#, kde-format
+msgid "Right Sidebar"
+msgstr "දකුණු පැතිතීරුව"
+
+#: lib/katemdi.cpp:1029
+#, kde-format
+msgid "Top Sidebar"
+msgstr "ඉහළ පැතිතීරුව"
+
+#: lib/katemdi.cpp:1033
+#, kde-format
+msgid "Bottom Sidebar"
+msgstr "පහළ පැතිතීරුව"
+
+#: lib/katemdi.cpp:1408
+#, fuzzy, kde-format
+#| msgid ""
+#| "<qt>You are about to hide the sidebars. With hidden sidebars it is not "
+#| "possible to directly access the tool views with the mouse anymore, so if "
+#| "you need to access the sidebars again invoke <b>Window &gt; Tool Views "
+#| "&gt; Show Sidebars</b> in the menu. It is still possible to show/hide the "
+#| "tool views with the assigned shortcuts.</qt>"
+msgid ""
+"<qt>You are about to hide the sidebars. With hidden sidebars it is not "
+"possible to directly access the tool views with the mouse anymore, so if you "
+"need to access the sidebars again invoke <b>View &gt; Tool Views &gt; Show "
+"Sidebars</b> in the menu. It is still possible to show/hide the tool views "
+"with the assigned shortcuts.</qt>"
+msgstr ""
+"<qt>ඔබ පැති තීරු සැඟවීමට යයි. සැඟවුනු පැති තීරු වලදී ඔබට ඍජුව මෙවලම් දසුනට මවුසය මගින් පිවිසිය "
+"නොහැක, ඔබට පැති තීරු වලට නැවත පිවිසීමට අවශ්‍ය නම් මෙනු හීදී <b>කවුළුව &gt; මෙවලම් දසුන &gt; "
+"පැති තීරු පෙන්වන්න</b>. තවද එහිදීද මෙවලම් දසුන් දෙනලද කෙටිමං භාවිතයරන් සැඟවීම/පෙන්වීම කල හැක."
+"</qt>"
+
+#: lib/katemwmodonhddialog.cpp:58
+#, kde-format
+msgid "Documents Modified on Disk"
+msgstr "තැටිය මත වෙනස් කල ලේඛන"
+
+#: lib/katemwmodonhddialog.cpp:74
+#, kde-format
+msgid ""
+"<qt>The documents listed below have changed on disk.<p>Select one or more at "
+"once, and press an action button until the list is empty.</p></qt>"
+msgstr ""
+"<qt>පහත ලැයිස්තුගත වූ ලේඛන තැටිය මත වෙනස්වී ඇත.<p>එකක් හෝ කිහිපයක් එකවර තෝරා ලැයිස්තුව "
+"හිස්වන තෙක් ක්‍රියා බොත්තමක් ඔබන්න.</p></qt>"
+
+#: lib/katemwmodonhddialog.cpp:84
+#, kde-format
+msgid "Filename"
+msgstr "ගොනු නාමය"
+
+#: lib/katemwmodonhddialog.cpp:84
+#, kde-format
+msgid "Status on Disk"
+msgstr "තැටිය මත තත්වය"
+
+#: lib/katemwmodonhddialog.cpp:89
+#, kde-format
+msgid "Modified"
+msgstr "වෙනස් කළ"
+
+#: lib/katemwmodonhddialog.cpp:89
+#, kde-format
+msgid "Created"
+msgstr "තනන ලදි"
+
+#: lib/katemwmodonhddialog.cpp:89
+#, kde-format
+msgid "Deleted"
+msgstr "මැකුවා"
+
+#: lib/katemwmodonhddialog.cpp:104
+#, kde-format
+msgid "&View Difference"
+msgstr "වෙනස පෙන්වන්න (&V)"
+
+#: lib/katemwmodonhddialog.cpp:106
+#, kde-format
+msgid ""
+"Calculates the difference between the editor contents and the disk file for "
+"the selected document, and shows the difference with the default "
+"application. Requires diff(1)."
+msgstr ""
+"තෝරාගත් ලේඛනයේ තැටිය මත ඇති ගොනුවේ හා සකසනයේ අන්තර්ගතය අතර වෙනස ගණනය කරයි. ඉන්පසු "
+"පෙරනිමි යෙදුමක් හරහා වෙනස පෙන්වයි diff(1) ඇවැසියි."
+
+#: lib/katemwmodonhddialog.cpp:117
+#, fuzzy, kde-format
+#| msgid "&Ignore"
+msgid "&Ignore Changes"
+msgstr "මඟ හරින්න (&I)"
+
+#: lib/katemwmodonhddialog.cpp:118
+#, kde-format
+msgid "Remove modified flag from selected documents"
+msgstr ""
+
+#: lib/katemwmodonhddialog.cpp:124
+#, fuzzy, kde-format
+#| msgid ""
+#| "Overwrite selected documents, discarding the disk changes and closes the "
+#| "dialog if there are no more unhandled documents."
+msgid "Overwrite selected documents, discarding disk changes"
+msgstr ""
+"තෝරාගත් ලේඛන නැවත ලියන්න, තැටියේ වෙනස්කම් ඉවත දැමෙන අතර තවත් නොහැසිරවූ ලේඛන නොමැති විට "
+"සංවාදය වසාදැමේ."
+
+#: lib/katemwmodonhddialog.cpp:128
+#, kde-format
+msgid "&Reload"
+msgstr "ප්‍රතිපූර්ණය (&R)"
+
+#: lib/katemwmodonhddialog.cpp:130
+#, fuzzy, kde-format
+#| msgid "All documents written to disk"
+msgid "Reload selected documents from disk"
+msgstr "සියළු ලේඛන තැටියට ලියවිනි"
+
+#: lib/katemwmodonhddialog.cpp:196
+#, kde-format
+msgid ""
+"Could not save the document \n"
+"'%1'"
+msgstr ""
+"'%1' \n"
+"ලේඛනය වි වෘත කල නොහැක"
+
+#: lib/katemwmodonhddialog.cpp:329
+#, kde-format
+msgid ""
+"The diff command failed. Please make sure that diff(1) is installed and in "
+"your PATH."
+msgstr ""
+"diff විධානය අසාර්ථකයි. කරුණාකර diff(1) ඔබේ පරිගණකයේ PATH හි පිහිටුවා ඇතිද්යි පිරික්සන්න."
+
+#: lib/katemwmodonhddialog.cpp:331
+#, kde-format
+msgid "Error Creating Diff"
+msgstr "වෙනස නිර්මාණයේ දෝශයක් "
+
+#: lib/katemwmodonhddialog.cpp:338
+#, fuzzy, kde-format
+#| msgid "Besides white space changes, the files are identical."
+msgid "Ignoring amount of white space changed, the files are identical."
+msgstr "හිස් ඉඩ වෙනස්කම් හැරුනු විට, මෙම ගොනු සමානයි."
+
+#: lib/katemwmodonhddialog.cpp:338
+#, kde-format
+msgid "Diff Output"
+msgstr "වෙනස ප්‍රතිදානය"
+
+#: lib/kateoutputview.cpp:37
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Copy to Clipboard"
+msgstr ""
+
+#: lib/kateoutputview.cpp:184
+#, fuzzy, kde-format
+#| msgid "&Other..."
+msgid "Filter..."
+msgstr "වෙනත්... (&O)"
+
+#: lib/kateoutputview.cpp:197
+#, kde-format
+msgid "Clear all messages"
+msgstr ""
+
+#: lib/kateoutputview.cpp:290
+#, kde-format
+msgctxt "@info"
+msgid "Error"
+msgstr ""
+
+#: lib/kateoutputview.cpp:294
+#, kde-format
+msgctxt "@info"
+msgid "Warning"
+msgstr ""
+
+#: lib/kateoutputview.cpp:298
+#, kde-format
+msgctxt "@info"
+msgid "Info"
+msgstr ""
+
+#: lib/kateoutputview.cpp:302
+#, kde-format
+msgctxt "@info"
+msgid "Log"
+msgstr ""
+
+#: lib/katesavemodifieddialog.cpp:77
+#, kde-format
+msgid "Save As (%1)"
+msgstr "(%1) ලෙස සුරකින්න"
+
+#: lib/katesavemodifieddialog.cpp:127
+#, kde-format
+msgid "Save Documents"
+msgstr "ලේඛන සුරකින්න"
+
+#: lib/katesavemodifieddialog.cpp:135
+#, kde-format
+msgid ""
+"<qt>The following documents have been modified. Do you want to save them "
+"before closing?</qt>"
+msgstr "<qt>පහත ලේඛන වෙනස් කර ඇත. ඔබට ඒවා වැසීමට පෙර සුරැකීමට ඇවැසිද?</qt>"
+
+#: lib/katesavemodifieddialog.cpp:142
+#, kde-format
+msgid "Documents"
+msgstr "ලේඛනය"
+
+#: lib/katesavemodifieddialog.cpp:142
+#, kde-format
+msgid "Location"
+msgstr "පිහිටුම"
+
+#: lib/katesavemodifieddialog.cpp:152
+#, kde-format
+msgid "Se&lect All"
+msgstr "සියල්ල තෝරන්න (&l)"
+
+#: lib/katesavemodifieddialog.cpp:225
+#, kde-format
+msgid ""
+"Data you requested to be saved could not be written. Please choose how you "
+"want to proceed."
+msgstr "ඔබ සුරැකීමට ඉල්ලූ දත්ත ලිවීමට නොහැ. කරුණාකර ඔබට ඉදිරියට යාමට ඇවැසි ආකාරය තෝරන්න."
+
+#: lib/kateurlbar.cpp:1178
+#, kde-format
+msgid "Untitled"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:116
+#, kde-format
+msgid "Split Ve&rtical"
+msgstr "සිරස්ව බෙදන්න (&r)"
+
+#: lib/kateviewmanager.cpp:120
+#, kde-format
+msgid "Split the currently active view vertically into two views."
+msgstr "දැනට සක්‍රීය දසුන සිරස්ව කොටස් දෙකකට බෙදන්න."
+
+#: lib/kateviewmanager.cpp:124
+#, kde-format
+msgid "Split &Horizontal"
+msgstr "තිරස්ව බෙදන්න (&H)"
+
+#: lib/kateviewmanager.cpp:128
+#, kde-format
+msgid "Split the currently active view horizontally into two views."
+msgstr "දැනට සක්‍රීය දසුන තිරස්ව කොටස් දෙකකට බෙදන්න."
+
+#: lib/kateviewmanager.cpp:132
+#, kde-format
+msgid "Move Document to New Vertical Split"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:136
+#, fuzzy, kde-format
+#| msgid "Split the currently active view vertically into two views."
+msgid ""
+"Split the currently active view vertically into two views and move the "
+"currently active document to right view."
+msgstr "දැනට සක්‍රීය දසුන සිරස්ව කොටස් දෙකකට බෙදන්න."
+
+#: lib/kateviewmanager.cpp:141
+#, kde-format
+msgid "Move Document to New Horizontal Split"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:145
+#, fuzzy, kde-format
+#| msgid "Split the currently active view horizontally into two views."
+msgid ""
+"Split the currently active view horizontally into two views and move the "
+"currently active document to view below."
+msgstr "දැනට සක්‍රීය දසුන තිරස්ව කොටස් දෙකකට බෙදන්න."
+
+#: lib/kateviewmanager.cpp:150
+#, kde-format
+msgid "Cl&ose Current View"
+msgstr "වත්මන් දසුන වසන්න (&o)"
+
+#: lib/kateviewmanager.cpp:154
+#, fuzzy, kde-format
+#| msgid "Close the currently active splitted view"
+msgid "Close the currently active split view"
+msgstr "දැනට සක්‍රීය බෙදූ දසුන වසන්න"
+
+#: lib/kateviewmanager.cpp:158
+#, fuzzy, kde-format
+#| msgid "Cl&ose Current View"
+msgid "Close Inactive Views"
+msgstr "වත්මන් දසුන වසන්න (&o)"
+
+#: lib/kateviewmanager.cpp:161
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Close every view but the active one"
+msgstr "ඊලඟ බෙදීම් දසුන සක්‍රීය ඒවා පෙනුමට සකසන්න"
+
+#: lib/kateviewmanager.cpp:165
+#, fuzzy, kde-format
+#| msgid "Cl&ose Current View"
+msgid "Hide Inactive Views"
+msgstr "වත්මන් දසුන වසන්න (&o)"
+
+#: lib/kateviewmanager.cpp:169
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Hide every view but the active one"
+msgstr "ඊලඟ බෙදීම් දසුන සක්‍රීය ඒවා පෙනුමට සකසන්න"
+
+#: lib/kateviewmanager.cpp:172
+#, kde-format
+msgid "Toggle Orientation"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:175
+#, fuzzy, kde-format
+#| msgid "Move the splitter of the current view up"
+msgid "Toggles the orientation of the current split view"
+msgstr "වත්මන් දසුනේ බෙදීම ඉහළට ගෙනයන්න"
+
+#: lib/kateviewmanager.cpp:178
+#, kde-format
+msgid "Next Split View"
+msgstr "ඊලඟ බෙදූ දසුන"
+
+#: lib/kateviewmanager.cpp:183
+#, kde-format
+msgid "Make the next split view the active one."
+msgstr "ඊලඟ බෙදීම් දසුන සක්‍රීය ඒවා පෙනුමට සකසන්න"
+
+#: lib/kateviewmanager.cpp:186
+#, kde-format
+msgid "Previous Split View"
+msgstr "පෙර බෙදීම් දසුන"
+
+#: lib/kateviewmanager.cpp:191
+#, kde-format
+msgid "Make the previous split view the active one."
+msgstr "සක්‍රීයය පෙන්වීමට පෙර බෙදුම සකසන්න"
+
+#: lib/kateviewmanager.cpp:194
+#, fuzzy, kde-format
+#| msgid "Next Split View"
+msgid "Left Split View"
+msgstr "ඊලඟ බෙදූ දසුන"
+
+#: lib/kateviewmanager.cpp:199
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Make the split view intuitively on the left the active one."
+msgstr "ඊලඟ බෙදීම් දසුන සක්‍රීය ඒවා පෙනුමට සකසන්න"
+
+#: lib/kateviewmanager.cpp:202
+#, fuzzy, kde-format
+#| msgid "Next Split View"
+msgid "Right Split View"
+msgstr "ඊලඟ බෙදූ දසුන"
+
+#: lib/kateviewmanager.cpp:207
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Make the split view intuitively on the right the active one."
+msgstr "ඊලඟ බෙදීම් දසුන සක්‍රීය ඒවා පෙනුමට සකසන්න"
+
+#: lib/kateviewmanager.cpp:210
+#, fuzzy, kde-format
+#| msgid "Split View"
+msgid "Upward Split View"
+msgstr "බෙදුන දසුන"
+
+#: lib/kateviewmanager.cpp:215
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Make the split view intuitively upward the active one."
+msgstr "ඊලඟ බෙදීම් දසුන සක්‍රීය ඒවා පෙනුමට සකසන්න"
+
+#: lib/kateviewmanager.cpp:218
+#, fuzzy, kde-format
+#| msgid "Split View"
+msgid "Downward Split View"
+msgstr "බෙදුන දසුන"
+
+#: lib/kateviewmanager.cpp:223
+#, fuzzy, kde-format
+#| msgid "Make the next split view the active one."
+msgid "Make the split view intuitively downward the active one."
+msgstr "ඊලඟ බෙදීම් දසුන සක්‍රීය ඒවා පෙනුමට සකසන්න"
+
+#: lib/kateviewmanager.cpp:226
+#, kde-format
+msgid "Move Splitter Right"
+msgstr "බෙදීම දකුණට ගෙනයන්න"
+
+#: lib/kateviewmanager.cpp:229
+#, kde-format
+msgid "Move the splitter of the current view to the right"
+msgstr "වත්මන් දසුනේ බෙදීම දකුණට ගෙනයන්න"
+
+#: lib/kateviewmanager.cpp:232
+#, kde-format
+msgid "Move Splitter Left"
+msgstr "බෙදීම වමට ගෙනයන්න"
+
+#: lib/kateviewmanager.cpp:235
+#, kde-format
+msgid "Move the splitter of the current view to the left"
+msgstr "වත්මන් දසුනේ බෙදීම වමට ගෙනයන්න"
+
+#: lib/kateviewmanager.cpp:238
+#, kde-format
+msgid "Move Splitter Up"
+msgstr "බෙදීම ඉහළට ගෙනයන්න"
+
+#: lib/kateviewmanager.cpp:241
+#, kde-format
+msgid "Move the splitter of the current view up"
+msgstr "වත්මන් දසුනේ බෙදීම ඉහළට ගෙනයන්න"
+
+#: lib/kateviewmanager.cpp:244
+#, kde-format
+msgid "Move Splitter Down"
+msgstr "බෙදීම පහළට ගෙනයන්න"
+
+#: lib/kateviewmanager.cpp:247
+#, kde-format
+msgid "Move the splitter of the current view down"
+msgstr "වත්මන් දසුනේ බෙදීම පහළට ගෙනයන්න"
+
+#: lib/kateviewmanager.cpp:250
+#, kde-format
+msgid "Focus Navigation Bar"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:251
+#, kde-format
+msgid "Focus the navigation bar"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:258
+#, kde-format
+msgid "Welcome Page"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:273
+#, kde-format
+msgid "Show the welcome page"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:315 lib/kateviewmanager.cpp:317
+#, kde-format
+msgid "Open File"
+msgstr "ගොනුව විවෘත කරන්න"
+
+#: lib/kateviewmanager.cpp:336
+#, kde-format
+msgid ""
+"<p>You are attempting to open one or more large files:</p><ul>%1</ul><p>Do "
+"you want to proceed?</p><p><strong>Beware that kate may stop responding for "
+"some time when opening large files.</strong></p>"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:339
+#, fuzzy, kde-format
+#| msgid "Open File"
+msgid "Opening Large File"
+msgstr "ගොනුව විවෘත කරන්න"
+
+#: lib/kateviewmanager.cpp:1162
+#, kde-format
+msgid "This view may have unsaved work. Do you really want to close it?"
+msgstr ""
+
+#: lib/kateviewspace.cpp:98
+#, kde-format
+msgctxt "indicator for more documents"
+msgid "+%1"
+msgstr ""
+
+#: lib/kateviewspace.cpp:103 lib/kateviewspace.cpp:208
+#, kde-format
+msgid "Click here to switch to the Quick Open view."
+msgstr ""
+
+#: lib/kateviewspace.cpp:119
+#, kde-format
+msgid "Control view space splitting"
+msgstr ""
+
+#: lib/kateviewspace.cpp:209
+#, kde-format
+msgid ""
+"Currently, there is one more document open. To see all open documents, "
+"switch to the Quick Open view by clicking here."
+msgid_plural ""
+"Currently, there are %1 more documents open. To see all open documents, "
+"switch to the Quick Open view by clicking here."
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/kateviewspace.cpp:975
+#, fuzzy, kde-format
+#| msgid "Close"
+msgid "Close Tab"
+msgstr "වසන්න"
+
+#: lib/kateviewspace.cpp:992
+#, fuzzy, kde-format
+#| msgid "Close Document"
+msgid "&Close Document"
+msgstr "ලේඛනය වසන්න"
+
+#: lib/kateviewspace.cpp:993
+#, fuzzy, kde-format
+#| msgid "Close Document"
+msgid "Close Other &Documents"
+msgstr "ලේඛනය වසන්න"
+
+#: lib/kateviewspace.cpp:994
+#, fuzzy, kde-format
+#| msgid "Close all documents"
+msgid "Close &All Documents"
+msgstr "සියලු ලේඛන වසන්න"
+
+#: lib/kateviewspace.cpp:996
+#, fuzzy, kde-format
+#| msgid "Documents"
+msgid "D&etach Document"
+msgstr "ලේඛන"
+
+#: lib/kateviewspace.cpp:997
+#, kde-format
+msgid "Opens the document in a new window and closes it in the current window"
+msgstr ""
+
+#: lib/kateviewspace.cpp:1006
+#, fuzzy, kde-format
+#| msgid "Close the current document."
+msgid "Compare with Active Document"
+msgstr "වත්මන් ලේඛනය වසන්න"
+
+#: lib/kateviewspace.cpp:1010
+#, kde-format
+msgid "Diff %1 .. %2"
+msgstr ""
+
+#: lib/kateviewspace.cpp:1015
+#, fuzzy, kde-format
+#| msgid "Close the current document."
+msgid "Compare with Active Document Using"
+msgstr "වත්මන් ලේඛනය වසන්න"
+
+#: lib/kateviewspace.cpp:1082
+#, kde-format
+msgid "Could not start program"
+msgstr ""
+
+#: lib/kateviewspace.cpp:1083
+#, kde-format
+msgid "The selected program could not be started. Maybe it is not installed."
+msgstr ""
+
+#: lib/quickopen/katequickopenlineedit.cpp:22
+#, kde-format
+msgid "Quick Open Search (configure via context menu)"
+msgstr ""
+
+#: lib/quickopen/katequickopenlineedit.cpp:61
+#, fuzzy, kde-format
+#| msgid "Projects"
+msgid "All Projects"
+msgstr "ව්‍යාපෘති"
+
+#: lib/quickopen/katequickopenlineedit.cpp:73
+#, kde-format
+msgid "Current Project"
+msgstr ""
+
+#: lib/quickopen/katequickopenlineedit.cpp:88
+#, kde-format
+msgid "Fuzzy Filtering"
+msgstr ""
+
+#: lib/quickopen/katequickopenlineedit.cpp:99
+#, kde-format
+msgid "Wildcard Filtering"
+msgstr ""
+
+#: lib/session/katesessionmanagedialog.cpp:26
+#, kde-format
+msgid "Manage Sessions"
+msgstr "වාර පාලනය කරන්න"
+
+#: lib/session/katesessionmanagedialog.cpp:62
+#, kde-format
+msgid "Session Chooser"
+msgstr "සැසි තෝරනය"
+
+#: lib/session/katesessionmanagedialog.cpp:146
+#, kde-format
+msgid "Restore"
+msgstr ""
+
+#: lib/session/katesessionmanagedialog.cpp:303
+#, kde-format
+msgid "Session will be deleted on dialog close"
+msgstr ""
+
+#. i18n: ectx: property (placeholderText), widget (QLineEdit, m_filterBox)
+#: lib/session/katesessionmanagedialog.ui:30
+#, fuzzy, kde-format
+#| msgid "Sessions"
+msgid "Filter Sessions"
+msgstr "සැසි"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, m_sessionList)
+#: lib/session/katesessionmanagedialog.ui:55
+#, kde-format
+msgid "Session Name"
+msgstr "සැසි නාමය"
+
+#. i18n: The number of open documents
+#. i18n: ectx: property (text), widget (QTreeWidget, m_sessionList)
+#: lib/session/katesessionmanagedialog.ui:60
+#, fuzzy, kde-format
+#| msgid "&File"
+msgid "Files"
+msgstr "ගොනුව (&F)"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, m_sessionList)
+#: lib/session/katesessionmanagedialog.ui:68
+#, kde-format
+msgid "Last opened"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, m_openButton)
+#: lib/session/katesessionmanagedialog.ui:87
+#, kde-format
+msgid "&Open"
+msgstr "විවෘත කරන්න (&O)"
+
+#. i18n: ectx: property (text), widget (QPushButton, m_newButton)
+#: lib/session/katesessionmanagedialog.ui:98
+#, kde-format
+msgid "New Session"
+msgstr "නව සැසිය"
+
+#. i18n: ectx: property (text), widget (QPushButton, m_templateButton)
+#: lib/session/katesessionmanagedialog.ui:108
+#, kde-format
+msgid "Open as Template"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_dontAskCheckBox)
+#: lib/session/katesessionmanagedialog.ui:115
+#, kde-format
+msgid "Don't ask again"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, m_copyButton)
+#: lib/session/katesessionmanagedialog.ui:135
+#, kde-format
+msgid "Duplicate..."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, m_renameButton)
+#: lib/session/katesessionmanagedialog.ui:142
+#, kde-format
+msgid "&Rename..."
+msgstr "නම වෙනස් කරන්න... (&R)"
+
+#. i18n: ectx: property (text), widget (QPushButton, m_deleteButton)
+#: lib/session/katesessionmanagedialog.ui:162
+#, fuzzy, kde-format
+#| msgid "Deleted"
+msgid "Delete"
+msgstr "මැකුවා"
+
+#: lib/session/katesessionmanager.cpp:105
+#, kde-format
+msgid ""
+"Internal error: there is more than one instance open for a given session."
+msgstr "අභ්‍යන්තර දෝශයක්ළ: දෙනලද වාරය සඳහා එකකට වඩා අවස්ථා ධාවනය වෙමින් පවතී."
+
+#: lib/session/katesessionmanager.cpp:112
+#, fuzzy, kde-format
+#| msgid ""
+#| "Session '%1' is already opened in another kate instance, change there "
+#| "instead of reopening?"
+msgid ""
+"Session '%1' is already opened in another Kate instance. Switch to that or "
+"reopen in this instance?"
+msgstr ""
+"'%1' වාරය වෙනත් kate අවස්ථාවක දැනටමත් විවෘත කර ඇත, නැවත විවෘත නොකර එහිදී වෙනස් කරන්නද?"
+
+#: lib/session/katesessionmanager.cpp:114
+#, kde-format
+msgctxt "@action:button"
+msgid "Switch to Instance"
+msgstr ""
+
+#: lib/session/katesessionmanager.cpp:115
+#, kde-format
+msgctxt "@action:button"
+msgid "Reopen"
+msgstr ""
+
+#: lib/session/katesessionmanager.cpp:303
+#, fuzzy, kde-format
+#| msgid ""
+#| "The session could not be renamed to \"%1\", there already exists another "
+#| "session with the same name"
+msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
+msgstr "මෙම වාරය \"%1\" ලෙස ප්‍රතිනම් කල නොහැක, එම නම සහිත වෙනත් වාරයක් දැනටමත් පවතී"
+
+#: lib/session/katesessionmanager.cpp:304
+#, kde-format
+msgid "Session Renaming"
+msgstr "වාර ප්‍රතිනම්"
+
+#: lib/session/katesessionmanager.cpp:451
+#, kde-format
+msgid "Session name:"
+msgstr "සැසියේ නම:"
+
+#: lib/session/katesessionmanager.cpp:453
+#, fuzzy, kde-format
+#| msgid ""
+#| "There is already an existing session with your chosen name.\n"
+#| "Please choose a different one\n"
+#| "Session name:"
+msgid ""
+"There is already an existing session with your chosen name: %1\n"
+"Please choose a different one."
+msgstr ""
+"ඔබ තෝරාගත් නම සහිත වාරයක් දැනටමත් පවතී.\n"
+"කරුණාකර වෙනකක් තෝරන්න\n"
+"වාරයේ නම:"
+
+#: lib/session/katesessionmanager.cpp:455
+#, kde-format
+msgid "To save a session, you must specify a name."
+msgstr "වාරයක් සුරැකීමට, ඔබට නමක් ලබාදීමට සිදුවේ."
+
+#: lib/session/katesessionmanager.cpp:482
+#, fuzzy, kde-format
+#| msgid "Specify New Name for Session"
+msgid "Specify a name for this session"
+msgstr "වාරය සඳහා නව නමක් යොදන්න"
+
+#: lib/session/katesessionmanager.cpp:484
+#, fuzzy, kde-format
+#| msgid "Specify New Name for Session"
+msgid "Specify a new name for session: %1"
+msgstr "වාරය සඳහා නව නමක් යොදන්න"
+
+#. i18n: ectx: property (title), widget (QGroupBox, gbAppStartup)
+#: lib/ui/sessionconfigwidget.ui:17
+#, fuzzy, kde-format
+#| msgid "Application Options"
+msgid "Application Startup Behavior"
+msgstr "යෙදුම් අභිප්‍රේත"
+
+#. i18n: ectx: property (text), widget (QRadioButton, startNewSessionRadioButton)
+#: lib/ui/sessionconfigwidget.ui:23
+#, kde-format
+msgid "&Start new session"
+msgstr "නව වාරය අරඹන්න (&S)"
+
+#. i18n: ectx: property (text), widget (QRadioButton, loadLastUserSessionRadioButton)
+#: lib/ui/sessionconfigwidget.ui:30
+#, fuzzy, kde-format
+#| msgid "&Load last-used session"
+msgid "&Load last used session"
+msgstr "අවසන-භාවිත කල වාරය පූරණය කරන්න (&L)"
+
+#. i18n: ectx: property (text), widget (QRadioButton, manuallyChooseSessionRadioButton)
+#: lib/ui/sessionconfigwidget.ui:37
+#, kde-format
+msgid "&Manually choose a session"
+msgstr "වාරය ශ්‍රමිකව තෝරන්න (&M)"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: lib/ui/sessionconfigwidget.ui:47
+#, fuzzy, kde-format
+#| msgid "Application Options"
+msgid "Application Startup/Shutdown Behavior"
+msgstr "යෙදුම් අභිප්‍රේත"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: lib/ui/sessionconfigwidget.ui:55
+#, kde-format
+msgid "Automatically save and restore:"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, stashNewUnsavedFiles)
+#: lib/ui/sessionconfigwidget.ui:67
+#, kde-format
+msgid "Newly-created unsaved files"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, stashUnsavedFilesChanges)
+#: lib/ui/sessionconfigwidget.ui:77
+#, kde-format
+msgid "Files with unsaved changes"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, openNewDocumentPerWindow)
+#: lib/ui/sessionconfigwidget.ui:88
+#, fuzzy, kde-format
+#| msgid "Create a new Kate view (a new window with the same document list)."
+msgid "Open new window with fresh untitled document"
+msgstr "නව Kate දසුනක් සදන්න(එකම ලේඛන ලැයිස්තුව සමඟ නව කවුළුවක්)."
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, modCloseAfterLast)
+#: lib/ui/sessionconfigwidget.ui:95
+#, kde-format
+msgid ""
+"If enabled, the application will shutdown when the last file being edited is "
+"closed, otherwise a blank page will open so that you can start a new file."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, modCloseAfterLast)
+#: lib/ui/sessionconfigwidget.ui:98
+#, kde-format
+msgid "Close the application entirely when the last file is closed"
+msgstr ""
+
+#. i18n: ectx: property (title), widget (QGroupBox, gbElements)
+#: lib/ui/sessionconfigwidget.ui:108
+#, fuzzy, kde-format
+#| msgid "Session Management"
+msgid "Session Elements"
+msgstr "වාර පරිපාලනය"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: lib/ui/sessionconfigwidget.ui:114
+#, kde-format
+msgid ""
+"The session contains the list of open documents, recently opened files list, "
+"bookmarks, cursor position etc. When the session is loaded all elements are "
+"restored."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: lib/ui/sessionconfigwidget.ui:126
+#, kde-format
+msgid "Maximum number of entries in recent file list:"
+msgstr ""
+
+#. i18n: ectx: property (whatsThis), widget (QCheckBox, restoreVC)
+#: lib/ui/sessionconfigwidget.ui:154
+#, fuzzy, kde-format
+#| msgid ""
+#| "Check this if you want all your views and frames restored each time you "
+#| "open Kate"
+msgid ""
+"Check this if you want all your views and frames restored each time you open "
+"the application."
+msgstr ""
+"ඔබ Kate විවෘත කරන සෑමවිටම ඔබේ සියළු දසුන් හා රාමුද ප්‍රතිපිහිටුවීමට ඇවැසි නම් මෙය සලකුණු කරන්න"
+
+#. i18n: ectx: property (text), widget (QCheckBox, restoreVC)
+#: lib/ui/sessionconfigwidget.ui:157
+#, kde-format
+msgid "Include &window configuration"
+msgstr "කවුළු සැකසුම්ද ඇතුළුව (&w)"
+
+#. i18n: ectx: property (whatsThis), widget (QGroupBox, saveMetaInfos)
+#: lib/ui/sessionconfigwidget.ui:167
+#, kde-format
+msgid ""
+"Check this if you want document configuration like for example bookmarks to "
+"be saved past editor sessions. The configuration will be restored if the "
+"document has not changed when reopened."
+msgstr ""
+"ඔබට නියැදි පොත්සලකුණු වැනි ලේඛන සැකසුමක් පෙර සැකසුම් වාරයෙන් සුරැකීමට ඇවැසි නම් මෙය සලකුණු "
+"කරන්න. ලේඛනය නැවත ඇරඹූ විට වෙනසක් නොකර ඇතිනම් සැකසුම ප්‍රතිපිහිටුවේ."
+
+#. i18n: ectx: property (title), widget (QGroupBox, saveMetaInfos)
+#: lib/ui/sessionconfigwidget.ui:170
+#, kde-format
+msgid "Keep &meta-information past sessions"
+msgstr "පෙර වාර වල මෙටා-තොරතුරු තබාගන්න (&m)"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: lib/ui/sessionconfigwidget.ui:181
+#, fuzzy, kde-format
+#| msgid "&Delete unused meta-information after:"
+msgid "Delete unused meta-information after:"
+msgstr "මෙම කාලයෙන් පසුව භාවිත නොකල මෙටා-තොරතුරු මකන්න (&D):"
+
+#: lib/welcomeview.cpp:69
+#, fuzzy, kde-format
+#| msgid "Location"
+msgid "&Copy Location"
+msgstr "පිහිටුම"
+
+#: lib/welcomeview.cpp:97
+#, kde-format
+msgctxt "recent items context menu"
+msgid "&Forget This Item"
+msgstr ""
+
+#: lib/welcomeview.cpp:126
+#, kde-format
+msgid "Welcome"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, welcomeLabel)
+#: lib/welcomeview.cpp:129 lib/welcomeview.ui:158
+#, kde-format
+msgid "Welcome to Kate"
+msgstr ""
+
+#: lib/welcomeview.cpp:129
+#, kde-format
+msgid "Welcome to KWrite"
+msgstr ""
+
+#: lib/welcomeview.cpp:168
+#, fuzzy, kde-format
+#| msgid "Close the current document."
+msgctxt "on welcome screen"
+msgid "No recent documents"
+msgstr "වත්මන් ලේඛනය වසන්න"
+
+#. i18n: ectx: property (windowTitle), widget (QWidget, WelcomeView)
+#: lib/welcomeview.ui:17
+#, kde-format
+msgid "Form"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, newDocumentButton)
+#: lib/welcomeview.ui:221
+#, fuzzy, kde-format
+#| msgid "Documents"
+msgctxt "on welcome screen"
+msgid "New Document"
+msgstr "ලේඛන"
+
+#. i18n: ectx: property (text), widget (QPushButton, openDocumentButton)
+#: lib/welcomeview.ui:232
+#, fuzzy, kde-format
+#| msgctxt "The number of open documents"
+#| msgid "Open Documents"
+msgctxt "on welcome screen"
+msgid "Open Document..."
+msgstr "ලේඛන විවෘත කරන්න"
+
+#. i18n: ectx: property (text), widget (QPushButton, openFolderButton)
+#: lib/welcomeview.ui:243
+#, fuzzy, kde-format
+#| msgid "Open File"
+msgctxt "on welcome screen"
+msgid "Open Folder..."
+msgstr "ගොනුව විවෘත කරන්න"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: lib/welcomeview.ui:372
+#, fuzzy, kde-format
+#| msgctxt "The number of open documents"
+#| msgid "Open Documents"
+msgctxt "on welcome screen"
+msgid "Recent documents"
+msgstr "ලේඛන විවෘත කරන්න"
+
+#. i18n: ectx: property (text), widget (QToolButton, forgetAllButton)
+#: lib/welcomeview.ui:382
+#, fuzzy, kde-format
+#| msgid "Clos&e All"
+msgctxt "on welcome screen (recent document list)"
+msgid "Forget All"
+msgstr "සියල්ල වසන්න (&C)"
+
+#~ msgid "Make Non-Persistent"
+#~ msgstr "නිබැඳි-නොවන තනන්න"
+
+#~ msgid "Make Persistent"
+#~ msgstr "නිබැඳි තනන්න"
+
+#, fuzzy
+#~| msgid "Filename"
+#~ msgid "Copy File &Path"
+#~ msgstr "ගොනු නාමය"
+
+#~ msgid ""
+#~ "The supposedly temporary file %1 has been modified. Do you want to delete "
+#~ "it anyway?"
+#~ msgstr "බලාපොරොත්තු වූ %1 තාවකාලික ගොනුව වෙනස්වී ඇත. ඔබට එය කෙසේහෝ මකාදැමීමට ඇවැසිද?"
+
+#~ msgid "Delete File?"
+#~ msgstr "ගොනුව වසන්න ද?"
+
+#~ msgid "&Quick Open Session"
+#~ msgstr "වාරය ක්‍ෂණිකව විවෘත කරන්න (&Q)"
+
+#, fuzzy
+#~| msgid "Start Kate with a new anonymous session, implies '-n'"
+#~ msgid "Start Kate with a new session, implies '-n' (deprecated)."
+#~ msgstr "නව නිර්නාමික වාරයක් සමඟ Kate අරඹයි, '-n' මගින්"
+
+#~ msgid "Wa&rn about files modified by foreign processes"
+#~ msgstr "බාහිර සැකසුමක් මගින් ගොනු වෙනස්වීම් ගැන දන්වන්න (&m)"
+
+#~ msgid "Application '%1' not found."
+#~ msgstr "'%1' යෙදුම හමු නොවිනි."
+
+#~ msgid "Application not found"
+#~ msgstr "යෙදුම හමු නොවිණි"
+
+#, fuzzy
+#~| msgid "Filename"
+#~ msgid "Filter By Path"
+#~ msgstr "ගොනු නාමය"
+
+#, fuzzy
+#~| msgid "&Quick Open Session"
+#~ msgid "Quick Open Search"
+#~ msgstr "වාරය ක්‍ෂණිකව විවෘත කරන්න (&Q)"
+
+#, fuzzy
+#~| msgid "&View Mode:"
+#~ msgid "&Match Mode:"
+#~ msgstr "දසුන් අකාරය (&V):"
+
+#, fuzzy
+#~| msgid "Filename"
+#~ msgid "Filepath"
+#~ msgstr "ගොනු නාමය"
+
+#, fuzzy
+#~| msgid "List Mode"
+#~ msgid "&List Mode:"
+#~ msgstr "ලැයිස්තු ආකාරය"
+
+#~ msgid "Application"
+#~ msgstr "යෙදුම"
+
+#~ msgid "General"
+#~ msgstr "සාමාන්‍ය"
+
+#~ msgid "General Options"
+#~ msgstr "සාමාන්‍ය විකල්ප"
+
+#~ msgid "Meta-Information"
+#~ msgstr "මෙටා-තොරතුරු"
+
+#~ msgid "Editor Component"
+#~ msgstr "සැකසීම් සංරචකය"
+
+#~ msgid "Editor Component Options"
+#~ msgstr "සැකසීම් සංරචක අභිප්‍රේත"
+
+#, fuzzy
+#~| msgid "Behavior on Application Startup"
+#~ msgid "Behaviour on Application Startup"
+#~ msgstr "යෙදුම ඇරභුමේ හැසිරීම"
+
+#~ msgid "&About Editor Component"
+#~ msgstr "සැකසුම් සංරචකය පිළිබඳ (&A)"
+
+#~ msgctxt "Menu entry Session->New"
+#~ msgid "&New"
+#~ msgstr "නව (&N)"
+
+#~ msgid ""
+#~ "A file named \"%1\" already exists. Are you sure you want to overwrite it?"
+#~ msgstr "\"%1\" නම් ගොනුවක් දැනටමත් පවතී. ඔබට එය නැවත ලිවීමට ඇවැසිද?"
+
+#~ msgid "Overwrite File?"
+#~ msgstr "ගොනුව උඩින් ලියන්නද?"
+
+#, fuzzy
+#~| msgid "&Rename..."
+#~ msgctxt "@action:inmenu"
+#~ msgid "Rename File..."
+#~ msgstr "නම වෙනස් කරන්න... (&R)"
+
+#, fuzzy
+#~| msgid "Delete File?"
+#~ msgctxt "@action:inmenu"
+#~ msgid "Delete File"
+#~ msgstr "ගොනුව වසන්න ද?"
+
+#, fuzzy
+#~| msgid "Configure"
+#~ msgctxt "@title:window"
+#~ msgid "Confirmation"
+#~ msgstr "සකසන්න"
+
+#, fuzzy
+#~| msgid "Close the current document."
+#~ msgid "C&lose Current Document"
+#~ msgstr "වත්මන් ලේඛනය වසන්න"
+
+#, fuzzy
+#~| msgid ""
+#~| "This will close all open documents. Are you sure you want to continue?"
+#~ msgid "You have multiple documents open, are you sure you want to quit?"
+#~ msgstr "මෙය සියළු විවෘත ලේඛන වසාදමනු ඇත. ඔබට ඉදිරියට යාමට ඇවැසිද?"
+
+#~ msgid "Errors/Warnings while opening documents"
+#~ msgstr "ලේඛන විවෘත කිරීමේ දෝශ/අවවාද"
+
+#, fuzzy
+#~| msgid "No session selected to open."
+#~ msgid "Clone session settings"
+#~ msgstr "විවෘත කිරීමට වාරයක් නොමැත."
+
+#, fuzzy
+#~| msgid "Elements of Sessions"
+#~ msgid "Delete this session"
+#~ msgstr "වාරයන්හි මූලිකාංග"
+
+#~ msgid "&Always use this choice"
+#~ msgstr "මෙම තෝරාගැනීම සැමවිටම භාවිත කරන්න (&A)"
+
+#~ msgid "Missing Session Name"
+#~ msgstr "වාර නම නොමැත"
+
+#~ msgid ""
+#~ "The session could not be renamed to \"%1\", there already exists another "
+#~ "session with the same name"
+#~ msgstr "මෙම වාරය \"%1\" ලෙස ප්‍රතිනම් කල නොහැක, එම නම සහිත වෙනත් වාරයක් දැනටමත් පවතී"
+
+#~ msgid "Specify New Name for Current Session"
+#~ msgstr "වත්මන් වාරයට නව නමක් ලබාදෙන්න"
+
+#~ msgid "Developer & Highlight wizard"
+#~ msgstr "සංවර්ධක හා උපුටාගැනීම් විශාරද"
+
+#~ msgid "Comment"
+#~ msgstr "සටහන"
+
+#, fuzzy
+#~| msgid "Highlighting for Scheme"
+#~ msgid "&Highlight Tab"
+#~ msgstr "පටිපාටිය සඳහා උපුටනය"
+
+#~ msgid "All documents written to disk"
+#~ msgstr "සියළු ලේඛන තැටියට ලියවිනි"
+
+#~ msgid "Document written to disk"
+#~ msgstr "ලේඛනය තැටියට ලියැවිනි"
+
+#~ msgid ""
+#~ "<p><b>w/wa &mdash; write document(s) to disk</b></p><p>Usage: "
+#~ "<tt><b>w[a]</b></tt></p><p>Writes the current document(s) to disk. It can "
+#~ "be called in two ways:<br /> <tt>w</tt> &mdash; writes the current "
+#~ "document to disk<br /> <tt>wa</tt> &mdash; writes all documents to disk.</"
+#~ "p><p>If no file name is associated with the document, a file dialog will "
+#~ "be shown.</p>"
+#~ msgstr ""
+#~ "<p><b>w/wa &mdash; ලේඛන තැටියට ලියන්න</b></p><p>භාවිතය: <tt><b>w[a]</b></tt></"
+#~ "p><p>වත්මන් ලේඛන තැටියට ලියයි. එය ආකාර දෙකකට කැඳවීමට හැක: <br /> <tt>w</tt> "
+#~ "&mdash; තැටියට වත්මන් ලේඛනය ලියයි<br /> <tt>wa</tt> &mdash; තැටියට සියළු ලේඛන ලියයි."
+#~ "</p><p>ලේඛනය සමඟ කිසිඳු ගොනු නමක් ඈඳා නොමැති නම්, ගොනු සංවාදය දිස්වනු ඇත.</p>"
+
+#~ msgid ""
+#~ "<p><b>q/qa/wq/wqa &mdash; [write and] quit</b></p><p>Usage: "
+#~ "<tt><b>[w]q[a]</b></tt></p><p>Quits the application. If <tt>w</tt> is "
+#~ "prepended, it also writes the document(s) to disk. This command can be "
+#~ "called in several ways:<br /> <tt>q</tt> &mdash; closes the current view."
+#~ "<br /> <tt>qa</tt> &mdash; closes all views, effectively quitting the "
+#~ "application.<br /> <tt>wq</tt> &mdash; writes the current document to "
+#~ "disk and closes its view.<br /> <tt>wqa</tt> &mdash; writes all documents "
+#~ "to disk and quits.</p><p>In all cases, if the view being closed is the "
+#~ "last view, the application quits. If no file name is associated with the "
+#~ "document and it should be written to disk, a file dialog will be shown.</"
+#~ "p>"
+#~ msgstr ""
+#~ "<p><b>q/qa/wq/wqa &mdash; [ලිවීම සහ] පිටවීම</b></p><p>භාවිතය: <tt><b>[w]q[a]</"
+#~ "b></tt></p><p>යෙදුමෙන් පිටවේ. <tt>w</tt> මත රඳාපැවතේ නම්, එය ලේඛන තැටියටද ලියයි. "
+#~ "මෙම විධානය ආකාර කිහිපයකින් කැඳවිය හැක:<br /> <tt>q</tt> &mdash; වත්මන් දසුන වසාදමයි."
+#~ "<br /> <tt>qa</tt> &mdash; සියළු දසුන් වසාදමමින් සාර්ථකව යෙදුමෙන් පිටවෙයි.<br /> "
+#~ "<tt>wq</tt> &mdash; වත්මන් ලේඛනය තැටියට ලියා එහි දසුන වසාදමයි.<br /> <tt>wqa</"
+#~ "tt> &mdash; සියළු ලේඛන තැටියට ලියා පිටවෙයි.</p><p>සියළු අවස්ථා වලදී, දසුන අවසන් "
+#~ "දැක්මේදී වසාදැමුවේ නම් යෙදුම පිටවේ.  ලේඛනය සමඟ ගොනු නමක් ඈඳා නොමැති නම් හා එය සුරැකිය "
+#~ "යුතු නම් ගොනු සංවාදය මතුවේ.</p>"
+
+#~ msgid ""
+#~ "<p><b>x/xa &mdash; write and quit</b></p><p>Usage: <tt><b>x[a]</b></tt></"
+#~ "p><p>Saves document(s) and quits (e<b>x</b>its). This command can be "
+#~ "called in two ways:<br /> <tt>x</tt> &mdash; closes the current view.<br /"
+#~ "> <tt>xa</tt> &mdash; closes all views, effectively quitting the "
+#~ "application.</p><p>In all cases, if the view being closed is the last "
+#~ "view, the application quits. If no file name is associated with the "
+#~ "document and it should be written to disk, a file dialog will be shown.</"
+#~ "p><p>Unlike the 'w' commands, this command only writes the document if it "
+#~ "is modified.</p>"
+#~ msgstr ""
+#~ "<p><b>x/xa &mdash; ලියා පිටවීම</b></p><p>භාවිතය: <tt><b>x[a]</b></tt></"
+#~ "p><p>ලේඛන සුරැක පිටවෙයි (e<b>x</b>එහි). ,මෙම විධානය ආකාර දෙකකින් ක්‍රියාත්මක වේ:<br /"
+#~ "> <tt>x</tt> &mdash; වත්මන් දසුන වසාදමයි.<br /> <tt>xa</tt> &mdash; සියළු දසුන් "
+#~ "වසාදමයි, සාර්ථකව යෙදුමෙන් පිටවෙයි.</p><p>සියළු අවස්ථා වලදී, දසුන අවසන් දැක්මේදී "
+#~ "වසාදැමුවේ නම් යෙදුම පිටවේ.  ලේඛනය සමඟ ගොනු නමක් ඈඳා නොමැති නම් හා එය සුරැකිය යුතු නම් "
+#~ "ගොනු සංවාදය මතුවේ.</p><p> 'w' යෙදුම් මෙන් නොව මෙම විධානය ලේඛන ලියනුයේ ඒවා වෙනස්ව "
+#~ "ඇත්නම් පමණි.</p>"
+
+#~ msgid ""
+#~ "<p><b>[v]new &mdash; split view and create new document</b></p><p>Usage: "
+#~ "<tt><b>[v]new</b></tt></p><p>Splits the current view and opens a new "
+#~ "document in the new view. This command can be called in two ways:<br /> "
+#~ "<tt>new</tt> &mdash; splits the view horizontally and opens a new "
+#~ "document.<br /> <tt>vnew</tt> &mdash; splits the view vertically and "
+#~ "opens a new document.<br /></p>"
+#~ msgstr ""
+#~ "<p><b>[v]නව &mdash; දසුන බෙදා නව ලේඛනයක් සකසන්න</b></p><p>භාවිතය: "
+#~ "<tt><b>[v]නව</b></tt></p><p>වත්මන් දසුන බෙදා නව දසුනක නව ලේඛනයක් විවෘත කරයි. මෙම "
+#~ "විධානය ආකාර දෙකකින් ක්‍රියා කරයි:<br /> <tt>නව</tt> &mdash; නව ලේඛනය සඳහා දසුන "
+#~ "තිරස්ව බෙදයි.<br /> <tt>vනව</tt> &mdash; නව ලේඛනය විවෘත කිරීම සඳහා දසුන සිරස්ව "
+#~ "බෙදයි.<br /></p>"
+
+#~ msgid ""
+#~ "<p><b>e[dit] &mdash; reload current document</b></p><p>Usage: "
+#~ "<tt><b>e[dit]</b></tt></p><p>Starts <b>e</b>diting the current document "
+#~ "again. This is useful to re-edit the current file, when it has been "
+#~ "changed by another program.</p>"
+#~ msgstr ""
+#~ "<p><b>ස[කසන්න] &mdash; වත්මන් ලේඛනය ප්‍රතිපූර්ණය</b></p><p>භාවිතය: <tt><b>ස[කසන්න]</"
+#~ "b></tt></p><p>වත්මන් ලේඛනය නැවත <b>සැ</b>කසීම ආරම්භ කරයි.  මෙය වෙනත් යෙදුමකින් "
+#~ "ගොනුව වෙන්ස්කර ඇතිවිට වත්මන් ගොනුව නැවත-සැකසීමට.</p>"
+
+#~ msgid ""
+#~ "A KDE text-editor component could not be found.\n"
+#~ "Please check your KDE installation."
+#~ msgstr ""
+#~ "KDE පෙල-සකසන සංරචකයක් සොයාගත නොහැක.\n"
+#~ "කරුණාකර ඔබේ KDE ස්ථාපනය පිරික්සන්න."
+
+#~ msgid "Reuse existing Kate instance; default, only for compatibility"
+#~ msgstr "පවතින Kate අවස්ථාවක් නැවත භාවිතය; පෙරනිමි, සහාය දැක්වීමට පමණයි"
+
+#~ msgid "This shows useful tips on the use of this application."
+#~ msgstr "මෙය මෙම යෙදුමේ භාවිත පිළිබඳ ප්‍රයෝජනවත් ඉඟි පෙන්වන්න."
+
+#~ msgid "No Session Selected"
+#~ msgstr "කිසිඳු වාරයක් තෝරා නොමැත"
+
+#~ msgid "No session selected to copy."
+#~ msgstr "පිටපත් කිරීමට කිසිඳු වාරයක් තෝරා නොමැත."
+
+#~ msgid "Use selected session as template"
+#~ msgstr "තෝරාගත් වාරය ආකෘතියක් ලෙස යොදාගන්න"
+
+#, fuzzy
+#~| msgid "Document Name"
+#~ msgid "Show Document Name"
+#~ msgstr "ලේඛන නාමය"
+
+#~ msgid " Line: %1 Col: %2 "
+#~ msgstr " Line: %1 Col: %2 "
+
+#~ msgid " LINE "
+#~ msgstr " LINE "
+
+#~ msgid " INS "
+#~ msgstr " INS "
+
+#, fuzzy
+#~| msgid " Line: %1 Col: %2 "
+#~ msgid " Line: %1 of %2 Col: %3 "
+#~ msgstr " Line: %1 Col: %2 "
+
+#~ msgid " BLOCK "
+#~ msgstr " BLOCK "
+
+#~ msgid "Tree Mode"
+#~ msgstr "රුක් ආකාරය"
+
+#~ msgid "Set view style to Tree Mode"
+#~ msgstr "දසුන් රටාව වෘකෂ ප්‍රකාරයට සකසන්න"
+
+#~ msgid "Set view style to List Mode"
+#~ msgstr "දසුන් රටාව ලැයිස්තු ප්‍රකාරයට සකසන්න"
+
+#~ msgid "Document Name"
+#~ msgstr "ලේඛන නාමය"
+
+#~ msgid "Sort by Document Name"
+#~ msgstr "ලේඛන නම මගින් පෙළගසන්න"
+
+#~ msgid "Document Path"
+#~ msgstr "ලේඛන පෙත"
+
+#~ msgid "Sort by Document Path"
+#~ msgstr "ලේඛන මග මගින් පෙළගසන්න"
+
+#~ msgid "Sort by Opening Order"
+#~ msgstr "විවෘත කිරීම් පෙළගැස්ම මගින් පෙළගසන්න"
+
+#, fuzzy
+#~| msgid "Open W&ith"
+#~ msgid "Open With"
+#~ msgstr "සමඟ විවෘත කරන්න (&i)"
+
+#~ msgid "View Mode"
+#~ msgstr "දසුන් ආකාරය"
+
+#~ msgid "Sort By"
+#~ msgstr "ලෙස පෙලගසන්න"
+
+#~ msgid "Background Shading"
+#~ msgstr "පසුබිම් සෙවණැලිකරනය"
+
+#~ msgid "&Viewed documents' shade:"
+#~ msgstr "පෙන්වූ ලේඛනයේ සෙවණැලි (&V):"
+
+#~ msgid "&Modified documents' shade:"
+#~ msgstr "වෙනස්කල ලේඛනයේ සෙවණැල්ල (&M): "
+
+#~ msgid "&Sort by:"
+#~ msgstr "ලෙස පෙලගසන්න (&S):"
+
+#~ msgid "Url"
+#~ msgstr "Url"
+
+#~ msgid "Tree View"
+#~ msgstr "රුක් දසුන"
+
+#~ msgid "List View"
+#~ msgstr "ලැයිස්තු දසුන"
+
+#~ msgid "&Show Full Path"
+#~ msgstr "මුළු මඟ පෙන්වන්න (&S)"
+
+#~ msgid ""
+#~ "When background shading is enabled, documents that have been viewed or "
+#~ "edited within the current session will have a shaded background. The most "
+#~ "recent documents have the strongest shade."
+#~ msgstr ""
+#~ "පසුබිම් සෙවණැලි සක්‍රීය කල විට, වත්මන් වාරයේදී දර්ශනය කල හෝ සැකසූ ලේඛනයන් සතුව සෙවණැලි කල "
+#~ "පසුබිමක් දක්නට ලැබෙනු ඇත. වඩා මෑත ලේඛන සඳහා වඩා දැඩි සෙවණැලි ලැබෙනු ඇත."
+
+#~ msgid "Set the color for shading viewed documents."
+#~ msgstr "සෙවණැලි වන දර්ශිත ලේඛන සඳහා වර්ණය සකසන්න."
+
+#~ msgid ""
+#~ "Set the color for modified documents. This color is blended into the "
+#~ "color for viewed files. The most recently edited documents get most of "
+#~ "this color."
+#~ msgstr ""
+#~ "වෙනස්කල ලේඛන සඳහා වර්ණය සකසන්න. මෙම වර්ණය දිස්වූ ගොනු සඳහාද නැමියාවකින් යොදාගනී. වඩා "
+#~ "මෑතදී සැකසූ ලේඛන සඳහා වැඩිවශයෙන් මෙම වර්ණය ලැබේ."
+
+#~ msgid ""
+#~ "When enabled, in tree mode, top level folders will show up with their "
+#~ "full path rather than just the last folder name."
+#~ msgstr ""
+#~ "සක්‍රීය කල විට, වෘකෂ ආකාරයක, ඉහළ මට්ටමේ බහාලුම් ඒවායේ අවසන් බහලුම් නම වෙනුවට සම්පූර්ණ "
+#~ "මාර්ගය පෙන්වනු ඇත."
+
+#~ msgctxt "%1 is the full path"
+#~ msgid ""
+#~ "<p><b>%1</b></p><p>The document has been modified by another application."
+#~ "</p>"
+#~ msgstr "<p><b>%1</b></p><p>මෙම ලේඛනය වෙනත් යෙදුමක් මගින් භාවිත වේ.</p>"
+
+#~ msgid "Document Tree"
+#~ msgstr "ලේඛන රුක"
+
+#~ msgid "Show open documents in a tree"
+#~ msgstr "විවෘත ලේඛන ගසක පෙන්වන්න"
+
+#, fuzzy
+#~| msgid "Close Document"
+#~ msgid "Configure Documents"
+#~ msgstr "ලේඛනය වසන්න"
+
+#~ msgid "&Show Active"
+#~ msgstr "සක්‍රීය පෙන්වන්න (&S)"
+
+#~ msgid ""
+#~ "<p>Kate comes with a nice set of plugins, providing simple\n"
+#~ "and advanced features of all sorts.</p>\n"
+#~ "<p>You can enable/disable plugins to suit your needs in the configuration "
+#~ "dialog,\n"
+#~ "choose <strong>Settings -&gt;configure</strong> to launch that.</p>\n"
+#~ msgstr ""
+#~ "<p>Kate සතුව සියළුම ඝනයේ උසස් විශේෂාංග සපයන අගනා ප්ලගින\n"
+#~ "කට්ටලයක් පවතී.</p>\n"
+#~ "<p>සැකසුම් සංවාදය මගින් ඔබට ඔබේ අවශ්‍යතා වලට ගැලපෙන ප්ලගින සක්‍රීය/අක්‍රීය කල හැක,\n"
+#~ "ක්‍රියාත්මක කිරීමට <strong>අභිප්‍රේත -&gt;සකසන්න</strong> තෝරන්න.</p>\n"
+
+#~ msgid ""
+#~ "<p>You can swap the characters on each side of the cursor just by "
+#~ "pressing\n"
+#~ "<strong>Ctrl+T</strong></p>\n"
+#~ msgstr ""
+#~ "<p><strong>Ctrl+T</strong> එබීම මගින් ඔබට කර්සරය දෙපස ඇති අකුරු එකිනෙක\n"
+#~ "මාරු කල හැක</p>\n"
+
+#~ msgid ""
+#~ "<p>You can export the current document as a HTML file, including\n"
+#~ "syntax highlighting.</p>\n"
+#~ "<p>Just choose <strong>File -&gt; Export -&gt; HTML...</strong></p>\n"
+#~ msgstr ""
+#~ "<p>ඔබට කේත උපුටනයද සහිතව වත්මන් ලේඛනය HTML ගොනුවක් ලෙස\n"
+#~ "අපනයනය කල හැක.</p>\n"
+#~ "<p><strong>ගොනුව -&gt; අපනයනය -&gt; HTML...</strong> තෝරන්න</p>\n"
+
+#, fuzzy
+#~| msgid ""
+#~| "<p>You can split the Kate editor as many times as you like and\n"
+#~| "in either direction. Each frame has its own status bar and\n"
+#~| "can display any open document.</p>\n"
+#~| "<p>Just choose <br><strong>View -&gt; Split [ Horizontal | Vertical ]</"
+#~| "strong></p>\n"
+#~ msgid ""
+#~ "<p>You can split the Kate editor as many times as you like and\n"
+#~ "in either direction. Each frame has its own status bar and\n"
+#~ "can display any open document.</p>\n"
+#~ "<p>Just choose <br><strong>View -&gt; Split View -&gt; Split [ Horizontal "
+#~ "| Vertical ]</strong></p>\n"
+#~ msgstr ""
+#~ "<p>ඔබට Kate සකසනය ඕනෑම ගණනකට ඕනෑම දිශාවකට බෙදිය හැක\n"
+#~ "එක් එක් රාමුව සතුව එයටම තත්ව තීරුවක් ඇති අතර ඕනෑම විවෘත ලේඛනයක්\n"
+#~ "පෙන්විය හැක.</p>\n"
+#~ "<p><br><strong>දසුන -&gt; බෙදන්න [ තිරස් | සිරස් ]</strong></p>\n"
+
+#~ msgid ""
+#~ "<p>Kate has a built-in terminal emulator, just click on <strong>\"Terminal"
+#~ "\"</strong> at\n"
+#~ "the bottom to show or hide it as you desire.</p>\n"
+#~ msgstr ""
+#~ "<p>Kate සතුව තිළැලි අග්‍ර අනුකාරකයක් ඇත, පහත ඇති <strong>\"අග්‍රිය\"</strong> ලකුන\n"
+#~ "ඔබට එය සැඟවීමට හෝ පෙන්වීමට ඇවැසි නම් ක්ලික් කරන්න.</p>\n"
+
+#~ msgid ""
+#~ "<p>Kate can highlight the current line with a\n"
+#~ "<table bgcolor=\"yellow\" border=\"0\" cellspacing=\"0\" cellpadding="
+#~ "\"0\" width=\"100%\"><tr><td>different\n"
+#~ "background color.<strong>|</strong></td></tr></table></p>\n"
+#~ "<p>You can set the color in the <em>Colors</em> page of the "
+#~ "configuration\n"
+#~ "dialog.</p>\n"
+#~ msgstr ""
+#~ "<p>Kate හට වත්මන් රේඛාව\n"
+#~ "<table bgcolor=\"yellow\" border=\"0\" cellspacing=\"0\" cellpadding="
+#~ "\"0\" width=\"100%\"><tr><td>වෙනස්\n"
+#~ "පසුබිම් වර්ණයකින්.<strong>|</strong></td></tr></table> උපුටාගත හැක</p>\n"
+#~ "<p>ඔබට එම වර්ණය සැකසුම් සංවාදයේ <em>වර්ණ</em> පිටුවේදී තෝරාගත\n"
+#~ "හැක.</p>\n"
+
+#~ msgid ""
+#~ "<p>You can open the currently edited file in any other application from "
+#~ "within\n"
+#~ "Kate.</p>\n"
+#~ "<p>Choose <strong>File -&gt; Open With</strong> for the list of programs\n"
+#~ "configured\n"
+#~ "for the document type. There is also an option <strong>Other...</strong> "
+#~ "to\n"
+#~ "choose any application on your system.</p>\n"
+#~ msgstr ""
+#~ "<p>ඔබට දැනට සකසන ගොනු වෙනත් ඕනෑම යෙදුමකින්ද විවෘත කල හැක </p>\n"
+#~ "<p>සැකසූ යෙදුම් ලැයිස්තුව සඳහා<strong>ගොනුව -&gt; සමඟ විවෘතකරන්ම</strong>\n"
+#~ "තෝරන්න\n"
+#~ "ලේඛන වර්ගය සඳහා. ඔබේ පද්ධතියේ ඕනෑම යෙදුමක් තේරීමට <strong>වෙනත්...</strong>\n"
+#~ "තෝරන්න.</p>\n"
+
+#, fuzzy
+#~| msgid ""
+#~| "<p>You can configure the editor to always display the line numbers and/"
+#~| "or\n"
+#~| "bookmark panes when started from the <strong>View Defaults</strong> page "
+#~| "of the\n"
+#~| "configuration dialog.</p>\n"
+#~ msgid ""
+#~ "<p>You can configure the editor to always display the line numbers and/"
+#~ "or\n"
+#~ "bookmark panes when started from the <strong>Appearance</strong> page of "
+#~ "the\n"
+#~ "configuration dialog.</p>\n"
+#~ msgstr ""
+#~ "<p>ඔබට පේළි අංකය හා/හෝ පොත්සලකුණු පේනු ආරම්භයේදීම පෙන්වීම සඳහා සැකසීමට\n"
+#~ "සැකසුම් සංවාදයේ <strong>පෙරනිමි පෙන්වන්න</strong> පිටුව යොදාගත\n"
+#~ "හැක.</p>\n"
+
+#, fuzzy
+#~| msgid ""
+#~| "<p>You can download new or updated <em>Syntax highlight definitions</em> "
+#~| "from\n"
+#~| "the <strong>Highlighting</strong> page in the configuration dialog.</p>\n"
+#~| "<p>Just click the <em>Download...</em> button on the <em>Open/Save -&gt; "
+#~| "Modes & Filetypes</em>\n"
+#~| "tab (You have to be online, of course...).</p>\n"
+#~ msgid ""
+#~ "<p>You can download new or updated <em>Syntax highlight definitions</em> "
+#~ "from\n"
+#~ "the <strong>Open/Save</strong> page in the configuration dialog.</p>\n"
+#~ "<p>Just click the <em>Download...</em> button on the <em>Open/Save -&gt; "
+#~ "Modes &amp; Filetypes</em>\n"
+#~ "tab (You have to be online, of course...).</p>\n"
+#~ msgstr ""
+#~ "<p>ඔබට නව හෝ යාවත් කල <em>කේත උපුටන හැඳින්වීම්</em>සැකසුම් සංවාදයේ  <strong>උපුටන</"
+#~ "strong> පිටුවේදී සැකසිය හැක.</p>\n"
+#~ "<p><em>විවෘත/සුරැකුම් -&gt;ප්‍රකාර හා ගොනු වර්ග</em> ටැබයේ <em>බාගන්න...</em>\n"
+#~ "බොත්තම මගින් බාගත හැක (ඇත්තෙන්ම ඔබ මාර්ගගතව සිටිය යුතුයි...).</p>\n"
+
+#~ msgid ""
+#~ "<p>You can cycle through all open documents by pressing <strong>Alt+Left</"
+#~ "strong>\n"
+#~ "or <strong>Alt+Right</strong>. The next/previous document will "
+#~ "immediately be displayed\n"
+#~ "in the active frame.</p>\n"
+#~ msgstr ""
+#~ "<p>ඔබට සියළු විවෘත ලේඛන අතර මාරුවීමට <strong>Alt+Left</strong> හෝ\n"
+#~ " <strong>Alt+Right</strong> යතුරු යොදාගත හැක. පෙර/පසු ලේඛන ක්‍ෂනිකව සක්‍රීය රාමුවක "
+#~ "දිස්වේ.</p>\n"
+
+#~ msgid ""
+#~ "<p>You can do cool sed-like regular expression replacements using "
+#~ "<em>Command Line</em>.</p>\n"
+#~ "<p>For example, press <strong>F7</strong> and enter <code>s /oldtext/"
+#~ "newtext/g</code>\n"
+#~ "to replace &quot;oldtext&quot; with &quot;newtext&quot; throughout the "
+#~ "current\n"
+#~ "line.</p>\n"
+#~ msgstr ""
+#~ "<p>ඔබට <em>විධාන රේඛාව</em> භාවිතයෙන් සෙඩ් වැනි අලංකාර සාමාන්‍ය ප්‍රකාශන ප්‍රතිපිහිටුවීම් "
+#~ "ලැබිය හැක.</p>\n"
+#~ "<p>උදාහරණයක් ලෙස, <strong>F7</strong> හා <code>s /oldtext/newtext/g</"
+#~ "code>කේතයෙන් \n"
+#~ "&quot;අළුත් පෙළ&quot; සමඟ &quot;පැරණි පෙළ&quot; වත්මන් රේඛාව මගින් පිහිටුවිය\n"
+#~ "හැක.</p>\n"
+
+#~ msgid ""
+#~ "<p>You can repeat your last search by just pressing <strong>F3</strong>, "
+#~ "or\n"
+#~ "<strong>Shift+F3</strong> if you want to search backwards.</p>\n"
+#~ msgstr ""
+#~ "<p>ඔබට අවසන් සෙවුම <strong>F3</strong>, හෝ\n"
+#~ "<strong>Shift+F3</strong> එබීමෙන් නැවත ඉටුකල හැක. ආපු සෙවීමට ඇවසි නම්.</p>\n"
+
+#, fuzzy
+#~| msgid ""
+#~| "<p>You can filter the files displayed in the <em>File Selector</em> tool "
+#~| "view.\n"
+#~| "</p>\n"
+#~| "<p>Simply enter your filter in the filter entry at the bottom, for "
+#~| "example:\n"
+#~| "<code>*.html *.php</code> if you only want to see HTML and PHP files in "
+#~| "the\n"
+#~| "current folder.</p>\n"
+#~| "<p>The File Selector will even remember your filters for you.</strong></"
+#~| "p>\n"
+#~ msgid ""
+#~ "<p>You can filter the files displayed in the <em>Filesystem Browser</em> "
+#~ "tool view.\n"
+#~ "</p>\n"
+#~ "<p>Simply enter your filter in the filter entry at the bottom, for "
+#~ "example:\n"
+#~ "<code>*.html *.php</code> if you only want to see HTML and PHP files in "
+#~ "the\n"
+#~ "current folder.</p>\n"
+#~ "<p>The Filesystem Browser will even remember your filters for you.</p>\n"
+#~ msgstr ""
+#~ "<p>ඔබට <em>ගොනු තේරීමේ</em> මෙවලම් තීරුවේ දිස්වෙන ගොනු පෙරාහැරිය හැක.\n"
+#~ "</p>\n"
+#~ "<p>සරලව ඔබේ පෙරහන පහත ඇති පෙරහන් ඇතුළත්කිරීමට එක් කිරීමෙන්, උදාහරණයක් ලෙස:\n"
+#~ "<code>*.html *.php</code> ඔබට HTML හා PHP ගොනු වත්මන් බහාලුමේ පෙන්වීමට\n"
+#~ "ඇවැසිනම්.</p>\n"
+#~ "<p>ගොනු තේරීම විසින් ඔබ වෙනුවෙන් ඔබේ පෙරහණ මතකතබාගනු ඇත.</strong></p>\n"
+
+#~ msgid ""
+#~ "<p>You can have two views - or even more - of the same document in Kate. "
+#~ "Editing\n"
+#~ "in either will be reflected in both.</p>\n"
+#~ "<p>So if you find yourself scrolling up and down to look at text at the "
+#~ "other\n"
+#~ "end of a document, just press <strong>Ctrl+Shift+T</strong> to split\n"
+#~ "horizontally.</p>\n"
+#~ msgstr ""
+#~ "<p>ඔබට එකම ලේඛනය Kate මත සැකසීම සඳහා දසුන් දෙකක් හෝ ඊටත් වඩා සංඛ්‍යාවක් ලැබිය හැක\n"
+#~ "එකක් සියල්ලම පිළිබිඹු කරනු ඇත.</p>\n"
+#~ "<p> එමනිසා ඔබ ලේඛනයේ අනිත් ඉම වෙත ඉහලට හා පහලට ස්ක්‍රෝල් කරයි නම් <strong>Ctrl"
+#~ "+Shift+T</strong> යතුරු ඔබා තිරස්ව දසුන\n"
+#~ "බෙදාගන්න.</p>\n"
+
+#~ msgid ""
+#~ "<p>Press <strong>F8</strong> or <strong>Shift+F8</strong> to switch to "
+#~ "the\n"
+#~ "next/previous frame.</p>\n"
+#~ msgstr ""
+#~ "<p>ඊලඟ හා පෙර රාමු අතර මාරුවීමට <strong>F8</strong> හෝ<strong>Shift+F8</"
+#~ "strong>\n"
+#~ "ඔබන්න.</p>\n"
+
+#~ msgctxt "@item:inmenu"
+#~ msgid "C++ Source File (GPL)"
+#~ msgstr "C++ මූල ගොනුව (GPL)"
+
+#~ msgctxt "@item:inmenu"
+#~ msgid "Source Code"
+#~ msgstr "මූල කේතය"
+
+#~ msgctxt "@info:whatsthis"
+#~ msgid "A very simple GPL C++ source file"
+#~ msgstr "ඉතා සරල GPL C++ මූල ගොනුව"
+
+#~ msgctxt "@info:credit"
+#~ msgid "Anders Lund <anders@alweb.dk>"
+#~ msgstr "Anders Lund <anders@alweb.dk>"
+
+#~ msgctxt "@item:inmenu"
+#~ msgid "C++ Header (GPL)"
+#~ msgstr "C++ ශීර්ෂකය (GPL)"
+
+#~ msgctxt "@info:whatsthis"
+#~ msgid "A very simple GPL C++ header file"
+#~ msgstr "ඉතා සරල GPL C++ ශීර්ෂක ගොනුව"
+
+#~ msgctxt "@item:inmenu"
+#~ msgid "C++ Source File (LGPL)"
+#~ msgstr "C++ මූල ගොනුව (LGPL)"
+
+#~ msgctxt "@info:whatsthis"
+#~ msgid "A very simple LGPL C++ source file"
+#~ msgstr "ඉතා සරල LGPL C++ මූල ගොනුව"
+
+#~ msgctxt "@item:inmenu"
+#~ msgid "C++ Header (LGPL)"
+#~ msgstr "C++ ශීර්ෂකය (LGPL)"
+
+#~ msgctxt "@info:whatsthis"
+#~ msgid "A very simple LGPL C++ header file"
+#~ msgstr "ඉතා සරල LGPL C++ ශීර්ෂක ගොනුව"
+
+#~ msgctxt "@item:inmenu"
+#~ msgid "Kate Plugin Docbook Chapter"
+#~ msgstr "Kate ප්ලගින Docbook පරිඡ්චේදය"
+
+#~ msgctxt "@item:inmenu"
+#~ msgid "Documentation"
+#~ msgstr "ප්‍රලේඛනය"
+
+#~ msgctxt "@info:whatsthis"
+#~ msgid ""
+#~ "This creates a suitable beginning of a docbook chapter for a Kate plugin."
+#~ msgstr "මෙය Kate ප්ලගිනයක් සඳහා වන docbook පරිඡ්චේදයක සුදුසු ආරම්භයක් ජනනය කරයි."
+
+#~ msgctxt "@item:inmenu"
+#~ msgid "HTML 4.01 Strict Document"
+#~ msgstr "HTML 4.01 ඍජු ලේඛනය"
+
+#~ msgctxt "@item:inmenu"
+#~ msgid "Internet"
+#~ msgstr "අන්තර්ජාලය"
+
+#~ msgctxt "@info:whatsthis"
+#~ msgid ""
+#~ "This will create a very basic HTML file with the HTML 4.01 strict DTD."
+#~ msgstr "මෙය HTML 4.01 දැඩි DTD යොදාගනිමින් ඉතා සරල HTML ගොනුවක් සකසනු ඇත."
+
+#~ msgctxt "@item:inmenu"
+#~ msgid "Kate Highlight Definition"
+#~ msgstr "Kate උපුටන හැඳින්වීම"
+
+#~ msgctxt "@info:whatsthis"
+#~ msgid ""
+#~ "This template will create the basics of a kate highlight definition file."
+#~ msgstr "මෙම අකෘතිය මූලික kate උපුටන හැඳින්වුම් ගොනුවක් නිර්මාණය කරයි."
+
+#~ msgctxt "@info:credit"
+#~ msgid "Dominik Haumann <dhdev@gmx.de>"
+#~ msgstr "Dominik Haumann <dhdev@gmx.de>"
+
+#, fuzzy
+#~| msgid "Location"
+#~ msgid "Action:"
+#~ msgstr "පිහිටුම"
+
+#, fuzzy
+#~| msgid "Title"
+#~ msgid "Title:"
+#~ msgstr "සිරස්තලය"
+
+#, fuzzy
+#~| msgid "Name"
+#~ msgid "Name:"
+#~ msgstr "න"
+
+#, fuzzy
+#~| msgid "Plugin Manager"
+#~ msgid "Manager"
+#~ msgstr "ප්ලගින පාලකය"
+
+#, fuzzy
+#~| msgid "Plugins"
+#~ msgid "Reload Plugins"
+#~ msgstr "ප්ලගීන"
+
+#, fuzzy
+#~| msgid "Plugins"
+#~ msgid "Python Plugins"
+#~ msgstr "ප්ලගීන"
+
+#, fuzzy
+#~| msgctxt "@item:inmenu"
+#~| msgid "Documentation"
+#~ msgid "Documentation"
+#~ msgstr "ප්‍රලේඛනය"
+
+#, fuzzy
+#~| msgid "Matteo Merli"
+#~ msgid "Pattern Model"
+#~ msgstr "Matteo Merli"
+
+#, fuzzy
+#~| msgid "Filename"
+#~ msgid "Transform Filenames"
+#~ msgstr "ගොනු නාමය"
+
+#, fuzzy
+#~| msgctxt "@item:inmenu"
+#~| msgid "Kate Highlight Definition"
+#~ msgid "Highlight definitions using etags(1):"
+#~ msgstr "Kate උපුටන හැඳින්වීම"
+
+#, fuzzy
+#~| msgid "&Settings"
+#~ msgid "Settings..."
+#~ msgstr "සැකසුම් (&S)"
+
+#, fuzzy
+#~| msgid "Configure"
+#~ msgid "Continuation Prompt:"
+#~ msgstr "සකසන්න"
+
+#, fuzzy
+#~| msgid "Highlighting for SQL"
+#~ msgid "Highlighting"
+#~ msgstr "SQL සඳහා උපුටනය"
+
+#, fuzzy
+#~| msgctxt "@item:inmenu"
+#~| msgid "Internet"
+#~ msgid "Integer:"
+#~ msgstr "අන්තර්ජාලය"
+
+#, fuzzy
+#~| msgid "&Help"
+#~ msgid "Help:"
+#~ msgstr "උදව් (&H)"
+
+#, fuzzy
+#~| msgid "Location"
+#~ msgid "Exception:"
+#~ msgstr "පිහිටුම"
+
+#, fuzzy
+#~| msgid "Configure"
+#~ msgid "ConfigWidget"
+#~ msgstr "සකසන්න"
+
+#, fuzzy
+#~| msgid "&View Difference"
+#~ msgid "Reference"
+#~ msgstr "වෙනස පෙන්වන්න (&V)"
+
+#, fuzzy
+#~| msgid "Name"
+#~ msgid "Full Name:"
+#~ msgstr "න"
+
+#, fuzzy
+#~| msgid "&Reload"
+#~ msgid "Reload"
+#~ msgstr "ප්‍රතිපූර්ණය (&R)"
+
+#~ msgid ""
+#~ "<p>You can drag the Tool views (<em>File List</em> and <em>File Selector</"
+#~ "em>)\n"
+#~ "to any side that you want them in Kate, or stack them, or even tear them "
+#~ "off the\n"
+#~ "main window.</p>\n"
+#~ msgstr ""
+#~ "<p>ඔබට මෙවලම් දසුන (<em>ගොනු ලැයිස්තුව</em> හා <em>ගොනු තේරීම</em>)\n"
+#~ "Kate සමඟ ඕනෑම අතකට ඇදීමට, ගොඩගැසීමට හෝ ප්‍රධාන කවුළුවේදී ඉරා\n"
+#~ "දැමීමට හැක.</p>\n"
+
+#~ msgid "&Save Selected"
+#~ msgstr "තේරීම් සුරකින්න (&S)"
+
+#~ msgid "Do &Not Close"
+#~ msgstr "වසන්න එපා (&N)"
+
+#~ msgid ""
+#~ "Removes the modified flag from the selected documents and closes the "
+#~ "dialog if there are no more unhandled documents."
+#~ msgstr ""
+#~ "තෝරාගත් ලේඛනයන්ගෙන් වෙනස්කල ධජය ඉවත්කරන අතර තවත් නොහැසිරවූ ලේඛන නොමැතිනම් සංවාදය "
+#~ "වසාදමයි."
+
+#~ msgid ""
+#~ "Reloads the selected documents from disk and closes the dialog if there "
+#~ "are no more unhandled documents."
+#~ msgstr "තෝරාගත් ලේඛන තැටියෙන් ප්‍රතිපිහිටුවන අතර තවත් නොහැසිරවූ ගොනු තිබේනම් ඒවා වසා දමයි."
+
+#, fuzzy
+#~| msgid "Create a new document"
+#~ msgid "Cannot go to the document"
+#~ msgstr "නව ලේඛනය නිර්මාණය"
+
+#~ msgid "Configure Tree View"
+#~ msgstr "රුක් දසුන සකසන්න"
+
+#~ msgctxt "'document name [*]', [*] means modified"
+#~ msgid "%1 [*]"
+#~ msgstr "%1 [*]"
+
+#~ msgid ""
+#~ "<p><b>bp/bn &mdash; switch to previous/next document</b></p><p>Usage: "
+#~ "<tt><b>bp/bn</b></tt></p><p>Goes to <b>p</b>revious or <b>n</b>ext "
+#~ "document (\"<b>b</b>uffer\"). The two commands are:<br /> <tt>bp</tt> "
+#~ "&mdash; goes to the document before the current one in the document list."
+#~ "<br /> <tt>bn</tt> &mdash; goes to the document after the current one in "
+#~ "the document list.<br /><p>Both commands wrap around, i.e., if you go "
+#~ "past the last document you end up at the first and vice versa.</p>"
+#~ msgstr ""
+#~ "<p><b>bp/bn &mdash;පෙර/පසු ලේඛන වෙත මාරුවන්න</b></p><p>භාවිතය: <tt><b>bp/bn</"
+#~ "b></tt></p><p> <b>පෙ</b>ර හෝ <b>ඊ</b>ලඟ ලේඛන වෙත යයි(\"<b>බ</b>ෆර\"). විධාන "
+#~ "දෙක වනුයේ:<br /> <tt>bp</tt> &mdash; ලේඛන ලැයිස්තුවේ වත්මන් ලේඛනයට පෙර ලේඛනයට "
+#~ "යයි.<br /> <tt>bn</tt> &mdash; ලේඛන ලැයිස්තුවේ වත්මන් ලේඛනයට පසු ලේඛනයට යයි.<br /"
+#~ "><p>විධාන දෙකම එකිනෙකට බද්ධ වේ, උදා, ඔබ අවසන් ලේඛනය පසුකල විට පලමු ලේඛනයට එන අතර "
+#~ "දෙපසටම සිදුවේ.</p>"
+
+#, fuzzy
+#~| msgid "General Options"
+#~ msgid "GDB Integration"
+#~ msgstr "සාමාන්‍ය විකල්ප"
+
+#, fuzzy
+#~| msgid "Starting Up"
+#~ msgid "Start Debugging"
+#~ msgstr "අරඹමින්"
+
+#, fuzzy
+#~| msgid "Configure"
+#~ msgid "Continue"
+#~ msgstr "සකසන්න"
+
+#~ msgid "Filesystem Browser"
+#~ msgstr "ගොනු පද්ධති ගවේශකය"

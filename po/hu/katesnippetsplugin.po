@@ -1,0 +1,378 @@
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Balázs Úr <urbalazs@gmail.com>, 2012.
+# Kristóf Kiszel <ulysses@kubuntu.org>, 2014, 2015.
+# Kristof Kiszel <ulysses@fsf.hu>, 2021.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"PO-Revision-Date: 2021-12-17 11:38+0100\n"
+"Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
+"Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
+"Language: hu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 21.12.0\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Kiszel Kristóf,Úr Balázs"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "ulysses@fsf.hu,urbalazs@gmail.com"
+
+#: editrepository.cpp:81 editrepository.cpp:126
+#, kde-format
+msgid "Edit Snippet Repository %1"
+msgstr "A(z) %1 kódrészlet-tároló szerkesztése"
+
+#: editrepository.cpp:83
+#, kde-format
+msgid "Create New Snippet Repository"
+msgstr "Új kódrészlet-tároló létrehozása"
+
+#: editrepository.cpp:142
+#, kde-format
+msgid "<i>leave empty for general purpose snippets</i>"
+msgstr "<i>hagyja üresen az általános célú kódrészletekhez</i>"
+
+#. i18n: ectx: property (text), widget (QLabel, repoNameLabel)
+#. i18n: ectx: property (text), widget (QLabel, snippetName)
+#: editrepository.ui:29 editsnippet.ui:35
+#, kde-format
+msgid "Name:"
+msgstr "Név:"
+
+#. i18n: ectx: property (text), widget (QLabel, repoNamespaceLabel)
+#: editrepository.ui:36
+#, kde-format
+msgid "Namespace:"
+msgstr "Névtér:"
+
+#. i18n: ectx: property (text), widget (QLabel, repoLicenseLabel)
+#: editrepository.ui:43
+#, kde-format
+msgid "&License:"
+msgstr "&Licenc:"
+
+#. i18n: ectx: property (text), widget (QLabel, repoAuthorsLabel)
+#: editrepository.ui:56
+#, kde-format
+msgid "&Authors:"
+msgstr "&Szerző:"
+
+#. i18n: ectx: property (text), widget (QLabel, repoFileTypesLabel)
+#: editrepository.ui:69
+#, kde-format
+msgid "&File types:"
+msgstr "&Fájltípusok:"
+
+#. i18n: ectx: property (placeholderText), widget (QLineEdit, repoNameEdit)
+#: editrepository.ui:96
+#, kde-format
+msgid "A short name for the repository"
+msgstr "A tároló rövid neve"
+
+#. i18n: ectx: property (placeholderText), widget (QLineEdit, repoNamespaceEdit)
+#: editrepository.ui:103
+#, kde-format
+msgid "Prefix to show in code completion"
+msgstr "A kódkiegészítésnél megjelenő előtag"
+
+#: editsnippet.cpp:97 editsnippet.cpp:177
+#, kde-format
+msgid "Edit Snippet %1 in %2"
+msgstr "A(z) %1. kódrészlet szerkesztése itt: %2"
+
+#: editsnippet.cpp:107
+#, kde-format
+msgid "Create New Snippet in Repository %1"
+msgstr "Új kódrészlet létrehozása a(z) %1. tárolóban"
+
+#: editsnippet.cpp:145
+#, kde-format
+msgid "Snippet name cannot contain spaces"
+msgstr "A kódrészlet neve nem tartalmazhat szóközt"
+
+#: editsnippet.cpp:189
+#, kde-format
+msgid ""
+"The snippet contains unsaved changes. Do you want to continue and lose all "
+"changes?"
+msgstr ""
+"A kódrészlet mentetlen módosításokat tartalmaz. Szeretné folytatni és minden "
+"változást elveszíteni?"
+
+#: editsnippet.cpp:190
+#, kde-format
+msgid "Warning - Unsaved Changes"
+msgstr "Figyelem - Nem mentett változások"
+
+#. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
+#: editsnippet.ui:42
+#, kde-format
+msgid "will be shown in the completion list"
+msgstr "a kiegészítési listában jelenik meg"
+
+#. i18n: ectx: attribute (title), widget (QWidget, snippetTab)
+#: editsnippet.ui:62
+#, kde-format
+msgid "&Snippet"
+msgstr "Kódré&szlet"
+
+#. i18n: ectx: property (text), widget (QLabel, snippetLabel)
+#: editsnippet.ui:68
+#, kde-format
+msgid ""
+"The text your snippet will insert into the document. <a href=\"A snippet can "
+"contain editable fields. They can be cycled by pressing Tab. The following "
+"expressions can be used in the template text to create fields: <br><tt>"
+"${field_name}</tt> creates a simple, editable field. All subsequent "
+"occurrences of the same field_name create fields which mirror the contents "
+"of the first during editing.<br><tt>${field_name=default}</tt> can be used "
+"to specify a default value for the field. <tt>default</tt> can be any "
+"JavaScript expression.<br>Use <tt>${field_name=text}</tt> to specify a fixed "
+"string as default value.<br><tt>${func(other_field1, other_field2, ...)}</"
+"tt> can be used to create a field which evaluates a JavaScript function on "
+"each edit and contains its contents. See the Scripts tab for more "
+"information.<br><tt>${cursor}</tt> can be used to mark the end position of "
+"the cursor after everything else was filled in.\">More...</a>"
+msgstr ""
+"A kódrészlettel a dokumentumba beilleszthető szöveg. <a href=\"A kódrészlet "
+"tartalmazhat szerkeszthető mezőket. Ezeket a Tab billentyű lenyomásával "
+"lehet ciklikusan váltogatni. A következő kifejezések használhatók a "
+"sablonszövegben mezők létrehozására: <br><tt>${mezőnév}</tt> egy egyszerű, "
+"szerkeszthető mezőt hoz létre. Minden további előfordulása olyan mezőket hoz "
+"létre, amelyek tükrözik az első mező tartalmát szerkesztés közben.<br><tt>"
+"${mezőnév=default}</tt> a mező alapértelmezett értékének megadására "
+"használható. <tt>default</tt> lehet bármilyen JavaScript kifejezés.<br>A <tt>"
+"${mezőnév=szöveg}</tt> használatával egy fix értéket adhat meg karakterlánc "
+"alapértelmezett értékeként.<br><tt>${func(más_mező1, más_mező2, …)}</tt> "
+"olyan mező létrehozására használható, amely kiértékel egy JavaScript "
+"függvényt a minden szerkesztéskor, és tartalmazza annak tartalmát. További "
+"információkért lásd a Szkriptek lapot.<br><tt>${cursor}</tt> használható a "
+"kurzor végpozíciójának jelölésére, miután minden mást ki lett töltve."
+"\">Tovább…</a>"
+
+#. i18n: ectx: attribute (title), widget (QWidget, scriptTab)
+#: editsnippet.ui:82
+#, kde-format
+msgid "S&cripts"
+msgstr "Sz&kriptek"
+
+#. i18n: ectx: property (text), widget (QLabel, scriptLabel)
+#: editsnippet.ui:88
+#, kde-format
+msgid ""
+"Write down JavaScript helper functions to use in your snippets here. <a href="
+"\"All JavaScript functions should return the contents you want to place in a "
+"template field as a string.<br>Functions are called in a scope which "
+"contains the contents of all editable template fields as local variables. "
+"For example in a snippet containing <tt>${field}</tt>, a variable called "
+"<tt>field</tt> will be present which contains the up-to-date contents of the "
+"template field. Those variables can either be used in the function "
+"statically or passed as arguments, by using the <tt>${func(field)}</tt> or "
+"<tt>${field2=func(field)}</tt> syntax in the snippet string.<br>You can use "
+"the kate scripting API to get the selected text, full text, file name and "
+"more by using the appropriate methods of the <tt>document</tt> and <tt>view</"
+"tt> objects. Refer to the scripting API documentation for more information."
+"\">More...</a>"
+msgstr ""
+"Itt írja le a kódrészletekben használandó JavaScript segédfüggvényeket. <a "
+"href=\"Minden JavaScript függvénynek azt a tartalmat kell visszaadnia, "
+"amelyet a sablonmezőbe kíván helyezni sztringként.<br>A függvények egy olyan "
+"hatókörben hívódnak, amelyik tartalmazza az összes szerkeszthető sablonmező "
+"tartalmát helyi változóként. Például egy <tt>${mező}</tt>-t tartalmazó "
+"kódrészletben egy változó, a <tt>mező</tt> lesz jelen, amely tartalmazza a "
+"sablonmező aktuális tartalmát. Ezeket a változókat vagy a függvényben lehet "
+"használni statikusan, vagy argumentumként átadva, a <tt>$${func(mező)}</tt> "
+"vagy a <tt>${mező2=func(mező)}</tt> használatával a kódrészletben."
+"<br>Használhatja a Kate szkriptelési API-ját a kijelölt szöveg, a teljes "
+"szöveg, a fájlnév és továbbiak lekérésére a <tt>document</tt> és <tt>view</"
+"tt> megfelelő metódusainak használatával. További információkért olvassa el "
+"a szkriptelési API dokumentációját.\">Tovább…</a>"
+
+#. i18n: ectx: property (text), widget (QPushButton, dotest_button)
+#: editsnippet.ui:105
+#, kde-format
+msgid "Test this snippet"
+msgstr "Kódrészlet tesztelése"
+
+#: katesnippetglobal.cpp:104
+#, kde-format
+msgctxt "Autogenerated repository name for a programming language"
+msgid "%1 snippets"
+msgstr "%1 kódrészlet"
+
+#: katesnippets.cpp:46 katesnippets.cpp:54 snippetcompletionmodel.cpp:43
+#: snippetview.cpp:76 snippetview.cpp:202
+#, kde-format
+msgid "Snippets"
+msgstr "Kódrészletek"
+
+#: katesnippets.cpp:65
+#, kde-format
+msgid "Create Snippet"
+msgstr "Kódrészlet létrehozása"
+
+#: snippet.cpp:23
+#, kde-format
+msgid "<empty snippet>"
+msgstr "<üres kódrészlet>"
+
+#: snippet.cpp:61
+#, kde-format
+msgid "insert snippet %1"
+msgstr "%1. kódrészlet beszúrása"
+
+#: snippetrepository.cpp:45
+#, kde-format
+msgid "<empty repository>"
+msgstr "<üres tároló>"
+
+#: snippetrepository.cpp:232
+#, kde-format
+msgid ""
+"You have edited a snippet repository file not located in your personal "
+"directory; as such, a copy of the original file has been created within your "
+"personal data directory."
+msgstr ""
+"Olyan kódrészlet-tároló fájlt szerkesztett, ami nem az Ön saját mappájában "
+"található, ezért az eredeti fájl másolata került létrehozásra a saját "
+"mappájában."
+
+#: snippetrepository.cpp:238
+#, kde-format
+msgid "Output file '%1' could not be opened for writing"
+msgstr "A(z) „%1” kimenetfájl nem nyitható meg írásra"
+
+#: snippetrepository.cpp:273
+#, kde-format
+msgid "Cannot open snippet repository %1."
+msgstr "Nem nyitható meg a kódrészlet-tároló: %1."
+
+#: snippetrepository.cpp:286
+#, kde-format
+msgid ""
+"<qt>The error <b>%4</b><br /> has been detected in the file %1 at %2/%3</qt>"
+msgstr ""
+"<qt>A(z) <b>%4</b><br /> hiba található a(z) %1 fájlban itt: %2/%3</qt>"
+
+#: snippetrepository.cpp:293
+#, kde-format
+msgid "Invalid XML snippet file: %1"
+msgstr "Érvénytelen XML kódrészletfájl: %1"
+
+#: snippetrepository.cpp:355
+#, kde-format
+msgid ""
+"Repository is disabled, the contained snippets will not be shown during code-"
+"completion."
+msgstr ""
+"A tároló le van tiltva, a tartalmazott kódrészletek nem lesznek láthatók a "
+"kódkiegészítés során."
+
+#: snippetrepository.cpp:358
+#, kde-format
+msgid "Applies to all filetypes"
+msgstr "Alkalmazás minden fájltípusra"
+
+#: snippetrepository.cpp:360
+#, kde-format
+msgid "Applies to the following filetypes: %1"
+msgstr "Alkalmazás a következő fájltípusokra: %1"
+
+#: snippetview.cpp:93
+#, kde-format
+msgid "Add Repository"
+msgstr "Tároló hozzáadása"
+
+#: snippetview.cpp:96
+#, kde-format
+msgid "Edit Repository"
+msgstr "Tároló szerkesztése"
+
+#: snippetview.cpp:99
+#, kde-format
+msgid "Remove Repository"
+msgstr "Tároló eltávolítása"
+
+#: snippetview.cpp:109
+#, kde-format
+msgid "Add Snippet"
+msgstr "Kódrészlet hozzáadása"
+
+#: snippetview.cpp:112
+#, kde-format
+msgid "Edit Snippet"
+msgstr "Kódrészlet szerkesztése"
+
+#: snippetview.cpp:115
+#, kde-format
+msgid "Remove Snippet"
+msgstr "Kódrészlet eltávolítása"
+
+#: snippetview.cpp:121
+#, kde-format
+msgid "Get New Snippets"
+msgstr "Új kódrészletek letöltése"
+
+#: snippetview.cpp:210
+#, kde-format
+msgid "Snippet: %1"
+msgstr "Kódrészlet: %1"
+
+#: snippetview.cpp:218
+#, kde-format
+msgid "Repository: %1"
+msgstr "Tároló: %1"
+
+#: snippetview.cpp:282
+#, kde-format
+msgid "Do you really want to delete the snippet \"%1\"?"
+msgstr "Valóban törölni szeretné a(z) „%1” kódrészletet?"
+
+#: snippetview.cpp:324
+#, kde-format
+msgid ""
+"Do you really want to delete the repository \"%1\" with all its snippets?"
+msgstr ""
+"Valóban törölni szeretné a(z) „%1” tárolót minden kódrészletével együtt?"
+
+#. i18n: ectx: property (toolTip), widget (KLineEdit, filterText)
+#: snippetview.ui:35
+#, kde-format
+msgid "Define filter here"
+msgstr "Szűrő meghatározása itt"
+
+#. i18n: ectx: property (placeholderText), widget (KLineEdit, filterText)
+#: snippetview.ui:38
+#, kde-format
+msgid "Filter..."
+msgstr "Szűrő…"
+
+#. i18n: ectx: Menu (tools)
+#: ui.rc:6
+#, kde-format
+msgid "&Tools"
+msgstr "&Eszközök"
+
+#~ msgid "Snippets tool view"
+#~ msgstr "Kódrészletek eszköznézet"
+
+#~ msgid "Publish Repository"
+#~ msgstr "Tároló közzététele"
+
+#~ msgid "Snippets..."
+#~ msgstr "Töredékek…"
+
+#~ msgid "Help"
+#~ msgstr "Súgó"

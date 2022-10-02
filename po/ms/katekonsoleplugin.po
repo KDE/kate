@@ -1,0 +1,217 @@
+# katekonsoleplugin Bahasa Melayu (Malay) (ms)
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Sharuzzaman Ahmat Raslan <sharuzzaman@gmail.com>, 2011.
+msgid ""
+msgstr ""
+"Project-Id-Version: katekonsoleplugin\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"PO-Revision-Date: 2011-07-01 21:16+0800\n"
+"Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@gmail.com>\n"
+"Language-Team: Malay <kedidiemas@yahoogroups.com>\n"
+"Language: ms\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=1;\n"
+
+#: kateconsole.cpp:54
+#, fuzzy, kde-format
+msgid "You do not have enough karma to access a shell or terminal emulation"
+msgstr "Anda ke  a atau"
+
+#: kateconsole.cpp:102 kateconsole.cpp:132 kateconsole.cpp:605
+#, kde-format
+msgid "Terminal"
+msgstr "Terminal"
+
+#: kateconsole.cpp:141
+#, fuzzy, kde-format
+msgctxt "@action"
+msgid "&Pipe to Terminal"
+msgstr "ke  Terminal"
+
+#: kateconsole.cpp:145
+#, fuzzy, kde-format
+msgctxt "@action"
+msgid "S&ynchronize Terminal with Current Document"
+msgstr "Terminal Semasa Dokumen"
+
+#: kateconsole.cpp:149
+#, kde-format
+msgctxt "@action"
+msgid "Run Current Document"
+msgstr ""
+
+#: kateconsole.cpp:154 kateconsole.cpp:458
+#, fuzzy, kde-format
+msgctxt "@action"
+msgid "S&how Terminal Panel"
+msgstr "&Fokus Terminal"
+
+#: kateconsole.cpp:160
+#, fuzzy, kde-format
+msgctxt "@action"
+msgid "&Focus Terminal Panel"
+msgstr "&Fokus Terminal"
+
+#: kateconsole.cpp:334
+#, fuzzy, kde-format
+msgid ""
+"Do you really want to pipe the text to the console? This will execute any "
+"contained commands with your user rights."
+msgstr "ke  teks ke ."
+
+#: kateconsole.cpp:335
+#, fuzzy, kde-format
+msgid "Pipe to Terminal?"
+msgstr "ke  Terminal?"
+
+#: kateconsole.cpp:336
+#, fuzzy, kde-format
+msgid "Pipe to Terminal"
+msgstr "ke  Terminal"
+
+#: kateconsole.cpp:364
+#, fuzzy, kde-format
+msgid "Sorry, cannot cd into '%1'"
+msgstr "Maaf"
+
+#: kateconsole.cpp:399
+#, kde-format
+msgid "Not a local file: '%1'"
+msgstr ""
+
+#: kateconsole.cpp:432
+#, fuzzy, kde-format
+msgid ""
+"Do you really want to Run the document ?\n"
+"This will execute the following command,\n"
+"with your user rights, in the terminal:\n"
+"'%1'"
+msgstr "ke  teks ke ."
+
+#: kateconsole.cpp:439
+#, fuzzy, kde-format
+msgid "Run in Terminal?"
+msgstr "ke  Terminal?"
+
+#: kateconsole.cpp:440
+#, kde-format
+msgid "Run"
+msgstr ""
+
+#: kateconsole.cpp:455
+#, fuzzy, kde-format
+msgctxt "@action"
+msgid "&Hide Terminal Panel"
+msgstr "ke  Terminal"
+
+#: kateconsole.cpp:466
+#, fuzzy, kde-format
+msgid "Defocus Terminal Panel"
+msgstr "Terminal"
+
+#: kateconsole.cpp:467 kateconsole.cpp:468
+#, fuzzy, kde-format
+msgid "Focus Terminal Panel"
+msgstr "Fokus Terminal"
+
+#: kateconsole.cpp:538
+#, kde-format
+msgid ""
+"&Automatically synchronize the terminal with the current document when "
+"possible"
+msgstr ""
+
+#: kateconsole.cpp:542 kateconsole.cpp:563
+#, fuzzy, kde-format
+msgid "Run in terminal"
+msgstr "ke  Terminal"
+
+#: kateconsole.cpp:544
+#, kde-format
+msgid "&Remove extension"
+msgstr ""
+
+#: kateconsole.cpp:549
+#, kde-format
+msgid "Prefix:"
+msgstr ""
+
+#: kateconsole.cpp:557
+#, kde-format
+msgid "&Show warning next time"
+msgstr ""
+
+#: kateconsole.cpp:559
+#, kde-format
+msgid ""
+"The next time '%1' is executed, make sure a warning window will pop up, "
+"displaying the command to be sent to terminal, for review."
+msgstr ""
+
+#: kateconsole.cpp:570
+#, fuzzy, kde-format
+msgid "Set &EDITOR environment variable to 'kate -b'"
+msgstr "T&etap variabel ke "
+
+#: kateconsole.cpp:573
+#, fuzzy, kde-format
+msgid ""
+"Important: The document has to be closed to make the console application "
+"continue"
+msgstr "ke  ke "
+
+#: kateconsole.cpp:576
+#, kde-format
+msgid "Hide Konsole on pressing 'Esc'"
+msgstr ""
+
+#: kateconsole.cpp:579
+#, kde-format
+msgid ""
+"This may cause issues with terminal apps that use Esc key, for e.g., vim. "
+"Add these apps in the input below (Comma separated list)"
+msgstr ""
+
+#: kateconsole.cpp:610
+#, kde-format
+msgid "Terminal Settings"
+msgstr "Tetapan Terminal"
+
+#. i18n: ectx: Menu (tools)
+#: ui.rc:6
+#, fuzzy, kde-format
+msgid "&Tools"
+msgstr "Ala&tan"
+
+#, fuzzy
+#~ msgctxt "NAME OF TRANSLATORS"
+#~ msgid "Your names"
+#~ msgstr "Sharuzzaman Ahmat Raslan"
+
+#, fuzzy
+#~ msgctxt "EMAIL OF TRANSLATORS"
+#~ msgid "Your emails"
+#~ msgstr "sharuzzaman@myrealbox.com"
+
+#, fuzzy
+#~| msgid "Terminal"
+#~ msgid "Kate Terminal"
+#~ msgstr "Terminal"
+
+#, fuzzy
+#~| msgid "Terminal"
+#~ msgid "Terminal Panel"
+#~ msgstr "Terminal"
+
+#~ msgid "Konsole"
+#~ msgstr "Konsole"
+
+#, fuzzy
+#~ msgid "Embedded Konsole"
+#~ msgstr "Konsole"

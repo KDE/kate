@@ -1,0 +1,2483 @@
+<chapter id="config-dialog">
+<title
+>Настройка &kappname;</title>
+<para
+>Выберите пункт меню <menuchoice
+><guimenu
+>Настройка</guimenu
+><guimenuitem
+>Настроить <replaceable
+>редактор</replaceable
+>...</guimenuitem
+></menuchoice
+>: будет открыто окно <guilabel
+>Настройка</guilabel
+>. Здесь возможно изменять различные параметры программы. Параметры сгруппированы по разделам, которые перечислены в списке слева. Независимо от выбранного раздела в нижней части окна присутствуют три стандартные кнопки управления процессом настройки. </para>
+
+<para
+>Кнопка <guilabel
+>Справка</guilabel
+> позволяет вызвать справочную систему, кнопка <guibutton
+>OK</guibutton
+> — сохранить текущие параметры и закрыть диалог, кнопка <guibutton
+>Отмена</guibutton
+> — закрыть диалог без сохранения изменений. Далее приводится описание разделов настройки (<guilabel
+>Внешний вид</guilabel
+>, <guilabel
+>Шрифты и цвета</guilabel
+>, <guilabel
+>Редактирование</guilabel
+>, <guilabel
+>Открытие и сохранение</guilabel
+> и <guilabel
+>Расширения</guilabel
+>). </para>
+
+<sect1 id="config-dialog-editor">
+<title
+>Настройка компонента редактирования</title>
+<para
+>Эта группа содержит все страницы, связанные с настройкой компонента редактора &kappname;. Большинство представленных параметров установлены в значения по умолчанию, для их переопределения возможно <link linkend="pref-open-save-modes-filetypes"
+>задать тип файла</link
+>, использовать <link linkend="config-variables"
+>переменные документа</link
+> или же изменять их отдельно для каждого документа во время сеанса редактирования.</para>
+<sect2 id="appearance">
+<title
+>Внешний вид</title>
+
+<sect3 id="appearance-general">
+<title
+>Главное</title>
+
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Шрифт редактора</guilabel
+></term>
+<listitem>
+<para
+>Здесь возможно выбрать шрифт текста редактора. Это может быть любой шрифт, установленный в системе. Также возможно выбрать его размер по умолчанию. В нижней части окна находится поле, в котором показано, как будет выглядеть текст, написанный таким шрифтом. </para>
+<para
+>Дополнительные сведения о выборе шрифта доступны в разделе <ulink url="help:/fundamentals/fonts.html"
+><emphasis
+>Выбор шрифта</emphasis
+> в <emphasis
+>Основах &kde;</emphasis
+></ulink
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Показывать маркеры пробелов</guilabel
+></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Никогда</guilabel
+></term>
+<listitem
+><para
+>В редакторе не будут показаны точки, обозначающие наличие пробелов.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>В конце строки</guilabel
+></term>
+<listitem
+><para
+>В редакторе будут показаны точки, обозначающие наличие дополнительных пробелов в конце строки.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Всегда</guilabel
+></term>
+<listitem
+><para
+>В редакторе будут показаны точки, обозначающие наличие пробелов.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Размер маркеров пробелов</guilabel
+></term>
+<listitem
+><para
+>Ползунок позволяет изменять размер видимого маркера.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Показывать маркеры табуляции</guilabel
+></term>
+<listitem
+><para
+>Если флажок установлен, в редакторе будет показан символ &raquo;, обозначающий наличие табуляции в тексте.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Показывать рамку фокуса вокруг редактора</guilabel
+></term>
+<listitem
+><para
+>Если флажок установлен, вокруг основного элемента управления исходным текстом отображается рамка фокуса.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Поиск и подсветка пар скобок </guilabel
+></term>
+<listitem
+><para>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Выделять пространство между скобками </guilabel
+></term>
+<listitem
+><para
+>Если этот параметр включён, пространство между выбранными парными скобками будет выделено.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Предварительный просмотр парной открытой скобки </guilabel
+></term>
+<listitem
+><para
+>Если флажок установлен, в редакторе будет показана подсказка с парной открытой скобкой.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Мигание парной скобки при наведении курсора на другую скобку в паре </guilabel
+></term>
+<listitem
+><para
+>Если флажок установлен, при переходе между скобками (<keycap
+>{</keycap
+>, <keycap
+>[</keycap
+>, <keycap
+>]</keycap
+>, <keycap
+>}</keycap
+>,<keycap
+>(</keycap
+> или <keycap
+>)</keycap
+>) соответствующая парная скобка будет мигать.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Показать линии отступов </guilabel
+></term>
+<listitem
+><para
+>Если флажок установлен, в редакторе будут видны вертикальные линии, облегчающие поиск строк с одинаковыми отступами.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Счётчики </guilabel
+></term>
+<listitem
+><para>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Показать счётчик слов и символов </guilabel
+></term>
+<listitem
+><para
+>В строке состояния отображается количество слов и символов в документе и в текущем выделенном фрагменте. Этот параметр также доступен в контекстном меню строки состояния.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Показать счётчик строк </guilabel
+></term>
+<listitem
+><para
+>В строке состояния отображается общее количество строк в документе. Этот параметр также доступен в контекстном меню строки состояния.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Сворачивать блок, начинающийся в первой строке </guilabel
+></term>
+<listitem
+><para
+>Если этот параметр включён, блок, который начинается в первой строке, будет свёрнут. Это полезно в тех случаях, когда файл начинается с комментария (например, с информации об авторских правах).</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Динамический перенос строк</guilabel
+></term>
+<listitem>
+<para
+>Если флажок установлен, слова, не помещающиеся в видимую часть экрана, будут автоматически перенесены на новую строку.</para>
+<para>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Динамический перенос строк по маркеру статического переноса </guilabel
+></term>
+<listitem
+><para
+>Если флажок установлен, редактор будет динамически переносить строки текста на <link linkend="pref-word-wrap"
+>позиции статического переноса строк</link
+>.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Игнорировать границы слов для динамического переноса </guilabel
+></term>
+<listitem
+><para
+>Если флажок установлен, редактор не учитывает границы слов при динамическом переносе строк текста.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Маркеры динамического переноса строк</guilabel
+></term>
+<listitem
+><para
+>Позволяет выбрать вариант показа маркеров динамического переноса строк: <guilabel
+>Выключить</guilabel
+>, <guilabel
+>За номерами строк</guilabel
+> или <guilabel
+>Видны всегда</guilabel
+>. </para
+></listitem
+></varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Сохранять отступ для перенесённых строк, если он не длиннее </guilabel
+></term>
+<listitem
+><para
+>После включения этого параметра начало динамически перенесённых строк будет выравнено относительно отступа первой строки. Это позволяет улучшить читаемость кода и разметки.</para
+></listitem
+></varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Добавлять отступы для перенесённых строк </guilabel
+></term>
+<listitem
+><para
+>Кроме того, этот параметр позволяет установить максимальную ширину экрана (в процентах), после превышения которой динамически перенесенные строки не будут выравниваться по отступу. Например, при значении 50% строки с отступом больше 50% ширины экрана больше не будут выравниваться по отступу.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</sect3>
+
+<sect3 id="appearance-borders">
+<title
+>Границы</title>
+
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Сворачивание блоков кода</guilabel
+></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Показывать маркеры сворачивания блоков кода </guilabel
+></term>
+<listitem
+><para
+>Если флажок установлен и сворачивание блоков кода доступно, будут показаны маркеры сворачивания блоков.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Предварительный просмотр свёрнутых блоков при наведении указателя </guilabel
+></term>
+<listitem
+><para
+>Если флажок установлен, при наведении указателя мыши на свёрнутый блок его содержимое будет показано во всплывающем окне.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+</variablelist>
+
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Левая сторона</guilabel
+></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Показывать отметки </guilabel
+></term>
+<listitem
+><para
+>Включает показ полосы закладок в левой части редактора.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Показывать номера строк </guilabel
+></term>
+<listitem
+><para
+>Если флажок установлен, номера строк будут показаны в левой части редактора.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Выделять изменённые и несохранённые строки </guilabel
+></term>
+<listitem
+><para
+>Если флажок установлен, будут показаны маркеры изменённых строк. Дополнительные сведения: <xref linkend="kate-part-line-modification"/>. </para
+></listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+</variablelist>
+
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Полосы прокрутки</guilabel
+></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Показывать отметки </guilabel
+></term>
+<listitem
+><para
+>Если флажок установлен, то на вертикальной полосе прокрутки текущего окна будут видны маркеры. Эти маркеры показывают положение закладок в тексте.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Предварительный просмотр при наведении указателя на полосу прокрутки</guilabel
+></term>
+<listitem
+><para
+>Если флажок установлен, при наведении указателя мыши на полосу прокрутки будет показано всплывающее окно с несколькими строками текущего документа. Это позволяет быстро перейти к другой части документа.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+</variablelist>
+
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Мини-карта</guilabel
+></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Показывать мини-карту</guilabel
+></term>
+<listitem
+><para
+>Если флажок установлен, каждое новое представление будет содержать мини-карту документа на вертикальной полосе прокрутки.</para>
+<para
+>Дополнительные сведения о мини-карте в полосе прокрутки: <xref linkend="kate-part-scrollbar-minimap"/>.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Ширина мини-карты</guilabel
+></term>
+<listitem
+><para
+>Регулирует ширину мини-карты в полосе прокрутки (в пикселах). </para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Видимость полос прокрутки</guilabel
+></term>
+<listitem
+><para
+>Позволяет включать, отключать или показывать полосы прокрутки только при необходимости. Щёлкните левой кнопкой мыши по голубому прямоугольнику для просмотра диапазона номеров строк документа, которые показаны на экране. Удерживайте левую кнопку мыши нажатой и перемещайте мышь за пределами голубого прямоугольника для автоматической прокрутки документа. </para
+></listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+</variablelist>
+
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Сортировка закладок в меню</guilabel
+></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>По дате создания </guilabel
+></term>
+<listitem
+><para
+>Каждая новая закладка будет добавлена в конец списка, вне зависимости от того, на какой строке документа она установлена.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>По номеру строки </guilabel
+></term>
+<listitem
+><para
+>Закладки будут отсортированы по номеру строки, на которой они находятся.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</sect3>
+</sect2>
+
+<sect2 id="prefcolors">
+<title
+>Цветовые схемы</title>
+
+<para
+>Этот раздел позволяет настраивать все цвета в любой существующей цветовой схеме, а также создавать новые схемы или удалять существующие. Каждая схема определяет цвета и стили обычного и выделенного текста. </para>
+
+<para
+>При входе в диалог &kappname; автоматически выбирает текущую активную схему. Если требуется внести изменения в другую схему, возможно выбрать её в раскрывающемся списке <guilabel
+>Схема</guilabel
+>. Кнопки  <guibutton
+>Копировать…</guibutton
+> и <guibutton
+>Удалить</guibutton
+> предназначены, соответственно, для создания новых схем (путём копирования существующих) и удаления существующих схем.</para>
+<para
+>В нижней части страницы указывается <guilabel
+>Схема по умолчанию для <replaceable
+>приложения</replaceable
+></guilabel
+>.</para>
+
+<para
+>Подробнее: <xref linkend="color-themes-gui"/>.</para>
+
+</sect2>
+
+<sect2 id="pref-edit">
+<title
+>Редактирование</title>
+
+<sect3 id="pref-edit-general">
+<title
+>Главное</title>
+<variablelist>
+
+<varlistentry>
+<term id="pref-word-wrap"
+><guilabel
+>Перенос строк</guilabel
+></term>
+<listitem
+><para
+>&kappname; позволяет автоматически переносить курсор и текст на новую строку. Перенос будет осуществляться, как только длина строки превысит указанную в поле <link linkend="pref-wrap-words-at"
+>Переносить слова на новую строку после</link
+>.</para>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Переносить слова на фиксированной позиции</guilabel
+></term>
+<listitem>
+<para
+>Включает или отключает статический перенос строк.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Показывать вертикальную линию в позиции переноса строк </guilabel
+></term>
+<listitem>
+<para
+>Если этот параметр включён, на столбце с переносимыми строками будет показана вертикальная линия (настраивается с помощью пункта меню <menuchoice
+><guimenu
+>Настройка</guimenu
+><guimenuitem
+>Настроить редактор...</guimenuitem
+> </menuchoice
+> на вкладке «Редактирование»). Обратите внимание, маркер будет виден только в том случае, если используется моноширинный шрифт.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term id="pref-wrap-words-at"
+><guilabel
+>Переносить слова на новую строку после:</guilabel
+></term>
+<listitem>
+<para
+>Если флажок <link linkend="pref-word-wrap"
+>Переносить слова на фиксированной позиции</link
+> установлен, в этом поле возможно указать длину строки (в символах), по достижении которой курсор и текст будут автоматически перенесены на следующую строку.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Режим ввода по умолчанию</guilabel
+></term
+> <listitem
+><para
+>При открытии нового представления будет включён выбранный режим ввода. Режим ввода Vi для отдельного представления также возможно включить или отключить с помощью меню <guimenu
+>Правка</guimenu
+>. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Скобки</guilabel
+></term
+> <listitem>
+<para
+>Если параметр <guilabel
+>Автоматически закрывать скобки при вводе открывающей скобки</guilabel
+> включён, когда пользователь введёт символ открывающей скобки (<keycap
+>[</keycap
+>, <keycap
+>(</keycap
+> или <keycap
+>{</keycap
+>), &kappname; автоматически вставит закрывающую скобку (<keycap
+>}</keycap
+>, <keycap
+>)</keycap
+> или <keycap
+>]</keycap
+>) справа от курсора.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Символы-ограничители</guilabel
+></term
+> <listitem>
+<para
+>Возможно выбрать символы-ограничители с помощью соответствующего раскрывающегося списка.</para>
+<para
+>Если выбран текст, то при вводе одного из символов он будет заключён между двумя такими символами.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Копирование и вставка</guilabel
+></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Перемещать выделенный текст при перетаскивании </guilabel
+></term
+> <listitem>
+<para
+>Этот параметр включает перетаскивание выделенного текста внутри окна редактора.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Вырезать или копировать текущую строку, если ничего не выделено</guilabel
+></term
+> <listitem>
+<para
+>Если этот параметр включён и ничего не выделено, для строки текста в текущей позиции курсора будет выполнено действия копирования или вырезания.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Не перемещать текстовый курсор при вставке с помощью мыши</guilabel
+></term
+> <listitem>
+<para
+>Если этот параметр включён, при вставке какого-либо текста в окно редактора щелчком средней кнопкой мыши &kappname; не будет перемещать текстовый курсор в позицию щелчка.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</sect3>
+
+<sect3 id="pref-edit-cursor-selection">
+<title
+>Навигация по тексту</title>
+
+<variablelist>
+
+<varlistentry>
+<term
+><guilabel
+>Перемещение курсора</guilabel
+></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Интеллектуальная навигация клавишами «Home» и «End»</guilabel
+></term>
+<listitem>
+<para
+>Если флажок установлен, при нажатии клавиши <keycap
+>Home</keycap
+> курсор будет переходить на начало текста в текущей строке, игнорируя пробелы в начале строки.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Клавиши PageUp и PageDown перемещают курсор</guilabel
+></term>
+<listitem>
+<para
+>Этот параметр определяет реакцию курсора на нажатие клавиш &PgUp; и &PgDn;. Если флажок снят, курсор будет сохранять свою относительную позицию в окне. Следовательно, если до нажатия клавиши курсор был в середине окна, он там и останется после нажатия (если, конечно, не достигнут конец или начало документа). Если флажок установлен, первое нажатие клавиши переместит курсор вниз или вверх экрана.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Включить переход курсора к прописным буквам</guilabel
+></term>
+<listitem>
+<para
+>Этот параметр изменяет поведение курсора при нажатии комбинации клавиш <keycombo
+>&Ctrl;<keycap
+>стрелка влево</keycap
+></keycombo
+> или <keycombo
+>&Ctrl;<keycap
+>стрелка вправо</keycap
+></keycombo
+> пользователем. Если флажок снят, текстовый курсор переходит к следующему полному слову. Если флажок установлен, курсор будет останавливаться на прописных буквах в словах, написанных буквамиразных регистров.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Оставлять между курсором и краем строк</guilabel
+></term>
+<listitem>
+<para
+>Устанавливает число строк, которые должны быть видимы выше и ниже курсора (если возможно).</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Режим выделения текста</guilabel
+></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Обычный</guilabel
+></term>
+<listitem>
+<para
+>Выделенная область будет удалена при вводе текста, и выделение будет снято при перемещении курсора.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Не снимать выделение</guilabel
+></term>
+<listitem>
+<para
+>Выделение не изменяется даже после ввода текста и перемещения курсора.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Позволять прокручивать документ ниже его конца</guilabel
+></term
+> <listitem>
+<para
+>С помощью этого параметра возможно прокручивать документ ниже его конца. Это может быть полезно, если требуется центрировать нижнюю часть документа по вертикали или разместить её поверх текущего представления.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Клавиша Backspace удаляет символ совместно с его диакритическим знаком</guilabel
+></term
+> <listitem>
+<para
+>Если флажок установлен, составные символы удаляются вместе с соответствующими диакритическими знаками (то есть не происходит удаление только лишь основного символа). Это полезно, когда в качестве системного используется язык из индийской группы индоевропейских языков.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</sect3>
+
+<sect3 id="pref-edit-indent">
+<title
+>Отступы</title>
+
+<variablelist>
+
+<varlistentry>
+<term
+><guilabel
+>Режим расстановки отступов по умолчанию</guilabel
+></term>
+<listitem>
+<para
+>Позволяет выбрать используемый по умолчанию автоматический режим расстановки отступов. Настоятельно рекомендуется выбрать <userinput
+>Без автоматического отступа</userinput
+> или <userinput
+>Обычный</userinput
+>, а другие пункты выбирать при настройке разных типов файлов, таких как код на C/C++ или файлы в формате &XML;.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Отступы</guilabel
+></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Табуляция</guilabel
+></term>
+<listitem>
+<para
+>Если флажок установлен, при нажатии клавиши &Tab; или использовании функции <link linkend="kate-part-autoindent"
+>автоматического отступа</link
+> редактор будет вставлять символы табуляции.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Пробелы</guilabel
+></term>
+<listitem>
+<para
+>Если флажок установлен, при нажатии клавиши &Tab; или использовании функции <link linkend="kate-part-autoindent"
+>автоматического отступа</link
+> редактор будет вставлять необходимое количество пробелов в соответствии с положением в тексте и значением параметра <option
+>ширины табуляции</option
+>.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Табуляция и пробелы</guilabel
+></term>
+<listitem>
+<para
+>Если флажок установлен, редактор при создании отступа или нажатии клавиши &Tab; в начале строки будет вставлять пробелы как описано выше, а при нажатии клавиши &Tab; в середине или конце строки — символы табуляции.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Ширина табуляции</guilabel
+></term>
+<listitem>
+<para
+>Этот параметр позволяет настроить количество пробелов, которые будут показаны вместо символа табуляции.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Ширина отступа</guilabel
+></term>
+<listitem>
+<para
+>Ширина отступа — это количество пробелов для обозначения отступа строки. Если задано создание отступов с помощью символов табуляции, будет вставлен символ табуляции (при условии, что отступ кратен ширине табуляции).</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Правила расстановки отступов</guilabel
+></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Сохранять лишние пробелы</guilabel
+></term>
+<listitem
+><para
+>Если флажок снят, при изменении уровня отступа строка будет выровнена согласно значению параметра <guilabel
+>Ширина отступа</guilabel
+>.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Выполнять расстановку отступов для вставляемого из буфера обмена кода</guilabel
+></term>
+<listitem>
+<para
+>Если флажок установлен, во вставленном из буфера обмена тексте будут созданы отступы. Команда <guimenuitem
+>Отменить действие</guimenuitem
+> позволяет убрать созданные отступы.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Работа с отступами</guilabel
+></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Уменьшение отступа клавишей Backspace</guilabel
+></term>
+<listitem>
+<para
+>Если флажок установлен, нажатие клавиши &Backspace; будет уменьшать уровень отступа, когда курсор располагается в пустом пространстве в начале строки.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Действие при нажатии клавиши Tab (если ничего не выделено)</guilabel
+></term>
+<listitem>
+<para
+>Если при нажатии клавиши &Tab; текущая строка должна выравниваться в текущем блоке кода как в &Emacs;, следует установить привязку клавиши &Tab; к действию <guimenuitem
+>Выровнять</guimenuitem
+>. </para>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Всегда добавлять табуляцию (либо эквивалентное количество пробелов)</guilabel
+></term>
+<listitem>
+<para
+>Если флажок установлен, при нажатии клавиши &Tab; будут автоматически вставлены символы пустого пространства до достижения следующей позиции табуляции. Если параметр <guilabel
+>Отступы пробелами вместо символов табуляции</guilabel
+> (вкладка <guilabel
+>Главное</guilabel
+> на странице <guilabel
+>Редактирование</guilabel
+>) включён, будут вставлены пробелы; в ином случае будет вставлен один символ табуляции.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Всегда увеличивать уровень отступа</guilabel
+></term>
+<listitem>
+<para
+>Если флажок установлен, при нажатии клавиши &Tab; для текущей строки всегда будет создаваться отступ на количество символов, заданное параметром <guilabel
+>Ширина отступа</guilabel
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Увеличивать уровень отступа, если курсор стоит в начале строки</guilabel
+></term>
+<listitem>
+<para
+>Если флажок установлен, при нажатии клавиши &Tab; будет либо создан отступ для текущей строки, либо выполнен переход к следующей позиции табуляции. Если точкой вставки является первый непробельный символ строки или какой-либо из предшествующих ему или если имеется выбранный фрагмент, то для текущей строки будет создан отступ на количество символов, заданное параметром <guilabel
+>Ширина отступа</guilabel
+>. Если точка вставки располагается после первого непробельного символа строки и ничего не выбрано, вставляется пустое пространство до достижения следующей позиции табуляции: если параметр <guilabel
+>Отступы пробелами вместо символов табуляции</guilabel
+> (вкладка <guilabel
+>Главное</guilabel
+> на странице <guilabel
+>Редактирование</guilabel
+>) включён, будут вставлены пробелы; в ином случае будет вставлен один символ табуляции.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</listitem>
+</varlistentry>
+
+</variablelist>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</sect3>
+
+<sect3 id="pref-edit-autocompletion">
+<title
+>Автодополнение</title>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Главное</guilabel
+></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Включить автодополнение</guilabel
+></term>
+<listitem>
+<para
+>Если флажок установлен, при наборе текста автоматически всплывает окно автодополнения, в котором показан список вариантов завершения текущего слова под курсором.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Автоматически выбирать первую запись дополнения</guilabel
+></term>
+<listitem>
+<para
+>Если флажок установлен, первый пункт списка автодополнения всегда будет предварительно выбран, что позволит вставить его нажатием кнопки &Enter;. Если такое поведение нежелательно (например, если клавиша &Enter; должна использоваться только для вставки новой строки), снимите флажок.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Минимальная длина слова для автодополнения</guilabel
+></term>
+<listitem
+><para
+>При наборе текста средство автодополнения выполняет поиск слов в документе, начиная с уже набранного текста. Этот параметр позволяет настроить минимальное количество символов, которое необходимо ввести для активации функции автодополнения слова и показа соответствующего всплывающего окна.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Удалять окончание при завершении</guilabel
+></term>
+<listitem
+><para
+>Удалять окончание предыдущего слова при выборе варианта завершения в списке. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Автодополнение ключевых слов </guilabel
+></term>
+<listitem
+><para
+>Если флажок установлен, встроенное автодополнение будет использовать ключевые слова, определённые подсветкой синтаксиса. </para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect3>
+
+<sect3 id="pref-edit-spellcheck">
+<title
+>Проверка правописания</title>
+<para
+>Описание этих параметров настройки приводится в документации модуля <ulink url="help:/kcontrol/spellchecking"
+>Проверка орфографии</ulink
+> программы «Параметры системы».</para>
+</sect3>
+
+<sect3 id="pref-edit-vi-input-mode">
+<title
+>Режим ввода Vi</title>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Главное</guilabel
+></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Использовать комбинации клавиш Vi</guilabel
+></term>
+<listitem>
+<para
+>Если флажок установлен, команды Vi будут иметь приоритет над встроенными командами &kappname;. Например: при использовании комбинации клавиш <keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+> будет выполнена команда «Повторить», а не стандартное действие (вызов диалога поиска и замены).</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Показать относительные номера строк </guilabel
+></term>
+<listitem
+><para
+>Если флажок установлен, текущая строка всегда будет соответствовать строке 0. Номера расположенных выше или ниже строк отсчитываются относительно нулевой строки.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Замена действий клавиш</guilabel
+></term>
+<listitem
+><para
+>Эта функция изменяет действия клавиш, что позволяет назначать команды другим клавишам или использовать специальные нажатия клавиш для выполнения последовательности команд.</para>
+<para
+>Пример:</para>
+<para
+><keycap
+>F2</keycap
+> -> <userinput
+>I--</userinput
+> &Esc;</para>
+<para
+>Добавить <userinput
+>I--</userinput
+> в начало строки, когда будет нажата клавиша <keycap
+>F2</keycap
+>. </para>
+</listitem>
+<!-- Normal Mode Insert Mode Visual Mode 
+Commands Repacement Recursuive?
+Remove selected Add new mapping Import from vimrc file-->
+</varlistentry>
+</variablelist>
+
+</sect3>
+
+</sect2>
+
+<sect2 id="pref-open-save">
+<title
+>Открытие и сохранение</title>
+
+<sect3 id="pref-open-save-general">
+<title
+>Главное</title>
+
+<variablelist>
+
+<varlistentry>
+<term
+><guilabel
+>Формат файла</guilabel
+></term>
+<listitem>
+<variablelist>
+
+<varlistentry>
+<term
+><guilabel
+>Кодировка</guilabel
+></term>
+<listitem>
+<para
+>Стандартная кодировка, которая будет использоваться при открытии и сохранении файлов (если только в диалоге открытия или сохранения или с помощью параметра командной строки не будет выбрана другая кодировка).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Автоопределение кодировки</guilabel
+></term>
+<listitem>
+<para
+>Выберите один из вариантов в раскрывающемся списке: возможно отключить автоопределение или указать вариант <guilabel
+>Универсальная</guilabel
+>, чтобы включить автоопределение для всех кодировок. Но так как в этом случае получится определить, скорее всего, только utf-8/utf-16, для получения наилучшего результата рекомендуется выбрать региональный вариант со специальными эвристическими методами. Выбранный вариант будет использоваться в том случае, если содержимому файла не соответствует ни кодировка, выбранная в качестве стандартной выше, ни кодировка, заданная в диалоге открытия или сохранения, ни кодировка, указанная в командной строке.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Резервная кодировка</guilabel
+></term>
+<listitem>
+<para
+>Это резервная кодировка, которая будет использоваться для открытия файлов в том случае, если содержимому файла не соответствует ни кодировка, выбранная в качестве стандартной выше, ни кодировка, заданная в диалоге открытия или сохранения, ни кодировка, указанная в командной строке. Перед использованием резервной кодировки будет выполнена попытка определить кодировку по отметке о порядке байтов в начале файлов. Если такая отметка найдена, будет выбрана соответствующая кодировка Юникод, в ином случае будет запущено определение кодировки; если же не удастся ни найти отметку, ни выполнить определение, будет предпринята попытка использовать резервную кодировку.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Конец строки</guilabel
+></term>
+<listitem>
+<para
+>Позволяет выбрать необходимый режим конца строк для документа. Доступные варианты: &UNIX;, DOS/&Windows;, Macintosh.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Автоматическое определение символов конца строки</guilabel
+></term>
+<listitem>
+<para
+>Установите флажок, чтобы редактор автоматически определял тип символов конца строки. Первый найденный символ конца строки будет использован для всего файла.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Использовать отметку о порядке байтов (BOM)</guilabel
+></term>
+<listitem>
+<para
+>Отметка о порядке байтов — это специальная последовательность в начале документов в кодировке Юникод. Наличие этой отметки позволяет редакторам открывать текстовые документы в соответствующей кодировке Юникод. Дополнительные сведения: <ulink url="https://ru.wikipedia.org/wiki/Маркер_последовательности_байтов"
+>Маркер последовательности байтов</ulink
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Ограничение на длину строки</guilabel
+></term>
+<listitem>
+<para
+>К сожалению, из-за недоработок в &Qt; производительность &kappname; резко снижается при работе с очень длинными строками. Поэтому в &kappname; выполняется автоматический перенос строк, длина которых превышает указанную здесь. Чтобы убрать ограничение, установите этот параметр в значение <userinput
+>0</userinput
+>.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Автоматическая очистка при сохранении</guilabel
+></term>
+<listitem>
+<variablelist>
+
+<varlistentry>
+<term
+><guilabel
+>Удалять пробелы в конце строк</guilabel
+></term>
+<listitem>
+<para
+>Редактор автоматически удалит пробелы в конце строк при сохранении файла. Доступны следующие варианты: <guilabel
+>никогда</guilabel
+> (опция будет отключена), <guilabel
+>у изменённых строк</guilabel
+> (будут удаляться пробелы в конце только тех строк, которые были изменены с момента последнего сохранения документа) и <guilabel
+>во всём документе</guilabel
+> (будут удаляться пробелы в конце всех строк документа).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Добавлять перевод строки в конец файла при сохранении</guilabel
+></term>
+<listitem>
+<para
+>Редактор автоматически добавит перевод строки в конец файла (если такой перевод отсутствует) при сохранении этого файла.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</sect3>
+
+<sect3 id="pref-open-save-advanced">
+<title
+>Дополнительно</title>
+<variablelist>
+
+<varlistentry>
+<term
+><guilabel
+>Создавать резервную копию при сохранении</guilabel
+></term>
+<listitem
+><para
+>Если флажок установлен, &kappname; копирует используемый файл в &lt;префикс&gt;&lt;имя_файла&gt;&lt;суффикс&gt; перед сохранением изменений. По умолчанию используется суффикс <emphasis role="bold"
+>~</emphasis
+>, а префикс не используется. </para>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Для локальных файлов</guilabel
+></term>
+<listitem>
+<para
+>Установите флажок, если следует сохранять резервные копии перед сохранением локальных файлов.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Для удалённых файлов</guilabel
+></term>
+<listitem>
+<para
+>Установите флажок, если следует сохранять резервные копии перед сохранением сетевых файлов.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Префикс для файлов резервных копий</guilabel
+></term>
+<listitem>
+<para
+>Введите префикс, используемый для генерации имени файла резервной копии.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Суффикс для файлов резервных копий</guilabel
+></term>
+<listitem>
+<para
+>Введите суффикс, используемый для генерации имени файла резервной копии.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Режим временных файлов</guilabel
+></term>
+<listitem>
+<para
+>Если приложение аварийно завершит работу или произойдёт отключение электроэнергии, будет возможно восстановить (в большинстве своём) текст, который был набран после последнего сохранения. После первого действия по внесению изменений в документ создаётся временный файл (.swp.&lt;filename&gt;). Если внесённые изменения не были сохранены пользователем и произошёл сбой &kappname;, этот временный файл остаётся на диске. При открытии файла &kappname; проверяет, имеется ли для этого документа временный файл. Если таковой обнаружен, пользователю будет предложено выбрать, следует ли восстановить потерянные данные. Приложение также позволяет просмотреть различия между оригинальным файлом и его восстановленной версией. Временный файл удаляется после каждого сохранения и при обычном завершении работы приложения.</para>
+<para
+>&kappname; выполняет синхронизацию находящихся на диске временных файлов каждые 15 секунд, но только в том случае, если имеются изменения с момента последней синхронизации. Синхронизацию временных файлов возможно отключить (для этого выберите <guilabel
+>Отключено</guilabel
+>), но это может привести к потере большего количества данных.</para>
+<para
+>Если временный файл включён, возможно переключаться между двумя режимами: <guilabel
+>Включено, сохранять в каталоге по умолчанию</guilabel
+> и <guilabel
+>Включено, сохранять в выбранном каталоге</guilabel
+>. </para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Сохранять временные файлы в</guilabel
+></term>
+<listitem
+><para
+>Если флажок установлен, временные файлы сохраняются в той же папке, что и сам файл. Если выбран вариант режима временных файлов <guilabel
+>Включено, сохранять в выбранном каталоге</guilabel
+>, временные файлы будут создаваться в указанной папке. Это позволяет предотвратить лишний трафик в сетевых файловых системах.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Сохранять временные файлы каждые</guilabel
+></term>
+<listitem
+><para
+>&kappname; выполняет синхронизацию находящихся на диске временных файлов каждые 15 секунд, но только в том случае, если имеются изменения с момента последней синхронизации. Интервал синхронизации возможно настроить в соответствии с потребностями пользователя.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</sect3>
+
+<sect3 id="pref-open-save-modes-filetypes">
+<title
+>Типы файлов</title>
+<para
+>Этот раздел позволяет переопределить параметры для документов определённого типа &MIME;. При загрузке документа редактор проверяет, совпадает ли файл с одной из масок файлов или же с одним из типов &MIME;. В случае совпадения редактор применяет заданные параметры. Если совпадений несколько, будут применены параметры типа с наивысшим приоритетом. </para>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Тип файла</guilabel
+></term>
+<listitem
+><para
+>Тип файла с наивысшим приоритетом показан первым в раскрывающемся списке. Если было найдено несколько типов файлов, они также доступны в списке.</para>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Создать</guilabel
+></term>
+<listitem
+><para
+>Используется для создания нового типа файла. После нажатия кнопки расположенные ниже поля очищаются, что позволяет указать необходимые параметры для нового типа файла.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Удалить</guilabel
+></term>
+<listitem
+><para
+>Для удаления существующего типа файла выберите его в раскрывающемся списке и нажмите кнопку <guibutton
+>Удалить</guibutton
+>.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</listitem
+> </varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Свойства <replaceable
+>выбранного_типа_файла</replaceable
+></guilabel
+></term>
+<listitem
+><para
+>Тип файла с наивысшим приоритетом показан первым в раскрывающемся списке. Если было найдено несколько типов файлов, они также доступны в списке.</para>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Имя</guilabel
+></term>
+<listitem
+><para
+>Имена типов файлов будут использованы как текст соответствующих пунктов меню. Они отображаются в меню <menuchoice
+><guimenu
+>Сервис</guimenu
+><guimenuitem
+>Тип документа</guimenuitem
+> </menuchoice
+>.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Раздел</guilabel
+></term>
+<listitem
+><para
+>Название раздела используется для организации типов файлов в пунктах меню. Оно также отображается в меню <menuchoice
+><guimenu
+>Сервис</guimenu
+><guimenuitem
+>Тип документа</guimenuitem
+></menuchoice
+>.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Переменные</guilabel
+></term>
+<listitem
+><para
+>Эта строка позволяет изменить параметры конфигурации &kappname; для выбранного типа файла с помощью переменных. Возможно изменить почти все параметры, включая режим подсветки, режим расстановки отступов и так далее.</para>
+<para
+>Нажмите кнопку <guibutton
+>Показать список возможных переменных</guibutton
+> для просмотра списка всех доступных переменных и их описаний. Чтобы включить переменную, установите флажок слева от её названия, и затем укажите значение этой переменной справа. Для некоторых переменных предусмотрены раскрывающиеся списки с возможными значениями, в то время как для других потребуется ввести корректное значение вручную.</para>
+<para
+>Все сведения об этих переменных доступны в разделе <link linkend="config-variables"
+>Настройка с помощью переменных документа</link
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Подсветка</guilabel
+></term>
+<listitem
+><para
+>При создании нового типа файла в этом раскрывающемся списке будет возможно выбрать тип файла для подсветки.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Режим расстановки отступов</guilabel
+></term>
+<listitem
+><para
+>С помощью этого раскрывающегося списка возможно указать режим расстановки отступов для новых документов.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Расширения файлов</guilabel
+></term>
+<listitem
+><para
+>Поле <guilabel
+>Расширения файлов</guilabel
+> содержит список масок, разделённых точками с запятой. Маска позволяет определить тип файла по его имени. Обычно в маске используются звёздочка и расширение файла, например <filename
+>*.txt;*.text</filename
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Типы MIME</guilabel
+></term>
+<listitem
+><para
+>В поле <guilabel
+>Типы MIME</guilabel
+> возможно указать типы &MIME;, которые соответствуют текущему типу файла. Кнопка с изображением волшебной палочки справа от поля позволяет вызвать мастер, с помощью которого возможно легко выбрать типы &MIME;.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Приоритет</guilabel
+></term>
+<listitem
+><para
+>Последнее поле устанавливает приоритет для данного типа файла. Если для текущего документа доступно больше одного типа файлов, будет использован тип с наивысшим приоритетом.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+</listitem
+> </varlistentry>
+
+</variablelist>
+</sect3>
+
+</sect2>
+
+</sect1>
+
+<sect1 id="config-variables">
+<title
+>Настройка с помощью переменных документа</title>
+
+<para
+>Переменные &kappname; представляют собой реализацию переменных документа в &kappname;, схожую с моделайнами &Emacs; и Vi. В &katepart; строки имеют следующий формат: <userinput
+>kate: ИМЯПЕРЕМЕННОЙ ЗНАЧЕНИЕ; [ ИМЯПЕРЕМЕННОЙ ЗНАЧЕНИЕ; ... ]</userinput
+> Конечно, строки могут находиться в комментарии, если формат файла предусматривает комментарии. Имена переменных — это отдельные слова (без пробелов), а текст до следующей точки с запятой является значением. Указание точки с запятой обязательно.</para>
+
+<para
+>Пример строки переменной для принудительного применения параметров отступа в файле C++, &Java; или &javascript;: <programlisting
+>// kate: replace-tabs on; indent-width 4; indent-mode cstyle;</programlisting>
+</para>
+
+<note
+><para
+>Проверка наличия строк переменных выполняется только для первых и последних 10 строк.</para
+></note>
+
+<para
+>Кроме того, переменные документа возможно сохранить в файл <filename
+>.kateconfig</filename
+> в любом каталоге, при этом настроенные параметры будут применяться так, как если бы моделайны были добавлены во все файлы каталога и вложенных каталогов. Для переменных документа в файле <filename
+>.kateconfig</filename
+> используется тот же синтаксис, что и для моделайнов, но с <link linkend="kateconfig-extended-options"
+>расширенными параметрами</link
+>.</para>
+
+<para
+>Существуют переменные для поддержки практически всех вариантов настройки &kappname;. Кроме того, переменные могут использоваться модулями (в этом случае в документации модуля должна присутствовать соответствующая информация).</para>
+
+<para
+>&kappname; поддерживает чтение конфигурации из файлов <filename
+>.editorconfig</filename
+> (если установлена библиотека <ulink url="https://editorconfig.org/"
+>editorconfig</ulink
+>). При открытии документа &kappname; выполняет автоматический поиск файла <filename
+>.editorconfig</filename
+>. Но приоритет всё же имеют файлы <filename
+>.kateconfig</filename
+>. </para>
+
+<sect2 id="config-variables-howto">
+<title
+>Как в &kappname; используются переменные</title>
+
+<para
+>При чтении конфигурации &katepart; выполняет поиск в следующих расположениях (в указанном далее порядке): <itemizedlist
+> <listitem
+><para
+>Глобальная конфигурация.</para
+></listitem
+> <listitem
+><para
+>Необязательные данные сеанса.</para
+></listitem
+> <listitem
+><para
+>Конфигурация «типа файла».</para
+></listitem
+> <listitem
+><para
+>Переменные документа в файле <filename
+>.kateconfig</filename
+>.</para
+></listitem
+> <listitem
+><para
+>Переменные документа в самом документе.</para
+></listitem
+> <listitem
+><para
+>Параметры, настроенные во время редактирования с помощью меню или командной строки.</para
+></listitem
+> </itemizedlist
+> Следовательно, переменные документа могут быть переопределены только путём внесения изменений во время выполнения. При каждом сохранении документа выполняется повторное чтение переменных документа и перезапись изменений, которые были сделаны с помощью меню или командной строки.</para>
+
+<para
+>Те переменные, которые не указаны в приведённом далее списке, хранятся в документе и могут запрашиваться для использования другими объектами (такими, как модули). Например, переменные документа используются для конфигурации соответствующего режима расстановки отступов.</para>
+
+<para
+>Переменные, которые указаны в приведённом далее списке, соответствуют &kappname; версии 5.38. В дальнейшем могут быть добавлены и другие переменные. Для переменных существуют 3 возможных типа значений со следующими допустимыми выражениями: <itemizedlist>
+<listitem
+><para
+>BOOL — on|off|true|false|1|0</para
+></listitem>
+<listitem
+><para
+>INTEGER — любое целое число</para
+></listitem>
+<listitem
+><para
+>STRING — что-либо ещё</para
+></listitem>
+</itemizedlist>
+</para>
+
+</sect2>
+
+<sect2 id="config-variables-list">
+<title
+>Доступные переменные</title>
+
+<variablelist>
+
+<varlistentry id="variable-auto-brackets">
+<term
+><cmdsynopsis
+><command
+>auto-brackets</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Включить автоматическую вставку скобок.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-auto-center-lines">
+<term
+><cmdsynopsis
+><command
+>auto-center-lines</command
+><arg
+>INT</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Указать количество строк для автоматического центрирования.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-background-color">
+<term
+><cmdsynopsis
+><command
+>background-color</command
+><arg
+>STRING</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Указать цвет фона документа. Значение должно соответствовать допустимому цвету, например: <userinput
+>#ff0000</userinput
+>. </para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-backspace-indents">
+<term
+><cmdsynopsis
+><command
+>backspace-indents</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Включить или отключить отмену отступа при нажатии клавиши &Backspace;.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-block-selection">
+<term
+><cmdsynopsis
+><command
+>block-selection</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Включить или отключить <link linkend="kate-part-selection-block"
+>выделение блоков</link
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-byte-order-mark">
+<term
+><cmdsynopsis
+><command
+>bom | byte-order-mark | byte-order-marker</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Включить или отключить отметку о порядке байтов (BOM) при сохранении файлов в формате Юникод (utf8, utf16, utf32).</para>
+<para
+>Работает с версией &kate; не ниже 3.4 (&kde; 4.4)</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-bracket-highlight-color">
+<term
+><cmdsynopsis
+><command
+>bracket-highlight-color</command
+><arg
+>STRING</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Указать цвет подсветки скобок. Значение должно соответствовать допустимому цвету, например: <userinput
+>#ff0000</userinput
+>. </para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-current-line-color">
+<term
+><cmdsynopsis
+><command
+>current-line-color</command
+><arg
+>STRING</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Указать цвет текущей строки. Значение должно соответствовать допустимому цвету, например: <userinput
+>#ff0000</userinput
+>. </para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-default-dictionary">
+<term
+><cmdsynopsis
+><command
+>default-dictionary</command
+><arg
+>STRING</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Указать словарь по умолчанию, который будет использоваться для проверки орфографии.</para>
+<para
+>Работает с версией &kate; не ниже 3.4 (&kde; 4.4)</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-dynamic-word-wrap">
+<term
+><cmdsynopsis
+><command
+>dynamic-word-wrap</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Включить или отключить <link linkend="kate-part-auto-wrap"
+>динамический перенос строк</link
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-end-of-line">
+<term
+><cmdsynopsis
+><command
+>eol | end-of-line</command
+><arg
+>STRING</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Указать режим конца строк. Допустимые параметры: <userinput
+>unix</userinput
+>, <userinput
+>mac</userinput
+> и <userinput
+>dos</userinput
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-folding-markers">
+<term
+><cmdsynopsis
+><command
+>folding-markers</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Включить или отключить показ <link linkend="advanced-editing-tools-code-folding"
+>полосы сворачивания блоков кода</link
+>. </para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-folding-preview">
+<term
+><cmdsynopsis
+><command
+>folding-preview</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Включить предварительный просмотр свёрнутых блоков кода.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-font-size">
+<term
+><cmdsynopsis
+><command
+>font-size</command
+><arg
+>INT</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Указать размер шрифта документа.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-font">
+<term
+><cmdsynopsis
+><command
+>font</command
+><arg
+>STRING</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Указать шрифт документа. Значением должно быть корректное название шрифта, например: <userinput
+>courier</userinput
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-syntax">
+<term
+><cmdsynopsis
+><command
+>hl | syntax</command
+><arg
+>STRING</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Указать подсветку синтаксиса. Допустимые строки — все названия, доступные в меню. Например, для подсветки C++ следует просто ввести <userinput
+>C++</userinput
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-icon-bar-color">
+<term
+><cmdsynopsis
+><command
+>icon-bar-color</command
+><arg
+>STRING</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Указать цвет полосы отметок. Значение должно соответствовать допустимому цвету, например: <userinput
+>#ff0000</userinput
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-icon-border">
+<term
+><cmdsynopsis
+><command
+>icon-border</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Включить или отключить показ полосы отметок.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-indent-mode">
+<term
+><cmdsynopsis
+><command
+>indent-mode</command
+><arg
+>STRING</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Указать режим автоматической расстановки отступов. Возможные параметры: <userinput
+>none</userinput
+>, <userinput
+>normal</userinput
+>, <userinput
+>cstyle</userinput
+>, <userinput
+>haskell</userinput
+>, <userinput
+>lilypond</userinput
+>, <userinput
+>lisp</userinput
+>, <userinput
+>python</userinput
+>, <userinput
+>ruby</userinput
+> и <userinput
+>xml</userinput
+>. Подробные сведения: <xref linkend="kate-part-autoindent"/>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-indent-pasted-text">
+<term
+><cmdsynopsis
+><command
+>indent-pasted-text</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Включить или отключить расстановку отступов во вставленном из буфера обмена тексте.</para>
+<para
+>Работает с версией &kate; не ниже 3.11 (&kde; 4.11)</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-indent-width">
+<term
+><cmdsynopsis
+><command
+>indent-width</command
+><arg
+>INT</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Указать ширину отступа.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-keep-extra-spaces">
+<term
+><cmdsynopsis
+><command
+>keep-extra-spaces</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Указать, следует ли сохранять лишние пробелы при расчёте ширины отступа.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-line-numbers">
+<term
+><cmdsynopsis
+><command
+>line-numbers</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Включить или отключить показ номеров строк.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-newline-at-eof">
+<term
+><cmdsynopsis
+><command
+>newline-at-eof</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Добавлять пустую строку в конце файла (EOF) при сохранении документа.</para>
+<para
+>Работает с версией &kate; не ниже 3.9 (&kde; 4.9)</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-overwrite-mode">
+<term
+><cmdsynopsis
+><command
+>overwrite-mode</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Включить или отключить режим перезаписи.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-persistent-selection">
+<term
+><cmdsynopsis
+><command
+>persistent-selection</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Включить или отключить <link linkend="kate-part-selection-persistent"
+>постоянное выделение</link
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-replace-tabs-save">
+<term
+><cmdsynopsis
+><command
+>replace-tabs-save</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Включить или отключить преобразование знаков табуляции в пробелы при сохранении документа.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-replace-tabs">
+<term
+><cmdsynopsis
+><command
+>replace-tabs</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Включить или отключить динамическое преобразование знаков табуляции в пробелы.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-remove-trailing-spaces">
+<term
+><cmdsynopsis
+><command
+>remove-trailing-spaces</command
+><arg
+>STRING</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Удалять пробелы в конце строк при сохранении документа. Допустимые параметры:</para>
+<itemizedlist>
+<listitem
+><para
+><userinput
+>none</userinput
+>, <userinput
+>-</userinput
+> или <userinput
+>0</userinput
+>: никогда не удалять пробелы в конце строк.</para
+></listitem>
+<listitem
+><para
+><userinput
+>modified</userinput
+>, <userinput
+>mod</userinput
+>, <userinput
+>+</userinput
+> или <userinput
+>1</userinput
+>: удалять пробелы в конце только тех строк, которые были изменены. Изменённые строки отмечаются системой изменения строк.</para
+></listitem>
+<listitem
+><para
+><userinput
+>all</userinput
+>, <userinput
+>*</userinput
+> или <userinput
+>2</userinput
+>: удалять пробелы в конце строк во всём документе.</para
+></listitem>
+</itemizedlist>
+</listitem>
+</varlistentry>
+
+<varlistentry id="variable-scrollbar-minimap">
+<term
+><cmdsynopsis
+><command
+>scrollbar-minimap</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Показывать мини-карту в полосе прокрутки.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-scrollbar-preview">
+<term
+><cmdsynopsis
+><command
+>scrollbar-preview</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Показывать предварительный просмотр текста в полосе прокрутки.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-scheme">
+<term
+><cmdsynopsis
+><command
+>scheme</command
+><arg
+>STRING</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Указать цветовую схему. Чтобы команда сработала, строка должна содержать название существующей в конфигурации цветовой схемы.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-selection-color">
+<term
+><cmdsynopsis
+><command
+>selection-color</command
+><arg
+>STRING</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Указать цвет выделения. Значение должно соответствовать допустимому цвету, например: <userinput
+>#ff0000</userinput
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-show-tabs">
+<term
+><cmdsynopsis
+><command
+>show-tabs</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Включить или отключить показ знака табуляции.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-smart-home">
+<term
+><cmdsynopsis
+><command
+>smart-home</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Включить или отключить <link linkend="pref-edit-cursor-selection"
+>интеллектуальную навигацию клавишей «Home»</link
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-tab-indents">
+<term
+><cmdsynopsis
+><command
+>tab-indents</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Включить или отключить создание отступа по нажатию клавиши &Tab;.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-tab-width">
+<term
+><cmdsynopsis
+><command
+>tab-width</command
+><arg
+>INT</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Указать количество пробелов, которые будут показаны вместо знака табуляции.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-undo-steps">
+<term
+><cmdsynopsis
+><command
+>undo-steps</command
+><arg
+>INT</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Указать количество действий, которые возможно отменить.</para>
+<para
+>Примечание: не используется, начиная с &kate; 3 в &kde;4. Эта переменная игнорируется. Максимальное количество действий, которые возможно отменить, не ограничено.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-word-wrap-column">
+<term
+><cmdsynopsis
+><command
+>word-wrap-column</command
+><arg
+>INT</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Указать длину строки, по достижении которой будет выполняться <link linkend="kate-part-auto-wrap"
+>статический перенос</link
+>. </para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-word-wrap-marker-color">
+<term
+><cmdsynopsis
+><command
+>word-wrap-marker-color</command
+><arg
+>STRING</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Указать цвет маркера переноса строк. Значение должно соответствовать допустимому цвету, например: <userinput
+>#ff0000</userinput
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-word-wrap">
+<term
+><cmdsynopsis
+><command
+>word-wrap</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Включить или отключить статический перенос строк.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect2>
+
+<sect2 id="kateconfig-extended-options">
+<title
+>Расширенные параметры в файлах <filename
+>.kateconfig</filename
+></title>
+
+<para
+>&kappname; всегда выполняет поиск файла <filename
+>.kateconfig</filename
+> при открытии локальных файлов (не сетевых). Кроме того, возможно указать параметры на основе масок (расширений файлов) следующим образом:</para>
+
+<programlisting
+>kate: tab-width 4; indent-width 4; replace-tabs on;
+kate-wildcard(*.xml): indent-width 2;
+kate-wildcard(Makefile): replace-tabs off;
+</programlisting>
+
+<para
+>В этом примере для всех файлов используется ширина табуляции, равная 4 пробелам, и знаки табуляции заменяются пробелами. Но для всех файлов с расширением <filename class="extension"
+>*.xml</filename
+> задана ширина табуляции, равная 2 пробелам. А для файлов Makefile используются знаки табуляции, то есть они не заменяются пробелами.</para>
+
+<para
+>Маски разделяются точкой с запятой. Возможно указать несколько расширений файлов: </para>
+
+<programlisting
+>kate-wildcard(*.json;*.xml): indent-width 2;</programlisting>
+
+<para
+>Более того, возможно использовать тип &MIME;. Например, чтобы проставить во всех исходных файлах C++ отступы шириной 4 пробела: </para>
+
+<programlisting
+>kate-mimetype(text/x-c++src): indent-width 4;</programlisting>
+
+<note
+><para
+>Переменные документа возможно использовать не только задействуя файлы <filename
+>.kateconfig</filename
+>, маски и типы &MIME;, но и сам документ (в нём они представлены в виде комментариев). </para
+></note>
+
+</sect2>
+
+</sect1>
+
+</chapter>

@@ -1,0 +1,89 @@
+# Copyright (C) YEAR This file is copyright:
+# This file is distributed under the same license as the kate package.
+#
+# Kishore G <kishore96@gmail.com>, 2022.
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"PO-Revision-Date: 2022-08-23 21:35+0530\n"
+"Last-Translator: Kishore G <kishore96@gmail.com>\n"
+"Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
+"Language: ta\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 22.07.90\n"
+
+#: ktexteditorpreviewview.cpp:31
+#, kde-format
+msgid "Preview"
+msgstr "முன்னோட்டம்"
+
+#: previewwidget.cpp:45
+#, kde-format
+msgid "Lock Current Document"
+msgstr "தற்போதைய ஆவணத்தைப் பூட்டு"
+
+#: previewwidget.cpp:46
+#, kde-format
+msgid "Lock preview to current document"
+msgstr "முன்னோட்டத்தில் தற்போதைய ஆவணத்தையேக் காட்டு"
+
+#: previewwidget.cpp:47
+#, kde-format
+msgid "Unlock Current View"
+msgstr "தற்போதைய காட்சின் மீதான பூட்டை நீக்கு"
+
+#: previewwidget.cpp:47
+#, kde-format
+msgid "Unlock current view"
+msgstr "தற்போதைய காட்சின் மீதான பூட்டை நீக்கு"
+
+#: previewwidget.cpp:54
+#, kde-format
+msgid "Automatically Update Preview"
+msgstr "முன்னோட்டத்தைத் தானாக புதுப்பி"
+
+#: previewwidget.cpp:55
+#, kde-format
+msgid "Enable automatic updates of the preview to the current document content"
+msgstr "தற்போதைய ஆவணத்தின் உள்ளடக்கம் மாறும்போது முன்னோட்டத்தைப் புதுப்பிக்கும்"
+
+#: previewwidget.cpp:56
+#, kde-format
+msgid "Manually Update Preview"
+msgstr "முன்னோட்டத்தைக் கைமுறையாக புதுப்பி"
+
+#: previewwidget.cpp:58
+#, kde-format
+msgid ""
+"Disable automatic updates of the preview to the current document content"
+msgstr "தற்போதைய ஆவணத்தின் உள்ளடக்கம் மாறினாலும் முன்னோட்டத்தைத் தானாகப் புதுப்பிக்காதே"
+
+#: previewwidget.cpp:63
+#, kde-format
+msgid "Update Preview"
+msgstr "முன்னோட்டத்தைப் புதுப்பி"
+
+#: previewwidget.cpp:64
+#, kde-format
+msgid "Update the preview to the current document content"
+msgstr "முன்னோட்டத்தில் தற்போதை ஆவண உள்ளடக்கம் காட்டப்படுமாறு அதைப் புதுப்பிக்கும்"
+
+#: previewwidget.cpp:72
+#, kde-format
+msgid "View"
+msgstr "பார்வை"
+
+#: previewwidget.cpp:97
+#, kde-format
+msgid "No preview available."
+msgstr "முன்னோட்டம் இல்லை."
+
+#: previewwidget.cpp:228
+#, kde-format
+msgid "About %1"
+msgstr "%1 பற்றி"

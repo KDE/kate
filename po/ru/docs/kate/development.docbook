@@ -1,0 +1,121 @@
+<chapter id="dev">
+<chapterinfo>
+<authorgroup>
+<author
+>&TC.Hollingsworth; &TC.Hollingsworth.mail;</author>
+<othercredit role="translator"
+><firstname
+>Андрей</firstname
+><surname
+>Балагута</surname
+><affiliation
+><address
+><email
+>uj2@mail.ru</email
+></address
+></affiliation
+><contrib
+>Перевод на русский язык</contrib
+></othercredit
+> <othercredit role="translator"
+><firstname
+>Алексей</firstname
+><surname
+>Опарин</surname
+><affiliation
+><address
+><email
+>opaleksej@yandex.ru</email
+></address
+></affiliation
+><contrib
+>Перевод на русский язык</contrib
+></othercredit
+> <othercredit role="translator"
+><firstname
+>Мария</firstname
+><surname
+>Шикунова</surname
+><affiliation
+><address
+><email
+>translation-team@basealt.ru</email
+></address
+></affiliation
+><contrib
+>Обновление перевода</contrib
+></othercredit
+><othercredit role="translator"
+><firstname
+>Олеся</firstname
+><surname
+>Герасименко</surname
+><affiliation
+><address
+><email
+>translation-team@basealt.ru</email
+></address
+></affiliation
+><contrib
+>Редактирование перевода</contrib
+></othercredit
+> 
+</authorgroup>
+</chapterinfo>
+<title
+>Расширение функциональных возможностей &kate;</title>
+
+<sect1 id="dev-intro">
+<title
+>Введение</title>
+
+<para
+>Как и любой другой улучшенный текстовый редактор, &kate; предоставляет разнообразные возможности расширения своей функциональности. Возможно <link linkend="dev-scripting"
+>создавать простые сценарии, которые реализуют дополнительные возможности, с помощью &javascript;,</link
+> а также использовать <link linkend="dev-app"
+>модули &kate;, написанные на языке C++</link
+>. Расширив возможности &kate;, <ulink url="https://kate-editor.org/join-us/"
+>присоединяйтесь к нам</ulink
+> и делитесь созданными инструментами с пользователями по всему миру!</para>
+
+</sect1>
+
+<sect1 id="highlight">
+<title
+>Работа с подсветкой синтаксиса</title>
+
+<para
+>Сведения о добавлении или изменении определений подсветки синтаксиса доступны в <ulink url="help:/katepart/highlight.html"
+>разделе «Подсветка синтаксиса» руководства пользователя &katepart;</ulink
+>.</para>
+
+</sect1>
+
+<sect1 id="dev-scripting">
+<title
+>Написание сценариев &javascript;</title>
+
+<para
+>Сведения о написании сценариев с использованием &javascript; доступны в <ulink url="help:/katepart/dev-scripting.html"
+>разделе «Написание сценариев &javascript;» руководства пользователя &katepart;</ulink
+>.</para>
+
+</sect1>
+
+<sect1 id="dev-app">
+<title
+>Модули &kate; (C++)</title>
+
+<para
+><link linkend="kate-application-plugins"
+>Модули &kate;</link
+>, написанные на том же языке, что и сам редактор &kate; (C++), позволяют значительно расширить его функциональные возможности.</para>
+
+<para
+>Начните работу с посещения веб-сайта &kate; для ознакомления с <ulink url="https://kate-editor.org/2004/01/06/writing-a-kate-plugin/"
+>практическим руководством по написанию модуля &kate;</ulink
+>.</para>
+
+</sect1>
+
+</chapter>

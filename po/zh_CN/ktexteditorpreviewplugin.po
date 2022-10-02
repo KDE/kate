@@ -1,0 +1,89 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: kdeorg\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"PO-Revision-Date: 2022-09-20 01:55\n"
+"Last-Translator: \n"
+"Language-Team: Chinese Simplified\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Crowdin-Project: kdeorg\n"
+"X-Crowdin-Project-ID: 269464\n"
+"X-Crowdin-Language: zh-CN\n"
+"X-Crowdin-File: /kf5-trunk/messages/kate/ktexteditorpreviewplugin.pot\n"
+"X-Crowdin-File-ID: 6511\n"
+
+#: ktexteditorpreviewview.cpp:31
+#, kde-format
+msgid "Preview"
+msgstr "预览"
+
+#: previewwidget.cpp:45
+#, kde-format
+msgid "Lock Current Document"
+msgstr "锁定当前文档"
+
+#: previewwidget.cpp:46
+#, kde-format
+msgid "Lock preview to current document"
+msgstr "将预览锁定到当前文档"
+
+#: previewwidget.cpp:47
+#, kde-format
+msgid "Unlock Current View"
+msgstr "解锁当前视图"
+
+#: previewwidget.cpp:47
+#, kde-format
+msgid "Unlock current view"
+msgstr "解锁当前视图"
+
+#: previewwidget.cpp:54
+#, kde-format
+msgid "Automatically Update Preview"
+msgstr "自动更新预览"
+
+#: previewwidget.cpp:55
+#, kde-format
+msgid "Enable automatic updates of the preview to the current document content"
+msgstr "启用对当前文档内容的预览的自动更新"
+
+#: previewwidget.cpp:56
+#, kde-format
+msgid "Manually Update Preview"
+msgstr "手动更新预览"
+
+#: previewwidget.cpp:58
+#, kde-format
+msgid ""
+"Disable automatic updates of the preview to the current document content"
+msgstr "禁用对当前文档内容的预览的自动更新"
+
+#: previewwidget.cpp:63
+#, kde-format
+msgid "Update Preview"
+msgstr "更新预览"
+
+#: previewwidget.cpp:64
+#, kde-format
+msgid "Update the preview to the current document content"
+msgstr "更新预览到当前文档内容"
+
+#: previewwidget.cpp:72
+#, kde-format
+msgid "View"
+msgstr "视图"
+
+#: previewwidget.cpp:97
+#, kde-format
+msgid "No preview available."
+msgstr "没有可用的预览。"
+
+#: previewwidget.cpp:228
+#, kde-format
+msgid "About %1"
+msgstr "关于 %1"

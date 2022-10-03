@@ -2019,8 +2019,12 @@ For instance, the <quote>Kate</quote> <filename>.kateproject</filename> file loo
 
 <screen>
 {
-  "name": "Kate"
-, "files": [ { "git": 1 } ]
+  "name": "Kate",
+  "files": [
+    {
+      "git": 1
+    }
+  ]
 }
 </screen>
 
@@ -2031,14 +2035,30 @@ the files contained in should be read from &git;.
 <para>
 Also supported instead of <literal>git</literal> is subversion through <literal>svn</literal> and
 mercurial through <literal>hg</literal>.
-If you do not want to read from a version control system, you can tell it to recursively
-load files from directories as follows:
+
+If you do not want to read files from a version control system, you can just invoke kate from command line as:
+<screen>
+kate /path/to/folder
+</screen>
+or you can tell it to recursively load files from directories as follows:
 </para>
 
 <screen>
 {
-  "name": "Kate"
-, "files": [ { "directory": "kate", "filters": ["*.cpp", "*.h", "*.ui", "CMakeLists.txt", "Find*.cmake"], "recursive": 1 } ]
+  "name": "Kate",
+  "files": [
+    {
+      "directory": "kate",
+      "filters": [
+        "*.cpp",
+        "*.h",
+        "*.ui",
+        "CMakeLists.txt",
+        "Find*.cmake"
+      ],
+      "recursive": 1
+    }
+  ]
 }
 </screen>
 
@@ -2052,13 +2072,17 @@ You can also mix version control and files based on filters.
 
 <screen>
 {
-  "name": "Kate"
-, "files": [ { "git": 1 } ]
-, "build": {
-    "directory": "build"
-  , "build": "make all"
-  , "clean": "make clean"
-  , "install": "make install"
+  "name": "Kate",
+  "files": [
+    {
+      "git": 1
+    }
+  ],
+  "build": {
+    "directory": "build",
+    "build": "make all",
+    "clean": "make clean",
+    "install": "make install"
   }
 }
 </screen>

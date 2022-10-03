@@ -72,6 +72,7 @@ private Q_SLOTS:
 
     // Building
     void slotSelectTarget();
+    void slotBuildAndRunDefaultTarget();
     void slotBuildActiveTarget();
     void slotBuildPreviousTarget();
     void slotBuildDefaultTarget();
@@ -81,6 +82,7 @@ private Q_SLOTS:
     void slotProcExited(int exitCode, QProcess::ExitStatus exitStatus);
     void slotReadReadyStdErr();
     void slotReadReadyStdOut();
+    void slotRunAfterBuild();
 
     // Selecting warnings/errors
     void slotNext();
@@ -109,6 +111,8 @@ private Q_SLOTS:
     void slotPluginViewDeleted(const QString &name, QObject *pluginView);
     void slotProjectMapChanged();
     void slotAddProjectTarget();
+
+    void onSelectionChanged(const QModelIndex &, const QModelIndex &current);
 
 protected:
     bool eventFilter(QObject *obj, QEvent *ev) override;
@@ -140,6 +144,7 @@ private:
     QString m_stdErr;
     QString m_currentlyBuildingTarget;
     bool m_buildCancelled;
+    bool m_runAfterBuild = false;
     int m_displayModeBeforeBuild;
     QString m_make_dir;
     QStack<QString> m_make_dir_stack;

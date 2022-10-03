@@ -2087,6 +2087,7 @@ You can also mix version control and files based on filters.
       {
         "name": "all",
         "build_cmd": "ninja"
+        "run_cmd": "./bin/kate"
       },
       {
         "name": "kate",
@@ -2100,6 +2101,9 @@ You can also mix version control and files based on filters.
 <para>
 The targets specified above will then appear in the <link linkend="kate-application-plugin-build">Build Plugin </link> under <emphasis role="bold">
 "Project Plugin Targets"</emphasis>.
+
+If the <code>"targets"</code> array is specified then <code>"build"</code>, <code>"clean"</code> and <code>"install"</code> are ignored. Each element in the array specifies a target. <code>"name"</code> is the name of the target, <code>"build_cmd"</code> will be used to build the target, <code>"run_cmd"</code> is will be used to run the target. Most important of all is <code> "directory"</code>, this is where the commands will be executed.
+
 </para>
 
 <para>

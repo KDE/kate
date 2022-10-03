@@ -49,6 +49,10 @@ TargetsUi::TargetsUi(QObject *view, QWidget *parent)
     buildButton->setIcon(QIcon::fromTheme(QStringLiteral("run-build")));
     buildButton->setToolTip(i18n("Build selected target"));
 
+    runButton = new QToolButton(this);
+    runButton->setIcon(QIcon::fromTheme(QStringLiteral("media-playback-start")));
+    runButton->setToolTip(i18n("Build & run selected target"));
+
     targetsView = new QTreeView(this);
     targetsView->setAlternatingRowColors(true);
 
@@ -66,7 +70,8 @@ TargetsUi::TargetsUi(QObject *view, QWidget *parent)
     tLayout->addWidget(targetCombo);
     tLayout->addWidget(targetFilterEdit);
     tLayout->addWidget(buildButton);
-    tLayout->addSpacing(20);
+    tLayout->addWidget(runButton);
+    tLayout->addSpacing(15);
     tLayout->addWidget(addButton);
     tLayout->addWidget(newTarget);
     tLayout->addWidget(copyTarget);

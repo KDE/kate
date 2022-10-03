@@ -15,12 +15,17 @@ class TargetModel : public QAbstractItemModel
 {
     Q_OBJECT
 public:
+    struct Command {
+        QString name;
+        QString buildCmd;
+        QString runCmd;
+    };
     struct TargetSet {
         TargetSet(const QString &_name, const QString &_workDir);
         QString name;
         QString workDir;
         QString defaultCmd;
-        QList<QPair<QString, QString>> commands;
+        QList<Command> commands;
     };
 
     TargetModel(QObject *parent = nullptr);
@@ -39,7 +44,7 @@ public Q_SLOTS:
     QModelIndex addTargetSet(const QString &setName, const QString &workDir);
 
     /** This function adds a new command to a target-set and returns the model index */
-    QModelIndex addCommand(const QModelIndex &parentIndex, const QString &cmdName, const QString &command);
+    QModelIndex addCommand(const QModelIndex &parentIndex, const QString &cmdName, const QString &buildCmd, const QString &runCmd = {});
 
     /** This function copies the target(-set) the model index points to and returns
      * the model index of the copy. */

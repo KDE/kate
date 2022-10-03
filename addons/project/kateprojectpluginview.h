@@ -132,6 +132,8 @@ public Q_SLOTS:
      */
     void switchToProject(const QDir &dir);
 
+    void runCmdInTerminal(const QString &workingDir, const QString &cmd);
+
 private Q_SLOTS:
     /**
      * Plugin config updated

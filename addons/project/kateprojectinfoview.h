@@ -55,6 +55,8 @@ public:
 
     void resetTerminal(const QString &directory);
 
+    void runCmdInTerminal(const QString &workingDir, const QString &cmd);
+
 private:
     /**
      * our plugin view

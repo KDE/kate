@@ -86,3 +86,10 @@ void KateProjectInfoView::resetTerminal(const QString &directory)
         m_terminal->respawn(directory);
     }
 }
+
+void KateProjectInfoView::runCmdInTerminal(const QString &workingDir, const QString &cmd)
+{
+    if (auto terminal = qobject_cast<KateProjectInfoViewTerminal *>(currentWidget())) {
+        terminal->runCommand(workingDir, cmd);
+    }
+}

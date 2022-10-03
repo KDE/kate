@@ -39,6 +39,7 @@ public:
 
     QToolButton *addButton;
     QToolButton *buildButton;
+    QToolButton *runButton;
 
 public Q_SLOTS:
     void targetSetSelected(int index);

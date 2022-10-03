@@ -141,6 +141,10 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     a->setText(i18n("Build Default Target"));
     connect(a, &QAction::triggered, this, &KateBuildView::slotBuildDefaultTarget);
 
+    a = actionCollection()->addAction(QStringLiteral("build_and_run_default_target"));
+    a->setText(i18n("Build & Run Default Target"));
+    connect(a, &QAction::triggered, this, &KateBuildView::slotBuildAndRunDefaultTarget);
+
     a = actionCollection()->addAction(QStringLiteral("build_previous_target"));
     a->setText(i18n("Build Previous Target"));
     connect(a, &QAction::triggered, this, &KateBuildView::slotBuildPreviousTarget);
@@ -220,7 +224,12 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
 
     connect(m_targetsUi->addButton, &QToolButton::clicked, this, &KateBuildView::slotAddTargetClicked);
     connect(m_targetsUi->buildButton, &QToolButton::clicked, this, &KateBuildView::slotBuildActiveTarget);
+    connect(m_targetsUi->runButton, &QToolButton::clicked, this, [this] {
+        m_runAfterBuild = true;
+        slotBuildActiveTarget();
+    });
     connect(m_targetsUi, &TargetsUi::enterPressed, this, &KateBuildView::slotBuildActiveTarget);
+    connect(m_targetsUi->targetsView->selectionModel(), &QItemSelectionModel::currentChanged, this, &KateBuildView::onSelectionChanged);
 
     m_proc.setOutputChannelMode(KProcess::SeparateChannels);
     connect(&m_proc, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &KateBuildView::slotProcExited);
@@ -304,10 +313,6 @@ void KateBuildView::readSessionConfig(const KConfigGroup &cg)
         tmpCmd = cg.readEntry(QStringLiteral("Active Target Command"), 0);
     }
 
-    m_targetsUi->targetsView->expandAll();
-    m_targetsUi->targetsView->resizeColumnToContents(0);
-    m_targetsUi->targetsView->collapseAll();
-
     QModelIndex root = m_targetsUi->targetsModel.index(tmpIndex);
     QModelIndex cmdIndex = m_targetsUi->targetsModel.index(tmpCmd, 0, root);
     cmdIndex = m_targetsUi->proxyModel.mapFromSource(cmdIndex);
@@ -318,6 +323,10 @@ void KateBuildView::readSessionConfig(const KConfigGroup &cg)
 
     // Add project targets, if any
     slotAddProjectTarget();
+
+    m_targetsUi->targetsView->expandAll();
+    m_targetsUi->targetsView->resizeColumnToContents(0);
+    m_targetsUi->targetsView->resizeColumnToContents(1);
 }
 
 /******************************************************************/
@@ -336,8 +345,8 @@ void KateBuildView::writeSessionConfig(KConfigGroup &cg)
         QStringList cmdNames;
 
         for (int j = 0; j < targets[i].commands.count(); j++) {
-            const QString &cmdName = targets[i].commands[j].first;
-            const QString &buildCmd = targets[i].commands[j].second;
+            const QString &cmdName = targets[i].commands[j].name;
+            const QString &buildCmd = targets[i].commands[j].buildCmd;
             cmdNames << cmdName;
             cg.writeEntry(QStringLiteral("%1 BuildCmd %2").arg(i).arg(cmdName), buildCmd);
         }
@@ -850,6 +859,16 @@ void KateBuildView::slotBuildActiveTarget()
     }
 }
 
+void KateBuildView::slotBuildAndRunDefaultTarget()
+{
+    if (!m_targetsUi->targetsView->currentIndex().isValid()) {
+        slotSelectTarget();
+    } else {
+        m_runAfterBuild = true;
+        slotBuildDefaultTarget();
+    }
+}
+
 /******************************************************************/
 void KateBuildView::slotBuildPreviousTarget()
 {
@@ -1022,6 +1041,33 @@ void KateBuildView::slotProcExited(int exitCode, QProcess::ExitStatus)
         m_buildCancelled = false;
         // add marks
         slotViewChanged();
+    }
+
+    slotRunAfterBuild();
+}
+
+void KateBuildView::slotRunAfterBuild()
+{
+    if (!m_runAfterBuild) {
+        return;
+    }
+    m_runAfterBuild = false;
+    if (!m_previousIndex.isValid()) {
+        return;
+    }
+    auto *projectPluginView = m_win->pluginView(QStringLiteral("kateprojectplugin"));
+    QModelIndex idx = m_previousIndex;
+    idx = idx.siblingAtColumn(2);
+    const QString runCmd = idx.data().toString();
+    if (runCmd.isEmpty()) {
+        return;
+    }
+    const QString workDir = TargetModel::workDir(idx);
+    if (workDir.isEmpty()) {
+        return;
+    }
+    if (projectPluginView) {
+        QMetaObject::invokeMethod(projectPluginView, "runCmdInTerminal", Q_ARG(QString, workDir), Q_ARG(QString, runCmd));
     }
 }
 
@@ -1340,11 +1386,12 @@ void KateBuildView::slotAddProjectTarget()
         QVariantMap targetMap = targetVariant.toMap();
         QString tgtName = targetMap[QStringLiteral("name")].toString();
         QString buildCmd = targetMap[QStringLiteral("build_cmd")].toString();
+        QString runCmd = targetMap[QStringLiteral("run_cmd")].toString();
 
         if (tgtName.isEmpty() || buildCmd.isEmpty()) {
             continue;
         }
-        m_targetsUi->targetsModel.addCommand(set, tgtName, buildCmd);
+        m_targetsUi->targetsModel.addCommand(set, tgtName, buildCmd, runCmd);
     }
 
     if (!set.model()->index(0, 0, set).data().isValid()) {
@@ -1362,6 +1409,24 @@ void KateBuildView::slotAddProjectTarget()
             m_targetsUi->targetsModel.addCommand(set, i18n("quick"), quickCmd);
         }
     }
+    const auto index = m_targetsUi->proxyModel.mapFromSource(set);
+    if (index.isValid()) {
+        m_targetsUi->targetsView->expand(index);
+    }
+}
+
+void KateBuildView::onSelectionChanged(const QModelIndex &current, const QModelIndex &)
+{
+    if (!current.isValid() || !current.parent().isValid()) {
+        m_targetsUi->buildButton->setEnabled(false);
+        m_targetsUi->runButton->setEnabled(false);
+        return;
+    }
+    const bool hasBuildCmd = !current.siblingAtColumn(1).data().toString().isEmpty();
+    const bool hasRunCmd = !current.siblingAtColumn(2).data().toString().isEmpty();
+    m_targetsUi->buildButton->setEnabled(hasBuildCmd);
+    // Run button can be enabled even if there is no build command
+    m_targetsUi->runButton->setEnabled(hasRunCmd);
 }
 
 /******************************************************************/

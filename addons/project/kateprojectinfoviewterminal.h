@@ -55,6 +55,8 @@ public:
 
     bool eventFilter(QObject *o, QEvent *e) override;
 
+    void runCommand(const QString &workingDir, const QString &cmd);
+
 private Q_SLOTS:
     /**
      * Construct a new terminal for this view

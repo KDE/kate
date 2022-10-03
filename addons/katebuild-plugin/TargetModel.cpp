@@ -45,7 +45,7 @@ void TargetModel::setDefaultCmd(int rootRow, const QString &defCmd)
     }
 
     for (int i = 0; i < m_targets[rootRow].commands.size(); i++) {
-        if (defCmd == m_targets[rootRow].commands[i].first) {
+        if (defCmd == m_targets[rootRow].commands[i].name) {
             m_targets[rootRow].defaultCmd = defCmd;
             return;
         }
@@ -70,7 +70,7 @@ QModelIndex TargetModel::addTargetSet(const QString &setName, const QString &wor
     return index(m_targets.count() - 1, 0);
 }
 
-QModelIndex TargetModel::addCommand(const QModelIndex &parentIndex, const QString &cmdName, const QString &command)
+QModelIndex TargetModel::addCommand(const QModelIndex &parentIndex, const QString &cmdName, const QString &buildCmd, const QString &runCmd)
 {
     int rootRow = parentIndex.row();
     if (rootRow < 0 || rootRow >= m_targets.size()) {
@@ -81,7 +81,7 @@ QModelIndex TargetModel::addCommand(const QModelIndex &parentIndex, const QStrin
     // make the name unique
     QString newName = cmdName;
     for (int i = 0; i < m_targets[rootRow].commands.count(); i++) {
-        if (m_targets[rootRow].commands[i].first == newName) {
+        if (m_targets[rootRow].commands[i].name == newName) {
             newName += QStringLiteral(" 2");
             i = -1;
         }
@@ -89,7 +89,7 @@ QModelIndex TargetModel::addCommand(const QModelIndex &parentIndex, const QStrin
 
     QModelIndex rootIndex = createIndex(rootRow, 0, InvalidIndex);
     beginInsertRows(rootIndex, m_targets[rootRow].commands.count(), m_targets[rootRow].commands.count());
-    m_targets[rootRow].commands << QPair<QString, QString>(newName, command);
+    m_targets[rootRow].commands << Command{newName, buildCmd, runCmd};
     endInsertRows();
     return createIndex(m_targets[rootRow].commands.size() - 1, 0, rootRow);
 }
@@ -137,14 +137,15 @@ QModelIndex TargetModel::copyTargetOrSet(const QModelIndex &index)
     QModelIndex rootIndex = createIndex(rootRow, 0, InvalidIndex);
     beginInsertRows(rootIndex, m_targets[rootRow].commands.count(), m_targets[rootRow].commands.count());
 
-    QString newName = m_targets[rootRow].commands[index.row()].first + QStringLiteral(" 2");
+    const auto cmd = m_targets[rootRow].commands[index.row()];
+    QString newName = cmd.name + QStringLiteral(" 2");
     for (int i = 0; i < m_targets[rootRow].commands.count(); i++) {
-        if (m_targets[rootRow].commands[i].first == newName) {
+        if (m_targets[rootRow].commands[i].name == newName) {
             newName += QStringLiteral(" 2");
             i = -1;
         }
     }
-    m_targets[rootRow].commands << QPair<QString, QString>(newName, m_targets[rootRow].commands[index.row()].second);
+    m_targets[rootRow].commands << Command{newName, cmd.buildCmd, cmd.runCmd};
 
     endInsertRows();
     return createIndex(m_targets[rootRow].commands.count() - 1, 0, rootRow);
@@ -299,13 +300,10 @@ const QString TargetModel::targetName(const QModelIndex &itemIndex)
 
 QVariant TargetModel::data(const QModelIndex &index, int role) const
 {
-    if (!index.isValid()) {
+    if (!index.isValid() || !hasIndex(index.row(), index.column(), index.parent())) {
         return QVariant();
     }
 
-    if (index.column() < 0 || index.column() > 1) {
-        return QVariant();
-    }
     // Tooltip
     if (role == Qt::ToolTipRole) {
         if (index.column() == 0 && index.parent().isValid()) {
@@ -323,6 +321,7 @@ QVariant TargetModel::data(const QModelIndex &index, int role) const
         if (row < 0 || row >= m_targets.size() || role == Qt::CheckStateRole) {
             return QVariant();
         }
+
         switch (index.column()) {
         case 0:
             return m_targets[row].name;
@@ -342,13 +341,15 @@ QVariant TargetModel::data(const QModelIndex &index, int role) const
             if (index.column() != 0) {
                 return QVariant();
             }
-            return m_targets[rootIndex].commands[row].first == m_targets[rootIndex].defaultCmd ? Qt::Checked : Qt::Unchecked;
+            return m_targets[rootIndex].commands[row].buildCmd == m_targets[rootIndex].defaultCmd ? Qt::Checked : Qt::Unchecked;
         } else {
             switch (index.column()) {
             case 0:
-                return m_targets[rootIndex].commands[row].first;
+                return m_targets[rootIndex].commands[row].name;
             case 1:
-                return m_targets[rootIndex].commands[row].second;
+                return m_targets[rootIndex].commands[row].buildCmd;
+            case 2:
+                return m_targets[rootIndex].commands[row].runCmd;
             }
         }
     }
@@ -372,6 +373,9 @@ QVariant TargetModel::headerData(int section, Qt::Orientation orientation, int r
     if (section == 1) {
         return i18n("Working Directory / Command");
     }
+    if (section == 2) {
+        return i18n("Run Command");
+    }
     return QVariant();
 }
 
@@ -381,14 +385,11 @@ bool TargetModel::setData(const QModelIndex &index, const QVariant &value, int r
     if (role != Qt::EditRole && role != Qt::CheckStateRole) {
         return false;
     }
-    if (!index.isValid()) {
+    if (!index.isValid() || !hasIndex(index.row(), index.column(), index.parent())) {
         return false;
     }
-    if (index.column() < 0 || index.column() > 1) {
-        return false;
-    }
-    int row = index.row();
 
+    int row = index.row();
     if (index.internalId() == InvalidIndex) {
         if (row < 0 || row >= m_targets.size()) {
             return false;
@@ -412,16 +413,16 @@ bool TargetModel::setData(const QModelIndex &index, const QVariant &value, int r
 
         if (role == Qt::CheckStateRole) {
             if (index.column() == 0) {
-                m_targets[rootIndex].defaultCmd = m_targets[rootIndex].commands[row].first;
+                m_targets[rootIndex].defaultCmd = m_targets[rootIndex].commands[row].buildCmd;
                 Q_EMIT dataChanged(createIndex(0, 0, rootIndex), createIndex(m_targets[rootIndex].commands.size() - 1, 0, rootIndex));
             }
         } else {
             switch (index.column()) {
             case 0:
-                m_targets[rootIndex].commands[row].first = value.toString();
+                m_targets[rootIndex].commands[row].name = value.toString();
                 return true;
             case 1:
-                m_targets[rootIndex].commands[row].second = value.toString();
+                m_targets[rootIndex].commands[row].buildCmd = value.toString();
                 return true;
             }
         }
@@ -462,7 +463,7 @@ int TargetModel::rowCount(const QModelIndex &parent) const
 
 int TargetModel::columnCount(const QModelIndex &) const
 {
-    return 2;
+    return 3;
 }
 
 QModelIndex TargetModel::index(int row, int column, const QModelIndex &parent) const

@@ -88,6 +88,9 @@ QSize TargetHtmlDelegate::sizeHint(const QStyleOptionViewItem & /* option */, co
     if (index.column() == 0 && index.internalId() != TargetModel::InvalidIndex) {
         return doc.size().toSize() + QSize(30, 0); // add margin for the check-box;
     }
+    if (index.column() == 1 && !index.parent().isValid()) {
+        return doc.size().toSize() + QSize(38, 0); // add space for "Dir"
+    }
     return doc.size().toSize();
 }
 

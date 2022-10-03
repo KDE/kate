@@ -575,6 +575,16 @@ void KateProjectPluginView::switchToProject(const QDir &dir)
     }
 }
 
+void KateProjectPluginView::runCmdInTerminal(const QString &workingDir, const QString &cmd)
+{
+    m_mainWindow->showToolView(m_toolInfoView);
+    auto widget = static_cast<KateProjectInfoView *>(m_stackedProjectInfoViews->currentWidget());
+    if (!widget) {
+        return;
+    }
+    widget->runCmdInTerminal(workingDir, cmd);
+}
+
 void KateProjectPluginView::slotViewCreated(KTextEditor::View *view)
 {
     /**

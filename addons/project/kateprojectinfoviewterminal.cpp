@@ -12,6 +12,7 @@
 #include <KLocalizedString>
 #include <KPluginFactory>
 #include <KSharedConfig>
+#include <KShell>
 #include <kde_terminal_interface.h>
 #include <ktexteditor_utils.h>
 
@@ -187,4 +188,16 @@ bool KateProjectInfoViewTerminal::eventFilter(QObject *w, QEvent *e)
     }
 
     return QWidget::eventFilter(w, e);
+}
+
+void KateProjectInfoViewTerminal::runCommand(const QString &workingDir, const QString &cmd)
+{
+    auto terminal = qobject_cast<TerminalInterface *>(m_konsolePart);
+    if (!terminal) {
+        loadTerminal();
+    }
+    terminal->sendInput(QStringLiteral("\x05\x15"));
+    const QString changeDirCmd = QStringLiteral("cd ") + KShell::quoteArg(workingDir) + QStringLiteral("\n");
+    terminal->sendInput(changeDirCmd);
+    terminal->sendInput(cmd.trimmed() + QStringLiteral("\n"));
 }

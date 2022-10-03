@@ -1151,9 +1151,14 @@ void KateViewSpace::restoreConfig(KateViewManager *viewMan, const KConfigBase *c
 
     // restore Document lru list so that all tabs from the last session reappear
     const QStringList lruList = group.readEntry("Documents", QStringList());
-    for (int i = 0; i < lruList.size(); ++i) {
+    for (const auto &url : lruList) {
+        // ignore untitled stuff
+        if (url.isEmpty()) {
+            continue;
+        }
+
         // ignore non-existing documents
-        if (auto doc = KateApp::self()->documentManager()->findDocument(QUrl(lruList[i]))) {
+        if (auto doc = KateApp::self()->documentManager()->findDocument(QUrl(url))) {
             registerDocument(doc);
         }
     }

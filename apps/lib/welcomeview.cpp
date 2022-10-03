@@ -135,14 +135,25 @@ WelcomeView::WelcomeView(QWidget *parent)
     connect(openDocumentButton, &QPushButton::clicked, viewManager, &KateViewManager::slotDocumentOpen);
     connect(newDocumentButton, &QPushButton::clicked, viewManager, &KateViewManager::slotDocumentNew);
 
-    QObject *project = viewManager->mainWindow()->pluginView(QStringLiteral("kateprojectplugin"));
-    if (project) {
-        connect(openFolderButton, &QPushButton::clicked, viewManager, [project]() {
-            QMetaObject::invokeMethod(project, "openDirectoryOrProject");
-        });
-    } else {
-        openFolderButton->setVisible(false);
-    }
+    auto pluginViewChanged = [this, viewManager](const QString &name = QString()) {
+        static const QString projectPluginName = QStringLiteral("kateprojectplugin");
+        if (name.isEmpty() || name == projectPluginName) {
+            QObject *projectPluginView = viewManager->mainWindow()->pluginView(projectPluginName);
+            if (projectPluginView) {
+                connect(openFolderButton, &QPushButton::clicked, projectPluginView, [projectPluginView]() {
+                    QMetaObject::invokeMethod(projectPluginView, "openDirectoryOrProject");
+                });
+                openFolderButton->show();
+            } else {
+                openFolderButton->hide();
+            }
+        }
+    };
+    pluginViewChanged();
+
+    const KTextEditor::MainWindow *mainWindow = viewManager->mainWindow()->wrapper();
+    connect(mainWindow, &KTextEditor::MainWindow::pluginViewCreated, this, pluginViewChanged);
+    connect(mainWindow, &KTextEditor::MainWindow::pluginViewDeleted, this, pluginViewChanged);
 
     recentsListView->setContextMenuPolicy(Qt::DefaultContextMenu);
     recentsListView->setModel(m_recentsModel);

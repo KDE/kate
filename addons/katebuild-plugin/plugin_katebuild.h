@@ -150,7 +150,7 @@ private:
     unsigned int m_numErrors = 0;
     unsigned int m_numWarnings = 0;
     QString m_prevItemContent;
-    QModelIndex m_previousIndex;
+    QPersistentModelIndex m_previousIndex;
     QPointer<KTextEditor::Message> m_infoMessage;
     QPointer<QAction> m_showMarks;
     QHash<KTextEditor::Document *, QPointer<KTextEditor::Document>> m_markedDocs;

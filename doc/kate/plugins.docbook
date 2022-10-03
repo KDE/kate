@@ -2067,7 +2067,7 @@ Here, subfolders and filters define what’s part of the project.
 You can also mix version control and files based on filters.
 </para>
 
-<para id="projects-build-support">If you want to add support for the Build plugin, you could write a
+<para id="projects-build-support">If you want to add support for the building, you can write a
 <filename>.kateproject</filename> like this:</para>
 
 <screen>
@@ -2082,10 +2082,25 @@ You can also mix version control and files based on filters.
     "directory": "build",
     "build": "make all",
     "clean": "make clean",
-    "install": "make install"
+    "install": "make install",
+    "targets": [
+      {
+        "name": "all",
+        "build_cmd": "ninja"
+      },
+      {
+        "name": "kate",
+        "build_cmd": "ninja kate-bin"
+      }
+    ]
   }
 }
 </screen>
+
+<para>
+The targets specified above will then appear in the <link linkend="kate-application-plugin-build">Build Plugin </link> under <emphasis role="bold">
+"Project Plugin Targets"</emphasis>.
+</para>
 
 <para>
 In case you have a <filename>.kateproject</filename> file tracked by a control

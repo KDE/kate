@@ -174,7 +174,6 @@ static bool fuzzy_internal::fuzzy_match_recursive(QStringView::const_iterator pa
     bool firstMatch = true;
     QChar currentPatternChar = toLower(*pattern);
     // Are we matching in sequence start from start?
-    bool matchingInSequence = true;
     while (pattern != patternEnd && str != strEnd) {
         // Found match
         if (currentPatternChar == toLower(*str)) {
@@ -193,18 +192,17 @@ static bool fuzzy_internal::fuzzy_match_recursive(QStringView::const_iterator pa
             uint8_t recursiveMatches[maxMatches];
             int recursiveScore = 0;
             const auto strNextChar = std::next(str);
-            if (!matchingInSequence
-                && fuzzy_match_recursive(pattern,
-                                         strNextChar,
-                                         recursiveScore,
-                                         strBegin,
-                                         strEnd,
-                                         patternEnd,
-                                         matches,
-                                         recursiveMatches,
-                                         nextMatch,
-                                         totalMatches,
-                                         recursionCount)) {
+            if (fuzzy_match_recursive(pattern,
+                                      strNextChar,
+                                      recursiveScore,
+                                      strBegin,
+                                      strEnd,
+                                      patternEnd,
+                                      matches,
+                                      recursiveMatches,
+                                      nextMatch,
+                                      totalMatches,
+                                      recursionCount)) {
                 // Pick best recursive score
                 if (!recursiveMatch || recursiveScore > bestRecursiveScore) {
                     memcpy(bestRecursiveMatches, recursiveMatches, maxMatches);
@@ -217,8 +215,6 @@ static bool fuzzy_internal::fuzzy_match_recursive(QStringView::const_iterator pa
             matches[nextMatch++] = (uint8_t)(std::distance(strBegin, str));
             ++pattern;
             currentPatternChar = toLower(*pattern);
-        } else {
-            matchingInSequence = false;
         }
         ++str;
     }
@@ -230,7 +226,7 @@ static bool fuzzy_internal::fuzzy_match_recursive(QStringView::const_iterator pa
     if (matched) {
         static constexpr int firstSepScoreDiff = 3;
 
-        static constexpr int sequentialBonus = 25;
+        static constexpr int sequentialBonus = 20;
         static constexpr int separatorBonus = 25; // bonus if match occurs after a separator
         static constexpr int firstLetterBonus = 15; // bonus if the first letter is matched
         static constexpr int firstLetterSepMatchBonus = firstLetterBonus - firstSepScoreDiff; // bonus if the first matched letter is camel or separator
@@ -238,10 +234,8 @@ static bool fuzzy_internal::fuzzy_match_recursive(QStringView::const_iterator pa
         static constexpr int unmatchedLetterPenalty = -1; // penalty for every letter that doesn't matter
 
         int nonBeginSequenceBonus = 10;
-        // At ~9 letters, 9 * 2.8, this will cancel camel/separator penalty
-        static constexpr double letterPenaltyMultiplier = 2.8;
         // points by which nonBeginSequenceBonus is increment on every matched letter
-        static constexpr int nonBeginSequenceIncrement = 5;
+        static constexpr int nonBeginSequenceIncrement = 4;
 
         // Initialize score
         outScore = 100;
@@ -309,12 +303,7 @@ static bool fuzzy_internal::fuzzy_match_recursive(QStringView::const_iterator pa
                 allConsecutive = false;
 
                 // there is a gap between matching chars, apply penalty
-                int penalty;
-                if (inSeparatorSeq) {
-                    penalty = -((currIdx - prevIdx) * letterPenaltyMultiplier); // 2 extra points for gap start
-                } else {
-                    penalty = -((currIdx - prevIdx));
-                }
+                int penalty = -((currIdx - prevIdx)) - 2;
                 outScore += penalty;
                 inSeparatorSeq = false;
                 nonBeginSequenceBonus = 10;

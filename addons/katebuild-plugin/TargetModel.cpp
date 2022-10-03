@@ -32,7 +32,9 @@ TargetModel::~TargetModel()
 
 void TargetModel::clear()
 {
+    beginResetModel();
     m_targets.clear();
+    endResetModel();
 }
 
 void TargetModel::setDefaultCmd(int rootRow, const QString &defCmd)

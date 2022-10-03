@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-02 00:49+0000\n"
-"PO-Revision-Date: 2022-09-20 01:55\n"
+"PO-Revision-Date: 2022-10-02 15:49\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -1963,10 +1963,9 @@ msgid "Close &All Documents"
 msgstr "关闭所有文档(&A)"
 
 #: lib/kateviewspace.cpp:996
-#, fuzzy, kde-format
-#| msgid "Close Document"
+#, kde-format
 msgid "D&etach Document"
-msgstr "关闭文档"
+msgstr ""
 
 #: lib/kateviewspace.cpp:997
 #, kde-format
@@ -2202,10 +2201,9 @@ msgstr "手动选择会话(&M)"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: lib/ui/sessionconfigwidget.ui:47
-#, fuzzy, kde-format
-#| msgid "Application Shutdown Behavior"
+#, kde-format
 msgid "Application Startup/Shutdown Behavior"
-msgstr "应用关机行为"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: lib/ui/sessionconfigwidget.ui:55
@@ -2308,10 +2306,9 @@ msgid "Delete unused meta-information after:"
 msgstr "删除未使用的元信息，经过："
 
 #: lib/welcomeview.cpp:69
-#, fuzzy, kde-format
-#| msgid "Copy Location"
+#, kde-format
 msgid "&Copy Location"
-msgstr "复制位置"
+msgstr ""
 
 #: lib/welcomeview.cpp:97
 #, kde-format
@@ -2336,11 +2333,10 @@ msgid "Welcome to KWrite"
 msgstr ""
 
 #: lib/welcomeview.cpp:168
-#, fuzzy, kde-format
-#| msgid "Close the current document."
+#, kde-format
 msgctxt "on welcome screen"
 msgid "No recent documents"
-msgstr "关闭当前文档。"
+msgstr ""
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, WelcomeView)
 #: lib/welcomeview.ui:17
@@ -2350,40 +2346,35 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, newDocumentButton)
 #: lib/welcomeview.ui:221
-#, fuzzy, kde-format
-#| msgid "Close Document"
+#, kde-format
 msgctxt "on welcome screen"
 msgid "New Document"
-msgstr "关闭文档"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, openDocumentButton)
 #: lib/welcomeview.ui:232
-#, fuzzy, kde-format
-#| msgid "Close Document"
+#, kde-format
 msgctxt "on welcome screen"
 msgid "Open Document..."
-msgstr "关闭文档"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, openFolderButton)
 #: lib/welcomeview.ui:243
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgctxt "on welcome screen"
 msgid "Open Folder..."
-msgstr "打开文件"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: lib/welcomeview.ui:372
-#, fuzzy, kde-format
-#| msgid "Reload all open documents."
+#, kde-format
 msgctxt "on welcome screen"
 msgid "Recent documents"
-msgstr "重新加载所有打开的文档。"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QToolButton, forgetAllButton)
 #: lib/welcomeview.ui:382
-#, fuzzy, kde-format
-#| msgid "Clos&e All"
+#, kde-format
 msgctxt "on welcome screen (recent document list)"
 msgid "Forget All"
-msgstr "全部关闭(&E)"
+msgstr ""

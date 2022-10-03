@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-02 00:49+0000\n"
-"PO-Revision-Date: 2022-09-24 11:00+0200\n"
+"PO-Revision-Date: 2022-10-02 16:47+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
@@ -2058,12 +2058,12 @@ msgstr "Aktuellt projekt"
 #: lib/quickopen/katequickopenlineedit.cpp:88
 #, kde-format
 msgid "Fuzzy Filtering"
-msgstr ""
+msgstr "Inexakt filtrering"
 
 #: lib/quickopen/katequickopenlineedit.cpp:99
 #, kde-format
 msgid "Wildcard Filtering"
-msgstr ""
+msgstr "Filtrering med jokertecken"
 
 #: lib/session/katesessionmanagedialog.cpp:26
 #, kde-format

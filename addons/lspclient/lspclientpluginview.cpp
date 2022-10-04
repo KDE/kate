@@ -976,6 +976,9 @@ public:
         if (m_diagnostics->isChecked() && m_diagnosticsTreeOwn) {
             m_diagnosticsTreeOwn.take();
             m_tabWidget->insertTab(0, m_diagnosticsTree, i18nc("@title:tab", "Diagnostics"));
+            // Hide close button
+            m_tabWidget->tabBar()->setTabButton(0, QTabBar::LeftSide, nullptr);
+            m_tabWidget->tabBar()->setTabButton(0, QTabBar::RightSide, nullptr);
         } else if (!m_diagnostics->isChecked() && !m_diagnosticsTreeOwn) {
             m_diagnosticsTreeOwn.reset(m_diagnosticsTree);
             m_tabWidget->removeTab(diagnosticsIndex);

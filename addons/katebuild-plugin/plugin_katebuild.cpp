@@ -53,6 +53,7 @@
 #include <KPluginFactory>
 #include <KXMLGUIFactory>
 
+#include <kterminallauncherjob.h>
 #include <ktexteditor_utils.h>
 
 K_PLUGIN_FACTORY_WITH_JSON(KateBuildPluginFactory, "katebuildplugin.json", registerPlugin<KateBuildPlugin>();)
@@ -1055,7 +1056,7 @@ void KateBuildView::slotRunAfterBuild()
     if (!m_previousIndex.isValid()) {
         return;
     }
-    auto *projectPluginView = m_win->pluginView(QStringLiteral("kateprojectplugin"));
+    QObject *projectPluginView = m_win->pluginView(QStringLiteral("kateprojectplugin"));
     QModelIndex idx = m_previousIndex;
     idx = idx.siblingAtColumn(2);
     const QString runCmd = idx.data().toString();
@@ -1068,6 +1069,11 @@ void KateBuildView::slotRunAfterBuild()
     }
     if (projectPluginView) {
         QMetaObject::invokeMethod(projectPluginView, "runCmdInTerminal", Q_ARG(QString, workDir), Q_ARG(QString, runCmd));
+    } else {
+        auto *job = new KTerminalLauncherJob(runCmd, this);
+        connect(job, &KJob::finished, job, &QObject::deleteLater);
+        job->setWorkingDirectory(workDir);
+        job->start();
     }
 }
 

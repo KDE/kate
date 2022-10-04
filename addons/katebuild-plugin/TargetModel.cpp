@@ -424,6 +424,9 @@ bool TargetModel::setData(const QModelIndex &index, const QVariant &value, int r
             case 1:
                 m_targets[rootIndex].commands[row].buildCmd = value.toString();
                 return true;
+            case 2:
+                m_targets[rootIndex].commands[row].runCmd = value.toString();
+                return true;
             }
         }
     }

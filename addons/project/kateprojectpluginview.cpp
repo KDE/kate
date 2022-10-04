@@ -323,6 +323,12 @@ QPair<KateProjectView *, KateProjectInfoView *> KateProjectPluginView::viewForPr
     m_stackedGitViews->addWidget(gitView);
     m_projectsCombo->addItem(QIcon::fromTheme(QStringLiteral("project-open")), project->name(), project->fileName());
     m_projectsComboGit->addItem(QIcon::fromTheme(QStringLiteral("project-open")), project->name(), project->fileName());
+    connect(project, &KateProject::projectMapChanged, this, [this] {
+        auto widget = m_stackedProjectViews->currentWidget();
+        if (widget && static_cast<KateProjectView *>(widget)->project() == sender()) {
+            Q_EMIT projectMapChanged();
+        }
+    });
 
     /*
      * inform onward

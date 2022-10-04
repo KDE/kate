@@ -439,6 +439,11 @@ Qt::ItemFlags TargetModel::flags(const QModelIndex &index) const
         return Qt::NoItemFlags;
     }
 
+    // run command column for target set row
+    if (index.column() == 2 && !index.parent().isValid()) {
+        return Qt::NoItemFlags;
+    }
+
     if (index.internalId() != InvalidIndex && index.column() == 0) {
         return Qt::ItemIsEditable | Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable;
     }

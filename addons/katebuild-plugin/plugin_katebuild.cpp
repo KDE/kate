@@ -1020,6 +1020,7 @@ void KateBuildView::slotProcExited(int exitCode, QProcess::ExitStatus)
         m_win->showToolView(m_toolView);
     }
 
+    bool buildSuccess = true;
     if (m_numErrors || m_numWarnings) {
         QStringList msgs;
         if (m_numErrors) {
@@ -1031,6 +1032,8 @@ void KateBuildView::slotProcExited(int exitCode, QProcess::ExitStatus)
         }
         displayBuildResult(msgs.join(QLatin1Char('\n')), m_numErrors ? KTextEditor::Message::Error : KTextEditor::Message::Warning);
     } else if (exitCode != 0) {
+        buildSuccess = false;
+        m_runAfterBuild = false;
         displayBuildResult(i18n("Build failed."), KTextEditor::Message::Warning);
     } else {
         displayBuildResult(i18n("Build completed without problems."), KTextEditor::Message::Positive);
@@ -1044,7 +1047,9 @@ void KateBuildView::slotProcExited(int exitCode, QProcess::ExitStatus)
         slotViewChanged();
     }
 
-    slotRunAfterBuild();
+    if (buildSuccess) {
+        slotRunAfterBuild();
+    }
 }
 
 void KateBuildView::slotRunAfterBuild()

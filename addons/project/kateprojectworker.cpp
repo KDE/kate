@@ -290,6 +290,13 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent,
      */
     QVector<QString> files = findFiles(dir, filesEntry);
 
+    QStringList excludeFolderPatterns = m_projectMap.value(QStringLiteral("exclude_patterns")).toStringList();
+    std::vector<QRegularExpression> excludeRegexps;
+    excludeRegexps.reserve(excludeFolderPatterns.size());
+    for (const auto &pattern : excludeFolderPatterns) {
+        excludeRegexps.push_back(QRegularExpression(pattern, QRegularExpression::DontCaptureOption));
+    }
+
     /**
      * sort out non-files
      * even for git, that just reports non-directories, we need to filter out e.g. sym-links to directories
@@ -302,7 +309,7 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent,
     preparedItems.reserve(files.size());
     for (const auto &item : files)
         preparedItems.emplace_back(item, QString(), nullptr);
-    QtConcurrent::blockingMap(preparedItems, [dirPath](std::tuple<QString, QString, KateProjectItem *> &item) {
+    QtConcurrent::blockingMap(preparedItems, [excludeFolderPatterns, dirPath, excludeRegexps](std::tuple<QString, QString, KateProjectItem *> &item) {
         /**
          * cheap file name computation
          * we do this A LOT, QFileInfo is very expensive just for this operation
@@ -310,6 +317,13 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent,
          */
         auto &[filePath, fullFilePath, projectItem] = item;
         fullFilePath = dirPath + filePath;
+
+        for (const auto &excludePattern : excludeRegexps) {
+            if (excludePattern.match(fullFilePath).hasMatch()) {
+                return;
+            }
+        }
+
         const int slashIndex = filePath.lastIndexOf(QLatin1Char('/'));
         const QString fileName = (slashIndex < 0) ? filePath : filePath.mid(slashIndex + 1);
         filePath = (slashIndex < 0) ? QString() : filePath.left(slashIndex);

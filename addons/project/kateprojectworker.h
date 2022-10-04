@@ -48,7 +48,7 @@ private:
      * @param project variant map for this group
      * @param file2Item mapping file => item, will be filled
      */
-    static void loadProject(QStandardItem *parent, const QVariantMap &project, QHash<QString, KateProjectItem *> *file2Item, const QString &baseDir);
+    void loadProject(QStandardItem *parent, const QVariantMap &project, QHash<QString, KateProjectItem *> *file2Item, const QString &baseDir);
 
     /**
      * Load one files entry in the current parent item.
@@ -56,7 +56,7 @@ private:
      * @param filesEntry one files entry specification to load
      * @param file2Item mapping file => item, will be filled
      */
-    static void loadFilesEntry(QStandardItem *parent, const QVariantMap &filesEntry, QHash<QString, KateProjectItem *> *file2Item, const QString &baseDir);
+    void loadFilesEntry(QStandardItem *parent, const QVariantMap &filesEntry, QHash<QString, KateProjectItem *> *file2Item, const QString &baseDir);
 
     static QVector<QString> findFiles(const QDir &dir, const QVariantMap &filesEntry);
 

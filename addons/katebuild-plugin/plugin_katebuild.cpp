@@ -272,47 +272,24 @@ void KateBuildView::readSessionConfig(const KConfigGroup &cg)
     int tmpIndex;
     int tmpCmd;
 
-    if (numTargets == 0) {
-        // either the config is empty or uses the older format
-        QModelIndex index = m_targetsUi->targetsModel.addTargetSet(i18n("Target Set"), QString());
-        m_targetsUi->targetsModel.addCommand(index, i18n("build"), cg.readEntry(QStringLiteral("Make Command"), DefBuildCmd));
-        m_targetsUi->targetsModel.addCommand(index, i18n("clean"), cg.readEntry(QStringLiteral("Clean Command"), DefCleanCmd));
-        m_targetsUi->targetsModel.addCommand(index, i18n("config"), DefConfigCmd);
+    for (int i = 0; i < numTargets; i++) {
+        QStringList targetNames = cg.readEntry(QStringLiteral("%1 Target Names").arg(i), QStringList());
+        QString targetSetName = cg.readEntry(QStringLiteral("%1 Target").arg(i), QString());
+        QString buildDir = cg.readEntry(QStringLiteral("%1 BuildPath").arg(i), QString());
 
-        QString quickCmd = cg.readEntry(QStringLiteral("Quick Compile Command"));
-        if (!quickCmd.isEmpty()) {
-            m_targetsUi->targetsModel.addCommand(index, i18n("quick"), quickCmd);
+        QModelIndex index = m_targetsUi->targetsModel.addTargetSet(targetSetName, buildDir);
+
+        for (int tn = 0; tn < targetNames.size(); ++tn) {
+            const QString &targetName = targetNames.at(tn);
+            const QString &buildCmd = cg.readEntry(QStringLiteral("%1 BuildCmd %2").arg(i).arg(targetName));
+            const QString &runCmd = cg.readEntry(QStringLiteral("%1 RunCmd %2").arg(i).arg(targetName));
+            m_targetsUi->targetsModel.addCommand(index, targetName, buildCmd, runCmd);
         }
-        tmpIndex = 0;
-        tmpCmd = 0;
-    } else {
-        for (int i = 0; i < numTargets; i++) {
-            QStringList targetNames = cg.readEntry(QStringLiteral("%1 Target Names").arg(i), QStringList());
-            QString targetSetName = cg.readEntry(QStringLiteral("%1 Target").arg(i), QString());
-            QString buildDir = cg.readEntry(QStringLiteral("%1 BuildPath").arg(i), QString());
-
-            QModelIndex index = m_targetsUi->targetsModel.addTargetSet(targetSetName, buildDir);
-
-            if (targetNames.isEmpty()) {
-                QString quickCmd = cg.readEntry(QStringLiteral("%1 QuickCmd").arg(i));
-                m_targetsUi->targetsModel.addCommand(index, i18n("build"), cg.readEntry(QStringLiteral("%1 BuildCmd"), DefBuildCmd));
-                m_targetsUi->targetsModel.addCommand(index, i18n("clean"), cg.readEntry(QStringLiteral("%1 CleanCmd"), DefCleanCmd));
-                if (!quickCmd.isEmpty()) {
-                    m_targetsUi->targetsModel.addCommand(index, i18n("quick"), quickCmd);
-                }
-                m_targetsUi->targetsModel.setDefaultCmd(i, i18n("build"));
-            } else {
-                for (int tn = 0; tn < targetNames.size(); ++tn) {
-                    const QString &targetName = targetNames.at(tn);
-                    m_targetsUi->targetsModel.addCommand(index, targetName, cg.readEntry(QStringLiteral("%1 BuildCmd %2").arg(i).arg(targetName), DefBuildCmd));
-                }
-                QString defCmd = cg.readEntry(QStringLiteral("%1 Target Default").arg(i), QString());
-                m_targetsUi->targetsModel.setDefaultCmd(i, defCmd);
-            }
-        }
-        tmpIndex = cg.readEntry(QStringLiteral("Active Target Index"), 0);
-        tmpCmd = cg.readEntry(QStringLiteral("Active Target Command"), 0);
+        QString defCmd = cg.readEntry(QStringLiteral("%1 Target Default").arg(i), QString());
+        m_targetsUi->targetsModel.setDefaultCmd(i, defCmd);
     }
+    tmpIndex = cg.readEntry(QStringLiteral("Active Target Index"), 0);
+    tmpCmd = cg.readEntry(QStringLiteral("Active Target Command"), 0);
 
     QModelIndex root = m_targetsUi->targetsModel.index(tmpIndex);
     QModelIndex cmdIndex = m_targetsUi->targetsModel.index(tmpCmd, 0, root);
@@ -348,8 +325,10 @@ void KateBuildView::writeSessionConfig(KConfigGroup &cg)
         for (int j = 0; j < targets[i].commands.count(); j++) {
             const QString &cmdName = targets[i].commands[j].name;
             const QString &buildCmd = targets[i].commands[j].buildCmd;
+            const QString &runCmd = targets[i].commands[j].runCmd;
             cmdNames << cmdName;
             cg.writeEntry(QStringLiteral("%1 BuildCmd %2").arg(i).arg(cmdName), buildCmd);
+            cg.writeEntry(QStringLiteral("%1 RunCmd %2").arg(i).arg(cmdName), runCmd);
         }
         cg.writeEntry(QStringLiteral("%1 Target Names").arg(i), cmdNames);
         cg.writeEntry(QStringLiteral("%1 Target Default").arg(i), targets[i].defaultCmd);
@@ -1047,21 +1026,17 @@ void KateBuildView::slotProcExited(int exitCode, QProcess::ExitStatus)
         slotViewChanged();
     }
 
-    if (buildSuccess) {
+    if (buildSuccess && m_runAfterBuild) {
+        m_runAfterBuild = false;
         slotRunAfterBuild();
     }
 }
 
 void KateBuildView::slotRunAfterBuild()
 {
-    if (!m_runAfterBuild) {
-        return;
-    }
-    m_runAfterBuild = false;
     if (!m_previousIndex.isValid()) {
         return;
     }
-    QObject *projectPluginView = m_win->pluginView(QStringLiteral("kateprojectplugin"));
     QModelIndex idx = m_previousIndex;
     idx = idx.siblingAtColumn(2);
     const QString runCmd = idx.data().toString();
@@ -1070,8 +1045,10 @@ void KateBuildView::slotRunAfterBuild()
     }
     const QString workDir = TargetModel::workDir(idx);
     if (workDir.isEmpty()) {
+        displayBuildResult(i18n("Cannot execute: %1 No working directory set.", runCmd), KTextEditor::Message::Warning);
         return;
     }
+    QObject *projectPluginView = m_win->pluginView(QStringLiteral("kateprojectplugin"));
     if (projectPluginView) {
         QMetaObject::invokeMethod(projectPluginView, "runCmdInTerminal", Q_ARG(QString, workDir), Q_ARG(QString, runCmd));
     } else {
@@ -1238,7 +1215,7 @@ void KateBuildView::slotAddTargetClicked()
     }
     current = m_targetsUi->proxyModel.mapToSource(current);
 
-    QModelIndex index = m_targetsUi->targetsModel.addCommand(current, DefTargetName, DefBuildCmd);
+    QModelIndex index = m_targetsUi->targetsModel.addCommand(current, DefTargetName, DefBuildCmd, QString());
     index = m_targetsUi->proxyModel.mapFromSource(index);
     m_targetsUi->targetsView->setCurrentIndex(index);
 }
@@ -1248,10 +1225,10 @@ void KateBuildView::targetSetNew()
 {
     m_targetsUi->targetFilterEdit->setText(QString());
     QModelIndex index = m_targetsUi->targetsModel.addTargetSet(i18n("Target Set"), QString());
-    QModelIndex buildIndex = m_targetsUi->targetsModel.addCommand(index, i18n("Build"), DefBuildCmd);
-    m_targetsUi->targetsModel.addCommand(index, i18n("Clean"), DefCleanCmd);
-    m_targetsUi->targetsModel.addCommand(index, i18n("Config"), DefConfigCmd);
-    m_targetsUi->targetsModel.addCommand(index, i18n("ConfigClean"), DefConfClean);
+    QModelIndex buildIndex = m_targetsUi->targetsModel.addCommand(index, i18n("Build"), DefBuildCmd, QString());
+    m_targetsUi->targetsModel.addCommand(index, i18n("Clean"), DefCleanCmd, QString());
+    m_targetsUi->targetsModel.addCommand(index, i18n("Config"), DefConfigCmd, QString());
+    m_targetsUi->targetsModel.addCommand(index, i18n("ConfigClean"), DefConfClean, QString());
     buildIndex = m_targetsUi->proxyModel.mapFromSource(buildIndex);
     m_targetsUi->targetsView->setCurrentIndex(buildIndex);
 }
@@ -1411,13 +1388,13 @@ void KateBuildView::slotAddProjectTarget()
         QString quickCmd = buildMap.value(QStringLiteral("quick")).toString();
         if (!buildCmd.isEmpty()) {
             // we have loaded an "old" project file (<= 4.12)
-            m_targetsUi->targetsModel.addCommand(set, i18n("build"), buildCmd);
+            m_targetsUi->targetsModel.addCommand(set, i18n("build"), buildCmd, QString());
         }
         if (!cleanCmd.isEmpty()) {
-            m_targetsUi->targetsModel.addCommand(set, i18n("clean"), cleanCmd);
+            m_targetsUi->targetsModel.addCommand(set, i18n("clean"), cleanCmd, QString());
         }
         if (!quickCmd.isEmpty()) {
-            m_targetsUi->targetsModel.addCommand(set, i18n("quick"), quickCmd);
+            m_targetsUi->targetsModel.addCommand(set, i18n("quick"), quickCmd, QString());
         }
     }
     const auto index = m_targetsUi->proxyModel.mapFromSource(set);

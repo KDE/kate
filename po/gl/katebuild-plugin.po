@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-06 00:48+0000\n"
+"POT-Creation-Date: 2022-10-04 00:48+0000\n"
 "PO-Revision-Date: 2019-08-24 17:09+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
@@ -358,19 +358,19 @@ msgstr ""
 "«%d» para o directorio do ficheiro actual\n"
 "«%n» para o nome do ficheiro actual sen sufixo"
 
-#: TargetModel.cpp:310
+#: TargetModel.cpp:312
 #, kde-format
 msgid "Check the check-box to make the command the default for the target-set."
 msgstr ""
 "Marque esta caixa para que a orde sexa a predeterminada do grupo de "
 "obxectivos."
 
-#: TargetModel.cpp:368
+#: TargetModel.cpp:370
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Nome da orde ou grupo de obxectivos"
 
-#: TargetModel.cpp:371
+#: TargetModel.cpp:373
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "Directorio de traballo ou orde"

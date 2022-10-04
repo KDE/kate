@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-06 00:48+0000\n"
+"POT-Creation-Date: 2022-10-04 00:48+0000\n"
 "PO-Revision-Date: 2022-04-30 21:21+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -360,17 +360,17 @@ msgstr ""
 "\"%d\" dla katalogu bieżącego pliku\n"
 "\"%n\" dla bieżącej nazwy pliku bez przyrostka"
 
-#: TargetModel.cpp:310
+#: TargetModel.cpp:312
 #, kde-format
 msgid "Check the check-box to make the command the default for the target-set."
 msgstr "Zaznacz pole, aby uczynić to polecenie domyślnym dla zestawu celów."
 
-#: TargetModel.cpp:368
+#: TargetModel.cpp:370
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Nazwa polecenia/zestawu celów"
 
-#: TargetModel.cpp:371
+#: TargetModel.cpp:373
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "Katalog roboczy / polecenie"

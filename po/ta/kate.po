@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-02 00:49+0000\n"
+"POT-Creation-Date: 2022-10-04 00:48+0000\n"
 "PO-Revision-Date: 2022-09-27 19:34+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -2351,29 +2351,29 @@ msgstr "பயன்படுத்தாத மெடா தகவலை இவ
 msgid "&Copy Location"
 msgstr "&இருப்பிடத்தை நகலெடு"
 
-#: lib/welcomeview.cpp:97
+#: lib/welcomeview.cpp:94
 #, kde-format
 msgctxt "recent items context menu"
 msgid "&Forget This Item"
 msgstr "&இவ்வுருப்படியை மற"
 
-#: lib/welcomeview.cpp:126
+#: lib/welcomeview.cpp:123
 #, kde-format
 msgid "Welcome"
 msgstr "நல்வரவு"
 
 #. i18n: ectx: property (text), widget (QLabel, welcomeLabel)
-#: lib/welcomeview.cpp:129 lib/welcomeview.ui:158
+#: lib/welcomeview.cpp:126 lib/welcomeview.ui:158
 #, kde-format
 msgid "Welcome to Kate"
 msgstr "கேட்டுக்கு நல்வரவு"
 
-#: lib/welcomeview.cpp:129
+#: lib/welcomeview.cpp:126
 #, kde-format
 msgid "Welcome to KWrite"
 msgstr "கேரைட்டுக்கு நல்வரவு"
 
-#: lib/welcomeview.cpp:168
+#: lib/welcomeview.cpp:176
 #, kde-format
 msgctxt "on welcome screen"
 msgid "No recent documents"

@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-02 00:49+0000\n"
-"PO-Revision-Date: 2022-09-24 10:19+0200\n"
+"POT-Creation-Date: 2022-10-04 00:48+0000\n"
+"PO-Revision-Date: 2022-10-03 07:35+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
 "Translator: Andrej Mernik <andrejm@ubuntu.si>\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Lokalize 22.04.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -2084,12 +2084,12 @@ msgstr "Trenutni projekt"
 #: lib/quickopen/katequickopenlineedit.cpp:88
 #, kde-format
 msgid "Fuzzy Filtering"
-msgstr ""
+msgstr "Ohlapno filtriranje"
 
 #: lib/quickopen/katequickopenlineedit.cpp:99
-#, kde-format
+#, fuzzy, kde-format
 msgid "Wildcard Filtering"
-msgstr ""
+msgstr "Vsesplošno filtriranje"
 
 #: lib/session/katesessionmanagedialog.cpp:26
 #, kde-format
@@ -2384,29 +2384,29 @@ msgstr "Izbriši neuporabljene metapodatke po:"
 msgid "&Copy Location"
 msgstr "Kopiraj mesto"
 
-#: lib/welcomeview.cpp:97
+#: lib/welcomeview.cpp:94
 #, kde-format
 msgctxt "recent items context menu"
 msgid "&Forget This Item"
 msgstr "Pozabi ta predmet"
 
-#: lib/welcomeview.cpp:126
+#: lib/welcomeview.cpp:123
 #, kde-format
 msgid "Welcome"
 msgstr "Dobrodošli"
 
 #. i18n: ectx: property (text), widget (QLabel, welcomeLabel)
-#: lib/welcomeview.cpp:129 lib/welcomeview.ui:158
+#: lib/welcomeview.cpp:126 lib/welcomeview.ui:158
 #, kde-format
 msgid "Welcome to Kate"
 msgstr "Dobrodošli v Kate"
 
-#: lib/welcomeview.cpp:129
+#: lib/welcomeview.cpp:126
 #, kde-format
 msgid "Welcome to KWrite"
 msgstr "Dobrodošli v KWrite"
 
-#: lib/welcomeview.cpp:168
+#: lib/welcomeview.cpp:176
 #, kde-format
 msgctxt "on welcome screen"
 msgid "No recent documents"

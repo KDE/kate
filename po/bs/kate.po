@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-02 00:49+0000\n"
+"POT-Creation-Date: 2022-10-04 00:48+0000\n"
 "PO-Revision-Date: 2014-01-31 19:52+0100\n"
 "Last-Translator: Samir Ribić <megaribi@epn.ba>\n"
 "Language-Team: bosanski <bs@li.org>\n"
@@ -2460,29 +2460,29 @@ msgstr "&Obriši nekorišćene metapodatke poslije:"
 msgid "&Copy Location"
 msgstr "lokacija"
 
-#: lib/welcomeview.cpp:97
+#: lib/welcomeview.cpp:94
 #, kde-format
 msgctxt "recent items context menu"
 msgid "&Forget This Item"
 msgstr ""
 
-#: lib/welcomeview.cpp:126
+#: lib/welcomeview.cpp:123
 #, kde-format
 msgid "Welcome"
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, welcomeLabel)
-#: lib/welcomeview.cpp:129 lib/welcomeview.ui:158
+#: lib/welcomeview.cpp:126 lib/welcomeview.ui:158
 #, kde-format
 msgid "Welcome to Kate"
 msgstr ""
 
-#: lib/welcomeview.cpp:129
+#: lib/welcomeview.cpp:126
 #, kde-format
 msgid "Welcome to KWrite"
 msgstr ""
 
-#: lib/welcomeview.cpp:168
+#: lib/welcomeview.cpp:176
 #, fuzzy, kde-format
 #| msgid "Close the current document."
 msgctxt "on welcome screen"

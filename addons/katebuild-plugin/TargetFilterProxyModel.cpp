@@ -15,27 +15,29 @@ TargetFilterProxyModel::TargetFilterProxyModel(QObject *parent)
 
 bool TargetFilterProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const
 {
+    QModelIndex srcIndex = sourceModel()->index(sourceRow, 0, sourceParent);
+    if (!srcIndex.isValid()) {
+        qDebug() << "srcIndex is invalid";
+        return false;
+    }
+
     if (m_filter.isEmpty()) {
         return true;
     }
 
-    QModelIndex index0 = sourceModel()->index(sourceRow, 0, sourceParent);
-    QString name = index0.data().toString();
-
-    if (index0.internalId() == 0xffffffff) {
-        int i = 0;
-        auto childIndex = index0.model()->index(i, 0, index0);
-        while (childIndex.data().isValid()) {
-            name = childIndex.data().toString();
-            if (name.contains(m_filter, Qt::CaseInsensitive)) {
-                return true;
-            }
-            i++;
-            childIndex = index0.model()->index(i, 0, index0);
-        }
-        return false;
+    QString name = srcIndex.data().toString();
+    if (name.contains(m_filter, Qt::CaseInsensitive)) {
+        return true;
     }
-    return name.contains(m_filter, Qt::CaseInsensitive);
+
+    for (int row = 0; row < sourceModel()->rowCount(srcIndex); ++row) {
+        const QModelIndex childIndex = srcIndex.model()->index(row, 0, srcIndex);
+        name = childIndex.data().toString();
+        if (name.contains(m_filter, Qt::CaseInsensitive)) {
+            return true;
+        }
+    }
+    return false;
 }
 
 void TargetFilterProxyModel::setFilter(const QString &filter)

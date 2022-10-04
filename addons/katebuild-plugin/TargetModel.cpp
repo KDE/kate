@@ -74,7 +74,7 @@ QModelIndex TargetModel::addCommand(const QModelIndex &parentIndex, const QStrin
 {
     int rootRow = parentIndex.row();
     if (rootRow < 0 || rootRow >= m_targets.size()) {
-        qDebug() << "rootRow not valid";
+        qDebug() << "rootRow" << rootRow << "not valid" << m_targets.size();
         return QModelIndex();
     }
 
@@ -187,12 +187,26 @@ void TargetModel::deleteItem(const QModelIndex &index)
     }
 
     if (index.internalId() == InvalidIndex) {
+        if (index.row() < 0 || index.row() >= m_targets.size()) {
+            qWarning() << "Bad target-set row:" << index.row() << m_targets.size();
+            return;
+        }
         beginRemoveRows(index.parent(), index.row(), index.row());
         m_targets.removeAt(index.row());
         endRemoveRows();
-    } else if (index.internalId() < static_cast<quint64>(m_targets.size()) && m_targets[static_cast<int>(index.internalId())].commands.count() > index.row()) {
+    } else {
+        int setRow = static_cast<int>(index.internalId());
+        if (setRow >= m_targets.size()) {
+            qWarning() << "Bad target-set row:" << index.internalId() << m_targets.size();
+            return;
+        }
+        TargetSet &set = m_targets[setRow];
+        if (index.row() < 0 || index.row() >= set.commands.size()) {
+            qWarning() << "Bad command row:" << index.row() << set.commands.size();
+            return;
+        }
         beginRemoveRows(index.parent(), index.row(), index.row());
-        m_targets[static_cast<int>(index.internalId())].commands.removeAt(index.row());
+        set.commands.removeAt(index.row());
         endRemoveRows();
     }
 }
@@ -461,6 +475,10 @@ int TargetModel::rowCount(const QModelIndex &parent) const
         return 0;
     }
 
+    if (parent.column() != 0) {
+        return 0;
+    }
+
     int row = parent.row();
     if (row < 0 || row >= m_targets.size()) {
         return 0;
@@ -476,19 +494,44 @@ int TargetModel::columnCount(const QModelIndex &) const
 
 QModelIndex TargetModel::index(int row, int column, const QModelIndex &parent) const
 {
+    if (row < 0) {
+        return QModelIndex();
+    }
+
     quint32 rootIndex = InvalidIndex;
-    if (parent.isValid()) {
-        if (parent.internalId() == InvalidIndex) {
-            rootIndex = parent.row();
+    if (parent.isValid() && parent.internalId() == InvalidIndex) {
+        // This is a command (child of a root element)
+        if (parent.column() != 0) {
+            // Only root item column 0 can have children
+            return QModelIndex();
         }
+        rootIndex = parent.row();
+        if (parent.row() >= m_targets.size() || row >= m_targets.at(parent.row()).commands.size()) {
+            return QModelIndex();
+        }
+        return createIndex(row, column, rootIndex);
+    }
+    // This is a root item
+    if (row >= m_targets.size()) {
+        return QModelIndex();
     }
     return createIndex(row, column, rootIndex);
 }
 
 QModelIndex TargetModel::parent(const QModelIndex &child) const
 {
+    if (!child.isValid()) {
+        return QModelIndex();
+    }
+
     if (child.internalId() == InvalidIndex) {
         return QModelIndex();
     }
-    return createIndex(child.internalId(), 0, InvalidIndex);
+
+    int pRow = (int)child.internalId();
+
+    if (pRow < 0 || pRow >= m_targets.size()) {
+        return QModelIndex();
+    }
+    return createIndex(pRow, 0, InvalidIndex);
 }

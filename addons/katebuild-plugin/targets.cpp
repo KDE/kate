@@ -84,7 +84,6 @@ TargetsUi::TargetsUi(QObject *view, QWidget *parent)
 
     connect(targetCombo, static_cast<void (QComboBox::*)(int)>(&QComboBox::activated), this, &TargetsUi::targetSetSelected);
     connect(targetsView->selectionModel(), &QItemSelectionModel::currentChanged, this, &TargetsUi::targetActivated);
-    // connect(targetsView, SIGNAL(clicked(QModelIndex)), this, SLOT(targetActivated(QModelIndex)));
 
     connect(targetFilterEdit, &QLineEdit::textChanged, this, [this](const QString &text) {
         proxyModel.setFilter(text);

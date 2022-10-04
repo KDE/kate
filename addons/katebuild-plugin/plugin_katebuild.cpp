@@ -1210,12 +1210,25 @@ void KateBuildView::processLine(QStringView line)
 void KateBuildView::slotAddTargetClicked()
 {
     QModelIndex current = m_targetsUi->targetsView->currentIndex();
+    QString currName = DefTargetName;
+    QString currCmd = DefBuildCmd;
+    QString currRun;
     if (current.parent().isValid()) {
+        // Copy the active command
+        const QModelIndex nameIndex = current.siblingAtColumn(0);
+        currName = nameIndex.data().toString();
+        const QModelIndex cmdIndex = current.siblingAtColumn(1);
+        currCmd = cmdIndex.data().toString();
+        const QModelIndex runIndex = current.siblingAtColumn(2);
+        currRun = runIndex.data().toString();
+
+        // we need the root item
         current = current.parent();
     }
+
     current = m_targetsUi->proxyModel.mapToSource(current);
 
-    QModelIndex index = m_targetsUi->targetsModel.addCommand(current, DefTargetName, DefBuildCmd, QString());
+    QModelIndex index = m_targetsUi->targetsModel.addCommand(current, currName, currCmd, currRun);
     index = m_targetsUi->proxyModel.mapFromSource(index);
     m_targetsUi->targetsView->setCurrentIndex(index);
 }

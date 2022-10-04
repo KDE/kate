@@ -1,15 +1,28 @@
 {
-      "name": "Kate"
-
-    , "files": [ { "git": 1 } ]
-
-    , "build": {
-        "directory": "build"
-
-      , "build": "make all"
-
-      , "clean": "make clean"
-
-      , "quick": "gcc -Wall -g -o %n %f"
+  "name": "Kate",
+  "files": [
+    {
+      "git": 1
     }
+  ],
+  "build": {
+    "directory": "build",
+    "targets": [
+      {
+        "name": "kdesrcbuild-kate",
+        "build_cmd": "kdesrc-build kate",
+        "run_cmd": "kdesrc-run kate -n ."
+      },
+      {
+        "name": "kate-all",
+        "build_cmd": "ninja",
+        "run_cmd": "./bin/kate -n ."
+      },
+      {
+        "name": "kate",
+        "build_cmd": "ninja kate-bin",
+        "run_cmd": "./bin/kate -n ."
+      }
+    ]
+  }
 }

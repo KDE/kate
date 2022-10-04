@@ -147,6 +147,7 @@ void KateApp::fillAuthorsAndCredits(KAboutData &aboutData)
     aboutData.addAuthor(i18n("Dominik Haumann"), i18n("Core Developer"), QStringLiteral("dhaumann@kde.org"));
     aboutData.addAuthor(i18n("Sven Brauch"), i18n("Developer"), QStringLiteral("mail@svenbrauch.de"));
     aboutData.addAuthor(i18n("Kåre Särs"), i18n("Developer"), QStringLiteral("kare.sars@iki.fi"));
+    aboutData.addAuthor(i18n("Waqar Ahmed"), i18n("Core Developer"), QStringLiteral("waqar.17a@gmail.com"));
     aboutData.addAuthor(i18n("Anders Lund"), i18n("Core Developer"), QStringLiteral("anders@alweb.dk"), QStringLiteral("https://www.alweb.dk"));
     aboutData.addAuthor(i18n("Joseph Wenninger"),
                         i18n("Core Developer"),

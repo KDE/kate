@@ -1956,31 +1956,6 @@ exits, so the plugin does not pollute any folder with unwanted files.</para>
 
 </sect2>
 
-<sect2 id="project-quickopen">
-<title>Quick Opening Files</title>
-
-<para>As clicking on files in the tree view is not the fastest way to open a file, &kate;
-provides a built-in quick open mechanism you can activate with
-<keycombo action="simul">&Ctrl;&Alt;<keycap>O</keycap></keycombo>.
-What you the get is a list like this:</para>
-
-<screenshot id="screenshot-project-quickopen">
-<screeninfo>Quick Open</screeninfo>
-<mediaobject>
-<imageobject><imagedata fileref="project-quickopen.png" format="PNG"/></imageobject>
-</mediaobject>
-</screenshot>
-
-<para>You can filter by typing parts of the file name you are looking for, and you can
-also navigate with the arrow keys and page up/down through the list.
-Hitting &Enter; activates the selected file, while &Esc; hides the quick open view again.</para>
-
-<para>Further, the quick open remembers the previous file. So when you change to the
-quick open view the previously activated file is automatically selected and you just
-need to hit &Enter;, which comes very handy at times.</para>
-
-</sect2>
-
 <sect2 id="project-build">
 <title>Support for Building the Project</title>
 

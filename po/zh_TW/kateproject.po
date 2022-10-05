@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-02 00:49+0000\n"
+"POT-Creation-Date: 2022-10-05 00:49+0000\n"
 "PO-Revision-Date: 2020-09-17 14:59+0800\n"
 "Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
 "Language-Team: Chinese <zh-l10n@linux.org.tw>\n"
@@ -836,12 +836,12 @@ msgstr "目前的專案"
 msgid "Close Orphaned Projects"
 msgstr "目前的專案"
 
-#: kateprojectpluginview.cpp:212 kateprojectpluginview.cpp:762
+#: kateprojectpluginview.cpp:212 kateprojectpluginview.cpp:772
 #, kde-format
 msgid "Lookup: %1"
 msgstr "尋找：%1"
 
-#: kateprojectpluginview.cpp:213 kateprojectpluginview.cpp:763
+#: kateprojectpluginview.cpp:213 kateprojectpluginview.cpp:773
 #, kde-format
 msgid "Goto: %1"
 msgstr "前往：%1"
@@ -851,7 +851,7 @@ msgstr "前往：%1"
 msgid "Projects Index"
 msgstr "專案索引"
 
-#: kateprojectpluginview.cpp:801
+#: kateprojectpluginview.cpp:811
 #, kde-format
 msgid "Choose a directory"
 msgstr ""

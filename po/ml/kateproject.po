@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-02 00:49+0000\n"
+"POT-Creation-Date: 2022-10-05 00:49+0000\n"
 "PO-Revision-Date: 2019-03-17 02:54+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: Swathanthra|സ്വതന്ത്ര Malayalam|മലയാളം Computing|കമ്പ്യൂട്ടിങ്ങ് <smc."
@@ -819,12 +819,12 @@ msgstr ""
 msgid "Close Orphaned Projects"
 msgstr ""
 
-#: kateprojectpluginview.cpp:212 kateprojectpluginview.cpp:762
+#: kateprojectpluginview.cpp:212 kateprojectpluginview.cpp:772
 #, kde-format
 msgid "Lookup: %1"
 msgstr ""
 
-#: kateprojectpluginview.cpp:213 kateprojectpluginview.cpp:763
+#: kateprojectpluginview.cpp:213 kateprojectpluginview.cpp:773
 #, kde-format
 msgid "Goto: %1"
 msgstr ""
@@ -834,7 +834,7 @@ msgstr ""
 msgid "Projects Index"
 msgstr ""
 
-#: kateprojectpluginview.cpp:801
+#: kateprojectpluginview.cpp:811
 #, kde-format
 msgid "Choose a directory"
 msgstr ""

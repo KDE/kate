@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-02 00:49+0000\n"
+"POT-Creation-Date: 2022-10-05 00:49+0000\n"
 "PO-Revision-Date: 2019-10-26 13:59+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
@@ -841,12 +841,12 @@ msgstr "Proxecto actual"
 msgid "Close Orphaned Projects"
 msgstr "Proxecto actual"
 
-#: kateprojectpluginview.cpp:212 kateprojectpluginview.cpp:762
+#: kateprojectpluginview.cpp:212 kateprojectpluginview.cpp:772
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Buscar: %1"
 
-#: kateprojectpluginview.cpp:213 kateprojectpluginview.cpp:763
+#: kateprojectpluginview.cpp:213 kateprojectpluginview.cpp:773
 #, kde-format
 msgid "Goto: %1"
 msgstr "Destino: %1"
@@ -856,7 +856,7 @@ msgstr "Destino: %1"
 msgid "Projects Index"
 msgstr "Índice de proxectos"
 
-#: kateprojectpluginview.cpp:801
+#: kateprojectpluginview.cpp:811
 #, kde-format
 msgid "Choose a directory"
 msgstr ""

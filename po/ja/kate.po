@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-04 00:48+0000\n"
+"POT-Creation-Date: 2022-10-05 00:49+0000\n"
 "PO-Revision-Date: 2013-05-10 23:29-0700\n"
 "Last-Translator: Fumiaki Okushi <okushi@kde.gr.jp>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -349,8 +349,8 @@ msgstr "メンテナ"
 msgid "Dominik Haumann"
 msgstr "Dominik Haumann"
 
-#: lib/kateapp.cpp:147 lib/kateapp.cpp:150 lib/kateapp.cpp:152
-#: lib/kateapp.cpp:155 lib/kateapp.cpp:161
+#: lib/kateapp.cpp:147 lib/kateapp.cpp:150 lib/kateapp.cpp:151
+#: lib/kateapp.cpp:153 lib/kateapp.cpp:156 lib/kateapp.cpp:162
 #, kde-format
 msgid "Core Developer"
 msgstr "コア開発者"
@@ -360,7 +360,7 @@ msgstr "コア開発者"
 msgid "Sven Brauch"
 msgstr ""
 
-#: lib/kateapp.cpp:148 lib/kateapp.cpp:149 lib/kateapp.cpp:156
+#: lib/kateapp.cpp:148 lib/kateapp.cpp:149 lib/kateapp.cpp:157
 #, fuzzy, kde-format
 #| msgid "Core Developer"
 msgid "Developer"
@@ -373,287 +373,292 @@ msgstr ""
 
 #: lib/kateapp.cpp:150
 #, kde-format
+msgid "Waqar Ahmed"
+msgstr ""
+
+#: lib/kateapp.cpp:151
+#, kde-format
 msgid "Anders Lund"
 msgstr "Anders Lund"
 
-#: lib/kateapp.cpp:151
+#: lib/kateapp.cpp:152
 #, kde-format
 msgid "Joseph Wenninger"
 msgstr "Joseph Wenninger"
 
-#: lib/kateapp.cpp:155
+#: lib/kateapp.cpp:156
 #, kde-format
 msgid "Hamish Rodda"
 msgstr "Hamish Rodda"
 
-#: lib/kateapp.cpp:156
+#: lib/kateapp.cpp:157
 #, fuzzy, kde-format
 #| msgid "Anders Lund"
 msgid "Alexander Neundorf"
 msgstr "Anders Lund"
 
-#: lib/kateapp.cpp:157
+#: lib/kateapp.cpp:158
 #, kde-format
 msgid "Waldo Bastian"
 msgstr "Waldo Bastian"
 
-#: lib/kateapp.cpp:157
+#: lib/kateapp.cpp:158
 #, kde-format
 msgid "The cool buffersystem"
 msgstr "優れたバッファシステム"
 
-#: lib/kateapp.cpp:158
+#: lib/kateapp.cpp:159
 #, kde-format
 msgid "Charles Samuels"
 msgstr "Charles Samuels"
 
-#: lib/kateapp.cpp:158
+#: lib/kateapp.cpp:159
 #, kde-format
 msgid "The Editing Commands"
 msgstr "編集コマンド"
 
-#: lib/kateapp.cpp:159
+#: lib/kateapp.cpp:160
 #, kde-format
 msgid "Matt Newell"
 msgstr "Matt Newell"
 
-#: lib/kateapp.cpp:159
+#: lib/kateapp.cpp:160
 #, kde-format
 msgid "Testing, ..."
 msgstr "テスト..."
 
-#: lib/kateapp.cpp:160
+#: lib/kateapp.cpp:161
 #, kde-format
 msgid "Michael Bartl"
 msgstr "Michael Bartl"
 
-#: lib/kateapp.cpp:160
+#: lib/kateapp.cpp:161
 #, kde-format
 msgid "Former Core Developer"
 msgstr "以前のコア開発者"
 
-#: lib/kateapp.cpp:161
+#: lib/kateapp.cpp:162
 #, kde-format
 msgid "Michael McCallum"
 msgstr "Michael McCallum"
 
-#: lib/kateapp.cpp:162
+#: lib/kateapp.cpp:163
 #, kde-format
 msgid "Jochen Wilhemly"
 msgstr "Jochen Wilhemly"
 
-#: lib/kateapp.cpp:162
+#: lib/kateapp.cpp:163
 #, kde-format
 msgid "KWrite Author"
 msgstr "KWrite 作者"
 
-#: lib/kateapp.cpp:163
+#: lib/kateapp.cpp:164
 #, kde-format
 msgid "Michael Koch"
 msgstr "Michael Koch"
 
-#: lib/kateapp.cpp:163
+#: lib/kateapp.cpp:164
 #, kde-format
 msgid "KWrite port to KParts"
 msgstr "KWrite の KParts への移植"
 
-#: lib/kateapp.cpp:164
+#: lib/kateapp.cpp:165
 #, kde-format
 msgid "Christian Gebauer"
 msgstr "Christian Gebauer"
 
-#: lib/kateapp.cpp:165
+#: lib/kateapp.cpp:166
 #, kde-format
 msgid "Simon Hausmann"
 msgstr "Simon Hausmann"
 
-#: lib/kateapp.cpp:166
+#: lib/kateapp.cpp:167
 #, kde-format
 msgid "Glen Parker"
 msgstr "Glen Parker"
 
-#: lib/kateapp.cpp:166
+#: lib/kateapp.cpp:167
 #, kde-format
 msgid "KWrite Undo History, Kspell integration"
 msgstr "KWrite「元に戻す」履歴、Kspell 統合"
 
-#: lib/kateapp.cpp:167
+#: lib/kateapp.cpp:168
 #, kde-format
 msgid "Scott Manson"
 msgstr "Scott Manson"
 
-#: lib/kateapp.cpp:167
+#: lib/kateapp.cpp:168
 #, kde-format
 msgid "KWrite XML Syntax highlighting support"
 msgstr "XML の構文強調表示"
 
-#: lib/kateapp.cpp:168
+#: lib/kateapp.cpp:169
 #, kde-format
 msgid "John Firebaugh"
 msgstr "John Firebaugh"
 
-#: lib/kateapp.cpp:168
+#: lib/kateapp.cpp:169
 #, kde-format
 msgid "Patches and more"
 msgstr "パッチ、その他"
 
-#: lib/kateapp.cpp:169
+#: lib/kateapp.cpp:170
 #, kde-format
 msgid "Pablo Martín"
 msgstr ""
 
-#: lib/kateapp.cpp:170
+#: lib/kateapp.cpp:171
 #, fuzzy, kde-format
 #| msgid "Plugins"
 msgid "Python Plugin Developer"
 msgstr "プラグイン"
 
-#: lib/kateapp.cpp:173
+#: lib/kateapp.cpp:174
 #, kde-format
 msgid "Gerald Senarclens de Grancy"
 msgstr ""
 
-#: lib/kateapp.cpp:174
+#: lib/kateapp.cpp:175
 #, kde-format
 msgid "QA and Scripting"
 msgstr ""
 
-#: lib/kateapp.cpp:178
+#: lib/kateapp.cpp:179
 #, kde-format
 msgid "Tyson Tan"
 msgstr ""
 
-#: lib/kateapp.cpp:179
+#: lib/kateapp.cpp:180
 #, kde-format
 msgid "Designer of Kate's mascot 'Kate the Cyber Woodpecker'"
 msgstr ""
 
-#: lib/kateapp.cpp:182
+#: lib/kateapp.cpp:183
 #, kde-format
 msgid "Matteo Merli"
 msgstr "Matteo Merli"
 
-#: lib/kateapp.cpp:182
+#: lib/kateapp.cpp:183
 #, kde-format
 msgid "Highlighting for RPM Spec-Files, Perl, Diff and more"
 msgstr "RPM スペックファイル、Perl、Diff の構文強調表示"
 
-#: lib/kateapp.cpp:183
+#: lib/kateapp.cpp:184
 #, kde-format
 msgid "Rocky Scaletta"
 msgstr "Rocky Scaletta"
 
-#: lib/kateapp.cpp:183
+#: lib/kateapp.cpp:184
 #, kde-format
 msgid "Highlighting for VHDL"
 msgstr "VHDL の構文強調表示"
 
-#: lib/kateapp.cpp:184
+#: lib/kateapp.cpp:185
 #, kde-format
 msgid "Yury Lebedev"
 msgstr "Yury Lebedev"
 
-#: lib/kateapp.cpp:184
+#: lib/kateapp.cpp:185
 #, kde-format
 msgid "Highlighting for SQL"
 msgstr "SQL の構文強調表示"
 
-#: lib/kateapp.cpp:185
+#: lib/kateapp.cpp:186
 #, kde-format
 msgid "Chris Ross"
 msgstr "Chris Ross"
 
-#: lib/kateapp.cpp:185
+#: lib/kateapp.cpp:186
 #, kde-format
 msgid "Highlighting for Ferite"
 msgstr "Ferite の構文強調表示"
 
-#: lib/kateapp.cpp:186
+#: lib/kateapp.cpp:187
 #, kde-format
 msgid "Nick Roux"
 msgstr "Nick Roux"
 
-#: lib/kateapp.cpp:186
+#: lib/kateapp.cpp:187
 #, kde-format
 msgid "Highlighting for ILERPG"
 msgstr "ILERPG の構文強調表示"
 
-#: lib/kateapp.cpp:187
+#: lib/kateapp.cpp:188
 #, kde-format
 msgid "Carsten Niehaus"
 msgstr "Carsten Niehaus"
 
-#: lib/kateapp.cpp:187
+#: lib/kateapp.cpp:188
 #, kde-format
 msgid "Highlighting for LaTeX"
 msgstr "LaTeX の構文強調表示"
 
-#: lib/kateapp.cpp:188
+#: lib/kateapp.cpp:189
 #, kde-format
 msgid "Per Wigren"
 msgstr "Per Wigren"
 
-#: lib/kateapp.cpp:188
+#: lib/kateapp.cpp:189
 #, kde-format
 msgid "Highlighting for Makefiles, Python"
 msgstr "Makefiles と Python の構文強調表示"
 
-#: lib/kateapp.cpp:189
+#: lib/kateapp.cpp:190
 #, kde-format
 msgid "Jan Fritz"
 msgstr "Jan Fritz"
 
-#: lib/kateapp.cpp:189
+#: lib/kateapp.cpp:190
 #, kde-format
 msgid "Highlighting for Python"
 msgstr "Python の構文強調表示"
 
-#: lib/kateapp.cpp:190
+#: lib/kateapp.cpp:191
 #, kde-format
 msgid "Daniel Naber"
 msgstr "Daniel Naber"
 
-#: lib/kateapp.cpp:191
+#: lib/kateapp.cpp:192
 #, kde-format
 msgid "Roland Pabel"
 msgstr "Roland Pabel"
 
-#: lib/kateapp.cpp:191
+#: lib/kateapp.cpp:192
 #, kde-format
 msgid "Highlighting for Scheme"
 msgstr "Scheme の構文強調表示"
 
-#: lib/kateapp.cpp:192
+#: lib/kateapp.cpp:193
 #, kde-format
 msgid "Cristi Dumitrescu"
 msgstr "Cristi Dumitrescu"
 
-#: lib/kateapp.cpp:192
+#: lib/kateapp.cpp:193
 #, kde-format
 msgid "PHP Keyword/Datatype list"
 msgstr "PHP キーワード/データ型リスト"
 
-#: lib/kateapp.cpp:193
+#: lib/kateapp.cpp:194
 #, kde-format
 msgid "Carsten Pfeiffer"
 msgstr "Carsten Pfeiffer"
 
-#: lib/kateapp.cpp:193
+#: lib/kateapp.cpp:194
 #, kde-format
 msgid "Very nice help"
 msgstr "素晴らしいヘルプ"
 
-#: lib/kateapp.cpp:194
+#: lib/kateapp.cpp:195
 #, kde-format
 msgid "All people who have contributed and I have forgotten to mention"
 msgstr "貢献してくれたすべての人々と私が言及し忘れてしまった人々"
 
-#: lib/kateapp.cpp:314
+#: lib/kateapp.cpp:315
 #, kde-format
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr ""
 
-#: lib/kateapp.cpp:417
+#: lib/kateapp.cpp:418
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."

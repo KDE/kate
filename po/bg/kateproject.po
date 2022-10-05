@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-02 00:49+0000\n"
+"POT-Creation-Date: 2022-10-05 00:49+0000\n"
 "PO-Revision-Date: 2022-05-20 14:59+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
@@ -834,12 +834,12 @@ msgstr "Затваряне на всички проекти"
 msgid "Close Orphaned Projects"
 msgstr "Затваряне на осиротелите проекти"
 
-#: kateprojectpluginview.cpp:212 kateprojectpluginview.cpp:762
+#: kateprojectpluginview.cpp:212 kateprojectpluginview.cpp:772
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Търсене: %1"
 
-#: kateprojectpluginview.cpp:213 kateprojectpluginview.cpp:763
+#: kateprojectpluginview.cpp:213 kateprojectpluginview.cpp:773
 #, kde-format
 msgid "Goto: %1"
 msgstr "Отиване до: %1"
@@ -849,7 +849,7 @@ msgstr "Отиване до: %1"
 msgid "Projects Index"
 msgstr "Индекс на проект"
 
-#: kateprojectpluginview.cpp:801
+#: kateprojectpluginview.cpp:811
 #, kde-format
 msgid "Choose a directory"
 msgstr "Избиране на директория"

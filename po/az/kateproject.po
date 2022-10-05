@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-02 00:49+0000\n"
+"POT-Creation-Date: 2022-10-05 00:49+0000\n"
 "PO-Revision-Date: 2022-07-25 17:09+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -837,12 +837,12 @@ msgstr "Bütün layihələri bağlayın"
 msgid "Close Orphaned Projects"
 msgstr "Sahibsiz layihələri bağlayın"
 
-#: kateprojectpluginview.cpp:212 kateprojectpluginview.cpp:762
+#: kateprojectpluginview.cpp:212 kateprojectpluginview.cpp:772
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Araşdırmaq: %1"
 
-#: kateprojectpluginview.cpp:213 kateprojectpluginview.cpp:763
+#: kateprojectpluginview.cpp:213 kateprojectpluginview.cpp:773
 #, kde-format
 msgid "Goto: %1"
 msgstr "GOTO: %1"
@@ -852,7 +852,7 @@ msgstr "GOTO: %1"
 msgid "Projects Index"
 msgstr "Layihələrin indeksi"
 
-#: kateprojectpluginview.cpp:801
+#: kateprojectpluginview.cpp:811
 #, kde-format
 msgid "Choose a directory"
 msgstr "Qovluq seçin"

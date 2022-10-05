@@ -3339,8 +3339,12 @@ folder if possible.</para
 
 <screen
 >{
-  "name": "Kate"
-, "files": [ { "git": 1 } ]
+  "name": "Kate",
+  "files": [
+    {
+      "git": 1
+    }
+  ]
 }
 </screen>
 
@@ -3356,12 +3360,27 @@ folder if possible.</para
 >svn</literal
 >) та mercurial (<literal
 >hg</literal
->). Якщо ви не хочете, щоб додаток читав дані із системи керування версіями, ви можете наказати йому рекурсивно завантажити файли з каталогів так: </para>
+>). Якщо ви не хочете, щоб додаток читав файли із системи керування версіями, ви можете викликати kate з командного рядка так: <screen>
+kate /шлях/до/теки
+</screen
+> або наказати додатку рекурсивно завантажити файли з каталогів так: </para>
 
 <screen
 >{
-  "name": "Kate"
-, "files": [ { "directory": "kate", "filters": ["*.cpp", "*.h", "*.ui", "CMakeLists.txt", "Find*.cmake"], "recursive": 1 } ]
+  "name": "Kate",
+  "files": [
+    {
+      "directory": "kate",
+      "filters": [
+        "*.cpp",
+        "*.h",
+        "*.ui",
+        "CMakeLists.txt",
+        "Find*.cmake"
+      ],
+      "recursive": 1
+    }
+  ]
 }
 </screen>
 
@@ -3369,22 +3388,43 @@ folder if possible.</para
 >Тут підкаталоги та фільтри визначають те, що є частиною проєкту. За допомогою фільтрів також можна поєднувати дані з системи керування версіями і вказані вручну файли. </para>
 
 <para id="projects-build-support"
->Якщо вам потрібно додати підтримку додатка збирання, ви можете вписати до файла <filename
+>Якщо вам потрібно додати підтримку збирання, ви можете вписати до файла <filename
 >.kateproject</filename
 > такі рядки:</para>
 
 <screen
 >{
-  "name": "Kate"
-, "files": [ { "git": 1 } ]
-, "build": {
-    "directory": "build"
-  , "build": "make all"
-  , "clean": "make clean"
-  , "install": "make install"
+  "name": "Kate",
+  "files": [
+    {
+      "git": 1
+    }
+  ],
+  "build": {
+    "directory": "build",
+    "build": "make all",
+    "clean": "make clean",
+    "install": "make install",
+    "targets": [
+      {
+        "name": "all",
+        "build_cmd": "ninja"
+      },
+      {
+        "name": "kate",
+        "build_cmd": "ninja kate-bin"
+      }
+    ]
   }
 }
 </screen>
+
+<para
+>Визначені вище цілі збирання потім буде показано у <link linkend="kate-application-plugin-build"
+>додатку збирання</link
+>, розділ <emphasis role="bold"
+>«Цілі додатка проєкту»</emphasis
+>. </para>
 
 <para
 >Якщо у вашому проєкті є файл <filename

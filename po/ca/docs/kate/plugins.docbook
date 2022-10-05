@@ -3315,8 +3315,12 @@ folder if possible.</para
 
 <screen
 >{
-  "name": "Kate"
-, "files": [ { "git": 1 } ]
+  "name": "Kate",
+  "files": [
+    {
+      "git": 1
+    }
+  ]
 }
 </screen>
 
@@ -3332,12 +3336,27 @@ folder if possible.</para
 >svn</literal
 > i el mercurial a través de <literal
 >hg</literal
->. Si no voleu llegir des d'un sistema de control de versions, podeu dir-li que carregui els fitxers de forma recursiva des dels directoris com segueix: </para>
+>. Si no voleu llegir els fitxers des d'un sistema de control de versions, podeu invocar el Kate des de la línia d'ordres com: <screen>
+kate /path/to/folder
+</screen
+> o  dir-li que carregui els fitxers de forma recursiva des dels directoris com segueix: </para>
 
 <screen
 >{
-  "name": "Kate"
-, "files": [ { "directory": "kate", "filters": ["*.cpp", "*.h", "*.ui", "CMakeLists.txt", "Find*.cmake"], "recursive": 1 } ]
+  "name": "Kate",
+  "files": [
+    {
+      "directory": "kate",
+      "filters": [
+        "*.cpp",
+        "*.h",
+        "*.ui",
+        "CMakeLists.txt",
+        "Find*.cmake"
+      ],
+      "recursive": 1
+    }
+  ]
 }
 </screen>
 
@@ -3345,22 +3364,43 @@ folder if possible.</para
 >Aquí, les subcarpetes i filtres defineixen el que forma part del projecte. També podeu barrejar el control de versions i els fitxers basats en filtres. </para>
 
 <para id="projects-build-support"
->Si voleu afegir implementació per al connector Construeix, podeu escriure un <filename
+>Si voleu afegir implementació per a la construcció, podeu escriure un <filename
 >.kateproject</filename
 > com aquest:</para>
 
 <screen
 >{
-  "name": "Kate"
-, "files": [ { "git": 1 } ]
-, "build": {
-    "directory": "build"
-  , "build": "make all"
-  , "clean": "make clean"
-  , "install": "make install"
+  "name": "Kate",
+  "files": [
+    {
+      "git": 1
+    }
+  ],
+  "build": {
+    "directory": "build",
+    "build": "make all",
+    "clean": "make clean",
+    "install": "make install",
+    "targets": [
+      {
+        "name": "all",
+        "build_cmd": "ninja"
+      },
+      {
+        "name": "kate",
+        "build_cmd": "ninja kate-bin"
+      }
+    ]
   }
 }
 </screen>
+
+<para
+>Els objectius especificats a dalt apareixeran al <link linkend="kate-application-plugin-build"
+>connector de Construcció</link
+> a sota de <emphasis role="bold"
+>«Objectius del connector de projectes»</emphasis
+>. </para>
 
 <para
 >En cas que tingueu un fitxer <filename

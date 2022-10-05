@@ -3315,8 +3315,12 @@ folder if possible.</para
 
 <screen
 >{
-  "name": "Kate"
-, "files": [ { "git": 1 } ]
+  "name": "Kate",
+  "files": [
+    {
+      "git": 1
+    }
+  ]
 }
 </screen>
 
@@ -3332,12 +3336,27 @@ folder if possible.</para
 >svn</literal
 > en mercurial via <literal
 >hg</literal
->. Als u niet wilt lezen uit een versiecontrolesysteem, dan kunt u het vertellen om bestanden recursief te laden uit mappen als volgt: </para>
+>. Als u geen bestanden wilt lezen uit een versiecontrolesysteem, dan kunt u kate aanroepen vanaf de opdrachtregel als: <screen>
+kate /pad/naar/map/
+</screen
+> of kunt u het vertellen om bestanden recursief te laden uit mappen als volgt: </para>
 
 <screen
 >{
-  "name": "Kate"
-, "files": [ { "directory": "kate", "filters": ["*.cpp", "*.h", "*.ui", "CMakeLists.txt", "Find*.cmake"], "recursive": 1 } ]
+  "name": "Kate",
+  "files": [
+    {
+      "directory": "kate",
+      "filters": [
+        "*.cpp",
+        "*.h",
+        "*.ui",
+        "CMakeLists.txt",
+        "Find*.cmake"
+      ],
+      "recursive": 1
+    }
+  ]
 }
 </screen>
 
@@ -3345,22 +3364,43 @@ folder if possible.</para
 >Hier definiëren submappen en filters wat onderdeel is van het project. U kunt ook versiecontrole en bestanden gebaseerd op filters mengen. </para>
 
 <para id="projects-build-support"
->Als u ondersteuning voor de bouw-plug-in wilt toevoegen, dan kunt u een <filename
+>Als u ondersteuning voor bouwen wilt toevoegen, dan kunt u een <filename
 >.kateproject</filename
 > schrijven zoals dit:</para>
 
 <screen
 >{
-  "name": "Kate"
-, "files": [ { "git": 1 } ]
-, "build": {
-    "directory": "build"
-  , "build": "make all"
-  , "clean": "make clean"
-  , "install": "make install"
+  "name": "Kate",
+  "files": [
+    {
+      "git": 1
+    }
+  ],
+  "build": {
+    "directory": "build",
+    "build": "make all",
+    "clean": "make clean",
+    "install": "make install",
+    "targets": [
+      {
+        "name": "all",
+        "build_cmd": "ninja"
+      },
+      {
+        "name": "kate",
+        "build_cmd": "ninja kate-bin"
+      }
+    ]
   }
 }
 </screen>
+
+<para
+>De bovenstaand gespecificeerde doelen zullen dan in de <link linkend="kate-application-plugin-build"
+>Bouwplug-in </link
+> onder <emphasis role="bold"
+> "Projectplug-in doelen"</emphasis
+> verschijnen. </para>
 
 <para
 >In het geval dat u een bestand <filename

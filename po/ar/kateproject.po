@@ -3,13 +3,13 @@
 #
 # Abdalrahim G. Fakhouri <abdilra7eem@yahoo.com>, 2014.
 # Safa Alfulaij <safa1996alfulaij@gmail.com>, ٢٠١٦.
-# Zayed Al-Saidi <zayed.alsaidi@gmail.com>, 2021.
+# Zayed Al-Saidi <zayed.alsaidi@gmail.com>, 2021, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-02 00:49+0000\n"
-"PO-Revision-Date: 2021-07-26 22:40+0400\n"
+"POT-Creation-Date: 2022-10-05 00:49+0000\n"
+"PO-Revision-Date: 2022-10-04 21:12+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
-"X-Generator: Lokalize 21.07.70\n"
+"X-Generator: Lokalize 21.12.3\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -66,18 +66,17 @@ msgid "Failed to create new branch. Error \"%1\""
 msgstr ""
 
 #: branchdeletedialog.cpp:121
-#, fuzzy, kde-format
+#, kde-format
 msgid "Branch"
-msgstr "احذف"
+msgstr "الفرع"
 
 #: branchdeletedialog.cpp:121
-#, fuzzy, kde-format
-#| msgid "Commit"
+#, kde-format
 msgid "Last Commit"
-msgstr "أوْدِعْ"
+msgstr "آخر إيداع"
 
 #: branchdeletedialog.cpp:134 kateprojecttreeviewcontextmenu.cpp:85
-#, fuzzy, kde-format
+#, kde-format
 msgid "Delete"
 msgstr "احذف"
 
@@ -110,7 +109,7 @@ msgstr "عُد"
 #: gitcommitdialog.cpp:69 gitcommitdialog.cpp:116
 #, kde-format
 msgid "Commit Changes"
-msgstr ""
+msgstr "تغييرات الإيداع"
 
 #: gitcommitdialog.cpp:73 gitcommitdialog.cpp:115 gitwidget.cpp:216
 #, kde-format
@@ -170,10 +169,9 @@ msgid "Staged"
 msgstr ""
 
 #: gitstatusmodel.cpp:87
-#, fuzzy, kde-format
-#| msgid "<untracked>"
+#, kde-format
 msgid "Untracked"
-msgstr "<غير المتعقّب>"
+msgstr "غير المتعقّب"
 
 #: gitstatusmodel.cpp:89
 #, kde-format
@@ -181,9 +179,9 @@ msgid "Conflict"
 msgstr "تعارض"
 
 #: gitstatusmodel.cpp:91
-#, fuzzy, kde-format
+#, kde-format
 msgid "Modified"
-msgstr "معدّل"
+msgstr "عُدل"
 
 #: gitwidget.cpp:224
 #, kde-format
@@ -201,9 +199,9 @@ msgid "Cancel Operation"
 msgstr ""
 
 #: gitwidget.cpp:258
-#, fuzzy, kde-format
+#, kde-format
 msgid " canceled."
-msgstr "أُلغي"
+msgstr " أُلغي."
 
 #: gitwidget.cpp:279 kateprojectview.cpp:64
 #, kde-format
@@ -216,9 +214,9 @@ msgid "Failed to find .git directory for '%1', things may not work correctly"
 msgstr ""
 
 #: gitwidget.cpp:528
-#, fuzzy, kde-format
+#, kde-format
 msgid " error: %1"
-msgstr "خطأ"
+msgstr " خطأ: %1"
 
 #: gitwidget.cpp:534
 #, kde-format
@@ -397,10 +395,9 @@ msgid "Are you sure you want to discard all changes?"
 msgstr ""
 
 #: gitwidget.cpp:1091
-#, fuzzy, kde-format
-#| msgid "Open With"
+#, kde-format
 msgid "Open File"
-msgstr "افتح الملفّ"
+msgstr "افتح ملفًّا"
 
 #: gitwidget.cpp:1093
 #, kde-format
@@ -413,24 +410,22 @@ msgid "Open at HEAD"
 msgstr ""
 
 #: gitwidget.cpp:1095
-#, fuzzy, kde-format
-#| msgid "Delete File"
+#, kde-format
 msgid "Unstage File"
-msgstr "احذف الملفّ"
+msgstr "ملف غير مُعد"
 
 #: gitwidget.cpp:1095
-#, fuzzy, kde-format
-#| msgid "Delete File"
+#, kde-format
 msgid "Stage File"
-msgstr "احذف الملفّ"
+msgstr "ملف مُعد"
 
 #: gitwidget.cpp:1096
-#, fuzzy, kde-format
+#, kde-format
 msgid "Remove"
 msgstr "أزل"
 
 #: gitwidget.cpp:1096
-#, fuzzy, kde-format
+#, kde-format
 msgid "Discard"
 msgstr "أهمِل"
 
@@ -465,9 +460,9 @@ msgid "Discard Selected Files"
 msgstr ""
 
 #: gitwidget.cpp:1205
-#, fuzzy, kde-format
+#, kde-format
 msgid "Remove Selected Files"
-msgstr "أزل الملفّات المحدّدة."
+msgstr "أزل الملفّات المحدّدة"
 
 #: gitwidget.cpp:1218
 #, kde-format
@@ -527,7 +522,7 @@ msgstr "مستود&عات Mercurial"
 #: kateprojectconfigpage.cpp:37
 #, kde-format
 msgid "&Fossil"
-msgstr ""
+msgstr "&مستحاثة"
 
 #: kateprojectconfigpage.cpp:46
 #, kde-format
@@ -556,17 +551,17 @@ msgstr "مشروع"
 #: kateprojectconfigpage.cpp:56
 #, kde-format
 msgid "Project ctags index settings"
-msgstr ""
+msgstr "إعدادات فهرس سي تاغ للمشروع"
 
 #: kateprojectconfigpage.cpp:57 kateprojectinfoviewindex.cpp:205
 #, kde-format
 msgid "Enable indexing"
-msgstr ""
+msgstr "مكن الفهرسة"
 
 #: kateprojectconfigpage.cpp:60
 #, kde-format
 msgid "Directory for index files"
-msgstr ""
+msgstr "الدليل لفهرسة الملفات"
 
 #: kateprojectconfigpage.cpp:64
 #, kde-format
@@ -602,7 +597,7 @@ msgstr ""
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Git"
-msgstr "Git"
+msgstr "غت"
 
 #: kateprojectconfigpage.cpp:84
 #, kde-format
@@ -620,15 +615,14 @@ msgid "No Action"
 msgstr "لا إجراء"
 
 #: kateprojectconfigpage.cpp:92 kateprojectconfigpage.cpp:103
-#, fuzzy, kde-format
-#| msgid "Open With"
+#, kde-format
 msgid "Open file"
-msgstr "افتح الملفّ"
+msgstr "افتح ملفًا"
 
 #: kateprojectconfigpage.cpp:93 kateprojectconfigpage.cpp:104
 #, kde-format
 msgid "Stage / Unstage"
-msgstr ""
+msgstr "مُعد / غير مُعد"
 
 #: kateprojectconfigpage.cpp:99
 #, kde-format
@@ -753,7 +747,7 @@ msgid "Indexing is not enabled"
 msgstr ""
 
 #: kateprojectitem.cpp:166
-#, fuzzy, kde-format
+#, kde-format
 msgid "Error"
 msgstr "خطأ"
 
@@ -809,10 +803,9 @@ msgid "Refresh git status"
 msgstr ""
 
 #: kateprojectpluginview.cpp:171
-#, fuzzy, kde-format
-#| msgid "Open With"
+#, kde-format
 msgid "Open Folder..."
-msgstr "افتح مجلّدًا"
+msgstr "افتح مجلّد..."
 
 #: kateprojectpluginview.cpp:176
 #, fuzzy, kde-format
@@ -841,77 +834,69 @@ msgid "Close Project"
 msgstr "أغلق المشروع"
 
 #: kateprojectpluginview.cpp:198
-#, fuzzy, kde-format
-#| msgid "Close Project"
+#, kde-format
 msgid "Close All Projects"
-msgstr "أغلق المشروع"
+msgstr "أغلق كل المشاريع"
 
 #: kateprojectpluginview.cpp:203
-#, fuzzy, kde-format
-#| msgid "Close Project"
+#, kde-format
 msgid "Close Orphaned Projects"
-msgstr "أغلق المشروع"
+msgstr "أغلق المشاريع اليتيمة"
 
-#: kateprojectpluginview.cpp:212 kateprojectpluginview.cpp:762
+#: kateprojectpluginview.cpp:212 kateprojectpluginview.cpp:772
 #, kde-format
 msgid "Lookup: %1"
 msgstr "ابحث عن: %1"
 
-#: kateprojectpluginview.cpp:213 kateprojectpluginview.cpp:763
-#, fuzzy, kde-format
-#| msgid "Lookup: %1"
+#: kateprojectpluginview.cpp:213 kateprojectpluginview.cpp:773
+#, kde-format
 msgid "Goto: %1"
-msgstr "انتقل إلى"
+msgstr "اذهب إلى: %1"
 
 #: kateprojectpluginview.cpp:287
-#, fuzzy, kde-format
-#| msgid "Project"
+#, kde-format
 msgid "Projects Index"
-msgstr "مشروع"
+msgstr "فهرس مشروع"
 
-#: kateprojectpluginview.cpp:801
+#: kateprojectpluginview.cpp:811
 #, kde-format
 msgid "Choose a directory"
-msgstr ""
+msgstr "اختر مجلدًا"
 
 #: kateprojecttreeviewcontextmenu.cpp:49
-#, fuzzy, kde-format
+#, kde-format
 msgid "Enter name:"
 msgstr "أدخل الاسم:"
 
 #: kateprojecttreeviewcontextmenu.cpp:50
-#, fuzzy, kde-format
+#, kde-format
 msgid "Add"
 msgstr "أضف"
 
 #: kateprojecttreeviewcontextmenu.cpp:71
-#, fuzzy, kde-format
-#| msgid "No Action"
+#, kde-format
 msgid "Copy Location"
-msgstr "لا إجراء"
+msgstr "انسخ المكان"
 
 #: kateprojecttreeviewcontextmenu.cpp:76
-#, fuzzy, kde-format
-#| msgid "File"
+#, kde-format
 msgid "Add File"
-msgstr "أ&ضف ملفًّا..."
+msgstr "أضف ملفًّا"
 
 #: kateprojecttreeviewcontextmenu.cpp:77
-#, fuzzy, kde-format
+#, kde-format
 msgid "Add Folder"
-msgstr "أضف مجلد"
+msgstr "أضف مجلدًا"
 
 #: kateprojecttreeviewcontextmenu.cpp:84
-#, fuzzy, kde-format
+#, kde-format
 msgid "&Rename"
-msgstr "&غيّر الاسم"
+msgstr "غيّر الاسم"
 
 #: kateprojecttreeviewcontextmenu.cpp:91
-#, fuzzy, kde-format
-#| msgctxt "Groupbox title"
-#| msgid "Projects Properties"
+#, kde-format
 msgid "Properties"
-msgstr "خصائص"
+msgstr "الخصائص"
 
 #: kateprojecttreeviewcontextmenu.cpp:98
 #, kde-format

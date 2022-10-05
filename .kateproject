@@ -5,6 +5,7 @@
       "git": 1
     }
   ],
+  "exclude_patterns": [ "^po" ],
   "build": {
     "directory": "build",
     "targets": [

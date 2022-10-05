@@ -158,7 +158,11 @@ void KateFileBrowserConfigPage::init()
         if (actionName == QLatin1String("bookmarks") || actionName == QLatin1String("sync_dir") || actionName == QLatin1String("configure")) {
             ac = fileBrowser->actionCollection()->action(actionName);
         } else {
+#if KIO_VERSION < QT_VERSION_CHECK(5, 100, 0)
             ac = fileBrowser->dirOperator()->actionCollection()->action(actionName);
+#else
+            ac = fileBrowser->dirOperator()->action(KateFileBrowser::actionFromName(actionName));
+#endif
         }
 
         if (ac) {

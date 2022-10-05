@@ -319,7 +319,7 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent,
         fullFilePath = dirPath + filePath;
 
         for (const auto &excludePattern : excludeRegexps) {
-            if (excludePattern.match(fullFilePath).hasMatch()) {
+            if (excludePattern.match(filePath).hasMatch()) {
                 return;
             }
         }

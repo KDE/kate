@@ -951,6 +951,13 @@ void KatePluginSearchView::startSearch()
         return;
     }
 
+    KTextEditor::View *activeView = m_mainWindow->activeView();
+    QList<KTextEditor::Document *> documents;
+    if ((m_ui.searchPlaceCombo->currentIndex() == MatchModel::CurrentFile && !activeView)
+        || (m_ui.searchPlaceCombo->currentIndex() == MatchModel::OpenFiles && m_kateApp->documents().isEmpty())) {
+        return;
+    }
+
     m_isSearchAsYouType = false;
 
     QString currentSearchText = m_ui.searchCombo->currentText();
@@ -1042,10 +1049,10 @@ void KatePluginSearchView::startSearch()
     if (m_ui.searchPlaceCombo->currentIndex() == MatchModel::CurrentFile) {
         m_resultBaseDir.clear();
         QList<KTextEditor::Document *> documents;
-        KTextEditor::View *activeView = m_mainWindow->activeView();
         if (activeView) {
             documents << activeView->document();
         }
+
         m_searchOpenFiles.startSearch(documents, reg);
     } else if (m_ui.searchPlaceCombo->currentIndex() == MatchModel::OpenFiles) {
         m_resultBaseDir.clear();

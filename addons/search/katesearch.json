@@ -30,6 +30,7 @@
         "Description[x-test]": "xxSearch and replace in documents, folders, or projectsxx",
         "Description[zh_CN]": "在文档、文件夹或项目中搜索并替换",
         "Name": "Search & Replace",
+        "Name[ar]": "ابحث واستبدل",
         "Name[az]": "Axtarın və əvəzləyin",
         "Name[bg]": "Търсене и заместване",
         "Name[ca@valencia]": "Busca i substituïx",

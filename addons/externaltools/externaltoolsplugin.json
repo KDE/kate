@@ -33,6 +33,7 @@
         "Description[zh_CN]": "外部工具",
         "Icon": "system-run",
         "Name": "External Tools",
+        "Name[ar]": "الأدوات الخارجية",
         "Name[az]": "Xarici alətlər",
         "Name[bg]": "Външни инструменти",
         "Name[ca@valencia]": "Eines externes",

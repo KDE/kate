@@ -28,6 +28,7 @@
         "Description[x-test]": "xxLaTeX syntax for unicode symbolsxx",
         "Description[zh_CN]": "Unicode 符号的 LaTeX 语法",
         "Name": "LaTeX completion",
+        "Name[ar]": "إكمال لاتخ",
         "Name[az]": "LaTeX tamamlama",
         "Name[bg]": "Завършване на думи за LaTeX",
         "Name[ca@valencia]": "Compleció de LaTeX",

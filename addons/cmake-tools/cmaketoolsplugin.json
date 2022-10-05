@@ -28,6 +28,7 @@
         "Description[x-test]": "xxCMake plugin for katexx",
         "Description[zh_CN]": "Kate 的 CMake 插件",
         "Name": "CMake Tools",
+        "Name[ar]": "أدوات سي ميك",
         "Name[az]": "CMake alətləri",
         "Name[bg]": "Инструменти на CMake",
         "Name[ca@valencia]": "Eines de CMake",

@@ -29,6 +29,7 @@
         "Description[x-test]": "xxCompile or Make and parse error messagesxx",
         "Description[zh_CN]": "执行编译(Compile/Make)并分析错误消息",
         "Name": "Build Plugin",
+        "Name[ar]": "ملحقة بناء",
         "Name[az]": "Yığılma qoşması",
         "Name[bg]": "Приставка за компилиране",
         "Name[ca@valencia]": "Connector de construcció",

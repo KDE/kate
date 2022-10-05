@@ -30,6 +30,7 @@
         "Description[x-test]": "xxLanguage Server Protocol Clientxx",
         "Description[zh_CN]": "语言服务器协议客户端",
         "Name": "LSP Client",
+        "Name[ar]": "عميل LSP",
         "Name[az]": "LSP müştərisi",
         "Name[bg]": "Клиент на LSP",
         "Name[ca@valencia]": "Client LSP",

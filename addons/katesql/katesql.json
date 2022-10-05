@@ -29,6 +29,7 @@
         "Description[x-test]": "xxExecute query on SQL databasesxx",
         "Description[zh_CN]": "在 SQL 数据库中执行查询",
         "Name": "SQL Plugin",
+        "Name[ar]": "ملحقة SQL",
         "Name[az]": "SQL qoşması",
         "Name[bg]": "SQL приставка",
         "Name[ca@valencia]": "Connector SQL",

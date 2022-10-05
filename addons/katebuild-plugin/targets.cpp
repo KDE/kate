@@ -7,7 +7,7 @@
 
 #include "targets.h"
 #include <KLocalizedString>
-#include <QCoreApplication>
+#include <QApplication>
 #include <QDebug>
 #include <QEvent>
 #include <QIcon>
@@ -76,11 +76,13 @@ TargetsUi::TargetsUi(QObject *view, QWidget *parent)
     tLayout->addWidget(newTarget);
     tLayout->addWidget(copyTarget);
     tLayout->addWidget(deleteTarget);
-    tLayout->setContentsMargins(0, 0, 0, 0);
+    int leftMargin = QApplication::style()->pixelMetric(QStyle::PM_LayoutLeftMargin);
+    tLayout->setContentsMargins(leftMargin, 0, 0, 0);
 
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->addLayout(tLayout);
     layout->addWidget(targetsView);
+    layout->setContentsMargins(0, 0, 0, 0);
 
     connect(targetCombo, static_cast<void (QComboBox::*)(int)>(&QComboBox::activated), this, &TargetsUi::targetSetSelected);
     connect(targetsView->selectionModel(), &QItemSelectionModel::currentChanged, this, &TargetsUi::targetActivated);

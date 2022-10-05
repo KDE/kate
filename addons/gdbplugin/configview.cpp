@@ -579,6 +579,7 @@ void ConfigView::resizeEvent(QResizeEvent *)
         m_checBoxLayout = nullptr;
         delete layout();
         QGridLayout *layout = new QGridLayout(this);
+        layout->setContentsMargins(0, 0, 0, 0);
 
         layout->addWidget(m_clientCombo, 0, 0);
         layout->addWidget(m_targetCombo, 1, 0);
@@ -651,6 +652,7 @@ void ConfigView::resizeEvent(QResizeEvent *)
         }
 
         QGridLayout *layout = new QGridLayout(this);
+        layout->setContentsMargins(0, 0, 0, 0);
         layout->addWidget(m_clientCombo, 0, 0, 1, 6);
 
         layout->addWidget(m_targetCombo, 1, 0, 1, 3);

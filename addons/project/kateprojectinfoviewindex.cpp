@@ -47,6 +47,7 @@ KateProjectInfoViewIndex::KateProjectInfoViewIndex(KateProjectPluginView *plugin
      */
     QVBoxLayout *layout = new QVBoxLayout;
     layout->setSpacing(0);
+    layout->setContentsMargins(0, 0, 0, 0);
     layout->addWidget(m_lineEdit);
     layout->addWidget(m_treeView);
     setLayout(layout);

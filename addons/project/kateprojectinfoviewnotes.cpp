@@ -21,6 +21,7 @@ KateProjectInfoViewNotes::KateProjectInfoViewNotes(KateProjectPluginView *plugin
      */
     QVBoxLayout *layout = new QVBoxLayout;
     layout->setSpacing(0);
+    layout->setContentsMargins(0, 0, 0, 0);
     layout->addWidget(m_edit);
     setLayout(layout);
     m_edit->setDocument(project->notesDocument());

@@ -28,6 +28,7 @@
 
 #include <cassert>
 
+#include <QApplication>
 #include <QCompleter>
 #include <QDir>
 #include <QFileDialog>
@@ -174,6 +175,8 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
 
     m_buildWidget = new QWidget(m_toolView);
     m_buildUi.setupUi(m_buildWidget);
+    int leftMargin = QApplication::style()->pixelMetric(QStyle::PM_LayoutLeftMargin);
+    m_buildUi.u_outpTopLayout->setContentsMargins(leftMargin, 0, 0, 0);
     m_targetsUi = new TargetsUi(this, m_buildUi.u_tabWidget);
     m_buildUi.u_tabWidget->insertTab(0, m_targetsUi, i18nc("Tab label", "Target Settings"));
     m_buildUi.u_tabWidget->setCurrentWidget(m_targetsUi);

@@ -70,6 +70,7 @@ KateProjectInfoViewCodeAnalysis::KateProjectInfoViewCodeAnalysis(KateProjectPlug
      */
     QVBoxLayout *layout = new QVBoxLayout;
     layout->setSpacing(0);
+    layout->setContentsMargins(0, 0, 0, 0);
     // top: selector and buttons...
     QHBoxLayout *hlayout = new QHBoxLayout;
     layout->addLayout(hlayout);

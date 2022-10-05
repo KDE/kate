@@ -143,7 +143,7 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     connect(a, &QAction::triggered, this, &KateBuildView::slotBuildDefaultTarget);
 
     a = actionCollection()->addAction(QStringLiteral("build_and_run_default_target"));
-    a->setText(i18n("Build & Run Default Target"));
+    a->setText(i18n("Build and Run Default Target"));
     connect(a, &QAction::triggered, this, &KateBuildView::slotBuildAndRunDefaultTarget);
 
     a = actionCollection()->addAction(QStringLiteral("build_previous_target"));

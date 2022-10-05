@@ -51,7 +51,7 @@ TargetsUi::TargetsUi(QObject *view, QWidget *parent)
 
     runButton = new QToolButton(this);
     runButton->setIcon(QIcon::fromTheme(QStringLiteral("media-playback-start")));
-    runButton->setToolTip(i18n("Build & run selected target"));
+    runButton->setToolTip(i18n("Build and run selected target"));
 
     targetsView = new QTreeView(this);
     targetsView->setAlternatingRowColors(true);

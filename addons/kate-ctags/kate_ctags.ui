@@ -2,7 +2,27 @@
 <ui version="4.0">
  <class>kateCtags</class>
  <widget class="QWidget" name="kateCtags">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>391</width>
+    <height>291</height>
+   </rect>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
@@ -13,6 +33,18 @@
        <string>Lookup</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
        <item row="0" column="0">
         <widget class="QLineEdit" name="inputEdit">
          <property name="showClearButton" stdset="0">
@@ -56,6 +88,18 @@
        <string>Index Targets</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_2" columnstretch="1,0,0">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
        <item row="0" column="0" rowspan="4" colspan="2">
         <widget class="QListWidget" name="targetList"/>
        </item>
@@ -100,6 +144,15 @@
        <string>Database</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_3">
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
        <item row="0" column="0">
         <widget class="QLabel" name="fileLabel">
          <property name="layoutDirection">

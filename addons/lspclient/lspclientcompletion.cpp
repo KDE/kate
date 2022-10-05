@@ -323,9 +323,9 @@ public:
 
         // maybe use WaitForReset ??
         // but more complex and already looks good anyway
-        auto handler = [this](const QList<LSPCompletionItem> & compl ) {
+        auto handler = [this](const QList<LSPCompletionItem> &completion) {
             beginResetModel();
-            qCInfo(LSPCLIENT) << "adding completions " << compl .size();
+            qCInfo(LSPCLIENT) << "adding completions " << completion.size();
             // purge all existing completion items
             m_matches.erase(std::remove_if(m_matches.begin(),
                                            m_matches.end(),
@@ -333,7 +333,7 @@ public:
                                                return ci.argumentHintDepth == 0;
                                            }),
                             m_matches.end());
-            for (const auto &item : compl ) {
+            for (const auto &item : completion) {
                 m_matches.push_back(item);
             }
             std::stable_sort(m_matches.begin(), m_matches.end(), compare_match);

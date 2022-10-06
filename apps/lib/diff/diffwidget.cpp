@@ -48,11 +48,9 @@ DiffWidget::DiffWidget(DiffParams p, QWidget *parent)
     rightHl->setTheme(KTextEditor::Editor::instance()->theme());
 
     connect(m_left->verticalScrollBar(), &QScrollBar::valueChanged, this, [this](int v) {
-        const QSignalBlocker b(m_left);
         m_right->verticalScrollBar()->setValue(v);
     });
     connect(m_right->verticalScrollBar(), &QScrollBar::valueChanged, this, [this](int v) {
-        const QSignalBlocker b(m_right);
         m_left->verticalScrollBar()->setValue(v);
     });
 

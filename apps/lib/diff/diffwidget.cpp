@@ -99,6 +99,12 @@ void DiffWidget::handleStyleChange(int newStyle)
         qWarning() << "Unexpected diff style value: " << newStyle;
         Q_UNREACHABLE();
     }
+
+    if (sender() && (sender() == m_left || sender() == m_right)) {
+        KSharedConfig::Ptr config = KSharedConfig::openConfig();
+        KConfigGroup cgGeneral = KConfigGroup(config, "General");
+        cgGeneral.writeEntry("Diff Show Style", (int)m_style);
+    }
 }
 
 void DiffWidget::handleStageUnstage(DiffEditor *e, int startLine, int endLine, int actionType, DiffParams::Flag f)

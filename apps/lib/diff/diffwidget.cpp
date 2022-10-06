@@ -800,7 +800,7 @@ static QString commitInfoFromDiff(const QByteArray &raw)
 
 void DiffWidget::openDiff(const QByteArray &raw)
 {
-    if (m_params.flags & DiffParams::ShowCommitInfo) {
+    if ((m_params.flags & DiffParams::ShowCommitInfo) && m_style != DiffStyle::Raw) {
         m_commitInfo->setText(commitInfoFromDiff(raw));
         m_commitInfo->show();
     } else {

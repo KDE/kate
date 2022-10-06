@@ -129,7 +129,7 @@ void LSPClientPlugin::readConfig()
     m_diagnosticsSize = config.readEntry(CONFIG_DIAGNOSTICS_SIZE, 1024);
     m_messages = config.readEntry(CONFIG_MESSAGES, true);
     m_configPath = config.readEntry(CONFIG_SERVER_CONFIG, QUrl());
-    m_semanticHighlighting = config.readEntry(CONFIG_SEMANTIC_HIGHLIGHTING, false);
+    m_semanticHighlighting = config.readEntry(CONFIG_SEMANTIC_HIGHLIGHTING, true);
     m_signatureHelp = config.readEntry(CONFIG_SIGNATURE_HELP, true);
     m_autoImport = config.readEntry(CONFIG_AUTO_IMPORT, true);
 

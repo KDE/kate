@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-05 00:49+0000\n"
+"POT-Creation-Date: 2022-10-06 00:48+0000\n"
 "PO-Revision-Date: 2022-06-13 19:26+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -841,12 +841,12 @@ msgstr "Sulje kaikki projektit"
 msgid "Close Orphaned Projects"
 msgstr "Sulje orvot projektit"
 
-#: kateprojectpluginview.cpp:212 kateprojectpluginview.cpp:772
+#: kateprojectpluginview.cpp:212 kateprojectpluginview.cpp:778
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Haku: %1"
 
-#: kateprojectpluginview.cpp:213 kateprojectpluginview.cpp:773
+#: kateprojectpluginview.cpp:213 kateprojectpluginview.cpp:779
 #, kde-format
 msgid "Goto: %1"
 msgstr "Siirry: %1"
@@ -856,7 +856,7 @@ msgstr "Siirry: %1"
 msgid "Projects Index"
 msgstr "Projekti-indeksi"
 
-#: kateprojectpluginview.cpp:811
+#: kateprojectpluginview.cpp:817
 #, kde-format
 msgid "Choose a directory"
 msgstr "Valitse kansio"

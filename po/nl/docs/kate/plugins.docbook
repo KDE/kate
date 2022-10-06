@@ -3385,6 +3385,7 @@ kate /pad/naar/map/
       {
         "name": "all",
         "build_cmd": "ninja"
+        "run_cmd": "./bin/kate"
       },
       {
         "name": "kate",
@@ -3396,11 +3397,27 @@ kate /pad/naar/map/
 </screen>
 
 <para
->De bovenstaand gespecificeerde doelen zullen dan in de <link linkend="kate-application-plugin-build"
->Bouwplug-in </link
-> onder <emphasis role="bold"
-> "Projectplug-in doelen"</emphasis
-> verschijnen. </para>
+>The targets specified above will then appear in the <link linkend="kate-application-plugin-build"
+>Build Plugin </link
+> under <emphasis role="bold"
+> "Project Plugin Targets"</emphasis
+>. If the <code
+>"targets"</code
+> array is specified then <code
+>"build"</code
+>, <code
+>"clean"</code
+> and <code
+>"install"</code
+> are ignored. Each element in the array specifies a target. <code
+>"name"</code
+> is the name of the target, <code
+>"build_cmd"</code
+> will be used to build the target, <code
+>"run_cmd"</code
+> will be used to run the target. Most important of all is <code
+>"directory"</code
+>, this is where the commands will be executed. </para>
 
 <para
 >In het geval dat u een bestand <filename

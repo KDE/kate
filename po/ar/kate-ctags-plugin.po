@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Safa Alfulaij <safa1996alfulaij@gmail.com>, ٢٠١٦.
-# Zayed Al-Saidi <zayed.alsaidi@gmail.com>, 2021.
+# Zayed Al-Saidi <zayed.alsaidi@gmail.com>, 2021, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-27 00:48+0000\n"
-"PO-Revision-Date: 2021-12-11 19:21+0400\n"
+"PO-Revision-Date: 2022-10-05 16:58+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
-"X-Generator: Lokalize 21.07.70\n"
+"X-Generator: Lokalize 21.12.3\n"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: CTagsGlobalConfig.ui:9
@@ -255,10 +255,9 @@ msgid "CTags executable not found."
 msgstr "لم يعثر على الملف التنفيذي لـ «وسوم‌سي»."
 
 #: gotosymbolmodel.cpp:80
-#, fuzzy, kde-format
-#| msgid "CTags executable not found."
+#, kde-format
 msgid "CTags executable failed to execute."
-msgstr "لم يعثر على الملف التنفيذي لـ «وسوم‌سي»."
+msgstr "فشل تنفيذ تنفيذي  «وسوم‌سي»."
 
 #: gotosymbolmodel.cpp:148
 #, kde-format
@@ -269,12 +268,12 @@ msgstr "«وسوم‌سي» لم يتمكن من تحليل هذا الملف."
 #, kde-format
 msgid ""
 "Tags file not found. Please generate one manually or using the CTags plugin"
-msgstr ""
+msgstr "لم يعثر على ملف الوسوم. فضلا ولّد واحدا يدوياً أو استخدم ملحقة وسوم سي"
 
 #: gotosymbolwidget.cpp:314
 #, kde-format
 msgid "File for '%1' not found."
-msgstr ""
+msgstr "لم يعثر على ملف لـ'%1'"
 
 #. i18n: ectx: attribute (title), widget (QWidget, widget)
 #: kate_ctags.ui:13
@@ -401,13 +400,13 @@ msgstr "ابحث عن النّصّ الحاليّ"
 #: kate_ctags_view.cpp:72
 #, kde-format
 msgid "Configure ..."
-msgstr ""
+msgstr "اضبط ..."
 
 #: kate_ctags_view.cpp:87
 #, kde-format
 msgctxt "@title:window"
 msgid "Configure CTags Plugin"
-msgstr ""
+msgstr "اضبط ملحقة وسوم سي"
 
 #: kate_ctags_view.cpp:98 kate_ctags_view.cpp:187
 #, kde-format
@@ -437,12 +436,12 @@ msgstr "اختر ملفّ قاعدة بيانات جديد أو واحدًا م�
 #: kate_ctags_view.cpp:138
 #, kde-format
 msgid "Go To Local Symbol"
-msgstr ""
+msgstr "انتقل إلى الرمز المحلي"
 
 #: kate_ctags_view.cpp:143
 #, kde-format
 msgid "Go To Global Symbol"
-msgstr ""
+msgstr "انتقل إلى الرمز العام"
 
 #: kate_ctags_view.cpp:315 kate_ctags_view.cpp:347
 #, kde-format

@@ -8,15 +8,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-05 00:49+0000\n"
-"PO-Revision-Date: 2022-04-03 21:06+0200\n"
+"POT-Creation-Date: 2022-10-06 00:48+0000\n"
+"PO-Revision-Date: 2022-10-05 15:23+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 22.08.1\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -76,7 +76,7 @@ msgctxt "Header for the error message column"
 msgid "Message"
 msgstr "Bericht"
 
-#: plugin_katebuild.cpp:128 plugin_katebuild.cpp:135 plugin_katebuild.cpp:1228
+#: plugin_katebuild.cpp:128 plugin_katebuild.cpp:135 plugin_katebuild.cpp:1241
 #, kde-format
 msgid "Build"
 msgstr "Bouwen"
@@ -93,9 +93,9 @@ msgstr "Standaard doel bouwen"
 
 #: plugin_katebuild.cpp:146
 #, fuzzy, kde-format
-#| msgid "Build Default Target"
-msgid "Build & Run Default Target"
-msgstr "Standaard doel bouwen"
+#| msgid "Build & Run Default Target"
+msgid "Build and Run Default Target"
+msgstr "Standaard doel bouwen & uitvoeren"
 
 #: plugin_katebuild.cpp:150
 #, kde-format
@@ -128,8 +128,8 @@ msgctxt "Tab label"
 msgid "Target Settings"
 msgstr "Instellingen van doel"
 
-#: plugin_katebuild.cpp:314 plugin_katebuild.cpp:1330 plugin_katebuild.cpp:1341
-#: plugin_katebuild.cpp:1362 plugin_katebuild.cpp:1370
+#: plugin_katebuild.cpp:314 plugin_katebuild.cpp:1343 plugin_katebuild.cpp:1354
+#: plugin_katebuild.cpp:1375 plugin_katebuild.cpp:1383
 #, kde-format
 msgid "Project Plugin Targets"
 msgstr "Doelen van projectplug-in"
@@ -272,59 +272,59 @@ msgstr "Bouwen voltooid zonder problemen."
 #: plugin_katebuild.cpp:1048
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
-msgstr ""
+msgstr "Kan niet uitvoeren: %1 Geen werkmap ingesteld."
 
-#: plugin_katebuild.cpp:1227
+#: plugin_katebuild.cpp:1240
 #, kde-format
 msgid "Target Set"
 msgstr "Ingesteld doel"
 
-#: plugin_katebuild.cpp:1229
+#: plugin_katebuild.cpp:1242
 #, kde-format
 msgid "Clean"
 msgstr "Schoon"
 
-#: plugin_katebuild.cpp:1230
+#: plugin_katebuild.cpp:1243
 #, kde-format
 msgid "Config"
 msgstr "Config"
 
-#: plugin_katebuild.cpp:1231
+#: plugin_katebuild.cpp:1244
 #, kde-format
 msgid "ConfigClean"
 msgstr "ConfigClean"
 
-#: plugin_katebuild.cpp:1274
+#: plugin_katebuild.cpp:1287
 #, kde-format
 msgid "Only Errors"
 msgstr "Alleen fouten"
 
-#: plugin_katebuild.cpp:1277
+#: plugin_katebuild.cpp:1290
 #, kde-format
 msgid "Errors and Warnings"
 msgstr "Fouten en waarschuwingen"
 
-#: plugin_katebuild.cpp:1280
+#: plugin_katebuild.cpp:1293
 #, kde-format
 msgid "Parsed Output"
 msgstr "Bewerkte uitvoer"
 
-#: plugin_katebuild.cpp:1283
+#: plugin_katebuild.cpp:1296
 #, kde-format
 msgid "Full Output"
 msgstr "Volledige uitvoer"
 
-#: plugin_katebuild.cpp:1391
+#: plugin_katebuild.cpp:1404
 #, kde-format
 msgid "build"
 msgstr "bouwen"
 
-#: plugin_katebuild.cpp:1394
+#: plugin_katebuild.cpp:1407
 #, kde-format
 msgid "clean"
 msgstr "schoon"
 
-#: plugin_katebuild.cpp:1397
+#: plugin_katebuild.cpp:1410
 #, kde-format
 msgid "quick"
 msgstr "snel"
@@ -363,28 +363,27 @@ msgstr ""
 "\"%d\" voor map van huidig bestand\n"
 "\"%n\" voor huidig bestand zonder achtervoegsel"
 
-#: TargetModel.cpp:310
+#: TargetModel.cpp:324
 #, kde-format
 msgid "Check the check-box to make the command the default for the target-set."
 msgstr ""
 "Activeer het keuzevakje om het commando de standaard voor de set met doelen "
 "te maken."
 
-#: TargetModel.cpp:371
+#: TargetModel.cpp:385
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Naam van set commando/doel"
 
-#: TargetModel.cpp:374
+#: TargetModel.cpp:388
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "Werkmap / commando"
 
-#: TargetModel.cpp:377
-#, fuzzy, kde-format
-#| msgid "Command:"
+#: TargetModel.cpp:391
+#, kde-format
 msgid "Run Command"
-msgstr "Commando:"
+msgstr "Commando uitvoeren"
 
 #: targets.cpp:22
 #, kde-format
@@ -428,9 +427,9 @@ msgstr "Geselecteerd doel bouwen"
 
 #: targets.cpp:54
 #, fuzzy, kde-format
-#| msgid "Build selected target"
-msgid "Build & run selected target"
-msgstr "Geselecteerd doel bouwen"
+#| msgid "Build & run selected target"
+msgid "Build and run selected target"
+msgstr "Geselecteerd doel bouwen & uitvoeren"
 
 #. i18n: ectx: Menu (Build Menubar)
 #: ui.rc:6

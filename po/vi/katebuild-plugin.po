@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-05 00:49+0000\n"
+"POT-Creation-Date: 2022-10-06 00:48+0000\n"
 "PO-Revision-Date: 2022-04-08 01:38+0200\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -74,7 +74,7 @@ msgctxt "Header for the error message column"
 msgid "Message"
 msgstr "Thông điệp"
 
-#: plugin_katebuild.cpp:128 plugin_katebuild.cpp:135 plugin_katebuild.cpp:1228
+#: plugin_katebuild.cpp:128 plugin_katebuild.cpp:135 plugin_katebuild.cpp:1241
 #, kde-format
 msgid "Build"
 msgstr "Xây"
@@ -92,7 +92,7 @@ msgstr "Xây mục tiêu mặc định"
 #: plugin_katebuild.cpp:146
 #, fuzzy, kde-format
 #| msgid "Build Default Target"
-msgid "Build & Run Default Target"
+msgid "Build and Run Default Target"
 msgstr "Xây mục tiêu mặc định"
 
 #: plugin_katebuild.cpp:150
@@ -126,8 +126,8 @@ msgctxt "Tab label"
 msgid "Target Settings"
 msgstr "Thiết lập mục tiêu"
 
-#: plugin_katebuild.cpp:314 plugin_katebuild.cpp:1330 plugin_katebuild.cpp:1341
-#: plugin_katebuild.cpp:1362 plugin_katebuild.cpp:1370
+#: plugin_katebuild.cpp:314 plugin_katebuild.cpp:1343 plugin_katebuild.cpp:1354
+#: plugin_katebuild.cpp:1375 plugin_katebuild.cpp:1383
 #, kde-format
 msgid "Project Plugin Targets"
 msgstr "Các mục tiêu phần cài cắm của dự án"
@@ -269,57 +269,57 @@ msgstr "Việc xây hoàn tất không gặp vấn đề gì."
 msgid "Cannot execute: %1 No working directory set."
 msgstr ""
 
-#: plugin_katebuild.cpp:1227
+#: plugin_katebuild.cpp:1240
 #, kde-format
 msgid "Target Set"
 msgstr "Tập hợp mục tiêu"
 
-#: plugin_katebuild.cpp:1229
+#: plugin_katebuild.cpp:1242
 #, kde-format
 msgid "Clean"
 msgstr "Làm sạch"
 
-#: plugin_katebuild.cpp:1230
+#: plugin_katebuild.cpp:1243
 #, kde-format
 msgid "Config"
 msgstr "Cấu hình"
 
-#: plugin_katebuild.cpp:1231
+#: plugin_katebuild.cpp:1244
 #, kde-format
 msgid "ConfigClean"
 msgstr "Làm sạch cấu hình"
 
-#: plugin_katebuild.cpp:1274
+#: plugin_katebuild.cpp:1287
 #, kde-format
 msgid "Only Errors"
 msgstr "Chỉ lỗi"
 
-#: plugin_katebuild.cpp:1277
+#: plugin_katebuild.cpp:1290
 #, kde-format
 msgid "Errors and Warnings"
 msgstr "Lỗi và cảnh báo"
 
-#: plugin_katebuild.cpp:1280
+#: plugin_katebuild.cpp:1293
 #, kde-format
 msgid "Parsed Output"
 msgstr "Đầu ra đã phân tách"
 
-#: plugin_katebuild.cpp:1283
+#: plugin_katebuild.cpp:1296
 #, kde-format
 msgid "Full Output"
 msgstr "Đầu ra đầy đủ"
 
-#: plugin_katebuild.cpp:1391
+#: plugin_katebuild.cpp:1404
 #, kde-format
 msgid "build"
 msgstr "xây"
 
-#: plugin_katebuild.cpp:1394
+#: plugin_katebuild.cpp:1407
 #, kde-format
 msgid "clean"
 msgstr "làm sạch"
 
-#: plugin_katebuild.cpp:1397
+#: plugin_katebuild.cpp:1410
 #, kde-format
 msgid "quick"
 msgstr "nhanh"
@@ -358,22 +358,22 @@ msgstr ""
 "\"%d\" cho thư mục của tệp hiện tại\n"
 "\"%n\" cho tên tệp hiện tại bỏ bớt hậu tố"
 
-#: TargetModel.cpp:310
+#: TargetModel.cpp:324
 #, kde-format
 msgid "Check the check-box to make the command the default for the target-set."
 msgstr "Chọn ô này để đặt lệnh làm mặc định cho tập hợp mục tiêu."
 
-#: TargetModel.cpp:371
+#: TargetModel.cpp:385
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Tên lệnh/tập hợp mục tiêu"
 
-#: TargetModel.cpp:374
+#: TargetModel.cpp:388
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "Thư mục làm việc / lệnh"
 
-#: TargetModel.cpp:377
+#: TargetModel.cpp:391
 #, kde-format
 msgid "Run Command"
 msgstr ""
@@ -421,7 +421,7 @@ msgstr "Xây mục tiêu được chọn"
 #: targets.cpp:54
 #, fuzzy, kde-format
 #| msgid "Build selected target"
-msgid "Build & run selected target"
+msgid "Build and run selected target"
 msgstr "Xây mục tiêu được chọn"
 
 #. i18n: ectx: Menu (Build Menubar)

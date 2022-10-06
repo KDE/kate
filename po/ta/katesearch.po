@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"POT-Creation-Date: 2022-10-06 00:48+0000\n"
 "PO-Revision-Date: 2022-09-01 21:19+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -565,77 +565,77 @@ msgstr "முடிவுகளை வடிகட்ட கிளிக் ச
 msgid "Find"
 msgstr "தேடு"
 
-#: SearchPlugin.cpp:1222
+#: SearchPlugin.cpp:1229
 #, kde-format
 msgid "Searching while you type was interrupted. It would have taken too long."
 msgstr "தட்டச்சிடும்போது தேடுவது கைவிடப்பட்டது. அதற்கு நிறைய நேரம் ஆகியிருக்கும்."
 
-#: SearchPlugin.cpp:1564
+#: SearchPlugin.cpp:1571
 #, kde-format
 msgid "Search Match"
 msgstr "பொருத்த‍த்தைத் தேடு"
 
-#: SearchPlugin.cpp:1747 SearchPlugin.cpp:1824
+#: SearchPlugin.cpp:1754 SearchPlugin.cpp:1831
 #, kde-format
 msgid "Next from cursor"
 msgstr "இடஞ்சுட்டியிலிருந்து அடுத்த‍து"
 
-#: SearchPlugin.cpp:1764
+#: SearchPlugin.cpp:1771
 #, kde-format
 msgid "Starting from first match"
 msgstr "முதல் பொருத்த‍த்திலிருந்து துவங்குகிறோம்"
 
-#: SearchPlugin.cpp:1784
+#: SearchPlugin.cpp:1791
 #, kde-format
 msgid "Continuing from first match"
 msgstr "முதல் பொருத்த‍த்திலிருந்து தொடர்கிறோம்"
 
-#: SearchPlugin.cpp:1841
+#: SearchPlugin.cpp:1848
 #, kde-format
 msgid "Starting from last match"
 msgstr "கடைசி பொருத்த‍த்திலிருந்து துவங்குகிறோம்"
 
-#: SearchPlugin.cpp:1861
+#: SearchPlugin.cpp:1868
 #, kde-format
 msgid "Continuing from last match"
 msgstr "கடைசிப் பொருத்த‍த்திலிருந்து தொடர்கிறோம்"
 
-#: SearchPlugin.cpp:2132
+#: SearchPlugin.cpp:2139
 #, kde-format
 msgid "Copy all"
 msgstr "அனைத்தையும் நகலெடு"
 
-#: SearchPlugin.cpp:2137
+#: SearchPlugin.cpp:2144
 #, kde-format
 msgid "Copy expanded"
 msgstr "விரிவாக்கியுள்ளவற்றை நகலெடு"
 
-#: SearchPlugin.cpp:2140
+#: SearchPlugin.cpp:2147
 #, kde-format
 msgid "Export matches"
 msgstr "பொருத்தங்களை ஏற்றுமதி செய்"
 
-#: SearchPlugin.cpp:2145
+#: SearchPlugin.cpp:2152
 #, kde-format
 msgid "Clear"
 msgstr "காலியாக்கு"
 
-#: SearchPlugin.cpp:2253 SearchPlugin.cpp:2287
+#: SearchPlugin.cpp:2260 SearchPlugin.cpp:2294
 #, kde-format
 msgid "Add..."
 msgstr "சேர்..."
 
-#: SearchPlugin.cpp:2265
+#: SearchPlugin.cpp:2272
 #, kde-format
 msgid "Search As You Type"
 msgstr "தட்டச்சிடும்போது தேடு"
 
-#: SearchPlugin.cpp:2336
+#: SearchPlugin.cpp:2343
 #, kde-format
 msgid "In Current Project"
 msgstr "தற்போதைய திட்டப்பணியில்"
 
-#: SearchPlugin.cpp:2338
+#: SearchPlugin.cpp:2345
 #, kde-format
 msgid "In All Open Projects"
 msgstr "திறந்துள்ள அனைத்து திட்டப்பணிகளில்"

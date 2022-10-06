@@ -379,7 +379,7 @@ msgstr "Kåre Särs"
 #: lib/kateapp.cpp:150
 #, kde-format
 msgid "Waqar Ahmed"
-msgstr ""
+msgstr "Waqar Ahmed"
 
 #: lib/kateapp.cpp:151
 #, kde-format

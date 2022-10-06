@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-05 00:49+0000\n"
+"POT-Creation-Date: 2022-10-06 00:48+0000\n"
 "PO-Revision-Date: 2022-09-28 20:39+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -837,12 +837,12 @@ msgstr "Zamknij wszystkie projekty"
 msgid "Close Orphaned Projects"
 msgstr "Zamknij porzucone projekty"
 
-#: kateprojectpluginview.cpp:212 kateprojectpluginview.cpp:772
+#: kateprojectpluginview.cpp:212 kateprojectpluginview.cpp:778
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Wyszukaj: %1"
 
-#: kateprojectpluginview.cpp:213 kateprojectpluginview.cpp:773
+#: kateprojectpluginview.cpp:213 kateprojectpluginview.cpp:779
 #, kde-format
 msgid "Goto: %1"
 msgstr "Idź do: %1"
@@ -852,7 +852,7 @@ msgstr "Idź do: %1"
 msgid "Projects Index"
 msgstr "Indeks projektu"
 
-#: kateprojectpluginview.cpp:811
+#: kateprojectpluginview.cpp:817
 #, kde-format
 msgid "Choose a directory"
 msgstr "Wybierz katalog"

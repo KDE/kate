@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-05 00:49+0000\n"
+"POT-Creation-Date: 2022-10-06 00:48+0000\n"
 "PO-Revision-Date: 2022-08-19 21:19+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -79,7 +79,7 @@ msgctxt "Header for the error message column"
 msgid "Message"
 msgstr "Mezua"
 
-#: plugin_katebuild.cpp:128 plugin_katebuild.cpp:135 plugin_katebuild.cpp:1228
+#: plugin_katebuild.cpp:128 plugin_katebuild.cpp:135 plugin_katebuild.cpp:1241
 #, kde-format
 msgid "Build"
 msgstr "Eraiki"
@@ -97,7 +97,7 @@ msgstr "Eraiki lehenetsitako jomuga"
 #: plugin_katebuild.cpp:146
 #, fuzzy, kde-format
 #| msgid "Build Default Target"
-msgid "Build & Run Default Target"
+msgid "Build and Run Default Target"
 msgstr "Eraiki lehenetsitako jomuga"
 
 #: plugin_katebuild.cpp:150
@@ -131,8 +131,8 @@ msgctxt "Tab label"
 msgid "Target Settings"
 msgstr "Jomuga ezarpenak"
 
-#: plugin_katebuild.cpp:314 plugin_katebuild.cpp:1330 plugin_katebuild.cpp:1341
-#: plugin_katebuild.cpp:1362 plugin_katebuild.cpp:1370
+#: plugin_katebuild.cpp:314 plugin_katebuild.cpp:1343 plugin_katebuild.cpp:1354
+#: plugin_katebuild.cpp:1375 plugin_katebuild.cpp:1383
 #, kde-format
 msgid "Project Plugin Targets"
 msgstr "Proiektu pluginaren jomugak"
@@ -277,57 +277,57 @@ msgstr "Eraikitzea osatu da arazorik gabe."
 msgid "Cannot execute: %1 No working directory set."
 msgstr ""
 
-#: plugin_katebuild.cpp:1227
+#: plugin_katebuild.cpp:1240
 #, kde-format
 msgid "Target Set"
 msgstr "Jomuga multzoa"
 
-#: plugin_katebuild.cpp:1229
+#: plugin_katebuild.cpp:1242
 #, kde-format
 msgid "Clean"
 msgstr "Garbitu"
 
-#: plugin_katebuild.cpp:1230
+#: plugin_katebuild.cpp:1243
 #, kde-format
 msgid "Config"
 msgstr "Konfiguratu"
 
-#: plugin_katebuild.cpp:1231
+#: plugin_katebuild.cpp:1244
 #, kde-format
 msgid "ConfigClean"
 msgstr "Konfigurazioa garbitu"
 
-#: plugin_katebuild.cpp:1274
+#: plugin_katebuild.cpp:1287
 #, kde-format
 msgid "Only Errors"
 msgstr "Erroreak soilik"
 
-#: plugin_katebuild.cpp:1277
+#: plugin_katebuild.cpp:1290
 #, kde-format
 msgid "Errors and Warnings"
 msgstr "Erroreak eta abisuak"
 
-#: plugin_katebuild.cpp:1280
+#: plugin_katebuild.cpp:1293
 #, kde-format
 msgid "Parsed Output"
 msgstr "Sintaxia azterketako irteerakoa"
 
-#: plugin_katebuild.cpp:1283
+#: plugin_katebuild.cpp:1296
 #, kde-format
 msgid "Full Output"
 msgstr "Irteerako osoa"
 
-#: plugin_katebuild.cpp:1391
+#: plugin_katebuild.cpp:1404
 #, kde-format
 msgid "build"
 msgstr "Eraiki"
 
-#: plugin_katebuild.cpp:1394
+#: plugin_katebuild.cpp:1407
 #, kde-format
 msgid "clean"
 msgstr "Garbitu"
 
-#: plugin_katebuild.cpp:1397
+#: plugin_katebuild.cpp:1410
 #, kde-format
 msgid "quick"
 msgstr "azkar"
@@ -366,22 +366,22 @@ msgstr ""
 "\"%d\" uneko fitxategiaren direktoriorako\n"
 "\"%n\" uneko fitxategi-izenerako atzizkirik gabe"
 
-#: TargetModel.cpp:310
+#: TargetModel.cpp:324
 #, kde-format
 msgid "Check the check-box to make the command the default for the target-set."
 msgstr "Markatu kontrol-laukia komandoa jomuga-multzorako lehenesteko."
 
-#: TargetModel.cpp:371
+#: TargetModel.cpp:385
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Komandoa/jomuga-multzo izena"
 
-#: TargetModel.cpp:374
+#: TargetModel.cpp:388
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "Laneko direktorioa / komandoa"
 
-#: TargetModel.cpp:377
+#: TargetModel.cpp:391
 #, kde-format
 msgid "Run Command"
 msgstr ""
@@ -429,7 +429,7 @@ msgstr "Eraiki hautatutako jomuga"
 #: targets.cpp:54
 #, fuzzy, kde-format
 #| msgid "Build selected target"
-msgid "Build & run selected target"
+msgid "Build and run selected target"
 msgstr "Eraiki hautatutako jomuga"
 
 #. i18n: ectx: Menu (Build Menubar)

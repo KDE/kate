@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-05 00:49+0000\n"
+"POT-Creation-Date: 2022-10-06 00:48+0000\n"
 "PO-Revision-Date: 2022-08-09 13:37+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -834,12 +834,12 @@ msgstr "모든 프로젝트 닫기"
 msgid "Close Orphaned Projects"
 msgstr "접근 불가능한 프로젝트 닫기"
 
-#: kateprojectpluginview.cpp:212 kateprojectpluginview.cpp:772
+#: kateprojectpluginview.cpp:212 kateprojectpluginview.cpp:778
 #, kde-format
 msgid "Lookup: %1"
 msgstr "찾아보기: %1"
 
-#: kateprojectpluginview.cpp:213 kateprojectpluginview.cpp:773
+#: kateprojectpluginview.cpp:213 kateprojectpluginview.cpp:779
 #, kde-format
 msgid "Goto: %1"
 msgstr "이동: %1"
@@ -849,7 +849,7 @@ msgstr "이동: %1"
 msgid "Projects Index"
 msgstr "프로젝트 색인"
 
-#: kateprojectpluginview.cpp:811
+#: kateprojectpluginview.cpp:817
 #, kde-format
 msgid "Choose a directory"
 msgstr "디렉터리 선택"

@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-05 00:49+0000\n"
-"PO-Revision-Date: 2022-10-04 20:31+0400\n"
+"PO-Revision-Date: 2022-10-05 16:47+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -377,7 +377,7 @@ msgstr "Kåre Särs"
 #: lib/kateapp.cpp:150
 #, kde-format
 msgid "Waqar Ahmed"
-msgstr ""
+msgstr "وقار أحمد"
 
 #: lib/kateapp.cpp:151
 #, kde-format

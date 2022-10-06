@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-05 00:49+0000\n"
-"PO-Revision-Date: 2022-04-20 17:47+0100\n"
+"POT-Creation-Date: 2022-10-06 00:48+0000\n"
+"PO-Revision-Date: 2022-10-05 11:17+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
 "Language: pt\n"
@@ -72,7 +72,7 @@ msgctxt "Header for the error message column"
 msgid "Message"
 msgstr "Mensagem"
 
-#: plugin_katebuild.cpp:128 plugin_katebuild.cpp:135 plugin_katebuild.cpp:1228
+#: plugin_katebuild.cpp:128 plugin_katebuild.cpp:135 plugin_katebuild.cpp:1241
 #, kde-format
 msgid "Build"
 msgstr "Compilar"
@@ -89,9 +89,9 @@ msgstr "Compilar o Alvo Predefinido"
 
 #: plugin_katebuild.cpp:146
 #, fuzzy, kde-format
-#| msgid "Build Default Target"
-msgid "Build & Run Default Target"
-msgstr "Compilar o Alvo Predefinido"
+#| msgid "Build & Run Default Target"
+msgid "Build and Run Default Target"
+msgstr "Compilar & Executar o Alvo Predefinido"
 
 #: plugin_katebuild.cpp:150
 #, kde-format
@@ -124,8 +124,8 @@ msgctxt "Tab label"
 msgid "Target Settings"
 msgstr "Configuração do Alvo"
 
-#: plugin_katebuild.cpp:314 plugin_katebuild.cpp:1330 plugin_katebuild.cpp:1341
-#: plugin_katebuild.cpp:1362 plugin_katebuild.cpp:1370
+#: plugin_katebuild.cpp:314 plugin_katebuild.cpp:1343 plugin_katebuild.cpp:1354
+#: plugin_katebuild.cpp:1375 plugin_katebuild.cpp:1383
 #, kde-format
 msgid "Project Plugin Targets"
 msgstr "Configuração do 'Plugin' do Projecto"
@@ -269,58 +269,59 @@ msgstr "A compilação terminou sem problemas."
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
 msgstr ""
+"Não é possível executar: %1 Não está definida nenhuma pasta de trabalho."
 
-#: plugin_katebuild.cpp:1227
+#: plugin_katebuild.cpp:1240
 #, kde-format
 msgid "Target Set"
 msgstr "Conjunto de Alvos"
 
-#: plugin_katebuild.cpp:1229
+#: plugin_katebuild.cpp:1242
 #, kde-format
 msgid "Clean"
 msgstr "Limpar"
 
-#: plugin_katebuild.cpp:1230
+#: plugin_katebuild.cpp:1243
 #, kde-format
 msgid "Config"
 msgstr "Configuração"
 
-#: plugin_katebuild.cpp:1231
+#: plugin_katebuild.cpp:1244
 #, kde-format
 msgid "ConfigClean"
 msgstr "Limpeza da Configuração"
 
-#: plugin_katebuild.cpp:1274
+#: plugin_katebuild.cpp:1287
 #, kde-format
 msgid "Only Errors"
 msgstr "Apenas os Erros"
 
-#: plugin_katebuild.cpp:1277
+#: plugin_katebuild.cpp:1290
 #, kde-format
 msgid "Errors and Warnings"
 msgstr "Erros e Avisos"
 
-#: plugin_katebuild.cpp:1280
+#: plugin_katebuild.cpp:1293
 #, kde-format
 msgid "Parsed Output"
 msgstr "Resultado Processado"
 
-#: plugin_katebuild.cpp:1283
+#: plugin_katebuild.cpp:1296
 #, kde-format
 msgid "Full Output"
 msgstr "Resultado Completo"
 
-#: plugin_katebuild.cpp:1391
+#: plugin_katebuild.cpp:1404
 #, kde-format
 msgid "build"
 msgstr "compilar"
 
-#: plugin_katebuild.cpp:1394
+#: plugin_katebuild.cpp:1407
 #, kde-format
 msgid "clean"
 msgstr "limpar"
 
-#: plugin_katebuild.cpp:1397
+#: plugin_katebuild.cpp:1410
 #, kde-format
 msgid "quick"
 msgstr "rápido"
@@ -359,26 +360,26 @@ msgstr ""
 "\"%d\" para a pasta do ficheiro actual\n"
 "\"%n\" para o nome do ficheiro actual sem sufixo"
 
-#: TargetModel.cpp:310
+#: TargetModel.cpp:324
 #, kde-format
 msgid "Check the check-box to make the command the default for the target-set."
 msgstr ""
 "Assinale a opção para tornar o comando predefinido para o conjunto de alvos."
 
-#: TargetModel.cpp:371
+#: TargetModel.cpp:385
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Nome do Comando/Conjunto de Alvos"
 
-#: TargetModel.cpp:374
+#: TargetModel.cpp:388
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "Pasta de Trabalho / Comando"
 
-#: TargetModel.cpp:377
+#: TargetModel.cpp:391
 #, kde-format
 msgid "Run Command"
-msgstr ""
+msgstr "Executar um Comando"
 
 #: targets.cpp:22
 #, kde-format
@@ -422,9 +423,9 @@ msgstr "Compilar o alvo seleccionado"
 
 #: targets.cpp:54
 #, fuzzy, kde-format
-#| msgid "Build selected target"
-msgid "Build & run selected target"
-msgstr "Compilar o alvo seleccionado"
+#| msgid "Build & run selected target"
+msgid "Build and run selected target"
+msgstr "Compilar & executar o alvo seleccionado"
 
 #. i18n: ectx: Menu (Build Menubar)
 #: ui.rc:6
@@ -441,9 +442,3 @@ msgstr "Inserir um local"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Seleccione a pasta a inserir"
-
-#~ msgid "config"
-#~ msgstr "configuração"
-
-#~ msgid "Kate Build Plugin"
-#~ msgstr "'Plugin' de Compilação do Kate"

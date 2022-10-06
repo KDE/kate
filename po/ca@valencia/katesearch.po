@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"POT-Creation-Date: 2022-10-06 00:48+0000\n"
 "PO-Revision-Date: 2022-08-27 12:15+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -575,77 +575,77 @@ msgstr "Feu clic per a filtrar els resultats"
 msgid "Find"
 msgstr "Busca"
 
-#: SearchPlugin.cpp:1222
+#: SearchPlugin.cpp:1229
 #, kde-format
 msgid "Searching while you type was interrupted. It would have taken too long."
 msgstr "S'ha interromput la busca mentre es tecleja. Podria tardar massa."
 
-#: SearchPlugin.cpp:1564
+#: SearchPlugin.cpp:1571
 #, kde-format
 msgid "Search Match"
 msgstr "Busca coincident"
 
-#: SearchPlugin.cpp:1747 SearchPlugin.cpp:1824
+#: SearchPlugin.cpp:1754 SearchPlugin.cpp:1831
 #, kde-format
 msgid "Next from cursor"
 msgstr "Següent des del cursor"
 
-#: SearchPlugin.cpp:1764
+#: SearchPlugin.cpp:1771
 #, kde-format
 msgid "Starting from first match"
 msgstr "Comença des de la primera coincidència"
 
-#: SearchPlugin.cpp:1784
+#: SearchPlugin.cpp:1791
 #, kde-format
 msgid "Continuing from first match"
 msgstr "S'està continuant des de la primera coincidència"
 
-#: SearchPlugin.cpp:1841
+#: SearchPlugin.cpp:1848
 #, kde-format
 msgid "Starting from last match"
 msgstr "Comença des de l'última coincidència"
 
-#: SearchPlugin.cpp:1861
+#: SearchPlugin.cpp:1868
 #, kde-format
 msgid "Continuing from last match"
 msgstr "S'està continuant des de l'última coincidència"
 
-#: SearchPlugin.cpp:2132
+#: SearchPlugin.cpp:2139
 #, kde-format
 msgid "Copy all"
 msgstr "Copia-ho tot"
 
-#: SearchPlugin.cpp:2137
+#: SearchPlugin.cpp:2144
 #, kde-format
 msgid "Copy expanded"
 msgstr "Copia ampliada"
 
-#: SearchPlugin.cpp:2140
+#: SearchPlugin.cpp:2147
 #, kde-format
 msgid "Export matches"
 msgstr "Exporta les coincidències"
 
-#: SearchPlugin.cpp:2145
+#: SearchPlugin.cpp:2152
 #, kde-format
 msgid "Clear"
 msgstr "Neteja"
 
-#: SearchPlugin.cpp:2253 SearchPlugin.cpp:2287
+#: SearchPlugin.cpp:2260 SearchPlugin.cpp:2294
 #, kde-format
 msgid "Add..."
 msgstr "Afig..."
 
-#: SearchPlugin.cpp:2265
+#: SearchPlugin.cpp:2272
 #, kde-format
 msgid "Search As You Type"
 msgstr "Busca a mesura que s'escriu"
 
-#: SearchPlugin.cpp:2336
+#: SearchPlugin.cpp:2343
 #, kde-format
 msgid "In Current Project"
 msgstr "En el projecte actual"
 
-#: SearchPlugin.cpp:2338
+#: SearchPlugin.cpp:2345
 #, kde-format
 msgid "In All Open Projects"
 msgstr "A tots els projectes oberts"

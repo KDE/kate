@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-05 00:49+0000\n"
+"POT-Creation-Date: 2022-10-06 00:48+0000\n"
 "PO-Revision-Date: 2012-09-21 16:01-0500\n"
 "Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
@@ -840,12 +840,12 @@ msgstr "Tionscadail"
 msgid "Close Orphaned Projects"
 msgstr "Tionscadail"
 
-#: kateprojectpluginview.cpp:212 kateprojectpluginview.cpp:772
+#: kateprojectpluginview.cpp:212 kateprojectpluginview.cpp:778
 #, kde-format
 msgid "Lookup: %1"
 msgstr ""
 
-#: kateprojectpluginview.cpp:213 kateprojectpluginview.cpp:773
+#: kateprojectpluginview.cpp:213 kateprojectpluginview.cpp:779
 #, kde-format
 msgid "Goto: %1"
 msgstr ""
@@ -856,7 +856,7 @@ msgstr ""
 msgid "Projects Index"
 msgstr "Tionscadail"
 
-#: kateprojectpluginview.cpp:811
+#: kateprojectpluginview.cpp:817
 #, kde-format
 msgid "Choose a directory"
 msgstr ""

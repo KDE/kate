@@ -163,7 +163,7 @@ msgstr "KWrite - Editor de text"
 #: lib/data/kateui.rc:6
 #, kde-format
 msgid "&File"
-msgstr "&Fitxer"
+msgstr "Fi&txer"
 
 #. i18n: ectx: Menu (file_file_actions)
 #: lib/data/kateui.rc:30
@@ -805,7 +805,7 @@ msgstr "Si està activada, cada pestanya mostrarà un botó de tancament."
 #: lib/kateconfigdialog.cpp:224
 #, kde-format
 msgid "&Expand tabs"
-msgstr "&Expandix les pestanyes"
+msgstr "Ex&pandix les pestanyes"
 
 #: lib/kateconfigdialog.cpp:226
 #, kde-format
@@ -1143,7 +1143,7 @@ msgstr "Guarda al disc tots els documents oberts modificats."
 #: lib/katemainwindow.cpp:305
 #, kde-format
 msgid "&Reload All"
-msgstr "&Actualitza-ho tot"
+msgstr "Act&ualitza-ho tot"
 
 #: lib/katemainwindow.cpp:307
 #, kde-format
@@ -1163,7 +1163,7 @@ msgstr "Copia el camí del fitxer del fitxer actual al porta-retalls."
 #: lib/katemainwindow.cpp:320 lib/welcomeview.cpp:82
 #, kde-format
 msgid "&Open Containing Folder"
-msgstr "&Obri la carpeta contenidora"
+msgstr "O&bri la carpeta contenidora"
 
 #: lib/katemainwindow.cpp:329
 #, kde-format
@@ -1415,7 +1415,7 @@ msgstr "Obri tots els fitxers"
 #: lib/katemainwindow.cpp:958
 #, kde-format
 msgid "&Other..."
-msgstr "&Altres..."
+msgstr "Al&tres..."
 
 #: lib/katemainwindow.cpp:1083
 #, kde-format
@@ -1586,7 +1586,7 @@ msgstr "Suprimit"
 #: lib/katemwmodonhddialog.cpp:104
 #, kde-format
 msgid "&View Difference"
-msgstr "&Visualitza la diferència"
+msgstr "Vi&sualitza la diferència"
 
 #: lib/katemwmodonhddialog.cpp:106
 #, kde-format
@@ -1617,7 +1617,7 @@ msgstr "Sobreescriu els documents seleccionats, descartant els canvis al disc"
 #: lib/katemwmodonhddialog.cpp:128
 #, kde-format
 msgid "&Reload"
-msgstr "&Actualitza"
+msgstr "Act&ualitza"
 
 #: lib/katemwmodonhddialog.cpp:130
 #, kde-format
@@ -1640,7 +1640,7 @@ msgid ""
 "your PATH."
 msgstr ""
 "No s'ha pogut executar l'ordre «diff». Assegureu-vos que diff(1) està "
-"instal·lat i que es troba a la PATH."
+"instal·lat i que es troba en la PATH."
 
 #: lib/katemwmodonhddialog.cpp:331
 #, kde-format
@@ -2142,7 +2142,7 @@ msgstr "L'últim obert"
 #: lib/session/katesessionmanagedialog.ui:87
 #, kde-format
 msgid "&Open"
-msgstr "&Obri"
+msgstr "O&bri"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_newButton)
 #: lib/session/katesessionmanagedialog.ui:98
@@ -2172,7 +2172,7 @@ msgstr "Duplica..."
 #: lib/session/katesessionmanagedialog.ui:142
 #, kde-format
 msgid "&Rename..."
-msgstr "&Canvia el nom..."
+msgstr "Ca&nvia el nom..."
 
 #. i18n: ectx: property (text), widget (QPushButton, m_deleteButton)
 #: lib/session/katesessionmanagedialog.ui:162

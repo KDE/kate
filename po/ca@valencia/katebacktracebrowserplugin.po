@@ -131,7 +131,7 @@ msgstr "&Elimina"
 #: btconfigwidget.ui:68
 #, kde-format
 msgid "&Add"
-msgstr "&Afig"
+msgstr "Afi&g"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: btconfigwidget.ui:79
@@ -195,11 +195,3 @@ msgstr "Configuració de les traces inverses"
 #, kde-format
 msgid "Backtrace Browser Settings"
 msgstr "Configuració del navegador de les traces inverses"
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your names"
-#~ msgstr "Manuel Tortosa Moreno"
-
-#~ msgctxt "EMAIL OF TRANSLATORS"
-#~ msgid "Your emails"
-#~ msgstr "manutortosa@gmail.com"

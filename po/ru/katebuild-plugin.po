@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-05 00:49+0000\n"
+"POT-Creation-Date: 2022-10-06 00:48+0000\n"
 "PO-Revision-Date: 2022-02-08 15:49+0300\n"
 "Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
@@ -85,7 +85,7 @@ msgid "Message"
 msgstr "Сообщение"
 
 # BUGME: split (verb/noun) --aspotashev
-#: plugin_katebuild.cpp:128 plugin_katebuild.cpp:135 plugin_katebuild.cpp:1228
+#: plugin_katebuild.cpp:128 plugin_katebuild.cpp:135 plugin_katebuild.cpp:1241
 #, kde-format
 msgid "Build"
 msgstr "Сборка"
@@ -103,7 +103,7 @@ msgstr "Собрать цель по умолчанию"
 #: plugin_katebuild.cpp:146
 #, fuzzy, kde-format
 #| msgid "Build Default Target"
-msgid "Build & Run Default Target"
+msgid "Build and Run Default Target"
 msgstr "Собрать цель по умолчанию"
 
 #: plugin_katebuild.cpp:150
@@ -137,8 +137,8 @@ msgctxt "Tab label"
 msgid "Target Settings"
 msgstr "Параметры цели"
 
-#: plugin_katebuild.cpp:314 plugin_katebuild.cpp:1330 plugin_katebuild.cpp:1341
-#: plugin_katebuild.cpp:1362 plugin_katebuild.cpp:1370
+#: plugin_katebuild.cpp:314 plugin_katebuild.cpp:1343 plugin_katebuild.cpp:1354
+#: plugin_katebuild.cpp:1375 plugin_katebuild.cpp:1383
 #, kde-format
 msgid "Project Plugin Targets"
 msgstr "Цели, созданные модулем"
@@ -287,60 +287,60 @@ msgstr "Сборка завершена без ошибок."
 msgid "Cannot execute: %1 No working directory set."
 msgstr ""
 
-#: plugin_katebuild.cpp:1227
+#: plugin_katebuild.cpp:1240
 #, kde-format
 msgid "Target Set"
 msgstr "Набор целей"
 
 # BUGME: split (verb/noun) --aspotashev
-#: plugin_katebuild.cpp:1229
+#: plugin_katebuild.cpp:1242
 #, kde-format
 msgid "Clean"
 msgstr "Очистка"
 
-#: plugin_katebuild.cpp:1230
+#: plugin_katebuild.cpp:1243
 #, kde-format
 msgid "Config"
 msgstr "Конфигурация"
 
-#: plugin_katebuild.cpp:1231
+#: plugin_katebuild.cpp:1244
 #, kde-format
 msgid "ConfigClean"
 msgstr "Очистка конфигурации"
 
-#: plugin_katebuild.cpp:1274
+#: plugin_katebuild.cpp:1287
 #, kde-format
 msgid "Only Errors"
 msgstr "Только ошибки"
 
-#: plugin_katebuild.cpp:1277
+#: plugin_katebuild.cpp:1290
 #, kde-format
 msgid "Errors and Warnings"
 msgstr "Ошибки и предупреждения"
 
-#: plugin_katebuild.cpp:1280
+#: plugin_katebuild.cpp:1293
 #, kde-format
 msgid "Parsed Output"
 msgstr "Разобранный вывод"
 
-#: plugin_katebuild.cpp:1283
+#: plugin_katebuild.cpp:1296
 #, kde-format
 msgid "Full Output"
 msgstr "Полный вывод"
 
 # BUGME: split (verb/noun) --aspotashev
-#: plugin_katebuild.cpp:1391
+#: plugin_katebuild.cpp:1404
 #, kde-format
 msgid "build"
 msgstr "сборка"
 
 # BUGME: split (verb/noun) --aspotashev
-#: plugin_katebuild.cpp:1394
+#: plugin_katebuild.cpp:1407
 #, kde-format
 msgid "clean"
 msgstr "очистка"
 
-#: plugin_katebuild.cpp:1397
+#: plugin_katebuild.cpp:1410
 #, kde-format
 msgid "quick"
 msgstr "быстрая команда"
@@ -380,24 +380,24 @@ msgstr ""
 "«%d» для каталога текущего файла.\n"
 "«%n» для названия текущего файла без суффикса."
 
-#: TargetModel.cpp:310
+#: TargetModel.cpp:324
 #, kde-format
 msgid "Check the check-box to make the command the default for the target-set."
 msgstr ""
 "Установите флажок что бы по умолчанию использовать эту команду для набора "
 "целей."
 
-#: TargetModel.cpp:371
+#: TargetModel.cpp:385
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Наборы целей"
 
-#: TargetModel.cpp:374
+#: TargetModel.cpp:388
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "Рабочий каталог / команда"
 
-#: TargetModel.cpp:377
+#: TargetModel.cpp:391
 #, fuzzy, kde-format
 #| msgid "Command:"
 msgid "Run Command"
@@ -447,7 +447,7 @@ msgstr "Собрать выбранную цель"
 #: targets.cpp:54
 #, fuzzy, kde-format
 #| msgid "Build selected target"
-msgid "Build & run selected target"
+msgid "Build and run selected target"
 msgstr "Собрать выбранную цель"
 
 #. i18n: ectx: Menu (Build Menubar)

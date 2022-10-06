@@ -227,7 +227,7 @@ msgstr "Ordena per"
 #: katefiletree.cpp:492
 #, kde-format
 msgid "&Other..."
-msgstr "&Altres..."
+msgstr "Al&tres..."
 
 #: katefiletree.cpp:628
 #, kde-format
@@ -432,11 +432,3 @@ msgstr "Guarda el document actual davall un nom nou"
 #, kde-format
 msgid "&Go"
 msgstr "&Ves"
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your names"
-#~ msgstr "Antoni Bella"
-
-#~ msgctxt "EMAIL OF TRANSLATORS"
-#~ msgid "Your emails"
-#~ msgstr "antonibella5@yahoo.com"

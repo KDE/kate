@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-05 00:49+0000\n"
+"POT-Creation-Date: 2022-10-06 00:48+0000\n"
 "PO-Revision-Date: 2022-09-04 14:37+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -839,12 +839,12 @@ msgstr "Tanca tots els projectes"
 msgid "Close Orphaned Projects"
 msgstr "Tanca els projectes orfes"
 
-#: kateprojectpluginview.cpp:212 kateprojectpluginview.cpp:772
+#: kateprojectpluginview.cpp:212 kateprojectpluginview.cpp:778
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Busca: %1"
 
-#: kateprojectpluginview.cpp:213 kateprojectpluginview.cpp:773
+#: kateprojectpluginview.cpp:213 kateprojectpluginview.cpp:779
 #, kde-format
 msgid "Goto: %1"
 msgstr "Ves a: %1"
@@ -854,7 +854,7 @@ msgstr "Ves a: %1"
 msgid "Projects Index"
 msgstr "Índex dels projectes"
 
-#: kateprojectpluginview.cpp:811
+#: kateprojectpluginview.cpp:817
 #, kde-format
 msgid "Choose a directory"
 msgstr "Seleccioneu un directori"
@@ -887,7 +887,7 @@ msgstr "Afig una carpeta"
 #: kateprojecttreeviewcontextmenu.cpp:84
 #, kde-format
 msgid "&Rename"
-msgstr "&Canvia el nom"
+msgstr "Ca&nvia el nom"
 
 #: kateprojecttreeviewcontextmenu.cpp:91
 #, kde-format
@@ -912,7 +912,7 @@ msgstr "Obri ací un terminal extern"
 #: kateprojecttreeviewcontextmenu.cpp:131
 #, kde-format
 msgid "&Open Containing Folder"
-msgstr "&Obri la carpeta contenidora"
+msgstr "O&bri la carpeta contenidora"
 
 #: kateprojecttreeviewcontextmenu.cpp:141
 #, kde-format
@@ -1018,11 +1018,3 @@ msgstr "No s'ha pogut mostrar la modificació temporal. Error: "
 #, kde-format
 msgid "&Projects"
 msgstr "&Projectes"
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your names"
-#~ msgstr "Josep M. Ferrer"
-
-#~ msgctxt "EMAIL OF TRANSLATORS"
-#~ msgid "Your emails"
-#~ msgstr "txemaq@gmail.com"

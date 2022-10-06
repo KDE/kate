@@ -3409,6 +3409,7 @@ kate /шлях/до/теки
       {
         "name": "all",
         "build_cmd": "ninja"
+        "run_cmd": "./bin/kate"
       },
       {
         "name": "kate",
@@ -3424,7 +3425,23 @@ kate /шлях/до/теки
 >додатку збирання</link
 >, розділ <emphasis role="bold"
 >«Цілі додатка проєкту»</emphasis
->. </para>
+>. Якщо визначено масив <code
+>targets</code
+>, <code
+>build</code
+>, <code
+>clean</code
+> і <code
+>install</code
+> буде проігноровано. Кожен елемент у цьому масиві визначає ціль. <code
+>name</code
+> є назвою цілі, <code
+>build_cmd</code
+> буде використано для збирання цілі, <code
+>run_cmd</code
+> буде використано для запуску цілі. Найважливішим записом є <code
+>directory</code
+>, — це місце, де буде виконано команди. </para>
 
 <para
 >Якщо у вашому проєкті є файл <filename

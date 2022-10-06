@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"POT-Creation-Date: 2022-10-06 00:48+0000\n"
 "PO-Revision-Date: 2022-09-25 21:38+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -575,77 +575,77 @@ msgstr "Egin klik emaitzak iragazteko"
 msgid "Find"
 msgstr "Aurkitu"
 
-#: SearchPlugin.cpp:1222
+#: SearchPlugin.cpp:1229
 #, kde-format
 msgid "Searching while you type was interrupted. It would have taken too long."
 msgstr "Tekleatu ahala bilatzea eten egin da. Luzeegia zatekeen."
 
-#: SearchPlugin.cpp:1564
+#: SearchPlugin.cpp:1571
 #, kde-format
 msgid "Search Match"
 msgstr "Bilaketa bat etortzea"
 
-#: SearchPlugin.cpp:1747 SearchPlugin.cpp:1824
+#: SearchPlugin.cpp:1754 SearchPlugin.cpp:1831
 #, kde-format
 msgid "Next from cursor"
 msgstr "Hurrengoa kurtsoretik"
 
-#: SearchPlugin.cpp:1764
+#: SearchPlugin.cpp:1771
 #, kde-format
 msgid "Starting from first match"
 msgstr "Lehen bat-etortzetik hasten"
 
-#: SearchPlugin.cpp:1784
+#: SearchPlugin.cpp:1791
 #, kde-format
 msgid "Continuing from first match"
 msgstr "Lehen bat-etortzetik jarraitzen"
 
-#: SearchPlugin.cpp:1841
+#: SearchPlugin.cpp:1848
 #, kde-format
 msgid "Starting from last match"
 msgstr "Azken bat-etortzetik hasita"
 
-#: SearchPlugin.cpp:1861
+#: SearchPlugin.cpp:1868
 #, kde-format
 msgid "Continuing from last match"
 msgstr "Azken bat-etortzetik jarraitzen"
 
-#: SearchPlugin.cpp:2132
+#: SearchPlugin.cpp:2139
 #, kde-format
 msgid "Copy all"
 msgstr "Kopiatu guztia"
 
-#: SearchPlugin.cpp:2137
+#: SearchPlugin.cpp:2144
 #, kde-format
 msgid "Copy expanded"
 msgstr "Kopiatu hedatua"
 
-#: SearchPlugin.cpp:2140
+#: SearchPlugin.cpp:2147
 #, kde-format
 msgid "Export matches"
 msgstr "Esportatu bat-etortzeak"
 
-#: SearchPlugin.cpp:2145
+#: SearchPlugin.cpp:2152
 #, kde-format
 msgid "Clear"
 msgstr "Garbitu"
 
-#: SearchPlugin.cpp:2253 SearchPlugin.cpp:2287
+#: SearchPlugin.cpp:2260 SearchPlugin.cpp:2294
 #, kde-format
 msgid "Add..."
 msgstr "Gehitu..."
 
-#: SearchPlugin.cpp:2265
+#: SearchPlugin.cpp:2272
 #, kde-format
 msgid "Search As You Type"
 msgstr "Bilatu tekleatu ahala"
 
-#: SearchPlugin.cpp:2336
+#: SearchPlugin.cpp:2343
 #, kde-format
 msgid "In Current Project"
 msgstr "Uneko proiektuan"
 
-#: SearchPlugin.cpp:2338
+#: SearchPlugin.cpp:2345
 #, kde-format
 msgid "In All Open Projects"
 msgstr "Proiektu guztietan"

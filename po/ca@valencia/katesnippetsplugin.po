@@ -75,7 +75,7 @@ msgstr "&Autoria:"
 #: editrepository.ui:69
 #, kde-format
 msgid "&File types:"
-msgstr "Tipus de &fitxer:"
+msgstr "Tipus de fi&txer:"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, repoNameEdit)
 #: editrepository.ui:96

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"POT-Creation-Date: 2022-10-06 00:48+0000\n"
 "PO-Revision-Date: 2022-08-22 16:53+0200\n"
 "Last-Translator: Matej Mrenica <matejm98mthw@gmail.com>\n"
 "Language-Team: Slovak <kde-i18n-doc@kde.org>\n"
@@ -586,78 +586,78 @@ msgstr ""
 msgid "Find"
 msgstr "Nájsť"
 
-#: SearchPlugin.cpp:1222
+#: SearchPlugin.cpp:1229
 #, kde-format
 msgid "Searching while you type was interrupted. It would have taken too long."
 msgstr ""
 "Hľadanie počas vášho písania bolo prerušené. Možno by to trvalo pridlho."
 
-#: SearchPlugin.cpp:1564
+#: SearchPlugin.cpp:1571
 #, kde-format
 msgid "Search Match"
 msgstr "Hľadať zhodu"
 
-#: SearchPlugin.cpp:1747 SearchPlugin.cpp:1824
+#: SearchPlugin.cpp:1754 SearchPlugin.cpp:1831
 #, kde-format
 msgid "Next from cursor"
 msgstr "Ďalšie od kurzora"
 
-#: SearchPlugin.cpp:1764
+#: SearchPlugin.cpp:1771
 #, kde-format
 msgid "Starting from first match"
 msgstr "Začínam od prvej zhody"
 
-#: SearchPlugin.cpp:1784
+#: SearchPlugin.cpp:1791
 #, kde-format
 msgid "Continuing from first match"
 msgstr "Pokračujem od prvej zhody"
 
-#: SearchPlugin.cpp:1841
+#: SearchPlugin.cpp:1848
 #, kde-format
 msgid "Starting from last match"
 msgstr "Začínať od poslednej zhody"
 
-#: SearchPlugin.cpp:1861
+#: SearchPlugin.cpp:1868
 #, kde-format
 msgid "Continuing from last match"
 msgstr "Pokračujem od poslednej zhody"
 
-#: SearchPlugin.cpp:2132
+#: SearchPlugin.cpp:2139
 #, kde-format
 msgid "Copy all"
 msgstr "Skopírovať všetko"
 
-#: SearchPlugin.cpp:2137
+#: SearchPlugin.cpp:2144
 #, kde-format
 msgid "Copy expanded"
 msgstr "Kópia bola rozbalená"
 
-#: SearchPlugin.cpp:2140
+#: SearchPlugin.cpp:2147
 #, kde-format
 msgid "Export matches"
 msgstr "Exportovať zhody"
 
-#: SearchPlugin.cpp:2145
+#: SearchPlugin.cpp:2152
 #, kde-format
 msgid "Clear"
 msgstr "Vyčistiť"
 
-#: SearchPlugin.cpp:2253 SearchPlugin.cpp:2287
+#: SearchPlugin.cpp:2260 SearchPlugin.cpp:2294
 #, kde-format
 msgid "Add..."
 msgstr "Pridať..."
 
-#: SearchPlugin.cpp:2265
+#: SearchPlugin.cpp:2272
 #, kde-format
 msgid "Search As You Type"
 msgstr "Hľadať ako píšete"
 
-#: SearchPlugin.cpp:2336
+#: SearchPlugin.cpp:2343
 #, kde-format
 msgid "In Current Project"
 msgstr "v aktuálnom projekte"
 
-#: SearchPlugin.cpp:2338
+#: SearchPlugin.cpp:2345
 #, kde-format
 msgid "In All Open Projects"
 msgstr "vo všetkých otvorených projektoch"

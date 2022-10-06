@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-05 00:49+0000\n"
+"POT-Creation-Date: 2022-10-06 00:48+0000\n"
 "PO-Revision-Date: 2011-12-21 14:12+0700\n"
 "Last-Translator: Chan Sambathratanak <ratanak@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -79,7 +79,7 @@ msgctxt "Header for the error message column"
 msgid "Message"
 msgstr "សារ"
 
-#: plugin_katebuild.cpp:128 plugin_katebuild.cpp:135 plugin_katebuild.cpp:1228
+#: plugin_katebuild.cpp:128 plugin_katebuild.cpp:135 plugin_katebuild.cpp:1241
 #, kde-format
 msgid "Build"
 msgstr "ស្ថាបនា​"
@@ -99,7 +99,7 @@ msgstr "បាន​បរាជ័យ​ស្ថាបនា ។"
 #: plugin_katebuild.cpp:146
 #, fuzzy, kde-format
 #| msgid "Build failed."
-msgid "Build & Run Default Target"
+msgid "Build and Run Default Target"
 msgstr "បាន​បរាជ័យ​ស្ថាបនា ។"
 
 #: plugin_katebuild.cpp:150
@@ -134,8 +134,8 @@ msgctxt "Tab label"
 msgid "Target Settings"
 msgstr "ការ​កំណត់​គោលដៅ​"
 
-#: plugin_katebuild.cpp:314 plugin_katebuild.cpp:1330 plugin_katebuild.cpp:1341
-#: plugin_katebuild.cpp:1362 plugin_katebuild.cpp:1370
+#: plugin_katebuild.cpp:314 plugin_katebuild.cpp:1343 plugin_katebuild.cpp:1354
+#: plugin_katebuild.cpp:1375 plugin_katebuild.cpp:1383
 #, fuzzy, kde-format
 #| msgid "Project Plugin Target"
 msgid "Project Plugin Targets"
@@ -280,65 +280,65 @@ msgstr "ស្ថាបនា​បញ្ចប់​ដោយ​គ្មាន
 msgid "Cannot execute: %1 No working directory set."
 msgstr ""
 
-#: plugin_katebuild.cpp:1227
+#: plugin_katebuild.cpp:1240
 #, fuzzy, kde-format
 #| msgid "Targets"
 msgid "Target Set"
 msgstr "គោលដៅ​"
 
-#: plugin_katebuild.cpp:1229
+#: plugin_katebuild.cpp:1242
 #, kde-format
 msgid "Clean"
 msgstr "សម្អាត"
 
-#: plugin_katebuild.cpp:1230
+#: plugin_katebuild.cpp:1243
 #, kde-format
 msgid "Config"
 msgstr "កំណត់​រចនាសម្ព័ន្ធ​"
 
-#: plugin_katebuild.cpp:1231
+#: plugin_katebuild.cpp:1244
 #, fuzzy, kde-format
 #| msgid "Config"
 msgid "ConfigClean"
 msgstr "កំណត់​រចនាសម្ព័ន្ធ​"
 
-#: plugin_katebuild.cpp:1274
+#: plugin_katebuild.cpp:1287
 #, fuzzy, kde-format
 #| msgid "Errors"
 msgid "Only Errors"
 msgstr "កំហុស"
 
-#: plugin_katebuild.cpp:1277
+#: plugin_katebuild.cpp:1290
 #, fuzzy, kde-format
 #| msgid "Errors && Warnings"
 msgid "Errors and Warnings"
 msgstr "កំហុស និង​ការ​ព្រមាន"
 
-#: plugin_katebuild.cpp:1280
+#: plugin_katebuild.cpp:1293
 #, fuzzy, kde-format
 #| msgid "Build Output"
 msgid "Parsed Output"
 msgstr "លទ្ធផល​នៃការ​ស្ថាបនា"
 
-#: plugin_katebuild.cpp:1283
+#: plugin_katebuild.cpp:1296
 #, fuzzy, kde-format
 #| msgid "Build Output"
 msgid "Full Output"
 msgstr "លទ្ធផល​នៃការ​ស្ថាបនា"
 
-#: plugin_katebuild.cpp:1391
+#: plugin_katebuild.cpp:1404
 #, fuzzy, kde-format
 #| msgid "Build"
 msgid "build"
 msgstr "ស្ថាបនា​"
 
-#: plugin_katebuild.cpp:1394
+#: plugin_katebuild.cpp:1407
 #, fuzzy, kde-format
 #| msgid "Clean"
 msgid "clean"
 msgstr "សម្អាត"
 
-#: plugin_katebuild.cpp:1397
+#: plugin_katebuild.cpp:1410
 #, kde-format
 msgid "quick"
 msgstr ""
@@ -376,23 +376,23 @@ msgstr ""
 "\"%d\" សម្រាប់​ថត​​ឯកសារ​បច្ចុប្បន្ន\n"
 "\"%n\" សម្រាប់​ឈ្មោះ​ឯកសារ​បច្ចុប្បន្ន​ដោយ​មិន​ចាំបាច់​បច្ច័យ"
 
-#: TargetModel.cpp:310
+#: TargetModel.cpp:324
 #, kde-format
 msgid "Check the check-box to make the command the default for the target-set."
 msgstr ""
 
-#: TargetModel.cpp:371
+#: TargetModel.cpp:385
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr ""
 
-#: TargetModel.cpp:374
+#: TargetModel.cpp:388
 #, fuzzy, kde-format
 #| msgid "Working directory"
 msgid "Working Directory / Command"
 msgstr "ថត​ធ្វើការ"
 
-#: TargetModel.cpp:377
+#: TargetModel.cpp:391
 #, fuzzy, kde-format
 #| msgid "Clean command:"
 msgid "Run Command"
@@ -441,7 +441,7 @@ msgstr ""
 #: targets.cpp:54
 #, fuzzy, kde-format
 #| msgid "Build failed."
-msgid "Build & run selected target"
+msgid "Build and run selected target"
 msgstr "បាន​បរាជ័យ​ស្ថាបនា ។"
 
 #. i18n: ectx: Menu (Build Menubar)

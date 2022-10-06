@@ -167,7 +167,7 @@ msgstr ""
 #: configwidget.ui:29
 #, kde-format
 msgid "&Add"
-msgstr "&Afig"
+msgstr "Afi&g"
 
 #. i18n: ectx: property (text), widget (QPushButton, btnEdit)
 #: configwidget.ui:36
@@ -557,11 +557,3 @@ msgstr "&Eines"
 #, kde-format
 msgid "Main Toolbar"
 msgstr "Barra d'eines principal"
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your names"
-#~ msgstr "Josep M. Ferrer"
-
-#~ msgctxt "EMAIL OF TRANSLATORS"
-#~ msgid "Your emails"
-#~ msgstr "txemaq@gmail.com"

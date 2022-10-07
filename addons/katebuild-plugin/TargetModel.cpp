@@ -393,53 +393,59 @@ QVariant TargetModel::headerData(int section, Qt::Orientation orientation, int r
     return QVariant();
 }
 
-bool TargetModel::setData(const QModelIndex &index, const QVariant &value, int role)
+bool TargetModel::setData(const QModelIndex &itemIndex, const QVariant &value, int role)
 {
     // FIXME
     if (role != Qt::EditRole && role != Qt::CheckStateRole) {
         return false;
     }
-    if (!index.isValid() || !hasIndex(index.row(), index.column(), index.parent())) {
+    if (!itemIndex.isValid() || !hasIndex(itemIndex.row(), itemIndex.column(), itemIndex.parent())) {
         return false;
     }
 
-    int row = index.row();
-    if (index.internalId() == InvalidIndex) {
+    int row = itemIndex.row();
+    if (itemIndex.internalId() == InvalidIndex) {
         if (row < 0 || row >= m_targets.size()) {
             return false;
         }
-        switch (index.column()) {
+        switch (itemIndex.column()) {
         case 0:
             m_targets[row].name = value.toString();
+            Q_EMIT dataChanged(createIndex(row, 0), createIndex(row, 0));
             return true;
         case 1:
+            Q_EMIT dataChanged(createIndex(row, 1), createIndex(row, 1));
             m_targets[row].workDir = value.toString();
             return true;
         }
     } else {
-        int rootIndex = index.internalId();
-        if (rootIndex < 0 || rootIndex >= m_targets.size()) {
+        int rootRow = itemIndex.internalId();
+        if (rootRow < 0 || rootRow >= m_targets.size()) {
             return false;
         }
-        if (row < 0 || row >= m_targets[rootIndex].commands.size()) {
+        if (row < 0 || row >= m_targets[rootRow].commands.size()) {
             return false;
         }
 
         if (role == Qt::CheckStateRole) {
-            if (index.column() == 0) {
-                m_targets[rootIndex].defaultCmd = m_targets[rootIndex].commands[row].buildCmd;
-                Q_EMIT dataChanged(createIndex(0, 0, rootIndex), createIndex(m_targets[rootIndex].commands.size() - 1, 0, rootIndex));
+            if (itemIndex.column() == 0) {
+                m_targets[rootRow].defaultCmd = m_targets[rootRow].commands[row].buildCmd;
+                Q_EMIT dataChanged(createIndex(0, 0, rootRow), createIndex(m_targets[rootRow].commands.size() - 1, 0, rootRow));
             }
         } else {
-            switch (index.column()) {
+            QModelIndex rootIndex = createIndex(rootRow, 0);
+            switch (itemIndex.column()) {
             case 0:
-                m_targets[rootIndex].commands[row].name = value.toString();
+                m_targets[rootRow].commands[row].name = value.toString();
+                Q_EMIT dataChanged(index(row, 0, rootIndex), index(row, 0, rootIndex));
                 return true;
             case 1:
-                m_targets[rootIndex].commands[row].buildCmd = value.toString();
+                m_targets[rootRow].commands[row].buildCmd = value.toString();
+                Q_EMIT dataChanged(index(row, 1, rootIndex), index(row, 1, rootIndex));
                 return true;
             case 2:
-                m_targets[rootIndex].commands[row].runCmd = value.toString();
+                m_targets[rootRow].commands[row].runCmd = value.toString();
+                Q_EMIT dataChanged(index(row, 2, rootIndex), index(row, 2, rootIndex));
                 return true;
             }
         }

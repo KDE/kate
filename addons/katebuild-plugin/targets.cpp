@@ -87,6 +87,9 @@ TargetsUi::TargetsUi(QObject *view, QWidget *parent)
     connect(targetCombo, static_cast<void (QComboBox::*)(int)>(&QComboBox::activated), this, &TargetsUi::targetSetSelected);
     connect(targetsView->selectionModel(), &QItemSelectionModel::currentChanged, this, &TargetsUi::targetActivated);
 
+    connect(targetsView->selectionModel(), &QItemSelectionModel::currentChanged, this, &TargetsUi::updateBuildRunButtonStates);
+    connect(&targetsModel, &QAbstractItemModel::dataChanged, this, &TargetsUi::updateBuildRunButtonStates);
+
     connect(targetFilterEdit, &QLineEdit::textChanged, this, [this](const QString &text) {
         proxyModel.setFilter(text);
         targetsView->expandAll();
@@ -118,6 +121,21 @@ void TargetsUi::targetActivated(const QModelIndex &index)
     }
 
     targetCombo->setCurrentIndex(rootItem.row());
+}
+
+void TargetsUi::updateBuildRunButtonStates()
+{
+    const QModelIndex &currentIndex = targetsView->currentIndex();
+    if (!currentIndex.isValid() || !currentIndex.parent().isValid()) {
+        buildButton->setEnabled(false);
+        runButton->setEnabled(false);
+        return;
+    }
+    const bool hasBuildCmd = !currentIndex.siblingAtColumn(1).data().toString().isEmpty();
+    const bool hasRunCmd = !currentIndex.siblingAtColumn(2).data().toString().isEmpty();
+    buildButton->setEnabled(hasBuildCmd);
+    // Run button can be enabled even if there is no build command
+    runButton->setEnabled(hasRunCmd);
 }
 
 bool TargetsUi::eventFilter(QObject *obj, QEvent *event)

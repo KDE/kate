@@ -233,7 +233,6 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
         slotBuildActiveTarget();
     });
     connect(m_targetsUi, &TargetsUi::enterPressed, this, &KateBuildView::slotBuildActiveTarget);
-    connect(m_targetsUi->targetsView->selectionModel(), &QItemSelectionModel::currentChanged, this, &KateBuildView::onSelectionChanged);
 
     m_proc.setOutputChannelMode(KProcess::SeparateChannels);
     connect(&m_proc, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &KateBuildView::slotProcExited);
@@ -1417,20 +1416,6 @@ void KateBuildView::slotAddProjectTarget()
     if (index.isValid()) {
         m_targetsUi->targetsView->expand(index);
     }
-}
-
-void KateBuildView::onSelectionChanged(const QModelIndex &current, const QModelIndex &)
-{
-    if (!current.isValid() || !current.parent().isValid()) {
-        m_targetsUi->buildButton->setEnabled(false);
-        m_targetsUi->runButton->setEnabled(false);
-        return;
-    }
-    const bool hasBuildCmd = !current.siblingAtColumn(1).data().toString().isEmpty();
-    const bool hasRunCmd = !current.siblingAtColumn(2).data().toString().isEmpty();
-    m_targetsUi->buildButton->setEnabled(hasBuildCmd);
-    // Run button can be enabled even if there is no build command
-    m_targetsUi->runButton->setEnabled(hasRunCmd);
 }
 
 /******************************************************************/

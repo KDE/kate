@@ -112,8 +112,6 @@ private Q_SLOTS:
     void slotProjectMapChanged();
     void slotAddProjectTarget();
 
-    void onSelectionChanged(const QModelIndex &, const QModelIndex &current);
-
 protected:
     bool eventFilter(QObject *obj, QEvent *ev) override;
 

@@ -52,6 +52,8 @@ protected:
     bool eventFilter(QObject *obj, QEvent *event) override;
 
 private:
+    void updateBuildRunButtonStates();
+
     TargetHtmlDelegate *m_delegate = nullptr;
 };
 

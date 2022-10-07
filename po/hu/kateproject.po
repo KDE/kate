@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-06 00:48+0000\n"
+"POT-Creation-Date: 2022-10-07 00:50+0000\n"
 "PO-Revision-Date: 2022-02-01 10:20+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -559,7 +559,7 @@ msgstr "Projektindex"
 msgid "Project ctags index settings"
 msgstr "A projekt ctags indexelésének beállításai"
 
-#: kateprojectconfigpage.cpp:57 kateprojectinfoviewindex.cpp:205
+#: kateprojectconfigpage.cpp:57 kateprojectinfoviewindex.cpp:206
 #, kde-format
 msgid "Enable indexing"
 msgstr "Indexelés bekapcsolása"
@@ -698,7 +698,7 @@ msgstr "Súlyosság"
 msgid "Message"
 msgstr "Üzenet"
 
-#: kateprojectinfoviewcodeanalysis.cpp:110
+#: kateprojectinfoviewcodeanalysis.cpp:111
 #, kde-format
 msgid ""
 "%1<br/><br/>The tool will be run on all project files which match this list "
@@ -707,14 +707,14 @@ msgstr ""
 "%1<br/><br/>Az eszköz az összes olyan projektfájlra futtatva lesz, ami "
 "illeszkedik erre a fájlkiterjesztés-listára:<br/><br/><b>%2</b>"
 
-#: kateprojectinfoviewcodeanalysis.cpp:249
+#: kateprojectinfoviewcodeanalysis.cpp:250
 #, kde-format
 msgid "Analysis on %1 file finished."
 msgid_plural "Analysis on %1 files finished."
 msgstr[0] "%1 fájl elemzése befejeződött."
 msgstr[1] "%1 fájl elemzése befejeződött."
 
-#: kateprojectinfoviewcodeanalysis.cpp:261
+#: kateprojectinfoviewcodeanalysis.cpp:262
 #, kde-format
 msgid "Analysis on %1 file failed with exit code %2."
 msgid_plural "Analysis on %1 files failed with exit code %2."
@@ -736,12 +736,12 @@ msgstr "Fajta"
 msgid "Search"
 msgstr "Keresés"
 
-#: kateprojectinfoviewindex.cpp:194
+#: kateprojectinfoviewindex.cpp:195
 #, kde-format
 msgid "The index could not be created. Please install 'ctags'."
 msgstr "Az index nem hozható létre. Telepítse a „ctags” csomagot."
 
-#: kateprojectinfoviewindex.cpp:204
+#: kateprojectinfoviewindex.cpp:205
 #, kde-format
 msgid "Indexing is not enabled"
 msgstr "Az indexelés nincs bekapcsolva"

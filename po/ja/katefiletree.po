@@ -430,20 +430,3 @@ msgstr ""
 #, kde-format
 msgid "&Go"
 msgstr ""
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your names"
-#~ msgstr "Noboru Sinohara,Tom Mishima,Shinichi Tsunoda"
-
-#~ msgctxt "EMAIL OF TRANSLATORS"
-#~ msgid "Your emails"
-#~ msgstr "shinobo@leo.bekkoame.ne.jp,tom340@kde.gr.jp,tsuno@ngy.1st.ne.jp"
-
-#, fuzzy
-#~| msgid "&Show Full Path"
-#~ msgctxt "@action:inmenu"
-#~ msgid "Copy File Path"
-#~ msgstr "フルパスを表示(&S)"
-
-#~ msgid "&View"
-#~ msgstr "表示(&V)"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-06 00:48+0000\n"
+"POT-Creation-Date: 2022-10-07 00:50+0000\n"
 "PO-Revision-Date: 2022-09-24 10:43+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -546,7 +546,7 @@ msgstr "Projektindex"
 msgid "Project ctags index settings"
 msgstr "Projektets ctags-indexinställningar"
 
-#: kateprojectconfigpage.cpp:57 kateprojectinfoviewindex.cpp:205
+#: kateprojectconfigpage.cpp:57 kateprojectinfoviewindex.cpp:206
 #, kde-format
 msgid "Enable indexing"
 msgstr "Aktivera indexering"
@@ -686,7 +686,7 @@ msgstr "Svårighetsgrad"
 msgid "Message"
 msgstr "Meddelande"
 
-#: kateprojectinfoviewcodeanalysis.cpp:110
+#: kateprojectinfoviewcodeanalysis.cpp:111
 #, kde-format
 msgid ""
 "%1<br/><br/>The tool will be run on all project files which match this list "
@@ -695,14 +695,14 @@ msgstr ""
 "%1<br/><br/>Verktyget körs för alla projektfiler som motsvarar den här "
 "listan med filändelser:<br/><br/><b>%2</b>"
 
-#: kateprojectinfoviewcodeanalysis.cpp:249
+#: kateprojectinfoviewcodeanalysis.cpp:250
 #, kde-format
 msgid "Analysis on %1 file finished."
 msgid_plural "Analysis on %1 files finished."
 msgstr[0] "Analys av %1 fil klar."
 msgstr[1] "Analys av %1 filer klar."
 
-#: kateprojectinfoviewcodeanalysis.cpp:261
+#: kateprojectinfoviewcodeanalysis.cpp:262
 #, kde-format
 msgid "Analysis on %1 file failed with exit code %2."
 msgid_plural "Analysis on %1 files failed with exit code %2."
@@ -724,12 +724,12 @@ msgstr "Sort"
 msgid "Search"
 msgstr "Sök"
 
-#: kateprojectinfoviewindex.cpp:194
+#: kateprojectinfoviewindex.cpp:195
 #, kde-format
 msgid "The index could not be created. Please install 'ctags'."
 msgstr "Indexet kunde inte skapas. Installera 'ctags'."
 
-#: kateprojectinfoviewindex.cpp:204
+#: kateprojectinfoviewindex.cpp:205
 #, kde-format
 msgid "Indexing is not enabled"
 msgstr "Indexering är inte aktiverad"

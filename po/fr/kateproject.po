@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-06 00:48+0000\n"
+"POT-Creation-Date: 2022-10-07 00:50+0000\n"
 "PO-Revision-Date: 2022-09-16 18:58+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@neuf.fr>\n"
 "Language-Team: French <kde-francophone@kde.org>\n"
@@ -563,7 +563,7 @@ msgstr "Index des projets"
 msgid "Project ctags index settings"
 msgstr "Réglages de l'index des « Ctag » de projet"
 
-#: kateprojectconfigpage.cpp:57 kateprojectinfoviewindex.cpp:205
+#: kateprojectconfigpage.cpp:57 kateprojectinfoviewindex.cpp:206
 #, kde-format
 msgid "Enable indexing"
 msgstr "Activer l'indexation"
@@ -703,7 +703,7 @@ msgstr "Sévérité"
 msgid "Message"
 msgstr "Message"
 
-#: kateprojectinfoviewcodeanalysis.cpp:110
+#: kateprojectinfoviewcodeanalysis.cpp:111
 #, kde-format
 msgid ""
 "%1<br/><br/>The tool will be run on all project files which match this list "
@@ -712,14 +712,14 @@ msgstr ""
 "%1<br/><br/>Cet outil sera lancé sur tous les fichiers du projet qui "
 "correspondent à la liste d'extensions ci-dessous :<br/><br/><b>%2</b>"
 
-#: kateprojectinfoviewcodeanalysis.cpp:249
+#: kateprojectinfoviewcodeanalysis.cpp:250
 #, kde-format
 msgid "Analysis on %1 file finished."
 msgid_plural "Analysis on %1 files finished."
 msgstr[0] "Analyse sur %1 fichier terminée."
 msgstr[1] "Analyse sur %1 fichiers terminée."
 
-#: kateprojectinfoviewcodeanalysis.cpp:261
+#: kateprojectinfoviewcodeanalysis.cpp:262
 #, kde-format
 msgid "Analysis on %1 file failed with exit code %2."
 msgid_plural "Analysis on %1 files failed with exit code %2."
@@ -741,12 +741,12 @@ msgstr "Type"
 msgid "Search"
 msgstr "Rechercher"
 
-#: kateprojectinfoviewindex.cpp:194
+#: kateprojectinfoviewindex.cpp:195
 #, kde-format
 msgid "The index could not be created. Please install 'ctags'."
 msgstr "Impossible de créer l'index. Veuillez installer « ctags »."
 
-#: kateprojectinfoviewindex.cpp:204
+#: kateprojectinfoviewindex.cpp:205
 #, kde-format
 msgid "Indexing is not enabled"
 msgstr "L'indexation n'est pas activée."

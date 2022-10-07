@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-06 00:48+0000\n"
+"POT-Creation-Date: 2022-10-07 00:50+0000\n"
 "PO-Revision-Date: 2022-09-05 11:12+0200\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -545,7 +545,7 @@ msgstr "Chỉ mục dự án"
 msgid "Project ctags index settings"
 msgstr "Thiết lập chỉ mục ctags của dự án"
 
-#: kateprojectconfigpage.cpp:57 kateprojectinfoviewindex.cpp:205
+#: kateprojectconfigpage.cpp:57 kateprojectinfoviewindex.cpp:206
 #, kde-format
 msgid "Enable indexing"
 msgstr "Bật chức năng lập chỉ mục"
@@ -683,7 +683,7 @@ msgstr "Độ quan trọng"
 msgid "Message"
 msgstr "Thông điệp"
 
-#: kateprojectinfoviewcodeanalysis.cpp:110
+#: kateprojectinfoviewcodeanalysis.cpp:111
 #, kde-format
 msgid ""
 "%1<br/><br/>The tool will be run on all project files which match this list "
@@ -692,13 +692,13 @@ msgstr ""
 "%1<br/><br/>Công cụ này sẽ được chạy trên tất cả các tệp dự án khớp với danh "
 "sách phần mở rộng tệp này:<br/><br/><b>%2</b>"
 
-#: kateprojectinfoviewcodeanalysis.cpp:249
+#: kateprojectinfoviewcodeanalysis.cpp:250
 #, kde-format
 msgid "Analysis on %1 file finished."
 msgid_plural "Analysis on %1 files finished."
 msgstr[0] "Phân tích %1 tệp đã xong."
 
-#: kateprojectinfoviewcodeanalysis.cpp:261
+#: kateprojectinfoviewcodeanalysis.cpp:262
 #, kde-format
 msgid "Analysis on %1 file failed with exit code %2."
 msgid_plural "Analysis on %1 files failed with exit code %2."
@@ -719,12 +719,12 @@ msgstr "Loại"
 msgid "Search"
 msgstr "Tìm kiếm"
 
-#: kateprojectinfoviewindex.cpp:194
+#: kateprojectinfoviewindex.cpp:195
 #, kde-format
 msgid "The index could not be created. Please install 'ctags'."
 msgstr "Không tạo được chỉ mục. Vui lòng cài đặt 'ctags'."
 
-#: kateprojectinfoviewindex.cpp:204
+#: kateprojectinfoviewindex.cpp:205
 #, kde-format
 msgid "Indexing is not enabled"
 msgstr "Việc lập chỉ mục không được bật"

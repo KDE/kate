@@ -262,14 +262,3 @@ msgstr "変数"
 #, kde-format
 msgid "Templates"
 msgstr "テンプレート"
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your names"
-#~ msgstr "Yukiko Bando"
-
-#~ msgctxt "EMAIL OF TRANSLATORS"
-#~ msgid "Your emails"
-#~ msgstr "ybando@k6.dion.ne.jp"
-
-#~ msgid "Show Globals"
-#~ msgstr "グローバルを表示"

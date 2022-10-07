@@ -3239,34 +3239,6 @@ folder if possible.</para
 
 </sect2>
 
-<sect2 id="project-quickopen">
-<title
->Snelle opening van bestanden</title>
-
-<para
->Omdat klikken op bestanden in de boomstructuurweergave niet de snelste manier is om een bestand te openen, biedt &kate; een ingebouwd snel mechanisme voor openen dat u kunt activeren met <keycombo  action="simul"
->&Ctrl;&Alt;<keycap
->O</keycap
-></keycombo
->. Wat u krijgt is een lijst zoals deze:</para>
-
-<screenshot id="screenshot-project-quickopen">
-<screeninfo
->Snel openen</screeninfo>
-<mediaobject>
-<imageobject
-><imagedata fileref="project-quickopen.png" format="PNG"/></imageobject>
-</mediaobject>
-</screenshot>
-
-<para
->U kunt filteren door delen van de bestandsnaam waarnaar u zoekt in te typen en u kunt ook navigeren met de pijltjestoetsen en page up/down in de lijst. Indrukken van &Enter; activeert het geselecteerde bestand, terwijl &Esc; het snel openen van de weergave weer doet verdwijnen.</para>
-
-<para
->Voorts herinnert het snel openen het vorige bestand. Dus wanneer u omschakelt naar het snelle openen van de weergave dan is het eerder geactiveerde bestand automatisch geselecteerd en hoeft u alleen maar &Enter; in te drukken wat soms zeer handig is.</para>
-
-</sect2>
-
 <sect2 id="project-build">
 <title
 >Ondersteuning voor het bouwen van het project</title>
@@ -3397,27 +3369,27 @@ kate /pad/naar/map/
 </screen>
 
 <para
->The targets specified above will then appear in the <link linkend="kate-application-plugin-build"
->Build Plugin </link
-> under <emphasis role="bold"
-> "Project Plugin Targets"</emphasis
->. If the <code
->"targets"</code
-> array is specified then <code
+>De bovenstaand gespecificeerde doelen zullen daarna verschijnen in de <link linkend="kate-application-plugin-build"
+>Bouwplug-in </link
+> onder <emphasis role="bold"
+> "Projectplug-in doelen"</emphasis
+>. Als het <code
+>"doelen"</code
+> array is gespecificeerd dan worden <code
 >"build"</code
 >, <code
 >"clean"</code
-> and <code
+> en <code
 >"install"</code
-> are ignored. Each element in the array specifies a target. <code
+> genegeerd. Elk element in het array specificeert een doel. <code
 >"name"</code
-> is the name of the target, <code
+> is de naam van het doel, <code
 >"build_cmd"</code
-> will be used to build the target, <code
+> zal gebruikt worden om het doel te bouwen, <code
 >"run_cmd"</code
-> will be used to run the target. Most important of all is <code
->"directory"</code
->, this is where the commands will be executed. </para>
+> zal gebruikt worden om het doel uit te voeren. Het belangrijkste van alles is <code
+> "directory"</code
+>, dit is waar de commando's uitgevoerd zullen worden. </para>
 
 <para
 >In het geval dat u een bestand <filename

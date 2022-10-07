@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-05 00:49+0000\n"
-"PO-Revision-Date: 2022-10-04 21:39+0530\n"
+"PO-Revision-Date: 2022-10-06 21:37+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -356,7 +356,7 @@ msgstr "காரே ஸார்சு"
 #: lib/kateapp.cpp:150
 #, kde-format
 msgid "Waqar Ahmed"
-msgstr ""
+msgstr "வக்கார் அஹ்மது"
 
 #: lib/kateapp.cpp:151
 #, kde-format

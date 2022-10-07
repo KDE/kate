@@ -197,7 +197,7 @@ msgstr "セッション"
 #: lib/data/kateui.rc:57
 #, kde-format
 msgid "&Go"
-msgstr ""
+msgstr "移動(&G)"
 
 #. i18n: ectx: Menu (view)
 #: lib/data/kateui.rc:73
@@ -227,7 +227,7 @@ msgstr "設定(&S)"
 #: lib/data/kateui.rc:134
 #, kde-format
 msgid "&Help"
-msgstr ""
+msgstr "ヘルプ(&H)"
 
 #. i18n: ectx: ToolBar (mainToolBar)
 #: lib/data/kateui.rc:139
@@ -1279,8 +1279,7 @@ msgid "Close this window"
 msgstr "このウィンドウを閉じます。"
 
 #: lib/katemainwindow.cpp:387
-#, fuzzy, kde-format
-#| msgid "&New Window"
+#, kde-format
 msgid "&New Window"
 msgstr "新しいウィンドウ(&N)"
 
@@ -1787,7 +1786,7 @@ msgstr "保存しようとしたデータを書き出すことができません
 #: lib/kateurlbar.cpp:1178
 #, kde-format
 msgid "Untitled"
-msgstr ""
+msgstr "タイトルなし"
 
 #: lib/kateviewmanager.cpp:116
 #, kde-format
@@ -2531,27 +2530,3 @@ msgstr "開いているすべての文書を再読み込みします。"
 msgctxt "on welcome screen (recent document list)"
 msgid "Forget All"
 msgstr "すべて閉じる(&E)"
-
-#~ msgid "Make Non-Persistent"
-#~ msgstr "持続させない"
-
-#~ msgid "Make Persistent"
-#~ msgstr "持続させる"
-
-#~ msgid ""
-#~ "The supposedly temporary file %1 has been modified. Do you want to delete "
-#~ "it anyway?"
-#~ msgstr ""
-#~ "一時ファイルと思われるファイル ‘%1’ は変更されています。それでも削除します"
-#~ "か？"
-
-#~ msgid "Delete File?"
-#~ msgstr "ファイルを削除しますか？"
-
-#~ msgid "&Quick Open Session"
-#~ msgstr "セッションをクイックオープン(&Q)"
-
-#, fuzzy
-#~| msgid "Start Kate with a given session"
-#~ msgid "Start Kate with a new session, implies '-n' (deprecated)."
-#~ msgstr "指定されたセッションで Kate を起動"

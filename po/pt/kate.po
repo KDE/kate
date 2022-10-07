@@ -37,7 +37,7 @@ msgstr ""
 "X-POFile-SpellExtra: Django JSLint IPython JSON Ready import PDB Neundorf\n"
 "X-POFile-SpellExtra: Alexander Kåre Särs Brauch Sven pid recém Tyson Tan\n"
 "X-POFile-IgnoreConsistency: Name\n"
-"X-POFile-SpellExtra: Picapau Kwrite\n"
+"X-POFile-SpellExtra: Picapau Kwrite Waqar Ahmed\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"

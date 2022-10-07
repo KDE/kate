@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-06 00:48+0000\n"
+"POT-Creation-Date: 2022-10-07 00:50+0000\n"
 "PO-Revision-Date: 2022-08-22 16:54+0200\n"
 "Last-Translator: Matej Mrenica <matejm98mthw@gmail.com>\n"
 "Language-Team: Slovak <kde-i18n-doc@kde.org>\n"
@@ -552,7 +552,7 @@ msgstr "Index projektu"
 msgid "Project ctags index settings"
 msgstr "Nastavenia ctag indexu projektu"
 
-#: kateprojectconfigpage.cpp:57 kateprojectinfoviewindex.cpp:205
+#: kateprojectconfigpage.cpp:57 kateprojectinfoviewindex.cpp:206
 #, kde-format
 msgid "Enable indexing"
 msgstr "Povoliť indexovanie"
@@ -692,7 +692,7 @@ msgstr "Závažnosť"
 msgid "Message"
 msgstr "Správa"
 
-#: kateprojectinfoviewcodeanalysis.cpp:110
+#: kateprojectinfoviewcodeanalysis.cpp:111
 #, kde-format
 msgid ""
 "%1<br/><br/>The tool will be run on all project files which match this list "
@@ -701,7 +701,7 @@ msgstr ""
 "%1<br/><br/>Nástroj bude spustený na všetkých súboroch projektu, ktoré sa "
 "zhodujú s týmto zoznamom súborových prípon:<br/><br/><b>%2</b>"
 
-#: kateprojectinfoviewcodeanalysis.cpp:249
+#: kateprojectinfoviewcodeanalysis.cpp:250
 #, kde-format
 msgid "Analysis on %1 file finished."
 msgid_plural "Analysis on %1 files finished."
@@ -709,7 +709,7 @@ msgstr[0] "Analýza na súbore %1 ukončená."
 msgstr[1] "Analýza na súboroch %1 ukončená."
 msgstr[2] "Analýza na súboroch %1 ukončená."
 
-#: kateprojectinfoviewcodeanalysis.cpp:261
+#: kateprojectinfoviewcodeanalysis.cpp:262
 #, kde-format
 msgid "Analysis on %1 file failed with exit code %2."
 msgid_plural "Analysis on %1 files failed with exit code %2."
@@ -732,12 +732,12 @@ msgstr "Typ"
 msgid "Search"
 msgstr "Hľadať"
 
-#: kateprojectinfoviewindex.cpp:194
+#: kateprojectinfoviewindex.cpp:195
 #, kde-format
 msgid "The index could not be created. Please install 'ctags'."
 msgstr "Index nie je možné vytvoriť. Prosím nainštalujte 'ctags'."
 
-#: kateprojectinfoviewindex.cpp:204
+#: kateprojectinfoviewindex.cpp:205
 #, kde-format
 msgid "Indexing is not enabled"
 msgstr "Indexovanie nie je povolené"

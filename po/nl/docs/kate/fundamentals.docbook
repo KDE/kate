@@ -560,7 +560,7 @@ action="simul"
 ></entry>
 <entry
 ><para
->Snel openen</para
+>Quick Open</para
 ></entry>
 </row>
 <row>
@@ -888,6 +888,76 @@ action="simul"
 > van het huidige exemplaar geëxporteerd naar de omgevingsvariabele <envar
 >KATE_PID</envar
 >. Bij het openen van bestanden met de ingebouwde terminal zal Kate automatisch het huidige exemplaar kiezen als er verder niets hierover op de commandoregel staat.</para>
+
+</sect1>
+
+<sect1 id="fundamentals-quick-open">
+<title
+>Quick Open</title>
+
+<para
+>To be able to quickly open/switch between files, Kate comes with a built-in quick open dialog. You can open it with <keycombo action="simul"
+>&Ctrl;&Alt;<keycap
+>O</keycap
+></keycombo
+>. </para>
+
+<para
+>Quick open can show all open documents in Kate as well as all files in open projects. To be able to see project files, you need to enable <link linkend="kate-application-plugin-projects"
+>Project Plugin</link
+>. </para>
+
+<sect2>
+<title
+>Using Quick Open</title>
+
+<para
+>Using quick open is very simple. Once you open it, just type the name or portions of the name of the file you want to open and quick open will filter the list based on what you typed. Hitting &Enter; opens the selected file, while &Esc; hides the quick open. </para>
+<para
+>By default, only the file name is matched while filtering. If you want to match path, you need to have a "/" in the typed text. For example: "doc/index" will match all the files that contain "index" inside the folder "doc". </para>
+<para
+>The documents which are already open are highlighted in bold and are listed at the top when the dialog opens. Also, when quick open shows up the previous open document is already selected so you can just press &Enter; and it will take you to that document. </para>
+
+</sect2>
+
+<sect2>
+<title
+>Configuring Quick Open</title>
+<screenshot id="screenshot-project-quickopen">
+<screeninfo
+>Quick Open</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="project-quickopen.png" format="PNG"/></imageobject>
+</mediaobject>
+</screenshot>
+<para
+>Quick open provides a couple of config options. To access these options, right-click in the input line edit. </para>
+<variablelist>
+<varlistentry>
+<term
+>Currently available options are:</term>
+<listitem>
+<para
+><userinput
+>Current Project</userinput
+> - Show files from current project only</para>
+<para
+><userinput
+>All Projects</userinput
+> - Show files from all open projects</para>
+<para
+><userinput
+>Fuzzy Filtering</userinput
+> - Use fuzzy matching algorithm to filter files</para>
+<para
+><userinput
+>Wildcard Filtering</userinput
+>- Use wildcard matching to filter files</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</sect2>
 
 </sect1>
 

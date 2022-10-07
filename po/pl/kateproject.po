@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-06 00:48+0000\n"
+"POT-Creation-Date: 2022-10-07 00:50+0000\n"
 "PO-Revision-Date: 2022-09-28 20:39+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -553,7 +553,7 @@ msgstr "Indeks projektu"
 msgid "Project ctags index settings"
 msgstr "Ustawienia indeksu ctagów projektu"
 
-#: kateprojectconfigpage.cpp:57 kateprojectinfoviewindex.cpp:205
+#: kateprojectconfigpage.cpp:57 kateprojectinfoviewindex.cpp:206
 #, kde-format
 msgid "Enable indexing"
 msgstr "Włącz indeksowanie"
@@ -691,7 +691,7 @@ msgstr "Waga"
 msgid "Message"
 msgstr "Wiadomość"
 
-#: kateprojectinfoviewcodeanalysis.cpp:110
+#: kateprojectinfoviewcodeanalysis.cpp:111
 #, kde-format
 msgid ""
 "%1<br/><br/>The tool will be run on all project files which match this list "
@@ -700,7 +700,7 @@ msgstr ""
 "%1<br/><br/>Narzędzie zostanie zastosowane na wszystkich plikach projektu, "
 "które pasują do któregokolwiek z rozszerzeń plików:<br/><br/><b>%2</b>"
 
-#: kateprojectinfoviewcodeanalysis.cpp:249
+#: kateprojectinfoviewcodeanalysis.cpp:250
 #, kde-format
 msgid "Analysis on %1 file finished."
 msgid_plural "Analysis on %1 files finished."
@@ -708,7 +708,7 @@ msgstr[0] "Ukończono analizę na %1 pliku."
 msgstr[1] "Ukończono analizę na %1 plikach."
 msgstr[2] "Ukończono analizę na %1 plikach."
 
-#: kateprojectinfoviewcodeanalysis.cpp:261
+#: kateprojectinfoviewcodeanalysis.cpp:262
 #, kde-format
 msgid "Analysis on %1 file failed with exit code %2."
 msgid_plural "Analysis on %1 files failed with exit code %2."
@@ -731,12 +731,12 @@ msgstr "Rodzaj"
 msgid "Search"
 msgstr "Szukaj"
 
-#: kateprojectinfoviewindex.cpp:194
+#: kateprojectinfoviewindex.cpp:195
 #, kde-format
 msgid "The index could not be created. Please install 'ctags'."
 msgstr "Nie można utworzyć indeksu. Wgraj 'ctags'."
 
-#: kateprojectinfoviewindex.cpp:204
+#: kateprojectinfoviewindex.cpp:205
 #, kde-format
 msgid "Indexing is not enabled"
 msgstr "Indeksowanie nie jest włączone"

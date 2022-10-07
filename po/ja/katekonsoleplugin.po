@@ -218,19 +218,3 @@ msgstr "ターミナルの設定"
 #, kde-format
 msgid "&Tools"
 msgstr "ツール(&T)"
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your names"
-#~ msgstr "Yukiko Bando"
-
-#~ msgctxt "EMAIL OF TRANSLATORS"
-#~ msgid "Your emails"
-#~ msgstr "ybando@6.dion.ne.jp"
-
-#~ msgid "Kate Terminal"
-#~ msgstr "Kate ターミナル"
-
-#, fuzzy
-#~| msgid "Terminal"
-#~ msgid "Terminal Panel"
-#~ msgstr "ターミナル"

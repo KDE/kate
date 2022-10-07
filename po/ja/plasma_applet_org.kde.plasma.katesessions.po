@@ -57,6 +57,3 @@ msgstr "Kate を起動 (引数なし)"
 #, kde-format
 msgid "New Kate Session"
 msgstr "新しい Kate セッション"
-
-#~ msgid "New Anonymous Session"
-#~ msgstr "名前なしの新しいセッション"

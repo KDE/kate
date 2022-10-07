@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-06 00:48+0000\n"
+"POT-Creation-Date: 2022-10-07 00:50+0000\n"
 "PO-Revision-Date: 2022-08-19 21:19+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -33,111 +33,111 @@ msgid "Your emails"
 msgstr "xalba@ni.eus,dooteo@euskalgnu.org"
 
 #. i18n: ectx: attribute (title), widget (QWidget, errs)
-#: build.ui:27
+#: build.ui:36
 #, kde-format
 msgid "Output"
 msgstr "Irteerakoa"
 
 #. i18n: ectx: property (text), widget (QLabel, showLabel)
-#: build.ui:35
+#: build.ui:56
 #, kde-format
 msgid "Show:"
 msgstr "Erakutsi:"
 
 #. i18n: ectx: property (text), widget (QPushButton, buildAgainButton)
 #. i18n: ectx: property (text), widget (QPushButton, buildAgainButton2)
-#: build.ui:100 build.ui:125
+#: build.ui:121 build.ui:146
 #, kde-format
 msgid "Build again"
 msgstr "Eraiki berriz"
 
 #. i18n: ectx: property (text), widget (QPushButton, cancelBuildButton)
 #. i18n: ectx: property (text), widget (QPushButton, cancelBuildButton2)
-#: build.ui:107 build.ui:132
+#: build.ui:128 build.ui:153
 #, kde-format
 msgid "Cancel"
 msgstr "Utzi"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, errTreeWidget)
-#: build.ui:163
+#: build.ui:184
 #, kde-format
 msgctxt "Header for the file name column"
 msgid "File"
 msgstr "Fitxategia"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, errTreeWidget)
-#: build.ui:168
+#: build.ui:189
 #, kde-format
 msgctxt "Header for the line number column"
 msgid "Line"
 msgstr "Lerroa"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, errTreeWidget)
-#: build.ui:173
+#: build.ui:194
 #, kde-format
 msgctxt "Header for the error message column"
 msgid "Message"
 msgstr "Mezua"
 
-#: plugin_katebuild.cpp:128 plugin_katebuild.cpp:135 plugin_katebuild.cpp:1241
+#: plugin_katebuild.cpp:129 plugin_katebuild.cpp:136 plugin_katebuild.cpp:1244
 #, kde-format
 msgid "Build"
 msgstr "Eraiki"
 
-#: plugin_katebuild.cpp:138
+#: plugin_katebuild.cpp:139
 #, kde-format
 msgid "Select Target..."
 msgstr "Hautatu jomuga..."
 
-#: plugin_katebuild.cpp:142
+#: plugin_katebuild.cpp:143
 #, kde-format
 msgid "Build Default Target"
 msgstr "Eraiki lehenetsitako jomuga"
 
-#: plugin_katebuild.cpp:146
+#: plugin_katebuild.cpp:147
 #, fuzzy, kde-format
 #| msgid "Build Default Target"
 msgid "Build and Run Default Target"
 msgstr "Eraiki lehenetsitako jomuga"
 
-#: plugin_katebuild.cpp:150
+#: plugin_katebuild.cpp:151
 #, kde-format
 msgid "Build Previous Target"
 msgstr "Eraiki aurreko jomuga"
 
-#: plugin_katebuild.cpp:154
+#: plugin_katebuild.cpp:155
 #, kde-format
 msgid "Stop"
 msgstr "Gelditu"
 
-#: plugin_katebuild.cpp:159
+#: plugin_katebuild.cpp:160
 #, kde-format
 msgid "Next Error"
 msgstr "Hurrengo errorea"
 
-#: plugin_katebuild.cpp:165
+#: plugin_katebuild.cpp:166
 #, kde-format
 msgid "Previous Error"
 msgstr "Aurreko errorea"
 
-#: plugin_katebuild.cpp:171
+#: plugin_katebuild.cpp:172
 #, kde-format
 msgid "Show Marks"
 msgstr "Erakutsi markak"
 
-#: plugin_katebuild.cpp:178
+#: plugin_katebuild.cpp:181
 #, kde-format
 msgctxt "Tab label"
 msgid "Target Settings"
 msgstr "Jomuga ezarpenak"
 
-#: plugin_katebuild.cpp:314 plugin_katebuild.cpp:1343 plugin_katebuild.cpp:1354
-#: plugin_katebuild.cpp:1375 plugin_katebuild.cpp:1383
+#: plugin_katebuild.cpp:317 plugin_katebuild.cpp:1346 plugin_katebuild.cpp:1357
+#: plugin_katebuild.cpp:1378 plugin_katebuild.cpp:1386
 #, kde-format
 msgid "Project Plugin Targets"
 msgstr "Proiektu pluginaren jomugak"
 
-#: plugin_katebuild.cpp:483
+#: plugin_katebuild.cpp:486
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -147,40 +147,40 @@ msgstr ""
 "<title>Fitxategia ezin izan da ireki:</title><nl/>%1<br/>Saiatu «Jomugako "
 "ezarpenetan» laneko direktorioaren bilaketa bide-izena ipintzen"
 
-#: plugin_katebuild.cpp:503
+#: plugin_katebuild.cpp:506
 #, kde-format
 msgctxt "The same word as 'make' uses to mark an error."
 msgid "error"
 msgstr "errorea"
 
-#: plugin_katebuild.cpp:506
+#: plugin_katebuild.cpp:509
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "definitu gabeko aipamena"
 
-#: plugin_katebuild.cpp:513
+#: plugin_katebuild.cpp:516
 #, kde-format
 msgctxt "The same word as 'make' uses to mark a warning."
 msgid "warning"
 msgstr "abisua"
 
-#: plugin_katebuild.cpp:599
+#: plugin_katebuild.cpp:602
 #, kde-format
 msgid "Error"
 msgstr "Errorea"
 
-#: plugin_katebuild.cpp:604
+#: plugin_katebuild.cpp:607
 #, kde-format
 msgid "Warning"
 msgstr "Abisua"
 
-#: plugin_katebuild.cpp:735
+#: plugin_katebuild.cpp:738
 #, kde-format
 msgid "There is no file or directory specified for building."
 msgstr "Ez da eraikitzeko fitxategi edo direktoriorik zehaztu."
 
-#: plugin_katebuild.cpp:739
+#: plugin_katebuild.cpp:742
 #, kde-format
 msgid ""
 "The file \"%1\" is not a local file. Non-local files cannot be compiled."
@@ -188,7 +188,7 @@ msgstr ""
 "\"%1\" fitxategia ez da bertako fitxategi bat. Bertakoak ez diren "
 "fitxategiak ezin dira konpilatu."
 
-#: plugin_katebuild.cpp:785
+#: plugin_katebuild.cpp:788
 #, kde-format
 msgid ""
 "Cannot run command: %1\n"
@@ -197,137 +197,137 @@ msgstr ""
 "Ezin da komandoa exekutatu: %1\n"
 "Laneko bide-izena ez dago: %2"
 
-#: plugin_katebuild.cpp:804
+#: plugin_katebuild.cpp:807
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "\"%1\" exekutatzea huts egin du. Irteeraren egoera = %2"
 
-#: plugin_katebuild.cpp:823
+#: plugin_katebuild.cpp:826
 #, kde-format
 msgid "Building <b>%1</b> cancelled"
 msgstr "<b>%1</b> eraikitzea utzi da"
 
-#: plugin_katebuild.cpp:888
+#: plugin_katebuild.cpp:891
 #, kde-format
 msgid "Already building..."
 msgstr "Dagoeneko eraikitzen..."
 
-#: plugin_katebuild.cpp:897
+#: plugin_katebuild.cpp:900
 #, kde-format
 msgid "No target available for building."
 msgstr "Ez dago eraikitzeko jomuga erabilgarririk."
 
-#: plugin_katebuild.cpp:911
+#: plugin_katebuild.cpp:914
 #, kde-format
 msgid "There is no local file or directory specified for building."
 msgstr "Ez dago eraikitzeko zehaztuta bertako fitxategi edo direktoriorik."
 
-#: plugin_katebuild.cpp:935
+#: plugin_katebuild.cpp:938
 #, kde-format
 msgid "Building target <b>%1</b> ..."
 msgstr "<b>%1</b> jomuga eraikitzen ..."
 
-#: plugin_katebuild.cpp:950
+#: plugin_katebuild.cpp:953
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Make Results:</title><nl/>%1"
 msgstr "<title>Make-ren emaitzak:</title><nl/>%1"
 
-#: plugin_katebuild.cpp:986
+#: plugin_katebuild.cpp:989
 #, kde-format
 msgid "Building <b>%1</b> completed."
 msgstr "<b>%1</b> eraikitzea osatu da."
 
-#: plugin_katebuild.cpp:1006
+#: plugin_katebuild.cpp:1009
 #, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
 msgstr[0] "Errore bat aurkitu da."
 msgstr[1] "%1 errore aurkitu dira."
 
-#: plugin_katebuild.cpp:1007
+#: plugin_katebuild.cpp:1010
 #, kde-format
 msgid "Building <b>%1</b> had errors."
 msgstr "<b>%1</b> eraikitzea erroreak izan ditu."
 
-#: plugin_katebuild.cpp:1009
+#: plugin_katebuild.cpp:1012
 #, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
 msgstr[0] "Abisu bat aurkitu da."
 msgstr[1] "%1 abisu aurkitu dira."
 
-#: plugin_katebuild.cpp:1010
+#: plugin_katebuild.cpp:1013
 #, kde-format
 msgid "Building <b>%1</b> had warnings."
 msgstr "<b>%1</b> eraikitzea abisuak izan ditu."
 
-#: plugin_katebuild.cpp:1016
+#: plugin_katebuild.cpp:1019
 #, kde-format
 msgid "Build failed."
 msgstr "Eraikitzea huts egin du."
 
-#: plugin_katebuild.cpp:1018
+#: plugin_katebuild.cpp:1021
 #, kde-format
 msgid "Build completed without problems."
 msgstr "Eraikitzea osatu da arazorik gabe."
 
-#: plugin_katebuild.cpp:1048
+#: plugin_katebuild.cpp:1051
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
 msgstr ""
 
-#: plugin_katebuild.cpp:1240
+#: plugin_katebuild.cpp:1243
 #, kde-format
 msgid "Target Set"
 msgstr "Jomuga multzoa"
 
-#: plugin_katebuild.cpp:1242
+#: plugin_katebuild.cpp:1245
 #, kde-format
 msgid "Clean"
 msgstr "Garbitu"
 
-#: plugin_katebuild.cpp:1243
+#: plugin_katebuild.cpp:1246
 #, kde-format
 msgid "Config"
 msgstr "Konfiguratu"
 
-#: plugin_katebuild.cpp:1244
+#: plugin_katebuild.cpp:1247
 #, kde-format
 msgid "ConfigClean"
 msgstr "Konfigurazioa garbitu"
 
-#: plugin_katebuild.cpp:1287
+#: plugin_katebuild.cpp:1290
 #, kde-format
 msgid "Only Errors"
 msgstr "Erroreak soilik"
 
-#: plugin_katebuild.cpp:1290
+#: plugin_katebuild.cpp:1293
 #, kde-format
 msgid "Errors and Warnings"
 msgstr "Erroreak eta abisuak"
 
-#: plugin_katebuild.cpp:1293
+#: plugin_katebuild.cpp:1296
 #, kde-format
 msgid "Parsed Output"
 msgstr "Sintaxia azterketako irteerakoa"
 
-#: plugin_katebuild.cpp:1296
+#: plugin_katebuild.cpp:1299
 #, kde-format
 msgid "Full Output"
 msgstr "Irteerako osoa"
 
-#: plugin_katebuild.cpp:1404
+#: plugin_katebuild.cpp:1407
 #, kde-format
 msgid "build"
 msgstr "Eraiki"
 
-#: plugin_katebuild.cpp:1407
+#: plugin_katebuild.cpp:1410
 #, kde-format
 msgid "clean"
 msgstr "Garbitu"
 
-#: plugin_katebuild.cpp:1410
+#: plugin_katebuild.cpp:1413
 #, kde-format
 msgid "quick"
 msgstr "azkar"

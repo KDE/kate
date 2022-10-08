@@ -3239,34 +3239,6 @@ folder if possible.</para
 
 </sect2>
 
-<sect2 id="project-quickopen">
-<title
->Obre fitxers ràpidament</title>
-
-<para
->Com fer clic als fitxers a la vista en arbre no és la manera més ràpida per a obrir-los, el &kate; proporciona un mecanisme ràpid d'obertura que podeu activar amb <keycombo action="simul"
->&Ctrl;&Alt;<keycap
->O</keycap
-></keycombo
->. Obtindreu una llista com aquesta:</para>
-
-<screenshot id="screenshot-project-quickopen">
-<screeninfo
->Obertura ràpida</screeninfo>
-<mediaobject>
-<imageobject
-><imagedata fileref="project-quickopen.png" format="PNG"/></imageobject>
-</mediaobject>
-</screenshot>
-
-<para
->Podeu filtrar escrivint parts del nom de fitxer que esteu cercant, i també podeu navegar amb les tecles de fletxa i pàgina amunt/avall a través de la llista. Prémer &Intro; activarà el fitxer seleccionat, mentre que &Esc; ocultarà la vista Obertura ràpida.</para>
-
-<para
->A més, l'obertura ràpida recordarà el fitxer anterior. De manera que quan canvieu a la vista d'obertura ràpida, el fitxer prèviament activat serà seleccionat automàticament i només haureu de prémer &Intro;, el qual de vegades és molt útil.</para>
-
-</sect2>
-
 <sect2 id="project-build">
 <title
 >Implementar la construcció del projecte</title>
@@ -3339,7 +3311,7 @@ folder if possible.</para
 >. Si no voleu llegir els fitxers des d'un sistema de control de versions, podeu invocar el Kate des de la línia d'ordres com: <screen>
 kate /path/to/folder
 </screen
-> o  dir-li que carregui els fitxers de forma recursiva des dels directoris com segueix: </para>
+> o dir-li que carregui els fitxers de forma recursiva des dels directoris com segueix: </para>
 
 <screen
 >{

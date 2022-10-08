@@ -560,7 +560,7 @@ action="simul"
 ></entry>
 <entry
 ><para
->Quick Open</para
+>Snel openen</para
 ></entry>
 </row>
 <row>
@@ -893,67 +893,67 @@ action="simul"
 
 <sect1 id="fundamentals-quick-open">
 <title
->Quick Open</title>
+>Snel openen</title>
 
 <para
->To be able to quickly open/switch between files, Kate comes with a built-in quick open dialog. You can open it with <keycombo action="simul"
+>Om snel bestanden te openen of tussen te schakelen, komt Kate met een ingebouwde dialoog voor snel openen. U kunt het openen met <keycombo action="simul"
 >&Ctrl;&Alt;<keycap
 >O</keycap
 ></keycombo
 >. </para>
 
 <para
->Quick open can show all open documents in Kate as well as all files in open projects. To be able to see project files, you need to enable <link linkend="kate-application-plugin-projects"
->Project Plugin</link
->. </para>
+>Snel openen kan alle open documenten in Kate tonen evenals alle bestanden in open projecten. Om projectbestanden te kunnen zien moet u <link linkend="kate-application-plugin-projects"
+>Projectplug-in</link
+> inschakelen. </para>
 
 <sect2>
 <title
->Using Quick Open</title>
+>Snel openen gebruiken</title>
 
 <para
->Using quick open is very simple. Once you open it, just type the name or portions of the name of the file you want to open and quick open will filter the list based on what you typed. Hitting &Enter; opens the selected file, while &Esc; hides the quick open. </para>
+>Snel openen gebruiken is erg eenvoudig. Nadat u het opent typt u gewoon de naam of gedeelte van de naam van het bestand dat u wilt openen in en snel openen zal de lijst gebaseerd op wat u typt filteren. Op &Enter; drukken opent het geselecteerde bestand, terwijl &Esc; de snel openen verbergt. </para>
 <para
->By default, only the file name is matched while filtering. If you want to match path, you need to have a "/" in the typed text. For example: "doc/index" will match all the files that contain "index" inside the folder "doc". </para>
+>Standaard wordt alleen de bestandsnaam gezocht bij filteren. Als u het pad wilt zoeken moet u een "/" in de getypte tekst hebben. Bijvoorbeeld: "doc/index" zal alle bestanden zoeken die "index" bevatten in de map "doc". </para>
 <para
->The documents which are already open are highlighted in bold and are listed at the top when the dialog opens. Also, when quick open shows up the previous open document is already selected so you can just press &Enter; and it will take you to that document. </para>
+>De documenten die al geopend zijn zijn geaccentueerd in vet en worden bovenaan de lijst gezet wanneer de dialoog opent. Ook, wanneer snel openen verschijnt is het eerdere open document al geselecteerd zodat u &Enter; kunt indrukken en het neemt u naar dat document. </para>
 
 </sect2>
 
 <sect2>
 <title
->Configuring Quick Open</title>
+>Snel openen configureren</title>
 <screenshot id="screenshot-project-quickopen">
 <screeninfo
->Quick Open</screeninfo>
+>Snel openen</screeninfo>
 <mediaobject>
 <imageobject
 ><imagedata fileref="project-quickopen.png" format="PNG"/></imageobject>
 </mediaobject>
 </screenshot>
 <para
->Quick open provides a couple of config options. To access these options, right-click in the input line edit. </para>
+>Snel openen biedt een paar configuratie-opties. Voor toegang tot deze opties, klik rechts in de invoerregel. </para>
 <variablelist>
 <varlistentry>
 <term
->Currently available options are:</term>
+>Nu beschikbare opties zijn:</term>
 <listitem>
 <para
 ><userinput
->Current Project</userinput
-> - Show files from current project only</para>
+>Huidige project</userinput
+> - bestanden alleen uit het huidige project tonen</para>
 <para
 ><userinput
->All Projects</userinput
-> - Show files from all open projects</para>
+>Alle projecten</userinput
+> - bestanden uit alle open projecten tonen</para>
 <para
 ><userinput
->Fuzzy Filtering</userinput
-> - Use fuzzy matching algorithm to filter files</para>
+>Vage filtering</userinput
+> - algoritme voor vage filtering gebruiken om bestanden te zoeken</para>
 <para
 ><userinput
->Wildcard Filtering</userinput
->- Use wildcard matching to filter files</para>
+>Filtering met jokers</userinput
+> - jokers bij filtering van bestanden gebruiken</para>
 </listitem>
 </varlistentry>
 </variablelist>

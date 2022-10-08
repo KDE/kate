@@ -889,6 +889,76 @@ action="simul"
 
 </sect1>
 
+<sect1 id="fundamentals-quick-open">
+<title
+>Obertura ràpida</title>
+
+<para
+>Per a poder obrir/canviar entre fitxers ràpidament, el Kate té integrat un diàleg d'obertura ràpida. El podeu obrir amb <keycombo action="simul"
+>&Ctrl;&Alt;<keycap
+>O</keycap
+></keycombo
+>. </para>
+
+<para
+>L'Obertura ràpida pot mostrar tots els documents oberts al Kate, així com tots els fitxers dels projectes oberts. Per a poder veure els fitxers del projecte, cal habilitar el <link linkend="kate-application-plugin-projects"
+>Connector de projecte</link
+>. </para>
+
+<sect2>
+<title
+>Ús de l'Obertura ràpida</title>
+
+<para
+>L'ús de l'obertura ràpida és molt senzill. Una vegada l'obriu, escriviu el nom o parts del nom del fitxer que voleu obrir i l'obertura ràpida filtrarà la llista en funció del que heu escrit. Premeu &Intro; per a obrir el fitxer seleccionat, mentre que &Esc; oculta l'obertura ràpida. </para>
+<para
+>De manera predeterminada, només se cerquen coincidències amb el nom del fitxer mentre es filtra. Si voleu cercar coincidències amb el camí, cal tenir una «/» en el text escrit. Per exemple: «doc/index» cercarà coincidències amb tots els fitxers que continguin «índex» dins de la carpeta «doc». </para>
+<para
+>Els documents que ja estan oberts es ressalten en negreta i es llisten a la part superior quan s'obre el diàleg. A més, quan l'obertura ràpida mostra el document obert anterior ja seleccionat, de manera que només cal prémer &Intro; i anireu a aquest document. </para>
+
+</sect2>
+
+<sect2>
+<title
+>Configuració de l'Obertura ràpida</title>
+<screenshot id="screenshot-project-quickopen">
+<screeninfo
+>Obertura ràpida</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="project-quickopen.png" format="PNG"/></imageobject>
+</mediaobject>
+</screenshot>
+<para
+>L'obertura ràpida proporciona un parell d'opcions de configuració. Per accedir a aquestes opcions, feu clic amb el botó dret a l'edició de la línia d'entrada. </para>
+<variablelist>
+<varlistentry>
+<term
+>Les opcions actualment disponibles són:</term>
+<listitem>
+<para
+><userinput
+>Projecte actual</userinput
+> - Només mostra els fitxers del projecte actual</para>
+<para
+><userinput
+>Tots els projectes</userinput
+> - Mostra els fitxers de tots els projectes oberts</para>
+<para
+><userinput
+>Filtratge difús</userinput
+> - Usa un algorisme difús de coincidència per a filtrar els fitxers</para>
+<para
+><userinput
+>Filtratge amb comodins</userinput
+> - Usa la coincidència amb comodins per a filtrar els fitxers</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+</sect1>
+
 <sect1 id="fundamentals-getting-help">
 
 <title

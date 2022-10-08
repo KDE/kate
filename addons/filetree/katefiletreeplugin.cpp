@@ -256,7 +256,7 @@ void KateFileTreePluginView::setupActions()
     connect(aNext, &QAction::triggered, m_fileTree, &KateFileTree::slotDocumentNext);
 
     auto aShowActive = actionCollection()->addAction(QStringLiteral("filetree_show_active_document"));
-    aShowActive->setText(i18n("&Show Active"));
+    aShowActive->setText(i18n("&Show Active Document"));
     aShowActive->setIcon(QIcon::fromTheme(QStringLiteral("folder-sync")));
     connect(aShowActive, &QAction::triggered, this, &KateFileTreePluginView::showActiveDocument);
 

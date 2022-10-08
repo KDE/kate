@@ -148,7 +148,7 @@ KateFileTreePluginView::KateFileTreePluginView(KTextEditor::MainWindow *mainWind
     m_toolbar->setIconSize(QSize(iconSize, iconSize));
 
     // create filetree
-    m_fileTree = new KateFileTree(m_toolView);
+    m_fileTree = new KateFileTree(m_mainWindow, m_toolView);
     m_fileTree->setSortingEnabled(true);
     m_fileTree->setShowCloseButton(m_plug->settings().showCloseButton());
 

@@ -14,6 +14,7 @@
 namespace KTextEditor
 {
 class Document;
+class MainWindow;
 }
 
 class QActionGroup;
@@ -26,7 +27,7 @@ class KateFileTree : public QTreeView
     Q_OBJECT
 
 public:
-    KateFileTree(QWidget *parent);
+    KateFileTree(KTextEditor::MainWindow *mainWindow, QWidget *parent);
     ~KateFileTree() override;
 
     void setModel(QAbstractItemModel *model) override;
@@ -121,6 +122,8 @@ private:
     QPersistentModelIndex m_indexContextMenu;
 
     bool m_hasCloseButton = false;
+
+    KTextEditor::MainWindow *m_mainWindow;
 };
 
 #endif // KATE_FILETREE_H

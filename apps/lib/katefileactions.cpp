@@ -23,6 +23,7 @@
 
 #include <QApplication>
 #include <QClipboard>
+#include <QDir>
 #include <QInputDialog>
 #include <QProcess>
 #include <QStandardPaths>
@@ -30,7 +31,9 @@
 
 void KateFileActions::copyFilePathToClipboard(KTextEditor::Document *doc)
 {
-    QApplication::clipboard()->setText(doc->url().toDisplayString(QUrl::PreferLocalFile));
+    const QUrl url = doc->url();
+    // ensure we prefer native separators, bug 381052
+    QApplication::clipboard()->setText(url.isLocalFile() ? QDir::toNativeSeparators(url.toLocalFile()) : url.url());
 }
 
 void KateFileActions::openContainingFolder(KTextEditor::Document *doc)
@@ -53,19 +56,13 @@ void KateFileActions::renameDocumentFile(QWidget *parent, KTextEditor::Document 
     }
 
     const QUrl oldFileUrl = doc->url();
-
-    if (oldFileUrl.isEmpty()) { // NEW
+    if (oldFileUrl.isEmpty()) {
         return;
     }
 
     const QString oldFileName = doc->url().fileName();
     bool ok = false;
-    QString newFileName = QInputDialog::getText(parent, // ADAPTED
-                                                i18n("Rename file"),
-                                                i18n("New file name"),
-                                                QLineEdit::Normal,
-                                                oldFileName,
-                                                &ok);
+    QString newFileName = QInputDialog::getText(parent, i18n("Rename file"), i18n("New file name"), QLineEdit::Normal, oldFileName, &ok);
     if (!ok || (newFileName == oldFileName)) {
         return;
     }
@@ -109,16 +106,13 @@ void KateFileActions::renameDocumentFile(QWidget *parent, KTextEditor::Document 
 
 void KateFileActions::deleteDocumentFile(QWidget *parent, KTextEditor::Document *doc)
 {
-    // TODO: code was copied and adapted from ../addons/filetree/katefiletree.cpp
-    //       (-> DUPLICATE CODE, the new code here should be also used there!)
-
     if (!doc) {
         return;
     }
 
     const auto &&url = doc->url();
 
-    if (url.isEmpty()) { // NEW
+    if (url.isEmpty()) {
         return;
     }
 

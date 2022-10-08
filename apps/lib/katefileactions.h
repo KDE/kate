@@ -27,12 +27,12 @@ namespace KateFileActions
  * Copies the file path to clipboard.
  * If the document has no file, the clipboard will be emptied.
  */
-void copyFilePathToClipboard(KTextEditor::Document *document);
+KATE_PRIVATE_EXPORT void copyFilePathToClipboard(KTextEditor::Document *document);
 
 /**
  * Tries to open and highlight the underlying url in the filemanager
  */
-void openContainingFolder(KTextEditor::Document *document);
+KATE_PRIVATE_EXPORT void openContainingFolder(KTextEditor::Document *document);
 
 /**
  * Shows a Rename dialog to rename the file associated with the document.
@@ -42,7 +42,7 @@ void openContainingFolder(KTextEditor::Document *document);
  */
 KATE_PRIVATE_EXPORT void renameDocumentFile(QWidget *parent, KTextEditor::Document *document);
 
-void openFilePropertiesDialog(QWidget *parent, KTextEditor::Document *document);
+KATE_PRIVATE_EXPORT void openFilePropertiesDialog(QWidget *parent, KTextEditor::Document *document);
 
 /**
  * Asks the user if the file should really be deleted. If yes, the file
@@ -50,12 +50,12 @@ void openFilePropertiesDialog(QWidget *parent, KTextEditor::Document *document);
  *
  * Nothing is done if the document is nullptr or has no associated file.
  */
-void deleteDocumentFile(QWidget *parent, KTextEditor::Document *document);
+KATE_PRIVATE_EXPORT void deleteDocumentFile(QWidget *parent, KTextEditor::Document *document);
 
 /**
  * @returns a list of supported diff tools (names of the executables + paths to them, empty if not found in PATH)
  */
-QVector<std::pair<QString, QString>> supportedDiffTools();
+KATE_PRIVATE_EXPORT QVector<std::pair<QString, QString>> supportedDiffTools();
 
 /**
  * Runs an external program to compare the underlying files of two given documents.
@@ -73,7 +73,7 @@ QVector<std::pair<QString, QString>> supportedDiffTools();
  *
  * IDEA for later: compare with unsaved buffer data instead of underlying file
  */
-bool compareWithExternalProgram(KTextEditor::Document *documentA, KTextEditor::Document *documentB, const QString &diffExecutable);
+KATE_PRIVATE_EXPORT bool compareWithExternalProgram(KTextEditor::Document *documentA, KTextEditor::Document *documentB, const QString &diffExecutable);
 }
 
 #endif

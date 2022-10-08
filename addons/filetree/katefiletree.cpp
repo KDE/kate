@@ -9,6 +9,7 @@
 #include "katefiletree.h"
 
 #include "filehistorywidget.h"
+#include "katefileactions.h"
 #include "katefiletreemodel.h"
 #include "katefiletreeproxymodel.h"
 
@@ -32,6 +33,7 @@
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KStandardAction>
+#include <KTextEditor/MainWindow>
 
 #include <QActionGroup>
 #include <QApplication>
@@ -99,8 +101,9 @@ private:
 
 // BEGIN KateFileTree
 
-KateFileTree::KateFileTree(QWidget *parent)
+KateFileTree::KateFileTree(KTextEditor::MainWindow *mainWindow, QWidget *parent)
     : QTreeView(parent)
+    , m_mainWindow(mainWindow)
 {
     setIndentation(12);
     setAllColumnsShowFocus(true);
@@ -594,23 +597,23 @@ void KateFileTree::slotDocumentReload()
 void KateFileTree::slotOpenContainingFolder()
 {
     KTextEditor::Document *doc = m_proxyModel->docFromIndex(m_indexContextMenu);
-    if (doc) {
-        KIO::highlightInFileManager({doc->url()});
+
+    if (!doc) {
+        return;
     }
+
+    KateFileActions::openContainingFolder(doc);
 }
 
 void KateFileTree::slotCopyFilename()
 {
     KTextEditor::Document *doc = m_proxyModel->docFromIndex(m_indexContextMenu);
 
-    // TODO: the following code was improved in kate/katefileactions.cpp and should be reused here
-    //       (make sure that the mentioned bug 381052 does not reappear)
-
-    if (doc) {
-        const QUrl url = doc->url();
-        // ensure we prefer native separators, bug 381052
-        QApplication::clipboard()->setText(url.isLocalFile() ? QDir::toNativeSeparators(url.toLocalFile()) : url.url());
+    if (!doc) {
+        return;
     }
+
+    KateFileActions::copyFilePathToClipboard(doc);
 }
 
 void KateFileTree::slotRenameFile()
@@ -815,37 +818,7 @@ void KateFileTree::slotResetHistory()
 void KateFileTree::slotDocumentDelete()
 {
     KTextEditor::Document *doc = m_proxyModel->docFromIndex(m_indexContextMenu);
-
-    // TODO: the following code was improved in kate/katefileactions.cpp and should be reused here
-
-    if (!doc) {
-        return;
-    }
-
-    QUrl url = doc->url();
-
-    bool go = (KMessageBox::warningContinueCancel(this,
-                                                  i18n("Do you really want to delete file \"%1\" from storage?", url.toDisplayString()),
-                                                  i18n("Delete file?"),
-                                                  KStandardGuiItem::del(),
-                                                  KStandardGuiItem::cancel(),
-                                                  QStringLiteral("filetreedeletefile"))
-               == KMessageBox::Continue);
-
-    if (!go) {
-        return;
-    }
-
-    if (!closeDocs({doc})) {
-        return; // no extra message, the internals of ktexteditor should take care of that.
-    }
-
-    if (url.isValid()) {
-        KIO::DeleteJob *job = KIO::del(url);
-        if (!job->exec()) {
-            KMessageBox::error(this, i18n("File \"%1\" could not be deleted.", url.toDisplayString()));
-        }
-    }
+    KateFileActions::deleteDocumentFile(m_mainWindow->window(), doc);
 }
 
 // END KateFileTree

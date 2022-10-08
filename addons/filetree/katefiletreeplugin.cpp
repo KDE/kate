@@ -289,11 +289,12 @@ void KateFileTreePluginView::setupActions()
     /**
      * add own actions
      */
-    m_toolbar->addAction(aPrev);
-    m_toolbar->addAction(aNext);
-    m_toolbar->addSeparator();
     m_toolbar->addAction(aSave);
     m_toolbar->addAction(aSaveAs);
+    m_toolbar->addSeparator();
+    m_toolbar->addAction(aPrev);
+    m_toolbar->addAction(aNext);
+    m_toolbar->addAction(aShowActive);
 }
 
 KateFileTreeModel *KateFileTreePluginView::model() const

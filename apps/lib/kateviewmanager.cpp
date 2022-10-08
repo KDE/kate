@@ -399,13 +399,36 @@ KateViewManager::openUrl(const QUrl &url, const QString &encoding, bool activate
 
 KTextEditor::Document *KateViewManager::openUrls(const QList<QUrl> &urls, const QString &encoding, const KateDocumentInfo &docInfo)
 {
+    // remember if we have just one view with an unmodified untitled document, if yes, we close that one
+    // same heuristics we had before in the document manager for the single untitled doc, but this works for multiple main windows
+    KTextEditor::Document *docToClose = nullptr;
+    if (m_views.size() == 1) {
+        auto singleDoc = m_views.begin()->first->document();
+        if (!singleDoc->isModified() && singleDoc->url().isEmpty() && singleDoc->views().size() == 1) {
+            docToClose = singleDoc;
+        }
+    }
+
     const std::vector<KTextEditor::Document *> docs = KateApp::self()->documentManager()->openUrls(urls, encoding, docInfo);
     for (auto doc : docs) {
         // forward to currently active view space
         activeViewSpace()->registerDocument(doc);
         connect(doc, &KTextEditor::Document::documentSavedOrUploaded, this, &KateViewManager::documentSavedOrUploaded);
     }
-    return docs.empty() ? nullptr : docs.back();
+
+    // nothing opened => do nothing
+    if (docs.empty()) {
+        return nullptr;
+    }
+
+    // else, if we had some single untitled doc around, trigger close
+    // do this delayed to avoid havoc
+    if (docToClose) {
+        QTimer::singleShot(0, docToClose, [docToClose]() {
+            KateApp::self()->documentManager()->closeDocument(docToClose);
+        });
+    }
+    return docs.back();
 }
 
 KTextEditor::View *KateViewManager::openUrlWithView(const QUrl &url, const QString &encoding)

@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-08 00:52+0000\n"
-"PO-Revision-Date: 2022-10-05 20:20+0200\n"
+"PO-Revision-Date: 2022-10-08 10:09+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@neuf.fr>\n"
 "Language-Team: French <kde-francophone@kde.org>\n"
 "Language: fr\n"
@@ -100,10 +100,9 @@ msgid "Build Default Target"
 msgstr "Construire la cible par défaut"
 
 #: plugin_katebuild.cpp:147
-#, fuzzy, kde-format
-#| msgid "Build Default Target"
+#, kde-format
 msgid "Build and Run Default Target"
-msgstr "Construire la cible par défaut"
+msgstr "Compiler & exécuter la cible par défaut"
 
 #: plugin_katebuild.cpp:151
 #, kde-format
@@ -436,10 +435,9 @@ msgid "Build selected target"
 msgstr "Construire la cible sélectionnée"
 
 #: targets.cpp:54
-#, fuzzy, kde-format
-#| msgid "Build selected target"
+#, kde-format
 msgid "Build and run selected target"
-msgstr "Construire la cible sélectionnée"
+msgstr "Compiler & exécuter la cible sélectionnée"
 
 #. i18n: ectx: Menu (Build Menubar)
 #: ui.rc:6

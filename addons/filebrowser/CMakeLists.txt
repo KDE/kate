@@ -12,6 +12,7 @@ target_compile_definitions(katefilebrowserplugin PRIVATE TRANSLATION_DOMAIN="kat
 target_link_libraries(
   katefilebrowserplugin 
   PRIVATE
+    kateprivate
     KF5::I18n
     KF5::TextEditor 
     KF5::KIOFileWidgets

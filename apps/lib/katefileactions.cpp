@@ -13,18 +13,31 @@
 #include <ktexteditor/document.h>
 #include <ktexteditor/editor.h>
 
+#include <KIO/ApplicationLauncherJob>
 #include <KIO/CopyJob>
 #include <KIO/DeleteJob>
+#include <kio_version.h>
+#if KIO_VERSION >= QT_VERSION_CHECK(5, 98, 0)
+#include <KIO/JobUiDelegateFactory>
+#else
+#include <KIO/JobUiDelegate>
+#endif
+#include <KApplicationTrader>
 #include <KIO/OpenFileManagerWindowJob>
 #include <KJobWidgets>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KPropertiesDialog>
+#include <KService>
 
+#include <QAction>
 #include <QApplication>
 #include <QClipboard>
 #include <QDir>
 #include <QInputDialog>
+#include <QMenu>
+#include <QMimeDatabase>
+#include <QMimeType>
 #include <QProcess>
 #include <QStandardPaths>
 #include <QUrl>
@@ -159,4 +172,45 @@ bool KateFileActions::compareWithExternalProgram(KTextEditor::Document *document
     QStringList arguments;
     arguments << documentA->url().toLocalFile() << documentB->url().toLocalFile();
     return process.startDetached(diffExecutable, arguments);
+}
+
+void KateFileActions::prepareOpenWithMenu(const QUrl &url, QMenu *menu)
+{
+    // dh: in bug #307699, this slot is called when launching the Kate application
+    // unfortunately, no one ever could reproduce except users.
+
+    QMimeDatabase db;
+    QMimeType mime = db.mimeTypeForUrl(url);
+
+    menu->clear();
+
+    // get a list of appropriate services.
+    const KService::List offers = KApplicationTrader::queryByMimeType(mime.name());
+    QAction *a = nullptr;
+
+    // add all default open-with-actions except "Kate"
+    for (const auto &service : offers) {
+        if (service->name() == QLatin1String("Kate")) {
+            continue;
+        }
+        a = menu->addAction(QIcon::fromTheme(service->icon()), service->name());
+        a->setData(service->entryPath());
+    }
+    // append "Other..." to call the KDE "open with" dialog.
+    QAction *other = menu->addAction(i18n("&Other..."));
+    other->setData(QString());
+}
+
+void KateFileActions::showOpenWithMenu(QWidget *parent, const QUrl &url, QAction *action)
+{
+    KService::Ptr app = KService::serviceByDesktopPath(action->data().toString());
+    // If app is null, ApplicationLauncherJob will invoke the open-with dialog
+    auto *job = new KIO::ApplicationLauncherJob(app);
+    job->setUrls({url});
+#if KIO_VERSION >= QT_VERSION_CHECK(5, 98, 0)
+    job->setUiDelegate(KIO::createDefaultJobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, parent));
+#else
+    job->setUiDelegate(new KIO::JobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, parent));
+#endif
+    job->start();
 }

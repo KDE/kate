@@ -19,16 +19,8 @@
 #include <ktexteditor/document.h>
 #include <ktexteditor/editor.h>
 
-#include <KApplicationTrader>
-#include <KIO/ApplicationLauncherJob>
 #include <KIO/CopyJob>
 #include <KIO/DeleteJob>
-#include <kio_version.h>
-#if KIO_VERSION >= QT_VERSION_CHECK(5, 98, 0)
-#include <KIO/JobUiDelegateFactory>
-#else
-#include <KIO/JobUiDelegate>
-#endif
 #include <KIO/OpenFileManagerWindowJob>
 #include <KLocalizedString>
 #include <KMessageBox>
@@ -473,29 +465,12 @@ void KateFileTree::contextMenuEvent(QContextMenuEvent *event)
 
 void KateFileTree::slotFixOpenWithMenu(QMenu *menu)
 {
-    menu->clear();
-
     KTextEditor::Document *doc = m_proxyModel->docFromIndex(m_indexContextMenu);
     if (!doc) {
         return;
     }
 
-    // get a list of appropriate services.
-    QMimeDatabase db;
-    QMimeType mime = db.mimeTypeForName(doc->mimeType());
-
-    const KService::List offers = KApplicationTrader::queryByMimeType(mime.name());
-    // for each one, insert a menu item...
-    for (const auto &service : offers) {
-        if (service->name() == QLatin1String("Kate")) {
-            continue;
-        }
-        QAction *a = menu->addAction(QIcon::fromTheme(service->icon()), service->name());
-        a->setData(service->entryPath());
-    }
-    // append "Other..." to call the KDE "open with" dialog.
-    QAction *other = menu->addAction(i18n("&Other..."));
-    other->setData(QString());
+    KateFileActions::prepareOpenWithMenu(doc->url(), menu);
 }
 
 void KateFileTree::slotOpenWithMenuAction(QAction *a)
@@ -505,18 +480,7 @@ void KateFileTree::slotOpenWithMenuAction(QAction *a)
         return;
     }
 
-    const QList<QUrl> list({doc->url()});
-
-    KService::Ptr app = KService::serviceByDesktopPath(a->data().toString());
-    // If app is null, ApplicationLauncherJob will invoke the open-with dialog
-    auto *job = new KIO::ApplicationLauncherJob(app);
-    job->setUrls(list);
-#if KIO_VERSION >= QT_VERSION_CHECK(5, 98, 0)
-    job->setUiDelegate(KIO::createDefaultJobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, this));
-#else
-    job->setUiDelegate(new KIO::JobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, this));
-#endif
-    job->start();
+    KateFileActions::showOpenWithMenu(m_mainWindow->window(), doc->url(), a);
 }
 
 void KateFileTree::slotDocumentClose()

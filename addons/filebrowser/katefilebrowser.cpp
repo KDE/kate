@@ -12,6 +12,7 @@
 #include "katefilebrowser.h"
 
 #include "katebookmarkhandler.h"
+#include "katefileactions.h"
 
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
@@ -23,14 +24,6 @@
 #include <KDirOperator>
 #include <KFilePlacesModel>
 #include <KHistoryComboBox>
-#include <KIO/ApplicationLauncherJob>
-#include <kio_version.h>
-#include <kwidgetsaddons_version.h>
-#if KIO_VERSION >= QT_VERSION_CHECK(5, 98, 0)
-#include <KIO/JobUiDelegateFactory>
-#else
-#include <KIO/JobUiDelegate>
-#endif
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KSharedConfig>
@@ -339,18 +332,8 @@ void KateFileBrowser::openWithMenuAction(QAction *a)
 {
     const QString application = a->data().toStringList().first();
     const QString fileName = a->data().toStringList().last();
-    const QList<QUrl> list({QUrl(fileName)});
 
-    KService::Ptr app = KService::serviceByDesktopPath(application);
-    // If app is null, ApplicationLauncherJob will invoke the open-with dialog
-    auto *job = new KIO::ApplicationLauncherJob(app);
-    job->setUrls(list);
-#if KIO_VERSION >= QT_VERSION_CHECK(5, 98, 0)
-    job->setUiDelegate(KIO::createDefaultJobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, this));
-#else
-    job->setUiDelegate(new KIO::JobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, this));
-#endif
-    job->start();
+    KateFileActions::showOpenWithMenu(this, QUrl(fileName), a);
 }
 // END Public Slots
 

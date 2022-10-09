@@ -8,18 +8,11 @@
 #include "kateprojecttreeviewcontextmenu.h"
 #include "filehistorywidget.h"
 #include "git/gitutils.h"
+#include "katefileactions.h"
 #include "kateproject.h"
 #include "kateprojectinfoviewterminal.h"
 #include "kateprojectviewtree.h"
 
-#include <KApplicationTrader>
-#include <KIO/ApplicationLauncherJob>
-#include <kio_version.h>
-#if KIO_VERSION >= QT_VERSION_CHECK(5, 98, 0)
-#include <KIO/JobUiDelegateFactory>
-#else
-#include <KIO/JobUiDelegate>
-#endif
 #include <KIO/OpenFileManagerWindowJob>
 #include <KLocalizedString>
 #include <KMoreTools>
@@ -90,24 +83,10 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
      */
     auto filePropertiesAction = menu.addAction(QIcon::fromTheme(QStringLiteral("dialog-object-properties")), i18n("Properties"));
 
-    /**
-     * Handle "open with",
-     * find correct mimetype to query for possible applications
-     */
+    QUrl url = QUrl::fromLocalFile(filename);
     menu.addSeparator();
-    QMenu *openWithMenu = menu.addMenu(i18n("Open With"));
-    openWithMenu->setIcon(QIcon::fromTheme(QStringLiteral("system-run")));
-    QMimeType mimeType = QMimeDatabase().mimeTypeForFile(filename);
-    const KService::List offers = KApplicationTrader::queryByMimeType(mimeType.name());
-    // For each one, insert a menu item...
-    for (const auto &service : offers) {
-        if (service->name() == QLatin1String("Kate")) {
-            continue; // omit Kate
-        }
-        QAction *action = openWithMenu->addAction(QIcon::fromTheme(service->icon()), service->name());
-        action->setData(service->entryPath());
-    }
-    // Perhaps disable menu, if no entries
+    QMenu *openWithMenu = menu.addMenu(QIcon::fromTheme(QStringLiteral("system-run")), i18n("Open With"));
+    KateFileActions::prepareOpenWithMenu(url, openWithMenu);
     openWithMenu->setEnabled(!openWithMenu->isEmpty());
 
     /**
@@ -139,25 +118,12 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
     if (GitUtils::isGitRepo(QFileInfo(filename).absolutePath())) {
         menu.addSeparator();
         fileHistory = menu.addAction(i18n("Show Git History"));
-        menuFactory.fillMenuFromGroupingNames(&gitMenu, {QLatin1String("git-clients-and-actions")}, QUrl::fromLocalFile(filename));
+        menuFactory.fillMenuFromGroupingNames(&gitMenu, {QLatin1String("git-clients-and-actions")}, url);
         const auto gitActions = gitMenu.actions();
         for (auto action : gitActions) {
             menu.addAction(action);
         }
     }
-
-    auto handleOpenWith = [parent](QAction *action, const QString &filename) {
-        KService::Ptr app = KService::serviceByDesktopPath(action->data().toString());
-        // If app is null, ApplicationLauncherJob will invoke the open-with dialog
-        auto *job = new KIO::ApplicationLauncherJob(app);
-        job->setUrls({QUrl::fromLocalFile(filename)});
-#if KIO_VERSION >= QT_VERSION_CHECK(5, 98, 0)
-        job->setUiDelegate(KIO::createDefaultJobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, parent));
-#else
-        job->setUiDelegate(new KIO::JobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, parent));
-#endif
-        job->start();
-    };
 
     auto handleDeleteFile = [parent, index](const QString &path) {
         // message box
@@ -194,15 +160,14 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
             }
             job->start();
         } else if (action->parentWidget() == openWithMenu) {
-            // handle "open with"
-            handleOpenWith(action, filename);
+            KateFileActions::showOpenWithMenu(parent, url, action);
         } else if (action == openContaingFolderAction) {
-            KIO::highlightInFileManager({QUrl::fromLocalFile(filename)});
+            KIO::highlightInFileManager({url});
         } else if (fileDelete && action == fileDelete) {
             handleDeleteFile(filename);
         } else if (action == filePropertiesAction) {
             // code copied and adapted from frameworks/kio/src/filewidgets/knewfilemenu.cpp
-            KFileItem fileItem(QUrl::fromLocalFile(filename));
+            KFileItem fileItem(url);
             QDialog *dlg = new KPropertiesDialog(fileItem, parent);
             dlg->setAttribute(Qt::WA_DeleteOnClose);
             dlg->show();

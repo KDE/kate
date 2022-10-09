@@ -31,21 +31,12 @@
 
 #include <KActionCollection>
 #include <KActionMenu>
-#include <KApplicationTrader>
 #include <KColorSchemeManager>
 #include <KConfigGroup>
 #include <KEditToolBar>
 #include <KFileItem>
 #include <KHelpClient>
-#include <KIO/ApplicationLauncherJob>
 #include <KIO/Job>
-#include <kio_version.h>
-#include <kwidgetsaddons_version.h>
-#if KIO_VERSION >= QT_VERSION_CHECK(5, 98, 0)
-#include <KIO/JobUiDelegateFactory>
-#else
-#include <KIO/JobUiDelegate>
-#endif
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KMultiTabBar>
@@ -995,50 +986,32 @@ QUrl KateMainWindow::activeDocumentUrl()
 
 void KateMainWindow::mSlotFixOpenWithMenu()
 {
-    // dh: in bug #307699, this slot is called when launching the Kate application
-    // unfortunately, no one ever could reproduce except users.
     KTextEditor::View *activeView = m_viewManager->activeView();
     if (!activeView) {
         return;
     }
 
-    // cleanup menu
-    QMenu *menu = documentOpenWith->menu();
-    menu->clear();
-
-    // get a list of appropriate services.
-    QMimeDatabase db;
-    QMimeType mime = db.mimeTypeForName(activeView->document()->mimeType());
-    // qCDebug(LOG_KATE) << "mime type: " << mime.name();
-
-    QAction *a = nullptr;
-    const KService::List offers = KApplicationTrader::queryByMimeType(mime.name());
-    // add all default open-with-actions except "Kate"
-    for (const auto &service : offers) {
-        if (service->name() == QLatin1String("Kate")) {
-            continue;
-        }
-        a = menu->addAction(QIcon::fromTheme(service->icon()), service->name());
-        a->setData(service->entryPath());
+    KTextEditor::Document *doc = activeView->document();
+    if (!doc) {
+        return;
     }
-    // append "Other..." to call the KDE "open with" dialog.
-    a = documentOpenWith->menu()->addAction(i18n("&Other..."));
-    a->setData(QString());
+
+    KateFileActions::prepareOpenWithMenu(doc->url(), documentOpenWith->menu());
 }
 
 void KateMainWindow::slotOpenWithMenuAction(QAction *a)
 {
-    const QList<QUrl> list({m_viewManager->activeView()->document()->url()});
-    KService::Ptr app = KService::serviceByDesktopPath(a->data().toString());
-    // If app is null, ApplicationLauncherJob will invoke the open-with dialog
-    auto *job = new KIO::ApplicationLauncherJob(app);
-    job->setUrls(list);
-#if KIO_VERSION >= QT_VERSION_CHECK(5, 98, 0)
-    job->setUiDelegate(KIO::createDefaultJobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, this));
-#else
-    job->setUiDelegate(new KIO::JobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, this));
-#endif
-    job->start();
+    auto activeView = m_viewManager->activeView();
+    if (!activeView) {
+        return;
+    }
+
+    auto doc = activeView->document();
+    if (!doc) {
+        return;
+    }
+
+    KateFileActions::showOpenWithMenu(this, doc->url(), a);
 }
 
 void KateMainWindow::pluginHelp()

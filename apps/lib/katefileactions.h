@@ -15,7 +15,10 @@
 
 #include <QString>
 
+class QAction;
+class QMenu;
 class QWidget;
+class QUrl;
 namespace KTextEditor
 {
 class Document;
@@ -74,6 +77,16 @@ KATE_PRIVATE_EXPORT QVector<std::pair<QString, QString>> supportedDiffTools();
  * IDEA for later: compare with unsaved buffer data instead of underlying file
  */
 KATE_PRIVATE_EXPORT bool compareWithExternalProgram(KTextEditor::Document *documentA, KTextEditor::Document *documentB, const QString &diffExecutable);
+
+/**
+ * Prepares the open with menu
+ */
+KATE_PRIVATE_EXPORT void prepareOpenWithMenu(const QUrl &url, QMenu *menu);
+
+/**
+ * Prepares the open with menu
+ */
+KATE_PRIVATE_EXPORT void showOpenWithMenu(QWidget *parent, const QUrl &url, QAction *action);
 }
 
 #endif

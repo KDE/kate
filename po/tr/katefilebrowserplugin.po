@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-18 00:48+0000\n"
+"POT-Creation-Date: 2022-10-09 00:52+0000\n"
 "PO-Revision-Date: 2022-07-03 10:39+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -32,51 +32,51 @@ msgstr "Ara"
 msgid "Enter a name filter to limit which files are displayed."
 msgstr "Hangi dosyaların gösterileceğini belirlemek için bir ad süzgeci girin."
 
-#: katefilebrowser.cpp:257
+#: katefilebrowser.cpp:296
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open With"
 msgstr "Birlikte Aç"
 
-#: katefilebrowser.cpp:286
+#: katefilebrowser.cpp:325
 #, kde-format
 msgid "&Other..."
 msgstr "&Diğer..."
 
-#: katefilebrowser.cpp:322
+#: katefilebrowser.cpp:361
 #, kde-format
 msgid "You are trying to open 1 file, are you sure?"
 msgid_plural "You are trying to open %1 files, are you sure?"
 msgstr[0] "1 dosya açmayı çalışıyorsunuz, emin misiniz?"
 msgstr[1] "%1 dosyayı açmaya çalışıyorsunuz, emin misiniz?"
 
-#: katefilebrowser.cpp:324
+#: katefilebrowser.cpp:363
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Tüm Dosyaları Aç"
 
-#: katefilebrowser.cpp:387
+#: katefilebrowser.cpp:426
 #, kde-format
 msgid "Bookmarks"
 msgstr "Yer İmleri"
 
-#: katefilebrowser.cpp:395
+#: katefilebrowser.cpp:434
 #, kde-format
 msgid "Current Document Folder"
 msgstr "Geçerli Belge Klasörü"
 
-#: katefilebrowser.cpp:403
+#: katefilebrowser.cpp:442
 #, kde-format
 msgid "Options"
 msgstr "Seçenekler"
 
-#: katefilebrowser.cpp:415
+#: katefilebrowser.cpp:463
 #, kde-format
 msgid "Automatically synchronize with current document"
 msgstr "Geçerli belge ile otomatik olarak eşzamanla"
 
-#: katefilebrowser.cpp:422
+#: katefilebrowser.cpp:470
 #, kde-format
 msgid "Highlight current file"
 msgstr "Geçerli dosyayı vurgula"

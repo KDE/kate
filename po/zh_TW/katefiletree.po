@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"POT-Creation-Date: 2022-10-09 00:52+0000\n"
 "PO-Revision-Date: 2019-03-04 20:04+0800\n"
 "Last-Translator: pan93412 <pan93412@gmail.com>\n"
 "Language-Team: Chinese <zh-l10n@lists.linux.org.tw>\n"
@@ -406,18 +406,30 @@ msgid "Next Document"
 msgstr "下一份文件"
 
 #: katefiletreeplugin.cpp:259
-#, kde-format
-msgid "&Show Active"
+#, fuzzy, kde-format
+#| msgid "&Show Active"
+msgid "&Show Active Document"
 msgstr "顯示作用中(&S)"
 
 #: katefiletreeplugin.cpp:264
 #, kde-format
+msgid "Save"
+msgstr ""
+
+#: katefiletreeplugin.cpp:265
+#, kde-format
 msgid "Save the current document"
 msgstr "儲存目前的文件"
 
-#: katefiletreeplugin.cpp:268
+#: katefiletreeplugin.cpp:269
 #, kde-format
-msgid "Save current document under new name"
+msgid "Save As"
+msgstr ""
+
+#: katefiletreeplugin.cpp:270
+#, fuzzy, kde-format
+#| msgid "Save current document under new name"
+msgid "Save the current document under a new name"
 msgstr "以新名稱儲存目前的文件"
 
 #. i18n: ectx: Menu (go)

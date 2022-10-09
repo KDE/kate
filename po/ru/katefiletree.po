@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"POT-Creation-Date: 2022-10-09 00:52+0000\n"
 "PO-Revision-Date: 2022-02-08 15:55+0300\n"
 "Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
@@ -429,18 +429,31 @@ msgid "Next Document"
 msgstr "Следующий документ"
 
 #: katefiletreeplugin.cpp:259
-#, kde-format
-msgid "&Show Active"
+#, fuzzy, kde-format
+#| msgid "&Show Active"
+msgid "&Show Active Document"
 msgstr "&Показать активный документ"
 
 #: katefiletreeplugin.cpp:264
+#, fuzzy, kde-format
+#| msgid "&Save"
+msgid "Save"
+msgstr "&Сохранить"
+
+#: katefiletreeplugin.cpp:265
 #, kde-format
 msgid "Save the current document"
 msgstr "Сохранить текущий документ"
 
-#: katefiletreeplugin.cpp:268
+#: katefiletreeplugin.cpp:269
 #, kde-format
-msgid "Save current document under new name"
+msgid "Save As"
+msgstr "Сохранить как"
+
+#: katefiletreeplugin.cpp:270
+#, fuzzy, kde-format
+#| msgid "Save current document under new name"
+msgid "Save the current document under a new name"
 msgstr "Сохранить текущий документ под новым именем"
 
 #. i18n: ectx: Menu (go)
@@ -748,9 +761,6 @@ msgstr "Пере&ход"
 
 #~ msgid "Close Document"
 #~ msgstr "Закрыть документ"
-
-#~ msgid "Save As"
-#~ msgstr "Сохранить как"
 
 #~ msgid "New file opened while trying to close Kate, closing aborted."
 #~ msgstr "Открывается новый файл при выходе из Kate. Выход прерван."
@@ -2423,9 +2433,6 @@ msgstr "Пере&ход"
 
 #~ msgid "&Open..."
 #~ msgstr "&Открыть..."
-
-#~ msgid "&Save"
-#~ msgstr "&Сохранить"
 
 #~ msgid "Save &As..."
 #~ msgstr "Сохранить &как..."

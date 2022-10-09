@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-05 00:49+0000\n"
+"POT-Creation-Date: 2022-10-09 00:52+0000\n"
 "PO-Revision-Date: 2015-10-22 08:29+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic <kde-isl@molar.is>\n"
@@ -2027,7 +2027,7 @@ msgstr ""
 msgid "Opening Large File"
 msgstr "Opna skrá"
 
-#: lib/kateviewmanager.cpp:1162
+#: lib/kateviewmanager.cpp:1185
 #, kde-format
 msgid "This view may have unsaved work. Do you really want to close it?"
 msgstr ""

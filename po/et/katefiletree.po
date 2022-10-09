@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"POT-Creation-Date: 2022-10-09 00:52+0000\n"
 "PO-Revision-Date: 2019-10-29 20:19+0200\n"
 "Last-Translator: Marek Laane <qiilaq69@gmail.com>\n"
 "Language-Team: Estonian <kde-et@lists.linux.ee>\n"
@@ -407,18 +407,30 @@ msgid "Next Document"
 msgstr "Järgmine dokument"
 
 #: katefiletreeplugin.cpp:259
-#, kde-format
-msgid "&Show Active"
+#, fuzzy, kde-format
+#| msgid "&Show Active"
+msgid "&Show Active Document"
 msgstr "&Näita aktiivset"
 
 #: katefiletreeplugin.cpp:264
 #, kde-format
+msgid "Save"
+msgstr ""
+
+#: katefiletreeplugin.cpp:265
+#, kde-format
 msgid "Save the current document"
 msgstr "Aktiivse dokumendi salvestamine"
 
-#: katefiletreeplugin.cpp:268
+#: katefiletreeplugin.cpp:269
 #, kde-format
-msgid "Save current document under new name"
+msgid "Save As"
+msgstr ""
+
+#: katefiletreeplugin.cpp:270
+#, fuzzy, kde-format
+#| msgid "Save current document under new name"
+msgid "Save the current document under a new name"
 msgstr "Aktiivse dokumendi salvestamine uue nimega"
 
 #. i18n: ectx: Menu (go)

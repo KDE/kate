@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"POT-Creation-Date: 2022-10-09 00:52+0000\n"
 "PO-Revision-Date: 2013-05-10 23:29-0700\n"
 "Last-Translator: Fumiaki Okushi <okushi@kde.gr.jp>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -411,19 +411,31 @@ msgid "Next Document"
 msgstr ""
 
 #: katefiletreeplugin.cpp:259
-#, kde-format
-msgid "&Show Active"
-msgstr ""
+#, fuzzy, kde-format
+#| msgid "Configure Documents"
+msgid "&Show Active Document"
+msgstr "文書の設定"
 
 #: katefiletreeplugin.cpp:264
+#, kde-format
+msgid "Save"
+msgstr ""
+
+#: katefiletreeplugin.cpp:265
 #, kde-format
 msgid "Save the current document"
 msgstr ""
 
-#: katefiletreeplugin.cpp:268
+#: katefiletreeplugin.cpp:269
 #, kde-format
-msgid "Save current document under new name"
+msgid "Save As"
 msgstr ""
+
+#: katefiletreeplugin.cpp:270
+#, fuzzy, kde-format
+#| msgid "Close the current document."
+msgid "Save the current document under a new name"
+msgstr "現在の文書を閉じます。"
 
 #. i18n: ectx: Menu (go)
 #: ui.rc:7

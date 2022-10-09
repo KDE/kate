@@ -72,10 +72,9 @@ private Q_SLOTS:
 
     // Building
     void slotSelectTarget();
-    void slotBuildAndRunDefaultTarget();
-    void slotBuildActiveTarget();
+    void slotBuildSelectedTarget();
+    void slotBuildAndRunSelectedTarget();
     void slotBuildPreviousTarget();
-    void slotBuildDefaultTarget();
     bool slotStop();
 
     // Parse output
@@ -152,7 +151,6 @@ private:
     QRegularExpression m_newDirDetector;
     unsigned int m_numErrors = 0;
     unsigned int m_numWarnings = 0;
-    QString m_prevItemContent;
     QPersistentModelIndex m_previousIndex;
     QPointer<KTextEditor::Message> m_infoMessage;
     QPointer<QAction> m_showMarks;

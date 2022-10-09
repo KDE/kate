@@ -2,7 +2,7 @@
  *   This file is part of Kate build plugin                                *
  *   SPDX-FileCopyrightText: 2014 Kåre Särs <kare.sars@iki.fi>             *
  *                                                                         *
- *   SPDX-License-Identifier: LGPL-2.0-or-later
+ *   SPDX-License-Identifier: LGPL-2.0-or-later                            *
  ***************************************************************************/
 
 #ifndef TargetModel_h
@@ -24,15 +24,11 @@ public:
         TargetSet(const QString &_name, const QString &_workDir);
         QString name;
         QString workDir;
-        QString defaultCmd;
         QList<Command> commands;
     };
 
     TargetModel(QObject *parent = nullptr);
     ~TargetModel() override;
-
-    /** This function sets the default command for a target set */
-    void setDefaultCmd(int rootRow, const QString &defCmd);
 
 public Q_SLOTS:
 
@@ -56,13 +52,15 @@ public Q_SLOTS:
     /** This function deletes the target-set with the same name */
     void deleteTargetSet(const QString &targetSet);
 
+    void moveRowUp(const QModelIndex &index);
+    void moveRowDown(const QModelIndex &index);
+
     const QList<TargetSet> targetSets() const
     {
         return m_targets;
     }
 
     /** Static functions that could be in a different file */
-    static QModelIndex defaultTarget(const QModelIndex &targetSetIndex);
     static const QString command(const QModelIndex &itemIndex);
     static const QString cmdName(const QModelIndex &itemIndex);
     static const QString workDir(const QModelIndex &itemIndex);

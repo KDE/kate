@@ -139,17 +139,14 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     a->setText(i18n("Select Target..."));
     a->setIcon(QIcon::fromTheme(QStringLiteral("select")));
     connect(a, &QAction::triggered, this, &KateBuildView::slotSelectTarget);
-    a = actionCollection()->addAction(QStringLiteral("build_default_target"));
-    a->setText(i18n("Build Default Target"));
-    connect(a, &QAction::triggered, this, &KateBuildView::slotBuildDefaultTarget);
 
-    a = actionCollection()->addAction(QStringLiteral("build_and_run_default_target"));
-    a->setText(i18n("Build and Run Default Target"));
-    connect(a, &QAction::triggered, this, &KateBuildView::slotBuildAndRunDefaultTarget);
-
-    a = actionCollection()->addAction(QStringLiteral("build_previous_target"));
-    a->setText(i18n("Build Previous Target"));
+    a = actionCollection()->addAction(QStringLiteral("build_selected_target"));
+    a->setText(i18n("Build Selected Target"));
     connect(a, &QAction::triggered, this, &KateBuildView::slotBuildPreviousTarget);
+
+    a = actionCollection()->addAction(QStringLiteral("build_and_run_selected_target"));
+    a->setText(i18n("Build and Run Selected Target"));
+    connect(a, &QAction::triggered, this, &KateBuildView::slotBuildAndRunSelectedTarget);
 
     a = actionCollection()->addAction(QStringLiteral("stop"));
     a->setText(i18n("Stop"));
@@ -227,12 +224,9 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     connect(m_targetsUi->deleteTarget, &QToolButton::clicked, this, &KateBuildView::targetDelete);
 
     connect(m_targetsUi->addButton, &QToolButton::clicked, this, &KateBuildView::slotAddTargetClicked);
-    connect(m_targetsUi->buildButton, &QToolButton::clicked, this, &KateBuildView::slotBuildActiveTarget);
-    connect(m_targetsUi->runButton, &QToolButton::clicked, this, [this] {
-        m_runAfterBuild = true;
-        slotBuildActiveTarget();
-    });
-    connect(m_targetsUi, &TargetsUi::enterPressed, this, &KateBuildView::slotBuildActiveTarget);
+    connect(m_targetsUi->buildButton, &QToolButton::clicked, this, &KateBuildView::slotBuildSelectedTarget);
+    connect(m_targetsUi->runButton, &QToolButton::clicked, this, &KateBuildView::slotBuildAndRunSelectedTarget);
+    connect(m_targetsUi, &TargetsUi::enterPressed, this, &KateBuildView::slotBuildSelectedTarget);
 
     m_proc.setOutputChannelMode(KProcess::SeparateChannels);
     connect(&m_proc, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &KateBuildView::slotProcExited);
@@ -271,8 +265,6 @@ void KateBuildView::readSessionConfig(const KConfigGroup &cg)
 {
     int numTargets = cg.readEntry(QStringLiteral("NumTargets"), 0);
     m_targetsUi->targetsModel.clear();
-    int tmpIndex;
-    int tmpCmd;
 
     for (int i = 0; i < numTargets; i++) {
         QStringList targetNames = cg.readEntry(QStringLiteral("%1 Target Names").arg(i), QStringList());
@@ -281,22 +273,19 @@ void KateBuildView::readSessionConfig(const KConfigGroup &cg)
 
         QModelIndex index = m_targetsUi->targetsModel.addTargetSet(targetSetName, buildDir);
 
+        // Keep a bit of backwards compatibility by ensuring that the "default" target is the first in the list
+        QString defCmd = cg.readEntry(QStringLiteral("%1 Target Default").arg(i), QString());
+        int defIndex = targetNames.indexOf(defCmd);
+        if (defIndex > 0) {
+            targetNames.move(defIndex, 0);
+        }
         for (int tn = 0; tn < targetNames.size(); ++tn) {
             const QString &targetName = targetNames.at(tn);
             const QString &buildCmd = cg.readEntry(QStringLiteral("%1 BuildCmd %2").arg(i).arg(targetName));
             const QString &runCmd = cg.readEntry(QStringLiteral("%1 RunCmd %2").arg(i).arg(targetName));
             m_targetsUi->targetsModel.addCommand(index, targetName, buildCmd, runCmd);
         }
-        QString defCmd = cg.readEntry(QStringLiteral("%1 Target Default").arg(i), QString());
-        m_targetsUi->targetsModel.setDefaultCmd(i, defCmd);
     }
-    tmpIndex = cg.readEntry(QStringLiteral("Active Target Index"), 0);
-    tmpCmd = cg.readEntry(QStringLiteral("Active Target Command"), 0);
-
-    QModelIndex root = m_targetsUi->targetsModel.index(tmpIndex);
-    QModelIndex cmdIndex = m_targetsUi->targetsModel.index(tmpCmd, 0, root);
-    cmdIndex = m_targetsUi->proxyModel.mapFromSource(cmdIndex);
-    m_targetsUi->targetsView->setCurrentIndex(cmdIndex);
 
     auto showMarks = cg.readEntry(QStringLiteral("Show Marks"), false);
     m_showMarks->setChecked(showMarks);
@@ -307,6 +296,7 @@ void KateBuildView::readSessionConfig(const KConfigGroup &cg)
     m_targetsUi->targetsView->expandAll();
     m_targetsUi->targetsView->resizeColumnToContents(0);
     m_targetsUi->targetsView->resizeColumnToContents(1);
+    m_targetsUi->updateBuildRunButtonStates();
 }
 
 /******************************************************************/
@@ -333,24 +323,7 @@ void KateBuildView::writeSessionConfig(KConfigGroup &cg)
             cg.writeEntry(QStringLiteral("%1 RunCmd %2").arg(i).arg(cmdName), runCmd);
         }
         cg.writeEntry(QStringLiteral("%1 Target Names").arg(i), cmdNames);
-        cg.writeEntry(QStringLiteral("%1 Target Default").arg(i), targets[i].defaultCmd);
     }
-    int setRow = 0;
-    int set = 0;
-    QModelIndex ind = m_targetsUi->targetsView->currentIndex();
-    ind = m_targetsUi->proxyModel.mapToSource(ind);
-    if (ind.internalId() == TargetModel::InvalidIndex) {
-        set = ind.row();
-    } else {
-        set = ind.internalId();
-        setRow = ind.row();
-    }
-    if (setRow < 0) {
-        setRow = 0;
-    }
-
-    cg.writeEntry(QStringLiteral("Active Target Index"), set);
-    cg.writeEntry(QStringLiteral("Active Target Command"), setRow);
     cg.writeEntry(QStringLiteral("Show Marks"), m_showMarks->isChecked());
 
     // Restore project targets, if any
@@ -832,23 +805,49 @@ bool KateBuildView::slotStop()
 }
 
 /******************************************************************/
-void KateBuildView::slotBuildActiveTarget()
+void KateBuildView::slotBuildSelectedTarget()
 {
-    if (!m_targetsUi->targetsView->currentIndex().isValid()) {
+    QModelIndex currentIndex = m_targetsUi->targetsView->currentIndex();
+    if (!currentIndex.isValid()) {
         slotSelectTarget();
-    } else {
-        buildCurrentTarget();
+        return;
     }
+
+    if (!currentIndex.parent().isValid()) {
+        // This is a root item, try to build the first command
+        currentIndex = m_targetsUi->targetsView->model()->index(0, 0, currentIndex.siblingAtColumn(0));
+        if (currentIndex.isValid()) {
+            m_targetsUi->targetsView->setCurrentIndex(currentIndex);
+        } else {
+            slotSelectTarget();
+            return;
+        }
+    }
+    buildCurrentTarget();
 }
 
-void KateBuildView::slotBuildAndRunDefaultTarget()
+/******************************************************************/
+void KateBuildView::slotBuildAndRunSelectedTarget()
 {
-    if (!m_targetsUi->targetsView->currentIndex().isValid()) {
+    QModelIndex currentIndex = m_targetsUi->targetsView->currentIndex();
+    if (!currentIndex.isValid()) {
         slotSelectTarget();
-    } else {
-        m_runAfterBuild = true;
-        slotBuildDefaultTarget();
+        return;
     }
+
+    if (!currentIndex.parent().isValid()) {
+        // This is a root item, try to build the first command
+        currentIndex = m_targetsUi->targetsView->model()->index(0, 0, currentIndex.siblingAtColumn(0));
+        if (currentIndex.isValid()) {
+            m_targetsUi->targetsView->setCurrentIndex(currentIndex);
+        } else {
+            slotSelectTarget();
+            return;
+        }
+    }
+
+    m_runAfterBuild = true;
+    buildCurrentTarget();
 }
 
 /******************************************************************/
@@ -863,24 +862,18 @@ void KateBuildView::slotBuildPreviousTarget()
 }
 
 /******************************************************************/
-void KateBuildView::slotBuildDefaultTarget()
-{
-    QModelIndex defaultTarget = TargetModel::defaultTarget(m_targetsUi->targetsView->currentIndex());
-    m_targetsUi->targetsView->setCurrentIndex(defaultTarget);
-    buildCurrentTarget();
-}
-
-/******************************************************************/
 void KateBuildView::slotSelectTarget()
 {
     m_buildUi.u_tabWidget->setCurrentIndex(0);
     m_win->showToolView(m_toolView);
+    QPersistentModelIndex selected = m_targetsUi->targetsView->currentIndex();
     m_targetsUi->targetFilterEdit->setText(QString());
     m_targetsUi->targetFilterEdit->setFocus();
-    if (m_previousIndex.isValid()) {
-        m_targetsUi->targetsView->setCurrentIndex(m_previousIndex);
-    }
     m_targetsUi->targetsView->expandAll();
+    if (selected.isValid()) {
+        m_targetsUi->targetsView->setCurrentIndex(selected);
+    }
+    m_targetsUi->targetsView->scrollTo(selected);
 }
 
 /******************************************************************/

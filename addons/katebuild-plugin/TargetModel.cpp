@@ -1,8 +1,8 @@
 /***************************************************************************
  *   This file is part of Kate build plugin                                *
- *   SPDX-FileCopyrightText: 2014 Kåre Särs <kare.sars@iki.fi>                           *
+ *   SPDX-FileCopyrightText: 2014 Kåre Särs <kare.sars@iki.fi>             *
  *                                                                         *
- *   SPDX-License-Identifier: LGPL-2.0-or-later
+ *   SPDX-License-Identifier: LGPL-2.0-or-later                            *
  ***************************************************************************/
 
 #include "TargetModel.h"
@@ -35,21 +35,6 @@ void TargetModel::clear()
     beginResetModel();
     m_targets.clear();
     endResetModel();
-}
-
-void TargetModel::setDefaultCmd(int rootRow, const QString &defCmd)
-{
-    if (rootRow < 0 || rootRow >= m_targets.size()) {
-        qDebug() << "rootRow not valid";
-        return;
-    }
-
-    for (int i = 0; i < m_targets[rootRow].commands.size(); i++) {
-        if (defCmd == m_targets[rootRow].commands[i].name) {
-            m_targets[rootRow].defaultCmd = defCmd;
-            return;
-        }
-    }
 }
 
 QModelIndex TargetModel::addTargetSet(const QString &setName, const QString &workDir)
@@ -151,35 +136,6 @@ QModelIndex TargetModel::copyTargetOrSet(const QModelIndex &index)
     return createIndex(m_targets[rootRow].commands.count() - 1, 0, rootRow);
 }
 
-QModelIndex TargetModel::defaultTarget(const QModelIndex &targetSet)
-{
-    QModelIndex root = targetSet.sibling(targetSet.row(), 0);
-
-    if (root.parent().isValid()) {
-        // go to the parent so we know where we start
-        root = root.parent();
-    }
-
-    // This is the target-set root
-    auto model = root.model();
-    if (!model) {
-        qDebug() << "No model found";
-        return QModelIndex();
-    }
-    QModelIndex defaultIndex;
-    for (int i = 0; i < model->rowCount(root); ++i) {
-        QModelIndex childIndex = model->index(i, 0, root);
-        if (i == 0) {
-            defaultIndex = childIndex;
-        }
-        if (childIndex.data(Qt::CheckStateRole) == Qt::Checked) {
-            defaultIndex = childIndex;
-            break;
-        }
-    }
-    return defaultIndex;
-}
-
 void TargetModel::deleteItem(const QModelIndex &index)
 {
     if (!index.isValid()) {
@@ -221,6 +177,56 @@ void TargetModel::deleteTargetSet(const QString &targetSet)
             return;
         }
     }
+}
+
+void TargetModel::moveRowUp(const QModelIndex &itemIndex)
+{
+    if (!itemIndex.isValid() || !hasIndex(itemIndex.row(), itemIndex.column(), itemIndex.parent())) {
+        return;
+    }
+
+    QModelIndex parent = itemIndex.parent();
+    int row = itemIndex.row();
+    if (row < 1) {
+        return;
+    }
+    beginMoveRows(parent, row, row, parent, row - 1);
+    if (!parent.isValid()) {
+        m_targets.move(row, row - 1);
+    } else {
+        int rootRow = itemIndex.internalId();
+        if (rootRow < 0 || rootRow >= m_targets.size()) {
+            qWarning() << "Bad root row index" << rootRow << m_targets.size();
+            return;
+        }
+        m_targets[rootRow].commands.move(row, row - 1);
+    }
+    endMoveRows();
+}
+
+void TargetModel::moveRowDown(const QModelIndex &itemIndex)
+{
+    if (!itemIndex.isValid() || !hasIndex(itemIndex.row(), itemIndex.column(), itemIndex.parent())) {
+        return;
+    }
+
+    QModelIndex parent = itemIndex.parent();
+    int row = itemIndex.row();
+    if (row > m_targets.size() - 2) {
+        return;
+    }
+    beginMoveRows(parent, row, row, parent, row + 2);
+    if (!parent.isValid()) {
+        m_targets.move(row, row + 1);
+    } else {
+        int rootRow = itemIndex.internalId();
+        if (rootRow < 0 || rootRow >= m_targets.size()) {
+            qWarning() << "Bad root row index" << rootRow << m_targets.size();
+            return;
+        }
+        m_targets[rootRow].commands.move(row, row + 1);
+    }
+    endMoveRows();
 }
 
 const QString TargetModel::command(const QModelIndex &itemIndex)
@@ -351,12 +357,7 @@ QVariant TargetModel::data(const QModelIndex &index, int role) const
             return QVariant();
         }
 
-        if (role == Qt::CheckStateRole) {
-            if (index.column() != 0) {
-                return QVariant();
-            }
-            return m_targets[rootIndex].commands[row].buildCmd == m_targets[rootIndex].defaultCmd ? Qt::Checked : Qt::Unchecked;
-        } else {
+        if (role == Qt::DisplayRole || role == Qt::EditRole) {
             switch (index.column()) {
             case 0:
                 return m_targets[rootIndex].commands[row].name;
@@ -395,8 +396,7 @@ QVariant TargetModel::headerData(int section, Qt::Orientation orientation, int r
 
 bool TargetModel::setData(const QModelIndex &itemIndex, const QVariant &value, int role)
 {
-    // FIXME
-    if (role != Qt::EditRole && role != Qt::CheckStateRole) {
+    if (role != Qt::EditRole) {
         return false;
     }
     if (!itemIndex.isValid() || !hasIndex(itemIndex.row(), itemIndex.column(), itemIndex.parent())) {
@@ -427,45 +427,34 @@ bool TargetModel::setData(const QModelIndex &itemIndex, const QVariant &value, i
             return false;
         }
 
-        if (role == Qt::CheckStateRole) {
-            if (itemIndex.column() == 0) {
-                m_targets[rootRow].defaultCmd = m_targets[rootRow].commands[row].buildCmd;
-                Q_EMIT dataChanged(createIndex(0, 0, rootRow), createIndex(m_targets[rootRow].commands.size() - 1, 0, rootRow));
-            }
-        } else {
-            QModelIndex rootIndex = createIndex(rootRow, 0);
-            switch (itemIndex.column()) {
-            case 0:
-                m_targets[rootRow].commands[row].name = value.toString();
-                Q_EMIT dataChanged(index(row, 0, rootIndex), index(row, 0, rootIndex));
-                return true;
-            case 1:
-                m_targets[rootRow].commands[row].buildCmd = value.toString();
-                Q_EMIT dataChanged(index(row, 1, rootIndex), index(row, 1, rootIndex));
-                return true;
-            case 2:
-                m_targets[rootRow].commands[row].runCmd = value.toString();
-                Q_EMIT dataChanged(index(row, 2, rootIndex), index(row, 2, rootIndex));
-                return true;
-            }
+        QModelIndex rootIndex = createIndex(rootRow, 0);
+        switch (itemIndex.column()) {
+        case 0:
+            m_targets[rootRow].commands[row].name = value.toString();
+            Q_EMIT dataChanged(index(row, 0, rootIndex), index(row, 0, rootIndex));
+            return true;
+        case 1:
+            m_targets[rootRow].commands[row].buildCmd = value.toString();
+            Q_EMIT dataChanged(index(row, 1, rootIndex), index(row, 1, rootIndex));
+            return true;
+        case 2:
+            m_targets[rootRow].commands[row].runCmd = value.toString();
+            Q_EMIT dataChanged(index(row, 2, rootIndex), index(row, 2, rootIndex));
+            return true;
         }
     }
     return false;
 }
 
-Qt::ItemFlags TargetModel::flags(const QModelIndex &index) const
+Qt::ItemFlags TargetModel::flags(const QModelIndex &itemIndex) const
 {
-    if (!index.isValid()) {
+    if (!itemIndex.isValid()) {
         return Qt::NoItemFlags;
     }
 
     // run command column for target set row
-    if (index.column() == 2 && !index.parent().isValid()) {
-        return Qt::NoItemFlags;
-    }
-
-    if (index.internalId() != InvalidIndex && index.column() == 0) {
-        return Qt::ItemIsEditable | Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable;
+    if (itemIndex.column() == 2 && !itemIndex.parent().isValid()) {
+        return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
     }
 
     return Qt::ItemIsEditable | Qt::ItemIsEnabled | Qt::ItemIsSelectable;
@@ -504,24 +493,24 @@ QModelIndex TargetModel::index(int row, int column, const QModelIndex &parent) c
         return QModelIndex();
     }
 
-    quint32 rootIndex = InvalidIndex;
+    quint32 rootRow = InvalidIndex;
     if (parent.isValid() && parent.internalId() == InvalidIndex) {
         // This is a command (child of a root element)
         if (parent.column() != 0) {
             // Only root item column 0 can have children
             return QModelIndex();
         }
-        rootIndex = parent.row();
+        rootRow = parent.row();
         if (parent.row() >= m_targets.size() || row >= m_targets.at(parent.row()).commands.size()) {
             return QModelIndex();
         }
-        return createIndex(row, column, rootIndex);
+        return createIndex(row, column, rootRow);
     }
     // This is a root item
     if (row >= m_targets.size()) {
         return QModelIndex();
     }
-    return createIndex(row, column, rootIndex);
+    return createIndex(row, column, rootRow);
 }
 
 QModelIndex TargetModel::parent(const QModelIndex &child) const

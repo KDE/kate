@@ -1,7 +1,7 @@
 //
 // Description: Widget for configuring build targets
 //
-// SPDX-FileCopyrightText: 2011-2014 Kåre Särs <kare.sars@iki.fi>
+// SPDX-FileCopyrightText: 2011-2022 Kåre Särs <kare.sars@iki.fi>
 //
 //  SPDX-License-Identifier: LGPL-2.0-only
 
@@ -26,20 +26,24 @@ class TargetsUi : public QWidget
 public:
     TargetsUi(QObject *view, QWidget *parent = nullptr);
 
-    QLabel *targetLabel;
-    QComboBox *targetCombo;
-    QLineEdit *targetFilterEdit;
-    QToolButton *newTarget;
-    QToolButton *copyTarget;
-    QToolButton *deleteTarget;
+    QLabel *targetLabel = nullptr;
+    QComboBox *targetCombo = nullptr;
+    QLineEdit *targetFilterEdit = nullptr;
+    QToolButton *newTarget = nullptr;
+    QToolButton *copyTarget = nullptr;
+    QToolButton *moveTargetUp = nullptr;
+    QToolButton *moveTargetDown = nullptr;
+    QToolButton *deleteTarget = nullptr;
 
-    QTreeView *targetsView;
+    QTreeView *targetsView = nullptr;
     TargetModel targetsModel;
     TargetFilterProxyModel proxyModel;
 
-    QToolButton *addButton;
-    QToolButton *buildButton;
-    QToolButton *runButton;
+    QToolButton *addButton = nullptr;
+    QToolButton *buildButton = nullptr;
+    QToolButton *runButton = nullptr;
+
+    void updateBuildRunButtonStates();
 
 public Q_SLOTS:
     void targetSetSelected(int index);
@@ -52,7 +56,6 @@ protected:
     bool eventFilter(QObject *obj, QEvent *event) override;
 
 private:
-    void updateBuildRunButtonStates();
 
     TargetHtmlDelegate *m_delegate = nullptr;
 };

@@ -1,7 +1,7 @@
 //
 // Description: Widget for configuring build targets
 //
-// SPDX-FileCopyrightText: 2011-2014 Kåre Särs <kare.sars@iki.fi>
+// SPDX-FileCopyrightText: 2011-2022 Kåre Särs <kare.sars@iki.fi>
 //
 //  SPDX-License-Identifier: LGPL-2.0-only
 
@@ -19,11 +19,9 @@ TargetsUi::TargetsUi(QObject *view, QWidget *parent)
 {
     proxyModel.setSourceModel(&targetsModel);
 
-    targetLabel = new QLabel(i18n("Active target-set:"));
     targetCombo = new QComboBox(this);
     targetCombo->setToolTip(i18n("Select active target set"));
     targetCombo->setModel(&proxyModel);
-    targetLabel->setBuddy(targetCombo);
 
     targetFilterEdit = new QLineEdit(this);
     targetFilterEdit->setPlaceholderText(i18n("Filter targets"));
@@ -53,6 +51,14 @@ TargetsUi::TargetsUi(QObject *view, QWidget *parent)
     runButton->setIcon(QIcon::fromTheme(QStringLiteral("media-playback-start")));
     runButton->setToolTip(i18n("Build and run selected target"));
 
+    moveTargetUp = new QToolButton(this);
+    moveTargetUp->setIcon(QIcon::fromTheme(QStringLiteral("go-up")));
+    moveTargetUp->setToolTip(i18n("Move selected target up"));
+
+    moveTargetDown = new QToolButton(this);
+    moveTargetDown->setIcon(QIcon::fromTheme(QStringLiteral("go-down")));
+    moveTargetDown->setToolTip(i18n("Move selected target down"));
+
     targetsView = new QTreeView(this);
     targetsView->setAlternatingRowColors(true);
 
@@ -66,7 +72,6 @@ TargetsUi::TargetsUi(QObject *view, QWidget *parent)
 
     QHBoxLayout *tLayout = new QHBoxLayout();
 
-    tLayout->addWidget(targetLabel);
     tLayout->addWidget(targetCombo);
     tLayout->addWidget(targetFilterEdit);
     tLayout->addWidget(buildButton);
@@ -75,6 +80,8 @@ TargetsUi::TargetsUi(QObject *view, QWidget *parent)
     tLayout->addWidget(addButton);
     tLayout->addWidget(newTarget);
     tLayout->addWidget(copyTarget);
+    tLayout->addWidget(moveTargetUp);
+    tLayout->addWidget(moveTargetDown);
     tLayout->addWidget(deleteTarget);
     int leftMargin = QApplication::style()->pixelMetric(QStyle::PM_LayoutLeftMargin);
     tLayout->setContentsMargins(leftMargin, 0, 0, 0);
@@ -93,6 +100,19 @@ TargetsUi::TargetsUi(QObject *view, QWidget *parent)
     connect(targetFilterEdit, &QLineEdit::textChanged, this, [this](const QString &text) {
         proxyModel.setFilter(text);
         targetsView->expandAll();
+    });
+
+    connect(moveTargetUp, &QToolButton::clicked, this, [this] {
+        const QModelIndex &currentIndex = proxyModel.mapToSource(targetsView->currentIndex());
+        if (currentIndex.isValid()) {
+            targetsModel.moveRowUp(currentIndex);
+        }
+    });
+    connect(moveTargetDown, &QToolButton::clicked, this, [this] {
+        const QModelIndex &currentIndex = proxyModel.mapToSource(targetsView->currentIndex());
+        if (currentIndex.isValid()) {
+            targetsModel.moveRowDown(currentIndex);
+        }
     });
 
     targetsView->installEventFilter(this);
@@ -125,12 +145,23 @@ void TargetsUi::targetActivated(const QModelIndex &index)
 
 void TargetsUi::updateBuildRunButtonStates()
 {
-    const QModelIndex &currentIndex = targetsView->currentIndex();
-    if (!currentIndex.isValid() || !currentIndex.parent().isValid()) {
+    QModelIndex currentIndex = targetsView->currentIndex();
+    if (!currentIndex.isValid()) {
         buildButton->setEnabled(false);
         runButton->setEnabled(false);
         return;
     }
+
+    // If this is a root item, try it's first child
+    if (!currentIndex.parent().isValid()) {
+        currentIndex = targetsView->model()->index(0, 0, currentIndex.siblingAtColumn(0));
+        if (!currentIndex.isValid()) {
+            buildButton->setEnabled(false);
+            runButton->setEnabled(false);
+            return;
+        }
+    }
+
     const bool hasBuildCmd = !currentIndex.siblingAtColumn(1).data().toString().isEmpty();
     const bool hasRunCmd = !currentIndex.siblingAtColumn(2).data().toString().isEmpty();
     buildButton->setEnabled(hasBuildCmd);

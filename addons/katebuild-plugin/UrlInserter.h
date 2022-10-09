@@ -1,8 +1,8 @@
 /***************************************************************************
  *   This file is part of Kate search plugin                               *
- *   SPDX-FileCopyrightText: 2014 Kåre Särs <kare.sars@iki.fi>                           *
+ *   SPDX-FileCopyrightText: 2014 Kåre Särs <kare.sars@iki.fi>             *
  *                                                                         *
- *   SPDX-License-Identifier: LGPL-2.0-or-later
+ *   SPDX-License-Identifier: LGPL-2.0-or-later                            *
  ***************************************************************************/
 
 #ifndef UrlInserter_H

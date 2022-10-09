@@ -1,8 +1,8 @@
 /***************************************************************************
  *   This file is part of Kate search plugin                               *
- *   SPDX-FileCopyrightText: 2014 Kåre Särs <kare.sars@iki.fi>                           *
+ *   SPDX-FileCopyrightText: 2014 Kåre Särs <kare.sars@iki.fi>             *
  *                                                                         *
- *   SPDX-License-Identifier: LGPL-2.0-or-later
+ *   SPDX-License-Identifier: LGPL-2.0-or-later                            *
  ***************************************************************************/
 
 #include "TargetHtmlDelegate.h"
@@ -72,9 +72,6 @@ void TargetHtmlDelegate::paint(QPainter *painter, const QStyleOptionViewItem &op
 
     // draw text
     painter->translate(option.rect.x(), option.rect.y());
-    if (index.column() == 0 && index.internalId() != TargetModel::InvalidIndex) {
-        painter->translate(25, 0);
-    }
     doc.drawContents(painter);
 
     painter->restore();
@@ -85,9 +82,6 @@ QSize TargetHtmlDelegate::sizeHint(const QStyleOptionViewItem & /* option */, co
     QTextDocument doc;
     doc.setHtml(index.data().toString().toHtmlEscaped());
     doc.setDocumentMargin(2);
-    if (index.column() == 0 && index.internalId() != TargetModel::InvalidIndex) {
-        return doc.size().toSize() + QSize(30, 0); // add margin for the check-box;
-    }
     if (index.column() == 1 && !index.parent().isValid()) {
         return doc.size().toSize() + QSize(38, 0); // add space for "Dir"
     }
@@ -151,15 +145,12 @@ void TargetHtmlDelegate::setModelData(QWidget *editor, QAbstractItemModel *model
     model->setData(index, value, Qt::EditRole);
 }
 
-void TargetHtmlDelegate::updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &index) const
+void TargetHtmlDelegate::updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &) const
 {
     QRect rect = option.rect;
     int heightDiff = QToolButton().sizeHint().height() - rect.height();
     int half = heightDiff / 2;
     rect.adjust(0, -half, 0, heightDiff - half);
-    if (index.column() == 0 && index.internalId() != TargetModel::InvalidIndex) {
-        rect.adjust(25, 0, 0, 0);
-    }
     editor->setGeometry(rect);
 }
 

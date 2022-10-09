@@ -298,6 +298,10 @@ public:
         qCInfo(LSPCLIENT) << "should start " << userInsertion << insertedText;
 
         if (!userInsertion || !m_server || insertedText.isEmpty()) {
+            if (!insertedText.isEmpty() && m_triggersSignature.contains(insertedText.back())) {
+                m_triggerSignature = true;
+                return true;
+            }
             return false;
         }
 
@@ -320,6 +324,20 @@ public:
         Q_UNUSED(it)
 
         qCInfo(LSPCLIENT) << "completion invoked" << m_server;
+
+        if (it == UserInvocation && range.isEmpty() && m_signatureHelp) {
+            // If this is a user invocation (ctrl-space), check the last non-space char for sig help trigger
+            QChar c;
+            int i = range.start().column() - 1;
+            int ln = range.start().line();
+            for (; i >= 0; --i) {
+                c = view->document()->characterAt(KTextEditor::Cursor(ln, i));
+                if (!c.isSpace()) {
+                    break;
+                }
+            }
+            m_triggerSignature = m_triggersSignature.contains(c);
+        }
 
         // maybe use WaitForReset ??
         // but more complex and already looks good anyway
@@ -377,10 +395,10 @@ public:
             auto position = view->cursorPosition();
             auto cursor = qMax(range.start(), qMin(range.end(), position));
             m_manager->update(document, false);
-            if (!m_triggerSignature) {
-                m_handle = m_server->documentCompletion(document->url(), {cursor.line(), cursor.column()}, this, handler);
-            }
-            if (m_signatureHelp) {
+
+            m_handle = m_server->documentCompletion(document->url(), {cursor.line(), cursor.column()}, this, handler);
+
+            if (m_signatureHelp && m_triggerSignature) {
                 m_handleSig = m_server->signatureHelp(document->url(), {cursor.line(), cursor.column()}, this, sigHandler);
             }
         }

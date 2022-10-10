@@ -9,7 +9,6 @@
 
 #include <QApplication>
 #include <QHBoxLayout>
-#include <QLabel>
 #include <QMimeDatabase>
 #include <QPainter>
 #include <QPainterPath>
@@ -30,7 +29,7 @@ DiffWidget::DiffWidget(DiffParams p, QWidget *parent)
     : QWidget(parent)
     , m_left(new DiffEditor(p.flags, this))
     , m_right(new DiffEditor(p.flags, this))
-    , m_commitInfo(new QLabel(this))
+    , m_commitInfo(new QPlainTextEdit(this))
     , m_params(p)
 {
     auto layout = new QVBoxLayout(this);
@@ -60,10 +59,12 @@ DiffWidget::DiffWidget(DiffParams p, QWidget *parent)
     }
 
     m_commitInfo->hide();
-    m_commitInfo->setWordWrap(true);
+    m_commitInfo->setWordWrapMode(QTextOption::WordWrap);
     m_commitInfo->setFont(Utils::editorFont());
+    m_commitInfo->setReadOnly(true);
     m_commitInfo->setTextInteractionFlags(Qt::TextSelectableByMouse);
     m_commitInfo->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+    m_commitInfo->setMaximumHeight(250);
 
     KSharedConfig::Ptr config = KSharedConfig::openConfig();
     KConfigGroup cgGeneral = KConfigGroup(config, "General");
@@ -799,7 +800,7 @@ static QString commitInfoFromDiff(const QByteArray &raw)
 void DiffWidget::openDiff(const QByteArray &raw)
 {
     if ((m_params.flags & DiffParams::ShowCommitInfo) && m_style != DiffStyle::Raw) {
-        m_commitInfo->setText(commitInfoFromDiff(raw));
+        m_commitInfo->setPlainText(commitInfoFromDiff(raw));
         m_commitInfo->show();
     } else {
         m_commitInfo->hide();

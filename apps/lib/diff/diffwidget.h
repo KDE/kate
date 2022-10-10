@@ -63,7 +63,7 @@ private:
 
     class DiffEditor *m_left;
     class DiffEditor *m_right;
-    class QLabel *const m_commitInfo;
+    class QPlainTextEdit *const m_commitInfo;
     KSyntaxHighlighting::AbstractHighlighter *leftHl;
     KSyntaxHighlighting::AbstractHighlighter *rightHl;
     DiffStyle m_style = SideBySide;

@@ -14,27 +14,101 @@
 #include <QPainterPath>
 #include <QPointer>
 #include <QRegularExpression>
+#include <QScopedValueRollback>
 #include <QScrollBar>
 #include <QSyntaxHighlighter>
 #include <QTemporaryFile>
+#include <QToolBar>
+#include <QToolButton>
 
 #include <KConfigGroup>
+#include <KLocalizedString>
 #include <KSharedConfig>
 #include <KSyntaxHighlighting/Definition>
 #include <KSyntaxHighlighting/Format>
 #include <KSyntaxHighlighting/Repository>
 #include <KTextEditor/Editor>
 
+class Toolbar : public QToolBar
+{
+    Q_OBJECT
+public:
+    Toolbar(QWidget *parent)
+        : QToolBar(parent)
+    {
+        setContentsMargins({});
+        if (layout()) {
+            layout()->setContentsMargins({});
+        }
+
+        setToolButtonStyle(Qt::ToolButtonIconOnly);
+
+        KConfigGroup cgGeneral = KConfigGroup(KSharedConfig::openConfig(), "General");
+        bool show = cgGeneral.readEntry("DiffWidget Show Commit Info", true);
+
+        m_showCommitInfoAction = addAction(QIcon::fromTheme(QStringLiteral("view-visible")), QString());
+        m_showCommitInfoAction->setCheckable(true);
+        m_showCommitInfoAction->setToolTip(i18n("Show/Hide Commit Info"));
+        m_showCommitInfoAction->setChecked(show);
+        connect(m_showCommitInfoAction, &QAction::toggled, this, &Toolbar::showCommitInfoChanged);
+
+        m_showNextFile = addAction(QIcon::fromTheme(QStringLiteral("arrow-down-double")), QString());
+        m_showNextFile->setToolTip(i18n("Jump to Next File"));
+        connect(m_showNextFile, &QAction::triggered, this, &Toolbar::jumpToNextFile);
+
+        m_showPrevFile = addAction(QIcon::fromTheme(QStringLiteral("arrow-up-double")), QString());
+        m_showPrevFile->setToolTip(i18n("Jump to Previous File"));
+        connect(m_showPrevFile, &QAction::triggered, this, &Toolbar::jumpToPrevFile);
+
+        m_showNextHunk = addAction(QIcon::fromTheme(QStringLiteral("arrow-down")), QString());
+        m_showNextHunk->setToolTip(i18n("Jump to Next Hunk"));
+        connect(m_showNextHunk, &QAction::triggered, this, &Toolbar::jumpToNextHunk);
+
+        m_showPrevHunk = addAction(QIcon::fromTheme(QStringLiteral("arrow-up")), QString());
+        m_showPrevHunk->setToolTip(i18n("Jump to Previous Hunk"));
+        connect(m_showPrevHunk, &QAction::triggered, this, &Toolbar::jumpToPrevHunk);
+    }
+
+    void setShowCommitActionVisible(bool vis)
+    {
+        if (m_showCommitInfoAction->isVisible() != vis) {
+            m_showCommitInfoAction->setVisible(vis);
+        }
+    }
+
+    bool showCommitInfo()
+    {
+        return m_showCommitInfoAction->isChecked();
+    }
+
+private:
+    QAction *m_showCommitInfoAction;
+    QAction *m_showNextFile;
+    QAction *m_showPrevFile;
+    QAction *m_showNextHunk;
+    QAction *m_showPrevHunk;
+
+Q_SIGNALS:
+    void showCommitInfoChanged(bool);
+    void jumpToNextFile();
+    void jumpToPrevFile();
+    void jumpToNextHunk();
+    void jumpToPrevHunk();
+};
+
 DiffWidget::DiffWidget(DiffParams p, QWidget *parent)
     : QWidget(parent)
     , m_left(new DiffEditor(p.flags, this))
     , m_right(new DiffEditor(p.flags, this))
     , m_commitInfo(new QPlainTextEdit(this))
+    , m_toolbar(new Toolbar(this))
     , m_params(p)
 {
     auto layout = new QVBoxLayout(this);
+    layout->setSpacing(2);
     layout->setContentsMargins({});
     layout->addWidget(m_commitInfo);
+    layout->addWidget(m_toolbar);
     auto diffLayout = new QHBoxLayout;
     diffLayout->setContentsMargins({});
     diffLayout->addWidget(m_left);
@@ -47,9 +121,15 @@ DiffWidget::DiffWidget(DiffParams p, QWidget *parent)
     rightHl->setTheme(KTextEditor::Editor::instance()->theme());
 
     connect(m_left->verticalScrollBar(), &QScrollBar::valueChanged, this, [this](int v) {
+        if (m_stopScrollSync) {
+            return;
+        }
         m_right->verticalScrollBar()->setValue(v);
     });
     connect(m_right->verticalScrollBar(), &QScrollBar::valueChanged, this, [this](int v) {
+        if (m_stopScrollSync) {
+            return;
+        }
         m_left->verticalScrollBar()->setValue(v);
     });
 
@@ -65,6 +145,16 @@ DiffWidget::DiffWidget(DiffParams p, QWidget *parent)
     m_commitInfo->setTextInteractionFlags(Qt::TextSelectableByMouse);
     m_commitInfo->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
     m_commitInfo->setMaximumHeight(250);
+
+    connect(m_toolbar, &Toolbar::showCommitInfoChanged, this, [this](bool v) {
+        m_commitInfo->setVisible(v);
+        KConfigGroup cgGeneral = KConfigGroup(KSharedConfig::openConfig(), "General");
+        cgGeneral.writeEntry("DiffWidget Show Commit Info", v);
+    });
+    connect(m_toolbar, &Toolbar::jumpToNextFile, this, &DiffWidget::jumpToNextFile);
+    connect(m_toolbar, &Toolbar::jumpToPrevFile, this, &DiffWidget::jumpToPrevFile);
+    connect(m_toolbar, &Toolbar::jumpToNextHunk, this, &DiffWidget::jumpToNextHunk);
+    connect(m_toolbar, &Toolbar::jumpToPrevHunk, this, &DiffWidget::jumpToPrevHunk);
 
     KSharedConfig::Ptr config = KSharedConfig::openConfig();
     KConfigGroup cgGeneral = KConfigGroup(config, "General");
@@ -800,10 +890,14 @@ static QString commitInfoFromDiff(const QByteArray &raw)
 void DiffWidget::openDiff(const QByteArray &raw)
 {
     if ((m_params.flags & DiffParams::ShowCommitInfo) && m_style != DiffStyle::Raw) {
+        m_toolbar->setShowCommitActionVisible(true);
         m_commitInfo->setPlainText(commitInfoFromDiff(raw));
-        m_commitInfo->show();
+        if (m_toolbar->showCommitInfo()) {
+            m_commitInfo->show();
+        }
     } else {
         m_commitInfo->hide();
+        m_toolbar->setShowCommitActionVisible(false);
     }
 
     if (m_style == SideBySide) {
@@ -861,3 +955,77 @@ int DiffWidget::hunkLineCount(int hunkLine)
 
     return 0;
 }
+
+void DiffWidget::jumpToNextFile()
+{
+    const int block = m_left->firstVisibleBlockNumber();
+    int nextFileLineNo = 0;
+    for (const auto &i : m_linesWithFileName) {
+        if (i > block) {
+            nextFileLineNo = i;
+            break;
+        }
+    }
+
+    QScopedValueRollback r(m_stopScrollSync, true);
+    m_left->scrollToBlock(nextFileLineNo);
+    if (m_style == SideBySide) {
+        m_right->scrollToBlock(nextFileLineNo);
+    }
+}
+
+void DiffWidget::jumpToPrevFile()
+{
+    const int block = m_left->firstVisibleBlockNumber();
+    int prevFileLineNo = 0;
+    for (auto i = m_linesWithFileName.crbegin(); i != m_linesWithFileName.crend(); ++i) {
+        if (*i < block) {
+            prevFileLineNo = *i;
+            break;
+        }
+    }
+
+    QScopedValueRollback r(m_stopScrollSync, true);
+    m_left->scrollToBlock(prevFileLineNo);
+    if (m_style == SideBySide) {
+        m_right->scrollToBlock(prevFileLineNo);
+    }
+}
+
+void DiffWidget::jumpToNextHunk()
+{
+    const int block = m_left->firstVisibleBlockNumber();
+    int nextHunkLineNo = 0;
+    for (const auto &i : m_lineToDiffHunkLine) {
+        if (i.line > block) {
+            nextHunkLineNo = i.line;
+            break;
+        }
+    }
+
+    QScopedValueRollback r(m_stopScrollSync, true);
+    m_left->scrollToBlock(nextHunkLineNo);
+    if (m_style == SideBySide) {
+        m_right->scrollToBlock(nextHunkLineNo);
+    }
+}
+
+void DiffWidget::jumpToPrevHunk()
+{
+    const int block = m_left->firstVisibleBlockNumber();
+    int prevHunkLineNo = 0;
+    for (auto i = m_lineToDiffHunkLine.crbegin(); i != m_lineToDiffHunkLine.crend(); ++i) {
+        if (i->line < block) {
+            prevHunkLineNo = i->line;
+            break;
+        }
+    }
+
+    QScopedValueRollback r(m_stopScrollSync, true);
+    m_left->scrollToBlock(prevHunkLineNo);
+    if (m_style == SideBySide) {
+        m_right->scrollToBlock(prevHunkLineNo);
+    }
+}
+
+#include "diffwidget.moc"

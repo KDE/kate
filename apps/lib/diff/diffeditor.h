@@ -12,6 +12,8 @@
 #include <KSyntaxHighlighting/FoldingRegion>
 #include <KSyntaxHighlighting/SyntaxHighlighter>
 
+#include <QTimeLine>
+
 class DiffSyntaxHighlighter final : public KSyntaxHighlighting::SyntaxHighlighter
 {
 public:
@@ -93,6 +95,13 @@ public:
         return green1;
     }
 
+    int firstVisibleBlockNumber() const
+    {
+        return QPlainTextEdit::firstVisibleBlock().blockNumber();
+    }
+
+    void scrollToBlock(int block);
+
 protected:
     void resizeEvent(QResizeEvent *event) override;
     void paintEvent(QPaintEvent *e) override;
@@ -115,6 +124,9 @@ private:
     class LineNumArea *const m_lineNumArea;
     class DiffWidget *const m_diffWidget;
     DiffParams::Flags m_flags;
+
+    QTimeLine m_timeLine;
+    QRect m_animateTextRect;
 
 Q_SIGNALS:
     void switchStyle(int);

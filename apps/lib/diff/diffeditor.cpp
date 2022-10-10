@@ -91,6 +91,19 @@ DiffEditor::DiffEditor(DiffParams::Flags f, QWidget *parent)
     connect(this, &QPlainTextEdit::updateRequest, this, &DiffEditor::updateLineNumberArea);
 
     setReadOnly(true);
+
+    m_timeLine.setDuration(1000);
+    m_timeLine.setFrameRange(0, 250);
+    connect(&m_timeLine, &QTimeLine::frameChanged, this, [this](int) {
+        if (!m_animateTextRect.isNull()) {
+            viewport()->update(m_animateTextRect);
+        }
+    });
+    connect(&m_timeLine, &QTimeLine::finished, this, [this] {
+        auto r = m_animateTextRect;
+        m_animateTextRect = QRect();
+        viewport()->update(r);
+    });
 }
 
 void DiffEditor::updateDiffColors(bool darkMode)
@@ -104,6 +117,25 @@ void DiffEditor::updateDiffColors(bool darkMode)
     red2.setAlphaF(0.20);
     green2 = darkMode ? QColor(Qt::green).darker(110) : QColor(Qt::darkGreen).lighter(120);
     green2.setAlphaF(0.20);
+}
+
+void DiffEditor::scrollToBlock(int block)
+{
+    if (m_timeLine.state() == QTimeLine::Running) {
+        m_timeLine.stop();
+        auto r = m_animateTextRect;
+        m_animateTextRect = QRect();
+        viewport()->update(r);
+    }
+    int lineNo = 0;
+    for (int i = 0; i < block; ++i) {
+        lineNo += document()->findBlockByNumber(i).lineCount();
+    }
+    verticalScrollBar()->setValue(lineNo);
+
+    QTextBlock b = document()->findBlockByNumber(block);
+    m_animateTextRect = blockBoundingGeometry(b).translated(contentOffset()).toRect();
+    m_timeLine.start();
 }
 
 void DiffEditor::resizeEvent(QResizeEvent *event)
@@ -331,6 +363,12 @@ void DiffEditor::paintEvent(QPaintEvent *e)
             rCopy.setLeft(rCopy.left() - 2);
             p.drawRect(rCopy);
             p.restore();
+        }
+
+        if (m_animateTextRect.contains(offset.toPoint())) {
+            QColor c(Qt::red);
+            c.setAlpha(m_timeLine.currentFrame());
+            p.fillRect(m_animateTextRect, c);
         }
 
         offset.ry() += r.height();

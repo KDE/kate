@@ -51,6 +51,11 @@ private:
     void applyDiff(const QString &diff, ApplyFlags flags);
     void runGitDiff();
 
+    void jumpToNextFile();
+    void jumpToPrevFile();
+    void jumpToNextHunk();
+    void jumpToPrevHunk();
+
     // Struct representing a view line to diff line in the original diff
     // Lines which are added or removed are stored, context lines and
     // other metaData is ignored
@@ -64,6 +69,7 @@ private:
     class DiffEditor *m_left;
     class DiffEditor *m_right;
     class QPlainTextEdit *const m_commitInfo;
+    class Toolbar *const m_toolbar;
     KSyntaxHighlighting::AbstractHighlighter *leftHl;
     KSyntaxHighlighting::AbstractHighlighter *rightHl;
     DiffStyle m_style = SideBySide;
@@ -72,4 +78,5 @@ private:
     QVector<ViewLineToDiffLine> m_lineToRawDiffLine;
     QVector<ViewLineToDiffLine> m_lineToDiffHunkLine;
     QVector<int> m_linesWithFileName;
+    bool m_stopScrollSync = false;
 };

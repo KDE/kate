@@ -85,7 +85,7 @@ ConfigView::ConfigView(QWidget *parent, KTextEditor::MainWindow *mainWin)
     m_addTarget->setToolTip(i18n("Add new target"));
 
     m_copyTarget = new QToolButton(this);
-    m_copyTarget->setIcon(QIcon::fromTheme(QStringLiteral("document-copy")));
+    m_copyTarget->setIcon(QIcon::fromTheme(QStringLiteral("edit-copy")));
     m_copyTarget->setToolTip(i18n("Copy target"));
 
     m_deleteTarget = new QToolButton(this);

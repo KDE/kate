@@ -12,6 +12,7 @@
 #include "kateprojectviewtree.h"
 
 #include <QFileSystemWatcher>
+#include <QTimer>
 
 class KLineEdit;
 class KateProjectPluginView;
@@ -66,7 +67,7 @@ private Q_SLOTS:
      * React on filter change
      * @param filterText new filter text
      */
-    void filterTextChanged(const QString &filterText);
+    void filterTextChanged();
 
     /**
      * On project model change, check if project
@@ -105,6 +106,11 @@ private:
      * watches for changes to .git/HEAD
      */
     QFileSystemWatcher m_branchChangedWatcher;
+
+    /**
+     * filter timer
+     */
+    QTimer m_filterStartTimer;
 };
 
 #endif

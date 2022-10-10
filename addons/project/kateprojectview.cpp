@@ -58,12 +58,18 @@ KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject 
     });
     chckbr->setText(i18n("Checkout Git Branch"));
 
+    m_filterStartTimer.setSingleShot(true);
+    m_filterStartTimer.setInterval(400);
+    m_filterStartTimer.callOnTimeout(this, &KateProjectView::filterTextChanged);
+
     /**
      * setup filter line edit
      */
     m_filter->setPlaceholderText(i18n("Filter..."));
     m_filter->setClearButtonEnabled(true);
-    connect(m_filter, &KLineEdit::textChanged, this, &KateProjectView::filterTextChanged);
+    connect(m_filter, &KLineEdit::textChanged, this, [this] {
+        m_filterStartTimer.start();
+    });
 
     /**
      * Setup git checkout stuff
@@ -98,8 +104,9 @@ void KateProjectView::openSelectedDocument()
     m_treeView->openSelectedDocument();
 }
 
-void KateProjectView::filterTextChanged(const QString &filterText)
+void KateProjectView::filterTextChanged()
 {
+    const auto filterText = m_filter->text();
     /**
      * filter
      */

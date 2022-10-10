@@ -9,6 +9,7 @@
 
 #include "kateapp.h"
 #include "kateviewmanager.h"
+#include "ktexteditor_utils.h"
 #include "recentfilesmodel.h"
 #include "savedsessionsmodel.h"
 
@@ -20,6 +21,7 @@
 #include <KIO/OpenFileManagerWindowJob>
 
 #include <QClipboard>
+#include <QDir>
 #include <QGraphicsOpacityEffect>
 #include <QLabel>
 #include <QMenu>
@@ -82,6 +84,14 @@ WelcomeView::WelcomeView(KateViewManager *viewManager, QWidget *parent)
         if (index.isValid()) {
             const QUrl url = m_recentFilesModel->url(index);
             Q_ASSERT(url.isValid());
+            if (url.isLocalFile()) {
+                QDir dir = {url.path()};
+                if (dir.exists()) {
+                    Utils::openDirectoryOrProject(m_viewManager->mainWindow(), dir);
+                    return;
+                }
+            }
+
             m_viewManager->openUrl(url);
         }
     });

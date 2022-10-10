@@ -295,6 +295,11 @@ private Q_SLOTS:
     void openDirectoryOrProject();
 
     /**
+     * Open a folder / project
+     */
+    void openDirectoryOrProject(const QDir &dir);
+
+    /**
      * Show projects To-Dos and Fix-mes
      */
     static void showProjectTodos();

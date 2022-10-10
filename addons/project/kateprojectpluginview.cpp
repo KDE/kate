@@ -26,8 +26,10 @@
 #include <KActionMenu>
 #include <KLocalizedString>
 #include <KPluginFactory>
+#include <KStandardAction>
 #include <KStringHandler>
 #include <KXMLGUIFactory>
+#include <KXmlGuiWindow>
 
 #include <QAction>
 #include <QFileDialog>
@@ -819,6 +821,11 @@ void KateProjectPluginView::openDirectoryOrProject()
         return;
     }
 
+    openDirectoryOrProject(dir);
+}
+
+void KateProjectPluginView::openDirectoryOrProject(const QDir &dir)
+{
     // switch to this project if there
     if (auto project = m_plugin->projectForDir(dir, true)) {
         // just activate the right plugin in the toolview
@@ -826,6 +833,15 @@ void KateProjectPluginView::openDirectoryOrProject()
 
         // this is a user action, ensure the toolview is visible
         mainWindow()->showToolView(m_toolView);
+
+        // add the project to the recently opened items list
+        if (auto *parentClient = qobject_cast<KXmlGuiWindow *>(m_mainWindow->window())) {
+            if (auto *openRecentAction = parentClient->action(KStandardAction::name(KStandardAction::StandardAction::OpenRecent))) {
+                if (auto *recentFilesAction = qobject_cast<KRecentFilesAction *>(openRecentAction)) {
+                    recentFilesAction->addUrl(QUrl(dir.path()));
+                }
+            }
+        }
     }
 }
 

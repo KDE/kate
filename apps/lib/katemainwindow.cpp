@@ -289,7 +289,20 @@ void KateMainWindow::setupActions()
         ->addAction(KStandardAction::Open, QStringLiteral("file_open"), m_viewManager, SLOT(slotDocumentOpen()))
         ->setWhatsThis(i18n("Open an existing document for editing"));
 
-    m_fileOpenRecent = KStandardAction::openRecent(m_viewManager, SLOT(openUrl(QUrl)), this);
+    m_fileOpenRecent = KStandardAction::openRecent(
+        m_viewManager,
+        [this](const QUrl &url) {
+            if (url.isLocalFile()) {
+                QDir dir(url.path());
+                if (dir.exists()) {
+                    Utils::openDirectoryOrProject(this, dir);
+                    return;
+                }
+            }
+
+            openUrl(url);
+        },
+        this);
     m_fileOpenRecent->setMaxItems(KateConfigDialog::recentFilesMaxCount());
     actionCollection()->addAction(m_fileOpenRecent->objectName(), m_fileOpenRecent);
     m_fileOpenRecent->setWhatsThis(i18n("This lists files which you have opened recently, and allows you to easily open them again."));

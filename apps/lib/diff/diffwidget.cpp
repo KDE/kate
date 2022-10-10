@@ -572,6 +572,7 @@ void DiffWidget::parseAndShowDiff(const QByteArray &raw)
             if (m_params.flags.testFlag(DiffParams::ShowFileName)) {
                 left.append(Utils::fileNameFromPath(srcFile));
                 right.append(Utils::fileNameFromPath(tgtFile));
+                Q_ASSERT(left.size() == right.size() && lineA == lineB);
                 linesWithFileName.append(lineA);
                 lineNumsA.append(-1);
                 lineNumsB.append(-1);
@@ -670,6 +671,7 @@ void DiffWidget::parseAndShowDiff(const QByteArray &raw)
                 lineB += 1;
                 break;
             } else if (l.startsWith(QStringLiteral("diff --git "))) {
+                balanceHunkLines(left, right, lineA, lineB, lineNumsA, lineNumsB);
                 // Start of a new file
                 markInlineDiffs(hunkChangedLinesA, hunkChangedLinesB, leftHlts, rightHlts);
                 // add new line

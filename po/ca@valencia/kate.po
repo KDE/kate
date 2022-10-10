@@ -1337,7 +1337,7 @@ msgstr "Guarda la &sessió"
 #: lib/katemainwindow.cpp:473
 #, kde-format
 msgid "Save Session &As..."
-msgstr "Guarda la sessió com &a..."
+msgstr "Anomena i gu&arda la sessió..."
 
 #: lib/katemainwindow.cpp:480 lib/kateviewspace.cpp:58
 #, kde-format
@@ -1404,7 +1404,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
-msgstr "Obri recursivament els fitxers"
+msgstr "Obriu recursivament els fitxers"
 
 #: lib/katemainwindow.cpp:833
 #, kde-format

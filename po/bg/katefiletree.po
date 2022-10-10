@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-09 00:52+0000\n"
-"PO-Revision-Date: 2022-09-12 18:56+0200\n"
+"PO-Revision-Date: 2022-10-09 07:25+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -406,15 +406,14 @@ msgid "Next Document"
 msgstr "Следващ документ"
 
 #: katefiletreeplugin.cpp:259
-#, fuzzy, kde-format
-#| msgid "&Show Active"
+#, kde-format
 msgid "&Show Active Document"
-msgstr "&Показване на активните"
+msgstr "&Показване на активния документ"
 
 #: katefiletreeplugin.cpp:264
 #, kde-format
 msgid "Save"
-msgstr ""
+msgstr "Запазване"
 
 #: katefiletreeplugin.cpp:265
 #, kde-format
@@ -424,11 +423,10 @@ msgstr "Запазване на текущия документ"
 #: katefiletreeplugin.cpp:269
 #, kde-format
 msgid "Save As"
-msgstr ""
+msgstr "Запазване като"
 
 #: katefiletreeplugin.cpp:270
-#, fuzzy, kde-format
-#| msgid "Save current document under new name"
+#, kde-format
 msgid "Save the current document under a new name"
 msgstr "Запазване на текущия документ под ново име"
 

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-09 00:52+0000\n"
-"PO-Revision-Date: 2022-09-12 12:18+0200\n"
+"PO-Revision-Date: 2022-10-09 15:15+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -407,15 +407,14 @@ msgid "Next Document"
 msgstr "Volgend document"
 
 #: katefiletreeplugin.cpp:259
-#, fuzzy, kde-format
-#| msgid "&Show Active"
+#, kde-format
 msgid "&Show Active Document"
-msgstr "Actieven &tonen"
+msgstr "Actieve document &tonen"
 
 #: katefiletreeplugin.cpp:264
 #, kde-format
 msgid "Save"
-msgstr ""
+msgstr "Opslaan"
 
 #: katefiletreeplugin.cpp:265
 #, kde-format
@@ -425,13 +424,12 @@ msgstr "Het huidige document opslaan"
 #: katefiletreeplugin.cpp:269
 #, kde-format
 msgid "Save As"
-msgstr ""
+msgstr "Opslaan als"
 
 #: katefiletreeplugin.cpp:270
-#, fuzzy, kde-format
-#| msgid "Save current document under new name"
+#, kde-format
 msgid "Save the current document under a new name"
-msgstr "Huidige document onder een nieuwe naam opslaan"
+msgstr "Het huidige document opslaan onder een nieuwe naam"
 
 #. i18n: ectx: Menu (go)
 #: ui.rc:7

@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-08 00:52+0000\n"
-"PO-Revision-Date: 2022-08-19 21:19+0200\n"
+"PO-Revision-Date: 2022-10-09 08:53+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -20,12 +20,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 22.04.3\n"
+"X-Generator: Lokalize 22.08.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Iñigo Salvador Azurmendi, Inaki Larrañaga Murgoitio"
+msgstr "Iñigo Salvador Azurmendi,Inaki Larrañaga Murgoitio"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
@@ -95,10 +95,9 @@ msgid "Build Default Target"
 msgstr "Eraiki lehenetsitako jomuga"
 
 #: plugin_katebuild.cpp:147
-#, fuzzy, kde-format
-#| msgid "Build Default Target"
+#, kde-format
 msgid "Build and Run Default Target"
-msgstr "Eraiki lehenetsitako jomuga"
+msgstr "Eraiki eta ibili lehenetsitako jomuga"
 
 #: plugin_katebuild.cpp:151
 #, kde-format
@@ -275,7 +274,7 @@ msgstr "Eraikitzea osatu da arazorik gabe."
 #: plugin_katebuild.cpp:1050
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
-msgstr ""
+msgstr "Ezin du exekutatu: %1 ez da ezarri laneko direktorioa."
 
 #: plugin_katebuild.cpp:1242
 #, kde-format
@@ -384,7 +383,7 @@ msgstr "Laneko direktorioa / komandoa"
 #: TargetModel.cpp:391
 #, kde-format
 msgid "Run Command"
-msgstr ""
+msgstr "Ibili komandoa"
 
 #: targets.cpp:22
 #, kde-format
@@ -427,10 +426,9 @@ msgid "Build selected target"
 msgstr "Eraiki hautatutako jomuga"
 
 #: targets.cpp:54
-#, fuzzy, kde-format
-#| msgid "Build selected target"
+#, kde-format
 msgid "Build and run selected target"
-msgstr "Eraiki hautatutako jomuga"
+msgstr "Eraiki eta ibili hautatutako jomuga"
 
 #. i18n: ectx: Menu (Build Menubar)
 #: ui.rc:6

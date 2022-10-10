@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-09 00:52+0000\n"
-"PO-Revision-Date: 2022-10-05 10:19+0300\n"
+"PO-Revision-Date: 2022-10-09 05:59+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -1377,7 +1377,7 @@ msgstr "Mevcut belge dışındaki tüm belgeleri kapat"
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
 msgstr ""
-"Bu, menü çubuğunu tamamen gizleyecek. %1 yazarak geri getirebilirsiniz."
+"Bu, menü çubuğunu tümüyle gizleyecektir. %1 ile yeniden gösterebilirsiniz."
 
 #: lib/katemainwindow.cpp:729
 #, kde-format

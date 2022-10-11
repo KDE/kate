@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-07 00:50+0000\n"
+"POT-Creation-Date: 2022-10-11 00:50+0000\n"
 "PO-Revision-Date: 2022-08-22 16:54+0200\n"
 "Last-Translator: Matej Mrenica <matejm98mthw@gmail.com>\n"
 "Language-Team: Slovak <kde-i18n-doc@kde.org>\n"
@@ -200,7 +200,7 @@ msgstr "Zrušiť operáciu"
 msgid " canceled."
 msgstr " zrušené."
 
-#: gitwidget.cpp:279 kateprojectview.cpp:64
+#: gitwidget.cpp:279 kateprojectview.cpp:68
 #, kde-format
 msgid "Filter..."
 msgstr "Filtrovať..."
@@ -937,7 +937,7 @@ msgstr "Chcete vymazať súbor '%1'?"
 msgid "Checkout Git Branch"
 msgstr ""
 
-#: kateprojectview.cpp:76
+#: kateprojectview.cpp:82
 #, kde-format
 msgid "Checkout branch"
 msgstr ""

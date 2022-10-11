@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-09 00:52+0000\n"
-"PO-Revision-Date: 2022-09-24 06:12+0200\n"
+"PO-Revision-Date: 2022-10-10 03:39+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -348,7 +348,7 @@ msgstr "Kåre Särs"
 #: lib/kateapp.cpp:150
 #, kde-format
 msgid "Waqar Ahmed"
-msgstr ""
+msgstr "Waqar Ahmed"
 
 #: lib/kateapp.cpp:151
 #, kde-format
@@ -1028,7 +1028,7 @@ msgstr ""
 #: lib/katemainwindow.cpp:235
 #, kde-format
 msgid "&Window Color Scheme"
-msgstr ""
+msgstr "&ფანჯრის ფერის სქემა"
 
 #: lib/katemainwindow.cpp:239
 #, kde-format
@@ -1579,7 +1579,7 @@ msgstr ""
 #: lib/katemwmodonhddialog.cpp:338
 #, kde-format
 msgid "Diff Output"
-msgstr ""
+msgstr "Diff -ის გამოტანა"
 
 #: lib/kateoutputview.cpp:37
 #, kde-format

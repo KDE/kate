@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-07 00:50+0000\n"
+"POT-Creation-Date: 2022-10-11 00:50+0000\n"
 "PO-Revision-Date: 2022-02-08 15:59+0300\n"
 "Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
@@ -210,7 +210,7 @@ msgstr "Отмена операции"
 msgid " canceled."
 msgstr " отменено."
 
-#: gitwidget.cpp:279 kateprojectview.cpp:64
+#: gitwidget.cpp:279 kateprojectview.cpp:68
 #, kde-format
 msgid "Filter..."
 msgstr "Фильтр..."
@@ -956,7 +956,7 @@ msgstr "Удалить файл «%1»?"
 msgid "Checkout Git Branch"
 msgstr "Извлечь ветвь Git"
 
-#: kateprojectview.cpp:76
+#: kateprojectview.cpp:82
 #, fuzzy, kde-format
 #| msgid "Checkout Branch"
 msgid "Checkout branch"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-07 00:50+0000\n"
+"POT-Creation-Date: 2022-10-11 00:50+0000\n"
 "PO-Revision-Date: 2022-09-28 20:39+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -203,7 +203,7 @@ msgstr "Zaniechaj działania"
 msgid " canceled."
 msgstr " anulowane."
 
-#: gitwidget.cpp:279 kateprojectview.cpp:64
+#: gitwidget.cpp:279 kateprojectview.cpp:68
 #, kde-format
 msgid "Filter..."
 msgstr "Odfiltruj..."
@@ -932,7 +932,7 @@ msgstr "Czy na pewno usunąć plik '%1'?"
 msgid "Checkout Git Branch"
 msgstr "Pobierz wersję wyjściową gałęzi Git"
 
-#: kateprojectview.cpp:76
+#: kateprojectview.cpp:82
 #, kde-format
 msgid "Checkout branch"
 msgstr "Pobierz wersję wyjściową gałęzi"

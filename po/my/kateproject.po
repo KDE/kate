@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-07 00:50+0000\n"
+"POT-Creation-Date: 2022-10-11 00:50+0000\n"
 "PO-Revision-Date: 2021-09-15 03:16+0630\n"
 "Last-Translator: \n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
@@ -201,7 +201,7 @@ msgstr "လုပ်ဆောင်မှုပယ်ဖျက်မည်"
 msgid " canceled."
 msgstr " ပယ်ဖျက်ခဲ့သည်။"
 
-#: gitwidget.cpp:279 kateprojectview.cpp:64
+#: gitwidget.cpp:279 kateprojectview.cpp:68
 #, kde-format
 msgid "Filter..."
 msgstr "စစ်ထုတ်မည်..."
@@ -937,7 +937,7 @@ msgstr "ဖိုင်လ် \"%1\" ကို သင်တကယ်ဖျက်
 msgid "Checkout Git Branch"
 msgstr "ဂစ်-ကုတ်ကိုင်း ပြောင်းလဲမည်"
 
-#: kateprojectview.cpp:76
+#: kateprojectview.cpp:82
 #, fuzzy, kde-format
 #| msgid "Checkout Branch"
 msgid "Checkout branch"

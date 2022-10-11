@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-07 00:50+0000\n"
+"POT-Creation-Date: 2022-10-11 00:50+0000\n"
 "PO-Revision-Date: 2022-09-24 10:43+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -196,7 +196,7 @@ msgstr "Avbryt åtgärd"
 msgid " canceled."
 msgstr " avbruten."
 
-#: gitwidget.cpp:279 kateprojectview.cpp:64
+#: gitwidget.cpp:279 kateprojectview.cpp:68
 #, kde-format
 msgid "Filter..."
 msgstr "Filter..."
@@ -925,7 +925,7 @@ msgstr "Är du säker på att du vill ta bort filen '%1'?"
 msgid "Checkout Git Branch"
 msgstr "Checka ut Git-gren"
 
-#: kateprojectview.cpp:76
+#: kateprojectview.cpp:82
 #, kde-format
 msgid "Checkout branch"
 msgstr "Checka ut gren"

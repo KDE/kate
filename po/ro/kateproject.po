@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-07 00:50+0000\n"
+"POT-Creation-Date: 2022-10-11 00:50+0000\n"
 "PO-Revision-Date: 2021-05-15 17:03+0100\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian\n"
@@ -200,7 +200,7 @@ msgstr ""
 msgid " canceled."
 msgstr ""
 
-#: gitwidget.cpp:279 kateprojectview.cpp:64
+#: gitwidget.cpp:279 kateprojectview.cpp:68
 #, kde-format
 msgid "Filter..."
 msgstr "Filtru..."
@@ -939,7 +939,7 @@ msgstr ""
 msgid "Checkout Git Branch"
 msgstr ""
 
-#: kateprojectview.cpp:76
+#: kateprojectview.cpp:82
 #, kde-format
 msgid "Checkout branch"
 msgstr ""

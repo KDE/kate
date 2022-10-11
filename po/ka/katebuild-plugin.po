@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-08 00:52+0000\n"
-"PO-Revision-Date: 2022-08-24 20:36+0200\n"
+"PO-Revision-Date: 2022-10-10 03:44+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -45,7 +45,7 @@ msgstr "ჩვენება:"
 #: build.ui:121 build.ui:146
 #, kde-format
 msgid "Build again"
-msgstr ""
+msgstr "თავიდან აგება"
 
 #. i18n: ectx: property (text), widget (QPushButton, cancelBuildButton)
 #. i18n: ectx: property (text), widget (QPushButton, cancelBuildButton2)
@@ -59,7 +59,7 @@ msgstr "_გაუქმება"
 #, kde-format
 msgctxt "Header for the file name column"
 msgid "File"
-msgstr ""
+msgstr "ფაილი"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, errTreeWidget)
 #: build.ui:189
@@ -83,22 +83,22 @@ msgstr "აგება"
 #: plugin_katebuild.cpp:139
 #, kde-format
 msgid "Select Target..."
-msgstr ""
+msgstr "აირჩიეთ სამიზნე..."
 
 #: plugin_katebuild.cpp:143
 #, kde-format
 msgid "Build Default Target"
-msgstr ""
+msgstr "ნაგულისხმები სამიზნის აგება"
 
 #: plugin_katebuild.cpp:147
 #, kde-format
 msgid "Build and Run Default Target"
-msgstr ""
+msgstr "ნაგულისხმები სამიზნის აგება და გაშვება"
 
 #: plugin_katebuild.cpp:151
 #, kde-format
 msgid "Build Previous Target"
-msgstr ""
+msgstr "წინა სამიზნის აგება"
 
 #: plugin_katebuild.cpp:155
 #, kde-format
@@ -108,29 +108,29 @@ msgstr "შეჩერება"
 #: plugin_katebuild.cpp:160
 #, kde-format
 msgid "Next Error"
-msgstr ""
+msgstr "შემდეგი შეცდომა"
 
 #: plugin_katebuild.cpp:166
 #, kde-format
 msgid "Previous Error"
-msgstr ""
+msgstr "წინა შეცდომა"
 
 #: plugin_katebuild.cpp:172
 #, kde-format
 msgid "Show Marks"
-msgstr ""
+msgstr "ნიშნების ჩვენება"
 
 #: plugin_katebuild.cpp:181
 #, kde-format
 msgctxt "Tab label"
 msgid "Target Settings"
-msgstr ""
+msgstr "სამიზნის მორგება"
 
 #: plugin_katebuild.cpp:316 plugin_katebuild.cpp:1345 plugin_katebuild.cpp:1356
 #: plugin_katebuild.cpp:1377 plugin_katebuild.cpp:1385
 #, kde-format
 msgid "Project Plugin Targets"
-msgstr ""
+msgstr "პროექტის დამატების სამიზნეები"
 
 #: plugin_katebuild.cpp:485
 #, kde-kuit-format
@@ -144,13 +144,13 @@ msgstr ""
 #, kde-format
 msgctxt "The same word as 'make' uses to mark an error."
 msgid "error"
-msgstr ""
+msgstr "შეცდომა"
 
 #: plugin_katebuild.cpp:508
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
-msgstr ""
+msgstr "აღუწერელი ბმა"
 
 #: plugin_katebuild.cpp:515
 #, kde-format
@@ -161,12 +161,12 @@ msgstr "გაფრთხილება"
 #: plugin_katebuild.cpp:601
 #, kde-format
 msgid "Error"
-msgstr ""
+msgstr "შეცდომა"
 
 #: plugin_katebuild.cpp:606
 #, kde-format
 msgid "Warning"
-msgstr ""
+msgstr "ყურადღება"
 
 #: plugin_katebuild.cpp:737
 #, kde-format
@@ -199,7 +199,7 @@ msgstr ""
 #: plugin_katebuild.cpp:890
 #, kde-format
 msgid "Already building..."
-msgstr ""
+msgstr "აგება უკვე მიმდინარეობს..."
 
 #: plugin_katebuild.cpp:899
 #, kde-format
@@ -231,7 +231,8 @@ msgstr ""
 #, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
-msgstr[0] ""
+msgstr[0] "ნაპოვნია ერთი შეცდომა."
+msgstr[1] "ნაპოვნია %1 შეცდომა."
 
 #: plugin_katebuild.cpp:1009
 #, kde-format
@@ -242,7 +243,8 @@ msgstr ""
 #, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
-msgstr[0] ""
+msgstr[0] "ნაპოვნია ერთი გაფრთხილება."
+msgstr[1] "ნაპოვნია %1 გაფრთხილება."
 
 #: plugin_katebuild.cpp:1012
 #, kde-format
@@ -252,7 +254,7 @@ msgstr ""
 #: plugin_katebuild.cpp:1018
 #, kde-format
 msgid "Build failed."
-msgstr ""
+msgstr "აგების შეცდომა."
 
 #: plugin_katebuild.cpp:1020
 #, kde-format
@@ -287,22 +289,22 @@ msgstr ""
 #: plugin_katebuild.cpp:1289
 #, kde-format
 msgid "Only Errors"
-msgstr ""
+msgstr "მხოლოდ შეცდომები"
 
 #: plugin_katebuild.cpp:1292
 #, kde-format
 msgid "Errors and Warnings"
-msgstr ""
+msgstr "შეცდომები და გაფრთხილებები"
 
 #: plugin_katebuild.cpp:1295
 #, kde-format
 msgid "Parsed Output"
-msgstr ""
+msgstr "დამუშავებული გამოტანა"
 
 #: plugin_katebuild.cpp:1298
 #, kde-format
 msgid "Full Output"
-msgstr ""
+msgstr "სრული გამოტანა"
 
 #: plugin_katebuild.cpp:1406
 #, kde-format
@@ -317,19 +319,19 @@ msgstr "გასუფთავება"
 #: plugin_katebuild.cpp:1412
 #, kde-format
 msgid "quick"
-msgstr ""
+msgstr "სწრაფი"
 
 #: TargetHtmlDelegate.cpp:47
 #, kde-format
 msgctxt "T as in Target set"
 msgid "<B>T:</B> %1"
-msgstr ""
+msgstr "<B>ს:</B> %1"
 
 #: TargetHtmlDelegate.cpp:49
 #, kde-format
 msgctxt "D as in working Directory"
 msgid "<B>Dir:</B> %1"
-msgstr ""
+msgstr "<B>საქ:</B> %1"
 
 #: TargetHtmlDelegate.cpp:104
 #, kde-format
@@ -365,7 +367,7 @@ msgstr ""
 #: TargetModel.cpp:391
 #, kde-format
 msgid "Run Command"
-msgstr ""
+msgstr "ბრძანების გაშვება"
 
 #: targets.cpp:22
 #, kde-format
@@ -400,17 +402,17 @@ msgstr ""
 #: targets.cpp:46
 #, kde-format
 msgid "Add new target"
-msgstr ""
+msgstr "ახალი სამიზნის დამატება"
 
 #: targets.cpp:50
 #, kde-format
 msgid "Build selected target"
-msgstr ""
+msgstr "მონიშნული სამიზნის აგება"
 
 #: targets.cpp:54
 #, kde-format
 msgid "Build and run selected target"
-msgstr ""
+msgstr "მონიშნული სამიზნის აგება და გაშვება"
 
 #. i18n: ectx: Menu (Build Menubar)
 #: ui.rc:6
@@ -421,9 +423,9 @@ msgstr "&აგება"
 #: UrlInserter.cpp:32
 #, kde-format
 msgid "Insert path"
-msgstr ""
+msgstr "ჩასვით ბილიკი"
 
 #: UrlInserter.cpp:51
 #, kde-format
 msgid "Select directory to insert"
-msgstr ""
+msgstr "აირჩიეთ ჩასასმელი საქაღალდე"

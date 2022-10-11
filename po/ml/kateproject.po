@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-07 00:50+0000\n"
+"POT-Creation-Date: 2022-10-11 00:50+0000\n"
 "PO-Revision-Date: 2019-03-17 02:54+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: Swathanthra|സ്വതന്ത്ര Malayalam|മലയാളം Computing|കമ്പ്യൂട്ടിങ്ങ് <smc."
@@ -197,7 +197,7 @@ msgstr ""
 msgid " canceled."
 msgstr ""
 
-#: gitwidget.cpp:279 kateprojectview.cpp:64
+#: gitwidget.cpp:279 kateprojectview.cpp:68
 #, kde-format
 msgid "Filter..."
 msgstr ""
@@ -914,7 +914,7 @@ msgstr ""
 msgid "Checkout Git Branch"
 msgstr ""
 
-#: kateprojectview.cpp:76
+#: kateprojectview.cpp:82
 #, kde-format
 msgid "Checkout branch"
 msgstr ""

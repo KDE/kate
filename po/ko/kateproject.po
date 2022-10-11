@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-07 00:50+0000\n"
+"POT-Creation-Date: 2022-10-11 00:50+0000\n"
 "PO-Revision-Date: 2022-08-09 13:37+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -197,7 +197,7 @@ msgstr "작업 취소"
 msgid " canceled."
 msgstr " 취소됨."
 
-#: gitwidget.cpp:279 kateprojectview.cpp:64
+#: gitwidget.cpp:279 kateprojectview.cpp:68
 #, kde-format
 msgid "Filter..."
 msgstr "필터..."
@@ -929,7 +929,7 @@ msgstr "파일 '%1'을(를) 삭제하시겠습니까?"
 msgid "Checkout Git Branch"
 msgstr "Git 브랜치 체크아웃"
 
-#: kateprojectview.cpp:76
+#: kateprojectview.cpp:82
 #, fuzzy, kde-format
 #| msgid "Checkout Branch"
 msgid "Checkout branch"

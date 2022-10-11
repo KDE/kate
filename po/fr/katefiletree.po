@@ -22,7 +22,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-09 00:52+0000\n"
-"PO-Revision-Date: 2022-09-13 15:30+0200\n"
+"PO-Revision-Date: 2022-10-10 07:22+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@neuf.fr>\n"
 "Language-Team: French <kde-francophone@kde.org>\n"
 "Language: fr\n"
@@ -428,15 +428,14 @@ msgid "Next Document"
 msgstr "Document suivant"
 
 #: katefiletreeplugin.cpp:259
-#, fuzzy, kde-format
-#| msgid "&Show Active"
+#, kde-format
 msgid "&Show Active Document"
 msgstr "&Afficher le document actif"
 
 #: katefiletreeplugin.cpp:264
 #, kde-format
 msgid "Save"
-msgstr ""
+msgstr "Enregistrer"
 
 #: katefiletreeplugin.cpp:265
 #, kde-format
@@ -446,13 +445,12 @@ msgstr "Enregistrer le document actuel"
 #: katefiletreeplugin.cpp:269
 #, kde-format
 msgid "Save As"
-msgstr ""
+msgstr "Enregistrer sous"
 
 #: katefiletreeplugin.cpp:270
-#, fuzzy, kde-format
-#| msgid "Save current document under new name"
+#, kde-format
 msgid "Save the current document under a new name"
-msgstr "Enregistrer le document actuel sous un nouveau nom"
+msgstr "Enregistrer le document courant sous un nouveau nom"
 
 #. i18n: ectx: Menu (go)
 #: ui.rc:7

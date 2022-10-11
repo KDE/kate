@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-07 00:50+0000\n"
+"POT-Creation-Date: 2022-10-11 00:50+0000\n"
 "PO-Revision-Date: 2022-07-14 19:09+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
@@ -198,7 +198,7 @@ msgstr "Cancella operation"
 msgid " canceled."
 msgstr " cancellate."
 
-#: gitwidget.cpp:279 kateprojectview.cpp:64
+#: gitwidget.cpp:279 kateprojectview.cpp:68
 #, kde-format
 msgid "Filter..."
 msgstr "Filtro..."
@@ -936,7 +936,7 @@ msgstr "Tu vole deler le file '%1'?"
 msgid "Checkout Git Branch"
 msgstr "Extrahe (Checkout) brance de git"
 
-#: kateprojectview.cpp:76
+#: kateprojectview.cpp:82
 #, fuzzy, kde-format
 #| msgid "Checkout Branch"
 msgid "Checkout branch"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE Frameworks 5 Applications\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-07 00:50+0000\n"
+"POT-Creation-Date: 2022-10-11 00:50+0000\n"
 "PO-Revision-Date: 2021-04-18 01:36+0700\n"
 "Last-Translator: Wantoyo <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -203,7 +203,7 @@ msgstr "Batalkan Operasi"
 msgid " canceled."
 msgstr " dibatalkan."
 
-#: gitwidget.cpp:279 kateprojectview.cpp:64
+#: gitwidget.cpp:279 kateprojectview.cpp:68
 #, kde-format
 msgid "Filter..."
 msgstr "Filter..."
@@ -948,7 +948,7 @@ msgstr "Apakah kamu yakin ingin menghapus file-file tersebut?"
 msgid "Checkout Git Branch"
 msgstr "Checkout Cabang Git "
 
-#: kateprojectview.cpp:76
+#: kateprojectview.cpp:82
 #, fuzzy, kde-format
 #| msgid "Checkout Branch"
 msgid "Checkout branch"

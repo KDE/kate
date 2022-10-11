@@ -1034,7 +1034,7 @@ class LSPClientServer::LSPClientServerPrivate
     QHash<int, std::pair<GenericReplyHandler, GenericReplyHandler>> m_handlers;
     // pending request responses
     static constexpr int MAX_REQUESTS = 5;
-    QVector<int> m_requests{MAX_REQUESTS + 1};
+    QVector<QJsonValue> m_requests{MAX_REQUESTS + 1};
 
     // currently accumulated stderr output, used to output to the message view on line level
     QString m_currentStderrOutput;
@@ -1107,7 +1107,7 @@ private:
         }
     }
 
-    RequestHandle write(const QJsonObject &msg, const GenericReplyHandler &h = nullptr, const GenericReplyHandler &eh = nullptr, const int *id = nullptr)
+    RequestHandle write(const QJsonObject &msg, const GenericReplyHandler &h = nullptr, const GenericReplyHandler &eh = nullptr, const QJsonValue *id = nullptr)
     {
         RequestHandle ret;
         ret.m_server = q;
@@ -1633,7 +1633,7 @@ public:
         }
     }
 
-    GenericReplyHandler prepareResponse(int msgid)
+    GenericReplyHandler prepareResponse(QJsonValue msgid)
     {
         // allow limited number of outstanding requests
         auto ctx = QPointer<LSPClientServer>(q);
@@ -1669,7 +1669,8 @@ public:
     void processRequest(const QJsonObject &msg)
     {
         auto method = msg[MEMBER_METHOD].toString();
-        auto msgid = msg[MEMBER_ID].toInt();
+        // could be number or string, let's retain as-is
+        auto msgid = msg[MEMBER_ID];
         auto params = msg[MEMBER_PARAMS];
         bool handled = false;
         if (method == QLatin1String("workspace/applyEdit")) {

@@ -66,7 +66,7 @@ if (TARGET KUserFeedbackWidgets)
     target_compile_definitions(kateprivate PUBLIC -DWITH_KUSERFEEDBACK)
 endif()
 
-ki18n_wrap_ui(kateprivate ui/sessionconfigwidget.ui welcomeview.ui session/katesessionmanagedialog.ui)
+ki18n_wrap_ui(kateprivate ui/sessionconfigwidget.ui welcomeview/welcomeview.ui session/katesessionmanagedialog.ui)
 
 target_sources(
   kateprivate
@@ -118,9 +118,10 @@ target_sources(
     diff/gitdiff.cpp
 
     filehistorywidget.cpp
-    
-    recentitemsmodel.cpp
-    welcomeview.cpp
+
+    welcomeview/welcomeview.cpp
+    welcomeview/recentfilesmodel.cpp
+    welcomeview/savedsessionsmodel.cpp
 )
 
 if(BUILD_TESTING)

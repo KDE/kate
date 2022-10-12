@@ -121,8 +121,6 @@ Q_SIGNALS:
 
     void showUrlNavBarChanged(bool);
 
-    void loadRecentFiles();
-
 public:
     /**
      * create and activate a new view for doc, if doc == 0, then
@@ -149,8 +147,6 @@ private:
     void restoreSplitter(const KConfigBase *config, const QString &group, KateSplitter *parent, const QString &viewConfGrp);
 
     void removeViewSpace(KateViewSpace *viewspace);
-
-    void saveRecents();
 
 public:
     KTextEditor::View *activeView();
@@ -321,8 +317,6 @@ public Q_SLOTS:
     void hideWelcomeView(KateViewSpace *vs);
     void showWelcomeViewIfNeeded();
     void showWelcomeView();
-    void refreshRecentsOnWelcomeView();
-    void forgetRecentItem(QUrl const &url);
 
 private:
     KateMainWindow *m_mainWindow;

@@ -13,7 +13,7 @@
 #include "katemainwindow.h"
 #include "kateupdatedisabler.h"
 #include "kateviewspace.h"
-#include "welcomeview.h"
+#include "welcomeview/welcomeview.h"
 
 #include <KTextEditor/Attribute>
 #include <KTextEditor/Document>
@@ -1583,36 +1583,7 @@ void KateViewManager::showWelcomeViewIfNeeded()
 void KateViewManager::showWelcomeView()
 {
     auto welcomeView = new WelcomeView(this);
-    auto recentFilesAction = mainWindow()->recentFilesAction();
-    connect(recentFilesAction, &KRecentFilesAction::recentListCleared, this, &KateViewManager::refreshRecentsOnWelcomeView);
-    connect(welcomeView, &WelcomeView::forgetAllRecents, recentFilesAction, &KRecentFilesAction::clear);
-    connect(this, &KateViewManager::loadRecentFiles, welcomeView, &WelcomeView::loadRecents);
-
     mainWindow()->addWidget(welcomeView);
-    refreshRecentsOnWelcomeView();
-}
-
-void KateViewManager::refreshRecentsOnWelcomeView()
-{
-    saveRecents();
-
-    // ensure welcome view updates
-    Q_EMIT loadRecentFiles();
-}
-
-void KateViewManager::forgetRecentItem(QUrl const &url)
-{
-    auto recentFilesAction = mainWindow()->recentFilesAction();
-    if (recentFilesAction != nullptr) {
-        recentFilesAction->removeUrl(url);
-        saveRecents();
-        refreshRecentsOnWelcomeView();
-    }
-}
-
-void KateViewManager::saveRecents()
-{
-    mainWindow()->recentFilesAction()->saveEntries(KSharedConfig::openConfig()->group("Recent Files"));
 }
 
 void KateViewManager::triggerActiveViewFocus()

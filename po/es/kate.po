@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-09 00:52+0000\n"
+"POT-Creation-Date: 2022-10-12 00:50+0000\n"
 "PO-Revision-Date: 2022-10-05 05:05+0200\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -247,61 +247,88 @@ msgstr "Barra de herramientas principal"
 msgid "&Status Bar Items"
 msgstr "Elementos de la barra de e&stado"
 
-#: lib/diff/diffeditor.cpp:146
+#: lib/diff/diffeditor.cpp:178
 #, kde-format
 msgid "Change Style"
 msgstr "Cambiar estilo"
 
-#: lib/diff/diffeditor.cpp:148 lib/kateconfigdialog.cpp:291
+#: lib/diff/diffeditor.cpp:180 lib/kateconfigdialog.cpp:291
 #, kde-format
 msgid "Side By Side"
 msgstr "Lado a lado"
 
-#: lib/diff/diffeditor.cpp:151 lib/kateconfigdialog.cpp:292
+#: lib/diff/diffeditor.cpp:183 lib/kateconfigdialog.cpp:292
 #, kde-format
 msgid "Unified"
 msgstr "Unificado"
 
-#: lib/diff/diffeditor.cpp:154 lib/kateconfigdialog.cpp:293
+#: lib/diff/diffeditor.cpp:186 lib/kateconfigdialog.cpp:293
 #, kde-format
 msgid "Raw"
 msgstr "En bruto"
 
-#: lib/diff/diffeditor.cpp:183
+#: lib/diff/diffeditor.cpp:215
 #, kde-format
 msgid "Stage Line"
 msgid_plural "Stage Lines"
 msgstr[0] "Poner línea en el área de preparación"
 msgstr[1] "Poner líneas en el área de preparación"
 
-#: lib/diff/diffeditor.cpp:188
+#: lib/diff/diffeditor.cpp:220
 #, kde-format
 msgid "Stage Hunk"
 msgstr "Poner trozo en el área de preparación"
 
-#: lib/diff/diffeditor.cpp:195
+#: lib/diff/diffeditor.cpp:227
 #, kde-format
 msgid "Discard Line"
 msgid_plural "Discard Lines"
 msgstr[0] "Descartar línea"
 msgstr[1] "Descartar líneas"
 
-#: lib/diff/diffeditor.cpp:200
+#: lib/diff/diffeditor.cpp:232
 #, kde-format
 msgid "Discard Hunk"
 msgstr "Descartar trozo"
 
-#: lib/diff/diffeditor.cpp:207
+#: lib/diff/diffeditor.cpp:239
 #, kde-format
 msgid "Unstage Line"
 msgid_plural "Unstage Lines"
 msgstr[0] "Quitar línea del área de preparación"
 msgstr[1] "Quitar líneas del área de preparación"
 
-#: lib/diff/diffeditor.cpp:212
+#: lib/diff/diffeditor.cpp:244
 #, kde-format
 msgid "Unstage Hunk"
 msgstr "Quitar trozo del área de preparación"
+
+#: lib/diff/diffwidget.cpp:51
+#, kde-format
+msgid "Show/Hide Commit Info"
+msgstr ""
+
+#: lib/diff/diffwidget.cpp:56
+#, kde-format
+msgid "Jump to Next File"
+msgstr ""
+
+#: lib/diff/diffwidget.cpp:60
+#, fuzzy, kde-format
+#| msgid "Go to Previous Location"
+msgid "Jump to Previous File"
+msgstr "Ir a la posición anterior"
+
+#: lib/diff/diffwidget.cpp:64
+#, kde-format
+msgid "Jump to Next Hunk"
+msgstr ""
+
+#: lib/diff/diffwidget.cpp:68
+#, fuzzy, kde-format
+#| msgid "Go to Previous Location"
+msgid "Jump to Previous Hunk"
+msgstr "Ir a la posición anterior"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
 #: lib/filehistorywidget.cpp:258 lib/session/katesessionmanagedialog.ui:184

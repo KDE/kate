@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: katefiletree\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-09 00:52+0000\n"
-"PO-Revision-Date: 2022-09-12 10:39+0100\n"
+"PO-Revision-Date: 2022-10-11 17:13+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
 "Language: pt\n"
@@ -402,15 +402,14 @@ msgid "Next Document"
 msgstr "Documento Seguinte"
 
 #: katefiletreeplugin.cpp:259
-#, fuzzy, kde-format
-#| msgid "&Show Active"
+#, kde-format
 msgid "&Show Active Document"
-msgstr "Mo&strar os Activos"
+msgstr "Mo&strar o Documento Activo"
 
 #: katefiletreeplugin.cpp:264
 #, kde-format
 msgid "Save"
-msgstr ""
+msgstr "Gravar"
 
 #: katefiletreeplugin.cpp:265
 #, kde-format
@@ -420,11 +419,10 @@ msgstr "Gravar o documento actual"
 #: katefiletreeplugin.cpp:269
 #, kde-format
 msgid "Save As"
-msgstr ""
+msgstr "Gravar Como"
 
 #: katefiletreeplugin.cpp:270
-#, fuzzy, kde-format
-#| msgid "Save current document under new name"
+#, kde-format
 msgid "Save the current document under a new name"
 msgstr "Gravar o documento actual com um novo nome"
 
@@ -433,14 +431,3 @@ msgstr "Gravar o documento actual com um novo nome"
 #, kde-format
 msgid "&Go"
 msgstr "&Ir"
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your names"
-#~ msgstr "José Nuno Pires"
-
-#~ msgctxt "EMAIL OF TRANSLATORS"
-#~ msgid "Your emails"
-#~ msgstr "zepires@gmail.com"
-
-#~ msgid "Close Widget"
-#~ msgstr "Fechar o Elemento"

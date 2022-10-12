@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-09 00:52+0000\n"
+"POT-Creation-Date: 2022-10-12 00:50+0000\n"
 "PO-Revision-Date: 2022-10-09 05:59+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -239,61 +239,88 @@ msgstr "Ana Araç Çubuğu"
 msgid "&Status Bar Items"
 msgstr "D&urum Çubuğu Ögeleri"
 
-#: lib/diff/diffeditor.cpp:146
+#: lib/diff/diffeditor.cpp:178
 #, kde-format
 msgid "Change Style"
 msgstr "Biçemi Değiştir"
 
-#: lib/diff/diffeditor.cpp:148 lib/kateconfigdialog.cpp:291
+#: lib/diff/diffeditor.cpp:180 lib/kateconfigdialog.cpp:291
 #, kde-format
 msgid "Side By Side"
 msgstr "Yan Yana"
 
-#: lib/diff/diffeditor.cpp:151 lib/kateconfigdialog.cpp:292
+#: lib/diff/diffeditor.cpp:183 lib/kateconfigdialog.cpp:292
 #, kde-format
 msgid "Unified"
 msgstr "Tekleştirilmiş"
 
-#: lib/diff/diffeditor.cpp:154 lib/kateconfigdialog.cpp:293
+#: lib/diff/diffeditor.cpp:186 lib/kateconfigdialog.cpp:293
 #, kde-format
 msgid "Raw"
 msgstr "Ham"
 
-#: lib/diff/diffeditor.cpp:183
+#: lib/diff/diffeditor.cpp:215
 #, kde-format
 msgid "Stage Line"
 msgid_plural "Stage Lines"
 msgstr[0] "Satırı Hazırla"
 msgstr[1] "Satırları Hazırla"
 
-#: lib/diff/diffeditor.cpp:188
+#: lib/diff/diffeditor.cpp:220
 #, kde-format
 msgid "Stage Hunk"
 msgstr "Parçayı Hazırla"
 
-#: lib/diff/diffeditor.cpp:195
+#: lib/diff/diffeditor.cpp:227
 #, kde-format
 msgid "Discard Line"
 msgid_plural "Discard Lines"
 msgstr[0] "Satırı At"
 msgstr[1] "Satırları At"
 
-#: lib/diff/diffeditor.cpp:200
+#: lib/diff/diffeditor.cpp:232
 #, kde-format
 msgid "Discard Hunk"
 msgstr "Parçayı At"
 
-#: lib/diff/diffeditor.cpp:207
+#: lib/diff/diffeditor.cpp:239
 #, kde-format
 msgid "Unstage Line"
 msgid_plural "Unstage Lines"
 msgstr[0] "Satırı Hazırlıktan Çıkar"
 msgstr[1] "Satırları Hazırlıktan Çıkar"
 
-#: lib/diff/diffeditor.cpp:212
+#: lib/diff/diffeditor.cpp:244
 #, kde-format
 msgid "Unstage Hunk"
 msgstr "Parçayı Hazırlıktan Çıkar"
+
+#: lib/diff/diffwidget.cpp:51
+#, kde-format
+msgid "Show/Hide Commit Info"
+msgstr ""
+
+#: lib/diff/diffwidget.cpp:56
+#, kde-format
+msgid "Jump to Next File"
+msgstr ""
+
+#: lib/diff/diffwidget.cpp:60
+#, fuzzy, kde-format
+#| msgid "Go to Previous Location"
+msgid "Jump to Previous File"
+msgstr "Bir Önceki Konuma Git"
+
+#: lib/diff/diffwidget.cpp:64
+#, kde-format
+msgid "Jump to Next Hunk"
+msgstr ""
+
+#: lib/diff/diffwidget.cpp:68
+#, fuzzy, kde-format
+#| msgid "Go to Previous Location"
+msgid "Jump to Previous Hunk"
+msgstr "Bir Önceki Konuma Git"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
 #: lib/filehistorywidget.cpp:258 lib/session/katesessionmanagedialog.ui:184

@@ -8,6 +8,7 @@
 #define KATE_OUTPUT_VIEW_H
 
 #include <QLineEdit>
+#include <QPointer>
 #include <QStandardItemModel>
 #include <QWidget>
 
@@ -34,7 +35,7 @@ public:
      * @param mainWindow parent main window
      * @param parent parent widget (e.g. the tool view in the main window)
      */
-    KateOutputView(KateMainWindow *mainWindow, QWidget *parent);
+    KateOutputView(KateMainWindow *mainWindow, QWidget *parent, QWidget *tabButton);
 
 public Q_SLOTS:
     /**
@@ -131,6 +132,10 @@ private:
      * history size limit, < 0 is unlimited
      */
     int m_historyLimit = -1;
+
+    QPointer<QWidget> tabButton;
+
+    QPointer<class NewMsgIndicator> m_fadingIndicator;
 };
 
 #endif

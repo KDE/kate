@@ -266,6 +266,18 @@ public:
 
     bool isCollapsed();
 
+    QWidget *tabButtonForToolview(ToolView *widget) const
+    {
+        auto it = m_widgetToId.find(widget);
+        if (it == m_widgetToId.end()) {
+            return nullptr;
+        }
+        if (auto tabbar = kmTabBar(widget)) {
+            return tabbar->tab(it->second);
+        }
+        return nullptr;
+    }
+
     /**
      * Will the sidebar expand when some tool has to be visible in any section,
      * or calling collapseSidebar() if non such tool is found
@@ -545,6 +557,8 @@ public:
      * @return success
      */
     bool hideToolView(ToolView *widget);
+
+    QWidget *toolviewToggleButton(ToolView *tv);
 
     /**
      * session saving and restore stuff

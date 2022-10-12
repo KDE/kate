@@ -281,7 +281,7 @@ void KateMainWindow::setupMainWindow()
                                       KTextEditor::MainWindow::Bottom,
                                       QIcon::fromTheme(QStringLiteral("output_win")),
                                       i18n("Output"));
-    m_outputView = new KateOutputView(this, m_toolViewOutput);
+    m_outputView = new KateOutputView(this, m_toolViewOutput, toolviewToggleButton(static_cast<KateMDI::ToolView *>(m_toolViewOutput)));
 }
 
 void KateMainWindow::setupActions()

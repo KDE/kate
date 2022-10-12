@@ -20,6 +20,7 @@
 #include <QMenu>
 #include <QPainter>
 #include <QSortFilterProxyModel>
+#include <QTimeLine>
 #include <QToolButton>
 #include <QTreeView>
 #include <QVBoxLayout>
@@ -27,8 +28,64 @@
 #include <KFuzzyMatcher>
 #include <ktexteditor_utils.h>
 
+class NewMsgIndicator : public QWidget
+{
+    Q_OBJECT
+public:
+    NewMsgIndicator(QWidget *parent)
+        : QWidget(parent)
+        , m_timeline(1000, this)
+    {
+        setAttribute(Qt::WA_TransparentForMouseEvents, true);
+        setGeometry(parent->geometry().adjusted(-2, -2, 2, 2));
+
+        m_timeline.setDirection(QTimeLine::Forward);
+        m_timeline.setEasingCurve(QEasingCurve::SineCurve);
+        m_timeline.setFrameRange(0, 92);
+        auto update = QOverload<>::of(&QWidget::update);
+        connect(&m_timeline, &QTimeLine::valueChanged, this, update);
+        connect(&m_timeline, &QTimeLine::finished, this, &QObject::deleteLater);
+    }
+
+    void run(int c)
+    {
+        // If parent is not visible, do nothing
+        if (parentWidget() && !parentWidget()->isVisible()) {
+            return;
+        }
+        show();
+        raise();
+        m_timeline.setLoopCount(c);
+        m_timeline.start();
+    }
+
+    Q_SLOT void stop()
+    {
+        m_timeline.stop();
+        deleteLater();
+    }
+
+protected:
+    void paintEvent(QPaintEvent *) override
+    {
+        if (m_timeline.state() == QTimeLine::Running) {
+            QPainter p(this);
+            p.setRenderHint(QPainter::Antialiasing);
+            QColor c = Qt::red;
+            c.setAlpha(m_timeline.currentFrame());
+            p.setBrush(c);
+            p.setPen(Qt::NoPen);
+            p.drawRoundedRect(rect(), 15, 15);
+        }
+    }
+
+private:
+    QTimeLine m_timeline;
+};
+
 class KateOutputTreeView : public QTreeView
 {
+    Q_OBJECT
 public:
     KateOutputTreeView(QWidget *parent)
         : QTreeView(parent)
@@ -110,6 +167,7 @@ private:
 
 class OutputSortFilterProxyModel final : public QSortFilterProxyModel
 {
+    Q_OBJECT
 public:
     OutputSortFilterProxyModel(QObject *parent = nullptr)
         : QSortFilterProxyModel(parent)
@@ -159,10 +217,13 @@ private:
     static constexpr int WeightRole = Qt::UserRole + 1;
 };
 
-KateOutputView::KateOutputView(KateMainWindow *mainWindow, QWidget *parent)
+KateOutputView::KateOutputView(KateMainWindow *mainWindow, QWidget *parent, QWidget *tabButton)
     : QWidget(parent)
     , m_mainWindow(mainWindow)
+    , tabButton(tabButton)
 {
+    Q_ASSERT(tabButton);
+
     m_proxyModel = new OutputSortFilterProxyModel(this);
     m_proxyModel->setSourceModel(&m_messagesModel);
     m_proxyModel->setRecursiveFilteringEnabled(true);
@@ -284,6 +345,7 @@ void KateOutputView::slotMessage(const QVariantMap &message)
      */
     bool shouldShowOutputToolView = false;
     auto typeColumn = new QStandardItem();
+    int indicatorLoopCount = 0; // for warning/error infinite loop
     const auto typeString = message.value(QStringLiteral("type")).toString();
     if (typeString == QLatin1String("Error")) {
         shouldShowOutputToolView = (m_showOutputViewForMessageType >= 1);
@@ -297,10 +359,23 @@ void KateOutputView::slotMessage(const QVariantMap &message)
         shouldShowOutputToolView = (m_showOutputViewForMessageType >= 3);
         typeColumn->setText(i18nc("@info", "Info"));
         typeColumn->setIcon(QIcon::fromTheme(QStringLiteral("data-information")));
+        indicatorLoopCount = 2;
     } else {
         shouldShowOutputToolView = (m_showOutputViewForMessageType >= 4);
         typeColumn->setText(i18nc("@info", "Log"));
         typeColumn->setIcon(QIcon::fromTheme(QStringLiteral("dialog-messages")));
+        indicatorLoopCount = -1; // no FadingIndicator for log messages
+    }
+
+    if (shouldShowOutputToolView || isVisible()) {
+        // if we are going to show the output toolview afterwards
+        indicatorLoopCount = 1;
+    }
+
+    if (!m_fadingIndicator && indicatorLoopCount >= 0) {
+        m_fadingIndicator = new NewMsgIndicator(tabButton);
+        m_fadingIndicator->run(indicatorLoopCount);
+        connect(tabButton, SIGNAL(clicked()), m_fadingIndicator, SLOT(stop()));
     }
 
     /**
@@ -369,3 +444,5 @@ void KateOutputView::slotMessage(const QVariantMap &message)
         m_mainWindow->showToolView(parentWidget());
     }
 }
+
+#include "kateoutputview.moc"

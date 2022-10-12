@@ -1482,6 +1482,14 @@ bool MainWindow::hideToolView(ToolView *widget)
     return ret;
 }
 
+QWidget *MainWindow::toolviewToggleButton(ToolView *tv)
+{
+    if (tv && tv->sidebar()) {
+        return tv->sidebar()->tabButtonForToolview(tv);
+    }
+    return nullptr;
+}
+
 void MainWindow::hideToolViews()
 {
     for (const auto &tv : m_toolviews) {

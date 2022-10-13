@@ -94,8 +94,9 @@ TargetsUi::TargetsUi(QObject *view, QWidget *parent)
     connect(targetCombo, static_cast<void (QComboBox::*)(int)>(&QComboBox::activated), this, &TargetsUi::targetSetSelected);
     connect(targetsView->selectionModel(), &QItemSelectionModel::currentChanged, this, &TargetsUi::targetActivated);
 
-    connect(targetsView->selectionModel(), &QItemSelectionModel::currentChanged, this, &TargetsUi::updateBuildRunButtonStates);
-    connect(&targetsModel, &QAbstractItemModel::dataChanged, this, &TargetsUi::updateBuildRunButtonStates);
+    connect(targetsView->selectionModel(), &QItemSelectionModel::currentChanged, this, &TargetsUi::updateTargetsButtonStates);
+    connect(&targetsModel, &QAbstractItemModel::dataChanged, this, &TargetsUi::updateTargetsButtonStates);
+    connect(&targetsModel, &QAbstractItemModel::rowsMoved, this, &TargetsUi::updateTargetsButtonStates);
 
     connect(targetFilterEdit, &QLineEdit::textChanged, this, [this](const QString &text) {
         proxyModel.setFilter(text);
@@ -143,23 +144,35 @@ void TargetsUi::targetActivated(const QModelIndex &index)
     targetCombo->setCurrentIndex(rootItem.row());
 }
 
-void TargetsUi::updateBuildRunButtonStates()
+void TargetsUi::updateTargetsButtonStates()
 {
     QModelIndex currentIndex = targetsView->currentIndex();
     if (!currentIndex.isValid()) {
         buildButton->setEnabled(false);
         runButton->setEnabled(false);
+        moveTargetUp->setEnabled(false);
+        moveTargetDown->setEnabled(false);
         return;
     }
 
-    // If this is a root item, try it's first child
+    moveTargetUp->setEnabled(currentIndex.row() > 0);
+
+    // If this is a root item
     if (!currentIndex.parent().isValid()) {
+        // move down button
+        int rows = targetsView->model()->rowCount();
+        moveTargetDown->setEnabled(currentIndex.row() < rows - 1);
+
+        // try it's first child to see if we can build/run
         currentIndex = targetsView->model()->index(0, 0, currentIndex.siblingAtColumn(0));
         if (!currentIndex.isValid()) {
             buildButton->setEnabled(false);
             runButton->setEnabled(false);
             return;
         }
+    } else {
+        int rows = targetsView->model()->rowCount(currentIndex.parent());
+        moveTargetDown->setEnabled(currentIndex.row() < rows - 1);
     }
 
     const bool hasBuildCmd = !currentIndex.siblingAtColumn(1).data().toString().isEmpty();

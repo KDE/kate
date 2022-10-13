@@ -61,7 +61,7 @@ K_PLUGIN_FACTORY_WITH_JSON(KateBuildPluginFactory, "katebuildplugin.json", regis
 
 static const QString DefConfigCmd = QStringLiteral("cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_EXPORT_COMPILE_COMMANDS=1 ../");
 static const QString DefConfClean;
-static const QString DefTargetName = QStringLiteral("all");
+static const QString DefTargetName = QStringLiteral("build");
 static const QString DefBuildCmd = QStringLiteral("make");
 static const QString DefCleanCmd = QStringLiteral("make clean");
 static const QString NinjaPrefix = QStringLiteral("[ninja-detection]");
@@ -142,7 +142,7 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
 
     a = actionCollection()->addAction(QStringLiteral("build_selected_target"));
     a->setText(i18n("Build Selected Target"));
-    connect(a, &QAction::triggered, this, &KateBuildView::slotBuildPreviousTarget);
+    connect(a, &QAction::triggered, this, &KateBuildView::slotBuildSelectedTarget);
 
     a = actionCollection()->addAction(QStringLiteral("build_and_run_selected_target"));
     a->setText(i18n("Build and Run Selected Target"));
@@ -296,7 +296,7 @@ void KateBuildView::readSessionConfig(const KConfigGroup &cg)
     m_targetsUi->targetsView->expandAll();
     m_targetsUi->targetsView->resizeColumnToContents(0);
     m_targetsUi->targetsView->resizeColumnToContents(1);
-    m_targetsUi->updateBuildRunButtonStates();
+    m_targetsUi->updateTargetsButtonStates();
 }
 
 /******************************************************************/
@@ -1206,23 +1206,14 @@ void KateBuildView::slotAddTargetClicked()
 {
     QModelIndex current = m_targetsUi->targetsView->currentIndex();
     QString currName = DefTargetName;
-    QString currCmd = DefBuildCmd;
+    QString currCmd;
     QString currRun;
-    if (current.parent().isValid()) {
-        // Copy the active command
-        const QModelIndex nameIndex = current.siblingAtColumn(0);
-        currName = nameIndex.data().toString();
-        const QModelIndex cmdIndex = current.siblingAtColumn(1);
-        currCmd = cmdIndex.data().toString();
-        const QModelIndex runIndex = current.siblingAtColumn(2);
-        currRun = runIndex.data().toString();
 
+    if (current.parent().isValid()) {
         // we need the root item
         current = current.parent();
     }
-
     current = m_targetsUi->proxyModel.mapToSource(current);
-
     QModelIndex index = m_targetsUi->targetsModel.addCommand(current, currName, currCmd, currRun);
     index = m_targetsUi->proxyModel.mapFromSource(index);
     m_targetsUi->targetsView->setCurrentIndex(index);

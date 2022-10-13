@@ -43,7 +43,7 @@ public:
     QToolButton *buildButton = nullptr;
     QToolButton *runButton = nullptr;
 
-    void updateBuildRunButtonStates();
+    void updateTargetsButtonStates();
 
 public Q_SLOTS:
     void targetSetSelected(int index);

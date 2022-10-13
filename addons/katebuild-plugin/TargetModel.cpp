@@ -43,7 +43,7 @@ QModelIndex TargetModel::addTargetSet(const QString &setName, const QString &wor
     QString newName = setName;
     for (int i = 0; i < m_targets.count(); i++) {
         if (m_targets[i].name == newName) {
-            newName += QStringLiteral(" 2");
+            newName += QStringLiteral("+");
             i = -1;
         }
     }
@@ -67,7 +67,7 @@ QModelIndex TargetModel::addCommand(const QModelIndex &parentIndex, const QStrin
     QString newName = cmdName;
     for (int i = 0; i < m_targets[rootRow].commands.count(); i++) {
         if (m_targets[rootRow].commands[i].name == newName) {
-            newName += QStringLiteral(" 2");
+            newName += QStringLiteral("+");
             i = -1;
         }
     }
@@ -92,48 +92,45 @@ QModelIndex TargetModel::copyTargetOrSet(const QModelIndex &index)
             return QModelIndex();
         }
 
-        beginInsertRows(QModelIndex(), m_targets.count(), m_targets.count());
-
-        QString newName = m_targets[rootRow].name + QStringLiteral(" 2");
+        beginInsertRows(QModelIndex(), rootRow + 1, rootRow + 1);
+        QString newName = m_targets[rootRow].name + QStringLiteral("+");
         for (int i = 0; i < m_targets.count(); i++) {
             if (m_targets[i].name == newName) {
-                newName += QStringLiteral(" 2");
+                newName += QStringLiteral("+");
                 i = -1;
             }
         }
-        m_targets << m_targets[rootRow];
-        m_targets.last().name = newName;
+        m_targets.insert(rootRow + 1, m_targets[rootRow]);
+        m_targets[rootRow + 1].name = newName;
         endInsertRows();
 
-        return createIndex(m_targets.count() - 1, 0, InvalidIndex);
-        ;
+        return createIndex(rootRow + 1, 0, InvalidIndex);
     }
 
     if (m_targets.count() <= static_cast<int>(rootRow)) {
         return QModelIndex();
     }
-    if (index.row() < 0) {
+    int cmdRow = index.row();
+    if (cmdRow < 0) {
         return QModelIndex();
     }
-    if (index.row() >= m_targets[rootRow].commands.count()) {
+    if (cmdRow >= m_targets[rootRow].commands.count()) {
         return QModelIndex();
     }
 
     QModelIndex rootIndex = createIndex(rootRow, 0, InvalidIndex);
-    beginInsertRows(rootIndex, m_targets[rootRow].commands.count(), m_targets[rootRow].commands.count());
-
-    const auto cmd = m_targets[rootRow].commands[index.row()];
-    QString newName = cmd.name + QStringLiteral(" 2");
+    beginInsertRows(rootIndex, cmdRow + 1, cmdRow + 1);
+    const auto cmd = m_targets[rootRow].commands[cmdRow];
+    QString newName = cmd.name + QStringLiteral("+");
     for (int i = 0; i < m_targets[rootRow].commands.count(); i++) {
         if (m_targets[rootRow].commands[i].name == newName) {
-            newName += QStringLiteral(" 2");
+            newName += QStringLiteral("+");
             i = -1;
         }
     }
-    m_targets[rootRow].commands << Command{newName, cmd.buildCmd, cmd.runCmd};
-
+    m_targets[rootRow].commands.insert(cmdRow + 1, Command{newName, cmd.buildCmd, cmd.runCmd});
     endInsertRows();
-    return createIndex(m_targets[rootRow].commands.count() - 1, 0, rootRow);
+    return createIndex(cmdRow + 1, 0, rootRow);
 }
 
 void TargetModel::deleteItem(const QModelIndex &index)
@@ -212,7 +209,7 @@ void TargetModel::moveRowDown(const QModelIndex &itemIndex)
 
     QModelIndex parent = itemIndex.parent();
     int row = itemIndex.row();
-    if (row > m_targets.size() - 2) {
+    if (row >= m_targets.size() - 1) {
         return;
     }
     beginMoveRows(parent, row, row, parent, row + 2);
@@ -222,6 +219,9 @@ void TargetModel::moveRowDown(const QModelIndex &itemIndex)
         int rootRow = itemIndex.internalId();
         if (rootRow < 0 || rootRow >= m_targets.size()) {
             qWarning() << "Bad root row index" << rootRow << m_targets.size();
+            return;
+        }
+        if (row >= m_targets[rootRow].commands.size() - 1) {
             return;
         }
         m_targets[rootRow].commands.move(row, row + 1);

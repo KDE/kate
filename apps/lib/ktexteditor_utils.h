@@ -10,11 +10,11 @@
 QT_BEGIN_NAMESPACE
 class QScrollBar;
 class QAction;
-class QDir;
 class QFont;
 class QIcon;
 class QVariant;
 class QWidget;
+class QUrl;
 typedef QMap<QString, QVariant> QVariantMap;
 QT_END_NAMESPACE
 
@@ -25,7 +25,7 @@ class Document;
 class MainWindow;
 }
 struct DiffParams;
-class KateMainWindow;
+class KateViewManager;
 
 namespace Utils
 {
@@ -96,5 +96,5 @@ KATE_PRIVATE_EXPORT QVariantMap projectMapForDocument(KTextEditor::Document *doc
  *
  * Returns whether the url is a directory
  */
-KATE_PRIVATE_EXPORT void openDirectoryOrProject(KateMainWindow *mainWindow, const QDir &dir);
+KATE_PRIVATE_EXPORT void openUrlOrProject(KateViewManager *viewManager, const QUrl &url);
 }

@@ -120,7 +120,7 @@ target_sources(
     filehistorywidget.cpp
 
     welcomeview/welcomeview.cpp
-    welcomeview/recentfilesmodel.cpp
+    welcomeview/recentitemsmodel.cpp
     welcomeview/savedsessionsmodel.cpp
 )
 

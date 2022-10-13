@@ -177,8 +177,8 @@
         </widget>
        </item>
        <item>
-        <widget class="QWidget" name="widgetRecentFiles" native="true">
-         <layout class="QGridLayout" name="layoutRecentFiles" rowstretch="0,0,0,0,1" columnstretch="0,1,0">
+        <widget class="QWidget" name="widgetRecentItems" native="true">
+         <layout class="QGridLayout" name="layoutRecentItems" rowstretch="0,0,0,0,1" columnstretch="0,1,0">
           <property name="leftMargin">
            <number>0</number>
           </property>
@@ -209,14 +209,14 @@
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QLabel" name="labelRecentFiles">
+           <widget class="QLabel" name="labelRecentItems">
             <property name="font">
              <font>
               <pointsize>12</pointsize>
              </font>
             </property>
             <property name="text">
-             <string>Recent Files</string>
+             <string>Recent Documents</string>
             </property>
            </widget>
           </item>

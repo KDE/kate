@@ -10,7 +10,7 @@
 #include "kateapp.h"
 #include "kateviewmanager.h"
 #include "ktexteditor_utils.h"
-#include "recentfilesmodel.h"
+#include "recentitemsmodel.h"
 #include "savedsessionsmodel.h"
 
 #include <KAboutData>
@@ -64,35 +64,27 @@ WelcomeView::WelcomeView(KateViewManager *viewManager, QWidget *parent)
     layoutPlaceholderRecentFiles->addWidget(placeholderRecentFiles);
     listViewRecentFiles->setLayout(layoutPlaceholderRecentFiles);
 
-    m_recentFilesModel = new RecentFilesModel(this);
-    connect(m_recentFilesModel, &RecentFilesModel::modelReset, this, [this, placeholderRecentFiles]() {
-        const bool noRecentFiles = m_recentFilesModel->rowCount() == 0;
+    m_recentItemsModel = new RecentItemsModel(this);
+    connect(m_recentItemsModel, &RecentItemsModel::modelReset, this, [this, placeholderRecentFiles]() {
+        const bool noRecentFiles = m_recentItemsModel->rowCount() == 0;
         buttonClearRecentFiles->setDisabled(noRecentFiles);
         placeholderRecentFiles->setVisible(noRecentFiles);
     });
 
     KRecentFilesAction *recentFilesAction = m_viewManager->mainWindow()->recentFilesAction();
-    m_recentFilesModel->refresh(recentFilesAction->urls());
+    m_recentItemsModel->refresh(recentFilesAction->urls());
     connect(recentFilesAction, &KRecentFilesAction::recentListCleared, this, [this, recentFilesAction]() {
-        m_recentFilesModel->refresh(recentFilesAction->urls());
+        m_recentItemsModel->refresh(recentFilesAction->urls());
     });
 
-    listViewRecentFiles->setModel(m_recentFilesModel);
+    listViewRecentFiles->setModel(m_recentItemsModel);
     connect(listViewRecentFiles, &QListView::customContextMenuRequested,
             this, &WelcomeView::onRecentFilesContextMenuRequested);
     connect(listViewRecentFiles, &QListView::activated, this, [this](const QModelIndex &index) {
         if (index.isValid()) {
-            const QUrl url = m_recentFilesModel->url(index);
+            const QUrl url = m_recentItemsModel->url(index);
             Q_ASSERT(url.isValid());
-            if (url.isLocalFile()) {
-                QDir dir = {url.path()};
-                if (dir.exists()) {
-                    Utils::openDirectoryOrProject(m_viewManager->mainWindow(), dir);
-                    return;
-                }
-            }
-
-            m_viewManager->openUrl(url);
+            Utils::openUrlOrProject(m_viewManager, url);
         }
     });
 
@@ -201,8 +193,10 @@ void WelcomeView::onPluginViewChanged(const QString &pluginName)
         if (projectPluginView) {
             connect(buttonOpenFolder, SIGNAL(clicked()), projectPluginView, SLOT(openDirectoryOrProject()));
             buttonOpenFolder->show();
+            labelRecentItems->setText(i18n("Recent Documents and Projects"));
         } else {
             buttonOpenFolder->hide();
+            labelRecentItems->setText(i18n("Recent Documents"));
         }
     }
 }
@@ -214,7 +208,7 @@ void WelcomeView::onRecentFilesContextMenuRequested(const QPoint &pos)
         return;
     }
 
-    const QUrl url = m_recentFilesModel->url(index);
+    const QUrl url = m_recentItemsModel->url(index);
     Q_ASSERT(url.isValid());
 
     QMenu contextMenu;
@@ -239,7 +233,7 @@ void WelcomeView::onRecentFilesContextMenuRequested(const QPoint &pos)
     connect(action, &QAction::triggered, this, [this, url]() {
         KRecentFilesAction *recentFilesAction = m_viewManager->mainWindow()->recentFilesAction();
         recentFilesAction->removeUrl(url);
-        m_recentFilesModel->refresh(recentFilesAction->urls());
+        m_recentItemsModel->refresh(recentFilesAction->urls());
     });
     contextMenu.addAction(action);
 

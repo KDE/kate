@@ -12,12 +12,12 @@
 #include <QIcon>
 #include <QUrl>
 
-class RecentFilesModel : public QAbstractListModel
+class RecentItemsModel : public QAbstractListModel
 {
     Q_OBJECT
 
 public:
-    explicit RecentFilesModel(QObject *parent = nullptr);
+    explicit RecentItemsModel(QObject *parent = nullptr);
 
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
@@ -26,13 +26,13 @@ public:
     QUrl url(const QModelIndex &index) const;
 
 private:
-    struct RecentFileInfo {
+    struct RecentItemInfo {
         QIcon icon;
         QString name;
         QUrl url;
     };
 
-    QVector<RecentFileInfo> m_recentFiles;
+    QVector<RecentItemInfo> m_recentItems;
 };
 
 #endif // RECENTFILESMODEL_H

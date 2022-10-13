@@ -11,7 +11,7 @@
 #include "ui_welcomeview.h"
 
 class KateViewManager;
-class RecentFilesModel;
+class RecentItemsModel;
 class SavedSessionsModel;
 
 class WelcomeView : public QScrollArea, Ui::WelcomeView
@@ -33,7 +33,7 @@ private:
     bool updateLayout();
 
     KateViewManager *m_viewManager = nullptr;
-    RecentFilesModel *m_recentFilesModel = nullptr;
+    RecentItemsModel *m_recentItemsModel = nullptr;
     SavedSessionsModel *m_savedSessionsModel = nullptr;
 };
 

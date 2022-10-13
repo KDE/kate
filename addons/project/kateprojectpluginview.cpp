@@ -838,7 +838,7 @@ void KateProjectPluginView::openDirectoryOrProject(const QDir &dir)
         if (auto *parentClient = qobject_cast<KXmlGuiWindow *>(m_mainWindow->window())) {
             if (auto *openRecentAction = parentClient->action(KStandardAction::name(KStandardAction::StandardAction::OpenRecent))) {
                 if (auto *recentFilesAction = qobject_cast<KRecentFilesAction *>(openRecentAction)) {
-                    recentFilesAction->addUrl(QUrl(dir.path()));
+                    recentFilesAction->addUrl(QUrl::fromLocalFile(dir.path()));
                 }
             }
         }

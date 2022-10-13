@@ -5,30 +5,30 @@
     SPDX-License-Identifier: GPL-2.0-or-later
 */
 
-#include "recentfilesmodel.h"
+#include "recentitemsmodel.h"
 
-#include "kateconfigdialog.h"
-
+#include <QDebug>
 #include <QFileInfo>
 #include <QMimeDatabase>
 
-RecentFilesModel::RecentFilesModel(QObject *parent)
+RecentItemsModel::RecentItemsModel(QObject *parent)
     : QAbstractListModel(parent)
-{}
+{
+}
 
-QVariant RecentFilesModel::data(const QModelIndex &index, int role) const
+QVariant RecentItemsModel::data(const QModelIndex &index, int role) const
 {
     if (index.isValid()) {
         const int row = index.row();
-        if (row >= 0 && row < m_recentFiles.count()) {
-            const RecentFileInfo &recentFile = m_recentFiles.at(row);
+        if (row >= 0 && row < m_recentItems.count()) {
+            const RecentItemInfo &recentItem = m_recentItems.at(row);
             switch (role) {
             case Qt::DisplayRole:
-                return recentFile.name;
+                return recentItem.name;
             case Qt::DecorationRole:
-                return recentFile.icon;
+                return recentItem.icon;
             case Qt::ToolTipRole:
-                return recentFile.url.toString(QUrl::PreferLocalFile);
+                return recentItem.url.toString(QUrl::PreferLocalFile);
             default:
                 break;
             }
@@ -38,22 +38,23 @@ QVariant RecentFilesModel::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
-int RecentFilesModel::rowCount(const QModelIndex &parent) const
+int RecentItemsModel::rowCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent);
 
-    return m_recentFiles.count();
+    return m_recentItems.count();
 }
 
-void RecentFilesModel::refresh(const QList<QUrl> &urls)
+void RecentItemsModel::refresh(const QList<QUrl> &urls)
 {
-    QVector<RecentFileInfo> recentFiles;
-    recentFiles.reserve(urls.count());
+    QVector<RecentItemInfo> recentItems;
+    recentItems.reserve(urls.count());
 
     QIcon icon;
     QString name;
-    for (const QUrl &url: urls) {
+    for (const QUrl &url : urls) {
         if (url.isLocalFile()) {
+            qDebug() << url << "  is local file";
             const QFileInfo fileInfo(url.toLocalFile());
             if (!fileInfo.exists()) {
                 continue;
@@ -62,24 +63,25 @@ void RecentFilesModel::refresh(const QList<QUrl> &urls)
             icon = QIcon::fromTheme(QMimeDatabase().mimeTypeForFile(fileInfo).iconName());
             name = fileInfo.fileName();
         } else {
+            qDebug() << url << "  is not local file";
             icon = QIcon::fromTheme(QStringLiteral("network-server"));
             name = url.toString();
         }
 
-        recentFiles.append({ icon, name, url });
+        recentItems.append({icon, name, url});
     }
 
     beginResetModel();
-    m_recentFiles = std::move(recentFiles);
+    m_recentItems = std::move(recentItems);
     endResetModel();
 }
 
-QUrl RecentFilesModel::url(const QModelIndex &index) const
+QUrl RecentItemsModel::url(const QModelIndex &index) const
 {
     if (index.isValid()) {
         const int row = index.row();
-        if (row >= 0 && row < m_recentFiles.count()) {
-            return m_recentFiles.at(row).url;
+        if (row >= 0 && row < m_recentItems.count()) {
+            return m_recentItems.at(row).url;
         }
     }
 

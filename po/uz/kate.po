@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-12 00:50+0000\n"
+"POT-Creation-Date: 2022-10-13 00:50+0000\n"
 "PO-Revision-Date: 2006-12-17 12:02+0000\n"
 "Last-Translator: Mashrab Kuvatov <kmashrab@uni-bremen.de>\n"
 "Language-Team: Uzbek <floss-uz-l10n@googlegroups.com>\n"
@@ -1184,7 +1184,7 @@ msgstr "Manzil"
 msgid "Copies the file path of the current file to clipboard."
 msgstr "Keyingi boʻlingan koʻrinishni aktiv qilish."
 
-#: lib/katemainwindow.cpp:320 lib/welcomeview.cpp:82
+#: lib/katemainwindow.cpp:320 lib/welcomeview/welcomeview.cpp:219
 #, fuzzy, kde-format
 msgid "&Open Containing Folder"
 msgstr "Ochish tartibi"
@@ -2185,8 +2185,9 @@ msgstr ""
 msgid "&Open"
 msgstr "&Ochish"
 
+#. i18n: ectx: property (text), widget (QPushButton, buttonNewSession)
 #. i18n: ectx: property (text), widget (QPushButton, m_newButton)
-#: lib/session/katesessionmanagedialog.ui:98
+#: lib/session/katesessionmanagedialog.ui:98 lib/welcomeview/welcomeview.ui:309
 #, kde-format
 msgid "New Session"
 msgstr "Yangi seans"
@@ -2415,83 +2416,118 @@ msgstr ""
 msgid "Delete unused meta-information after:"
 msgstr ""
 
-#: lib/welcomeview.cpp:69
-#, fuzzy, kde-format
-msgid "&Copy Location"
-msgstr "Manzil"
-
-#: lib/welcomeview.cpp:94
+#: lib/welcomeview/welcomeview.cpp:54
 #, kde-format
-msgctxt "recent items context menu"
-msgid "&Forget This Item"
+msgid "Welcome to %1"
 msgstr ""
 
-#: lib/welcomeview.cpp:123
+#: lib/welcomeview/welcomeview.cpp:59
+#, fuzzy, kde-format
+#| msgid "Close the current document."
+msgid "No recent files"
+msgstr "Joriy hujjatni yopish."
+
+#: lib/welcomeview/welcomeview.cpp:107
+#, fuzzy, kde-format
+#| msgid "&Do not save session"
+msgid "No saved sessions"
+msgstr "Seans saqlan&masin"
+
+#: lib/welcomeview/welcomeview.cpp:212
+#, fuzzy, kde-format
+msgid "Copy &Location"
+msgstr "Manzil"
+
+#: lib/welcomeview/welcomeview.cpp:227
+#, kde-format
+msgid "&Remove"
+msgstr ""
+
+#. i18n: ectx: property (windowTitle), widget (QScrollArea, WelcomeView)
+#: lib/welcomeview/welcomeview.ui:17
 #, kde-format
 msgid "Welcome"
 msgstr ""
 
-#. i18n: ectx: property (text), widget (QLabel, welcomeLabel)
-#: lib/welcomeview.cpp:126 lib/welcomeview.ui:158
-#, kde-format
-msgid "Welcome to Kate"
-msgstr ""
-
-#: lib/welcomeview.cpp:126
-#, kde-format
-msgid "Welcome to KWrite"
-msgstr ""
-
-#: lib/welcomeview.cpp:176
-#, fuzzy, kde-format
-#| msgid "Close the current document."
-msgctxt "on welcome screen"
-msgid "No recent documents"
-msgstr "Joriy hujjatni yopish."
-
-#. i18n: ectx: property (windowTitle), widget (QWidget, WelcomeView)
-#: lib/welcomeview.ui:17
-#, kde-format
-msgid "Form"
-msgstr ""
-
-#. i18n: ectx: property (text), widget (QPushButton, newDocumentButton)
-#: lib/welcomeview.ui:221
-#, fuzzy, kde-format
-#| msgid "&Document"
-msgctxt "on welcome screen"
-msgid "New Document"
-msgstr "H&ujjat"
-
-#. i18n: ectx: property (text), widget (QPushButton, openDocumentButton)
-#: lib/welcomeview.ui:232
-#, fuzzy, kde-format
-msgctxt "on welcome screen"
-msgid "Open Document..."
-msgstr "Hujjatlarni ochish"
-
-#. i18n: ectx: property (text), widget (QPushButton, openFolderButton)
-#: lib/welcomeview.ui:243
+#. i18n: ectx: property (text), widget (QPushButton, buttonNewFile)
+#: lib/welcomeview/welcomeview.ui:200
 #, fuzzy, kde-format
 #| msgid "Open File"
-msgctxt "on welcome screen"
+msgid "New File"
+msgstr "Faylni ochish"
+
+#. i18n: ectx: property (text), widget (QPushButton, buttonOpenFolder)
+#: lib/welcomeview/welcomeview.ui:207
+#, fuzzy, kde-format
+#| msgid "Open File"
 msgid "Open Folder..."
 msgstr "Faylni ochish"
 
-#. i18n: ectx: property (text), widget (QLabel, label_2)
-#: lib/welcomeview.ui:372
+#. i18n: ectx: property (text), widget (QLabel, labelRecentFiles)
+#: lib/welcomeview/welcomeview.ui:219
 #, fuzzy, kde-format
-msgctxt "on welcome screen"
-msgid "Recent documents"
-msgstr "Hujjatlarni ochish"
+msgid "Recent Files"
+msgstr "Oʻchirilgan"
 
-#. i18n: ectx: property (text), widget (QToolButton, forgetAllButton)
-#: lib/welcomeview.ui:382
+#. i18n: ectx: property (text), widget (QPushButton, buttonOpenFile)
+#: lib/welcomeview/welcomeview.ui:226
 #, fuzzy, kde-format
-#| msgid "Clos&e All"
-msgctxt "on welcome screen (recent document list)"
-msgid "Forget All"
-msgstr "Hammasini yo&pish"
+#| msgid "Open File"
+msgid "Open File..."
+msgstr "Faylni ochish"
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, buttonClearRecentFiles)
+#: lib/welcomeview/welcomeview.ui:265
+#, kde-format
+msgid "Clear Recent Files"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, labelSavedSessions)
+#: lib/welcomeview/welcomeview.ui:302
+#, fuzzy, kde-format
+#| msgid "&Save session"
+msgid "Saved Sessions"
+msgstr "Sea&nsni saqlash"
+
+#. i18n: ectx: property (text), widget (QPushButton, buttonManageSessions)
+#: lib/welcomeview/welcomeview.ui:335
+#, fuzzy, kde-format
+#| msgid "Manage Sessions"
+msgid "Manage Sessions..."
+msgstr "Seanslarni boshqarish"
+
+#. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
+#: lib/welcomeview/welcomeview.ui:386
+#, fuzzy, kde-format
+#| msgid "Create a new document"
+msgid "Show for new window"
+msgstr "Yangi hujjatni yaratish"
+
+#, fuzzy
+#~ msgid "&Copy Location"
+#~ msgstr "Manzil"
+
+#, fuzzy
+#~| msgid "&Document"
+#~ msgctxt "on welcome screen"
+#~ msgid "New Document"
+#~ msgstr "H&ujjat"
+
+#, fuzzy
+#~ msgctxt "on welcome screen"
+#~ msgid "Open Document..."
+#~ msgstr "Hujjatlarni ochish"
+
+#, fuzzy
+#~ msgctxt "on welcome screen"
+#~ msgid "Recent documents"
+#~ msgstr "Hujjatlarni ochish"
+
+#, fuzzy
+#~| msgid "Clos&e All"
+#~ msgctxt "on welcome screen (recent document list)"
+#~ msgid "Forget All"
+#~ msgstr "Hammasini yo&pish"
 
 #, fuzzy
 #~ msgid "&New Synchronized Window"
@@ -2614,11 +2650,6 @@ msgstr "Hammasini yo&pish"
 #~ msgctxt "@action:inmenu"
 #~ msgid "Rename File..."
 #~ msgstr "No&mini oʻzgartirish"
-
-#, fuzzy
-#~ msgctxt "@action:inmenu"
-#~ msgid "Delete File"
-#~ msgstr "Oʻchirilgan"
 
 #, fuzzy
 #~| msgid "Meta-Information"
@@ -3026,9 +3057,6 @@ msgstr "Hammasini yo&pish"
 
 #~ msgid "&Abort Closing"
 #~ msgstr "Yopishni &bekor qilish"
-
-#~ msgid "&Do not save session"
-#~ msgstr "Seans saqlan&masin"
 
 #~ msgid "&Ask user"
 #~ msgstr "&Foydalanuvchidan soʻrash"

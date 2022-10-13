@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate stable\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-12 00:50+0000\n"
+"POT-Creation-Date: 2022-10-13 00:50+0000\n"
 "PO-Revision-Date: 2005-11-24 11:27+0200\n"
 "Last-Translator: Frikkie Thirion <frikkie.thirion@deneloptronics.co.za>\n"
 "Language-Team: AFRIKAANS <AF@lia.org.za>\n"
@@ -1202,7 +1202,7 @@ msgstr "Ligging"
 msgid "Copies the file path of the current file to clipboard."
 msgstr "Maak die volgende skei besigtig die aktief een."
 
-#: lib/katemainwindow.cpp:320 lib/welcomeview.cpp:82
+#: lib/katemainwindow.cpp:320 lib/welcomeview/welcomeview.cpp:219
 #, fuzzy, kde-format
 msgid "&Open Containing Folder"
 msgstr "Oopmaak volgorde"
@@ -2233,8 +2233,9 @@ msgstr ""
 msgid "&Open"
 msgstr "Maak oop"
 
+#. i18n: ectx: property (text), widget (QPushButton, buttonNewSession)
 #. i18n: ectx: property (text), widget (QPushButton, m_newButton)
-#: lib/session/katesessionmanagedialog.ui:98
+#: lib/session/katesessionmanagedialog.ui:98 lib/welcomeview/welcomeview.ui:309
 #, kde-format
 msgid "New Session"
 msgstr "Nuwe sessie"
@@ -2472,83 +2473,118 @@ msgstr "Hou meta-informasie na sessies"
 msgid "Delete unused meta-information after:"
 msgstr "Vee ongebruikte meta-inligting uit na:"
 
-#: lib/welcomeview.cpp:69
-#, fuzzy, kde-format
-msgid "&Copy Location"
-msgstr "Ligging"
-
-#: lib/welcomeview.cpp:94
+#: lib/welcomeview/welcomeview.cpp:54
 #, kde-format
-msgctxt "recent items context menu"
-msgid "&Forget This Item"
+msgid "Welcome to %1"
 msgstr ""
 
-#: lib/welcomeview.cpp:123
+#: lib/welcomeview/welcomeview.cpp:59
+#, fuzzy, kde-format
+#| msgid "Close the current document."
+msgid "No recent files"
+msgstr "Maak toe die huidige dokument."
+
+#: lib/welcomeview/welcomeview.cpp:107
+#, fuzzy, kde-format
+#| msgid "&Do not save session"
+msgid "No saved sessions"
+msgstr "Moet nie die sessie stoor nie"
+
+#: lib/welcomeview/welcomeview.cpp:212
+#, fuzzy, kde-format
+msgid "Copy &Location"
+msgstr "Ligging"
+
+#: lib/welcomeview/welcomeview.cpp:227
+#, kde-format
+msgid "&Remove"
+msgstr ""
+
+#. i18n: ectx: property (windowTitle), widget (QScrollArea, WelcomeView)
+#: lib/welcomeview/welcomeview.ui:17
 #, kde-format
 msgid "Welcome"
 msgstr ""
 
-#. i18n: ectx: property (text), widget (QLabel, welcomeLabel)
-#: lib/welcomeview.cpp:126 lib/welcomeview.ui:158
-#, kde-format
-msgid "Welcome to Kate"
-msgstr ""
-
-#: lib/welcomeview.cpp:126
-#, kde-format
-msgid "Welcome to KWrite"
-msgstr ""
-
-#: lib/welcomeview.cpp:176
-#, fuzzy, kde-format
-#| msgid "Close the current document."
-msgctxt "on welcome screen"
-msgid "No recent documents"
-msgstr "Maak toe die huidige dokument."
-
-#. i18n: ectx: property (windowTitle), widget (QWidget, WelcomeView)
-#: lib/welcomeview.ui:17
-#, kde-format
-msgid "Form"
-msgstr ""
-
-#. i18n: ectx: property (text), widget (QPushButton, newDocumentButton)
-#: lib/welcomeview.ui:221
-#, fuzzy, kde-format
-#| msgid "&Document"
-msgctxt "on welcome screen"
-msgid "New Document"
-msgstr "Dokument"
-
-#. i18n: ectx: property (text), widget (QPushButton, openDocumentButton)
-#: lib/welcomeview.ui:232
-#, fuzzy, kde-format
-msgctxt "on welcome screen"
-msgid "Open Document..."
-msgstr "Maak dokumente oop"
-
-#. i18n: ectx: property (text), widget (QPushButton, openFolderButton)
-#: lib/welcomeview.ui:243
+#. i18n: ectx: property (text), widget (QPushButton, buttonNewFile)
+#: lib/welcomeview/welcomeview.ui:200
 #, fuzzy, kde-format
 #| msgid "Open File"
-msgctxt "on welcome screen"
+msgid "New File"
+msgstr "Open Lêer"
+
+#. i18n: ectx: property (text), widget (QPushButton, buttonOpenFolder)
+#: lib/welcomeview/welcomeview.ui:207
+#, fuzzy, kde-format
+#| msgid "Open File"
 msgid "Open Folder..."
 msgstr "Open Lêer"
 
-#. i18n: ectx: property (text), widget (QLabel, label_2)
-#: lib/welcomeview.ui:372
+#. i18n: ectx: property (text), widget (QLabel, labelRecentFiles)
+#: lib/welcomeview/welcomeview.ui:219
 #, fuzzy, kde-format
-msgctxt "on welcome screen"
-msgid "Recent documents"
-msgstr "Maak dokumente oop"
+msgid "Recent Files"
+msgstr "Uitgevee"
 
-#. i18n: ectx: property (text), widget (QToolButton, forgetAllButton)
-#: lib/welcomeview.ui:382
+#. i18n: ectx: property (text), widget (QPushButton, buttonOpenFile)
+#: lib/welcomeview/welcomeview.ui:226
 #, fuzzy, kde-format
-#| msgid "Clos&e All"
-msgctxt "on welcome screen (recent document list)"
-msgid "Forget All"
-msgstr "Maak toe Alle"
+#| msgid "Open File"
+msgid "Open File..."
+msgstr "Open Lêer"
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, buttonClearRecentFiles)
+#: lib/welcomeview/welcomeview.ui:265
+#, kde-format
+msgid "Clear Recent Files"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, labelSavedSessions)
+#: lib/welcomeview/welcomeview.ui:302
+#, fuzzy, kde-format
+#| msgid "&Save session"
+msgid "Saved Sessions"
+msgstr "Stoor Sessie"
+
+#. i18n: ectx: property (text), widget (QPushButton, buttonManageSessions)
+#: lib/welcomeview/welcomeview.ui:335
+#, fuzzy, kde-format
+#| msgid "Manage Sessions"
+msgid "Manage Sessions..."
+msgstr "Bestuur sessies"
+
+#. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
+#: lib/welcomeview/welcomeview.ui:386
+#, fuzzy, kde-format
+#| msgid "Create a new document"
+msgid "Show for new window"
+msgstr "Skep 'n nuwe dokument"
+
+#, fuzzy
+#~ msgid "&Copy Location"
+#~ msgstr "Ligging"
+
+#, fuzzy
+#~| msgid "&Document"
+#~ msgctxt "on welcome screen"
+#~ msgid "New Document"
+#~ msgstr "Dokument"
+
+#, fuzzy
+#~ msgctxt "on welcome screen"
+#~ msgid "Open Document..."
+#~ msgstr "Maak dokumente oop"
+
+#, fuzzy
+#~ msgctxt "on welcome screen"
+#~ msgid "Recent documents"
+#~ msgstr "Maak dokumente oop"
+
+#, fuzzy
+#~| msgid "Clos&e All"
+#~ msgctxt "on welcome screen (recent document list)"
+#~ msgid "Forget All"
+#~ msgstr "Maak toe Alle"
 
 #, fuzzy
 #~ msgid "&New Synchronized Window"
@@ -2677,11 +2713,6 @@ msgstr "Maak toe Alle"
 #~ msgctxt "@action:inmenu"
 #~ msgid "Rename File..."
 #~ msgstr "Herbenoem..."
-
-#, fuzzy
-#~ msgctxt "@action:inmenu"
-#~ msgid "Delete File"
-#~ msgstr "Uitgevee"
 
 #, fuzzy
 #~| msgid "Meta-Information"
@@ -3368,9 +3399,6 @@ msgstr "Maak toe Alle"
 
 #~ msgid "Behavior on Application Exit or Session Switch"
 #~ msgstr "Gedrag tydens program verlaat of sessie wisseling"
-
-#~ msgid "&Do not save session"
-#~ msgstr "Moet nie die sessie stoor nie"
 
 #~ msgid "&Ask user"
 #~ msgstr "Vra die gebruiker"

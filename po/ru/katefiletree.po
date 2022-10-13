@@ -21,14 +21,14 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-09 00:52+0000\n"
-"PO-Revision-Date: 2022-02-08 15:55+0300\n"
+"PO-Revision-Date: 2022-10-12 11:28+0300\n"
 "Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 21.08.3\n"
+"X-Generator: Lokalize 22.04.3\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Environment: kde\n"
@@ -59,8 +59,6 @@ msgstr "Закрыть текущий документ."
 
 #: katefiletree.cpp:133
 #, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Expand recursively"
 msgctxt "@action:inmenu"
 msgid "Expand Recursively"
 msgstr "Развернуть рекурсивно"
@@ -72,8 +70,6 @@ msgstr "Развернуть рекурсивно поддерево с спис
 
 #: katefiletree.cpp:137
 #, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Collapse recursively"
 msgctxt "@action:inmenu"
 msgid "Collapse Recursively"
 msgstr "Свернуть рекурсивно"
@@ -106,10 +102,10 @@ msgid "Open the folder this file is located in."
 msgstr "Открыть папку, в которой расположен этот файл."
 
 #: katefiletree.cpp:150
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Location"
-msgstr "Расположение"
+msgstr "Копировать расположение"
 
 #: katefiletree.cpp:152
 #, kde-format
@@ -406,8 +402,6 @@ msgstr "Управление документами"
 
 #: katefiletreemodel.cpp:493
 #, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open With"
 msgid "Open Widgets"
 msgstr "Открыть с помощью..."
 
@@ -430,13 +424,11 @@ msgstr "Следующий документ"
 
 #: katefiletreeplugin.cpp:259
 #, fuzzy, kde-format
-#| msgid "&Show Active"
 msgid "&Show Active Document"
 msgstr "&Показать активный документ"
 
 #: katefiletreeplugin.cpp:264
 #, fuzzy, kde-format
-#| msgid "&Save"
 msgid "Save"
 msgstr "&Сохранить"
 
@@ -452,7 +444,6 @@ msgstr "Сохранить как"
 
 #: katefiletreeplugin.cpp:270
 #, fuzzy, kde-format
-#| msgid "Save current document under new name"
 msgid "Save the current document under a new name"
 msgstr "Сохранить текущий документ под новым именем"
 
@@ -464,14 +455,17 @@ msgstr "Пере&ход"
 
 #~ msgctxt "NAME OF TRANSLATORS"
 #~ msgid "Your names"
-#~ msgstr "Андрей Черепанов, Григорий Мохин, Евгений Иванов, Александр Лахин"
+#~ msgstr ""
+#~ "Андрей Черепанов, Григорий Мохин, Евгений Иванов, Александр Лахин, Олеся "
+#~ "Герасименко"
 
 #~ msgctxt "EMAIL OF TRANSLATORS"
 #~ msgid "Your emails"
-#~ msgstr "sibskull@mail.ru, mok@kde.ru, powerfox@kde.ru, exclusion@gmail.com"
+#~ msgstr ""
+#~ "sibskull@mail.ru, mok@kde.ru, powerfox@kde.ru, exclusion@gmail.com, "
+#~ "translation-team@basealt.ru"
 
 #, fuzzy
-#~| msgid "Configure"
 #~ msgid "Close Widget"
 #~ msgstr "Настройка"
 
@@ -1960,7 +1954,6 @@ msgstr "Пере&ход"
 #~ msgid "Documentation"
 #~ msgstr "Документация"
 
-#~| msgid "Current Document Folder"
 #~ msgid "Rescan current document for #colors"
 #~ msgstr "Перечитать все #color в текущем документе"
 
@@ -1979,7 +1972,6 @@ msgstr "Пере&ход"
 #~ msgid "Pattern Model Form"
 #~ msgstr "Заготовка формы модели"
 
-#~| msgid "Pattern:"
 #~ msgid "Pattern Model"
 #~ msgstr "Заготовка модели"
 
@@ -2003,7 +1995,6 @@ msgstr "Пере&ход"
 #~ msgstr ""
 #~ "Минимальная длина ключа, после которой будет предлагаться его завершение."
 
-#~| msgid "Copy Filename"
 #~ msgid "Transform Filenames"
 #~ msgstr "Преобразование имён файлов"
 
@@ -2096,8 +2087,6 @@ msgstr "Пере&ход"
 #~ msgid "Highlight Matches"
 #~ msgstr "Подсветка найденного"
 
-#~| msgctxt "@item:inmenu"
-#~| msgid "Kate Highlight Definition"
 #~ msgid "Highlight definitions using etags(1):"
 #~ msgstr "Подсвечивать определения, применяя etags(1):"
 
@@ -2159,7 +2148,6 @@ msgstr "Пере&ход"
 #~ msgid "JSON Indent"
 #~ msgstr "Отступ JSON"
 
-#~| msgid "Show Encoding"
 #~ msgid "JSON encoding"
 #~ msgstr "Кодировка JSON"
 
@@ -2190,7 +2178,6 @@ msgstr "Пере&ход"
 #~ msgid ">>>"
 #~ msgstr ">>>"
 
-#~| msgid "Configure"
 #~ msgid "Continuation Prompt:"
 #~ msgstr "Приглашение к продолжению:"
 
@@ -2200,7 +2187,6 @@ msgstr "Пере&ход"
 #~ msgid "Main display font"
 #~ msgstr "Основной шрифт"
 
-#~| msgid "Highlighting for SQL"
 #~ msgid "Highlighting"
 #~ msgstr "Выделение цветом"
 
@@ -2210,19 +2196,15 @@ msgstr "Пере&ход"
 #~ msgid "String:"
 #~ msgstr "Строка:"
 
-#~| msgctxt "@item:inmenu"
-#~| msgid "Internet"
 #~ msgid "Integer:"
 #~ msgstr "Целое число:"
 
 #~ msgid "Float:"
 #~ msgstr "Дробное число:"
 
-#~| msgid "&Help"
 #~ msgid "Help:"
 #~ msgstr "Справка:"
 
-#~| msgid "Function"
 #~ msgid "Exception:"
 #~ msgstr "Исключение:"
 
@@ -2232,7 +2214,6 @@ msgstr "Пере&ход"
 #~ msgid "GUI completion type (needs close and open kate editor)"
 #~ msgstr "Тип завершения (требуется перезапуск Kate)"
 
-#~| msgid "Document List"
 #~ msgid "Drop List"
 #~ msgstr "Выпадающий список"
 
@@ -2266,7 +2247,6 @@ msgstr "Пере&ход"
 #~ msgid "\\\\t"
 #~ msgstr "\\\\t"
 
-#~| msgid "Line"
 #~ msgid "New Line"
 #~ msgstr "Конец строки"
 
@@ -2281,7 +2261,6 @@ msgstr "Пере&ход"
 #~ msgstr "Показывать &боковые панели"
 
 #, fuzzy
-#~| msgid "&View Difference"
 #~ msgid "Reference"
 #~ msgstr "&Просмотреть различие"
 
@@ -2289,7 +2268,6 @@ msgstr "Пере&ход"
 #~ msgstr "Текст:"
 
 #, fuzzy
-#~| msgid "Name"
 #~ msgid "Full Name:"
 #~ msgstr "Название"
 
@@ -2330,7 +2308,6 @@ msgstr "Пере&ход"
 #~ "нет необработанных документов."
 
 #, fuzzy
-#~| msgid "Create a new document"
 #~ msgid "Cannot go to the document"
 #~ msgstr "Создать новый документ"
 
@@ -2355,12 +2332,10 @@ msgstr "Пере&ход"
 #~ msgstr "Сеанс по умолчанию"
 
 #, fuzzy
-#~| msgid "Plugins"
 #~ msgid "GDB Plugin"
 #~ msgstr "Модули"
 
 #, fuzzy
-#~| msgid "General Options"
 #~ msgid "GDB Integration"
 #~ msgstr "Общие настройки"
 
@@ -2369,17 +2344,14 @@ msgstr "Пере&ход"
 #~ msgstr "Назад"
 
 #, fuzzy
-#~| msgid "Name"
 #~ msgid "Frame"
 #~ msgstr "Название"
 
 #, fuzzy
-#~| msgid "Diff Output"
 #~ msgid "GDB Output"
 #~ msgstr "Вывод Diff (сравнение)"
 
 #, fuzzy
-#~| msgid "Starting Up"
 #~ msgid "Start Debugging"
 #~ msgstr "Запуск"
 
@@ -2388,17 +2360,14 @@ msgstr "Пере&ход"
 #~ msgstr "Запуск"
 
 #, fuzzy
-#~| msgid "Move To"
 #~ msgid "Move PC"
 #~ msgstr "Поместить"
 
 #, fuzzy
-#~| msgid "Configure"
 #~ msgid "Continue"
 #~ msgstr "Настройка"
 
 #, fuzzy
-#~| msgid "&Remove"
 #~ msgid "Remove target"
 #~ msgstr "&Удалить"
 
@@ -2557,7 +2526,6 @@ msgstr "Пере&ход"
 #~ msgstr "Файлы:"
 
 #, fuzzy
-#~| msgid "Close the current document."
 #~ msgid "Use the current document's path."
 #~ msgstr "Закрыть текущий документ."
 
@@ -2647,7 +2615,6 @@ msgstr "Пере&ход"
 #~ "щёлкните мышкой, чтобы открыть это место в редакторе."
 
 #, fuzzy
-#~| msgid "Use this to close the current document"
 #~ msgid "Click to close the current search results."
 #~ msgstr "Закрыть текущий документ"
 
@@ -3147,7 +3114,6 @@ msgstr "Пере&ход"
 #~ msgstr "&Открыть"
 
 #, fuzzy
-#~| msgid "Open Session"
 #~ msgid "Empty session"
 #~ msgstr "Открыть сеанс"
 

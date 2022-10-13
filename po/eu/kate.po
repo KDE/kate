@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-12 00:50+0000\n"
-"PO-Revision-Date: 2022-10-09 21:43+0200\n"
+"POT-Creation-Date: 2022-10-13 00:50+0000\n"
+"PO-Revision-Date: 2022-10-12 10:12+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -29,15 +29,15 @@ msgstr ""
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr ""
-"Marcos,Koldo Navarro,Alfredo Beaumount,Juan Irigoien,Iñigo Salvador "
-"Azurmendi,Iñaki Larrañaga Murgoitio"
+"Iñigo Salvador Azurmendi,Iñaki Larrañaga MurgoitioMarcos,Koldo Navarro,"
+"Alfredo Beaumount,Juan Irigoien"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr ""
-"marcos@euskalgnu.org,koldo.np@euskalnet.net,ziberpunk@ziberghetto.dhis.org,"
-"juanirigoien@yahoo.es,xalba@ni.eus,dooteo@euskalgnu.org"
+"xalba@ni.eus,dooteo@euskalgnu.org,marcos@euskalgnu.org,koldo.np@euskalnet."
+"net,ziberpunk@ziberghetto.dhis.org,juanirigoien@yahoo.es"
 
 #: kate/main.cpp:106
 #, kde-format
@@ -296,29 +296,27 @@ msgstr "Atera puska antolaketatik"
 #: lib/diff/diffwidget.cpp:51
 #, kde-format
 msgid "Show/Hide Commit Info"
-msgstr ""
+msgstr "Erakutsi/Ezkutatu baliozkotze informazioa"
 
 #: lib/diff/diffwidget.cpp:56
 #, kde-format
 msgid "Jump to Next File"
-msgstr ""
+msgstr "Jauzi hurrengo fitxategira"
 
 #: lib/diff/diffwidget.cpp:60
-#, fuzzy, kde-format
-#| msgid "Go to Previous Location"
+#, kde-format
 msgid "Jump to Previous File"
-msgstr "Joan aurreko kokalekura"
+msgstr "Jauzi aurreko fitxategira"
 
 #: lib/diff/diffwidget.cpp:64
 #, kde-format
 msgid "Jump to Next Hunk"
-msgstr ""
+msgstr "Jauzi hurrengo puskara"
 
 #: lib/diff/diffwidget.cpp:68
-#, fuzzy, kde-format
-#| msgid "Go to Previous Location"
+#, kde-format
 msgid "Jump to Previous Hunk"
-msgstr "Joan aurreko kokalekura"
+msgstr "Jauzi aurreko puskara"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
 #: lib/filehistorywidget.cpp:258 lib/session/katesessionmanagedialog.ui:184
@@ -1186,7 +1184,7 @@ msgstr "Kopiatu kokalekua"
 msgid "Copies the file path of the current file to clipboard."
 msgstr "Uneko fitxategiren bide-izena arbelera kopiatzen du."
 
-#: lib/katemainwindow.cpp:320 lib/welcomeview.cpp:82
+#: lib/katemainwindow.cpp:320 lib/welcomeview/welcomeview.cpp:219
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "&Ireki hau barnean duen karpeta"
@@ -2166,8 +2164,9 @@ msgstr "Irekitako azkenak"
 msgid "&Open"
 msgstr "&Ireki"
 
+#. i18n: ectx: property (text), widget (QPushButton, buttonNewSession)
 #. i18n: ectx: property (text), widget (QPushButton, m_newButton)
-#: lib/session/katesessionmanagedialog.ui:98
+#: lib/session/katesessionmanagedialog.ui:98 lib/welcomeview/welcomeview.ui:309
 #, kde-format
 msgid "New Session"
 msgstr "Saio berria"
@@ -2406,79 +2405,126 @@ msgstr "Eduki iragan saioetako &meta-informazioa"
 msgid "Delete unused meta-information after:"
 msgstr "Ezabatu erabili gabeko meta-informazioa hau igarotakoan:"
 
-#: lib/welcomeview.cpp:69
-#, kde-format
-msgid "&Copy Location"
-msgstr "&Kopiatu kokalekua"
+#: lib/welcomeview/welcomeview.cpp:54
+#, fuzzy, kde-format
+#| msgid "Welcome to Kate"
+msgid "Welcome to %1"
+msgstr "Ongi etorri Kate-ra"
 
-#: lib/welcomeview.cpp:94
-#, kde-format
-msgctxt "recent items context menu"
-msgid "&Forget This Item"
-msgstr "A&haztu elementu hau"
+#: lib/welcomeview/welcomeview.cpp:59
+#, fuzzy, kde-format
+#| msgctxt "on welcome screen"
+#| msgid "No recent documents"
+msgid "No recent files"
+msgstr "Ez dago azken aldiko dokumenturik"
 
-#: lib/welcomeview.cpp:123
+#: lib/welcomeview/welcomeview.cpp:107
+#, fuzzy, kde-format
+#| msgid "&Do not save session"
+msgid "No saved sessions"
+msgstr "&Ez gorde saioa"
+
+#: lib/welcomeview/welcomeview.cpp:212
+#, fuzzy, kde-format
+#| msgid "Copy Location"
+msgid "Copy &Location"
+msgstr "Kopiatu kokalekua"
+
+#: lib/welcomeview/welcomeview.cpp:227
+#, kde-format
+msgid "&Remove"
+msgstr ""
+
+#. i18n: ectx: property (windowTitle), widget (QScrollArea, WelcomeView)
+#: lib/welcomeview/welcomeview.ui:17
 #, kde-format
 msgid "Welcome"
 msgstr "Ongi etorri"
 
-#. i18n: ectx: property (text), widget (QLabel, welcomeLabel)
-#: lib/welcomeview.cpp:126 lib/welcomeview.ui:158
-#, kde-format
-msgid "Welcome to Kate"
-msgstr "Ongi etorri Kate-ra"
+#. i18n: ectx: property (text), widget (QPushButton, buttonNewFile)
+#: lib/welcomeview/welcomeview.ui:200
+#, fuzzy, kde-format
+#| msgid "Open File"
+msgid "New File"
+msgstr "Ireki fitxategia"
 
-#: lib/welcomeview.cpp:126
-#, kde-format
-msgid "Welcome to KWrite"
-msgstr "Ongi etorri KWrite-ra"
-
-#: lib/welcomeview.cpp:176
-#, kde-format
-msgctxt "on welcome screen"
-msgid "No recent documents"
-msgstr "Ez dago azken aldiko dokumenturik"
-
-#. i18n: ectx: property (windowTitle), widget (QWidget, WelcomeView)
-#: lib/welcomeview.ui:17
-#, kde-format
-msgid "Form"
-msgstr "Inprimakia"
-
-#. i18n: ectx: property (text), widget (QPushButton, newDocumentButton)
-#: lib/welcomeview.ui:221
-#, kde-format
-msgctxt "on welcome screen"
-msgid "New Document"
-msgstr "Dokumentu berria"
-
-#. i18n: ectx: property (text), widget (QPushButton, openDocumentButton)
-#: lib/welcomeview.ui:232
-#, kde-format
-msgctxt "on welcome screen"
-msgid "Open Document..."
-msgstr "Ireki dokumentua..."
-
-#. i18n: ectx: property (text), widget (QPushButton, openFolderButton)
-#: lib/welcomeview.ui:243
-#, kde-format
-msgctxt "on welcome screen"
+#. i18n: ectx: property (text), widget (QPushButton, buttonOpenFolder)
+#: lib/welcomeview/welcomeview.ui:207
+#, fuzzy, kde-format
+#| msgctxt "on welcome screen"
+#| msgid "Open Folder..."
 msgid "Open Folder..."
 msgstr "Ireki karpeta..."
 
-#. i18n: ectx: property (text), widget (QLabel, label_2)
-#: lib/welcomeview.ui:372
-#, kde-format
-msgctxt "on welcome screen"
-msgid "Recent documents"
-msgstr "Azken aldiko dokumentuak"
+#. i18n: ectx: property (text), widget (QLabel, labelRecentFiles)
+#: lib/welcomeview/welcomeview.ui:219
+#, fuzzy, kde-format
+#| msgid "Delete File?"
+msgid "Recent Files"
+msgstr "Ezabatu fitxategia?"
 
-#. i18n: ectx: property (text), widget (QToolButton, forgetAllButton)
-#: lib/welcomeview.ui:382
+#. i18n: ectx: property (text), widget (QPushButton, buttonOpenFile)
+#: lib/welcomeview/welcomeview.ui:226
+#, fuzzy, kde-format
+#| msgid "Open File"
+msgid "Open File..."
+msgstr "Ireki fitxategia"
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, buttonClearRecentFiles)
+#: lib/welcomeview/welcomeview.ui:265
 #, kde-format
-msgctxt "on welcome screen (recent document list)"
-msgid "Forget All"
-msgstr "Ahaztu dena"
+msgid "Clear Recent Files"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, labelSavedSessions)
+#: lib/welcomeview/welcomeview.ui:302
+#, fuzzy, kde-format
+#| msgid "&Save Session"
+msgid "Saved Sessions"
+msgstr "&Gorde saioa"
+
+#. i18n: ectx: property (text), widget (QPushButton, buttonManageSessions)
+#: lib/welcomeview/welcomeview.ui:335
+#, fuzzy, kde-format
+#| msgid "&Manage Sessions..."
+msgid "Manage Sessions..."
+msgstr "&Kudeatu saioak..."
+
+#. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
+#: lib/welcomeview/welcomeview.ui:386
+#, fuzzy, kde-format
+#| msgid "Create a new window."
+msgid "Show for new window"
+msgstr "Sortu leiho berri bat"
+
+#~ msgid "&Copy Location"
+#~ msgstr "&Kopiatu kokalekua"
+
+#~ msgctxt "recent items context menu"
+#~ msgid "&Forget This Item"
+#~ msgstr "A&haztu elementu hau"
+
+#~ msgid "Welcome to KWrite"
+#~ msgstr "Ongi etorri KWrite-ra"
+
+#~ msgid "Form"
+#~ msgstr "Inprimakia"
+
+#~ msgctxt "on welcome screen"
+#~ msgid "New Document"
+#~ msgstr "Dokumentu berria"
+
+#~ msgctxt "on welcome screen"
+#~ msgid "Open Document..."
+#~ msgstr "Ireki dokumentua..."
+
+#~ msgctxt "on welcome screen"
+#~ msgid "Recent documents"
+#~ msgstr "Azken aldiko dokumentuak"
+
+#~ msgctxt "on welcome screen (recent document list)"
+#~ msgid "Forget All"
+#~ msgstr "Ahaztu dena"
 
 #~ msgid "Make Non-Persistent"
 #~ msgstr "Egin ez-iraunkor"
@@ -2597,12 +2643,6 @@ msgstr "Ahaztu dena"
 #~ msgctxt "@action:inmenu"
 #~ msgid "Rename File..."
 #~ msgstr "Be&rrizendatu..."
-
-#, fuzzy
-#~| msgid "Delete File?"
-#~ msgctxt "@action:inmenu"
-#~ msgid "Delete File"
-#~ msgstr "Ezabatu fitxategia?"
 
 #, fuzzy
 #~| msgid "Configure"
@@ -3555,9 +3595,6 @@ msgstr "Ahaztu dena"
 
 #~ msgid "Behavior on Application Exit or Session Switch"
 #~ msgstr "Portaera aplikazioa irtetean edo saioa aldatzean"
-
-#~ msgid "&Do not save session"
-#~ msgstr "&Ez gorde saioa"
 
 #~ msgid "&Ask user"
 #~ msgstr "&Galdetu erabiltzaileari"

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-11 00:50+0000\n"
-"PO-Revision-Date: 2022-07-14 19:09+0200\n"
+"PO-Revision-Date: 2022-10-12 15:38+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -785,10 +785,9 @@ msgid "Project"
 msgstr "Projecto"
 
 #: kateprojectpluginview.cpp:52
-#, fuzzy, kde-format
-#| msgid "Kate Project Manager"
+#, kde-format
 msgid "Project Manager"
-msgstr "Gerente de Projecto de Kate"
+msgstr "Gerente de projectos"
 
 #: kateprojectpluginview.cpp:78
 #, fuzzy, kde-format

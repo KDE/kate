@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-27 00:48+0000\n"
-"PO-Revision-Date: 2022-02-08 16:05+0300\n"
+"PO-Revision-Date: 2022-10-12 11:32+0300\n"
 "Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
 "Language: ru\n"
@@ -17,19 +17,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Lokalize 21.08.3\n"
+"X-Generator: Lokalize 22.04.3\n"
 
 #: plugin_katexmlcheck.cpp:98
 #, fuzzy, kde-format
-#| msgid "XML Checker Output"
 msgid "XML Check"
-msgstr "Результаты проверки XML"
+msgstr "Средство проверки XML"
 
 #: plugin_katexmlcheck.cpp:105
-#, fuzzy, kde-format
-#| msgid "XML Checker Output"
+#, kde-format
 msgid "XML Checker"
-msgstr "Результаты проверки XML"
+msgstr "Средство проверки XML"
 
 #: plugin_katexmlcheck.cpp:109
 #, kde-format

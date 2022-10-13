@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-12 00:50+0000\n"
+"POT-Creation-Date: 2022-10-13 00:50+0000\n"
 "PO-Revision-Date: 2022-10-10 07:38+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -1193,7 +1193,7 @@ msgstr "Kopiraj mesto"
 msgid "Copies the file path of the current file to clipboard."
 msgstr "Kopiraj pot trenutne datoteke na odložišče."
 
-#: lib/katemainwindow.cpp:320 lib/welcomeview.cpp:82
+#: lib/katemainwindow.cpp:320 lib/welcomeview/welcomeview.cpp:219
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "&Odpri vsebujočo mapo"
@@ -2174,8 +2174,9 @@ msgstr "Zadnje odprta"
 msgid "&Open"
 msgstr "&Odpri"
 
+#. i18n: ectx: property (text), widget (QPushButton, buttonNewSession)
 #. i18n: ectx: property (text), widget (QPushButton, m_newButton)
-#: lib/session/katesessionmanagedialog.ui:98
+#: lib/session/katesessionmanagedialog.ui:98 lib/welcomeview/welcomeview.ui:309
 #, kde-format
 msgid "New Session"
 msgstr "Nova seja"
@@ -2411,76 +2412,123 @@ msgstr "Ohrani &metapodatke preko sej"
 msgid "Delete unused meta-information after:"
 msgstr "Izbriši neuporabljene metapodatke po:"
 
-#: lib/welcomeview.cpp:69
-#, kde-format
-msgid "&Copy Location"
+#: lib/welcomeview/welcomeview.cpp:54
+#, fuzzy, kde-format
+#| msgid "Welcome to Kate"
+msgid "Welcome to %1"
+msgstr "Dobrodošli v Kate"
+
+#: lib/welcomeview/welcomeview.cpp:59
+#, fuzzy, kde-format
+#| msgctxt "on welcome screen"
+#| msgid "No recent documents"
+msgid "No recent files"
+msgstr "Ni nedavnih dokumentov"
+
+#: lib/welcomeview/welcomeview.cpp:107
+#, fuzzy, kde-format
+#| msgid "&Save Session"
+msgid "No saved sessions"
+msgstr "&Shrani sejo"
+
+#: lib/welcomeview/welcomeview.cpp:212
+#, fuzzy, kde-format
+#| msgid "Copy Location"
+msgid "Copy &Location"
 msgstr "Kopiraj mesto"
 
-#: lib/welcomeview.cpp:94
+#: lib/welcomeview/welcomeview.cpp:227
 #, kde-format
-msgctxt "recent items context menu"
-msgid "&Forget This Item"
-msgstr "Pozabi ta predmet"
+msgid "&Remove"
+msgstr ""
 
-#: lib/welcomeview.cpp:123
+#. i18n: ectx: property (windowTitle), widget (QScrollArea, WelcomeView)
+#: lib/welcomeview/welcomeview.ui:17
 #, kde-format
 msgid "Welcome"
 msgstr "Dobrodošli"
 
-#. i18n: ectx: property (text), widget (QLabel, welcomeLabel)
-#: lib/welcomeview.cpp:126 lib/welcomeview.ui:158
-#, kde-format
-msgid "Welcome to Kate"
-msgstr "Dobrodošli v Kate"
+#. i18n: ectx: property (text), widget (QPushButton, buttonNewFile)
+#: lib/welcomeview/welcomeview.ui:200
+#, fuzzy, kde-format
+#| msgid "Open File"
+msgid "New File"
+msgstr "Odpri datoteko"
 
-#: lib/welcomeview.cpp:126
-#, kde-format
-msgid "Welcome to KWrite"
-msgstr "Dobrodošli v KWrite"
-
-#: lib/welcomeview.cpp:176
-#, kde-format
-msgctxt "on welcome screen"
-msgid "No recent documents"
-msgstr "Ni nedavnih dokumentov"
-
-#. i18n: ectx: property (windowTitle), widget (QWidget, WelcomeView)
-#: lib/welcomeview.ui:17
-#, kde-format
-msgid "Form"
-msgstr "Obrazec"
-
-#. i18n: ectx: property (text), widget (QPushButton, newDocumentButton)
-#: lib/welcomeview.ui:221
-#, kde-format
-msgctxt "on welcome screen"
-msgid "New Document"
-msgstr "Novi dokument"
-
-#. i18n: ectx: property (text), widget (QPushButton, openDocumentButton)
-#: lib/welcomeview.ui:232
-#, kde-format
-msgctxt "on welcome screen"
-msgid "Open Document..."
-msgstr "Odpri dokument..."
-
-#. i18n: ectx: property (text), widget (QPushButton, openFolderButton)
-#: lib/welcomeview.ui:243
-#, kde-format
-msgctxt "on welcome screen"
+#. i18n: ectx: property (text), widget (QPushButton, buttonOpenFolder)
+#: lib/welcomeview/welcomeview.ui:207
+#, fuzzy, kde-format
+#| msgctxt "on welcome screen"
+#| msgid "Open Folder..."
 msgid "Open Folder..."
 msgstr "Odpri mapo..."
 
-#. i18n: ectx: property (text), widget (QLabel, label_2)
-#: lib/welcomeview.ui:372
-#, kde-format
-msgctxt "on welcome screen"
-msgid "Recent documents"
-msgstr "Nedavni dokumenti"
+#. i18n: ectx: property (text), widget (QLabel, labelRecentFiles)
+#: lib/welcomeview/welcomeview.ui:219
+#, fuzzy, kde-format
+#| msgid "Open File"
+msgid "Recent Files"
+msgstr "Odpri datoteko"
 
-#. i18n: ectx: property (text), widget (QToolButton, forgetAllButton)
-#: lib/welcomeview.ui:382
+#. i18n: ectx: property (text), widget (QPushButton, buttonOpenFile)
+#: lib/welcomeview/welcomeview.ui:226
+#, fuzzy, kde-format
+#| msgid "Open File"
+msgid "Open File..."
+msgstr "Odpri datoteko"
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, buttonClearRecentFiles)
+#: lib/welcomeview/welcomeview.ui:265
 #, kde-format
-msgctxt "on welcome screen (recent document list)"
-msgid "Forget All"
-msgstr "Pozabi vse"
+msgid "Clear Recent Files"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, labelSavedSessions)
+#: lib/welcomeview/welcomeview.ui:302
+#, fuzzy, kde-format
+#| msgid "&Save Session"
+msgid "Saved Sessions"
+msgstr "&Shrani sejo"
+
+#. i18n: ectx: property (text), widget (QPushButton, buttonManageSessions)
+#: lib/welcomeview/welcomeview.ui:335
+#, fuzzy, kde-format
+#| msgid "&Manage Sessions..."
+msgid "Manage Sessions..."
+msgstr "Upravljanje sej..."
+
+#. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
+#: lib/welcomeview/welcomeview.ui:386
+#, fuzzy, kde-format
+#| msgid "Create a new window."
+msgid "Show for new window"
+msgstr "Ustvari novo okno."
+
+#~ msgid "&Copy Location"
+#~ msgstr "Kopiraj mesto"
+
+#~ msgctxt "recent items context menu"
+#~ msgid "&Forget This Item"
+#~ msgstr "Pozabi ta predmet"
+
+#~ msgid "Welcome to KWrite"
+#~ msgstr "Dobrodošli v KWrite"
+
+#~ msgid "Form"
+#~ msgstr "Obrazec"
+
+#~ msgctxt "on welcome screen"
+#~ msgid "New Document"
+#~ msgstr "Novi dokument"
+
+#~ msgctxt "on welcome screen"
+#~ msgid "Open Document..."
+#~ msgstr "Odpri dokument..."
+
+#~ msgctxt "on welcome screen"
+#~ msgid "Recent documents"
+#~ msgstr "Nedavni dokumenti"
+
+#~ msgctxt "on welcome screen (recent document list)"
+#~ msgid "Forget All"
+#~ msgstr "Pozabi vse"

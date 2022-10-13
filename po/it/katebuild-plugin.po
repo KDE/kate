@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-08 00:52+0000\n"
-"PO-Revision-Date: 2022-04-20 16:45+0200\n"
+"PO-Revision-Date: 2022-10-09 14:48+0200\n"
 "Last-Translator: Paolo Zamponi <zapaolo@email.it>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 22.08.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -94,10 +94,9 @@ msgid "Build Default Target"
 msgstr "Compila l'obiettivo predefinito"
 
 #: plugin_katebuild.cpp:147
-#, fuzzy, kde-format
-#| msgid "Build Default Target"
+#, kde-format
 msgid "Build and Run Default Target"
-msgstr "Compila l'obiettivo predefinito"
+msgstr "Compila ed esegui l'obiettivo predefinito"
 
 #: plugin_katebuild.cpp:151
 #, kde-format
@@ -273,7 +272,7 @@ msgstr "Compilazione conclusa senza problemi."
 #: plugin_katebuild.cpp:1050
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
-msgstr ""
+msgstr "Impossibile eseguire: %1 Nessuna cartella di lavoro impostata."
 
 #: plugin_katebuild.cpp:1242
 #, kde-format
@@ -382,10 +381,9 @@ msgid "Working Directory / Command"
 msgstr "Cartella di lavoro / Comando"
 
 #: TargetModel.cpp:391
-#, fuzzy, kde-format
-#| msgid "Command:"
+#, kde-format
 msgid "Run Command"
-msgstr "Comando:"
+msgstr "Esegui comando"
 
 #: targets.cpp:22
 #, kde-format
@@ -428,10 +426,9 @@ msgid "Build selected target"
 msgstr "Compila l'obiettivo selezionato"
 
 #: targets.cpp:54
-#, fuzzy, kde-format
-#| msgid "Build selected target"
+#, kde-format
 msgid "Build and run selected target"
-msgstr "Compila l'obiettivo selezionato"
+msgstr "Compila ed esegui l'obiettivo selezionato"
 
 #. i18n: ectx: Menu (Build Menubar)
 #: ui.rc:6

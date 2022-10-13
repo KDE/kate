@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-12 00:50+0000\n"
+"POT-Creation-Date: 2022-10-13 00:50+0000\n"
 "PO-Revision-Date: 2022-07-14 10:21+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -1173,7 +1173,7 @@ msgstr "Ünvanı kopyalayın"
 msgid "Copies the file path of the current file to clipboard."
 msgstr "Cari faylın fayl yolunu mübadilə yaddaşına kopyalayır."
 
-#: lib/katemainwindow.cpp:320 lib/welcomeview.cpp:82
+#: lib/katemainwindow.cpp:320 lib/welcomeview/welcomeview.cpp:219
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "&Fayldan ibarət qovluğu açmaq"
@@ -2172,8 +2172,9 @@ msgstr "Sonuncu açılan"
 msgid "&Open"
 msgstr "&Açmaq"
 
+#. i18n: ectx: property (text), widget (QPushButton, buttonNewSession)
 #. i18n: ectx: property (text), widget (QPushButton, m_newButton)
-#: lib/session/katesessionmanagedialog.ui:98
+#: lib/session/katesessionmanagedialog.ui:98 lib/welcomeview/welcomeview.ui:309
 #, kde-format
 msgid "New Session"
 msgstr "Yeni Sesiya"
@@ -2410,86 +2411,123 @@ msgstr "Sonuncu sesiyanın &meta məlumatlarını saxlayın"
 msgid "Delete unused meta-information after:"
 msgstr "İstifadə olunmamış meta məlumatlarını silin"
 
-#: lib/welcomeview.cpp:69
-#, fuzzy, kde-format
-#| msgid "Copy Location"
-msgid "&Copy Location"
-msgstr "Ünvanı kopyalayın"
-
-#: lib/welcomeview.cpp:94
+#: lib/welcomeview/welcomeview.cpp:54
 #, kde-format
-msgctxt "recent items context menu"
-msgid "&Forget This Item"
+msgid "Welcome to %1"
 msgstr ""
 
-#: lib/welcomeview.cpp:123
+#: lib/welcomeview/welcomeview.cpp:59
+#, fuzzy, kde-format
+#| msgid "Close the current document."
+msgid "No recent files"
+msgstr "Cari sənədi bağlamaq."
+
+#: lib/welcomeview/welcomeview.cpp:107
+#, fuzzy, kde-format
+#| msgid "&Save Session"
+msgid "No saved sessions"
+msgstr "&Sesiyanı saxlamaq"
+
+#: lib/welcomeview/welcomeview.cpp:212
+#, fuzzy, kde-format
+#| msgid "Copy Location"
+msgid "Copy &Location"
+msgstr "Ünvanı kopyalayın"
+
+#: lib/welcomeview/welcomeview.cpp:227
+#, kde-format
+msgid "&Remove"
+msgstr ""
+
+#. i18n: ectx: property (windowTitle), widget (QScrollArea, WelcomeView)
+#: lib/welcomeview/welcomeview.ui:17
 #, kde-format
 msgid "Welcome"
 msgstr ""
 
-#. i18n: ectx: property (text), widget (QLabel, welcomeLabel)
-#: lib/welcomeview.cpp:126 lib/welcomeview.ui:158
-#, kde-format
-msgid "Welcome to Kate"
-msgstr ""
-
-#: lib/welcomeview.cpp:126
-#, kde-format
-msgid "Welcome to KWrite"
-msgstr ""
-
-#: lib/welcomeview.cpp:176
-#, fuzzy, kde-format
-#| msgid "Close the current document."
-msgctxt "on welcome screen"
-msgid "No recent documents"
-msgstr "Cari sənədi bağlamaq."
-
-#. i18n: ectx: property (windowTitle), widget (QWidget, WelcomeView)
-#: lib/welcomeview.ui:17
-#, kde-format
-msgid "Form"
-msgstr ""
-
-#. i18n: ectx: property (text), widget (QPushButton, newDocumentButton)
-#: lib/welcomeview.ui:221
-#, fuzzy, kde-format
-#| msgid "Close Document"
-msgctxt "on welcome screen"
-msgid "New Document"
-msgstr "Sənədi bağlamaq"
-
-#. i18n: ectx: property (text), widget (QPushButton, openDocumentButton)
-#: lib/welcomeview.ui:232
-#, fuzzy, kde-format
-#| msgid "Close Document"
-msgctxt "on welcome screen"
-msgid "Open Document..."
-msgstr "Sənədi bağlamaq"
-
-#. i18n: ectx: property (text), widget (QPushButton, openFolderButton)
-#: lib/welcomeview.ui:243
+#. i18n: ectx: property (text), widget (QPushButton, buttonNewFile)
+#: lib/welcomeview/welcomeview.ui:200
 #, fuzzy, kde-format
 #| msgid "Open File"
-msgctxt "on welcome screen"
+msgid "New File"
+msgstr "Faylı Açmaq"
+
+#. i18n: ectx: property (text), widget (QPushButton, buttonOpenFolder)
+#: lib/welcomeview/welcomeview.ui:207
+#, fuzzy, kde-format
+#| msgid "Open File"
 msgid "Open Folder..."
 msgstr "Faylı Açmaq"
 
-#. i18n: ectx: property (text), widget (QLabel, label_2)
-#: lib/welcomeview.ui:372
+#. i18n: ectx: property (text), widget (QLabel, labelRecentFiles)
+#: lib/welcomeview/welcomeview.ui:219
 #, fuzzy, kde-format
-#| msgid "Reload all open documents."
-msgctxt "on welcome screen"
-msgid "Recent documents"
-msgstr "bütün açılmış sənədləri yenidən yükləmək."
+#| msgid "Open File"
+msgid "Recent Files"
+msgstr "Faylı Açmaq"
 
-#. i18n: ectx: property (text), widget (QToolButton, forgetAllButton)
-#: lib/welcomeview.ui:382
+#. i18n: ectx: property (text), widget (QPushButton, buttonOpenFile)
+#: lib/welcomeview/welcomeview.ui:226
 #, fuzzy, kde-format
-#| msgid "Clos&e All"
-msgctxt "on welcome screen (recent document list)"
-msgid "Forget All"
-msgstr "&Hamısını bağlamaq"
+#| msgid "Open File"
+msgid "Open File..."
+msgstr "Faylı Açmaq"
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, buttonClearRecentFiles)
+#: lib/welcomeview/welcomeview.ui:265
+#, kde-format
+msgid "Clear Recent Files"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, labelSavedSessions)
+#: lib/welcomeview/welcomeview.ui:302
+#, fuzzy, kde-format
+#| msgid "&Save Session"
+msgid "Saved Sessions"
+msgstr "&Sesiyanı saxlamaq"
+
+#. i18n: ectx: property (text), widget (QPushButton, buttonManageSessions)
+#: lib/welcomeview/welcomeview.ui:335
+#, fuzzy, kde-format
+#| msgid "&Manage Sessions..."
+msgid "Manage Sessions..."
+msgstr "Sesiyaları idarə et&mək..."
+
+#. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
+#: lib/welcomeview/welcomeview.ui:386
+#, fuzzy, kde-format
+#| msgid "Create a new document"
+msgid "Show for new window"
+msgstr "Yeni sənəd yaradın"
+
+#, fuzzy
+#~| msgid "Copy Location"
+#~ msgid "&Copy Location"
+#~ msgstr "Ünvanı kopyalayın"
+
+#, fuzzy
+#~| msgid "Close Document"
+#~ msgctxt "on welcome screen"
+#~ msgid "New Document"
+#~ msgstr "Sənədi bağlamaq"
+
+#, fuzzy
+#~| msgid "Close Document"
+#~ msgctxt "on welcome screen"
+#~ msgid "Open Document..."
+#~ msgstr "Sənədi bağlamaq"
+
+#, fuzzy
+#~| msgid "Reload all open documents."
+#~ msgctxt "on welcome screen"
+#~ msgid "Recent documents"
+#~ msgstr "bütün açılmış sənədləri yenidən yükləmək."
+
+#, fuzzy
+#~| msgid "Clos&e All"
+#~ msgctxt "on welcome screen (recent document list)"
+#~ msgid "Forget All"
+#~ msgstr "&Hamısını bağlamaq"
 
 #~ msgid "Make Non-Persistent"
 #~ msgstr "Davamsız etmək"

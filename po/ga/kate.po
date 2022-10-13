@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-12 00:50+0000\n"
+"POT-Creation-Date: 2022-10-13 00:50+0000\n"
 "PO-Revision-Date: 2004-12-03 14:52-0500\n"
 "Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
@@ -1199,7 +1199,7 @@ msgstr "Suíomh"
 msgid "Copies the file path of the current file to clipboard."
 msgstr "Dún an t-amharc roinnte atá gníomhach faoi láthair"
 
-#: lib/katemainwindow.cpp:320 lib/welcomeview.cpp:82
+#: lib/katemainwindow.cpp:320 lib/welcomeview/welcomeview.cpp:219
 #, fuzzy, kde-format
 #| msgid "Opening Order"
 msgid "&Open Containing Folder"
@@ -2194,8 +2194,9 @@ msgstr ""
 msgid "&Open"
 msgstr "&Oscail"
 
+#. i18n: ectx: property (text), widget (QPushButton, buttonNewSession)
 #. i18n: ectx: property (text), widget (QPushButton, m_newButton)
-#: lib/session/katesessionmanagedialog.ui:98
+#: lib/session/katesessionmanagedialog.ui:98 lib/welcomeview/welcomeview.ui:309
 #, kde-format
 msgid "New Session"
 msgstr "Seisiún Nua"
@@ -2426,88 +2427,125 @@ msgstr ""
 msgid "Delete unused meta-information after:"
 msgstr ""
 
-#: lib/welcomeview.cpp:69
-#, fuzzy, kde-format
-#| msgid "Location"
-msgid "&Copy Location"
-msgstr "Suíomh"
-
-#: lib/welcomeview.cpp:94
+#: lib/welcomeview/welcomeview.cpp:54
 #, kde-format
-msgctxt "recent items context menu"
-msgid "&Forget This Item"
+msgid "Welcome to %1"
 msgstr ""
 
-#: lib/welcomeview.cpp:123
+#: lib/welcomeview/welcomeview.cpp:59
+#, fuzzy, kde-format
+#| msgid "Close the current document."
+msgid "No recent files"
+msgstr "Dún an cháipéis reatha."
+
+#: lib/welcomeview/welcomeview.cpp:107
+#, fuzzy, kde-format
+#| msgid "&Do not save session"
+msgid "No saved sessions"
+msgstr "&Ná sábháil an seisiún"
+
+#: lib/welcomeview/welcomeview.cpp:212
+#, fuzzy, kde-format
+#| msgid "Location"
+msgid "Copy &Location"
+msgstr "Suíomh"
+
+#: lib/welcomeview/welcomeview.cpp:227
+#, kde-format
+msgid "&Remove"
+msgstr ""
+
+#. i18n: ectx: property (windowTitle), widget (QScrollArea, WelcomeView)
+#: lib/welcomeview/welcomeview.ui:17
 #, kde-format
 msgid "Welcome"
 msgstr ""
 
-#. i18n: ectx: property (text), widget (QLabel, welcomeLabel)
-#: lib/welcomeview.cpp:126 lib/welcomeview.ui:158
-#, kde-format
-msgid "Welcome to Kate"
-msgstr ""
-
-#: lib/welcomeview.cpp:126
-#, kde-format
-msgid "Welcome to KWrite"
-msgstr ""
-
-#: lib/welcomeview.cpp:176
-#, fuzzy, kde-format
-#| msgid "Close the current document."
-msgctxt "on welcome screen"
-msgid "No recent documents"
-msgstr "Dún an cháipéis reatha."
-
-#. i18n: ectx: property (windowTitle), widget (QWidget, WelcomeView)
-#: lib/welcomeview.ui:17
-#, kde-format
-msgid "Form"
-msgstr ""
-
-#. i18n: ectx: property (text), widget (QPushButton, newDocumentButton)
-#: lib/welcomeview.ui:221
-#, fuzzy, kde-format
-#| msgid "Close Document"
-msgctxt "on welcome screen"
-msgid "New Document"
-msgstr "Dún an Cháipéis"
-
-#. i18n: ectx: property (text), widget (QPushButton, openDocumentButton)
-#: lib/welcomeview.ui:232
-#, fuzzy, kde-format
-#| msgctxt "The number of open documents"
-#| msgid "Open Documents"
-msgctxt "on welcome screen"
-msgid "Open Document..."
-msgstr "Líon na gCáipéisí Oscailte"
-
-#. i18n: ectx: property (text), widget (QPushButton, openFolderButton)
-#: lib/welcomeview.ui:243
+#. i18n: ectx: property (text), widget (QPushButton, buttonNewFile)
+#: lib/welcomeview/welcomeview.ui:200
 #, fuzzy, kde-format
 #| msgid "Open File"
-msgctxt "on welcome screen"
+msgid "New File"
+msgstr "Oscail Comhad"
+
+#. i18n: ectx: property (text), widget (QPushButton, buttonOpenFolder)
+#: lib/welcomeview/welcomeview.ui:207
+#, fuzzy, kde-format
+#| msgid "Open File"
 msgid "Open Folder..."
 msgstr "Oscail Comhad"
 
-#. i18n: ectx: property (text), widget (QLabel, label_2)
-#: lib/welcomeview.ui:372
+#. i18n: ectx: property (text), widget (QLabel, labelRecentFiles)
+#: lib/welcomeview/welcomeview.ui:219
 #, fuzzy, kde-format
-#| msgctxt "The number of open documents"
-#| msgid "Open Documents"
-msgctxt "on welcome screen"
-msgid "Recent documents"
-msgstr "Líon na gCáipéisí Oscailte"
+#| msgid "Delete File?"
+msgid "Recent Files"
+msgstr "Scrios an Comhad?"
 
-#. i18n: ectx: property (text), widget (QToolButton, forgetAllButton)
-#: lib/welcomeview.ui:382
+#. i18n: ectx: property (text), widget (QPushButton, buttonOpenFile)
+#: lib/welcomeview/welcomeview.ui:226
 #, fuzzy, kde-format
-#| msgid "Clos&e All"
-msgctxt "on welcome screen (recent document list)"
-msgid "Forget All"
-msgstr "Dún Uil&e"
+#| msgid "Open File"
+msgid "Open File..."
+msgstr "Oscail Comhad"
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, buttonClearRecentFiles)
+#: lib/welcomeview/welcomeview.ui:265
+#, kde-format
+msgid "Clear Recent Files"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, labelSavedSessions)
+#: lib/welcomeview/welcomeview.ui:302
+#, fuzzy, kde-format
+#| msgid "&Save Session"
+msgid "Saved Sessions"
+msgstr "&Sábháil an Seisiún"
+
+#. i18n: ectx: property (text), widget (QPushButton, buttonManageSessions)
+#: lib/welcomeview/welcomeview.ui:335
+#, fuzzy, kde-format
+#| msgid "&Manage Sessions..."
+msgid "Manage Sessions..."
+msgstr "&Bainistigh Seisiúin..."
+
+#. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
+#: lib/welcomeview/welcomeview.ui:386
+#, fuzzy, kde-format
+#| msgid "Create a new document"
+msgid "Show for new window"
+msgstr "Cruthaigh cáipéis nua"
+
+#, fuzzy
+#~| msgid "Location"
+#~ msgid "&Copy Location"
+#~ msgstr "Suíomh"
+
+#, fuzzy
+#~| msgid "Close Document"
+#~ msgctxt "on welcome screen"
+#~ msgid "New Document"
+#~ msgstr "Dún an Cháipéis"
+
+#, fuzzy
+#~| msgctxt "The number of open documents"
+#~| msgid "Open Documents"
+#~ msgctxt "on welcome screen"
+#~ msgid "Open Document..."
+#~ msgstr "Líon na gCáipéisí Oscailte"
+
+#, fuzzy
+#~| msgctxt "The number of open documents"
+#~| msgid "Open Documents"
+#~ msgctxt "on welcome screen"
+#~ msgid "Recent documents"
+#~ msgstr "Líon na gCáipéisí Oscailte"
+
+#, fuzzy
+#~| msgid "Clos&e All"
+#~ msgctxt "on welcome screen (recent document list)"
+#~ msgid "Forget All"
+#~ msgstr "Dún Uil&e"
 
 #, fuzzy
 #~| msgid "&New Window"
@@ -2623,12 +2661,6 @@ msgstr "Dún Uil&e"
 #~ msgctxt "@action:inmenu"
 #~ msgid "Rename File..."
 #~ msgstr "&Athainmnigh..."
-
-#, fuzzy
-#~| msgid "Delete File?"
-#~ msgctxt "@action:inmenu"
-#~ msgid "Delete File"
-#~ msgstr "Scrios an Comhad?"
 
 #, fuzzy
 #~| msgid "Meta-Information"
@@ -2996,9 +3028,6 @@ msgstr "Dún Uil&e"
 
 #~ msgid "Save &As..."
 #~ msgstr "Sábháil M&ar..."
-
-#~ msgid "&Do not save session"
-#~ msgstr "&Ná sábháil an seisiún"
 
 #~ msgid "&Ask user"
 #~ msgstr "Fi&afraigh den úsáideoir"

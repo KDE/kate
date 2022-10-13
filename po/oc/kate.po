@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-12 00:50+0000\n"
+"POT-Creation-Date: 2022-10-13 00:50+0000\n"
 "PO-Revision-Date: 2008-08-05 22:28+0200\n"
 "Last-Translator: Yannig Marchegay (Kokoyaya) <yannig@marchegay.org>\n"
 "Language-Team: Occitan (lengadocian) <ubuntu-l10n-oci@lists.ubuntu.com>\n"
@@ -1158,7 +1158,7 @@ msgstr "Emplaçament"
 msgid "Copies the file path of the current file to clipboard."
 msgstr ""
 
-#: lib/katemainwindow.cpp:320 lib/welcomeview.cpp:82
+#: lib/katemainwindow.cpp:320 lib/welcomeview/welcomeview.cpp:219
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr ""
@@ -2133,8 +2133,9 @@ msgstr ""
 msgid "&Open"
 msgstr "&Dobrir"
 
+#. i18n: ectx: property (text), widget (QPushButton, buttonNewSession)
 #. i18n: ectx: property (text), widget (QPushButton, m_newButton)
-#: lib/session/katesessionmanagedialog.ui:98
+#: lib/session/katesessionmanagedialog.ui:98 lib/welcomeview/welcomeview.ui:309
 #, kde-format
 msgid "New Session"
 msgstr ""
@@ -2360,85 +2361,117 @@ msgstr ""
 msgid "Delete unused meta-information after:"
 msgstr ""
 
-#: lib/welcomeview.cpp:69
-#, fuzzy, kde-format
-#| msgid "Location"
-msgid "&Copy Location"
-msgstr "Emplaçament"
-
-#: lib/welcomeview.cpp:94
+#: lib/welcomeview/welcomeview.cpp:54
 #, kde-format
-msgctxt "recent items context menu"
-msgid "&Forget This Item"
+msgid "Welcome to %1"
 msgstr ""
 
-#: lib/welcomeview.cpp:123
+#: lib/welcomeview/welcomeview.cpp:59
+#, fuzzy, kde-format
+#| msgid "Close Document"
+msgid "No recent files"
+msgstr "Tampar lo document"
+
+#: lib/welcomeview/welcomeview.cpp:107
+#, fuzzy, kde-format
+#| msgid "Sessions"
+msgid "No saved sessions"
+msgstr "Sessions"
+
+#: lib/welcomeview/welcomeview.cpp:212
+#, fuzzy, kde-format
+#| msgid "Location"
+msgid "Copy &Location"
+msgstr "Emplaçament"
+
+#: lib/welcomeview/welcomeview.cpp:227
+#, kde-format
+msgid "&Remove"
+msgstr ""
+
+#. i18n: ectx: property (windowTitle), widget (QScrollArea, WelcomeView)
+#: lib/welcomeview/welcomeview.ui:17
 #, kde-format
 msgid "Welcome"
 msgstr ""
 
-#. i18n: ectx: property (text), widget (QLabel, welcomeLabel)
-#: lib/welcomeview.cpp:126 lib/welcomeview.ui:158
-#, kde-format
-msgid "Welcome to Kate"
-msgstr ""
-
-#: lib/welcomeview.cpp:126
-#, kde-format
-msgid "Welcome to KWrite"
-msgstr ""
-
-#: lib/welcomeview.cpp:176
-#, fuzzy, kde-format
-#| msgid "Close Document"
-msgctxt "on welcome screen"
-msgid "No recent documents"
-msgstr "Tampar lo document"
-
-#. i18n: ectx: property (windowTitle), widget (QWidget, WelcomeView)
-#: lib/welcomeview.ui:17
-#, kde-format
-msgid "Form"
-msgstr ""
-
-#. i18n: ectx: property (text), widget (QPushButton, newDocumentButton)
-#: lib/welcomeview.ui:221
-#, fuzzy, kde-format
-#| msgid "Close Document"
-msgctxt "on welcome screen"
-msgid "New Document"
-msgstr "Tampar lo document"
-
-#. i18n: ectx: property (text), widget (QPushButton, openDocumentButton)
-#: lib/welcomeview.ui:232
-#, fuzzy, kde-format
-#| msgid "Close Document"
-msgctxt "on welcome screen"
-msgid "Open Document..."
-msgstr "Tampar lo document"
-
-#. i18n: ectx: property (text), widget (QPushButton, openFolderButton)
-#: lib/welcomeview.ui:243
+#. i18n: ectx: property (text), widget (QPushButton, buttonNewFile)
+#: lib/welcomeview/welcomeview.ui:200
 #, fuzzy, kde-format
 #| msgid "Open File"
-msgctxt "on welcome screen"
+msgid "New File"
+msgstr "Dobrir un fichièr"
+
+#. i18n: ectx: property (text), widget (QPushButton, buttonOpenFolder)
+#: lib/welcomeview/welcomeview.ui:207
+#, fuzzy, kde-format
+#| msgid "Open File"
 msgid "Open Folder..."
 msgstr "Dobrir un fichièr"
 
-#. i18n: ectx: property (text), widget (QLabel, label_2)
-#: lib/welcomeview.ui:372
+#. i18n: ectx: property (text), widget (QLabel, labelRecentFiles)
+#: lib/welcomeview/welcomeview.ui:219
 #, fuzzy, kde-format
-#| msgid "Close Document"
-msgctxt "on welcome screen"
-msgid "Recent documents"
-msgstr "Tampar lo document"
+#| msgid "Deleted"
+msgid "Recent Files"
+msgstr "Suprimit"
 
-#. i18n: ectx: property (text), widget (QToolButton, forgetAllButton)
-#: lib/welcomeview.ui:382
+#. i18n: ectx: property (text), widget (QPushButton, buttonOpenFile)
+#: lib/welcomeview/welcomeview.ui:226
+#, fuzzy, kde-format
+#| msgid "Open File"
+msgid "Open File..."
+msgstr "Dobrir un fichièr"
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, buttonClearRecentFiles)
+#: lib/welcomeview/welcomeview.ui:265
 #, kde-format
-msgctxt "on welcome screen (recent document list)"
-msgid "Forget All"
+msgid "Clear Recent Files"
 msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, labelSavedSessions)
+#: lib/welcomeview/welcomeview.ui:302
+#, fuzzy, kde-format
+#| msgid "Sessions"
+msgid "Saved Sessions"
+msgstr "Sessions"
+
+#. i18n: ectx: property (text), widget (QPushButton, buttonManageSessions)
+#: lib/welcomeview/welcomeview.ui:335
+#, fuzzy, kde-format
+#| msgid "Save &As..."
+msgid "Manage Sessions..."
+msgstr "Enregistrar &jos..."
+
+#. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
+#: lib/welcomeview/welcomeview.ui:386
+#, fuzzy, kde-format
+#| msgid "Create a new document"
+msgid "Show for new window"
+msgstr "Crear un document novèl"
+
+#, fuzzy
+#~| msgid "Location"
+#~ msgid "&Copy Location"
+#~ msgstr "Emplaçament"
+
+#, fuzzy
+#~| msgid "Close Document"
+#~ msgctxt "on welcome screen"
+#~ msgid "New Document"
+#~ msgstr "Tampar lo document"
+
+#, fuzzy
+#~| msgid "Close Document"
+#~ msgctxt "on welcome screen"
+#~ msgid "Open Document..."
+#~ msgstr "Tampar lo document"
+
+#, fuzzy
+#~| msgid "Close Document"
+#~ msgctxt "on welcome screen"
+#~ msgid "Recent documents"
+#~ msgstr "Tampar lo document"
 
 #, fuzzy
 #~| msgid "&New Window"
@@ -2492,12 +2525,6 @@ msgstr ""
 #~ msgctxt "Menu entry Session->New"
 #~ msgid "&New"
 #~ msgstr "&Novèl "
-
-#, fuzzy
-#~| msgid "Deleted"
-#~ msgctxt "@action:inmenu"
-#~ msgid "Delete File"
-#~ msgstr "Suprimit"
 
 #, fuzzy
 #~| msgid "Configure"

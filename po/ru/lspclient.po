@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-06 00:48+0000\n"
-"PO-Revision-Date: 2022-02-08 16:19+0300\n"
+"PO-Revision-Date: 2022-10-12 14:37+0300\n"
 "Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
 "Language: ru\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Lokalize 21.08.3\n"
+"X-Generator: Lokalize 22.04.3\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:250
 #, kde-format
@@ -55,17 +55,17 @@ msgstr "Неверные данные JSON: %1"
 #: lspclientconfigpage.cpp:298
 #, kde-format
 msgid "Delete selected entries"
-msgstr ""
+msgstr "Удалить выделенные записи"
 
 #: lspclientconfigpage.cpp:303
 #, kde-format
 msgid "Delete all entries"
-msgstr ""
+msgstr "Удалить все записи"
 
 #: lspclientplugin.cpp:225
 #, kde-format
 msgid "LSP server start requested"
-msgstr ""
+msgstr "Запрошен запуск сервера LSP"
 
 #: lspclientplugin.cpp:228
 #, kde-format
@@ -74,6 +74,8 @@ msgid ""
 "<br><br><b>%1</b><br><br>The choice can be altered via the config page of "
 "the plugin."
 msgstr ""
+"Запустить сервер LSP?<br><br>Полная строка команды:<br><br><b>%1</"
+"b><br><br>Выбор возможно изменить с помощью страницы настройки модуля."
 
 #: lspclientplugin.cpp:241
 #, kde-format
@@ -81,6 +83,8 @@ msgid ""
 "User permanently blocked start of: '%1'.\n"
 "Use the config page of the plugin to undo this block."
 msgstr ""
+"Пользователь заблокировал запуск: «%1».\n"
+"Воспользуйтесь страницей настройки модуля для снятия этой блокировки."
 
 #: lspclientpluginview.cpp:604
 #, kde-format
@@ -133,15 +137,14 @@ msgid "Rename"
 msgstr "Переименовать"
 
 #: lspclientpluginview.cpp:629
-#, fuzzy, kde-format
-#| msgid "Expand All"
+#, kde-format
 msgid "Expand Selection"
-msgstr "Развернуть все"
+msgstr "Расширить выделение"
 
 #: lspclientpluginview.cpp:631
 #, kde-format
 msgid "Shrink Selection"
-msgstr ""
+msgstr "Уменьшить выделение"
 
 #: lspclientpluginview.cpp:634
 #, kde-format
@@ -149,10 +152,9 @@ msgid "Switch Source Header"
 msgstr "Переключить заголовок источника"
 
 #: lspclientpluginview.cpp:637
-#, fuzzy, kde-format
-#| msgid "Expand All"
+#, kde-format
 msgid "Expand Macro"
-msgstr "Развернуть все"
+msgstr "Развернуть макрос"
 
 #: lspclientpluginview.cpp:639
 #, kde-format
@@ -208,49 +210,41 @@ msgstr "Подсвечивать место перехода"
 
 #: lspclientpluginview.cpp:672
 #, fuzzy, kde-format
-#| msgid "Show diagnostics notifications"
 msgid "Show Diagnostics Notifications"
 msgstr "Показывать уведомления данных диагностики"
 
 #: lspclientpluginview.cpp:675
 #, fuzzy, kde-format
-#| msgid "Show diagnostics highlights"
 msgid "Show Diagnostics Highlights"
 msgstr "Показывать подсветку данных диагностики"
 
 #: lspclientpluginview.cpp:678
 #, fuzzy, kde-format
-#| msgid "Show diagnostics marks"
 msgid "Show Diagnostics Marks"
 msgstr "Показывать отметки данных диагностики"
 
 #: lspclientpluginview.cpp:681
 #, fuzzy, kde-format
-#| msgid "Show diagnostics on hover"
 msgid "Show Diagnostics on Hover"
 msgstr "Показывать данные диагностики при наведении указателя"
 
 #: lspclientpluginview.cpp:684
 #, fuzzy, kde-format
-#| msgid "Switch to diagnostics tab"
 msgid "Switch to Diagnostics Tab"
 msgstr "Перейти на вкладку данных диагностики"
 
 #: lspclientpluginview.cpp:688
 #, fuzzy, kde-format
-#| msgid "Show messages"
 msgid "Show Messages"
 msgstr "Показывать сообщения"
 
 #: lspclientpluginview.cpp:693
 #, fuzzy, kde-format
-#| msgid "Server memory usage"
 msgid "Server Memory Usage"
 msgstr "Использование памяти сервера"
 
 #: lspclientpluginview.cpp:697
 #, fuzzy, kde-format
-#| msgid "Close all dynamic reference tabs"
 msgid "Close All Dynamic Reference Tabs"
 msgstr "Закрыть все вкладки с динамическими ссылками"
 
@@ -272,7 +266,7 @@ msgstr "Дополнительные параметры"
 #: lspclientpluginview.cpp:760
 #, kde-format
 msgid "LSP"
-msgstr ""
+msgstr "LSP"
 
 #: lspclientpluginview.cpp:955 lspclientpluginview.cpp:2460
 #: lspclientsymbolview.cpp:285
@@ -398,10 +392,9 @@ msgid "New name (caution: not all references may be replaced)"
 msgstr "Новое название (внимание: не все ссылки возможно заменить)"
 
 #: lspclientpluginview.cpp:2216
-#, fuzzy, kde-format
-#| msgid "No results"
+#, kde-format
 msgid "Not enough results"
-msgstr "Нет результатов"
+msgstr "Недостаточно результатов"
 
 #: lspclientpluginview.cpp:2286
 #, kde-format
@@ -518,10 +511,9 @@ msgid "Failed to read server configuration: %1"
 msgstr "Не удалось выполнить чтение конфигурации сервера: %1"
 
 #: lspclientsymbolview.cpp:238
-#, fuzzy, kde-format
-#| msgid "Symbol Outline Options"
+#, kde-format
 msgid "Symbol Outline"
-msgstr "Параметры структуры идентификаторов"
+msgstr "Структура идентификаторов"
 
 #: lspclientsymbolview.cpp:276
 #, kde-format
@@ -695,13 +687,13 @@ msgstr "Включить семантическую подсветку"
 #: lspconfigwidget.ui:241
 #, kde-format
 msgid "Add imports automatically if needed upon completion"
-msgstr ""
+msgstr "Добавлять импортированное автоматически, если требуется при дополнении"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_4)
 #: lspconfigwidget.ui:264
 #, kde-format
 msgid "Allowed && Blocked Servers"
-msgstr ""
+msgstr "Разрешённые и заблокированные серверы"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
 #: lspconfigwidget.ui:274

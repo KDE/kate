@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-12 00:50+0000\n"
+"POT-Creation-Date: 2022-10-13 00:50+0000\n"
 "PO-Revision-Date: 2007-09-13 12:58+0545\n"
 "Last-Translator: Narayan Kumar Magar <narayan@mpp.org.np>\n"
 "Language-Team: Nepali <info@mpp.org.np>\n"
@@ -1213,7 +1213,7 @@ msgstr "स्थान रोज्नुहोस्"
 msgid "Copies the file path of the current file to clipboard."
 msgstr "पछिल्लो विभाजन दृश्य सक्रिय बनाउनुहोस् ।"
 
-#: lib/katemainwindow.cpp:320 lib/welcomeview.cpp:82
+#: lib/katemainwindow.cpp:320 lib/welcomeview/welcomeview.cpp:219
 #, fuzzy, kde-format
 #| msgid "&opening order"
 msgid "&Open Containing Folder"
@@ -2251,8 +2251,9 @@ msgstr ""
 msgid "&Open"
 msgstr "खोल्नुहोस्"
 
+#. i18n: ectx: property (text), widget (QPushButton, buttonNewSession)
 #. i18n: ectx: property (text), widget (QPushButton, m_newButton)
-#: lib/session/katesessionmanagedialog.ui:98
+#: lib/session/katesessionmanagedialog.ui:98 lib/welcomeview/welcomeview.ui:309
 #, kde-format
 msgid "New Session"
 msgstr "नयाँ सत्र"
@@ -2503,88 +2504,125 @@ msgstr "बिगतका सत्रहरूको मेटा सूचन
 msgid "Delete unused meta-information after:"
 msgstr "यस पछाडि प्रयोग नगरिएका मेटा सूचना मेट्नुहोस्:"
 
-#: lib/welcomeview.cpp:69
-#, fuzzy, kde-format
-#| msgid "Choose Location"
-msgid "&Copy Location"
-msgstr "स्थान रोज्नुहोस्"
-
-#: lib/welcomeview.cpp:94
+#: lib/welcomeview/welcomeview.cpp:54
 #, kde-format
-msgctxt "recent items context menu"
-msgid "&Forget This Item"
+msgid "Welcome to %1"
 msgstr ""
 
-#: lib/welcomeview.cpp:123
+#: lib/welcomeview/welcomeview.cpp:59
+#, fuzzy, kde-format
+#| msgid "Close the current document."
+msgid "No recent files"
+msgstr "हालको कागजात बन्द गर्नुहोस् ।"
+
+#: lib/welcomeview/welcomeview.cpp:107
+#, fuzzy, kde-format
+#| msgid "&Do not save session"
+msgid "No saved sessions"
+msgstr "सत्र बचत नगर्नुहोस्"
+
+#: lib/welcomeview/welcomeview.cpp:212
+#, fuzzy, kde-format
+#| msgid "Choose Location"
+msgid "Copy &Location"
+msgstr "स्थान रोज्नुहोस्"
+
+#: lib/welcomeview/welcomeview.cpp:227
+#, kde-format
+msgid "&Remove"
+msgstr "हटाउनुहोस्"
+
+#. i18n: ectx: property (windowTitle), widget (QScrollArea, WelcomeView)
+#: lib/welcomeview/welcomeview.ui:17
 #, kde-format
 msgid "Welcome"
 msgstr ""
 
-#. i18n: ectx: property (text), widget (QLabel, welcomeLabel)
-#: lib/welcomeview.cpp:126 lib/welcomeview.ui:158
-#, kde-format
-msgid "Welcome to Kate"
-msgstr ""
-
-#: lib/welcomeview.cpp:126
-#, kde-format
-msgid "Welcome to KWrite"
-msgstr ""
-
-#: lib/welcomeview.cpp:176
-#, fuzzy, kde-format
-#| msgid "Close the current document."
-msgctxt "on welcome screen"
-msgid "No recent documents"
-msgstr "हालको कागजात बन्द गर्नुहोस् ।"
-
-#. i18n: ectx: property (windowTitle), widget (QWidget, WelcomeView)
-#: lib/welcomeview.ui:17
-#, kde-format
-msgid "Form"
-msgstr ""
-
-#. i18n: ectx: property (text), widget (QPushButton, newDocumentButton)
-#: lib/welcomeview.ui:221
-#, fuzzy, kde-format
-#| msgid "&Document"
-msgctxt "on welcome screen"
-msgid "New Document"
-msgstr "कागजात"
-
-#. i18n: ectx: property (text), widget (QPushButton, openDocumentButton)
-#: lib/welcomeview.ui:232
-#, fuzzy, kde-format
-#| msgctxt "The number of open documents"
-#| msgid "Open Documents"
-msgctxt "on welcome screen"
-msgid "Open Document..."
-msgstr "खुला कागजात"
-
-#. i18n: ectx: property (text), widget (QPushButton, openFolderButton)
-#: lib/welcomeview.ui:243
+#. i18n: ectx: property (text), widget (QPushButton, buttonNewFile)
+#: lib/welcomeview/welcomeview.ui:200
 #, fuzzy, kde-format
 #| msgid "Open File"
-msgctxt "on welcome screen"
+msgid "New File"
+msgstr "फाइल खोल्नुहोस्"
+
+#. i18n: ectx: property (text), widget (QPushButton, buttonOpenFolder)
+#: lib/welcomeview/welcomeview.ui:207
+#, fuzzy, kde-format
+#| msgid "Open File"
 msgid "Open Folder..."
 msgstr "फाइल खोल्नुहोस्"
 
-#. i18n: ectx: property (text), widget (QLabel, label_2)
-#: lib/welcomeview.ui:372
+#. i18n: ectx: property (text), widget (QLabel, labelRecentFiles)
+#: lib/welcomeview/welcomeview.ui:219
 #, fuzzy, kde-format
-#| msgctxt "The number of open documents"
-#| msgid "Open Documents"
-msgctxt "on welcome screen"
-msgid "Recent documents"
-msgstr "खुला कागजात"
+#| msgid "Delete File?"
+msgid "Recent Files"
+msgstr "फाइल मेट्नुहुन्छ?"
 
-#. i18n: ectx: property (text), widget (QToolButton, forgetAllButton)
-#: lib/welcomeview.ui:382
+#. i18n: ectx: property (text), widget (QPushButton, buttonOpenFile)
+#: lib/welcomeview/welcomeview.ui:226
 #, fuzzy, kde-format
-#| msgid "Clos&e All"
-msgctxt "on welcome screen (recent document list)"
-msgid "Forget All"
-msgstr "सबै बन्द गर्नुहोस्"
+#| msgid "Open File"
+msgid "Open File..."
+msgstr "फाइल खोल्नुहोस्"
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, buttonClearRecentFiles)
+#: lib/welcomeview/welcomeview.ui:265
+#, kde-format
+msgid "Clear Recent Files"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, labelSavedSessions)
+#: lib/welcomeview/welcomeview.ui:302
+#, fuzzy, kde-format
+#| msgid "&Save session"
+msgid "Saved Sessions"
+msgstr "सत्र बचत गर्नुहोस्"
+
+#. i18n: ectx: property (text), widget (QPushButton, buttonManageSessions)
+#: lib/welcomeview/welcomeview.ui:335
+#, fuzzy, kde-format
+#| msgid "Manage Sessions"
+msgid "Manage Sessions..."
+msgstr "सत्र व्यवस्थापन गर्नुहोस्"
+
+#. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
+#: lib/welcomeview/welcomeview.ui:386
+#, fuzzy, kde-format
+#| msgid "Create a new document"
+msgid "Show for new window"
+msgstr "नयाँ कागजात सिर्जना गर्नुहोस्"
+
+#, fuzzy
+#~| msgid "Choose Location"
+#~ msgid "&Copy Location"
+#~ msgstr "स्थान रोज्नुहोस्"
+
+#, fuzzy
+#~| msgid "&Document"
+#~ msgctxt "on welcome screen"
+#~ msgid "New Document"
+#~ msgstr "कागजात"
+
+#, fuzzy
+#~| msgctxt "The number of open documents"
+#~| msgid "Open Documents"
+#~ msgctxt "on welcome screen"
+#~ msgid "Open Document..."
+#~ msgstr "खुला कागजात"
+
+#, fuzzy
+#~| msgctxt "The number of open documents"
+#~| msgid "Open Documents"
+#~ msgctxt "on welcome screen"
+#~ msgid "Recent documents"
+#~ msgstr "खुला कागजात"
+
+#, fuzzy
+#~| msgid "Clos&e All"
+#~ msgctxt "on welcome screen (recent document list)"
+#~ msgid "Forget All"
+#~ msgstr "सबै बन्द गर्नुहोस्"
 
 #, fuzzy
 #~| msgid "&New Window"
@@ -2734,12 +2772,6 @@ msgstr "सबै बन्द गर्नुहोस्"
 #~ msgctxt "@action:inmenu"
 #~ msgid "Rename File..."
 #~ msgstr "पुन: नामकरण गर्नुहोस्..."
-
-#, fuzzy
-#~| msgid "Delete File?"
-#~ msgctxt "@action:inmenu"
-#~ msgid "Delete File"
-#~ msgstr "फाइल मेट्नुहुन्छ?"
 
 #, fuzzy
 #~| msgid "Configure"
@@ -3498,9 +3530,6 @@ msgstr "सबै बन्द गर्नुहोस्"
 #~ msgid "Behavior on Application Exit or Session Switch"
 #~ msgstr "अनुप्रयोग अन्त्य वा सत्र स्विचमा व्यवहार"
 
-#~ msgid "&Do not save session"
-#~ msgstr "सत्र बचत नगर्नुहोस्"
-
 #~ msgid "&Ask user"
 #~ msgstr "प्रयोगकर्ता माग्नुहोस्"
 
@@ -3520,9 +3549,6 @@ msgstr "सबै बन्द गर्नुहोस्"
 #~| msgid "Clear filter"
 #~ msgid "Search folders"
 #~ msgstr "फिल्टर खाली गर्नुहोस्"
-
-#~ msgid "&Remove"
-#~ msgstr "हटाउनुहोस्"
 
 #, fuzzy
 #~| msgid "&Mime types:"

@@ -11,14 +11,14 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-06 00:48+0000\n"
-"PO-Revision-Date: 2022-02-08 16:02+0300\n"
+"PO-Revision-Date: 2022-10-12 12:47+0300\n"
 "Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 21.08.3\n"
+"X-Generator: Lokalize 22.04.3\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
@@ -242,10 +242,9 @@ msgstr[3] ""
 
 # BUGME: add colon --aspotashev
 #: Results.cpp:28
-#, fuzzy, kde-format
-#| msgid "Filter:"
+#, kde-format
 msgid "Filter..."
-msgstr "Фильтр:"
+msgstr "Фильтр…"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
@@ -564,19 +563,16 @@ msgstr "Захват символов нижнего регистра 0-999"
 
 #: SearchPlugin.cpp:295
 #, fuzzy, kde-format
-#| msgid "Search and Replace"
 msgid "Search & Replace"
 msgstr "Поиск и замена"
 
 #: SearchPlugin.cpp:336
-#, fuzzy, kde-format
-#| msgid "In Open Files"
+#, kde-format
 msgid "Find in Files"
-msgstr "В открытых файлах"
+msgstr "Поиск в файлах"
 
 #: SearchPlugin.cpp:341
 #, fuzzy, kde-format
-#| msgid "Search in Files (in new tab)"
 msgid "Find in Files (in a New Tab)"
 msgstr "Поиск в файлах (в новой вкладке)"
 
@@ -701,10 +697,9 @@ msgstr "&Правка"
 
 #. i18n: ectx: Menu (search_more)
 #: ui.rc:9
-#, fuzzy, kde-format
-#| msgid "Find in open files plugin"
+#, kde-format
 msgid "Find in Files Variants"
-msgstr "Модуль для поиска в открытых файлах"
+msgstr "Варианты поиска в файлах"
 
 #~ msgid "Kate Search & Replace"
 #~ msgstr "Поиск и замена в Kate"

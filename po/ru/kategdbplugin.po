@@ -5,19 +5,20 @@
 # Yuri Efremov <yur.arh@gmail.com>, 2013.
 # Alexander Lakhin <exclusion@gmail.com>, 2013.
 # Alexander Yavorsky <kekcuha@gmail.com>, 2021.
+# Olesya Gerasimenko <translation-team@basealt.ru>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-27 00:48+0000\n"
-"PO-Revision-Date: 2021-01-08 14:40+0300\n"
-"Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
-"Language-Team: Russian <kde-russian@lists.kde.ru>\n"
+"PO-Revision-Date: 2022-10-12 12:32+0300\n"
+"Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
+"Language-Team: Basealt Translation Team\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 20.12.1\n"
+"X-Generator: Lokalize 22.04.3\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
@@ -105,7 +106,7 @@ msgstr "Команды, выполняемые при запуске"
 msgid ""
 "A debugging session is on course. Please, use re-run or stop the current "
 "session."
-msgstr ""
+msgstr "Предстоит сеанс отладки. Перезапустите или остановите текущий сеанс."
 
 #: configview.cpp:85
 #, kde-format
@@ -135,7 +136,7 @@ msgstr "Рабочий каталог:"
 #: configview.cpp:126
 #, kde-format
 msgid "Process Id:"
-msgstr ""
+msgstr "Идентификатор процесса:"
 
 #: configview.cpp:131
 #, kde-format
@@ -199,316 +200,309 @@ msgstr "*** работа gdb завершена ***"
 #: debugview_dap.cpp:166
 #, kde-format
 msgid "DAP backend failed"
-msgstr ""
+msgstr "Ошибка внутренней службы DAP"
 
 #: debugview_dap.cpp:208
 #, kde-format
 msgid "program terminated"
-msgstr ""
+msgstr "работа программы прервана"
 
 #: debugview_dap.cpp:220
 #, kde-format
 msgid "requesting disconnection"
-msgstr ""
+msgstr "запрос разъединения"
 
 #: debugview_dap.cpp:234
 #, kde-format
 msgid "requesting shutdown"
-msgstr ""
+msgstr "запрос выключения"
 
 #: debugview_dap.cpp:258
 #, kde-format
 msgid "DAP backend: %1"
-msgstr ""
+msgstr "Внутренняя служба DAP: %1"
 
 #: debugview_dap.cpp:267
 #, kde-format
 msgid "stopped (%1)."
-msgstr ""
+msgstr "остановлено (%1)."
 
 #: debugview_dap.cpp:275
 #, kde-format
 msgid "Active thread: %1 (all threads stopped)."
-msgstr ""
+msgstr "Активный поток: %1 (остановлены все потоки)."
 
 #: debugview_dap.cpp:277
 #, kde-format
 msgid "Active thread: %1."
-msgstr ""
+msgstr "Активный поток: %1."
 
 #: debugview_dap.cpp:282
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Breakpoint(s) reached:"
-msgstr "Точка останова"
+msgstr "Достигнуты точки останова:"
 
 #: debugview_dap.cpp:304
 #, kde-format
 msgid "(continued) thread %1"
-msgstr ""
+msgstr "(продолженный) поток %1"
 
 #: debugview_dap.cpp:306
 #, kde-format
 msgid "all threads continued"
-msgstr ""
+msgstr "продолжены все потоки"
 
 #: debugview_dap.cpp:312
 #, kde-format
 msgid "(running)"
-msgstr ""
+msgstr "(выполняется)"
 
 #: debugview_dap.cpp:389
 #, kde-format
 msgid "*** connection with server closed ***"
-msgstr ""
+msgstr "*** соединение с сервером разорвано ***"
 
 #: debugview_dap.cpp:396
 #, kde-format
 msgid "program exited with code %1"
-msgstr ""
+msgstr "программа завершила работу с кодом %1"
 
 #: debugview_dap.cpp:410
 #, kde-format
 msgid "*** waiting for user actions ***"
-msgstr ""
+msgstr "*** ожидание действий пользователя ***"
 
 #: debugview_dap.cpp:415
 #, kde-format
 msgid "error on response: %1"
-msgstr ""
+msgstr "ошибка при ответе: %1"
 
 #: debugview_dap.cpp:430
 #, kde-format
 msgid "important"
-msgstr ""
+msgstr "важно"
 
 #: debugview_dap.cpp:433
 #, kde-format
 msgid "telemetry"
-msgstr ""
+msgstr "телеметрия"
 
 #: debugview_dap.cpp:452
 #, kde-format
 msgid "debugging process [%1] %2"
-msgstr ""
+msgstr "отладка процесса [%1] %2"
 
 #: debugview_dap.cpp:454
 #, kde-format
 msgid "debugging process %1"
-msgstr ""
+msgstr "отладка процесса %1"
 
 #: debugview_dap.cpp:457
 #, kde-format
 msgid "Start method: %1"
-msgstr ""
+msgstr "Метод запуска: %1"
 
 #: debugview_dap.cpp:464
-#, fuzzy, kde-format
-#| msgid "Thread %1"
+#, kde-format
 msgid "thread %1"
-msgstr "Поток %1"
+msgstr "поток %1"
 
 #: debugview_dap.cpp:618
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "breakpoint set"
-msgstr "Точка останова"
+msgstr "точка останова задана"
 
 #: debugview_dap.cpp:627
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "breakpoint cleared"
-msgstr "Точка останова"
+msgstr "точка останова очищена"
 
 #: debugview_dap.cpp:687
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "(%1) breakpoint"
-msgstr "Точка останова"
+msgstr "точка остановка (%1)"
 
 #: debugview_dap.cpp:704
 #, kde-format
 msgid "<not evaluated>"
-msgstr ""
+msgstr "<не вычислено>"
 
 #: debugview_dap.cpp:726
 #, kde-format
 msgid "server capabilities"
-msgstr ""
+msgstr "возможности сервера"
 
 #: debugview_dap.cpp:729
 #, kde-format
 msgid "supported"
-msgstr ""
+msgstr "поддерживается"
 
 #: debugview_dap.cpp:729
 #, kde-format
 msgid "unsupported"
-msgstr ""
+msgstr "не поддерживается"
 
 #: debugview_dap.cpp:732
-#, fuzzy, kde-format
-#| msgid "Insert breakpoint"
+#, kde-format
 msgid "conditional breakpoints"
-msgstr "Вставить точку останова"
+msgstr "условные точки останова"
 
 #: debugview_dap.cpp:733
-#, fuzzy, kde-format
-#| msgid "Insert breakpoint"
+#, kde-format
 msgid "function breakpoints"
-msgstr "Вставить точку останова"
+msgstr "точки останова функций"
 
 #: debugview_dap.cpp:734
 #, kde-format
 msgid "hit conditional breakpoints"
-msgstr ""
+msgstr "точки останова по условию"
 
 #: debugview_dap.cpp:735
 #, kde-format
 msgid "log points"
-msgstr ""
+msgstr "точки журнала"
 
 #: debugview_dap.cpp:735
 #, kde-format
 msgid "modules request"
-msgstr ""
+msgstr "запрос модулей"
 
 #: debugview_dap.cpp:736
 #, kde-format
 msgid "goto targets request"
-msgstr ""
+msgstr "запрос перехода к целям"
 
 #: debugview_dap.cpp:737
 #, kde-format
 msgid "terminate request"
-msgstr ""
+msgstr "запрос прерывания"
 
 #: debugview_dap.cpp:738
 #, kde-format
 msgid "terminate debuggee"
-msgstr ""
+msgstr "прерывание отладки"
 
 #: debugview_dap.cpp:902
 #, kde-format
 msgid "syntax error: expression not found"
-msgstr ""
+msgstr "синтаксическая ошибка: выражение не найдено"
 
 #: debugview_dap.cpp:920 debugview_dap.cpp:955 debugview_dap.cpp:993
 #: debugview_dap.cpp:1027 debugview_dap.cpp:1063 debugview_dap.cpp:1099
 #: debugview_dap.cpp:1135 debugview_dap.cpp:1235 debugview_dap.cpp:1292
 #, kde-format
 msgid "syntax error: %1"
-msgstr ""
+msgstr "синтаксическая ошибка: %1"
 
 #: debugview_dap.cpp:928 debugview_dap.cpp:963 debugview_dap.cpp:1242
 #: debugview_dap.cpp:1300
 #, kde-format
 msgid "invalid line: %1"
-msgstr ""
+msgstr "некорректная строка: %1"
 
 #: debugview_dap.cpp:935 debugview_dap.cpp:940 debugview_dap.cpp:970
 #: debugview_dap.cpp:975 debugview_dap.cpp:1266 debugview_dap.cpp:1271
 #: debugview_dap.cpp:1307 debugview_dap.cpp:1312
 #, kde-format
 msgid "file not specified: %1"
-msgstr ""
+msgstr "файл не указан: %1"
 
 #: debugview_dap.cpp:1005 debugview_dap.cpp:1039 debugview_dap.cpp:1075
 #: debugview_dap.cpp:1111 debugview_dap.cpp:1147
 #, kde-format
 msgid "invalid thread id: %1"
-msgstr ""
+msgstr "некорректный идентификатор потока: %1"
 
 #: debugview_dap.cpp:1011 debugview_dap.cpp:1045 debugview_dap.cpp:1081
 #: debugview_dap.cpp:1117 debugview_dap.cpp:1153
 #, kde-format
 msgid "thread id not specified: %1"
-msgstr ""
+msgstr "идентификатор потока не указан: %1"
 
 #: debugview_dap.cpp:1164
 #, kde-format
 msgid "Available commands:"
-msgstr ""
+msgstr "Доступные команды:"
 
 #: debugview_dap.cpp:1252
 #, kde-format
 msgid "conditional breakpoints are not supported by the server"
-msgstr ""
+msgstr "условные точки останова не поддерживаются сервером"
 
 #: debugview_dap.cpp:1260
 #, kde-format
 msgid "hit conditional breakpoints are not supported by the server"
-msgstr ""
+msgstr "точки останова по условию не поддерживаются сервером"
 
 #: debugview_dap.cpp:1321
 #, kde-format
 msgid "breakpoint not found (%1:%2)"
-msgstr ""
+msgstr "точка останова не найдена (%1:%2)"
 
 #: debugview_dap.cpp:1330
 #, kde-format
 msgid "Current thread: "
-msgstr ""
+msgstr "Текущий поток: "
 
 #: debugview_dap.cpp:1335 debugview_dap.cpp:1342 debugview_dap.cpp:1366
 #, kde-format
 msgid "none"
-msgstr ""
+msgstr "нет"
 
 #: debugview_dap.cpp:1338
 #, kde-format
 msgid "Current frame: "
-msgstr ""
+msgstr "Текущий вызов: "
 
 #: debugview_dap.cpp:1345
 #, kde-format
 msgid "Session state: "
-msgstr ""
+msgstr "Состояние сеанса: "
 
 #: debugview_dap.cpp:1348
 #, kde-format
 msgid "initializing"
-msgstr ""
+msgstr "инициализируется"
 
 #: debugview_dap.cpp:1351
 #, kde-format
 msgid "running"
-msgstr ""
+msgstr "выполняется"
 
 #: debugview_dap.cpp:1354
 #, kde-format
 msgid "stopped"
-msgstr ""
+msgstr "остановлен"
 
 #: debugview_dap.cpp:1357
 #, kde-format
 msgid "terminated"
-msgstr ""
+msgstr "прерван"
 
 #: debugview_dap.cpp:1360
 #, kde-format
 msgid "disconnected"
-msgstr ""
+msgstr "разъединён"
 
 #: debugview_dap.cpp:1363
 #, kde-format
 msgid "post mortem"
-msgstr ""
+msgstr "после окончания"
 
 #: debugview_dap.cpp:1419
 #, kde-format
 msgid "command not found"
-msgstr ""
+msgstr "команда не найдена"
 
 #: debugview_dap.cpp:1537
 #, kde-format
 msgid "killing backend"
-msgstr ""
+msgstr "прерывание работы внутренней службы"
 
 #: debugview_dap.cpp:1595
 #, kde-format
 msgid "Current frame [%3]: %1:%2 (%4)"
-msgstr ""
+msgstr "Текущий вызов [%3]: %1:%2 (%4)"
 
 #: localsview.cpp:17
 #, kde-format
@@ -523,17 +517,17 @@ msgstr "Значение"
 #: localsview.cpp:41
 #, kde-format
 msgid "type"
-msgstr ""
+msgstr "тип"
 
 #: localsview.cpp:50
 #, kde-format
 msgid "indexed items"
-msgstr ""
+msgstr "проиндексированные записи"
 
 #: localsview.cpp:53
 #, kde-format
 msgid "named items"
-msgstr ""
+msgstr "именованные записи"
 
 #: plugin_kategdb.cpp:65
 #, kde-format
@@ -703,11 +697,11 @@ msgstr "Модуль GDB"
 
 #~ msgctxt "NAME OF TRANSLATORS"
 #~ msgid "Your names"
-#~ msgstr "Alexey D."
+#~ msgstr "Alexey D., Олеся Герасименко"
 
 #~ msgctxt "EMAIL OF TRANSLATORS"
 #~ msgid "Your emails"
-#~ msgstr "lq07829icatm@rambler.ru"
+#~ msgstr "lq07829icatm@rambler.ru, translation-team@basealt.ru"
 
 #~ msgid "GDB Integration"
 #~ msgstr "Интеграция с GDB"

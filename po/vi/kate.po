@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-12 00:50+0000\n"
+"POT-Creation-Date: 2022-10-13 00:50+0000\n"
 "PO-Revision-Date: 2022-10-06 13:59+0200\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -1164,7 +1164,7 @@ msgstr "Chép địa điểm"
 msgid "Copies the file path of the current file to clipboard."
 msgstr "Chép đường dẫn của tệp hiện tại vào bảng nháp."
 
-#: lib/katemainwindow.cpp:320 lib/welcomeview.cpp:82
+#: lib/katemainwindow.cpp:320 lib/welcomeview/welcomeview.cpp:219
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "&Mở thư mục chứa"
@@ -2142,8 +2142,9 @@ msgstr "Mở lần cuối"
 msgid "&Open"
 msgstr "&Mở"
 
+#. i18n: ectx: property (text), widget (QPushButton, buttonNewSession)
 #. i18n: ectx: property (text), widget (QPushButton, m_newButton)
-#: lib/session/katesessionmanagedialog.ui:98
+#: lib/session/katesessionmanagedialog.ui:98 lib/welcomeview/welcomeview.ui:309
 #, kde-format
 msgid "New Session"
 msgstr "Phiên mới"
@@ -2377,79 +2378,126 @@ msgstr "Giữ &siêu thông tin giữa các phiên"
 msgid "Delete unused meta-information after:"
 msgstr "Xoá siêu thông tin không dùng sau:"
 
-#: lib/welcomeview.cpp:69
-#, kde-format
-msgid "&Copy Location"
-msgstr "&Chép địa điểm"
+#: lib/welcomeview/welcomeview.cpp:54
+#, fuzzy, kde-format
+#| msgid "Welcome to Kate"
+msgid "Welcome to %1"
+msgstr "Chào mừng đến với Kate"
 
-#: lib/welcomeview.cpp:94
-#, kde-format
-msgctxt "recent items context menu"
-msgid "&Forget This Item"
-msgstr "&Quên mục này đi"
+#: lib/welcomeview/welcomeview.cpp:59
+#, fuzzy, kde-format
+#| msgctxt "on welcome screen"
+#| msgid "No recent documents"
+msgid "No recent files"
+msgstr "Không có tài liệu nào gần đây"
 
-#: lib/welcomeview.cpp:123
+#: lib/welcomeview/welcomeview.cpp:107
+#, fuzzy, kde-format
+#| msgid "&Save Session"
+msgid "No saved sessions"
+msgstr "&Lưu phiên"
+
+#: lib/welcomeview/welcomeview.cpp:212
+#, fuzzy, kde-format
+#| msgid "Copy Location"
+msgid "Copy &Location"
+msgstr "Chép địa điểm"
+
+#: lib/welcomeview/welcomeview.cpp:227
+#, kde-format
+msgid "&Remove"
+msgstr ""
+
+#. i18n: ectx: property (windowTitle), widget (QScrollArea, WelcomeView)
+#: lib/welcomeview/welcomeview.ui:17
 #, kde-format
 msgid "Welcome"
 msgstr "Chào mừng"
 
-#. i18n: ectx: property (text), widget (QLabel, welcomeLabel)
-#: lib/welcomeview.cpp:126 lib/welcomeview.ui:158
-#, kde-format
-msgid "Welcome to Kate"
-msgstr "Chào mừng đến với Kate"
+#. i18n: ectx: property (text), widget (QPushButton, buttonNewFile)
+#: lib/welcomeview/welcomeview.ui:200
+#, fuzzy, kde-format
+#| msgid "Open File"
+msgid "New File"
+msgstr "Mở tệp"
 
-#: lib/welcomeview.cpp:126
-#, kde-format
-msgid "Welcome to KWrite"
-msgstr "Chào mừng đến với KWrite"
-
-#: lib/welcomeview.cpp:176
-#, kde-format
-msgctxt "on welcome screen"
-msgid "No recent documents"
-msgstr "Không có tài liệu nào gần đây"
-
-#. i18n: ectx: property (windowTitle), widget (QWidget, WelcomeView)
-#: lib/welcomeview.ui:17
-#, kde-format
-msgid "Form"
-msgstr "Biểu mẫu"
-
-#. i18n: ectx: property (text), widget (QPushButton, newDocumentButton)
-#: lib/welcomeview.ui:221
-#, kde-format
-msgctxt "on welcome screen"
-msgid "New Document"
-msgstr "Tài liệu mới"
-
-#. i18n: ectx: property (text), widget (QPushButton, openDocumentButton)
-#: lib/welcomeview.ui:232
-#, kde-format
-msgctxt "on welcome screen"
-msgid "Open Document..."
-msgstr "Mở tài liệu..."
-
-#. i18n: ectx: property (text), widget (QPushButton, openFolderButton)
-#: lib/welcomeview.ui:243
-#, kde-format
-msgctxt "on welcome screen"
+#. i18n: ectx: property (text), widget (QPushButton, buttonOpenFolder)
+#: lib/welcomeview/welcomeview.ui:207
+#, fuzzy, kde-format
+#| msgctxt "on welcome screen"
+#| msgid "Open Folder..."
 msgid "Open Folder..."
 msgstr "Mở thư mục..."
 
-#. i18n: ectx: property (text), widget (QLabel, label_2)
-#: lib/welcomeview.ui:372
-#, kde-format
-msgctxt "on welcome screen"
-msgid "Recent documents"
-msgstr "Tài liệu gần đây"
+#. i18n: ectx: property (text), widget (QLabel, labelRecentFiles)
+#: lib/welcomeview/welcomeview.ui:219
+#, fuzzy, kde-format
+#| msgid "Open File"
+msgid "Recent Files"
+msgstr "Mở tệp"
 
-#. i18n: ectx: property (text), widget (QToolButton, forgetAllButton)
-#: lib/welcomeview.ui:382
+#. i18n: ectx: property (text), widget (QPushButton, buttonOpenFile)
+#: lib/welcomeview/welcomeview.ui:226
+#, fuzzy, kde-format
+#| msgid "Open File"
+msgid "Open File..."
+msgstr "Mở tệp"
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, buttonClearRecentFiles)
+#: lib/welcomeview/welcomeview.ui:265
 #, kde-format
-msgctxt "on welcome screen (recent document list)"
-msgid "Forget All"
-msgstr "Quên tất cả đi"
+msgid "Clear Recent Files"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, labelSavedSessions)
+#: lib/welcomeview/welcomeview.ui:302
+#, fuzzy, kde-format
+#| msgid "&Save Session"
+msgid "Saved Sessions"
+msgstr "&Lưu phiên"
+
+#. i18n: ectx: property (text), widget (QPushButton, buttonManageSessions)
+#: lib/welcomeview/welcomeview.ui:335
+#, fuzzy, kde-format
+#| msgid "&Manage Sessions..."
+msgid "Manage Sessions..."
+msgstr "&Quản lí phiên..."
+
+#. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
+#: lib/welcomeview/welcomeview.ui:386
+#, fuzzy, kde-format
+#| msgid "Create a new window."
+msgid "Show for new window"
+msgstr "Tạo một cửa sổ mới."
+
+#~ msgid "&Copy Location"
+#~ msgstr "&Chép địa điểm"
+
+#~ msgctxt "recent items context menu"
+#~ msgid "&Forget This Item"
+#~ msgstr "&Quên mục này đi"
+
+#~ msgid "Welcome to KWrite"
+#~ msgstr "Chào mừng đến với KWrite"
+
+#~ msgid "Form"
+#~ msgstr "Biểu mẫu"
+
+#~ msgctxt "on welcome screen"
+#~ msgid "New Document"
+#~ msgstr "Tài liệu mới"
+
+#~ msgctxt "on welcome screen"
+#~ msgid "Open Document..."
+#~ msgstr "Mở tài liệu..."
+
+#~ msgctxt "on welcome screen"
+#~ msgid "Recent documents"
+#~ msgstr "Tài liệu gần đây"
+
+#~ msgctxt "on welcome screen (recent document list)"
+#~ msgid "Forget All"
+#~ msgstr "Quên tất cả đi"
 
 #~ msgid "Make Non-Persistent"
 #~ msgstr "Hiện không bền vững"

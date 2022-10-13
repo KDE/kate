@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-12 00:50+0000\n"
-"PO-Revision-Date: 2022-10-09 07:23+0200\n"
+"POT-Creation-Date: 2022-10-13 00:50+0000\n"
+"PO-Revision-Date: 2022-10-12 22:15+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -287,29 +287,27 @@ msgstr "Отстраняване на блок"
 #: lib/diff/diffwidget.cpp:51
 #, kde-format
 msgid "Show/Hide Commit Info"
-msgstr ""
+msgstr "Показване/скриване на информация за Commit"
 
 #: lib/diff/diffwidget.cpp:56
 #, kde-format
 msgid "Jump to Next File"
-msgstr ""
+msgstr "Отиване до следващ файл"
 
 #: lib/diff/diffwidget.cpp:60
-#, fuzzy, kde-format
-#| msgid "Go to Previous Location"
+#, kde-format
 msgid "Jump to Previous File"
-msgstr "Предишно място"
+msgstr "Отиване до предишен файл"
 
 #: lib/diff/diffwidget.cpp:64
 #, kde-format
 msgid "Jump to Next Hunk"
-msgstr ""
+msgstr "Отиване до следващо място"
 
 #: lib/diff/diffwidget.cpp:68
-#, fuzzy, kde-format
-#| msgid "Go to Previous Location"
+#, kde-format
 msgid "Jump to Previous Hunk"
-msgstr "Предишно място"
+msgstr "Отиване до предишно място"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
 #: lib/filehistorywidget.cpp:258 lib/session/katesessionmanagedialog.ui:184
@@ -1180,7 +1178,7 @@ msgstr "Копиране на местоположението"
 msgid "Copies the file path of the current file to clipboard."
 msgstr "Копиране на пътя на файл в клипборда."
 
-#: lib/katemainwindow.cpp:320 lib/welcomeview.cpp:82
+#: lib/katemainwindow.cpp:320 lib/welcomeview/welcomeview.cpp:219
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "&Отваряне на съдържащата папка"
@@ -2164,8 +2162,9 @@ msgstr "Последно отварян"
 msgid "&Open"
 msgstr "&Отваряне"
 
+#. i18n: ectx: property (text), widget (QPushButton, buttonNewSession)
 #. i18n: ectx: property (text), widget (QPushButton, m_newButton)
-#: lib/session/katesessionmanagedialog.ui:98
+#: lib/session/katesessionmanagedialog.ui:98 lib/welcomeview/welcomeview.ui:309
 #, kde-format
 msgid "New Session"
 msgstr "Нова сесия"
@@ -2403,76 +2402,123 @@ msgstr "&Запазване на мета данните при изход"
 msgid "Delete unused meta-information after:"
 msgstr "Изтриване на неизползваните мета-данни след:"
 
-#: lib/welcomeview.cpp:69
-#, kde-format
-msgid "&Copy Location"
-msgstr "&Копиране на местоположението"
+#: lib/welcomeview/welcomeview.cpp:54
+#, fuzzy, kde-format
+#| msgid "Welcome to Kate"
+msgid "Welcome to %1"
+msgstr "Добре дошли в 1Kate"
 
-#: lib/welcomeview.cpp:94
-#, kde-format
-msgctxt "recent items context menu"
-msgid "&Forget This Item"
-msgstr "&Забравяне на този елемент"
+#: lib/welcomeview/welcomeview.cpp:59
+#, fuzzy, kde-format
+#| msgctxt "on welcome screen"
+#| msgid "No recent documents"
+msgid "No recent files"
+msgstr "Няма скорошни документи"
 
-#: lib/welcomeview.cpp:123
+#: lib/welcomeview/welcomeview.cpp:107
+#, fuzzy, kde-format
+#| msgid "&Save Session"
+msgid "No saved sessions"
+msgstr "За&писване на сесията"
+
+#: lib/welcomeview/welcomeview.cpp:212
+#, fuzzy, kde-format
+#| msgid "Copy Location"
+msgid "Copy &Location"
+msgstr "Копиране на местоположението"
+
+#: lib/welcomeview/welcomeview.cpp:227
+#, kde-format
+msgid "&Remove"
+msgstr ""
+
+#. i18n: ectx: property (windowTitle), widget (QScrollArea, WelcomeView)
+#: lib/welcomeview/welcomeview.ui:17
 #, kde-format
 msgid "Welcome"
 msgstr "Добре дошли"
 
-#. i18n: ectx: property (text), widget (QLabel, welcomeLabel)
-#: lib/welcomeview.cpp:126 lib/welcomeview.ui:158
-#, kde-format
-msgid "Welcome to Kate"
-msgstr "Добре дошли в 1Kate"
+#. i18n: ectx: property (text), widget (QPushButton, buttonNewFile)
+#: lib/welcomeview/welcomeview.ui:200
+#, fuzzy, kde-format
+#| msgid "Open File"
+msgid "New File"
+msgstr "Отваряне на файл"
 
-#: lib/welcomeview.cpp:126
-#, kde-format
-msgid "Welcome to KWrite"
-msgstr "Добре дошли в KWrite"
-
-#: lib/welcomeview.cpp:176
-#, kde-format
-msgctxt "on welcome screen"
-msgid "No recent documents"
-msgstr "Няма скорошни документи"
-
-#. i18n: ectx: property (windowTitle), widget (QWidget, WelcomeView)
-#: lib/welcomeview.ui:17
-#, kde-format
-msgid "Form"
-msgstr "Формуляр"
-
-#. i18n: ectx: property (text), widget (QPushButton, newDocumentButton)
-#: lib/welcomeview.ui:221
-#, kde-format
-msgctxt "on welcome screen"
-msgid "New Document"
-msgstr "Нов документ"
-
-#. i18n: ectx: property (text), widget (QPushButton, openDocumentButton)
-#: lib/welcomeview.ui:232
-#, kde-format
-msgctxt "on welcome screen"
-msgid "Open Document..."
-msgstr "Отваряне на документ..."
-
-#. i18n: ectx: property (text), widget (QPushButton, openFolderButton)
-#: lib/welcomeview.ui:243
-#, kde-format
-msgctxt "on welcome screen"
+#. i18n: ectx: property (text), widget (QPushButton, buttonOpenFolder)
+#: lib/welcomeview/welcomeview.ui:207
+#, fuzzy, kde-format
+#| msgctxt "on welcome screen"
+#| msgid "Open Folder..."
 msgid "Open Folder..."
 msgstr "Отваряне на папка..."
 
-#. i18n: ectx: property (text), widget (QLabel, label_2)
-#: lib/welcomeview.ui:372
-#, kde-format
-msgctxt "on welcome screen"
-msgid "Recent documents"
-msgstr "Скорошни документи"
+#. i18n: ectx: property (text), widget (QLabel, labelRecentFiles)
+#: lib/welcomeview/welcomeview.ui:219
+#, fuzzy, kde-format
+#| msgid "Open File"
+msgid "Recent Files"
+msgstr "Отваряне на файл"
 
-#. i18n: ectx: property (text), widget (QToolButton, forgetAllButton)
-#: lib/welcomeview.ui:382
+#. i18n: ectx: property (text), widget (QPushButton, buttonOpenFile)
+#: lib/welcomeview/welcomeview.ui:226
+#, fuzzy, kde-format
+#| msgid "Open File"
+msgid "Open File..."
+msgstr "Отваряне на файл"
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, buttonClearRecentFiles)
+#: lib/welcomeview/welcomeview.ui:265
 #, kde-format
-msgctxt "on welcome screen (recent document list)"
-msgid "Forget All"
-msgstr "Забравяне на всичко"
+msgid "Clear Recent Files"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, labelSavedSessions)
+#: lib/welcomeview/welcomeview.ui:302
+#, fuzzy, kde-format
+#| msgid "&Save Session"
+msgid "Saved Sessions"
+msgstr "За&писване на сесията"
+
+#. i18n: ectx: property (text), widget (QPushButton, buttonManageSessions)
+#: lib/welcomeview/welcomeview.ui:335
+#, fuzzy, kde-format
+#| msgid "&Manage Sessions..."
+msgid "Manage Sessions..."
+msgstr "&Управление на сесиите"
+
+#. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
+#: lib/welcomeview/welcomeview.ui:386
+#, fuzzy, kde-format
+#| msgid "Create a new window."
+msgid "Show for new window"
+msgstr "Създаване на нов прозорец."
+
+#~ msgid "&Copy Location"
+#~ msgstr "&Копиране на местоположението"
+
+#~ msgctxt "recent items context menu"
+#~ msgid "&Forget This Item"
+#~ msgstr "&Забравяне на този елемент"
+
+#~ msgid "Welcome to KWrite"
+#~ msgstr "Добре дошли в KWrite"
+
+#~ msgid "Form"
+#~ msgstr "Формуляр"
+
+#~ msgctxt "on welcome screen"
+#~ msgid "New Document"
+#~ msgstr "Нов документ"
+
+#~ msgctxt "on welcome screen"
+#~ msgid "Open Document..."
+#~ msgstr "Отваряне на документ..."
+
+#~ msgctxt "on welcome screen"
+#~ msgid "Recent documents"
+#~ msgstr "Скорошни документи"
+
+#~ msgctxt "on welcome screen (recent document list)"
+#~ msgid "Forget All"
+#~ msgstr "Забравяне на всичко"

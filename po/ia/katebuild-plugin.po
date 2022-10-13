@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-08 00:52+0000\n"
-"PO-Revision-Date: 2022-04-19 22:13+0200\n"
+"PO-Revision-Date: 2022-10-12 15:38+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.03.90\n"
+"X-Generator: Lokalize 21.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -382,7 +382,7 @@ msgstr "Directorio de travalio / Commando"
 #, fuzzy, kde-format
 #| msgid "Command:"
 msgid "Run Command"
-msgstr "Commando:"
+msgstr "Executa commando"
 
 #: targets.cpp:22
 #, kde-format

@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-12 00:50+0000\n"
+"POT-Creation-Date: 2022-10-13 00:50+0000\n"
 "PO-Revision-Date: 2021-10-11 08:07+0300\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -1198,7 +1198,7 @@ msgstr "Τοποθεσία"
 msgid "Copies the file path of the current file to clipboard."
 msgstr "Αντιγράφει τη διαδρομή του τρέχοντος αρχείου στο πρόχειρο."
 
-#: lib/katemainwindow.cpp:320 lib/welcomeview.cpp:82
+#: lib/katemainwindow.cpp:320 lib/welcomeview/welcomeview.cpp:219
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "Άν&οιγμα φακέλου"
@@ -2212,8 +2212,9 @@ msgstr "Το τελευταίο που άνοιξε"
 msgid "&Open"
 msgstr "Ά&νοιγμα"
 
+#. i18n: ectx: property (text), widget (QPushButton, buttonNewSession)
 #. i18n: ectx: property (text), widget (QPushButton, m_newButton)
-#: lib/session/katesessionmanagedialog.ui:98
+#: lib/session/katesessionmanagedialog.ui:98 lib/welcomeview/welcomeview.ui:309
 #, kde-format
 msgid "New Session"
 msgstr "Νέα συνεδρία"
@@ -2466,88 +2467,127 @@ msgstr "Διατήρηση &μετα-πληροφοριών από προηγο�
 msgid "Delete unused meta-information after:"
 msgstr "Διαγραφή των αχρησιμοποίητων μετα-πληροφοριών μετά από:"
 
-#: lib/welcomeview.cpp:69
-#, fuzzy, kde-format
-#| msgid "Location"
-msgid "&Copy Location"
-msgstr "Τοποθεσία"
-
-#: lib/welcomeview.cpp:94
+#: lib/welcomeview/welcomeview.cpp:54
 #, kde-format
-msgctxt "recent items context menu"
-msgid "&Forget This Item"
+msgid "Welcome to %1"
 msgstr ""
 
-#: lib/welcomeview.cpp:123
+#: lib/welcomeview/welcomeview.cpp:59
+#, fuzzy, kde-format
+#| msgid "Close the current document."
+msgid "No recent files"
+msgstr "Κλείσιμο του τρέχοντος εγγράφου."
+
+#: lib/welcomeview/welcomeview.cpp:107
+#, fuzzy, kde-format
+#| msgid "&Do not save session"
+msgid "No saved sessions"
+msgstr "&Να μην αποθηκευτεί η συνεδρία"
+
+#: lib/welcomeview/welcomeview.cpp:212
+#, fuzzy, kde-format
+#| msgid "Location"
+msgid "Copy &Location"
+msgstr "Τοποθεσία"
+
+#: lib/welcomeview/welcomeview.cpp:227
+#, fuzzy, kde-format
+#| msgid "&Remove"
+msgid "&Remove"
+msgstr "&Αφαίρεση"
+
+#. i18n: ectx: property (windowTitle), widget (QScrollArea, WelcomeView)
+#: lib/welcomeview/welcomeview.ui:17
 #, kde-format
 msgid "Welcome"
 msgstr ""
 
-#. i18n: ectx: property (text), widget (QLabel, welcomeLabel)
-#: lib/welcomeview.cpp:126 lib/welcomeview.ui:158
-#, kde-format
-msgid "Welcome to Kate"
-msgstr ""
-
-#: lib/welcomeview.cpp:126
-#, kde-format
-msgid "Welcome to KWrite"
-msgstr ""
-
-#: lib/welcomeview.cpp:176
-#, fuzzy, kde-format
-#| msgid "Close the current document."
-msgctxt "on welcome screen"
-msgid "No recent documents"
-msgstr "Κλείσιμο του τρέχοντος εγγράφου."
-
-#. i18n: ectx: property (windowTitle), widget (QWidget, WelcomeView)
-#: lib/welcomeview.ui:17
-#, kde-format
-msgid "Form"
-msgstr ""
-
-#. i18n: ectx: property (text), widget (QPushButton, newDocumentButton)
-#: lib/welcomeview.ui:221
-#, fuzzy, kde-format
-#| msgid "Next Document"
-msgctxt "on welcome screen"
-msgid "New Document"
-msgstr "Επόμενο έγγραφο"
-
-#. i18n: ectx: property (text), widget (QPushButton, openDocumentButton)
-#: lib/welcomeview.ui:232
-#, fuzzy, kde-format
-#| msgctxt "The number of open documents"
-#| msgid "Open Documents"
-msgctxt "on welcome screen"
-msgid "Open Document..."
-msgstr "Άνοιγμα εγγράφων"
-
-#. i18n: ectx: property (text), widget (QPushButton, openFolderButton)
-#: lib/welcomeview.ui:243
+#. i18n: ectx: property (text), widget (QPushButton, buttonNewFile)
+#: lib/welcomeview/welcomeview.ui:200
 #, fuzzy, kde-format
 #| msgid "Open File"
-msgctxt "on welcome screen"
+msgid "New File"
+msgstr "Άνοιγμα αρχείου"
+
+#. i18n: ectx: property (text), widget (QPushButton, buttonOpenFolder)
+#: lib/welcomeview/welcomeview.ui:207
+#, fuzzy, kde-format
+#| msgid "Open File"
 msgid "Open Folder..."
 msgstr "Άνοιγμα αρχείου"
 
-#. i18n: ectx: property (text), widget (QLabel, label_2)
-#: lib/welcomeview.ui:372
+#. i18n: ectx: property (text), widget (QLabel, labelRecentFiles)
+#: lib/welcomeview/welcomeview.ui:219
 #, fuzzy, kde-format
-#| msgctxt "The number of open documents"
-#| msgid "Open Documents"
-msgctxt "on welcome screen"
-msgid "Recent documents"
-msgstr "Άνοιγμα εγγράφων"
+#| msgctxt "@action:inmenu"
+#| msgid "Delete File"
+msgid "Recent Files"
+msgstr "Διαγραφή αρχείου"
 
-#. i18n: ectx: property (text), widget (QToolButton, forgetAllButton)
-#: lib/welcomeview.ui:382
+#. i18n: ectx: property (text), widget (QPushButton, buttonOpenFile)
+#: lib/welcomeview/welcomeview.ui:226
 #, fuzzy, kde-format
-#| msgid "Clos&e All"
-msgctxt "on welcome screen (recent document list)"
-msgid "Forget All"
-msgstr "Κλεί&σιμο όλων"
+#| msgid "Open File"
+msgid "Open File..."
+msgstr "Άνοιγμα αρχείου"
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, buttonClearRecentFiles)
+#: lib/welcomeview/welcomeview.ui:265
+#, kde-format
+msgid "Clear Recent Files"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, labelSavedSessions)
+#: lib/welcomeview/welcomeview.ui:302
+#, fuzzy, kde-format
+#| msgid "&Save Session"
+msgid "Saved Sessions"
+msgstr "&Αποθήκευση συνεδρίας"
+
+#. i18n: ectx: property (text), widget (QPushButton, buttonManageSessions)
+#: lib/welcomeview/welcomeview.ui:335
+#, fuzzy, kde-format
+#| msgid "&Manage Sessions..."
+msgid "Manage Sessions..."
+msgstr "&Διαχείριση συνεδριών..."
+
+#. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
+#: lib/welcomeview/welcomeview.ui:386
+#, fuzzy, kde-format
+#| msgid "Create a new document"
+msgid "Show for new window"
+msgstr "Δημιουργία ενός νέου εγγράφου"
+
+#, fuzzy
+#~| msgid "Location"
+#~ msgid "&Copy Location"
+#~ msgstr "Τοποθεσία"
+
+#, fuzzy
+#~| msgid "Next Document"
+#~ msgctxt "on welcome screen"
+#~ msgid "New Document"
+#~ msgstr "Επόμενο έγγραφο"
+
+#, fuzzy
+#~| msgctxt "The number of open documents"
+#~| msgid "Open Documents"
+#~ msgctxt "on welcome screen"
+#~ msgid "Open Document..."
+#~ msgstr "Άνοιγμα εγγράφων"
+
+#, fuzzy
+#~| msgctxt "The number of open documents"
+#~| msgid "Open Documents"
+#~ msgctxt "on welcome screen"
+#~ msgid "Recent documents"
+#~ msgstr "Άνοιγμα εγγράφων"
+
+#, fuzzy
+#~| msgid "Clos&e All"
+#~ msgctxt "on welcome screen (recent document list)"
+#~ msgid "Forget All"
+#~ msgstr "Κλεί&σιμο όλων"
 
 #, fuzzy
 #~| msgid "&New Window"
@@ -2671,10 +2711,6 @@ msgstr "Κλεί&σιμο όλων"
 #~ msgctxt "@action:inmenu"
 #~ msgid "Rename File..."
 #~ msgstr "Μετονομασία αρχείου..."
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Delete File"
-#~ msgstr "Διαγραφή αρχείου"
 
 #, fuzzy
 #~| msgid "Configuration Pages"
@@ -3916,11 +3952,6 @@ msgstr "Κλεί&σιμο όλων"
 #~ msgid "Continue"
 #~ msgstr "Ρύθμιση"
 
-#, fuzzy
-#~| msgid "&Remove"
-#~ msgid "Remove target"
-#~ msgstr "&Αφαίρεση"
-
 #~ msgid "Document List Settings"
 #~ msgstr "Ρυθμίσεις λίστας εγγράφων"
 
@@ -3978,9 +4009,6 @@ msgstr "Κλεί&σιμο όλων"
 
 #~ msgid "Behavior on Application Exit or Session Switch"
 #~ msgstr "Συμπεριφορά κατά την έξοδο από την εφαρμογή ή την αλλαγή συνεδρίας"
-
-#~ msgid "&Do not save session"
-#~ msgstr "&Να μην αποθηκευτεί η συνεδρία"
 
 #~ msgid "&Ask user"
 #~ msgstr "&Ερώτηση χρήστη"

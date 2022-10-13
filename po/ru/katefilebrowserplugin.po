@@ -12,14 +12,14 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-09 00:52+0000\n"
-"PO-Revision-Date: 2022-02-08 15:54+0300\n"
+"PO-Revision-Date: 2022-10-12 11:27+0300\n"
 "Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 21.08.3\n"
+"X-Generator: Lokalize 22.04.3\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Environment: kde\n"
@@ -60,7 +60,7 @@ msgstr[3] "Вы собираетесь открыть %1 файл, продол�
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
-msgstr ""
+msgstr "Открыть все файлы"
 
 #: katefilebrowser.cpp:426
 #, kde-format
@@ -85,7 +85,7 @@ msgstr "Автоматически синхронизировать с теку�
 #: katefilebrowser.cpp:470
 #, kde-format
 msgid "Highlight current file"
-msgstr ""
+msgstr "Подсветить текущий файл"
 
 #: katefilebrowserconfig.cpp:63
 #, kde-format
@@ -113,10 +113,9 @@ msgid "Filesystem Browser Settings"
 msgstr "Просмотр файловой системы"
 
 #: katefilebrowserplugin.cpp:66
-#, fuzzy, kde-format
-#| msgid "Filesystem Browser"
+#, kde-format
 msgid "Filesystem"
-msgstr "Просмотр файловой системы"
+msgstr "Файловая система"
 
 #~ msgid "Filter:"
 #~ msgstr "Фильтр:"

@@ -1,22 +1,22 @@
 # Copyright (C) YEAR This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# Alexander Yavorsky <kekcuha@gmail.com>, 2022.
+# Olesya Gerasimenko <translation-team@basealt.ru>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-30 00:48+0000\n"
-"PO-Revision-Date: 2022-10-03 11:49+0300\n"
-"Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
-"Language-Team: Russian <kde-russian@lists.kde.ru>\n"
+"PO-Revision-Date: 2022-10-12 10:47+0300\n"
+"Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
+"Language-Team: Basealt Translation Team\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
-"%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Lokalize 21.08.3\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Lokalize 22.04.3\n"
 
 #: commitfilesview.cpp:302
 #, kde-format
@@ -43,12 +43,12 @@ msgstr "Git Blame"
 #: kategitblameplugin.cpp:169
 #, kde-format
 msgid "Show Git Blame Details"
-msgstr ""
+msgstr "Показать подробности Git Blame"
 
 #: kategitblameplugin.cpp:172
 #, kde-format
 msgid "Toggle Git Blame Details"
-msgstr ""
+msgstr "Переключить подробности Git Blame"
 
 #: kategitblameplugin.cpp:318
 #, kde-format
@@ -58,7 +58,7 @@ msgstr "Git"
 #: kategitblameplugin.cpp:458
 #, kde-format
 msgid "Git blame, show commit failed."
-msgstr ""
+msgstr "Git blame, не удалось показать фиксацию."
 
 #: kategitblameplugin.cpp:545
 #, kde-format
@@ -68,7 +68,7 @@ msgstr "Ещё не зафиксировано"
 #: kategitblameplugin.cpp:576
 #, kde-format
 msgid "Commit"
-msgstr ""
+msgstr "Зафиксировать"
 
 #. i18n: ectx: Menu (tools)
 #: ui.rc:6

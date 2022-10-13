@@ -47,15 +47,16 @@ public:
         connect(&m_timeline, &QTimeLine::finished, this, &QObject::deleteLater);
     }
 
-    void run(int c)
+    void run(int loopCount, QColor c)
     {
         // If parent is not visible, do nothing
         if (parentWidget() && !parentWidget()->isVisible()) {
             return;
         }
+        m_flashColor = c;
         show();
         raise();
-        m_timeline.setLoopCount(c);
+        m_timeline.setLoopCount(loopCount);
         m_timeline.start();
     }
 
@@ -71,15 +72,15 @@ protected:
         if (m_timeline.state() == QTimeLine::Running) {
             QPainter p(this);
             p.setRenderHint(QPainter::Antialiasing);
-            QColor c = Qt::red;
-            c.setAlpha(m_timeline.currentFrame());
-            p.setBrush(c);
+            m_flashColor.setAlpha(m_timeline.currentFrame());
+            p.setBrush(m_flashColor);
             p.setPen(Qt::NoPen);
             p.drawRoundedRect(rect(), 15, 15);
         }
     }
 
 private:
+    QColor m_flashColor;
     QTimeLine m_timeline;
 };
 
@@ -346,20 +347,24 @@ void KateOutputView::slotMessage(const QVariantMap &message)
     bool shouldShowOutputToolView = false;
     auto typeColumn = new QStandardItem();
     int indicatorLoopCount = 0; // for warning/error infinite loop
+    QColor color;
     const auto typeString = message.value(QStringLiteral("type")).toString();
     if (typeString == QLatin1String("Error")) {
         shouldShowOutputToolView = (m_showOutputViewForMessageType >= 1);
         typeColumn->setText(i18nc("@info", "Error"));
         typeColumn->setIcon(QIcon::fromTheme(QStringLiteral("data-error")));
+        color = Qt::red;
     } else if (typeString == QLatin1String("Warning")) {
         shouldShowOutputToolView = (m_showOutputViewForMessageType >= 2);
         typeColumn->setText(i18nc("@info", "Warning"));
         typeColumn->setIcon(QIcon::fromTheme(QStringLiteral("data-warning")));
+        color = QColor(255, 165, 0); // orange
     } else if (typeString == QLatin1String("Info")) {
         shouldShowOutputToolView = (m_showOutputViewForMessageType >= 3);
         typeColumn->setText(i18nc("@info", "Info"));
         typeColumn->setIcon(QIcon::fromTheme(QStringLiteral("data-information")));
         indicatorLoopCount = 2;
+        color = Qt::blue;
     } else {
         shouldShowOutputToolView = (m_showOutputViewForMessageType >= 4);
         typeColumn->setText(i18nc("@info", "Log"));
@@ -374,7 +379,7 @@ void KateOutputView::slotMessage(const QVariantMap &message)
 
     if (!m_fadingIndicator && indicatorLoopCount >= 0) {
         m_fadingIndicator = new NewMsgIndicator(tabButton);
-        m_fadingIndicator->run(indicatorLoopCount);
+        m_fadingIndicator->run(indicatorLoopCount, color);
         connect(tabButton, SIGNAL(clicked()), m_fadingIndicator, SLOT(stop()));
     }
 

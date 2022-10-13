@@ -7,7 +7,6 @@
 
 #include "recentitemsmodel.h"
 
-#include <QDebug>
 #include <QFileInfo>
 #include <QMimeDatabase>
 
@@ -54,7 +53,6 @@ void RecentItemsModel::refresh(const QList<QUrl> &urls)
     QString name;
     for (const QUrl &url : urls) {
         if (url.isLocalFile()) {
-            qDebug() << url << "  is local file";
             const QFileInfo fileInfo(url.toLocalFile());
             if (!fileInfo.exists()) {
                 continue;
@@ -63,7 +61,6 @@ void RecentItemsModel::refresh(const QList<QUrl> &urls)
             icon = QIcon::fromTheme(QMimeDatabase().mimeTypeForFile(fileInfo).iconName());
             name = fileInfo.fileName();
         } else {
-            qDebug() << url << "  is not local file";
             icon = QIcon::fromTheme(QStringLiteral("network-server"));
             name = url.toString();
         }

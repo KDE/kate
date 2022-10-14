@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-13 00:50+0000\n"
-"PO-Revision-Date: 2022-10-12 12:45+0300\n"
+"POT-Creation-Date: 2022-10-14 00:50+0000\n"
+"PO-Revision-Date: 2022-10-13 05:01+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -1010,12 +1010,12 @@ msgstr "Belgeyi Kapat"
 msgid "Save As"
 msgstr "Farklı Kaydet"
 
-#: lib/katedocmanager.cpp:294 lib/katemainwindow.cpp:583
+#: lib/katedocmanager.cpp:294 lib/katemainwindow.cpp:588
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr "Kate kapatılırken yeni dosya açıldı, kapatılma iptal edildi."
 
-#: lib/katedocmanager.cpp:294 lib/katemainwindow.cpp:583
+#: lib/katedocmanager.cpp:294 lib/katemainwindow.cpp:588
 #, kde-format
 msgid "Closing Aborted"
 msgstr "Kapatma İptal Edildi"
@@ -1140,7 +1140,7 @@ msgstr "Yeni bir belge oluştur"
 msgid "Open an existing document for editing"
 msgstr "Mevcut dosyayı düzenlemek için aç"
 
-#: lib/katemainwindow.cpp:295
+#: lib/katemainwindow.cpp:300
 #, kde-format
 msgid ""
 "This lists files which you have opened recently, and allows you to easily "
@@ -1149,89 +1149,89 @@ msgstr ""
 "Son zamanlarda açılan dosyaları sıralar, ve onları kolaylıkla tekrar "
 "açabilmenizi sağlar."
 
-#: lib/katemainwindow.cpp:299
+#: lib/katemainwindow.cpp:304
 #, kde-format
 msgid "Save A&ll"
 msgstr "Tümünü &Kaydet"
 
-#: lib/katemainwindow.cpp:302
+#: lib/katemainwindow.cpp:307
 #, kde-format
 msgid "Save all open, modified documents to disk."
 msgstr "Bütün açık, değiştirilmiş belgeleri diske kaydet."
 
-#: lib/katemainwindow.cpp:305
+#: lib/katemainwindow.cpp:310
 #, kde-format
 msgid "&Reload All"
 msgstr "Tümünü &Yeniden Yükle"
 
-#: lib/katemainwindow.cpp:307
+#: lib/katemainwindow.cpp:312
 #, kde-format
 msgid "Reload all open documents."
 msgstr "Tüm açık belgeleri yeniden yükle."
 
-#: lib/katemainwindow.cpp:311
+#: lib/katemainwindow.cpp:316
 #, kde-format
 msgid "Copy Location"
 msgstr "Konumu Kopyala"
 
-#: lib/katemainwindow.cpp:316 lib/katemainwindow.cpp:325
+#: lib/katemainwindow.cpp:321 lib/katemainwindow.cpp:330
 #, kde-format
 msgid "Copies the file path of the current file to clipboard."
 msgstr "Geçerli dosyanın dosya yolunu panoya kopyalar."
 
-#: lib/katemainwindow.cpp:320 lib/welcomeview/welcomeview.cpp:219
+#: lib/katemainwindow.cpp:325 lib/welcomeview/welcomeview.cpp:223
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "İçeren K&lasörü Aç"
 
-#: lib/katemainwindow.cpp:329
+#: lib/katemainwindow.cpp:334
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename..."
 msgstr "Yeniden Adlandır..."
 
-#: lib/katemainwindow.cpp:334
+#: lib/katemainwindow.cpp:339
 #, kde-format
 msgid "Renames the file belonging to the current document."
 msgstr "Geçerli belgeye ait dosyayı yeniden adlandırır."
 
-#: lib/katemainwindow.cpp:338
+#: lib/katemainwindow.cpp:343
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete"
 msgstr "Sil"
 
-#: lib/katemainwindow.cpp:343 lib/katemainwindow.cpp:352
+#: lib/katemainwindow.cpp:348 lib/katemainwindow.cpp:357
 #, kde-format
 msgid "Deletes the file belonging to the current document."
 msgstr "Geçerli belgeye ait dosyayı siler."
 
-#: lib/katemainwindow.cpp:347
+#: lib/katemainwindow.cpp:352
 #, kde-format
 msgid "Properties"
 msgstr "Seçenekler"
 
-#: lib/katemainwindow.cpp:355 lib/katemainwindow.cpp:357
+#: lib/katemainwindow.cpp:360 lib/katemainwindow.cpp:362
 #, kde-format
 msgid "Compare"
 msgstr "Karşılaştır"
 
-#: lib/katemainwindow.cpp:357
+#: lib/katemainwindow.cpp:362
 #, kde-format
 msgid "Use the Tabbar context menu to compare two documents"
 msgstr "İki belgeyi karşılaştırmak için Sekme Çubuğu içerik menüsünü kullan"
 
-#: lib/katemainwindow.cpp:359
+#: lib/katemainwindow.cpp:364
 #, kde-format
 msgid "Shows a hint how to compare documents."
 msgstr "Belgeleri karşılaştırmak için bir ipucu göster."
 
-#: lib/katemainwindow.cpp:362
+#: lib/katemainwindow.cpp:367
 #, kde-format
 msgid "Close Orphaned"
 msgstr "Terk Edilmişi Kapat"
 
-#: lib/katemainwindow.cpp:364
+#: lib/katemainwindow.cpp:369
 #, kde-format
 msgid ""
 "Close all documents in the file list that could not be reopened, because "
@@ -1240,52 +1240,52 @@ msgstr ""
 "Dosya listesindeki yeniden açılamayan tüm belgeleri kapat çünkü o dosyalar "
 "artık erişilemez durumda."
 
-#: lib/katemainwindow.cpp:368
+#: lib/katemainwindow.cpp:373
 #, kde-format
 msgid "Close the current document."
 msgstr "Geçerli belgeyi kapat."
 
-#: lib/katemainwindow.cpp:371
+#: lib/katemainwindow.cpp:376
 #, kde-format
 msgid "Close Other"
 msgstr "Diğerlerini Kapat"
 
-#: lib/katemainwindow.cpp:373
+#: lib/katemainwindow.cpp:378
 #, kde-format
 msgid "Close other open documents."
 msgstr "Diğer açık belgeleri kapat."
 
-#: lib/katemainwindow.cpp:376
+#: lib/katemainwindow.cpp:381
 #, kde-format
 msgid "Clos&e All"
 msgstr "Tümünü &Kapat"
 
-#: lib/katemainwindow.cpp:378
+#: lib/katemainwindow.cpp:383
 #, kde-format
 msgid "Close all open documents."
 msgstr "Tüm açık belgeleri kapat."
 
-#: lib/katemainwindow.cpp:383
+#: lib/katemainwindow.cpp:388
 #, kde-format
 msgid "Close this window"
 msgstr "Bu pencereyi kapat"
 
-#: lib/katemainwindow.cpp:387
+#: lib/katemainwindow.cpp:392
 #, kde-format
 msgid "&New Window"
 msgstr "Yeni &Pencere"
 
-#: lib/katemainwindow.cpp:389
+#: lib/katemainwindow.cpp:394
 #, kde-format
 msgid "Create a new window."
 msgstr "Yeni bir pencere oluştur."
 
-#: lib/katemainwindow.cpp:396
+#: lib/katemainwindow.cpp:401
 #, kde-format
 msgid "Open W&ith"
 msgstr "B&irlikte Aç"
 
-#: lib/katemainwindow.cpp:398
+#: lib/katemainwindow.cpp:403
 #, kde-format
 msgid ""
 "Open the current document using another application registered for its file "
@@ -1294,96 +1294,96 @@ msgstr ""
 "Geçerli belgeyi dosya yapısı için kaydedilmiş başka bir programla veya "
 "seçeceğiniz başka bir programla aç."
 
-#: lib/katemainwindow.cpp:406
+#: lib/katemainwindow.cpp:411
 #, kde-format
 msgid "Configure the application's keyboard shortcut assignments."
 msgstr "Uygulamanın klavye kısayollarını yapılandır."
 
-#: lib/katemainwindow.cpp:409
+#: lib/katemainwindow.cpp:414
 #, kde-format
 msgid "Configure which items should appear in the toolbar(s)."
 msgstr "Alet çubuğunda görüntüleneceğini yapılandır."
 
-#: lib/katemainwindow.cpp:412
+#: lib/katemainwindow.cpp:417
 #, kde-format
 msgid ""
 "Configure various aspects of this application and the editing component."
 msgstr "Bu programın ve düzenleme bileşeninin çeşitli yönlerini yapılandır."
 
-#: lib/katemainwindow.cpp:416
+#: lib/katemainwindow.cpp:421
 #, kde-format
 msgid "&Plugins Handbook"
 msgstr "Eklentile&r El Kitabı"
 
-#: lib/katemainwindow.cpp:418
+#: lib/katemainwindow.cpp:423
 #, kde-format
 msgid "This shows help files for various available plugins."
 msgstr "Mevcut eklentiler için yardım dosyalarını gösterir."
 
-#: lib/katemainwindow.cpp:435
+#: lib/katemainwindow.cpp:440
 #, kde-format
 msgid "Sess&ions"
 msgstr "Oturu&mlar"
 
-#: lib/katemainwindow.cpp:441
+#: lib/katemainwindow.cpp:446
 #, kde-format
 msgctxt "Menu entry Session->New Session"
 msgid "&New Session"
 msgstr "Y&eni Oturum"
 
-#: lib/katemainwindow.cpp:446
+#: lib/katemainwindow.cpp:451
 #, kde-format
 msgid "&Recent Sessions"
 msgstr "Son Otu&rumlar"
 
-#: lib/katemainwindow.cpp:451
+#: lib/katemainwindow.cpp:456
 #, kde-format
 msgid "&All Sessions"
 msgstr "Tüm Oturu&mlar"
 
-#: lib/katemainwindow.cpp:458
+#: lib/katemainwindow.cpp:463
 #, kde-format
 msgid "&Manage Sessions..."
 msgstr "Oturumları &Yönet..."
 
-#: lib/katemainwindow.cpp:467
+#: lib/katemainwindow.cpp:472
 #, kde-format
 msgid "&Save Session"
 msgstr "O&turumu Kaydet"
 
-#: lib/katemainwindow.cpp:473
+#: lib/katemainwindow.cpp:478
 #, kde-format
 msgid "Save Session &As..."
 msgstr "Oturumu &Farklı Kaydet..."
 
-#: lib/katemainwindow.cpp:480 lib/kateviewspace.cpp:58
+#: lib/katemainwindow.cpp:485 lib/kateviewspace.cpp:58
 #, kde-format
 msgid "Go to Previous Location"
 msgstr "Önceki Konuma Git"
 
-#: lib/katemainwindow.cpp:488 lib/kateviewspace.cpp:71
+#: lib/katemainwindow.cpp:493 lib/kateviewspace.cpp:71
 #, kde-format
 msgid "Go to Next Location"
 msgstr "Sonraki Konuma Git"
 
-#: lib/katemainwindow.cpp:495
+#: lib/katemainwindow.cpp:500
 #, kde-format
 msgid "Show File Git History"
 msgstr "Dosya Git Geçmişini Göster"
 
-#: lib/katemainwindow.cpp:510
+#: lib/katemainwindow.cpp:515
 #, kde-format
 msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr ""
 "Bu işlem tüm açık belgeleri kapatacak. Devam etmek istediğinizden emin "
 "misiniz?"
 
-#: lib/katemainwindow.cpp:511
+#: lib/katemainwindow.cpp:516
 #, kde-format
 msgid "Close all documents"
 msgstr "Tüm belgeleri kapat"
 
-#: lib/katemainwindow.cpp:526
+#: lib/katemainwindow.cpp:531
 #, kde-format
 msgid ""
 "This will close all open documents beside the current one. Are you sure you "
@@ -1392,24 +1392,24 @@ msgstr ""
 "Bu, mevcut belge dışındaki tüm açık belgeleri kapatacaktır. Devam etmek "
 "istediğine emin misiniz?"
 
-#: lib/katemainwindow.cpp:527
+#: lib/katemainwindow.cpp:532
 #, kde-format
 msgid "Close all documents beside current one"
 msgstr "Mevcut belge dışındaki tüm belgeleri kapat"
 
-#: lib/katemainwindow.cpp:726
+#: lib/katemainwindow.cpp:731
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
 msgstr ""
 "Bu, menü çubuğunu tümüyle gizleyecektir. %1 ile yeniden gösterebilirsiniz."
 
-#: lib/katemainwindow.cpp:729
+#: lib/katemainwindow.cpp:734
 #, kde-format
 msgid "Hide menu bar"
 msgstr "Menü çubuğunu gizle"
 
-#: lib/katemainwindow.cpp:829
+#: lib/katemainwindow.cpp:834
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
@@ -1418,34 +1418,34 @@ msgstr ""
 "%1 dizinini Kate'in içine bıraktınız. İçerdiği tüm dosyaları açmak istiyor "
 "musunuz ?"
 
-#: lib/katemainwindow.cpp:832
+#: lib/katemainwindow.cpp:837
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "Dosyaları Özyineli Olarak Aç"
 
-#: lib/katemainwindow.cpp:833
+#: lib/katemainwindow.cpp:838
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Tüm Dosyaları Aç"
 
-#: lib/katemainwindow.cpp:958
+#: lib/katemainwindow.cpp:963
 #, kde-format
 msgid "&Other..."
 msgstr "Diğ&er..."
 
-#: lib/katemainwindow.cpp:1083
+#: lib/katemainwindow.cpp:1088
 #, kde-format
 msgid " [read only]"
 msgstr " [saltokunur]"
 
-#: lib/katemainwindow.cpp:1330
+#: lib/katemainwindow.cpp:1335
 #, kde-format
 msgid "Diff %1"
 msgstr "Diff %1"
 
-#: lib/katemainwindow.cpp:1332
+#: lib/katemainwindow.cpp:1337
 #, kde-format
 msgid "Diff %1..%2"
 msgstr "Diff %1..%2"
@@ -2084,6 +2084,11 @@ msgstr "Program başlatılamadı"
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr "Seçilen program başlatılamadı. Kurulmamış olabilir."
 
+#: lib/ktexteditor_utils.cpp:213
+#, kde-format
+msgid "Please enable the project plugin to load directories"
+msgstr ""
+
 #: lib/quickopen/katequickopenlineedit.cpp:22
 #, kde-format
 msgid "Quick Open Search (configure via context menu)"
@@ -2399,35 +2404,45 @@ msgstr "Geçmiş oturumlardaki &üstbilgiyi sakla"
 msgid "Delete unused meta-information after:"
 msgstr "Kullanılmayan üstbilgiyi sil:"
 
-#: lib/welcomeview/welcomeview.cpp:54
-#, fuzzy, kde-format
-#| msgid "Welcome to Kate"
+#: lib/welcomeview/welcomeview.cpp:56
+#, kde-format
 msgid "Welcome to %1"
-msgstr "Kate'e Hoş Geldiniz"
+msgstr "%1 uygulamasına hoş geldiniz"
 
-#: lib/welcomeview/welcomeview.cpp:59
-#, fuzzy, kde-format
-#| msgctxt "on welcome screen"
-#| msgid "No recent documents"
+#: lib/welcomeview/welcomeview.cpp:61
+#, kde-format
 msgid "No recent files"
 msgstr "Son kullanılan belge yok"
 
-#: lib/welcomeview/welcomeview.cpp:107
-#, fuzzy, kde-format
-#| msgid "&Save Session"
+#: lib/welcomeview/welcomeview.cpp:109
+#, kde-format
 msgid "No saved sessions"
-msgstr "O&turumu Kaydet"
+msgstr "Kayıtlı oturum yok"
 
-#: lib/welcomeview/welcomeview.cpp:212
+#: lib/welcomeview/welcomeview.cpp:196
 #, fuzzy, kde-format
-#| msgid "Copy Location"
-msgid "Copy &Location"
-msgstr "Konumu Kopyala"
+#| msgctxt "on welcome screen"
+#| msgid "Recent documents"
+msgid "Recent Documents and Projects"
+msgstr "Son kullanılan belgeler"
 
-#: lib/welcomeview/welcomeview.cpp:227
+#. i18n: ectx: property (text), widget (QLabel, labelRecentItems)
+#: lib/welcomeview/welcomeview.cpp:199 lib/welcomeview/welcomeview.ui:219
+#, fuzzy, kde-format
+#| msgctxt "on welcome screen"
+#| msgid "Recent documents"
+msgid "Recent Documents"
+msgstr "Son kullanılan belgeler"
+
+#: lib/welcomeview/welcomeview.cpp:216
+#, kde-format
+msgid "Copy &Location"
+msgstr "Konu&mu Kopyala"
+
+#: lib/welcomeview/welcomeview.cpp:231
 #, kde-format
 msgid "&Remove"
-msgstr ""
+msgstr "&Kaldır"
 
 #. i18n: ectx: property (windowTitle), widget (QScrollArea, WelcomeView)
 #: lib/welcomeview/welcomeview.ui:17
@@ -2437,59 +2452,49 @@ msgstr "Hoş Geldiniz"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonNewFile)
 #: lib/welcomeview/welcomeview.ui:200
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "New File"
-msgstr "Dosya Aç"
+msgstr "Yeni Dosya"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonOpenFolder)
 #: lib/welcomeview/welcomeview.ui:207
-#, fuzzy, kde-format
-#| msgctxt "on welcome screen"
-#| msgid "Open Folder..."
+#, kde-format
 msgid "Open Folder..."
 msgstr "Klasör Aç..."
 
-#. i18n: ectx: property (text), widget (QLabel, labelRecentFiles)
-#: lib/welcomeview/welcomeview.ui:219
-#, fuzzy, kde-format
-#| msgid "Open File"
-msgid "Recent Files"
-msgstr "Dosya Aç"
-
 #. i18n: ectx: property (text), widget (QPushButton, buttonOpenFile)
 #: lib/welcomeview/welcomeview.ui:226
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "Open File..."
-msgstr "Dosya Aç"
+msgstr "Dosya Aç..."
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, buttonClearRecentFiles)
 #: lib/welcomeview/welcomeview.ui:265
 #, kde-format
 msgid "Clear Recent Files"
-msgstr ""
+msgstr "Son Kullanılan Dosyaları Temizle"
 
 #. i18n: ectx: property (text), widget (QLabel, labelSavedSessions)
 #: lib/welcomeview/welcomeview.ui:302
-#, fuzzy, kde-format
-#| msgid "&Save Session"
+#, kde-format
 msgid "Saved Sessions"
-msgstr "O&turumu Kaydet"
+msgstr "Kaydedilmiş Oturumlar"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonManageSessions)
 #: lib/welcomeview/welcomeview.ui:335
-#, fuzzy, kde-format
-#| msgid "&Manage Sessions..."
+#, kde-format
 msgid "Manage Sessions..."
-msgstr "Oturumları &Yönet..."
+msgstr "Oturumları Yönet..."
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
 #: lib/welcomeview/welcomeview.ui:386
-#, fuzzy, kde-format
-#| msgid "Create a new window."
+#, kde-format
 msgid "Show for new window"
-msgstr "Yeni bir pencere oluştur."
+msgstr "Yeni pencerelerde göster"
+
+#~| msgid "Open File"
+#~ msgid "Recent Files"
+#~ msgstr "Son Kullanılan Dosyalar"
 
 #~ msgid "&Copy Location"
 #~ msgstr "&Konumu Kopyala"
@@ -2511,10 +2516,6 @@ msgstr "Yeni bir pencere oluştur."
 #~ msgctxt "on welcome screen"
 #~ msgid "Open Document..."
 #~ msgstr "Belge Aç..."
-
-#~ msgctxt "on welcome screen"
-#~ msgid "Recent documents"
-#~ msgstr "Son kullanılan belgeler"
 
 #~ msgctxt "on welcome screen (recent document list)"
 #~ msgid "Forget All"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-11 00:50+0000\n"
+"POT-Creation-Date: 2022-10-14 00:50+0000\n"
 "PO-Revision-Date: 2022-09-04 14:37+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -95,7 +95,7 @@ msgstr[1] "Segur que voleu suprimir les branques seleccionades?"
 msgid "Select Branch..."
 msgstr "Selecciona la branca..."
 
-#: branchesdialog.cpp:131 gitwidget.cpp:456 kateprojectpluginview.cpp:63
+#: branchesdialog.cpp:131 gitwidget.cpp:456 kateprojectpluginview.cpp:65
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -633,7 +633,7 @@ msgstr "Marca / Desmarca"
 msgid "Double click action in the git status view"
 msgstr "Acció de doble clic en la vista de «git status»"
 
-#: kateprojectconfigpage.cpp:135 kateprojectpluginview.cpp:62
+#: kateprojectconfigpage.cpp:135 kateprojectpluginview.cpp:64
 #, kde-format
 msgid "Projects"
 msgstr "Projectes"
@@ -776,85 +776,85 @@ msgstr ""
 "Camí complet del projecte actual excloent el nom del fitxer, amb el "
 "separador de camí natiu (barra inversa a Windows)."
 
-#: kateprojectplugin.cpp:713 kateprojectpluginview.cpp:68
-#: kateprojectpluginview.cpp:209 kateprojectviewtree.cpp:136
+#: kateprojectplugin.cpp:713 kateprojectpluginview.cpp:70
+#: kateprojectpluginview.cpp:211 kateprojectviewtree.cpp:136
 #: kateprojectviewtree.cpp:161
 #, kde-format
 msgid "Project"
 msgstr "Projecte"
 
-#: kateprojectpluginview.cpp:52
+#: kateprojectpluginview.cpp:54
 #, kde-format
 msgid "Project Manager"
 msgstr "Gestor de projectes"
 
-#: kateprojectpluginview.cpp:78
+#: kateprojectpluginview.cpp:80
 #, kde-format
 msgid "Reload project"
 msgstr "Torna a carregar el projecte"
 
-#: kateprojectpluginview.cpp:95
+#: kateprojectpluginview.cpp:97
 #, kde-format
 msgid "Refresh git status"
 msgstr "Actualitza l'estat de «git»"
 
-#: kateprojectpluginview.cpp:171
+#: kateprojectpluginview.cpp:173
 #, kde-format
 msgid "Open Folder..."
 msgstr "Obri una carpeta..."
 
 # skip-rule: kct-todo
-#: kateprojectpluginview.cpp:176
+#: kateprojectpluginview.cpp:178
 #, kde-format
 msgid "Project TODOs"
 msgstr "TODO del projecte"
 
-#: kateprojectpluginview.cpp:180
+#: kateprojectpluginview.cpp:182
 #, kde-format
 msgid "Activate Previous Project"
 msgstr "Activa el projecte anterior"
 
-#: kateprojectpluginview.cpp:185
+#: kateprojectpluginview.cpp:187
 #, kde-format
 msgid "Activate Next Project"
 msgstr "Activa el projecte següent"
 
-#: kateprojectpluginview.cpp:190
+#: kateprojectpluginview.cpp:192
 #, kde-format
 msgid "Lookup"
 msgstr "Busca"
 
-#: kateprojectpluginview.cpp:194
+#: kateprojectpluginview.cpp:196
 #, kde-format
 msgid "Close Project"
 msgstr "Tanca el projecte"
 
-#: kateprojectpluginview.cpp:198
+#: kateprojectpluginview.cpp:200
 #, kde-format
 msgid "Close All Projects"
 msgstr "Tanca tots els projectes"
 
-#: kateprojectpluginview.cpp:203
+#: kateprojectpluginview.cpp:205
 #, kde-format
 msgid "Close Orphaned Projects"
 msgstr "Tanca els projectes orfes"
 
-#: kateprojectpluginview.cpp:212 kateprojectpluginview.cpp:778
+#: kateprojectpluginview.cpp:214 kateprojectpluginview.cpp:780
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Busca: %1"
 
-#: kateprojectpluginview.cpp:213 kateprojectpluginview.cpp:779
+#: kateprojectpluginview.cpp:215 kateprojectpluginview.cpp:781
 #, kde-format
 msgid "Goto: %1"
 msgstr "Ves a: %1"
 
-#: kateprojectpluginview.cpp:287
+#: kateprojectpluginview.cpp:289
 #, kde-format
 msgid "Projects Index"
 msgstr "Índex dels projectes"
 
-#: kateprojectpluginview.cpp:817
+#: kateprojectpluginview.cpp:819
 #, kde-format
 msgid "Choose a directory"
 msgstr "Seleccioneu un directori"

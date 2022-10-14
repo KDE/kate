@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-11 00:50+0000\n"
+"POT-Creation-Date: 2022-10-14 00:50+0000\n"
 "PO-Revision-Date: 2022-05-20 14:59+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
@@ -91,7 +91,7 @@ msgstr[1] "Наистина ли искате да изтриете избран
 msgid "Select Branch..."
 msgstr ""
 
-#: branchesdialog.cpp:131 gitwidget.cpp:456 kateprojectpluginview.cpp:63
+#: branchesdialog.cpp:131 gitwidget.cpp:456 kateprojectpluginview.cpp:65
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -627,7 +627,7 @@ msgstr ""
 msgid "Double click action in the git status view"
 msgstr ""
 
-#: kateprojectconfigpage.cpp:135 kateprojectpluginview.cpp:62
+#: kateprojectconfigpage.cpp:135 kateprojectpluginview.cpp:64
 #, kde-format
 msgid "Projects"
 msgstr "Проекти"
@@ -770,86 +770,86 @@ msgstr ""
 "Пълен път до текущия проект, с изключение на името на файла, с роден "
 "разделител на пътя (наклонена черта в Windows)."
 
-#: kateprojectplugin.cpp:713 kateprojectpluginview.cpp:68
-#: kateprojectpluginview.cpp:209 kateprojectviewtree.cpp:136
+#: kateprojectplugin.cpp:713 kateprojectpluginview.cpp:70
+#: kateprojectpluginview.cpp:211 kateprojectviewtree.cpp:136
 #: kateprojectviewtree.cpp:161
 #, kde-format
 msgid "Project"
 msgstr "Проект"
 
-#: kateprojectpluginview.cpp:52
+#: kateprojectpluginview.cpp:54
 #, fuzzy, kde-format
 #| msgid "Kate Project Manager"
 msgid "Project Manager"
 msgstr "Мениджър на проекти на Kate"
 
-#: kateprojectpluginview.cpp:78
+#: kateprojectpluginview.cpp:80
 #, fuzzy, kde-format
 #| msgid "Close Project"
 msgid "Reload project"
 msgstr "Затваряне на проект"
 
-#: kateprojectpluginview.cpp:95
+#: kateprojectpluginview.cpp:97
 #, kde-format
 msgid "Refresh git status"
 msgstr ""
 
-#: kateprojectpluginview.cpp:171
+#: kateprojectpluginview.cpp:173
 #, kde-format
 msgid "Open Folder..."
 msgstr "Отваряне на папка..."
 
-#: kateprojectpluginview.cpp:176
+#: kateprojectpluginview.cpp:178
 #, kde-format
 msgid "Project TODOs"
 msgstr "Задачи на проекта"
 
-#: kateprojectpluginview.cpp:180
+#: kateprojectpluginview.cpp:182
 #, kde-format
 msgid "Activate Previous Project"
 msgstr ""
 
-#: kateprojectpluginview.cpp:185
+#: kateprojectpluginview.cpp:187
 #, kde-format
 msgid "Activate Next Project"
 msgstr ""
 
-#: kateprojectpluginview.cpp:190
+#: kateprojectpluginview.cpp:192
 #, kde-format
 msgid "Lookup"
 msgstr "Търсене"
 
-#: kateprojectpluginview.cpp:194
+#: kateprojectpluginview.cpp:196
 #, kde-format
 msgid "Close Project"
 msgstr "Затваряне на проект"
 
-#: kateprojectpluginview.cpp:198
+#: kateprojectpluginview.cpp:200
 #, kde-format
 msgid "Close All Projects"
 msgstr "Затваряне на всички проекти"
 
-#: kateprojectpluginview.cpp:203
+#: kateprojectpluginview.cpp:205
 #, kde-format
 msgid "Close Orphaned Projects"
 msgstr "Затваряне на осиротелите проекти"
 
-#: kateprojectpluginview.cpp:212 kateprojectpluginview.cpp:778
+#: kateprojectpluginview.cpp:214 kateprojectpluginview.cpp:780
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Търсене: %1"
 
-#: kateprojectpluginview.cpp:213 kateprojectpluginview.cpp:779
+#: kateprojectpluginview.cpp:215 kateprojectpluginview.cpp:781
 #, kde-format
 msgid "Goto: %1"
 msgstr "Отиване до: %1"
 
-#: kateprojectpluginview.cpp:287
+#: kateprojectpluginview.cpp:289
 #, kde-format
 msgid "Projects Index"
 msgstr "Индекс на проект"
 
-#: kateprojectpluginview.cpp:817
+#: kateprojectpluginview.cpp:819
 #, kde-format
 msgid "Choose a directory"
 msgstr "Избиране на директория"

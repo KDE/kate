@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-11 00:50+0000\n"
+"POT-Creation-Date: 2022-10-14 00:50+0000\n"
 "PO-Revision-Date: 2022-08-22 16:54+0200\n"
 "Last-Translator: Matej Mrenica <matejm98mthw@gmail.com>\n"
 "Language-Team: Slovak <kde-i18n-doc@kde.org>\n"
@@ -91,7 +91,7 @@ msgstr[2] ""
 msgid "Select Branch..."
 msgstr "Vybrať vetvu..."
 
-#: branchesdialog.cpp:131 gitwidget.cpp:456 kateprojectpluginview.cpp:63
+#: branchesdialog.cpp:131 gitwidget.cpp:456 kateprojectpluginview.cpp:65
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -631,7 +631,7 @@ msgstr ""
 msgid "Double click action in the git status view"
 msgstr ""
 
-#: kateprojectconfigpage.cpp:135 kateprojectpluginview.cpp:62
+#: kateprojectconfigpage.cpp:135 kateprojectpluginview.cpp:64
 #, kde-format
 msgid "Projects"
 msgstr "Projekty"
@@ -776,88 +776,88 @@ msgstr ""
 "Úplná cesta k aktuálnemu projektu s výnimkou názvu súboru, s natívnym "
 "oddeľovačom (spätné lomítko vo Windows)."
 
-#: kateprojectplugin.cpp:713 kateprojectpluginview.cpp:68
-#: kateprojectpluginview.cpp:209 kateprojectviewtree.cpp:136
+#: kateprojectplugin.cpp:713 kateprojectpluginview.cpp:70
+#: kateprojectpluginview.cpp:211 kateprojectviewtree.cpp:136
 #: kateprojectviewtree.cpp:161
 #, kde-format
 msgid "Project"
 msgstr "Projekt"
 
-#: kateprojectpluginview.cpp:52
+#: kateprojectpluginview.cpp:54
 #, kde-format
 msgid "Project Manager"
 msgstr "Správca projektu"
 
-#: kateprojectpluginview.cpp:78
+#: kateprojectpluginview.cpp:80
 #, fuzzy, kde-format
 #| msgid "Close Project"
 msgid "Reload project"
 msgstr "Zatvoriť projekt"
 
-#: kateprojectpluginview.cpp:95
+#: kateprojectpluginview.cpp:97
 #, kde-format
 msgid "Refresh git status"
 msgstr ""
 
-#: kateprojectpluginview.cpp:171
+#: kateprojectpluginview.cpp:173
 #, kde-format
 msgid "Open Folder..."
 msgstr "Otvoriť priečinok..."
 
-#: kateprojectpluginview.cpp:176
+#: kateprojectpluginview.cpp:178
 #, fuzzy, kde-format
 #| msgid "Projects"
 msgid "Project TODOs"
 msgstr "Projekty"
 
-#: kateprojectpluginview.cpp:180
+#: kateprojectpluginview.cpp:182
 #, kde-format
 msgid "Activate Previous Project"
 msgstr ""
 
-#: kateprojectpluginview.cpp:185
+#: kateprojectpluginview.cpp:187
 #, kde-format
 msgid "Activate Next Project"
 msgstr ""
 
-#: kateprojectpluginview.cpp:190
+#: kateprojectpluginview.cpp:192
 #, kde-format
 msgid "Lookup"
 msgstr "Hľadanie"
 
-#: kateprojectpluginview.cpp:194
+#: kateprojectpluginview.cpp:196
 #, kde-format
 msgid "Close Project"
 msgstr "Zatvoriť projekt"
 
-#: kateprojectpluginview.cpp:198
+#: kateprojectpluginview.cpp:200
 #, fuzzy, kde-format
 #| msgid "Current Project"
 msgid "Close All Projects"
 msgstr "Aktuálny projekt"
 
-#: kateprojectpluginview.cpp:203
+#: kateprojectpluginview.cpp:205
 #, fuzzy, kde-format
 #| msgid "Current Project"
 msgid "Close Orphaned Projects"
 msgstr "Aktuálny projekt"
 
-#: kateprojectpluginview.cpp:212 kateprojectpluginview.cpp:778
+#: kateprojectpluginview.cpp:214 kateprojectpluginview.cpp:780
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Hľadanie: %1"
 
-#: kateprojectpluginview.cpp:213 kateprojectpluginview.cpp:779
+#: kateprojectpluginview.cpp:215 kateprojectpluginview.cpp:781
 #, kde-format
 msgid "Goto: %1"
 msgstr "Prejsť na: %1"
 
-#: kateprojectpluginview.cpp:287
+#: kateprojectpluginview.cpp:289
 #, kde-format
 msgid "Projects Index"
 msgstr "Index projektov"
 
-#: kateprojectpluginview.cpp:817
+#: kateprojectpluginview.cpp:819
 #, kde-format
 msgid "Choose a directory"
 msgstr "Vyberať adresár"

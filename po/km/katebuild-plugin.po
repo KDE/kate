@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-08 00:52+0000\n"
+"POT-Creation-Date: 2022-10-14 00:50+0000\n"
 "PO-Revision-Date: 2011-12-21 14:12+0700\n"
 "Last-Translator: Chan Sambathratanak <ratanak@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -79,7 +79,7 @@ msgctxt "Header for the error message column"
 msgid "Message"
 msgstr "សារ"
 
-#: plugin_katebuild.cpp:129 plugin_katebuild.cpp:136 plugin_katebuild.cpp:1243
+#: plugin_katebuild.cpp:129 plugin_katebuild.cpp:136 plugin_katebuild.cpp:1227
 #, kde-format
 msgid "Build"
 msgstr "ស្ថាបនា​"
@@ -90,58 +90,52 @@ msgstr "ស្ថាបនា​"
 msgid "Select Target..."
 msgstr "បាន​បរាជ័យ​ស្ថាបនា ។"
 
-#: plugin_katebuild.cpp:143
+#: plugin_katebuild.cpp:144
 #, fuzzy, kde-format
 #| msgid "Build failed."
-msgid "Build Default Target"
+msgid "Build Selected Target"
 msgstr "បាន​បរាជ័យ​ស្ថាបនា ។"
 
-#: plugin_katebuild.cpp:147
+#: plugin_katebuild.cpp:148
 #, fuzzy, kde-format
 #| msgid "Build failed."
-msgid "Build and Run Default Target"
+msgid "Build and Run Selected Target"
 msgstr "បាន​បរាជ័យ​ស្ថាបនា ។"
 
-#: plugin_katebuild.cpp:151
-#, fuzzy, kde-format
-#| msgid "Build failed."
-msgid "Build Previous Target"
-msgstr "បាន​បរាជ័យ​ស្ថាបនា ។"
-
-#: plugin_katebuild.cpp:155
+#: plugin_katebuild.cpp:152
 #, kde-format
 msgid "Stop"
 msgstr "បញ្ឈប់​"
 
-#: plugin_katebuild.cpp:160
+#: plugin_katebuild.cpp:157
 #, kde-format
 msgid "Next Error"
 msgstr "កំហុស​បន្ទាប់"
 
-#: plugin_katebuild.cpp:166
+#: plugin_katebuild.cpp:163
 #, kde-format
 msgid "Previous Error"
 msgstr "កំហុស​មុន"
 
-#: plugin_katebuild.cpp:172
+#: plugin_katebuild.cpp:169
 #, kde-format
 msgid "Show Marks"
 msgstr ""
 
-#: plugin_katebuild.cpp:181
+#: plugin_katebuild.cpp:178
 #, kde-format
 msgctxt "Tab label"
 msgid "Target Settings"
 msgstr "ការ​កំណត់​គោលដៅ​"
 
-#: plugin_katebuild.cpp:316 plugin_katebuild.cpp:1345 plugin_katebuild.cpp:1356
-#: plugin_katebuild.cpp:1377 plugin_katebuild.cpp:1385
+#: plugin_katebuild.cpp:306 plugin_katebuild.cpp:1329 plugin_katebuild.cpp:1340
+#: plugin_katebuild.cpp:1361 plugin_katebuild.cpp:1369
 #, fuzzy, kde-format
 #| msgid "Project Plugin Target"
 msgid "Project Plugin Targets"
 msgstr "គោលដៅ​កម្មវិធី​ជំនួយ​គម្រោង"
 
-#: plugin_katebuild.cpp:485
+#: plugin_katebuild.cpp:458
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -149,196 +143,196 @@ msgid ""
 "the working directory in the Target Settings"
 msgstr ""
 
-#: plugin_katebuild.cpp:505
+#: plugin_katebuild.cpp:478
 #, kde-format
 msgctxt "The same word as 'make' uses to mark an error."
 msgid "error"
 msgstr "កំហុស"
 
-#: plugin_katebuild.cpp:508
+#: plugin_katebuild.cpp:481
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "សេចក្ដី​យោង​​ដែល​មិនបានកំណត់"
 
-#: plugin_katebuild.cpp:515
+#: plugin_katebuild.cpp:488
 #, kde-format
 msgctxt "The same word as 'make' uses to mark a warning."
 msgid "warning"
 msgstr "ការព្រមាន​"
 
-#: plugin_katebuild.cpp:601
+#: plugin_katebuild.cpp:574
 #, fuzzy, kde-format
 #| msgctxt "The same word as 'make' uses to mark an error."
 #| msgid "error"
 msgid "Error"
 msgstr "កំហុស"
 
-#: plugin_katebuild.cpp:606
+#: plugin_katebuild.cpp:579
 #, fuzzy, kde-format
 #| msgid "Warnings"
 msgid "Warning"
 msgstr "ការ​ព្រមាន"
 
-#: plugin_katebuild.cpp:737
+#: plugin_katebuild.cpp:710
 #, kde-format
 msgid "There is no file or directory specified for building."
 msgstr "មាន​ឯកសារ ឬ​ថត​បាន​បញ្ជាក់​សម្រាប់​ស្ថាបនា ។"
 
-#: plugin_katebuild.cpp:741
+#: plugin_katebuild.cpp:714
 #, kde-format
 msgid ""
 "The file \"%1\" is not a local file. Non-local files cannot be compiled."
 msgstr ""
 "ឯកសារ \"%1\" មិន​មែនជា​​ឯកសារ​មូលដ្ឋាន​ទេ ។ មិនអាច​ចងក្រង​ឯកសារដែល​មិននៅ​ក្នុង​មូលដ្ឋាន​បានទេ ។"
 
-#: plugin_katebuild.cpp:787
+#: plugin_katebuild.cpp:760
 #, kde-format
 msgid ""
 "Cannot run command: %1\n"
 "Work path does not exist: %2"
 msgstr ""
 
-#: plugin_katebuild.cpp:806
+#: plugin_katebuild.cpp:779
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "បាន​បរាជ័យ​ក្នុង​ការរត់ \"%1\" ។ exitStatus = %2"
 
-#: plugin_katebuild.cpp:825
+#: plugin_katebuild.cpp:798
 #, kde-format
 msgid "Building <b>%1</b> cancelled"
 msgstr ""
 
-#: plugin_katebuild.cpp:890
+#: plugin_katebuild.cpp:883
 #, kde-format
 msgid "Already building..."
 msgstr ""
 
-#: plugin_katebuild.cpp:899
+#: plugin_katebuild.cpp:892
 #, kde-format
 msgid "No target available for building."
 msgstr ""
 
-#: plugin_katebuild.cpp:913
+#: plugin_katebuild.cpp:906
 #, fuzzy, kde-format
 #| msgid "There is no file or directory specified for building."
 msgid "There is no local file or directory specified for building."
 msgstr "មាន​ឯកសារ ឬ​ថត​បាន​បញ្ជាក់​សម្រាប់​ស្ថាបនា ។"
 
-#: plugin_katebuild.cpp:937
+#: plugin_katebuild.cpp:930
 #, fuzzy, kde-format
 #| msgid "Build failed."
 msgid "Building target <b>%1</b> ..."
 msgstr "បាន​បរាជ័យ​ស្ថាបនា ។"
 
-#: plugin_katebuild.cpp:952
+#: plugin_katebuild.cpp:945
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Make Results:</title><nl/>%1"
 msgstr ""
 
-#: plugin_katebuild.cpp:988
+#: plugin_katebuild.cpp:981
 #, kde-format
 msgid "Building <b>%1</b> completed."
 msgstr ""
 
-#: plugin_katebuild.cpp:1008
+#: plugin_katebuild.cpp:1001
 #, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
 msgstr[0] "រក​ឃើញ​កំហុស %1 ។"
 
-#: plugin_katebuild.cpp:1009
+#: plugin_katebuild.cpp:1002
 #, kde-format
 msgid "Building <b>%1</b> had errors."
 msgstr ""
 
-#: plugin_katebuild.cpp:1011
+#: plugin_katebuild.cpp:1004
 #, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
 msgstr[0] "រក​ឃើញការ​ព្រមាន %1 ។"
 
-#: plugin_katebuild.cpp:1012
+#: plugin_katebuild.cpp:1005
 #, fuzzy, kde-format
 #| msgid "Build failed."
 msgid "Building <b>%1</b> had warnings."
 msgstr "បាន​បរាជ័យ​ស្ថាបនា ។"
 
-#: plugin_katebuild.cpp:1018
+#: plugin_katebuild.cpp:1011
 #, kde-format
 msgid "Build failed."
 msgstr "បាន​បរាជ័យ​ស្ថាបនា ។"
 
-#: plugin_katebuild.cpp:1020
+#: plugin_katebuild.cpp:1013
 #, kde-format
 msgid "Build completed without problems."
 msgstr "ស្ថាបនា​បញ្ចប់​ដោយ​គ្មានបញ្ហា ។"
 
-#: plugin_katebuild.cpp:1050
+#: plugin_katebuild.cpp:1043
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
 msgstr ""
 
-#: plugin_katebuild.cpp:1242
+#: plugin_katebuild.cpp:1226
 #, fuzzy, kde-format
 #| msgid "Targets"
 msgid "Target Set"
 msgstr "គោលដៅ​"
 
-#: plugin_katebuild.cpp:1244
+#: plugin_katebuild.cpp:1228
 #, kde-format
 msgid "Clean"
 msgstr "សម្អាត"
 
-#: plugin_katebuild.cpp:1245
+#: plugin_katebuild.cpp:1229
 #, kde-format
 msgid "Config"
 msgstr "កំណត់​រចនាសម្ព័ន្ធ​"
 
-#: plugin_katebuild.cpp:1246
+#: plugin_katebuild.cpp:1230
 #, fuzzy, kde-format
 #| msgid "Config"
 msgid "ConfigClean"
 msgstr "កំណត់​រចនាសម្ព័ន្ធ​"
 
-#: plugin_katebuild.cpp:1289
+#: plugin_katebuild.cpp:1273
 #, fuzzy, kde-format
 #| msgid "Errors"
 msgid "Only Errors"
 msgstr "កំហុស"
 
-#: plugin_katebuild.cpp:1292
+#: plugin_katebuild.cpp:1276
 #, fuzzy, kde-format
 #| msgid "Errors && Warnings"
 msgid "Errors and Warnings"
 msgstr "កំហុស និង​ការ​ព្រមាន"
 
-#: plugin_katebuild.cpp:1295
+#: plugin_katebuild.cpp:1279
 #, fuzzy, kde-format
 #| msgid "Build Output"
 msgid "Parsed Output"
 msgstr "លទ្ធផល​នៃការ​ស្ថាបនា"
 
-#: plugin_katebuild.cpp:1298
+#: plugin_katebuild.cpp:1282
 #, fuzzy, kde-format
 #| msgid "Build Output"
 msgid "Full Output"
 msgstr "លទ្ធផល​នៃការ​ស្ថាបនា"
 
-#: plugin_katebuild.cpp:1406
+#: plugin_katebuild.cpp:1390
 #, fuzzy, kde-format
 #| msgid "Build"
 msgid "build"
 msgstr "ស្ថាបនា​"
 
-#: plugin_katebuild.cpp:1409
+#: plugin_katebuild.cpp:1393
 #, fuzzy, kde-format
 #| msgid "Clean"
 msgid "clean"
 msgstr "សម្អាត"
 
-#: plugin_katebuild.cpp:1412
+#: plugin_katebuild.cpp:1396
 #, kde-format
 msgid "quick"
 msgstr ""
@@ -355,7 +349,7 @@ msgctxt "D as in working Directory"
 msgid "<B>Dir:</B> %1"
 msgstr ""
 
-#: TargetHtmlDelegate.cpp:104
+#: TargetHtmlDelegate.cpp:98
 #, fuzzy, kde-format
 #| msgid "Leave empty to use the directory of the current document. "
 msgid ""
@@ -363,7 +357,7 @@ msgid ""
 "Add search directories by adding paths separated by ';'"
 msgstr "ទុក​ទទេ ដើម្បី​ប្រើ​ថត​របស់​ឯកសារ​បច្ចុប្បន្ន ។"
 
-#: TargetHtmlDelegate.cpp:108
+#: TargetHtmlDelegate.cpp:102
 #, kde-format
 msgid ""
 "Use:\n"
@@ -376,73 +370,79 @@ msgstr ""
 "\"%d\" សម្រាប់​ថត​​ឯកសារ​បច្ចុប្បន្ន\n"
 "\"%n\" សម្រាប់​ឈ្មោះ​ឯកសារ​បច្ចុប្បន្ន​ដោយ​មិន​ចាំបាច់​បច្ច័យ"
 
-#: TargetModel.cpp:324
+#: TargetModel.cpp:330
 #, kde-format
 msgid "Check the check-box to make the command the default for the target-set."
 msgstr ""
 
-#: TargetModel.cpp:385
+#: TargetModel.cpp:386
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr ""
 
-#: TargetModel.cpp:388
+#: TargetModel.cpp:389
 #, fuzzy, kde-format
 #| msgid "Working directory"
 msgid "Working Directory / Command"
 msgstr "ថត​ធ្វើការ"
 
-#: TargetModel.cpp:391
+#: TargetModel.cpp:392
 #, fuzzy, kde-format
 #| msgid "Clean command:"
 msgid "Run Command"
 msgstr "ជម្រះ​ពាក្យ​បញ្ជា ៖"
 
-#: targets.cpp:22
-#, kde-format
-msgid "Active target-set:"
-msgstr ""
-
-#: targets.cpp:24
+#: targets.cpp:23
 #, kde-format
 msgid "Select active target set"
 msgstr ""
 
-#: targets.cpp:29
+#: targets.cpp:27
 #, kde-format
 msgid "Filter targets"
 msgstr ""
 
-#: targets.cpp:33
+#: targets.cpp:31
 #, kde-format
 msgid "Create new set of targets"
 msgstr ""
 
-#: targets.cpp:37
+#: targets.cpp:35
 #, kde-format
 msgid "Copy command or target set"
 msgstr ""
 
-#: targets.cpp:41
+#: targets.cpp:39
 #, kde-format
 msgid "Delete current target or current set of targets"
 msgstr ""
 
-#: targets.cpp:46
+#: targets.cpp:44
 #, kde-format
 msgid "Add new target"
 msgstr ""
 
-#: targets.cpp:50
+#: targets.cpp:48
 #, kde-format
 msgid "Build selected target"
 msgstr ""
 
-#: targets.cpp:54
+#: targets.cpp:52
 #, fuzzy, kde-format
 #| msgid "Build failed."
 msgid "Build and run selected target"
 msgstr "បាន​បរាជ័យ​ស្ថាបនា ។"
+
+#: targets.cpp:56
+#, fuzzy, kde-format
+#| msgid "Build failed."
+msgid "Move selected target up"
+msgstr "បាន​បរាជ័យ​ស្ថាបនា ។"
+
+#: targets.cpp:60
+#, kde-format
+msgid "Move selected target down"
+msgstr ""
 
 #. i18n: ectx: Menu (Build Menubar)
 #: ui.rc:6
@@ -459,6 +459,16 @@ msgstr ""
 #, kde-format
 msgid "Select directory to insert"
 msgstr ""
+
+#, fuzzy
+#~| msgid "Build failed."
+#~ msgid "Build and Run Default Target"
+#~ msgstr "បាន​បរាជ័យ​ស្ថាបនា ។"
+
+#, fuzzy
+#~| msgid "Build failed."
+#~ msgid "Build Previous Target"
+#~ msgstr "បាន​បរាជ័យ​ស្ថាបនា ។"
 
 #, fuzzy
 #~| msgid "Config"

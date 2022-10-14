@@ -55,6 +55,7 @@
 #include <KShortcutsDialog>
 #include <KStandardAction>
 #include <KToggleFullScreenAction>
+#include <KToolBar>
 #include <KWindowConfig>
 #include <KXMLGUIFactory>
 #include <kconfigwidgets_version.h>

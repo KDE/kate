@@ -35,10 +35,6 @@ public:
         setAlignment(Qt::AlignCenter);
         setMargin(20);
         setWordWrap(true);
-        // To match the size of a level 2 Heading/KTitleWidget
-        QFont placeholderFont = font();
-        placeholderFont.setPointSize(qRound(placeholderFont.pointSize() * 1.3));
-        setFont(placeholderFont);
         // Match opacity of QML placeholder label component
         QGraphicsOpacityEffect *opacityEffect = new QGraphicsOpacityEffect;
         opacityEffect->setOpacity(0.5);
@@ -57,18 +53,18 @@ WelcomeView::WelcomeView(KateViewManager *viewManager, QWidget *parent)
     labelDescription->setText(aboutData.shortDescription());
     labelIcon->setPixmap(aboutData.programLogo().value<QIcon>().pixmap(KIconLoader::SizeEnormous));
 
-    Placeholder *placeholderRecentFiles = new Placeholder;
-    placeholderRecentFiles->setText(i18n("No recent files"));
+    m_placeholderRecentFiles = new Placeholder;
+    m_placeholderRecentFiles->setText(i18n("No recent files"));
 
     QVBoxLayout *layoutPlaceholderRecentFiles = new QVBoxLayout;
-    layoutPlaceholderRecentFiles->addWidget(placeholderRecentFiles);
+    layoutPlaceholderRecentFiles->addWidget(m_placeholderRecentFiles);
     listViewRecentFiles->setLayout(layoutPlaceholderRecentFiles);
 
     m_recentItemsModel = new RecentItemsModel(this);
-    connect(m_recentItemsModel, &RecentItemsModel::modelReset, this, [this, placeholderRecentFiles]() {
+    connect(m_recentItemsModel, &RecentItemsModel::modelReset, this, [this]() {
         const bool noRecentFiles = m_recentItemsModel->rowCount() == 0;
         buttonClearRecentFiles->setDisabled(noRecentFiles);
-        placeholderRecentFiles->setVisible(noRecentFiles);
+        m_placeholderRecentFiles->setVisible(noRecentFiles);
     });
 
     KRecentFilesAction *recentFilesAction = m_viewManager->mainWindow()->recentFilesAction();
@@ -105,17 +101,17 @@ WelcomeView::WelcomeView(KateViewManager *viewManager, QWidget *parent)
     if (KateApp::isKWrite()) {
         widgetSavedSessions->hide();
     } else {
-        Placeholder *placeholderSavedSessions = new Placeholder;
-        placeholderSavedSessions->setText(i18n("No saved sessions"));
+        m_placeholderSavedSessions = new Placeholder;
+        m_placeholderSavedSessions->setText(i18n("No saved sessions"));
 
         QVBoxLayout *layoutPlaceholderSavedSessions = new QVBoxLayout;
-        layoutPlaceholderSavedSessions->addWidget(placeholderSavedSessions);
+        layoutPlaceholderSavedSessions->addWidget(m_placeholderSavedSessions);
         listViewSavedSessions->setLayout(layoutPlaceholderSavedSessions);
 
         m_savedSessionsModel = new SavedSessionsModel(this);
-        connect(m_savedSessionsModel, &SavedSessionsModel::modelReset, this, [this, placeholderSavedSessions]() {
+        connect(m_savedSessionsModel, &SavedSessionsModel::modelReset, this, [this]() {
             const bool noSavedSession = m_savedSessionsModel->rowCount() == 0;
-            placeholderSavedSessions->setVisible(noSavedSession);
+            m_placeholderSavedSessions->setVisible(noSavedSession);
         });
 
         KateSessionManager *sessionManager = KateApp::self()->sessionManager();
@@ -139,22 +135,6 @@ WelcomeView::WelcomeView(KateViewManager *viewManager, QWidget *parent)
         });
     }
 
-    // properly layout the buttons
-    QVector<QPushButton*> buttons {
-        buttonNewFile,
-        buttonOpenFile,
-        buttonOpenFolder
-    };
-    if (KateApp::isKate()) {
-        buttons << buttonNewSession << buttonManageSessions;
-    }
-    const int maxWidth = std::accumulate(buttons.cbegin(), buttons.cend(), 0, [](int maxWidth, const QPushButton *button) {
-        return std::max(maxWidth, button->sizeHint().width());
-    });
-    for (QPushButton *button : std::as_const(buttons)) {
-        button->setFixedWidth(maxWidth);
-    }
-
     static const char showForNewWindowKey[] = "Open untitled document for new window";
     KConfigGroup configGroup = KSharedConfig::openConfig()->group("General");
     checkBoxShowForNewWindow->setChecked(!configGroup.readEntry(showForNewWindowKey, false));
@@ -165,14 +145,25 @@ WelcomeView::WelcomeView(KateViewManager *viewManager, QWidget *parent)
     connect(KateApp::self(), &KateApp::configurationChanged, this, [this, configGroup]() {
         checkBoxShowForNewWindow->setChecked(!configGroup.readEntry(showForNewWindowKey, false));
     });
+
+    updateFonts();
+    updateButtons();
 }
 
 bool WelcomeView::event(QEvent *event)
 {
-    if (event->type() == QEvent::Resize) {
+    switch (event->type()) {
+    case QEvent::FontChange:
+        updateFonts();
+        updateButtons();
+        break;
+    case QEvent::Resize:
         if (updateLayout()) {
             return true;
         }
+        break;
+    default:
+        break;
     }
 
     return QScrollArea::event(event);
@@ -238,6 +229,44 @@ void WelcomeView::onRecentFilesContextMenuRequested(const QPoint &pos)
     contextMenu.addAction(action);
 
     contextMenu.exec(listViewRecentFiles->mapToGlobal(pos));
+}
+
+void WelcomeView::updateButtons()
+{
+    QVector<QPushButton*> buttons {
+        buttonNewFile,
+        buttonOpenFile,
+        buttonOpenFolder
+    };
+    if (KateApp::isKate()) {
+        buttons << buttonNewSession << buttonManageSessions;
+    }
+    const int maxWidth = std::accumulate(buttons.cbegin(), buttons.cend(), 0, [](int maxWidth, const QPushButton *button) {
+        return std::max(maxWidth, button->sizeHint().width());
+    });
+    for (QPushButton *button : std::as_const(buttons)) {
+        button->setFixedWidth(maxWidth);
+    }
+}
+
+void WelcomeView::updateFonts()
+{
+    QFont titleFont = font();
+    titleFont.setPointSize(titleFont.pointSize() + 6);
+    titleFont.setWeight(QFont::Bold);
+    labelTitle->setFont(titleFont);
+
+    QFont panelTitleFont = font();
+    panelTitleFont.setPointSize(panelTitleFont.pointSize() + 2);
+    labelRecentItems->setFont(panelTitleFont);
+    labelSavedSessions->setFont(panelTitleFont);
+
+    QFont placeholderFont = font();
+    placeholderFont.setPointSize(qRound(placeholderFont.pointSize() * 1.3));
+    m_placeholderRecentFiles->setFont(placeholderFont);
+    if (m_placeholderSavedSessions) {
+        m_placeholderSavedSessions->setFont(placeholderFont);
+    }
 }
 
 bool WelcomeView::updateLayout()

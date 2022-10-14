@@ -11,6 +11,7 @@
 #include "ui_welcomeview.h"
 
 class KateViewManager;
+class Placeholder;
 class RecentItemsModel;
 class SavedSessionsModel;
 
@@ -30,11 +31,15 @@ private Q_SLOTS:
     void onRecentFilesContextMenuRequested(const QPoint &pos);
 
 private:
+    void updateButtons();
+    void updateFonts();
     bool updateLayout();
 
     KateViewManager *m_viewManager = nullptr;
     RecentItemsModel *m_recentItemsModel = nullptr;
     SavedSessionsModel *m_savedSessionsModel = nullptr;
+    Placeholder *m_placeholderRecentFiles = nullptr;
+    Placeholder *m_placeholderSavedSessions = nullptr;
 };
 
 #endif // WELCOMEVIEW_H

@@ -276,6 +276,8 @@ public Q_SLOTS:
     /** hide every view but the active one */
     void slotHideOtherViews(bool hideOthers);
 
+    void replugActiveView();
+
     void reactivateActiveView();
 
     /**

@@ -758,6 +758,16 @@ void KateViewManager::activateSpace(KTextEditor::View *v)
     }
 }
 
+void KateViewManager::replugActiveView()
+{
+    if (auto view = activeView()) {
+        if (m_guiMergedView == view) {
+            mainWindow()->guiFactory()->removeClient(m_guiMergedView);
+            mainWindow()->guiFactory()->addClient(view);
+        }
+    }
+}
+
 void KateViewManager::reactivateActiveView()
 {
     KTextEditor::View *view = activeView();

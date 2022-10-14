@@ -39,7 +39,9 @@ class KateConfigDialog : public KPageDialog
 {
     Q_OBJECT
 
-public:
+private:
+    // No manual construction. We will always have one
+    // dialog around
     KateConfigDialog(KateMainWindow *parent);
 
 public: // static
@@ -49,11 +51,18 @@ public: // static
      */
     static int recentFilesMaxCount();
 
-    /**
-     * Overwrite size hint for better default window sizes
-     * @return size hint
-     */
-    QSize sizeHint() const override;
+    // Returns the dialog
+    static KateConfigDialog *widget(KateMainWindow *mw);
+
+    KateMainWindow *mainwWindow()
+    {
+        return m_mainWindow;
+    }
+
+    Q_INVOKABLE bool shouldClose()
+    {
+        return true;
+    }
 
 public:
     void addPluginPage(KTextEditor::Plugin *plugin);
@@ -80,7 +89,7 @@ private:
     KPageWidgetItem *addScrollablePage(QWidget *page, const QString &itemName);
 
 private:
-    KateMainWindow *const m_mainWindow;
+    KateMainWindow *m_mainWindow;
 
     bool m_dataChanged = false;
 
@@ -111,6 +120,9 @@ private:
 #ifdef WITH_KUSERFEEDBACK
     KUserFeedback::FeedbackConfigWidget *m_userFeedbackWidget = nullptr;
 #endif
+
+Q_SIGNALS:
+    void saved();
 };
 
 #endif

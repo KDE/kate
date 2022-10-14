@@ -918,20 +918,31 @@ void KateMainWindow::slotConfigure()
 
 bool KateMainWindow::showPluginConfigPage(KTextEditor::Plugin *configpageinterface, int id)
 {
-    KateConfigDialog *dlg = new KateConfigDialog(this);
+    KateConfigDialog *dlg = KateConfigDialog::widget(this);
+    if (dlg->mainwWindow() != this) {
+        dlg->reject();
+        if (dlg->mainwWindow())
+            dlg->mainwWindow()->removeWidget(dlg);
+        delete dlg;
+        dlg = KateConfigDialog::widget(this);
+    }
     if (configpageinterface) {
         dlg->showAppPluginPage(configpageinterface, id);
     }
 
-    if (dlg->exec() == QDialog::Accepted) {
+    activateWidget(dlg);
+
+    connect(dlg, &QDialog::rejected, this, [this, dlg]() {
+        removeWidget(dlg);
+    });
+
+    connect(dlg, &KateConfigDialog::saved, this, [this]() {
         m_fileOpenRecent->setMaxItems(KateConfigDialog::recentFilesMaxCount());
-    }
-
-    delete dlg;
-
-    m_viewManager->reactivateActiveView(); // gui (toolbars...) needs to be updated, because
-    // of possible changes that the configure dialog
-    // could have done on it, specially for plugins.
+        // gui (toolbars...) needs to be updated, because
+        // of possible changes that the configure dialog
+        // could have done on it, specially for plugins.
+        m_viewManager->replugActiveView();
+    });
 
     return true;
 }

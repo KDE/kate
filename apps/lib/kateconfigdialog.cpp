@@ -81,18 +81,20 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent)
     connect(this, &KateConfigDialog::accepted, this, &KateConfigDialog::slotApply);
     connect(buttonBox()->button(QDialogButtonBox::Apply), &QPushButton::clicked, this, &KateConfigDialog::slotApply);
     connect(buttonBox()->button(QDialogButtonBox::Help), &QPushButton::clicked, this, &KateConfigDialog::slotHelp);
+
+    button(QDialogButtonBox::Ok)->hide();
+    button(QDialogButtonBox::Cancel)->setText(i18n("Close"));
+    button(QDialogButtonBox::Apply)->setText(i18n("Save"));
 }
 
-QSize KateConfigDialog::sizeHint() const
+KateConfigDialog *KateConfigDialog::widget(KateMainWindow *mw)
 {
-    // start with a bit enlarged default size hint to minimize changes of useless scrollbars
-    QSize size = KPageDialog::sizeHint() * 1.3;
-
-    // enlarge it to half of the main window size, if that is larger
-    size = size.expandedTo(m_mainWindow->size() * 0.5);
-
-    // return bounded size to available real screen space
-    return size.boundedTo(screen()->availableSize() * 0.9);
+    static QPointer<KateConfigDialog> dlg = nullptr;
+    if (!dlg) {
+        dlg = new KateConfigDialog(mw);
+        return dlg;
+    }
+    return dlg;
 }
 
 void KateConfigDialog::addBehaviorPage()
@@ -583,6 +585,8 @@ void KateConfigDialog::slotApply()
 
     m_dataChanged = false;
     buttonBox()->button(QDialogButtonBox::Apply)->setEnabled(false);
+
+    Q_EMIT saved();
 }
 
 void KateConfigDialog::slotChanged()

@@ -254,6 +254,11 @@ void KateMainWindow::setupImportantActions()
     actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::ALT | Qt::Key_O));
     connect(a, &QAction::triggered, this, &KateMainWindow::slotQuickOpen);
     a->setWhatsThis(i18n("Open a form to quick open documents."));
+
+    // enable hamburger menu
+    auto hamburgerMenu = static_cast<KHamburgerMenu *>(actionCollection()->addAction(KStandardAction::HamburgerMenu, QStringLiteral("hamburger_menu")));
+    hamburgerMenu->setMenuBar(menuBar());
+    hamburgerMenu->setShowMenuBarAction(m_paShowMenuBar);
 }
 
 void KateMainWindow::setupMainWindow()
@@ -725,7 +730,8 @@ void KateMainWindow::toggleShowMenuBar(bool showMessage)
             m_viewManager->activeView()->contextMenu()->removeAction(m_paShowMenuBar);
         }
     } else {
-        if (showMessage) {
+        // we have a hamburger button in the toolbar, we can avoid the message if that is still visible
+        if (showMessage && toolBar()->isHidden()) {
             const QString accel = m_paShowMenuBar->shortcut().toString();
             KMessageBox::information(this,
                                      i18n("This will hide the menu bar completely."

@@ -1325,6 +1325,11 @@ QObject *KateMainWindow::pluginView(const QString &name)
 
 bool KateMainWindow::addWidget(QWidget *widget)
 {
+    if (!widget) {
+        qWarning() << Q_FUNC_INFO << "Unexpected null widget!";
+        return false;
+    }
+
     auto vs = m_viewManager->activeViewSpace();
     vs->addWidgetAsTab(widget);
     Q_EMIT widgetAdded(widget);

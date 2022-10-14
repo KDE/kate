@@ -54,3 +54,9 @@ void ResultsTreeView::initViewItemOption(QStyleOptionViewItem *option) const
     option->palette.setColor(QPalette::WindowText, m_fg);
 }
 #endif
+
+void ResultsTreeView::resizeEvent(QResizeEvent *e)
+{
+    Q_EMIT geometryChanged();
+    QTreeView::resizeEvent(e);
+}

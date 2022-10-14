@@ -23,6 +23,12 @@ public:
 
 private:
     QColor m_fg;
+
+protected:
+    void resizeEvent(QResizeEvent *) override;
+
+Q_SIGNALS:
+    void geometryChanged();
 };
 
 #endif

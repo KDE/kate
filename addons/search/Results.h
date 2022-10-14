@@ -27,6 +27,13 @@ public:
     QString treeRootText;
     MatchModel matchModel;
     bool displayFolderOptions = false;
+    class QPushButton *const m_detachButton;
+
+    // Used by katemainwindow when we try to close this widget
+    Q_INVOKABLE bool shouldClose()
+    {
+        return true;
+    }
 
     bool isEmpty() const;
     void setFilterLineVisible(bool visible);
@@ -42,6 +49,10 @@ public:
     QModelIndex lastMatch() const;
     KTextEditor::Range matchRange(const QModelIndex &matchIndex) const;
     bool replaceSingleMatch(KTextEditor::Document *doc, const QModelIndex &matchIndex, const QRegularExpression &regExp, const QString &replaceString);
+    void itemSelected(const QModelIndex &item);
+
+Q_SIGNALS:
+    void requestDetachToMainWindow(Results *);
 };
 
 #endif

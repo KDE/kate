@@ -12,10 +12,32 @@
 #include <KSyntaxHighlighting/Theme>
 #include <KTextEditor/Editor>
 
+#include <QPushButton>
+
 Results::Results(QWidget *parent)
     : QWidget(parent)
+    , m_detachButton(new QPushButton(this))
 {
     setupUi(this);
+
+    m_detachButton->setIcon(QIcon::fromTheme(QStringLiteral("draw-arrow")));
+    m_detachButton->show();
+    m_detachButton->raise();
+    m_detachButton->resize(m_detachButton->minimumSizeHint());
+    connect(m_detachButton, &QAbstractButton::clicked, this, [this] {
+        m_detachButton->setEnabled(false);
+        m_detachButton->setVisible(false);
+        Q_EMIT requestDetachToMainWindow(this);
+    });
+
+    connect(treeView, &ResultsTreeView::geometryChanged, this, [this] {
+        auto topRight = treeView->viewport()->geometry().topRight();
+        topRight.rx() -= 4;
+        topRight.ry() += 4;
+        auto btnGeometry = m_detachButton->geometry();
+        btnGeometry.moveTopRight(topRight);
+        m_detachButton->setGeometry(btnGeometry);
+    });
 
     treeView->setItemDelegate(new SearchResultsDelegate(treeView));
 

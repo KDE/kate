@@ -109,6 +109,7 @@ private Q_SLOTS:
     void addTab();
     void tabCloseRequested(int index);
     void toggleOptions(bool show);
+    void detachTabToMainWindow(Results *);
 
     void searchContextMenu(const QPoint &pos);
     void replaceContextMenu(const QPoint &pos);

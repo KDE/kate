@@ -1672,11 +1672,12 @@ void KatePluginSearchView::itemSelected(const QModelIndex &item)
 
     // open any children to go to the first match in the file
     QModelIndex matchItem = item;
-    while (m_curResults->model()->hasChildren(matchItem)) {
-        matchItem = m_curResults->model()->index(0, 0, matchItem);
+    if (item.model() == m_curResults->model()) {
+        while (m_curResults->model()->hasChildren(matchItem)) {
+            matchItem = m_curResults->model()->index(0, 0, matchItem);
+        }
+        m_curResults->treeView->setCurrentIndex(matchItem);
     }
-
-    m_curResults->treeView->setCurrentIndex(matchItem);
 
     // get stuff
     int toLine = matchItem.data(MatchModel::StartLineRole).toInt();
@@ -1994,6 +1995,7 @@ void KatePluginSearchView::addTab()
     res->treeView->setRootIsDecorated(false);
     connect(res->treeView, &QTreeView::doubleClicked, this, &KatePluginSearchView::itemSelected, Qt::UniqueConnection);
     connect(res->treeView, &QTreeView::customContextMenuRequested, this, &KatePluginSearchView::customResMenuRequested, Qt::UniqueConnection);
+    connect(res, &Results::requestDetachToMainWindow, this, &KatePluginSearchView::detachTabToMainWindow, Qt::UniqueConnection);
     res->matchModel.setDocumentManager(m_kateApp);
     connect(&res->matchModel, &MatchModel::replaceDone, this, &KatePluginSearchView::replaceDone);
 
@@ -2013,6 +2015,21 @@ void KatePluginSearchView::addTab()
     }
 
     res->treeView->installEventFilter(this);
+}
+
+void KatePluginSearchView::detachTabToMainWindow(Results *res)
+{
+    if (!res) {
+        return;
+    }
+
+    int i = m_tabBar->currentIndex();
+    m_curResults->setWindowIcon(QIcon::fromTheme(QStringLiteral("edit-find")));
+    m_curResults->setWindowTitle(i18n("Search: %1", m_tabBar->tabText(i)));
+    Utils::addWidget(m_curResults, m_mainWindow);
+    m_curResults = nullptr;
+    m_tabBar->removeTab(i);
+    addTab();
 }
 
 void KatePluginSearchView::tabCloseRequested(int index)
@@ -2147,6 +2164,14 @@ void KatePluginSearchView::customResMenuRequested(const QPoint &pos)
     QAction *exportMatches = new QAction(i18n("Export matches"), tree);
     if (m_curResults && m_curResults->useRegExp) {
         menu->addAction(exportMatches);
+    }
+
+    if (m_curResults) {
+        QAction *openAsEditorTab = new QAction(i18n("Open as Editor Tab"), tree);
+        connect(openAsEditorTab, &QAction::triggered, this, [this] {
+            detachTabToMainWindow(m_curResults);
+        });
+        menu->addAction(openAsEditorTab);
     }
 
     QAction *clear = menu->addAction(i18n("Clear"));

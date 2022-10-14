@@ -56,7 +56,7 @@ WelcomeView::WelcomeView(KateViewManager *viewManager, QWidget *parent)
     labelRecentItems->setText(KateApp::isKate() ? i18n("Recent Documents and Projects") : i18n("Recent Documents"));
 
     m_placeholderRecentFiles = new Placeholder;
-    m_placeholderRecentFiles->setText(i18n("No recent files"));
+    m_placeholderRecentFiles->setText(KateApp::isKate() ? i18n("No recent documents or projects") : i18n("No recent documents"));
 
     QVBoxLayout *layoutPlaceholderRecentFiles = new QVBoxLayout;
     layoutPlaceholderRecentFiles->addWidget(m_placeholderRecentFiles);

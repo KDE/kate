@@ -33,5 +33,8 @@ ecm_optional_add_subdirectory(xmlcheck) # XML Validation plugin
 ecm_optional_add_subdirectory(xmltools) # XML completion
 ecm_optional_add_subdirectory(cmake-tools)
 ecm_optional_add_subdirectory(keyboardmacros)
+
 # TODO KF6 remove the migration leftovers
-ecm_optional_add_subdirectory(sessionapplet)
+if(QT_MAJOR_VERSION STREQUAL "5")
+    ecm_optional_add_subdirectory(sessionapplet)
+endif()

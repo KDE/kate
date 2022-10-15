@@ -8,6 +8,7 @@
 #include "kateapp.h"
 #include "katemainwindow.h"
 
+#include <KColorScheme>
 #include <KConfigGroup>
 #include <KLocalizedString>
 #include <KSharedConfig>
@@ -353,18 +354,18 @@ void KateOutputView::slotMessage(const QVariantMap &message)
         shouldShowOutputToolView = (m_showOutputViewForMessageType >= 1);
         typeColumn->setText(i18nc("@info", "Error"));
         typeColumn->setIcon(QIcon::fromTheme(QStringLiteral("data-error")));
-        color = Qt::red;
+        color = KColorScheme().background(KColorScheme::NegativeBackground).color();
     } else if (typeString == QLatin1String("Warning")) {
         shouldShowOutputToolView = (m_showOutputViewForMessageType >= 2);
         typeColumn->setText(i18nc("@info", "Warning"));
         typeColumn->setIcon(QIcon::fromTheme(QStringLiteral("data-warning")));
-        color = QColor(255, 165, 0); // orange
+        color = KColorScheme().background(KColorScheme::NeutralBackground).color();
     } else if (typeString == QLatin1String("Info")) {
         shouldShowOutputToolView = (m_showOutputViewForMessageType >= 3);
         typeColumn->setText(i18nc("@info", "Info"));
         typeColumn->setIcon(QIcon::fromTheme(QStringLiteral("data-information")));
         indicatorLoopCount = 2;
-        color = Qt::blue;
+        color = KColorScheme().background(KColorScheme::PositiveBackground).color();
     } else {
         shouldShowOutputToolView = (m_showOutputViewForMessageType >= 4);
         typeColumn->setText(i18nc("@info", "Log"));

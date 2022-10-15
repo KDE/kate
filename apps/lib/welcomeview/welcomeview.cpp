@@ -53,6 +53,8 @@ WelcomeView::WelcomeView(KateViewManager *viewManager, QWidget *parent)
     labelDescription->setText(aboutData.shortDescription());
     labelIcon->setPixmap(aboutData.programLogo().value<QIcon>().pixmap(KIconLoader::SizeEnormous));
 
+    labelRecentItems->setText(KateApp::isKate() ? i18n("Recent Documents and Projects") : i18n("Recent Documents"));
+
     m_placeholderRecentFiles = new Placeholder;
     m_placeholderRecentFiles->setText(i18n("No recent files"));
 
@@ -184,10 +186,8 @@ void WelcomeView::onPluginViewChanged(const QString &pluginName)
         if (projectPluginView) {
             connect(buttonOpenFolder, SIGNAL(clicked()), projectPluginView, SLOT(openDirectoryOrProject()));
             buttonOpenFolder->show();
-            labelRecentItems->setText(i18n("Recent Documents and Projects"));
         } else {
             buttonOpenFolder->hide();
-            labelRecentItems->setText(i18n("Recent Documents"));
         }
     }
 }

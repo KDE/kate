@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
-<gui name="kate" version="101" translationDomain="kate">
+<gui name="kate" version="102" translationDomain="kate">
   <MenuBar>
     <Menu name="file" noMerge="1">
       <text>&amp;File</text>
@@ -152,6 +152,7 @@
   </ToolBar>
   <Merge/>
   <ToolBar noMerge="1" name="hamburgerBar">
+    <text>Hamburger Menu Toolbar</text>
     <Spacer/>
     <Action name="hamburger_menu" />
   </ToolBar>

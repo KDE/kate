@@ -1,0 +1,7 @@
+# SPDX-FileCopyrightText: 2022 Alexander Lohnau <alexander.lohnau@gmx.de>
+# SPDX-License-Identifier: MIT
+
+Version=5
+
+Id=migrate_kate_sessions_applet_to_kdeplasma-addons
+Script=migrate_kate_sessions_applet_to_kdeplasma-addons.sh,sh

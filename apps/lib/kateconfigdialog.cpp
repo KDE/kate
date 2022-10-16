@@ -40,22 +40,52 @@
 #include <QFrame>
 #include <QGroupBox>
 #include <QLabel>
+#include <QLineEdit>
+#include <QListView>
+#include <QPainter>
 #include <QScreen>
 #include <QScrollArea>
 #include <QScrollBar>
+#include <QTimer>
 #include <QVBoxLayout>
 
 KateConfigDialog::KateConfigDialog(KateMainWindow *parent)
     : KPageDialog(parent)
     , m_mainWindow(parent)
+    , m_searchLineEdit(new QLineEdit(this))
+    , m_searchTimer(new QTimer(this))
 {
     setWindowTitle(i18n("Configure"));
     setStandardButtons(QDialogButtonBox::Ok | QDialogButtonBox::Apply | QDialogButtonBox::Cancel | QDialogButtonBox::Help);
+
+    m_searchLineEdit->setPlaceholderText(i18n("Search..."));
+    m_searchTimer->setSingleShot(true);
+    m_searchTimer->setInterval(400);
+    m_searchTimer->callOnTimeout(this, &KateConfigDialog::onSearchTextChanged);
+    connect(m_searchLineEdit, &QLineEdit::textChanged, m_searchTimer, qOverload<>(&QTimer::start));
+
+    if (auto layout = qobject_cast<QVBoxLayout *>(this->layout())) {
+        layout->insertWidget(0, m_searchLineEdit);
+    } else {
+        m_searchLineEdit->hide();
+        qWarning() << Q_FUNC_INFO << "Failed to get layout! Search will be disabled";
+    }
 
     // we may have a lot of pages, we want small icons for the list
 #if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 94, 0)
     setFaceType(KPageDialog::FlatList);
 #endif
+
+    const auto listViews = findChildren<QListView *>();
+    for (auto *lv : listViews) {
+        if (qstrcmp(lv->metaObject()->className(), "KDEPrivate::KPageListView") == 0) {
+            m_sideBar = lv;
+            break;
+        }
+    }
+    if (!m_sideBar) {
+        qWarning() << "Unable to find config dialog sidebar listview!!";
+    }
 
     // first: add the KTextEditor config pages
     // rational: most people want to alter e.g. the fonts, the colors or some other editor stuff first
@@ -85,6 +115,136 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent)
     button(QDialogButtonBox::Ok)->hide();
     button(QDialogButtonBox::Cancel)->setText(i18n("Close"));
     button(QDialogButtonBox::Apply)->setText(i18n("Save"));
+
+    // set focus on next iteration of event loop, doesn't work directly for some reason
+    QMetaObject::invokeMethod(
+        this,
+        [this] {
+            m_searchLineEdit->setFocus();
+        },
+        Qt::QueuedConnection);
+}
+
+template<typename WidgetType>
+QVector<QWidget *> hasMatchingText(const QString &text, QWidget *page)
+{
+    QVector<QWidget *> ret;
+    const auto widgets = page->findChildren<WidgetType *>();
+    for (auto label : widgets) {
+        if (label->text().contains(text, Qt::CaseInsensitive)) {
+            ret << label;
+        }
+    }
+    return ret;
+}
+
+template<typename...>
+struct FindChildrenHelper {
+    static QVector<QWidget *> hasMatchingTextForTypes(const QString &, QWidget *)
+    {
+        return {};
+    }
+};
+
+template<typename First, typename... Rest>
+struct FindChildrenHelper<First, Rest...> {
+    static QVector<QWidget *> hasMatchingTextForTypes(const QString &text, QWidget *page)
+    {
+        return hasMatchingText<First>(text, page) << FindChildrenHelper<Rest...>::hasMatchingTextForTypes(text, page);
+    }
+};
+
+class SearchMatchOverlay : public QWidget
+{
+public:
+    SearchMatchOverlay(QWidget *parent)
+        : QWidget(parent)
+    {
+        setAttribute(Qt::WA_TransparentForMouseEvents, true);
+        resize(parent->size());
+        parent->installEventFilter(this);
+
+        show();
+        raise();
+    }
+
+    void doResize()
+    {
+        // trigger it delayed just to be safe as we will be calling
+        // it in response to Resize sometimes
+        QMetaObject::invokeMethod(
+            this,
+            [this] {
+                if (parentWidget() && size() != parentWidget()->size()) {
+                    resize(parentWidget()->size());
+                }
+            },
+            Qt::QueuedConnection);
+    }
+
+    bool eventFilter(QObject *o, QEvent *e) override
+    {
+        if (parentWidget() && o == parentWidget() && (e->type() == QEvent::Resize || e->type() == QEvent::Show)) {
+            doResize();
+        }
+        return QWidget::eventFilter(o, e);
+    }
+
+protected:
+    void paintEvent(QPaintEvent *e) override
+    {
+        QPainter p(this);
+        p.setClipRegion(e->region());
+        QColor c = palette().brush(QPalette::Active, QPalette::Highlight).color();
+        c.setAlpha(100);
+        p.fillRect(rect(), c);
+    }
+};
+
+void KateConfigDialog::onSearchTextChanged()
+{
+    if (!m_sideBar) {
+        qWarning() << Q_FUNC_INFO << "No config dialog sidebar, search will not continue";
+        return;
+    }
+
+    const QString text = m_searchLineEdit->text();
+    QSet<QString> pagesToHide;
+    QVector<QWidget *> matchedWidgets;
+    if (!text.isEmpty()) {
+        for (auto item : std::as_const(m_allPages)) {
+            const auto matchingWidgets = FindChildrenHelper<QLabel, QPushButton, QCheckBox, QRadioButton>::hasMatchingTextForTypes(text, item->widget());
+            if (matchingWidgets.isEmpty()) {
+                pagesToHide << item->name();
+            }
+            matchedWidgets << matchingWidgets;
+        }
+    }
+
+    if (auto model = m_sideBar->model()) {
+        QModelIndex current;
+        for (int i = 0; i < model->rowCount(); ++i) {
+            const auto itemName = model->index(i, 0).data().toString();
+            m_sideBar->setRowHidden(i, pagesToHide.contains(itemName));
+            if (!text.isEmpty() && !m_sideBar->isRowHidden(i) && !current.isValid()) {
+                current = model->index(i, 0);
+            }
+        }
+        if (current.isValid()) {
+            m_sideBar->setCurrentIndex(current);
+        }
+    }
+
+    qDeleteAll(m_searchMatchOverlays);
+    m_searchMatchOverlays.clear();
+
+    for (auto w : std::as_const(matchedWidgets)) {
+        if (w) {
+            auto overlay = new SearchMatchOverlay(w);
+            m_searchMatchOverlays << overlay;
+            overlay->setVisible(true);
+        }
+    }
 }
 
 KateConfigDialog *KateConfigDialog::widget(KateMainWindow *mw)
@@ -104,6 +264,7 @@ void KateConfigDialog::addBehaviorPage()
 
     QFrame *generalFrame = new QFrame;
     KPageWidgetItem *item = addScrollablePage(generalFrame, i18n("Behavior"));
+    m_allPages.insert(item);
     item->setHeader(i18n("Behavior Options"));
     item->setIcon(QIcon::fromTheme(QStringLiteral("preferences-system-windows-behavior")));
 
@@ -309,6 +470,7 @@ void KateConfigDialog::addSessionPage()
 
     QWidget *sessionsPage = new QWidget();
     auto item = addScrollablePage(sessionsPage, i18n("Session"));
+    m_allPages.insert(item);
     item->setHeader(i18n("Session Management"));
     item->setIcon(QIcon::fromTheme(QStringLiteral("view-history")));
 
@@ -385,6 +547,7 @@ void KateConfigDialog::addPluginsPage()
     connect(configPluginPage, &KateConfigPluginPage::changed, this, &KateConfigDialog::slotChanged);
 
     auto item = addScrollablePage(page, i18n("Plugins"));
+    m_allPages.insert(item);
     item->setHeader(i18n("Plugin Manager"));
     item->setIcon(QIcon::fromTheme(QStringLiteral("preferences-plugin")));
 }
@@ -404,6 +567,7 @@ void KateConfigDialog::addFeedbackPage()
     vlayout->addWidget(m_userFeedbackWidget);
 
     auto item = addScrollablePage(page, i18n("User Feedback"));
+    m_allPages.insert(item);
     item->setHeader(i18n("User Feedback"));
     item->setIcon(QIcon::fromTheme(QStringLiteral("preferences-desktop-locale")));
 #endif
@@ -428,6 +592,7 @@ void KateConfigDialog::addEditorPages()
         KPageWidgetItem *item = addScrollablePage(page, page->name());
         item->setHeader(page->fullName());
         item->setIcon(page->icon());
+        m_allPages.insert(item);
     }
 }
 
@@ -446,6 +611,7 @@ void KateConfigDialog::addPluginPage(KTextEditor::Plugin *plugin)
         info.pageWidgetItem = item;
         connect(info.pluginPage, &KTextEditor::ConfigPage::changed, this, &KateConfigDialog::slotChanged);
         m_pluginPages.insert(item, info);
+        m_allPages.insert(item);
     }
 }
 
@@ -464,6 +630,7 @@ void KateConfigDialog::removePluginPage(KTextEditor::Plugin *plugin)
     while (!remove.isEmpty()) {
         KPageWidgetItem *wItem = remove.takeLast();
         PluginPageListItem item = m_pluginPages.take(wItem);
+        m_allPages.remove(wItem);
         delete item.pluginPage;
         removePage(wItem);
     }

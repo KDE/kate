@@ -9,6 +9,8 @@
 #ifndef __kate_configdialog_h__
 #define __kate_configdialog_h__
 
+#include <QPointer>
+
 #include <KTextEditor/ConfigPage>
 #include <KTextEditor/Document>
 #include <KTextEditor/Editor>
@@ -88,10 +90,15 @@ private:
     // add page variant that ensures the page is wrapped into a QScrollArea
     KPageWidgetItem *addScrollablePage(QWidget *page, const QString &itemName);
 
+    void onSearchTextChanged();
+
 private:
     KateMainWindow *m_mainWindow;
 
     bool m_dataChanged = false;
+
+    QLineEdit *const m_searchLineEdit;
+    QTimer *const m_searchTimer;
 
     QComboBox *m_messageTypes = nullptr;
     QSpinBox *m_outputHistoryLimit = nullptr;
@@ -116,6 +123,10 @@ private:
 
     QHash<KPageWidgetItem *, PluginPageListItem> m_pluginPages;
     QList<KTextEditor::ConfigPage *> m_editorPages;
+
+    QPointer<class QListView> m_sideBar;
+    QSet<KPageWidgetItem *> m_allPages;
+    QVector<QWidget *> m_searchMatchOverlays;
 
 #ifdef WITH_KUSERFEEDBACK
     KUserFeedback::FeedbackConfigWidget *m_userFeedbackWidget = nullptr;

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-14 00:50+0000\n"
-"PO-Revision-Date: 2022-10-10 03:44+0200\n"
+"PO-Revision-Date: 2022-10-15 06:03+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -86,14 +86,12 @@ msgid "Select Target..."
 msgstr "აირჩიეთ სამიზნე..."
 
 #: plugin_katebuild.cpp:144
-#, fuzzy, kde-format
-#| msgid "Build selected target"
+#, kde-format
 msgid "Build Selected Target"
 msgstr "მონიშნული სამიზნის აგება"
 
 #: plugin_katebuild.cpp:148
-#, fuzzy, kde-format
-#| msgid "Build and run selected target"
+#, kde-format
 msgid "Build and Run Selected Target"
 msgstr "მონიშნული სამიზნის აგება და გაშვება"
 
@@ -186,12 +184,12 @@ msgstr ""
 #: plugin_katebuild.cpp:779
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
-msgstr ""
+msgstr "\"%1\"-ის გაშვების შეცდომა. exitStatus = %2"
 
 #: plugin_katebuild.cpp:798
 #, kde-format
 msgid "Building <b>%1</b> cancelled"
-msgstr ""
+msgstr "<b>%1</b> -ის აგება გაუქმდა"
 
 #: plugin_katebuild.cpp:883
 #, kde-format
@@ -201,7 +199,7 @@ msgstr "აგება უკვე მიმდინარეობს..."
 #: plugin_katebuild.cpp:892
 #, kde-format
 msgid "No target available for building."
-msgstr ""
+msgstr "ასაგები სამიზნე ხელმიუწვდომელია."
 
 #: plugin_katebuild.cpp:906
 #, kde-format
@@ -211,7 +209,7 @@ msgstr ""
 #: plugin_katebuild.cpp:930
 #, kde-format
 msgid "Building target <b>%1</b> ..."
-msgstr ""
+msgstr "სამიზნის აგება <b>%1</b> ..."
 
 #: plugin_katebuild.cpp:945
 #, kde-kuit-format
@@ -222,7 +220,7 @@ msgstr ""
 #: plugin_katebuild.cpp:981
 #, kde-format
 msgid "Building <b>%1</b> completed."
-msgstr ""
+msgstr "<b>%1</b> -ის აგება დასრულდა.."
 
 #: plugin_katebuild.cpp:1001
 #, kde-format
@@ -234,7 +232,7 @@ msgstr[1] "ნაპოვნია %1 შეცდომა."
 #: plugin_katebuild.cpp:1002
 #, kde-format
 msgid "Building <b>%1</b> had errors."
-msgstr ""
+msgstr "<b>%1</b> -ის აგების შეცდომები."
 
 #: plugin_katebuild.cpp:1004
 #, kde-format
@@ -246,7 +244,7 @@ msgstr[1] "ნაპოვნია %1 გაფრთხილება."
 #: plugin_katebuild.cpp:1005
 #, kde-format
 msgid "Building <b>%1</b> had warnings."
-msgstr ""
+msgstr "<b>%1</b> -ის აგების გაფრთხილებები."
 
 #: plugin_katebuild.cpp:1011
 #, kde-format
@@ -256,7 +254,7 @@ msgstr "აგების შეცდომა."
 #: plugin_katebuild.cpp:1013
 #, kde-format
 msgid "Build completed without problems."
-msgstr ""
+msgstr "აგება პრობლემების გარეშე შესრულდა."
 
 #: plugin_katebuild.cpp:1043
 #, kde-format
@@ -374,7 +372,7 @@ msgstr ""
 #: targets.cpp:27
 #, kde-format
 msgid "Filter targets"
-msgstr ""
+msgstr "სამიზნეების ფილტრი"
 
 #: targets.cpp:31
 #, kde-format
@@ -407,16 +405,14 @@ msgid "Build and run selected target"
 msgstr "მონიშნული სამიზნის აგება და გაშვება"
 
 #: targets.cpp:56
-#, fuzzy, kde-format
-#| msgid "Build selected target"
+#, kde-format
 msgid "Move selected target up"
-msgstr "მონიშნული სამიზნის აგება"
+msgstr "მონიშნული სამიზნის აწევა"
 
 #: targets.cpp:60
-#, fuzzy, kde-format
-#| msgid "Build selected target"
+#, kde-format
 msgid "Move selected target down"
-msgstr "მონიშნული სამიზნის აგება"
+msgstr "მონიშნული სამიზნის დაწევა"
 
 #. i18n: ectx: Menu (Build Menubar)
 #: ui.rc:6

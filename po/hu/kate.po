@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE 4.2\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-15 00:50+0000\n"
+"POT-Creation-Date: 2022-10-16 00:50+0000\n"
 "PO-Revision-Date: 2022-01-14 10:53+0100\n"
 "Last-Translator: Kristóf Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -225,8 +225,14 @@ msgstr "&Súgó"
 msgid "Main Toolbar"
 msgstr "Alap eszköztár"
 
+#. i18n: ectx: ToolBar (hamburgerBar)
+#: lib/data/kateui.rc:155
+#, kde-format
+msgid "Hamburger Menu Toolbar"
+msgstr ""
+
 #. i18n: ectx: Menu (viewspace_popup_statusbar)
-#: lib/data/kateui.rc:172
+#: lib/data/kateui.rc:173
 #, kde-format
 msgid "&Status Bar Items"
 msgstr "Az állapot&sor elemei"
@@ -236,18 +242,18 @@ msgstr "Az állapot&sor elemei"
 msgid "Change Style"
 msgstr ""
 
-#: lib/diff/diffeditor.cpp:180 lib/kateconfigdialog.cpp:291
+#: lib/diff/diffeditor.cpp:180 lib/kateconfigdialog.cpp:294
 #, kde-format
 msgid "Side By Side"
 msgstr ""
 
-#: lib/diff/diffeditor.cpp:183 lib/kateconfigdialog.cpp:292
+#: lib/diff/diffeditor.cpp:183 lib/kateconfigdialog.cpp:295
 #, fuzzy, kde-format
 #| msgid "Modified"
 msgid "Unified"
 msgstr "Módosítva"
 
-#: lib/diff/diffeditor.cpp:186 lib/kateconfigdialog.cpp:293
+#: lib/diff/diffeditor.cpp:186 lib/kateconfigdialog.cpp:296
 #, kde-format
 msgid "Raw"
 msgstr ""
@@ -316,7 +322,8 @@ msgid "Jump to Previous Hunk"
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
-#: lib/filehistorywidget.cpp:258 lib/session/katesessionmanagedialog.ui:184
+#: lib/filehistorywidget.cpp:258 lib/kateconfigdialog.cpp:86
+#: lib/session/katesessionmanagedialog.ui:184
 #, kde-format
 msgid "Close"
 msgstr "Bezárás"
@@ -331,7 +338,7 @@ msgstr ""
 msgid "Failed to get file history: %1"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:346 lib/kateconfigdialog.cpp:125
+#: lib/filehistorywidget.cpp:346 lib/kateconfigdialog.cpp:128
 #, kde-format
 msgid "Error"
 msgstr "Hiba"
@@ -680,69 +687,75 @@ msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
 msgstr "A(z) „%1” fájlt nem sikerült megnyitni, mert nem fájl, hanem könyvtár."
 
-#: lib/kateconfigdialog.cpp:51
+#: lib/kateconfigdialog.cpp:52
 #, kde-format
 msgid "Configure"
 msgstr "Beállítás"
 
-#: lib/kateconfigdialog.cpp:103
+#: lib/kateconfigdialog.cpp:87
+#, fuzzy, kde-format
+#| msgid "&Save"
+msgid "Save"
+msgstr "Men&tés"
+
+#: lib/kateconfigdialog.cpp:106
 #, kde-format
 msgid "Behavior"
 msgstr "Működés"
 
-#: lib/kateconfigdialog.cpp:104
+#: lib/kateconfigdialog.cpp:107
 #, kde-format
 msgid "Behavior Options"
 msgstr "Működési beállítások"
 
-#: lib/kateconfigdialog.cpp:111
+#: lib/kateconfigdialog.cpp:114
 #, kde-format
 msgid "&Behavior"
 msgstr "Műkö&dés"
 
-#: lib/kateconfigdialog.cpp:120
+#: lib/kateconfigdialog.cpp:123
 #, kde-format
 msgid "&Switch to output view upon message type:"
 msgstr "Váltá&s kimenetnézetre, ha az üzenettípus:"
 
-#: lib/kateconfigdialog.cpp:125
+#: lib/kateconfigdialog.cpp:128
 #, kde-format
 msgid "Never"
 msgstr "Soha"
 
-#: lib/kateconfigdialog.cpp:125 lib/kateconfigdialog.cpp:623
+#: lib/kateconfigdialog.cpp:128 lib/kateconfigdialog.cpp:632
 #, kde-format
 msgid "Warning"
 msgstr "Figyelmeztetés"
 
-#: lib/kateconfigdialog.cpp:125
+#: lib/kateconfigdialog.cpp:128
 #, kde-format
 msgid "Info"
 msgstr "Információ"
 
-#: lib/kateconfigdialog.cpp:125
+#: lib/kateconfigdialog.cpp:128
 #, kde-format
 msgid "Log"
 msgstr "Napló"
 
-#: lib/kateconfigdialog.cpp:131
+#: lib/kateconfigdialog.cpp:134
 #, kde-format
 msgid "&Limit output view history:"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:137 lib/kateconfigdialog.cpp:203
+#: lib/kateconfigdialog.cpp:140 lib/kateconfigdialog.cpp:206
 #, kde-format
 msgid "Unlimited"
 msgstr "Korlátlan"
 
-#: lib/kateconfigdialog.cpp:144
+#: lib/kateconfigdialog.cpp:147
 #, kde-format
 msgid "Use a separate &dialog for handling externally modified files"
 msgstr ""
 "Külön párbeszé&ablak használata külső program által módosított fájlok "
 "kezeléséhez"
 
-#: lib/kateconfigdialog.cpp:148
+#: lib/kateconfigdialog.cpp:151
 #, kde-format
 msgid ""
 "If enabled, a modal dialog will be used to show all of the modified files. "
@@ -753,18 +766,18 @@ msgstr ""
 "módosított fájl megjelenítéséhez. Ha ki van kapcsolva, minden egyes fájlnál "
 "külön-külön meg kell adnia, mi történjen, amint a fájl nézete fókuszt kap."
 
-#: lib/kateconfigdialog.cpp:157
+#: lib/kateconfigdialog.cpp:160
 #, fuzzy, kde-format
 #| msgid "Top Sidebar"
 msgid "&Sidebars"
 msgstr "Felső oldalsáv"
 
-#: lib/kateconfigdialog.cpp:160
+#: lib/kateconfigdialog.cpp:163
 #, kde-format
 msgid "Sync section size with tab positions"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:164
+#: lib/kateconfigdialog.cpp:167
 #, kde-format
 msgid ""
 "When enabled the section size will be determined by the position of the "
@@ -772,175 +785,175 @@ msgid ""
 "This option does not affect the bottom sidebar."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:169
+#: lib/kateconfigdialog.cpp:172
 #, kde-format
 msgid "Show text for left and right sidebar buttons"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:174
+#: lib/kateconfigdialog.cpp:177
 #, kde-format
 msgid "Icon size for left and right sidebar buttons"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:193
+#: lib/kateconfigdialog.cpp:196
 #, kde-format
 msgid "&Tabs"
 msgstr "&Lapok"
 
-#: lib/kateconfigdialog.cpp:197
+#: lib/kateconfigdialog.cpp:200
 #, kde-format
 msgid "&Limit number of tabs:"
 msgstr "Lapok számának kor&látozása:"
 
-#: lib/kateconfigdialog.cpp:208
+#: lib/kateconfigdialog.cpp:211
 #, kde-format
 msgid ""
 "A high limit can increase the window size, please enable 'Allow tab "
 "scrolling' to prevent it. Unlimited tabs are always scrollable."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:212
+#: lib/kateconfigdialog.cpp:215
 #, kde-format
 msgid "&Auto hide tabs"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:214
+#: lib/kateconfigdialog.cpp:217
 #, fuzzy, kde-format
 #| msgid "When checked each tab will display a close button."
 msgid "When checked tabs will be hidden if only one document is open."
 msgstr "Ha be van jelölve, a bezárás gomb minden fülön megjelenik."
 
-#: lib/kateconfigdialog.cpp:218
+#: lib/kateconfigdialog.cpp:221
 #, kde-format
 msgid "&Show close button"
 msgstr "Bezárás gomb megjeleníté&se"
 
-#: lib/kateconfigdialog.cpp:220
+#: lib/kateconfigdialog.cpp:223
 #, kde-format
 msgid "When checked each tab will display a close button."
 msgstr "Ha be van jelölve, a bezárás gomb minden fülön megjelenik."
 
-#: lib/kateconfigdialog.cpp:224
+#: lib/kateconfigdialog.cpp:227
 #, kde-format
 msgid "&Expand tabs"
 msgstr "Lapok &kibontása"
 
-#: lib/kateconfigdialog.cpp:226
+#: lib/kateconfigdialog.cpp:229
 #, kde-format
 msgid "When checked tabs take as much size as possible."
 msgstr ""
 "Ha be van jelölve, a fülek annyi helyet foglalnak el, amennyit csak lehet."
 
-#: lib/kateconfigdialog.cpp:230
+#: lib/kateconfigdialog.cpp:233
 #, kde-format
 msgid "&Double click opens a new document"
 msgstr "&Dupla kattintás új dokumentum megnyitásához"
 
-#: lib/kateconfigdialog.cpp:232
+#: lib/kateconfigdialog.cpp:235
 #, kde-format
 msgid "When checked double click opens a new document."
 msgstr "Ha be van jelölve, dupla kattintással lehet új dokumentumot megnyitni."
 
-#: lib/kateconfigdialog.cpp:236
+#: lib/kateconfigdialog.cpp:239
 #, kde-format
 msgid "&Middle click closes a document"
 msgstr "&Középső kattintás dokumentum bezárásához"
 
-#: lib/kateconfigdialog.cpp:238
+#: lib/kateconfigdialog.cpp:241
 #, kde-format
 msgid "When checked middle click closes a document."
 msgstr "Ha be van jelölve, a középső kattintás bezárja a dokumentumot."
 
-#: lib/kateconfigdialog.cpp:242
+#: lib/kateconfigdialog.cpp:245
 #, kde-format
 msgid "Allow tab scrolling"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:244
+#: lib/kateconfigdialog.cpp:247
 #, kde-format
 msgid ""
 "When checked this will allow scrolling in tab bar when number of tabs is "
 "large."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:248
+#: lib/kateconfigdialog.cpp:251
 #, kde-format
 msgid "Elide tab text"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:250
+#: lib/kateconfigdialog.cpp:253
 #, fuzzy, kde-format
 #| msgid "When checked tabs take as much size as possible."
 msgid "When checked tab text might be elided if its too long."
 msgstr ""
 "Ha be van jelölve, a fülek annyi helyet foglalnak el, amennyit csak lehet."
 
-#: lib/kateconfigdialog.cpp:256
+#: lib/kateconfigdialog.cpp:259
 #, kde-format
 msgid "&Mouse"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:261
+#: lib/kateconfigdialog.cpp:264
 #, kde-format
 msgid "&Backward button pressed:"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:266
+#: lib/kateconfigdialog.cpp:269
 #, fuzzy, kde-format
 #| msgid "&Previous Tab"
 msgid "Previous tab"
 msgstr "E&lőző lap"
 
-#: lib/kateconfigdialog.cpp:266
+#: lib/kateconfigdialog.cpp:269
 #, fuzzy, kde-format
 #| msgid "Go back"
 msgid "History back"
 msgstr "Vissza"
 
-#: lib/kateconfigdialog.cpp:272
+#: lib/kateconfigdialog.cpp:275
 #, kde-format
 msgid "&Forward button pressed:"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:277
+#: lib/kateconfigdialog.cpp:280
 #, fuzzy, kde-format
 #| msgid "&Next Tab"
 msgid "Next tab"
 msgstr "&Következő lap"
 
-#: lib/kateconfigdialog.cpp:277
+#: lib/kateconfigdialog.cpp:280
 #, fuzzy, kde-format
 #| msgid "Go forward"
 msgid "History forward"
 msgstr "Előre"
 
-#: lib/kateconfigdialog.cpp:285
+#: lib/kateconfigdialog.cpp:288
 #, kde-format
 msgid "Diff"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:294
+#: lib/kateconfigdialog.cpp:297
 #, kde-format
 msgid "Diff Style:"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:308
+#: lib/kateconfigdialog.cpp:311
 #, kde-format
 msgid "Session"
 msgstr "Munkamenet"
 
-#: lib/kateconfigdialog.cpp:309
+#: lib/kateconfigdialog.cpp:312
 #, kde-format
 msgid "Session Management"
 msgstr "Munkamenetkezelés"
 
-#: lib/kateconfigdialog.cpp:320
+#: lib/kateconfigdialog.cpp:323
 #, kde-format
 msgctxt "The special case of 'Delete unused meta-information after'"
 msgid "(never)"
 msgstr "(soha)"
 
-#: lib/kateconfigdialog.cpp:321
+#: lib/kateconfigdialog.cpp:324
 #, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid " day"
@@ -948,22 +961,22 @@ msgid_plural " days"
 msgstr[0] " nap"
 msgstr[1] " nap"
 
-#: lib/kateconfigdialog.cpp:384
+#: lib/kateconfigdialog.cpp:387
 #, kde-format
 msgid "Plugins"
 msgstr "Bővítmények"
 
-#: lib/kateconfigdialog.cpp:385
+#: lib/kateconfigdialog.cpp:388
 #, kde-format
 msgid "Plugin Manager"
 msgstr "Bővítménykezelő"
 
-#: lib/kateconfigdialog.cpp:403 lib/kateconfigdialog.cpp:404
+#: lib/kateconfigdialog.cpp:406 lib/kateconfigdialog.cpp:407
 #, kde-format
 msgid "User Feedback"
 msgstr "Felhasználói visszajelzés"
 
-#: lib/kateconfigdialog.cpp:622
+#: lib/kateconfigdialog.cpp:631
 #, kde-format
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"
@@ -990,7 +1003,7 @@ msgstr ""
 "Itt láthatók a telepített Kate bővítmények. A megjelöltek be vannak töltve, "
 "és a Kate indulásakor mindig automatikusan betöltődnek."
 
-#: lib/katedocmanager.cpp:264
+#: lib/katedocmanager.cpp:269
 #, kde-format
 msgid ""
 "<p>The document '%1' has been modified, but not saved.</p><p>Do you want to "
@@ -999,33 +1012,33 @@ msgstr ""
 "<p>A(z) „%1” dokumentum megváltozott, de még nincs elmentve.</p><p>El "
 "szeretné menteni a módosításokat vagy inkább eldobja azokat?</p>"
 
-#: lib/katedocmanager.cpp:267
+#: lib/katedocmanager.cpp:272
 #, kde-format
 msgid "Close Document"
 msgstr "Dokumentum bezárása"
 
-#: lib/katedocmanager.cpp:276
+#: lib/katedocmanager.cpp:285
 #, kde-format
 msgid "Save As"
 msgstr "Mentés másként"
 
-#: lib/katedocmanager.cpp:294 lib/katemainwindow.cpp:594
+#: lib/katedocmanager.cpp:303 lib/katemainwindow.cpp:595
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr ""
 "Új fájl megnyitása történt a Kate bezárása közben, a bezárás félbeszakadt."
 
-#: lib/katedocmanager.cpp:294 lib/katemainwindow.cpp:594
+#: lib/katedocmanager.cpp:303 lib/katemainwindow.cpp:595
 #, kde-format
 msgid "Closing Aborted"
 msgstr "A bezárás félbe lett szakítva"
 
-#: lib/katedocmanager.cpp:372
+#: lib/katedocmanager.cpp:381
 #, kde-format
 msgid "Starting Up"
 msgstr "Indulás"
 
-#: lib/katedocmanager.cpp:373
+#: lib/katedocmanager.cpp:382
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "A legutóbb nyitva hagyott fájlok megnyitása…"
@@ -1060,88 +1073,88 @@ msgstr "Fájl törlése"
 msgid "File \"%1\" could not be deleted."
 msgstr "A(z) „%1” fájl nem törölhető."
 
-#: lib/katemainwindow.cpp:213
+#: lib/katemainwindow.cpp:214
 #, kde-format
 msgid "Use this command to show or hide the view's statusbar"
 msgstr "Ezzel a paranccsal lehet a nézet állapotsorát ki-be kapcsolni"
 
-#: lib/katemainwindow.cpp:216
+#: lib/katemainwindow.cpp:217
 #, kde-format
 msgid "Show &Tabs"
 msgstr "Fü&lek megjelenítése"
 
-#: lib/katemainwindow.cpp:219
+#: lib/katemainwindow.cpp:220
 #, kde-format
 msgid "Use this command to show or hide the tabs for the views"
 msgstr "Ezzel a paranccsal lehet a nézetek füleit ki-be kapcsolni"
 
-#: lib/katemainwindow.cpp:221
+#: lib/katemainwindow.cpp:222
 #, kde-format
 msgid "Sho&w Path in Titlebar"
 msgstr "Út&vonal megjelenítése a címsorban"
 
-#: lib/katemainwindow.cpp:224
+#: lib/katemainwindow.cpp:225
 #, kde-format
 msgid "Show the complete document path in the window caption"
 msgstr "A dokumentum teljes elérési útjának megjelenítése az ablak fejlécében"
 
-#: lib/katemainwindow.cpp:226
+#: lib/katemainwindow.cpp:227
 #, kde-format
 msgid "Show Navigation Bar"
 msgstr ""
 
-#: lib/katemainwindow.cpp:236
+#: lib/katemainwindow.cpp:237
 #, fuzzy, kde-format
 #| msgid "&Color Scheme"
 msgid "&Window Color Scheme"
 msgstr "&Színséma"
 
-#: lib/katemainwindow.cpp:240
+#: lib/katemainwindow.cpp:241
 #, kde-format
 msgid "&Previous Tab"
 msgstr "E&lőző lap"
 
-#: lib/katemainwindow.cpp:241
+#: lib/katemainwindow.cpp:242
 #, kde-format
 msgid "Focus the previous tab."
 msgstr "Fókusz az előző lapra."
 
-#: lib/katemainwindow.cpp:246
+#: lib/katemainwindow.cpp:247
 #, kde-format
 msgid "&Next Tab"
 msgstr "&Következő lap"
 
-#: lib/katemainwindow.cpp:247
+#: lib/katemainwindow.cpp:248
 #, kde-format
 msgid "Focus the next tab."
 msgstr "Fókusz a következő lapra."
 
-#: lib/katemainwindow.cpp:254
+#: lib/katemainwindow.cpp:255
 #, kde-format
 msgid "&Quick Open"
 msgstr "&Gyors megnyitás"
 
-#: lib/katemainwindow.cpp:257
+#: lib/katemainwindow.cpp:258
 #, kde-format
 msgid "Open a form to quick open documents."
 msgstr "Űrlap megnyitása dokumentumok gyors megnyitásához."
 
-#: lib/katemainwindow.cpp:283
+#: lib/katemainwindow.cpp:284
 #, kde-format
 msgid "Output"
 msgstr "Kimenet"
 
-#: lib/katemainwindow.cpp:293
+#: lib/katemainwindow.cpp:294
 #, kde-format
 msgid "Create a new document"
 msgstr "Új dokumentum létrehozása"
 
-#: lib/katemainwindow.cpp:296
+#: lib/katemainwindow.cpp:297
 #, kde-format
 msgid "Open an existing document for editing"
 msgstr "Egy már létező dokumentum megnyitása szerkesztésre"
 
-#: lib/katemainwindow.cpp:306
+#: lib/katemainwindow.cpp:307
 #, kde-format
 msgid ""
 "This lists files which you have opened recently, and allows you to easily "
@@ -1150,90 +1163,90 @@ msgstr ""
 "Kilistázza a legutóbb használt fájlokat, lehetővé téve egyikük újbóli "
 "megnyitását."
 
-#: lib/katemainwindow.cpp:310
+#: lib/katemainwindow.cpp:311
 #, kde-format
 msgid "Save A&ll"
 msgstr "Össz&es mentése"
 
-#: lib/katemainwindow.cpp:313
+#: lib/katemainwindow.cpp:314
 #, kde-format
 msgid "Save all open, modified documents to disk."
 msgstr "Az összes megnyitott, módosított dokumentum elmentése a lemezre."
 
-#: lib/katemainwindow.cpp:316
+#: lib/katemainwindow.cpp:317
 #, kde-format
 msgid "&Reload All"
 msgstr "Összes új&ratöltése"
 
-#: lib/katemainwindow.cpp:318
+#: lib/katemainwindow.cpp:319
 #, kde-format
 msgid "Reload all open documents."
 msgstr "Újratölti a megnyitott dokumentumokat."
 
-#: lib/katemainwindow.cpp:322
+#: lib/katemainwindow.cpp:323
 #, fuzzy, kde-format
 #| msgid "Location"
 msgid "Copy Location"
 msgstr "Hely"
 
-#: lib/katemainwindow.cpp:327 lib/katemainwindow.cpp:336
+#: lib/katemainwindow.cpp:328 lib/katemainwindow.cpp:337
 #, kde-format
 msgid "Copies the file path of the current file to clipboard."
 msgstr "Az aktuális fájl elérési útjának másolása a vágólapra."
 
-#: lib/katemainwindow.cpp:331 lib/welcomeview/welcomeview.cpp:223
+#: lib/katemainwindow.cpp:332 lib/welcomeview/welcomeview.cpp:214
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "&Tartalmazó mappa megnyitása"
 
-#: lib/katemainwindow.cpp:340
+#: lib/katemainwindow.cpp:341
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename..."
 msgstr "Átnevezés…"
 
-#: lib/katemainwindow.cpp:345
+#: lib/katemainwindow.cpp:346
 #, kde-format
 msgid "Renames the file belonging to the current document."
 msgstr "Az aktuális dokumentumhoz tartozó fájl átnevezése."
 
-#: lib/katemainwindow.cpp:349
+#: lib/katemainwindow.cpp:350
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete"
 msgstr "Törlés"
 
-#: lib/katemainwindow.cpp:354 lib/katemainwindow.cpp:363
+#: lib/katemainwindow.cpp:355 lib/katemainwindow.cpp:364
 #, kde-format
 msgid "Deletes the file belonging to the current document."
 msgstr "Az aktuális dokumentumhoz tartozó fájl törlése."
 
-#: lib/katemainwindow.cpp:358
+#: lib/katemainwindow.cpp:359
 #, kde-format
 msgid "Properties"
 msgstr "Tulajdonságok"
 
-#: lib/katemainwindow.cpp:366 lib/katemainwindow.cpp:368
+#: lib/katemainwindow.cpp:367 lib/katemainwindow.cpp:369
 #, kde-format
 msgid "Compare"
 msgstr "Összehasonlítás"
 
-#: lib/katemainwindow.cpp:368
+#: lib/katemainwindow.cpp:369
 #, kde-format
 msgid "Use the Tabbar context menu to compare two documents"
 msgstr "Használja a Lapsáv helyi menüjének két dokumentum összehasonlításához"
 
-#: lib/katemainwindow.cpp:370
+#: lib/katemainwindow.cpp:371
 #, kde-format
 msgid "Shows a hint how to compare documents."
 msgstr "Súgó megjelenítése két dokumentum összehasonlításához."
 
-#: lib/katemainwindow.cpp:373
+#: lib/katemainwindow.cpp:374
 #, kde-format
 msgid "Close Orphaned"
 msgstr "Elárvultak bezárása"
 
-#: lib/katemainwindow.cpp:375
+#: lib/katemainwindow.cpp:376
 #, kde-format
 msgid ""
 "Close all documents in the file list that could not be reopened, because "
@@ -1242,54 +1255,54 @@ msgstr ""
 "Bezárja az összes dokumentumot a fájllistában, amely nem nyitható meg újra, "
 "mert nem érhető el többé."
 
-#: lib/katemainwindow.cpp:379
+#: lib/katemainwindow.cpp:380
 #, kde-format
 msgid "Close the current document."
 msgstr "Az aktuális dokumentum bezárása."
 
-#: lib/katemainwindow.cpp:382
+#: lib/katemainwindow.cpp:383
 #, kde-format
 msgid "Close Other"
 msgstr "Többi bezárása"
 
-#: lib/katemainwindow.cpp:384
+#: lib/katemainwindow.cpp:385
 #, kde-format
 msgid "Close other open documents."
 msgstr "Bezárja a nyitott dokumentumokat, kivéve az aktuálisat."
 
-#: lib/katemainwindow.cpp:387
+#: lib/katemainwindow.cpp:388
 #, kde-format
 msgid "Clos&e All"
 msgstr "Össz&es bezárása"
 
-#: lib/katemainwindow.cpp:389
+#: lib/katemainwindow.cpp:390
 #, kde-format
 msgid "Close all open documents."
 msgstr "Az összes megnyitott dokumentum bezárása."
 
-#: lib/katemainwindow.cpp:394
+#: lib/katemainwindow.cpp:395
 #, kde-format
 msgid "Close this window"
 msgstr "Az ablak bezárása"
 
-#: lib/katemainwindow.cpp:398
+#: lib/katemainwindow.cpp:399
 #, fuzzy, kde-format
 #| msgid "&Window"
 msgid "&New Window"
 msgstr "&Ablak"
 
-#: lib/katemainwindow.cpp:400
+#: lib/katemainwindow.cpp:401
 #, fuzzy, kde-format
 #| msgid "Create a new document"
 msgid "Create a new window."
 msgstr "Új dokumentum létrehozása"
 
-#: lib/katemainwindow.cpp:407
+#: lib/katemainwindow.cpp:408
 #, kde-format
 msgid "Open W&ith"
 msgstr "Megnyitás ezze&l"
 
-#: lib/katemainwindow.cpp:409
+#: lib/katemainwindow.cpp:410
 #, kde-format
 msgid ""
 "Open the current document using another application registered for its file "
@@ -1298,17 +1311,17 @@ msgstr ""
 "Az aktuális fájl megnyitása a fájlnév kiterjesztéséhez rendelt alkalmazással "
 "vagy egy tetszőlegesen választott programmal."
 
-#: lib/katemainwindow.cpp:417
+#: lib/katemainwindow.cpp:418
 #, kde-format
 msgid "Configure the application's keyboard shortcut assignments."
 msgstr "A programban használt billentyűparancsokat lehet itt testreszabni."
 
-#: lib/katemainwindow.cpp:420
+#: lib/katemainwindow.cpp:421
 #, kde-format
 msgid "Configure which items should appear in the toolbar(s)."
 msgstr "Az eszköztárban megjelenő elemek beállítása."
 
-#: lib/katemainwindow.cpp:423
+#: lib/katemainwindow.cpp:424
 #, kde-format
 msgid ""
 "Configure various aspects of this application and the editing component."
@@ -1316,81 +1329,81 @@ msgstr ""
 "A szerkesztőkomponens és az alkalmazás különféle jellemzőit lehet itt "
 "beállítani."
 
-#: lib/katemainwindow.cpp:427
+#: lib/katemainwindow.cpp:428
 #, kde-format
 msgid "&Plugins Handbook"
 msgstr "A bővítmények ké&zikönyve"
 
-#: lib/katemainwindow.cpp:429
+#: lib/katemainwindow.cpp:430
 #, kde-format
 msgid "This shows help files for various available plugins."
 msgstr "A bővítőmények dokumentációját jeleníti meg."
 
-#: lib/katemainwindow.cpp:446
+#: lib/katemainwindow.cpp:447
 #, kde-format
 msgid "Sess&ions"
 msgstr "M&unkamenetek"
 
-#: lib/katemainwindow.cpp:452
+#: lib/katemainwindow.cpp:453
 #, kde-format
 msgctxt "Menu entry Session->New Session"
 msgid "&New Session"
 msgstr "Új munkame&net"
 
-#: lib/katemainwindow.cpp:457
+#: lib/katemainwindow.cpp:458
 #, fuzzy, kde-format
 #| msgid "&Open Session"
 msgid "&Recent Sessions"
 msgstr "M&unkamenet megnyitása"
 
-#: lib/katemainwindow.cpp:462
+#: lib/katemainwindow.cpp:463
 #, fuzzy, kde-format
 #| msgid "Sess&ions"
 msgid "&All Sessions"
 msgstr "M&unkamenetek"
 
-#: lib/katemainwindow.cpp:469
+#: lib/katemainwindow.cpp:470
 #, kde-format
 msgid "&Manage Sessions..."
 msgstr "&Munkamenetkezelő…"
 
-#: lib/katemainwindow.cpp:478
+#: lib/katemainwindow.cpp:479
 #, kde-format
 msgid "&Save Session"
 msgstr "Munkamenet menté&se"
 
-#: lib/katemainwindow.cpp:484
+#: lib/katemainwindow.cpp:485
 #, kde-format
 msgid "Save Session &As..."
 msgstr "Munk&amenet mentése másként…"
 
-#: lib/katemainwindow.cpp:491 lib/kateviewspace.cpp:58
+#: lib/katemainwindow.cpp:492 lib/kateviewspace.cpp:58
 #, kde-format
 msgid "Go to Previous Location"
 msgstr ""
 
-#: lib/katemainwindow.cpp:499 lib/kateviewspace.cpp:71
+#: lib/katemainwindow.cpp:500 lib/kateviewspace.cpp:71
 #, kde-format
 msgid "Go to Next Location"
 msgstr ""
 
-#: lib/katemainwindow.cpp:506
+#: lib/katemainwindow.cpp:507
 #, kde-format
 msgid "Show File Git History"
 msgstr ""
 
-#: lib/katemainwindow.cpp:521
+#: lib/katemainwindow.cpp:522
 #, kde-format
 msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr ""
 "Ez bezár minden megnyitott dokumentumot. Biztos, hogy folytatni kívánja?"
 
-#: lib/katemainwindow.cpp:522
+#: lib/katemainwindow.cpp:523
 #, kde-format
 msgid "Close all documents"
 msgstr "Összes dokumentum bezárása"
 
-#: lib/katemainwindow.cpp:537
+#: lib/katemainwindow.cpp:538
 #, kde-format
 msgid ""
 "This will close all open documents beside the current one. Are you sure you "
@@ -1399,23 +1412,23 @@ msgstr ""
 "Ez bezár minden megnyitott dokumentumot a jelenlegi mellett. Biztos, hogy "
 "folytatni kívánja?"
 
-#: lib/katemainwindow.cpp:538
+#: lib/katemainwindow.cpp:539
 #, kde-format
 msgid "Close all documents beside current one"
 msgstr "Összes dokumentum bezárása a jelenlegi mellett"
 
-#: lib/katemainwindow.cpp:738
+#: lib/katemainwindow.cpp:739
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
 msgstr "Teljesen elrejti a menüsávot. Ezzel a paranccsal állítható vissza: %1."
 
-#: lib/katemainwindow.cpp:741
+#: lib/katemainwindow.cpp:742
 #, kde-format
 msgid "Hide menu bar"
 msgstr "Menüsáv elrejtése"
 
-#: lib/katemainwindow.cpp:841
+#: lib/katemainwindow.cpp:846
 #, fuzzy, kde-format
 #| msgid ""
 #| "You dropped the directory %1 into Kate. Do you want to load all files "
@@ -1427,36 +1440,36 @@ msgstr ""
 "A(z) %1 mappát a Kate-be ejtette. Szeretné betölteni az abban lévő összes "
 "fájlt?"
 
-#: lib/katemainwindow.cpp:844
+#: lib/katemainwindow.cpp:849
 #, fuzzy, kde-format
 #| msgid "Load files recursively?"
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "Fájlok betöltése rekurzívan?"
 
-#: lib/katemainwindow.cpp:845
+#: lib/katemainwindow.cpp:850
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Fájl megnyitása"
 
-#: lib/katemainwindow.cpp:970
+#: lib/katemainwindow.cpp:990
 #, kde-format
 msgid "&Other..."
 msgstr "&Egyéb…"
 
-#: lib/katemainwindow.cpp:1095
+#: lib/katemainwindow.cpp:1115
 #, kde-format
 msgid " [read only]"
 msgstr " [csak olvasható]"
 
-#: lib/katemainwindow.cpp:1342
+#: lib/katemainwindow.cpp:1362
 #, kde-format
 msgid "Diff %1"
 msgstr ""
 
-#: lib/katemainwindow.cpp:1344
+#: lib/katemainwindow.cpp:1364
 #, kde-format
 msgid "Diff %1..%2"
 msgstr ""
@@ -1691,42 +1704,42 @@ msgstr "Az üres karakterek mellőzésével a fájlok megegyeznek."
 msgid "Diff Output"
 msgstr "Eltérések"
 
-#: lib/kateoutputview.cpp:95
+#: lib/kateoutputview.cpp:96
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy to Clipboard"
 msgstr "Másolás a vágólapra"
 
-#: lib/kateoutputview.cpp:246
+#: lib/kateoutputview.cpp:247
 #, fuzzy, kde-format
 #| msgid "Filter:"
 msgid "Filter..."
 msgstr "Szűrő:"
 
-#: lib/kateoutputview.cpp:259
+#: lib/kateoutputview.cpp:260
 #, kde-format
 msgid "Clear all messages"
 msgstr "Összes üzenet törlése"
 
-#: lib/kateoutputview.cpp:354
+#: lib/kateoutputview.cpp:355
 #, kde-format
 msgctxt "@info"
 msgid "Error"
 msgstr "Hiba"
 
-#: lib/kateoutputview.cpp:359
+#: lib/kateoutputview.cpp:360
 #, kde-format
 msgctxt "@info"
 msgid "Warning"
 msgstr "Figyelmeztetés"
 
-#: lib/kateoutputview.cpp:364
+#: lib/kateoutputview.cpp:365
 #, kde-format
 msgctxt "@info"
 msgid "Info"
 msgstr "Információ"
 
-#: lib/kateoutputview.cpp:370
+#: lib/kateoutputview.cpp:371
 #, kde-format
 msgctxt "@info"
 msgid "Log"
@@ -1780,32 +1793,32 @@ msgstr ""
 msgid "Untitled"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:116
+#: lib/kateviewmanager.cpp:117
 #, kde-format
 msgid "Split Ve&rtical"
 msgstr "Felezés fü&ggőlegesen"
 
-#: lib/kateviewmanager.cpp:120
+#: lib/kateviewmanager.cpp:121
 #, kde-format
 msgid "Split the currently active view vertically into two views."
 msgstr "Az aktuális nézetet felosztja két egymás alatti nézetre."
 
-#: lib/kateviewmanager.cpp:124
+#: lib/kateviewmanager.cpp:125
 #, kde-format
 msgid "Split &Horizontal"
 msgstr "Felezés vízsz&intesen"
 
-#: lib/kateviewmanager.cpp:128
+#: lib/kateviewmanager.cpp:129
 #, kde-format
 msgid "Split the currently active view horizontally into two views."
 msgstr "Az aktuális nézetet felosztja két egymás melletti nézetre."
 
-#: lib/kateviewmanager.cpp:132
+#: lib/kateviewmanager.cpp:133
 #, kde-format
 msgid "Move Document to New Vertical Split"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:136
+#: lib/kateviewmanager.cpp:137
 #, fuzzy, kde-format
 #| msgid "Split the currently active view vertically into two views."
 msgid ""
@@ -1813,12 +1826,12 @@ msgid ""
 "currently active document to right view."
 msgstr "Az aktuális nézetet felosztja két egymás alatti nézetre."
 
-#: lib/kateviewmanager.cpp:141
+#: lib/kateviewmanager.cpp:142
 #, kde-format
 msgid "Move Document to New Horizontal Split"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:145
+#: lib/kateviewmanager.cpp:146
 #, fuzzy, kde-format
 #| msgid "Split the currently active view horizontally into two views."
 msgid ""
@@ -1826,181 +1839,181 @@ msgid ""
 "currently active document to view below."
 msgstr "Az aktuális nézetet felosztja két egymás melletti nézetre."
 
-#: lib/kateviewmanager.cpp:150
+#: lib/kateviewmanager.cpp:151
 #, kde-format
 msgid "Cl&ose Current View"
 msgstr "Az akt&uális nézet bezárása"
 
-#: lib/kateviewmanager.cpp:154
+#: lib/kateviewmanager.cpp:155
 #, kde-format
 msgid "Close the currently active split view"
 msgstr "Az aktuális aktív megosztott nézet bezárása"
 
-#: lib/kateviewmanager.cpp:158
+#: lib/kateviewmanager.cpp:159
 #, kde-format
 msgid "Close Inactive Views"
 msgstr "Inaktív nézetek bezárása"
 
-#: lib/kateviewmanager.cpp:161
+#: lib/kateviewmanager.cpp:162
 #, kde-format
 msgid "Close every view but the active one"
 msgstr "Minden nézet bezárása az aktív kivételével"
 
-#: lib/kateviewmanager.cpp:165
+#: lib/kateviewmanager.cpp:166
 #, kde-format
 msgid "Hide Inactive Views"
 msgstr "Inaktív nézetek elrejtése"
 
-#: lib/kateviewmanager.cpp:169
+#: lib/kateviewmanager.cpp:170
 #, kde-format
 msgid "Hide every view but the active one"
 msgstr "Minden nézet elrejtése az aktív kivételével"
 
-#: lib/kateviewmanager.cpp:172
+#: lib/kateviewmanager.cpp:173
 #, kde-format
 msgid "Toggle Orientation"
 msgstr "Tájolás váltása"
 
-#: lib/kateviewmanager.cpp:175
+#: lib/kateviewmanager.cpp:176
 #, kde-format
 msgid "Toggles the orientation of the current split view"
 msgstr "A jelenlegi osztott nézet tájolásának váltása"
 
-#: lib/kateviewmanager.cpp:178
+#: lib/kateviewmanager.cpp:179
 #, kde-format
 msgid "Next Split View"
 msgstr "Következő osztott nézet"
 
-#: lib/kateviewmanager.cpp:183
+#: lib/kateviewmanager.cpp:184
 #, kde-format
 msgid "Make the next split view the active one."
 msgstr "Váltás az osztott nézet másik felére."
 
-#: lib/kateviewmanager.cpp:186
+#: lib/kateviewmanager.cpp:187
 #, kde-format
 msgid "Previous Split View"
 msgstr "Előző osztott nézet"
 
-#: lib/kateviewmanager.cpp:191
+#: lib/kateviewmanager.cpp:192
 #, kde-format
 msgid "Make the previous split view the active one."
 msgstr "Váltás az osztott nézet előző felére."
 
-#: lib/kateviewmanager.cpp:194
+#: lib/kateviewmanager.cpp:195
 #, fuzzy, kde-format
 #| msgid "Next Split View"
 msgid "Left Split View"
 msgstr "Következő osztott nézet"
 
-#: lib/kateviewmanager.cpp:199
+#: lib/kateviewmanager.cpp:200
 #, fuzzy, kde-format
 #| msgid "Make the next split view the active one."
 msgid "Make the split view intuitively on the left the active one."
 msgstr "Váltás az osztott nézet másik felére."
 
-#: lib/kateviewmanager.cpp:202
+#: lib/kateviewmanager.cpp:203
 #, fuzzy, kde-format
 #| msgid "Next Split View"
 msgid "Right Split View"
 msgstr "Következő osztott nézet"
 
-#: lib/kateviewmanager.cpp:207
+#: lib/kateviewmanager.cpp:208
 #, fuzzy, kde-format
 #| msgid "Make the next split view the active one."
 msgid "Make the split view intuitively on the right the active one."
 msgstr "Váltás az osztott nézet másik felére."
 
-#: lib/kateviewmanager.cpp:210
+#: lib/kateviewmanager.cpp:211
 #, fuzzy, kde-format
 #| msgid "Split View"
 msgid "Upward Split View"
 msgstr "Nézetfelezés"
 
-#: lib/kateviewmanager.cpp:215
+#: lib/kateviewmanager.cpp:216
 #, fuzzy, kde-format
 #| msgid "Make the next split view the active one."
 msgid "Make the split view intuitively upward the active one."
 msgstr "Váltás az osztott nézet másik felére."
 
-#: lib/kateviewmanager.cpp:218
+#: lib/kateviewmanager.cpp:219
 #, fuzzy, kde-format
 #| msgid "Split View"
 msgid "Downward Split View"
 msgstr "Nézetfelezés"
 
-#: lib/kateviewmanager.cpp:223
+#: lib/kateviewmanager.cpp:224
 #, fuzzy, kde-format
 #| msgid "Make the next split view the active one."
 msgid "Make the split view intuitively downward the active one."
 msgstr "Váltás az osztott nézet másik felére."
 
-#: lib/kateviewmanager.cpp:226
+#: lib/kateviewmanager.cpp:227
 #, kde-format
 msgid "Move Splitter Right"
 msgstr "Elválasztó mozgatása jobbra"
 
-#: lib/kateviewmanager.cpp:229
+#: lib/kateviewmanager.cpp:230
 #, kde-format
 msgid "Move the splitter of the current view to the right"
 msgstr "Az aktuális nézet elválasztójának mozgatása jobbra"
 
-#: lib/kateviewmanager.cpp:232
+#: lib/kateviewmanager.cpp:233
 #, kde-format
 msgid "Move Splitter Left"
 msgstr "Elválasztó mozgatása balra"
 
-#: lib/kateviewmanager.cpp:235
+#: lib/kateviewmanager.cpp:236
 #, kde-format
 msgid "Move the splitter of the current view to the left"
 msgstr "Az aktuális nézet elválasztójának mozgatása balra"
 
-#: lib/kateviewmanager.cpp:238
+#: lib/kateviewmanager.cpp:239
 #, kde-format
 msgid "Move Splitter Up"
 msgstr "Elválasztó mozgatása felfelé"
 
-#: lib/kateviewmanager.cpp:241
+#: lib/kateviewmanager.cpp:242
 #, kde-format
 msgid "Move the splitter of the current view up"
 msgstr "Az aktuális nézet elválasztójának mozgatása felfelé"
 
-#: lib/kateviewmanager.cpp:244
+#: lib/kateviewmanager.cpp:245
 #, kde-format
 msgid "Move Splitter Down"
 msgstr "Elválasztó mozgatása lefelé"
 
-#: lib/kateviewmanager.cpp:247
+#: lib/kateviewmanager.cpp:248
 #, kde-format
 msgid "Move the splitter of the current view down"
 msgstr "Az aktuális nézet elválasztójának mozgatása lefelé"
 
-#: lib/kateviewmanager.cpp:250
+#: lib/kateviewmanager.cpp:251
 #, kde-format
 msgid "Focus Navigation Bar"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:251
+#: lib/kateviewmanager.cpp:252
 #, fuzzy, kde-format
 #| msgid "Focus the next tab."
 msgid "Focus the navigation bar"
 msgstr "Fókusz a következő lapra."
 
-#: lib/kateviewmanager.cpp:258
+#: lib/kateviewmanager.cpp:259
 #, kde-format
 msgid "Welcome Page"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:273
+#: lib/kateviewmanager.cpp:274
 #, kde-format
 msgid "Show the welcome page"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:315 lib/kateviewmanager.cpp:317
+#: lib/kateviewmanager.cpp:316 lib/kateviewmanager.cpp:318
 #, kde-format
 msgid "Open File"
 msgstr "Fájl megnyitása"
 
-#: lib/kateviewmanager.cpp:336
+#: lib/kateviewmanager.cpp:337
 #, kde-format
 msgid ""
 "<p>You are attempting to open one or more large files:</p><ul>%1</ul><p>Do "
@@ -2011,12 +2024,12 @@ msgstr ""
 "folytatni?</p><p><strong>Ügyeljen arra, hogy a Kate néha nem válaszol nagy "
 "fájlok megnyitásakor.</strong></p>"
 
-#: lib/kateviewmanager.cpp:339
+#: lib/kateviewmanager.cpp:346
 #, kde-format
 msgid "Opening Large File"
 msgstr "Nagy fájl megnyitása"
 
-#: lib/kateviewmanager.cpp:1185
+#: lib/kateviewmanager.cpp:1212
 #, kde-format
 msgid "This view may have unsaved work. Do you really want to close it?"
 msgstr "A nézetben nem mentett munkák lehetnek. Biztosan szeretné bezárni?"
@@ -2194,7 +2207,7 @@ msgstr "Megny&itás"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonNewSession)
 #. i18n: ectx: property (text), widget (QPushButton, m_newButton)
-#: lib/session/katesessionmanagedialog.ui:98 lib/welcomeview/welcomeview.ui:309
+#: lib/session/katesessionmanagedialog.ui:98 lib/welcomeview/welcomeview.ui:291
 #, kde-format
 msgid "New Session"
 msgstr "Új munkamenet"
@@ -2229,14 +2242,14 @@ msgstr "Átne&vezés…"
 msgid "Delete"
 msgstr "Törlés"
 
-#: lib/session/katesessionmanager.cpp:105
+#: lib/session/katesessionmanager.cpp:106
 #, kde-format
 msgid ""
 "Internal error: there is more than one instance open for a given session."
 msgstr ""
 "Belső hiba: több mint egy példány van megnyitva egy adott munkamenetből."
 
-#: lib/session/katesessionmanager.cpp:112
+#: lib/session/katesessionmanager.cpp:117
 #, fuzzy, kde-format
 #| msgid ""
 #| "Session '%1' is already opened in another kate instance, change there "
@@ -2248,36 +2261,36 @@ msgstr ""
 "A(z) „%1” munkamenet már meg van nyitva egy másik Kate példányban, átvált "
 "arra az újra megnyitás helyett?"
 
-#: lib/session/katesessionmanager.cpp:114
+#: lib/session/katesessionmanager.cpp:119
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:115
+#: lib/session/katesessionmanager.cpp:120
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:303
+#: lib/session/katesessionmanager.cpp:312
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr ""
 "Nem sikerült átnevezni a munkamenetet erre: „%1”. Nem sikerült írni ezt: "
 "„%2”."
 
-#: lib/session/katesessionmanager.cpp:304
+#: lib/session/katesessionmanager.cpp:313
 #, kde-format
 msgid "Session Renaming"
 msgstr "Munkamenet átnevezése"
 
-#: lib/session/katesessionmanager.cpp:451
+#: lib/session/katesessionmanager.cpp:460
 #, kde-format
 msgid "Session name:"
 msgstr "A munkamenet neve:"
 
-#: lib/session/katesessionmanager.cpp:453
+#: lib/session/katesessionmanager.cpp:462
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2286,17 +2299,17 @@ msgstr ""
 "Már létezik ilyen nevű munkamenet: %1\n"
 "Válasszon egy másik nevet."
 
-#: lib/session/katesessionmanager.cpp:455
+#: lib/session/katesessionmanager.cpp:464
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "Munkamenet mentéséhez meg kell adni egy nevet."
 
-#: lib/session/katesessionmanager.cpp:482
+#: lib/session/katesessionmanager.cpp:491
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "Adja meg a munkamenet nevét"
 
-#: lib/session/katesessionmanager.cpp:484
+#: lib/session/katesessionmanager.cpp:493
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "Adja meg a munkamenet új nevét: %1"
@@ -2446,24 +2459,24 @@ msgstr "A korábbi munkamenetek metaadatainak me&gőrzése"
 msgid "Delete unused meta-information after:"
 msgstr "A már nem szükséges metaadatok törlése ennyi idő után:"
 
-#: lib/welcomeview/welcomeview.cpp:56
+#: lib/welcomeview/welcomeview.cpp:52
 #, kde-format
 msgid "Welcome to %1"
 msgstr ""
 
-#: lib/welcomeview/welcomeview.cpp:61
+#: lib/welcomeview/welcomeview.cpp:57
 #, fuzzy, kde-format
 #| msgid "Close the current document."
 msgid "No recent files"
 msgstr "Az aktuális dokumentum bezárása."
 
-#: lib/welcomeview/welcomeview.cpp:109
+#: lib/welcomeview/welcomeview.cpp:105
 #, fuzzy, kde-format
 #| msgid "&Do not save session"
 msgid "No saved sessions"
 msgstr "Nem kell &elmenteni a munkamenetet"
 
-#: lib/welcomeview/welcomeview.cpp:196
+#: lib/welcomeview/welcomeview.cpp:187
 #, fuzzy, kde-format
 #| msgctxt "The number of open documents"
 #| msgid "Open Documents"
@@ -2471,20 +2484,20 @@ msgid "Recent Documents and Projects"
 msgstr "A megnyitott dokumentumok száma"
 
 #. i18n: ectx: property (text), widget (QLabel, labelRecentItems)
-#: lib/welcomeview/welcomeview.cpp:199 lib/welcomeview/welcomeview.ui:219
+#: lib/welcomeview/welcomeview.cpp:190 lib/welcomeview/welcomeview.ui:206
 #, fuzzy, kde-format
 #| msgctxt "The number of open documents"
 #| msgid "Open Documents"
 msgid "Recent Documents"
 msgstr "A megnyitott dokumentumok száma"
 
-#: lib/welcomeview/welcomeview.cpp:216
+#: lib/welcomeview/welcomeview.cpp:207
 #, fuzzy, kde-format
 #| msgid "Location"
 msgid "Copy &Location"
 msgstr "Hely"
 
-#: lib/welcomeview/welcomeview.cpp:231
+#: lib/welcomeview/welcomeview.cpp:222
 #, fuzzy, kde-format
 #| msgid "&Remove"
 msgid "&Remove"
@@ -2497,48 +2510,48 @@ msgid "Welcome"
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonNewFile)
-#: lib/welcomeview/welcomeview.ui:200
+#: lib/welcomeview/welcomeview.ui:192
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgid "New File"
 msgstr "Fájl megnyitása"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonOpenFolder)
-#: lib/welcomeview/welcomeview.ui:207
+#: lib/welcomeview/welcomeview.ui:199
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgid "Open Folder..."
 msgstr "Fájl megnyitása"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonOpenFile)
-#: lib/welcomeview/welcomeview.ui:226
+#: lib/welcomeview/welcomeview.ui:213
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgid "Open File..."
 msgstr "Fájl megnyitása"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, buttonClearRecentFiles)
-#: lib/welcomeview/welcomeview.ui:265
+#: lib/welcomeview/welcomeview.ui:252
 #, kde-format
 msgid "Clear Recent Files"
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, labelSavedSessions)
-#: lib/welcomeview/welcomeview.ui:302
+#: lib/welcomeview/welcomeview.ui:284
 #, fuzzy, kde-format
 #| msgid "&Save Session"
 msgid "Saved Sessions"
 msgstr "Munkamenet menté&se"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonManageSessions)
-#: lib/welcomeview/welcomeview.ui:335
+#: lib/welcomeview/welcomeview.ui:317
 #, fuzzy, kde-format
 #| msgid "&Manage Sessions..."
 msgid "Manage Sessions..."
 msgstr "&Munkamenetkezelő…"
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
-#: lib/welcomeview/welcomeview.ui:386
+#: lib/welcomeview/welcomeview.ui:368
 #, fuzzy, kde-format
 #| msgid "Create a new document"
 msgid "Show for new window"
@@ -3692,9 +3705,6 @@ msgstr "Új dokumentum létrehozása"
 
 #~ msgid "&Open..."
 #~ msgstr "Megny&itás..."
-
-#~ msgid "&Save"
-#~ msgstr "Men&tés"
 
 #~ msgid "Save &As..."
 #~ msgstr "Mentés más&ként..."

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-15 00:50+0000\n"
+"POT-Creation-Date: 2022-10-16 00:50+0000\n"
 "PO-Revision-Date: 2012-12-27 17:53+0200\n"
 "Last-Translator: Maris Nartiss <maris.kde@gmail.com>\n"
 "Language-Team: Latvian\n"
@@ -248,8 +248,14 @@ msgstr "&Palīdzība"
 msgid "Main Toolbar"
 msgstr "Galvenā rīkjosla"
 
+#. i18n: ectx: ToolBar (hamburgerBar)
+#: lib/data/kateui.rc:155
+#, kde-format
+msgid "Hamburger Menu Toolbar"
+msgstr ""
+
 #. i18n: ectx: Menu (viewspace_popup_statusbar)
-#: lib/data/kateui.rc:172
+#: lib/data/kateui.rc:173
 #, kde-format
 msgid "&Status Bar Items"
 msgstr "&Statusa joslas vienumi"
@@ -259,18 +265,18 @@ msgstr "&Statusa joslas vienumi"
 msgid "Change Style"
 msgstr ""
 
-#: lib/diff/diffeditor.cpp:180 lib/kateconfigdialog.cpp:291
+#: lib/diff/diffeditor.cpp:180 lib/kateconfigdialog.cpp:294
 #, kde-format
 msgid "Side By Side"
 msgstr ""
 
-#: lib/diff/diffeditor.cpp:183 lib/kateconfigdialog.cpp:292
+#: lib/diff/diffeditor.cpp:183 lib/kateconfigdialog.cpp:295
 #, fuzzy, kde-format
 #| msgid "Modified"
 msgid "Unified"
 msgstr "Mainīts"
 
-#: lib/diff/diffeditor.cpp:186 lib/kateconfigdialog.cpp:293
+#: lib/diff/diffeditor.cpp:186 lib/kateconfigdialog.cpp:296
 #, kde-format
 msgid "Raw"
 msgstr ""
@@ -342,7 +348,8 @@ msgid "Jump to Previous Hunk"
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
-#: lib/filehistorywidget.cpp:258 lib/session/katesessionmanagedialog.ui:184
+#: lib/filehistorywidget.cpp:258 lib/kateconfigdialog.cpp:86
+#: lib/session/katesessionmanagedialog.ui:184
 #, kde-format
 msgid "Close"
 msgstr "Aizvērt"
@@ -357,7 +364,7 @@ msgstr ""
 msgid "Failed to get file history: %1"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:346 lib/kateconfigdialog.cpp:125
+#: lib/filehistorywidget.cpp:346 lib/kateconfigdialog.cpp:128
 #, kde-format
 msgid "Error"
 msgstr ""
@@ -707,69 +714,75 @@ msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
 msgstr "Neizdevās atvērt datni “%1” — tā nav parasta datne, bet gan mape."
 
-#: lib/kateconfigdialog.cpp:51
+#: lib/kateconfigdialog.cpp:52
 #, kde-format
 msgid "Configure"
 msgstr "Konfigurēt"
 
-#: lib/kateconfigdialog.cpp:103
+#: lib/kateconfigdialog.cpp:87
+#, fuzzy, kde-format
+#| msgid "Save As"
+msgid "Save"
+msgstr "Saglabāt kā"
+
+#: lib/kateconfigdialog.cpp:106
 #, kde-format
 msgid "Behavior"
 msgstr "Izturēšanās"
 
-#: lib/kateconfigdialog.cpp:104
+#: lib/kateconfigdialog.cpp:107
 #, fuzzy, kde-format
 #| msgid "Behavior"
 msgid "Behavior Options"
 msgstr "Izturēšanās"
 
-#: lib/kateconfigdialog.cpp:111
+#: lib/kateconfigdialog.cpp:114
 #, kde-format
 msgid "&Behavior"
 msgstr "&Izturēšanās"
 
-#: lib/kateconfigdialog.cpp:120
+#: lib/kateconfigdialog.cpp:123
 #, kde-format
 msgid "&Switch to output view upon message type:"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:125
+#: lib/kateconfigdialog.cpp:128
 #, fuzzy, kde-format
 #| msgid "(never)"
 msgid "Never"
 msgstr "(nekad)"
 
-#: lib/kateconfigdialog.cpp:125 lib/kateconfigdialog.cpp:623
+#: lib/kateconfigdialog.cpp:128 lib/kateconfigdialog.cpp:632
 #, kde-format
 msgid "Warning"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:125
+#: lib/kateconfigdialog.cpp:128
 #, kde-format
 msgid "Info"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:125
+#: lib/kateconfigdialog.cpp:128
 #, kde-format
 msgid "Log"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:131
+#: lib/kateconfigdialog.cpp:134
 #, kde-format
 msgid "&Limit output view history:"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:137 lib/kateconfigdialog.cpp:203
+#: lib/kateconfigdialog.cpp:140 lib/kateconfigdialog.cpp:206
 #, kde-format
 msgid "Unlimited"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:144
+#: lib/kateconfigdialog.cpp:147
 #, kde-format
 msgid "Use a separate &dialog for handling externally modified files"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:148
+#: lib/kateconfigdialog.cpp:151
 #, fuzzy, kde-format
 #| msgid ""
 #| "If enabled, when Kate receives focus you will be asked what to do with "
@@ -785,18 +798,18 @@ msgstr ""
 "izmainītas uz cietā diska. Ja deaktivēts, vaicāts tiks tikai tad, kad datni "
 "mēģinās saglabāt."
 
-#: lib/kateconfigdialog.cpp:157
+#: lib/kateconfigdialog.cpp:160
 #, fuzzy, kde-format
 #| msgid "Top Sidebar"
 msgid "&Sidebars"
 msgstr "Augšas sānu josla"
 
-#: lib/kateconfigdialog.cpp:160
+#: lib/kateconfigdialog.cpp:163
 #, kde-format
 msgid "Sync section size with tab positions"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:164
+#: lib/kateconfigdialog.cpp:167
 #, kde-format
 msgid ""
 "When enabled the section size will be determined by the position of the "
@@ -804,173 +817,173 @@ msgid ""
 "This option does not affect the bottom sidebar."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:169
+#: lib/kateconfigdialog.cpp:172
 #, kde-format
 msgid "Show text for left and right sidebar buttons"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:174
+#: lib/kateconfigdialog.cpp:177
 #, kde-format
 msgid "Icon size for left and right sidebar buttons"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:193
+#: lib/kateconfigdialog.cpp:196
 #, fuzzy, kde-format
 #| msgid "Show Side&bars"
 msgid "&Tabs"
 msgstr "Rādīt sānu &joslas"
 
-#: lib/kateconfigdialog.cpp:197
+#: lib/kateconfigdialog.cpp:200
 #, kde-format
 msgid "&Limit number of tabs:"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:208
+#: lib/kateconfigdialog.cpp:211
 #, kde-format
 msgid ""
 "A high limit can increase the window size, please enable 'Allow tab "
 "scrolling' to prevent it. Unlimited tabs are always scrollable."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:212
+#: lib/kateconfigdialog.cpp:215
 #, kde-format
 msgid "&Auto hide tabs"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:214
+#: lib/kateconfigdialog.cpp:217
 #, kde-format
 msgid "When checked tabs will be hidden if only one document is open."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:218
+#: lib/kateconfigdialog.cpp:221
 #, kde-format
 msgid "&Show close button"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:220
+#: lib/kateconfigdialog.cpp:223
 #, kde-format
 msgid "When checked each tab will display a close button."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:224
+#: lib/kateconfigdialog.cpp:227
 #, kde-format
 msgid "&Expand tabs"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:226
+#: lib/kateconfigdialog.cpp:229
 #, kde-format
 msgid "When checked tabs take as much size as possible."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:230
+#: lib/kateconfigdialog.cpp:233
 #, fuzzy, kde-format
 #| msgid "Create a new document"
 msgid "&Double click opens a new document"
 msgstr "Izveidot jaunu dokumentu"
 
-#: lib/kateconfigdialog.cpp:232
+#: lib/kateconfigdialog.cpp:235
 #, kde-format
 msgid "When checked double click opens a new document."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:236
+#: lib/kateconfigdialog.cpp:239
 #, fuzzy, kde-format
 #| msgid "Close all documents"
 msgid "&Middle click closes a document"
 msgstr "Aizvērt visus dokumentus"
 
-#: lib/kateconfigdialog.cpp:238
+#: lib/kateconfigdialog.cpp:241
 #, kde-format
 msgid "When checked middle click closes a document."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:242
+#: lib/kateconfigdialog.cpp:245
 #, kde-format
 msgid "Allow tab scrolling"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:244
+#: lib/kateconfigdialog.cpp:247
 #, kde-format
 msgid ""
 "When checked this will allow scrolling in tab bar when number of tabs is "
 "large."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:248
+#: lib/kateconfigdialog.cpp:251
 #, kde-format
 msgid "Elide tab text"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:250
+#: lib/kateconfigdialog.cpp:253
 #, kde-format
 msgid "When checked tab text might be elided if its too long."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:256
+#: lib/kateconfigdialog.cpp:259
 #, kde-format
 msgid "&Mouse"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:261
+#: lib/kateconfigdialog.cpp:264
 #, kde-format
 msgid "&Backward button pressed:"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:266
+#: lib/kateconfigdialog.cpp:269
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "Previous tab"
 msgstr "Aizvērt dokumentu"
 
-#: lib/kateconfigdialog.cpp:266
+#: lib/kateconfigdialog.cpp:269
 #, kde-format
 msgid "History back"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:272
+#: lib/kateconfigdialog.cpp:275
 #, kde-format
 msgid "&Forward button pressed:"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:277
+#: lib/kateconfigdialog.cpp:280
 #, kde-format
 msgid "Next tab"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:277
+#: lib/kateconfigdialog.cpp:280
 #, kde-format
 msgid "History forward"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:285
+#: lib/kateconfigdialog.cpp:288
 #, kde-format
 msgid "Diff"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:294
+#: lib/kateconfigdialog.cpp:297
 #, kde-format
 msgid "Diff Style:"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:308
+#: lib/kateconfigdialog.cpp:311
 #, fuzzy, kde-format
 #| msgid "Sessions"
 msgid "Session"
 msgstr "Sesijas"
 
-#: lib/kateconfigdialog.cpp:309
+#: lib/kateconfigdialog.cpp:312
 #, kde-format
 msgid "Session Management"
 msgstr "Sesiju pārvaldība"
 
-#: lib/kateconfigdialog.cpp:320
+#: lib/kateconfigdialog.cpp:323
 #, fuzzy, kde-format
 #| msgid "(never)"
 msgctxt "The special case of 'Delete unused meta-information after'"
 msgid "(never)"
 msgstr "(nekad)"
 
-#: lib/kateconfigdialog.cpp:321
+#: lib/kateconfigdialog.cpp:324
 #, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid " day"
@@ -979,22 +992,22 @@ msgstr[0] " dienas"
 msgstr[1] " dienām"
 msgstr[2] " dienām"
 
-#: lib/kateconfigdialog.cpp:384
+#: lib/kateconfigdialog.cpp:387
 #, kde-format
 msgid "Plugins"
 msgstr "Spraudņi"
 
-#: lib/kateconfigdialog.cpp:385
+#: lib/kateconfigdialog.cpp:388
 #, kde-format
 msgid "Plugin Manager"
 msgstr "Spraudņu pārvaldnieks"
 
-#: lib/kateconfigdialog.cpp:403 lib/kateconfigdialog.cpp:404
+#: lib/kateconfigdialog.cpp:406 lib/kateconfigdialog.cpp:407
 #, kde-format
 msgid "User Feedback"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:622
+#: lib/kateconfigdialog.cpp:631
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>The document '%1' has been modified, but not saved.</p><p>Do you want "
@@ -1025,7 +1038,7 @@ msgstr ""
 "Šeit ir redzami visi pieejami Kate spraudņi. Atzīmētie ir ielādēti un tiks "
 "ielādēti arī nākamajā Kate palaišanas reizē."
 
-#: lib/katedocmanager.cpp:264
+#: lib/katedocmanager.cpp:269
 #, kde-format
 msgid ""
 "<p>The document '%1' has been modified, but not saved.</p><p>Do you want to "
@@ -1034,32 +1047,32 @@ msgstr ""
 "<p>Dokuments “%1” ir mainīts, bet nav saglabāts.</p><p>Vai vēlaties saglabāt "
 "izmaiņas vai tās atmest?</p>"
 
-#: lib/katedocmanager.cpp:267
+#: lib/katedocmanager.cpp:272
 #, kde-format
 msgid "Close Document"
 msgstr "Aizvērt dokumentu"
 
-#: lib/katedocmanager.cpp:276
+#: lib/katedocmanager.cpp:285
 #, kde-format
 msgid "Save As"
 msgstr "Saglabāt kā"
 
-#: lib/katedocmanager.cpp:294 lib/katemainwindow.cpp:594
+#: lib/katedocmanager.cpp:303 lib/katemainwindow.cpp:595
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr "Aizverot Kate, tika atvērta jauna datne, aizvēršana pārtraukta."
 
-#: lib/katedocmanager.cpp:294 lib/katemainwindow.cpp:594
+#: lib/katedocmanager.cpp:303 lib/katemainwindow.cpp:595
 #, kde-format
 msgid "Closing Aborted"
 msgstr "Aizvēršana pārtraukta"
 
-#: lib/katedocmanager.cpp:372
+#: lib/katedocmanager.cpp:381
 #, kde-format
 msgid "Starting Up"
 msgstr "Sagatavojas darbam"
 
-#: lib/katedocmanager.cpp:373
+#: lib/katedocmanager.cpp:382
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "Atver pēdējās sesijas datnes..."
@@ -1096,189 +1109,189 @@ msgstr "Dzēst datni?"
 msgid "File \"%1\" could not be deleted."
 msgstr ""
 
-#: lib/katemainwindow.cpp:213
+#: lib/katemainwindow.cpp:214
 #, kde-format
 msgid "Use this command to show or hide the view's statusbar"
 msgstr "Izmantojiet šo komandu, lai parādītu un noslēptu statusa joslu"
 
-#: lib/katemainwindow.cpp:216
+#: lib/katemainwindow.cpp:217
 #, fuzzy, kde-format
 #| msgid "Show Side&bars"
 msgid "Show &Tabs"
 msgstr "Rādīt sānu &joslas"
 
-#: lib/katemainwindow.cpp:219
+#: lib/katemainwindow.cpp:220
 #, fuzzy, kde-format
 #| msgid "Use this command to show or hide the view's statusbar"
 msgid "Use this command to show or hide the tabs for the views"
 msgstr "Izmantojiet šo komandu, lai parādītu un noslēptu statusa joslu"
 
-#: lib/katemainwindow.cpp:221
+#: lib/katemainwindow.cpp:222
 #, fuzzy, kde-format
 #| msgid "Sho&w Path"
 msgid "Sho&w Path in Titlebar"
 msgstr "Rādī&t ceļu"
 
-#: lib/katemainwindow.cpp:224
+#: lib/katemainwindow.cpp:225
 #, kde-format
 msgid "Show the complete document path in the window caption"
 msgstr "Rādīt pilnu dokumenta ceļu loga nosaukumā"
 
-#: lib/katemainwindow.cpp:226
+#: lib/katemainwindow.cpp:227
 #, kde-format
 msgid "Show Navigation Bar"
 msgstr ""
 
-#: lib/katemainwindow.cpp:236
+#: lib/katemainwindow.cpp:237
 #, kde-format
 msgid "&Window Color Scheme"
 msgstr ""
 
-#: lib/katemainwindow.cpp:240
+#: lib/katemainwindow.cpp:241
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "&Previous Tab"
 msgstr "Aizvērt dokumentu"
 
-#: lib/katemainwindow.cpp:241
+#: lib/katemainwindow.cpp:242
 #, kde-format
 msgid "Focus the previous tab."
 msgstr ""
 
-#: lib/katemainwindow.cpp:246
+#: lib/katemainwindow.cpp:247
 #, kde-format
 msgid "&Next Tab"
 msgstr ""
 
-#: lib/katemainwindow.cpp:247
+#: lib/katemainwindow.cpp:248
 #, kde-format
 msgid "Focus the next tab."
 msgstr ""
 
-#: lib/katemainwindow.cpp:254
+#: lib/katemainwindow.cpp:255
 #, kde-format
 msgid "&Quick Open"
 msgstr "Ātrā a&tvēršana"
 
-#: lib/katemainwindow.cpp:257
+#: lib/katemainwindow.cpp:258
 #, kde-format
 msgid "Open a form to quick open documents."
 msgstr "Atver formu ātrai dokumentu atvēršanai."
 
-#: lib/katemainwindow.cpp:283
+#: lib/katemainwindow.cpp:284
 #, fuzzy, kde-format
 #| msgid "Diff Output"
 msgid "Output"
 msgstr "Diff izvade"
 
-#: lib/katemainwindow.cpp:293
+#: lib/katemainwindow.cpp:294
 #, kde-format
 msgid "Create a new document"
 msgstr "Izveidot jaunu dokumentu"
 
-#: lib/katemainwindow.cpp:296
+#: lib/katemainwindow.cpp:297
 #, kde-format
 msgid "Open an existing document for editing"
 msgstr "Atvērt jau eksistējošu dokumentu rediģēšanai"
 
-#: lib/katemainwindow.cpp:306
+#: lib/katemainwindow.cpp:307
 #, kde-format
 msgid ""
 "This lists files which you have opened recently, and allows you to easily "
 "open them again."
 msgstr "Tas rāda nesen atvērtās datnes un ļauj jums viegli tās atkal atvērt."
 
-#: lib/katemainwindow.cpp:310
+#: lib/katemainwindow.cpp:311
 #, kde-format
 msgid "Save A&ll"
 msgstr "Sag&labāt visu"
 
-#: lib/katemainwindow.cpp:313
+#: lib/katemainwindow.cpp:314
 #, kde-format
 msgid "Save all open, modified documents to disk."
 msgstr "Saglabāt visus atvērtos un izmainītos dokumentus diskā."
 
-#: lib/katemainwindow.cpp:316
+#: lib/katemainwindow.cpp:317
 #, kde-format
 msgid "&Reload All"
 msgstr "Pā&rlādēt visu"
 
-#: lib/katemainwindow.cpp:318
+#: lib/katemainwindow.cpp:319
 #, kde-format
 msgid "Reload all open documents."
 msgstr "Pārlādē visus atvērtos dokumentus."
 
-#: lib/katemainwindow.cpp:322
+#: lib/katemainwindow.cpp:323
 #, fuzzy, kde-format
 #| msgid "Location"
 msgid "Copy Location"
 msgstr "Atrašanās vieta"
 
-#: lib/katemainwindow.cpp:327 lib/katemainwindow.cpp:336
+#: lib/katemainwindow.cpp:328 lib/katemainwindow.cpp:337
 #, fuzzy, kde-format
 #| msgid "Move the splitter of the current view up"
 msgid "Copies the file path of the current file to clipboard."
 msgstr "Pārvietot pašreizējā skata sadalītāju augšup"
 
-#: lib/katemainwindow.cpp:331 lib/welcomeview/welcomeview.cpp:223
+#: lib/katemainwindow.cpp:332 lib/welcomeview/welcomeview.cpp:214
 #, fuzzy, kde-format
 #| msgid "Opening Order"
 msgid "&Open Containing Folder"
 msgstr "Atvēršanas kārtība"
 
-#: lib/katemainwindow.cpp:340
+#: lib/katemainwindow.cpp:341
 #, fuzzy, kde-format
 #| msgid "&Rename..."
 msgctxt "@action:inmenu"
 msgid "Rename..."
 msgstr "Pā&rdēvēt..."
 
-#: lib/katemainwindow.cpp:345
+#: lib/katemainwindow.cpp:346
 #, fuzzy, kde-format
 #| msgid "Close the current document."
 msgid "Renames the file belonging to the current document."
 msgstr "Aizvērt pašreizējo dokumentu."
 
-#: lib/katemainwindow.cpp:349
+#: lib/katemainwindow.cpp:350
 #, fuzzy, kde-format
 #| msgid "Deleted"
 msgctxt "@action:inmenu"
 msgid "Delete"
 msgstr "Dzēsts"
 
-#: lib/katemainwindow.cpp:354 lib/katemainwindow.cpp:363
+#: lib/katemainwindow.cpp:355 lib/katemainwindow.cpp:364
 #, fuzzy, kde-format
 #| msgid "Close the current document."
 msgid "Deletes the file belonging to the current document."
 msgstr "Aizvērt pašreizējo dokumentu."
 
-#: lib/katemainwindow.cpp:358
+#: lib/katemainwindow.cpp:359
 #, kde-format
 msgid "Properties"
 msgstr ""
 
-#: lib/katemainwindow.cpp:366 lib/katemainwindow.cpp:368
+#: lib/katemainwindow.cpp:367 lib/katemainwindow.cpp:369
 #, kde-format
 msgid "Compare"
 msgstr ""
 
-#: lib/katemainwindow.cpp:368
+#: lib/katemainwindow.cpp:369
 #, kde-format
 msgid "Use the Tabbar context menu to compare two documents"
 msgstr ""
 
-#: lib/katemainwindow.cpp:370
+#: lib/katemainwindow.cpp:371
 #, fuzzy, kde-format
 #| msgid "Open a form to quick open documents."
 msgid "Shows a hint how to compare documents."
 msgstr "Atver formu ātrai dokumentu atvēršanai."
 
-#: lib/katemainwindow.cpp:373
+#: lib/katemainwindow.cpp:374
 #, kde-format
 msgid "Close Orphaned"
 msgstr "Aizvērt bāreņus"
 
-#: lib/katemainwindow.cpp:375
+#: lib/katemainwindow.cpp:376
 #, kde-format
 msgid ""
 "Close all documents in the file list that could not be reopened, because "
@@ -1287,54 +1300,54 @@ msgstr ""
 "Aizvērt visus dokumentus datņu sarakstā, kurus nevar atvērt, jo tie vairs "
 "nav pieejami."
 
-#: lib/katemainwindow.cpp:379
+#: lib/katemainwindow.cpp:380
 #, kde-format
 msgid "Close the current document."
 msgstr "Aizvērt pašreizējo dokumentu."
 
-#: lib/katemainwindow.cpp:382
+#: lib/katemainwindow.cpp:383
 #, kde-format
 msgid "Close Other"
 msgstr "Aizvērt citu"
 
-#: lib/katemainwindow.cpp:384
+#: lib/katemainwindow.cpp:385
 #, kde-format
 msgid "Close other open documents."
 msgstr "Aizver pārējos atvērtos dokumentus."
 
-#: lib/katemainwindow.cpp:387
+#: lib/katemainwindow.cpp:388
 #, kde-format
 msgid "Clos&e All"
 msgstr "Aizvē&rt visu"
 
-#: lib/katemainwindow.cpp:389
+#: lib/katemainwindow.cpp:390
 #, kde-format
 msgid "Close all open documents."
 msgstr "Aizver visus atvērtos dokumentus."
 
-#: lib/katemainwindow.cpp:394
+#: lib/katemainwindow.cpp:395
 #, kde-format
 msgid "Close this window"
 msgstr "Aizvērt šo logu"
 
-#: lib/katemainwindow.cpp:398
+#: lib/katemainwindow.cpp:399
 #, fuzzy, kde-format
 #| msgid "&New Window"
 msgid "&New Window"
 msgstr "Jau&ns logs"
 
-#: lib/katemainwindow.cpp:400
+#: lib/katemainwindow.cpp:401
 #, fuzzy, kde-format
 #| msgid "Create a new document"
 msgid "Create a new window."
 msgstr "Izveidot jaunu dokumentu"
 
-#: lib/katemainwindow.cpp:407
+#: lib/katemainwindow.cpp:408
 #, kde-format
 msgid "Open W&ith"
 msgstr "At&vērt ar"
 
-#: lib/katemainwindow.cpp:409
+#: lib/katemainwindow.cpp:410
 #, kde-format
 msgid ""
 "Open the current document using another application registered for its file "
@@ -1343,97 +1356,97 @@ msgstr ""
 "Atvērt aktīvo dokumentu ar programmu, kas piesaistīta tā datņu tipam, vai "
 "jebkuru programmu."
 
-#: lib/katemainwindow.cpp:417
+#: lib/katemainwindow.cpp:418
 #, kde-format
 msgid "Configure the application's keyboard shortcut assignments."
 msgstr "Konfigurēt šīs lietotnes īsceļu taustiņu kombinācijas."
 
-#: lib/katemainwindow.cpp:420
+#: lib/katemainwindow.cpp:421
 #, kde-format
 msgid "Configure which items should appear in the toolbar(s)."
 msgstr "Konfigurēt, kam jāparādās rīku joslā(s)."
 
-#: lib/katemainwindow.cpp:423
+#: lib/katemainwindow.cpp:424
 #, kde-format
 msgid ""
 "Configure various aspects of this application and the editing component."
 msgstr "Konfigurēt dažādas šīs lietotnes un rediģēšanas īpašības."
 
-#: lib/katemainwindow.cpp:427
+#: lib/katemainwindow.cpp:428
 #, kde-format
 msgid "&Plugins Handbook"
 msgstr "S&praudņu rokasgrāmata"
 
-#: lib/katemainwindow.cpp:429
+#: lib/katemainwindow.cpp:430
 #, kde-format
 msgid "This shows help files for various available plugins."
 msgstr "Tas parāda pieejamo spraudņu palīdzības datnes."
 
-#: lib/katemainwindow.cpp:446
+#: lib/katemainwindow.cpp:447
 #, kde-format
 msgid "Sess&ions"
 msgstr "Ses&ijas"
 
-#: lib/katemainwindow.cpp:452
+#: lib/katemainwindow.cpp:453
 #, fuzzy, kde-format
 #| msgid "New Session"
 msgctxt "Menu entry Session->New Session"
 msgid "&New Session"
 msgstr "Jauna sesija"
 
-#: lib/katemainwindow.cpp:457
+#: lib/katemainwindow.cpp:458
 #, fuzzy, kde-format
 #| msgid "&Open Session"
 msgid "&Recent Sessions"
 msgstr "At&vērt sesiju"
 
-#: lib/katemainwindow.cpp:462
+#: lib/katemainwindow.cpp:463
 #, fuzzy, kde-format
 #| msgid "Sess&ions"
 msgid "&All Sessions"
 msgstr "Ses&ijas"
 
-#: lib/katemainwindow.cpp:469
+#: lib/katemainwindow.cpp:470
 #, kde-format
 msgid "&Manage Sessions..."
 msgstr "Pā&rvaldīt sesijas..."
 
-#: lib/katemainwindow.cpp:478
+#: lib/katemainwindow.cpp:479
 #, kde-format
 msgid "&Save Session"
 msgstr "&Saglabāt sesiju"
 
-#: lib/katemainwindow.cpp:484
+#: lib/katemainwindow.cpp:485
 #, kde-format
 msgid "Save Session &As..."
 msgstr "S&aglabāt sesiju kā..."
 
-#: lib/katemainwindow.cpp:491 lib/kateviewspace.cpp:58
+#: lib/katemainwindow.cpp:492 lib/kateviewspace.cpp:58
 #, kde-format
 msgid "Go to Previous Location"
 msgstr ""
 
-#: lib/katemainwindow.cpp:499 lib/kateviewspace.cpp:71
+#: lib/katemainwindow.cpp:500 lib/kateviewspace.cpp:71
 #, kde-format
 msgid "Go to Next Location"
 msgstr ""
 
-#: lib/katemainwindow.cpp:506
+#: lib/katemainwindow.cpp:507
 #, kde-format
 msgid "Show File Git History"
 msgstr ""
 
-#: lib/katemainwindow.cpp:521
+#: lib/katemainwindow.cpp:522
 #, kde-format
 msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr "Tas aizvērs visus atvērtos dokumentus. Vai tiešām vēlaties turpināt?"
 
-#: lib/katemainwindow.cpp:522
+#: lib/katemainwindow.cpp:523
 #, kde-format
 msgid "Close all documents"
 msgstr "Aizvērt visus dokumentus"
 
-#: lib/katemainwindow.cpp:537
+#: lib/katemainwindow.cpp:538
 #, fuzzy, kde-format
 #| msgid ""
 #| "This will close all open documents. Are you sure you want to continue?"
@@ -1442,59 +1455,59 @@ msgid ""
 "want to continue?"
 msgstr "Tas aizvērs visus atvērtos dokumentus. Vai tiešām vēlaties turpināt?"
 
-#: lib/katemainwindow.cpp:538
+#: lib/katemainwindow.cpp:539
 #, fuzzy, kde-format
 #| msgid "Close all documents"
 msgid "Close all documents beside current one"
 msgstr "Aizvērt visus dokumentus"
 
-#: lib/katemainwindow.cpp:738
+#: lib/katemainwindow.cpp:739
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
 msgstr ""
 
-#: lib/katemainwindow.cpp:741
+#: lib/katemainwindow.cpp:742
 #, kde-format
 msgid "Hide menu bar"
 msgstr ""
 
-#: lib/katemainwindow.cpp:841
+#: lib/katemainwindow.cpp:846
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
 "contained in it?"
 msgstr ""
 
-#: lib/katemainwindow.cpp:844
+#: lib/katemainwindow.cpp:849
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr ""
 
-#: lib/katemainwindow.cpp:845
+#: lib/katemainwindow.cpp:850
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Atvērt datni"
 
-#: lib/katemainwindow.cpp:970
+#: lib/katemainwindow.cpp:990
 #, kde-format
 msgid "&Other..."
 msgstr "&Cits..."
 
-#: lib/katemainwindow.cpp:1095
+#: lib/katemainwindow.cpp:1115
 #, kde-format
 msgid " [read only]"
 msgstr " [tikai lasāms]"
 
-#: lib/katemainwindow.cpp:1342
+#: lib/katemainwindow.cpp:1362
 #, kde-format
 msgid "Diff %1"
 msgstr ""
 
-#: lib/katemainwindow.cpp:1344
+#: lib/katemainwindow.cpp:1364
 #, kde-format
 msgid "Diff %1..%2"
 msgstr ""
@@ -1726,42 +1739,42 @@ msgstr "Bez atstarpju atšķirībām, datņu saturs ir identisks."
 msgid "Diff Output"
 msgstr "Diff izvade"
 
-#: lib/kateoutputview.cpp:95
+#: lib/kateoutputview.cpp:96
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy to Clipboard"
 msgstr ""
 
-#: lib/kateoutputview.cpp:246
+#: lib/kateoutputview.cpp:247
 #, fuzzy, kde-format
 #| msgid "Filter:"
 msgid "Filter..."
 msgstr "Filtrs:"
 
-#: lib/kateoutputview.cpp:259
+#: lib/kateoutputview.cpp:260
 #, kde-format
 msgid "Clear all messages"
 msgstr ""
 
-#: lib/kateoutputview.cpp:354
+#: lib/kateoutputview.cpp:355
 #, kde-format
 msgctxt "@info"
 msgid "Error"
 msgstr ""
 
-#: lib/kateoutputview.cpp:359
+#: lib/kateoutputview.cpp:360
 #, kde-format
 msgctxt "@info"
 msgid "Warning"
 msgstr ""
 
-#: lib/kateoutputview.cpp:364
+#: lib/kateoutputview.cpp:365
 #, kde-format
 msgctxt "@info"
 msgid "Info"
 msgstr ""
 
-#: lib/kateoutputview.cpp:370
+#: lib/kateoutputview.cpp:371
 #, kde-format
 msgctxt "@info"
 msgid "Log"
@@ -1813,32 +1826,32 @@ msgstr "Neizdevās saglabāt pieprasītos datus. Lūdzu, izvēlieties, kā turpi
 msgid "Untitled"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:116
+#: lib/kateviewmanager.cpp:117
 #, kde-format
 msgid "Split Ve&rtical"
 msgstr "Sadalīt pa &vertikāli"
 
-#: lib/kateviewmanager.cpp:120
+#: lib/kateviewmanager.cpp:121
 #, kde-format
 msgid "Split the currently active view vertically into two views."
 msgstr "Sadala aktīvo skatu pa vertikāli divos skatos."
 
-#: lib/kateviewmanager.cpp:124
+#: lib/kateviewmanager.cpp:125
 #, kde-format
 msgid "Split &Horizontal"
 msgstr "Sadalīt pa &horizontāli"
 
-#: lib/kateviewmanager.cpp:128
+#: lib/kateviewmanager.cpp:129
 #, kde-format
 msgid "Split the currently active view horizontally into two views."
 msgstr "Sadala aktīvo skatu pa horizontāli divos skatos."
 
-#: lib/kateviewmanager.cpp:132
+#: lib/kateviewmanager.cpp:133
 #, kde-format
 msgid "Move Document to New Vertical Split"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:136
+#: lib/kateviewmanager.cpp:137
 #, fuzzy, kde-format
 #| msgid "Split the currently active view vertically into two views."
 msgid ""
@@ -1846,12 +1859,12 @@ msgid ""
 "currently active document to right view."
 msgstr "Sadala aktīvo skatu pa vertikāli divos skatos."
 
-#: lib/kateviewmanager.cpp:141
+#: lib/kateviewmanager.cpp:142
 #, kde-format
 msgid "Move Document to New Horizontal Split"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:145
+#: lib/kateviewmanager.cpp:146
 #, fuzzy, kde-format
 #| msgid "Split the currently active view horizontally into two views."
 msgid ""
@@ -1859,185 +1872,185 @@ msgid ""
 "currently active document to view below."
 msgstr "Sadala aktīvo skatu pa horizontāli divos skatos."
 
-#: lib/kateviewmanager.cpp:150
+#: lib/kateviewmanager.cpp:151
 #, kde-format
 msgid "Cl&ose Current View"
 msgstr "Aizvērt aktīv&o skatu"
 
-#: lib/kateviewmanager.cpp:154
+#: lib/kateviewmanager.cpp:155
 #, kde-format
 msgid "Close the currently active split view"
 msgstr "Aizvērt pašreiz aktīvo dalīto skatu"
 
-#: lib/kateviewmanager.cpp:158
+#: lib/kateviewmanager.cpp:159
 #, fuzzy, kde-format
 #| msgid "Cl&ose Current View"
 msgid "Close Inactive Views"
 msgstr "Aizvērt aktīv&o skatu"
 
-#: lib/kateviewmanager.cpp:161
+#: lib/kateviewmanager.cpp:162
 #, fuzzy, kde-format
 #| msgid "Make the next split view the active one."
 msgid "Close every view but the active one"
 msgstr "Padara nākamo dalīto skatu par aktīvo."
 
-#: lib/kateviewmanager.cpp:165
+#: lib/kateviewmanager.cpp:166
 #, fuzzy, kde-format
 #| msgid "Cl&ose Current View"
 msgid "Hide Inactive Views"
 msgstr "Aizvērt aktīv&o skatu"
 
-#: lib/kateviewmanager.cpp:169
+#: lib/kateviewmanager.cpp:170
 #, fuzzy, kde-format
 #| msgid "Make the next split view the active one."
 msgid "Hide every view but the active one"
 msgstr "Padara nākamo dalīto skatu par aktīvo."
 
-#: lib/kateviewmanager.cpp:172
+#: lib/kateviewmanager.cpp:173
 #, kde-format
 msgid "Toggle Orientation"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:175
+#: lib/kateviewmanager.cpp:176
 #, fuzzy, kde-format
 #| msgid "Move the splitter of the current view up"
 msgid "Toggles the orientation of the current split view"
 msgstr "Pārvietot pašreizējā skata sadalītāju augšup"
 
-#: lib/kateviewmanager.cpp:178
+#: lib/kateviewmanager.cpp:179
 #, kde-format
 msgid "Next Split View"
 msgstr "Nākamais sadalītais skats"
 
-#: lib/kateviewmanager.cpp:183
+#: lib/kateviewmanager.cpp:184
 #, kde-format
 msgid "Make the next split view the active one."
 msgstr "Padara nākamo dalīto skatu par aktīvo."
 
-#: lib/kateviewmanager.cpp:186
+#: lib/kateviewmanager.cpp:187
 #, kde-format
 msgid "Previous Split View"
 msgstr "Iepriekšējais dalītais skats"
 
-#: lib/kateviewmanager.cpp:191
+#: lib/kateviewmanager.cpp:192
 #, kde-format
 msgid "Make the previous split view the active one."
 msgstr "Padara iepriekšējo dalīto skatu par aktīvo."
 
-#: lib/kateviewmanager.cpp:194
+#: lib/kateviewmanager.cpp:195
 #, fuzzy, kde-format
 #| msgid "Next Split View"
 msgid "Left Split View"
 msgstr "Nākamais sadalītais skats"
 
-#: lib/kateviewmanager.cpp:199
+#: lib/kateviewmanager.cpp:200
 #, fuzzy, kde-format
 #| msgid "Make the next split view the active one."
 msgid "Make the split view intuitively on the left the active one."
 msgstr "Padara nākamo dalīto skatu par aktīvo."
 
-#: lib/kateviewmanager.cpp:202
+#: lib/kateviewmanager.cpp:203
 #, fuzzy, kde-format
 #| msgid "Next Split View"
 msgid "Right Split View"
 msgstr "Nākamais sadalītais skats"
 
-#: lib/kateviewmanager.cpp:207
+#: lib/kateviewmanager.cpp:208
 #, fuzzy, kde-format
 #| msgid "Make the next split view the active one."
 msgid "Make the split view intuitively on the right the active one."
 msgstr "Padara nākamo dalīto skatu par aktīvo."
 
-#: lib/kateviewmanager.cpp:210
+#: lib/kateviewmanager.cpp:211
 #, fuzzy, kde-format
 #| msgid "Split View"
 msgid "Upward Split View"
 msgstr "Sadalīt skatu"
 
-#: lib/kateviewmanager.cpp:215
+#: lib/kateviewmanager.cpp:216
 #, fuzzy, kde-format
 #| msgid "Make the next split view the active one."
 msgid "Make the split view intuitively upward the active one."
 msgstr "Padara nākamo dalīto skatu par aktīvo."
 
-#: lib/kateviewmanager.cpp:218
+#: lib/kateviewmanager.cpp:219
 #, fuzzy, kde-format
 #| msgid "Split View"
 msgid "Downward Split View"
 msgstr "Sadalīt skatu"
 
-#: lib/kateviewmanager.cpp:223
+#: lib/kateviewmanager.cpp:224
 #, fuzzy, kde-format
 #| msgid "Make the next split view the active one."
 msgid "Make the split view intuitively downward the active one."
 msgstr "Padara nākamo dalīto skatu par aktīvo."
 
-#: lib/kateviewmanager.cpp:226
+#: lib/kateviewmanager.cpp:227
 #, kde-format
 msgid "Move Splitter Right"
 msgstr "Pārvietot sadalītāju pa labi"
 
-#: lib/kateviewmanager.cpp:229
+#: lib/kateviewmanager.cpp:230
 #, kde-format
 msgid "Move the splitter of the current view to the right"
 msgstr "Pārvietot pašreizējā skata sadalītāju pa labi"
 
-#: lib/kateviewmanager.cpp:232
+#: lib/kateviewmanager.cpp:233
 #, kde-format
 msgid "Move Splitter Left"
 msgstr "Pārvietot sadalītāju pa kreisi"
 
-#: lib/kateviewmanager.cpp:235
+#: lib/kateviewmanager.cpp:236
 #, kde-format
 msgid "Move the splitter of the current view to the left"
 msgstr "Pārvietot pašreizējā skata sadalītāju pa kreisi"
 
-#: lib/kateviewmanager.cpp:238
+#: lib/kateviewmanager.cpp:239
 #, kde-format
 msgid "Move Splitter Up"
 msgstr "Pārvietot sadalītāju augšup"
 
-#: lib/kateviewmanager.cpp:241
+#: lib/kateviewmanager.cpp:242
 #, kde-format
 msgid "Move the splitter of the current view up"
 msgstr "Pārvietot pašreizējā skata sadalītāju augšup"
 
-#: lib/kateviewmanager.cpp:244
+#: lib/kateviewmanager.cpp:245
 #, kde-format
 msgid "Move Splitter Down"
 msgstr "Pārvietot sadalītāju lejup"
 
-#: lib/kateviewmanager.cpp:247
+#: lib/kateviewmanager.cpp:248
 #, kde-format
 msgid "Move the splitter of the current view down"
 msgstr "Pārvietot pašreizējā skata sadalītāju lejup"
 
-#: lib/kateviewmanager.cpp:250
+#: lib/kateviewmanager.cpp:251
 #, kde-format
 msgid "Focus Navigation Bar"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:251
+#: lib/kateviewmanager.cpp:252
 #, kde-format
 msgid "Focus the navigation bar"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:258
+#: lib/kateviewmanager.cpp:259
 #, kde-format
 msgid "Welcome Page"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:273
+#: lib/kateviewmanager.cpp:274
 #, kde-format
 msgid "Show the welcome page"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:315 lib/kateviewmanager.cpp:317
+#: lib/kateviewmanager.cpp:316 lib/kateviewmanager.cpp:318
 #, kde-format
 msgid "Open File"
 msgstr "Atvērt datni"
 
-#: lib/kateviewmanager.cpp:336
+#: lib/kateviewmanager.cpp:337
 #, kde-format
 msgid ""
 "<p>You are attempting to open one or more large files:</p><ul>%1</ul><p>Do "
@@ -2045,13 +2058,13 @@ msgid ""
 "some time when opening large files.</strong></p>"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:339
+#: lib/kateviewmanager.cpp:346
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgid "Opening Large File"
 msgstr "Atvērt datni"
 
-#: lib/kateviewmanager.cpp:1185
+#: lib/kateviewmanager.cpp:1212
 #, kde-format
 msgid "This view may have unsaved work. Do you really want to close it?"
 msgstr ""
@@ -2231,7 +2244,7 @@ msgstr "&Atvērt"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonNewSession)
 #. i18n: ectx: property (text), widget (QPushButton, m_newButton)
-#: lib/session/katesessionmanagedialog.ui:98 lib/welcomeview/welcomeview.ui:309
+#: lib/session/katesessionmanagedialog.ui:98 lib/welcomeview/welcomeview.ui:291
 #, kde-format
 msgid "New Session"
 msgstr "Jauna sesija"
@@ -2267,13 +2280,13 @@ msgstr "Pā&rdēvēt..."
 msgid "Delete"
 msgstr "Dzēsts"
 
-#: lib/session/katesessionmanager.cpp:105
+#: lib/session/katesessionmanager.cpp:106
 #, kde-format
 msgid ""
 "Internal error: there is more than one instance open for a given session."
 msgstr "Iekšēja kļūda — ir atvērta vairāk nekā viena kādas sesijas instance."
 
-#: lib/session/katesessionmanager.cpp:112
+#: lib/session/katesessionmanager.cpp:117
 #, fuzzy, kde-format
 #| msgid ""
 #| "Session '%1' is already opened in another kate instance, change there "
@@ -2285,19 +2298,19 @@ msgstr ""
 "Sesija “%1” jau ir atvērta citā Kate instancē, pārslēgties uz turieni, vai "
 "atvērt no jauna?"
 
-#: lib/session/katesessionmanager.cpp:114
+#: lib/session/katesessionmanager.cpp:119
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:115
+#: lib/session/katesessionmanager.cpp:120
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:303
+#: lib/session/katesessionmanager.cpp:312
 #, fuzzy, kde-format
 #| msgid ""
 #| "The session could not be renamed to \"%1\", there already exists another "
@@ -2306,17 +2319,17 @@ msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr ""
 "Neizdevās pārdēvēt sesiju par “%1”, jau pastāv cita sesija ar šādu nosaukumu"
 
-#: lib/session/katesessionmanager.cpp:304
+#: lib/session/katesessionmanager.cpp:313
 #, kde-format
 msgid "Session Renaming"
 msgstr "Sesiju pārdēvēšana"
 
-#: lib/session/katesessionmanager.cpp:451
+#: lib/session/katesessionmanager.cpp:460
 #, kde-format
 msgid "Session name:"
 msgstr "Sesijas nosaukums:"
 
-#: lib/session/katesessionmanager.cpp:453
+#: lib/session/katesessionmanager.cpp:462
 #, fuzzy, kde-format
 #| msgid ""
 #| "There is already an existing session with your chosen name.\n"
@@ -2330,18 +2343,18 @@ msgstr ""
 "Lūdzu, izvēlieties citu nosaukumu.\n"
 "Sesijas nosaukums:"
 
-#: lib/session/katesessionmanager.cpp:455
+#: lib/session/katesessionmanager.cpp:464
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "Lai saglabātu sesiju, jānorāda tās nosaukums."
 
-#: lib/session/katesessionmanager.cpp:482
+#: lib/session/katesessionmanager.cpp:491
 #, fuzzy, kde-format
 #| msgid "Specify New Name for Session"
 msgid "Specify a name for this session"
 msgstr "Norādiet jaunās sesijas nosaukumu"
 
-#: lib/session/katesessionmanager.cpp:484
+#: lib/session/katesessionmanager.cpp:493
 #, fuzzy, kde-format
 #| msgid "Specify New Name for Session"
 msgid "Specify a new name for session: %1"
@@ -2485,24 +2498,24 @@ msgstr "Glabāt &meta informāciju starp sesijām"
 msgid "Delete unused meta-information after:"
 msgstr "&Dzēst neizmantoto meta informāciju pēc:"
 
-#: lib/welcomeview/welcomeview.cpp:56
+#: lib/welcomeview/welcomeview.cpp:52
 #, kde-format
 msgid "Welcome to %1"
 msgstr ""
 
-#: lib/welcomeview/welcomeview.cpp:61
+#: lib/welcomeview/welcomeview.cpp:57
 #, fuzzy, kde-format
 #| msgid "Close the current document."
 msgid "No recent files"
 msgstr "Aizvērt pašreizējo dokumentu."
 
-#: lib/welcomeview/welcomeview.cpp:109
+#: lib/welcomeview/welcomeview.cpp:105
 #, fuzzy, kde-format
 #| msgid "&Save Session"
 msgid "No saved sessions"
 msgstr "&Saglabāt sesiju"
 
-#: lib/welcomeview/welcomeview.cpp:196
+#: lib/welcomeview/welcomeview.cpp:187
 #, fuzzy, kde-format
 #| msgctxt "The number of open documents"
 #| msgid "Open Documents"
@@ -2510,20 +2523,20 @@ msgid "Recent Documents and Projects"
 msgstr "Atvērt dokumentus"
 
 #. i18n: ectx: property (text), widget (QLabel, labelRecentItems)
-#: lib/welcomeview/welcomeview.cpp:199 lib/welcomeview/welcomeview.ui:219
+#: lib/welcomeview/welcomeview.cpp:190 lib/welcomeview/welcomeview.ui:206
 #, fuzzy, kde-format
 #| msgctxt "The number of open documents"
 #| msgid "Open Documents"
 msgid "Recent Documents"
 msgstr "Atvērt dokumentus"
 
-#: lib/welcomeview/welcomeview.cpp:216
+#: lib/welcomeview/welcomeview.cpp:207
 #, fuzzy, kde-format
 #| msgid "Location"
 msgid "Copy &Location"
 msgstr "Atrašanās vieta"
 
-#: lib/welcomeview/welcomeview.cpp:231
+#: lib/welcomeview/welcomeview.cpp:222
 #, kde-format
 msgid "&Remove"
 msgstr ""
@@ -2535,48 +2548,48 @@ msgid "Welcome"
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonNewFile)
-#: lib/welcomeview/welcomeview.ui:200
+#: lib/welcomeview/welcomeview.ui:192
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgid "New File"
 msgstr "Atvērt datni"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonOpenFolder)
-#: lib/welcomeview/welcomeview.ui:207
+#: lib/welcomeview/welcomeview.ui:199
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgid "Open Folder..."
 msgstr "Atvērt datni"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonOpenFile)
-#: lib/welcomeview/welcomeview.ui:226
+#: lib/welcomeview/welcomeview.ui:213
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgid "Open File..."
 msgstr "Atvērt datni"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, buttonClearRecentFiles)
-#: lib/welcomeview/welcomeview.ui:265
+#: lib/welcomeview/welcomeview.ui:252
 #, kde-format
 msgid "Clear Recent Files"
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, labelSavedSessions)
-#: lib/welcomeview/welcomeview.ui:302
+#: lib/welcomeview/welcomeview.ui:284
 #, fuzzy, kde-format
 #| msgid "&Save Session"
 msgid "Saved Sessions"
 msgstr "&Saglabāt sesiju"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonManageSessions)
-#: lib/welcomeview/welcomeview.ui:335
+#: lib/welcomeview/welcomeview.ui:317
 #, fuzzy, kde-format
 #| msgid "&Manage Sessions..."
 msgid "Manage Sessions..."
 msgstr "Pā&rvaldīt sesijas..."
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
-#: lib/welcomeview/welcomeview.ui:386
+#: lib/welcomeview/welcomeview.ui:368
 #, fuzzy, kde-format
 #| msgid "Create a new document"
 msgid "Show for new window"

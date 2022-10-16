@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-09 00:52+0000\n"
+"POT-Creation-Date: 2022-10-16 00:50+0000\n"
 "PO-Revision-Date: 2022-07-03 10:12+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -22,61 +22,61 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
 
-#: katefilebrowser.cpp:107
+#: katefilebrowser.cpp:108
 #, kde-format
 msgid "Search"
 msgstr "Cerca"
 
-#: katefilebrowser.cpp:121
+#: katefilebrowser.cpp:122
 #, kde-format
 msgid "Enter a name filter to limit which files are displayed."
 msgstr "Introduïu un filtre de nom per a limitar quins fitxers es mostraran."
 
-#: katefilebrowser.cpp:296
+#: katefilebrowser.cpp:297
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open With"
 msgstr "Obre amb"
 
-#: katefilebrowser.cpp:325
+#: katefilebrowser.cpp:326
 #, kde-format
 msgid "&Other..."
 msgstr "&Altres..."
 
-#: katefilebrowser.cpp:361
+#: katefilebrowser.cpp:367
 #, kde-format
 msgid "You are trying to open 1 file, are you sure?"
 msgid_plural "You are trying to open %1 files, are you sure?"
 msgstr[0] "Esteu intentant obrir 1 fitxer. Esteu segur?"
 msgstr[1] "Esteu intentant obrir %1 fitxers. Esteu segur?"
 
-#: katefilebrowser.cpp:363
+#: katefilebrowser.cpp:369
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Obre tots els fitxers"
 
-#: katefilebrowser.cpp:426
+#: katefilebrowser.cpp:436
 #, kde-format
 msgid "Bookmarks"
 msgstr "Punts"
 
-#: katefilebrowser.cpp:434
+#: katefilebrowser.cpp:444
 #, kde-format
 msgid "Current Document Folder"
 msgstr "Carpeta de documents actual"
 
-#: katefilebrowser.cpp:442
+#: katefilebrowser.cpp:452
 #, kde-format
 msgid "Options"
 msgstr "Opcions"
 
-#: katefilebrowser.cpp:463
+#: katefilebrowser.cpp:473
 #, kde-format
 msgid "Automatically synchronize with current document"
 msgstr "Sincronitza automàticament amb el document actual"
 
-#: katefilebrowser.cpp:470
+#: katefilebrowser.cpp:480
 #, kde-format
 msgid "Highlight current file"
 msgstr "Ressalta el fitxer actual"

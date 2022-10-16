@@ -82,7 +82,7 @@ WelcomeView::WelcomeView(KateViewManager *viewManager, QWidget *parent)
         if (index.isValid()) {
             const QUrl url = m_recentItemsModel->url(index);
             Q_ASSERT(url.isValid());
-            Utils::openUrlOrProject(m_viewManager, url);
+            m_viewManager->openUrlOrProject(url);
         }
     });
 

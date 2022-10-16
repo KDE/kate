@@ -80,6 +80,7 @@ public:
 
 public Q_SLOTS:
     void openUrl(const QUrl &url);
+    void openUrlOrProject(const QUrl &url);
     void addPositionToHistory(const QUrl &url, KTextEditor::Cursor pos);
 
 public:

@@ -6,9 +6,7 @@
 
 #include "ktexteditor_utils.h"
 #include "katemainwindow.h"
-#include "kateviewmanager.h"
 
-#include <QDir>
 #include <QFontDatabase>
 #include <QIcon>
 #include <QMimeDatabase>
@@ -18,7 +16,6 @@
 
 #include <KActionCollection>
 #include <KLocalizedString>
-#include <KMessageBox>
 #include <KTextEditor/Application>
 #include <KTextEditor/ConfigInterface>
 #include <KTextEditor/Editor>
@@ -192,25 +189,5 @@ QVariantMap projectMapForDocument(KTextEditor::Document *doc)
         QMetaObject::invokeMethod(plugin, "projectMapForDocument", Q_RETURN_ARG(QVariantMap, projectMap), Q_ARG(KTextEditor::Document *, doc));
     }
     return projectMap;
-}
-
-void openUrlOrProject(KateViewManager *viewManager, const QUrl &url)
-{
-    if (!url.isLocalFile()) {
-        viewManager->openUrl(url);
-        return;
-    }
-
-    QDir dir = {url.toLocalFile()};
-    if (!dir.exists()) {
-        viewManager->openUrl(url);
-        return;
-    }
-
-    if (QObject *pview = viewManager->mainWindow()->pluginView(QStringLiteral("kateprojectplugin"))) {
-        QMetaObject::invokeMethod(pview, "openDirectoryOrProject", Q_ARG(const QDir &, dir));
-    } else {
-        KMessageBox::error(viewManager->mainWindow(), i18n("Please enable the project plugin to load directories"));
-    }
 }
 }

@@ -13,6 +13,7 @@
 #include "katemainwindow.h"
 #include "kateupdatedisabler.h"
 #include "kateviewspace.h"
+#include <kwidgetsaddons_version.h>
 #include "welcomeview/welcomeview.h"
 
 #include <KTextEditor/Attribute>
@@ -20,6 +21,7 @@
 #include <KTextEditor/View>
 
 #include <KActionCollection>
+#include <KAboutData>
 #include <KConfig>
 #include <KConfigGroup>
 #include <KLocalizedString>
@@ -459,6 +461,80 @@ KTextEditor::View *KateViewManager::openUrlWithView(const QUrl &url, const QStri
 void KateViewManager::openUrl(const QUrl &url)
 {
     openUrl(url, QString());
+}
+
+void KateViewManager::openUrlOrProject(const QUrl &url)
+{
+    if (!url.isLocalFile()) {
+        openUrl(url);
+        return;
+    }
+
+    const QDir dir(url.toLocalFile());
+    if (!dir.exists()) {
+        openUrl(url);
+        return;
+    }
+
+    QString text;
+    if (KateApp::isKWrite()) {
+        text = i18n("%1 cannot open folders", KAboutData::applicationData().displayName());
+        KMessageBox::error(mainWindow(), text);
+        return;
+    }
+
+    // try to open the folder
+    static const QString projectPluginId = QStringLiteral("kateprojectplugin");
+    QObject *projectPluginView = mainWindow()->pluginView(projectPluginId);
+    if (!projectPluginView) {
+        // try to find and enable the Projects plugin
+        KatePluginList &pluginList = KateApp::self()->pluginManager()->pluginList();
+        KatePluginList::iterator i = std::find_if(pluginList.begin(),
+                                                  pluginList.end(),
+                                                  [](const KatePluginInfo &pluginInfo) {
+                                                      return pluginInfo.metaData.pluginId() == projectPluginId;
+                                                  });
+
+        QString text;
+        if (i == pluginList.end()) {
+            text = i18n("The plugin required to open folders was not found");
+            KMessageBox::error(mainWindow(), text);
+            return;
+        }
+
+        KatePluginInfo &projectPluginInfo = *i;
+        text = i18n("In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?",
+                    projectPluginInfo.metaData.name());
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+        if (KMessageBox::questionTwoActions(
+#else
+        if (KMessageBox::questionYesNo(
+#endif
+                mainWindow(),
+                text,
+                i18nc("@title:window", "Open Folder"),
+                KGuiItem(i18nc("@action:button", "Enable"), QStringLiteral("dialog-ok")),
+                KStandardGuiItem::cancel())
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+            == KMessageBox::SecondaryAction) {
+#else
+            == KMessageBox::No) {
+#endif
+            return;
+        }
+
+        if (!KateApp::self()->pluginManager()->loadPlugin(&projectPluginInfo)) {
+            text = i18n("Failed to enable <b>%1</b> plugin", projectPluginInfo.metaData.name());
+            KMessageBox::error(mainWindow(), text);
+            return;
+        }
+
+        KateApp::self()->pluginManager()->enablePluginGUI(&projectPluginInfo);
+        projectPluginView = mainWindow()->pluginView(projectPluginId);
+    }
+
+    Q_ASSERT(projectPluginView);
+    QMetaObject::invokeMethod(projectPluginView, "openDirectoryOrProject", Q_ARG(const QDir &, dir));
 }
 
 KTextEditor::View *KateViewManager::openViewForDoc(KTextEditor::Document *doc)

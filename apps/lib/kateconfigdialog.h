@@ -78,6 +78,7 @@ protected Q_SLOTS:
 
 protected:
     void closeEvent(QCloseEvent *event) override;
+    bool event(QEvent *event) override;
 
 private:
     void addBehaviorPage();

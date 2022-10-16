@@ -783,6 +783,18 @@ int KateConfigDialog::recentFilesMaxCount()
     return maxItems;
 }
 
+bool KateConfigDialog::event(QEvent *event)
+{
+    if (event->type() == QEvent::ShortcutOverride || event->type() == QEvent::KeyPress) {
+        auto keyEvent = static_cast<QKeyEvent *>(event);
+        if (keyEvent->modifiers().testFlag(Qt::NoModifier) && keyEvent->key() == Qt::Key_Escape) {
+            event->accept();
+            return true;
+        }
+    }
+    return KPageDialog::event(event);
+}
+
 void KateConfigDialog::closeEvent(QCloseEvent *event)
 {
     if (!m_dataChanged) {

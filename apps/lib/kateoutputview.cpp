@@ -42,7 +42,7 @@ public:
 
         m_timeline.setDirection(QTimeLine::Forward);
         m_timeline.setEasingCurve(QEasingCurve::SineCurve);
-        m_timeline.setFrameRange(0, 92);
+        m_timeline.setFrameRange(20, 150);
         auto update = QOverload<>::of(&QWidget::update);
         connect(&m_timeline, &QTimeLine::valueChanged, this, update);
         connect(&m_timeline, &QTimeLine::finished, this, &QObject::deleteLater);
@@ -300,6 +300,19 @@ void KateOutputView::readConfig()
     pal.setColor(QPalette::Text, QColor::fromRgba(theme.textColor(KSyntaxHighlighting::Theme::Normal)));
     m_messagesTreeView->setPalette(pal);
     m_messagesTreeView->setFont(Utils::editorFont());
+
+    auto brighten = [](QColor &c) {
+        c = c.toHsv();
+        c.setHsv(c.hue(), qMin(c.saturation() + 35, 255), qMin(c.value() + 10, 255));
+    };
+
+    KColorScheme c;
+    m_msgIndicatorColors[0] = c.background(KColorScheme::NegativeBackground).color();
+    brighten(m_msgIndicatorColors[0]);
+    m_msgIndicatorColors[1] = c.background(KColorScheme::NeutralBackground).color();
+    brighten(m_msgIndicatorColors[1]);
+    m_msgIndicatorColors[2] = c.background(KColorScheme::PositiveBackground).color();
+    brighten(m_msgIndicatorColors[2]);
 }
 
 void KateOutputView::slotMessage(const QVariantMap &message)
@@ -354,18 +367,18 @@ void KateOutputView::slotMessage(const QVariantMap &message)
         shouldShowOutputToolView = (m_showOutputViewForMessageType >= 1);
         typeColumn->setText(i18nc("@info", "Error"));
         typeColumn->setIcon(QIcon::fromTheme(QStringLiteral("data-error")));
-        color = KColorScheme().background(KColorScheme::NegativeBackground).color();
+        color = m_msgIndicatorColors[0];
     } else if (typeString == QLatin1String("Warning")) {
         shouldShowOutputToolView = (m_showOutputViewForMessageType >= 2);
         typeColumn->setText(i18nc("@info", "Warning"));
         typeColumn->setIcon(QIcon::fromTheme(QStringLiteral("data-warning")));
-        color = KColorScheme().background(KColorScheme::NeutralBackground).color();
+        color = m_msgIndicatorColors[1];
     } else if (typeString == QLatin1String("Info")) {
         shouldShowOutputToolView = (m_showOutputViewForMessageType >= 3);
         typeColumn->setText(i18nc("@info", "Info"));
         typeColumn->setIcon(QIcon::fromTheme(QStringLiteral("data-information")));
         indicatorLoopCount = 2;
-        color = KColorScheme().background(KColorScheme::PositiveBackground).color();
+        color = m_msgIndicatorColors[2];
     } else {
         shouldShowOutputToolView = (m_showOutputViewForMessageType >= 4);
         typeColumn->setText(i18nc("@info", "Log"));

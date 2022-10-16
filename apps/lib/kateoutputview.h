@@ -136,6 +136,8 @@ private:
     QPointer<QWidget> tabButton;
 
     QPointer<class NewMsgIndicator> m_fadingIndicator;
+
+    QColor m_msgIndicatorColors[3];
 };
 
 #endif

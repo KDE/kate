@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-16 00:50+0000\n"
+"POT-Creation-Date: 2022-10-17 00:50+0000\n"
 "PO-Revision-Date: 2011-09-27 16:16+0330\n"
 "Last-Translator: Mohamad Reza Mirdamadi <mohi@ubuntu.ir>\n"
 "Language-Team: Farsi (Persian) <>\n"
@@ -1755,25 +1755,25 @@ msgstr "&پالایه:‌"
 msgid "Clear all messages"
 msgstr ""
 
-#: lib/kateoutputview.cpp:355
+#: lib/kateoutputview.cpp:368
 #, kde-format
 msgctxt "@info"
 msgid "Error"
 msgstr ""
 
-#: lib/kateoutputview.cpp:360
+#: lib/kateoutputview.cpp:373
 #, kde-format
 msgctxt "@info"
 msgid "Warning"
 msgstr ""
 
-#: lib/kateoutputview.cpp:365
+#: lib/kateoutputview.cpp:378
 #, kde-format
 msgctxt "@info"
 msgid "Info"
 msgstr ""
 
-#: lib/kateoutputview.cpp:371
+#: lib/kateoutputview.cpp:384
 #, kde-format
 msgctxt "@info"
 msgid "Log"
@@ -1826,32 +1826,32 @@ msgstr ""
 msgid "Untitled"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:117
+#: lib/kateviewmanager.cpp:119
 #, kde-format
 msgid "Split Ve&rtical"
 msgstr "شکافتن &عمودی‌"
 
-#: lib/kateviewmanager.cpp:121
+#: lib/kateviewmanager.cpp:123
 #, kde-format
 msgid "Split the currently active view vertically into two views."
 msgstr "شکافتن عمودی نمای فعال جاری به دو نما."
 
-#: lib/kateviewmanager.cpp:125
+#: lib/kateviewmanager.cpp:127
 #, kde-format
 msgid "Split &Horizontal"
 msgstr "شکافتن &افقی‌"
 
-#: lib/kateviewmanager.cpp:129
+#: lib/kateviewmanager.cpp:131
 #, kde-format
 msgid "Split the currently active view horizontally into two views."
 msgstr "شکافتن افقی نمای فعال جاری به دو نما."
 
-#: lib/kateviewmanager.cpp:133
+#: lib/kateviewmanager.cpp:135
 #, kde-format
 msgid "Move Document to New Vertical Split"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:137
+#: lib/kateviewmanager.cpp:139
 #, fuzzy, kde-format
 #| msgid "Split the currently active view vertically into two views."
 msgid ""
@@ -1859,12 +1859,12 @@ msgid ""
 "currently active document to right view."
 msgstr "شکافتن عمودی نمای فعال جاری به دو نما."
 
-#: lib/kateviewmanager.cpp:142
+#: lib/kateviewmanager.cpp:144
 #, kde-format
 msgid "Move Document to New Horizontal Split"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:146
+#: lib/kateviewmanager.cpp:148
 #, fuzzy, kde-format
 #| msgid "Split the currently active view horizontally into two views."
 msgid ""
@@ -1872,189 +1872,189 @@ msgid ""
 "currently active document to view below."
 msgstr "شکافتن افقی نمای فعال جاری به دو نما."
 
-#: lib/kateviewmanager.cpp:151
+#: lib/kateviewmanager.cpp:153
 #, kde-format
 msgid "Cl&ose Current View"
 msgstr "&بستن نمای جاری‌"
 
-#: lib/kateviewmanager.cpp:155
+#: lib/kateviewmanager.cpp:157
 #, fuzzy, kde-format
 #| msgid "Close the currently active splitted view"
 msgid "Close the currently active split view"
 msgstr "بستن نمای شکافته فعال ‌جاری"
 
-#: lib/kateviewmanager.cpp:159
+#: lib/kateviewmanager.cpp:161
 #, fuzzy, kde-format
 #| msgid "Cl&ose Current View"
 msgid "Close Inactive Views"
 msgstr "&بستن نمای جاری‌"
 
-#: lib/kateviewmanager.cpp:162
+#: lib/kateviewmanager.cpp:164
 #, fuzzy, kde-format
 #| msgid "Make the next split view the active one."
 msgid "Close every view but the active one"
 msgstr "فعال کردن نمای بعدی برای شکافتن."
 
-#: lib/kateviewmanager.cpp:166
+#: lib/kateviewmanager.cpp:168
 #, fuzzy, kde-format
 #| msgid "Cl&ose Current View"
 msgid "Hide Inactive Views"
 msgstr "&بستن نمای جاری‌"
 
-#: lib/kateviewmanager.cpp:170
+#: lib/kateviewmanager.cpp:172
 #, fuzzy, kde-format
 #| msgid "Make the next split view the active one."
 msgid "Hide every view but the active one"
 msgstr "فعال کردن نمای بعدی برای شکافتن."
 
-#: lib/kateviewmanager.cpp:173
+#: lib/kateviewmanager.cpp:175
 #, kde-format
 msgid "Toggle Orientation"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:176
+#: lib/kateviewmanager.cpp:178
 #, fuzzy, kde-format
 #| msgid "Make the next split view the active one."
 msgid "Toggles the orientation of the current split view"
 msgstr "فعال کردن نمای بعدی برای شکافتن."
 
-#: lib/kateviewmanager.cpp:179
+#: lib/kateviewmanager.cpp:181
 #, fuzzy, kde-format
 #| msgid "Next View"
 msgid "Next Split View"
 msgstr "نمای بعدی"
 
-#: lib/kateviewmanager.cpp:184
+#: lib/kateviewmanager.cpp:186
 #, kde-format
 msgid "Make the next split view the active one."
 msgstr "فعال کردن نمای بعدی برای شکافتن."
 
-#: lib/kateviewmanager.cpp:187
+#: lib/kateviewmanager.cpp:189
 #, fuzzy, kde-format
 #| msgid "Previous View"
 msgid "Previous Split View"
 msgstr "نمای قبلی"
 
-#: lib/kateviewmanager.cpp:192
+#: lib/kateviewmanager.cpp:194
 #, kde-format
 msgid "Make the previous split view the active one."
 msgstr "فعال کردن نمای قبلی برای شکافتن."
 
-#: lib/kateviewmanager.cpp:195
+#: lib/kateviewmanager.cpp:197
 #, fuzzy, kde-format
 #| msgid "Next View"
 msgid "Left Split View"
 msgstr "نمای بعدی"
 
-#: lib/kateviewmanager.cpp:200
+#: lib/kateviewmanager.cpp:202
 #, fuzzy, kde-format
 #| msgid "Make the next split view the active one."
 msgid "Make the split view intuitively on the left the active one."
 msgstr "فعال کردن نمای بعدی برای شکافتن."
 
-#: lib/kateviewmanager.cpp:203
+#: lib/kateviewmanager.cpp:205
 #, fuzzy, kde-format
 #| msgid "Next View"
 msgid "Right Split View"
 msgstr "نمای بعدی"
 
-#: lib/kateviewmanager.cpp:208
+#: lib/kateviewmanager.cpp:210
 #, fuzzy, kde-format
 #| msgid "Make the next split view the active one."
 msgid "Make the split view intuitively on the right the active one."
 msgstr "فعال کردن نمای بعدی برای شکافتن."
 
-#: lib/kateviewmanager.cpp:211
+#: lib/kateviewmanager.cpp:213
 #, fuzzy, kde-format
 #| msgid "Split Ve&rtical"
 msgid "Upward Split View"
 msgstr "شکافتن &عمودی‌"
 
-#: lib/kateviewmanager.cpp:216
+#: lib/kateviewmanager.cpp:218
 #, fuzzy, kde-format
 #| msgid "Make the next split view the active one."
 msgid "Make the split view intuitively upward the active one."
 msgstr "فعال کردن نمای بعدی برای شکافتن."
 
-#: lib/kateviewmanager.cpp:219
+#: lib/kateviewmanager.cpp:221
 #, fuzzy, kde-format
 #| msgid "Split Ve&rtical"
 msgid "Downward Split View"
 msgstr "شکافتن &عمودی‌"
 
-#: lib/kateviewmanager.cpp:224
+#: lib/kateviewmanager.cpp:226
 #, fuzzy, kde-format
 #| msgid "Make the next split view the active one."
 msgid "Make the split view intuitively downward the active one."
 msgstr "فعال کردن نمای بعدی برای شکافتن."
 
-#: lib/kateviewmanager.cpp:227
+#: lib/kateviewmanager.cpp:229
 #, kde-format
 msgid "Move Splitter Right"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:230
+#: lib/kateviewmanager.cpp:232
 #, kde-format
 msgid "Move the splitter of the current view to the right"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:233
+#: lib/kateviewmanager.cpp:235
 #, kde-format
 msgid "Move Splitter Left"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:236
+#: lib/kateviewmanager.cpp:238
 #, kde-format
 msgid "Move the splitter of the current view to the left"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:239
+#: lib/kateviewmanager.cpp:241
 #, kde-format
 msgid "Move Splitter Up"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:242
+#: lib/kateviewmanager.cpp:244
 #, kde-format
 msgid "Move the splitter of the current view up"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:245
+#: lib/kateviewmanager.cpp:247
 #, kde-format
 msgid "Move Splitter Down"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:248
+#: lib/kateviewmanager.cpp:250
 #, fuzzy, kde-format
 #| msgid "Make the next split view the active one."
 msgid "Move the splitter of the current view down"
 msgstr "فعال کردن نمای بعدی برای شکافتن."
 
-#: lib/kateviewmanager.cpp:251
+#: lib/kateviewmanager.cpp:253
 #, kde-format
 msgid "Focus Navigation Bar"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:252
+#: lib/kateviewmanager.cpp:254
 #, kde-format
 msgid "Focus the navigation bar"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:259
+#: lib/kateviewmanager.cpp:261
 #, kde-format
 msgid "Welcome Page"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:274
+#: lib/kateviewmanager.cpp:276
 #, kde-format
 msgid "Show the welcome page"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:316 lib/kateviewmanager.cpp:318
+#: lib/kateviewmanager.cpp:318 lib/kateviewmanager.cpp:320
 #, kde-format
 msgid "Open File"
 msgstr "باز کردن پرونده"
 
-#: lib/kateviewmanager.cpp:337
+#: lib/kateviewmanager.cpp:339
 #, kde-format
 msgid ""
 "<p>You are attempting to open one or more large files:</p><ul>%1</ul><p>Do "
@@ -2062,13 +2062,47 @@ msgid ""
 "some time when opening large files.</strong></p>"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:346
+#: lib/kateviewmanager.cpp:348
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgid "Opening Large File"
 msgstr "باز کردن پرونده"
 
-#: lib/kateviewmanager.cpp:1212
+#: lib/kateviewmanager.cpp:481
+#, kde-format
+msgid "%1 cannot open folders"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:500
+#, kde-format
+msgid "The plugin required to open folders was not found"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:506
+#, kde-format
+msgid ""
+"In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:515
+#, fuzzy, kde-format
+#| msgid "Open File"
+msgctxt "@title:window"
+msgid "Open Folder"
+msgstr "باز کردن پرونده"
+
+#: lib/kateviewmanager.cpp:516
+#, kde-format
+msgctxt "@action:button"
+msgid "Enable"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:527
+#, kde-format
+msgid "Failed to enable <b>%1</b> plugin"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:1288
 #, kde-format
 msgid "This view may have unsaved work. Do you really want to close it?"
 msgstr ""
@@ -2158,11 +2192,6 @@ msgstr ""
 #: lib/kateviewspace.cpp:1083
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
-msgstr ""
-
-#: lib/ktexteditor_utils.cpp:213
-#, kde-format
-msgid "Please enable the project plugin to load directories"
 msgstr ""
 
 #: lib/quickopen/katequickopenlineedit.cpp:22
@@ -2490,32 +2519,40 @@ msgstr "&حذف فرا اطلاعات استفاده‌نشده پس از:‌"
 msgid "Welcome to %1"
 msgstr ""
 
-#: lib/welcomeview/welcomeview.cpp:57
+#. i18n: ectx: property (text), widget (QLabel, labelRecentItems)
+#: lib/welcomeview/welcomeview.cpp:56 lib/welcomeview/welcomeview.ui:206
 #, fuzzy, kde-format
-#| msgid "Close the current document."
-msgid "No recent files"
-msgstr "بستن سند جاری."
+#| msgctxt "The number of open documents"
+#| msgid "Open Documents"
+msgid "Recent Documents"
+msgstr "باز کردن اسناد"
 
-#: lib/welcomeview/welcomeview.cpp:105
-#, fuzzy, kde-format
-#| msgid "&Do not save session"
-msgid "No saved sessions"
-msgstr " نشست ذخیره &نشود‌"
-
-#: lib/welcomeview/welcomeview.cpp:187
+#: lib/welcomeview/welcomeview.cpp:56
 #, fuzzy, kde-format
 #| msgctxt "The number of open documents"
 #| msgid "Open Documents"
 msgid "Recent Documents and Projects"
 msgstr "باز کردن اسناد"
 
-#. i18n: ectx: property (text), widget (QLabel, labelRecentItems)
-#: lib/welcomeview/welcomeview.cpp:190 lib/welcomeview/welcomeview.ui:206
+#: lib/welcomeview/welcomeview.cpp:59
 #, fuzzy, kde-format
 #| msgctxt "The number of open documents"
 #| msgid "Open Documents"
-msgid "Recent Documents"
+msgid "No recent documents or projects"
 msgstr "باز کردن اسناد"
+
+#: lib/welcomeview/welcomeview.cpp:59
+#, fuzzy, kde-format
+#| msgctxt "The number of open documents"
+#| msgid "Open Documents"
+msgid "No recent documents"
+msgstr "باز کردن اسناد"
+
+#: lib/welcomeview/welcomeview.cpp:107
+#, fuzzy, kde-format
+#| msgid "&Do not save session"
+msgid "No saved sessions"
+msgstr " نشست ذخیره &نشود‌"
 
 #: lib/welcomeview/welcomeview.cpp:207
 #, fuzzy, kde-format
@@ -2582,6 +2619,11 @@ msgstr "مدیریت نشستها"
 #| msgid "Create a new document"
 msgid "Show for new window"
 msgstr "ایجاد سندی جدید"
+
+#, fuzzy
+#~| msgid "Close the current document."
+#~ msgid "No recent files"
+#~ msgstr "بستن سند جاری."
 
 #, fuzzy
 #~| msgid "Delete File?"

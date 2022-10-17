@@ -411,7 +411,7 @@ msgstr "Configura..."
 #, kde-format
 msgctxt "@title:window"
 msgid "Configure CTags Plugin"
-msgstr "Configura el connector de CTags"
+msgstr "Configureu el connector de CTags"
 
 #: kate_ctags_view.cpp:98 kate_ctags_view.cpp:187
 #, kde-format
@@ -462,14 +462,3 @@ msgstr "No hi ha carpetes o fitxers per a indexar"
 #, kde-format
 msgid "The CTags program exited with code %1: %2"
 msgstr "El programa CTags ha finalitzat amb el codi %1: %2"
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your names"
-#~ msgstr "Manuel Tortosa Moreno"
-
-#~ msgctxt "EMAIL OF TRANSLATORS"
-#~ msgid "Your emails"
-#~ msgstr "manutortosa@gmail.com"
-
-#~ msgid "Kate CTags"
-#~ msgstr "CTags de Kate"

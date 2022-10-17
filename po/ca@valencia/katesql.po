@@ -334,7 +334,7 @@ msgstr "SQL"
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL ConfigPage Settings"
-msgstr "Configuració de la pàgina de configuració del SQL"
+msgstr "Configureu la pàgina de configuració d'SQL"
 
 #: katesqlview.cpp:45
 #, kde-format
@@ -556,11 +556,3 @@ msgstr "Barra d'eines de les connexions SQL"
 #, kde-format
 msgid "SQL Toolbar"
 msgstr "Barra d'eines SQL"
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your names"
-#~ msgstr "Josep M. Ferrer"
-
-#~ msgctxt "EMAIL OF TRANSLATORS"
-#~ msgid "Your emails"
-#~ msgstr "txemaq@gmail.com"

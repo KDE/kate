@@ -1010,16 +1010,3 @@ msgstr ""
 #, kde-format
 msgid "&Projects"
 msgstr "&Проекти"
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your names"
-#~ msgstr "Минчо Кондарев"
-
-#~ msgctxt "EMAIL OF TRANSLATORS"
-#~ msgid "Your emails"
-#~ msgstr "mkondarev@yahoo.de"
-
-#, fuzzy
-#~| msgid "Discard"
-#~ msgid "Discard Lines"
-#~ msgstr "Отхвърляне"

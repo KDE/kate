@@ -242,7 +242,7 @@ msgstr "Descompila objectes:"
 #: config.ui:506
 #, kde-format
 msgid "Decompile to file:"
-msgstr "Descompila a fitxer:"
+msgstr "Descompila en un fitxer:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_26)
 #: config.ui:516
@@ -254,7 +254,7 @@ msgstr "Ignora els objectes amb nom:"
 #: config.ui:533
 #, kde-format
 msgid "Dump objects to file:"
-msgstr "Bolca els objectes a fitxer:"
+msgstr "Bolca els objectes en un fitxer:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_28)
 #: config.ui:543
@@ -278,7 +278,7 @@ msgstr "Ignora els models amb nom:"
 #: config.ui:594
 #, kde-format
 msgid "Dump models to file:"
-msgstr "Bolca els models a fitxer:"
+msgstr "Bolca els models en un fitxer:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_33)
 #: config.ui:604
@@ -400,11 +400,3 @@ msgstr "L'execució de Replicode ha fallat: %1"
 #, kde-format
 msgid "Replicode execution finished."
 msgstr "L'execució de Replicode ha finalitzat."
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your names"
-#~ msgstr "Josep M. Ferrer"
-
-#~ msgctxt "EMAIL OF TRANSLATORS"
-#~ msgid "Your emails"
-#~ msgstr "txemaq@gmail.com"

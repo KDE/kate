@@ -552,11 +552,3 @@ msgstr "Инструменти за връзки с SQL"
 #, kde-format
 msgid "SQL Toolbar"
 msgstr "Инструменти за SQL"
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your names"
-#~ msgstr "Ясен Праматаров"
-
-#~ msgctxt "EMAIL OF TRANSLATORS"
-#~ msgid "Your emails"
-#~ msgstr "yasen@lindeas.com"

@@ -435,16 +435,3 @@ msgstr "Запазване на текущия документ под ново 
 #, kde-format
 msgid "&Go"
 msgstr "Навига&ция"
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your names"
-#~ msgstr "Ясен Праматаров"
-
-#~ msgctxt "EMAIL OF TRANSLATORS"
-#~ msgid "Your emails"
-#~ msgstr "yasen@lindeas.com"
-
-#~| msgctxt "@action:inmenu"
-#~| msgid "Close Other"
-#~ msgid "Close Widget"
-#~ msgstr "Затваряне на уиджета"

@@ -202,11 +202,3 @@ msgstr "Настройки на терминала"
 #, kde-format
 msgid "&Tools"
 msgstr "&Инструменти"
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your names"
-#~ msgstr "Ясен Праматаров"
-
-#~ msgctxt "EMAIL OF TRANSLATORS"
-#~ msgid "Your emails"
-#~ msgstr "yasen@lindeas.com"

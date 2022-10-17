@@ -87,7 +87,7 @@ msgstr "Un nom curt per al repositori"
 #: editrepository.ui:103
 #, kde-format
 msgid "Prefix to show in code completion"
-msgstr "Prefix que es mostrarà en la compleció de codi"
+msgstr "Prefix que s'ha de mostrar en la compleció de codi"
 
 #: editsnippet.cpp:97 editsnippet.cpp:177
 #, kde-format

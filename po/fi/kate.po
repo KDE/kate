@@ -19,9 +19,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-16 00:50+0000\n"
-"PO-Revision-Date: 2022-07-13 17:59+0300\n"
-"Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
+"POT-Creation-Date: 2022-10-17 00:50+0000\n"
+"PO-Revision-Date: 2022-10-16 23:56+0300\n"
+"Last-Translator: Lasse Liehu <lasse.liehu@iki.fi>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
@@ -29,7 +29,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-POT-Import-Date: 2013-01-13 20:43:20+0000\n"
-"X-Generator: Lokalize 20.12.0\n"
+"X-Generator: Lokalize 22.08.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -165,6 +165,8 @@ msgstr "Avattavat tiedostot."
 msgid "[urls...]"
 msgstr "[url:t...]"
 
+# pmap: =:gen=KWriten:
+# pmap: =:elat=KWritesta:
 #: kwrite/main.cpp:85
 #, kde-format
 msgid "KWrite"
@@ -1719,25 +1721,25 @@ msgstr "Suodata…"
 msgid "Clear all messages"
 msgstr "Poista kaikki viestit"
 
-#: lib/kateoutputview.cpp:355
+#: lib/kateoutputview.cpp:368
 #, kde-format
 msgctxt "@info"
 msgid "Error"
 msgstr "Virhe"
 
-#: lib/kateoutputview.cpp:360
+#: lib/kateoutputview.cpp:373
 #, kde-format
 msgctxt "@info"
 msgid "Warning"
 msgstr "Varoitus"
 
-#: lib/kateoutputview.cpp:365
+#: lib/kateoutputview.cpp:378
 #, kde-format
 msgctxt "@info"
 msgid "Info"
 msgstr "Tiedote"
 
-#: lib/kateoutputview.cpp:371
+#: lib/kateoutputview.cpp:384
 #, kde-format
 msgctxt "@info"
 msgid "Log"
@@ -1789,32 +1791,32 @@ msgstr "Pyytämääsi tietoa ei voitu tallettaa. Valitse miten haluat jatkaa."
 msgid "Untitled"
 msgstr "Nimetön"
 
-#: lib/kateviewmanager.cpp:117
+#: lib/kateviewmanager.cpp:119
 #, kde-format
 msgid "Split Ve&rtical"
 msgstr "Jaa &pystysuunnassa"
 
-#: lib/kateviewmanager.cpp:121
+#: lib/kateviewmanager.cpp:123
 #, kde-format
 msgid "Split the currently active view vertically into two views."
 msgstr "Jaa nykyinen näkymä pystysuunnassa kahteen näkymään."
 
-#: lib/kateviewmanager.cpp:125
+#: lib/kateviewmanager.cpp:127
 #, kde-format
 msgid "Split &Horizontal"
 msgstr "Jaa &vaakasuunnassa"
 
-#: lib/kateviewmanager.cpp:129
+#: lib/kateviewmanager.cpp:131
 #, kde-format
 msgid "Split the currently active view horizontally into two views."
 msgstr "Jaa nykyinen näkymä vaakasuunnassa kahteen näkymään."
 
-#: lib/kateviewmanager.cpp:133
+#: lib/kateviewmanager.cpp:135
 #, kde-format
 msgid "Move Document to New Vertical Split"
 msgstr "Siirrä tiedosto uuteen pystyjakonäkymään"
 
-#: lib/kateviewmanager.cpp:137
+#: lib/kateviewmanager.cpp:139
 #, kde-format
 msgid ""
 "Split the currently active view vertically into two views and move the "
@@ -1823,12 +1825,12 @@ msgstr ""
 "Jaa nykyinen aktiivinen näkymä pystysuunnassa kahtia ja siirrä aktiivinen "
 "tiedosto oikeanpuoleiseen näkymään."
 
-#: lib/kateviewmanager.cpp:142
+#: lib/kateviewmanager.cpp:144
 #, kde-format
 msgid "Move Document to New Horizontal Split"
 msgstr "Siirrä tiedosto uuteen vaakajakoon"
 
-#: lib/kateviewmanager.cpp:146
+#: lib/kateviewmanager.cpp:148
 #, kde-format
 msgid ""
 "Split the currently active view horizontally into two views and move the "
@@ -1837,180 +1839,180 @@ msgstr ""
 "Jaa nykyinen aktiivinen näkymä vaakasuunnassa kahtia ja siirrä aktiivinen "
 "tiedosto alempaan näkymään."
 
-#: lib/kateviewmanager.cpp:151
+#: lib/kateviewmanager.cpp:153
 #, kde-format
 msgid "Cl&ose Current View"
 msgstr "Sulje &nykyinen näkymä"
 
-#: lib/kateviewmanager.cpp:155
+#: lib/kateviewmanager.cpp:157
 #, kde-format
 msgid "Close the currently active split view"
 msgstr "Sulje nykyinen aktiivinen osanäkymä"
 
-#: lib/kateviewmanager.cpp:159
+#: lib/kateviewmanager.cpp:161
 #, kde-format
 msgid "Close Inactive Views"
 msgstr "Sulje passiiviset näkymät"
 
-#: lib/kateviewmanager.cpp:162
+#: lib/kateviewmanager.cpp:164
 #, kde-format
 msgid "Close every view but the active one"
 msgstr "Sulje kaikki paitsi aktiivinen näkymä"
 
-#: lib/kateviewmanager.cpp:166
+#: lib/kateviewmanager.cpp:168
 #, kde-format
 msgid "Hide Inactive Views"
 msgstr "Piilota passiiviset näkymät"
 
-#: lib/kateviewmanager.cpp:170
+#: lib/kateviewmanager.cpp:172
 #, kde-format
 msgid "Hide every view but the active one"
 msgstr "Piilota kaikki paitsi aktiivinen näkymä"
 
-#: lib/kateviewmanager.cpp:173
+#: lib/kateviewmanager.cpp:175
 #, kde-format
 msgid "Toggle Orientation"
 msgstr "Vaihda suuntaa"
 
-#: lib/kateviewmanager.cpp:176
+#: lib/kateviewmanager.cpp:178
 #, kde-format
 msgid "Toggles the orientation of the current split view"
 msgstr "Vaihtaa nykyisen näkymäjaon suuntaa"
 
-#: lib/kateviewmanager.cpp:179
+#: lib/kateviewmanager.cpp:181
 #, kde-format
 msgid "Next Split View"
 msgstr "Seuraava osanäkymä"
 
-#: lib/kateviewmanager.cpp:184
+#: lib/kateviewmanager.cpp:186
 #, kde-format
 msgid "Make the next split view the active one."
 msgstr "Aktivoi seuraava osanäkymä."
 
-#: lib/kateviewmanager.cpp:187
+#: lib/kateviewmanager.cpp:189
 #, kde-format
 msgid "Previous Split View"
 msgstr "Edellinen osanäkymä"
 
-#: lib/kateviewmanager.cpp:192
+#: lib/kateviewmanager.cpp:194
 #, kde-format
 msgid "Make the previous split view the active one."
 msgstr "Aktivoi edellinen osanäkymä."
 
-#: lib/kateviewmanager.cpp:195
+#: lib/kateviewmanager.cpp:197
 #, fuzzy, kde-format
 #| msgid "Next Split View"
 msgid "Left Split View"
 msgstr "Seuraava osanäkymä"
 
-#: lib/kateviewmanager.cpp:200
+#: lib/kateviewmanager.cpp:202
 #, fuzzy, kde-format
 #| msgid "Make the next split view the active one."
 msgid "Make the split view intuitively on the left the active one."
 msgstr "Aktivoi seuraava osanäkymä."
 
-#: lib/kateviewmanager.cpp:203
+#: lib/kateviewmanager.cpp:205
 #, fuzzy, kde-format
 #| msgid "Next Split View"
 msgid "Right Split View"
 msgstr "Seuraava osanäkymä"
 
-#: lib/kateviewmanager.cpp:208
+#: lib/kateviewmanager.cpp:210
 #, fuzzy, kde-format
 #| msgid "Make the next split view the active one."
 msgid "Make the split view intuitively on the right the active one."
 msgstr "Aktivoi seuraava osanäkymä."
 
-#: lib/kateviewmanager.cpp:211
+#: lib/kateviewmanager.cpp:213
 #, fuzzy, kde-format
 #| msgid "Split View"
 msgid "Upward Split View"
 msgstr "Jaa näkymä"
 
-#: lib/kateviewmanager.cpp:216
+#: lib/kateviewmanager.cpp:218
 #, fuzzy, kde-format
 #| msgid "Make the next split view the active one."
 msgid "Make the split view intuitively upward the active one."
 msgstr "Aktivoi seuraava osanäkymä."
 
-#: lib/kateviewmanager.cpp:219
+#: lib/kateviewmanager.cpp:221
 #, fuzzy, kde-format
 #| msgid "Split View"
 msgid "Downward Split View"
 msgstr "Jaa näkymä"
 
-#: lib/kateviewmanager.cpp:224
+#: lib/kateviewmanager.cpp:226
 #, fuzzy, kde-format
 #| msgid "Make the next split view the active one."
 msgid "Make the split view intuitively downward the active one."
 msgstr "Aktivoi seuraava osanäkymä."
 
-#: lib/kateviewmanager.cpp:227
+#: lib/kateviewmanager.cpp:229
 #, kde-format
 msgid "Move Splitter Right"
 msgstr "Siirrä jakopalkkia oikealle"
 
-#: lib/kateviewmanager.cpp:230
+#: lib/kateviewmanager.cpp:232
 #, kde-format
 msgid "Move the splitter of the current view to the right"
 msgstr "Siirtää nykyisen näkymän jakopalkkia oikealle"
 
-#: lib/kateviewmanager.cpp:233
+#: lib/kateviewmanager.cpp:235
 #, kde-format
 msgid "Move Splitter Left"
 msgstr "Siirrä jakopalkkia vasemmalle"
 
-#: lib/kateviewmanager.cpp:236
+#: lib/kateviewmanager.cpp:238
 #, kde-format
 msgid "Move the splitter of the current view to the left"
 msgstr "Siirtää nykyisen näkymän jakopalkkia vasemmalle"
 
-#: lib/kateviewmanager.cpp:239
+#: lib/kateviewmanager.cpp:241
 #, kde-format
 msgid "Move Splitter Up"
 msgstr "Siirrä jakopalkkia ylös"
 
-#: lib/kateviewmanager.cpp:242
+#: lib/kateviewmanager.cpp:244
 #, kde-format
 msgid "Move the splitter of the current view up"
 msgstr "Siirtää nykyisen näkymän jakopalkkia ylös"
 
-#: lib/kateviewmanager.cpp:245
+#: lib/kateviewmanager.cpp:247
 #, kde-format
 msgid "Move Splitter Down"
 msgstr "Siirrä jakopalkkia alas"
 
-#: lib/kateviewmanager.cpp:248
+#: lib/kateviewmanager.cpp:250
 #, kde-format
 msgid "Move the splitter of the current view down"
 msgstr "Siirtää nykyisen näkymän jakopalkkia alas"
 
-#: lib/kateviewmanager.cpp:251
+#: lib/kateviewmanager.cpp:253
 #, kde-format
 msgid "Focus Navigation Bar"
 msgstr "Kohdista navigointiriville"
 
-#: lib/kateviewmanager.cpp:252
+#: lib/kateviewmanager.cpp:254
 #, kde-format
 msgid "Focus the navigation bar"
 msgstr "Kohdista navigointiriville"
 
-#: lib/kateviewmanager.cpp:259
+#: lib/kateviewmanager.cpp:261
 #, kde-format
 msgid "Welcome Page"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:274
+#: lib/kateviewmanager.cpp:276
 #, kde-format
 msgid "Show the welcome page"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:316 lib/kateviewmanager.cpp:318
+#: lib/kateviewmanager.cpp:318 lib/kateviewmanager.cpp:320
 #, kde-format
 msgid "Open File"
 msgstr "Avaa tiedosto"
 
-#: lib/kateviewmanager.cpp:337
+#: lib/kateviewmanager.cpp:339
 #, kde-format
 msgid ""
 "<p>You are attempting to open one or more large files:</p><ul>%1</ul><p>Do "
@@ -2021,12 +2023,47 @@ msgstr ""
 "ul><p>Haluatko jatkaa?</p><p><strong>Huomaa, että Kate saattaa lakata "
 "joksikin aikaa vastaamasta, kun se avaa suuria tiedostoja.</strong></p>"
 
-#: lib/kateviewmanager.cpp:346
+#: lib/kateviewmanager.cpp:348
 #, kde-format
 msgid "Opening Large File"
 msgstr "Avaamassa suurta tiedostoa"
 
-#: lib/kateviewmanager.cpp:1212
+#: lib/kateviewmanager.cpp:481
+#, kde-format
+msgid "%1 cannot open folders"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:500
+#, kde-format
+msgid "The plugin required to open folders was not found"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:506
+#, kde-format
+msgid ""
+"In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:515
+#, fuzzy, kde-format
+#| msgid "Open File"
+msgctxt "@title:window"
+msgid "Open Folder"
+msgstr "Avaa tiedosto"
+
+#: lib/kateviewmanager.cpp:516
+#, fuzzy, kde-format
+#| msgid "Enabled"
+msgctxt "@action:button"
+msgid "Enable"
+msgstr "Käytössä"
+
+#: lib/kateviewmanager.cpp:527
+#, kde-format
+msgid "Failed to enable <b>%1</b> plugin"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:1288
 #, kde-format
 msgid "This view may have unsaved work. Do you really want to close it?"
 msgstr ""
@@ -2121,11 +2158,6 @@ msgstr "Ohjelmaa ei voitu käynnistää"
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr "Valittua ohjelmaa ei voitu käynnistää: sitä ei ehkä ole asennettu."
-
-#: lib/ktexteditor_utils.cpp:213
-#, kde-format
-msgid "Please enable the project plugin to load directories"
-msgstr ""
 
 #: lib/quickopen/katequickopenlineedit.cpp:22
 #, kde-format
@@ -2450,32 +2482,40 @@ msgstr "Poista käyttämättömät metatiedot ajassa:"
 msgid "Welcome to %1"
 msgstr ""
 
-#: lib/welcomeview/welcomeview.cpp:57
+#. i18n: ectx: property (text), widget (QLabel, labelRecentItems)
+#: lib/welcomeview/welcomeview.cpp:56 lib/welcomeview/welcomeview.ui:206
 #, fuzzy, kde-format
-#| msgid "Close the current document."
-msgid "No recent files"
-msgstr "Sulje nykyinen tiedosto."
+#| msgctxt "The number of open documents"
+#| msgid "Open Documents"
+msgid "Recent Documents"
+msgstr "Avoimia tiedostoja"
 
-#: lib/welcomeview/welcomeview.cpp:105
-#, fuzzy, kde-format
-#| msgid "&Do not save session"
-msgid "No saved sessions"
-msgstr "&älä tallenna istuntoa"
-
-#: lib/welcomeview/welcomeview.cpp:187
+#: lib/welcomeview/welcomeview.cpp:56
 #, fuzzy, kde-format
 #| msgctxt "The number of open documents"
 #| msgid "Open Documents"
 msgid "Recent Documents and Projects"
 msgstr "Avoimia tiedostoja"
 
-#. i18n: ectx: property (text), widget (QLabel, labelRecentItems)
-#: lib/welcomeview/welcomeview.cpp:190 lib/welcomeview/welcomeview.ui:206
+#: lib/welcomeview/welcomeview.cpp:59
 #, fuzzy, kde-format
 #| msgctxt "The number of open documents"
 #| msgid "Open Documents"
-msgid "Recent Documents"
+msgid "No recent documents or projects"
 msgstr "Avoimia tiedostoja"
+
+#: lib/welcomeview/welcomeview.cpp:59
+#, fuzzy, kde-format
+#| msgctxt "The number of open documents"
+#| msgid "Open Documents"
+msgid "No recent documents"
+msgstr "Avoimia tiedostoja"
+
+#: lib/welcomeview/welcomeview.cpp:107
+#, fuzzy, kde-format
+#| msgid "&Do not save session"
+msgid "No saved sessions"
+msgstr "&älä tallenna istuntoa"
 
 #: lib/welcomeview/welcomeview.cpp:207
 #, fuzzy, kde-format
@@ -2541,6 +2581,11 @@ msgstr "Istuntojen &hallinta…"
 #| msgid "Create a new document"
 msgid "Show for new window"
 msgstr "Luo uusi tiedosto"
+
+#, fuzzy
+#~| msgid "Close the current document."
+#~ msgid "No recent files"
+#~ msgstr "Sulje nykyinen tiedosto."
 
 #, fuzzy
 #~| msgctxt "@action:inmenu"
@@ -3555,9 +3600,6 @@ msgstr "Luo uusi tiedosto"
 
 #~ msgid "Use etags(1) to find definitions, and highlight them."
 #~ msgstr "Etsi määritelmät etags(1)illä ja korosta ne."
-
-#~ msgid "Enabled"
-#~ msgstr "Käytössä"
 
 #~ msgid "Highlight files with suffixes:"
 #~ msgstr "Korosta tiedostot, joiden pääte on:"

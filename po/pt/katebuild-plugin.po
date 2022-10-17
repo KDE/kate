@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-14 00:50+0000\n"
-"PO-Revision-Date: 2022-10-06 09:07+0100\n"
+"PO-Revision-Date: 2022-10-16 11:40+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
 "Language: pt\n"
@@ -83,16 +83,14 @@ msgid "Select Target..."
 msgstr "Seleccionar o Alvo..."
 
 #: plugin_katebuild.cpp:144
-#, fuzzy, kde-format
-#| msgid "Build selected target"
+#, kde-format
 msgid "Build Selected Target"
-msgstr "Compilar o alvo seleccionado"
+msgstr "Compilar o Alvo Seleccionado"
 
 #: plugin_katebuild.cpp:148
-#, fuzzy, kde-format
-#| msgid "Build and run selected target"
+#, kde-format
 msgid "Build and Run Selected Target"
-msgstr "Compilar e executar o alvo seleccionado"
+msgstr "Compilar e Executar o Alvo Seleccionado"
 
 #: plugin_katebuild.cpp:152
 #, kde-format
@@ -418,16 +416,14 @@ msgid "Build and run selected target"
 msgstr "Compilar e executar o alvo seleccionado"
 
 #: targets.cpp:56
-#, fuzzy, kde-format
-#| msgid "Build selected target"
+#, kde-format
 msgid "Move selected target up"
-msgstr "Compilar o alvo seleccionado"
+msgstr "Subir o alvo seleccionado"
 
 #: targets.cpp:60
-#, fuzzy, kde-format
-#| msgid "Build selected target"
+#, kde-format
 msgid "Move selected target down"
-msgstr "Compilar o alvo seleccionado"
+msgstr "Descer o alvo seleccionado"
 
 #. i18n: ectx: Menu (Build Menubar)
 #: ui.rc:6
@@ -444,15 +440,3 @@ msgstr "Inserir um local"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Seleccione a pasta a inserir"
-
-#~ msgid "Build Default Target"
-#~ msgstr "Compilar o Alvo Predefinido"
-
-#~ msgid "Build and Run Default Target"
-#~ msgstr "Compilar e Executar o Alvo Predefinido"
-
-#~ msgid "Build Previous Target"
-#~ msgstr "Compilar o Alvo Anterior"
-
-#~ msgid "Active target-set:"
-#~ msgstr "Conjunto de alvos activo:"

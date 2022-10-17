@@ -458,11 +458,3 @@ msgstr "Няма папки и файлове за индексиране"
 #, kde-format
 msgid "The CTags program exited with code %1: %2"
 msgstr "Програмата CTags приключи с код %1: %2"
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your names"
-#~ msgstr "Ясен Праматаров, Минчо Кондарев"
-
-#~ msgctxt "EMAIL OF TRANSLATORS"
-#~ msgid "Your emails"
-#~ msgstr "yasen@lindeas.com"

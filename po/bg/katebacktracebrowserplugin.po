@@ -188,11 +188,3 @@ msgstr "Проследяване на настройки"
 #, kde-format
 msgid "Backtrace Browser Settings"
 msgstr "Проследяване на настройки на браузър"
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your names"
-#~ msgstr "Ясен Праматаров"
-
-#~ msgctxt "EMAIL OF TRANSLATORS"
-#~ msgid "Your emails"
-#~ msgstr "yasen@lindeas.com"

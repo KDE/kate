@@ -24,8 +24,7 @@ msgstr ""
 #: branchcheckoutdialog.cpp:29
 #, kde-format
 msgid "Select branch to checkout. Press 'Esc' to cancel."
-msgstr ""
-"Seleccioneu la branca que s'ha de baixar. Premeu «Esc» per a cancel·lar."
+msgstr "Seleccioneu la branca que es baixarà. Premeu «Esc» per a cancel·lar."
 
 #: branchcheckoutdialog.cpp:36
 #, kde-format
@@ -55,8 +54,7 @@ msgstr "Introduïu el nom de la nova branca. Premeu «Esc» per a cancel·lar."
 #: branchcheckoutdialog.cpp:100
 #, kde-format
 msgid "Select branch to checkout from. Press 'Esc' to cancel."
-msgstr ""
-"Seleccioneu la branca que s'ha de baixar. Premeu «Esc» per a cancel·lar."
+msgstr "Seleccioneu la branca que es baixarà. Premeu «Esc» per a cancel·lar."
 
 #: branchcheckoutdialog.cpp:121
 #, kde-format

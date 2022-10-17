@@ -553,8 +553,8 @@ msgstr "Ves a la coincidència anterior"
 msgid ""
 "Comma separated list of file types to search in. Example: \"*.cpp,*.h\"\n"
 msgstr ""
-"Llista dels tipus de fitxer que s'han de buscar, separats per comes. "
-"Exemple: «*.cpp,*.h»\n"
+"Llista dels tipus de fitxer que es buscaran, separats per comes. Exemple: «*."
+"cpp,*.h»\n"
 
 #: SearchPlugin.cpp:381
 #, kde-format

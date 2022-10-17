@@ -252,11 +252,3 @@ msgstr "Променливи"
 #, kde-format
 msgid "Templates"
 msgstr "Шаблони"
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your names"
-#~ msgstr "Ясен Праматаров"
-
-#~ msgctxt "EMAIL OF TRANSLATORS"
-#~ msgid "Your emails"
-#~ msgstr "yasen@lindeas.com"

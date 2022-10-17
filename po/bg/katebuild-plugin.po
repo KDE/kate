@@ -434,14 +434,3 @@ msgstr ""
 #, kde-format
 msgid "Select directory to insert"
 msgstr ""
-
-#, fuzzy
-#~| msgid "Build Default Target"
-#~ msgid "Build and Run Default Target"
-#~ msgstr "Изграждане на цел по подразбиране"
-
-#~ msgid "Build Previous Target"
-#~ msgstr "Изграждане на предишна цел"
-
-#~ msgid "config"
-#~ msgstr "config"

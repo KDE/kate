@@ -157,11 +157,12 @@ struct FindChildrenHelper<First, Rest...> {
 class SearchMatchOverlay : public QWidget
 {
 public:
-    SearchMatchOverlay(QWidget *parent)
+    SearchMatchOverlay(QWidget *parent, int tabIdx = -1)
         : QWidget(parent)
+        , m_tabIdx(tabIdx)
     {
         setAttribute(Qt::WA_TransparentForMouseEvents, true);
-        resize(parent->size());
+        resize_impl();
         parent->installEventFilter(this);
 
         show();
@@ -172,14 +173,27 @@ public:
     {
         // trigger it delayed just to be safe as we will be calling
         // it in response to Resize sometimes
-        QMetaObject::invokeMethod(
-            this,
-            [this] {
-                if (parentWidget() && size() != parentWidget()->size()) {
-                    resize(parentWidget()->size());
-                }
-            },
-            Qt::QueuedConnection);
+        QMetaObject::invokeMethod(this, &SearchMatchOverlay::resize_impl, Qt::QueuedConnection);
+    }
+
+    void resize_impl()
+    {
+        if (m_tabIdx >= 0) {
+            auto tabBar = qobject_cast<QTabBar *>(parentWidget());
+            if (!tabBar) {
+                setVisible(false);
+                return;
+            }
+            const QRect r = tabBar->tabRect(m_tabIdx);
+            if (geometry() != r) {
+                setGeometry(r);
+            }
+            return;
+        }
+
+        if (parentWidget() && size() != parentWidget()->size()) {
+            resize(parentWidget()->size());
+        }
     }
 
     bool eventFilter(QObject *o, QEvent *e) override
@@ -196,9 +210,12 @@ protected:
         QPainter p(this);
         p.setClipRegion(e->region());
         QColor c = palette().brush(QPalette::Active, QPalette::Highlight).color();
-        c.setAlpha(100);
+        c.setAlpha(110);
         p.fillRect(rect(), c);
     }
+
+private:
+    int m_tabIdx = -1;
 };
 
 void KateConfigDialog::onSearchTextChanged()
@@ -238,11 +255,52 @@ void KateConfigDialog::onSearchTextChanged()
     qDeleteAll(m_searchMatchOverlays);
     m_searchMatchOverlays.clear();
 
+    using TabWidgetAndPage = QPair<QTabWidget *, QWidget *>;
+    auto tabWidgetParent = [](QWidget *w) {
+        // Finds if @p w is in a QTabWidget and returns
+        // The QTabWidget + the widget in the stack where
+        // @p w lives
+        auto parent = w->parentWidget();
+        TabWidgetAndPage p = {nullptr, nullptr};
+        if (auto tw = qobject_cast<QTabWidget *>(parent)) {
+            p.first = tw;
+        }
+        QVarLengthArray<QWidget *, 8> parentChain;
+        while (parent) {
+            if (!p.first) {
+                if (auto tw = qobject_cast<QTabWidget *>(parent)) {
+                    if (parentChain.size() >= 3) {
+                        // last == QTabWidget
+                        // second last == QStackedWidget of QTabWidget
+                        // third last => the widget we want
+                        p.second = parentChain.value((parentChain.size() - 1) - 2);
+                    }
+                    p.first = tw;
+                    break;
+                }
+            }
+            parent = parent->parentWidget();
+            parentChain << parent;
+        }
+        return p;
+    };
+
     for (auto w : std::as_const(matchedWidgets)) {
         if (w) {
-            auto overlay = new SearchMatchOverlay(w);
-            m_searchMatchOverlays << overlay;
-            overlay->setVisible(true);
+            m_searchMatchOverlays << new SearchMatchOverlay(w);
+
+            if (!w->isVisible()) {
+                const auto [tabWidget, page] = tabWidgetParent(w);
+                if (!tabWidget && !page) {
+                    continue;
+                }
+                const int idx = tabWidget->indexOf(page);
+                if (idx < 0) {
+                    //                     qDebug() << page << tabWidget << "not found" << w;
+                    continue;
+                }
+                m_searchMatchOverlays << new SearchMatchOverlay(tabWidget->tabBar(), idx);
+            }
         }
     }
 }

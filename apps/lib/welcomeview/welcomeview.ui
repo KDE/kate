@@ -85,18 +85,6 @@
        <property name="spacing">
         <number>20</number>
        </property>
-       <property name="leftMargin">
-        <number>20</number>
-       </property>
-       <property name="topMargin">
-        <number>20</number>
-       </property>
-       <property name="rightMargin">
-        <number>20</number>
-       </property>
-       <property name="bottomMargin">
-        <number>20</number>
-       </property>
        <item>
         <widget class="QWidget" name="widgetHeader" native="true">
          <layout class="QHBoxLayout" name="layoutHeader" stretch="1,0,0,1">

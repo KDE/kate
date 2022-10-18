@@ -6,11 +6,16 @@
 */
 #include "ResultsTreeView.h"
 
+#include "Results.h"
+
+#include <QPushButton>
+
 #include <KSyntaxHighlighting/Theme>
 #include <KTextEditor/Editor>
 
 ResultsTreeView::ResultsTreeView(QWidget *parent)
     : QTreeView(parent)
+    , m_detachButton(new QPushButton(this))
 {
     auto updateColors = [this](KTextEditor::Editor *e) {
         if (!e) {
@@ -28,6 +33,24 @@ ResultsTreeView::ResultsTreeView(QWidget *parent)
         pal.setColor(QPalette::Highlight, highlight);
         setPalette(pal);
     };
+
+    connect(this, &ResultsTreeView::geometryChanged, this, [this] {
+        auto topRight = viewport()->geometry().topRight();
+        topRight.rx() -= 4;
+        topRight.ry() += 4;
+        auto btnGeometry = m_detachButton->geometry();
+        btnGeometry.moveTopRight(topRight);
+        m_detachButton->setGeometry(btnGeometry);
+    });
+
+    m_detachButton->setIcon(QIcon::fromTheme(QStringLiteral("draw-arrow")));
+    m_detachButton->resize(m_detachButton->minimumSizeHint());
+    connect(m_detachButton, &QAbstractButton::clicked, this, [this] {
+        m_detachButton->setEnabled(false);
+        m_detachButton->setVisible(false);
+        Q_EMIT detachClicked();
+    });
+    m_detachButton->setVisible(false);
 
     auto *e = KTextEditor::Editor::instance();
     connect(e, &KTextEditor::Editor::configChanged, this, updateColors);
@@ -59,4 +82,22 @@ void ResultsTreeView::resizeEvent(QResizeEvent *e)
 {
     Q_EMIT geometryChanged();
     QTreeView::resizeEvent(e);
+}
+
+void ResultsTreeView::enterEvent(QEvent *e)
+{
+    auto *res = qobject_cast<Results *>(parent());
+    if (!res) {
+        qWarning() << Q_FUNC_INFO << "Unexpected null parent() Results";
+        QTreeView::enterEvent(e);
+        return;
+    }
+    m_detachButton->setVisible(!res->isEmpty() && !res->isDetachedToMainWindow);
+    QTreeView::enterEvent(e);
+}
+
+void ResultsTreeView::leaveEvent(QEvent *e)
+{
+    m_detachButton->hide();
+    QTreeView::leaveEvent(e);
 }

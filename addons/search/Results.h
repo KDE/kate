@@ -27,7 +27,7 @@ public:
     QString treeRootText;
     MatchModel matchModel;
     bool displayFolderOptions = false;
-    class QPushButton *const m_detachButton;
+    bool isDetachedToMainWindow = false;
 
     // Used by katemainwindow when we try to close this widget
     Q_INVOKABLE bool shouldClose()

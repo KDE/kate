@@ -23,12 +23,16 @@ public:
 
 private:
     QColor m_fg;
+    class QPushButton *const m_detachButton;
 
 protected:
     void resizeEvent(QResizeEvent *) override;
+    void enterEvent(QEvent *) override;
+    void leaveEvent(QEvent *) override;
 
 Q_SIGNALS:
     void geometryChanged();
+    void detachClicked();
 };
 
 #endif

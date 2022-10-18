@@ -14,6 +14,11 @@
 
 QTEST_MAIN(KateViewManagementTests)
 
+static bool viewspaceContainsView(KateViewSpace *vs, KTextEditor::View *v)
+{
+    return vs->hasDocument(v->document());
+}
+
 KateViewManagementTests::KateViewManagementTests(QObject *)
 {
     m_tempdir = new QTemporaryDir;
@@ -92,27 +97,37 @@ void KateViewManagementTests::testViewspaceClosesWhenThereIsWidget()
     vm->slotSplitViewSpaceVert();
     // Now we have two viewspaces
     QCOMPARE(vm->m_viewSpaceList.size(), 2);
+    auto *leftVS = vm->m_viewSpaceList[0];
+    auto *rightVS = vm->m_viewSpaceList[1];
+    QCOMPARE(rightVS, vm->activeViewSpace());
 
     // add a widget
     QPointer<QWidget> widget = new QWidget;
     Utils::addWidget(widget, app->activeMainWindow());
+    // active viewspace remains the same
+    QCOMPARE(vm->m_viewSpaceList[1], vm->activeViewSpace());
+    // the widget should be active in activeViewSpace
+    QCOMPARE(vm->activeViewSpace()->currentWidget(), widget);
+    // activeView() should be nullptr
+    QVERIFY(!vm->activeView());
 
     // there should still be 2 views
     // widget is not counted in views
     QCOMPARE(vm->m_views.size(), 2);
 
-    // Widget should be active
-    QVERIFY(vm->activeViewSpace()->currentWidget());
-    // activeView() should be nullptr
-    QVERIFY(!vm->activeView());
+    const auto sortedViews = vm->views();
+    QCOMPARE(sortedViews.size(), 2);
 
-    // Make the view active
-    vm->activateView(vm->m_views.begin()->first);
-    QVERIFY(vm->activeView() == vm->m_views.begin()->first);
+    // ensure we know where both of the views are and
+    // we close the right one
+    QVERIFY(viewspaceContainsView(rightVS, sortedViews.at(0)));
+    QVERIFY(viewspaceContainsView(leftVS, sortedViews.at(1)));
+
+    // Make the KTE::view in right viewspace active
+    vm->activateView(sortedViews.at(0));
+    QVERIFY(vm->activeView() == sortedViews.at(0));
 
     // close active view
-    // active view still points to the last active view
-    // even though it is not in focus by user
     vm->closeView(vm->activeView());
 
     // one view left, but two viewspaces

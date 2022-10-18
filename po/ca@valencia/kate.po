@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-17 00:50+0000\n"
-"PO-Revision-Date: 2022-10-16 09:06+0200\n"
+"POT-Creation-Date: 2022-10-18 00:48+0000\n"
+"PO-Revision-Date: 2022-10-17 10:43+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -2014,36 +2014,36 @@ msgstr "Obertura d'un fitxer gran"
 #: lib/kateviewmanager.cpp:481
 #, kde-format
 msgid "%1 cannot open folders"
-msgstr ""
+msgstr "%1 no ha pogut obrir les carpetes"
 
 #: lib/kateviewmanager.cpp:500
 #, kde-format
 msgid "The plugin required to open folders was not found"
-msgstr ""
+msgstr "No s'ha trobat el connector requerit per a obrir carpetes"
 
 #: lib/kateviewmanager.cpp:506
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
 msgstr ""
+"Per tal d'obrir carpetes, cal activar el connector <b>%1</b>. L'active?"
 
 #: lib/kateviewmanager.cpp:515
-#, fuzzy, kde-format
-#| msgid "Open Folder..."
+#, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
-msgstr "Obri una carpeta..."
+msgstr "Obriu una carpeta"
 
 #: lib/kateviewmanager.cpp:516
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
-msgstr ""
+msgstr "Activa"
 
 #: lib/kateviewmanager.cpp:527
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
-msgstr ""
+msgstr "No s'ha pogut activar el connector <b>%1</b>"
 
 #: lib/kateviewmanager.cpp:1288
 #, kde-format
@@ -2217,7 +2217,7 @@ msgstr "O&bri"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonNewSession)
 #. i18n: ectx: property (text), widget (QPushButton, m_newButton)
-#: lib/session/katesessionmanagedialog.ui:98 lib/welcomeview/welcomeview.ui:291
+#: lib/session/katesessionmanagedialog.ui:98 lib/welcomeview/welcomeview.ui:279
 #, kde-format
 msgid "New Session"
 msgstr "Sessió nova"
@@ -2462,7 +2462,7 @@ msgid "Welcome to %1"
 msgstr "Us donem la benvinguda a %1"
 
 #. i18n: ectx: property (text), widget (QLabel, labelRecentItems)
-#: lib/welcomeview/welcomeview.cpp:56 lib/welcomeview/welcomeview.ui:206
+#: lib/welcomeview/welcomeview.cpp:56 lib/welcomeview/welcomeview.ui:194
 #, kde-format
 msgid "Recent Documents"
 msgstr "Documents recents"
@@ -2473,16 +2473,14 @@ msgid "Recent Documents and Projects"
 msgstr "Documents i projectes recents"
 
 #: lib/welcomeview/welcomeview.cpp:59
-#, fuzzy, kde-format
-#| msgid "Recent Documents and Projects"
+#, kde-format
 msgid "No recent documents or projects"
-msgstr "Documents i projectes recents"
+msgstr "No hi ha documents ni projectes recents"
 
 #: lib/welcomeview/welcomeview.cpp:59
-#, fuzzy, kde-format
-#| msgid "Recent Documents"
+#, kde-format
 msgid "No recent documents"
-msgstr "Documents recents"
+msgstr "No hi ha cap document recent"
 
 #: lib/welcomeview/welcomeview.cpp:107
 #, kde-format
@@ -2506,49 +2504,43 @@ msgid "Welcome"
 msgstr "Benvinguda"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonNewFile)
-#: lib/welcomeview/welcomeview.ui:192
+#: lib/welcomeview/welcomeview.ui:180
 #, kde-format
 msgid "New File"
 msgstr "Fitxer nou"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonOpenFolder)
-#: lib/welcomeview/welcomeview.ui:199
+#: lib/welcomeview/welcomeview.ui:187
 #, kde-format
 msgid "Open Folder..."
 msgstr "Obri una carpeta..."
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonOpenFile)
-#: lib/welcomeview/welcomeview.ui:213
+#: lib/welcomeview/welcomeview.ui:201
 #, kde-format
 msgid "Open File..."
 msgstr "Obri un fitxer..."
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, buttonClearRecentFiles)
-#: lib/welcomeview/welcomeview.ui:252
+#: lib/welcomeview/welcomeview.ui:240
 #, kde-format
 msgid "Clear Recent Files"
 msgstr "Neteja els fitxers recents"
 
 #. i18n: ectx: property (text), widget (QLabel, labelSavedSessions)
-#: lib/welcomeview/welcomeview.ui:284
+#: lib/welcomeview/welcomeview.ui:272
 #, kde-format
 msgid "Saved Sessions"
 msgstr "Sessions guardades"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonManageSessions)
-#: lib/welcomeview/welcomeview.ui:317
+#: lib/welcomeview/welcomeview.ui:305
 #, kde-format
 msgid "Manage Sessions..."
 msgstr "Gestiona les sessions..."
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
-#: lib/welcomeview/welcomeview.ui:368
+#: lib/welcomeview/welcomeview.ui:356
 #, kde-format
 msgid "Show for new window"
 msgstr "Mostra per a una finestra nova"
-
-#~ msgid "Please enable the project plugin to load directories"
-#~ msgstr "Activeu el connector de projectes per a carregar directoris"
-
-#~ msgid "No recent files"
-#~ msgstr "Ni hi ha cap fitxer recent"

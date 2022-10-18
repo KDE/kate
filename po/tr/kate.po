@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-17 00:50+0000\n"
-"PO-Revision-Date: 2022-10-16 11:09+0300\n"
+"POT-Creation-Date: 2022-10-18 00:48+0000\n"
+"PO-Revision-Date: 2022-10-17 12:08+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -2007,36 +2007,37 @@ msgstr "Büyük Dosya Açılıyor"
 #: lib/kateviewmanager.cpp:481
 #, kde-format
 msgid "%1 cannot open folders"
-msgstr ""
+msgstr "%1, klasörleri açamaz"
 
 #: lib/kateviewmanager.cpp:500
 #, kde-format
 msgid "The plugin required to open folders was not found"
-msgstr ""
+msgstr "Klasörleri açmak için gerekli eklenti bulunamadı"
 
 #: lib/kateviewmanager.cpp:506
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
 msgstr ""
+"Klasörleri açmak için <b>%1</b> eklentisinin etkinleştirilmesi gerekiyor. "
+"Etkinleştirilsin mi?"
 
 #: lib/kateviewmanager.cpp:515
-#, fuzzy, kde-format
-#| msgid "Open Folder..."
+#, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
-msgstr "Klasör Aç..."
+msgstr "Klasör Aç"
 
 #: lib/kateviewmanager.cpp:516
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
-msgstr ""
+msgstr "Etkinleştir"
 
 #: lib/kateviewmanager.cpp:527
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
-msgstr ""
+msgstr "<b>%1</b> eklentisi etkinleştirilemedi"
 
 #: lib/kateviewmanager.cpp:1288
 #, kde-format
@@ -2208,7 +2209,7 @@ msgstr "&Aç"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonNewSession)
 #. i18n: ectx: property (text), widget (QPushButton, m_newButton)
-#: lib/session/katesessionmanagedialog.ui:98 lib/welcomeview/welcomeview.ui:291
+#: lib/session/katesessionmanagedialog.ui:98 lib/welcomeview/welcomeview.ui:279
 #, kde-format
 msgid "New Session"
 msgstr "Yeni Oturum"
@@ -2451,7 +2452,7 @@ msgid "Welcome to %1"
 msgstr "%1 uygulamasına hoş geldiniz"
 
 #. i18n: ectx: property (text), widget (QLabel, labelRecentItems)
-#: lib/welcomeview/welcomeview.cpp:56 lib/welcomeview/welcomeview.ui:206
+#: lib/welcomeview/welcomeview.cpp:56 lib/welcomeview/welcomeview.ui:194
 #, kde-format
 msgid "Recent Documents"
 msgstr "Son Kullanılan Belgeler"
@@ -2462,16 +2463,14 @@ msgid "Recent Documents and Projects"
 msgstr "Son Kullanılan Belgeler ve Projeler"
 
 #: lib/welcomeview/welcomeview.cpp:59
-#, fuzzy, kde-format
-#| msgid "Recent Documents and Projects"
+#, kde-format
 msgid "No recent documents or projects"
-msgstr "Son Kullanılan Belgeler ve Projeler"
+msgstr "Son kullanılan belge veya proje yok"
 
 #: lib/welcomeview/welcomeview.cpp:59
-#, fuzzy, kde-format
-#| msgid "Recent Documents"
+#, kde-format
 msgid "No recent documents"
-msgstr "Son Kullanılan Belgeler"
+msgstr "Son kullanılan belge yok"
 
 #: lib/welcomeview/welcomeview.cpp:107
 #, kde-format
@@ -2495,43 +2494,43 @@ msgid "Welcome"
 msgstr "Hoş Geldiniz"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonNewFile)
-#: lib/welcomeview/welcomeview.ui:192
+#: lib/welcomeview/welcomeview.ui:180
 #, kde-format
 msgid "New File"
 msgstr "Yeni Dosya"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonOpenFolder)
-#: lib/welcomeview/welcomeview.ui:199
+#: lib/welcomeview/welcomeview.ui:187
 #, kde-format
 msgid "Open Folder..."
 msgstr "Klasör Aç..."
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonOpenFile)
-#: lib/welcomeview/welcomeview.ui:213
+#: lib/welcomeview/welcomeview.ui:201
 #, kde-format
 msgid "Open File..."
 msgstr "Dosya Aç..."
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, buttonClearRecentFiles)
-#: lib/welcomeview/welcomeview.ui:252
+#: lib/welcomeview/welcomeview.ui:240
 #, kde-format
 msgid "Clear Recent Files"
 msgstr "Son Kullanılan Dosyaları Temizle"
 
 #. i18n: ectx: property (text), widget (QLabel, labelSavedSessions)
-#: lib/welcomeview/welcomeview.ui:284
+#: lib/welcomeview/welcomeview.ui:272
 #, kde-format
 msgid "Saved Sessions"
 msgstr "Kaydedilmiş Oturumlar"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonManageSessions)
-#: lib/welcomeview/welcomeview.ui:317
+#: lib/welcomeview/welcomeview.ui:305
 #, kde-format
 msgid "Manage Sessions..."
 msgstr "Oturumları Yönet..."
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
-#: lib/welcomeview/welcomeview.ui:368
+#: lib/welcomeview/welcomeview.ui:356
 #, kde-format
 msgid "Show for new window"
 msgstr "Yeni pencerelerde göster"

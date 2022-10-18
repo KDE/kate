@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-17 00:50+0000\n"
+"POT-Creation-Date: 2022-10-18 00:48+0000\n"
 "PO-Revision-Date: 2022-10-16 13:59+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
@@ -2210,7 +2210,7 @@ msgstr "&Отваряне"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonNewSession)
 #. i18n: ectx: property (text), widget (QPushButton, m_newButton)
-#: lib/session/katesessionmanagedialog.ui:98 lib/welcomeview/welcomeview.ui:291
+#: lib/session/katesessionmanagedialog.ui:98 lib/welcomeview/welcomeview.ui:279
 #, kde-format
 msgid "New Session"
 msgstr "Нова сесия"
@@ -2454,7 +2454,7 @@ msgid "Welcome to %1"
 msgstr "Добре дошли в %1"
 
 #. i18n: ectx: property (text), widget (QLabel, labelRecentItems)
-#: lib/welcomeview/welcomeview.cpp:56 lib/welcomeview/welcomeview.ui:206
+#: lib/welcomeview/welcomeview.cpp:56 lib/welcomeview/welcomeview.ui:194
 #, kde-format
 msgid "Recent Documents"
 msgstr "Скорошни документи"
@@ -2498,43 +2498,43 @@ msgid "Welcome"
 msgstr "Добре дошли"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonNewFile)
-#: lib/welcomeview/welcomeview.ui:192
+#: lib/welcomeview/welcomeview.ui:180
 #, kde-format
 msgid "New File"
 msgstr "Нов файл"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonOpenFolder)
-#: lib/welcomeview/welcomeview.ui:199
+#: lib/welcomeview/welcomeview.ui:187
 #, kde-format
 msgid "Open Folder..."
 msgstr "Отваряне на папка..."
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonOpenFile)
-#: lib/welcomeview/welcomeview.ui:213
+#: lib/welcomeview/welcomeview.ui:201
 #, kde-format
 msgid "Open File..."
 msgstr "Отваряне на файл..."
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, buttonClearRecentFiles)
-#: lib/welcomeview/welcomeview.ui:252
+#: lib/welcomeview/welcomeview.ui:240
 #, kde-format
 msgid "Clear Recent Files"
 msgstr "Изчистване на скорошни файлове"
 
 #. i18n: ectx: property (text), widget (QLabel, labelSavedSessions)
-#: lib/welcomeview/welcomeview.ui:284
+#: lib/welcomeview/welcomeview.ui:272
 #, kde-format
 msgid "Saved Sessions"
 msgstr "Записани сесии"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonManageSessions)
-#: lib/welcomeview/welcomeview.ui:317
+#: lib/welcomeview/welcomeview.ui:305
 #, kde-format
 msgid "Manage Sessions..."
 msgstr "Управление на сесиите..."
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
-#: lib/welcomeview/welcomeview.ui:368
+#: lib/welcomeview/welcomeview.ui:356
 #, kde-format
 msgid "Show for new window"
 msgstr "Показване за нов прозорец"

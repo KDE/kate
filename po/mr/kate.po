@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-17 00:50+0000\n"
+"POT-Creation-Date: 2022-10-18 00:48+0000\n"
 "PO-Revision-Date: 2013-03-29 16:35+0530\n"
 "Last-Translator: Chetan Khona <chetan@kompkin.com>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
@@ -2194,7 +2194,7 @@ msgstr "उघडा (&O)"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonNewSession)
 #. i18n: ectx: property (text), widget (QPushButton, m_newButton)
-#: lib/session/katesessionmanagedialog.ui:98 lib/welcomeview/welcomeview.ui:291
+#: lib/session/katesessionmanagedialog.ui:98 lib/welcomeview/welcomeview.ui:279
 #, kde-format
 msgid "New Session"
 msgstr "नवीन सत्र"
@@ -2429,7 +2429,7 @@ msgid "Welcome to %1"
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, labelRecentItems)
-#: lib/welcomeview/welcomeview.cpp:56 lib/welcomeview/welcomeview.ui:206
+#: lib/welcomeview/welcomeview.cpp:56 lib/welcomeview/welcomeview.ui:194
 #, fuzzy, kde-format
 #| msgid "Next Document"
 msgid "Recent Documents"
@@ -2477,48 +2477,48 @@ msgid "Welcome"
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonNewFile)
-#: lib/welcomeview/welcomeview.ui:192
+#: lib/welcomeview/welcomeview.ui:180
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgid "New File"
 msgstr "फाईल उघडा"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonOpenFolder)
-#: lib/welcomeview/welcomeview.ui:199
+#: lib/welcomeview/welcomeview.ui:187
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgid "Open Folder..."
 msgstr "फाईल उघडा"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonOpenFile)
-#: lib/welcomeview/welcomeview.ui:213
+#: lib/welcomeview/welcomeview.ui:201
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgid "Open File..."
 msgstr "फाईल उघडा"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, buttonClearRecentFiles)
-#: lib/welcomeview/welcomeview.ui:252
+#: lib/welcomeview/welcomeview.ui:240
 #, kde-format
 msgid "Clear Recent Files"
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, labelSavedSessions)
-#: lib/welcomeview/welcomeview.ui:284
+#: lib/welcomeview/welcomeview.ui:272
 #, fuzzy, kde-format
 #| msgid "&Save Session"
 msgid "Saved Sessions"
 msgstr "सत्र साठवा (&S)"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonManageSessions)
-#: lib/welcomeview/welcomeview.ui:317
+#: lib/welcomeview/welcomeview.ui:305
 #, fuzzy, kde-format
 #| msgid "&Manage Sessions..."
 msgid "Manage Sessions..."
 msgstr "सत्र व्यवस्थापीत करा (&M)..."
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
-#: lib/welcomeview/welcomeview.ui:368
+#: lib/welcomeview/welcomeview.ui:356
 #, kde-format
 msgid "Show for new window"
 msgstr ""

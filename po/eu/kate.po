@@ -1,6 +1,6 @@
 # Translation for kate.po to Euskara/Basque (eu).
-# Copyright (C) 2002-2018, Free Software Foundation.
-# Copyright (C) 2019-2022, This file is copyright:
+# Copyright (C) 2002-2018 Free Software Foundation.
+# Copyright (C) 2019-2022 This file is copyright:
 # This file is distributed under the same license as the kate package.
 # KDE euskaratzeko proiektuko arduraduna <xalba@ni.eus>.
 #
@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-17 00:50+0000\n"
-"PO-Revision-Date: 2022-10-14 07:30+0200\n"
+"POT-Creation-Date: 2022-10-18 00:48+0000\n"
+"PO-Revision-Date: 2022-10-17 06:29+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -235,7 +235,7 @@ msgstr "Tresna-barra nagusia"
 #: lib/data/kateui.rc:155
 #, kde-format
 msgid "Hamburger Menu Toolbar"
-msgstr ""
+msgstr "Hamburger menu tresna-barra"
 
 #. i18n: ectx: Menu (viewspace_popup_statusbar)
 #: lib/data/kateui.rc:173
@@ -697,9 +697,9 @@ msgid "Configure"
 msgstr "Konfiguratu"
 
 #: lib/kateconfigdialog.cpp:87
-#, fuzzy, kde-format
+#, kde-format
 msgid "Save"
-msgstr "&Gorde:"
+msgstr "Gorde"
 
 #: lib/kateconfigdialog.cpp:106
 #, kde-format
@@ -2011,36 +2011,36 @@ msgstr "Fitxategi handia irekitzea"
 #: lib/kateviewmanager.cpp:481
 #, kde-format
 msgid "%1 cannot open folders"
-msgstr ""
+msgstr "%1 ezin du karpetarik ireki"
 
 #: lib/kateviewmanager.cpp:500
 #, kde-format
 msgid "The plugin required to open folders was not found"
-msgstr ""
+msgstr "Karpetak irekitzeko plugina ez da aurkitu"
 
 #: lib/kateviewmanager.cpp:506
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
 msgstr ""
+"Karpetak ireki ahal izateko, <b>%1</b> plugina gaitu behar da. Hura gaitu?"
 
 #: lib/kateviewmanager.cpp:515
-#, fuzzy, kde-format
-#| msgid "Open Folder..."
+#, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
-msgstr "Ireki karpeta..."
+msgstr "Ireki karpeta"
 
 #: lib/kateviewmanager.cpp:516
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
-msgstr ""
+msgstr "Gaitu"
 
 #: lib/kateviewmanager.cpp:527
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
-msgstr ""
+msgstr "<b>%1</b> plugina gaitzea huts egin du"
 
 #: lib/kateviewmanager.cpp:1288
 #, kde-format
@@ -2212,7 +2212,7 @@ msgstr "&Ireki"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonNewSession)
 #. i18n: ectx: property (text), widget (QPushButton, m_newButton)
-#: lib/session/katesessionmanagedialog.ui:98 lib/welcomeview/welcomeview.ui:291
+#: lib/session/katesessionmanagedialog.ui:98 lib/welcomeview/welcomeview.ui:279
 #, kde-format
 msgid "New Session"
 msgstr "Saio berria"
@@ -2457,7 +2457,7 @@ msgid "Welcome to %1"
 msgstr "Ongi etorri %1ra"
 
 #. i18n: ectx: property (text), widget (QLabel, labelRecentItems)
-#: lib/welcomeview/welcomeview.cpp:56 lib/welcomeview/welcomeview.ui:206
+#: lib/welcomeview/welcomeview.cpp:56 lib/welcomeview/welcomeview.ui:194
 #, kde-format
 msgid "Recent Documents"
 msgstr "Azken aldiko dokumentuak"
@@ -2468,16 +2468,14 @@ msgid "Recent Documents and Projects"
 msgstr "Azken aldiko dokumentuak eta proiektuak"
 
 #: lib/welcomeview/welcomeview.cpp:59
-#, fuzzy, kde-format
-#| msgid "Recent Documents and Projects"
+#, kde-format
 msgid "No recent documents or projects"
-msgstr "Azken aldiko dokumentuak eta proiektuak"
+msgstr "Ez dago azken aldiko dokumenturik edo proiekturik"
 
 #: lib/welcomeview/welcomeview.cpp:59
-#, fuzzy, kde-format
-#| msgid "Recent Documents"
+#, kde-format
 msgid "No recent documents"
-msgstr "Azken aldiko dokumentuak"
+msgstr "Ez dago azken aldiko dokumenturik"
 
 #: lib/welcomeview/welcomeview.cpp:107
 #, kde-format
@@ -2501,43 +2499,43 @@ msgid "Welcome"
 msgstr "Ongi etorri"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonNewFile)
-#: lib/welcomeview/welcomeview.ui:192
+#: lib/welcomeview/welcomeview.ui:180
 #, kde-format
 msgid "New File"
 msgstr "Fitxategi berria"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonOpenFolder)
-#: lib/welcomeview/welcomeview.ui:199
+#: lib/welcomeview/welcomeview.ui:187
 #, kde-format
 msgid "Open Folder..."
 msgstr "Ireki karpeta..."
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonOpenFile)
-#: lib/welcomeview/welcomeview.ui:213
+#: lib/welcomeview/welcomeview.ui:201
 #, kde-format
 msgid "Open File..."
 msgstr "Ireki fitxategia..."
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, buttonClearRecentFiles)
-#: lib/welcomeview/welcomeview.ui:252
+#: lib/welcomeview/welcomeview.ui:240
 #, kde-format
 msgid "Clear Recent Files"
 msgstr "Garbitu azken aldiko fitxategiak"
 
 #. i18n: ectx: property (text), widget (QLabel, labelSavedSessions)
-#: lib/welcomeview/welcomeview.ui:284
+#: lib/welcomeview/welcomeview.ui:272
 #, kde-format
 msgid "Saved Sessions"
 msgstr "Gordetako saioak"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonManageSessions)
-#: lib/welcomeview/welcomeview.ui:317
+#: lib/welcomeview/welcomeview.ui:305
 #, kde-format
 msgid "Manage Sessions..."
 msgstr "Kudeatu saioak..."
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
-#: lib/welcomeview/welcomeview.ui:368
+#: lib/welcomeview/welcomeview.ui:356
 #, kde-format
 msgid "Show for new window"
 msgstr "Erakutsi leiho berrirako"

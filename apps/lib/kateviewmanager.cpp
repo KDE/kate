@@ -46,7 +46,6 @@ KateViewManager::KateViewManager(QWidget *parentW, KateMainWindow *parent)
     : KateSplitter(parentW)
     , m_mainWindow(parent)
     , m_blockViewCreationAndActivation(false)
-    , m_activeViewRunning(false)
     , m_minAge(0)
     , m_guiMergedView(nullptr)
 {
@@ -593,7 +592,7 @@ void KateViewManager::documentsDeleted(const QList<KTextEditor::Document *> &)
      * this might be missed as above we had m_blockViewCreationAndActivation set to true
      * see bug 426605, no view XMLGUI stuff merged after tab close
      */
-    reactivateActiveView();
+    replugActiveView();
 
     // trigger action update
     updateViewSpaceActions();
@@ -635,7 +634,6 @@ KTextEditor::View *KateViewManager::createView(KTextEditor::Document *doc, KateV
      * remember this view, active == false, min age set
      * create activity resource
      */
-    m_views[view].active = false;
     m_views[view].lruAge = m_minAge--;
 
 #ifdef KF5Activities_FOUND
@@ -759,41 +757,7 @@ bool KateViewManager::activateWidget(QWidget *w)
 
 KTextEditor::View *KateViewManager::activeView()
 {
-    if (m_activeViewRunning) {
-        return nullptr;
-    }
-
-    m_activeViewRunning = true;
-
-    for (const auto &[view, viewData] : m_views) {
-        if (viewData.active) {
-            m_activeViewRunning = false;
-            return view;
-        }
-    }
-
-    // if we get to here, no view isActive()
-    // first, try to get one from activeViewSpace()
-    KateViewSpace *vs = activeViewSpace();
-    if (vs && vs->currentView()) {
-        activateView(vs->currentView());
-
-        m_activeViewRunning = false;
-        return vs->currentView();
-    }
-
-    // last attempt: pick MRU view
-    if (auto sortedViews = views(); !sortedViews.empty()) {
-        KTextEditor::View *v = sortedViews.front();
-        activateView(v);
-        m_activeViewRunning = false;
-        return v;
-    }
-
-    m_activeViewRunning = false;
-
-    // no views exists!
-    return nullptr;
+    return m_guiMergedView;
 }
 
 void KateViewManager::setActiveSpace(KateViewSpace *vs)
@@ -807,17 +771,6 @@ void KateViewManager::setActiveSpace(KateViewSpace *vs)
     // signal update history buttons in mainWindow
     Q_EMIT historyBackEnabled(vs->isHistoryBackEnabled());
     Q_EMIT historyForwardEnabled(vs->isHistoryForwardEnabled());
-}
-
-void KateViewManager::setActiveView(KTextEditor::View *view)
-{
-    if (auto v = activeView()) {
-        m_views[v].active = false;
-    }
-
-    if (view) {
-        m_views[view].active = true;
-    }
 }
 
 void KateViewManager::activateSpace(KTextEditor::View *v)
@@ -836,20 +789,9 @@ void KateViewManager::activateSpace(KTextEditor::View *v)
 
 void KateViewManager::replugActiveView()
 {
-    if (auto view = activeView()) {
-        if (m_guiMergedView == view) {
-            mainWindow()->guiFactory()->removeClient(m_guiMergedView);
-            mainWindow()->guiFactory()->addClient(view);
-        }
-    }
-}
-
-void KateViewManager::reactivateActiveView()
-{
-    KTextEditor::View *view = activeView();
-    if (view) {
-        m_views[view].active = false;
-        activateView(view);
+    if (m_guiMergedView) {
+        mainWindow()->guiFactory()->removeClient(m_guiMergedView);
+        mainWindow()->guiFactory()->addClient(m_guiMergedView);
     }
 }
 
@@ -864,11 +806,7 @@ void KateViewManager::activateView(KTextEditor::View *view)
         return;
     }
 
-    auto it = m_views.find(view);
-    Q_ASSERT(it != m_views.end());
-    ViewData &viewData = it->second;
-
-    if (!viewData.active) {
+    if (!m_guiMergedView || m_guiMergedView != view) {
         // avoid flicker
         KateUpdateDisabler disableUpdates(mainWindow());
 
@@ -877,8 +815,6 @@ void KateViewManager::activateView(KTextEditor::View *view)
             createView(view->document());
             return;
         }
-
-        setActiveView(view);
 
         bool toolbarVisible = mainWindow()->toolBar()->isVisible();
         if (toolbarVisible) {
@@ -899,6 +835,9 @@ void KateViewManager::activateView(KTextEditor::View *view)
             mainWindow()->toolBar()->show();
         }
 
+        auto it = m_views.find(view);
+        Q_ASSERT(it != m_views.end());
+        ViewData &viewData = it->second;
         // remember age of this view
         viewData.lruAge = m_minAge--;
 

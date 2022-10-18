@@ -367,24 +367,13 @@ void KateViewSpace::removeView(KTextEditor::View *v)
 
     // switch to most recently used rather than letting stack choose one
     // (last element could well be v->document() being removed here)
-    bool shown = false;
     for (auto rit = m_registeredDocuments.rbegin(); rit != m_registeredDocuments.rend(); ++rit) {
         if (auto doc = rit->doc()) {
-            shown = showView(doc);
+            m_viewManager->activateView(doc);
             break;
         } else if (auto wid = rit->widget()) {
             activateWidget(wid);
-            shown = true;
             break;
-        }
-    }
-
-    // This can happen if no other tab has a view in this viewspace
-    if (!shown) {
-        // At this point our current index has already changed
-        int idx = m_tabBar->currentIndex();
-        if (idx != -1) {
-            m_viewManager->activateView(m_tabBar->tabDocument(idx));
         }
     }
 
@@ -469,16 +458,8 @@ void KateViewSpace::changeView(int idx)
         return;
     }
 
-    auto currentActiveWidget = currentWidget();
-
     // tell the view manager to show the view
     m_viewManager->activateView(doc);
-
-    // If we had a non-KTE::View widget as active, emit the signal
-    // so that any listeners can tell that tab was changed
-    if (currentActiveWidget) {
-        Q_EMIT m_viewManager->viewChanged(m_viewManager->activeView());
-    }
 }
 
 KTextEditor::View *KateViewSpace::currentView()
@@ -757,7 +738,7 @@ void KateViewSpace::closeTabRequest(int idx)
             // switch to most recently used doc
             for (auto rit = m_registeredDocuments.rbegin(); rit != m_registeredDocuments.rend(); ++rit) {
                 if (auto doc = rit->doc()) {
-                    showView(doc);
+                    m_viewManager->activateView(doc);
                     break;
                 } else if (auto wid = rit->widget()) {
                     activateWidget(wid);
@@ -867,6 +848,7 @@ bool KateViewSpace::activateWidget(QWidget *widget)
 
             m_registeredDocuments.removeOne(widget);
             m_registeredDocuments.append(widget);
+            m_viewManager->activateView(static_cast<KTextEditor::Document *>(nullptr));
             return true;
         }
     }

@@ -103,6 +103,12 @@ void KateViewManagementTests::testViewspaceClosesWhenThereIsWidget()
 
     // Widget should be active
     QVERIFY(vm->activeViewSpace()->currentWidget());
+    // activeView() should be nullptr
+    QVERIFY(!vm->activeView());
+
+    // Make the view active
+    vm->activateView(vm->m_views.begin()->first);
+    QVERIFY(vm->activeView() == vm->m_views.begin()->first);
 
     // close active view
     // active view still points to the last active view
@@ -226,17 +232,22 @@ void KateViewManagementTests::testTabLRUWithWidgets()
 
     // Add a widget
     QWidget *widget = new QWidget;
+    widget->setObjectName(QStringLiteral("widget"));
     Utils::addWidget(widget, app->activeMainWindow());
     QCOMPARE(vs->currentWidget(), widget);
+    // There should be no activeView
+    QVERIFY(!vm->activeView());
 
     QCOMPARE(vs->m_registeredDocuments.size(), 4);
     // activate view1
     vm->activateView(view1->document());
+    QVERIFY(vm->activeView());
 
     // activate widget again
     QCOMPARE(vs->currentWidget(), nullptr);
     vm->activateWidget(widget);
     QCOMPARE(vs->currentWidget(), widget);
+    QVERIFY(!vm->activeView());
 
     // close "widget"
     vm->slotDocumentClose();

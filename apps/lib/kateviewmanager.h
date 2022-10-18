@@ -100,7 +100,6 @@ public Q_SLOTS:
     void slotDocumentClose(KTextEditor::Document *document);
 
     void setActiveSpace(KateViewSpace *vs);
-    void setActiveView(KTextEditor::View *view);
 
     void activateNextView();
     void activatePrevView();
@@ -279,8 +278,6 @@ public Q_SLOTS:
 
     void replugActiveView();
 
-    void reactivateActiveView();
-
     /**
      * Toogle the orientation of current split view
      */
@@ -343,8 +340,6 @@ private:
 
     bool m_blockViewCreationAndActivation;
 
-    bool m_activeViewRunning;
-
     bool m_showUrlNavBar = false;
 
     int m_splitterIndex = 0; // used during saving splitter config.
@@ -355,11 +350,6 @@ private:
     class ViewData
     {
     public:
-        /**
-         * view active?
-         */
-        bool active = false;
-
         /**
          * lru age of the view
          * important: smallest age ==> latest used view

@@ -21,7 +21,7 @@
 #include <KIO/OpenFileManagerWindowJob>
 
 #include <QClipboard>
-#include <QDir>
+#include <QDesktopServices>
 #include <QGraphicsOpacityEffect>
 #include <QLabel>
 #include <QMenu>
@@ -90,6 +90,21 @@ WelcomeView::WelcomeView(KateViewManager *viewManager, QWidget *parent)
     connect(buttonOpenFile, &QPushButton::clicked, m_viewManager, &KateViewManager::slotDocumentOpen);
     connect(buttonClearRecentFiles, &QPushButton::clicked, this, [recentFilesAction]() {
         recentFilesAction->clear();
+    });
+
+    labelHomepage->setText(QStringLiteral("<a href='#'>%1</a>").arg(labelHomepage->text()));
+    connect(labelHomepage, &QLabel::linkActivated, this, [aboutData]() {
+        QDesktopServices::openUrl(QUrl(aboutData.homepage()));
+    });
+
+    labelContribute->setText(QStringLiteral("<a href='#'>%1</a>").arg(labelContribute->text()));
+    connect(labelContribute, &QLabel::linkActivated, this, []() {
+        QDesktopServices::openUrl(QUrl(QStringLiteral("https://kate-editor.org/join-us")));
+    });
+
+    labelHandbook->setText(QStringLiteral("<a href='#'>%1</a>").arg(labelHandbook->text()));
+    connect(labelHandbook, &QLabel::linkActivated, this, [this]() {
+        m_viewManager->mainWindow()->appHelpActivated();
     });
 
     onPluginViewChanged();
@@ -260,6 +275,7 @@ void WelcomeView::updateFonts()
     panelTitleFont.setPointSize(panelTitleFont.pointSize() + 2);
     labelRecentItems->setFont(panelTitleFont);
     labelSavedSessions->setFont(panelTitleFont);
+    labelHelp->setFont(panelTitleFont);
 
     QFont placeholderFont = font();
     placeholderFont.setPointSize(qRound(placeholderFont.pointSize() * 1.3));
@@ -271,18 +287,38 @@ void WelcomeView::updateFonts()
 
 bool WelcomeView::updateLayout()
 {
+    // Align labelHelp with labelRecentFiles
+    labelHelp->setMinimumHeight(labelRecentItems->height());
+
+    bool result = false;
+
     // show/hide widgetHeader depending on the view height
     if (widgetHeader->isVisible()) {
         if (height() <= frameContent->height()) {
             widgetHeader->hide();
-            return true;
+            result = true;
         }
     } else {
-        if (height() > frameContent->height() + widgetHeader->height() + layoutContent->spacing()) {
+        const int implicitHeight = frameContent->height() + widgetHeader->height() + layoutContent->spacing();
+        if (height() > implicitHeight) {
             widgetHeader->show();
+            result = true;
+        }
+    }
+
+    // show/hide widgetHelp depending on the view height
+    if (widgetHelp->isVisible()) {
+        if (width() <= frameContent->width()) {
+            widgetHelp->hide();
+            result = true;
+        }
+    } else {
+        const int implicitWidth = frameContent->width() + widgetHelp->width() + layoutPanels->horizontalSpacing();
+        if (width() > implicitWidth) {
+            widgetHelp->show();
             return true;
         }
     }
 
-    return false;
+    return result;
 }

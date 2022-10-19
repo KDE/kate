@@ -329,7 +329,7 @@ KTextEditor::View *KateViewSpace::createView(KTextEditor::Document *doc)
             addPositionToHistory(view->document()->url(), newPosition);
     });
 
-    // register document, it is shown below through showView() then
+    // register document
     registerDocument(doc);
 
     // view shall still be not registered
@@ -338,7 +338,6 @@ KTextEditor::View *KateViewSpace::createView(KTextEditor::Document *doc)
     // insert View into stack
     stack->addWidget(v);
     m_docToView[doc] = v;
-    showView(v);
 
     return v;
 }

@@ -1025,7 +1025,7 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
         }
     }
 
-    const auto idx = m_treeView->indexAt(e->pos());
+    const QPersistentModelIndex idx = m_treeView->indexAt(e->pos());
     if (!idx.isValid())
         return;
     auto treeItem = idx.data(GitStatusModel::TreeItemType);
@@ -1097,7 +1097,7 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
         }
 
         auto act = menu.exec(m_treeView->viewport()->mapToGlobal(e->pos()));
-        if (!act) {
+        if (!act || !idx.isValid()) {
             return;
         }
 

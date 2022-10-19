@@ -48,9 +48,6 @@ void KateFileActions::openFilePropertiesDialog(QWidget *parent, KTextEditor::Doc
 
 void KateFileActions::renameDocumentFile(QWidget *parent, KTextEditor::Document *doc)
 {
-    // TODO: code was copied and adapted from ../addons/filetree/katefiletree.cpp
-    // (-> DUPLICATE CODE, the new code here should be also used there!)
-
     if (!doc) {
         return;
     }

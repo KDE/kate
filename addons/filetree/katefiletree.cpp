@@ -12,6 +12,8 @@
 #include "katefiletreemodel.h"
 #include "katefiletreeproxymodel.h"
 
+#include "katefileactions.h"
+
 #include <ktexteditor/application.h>
 #include <ktexteditor/document.h>
 #include <ktexteditor/editor.h>
@@ -613,49 +615,7 @@ void KateFileTree::slotCopyFilename()
 
 void KateFileTree::slotRenameFile()
 {
-    KTextEditor::Document *doc = m_proxyModel->docFromIndex(m_indexContextMenu);
-
-    // TODO: the following code was improved in kate/katefileactions.cpp and should be reused here
-
-    if (!doc) {
-        return;
-    }
-
-    const QUrl oldFileUrl = doc->url();
-    const QString oldFileName = doc->url().fileName();
-    bool ok;
-
-    QString newFileName = QInputDialog::getText(this, i18n("Rename file"), i18n("New file name"), QLineEdit::Normal, oldFileName, &ok);
-    if (!ok) {
-        return;
-    }
-
-    QUrl newFileUrl = oldFileUrl.adjusted(QUrl::RemoveFilename | QUrl::StripTrailingSlash);
-    newFileUrl.setPath(newFileUrl.path() + QLatin1Char('/') + newFileName);
-
-    if (!newFileUrl.isValid()) {
-        return;
-    }
-
-    if (!doc->closeUrl()) {
-        return;
-    }
-
-    doc->waitSaveComplete();
-
-    KIO::CopyJob *job = KIO::move(oldFileUrl, newFileUrl);
-    QSharedPointer<QMetaObject::Connection> sc(new QMetaObject::Connection());
-    auto success = [doc, sc](KIO::Job *, const QUrl &, const QUrl &realNewFileUrl, const QDateTime &, bool, bool) {
-        doc->openUrl(realNewFileUrl);
-        doc->documentSavedOrUploaded(doc, true);
-        QObject::disconnect(*sc);
-    };
-    *sc = connect(job, &KIO::CopyJob::copyingDone, doc, success);
-
-    if (!job->exec()) {
-        KMessageBox::error(this, i18n("File \"%1\" could not be moved to \"%2\"", oldFileUrl.toDisplayString(), newFileUrl.toDisplayString()));
-        doc->openUrl(oldFileUrl);
-    }
+    KateFileActions::renameDocumentFile(this, m_proxyModel->docFromIndex(m_indexContextMenu));
 }
 
 void KateFileTree::slotDocumentFirst()

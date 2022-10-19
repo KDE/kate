@@ -8,6 +8,8 @@
 #ifndef KATE_FILEACTIONS_H
 #define KATE_FILEACTIONS_H
 
+#include "kateprivate_export.h"
+
 #include <utility>
 #include <vector>
 
@@ -38,7 +40,7 @@ void openContainingFolder(KTextEditor::Document *document);
  *
  * Nothing is done if the document is nullptr or has no associated file.
  */
-void renameDocumentFile(QWidget *parent, KTextEditor::Document *document);
+KATE_PRIVATE_EXPORT void renameDocumentFile(QWidget *parent, KTextEditor::Document *document);
 
 void openFilePropertiesDialog(QWidget *parent, KTextEditor::Document *document);
 

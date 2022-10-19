@@ -237,6 +237,17 @@ void KateTabBar::mouseMoveEvent(QMouseEvent *event)
     }
 
     QRect rect = tabRect(tab);
+    const auto tabData = this->tabData(tab);
+    QObject *tabObject = nullptr;
+    // TODO: unify KateTabButtonData with QWidget handling
+    if (auto doc = tabData.value<KateTabButtonData>().doc) {
+        tabObject = doc;
+    } else if (auto widget = tabData.value<QWidget *>()) {
+        tabObject = widget;
+    } else {
+        // shouldn't get here
+        return;
+    }
 
     QPixmap p(rect.size() * this->devicePixelRatioF());
     p.setDevicePixelRatio(this->devicePixelRatioF());
@@ -282,13 +293,38 @@ void KateTabBar::mouseMoveEvent(QMouseEvent *event)
     drag->setPixmap(p);
     drag->setHotSpot(dragHotspotPos);
 
+    auto posCopy = dragStartPos;
     dragStartPos = {};
     dragHotspotPos = {};
     drag->exec(Qt::CopyAction);
 
-    // We send this even to ensure the "moveable tab" is properly reset and we have no dislocated tabs
-    QMouseEvent *e = new QMouseEvent(QEvent::MouseButtonPress, mapToGlobal(dragStartPos), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
-    qApp->postEvent(this, e);
+    // On drag end we check whether the drag was a success
+    // i.e., if the widget/doc in tabData still exists in
+    // this tabbar, it failed or there was a copy operation
+    // in which case there might be the "movable tab" hanging
+    // in between which we reset
+    auto onDragEnd = [this, tabObject, posCopy]() {
+        bool found = false;
+        int tabIdx = 0;
+        for (; tabIdx < count(); ++tabIdx) {
+            auto d = this->tabData(tabIdx);
+            if (d.value<KateTabButtonData>().doc == tabObject || d.value<QWidget *>() == tabObject) {
+                found = true;
+                break;
+            }
+        }
+
+        if (found) {
+            // We send this even to ensure the "moveable tab" is properly reset and we have no dislocated tabs
+            auto e = QMouseEvent(QEvent::MouseButtonPress, posCopy, Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
+            qApp->sendEvent(this, &e);
+            if (currentIndex() != tabIdx) {
+                setCurrentIndex(tabIdx);
+            }
+        }
+    };
+
+    connect(drag, &QDrag::destroyed, this, onDragEnd);
 }
 
 void KateTabBar::contextMenuEvent(QContextMenuEvent *ev)

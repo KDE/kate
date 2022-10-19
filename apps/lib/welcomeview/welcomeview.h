@@ -28,7 +28,7 @@ protected:
 
 private Q_SLOTS:
     void onPluginViewChanged(const QString &pluginName = QString());
-    void onRecentFilesContextMenuRequested(const QPoint &pos);
+    void onRecentItemsContextMenuRequested(const QPoint &pos);
 
 private:
     void updateButtons();
@@ -38,7 +38,7 @@ private:
     KateViewManager *m_viewManager = nullptr;
     RecentItemsModel *m_recentItemsModel = nullptr;
     SavedSessionsModel *m_savedSessionsModel = nullptr;
-    Placeholder *m_placeholderRecentFiles = nullptr;
+    Placeholder *m_placeholderRecentItems = nullptr;
     Placeholder *m_placeholderSavedSessions = nullptr;
 };
 

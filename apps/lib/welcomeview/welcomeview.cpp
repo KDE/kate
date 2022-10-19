@@ -9,7 +9,6 @@
 
 #include "kateapp.h"
 #include "kateviewmanager.h"
-#include "ktexteditor_utils.h"
 #include "recentitemsmodel.h"
 #include "savedsessionsmodel.h"
 
@@ -55,18 +54,18 @@ WelcomeView::WelcomeView(KateViewManager *viewManager, QWidget *parent)
 
     labelRecentItems->setText(KateApp::isKate() ? i18n("Recent Documents and Projects") : i18n("Recent Documents"));
 
-    m_placeholderRecentFiles = new Placeholder;
-    m_placeholderRecentFiles->setText(KateApp::isKate() ? i18n("No recent documents or projects") : i18n("No recent documents"));
+    m_placeholderRecentItems = new Placeholder;
+    m_placeholderRecentItems->setText(KateApp::isKate() ? i18n("No recent documents or projects") : i18n("No recent documents"));
 
-    QVBoxLayout *layoutPlaceholderRecentFiles = new QVBoxLayout;
-    layoutPlaceholderRecentFiles->addWidget(m_placeholderRecentFiles);
-    listViewRecentFiles->setLayout(layoutPlaceholderRecentFiles);
+    QVBoxLayout *layoutPlaceholderRecentItems = new QVBoxLayout;
+    layoutPlaceholderRecentItems->addWidget(m_placeholderRecentItems);
+    listViewRecentItems->setLayout(layoutPlaceholderRecentItems);
 
     m_recentItemsModel = new RecentItemsModel(this);
     connect(m_recentItemsModel, &RecentItemsModel::modelReset, this, [this]() {
-        const bool noRecentFiles = m_recentItemsModel->rowCount() == 0;
-        buttonClearRecentFiles->setDisabled(noRecentFiles);
-        m_placeholderRecentFiles->setVisible(noRecentFiles);
+        const bool noRecentItems = m_recentItemsModel->rowCount() == 0;
+        buttonClearRecentItems->setDisabled(noRecentItems);
+        m_placeholderRecentItems->setVisible(noRecentItems);
     });
 
     KRecentFilesAction *recentFilesAction = m_viewManager->mainWindow()->recentFilesAction();
@@ -75,10 +74,10 @@ WelcomeView::WelcomeView(KateViewManager *viewManager, QWidget *parent)
         m_recentItemsModel->refresh(recentFilesAction->urls());
     });
 
-    listViewRecentFiles->setModel(m_recentItemsModel);
-    connect(listViewRecentFiles, &QListView::customContextMenuRequested,
-            this, &WelcomeView::onRecentFilesContextMenuRequested);
-    connect(listViewRecentFiles, &QListView::activated, this, [this](const QModelIndex &index) {
+    listViewRecentItems->setModel(m_recentItemsModel);
+    connect(listViewRecentItems, &QListView::customContextMenuRequested,
+            this, &WelcomeView::onRecentItemsContextMenuRequested);
+    connect(listViewRecentItems, &QListView::activated, this, [this](const QModelIndex &index) {
         if (index.isValid()) {
             const QUrl url = m_recentItemsModel->url(index);
             Q_ASSERT(url.isValid());
@@ -88,22 +87,17 @@ WelcomeView::WelcomeView(KateViewManager *viewManager, QWidget *parent)
 
     connect(buttonNewFile, &QPushButton::clicked, m_viewManager, &KateViewManager::slotDocumentNew);
     connect(buttonOpenFile, &QPushButton::clicked, m_viewManager, &KateViewManager::slotDocumentOpen);
-    connect(buttonClearRecentFiles, &QPushButton::clicked, this, [recentFilesAction]() {
+    connect(buttonClearRecentItems, &QPushButton::clicked, this, [recentFilesAction]() {
         recentFilesAction->clear();
     });
 
-    labelHomepage->setText(QStringLiteral("<a href='#'>%1</a>").arg(labelHomepage->text()));
-    connect(labelHomepage, &QLabel::linkActivated, this, [aboutData]() {
+    connect(labelHomepage, qOverload<>(&KUrlLabel::leftClickedUrl), this, [aboutData]() {
         QDesktopServices::openUrl(QUrl(aboutData.homepage()));
     });
-
-    labelContribute->setText(QStringLiteral("<a href='#'>%1</a>").arg(labelContribute->text()));
-    connect(labelContribute, &QLabel::linkActivated, this, []() {
+    connect(labelContribute, qOverload<>(&KUrlLabel::leftClickedUrl), this, []() {
         QDesktopServices::openUrl(QUrl(QStringLiteral("https://kate-editor.org/join-us")));
     });
-
-    labelHandbook->setText(QStringLiteral("<a href='#'>%1</a>").arg(labelHandbook->text()));
-    connect(labelHandbook, &QLabel::linkActivated, this, [this]() {
+    connect(labelHandbook, qOverload<>(&KUrlLabel::leftClickedUrl), this, [this]() {
         m_viewManager->mainWindow()->appHelpActivated();
     });
 
@@ -207,9 +201,9 @@ void WelcomeView::onPluginViewChanged(const QString &pluginName)
     }
 }
 
-void WelcomeView::onRecentFilesContextMenuRequested(const QPoint &pos)
+void WelcomeView::onRecentItemsContextMenuRequested(const QPoint &pos)
 {
-    const QModelIndex index = listViewRecentFiles->indexAt(pos);
+    const QModelIndex index = listViewRecentItems->indexAt(pos);
     if (!index.isValid()) {
         return;
     }
@@ -243,7 +237,7 @@ void WelcomeView::onRecentFilesContextMenuRequested(const QPoint &pos)
     });
     contextMenu.addAction(action);
 
-    contextMenu.exec(listViewRecentFiles->mapToGlobal(pos));
+    contextMenu.exec(listViewRecentItems->mapToGlobal(pos));
 }
 
 void WelcomeView::updateButtons()
@@ -279,7 +273,7 @@ void WelcomeView::updateFonts()
 
     QFont placeholderFont = font();
     placeholderFont.setPointSize(qRound(placeholderFont.pointSize() * 1.3));
-    m_placeholderRecentFiles->setFont(placeholderFont);
+    m_placeholderRecentItems->setFont(placeholderFont);
     if (m_placeholderSavedSessions) {
         m_placeholderSavedSessions->setFont(placeholderFont);
     }
@@ -287,7 +281,7 @@ void WelcomeView::updateFonts()
 
 bool WelcomeView::updateLayout()
 {
-    // Align labelHelp with labelRecentFiles
+    // Align labelHelp with labelRecentItems
     labelHelp->setMinimumHeight(labelRecentItems->height());
 
     bool result = false;

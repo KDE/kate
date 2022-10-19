@@ -12,8 +12,7 @@
 
 RecentItemsModel::RecentItemsModel(QObject *parent)
     : QAbstractListModel(parent)
-{
-}
+{}
 
 QVariant RecentItemsModel::data(const QModelIndex &index, int role) const
 {

@@ -205,7 +205,7 @@
              </widget>
             </item>
             <item row="1" column="1" rowspan="4" colspan="2">
-             <widget class="QListView" name="listViewRecentFiles">
+             <widget class="QListView" name="listViewRecentItems">
               <property name="minimumSize">
                <size>
                 <width>400</width>
@@ -237,7 +237,7 @@
              </spacer>
             </item>
             <item row="0" column="2">
-             <widget class="QPushButton" name="buttonClearRecentFiles">
+             <widget class="QPushButton" name="buttonClearRecentItems">
               <property name="toolTip">
                <string>Clear Recent Files</string>
               </property>
@@ -276,23 +276,41 @@
              </widget>
             </item>
             <item alignment="Qt::AlignLeft">
-             <widget class="QLabel" name="labelHomepage">
+             <widget class="KUrlLabel" name="labelHomepage">
               <property name="text">
                <string>Visit homepage</string>
               </property>
-             </widget>
-            </item>
-            <item alignment="Qt::AlignLeft">
-             <widget class="QLabel" name="labelContribute">
-              <property name="text">
-               <string>Get involved</string>
+              <property name="url">
+               <string/>
+              </property>
+              <property name="glowEnabled">
+               <bool>false</bool>
               </property>
              </widget>
             </item>
             <item alignment="Qt::AlignLeft">
-             <widget class="QLabel" name="labelHandbook">
+             <widget class="KUrlLabel" name="labelContribute">
+              <property name="text">
+               <string>Get involved</string>
+              </property>
+              <property name="url">
+               <string/>
+              </property>
+              <property name="glowEnabled">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item alignment="Qt::AlignLeft">
+             <widget class="KUrlLabel" name="labelHandbook">
               <property name="text">
                <string>Read handbook</string>
+              </property>
+              <property name="url">
+               <string/>
+              </property>
+              <property name="glowEnabled">
+               <bool>false</bool>
               </property>
              </widget>
             </item>
@@ -474,12 +492,19 @@
    </layout>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KUrlLabel</class>
+   <extends>QLabel</extends>
+   <header>kurllabel.h</header>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>buttonNewFile</tabstop>
   <tabstop>buttonOpenFile</tabstop>
   <tabstop>buttonOpenFolder</tabstop>
-  <tabstop>listViewRecentFiles</tabstop>
-  <tabstop>buttonClearRecentFiles</tabstop>
+  <tabstop>listViewRecentItems</tabstop>
+  <tabstop>buttonClearRecentItems</tabstop>
   <tabstop>buttonNewSession</tabstop>
   <tabstop>buttonManageSessions</tabstop>
   <tabstop>listViewSavedSessions</tabstop>

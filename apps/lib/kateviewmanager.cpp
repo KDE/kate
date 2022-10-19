@@ -1043,6 +1043,7 @@ void KateViewManager::moveViewToViewSpace(KateViewSpace *dest, KateViewSpace *sr
 
     dest->addView(view);
     setActiveSpace(dest);
+    activateView(view);
 }
 
 void KateViewManager::splitViewSpace(KateViewSpace *vs, // = 0

@@ -660,7 +660,6 @@ void KateViewSpace::addView(KTextEditor::View *v)
     // We must not already have this widget
     Q_ASSERT(stack->indexOf(v) == -1);
     stack->addWidget(v);
-    showView(v);
 }
 
 void KateViewSpace::documentDestroyed(QObject *doc)

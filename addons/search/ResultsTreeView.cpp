@@ -84,16 +84,20 @@ void ResultsTreeView::resizeEvent(QResizeEvent *e)
     QTreeView::resizeEvent(e);
 }
 
-void ResultsTreeView::enterEvent(QEvent *e)
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
+void ResultsTreeView::enterEvent(QEvent *event)
+#else
+void ResultsTreeView::enterEvent(QEnterEvent *event)
+#endif
 {
     auto *res = qobject_cast<Results *>(parent());
     if (!res) {
         qWarning() << Q_FUNC_INFO << "Unexpected null parent() Results";
-        QTreeView::enterEvent(e);
+        QTreeView::enterEvent(event);
         return;
     }
     m_detachButton->setVisible(!res->isEmpty() && !res->isDetachedToMainWindow);
-    QTreeView::enterEvent(e);
+    QTreeView::enterEvent(event);
 }
 
 void ResultsTreeView::leaveEvent(QEvent *e)

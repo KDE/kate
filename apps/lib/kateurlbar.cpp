@@ -1162,6 +1162,16 @@ void KateUrlBar::setupLayout()
     layout->setContentsMargins({});
     layout->setSpacing(0);
     layout->addWidget(m_stack);
+
+    auto updatePalette = [this]() {
+        auto pal = m_untitledDocLabel->palette();
+        auto textColor = pal.text().color();
+        textColor = textColor.lightness() > 127 ? textColor.darker(150) : textColor.lighter(150);
+        pal.setBrush(QPalette::Active, QPalette::WindowText, textColor);
+        m_untitledDocLabel->setPalette(pal);
+    };
+    updatePalette();
+    connect(qApp, &QApplication::paletteChanged, this, updatePalette, Qt::QueuedConnection);
 }
 
 void KateUrlBar::onViewChanged(KTextEditor::View *v)
@@ -1175,7 +1185,8 @@ void KateUrlBar::onViewChanged(KTextEditor::View *v)
 
     if (!v) {
         updateForDocument(nullptr);
-        m_untitledDocLabel->setText(i18n("Untitled"));
+        // no view => show nothing
+        m_untitledDocLabel->setText({});
         m_stack->setCurrentWidget(m_untitledDocLabel);
         return;
     }

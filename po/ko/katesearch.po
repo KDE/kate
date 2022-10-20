@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-06 00:48+0000\n"
+"POT-Creation-Date: 2022-10-20 00:55+0000\n"
 "PO-Revision-Date: 2022-05-06 00:23+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -172,7 +172,7 @@ msgid "One match (%3) found in all open projects (common parent: %2)"
 msgid_plural "%1 matches (%3) found in all open projects (common parent: %2)"
 msgstr[0] "모든 열린 프로젝트에서 %1개(%3) 일치함(공통 부모: %2)"
 
-#: Results.cpp:28
+#: Results.cpp:31
 #, kde-format
 msgid "Filter..."
 msgstr "필터..."
@@ -552,67 +552,78 @@ msgstr "증분 검색 처리 시간이 길어져 비활성화되었습니다."
 msgid "Search Match"
 msgstr "일치하는 것 찾기"
 
-#: SearchPlugin.cpp:1754 SearchPlugin.cpp:1831
+#: SearchPlugin.cpp:1755 SearchPlugin.cpp:1832
 #, kde-format
 msgid "Next from cursor"
 msgstr "커서 위치 이후"
 
-#: SearchPlugin.cpp:1771
+#: SearchPlugin.cpp:1772
 #, kde-format
 msgid "Starting from first match"
 msgstr "첫 일치부터 다시 시작"
 
-#: SearchPlugin.cpp:1791
+#: SearchPlugin.cpp:1792
 #, kde-format
 msgid "Continuing from first match"
 msgstr "첫 일치부터 다시 시작"
 
-#: SearchPlugin.cpp:1848
+#: SearchPlugin.cpp:1849
 #, kde-format
 msgid "Starting from last match"
 msgstr "마지막 일치부터 다시 시작"
 
-#: SearchPlugin.cpp:1868
+#: SearchPlugin.cpp:1869
 #, kde-format
 msgid "Continuing from last match"
 msgstr "마지막 일치부터 계속 진행"
 
-#: SearchPlugin.cpp:2139
+#: SearchPlugin.cpp:2028
+#, fuzzy, kde-format
+#| msgid "Search"
+msgid "Search: %1"
+msgstr "찾기"
+
+#: SearchPlugin.cpp:2159
 #, kde-format
 msgid "Copy all"
 msgstr "모두 복사"
 
-#: SearchPlugin.cpp:2144
+#: SearchPlugin.cpp:2164
 #, kde-format
 msgid "Copy expanded"
 msgstr "확장된 것 복사"
 
-#: SearchPlugin.cpp:2147
+#: SearchPlugin.cpp:2167
 #, kde-format
 msgid "Export matches"
 msgstr "일치 내보내기"
 
-#: SearchPlugin.cpp:2152
+#: SearchPlugin.cpp:2173
+#, kde-format
+msgid "Open as Editor Tab"
+msgstr ""
+
+#: SearchPlugin.cpp:2180
 #, kde-format
 msgid "Clear"
 msgstr "지우기"
 
-#: SearchPlugin.cpp:2260 SearchPlugin.cpp:2294
+#: SearchPlugin.cpp:2288 SearchPlugin.cpp:2322
 #, kde-format
 msgid "Add..."
 msgstr "추가..."
 
-#: SearchPlugin.cpp:2272
+#: SearchPlugin.cpp:2300
 #, kde-format
 msgid "Search As You Type"
 msgstr "입력하는 대로 찾기"
 
-#: SearchPlugin.cpp:2343
+#: SearchPlugin.cpp:2371
 #, kde-format
 msgid "In Current Project"
 msgstr "현재 프로젝트에서"
 
-#: SearchPlugin.cpp:2345
+#: SearchPlugin.cpp:2373
 #, kde-format
 msgid "In All Open Projects"
 msgstr "모든 열린 프로젝트에서"

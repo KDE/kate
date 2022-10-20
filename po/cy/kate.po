@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-19 00:49+0000\n"
+"POT-Creation-Date: 2022-10-20 00:55+0000\n"
 "PO-Revision-Date: 2004-06-30 15:15+0100\n"
 "Last-Translator: KD at KGyfieithu <kyfieithu@dotmon.com>\n"
 "Language-Team: Cymraeg <cy@li.org>\n"
@@ -1047,33 +1047,33 @@ msgstr "Ymgyc&hwyn"
 msgid "Reopening files from the last session..."
 msgstr "Ailagor ffeiliau o'r sesiwn blaenorol..."
 
-#: lib/katefileactions.cpp:67
+#: lib/katefileactions.cpp:64
 #, fuzzy, kde-format
 msgid "Rename file"
 msgstr "Patrymlun:"
 
-#: lib/katefileactions.cpp:68
+#: lib/katefileactions.cpp:65
 #, fuzzy, kde-format
 #| msgid "Filename"
 msgid "New file name"
 msgstr "Enw Ffeil"
 
-#: lib/katefileactions.cpp:105
+#: lib/katefileactions.cpp:102
 #, kde-format
 msgid "File \"%1\" could not be moved to \"%2\""
 msgstr ""
 
-#: lib/katefileactions.cpp:129
+#: lib/katefileactions.cpp:126
 #, kde-format
 msgid "Do you really want to delete file \"%1\"?"
 msgstr ""
 
-#: lib/katefileactions.cpp:130
+#: lib/katefileactions.cpp:127
 #, fuzzy, kde-format
 msgid "Delete file"
 msgstr "Wedi'u dileu"
 
-#: lib/katefileactions.cpp:147
+#: lib/katefileactions.cpp:144
 #, kde-format
 msgid "File \"%1\" could not be deleted."
 msgstr ""
@@ -1205,7 +1205,7 @@ msgstr "Lleoliad"
 msgid "Copies the file path of the current file to clipboard."
 msgstr "Dewis yr olwg ranedig nesaf fel yr un weithredol."
 
-#: lib/katemainwindow.cpp:332 lib/welcomeview/welcomeview.cpp:229
+#: lib/katemainwindow.cpp:332 lib/welcomeview/welcomeview.cpp:223
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr ""
@@ -1471,12 +1471,12 @@ msgstr "A&rall..."
 msgid " [read only]"
 msgstr ""
 
-#: lib/katemainwindow.cpp:1362
+#: lib/katemainwindow.cpp:1367
 #, kde-format
 msgid "Diff %1"
 msgstr ""
 
-#: lib/katemainwindow.cpp:1364
+#: lib/katemainwindow.cpp:1369
 #, kde-format
 msgid "Diff %1..%2"
 msgstr ""
@@ -2059,7 +2059,7 @@ msgstr ""
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:1227
+#: lib/kateviewmanager.cpp:1228
 #, kde-format
 msgid "This view may have unsaved work. Do you really want to close it?"
 msgstr ""
@@ -2091,63 +2091,63 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/kateviewspace.cpp:957
+#: lib/kateviewspace.cpp:955
 #, fuzzy, kde-format
 msgid "Close Tab"
 msgstr "Cau'r Tab Cyfredol"
 
-#: lib/kateviewspace.cpp:974
+#: lib/kateviewspace.cpp:972
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "&Close Document"
 msgstr "Cau Dogfen"
 
-#: lib/kateviewspace.cpp:975
+#: lib/kateviewspace.cpp:973
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "Close Other &Documents"
 msgstr "Cau Dogfen"
 
-#: lib/kateviewspace.cpp:976
+#: lib/kateviewspace.cpp:974
 #, fuzzy, kde-format
 #| msgid "Close all open documents."
 msgid "Close &All Documents"
 msgstr "Cau bob dogfen agored."
 
-#: lib/kateviewspace.cpp:978
+#: lib/kateviewspace.cpp:976
 #, fuzzy, kde-format
 #| msgid "&Document"
 msgid "D&etach Document"
 msgstr "&Dogfen"
 
-#: lib/kateviewspace.cpp:979
+#: lib/kateviewspace.cpp:977
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewspace.cpp:988
+#: lib/kateviewspace.cpp:986
 #, fuzzy, kde-format
 #| msgid "Sync &terminal emulator with active document"
 msgid "Compare with Active Document"
 msgstr "Cydweddu efelychydd &terfynell â'r ddogfen weithredol"
 
-#: lib/kateviewspace.cpp:992
+#: lib/kateviewspace.cpp:990
 #, kde-format
 msgid "Diff %1 .. %2"
 msgstr ""
 
-#: lib/kateviewspace.cpp:997
+#: lib/kateviewspace.cpp:995
 #, fuzzy, kde-format
 #| msgid "Sync &terminal emulator with active document"
 msgid "Compare with Active Document Using"
 msgstr "Cydweddu efelychydd &terfynell â'r ddogfen weithredol"
 
-#: lib/kateviewspace.cpp:1064
+#: lib/kateviewspace.cpp:1062
 #, kde-format
 msgid "Could not start program"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1065
+#: lib/kateviewspace.cpp:1063
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""
@@ -2232,7 +2232,7 @@ msgstr "A&gor"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonNewSession)
 #. i18n: ectx: property (text), widget (QPushButton, m_newButton)
-#: lib/session/katesessionmanagedialog.ui:98 lib/welcomeview/welcomeview.ui:346
+#: lib/session/katesessionmanagedialog.ui:98 lib/welcomeview/welcomeview.ui:364
 #, kde-format
 msgid "New Session"
 msgstr "Sesiwn Newydd"
@@ -2465,42 +2465,42 @@ msgstr "Cadw m&eta-wybodaeth tu hwnt i'r sesiwn"
 msgid "Delete unused meta-information after:"
 msgstr "&Dileu meta-wybodaeth nas defnyddwyd ar ôl:"
 
-#: lib/welcomeview/welcomeview.cpp:52
+#: lib/welcomeview/welcomeview.cpp:51
 #, kde-format
 msgid "Welcome to %1"
 msgstr ""
 
-#: lib/welcomeview/welcomeview.cpp:56
+#: lib/welcomeview/welcomeview.cpp:55
 #, fuzzy, kde-format
 msgid "Recent Documents and Projects"
 msgstr "Dogfennau"
 
-#: lib/welcomeview/welcomeview.cpp:56
+#: lib/welcomeview/welcomeview.cpp:55
 #, fuzzy, kde-format
 msgid "Recent Documents"
 msgstr "Dogfennau"
 
-#: lib/welcomeview/welcomeview.cpp:59
+#: lib/welcomeview/welcomeview.cpp:58
 #, fuzzy, kde-format
 msgid "No recent documents or projects"
 msgstr "Dogfennau"
 
-#: lib/welcomeview/welcomeview.cpp:59
+#: lib/welcomeview/welcomeview.cpp:58
 #, fuzzy, kde-format
 msgid "No recent documents"
 msgstr "Dogfennau"
 
-#: lib/welcomeview/welcomeview.cpp:122
+#: lib/welcomeview/welcomeview.cpp:116
 #, fuzzy, kde-format
 msgid "No saved sessions"
 msgstr "Sesiwn"
 
-#: lib/welcomeview/welcomeview.cpp:222
+#: lib/welcomeview/welcomeview.cpp:216
 #, fuzzy, kde-format
 msgid "Copy &Location"
 msgstr "Lleoliad"
 
-#: lib/welcomeview/welcomeview.cpp:237
+#: lib/welcomeview/welcomeview.cpp:231
 #, kde-format
 msgid "&Remove"
 msgstr ""
@@ -2538,7 +2538,7 @@ msgstr "Wedi'u dileu"
 msgid "Open File..."
 msgstr "Agor Ffeil"
 
-#. i18n: ectx: property (toolTip), widget (QPushButton, buttonClearRecentFiles)
+#. i18n: ectx: property (toolTip), widget (QPushButton, buttonClearRecentItems)
 #: lib/welcomeview/welcomeview.ui:242
 #, kde-format
 msgid "Clear Recent Files"
@@ -2550,38 +2550,38 @@ msgstr ""
 msgid "Help"
 msgstr ""
 
-#. i18n: ectx: property (text), widget (QLabel, labelHomepage)
+#. i18n: ectx: property (text), widget (KUrlLabel, labelHomepage)
 #: lib/welcomeview/welcomeview.ui:281
 #, kde-format
 msgid "Visit homepage"
 msgstr ""
 
-#. i18n: ectx: property (text), widget (QLabel, labelContribute)
-#: lib/welcomeview/welcomeview.ui:288
+#. i18n: ectx: property (text), widget (KUrlLabel, labelContribute)
+#: lib/welcomeview/welcomeview.ui:294
 #, kde-format
 msgid "Get involved"
 msgstr ""
 
-#. i18n: ectx: property (text), widget (QLabel, labelHandbook)
-#: lib/welcomeview/welcomeview.ui:295
+#. i18n: ectx: property (text), widget (KUrlLabel, labelHandbook)
+#: lib/welcomeview/welcomeview.ui:307
 #, kde-format
 msgid "Read handbook"
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, labelSavedSessions)
-#: lib/welcomeview/welcomeview.ui:336
+#: lib/welcomeview/welcomeview.ui:354
 #, fuzzy, kde-format
 msgid "Saved Sessions"
 msgstr "Sesiwn"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonManageSessions)
-#: lib/welcomeview/welcomeview.ui:372
+#: lib/welcomeview/welcomeview.ui:390
 #, fuzzy, kde-format
 msgid "Manage Sessions..."
 msgstr "Sesiwn"
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
-#: lib/welcomeview/welcomeview.ui:425
+#: lib/welcomeview/welcomeview.ui:443
 #, fuzzy, kde-format
 #| msgid "Create a new document"
 msgid "Show for new window"

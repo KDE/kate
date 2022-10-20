@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-19 00:49+0000\n"
+"POT-Creation-Date: 2022-10-20 00:55+0000\n"
 "PO-Revision-Date: 2022-07-13 14:16+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -1025,32 +1025,32 @@ msgstr "시작하는 중"
 msgid "Reopening files from the last session..."
 msgstr "마지막 세션의 파일 다시 여는 중..."
 
-#: lib/katefileactions.cpp:67
+#: lib/katefileactions.cpp:64
 #, kde-format
 msgid "Rename file"
 msgstr "파일 이름 바꾸기"
 
-#: lib/katefileactions.cpp:68
+#: lib/katefileactions.cpp:65
 #, kde-format
 msgid "New file name"
 msgstr "새 파일 이름"
 
-#: lib/katefileactions.cpp:105
+#: lib/katefileactions.cpp:102
 #, kde-format
 msgid "File \"%1\" could not be moved to \"%2\""
 msgstr "파일 \"%1\"을(를) \"%2\"(으)로 이동할 수 없습니다."
 
-#: lib/katefileactions.cpp:129
+#: lib/katefileactions.cpp:126
 #, kde-format
 msgid "Do you really want to delete file \"%1\"?"
 msgstr "파일 \"%1\"을(를) 삭제하시겠습니까?"
 
-#: lib/katefileactions.cpp:130
+#: lib/katefileactions.cpp:127
 #, kde-format
 msgid "Delete file"
 msgstr "파일 삭제"
 
-#: lib/katefileactions.cpp:147
+#: lib/katefileactions.cpp:144
 #, kde-format
 msgid "File \"%1\" could not be deleted."
 msgstr "파일 \"%1\"을(를) 삭제할 수 없습니다."
@@ -1173,7 +1173,7 @@ msgstr "위치 복사"
 msgid "Copies the file path of the current file to clipboard."
 msgstr "클립보드에 현재 파일 경로를 복사합니다."
 
-#: lib/katemainwindow.cpp:332 lib/welcomeview/welcomeview.cpp:229
+#: lib/katemainwindow.cpp:332 lib/welcomeview/welcomeview.cpp:223
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "포함하는 폴더 열기(&O)"
@@ -1430,12 +1430,12 @@ msgstr "기타(&O)..."
 msgid " [read only]"
 msgstr " [읽기 전용]"
 
-#: lib/katemainwindow.cpp:1362
+#: lib/katemainwindow.cpp:1367
 #, kde-format
 msgid "Diff %1"
 msgstr ""
 
-#: lib/katemainwindow.cpp:1364
+#: lib/katemainwindow.cpp:1369
 #, kde-format
 msgid "Diff %1..%2"
 msgstr ""
@@ -2018,7 +2018,7 @@ msgstr ""
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:1227
+#: lib/kateviewmanager.cpp:1228
 #, kde-format
 msgid "This view may have unsaved work. Do you really want to close it?"
 msgstr ""
@@ -2052,61 +2052,61 @@ msgstr[0] ""
 "문서 %1개가 더 열려 있습니다. 모든 열린 문서를 보려면 여기를 클릭해서 빠른 열"
 "기 화면으로 전환하십시오."
 
-#: lib/kateviewspace.cpp:957
+#: lib/kateviewspace.cpp:955
 #, kde-format
 msgid "Close Tab"
 msgstr "탭 닫기"
 
-#: lib/kateviewspace.cpp:974
+#: lib/kateviewspace.cpp:972
 #, kde-format
 msgid "&Close Document"
 msgstr "문서 닫기(&C)"
 
-#: lib/kateviewspace.cpp:975
+#: lib/kateviewspace.cpp:973
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "다른 문서 닫기(&D)"
 
-#: lib/kateviewspace.cpp:976
+#: lib/kateviewspace.cpp:974
 #, fuzzy, kde-format
 #| msgid "Close all documents"
 msgid "Close &All Documents"
 msgstr "모든 문서 닫기"
 
-#: lib/kateviewspace.cpp:978
+#: lib/kateviewspace.cpp:976
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "D&etach Document"
 msgstr "문서 닫기"
 
-#: lib/kateviewspace.cpp:979
+#: lib/kateviewspace.cpp:977
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewspace.cpp:988
+#: lib/kateviewspace.cpp:986
 #, fuzzy, kde-format
 #| msgid "Compare with active document"
 msgid "Compare with Active Document"
 msgstr "활성 문서와 비교"
 
-#: lib/kateviewspace.cpp:992
+#: lib/kateviewspace.cpp:990
 #, kde-format
 msgid "Diff %1 .. %2"
 msgstr ""
 
-#: lib/kateviewspace.cpp:997
+#: lib/kateviewspace.cpp:995
 #, fuzzy, kde-format
 #| msgid "Compare with active document"
 msgid "Compare with Active Document Using"
 msgstr "활성 문서와 비교"
 
-#: lib/kateviewspace.cpp:1064
+#: lib/kateviewspace.cpp:1062
 #, kde-format
 msgid "Could not start program"
 msgstr "프로그램을 시작할 수 없음"
 
-#: lib/kateviewspace.cpp:1065
+#: lib/kateviewspace.cpp:1063
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr "선택한 프로그램을 시작할 수 없습니다. 설치 상태를 확인하십시오."
@@ -2189,7 +2189,7 @@ msgstr "열기(&O)"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonNewSession)
 #. i18n: ectx: property (text), widget (QPushButton, m_newButton)
-#: lib/session/katesessionmanagedialog.ui:98 lib/welcomeview/welcomeview.ui:346
+#: lib/session/katesessionmanagedialog.ui:98 lib/welcomeview/welcomeview.ui:364
 #, kde-format
 msgid "New Session"
 msgstr "새 세션"
@@ -2422,52 +2422,52 @@ msgstr "이전 세션의 메타 정보 보존하기(&M)"
 msgid "Delete unused meta-information after:"
 msgstr "사용하지 않은 메타 정보를 지울 시간:"
 
-#: lib/welcomeview/welcomeview.cpp:52
+#: lib/welcomeview/welcomeview.cpp:51
 #, kde-format
 msgid "Welcome to %1"
 msgstr ""
 
-#: lib/welcomeview/welcomeview.cpp:56
+#: lib/welcomeview/welcomeview.cpp:55
 #, fuzzy, kde-format
 #| msgctxt "The number of open documents"
 #| msgid "Open Documents"
 msgid "Recent Documents and Projects"
 msgstr "문서 열기"
 
-#: lib/welcomeview/welcomeview.cpp:56
+#: lib/welcomeview/welcomeview.cpp:55
 #, fuzzy, kde-format
 #| msgctxt "The number of open documents"
 #| msgid "Open Documents"
 msgid "Recent Documents"
 msgstr "문서 열기"
 
-#: lib/welcomeview/welcomeview.cpp:59
+#: lib/welcomeview/welcomeview.cpp:58
 #, fuzzy, kde-format
 #| msgctxt "The number of open documents"
 #| msgid "Open Documents"
 msgid "No recent documents or projects"
 msgstr "문서 열기"
 
-#: lib/welcomeview/welcomeview.cpp:59
+#: lib/welcomeview/welcomeview.cpp:58
 #, fuzzy, kde-format
 #| msgctxt "The number of open documents"
 #| msgid "Open Documents"
 msgid "No recent documents"
 msgstr "문서 열기"
 
-#: lib/welcomeview/welcomeview.cpp:122
+#: lib/welcomeview/welcomeview.cpp:116
 #, fuzzy, kde-format
 #| msgid "&Save Session"
 msgid "No saved sessions"
 msgstr "세션 저장(&S)"
 
-#: lib/welcomeview/welcomeview.cpp:222
+#: lib/welcomeview/welcomeview.cpp:216
 #, fuzzy, kde-format
 #| msgid "Copy Location"
 msgid "Copy &Location"
 msgstr "위치 복사"
 
-#: lib/welcomeview/welcomeview.cpp:237
+#: lib/welcomeview/welcomeview.cpp:231
 #, kde-format
 msgid "&Remove"
 msgstr ""
@@ -2506,7 +2506,7 @@ msgstr "파일을 삭제하시겠습니까?"
 msgid "Open File..."
 msgstr "파일 열기"
 
-#. i18n: ectx: property (toolTip), widget (QPushButton, buttonClearRecentFiles)
+#. i18n: ectx: property (toolTip), widget (QPushButton, buttonClearRecentItems)
 #: lib/welcomeview/welcomeview.ui:242
 #, kde-format
 msgid "Clear Recent Files"
@@ -2519,40 +2519,40 @@ msgstr ""
 msgid "Help"
 msgstr "도움말(&H)"
 
-#. i18n: ectx: property (text), widget (QLabel, labelHomepage)
+#. i18n: ectx: property (text), widget (KUrlLabel, labelHomepage)
 #: lib/welcomeview/welcomeview.ui:281
 #, kde-format
 msgid "Visit homepage"
 msgstr ""
 
-#. i18n: ectx: property (text), widget (QLabel, labelContribute)
-#: lib/welcomeview/welcomeview.ui:288
+#. i18n: ectx: property (text), widget (KUrlLabel, labelContribute)
+#: lib/welcomeview/welcomeview.ui:294
 #, kde-format
 msgid "Get involved"
 msgstr ""
 
-#. i18n: ectx: property (text), widget (QLabel, labelHandbook)
-#: lib/welcomeview/welcomeview.ui:295
+#. i18n: ectx: property (text), widget (KUrlLabel, labelHandbook)
+#: lib/welcomeview/welcomeview.ui:307
 #, kde-format
 msgid "Read handbook"
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, labelSavedSessions)
-#: lib/welcomeview/welcomeview.ui:336
+#: lib/welcomeview/welcomeview.ui:354
 #, fuzzy, kde-format
 #| msgid "&Save Session"
 msgid "Saved Sessions"
 msgstr "세션 저장(&S)"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonManageSessions)
-#: lib/welcomeview/welcomeview.ui:372
+#: lib/welcomeview/welcomeview.ui:390
 #, fuzzy, kde-format
 #| msgid "&Manage Sessions..."
 msgid "Manage Sessions..."
 msgstr "세션 관리(&M)..."
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
-#: lib/welcomeview/welcomeview.ui:425
+#: lib/welcomeview/welcomeview.ui:443
 #, fuzzy, kde-format
 #| msgid "Create a new document"
 msgid "Show for new window"

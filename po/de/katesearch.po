@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-06 00:48+0000\n"
+"POT-Creation-Date: 2022-10-20 00:55+0000\n"
 "PO-Revision-Date: 2022-07-23 22:51+0200\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-doc@kde.org>\n"
@@ -206,7 +206,7 @@ msgstr[1] ""
 "%1 Übereinstimmungen (%3) in allen geöffneten Projekten gefunden "
 "(gemeinsamer Ordner %2)"
 
-#: Results.cpp:28
+#: Results.cpp:31
 #, kde-format
 msgid "Filter..."
 msgstr "Filter ..."
@@ -590,67 +590,78 @@ msgstr ""
 msgid "Search Match"
 msgstr "Such-Übereinstimmung"
 
-#: SearchPlugin.cpp:1754 SearchPlugin.cpp:1831
+#: SearchPlugin.cpp:1755 SearchPlugin.cpp:1832
 #, kde-format
 msgid "Next from cursor"
 msgstr "Nächster Treffer ab Cursor-Position"
 
-#: SearchPlugin.cpp:1771
+#: SearchPlugin.cpp:1772
 #, kde-format
 msgid "Starting from first match"
 msgstr "Bei erstem Treffer beginnen"
 
-#: SearchPlugin.cpp:1791
+#: SearchPlugin.cpp:1792
 #, kde-format
 msgid "Continuing from first match"
 msgstr "Bei erstem Treffer fortfahren"
 
-#: SearchPlugin.cpp:1848
+#: SearchPlugin.cpp:1849
 #, kde-format
 msgid "Starting from last match"
 msgstr "Bei letzten Treffer beginnen"
 
-#: SearchPlugin.cpp:1868
+#: SearchPlugin.cpp:1869
 #, kde-format
 msgid "Continuing from last match"
 msgstr "Bei letztem Treffer fortfahren"
 
-#: SearchPlugin.cpp:2139
+#: SearchPlugin.cpp:2028
+#, fuzzy, kde-format
+#| msgid "Search"
+msgid "Search: %1"
+msgstr "Suchen"
+
+#: SearchPlugin.cpp:2159
 #, kde-format
 msgid "Copy all"
 msgstr "Alle kopieren"
 
-#: SearchPlugin.cpp:2144
+#: SearchPlugin.cpp:2164
 #, kde-format
 msgid "Copy expanded"
 msgstr "Ausgeklappte kopieren"
 
-#: SearchPlugin.cpp:2147
+#: SearchPlugin.cpp:2167
 #, kde-format
 msgid "Export matches"
 msgstr ""
 
-#: SearchPlugin.cpp:2152
+#: SearchPlugin.cpp:2173
+#, kde-format
+msgid "Open as Editor Tab"
+msgstr ""
+
+#: SearchPlugin.cpp:2180
 #, kde-format
 msgid "Clear"
 msgstr "Leeren"
 
-#: SearchPlugin.cpp:2260 SearchPlugin.cpp:2294
+#: SearchPlugin.cpp:2288 SearchPlugin.cpp:2322
 #, kde-format
 msgid "Add..."
 msgstr "Hinzufügen ..."
 
-#: SearchPlugin.cpp:2272
+#: SearchPlugin.cpp:2300
 #, kde-format
 msgid "Search As You Type"
 msgstr "Während der Eingabe suchen"
 
-#: SearchPlugin.cpp:2343
+#: SearchPlugin.cpp:2371
 #, kde-format
 msgid "In Current Project"
 msgstr "Im aktuellen Projekt"
 
-#: SearchPlugin.cpp:2345
+#: SearchPlugin.cpp:2373
 #, kde-format
 msgid "In All Open Projects"
 msgstr "In allen geöffneten Projekten"

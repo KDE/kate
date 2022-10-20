@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-19 00:49+0000\n"
+"POT-Creation-Date: 2022-10-20 00:55+0000\n"
 "PO-Revision-Date: 2022-10-05 20:25+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@neuf.fr>\n"
 "Language-Team: French <kde-francophone@kde.org>\n"
@@ -1083,32 +1083,32 @@ msgstr "Démarrage"
 msgid "Reopening files from the last session..."
 msgstr "Réouverture des fichiers de la session précédente..."
 
-#: lib/katefileactions.cpp:67
+#: lib/katefileactions.cpp:64
 #, kde-format
 msgid "Rename file"
 msgstr "Renommer le fichier"
 
-#: lib/katefileactions.cpp:68
+#: lib/katefileactions.cpp:65
 #, kde-format
 msgid "New file name"
 msgstr "Nouveau nom de fichier"
 
-#: lib/katefileactions.cpp:105
+#: lib/katefileactions.cpp:102
 #, kde-format
 msgid "File \"%1\" could not be moved to \"%2\""
 msgstr "Impossible de déplacer le fichier « %1 » vers « %2 »"
 
-#: lib/katefileactions.cpp:129
+#: lib/katefileactions.cpp:126
 #, kde-format
 msgid "Do you really want to delete file \"%1\"?"
 msgstr "Voulez-vous vraiment supprimer le fichier « %1 » ?"
 
-#: lib/katefileactions.cpp:130
+#: lib/katefileactions.cpp:127
 #, kde-format
 msgid "Delete file"
 msgstr "Supprimer le fichier"
 
-#: lib/katefileactions.cpp:147
+#: lib/katefileactions.cpp:144
 #, kde-format
 msgid "File \"%1\" could not be deleted."
 msgstr "Impossible de supprimer le fichier « %1 »."
@@ -1234,7 +1234,7 @@ msgstr "Copier un emplacement"
 msgid "Copies the file path of the current file to clipboard."
 msgstr "Copie l'emplacement du fichier actuel dans le presse-papier"
 
-#: lib/katemainwindow.cpp:332 lib/welcomeview/welcomeview.cpp:229
+#: lib/katemainwindow.cpp:332 lib/welcomeview/welcomeview.cpp:223
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "&Ouvrir le dossier contenant"
@@ -1504,12 +1504,12 @@ msgstr "&Autres..."
 msgid " [read only]"
 msgstr " [lecture seule]"
 
-#: lib/katemainwindow.cpp:1362
+#: lib/katemainwindow.cpp:1367
 #, kde-format
 msgid "Diff %1"
 msgstr "Diff %1"
 
-#: lib/katemainwindow.cpp:1364
+#: lib/katemainwindow.cpp:1369
 #, kde-format
 msgid "Diff %1..%2"
 msgstr "Diff %1 ... %2"
@@ -2100,7 +2100,7 @@ msgstr "Activé"
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:1227
+#: lib/kateviewmanager.cpp:1228
 #, kde-format
 msgid "This view may have unsaved work. Do you really want to close it?"
 msgstr ""
@@ -2138,59 +2138,59 @@ msgstr[1] ""
 "Il reste actuellement %1 autres documents d'ouverts. Pour voir tous les "
 "documents ouverts, passez à la vue d'ouverture rapide en cliquant ici."
 
-#: lib/kateviewspace.cpp:957
+#: lib/kateviewspace.cpp:955
 #, kde-format
 msgid "Close Tab"
 msgstr "Fermer l'onglet"
 
-#: lib/kateviewspace.cpp:974
+#: lib/kateviewspace.cpp:972
 #, kde-format
 msgid "&Close Document"
 msgstr "&Fermer le document"
 
-#: lib/kateviewspace.cpp:975
+#: lib/kateviewspace.cpp:973
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "Fermer les autres &documents"
 
-#: lib/kateviewspace.cpp:976
+#: lib/kateviewspace.cpp:974
 #, kde-format
 msgid "Close &All Documents"
 msgstr "Fermer t&ous les documents"
 
-#: lib/kateviewspace.cpp:978
+#: lib/kateviewspace.cpp:976
 #, kde-format
 msgid "D&etach Document"
 msgstr "Détach&er un document"
 
-#: lib/kateviewspace.cpp:979
+#: lib/kateviewspace.cpp:977
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 "Ouvre le document dans une nouvelle fenêtre et le ferme dans la fenêtre "
 "courante"
 
-#: lib/kateviewspace.cpp:988
+#: lib/kateviewspace.cpp:986
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Comparer avec le document actif"
 
-#: lib/kateviewspace.cpp:992
+#: lib/kateviewspace.cpp:990
 #, kde-format
 msgid "Diff %1 .. %2"
 msgstr "Diff %1 ... %2"
 
-#: lib/kateviewspace.cpp:997
+#: lib/kateviewspace.cpp:995
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Comparer avec le document actif en utilisant"
 
-#: lib/kateviewspace.cpp:1064
+#: lib/kateviewspace.cpp:1062
 #, kde-format
 msgid "Could not start program"
 msgstr "Impossible de démarrer le programme"
 
-#: lib/kateviewspace.cpp:1065
+#: lib/kateviewspace.cpp:1063
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""
@@ -2275,7 +2275,7 @@ msgstr "&Ouvrir"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonNewSession)
 #. i18n: ectx: property (text), widget (QPushButton, m_newButton)
-#: lib/session/katesessionmanagedialog.ui:98 lib/welcomeview/welcomeview.ui:346
+#: lib/session/katesessionmanagedialog.ui:98 lib/welcomeview/welcomeview.ui:364
 #, kde-format
 msgid "New Session"
 msgstr "Nouvelle session"
@@ -2514,53 +2514,53 @@ msgstr "Conserver les &méta-informations des sessions passées"
 msgid "Delete unused meta-information after:"
 msgstr "Supprimer les méta-informations inutilisées après :"
 
-#: lib/welcomeview/welcomeview.cpp:52
+#: lib/welcomeview/welcomeview.cpp:51
 #, fuzzy, kde-format
 #| msgid "Welcome to Kate"
 msgid "Welcome to %1"
 msgstr "Bienvenue dans Kate"
 
-#: lib/welcomeview/welcomeview.cpp:56
+#: lib/welcomeview/welcomeview.cpp:55
 #, fuzzy, kde-format
 #| msgctxt "on welcome screen"
 #| msgid "Recent documents"
 msgid "Recent Documents and Projects"
 msgstr "Documents récents"
 
-#: lib/welcomeview/welcomeview.cpp:56
+#: lib/welcomeview/welcomeview.cpp:55
 #, fuzzy, kde-format
 #| msgctxt "on welcome screen"
 #| msgid "Recent documents"
 msgid "Recent Documents"
 msgstr "Documents récents"
 
-#: lib/welcomeview/welcomeview.cpp:59
+#: lib/welcomeview/welcomeview.cpp:58
 #, fuzzy, kde-format
 #| msgctxt "on welcome screen"
 #| msgid "Recent documents"
 msgid "No recent documents or projects"
 msgstr "Documents récents"
 
-#: lib/welcomeview/welcomeview.cpp:59
+#: lib/welcomeview/welcomeview.cpp:58
 #, fuzzy, kde-format
 #| msgctxt "on welcome screen"
 #| msgid "Recent documents"
 msgid "No recent documents"
 msgstr "Documents récents"
 
-#: lib/welcomeview/welcomeview.cpp:122
+#: lib/welcomeview/welcomeview.cpp:116
 #, fuzzy, kde-format
 #| msgid "&Save Session"
 msgid "No saved sessions"
 msgstr "Enregistrer la &session"
 
-#: lib/welcomeview/welcomeview.cpp:222
+#: lib/welcomeview/welcomeview.cpp:216
 #, fuzzy, kde-format
 #| msgid "Copy Location"
 msgid "Copy &Location"
 msgstr "Copier un emplacement"
 
-#: lib/welcomeview/welcomeview.cpp:237
+#: lib/welcomeview/welcomeview.cpp:231
 #, kde-format
 msgid "&Remove"
 msgstr ""
@@ -2601,7 +2601,7 @@ msgstr "Supprimer le fichier"
 msgid "Open File..."
 msgstr "Ouvrir un fichier"
 
-#. i18n: ectx: property (toolTip), widget (QPushButton, buttonClearRecentFiles)
+#. i18n: ectx: property (toolTip), widget (QPushButton, buttonClearRecentItems)
 #: lib/welcomeview/welcomeview.ui:242
 #, kde-format
 msgid "Clear Recent Files"
@@ -2614,40 +2614,40 @@ msgstr ""
 msgid "Help"
 msgstr "&Aide"
 
-#. i18n: ectx: property (text), widget (QLabel, labelHomepage)
+#. i18n: ectx: property (text), widget (KUrlLabel, labelHomepage)
 #: lib/welcomeview/welcomeview.ui:281
 #, kde-format
 msgid "Visit homepage"
 msgstr ""
 
-#. i18n: ectx: property (text), widget (QLabel, labelContribute)
-#: lib/welcomeview/welcomeview.ui:288
+#. i18n: ectx: property (text), widget (KUrlLabel, labelContribute)
+#: lib/welcomeview/welcomeview.ui:294
 #, kde-format
 msgid "Get involved"
 msgstr ""
 
-#. i18n: ectx: property (text), widget (QLabel, labelHandbook)
-#: lib/welcomeview/welcomeview.ui:295
+#. i18n: ectx: property (text), widget (KUrlLabel, labelHandbook)
+#: lib/welcomeview/welcomeview.ui:307
 #, kde-format
 msgid "Read handbook"
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, labelSavedSessions)
-#: lib/welcomeview/welcomeview.ui:336
+#: lib/welcomeview/welcomeview.ui:354
 #, fuzzy, kde-format
 #| msgid "&Save Session"
 msgid "Saved Sessions"
 msgstr "Enregistrer la &session"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonManageSessions)
-#: lib/welcomeview/welcomeview.ui:372
+#: lib/welcomeview/welcomeview.ui:390
 #, fuzzy, kde-format
 #| msgid "&Manage Sessions..."
 msgid "Manage Sessions..."
 msgstr "&Gérer les sessions..."
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
-#: lib/welcomeview/welcomeview.ui:425
+#: lib/welcomeview/welcomeview.ui:443
 #, fuzzy, kde-format
 #| msgid "Create a new window."
 msgid "Show for new window"

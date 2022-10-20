@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-19 00:49+0000\n"
+"POT-Creation-Date: 2022-10-20 00:55+0000\n"
 "PO-Revision-Date: 2022-10-14 18:49+0200\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -1032,32 +1032,32 @@ msgstr "Đang khởi động"
 msgid "Reopening files from the last session..."
 msgstr "Đang mở lại tệp từ phiên trước..."
 
-#: lib/katefileactions.cpp:67
+#: lib/katefileactions.cpp:64
 #, kde-format
 msgid "Rename file"
 msgstr "Đổi tên tệp"
 
-#: lib/katefileactions.cpp:68
+#: lib/katefileactions.cpp:65
 #, kde-format
 msgid "New file name"
 msgstr "Tên tệp mới"
 
-#: lib/katefileactions.cpp:105
+#: lib/katefileactions.cpp:102
 #, kde-format
 msgid "File \"%1\" could not be moved to \"%2\""
 msgstr "Không chuyển được tệp \"%1\" sang \"%2\""
 
-#: lib/katefileactions.cpp:129
+#: lib/katefileactions.cpp:126
 #, kde-format
 msgid "Do you really want to delete file \"%1\"?"
 msgstr "Bạn có thật sự muốn xoá tệp \"%1\" không?"
 
-#: lib/katefileactions.cpp:130
+#: lib/katefileactions.cpp:127
 #, kde-format
 msgid "Delete file"
 msgstr "Xoá tệp"
 
-#: lib/katefileactions.cpp:147
+#: lib/katefileactions.cpp:144
 #, kde-format
 msgid "File \"%1\" could not be deleted."
 msgstr "Không xoá được tệp \"%1\"."
@@ -1180,7 +1180,7 @@ msgstr "Chép địa điểm"
 msgid "Copies the file path of the current file to clipboard."
 msgstr "Chép đường dẫn của tệp hiện tại vào bảng nháp."
 
-#: lib/katemainwindow.cpp:332 lib/welcomeview/welcomeview.cpp:229
+#: lib/katemainwindow.cpp:332 lib/welcomeview/welcomeview.cpp:223
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "&Mở thư mục chứa"
@@ -1441,12 +1441,12 @@ msgstr "&Khác..."
 msgid " [read only]"
 msgstr " [chỉ đọc]"
 
-#: lib/katemainwindow.cpp:1362
+#: lib/katemainwindow.cpp:1367
 #, kde-format
 msgid "Diff %1"
 msgstr "Phần chênh %1"
 
-#: lib/katemainwindow.cpp:1364
+#: lib/katemainwindow.cpp:1369
 #, kde-format
 msgid "Diff %1..%2"
 msgstr "Phần chênh %1..%2"
@@ -2026,7 +2026,7 @@ msgstr ""
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:1227
+#: lib/kateviewmanager.cpp:1228
 #, kde-format
 msgid "This view may have unsaved work. Do you really want to close it?"
 msgstr ""
@@ -2060,57 +2060,57 @@ msgstr[0] ""
 "Hiện có %1 tài liệu nữa đang mở. Để thấy tất cả các tài liệu đang mở, chuyển "
 "sang khung xem \"Mở nhanh\" bằng cách bấm vào đây."
 
-#: lib/kateviewspace.cpp:957
+#: lib/kateviewspace.cpp:955
 #, kde-format
 msgid "Close Tab"
 msgstr "Đóng thẻ"
 
-#: lib/kateviewspace.cpp:974
+#: lib/kateviewspace.cpp:972
 #, kde-format
 msgid "&Close Document"
 msgstr "Đón&g tài liệu"
 
-#: lib/kateviewspace.cpp:975
+#: lib/kateviewspace.cpp:973
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "Đóng các tài liệu &khác"
 
-#: lib/kateviewspace.cpp:976
+#: lib/kateviewspace.cpp:974
 #, kde-format
 msgid "Close &All Documents"
 msgstr "Đóng &tất cả các tài liệu"
 
-#: lib/kateviewspace.cpp:978
+#: lib/kateviewspace.cpp:976
 #, kde-format
 msgid "D&etach Document"
 msgstr "&Tách tài liệu"
 
-#: lib/kateviewspace.cpp:979
+#: lib/kateviewspace.cpp:977
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "Mở tài liệu trong một cửa sổ mới và đóng nó trong cửa sổ hiện tại"
 
-#: lib/kateviewspace.cpp:988
+#: lib/kateviewspace.cpp:986
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "So sánh với tài liệu hoạt động"
 
-#: lib/kateviewspace.cpp:992
+#: lib/kateviewspace.cpp:990
 #, kde-format
 msgid "Diff %1 .. %2"
 msgstr "Phần chênh %1 .. %2"
 
-#: lib/kateviewspace.cpp:997
+#: lib/kateviewspace.cpp:995
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "So sánh với tài liệu hoạt động bằng"
 
-#: lib/kateviewspace.cpp:1064
+#: lib/kateviewspace.cpp:1062
 #, kde-format
 msgid "Could not start program"
 msgstr "Không khởi động được chương trình"
 
-#: lib/kateviewspace.cpp:1065
+#: lib/kateviewspace.cpp:1063
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""
@@ -2194,7 +2194,7 @@ msgstr "&Mở"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonNewSession)
 #. i18n: ectx: property (text), widget (QPushButton, m_newButton)
-#: lib/session/katesessionmanagedialog.ui:98 lib/welcomeview/welcomeview.ui:346
+#: lib/session/katesessionmanagedialog.ui:98 lib/welcomeview/welcomeview.ui:364
 #, kde-format
 msgid "New Session"
 msgstr "Phiên mới"
@@ -2428,44 +2428,44 @@ msgstr "Giữ &siêu thông tin giữa các phiên"
 msgid "Delete unused meta-information after:"
 msgstr "Xoá siêu thông tin không dùng sau:"
 
-#: lib/welcomeview/welcomeview.cpp:52
+#: lib/welcomeview/welcomeview.cpp:51
 #, kde-format
 msgid "Welcome to %1"
 msgstr "Chào mừng đến với %1"
 
-#: lib/welcomeview/welcomeview.cpp:56
+#: lib/welcomeview/welcomeview.cpp:55
 #, kde-format
 msgid "Recent Documents and Projects"
 msgstr "Tài liệu và dự án gần đây"
 
-#: lib/welcomeview/welcomeview.cpp:56
+#: lib/welcomeview/welcomeview.cpp:55
 #, kde-format
 msgid "Recent Documents"
 msgstr "Tài liệu gần đây"
 
-#: lib/welcomeview/welcomeview.cpp:59
+#: lib/welcomeview/welcomeview.cpp:58
 #, fuzzy, kde-format
 #| msgid "Recent Documents and Projects"
 msgid "No recent documents or projects"
 msgstr "Tài liệu và dự án gần đây"
 
-#: lib/welcomeview/welcomeview.cpp:59
+#: lib/welcomeview/welcomeview.cpp:58
 #, fuzzy, kde-format
 #| msgid "Recent Documents"
 msgid "No recent documents"
 msgstr "Tài liệu gần đây"
 
-#: lib/welcomeview/welcomeview.cpp:122
+#: lib/welcomeview/welcomeview.cpp:116
 #, kde-format
 msgid "No saved sessions"
 msgstr "Không có phiên nào đã lưu"
 
-#: lib/welcomeview/welcomeview.cpp:222
+#: lib/welcomeview/welcomeview.cpp:216
 #, kde-format
 msgid "Copy &Location"
 msgstr "Chép địa điể&m"
 
-#: lib/welcomeview/welcomeview.cpp:237
+#: lib/welcomeview/welcomeview.cpp:231
 #, kde-format
 msgid "&Remove"
 msgstr "&Xoá"
@@ -2501,7 +2501,7 @@ msgstr "Mở tệp"
 msgid "Open File..."
 msgstr "Mở tệp..."
 
-#. i18n: ectx: property (toolTip), widget (QPushButton, buttonClearRecentFiles)
+#. i18n: ectx: property (toolTip), widget (QPushButton, buttonClearRecentItems)
 #: lib/welcomeview/welcomeview.ui:242
 #, kde-format
 msgid "Clear Recent Files"
@@ -2514,38 +2514,38 @@ msgstr "Quên các tệp gần đây đi"
 msgid "Help"
 msgstr "T&rợ giúp"
 
-#. i18n: ectx: property (text), widget (QLabel, labelHomepage)
+#. i18n: ectx: property (text), widget (KUrlLabel, labelHomepage)
 #: lib/welcomeview/welcomeview.ui:281
 #, kde-format
 msgid "Visit homepage"
 msgstr ""
 
-#. i18n: ectx: property (text), widget (QLabel, labelContribute)
-#: lib/welcomeview/welcomeview.ui:288
+#. i18n: ectx: property (text), widget (KUrlLabel, labelContribute)
+#: lib/welcomeview/welcomeview.ui:294
 #, kde-format
 msgid "Get involved"
 msgstr ""
 
-#. i18n: ectx: property (text), widget (QLabel, labelHandbook)
-#: lib/welcomeview/welcomeview.ui:295
+#. i18n: ectx: property (text), widget (KUrlLabel, labelHandbook)
+#: lib/welcomeview/welcomeview.ui:307
 #, kde-format
 msgid "Read handbook"
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, labelSavedSessions)
-#: lib/welcomeview/welcomeview.ui:336
+#: lib/welcomeview/welcomeview.ui:354
 #, kde-format
 msgid "Saved Sessions"
 msgstr "Phiên đã lưu"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonManageSessions)
-#: lib/welcomeview/welcomeview.ui:372
+#: lib/welcomeview/welcomeview.ui:390
 #, kde-format
 msgid "Manage Sessions..."
 msgstr "Quản lí phiên..."
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
-#: lib/welcomeview/welcomeview.ui:425
+#: lib/welcomeview/welcomeview.ui:443
 #, kde-format
 msgid "Show for new window"
 msgstr "Hiện cho cửa sổ mới"

@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-19 00:49+0000\n"
+"POT-Creation-Date: 2022-10-20 00:55+0000\n"
 "PO-Revision-Date: 2022-10-18 08:38+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -22,8 +22,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100>=3 && n"
-"%100<=4 ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
+"%100==4 ? 3 : 0);\n"
 "Translator: Andrej Mernik <andrejm@ubuntu.si>\n"
 "X-Generator: Poedit 3.1.1\n"
 
@@ -1059,32 +1059,32 @@ msgstr "Začenjanje"
 msgid "Reopening files from the last session..."
 msgstr "Ponovno odpiranje datotek iz zadnje seje..."
 
-#: lib/katefileactions.cpp:67
+#: lib/katefileactions.cpp:64
 #, kde-format
 msgid "Rename file"
 msgstr "Preimenuj datoteko"
 
-#: lib/katefileactions.cpp:68
+#: lib/katefileactions.cpp:65
 #, kde-format
 msgid "New file name"
 msgstr "Novo ime datoteke"
 
-#: lib/katefileactions.cpp:105
+#: lib/katefileactions.cpp:102
 #, kde-format
 msgid "File \"%1\" could not be moved to \"%2\""
 msgstr "Datoteke \"%1\" ni bilo moč prenesti na \"%2\""
 
-#: lib/katefileactions.cpp:129
+#: lib/katefileactions.cpp:126
 #, kde-format
 msgid "Do you really want to delete file \"%1\"?"
 msgstr "Ali zares želite brisati datoteko \"%1\"?"
 
-#: lib/katefileactions.cpp:130
+#: lib/katefileactions.cpp:127
 #, kde-format
 msgid "Delete file"
 msgstr "Briši datoteko"
 
-#: lib/katefileactions.cpp:147
+#: lib/katefileactions.cpp:144
 #, kde-format
 msgid "File \"%1\" could not be deleted."
 msgstr "Datoteke \"%1\" ni bilo mogoče zbrisati."
@@ -1208,7 +1208,7 @@ msgstr "Kopiraj mesto"
 msgid "Copies the file path of the current file to clipboard."
 msgstr "Kopiraj pot trenutne datoteke na odložišče."
 
-#: lib/katemainwindow.cpp:332 lib/welcomeview/welcomeview.cpp:229
+#: lib/katemainwindow.cpp:332 lib/welcomeview/welcomeview.cpp:223
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "&Odpri vsebujočo mapo"
@@ -1467,12 +1467,12 @@ msgstr "Drugo..."
 msgid " [read only]"
 msgstr " [samo za branje]"
 
-#: lib/katemainwindow.cpp:1362
+#: lib/katemainwindow.cpp:1367
 #, kde-format
 msgid "Diff %1"
 msgstr "Razlika %1"
 
-#: lib/katemainwindow.cpp:1364
+#: lib/katemainwindow.cpp:1369
 #, kde-format
 msgid "Diff %1..%2"
 msgstr "Razlika %1..%2"
@@ -2050,7 +2050,7 @@ msgstr "Omogoči"
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "Omogočenje vtičnika <b>%1</b> ni uspelo"
 
-#: lib/kateviewmanager.cpp:1227
+#: lib/kateviewmanager.cpp:1228
 #, kde-format
 msgid "This view may have unsaved work. Do you really want to close it?"
 msgstr "Ta pogled ima morda neshranjeno delo. Ali ga zares želite zapreti?"
@@ -2092,57 +2092,57 @@ msgstr[3] ""
 "Trenutno je odprtih še %1 dokumentov. Kliknite sem, da preklopite na pogled "
 "hitrega odpiranja in vidite vse odprte dokumente."
 
-#: lib/kateviewspace.cpp:957
+#: lib/kateviewspace.cpp:955
 #, kde-format
 msgid "Close Tab"
 msgstr "Zapri zavihek"
 
-#: lib/kateviewspace.cpp:974
+#: lib/kateviewspace.cpp:972
 #, kde-format
 msgid "&Close Document"
 msgstr "Zapri dokument"
 
-#: lib/kateviewspace.cpp:975
+#: lib/kateviewspace.cpp:973
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "Zapri druge &dokumente"
 
-#: lib/kateviewspace.cpp:976
+#: lib/kateviewspace.cpp:974
 #, kde-format
 msgid "Close &All Documents"
 msgstr "Zapri vse dokumente"
 
-#: lib/kateviewspace.cpp:978
+#: lib/kateviewspace.cpp:976
 #, kde-format
 msgid "D&etach Document"
 msgstr "Odpni dokument"
 
-#: lib/kateviewspace.cpp:979
+#: lib/kateviewspace.cpp:977
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "Odpre dokument v novem oknu in ga zapre v trenutnem oknu"
 
-#: lib/kateviewspace.cpp:988
+#: lib/kateviewspace.cpp:986
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Primerjaj z aktivnim dokumentom"
 
-#: lib/kateviewspace.cpp:992
+#: lib/kateviewspace.cpp:990
 #, kde-format
 msgid "Diff %1 .. %2"
 msgstr "Razlika %1 .. %2"
 
-#: lib/kateviewspace.cpp:997
+#: lib/kateviewspace.cpp:995
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Primerjaj z aktivnim dokumentom z uporabo"
 
-#: lib/kateviewspace.cpp:1064
+#: lib/kateviewspace.cpp:1062
 #, kde-format
 msgid "Could not start program"
 msgstr "Programa ni bilo moč zagnati"
 
-#: lib/kateviewspace.cpp:1065
+#: lib/kateviewspace.cpp:1063
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr "Izbranega programa ni bilo moč zagnati. Morda sploh ni nameščen."
@@ -2225,7 +2225,7 @@ msgstr "&Odpri"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonNewSession)
 #. i18n: ectx: property (text), widget (QPushButton, m_newButton)
-#: lib/session/katesessionmanagedialog.ui:98 lib/welcomeview/welcomeview.ui:346
+#: lib/session/katesessionmanagedialog.ui:98 lib/welcomeview/welcomeview.ui:364
 #, kde-format
 msgid "New Session"
 msgstr "Nova seja"
@@ -2461,42 +2461,42 @@ msgstr "Ohrani &metapodatke preko sej"
 msgid "Delete unused meta-information after:"
 msgstr "Izbriši neuporabljene metapodatke po:"
 
-#: lib/welcomeview/welcomeview.cpp:52
+#: lib/welcomeview/welcomeview.cpp:51
 #, kde-format
 msgid "Welcome to %1"
 msgstr "Dobrodošli v %1"
 
-#: lib/welcomeview/welcomeview.cpp:56
+#: lib/welcomeview/welcomeview.cpp:55
 #, kde-format
 msgid "Recent Documents and Projects"
 msgstr "Nedavni dokumenti in projekti"
 
-#: lib/welcomeview/welcomeview.cpp:56
+#: lib/welcomeview/welcomeview.cpp:55
 #, kde-format
 msgid "Recent Documents"
 msgstr "Nedavni dokumenti"
 
-#: lib/welcomeview/welcomeview.cpp:59
+#: lib/welcomeview/welcomeview.cpp:58
 #, kde-format
 msgid "No recent documents or projects"
 msgstr "Ni nedavnih dokumentov ali projektov"
 
-#: lib/welcomeview/welcomeview.cpp:59
+#: lib/welcomeview/welcomeview.cpp:58
 #, kde-format
 msgid "No recent documents"
 msgstr "Ni nedavnih dokumentov"
 
-#: lib/welcomeview/welcomeview.cpp:122
+#: lib/welcomeview/welcomeview.cpp:116
 #, kde-format
 msgid "No saved sessions"
 msgstr "Ni shranjenih sej"
 
-#: lib/welcomeview/welcomeview.cpp:222
+#: lib/welcomeview/welcomeview.cpp:216
 #, kde-format
 msgid "Copy &Location"
 msgstr "Kopiraj mesto"
 
-#: lib/welcomeview/welcomeview.cpp:237
+#: lib/welcomeview/welcomeview.cpp:231
 #, kde-format
 msgid "&Remove"
 msgstr "Odstrani"
@@ -2531,7 +2531,7 @@ msgstr "Nedavne datoteke"
 msgid "Open File..."
 msgstr "Odpri datoteko..."
 
-#. i18n: ectx: property (toolTip), widget (QPushButton, buttonClearRecentFiles)
+#. i18n: ectx: property (toolTip), widget (QPushButton, buttonClearRecentItems)
 #: lib/welcomeview/welcomeview.ui:242
 #, kde-format
 msgid "Clear Recent Files"
@@ -2544,38 +2544,38 @@ msgstr "Počisti nedavne datoteke"
 msgid "Help"
 msgstr "Pomoč"
 
-#. i18n: ectx: property (text), widget (QLabel, labelHomepage)
+#. i18n: ectx: property (text), widget (KUrlLabel, labelHomepage)
 #: lib/welcomeview/welcomeview.ui:281
 #, kde-format
 msgid "Visit homepage"
 msgstr ""
 
-#. i18n: ectx: property (text), widget (QLabel, labelContribute)
-#: lib/welcomeview/welcomeview.ui:288
+#. i18n: ectx: property (text), widget (KUrlLabel, labelContribute)
+#: lib/welcomeview/welcomeview.ui:294
 #, kde-format
 msgid "Get involved"
 msgstr ""
 
-#. i18n: ectx: property (text), widget (QLabel, labelHandbook)
-#: lib/welcomeview/welcomeview.ui:295
+#. i18n: ectx: property (text), widget (KUrlLabel, labelHandbook)
+#: lib/welcomeview/welcomeview.ui:307
 #, kde-format
 msgid "Read handbook"
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, labelSavedSessions)
-#: lib/welcomeview/welcomeview.ui:336
+#: lib/welcomeview/welcomeview.ui:354
 #, kde-format
 msgid "Saved Sessions"
 msgstr "Shranjene seje"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonManageSessions)
-#: lib/welcomeview/welcomeview.ui:372
+#: lib/welcomeview/welcomeview.ui:390
 #, kde-format
 msgid "Manage Sessions..."
 msgstr "Upravljaj seje..."
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
-#: lib/welcomeview/welcomeview.ui:425
+#: lib/welcomeview/welcomeview.ui:443
 #, kde-format
 msgid "Show for new window"
 msgstr "Pokaži za novo okno"

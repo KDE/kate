@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-19 00:49+0000\n"
+"POT-Creation-Date: 2022-10-20 00:55+0000\n"
 "PO-Revision-Date: 2008-01-31 22:09+0200\n"
 "Last-Translator: Darafei Praliaskouski <komzpa@gmail.com>\n"
 "Language-Team: Belarusian <i18n@mova.org>\n"
@@ -1066,33 +1066,33 @@ msgstr "Стартаванне"
 msgid "Reopening files from the last session..."
 msgstr "Адкрыцце файлаў з апошняй сесіі..."
 
-#: lib/katefileactions.cpp:67
+#: lib/katefileactions.cpp:64
 #, fuzzy, kde-format
 msgid "Rename file"
 msgstr "Шаблон:"
 
-#: lib/katefileactions.cpp:68
+#: lib/katefileactions.cpp:65
 #, fuzzy, kde-format
 #| msgid "Filename"
 msgid "New file name"
 msgstr "Назва файла"
 
-#: lib/katefileactions.cpp:105
+#: lib/katefileactions.cpp:102
 #, kde-format
 msgid "File \"%1\" could not be moved to \"%2\""
 msgstr ""
 
-#: lib/katefileactions.cpp:129
+#: lib/katefileactions.cpp:126
 #, kde-format
 msgid "Do you really want to delete file \"%1\"?"
 msgstr ""
 
-#: lib/katefileactions.cpp:130
+#: lib/katefileactions.cpp:127
 #, fuzzy, kde-format
 msgid "Delete file"
 msgstr "Выдалены"
 
-#: lib/katefileactions.cpp:147
+#: lib/katefileactions.cpp:144
 #, kde-format
 msgid "File \"%1\" could not be deleted."
 msgstr ""
@@ -1222,7 +1222,7 @@ msgstr "Месцазнаходжанне"
 msgid "Copies the file path of the current file to clipboard."
 msgstr "Робіць наступны выгляд актыўным"
 
-#: lib/katemainwindow.cpp:332 lib/welcomeview/welcomeview.cpp:229
+#: lib/katemainwindow.cpp:332 lib/welcomeview/welcomeview.cpp:223
 #, fuzzy, kde-format
 msgid "&Open Containing Folder"
 msgstr "Парадак адкрыцця"
@@ -1492,12 +1492,12 @@ msgstr "&Іншыя..."
 msgid " [read only]"
 msgstr ""
 
-#: lib/katemainwindow.cpp:1362
+#: lib/katemainwindow.cpp:1367
 #, kde-format
 msgid "Diff %1"
 msgstr ""
 
-#: lib/katemainwindow.cpp:1364
+#: lib/katemainwindow.cpp:1369
 #, kde-format
 msgid "Diff %1..%2"
 msgstr ""
@@ -2090,7 +2090,7 @@ msgstr ""
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:1227
+#: lib/kateviewmanager.cpp:1228
 #, kde-format
 msgid "This view may have unsaved work. Do you really want to close it?"
 msgstr ""
@@ -2123,63 +2123,63 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: lib/kateviewspace.cpp:957
+#: lib/kateviewspace.cpp:955
 #, fuzzy, kde-format
 msgid "Close Tab"
 msgstr "За&крыць бягучы прагляд"
 
-#: lib/kateviewspace.cpp:974
+#: lib/kateviewspace.cpp:972
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "&Close Document"
 msgstr "Закрыць дакумент"
 
-#: lib/kateviewspace.cpp:975
+#: lib/kateviewspace.cpp:973
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "Close Other &Documents"
 msgstr "Закрыць дакумент"
 
-#: lib/kateviewspace.cpp:976
+#: lib/kateviewspace.cpp:974
 #, fuzzy, kde-format
 #| msgid "Close all open documents."
 msgid "Close &All Documents"
 msgstr "Закрыць усе адкрытыя дакументы."
 
-#: lib/kateviewspace.cpp:978
+#: lib/kateviewspace.cpp:976
 #, fuzzy, kde-format
 #| msgid "&Document"
 msgid "D&etach Document"
 msgstr "&Дакумент"
 
-#: lib/kateviewspace.cpp:979
+#: lib/kateviewspace.cpp:977
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewspace.cpp:988
+#: lib/kateviewspace.cpp:986
 #, fuzzy, kde-format
 #| msgid "Sync &terminal emulator with active document"
 msgid "Compare with Active Document"
 msgstr "Сінхранізаваць &тэрмінальны эмулятар з актыўным дакументам"
 
-#: lib/kateviewspace.cpp:992
+#: lib/kateviewspace.cpp:990
 #, kde-format
 msgid "Diff %1 .. %2"
 msgstr ""
 
-#: lib/kateviewspace.cpp:997
+#: lib/kateviewspace.cpp:995
 #, fuzzy, kde-format
 #| msgid "Sync &terminal emulator with active document"
 msgid "Compare with Active Document Using"
 msgstr "Сінхранізаваць &тэрмінальны эмулятар з актыўным дакументам"
 
-#: lib/kateviewspace.cpp:1064
+#: lib/kateviewspace.cpp:1062
 #, kde-format
 msgid "Could not start program"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1065
+#: lib/kateviewspace.cpp:1063
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""
@@ -2264,7 +2264,7 @@ msgstr "&Адкрыць"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonNewSession)
 #. i18n: ectx: property (text), widget (QPushButton, m_newButton)
-#: lib/session/katesessionmanagedialog.ui:98 lib/welcomeview/welcomeview.ui:346
+#: lib/session/katesessionmanagedialog.ui:98 lib/welcomeview/welcomeview.ui:364
 #, kde-format
 msgid "New Session"
 msgstr "Новая сесія"
@@ -2500,43 +2500,43 @@ msgstr "Захоўваць &мета-інфармацыю аб былых сес
 msgid "Delete unused meta-information after:"
 msgstr "Вы&даляць старую мета-інфармацыю пасля:"
 
-#: lib/welcomeview/welcomeview.cpp:52
+#: lib/welcomeview/welcomeview.cpp:51
 #, kde-format
 msgid "Welcome to %1"
 msgstr ""
 
-#: lib/welcomeview/welcomeview.cpp:56
+#: lib/welcomeview/welcomeview.cpp:55
 #, fuzzy, kde-format
 msgid "Recent Documents and Projects"
 msgstr "Адкрыць дакументы"
 
-#: lib/welcomeview/welcomeview.cpp:56
+#: lib/welcomeview/welcomeview.cpp:55
 #, fuzzy, kde-format
 msgid "Recent Documents"
 msgstr "Адкрыць дакументы"
 
-#: lib/welcomeview/welcomeview.cpp:59
+#: lib/welcomeview/welcomeview.cpp:58
 #, fuzzy, kde-format
 msgid "No recent documents or projects"
 msgstr "Адкрыць дакументы"
 
-#: lib/welcomeview/welcomeview.cpp:59
+#: lib/welcomeview/welcomeview.cpp:58
 #, fuzzy, kde-format
 msgid "No recent documents"
 msgstr "Адкрыць дакументы"
 
-#: lib/welcomeview/welcomeview.cpp:122
+#: lib/welcomeview/welcomeview.cpp:116
 #, fuzzy, kde-format
 #| msgid "&Do not save session"
 msgid "No saved sessions"
 msgstr "&Не запісваць сесію"
 
-#: lib/welcomeview/welcomeview.cpp:222
+#: lib/welcomeview/welcomeview.cpp:216
 #, fuzzy, kde-format
 msgid "Copy &Location"
 msgstr "Месцазнаходжанне"
 
-#: lib/welcomeview/welcomeview.cpp:237
+#: lib/welcomeview/welcomeview.cpp:231
 #, kde-format
 msgid "&Remove"
 msgstr ""
@@ -2574,7 +2574,7 @@ msgstr "Выдалены"
 msgid "Open File..."
 msgstr "Адкрыць файл"
 
-#. i18n: ectx: property (toolTip), widget (QPushButton, buttonClearRecentFiles)
+#. i18n: ectx: property (toolTip), widget (QPushButton, buttonClearRecentItems)
 #: lib/welcomeview/welcomeview.ui:242
 #, kde-format
 msgid "Clear Recent Files"
@@ -2586,40 +2586,40 @@ msgstr ""
 msgid "Help"
 msgstr ""
 
-#. i18n: ectx: property (text), widget (QLabel, labelHomepage)
+#. i18n: ectx: property (text), widget (KUrlLabel, labelHomepage)
 #: lib/welcomeview/welcomeview.ui:281
 #, kde-format
 msgid "Visit homepage"
 msgstr ""
 
-#. i18n: ectx: property (text), widget (QLabel, labelContribute)
-#: lib/welcomeview/welcomeview.ui:288
+#. i18n: ectx: property (text), widget (KUrlLabel, labelContribute)
+#: lib/welcomeview/welcomeview.ui:294
 #, kde-format
 msgid "Get involved"
 msgstr ""
 
-#. i18n: ectx: property (text), widget (QLabel, labelHandbook)
-#: lib/welcomeview/welcomeview.ui:295
+#. i18n: ectx: property (text), widget (KUrlLabel, labelHandbook)
+#: lib/welcomeview/welcomeview.ui:307
 #, kde-format
 msgid "Read handbook"
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, labelSavedSessions)
-#: lib/welcomeview/welcomeview.ui:336
+#: lib/welcomeview/welcomeview.ui:354
 #, fuzzy, kde-format
 #| msgid "&Save session"
 msgid "Saved Sessions"
 msgstr "&Запісаць сесію"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonManageSessions)
-#: lib/welcomeview/welcomeview.ui:372
+#: lib/welcomeview/welcomeview.ui:390
 #, fuzzy, kde-format
 #| msgid "Manage Sessions"
 msgid "Manage Sessions..."
 msgstr "Кіраванне сесіямі"
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
-#: lib/welcomeview/welcomeview.ui:425
+#: lib/welcomeview/welcomeview.ui:443
 #, fuzzy, kde-format
 #| msgid "Create a new document"
 msgid "Show for new window"

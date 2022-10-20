@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-06 00:48+0000\n"
+"POT-Creation-Date: 2022-10-20 00:55+0000\n"
 "PO-Revision-Date: 2022-09-12 11:09+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -188,7 +188,7 @@ msgid_plural "%1 matches (%3) found in all open projects (common parent: %2)"
 msgstr[0] ""
 msgstr[1] ""
 
-#: Results.cpp:28
+#: Results.cpp:31
 #, kde-format
 msgid "Filter..."
 msgstr "ფილტრი..."
@@ -562,67 +562,78 @@ msgstr ""
 msgid "Search Match"
 msgstr "დამთხვევის ძებნა"
 
-#: SearchPlugin.cpp:1754 SearchPlugin.cpp:1831
+#: SearchPlugin.cpp:1755 SearchPlugin.cpp:1832
 #, kde-format
 msgid "Next from cursor"
 msgstr "კურსორიდან შემდეგი"
 
-#: SearchPlugin.cpp:1771
+#: SearchPlugin.cpp:1772
 #, kde-format
 msgid "Starting from first match"
 msgstr "პირველი დამთხვევიდან დაწყებული"
 
-#: SearchPlugin.cpp:1791
+#: SearchPlugin.cpp:1792
 #, kde-format
 msgid "Continuing from first match"
 msgstr "პირველი დამთხვევიდან გაგრძელება"
 
-#: SearchPlugin.cpp:1848
+#: SearchPlugin.cpp:1849
 #, kde-format
 msgid "Starting from last match"
 msgstr "ბოლო დამთხვევიდან დაწყებული"
 
-#: SearchPlugin.cpp:1868
+#: SearchPlugin.cpp:1869
 #, kde-format
 msgid "Continuing from last match"
 msgstr "ბოლო დამთხვევიდან გაგრძელება"
 
-#: SearchPlugin.cpp:2139
+#: SearchPlugin.cpp:2028
+#, fuzzy, kde-format
+#| msgid "Search"
+msgid "Search: %1"
+msgstr "ძებნა"
+
+#: SearchPlugin.cpp:2159
 #, kde-format
 msgid "Copy all"
 msgstr "ყველას კოპირება"
 
-#: SearchPlugin.cpp:2144
+#: SearchPlugin.cpp:2164
 #, kde-format
 msgid "Copy expanded"
 msgstr ""
 
-#: SearchPlugin.cpp:2147
+#: SearchPlugin.cpp:2167
 #, kde-format
 msgid "Export matches"
 msgstr "დამთხვევების გატანა"
 
-#: SearchPlugin.cpp:2152
+#: SearchPlugin.cpp:2173
+#, kde-format
+msgid "Open as Editor Tab"
+msgstr ""
+
+#: SearchPlugin.cpp:2180
 #, kde-format
 msgid "Clear"
 msgstr "სუფთა ცა"
 
-#: SearchPlugin.cpp:2260 SearchPlugin.cpp:2294
+#: SearchPlugin.cpp:2288 SearchPlugin.cpp:2322
 #, kde-format
 msgid "Add..."
 msgstr "დამატება..."
 
-#: SearchPlugin.cpp:2272
+#: SearchPlugin.cpp:2300
 #, kde-format
 msgid "Search As You Type"
 msgstr "ძებნა აკრეფის მიმდინარეობისას"
 
-#: SearchPlugin.cpp:2343
+#: SearchPlugin.cpp:2371
 #, kde-format
 msgid "In Current Project"
 msgstr "მიმდინარე პროექტში"
 
-#: SearchPlugin.cpp:2345
+#: SearchPlugin.cpp:2373
 #, kde-format
 msgid "In All Open Projects"
 msgstr "ყველა ღია პროექტში"

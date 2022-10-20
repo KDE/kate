@@ -36,7 +36,7 @@ msgstr "Client LSP"
 #: lspclientconfigpage.cpp:236
 #, kde-format
 msgid "No JSON data to validate."
-msgstr "No hi ha dades JSON que calga validar."
+msgstr "No hi ha dades JSON que s'hagen de validar."
 
 #: lspclientconfigpage.cpp:245
 #, kde-format

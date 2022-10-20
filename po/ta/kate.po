@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-19 00:49+0000\n"
+"POT-Creation-Date: 2022-10-20 00:55+0000\n"
 "PO-Revision-Date: 2022-10-18 21:37+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -1033,32 +1033,32 @@ msgstr "துவங்குகிறது"
 msgid "Reopening files from the last session..."
 msgstr "சென்ற அமர்விலிருந்த கோப்புகள் திறக்கப்படுகின்றன..."
 
-#: lib/katefileactions.cpp:67
+#: lib/katefileactions.cpp:64
 #, kde-format
 msgid "Rename file"
 msgstr "கோப்பின் பெயரை மாற்று"
 
-#: lib/katefileactions.cpp:68
+#: lib/katefileactions.cpp:65
 #, kde-format
 msgid "New file name"
 msgstr "கோப்பின் புதிய பெயர்"
 
-#: lib/katefileactions.cpp:105
+#: lib/katefileactions.cpp:102
 #, kde-format
 msgid "File \"%1\" could not be moved to \"%2\""
 msgstr "\"%1\" என்ற கோப்பை \"%2\" என்ற இடத்திற்கு நகர்த்த முடியவில்லை"
 
-#: lib/katefileactions.cpp:129
+#: lib/katefileactions.cpp:126
 #, kde-format
 msgid "Do you really want to delete file \"%1\"?"
 msgstr "\"%1\" என்ற கோப்பை உறுதியாக நீக்க வேண்டுமா?"
 
-#: lib/katefileactions.cpp:130
+#: lib/katefileactions.cpp:127
 #, kde-format
 msgid "Delete file"
 msgstr "கோப்பை நீக்குதல்"
 
-#: lib/katefileactions.cpp:147
+#: lib/katefileactions.cpp:144
 #, kde-format
 msgid "File \"%1\" could not be deleted."
 msgstr "\"%1\" என்ற கோப்பை நீக்க முடியவில்லை."
@@ -1181,7 +1181,7 @@ msgstr "இருப்பிடத்தை நகலெடு"
 msgid "Copies the file path of the current file to clipboard."
 msgstr "தற்போதைய கோப்பின் பாதையை பிடிப்புப்பலகைக்கு நகலெடுக்கும்."
 
-#: lib/katemainwindow.cpp:332 lib/welcomeview/welcomeview.cpp:229
+#: lib/katemainwindow.cpp:332 lib/welcomeview/welcomeview.cpp:223
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "&கொண்டுள்ள அடைவை திற"
@@ -1439,12 +1439,12 @@ msgstr "&மற்றவை..."
 msgid " [read only]"
 msgstr " [படித்தல் மட்டும்]"
 
-#: lib/katemainwindow.cpp:1362
+#: lib/katemainwindow.cpp:1367
 #, kde-format
 msgid "Diff %1"
 msgstr "%1-இல் வித்தியாசங்காண்"
 
-#: lib/katemainwindow.cpp:1364
+#: lib/katemainwindow.cpp:1369
 #, kde-format
 msgid "Diff %1..%2"
 msgstr "%1..%2 இடையே வித்தியாசங்காண்"
@@ -2021,7 +2021,7 @@ msgstr "இயக்கு"
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "<b>%1</b> செருகுநிரலை இயக்க முடியவில்லை"
 
-#: lib/kateviewmanager.cpp:1227
+#: lib/kateviewmanager.cpp:1228
 #, kde-format
 msgid "This view may have unsaved work. Do you really want to close it?"
 msgstr "இக்காட்சிப்பகுதியில் சேமிக்கப்படாதவை இருக்கலாம். உறுதியாக இதை மூட வேண்டுமா?"
@@ -2057,57 +2057,57 @@ msgstr[1] ""
 "இன்னும் %1 ஆவணங்கள் தற்போது திறக்கப்பட்டுள்ளன. திறக்கப்பட்டுள்ள அனைத்து ஆவணங்களை பார்க்க, "
 "இங்கே அழுத்தி விரைவாக திறக்கும் படிவத்திற்கு தாவுங்கள்."
 
-#: lib/kateviewspace.cpp:957
+#: lib/kateviewspace.cpp:955
 #, kde-format
 msgid "Close Tab"
 msgstr "கீற்றை மூடு"
 
-#: lib/kateviewspace.cpp:974
+#: lib/kateviewspace.cpp:972
 #, kde-format
 msgid "&Close Document"
 msgstr "&ஆவணத்தை மூடு"
 
-#: lib/kateviewspace.cpp:975
+#: lib/kateviewspace.cpp:973
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "&மற்ற ஆவணங்களை மூடு"
 
-#: lib/kateviewspace.cpp:976
+#: lib/kateviewspace.cpp:974
 #, kde-format
 msgid "Close &All Documents"
 msgstr "&அனைத்து ஆவணங்களையும் மூடு"
 
-#: lib/kateviewspace.cpp:978
+#: lib/kateviewspace.cpp:976
 #, kde-format
 msgid "D&etach Document"
 msgstr "ஆவணத்தை &பிரித்தெடு"
 
-#: lib/kateviewspace.cpp:979
+#: lib/kateviewspace.cpp:977
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "ஆவணத்தைப் இச்சாளரத்தில் மூடி, புதிய சாளரத்தில் திறக்கும்"
 
-#: lib/kateviewspace.cpp:988
+#: lib/kateviewspace.cpp:986
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "செயலிலுள்ள ஆவணத்துடன் ஒப்பிடு"
 
-#: lib/kateviewspace.cpp:992
+#: lib/kateviewspace.cpp:990
 #, kde-format
 msgid "Diff %1 .. %2"
 msgstr "%1 .. %2 இடையே வித்தியாசங்காண்"
 
-#: lib/kateviewspace.cpp:997
+#: lib/kateviewspace.cpp:995
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "செயலிலுள்ள ஆவணத்துடன் வேறு நிரலால் ஒப்பிடு"
 
-#: lib/kateviewspace.cpp:1064
+#: lib/kateviewspace.cpp:1062
 #, kde-format
 msgid "Could not start program"
 msgstr "செயலியை துவக்க முடியவில்லை"
 
-#: lib/kateviewspace.cpp:1065
+#: lib/kateviewspace.cpp:1063
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""
@@ -2192,7 +2192,7 @@ msgstr "&திற"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonNewSession)
 #. i18n: ectx: property (text), widget (QPushButton, m_newButton)
-#: lib/session/katesessionmanagedialog.ui:98 lib/welcomeview/welcomeview.ui:346
+#: lib/session/katesessionmanagedialog.ui:98 lib/welcomeview/welcomeview.ui:364
 #, kde-format
 msgid "New Session"
 msgstr "புதிய அமர்வு"
@@ -2427,42 +2427,42 @@ msgstr "அமர்வுகளை தாண்டி மெ&டா தகவ�
 msgid "Delete unused meta-information after:"
 msgstr "பயன்படுத்தாத மெடா தகவலை இவ்வளவு நேரம் கழித்து அழி:"
 
-#: lib/welcomeview/welcomeview.cpp:52
+#: lib/welcomeview/welcomeview.cpp:51
 #, kde-format
 msgid "Welcome to %1"
 msgstr "%1-க்கு நல்வரவு"
 
-#: lib/welcomeview/welcomeview.cpp:56
+#: lib/welcomeview/welcomeview.cpp:55
 #, kde-format
 msgid "Recent Documents and Projects"
 msgstr "சமீப ஆவணங்களும் திட்டப்பணிகளும்"
 
-#: lib/welcomeview/welcomeview.cpp:56
+#: lib/welcomeview/welcomeview.cpp:55
 #, kde-format
 msgid "Recent Documents"
 msgstr "சமீப ஆவணங்கள்"
 
-#: lib/welcomeview/welcomeview.cpp:59
+#: lib/welcomeview/welcomeview.cpp:58
 #, kde-format
 msgid "No recent documents or projects"
 msgstr "சமீப ஆவணங்களோ திட்டப்பணிகளோ இல்லை"
 
-#: lib/welcomeview/welcomeview.cpp:59
+#: lib/welcomeview/welcomeview.cpp:58
 #, kde-format
 msgid "No recent documents"
 msgstr "சமீப ஆவணங்கள் இல்லை"
 
-#: lib/welcomeview/welcomeview.cpp:122
+#: lib/welcomeview/welcomeview.cpp:116
 #, kde-format
 msgid "No saved sessions"
 msgstr "எந்த அமர்வும் சேமிக்கப்படவில்லை"
 
-#: lib/welcomeview/welcomeview.cpp:222
+#: lib/welcomeview/welcomeview.cpp:216
 #, kde-format
 msgid "Copy &Location"
 msgstr "&இருப்பிடத்தை நகலெடு"
 
-#: lib/welcomeview/welcomeview.cpp:237
+#: lib/welcomeview/welcomeview.cpp:231
 #, kde-format
 msgid "&Remove"
 msgstr "&நீக்கு"
@@ -2497,7 +2497,7 @@ msgstr "சமீப கோப்புகள்"
 msgid "Open File..."
 msgstr "கோப்பை திற..."
 
-#. i18n: ectx: property (toolTip), widget (QPushButton, buttonClearRecentFiles)
+#. i18n: ectx: property (toolTip), widget (QPushButton, buttonClearRecentItems)
 #: lib/welcomeview/welcomeview.ui:242
 #, kde-format
 msgid "Clear Recent Files"
@@ -2510,38 +2510,38 @@ msgstr "சமீப கோப்புகளின் பட்டியலை 
 msgid "Help"
 msgstr "&உதவி"
 
-#. i18n: ectx: property (text), widget (QLabel, labelHomepage)
+#. i18n: ectx: property (text), widget (KUrlLabel, labelHomepage)
 #: lib/welcomeview/welcomeview.ui:281
 #, kde-format
 msgid "Visit homepage"
 msgstr ""
 
-#. i18n: ectx: property (text), widget (QLabel, labelContribute)
-#: lib/welcomeview/welcomeview.ui:288
+#. i18n: ectx: property (text), widget (KUrlLabel, labelContribute)
+#: lib/welcomeview/welcomeview.ui:294
 #, kde-format
 msgid "Get involved"
 msgstr ""
 
-#. i18n: ectx: property (text), widget (QLabel, labelHandbook)
-#: lib/welcomeview/welcomeview.ui:295
+#. i18n: ectx: property (text), widget (KUrlLabel, labelHandbook)
+#: lib/welcomeview/welcomeview.ui:307
 #, kde-format
 msgid "Read handbook"
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, labelSavedSessions)
-#: lib/welcomeview/welcomeview.ui:336
+#: lib/welcomeview/welcomeview.ui:354
 #, kde-format
 msgid "Saved Sessions"
 msgstr "சேமித்துள்ள அமர்வுகள்"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonManageSessions)
-#: lib/welcomeview/welcomeview.ui:372
+#: lib/welcomeview/welcomeview.ui:390
 #, kde-format
 msgid "Manage Sessions..."
 msgstr "அமர்வுகளை நிர்வகி..."
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
-#: lib/welcomeview/welcomeview.ui:425
+#: lib/welcomeview/welcomeview.ui:443
 #, kde-format
 msgid "Show for new window"
 msgstr "புதிய சாளரத்திற்கு காட்டு"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-09 00:52+0000\n"
+"POT-Creation-Date: 2022-10-20 00:55+0000\n"
 "PO-Revision-Date: 2022-10-09 08:53+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -21,240 +21,225 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 22.08.1\n"
 
-#: katefiletree.cpp:125
+#: katefiletree.cpp:127
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Reloa&d"
 msgstr "&Birzamatu"
 
-#: katefiletree.cpp:127
+#: katefiletree.cpp:129
 #, kde-format
 msgid "Reload selected document(s) from disk."
 msgstr "Birzamatu hautatutako dokumentua(k) diskotik."
 
-#: katefiletree.cpp:129
+#: katefiletree.cpp:131
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close"
 msgstr "Itxi"
 
-#: katefiletree.cpp:131
+#: katefiletree.cpp:133
 #, kde-format
 msgid "Close the current document."
 msgstr "Itxi uneko dokumentua."
 
-#: katefiletree.cpp:133
+#: katefiletree.cpp:135
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Expand Recursively"
 msgstr "Zabaldu modu errepikarian"
 
-#: katefiletree.cpp:135
+#: katefiletree.cpp:137
 #, kde-format
 msgid "Expand the file list sub tree recursively."
 msgstr "Zabaladu fitxategi-zerrenda azpi-zuhaitza modu errepikarian."
 
-#: katefiletree.cpp:137
+#: katefiletree.cpp:139
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Collapse Recursively"
 msgstr "Tolestu modu errepikarian"
 
-#: katefiletree.cpp:139
+#: katefiletree.cpp:141
 #, kde-format
 msgid "Collapse the file list sub tree recursively."
 msgstr "Tolestu fitxategi-zerrenda azpi-zuhaitza modu errepikarian."
 
-#: katefiletree.cpp:141
+#: katefiletree.cpp:143
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close Other"
 msgstr "Itxi besteak"
 
-#: katefiletree.cpp:143
+#: katefiletree.cpp:145
 #, kde-format
 msgid "Close other documents in this folder."
 msgstr "Itxi karpeta honetako beste dokumentu batzuk."
 
-#: katefiletree.cpp:146
+#: katefiletree.cpp:148
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Containing Folder"
 msgstr "Ireki hau barnean duen karpeta"
 
-#: katefiletree.cpp:148
+#: katefiletree.cpp:150
 #, kde-format
 msgid "Open the folder this file is located in."
 msgstr "Ireki fitxategi hau barnean duen karpeta."
 
-#: katefiletree.cpp:150
+#: katefiletree.cpp:152
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Location"
 msgstr "Kopiatu kokalekua"
 
-#: katefiletree.cpp:152
+#: katefiletree.cpp:154
 #, kde-format
 msgid "Copy path and filename to the clipboard."
 msgstr "Kopiatu fitxategiaren bide- eta fitxategi-izena."
 
-#: katefiletree.cpp:154
+#: katefiletree.cpp:156
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename..."
 msgstr "Berrizendatu..."
 
-#: katefiletree.cpp:156
+#: katefiletree.cpp:158
 #, kde-format
 msgid "Rename the selected file."
 msgstr "Berrizendatu hautatutako fitxategia."
 
-#: katefiletree.cpp:159
+#: katefiletree.cpp:161
 #, kde-format
 msgid "Print selected document."
 msgstr "Inprimatu hautatutako dokumentua."
 
-#: katefiletree.cpp:162
+#: katefiletree.cpp:164
 #, kde-format
 msgid "Show print preview of current document"
 msgstr "Erakutsi uneko dokumentuaren inprimatze aurreikuspena"
 
-#: katefiletree.cpp:164
+#: katefiletree.cpp:166
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete"
 msgstr "Ezabatu"
 
-#: katefiletree.cpp:166
+#: katefiletree.cpp:168
 #, kde-format
 msgid "Close and delete selected file from storage."
 msgstr "Itxi eta ezabatu hautatutako fitxategia biltegitik."
 
-#: katefiletree.cpp:170
+#: katefiletree.cpp:172
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear History"
 msgstr "Garbitu historia"
 
-#: katefiletree.cpp:172
+#: katefiletree.cpp:174
 #, kde-format
 msgid "Clear edit/view history."
 msgstr "Garbitu editatze/ikuspegi historia"
 
-#: katefiletree.cpp:235
+#: katefiletree.cpp:237
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Tree Mode"
 msgstr "Zuhaitz-modua"
 
-#: katefiletree.cpp:236
+#: katefiletree.cpp:238
 #, kde-format
 msgid "Set view style to Tree Mode"
 msgstr "Ezarri ikuspegi estiloa Zuhaitz-moduan"
 
-#: katefiletree.cpp:242
+#: katefiletree.cpp:244
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "List Mode"
 msgstr "Zerrenda-modua"
 
-#: katefiletree.cpp:243
+#: katefiletree.cpp:245
 #, kde-format
 msgid "Set view style to List Mode"
 msgstr "Ezarri ikuspegi estiloa Zerrenda-moduan"
 
-#: katefiletree.cpp:250
+#: katefiletree.cpp:252
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Document Name"
 msgstr "Dokumentuaren izena"
 
-#: katefiletree.cpp:251
+#: katefiletree.cpp:253
 #, kde-format
 msgid "Sort by Document Name"
 msgstr "Sailkatu dokumentu-izenaren arabera"
 
-#: katefiletree.cpp:256
+#: katefiletree.cpp:258
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Document Path"
 msgstr "Dokumentuaren bide-izena"
 
-#: katefiletree.cpp:256
+#: katefiletree.cpp:258
 #, kde-format
 msgid "Sort by Document Path"
 msgstr "Sailkatu dokumentuaren bide-izenaren arabera"
 
-#: katefiletree.cpp:260
+#: katefiletree.cpp:262
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Opening Order"
 msgstr "Irekitze-hurrenkera"
 
-#: katefiletree.cpp:261
+#: katefiletree.cpp:263
 #, kde-format
 msgid "Sort by Opening Order"
 msgstr "Sailkatu Irekitze-hurrekeraren arabera"
 
-#: katefiletree.cpp:264 katefiletreeconfigpage.cpp:74
+#: katefiletree.cpp:266 katefiletreeconfigpage.cpp:74
 #, kde-format
 msgid "Custom Sorting"
 msgstr "Norberak finkatutako sailkapena"
 
-#: katefiletree.cpp:393
+#: katefiletree.cpp:395
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open With"
 msgstr "Ireki honekin"
 
-#: katefiletree.cpp:407
+#: katefiletree.cpp:409
 #, kde-format
 msgid "Show File Git History"
 msgstr "Erakutsi fitxategien Git historia"
 
-#: katefiletree.cpp:446
+#: katefiletree.cpp:448
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "View Mode"
 msgstr "Ikuspegi-modua"
 
-#: katefiletree.cpp:450
+#: katefiletree.cpp:452
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Sort By"
 msgstr "Sailkatu honen arabera"
 
-#: katefiletree.cpp:492
+#: katefiletree.cpp:494
 #, kde-format
 msgid "&Other..."
 msgstr "&Beste batzuk..."
 
-#: katefiletree.cpp:628
-#, kde-format
-msgid "Rename file"
-msgstr "Berrizendatu fitxategia"
-
-#: katefiletree.cpp:628
-#, kde-format
-msgid "New file name"
-msgstr "Fitxategi-izen berria"
-
-#: katefiletree.cpp:656
-#, kde-format
-msgid "File \"%1\" could not be moved to \"%2\""
-msgstr "Ezin izan da \"%1\" fitxategia \"%2\"-(e)ra eraman"
-
-#: katefiletree.cpp:862
+#: katefiletree.cpp:822
 #, kde-format
 msgid "Do you really want to delete file \"%1\" from storage?"
 msgstr "Benetan ezabatu nahi duzu \"%1\" fitxategia biltegitik?"
 
-#: katefiletree.cpp:863
+#: katefiletree.cpp:823
 #, kde-format
 msgid "Delete file?"
 msgstr "Ezabatu fitxategia?"
 
-#: katefiletree.cpp:880
+#: katefiletree.cpp:840
 #, kde-format
 msgid "File \"%1\" could not be deleted."
 msgstr "\"%1\" fitxategia ezin izan da ezabatu."
@@ -439,6 +424,15 @@ msgstr "Gorde uneko dokumentua beste izen batekin"
 #, kde-format
 msgid "&Go"
 msgstr "&Joan"
+
+#~ msgid "Rename file"
+#~ msgstr "Berrizendatu fitxategia"
+
+#~ msgid "New file name"
+#~ msgstr "Fitxategi-izen berria"
+
+#~ msgid "File \"%1\" could not be moved to \"%2\""
+#~ msgstr "Ezin izan da \"%1\" fitxategia \"%2\"-(e)ra eraman"
 
 #~ msgctxt "NAME OF TRANSLATORS"
 #~ msgid "Your names"

@@ -1422,6 +1422,15 @@ void KateViewManager::restoreViewConfiguration(const KConfigGroup &config)
         addWidget(vs);
         vs->setActive(true);
         m_viewSpaceList.push_back(vs);
+    } else {
+        // remove any empty viewspaces
+        // use a copy, m_viewSpaceList wil be modified
+        const auto copy = m_viewSpaceList;
+        for (auto *vs : copy) {
+            if (vs->documentList().isEmpty()) {
+                onViewSpaceEmptied(vs);
+            }
+        }
     }
 
     updateViewSpaceActions();

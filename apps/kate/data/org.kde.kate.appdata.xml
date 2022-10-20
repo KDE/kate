@@ -5,7 +5,6 @@
   <project_license>LGPL-2.1+</project_license>
   <name>Kate</name>
   <name xml:lang="ar">كيت</name>
-  <name xml:lang="ast">Kate</name>
   <name xml:lang="az">Kate</name>
   <name xml:lang="bg">Kate</name>
   <name xml:lang="bs">Kate</name>
@@ -55,7 +54,6 @@
   <name xml:lang="zh-TW">Kate</name>
   <summary>Advanced Text Editor</summary>
   <summary xml:lang="ar">محرّر نصوص متقدّم</summary>
-  <summary xml:lang="ast">Editor avanzáu de testu</summary>
   <summary xml:lang="az">Əlavə mətn redaktoru</summary>
   <summary xml:lang="bg">Разширен текстов редактор Kate</summary>
   <summary xml:lang="bs">Napredni uređivač teksta</summary>
@@ -151,7 +149,6 @@
     <p xml:lang="zh-TW">Kate 是 KDE 內的進階編輯器，可同時編輯多個文件。它的功能包括像是源碼封裝，語法突顯，動態折行，嵌入主控台，延伸外掛程式介面與一些基本的文稿支援等等。</p>
     <p>Features:</p>
     <p xml:lang="ar">الميزات:</p>
-    <p xml:lang="ast">Carauterístiques:</p>
     <p xml:lang="az">İmkanlar:</p>
     <p xml:lang="bg">Функции:</p>
     <p xml:lang="bs">Svojstva:</p>
@@ -248,7 +245,6 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="zh-TW">MDI，視窗分割，視窗分頁</li>
       <li>Spell checking</li>
       <li xml:lang="ar">تدقيق الهجاء</li>
-      <li xml:lang="ast">Comprobación ortográfica</li>
       <li xml:lang="az">Orfoqrafiya yoxlaması</li>
       <li xml:lang="bg">Проверка на правописа</li>
       <li xml:lang="bs">Provjera ispravnog pisanja riječi</li>
@@ -345,7 +341,6 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="zh-TW">CR, CRLF, LF 等換行符號支援</li>
       <li>Encoding support (utf-8, utf-16, ascii etc.)</li>
       <li xml:lang="ar">دعم التّرميز (utf-8، وutf-16 وآسكي وغيرها)</li>
-      <li xml:lang="ast">Sofitu pa codificaciones (utf-8, utf-16, ascii… etc)</li>
       <li xml:lang="az">Müxtəlif kodlama dəstəyi (utf-8, utf-16, ascii etc.)</li>
       <li xml:lang="bg">Поддръжка на кодови таблици (utf-8, utf-16, ascii и др.)</li>
       <li xml:lang="ca">Admet codificacions (UTF-8, UTF-16, ASCII, etc.)</li>
@@ -576,7 +571,6 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="zh-TW">程式碼與文字封裝</li>
       <li>Infinite undo/redo support</li>
       <li xml:lang="ar">دعم عدد متناهٍ من الإعادات والتّكرارات</li>
-      <li xml:lang="ast">Sofitu pa desfechura/refechura infinita</li>
       <li xml:lang="az">Sonsuz sayda geri qaytarma və təkrarlama dəstəyi</li>
       <li xml:lang="bg">Неограничено отменяне и повторение на действия</li>
       <li xml:lang="ca">Admet desfer/refer infinits</li>
@@ -672,7 +666,6 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="zh-TW">區塊選擇模式</li>
       <li>Auto indentation</li>
       <li xml:lang="ar">الإزاحة الآليّة</li>
-      <li xml:lang="ast">Sangráu automáticu</li>
       <li xml:lang="az">Avtomatik boşluqlar</li>
       <li xml:lang="bg">Автоматичен отстъп</li>
       <li xml:lang="bs">Automatsko uvlačenje</li>
@@ -720,7 +713,6 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="zh-TW">自動縮排</li>
       <li>Auto completion support</li>
       <li xml:lang="ar">دعم الإكمال الآليّ</li>
-      <li xml:lang="ast">Sofitu pa completáu automáticu</li>
       <li xml:lang="az">Avtomatik tamamlama dəstəyi</li>
       <li xml:lang="bg">Автоматично завършване на думи</li>
       <li xml:lang="ca">Admet compleció automàtica</li>
@@ -768,7 +760,6 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="zh-TW">自動補完支援</li>
       <li>Shell integration</li>
       <li xml:lang="ar">التّكامل مع الصّدفة</li>
-      <li xml:lang="ast">Integración cola shell</li>
       <li xml:lang="az">Funksiyanın əmrlər sətrindən çağırılması</li>
       <li xml:lang="bg">Интеграция с командния ред на обвивката</li>
       <li xml:lang="ca">Integració de l'intèrpret d'ordres</li>
@@ -861,7 +852,6 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="zh-TW">用 kioslave 提供廣泛的協定支援（http, ftp, ssh, webdav 等等）</li>
       <li>Plugin architecture for the application and editor component</li>
       <li xml:lang="ar">بنية ملحقات للتّطبيق ومكوّن المحرّر</li>
-      <li xml:lang="ast">Arquiteutura de plugins pa l'aplicación y el componente del editor</li>
       <li xml:lang="az">Tətbiq və redaktor komponentləri üçün qoşma arxitekturası</li>
       <li xml:lang="bg">Приставки за приложението и компоненти на редактора</li>
       <li xml:lang="ca">Arquitectura de connectors per a l'aplicació i el component d'edició</li>
@@ -908,7 +898,6 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="zh-TW">用於應用程式與編輯器組件的外掛架構</li>
       <li>Customizable shortcuts</li>
       <li xml:lang="ar">اختصارات يمكن تخصيصها</li>
-      <li xml:lang="ast">Atayos personalizables</li>
       <li xml:lang="az">Ayarlanabilən qısayollar</li>
       <li xml:lang="bg">Настройване на потребителски клавишни комбинации</li>
       <li xml:lang="ca">Dreceres personalitzables</li>
@@ -956,7 +945,6 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="zh-TW">自定快捷鍵</li>
       <li>Integrated command line</li>
       <li xml:lang="ar">سطر أوامر مدمج</li>
-      <li xml:lang="ast">Llinia de comandos integrada</li>
       <li xml:lang="az">İnteqrasiya olunmuş əmrlər sətri</li>
       <li xml:lang="bg">Интегриран команден ред</li>
       <li xml:lang="ca">Línia d'ordres integrada</li>
@@ -1057,7 +1045,6 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
     <screenshot type="default">
       <caption>Editing code with Kate</caption>
       <caption xml:lang="ar">يحرر الشفرات بكيت</caption>
-      <caption xml:lang="ast">Edición de códigu con Kate</caption>
       <caption xml:lang="az">Mənbə koduna Kate ilə düzəliş edilməsi</caption>
       <caption xml:lang="bg">Редактиране на код с Kate</caption>
       <caption xml:lang="ca">Edició de codi amb el Kate</caption>

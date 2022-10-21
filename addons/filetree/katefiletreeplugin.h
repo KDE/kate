@@ -134,7 +134,6 @@ private Q_SLOTS:
     void slotDocumentSave() const;
     void slotDocumentSaveAs() const;
 
-    void widgetActivated(QWidget *);
     void slotWidgetCreated(QWidget *);
     void slotWidgetRemoved(QWidget *);
 };

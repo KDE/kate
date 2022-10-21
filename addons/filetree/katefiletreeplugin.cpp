@@ -203,7 +203,6 @@ KateFileTreePluginView::KateFileTreePluginView(KTextEditor::MainWindow *mainWind
     auto mw = mainWindow->window();
     connect(mw, SIGNAL(widgetAdded(QWidget *)), this, SLOT(slotWidgetCreated(QWidget *)));
     connect(mw, SIGNAL(widgetRemoved(QWidget *)), this, SLOT(slotWidgetRemoved(QWidget *)));
-    connect(mw, SIGNAL(widgetActivated(QWidget *)), this, SLOT(widgetActivated(QWidget *)));
 
     connect(m_fileTree, &KateFileTree::closeWidget, this, [this](QWidget *w) {
         auto mw = m_mainWindow->window();
@@ -477,11 +476,6 @@ void KateFileTreePluginView::slotDocumentSaveAs() const
     if (auto view = m_mainWindow->activeView()) {
         view->document()->documentSaveAs();
     }
-}
-
-void KateFileTreePluginView::widgetActivated(QWidget *)
-{
-    viewChanged(nullptr);
 }
 
 void KateFileTreePluginView::slotWidgetCreated(QWidget *w)

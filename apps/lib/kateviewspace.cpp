@@ -453,7 +453,6 @@ void KateViewSpace::changeView(int idx)
         }
         stack->setCurrentWidget(w);
         m_viewManager->activateView(static_cast<KTextEditor::Document *>(nullptr));
-        Q_EMIT m_viewManager->mainWindow()->widgetActivated(w);
         return;
     }
 

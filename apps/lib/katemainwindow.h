@@ -228,7 +228,6 @@ Q_SIGNALS:
 
     void widgetAdded(QWidget *);
     void widgetRemoved(QWidget *);
-    void widgetActivated(QWidget *);
 
 public:
     void openUrl(const QString &name = QString());

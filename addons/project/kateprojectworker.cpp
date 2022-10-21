@@ -8,6 +8,7 @@
 #include "kateprojectworker.h"
 #include "kateprojectitem.h"
 
+#include <bytearraysplitter.h>
 #include <gitprocess.h>
 
 #include "hostprocess.h"
@@ -288,7 +289,7 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent,
     /**
      * get list of files for this directory, might query the VCS
      */
-    QVector<QString> files = findFiles(dir, filesEntry);
+    const QVector<QString> files = findFiles(dir, filesEntry);
 
     QStringList excludeFolderPatterns = m_projectMap.value(QStringLiteral("exclude_patterns")).toStringList();
     std::vector<QRegularExpression> excludeRegexps;
@@ -480,16 +481,15 @@ QVector<QString> KateProjectWorker::gitFiles(const QDir &dir, bool recursive, co
         return files;
     }
 
-    const QList<QByteArray> byteArrayList = git.readAllStandardOutput().split('\0');
-    files.reserve(byteArrayList.size());
-    for (const QByteArray &byteArray : byteArrayList) {
-        if (byteArray.isEmpty()) {
+    const QByteArray b = git.readAllStandardOutput();
+    for (strview byteArray : ByteArraySplitter(b, '\0')) {
+        if (byteArray.empty()) {
             continue;
         }
-        if (!recursive && (byteArray.indexOf('/') != -1)) {
+        if (!recursive && (byteArray.find('/') != std::string::npos)) {
             continue;
         }
-        files.append(QString::fromUtf8(byteArray));
+        files.append(byteArray.toString());
     }
     return files;
 }

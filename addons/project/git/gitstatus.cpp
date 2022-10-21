@@ -5,12 +5,12 @@
 */
 #include "gitstatus.h"
 
+#include <bytearraysplitter.h>
 #include <gitprocess.h>
 
 #include <KLocalizedString>
 #include <QByteArray>
 #include <QProcess>
-#include <QScopeGuard>
 
 #include <charconv>
 #include <optional>
@@ -41,17 +41,7 @@ GitUtils::GitParsedStatus GitUtils::parseStatus(const QByteArray &raw, bool with
     QVector<GitUtils::StatusItem> staged;
     QVector<GitUtils::StatusItem> changed;
 
-    int start = 0;
-    int next = raw.indexOf(char(0x0), start);
-    const char *p = raw.data();
-    while (next != -1) {
-        auto _ = qScopeGuard([&raw, &start, &next] {
-            start = next + 1;
-            next = raw.indexOf(char(0), start);
-        });
-
-        std::string_view r(p + start, next - start);
-
+    for (auto r : ByteArraySplitter(raw, '\0')) {
         if (r.length() < 3) {
             continue;
         }
@@ -61,8 +51,8 @@ GitUtils::GitParsedStatus GitUtils::parseStatus(const QByteArray &raw, bool with
         uint16_t xy = (((uint16_t)x) << 8) | y;
         using namespace GitUtils;
 
-        std::string_view file_view = r.substr(3);
-        QByteArray file(file_view.data(), file_view.size());
+        r.remove_prefix(3);
+        QByteArray file = r.toByteArray();
 
         switch (xy) {
         case StatusXY::QQ:
@@ -191,22 +181,10 @@ static std::optional<int> toInt(std::string_view s)
 
 void GitUtils::parseDiffNumStat(QVector<GitUtils::StatusItem> &items, const QByteArray &raw)
 {
-    int start = 0;
-    int next = raw.indexOf(char(0), start);
-    const char *r = raw.constData();
-
     // format:
     // 12\t10\tFileName
     // 12 = add, 10 = sub, fileName at the end
-
-    while (next != -1) {
-        auto _ = qScopeGuard([&raw, &start, &next] {
-            start = next + 1;
-            next = raw.indexOf(char(0), start);
-        });
-
-        std::string_view line(r + start, next - start);
-
+    for (auto line : ByteArraySplitter(raw, '\0')) {
         size_t addEnd = line.find_first_of('\t');
         if (addEnd == std::string_view::npos) {
             continue;
@@ -232,7 +210,7 @@ void GitUtils::parseDiffNumStat(QVector<GitUtils::StatusItem> &items, const QByt
         if (!add.has_value()) {
             continue;
         }
-        if (!add.has_value()) {
+        if (!sub.has_value()) {
             continue;
         }
 
@@ -242,19 +220,21 @@ void GitUtils::parseDiffNumStat(QVector<GitUtils::StatusItem> &items, const QByt
 
 QVector<GitUtils::StatusItem> GitUtils::parseDiffNameStatus(const QByteArray &raw)
 {
-    const auto lines = raw.split('\n');
     QVector<GitUtils::StatusItem> out;
-    out.reserve(lines.size());
-    for (const auto &l : lines) {
-        const auto cols = l.split('\t');
-        if (cols.size() < 2) {
+    for (auto l : ByteArraySplitter(raw, '\n')) {
+        ByteArraySplitter splitter(l, '\t');
+        if (splitter.empty()) {
             continue;
         }
-
+        auto it = splitter.begin();
         GitUtils::StatusItem i;
-        i.statusChar = cols[0][0];
+        i.statusChar = (*it).at(0);
 
-        i.file = cols[1];
+        ++it;
+        if (it == splitter.end()) {
+            continue;
+        }
+        i.file = (*it).toByteArray();
         out.append(i);
     }
     return out;

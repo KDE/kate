@@ -7,6 +7,7 @@
 #include "filehistorywidget.h"
 #include "diffparams.h"
 #include "ktexteditor_utils.h"
+#include <bytearraysplitter.h>
 #include <gitprocess.h>
 
 #include <QDate>
@@ -26,6 +27,8 @@
 #include <KTextEditor/Editor>
 #include <KTextEditor/MainWindow>
 
+#include <charconv>
+
 struct Commit {
     QByteArray hash;
     QString authorName;
@@ -38,52 +41,45 @@ struct Commit {
 };
 Q_DECLARE_METATYPE(Commit)
 
-static std::optional<qint64> toLong(const QByteArray &input)
-{
-    bool ok = false;
-    qint64 ret = input.toLongLong(&ok);
-    if (ok) {
-        return ret;
-    }
-    return std::nullopt;
-}
-
-static QVector<Commit> parseCommits(const QList<QByteArray> &raw)
+static QVector<Commit> parseCommits(const QByteArray raw)
 {
     QVector<Commit> commits;
-    commits.reserve(raw.size());
 
-    for (int i = 0; i < raw.size(); ++i) {
-        const auto &commitDetails = raw.at(i);
-        if (commitDetails.isEmpty()) {
+    const auto splitted = ByteArraySplitter(raw, '\0');
+    for (auto it = splitted.begin(); it != splitted.end(); ++it) {
+        const auto commitDetails = *it;
+        if (commitDetails.empty()) {
             continue;
         }
-        const auto lines = commitDetails.split('\n');
+
+        const auto lines = ByteArraySplitter(commitDetails, '\n').toContainer<QVarLengthArray<strview, 7>>();
         if (lines.length() < 7) {
             continue;
         }
-        QByteArray hash = lines.at(0);
-        QString author = QString::fromUtf8(lines.at(1));
-        QString email = QString::fromUtf8(lines.at(2));
 
-        auto authDate = toLong(lines.at(3));
+        QByteArray hash = lines.at(0).toByteArray();
+        QString author = lines.at(1).toString();
+        QString email = lines.at(2).toString();
+
+        auto authDate = lines.at(3).to<qint64>();
         if (!authDate.has_value()) {
             continue;
         }
         qint64 authorDate = authDate.value();
 
-        auto commtDate = toLong(lines.at(4));
+        auto commtDate = lines.at(4).to<qint64>();
         if (!commtDate.has_value()) {
             continue;
         }
         qint64 commitDate = commtDate.value();
 
-        QByteArray parent = lines.at(5);
-        QString msg = QString::fromUtf8(lines.at(6));
+        QByteArray parent = lines.at(5).toByteArray();
+        QString msg = lines.at(6).toString();
 
         QByteArray file;
-        if (i + 1 < raw.size()) {
-            file = raw.at(i + 1).trimmed();
+        ++it;
+        if (it != splitted.end()) {
+            file = (*it).toByteArray().trimmed();
         }
 
         commits << Commit{hash, author, email, authorDate, commitDate, parent, msg, file};
@@ -292,7 +288,7 @@ void FileHistoryWidget::getFileHistory(const QString &file)
     }
 
     connect(&m_git, &QProcess::readyReadStandardOutput, this, [this] {
-        auto commits = parseCommits(m_git.readAllStandardOutput().split(0x00));
+        auto commits = parseCommits(m_git.readAllStandardOutput());
         if (!commits.isEmpty()) {
             static_cast<CommitListModel *>(m_listView->model())->addCommits(commits);
         }

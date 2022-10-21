@@ -10,6 +10,7 @@
 
 #include <QCommandLineParser>
 #include <QPointer>
+#include <QSignalSpy>
 #include <QTest>
 
 QTEST_MAIN(KateViewManagementTests)
@@ -275,4 +276,46 @@ void KateViewManagementTests::testTabLRUWithWidgets()
     // and view2 after closing view1
     QCOMPARE(vs->m_registeredDocuments.size(), 2);
     QCOMPARE(vm->activeView(), view2);
+}
+
+void KateViewManagementTests::testViewChangedEmittedOnAddWidget()
+{
+    auto kmw = app->activeMainWindow();
+    QSignalSpy spy(kmw, &KTextEditor::MainWindow::viewChanged);
+    Utils::addWidget(new QWidget, kmw);
+    spy.wait();
+    QVERIFY(spy.count() == 1);
+}
+
+void KateViewManagementTests::testWidgetAddedEmittedOnAddWidget()
+{
+    QSignalSpy spy(app->activeMainWindow()->window(), SIGNAL(widgetAdded(QWidget *)));
+    Utils::addWidget(new QWidget, app->activeMainWindow());
+    spy.wait();
+    QVERIFY(spy.count() == 1);
+}
+
+void KateViewManagementTests::testWidgetRemovedEmittedOnRemoveWidget()
+{
+    auto mw = app->activeMainWindow()->window();
+    QSignalSpy spy(mw, SIGNAL(widgetRemoved(QWidget *)));
+    auto w = new QWidget;
+    Utils::addWidget(w, app->activeMainWindow());
+    QMetaObject::invokeMethod(mw, "removeWidget", Q_ARG(QWidget *, w));
+    spy.wait();
+    QVERIFY(spy.count() == 1);
+}
+
+void KateViewManagementTests::testActivateNotAddedWidget()
+{
+    auto kmw = app->activeMainWindow();
+    auto mw = app->activeMainWindow()->window();
+    QSignalSpy spy(mw, SIGNAL(widgetAdded(QWidget *)));
+    QSignalSpy spy1(kmw, &KTextEditor::MainWindow::viewChanged);
+    auto w = new QWidget;
+    QMetaObject::invokeMethod(mw, "activateWidget", Q_ARG(QWidget *, w));
+    spy.wait();
+    spy1.wait();
+    QVERIFY(spy.count() == 1);
+    QVERIFY(spy1.count() == 1);
 }

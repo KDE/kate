@@ -31,6 +31,10 @@ private Q_SLOTS:
     void testTwoMainWindowsCloseInitialDocument2();
     void testTwoMainWindowsCloseInitialDocument3();
     void testTabLRUWithWidgets();
+    void testViewChangedEmittedOnAddWidget();
+    void testWidgetAddedEmittedOnAddWidget();
+    void testWidgetRemovedEmittedOnRemoveWidget();
+    void testActivateNotAddedWidget();
 
 private:
     class QTemporaryDir *m_tempdir;

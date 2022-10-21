@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"POT-Creation-Date: 2022-10-21 00:50+0000\n"
 "PO-Revision-Date: 2022-06-12 10:41+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -535,7 +535,7 @@ msgstr "Kate GDB"
 msgid "Debug View"
 msgstr "Avlusningsvy"
 
-#: plugin_kategdb.cpp:69 plugin_kategdb.cpp:270
+#: plugin_kategdb.cpp:69 plugin_kategdb.cpp:280
 #, kde-format
 msgid "Debug"
 msgstr "Avlusa"
@@ -584,93 +584,93 @@ msgstr ""
 msgid "Start Debugging"
 msgstr "Starta avlusning"
 
-#: plugin_kategdb.cpp:221
+#: plugin_kategdb.cpp:222
 #, kde-format
 msgid "Kill / Stop Debugging"
 msgstr "Döda eller stoppa avlusning"
 
-#: plugin_kategdb.cpp:226
+#: plugin_kategdb.cpp:228
 #, kde-format
 msgid "Restart Debugging"
 msgstr "Starta om avlusning"
 
-#: plugin_kategdb.cpp:231
+#: plugin_kategdb.cpp:234
 #, kde-format
 msgid "Toggle Breakpoint / Break"
 msgstr "Växla brytpunkt"
 
-#: plugin_kategdb.cpp:236
+#: plugin_kategdb.cpp:240
 #, kde-format
 msgid "Step In"
 msgstr "Stega in i"
 
-#: plugin_kategdb.cpp:241
+#: plugin_kategdb.cpp:246
 #, kde-format
 msgid "Step Over"
 msgstr "Stega förbi"
 
-#: plugin_kategdb.cpp:246
+#: plugin_kategdb.cpp:252
 #, kde-format
 msgid "Step Out"
 msgstr "Stega ut ur"
 
-#: plugin_kategdb.cpp:251 plugin_kategdb.cpp:279
+#: plugin_kategdb.cpp:258 plugin_kategdb.cpp:289
 #, kde-format
 msgctxt "Move Program Counter (next execution)"
 msgid "Move PC"
 msgstr "Flytta programräknare"
 
-#: plugin_kategdb.cpp:255 plugin_kategdb.cpp:277
+#: plugin_kategdb.cpp:263 plugin_kategdb.cpp:287
 #, kde-format
 msgid "Run To Cursor"
 msgstr "Kör till markören"
 
-#: plugin_kategdb.cpp:260
+#: plugin_kategdb.cpp:269
 #, kde-format
 msgid "Continue"
 msgstr "Fortsätt"
 
-#: plugin_kategdb.cpp:265
+#: plugin_kategdb.cpp:275
 #, kde-format
 msgid "Print Value"
 msgstr "Skriv ut värde"
 
-#: plugin_kategdb.cpp:274
+#: plugin_kategdb.cpp:284
 #, kde-format
 msgid "popup_breakpoint"
 msgstr "ruta för brytpunkt"
 
-#: plugin_kategdb.cpp:276
+#: plugin_kategdb.cpp:286
 #, kde-format
 msgid "popup_run_to_cursor"
 msgstr "ruta för kör till markör"
 
-#: plugin_kategdb.cpp:351 plugin_kategdb.cpp:367
+#: plugin_kategdb.cpp:361 plugin_kategdb.cpp:377
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "Infoga brytpunkt"
 
-#: plugin_kategdb.cpp:365
+#: plugin_kategdb.cpp:375
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "Ta bort brytpunkt"
 
-#: plugin_kategdb.cpp:389
+#: plugin_kategdb.cpp:399
 #, kde-format
 msgid "Breakpoint"
 msgstr "Brytpunkt"
 
-#: plugin_kategdb.cpp:488
+#: plugin_kategdb.cpp:498
 #, kde-format
 msgid "Execution point"
 msgstr "Körningspunkt"
 
-#: plugin_kategdb.cpp:631
+#: plugin_kategdb.cpp:641
 #, kde-format
 msgid "Thread %1"
 msgstr "Tråd %1"
 
-#: plugin_kategdb.cpp:731
+#: plugin_kategdb.cpp:741
 #, kde-format
 msgid "IO"
 msgstr "I/O"

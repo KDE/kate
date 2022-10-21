@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-20 00:55+0000\n"
-"PO-Revision-Date: 2022-10-17 07:46+0200\n"
+"POT-Creation-Date: 2022-10-21 00:50+0000\n"
+"PO-Revision-Date: 2022-10-20 06:00+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -676,7 +676,7 @@ msgstr "მორგება"
 #: lib/kateconfigdialog.cpp:61
 #, kde-format
 msgid "Search..."
-msgstr ""
+msgstr "ძებნა..."
 
 #: lib/kateconfigdialog.cpp:117
 #, kde-format
@@ -987,12 +987,12 @@ msgstr "დოკუმენტის დახურვა"
 msgid "Save As"
 msgstr "შენახვა როგორც"
 
-#: lib/katedocmanager.cpp:303 lib/katemainwindow.cpp:595
+#: lib/katedocmanager.cpp:303 lib/katemainwindow.cpp:599
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr ""
 
-#: lib/katedocmanager.cpp:303 lib/katemainwindow.cpp:595
+#: lib/katedocmanager.cpp:303 lib/katemainwindow.cpp:599
 #, kde-format
 msgid "Closing Aborted"
 msgstr "დახურვა გაუქმდა"
@@ -1037,379 +1037,379 @@ msgstr "Ფაილის წაშლა"
 msgid "File \"%1\" could not be deleted."
 msgstr ""
 
-#: lib/katemainwindow.cpp:214
+#: lib/katemainwindow.cpp:215
 #, kde-format
 msgid "Use this command to show or hide the view's statusbar"
 msgstr ""
 
-#: lib/katemainwindow.cpp:217
+#: lib/katemainwindow.cpp:218
 #, kde-format
 msgid "Show &Tabs"
 msgstr "&ჩანართების ჩვენება"
 
-#: lib/katemainwindow.cpp:220
+#: lib/katemainwindow.cpp:221
 #, kde-format
 msgid "Use this command to show or hide the tabs for the views"
 msgstr ""
 
-#: lib/katemainwindow.cpp:222
+#: lib/katemainwindow.cpp:223
 #, kde-format
 msgid "Sho&w Path in Titlebar"
 msgstr "სათაურში &ბილიკის ჩვენება"
 
-#: lib/katemainwindow.cpp:225
+#: lib/katemainwindow.cpp:226
 #, kde-format
 msgid "Show the complete document path in the window caption"
 msgstr ""
 
-#: lib/katemainwindow.cpp:227
+#: lib/katemainwindow.cpp:228
 #, kde-format
 msgid "Show Navigation Bar"
 msgstr "ნავიგაციის პანელის ჩვენება"
 
-#: lib/katemainwindow.cpp:237
+#: lib/katemainwindow.cpp:238
 #, kde-format
 msgid "&Window Color Scheme"
 msgstr "&ფანჯრის ფერის სქემა"
 
-#: lib/katemainwindow.cpp:241
+#: lib/katemainwindow.cpp:242
 #, kde-format
 msgid "&Previous Tab"
 msgstr "&წინა ჩანართი"
 
-#: lib/katemainwindow.cpp:242
+#: lib/katemainwindow.cpp:243
 #, kde-format
 msgid "Focus the previous tab."
 msgstr "ფოკუსის წინა ჩანართზე გადატანა."
 
-#: lib/katemainwindow.cpp:247
+#: lib/katemainwindow.cpp:248
 #, kde-format
 msgid "&Next Tab"
 msgstr "&შემდეგი ჩანართი"
 
-#: lib/katemainwindow.cpp:248
+#: lib/katemainwindow.cpp:249
 #, kde-format
 msgid "Focus the next tab."
 msgstr "ფოკუსის შემდეგ ჩანართზე გადატანა."
 
-#: lib/katemainwindow.cpp:255
+#: lib/katemainwindow.cpp:256
 #, kde-format
 msgid "&Quick Open"
 msgstr "&სწრაფი გახსნა"
 
-#: lib/katemainwindow.cpp:258
+#: lib/katemainwindow.cpp:259
 #, kde-format
 msgid "Open a form to quick open documents."
 msgstr ""
 
-#: lib/katemainwindow.cpp:284
+#: lib/katemainwindow.cpp:285
 #, kde-format
 msgid "Output"
 msgstr "გამოტანა"
 
-#: lib/katemainwindow.cpp:294
+#: lib/katemainwindow.cpp:295
 #, kde-format
 msgid "Create a new document"
 msgstr "ახალი დოკუმენტის შექმნა"
 
-#: lib/katemainwindow.cpp:297
+#: lib/katemainwindow.cpp:298
 #, kde-format
 msgid "Open an existing document for editing"
 msgstr ""
 
-#: lib/katemainwindow.cpp:307
+#: lib/katemainwindow.cpp:308
 #, kde-format
 msgid ""
 "This lists files which you have opened recently, and allows you to easily "
 "open them again."
 msgstr ""
 
-#: lib/katemainwindow.cpp:311
+#: lib/katemainwindow.cpp:312
 #, kde-format
 msgid "Save A&ll"
 msgstr "&ყველას შენახვა"
 
-#: lib/katemainwindow.cpp:314
+#: lib/katemainwindow.cpp:315
 #, kde-format
 msgid "Save all open, modified documents to disk."
 msgstr "ყველა ღია დოკუმენტის შენახვა."
 
-#: lib/katemainwindow.cpp:317
+#: lib/katemainwindow.cpp:318
 #, kde-format
 msgid "&Reload All"
 msgstr "&ყველას თავიდან ჩატვირთვა"
 
-#: lib/katemainwindow.cpp:319
+#: lib/katemainwindow.cpp:320
 #, kde-format
 msgid "Reload all open documents."
 msgstr "ყველა ღია დოკუმენტის თავიდან ჩატვირთვა."
 
-#: lib/katemainwindow.cpp:323
+#: lib/katemainwindow.cpp:324
 #, kde-format
 msgid "Copy Location"
 msgstr "მდებარეობის კოპირება"
 
-#: lib/katemainwindow.cpp:328 lib/katemainwindow.cpp:337
+#: lib/katemainwindow.cpp:329 lib/katemainwindow.cpp:338
 #, kde-format
 msgid "Copies the file path of the current file to clipboard."
 msgstr ""
 
-#: lib/katemainwindow.cpp:332 lib/welcomeview/welcomeview.cpp:223
+#: lib/katemainwindow.cpp:333 lib/welcomeview/welcomeview.cpp:223
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "შემცველი საქაღალდის &გახსნა"
 
-#: lib/katemainwindow.cpp:341
+#: lib/katemainwindow.cpp:342
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename..."
 msgstr "სახელის გადარქმევა..."
 
-#: lib/katemainwindow.cpp:346
+#: lib/katemainwindow.cpp:347
 #, kde-format
 msgid "Renames the file belonging to the current document."
 msgstr ""
 
-#: lib/katemainwindow.cpp:350
+#: lib/katemainwindow.cpp:351
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete"
 msgstr "წაშლა"
 
-#: lib/katemainwindow.cpp:355 lib/katemainwindow.cpp:364
+#: lib/katemainwindow.cpp:356 lib/katemainwindow.cpp:365
 #, kde-format
 msgid "Deletes the file belonging to the current document."
 msgstr ""
 
-#: lib/katemainwindow.cpp:359
+#: lib/katemainwindow.cpp:360
 #, kde-format
 msgid "Properties"
 msgstr "პარამეტრები"
 
-#: lib/katemainwindow.cpp:367 lib/katemainwindow.cpp:369
+#: lib/katemainwindow.cpp:368 lib/katemainwindow.cpp:370
 #, kde-format
 msgid "Compare"
 msgstr "შედარება"
 
-#: lib/katemainwindow.cpp:369
+#: lib/katemainwindow.cpp:370
 #, kde-format
 msgid "Use the Tabbar context menu to compare two documents"
 msgstr ""
 
-#: lib/katemainwindow.cpp:371
+#: lib/katemainwindow.cpp:372
 #, kde-format
 msgid "Shows a hint how to compare documents."
 msgstr ""
 
-#: lib/katemainwindow.cpp:374
+#: lib/katemainwindow.cpp:375
 #, kde-format
 msgid "Close Orphaned"
 msgstr "მიტოვებულების დახურვა"
 
-#: lib/katemainwindow.cpp:376
+#: lib/katemainwindow.cpp:377
 #, kde-format
 msgid ""
 "Close all documents in the file list that could not be reopened, because "
 "they are not accessible anymore."
 msgstr ""
 
-#: lib/katemainwindow.cpp:380
+#: lib/katemainwindow.cpp:381
 #, kde-format
 msgid "Close the current document."
 msgstr "მიმდინარე დოკუმენტის დახურვა."
 
-#: lib/katemainwindow.cpp:383
+#: lib/katemainwindow.cpp:384
 #, kde-format
 msgid "Close Other"
 msgstr "სხვების დახურვა"
 
-#: lib/katemainwindow.cpp:385
+#: lib/katemainwindow.cpp:386
 #, kde-format
 msgid "Close other open documents."
 msgstr "სხვა ღია დოკუმენტების დახურვა."
 
-#: lib/katemainwindow.cpp:388
+#: lib/katemainwindow.cpp:389
 #, kde-format
 msgid "Clos&e All"
 msgstr "&ყველას დახურვა"
 
-#: lib/katemainwindow.cpp:390
+#: lib/katemainwindow.cpp:391
 #, kde-format
 msgid "Close all open documents."
 msgstr "ყველა ღია დოკუმენტის დახურვა."
 
-#: lib/katemainwindow.cpp:395
+#: lib/katemainwindow.cpp:396
 #, kde-format
 msgid "Close this window"
 msgstr "ამ ფანჯრის დახურვა"
 
-#: lib/katemainwindow.cpp:399
+#: lib/katemainwindow.cpp:400
 #, kde-format
 msgid "&New Window"
 msgstr "&ახალი ფანჯარა"
 
-#: lib/katemainwindow.cpp:401
+#: lib/katemainwindow.cpp:403
 #, kde-format
 msgid "Create a new window."
 msgstr "ახალი ფანჯრის შექმნა."
 
-#: lib/katemainwindow.cpp:408
+#: lib/katemainwindow.cpp:410
 #, kde-format
 msgid "Open W&ith"
 msgstr "გამხსნელი &პროგრამა"
 
-#: lib/katemainwindow.cpp:410
+#: lib/katemainwindow.cpp:412
 #, kde-format
 msgid ""
 "Open the current document using another application registered for its file "
 "type, or an application of your choice."
 msgstr ""
 
-#: lib/katemainwindow.cpp:418
+#: lib/katemainwindow.cpp:420
 #, kde-format
 msgid "Configure the application's keyboard shortcut assignments."
 msgstr ""
 
-#: lib/katemainwindow.cpp:421
+#: lib/katemainwindow.cpp:423
 #, kde-format
 msgid "Configure which items should appear in the toolbar(s)."
 msgstr ""
 
-#: lib/katemainwindow.cpp:424
+#: lib/katemainwindow.cpp:426
 #, kde-format
 msgid ""
 "Configure various aspects of this application and the editing component."
 msgstr ""
 
-#: lib/katemainwindow.cpp:428
+#: lib/katemainwindow.cpp:430
 #, kde-format
 msgid "&Plugins Handbook"
 msgstr ""
 
-#: lib/katemainwindow.cpp:430
+#: lib/katemainwindow.cpp:432
 #, kde-format
 msgid "This shows help files for various available plugins."
 msgstr ""
 
-#: lib/katemainwindow.cpp:447
+#: lib/katemainwindow.cpp:449
 #, kde-format
 msgid "Sess&ions"
 msgstr "&სესიები"
 
-#: lib/katemainwindow.cpp:453
+#: lib/katemainwindow.cpp:455
 #, kde-format
 msgctxt "Menu entry Session->New Session"
 msgid "&New Session"
 msgstr "&ახალი სესია"
 
-#: lib/katemainwindow.cpp:458
+#: lib/katemainwindow.cpp:460
 #, kde-format
 msgid "&Recent Sessions"
 msgstr "&ბოლო სესიები"
 
-#: lib/katemainwindow.cpp:463
+#: lib/katemainwindow.cpp:465
 #, kde-format
 msgid "&All Sessions"
 msgstr "&ყველა სესია"
 
-#: lib/katemainwindow.cpp:470
+#: lib/katemainwindow.cpp:472
 #, kde-format
 msgid "&Manage Sessions..."
 msgstr "სესიების &მართვა..."
 
-#: lib/katemainwindow.cpp:479
+#: lib/katemainwindow.cpp:481
 #, kde-format
 msgid "&Save Session"
 msgstr "სესიის &შენახვა"
 
-#: lib/katemainwindow.cpp:485
+#: lib/katemainwindow.cpp:487
 #, kde-format
 msgid "Save Session &As..."
 msgstr "შესიის შენახვა, &როგორც..."
 
-#: lib/katemainwindow.cpp:492 lib/kateviewspace.cpp:58
+#: lib/katemainwindow.cpp:494 lib/kateviewspace.cpp:58
 #, kde-format
 msgid "Go to Previous Location"
 msgstr "წინა მდებარეობაზე გადასვლა"
 
-#: lib/katemainwindow.cpp:500 lib/kateviewspace.cpp:71
+#: lib/katemainwindow.cpp:503 lib/kateviewspace.cpp:71
 #, kde-format
 msgid "Go to Next Location"
 msgstr "შემდეგ მდებარეობაზე გადასვლა"
 
-#: lib/katemainwindow.cpp:507
+#: lib/katemainwindow.cpp:511
 #, kde-format
 msgid "Show File Git History"
 msgstr ""
 
-#: lib/katemainwindow.cpp:522
+#: lib/katemainwindow.cpp:526
 #, kde-format
 msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr ""
 
-#: lib/katemainwindow.cpp:523
+#: lib/katemainwindow.cpp:527
 #, kde-format
 msgid "Close all documents"
 msgstr "ყველა დოკუმენტის დახურვა"
 
-#: lib/katemainwindow.cpp:538
+#: lib/katemainwindow.cpp:542
 #, kde-format
 msgid ""
 "This will close all open documents beside the current one. Are you sure you "
 "want to continue?"
 msgstr ""
 
-#: lib/katemainwindow.cpp:539
+#: lib/katemainwindow.cpp:543
 #, kde-format
 msgid "Close all documents beside current one"
 msgstr ""
 
-#: lib/katemainwindow.cpp:739
+#: lib/katemainwindow.cpp:743
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
 msgstr ""
 
-#: lib/katemainwindow.cpp:742
+#: lib/katemainwindow.cpp:746
 #, kde-format
 msgid "Hide menu bar"
 msgstr "მენიუს ზოლის დამალვა"
 
-#: lib/katemainwindow.cpp:846
+#: lib/katemainwindow.cpp:850
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
 "contained in it?"
 msgstr ""
 
-#: lib/katemainwindow.cpp:849
+#: lib/katemainwindow.cpp:853
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "ფაილების რეკურსიულად გახსნა"
 
-#: lib/katemainwindow.cpp:850
+#: lib/katemainwindow.cpp:854
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "ყველა ფაილის გახსნა"
 
-#: lib/katemainwindow.cpp:990
+#: lib/katemainwindow.cpp:994
 #, kde-format
 msgid "&Other..."
 msgstr "&სხვა..."
 
-#: lib/katemainwindow.cpp:1115
+#: lib/katemainwindow.cpp:1119
 #, kde-format
 msgid " [read only]"
 msgstr " (მხოლოდ-კითხვადი)"
 
-#: lib/katemainwindow.cpp:1367
+#: lib/katemainwindow.cpp:1371
 #, kde-format
 msgid "Diff %1"
 msgstr ""
 
-#: lib/katemainwindow.cpp:1369
+#: lib/katemainwindow.cpp:1373
 #, kde-format
 msgid "Diff %1..%2"
 msgstr ""
@@ -1447,7 +1447,7 @@ msgstr "%1-ის ჩვენება"
 #: lib/katemdi.cpp:173
 #, kde-format
 msgid "Show %1 Button"
-msgstr ""
+msgstr "%1 ღილაკის ჩვენება"
 
 #: lib/katemdi.cpp:984
 #, kde-format
@@ -1539,7 +1539,7 @@ msgstr "ფაილის სახელი"
 #: lib/katemwmodonhddialog.cpp:84
 #, kde-format
 msgid "Status on Disk"
-msgstr ""
+msgstr "სტატუსი დისკზე"
 
 #: lib/katemwmodonhddialog.cpp:89
 #, kde-format
@@ -1600,6 +1600,8 @@ msgid ""
 "Could not save the document \n"
 "'%1'"
 msgstr ""
+"დოკუმენტის შენახვის შეცდომა:\n"
+"\"%1\""
 
 #: lib/katemwmodonhddialog.cpp:329
 #, kde-format
@@ -1702,11 +1704,6 @@ msgid ""
 "want to proceed."
 msgstr ""
 
-#: lib/kateurlbar.cpp:1178
-#, kde-format
-msgid "Untitled"
-msgstr "უსათაურო"
-
 #: lib/kateviewmanager.cpp:118
 #, kde-format
 msgid "Split Ve&rtical"
@@ -1754,32 +1751,32 @@ msgstr ""
 #: lib/kateviewmanager.cpp:152
 #, kde-format
 msgid "Cl&ose Current View"
-msgstr ""
+msgstr "&მიმდინარე ხედის დახურვა"
 
 #: lib/kateviewmanager.cpp:156
 #, kde-format
 msgid "Close the currently active split view"
-msgstr ""
+msgstr "&ამჟამად აქტიური დაყოფილი ხედის დახურვა"
 
 #: lib/kateviewmanager.cpp:160
 #, kde-format
 msgid "Close Inactive Views"
-msgstr ""
+msgstr "არააქტიური ხედების დახურვა"
 
 #: lib/kateviewmanager.cpp:163
 #, kde-format
 msgid "Close every view but the active one"
-msgstr ""
+msgstr "ყველა ხედის, აქტიურის გარდა, დახურვა"
 
 #: lib/kateviewmanager.cpp:167
 #, kde-format
 msgid "Hide Inactive Views"
-msgstr ""
+msgstr "არააქტიური ხედების დამალვა"
 
 #: lib/kateviewmanager.cpp:171
 #, kde-format
 msgid "Hide every view but the active one"
-msgstr ""
+msgstr "ყველა ხედის, აქტიურის გარდა, დახურვა"
 
 #: lib/kateviewmanager.cpp:174
 #, kde-format
@@ -1794,7 +1791,7 @@ msgstr ""
 #: lib/kateviewmanager.cpp:180
 #, kde-format
 msgid "Next Split View"
-msgstr ""
+msgstr "შემდეგი გაყოფილი ხედი"
 
 #: lib/kateviewmanager.cpp:185
 #, kde-format
@@ -1804,7 +1801,7 @@ msgstr ""
 #: lib/kateviewmanager.cpp:188
 #, kde-format
 msgid "Previous Split View"
-msgstr ""
+msgstr "წინა გაყოფილი ხედი"
 
 #: lib/kateviewmanager.cpp:193
 #, kde-format
@@ -1814,7 +1811,7 @@ msgstr ""
 #: lib/kateviewmanager.cpp:196
 #, kde-format
 msgid "Left Split View"
-msgstr ""
+msgstr "მარცხენა გაყოფილი ხედი"
 
 #: lib/kateviewmanager.cpp:201
 #, kde-format
@@ -1824,7 +1821,7 @@ msgstr ""
 #: lib/kateviewmanager.cpp:204
 #, kde-format
 msgid "Right Split View"
-msgstr ""
+msgstr "მარჯვენა გაყოფილი ხედი"
 
 #: lib/kateviewmanager.cpp:209
 #, kde-format
@@ -1894,7 +1891,7 @@ msgstr ""
 #: lib/kateviewmanager.cpp:252
 #, kde-format
 msgid "Focus Navigation Bar"
-msgstr ""
+msgstr "ფოკუსი ნავიგაციის პანელზე"
 
 #: lib/kateviewmanager.cpp:253
 #, kde-format
@@ -1904,12 +1901,12 @@ msgstr ""
 #: lib/kateviewmanager.cpp:260
 #, kde-format
 msgid "Welcome Page"
-msgstr ""
+msgstr "საწყისი გვერდი"
 
 #: lib/kateviewmanager.cpp:275
 #, kde-format
 msgid "Show the welcome page"
-msgstr ""
+msgstr "საწყისი გვერდის ჩვენება"
 
 #: lib/kateviewmanager.cpp:317 lib/kateviewmanager.cpp:319
 #, kde-format
@@ -1932,7 +1929,7 @@ msgstr "დიდი ფაილის გასნა"
 #: lib/kateviewmanager.cpp:480
 #, kde-format
 msgid "%1 cannot open folders"
-msgstr ""
+msgstr "%1 -ს საქაღალდეების გახსნა არ შეუძლია"
 
 #: lib/kateviewmanager.cpp:499
 #, kde-format
@@ -2212,7 +2209,7 @@ msgstr ""
 #: lib/session/katesessionmanager.cpp:464
 #, kde-format
 msgid "To save a session, you must specify a name."
-msgstr ""
+msgstr "სესიის შესანახად საჭიროა სახელის მითითება."
 
 #: lib/session/katesessionmanager.cpp:491
 #, kde-format
@@ -2222,7 +2219,7 @@ msgstr "ამ სესიის ფაილის მიითება"
 #: lib/session/katesessionmanager.cpp:493
 #, kde-format
 msgid "Specify a new name for session: %1"
-msgstr ""
+msgstr "მიუთითეთ ახალი სახელი სესიისთვის: %1"
 
 #. i18n: ectx: property (title), widget (QGroupBox, gbAppStartup)
 #: lib/ui/sessionconfigwidget.ui:17
@@ -2252,25 +2249,25 @@ msgstr ""
 #: lib/ui/sessionconfigwidget.ui:47
 #, kde-format
 msgid "Application Startup/Shutdown Behavior"
-msgstr ""
+msgstr "აპლიკაციის ქცევა გაშვება/გათიშვისას"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: lib/ui/sessionconfigwidget.ui:55
 #, kde-format
 msgid "Automatically save and restore:"
-msgstr ""
+msgstr "ავტომატურად შენახვა და აღდგენა:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, stashNewUnsavedFiles)
 #: lib/ui/sessionconfigwidget.ui:67
 #, kde-format
 msgid "Newly-created unsaved files"
-msgstr ""
+msgstr "ახლად შექმნილი შეუნახავი ფაილები"
 
 #. i18n: ectx: property (text), widget (QCheckBox, stashUnsavedFilesChanges)
 #: lib/ui/sessionconfigwidget.ui:77
 #, kde-format
 msgid "Files with unsaved changes"
-msgstr ""
+msgstr "ფაილები შეუნახავი ცვლილებებით"
 
 #. i18n: ectx: property (text), widget (QCheckBox, openNewDocumentPerWindow)
 #: lib/ui/sessionconfigwidget.ui:88
@@ -2325,7 +2322,7 @@ msgstr ""
 #: lib/ui/sessionconfigwidget.ui:157
 #, kde-format
 msgid "Include &window configuration"
-msgstr ""
+msgstr "&ფანჯრის კონფიგურაციის ჩართვა"
 
 #. i18n: ectx: property (whatsThis), widget (QGroupBox, saveMetaInfos)
 #: lib/ui/sessionconfigwidget.ui:167
@@ -2408,10 +2405,9 @@ msgstr "საქაღალდის გახსნა..."
 
 #. i18n: ectx: property (text), widget (QLabel, labelRecentItems)
 #: lib/welcomeview/welcomeview.ui:193
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "Recent Files"
-msgstr "ფაილის გახსნა"
+msgstr "ბოლო ფაილები"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonOpenFile)
 #: lib/welcomeview/welcomeview.ui:203
@@ -2423,26 +2419,25 @@ msgstr "ფაილის გახსნა..."
 #: lib/welcomeview/welcomeview.ui:242
 #, kde-format
 msgid "Clear Recent Files"
-msgstr ""
+msgstr "ბოლო ფაილების გასუფთავება"
 
 #. i18n: ectx: property (text), widget (QLabel, labelHelp)
 #: lib/welcomeview/welcomeview.ui:271
-#, fuzzy, kde-format
-#| msgid "&Help"
+#, kde-format
 msgid "Help"
-msgstr "&დახმარება"
+msgstr "დახმარება"
 
 #. i18n: ectx: property (text), widget (KUrlLabel, labelHomepage)
 #: lib/welcomeview/welcomeview.ui:281
 #, kde-format
 msgid "Visit homepage"
-msgstr ""
+msgstr "ეწვიეთ მთავარ გვერდს"
 
 #. i18n: ectx: property (text), widget (KUrlLabel, labelContribute)
 #: lib/welcomeview/welcomeview.ui:294
 #, kde-format
 msgid "Get involved"
-msgstr ""
+msgstr "შემოგვიერთდით"
 
 #. i18n: ectx: property (text), widget (KUrlLabel, labelHandbook)
 #: lib/welcomeview/welcomeview.ui:307
@@ -2467,6 +2462,9 @@ msgstr "სესიების მართვა..."
 #, kde-format
 msgid "Show for new window"
 msgstr "ახალი ფანჯრისთვის ჩვენება"
+
+#~ msgid "Untitled"
+#~ msgstr "უსათაურო"
 
 #~ msgid "No recent files"
 #~ msgstr "ახლახანს გასნილი დოკუმენტების გარეშე"

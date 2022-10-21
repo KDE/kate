@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"POT-Creation-Date: 2022-10-21 00:50+0000\n"
 "PO-Revision-Date: 2022-07-13 09:10+0200\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -534,7 +534,7 @@ msgstr "GDB trong Kate"
 msgid "Debug View"
 msgstr "Khung xem gỡ lỗi"
 
-#: plugin_kategdb.cpp:69 plugin_kategdb.cpp:270
+#: plugin_kategdb.cpp:69 plugin_kategdb.cpp:280
 #, kde-format
 msgid "Debug"
 msgstr "Gỡ lỗi"
@@ -583,93 +583,93 @@ msgstr ""
 msgid "Start Debugging"
 msgstr "Bắt đầu gỡ lỗi"
 
-#: plugin_kategdb.cpp:221
+#: plugin_kategdb.cpp:222
 #, kde-format
 msgid "Kill / Stop Debugging"
 msgstr "Diệt/dừng gỡ lỗi"
 
-#: plugin_kategdb.cpp:226
+#: plugin_kategdb.cpp:228
 #, kde-format
 msgid "Restart Debugging"
 msgstr "Khởi động lại việc gỡ lỗi"
 
-#: plugin_kategdb.cpp:231
+#: plugin_kategdb.cpp:234
 #, kde-format
 msgid "Toggle Breakpoint / Break"
 msgstr "Bật/tắt điểm ngắt / ngắt"
 
-#: plugin_kategdb.cpp:236
+#: plugin_kategdb.cpp:240
 #, kde-format
 msgid "Step In"
 msgstr "Bước vào"
 
-#: plugin_kategdb.cpp:241
+#: plugin_kategdb.cpp:246
 #, kde-format
 msgid "Step Over"
 msgstr "Bước qua"
 
-#: plugin_kategdb.cpp:246
+#: plugin_kategdb.cpp:252
 #, kde-format
 msgid "Step Out"
 msgstr "Bước ra"
 
-#: plugin_kategdb.cpp:251 plugin_kategdb.cpp:279
+#: plugin_kategdb.cpp:258 plugin_kategdb.cpp:289
 #, kde-format
 msgctxt "Move Program Counter (next execution)"
 msgid "Move PC"
 msgstr "Di chuyển con trỏ lệnh"
 
-#: plugin_kategdb.cpp:255 plugin_kategdb.cpp:277
+#: plugin_kategdb.cpp:263 plugin_kategdb.cpp:287
 #, kde-format
 msgid "Run To Cursor"
 msgstr "Chạy đến con trỏ"
 
-#: plugin_kategdb.cpp:260
+#: plugin_kategdb.cpp:269
 #, kde-format
 msgid "Continue"
 msgstr "Tiếp tục"
 
-#: plugin_kategdb.cpp:265
+#: plugin_kategdb.cpp:275
 #, kde-format
 msgid "Print Value"
 msgstr "In giá trị"
 
-#: plugin_kategdb.cpp:274
+#: plugin_kategdb.cpp:284
 #, kde-format
 msgid "popup_breakpoint"
 msgstr "popup_breakpoint"
 
-#: plugin_kategdb.cpp:276
+#: plugin_kategdb.cpp:286
 #, kde-format
 msgid "popup_run_to_cursor"
 msgstr "popup_run_to_cursor"
 
-#: plugin_kategdb.cpp:351 plugin_kategdb.cpp:367
+#: plugin_kategdb.cpp:361 plugin_kategdb.cpp:377
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "Chèn điểm ngắt"
 
-#: plugin_kategdb.cpp:365
+#: plugin_kategdb.cpp:375
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "Xoá điểm ngắt"
 
-#: plugin_kategdb.cpp:389
+#: plugin_kategdb.cpp:399
 #, kde-format
 msgid "Breakpoint"
 msgstr "Điểm ngắt"
 
-#: plugin_kategdb.cpp:488
+#: plugin_kategdb.cpp:498
 #, kde-format
 msgid "Execution point"
 msgstr "Điểm thực thi"
 
-#: plugin_kategdb.cpp:631
+#: plugin_kategdb.cpp:641
 #, kde-format
 msgid "Thread %1"
 msgstr "Luồng %1"
 
-#: plugin_kategdb.cpp:731
+#: plugin_kategdb.cpp:741
 #, kde-format
 msgid "IO"
 msgstr "Vào/ra"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"POT-Creation-Date: 2022-10-21 00:50+0000\n"
 "PO-Revision-Date: 2022-07-28 20:17+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -536,7 +536,7 @@ msgstr "Kate GDB"
 msgid "Debug View"
 msgstr "Widok diagnostyczny"
 
-#: plugin_kategdb.cpp:69 plugin_kategdb.cpp:270
+#: plugin_kategdb.cpp:69 plugin_kategdb.cpp:280
 #, kde-format
 msgid "Debug"
 msgstr "Diagnozuj"
@@ -586,93 +586,93 @@ msgstr ""
 msgid "Start Debugging"
 msgstr "Rozpocznij diagnozowanie"
 
-#: plugin_kategdb.cpp:221
+#: plugin_kategdb.cpp:222
 #, kde-format
 msgid "Kill / Stop Debugging"
 msgstr "Zakończ / Przestań diagnozować"
 
-#: plugin_kategdb.cpp:226
+#: plugin_kategdb.cpp:228
 #, kde-format
 msgid "Restart Debugging"
 msgstr "Zdiagnozuj ponownie"
 
-#: plugin_kategdb.cpp:231
+#: plugin_kategdb.cpp:234
 #, kde-format
 msgid "Toggle Breakpoint / Break"
 msgstr "Włącz pułapkę / przerwę"
 
-#: plugin_kategdb.cpp:236
+#: plugin_kategdb.cpp:240
 #, kde-format
 msgid "Step In"
 msgstr "Wejdź wgłąb"
 
-#: plugin_kategdb.cpp:241
+#: plugin_kategdb.cpp:246
 #, kde-format
 msgid "Step Over"
 msgstr "Przejdź ponad"
 
-#: plugin_kategdb.cpp:246
+#: plugin_kategdb.cpp:252
 #, kde-format
 msgid "Step Out"
 msgstr "Wyjdź stąd"
 
-#: plugin_kategdb.cpp:251 plugin_kategdb.cpp:279
+#: plugin_kategdb.cpp:258 plugin_kategdb.cpp:289
 #, kde-format
 msgctxt "Move Program Counter (next execution)"
 msgid "Move PC"
 msgstr "Przenieś PC"
 
-#: plugin_kategdb.cpp:255 plugin_kategdb.cpp:277
+#: plugin_kategdb.cpp:263 plugin_kategdb.cpp:287
 #, kde-format
 msgid "Run To Cursor"
 msgstr "Wykonaj do kursora"
 
-#: plugin_kategdb.cpp:260
+#: plugin_kategdb.cpp:269
 #, kde-format
 msgid "Continue"
 msgstr "Kontynuuj"
 
-#: plugin_kategdb.cpp:265
+#: plugin_kategdb.cpp:275
 #, kde-format
 msgid "Print Value"
 msgstr "Wyświetl wartość"
 
-#: plugin_kategdb.cpp:274
+#: plugin_kategdb.cpp:284
 #, kde-format
 msgid "popup_breakpoint"
 msgstr "popup_breakpoint"
 
-#: plugin_kategdb.cpp:276
+#: plugin_kategdb.cpp:286
 #, kde-format
 msgid "popup_run_to_cursor"
 msgstr "popup_run_to_cursor"
 
-#: plugin_kategdb.cpp:351 plugin_kategdb.cpp:367
+#: plugin_kategdb.cpp:361 plugin_kategdb.cpp:377
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "Wstaw pułapkę"
 
-#: plugin_kategdb.cpp:365
+#: plugin_kategdb.cpp:375
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "Usuń pułapkę"
 
-#: plugin_kategdb.cpp:389
+#: plugin_kategdb.cpp:399
 #, kde-format
 msgid "Breakpoint"
 msgstr "Pułapka"
 
-#: plugin_kategdb.cpp:488
+#: plugin_kategdb.cpp:498
 #, kde-format
 msgid "Execution point"
 msgstr "Punkt wykonania"
 
-#: plugin_kategdb.cpp:631
+#: plugin_kategdb.cpp:641
 #, kde-format
 msgid "Thread %1"
 msgstr "Wątek %1"
 
-#: plugin_kategdb.cpp:731
+#: plugin_kategdb.cpp:741
 #, kde-format
 msgid "IO"
 msgstr "WE/WY"

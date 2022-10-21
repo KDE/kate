@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"POT-Creation-Date: 2022-10-21 00:50+0000\n"
 "PO-Revision-Date: 2022-07-13 15:25+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -532,7 +532,7 @@ msgstr "Kate GDB"
 msgid "Debug View"
 msgstr "디버그 보기"
 
-#: plugin_kategdb.cpp:69 plugin_kategdb.cpp:270
+#: plugin_kategdb.cpp:69 plugin_kategdb.cpp:280
 #, kde-format
 msgid "Debug"
 msgstr "디버그"
@@ -581,93 +581,93 @@ msgstr ""
 msgid "Start Debugging"
 msgstr "디버깅 시작"
 
-#: plugin_kategdb.cpp:221
+#: plugin_kategdb.cpp:222
 #, kde-format
 msgid "Kill / Stop Debugging"
 msgstr "디버깅 중단/종료"
 
-#: plugin_kategdb.cpp:226
+#: plugin_kategdb.cpp:228
 #, kde-format
 msgid "Restart Debugging"
 msgstr "디버깅 다시 시작"
 
-#: plugin_kategdb.cpp:231
+#: plugin_kategdb.cpp:234
 #, kde-format
 msgid "Toggle Breakpoint / Break"
 msgstr "중단점 설정/해제"
 
-#: plugin_kategdb.cpp:236
+#: plugin_kategdb.cpp:240
 #, kde-format
 msgid "Step In"
 msgstr "한 단계 안으로"
 
-#: plugin_kategdb.cpp:241
+#: plugin_kategdb.cpp:246
 #, kde-format
 msgid "Step Over"
 msgstr "한 단계 건너뜀"
 
-#: plugin_kategdb.cpp:246
+#: plugin_kategdb.cpp:252
 #, kde-format
 msgid "Step Out"
 msgstr "한 단계 밖으로"
 
-#: plugin_kategdb.cpp:251 plugin_kategdb.cpp:279
+#: plugin_kategdb.cpp:258 plugin_kategdb.cpp:289
 #, kde-format
 msgctxt "Move Program Counter (next execution)"
 msgid "Move PC"
 msgstr "프로그램 카운터 이동"
 
-#: plugin_kategdb.cpp:255 plugin_kategdb.cpp:277
+#: plugin_kategdb.cpp:263 plugin_kategdb.cpp:287
 #, kde-format
 msgid "Run To Cursor"
 msgstr "커서까지 실행"
 
-#: plugin_kategdb.cpp:260
+#: plugin_kategdb.cpp:269
 #, kde-format
 msgid "Continue"
 msgstr "계속"
 
-#: plugin_kategdb.cpp:265
+#: plugin_kategdb.cpp:275
 #, kde-format
 msgid "Print Value"
 msgstr "값 출력"
 
-#: plugin_kategdb.cpp:274
+#: plugin_kategdb.cpp:284
 #, kde-format
 msgid "popup_breakpoint"
 msgstr "popup_breakpoint"
 
-#: plugin_kategdb.cpp:276
+#: plugin_kategdb.cpp:286
 #, kde-format
 msgid "popup_run_to_cursor"
 msgstr "popup_run_to_cursor"
 
-#: plugin_kategdb.cpp:351 plugin_kategdb.cpp:367
+#: plugin_kategdb.cpp:361 plugin_kategdb.cpp:377
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "중단점 삽입"
 
-#: plugin_kategdb.cpp:365
+#: plugin_kategdb.cpp:375
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "중단점 삭제"
 
-#: plugin_kategdb.cpp:389
+#: plugin_kategdb.cpp:399
 #, kde-format
 msgid "Breakpoint"
 msgstr "중단점"
 
-#: plugin_kategdb.cpp:488
+#: plugin_kategdb.cpp:498
 #, kde-format
 msgid "Execution point"
 msgstr "실행 지점"
 
-#: plugin_kategdb.cpp:631
+#: plugin_kategdb.cpp:641
 #, kde-format
 msgid "Thread %1"
 msgstr "스레드 %1"
 
-#: plugin_kategdb.cpp:731
+#: plugin_kategdb.cpp:741
 #, kde-format
 msgid "IO"
 msgstr "입출력"

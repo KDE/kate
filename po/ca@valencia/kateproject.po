@@ -582,8 +582,8 @@ msgstr "Funcionalitat interprojectes"
 msgid ""
 "Project plugin is able to perform some operations across multiple projects"
 msgstr ""
-"Connector de projecte que pot portar a terme diverses operacions a múltiples "
-"projectes"
+"Connector de projecte que pot portar a terme diverses operacions a través de "
+"múltiples projectes"
 
 #: kateprojectconfigpage.cpp:73
 #, kde-format

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-20 00:55+0000\n"
-"PO-Revision-Date: 2022-10-10 03:40+0200\n"
+"PO-Revision-Date: 2022-10-20 06:04+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -49,7 +49,7 @@ msgstr "რეკურსიულად ამოკეცვა"
 #: katefiletree.cpp:137
 #, kde-format
 msgid "Expand the file list sub tree recursively."
-msgstr ""
+msgstr "ფაილების სიის ქვეხის რეკურსიული გაფართოება."
 
 #: katefiletree.cpp:139
 #, kde-format
@@ -60,7 +60,7 @@ msgstr "რეკურსიულად ჩაკეცვა"
 #: katefiletree.cpp:141
 #, kde-format
 msgid "Collapse the file list sub tree recursively."
-msgstr ""
+msgstr "ფაილების სიის ქვეხის რეკურსიული აწევა."
 
 #: katefiletree.cpp:143
 #, kde-format
@@ -82,7 +82,7 @@ msgstr "შემცველი საქაღალდის გახსნ�
 #: katefiletree.cpp:150
 #, kde-format
 msgid "Open the folder this file is located in."
-msgstr ""
+msgstr "საქაღალდის გახსნა, სადაც ფაილია მოთავსებული."
 
 #: katefiletree.cpp:152
 #, kde-format
@@ -93,7 +93,7 @@ msgstr "მდებარეობის კოპირება"
 #: katefiletree.cpp:154
 #, kde-format
 msgid "Copy path and filename to the clipboard."
-msgstr ""
+msgstr "ფაილის სახელისა და ბილიკის ბუფერში კოპირება."
 
 #: katefiletree.cpp:156
 #, kde-format
@@ -114,7 +114,7 @@ msgstr "მონიშნული დოკუმენტის დაბე�
 #: katefiletree.cpp:164
 #, kde-format
 msgid "Show print preview of current document"
-msgstr ""
+msgstr "მიმდინარე დოკუმენტების დაბეჭდვისწინა გადახედვის ჩვენება"
 
 #: katefiletree.cpp:166
 #, kde-format
@@ -125,7 +125,7 @@ msgstr "წაშლა"
 #: katefiletree.cpp:168
 #, kde-format
 msgid "Close and delete selected file from storage."
-msgstr ""
+msgstr "მითითებული ფაილის დახურვა და საცავიდან წაშლა."
 
 #: katefiletree.cpp:172
 #, kde-format
@@ -147,7 +147,7 @@ msgstr "ხის რეჟიმი"
 #: katefiletree.cpp:238
 #, kde-format
 msgid "Set view style to Tree Mode"
-msgstr ""
+msgstr "აირჩიეთ ხის რეჟიმის სტილი"
 
 #: katefiletree.cpp:244
 #, kde-format
@@ -158,7 +158,7 @@ msgstr "სიის რეჟიმი"
 #: katefiletree.cpp:245
 #, kde-format
 msgid "Set view style to List Mode"
-msgstr ""
+msgstr "აირჩიეთ სიის რეჟიმის სტიპი"
 
 #: katefiletree.cpp:252
 #, kde-format
@@ -207,7 +207,7 @@ msgstr "გამხსნელი პროგრამა"
 #: katefiletree.cpp:409
 #, kde-format
 msgid "Show File Git History"
-msgstr ""
+msgstr "ფაილის Git ისტორიის ჩვენება"
 
 #: katefiletree.cpp:448
 #, kde-format
@@ -229,7 +229,7 @@ msgstr "&სხვა..."
 #: katefiletree.cpp:822
 #, kde-format
 msgid "Do you really want to delete file \"%1\" from storage?"
-msgstr ""
+msgstr "ნამდვილად გსურთ საცავიდან წაშალოთ ფაილი \"%1\"?"
 
 #: katefiletree.cpp:823
 #, kde-format
@@ -239,22 +239,22 @@ msgstr "წავშალო ფაილი?"
 #: katefiletree.cpp:840
 #, kde-format
 msgid "File \"%1\" could not be deleted."
-msgstr ""
+msgstr "ფაილის (%1) წაშლა შეუძლებელია."
 
 #: katefiletreeconfigpage.cpp:45
 #, kde-format
 msgid "Background Shading"
-msgstr ""
+msgstr "ფონის დაჩრდილვა"
 
 #: katefiletreeconfigpage.cpp:52
 #, kde-format
 msgid "&Viewed documents' shade:"
-msgstr ""
+msgstr "&ნანახი დოკუმენტების დაჩრდილვა:"
 
 #: katefiletreeconfigpage.cpp:58
 #, kde-format
 msgid "&Modified documents' shade:"
-msgstr ""
+msgstr "&შეცვლილი დოკუმენტების დაჩრდილვა:"
 
 #: katefiletreeconfigpage.cpp:66
 #, kde-format
@@ -311,6 +311,7 @@ msgstr "დახურვის ღილაკის ჩვენება"
 msgid ""
 "When enabled, this will show a close button for opened documents on hover."
 msgstr ""
+"თუ ჩართულია, ღია დოკუმენტზე გადატარებისას ნაჩვენები იქნება დახურვის ღილაკი."
 
 #: katefiletreeconfigpage.cpp:105
 #, kde-format
@@ -323,7 +324,7 @@ msgstr ""
 #: katefiletreeconfigpage.cpp:108
 #, kde-format
 msgid "Set the color for shading viewed documents."
-msgstr ""
+msgstr "ნანახი დოკუმენტების ნახვის ჩრდილის ფერის დაყენება."
 
 #: katefiletreeconfigpage.cpp:110
 #, kde-format
@@ -367,7 +368,7 @@ msgstr "ვიჯეტების გახსნა"
 msgctxt "%1 is the full path"
 msgid ""
 "<p><b>%1</b></p><p>The document has been modified by another application.</p>"
-msgstr ""
+msgstr "<p><b>%1</b></p><p>დოკუმენტი შეიცვალა სხვა აპლიკაციის მიერ.</p>"
 
 #: katefiletreeplugin.cpp:247
 #, kde-format
@@ -387,7 +388,7 @@ msgstr "აქტიური დოკუმენტის &ჩვენებ
 #: katefiletreeplugin.cpp:264
 #, kde-format
 msgid "Save"
-msgstr ""
+msgstr "შენახვა"
 
 #: katefiletreeplugin.cpp:265
 #, kde-format
@@ -397,7 +398,7 @@ msgstr "მიმდინარე დოკუმენტის შენა�
 #: katefiletreeplugin.cpp:269
 #, kde-format
 msgid "Save As"
-msgstr ""
+msgstr "შენახვა, როგორც"
 
 #: katefiletreeplugin.cpp:270
 #, kde-format

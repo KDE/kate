@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-20 00:55+0000\n"
-"PO-Revision-Date: 2022-08-27 12:15+0200\n"
+"PO-Revision-Date: 2022-10-20 12:44+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -611,10 +611,9 @@ msgid "Continuing from last match"
 msgstr "S'està continuant des de l'última coincidència"
 
 #: SearchPlugin.cpp:2028
-#, fuzzy, kde-format
-#| msgid "Search"
+#, kde-format
 msgid "Search: %1"
-msgstr "Busca"
+msgstr "Busca: %1"
 
 #: SearchPlugin.cpp:2159
 #, kde-format
@@ -634,7 +633,7 @@ msgstr "Exporta les coincidències"
 #: SearchPlugin.cpp:2173
 #, kde-format
 msgid "Open as Editor Tab"
-msgstr ""
+msgstr "Obri com a pestanya de l'editor"
 
 #: SearchPlugin.cpp:2180
 #, kde-format

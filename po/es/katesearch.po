@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-20 00:55+0000\n"
-"PO-Revision-Date: 2022-08-28 17:05+0200\n"
+"PO-Revision-Date: 2022-10-20 18:32+0200\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -20,7 +20,7 @@ msgstr ""
 "com>\n"
 "com>\n"
 "com>\n"
-"X-Generator: Lokalize 22.08.0\n"
+"X-Generator: Lokalize 22.08.2\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: KateSearchCommand.cpp:80
@@ -617,10 +617,9 @@ msgid "Continuing from last match"
 msgstr "Continuando desde la última coincidencia"
 
 #: SearchPlugin.cpp:2028
-#, fuzzy, kde-format
-#| msgid "Search"
+#, kde-format
 msgid "Search: %1"
-msgstr "Buscar"
+msgstr "Buscar: %1"
 
 #: SearchPlugin.cpp:2159
 #, kde-format
@@ -640,7 +639,7 @@ msgstr "Exportar coincidencias"
 #: SearchPlugin.cpp:2173
 #, kde-format
 msgid "Open as Editor Tab"
-msgstr ""
+msgstr "Abrir como pestaña del editor"
 
 #: SearchPlugin.cpp:2180
 #, kde-format

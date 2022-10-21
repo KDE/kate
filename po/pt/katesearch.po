@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-20 00:55+0000\n"
-"PO-Revision-Date: 2022-08-28 02:40+0100\n"
+"PO-Revision-Date: 2022-10-20 09:22+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
 "Language: pt\n"
@@ -604,10 +604,9 @@ msgid "Continuing from last match"
 msgstr "A continuar a partir da última ocorrência"
 
 #: SearchPlugin.cpp:2028
-#, fuzzy, kde-format
-#| msgid "Search"
+#, kde-format
 msgid "Search: %1"
-msgstr "Procurar"
+msgstr "Procurar: %1"
 
 #: SearchPlugin.cpp:2159
 #, kde-format
@@ -627,7 +626,7 @@ msgstr "Exportar as ocorrências"
 #: SearchPlugin.cpp:2173
 #, kde-format
 msgid "Open as Editor Tab"
-msgstr ""
+msgstr "Abrir como uma Página do Editor"
 
 #: SearchPlugin.cpp:2180
 #, kde-format

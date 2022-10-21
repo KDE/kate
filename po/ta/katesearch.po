@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-20 00:55+0000\n"
-"PO-Revision-Date: 2022-09-01 21:19+0530\n"
+"PO-Revision-Date: 2022-10-20 21:45+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.08.0\n"
+"X-Generator: Lokalize 22.08.2\n"
 
 #: KateSearchCommand.cpp:80
 #, kde-format
@@ -601,10 +601,9 @@ msgid "Continuing from last match"
 msgstr "கடைசிப் பொருத்த‍த்திலிருந்து தொடர்கிறோம்"
 
 #: SearchPlugin.cpp:2028
-#, fuzzy, kde-format
-#| msgid "Search"
+#, kde-format
 msgid "Search: %1"
-msgstr "தேடு"
+msgstr "தேடு: %1"
 
 #: SearchPlugin.cpp:2159
 #, kde-format
@@ -624,7 +623,7 @@ msgstr "பொருத்தங்களை ஏற்றுமதி செய�
 #: SearchPlugin.cpp:2173
 #, kde-format
 msgid "Open as Editor Tab"
-msgstr ""
+msgstr "உரைத்திருத்தி கீற்றில் திற"
 
 #: SearchPlugin.cpp:2180
 #, kde-format

@@ -354,6 +354,7 @@ void GitWidget::init()
     m_updateTrigger.setSingleShot(true);
     m_updateTrigger.setInterval(500);
     connect(&m_updateTrigger, &QTimer::timeout, this, &GitWidget::slotUpdateStatus);
+    slotUpdateStatus();
 
     connect(m_mainWin, &KTextEditor::MainWindow::viewChanged, this, &GitWidget::setActiveGitDir);
 }

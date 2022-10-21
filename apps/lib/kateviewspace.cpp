@@ -787,7 +787,11 @@ void KateViewSpace::focusNextTab()
 void KateViewSpace::addWidgetAsTab(QWidget *widget)
 {
     stack->addWidget(widget);
+    // disconnect changeView, we are just adding the widget here
+    // and don't want any unnecessary viewChanged signals
+    disconnect(m_tabBar, &KateTabBar::currentChanged, this, &KateViewSpace::changeView);
     m_tabBar->setCurrentWidget(widget);
+    connect(m_tabBar, &KateTabBar::currentChanged, this, &KateViewSpace::changeView);
     stack->setCurrentWidget(widget);
     m_registeredDocuments.append(widget);
 }
@@ -841,11 +845,11 @@ bool KateViewSpace::activateWidget(QWidget *widget)
     stack->setCurrentWidget(widget);
     for (int i = 0; i < m_tabBar->count(); ++i) {
         if (m_tabBar->tabData(i).value<QWidget *>() == widget) {
-            m_tabBar->setCurrentIndex(i);
-
             m_registeredDocuments.removeOne(widget);
             m_registeredDocuments.append(widget);
-            m_viewManager->activateView(static_cast<KTextEditor::Document *>(nullptr));
+            // "activation signal, ViewManager::viewChanged" will be emitted
+            // when tab changes
+            m_tabBar->setCurrentIndex(i);
             return true;
         }
     }

@@ -24,6 +24,38 @@ class QStackedWidget;
 class QToolButton;
 class LocationHistoryTest;
 
+// Just a helper class which we use internally to manage widgets/docs
+class DocOrWidget : public std::variant<KTextEditor::Document *, QWidget *>
+{
+public:
+    using variant::variant;
+
+    auto *doc() const
+    {
+        return std::holds_alternative<KTextEditor::Document *>(*this) ? std::get<KTextEditor::Document *>(*this) : nullptr;
+    }
+
+    auto *widget() const
+    {
+        return std::holds_alternative<QWidget *>(*this) ? std::get<QWidget *>(*this) : nullptr;
+    }
+
+    QObject *qobject() const
+    {
+        return doc() ? static_cast<QObject *>(doc()) : static_cast<QObject *>(widget());
+    }
+
+    bool operator==(KTextEditor::Document *doc) const
+    {
+        return this->doc() == doc;
+    }
+    bool operator==(QWidget *w) const
+    {
+        return this->widget() == w;
+    }
+};
+Q_DECLARE_METATYPE(DocOrWidget)
+
 class KATE_PRIVATE_EXPORT KateViewSpace : public QWidget
 {
     Q_OBJECT
@@ -298,28 +330,6 @@ private:
     std::vector<Location> m_locations;
     size_t currentLocation = 0;
 
-    struct DocOrWidget : public std::variant<KTextEditor::Document *, QWidget *> {
-        using variant::variant;
-
-        auto *doc() const
-        {
-            return std::holds_alternative<KTextEditor::Document *>(*this) ? std::get<KTextEditor::Document *>(*this) : nullptr;
-        }
-
-        auto widget() const
-        {
-            return std::holds_alternative<QWidget *>(*this) ? std::get<QWidget *>(*this) : nullptr;
-        }
-
-        bool operator==(KTextEditor::Document *doc) const
-        {
-            return this->doc() == doc;
-        }
-        bool operator==(QWidget *w) const
-        {
-            return this->widget() == w;
-        }
-    };
     /**
      * all documents this view space is aware of
      * depending on the limit of tabs, not all will have a corresponding

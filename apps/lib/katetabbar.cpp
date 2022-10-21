@@ -24,12 +24,6 @@
 
 #include <KTextEditor/Document>
 
-struct KateTabButtonData {
-    KTextEditor::Document *doc = nullptr;
-};
-
-Q_DECLARE_METATYPE(KateTabButtonData)
-
 /**
  * Creates a new tab bar with the given \a parent.
  */
@@ -120,7 +114,7 @@ std::vector<int> KateTabBar::documentTabIndexes() const
     std::vector<int> docs;
     const int tabCount = count();
     for (int i = 0; i < tabCount; ++i) {
-        if (tabData(i).value<KateTabButtonData>().doc) {
+        if (tabData(i).value<DocOrWidget>().doc()) {
             docs.push_back(i);
         }
     }
@@ -161,7 +155,8 @@ bool KateTabBar::containsTab(int index) const
 QVariant KateTabBar::ensureValidTabData(int idx)
 {
     if (!tabData(idx).isValid()) {
-        setTabData(idx, QVariant::fromValue(KateTabButtonData{}));
+        DocOrWidget v(static_cast<KTextEditor::Document *>(nullptr));
+        setTabData(idx, QVariant::fromValue(v));
     }
     return tabData(idx);
 }
@@ -237,15 +232,10 @@ void KateTabBar::mouseMoveEvent(QMouseEvent *event)
     }
 
     QRect rect = tabRect(tab);
-    const auto tabData = this->tabData(tab);
-    QObject *tabObject = nullptr;
-    // TODO: unify KateTabButtonData with QWidget handling
-    if (auto doc = tabData.value<KateTabButtonData>().doc) {
-        tabObject = doc;
-    } else if (auto widget = tabData.value<QWidget *>()) {
-        tabObject = widget;
-    } else {
-        // shouldn't get here
+    const auto tabData = this->tabData(tab).value<DocOrWidget>();
+    auto *tabObject = tabData.qobject();
+    // We don't support moving widgets atm
+    if (!tabData.doc()) {
         return;
     }
 
@@ -308,7 +298,8 @@ void KateTabBar::mouseMoveEvent(QMouseEvent *event)
         int tabIdx = 0;
         for (; tabIdx < count(); ++tabIdx) {
             auto d = this->tabData(tabIdx);
-            if (d.value<KateTabButtonData>().doc == tabObject || d.value<QWidget *>() == tabObject) {
+            // We only expect doc, no dnd support for widgets
+            if (d.value<DocOrWidget>().doc() == tabObject) {
                 found = true;
                 break;
             }
@@ -337,10 +328,7 @@ void KateTabBar::contextMenuEvent(QContextMenuEvent *ev)
 
 void KateTabBar::setTabDocument(int idx, KTextEditor::Document *doc)
 {
-    QVariant data = ensureValidTabData(idx);
-    KateTabButtonData buttonData = data.value<KateTabButtonData>();
-    buttonData.doc = doc;
-    setTabData(idx, QVariant::fromValue(buttonData));
+    setTabData(idx, QVariant::fromValue(DocOrWidget(doc)));
     // BUG: 441340 We need to escape the & because it is used for accelerators/shortcut mnemonic by default
     QString tabName = doc->documentName();
     tabName.replace(QLatin1Char('&'), QLatin1String("&&"));
@@ -386,7 +374,7 @@ void KateTabBar::setCurrentDocument(KTextEditor::Document *doc)
     KTextEditor::Document *docToReplace = nullptr;
     for (int idx = 0; idx < count(); idx++) {
         QVariant data = tabData(idx);
-        KTextEditor::Document *doc = data.value<KateTabButtonData>().doc;
+        KTextEditor::Document *doc = data.value<DocOrWidget>().doc();
         if (!data.isValid() || !doc) {
             continue;
         }
@@ -462,7 +450,7 @@ int KateTabBar::documentIdx(KTextEditor::Document *doc)
         if (!data.isValid()) {
             continue;
         }
-        if (data.value<KateTabButtonData>().doc != doc) {
+        if (data.value<DocOrWidget>().doc() != doc) {
             continue;
         }
         return idx;
@@ -473,17 +461,17 @@ int KateTabBar::documentIdx(KTextEditor::Document *doc)
 KTextEditor::Document *KateTabBar::tabDocument(int idx)
 {
     QVariant data = ensureValidTabData(idx);
-    KateTabButtonData buttonData = data.value<KateTabButtonData>();
+    DocOrWidget buttonData = data.value<DocOrWidget>();
 
     KTextEditor::Document *doc = nullptr;
-    // The tab got activated before the correct finalixation,
+    // The tab got activated before the correct finalization,
     // we need to plug the document before returning.
-    if (buttonData.doc == nullptr && m_beingAdded) {
+    if (buttonData.doc() == nullptr && m_beingAdded) {
         setTabDocument(idx, m_beingAdded);
         doc = m_beingAdded;
         m_beingAdded = nullptr;
     } else {
-        doc = buttonData.doc;
+        doc = buttonData.doc();
     }
 
     return doc;
@@ -500,13 +488,12 @@ void KateTabBar::tabInserted(int idx)
 QVector<KTextEditor::Document *> KateTabBar::documentList() const
 {
     QVector<KTextEditor::Document *> result;
+    result.reserve(count());
     for (int idx = 0; idx < count(); idx++) {
         QVariant data = tabData(idx);
-        if (!data.isValid()) {
-            continue;
+        if (data.isValid() && data.value<DocOrWidget>().doc()) {
+            result.append(data.value<DocOrWidget>().doc());
         }
-        if (data.value<KateTabButtonData>().doc)
-            result.append(data.value<KateTabButtonData>().doc);
     }
     return result;
 }
@@ -515,6 +502,6 @@ void KateTabBar::setCurrentWidget(QWidget *widget)
 {
     int idx = insertTab(-1, widget->windowTitle());
     setTabIcon(idx, widget->windowIcon());
-    setTabData(idx, QVariant::fromValue(widget));
+    setTabData(idx, QVariant::fromValue(DocOrWidget(widget)));
     setCurrentIndex(idx);
 }

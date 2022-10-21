@@ -444,9 +444,10 @@ void KateViewSpace::changeView(int idx)
         m_viewManager->setActiveSpace(this);
     }
 
-    KTextEditor::Document *doc = m_tabBar->tabDocument(idx);
+    const auto docOrWidget = m_tabBar->tabData(idx).value<DocOrWidget>();
+    KTextEditor::Document *doc = docOrWidget.doc();
     if (!doc) {
-        auto w = m_tabBar->tabData(idx).value<QWidget *>();
+        auto w = docOrWidget.widget();
         if (!w) {
             // can happen during widget creation if no view is there initially
             return;
@@ -711,9 +712,10 @@ void KateViewSpace::updateDocumentUrl(KTextEditor::Document *doc)
 
 void KateViewSpace::closeTabRequest(int idx)
 {
-    auto *doc = m_tabBar->tabDocument(idx);
+    const auto docOrWidget = m_tabBar->tabData(idx).value<DocOrWidget>();
+    auto *doc = docOrWidget.doc();
     if (!doc) {
-        auto widget = m_tabBar->tabData(idx).value<QWidget *>();
+        auto widget = docOrWidget.widget();
         if (!widget) {
             Q_ASSERT(false);
             return;
@@ -813,7 +815,7 @@ QWidgetList KateViewSpace::widgets() const
 {
     QWidgetList widgets;
     for (int i = 0; i < m_tabBar->count(); ++i) {
-        auto widget = m_tabBar->tabData(i).value<QWidget *>();
+        auto widget = m_tabBar->tabData(i).value<DocOrWidget>().widget();
         if (widget) {
             widgets << widget;
         }
@@ -828,7 +830,7 @@ bool KateViewSpace::closeTabWithWidget(QWidget *widget)
     }
 
     for (int i = 0; i < m_tabBar->count(); ++i) {
-        if (m_tabBar->tabData(i).value<QWidget *>() == widget) {
+        if (m_tabBar->tabData(i).value<DocOrWidget>().widget() == widget) {
             closeTabRequest(i);
             return true;
         }
@@ -844,7 +846,7 @@ bool KateViewSpace::activateWidget(QWidget *widget)
 
     stack->setCurrentWidget(widget);
     for (int i = 0; i < m_tabBar->count(); ++i) {
-        if (m_tabBar->tabData(i).value<QWidget *>() == widget) {
+        if (m_tabBar->tabData(i).value<DocOrWidget>().widget() == widget) {
             m_registeredDocuments.removeOne(widget);
             m_registeredDocuments.append(widget);
             // "activation signal, ViewManager::viewChanged" will be emitted

@@ -392,7 +392,7 @@ void KateViewSpace::removeView(KTextEditor::View *v)
 bool KateViewSpace::showView(KTextEditor::Document *document)
 {
     /**
-     * nothing can be done if we have now view ready here
+     * nothing can be done if we have no view ready here
      */
     auto it = m_docToView.find(document);
     if (it == m_docToView.end()) {

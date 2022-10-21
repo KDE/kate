@@ -17,6 +17,7 @@
 #include <KIconLoader>
 #include <KRecentFilesAction>
 #include <KSharedConfig>
+#include <QTimer>
 #include <KIO/OpenFileManagerWindowJob>
 
 #include <QClipboard>
@@ -70,9 +71,7 @@ WelcomeView::WelcomeView(KateViewManager *viewManager, QWidget *parent)
 
     KRecentFilesAction *recentFilesAction = m_viewManager->mainWindow()->recentFilesAction();
     m_recentItemsModel->refresh(recentFilesAction->urls());
-    connect(recentFilesAction, &KRecentFilesAction::recentListCleared, this, [this, recentFilesAction]() {
-        m_recentItemsModel->refresh(recentFilesAction->urls());
-    });
+    recentFilesAction->menu()->installEventFilter(this);
 
     listViewRecentItems->setModel(m_recentItemsModel);
     connect(listViewRecentItems, &QListView::customContextMenuRequested,
@@ -185,6 +184,28 @@ void WelcomeView::resizeEvent(QResizeEvent *event)
     QScrollArea::resizeEvent(event);
 
     updateLayout();
+}
+
+bool WelcomeView::eventFilter(QObject *watched, QEvent *event)
+{
+    KRecentFilesAction *recentFilesAction = m_viewManager->mainWindow()->recentFilesAction();
+    if (watched == recentFilesAction->menu()) {
+        switch (event->type()) {
+        case QEvent::ActionAdded:
+        case QEvent::ActionRemoved:
+            // since the KRecentFilesAction doesn't notify about adding or
+            // deleting items, we should use this dirty trick to find out
+            // the KRecentFilesAction has changed
+            QTimer::singleShot(0, this, [this, recentFilesAction]() {
+                m_recentItemsModel->refresh(recentFilesAction->urls());
+            });
+            break;
+        default:
+            break;
+        }
+    }
+
+    return QScrollArea::eventFilter(watched, event);
 }
 
 void WelcomeView::onPluginViewChanged(const QString &pluginName)

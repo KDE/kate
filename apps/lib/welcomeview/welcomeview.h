@@ -26,6 +26,8 @@ protected:
     bool event(QEvent *event) override;
     void resizeEvent(QResizeEvent *event) override;
 
+    bool eventFilter(QObject *watched, QEvent *event) override;
+
 private Q_SLOTS:
     void onPluginViewChanged(const QString &pluginName = QString());
     void onRecentItemsContextMenuRequested(const QPoint &pos);

@@ -14,7 +14,6 @@ class StashFilterModel;
 class KActionCollection;
 class QStandardItemModel;
 class QProcess;
-class GitWidget;
 
 namespace KTextEditor
 {

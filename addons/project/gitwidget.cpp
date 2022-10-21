@@ -200,6 +200,22 @@ GitWidget::GitWidget(KateProject *project, KTextEditor::MainWindow *mainWindow, 
     , m_mainView(new QWidget(this))
     , m_stackWidget(new QStackedWidget(this))
 {
+    // We init delayed when the widget will be shown
+}
+
+void GitWidget::showEvent(QShowEvent *e)
+{
+    init();
+    QWidget::showEvent(e);
+}
+
+void GitWidget::init()
+{
+    if (m_initialized) {
+        return;
+    }
+    m_initialized = true;
+
     setDotGitPath();
 
     m_treeView = new GitWidgetTreeView(this);
@@ -479,7 +495,9 @@ QProcess *GitWidget::gitp(const QStringList &arguments)
 
 void GitWidget::updateStatus()
 {
-    m_updateTrigger.start();
+    if (m_initialized) {
+        m_updateTrigger.start();
+    }
 }
 
 void GitWidget::slotUpdateStatus()

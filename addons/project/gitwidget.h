@@ -45,7 +45,11 @@ public:
     explicit GitWidget(KateProject *project, KTextEditor::MainWindow *mainWindow = nullptr, KateProjectPluginView *pluginView = nullptr);
     ~GitWidget() override;
 
+    void init();
+
     bool eventFilter(QObject *o, QEvent *e) override;
+
+    void showEvent(QShowEvent *e) override;
 
     /**
      * Trigger the GitWidget to update itself.
@@ -103,6 +107,7 @@ private:
     KTextEditor::MainWindow *m_mainWin;
     QMenu *m_gitMenu;
     KateProjectPluginView *m_pluginView;
+    bool m_initialized = false;
 
     QWidget *m_mainView;
     QStackedWidget *m_stackWidget;

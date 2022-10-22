@@ -22,6 +22,9 @@ LocationHistoryTest::LocationHistoryTest(QObject *parent)
     m_tempdir = new QTemporaryDir;
     QVERIFY(m_tempdir->isValid());
 
+    // ensure we use some dummy config
+    KConfig::setMainConfigName(m_tempdir->path() + QStringLiteral("/testconfigfilerc"));
+
     // create KWrite variant to avoid plugin loading!
     static QCommandLineParser parser;
     app = new KateApp(parser, KateApp::ApplicationKWrite, m_tempdir->path());

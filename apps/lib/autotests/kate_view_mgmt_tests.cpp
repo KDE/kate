@@ -37,7 +37,7 @@ KateViewManagementTests::KateViewManagementTests(QObject *)
 
 void KateViewManagementTests::testSingleViewspaceDoesntCloseWhenLastViewClosed()
 {
-    app->sessionManager()->activateAnonymousSession();
+    app->sessionManager()->sessionNew();
     app->activeKateMainWindow()->viewManager()->slotDocumentNew();
 
     // Test that if we have 1 viewspaces then
@@ -60,7 +60,7 @@ void KateViewManagementTests::testSingleViewspaceDoesntCloseWhenLastViewClosed()
 
 void KateViewManagementTests::testViewspaceClosesWhenLastViewClosed()
 {
-    app->sessionManager()->activateAnonymousSession();
+    app->sessionManager()->sessionNew();
     app->activeKateMainWindow()->viewManager()->slotDocumentNew();
 
     // Test that if we have greater than 1 viewspaces then
@@ -89,7 +89,7 @@ void KateViewManagementTests::testViewspaceClosesWhenLastViewClosed()
 
 void KateViewManagementTests::testViewspaceClosesWhenThereIsWidget()
 {
-    app->sessionManager()->activateAnonymousSession();
+    app->sessionManager()->sessionNew();
     app->activeKateMainWindow()->viewManager()->slotDocumentNew();
 
     // Test that if we have greater than 1 viewspaces then
@@ -152,7 +152,7 @@ void KateViewManagementTests::testViewspaceClosesWhenThereIsWidget()
 
 void KateViewManagementTests::testMoveViewBetweenViewspaces()
 {
-    app->sessionManager()->activateAnonymousSession();
+    app->sessionManager()->sessionNew();
     app->activeKateMainWindow()->viewManager()->slotDocumentNew();
 
     KateMainWindow *mw = app->activeKateMainWindow();
@@ -176,7 +176,7 @@ void KateViewManagementTests::testMoveViewBetweenViewspaces()
 
 void KateViewManagementTests::testTwoMainWindowsCloseInitialDocument1()
 {
-    app->sessionManager()->activateAnonymousSession();
+    app->sessionManager()->sessionNew();
     app->activeKateMainWindow()->viewManager()->slotDocumentNew();
 
     // get first main window
@@ -196,7 +196,7 @@ void KateViewManagementTests::testTwoMainWindowsCloseInitialDocument1()
 
 void KateViewManagementTests::testTwoMainWindowsCloseInitialDocument2()
 {
-    app->sessionManager()->activateAnonymousSession();
+    app->sessionManager()->sessionNew();
     app->activeKateMainWindow()->viewManager()->slotDocumentNew();
 
     // get first main window
@@ -216,7 +216,7 @@ void KateViewManagementTests::testTwoMainWindowsCloseInitialDocument2()
 
 void KateViewManagementTests::testTwoMainWindowsCloseInitialDocument3()
 {
-    app->sessionManager()->activateAnonymousSession();
+    app->sessionManager()->sessionNew();
     app->activeKateMainWindow()->viewManager()->slotDocumentNew();
 
     // get first main window
@@ -236,7 +236,7 @@ void KateViewManagementTests::testTwoMainWindowsCloseInitialDocument3()
 
 void KateViewManagementTests::testTabLRUWithWidgets()
 {
-    app->sessionManager()->activateAnonymousSession();
+    app->sessionManager()->sessionNew();
     app->activeKateMainWindow()->viewManager()->slotDocumentNew();
 
     // get first main window
@@ -337,7 +337,7 @@ void KateViewManagementTests::testBug460613()
     // in the first viewspace, not second as well!
     // TEST: closing the doc without view should work
 
-    app->sessionManager()->activateAnonymousSession();
+    app->sessionManager()->sessionNew();
     KateMainWindow *mw = app->activeKateMainWindow();
     auto vm = mw->viewManager();
     vm->createView(nullptr);
@@ -362,4 +362,28 @@ void KateViewManagementTests::testBug460613()
     // Try to close the doc in second viewspace
     vs2->closeDocument(doc);
     QVERIFY(!vs2->hasDocument(doc));
+}
+
+void KateViewManagementTests::testWindowsClosesDocuments()
+{
+    app->sessionManager()->sessionNew();
+    app->activeKateMainWindow()->viewManager()->slotDocumentNew();
+    QCOMPARE(app->documentManager()->documentList().size(), 1);
+
+    // get first main window
+    KateMainWindow *first = app->activeKateMainWindow();
+    QVERIFY(first);
+
+    // create a second one, shall not create a new document
+    KateMainWindow *second = app->newMainWindow();
+    QCOMPARE(app->documentManager()->documentList().size(), 1);
+    QVERIFY(second);
+
+    // second window shall have a new document
+    second->viewManager()->slotDocumentNew();
+    QCOMPARE(app->documentManager()->documentList().size(), 2);
+
+    // if we close the second window, the second document shall be gone
+    delete second;
+    QCOMPARE(app->documentManager()->documentList().size(), 1);
 }

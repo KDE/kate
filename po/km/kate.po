@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-21 00:50+0000\n"
+"POT-Creation-Date: 2022-10-22 00:48+0000\n"
 "PO-Revision-Date: 2011-12-21 14:07+0700\n"
 "Last-Translator: Chan Sambathratanak <ratanak@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -335,38 +335,38 @@ msgid "Jump to Previous Hunk"
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
-#: lib/filehistorywidget.cpp:258 lib/kateconfigdialog.cpp:116
+#: lib/filehistorywidget.cpp:254 lib/kateconfigdialog.cpp:116
 #: lib/session/katesessionmanagedialog.ui:184
 #, kde-format
 msgid "Close"
 msgstr "បិទ"
 
-#: lib/filehistorywidget.cpp:290
+#: lib/filehistorywidget.cpp:286
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:303
+#: lib/filehistorywidget.cpp:299
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:346 lib/kateconfigdialog.cpp:347
+#: lib/filehistorywidget.cpp:342 lib/kateconfigdialog.cpp:347
 #, kde-format
 msgid "Error"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:346
+#: lib/filehistorywidget.cpp:342
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr ""
 
-#: lib/filehistorywidget.cpp:346
+#: lib/filehistorywidget.cpp:342
 #, kde-format
 msgid "Git"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:354
+#: lib/filehistorywidget.cpp:350
 #, kde-format
 msgid "File History"
 msgstr ""
@@ -1226,7 +1226,7 @@ msgstr "ទីតាំង"
 msgid "Copies the file path of the current file to clipboard."
 msgstr "ផ្លាស់ទី​កម្មវិធី​ពុះ​នៃ​ទិដ្ឋភាព​បច្ចុប្បន្ន​​ឡើងលើ"
 
-#: lib/katemainwindow.cpp:333 lib/welcomeview/welcomeview.cpp:223
+#: lib/katemainwindow.cpp:333 lib/welcomeview/welcomeview.cpp:244
 #, fuzzy, kde-format
 #| msgid "Opening Order"
 msgid "&Open Containing Folder"
@@ -1494,12 +1494,12 @@ msgstr "ផ្សេង​ទៀត..."
 msgid " [read only]"
 msgstr ""
 
-#: lib/katemainwindow.cpp:1371
+#: lib/katemainwindow.cpp:1372
 #, kde-format
 msgid "Diff %1"
 msgstr ""
 
-#: lib/katemainwindow.cpp:1373
+#: lib/katemainwindow.cpp:1374
 #, kde-format
 msgid "Diff %1..%2"
 msgstr ""
@@ -2121,64 +2121,64 @@ msgid_plural ""
 "switch to the Quick Open view by clicking here."
 msgstr[0] ""
 
-#: lib/kateviewspace.cpp:955
+#: lib/kateviewspace.cpp:960
 #, fuzzy, kde-format
 #| msgid "Close"
 msgid "Close Tab"
 msgstr "បិទ"
 
-#: lib/kateviewspace.cpp:972
+#: lib/kateviewspace.cpp:977
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "&Close Document"
 msgstr "បិទ​ឯកសារ"
 
-#: lib/kateviewspace.cpp:973
+#: lib/kateviewspace.cpp:978
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "Close Other &Documents"
 msgstr "បិទ​ឯកសារ"
 
-#: lib/kateviewspace.cpp:974
+#: lib/kateviewspace.cpp:979
 #, fuzzy, kde-format
 #| msgid "Close all documents"
 msgid "Close &All Documents"
 msgstr "បិទ​គ្រប់​ឯកសារ​ទាំងអស់​"
 
-#: lib/kateviewspace.cpp:976
+#: lib/kateviewspace.cpp:981
 #, fuzzy, kde-format
 #| msgid "&Next Document"
 msgid "D&etach Document"
 msgstr "ឯកសារ​បន្ទាប់​"
 
-#: lib/kateviewspace.cpp:977
+#: lib/kateviewspace.cpp:982
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewspace.cpp:986
+#: lib/kateviewspace.cpp:991
 #, fuzzy, kde-format
 #| msgid "Close the current document."
 msgid "Compare with Active Document"
 msgstr "បិទ​ឯកសារ​បច្ចុប្បន្ន ។"
 
-#: lib/kateviewspace.cpp:990
+#: lib/kateviewspace.cpp:995
 #, kde-format
 msgid "Diff %1 .. %2"
 msgstr ""
 
-#: lib/kateviewspace.cpp:995
+#: lib/kateviewspace.cpp:1000
 #, fuzzy, kde-format
 #| msgid "Close the current document."
 msgid "Compare with Active Document Using"
 msgstr "បិទ​ឯកសារ​បច្ចុប្បន្ន ។"
 
-#: lib/kateviewspace.cpp:1062
+#: lib/kateviewspace.cpp:1067
 #, kde-format
 msgid "Could not start program"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1063
+#: lib/kateviewspace.cpp:1068
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""
@@ -2512,52 +2512,52 @@ msgstr "រក្សាទុក​ព័ត៌មាន​មេតា បន�
 msgid "Delete unused meta-information after:"
 msgstr "លុប​ព័ត៌មាន​មេតា​ដែល​មិន​ប្រើ បន្ទាប់​ពី ៖"
 
-#: lib/welcomeview/welcomeview.cpp:51
+#: lib/welcomeview/welcomeview.cpp:52
 #, kde-format
 msgid "Welcome to %1"
 msgstr ""
 
-#: lib/welcomeview/welcomeview.cpp:55
+#: lib/welcomeview/welcomeview.cpp:56
 #, fuzzy, kde-format
 #| msgctxt "The number of open documents"
 #| msgid "Open Documents"
 msgid "Recent Documents and Projects"
 msgstr "បើក​ឯកសារ"
 
-#: lib/welcomeview/welcomeview.cpp:55
+#: lib/welcomeview/welcomeview.cpp:56
 #, fuzzy, kde-format
 #| msgctxt "The number of open documents"
 #| msgid "Open Documents"
 msgid "Recent Documents"
 msgstr "បើក​ឯកសារ"
 
-#: lib/welcomeview/welcomeview.cpp:58
+#: lib/welcomeview/welcomeview.cpp:59
 #, fuzzy, kde-format
 #| msgctxt "The number of open documents"
 #| msgid "Open Documents"
 msgid "No recent documents or projects"
 msgstr "បើក​ឯកសារ"
 
-#: lib/welcomeview/welcomeview.cpp:58
+#: lib/welcomeview/welcomeview.cpp:59
 #, fuzzy, kde-format
 #| msgctxt "The number of open documents"
 #| msgid "Open Documents"
 msgid "No recent documents"
 msgstr "បើក​ឯកសារ"
 
-#: lib/welcomeview/welcomeview.cpp:116
+#: lib/welcomeview/welcomeview.cpp:115
 #, fuzzy, kde-format
 #| msgid "&Save Session"
 msgid "No saved sessions"
 msgstr "រក្សាទុក​សម័យ"
 
-#: lib/welcomeview/welcomeview.cpp:216
+#: lib/welcomeview/welcomeview.cpp:237
 #, fuzzy, kde-format
 #| msgid "Location"
 msgid "Copy &Location"
 msgstr "ទីតាំង"
 
-#: lib/welcomeview/welcomeview.cpp:231
+#: lib/welcomeview/welcomeview.cpp:252
 #, kde-format
 msgid "&Remove"
 msgstr ""

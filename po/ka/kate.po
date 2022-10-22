@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-21 00:50+0000\n"
-"PO-Revision-Date: 2022-10-20 06:00+0200\n"
+"POT-Creation-Date: 2022-10-22 00:48+0000\n"
+"PO-Revision-Date: 2022-10-21 06:02+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -305,38 +305,38 @@ msgid "Jump to Previous Hunk"
 msgstr "წინა ნაფლეთზე გადასვლა"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
-#: lib/filehistorywidget.cpp:258 lib/kateconfigdialog.cpp:116
+#: lib/filehistorywidget.cpp:254 lib/kateconfigdialog.cpp:116
 #: lib/session/katesessionmanagedialog.ui:184
 #, kde-format
 msgid "Close"
 msgstr "დახურვა"
 
-#: lib/filehistorywidget.cpp:290
+#: lib/filehistorywidget.cpp:286
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:303
+#: lib/filehistorywidget.cpp:299
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:346 lib/kateconfigdialog.cpp:347
+#: lib/filehistorywidget.cpp:342 lib/kateconfigdialog.cpp:347
 #, kde-format
 msgid "Error"
 msgstr "შეცდომა"
 
-#: lib/filehistorywidget.cpp:346
+#: lib/filehistorywidget.cpp:342
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr ""
 
-#: lib/filehistorywidget.cpp:346
+#: lib/filehistorywidget.cpp:342
 #, kde-format
 msgid "Git"
 msgstr "Git"
 
-#: lib/filehistorywidget.cpp:354
+#: lib/filehistorywidget.cpp:350
 #, kde-format
 msgid "File History"
 msgstr "ფაილის ისტორია"
@@ -1035,7 +1035,7 @@ msgstr "Ფაილის წაშლა"
 #: lib/katefileactions.cpp:144
 #, kde-format
 msgid "File \"%1\" could not be deleted."
-msgstr ""
+msgstr "ფაილის (%1) წაშლა შეუძლებელია."
 
 #: lib/katemainwindow.cpp:215
 #, kde-format
@@ -1154,7 +1154,7 @@ msgstr "მდებარეობის კოპირება"
 msgid "Copies the file path of the current file to clipboard."
 msgstr ""
 
-#: lib/katemainwindow.cpp:333 lib/welcomeview/welcomeview.cpp:223
+#: lib/katemainwindow.cpp:333 lib/welcomeview/welcomeview.cpp:244
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "შემცველი საქაღალდის &გახსნა"
@@ -1340,7 +1340,7 @@ msgstr "შემდეგ მდებარეობაზე გადას�
 #: lib/katemainwindow.cpp:511
 #, kde-format
 msgid "Show File Git History"
-msgstr ""
+msgstr "ფაილის Git ისტორიის ჩვენება"
 
 #: lib/katemainwindow.cpp:526
 #, kde-format
@@ -1404,12 +1404,12 @@ msgstr "&სხვა..."
 msgid " [read only]"
 msgstr " (მხოლოდ-კითხვადი)"
 
-#: lib/katemainwindow.cpp:1371
+#: lib/katemainwindow.cpp:1372
 #, kde-format
 msgid "Diff %1"
 msgstr ""
 
-#: lib/katemainwindow.cpp:1373
+#: lib/katemainwindow.cpp:1374
 #, kde-format
 msgid "Diff %1..%2"
 msgstr ""
@@ -1422,22 +1422,22 @@ msgstr ""
 #: lib/katemdi.cpp:102
 #, kde-format
 msgid "Sidebar Buttons"
-msgstr ""
+msgstr "გვერდითი პანელის ღილაკები"
 
 #: lib/katemdi.cpp:105
 #, kde-format
 msgid "Tool &Views"
-msgstr ""
+msgstr "პროგრამის &ხედები"
 
 #: lib/katemdi.cpp:107
 #, kde-format
 msgid "Show Side&bars"
-msgstr ""
+msgstr "&გვერდითი პანელების ჩვენება"
 
 #: lib/katemdi.cpp:115
 #, kde-format
 msgid "Hide All Tool Views"
-msgstr ""
+msgstr "ყველა გვერდით პანელის ხედის დამალვა"
 
 #: lib/katemdi.cpp:162
 #, kde-format
@@ -1991,57 +1991,57 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/kateviewspace.cpp:955
+#: lib/kateviewspace.cpp:960
 #, kde-format
 msgid "Close Tab"
 msgstr "ჩანართის დახურვა"
 
-#: lib/kateviewspace.cpp:972
+#: lib/kateviewspace.cpp:977
 #, kde-format
 msgid "&Close Document"
 msgstr "დოკუმენტის &დახურვა"
 
-#: lib/kateviewspace.cpp:973
+#: lib/kateviewspace.cpp:978
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "სხვა &დოკუმენტების დახურვა"
 
-#: lib/kateviewspace.cpp:974
+#: lib/kateviewspace.cpp:979
 #, kde-format
 msgid "Close &All Documents"
 msgstr "&ყველა დოკუმენტის დახურვა"
 
-#: lib/kateviewspace.cpp:976
+#: lib/kateviewspace.cpp:981
 #, kde-format
 msgid "D&etach Document"
 msgstr "&დოკუმენტის მოხსნა"
 
-#: lib/kateviewspace.cpp:977
+#: lib/kateviewspace.cpp:982
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewspace.cpp:986
+#: lib/kateviewspace.cpp:991
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "აქტიურ დოკუმენტთან შედარება"
 
-#: lib/kateviewspace.cpp:990
+#: lib/kateviewspace.cpp:995
 #, kde-format
 msgid "Diff %1 .. %2"
 msgstr ""
 
-#: lib/kateviewspace.cpp:995
+#: lib/kateviewspace.cpp:1000
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "აქტიურ დოკუმენტთან შედარება გამოყენებით"
 
-#: lib/kateviewspace.cpp:1062
+#: lib/kateviewspace.cpp:1067
 #, kde-format
 msgid "Could not start program"
 msgstr "პროგრამის გაშვების შეცდომა"
 
-#: lib/kateviewspace.cpp:1063
+#: lib/kateviewspace.cpp:1068
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""
@@ -2345,42 +2345,42 @@ msgstr ""
 msgid "Delete unused meta-information after:"
 msgstr ""
 
-#: lib/welcomeview/welcomeview.cpp:51
+#: lib/welcomeview/welcomeview.cpp:52
 #, kde-format
 msgid "Welcome to %1"
 msgstr "მოგესალმებით %1-ში"
 
-#: lib/welcomeview/welcomeview.cpp:55
+#: lib/welcomeview/welcomeview.cpp:56
 #, kde-format
 msgid "Recent Documents and Projects"
 msgstr "ახლახანს გახსნილი დოკუმენტები და პროექტები"
 
-#: lib/welcomeview/welcomeview.cpp:55
+#: lib/welcomeview/welcomeview.cpp:56
 #, kde-format
 msgid "Recent Documents"
 msgstr "ახლახანს გახსნილი დოკუმენტები"
 
-#: lib/welcomeview/welcomeview.cpp:58
+#: lib/welcomeview/welcomeview.cpp:59
 #, kde-format
 msgid "No recent documents or projects"
 msgstr "ახლახანს გახსნილი დოკუმენტებისა და პროექტების გარეშე"
 
-#: lib/welcomeview/welcomeview.cpp:58
+#: lib/welcomeview/welcomeview.cpp:59
 #, kde-format
 msgid "No recent documents"
 msgstr "ახლახანს გახსნილი დოკუმენტების გარეშე"
 
-#: lib/welcomeview/welcomeview.cpp:116
+#: lib/welcomeview/welcomeview.cpp:115
 #, kde-format
 msgid "No saved sessions"
 msgstr "შენახული სესიების გარეშე"
 
-#: lib/welcomeview/welcomeview.cpp:216
+#: lib/welcomeview/welcomeview.cpp:237
 #, kde-format
 msgid "Copy &Location"
 msgstr "&მდებარეობის კოპირება"
 
-#: lib/welcomeview/welcomeview.cpp:231
+#: lib/welcomeview/welcomeview.cpp:252
 #, kde-format
 msgid "&Remove"
 msgstr "&წაშლა"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-20 00:55+0000\n"
+"POT-Creation-Date: 2022-10-22 00:48+0000\n"
 "PO-Revision-Date: 2022-10-09 08:53+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -384,37 +384,37 @@ msgid ""
 "<p><b>%1</b></p><p>The document has been modified by another application.</p>"
 msgstr "<p><b>%1</b></p><p>Dokumentua beste aplikazio batek aldatu du.</p>"
 
-#: katefiletreeplugin.cpp:247
+#: katefiletreeplugin.cpp:246
 #, kde-format
 msgid "Previous Document"
 msgstr "Aurreko dokumentua"
 
-#: katefiletreeplugin.cpp:253
+#: katefiletreeplugin.cpp:252
 #, kde-format
 msgid "Next Document"
 msgstr "Hurrengo dokumentua"
 
-#: katefiletreeplugin.cpp:259
+#: katefiletreeplugin.cpp:258
 #, kde-format
 msgid "&Show Active Document"
 msgstr "Erakut&si dokumentu aktiboa"
 
-#: katefiletreeplugin.cpp:264
+#: katefiletreeplugin.cpp:263
 #, kde-format
 msgid "Save"
 msgstr "Gorde"
 
-#: katefiletreeplugin.cpp:265
+#: katefiletreeplugin.cpp:264
 #, kde-format
 msgid "Save the current document"
 msgstr "Gorde uneko dokumentua"
 
-#: katefiletreeplugin.cpp:269
+#: katefiletreeplugin.cpp:268
 #, kde-format
 msgid "Save As"
 msgstr "Gorde honela"
 
-#: katefiletreeplugin.cpp:270
+#: katefiletreeplugin.cpp:269
 #, kde-format
 msgid "Save the current document under a new name"
 msgstr "Gorde uneko dokumentua beste izen batekin"

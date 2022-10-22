@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-21 00:50+0000\n"
+"POT-Creation-Date: 2022-10-22 00:48+0000\n"
 "PO-Revision-Date: 2017-05-16 06:36-0400\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Hebrew <kde-i18n-doc@kde.org>\n"
@@ -326,39 +326,39 @@ msgid "Jump to Previous Hunk"
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
-#: lib/filehistorywidget.cpp:258 lib/kateconfigdialog.cpp:116
+#: lib/filehistorywidget.cpp:254 lib/kateconfigdialog.cpp:116
 #: lib/session/katesessionmanagedialog.ui:184
 #, fuzzy, kde-format
 #| msgid "Clos&e All"
 msgid "Close"
 msgstr "ס&גור הכל"
 
-#: lib/filehistorywidget.cpp:290
+#: lib/filehistorywidget.cpp:286
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:303
+#: lib/filehistorywidget.cpp:299
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:346 lib/kateconfigdialog.cpp:347
+#: lib/filehistorywidget.cpp:342 lib/kateconfigdialog.cpp:347
 #, kde-format
 msgid "Error"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:346
+#: lib/filehistorywidget.cpp:342
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr ""
 
-#: lib/filehistorywidget.cpp:346
+#: lib/filehistorywidget.cpp:342
 #, kde-format
 msgid "Git"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:354
+#: lib/filehistorywidget.cpp:350
 #, kde-format
 msgid "File History"
 msgstr ""
@@ -1208,7 +1208,7 @@ msgstr "מיקום"
 msgid "Copies the file path of the current file to clipboard."
 msgstr "שנה את  הכיוון של התצוגה המפוצלת"
 
-#: lib/katemainwindow.cpp:333 lib/welcomeview/welcomeview.cpp:223
+#: lib/katemainwindow.cpp:333 lib/welcomeview/welcomeview.cpp:244
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "פתח תיקיה מכילה"
@@ -1475,12 +1475,12 @@ msgstr "&אחר..."
 msgid " [read only]"
 msgstr " [קריאה בלבד]"
 
-#: lib/katemainwindow.cpp:1371
+#: lib/katemainwindow.cpp:1372
 #, kde-format
 msgid "Diff %1"
 msgstr ""
 
-#: lib/katemainwindow.cpp:1373
+#: lib/katemainwindow.cpp:1374
 #, kde-format
 msgid "Diff %1..%2"
 msgstr ""
@@ -2095,62 +2095,62 @@ msgstr[1] ""
 "כרגע יש עוד %1 מסמכים פתוחים. כדי לראות את כולם, החלף לתצוגת פתיחה מהירה ע"
 "\"י לחיצה כאן"
 
-#: lib/kateviewspace.cpp:955
+#: lib/kateviewspace.cpp:960
 #, fuzzy, kde-format
 #| msgid "Clos&e All"
 msgid "Close Tab"
 msgstr "ס&גור הכל"
 
-#: lib/kateviewspace.cpp:972
+#: lib/kateviewspace.cpp:977
 #, kde-format
 msgid "&Close Document"
 msgstr "סגור מסמך "
 
-#: lib/kateviewspace.cpp:973
+#: lib/kateviewspace.cpp:978
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "סגור מסמכים אחרים"
 
-#: lib/kateviewspace.cpp:974
+#: lib/kateviewspace.cpp:979
 #, fuzzy, kde-format
 #| msgid "Close all documents"
 msgid "Close &All Documents"
 msgstr "סגור את כל המסמכים"
 
-#: lib/kateviewspace.cpp:976
+#: lib/kateviewspace.cpp:981
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "D&etach Document"
 msgstr "סגור מסמך"
 
-#: lib/kateviewspace.cpp:977
+#: lib/kateviewspace.cpp:982
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewspace.cpp:986
+#: lib/kateviewspace.cpp:991
 #, fuzzy, kde-format
 #| msgid "Close the current document."
 msgid "Compare with Active Document"
 msgstr "סגירת המסמך הנוכחי."
 
-#: lib/kateviewspace.cpp:990
+#: lib/kateviewspace.cpp:995
 #, kde-format
 msgid "Diff %1 .. %2"
 msgstr ""
 
-#: lib/kateviewspace.cpp:995
+#: lib/kateviewspace.cpp:1000
 #, fuzzy, kde-format
 #| msgid "Close the current document."
 msgid "Compare with Active Document Using"
 msgstr "סגירת המסמך הנוכחי."
 
-#: lib/kateviewspace.cpp:1062
+#: lib/kateviewspace.cpp:1067
 #, kde-format
 msgid "Could not start program"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1063
+#: lib/kateviewspace.cpp:1068
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""
@@ -2484,52 +2484,52 @@ msgstr "שמור &מטא מידע וכניסות ישנות"
 msgid "Delete unused meta-information after:"
 msgstr "&מחק מטא מידע ללא שימוש לאחר:"
 
-#: lib/welcomeview/welcomeview.cpp:51
+#: lib/welcomeview/welcomeview.cpp:52
 #, kde-format
 msgid "Welcome to %1"
 msgstr ""
 
-#: lib/welcomeview/welcomeview.cpp:55
+#: lib/welcomeview/welcomeview.cpp:56
 #, fuzzy, kde-format
 #| msgctxt "The number of open documents"
 #| msgid "Open Documents"
 msgid "Recent Documents and Projects"
 msgstr "מסמכים פתוחים"
 
-#: lib/welcomeview/welcomeview.cpp:55
+#: lib/welcomeview/welcomeview.cpp:56
 #, fuzzy, kde-format
 #| msgctxt "The number of open documents"
 #| msgid "Open Documents"
 msgid "Recent Documents"
 msgstr "מסמכים פתוחים"
 
-#: lib/welcomeview/welcomeview.cpp:58
+#: lib/welcomeview/welcomeview.cpp:59
 #, fuzzy, kde-format
 #| msgctxt "The number of open documents"
 #| msgid "Open Documents"
 msgid "No recent documents or projects"
 msgstr "מסמכים פתוחים"
 
-#: lib/welcomeview/welcomeview.cpp:58
+#: lib/welcomeview/welcomeview.cpp:59
 #, fuzzy, kde-format
 #| msgctxt "The number of open documents"
 #| msgid "Open Documents"
 msgid "No recent documents"
 msgstr "מסמכים פתוחים"
 
-#: lib/welcomeview/welcomeview.cpp:116
+#: lib/welcomeview/welcomeview.cpp:115
 #, fuzzy, kde-format
 #| msgid "&Save Session"
 msgid "No saved sessions"
 msgstr "&שמור הפעלה"
 
-#: lib/welcomeview/welcomeview.cpp:216
+#: lib/welcomeview/welcomeview.cpp:237
 #, fuzzy, kde-format
 #| msgid "Location"
 msgid "Copy &Location"
 msgstr "מיקום"
 
-#: lib/welcomeview/welcomeview.cpp:231
+#: lib/welcomeview/welcomeview.cpp:252
 #, kde-format
 msgid "&Remove"
 msgstr ""

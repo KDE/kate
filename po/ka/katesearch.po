@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-20 00:55+0000\n"
-"PO-Revision-Date: 2022-09-12 11:09+0200\n"
+"PO-Revision-Date: 2022-10-21 06:01+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -21,32 +21,32 @@ msgstr ""
 #: KateSearchCommand.cpp:80
 #, kde-format
 msgid "Usage: grep [pattern to search for in folder]"
-msgstr ""
+msgstr "გამოყენება: grep [საქაღალდეში მოსაძებნი ნიმუში]"
 
 #: KateSearchCommand.cpp:82
 #, kde-format
 msgid "Usage: newGrep [pattern to search for in folder]"
-msgstr ""
+msgstr "გამოყენება: newGrep [საქაღალდეში მოსაძებნი ნიმუში]"
 
 #: KateSearchCommand.cpp:86 KateSearchCommand.cpp:88
 #, kde-format
 msgid "Usage: search [pattern to search for in open files]"
-msgstr ""
+msgstr "გამოყენება: search [ღია ფაილებში მოსაძებნი ნიმუში]"
 
 #: KateSearchCommand.cpp:92
 #, kde-format
 msgid "Usage: pgrep [pattern to search for in current project]"
-msgstr ""
+msgstr "გამოყენება: search [მიმდინარე პროექტში მოსაძებნი ნიმუში]"
 
 #: KateSearchCommand.cpp:94
 #, kde-format
 msgid "Usage: newPGrep [pattern to search for in current project]"
-msgstr ""
+msgstr "გამოყენება: newPGrep [მიმდინარე პროექტში მოსაძებნი ნიმუში]"
 
 #: KateSearchCommand.cpp:98
 #, kde-format
 msgid "Usage: preg [regex pattern to search for in current project]"
-msgstr ""
+msgstr "გამოყენება: preg [მიმდინარე პროექტში მოსაძებნი regex ნიმუში]"
 
 #: MatchExportDialog.cpp:20
 #, kde-format
@@ -57,7 +57,7 @@ msgstr ""
 #: MatchExportDialog.ui:31
 #, kde-format
 msgid "Export Pattern"
-msgstr ""
+msgstr "ნიმუშის გატანა"
 
 #. i18n: ectx: property (text), widget (QPushButton, pushButton)
 #: MatchExportDialog.ui:38
@@ -94,15 +94,15 @@ msgstr[1] "<b><i>ნაპოვნია %1 დამთხვევა. ძე
 #, kde-format
 msgid "One checked"
 msgid_plural "%1 checked"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "1 შემოწმდა"
+msgstr[1] "%1 შემოწმდა"
 
 #: MatchModel.cpp:574
 #, kde-format
 msgid "<b><i>One match (%2) found in file</i></b>"
 msgid_plural "<b><i>%1 matches (%2) found in current file</i></b>"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "<b><i>ფაილში ნაპოვნია 1 (%2) დამთხვევა</i></b>"
+msgstr[1] "<b><i>ფაილში ნაპოვნია %1 (%2) დამთხვევა</i></b>"
 
 #: MatchModel.cpp:576
 #, kde-format
@@ -377,17 +377,17 @@ msgstr ""
 #: SearchPlugin.cpp:102
 #, kde-format
 msgid "One or more occurrences"
-msgstr ""
+msgstr "ერთი ან მეტი გამოვლენა"
 
 #: SearchPlugin.cpp:103
 #, kde-format
 msgid "Zero or more occurrences"
-msgstr ""
+msgstr "ნული ან მეტი გამოვლენა"
 
 #: SearchPlugin.cpp:104
 #, kde-format
 msgid "Zero or one occurrences"
-msgstr ""
+msgstr "ნული ან ერთი გამოვლენა"
 
 #: SearchPlugin.cpp:106
 #, kde-format
@@ -472,37 +472,37 @@ msgstr ""
 #: SearchPlugin.cpp:138
 #, kde-format
 msgid "Regular expression capture 0 (whole match)"
-msgstr ""
+msgstr "რეგულარული გამოსახულების ჩაჭერა 0 (სრული დამთხვევა)"
 
 #: SearchPlugin.cpp:139
 #, kde-format
 msgid "Regular expression capture 1-9"
-msgstr ""
+msgstr "რეგულარული გამოსახულების ჩაჭერა 1-9"
 
 #: SearchPlugin.cpp:140
 #, kde-format
 msgid "Regular expression capture 0-999"
-msgstr ""
+msgstr "რეგულარული გამოსახულების ჩაჭერა 0-999"
 
 #: SearchPlugin.cpp:142
 #, kde-format
 msgid "Upper-cased capture 0-9"
-msgstr ""
+msgstr "მაღალი რეგისტრით ჩაჭერა 0-9"
 
 #: SearchPlugin.cpp:143
 #, kde-format
 msgid "Upper-cased capture 0-999"
-msgstr ""
+msgstr "მაღალი რეგისტრით ჩაჭერა 0-9999"
 
 #: SearchPlugin.cpp:144
 #, kde-format
 msgid "Lower-cased capture 0-9"
-msgstr ""
+msgstr "დაბალი რეგისტრით ჩაჭერა 0-9"
 
 #: SearchPlugin.cpp:145
 #, kde-format
 msgid "Lower-cased capture 0-999"
-msgstr ""
+msgstr "დაბალი რეგისტრით ჩაჭერა 0-9999"
 
 #: SearchPlugin.cpp:295
 #, kde-format
@@ -588,10 +588,9 @@ msgid "Continuing from last match"
 msgstr "ბოლო დამთხვევიდან გაგრძელება"
 
 #: SearchPlugin.cpp:2028
-#, fuzzy, kde-format
-#| msgid "Search"
+#, kde-format
 msgid "Search: %1"
-msgstr "ძებნა"
+msgstr "ძებნა: %1"
 
 #: SearchPlugin.cpp:2159
 #, kde-format
@@ -611,7 +610,7 @@ msgstr "დამთხვევების გატანა"
 #: SearchPlugin.cpp:2173
 #, kde-format
 msgid "Open as Editor Tab"
-msgstr ""
+msgstr "გახსნა, როგორც რედაქტორის ჩანართის"
 
 #: SearchPlugin.cpp:2180
 #, kde-format
@@ -648,4 +647,4 @@ msgstr "&ჩასწორება"
 #: ui.rc:9
 #, kde-format
 msgid "Find in Files Variants"
-msgstr ""
+msgstr "ფაილების ვარიანტებსი ძებნა"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-21 00:50+0000\n"
+"POT-Creation-Date: 2022-10-22 00:48+0000\n"
 "PO-Revision-Date: 2022-10-19 09:55+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -319,40 +319,40 @@ msgid "Jump to Previous Hunk"
 msgstr "Salta al bloc anterior"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
-#: lib/filehistorywidget.cpp:258 lib/kateconfigdialog.cpp:116
+#: lib/filehistorywidget.cpp:254 lib/kateconfigdialog.cpp:116
 #: lib/session/katesessionmanagedialog.ui:184
 #, kde-format
 msgid "Close"
 msgstr "Tanca"
 
-#: lib/filehistorywidget.cpp:290
+#: lib/filehistorywidget.cpp:286
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
 "No s'ha pogut obtindre l'historial de fitxers: no s'ha trobat l'executable "
 "«git» en la PATH"
 
-#: lib/filehistorywidget.cpp:303
+#: lib/filehistorywidget.cpp:299
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr "No s'ha pogut obtindre l'historial de fitxers: %1"
 
-#: lib/filehistorywidget.cpp:346 lib/kateconfigdialog.cpp:347
+#: lib/filehistorywidget.cpp:342 lib/kateconfigdialog.cpp:347
 #, kde-format
 msgid "Error"
 msgstr "S'ha produït un error"
 
-#: lib/filehistorywidget.cpp:346
+#: lib/filehistorywidget.cpp:342
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 no existix en cap repositori de Git."
 
-#: lib/filehistorywidget.cpp:346
+#: lib/filehistorywidget.cpp:342
 #, kde-format
 msgid "Git"
 msgstr "Git"
 
-#: lib/filehistorywidget.cpp:354
+#: lib/filehistorywidget.cpp:350
 #, kde-format
 msgid "File History"
 msgstr "Historial de fitxers"
@@ -1202,7 +1202,7 @@ msgstr "Copia la ubicació"
 msgid "Copies the file path of the current file to clipboard."
 msgstr "Copia el camí del fitxer del fitxer actual al porta-retalls."
 
-#: lib/katemainwindow.cpp:333 lib/welcomeview/welcomeview.cpp:223
+#: lib/katemainwindow.cpp:333 lib/welcomeview/welcomeview.cpp:244
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "O&bri la carpeta contenidora"
@@ -1464,12 +1464,12 @@ msgstr "Al&tres..."
 msgid " [read only]"
 msgstr " [només de lectura]"
 
-#: lib/katemainwindow.cpp:1371
+#: lib/katemainwindow.cpp:1372
 #, kde-format
 msgid "Diff %1"
 msgstr "Diff %1"
 
-#: lib/katemainwindow.cpp:1373
+#: lib/katemainwindow.cpp:1374
 #, kde-format
 msgid "Diff %1..%2"
 msgstr "Diff %1..%2"
@@ -2082,58 +2082,58 @@ msgstr[1] ""
 "Actualment, hi ha oberts %1 documents. Per a veure tots els documents "
 "oberts, canvieu a la vista Obertura ràpida clicant ací."
 
-#: lib/kateviewspace.cpp:955
+#: lib/kateviewspace.cpp:960
 #, kde-format
 msgid "Close Tab"
 msgstr "Tanca la pestanya"
 
-#: lib/kateviewspace.cpp:972
+#: lib/kateviewspace.cpp:977
 #, kde-format
 msgid "&Close Document"
 msgstr "Tan&ca el document"
 
-#: lib/kateviewspace.cpp:973
+#: lib/kateviewspace.cpp:978
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "Tanca els altres &documents"
 
-#: lib/kateviewspace.cpp:974
+#: lib/kateviewspace.cpp:979
 #, kde-format
 msgid "Close &All Documents"
 msgstr "T&anca tots els documents"
 
-#: lib/kateviewspace.cpp:976
+#: lib/kateviewspace.cpp:981
 #, kde-format
 msgid "D&etach Document"
 msgstr "S&epara el document"
 
-#: lib/kateviewspace.cpp:977
+#: lib/kateviewspace.cpp:982
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "Obri el document en una finestra nova i el tanca a la finestra actual"
 
-#: lib/kateviewspace.cpp:986
+#: lib/kateviewspace.cpp:991
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Compara amb el document actiu"
 
 # skip-rule: t-sp_pu
-#: lib/kateviewspace.cpp:990
+#: lib/kateviewspace.cpp:995
 #, kde-format
 msgid "Diff %1 .. %2"
 msgstr "Diff %1 .. %2"
 
-#: lib/kateviewspace.cpp:995
+#: lib/kateviewspace.cpp:1000
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Compara amb el document actiu emprant"
 
-#: lib/kateviewspace.cpp:1062
+#: lib/kateviewspace.cpp:1067
 #, kde-format
 msgid "Could not start program"
 msgstr "No s'ha pogut iniciar el programa"
 
-#: lib/kateviewspace.cpp:1063
+#: lib/kateviewspace.cpp:1068
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""
@@ -2456,42 +2456,42 @@ msgstr "Conserva la &meta-informació de les sessions antigues"
 msgid "Delete unused meta-information after:"
 msgstr "Suprimix la meta-informació sense utilitzar després de:"
 
-#: lib/welcomeview/welcomeview.cpp:51
+#: lib/welcomeview/welcomeview.cpp:52
 #, kde-format
 msgid "Welcome to %1"
 msgstr "Us donem la benvinguda a %1"
 
-#: lib/welcomeview/welcomeview.cpp:55
+#: lib/welcomeview/welcomeview.cpp:56
 #, kde-format
 msgid "Recent Documents and Projects"
 msgstr "Documents i projectes recents"
 
-#: lib/welcomeview/welcomeview.cpp:55
+#: lib/welcomeview/welcomeview.cpp:56
 #, kde-format
 msgid "Recent Documents"
 msgstr "Documents recents"
 
-#: lib/welcomeview/welcomeview.cpp:58
+#: lib/welcomeview/welcomeview.cpp:59
 #, kde-format
 msgid "No recent documents or projects"
 msgstr "No hi ha documents ni projectes recents"
 
-#: lib/welcomeview/welcomeview.cpp:58
+#: lib/welcomeview/welcomeview.cpp:59
 #, kde-format
 msgid "No recent documents"
 msgstr "No hi ha cap document recent"
 
-#: lib/welcomeview/welcomeview.cpp:116
+#: lib/welcomeview/welcomeview.cpp:115
 #, kde-format
 msgid "No saved sessions"
 msgstr "No hi ha cap sessió guardada"
 
-#: lib/welcomeview/welcomeview.cpp:216
+#: lib/welcomeview/welcomeview.cpp:237
 #, kde-format
 msgid "Copy &Location"
 msgstr "Copia la &ubicació"
 
-#: lib/welcomeview/welcomeview.cpp:231
+#: lib/welcomeview/welcomeview.cpp:252
 #, kde-format
 msgid "&Remove"
 msgstr "&Elimina"

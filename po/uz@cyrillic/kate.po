@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-21 00:50+0000\n"
+"POT-Creation-Date: 2022-10-22 00:48+0000\n"
 "PO-Revision-Date: 2006-12-17 12:02+0000\n"
 "Last-Translator: Mashrab Kuvatov <kmashrab@uni-bremen.de>\n"
 "Language-Team: Uzbek <floss-uz-l10n@googlegroups.com>\n"
@@ -315,39 +315,39 @@ msgid "Jump to Previous Hunk"
 msgstr "Манзилларни &тиклаш"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
-#: lib/filehistorywidget.cpp:258 lib/kateconfigdialog.cpp:116
+#: lib/filehistorywidget.cpp:254 lib/kateconfigdialog.cpp:116
 #: lib/session/katesessionmanagedialog.ui:184
 #, fuzzy, kde-format
 #| msgid "Clos&e All"
 msgid "Close"
 msgstr "Ҳаммасини ё&пиш"
 
-#: lib/filehistorywidget.cpp:290
+#: lib/filehistorywidget.cpp:286
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:303
+#: lib/filehistorywidget.cpp:299
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:346 lib/kateconfigdialog.cpp:347
+#: lib/filehistorywidget.cpp:342 lib/kateconfigdialog.cpp:347
 #, kde-format
 msgid "Error"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:346
+#: lib/filehistorywidget.cpp:342
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr ""
 
-#: lib/filehistorywidget.cpp:346
+#: lib/filehistorywidget.cpp:342
 #, kde-format
 msgid "Git"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:354
+#: lib/filehistorywidget.cpp:350
 #, fuzzy, kde-format
 #| msgid "File Selector"
 msgid "File History"
@@ -1199,7 +1199,7 @@ msgstr "Манзил"
 msgid "Copies the file path of the current file to clipboard."
 msgstr "Кейинги бўлинган кўринишни актив қилиш."
 
-#: lib/katemainwindow.cpp:333 lib/welcomeview/welcomeview.cpp:223
+#: lib/katemainwindow.cpp:333 lib/welcomeview/welcomeview.cpp:244
 #, fuzzy, kde-format
 msgid "&Open Containing Folder"
 msgstr "Очиш тартиби"
@@ -1469,12 +1469,12 @@ msgstr "&Бошқа..."
 msgid " [read only]"
 msgstr ""
 
-#: lib/katemainwindow.cpp:1371
+#: lib/katemainwindow.cpp:1372
 #, kde-format
 msgid "Diff %1"
 msgstr ""
 
-#: lib/katemainwindow.cpp:1373
+#: lib/katemainwindow.cpp:1374
 #, kde-format
 msgid "Diff %1..%2"
 msgstr ""
@@ -2090,61 +2090,61 @@ msgid_plural ""
 "switch to the Quick Open view by clicking here."
 msgstr[0] ""
 
-#: lib/kateviewspace.cpp:955
+#: lib/kateviewspace.cpp:960
 #, fuzzy, kde-format
 msgid "Close Tab"
 msgstr "Жорий табни ёпиш"
 
-#: lib/kateviewspace.cpp:972
+#: lib/kateviewspace.cpp:977
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "&Close Document"
 msgstr "Ҳужжатни ёпиш"
 
-#: lib/kateviewspace.cpp:973
+#: lib/kateviewspace.cpp:978
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "Close Other &Documents"
 msgstr "Ҳужжатни ёпиш"
 
-#: lib/kateviewspace.cpp:974
+#: lib/kateviewspace.cpp:979
 #, fuzzy, kde-format
 #| msgid "Close all open documents."
 msgid "Close &All Documents"
 msgstr "Ҳамма очиқ ҳужжатларни ёпиш."
 
-#: lib/kateviewspace.cpp:976
+#: lib/kateviewspace.cpp:981
 #, fuzzy, kde-format
 #| msgid "&Document"
 msgid "D&etach Document"
 msgstr "Ҳ&ужжат"
 
-#: lib/kateviewspace.cpp:977
+#: lib/kateviewspace.cpp:982
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewspace.cpp:986
+#: lib/kateviewspace.cpp:991
 #, fuzzy, kde-format
 msgid "Compare with Active Document"
 msgstr "Янги ҳужжатни яратиш"
 
-#: lib/kateviewspace.cpp:990
+#: lib/kateviewspace.cpp:995
 #, kde-format
 msgid "Diff %1 .. %2"
 msgstr ""
 
-#: lib/kateviewspace.cpp:995
+#: lib/kateviewspace.cpp:1000
 #, fuzzy, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Янги ҳужжатни яратиш"
 
-#: lib/kateviewspace.cpp:1062
+#: lib/kateviewspace.cpp:1067
 #, kde-format
 msgid "Could not start program"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1063
+#: lib/kateviewspace.cpp:1068
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""
@@ -2457,43 +2457,43 @@ msgstr ""
 msgid "Delete unused meta-information after:"
 msgstr ""
 
-#: lib/welcomeview/welcomeview.cpp:51
+#: lib/welcomeview/welcomeview.cpp:52
 #, kde-format
 msgid "Welcome to %1"
 msgstr ""
 
-#: lib/welcomeview/welcomeview.cpp:55
+#: lib/welcomeview/welcomeview.cpp:56
 #, fuzzy, kde-format
 msgid "Recent Documents and Projects"
 msgstr "Ҳужжатларни очиш"
 
-#: lib/welcomeview/welcomeview.cpp:55
+#: lib/welcomeview/welcomeview.cpp:56
 #, fuzzy, kde-format
 msgid "Recent Documents"
 msgstr "Ҳужжатларни очиш"
 
-#: lib/welcomeview/welcomeview.cpp:58
+#: lib/welcomeview/welcomeview.cpp:59
 #, fuzzy, kde-format
 msgid "No recent documents or projects"
 msgstr "Ҳужжатларни очиш"
 
-#: lib/welcomeview/welcomeview.cpp:58
+#: lib/welcomeview/welcomeview.cpp:59
 #, fuzzy, kde-format
 msgid "No recent documents"
 msgstr "Ҳужжатларни очиш"
 
-#: lib/welcomeview/welcomeview.cpp:116
+#: lib/welcomeview/welcomeview.cpp:115
 #, fuzzy, kde-format
 #| msgid "&Do not save session"
 msgid "No saved sessions"
 msgstr "Сеанс сақлан&масин"
 
-#: lib/welcomeview/welcomeview.cpp:216
+#: lib/welcomeview/welcomeview.cpp:237
 #, fuzzy, kde-format
 msgid "Copy &Location"
 msgstr "Манзил"
 
-#: lib/welcomeview/welcomeview.cpp:231
+#: lib/welcomeview/welcomeview.cpp:252
 #, kde-format
 msgid "&Remove"
 msgstr ""

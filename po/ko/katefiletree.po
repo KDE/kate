@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-20 00:55+0000\n"
+"POT-Creation-Date: 2022-10-22 00:48+0000\n"
 "PO-Revision-Date: 2022-08-09 13:37+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -384,38 +384,38 @@ msgid ""
 "<p><b>%1</b></p><p>The document has been modified by another application.</p>"
 msgstr "<p><b>%1</b></p><p>다른 프로그램에서 이 문서를 수정했습니다.</p>"
 
-#: katefiletreeplugin.cpp:247
+#: katefiletreeplugin.cpp:246
 #, kde-format
 msgid "Previous Document"
 msgstr "이전 문서"
 
-#: katefiletreeplugin.cpp:253
+#: katefiletreeplugin.cpp:252
 #, kde-format
 msgid "Next Document"
 msgstr "다음 문서"
 
-#: katefiletreeplugin.cpp:259
+#: katefiletreeplugin.cpp:258
 #, fuzzy, kde-format
 #| msgid "&Show Active"
 msgid "&Show Active Document"
 msgstr "활성 항목 표시(&S)"
 
-#: katefiletreeplugin.cpp:264
+#: katefiletreeplugin.cpp:263
 #, kde-format
 msgid "Save"
 msgstr ""
 
-#: katefiletreeplugin.cpp:265
+#: katefiletreeplugin.cpp:264
 #, kde-format
 msgid "Save the current document"
 msgstr "현재 문서를 저장합니다"
 
-#: katefiletreeplugin.cpp:269
+#: katefiletreeplugin.cpp:268
 #, kde-format
 msgid "Save As"
 msgstr ""
 
-#: katefiletreeplugin.cpp:270
+#: katefiletreeplugin.cpp:269
 #, fuzzy, kde-format
 #| msgid "Save current document under new name"
 msgid "Save the current document under a new name"

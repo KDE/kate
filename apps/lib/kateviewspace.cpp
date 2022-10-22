@@ -543,7 +543,7 @@ void KateViewSpace::closeDocument(KTextEditor::Document *doc)
     // OR the doc has no views yet
     // just close the document and it will take
     // care of removing the view + cleaning up the doc
-    if (doc->views().size() <= 1) {
+    if (m_viewManager->docOnlyInOneViewspace(doc)) {
         m_viewManager->slotDocumentClose(doc);
     } else {
         // KTE::view for this tab has been created yet?
@@ -622,7 +622,7 @@ void KateViewSpace::dropEvent(QDropEvent *e)
 
 bool KateViewSpace::hasDocument(KTextEditor::Document *doc) const
 {
-    return m_registeredDocuments.contains(doc) && (m_docToView.find(doc) != m_docToView.end());
+    return m_registeredDocuments.contains(doc);
 }
 
 KTextEditor::View *KateViewSpace::takeView(KTextEditor::Document *doc)

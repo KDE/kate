@@ -35,6 +35,7 @@ private Q_SLOTS:
     void testWidgetAddedEmittedOnAddWidget();
     void testWidgetRemovedEmittedOnRemoveWidget();
     void testActivateNotAddedWidget();
+    void testBug460613();
 
 private:
     class QTemporaryDir *m_tempdir;

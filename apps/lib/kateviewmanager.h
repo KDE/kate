@@ -311,6 +311,11 @@ public Q_SLOTS:
 
     void onViewSpaceEmptied(KateViewSpace *vs);
 
+    // Returns the number of viewspaces this document is registered in
+    int viewspaceCountForDoc(KTextEditor::Document *doc) const;
+    // returns true if @p doc exists only in one viewspace
+    bool docOnlyInOneViewspace(KTextEditor::Document *doc) const;
+
     void setShowUrlNavBar(bool show);
     bool showUrlNavBar() const;
 

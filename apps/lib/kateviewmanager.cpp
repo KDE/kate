@@ -1163,6 +1163,31 @@ void KateViewManager::onViewSpaceEmptied(KateViewSpace *vs)
     showWelcomeViewOrNewDocumentIfNeeded();
 }
 
+int KateViewManager::viewspaceCountForDoc(KTextEditor::Document *doc) const
+{
+    return std::count_if(m_viewSpaceList.begin(), m_viewSpaceList.end(), [doc](KateViewSpace *vs) {
+        return vs->hasDocument(doc);
+    });
+}
+
+bool KateViewManager::docOnlyInOneViewspace(KTextEditor::Document *doc) const
+{
+    auto count = viewspaceCountForDoc(doc);
+    if (count > 1) {
+        return false;
+    }
+
+    std::vector<KateMainWindow *> mainWindows;
+    const auto mws = KateApp::self()->mainWindows();
+    for (auto *mw : mws) {
+        auto w = qobject_cast<KateMainWindow *>(mw->window());
+        if (w && w != m_mainWindow) {
+            count += w->viewManager()->viewspaceCountForDoc(doc);
+        }
+    }
+    return count == 1;
+}
+
 void KateViewManager::setShowUrlNavBar(bool show)
 {
     if (show != m_showUrlNavBar) {

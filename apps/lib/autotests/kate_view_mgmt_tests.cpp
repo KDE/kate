@@ -8,6 +8,8 @@
 #include "kateviewspace.h"
 #include "ktexteditor_utils.h"
 
+#include <KTextEditor/Editor>
+
 #include <QCommandLineParser>
 #include <QPointer>
 #include <QSignalSpy>
@@ -318,4 +320,43 @@ void KateViewManagementTests::testActivateNotAddedWidget()
     spy1.wait();
     QVERIFY(spy.count() == 1);
     QVERIFY(spy1.count() == 1);
+}
+
+void KateViewManagementTests::testBug460613()
+{
+    // See the bug for details
+    // This test basically splits into two viewspaces
+    // Both viewspaces have 1 view
+    // Adds a new doc to first viewsace and activates
+    // and then adds the same doc to second viewspace
+    // without activation
+    // TEST: closing the doc should only close it
+    // in the first viewspace, not second as well!
+    // TEST: closing the doc without view should work
+
+    app->sessionManager()->activateAnonymousSession();
+    KateMainWindow *mw = app->activeKateMainWindow();
+    auto vm = mw->viewManager();
+    vm->createView(nullptr);
+
+    vm->slotSplitViewSpaceVert();
+    QCOMPARE(vm->m_viewSpaceList.size(), 2);
+
+    auto vs1 = *vm->m_viewSpaceList.begin();
+    auto vs2 = *(vm->m_viewSpaceList.begin() + 1);
+
+    vs1->createNewDocument();
+    QCOMPARE(vm->activeView(), vs1->currentView());
+
+    KTextEditor::Document *doc = vm->activeView()->document();
+    vs2->registerDocument(doc); // registered, but has no view yet
+
+    vm->slotDocumentClose();
+
+    // The doc should still be there in the second viewspace
+    QVERIFY(vs2->m_registeredDocuments.contains(doc));
+
+    // Try to close the doc in second viewspace
+    vs2->closeDocument(doc);
+    QVERIFY(!vs2->hasDocument(doc));
 }

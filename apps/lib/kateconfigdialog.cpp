@@ -72,10 +72,15 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent)
         qWarning() << Q_FUNC_INFO << "Failed to get layout! Search will be disabled";
     }
 
-    // we may have a lot of pages, we want small icons for the list
+    // we may have a lot of pages on Kate, we want small icons for the list
+    if (KateApp::isKate()) {
 #if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 94, 0)
-    setFaceType(KPageDialog::FlatList);
+        setFaceType(KPageDialog::FlatList);
 #endif
+    }
+    else {
+        setFaceType(KPageDialog::List);
+    }
 
     const auto listViews = findChildren<QListView *>();
     for (auto *lv : listViews) {

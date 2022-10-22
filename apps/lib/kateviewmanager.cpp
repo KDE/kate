@@ -1172,20 +1172,7 @@ int KateViewManager::viewspaceCountForDoc(KTextEditor::Document *doc) const
 
 bool KateViewManager::docOnlyInOneViewspace(KTextEditor::Document *doc) const
 {
-    auto count = viewspaceCountForDoc(doc);
-    if (count > 1) {
-        return false;
-    }
-
-    std::vector<KateMainWindow *> mainWindows;
-    const auto mws = KateApp::self()->mainWindows();
-    for (auto *mw : mws) {
-        auto w = qobject_cast<KateMainWindow *>(mw->window());
-        if (w && w != m_mainWindow) {
-            count += w->viewManager()->viewspaceCountForDoc(doc);
-        }
-    }
-    return count == 1;
+    return (viewspaceCountForDoc(doc) == 1) && !KateApp::self()->documentVisibleInOtherWindows(doc, m_mainWindow);
 }
 
 void KateViewManager::setShowUrlNavBar(bool show)

@@ -657,3 +657,13 @@ void KateApp::remoteMessageReceived(quint32, QByteArray message)
         activeMainWindow()->activateView(doc);
     }
 }
+
+bool KateApp::documentVisibleInOtherWindows(KTextEditor::Document *doc, KateMainWindow *window) const
+{
+    for (auto win : m_mainWindows) {
+        if (win != window && win->viewManager()->viewspaceCountForDoc(doc) > 0) {
+            return true;
+        }
+    }
+    return false;
+}

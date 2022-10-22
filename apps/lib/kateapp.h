@@ -227,6 +227,16 @@ public:
     int mainWindowID(KateMainWindow *window);
 
     /**
+     * Has the given document tabs/views inside main windows
+     * other then the given one?
+     *
+     * @param doc document to check
+     * @param window window to check
+     * @return is this document visible as tab/view/... in any other window?
+     */
+    bool documentVisibleInOtherWindows(KTextEditor::Document *doc, KateMainWindow *window) const;
+
+    /**
      * some stuff for the dcop API
      */
 public:

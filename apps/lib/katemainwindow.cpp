@@ -81,6 +81,14 @@
 
 // END
 
+// shall windows close the documents only visible inside them if the are closed?
+static bool winClosesDocuments()
+{
+    const auto config = KSharedConfig::openConfig();
+    const KConfigGroup cgGeneral(config, "General");
+    return cgGeneral.readEntry("Close documents with window", true);
+}
+
 KateMwModOnHdDialog *KateMainWindow::s_modOnHdDialog = nullptr;
 
 KateContainerStackedLayout::KateContainerStackedLayout(QWidget *parent)
@@ -189,14 +197,16 @@ KateMainWindow::~KateMainWindow()
     saveOptions();
 
     // close all documents not visible in other windows, we did ask for permission in queryClose
-    auto docs = KateApp::self()->documentManager()->documentList();
-    docs.erase(std::remove_if(docs.begin(),
-                              docs.end(),
-                              [this](auto doc) {
-                                  return KateApp::self()->documentVisibleInOtherWindows(doc, this);
-                              }),
-               docs.end());
-    KateApp::self()->documentManager()->closeDocuments(docs, false);
+    if (winClosesDocuments()) {
+        auto docs = KateApp::self()->documentManager()->documentList();
+        docs.erase(std::remove_if(docs.begin(),
+                                  docs.end(),
+                                  [this](auto doc) {
+                                      return KateApp::self()->documentVisibleInOtherWindows(doc, this);
+                                  }),
+                   docs.end());
+        KateApp::self()->documentManager()->closeDocuments(docs, false);
+    }
 
     // unregister mainwindow in app
     KateApp::self()->removeMainWindow(this);
@@ -638,7 +648,7 @@ bool KateMainWindow::queryClose()
     // normal closing of window
     // if we are not the last window, just close the documents we own
     if (KateApp::self()->mainWindowsCount() > 1) {
-        return queryClose_internal(nullptr, this);
+        return winClosesDocuments() ? queryClose_internal(nullptr, this) : true;
     }
 
     // last one: check if we can close all documents, try run

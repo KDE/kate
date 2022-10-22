@@ -572,6 +572,10 @@ void KateConfigDialog::addSessionPage()
     sessionConfigUi.openNewDocumentPerWindow->setChecked(cgGeneral.readEntry("Open untitled document for new window", false));
     connect(sessionConfigUi.openNewDocumentPerWindow, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
 
+    // When a window is closed, close all documents only visible in that window, too
+    sessionConfigUi.winClosesDocuments->setChecked(cgGeneral.readEntry("Close documents with window", true));
+    connect(sessionConfigUi.winClosesDocuments, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
+
     // Closing last file closes Kate
     sessionConfigUi.modCloseAfterLast->setChecked(m_mainWindow->modCloseAfterLast());
     connect(sessionConfigUi.modCloseAfterLast, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
@@ -732,6 +736,8 @@ void KateConfigDialog::slotApply()
         KateApp::self()->documentManager()->setDaysMetaInfos(sessionConfigUi.daysMetaInfos->value());
 
         cg.writeEntry("Open untitled document for new window", sessionConfigUi.openNewDocumentPerWindow->isChecked());
+
+        cg.writeEntry("Close documents with window", sessionConfigUi.winClosesDocuments->isChecked());
 
         cg.writeEntry("Close After Last", sessionConfigUi.modCloseAfterLast->isChecked());
         m_mainWindow->setModCloseAfterLast(sessionConfigUi.modCloseAfterLast->isChecked());

@@ -99,6 +99,13 @@
         </property>
        </widget>
       </item>
+      <item>
+       <widget class="QCheckBox" name="winClosesDocuments">
+        <property name="text">
+         <string>Close documents with the window they belong to</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>

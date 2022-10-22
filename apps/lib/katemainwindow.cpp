@@ -188,6 +188,16 @@ KateMainWindow::~KateMainWindow()
     // save other options ;=)
     saveOptions();
 
+    // close all documents not visible in other windows, we did ask for permission in queryClose
+    auto docs = KateApp::self()->documentManager()->documentList();
+    docs.erase(std::remove_if(docs.begin(),
+                              docs.end(),
+                              [this](auto doc) {
+                                  return KateApp::self()->documentVisibleInOtherWindows(doc, this);
+                              }),
+               docs.end());
+    KateApp::self()->documentManager()->closeDocuments(docs, false);
+
     // unregister mainwindow in app
     KateApp::self()->removeMainWindow(this);
 
@@ -568,7 +578,7 @@ void KateMainWindow::slotDocumentCloseOther()
     slotDocumentCloseOther(m_viewManager->activeView()->document());
 }
 
-bool KateMainWindow::queryClose_internal(KTextEditor::Document *doc)
+bool KateMainWindow::queryClose_internal(KTextEditor::Document *doc, KateMainWindow *win)
 {
     const auto documentCount = KateApp::self()->documentManager()->documentList().size();
 
@@ -577,20 +587,31 @@ bool KateMainWindow::queryClose_internal(KTextEditor::Document *doc)
     }
 
     std::vector<KTextEditor::Document *> modifiedDocuments = KateApp::self()->documentManager()->modifiedDocumentList();
-    modifiedDocuments.erase(std::remove(modifiedDocuments.begin(), modifiedDocuments.end(), doc), modifiedDocuments.end());
 
     // filter out what the stashManager will itself stash
-    auto m = modifiedDocuments.begin();
-    while (m != modifiedDocuments.end()) {
-        if (KateApp::self()->stashManager()->willStashDoc(*m)) {
-            m = modifiedDocuments.erase(m);
-        } else {
-            ++m;
-        }
+    modifiedDocuments.erase(std::remove_if(modifiedDocuments.begin(),
+                                           modifiedDocuments.end(),
+                                           [](auto doc) {
+                                               return KateApp::self()->stashManager()->willStashDoc(doc);
+                                           }),
+                            modifiedDocuments.end());
+
+    // do we want to ignore some document?
+    if (doc) {
+        modifiedDocuments.erase(std::remove(modifiedDocuments.begin(), modifiedDocuments.end(), doc), modifiedDocuments.end());
+    }
+
+    // do we want to ignore all documents visible in other windows?
+    if (win) {
+        modifiedDocuments.erase(std::remove_if(modifiedDocuments.begin(),
+                                               modifiedDocuments.end(),
+                                               [win](auto doc) {
+                                                   return KateApp::self()->documentVisibleInOtherWindows(doc, win);
+                                               }),
+                                modifiedDocuments.end());
     }
 
     bool shutdown = modifiedDocuments.empty();
-
     if (!shutdown) {
         shutdown = KateSaveModifiedDialog::queryClose(this, modifiedDocuments);
     }
@@ -615,9 +636,9 @@ bool KateMainWindow::queryClose()
     }
 
     // normal closing of window
-    // allow to close all windows until the last without restrictions
+    // if we are not the last window, just close the documents we own
     if (KateApp::self()->mainWindowsCount() > 1) {
-        return true;
+        return queryClose_internal(nullptr, this);
     }
 
     // last one: check if we can close all documents, try run

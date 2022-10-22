@@ -117,7 +117,7 @@ public:
     void loadOpenRecent(const KConfig *config);
 
 public:
-    bool queryClose_internal(KTextEditor::Document *doc = nullptr);
+    bool queryClose_internal(KTextEditor::Document *doc = nullptr, KateMainWindow *win = nullptr);
 
     /**
      * save the settings, size and state of this window in

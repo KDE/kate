@@ -315,7 +315,7 @@ public Q_SLOTS:
     bool showUrlNavBar() const;
 
     void hideWelcomeView(KateViewSpace *vs);
-    void showWelcomeViewIfNeeded();
+    void showWelcomeViewOrNewDocumentIfNeeded();
     void showWelcomeView();
 
 private:

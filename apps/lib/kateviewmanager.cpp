@@ -76,25 +76,8 @@ KateViewManager::KateViewManager(QWidget *parentW, KateMainWindow *parent)
     connect(KateApp::self()->documentManager(), &KateDocManager::aboutToDeleteDocuments, this, &KateViewManager::aboutToDeleteDocuments);
     connect(KateApp::self()->documentManager(), &KateDocManager::documentsDeleted, this, &KateViewManager::documentsDeleted);
 
-    // the user can decide: welcome page or a new untitled document for a new window?
-    KSharedConfig::Ptr config = KSharedConfig::openConfig();
-    KConfigGroup cgGeneral = KConfigGroup(config, "General");
-    if (cgGeneral.readEntry("Open untitled document for new window", false)) {
-        // we only open one, if we have no other proper view around
-        QTimer::singleShot(0, this, [this]() {
-            // we really want to show up only if nothing is in the current view space
-            // this guard versus double invocation of this function, too
-            if (activeViewSpace() && (activeViewSpace()->currentView() || activeViewSpace()->currentWidget()))
-                return;
-
-            // create new view & ensure focus
-            slotDocumentNew();
-            triggerActiveViewFocus();
-        });
-    } else {
-        // ensure we have the welcome view if no active view is there
-        showWelcomeViewIfNeeded();
-    }
+    // we want to trigger showing of the welcome view or a new document
+    showWelcomeViewOrNewDocumentIfNeeded();
 }
 
 KateViewManager::~KateViewManager()
@@ -1176,8 +1159,8 @@ void KateViewManager::onViewSpaceEmptied(KateViewSpace *vs)
         return;
     }
 
-    // else we want to trigger showing of the welcome view
-    showWelcomeViewIfNeeded();
+    // we want to trigger showing of the welcome view or a new document
+    showWelcomeViewOrNewDocumentIfNeeded();
 }
 
 void KateViewManager::setShowUrlNavBar(bool show)
@@ -1435,8 +1418,8 @@ void KateViewManager::restoreViewConfiguration(const KConfigGroup &config)
 
     updateViewSpaceActions();
 
-    // ensure we have the welcome view if no active view is there
-    showWelcomeViewIfNeeded();
+    // we want to trigger showing of the welcome view or a new document
+    showWelcomeViewOrNewDocumentIfNeeded();
 }
 
 QString KateViewManager::saveSplitterConfig(KateSplitter *s, KConfigBase *configBase, const QString &viewConfGrp)
@@ -1621,17 +1604,23 @@ void KateViewManager::hideWelcomeView(KateViewSpace *vs)
     }
 }
 
-void KateViewManager::showWelcomeViewIfNeeded()
+void KateViewManager::showWelcomeViewOrNewDocumentIfNeeded()
 {
-    // delay the creation, e.g. used on startup
+    // delay the action
     QTimer::singleShot(0, this, [this]() {
         // we really want to show up only if nothing is in the current view space
         // this guard versus double invocation of this function, too
         if (activeViewSpace() && (activeViewSpace()->currentView() || activeViewSpace()->currentWidget()))
             return;
 
-        // create welcome view & trigger focus of active view/widget
-        showWelcomeView();
+        // the user can decide: welcome page or a new untitled document for a new window?
+        KSharedConfig::Ptr config = KSharedConfig::openConfig();
+        KConfigGroup cgGeneral = KConfigGroup(config, "General");
+        if (cgGeneral.readEntry("Open untitled document for new window", false)) {
+            slotDocumentNew();
+        } else {
+            showWelcomeView();
+        }
         triggerActiveViewFocus();
     });
 }

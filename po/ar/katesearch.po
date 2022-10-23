@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-20 00:55+0000\n"
-"PO-Revision-Date: 2022-10-04 21:02+0400\n"
+"PO-Revision-Date: 2022-10-22 20:17+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -658,10 +658,9 @@ msgid "Continuing from last match"
 msgstr "يتابع من آخر مطابقة"
 
 #: SearchPlugin.cpp:2028
-#, fuzzy, kde-format
-#| msgid "Search"
+#, kde-format
 msgid "Search: %1"
-msgstr "ابحث"
+msgstr "ابحث: %1"
 
 #: SearchPlugin.cpp:2159
 #, kde-format
@@ -681,7 +680,7 @@ msgstr "صدر المتطابقات"
 #: SearchPlugin.cpp:2173
 #, kde-format
 msgid "Open as Editor Tab"
-msgstr ""
+msgstr "افتح كلسان المُحرِر"
 
 #: SearchPlugin.cpp:2180
 #, kde-format

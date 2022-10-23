@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-22 00:48+0000\n"
+"POT-Creation-Date: 2022-10-23 00:46+0000\n"
 "PO-Revision-Date: 2022-10-19 09:55+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -1778,32 +1778,32 @@ msgstr ""
 "Les dades que heu demanat que es desin no han pogut ser escrites. Si us "
 "plau, escolliu com voleu procedir."
 
-#: lib/kateviewmanager.cpp:118
+#: lib/kateviewmanager.cpp:101
 #, kde-format
 msgid "Split Ve&rtical"
 msgstr "Divideix en &vertical"
 
-#: lib/kateviewmanager.cpp:122
+#: lib/kateviewmanager.cpp:105
 #, kde-format
 msgid "Split the currently active view vertically into two views."
 msgstr "Divideix verticalment en dues parts la vista actualment activa."
 
-#: lib/kateviewmanager.cpp:126
+#: lib/kateviewmanager.cpp:109
 #, kde-format
 msgid "Split &Horizontal"
 msgstr "Divideix en &horitzontal"
 
-#: lib/kateviewmanager.cpp:130
+#: lib/kateviewmanager.cpp:113
 #, kde-format
 msgid "Split the currently active view horizontally into two views."
 msgstr "Divideix horitzontalment en dues parts la vista actualment activa."
 
-#: lib/kateviewmanager.cpp:134
+#: lib/kateviewmanager.cpp:117
 #, kde-format
 msgid "Move Document to New Vertical Split"
 msgstr "Mou el document a una divisió vertical nova"
 
-#: lib/kateviewmanager.cpp:138
+#: lib/kateviewmanager.cpp:121
 #, kde-format
 msgid ""
 "Split the currently active view vertically into two views and move the "
@@ -1812,12 +1812,12 @@ msgstr ""
 "Divideix verticalment en dues parts la vista actualment activa i mou el "
 "document actualment actiu a la vista dreta."
 
-#: lib/kateviewmanager.cpp:143
+#: lib/kateviewmanager.cpp:126
 #, kde-format
 msgid "Move Document to New Horizontal Split"
 msgstr "Mou el document a una divisió horitzontal nova"
 
-#: lib/kateviewmanager.cpp:147
+#: lib/kateviewmanager.cpp:130
 #, kde-format
 msgid ""
 "Split the currently active view horizontally into two views and move the "
@@ -1826,172 +1826,172 @@ msgstr ""
 "Divideix horitzontalment en dues parts la vista actualment activa i mou el "
 "document actualment actiu a la vista inferior."
 
-#: lib/kateviewmanager.cpp:152
+#: lib/kateviewmanager.cpp:135
 #, kde-format
 msgid "Cl&ose Current View"
 msgstr "Tanca la vista &actual"
 
-#: lib/kateviewmanager.cpp:156
+#: lib/kateviewmanager.cpp:139
 #, kde-format
 msgid "Close the currently active split view"
 msgstr "Tanca la vista dividida actualment activa"
 
-#: lib/kateviewmanager.cpp:160
+#: lib/kateviewmanager.cpp:143
 #, kde-format
 msgid "Close Inactive Views"
 msgstr "Tanca les vistes inactives"
 
-#: lib/kateviewmanager.cpp:163
+#: lib/kateviewmanager.cpp:146
 #, kde-format
 msgid "Close every view but the active one"
 msgstr "Tanca totes les vistes excepte l'activa"
 
-#: lib/kateviewmanager.cpp:167
+#: lib/kateviewmanager.cpp:150
 #, kde-format
 msgid "Hide Inactive Views"
 msgstr "Oculta les vistes inactives"
 
-#: lib/kateviewmanager.cpp:171
+#: lib/kateviewmanager.cpp:154
 #, kde-format
 msgid "Hide every view but the active one"
 msgstr "Oculta totes les vistes excepte l'activa"
 
-#: lib/kateviewmanager.cpp:174
+#: lib/kateviewmanager.cpp:157
 #, kde-format
 msgid "Toggle Orientation"
 msgstr "Alterna l'orientació"
 
-#: lib/kateviewmanager.cpp:177
+#: lib/kateviewmanager.cpp:160
 #, kde-format
 msgid "Toggles the orientation of the current split view"
 msgstr "Alterna l'orientació de la vista dividida actual"
 
-#: lib/kateviewmanager.cpp:180
+#: lib/kateviewmanager.cpp:163
 #, kde-format
 msgid "Next Split View"
 msgstr "Vista dividida següent"
 
-#: lib/kateviewmanager.cpp:185
+#: lib/kateviewmanager.cpp:168
 #, kde-format
 msgid "Make the next split view the active one."
 msgstr "Torna activa la vista dividida següent."
 
-#: lib/kateviewmanager.cpp:188
+#: lib/kateviewmanager.cpp:171
 #, kde-format
 msgid "Previous Split View"
 msgstr "Vista dividida anterior"
 
-#: lib/kateviewmanager.cpp:193
+#: lib/kateviewmanager.cpp:176
 #, kde-format
 msgid "Make the previous split view the active one."
 msgstr "Torna activa la vista dividida anterior."
 
-#: lib/kateviewmanager.cpp:196
+#: lib/kateviewmanager.cpp:179
 #, kde-format
 msgid "Left Split View"
 msgstr "Vista dividida a l'esquerra"
 
-#: lib/kateviewmanager.cpp:201
+#: lib/kateviewmanager.cpp:184
 #, kde-format
 msgid "Make the split view intuitively on the left the active one."
 msgstr "Crea la vista dividida intuïtivament a l'esquerra de l'activa."
 
-#: lib/kateviewmanager.cpp:204
+#: lib/kateviewmanager.cpp:187
 #, kde-format
 msgid "Right Split View"
 msgstr "Vista dividida a la dreta"
 
-#: lib/kateviewmanager.cpp:209
+#: lib/kateviewmanager.cpp:192
 #, kde-format
 msgid "Make the split view intuitively on the right the active one."
 msgstr "Crea la vista dividida intuïtivament a la dreta de l'activa."
 
-#: lib/kateviewmanager.cpp:212
+#: lib/kateviewmanager.cpp:195
 #, kde-format
 msgid "Upward Split View"
 msgstr "Vista dividida a dalt"
 
-#: lib/kateviewmanager.cpp:217
+#: lib/kateviewmanager.cpp:200
 #, kde-format
 msgid "Make the split view intuitively upward the active one."
 msgstr "Crea la vista dividida intuïtivament a dalt de l'activa."
 
-#: lib/kateviewmanager.cpp:220
+#: lib/kateviewmanager.cpp:203
 #, kde-format
 msgid "Downward Split View"
 msgstr "Vista dividida a baix"
 
-#: lib/kateviewmanager.cpp:225
+#: lib/kateviewmanager.cpp:208
 #, kde-format
 msgid "Make the split view intuitively downward the active one."
 msgstr "Crea la vista dividida intuïtivament a baix de l'activa."
 
-#: lib/kateviewmanager.cpp:228
+#: lib/kateviewmanager.cpp:211
 #, kde-format
 msgid "Move Splitter Right"
 msgstr "Mou el divisor a la dreta"
 
-#: lib/kateviewmanager.cpp:231
+#: lib/kateviewmanager.cpp:214
 #, kde-format
 msgid "Move the splitter of the current view to the right"
 msgstr "Mou cap a la dreta el divisor de la vista actual"
 
-#: lib/kateviewmanager.cpp:234
+#: lib/kateviewmanager.cpp:217
 #, kde-format
 msgid "Move Splitter Left"
 msgstr "Mou el divisor a l'esquerra"
 
-#: lib/kateviewmanager.cpp:237
+#: lib/kateviewmanager.cpp:220
 #, kde-format
 msgid "Move the splitter of the current view to the left"
 msgstr "Mou cap a l'esquerra el divisor de la vista actual"
 
-#: lib/kateviewmanager.cpp:240
+#: lib/kateviewmanager.cpp:223
 #, kde-format
 msgid "Move Splitter Up"
 msgstr "Mou el divisor amunt"
 
-#: lib/kateviewmanager.cpp:243
+#: lib/kateviewmanager.cpp:226
 #, kde-format
 msgid "Move the splitter of the current view up"
 msgstr "Mou amunt el divisor de la vista actual"
 
-#: lib/kateviewmanager.cpp:246
+#: lib/kateviewmanager.cpp:229
 #, kde-format
 msgid "Move Splitter Down"
 msgstr "Mou el divisor avall"
 
-#: lib/kateviewmanager.cpp:249
+#: lib/kateviewmanager.cpp:232
 #, kde-format
 msgid "Move the splitter of the current view down"
 msgstr "Mou avall el divisor de la vista actual"
 
-#: lib/kateviewmanager.cpp:252
+#: lib/kateviewmanager.cpp:235
 #, kde-format
 msgid "Focus Navigation Bar"
 msgstr "Focus a la barra de navegació"
 
-#: lib/kateviewmanager.cpp:253
+#: lib/kateviewmanager.cpp:236
 #, kde-format
 msgid "Focus the navigation bar"
 msgstr "Dona el focus a la barra de navegació"
 
-#: lib/kateviewmanager.cpp:260
+#: lib/kateviewmanager.cpp:243
 #, kde-format
 msgid "Welcome Page"
 msgstr "Pàgina de benvinguda"
 
-#: lib/kateviewmanager.cpp:275
+#: lib/kateviewmanager.cpp:258
 #, kde-format
 msgid "Show the welcome page"
 msgstr "Mostra la pàgina de benvinguda"
 
-#: lib/kateviewmanager.cpp:317 lib/kateviewmanager.cpp:319
+#: lib/kateviewmanager.cpp:300 lib/kateviewmanager.cpp:302
 #, kde-format
 msgid "Open File"
 msgstr "Obre un fitxer"
 
-#: lib/kateviewmanager.cpp:338
+#: lib/kateviewmanager.cpp:321
 #, kde-format
 msgid ""
 "<p>You are attempting to open one or more large files:</p><ul>%1</ul><p>Do "
@@ -2002,46 +2002,46 @@ msgstr ""
 "continuar?</p><p><strong>Cal tenir en compte que el Kate podria aturar-se "
 "durant una estona en obrir fitxers grans.</strong></p>"
 
-#: lib/kateviewmanager.cpp:347
+#: lib/kateviewmanager.cpp:330
 #, kde-format
 msgid "Opening Large File"
 msgstr "Obertura d'un fitxer gran"
 
-#: lib/kateviewmanager.cpp:480
+#: lib/kateviewmanager.cpp:463
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr "%1 no ha pogut obrir les carpetes"
 
-#: lib/kateviewmanager.cpp:499
+#: lib/kateviewmanager.cpp:482
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr "No s'ha trobat el connector requerit per obrir carpetes"
 
-#: lib/kateviewmanager.cpp:505
+#: lib/kateviewmanager.cpp:488
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
 msgstr ""
 "Per tal d'obrir carpetes, cal activar el connector <b>%1</b>. L'activo?"
 
-#: lib/kateviewmanager.cpp:514
+#: lib/kateviewmanager.cpp:497
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "Obertura de carpeta"
 
-#: lib/kateviewmanager.cpp:515
+#: lib/kateviewmanager.cpp:498
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "Activa"
 
-#: lib/kateviewmanager.cpp:526
+#: lib/kateviewmanager.cpp:509
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "Ha fallat en activar el connector <b>%1</b>"
 
-#: lib/kateviewmanager.cpp:1228
+#: lib/kateviewmanager.cpp:1223
 #, kde-format
 msgid "This view may have unsaved work. Do you really want to close it?"
 msgstr ""

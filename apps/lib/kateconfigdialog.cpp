@@ -569,8 +569,8 @@ void KateConfigDialog::addSessionPage()
     connect(sessionConfigUi.manuallyChooseSessionRadioButton, &QRadioButton::toggled, this, &KateConfigDialog::slotChanged);
 
     // New main windows open always a new document if none there
-    sessionConfigUi.openNewDocumentPerWindow->setChecked(cgGeneral.readEntry("Open untitled document for new window", false));
-    connect(sessionConfigUi.openNewDocumentPerWindow, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
+    sessionConfigUi.showWelcomeViewForNewWindow->setChecked(cgGeneral.readEntry("Show welcome view for new window", true));
+    connect(sessionConfigUi.showWelcomeViewForNewWindow, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
 
     // When a window is closed, close all documents only visible in that window, too
     sessionConfigUi.winClosesDocuments->setChecked(cgGeneral.readEntry("Close documents with window", true));
@@ -735,7 +735,7 @@ void KateConfigDialog::slotApply()
         cg.writeEntry("Days Meta Infos", sessionConfigUi.daysMetaInfos->value());
         KateApp::self()->documentManager()->setDaysMetaInfos(sessionConfigUi.daysMetaInfos->value());
 
-        cg.writeEntry("Open untitled document for new window", sessionConfigUi.openNewDocumentPerWindow->isChecked());
+        cg.writeEntry("Show welcome view for new window", sessionConfigUi.showWelcomeViewForNewWindow->isChecked());
 
         cg.writeEntry("Close documents with window", sessionConfigUi.winClosesDocuments->isChecked());
 

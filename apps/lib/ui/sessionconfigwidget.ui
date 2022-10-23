@@ -83,9 +83,12 @@
        </layout>
       </item>
       <item>
-       <widget class="QCheckBox" name="openNewDocumentPerWindow">
+       <widget class="QCheckBox" name="showWelcomeViewForNewWindow">
+        <property name="whatsThis">
+         <string>If disabled, an untitled document will be shown for new windows.</string>
+        </property>
         <property name="text">
-         <string>Open new window with fresh untitled document</string>
+         <string>Show welcome view for new windows</string>
         </property>
        </widget>
       </item>

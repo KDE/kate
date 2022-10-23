@@ -1628,10 +1628,10 @@ void KateViewManager::showWelcomeViewOrNewDocumentIfNeeded()
         // the user can decide: welcome page or a new untitled document for a new window?
         KSharedConfig::Ptr config = KSharedConfig::openConfig();
         KConfigGroup cgGeneral = KConfigGroup(config, "General");
-        if (cgGeneral.readEntry("Open untitled document for new window", false)) {
-            slotDocumentNew();
-        } else {
+        if (cgGeneral.readEntry("Show welcome view for new window", true)) {
             showWelcomeView();
+        } else {
+            slotDocumentNew();
         }
         triggerActiveViewFocus();
     });

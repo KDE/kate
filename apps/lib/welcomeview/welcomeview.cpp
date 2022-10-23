@@ -145,15 +145,15 @@ WelcomeView::WelcomeView(KateViewManager *viewManager, QWidget *parent)
         });
     }
 
-    static const char showForNewWindowKey[] = "Open untitled document for new window";
+    static const char showForNewWindowKey[] = "Show welcome view for new window";
     KConfigGroup configGroup = KSharedConfig::openConfig()->group("General");
-    checkBoxShowForNewWindow->setChecked(!configGroup.readEntry(showForNewWindowKey, false));
+    checkBoxShowForNewWindow->setChecked(configGroup.readEntry(showForNewWindowKey, true));
     connect(checkBoxShowForNewWindow, &QCheckBox::toggled, this, [configGroup](bool checked) mutable {
-        configGroup.writeEntry(showForNewWindowKey, !checked);
+        configGroup.writeEntry(showForNewWindowKey, checked);
     });
 
     connect(KateApp::self(), &KateApp::configurationChanged, this, [this, configGroup]() {
-        checkBoxShowForNewWindow->setChecked(!configGroup.readEntry(showForNewWindowKey, false));
+        checkBoxShowForNewWindow->setChecked(configGroup.readEntry(showForNewWindowKey, true));
     });
 
     updateFonts();

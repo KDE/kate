@@ -574,7 +574,7 @@ void KateConfigDialog::addSessionPage()
 
     // When a window is closed, close all documents only visible in that window, too
     sessionConfigUi.winClosesDocuments->setChecked(cgGeneral.readEntry("Close documents with window", true));
-    sessionConfigUi.winClosesDocuments->setWhatsThis(i18n("When a window is closed the documents opened only in this window are closed as well."));
+    sessionConfigUi.winClosesDocuments->setToolTip(i18n("When a window is closed the documents opened only in this window are closed as well."));
     connect(sessionConfigUi.winClosesDocuments, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
 
     // Closing last file closes Kate

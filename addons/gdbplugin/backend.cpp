@@ -88,6 +88,7 @@ void Backend::bind()
     connect(m_debugger, &DebugViewInterface::debuggerCapabilitiesChanged, this, &DebugViewInterface::debuggerCapabilitiesChanged);
 
     connect(m_debugger, &DebugViewInterface::debuggeeOutput, this, &DebugViewInterface::debuggeeOutput);
+    connect(m_debugger, &DebugViewInterface::backendError, this, &DebugViewInterface::backendError);
 }
 
 void Backend::unbind()

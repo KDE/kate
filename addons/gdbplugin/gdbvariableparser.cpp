@@ -30,6 +30,16 @@ void GDBVariableParser::closeScope()
     Q_EMIT scopeClosed();
 }
 
+int GDBVariableParser::newVariableId()
+{
+    return ++m_varId;
+}
+
+int GDBVariableParser::currentVariableId() const
+{
+    return m_varId;
+}
+
 dap::Variable createVariable(const QStringList &symbolAndValue, const int refId)
 {
     if (symbolAndValue.count() > 1) {
@@ -39,10 +49,11 @@ dap::Variable createVariable(const QStringList &symbolAndValue, const int refId)
     }
 }
 
+static const QRegularExpression isStruct(QStringLiteral("\\A\\{\\S*\\s=\\s.*\\z"));
+
 void GDBVariableParser::addLocal(const QString &vString)
 {
     static const QRegularExpression isValue(QStringLiteral("\\A(\\S*)\\s=\\s(.*)\\z"));
-    static const QRegularExpression isStruct(QStringLiteral("\\A\\{\\S*\\s=\\s.*\\z"));
     static const QRegularExpression isStartPartial(QStringLiteral("\\A\\S*\\s=\\s\\S*\\s=\\s\\{\\z"));
     static const QRegularExpression isPrettyQList(QStringLiteral("\\A\\s*\\[\\S*\\]\\s=\\s\\S*\\z"));
     static const QRegularExpression isPrettyValue(QStringLiteral("\\A(\\S*)\\s=\\s(\\S*)\\s=\\s(.*)\\z"));
@@ -106,13 +117,13 @@ void GDBVariableParser::addLocal(const QString &vString)
 
     if (value[0] == QLatin1Char('{')) {
         if (value[1] == QLatin1Char('{')) {
-            const auto item = createVariable(symbolAndValue, ++m_varId);
+            const auto item = createVariable(symbolAndValue, newVariableId());
             Q_EMIT variable(0, item);
             addArray(item.variablesReference, value.mid(1, value.size() - 2));
         } else {
             match = isStruct.match(value);
             if (match.hasMatch()) {
-                const auto item = createVariable(symbolAndValue, ++m_varId);
+                const auto item = createVariable(symbolAndValue, newVariableId());
                 Q_EMIT variable(0, item);
                 addStruct(item.variablesReference, value.mid(1, value.size() - 2));
             } else {
@@ -124,6 +135,50 @@ void GDBVariableParser::addLocal(const QString &vString)
     }
 
     m_local.clear();
+}
+
+void GDBVariableParser::emitNestedVariable(int parentId, const dap::Variable &var)
+{
+    if (m_pendingVariable) {
+        m_pendingVariable->value = QLatin1String("{...}");
+        Q_EMIT variable(0, *m_pendingVariable);
+        m_pendingVariable.reset();
+    }
+
+    Q_EMIT variable(parentId, var);
+}
+
+void GDBVariableParser::insertVariable(const QString &name, const QString &value, const QString &type)
+{
+    const int varId = newVariableId();
+    m_pendingVariable = dap::Variable(name, value, varId);
+    if (!type.isEmpty()) {
+        m_pendingVariable->type = type;
+    }
+    parseNested(*m_pendingVariable);
+
+    if (m_pendingVariable) {
+        Q_EMIT variable(0, *m_pendingVariable);
+        m_pendingVariable.reset();
+    }
+}
+
+void GDBVariableParser::parseNested(const dap::Variable &parent)
+{
+    const auto &value = parent.value;
+    if (value.size() < 2) {
+        return;
+    }
+    if (value[0] == QLatin1Char('{')) {
+        if (value[1] == QLatin1Char('{')) {
+            addArray(parent.variablesReference, value.mid(1, value.size() - 2));
+        } else {
+            const auto match = isStruct.match(value);
+            if (match.hasMatch()) {
+                addStruct(parent.variablesReference, value.mid(1, value.size() - 2));
+            }
+        }
+    }
 }
 
 void GDBVariableParser::addArray(int parentId, const QString &vString)
@@ -149,8 +204,8 @@ void GDBVariableParser::addArray(int parentId, const QString &vString)
                 QStringList name;
                 name << QStringLiteral("[%1]").arg(index);
                 index++;
-                const auto item = createVariable(name, ++m_varId);
-                Q_EMIT variable(parentId, item);
+                const auto item = createVariable(name, newVariableId());
+                emitNestedVariable(parentId, item);
                 addStruct(item.variablesReference, vString.mid(start, end - start));
                 end += 4; // "}, {"
                 start = end;
@@ -168,7 +223,7 @@ void GDBVariableParser::addArray(int parentId, const QString &vString)
 void GDBVariableParser::addStruct(int parentId, const QString &vString)
 {
     static const QRegularExpression isArray(QStringLiteral("\\A\\{\\.*\\s=\\s.*\\z"));
-    static const QRegularExpression isStruct(QStringLiteral("\\A\\.*\\s=\\s.*\\z"));
+    static const QRegularExpression isStruct1(QStringLiteral("\\A\\.*\\s=\\s.*\\z"));
 
     QStringList symbolAndValue;
     QString subValue;
@@ -180,7 +235,7 @@ void GDBVariableParser::addStruct(int parentId, const QString &vString)
         end = vString.indexOf(QLatin1String(" = "), start);
         if (end < 0) {
             // error situation -> bail out
-            Q_EMIT dap::Variable(QString(), vString.right(start), parentId);
+            emitNestedVariable(parentId, dap::Variable(QString(), vString.right(start), parentId));
             break;
         }
         symbolAndValue << vString.mid(start, end - start);
@@ -218,15 +273,15 @@ void GDBVariableParser::addStruct(int parentId, const QString &vString)
             }
             subValue = vString.mid(start, end - start);
             if (isArray.match(subValue).hasMatch()) {
-                const auto item = createVariable(symbolAndValue, ++m_varId);
-                Q_EMIT variable(parentId, item);
+                const auto item = createVariable(symbolAndValue, newVariableId());
+                emitNestedVariable(parentId, item);
                 addArray(item.variablesReference, subValue);
-            } else if (isStruct.match(subValue).hasMatch()) {
-                const auto item = createVariable(symbolAndValue, ++m_varId);
-                Q_EMIT variable(parentId, item);
+            } else if (isStruct1.match(subValue).hasMatch()) {
+                const auto item = createVariable(symbolAndValue, newVariableId());
+                emitNestedVariable(parentId, item);
                 addStruct(item.variablesReference, subValue);
             } else {
-                Q_EMIT variable(parentId, dap::Variable(symbolAndValue[0], vString.mid(start, end - start)));
+                emitNestedVariable(parentId, dap::Variable(symbolAndValue[0], vString.mid(start, end - start)));
             }
             start = end + 3; // },_
         } else {
@@ -246,7 +301,7 @@ void GDBVariableParser::addStruct(int parentId, const QString &vString)
                 }
                 end++;
             }
-            Q_EMIT variable(parentId, dap::Variable(symbolAndValue[0], vString.mid(start, end - start)));
+            emitNestedVariable(parentId, dap::Variable(symbolAndValue[0], vString.mid(start, end - start)));
             start = end + 2; // ,_
         }
     }

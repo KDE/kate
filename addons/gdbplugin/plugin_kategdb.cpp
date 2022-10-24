@@ -197,6 +197,10 @@ KatePluginGDBView::KatePluginGDBView(KTextEditor::Plugin *plugin, KTextEditor::M
                        KTextEditor::Message::Error);
     });
 
+    connect(m_debugView, &DebugViewInterface::backendError, this, [this](const QString &message, KTextEditor::Message::MessageType level) {
+        displayMessage(message, level);
+    });
+
     connect(m_localsView, &LocalsView::localsVisible, m_debugView, &DebugViewInterface::slotQueryLocals);
 
     connect(m_configView, &ConfigView::configChanged, this, [this]() {
@@ -437,6 +441,17 @@ void KatePluginGDBView::slotRunToCursor()
 
 void KatePluginGDBView::slotGoTo(const QUrl &url, int lineNum)
 {
+    // remove last location
+    if ((url == m_lastExecUrl) && (lineNum == m_lastExecLine)) {
+        return;
+    } else {
+        KTextEditor::MarkInterfaceV2 *iface = qobject_cast<KTextEditor::MarkInterfaceV2 *>(m_kateApplication->findUrl(m_lastExecUrl));
+
+        if (iface) {
+            iface->removeMark(m_lastExecLine, KTextEditor::MarkInterface::Execution);
+        }
+    }
+
     // skip not existing files
     if (!QFile::exists(url.toLocalFile())) {
         m_lastExecLine = -1;
@@ -759,7 +774,7 @@ void KatePluginGDBView::addOutput(const dap::Output &output)
         if (output.category == dap::Output::Category::Stdout) {
             m_ioView->addStdOutText(output.output);
         } else {
-            m_ioView->addStdOutText(output.output);
+            m_ioView->addStdErrText(output.output);
         }
     } else {
         if (output.category == dap::Output::Category::Stdout) {

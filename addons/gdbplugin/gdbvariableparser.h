@@ -10,6 +10,7 @@
 
 #include "dap/entities.h"
 #include <QObject>
+#include <optional>
 
 class GDBVariableParser : public QObject
 {
@@ -19,6 +20,10 @@ public:
 
 public Q_SLOTS:
     void addLocal(const QString &vString);
+    void openScope();
+    void closeScope();
+    void insertVariable(const QString &name, const QString &value, const QString &type);
+    void parseNested(const dap::Variable &parent);
 
 Q_SIGNALS:
     // flat variable
@@ -29,10 +34,11 @@ Q_SIGNALS:
 private:
     void addStruct(int parentId, const QString &vString);
     void addArray(int parentId, const QString &vString);
+    void emitNestedVariable(int parentId, const dap::Variable &variable);
+    int newVariableId();
+    int currentVariableId() const;
 
-    void openScope();
-    void closeScope();
-
+    std::optional<dap::Variable> m_pendingVariable = std::nullopt;
     int m_varId = 1;
     bool m_allAdded = true;
     QString m_local;

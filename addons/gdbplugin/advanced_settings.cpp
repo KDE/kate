@@ -65,11 +65,11 @@ const QJsonObject AdvancedGDBSettings::configs() const
     // local/remote, baud
     switch (u_localRemote->currentIndex()) {
     case 1:
-        conf[F_LOCAL_REMOTE] = QStringLiteral("target remote %1:%2").arg(u_tcpHost->text(), u_tcpPort->text());
+        conf[F_LOCAL_REMOTE] = QStringLiteral("-target-select remote %1:%2").arg(u_tcpHost->text(), u_tcpPort->text());
         break;
     case 2:
-        conf[F_LOCAL_REMOTE] = QStringLiteral("target remote %1").arg(u_ttyPort->text());
-        conf[F_REMOTE_BAUD] = QStringLiteral("set remotebaud %1").arg(u_baudCombo->currentText());
+        conf[F_LOCAL_REMOTE] = QStringLiteral("-target-select remote %1").arg(u_ttyPort->text());
+        conf[F_REMOTE_BAUD] = QStringLiteral("-gdb-set remotebaud %1").arg(u_baudCombo->currentText());
         break;
     default:
         break;
@@ -77,12 +77,12 @@ const QJsonObject AdvancedGDBSettings::configs() const
 
     // solib absolute
     if (!u_soAbsPrefix->text().isEmpty()) {
-        conf[F_SO_ABSOLUTE] = QStringLiteral("set solib-absolute-prefix %1").arg(u_soAbsPrefix->text());
+        conf[F_SO_ABSOLUTE] = QStringLiteral("-gdb-set solib-absolute-prefix %1").arg(u_soAbsPrefix->text());
     }
 
     // solib search path
     if (u_soSearchPaths->count() > 0) {
-        QString paths = QStringLiteral("set solib-search-path ");
+        QString paths = QStringLiteral("-gdb-set solib-search-path ");
         for (int i = 0; i < u_soSearchPaths->count(); ++i) {
             if (i != 0) {
                 paths += pathSeparator;

@@ -50,8 +50,9 @@ void DapDebugView::resetState(State state)
 {
     m_requests = 0;
     m_runToCursor = std::nullopt;
-    if (state != Running)
+    if (state != Running) {
         m_currentThread = std::nullopt;
+    }
     m_watchedThread = std::nullopt;
     m_currentFrame = std::nullopt;
     m_commandQueue.clear();

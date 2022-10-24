@@ -10,6 +10,7 @@
 
 #include <QObject>
 #include <QUrl>
+#include <ktexteditor/message.h>
 #include <optional>
 
 #include "configview.h"
@@ -141,6 +142,7 @@ Q_SIGNALS:
     void programEnded();
     void gdbEnded();
     void sourceFileNotFound(const QString &fileName);
+    void backendError(const QString &message, KTextEditor::Message::MessageType level);
 
     void debuggerCapabilitiesChanged();
 };

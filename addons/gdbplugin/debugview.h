@@ -16,10 +16,42 @@
 
 #include <QProcess>
 #include <QUrl>
+#include <optional>
 
 #include "configview.h"
+#include "dap/entities.h"
 #include "debugview_iface.h"
+#include "gdbmi/parser.h"
+#include "gdbmi/records.h"
 #include "gdbvariableparser.h"
+
+struct GdbCommand {
+    QStringList arguments;
+    enum RequestType {
+        None,
+        BreakpointList,
+        Continue,
+        Step,
+        ThreadInfo,
+        StackListFrames,
+        StackListVariables,
+        BreakInsert,
+        BreakDelete,
+        ListFeatures,
+        DataEvaluateExpression,
+        InfoGdbMiCommand,
+        Exit,
+        Kill,
+        LldbVersion,
+    };
+    RequestType type = None;
+    std::optional<QJsonValue> data = std::nullopt;
+
+    bool isMachineInterface() const;
+    bool check(const QString &command) const;
+    bool check(const QString &part1, const QString &part2) const;
+    static GdbCommand parse(const QString &request);
+};
 
 class DebugView : public DebugViewInterface
 {
@@ -64,16 +96,16 @@ public Q_SLOTS:
     void changeScope(int scopeId) override;
 
 private Q_SLOTS:
-    static void slotError();
+    void slotError();
     void slotReadDebugStdOut();
     void slotReadDebugStdErr();
     void slotDebugFinished(int exitCode, QProcess::ExitStatus status);
     void issueNextCommand();
 
 private:
-    enum State { none, ready, executingCmd, listingBreakpoints, infoStack, infoArgs, printThis, infoLocals, infoThreads };
+    enum State { none, ready, executingCmd };
 
-    enum SubState { normal, stackFrameSeen, stackTraceSeen };
+    enum GdbState { Disconnected, Connected, Running, Stopped };
 
     struct BreakPoint {
         int number;
@@ -82,10 +114,66 @@ private:
     };
 
 private:
-    void processLine(QString output);
-    void processErrors();
-    void outputTextMaybe(const QString &text);
-    QUrl resolveFileName(const QString &fileName);
+    QUrl resolveFileName(const QString &fileName, bool silent = false);
+
+    void setState(State newState, std::optional<GdbState> newGdbState = std::nullopt);
+    void setGdbState(GdbState newState);
+    void resetSession();
+    void clearFrames();
+    void clearVariables();
+    void updateInspectable(bool inspectable);
+
+    BreakPoint parseBreakpoint(const QJsonObject &item);
+    int findBreakpoint(const QUrl &url, int line) const;
+    void deleteBreakpoint(const int bpNumber);
+    void insertBreakpoint(const QJsonObject &item);
+    QString makeCmdBreakInsert(const QUrl &url, int line, bool pending = false, bool temporal = false) const;
+    QString makeFrameFlags() const;
+
+    bool inferiorRunning() const;
+    void onMIParserError(const QString &error);
+    void processMIStreamOutput(const gdbmi::StreamOutput &record);
+    void processMIRecord(const gdbmi::Record &record);
+    void processMIExec(const gdbmi::Record &record);
+    void processMINotify(const gdbmi::Record &record);
+    void processMIResult(const gdbmi::Record &record);
+    void processMIPrompt();
+    bool responseMIBreakpointList(const gdbmi::Record &record);
+    bool responseMIThreadInfo(const gdbmi::Record &record);
+    bool responseMIStackListFrames(const gdbmi::Record &record);
+    bool responseMIStackListVariables(const gdbmi::Record &record);
+    bool responseMIBreakInsert(const gdbmi::Record &record);
+    bool responseMIBreakDelete(const gdbmi::Record &record, const QStringList &args);
+    void notifyMIBreakpointDeleted(const gdbmi::Record &record);
+    void notifyMIBreakpointModified(const gdbmi::Record &record);
+    bool responseMIListFeatures(const gdbmi::Record &record);
+    bool responseMIDataEvaluateExpression(const gdbmi::Record &record, const std::optional<QJsonValue> &data);
+    bool responseMIExit(const gdbmi::Record &record);
+    bool responseMIKill(const gdbmi::Record &record);
+    bool responseMIInfoGdbCommand(const gdbmi::Record &record, const QStringList &args);
+    bool responseMILldbVersion(const gdbmi::Record &record);
+    void responseMIScopes(const gdbmi::Record &record);
+    void responseMIThisScope(const gdbmi::Record &record);
+    void informStackFrame();
+    dap::StackFrame parseFrame(const QJsonObject &object);
+
+    void enqueueScopeVariables();
+    void enqueueScopes();
+    void enqueueProtocolHandshake();
+    QStringList makeInitSequence();
+    void enqueueThreadInfo();
+    QStringList makeRunSequence(bool stop);
+    void enqueue(const QString &command);
+    void enqueue(const QString &command, const QJsonValue &data);
+    void enqueue(const QStringList &commands, bool prepend = false);
+    void prepend(const QString &command);
+    void issueCommand(const QString &cmd, const std::optional<QJsonValue> &data);
+    void issueNextCommandLater(const std::optional<State> &state);
+    void updateInputReady(bool newState, bool force = false);
+    void clearDebugLocation();
+
+    void cmdKateInit();
+    void cmdKateTryRun(const GdbCommand &cmd, const QJsonValue &data);
 
 private:
     QProcess m_debugProcess;
@@ -93,21 +181,48 @@ private:
     QString m_ioPipeString;
 
     State m_state;
-    SubState m_subState;
 
-    QString m_currentFile;
-    QString m_newFrameFile;
-    int m_newFrameLevel = 0;
-    QStringList m_nextCommands;
+    struct PendingCommand {
+        QString command;
+        std::optional<QJsonValue> data;
+    };
+    QList<PendingCommand> m_nextCommands;
     QString m_lastCommand;
     bool m_debugLocationChanged;
-    QList<BreakPoint> m_breakPointList;
-    QString m_outBuffer;
+    QHash<int, BreakPoint> m_breakpointTable;
+    QByteArray m_outBuffer;
     QString m_errBuffer;
-    QStringList m_errorList;
     bool m_queryLocals;
 
     GDBVariableParser m_variableParser;
+
+    gdbmi::GdbmiParser *m_parser;
+    QHash<int, GdbCommand> m_requests;
+    int m_seq = 0;
+    GdbState m_gdbState = Disconnected;
+    QList<dap::StackFrame> m_stackFrames;
+    bool m_lastInputReady = false;
+    bool m_pointerThis = false;
+
+    bool m_captureOutput = false;
+    QStringList m_capturedOutput;
+    bool m_inspectable = false;
+    std::optional<int> m_currentThread;
+    std::optional<int> m_currentFrame;
+    std::optional<int> m_currentScope;
+    std::optional<int> m_watchedScope;
+    int m_errorCounter = 0;
+
+    enum DebuggerFamily { Unknown, GDB, LLDB };
+    struct {
+        DebuggerFamily family;
+        std::optional<bool> async;
+        std::optional<bool> execRunStart;
+        std::optional<bool> threadInfo;
+        std::optional<bool> breakList;
+        std::optional<bool> pendingBreakpoints;
+        std::optional<bool> execJump;
+    } m_capabilities;
 };
 
 #endif

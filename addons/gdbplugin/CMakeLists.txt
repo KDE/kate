@@ -29,6 +29,12 @@ set(DAP_SOURCES
     dap/bus_selector.cpp
 )
 
+set(GDBMI_SOURCES
+    gdbmi/parser.cpp
+    gdbmi/records.h
+    gdbmi/tokens.cpp
+)
+
 target_sources(
   kategdbplugin
   PRIVATE
@@ -41,6 +47,7 @@ target_sources(
     advanced_settings.cpp
 
     ${DAP_SOURCES}
+    ${GDBMI_SOURCES}
     ${DEBUG_SOURCES}
     json_placeholders.cpp
     debugview_dap.cpp
@@ -50,3 +57,6 @@ target_sources(
     plugin.qrc 
 )
 
+if(BUILD_TESTING)
+  add_subdirectory(autotests)
+endif()

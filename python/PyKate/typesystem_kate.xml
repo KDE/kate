@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!-- The package name -->
+<typesystem package="Kate">
+    <!-- Pre-defined typesystem that contains types used by our class
+        PySide has one typesystem for each module, here we use only the widgets
+        typesystem because it already include gui and core typesystem -->
+    <load-typesystem name="typesystem_widgets.xml" generate="no"/>
+
+    <!-- Our classes are declared in a namespace, so we should define this -->
+    <namespace-type name="KTextEditor" visible="no">
+        <!-- this is used in a public virtual pure function we need to declare it
+            otherwise shiboken will ignore the function and will fail to create a wrapper -->
+
+        <!-- otherwise fails to link -->
+        <rejection class="KTextEditor" function-name="defaultStyleCount" />
+
+        <enum-type name="SearchOption" flags="SearchOptions"/>
+
+        <!-- our classes
+             For class we can use two types:
+                object-type: class that does not have a copy-contructor and can not be passed as value to functions;
+                value-type: class that can be passed as value for functions
+             Here we only use 'object-type' since all our classes are derived from QWidget
+         -->
+        <object-type name="Application"/>
+        <object-type name="Editor"/>
+        <object-type name="MainWindow">
+            <enum-type name="ToolViewPosition" />
+        </object-type>
+        <object-type name="Document"/>
+
+        <object-type name="View" >
+            <!-- this class contains a internal enum, so it should be declared
+                 inside of the object-type -->
+            <enum-type name="InputMode"/>
+            <enum-type name="ViewMode"/>
+            <enum-type name="LineType"/>
+        </object-type>
+
+        <object-type name="Command"/>
+        <object-type name="ConfigPage"/>
+        <object-type name="Attribute">
+            <enum-type name="DefaultStyle"/>
+        </object-type>
+        <object-type name="ConfigInterface"/>
+        <value-type name="Range"/>
+        <value-type name="Cursor"/>
+        <value-type name="LineRange"/>
+
+    </namespace-type>
+
+</typesystem>

@@ -1,4 +1,9 @@
 # Kate shared library, used by Kate/KWrite and the addons
+ecm_set_disabled_deprecation_versions(
+    QT 5.15
+    KF 5.90
+)
+
 add_library(kateprivate SHARED "")
 set_target_properties(kateprivate PROPERTIES VERSION ${RELEASE_SERVICE_VERSION})
 install(TARGETS kateprivate ${KDE_INSTALL_TARGETS_DEFAULT_ARGS} LIBRARY NAMELINK_SKIP)

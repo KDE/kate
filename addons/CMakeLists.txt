@@ -1,3 +1,8 @@
+ecm_set_disabled_deprecation_versions(
+    QT 5.15
+    KF 5.90
+)
+
 function (kate_add_plugin name)
     kcoreaddons_add_plugin(${name} INSTALL_NAMESPACE "ktexteditor")
 endfunction()

@@ -16,6 +16,10 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+
+option(BUILD_PYTHON_BINDINDS "Enable building python bindings" OFF)
+
 # We need some parts of the ECM CMake helpers.
 find_package(ECM ${KF5_DEP_VERSION} QUIET REQUIRED NO_MODULE)
 
@@ -34,12 +38,6 @@ include(ECMInstallIcons)
 include(ECMDeprecationSettings)
 
 include(FeatureSummary)
-
-
-ecm_set_disabled_deprecation_versions(
-    QT 5.15
-    KF 5.90
-)
 
 # forbid some old things
 add_definitions(-DQT_NO_FOREACH)
@@ -63,6 +61,11 @@ ecm_optional_add_subdirectory(apps)
 
 # our documentation
 ecm_optional_add_subdirectory(doc)
+
+# python bindings
+if (BUILD_PYTHON_BINDINDS)
+    ecm_optional_add_subdirectory(python)
+endif()
 
 ki18n_install(po)
 if(KF5DocTools_FOUND)

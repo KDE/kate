@@ -62,11 +62,6 @@ ecm_optional_add_subdirectory(apps)
 # our documentation
 ecm_optional_add_subdirectory(doc)
 
-# python bindings
-if (BUILD_PYTHON_BINDINDS)
-    ecm_optional_add_subdirectory(python)
-endif()
-
 ki18n_install(po)
 if(KF5DocTools_FOUND)
     kdoctools_install(po)

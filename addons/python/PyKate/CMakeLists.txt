@@ -71,6 +71,6 @@ create_python_bindings(
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/__init__.py.cmake ${CMAKE_CURRENT_BINARY_DIR}/__init__.py @ONLY)
 
 # install
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/__init__.py $<TARGET_FILE:Kate>
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/__init__.py $<TARGET_FILE:PyKate>
         DESTINATION ${PYTHON_BINDINGS_INSTALL_PREFIX}
 )

@@ -56,6 +56,7 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent)
     , m_searchTimer(new QTimer(this))
 {
     setWindowTitle(i18n("Configure"));
+    setWindowIcon(QIcon::fromTheme(QStringLiteral("configure")));
     setStandardButtons(QDialogButtonBox::Ok | QDialogButtonBox::Apply | QDialogButtonBox::Cancel | QDialogButtonBox::Help);
 
     m_searchLineEdit->setPlaceholderText(i18n("Search..."));

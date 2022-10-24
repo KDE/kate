@@ -1,0 +1,9 @@
+{
+    "KPlugin": {
+        "Description": "Plugin that allows Python scripting for Kate",
+        "Name": "Python Scripting",
+        "ServiceTypes": [
+            "KTextEditor/Plugin"
+        ]
+    }
+}

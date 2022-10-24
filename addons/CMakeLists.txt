@@ -1,14 +1,19 @@
-ecm_set_disabled_deprecation_versions(
-    QT 5.15
-    KF 5.90
-)
-
 function (kate_add_plugin name)
     kcoreaddons_add_plugin(${name} INSTALL_NAMESPACE "ktexteditor")
 endfunction()
 
 # Most plugins will need to link against KF5TextEditor to have access to its plugin interface.
 find_package(KF5TextEditor ${KF5_DEP_VERSION} QUIET REQUIRED)
+
+# python plugin
+if (BUILD_PYTHON_BINDINDS)
+    ecm_optional_add_subdirectory(python)
+endif()
+
+ecm_set_disabled_deprecation_versions(
+    QT 5.15
+    KF 5.90
+)
 
 ecm_optional_add_subdirectory(backtracebrowser)
 ecm_optional_add_subdirectory(close-except-like) # Close all documents except this one (or similar).

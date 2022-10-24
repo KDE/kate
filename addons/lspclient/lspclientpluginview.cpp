@@ -493,6 +493,8 @@ class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient, public KTe
     QPointer<QAction> m_memoryUsage;
     QPointer<KActionMenu> m_requestCodeAction;
 
+    QList<QAction *> m_contextMenuActions;
+
     // toolview
     QScopedPointer<QWidget> m_toolView;
     QPointer<QTabWidget> m_tabWidget;
@@ -708,37 +710,46 @@ public:
         m_restartAll = actionCollection()->addAction(QStringLiteral("lspclient_restart_all"), this, &self_type::restartAll);
         m_restartAll->setText(i18n("Restart All LSP Servers"));
 
-        // popup menu
-        auto menu = new KActionMenu(i18n("LSP Client"), this);
-        actionCollection()->addAction(QStringLiteral("popup_lspclient"), menu);
-        menu->addAction(m_findDef);
-        menu->addAction(m_findDecl);
-        menu->addAction(m_findTypeDef);
-        menu->addAction(m_findRef);
-        menu->addAction(m_findImpl);
-        menu->addAction(m_switchSourceHeader);
-        menu->addAction(m_expandMacro);
-        menu->addAction(m_triggerHighlight);
-        menu->addAction(m_triggerSymbolInfo);
-        menu->addAction(m_triggerGotoSymbol);
-        menu->addAction(m_triggerFormat);
-        menu->addAction(m_triggerRename);
-        menu->addAction(m_quickFix);
-        menu->addAction(m_requestCodeAction);
-#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(5, 95, 0)
-        menu->addAction(m_expandSelection);
-        menu->addAction(m_shrinkSelection);
-#endif
-        menu->addSeparator();
-        menu->addAction(m_diagnosticsSwitch);
-        menu->addAction(m_closeDynamic);
-        menu->addSeparator();
-        menu->addAction(m_restartServer);
-        menu->addAction(m_restartAll);
-        menu->addSeparator();
+        auto addSeparator = [this]() {
+            auto *sep1 = new QAction();
+            sep1->setSeparator(true);
+            m_contextMenuActions << sep1;
+        };
+
+        m_contextMenuActions << m_quickFix << m_requestCodeAction;
+        addSeparator();
+
+        QAction *goToAction = new QAction(i18n("Go To"));
+        QMenu *goTo = new QMenu();
+        goToAction->setMenu(goTo);
+        goTo->addActions({m_findDecl, m_findDef, m_findTypeDef, m_switchSourceHeader});
+
+        m_contextMenuActions << goToAction;
+        addSeparator();
+        m_contextMenuActions << m_findRef;
+        m_contextMenuActions << m_triggerRename;
+        addSeparator();
+
+        QAction *lspOtherAction = new QAction(i18n("LSP Client"));
+        QMenu *lspOther = new QMenu();
+        lspOtherAction->setMenu(lspOther);
+        lspOther->addAction(m_findImpl);
+        lspOther->addAction(m_triggerHighlight);
+        lspOther->addAction(m_triggerGotoSymbol);
+        lspOther->addAction(m_expandMacro);
+        lspOther->addAction(m_triggerFormat);
+        lspOther->addAction(m_triggerSymbolInfo);
+        lspOther->addSeparator();
+        lspOther->addAction(m_diagnosticsSwitch);
+        lspOther->addAction(m_closeDynamic);
+        lspOther->addSeparator();
+        lspOther->addAction(m_restartServer);
+        lspOther->addAction(m_restartAll);
+
         // more options
         auto moreOptions = new KActionMenu(i18n("More options"), this);
-        menu->addAction(moreOptions);
+        lspOther->addSeparator();
+        lspOther->addAction(moreOptions);
         moreOptions->addAction(m_complDocOn);
         moreOptions->addAction(m_signatureHelp);
         moreOptions->addAction(m_refDeclaration);
@@ -756,6 +767,9 @@ public:
         moreOptions->addAction(m_messages);
         moreOptions->addSeparator();
         moreOptions->addAction(m_memoryUsage);
+
+        m_contextMenuActions << lspOtherAction;
+        addSeparator();
 
         // sync with plugin settings if updated
         connect(m_plugin, &LSPClientPlugin::update, this, &self_type::configUpdated);
@@ -3004,6 +3018,8 @@ public:
             if (semHighlightingEnabled) {
                 m_semHighlightingManager.doSemanticHighlighting(activeView, false);
             }
+
+            connect(activeView, &KTextEditor::View::contextMenuAboutToShow, this, &self_type::prepareContextMenu, Qt::UniqueConnection);
         }
 
         if (m_findDef) {
@@ -3079,6 +3095,46 @@ public:
         // connect for cleanup stuff
         if (activeView) {
             connect(activeView, &KTextEditor::View::destroyed, this, &self_type::viewDestroyed, Qt::UniqueConnection);
+        }
+    }
+
+    void prepareContextMenu(KTextEditor::View *view, QMenu *menu)
+    {
+        Q_UNUSED(view);
+
+        // make sure the parent is set
+        for (auto *act : m_contextMenuActions) {
+            act->setParent(menu);
+        }
+
+        QAction *insertBefore;
+        // the name is used in KXMLGUI as object name
+        // we want to insert before the cut action to ensure the KTE spelling menu is still on top
+        auto cutName = QString::fromLatin1(KStandardAction::name(KStandardAction::StandardAction::Cut));
+
+        for (auto *act : menu->actions()) {
+            if (act->objectName() == cutName) {
+                insertBefore = act;
+                break;
+            }
+        }
+
+        if (!insertBefore) {
+            Q_ASSERT(!menu->actions().isEmpty());
+            insertBefore = menu->actions().first();
+        }
+
+        // insert lsp actions at the beginning of the menu
+        menu->insertActions(insertBefore, m_contextMenuActions);
+
+        connect(menu, &QMenu::aboutToHide, this, &self_type::cleanUpContextMenu, Qt::UniqueConnection);
+    }
+
+    void cleanUpContextMenu()
+    {
+        // We need to remove our list or they will accumulated on next show event
+        for (auto *act : m_contextMenuActions) {
+            act->parentWidget()->removeAction(act);
         }
     }
 

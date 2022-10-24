@@ -1,2 +1,2 @@
 #! /bin/sh
-$XGETTEXT *.cpp -o $podir/katecloseexceptplugin.pot
+$XGETTEXT *.cpp -o $podir/katepythonplugin.pot

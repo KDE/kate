@@ -1322,8 +1322,10 @@ MainWindow::MainWindow(QWidget *parentWidget)
 
 MainWindow::~MainWindow()
 {
-    // cu toolviews
-    qDeleteAll(m_toolviews);
+    // move toolviews as deleting them will
+    // modify m_toolviews. see toolViewDeleted
+    auto toolviews = m_toolviews;
+    qDeleteAll(toolviews);
 
     // seems like we really should delete this by hand ;)
     delete m_centralWidget;

@@ -283,7 +283,7 @@ void SchemaWidget::slotCustomContextMenuRequested(const QPoint &pos)
     }
     menu.addAction(QIcon::fromTheme(QStringLiteral("view-refresh")), i18nc("@action:inmenu Context menu", "Refresh"), this, &SchemaWidget::refresh);
 
-    menu.exec(QCursor::pos());
+    menu.exec(mapToGlobal(pos));
 }
 
 QString SchemaWidget::generateStatement(QSqlDriver::StatementType statementType)

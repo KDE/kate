@@ -23,10 +23,13 @@ MatchExportDialog::MatchExportDialog(QWidget *parent, QAbstractItemModel *matchM
         exportPatternText->addAction(QIcon::fromTheme(QStringLiteral("code-context")), QLineEdit::TrailingPosition);
 
     connect(exportPatternTextActionForInsertRegexButton, &QAction::triggered, this, [this]() {
+        QPoint pos = exportPatternText->pos();
+        pos.rx() += exportPatternText->width() - ((16 + 4) * devicePixelRatioF());
+        pos.ry() += exportPatternText->height();
         QMenu menu(this);
         QSet<QAction *> actionList;
         KatePluginSearchView::addRegexHelperActionsForReplace(&actionList, &menu);
-        auto &&action = menu.exec(QCursor::pos());
+        auto action = menu.exec(mapToGlobal(pos));
         KatePluginSearchView::regexHelperActOnAction(action, actionList, exportPatternText);
     });
 

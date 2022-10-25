@@ -27,5 +27,5 @@ void DataOutputView::slotCustomContextMenuRequested(const QPoint &pos)
 
     menu.addActions(actions());
 
-    menu.exec(QCursor::pos());
+    menu.exec(mapToGlobal(pos));
 }

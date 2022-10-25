@@ -79,6 +79,7 @@ private:
     KActionMenu *m_toolMenu;
     QAction *m_hideToolViews;
     KActionMenu *m_sidebarButtonsMenu;
+    KActionMenu *m_focusToolviewMenu;
 };
 
 class ToolView : public QFrame

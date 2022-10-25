@@ -102,6 +102,9 @@ GUIClient::GUIClient(MainWindow *mw)
     m_sidebarButtonsMenu = new KActionMenu(i18n("Sidebar Buttons"), this);
     actionCollection()->addAction(QStringLiteral("kate_mdi_show_sidebar_buttons"), m_sidebarButtonsMenu);
 
+    m_focusToolviewMenu = new KActionMenu(i18n("Focus Toolview"), this);
+    actionCollection()->addAction(QStringLiteral("kate_mdi_focus_toolview"), m_focusToolviewMenu);
+
     m_toolMenu = new KActionMenu(i18n("Tool &Views"), this);
     actionCollection()->addAction(QStringLiteral("kate_mdi_toolview_menu"), m_toolMenu);
     m_showSidebarsAction = new KToggleAction(i18n("Show Side&bars"), this);
@@ -185,6 +188,18 @@ void GUIClient::registerToolView(ToolView *tv)
     m_sidebarButtonsMenu->addAction(a);
     actionsForTool.push_back(a);
 
+    QAction *act = new QAction(i18n("Focus %1", tv->text), this);
+    connect(act, &QAction::triggered, tv, [tv = QPointer(tv)] {
+        if (tv && tv->mainWindow()) {
+            if (!tv->isVisible()) {
+                tv->mainWindow()->showToolView(tv);
+            }
+            tv->setFocus();
+        }
+    });
+    m_focusToolviewMenu->addAction(act);
+    actionsForTool.push_back(act);
+
     updateActions();
 }
 
@@ -220,6 +235,7 @@ void GUIClient::updateActions()
     QList<QAction *> addList;
     addList.append(m_toolMenu);
     addList.append(m_sidebarButtonsMenu);
+    addList.append(m_focusToolviewMenu);
 
     plugActionList(actionListName, addList);
 }

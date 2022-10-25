@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-21 00:50+0000\n"
+"POT-Creation-Date: 2022-10-25 00:50+0000\n"
 "PO-Revision-Date: 2022-06-13 11:19+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -99,7 +99,7 @@ msgstr "solib-search-path"
 msgid "Custom Init Commands"
 msgstr "Ukazi Init po meri"
 
-#: backend.cpp:23 backend.cpp:48 debugview_dap.cpp:152
+#: backend.cpp:23 backend.cpp:48 debugview_dap.cpp:153
 #, kde-format
 msgid ""
 "A debugging session is on course. Please, use re-run or stop the current "
@@ -185,319 +185,325 @@ msgstr "Cilj %1"
 msgid "Locals"
 msgstr "Lokalci"
 
-#: debugview.cpp:166
+#: debugview.cpp:172
 #, kde-format
 msgid "Could not start debugger process"
 msgstr "Razhroščevalnega procesa ni bilo mogoče zagnati"
 
-#: debugview.cpp:209
+#: debugview.cpp:215
 #, kde-format
 msgid "*** gdb exited normally ***"
 msgstr "*** gdb se je končal brez težav ***"
 
-#: debugview_dap.cpp:166
+#: debugview_dap.cpp:167
 #, kde-format
 msgid "DAP backend failed"
 msgstr "Ozadje DAP ni uspelo"
 
-#: debugview_dap.cpp:208
+#: debugview_dap.cpp:209
 #, kde-format
 msgid "program terminated"
 msgstr "program se je končal"
 
-#: debugview_dap.cpp:220
+#: debugview_dap.cpp:221
 #, kde-format
 msgid "requesting disconnection"
 msgstr "zahtevan odklop"
 
-#: debugview_dap.cpp:234
+#: debugview_dap.cpp:235
 #, kde-format
 msgid "requesting shutdown"
 msgstr "zahtevana ustavitev sistema"
 
-#: debugview_dap.cpp:258
+#: debugview_dap.cpp:259
 #, kde-format
 msgid "DAP backend: %1"
 msgstr "Ozadje DAP: %1"
 
-#: debugview_dap.cpp:267
+#: debugview_dap.cpp:268
 #, kde-format
 msgid "stopped (%1)."
 msgstr "ustavljen (%1)."
 
-#: debugview_dap.cpp:275
+#: debugview_dap.cpp:276
 #, kde-format
 msgid "Active thread: %1 (all threads stopped)."
 msgstr "Aktivna nit: %1 (vse niti ustavljene)."
 
-#: debugview_dap.cpp:277
+#: debugview_dap.cpp:278
 #, kde-format
 msgid "Active thread: %1."
 msgstr "Aktivna nit: %1."
 
-#: debugview_dap.cpp:282
+#: debugview_dap.cpp:283
 #, kde-format
 msgid "Breakpoint(s) reached:"
 msgstr "Dosežena prekinitvena točka:"
 
-#: debugview_dap.cpp:304
+#: debugview_dap.cpp:305
 #, kde-format
 msgid "(continued) thread %1"
 msgstr "(nadaljevana) nit %1"
 
-#: debugview_dap.cpp:306
+#: debugview_dap.cpp:307
 #, kde-format
 msgid "all threads continued"
 msgstr "vse niti se nadaljujejo"
 
-#: debugview_dap.cpp:312
+#: debugview_dap.cpp:314
 #, kde-format
 msgid "(running)"
 msgstr "(teče)"
 
-#: debugview_dap.cpp:389
+#: debugview_dap.cpp:402
 #, kde-format
 msgid "*** connection with server closed ***"
 msgstr "*** povezava s strežnikom zaprta ***"
 
-#: debugview_dap.cpp:396
+#: debugview_dap.cpp:409
 #, kde-format
 msgid "program exited with code %1"
 msgstr "program je končal s kodo %1"
 
-#: debugview_dap.cpp:410
+#: debugview_dap.cpp:423
 #, kde-format
 msgid "*** waiting for user actions ***"
 msgstr "*** čakanje na uporabnikove aktivnosti ***"
 
-#: debugview_dap.cpp:415
+#: debugview_dap.cpp:428
 #, kde-format
 msgid "error on response: %1"
 msgstr "napaka na odgovoru: %1"
 
-#: debugview_dap.cpp:430
+#: debugview_dap.cpp:443
 #, kde-format
 msgid "important"
 msgstr "pomembno"
 
-#: debugview_dap.cpp:433
+#: debugview_dap.cpp:446
 #, kde-format
 msgid "telemetry"
 msgstr "telemetrija"
 
-#: debugview_dap.cpp:452
+#: debugview_dap.cpp:465
 #, kde-format
 msgid "debugging process [%1] %2"
 msgstr "proces odpravljanja napak [%1] %2"
 
-#: debugview_dap.cpp:454
+#: debugview_dap.cpp:467
 #, kde-format
 msgid "debugging process %1"
 msgstr "proces odpravljanja napak %1"
 
-#: debugview_dap.cpp:457
+#: debugview_dap.cpp:470
 #, kde-format
 msgid "Start method: %1"
 msgstr "Začni metodo: %1"
 
-#: debugview_dap.cpp:464
+#: debugview_dap.cpp:477
 #, kde-format
 msgid "thread %1"
 msgstr "nit %1"
 
-#: debugview_dap.cpp:618
+#: debugview_dap.cpp:631
 #, kde-format
 msgid "breakpoint set"
 msgstr "prekinitvena točka postavljena"
 
-#: debugview_dap.cpp:627
+#: debugview_dap.cpp:640
 #, kde-format
 msgid "breakpoint cleared"
 msgstr "prekinitvena točka izbrisana"
 
-#: debugview_dap.cpp:687
+#: debugview_dap.cpp:700
 #, kde-format
 msgid "(%1) breakpoint"
 msgstr "(%1) prekinitvena točka"
 
-#: debugview_dap.cpp:704
+#: debugview_dap.cpp:717
 #, kde-format
 msgid "<not evaluated>"
 msgstr "<ni ovrednoteno>"
 
-#: debugview_dap.cpp:726
+#: debugview_dap.cpp:739
 #, kde-format
 msgid "server capabilities"
 msgstr "zmogljivosti strežnika"
 
-#: debugview_dap.cpp:729
+#: debugview_dap.cpp:742
 #, kde-format
 msgid "supported"
 msgstr "podprto"
 
-#: debugview_dap.cpp:729
+#: debugview_dap.cpp:742
 #, kde-format
 msgid "unsupported"
 msgstr "nepodprto"
 
-#: debugview_dap.cpp:732
+#: debugview_dap.cpp:745
 #, kde-format
 msgid "conditional breakpoints"
 msgstr "pogojne prekinitvene točke"
 
-#: debugview_dap.cpp:733
+#: debugview_dap.cpp:746
 #, kde-format
 msgid "function breakpoints"
 msgstr "funkcijske prekinitvene točke"
 
-#: debugview_dap.cpp:734
+#: debugview_dap.cpp:747
 #, kde-format
 msgid "hit conditional breakpoints"
 msgstr "zadeta prekinitvena točka"
 
-#: debugview_dap.cpp:735
+#: debugview_dap.cpp:748
 #, kde-format
 msgid "log points"
 msgstr "točka dnevnika"
 
-#: debugview_dap.cpp:735
+#: debugview_dap.cpp:748
 #, kde-format
 msgid "modules request"
 msgstr "zahteva modula"
 
-#: debugview_dap.cpp:736
+#: debugview_dap.cpp:749
 #, kde-format
 msgid "goto targets request"
 msgstr "pojdi na ciljni zahtevek"
 
-#: debugview_dap.cpp:737
+#: debugview_dap.cpp:750
 #, kde-format
 msgid "terminate request"
 msgstr "zaključi zahtevek"
 
-#: debugview_dap.cpp:738
+#: debugview_dap.cpp:751
 #, kde-format
 msgid "terminate debuggee"
 msgstr "zaključi testiranca"
 
-#: debugview_dap.cpp:902
+#: debugview_dap.cpp:920
 #, kde-format
 msgid "syntax error: expression not found"
 msgstr "napaka skladnje: izraz ni bil najden"
 
-#: debugview_dap.cpp:920 debugview_dap.cpp:955 debugview_dap.cpp:993
-#: debugview_dap.cpp:1027 debugview_dap.cpp:1063 debugview_dap.cpp:1099
-#: debugview_dap.cpp:1135 debugview_dap.cpp:1235 debugview_dap.cpp:1292
+#: debugview_dap.cpp:938 debugview_dap.cpp:973 debugview_dap.cpp:1011
+#: debugview_dap.cpp:1045 debugview_dap.cpp:1081 debugview_dap.cpp:1117
+#: debugview_dap.cpp:1153 debugview_dap.cpp:1253 debugview_dap.cpp:1310
 #, kde-format
 msgid "syntax error: %1"
 msgstr "napaka skladnje: %1"
 
-#: debugview_dap.cpp:928 debugview_dap.cpp:963 debugview_dap.cpp:1242
-#: debugview_dap.cpp:1300
+#: debugview_dap.cpp:946 debugview_dap.cpp:981 debugview_dap.cpp:1260
+#: debugview_dap.cpp:1318
 #, kde-format
 msgid "invalid line: %1"
 msgstr "neveljavna vrstica: %1"
 
-#: debugview_dap.cpp:935 debugview_dap.cpp:940 debugview_dap.cpp:970
-#: debugview_dap.cpp:975 debugview_dap.cpp:1266 debugview_dap.cpp:1271
-#: debugview_dap.cpp:1307 debugview_dap.cpp:1312
+#: debugview_dap.cpp:953 debugview_dap.cpp:958 debugview_dap.cpp:988
+#: debugview_dap.cpp:993 debugview_dap.cpp:1284 debugview_dap.cpp:1289
+#: debugview_dap.cpp:1325 debugview_dap.cpp:1330
 #, kde-format
 msgid "file not specified: %1"
 msgstr "ni določene datoteke: %1"
 
-#: debugview_dap.cpp:1005 debugview_dap.cpp:1039 debugview_dap.cpp:1075
-#: debugview_dap.cpp:1111 debugview_dap.cpp:1147
+#: debugview_dap.cpp:1023 debugview_dap.cpp:1057 debugview_dap.cpp:1093
+#: debugview_dap.cpp:1129 debugview_dap.cpp:1165
 #, kde-format
 msgid "invalid thread id: %1"
 msgstr "neveljaven id niti: %1"
 
-#: debugview_dap.cpp:1011 debugview_dap.cpp:1045 debugview_dap.cpp:1081
-#: debugview_dap.cpp:1117 debugview_dap.cpp:1153
+#: debugview_dap.cpp:1029 debugview_dap.cpp:1063 debugview_dap.cpp:1099
+#: debugview_dap.cpp:1135 debugview_dap.cpp:1171
 #, kde-format
 msgid "thread id not specified: %1"
 msgstr "ni določen id niti: %1"
 
-#: debugview_dap.cpp:1164
+#: debugview_dap.cpp:1182
 #, kde-format
 msgid "Available commands:"
 msgstr "Razpoložljivi ukazi:"
 
-#: debugview_dap.cpp:1252
+#: debugview_dap.cpp:1270
 #, kde-format
 msgid "conditional breakpoints are not supported by the server"
 msgstr "pogojne prekinitvene točke niso podprte na strežniku"
 
-#: debugview_dap.cpp:1260
+#: debugview_dap.cpp:1278
 #, kde-format
 msgid "hit conditional breakpoints are not supported by the server"
 msgstr "zadete pogojne prekinitvene točke niso podprte na strežniku"
 
-#: debugview_dap.cpp:1321
+#: debugview_dap.cpp:1339
 #, kde-format
 msgid "breakpoint not found (%1:%2)"
 msgstr "prekinitvena točka ni najdena (%1:%2)"
 
-#: debugview_dap.cpp:1330
+#: debugview_dap.cpp:1348
 #, kde-format
 msgid "Current thread: "
 msgstr "Trenutna nit: "
 
-#: debugview_dap.cpp:1335 debugview_dap.cpp:1342 debugview_dap.cpp:1366
+#: debugview_dap.cpp:1353 debugview_dap.cpp:1360 debugview_dap.cpp:1384
 #, kde-format
 msgid "none"
 msgstr "nobena"
 
-#: debugview_dap.cpp:1338
+#: debugview_dap.cpp:1356
 #, kde-format
 msgid "Current frame: "
 msgstr "Trenutni okvir: "
 
-#: debugview_dap.cpp:1345
+#: debugview_dap.cpp:1363
 #, kde-format
 msgid "Session state: "
 msgstr "Stanje seje: "
 
-#: debugview_dap.cpp:1348
+#: debugview_dap.cpp:1366
 #, kde-format
 msgid "initializing"
 msgstr "inicializacija"
 
-#: debugview_dap.cpp:1351
+#: debugview_dap.cpp:1369
 #, kde-format
 msgid "running"
 msgstr "v teku"
 
-#: debugview_dap.cpp:1354
+#: debugview_dap.cpp:1372
 #, kde-format
 msgid "stopped"
 msgstr "zaustavljena"
 
-#: debugview_dap.cpp:1357
+#: debugview_dap.cpp:1375
 #, kde-format
 msgid "terminated"
 msgstr "zaključena"
 
-#: debugview_dap.cpp:1360
+#: debugview_dap.cpp:1378
 #, kde-format
 msgid "disconnected"
 msgstr "odklopljena"
 
-#: debugview_dap.cpp:1363
+#: debugview_dap.cpp:1381
 #, kde-format
 msgid "post mortem"
 msgstr "obdukcija"
 
-#: debugview_dap.cpp:1419
+#: debugview_dap.cpp:1437
 #, kde-format
 msgid "command not found"
 msgstr "ni mogoče najti ukaza"
 
-#: debugview_dap.cpp:1537
+#: debugview_dap.cpp:1458
+#, fuzzy, kde-format
+#| msgid "invalid thread id: %1"
+msgid "missing thread id"
+msgstr "neveljaven id niti: %1"
+
+#: debugview_dap.cpp:1566
 #, kde-format
 msgid "killing backend"
 msgstr "pobijam zaledje"
 
-#: debugview_dap.cpp:1595
+#: debugview_dap.cpp:1624
 #, kde-format
 msgid "Current frame [%3]: %1:%2 (%4)"
 msgstr "Trenutni okvir [%3]: %1:%2 (%4)"

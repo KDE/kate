@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-21 00:50+0000\n"
+"POT-Creation-Date: 2022-10-25 00:50+0000\n"
 "PO-Revision-Date: 2022-06-12 12:28+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -101,7 +101,7 @@ msgstr "solib-search-path"
 msgid "Custom Init Commands"
 msgstr "Ordres d'inici personalitzades"
 
-#: backend.cpp:23 backend.cpp:48 debugview_dap.cpp:152
+#: backend.cpp:23 backend.cpp:48 debugview_dap.cpp:153
 #, kde-format
 msgid ""
 "A debugging session is on course. Please, use re-run or stop the current "
@@ -187,322 +187,328 @@ msgstr "Objectiu %1"
 msgid "Locals"
 msgstr "Locals"
 
-#: debugview.cpp:166
+#: debugview.cpp:172
 #, kde-format
 msgid "Could not start debugger process"
 msgstr "No s'ha pogut iniciar el procés de depuració"
 
-#: debugview.cpp:209
+#: debugview.cpp:215
 #, kde-format
 msgid "*** gdb exited normally ***"
 msgstr "*** El «gdb» ha finalitzat amb normalitat ***"
 
-#: debugview_dap.cpp:166
+#: debugview_dap.cpp:167
 #, kde-format
 msgid "DAP backend failed"
 msgstr "Ha fallat el dorsal DAP"
 
-#: debugview_dap.cpp:208
+#: debugview_dap.cpp:209
 #, kde-format
 msgid "program terminated"
 msgstr "programa terminat"
 
-#: debugview_dap.cpp:220
+#: debugview_dap.cpp:221
 #, kde-format
 msgid "requesting disconnection"
 msgstr "se sol·licita la desconnexió"
 
-#: debugview_dap.cpp:234
+#: debugview_dap.cpp:235
 #, kde-format
 msgid "requesting shutdown"
 msgstr "se sol·licita l'aturada"
 
-#: debugview_dap.cpp:258
+#: debugview_dap.cpp:259
 #, kde-format
 msgid "DAP backend: %1"
 msgstr "Dorsal DAP: %1"
 
-#: debugview_dap.cpp:267
+#: debugview_dap.cpp:268
 #, kde-format
 msgid "stopped (%1)."
 msgstr "aturat (%1)."
 
-#: debugview_dap.cpp:275
+#: debugview_dap.cpp:276
 #, kde-format
 msgid "Active thread: %1 (all threads stopped)."
 msgstr "Fil actiu: %1 (tots els fils aturats)."
 
-#: debugview_dap.cpp:277
+#: debugview_dap.cpp:278
 #, kde-format
 msgid "Active thread: %1."
 msgstr "Fil actiu: %1."
 
-#: debugview_dap.cpp:282
+#: debugview_dap.cpp:283
 #, kde-format
 msgid "Breakpoint(s) reached:"
 msgstr "S'ha arribat al/s punt/s d'interrupció:"
 
-#: debugview_dap.cpp:304
+#: debugview_dap.cpp:305
 #, kde-format
 msgid "(continued) thread %1"
 msgstr "(ha continuat) fil %1"
 
-#: debugview_dap.cpp:306
+#: debugview_dap.cpp:307
 #, kde-format
 msgid "all threads continued"
 msgstr "tots els fils han continuat"
 
-#: debugview_dap.cpp:312
+#: debugview_dap.cpp:314
 #, kde-format
 msgid "(running)"
 msgstr "(en execució)"
 
-#: debugview_dap.cpp:389
+#: debugview_dap.cpp:402
 #, kde-format
 msgid "*** connection with server closed ***"
 msgstr "*** s'ha tancat la connexió amb el servidor ***"
 
-#: debugview_dap.cpp:396
+#: debugview_dap.cpp:409
 #, kde-format
 msgid "program exited with code %1"
 msgstr "el programa ha finalitzat amb el codi %1"
 
-#: debugview_dap.cpp:410
+#: debugview_dap.cpp:423
 #, kde-format
 msgid "*** waiting for user actions ***"
 msgstr "*** en espera d'accions d'usuari ***"
 
-#: debugview_dap.cpp:415
+#: debugview_dap.cpp:428
 #, kde-format
 msgid "error on response: %1"
 msgstr "error en la resposta: %1"
 
-#: debugview_dap.cpp:430
+#: debugview_dap.cpp:443
 #, kde-format
 msgid "important"
 msgstr "important"
 
-#: debugview_dap.cpp:433
+#: debugview_dap.cpp:446
 #, kde-format
 msgid "telemetry"
 msgstr "telemetria"
 
-#: debugview_dap.cpp:452
+#: debugview_dap.cpp:465
 #, kde-format
 msgid "debugging process [%1] %2"
 msgstr "depuració del procés [%1] %2"
 
-#: debugview_dap.cpp:454
+#: debugview_dap.cpp:467
 #, kde-format
 msgid "debugging process %1"
 msgstr "depuració del procés %1"
 
-#: debugview_dap.cpp:457
+#: debugview_dap.cpp:470
 #, kde-format
 msgid "Start method: %1"
 msgstr "Mètode d'inici: %1"
 
-#: debugview_dap.cpp:464
+#: debugview_dap.cpp:477
 #, kde-format
 msgid "thread %1"
 msgstr "fil %1"
 
-#: debugview_dap.cpp:618
+#: debugview_dap.cpp:631
 #, kde-format
 msgid "breakpoint set"
 msgstr "s'ha establert un punt d'interrupció"
 
-#: debugview_dap.cpp:627
+#: debugview_dap.cpp:640
 #, kde-format
 msgid "breakpoint cleared"
 msgstr "s'ha netejat un punt d'interrupció"
 
-#: debugview_dap.cpp:687
+#: debugview_dap.cpp:700
 #, kde-format
 msgid "(%1) breakpoint"
 msgstr "(%1) punt d'interrupció"
 
-#: debugview_dap.cpp:704
+#: debugview_dap.cpp:717
 #, kde-format
 msgid "<not evaluated>"
 msgstr "<no avaluat>"
 
-#: debugview_dap.cpp:726
+#: debugview_dap.cpp:739
 #, kde-format
 msgid "server capabilities"
 msgstr "capacitats del servidor"
 
-#: debugview_dap.cpp:729
+#: debugview_dap.cpp:742
 #, kde-format
 msgid "supported"
 msgstr "implementat"
 
-#: debugview_dap.cpp:729
+#: debugview_dap.cpp:742
 #, kde-format
 msgid "unsupported"
 msgstr "no implementat"
 
-#: debugview_dap.cpp:732
+#: debugview_dap.cpp:745
 #, kde-format
 msgid "conditional breakpoints"
 msgstr "punts d'interrupció condicionals"
 
-#: debugview_dap.cpp:733
+#: debugview_dap.cpp:746
 #, kde-format
 msgid "function breakpoints"
 msgstr "punts d'interrupció de funció"
 
-#: debugview_dap.cpp:734
+#: debugview_dap.cpp:747
 #, kde-format
 msgid "hit conditional breakpoints"
 msgstr "assoleix els punts d'interrupció condicionals"
 
-#: debugview_dap.cpp:735
+#: debugview_dap.cpp:748
 #, kde-format
 msgid "log points"
 msgstr "punts de registre"
 
-#: debugview_dap.cpp:735
+#: debugview_dap.cpp:748
 #, kde-format
 msgid "modules request"
 msgstr "sol·licitud de mòdul"
 
-#: debugview_dap.cpp:736
+#: debugview_dap.cpp:749
 #, kde-format
 msgid "goto targets request"
 msgstr "sol·licitud d'anar a objectius"
 
-#: debugview_dap.cpp:737
+#: debugview_dap.cpp:750
 #, kde-format
 msgid "terminate request"
 msgstr "sol·licitud de terminació"
 
-#: debugview_dap.cpp:738
+#: debugview_dap.cpp:751
 #, kde-format
 msgid "terminate debuggee"
 msgstr "depuració de terminació"
 
-#: debugview_dap.cpp:902
+#: debugview_dap.cpp:920
 #, kde-format
 msgid "syntax error: expression not found"
 msgstr "error de sintaxi: no s'ha trobat l'expressió"
 
-#: debugview_dap.cpp:920 debugview_dap.cpp:955 debugview_dap.cpp:993
-#: debugview_dap.cpp:1027 debugview_dap.cpp:1063 debugview_dap.cpp:1099
-#: debugview_dap.cpp:1135 debugview_dap.cpp:1235 debugview_dap.cpp:1292
+#: debugview_dap.cpp:938 debugview_dap.cpp:973 debugview_dap.cpp:1011
+#: debugview_dap.cpp:1045 debugview_dap.cpp:1081 debugview_dap.cpp:1117
+#: debugview_dap.cpp:1153 debugview_dap.cpp:1253 debugview_dap.cpp:1310
 #, kde-format
 msgid "syntax error: %1"
 msgstr "error de sintaxi: %1"
 
-#: debugview_dap.cpp:928 debugview_dap.cpp:963 debugview_dap.cpp:1242
-#: debugview_dap.cpp:1300
+#: debugview_dap.cpp:946 debugview_dap.cpp:981 debugview_dap.cpp:1260
+#: debugview_dap.cpp:1318
 #, kde-format
 msgid "invalid line: %1"
 msgstr "línia no vàlida: %1"
 
-#: debugview_dap.cpp:935 debugview_dap.cpp:940 debugview_dap.cpp:970
-#: debugview_dap.cpp:975 debugview_dap.cpp:1266 debugview_dap.cpp:1271
-#: debugview_dap.cpp:1307 debugview_dap.cpp:1312
+#: debugview_dap.cpp:953 debugview_dap.cpp:958 debugview_dap.cpp:988
+#: debugview_dap.cpp:993 debugview_dap.cpp:1284 debugview_dap.cpp:1289
+#: debugview_dap.cpp:1325 debugview_dap.cpp:1330
 #, kde-format
 msgid "file not specified: %1"
 msgstr "fitxer no especificat: %1"
 
-#: debugview_dap.cpp:1005 debugview_dap.cpp:1039 debugview_dap.cpp:1075
-#: debugview_dap.cpp:1111 debugview_dap.cpp:1147
+#: debugview_dap.cpp:1023 debugview_dap.cpp:1057 debugview_dap.cpp:1093
+#: debugview_dap.cpp:1129 debugview_dap.cpp:1165
 #, kde-format
 msgid "invalid thread id: %1"
 msgstr "ID de fil no vàlid: %1"
 
-#: debugview_dap.cpp:1011 debugview_dap.cpp:1045 debugview_dap.cpp:1081
-#: debugview_dap.cpp:1117 debugview_dap.cpp:1153
+#: debugview_dap.cpp:1029 debugview_dap.cpp:1063 debugview_dap.cpp:1099
+#: debugview_dap.cpp:1135 debugview_dap.cpp:1171
 #, kde-format
 msgid "thread id not specified: %1"
 msgstr "ID de fil no especificat: %1"
 
-#: debugview_dap.cpp:1164
+#: debugview_dap.cpp:1182
 #, kde-format
 msgid "Available commands:"
 msgstr "Ordres disponibles:"
 
-#: debugview_dap.cpp:1252
+#: debugview_dap.cpp:1270
 #, kde-format
 msgid "conditional breakpoints are not supported by the server"
 msgstr ""
 "els punts d'interrupció condicionals no estan implementats en el servidor"
 
-#: debugview_dap.cpp:1260
+#: debugview_dap.cpp:1278
 #, kde-format
 msgid "hit conditional breakpoints are not supported by the server"
 msgstr ""
 "assoleix els punts d'interrupció condicionals no està implementat en el "
 "servidor"
 
-#: debugview_dap.cpp:1321
+#: debugview_dap.cpp:1339
 #, kde-format
 msgid "breakpoint not found (%1:%2)"
 msgstr "no s'ha trobat el punt d'interrupció (%1:%2)"
 
-#: debugview_dap.cpp:1330
+#: debugview_dap.cpp:1348
 #, kde-format
 msgid "Current thread: "
 msgstr "Fil actual: "
 
-#: debugview_dap.cpp:1335 debugview_dap.cpp:1342 debugview_dap.cpp:1366
+#: debugview_dap.cpp:1353 debugview_dap.cpp:1360 debugview_dap.cpp:1384
 #, kde-format
 msgid "none"
 msgstr "cap"
 
-#: debugview_dap.cpp:1338
+#: debugview_dap.cpp:1356
 #, kde-format
 msgid "Current frame: "
 msgstr "Marc actual: "
 
-#: debugview_dap.cpp:1345
+#: debugview_dap.cpp:1363
 #, kde-format
 msgid "Session state: "
 msgstr "Estat de la sessió: "
 
-#: debugview_dap.cpp:1348
+#: debugview_dap.cpp:1366
 #, kde-format
 msgid "initializing"
 msgstr "s'està inicialitzant"
 
-#: debugview_dap.cpp:1351
+#: debugview_dap.cpp:1369
 #, kde-format
 msgid "running"
 msgstr "en execució"
 
-#: debugview_dap.cpp:1354
+#: debugview_dap.cpp:1372
 #, kde-format
 msgid "stopped"
 msgstr "aturada"
 
-#: debugview_dap.cpp:1357
+#: debugview_dap.cpp:1375
 #, kde-format
 msgid "terminated"
 msgstr "terminada"
 
-#: debugview_dap.cpp:1360
+#: debugview_dap.cpp:1378
 #, kde-format
 msgid "disconnected"
 msgstr "desconnectada"
 
-#: debugview_dap.cpp:1363
+#: debugview_dap.cpp:1381
 #, kde-format
 msgid "post mortem"
 msgstr "post mortem"
 
-#: debugview_dap.cpp:1419
+#: debugview_dap.cpp:1437
 #, kde-format
 msgid "command not found"
 msgstr "no s'ha trobat l'ordre"
 
-#: debugview_dap.cpp:1537
+#: debugview_dap.cpp:1458
+#, fuzzy, kde-format
+#| msgid "invalid thread id: %1"
+msgid "missing thread id"
+msgstr "ID de fil no vàlid: %1"
+
+#: debugview_dap.cpp:1566
 #, kde-format
 msgid "killing backend"
 msgstr "s'està matant el dorsal"
 
-#: debugview_dap.cpp:1595
+#: debugview_dap.cpp:1624
 #, kde-format
 msgid "Current frame [%3]: %1:%2 (%4)"
 msgstr "Marc actual [%3]: %1:%2 (%4)"

@@ -960,8 +960,8 @@ public:
         auto menu = new QMenu(treeView);
         menu->addAction(i18n("Expand All"), treeView, &QTreeView::expandAll);
         menu->addAction(i18n("Collapse All"), treeView, &QTreeView::collapseAll);
-        auto h = [menu](const QPoint &) {
-            menu->popup(QCursor::pos());
+        auto h = [treeView, menu](const QPoint &p) {
+            menu->popup(treeView->viewport()->mapToGlobal(p));
         };
         if (m_diagnosticsTree == treeView) {
             connect(treeView, &QTreeView::customContextMenuRequested, this, &self_type::onDiagnosticsMenu);
@@ -2521,7 +2521,7 @@ public:
                 menu->addAction(i18n("Enable Suppression"), this, std::bind(h, true));
             }
         }
-        menu->popup(QCursor::pos());
+        menu->popup(treeView->viewport()->mapToGlobal(pos));
     }
 
     Q_SLOT void onMarkClicked(KTextEditor::Document *document, KTextEditor::Mark mark, bool &handled)

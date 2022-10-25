@@ -317,9 +317,9 @@ public:
         displayOptionChanged();
     }
 
-    void showContextMenu(const QPoint &)
+    void showContextMenu(const QPoint &pos)
     {
-        m_popup->popup(QCursor::pos(), m_treeOn);
+        m_popup->popup(m_symbols->viewport()->mapToGlobal(pos), m_treeOn);
     }
 
     void onViewState(KTextEditor::View *, LSPClientViewTracker::State newState)

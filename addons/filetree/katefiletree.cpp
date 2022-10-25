@@ -341,7 +341,7 @@ void KateFileTree::contextMenuEvent(QContextMenuEvent *event)
     KTextEditor::Document *doc = docFromIndex(m_indexContextMenu);
     const bool isFile = (nullptr != doc);
 
-    QMenu menu;
+    QMenu menu(this);
     if (isFile) {
         QMenu *openWithMenu = menu.addMenu(i18nc("@action:inmenu", "Open With"));
         openWithMenu->setIcon(QIcon::fromTheme(QStringLiteral("system-run")));

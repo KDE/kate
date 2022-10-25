@@ -262,7 +262,7 @@ void SchemaWidget::slotItemExpanded(QTreeWidgetItem *item)
 
 void SchemaWidget::slotCustomContextMenuRequested(const QPoint &pos)
 {
-    QMenu menu;
+    QMenu menu(this);
     QTreeWidgetItem *item = itemAt(pos);
 
     if (item) {

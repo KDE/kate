@@ -293,7 +293,7 @@ void LSPClientConfigPage::updateHighlighters()
 void LSPClientConfigPage::showContextMenuAllowedBlocked(const QPoint &pos)
 {
     // allow deletion of stuff
-    QMenu myMenu;
+    QMenu myMenu(this);
 
     auto currentDelete = myMenu.addAction(i18n("Delete selected entries"), this, [this]() {
         qDeleteAll(ui->allowedAndBlockedServers->selectedItems());

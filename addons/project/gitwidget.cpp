@@ -1031,7 +1031,7 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
     auto treeItem = idx.data(GitStatusModel::TreeItemType);
 
     if (treeItem == GitStatusModel::NodeChanges || treeItem == GitStatusModel::NodeUntrack) {
-        QMenu menu;
+        QMenu menu(this);
         bool untracked = treeItem == GitStatusModel::NodeUntrack;
 
         auto stageAct = menu.addAction(i18n("Stage All"));
@@ -1081,7 +1081,7 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
             showDiff(QString(), false);
         }
     } else if (treeItem == GitStatusModel::NodeFile) {
-        QMenu menu;
+        QMenu menu(this);
         const auto statusItemType = idx.data(GitStatusModel::GitItemType).value<GitStatusModel::ItemType>();
         const bool staged = statusItemType == GitStatusModel::NodeStage;
         const bool untracked = statusItemType == GitStatusModel::NodeUntrack;
@@ -1127,7 +1127,7 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
             m_mainWin->openUrl(QUrl::fromLocalFile(file));
         }
     } else if (treeItem == GitStatusModel::NodeStage) {
-        QMenu menu;
+        QMenu menu(this);
         auto stage = menu.addAction(i18n("Unstage All"));
         auto diff = menu.addAction(i18n("Show diff"));
         auto model = m_treeView->model();
@@ -1194,7 +1194,7 @@ void GitWidget::selectedContextMenu(QContextMenuEvent *e)
         return;
     }
 
-    QMenu menu;
+    QMenu menu(this);
     auto stageAct = selectionHasStagedItems ? menu.addAction(i18n("Unstage Selected Files")) : menu.addAction(i18n("Stage Selected Files"));
     auto discardAct = selectionHasChangedItems && !selectionHasUntrackedItems ? menu.addAction(i18n("Discard Selected Files")) : nullptr;
     if (discardAct) {

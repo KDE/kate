@@ -57,7 +57,7 @@ public:
     // provide simple context menu, e.g. for copy&paste
     void contextMenuEvent(QContextMenuEvent *event) override
     {
-        QMenu menu;
+        QMenu menu(this);
         menu.addAction(m_copyAction);
         menu.exec(viewport()->mapToGlobal(event->pos()));
         event->accept();

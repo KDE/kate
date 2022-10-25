@@ -63,7 +63,7 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
     /**
      * Create context menu
      */
-    QMenu menu;
+    QMenu menu(parent);
 
     /**
      * Copy Path, always available, put that to the top

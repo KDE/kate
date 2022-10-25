@@ -21,7 +21,7 @@ void DataOutputView::slotCustomContextMenuRequested(const QPoint &pos)
 {
     Q_UNUSED(pos);
 
-    QMenu menu;
+    QMenu menu(this);
 
     menu.addActions(actions());
 

@@ -232,7 +232,7 @@ void WelcomeView::onRecentItemsContextMenuRequested(const QPoint &pos)
     const QUrl url = m_recentItemsModel->url(index);
     Q_ASSERT(url.isValid());
 
-    QMenu contextMenu;
+    QMenu contextMenu(listViewRecentItems);
 
     QAction *action = new QAction(i18n("Copy &Location"));
     action->setIcon(QIcon::fromTheme(QStringLiteral("edit-copy-path")));

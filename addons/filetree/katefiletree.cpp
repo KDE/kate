@@ -389,7 +389,7 @@ void KateFileTree::contextMenuEvent(QContextMenuEvent *event)
     bool isWidgetDir = m_proxyModel->isWidgetDir(m_indexContextMenu);
     bool isWidget = m_indexContextMenu.data(KateFileTreeModel::WidgetRole).value<QWidget *>() != nullptr;
 
-    QMenu menu;
+    QMenu menu(this);
     if (doc) {
         if (doc->url().isValid()) {
             QMenu *openWithMenu = menu.addMenu(i18nc("@action:inmenu", "Open With"));

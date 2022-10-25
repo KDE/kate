@@ -6,6 +6,7 @@
  */
 
 #include "katepythonplugin.h"
+#include "pythonutils.h"
 
 #include <KPluginFactory>
 
@@ -14,6 +15,8 @@ K_PLUGIN_FACTORY_WITH_JSON(KatePythonPluginFactory, "katepythonplugin.json", reg
 KatePythonPlugin::KatePythonPlugin(QObject *application, const QList<QVariant> &)
     : KTextEditor::Plugin(application)
 {
+    qDebug() << "init res; " << PythonUtils::init();
+    PythonUtils::runScript({QStringLiteral("print('hello world')")});
 }
 
 QObject *KatePythonPlugin::createView(KTextEditor::MainWindow *)

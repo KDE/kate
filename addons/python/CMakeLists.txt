@@ -49,7 +49,9 @@ target_link_libraries(
     KF5::I18n
     KF5::TextEditor
     Shiboken2::libshiboken
+    PySide2::pyside2
     ${Python3_LIBRARIES}
+    PyKate
 )
 
 target_sources(

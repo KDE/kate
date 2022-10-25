@@ -17,8 +17,8 @@
 
 /* from AppLib bindings */
 
-extern "C" PyObject *PyInit_AppLib();
-static const char moduleName[] = "AppLib";
+extern "C" PyObject *PyInit_Kate();
+static const char moduleName[] = "Kate";
 
 // This variable stores all Python types exported by this module.
 extern PyTypeObject **SbkAppLibTypes;
@@ -62,7 +62,7 @@ State init()
     if (qEnvironmentVariableIsSet(virtualEnvVar))
         initVirtualEnvironment();
 
-    if (PyImport_AppendInittab(moduleName, PyInit_AppLib) == -1) {
+    if (PyImport_AppendInittab(moduleName, PyInit_Kate) == -1) {
         qWarning("Failed to add the module '%s' to the table of built-in modules.", moduleName);
         return state;
     }
@@ -70,7 +70,7 @@ State init()
     Py_Initialize();
     qAddPostRoutine(cleanup);
     state = PythonInitialized;
-    const bool pythonInitialized = PyInit_AppLib() != nullptr;
+    const bool pythonInitialized = PyInit_Kate() != nullptr;
     const bool pyErrorOccurred = PyErr_Occurred() != nullptr;
     if (pythonInitialized && !pyErrorOccurred) {
         state = AppModuleLoaded;

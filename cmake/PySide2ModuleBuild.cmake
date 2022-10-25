@@ -133,7 +133,7 @@ macro(create_python_bindings
 
     set(TARGET_NAME "Py${libraryName}")
     set(MODULE_NAME "${libraryName}")
-    add_library(${TARGET_NAME} MODULE ${outputSource})
+    add_library(${TARGET_NAME} STATIC ${outputSource})
 
     set_target_properties(
         ${TARGET_NAME} PROPERTIES

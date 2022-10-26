@@ -144,6 +144,19 @@ QVector<QWidget *> hasMatchingText(const QString &text, QWidget *page)
     return ret;
 }
 
+template<>
+QVector<QWidget *> hasMatchingText<QComboBox>(const QString &text, QWidget *page)
+{
+    QVector<QWidget *> ret;
+    const auto comboxBoxes = page->findChildren<QComboBox *>();
+    for (auto cb : comboxBoxes) {
+        if (cb->findText(text, Qt::MatchFlag::MatchContains) != -1) {
+            ret << cb;
+        }
+    }
+    return ret;
+}
+
 template<typename...>
 struct FindChildrenHelper {
     static QVector<QWidget *> hasMatchingTextForTypes(const QString &, QWidget *)
@@ -236,7 +249,7 @@ void KateConfigDialog::onSearchTextChanged()
     QVector<QWidget *> matchedWidgets;
     if (!text.isEmpty()) {
         for (auto item : std::as_const(m_allPages)) {
-            const auto matchingWidgets = FindChildrenHelper<QLabel, QPushButton, QCheckBox, QRadioButton>::hasMatchingTextForTypes(text, item->widget());
+            const auto matchingWidgets = FindChildrenHelper<QLabel, QAbstractButton, QComboBox>::hasMatchingTextForTypes(text, item->widget());
             if (matchingWidgets.isEmpty()) {
                 pagesToHide << item->name();
             }

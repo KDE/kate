@@ -537,6 +537,16 @@ void KateConfigDialog::addBehaviorPage()
     m_diffStyle->setCurrentIndex(cgGeneral.readEntry("Diff Show Style", 0));
     connect(m_diffStyle, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &KateConfigDialog::slotChanged);
 
+    buttonGroup = new QGroupBox(i18n("Navigation Bar"), generalFrame);
+    vbox = new QVBoxLayout(buttonGroup);
+    hlayout = new QHBoxLayout;
+    vbox->addLayout(hlayout);
+    layout->addWidget(buttonGroup);
+    m_urlBarShowSymbols = new QCheckBox(i18n("Show current symbol in navigation bar"));
+    hlayout->addWidget(m_urlBarShowSymbols);
+    m_urlBarShowSymbols->setChecked(cgGeneral.readEntry("Show Symbol In Navigation Bar", true));
+    connect(m_urlBarShowSymbols, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
+
     layout->addStretch(1); // :-] works correct without autoadd
 }
 
@@ -793,6 +803,8 @@ void KateConfigDialog::slotApply()
         cg.writeEntry("Elide Tab Text", m_tabsElided->isChecked());
 
         cg.writeEntry("Diff Show Style", m_diffStyle->currentIndex());
+
+        cg.writeEntry("Show Symbol In Navigation Bar", m_urlBarShowSymbols->isChecked());
 
         // patch document modified warn state
         const QList<KTextEditor::Document *> &docs = KateApp::self()->documentManager()->documentList();

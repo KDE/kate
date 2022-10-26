@@ -119,6 +119,7 @@ private:
     QCheckBox *m_tabsScrollable = nullptr;
     QCheckBox *m_tabsElided = nullptr;
     QComboBox *m_diffStyle = nullptr;
+    QCheckBox *m_urlBarShowSymbols = nullptr;
 
     Ui::SessionConfigWidget sessionConfigUi;
 

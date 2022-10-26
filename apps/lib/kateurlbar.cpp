@@ -573,6 +573,17 @@ public:
         connect(qApp, &QApplication::paletteChanged, this, &BreadCrumbView::updatePalette, Qt::QueuedConnection);
         updatePalette();
 
+        auto onConfigChanged = [this] {
+            KConfigGroup cg(KSharedConfig::openConfig(), "General");
+            auto v = cg.readEntry("Show Symbol In Navigation Bar", true);
+            if (v != m_showSymbolCrumb) {
+                m_showSymbolCrumb = v;
+                Q_EMIT requestRefresh();
+            }
+        };
+        connect(KateApp::self(), &KateApp::configurationChanged, this, onConfigChanged);
+        onConfigChanged();
+
         connect(this, &QListView::clicked, this, &BreadCrumbView::onClicked);
     }
 
@@ -617,6 +628,10 @@ public:
                 item->setIcon(icon);
             }
             i++;
+        }
+
+        if (!m_showSymbolCrumb) {
+            return;
         }
 
         auto *mainWindow = m_urlBar->viewManager()->mainWindow();
@@ -946,9 +961,11 @@ private:
     QPointer<QAbstractItemModel> m_symbolsModel;
     QMetaObject::Connection m_connToView; // Only one conn at a time
     bool m_isNavigating = false;
+    bool m_showSymbolCrumb = true;
 
 Q_SIGNALS:
     void unsetFocus();
+    void requestRefresh();
 };
 
 // TODO: Merge this class back into KateUrlBar
@@ -994,6 +1011,13 @@ public:
 
         connect(m_mainCrumbView, &BreadCrumbView::unsetFocus, this, [this] {
             m_urlBar->viewManager()->activeView()->setFocus();
+        });
+        connect(m_mainCrumbView, &BreadCrumbView::requestRefresh, this, [this] {
+            auto vs = m_urlBar->viewSpace();
+            auto view = vs->currentView();
+            if (vs && view) {
+                setUrl(view->document());
+            }
         });
 
         connect(

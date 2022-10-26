@@ -142,10 +142,12 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
 
     a = actionCollection()->addAction(QStringLiteral("build_selected_target"));
     a->setText(i18n("Build Selected Target"));
+    a->setIcon(QIcon::fromTheme(QStringLiteral("run-build")));
     connect(a, &QAction::triggered, this, &KateBuildView::slotBuildSelectedTarget);
 
     a = actionCollection()->addAction(QStringLiteral("build_and_run_selected_target"));
     a->setText(i18n("Build and Run Selected Target"));
+    a->setIcon(QIcon::fromTheme(QStringLiteral("media-playback-start")));
     connect(a, &QAction::triggered, this, &KateBuildView::slotBuildAndRunSelectedTarget);
 
     a = actionCollection()->addAction(QStringLiteral("stop"));

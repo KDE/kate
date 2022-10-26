@@ -209,12 +209,13 @@ void TargetModel::moveRowDown(const QModelIndex &itemIndex)
 
     QModelIndex parent = itemIndex.parent();
     int row = itemIndex.row();
-    if (row >= m_targets.size() - 1) {
-        return;
-    }
-    beginMoveRows(parent, row, row, parent, row + 2);
     if (!parent.isValid()) {
+        if (!parent.isValid() && row >= m_targets.size() - 1) {
+            return;
+        }
+        beginMoveRows(parent, row, row, parent, row + 2);
         m_targets.move(row, row + 1);
+        endMoveRows();
     } else {
         int rootRow = itemIndex.internalId();
         if (rootRow < 0 || rootRow >= m_targets.size()) {
@@ -224,9 +225,10 @@ void TargetModel::moveRowDown(const QModelIndex &itemIndex)
         if (row >= m_targets[rootRow].commands.size() - 1) {
             return;
         }
+        beginMoveRows(parent, row, row, parent, row + 2);
         m_targets[rootRow].commands.move(row, row + 1);
+        endMoveRows();
     }
-    endMoveRows();
 }
 
 const QString TargetModel::command(const QModelIndex &itemIndex)

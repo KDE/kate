@@ -46,7 +46,6 @@ public:
     void updateTargetsButtonStates();
 
 public Q_SLOTS:
-    void targetSetSelected(int index);
     void targetActivated(const QModelIndex &index);
 
 Q_SIGNALS:

@@ -19,12 +19,8 @@ TargetsUi::TargetsUi(QObject *view, QWidget *parent)
 {
     proxyModel.setSourceModel(&targetsModel);
 
-    targetCombo = new QComboBox(this);
-    targetCombo->setToolTip(i18n("Select active target set"));
-    targetCombo->setModel(&proxyModel);
-
     targetFilterEdit = new QLineEdit(this);
-    targetFilterEdit->setPlaceholderText(i18n("Filter targets"));
+    targetFilterEdit->setPlaceholderText(i18n("Filter targets, use arrow keys to select, press Enter to execute"));
     targetFilterEdit->setClearButtonEnabled(true);
 
     newTarget = new QToolButton(this);
@@ -72,7 +68,6 @@ TargetsUi::TargetsUi(QObject *view, QWidget *parent)
 
     QHBoxLayout *tLayout = new QHBoxLayout();
 
-    tLayout->addWidget(targetCombo);
     tLayout->addWidget(targetFilterEdit);
     tLayout->addWidget(buildButton);
     tLayout->addWidget(runButton);
@@ -91,7 +86,6 @@ TargetsUi::TargetsUi(QObject *view, QWidget *parent)
     layout->addWidget(targetsView);
     layout->setContentsMargins(0, 0, 0, 0);
 
-    connect(targetCombo, static_cast<void (QComboBox::*)(int)>(&QComboBox::activated), this, &TargetsUi::targetSetSelected);
     connect(targetsView->selectionModel(), &QItemSelectionModel::currentChanged, this, &TargetsUi::targetActivated);
 
     connect(targetsView->selectionModel(), &QItemSelectionModel::currentChanged, this, &TargetsUi::updateTargetsButtonStates);
@@ -120,16 +114,6 @@ TargetsUi::TargetsUi(QObject *view, QWidget *parent)
     targetFilterEdit->installEventFilter(this);
 }
 
-void TargetsUi::targetSetSelected(int index)
-{
-    // qDebug() << index;
-    targetsView->collapseAll();
-    QModelIndex rootItem = proxyModel.index(index, 0);
-
-    targetsView->setExpanded(rootItem, true);
-    targetsView->setCurrentIndex(proxyModel.index(0, 0, rootItem));
-}
-
 void TargetsUi::targetActivated(const QModelIndex &index)
 {
     // qDebug() << index;
@@ -140,8 +124,6 @@ void TargetsUi::targetActivated(const QModelIndex &index)
     if (rootItem.parent().isValid()) {
         rootItem = rootItem.parent();
     }
-
-    targetCombo->setCurrentIndex(rootItem.row());
 }
 
 void TargetsUi::updateTargetsButtonStates()

@@ -210,8 +210,11 @@ class LSPClientServerManagerImpl : public LSPClientServerManager
     // most either do not care about the id, or can find out themselves
     // (and might get confused if we pass a not so accurate one)
     QHash<QString, bool> m_documentLanguageId;
-
     typedef QVector<QSharedPointer<LSPClientServer>> ServerList;
+
+    // Servers which were not found to be installed. We use this
+    // variable to avoid warning more than once
+    QSet<QString> m_failedToFindServers;
 
 public:
     LSPClientServerManagerImpl(LSPClientPlugin *plugin)
@@ -742,14 +745,17 @@ private:
                 // use full path to avoid security issues
                 cmdline[0] = cmd;
             } else {
-                // we didn't find the server binary at all!
-                QString message = i18n("Failed to find server binary: %1", cmdline[0]);
-                const auto url = serverConfig.value(QStringLiteral("url")).toString();
-                if (!url.isEmpty()) {
-                    message += QStringLiteral("\n") + i18n("Please check your PATH for the binary");
-                    message += QStringLiteral("\n") + i18n("See also %1 for installation or details", url);
+                if (!m_failedToFindServers.contains(cmdline[0])) {
+                    m_failedToFindServers.insert(cmdline[0]);
+                    // we didn't find the server binary at all!
+                    QString message = i18n("Failed to find server binary: %1", cmdline[0]);
+                    const auto url = serverConfig.value(QStringLiteral("url")).toString();
+                    if (!url.isEmpty()) {
+                        message += QStringLiteral("\n") + i18n("Please check your PATH for the binary");
+                        message += QStringLiteral("\n") + i18n("See also %1 for installation or details", url);
+                    }
+                    showMessage(message, KTextEditor::Message::Warning);
                 }
-                showMessage(message, KTextEditor::Message::Warning);
                 // clear to cut branch below
                 cmdline.clear();
             }
@@ -845,6 +851,7 @@ private:
                 m_documentLanguageId[it.key()] = docLanguageId.toBool();
             }
         }
+        m_failedToFindServers.clear();
 
         // we could (but do not) perform restartAll here;
         // for now let's leave that up to user

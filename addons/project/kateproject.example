@@ -59,8 +59,8 @@ struct
       string directory;
 
       /// "targets" contains a vector of targets (as in a makefile). Each target has a name
-      /// and a command. The commands are exeucted in the build directory.
-      vector< {string name, string build_cmd} > targets;
+      /// a build command and a run command. The commands are executed in the build directory.
+      vector< {string name, string build_cmd, string run_cmd} > targets;
 
       /// "default_target" must be set to one of the target names in "targets". This is the target
       /// which will be built by the "Build default target" action of the build plugin.

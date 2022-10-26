@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-25 00:50+0000\n"
-"PO-Revision-Date: 2022-10-19 12:21+0200\n"
+"POT-Creation-Date: 2022-10-26 00:49+0000\n"
+"PO-Revision-Date: 2022-10-25 09:02+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -239,17 +239,17 @@ msgstr "&Елементи на лентата на състояние"
 msgid "Change Style"
 msgstr "Промяна на стила"
 
-#: lib/diff/diffeditor.cpp:180 lib/kateconfigdialog.cpp:514
+#: lib/diff/diffeditor.cpp:180 lib/kateconfigdialog.cpp:519
 #, kde-format
 msgid "Side By Side"
 msgstr "Един до друг"
 
-#: lib/diff/diffeditor.cpp:183 lib/kateconfigdialog.cpp:515
+#: lib/diff/diffeditor.cpp:183 lib/kateconfigdialog.cpp:520
 #, kde-format
 msgid "Unified"
 msgstr "Унифициран"
 
-#: lib/diff/diffeditor.cpp:186 lib/kateconfigdialog.cpp:516
+#: lib/diff/diffeditor.cpp:186 lib/kateconfigdialog.cpp:521
 #, kde-format
 msgid "Raw"
 msgstr "Необработен"
@@ -316,7 +316,7 @@ msgid "Jump to Previous Hunk"
 msgstr "Отиване до предишно място"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
-#: lib/filehistorywidget.cpp:254 lib/kateconfigdialog.cpp:117
+#: lib/filehistorywidget.cpp:254 lib/kateconfigdialog.cpp:122
 #: lib/session/katesessionmanagedialog.ui:184
 #, kde-format
 msgid "Close"
@@ -334,7 +334,7 @@ msgstr ""
 msgid "Failed to get file history: %1"
 msgstr "Неуспешно получаване на историята на файловете: %1"
 
-#: lib/filehistorywidget.cpp:342 lib/kateconfigdialog.cpp:348
+#: lib/filehistorywidget.cpp:342 lib/kateconfigdialog.cpp:353
 #, kde-format
 msgid "Error"
 msgstr "Грешка"
@@ -691,69 +691,69 @@ msgstr "Настройване"
 msgid "Search..."
 msgstr "Търсене..."
 
-#: lib/kateconfigdialog.cpp:118
+#: lib/kateconfigdialog.cpp:123
 #, kde-format
 msgid "Save"
 msgstr "Запазване"
 
-#: lib/kateconfigdialog.cpp:325
+#: lib/kateconfigdialog.cpp:330
 #, kde-format
 msgid "Behavior"
 msgstr "Поведение"
 
-#: lib/kateconfigdialog.cpp:327
+#: lib/kateconfigdialog.cpp:332
 #, kde-format
 msgid "Behavior Options"
 msgstr "Настройки на поведение"
 
-#: lib/kateconfigdialog.cpp:334
+#: lib/kateconfigdialog.cpp:339
 #, kde-format
 msgid "&Behavior"
 msgstr "Пов&едение"
 
-#: lib/kateconfigdialog.cpp:343
+#: lib/kateconfigdialog.cpp:348
 #, kde-format
 msgid "&Switch to output view upon message type:"
 msgstr "&Превключване към изглед за извеждане при тип съобщение:"
 
-#: lib/kateconfigdialog.cpp:348
+#: lib/kateconfigdialog.cpp:353
 #, kde-format
 msgid "Never"
 msgstr "Никога"
 
-#: lib/kateconfigdialog.cpp:348 lib/kateconfigdialog.cpp:877
+#: lib/kateconfigdialog.cpp:353 lib/kateconfigdialog.cpp:882
 #, kde-format
 msgid "Warning"
 msgstr "Предупреждение"
 
-#: lib/kateconfigdialog.cpp:348
+#: lib/kateconfigdialog.cpp:353
 #, kde-format
 msgid "Info"
 msgstr "Информация"
 
-#: lib/kateconfigdialog.cpp:348
+#: lib/kateconfigdialog.cpp:353
 #, kde-format
 msgid "Log"
 msgstr "Журнал"
 
-#: lib/kateconfigdialog.cpp:354
+#: lib/kateconfigdialog.cpp:359
 #, kde-format
 msgid "&Limit output view history:"
 msgstr "&Ограничаване на обема на преглед на историята:"
 
-#: lib/kateconfigdialog.cpp:360 lib/kateconfigdialog.cpp:426
+#: lib/kateconfigdialog.cpp:365 lib/kateconfigdialog.cpp:431
 #, kde-format
 msgid "Unlimited"
 msgstr "Без ограничение"
 
-#: lib/kateconfigdialog.cpp:367
+#: lib/kateconfigdialog.cpp:372
 #, kde-format
 msgid "Use a separate &dialog for handling externally modified files"
 msgstr ""
 "Използване на отделен диалогов прозорец за обработка на външно модифицирани "
 "файлове"
 
-#: lib/kateconfigdialog.cpp:371
+#: lib/kateconfigdialog.cpp:376
 #, kde-format
 msgid ""
 "If enabled, a modal dialog will be used to show all of the modified files. "
@@ -764,17 +764,17 @@ msgstr ""
 "модифицирани файлове. Ако не е активирано, ще бъдете индивидуално попитани "
 "какво да правите за всеки модифициран файл само когато файла получава фокус."
 
-#: lib/kateconfigdialog.cpp:380
+#: lib/kateconfigdialog.cpp:385
 #, kde-format
 msgid "&Sidebars"
 msgstr "&Странични ленти"
 
-#: lib/kateconfigdialog.cpp:383
+#: lib/kateconfigdialog.cpp:388
 #, kde-format
 msgid "Sync section size with tab positions"
 msgstr "Синхронизиране на размера на секцията с позицията на табулатора"
 
-#: lib/kateconfigdialog.cpp:387
+#: lib/kateconfigdialog.cpp:392
 #, kde-format
 msgid ""
 "When enabled the section size will be determined by the position of the "
@@ -785,27 +785,27 @@ msgstr ""
 "табулатора.\n"
 "Тази опция не влияе на долната странична лента."
 
-#: lib/kateconfigdialog.cpp:392
+#: lib/kateconfigdialog.cpp:397
 #, kde-format
 msgid "Show text for left and right sidebar buttons"
 msgstr "Показване на текст за бутоните на лявата и дясната странична лента"
 
-#: lib/kateconfigdialog.cpp:397
+#: lib/kateconfigdialog.cpp:402
 #, kde-format
 msgid "Icon size for left and right sidebar buttons"
 msgstr "Размер на иконите за бутоните на лявата и дясната странична лента"
 
-#: lib/kateconfigdialog.cpp:416
+#: lib/kateconfigdialog.cpp:421
 #, kde-format
 msgid "&Tabs"
 msgstr "&Раздели"
 
-#: lib/kateconfigdialog.cpp:420
+#: lib/kateconfigdialog.cpp:425
 #, kde-format
 msgid "&Limit number of tabs:"
 msgstr "Ограничение на броя на разделите:"
 
-#: lib/kateconfigdialog.cpp:431
+#: lib/kateconfigdialog.cpp:436
 #, kde-format
 msgid ""
 "A high limit can increase the window size, please enable 'Allow tab "
@@ -815,66 +815,66 @@ msgstr ""
 "\"Разрешаване на превъртане на раздели\", за да го избегнете. Неограничени "
 "раздели винаги се превъртат."
 
-#: lib/kateconfigdialog.cpp:435
+#: lib/kateconfigdialog.cpp:440
 #, kde-format
 msgid "&Auto hide tabs"
 msgstr "&Автоматично скриване на разделите"
 
-#: lib/kateconfigdialog.cpp:437
+#: lib/kateconfigdialog.cpp:442
 #, kde-format
 msgid "When checked tabs will be hidden if only one document is open."
 msgstr ""
 "Ако е отметнато, разделите ще се скриват само при един отворен документ."
 
-#: lib/kateconfigdialog.cpp:441
+#: lib/kateconfigdialog.cpp:446
 #, kde-format
 msgid "&Show close button"
 msgstr "&Показване на бутон за затваряне"
 
-#: lib/kateconfigdialog.cpp:443
+#: lib/kateconfigdialog.cpp:448
 #, kde-format
 msgid "When checked each tab will display a close button."
 msgstr "Ако е отметнато, всеки раздел ще показва бутон за затваряне."
 
-#: lib/kateconfigdialog.cpp:447
+#: lib/kateconfigdialog.cpp:452
 #, kde-format
 msgid "&Expand tabs"
 msgstr "&Разширяване на разделите"
 
-#: lib/kateconfigdialog.cpp:449
+#: lib/kateconfigdialog.cpp:454
 #, kde-format
 msgid "When checked tabs take as much size as possible."
 msgstr ""
 "Ако е отметнато, разделите ще заемат възможно най-голямото пространство."
 
-#: lib/kateconfigdialog.cpp:453
+#: lib/kateconfigdialog.cpp:458
 #, kde-format
 msgid "&Double click opens a new document"
 msgstr "&Двойно щракване за отваряне на нов документ"
 
-#: lib/kateconfigdialog.cpp:455
+#: lib/kateconfigdialog.cpp:460
 #, kde-format
 msgid "When checked double click opens a new document."
 msgstr "Ако е отметнато, двойното щракване с мишката ще отвори нов документ."
 
-#: lib/kateconfigdialog.cpp:459
+#: lib/kateconfigdialog.cpp:464
 #, kde-format
 msgid "&Middle click closes a document"
 msgstr "&Щракване със  среден бутон за затваряне на документ"
 
-#: lib/kateconfigdialog.cpp:461
+#: lib/kateconfigdialog.cpp:466
 #, kde-format
 msgid "When checked middle click closes a document."
 msgstr ""
 "Ако е отметнато, щракването със  среден бутон на мишката ще затвори "
 "документа."
 
-#: lib/kateconfigdialog.cpp:465
+#: lib/kateconfigdialog.cpp:470
 #, kde-format
 msgid "Allow tab scrolling"
 msgstr "Разрешаване на превъртане на раздели"
 
-#: lib/kateconfigdialog.cpp:467
+#: lib/kateconfigdialog.cpp:472
 #, kde-format
 msgid ""
 "When checked this will allow scrolling in tab bar when number of tabs is "
@@ -883,79 +883,79 @@ msgstr ""
 "Ако е активирано, разделите ще могат да се превъртат в лентата на раздели, "
 "когато броят им е твърде голям."
 
-#: lib/kateconfigdialog.cpp:471
+#: lib/kateconfigdialog.cpp:476
 #, kde-format
 msgid "Elide tab text"
 msgstr "Съкращаване на текста на разделите"
 
-#: lib/kateconfigdialog.cpp:473
+#: lib/kateconfigdialog.cpp:478
 #, kde-format
 msgid "When checked tab text might be elided if its too long."
 msgstr ""
 "При активиране на тази опция, текстът ще бъде съкратен, ако е много дълъг."
 
-#: lib/kateconfigdialog.cpp:479
+#: lib/kateconfigdialog.cpp:484
 #, kde-format
 msgid "&Mouse"
 msgstr "&Мишка"
 
-#: lib/kateconfigdialog.cpp:484
+#: lib/kateconfigdialog.cpp:489
 #, kde-format
 msgid "&Backward button pressed:"
 msgstr "При натиснат клавиш &назад:"
 
-#: lib/kateconfigdialog.cpp:489
+#: lib/kateconfigdialog.cpp:494
 #, kde-format
 msgid "Previous tab"
 msgstr "Предишен раздел"
 
-#: lib/kateconfigdialog.cpp:489
+#: lib/kateconfigdialog.cpp:494
 #, kde-format
 msgid "History back"
 msgstr "Назад в историята"
 
-#: lib/kateconfigdialog.cpp:495
+#: lib/kateconfigdialog.cpp:500
 #, kde-format
 msgid "&Forward button pressed:"
 msgstr "При натиснат клавиш &напред:"
 
-#: lib/kateconfigdialog.cpp:500
+#: lib/kateconfigdialog.cpp:505
 #, kde-format
 msgid "Next tab"
 msgstr "Следващ раздел"
 
-#: lib/kateconfigdialog.cpp:500
+#: lib/kateconfigdialog.cpp:505
 #, kde-format
 msgid "History forward"
 msgstr "Напред в историята"
 
-#: lib/kateconfigdialog.cpp:508
+#: lib/kateconfigdialog.cpp:513
 #, kde-format
 msgid "Diff"
 msgstr "Разлики"
 
-#: lib/kateconfigdialog.cpp:517
+#: lib/kateconfigdialog.cpp:522
 #, kde-format
 msgid "Diff Style:"
 msgstr "Стил на разлики:"
 
-#: lib/kateconfigdialog.cpp:531
+#: lib/kateconfigdialog.cpp:536
 #, kde-format
 msgid "Session"
 msgstr "Сесия"
 
-#: lib/kateconfigdialog.cpp:533
+#: lib/kateconfigdialog.cpp:538
 #, kde-format
 msgid "Session Management"
 msgstr "Управление на сесиите"
 
-#: lib/kateconfigdialog.cpp:544
+#: lib/kateconfigdialog.cpp:549
 #, kde-format
 msgctxt "The special case of 'Delete unused meta-information after'"
 msgid "(never)"
 msgstr "(никога)"
 
-#: lib/kateconfigdialog.cpp:545
+#: lib/kateconfigdialog.cpp:550
 #, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid " day"
@@ -963,29 +963,31 @@ msgid_plural " days"
 msgstr[0] " ден"
 msgstr[1] " дни"
 
-#: lib/kateconfigdialog.cpp:578
+#: lib/kateconfigdialog.cpp:583
 #, kde-format
 msgid ""
 "When a window is closed the documents opened only in this window are closed "
 "as well."
 msgstr ""
+"При затваряне на даден прозорец се затварят също така и документите, "
+"отворени в този прозорец."
 
-#: lib/kateconfigdialog.cpp:613
+#: lib/kateconfigdialog.cpp:618
 #, kde-format
 msgid "Plugins"
 msgstr "Приставки"
 
-#: lib/kateconfigdialog.cpp:615
+#: lib/kateconfigdialog.cpp:620
 #, kde-format
 msgid "Plugin Manager"
 msgstr "Настройки на приставките"
 
-#: lib/kateconfigdialog.cpp:633 lib/kateconfigdialog.cpp:635
+#: lib/kateconfigdialog.cpp:638 lib/kateconfigdialog.cpp:640
 #, kde-format
 msgid "User Feedback"
 msgstr "Обратна връзка"
 
-#: lib/kateconfigdialog.cpp:876
+#: lib/kateconfigdialog.cpp:881
 #, kde-format
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"
@@ -1486,90 +1488,100 @@ msgstr "Бутони на страничната лента"
 
 #: lib/katemdi.cpp:105
 #, kde-format
+msgid "Focus Toolview"
+msgstr ""
+
+#: lib/katemdi.cpp:108
+#, kde-format
 msgid "Tool &Views"
 msgstr "Инстру&менти"
 
-#: lib/katemdi.cpp:107
+#: lib/katemdi.cpp:110
 #, kde-format
 msgid "Show Side&bars"
 msgstr "&Показване на страничния панел"
 
-#: lib/katemdi.cpp:115
+#: lib/katemdi.cpp:118
 #, kde-format
 msgid "Hide All Tool Views"
 msgstr "Скриване на всички инструменти"
 
-#: lib/katemdi.cpp:162
+#: lib/katemdi.cpp:165
 #, kde-format
 msgid "Show %1"
 msgstr "Показване на %1"
 
-#: lib/katemdi.cpp:173
+#: lib/katemdi.cpp:176
 #, kde-format
 msgid "Show %1 Button"
 msgstr "Показване на %1 бутон"
 
-#: lib/katemdi.cpp:984
+#: lib/katemdi.cpp:191
+#, kde-format
+msgid "Focus %1"
+msgstr ""
+
+#: lib/katemdi.cpp:1000
 #, kde-format
 msgid "Configure..."
 msgstr "Конфигуриране..."
 
-#: lib/katemdi.cpp:988
+#: lib/katemdi.cpp:1004
 #, kde-format
 msgid "Hide Button"
 msgstr "Скриване на бутона"
 
-#: lib/katemdi.cpp:990
+#: lib/katemdi.cpp:1006
 #, kde-format
 msgid "Move To"
 msgstr "Преместване към"
 
-#: lib/katemdi.cpp:995
+#: lib/katemdi.cpp:1011
 #, kde-format
 msgid "Own Section"
 msgstr "Собствена секция"
 
-#: lib/katemdi.cpp:1001 lib/katemdi.cpp:1009
+#: lib/katemdi.cpp:1017 lib/katemdi.cpp:1025
 #, kde-format
 msgid "One Down"
 msgstr "Един надолу"
 
-#: lib/katemdi.cpp:1003 lib/katemdi.cpp:1014
+#: lib/katemdi.cpp:1019 lib/katemdi.cpp:1030
 #, kde-format
 msgid "One Right"
 msgstr "Един надясно"
 
-#: lib/katemdi.cpp:1007
+#: lib/katemdi.cpp:1023
 #, kde-format
 msgid "One Up"
 msgstr "Един нагоре"
 
-#: lib/katemdi.cpp:1012
+#: lib/katemdi.cpp:1028
 #, kde-format
 msgid "One Left"
 msgstr "Един наляво"
 
-#: lib/katemdi.cpp:1021
+#: lib/katemdi.cpp:1037
 #, kde-format
 msgid "Left Sidebar"
 msgstr "Лява странична лента"
 
-#: lib/katemdi.cpp:1025
+#: lib/katemdi.cpp:1041
 #, kde-format
 msgid "Right Sidebar"
 msgstr "Дясна странична лента"
 
-#: lib/katemdi.cpp:1029
+#: lib/katemdi.cpp:1045
 #, kde-format
 msgid "Top Sidebar"
 msgstr "Горна странична лента"
 
-#: lib/katemdi.cpp:1033
+#: lib/katemdi.cpp:1049
 #, kde-format
 msgid "Bottom Sidebar"
 msgstr "Долна странична лента"
 
-#: lib/katemdi.cpp:1408
+#: lib/katemdi.cpp:1426
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "
@@ -2373,13 +2385,13 @@ msgstr "Файлове с незапазени промени"
 #, kde-format
 msgid "If disabled, an untitled document will be shown for new windows."
 msgstr ""
+"Ако е деактивирано, за новите прозорци ще се показва документ без заглавие."
 
 #. i18n: ectx: property (text), widget (QCheckBox, showWelcomeViewForNewWindow)
 #: lib/ui/sessionconfigwidget.ui:91
-#, fuzzy, kde-format
-#| msgid "Show for new window"
+#, kde-format
 msgid "Show welcome view for new windows"
-msgstr "Показване за нов прозорец"
+msgstr "Показване на приветствената страница за нови прозорци"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, modCloseAfterLast)
 #: lib/ui/sessionconfigwidget.ui:98
@@ -2402,7 +2414,7 @@ msgstr "Затваряне на приложението изцяло, кога�
 #: lib/ui/sessionconfigwidget.ui:108
 #, kde-format
 msgid "Close documents with the window they belong to"
-msgstr ""
+msgstr "Затваряне на документите с прозореца, към който принадлежат"
 
 #. i18n: ectx: property (title), widget (QGroupBox, gbElements)
 #: lib/ui/sessionconfigwidget.ui:118

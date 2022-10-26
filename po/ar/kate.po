@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-25 00:50+0000\n"
+"POT-Creation-Date: 2022-10-26 00:49+0000\n"
 "PO-Revision-Date: 2022-10-22 20:16+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -245,17 +245,17 @@ msgstr "عناصر شريط ال&حالة"
 msgid "Change Style"
 msgstr "غيّر النمط"
 
-#: lib/diff/diffeditor.cpp:180 lib/kateconfigdialog.cpp:514
+#: lib/diff/diffeditor.cpp:180 lib/kateconfigdialog.cpp:519
 #, kde-format
 msgid "Side By Side"
 msgstr "جنبًا إلى جنب"
 
-#: lib/diff/diffeditor.cpp:183 lib/kateconfigdialog.cpp:515
+#: lib/diff/diffeditor.cpp:183 lib/kateconfigdialog.cpp:520
 #, kde-format
 msgid "Unified"
 msgstr "موحّد"
 
-#: lib/diff/diffeditor.cpp:186 lib/kateconfigdialog.cpp:516
+#: lib/diff/diffeditor.cpp:186 lib/kateconfigdialog.cpp:521
 #, kde-format
 msgid "Raw"
 msgstr "خام"
@@ -334,7 +334,7 @@ msgid "Jump to Previous Hunk"
 msgstr "اقفز إلى الكتلة السابقة"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
-#: lib/filehistorywidget.cpp:254 lib/kateconfigdialog.cpp:117
+#: lib/filehistorywidget.cpp:254 lib/kateconfigdialog.cpp:122
 #: lib/session/katesessionmanagedialog.ui:184
 #, kde-format
 msgid "Close"
@@ -350,7 +350,7 @@ msgstr "أخفق في الحصول على ملف التاريخ: لم يعثر �
 msgid "Failed to get file history: %1"
 msgstr "أخفق في الحصول على ملف التاريخ: %1"
 
-#: lib/filehistorywidget.cpp:342 lib/kateconfigdialog.cpp:348
+#: lib/filehistorywidget.cpp:342 lib/kateconfigdialog.cpp:353
 #, kde-format
 msgid "Error"
 msgstr "خطأ"
@@ -707,67 +707,67 @@ msgstr "اضبط"
 msgid "Search..."
 msgstr "ابحث..."
 
-#: lib/kateconfigdialog.cpp:118
+#: lib/kateconfigdialog.cpp:123
 #, kde-format
 msgid "Save"
 msgstr "احفظ"
 
-#: lib/kateconfigdialog.cpp:325
+#: lib/kateconfigdialog.cpp:330
 #, kde-format
 msgid "Behavior"
 msgstr "السّلوك"
 
-#: lib/kateconfigdialog.cpp:327
+#: lib/kateconfigdialog.cpp:332
 #, kde-format
 msgid "Behavior Options"
 msgstr "خيارات السّلوك"
 
-#: lib/kateconfigdialog.cpp:334
+#: lib/kateconfigdialog.cpp:339
 #, kde-format
 msgid "&Behavior"
 msgstr "ال&سّلوك"
 
-#: lib/kateconfigdialog.cpp:343
+#: lib/kateconfigdialog.cpp:348
 #, kde-format
 msgid "&Switch to output view upon message type:"
 msgstr "&بدل إلى عرض الخرج بالاعتماد على نوع الرسالة:"
 
-#: lib/kateconfigdialog.cpp:348
+#: lib/kateconfigdialog.cpp:353
 #, kde-format
 msgid "Never"
 msgstr "البتة"
 
-#: lib/kateconfigdialog.cpp:348 lib/kateconfigdialog.cpp:877
+#: lib/kateconfigdialog.cpp:353 lib/kateconfigdialog.cpp:882
 #, kde-format
 msgid "Warning"
 msgstr "تحذير"
 
-#: lib/kateconfigdialog.cpp:348
+#: lib/kateconfigdialog.cpp:353
 #, kde-format
 msgid "Info"
 msgstr "معلومات"
 
-#: lib/kateconfigdialog.cpp:348
+#: lib/kateconfigdialog.cpp:353
 #, kde-format
 msgid "Log"
 msgstr "سجل"
 
-#: lib/kateconfigdialog.cpp:354
+#: lib/kateconfigdialog.cpp:359
 #, kde-format
 msgid "&Limit output view history:"
 msgstr "&حد تاريخ منظور الخرج:"
 
-#: lib/kateconfigdialog.cpp:360 lib/kateconfigdialog.cpp:426
+#: lib/kateconfigdialog.cpp:365 lib/kateconfigdialog.cpp:431
 #, kde-format
 msgid "Unlimited"
 msgstr "غير محدود"
 
-#: lib/kateconfigdialog.cpp:367
+#: lib/kateconfigdialog.cpp:372
 #, kde-format
 msgid "Use a separate &dialog for handling externally modified files"
 msgstr "استخدم &حواري منفصل للتعامل مع الملفات المعدلة خارجيا"
 
-#: lib/kateconfigdialog.cpp:371
+#: lib/kateconfigdialog.cpp:376
 #, kde-format
 msgid ""
 "If enabled, a modal dialog will be used to show all of the modified files. "
@@ -778,17 +778,17 @@ msgstr ""
 "حالة عدم التمكين  ستسأل بشكل فردي عما يجب القيام به لكل ملف معدل فقط عندما "
 "يتم التركيز على عرض هذا الملف."
 
-#: lib/kateconfigdialog.cpp:380
+#: lib/kateconfigdialog.cpp:385
 #, kde-format
 msgid "&Sidebars"
 msgstr "الأ&شرطة الجانبية"
 
-#: lib/kateconfigdialog.cpp:383
+#: lib/kateconfigdialog.cpp:388
 #, kde-format
 msgid "Sync section size with tab positions"
 msgstr "زامن حجم القسم مع مواضع اللسان"
 
-#: lib/kateconfigdialog.cpp:387
+#: lib/kateconfigdialog.cpp:392
 #, kde-format
 msgid ""
 "When enabled the section size will be determined by the position of the "
@@ -798,27 +798,27 @@ msgstr ""
 "عندما تفعل سيحدد حجم القسم بواسطة موضع الألسنة.\n"
 "هذا الخيار لن يؤثر الشريط الجانبي السفلي."
 
-#: lib/kateconfigdialog.cpp:392
+#: lib/kateconfigdialog.cpp:397
 #, kde-format
 msgid "Show text for left and right sidebar buttons"
 msgstr "اعرض نص لأزرار الشريط الجانبي اليمين واليسار"
 
-#: lib/kateconfigdialog.cpp:397
+#: lib/kateconfigdialog.cpp:402
 #, kde-format
 msgid "Icon size for left and right sidebar buttons"
 msgstr "حجم أيقونة أزرار الشريط الجانبي اليمين واليسار"
 
-#: lib/kateconfigdialog.cpp:416
+#: lib/kateconfigdialog.cpp:421
 #, kde-format
 msgid "&Tabs"
 msgstr "أ&لسنة"
 
-#: lib/kateconfigdialog.cpp:420
+#: lib/kateconfigdialog.cpp:425
 #, kde-format
 msgid "&Limit number of tabs:"
 msgstr "&حد عدد الألسنة:"
 
-#: lib/kateconfigdialog.cpp:431
+#: lib/kateconfigdialog.cpp:436
 #, kde-format
 msgid ""
 "A high limit can increase the window size, please enable 'Allow tab "
@@ -827,62 +827,62 @@ msgstr ""
 "يمكن أن يؤدي الحد المرتفع إلى زيادة حجم النافذة، يرجى تمكين \"اسمح بتمرير "
 "الألسنة\" لمنع ذلك. الألسنة غير المحدودة قابلة للتمرير دائمًا."
 
-#: lib/kateconfigdialog.cpp:435
+#: lib/kateconfigdialog.cpp:440
 #, kde-format
 msgid "&Auto hide tabs"
 msgstr "أ&خفِ الألسنة آليّاً"
 
-#: lib/kateconfigdialog.cpp:437
+#: lib/kateconfigdialog.cpp:442
 #, kde-format
 msgid "When checked tabs will be hidden if only one document is open."
 msgstr "عند التحديد ستخفى الألسنة إذا كان هناك ملف واحد مفتوح فقط."
 
-#: lib/kateconfigdialog.cpp:441
+#: lib/kateconfigdialog.cpp:446
 #, kde-format
 msgid "&Show close button"
 msgstr "ا&عرض زر الغلق"
 
-#: lib/kateconfigdialog.cpp:443
+#: lib/kateconfigdialog.cpp:448
 #, kde-format
 msgid "When checked each tab will display a close button."
 msgstr "عندما تفعل سيظهر زر الغلق على كل لسان."
 
-#: lib/kateconfigdialog.cpp:447
+#: lib/kateconfigdialog.cpp:452
 #, kde-format
 msgid "&Expand tabs"
 msgstr "&وسع الألسنة"
 
-#: lib/kateconfigdialog.cpp:449
+#: lib/kateconfigdialog.cpp:454
 #, kde-format
 msgid "When checked tabs take as much size as possible."
 msgstr "عندما تحدد ستأخذ الألسنة أكبر قد ممكن من الحجم"
 
-#: lib/kateconfigdialog.cpp:453
+#: lib/kateconfigdialog.cpp:458
 #, kde-format
 msgid "&Double click opens a new document"
 msgstr "النقر ال&مزدوج يفتح مستند جديد"
 
-#: lib/kateconfigdialog.cpp:455
+#: lib/kateconfigdialog.cpp:460
 #, kde-format
 msgid "When checked double click opens a new document."
 msgstr "عندما تفعل النقر المزدوج يفتح مستند جديد."
 
-#: lib/kateconfigdialog.cpp:459
+#: lib/kateconfigdialog.cpp:464
 #, kde-format
 msgid "&Middle click closes a document"
 msgstr "النقر بالزر الأ&وسط يغلق مستند"
 
-#: lib/kateconfigdialog.cpp:461
+#: lib/kateconfigdialog.cpp:466
 #, kde-format
 msgid "When checked middle click closes a document."
 msgstr "عندما تفعل النقر بالزر الأوسط يغلق مستند."
 
-#: lib/kateconfigdialog.cpp:465
+#: lib/kateconfigdialog.cpp:470
 #, kde-format
 msgid "Allow tab scrolling"
 msgstr "اسمح بتمرير الألسنة"
 
-#: lib/kateconfigdialog.cpp:467
+#: lib/kateconfigdialog.cpp:472
 #, kde-format
 msgid ""
 "When checked this will allow scrolling in tab bar when number of tabs is "
@@ -890,78 +890,78 @@ msgid ""
 msgstr ""
 "عند تحديده، سيسمح هذا بالتمرير في شريط الألسنة عندما يكون عدد الألسنة كبيرًا."
 
-#: lib/kateconfigdialog.cpp:471
+#: lib/kateconfigdialog.cpp:476
 #, kde-format
 msgid "Elide tab text"
 msgstr "قلص نص اللسان"
 
-#: lib/kateconfigdialog.cpp:473
+#: lib/kateconfigdialog.cpp:478
 #, kde-format
 msgid "When checked tab text might be elided if its too long."
 msgstr "عندما تحدد سيقلص طول نص اللسان إذا كان طويلا."
 
-#: lib/kateconfigdialog.cpp:479
+#: lib/kateconfigdialog.cpp:484
 #, kde-format
 msgid "&Mouse"
 msgstr "ال&فأرة"
 
-#: lib/kateconfigdialog.cpp:484
+#: lib/kateconfigdialog.cpp:489
 #, kde-format
 msgid "&Backward button pressed:"
 msgstr "الضغط على زر ال&عودة:"
 
-#: lib/kateconfigdialog.cpp:489
+#: lib/kateconfigdialog.cpp:494
 #, kde-format
 msgid "Previous tab"
 msgstr "اللسان السّابق"
 
-#: lib/kateconfigdialog.cpp:489
+#: lib/kateconfigdialog.cpp:494
 #, kde-format
 msgid "History back"
 msgstr "تأخر في التاريخ"
 
-#: lib/kateconfigdialog.cpp:495
+#: lib/kateconfigdialog.cpp:500
 #, kde-format
 msgid "&Forward button pressed:"
 msgstr "الضغط على زر ال&تقدم:"
 
-#: lib/kateconfigdialog.cpp:500
+#: lib/kateconfigdialog.cpp:505
 #, kde-format
 msgid "Next tab"
 msgstr "اللسان التّالي"
 
-#: lib/kateconfigdialog.cpp:500
+#: lib/kateconfigdialog.cpp:505
 #, kde-format
 msgid "History forward"
 msgstr "تقدم في التاريخ"
 
-#: lib/kateconfigdialog.cpp:508
+#: lib/kateconfigdialog.cpp:513
 #, kde-format
 msgid "Diff"
 msgstr "الفرق"
 
-#: lib/kateconfigdialog.cpp:517
+#: lib/kateconfigdialog.cpp:522
 #, kde-format
 msgid "Diff Style:"
 msgstr "نمط الفرق:"
 
-#: lib/kateconfigdialog.cpp:531
+#: lib/kateconfigdialog.cpp:536
 #, kde-format
 msgid "Session"
 msgstr "جلسة"
 
-#: lib/kateconfigdialog.cpp:533
+#: lib/kateconfigdialog.cpp:538
 #, kde-format
 msgid "Session Management"
 msgstr "إدارة الجلسات"
 
-#: lib/kateconfigdialog.cpp:544
+#: lib/kateconfigdialog.cpp:549
 #, kde-format
 msgctxt "The special case of 'Delete unused meta-information after'"
 msgid "(never)"
 msgstr "(أبدًا)"
 
-#: lib/kateconfigdialog.cpp:545
+#: lib/kateconfigdialog.cpp:550
 #, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid " day"
@@ -973,29 +973,29 @@ msgstr[3] " أيّام"
 msgstr[4] " يومًا"
 msgstr[5] " يوم"
 
-#: lib/kateconfigdialog.cpp:578
+#: lib/kateconfigdialog.cpp:583
 #, kde-format
 msgid ""
 "When a window is closed the documents opened only in this window are closed "
 "as well."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:613
+#: lib/kateconfigdialog.cpp:618
 #, kde-format
 msgid "Plugins"
 msgstr "الملحقات"
 
-#: lib/kateconfigdialog.cpp:615
+#: lib/kateconfigdialog.cpp:620
 #, kde-format
 msgid "Plugin Manager"
 msgstr "إدارة الملحقات"
 
-#: lib/kateconfigdialog.cpp:633 lib/kateconfigdialog.cpp:635
+#: lib/kateconfigdialog.cpp:638 lib/kateconfigdialog.cpp:640
 #, kde-format
 msgid "User Feedback"
 msgstr "مشاركة بياناتك"
 
-#: lib/kateconfigdialog.cpp:876
+#: lib/kateconfigdialog.cpp:881
 #, kde-format
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"
@@ -1478,90 +1478,100 @@ msgstr "أزرار الشريط الجانبي"
 
 #: lib/katemdi.cpp:105
 #, kde-format
+msgid "Focus Toolview"
+msgstr ""
+
+#: lib/katemdi.cpp:108
+#, kde-format
 msgid "Tool &Views"
 msgstr "منا&ظير الأدوات"
 
-#: lib/katemdi.cpp:107
+#: lib/katemdi.cpp:110
 #, kde-format
 msgid "Show Side&bars"
 msgstr "أظهر الأش&رطة الجانبيّة"
 
-#: lib/katemdi.cpp:115
+#: lib/katemdi.cpp:118
 #, kde-format
 msgid "Hide All Tool Views"
 msgstr "أخفِ جميع مناظير الأدوات"
 
-#: lib/katemdi.cpp:162
+#: lib/katemdi.cpp:165
 #, kde-format
 msgid "Show %1"
 msgstr "أظهر %1"
 
-#: lib/katemdi.cpp:173
+#: lib/katemdi.cpp:176
 #, kde-format
 msgid "Show %1 Button"
 msgstr "اعرض زر %1"
 
-#: lib/katemdi.cpp:984
+#: lib/katemdi.cpp:191
+#, kde-format
+msgid "Focus %1"
+msgstr ""
+
+#: lib/katemdi.cpp:1000
 #, kde-format
 msgid "Configure..."
 msgstr "اضبط..."
 
-#: lib/katemdi.cpp:988
+#: lib/katemdi.cpp:1004
 #, kde-format
 msgid "Hide Button"
 msgstr "أخفِ الزر"
 
-#: lib/katemdi.cpp:990
+#: lib/katemdi.cpp:1006
 #, kde-format
 msgid "Move To"
 msgstr "انقل إلى"
 
-#: lib/katemdi.cpp:995
+#: lib/katemdi.cpp:1011
 #, kde-format
 msgid "Own Section"
 msgstr "قسم مستقل"
 
-#: lib/katemdi.cpp:1001 lib/katemdi.cpp:1009
+#: lib/katemdi.cpp:1017 lib/katemdi.cpp:1025
 #, kde-format
 msgid "One Down"
 msgstr "واحد للأسفل"
 
-#: lib/katemdi.cpp:1003 lib/katemdi.cpp:1014
+#: lib/katemdi.cpp:1019 lib/katemdi.cpp:1030
 #, kde-format
 msgid "One Right"
 msgstr "وأحد لليمين"
 
-#: lib/katemdi.cpp:1007
+#: lib/katemdi.cpp:1023
 #, kde-format
 msgid "One Up"
 msgstr "واحد للأعلى"
 
-#: lib/katemdi.cpp:1012
+#: lib/katemdi.cpp:1028
 #, kde-format
 msgid "One Left"
 msgstr "واحد لليسار"
 
-#: lib/katemdi.cpp:1021
+#: lib/katemdi.cpp:1037
 #, kde-format
 msgid "Left Sidebar"
 msgstr "الشّريط الجانبيّ الأيمن"
 
-#: lib/katemdi.cpp:1025
+#: lib/katemdi.cpp:1041
 #, kde-format
 msgid "Right Sidebar"
 msgstr "الشّريط الجانبيّ الأيسر"
 
-#: lib/katemdi.cpp:1029
+#: lib/katemdi.cpp:1045
 #, kde-format
 msgid "Top Sidebar"
 msgstr "الشّريط الجانبيّ العلويّ"
 
-#: lib/katemdi.cpp:1033
+#: lib/katemdi.cpp:1049
 #, kde-format
 msgid "Bottom Sidebar"
 msgstr "الشّريط الجانبيّ السفليّ"
 
-#: lib/katemdi.cpp:1408
+#: lib/katemdi.cpp:1426
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

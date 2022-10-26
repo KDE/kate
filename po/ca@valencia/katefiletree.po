@@ -427,12 +427,3 @@ msgstr "Guarda el document actual amb un nom nou"
 #, kde-format
 msgid "&Go"
 msgstr "&Ves"
-
-#~ msgid "Rename file"
-#~ msgstr "Canvia el nom del fitxer"
-
-#~ msgid "New file name"
-#~ msgstr "Dona nom al fitxer nou"
-
-#~ msgid "File \"%1\" could not be moved to \"%2\""
-#~ msgstr "El fitxer «%1» no s'ha pogut moure a «%2»"

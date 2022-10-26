@@ -14,16 +14,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-25 00:50+0000\n"
-"PO-Revision-Date: 2022-10-21 08:18+0200\n"
+"POT-Creation-Date: 2022-10-26 00:49+0000\n"
+"PO-Revision-Date: 2022-10-25 08:51+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
-"%100==4 ? 3 : 0);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100>=3 && n"
+"%100<=4 ? 2 : 3);\n"
 "Translator: Andrej Mernik <andrejm@ubuntu.si>\n"
 "X-Generator: Poedit 3.1.1\n"
 
@@ -249,17 +249,17 @@ msgstr "Predmeti vrstice &stanja"
 msgid "Change Style"
 msgstr "Spremeni slog"
 
-#: lib/diff/diffeditor.cpp:180 lib/kateconfigdialog.cpp:514
+#: lib/diff/diffeditor.cpp:180 lib/kateconfigdialog.cpp:519
 #, kde-format
 msgid "Side By Side"
 msgstr "En zraven drugega"
 
-#: lib/diff/diffeditor.cpp:183 lib/kateconfigdialog.cpp:515
+#: lib/diff/diffeditor.cpp:183 lib/kateconfigdialog.cpp:520
 #, kde-format
 msgid "Unified"
 msgstr "Poenoteno"
 
-#: lib/diff/diffeditor.cpp:186 lib/kateconfigdialog.cpp:516
+#: lib/diff/diffeditor.cpp:186 lib/kateconfigdialog.cpp:521
 #, kde-format
 msgid "Raw"
 msgstr "Surovo"
@@ -332,7 +332,7 @@ msgid "Jump to Previous Hunk"
 msgstr "Pojdi na prejšnje mesto"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
-#: lib/filehistorywidget.cpp:254 lib/kateconfigdialog.cpp:117
+#: lib/filehistorywidget.cpp:254 lib/kateconfigdialog.cpp:122
 #: lib/session/katesessionmanagedialog.ui:184
 #, kde-format
 msgid "Close"
@@ -350,7 +350,7 @@ msgstr ""
 msgid "Failed to get file history: %1"
 msgstr "Pridobivanje zgodovine datoteke ni uspelo: %1"
 
-#: lib/filehistorywidget.cpp:342 lib/kateconfigdialog.cpp:348
+#: lib/filehistorywidget.cpp:342 lib/kateconfigdialog.cpp:353
 #, kde-format
 msgid "Error"
 msgstr "Napaka"
@@ -708,68 +708,68 @@ msgstr "Nastavi"
 msgid "Search..."
 msgstr "Išči..."
 
-#: lib/kateconfigdialog.cpp:118
+#: lib/kateconfigdialog.cpp:123
 #, kde-format
 msgid "Save"
 msgstr "Shrani"
 
-#: lib/kateconfigdialog.cpp:325
+#: lib/kateconfigdialog.cpp:330
 #, kde-format
 msgid "Behavior"
 msgstr "Obnašanje"
 
-#: lib/kateconfigdialog.cpp:327
+#: lib/kateconfigdialog.cpp:332
 #, kde-format
 msgid "Behavior Options"
 msgstr "Možnosti obnašanja"
 
-#: lib/kateconfigdialog.cpp:334
+#: lib/kateconfigdialog.cpp:339
 #, kde-format
 msgid "&Behavior"
 msgstr "O&bnašanje"
 
-#: lib/kateconfigdialog.cpp:343
+#: lib/kateconfigdialog.cpp:348
 #, kde-format
 msgid "&Switch to output view upon message type:"
 msgstr "Preklopi na izhodni pogled glede na vrsto sporočila:"
 
-#: lib/kateconfigdialog.cpp:348
+#: lib/kateconfigdialog.cpp:353
 #, kde-format
 msgid "Never"
 msgstr "Nikoli"
 
-#: lib/kateconfigdialog.cpp:348 lib/kateconfigdialog.cpp:877
+#: lib/kateconfigdialog.cpp:353 lib/kateconfigdialog.cpp:882
 #, kde-format
 msgid "Warning"
 msgstr "Opozorilo"
 
-#: lib/kateconfigdialog.cpp:348
+#: lib/kateconfigdialog.cpp:353
 #, kde-format
 msgid "Info"
 msgstr "Informacije"
 
-#: lib/kateconfigdialog.cpp:348
+#: lib/kateconfigdialog.cpp:353
 #, kde-format
 msgid "Log"
 msgstr "Dnevnik"
 
-#: lib/kateconfigdialog.cpp:354
+#: lib/kateconfigdialog.cpp:359
 #, kde-format
 msgid "&Limit output view history:"
 msgstr "Omeji pogled zgodovine izhoda:"
 
-#: lib/kateconfigdialog.cpp:360 lib/kateconfigdialog.cpp:426
+#: lib/kateconfigdialog.cpp:365 lib/kateconfigdialog.cpp:431
 #, kde-format
 msgid "Unlimited"
 msgstr "Neomejeno"
 
-#: lib/kateconfigdialog.cpp:367
+#: lib/kateconfigdialog.cpp:372
 #, kde-format
 msgid "Use a separate &dialog for handling externally modified files"
 msgstr ""
 "Uporabi ločeno pogovorno okno za urejanje od zunaj spremenjene datoteke"
 
-#: lib/kateconfigdialog.cpp:371
+#: lib/kateconfigdialog.cpp:376
 #, kde-format
 msgid ""
 "If enabled, a modal dialog will be used to show all of the modified files. "
@@ -781,17 +781,17 @@ msgstr ""
 "omogočeno, boste vprašani, kaj storiti z datoteko, ki je bila spremenjena na "
 "trdem disku, samo takrat, ko boste to datoteko želeli shraniti."
 
-#: lib/kateconfigdialog.cpp:380
+#: lib/kateconfigdialog.cpp:385
 #, kde-format
 msgid "&Sidebars"
 msgstr "&Stranski vrstici"
 
-#: lib/kateconfigdialog.cpp:383
+#: lib/kateconfigdialog.cpp:388
 #, kde-format
 msgid "Sync section size with tab positions"
 msgstr "Sinhroniziraj velikost razdelka s pozicijami zavihkov"
 
-#: lib/kateconfigdialog.cpp:387
+#: lib/kateconfigdialog.cpp:392
 #, kde-format
 msgid ""
 "When enabled the section size will be determined by the position of the "
@@ -801,27 +801,27 @@ msgstr ""
 "Kadar je omogočeno bo velikost razdelka določena s pozicijami zavihkov.\n"
 "Ta možnost ne vpliva na spodnjo stransko vrstico."
 
-#: lib/kateconfigdialog.cpp:392
+#: lib/kateconfigdialog.cpp:397
 #, kde-format
 msgid "Show text for left and right sidebar buttons"
 msgstr "Prikazuj besedilo za gumbe na levi in desni stranski vrstici"
 
-#: lib/kateconfigdialog.cpp:397
+#: lib/kateconfigdialog.cpp:402
 #, kde-format
 msgid "Icon size for left and right sidebar buttons"
 msgstr "Velikost ikon za gumbe na levi in desni stranski vrstici"
 
-#: lib/kateconfigdialog.cpp:416
+#: lib/kateconfigdialog.cpp:421
 #, kde-format
 msgid "&Tabs"
 msgstr "Zavihki"
 
-#: lib/kateconfigdialog.cpp:420
+#: lib/kateconfigdialog.cpp:425
 #, kde-format
 msgid "&Limit number of tabs:"
 msgstr "Omeji število zavihkov:"
 
-#: lib/kateconfigdialog.cpp:431
+#: lib/kateconfigdialog.cpp:436
 #, kde-format
 msgid ""
 "A high limit can increase the window size, please enable 'Allow tab "
@@ -831,63 +831,63 @@ msgstr ""
 "drsenje med zavihki«, da to preprečite. Neomejeno število zavihkov pomeni, "
 "da je drsenje med njimi vedno možno."
 
-#: lib/kateconfigdialog.cpp:435
+#: lib/kateconfigdialog.cpp:440
 #, kde-format
 msgid "&Auto hide tabs"
 msgstr "Samodejno skrivaj zavihke"
 
-#: lib/kateconfigdialog.cpp:437
+#: lib/kateconfigdialog.cpp:442
 #, kde-format
 msgid "When checked tabs will be hidden if only one document is open."
 msgstr "Ko je odkljukano, bodo zavihki skriti, če je odprt samo en dokument."
 
-#: lib/kateconfigdialog.cpp:441
+#: lib/kateconfigdialog.cpp:446
 #, kde-format
 msgid "&Show close button"
 msgstr "Pokaži gumb za zapiranje"
 
-#: lib/kateconfigdialog.cpp:443
+#: lib/kateconfigdialog.cpp:448
 #, kde-format
 msgid "When checked each tab will display a close button."
 msgstr "Ko je odkljukano, bo vsak zavihek kazal gumb za zapiranje."
 
-#: lib/kateconfigdialog.cpp:447
+#: lib/kateconfigdialog.cpp:452
 #, kde-format
 msgid "&Expand tabs"
 msgstr "Razširi zavihke"
 
-#: lib/kateconfigdialog.cpp:449
+#: lib/kateconfigdialog.cpp:454
 #, kde-format
 msgid "When checked tabs take as much size as possible."
 msgstr ""
 "Kadar je odkljukano, zavihki zavzamejo kolikor je le na voljo prostora."
 
-#: lib/kateconfigdialog.cpp:453
+#: lib/kateconfigdialog.cpp:458
 #, kde-format
 msgid "&Double click opens a new document"
 msgstr "&Dvojni klik odpre nov dokument"
 
-#: lib/kateconfigdialog.cpp:455
+#: lib/kateconfigdialog.cpp:460
 #, kde-format
 msgid "When checked double click opens a new document."
 msgstr "Če je odkljukano, dvojni klik odpre nov dokument."
 
-#: lib/kateconfigdialog.cpp:459
+#: lib/kateconfigdialog.cpp:464
 #, kde-format
 msgid "&Middle click closes a document"
 msgstr "Srednji klik zapre dokument"
 
-#: lib/kateconfigdialog.cpp:461
+#: lib/kateconfigdialog.cpp:466
 #, kde-format
 msgid "When checked middle click closes a document."
 msgstr "Če je odkljukano, srednji klik zapre dokument."
 
-#: lib/kateconfigdialog.cpp:465
+#: lib/kateconfigdialog.cpp:470
 #, kde-format
 msgid "Allow tab scrolling"
 msgstr "Dovoli drsenje med zavihki"
 
-#: lib/kateconfigdialog.cpp:467
+#: lib/kateconfigdialog.cpp:472
 #, kde-format
 msgid ""
 "When checked this will allow scrolling in tab bar when number of tabs is "
@@ -896,79 +896,79 @@ msgstr ""
 "Če je potrjeno, omogoča drsenje med zavihki v vrstici zavihkov, ko je "
 "število zavihkov veliko."
 
-#: lib/kateconfigdialog.cpp:471
+#: lib/kateconfigdialog.cpp:476
 #, kde-format
 msgid "Elide tab text"
 msgstr "Skrajšaj napis zavihka"
 
-#: lib/kateconfigdialog.cpp:473
+#: lib/kateconfigdialog.cpp:478
 #, kde-format
 msgid "When checked tab text might be elided if its too long."
 msgstr ""
 "Če je potrjeno, je besedilo napisa zavihka lahko skrajšano, če je predolgo."
 
-#: lib/kateconfigdialog.cpp:479
+#: lib/kateconfigdialog.cpp:484
 #, kde-format
 msgid "&Mouse"
 msgstr "Miška"
 
-#: lib/kateconfigdialog.cpp:484
+#: lib/kateconfigdialog.cpp:489
 #, kde-format
 msgid "&Backward button pressed:"
 msgstr "Pritisnjena tipka nazaj:"
 
-#: lib/kateconfigdialog.cpp:489
+#: lib/kateconfigdialog.cpp:494
 #, kde-format
 msgid "Previous tab"
 msgstr "Predhodni zavihek"
 
-#: lib/kateconfigdialog.cpp:489
+#: lib/kateconfigdialog.cpp:494
 #, kde-format
 msgid "History back"
 msgstr "Zgodovina nazaj"
 
-#: lib/kateconfigdialog.cpp:495
+#: lib/kateconfigdialog.cpp:500
 #, kde-format
 msgid "&Forward button pressed:"
 msgstr "Pritisnjena tipka naprej:"
 
-#: lib/kateconfigdialog.cpp:500
+#: lib/kateconfigdialog.cpp:505
 #, kde-format
 msgid "Next tab"
 msgstr "Naslednji zavihek"
 
-#: lib/kateconfigdialog.cpp:500
+#: lib/kateconfigdialog.cpp:505
 #, kde-format
 msgid "History forward"
 msgstr "Zgodovina naprej"
 
-#: lib/kateconfigdialog.cpp:508
+#: lib/kateconfigdialog.cpp:513
 #, kde-format
 msgid "Diff"
 msgstr "Razlika"
 
-#: lib/kateconfigdialog.cpp:517
+#: lib/kateconfigdialog.cpp:522
 #, kde-format
 msgid "Diff Style:"
 msgstr "Slog razlike:"
 
-#: lib/kateconfigdialog.cpp:531
+#: lib/kateconfigdialog.cpp:536
 #, kde-format
 msgid "Session"
 msgstr "Seja"
 
-#: lib/kateconfigdialog.cpp:533
+#: lib/kateconfigdialog.cpp:538
 #, kde-format
 msgid "Session Management"
 msgstr "Upravljanje s sejami"
 
-#: lib/kateconfigdialog.cpp:544
+#: lib/kateconfigdialog.cpp:549
 #, kde-format
 msgctxt "The special case of 'Delete unused meta-information after'"
 msgid "(never)"
 msgstr "(nikoli)"
 
-#: lib/kateconfigdialog.cpp:545
+#: lib/kateconfigdialog.cpp:550
 #, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid " day"
@@ -978,29 +978,31 @@ msgstr[1] " dnevih"
 msgstr[2] " dneh"
 msgstr[3] " dneh"
 
-#: lib/kateconfigdialog.cpp:578
+#: lib/kateconfigdialog.cpp:583
 #, kde-format
 msgid ""
 "When a window is closed the documents opened only in this window are closed "
 "as well."
 msgstr ""
+"Ko se zapre okno se zaprejo tudi dokumenti, ki so bilo odprti samo v tem "
+"oknu."
 
-#: lib/kateconfigdialog.cpp:613
+#: lib/kateconfigdialog.cpp:618
 #, kde-format
 msgid "Plugins"
 msgstr "Vstavki"
 
-#: lib/kateconfigdialog.cpp:615
+#: lib/kateconfigdialog.cpp:620
 #, kde-format
 msgid "Plugin Manager"
 msgstr "Upravljalnik vstavkov"
 
-#: lib/kateconfigdialog.cpp:633 lib/kateconfigdialog.cpp:635
+#: lib/kateconfigdialog.cpp:638 lib/kateconfigdialog.cpp:640
 #, kde-format
 msgid "User Feedback"
 msgstr "Odziv uporabnikov"
 
-#: lib/kateconfigdialog.cpp:876
+#: lib/kateconfigdialog.cpp:881
 #, kde-format
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"
@@ -1496,90 +1498,100 @@ msgstr "Gumbi stranske vrstice"
 
 #: lib/katemdi.cpp:105
 #, kde-format
+msgid "Focus Toolview"
+msgstr ""
+
+#: lib/katemdi.cpp:108
+#, kde-format
 msgid "Tool &Views"
 msgstr "Pogledi orodij"
 
-#: lib/katemdi.cpp:107
+#: lib/katemdi.cpp:110
 #, kde-format
 msgid "Show Side&bars"
 msgstr "Pokaži stranske vrstice"
 
-#: lib/katemdi.cpp:115
+#: lib/katemdi.cpp:118
 #, kde-format
 msgid "Hide All Tool Views"
 msgstr "Skrij vse poglede orodij"
 
-#: lib/katemdi.cpp:162
+#: lib/katemdi.cpp:165
 #, kde-format
 msgid "Show %1"
 msgstr "Pokaži %1"
 
-#: lib/katemdi.cpp:173
+#: lib/katemdi.cpp:176
 #, kde-format
 msgid "Show %1 Button"
 msgstr "Pokaži gumb %1"
 
-#: lib/katemdi.cpp:984
+#: lib/katemdi.cpp:191
+#, kde-format
+msgid "Focus %1"
+msgstr ""
+
+#: lib/katemdi.cpp:1000
 #, kde-format
 msgid "Configure..."
 msgstr "Konfiguriraj..."
 
-#: lib/katemdi.cpp:988
+#: lib/katemdi.cpp:1004
 #, kde-format
 msgid "Hide Button"
 msgstr "Skrij gumb"
 
-#: lib/katemdi.cpp:990
+#: lib/katemdi.cpp:1006
 #, kde-format
 msgid "Move To"
 msgstr "Premakni v"
 
-#: lib/katemdi.cpp:995
+#: lib/katemdi.cpp:1011
 #, kde-format
 msgid "Own Section"
 msgstr "Lastni razdelek"
 
-#: lib/katemdi.cpp:1001 lib/katemdi.cpp:1009
+#: lib/katemdi.cpp:1017 lib/katemdi.cpp:1025
 #, kde-format
 msgid "One Down"
 msgstr "Ena dol"
 
-#: lib/katemdi.cpp:1003 lib/katemdi.cpp:1014
+#: lib/katemdi.cpp:1019 lib/katemdi.cpp:1030
 #, kde-format
 msgid "One Right"
 msgstr "Ena desno"
 
-#: lib/katemdi.cpp:1007
+#: lib/katemdi.cpp:1023
 #, kde-format
 msgid "One Up"
 msgstr "Ena gor"
 
-#: lib/katemdi.cpp:1012
+#: lib/katemdi.cpp:1028
 #, kde-format
 msgid "One Left"
 msgstr "Ena levo"
 
-#: lib/katemdi.cpp:1021
+#: lib/katemdi.cpp:1037
 #, kde-format
 msgid "Left Sidebar"
 msgstr "Levo stransko vrstico"
 
-#: lib/katemdi.cpp:1025
+#: lib/katemdi.cpp:1041
 #, kde-format
 msgid "Right Sidebar"
 msgstr "Desno stransko vrstico"
 
-#: lib/katemdi.cpp:1029
+#: lib/katemdi.cpp:1045
 #, kde-format
 msgid "Top Sidebar"
 msgstr "Zgornjo stransko vrstico"
 
-#: lib/katemdi.cpp:1033
+#: lib/katemdi.cpp:1049
 #, kde-format
 msgid "Bottom Sidebar"
 msgstr "Spodnjo stransko vrstico"
 
-#: lib/katemdi.cpp:1408
+#: lib/katemdi.cpp:1426
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "
@@ -2381,14 +2393,13 @@ msgstr "Datoteke z neshranjenimi spremembami"
 #: lib/ui/sessionconfigwidget.ui:88
 #, kde-format
 msgid "If disabled, an untitled document will be shown for new windows."
-msgstr ""
+msgstr "Če je onemogočeno, se v novem oknu prikaže neimenovani dokument."
 
 #. i18n: ectx: property (text), widget (QCheckBox, showWelcomeViewForNewWindow)
 #: lib/ui/sessionconfigwidget.ui:91
-#, fuzzy, kde-format
-#| msgid "Show for new window"
+#, kde-format
 msgid "Show welcome view for new windows"
-msgstr "Pokaži za novo okno"
+msgstr "Pokaži pogled dobrodošlice v novih oknih"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, modCloseAfterLast)
 #: lib/ui/sessionconfigwidget.ui:98
@@ -2410,7 +2421,7 @@ msgstr "Zapri program, ko je zaprta zadnja datoteka"
 #: lib/ui/sessionconfigwidget.ui:108
 #, kde-format
 msgid "Close documents with the window they belong to"
-msgstr ""
+msgstr "Zapri dokumente skupaj s pripadajočimi okni"
 
 #. i18n: ectx: property (title), widget (QGroupBox, gbElements)
 #: lib/ui/sessionconfigwidget.ui:118

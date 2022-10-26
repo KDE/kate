@@ -210,11 +210,3 @@ msgstr "Configuració del terminal"
 #, kde-format
 msgid "&Tools"
 msgstr "&Eines"
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your names"
-#~ msgstr "Josep M. Ferrer"
-
-#~ msgctxt "EMAIL OF TRANSLATORS"
-#~ msgid "Your emails"
-#~ msgstr "txemaq@gmail.com"

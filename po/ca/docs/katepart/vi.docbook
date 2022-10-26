@@ -1860,11 +1860,11 @@
 ></entry>
 <entry
 ><para
->Claudàtor d'obertura anterior [<userinput
->(</userinput
->] al següent claudàtor de tancament [<userinput
->)</userinput
->], incloent-hi els claudàtors</para
+>Claudàtor d'obertura anterior (<userinput
+>[</userinput
+>) al següent claudàtor de tancament (<userinput
+>]</userinput
+>), incloent-hi els claudàtors</para
 ></entry>
 </row>
 <row
@@ -1876,11 +1876,11 @@
 ></entry>
 <entry
 ><para
->Claudàtor d'obertura anterior [<userinput
->(</userinput
->] al següent claudàtor de tancament [<userinput
->)</userinput
->], excloent els claudàtors</para
+>Claudàtor d'obertura anterior (<userinput
+>[</userinput
+>) al claudàtor de tancament següent (<userinput
+>]</userinput
+>), excloent els claudàtors</para
 ></entry>
 </row>
 <row
@@ -1892,11 +1892,11 @@
 ></entry>
 <entry
 ><para
->Claudàtor d'obertura anterior [<userinput
+>Clau d'obertura anterior (<userinput
 >{</userinput
->] al següent claudàtor de tancament [<userinput
+>) a la clau de tancament següent (<userinput
 >}</userinput
->], incloent-hi els claudàtors</para
+>), incloent-hi les claus</para
 ></entry>
 </row>
 <row
@@ -1908,11 +1908,11 @@
 ></entry>
 <entry
 ><para
->Claudàtor d'obertura anterior [<userinput
+>Clau d'obertura anterior (<userinput
 >{</userinput
->] al següent claudàtor de tancament [<userinput
+>) a la clau de tancament següent (<userinput
 >}</userinput
->], excloent els claudàtors</para
+>), excloent les claus</para
 ></entry>
 </row>
 <row
@@ -1924,11 +1924,11 @@
 ></entry>
 <entry
 ><para
->Abraçadora d'obertura anterior [<userinput
+>Clau angular d'obertura anterior (<userinput
 >&lt;</userinput
->] a la següent abraçadora de tancament [<userinput
+>) a la clau angular de tancament següent (<userinput
 >&gt;</userinput
->], incloent-hi les abraçadores</para
+>), incloent-hi les claus</para
 ></entry>
 </row>
 <row
@@ -1940,11 +1940,11 @@
 ></entry>
 <entry
 ><para
->Abraçadora d'obertura anterior [<userinput
+>Clau angular d'obertura anterior (<userinput
 >&lt;</userinput
->] a la següent abraçadora de tancament [<userinput
+>) a la clau angular de tancament següent (<userinput
 >&gt;</userinput
->], excloent les abraçadores</para
+>), excloent les claus</para
 ></entry>
 </row>
 <row

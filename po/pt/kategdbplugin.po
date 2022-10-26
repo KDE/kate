@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-25 00:50+0000\n"
-"PO-Revision-Date: 2022-06-15 19:17+0100\n"
+"PO-Revision-Date: 2022-10-25 10:45+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
 "Language: pt\n"
@@ -491,10 +491,9 @@ msgid "command not found"
 msgstr "o comando não foi encontrado"
 
 #: debugview_dap.cpp:1458
-#, fuzzy, kde-format
-#| msgid "invalid thread id: %1"
+#, kde-format
 msgid "missing thread id"
-msgstr "ID da tarefa inválido: %1"
+msgstr "ID da tarefa em falta"
 
 #: debugview_dap.cpp:1566
 #, kde-format
@@ -693,11 +692,3 @@ msgstr "&Depurar"
 #, kde-format
 msgid "GDB Plugin"
 msgstr "'Plugin' do GDB"
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your names"
-#~ msgstr "José Nuno Pires"
-
-#~ msgctxt "EMAIL OF TRANSLATORS"
-#~ msgid "Your emails"
-#~ msgstr "zepires@gmail.com"

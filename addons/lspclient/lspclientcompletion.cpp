@@ -195,6 +195,7 @@ class LSPClientCompletionImpl : public LSPClientCompletion
     QVector<QChar> m_triggersCompletion;
     QVector<QChar> m_triggersSignature;
     bool m_triggerSignature = false;
+    bool m_triggerCompletion = false;
 
     QList<LSPClientCompletionItem> m_matches;
     LSPClientServer::RequestHandle m_handle, m_handleSig;
@@ -311,11 +312,11 @@ public:
 
         m_triggerSignature = false;
         complete = complete || m_triggersCompletion.contains(lastChar);
+        m_triggerCompletion = complete;
         if (m_triggersSignature.contains(lastChar)) {
             complete = true;
             m_triggerSignature = true;
         }
-
         return complete;
     }
 
@@ -396,7 +397,9 @@ public:
             auto cursor = qMax(range.start(), qMin(range.end(), position));
             m_manager->update(document, false);
 
-            m_handle = m_server->documentCompletion(document->url(), {cursor.line(), cursor.column()}, this, handler);
+            if (m_triggerCompletion) {
+                m_handle = m_server->documentCompletion(document->url(), {cursor.line(), cursor.column()}, this, handler);
+            }
 
             if (m_signatureHelp && m_triggerSignature) {
                 m_handleSig = m_server->signatureHelp(document->url(), {cursor.line(), cursor.column()}, this, sigHandler);

@@ -1121,6 +1121,74 @@
 </listitem>
 </varlistentry>
 
+<varlistentry id="view-split-left">
+<term
+><menuchoice
+><guimenu
+>Visualizza</guimenu
+><guisubmenu
+>Dividi vista</guisubmenu
+><guimenuitem
+>Vista divisa a sinistra</guimenuitem
+> </menuchoice>
+</term
+><listitem>
+<para
+>Rendi attiva la vista divisa intuitivamente sulla sinistra, utilizzando la posizione del puntatore se necessaria per disambiguare.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-split-right">
+<term
+><menuchoice
+><guimenu
+>Visualizza</guimenu
+><guisubmenu
+>Dividi vista</guisubmenu
+><guimenuitem
+>Vista divisa a destra</guimenuitem
+> </menuchoice>
+</term
+><listitem>
+<para
+>Rendi attiva la vista divisa intuitivamente sulla destra, utilizzando la posizione del puntatore se necessaria per disambiguare.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-split-upward">
+<term
+><menuchoice
+><guimenu
+>Visualizza</guimenu
+><guisubmenu
+>Dividi vista</guisubmenu
+><guimenuitem
+>Vista divisa in alto</guimenuitem
+> </menuchoice>
+</term
+><listitem>
+<para
+>Rendi attiva la vista divisa intuitivamente in alto, utilizzando la posizione del puntatore se necessaria per disambiguare.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-split-downward">
+<term
+><menuchoice
+><guimenu
+>Visualizza</guimenu
+><guisubmenu
+>Dividi vista</guisubmenu
+><guimenuitem
+>Vista divisa in basso</guimenuitem
+> </menuchoice>
+</term
+><listitem>
+<para
+>Rendi attiva la vista divisa intuitivamente in basso, utilizzando la posizione del puntatore se necessaria per disambiguare.</para>
+</listitem>
+</varlistentry>
+
 <varlistentry id="view-split-vertical">
 <term>
 <menuchoice
@@ -2366,186 +2434,236 @@ depends on the <link linkend="pref-edit-indent"
 </listitem>
 </varlistentry>
 -->
+
+<!-- <Pablo
+> These are in the selection menu now, and are documented in doc/katepart/menus.docbook -->
+<!--
 <varlistentry id="tools-cleanindent">
 <term
-><menuchoice
-><guimenu
->Strumenti</guimenu
-> <guimenuitem
->Pulisci rientro</guimenuitem
-> </menuchoice
+><menuchoice>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Clean Indentation</guimenuitem>
+</menuchoice
 ></term>
 <listitem>
 <para
->Pulisce il rientro della selezione attuale o per la riga su cui si trova al momento il cursore. La pulizia del rientro garantisce che tutto il testo selezionato segua quella scelta.</para>
+>This cleans the indentation for the current selection or for the
+line the cursor is currently in. Cleaning the indentation ensures that
+all your selected text follows the indentation mode you choose.</para>
 </listitem>
 </varlistentry>
 
-<varlistentry id="tools-align">
+<varlistentry id="tools-formatindent">
 <term
-><menuchoice
-><guimenu
->Strumenti</guimenu
-><guimenuitem
->Allinea</guimenuitem
-> </menuchoice
+><menuchoice>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Format Indent</guimenuitem>
+</menuchoice
 ></term>
 <listitem>
 <para
->Riallinea la riga attuale o le righe selezionate usando la modalità e le impostazioni di rientro del documento.</para>
+>Causes a realign of the current line or selected lines using the
+indentation mode and indentation settings in the document.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-alignon">
+<term
+><menuchoice>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Align On...</guimenuitem>
+</menuchoice
+></term>
+<listitem>
+<para
+>This command aligns lines in the selected block or whole document on the column given by a regular expression that you will be prompted for.</para>
+<para
+>If you give an empty pattern it will align on the first non-blank character by default.</para>
+<para
+>If the pattern has a capture it will indent on the captured match.</para>
+<para
+><emphasis
+>Examples:</emphasis
+></para>
+<para
+>With '<userinput
+>-</userinput
+>' it will insert spaces before the first '-' of each lines to align them all on the same column.</para>
+<para
+>With '<userinput
+>alignon :\\s+(.)</userinput
+>' it will insert spaces before the first non-blank character that occurs after a colon to align them all on the same column.</para>
 </listitem>
 </varlistentry>
 
 <varlistentry id="tools-comment">
 <term
-><menuchoice
-><shortcut
-> <keycombo action="simul"
+><menuchoice>
+<shortcut>
+<keycombo action="simul"
 >&Ctrl;<keycap
 >D</keycap
-></keycombo
-> </shortcut
-> <guimenu
->Strumenti</guimenu
-> <guimenuitem
->Commenta</guimenuitem
-> </menuchoice
+></keycombo>
+</shortcut>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Comment</guimenuitem>
+</menuchoice
 ></term>
 <listitem
 ><para
->Aggiunge i caratteri necessari per rendere la riga attuale o tutte le righe selezionate un commento, a seconda del tipo di file.</para>
+>This adds one space to the beginning of the line
+where the text cursor is located or to the beginning of any
+selected lines.</para>
 </listitem>
 </varlistentry>
 
 <varlistentry id="tools-uncomment">
 <term
-><menuchoice
-><shortcut
-> <keycombo action="simul"
+><menuchoice>
+<shortcut>
+<keycombo action="simul"
 >&Ctrl;&Shift;<keycap
 >D</keycap
-></keycombo
-> </shortcut
-> <guimenu
->Strumenti</guimenu
-> <guimenuitem
->Decommenta</guimenuitem
-> </menuchoice
+></keycombo>
+</shortcut>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Uncomment</guimenuitem>
+</menuchoice
 ></term>
 <listitem
 ><para
->Rimuove i caratteri che rendono la riga attuale o le righe selezionate dei commenti, a seconda del tipo di file.</para
+>This removes one space (if any exist) from the beginning of the
+line where the text cursor is located or from the beginning of any
+selected lines.</para
 ></listitem>
 </varlistentry>
 
 <varlistentry id="tools-uppercase">
 <term
-><menuchoice
-><shortcut
-> <keycombo action="simul"
+><menuchoice>
+<shortcut>
+<keycombo action="simul"
 >&Ctrl;<keycap
 >U</keycap
-></keycombo
-> </shortcut
-> <guimenu
->Strumenti</guimenu
-> <guimenuitem
->Maiuscolo</guimenuitem
-> </menuchoice
+></keycombo>
+</shortcut>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Uppercase</guimenuitem>
+</menuchoice
 ></term>
 <listitem
 ><para
->Mette il testo selezionato, o la lettera dopo il cursore, in maiuscolo.</para
+>Put the selected text or the letter after the cursor in
+uppercase.</para
 ></listitem>
 </varlistentry>
 
 <varlistentry id="tools-lowercase">
 <term
-><menuchoice
-><shortcut
-> <keycombo action="simul"
+><menuchoice>
+<shortcut>
+<keycombo action="simul"
 >&Ctrl;&Shift;<keycap
 >U</keycap
-></keycombo
-> </shortcut
-> <guimenu
->Strumenti</guimenu
-> <guimenuitem
->Minuscolo</guimenuitem
-> </menuchoice
+></keycombo>
+</shortcut>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Lowercase</guimenuitem>
+</menuchoice
 ></term>
 <listitem
 ><para
->Mette il testo selezionato, o la lettera dopo il cursore, in minuscolo.</para
+>Put the selected text or the letter after the cursor in
+lowercase.</para
 ></listitem>
 </varlistentry>
 
 <varlistentry id="tools-capitalize">
 <term
-><menuchoice
-><shortcut
-> <keycombo action="simul"
+><menuchoice>
+<shortcut>
+<keycombo action="simul"
 >&Ctrl;&Alt;<keycap
 >U</keycap
-></keycombo
-> </shortcut
-> <guimenu
->Strumenti</guimenu
-> <guimenuitem
->Iniziali maiuscole</guimenuitem
-> </menuchoice
+></keycombo>
+</shortcut>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Capitalize</guimenuitem>
+</menuchoice
 ></term>
 <listitem
 ><para
->Mette le iniziali del testo selezionato, o della parola attuale, in maiuscolo.</para
+>Capitalize the selected text or the current
+word.</para
 ></listitem>
 </varlistentry>
 
 <varlistentry id="tools-join-lines">
 <term
-><menuchoice
-><shortcut
-> <keycombo action="simul"
+><menuchoice>
+<shortcut>
+<keycombo action="simul"
 >&Ctrl;<keycap
 >J</keycap
-></keycombo
-> </shortcut
-> <guimenu
->Strumenti</guimenu
-> <guimenuitem
->Unisci righe</guimenuitem
-> </menuchoice
+></keycombo>
+</shortcut>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Join Lines</guimenuitem>
+</menuchoice
 ></term>
 <listitem
 ><para
->Unisce le righe selezionate, o la riga attuale e quella successiva, con un carattere di spazio come separatore. Gli spazi bianchi iniziali o finali delle righe unite saranno rimossi dalle estremità coinvolte.</para
+>Joins the selected lines, or the current line and the line below
+with one white space character as a separator. Leading/trailing white space on
+joined lines is removed in the affected ends.</para
 ></listitem>
 </varlistentry>
 
 <varlistentry id="tools-word-wrap-document">
 <term
-><menuchoice
-><guimenu
->Strumenti</guimenu
-><guimenuitem
->Applica il ritorno a capo automatico</guimenuitem
-> </menuchoice
+><menuchoice>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Apply Word Wrap</guimenuitem>
+</menuchoice
 ></term>
 <listitem
 ><para
->Applica l'andata a capo statica all'intero documento. Ciò significa che una nuova riga di testo verrà iniziata automaticamente quando la riga attuale supererà la lunghezza specificata dall'opzione <guilabel
->Torna a capo dopo</guilabel
-> nella scheda <guilabel
->Modifica</guilabel
-> in <menuchoice
-> <guimenu
->Impostazioni</guimenu
+>Apply static word wrapping on all the document. That means that
+a new line of text will automatically start when the current
+line exceeds the length specified by the <guilabel
+>Wrap words at</guilabel
+> option
+in the Editing tab in <menuchoice>
+<guimenu
+>Settings</guimenu
 ><guimenuitem
->Configura editor...</guimenuitem
+>Configure
+Editor...</guimenuitem
 ></menuchoice
 >.</para
 ></listitem>
 </varlistentry>
+-->
 
 </variablelist>
 </sect1>

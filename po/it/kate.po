@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-26 00:49+0000\n"
-"PO-Revision-Date: 2022-10-09 14:56+0200\n"
+"POT-Creation-Date: 2022-10-27 00:50+0000\n"
+"PO-Revision-Date: 2022-10-17 18:41+0200\n"
 "Last-Translator: Paolo Zamponi <zapaolo@email.it>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 22.08.1\n"
+"X-Generator: Lokalize 22.08.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -230,7 +230,7 @@ msgstr "Barra degli strumenti principale"
 #: lib/data/kateui.rc:155
 #, kde-format
 msgid "Hamburger Menu Toolbar"
-msgstr ""
+msgstr "Barra degli strumenti del menu hamburger"
 
 #. i18n: ectx: Menu (viewspace_popup_statusbar)
 #: lib/data/kateui.rc:173
@@ -243,17 +243,17 @@ msgstr "Elementi della barra di &stato"
 msgid "Change Style"
 msgstr "Cambia stile"
 
-#: lib/diff/diffeditor.cpp:180 lib/kateconfigdialog.cpp:519
+#: lib/diff/diffeditor.cpp:180 lib/kateconfigdialog.cpp:532
 #, kde-format
 msgid "Side By Side"
 msgstr "Fianco a fianco"
 
-#: lib/diff/diffeditor.cpp:183 lib/kateconfigdialog.cpp:520
+#: lib/diff/diffeditor.cpp:183 lib/kateconfigdialog.cpp:533
 #, kde-format
 msgid "Unified"
 msgstr "Unificato"
 
-#: lib/diff/diffeditor.cpp:186 lib/kateconfigdialog.cpp:521
+#: lib/diff/diffeditor.cpp:186 lib/kateconfigdialog.cpp:534
 #, kde-format
 msgid "Raw"
 msgstr "Grezzo"
@@ -280,7 +280,7 @@ msgstr[1] "Scarta righe"
 #: lib/diff/diffeditor.cpp:232
 #, kde-format
 msgid "Discard Hunk"
-msgstr ""
+msgstr "Scarta frammento"
 
 #: lib/diff/diffeditor.cpp:239
 #, kde-format
@@ -297,29 +297,27 @@ msgstr "Rimuovi frammento da stage"
 #: lib/diff/diffwidget.cpp:51
 #, kde-format
 msgid "Show/Hide Commit Info"
-msgstr ""
+msgstr "Mostra/nascondi informazioni di deposito"
 
 #: lib/diff/diffwidget.cpp:56
 #, kde-format
 msgid "Jump to Next File"
-msgstr ""
+msgstr "Vai al file successivo"
 
 #: lib/diff/diffwidget.cpp:60
-#, fuzzy, kde-format
-#| msgid "Go to Previous Location"
+#, kde-format
 msgid "Jump to Previous File"
-msgstr "Vai alla posizione precedente"
+msgstr "Vai al file precedente"
 
 #: lib/diff/diffwidget.cpp:64
 #, kde-format
 msgid "Jump to Next Hunk"
-msgstr ""
+msgstr "Vai al frammento successivo"
 
 #: lib/diff/diffwidget.cpp:68
-#, fuzzy, kde-format
-#| msgid "Go to Previous Location"
+#, kde-format
 msgid "Jump to Previous Hunk"
-msgstr "Vai alla posizione precedente"
+msgstr "Vai al frammento precedente"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
 #: lib/filehistorywidget.cpp:254 lib/kateconfigdialog.cpp:122
@@ -340,7 +338,7 @@ msgstr ""
 msgid "Failed to get file history: %1"
 msgstr "Impossibile ottenere la cronologia del file: %1"
 
-#: lib/filehistorywidget.cpp:342 lib/kateconfigdialog.cpp:353
+#: lib/filehistorywidget.cpp:342 lib/kateconfigdialog.cpp:366
 #, kde-format
 msgid "Error"
 msgstr "Errore"
@@ -702,67 +700,66 @@ msgid "Search..."
 msgstr ""
 
 #: lib/kateconfigdialog.cpp:123
-#, fuzzy, kde-format
-#| msgid "&Save"
+#, kde-format
 msgid "Save"
-msgstr "&Salva"
+msgstr "Salva"
 
-#: lib/kateconfigdialog.cpp:330
+#: lib/kateconfigdialog.cpp:343
 #, kde-format
 msgid "Behavior"
 msgstr "Comportamento"
 
-#: lib/kateconfigdialog.cpp:332
+#: lib/kateconfigdialog.cpp:345
 #, kde-format
 msgid "Behavior Options"
 msgstr "Opzioni sul comportamento"
 
-#: lib/kateconfigdialog.cpp:339
+#: lib/kateconfigdialog.cpp:352
 #, kde-format
 msgid "&Behavior"
 msgstr "&Comportamento"
 
-#: lib/kateconfigdialog.cpp:348
+#: lib/kateconfigdialog.cpp:361
 #, kde-format
 msgid "&Switch to output view upon message type:"
 msgstr "Pa&ssa alla visualizzazione dell'output in base al tipo di messaggio:"
 
-#: lib/kateconfigdialog.cpp:353
+#: lib/kateconfigdialog.cpp:366
 #, kde-format
 msgid "Never"
 msgstr "Mai"
 
-#: lib/kateconfigdialog.cpp:353 lib/kateconfigdialog.cpp:882
+#: lib/kateconfigdialog.cpp:366 lib/kateconfigdialog.cpp:895
 #, kde-format
 msgid "Warning"
 msgstr "Avviso"
 
-#: lib/kateconfigdialog.cpp:353
+#: lib/kateconfigdialog.cpp:366
 #, kde-format
 msgid "Info"
 msgstr "Informazioni"
 
-#: lib/kateconfigdialog.cpp:353
+#: lib/kateconfigdialog.cpp:366
 #, kde-format
 msgid "Log"
 msgstr "Registro"
 
-#: lib/kateconfigdialog.cpp:359
+#: lib/kateconfigdialog.cpp:372
 #, kde-format
 msgid "&Limit output view history:"
 msgstr "&Limita la vista della cronologia dell'output:"
 
-#: lib/kateconfigdialog.cpp:365 lib/kateconfigdialog.cpp:431
+#: lib/kateconfigdialog.cpp:378 lib/kateconfigdialog.cpp:444
 #, kde-format
 msgid "Unlimited"
 msgstr "Illimitato"
 
-#: lib/kateconfigdialog.cpp:372
+#: lib/kateconfigdialog.cpp:385
 #, kde-format
 msgid "Use a separate &dialog for handling externally modified files"
 msgstr "Usa una finestra separata per gestire i file mo&dificati esternamente"
 
-#: lib/kateconfigdialog.cpp:376
+#: lib/kateconfigdialog.cpp:389
 #, kde-format
 msgid ""
 "If enabled, a modal dialog will be used to show all of the modified files. "
@@ -773,17 +770,17 @@ msgstr ""
 "i file modificati. Se non abilitato, ti verrà chiesto cosa fare con ciascun "
 "file modificato solo quando la vista di quel file riceve il fuoco."
 
-#: lib/kateconfigdialog.cpp:385
+#: lib/kateconfigdialog.cpp:398
 #, kde-format
 msgid "&Sidebars"
 msgstr "&Barre laterali"
 
-#: lib/kateconfigdialog.cpp:388
+#: lib/kateconfigdialog.cpp:401
 #, kde-format
 msgid "Sync section size with tab positions"
 msgstr "Sincronizza la dimensione della sezione con le posizioni delle schede"
 
-#: lib/kateconfigdialog.cpp:392
+#: lib/kateconfigdialog.cpp:405
 #, kde-format
 msgid ""
 "When enabled the section size will be determined by the position of the "
@@ -794,28 +791,28 @@ msgstr ""
 "delle schede.\n"
 "Questa opzione non influenza la barra laterale in basso."
 
-#: lib/kateconfigdialog.cpp:397
+#: lib/kateconfigdialog.cpp:410
 #, kde-format
 msgid "Show text for left and right sidebar buttons"
 msgstr "Mostra il testo dei pulsanti delle barre laterali sinistra e destra"
 
-#: lib/kateconfigdialog.cpp:402
+#: lib/kateconfigdialog.cpp:415
 #, kde-format
 msgid "Icon size for left and right sidebar buttons"
 msgstr ""
 "Dimensione dell'icona dei pulsanti delle barre laterali sinistra e destra"
 
-#: lib/kateconfigdialog.cpp:421
+#: lib/kateconfigdialog.cpp:434
 #, kde-format
 msgid "&Tabs"
 msgstr "&Schede"
 
-#: lib/kateconfigdialog.cpp:425
+#: lib/kateconfigdialog.cpp:438
 #, kde-format
 msgid "&Limit number of tabs:"
 msgstr "&Limita numero di schede:"
 
-#: lib/kateconfigdialog.cpp:436
+#: lib/kateconfigdialog.cpp:449
 #, kde-format
 msgid ""
 "A high limit can increase the window size, please enable 'Allow tab "
@@ -825,63 +822,63 @@ msgstr ""
 "«Permetti lo scorrimento delle schede» per impedirlo. Le schede illimitate "
 "sono sempre scorrevoli."
 
-#: lib/kateconfigdialog.cpp:440
+#: lib/kateconfigdialog.cpp:453
 #, kde-format
 msgid "&Auto hide tabs"
 msgstr "N&ascondi schede automaticamente"
 
-#: lib/kateconfigdialog.cpp:442
+#: lib/kateconfigdialog.cpp:455
 #, kde-format
 msgid "When checked tabs will be hidden if only one document is open."
 msgstr ""
 "Se spuntato, le schede verranno nascoste quando c'è un solo documento aperto."
 
-#: lib/kateconfigdialog.cpp:446
+#: lib/kateconfigdialog.cpp:459
 #, kde-format
 msgid "&Show close button"
 msgstr "Mo&stra il pulsante Chiudi"
 
-#: lib/kateconfigdialog.cpp:448
+#: lib/kateconfigdialog.cpp:461
 #, kde-format
 msgid "When checked each tab will display a close button."
 msgstr "Ogni scheda mostrerà un pulsante di chiusura, se spuntato."
 
-#: lib/kateconfigdialog.cpp:452
+#: lib/kateconfigdialog.cpp:465
 #, kde-format
 msgid "&Expand tabs"
 msgstr "&Espandi schede"
 
-#: lib/kateconfigdialog.cpp:454
+#: lib/kateconfigdialog.cpp:467
 #, kde-format
 msgid "When checked tabs take as much size as possible."
 msgstr "Se spuntato, le schede occuperanno più spazio possibile."
 
-#: lib/kateconfigdialog.cpp:458
+#: lib/kateconfigdialog.cpp:471
 #, kde-format
 msgid "&Double click opens a new document"
 msgstr "Un &doppio clic apre un nuovo documento"
 
-#: lib/kateconfigdialog.cpp:460
+#: lib/kateconfigdialog.cpp:473
 #, kde-format
 msgid "When checked double click opens a new document."
 msgstr "Se spuntato, un doppio clic apre un nuovo documento."
 
-#: lib/kateconfigdialog.cpp:464
+#: lib/kateconfigdialog.cpp:477
 #, kde-format
 msgid "&Middle click closes a document"
 msgstr "Un clic col tasto centrale chiude un docu&mento"
 
-#: lib/kateconfigdialog.cpp:466
+#: lib/kateconfigdialog.cpp:479
 #, kde-format
 msgid "When checked middle click closes a document."
 msgstr "Se spuntato, un clic col tasto centrale chiude un documento."
 
-#: lib/kateconfigdialog.cpp:470
+#: lib/kateconfigdialog.cpp:483
 #, kde-format
 msgid "Allow tab scrolling"
 msgstr "Permetti lo scorrimento delle schede"
 
-#: lib/kateconfigdialog.cpp:472
+#: lib/kateconfigdialog.cpp:485
 #, kde-format
 msgid ""
 "When checked this will allow scrolling in tab bar when number of tabs is "
@@ -890,79 +887,79 @@ msgstr ""
 "Se spuntato, questa opzione permetterà di scorrere nella barra delle schede "
 "in caso di un numero di schede elevato."
 
-#: lib/kateconfigdialog.cpp:476
+#: lib/kateconfigdialog.cpp:489
 #, kde-format
 msgid "Elide tab text"
 msgstr "Elidi il testo della linguetta"
 
-#: lib/kateconfigdialog.cpp:478
+#: lib/kateconfigdialog.cpp:491
 #, kde-format
 msgid "When checked tab text might be elided if its too long."
 msgstr ""
 "Il testo della linguetta selezionata potrebbe essere eliso se è troppo lungo."
 
-#: lib/kateconfigdialog.cpp:484
+#: lib/kateconfigdialog.cpp:497
 #, kde-format
 msgid "&Mouse"
 msgstr "&Mouse"
 
-#: lib/kateconfigdialog.cpp:489
+#: lib/kateconfigdialog.cpp:502
 #, kde-format
 msgid "&Backward button pressed:"
 msgstr "Pulsante &indietro premuto:"
 
-#: lib/kateconfigdialog.cpp:494
+#: lib/kateconfigdialog.cpp:507
 #, kde-format
 msgid "Previous tab"
 msgstr "Scheda precedente"
 
-#: lib/kateconfigdialog.cpp:494
+#: lib/kateconfigdialog.cpp:507
 #, kde-format
 msgid "History back"
 msgstr "Cronologia indietro"
 
-#: lib/kateconfigdialog.cpp:500
+#: lib/kateconfigdialog.cpp:513
 #, kde-format
 msgid "&Forward button pressed:"
 msgstr "Pulsante &avanti premuto:"
 
-#: lib/kateconfigdialog.cpp:505
+#: lib/kateconfigdialog.cpp:518
 #, kde-format
 msgid "Next tab"
 msgstr "Scheda successiva"
 
-#: lib/kateconfigdialog.cpp:505
+#: lib/kateconfigdialog.cpp:518
 #, kde-format
 msgid "History forward"
 msgstr "Cronologia avanti"
 
-#: lib/kateconfigdialog.cpp:513
+#: lib/kateconfigdialog.cpp:526
 #, kde-format
 msgid "Diff"
 msgstr "Diff"
 
-#: lib/kateconfigdialog.cpp:522
+#: lib/kateconfigdialog.cpp:535
 #, kde-format
 msgid "Diff Style:"
 msgstr "Stile diff:"
 
-#: lib/kateconfigdialog.cpp:536
+#: lib/kateconfigdialog.cpp:549
 #, kde-format
 msgid "Session"
 msgstr "Sessione"
 
-#: lib/kateconfigdialog.cpp:538
+#: lib/kateconfigdialog.cpp:551
 #, kde-format
 msgid "Session Management"
 msgstr "Gestione della sessione"
 
-#: lib/kateconfigdialog.cpp:549
+#: lib/kateconfigdialog.cpp:562
 #, kde-format
 msgctxt "The special case of 'Delete unused meta-information after'"
 msgid "(never)"
 msgstr "(mai)"
 
-#: lib/kateconfigdialog.cpp:550
+#: lib/kateconfigdialog.cpp:563
 #, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid " day"
@@ -970,29 +967,29 @@ msgid_plural " days"
 msgstr[0] " giorno"
 msgstr[1] " giorni"
 
-#: lib/kateconfigdialog.cpp:583
+#: lib/kateconfigdialog.cpp:596
 #, kde-format
 msgid ""
 "When a window is closed the documents opened only in this window are closed "
 "as well."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:618
+#: lib/kateconfigdialog.cpp:631
 #, kde-format
 msgid "Plugins"
 msgstr "Estensioni"
 
-#: lib/kateconfigdialog.cpp:620
+#: lib/kateconfigdialog.cpp:633
 #, kde-format
 msgid "Plugin Manager"
 msgstr "Gestore delle estensioni"
 
-#: lib/kateconfigdialog.cpp:638 lib/kateconfigdialog.cpp:640
+#: lib/kateconfigdialog.cpp:651 lib/kateconfigdialog.cpp:653
 #, kde-format
 msgid "User Feedback"
 msgstr "Segnalazioni degli utenti"
 
-#: lib/kateconfigdialog.cpp:881
+#: lib/kateconfigdialog.cpp:894
 #, kde-format
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"
@@ -2030,38 +2027,37 @@ msgstr "Apertura di un file grande"
 #: lib/kateviewmanager.cpp:463
 #, kde-format
 msgid "%1 cannot open folders"
-msgstr ""
+msgstr "%1 non può aprire le cartelle"
 
 #: lib/kateviewmanager.cpp:482
 #, kde-format
 msgid "The plugin required to open folders was not found"
-msgstr ""
+msgstr "L'estensione richiesta per aprire le cartelle non è stata trovata"
 
 #: lib/kateviewmanager.cpp:488
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
 msgstr ""
+"Per poter aprire le cartelle, l'estensione <b>%1</b> deve essere abilitata. "
+"Abilitarla?"
 
 #: lib/kateviewmanager.cpp:497
-#, fuzzy, kde-format
-#| msgctxt "on welcome screen"
-#| msgid "Open Folder..."
+#, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
-msgstr "Apri cartella..."
+msgstr "Apri cartella"
 
 #: lib/kateviewmanager.cpp:498
-#, fuzzy, kde-format
-#| msgid "Enabled"
+#, kde-format
 msgctxt "@action:button"
 msgid "Enable"
-msgstr "Abilitato"
+msgstr "Abilita"
 
 #: lib/kateviewmanager.cpp:509
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
-msgstr ""
+msgstr "Impossibile abilitare l'estensione <b>%1</b>"
 
 #: lib/kateviewmanager.cpp:1223
 #, kde-format
@@ -2487,55 +2483,44 @@ msgid "Delete unused meta-information after:"
 msgstr "Elimina le informazioni aggiuntive inutilizzate dopo:"
 
 #: lib/welcomeview/welcomeview.cpp:52
-#, fuzzy, kde-format
-#| msgid "Welcome to Kate"
+#, kde-format
 msgid "Welcome to %1"
-msgstr "Benvenuto in Kate"
+msgstr "Benvenuti in %1"
 
 #: lib/welcomeview/welcomeview.cpp:56
-#, fuzzy, kde-format
-#| msgctxt "on welcome screen"
-#| msgid "Recent documents"
+#, kde-format
 msgid "Recent Documents and Projects"
-msgstr "Documenti recenti"
+msgstr "Documenti e progetti recenti"
 
 #: lib/welcomeview/welcomeview.cpp:56
-#, fuzzy, kde-format
-#| msgctxt "on welcome screen"
-#| msgid "Recent documents"
+#, kde-format
 msgid "Recent Documents"
 msgstr "Documenti recenti"
 
 #: lib/welcomeview/welcomeview.cpp:59
-#, fuzzy, kde-format
-#| msgctxt "on welcome screen"
-#| msgid "Recent documents"
+#, kde-format
 msgid "No recent documents or projects"
-msgstr "Documenti recenti"
+msgstr "Nessun documento o progetto recente"
 
 #: lib/welcomeview/welcomeview.cpp:59
-#, fuzzy, kde-format
-#| msgctxt "on welcome screen"
-#| msgid "Recent documents"
+#, kde-format
 msgid "No recent documents"
-msgstr "Documenti recenti"
+msgstr "Nessun documento recente"
 
 #: lib/welcomeview/welcomeview.cpp:115
-#, fuzzy, kde-format
-#| msgid "&Do not save session"
+#, kde-format
 msgid "No saved sessions"
-msgstr "&Non salvare la sessione"
+msgstr "Nessuna sessione salvata"
 
 #: lib/welcomeview/welcomeview.cpp:237
-#, fuzzy, kde-format
-#| msgid "Copy Location"
+#, kde-format
 msgid "Copy &Location"
-msgstr "Copia posizione"
+msgstr "Copia &posizione"
 
 #: lib/welcomeview/welcomeview.cpp:252
 #, kde-format
 msgid "&Remove"
-msgstr ""
+msgstr "&Rimuovi"
 
 #. i18n: ectx: property (windowTitle), widget (QScrollArea, WelcomeView)
 #: lib/welcomeview/welcomeview.ui:17
@@ -2545,39 +2530,33 @@ msgstr "Benvenuto"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonNewFile)
 #: lib/welcomeview/welcomeview.ui:179
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "New File"
-msgstr "Apri file"
+msgstr "Nuovo file"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonOpenFolder)
 #: lib/welcomeview/welcomeview.ui:186
-#, fuzzy, kde-format
-#| msgctxt "on welcome screen"
-#| msgid "Open Folder..."
+#, kde-format
 msgid "Open Folder..."
 msgstr "Apri cartella..."
 
 #. i18n: ectx: property (text), widget (QLabel, labelRecentItems)
 #: lib/welcomeview/welcomeview.ui:193
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Delete File"
+#, kde-format
 msgid "Recent Files"
-msgstr "Elimina file"
+msgstr "File recenti"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonOpenFile)
 #: lib/welcomeview/welcomeview.ui:203
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "Open File..."
-msgstr "Apri file"
+msgstr "Apri file..."
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, buttonClearRecentItems)
 #: lib/welcomeview/welcomeview.ui:242
 #, kde-format
 msgid "Clear Recent Files"
-msgstr ""
+msgstr "Pulisci i file recenti"
 
 #. i18n: ectx: property (text), widget (QLabel, labelHelp)
 #: lib/welcomeview/welcomeview.ui:271
@@ -2606,24 +2585,21 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, labelSavedSessions)
 #: lib/welcomeview/welcomeview.ui:354
-#, fuzzy, kde-format
-#| msgid "&Save Session"
+#, kde-format
 msgid "Saved Sessions"
-msgstr "&Salva sessione"
+msgstr "Sessione salvata"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonManageSessions)
 #: lib/welcomeview/welcomeview.ui:390
-#, fuzzy, kde-format
-#| msgid "&Manage Sessions..."
+#, kde-format
 msgid "Manage Sessions..."
-msgstr "&Gestisci le sessioni..."
+msgstr "Gestisci le sessioni..."
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
 #: lib/welcomeview/welcomeview.ui:443
-#, fuzzy, kde-format
-#| msgid "Create a new window."
+#, kde-format
 msgid "Show for new window"
-msgstr "Crea una nuova finestra."
+msgstr "Mostra per le nuove finestre"
 
 #~ msgid "Open new window with fresh untitled document"
 #~ msgstr "Apri una nuova finestra un con un nuovo documento senza titolo"

@@ -1320,6 +1320,35 @@
 <term
 ><cmdsynopsis
 ><command
+>alignon</command
+></cmdsynopsis
+></term>
+<listitem>
+<para
+>Questo comando allinea, alla colonna data da un'espressione regolare data come argomento, le righe nel blocco selezionato o nell'intero documento.</para>
+<para
+>Per impostazione predefinita, se inserisci un modello vuoto l'allineamento sarà col primo carattere non di spazio.</para>
+<para
+>Se il modello ha una cattura, il rientro sarà con la prima corrispondenza catturata.</para>
+<para
+><emphasis
+>Esempi:</emphasis
+></para>
+<para
+><userinput
+>alignon -</userinput
+> inserirà degli spazi prima del primo «-» di ogni riga per allinearle nella stessa colonna.</para>
+<para
+><userinput
+>alignon :\\s+(.)</userinput
+> inserirà degli spazi prima del primo carattere non di spazio che ricorre dopo i due punti per allinearle nella stessa colonna.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
 >unwrap</command
 ></cmdsynopsis
 ></term>

@@ -991,18 +991,49 @@ depends on the <link linkend="pref-edit-indent"
 </listitem>
 </varlistentry>
 
-<varlistentry id="selection-align">
+<varlistentry id="selection-formatindent">
 <term
 ><menuchoice
 ><guimenu
 >Selezione</guimenu
 > <guimenuitem
->Allinea</guimenuitem
+>Rientro formato</guimenuitem
 > </menuchoice
 ></term>
 <listitem>
 <para
 >Provoca un riallineamento della riga corrente o delle righe selezionate utilizzando la modalità di rientro e le impostazioni di rientro del documento.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="selection-alignon">
+<term
+><menuchoice
+><guimenu
+>Selezione</guimenu
+> <guimenuitem
+>Allinea a...</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Questo comando allinea, alla colonna data da un'espressione regolare che dovrai inserire, le righe nel blocco selezionato o nell'intero documento.</para>
+<para
+>Per impostazione predefinita, se inserisci un modello vuoto l'allineamento sarà col primo carattere non di spazio.</para>
+<para
+>Se il modello ha una cattura, il rientro sarà con la prima corrispondenza catturata.</para>
+<para
+><emphasis
+>Esempi:</emphasis
+></para>
+<para
+>Con «<userinput
+>-</userinput
+>» verrà inserito uno spazio prima del primo «-» di ogni riga per allinearle nella stessa colonna.</para>
+<para
+>Con «<userinput
+>alignon :\\s+(.)</userinput
+>» inserirà degli spazi prima del primo carattere non di spazio che ricorre dopo i due punti per allinearle nella stessa colonna.</para>
 </listitem>
 </varlistentry>
 

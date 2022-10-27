@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-22 00:48+0000\n"
-"PO-Revision-Date: 2022-09-15 18:56+0200\n"
+"PO-Revision-Date: 2022-10-15 09:26+0200\n"
 "Last-Translator: Paolo Zamponi <zapaolo@email.it>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -401,15 +401,14 @@ msgid "Next Document"
 msgstr "Documento successivo"
 
 #: katefiletreeplugin.cpp:258
-#, fuzzy, kde-format
-#| msgid "&Show Active"
+#, kde-format
 msgid "&Show Active Document"
-msgstr "Mo&stra quello attivo"
+msgstr "Mo&stra il documento attivo"
 
 #: katefiletreeplugin.cpp:263
 #, kde-format
 msgid "Save"
-msgstr ""
+msgstr "Salva"
 
 #: katefiletreeplugin.cpp:264
 #, kde-format
@@ -419,11 +418,10 @@ msgstr "Salva il documento attuale"
 #: katefiletreeplugin.cpp:268
 #, kde-format
 msgid "Save As"
-msgstr ""
+msgstr "Salva come"
 
 #: katefiletreeplugin.cpp:269
-#, fuzzy, kde-format
-#| msgid "Save current document under new name"
+#, kde-format
 msgid "Save the current document under a new name"
 msgstr "Salva il documento attuale con un nuovo nome"
 

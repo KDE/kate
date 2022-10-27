@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-14 00:50+0000\n"
+"POT-Creation-Date: 2022-10-27 00:50+0000\n"
 "PO-Revision-Date: 2022-10-14 18:35+0200\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -74,7 +74,7 @@ msgctxt "Header for the error message column"
 msgid "Message"
 msgstr "Thông điệp"
 
-#: plugin_katebuild.cpp:129 plugin_katebuild.cpp:136 plugin_katebuild.cpp:1227
+#: plugin_katebuild.cpp:129 plugin_katebuild.cpp:136 plugin_katebuild.cpp:1229
 #, kde-format
 msgid "Build"
 msgstr "Xây"
@@ -89,44 +89,44 @@ msgstr "Chọn mục tiêu..."
 msgid "Build Selected Target"
 msgstr "Xây mục tiêu được chọn"
 
-#: plugin_katebuild.cpp:148
+#: plugin_katebuild.cpp:149
 #, kde-format
 msgid "Build and Run Selected Target"
 msgstr "Xây và chạy mục tiêu được chọn"
 
-#: plugin_katebuild.cpp:152
+#: plugin_katebuild.cpp:154
 #, kde-format
 msgid "Stop"
 msgstr "Dừng"
 
-#: plugin_katebuild.cpp:157
+#: plugin_katebuild.cpp:159
 #, kde-format
 msgid "Next Error"
 msgstr "Lỗi tiếp"
 
-#: plugin_katebuild.cpp:163
+#: plugin_katebuild.cpp:165
 #, kde-format
 msgid "Previous Error"
 msgstr "Lỗi trước"
 
-#: plugin_katebuild.cpp:169
+#: plugin_katebuild.cpp:171
 #, kde-format
 msgid "Show Marks"
 msgstr "Hiện dấu"
 
-#: plugin_katebuild.cpp:178
+#: plugin_katebuild.cpp:180
 #, kde-format
 msgctxt "Tab label"
 msgid "Target Settings"
 msgstr "Thiết lập mục tiêu"
 
-#: plugin_katebuild.cpp:306 plugin_katebuild.cpp:1329 plugin_katebuild.cpp:1340
-#: plugin_katebuild.cpp:1361 plugin_katebuild.cpp:1369
+#: plugin_katebuild.cpp:308 plugin_katebuild.cpp:1331 plugin_katebuild.cpp:1342
+#: plugin_katebuild.cpp:1363 plugin_katebuild.cpp:1371
 #, kde-format
 msgid "Project Plugin Targets"
 msgstr "Các mục tiêu phần cài cắm của dự án"
 
-#: plugin_katebuild.cpp:458
+#: plugin_katebuild.cpp:460
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -136,47 +136,47 @@ msgstr ""
 "<title>Không mở được tệp:</title><nl/>%1<br/>Hãy thử thêm một đường dẫn tìm "
 "kiếm vào thư mục làm việc trong Thiết lập mục tiêu"
 
-#: plugin_katebuild.cpp:478
+#: plugin_katebuild.cpp:480
 #, kde-format
 msgctxt "The same word as 'make' uses to mark an error."
 msgid "error"
 msgstr "lỗi"
 
-#: plugin_katebuild.cpp:481
+#: plugin_katebuild.cpp:483
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "tham chiếu không được định nghĩa"
 
-#: plugin_katebuild.cpp:488
+#: plugin_katebuild.cpp:490
 #, kde-format
 msgctxt "The same word as 'make' uses to mark a warning."
 msgid "warning"
 msgstr "cảnh báo"
 
-#: plugin_katebuild.cpp:574
+#: plugin_katebuild.cpp:576
 #, kde-format
 msgid "Error"
 msgstr "Lỗi"
 
-#: plugin_katebuild.cpp:579
+#: plugin_katebuild.cpp:581
 #, kde-format
 msgid "Warning"
 msgstr "Cảnh báo"
 
-#: plugin_katebuild.cpp:710
+#: plugin_katebuild.cpp:712
 #, kde-format
 msgid "There is no file or directory specified for building."
 msgstr "Không có tệp hoặc thư mục nào được chỉ định cho việc xây."
 
-#: plugin_katebuild.cpp:714
+#: plugin_katebuild.cpp:716
 #, kde-format
 msgid ""
 "The file \"%1\" is not a local file. Non-local files cannot be compiled."
 msgstr ""
 "Tệp \"%1\" không phải là tệp cục bộ. Không thể biên dịch tệp không cục bộ."
 
-#: plugin_katebuild.cpp:760
+#: plugin_katebuild.cpp:762
 #, kde-format
 msgid ""
 "Cannot run command: %1\n"
@@ -185,135 +185,135 @@ msgstr ""
 "Không thể chạy lệnh: %1\n"
 "Đường dẫn làm việc không tồn tại: %2"
 
-#: plugin_katebuild.cpp:779
+#: plugin_katebuild.cpp:781
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "Chạy \"%1\" thất bại. Trạng thái thoát = %2"
 
-#: plugin_katebuild.cpp:798
+#: plugin_katebuild.cpp:800
 #, kde-format
 msgid "Building <b>%1</b> cancelled"
 msgstr "Việc xây <b>%1</b> bị huỷ"
 
-#: plugin_katebuild.cpp:883
+#: plugin_katebuild.cpp:885
 #, kde-format
 msgid "Already building..."
 msgstr "Đang xây rồi..."
 
-#: plugin_katebuild.cpp:892
+#: plugin_katebuild.cpp:894
 #, kde-format
 msgid "No target available for building."
 msgstr "Không có mục tiêu nào cho việc xây."
 
-#: plugin_katebuild.cpp:906
+#: plugin_katebuild.cpp:908
 #, kde-format
 msgid "There is no local file or directory specified for building."
 msgstr "Không có tệp hoặc thư mục cục bộ nào được chỉ định cho việc xây."
 
-#: plugin_katebuild.cpp:930
+#: plugin_katebuild.cpp:932
 #, kde-format
 msgid "Building target <b>%1</b> ..."
 msgstr "Đang xây mục tiêu <b>%1</b> ..."
 
-#: plugin_katebuild.cpp:945
+#: plugin_katebuild.cpp:947
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Make Results:</title><nl/>%1"
 msgstr "<title>Kết quả Make:</title><nl/>%1"
 
-#: plugin_katebuild.cpp:981
+#: plugin_katebuild.cpp:983
 #, kde-format
 msgid "Building <b>%1</b> completed."
 msgstr "Việc xây <b>%1</b> đã hoàn tất."
 
-#: plugin_katebuild.cpp:1001
+#: plugin_katebuild.cpp:1003
 #, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
 msgstr[0] "Có %1 lỗi."
 
-#: plugin_katebuild.cpp:1002
+#: plugin_katebuild.cpp:1004
 #, kde-format
 msgid "Building <b>%1</b> had errors."
 msgstr "Việc xây <b>%1</b> có lỗi."
 
-#: plugin_katebuild.cpp:1004
+#: plugin_katebuild.cpp:1006
 #, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
 msgstr[0] "Có %1 cảnh báo."
 
-#: plugin_katebuild.cpp:1005
+#: plugin_katebuild.cpp:1007
 #, kde-format
 msgid "Building <b>%1</b> had warnings."
 msgstr "Việc xây <b>%1</b> có cảnh báo."
 
-#: plugin_katebuild.cpp:1011
+#: plugin_katebuild.cpp:1013
 #, kde-format
 msgid "Build failed."
 msgstr "Việc xây thất bại."
 
-#: plugin_katebuild.cpp:1013
+#: plugin_katebuild.cpp:1015
 #, kde-format
 msgid "Build completed without problems."
 msgstr "Việc xây hoàn tất không gặp vấn đề gì."
 
-#: plugin_katebuild.cpp:1043
+#: plugin_katebuild.cpp:1045
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
 msgstr "Không thể thực thi: %1 Chưa đặt thư mục làm việc."
 
-#: plugin_katebuild.cpp:1226
+#: plugin_katebuild.cpp:1228
 #, kde-format
 msgid "Target Set"
 msgstr "Tập hợp mục tiêu"
 
-#: plugin_katebuild.cpp:1228
+#: plugin_katebuild.cpp:1230
 #, kde-format
 msgid "Clean"
 msgstr "Làm sạch"
 
-#: plugin_katebuild.cpp:1229
+#: plugin_katebuild.cpp:1231
 #, kde-format
 msgid "Config"
 msgstr "Cấu hình"
 
-#: plugin_katebuild.cpp:1230
+#: plugin_katebuild.cpp:1232
 #, kde-format
 msgid "ConfigClean"
 msgstr "Làm sạch cấu hình"
 
-#: plugin_katebuild.cpp:1273
+#: plugin_katebuild.cpp:1275
 #, kde-format
 msgid "Only Errors"
 msgstr "Chỉ lỗi"
 
-#: plugin_katebuild.cpp:1276
+#: plugin_katebuild.cpp:1278
 #, kde-format
 msgid "Errors and Warnings"
 msgstr "Lỗi và cảnh báo"
 
-#: plugin_katebuild.cpp:1279
+#: plugin_katebuild.cpp:1281
 #, kde-format
 msgid "Parsed Output"
 msgstr "Đầu ra đã phân tách"
 
-#: plugin_katebuild.cpp:1282
+#: plugin_katebuild.cpp:1284
 #, kde-format
 msgid "Full Output"
 msgstr "Đầu ra đầy đủ"
 
-#: plugin_katebuild.cpp:1390
+#: plugin_katebuild.cpp:1392
 #, kde-format
 msgid "build"
 msgstr "xây"
 
-#: plugin_katebuild.cpp:1393
+#: plugin_katebuild.cpp:1395
 #, kde-format
 msgid "clean"
 msgstr "làm sạch"
 
-#: plugin_katebuild.cpp:1396
+#: plugin_katebuild.cpp:1398
 #, kde-format
 msgid "quick"
 msgstr "nhanh"

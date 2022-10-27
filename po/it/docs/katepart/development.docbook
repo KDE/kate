@@ -4335,9 +4335,9 @@ function indent(riga, larghezza_rientro, carattere)
 ><guimenu
 >Strumenti</guimenu
 ><guimenuitem
->Allinea</guimenuitem
-></menuchoice
->, la variabile <varname
+>Rientro formato</guimenuitem
+></menuchoice>
+    // la variabile <varname
 >carattere</varname
 > è vuota, cioè <varname
 >caratteri</varname
@@ -4374,7 +4374,7 @@ function indent(riga, larghezza_rientro, carattere)
 ><guimenu
 >Strumenti</guimenu
 ><guimenuitem
->Allinea</guimenuitem
+>Rientro formato</guimenuitem
 ></menuchoice
 >.</para
 ></listitem
@@ -5970,6 +5970,94 @@ void view.setVirtualCursorPosition(<parameter
 ></listitem>
 </varlistentry>
 
+
+<varlistentry>
+<term
+><synopsis
+>void view.setBlockSelection(bool on);
+</synopsis
+></term>
+<listitem
+><para
+>Attiva o disattiva la modalità di selezione a blocchi. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><synopsis
+>bool view.blockSelection();
+</synopsis
+></term>
+<listitem
+><para
+>Restituisce <literal
+>true</literal
+> se la modalità di selezione a blocchi è attivata, altrimenti <literal
+>false</literal
+>. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>void view.align(<parameter
+>Range <replaceable
+>intervallo</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Fa rientrare nuovamente le righe che si trovano nell'<replaceable
+>intervallo</replaceable
+> in base alle impostazioni di rientro correnti. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><synopsis
+>void view.alignOn(<parameter
+>Range <replaceable
+>intervallo</replaceable
+></parameter
+>, <parameter
+>String <replaceable
+>modello</replaceable
+> = &quot;&quot;</parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Allinea le righe in <replaceable
+>intervallo</replaceable
+> alla colonna data dall'espressione regolare <replaceable
+>modello</replaceable
+>. Con un <replaceable
+>modello</replaceable
+> vuoto, per impostazione predefinita allineerà al primo carattere non di spazio. Se il modello ha una cattura, rientrerà  </para>
+<para
+><emphasis
+>Esempi:</emphasis
+></para>
+<para
+><literal
+>view.alignOn(document.documentRange(), '-');</literal
+> inserirà degli spazi prima del primo <literal
+>-</literal
+> di ogni riga per allinearle nella stessa colonna.</para>
+<para
+><literal
+>view.alignOn(document.documentRange(), ':\\s+(.)');</literal
+> inserirà degli spazi prima del primo carattere non di spazio che ricorre dopo i due punti per allinearle nella stessa colonna.</para>
+</listitem>
+</varlistentry>
+
 <varlistentry>
 <term
 ><synopsis
@@ -6011,6 +6099,48 @@ void view.setVirtualCursorPosition(<parameter
 > contiene un messaggio di errore. </para>
 <para
 >Da: &kde-frameworks; 5.50</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><synopsis
+>Range view.searchText(<parameter
+>Range <replaceable
+>intervallo</replaceable
+></parameter
+>,
+                      <parameter
+>String <replaceable
+>modello</replaceable
+></parameter
+>,
+                      <parameter
+>bool <replaceable
+>backwards</replaceable
+> = false</parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Cerca la prima occorrenza di <replaceable
+>modello</replaceable
+> in <replaceable
+>intervallo</replaceable
+> e restituisce l'intervallo corrispondente. La ricerca viene eseguita all'indietro se il parametro booleano <replaceable
+>backwards</replaceable
+> è impostato a <literal
+>true</literal
+>. </para>
+<para
+>L'intervallo restituito non è valido (vedi Range.isValid()) se <replaceable
+>modello</replaceable
+> non viene trovato in <replaceable
+>intervallo</replaceable
+>. </para>
+<para
+>Da: &kde-frameworks; 5.97</para>
 </listitem>
 </varlistentry>
 
@@ -7832,6 +7962,34 @@ bool document.isOthers(<parameter
 ></listitem>
 </varlistentry>
 
+<varlistentry>
+<term
+><synopsis
+>void document.indent(<parameter
+>Range <replaceable
+>intervallo</replaceable
+></parameter
+>, <parameter
+>int <replaceable
+>modifica</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Fa rientrare tutte le righe nell'<replaceable
+>intervallo</replaceable
+> con la <replaceable
+>modifica</replaceable
+> delle schede o del numero delle volte degli spazi <literal
+>tabSize</literal
+>, a seconda delle preferenze dell'utente. Il parametro di <replaceable
+>modifica</replaceable
+> può essere negativo. </para
+></listitem>
+</varlistentry>
+
 </variablelist>
 </para>
 
@@ -7839,7 +7997,7 @@ bool document.isOthers(<parameter
 
 <sect3 id="dev-scripting-api-editor">
 <title
->API dell'editor</title>
+>L'API dell'editor</title>
 <para
 >Oltre alle API per documento e vista c'è un'API generale per editor, che fornisce delle funzioni per le funzionalità di script generali per editor. <variablelist>
 

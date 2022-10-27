@@ -834,9 +834,9 @@
 ></term>
 <listitem>
 <para
->Questa opzione ti permette di impostare il modificatore che verrà usato per creare dei cursori multipli con un clic del &LMB;: devi premere il modificatore e fare clic sul &LMB; per creare un cursore alla posizione desiderata. Vedi <link linkend="kate-part-create-multiple-cursors"
->Creazione di cursori multipli</link
-> per scoprire altre modalità per creare dei cursori multipli.</para>
+>Questa opzione ti permette di impostare il modificatore che verrà usato per creare più cursori con un clic del &LMB;: devi premerlo e fare clic sul &LMB; per creare un cursore alla posizione desiderata. Vedi <link linkend="kate-part-create-multiple-cursors"
+>Creazione di più cursori</link
+> per scoprire altre modalità per creare più cursori.</para>
 </listitem>
 </varlistentry>
 
@@ -991,7 +991,7 @@
 <listitem>
 <para
 >Se vuoi che &Tab; allinei la riga attuale nel blocco di codice attuale come in &Emacs;, puoi rendere &Tab; una scorciatoia per l'azione <guimenuitem
->Allinea</guimenuitem
+>Rientro formato</guimenuitem
 >. </para>
 <variablelist>
 <varlistentry>

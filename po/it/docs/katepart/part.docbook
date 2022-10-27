@@ -816,7 +816,7 @@
 ><guimenu
 >Strumenti</guimenu
 ><guimenuitem
->Allinea</guimenuitem
+>Rientro formato</guimenuitem
 ></menuchoice
 > che ricalcola il rientro della riga selezionata o di quella corrente. In questo modo puoi far rientrare nuovamente il documento selezionando tutto il testo e attivando tale azione.</para>
 
@@ -986,7 +986,7 @@
 
 <sect2 id="kate-part-create-multiple-cursors">
 <title
->Creazione di cursori multipli</title>
+>Creazione di più cursori</title>
 
 <itemizedlist>
 <listitem
@@ -1020,8 +1020,16 @@
 >&Alt;<keycap
 >J</keycap
 ></keycombo
-> per cercare l'occorrenza successiva della parola sotto il cursore, poi selezionala e crea un cursore.</para
-></listitem>
+> per trovare la successiva occorrenza della parola sotto il cursore, e seleziona + per creare un cursore. Premi <keycombo action="simul"
+>&Alt;<keycap
+>K</keycap
+></keycombo
+> se vuoi saltare la parola attualmente sotto al cursore: in questo modo questa verrà marcata come saltata. Se premi nuovamente <keycombo action="simul"
+>&Alt;<keycap
+>J</keycap
+></keycombo
+>, ciò deselezionerà la parola corrente e passerai alla successiva.</para>
+</listitem>
 
 <listitem
 ><para
@@ -1029,7 +1037,15 @@
 >&Ctrl;&Alt;&Shift;<keycap
 >J</keycap
 ></keycombo
-> per cercare tutte le occorrenze della parola sotto il cursore, poi selezionale con un cursore alla fine di ogni selezione.</para
+> per cercare tutte le occorrenze della parola sotto il cursore, poi selezionale con un cursore alla fine di ogni selezione. Puoi usare<keycombo action="simul"
+>&Alt;<keycap
+>J</keycap
+></keycombo
+> per passare ciclicamente tra le parole selezionate, e, come menzionato nel paragrafo precedente, <keycombo action="simul"
+>&Alt;<keycap
+>K</keycap
+></keycombo
+> per deselezionare tutte le parole.</para
 ></listitem>
 </itemizedlist>
 

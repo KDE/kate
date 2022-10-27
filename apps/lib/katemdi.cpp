@@ -244,11 +244,12 @@ void GUIClient::updateActions()
 
 // BEGIN TOOLVIEW
 
-ToolView::ToolView(MainWindow *mainwin, Sidebar *sidebar, QWidget *parent)
+ToolView::ToolView(MainWindow *mainwin, Sidebar *sidebar, QWidget *parent, const QString &identifier)
     : QFrame(parent)
     , m_mainWin(mainwin)
     , m_sidebar(sidebar)
     , m_toolbar(nullptr)
+    , id(identifier)
     , m_toolVisible(false)
 {
     // try to fix resize policy
@@ -716,10 +717,9 @@ ToolView *Sidebar::addToolView(const QIcon &icon, const QString &text, const QSt
         widget->sidebar()->removeToolView(widget);
 
     } else {
-        widget = new ToolView(m_mainWin, this, nullptr);
+        widget = new ToolView(m_mainWin, this, nullptr, identifier);
         widget->icon = icon;
         widget->text = text;
-        widget->id = identifier;
     }
 
     widget->m_sidebar = this;
@@ -1340,11 +1340,8 @@ MainWindow::~MainWindow()
 {
     // kill all toolviews, they will deregister themself
     while (!m_toolviews.empty()) {
-        delete m_toolviews.back();
+        delete m_toolviews.begin()->second;
     }
-
-    // cleanup of toolviews should have de-registered all of them
-    Q_ASSERT(m_idToWidget.empty());
 
     // seems like we really should delete this by hand ;)
     delete m_centralWidget;
@@ -1375,8 +1372,7 @@ ToolView *MainWindow::createToolView(KTextEditor::Plugin *plugin,
     ToolView *v = m_sidebars[pos]->addToolView(icon, text, identifier, nullptr);
     v->plugin = plugin;
 
-    m_idToWidget.emplace(identifier, v);
-    m_toolviews.push_back(v);
+    m_toolviews.emplace(identifier, v);
 
     // register for menu stuff
     m_guiClient->registerToolView(v);
@@ -1386,8 +1382,8 @@ ToolView *MainWindow::createToolView(KTextEditor::Plugin *plugin,
 
 ToolView *MainWindow::toolView(const QString &identifier) const
 {
-    auto it = m_idToWidget.find(identifier);
-    if (it != m_idToWidget.end()) {
+    auto it = m_toolviews.find(identifier);
+    if (it != m_toolviews.end()) {
         return it->second;
     }
     return nullptr;
@@ -1408,9 +1404,7 @@ void MainWindow::toolViewDeleted(ToolView *widget)
 
     widget->sidebar()->removeToolView(widget);
 
-    m_idToWidget.erase(widget->id);
-
-    m_toolviews.erase(std::remove(m_toolviews.begin(), m_toolviews.end(), widget), m_toolviews.end());
+    m_toolviews.erase(widget->id);
 }
 
 void MainWindow::setSidebarsVisibleInternal(bool visible, bool noWarning)
@@ -1515,9 +1509,7 @@ QWidget *MainWindow::toolviewToggleButton(ToolView *tv)
 void MainWindow::hideToolViews()
 {
     for (const auto &tv : m_toolviews) {
-        if (tv) {
-            tv->sidebar()->hideToolView(tv);
-        }
+        tv.second->sidebar()->hideToolView(tv.second);
     }
     triggerFocusForCentralWidget();
 }
@@ -1559,9 +1551,9 @@ void MainWindow::finishRestore()
         applyMainWindowSettings(cg);
 
         // reshuffle toolviews only if needed
-        for (const auto tv : m_toolviews) {
+        for (const auto &[id, tv] : m_toolviews) {
             KMultiTabBar::KMultiTabBarPosition newPos = static_cast<KMultiTabBar::KMultiTabBarPosition>(
-                cg.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Position").arg(tv->id), int(tv->sidebar()->position())));
+                cg.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Position").arg(id), int(tv->sidebar()->position())));
 
             if (tv->sidebar()->position() != newPos) {
                 moveToolView(tv, newPos);

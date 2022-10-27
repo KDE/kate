@@ -101,8 +101,9 @@ protected:
      * @param mainwin main window for this toolview
      * @param sidebar sidebar of this toolview
      * @param parent parent widget, e.g. the splitter of one of the sidebars
+     * @param identifier unique id
      */
-    ToolView(class MainWindow *mainwin, class Sidebar *sidebar, QWidget *parent);
+    ToolView(class MainWindow *mainwin, class Sidebar *sidebar, QWidget *parent, const QString &identifier);
 
 public:
     /**
@@ -163,7 +164,7 @@ private:
     /**
      * unique id
      */
-    QString id;
+    const QString id;
 
     /**
      * is visible in sidebar
@@ -588,14 +589,11 @@ public:
      */
 private:
     /**
-     * map identifiers to widgets
+     * all existing tool views
+     * mapped by their constant identifier, to have some stable order
+     * tool views de-register them self on destruction
      */
-    std::map<QString, ToolView *> m_idToWidget;
-
-    /**
-     * list of all toolviews around
-     */
-    std::vector<ToolView *> m_toolviews;
+    std::map<QString, ToolView *> m_toolviews;
 
     /**
      * widget, which is the central part of the

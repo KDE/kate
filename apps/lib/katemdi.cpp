@@ -1361,7 +1361,8 @@ ToolView *MainWindow::createToolView(KTextEditor::Plugin *plugin,
                                      const QIcon &icon,
                                      const QString &text)
 {
-    if (m_idToWidget[identifier]) {
+    // clashing names are not allowed
+    if (toolView(identifier)) {
         return nullptr;
     }
 

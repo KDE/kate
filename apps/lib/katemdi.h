@@ -590,12 +590,12 @@ private:
     /**
      * map identifiers to widgets
      */
-    std::map<QString, QPointer<ToolView>> m_idToWidget;
+    std::map<QString, ToolView *> m_idToWidget;
 
     /**
      * list of all toolviews around
      */
-    std::vector<QPointer<ToolView>> m_toolviews;
+    std::vector<ToolView *> m_toolviews;
 
     /**
      * widget, which is the central part of the

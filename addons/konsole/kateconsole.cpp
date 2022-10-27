@@ -48,8 +48,8 @@ static const QStringList s_escapeExceptions{QStringLiteral("vi"), QStringLiteral
 
 KateKonsolePlugin::KateKonsolePlugin(QObject *parent, const QList<QVariant> &)
     : KTextEditor::Plugin(parent)
+    , m_previousEditorEnv(qgetenv("EDITOR"))
 {
-    m_previousEditorEnv = qgetenv("EDITOR");
     if (!KAuthorized::authorize(QStringLiteral("shell_access"))) {
         KMessageBox::error(nullptr, i18n("You do not have enough karma to access a shell or terminal emulation"));
     }

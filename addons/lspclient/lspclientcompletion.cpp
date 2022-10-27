@@ -103,13 +103,12 @@ class CompletionIcons : public QObject
 public:
     CompletionIcons()
         : QObject(KTextEditor::Editor::instance())
+        , classIcon(QIcon::fromTheme(QStringLiteral("code-class")))
+        , blockIcon(QIcon::fromTheme(QStringLiteral("code-block")))
+        , funcIcon(QIcon::fromTheme(QStringLiteral("code-function")))
+        , varIcon(QIcon::fromTheme(QStringLiteral("code-variable")))
+        , enumIcon(QIcon::fromTheme(QStringLiteral("enum")))
     {
-        classIcon = QIcon::fromTheme(QStringLiteral("code-class"));
-        blockIcon = QIcon::fromTheme(QStringLiteral("code-block"));
-        funcIcon = QIcon::fromTheme(QStringLiteral("code-function"));
-        varIcon = QIcon::fromTheme(QStringLiteral("code-variable"));
-        enumIcon = QIcon::fromTheme(QStringLiteral("enum"));
-
         auto e = KTextEditor::Editor::instance();
         QObject::connect(e, &KTextEditor::Editor::configChanged, this, [this](KTextEditor::Editor *e) {
             colorIcons(e);

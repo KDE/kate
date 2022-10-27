@@ -19,13 +19,11 @@
 
 TextOutputWidget::TextOutputWidget(QWidget *parent)
     : QWidget(parent)
+    , m_succesTextColor(QColor::fromRgb(3, 191, 3))
+    , m_succesBackgroundColor(QColor::fromRgb(231, 247, 231))
+    , m_errorTextColor(QColor::fromRgb(191, 3, 3))
+    , m_errorBackgroundColor(QColor::fromRgb(247, 231, 231))
 {
-    m_succesTextColor = QColor::fromRgb(3, 191, 3);
-    m_succesBackgroundColor = QColor::fromRgb(231, 247, 231);
-
-    m_errorTextColor = QColor::fromRgb(191, 3, 3);
-    m_errorBackgroundColor = QColor::fromRgb(247, 231, 231);
-
     m_layout = new QHBoxLayout(this);
 
     m_output = new QTextEdit();

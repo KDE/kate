@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-27 00:50+0000\n"
+"POT-Creation-Date: 2022-10-28 00:49+0000\n"
 "PO-Revision-Date: 2022-10-12 15:38+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
@@ -357,24 +357,24 @@ msgstr ""
 "\"%d\" pro directorio del file currente\n"
 "\"%n\" pro nomine de file currente sin suffixo"
 
-#: TargetModel.cpp:330
+#: TargetModel.cpp:332
 #, kde-format
 msgid "Check the check-box to make the command the default for the target-set."
 msgstr ""
 "Marca le quadrato de selection  pro facer que le commando es le predefinite "
 "per le insimul-objectivo."
 
-#: TargetModel.cpp:386
+#: TargetModel.cpp:388
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Nomine de Commando/Insimul de objectivo"
 
-#: TargetModel.cpp:389
+#: TargetModel.cpp:391
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "Directorio de travalio / Commando"
 
-#: TargetModel.cpp:392
+#: TargetModel.cpp:394
 #, fuzzy, kde-format
 #| msgid "Command:"
 msgid "Run Command"
@@ -382,52 +382,47 @@ msgstr "Executa commando"
 
 #: targets.cpp:23
 #, kde-format
-msgid "Select active target set"
-msgstr "Selige insimul de objectivo active"
+msgid "Filter targets, use arrow keys to select, press Enter to execute"
+msgstr ""
 
 #: targets.cpp:27
-#, kde-format
-msgid "Filter targets"
-msgstr "Filtra objectivos"
-
-#: targets.cpp:31
 #, kde-format
 msgid "Create new set of targets"
 msgstr "Crea nove insimul de objectivos"
 
-#: targets.cpp:35
+#: targets.cpp:31
 #, kde-format
 msgid "Copy command or target set"
 msgstr "Copia commando o insimul objectivo"
 
-#: targets.cpp:39
+#: targets.cpp:35
 #, kde-format
 msgid "Delete current target or current set of targets"
 msgstr "Dele objectivo currente o insimul currente de objectivos"
 
-#: targets.cpp:44
+#: targets.cpp:40
 #, kde-format
 msgid "Add new target"
 msgstr "Adde nove objectivo"
 
-#: targets.cpp:48
+#: targets.cpp:44
 #, kde-format
 msgid "Build selected target"
 msgstr "Construe objectivo seligite"
 
-#: targets.cpp:52
+#: targets.cpp:48
 #, fuzzy, kde-format
 #| msgid "Build selected target"
 msgid "Build and run selected target"
 msgstr "Construe objectivo seligite"
 
-#: targets.cpp:56
+#: targets.cpp:52
 #, fuzzy, kde-format
 #| msgid "Build selected target"
 msgid "Move selected target up"
 msgstr "Construe objectivo seligite"
 
-#: targets.cpp:60
+#: targets.cpp:56
 #, fuzzy, kde-format
 #| msgid "Build selected target"
 msgid "Move selected target down"
@@ -448,6 +443,12 @@ msgstr "Inserta percurso"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Selige directorio de insertar"
+
+#~ msgid "Select active target set"
+#~ msgstr "Selige insimul de objectivo active"
+
+#~ msgid "Filter targets"
+#~ msgstr "Filtra objectivos"
 
 #~ msgid "Build Default Target"
 #~ msgstr "Construe objectivo predefinite"

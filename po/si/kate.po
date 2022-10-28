@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-27 00:50+0000\n"
+"POT-Creation-Date: 2022-10-28 00:49+0000\n"
 "PO-Revision-Date: 2011-08-04 10:19+0530\n"
 "Last-Translator: Danishka Navin <danishka@gmail.com>\n"
 "Language-Team: Sinhala <danishka@gmail.com>\n"
@@ -745,7 +745,7 @@ msgstr ""
 msgid "Never"
 msgstr "(නොමැත)"
 
-#: lib/kateconfigdialog.cpp:366 lib/kateconfigdialog.cpp:895
+#: lib/kateconfigdialog.cpp:366 lib/kateconfigdialog.cpp:907
 #, kde-format
 msgid "Warning"
 msgstr ""
@@ -957,25 +957,35 @@ msgstr ""
 msgid "Diff Style:"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:549
+#: lib/kateconfigdialog.cpp:540
+#, kde-format
+msgid "Navigation Bar"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:545
+#, kde-format
+msgid "Show current symbol in navigation bar"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:559
 #, fuzzy, kde-format
 #| msgid "Sessions"
 msgid "Session"
 msgstr "සැසි"
 
-#: lib/kateconfigdialog.cpp:551
+#: lib/kateconfigdialog.cpp:561
 #, kde-format
 msgid "Session Management"
 msgstr "වාර පරිපාලනය"
 
-#: lib/kateconfigdialog.cpp:562
+#: lib/kateconfigdialog.cpp:572
 #, fuzzy, kde-format
 #| msgid "(never)"
 msgctxt "The special case of 'Delete unused meta-information after'"
 msgid "(never)"
 msgstr "(නොමැත)"
 
-#: lib/kateconfigdialog.cpp:563
+#: lib/kateconfigdialog.cpp:573
 #, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid " day"
@@ -983,29 +993,29 @@ msgid_plural " days"
 msgstr[0] " දිනය"
 msgstr[1] " දින"
 
-#: lib/kateconfigdialog.cpp:596
+#: lib/kateconfigdialog.cpp:606
 #, kde-format
 msgid ""
 "When a window is closed the documents opened only in this window are closed "
 "as well."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:631
+#: lib/kateconfigdialog.cpp:641
 #, kde-format
 msgid "Plugins"
 msgstr "ප්ලගීන"
 
-#: lib/kateconfigdialog.cpp:633
+#: lib/kateconfigdialog.cpp:643
 #, kde-format
 msgid "Plugin Manager"
 msgstr "ප්ලගින පාලකය"
 
-#: lib/kateconfigdialog.cpp:651 lib/kateconfigdialog.cpp:653
+#: lib/kateconfigdialog.cpp:661 lib/kateconfigdialog.cpp:663
 #, kde-format
 msgid "User Feedback"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:894
+#: lib/kateconfigdialog.cpp:906
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>The document '%1' has been modified, but not saved.</p><p>Do you want "
@@ -1619,7 +1629,7 @@ msgstr "ඉහළ පැතිතීරුව"
 msgid "Bottom Sidebar"
 msgstr "පහළ පැතිතීරුව"
 
-#: lib/katemdi.cpp:1426
+#: lib/katemdi.cpp:1424
 #, fuzzy, kde-format
 #| msgid ""
 #| "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

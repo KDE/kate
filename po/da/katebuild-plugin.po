@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-27 00:50+0000\n"
+"POT-Creation-Date: 2022-10-28 00:49+0000\n"
 "PO-Revision-Date: 2017-03-22 17:11+0100\n"
 "Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
@@ -355,23 +355,23 @@ msgstr ""
 "\"%d\" for mappen med den aktuelle fil \"%n\" for aktuelt filnavn uden "
 "endelse"
 
-#: TargetModel.cpp:330
+#: TargetModel.cpp:332
 #, kde-format
 msgid "Check the check-box to make the command the default for the target-set."
 msgstr ""
 "Markér afkrydsningsfeltet for at gøre kommandoen til standard for mål-sættet."
 
-#: TargetModel.cpp:386
+#: TargetModel.cpp:388
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Navn på kommando/mål-sæt"
 
-#: TargetModel.cpp:389
+#: TargetModel.cpp:391
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "Arbejdsmappe / kommando"
 
-#: TargetModel.cpp:392
+#: TargetModel.cpp:394
 #, fuzzy, kde-format
 #| msgid "Command:"
 msgid "Run Command"
@@ -379,54 +379,48 @@ msgstr "Kommando:"
 
 #: targets.cpp:23
 #, kde-format
-msgid "Select active target set"
-msgstr "Vælg aktivt mål-sæt"
+msgid "Filter targets, use arrow keys to select, press Enter to execute"
+msgstr ""
 
 #: targets.cpp:27
-#, fuzzy, kde-format
-#| msgid "Build selected target"
-msgid "Filter targets"
-msgstr "Byg valgt mål"
-
-#: targets.cpp:31
 #, kde-format
 msgid "Create new set of targets"
 msgstr "Opret nyt sæt af mål"
 
-#: targets.cpp:35
+#: targets.cpp:31
 #, kde-format
 msgid "Copy command or target set"
 msgstr "Kopiér kommando og mål-sæt"
 
-#: targets.cpp:39
+#: targets.cpp:35
 #, fuzzy, kde-format
 #| msgid "Delete current set of targets"
 msgid "Delete current target or current set of targets"
 msgstr "Slet aktuelt sæt af mål"
 
-#: targets.cpp:44
+#: targets.cpp:40
 #, kde-format
 msgid "Add new target"
 msgstr "Tilføj nyt mål"
 
-#: targets.cpp:48
+#: targets.cpp:44
 #, kde-format
 msgid "Build selected target"
 msgstr "Byg valgt mål"
 
-#: targets.cpp:52
+#: targets.cpp:48
 #, fuzzy, kde-format
 #| msgid "Build selected target"
 msgid "Build and run selected target"
 msgstr "Byg valgt mål"
 
-#: targets.cpp:56
+#: targets.cpp:52
 #, fuzzy, kde-format
 #| msgid "Build selected target"
 msgid "Move selected target up"
 msgstr "Byg valgt mål"
 
-#: targets.cpp:60
+#: targets.cpp:56
 #, fuzzy, kde-format
 #| msgid "Build selected target"
 msgid "Move selected target down"
@@ -447,6 +441,14 @@ msgstr "Indsæt sti"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Vælg mappe der skal indsættes"
+
+#~ msgid "Select active target set"
+#~ msgstr "Vælg aktivt mål-sæt"
+
+#, fuzzy
+#~| msgid "Build selected target"
+#~ msgid "Filter targets"
+#~ msgstr "Byg valgt mål"
 
 #~ msgid "Build Default Target"
 #~ msgstr "Byg standardmålet"

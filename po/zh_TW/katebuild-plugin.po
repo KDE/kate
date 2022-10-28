@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-27 00:50+0000\n"
+"POT-Creation-Date: 2022-10-28 00:49+0000\n"
 "PO-Revision-Date: 2020-09-17 14:57+0800\n"
 "Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
 "Language-Team: Chinese <zh-l10n@linux.org.tw>\n"
@@ -356,76 +356,70 @@ msgstr ""
 "\"%d\" 表示目前檔案所在的目錄\n"
 "\"%n\" 表示目前的檔名，不含後置字串"
 
-#: TargetModel.cpp:330
+#: TargetModel.cpp:332
 #, kde-format
 msgid "Check the check-box to make the command the default for the target-set."
 msgstr "勾選指令做為目標集的預設指令。"
 
-#: TargetModel.cpp:386
+#: TargetModel.cpp:388
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "指令/目標集名稱"
 
-#: TargetModel.cpp:389
+#: TargetModel.cpp:391
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "工作目錄 / 指令"
 
-#: TargetModel.cpp:392
+#: TargetModel.cpp:394
 #, kde-format
 msgid "Run Command"
 msgstr ""
 
 #: targets.cpp:23
 #, kde-format
-msgid "Select active target set"
-msgstr "選取作用中的目標集"
+msgid "Filter targets, use arrow keys to select, press Enter to execute"
+msgstr ""
 
 #: targets.cpp:27
-#, fuzzy, kde-format
-#| msgid "Build selected target"
-msgid "Filter targets"
-msgstr "編譯選取的目標"
-
-#: targets.cpp:31
 #, kde-format
 msgid "Create new set of targets"
 msgstr "建立新的目標集"
 
-#: targets.cpp:35
+#: targets.cpp:31
 #, kde-format
 msgid "Copy command or target set"
 msgstr "複製指令或目標集"
 
-#: targets.cpp:39
+#: targets.cpp:35
 #, fuzzy, kde-format
 #| msgid "Delete current set of targets"
 msgid "Delete current target or current set of targets"
 msgstr "刪除目前的目標集"
 
-#: targets.cpp:44
+#: targets.cpp:40
 #, kde-format
 msgid "Add new target"
 msgstr "新增目標"
 
-#: targets.cpp:48
+#: targets.cpp:44
 #, kde-format
 msgid "Build selected target"
 msgstr "編譯選取的目標"
 
-#: targets.cpp:52
+#: targets.cpp:48
 #, fuzzy, kde-format
 #| msgid "Build selected target"
 msgid "Build and run selected target"
 msgstr "編譯選取的目標"
 
-#: targets.cpp:56
+#: targets.cpp:52
 #, fuzzy, kde-format
 #| msgid "Build selected target"
 msgid "Move selected target up"
 msgstr "編譯選取的目標"
 
-#: targets.cpp:60
+#: targets.cpp:56
 #, fuzzy, kde-format
 #| msgid "Build selected target"
 msgid "Move selected target down"
@@ -446,6 +440,14 @@ msgstr "插入路徑"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "選擇要插入的目錄"
+
+#~ msgid "Select active target set"
+#~ msgstr "選取作用中的目標集"
+
+#, fuzzy
+#~| msgid "Build selected target"
+#~ msgid "Filter targets"
+#~ msgstr "編譯選取的目標"
 
 #~ msgid "Build Default Target"
 #~ msgstr "編譯預設目標"

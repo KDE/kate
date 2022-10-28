@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-27 00:50+0000\n"
-"PO-Revision-Date: 2022-10-25 07:50+0200\n"
+"POT-Creation-Date: 2022-10-28 00:49+0000\n"
+"PO-Revision-Date: 2022-10-27 05:22+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -731,7 +731,7 @@ msgstr "&Aldatu irteerako ikuspegira mezu-motarekin:"
 msgid "Never"
 msgstr "Inoiz ez"
 
-#: lib/kateconfigdialog.cpp:366 lib/kateconfigdialog.cpp:895
+#: lib/kateconfigdialog.cpp:366 lib/kateconfigdialog.cpp:907
 #, kde-format
 msgid "Warning"
 msgstr "Abisua"
@@ -948,23 +948,35 @@ msgstr "Diff"
 msgid "Diff Style:"
 msgstr "Diff estiloa:"
 
-#: lib/kateconfigdialog.cpp:549
+#: lib/kateconfigdialog.cpp:540
+#, fuzzy, kde-format
+#| msgid "Show Navigation Bar"
+msgid "Navigation Bar"
+msgstr "Erakutsi nabigatzeko barra"
+
+#: lib/kateconfigdialog.cpp:545
+#, fuzzy, kde-format
+#| msgid "Focus the navigation bar"
+msgid "Show current symbol in navigation bar"
+msgstr "Fokuratu Nabigatze-barra"
+
+#: lib/kateconfigdialog.cpp:559
 #, kde-format
 msgid "Session"
 msgstr "Saioa"
 
-#: lib/kateconfigdialog.cpp:551
+#: lib/kateconfigdialog.cpp:561
 #, kde-format
 msgid "Session Management"
 msgstr "Saio-kudeaketa"
 
-#: lib/kateconfigdialog.cpp:562
+#: lib/kateconfigdialog.cpp:572
 #, kde-format
 msgctxt "The special case of 'Delete unused meta-information after'"
 msgid "(never)"
 msgstr "(inoiz ez)"
 
-#: lib/kateconfigdialog.cpp:563
+#: lib/kateconfigdialog.cpp:573
 #, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid " day"
@@ -972,7 +984,7 @@ msgid_plural " days"
 msgstr[0] " egun"
 msgstr[1] " egun"
 
-#: lib/kateconfigdialog.cpp:596
+#: lib/kateconfigdialog.cpp:606
 #, kde-format
 msgid ""
 "When a window is closed the documents opened only in this window are closed "
@@ -981,22 +993,22 @@ msgstr ""
 "Leiho bat ixten denean leiho horretan bakarrik irekita dauden dokumentuak "
 "ixten dira."
 
-#: lib/kateconfigdialog.cpp:631
+#: lib/kateconfigdialog.cpp:641
 #, kde-format
 msgid "Plugins"
 msgstr "Pluginak"
 
-#: lib/kateconfigdialog.cpp:633
+#: lib/kateconfigdialog.cpp:643
 #, kde-format
 msgid "Plugin Manager"
 msgstr "Plugin kudeatzailea"
 
-#: lib/kateconfigdialog.cpp:651 lib/kateconfigdialog.cpp:653
+#: lib/kateconfigdialog.cpp:661 lib/kateconfigdialog.cpp:663
 #, kde-format
 msgid "User Feedback"
 msgstr "Erabiltzaileen erreakzioa"
 
-#: lib/kateconfigdialog.cpp:894
+#: lib/kateconfigdialog.cpp:906
 #, kde-format
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"
@@ -1495,7 +1507,7 @@ msgstr "Alboko-barrako botoiak"
 #: lib/katemdi.cpp:105
 #, kde-format
 msgid "Focus Toolview"
-msgstr ""
+msgstr "Arreta Tresna-ikuspegira"
 
 #: lib/katemdi.cpp:108
 #, kde-format
@@ -1525,7 +1537,7 @@ msgstr "Erakutsi %1 botoia"
 #: lib/katemdi.cpp:191
 #, kde-format
 msgid "Focus %1"
-msgstr ""
+msgstr "Arreta %1(e)ra"
 
 #: lib/katemdi.cpp:1000
 #, kde-format
@@ -1587,7 +1599,7 @@ msgstr "Goiko alboko-barra"
 msgid "Bottom Sidebar"
 msgstr "Beheko alboko-barra"
 
-#: lib/katemdi.cpp:1426
+#: lib/katemdi.cpp:1424
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

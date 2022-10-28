@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesql\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"POT-Creation-Date: 2022-10-28 00:49+0000\n"
 "PO-Revision-Date: 2022-08-19 15:41-0300\n"
 "Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
 "Language-Team: Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -178,7 +178,7 @@ msgctxt "@action:intoolbar"
 msgid "Export..."
 msgstr "Exportar..."
 
-#: dataoutputwidget.cpp:80 textoutputwidget.cpp:49
+#: dataoutputwidget.cpp:80 textoutputwidget.cpp:47
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Clear"

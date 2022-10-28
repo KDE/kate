@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-27 00:50+0000\n"
+"POT-Creation-Date: 2022-10-28 00:49+0000\n"
 "PO-Revision-Date: 2020-01-12 13:14+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
@@ -737,7 +737,7 @@ msgstr ""
 msgid "Never"
 msgstr "(nunca)"
 
-#: lib/kateconfigdialog.cpp:366 lib/kateconfigdialog.cpp:895
+#: lib/kateconfigdialog.cpp:366 lib/kateconfigdialog.cpp:907
 #, kde-format
 msgid "Warning"
 msgstr "Aviso"
@@ -952,24 +952,36 @@ msgstr ""
 msgid "Diff Style:"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:549
+#: lib/kateconfigdialog.cpp:540
+#, fuzzy, kde-format
+#| msgid "Focus the next tab."
+msgid "Navigation Bar"
+msgstr "Ir ao seguinte separador."
+
+#: lib/kateconfigdialog.cpp:545
+#, fuzzy, kde-format
+#| msgid "Focus the next tab."
+msgid "Show current symbol in navigation bar"
+msgstr "Ir ao seguinte separador."
+
+#: lib/kateconfigdialog.cpp:559
 #, fuzzy, kde-format
 #| msgid "Sessions"
 msgid "Session"
 msgstr "Sesións"
 
-#: lib/kateconfigdialog.cpp:551
+#: lib/kateconfigdialog.cpp:561
 #, kde-format
 msgid "Session Management"
 msgstr "Xestión de sesións"
 
-#: lib/kateconfigdialog.cpp:562
+#: lib/kateconfigdialog.cpp:572
 #, kde-format
 msgctxt "The special case of 'Delete unused meta-information after'"
 msgid "(never)"
 msgstr "(nunca)"
 
-#: lib/kateconfigdialog.cpp:563
+#: lib/kateconfigdialog.cpp:573
 #, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid " day"
@@ -977,29 +989,29 @@ msgid_plural " days"
 msgstr[0] " día"
 msgstr[1] " días"
 
-#: lib/kateconfigdialog.cpp:596
+#: lib/kateconfigdialog.cpp:606
 #, kde-format
 msgid ""
 "When a window is closed the documents opened only in this window are closed "
 "as well."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:631
+#: lib/kateconfigdialog.cpp:641
 #, kde-format
 msgid "Plugins"
 msgstr "Complementos"
 
-#: lib/kateconfigdialog.cpp:633
+#: lib/kateconfigdialog.cpp:643
 #, kde-format
 msgid "Plugin Manager"
 msgstr "Xestor dos complementos"
 
-#: lib/kateconfigdialog.cpp:651 lib/kateconfigdialog.cpp:653
+#: lib/kateconfigdialog.cpp:661 lib/kateconfigdialog.cpp:663
 #, kde-format
 msgid "User Feedback"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:894
+#: lib/kateconfigdialog.cpp:906
 #, kde-format
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"
@@ -1608,7 +1620,7 @@ msgstr "Barra lateral en riba"
 msgid "Bottom Sidebar"
 msgstr "Barra lateral no fondo"
 
-#: lib/katemdi.cpp:1426
+#: lib/katemdi.cpp:1424
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-27 00:50+0000\n"
+"POT-Creation-Date: 2022-10-28 00:49+0000\n"
 "PO-Revision-Date: 2022-10-26 10:08+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -730,7 +730,7 @@ msgstr "Ş&u ileti türünde çıktı görünümüne geç:"
 msgid "Never"
 msgstr "Asla"
 
-#: lib/kateconfigdialog.cpp:366 lib/kateconfigdialog.cpp:895
+#: lib/kateconfigdialog.cpp:366 lib/kateconfigdialog.cpp:907
 #, kde-format
 msgid "Warning"
 msgstr "Uyarı"
@@ -942,23 +942,35 @@ msgstr "Diff"
 msgid "Diff Style:"
 msgstr "Diff Biçemi:"
 
-#: lib/kateconfigdialog.cpp:549
+#: lib/kateconfigdialog.cpp:540
+#, fuzzy, kde-format
+#| msgid "Show Navigation Bar"
+msgid "Navigation Bar"
+msgstr "Dolaşım Çubuğunu Göster"
+
+#: lib/kateconfigdialog.cpp:545
+#, fuzzy, kde-format
+#| msgid "Focus the navigation bar"
+msgid "Show current symbol in navigation bar"
+msgstr "Dolaşım çubuğuna odaklan"
+
+#: lib/kateconfigdialog.cpp:559
 #, kde-format
 msgid "Session"
 msgstr "Oturum"
 
-#: lib/kateconfigdialog.cpp:551
+#: lib/kateconfigdialog.cpp:561
 #, kde-format
 msgid "Session Management"
 msgstr "Oturum Yönetimi"
 
-#: lib/kateconfigdialog.cpp:562
+#: lib/kateconfigdialog.cpp:572
 #, kde-format
 msgctxt "The special case of 'Delete unused meta-information after'"
 msgid "(never)"
 msgstr "(asla)"
 
-#: lib/kateconfigdialog.cpp:563
+#: lib/kateconfigdialog.cpp:573
 #, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid " day"
@@ -966,7 +978,7 @@ msgid_plural " days"
 msgstr[0] " gün"
 msgstr[1] " gün"
 
-#: lib/kateconfigdialog.cpp:596
+#: lib/kateconfigdialog.cpp:606
 #, kde-format
 msgid ""
 "When a window is closed the documents opened only in this window are closed "
@@ -975,22 +987,22 @@ msgstr ""
 "Bir pencere kapatıldığında, yalnızca bu pencerede açılmış olan belgeler de "
 "kapatılır."
 
-#: lib/kateconfigdialog.cpp:631
+#: lib/kateconfigdialog.cpp:641
 #, kde-format
 msgid "Plugins"
 msgstr "Eklentiler"
 
-#: lib/kateconfigdialog.cpp:633
+#: lib/kateconfigdialog.cpp:643
 #, kde-format
 msgid "Plugin Manager"
 msgstr "Eklenti Yöneticisi"
 
-#: lib/kateconfigdialog.cpp:651 lib/kateconfigdialog.cpp:653
+#: lib/kateconfigdialog.cpp:661 lib/kateconfigdialog.cpp:663
 #, kde-format
 msgid "User Feedback"
 msgstr "Kullanıcı Geri Bildirimi"
 
-#: lib/kateconfigdialog.cpp:894
+#: lib/kateconfigdialog.cpp:906
 #, kde-format
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"
@@ -1581,7 +1593,7 @@ msgstr "Üst Yan Çubuğu"
 msgid "Bottom Sidebar"
 msgstr "Alt Kenar Çubuğu"
 
-#: lib/katemdi.cpp:1426
+#: lib/katemdi.cpp:1424
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

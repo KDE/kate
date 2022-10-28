@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-27 00:50+0000\n"
+"POT-Creation-Date: 2022-10-28 00:49+0000\n"
 "PO-Revision-Date: 2022-10-14 17:38+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -361,72 +361,67 @@ msgstr ""
 "«%d» для позначення каталогу, де зберігається поточний файл,\n"
 "«%n» для позначення назви поточного файла без суфікса."
 
-#: TargetModel.cpp:330
+#: TargetModel.cpp:332
 #, kde-format
 msgid "Check the check-box to make the command the default for the target-set."
 msgstr "Позначте пункт, щоб зробити команду типовою для набору цілей."
 
-#: TargetModel.cpp:386
+#: TargetModel.cpp:388
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Назва команди або набору цілей"
 
-#: TargetModel.cpp:389
+#: TargetModel.cpp:391
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "Робочий каталог або команда"
 
-#: TargetModel.cpp:392
+#: TargetModel.cpp:394
 #, kde-format
 msgid "Run Command"
 msgstr "Виконати команду"
 
 #: targets.cpp:23
 #, kde-format
-msgid "Select active target set"
-msgstr "Виберіть активний набір цілей"
+msgid "Filter targets, use arrow keys to select, press Enter to execute"
+msgstr ""
 
 #: targets.cpp:27
-#, kde-format
-msgid "Filter targets"
-msgstr "Фільтрувати цілі"
-
-#: targets.cpp:31
 #, kde-format
 msgid "Create new set of targets"
 msgstr "Створити новий набір цілей"
 
-#: targets.cpp:35
+#: targets.cpp:31
 #, kde-format
 msgid "Copy command or target set"
 msgstr "Копіювати команду або набір цілей"
 
-#: targets.cpp:39
+#: targets.cpp:35
 #, kde-format
 msgid "Delete current target or current set of targets"
 msgstr "Вилучити поточну ціль або поточний набір цілей"
 
-#: targets.cpp:44
+#: targets.cpp:40
 #, kde-format
 msgid "Add new target"
 msgstr "Додати нову ціль"
 
-#: targets.cpp:48
+#: targets.cpp:44
 #, kde-format
 msgid "Build selected target"
 msgstr "Зібрати позначену ціль"
 
-#: targets.cpp:52
+#: targets.cpp:48
 #, kde-format
 msgid "Build and run selected target"
 msgstr "Зібрати і запустити позначену ціль"
 
-#: targets.cpp:56
+#: targets.cpp:52
 #, kde-format
 msgid "Move selected target up"
 msgstr "Пересунути позначену ціль вище"
 
-#: targets.cpp:60
+#: targets.cpp:56
 #, kde-format
 msgid "Move selected target down"
 msgstr "Пересунути позначену ціль нижче"
@@ -446,6 +441,12 @@ msgstr "Шлях вставки"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Виберіть каталог для вставляння"
+
+#~ msgid "Select active target set"
+#~ msgstr "Виберіть активний набір цілей"
+
+#~ msgid "Filter targets"
+#~ msgstr "Фільтрувати цілі"
 
 #~ msgid "Build Default Target"
 #~ msgstr "Зібрати типову ціль"

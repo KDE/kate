@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-27 00:50+0000\n"
+"POT-Creation-Date: 2022-10-28 00:49+0000\n"
 "PO-Revision-Date: 2022-10-14 12:03+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -359,73 +359,68 @@ msgstr ""
 "geçerli dosyanın bulunduğu dizin için \"%d\"\n"
 "soneki olmadan geçerli dosya adı için \"%n\""
 
-#: TargetModel.cpp:330
+#: TargetModel.cpp:332
 #, kde-format
 msgid "Check the check-box to make the command the default for the target-set."
 msgstr ""
 "Komutu hedef kümesi için öntanımlı yapmak için bu onay kutusunu işaretleyin."
 
-#: TargetModel.cpp:386
+#: TargetModel.cpp:388
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Komut/Hedef kümesi adı"
 
-#: TargetModel.cpp:389
+#: TargetModel.cpp:391
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "Çalışma Dizini / Komut"
 
-#: TargetModel.cpp:392
+#: TargetModel.cpp:394
 #, kde-format
 msgid "Run Command"
 msgstr "Komutu Çalıştır"
 
 #: targets.cpp:23
 #, kde-format
-msgid "Select active target set"
-msgstr "Etkin hedef kümesini seçin"
+msgid "Filter targets, use arrow keys to select, press Enter to execute"
+msgstr ""
 
 #: targets.cpp:27
-#, kde-format
-msgid "Filter targets"
-msgstr "Hedefleri süz"
-
-#: targets.cpp:31
 #, kde-format
 msgid "Create new set of targets"
 msgstr "Yeni hedef kümesi oluştur"
 
-#: targets.cpp:35
+#: targets.cpp:31
 #, kde-format
 msgid "Copy command or target set"
 msgstr "Komutu veya hedef kümesini kopyala"
 
-#: targets.cpp:39
+#: targets.cpp:35
 #, kde-format
 msgid "Delete current target or current set of targets"
 msgstr "Geçerli hedefi veya geçerli hedef kümelerini sil"
 
-#: targets.cpp:44
+#: targets.cpp:40
 #, kde-format
 msgid "Add new target"
 msgstr "Yeni hedef ekle"
 
-#: targets.cpp:48
+#: targets.cpp:44
 #, kde-format
 msgid "Build selected target"
 msgstr "Seçili hedefi yap"
 
-#: targets.cpp:52
+#: targets.cpp:48
 #, kde-format
 msgid "Build and run selected target"
 msgstr "Seçili hedefi yap ve çalıştır"
 
-#: targets.cpp:56
+#: targets.cpp:52
 #, kde-format
 msgid "Move selected target up"
 msgstr "Seçili hedefi yukarı taşı"
 
-#: targets.cpp:60
+#: targets.cpp:56
 #, kde-format
 msgid "Move selected target down"
 msgstr "Seçili hedefi aşağı taşı"
@@ -445,6 +440,12 @@ msgstr "Yol ekle"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Eklenecek dizini seçin"
+
+#~ msgid "Select active target set"
+#~ msgstr "Etkin hedef kümesini seçin"
+
+#~ msgid "Filter targets"
+#~ msgstr "Hedefleri süz"
 
 #~ msgid "Build Default Target"
 #~ msgstr "Öntanımlı Hedefi Yap"

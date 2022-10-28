@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-27 00:50+0000\n"
+"POT-Creation-Date: 2022-10-28 00:49+0000\n"
 "PO-Revision-Date: 2022-04-15 04:01+0200\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -358,24 +358,24 @@ msgstr ""
 "„%d“ für den Ordner der aktuellen Datei\n"
 "\"%n\" für den aktuellen Dateinamen ohne Erweiterung"
 
-#: TargetModel.cpp:330
+#: TargetModel.cpp:332
 #, kde-format
 msgid "Check the check-box to make the command the default for the target-set."
 msgstr ""
 "Aktivieren Sie diese Einstellung, um den Befehl als Standard für die "
 "Zielgruppe festzulegen."
 
-#: TargetModel.cpp:386
+#: TargetModel.cpp:388
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Name von Befehl/Zielgruppe"
 
-#: TargetModel.cpp:389
+#: TargetModel.cpp:391
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "Arbeitsordner / Befehl"
 
-#: TargetModel.cpp:392
+#: TargetModel.cpp:394
 #, fuzzy, kde-format
 #| msgid "Command:"
 msgid "Run Command"
@@ -383,52 +383,47 @@ msgstr "Befehl:"
 
 #: targets.cpp:23
 #, kde-format
-msgid "Select active target set"
-msgstr "Aktive Zielgruppe auswählen"
+msgid "Filter targets, use arrow keys to select, press Enter to execute"
+msgstr ""
 
 #: targets.cpp:27
-#, kde-format
-msgid "Filter targets"
-msgstr "Ziel filtern"
-
-#: targets.cpp:31
 #, kde-format
 msgid "Create new set of targets"
 msgstr "Neue Zielgruppe erstellen"
 
-#: targets.cpp:35
+#: targets.cpp:31
 #, kde-format
 msgid "Copy command or target set"
 msgstr "Befehl oder Zielgruppe kopieren"
 
-#: targets.cpp:39
+#: targets.cpp:35
 #, kde-format
 msgid "Delete current target or current set of targets"
 msgstr "Aktuelles Ziel oder aktuelle Zielgruppe löschen"
 
-#: targets.cpp:44
+#: targets.cpp:40
 #, kde-format
 msgid "Add new target"
 msgstr "Neues Ziel hinzufügen"
 
-#: targets.cpp:48
+#: targets.cpp:44
 #, kde-format
 msgid "Build selected target"
 msgstr "Ausgewähltes Ziel erstellen"
 
-#: targets.cpp:52
+#: targets.cpp:48
 #, fuzzy, kde-format
 #| msgid "Build selected target"
 msgid "Build and run selected target"
 msgstr "Ausgewähltes Ziel erstellen"
 
-#: targets.cpp:56
+#: targets.cpp:52
 #, fuzzy, kde-format
 #| msgid "Build selected target"
 msgid "Move selected target up"
 msgstr "Ausgewähltes Ziel erstellen"
 
-#: targets.cpp:60
+#: targets.cpp:56
 #, fuzzy, kde-format
 #| msgid "Build selected target"
 msgid "Move selected target down"
@@ -449,6 +444,12 @@ msgstr "Pfad einfügen"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Ordner zum Einfügen wählen"
+
+#~ msgid "Select active target set"
+#~ msgstr "Aktive Zielgruppe auswählen"
+
+#~ msgid "Filter targets"
+#~ msgstr "Ziel filtern"
 
 #~ msgid "Build Default Target"
 #~ msgstr "Standardziel erstellen"

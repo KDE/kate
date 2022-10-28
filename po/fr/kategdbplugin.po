@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-25 00:50+0000\n"
-"PO-Revision-Date: 2022-06-17 21:19+0200\n"
+"PO-Revision-Date: 2022-10-27 08:44+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@neuf.fr>\n"
 "Language-Team: French <kde-francophone@kde.org>\n"
 "Language: fr\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.04.2\n"
+"X-Generator: Lokalize 22.08.2\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
@@ -500,10 +500,9 @@ msgid "command not found"
 msgstr "Impossible de trouver la commande"
 
 #: debugview_dap.cpp:1458
-#, fuzzy, kde-format
-#| msgid "invalid thread id: %1"
+#, kde-format
 msgid "missing thread id"
-msgstr "Identifiant de processus non valable : %1"
+msgstr "Identifiant de processus manquant"
 
 #: debugview_dap.cpp:1566
 #, kde-format

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-27 00:50+0000\n"
+"POT-Creation-Date: 2022-10-28 00:49+0000\n"
 "PO-Revision-Date: 2020-06-05 19:31+0300\n"
 "Last-Translator: Marek Laane <qiilaq69@gmail.com>\n"
 "Language-Team: Estonian <kde-et@lists.linux.ee>\n"
@@ -358,22 +358,22 @@ msgstr ""
 "\"%d\" aktiivse faili kataloogi jaoks\n"
 "\"%n\" aktiivse failinime jaoks ilma sufiksita"
 
-#: TargetModel.cpp:330
+#: TargetModel.cpp:332
 #, kde-format
 msgid "Check the check-box to make the command the default for the target-set."
 msgstr "Käsu muutmiseks sihtmärgikogumi vaikekäsuks märgi kastike."
 
-#: TargetModel.cpp:386
+#: TargetModel.cpp:388
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Käsu/sihtmärgikogumi nimi"
 
-#: TargetModel.cpp:389
+#: TargetModel.cpp:391
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "Töökataloog / käsk"
 
-#: TargetModel.cpp:392
+#: TargetModel.cpp:394
 #, fuzzy, kde-format
 #| msgid "Command:"
 msgid "Run Command"
@@ -381,54 +381,48 @@ msgstr "Käsk:"
 
 #: targets.cpp:23
 #, kde-format
-msgid "Select active target set"
-msgstr "Aktiivne sihtmärgikogumi valimine"
+msgid "Filter targets, use arrow keys to select, press Enter to execute"
+msgstr ""
 
 #: targets.cpp:27
-#, fuzzy, kde-format
-#| msgid "Build selected target"
-msgid "Filter targets"
-msgstr "Ehita valitud sihtmärk"
-
-#: targets.cpp:31
 #, kde-format
 msgid "Create new set of targets"
 msgstr "Loo uus sihtmärgikogum"
 
-#: targets.cpp:35
+#: targets.cpp:31
 #, kde-format
 msgid "Copy command or target set"
 msgstr "Käsu või sihtmärgikogumi kopeerimine"
 
-#: targets.cpp:39
+#: targets.cpp:35
 #, fuzzy, kde-format
 #| msgid "Delete current set of targets"
 msgid "Delete current target or current set of targets"
 msgstr "Kustuta aktiivne sihtmärgikogum"
 
-#: targets.cpp:44
+#: targets.cpp:40
 #, kde-format
 msgid "Add new target"
 msgstr "Lisa uus sihtmärk"
 
-#: targets.cpp:48
+#: targets.cpp:44
 #, kde-format
 msgid "Build selected target"
 msgstr "Ehita valitud sihtmärk"
 
-#: targets.cpp:52
+#: targets.cpp:48
 #, fuzzy, kde-format
 #| msgid "Build selected target"
 msgid "Build and run selected target"
 msgstr "Ehita valitud sihtmärk"
 
-#: targets.cpp:56
+#: targets.cpp:52
 #, fuzzy, kde-format
 #| msgid "Build selected target"
 msgid "Move selected target up"
 msgstr "Ehita valitud sihtmärk"
 
-#: targets.cpp:60
+#: targets.cpp:56
 #, fuzzy, kde-format
 #| msgid "Build selected target"
 msgid "Move selected target down"
@@ -449,6 +443,14 @@ msgstr "Asukoha määramine"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Lisatava kataloogi valimine"
+
+#~ msgid "Select active target set"
+#~ msgstr "Aktiivne sihtmärgikogumi valimine"
+
+#, fuzzy
+#~| msgid "Build selected target"
+#~ msgid "Filter targets"
+#~ msgstr "Ehita valitud sihtmärk"
 
 #~ msgid "Build Default Target"
 #~ msgstr "Ehita vaikimisi sihtmärk"

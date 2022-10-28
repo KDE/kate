@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-27 00:50+0000\n"
+"POT-Creation-Date: 2022-10-28 00:49+0000\n"
 "PO-Revision-Date: 2022-10-14 07:31+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -360,72 +360,67 @@ msgstr ""
 "\"%d\" uneko fitxategiaren direktoriorako\n"
 "\"%n\" uneko fitxategi-izenerako atzizkirik gabe"
 
-#: TargetModel.cpp:330
+#: TargetModel.cpp:332
 #, kde-format
 msgid "Check the check-box to make the command the default for the target-set."
 msgstr "Markatu kontrol-laukia komandoa jomuga-multzorako lehenesteko."
 
-#: TargetModel.cpp:386
+#: TargetModel.cpp:388
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Komandoa/jomuga-multzo izena"
 
-#: TargetModel.cpp:389
+#: TargetModel.cpp:391
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "Laneko direktorioa / komandoa"
 
-#: TargetModel.cpp:392
+#: TargetModel.cpp:394
 #, kde-format
 msgid "Run Command"
 msgstr "Ibili komandoa"
 
 #: targets.cpp:23
 #, kde-format
-msgid "Select active target set"
-msgstr "Hautatu jomuga-multzo aktiboa"
+msgid "Filter targets, use arrow keys to select, press Enter to execute"
+msgstr ""
 
 #: targets.cpp:27
-#, kde-format
-msgid "Filter targets"
-msgstr "Iragazi jomugak"
-
-#: targets.cpp:31
 #, kde-format
 msgid "Create new set of targets"
 msgstr "Sortu jomuga multzo berria"
 
-#: targets.cpp:35
+#: targets.cpp:31
 #, kde-format
 msgid "Copy command or target set"
 msgstr "Kopiatu komandoa edo jomuga multzoa"
 
-#: targets.cpp:39
+#: targets.cpp:35
 #, kde-format
 msgid "Delete current target or current set of targets"
 msgstr "Ezabatu uneko jomuga edo uneko jomuga multzoa"
 
-#: targets.cpp:44
+#: targets.cpp:40
 #, kde-format
 msgid "Add new target"
 msgstr "Gehitu jomuga berria"
 
-#: targets.cpp:48
+#: targets.cpp:44
 #, kde-format
 msgid "Build selected target"
 msgstr "Eraiki hautatutako jomuga"
 
-#: targets.cpp:52
+#: targets.cpp:48
 #, kde-format
 msgid "Build and run selected target"
 msgstr "Eraiki eta ibili hautatutako jomuga"
 
-#: targets.cpp:56
+#: targets.cpp:52
 #, kde-format
 msgid "Move selected target up"
 msgstr "Eraman gora hautatutako jomuga"
 
-#: targets.cpp:60
+#: targets.cpp:56
 #, kde-format
 msgid "Move selected target down"
 msgstr "Eraman behera hautatutako jomuga"
@@ -445,6 +440,12 @@ msgstr "Txertatu bide-izena"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Hautatu txertatu beharreko direktorioa"
+
+#~ msgid "Select active target set"
+#~ msgstr "Hautatu jomuga-multzo aktiboa"
+
+#~ msgid "Filter targets"
+#~ msgstr "Iragazi jomugak"
 
 #~ msgid "Build Default Target"
 #~ msgstr "Eraiki lehenetsitako jomuga"

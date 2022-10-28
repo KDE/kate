@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-27 00:50+0000\n"
+"POT-Creation-Date: 2022-10-28 00:49+0000\n"
 "PO-Revision-Date: 2014-02-08 10:06+0100\n"
 "Last-Translator: Samir Ribić <megaribi@epn.ba>\n"
 "Language-Team: bosanski <bs@li.org>\n"
@@ -375,80 +375,73 @@ msgstr ""
 "\"%d\" za direktorij trenutne datoteke\"%n\" za trenutno ime datoteke bez "
 "sufiksa"
 
-#: TargetModel.cpp:330
+#: TargetModel.cpp:332
 #, kde-format
 msgid "Check the check-box to make the command the default for the target-set."
 msgstr ""
 
-#: TargetModel.cpp:386
+#: TargetModel.cpp:388
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr ""
 
-#: TargetModel.cpp:389
+#: TargetModel.cpp:391
 #, fuzzy, kde-format
 #| msgid "Working directory"
 msgid "Working Directory / Command"
 msgstr "Radni direktorij"
 
-#: TargetModel.cpp:392
+#: TargetModel.cpp:394
 #, fuzzy, kde-format
 #| msgid "Command:"
 msgid "Run Command"
 msgstr "Komanda:"
 
 #: targets.cpp:23
-#, fuzzy, kde-format
-#| msgid "Delete selected target"
-msgid "Select active target set"
-msgstr "Izbriši odabrano odredište"
+#, kde-format
+msgid "Filter targets, use arrow keys to select, press Enter to execute"
+msgstr ""
 
 #: targets.cpp:27
-#, fuzzy, kde-format
-#| msgid "Build selected target"
-msgid "Filter targets"
-msgstr "Gradnja izabranog odredišta"
-
-#: targets.cpp:31
 #, kde-format
 msgid "Create new set of targets"
 msgstr "Kreiraj novi skup odredišta"
 
-#: targets.cpp:35
+#: targets.cpp:31
 #, fuzzy, kde-format
 #| msgid "Copy set of targets"
 msgid "Copy command or target set"
 msgstr "Kopiraj skup odredišta"
 
-#: targets.cpp:39
+#: targets.cpp:35
 #, fuzzy, kde-format
 #| msgid "Delete current set of targets"
 msgid "Delete current target or current set of targets"
 msgstr "Obriši trenutni skup odredišta"
 
-#: targets.cpp:44
+#: targets.cpp:40
 #, kde-format
 msgid "Add new target"
 msgstr "Dodaj novo odredište"
 
-#: targets.cpp:48
+#: targets.cpp:44
 #, kde-format
 msgid "Build selected target"
 msgstr "Gradnja izabranog odredišta"
 
-#: targets.cpp:52
+#: targets.cpp:48
 #, fuzzy, kde-format
 #| msgid "Build selected target"
 msgid "Build and run selected target"
 msgstr "Gradnja izabranog odredišta"
 
-#: targets.cpp:56
+#: targets.cpp:52
 #, fuzzy, kde-format
 #| msgid "Build selected target"
 msgid "Move selected target up"
 msgstr "Gradnja izabranog odredišta"
 
-#: targets.cpp:60
+#: targets.cpp:56
 #, fuzzy, kde-format
 #| msgid "Build selected target"
 msgid "Move selected target down"
@@ -469,6 +462,16 @@ msgstr ""
 #, kde-format
 msgid "Select directory to insert"
 msgstr ""
+
+#, fuzzy
+#~| msgid "Delete selected target"
+#~ msgid "Select active target set"
+#~ msgstr "Izbriši odabrano odredište"
+
+#, fuzzy
+#~| msgid "Build selected target"
+#~ msgid "Filter targets"
+#~ msgstr "Gradnja izabranog odredišta"
 
 #~ msgid "Build Default Target"
 #~ msgstr "Gradnja podrazumijevanog odredišta"

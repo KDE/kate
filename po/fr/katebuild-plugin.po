@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-27 00:50+0000\n"
+"POT-Creation-Date: 2022-10-28 00:49+0000\n"
 "PO-Revision-Date: 2022-10-20 16:54+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@neuf.fr>\n"
 "Language-Team: French <kde-francophone@kde.org>\n"
@@ -367,74 +367,69 @@ msgstr ""
 "« %d » pour le dossier du fichier actuel\n"
 "« %n » pour le nom du fichier actuel sans suffixe"
 
-#: TargetModel.cpp:330
+#: TargetModel.cpp:332
 #, kde-format
 msgid "Check the check-box to make the command the default for the target-set."
 msgstr ""
 "Cochez la case pour en faire la commande par défaut pour l'ensemble de "
 "cibles."
 
-#: TargetModel.cpp:386
+#: TargetModel.cpp:388
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Nom de la commande / Ensemble de cibles"
 
-#: TargetModel.cpp:389
+#: TargetModel.cpp:391
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "Dossier de travail / Commande"
 
-#: TargetModel.cpp:392
+#: TargetModel.cpp:394
 #, kde-format
 msgid "Run Command"
 msgstr "Exécuter une commande"
 
 #: targets.cpp:23
 #, kde-format
-msgid "Select active target set"
-msgstr "Sélectionnez l'ensemble de cibles actif"
+msgid "Filter targets, use arrow keys to select, press Enter to execute"
+msgstr ""
 
 #: targets.cpp:27
-#, kde-format
-msgid "Filter targets"
-msgstr "Filtrer les cibles"
-
-#: targets.cpp:31
 #, kde-format
 msgid "Create new set of targets"
 msgstr "Créer un nouvel ensemble de cibles"
 
-#: targets.cpp:35
+#: targets.cpp:31
 #, kde-format
 msgid "Copy command or target set"
 msgstr "Copier la commande ou l'ensemble de cibles"
 
-#: targets.cpp:39
+#: targets.cpp:35
 #, kde-format
 msgid "Delete current target or current set of targets"
 msgstr "Supprimer la cible actuelle ou l'ensemble actuel de cibles"
 
-#: targets.cpp:44
+#: targets.cpp:40
 #, kde-format
 msgid "Add new target"
 msgstr "Ajouter une nouvelle cible"
 
-#: targets.cpp:48
+#: targets.cpp:44
 #, kde-format
 msgid "Build selected target"
 msgstr "Construire la cible sélectionnée"
 
-#: targets.cpp:52
+#: targets.cpp:48
 #, kde-format
 msgid "Build and run selected target"
 msgstr "Compiler & exécuter la cible sélectionnée"
 
-#: targets.cpp:56
+#: targets.cpp:52
 #, kde-format
 msgid "Move selected target up"
 msgstr "Déplacer la cible sélectionnée vers le haut"
 
-#: targets.cpp:60
+#: targets.cpp:56
 #, kde-format
 msgid "Move selected target down"
 msgstr "Déplacer la cible sélectionnée vers le bas"
@@ -454,6 +449,12 @@ msgstr "Insérer l'emplacement"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Sélectionnez le dossier à insérer"
+
+#~ msgid "Select active target set"
+#~ msgstr "Sélectionnez l'ensemble de cibles actif"
+
+#~ msgid "Filter targets"
+#~ msgstr "Filtrer les cibles"
 
 #~ msgid "Build Default Target"
 #~ msgstr "Construire la cible par défaut"

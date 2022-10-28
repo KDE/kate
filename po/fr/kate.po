@@ -22,8 +22,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-27 00:50+0000\n"
-"PO-Revision-Date: 2022-10-20 18:10+0200\n"
+"POT-Creation-Date: 2022-10-28 00:49+0000\n"
+"PO-Revision-Date: 2022-10-27 08:49+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@neuf.fr>\n"
 "Language-Team: French <kde-francophone@kde.org>\n"
 "Language: fr\n"
@@ -751,7 +751,7 @@ msgstr "Ba&sculer vers l'affichage de la sortie sur un type de message :"
 msgid "Never"
 msgstr "Jamais"
 
-#: lib/kateconfigdialog.cpp:366 lib/kateconfigdialog.cpp:895
+#: lib/kateconfigdialog.cpp:366 lib/kateconfigdialog.cpp:907
 #, kde-format
 msgid "Warning"
 msgstr "Avertissement"
@@ -972,23 +972,35 @@ msgstr "Diff"
 msgid "Diff Style:"
 msgstr "Style pour la différence :"
 
-#: lib/kateconfigdialog.cpp:549
+#: lib/kateconfigdialog.cpp:540
+#, fuzzy, kde-format
+#| msgid "Show Navigation Bar"
+msgid "Navigation Bar"
+msgstr "Afficher la barre de navigation"
+
+#: lib/kateconfigdialog.cpp:545
+#, fuzzy, kde-format
+#| msgid "Focus the navigation bar"
+msgid "Show current symbol in navigation bar"
+msgstr "Se focaliser sur la barre de navigation"
+
+#: lib/kateconfigdialog.cpp:559
 #, kde-format
 msgid "Session"
 msgstr "Session"
 
-#: lib/kateconfigdialog.cpp:551
+#: lib/kateconfigdialog.cpp:561
 #, kde-format
 msgid "Session Management"
 msgstr "Gestion des sessions"
 
-#: lib/kateconfigdialog.cpp:562
+#: lib/kateconfigdialog.cpp:572
 #, kde-format
 msgctxt "The special case of 'Delete unused meta-information after'"
 msgid "(never)"
 msgstr "(jamais)"
 
-#: lib/kateconfigdialog.cpp:563
+#: lib/kateconfigdialog.cpp:573
 #, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid " day"
@@ -996,29 +1008,31 @@ msgid_plural " days"
 msgstr[0] " jour"
 msgstr[1] " jours"
 
-#: lib/kateconfigdialog.cpp:596
+#: lib/kateconfigdialog.cpp:606
 #, kde-format
 msgid ""
 "When a window is closed the documents opened only in this window are closed "
 "as well."
 msgstr ""
+"Lorsqu'une fenêtre est fermée, les documents ouverts uniquement dans cette "
+"fenêtre sont également fermés."
 
-#: lib/kateconfigdialog.cpp:631
+#: lib/kateconfigdialog.cpp:641
 #, kde-format
 msgid "Plugins"
 msgstr "Modules externes"
 
-#: lib/kateconfigdialog.cpp:633
+#: lib/kateconfigdialog.cpp:643
 #, kde-format
 msgid "Plugin Manager"
 msgstr "Gestionnaire de modules externes"
 
-#: lib/kateconfigdialog.cpp:651 lib/kateconfigdialog.cpp:653
+#: lib/kateconfigdialog.cpp:661 lib/kateconfigdialog.cpp:663
 #, kde-format
 msgid "User Feedback"
 msgstr "Retours des utilisateurs"
 
-#: lib/kateconfigdialog.cpp:894
+#: lib/kateconfigdialog.cpp:906
 #, kde-format
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"
@@ -1531,7 +1545,7 @@ msgstr "Boutons de la barre latérale"
 #: lib/katemdi.cpp:105
 #, kde-format
 msgid "Focus Toolview"
-msgstr ""
+msgstr "Faire un focus sur la vue des outils"
 
 #: lib/katemdi.cpp:108
 #, kde-format
@@ -1561,7 +1575,7 @@ msgstr "Afficher un bouton %1"
 #: lib/katemdi.cpp:191
 #, kde-format
 msgid "Focus %1"
-msgstr ""
+msgstr "Faire un focus sur %1"
 
 #: lib/katemdi.cpp:1000
 #, kde-format
@@ -1623,7 +1637,7 @@ msgstr "Barre latérale en haut"
 msgid "Bottom Sidebar"
 msgstr "Barre latérale en bas"
 
-#: lib/katemdi.cpp:1426
+#: lib/katemdi.cpp:1424
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "
@@ -2442,13 +2456,14 @@ msgstr "Fichiers ayant des modifications non enregistrées"
 #, kde-format
 msgid "If disabled, an untitled document will be shown for new windows."
 msgstr ""
+"Si cette option est désactivée, un document sans titre sera affiché dans les "
+"nouvelles fenêtres."
 
 #. i18n: ectx: property (text), widget (QCheckBox, showWelcomeViewForNewWindow)
 #: lib/ui/sessionconfigwidget.ui:91
-#, fuzzy, kde-format
-#| msgid "Show for new window"
+#, kde-format
 msgid "Show welcome view for new windows"
-msgstr "Afficher pour une nouvelle fenêtre."
+msgstr "Afficher une disposition de bienvenue pour les nouvelle fenêtre."
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, modCloseAfterLast)
 #: lib/ui/sessionconfigwidget.ui:98
@@ -2472,6 +2487,8 @@ msgstr "Fermer complètement l'application avec la fermeture du dernier fichier"
 #, kde-format
 msgid "Close documents with the window they belong to"
 msgstr ""
+"Fermer les documents en même temps que la fenêtre à laquelle ils "
+"appartiennent."
 
 #. i18n: ectx: property (title), widget (QGroupBox, gbElements)
 #: lib/ui/sessionconfigwidget.ui:118

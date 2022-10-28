@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-27 00:50+0000\n"
+"POT-Creation-Date: 2022-10-28 00:49+0000\n"
 "PO-Revision-Date: 2022-10-12 11:26+0300\n"
 "Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
@@ -375,75 +375,70 @@ msgstr ""
 "«%d» для каталога текущего файла.\n"
 "«%n» для названия текущего файла без суффикса."
 
-#: TargetModel.cpp:330
+#: TargetModel.cpp:332
 #, kde-format
 msgid "Check the check-box to make the command the default for the target-set."
 msgstr ""
 "Установите флажок что бы по умолчанию использовать эту команду для набора "
 "целей."
 
-#: TargetModel.cpp:386
+#: TargetModel.cpp:388
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Наборы целей"
 
-#: TargetModel.cpp:389
+#: TargetModel.cpp:391
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "Рабочий каталог / команда"
 
-#: TargetModel.cpp:392
+#: TargetModel.cpp:394
 #, fuzzy, kde-format
 msgid "Run Command"
 msgstr "Команда:"
 
 #: targets.cpp:23
 #, kde-format
-msgid "Select active target set"
-msgstr "Выберите текущий набор целей"
+msgid "Filter targets, use arrow keys to select, press Enter to execute"
+msgstr ""
 
 #: targets.cpp:27
-#, kde-format
-msgid "Filter targets"
-msgstr "Фильтровать цели"
-
-#: targets.cpp:31
 #, kde-format
 msgid "Create new set of targets"
 msgstr "Создать набор целей"
 
-#: targets.cpp:35
+#: targets.cpp:31
 #, kde-format
 msgid "Copy command or target set"
 msgstr "Скопировать команду или набор целей"
 
-#: targets.cpp:39
+#: targets.cpp:35
 #, kde-format
 msgid "Delete current target or current set of targets"
 msgstr "Удалить текущую цель или текущий набор целей"
 
-#: targets.cpp:44
+#: targets.cpp:40
 #, kde-format
 msgid "Add new target"
 msgstr "Добавить цель"
 
-#: targets.cpp:48
+#: targets.cpp:44
 #, kde-format
 msgid "Build selected target"
 msgstr "Собрать выбранную цель"
 
-#: targets.cpp:52
+#: targets.cpp:48
 #, fuzzy, kde-format
 msgid "Build and run selected target"
 msgstr "Собрать выбранную цель"
 
-#: targets.cpp:56
+#: targets.cpp:52
 #, fuzzy, kde-format
 #| msgid "Build selected target"
 msgid "Move selected target up"
 msgstr "Собрать выбранную цель"
 
-#: targets.cpp:60
+#: targets.cpp:56
 #, fuzzy, kde-format
 #| msgid "Build selected target"
 msgid "Move selected target down"
@@ -464,6 +459,12 @@ msgstr "Вставить путь"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Выбор пути для вставки"
+
+#~ msgid "Select active target set"
+#~ msgstr "Выберите текущий набор целей"
+
+#~ msgid "Filter targets"
+#~ msgstr "Фильтровать цели"
 
 #~ msgid "Build Default Target"
 #~ msgstr "Собрать цель по умолчанию"

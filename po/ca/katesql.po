@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"POT-Creation-Date: 2022-10-28 00:49+0000\n"
 "PO-Revision-Date: 2022-08-27 12:14+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -179,7 +179,7 @@ msgctxt "@action:intoolbar"
 msgid "Export..."
 msgstr "Exporta..."
 
-#: dataoutputwidget.cpp:80 textoutputwidget.cpp:49
+#: dataoutputwidget.cpp:80 textoutputwidget.cpp:47
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Clear"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-27 00:50+0000\n"
+"POT-Creation-Date: 2022-10-28 00:49+0000\n"
 "PO-Revision-Date: 2019-08-24 17:09+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
@@ -359,24 +359,24 @@ msgstr ""
 "«%d» para o directorio do ficheiro actual\n"
 "«%n» para o nome do ficheiro actual sen sufixo"
 
-#: TargetModel.cpp:330
+#: TargetModel.cpp:332
 #, kde-format
 msgid "Check the check-box to make the command the default for the target-set."
 msgstr ""
 "Marque esta caixa para que a orde sexa a predeterminada do grupo de "
 "obxectivos."
 
-#: TargetModel.cpp:386
+#: TargetModel.cpp:388
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Nome da orde ou grupo de obxectivos"
 
-#: TargetModel.cpp:389
+#: TargetModel.cpp:391
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "Directorio de traballo ou orde"
 
-#: TargetModel.cpp:392
+#: TargetModel.cpp:394
 #, fuzzy, kde-format
 #| msgid "Command:"
 msgid "Run Command"
@@ -384,54 +384,48 @@ msgstr "Orde:"
 
 #: targets.cpp:23
 #, kde-format
-msgid "Select active target set"
-msgstr "Seleccionar o grupo de obxectivos activo"
+msgid "Filter targets, use arrow keys to select, press Enter to execute"
+msgstr ""
 
 #: targets.cpp:27
-#, fuzzy, kde-format
-#| msgid "Build selected target"
-msgid "Filter targets"
-msgstr "Construír o obxectivo escollido"
-
-#: targets.cpp:31
 #, kde-format
 msgid "Create new set of targets"
 msgstr "Crear un novo grupo de obxectivos"
 
-#: targets.cpp:35
+#: targets.cpp:31
 #, kde-format
 msgid "Copy command or target set"
 msgstr "Copiar a orde ou grupo de obxectivos"
 
-#: targets.cpp:39
+#: targets.cpp:35
 #, fuzzy, kde-format
 #| msgid "Delete current set of targets"
 msgid "Delete current target or current set of targets"
 msgstr "Eliminar este grupo de obxectivos"
 
-#: targets.cpp:44
+#: targets.cpp:40
 #, kde-format
 msgid "Add new target"
 msgstr "Engadir un novo obxectivos"
 
-#: targets.cpp:48
+#: targets.cpp:44
 #, kde-format
 msgid "Build selected target"
 msgstr "Construír o obxectivo escollido"
 
-#: targets.cpp:52
+#: targets.cpp:48
 #, fuzzy, kde-format
 #| msgid "Build selected target"
 msgid "Build and run selected target"
 msgstr "Construír o obxectivo escollido"
 
-#: targets.cpp:56
+#: targets.cpp:52
 #, fuzzy, kde-format
 #| msgid "Build selected target"
 msgid "Move selected target up"
 msgstr "Construír o obxectivo escollido"
 
-#: targets.cpp:60
+#: targets.cpp:56
 #, fuzzy, kde-format
 #| msgid "Build selected target"
 msgid "Move selected target down"
@@ -452,6 +446,14 @@ msgstr "Inserir a ruta"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Seleccione un directorio para inserir"
+
+#~ msgid "Select active target set"
+#~ msgstr "Seleccionar o grupo de obxectivos activo"
+
+#, fuzzy
+#~| msgid "Build selected target"
+#~ msgid "Filter targets"
+#~ msgstr "Construír o obxectivo escollido"
 
 #~ msgid "Build Default Target"
 #~ msgstr "Construír o obxectivo predeterminado"

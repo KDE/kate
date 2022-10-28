@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-27 00:50+0000\n"
+"POT-Creation-Date: 2022-10-28 00:49+0000\n"
 "PO-Revision-Date: 2022-10-14 13:33+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -360,74 +360,69 @@ msgstr ""
 "«%d» pel directori del fitxer actual\n"
 "«%n» pel nom de fitxer actual sense sufix"
 
-#: TargetModel.cpp:330
+#: TargetModel.cpp:332
 #, kde-format
 msgid "Check the check-box to make the command the default for the target-set."
 msgstr ""
 "Activeu la casella de selecció per fer l'ordre predeterminada pel conjunt "
 "d'objectius."
 
-#: TargetModel.cpp:386
+#: TargetModel.cpp:388
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Nom d'ordre/conjunt d'objectius"
 
-#: TargetModel.cpp:389
+#: TargetModel.cpp:391
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "Directori de treball / ordre"
 
-#: TargetModel.cpp:392
+#: TargetModel.cpp:394
 #, kde-format
 msgid "Run Command"
 msgstr "Executa una ordre"
 
 #: targets.cpp:23
 #, kde-format
-msgid "Select active target set"
-msgstr "Seleccioneu el conjunt d'objectius actiu"
+msgid "Filter targets, use arrow keys to select, press Enter to execute"
+msgstr ""
 
 #: targets.cpp:27
-#, kde-format
-msgid "Filter targets"
-msgstr "Filtra els objectius"
-
-#: targets.cpp:31
 #, kde-format
 msgid "Create new set of targets"
 msgstr "Crea un conjunt nou d'objectius"
 
-#: targets.cpp:35
+#: targets.cpp:31
 #, kde-format
 msgid "Copy command or target set"
 msgstr "Copia l'ordre o el conjunt d'objectius"
 
-#: targets.cpp:39
+#: targets.cpp:35
 #, kde-format
 msgid "Delete current target or current set of targets"
 msgstr "Elimina l'objectiu o conjunt actual d'objectius"
 
-#: targets.cpp:44
+#: targets.cpp:40
 #, kde-format
 msgid "Add new target"
 msgstr "Afig un objectiu nou"
 
-#: targets.cpp:48
+#: targets.cpp:44
 #, kde-format
 msgid "Build selected target"
 msgstr "Construïx l'objectiu seleccionat"
 
-#: targets.cpp:52
+#: targets.cpp:48
 #, kde-format
 msgid "Build and run selected target"
 msgstr "Construïx i executa l'objectiu seleccionat"
 
-#: targets.cpp:56
+#: targets.cpp:52
 #, kde-format
 msgid "Move selected target up"
 msgstr "Mou amunt l'objectiu seleccionat"
 
-#: targets.cpp:60
+#: targets.cpp:56
 #, kde-format
 msgid "Move selected target down"
 msgstr "Mou avall l'objectiu seleccionat"
@@ -447,3 +442,9 @@ msgstr "Inserix camí"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Seleccioneu el directori que s'ha d'inserir"
+
+#~ msgid "Select active target set"
+#~ msgstr "Seleccioneu el conjunt d'objectius actiu"
+
+#~ msgid "Filter targets"
+#~ msgstr "Filtra els objectius"

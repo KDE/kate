@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-27 00:50+0000\n"
+"POT-Creation-Date: 2022-10-28 00:49+0000\n"
 "PO-Revision-Date: 2022-10-14 10:12+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -357,74 +357,69 @@ msgstr ""
 "\"%d\" voor map van huidig bestand\n"
 "\"%n\" voor huidig bestand zonder achtervoegsel"
 
-#: TargetModel.cpp:330
+#: TargetModel.cpp:332
 #, kde-format
 msgid "Check the check-box to make the command the default for the target-set."
 msgstr ""
 "Activeer het keuzevakje om het commando de standaard voor de set met doelen "
 "te maken."
 
-#: TargetModel.cpp:386
+#: TargetModel.cpp:388
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Naam van set commando/doel"
 
-#: TargetModel.cpp:389
+#: TargetModel.cpp:391
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "Werkmap / commando"
 
-#: TargetModel.cpp:392
+#: TargetModel.cpp:394
 #, kde-format
 msgid "Run Command"
 msgstr "Commando uitvoeren"
 
 #: targets.cpp:23
 #, kde-format
-msgid "Select active target set"
-msgstr "Actieve set met doel selecteren"
+msgid "Filter targets, use arrow keys to select, press Enter to execute"
+msgstr ""
 
 #: targets.cpp:27
-#, kde-format
-msgid "Filter targets"
-msgstr "Doelen filteren"
-
-#: targets.cpp:31
 #, kde-format
 msgid "Create new set of targets"
 msgstr "Nieuwe set doelen aanmaken"
 
-#: targets.cpp:35
+#: targets.cpp:31
 #, kde-format
 msgid "Copy command or target set"
 msgstr "Commando of set met doel kopiëren"
 
-#: targets.cpp:39
+#: targets.cpp:35
 #, kde-format
 msgid "Delete current target or current set of targets"
 msgstr "Huidig doel of huidige set doelen verwijderen"
 
-#: targets.cpp:44
+#: targets.cpp:40
 #, kde-format
 msgid "Add new target"
 msgstr "Nieuw doel toevoegen"
 
-#: targets.cpp:48
+#: targets.cpp:44
 #, kde-format
 msgid "Build selected target"
 msgstr "Geselecteerd doel bouwen"
 
-#: targets.cpp:52
+#: targets.cpp:48
 #, kde-format
 msgid "Build and run selected target"
 msgstr "Geselecteerd doel bouwen en uitvoeren"
 
-#: targets.cpp:56
+#: targets.cpp:52
 #, kde-format
 msgid "Move selected target up"
 msgstr "Geselecteerd doel omhoog schuiven"
 
-#: targets.cpp:60
+#: targets.cpp:56
 #, kde-format
 msgid "Move selected target down"
 msgstr "Geselecteerd doel omlaag schuiven"
@@ -444,6 +439,12 @@ msgstr "Pad invoegen"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "In te voegen map selecteren"
+
+#~ msgid "Select active target set"
+#~ msgstr "Actieve set met doel selecteren"
+
+#~ msgid "Filter targets"
+#~ msgstr "Doelen filteren"
 
 #~ msgid "Build Default Target"
 #~ msgstr "Standaard doel bouwen"

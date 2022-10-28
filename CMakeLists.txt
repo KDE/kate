@@ -18,8 +18,6 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
-option(BUILD_PYTHON_BINDINDS "Enable building python bindings" OFF)
-
 # We need some parts of the ECM CMake helpers.
 find_package(ECM ${KF5_DEP_VERSION} QUIET REQUIRED NO_MODULE)
 

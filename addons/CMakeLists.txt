@@ -5,7 +5,8 @@ endfunction()
 # Most plugins will need to link against KF5TextEditor to have access to its plugin interface.
 find_package(KF5TextEditor ${KF5_DEP_VERSION} QUIET REQUIRED)
 
-# python plugin
+# python plugin, purely optional ATM
+option(BUILD_PYTHON_BINDINDS "Enable building python bindings" OFF)
 if (BUILD_PYTHON_BINDINDS)
     ecm_optional_add_subdirectory(python)
 endif()

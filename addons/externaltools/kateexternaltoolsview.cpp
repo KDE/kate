@@ -73,7 +73,7 @@ void KateExternalToolsMenuAction::reload()
             a->setIcon(QIcon::fromTheme(tool->icon));
             a->setData(QVariant::fromValue(tool));
 
-            connect(a, &QAction::triggered, [this, a]() {
+            connect(a, &QAction::triggered, a, [this, a]() {
                 m_plugin->runTool(*a->data().value<KateExternalTool *>(), m_mainwindow->activeView());
             });
 
@@ -113,11 +113,12 @@ void KateExternalToolsMenuAction::reload()
 void KateExternalToolsMenuAction::slotViewChanged(KTextEditor::View *view)
 {
     // no active view, oh oh
+    disconnect(m_docUrlChangedConnection);
     if (!view) {
+        updateActionState(nullptr);
         return;
     }
 
-    disconnect(m_docUrlChangedConnection);
     m_docUrlChangedConnection = connect(view->document(), &KTextEditor::Document::documentUrlChanged, this, [this](KTextEditor::Document *doc) {
         updateActionState(doc);
     });
@@ -127,17 +128,13 @@ void KateExternalToolsMenuAction::slotViewChanged(KTextEditor::View *view)
 
 void KateExternalToolsMenuAction::updateActionState(KTextEditor::Document *activeDoc)
 {
-    if (!activeDoc) {
-        return;
-    }
-
-    // try to enable/disable to match current mime type
-    const QString mimeType = activeDoc->mimeType();
+    // try to enable/disable to match current mime type or if we have no doc
+    const QString mimeType = activeDoc ? activeDoc->mimeType() : QString();
     const auto actions = m_actionCollection->actions();
     for (QAction *action : actions) {
         if (action && action->data().value<KateExternalTool *>()) {
             auto tool = action->data().value<KateExternalTool *>();
-            action->setEnabled(tool->matchesMimetype(mimeType) || tool->mimetypes.isEmpty());
+            action->setEnabled(activeDoc && (tool->matchesMimetype(mimeType) || tool->mimetypes.isEmpty()));
         }
     }
 }

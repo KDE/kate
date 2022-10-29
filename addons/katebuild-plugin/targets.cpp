@@ -20,7 +20,7 @@ TargetsUi::TargetsUi(QObject *view, QWidget *parent)
     proxyModel.setSourceModel(&targetsModel);
 
     targetFilterEdit = new QLineEdit(this);
-    targetFilterEdit->setPlaceholderText(i18n("Filter targets, use arrow keys to select, press Enter to execute"));
+    targetFilterEdit->setPlaceholderText(i18n("Filter targets, use arrow keys to select, Enter to execute"));
     targetFilterEdit->setClearButtonEnabled(true);
 
     newTarget = new QToolButton(this);

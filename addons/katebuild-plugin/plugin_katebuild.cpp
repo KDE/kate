@@ -268,6 +268,7 @@ KateBuildView::~KateBuildView()
 void KateBuildView::readSessionConfig(const KConfigGroup &cg)
 {
     int numTargets = cg.readEntry(QStringLiteral("NumTargets"), 0);
+    m_projectTargetsetRow = cg.readEntry("ProjectTargetSetRow", 0);
     m_targetsUi->targetsModel.clear();
 
     for (int i = 0; i < numTargets; i++) {
@@ -295,20 +296,52 @@ void KateBuildView::readSessionConfig(const KConfigGroup &cg)
     m_showMarks->setChecked(showMarks);
 
     // Add project targets, if any
-    slotAddProjectTarget();
+    addProjectTarget();
 
     m_targetsUi->targetsView->expandAll();
+    m_targetsUi->targetsView->resizeColumnToContents(0);
+    m_targetsUi->targetsView->resizeColumnToContents(1);
+
+    // pre-select the last active target or the first target of the first set
+    int prevTargetSetRow = cg.readEntry(QStringLiteral("Active Target Index"), 0);
+    int prevCmdRow = cg.readEntry(QStringLiteral("Active Target Command"), 0);
+    QModelIndex rootIndex = m_targetsUi->targetsModel.index(prevTargetSetRow);
+    QModelIndex cmdIndex = m_targetsUi->targetsModel.index(prevCmdRow, 0, rootIndex);
+    cmdIndex = m_targetsUi->proxyModel.mapFromSource(cmdIndex);
+    m_targetsUi->targetsView->setCurrentIndex(cmdIndex);
+
     m_targetsUi->updateTargetsButtonStates();
 }
 
 /******************************************************************/
 void KateBuildView::writeSessionConfig(KConfigGroup &cg)
 {
-    // Don't save project targets, is not our area of accountability
-    m_targetsUi->targetsModel.deleteTargetSet(i18n("Project Plugin Targets"));
+    // Save the active target
+    QModelIndex activeIndex = m_targetsUi->targetsView->currentIndex();
+    activeIndex = m_targetsUi->proxyModel.mapToSource(activeIndex);
+    if (activeIndex.isValid()) {
+        if (activeIndex.parent().isValid()) {
+            cg.writeEntry(QStringLiteral("Active Target Index"), activeIndex.parent().row());
+            cg.writeEntry(QStringLiteral("Active Target Command"), activeIndex.row());
+        } else {
+            cg.writeEntry(QStringLiteral("Active Target Index"), activeIndex.row());
+            cg.writeEntry(QStringLiteral("Active Target Command"), 0);
+        }
+    }
 
     QList<TargetModel::TargetSet> targets = m_targetsUi->targetsModel.targetSets();
 
+    // Don't save project target-set, but save the row index
+    m_projectTargetsetRow = 0;
+    for (int i = 0; i < targets.size(); i++) {
+        if (i18n("Project Plugin Targets") == targets[i].name) {
+            m_projectTargetsetRow = i;
+            targets.removeAt(i);
+            break;
+        }
+    }
+
+    cg.writeEntry("ProjectTargetSetRow", m_projectTargetsetRow);
     cg.writeEntry("NumTargets", targets.size());
 
     for (int i = 0; i < targets.size(); i++) {
@@ -327,9 +360,6 @@ void KateBuildView::writeSessionConfig(KConfigGroup &cg)
         cg.writeEntry(QStringLiteral("%1 Target Names").arg(i), cmdNames);
     }
     cg.writeEntry(QStringLiteral("Show Marks"), m_showMarks->isChecked());
-
-    // Restore project targets, if any
-    slotAddProjectTarget();
 }
 
 /******************************************************************/
@@ -810,10 +840,11 @@ bool KateBuildView::slotStop()
 void KateBuildView::slotBuildSelectedTarget()
 {
     QModelIndex currentIndex = m_targetsUi->targetsView->currentIndex();
-    if (!currentIndex.isValid()) {
+    if (!currentIndex.isValid() || (m_firstBuild && !m_targetsUi->targetsView->isVisible())) {
         slotSelectTarget();
         return;
     }
+    m_firstBuild = false;
 
     if (!currentIndex.parent().isValid()) {
         // This is a root item, try to build the first command
@@ -832,10 +863,11 @@ void KateBuildView::slotBuildSelectedTarget()
 void KateBuildView::slotBuildAndRunSelectedTarget()
 {
     QModelIndex currentIndex = m_targetsUi->targetsView->currentIndex();
-    if (!currentIndex.isValid()) {
+    if (!currentIndex.isValid() || (m_firstBuild && !m_targetsUi->targetsView->isVisible())) {
         slotSelectTarget();
         return;
     }
+    m_firstBuild = false;
 
     if (!currentIndex.parent().isValid()) {
         // This is a root item, try to build the first command
@@ -1326,7 +1358,7 @@ void KateBuildView::slotPluginViewCreated(const QString &name, QObject *pluginVi
     // add view
     if (pluginView && name == QLatin1String("kateprojectplugin")) {
         m_projectPluginView = pluginView;
-        slotAddProjectTarget();
+        addProjectTarget();
         connect(pluginView, SIGNAL(projectMapChanged()), this, SLOT(slotProjectMapChanged()), Qt::UniqueConnection);
     }
 }
@@ -1349,11 +1381,11 @@ void KateBuildView::slotProjectMapChanged()
         return;
     }
     m_targetsUi->targetsModel.deleteTargetSet(i18n("Project Plugin Targets"));
-    slotAddProjectTarget();
+    addProjectTarget();
 }
 
 /******************************************************************/
-void KateBuildView::slotAddProjectTarget()
+void KateBuildView::addProjectTarget()
 {
     // only do stuff with valid project
     if (!m_projectPluginView) {
@@ -1377,7 +1409,10 @@ void KateBuildView::slotAddProjectTarget()
     if (!projectsBaseDir.isEmpty()) {
         projectsBuildDir = QDir(projectsBaseDir).absoluteFilePath(projectsBuildDir);
     }
-    const QModelIndex set = m_targetsUi->targetsModel.addTargetSet(i18n("Project Plugin Targets"), projectsBuildDir);
+
+    m_projectTargetsetRow = std::min(m_projectTargetsetRow, m_targetsUi->targetsModel.rowCount());
+    const QModelIndex set = m_targetsUi->targetsModel.insertTargetSet(m_projectTargetsetRow, i18n("Project Plugin Targets"), projectsBuildDir);
+    const QString defaultTarget = buildMap.value(QStringLiteral("default_target")).toString();
 
     const QVariantList targetsets = buildMap.value(QStringLiteral("targets")).toList();
     for (const QVariant &targetVariant : targetsets) {
@@ -1389,10 +1424,16 @@ void KateBuildView::slotAddProjectTarget()
         if (tgtName.isEmpty() || buildCmd.isEmpty()) {
             continue;
         }
-        m_targetsUi->targetsModel.addCommand(set, tgtName, buildCmd, runCmd);
+        QPersistentModelIndex idx = m_targetsUi->targetsModel.addCommand(set, tgtName, buildCmd, runCmd);
+        if (tgtName == defaultTarget) {
+            // A bit of backwards compatibility, move the "default" target to the top
+            while (idx.row() > 0) {
+                m_targetsUi->targetsModel.moveRowUp(idx);
+            }
+        }
     }
 
-    if (!set.model()->index(0, 0, set).data().isValid()) {
+    if (!set.model()->index(0, 0, set).isValid()) {
         QString buildCmd = buildMap.value(QStringLiteral("build")).toString();
         QString cleanCmd = buildMap.value(QStringLiteral("clean")).toString();
         QString quickCmd = buildMap.value(QStringLiteral("quick")).toString();

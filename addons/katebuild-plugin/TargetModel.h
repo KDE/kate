@@ -39,6 +39,10 @@ public Q_SLOTS:
      * inserted target-set */
     QModelIndex addTargetSet(const QString &setName, const QString &workDir);
 
+    /** This function insert a target set and returns the model-index of the newly
+     * inserted target-set */
+    QModelIndex insertTargetSet(int row, const QString &setName, const QString &workDir);
+
     /** This function adds a new command to a target-set and returns the model index */
     QModelIndex addCommand(const QModelIndex &parentIndex, const QString &cmdName, const QString &buildCmd, const QString &runCmd);
 

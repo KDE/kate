@@ -8,6 +8,7 @@
   "exclude_patterns": [ "^po" ],
   "build": {
     "directory": "build",
+    "default_target": "kate-all",
     "targets": [
       {
         "name": "kdesrcbuild-kate",

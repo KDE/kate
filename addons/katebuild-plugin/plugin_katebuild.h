@@ -109,7 +109,6 @@ private Q_SLOTS:
     void slotPluginViewCreated(const QString &name, QObject *pluginView);
     void slotPluginViewDeleted(const QString &name, QObject *pluginView);
     void slotProjectMapChanged();
-    void slotAddProjectTarget();
 
 protected:
     bool eventFilter(QObject *obj, QEvent *ev) override;
@@ -129,6 +128,8 @@ private:
 
     void clearMarks();
     void addMarks(KTextEditor::Document *doc, bool mark);
+
+    void addProjectTarget();
 
     KTextEditor::MainWindow *m_win;
     QWidget *m_toolView;
@@ -155,6 +156,8 @@ private:
     QPointer<KTextEditor::Message> m_infoMessage;
     QPointer<QAction> m_showMarks;
     QHash<KTextEditor::Document *, QPointer<KTextEditor::Document>> m_markedDocs;
+    int m_projectTargetsetRow = 0;
+    bool m_firstBuild = true;
 
     /**
      * current project plugin view, if any

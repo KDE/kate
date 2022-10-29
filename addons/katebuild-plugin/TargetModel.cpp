@@ -39,6 +39,15 @@ void TargetModel::clear()
 
 QModelIndex TargetModel::addTargetSet(const QString &setName, const QString &workDir)
 {
+    return insertTargetSet(m_targets.count(), setName, workDir);
+}
+
+QModelIndex TargetModel::insertTargetSet(int row, const QString &setName, const QString &workDir)
+{
+    if (row < 0 || row > m_targets.count()) {
+        qWarning() << "Row index out of bounds:" << row << m_targets.count();
+    }
+
     // make the name unique
     QString newName = setName;
     for (int i = 0; i < m_targets.count(); i++) {
@@ -48,11 +57,11 @@ QModelIndex TargetModel::addTargetSet(const QString &setName, const QString &wor
         }
     }
 
-    beginInsertRows(QModelIndex(), m_targets.count(), m_targets.count());
+    beginInsertRows(QModelIndex(), row, row);
     TargetModel::TargetSet targetSet(newName, workDir);
-    m_targets << targetSet;
+    m_targets.insert(row, targetSet);
     endInsertRows();
-    return index(m_targets.count() - 1, 0);
+    return index(row, 0);
 }
 
 QModelIndex TargetModel::addCommand(const QModelIndex &parentIndex, const QString &cmdName, const QString &buildCmd, const QString &runCmd)

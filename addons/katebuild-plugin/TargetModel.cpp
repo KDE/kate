@@ -253,10 +253,6 @@ const QString TargetModel::command(const QModelIndex &itemIndex)
             if (i == 0) {
                 cmdIndex = childIndex.siblingAtColumn(1);
             }
-            if (childIndex.data(Qt::CheckStateRole) == Qt::Checked) {
-                cmdIndex = childIndex.siblingAtColumn(1);
-                break;
-            }
         }
     }
     return cmdIndex.data().toString();
@@ -283,10 +279,6 @@ const QString TargetModel::cmdName(const QModelIndex &itemIndex)
             QModelIndex childIndex = model->index(i, 0, itemIndex);
             if (i == 0) {
                 nameIndex = childIndex.siblingAtColumn(0);
-            }
-            if (childIndex.data(Qt::CheckStateRole) == Qt::Checked) {
-                nameIndex = childIndex.siblingAtColumn(0);
-                break;
             }
         }
     }
@@ -333,14 +325,14 @@ QVariant TargetModel::data(const QModelIndex &index, int role) const
         }
     }
 
-    if (role != Qt::DisplayRole && role != Qt::EditRole && role != Qt::CheckStateRole) {
+    if (role != Qt::DisplayRole && role != Qt::EditRole && role != Qt::ToolTipRole) {
         return QVariant();
     }
 
     int row = index.row();
 
     if (index.internalId() == InvalidIndex) {
-        if (row < 0 || row >= m_targets.size() || role == Qt::CheckStateRole) {
+        if (row < 0 || row >= m_targets.size()) {
             return QVariant();
         }
 
@@ -359,7 +351,7 @@ QVariant TargetModel::data(const QModelIndex &index, int role) const
             return QVariant();
         }
 
-        if (role == Qt::DisplayRole || role == Qt::EditRole) {
+        if (role == Qt::DisplayRole || role == Qt::EditRole || role == Qt::ToolTipRole) {
             switch (index.column()) {
             case 0:
                 return m_targets[rootIndex].commands[row].name;

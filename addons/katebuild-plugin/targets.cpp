@@ -10,9 +10,9 @@
 #include <QApplication>
 #include <QDebug>
 #include <QEvent>
+#include <QHeaderView>
 #include <QIcon>
 #include <QKeyEvent>
-#include <qnamespace.h>
 
 TargetsUi::TargetsUi(QObject *view, QWidget *parent)
     : QWidget(parent)
@@ -64,8 +64,9 @@ TargetsUi::TargetsUi(QObject *view, QWidget *parent)
     targetsView->setSelectionBehavior(QAbstractItemView::SelectItems);
     targetsView->setEditTriggers(QAbstractItemView::AnyKeyPressed | QAbstractItemView::DoubleClicked | QAbstractItemView::EditKeyPressed);
     targetsView->expandAll();
-    targetsView->resizeColumnToContents(0);
-
+    targetsView->header()->setStretchLastSection(false);
+    targetsView->header()->setSectionResizeMode(0, QHeaderView::ResizeToContents);
+    targetsView->header()->setSectionResizeMode(1, QHeaderView::Stretch);
     QHBoxLayout *tLayout = new QHBoxLayout();
 
     tLayout->addWidget(targetFilterEdit);
@@ -98,16 +99,18 @@ TargetsUi::TargetsUi(QObject *view, QWidget *parent)
     });
 
     connect(moveTargetUp, &QToolButton::clicked, this, [this] {
-        const QModelIndex &currentIndex = proxyModel.mapToSource(targetsView->currentIndex());
+        const QPersistentModelIndex &currentIndex = proxyModel.mapToSource(targetsView->currentIndex());
         if (currentIndex.isValid()) {
             targetsModel.moveRowUp(currentIndex);
         }
+        targetsView->scrollTo(targetsView->currentIndex());
     });
     connect(moveTargetDown, &QToolButton::clicked, this, [this] {
         const QModelIndex &currentIndex = proxyModel.mapToSource(targetsView->currentIndex());
         if (currentIndex.isValid()) {
             targetsModel.moveRowDown(currentIndex);
         }
+        targetsView->scrollTo(targetsView->currentIndex());
     });
 
     targetsView->installEventFilter(this);

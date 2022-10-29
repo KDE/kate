@@ -38,6 +38,7 @@
 #include <QRegularExpressionMatch>
 #include <QScrollBar>
 #include <QString>
+#include <QTimer>
 
 #include <QAction>
 
@@ -49,6 +50,7 @@
 #include <KTextEditor/MovingInterface>
 
 #include <KAboutData>
+#include <KColorScheme>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KPluginFactory>
@@ -228,7 +230,7 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     connect(m_targetsUi->addButton, &QToolButton::clicked, this, &KateBuildView::slotAddTargetClicked);
     connect(m_targetsUi->buildButton, &QToolButton::clicked, this, &KateBuildView::slotBuildSelectedTarget);
     connect(m_targetsUi->runButton, &QToolButton::clicked, this, &KateBuildView::slotBuildAndRunSelectedTarget);
-    connect(m_targetsUi, &TargetsUi::enterPressed, this, &KateBuildView::slotBuildSelectedTarget);
+    connect(m_targetsUi, &TargetsUi::enterPressed, this, &KateBuildView::slotBuildAndRunSelectedTarget);
 
     m_proc.setOutputChannelMode(KProcess::SeparateChannels);
     connect(&m_proc, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &KateBuildView::slotProcExited);
@@ -296,8 +298,6 @@ void KateBuildView::readSessionConfig(const KConfigGroup &cg)
     slotAddProjectTarget();
 
     m_targetsUi->targetsView->expandAll();
-    m_targetsUi->targetsView->resizeColumnToContents(0);
-    m_targetsUi->targetsView->resizeColumnToContents(1);
     m_targetsUi->updateTargetsButtonStates();
 }
 
@@ -871,6 +871,16 @@ void KateBuildView::slotSelectTarget()
     QPersistentModelIndex selected = m_targetsUi->targetsView->currentIndex();
     m_targetsUi->targetFilterEdit->setText(QString());
     m_targetsUi->targetFilterEdit->setFocus();
+
+    // Flash the target selection line-edit to show that something happened
+    // and where your focus went/should go
+    QPalette palette = m_targetsUi->targetFilterEdit->palette();
+    KColorScheme::adjustBackground(palette, KColorScheme::ActiveBackground);
+    m_targetsUi->targetFilterEdit->setPalette(palette);
+    QTimer::singleShot(500, this, [this]() {
+        m_targetsUi->targetFilterEdit->setPalette(QPalette());
+    });
+
     m_targetsUi->targetsView->expandAll();
     if (selected.isValid()) {
         m_targetsUi->targetsView->setCurrentIndex(selected);
@@ -992,7 +1002,6 @@ void KateBuildView::slotProcExited(int exitCode, QProcess::ExitStatus)
         m_buildUi.errTreeWidget->resizeColumnToContents(1);
         m_buildUi.errTreeWidget->resizeColumnToContents(2);
         m_buildUi.errTreeWidget->horizontalScrollBar()->setValue(0);
-        // m_buildUi.errTreeWidget->setSortingEnabled(true);
         m_win->showToolView(m_toolView);
     }
 

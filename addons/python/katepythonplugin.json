@@ -1,7 +1,19 @@
 {
     "KPlugin": {
         "Description": "Plugin that allows Python scripting for Kate",
+        "Description[ca]": "Connector per al Kate que permet crear scripts en Python",
+        "Description[nl]": "Plug-in die scripts maken voor Kate in Python biedt",
+        "Description[pt]": "'Plugin' que permite programar para o Kate em Python",
+        "Description[tr]": "Kate için Python betik yazımını etkinleştiren eklenti",
+        "Description[uk]": "Додаток, який уможливлює сценарії Python для Kate",
+        "Description[x-test]": "xxPlugin that allows Python scripting for Katexx",
         "Name": "Python Scripting",
+        "Name[ca]": "Crear scripts en Python",
+        "Name[nl]": "Scripts maken in Python",
+        "Name[pt]": "Programação em Python",
+        "Name[tr]": "Python Betik Yazımı",
+        "Name[uk]": "Сценарії на Python",
+        "Name[x-test]": "xxPython Scriptingxx",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

@@ -185,7 +185,7 @@ void KateSessionManager::loadSession(const KateSession::Ptr &session) const
         cfg = new KConfig(anonymousSessionFile(), KConfig::SimpleConfig);
     }
 
-    if (c.readEntry("Restore Window Configuration", true)) {
+    if (KateApp::isKate() && c.readEntry("Restore Window Configuration", true)) {
         int wCount = cfg->group("Open MainWindows").readEntry("Count", 1);
 
         for (int i = 0; i < wCount; ++i) {
@@ -352,7 +352,7 @@ void KateSessionManager::saveSessionTo(KConfig *sc)
     sc->group("Open MainWindows").writeEntry("Count", KateApp::self()->mainWindowsCount());
 
     // save config for all windows around ;)
-    bool saveWindowConfig = KConfigGroup(KSharedConfig::openConfig(), "General").readEntry("Restore Window Configuration", true);
+    bool saveWindowConfig = KateApp::isKate() && KConfigGroup(KSharedConfig::openConfig(), "General").readEntry("Restore Window Configuration", true);
     for (int i = 0; i < KateApp::self()->mainWindowsCount(); ++i) {
         KConfigGroup cg(sc, QStringLiteral("MainWindow%1").arg(i));
         // saveProperties() handles saving the "open recent" files list

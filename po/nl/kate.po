@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-28 00:49+0000\n"
-"PO-Revision-Date: 2022-10-26 23:04+0200\n"
+"PO-Revision-Date: 2022-10-28 11:11+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -955,16 +955,14 @@ msgid "Diff Style:"
 msgstr "Stijl van Diff:"
 
 #: lib/kateconfigdialog.cpp:540
-#, fuzzy, kde-format
-#| msgid "Show Navigation Bar"
+#, kde-format
 msgid "Navigation Bar"
-msgstr "Navigatiebalk tonen"
+msgstr "Navigatiebalk"
 
 #: lib/kateconfigdialog.cpp:545
-#, fuzzy, kde-format
-#| msgid "Focus the navigation bar"
+#, kde-format
 msgid "Show current symbol in navigation bar"
-msgstr "Focus op de navigatiebalk"
+msgstr "Huidige symbool in navigatiebalk tonen"
 
 #: lib/kateconfigdialog.cpp:559
 #, kde-format

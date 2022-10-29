@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-28 00:49+0000\n"
-"PO-Revision-Date: 2022-10-26 07:15+0200\n"
+"PO-Revision-Date: 2022-10-28 13:22+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -944,16 +944,14 @@ msgid "Diff Style:"
 msgstr "Estil del Diff:"
 
 #: lib/kateconfigdialog.cpp:540
-#, fuzzy, kde-format
-#| msgid "Show Navigation Bar"
+#, kde-format
 msgid "Navigation Bar"
-msgstr "Mostra la barra de navegació"
+msgstr "Barra de navegació"
 
 #: lib/kateconfigdialog.cpp:545
-#, fuzzy, kde-format
-#| msgid "Focus the navigation bar"
+#, kde-format
 msgid "Show current symbol in navigation bar"
-msgstr "Dona el focus a la barra de navegació"
+msgstr "Mostra el símbol actual a la barra de navegació"
 
 #: lib/kateconfigdialog.cpp:559
 #, kde-format

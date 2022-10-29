@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-28 00:49+0000\n"
-"PO-Revision-Date: 2022-10-14 13:33+0200\n"
+"PO-Revision-Date: 2022-10-28 13:23+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -386,6 +386,8 @@ msgstr "Executa una ordre"
 #, kde-format
 msgid "Filter targets, use arrow keys to select, press Enter to execute"
 msgstr ""
+"Filtreu els objectius, useu les tecles de fletxa per a seleccionar, premeu "
+"Retorn per a executar"
 
 #: targets.cpp:27
 #, kde-format
@@ -442,9 +444,3 @@ msgstr "Insereix camí"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Seleccioneu el directori a inserir"
-
-#~ msgid "Select active target set"
-#~ msgstr "Seleccioneu el conjunt d'objectius actiu"
-
-#~ msgid "Filter targets"
-#~ msgstr "Filtra els objectius"

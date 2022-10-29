@@ -3,14 +3,14 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-28 00:49+0000\n"
-"PO-Revision-Date: 2022-10-16 11:40+0100\n"
+"PO-Revision-Date: 2022-10-28 11:42+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POFile-SpellExtra: undefined reference Make Clean error Kate\n"
+"X-POFile-SpellExtra: undefined reference Make Clean error Kate Enter\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-POFile-IgnoreConsistency: Clean\n"
 "X-POFile-IgnoreConsistency: config\n"
@@ -379,6 +379,8 @@ msgstr "Executar um Comando"
 #, kde-format
 msgid "Filter targets, use arrow keys to select, press Enter to execute"
 msgstr ""
+"Filtrar os alvos, usando os cursores para seleccionar e carregando em Enter "
+"para o executar"
 
 #: targets.cpp:27
 #, kde-format
@@ -435,9 +437,3 @@ msgstr "Inserir um local"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Seleccione a pasta a inserir"
-
-#~ msgid "Select active target set"
-#~ msgstr "Seleccionar o conjunto de alvos activo"
-
-#~ msgid "Filter targets"
-#~ msgstr "Filtrar os alvos"

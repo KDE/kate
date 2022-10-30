@@ -285,6 +285,7 @@ void KateViewManagementTests::testTabLRUWithWidgets()
 
 void KateViewManagementTests::testViewChangedEmittedOnAddWidget()
 {
+    app->sessionManager()->sessionNew();
     auto kmw = app->activeMainWindow();
     QSignalSpy spy(kmw, &KTextEditor::MainWindow::viewChanged);
     Utils::addWidget(new QWidget, kmw);
@@ -294,6 +295,7 @@ void KateViewManagementTests::testViewChangedEmittedOnAddWidget()
 
 void KateViewManagementTests::testWidgetAddedEmittedOnAddWidget()
 {
+    app->sessionManager()->sessionNew();
     QSignalSpy spy(app->activeMainWindow()->window(), SIGNAL(widgetAdded(QWidget *)));
     Utils::addWidget(new QWidget, app->activeMainWindow());
     spy.wait();
@@ -302,6 +304,7 @@ void KateViewManagementTests::testWidgetAddedEmittedOnAddWidget()
 
 void KateViewManagementTests::testWidgetRemovedEmittedOnRemoveWidget()
 {
+    app->sessionManager()->sessionNew();
     auto mw = app->activeMainWindow()->window();
     QSignalSpy spy(mw, SIGNAL(widgetRemoved(QWidget *)));
     auto w = new QWidget;
@@ -313,6 +316,7 @@ void KateViewManagementTests::testWidgetRemovedEmittedOnRemoveWidget()
 
 void KateViewManagementTests::testActivateNotAddedWidget()
 {
+    app->sessionManager()->sessionNew();
     auto kmw = app->activeMainWindow();
     auto mw = app->activeMainWindow()->window();
     QSignalSpy spy(mw, SIGNAL(widgetAdded(QWidget *)));

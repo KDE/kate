@@ -14,11 +14,17 @@
 #include <QTemporaryDir>
 #include <QTest>
 
+#include <KLocalizedString>
+
 QTEST_MAIN(LocationHistoryTest)
 
 LocationHistoryTest::LocationHistoryTest(QObject *parent)
     : QObject(parent)
 {
+    // ensure ui file can be found and the translation domain is set to avoid warnings
+    qApp->setApplicationName(QStringLiteral("kate"));
+    KLocalizedString::setApplicationDomain("kate");
+
     m_tempdir = new QTemporaryDir;
     QVERIFY(m_tempdir->isValid());
 

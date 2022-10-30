@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-28 00:49+0000\n"
-"PO-Revision-Date: 2022-10-22 20:16+0400\n"
+"PO-Revision-Date: 2022-10-29 19:11+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -946,16 +946,14 @@ msgid "Diff Style:"
 msgstr "نمط الفرق:"
 
 #: lib/kateconfigdialog.cpp:540
-#, fuzzy, kde-format
-#| msgid "Show Navigation Bar"
+#, kde-format
 msgid "Navigation Bar"
-msgstr "أظهر شريط التنقل"
+msgstr "شريط التنقل"
 
 #: lib/kateconfigdialog.cpp:545
-#, fuzzy, kde-format
-#| msgid "Focus the navigation bar"
+#, kde-format
 msgid "Show current symbol in navigation bar"
-msgstr "ركز على شريط التنقل"
+msgstr "أظهر الرمز الحالي في شريط التنقل"
 
 #: lib/kateconfigdialog.cpp:559
 #, kde-format
@@ -990,7 +988,7 @@ msgstr[5] " يوم"
 msgid ""
 "When a window is closed the documents opened only in this window are closed "
 "as well."
-msgstr ""
+msgstr "عند إغلاق نافذة، تغلق المستندات التي فتحت في هذه النافذة فقط."
 
 #: lib/kateconfigdialog.cpp:641
 #, kde-format
@@ -1491,7 +1489,7 @@ msgstr "أزرار الشريط الجانبي"
 #: lib/katemdi.cpp:105
 #, kde-format
 msgid "Focus Toolview"
-msgstr ""
+msgstr "منظور الأدوات المركز"
 
 #: lib/katemdi.cpp:108
 #, kde-format
@@ -1521,7 +1519,7 @@ msgstr "اعرض زر %1"
 #: lib/katemdi.cpp:191
 #, kde-format
 msgid "Focus %1"
-msgstr ""
+msgstr "تركيز %1"
 
 #: lib/katemdi.cpp:1000
 #, kde-format
@@ -2382,14 +2380,13 @@ msgstr "الملفات ذات التغيرات غير المحفوظة"
 #: lib/ui/sessionconfigwidget.ui:88
 #, kde-format
 msgid "If disabled, an untitled document will be shown for new windows."
-msgstr ""
+msgstr "إذا عطل، فستعرض المستندات التي دون عنوان للنوافذ الجديدة."
 
 #. i18n: ectx: property (text), widget (QCheckBox, showWelcomeViewForNewWindow)
 #: lib/ui/sessionconfigwidget.ui:91
-#, fuzzy, kde-format
-#| msgid "Show for new window"
+#, kde-format
 msgid "Show welcome view for new windows"
-msgstr "اعرض في نافذة جديدة…"
+msgstr "أظهر شاشة الترحيب للنوافذ الجديدة"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, modCloseAfterLast)
 #: lib/ui/sessionconfigwidget.ui:98
@@ -2411,7 +2408,7 @@ msgstr "أغلق التطبيق بالكامل عندما تغلق أخر ملف
 #: lib/ui/sessionconfigwidget.ui:108
 #, kde-format
 msgid "Close documents with the window they belong to"
-msgstr ""
+msgstr "أغلق المستندات مع النافذة التي تنتمي إليها"
 
 #. i18n: ectx: property (title), widget (QGroupBox, gbElements)
 #: lib/ui/sessionconfigwidget.ui:118

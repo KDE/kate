@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-28 00:49+0000\n"
-"PO-Revision-Date: 2022-10-25 06:49+0200\n"
+"PO-Revision-Date: 2022-10-29 05:20+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -221,7 +221,7 @@ msgstr ""
 #: lib/data/kateui.rc:173
 #, kde-format
 msgid "&Status Bar Items"
-msgstr ""
+msgstr "&სტატუსის ზოლის ელემენტები"
 
 #: lib/diff/diffeditor.cpp:178
 #, kde-format
@@ -465,7 +465,7 @@ msgstr "Michael Koch"
 #: lib/kateapp.cpp:164
 #, kde-format
 msgid "KWrite port to KParts"
-msgstr ""
+msgstr "KWrite -ის პორტირება KParts-ზე"
 
 #: lib/kateapp.cpp:165
 #, kde-format
@@ -881,7 +881,7 @@ msgstr "წინა ჩანართი"
 #: lib/kateconfigdialog.cpp:507
 #, kde-format
 msgid "History back"
-msgstr ""
+msgstr "ისტორია უკან"
 
 #: lib/kateconfigdialog.cpp:513
 #, kde-format
@@ -896,7 +896,7 @@ msgstr "_შემდეგი ჩანართი"
 #: lib/kateconfigdialog.cpp:518
 #, kde-format
 msgid "History forward"
-msgstr ""
+msgstr "ისტორია წინ"
 
 #: lib/kateconfigdialog.cpp:526
 #, kde-format
@@ -909,16 +909,14 @@ msgid "Diff Style:"
 msgstr ""
 
 #: lib/kateconfigdialog.cpp:540
-#, fuzzy, kde-format
-#| msgid "Show Navigation Bar"
+#, kde-format
 msgid "Navigation Bar"
-msgstr "ნავიგაციის პანელის ჩვენება"
+msgstr "ნავიგაციის ზოლი"
 
 #: lib/kateconfigdialog.cpp:545
-#, fuzzy, kde-format
-#| msgid "Show Navigation Bar"
+#, kde-format
 msgid "Show current symbol in navigation bar"
-msgstr "ნავიგაციის პანელის ჩვენება"
+msgstr "მიმდინარე სიმბოლოს ნავიგაციის პანელში ჩვენება"
 
 #: lib/kateconfigdialog.cpp:559
 #, kde-format

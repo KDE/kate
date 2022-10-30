@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-28 00:49+0000\n"
+"POT-Creation-Date: 2022-10-30 00:49+0000\n"
 "PO-Revision-Date: 2022-04-03 11:48+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -77,56 +77,56 @@ msgctxt "Header for the error message column"
 msgid "Message"
 msgstr "Meddelande"
 
-#: plugin_katebuild.cpp:129 plugin_katebuild.cpp:136 plugin_katebuild.cpp:1229
+#: plugin_katebuild.cpp:131 plugin_katebuild.cpp:138 plugin_katebuild.cpp:1238
 #, kde-format
 msgid "Build"
 msgstr "Bygg"
 
-#: plugin_katebuild.cpp:139
+#: plugin_katebuild.cpp:141
 #, kde-format
 msgid "Select Target..."
 msgstr "Välj mål..."
 
-#: plugin_katebuild.cpp:144
+#: plugin_katebuild.cpp:146
 #, fuzzy, kde-format
 #| msgid "Build selected target"
 msgid "Build Selected Target"
 msgstr "Bygg markerat mål"
 
-#: plugin_katebuild.cpp:149
+#: plugin_katebuild.cpp:151
 #, fuzzy, kde-format
 #| msgid "Build selected target"
 msgid "Build and Run Selected Target"
 msgstr "Bygg markerat mål"
 
-#: plugin_katebuild.cpp:154
+#: plugin_katebuild.cpp:156
 #, kde-format
 msgid "Stop"
 msgstr "Stoppa"
 
-#: plugin_katebuild.cpp:159
+#: plugin_katebuild.cpp:161
 #, kde-format
 msgid "Next Error"
 msgstr "Nästa fel"
 
-#: plugin_katebuild.cpp:165
+#: plugin_katebuild.cpp:167
 #, kde-format
 msgid "Previous Error"
 msgstr "Föregående fel"
 
-#: plugin_katebuild.cpp:171
+#: plugin_katebuild.cpp:173
 #, kde-format
 msgid "Show Marks"
 msgstr "Visa markörer"
 
-#: plugin_katebuild.cpp:180
+#: plugin_katebuild.cpp:182
 #, kde-format
 msgctxt "Tab label"
 msgid "Target Settings"
 msgstr "Målinställningar"
 
-#: plugin_katebuild.cpp:308 plugin_katebuild.cpp:1331 plugin_katebuild.cpp:1342
-#: plugin_katebuild.cpp:1363 plugin_katebuild.cpp:1371
+#: plugin_katebuild.cpp:308 plugin_katebuild.cpp:1340 plugin_katebuild.cpp:1351
+#: plugin_katebuild.cpp:1372 plugin_katebuild.cpp:1380
 #, kde-format
 msgid "Project Plugin Targets"
 msgstr "Mål projektinsticksprogram"
@@ -200,127 +200,127 @@ msgstr "Misslyckades köra \"%1\". Avslutningsstatus = %2"
 msgid "Building <b>%1</b> cancelled"
 msgstr "Byggning av <b>%1</b> avbruten"
 
-#: plugin_katebuild.cpp:885
+#: plugin_katebuild.cpp:895
 #, kde-format
 msgid "Already building..."
 msgstr "Bygger redan..."
 
-#: plugin_katebuild.cpp:894
+#: plugin_katebuild.cpp:904
 #, kde-format
 msgid "No target available for building."
 msgstr "Inget mål tillgängligt att bygga."
 
-#: plugin_katebuild.cpp:908
+#: plugin_katebuild.cpp:918
 #, kde-format
 msgid "There is no local file or directory specified for building."
 msgstr "Det finns ingen lokal fil eller katalog angiven att bygga."
 
-#: plugin_katebuild.cpp:932
+#: plugin_katebuild.cpp:942
 #, kde-format
 msgid "Building target <b>%1</b> ..."
 msgstr "Bygger mål <b>%1</b>..."
 
-#: plugin_katebuild.cpp:947
+#: plugin_katebuild.cpp:957
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Make Results:</title><nl/>%1"
 msgstr "<title>Byggresultat:</title><nl/>%1"
 
-#: plugin_katebuild.cpp:983
+#: plugin_katebuild.cpp:993
 #, kde-format
 msgid "Building <b>%1</b> completed."
 msgstr "Byggning av <b>%1</b> färdig."
 
-#: plugin_katebuild.cpp:1003
+#: plugin_katebuild.cpp:1012
 #, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
 msgstr[0] "Hittade ett fel."
 msgstr[1] "Hittade %1 fel."
 
-#: plugin_katebuild.cpp:1004
+#: plugin_katebuild.cpp:1013
 #, kde-format
 msgid "Building <b>%1</b> had errors."
 msgstr "Byggning av <b>%1</b> hade fel."
 
-#: plugin_katebuild.cpp:1006
+#: plugin_katebuild.cpp:1015
 #, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
 msgstr[0] "Hittade en varning."
 msgstr[1] "Hittade %1 varningar."
 
-#: plugin_katebuild.cpp:1007
+#: plugin_katebuild.cpp:1016
 #, kde-format
 msgid "Building <b>%1</b> had warnings."
 msgstr "Byggning av <b>%1</b> hade varningar."
 
-#: plugin_katebuild.cpp:1013
+#: plugin_katebuild.cpp:1022
 #, kde-format
 msgid "Build failed."
 msgstr "Byggning misslyckades."
 
-#: plugin_katebuild.cpp:1015
+#: plugin_katebuild.cpp:1024
 #, kde-format
 msgid "Build completed without problems."
 msgstr "Byggning avslutades utan problem."
 
-#: plugin_katebuild.cpp:1045
+#: plugin_katebuild.cpp:1054
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
 msgstr ""
 
-#: plugin_katebuild.cpp:1228
+#: plugin_katebuild.cpp:1237
 #, kde-format
 msgid "Target Set"
 msgstr "Måluppsättning"
 
-#: plugin_katebuild.cpp:1230
+#: plugin_katebuild.cpp:1239
 #, kde-format
 msgid "Clean"
 msgstr "Rensa"
 
-#: plugin_katebuild.cpp:1231
+#: plugin_katebuild.cpp:1240
 #, kde-format
 msgid "Config"
 msgstr "Config"
 
-#: plugin_katebuild.cpp:1232
+#: plugin_katebuild.cpp:1241
 #, kde-format
 msgid "ConfigClean"
 msgstr "Rensa Config"
 
-#: plugin_katebuild.cpp:1275
+#: plugin_katebuild.cpp:1284
 #, kde-format
 msgid "Only Errors"
 msgstr "Bara fel"
 
-#: plugin_katebuild.cpp:1278
+#: plugin_katebuild.cpp:1287
 #, kde-format
 msgid "Errors and Warnings"
 msgstr "Fel och varningar"
 
-#: plugin_katebuild.cpp:1281
+#: plugin_katebuild.cpp:1290
 #, kde-format
 msgid "Parsed Output"
 msgstr "Tolkad utmatning"
 
-#: plugin_katebuild.cpp:1284
+#: plugin_katebuild.cpp:1293
 #, kde-format
 msgid "Full Output"
 msgstr "Fullständig utmatning"
 
-#: plugin_katebuild.cpp:1392
+#: plugin_katebuild.cpp:1401
 #, kde-format
 msgid "build"
 msgstr "bygg"
 
-#: plugin_katebuild.cpp:1395
+#: plugin_katebuild.cpp:1404
 #, kde-format
 msgid "clean"
 msgstr "rensa"
 
-#: plugin_katebuild.cpp:1398
+#: plugin_katebuild.cpp:1407
 #, kde-format
 msgid "quick"
 msgstr "snabb"
@@ -359,23 +359,23 @@ msgstr ""
 "\"%d\" för den aktuella filens katalog\n"
 "\"%n\" för aktuellt filnamn utan suffix."
 
-#: TargetModel.cpp:332
+#: TargetModel.cpp:324
 #, kde-format
 msgid "Check the check-box to make the command the default for the target-set."
 msgstr ""
 "Markera kryssrutan för att välja förvalt kommando för måluppsättningen."
 
-#: TargetModel.cpp:388
+#: TargetModel.cpp:380
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Kommando/Måluppsättningens namn"
 
-#: TargetModel.cpp:391
+#: TargetModel.cpp:383
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "Arbetskatalog/Kommando"
 
-#: TargetModel.cpp:394
+#: TargetModel.cpp:386
 #, fuzzy, kde-format
 #| msgid "Command:"
 msgid "Run Command"

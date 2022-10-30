@@ -1,6 +1,5 @@
 # Translation for kate.po to Euskara/Basque (eu).
-# Copyright (C) 2002-2018 Free Software Foundation.
-# Copyright (C) 2019-2022 This file is copyright:
+# Copyright (C) 2002-2022 This file is copyright:
 # This file is distributed under the same license as the kate package.
 # KDE euskaratzeko proiektuko arduraduna <xalba@ni.eus>.
 #
@@ -15,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-28 00:49+0000\n"
-"PO-Revision-Date: 2022-10-27 05:22+0200\n"
+"PO-Revision-Date: 2022-10-29 14:05+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -949,16 +948,14 @@ msgid "Diff Style:"
 msgstr "Diff estiloa:"
 
 #: lib/kateconfigdialog.cpp:540
-#, fuzzy, kde-format
-#| msgid "Show Navigation Bar"
+#, kde-format
 msgid "Navigation Bar"
-msgstr "Erakutsi nabigatzeko barra"
+msgstr "Nabigatzeko barra"
 
 #: lib/kateconfigdialog.cpp:545
-#, fuzzy, kde-format
-#| msgid "Focus the navigation bar"
+#, kde-format
 msgid "Show current symbol in navigation bar"
-msgstr "Fokuratu Nabigatze-barra"
+msgstr "Erakutsi uneko ikurra nabigatzeko barran"
 
 #: lib/kateconfigdialog.cpp:559
 #, kde-format

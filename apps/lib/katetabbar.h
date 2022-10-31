@@ -8,6 +8,7 @@
 #ifndef KATE_TAB_BAR_H
 #define KATE_TAB_BAR_H
 
+#include "doc_or_widget.h"
 #include <QTabBar>
 
 #include <unordered_map>
@@ -58,10 +59,10 @@ public:
 
     QVariant ensureValidTabData(int idx);
 
-    void setCurrentDocument(KTextEditor::Document *doc);
-    int documentIdx(KTextEditor::Document *doc);
-    void setTabDocument(int idx, KTextEditor::Document *doc);
-    KTextEditor::Document *tabDocument(int idx);
+    void setCurrentDocument(DocOrWidget);
+    int documentIdx(DocOrWidget);
+    void setTabDocument(int idx, DocOrWidget doc);
+    DocOrWidget tabDocument(int idx);
     void removeDocument(KTextEditor::Document *doc);
     void setModifiedStateIcon(int idx, KTextEditor::Document *doc);
 
@@ -84,12 +85,7 @@ public:
      * Returns the document list of this tab bar.
      * @return document list in order of tabs
      */
-    QVector<KTextEditor::Document *> documentList() const;
-
-    /**
-     * Add an "extra" widget to the tab bar which is not a "KTextEditor::View"
-     */
-    void setCurrentWidget(QWidget *widget);
+    QVector<DocOrWidget> documentList() const;
 
 Q_SIGNALS:
     /**
@@ -136,7 +132,7 @@ private:
     std::vector<int> documentTabIndexes() const;
 
     bool m_isActive = false;
-    KTextEditor::Document *m_beingAdded = nullptr;
+    DocOrWidget m_beingAdded = static_cast<QWidget *>(nullptr);
 
     /**
      * limit of number of tabs we should keep
@@ -164,7 +160,7 @@ private:
      * simple 64-bit counter, worst thing that can happen on 64-bit wraparound
      * is a bit strange tab replacement a few times
      */
-    std::unordered_map<KTextEditor::Document *, std::pair<quint64, bool>> m_docToLruCounterAndHasTab;
+    std::unordered_map<DocOrWidget, std::pair<quint64, bool>> m_docToLruCounterAndHasTab;
 
     QPoint dragStartPos;
     QPoint dragHotspotPos;

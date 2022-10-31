@@ -14,6 +14,7 @@
 #include "katefileactions.h"
 #include "katemainwindow.h"
 #include "katesessionmanager.h"
+#include "katetabbar.h"
 #include "kateupdatedisabler.h"
 #include "kateurlbar.h"
 #include "kateviewmanager.h"
@@ -389,34 +390,43 @@ void KateViewSpace::removeView(KTextEditor::View *v)
     }
 }
 
-bool KateViewSpace::showView(KTextEditor::Document *document)
+bool KateViewSpace::showView(DocOrWidget docOrWidget)
 {
     /**
      * nothing can be done if we have no view ready here
      */
-    auto it = m_docToView.find(document);
+    auto it = m_docToView.find(docOrWidget.doc());
     if (it == m_docToView.end()) {
-        return false;
+        if (!docOrWidget.widget()) {
+            return false;
+        } else if (docOrWidget.widget() && !m_registeredDocuments.contains(docOrWidget)) {
+            qWarning() << "Unexpected unregistred widget" << docOrWidget.widget() << ", please add it first";
+            return false;
+        }
     }
 
     /**
      * update mru list order
      */
-    const int index = m_registeredDocuments.lastIndexOf(document);
+    const int index = m_registeredDocuments.lastIndexOf(docOrWidget);
     // move view to end of list
     if (index < 0) {
         return false;
     }
     // move view to end of list
     m_registeredDocuments.removeAt(index);
-    m_registeredDocuments.append(document);
+    m_registeredDocuments.append(docOrWidget);
 
     /**
      * show the wanted view
      */
-    KTextEditor::View *kv = it->second;
-    stack->setCurrentWidget(kv);
-    kv->show();
+    if (it != m_docToView.end()) {
+        KTextEditor::View *kv = it->second;
+        stack->setCurrentWidget(kv);
+        kv->show();
+    } else {
+        stack->setCurrentWidget(m_registeredDocuments.last().widget());
+    }
 
     /**
      * we need to avoid that below's index changes will mess with current view
@@ -426,7 +436,7 @@ bool KateViewSpace::showView(KTextEditor::Document *document)
     /**
      * follow current view
      */
-    m_tabBar->setCurrentDocument(document);
+    m_tabBar->setCurrentDocument(docOrWidget);
 
     // track tab changes again
     connect(m_tabBar, &KateTabBar::currentChanged, this, &KateViewSpace::changeView);
@@ -444,21 +454,10 @@ void KateViewSpace::changeView(int idx)
         m_viewManager->setActiveSpace(this);
     }
 
-    const auto docOrWidget = m_tabBar->tabData(idx).value<DocOrWidget>();
-    KTextEditor::Document *doc = docOrWidget.doc();
-    if (!doc) {
-        auto w = docOrWidget.widget();
-        if (!w) {
-            // can happen during widget creation if no view is there initially
-            return;
-        }
-        stack->setCurrentWidget(w);
-        m_viewManager->activateView(static_cast<KTextEditor::Document *>(nullptr));
-        return;
-    }
+    const auto docOrWidget = m_tabBar->tabDocument(idx);
 
     // tell the view manager to show the view
-    m_viewManager->activateView(doc);
+    m_viewManager->activateView(docOrWidget);
 }
 
 KTextEditor::View *KateViewSpace::currentView()
@@ -792,7 +791,7 @@ void KateViewSpace::addWidgetAsTab(QWidget *widget)
     // disconnect changeView, we are just adding the widget here
     // and don't want any unnecessary viewChanged signals
     disconnect(m_tabBar, &KateTabBar::currentChanged, this, &KateViewSpace::changeView);
-    m_tabBar->setCurrentWidget(widget);
+    m_tabBar->setCurrentDocument(widget);
     connect(m_tabBar, &KateTabBar::currentChanged, this, &KateViewSpace::changeView);
     stack->setCurrentWidget(widget);
     m_registeredDocuments.append(widget);
@@ -949,9 +948,9 @@ void KateViewSpace::showContextMenu(int idx, const QPoint &globalPos)
         return; // the welcome screen is open
     }
 
-    auto *doc = m_tabBar->tabDocument(idx);
+    auto docOrWidget = m_tabBar->tabDocument(idx);
     auto activeDocument = activeView->document(); // used for compareUsing which is used with another
-    if (!doc) {
+    if (!docOrWidget.doc()) {
         // This tab is holding some other widget
         // Show only "close tab" for now
         // maybe later allow adding context menu entries from the widgets
@@ -967,6 +966,7 @@ void KateViewSpace::showContextMenu(int idx, const QPoint &globalPos)
         }
         return;
     }
+    auto *doc = docOrWidget.doc();
 
     auto addActionFromCollection = [this](QMenu *menu, const char *action_name) {
         QAction *action = m_viewManager->mainWindow()->action(action_name);
@@ -1088,7 +1088,11 @@ void KateViewSpace::saveConfig(KConfigBase *config, int myIndex, const QString &
     std::vector<KTextEditor::View *> views;
     QStringList lruList;
     const auto docList = documentList();
-    for (KTextEditor::Document *doc : docList) {
+    for (DocOrWidget docOrWidget : docList) {
+        if (docOrWidget.widget()) {
+            continue;
+        }
+        auto doc = docOrWidget.doc();
         lruList << doc->url().toString();
         auto it = m_docToView.find(doc);
         if (it != m_docToView.end()) {

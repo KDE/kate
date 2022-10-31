@@ -836,23 +836,19 @@ void KateViewManager::activateView(KTextEditor::View *view)
     }
 }
 
-KTextEditor::View *KateViewManager::activateView(KTextEditor::Document *d)
+KTextEditor::View *KateViewManager::activateView(DocOrWidget docOrWidget)
 {
-    // ensure we disable the current active view if we have none
-    if (!d) {
-        activateView(static_cast<KTextEditor::View *>(nullptr));
-        return activeView();
-    }
-
     // activate existing view if possible
     auto activeSpace = activeViewSpace();
-    if (activeSpace->showView(d)) {
+    if (activeSpace->showView(docOrWidget)) {
+        // This will be null if currentView is not a KTE::View
         activateView(activeSpace->currentView());
         return activeView();
     }
 
     // create new view otherwise
-    createView(d);
+    Q_ASSERT(docOrWidget.doc()); // TODO waqar: check
+    createView(docOrWidget.doc());
     return activeView();
 }
 
@@ -1297,7 +1293,12 @@ void KateViewManager::removeViewSpace(KateViewSpace *viewspace)
     // add the known documents to the current view space to not loose tab buttons
     auto avs = activeViewSpace();
     for (auto doc : documentList) {
-        avs->registerDocument(doc);
+        // TODO: unify handling
+        if (doc.doc()) {
+            avs->registerDocument(doc.doc());
+        } else if (doc.widget()) {
+            avs->addWidgetAsTab(doc.widget());
+        }
     }
 
     // find the view that is now active.

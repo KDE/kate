@@ -60,15 +60,15 @@ void KateTabBar::readConfig()
     const int tabCountLimit = std::max(cgGeneral.readEntry("Tabbar Tab Limit", 0), 0);
     if (m_tabCountLimit != tabCountLimit) {
         m_tabCountLimit = tabCountLimit;
-        const QVector<KTextEditor::Document*> docList = documentList();
+        const QVector<DocOrWidget> docList = documentList();
         if (m_tabCountLimit > 0 && docList.count() > m_tabCountLimit) {
             // close N least used tabs
-            QMap<quint64, KTextEditor::Document*> lruDocs;
-            for (KTextEditor::Document *doc : docList) {
+            QMap<quint64, DocOrWidget> lruDocs;
+            for (const DocOrWidget &doc : docList) {
                 lruDocs[m_docToLruCounterAndHasTab[doc].first] = doc;
             }
             int toRemove = docList.count() - m_tabCountLimit;
-            for (KTextEditor::Document *doc : std::as_const(lruDocs)) {
+            for (DocOrWidget doc : std::as_const(lruDocs)) {
                 if (toRemove-- == 0) {
                     break;
                 }
@@ -76,9 +76,9 @@ void KateTabBar::readConfig()
             }
         } else if (m_docToLruCounterAndHasTab.size() > (size_t)docList.size()) {
             // populate N recently user documents
-            std::map<quint64, KTextEditor::Document*, std::greater<quint64>> mruDocs;
+            std::map<quint64, DocOrWidget, std::greater<quint64>> mruDocs;
             for (const auto &i : m_docToLruCounterAndHasTab) {
-                KTextEditor::Document *doc = i.first;
+                DocOrWidget doc = i.first;
                 if (!docList.contains(doc)) {
                     mruDocs[i.second.first] = doc;
                 }
@@ -88,8 +88,9 @@ void KateTabBar::readConfig()
                 if (toAdd-- == 0) {
                     break;
                 }
-                KTextEditor::Document *doc = i.second;
-                setTabDocument(addTab(doc->documentName()), doc);
+                DocOrWidget doc = i.second;
+                const auto idx = addTab(doc.doc() ? doc.doc()->documentName() : doc.widget()->windowTitle());
+                setTabDocument(idx, doc);
             }
         }
     }
@@ -275,7 +276,8 @@ void KateTabBar::mouseMoveEvent(QMouseEvent *event)
     ds << cp.column();
     ds << view->document()->url();
 
-    auto mime = new TabMimeData(viewSpace, tabDocument(tab));
+    auto doc = tabDocument(tab).doc(); // We know for sure there is a doc because of above check
+    auto mime = new TabMimeData(viewSpace, doc);
     mime->setData(QStringLiteral("application/kate.tab.mimedata"), data);
 
     QDrag *drag = new QDrag(this);
@@ -326,15 +328,21 @@ void KateTabBar::contextMenuEvent(QContextMenuEvent *ev)
     }
 }
 
-void KateTabBar::setTabDocument(int idx, KTextEditor::Document *doc)
+void KateTabBar::setTabDocument(int idx, DocOrWidget d)
 {
-    setTabData(idx, QVariant::fromValue(DocOrWidget(doc)));
+    setTabData(idx, QVariant::fromValue(d));
+
+    auto *doc = d.doc();
     // BUG: 441340 We need to escape the & because it is used for accelerators/shortcut mnemonic by default
-    QString tabName = doc->documentName();
+    QString tabName = d.doc() ? d.doc()->documentName() : d.widget()->windowTitle();
     tabName.replace(QLatin1Char('&'), QLatin1String("&&"));
     setTabText(idx, tabName);
-    setTabToolTip(idx, doc->url().isValid() ? doc->url().toDisplayString(QUrl::PreferLocalFile) : doc->documentName());
-    setModifiedStateIcon(idx, doc);
+    if (d.doc()) {
+        setTabToolTip(idx, doc->url().isValid() ? doc->url().toDisplayString(QUrl::PreferLocalFile) : doc->documentName());
+        setModifiedStateIcon(idx, doc);
+    } else {
+        setTabIcon(idx, d.widget()->windowIcon());
+    }
 }
 
 void KateTabBar::setModifiedStateIcon(int idx, KTextEditor::Document *doc)
@@ -343,15 +351,15 @@ void KateTabBar::setModifiedStateIcon(int idx, KTextEditor::Document *doc)
     setTabIcon(idx, Utils::iconForDocument(doc));
 }
 
-void KateTabBar::setCurrentDocument(KTextEditor::Document *doc)
+void KateTabBar::setCurrentDocument(DocOrWidget docOrWidget)
 {
     // in any case: update lru counter for this document, might add new element to hash
     // we have a tab after this call, too!
-    m_docToLruCounterAndHasTab[doc] = std::make_pair(++m_lruCounter, true);
+    m_docToLruCounterAndHasTab[docOrWidget] = std::make_pair(++m_lruCounter, true);
 
     // do we have a tab for this document?
     // if yes => just set as current one
-    const int existingIndex = documentIdx(doc);
+    const int existingIndex = documentIdx(docOrWidget);
     if (existingIndex != -1) {
         setCurrentIndex(existingIndex);
         return;
@@ -360,8 +368,8 @@ void KateTabBar::setCurrentDocument(KTextEditor::Document *doc)
     // else: if we are still inside the allowed number of tabs or have no limit
     // => create new tab and be done
     if ((m_tabCountLimit == 0) || documentTabIndexes().size() < (size_t)m_tabCountLimit) {
-        m_beingAdded = doc;
-        insertTab(-1, doc->documentName());
+        m_beingAdded = docOrWidget;
+        insertTab(-1, docOrWidget.doc() ? docOrWidget.doc()->documentName() : docOrWidget.widget()->windowTitle());
         return;
     }
 
@@ -371,13 +379,10 @@ void KateTabBar::setCurrentDocument(KTextEditor::Document *doc)
     // search for the right tab
     quint64 minCounter = static_cast<quint64>(-1);
     int indexToReplace = 0;
-    KTextEditor::Document *docToReplace = nullptr;
+    DocOrWidget docToReplace = DocOrWidget::null();
     for (int idx = 0; idx < count(); idx++) {
         QVariant data = tabData(idx);
-        KTextEditor::Document *doc = data.value<DocOrWidget>().doc();
-        if (!data.isValid() || !doc) {
-            continue;
-        }
+        DocOrWidget doc = data.value<DocOrWidget>();
         const quint64 currentCounter = m_docToLruCounterAndHasTab[doc].first;
         if (currentCounter <= minCounter) {
             minCounter = currentCounter;
@@ -390,7 +395,7 @@ void KateTabBar::setCurrentDocument(KTextEditor::Document *doc)
     m_docToLruCounterAndHasTab[docToReplace].second = false;
 
     // replace it's data + set it as active
-    setTabDocument(indexToReplace, doc);
+    setTabDocument(indexToReplace, docOrWidget);
     setCurrentIndex(indexToReplace);
 }
 
@@ -411,7 +416,7 @@ void KateTabBar::removeDocument(KTextEditor::Document *doc)
     // if we have some tab limit, replace the removed tab with the next best document that has none!
     if (m_tabCountLimit > 0) {
         quint64 maxCounter = 0;
-        KTextEditor::Document *docToReplace = nullptr;
+        DocOrWidget docToReplace = static_cast<QWidget *>(nullptr);
         for (const auto &lru : m_docToLruCounterAndHasTab) {
             // ignore stuff with tabs
             if (lru.second.second) {
@@ -426,7 +431,7 @@ void KateTabBar::removeDocument(KTextEditor::Document *doc)
         }
 
         // any document found? replace the tab we want to close and be done
-        if (docToReplace) {
+        if (docToReplace.qobject()) {
             // mark the replace doc as "has a tab"
             m_docToLruCounterAndHasTab[docToReplace].second = true;
 
@@ -443,14 +448,14 @@ void KateTabBar::removeDocument(KTextEditor::Document *doc)
     removeTab(idx);
 }
 
-int KateTabBar::documentIdx(KTextEditor::Document *doc)
+int KateTabBar::documentIdx(DocOrWidget doc)
 {
     for (int idx = 0; idx < count(); idx++) {
         QVariant data = tabData(idx);
         if (!data.isValid()) {
             continue;
         }
-        if (data.value<DocOrWidget>().doc() != doc) {
+        if (data.value<DocOrWidget>().qobject() != doc.qobject()) {
             continue;
         }
         return idx;
@@ -458,20 +463,20 @@ int KateTabBar::documentIdx(KTextEditor::Document *doc)
     return -1;
 }
 
-KTextEditor::Document *KateTabBar::tabDocument(int idx)
+DocOrWidget KateTabBar::tabDocument(int idx)
 {
     QVariant data = ensureValidTabData(idx);
     DocOrWidget buttonData = data.value<DocOrWidget>();
 
-    KTextEditor::Document *doc = nullptr;
+    auto doc = DocOrWidget::null();
     // The tab got activated before the correct finalization,
     // we need to plug the document before returning.
-    if (buttonData.doc() == nullptr && m_beingAdded) {
+    if (buttonData.isNull() && !m_beingAdded.isNull()) {
         setTabDocument(idx, m_beingAdded);
         doc = m_beingAdded;
-        m_beingAdded = nullptr;
+        m_beingAdded.clear();
     } else {
-        doc = buttonData.doc();
+        doc = buttonData;
     }
 
     return doc;
@@ -479,29 +484,19 @@ KTextEditor::Document *KateTabBar::tabDocument(int idx)
 
 void KateTabBar::tabInserted(int idx)
 {
-    if (m_beingAdded) {
+    if (m_beingAdded.qobject()) {
         setTabDocument(idx, m_beingAdded);
     }
-    m_beingAdded = nullptr;
+    m_beingAdded.clear();
 }
 
-QVector<KTextEditor::Document *> KateTabBar::documentList() const
+QVector<DocOrWidget> KateTabBar::documentList() const
 {
-    QVector<KTextEditor::Document *> result;
+    QVector<DocOrWidget> result;
     result.reserve(count());
     for (int idx = 0; idx < count(); idx++) {
         QVariant data = tabData(idx);
-        if (data.isValid() && data.value<DocOrWidget>().doc()) {
-            result.append(data.value<DocOrWidget>().doc());
-        }
+        result.append(data.value<DocOrWidget>());
     }
     return result;
-}
-
-void KateTabBar::setCurrentWidget(QWidget *widget)
-{
-    int idx = insertTab(-1, widget->windowTitle());
-    setTabIcon(idx, widget->windowIcon());
-    setTabData(idx, QVariant::fromValue(DocOrWidget(widget)));
-    setCurrentIndex(idx);
 }

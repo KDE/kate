@@ -172,7 +172,7 @@ void KateViewManagementTests::testMoveViewBetweenViewspaces()
     auto dest = vm->m_viewSpaceList.front();
     QVERIFY(src != dest);
     vm->moveViewToViewSpace(dest, src, vm->activeView()->document());
-    QTest::qWait(100);
+    qApp->processEvents();
 
     // after moving we should have 2 views but only one viewspace left
     QCOMPARE(vm->m_viewSpaceList.size(), 1);

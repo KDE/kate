@@ -9,9 +9,11 @@
 #ifndef __KATE_VIEWMANAGER_H__
 #define __KATE_VIEWMANAGER_H__
 
+#include "doc_or_widget.h"
 #include "katedocmanager.h"
 #include "kateprivate_export.h"
 #include "katesplitter.h"
+#include "kateviewspace.h"
 
 #include <QList>
 #include <QPointer>
@@ -211,7 +213,7 @@ public Q_SLOTS:
      * activate view for given document
      * @param doc document to activate view for
      */
-    KTextEditor::View *activateView(KTextEditor::Document *doc);
+    KTextEditor::View *activateView(DocOrWidget docOrWidget);
 
     /** Splits the active viewspace horizontally */
     void slotSplitViewSpaceHoriz()

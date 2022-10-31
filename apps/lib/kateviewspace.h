@@ -13,6 +13,7 @@
 #include <ktexteditor/modificationinterface.h>
 #include <ktexteditor/view.h>
 
+#include "doc_or_widget.h"
 #include "kateprivate_export.h"
 #include "katetabbar.h"
 
@@ -23,38 +24,6 @@ class KateViewManager;
 class QStackedWidget;
 class QToolButton;
 class LocationHistoryTest;
-
-// Just a helper class which we use internally to manage widgets/docs
-class DocOrWidget : public std::variant<KTextEditor::Document *, QWidget *>
-{
-public:
-    using variant::variant;
-
-    auto *doc() const
-    {
-        return std::holds_alternative<KTextEditor::Document *>(*this) ? std::get<KTextEditor::Document *>(*this) : nullptr;
-    }
-
-    auto *widget() const
-    {
-        return std::holds_alternative<QWidget *>(*this) ? std::get<QWidget *>(*this) : nullptr;
-    }
-
-    QObject *qobject() const
-    {
-        return doc() ? static_cast<QObject *>(doc()) : static_cast<QObject *>(widget());
-    }
-
-    bool operator==(KTextEditor::Document *doc) const
-    {
-        return this->doc() == doc;
-    }
-    bool operator==(QWidget *w) const
-    {
-        return this->widget() == w;
-    }
-};
-Q_DECLARE_METATYPE(DocOrWidget)
 
 class KATE_PRIVATE_EXPORT KateViewSpace : public QWidget
 {
@@ -99,7 +68,7 @@ public:
     {
         return showView(view->document());
     }
-    bool showView(KTextEditor::Document *document);
+    bool showView(DocOrWidget);
 
     // might be nullptr, if there is no view
     KTextEditor::View *currentView();
@@ -111,7 +80,7 @@ public:
      * Returns the document list of this tab bar.
      * @return document list in order of tabs
      */
-    QVector<KTextEditor::Document *> documentList() const
+    QVector<DocOrWidget> documentList() const
     {
         return m_tabBar->documentList();
     }

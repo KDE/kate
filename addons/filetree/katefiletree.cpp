@@ -702,8 +702,11 @@ void KateFileTree::slotDocumentPrev()
     }
 
     if (prev.isValid()) {
-        KTextEditor::Document *doc = m_proxyModel->docFromIndex(prev);
-        Q_EMIT activateDocument(doc);
+        if (auto *doc = m_proxyModel->docFromIndex(prev)) {
+            Q_EMIT activateDocument(doc);
+        } else if (auto *w = prev.data(KateFileTreeModel::WidgetRole).value<QWidget *>()) {
+            Q_EMIT activateWidget(w);
+        }
     }
 }
 
@@ -774,8 +777,11 @@ void KateFileTree::slotDocumentNext()
     }
 
     if (next.isValid()) {
-        KTextEditor::Document *doc = m_proxyModel->docFromIndex(next);
-        Q_EMIT activateDocument(doc);
+        if (auto *doc = m_proxyModel->docFromIndex(next)) {
+            Q_EMIT activateDocument(doc);
+        } else if (auto *w = next.data(KateFileTreeModel::WidgetRole).value<QWidget *>()) {
+            Q_EMIT activateWidget(w);
+        }
     }
 }
 

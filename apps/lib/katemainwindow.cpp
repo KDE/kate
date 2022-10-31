@@ -1368,7 +1368,7 @@ bool KateMainWindow::addWidget(QWidget *widget)
     auto vs = m_viewManager->activeViewSpace();
     vs->addWidgetAsTab(widget);
     Q_EMIT widgetAdded(widget);
-    m_viewManager->activateView(static_cast<KTextEditor::Document *>(nullptr));
+    m_viewManager->activateView(widget);
     return true;
 }
 

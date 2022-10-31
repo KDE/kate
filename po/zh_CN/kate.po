@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-28 00:49+0000\n"
-"PO-Revision-Date: 2022-10-22 05:28\n"
+"PO-Revision-Date: 2022-10-30 07:47\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -226,7 +226,7 @@ msgstr "主工具栏"
 #: lib/data/kateui.rc:155
 #, kde-format
 msgid "Hamburger Menu Toolbar"
-msgstr ""
+msgstr "多级菜单工具栏"
 
 #. i18n: ectx: Menu (viewspace_popup_statusbar)
 #: lib/data/kateui.rc:173
@@ -263,54 +263,54 @@ msgstr[0] "暂存行"
 #: lib/diff/diffeditor.cpp:220
 #, kde-format
 msgid "Stage Hunk"
-msgstr ""
+msgstr "暂存块"
 
 #: lib/diff/diffeditor.cpp:227
 #, kde-format
 msgid "Discard Line"
 msgid_plural "Discard Lines"
-msgstr[0] ""
+msgstr[0] "放弃更改"
 
 #: lib/diff/diffeditor.cpp:232
 #, kde-format
 msgid "Discard Hunk"
-msgstr ""
+msgstr "放弃块"
 
 #: lib/diff/diffeditor.cpp:239
 #, kde-format
 msgid "Unstage Line"
 msgid_plural "Unstage Lines"
-msgstr[0] ""
+msgstr[0] "取消暂存的行"
 
 #: lib/diff/diffeditor.cpp:244
 #, kde-format
 msgid "Unstage Hunk"
-msgstr ""
+msgstr "取消暂存的块"
 
 #: lib/diff/diffwidget.cpp:51
 #, kde-format
 msgid "Show/Hide Commit Info"
-msgstr ""
+msgstr "显示/隐藏提交信息"
 
 #: lib/diff/diffwidget.cpp:56
 #, kde-format
 msgid "Jump to Next File"
-msgstr ""
+msgstr "跳转到下一个文件"
 
 #: lib/diff/diffwidget.cpp:60
 #, kde-format
 msgid "Jump to Previous File"
-msgstr ""
+msgstr "跳转到上一个文件"
 
 #: lib/diff/diffwidget.cpp:64
 #, kde-format
 msgid "Jump to Next Hunk"
-msgstr ""
+msgstr "跳转到下一个块"
 
 #: lib/diff/diffwidget.cpp:68
 #, kde-format
 msgid "Jump to Previous Hunk"
-msgstr ""
+msgstr "跳转到上一个块"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
 #: lib/filehistorywidget.cpp:254 lib/kateconfigdialog.cpp:122
@@ -338,12 +338,12 @@ msgstr "错误"
 #: lib/filehistorywidget.cpp:342
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
-msgstr ""
+msgstr "%1 不存在于 git 仓库中。"
 
 #: lib/filehistorywidget.cpp:342
 #, kde-format
 msgid "Git"
-msgstr ""
+msgstr "Git"
 
 #: lib/filehistorywidget.cpp:350
 #, kde-format
@@ -389,7 +389,7 @@ msgstr "Kåre Särs"
 #: lib/kateapp.cpp:150
 #, kde-format
 msgid "Waqar Ahmed"
-msgstr ""
+msgstr "Waqar Ahmed"
 
 #: lib/kateapp.cpp:151
 #, kde-format
@@ -685,12 +685,12 @@ msgstr "配置"
 #: lib/kateconfigdialog.cpp:62
 #, kde-format
 msgid "Search..."
-msgstr ""
+msgstr "搜索..."
 
 #: lib/kateconfigdialog.cpp:123
 #, kde-format
 msgid "Save"
-msgstr ""
+msgstr "保存"
 
 #: lib/kateconfigdialog.cpp:343
 #, kde-format
@@ -765,7 +765,7 @@ msgstr "侧边栏(&S)"
 #: lib/kateconfigdialog.cpp:401
 #, kde-format
 msgid "Sync section size with tab positions"
-msgstr ""
+msgstr "将显示区域大小与标签页大小同步"
 
 #: lib/kateconfigdialog.cpp:405
 #, kde-format
@@ -774,6 +774,8 @@ msgid ""
 "tabs.\n"
 "This option does not affect the bottom sidebar."
 msgstr ""
+"启用后，显示区域大小将由标签位置决定。\n"
+"此选项不影响底部侧边栏。"
 
 #: lib/kateconfigdialog.cpp:410
 #, kde-format
@@ -922,16 +924,14 @@ msgid "Diff Style:"
 msgstr "比较样式："
 
 #: lib/kateconfigdialog.cpp:540
-#, fuzzy, kde-format
-#| msgid "Show Navigation Bar"
+#, kde-format
 msgid "Navigation Bar"
-msgstr "显示导航栏"
+msgstr ""
 
 #: lib/kateconfigdialog.cpp:545
-#, fuzzy, kde-format
-#| msgid "Focus the navigation bar"
+#, kde-format
 msgid "Show current symbol in navigation bar"
-msgstr "焦点移至导航栏"
+msgstr ""
 
 #: lib/kateconfigdialog.cpp:559
 #, kde-format
@@ -1281,12 +1281,12 @@ msgstr "关闭该窗口"
 #: lib/katemainwindow.cpp:420
 #, kde-format
 msgid "&New Window"
-msgstr ""
+msgstr "&新建窗口"
 
 #: lib/katemainwindow.cpp:423
 #, kde-format
 msgid "Create a new window."
-msgstr ""
+msgstr "创建新窗口"
 
 #: lib/katemainwindow.cpp:430
 #, kde-format
@@ -1376,7 +1376,7 @@ msgstr "跳转到下一个位置"
 #: lib/katemainwindow.cpp:531
 #, kde-format
 msgid "Show File Git History"
-msgstr ""
+msgstr "显示文件Git历史"
 
 #: lib/katemainwindow.cpp:546
 #, kde-format
@@ -1443,17 +1443,17 @@ msgstr " [只读]"
 #: lib/katemainwindow.cpp:1403
 #, kde-format
 msgid "Diff %1"
-msgstr ""
+msgstr "差异 %1"
 
 #: lib/katemainwindow.cpp:1405
 #, kde-format
 msgid "Diff %1..%2"
-msgstr ""
+msgstr "比较 %1 和 %2"
 
 #: lib/katemdi.cpp:84
 #, kde-format
 msgid "Toolview Manager"
-msgstr ""
+msgstr "工具栏管理器"
 
 #: lib/katemdi.cpp:102
 #, kde-format
@@ -1513,27 +1513,27 @@ msgstr "移至"
 #: lib/katemdi.cpp:1011
 #, kde-format
 msgid "Own Section"
-msgstr ""
+msgstr "新增会话"
 
 #: lib/katemdi.cpp:1017 lib/katemdi.cpp:1025
 #, kde-format
 msgid "One Down"
-msgstr ""
+msgstr "置于底部"
 
 #: lib/katemdi.cpp:1019 lib/katemdi.cpp:1030
 #, kde-format
 msgid "One Right"
-msgstr ""
+msgstr "置于右侧"
 
 #: lib/katemdi.cpp:1023
 #, kde-format
 msgid "One Up"
-msgstr ""
+msgstr "置于上部"
 
 #: lib/katemdi.cpp:1028
 #, kde-format
 msgid "One Left"
-msgstr ""
+msgstr "至于左侧"
 
 #: lib/katemdi.cpp:1037
 #, kde-format
@@ -1864,42 +1864,42 @@ msgstr "使上一个分割视图成为活动视图。"
 #: lib/kateviewmanager.cpp:179
 #, kde-format
 msgid "Left Split View"
-msgstr ""
+msgstr "向左拆分视图"
 
 #: lib/kateviewmanager.cpp:184
 #, kde-format
 msgid "Make the split view intuitively on the left the active one."
-msgstr ""
+msgstr "向左侧分割当前标签页。"
 
 #: lib/kateviewmanager.cpp:187
 #, kde-format
 msgid "Right Split View"
-msgstr ""
+msgstr "向左拆分视图"
 
 #: lib/kateviewmanager.cpp:192
 #, kde-format
 msgid "Make the split view intuitively on the right the active one."
-msgstr ""
+msgstr "使右侧的标签成为活动标签。"
 
 #: lib/kateviewmanager.cpp:195
 #, kde-format
 msgid "Upward Split View"
-msgstr ""
+msgstr "向上分割视图"
 
 #: lib/kateviewmanager.cpp:200
 #, kde-format
 msgid "Make the split view intuitively upward the active one."
-msgstr ""
+msgstr "向上分割当前标签页。"
 
 #: lib/kateviewmanager.cpp:203
 #, kde-format
 msgid "Downward Split View"
-msgstr ""
+msgstr "向下分割"
 
 #: lib/kateviewmanager.cpp:208
 #, kde-format
 msgid "Make the split view intuitively downward the active one."
-msgstr ""
+msgstr "向下分割当前标签页。"
 
 #: lib/kateviewmanager.cpp:211
 #, kde-format
@@ -1954,12 +1954,12 @@ msgstr "焦点移至导航栏"
 #: lib/kateviewmanager.cpp:243
 #, kde-format
 msgid "Welcome Page"
-msgstr ""
+msgstr "欢迎页面"
 
 #: lib/kateviewmanager.cpp:258
 #, kde-format
 msgid "Show the welcome page"
-msgstr ""
+msgstr "显示欢迎页面"
 
 #: lib/kateviewmanager.cpp:300 lib/kateviewmanager.cpp:302
 #, kde-format
@@ -1984,35 +1984,35 @@ msgstr "正在打开大文件"
 #: lib/kateviewmanager.cpp:463
 #, kde-format
 msgid "%1 cannot open folders"
-msgstr ""
+msgstr "%1 无法打开文件夹"
 
 #: lib/kateviewmanager.cpp:482
 #, kde-format
 msgid "The plugin required to open folders was not found"
-msgstr ""
+msgstr "未找到打开文件夹所需的插件"
 
 #: lib/kateviewmanager.cpp:488
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
-msgstr ""
+msgstr "要打开文件夹，必须启用 <b>%1</b> 插件。启用它？"
 
 #: lib/kateviewmanager.cpp:497
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
-msgstr ""
+msgstr "打开文件夹"
 
 #: lib/kateviewmanager.cpp:498
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
-msgstr ""
+msgstr "启用"
 
 #: lib/kateviewmanager.cpp:509
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
-msgstr ""
+msgstr "启用插件 <b>%1</b> 失败"
 
 #: lib/kateviewmanager.cpp:1223
 #, kde-format
@@ -2069,17 +2069,17 @@ msgstr "关闭所有文档(&A)"
 #: lib/kateviewspace.cpp:981
 #, kde-format
 msgid "D&etach Document"
-msgstr ""
+msgstr "D&etach 文档"
 
 #: lib/kateviewspace.cpp:982
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
-msgstr ""
+msgstr "移动文档到新窗口"
 
 #: lib/kateviewspace.cpp:991
 #, kde-format
 msgid "Compare with Active Document"
-msgstr ""
+msgstr "与当前文档进行比较"
 
 #: lib/kateviewspace.cpp:995
 #, kde-format
@@ -2089,7 +2089,7 @@ msgstr "比较 %1 .. %2"
 #: lib/kateviewspace.cpp:1000
 #, kde-format
 msgid "Compare with Active Document Using"
-msgstr ""
+msgstr "与当前文档进行比较"
 
 #: lib/kateviewspace.cpp:1067
 #, kde-format
@@ -2119,7 +2119,7 @@ msgstr "当前项目"
 #: lib/quickopen/katequickopenlineedit.cpp:88
 #, kde-format
 msgid "Fuzzy Filtering"
-msgstr ""
+msgstr "模糊筛选"
 
 #: lib/quickopen/katequickopenlineedit.cpp:99
 #, kde-format

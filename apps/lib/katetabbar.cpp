@@ -110,18 +110,6 @@ void KateTabBar::readConfig()
     m_middleClickCloseDocument = cgGeneral.readEntry("Tab Middle Click Close Document", true);
 }
 
-std::vector<int> KateTabBar::documentTabIndexes() const
-{
-    std::vector<int> docs;
-    const int tabCount = count();
-    for (int i = 0; i < tabCount; ++i) {
-        if (tabData(i).value<DocOrWidget>().doc()) {
-            docs.push_back(i);
-        }
-    }
-    return docs;
-}
-
 void KateTabBar::setActive(bool active)
 {
     if (active == m_isActive) {
@@ -367,7 +355,7 @@ void KateTabBar::setCurrentDocument(DocOrWidget docOrWidget)
 
     // else: if we are still inside the allowed number of tabs or have no limit
     // => create new tab and be done
-    if ((m_tabCountLimit == 0) || documentTabIndexes().size() < (size_t)m_tabCountLimit) {
+    if ((m_tabCountLimit == 0) || (count() < m_tabCountLimit)) {
         m_beingAdded = docOrWidget;
         insertTab(-1, docOrWidget.doc() ? docOrWidget.doc()->documentName() : docOrWidget.widget()->windowTitle());
         return;

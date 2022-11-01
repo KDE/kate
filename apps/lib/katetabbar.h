@@ -126,11 +126,6 @@ private:
     using QTabBar::addTab;
     using QTabBar::insertTab;
 
-    /**
-     * Indexes of tabs which are a normal KTextEditor::View
-     */
-    std::vector<int> documentTabIndexes() const;
-
     bool m_isActive = false;
     DocOrWidget m_beingAdded = static_cast<QWidget *>(nullptr);
 

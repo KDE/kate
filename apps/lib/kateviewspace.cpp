@@ -619,23 +619,36 @@ void KateViewSpace::dropEvent(QDropEvent *e)
     QWidget::dropEvent(e);
 }
 
-bool KateViewSpace::hasDocument(KTextEditor::Document *doc) const
+bool KateViewSpace::hasDocument(DocOrWidget doc) const
 {
     return m_registeredDocuments.contains(doc);
 }
 
-KTextEditor::View *KateViewSpace::takeView(KTextEditor::Document *doc)
+QWidget *KateViewSpace::takeView(DocOrWidget docOrWidget)
 {
-    auto it = m_docToView.find(doc);
-    if (it == m_docToView.end()) {
-        return nullptr;
+    QWidget *ret;
+    if (docOrWidget.doc()) {
+        auto it = m_docToView.find(docOrWidget.doc());
+        if (it == m_docToView.end()) {
+            qWarning() << "Unexpected unable to find a view for " << docOrWidget.qobject();
+            return nullptr;
+        }
+        ret = it->second;
+        // remove it from the stack
+        stack->removeWidget(ret);
+        // remove it from our doc->view mapping
+        m_docToView.erase(it);
+        documentDestroyed(docOrWidget.doc());
+    } else if (docOrWidget.widget()) {
+        stack->removeWidget(docOrWidget.widget());
+        m_registeredDocuments.removeAll(docOrWidget);
+        m_tabBar->removeDocument(docOrWidget);
+        ret = docOrWidget.widget();
+    } else {
+        qWarning() << "Unexpected docOrWidget: " << docOrWidget.qobject();
+        ret = nullptr;
+        Q_UNREACHABLE();
     }
-    auto *view = it->second;
-    // remove it from the stack
-    stack->removeWidget(view);
-    // remove it from our doc->view mapping
-    m_docToView.erase(it);
-    documentDestroyed(doc);
 
     // Did we just loose our last doc?
     // Send a delayed signal. Delay is important as we want to kill
@@ -649,16 +662,21 @@ KTextEditor::View *KateViewSpace::takeView(KTextEditor::Document *doc)
             Qt::QueuedConnection);
     }
 
-    return view;
+    return ret;
 }
 
-void KateViewSpace::addView(KTextEditor::View *v)
+void KateViewSpace::addView(QWidget *w)
 {
-    registerDocument(v->document());
-    m_docToView[v->document()] = v;
     // We must not already have this widget
-    Q_ASSERT(stack->indexOf(v) == -1);
-    stack->addWidget(v);
+    Q_ASSERT(stack->indexOf(w) == -1);
+
+    if (auto v = qobject_cast<KTextEditor::View *>(w)) {
+        registerDocument(v->document());
+        m_docToView[v->document()] = v;
+        stack->addWidget(v);
+    } else {
+        addWidgetAsTab(w);
+    }
 }
 
 void KateViewSpace::documentDestroyed(QObject *doc)

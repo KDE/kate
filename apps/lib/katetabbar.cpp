@@ -224,8 +224,7 @@ void KateTabBar::mouseMoveEvent(QMouseEvent *event)
     QRect rect = tabRect(tab);
     const auto tabData = this->tabData(tab).value<DocOrWidget>();
     auto *tabObject = tabData.qobject();
-    // We don't support moving widgets atm
-    if (!tabData.doc()) {
+    if (!tabObject) {
         return;
     }
 
@@ -253,20 +252,20 @@ void KateTabBar::mouseMoveEvent(QMouseEvent *event)
     paint.drawControl(QStyle::CE_TabBarTab, opt);
     paint.end();
 
+    QByteArray data;
     auto view = viewSpace->currentView();
-    if (!view) {
+    if (view) {
+        KTextEditor::Cursor cp = view->cursorPosition();
+        QDataStream ds(&data, QIODevice::WriteOnly);
+        ds << cp.line();
+        ds << cp.column();
+        ds << view->document()->url();
+    } else if (!viewSpace->currentWidget()) {
+        qWarning() << "No view or widget, why?";
         return;
     }
 
-    QByteArray data;
-    KTextEditor::Cursor cp = view->cursorPosition();
-    QDataStream ds(&data, QIODevice::WriteOnly);
-    ds << cp.line();
-    ds << cp.column();
-    ds << view->document()->url();
-
-    auto doc = tabDocument(tab).doc(); // We know for sure there is a doc because of above check
-    auto mime = new TabMimeData(viewSpace, doc);
+    auto mime = new TabMimeData(viewSpace, tabData);
     mime->setData(QStringLiteral("application/kate.tab.mimedata"), data);
 
     QDrag *drag = new QDrag(this);
@@ -290,7 +289,7 @@ void KateTabBar::mouseMoveEvent(QMouseEvent *event)
         for (; tabIdx < count(); ++tabIdx) {
             auto d = this->tabData(tabIdx);
             // We only expect doc, no dnd support for widgets
-            if (d.value<DocOrWidget>().doc() == tabObject) {
+            if (d.value<DocOrWidget>().qobject() == tabObject) {
                 found = true;
                 break;
             }

@@ -1003,7 +1003,7 @@ void KateViewManager::closeView(KTextEditor::View *view)
     }
 }
 
-void KateViewManager::moveViewToViewSpace(KateViewSpace *dest, KateViewSpace *src, KTextEditor::Document *doc)
+void KateViewManager::moveViewToViewSpace(KateViewSpace *dest, KateViewSpace *src, DocOrWidget docOrWidget)
 {
     // We always have an active view at this point which is what we are moving
     Q_ASSERT(activeView());
@@ -1014,15 +1014,20 @@ void KateViewManager::moveViewToViewSpace(KateViewSpace *dest, KateViewSpace *sr
         return;
     }
 
-    auto view = src->takeView(doc);
+    QWidget *view = src->takeView(docOrWidget);
     if (!view) {
-        qWarning() << Q_FUNC_INFO << "Unexpected null view when trying to drag the view to a different viewspace" << doc;
+        qWarning() << Q_FUNC_INFO << "Unexpected null view when trying to drag the view to a different viewspace" << docOrWidget.qobject();
         return;
     }
 
     dest->addView(view);
     setActiveSpace(dest);
-    activateView(view);
+    auto kteView = qobject_cast<KTextEditor::View *>(view);
+    if (kteView) {
+        activateView(kteView->document());
+    } else {
+        activateView(view);
+    }
 }
 
 void KateViewManager::splitViewSpace(KateViewSpace *vs, // = 0

@@ -28,14 +28,14 @@ public:
         QUrl url;
     };
 
-    TabMimeData(KateViewSpace *vs, KTextEditor::Document *d);
+    TabMimeData(KateViewSpace *vs, DocOrWidget d);
 
     static bool hasValidData(const QMimeData *md);
 
     static std::optional<DroppedData> data(const QMimeData *md);
 
     KateViewSpace *const sourceVS;
-    KTextEditor::Document *const doc;
+    const DocOrWidget doc;
 };
 
 #endif

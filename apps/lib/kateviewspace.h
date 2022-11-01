@@ -107,20 +107,20 @@ public:
     /*
      * Does this viewspace contain @p doc
      */
-    bool hasDocument(KTextEditor::Document *doc) const;
+    bool hasDocument(DocOrWidget doc) const;
 
     /**
      * Removes @p doc from this space and returns the associated
-     * view
+     * view or a widget
      * Used for dnd
      */
-    KTextEditor::View *takeView(KTextEditor::Document *doc);
+    QWidget *takeView(DocOrWidget);
 
     /**
      * Adds @p view to this space
      * Used for dnd to add a view from another viewspace
      */
-    void addView(KTextEditor::View *v);
+    void addView(QWidget *w);
 
     /**
      * Event filter to catch events from view space tool buttons.

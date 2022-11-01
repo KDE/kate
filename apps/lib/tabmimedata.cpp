@@ -8,7 +8,7 @@
 
 #include <QDataStream>
 
-TabMimeData::TabMimeData(KateViewSpace *vs, KTextEditor::Document *d)
+TabMimeData::TabMimeData(KateViewSpace *vs, DocOrWidget d)
     : QMimeData()
     , sourceVS(vs)
     , doc(d)

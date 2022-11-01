@@ -13,5 +13,6 @@ target_sources(
     TargetModel.cpp
     UrlInserter.cpp
     TargetFilterProxyModel.cpp
+    AppOutput.cpp
     plugin.qrc
 )

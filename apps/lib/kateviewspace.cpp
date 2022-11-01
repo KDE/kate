@@ -231,7 +231,7 @@ void KateViewSpace::documentCreatedOrDeleted(KTextEditor::Document *)
     }
 
     // toggle hide/show if state changed
-    if ((KateApp::self()->documentManager()->documentList().size() > 1) != m_tabBar->isVisible()) {
+    if ((documentList().size() > 1) != m_tabBar->isVisible()) {
         tabBarToggled();
     }
 }
@@ -244,7 +244,7 @@ void KateViewSpace::tabBarToggled()
 
     // we might want to auto hide if just one document is open
     if (show && m_autoHideTabBar) {
-        show = KateApp::self()->documentManager()->documentList().size() > 1;
+        show = documentList().size() > 1;
     }
 
     const bool urlBarVisible = m_viewManager->showUrlNavBar();
@@ -813,6 +813,7 @@ void KateViewSpace::addWidgetAsTab(QWidget *widget)
     connect(m_tabBar, &KateTabBar::currentChanged, this, &KateViewSpace::changeView);
     stack->setCurrentWidget(widget);
     m_registeredDocuments.append(widget);
+    documentCreatedOrDeleted(nullptr);
 }
 
 bool KateViewSpace::hasWidgets() const

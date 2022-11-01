@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-28 00:49+0000\n"
+"POT-Creation-Date: 2022-11-01 00:50+0000\n"
 "PO-Revision-Date: 2022-07-13 14:16+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -190,7 +190,7 @@ msgid "&View"
 msgstr "보기(&V)"
 
 #. i18n: ectx: Menu (view-split)
-#: lib/data/kateui.rc:75 lib/kateviewspace.cpp:118
+#: lib/data/kateui.rc:75 lib/kateviewspace.cpp:119
 #, kde-format
 msgid "Split View"
 msgstr "나누어서 보기"
@@ -1369,12 +1369,12 @@ msgstr "세션 저장(&S)"
 msgid "Save Session &As..."
 msgstr "다른 이름으로 세션 저장(&A)..."
 
-#: lib/katemainwindow.cpp:514 lib/kateviewspace.cpp:58
+#: lib/katemainwindow.cpp:514 lib/kateviewspace.cpp:59
 #, kde-format
 msgid "Go to Previous Location"
 msgstr "이전 위치로 이동"
 
-#: lib/katemainwindow.cpp:523 lib/kateviewspace.cpp:71
+#: lib/katemainwindow.cpp:523 lib/kateviewspace.cpp:72
 #, kde-format
 msgid "Go to Next Location"
 msgstr "다음 위치로 이동"
@@ -2042,29 +2042,29 @@ msgstr ""
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:1223
+#: lib/kateviewmanager.cpp:1219
 #, kde-format
 msgid "This view may have unsaved work. Do you really want to close it?"
 msgstr ""
 "이 보기에 저장하지 않은 변경 사항이 있을 수도 있습니다. 닫으시겠습니까?"
 
-#: lib/kateviewspace.cpp:98
+#: lib/kateviewspace.cpp:99
 #, kde-format
 msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr "+%1"
 
-#: lib/kateviewspace.cpp:103 lib/kateviewspace.cpp:208
+#: lib/kateviewspace.cpp:104 lib/kateviewspace.cpp:209
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr "빠른 열기 화면으로 전환하려면 클릭하십시오."
 
-#: lib/kateviewspace.cpp:119
+#: lib/kateviewspace.cpp:120
 #, kde-format
 msgid "Control view space splitting"
 msgstr "제어 화면 공간 나누기"
 
-#: lib/kateviewspace.cpp:209
+#: lib/kateviewspace.cpp:210
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2076,7 +2076,7 @@ msgstr[0] ""
 "문서 %1개가 더 열려 있습니다. 모든 열린 문서를 보려면 여기를 클릭해서 빠른 열"
 "기 화면으로 전환하십시오."
 
-#: lib/kateviewspace.cpp:960
+#: lib/kateviewspace.cpp:959
 #, kde-format
 msgid "Close Tab"
 msgstr "탭 닫기"

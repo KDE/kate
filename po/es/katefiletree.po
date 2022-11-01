@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katefiletree\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-22 00:48+0000\n"
+"POT-Creation-Date: 2022-11-01 00:50+0000\n"
 "PO-Revision-Date: 2022-10-09 12:38+0200\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -229,18 +229,18 @@ msgstr "Ordenar por"
 msgid "&Other..."
 msgstr "&Otro..."
 
-#: katefiletree.cpp:822
+#: katefiletree.cpp:828
 #, kde-format
 msgid "Do you really want to delete file \"%1\" from storage?"
 msgstr ""
 "¿Realmente quiere borrar el archivo «%1» del dispositivo de almacenamiento?"
 
-#: katefiletree.cpp:823
+#: katefiletree.cpp:829
 #, kde-format
 msgid "Delete file?"
 msgstr "¿Borrar archivo?"
 
-#: katefiletree.cpp:840
+#: katefiletree.cpp:846
 #, kde-format
 msgid "File \"%1\" could not be deleted."
 msgstr "No se ha podido abrir el archivo «%1»."

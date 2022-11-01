@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-28 00:49+0000\n"
+"POT-Creation-Date: 2022-11-01 00:50+0000\n"
 "PO-Revision-Date: 2022-10-29 19:11+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -199,7 +199,7 @@ msgid "&View"
 msgstr "من&ظور"
 
 #. i18n: ectx: Menu (view-split)
-#: lib/data/kateui.rc:75 lib/kateviewspace.cpp:118
+#: lib/data/kateui.rc:75 lib/kateviewspace.cpp:119
 #, kde-format
 msgid "Split View"
 msgstr "اقسم المنظور"
@@ -1389,12 +1389,12 @@ msgstr "ا&حفظ الجلسة"
 msgid "Save Session &As..."
 msgstr "احفظ الجلسة &ك‍..."
 
-#: lib/katemainwindow.cpp:514 lib/kateviewspace.cpp:58
+#: lib/katemainwindow.cpp:514 lib/kateviewspace.cpp:59
 #, kde-format
 msgid "Go to Previous Location"
 msgstr "انتقل إلى الموقع السابق"
 
-#: lib/katemainwindow.cpp:523 lib/kateviewspace.cpp:71
+#: lib/katemainwindow.cpp:523 lib/kateviewspace.cpp:72
 #, kde-format
 msgid "Go to Next Location"
 msgstr "انتقل إلى الموقع التالي"
@@ -2048,28 +2048,28 @@ msgstr "فعّل"
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "فشل تفعيل محلقة <b>%1</b>"
 
-#: lib/kateviewmanager.cpp:1223
+#: lib/kateviewmanager.cpp:1219
 #, kde-format
 msgid "This view may have unsaved work. Do you really want to close it?"
 msgstr "هذا العرض قد يحوي على عمل غير محفوظ. هل تريد حقاً أن تغلقه؟"
 
-#: lib/kateviewspace.cpp:98
+#: lib/kateviewspace.cpp:99
 #, kde-format
 msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr "+%1"
 
-#: lib/kateviewspace.cpp:103 lib/kateviewspace.cpp:208
+#: lib/kateviewspace.cpp:104 lib/kateviewspace.cpp:209
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr "انقر هنا للتّبديل إلى منظور الفتح السّريع."
 
-#: lib/kateviewspace.cpp:119
+#: lib/kateviewspace.cpp:120
 #, kde-format
 msgid "Control view space splitting"
 msgstr "تحكّم بتقسيم منطقة المنظور"
 
-#: lib/kateviewspace.cpp:209
+#: lib/kateviewspace.cpp:210
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2094,7 +2094,7 @@ msgstr[5] ""
 "هناك %1 مستند آخر مفتوح حاليًّا. لترى كلّ المستندات المفتوحة، بدّل إلى منظور "
 "الفتح السّريع بالنّقر هنا."
 
-#: lib/kateviewspace.cpp:960
+#: lib/kateviewspace.cpp:959
 #, kde-format
 msgid "Close Tab"
 msgstr "أغلق اللسان"

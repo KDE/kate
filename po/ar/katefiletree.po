@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-22 00:48+0000\n"
+"POT-Creation-Date: 2022-11-01 00:50+0000\n"
 "PO-Revision-Date: 2022-10-09 21:37+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -227,17 +227,17 @@ msgstr "افرز ب‍"
 msgid "&Other..."
 msgstr "أ&خرى..."
 
-#: katefiletree.cpp:822
+#: katefiletree.cpp:828
 #, kde-format
 msgid "Do you really want to delete file \"%1\" from storage?"
 msgstr "أمتأكّد من حذف الملفّ \"%1\" من التّخزين؟"
 
-#: katefiletree.cpp:823
+#: katefiletree.cpp:829
 #, kde-format
 msgid "Delete file?"
 msgstr "أأحذف الملفّ؟"
 
-#: katefiletree.cpp:840
+#: katefiletree.cpp:846
 #, kde-format
 msgid "File \"%1\" could not be deleted."
 msgstr "تعذّر حذف الملفّ \"%1\""

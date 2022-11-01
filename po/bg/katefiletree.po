@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-22 00:48+0000\n"
+"POT-Creation-Date: 2022-11-01 00:50+0000\n"
 "PO-Revision-Date: 2022-10-09 07:25+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
@@ -225,17 +225,17 @@ msgstr "Подреждане по"
 msgid "&Other..."
 msgstr "Други..."
 
-#: katefiletree.cpp:822
+#: katefiletree.cpp:828
 #, kde-format
 msgid "Do you really want to delete file \"%1\" from storage?"
 msgstr "Наистина ли искате да изтриете файл \"%1\" от мястото за съхранение?"
 
-#: katefiletree.cpp:823
+#: katefiletree.cpp:829
 #, kde-format
 msgid "Delete file?"
 msgstr "Да се изтрие ли файлът?"
 
-#: katefiletree.cpp:840
+#: katefiletree.cpp:846
 #, kde-format
 msgid "File \"%1\" could not be deleted."
 msgstr "Файлът \"%1\" не можа да бъде изтрит."

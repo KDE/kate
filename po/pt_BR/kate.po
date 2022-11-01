@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-28 00:49+0000\n"
+"POT-Creation-Date: 2022-11-01 00:50+0000\n"
 "PO-Revision-Date: 2022-07-14 10:01-0300\n"
 "Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
 "Language-Team: Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -203,7 +203,7 @@ msgid "&View"
 msgstr "E&xibir"
 
 #. i18n: ectx: Menu (view-split)
-#: lib/data/kateui.rc:75 lib/kateviewspace.cpp:118
+#: lib/data/kateui.rc:75 lib/kateviewspace.cpp:119
 #, kde-format
 msgid "Split View"
 msgstr "Dividir a exibição"
@@ -1400,12 +1400,12 @@ msgstr "&Salvar sessão"
 msgid "Save Session &As..."
 msgstr "Salvar sessão &como..."
 
-#: lib/katemainwindow.cpp:514 lib/kateviewspace.cpp:58
+#: lib/katemainwindow.cpp:514 lib/kateviewspace.cpp:59
 #, kde-format
 msgid "Go to Previous Location"
 msgstr "Ir para a localização anterior"
 
-#: lib/katemainwindow.cpp:523 lib/kateviewspace.cpp:71
+#: lib/katemainwindow.cpp:523 lib/kateviewspace.cpp:72
 #, kde-format
 msgid "Go to Next Location"
 msgstr "Ir para a próxima localização"
@@ -2097,28 +2097,28 @@ msgstr ""
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:1223
+#: lib/kateviewmanager.cpp:1219
 #, kde-format
 msgid "This view may have unsaved work. Do you really want to close it?"
 msgstr "Esta exibição pode ter trabalho não salvo. Deseja realmente fechá-la?"
 
-#: lib/kateviewspace.cpp:98
+#: lib/kateviewspace.cpp:99
 #, kde-format
 msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr "+%1"
 
-#: lib/kateviewspace.cpp:103 lib/kateviewspace.cpp:208
+#: lib/kateviewspace.cpp:104 lib/kateviewspace.cpp:209
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr "Clique aqui para mudar para o modo de exibição Abertura Rápida."
 
-#: lib/kateviewspace.cpp:119
+#: lib/kateviewspace.cpp:120
 #, kde-format
 msgid "Control view space splitting"
 msgstr "Controlar a divisão da área de exibição"
 
-#: lib/kateviewspace.cpp:209
+#: lib/kateviewspace.cpp:210
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2133,7 +2133,7 @@ msgstr[1] ""
 "Existe mais %1 documentos abertos. Para ver todos os documentos abertos, "
 "mude para a área de Abertura Rápida, clicando aqui."
 
-#: lib/kateviewspace.cpp:960
+#: lib/kateviewspace.cpp:959
 #, kde-format
 msgid "Close Tab"
 msgstr "Fechar aba"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katefiletree\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-22 00:48+0000\n"
+"POT-Creation-Date: 2022-11-01 00:50+0000\n"
 "PO-Revision-Date: 2022-08-22 17:02+0200\n"
 "Last-Translator: Matej Mrenica <matejm98mthw@gmail.com>\n"
 "Language-Team: Slovak <kde-i18n-doc@kde.org>\n"
@@ -229,17 +229,17 @@ msgstr "Zoradiť podľa"
 msgid "&Other..."
 msgstr "&Iné..."
 
-#: katefiletree.cpp:822
+#: katefiletree.cpp:828
 #, kde-format
 msgid "Do you really want to delete file \"%1\" from storage?"
 msgstr "Naozaj chcete vymazať súbor \"%1\" z úložiska?"
 
-#: katefiletree.cpp:823
+#: katefiletree.cpp:829
 #, kde-format
 msgid "Delete file?"
 msgstr "Vymazať súbor?"
 
-#: katefiletree.cpp:840
+#: katefiletree.cpp:846
 #, kde-format
 msgid "File \"%1\" could not be deleted."
 msgstr "Súbor \"%1\" nie je možné vymazať."

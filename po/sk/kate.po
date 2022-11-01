@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-28 00:49+0000\n"
+"POT-Creation-Date: 2022-11-01 00:50+0000\n"
 "PO-Revision-Date: 2022-08-22 17:04+0200\n"
 "Last-Translator: Matej Mrenica <matejm98mthw@gmail.com>\n"
 "Language-Team: Slovak <kde-i18n-doc@kde.org>\n"
@@ -195,7 +195,7 @@ msgid "&View"
 msgstr "P&ohľad"
 
 #. i18n: ectx: Menu (view-split)
-#: lib/data/kateui.rc:75 lib/kateviewspace.cpp:118
+#: lib/data/kateui.rc:75 lib/kateviewspace.cpp:119
 #, kde-format
 msgid "Split View"
 msgstr "&Rozdeliť pohľad"
@@ -1397,12 +1397,12 @@ msgstr "Uložiť sedenie"
 msgid "Save Session &As..."
 msgstr "Uložiť sedene ako..."
 
-#: lib/katemainwindow.cpp:514 lib/kateviewspace.cpp:58
+#: lib/katemainwindow.cpp:514 lib/kateviewspace.cpp:59
 #, kde-format
 msgid "Go to Previous Location"
 msgstr "Prejsť na predchádzajúce miesto"
 
-#: lib/katemainwindow.cpp:523 lib/kateviewspace.cpp:71
+#: lib/katemainwindow.cpp:523 lib/kateviewspace.cpp:72
 #, kde-format
 msgid "Go to Next Location"
 msgstr ""
@@ -2078,29 +2078,29 @@ msgstr ""
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:1223
+#: lib/kateviewmanager.cpp:1219
 #, kde-format
 msgid "This view may have unsaved work. Do you really want to close it?"
 msgstr ""
 "Toto zobrazenie môže obsahovať neuloženú prácu. Naozaj ho chcete zatvoriť?"
 
-#: lib/kateviewspace.cpp:98
+#: lib/kateviewspace.cpp:99
 #, kde-format
 msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr "+%1"
 
-#: lib/kateviewspace.cpp:103 lib/kateviewspace.cpp:208
+#: lib/kateviewspace.cpp:104 lib/kateviewspace.cpp:209
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr "Kliknite sem na prepnutie pohľadu Rýchleho otvorenia."
 
-#: lib/kateviewspace.cpp:119
+#: lib/kateviewspace.cpp:120
 #, kde-format
 msgid "Control view space splitting"
 msgstr "Rozdeľovanie miesta pohľadu ovládania"
 
-#: lib/kateviewspace.cpp:209
+#: lib/kateviewspace.cpp:210
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2118,7 +2118,7 @@ msgstr[2] ""
 "Aktuálne je otvorených ešte %1 dokumentov. Na zobrazenie všetkých otvorených "
 "dokumentov prepnite na pohľad Rýchle otvorenie kliknutím sem."
 
-#: lib/kateviewspace.cpp:960
+#: lib/kateviewspace.cpp:959
 #, kde-format
 msgid "Close Tab"
 msgstr "Zatvoriť kartu"

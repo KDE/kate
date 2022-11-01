@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-31 00:49+0000\n"
-"PO-Revision-Date: 2022-10-29 19:15+0200\n"
+"PO-Revision-Date: 2022-10-31 20:58+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -383,11 +383,10 @@ msgid "Run Command"
 msgstr "Ejecutar orden"
 
 #: targets.cpp:23
-#, fuzzy, kde-format
-#| msgid "Filter targets, use arrow keys to select, press Enter to execute"
+#, kde-format
 msgid "Filter targets, use arrow keys to select, Enter to execute"
 msgstr ""
-"Filtre objetivos, use las flechas para seleccionar, pulse Intro para ejecutar"
+"Filtre objetivos, use las flechas para seleccionar, Intro para ejecutar"
 
 #: targets.cpp:27
 #, kde-format

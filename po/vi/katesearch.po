@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-20 00:55+0000\n"
-"PO-Revision-Date: 2022-09-02 17:54+0200\n"
+"PO-Revision-Date: 2022-10-31 15:14+0100\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
 "Language: vi\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 22.04.1\n"
+"X-Generator: Lokalize 22.08.1\n"
 
 #: KateSearchCommand.cpp:80
 #, kde-format
@@ -584,10 +584,9 @@ msgid "Continuing from last match"
 msgstr "Tiếp tục từ phần khớp cuối cùng"
 
 #: SearchPlugin.cpp:2028
-#, fuzzy, kde-format
-#| msgid "Search"
+#, kde-format
 msgid "Search: %1"
-msgstr "Tìm kiếm"
+msgstr "Tìm kiếm: %1"
 
 #: SearchPlugin.cpp:2159
 #, kde-format
@@ -607,7 +606,7 @@ msgstr "Xuất khẩu các đoạn khớp"
 #: SearchPlugin.cpp:2173
 #, kde-format
 msgid "Open as Editor Tab"
-msgstr ""
+msgstr "Mở thành thẻ trong trình biên tập"
 
 #: SearchPlugin.cpp:2180
 #, kde-format

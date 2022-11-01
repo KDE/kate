@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-31 00:49+0000\n"
-"PO-Revision-Date: 2022-10-29 13:59+0200\n"
+"PO-Revision-Date: 2022-10-31 05:23+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -380,11 +380,9 @@ msgid "Run Command"
 msgstr "Ibili komandoa"
 
 #: targets.cpp:23
-#, fuzzy, kde-format
-#| msgid "Filter targets, use arrow keys to select, press Enter to execute"
+#, kde-format
 msgid "Filter targets, use arrow keys to select, Enter to execute"
-msgstr ""
-"Iragazi jomugak, erabili gezi-teklak hautatzeko, sakatu Sartu exekutatzeko"
+msgstr "Jomugak iragazi, gezi-teklak hautatzeko erabili, Sartu exekutatzeko"
 
 #: targets.cpp:27
 #, kde-format

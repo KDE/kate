@@ -37,6 +37,7 @@ private Q_SLOTS:
     void testActivateNotAddedWidget();
     void testBug460613();
     void testWindowsClosesDocuments();
+    void testTabBarHidesShows();
 
 private:
     class QTemporaryDir *m_tempdir;

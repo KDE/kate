@@ -171,8 +171,9 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent, cons
     connect(KateApp::self(), &KateApp::configurationChanged, this, &KateViewSpace::readConfig);
 
     // ensure we show/hide tabbar if needed
-    connect(KateApp::self()->documentManager(), &KateDocManager::documentCreated, this, &KateViewSpace::documentCreatedOrDeleted);
-    connect(KateApp::self()->documentManager(), &KateDocManager::documentDeleted, this, &KateViewSpace::documentCreatedOrDeleted);
+    // Queued so tabbar etc handle it first
+    connect(KateApp::self()->documentManager(), &KateDocManager::documentCreated, this, &KateViewSpace::documentCreatedOrDeleted, Qt::QueuedConnection);
+    connect(KateApp::self()->documentManager(), &KateDocManager::documentDeleted, this, &KateViewSpace::documentCreatedOrDeleted, Qt::QueuedConnection);
 }
 
 KateViewSpace::~KateViewSpace() = default;
@@ -662,6 +663,8 @@ QWidget *KateViewSpace::takeView(DocOrWidget docOrWidget)
             Qt::QueuedConnection);
     }
 
+    documentCreatedOrDeleted(nullptr);
+
     return ret;
 }
 
@@ -766,6 +769,7 @@ void KateViewSpace::closeTabRequest(int idx)
             if (m_registeredDocuments.isEmpty() && m_tabBar->count() == 0) {
                 Q_EMIT viewSpaceEmptied(this);
             }
+            documentCreatedOrDeleted(nullptr);
         }
         return;
     }

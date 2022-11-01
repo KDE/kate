@@ -396,3 +396,39 @@ void KateViewManagementTests::testWindowsClosesDocuments()
     delete second;
     QCOMPARE(app->documentManager()->documentList().size(), 1);
 }
+
+void KateViewManagementTests::testTabBarHidesShows()
+{
+    app->sessionManager()->sessionNew();
+    KateMainWindow *mw = app->activeKateMainWindow();
+    auto vm = mw->viewManager();
+    auto vs = vm->activeViewSpace();
+    vs->m_autoHideTabBar = true;
+    vs->tabBarToggled();
+
+    QVERIFY(!vs->m_tabBar->isVisible());
+
+    app->activeKateMainWindow()->viewManager()->slotDocumentNew();
+    QCOMPARE(vm->views().size(), 1);
+    QVERIFY(vs->m_tabBar->isHidden());
+
+    app->activeKateMainWindow()->viewManager()->slotDocumentNew();
+    QCOMPARE(vm->views().size(), 2);
+    qApp->processEvents();
+    QVERIFY(vs->m_tabBar->isVisible());
+
+    vm->slotDocumentClose();
+    QCOMPARE(vm->views().size(), 1);
+    qApp->processEvents();
+    QVERIFY(!vs->m_tabBar->isVisible());
+
+    Utils::addWidget(new QWidget, app->activeMainWindow());
+    qApp->processEvents();
+    QVERIFY(vs->m_tabBar->isVisible());
+
+    vm->slotDocumentClose();
+    qApp->processEvents();
+    QVERIFY(!vs->m_tabBar->isVisible());
+
+    // m_autoHideTabBar
+}

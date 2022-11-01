@@ -63,7 +63,7 @@ public:
     int documentIdx(DocOrWidget);
     void setTabDocument(int idx, DocOrWidget doc);
     DocOrWidget tabDocument(int idx);
-    void removeDocument(KTextEditor::Document *doc);
+    void removeDocument(DocOrWidget doc);
     void setModifiedStateIcon(int idx, KTextEditor::Document *doc);
 
     /**

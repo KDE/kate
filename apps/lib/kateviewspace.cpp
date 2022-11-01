@@ -727,7 +727,7 @@ void KateViewSpace::closeTabRequest(int idx)
             m_registeredDocuments.removeOne(widget);
 
             m_tabBar->blockSignals(true);
-            m_tabBar->removeTab(idx);
+            m_tabBar->removeDocument(docOrWidget);
             m_tabBar->blockSignals(false);
 
             widget->deleteLater();

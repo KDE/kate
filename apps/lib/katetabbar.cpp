@@ -387,7 +387,7 @@ void KateTabBar::setCurrentDocument(DocOrWidget docOrWidget)
     setCurrentIndex(indexToReplace);
 }
 
-void KateTabBar::removeDocument(KTextEditor::Document *doc)
+void KateTabBar::removeDocument(DocOrWidget doc)
 {
     // purge LRU storage, must work
     auto erased = (m_docToLruCounterAndHasTab.erase(doc) == 1);
@@ -404,7 +404,7 @@ void KateTabBar::removeDocument(KTextEditor::Document *doc)
     // if we have some tab limit, replace the removed tab with the next best document that has none!
     if (m_tabCountLimit > 0) {
         quint64 maxCounter = 0;
-        DocOrWidget docToReplace = static_cast<QWidget *>(nullptr);
+        DocOrWidget docToReplace = DocOrWidget::null();
         for (const auto &lru : m_docToLruCounterAndHasTab) {
             // ignore stuff with tabs
             if (lru.second.second) {
@@ -419,7 +419,7 @@ void KateTabBar::removeDocument(KTextEditor::Document *doc)
         }
 
         // any document found? replace the tab we want to close and be done
-        if (docToReplace.qobject()) {
+        if (!docToReplace.isNull()) {
             // mark the replace doc as "has a tab"
             m_docToLruCounterAndHasTab[docToReplace].second = true;
 
@@ -439,14 +439,10 @@ void KateTabBar::removeDocument(KTextEditor::Document *doc)
 int KateTabBar::documentIdx(DocOrWidget doc)
 {
     for (int idx = 0; idx < count(); idx++) {
-        QVariant data = tabData(idx);
-        if (!data.isValid()) {
-            continue;
+        const QVariant data = tabData(idx);
+        if (data.value<DocOrWidget>().qobject() == doc.qobject()) {
+            return idx;
         }
-        if (data.value<DocOrWidget>().qobject() != doc.qobject()) {
-            continue;
-        }
-        return idx;
     }
     return -1;
 }

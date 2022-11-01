@@ -296,8 +296,14 @@ const QString TargetModel::cmdName(const QModelIndex &itemIndex)
 
 const QString TargetModel::workDir(const QModelIndex &itemIndex)
 {
+    QStringList paths = searchPaths(itemIndex);
+    return paths.isEmpty() ? QString() : paths.first();
+}
+
+const QStringList TargetModel::searchPaths(const QModelIndex &itemIndex)
+{
     if (!itemIndex.isValid()) {
-        return QString();
+        return QStringList();
     }
 
     QModelIndex workDirIndex = itemIndex.sibling(itemIndex.row(), 1);
@@ -305,7 +311,7 @@ const QString TargetModel::workDir(const QModelIndex &itemIndex)
     if (itemIndex.parent().isValid()) {
         workDirIndex = itemIndex.parent().siblingAtColumn(1);
     }
-    return workDirIndex.data().toString();
+    return workDirIndex.data().toString().split(QLatin1Char(';'));
 }
 
 const QString TargetModel::targetName(const QModelIndex &itemIndex)

@@ -68,6 +68,7 @@ public Q_SLOTS:
     static const QString command(const QModelIndex &itemIndex);
     static const QString cmdName(const QModelIndex &itemIndex);
     static const QString workDir(const QModelIndex &itemIndex);
+    static const QStringList searchPaths(const QModelIndex &itemIndex);
     static const QString targetName(const QModelIndex &itemIndex);
 
 Q_SIGNALS:

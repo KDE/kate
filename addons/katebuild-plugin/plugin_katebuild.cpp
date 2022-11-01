@@ -24,6 +24,8 @@
 
 #include "plugin_katebuild.h"
 
+#include "AppOutput.h"
+
 #include "hostprocess.h"
 
 #include <cassert>
@@ -58,6 +60,9 @@
 
 #include <kterminallauncherjob.h>
 #include <ktexteditor_utils.h>
+
+#include <kde_terminal_interface.h>
+#include <kparts/part.h>
 
 K_PLUGIN_FACTORY_WITH_JSON(KateBuildPluginFactory, "katebuildplugin.json", registerPlugin<KateBuildPlugin>();)
 
@@ -181,6 +186,13 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     m_targetsUi = new TargetsUi(this, m_buildUi.u_tabWidget);
     m_buildUi.u_tabWidget->insertTab(0, m_targetsUi, i18nc("Tab label", "Target Settings"));
     m_buildUi.u_tabWidget->setCurrentWidget(m_targetsUi);
+    m_buildUi.u_tabWidget->setTabsClosable(true);
+    m_buildUi.u_tabWidget->tabBar()->tabButton(0, QTabBar::RightSide)->hide();
+    m_buildUi.u_tabWidget->tabBar()->tabButton(1, QTabBar::RightSide)->hide();
+    connect(m_buildUi.u_tabWidget, &QTabWidget::tabCloseRequested, this, [this](int index) {
+        // FIXME check if the process is still running
+        m_buildUi.u_tabWidget->widget(index)->deleteLater();
+    });
 
     m_buildWidget->installEventFilter(this);
 
@@ -299,8 +311,6 @@ void KateBuildView::readSessionConfig(const KConfigGroup &cg)
     addProjectTarget();
 
     m_targetsUi->targetsView->expandAll();
-    m_targetsUi->targetsView->resizeColumnToContents(0);
-    m_targetsUi->targetsView->resizeColumnToContents(1);
 
     // pre-select the last active target or the first target of the first set
     int prevTargetSetRow = cg.readEntry(QStringLiteral("Active Target Index"), 0);
@@ -923,11 +933,6 @@ void KateBuildView::slotSelectTarget()
 /******************************************************************/
 bool KateBuildView::buildCurrentTarget()
 {
-    if (m_proc.state() != QProcess::NotRunning) {
-        displayBuildResult(i18n("Already building..."), KTextEditor::Message::Warning);
-        return false;
-    }
-
     const QFileInfo docFInfo(docUrl().toLocalFile()); // docUrl() saves the current document
 
     QModelIndex ind = m_targetsUi->targetsView->currentIndex();
@@ -939,8 +944,8 @@ bool KateBuildView::buildCurrentTarget()
 
     QString buildCmd = TargetModel::command(ind);
     QString cmdName = TargetModel::cmdName(ind);
-    m_searchPaths = TargetModel::workDir(ind).split(QLatin1Char(';'));
-    QString workDir = m_searchPaths.isEmpty() ? QString() : m_searchPaths.first();
+    m_searchPaths = TargetModel::searchPaths(ind);
+    QString workDir = TargetModel::workDir(ind);
     QString targetSet = TargetModel::targetName(ind);
 
     QString dir = workDir;
@@ -952,6 +957,15 @@ bool KateBuildView::buildCurrentTarget()
         }
     }
 
+    if (m_proc.state() != QProcess::NotRunning) {
+        displayBuildResult(i18n("Already building..."), KTextEditor::Message::Warning);
+        return false;
+    }
+
+    if (m_runAfterBuild && buildCmd.isEmpty()) {
+        slotRunAfterBuild();
+        return true;
+    }
     // a single target can serve to build lots of projects with similar directory layout
     if (m_projectPluginView) {
         const QFileInfo baseDir(m_projectPluginView->property("projectBaseDir").toString());
@@ -1076,9 +1090,10 @@ void KateBuildView::slotRunAfterBuild()
         return;
     }
     QModelIndex idx = m_previousIndex;
-    idx = idx.siblingAtColumn(2);
-    const QString runCmd = idx.data().toString();
+    QModelIndex runIdx = idx.siblingAtColumn(2);
+    const QString runCmd = runIdx.data().toString();
     if (runCmd.isEmpty()) {
+        // Nothing to run, and not a problem
         return;
     }
     const QString workDir = TargetModel::workDir(idx);
@@ -1086,15 +1101,51 @@ void KateBuildView::slotRunAfterBuild()
         displayBuildResult(i18n("Cannot execute: %1 No working directory set.", runCmd), KTextEditor::Message::Warning);
         return;
     }
-    QObject *projectPluginView = m_win->pluginView(QStringLiteral("kateprojectplugin"));
-    if (projectPluginView) {
-        QMetaObject::invokeMethod(projectPluginView, "runCmdInTerminal", Q_ARG(QString, workDir), Q_ARG(QString, runCmd));
-    } else {
-        auto *job = new KTerminalLauncherJob(runCmd, this);
-        connect(job, &KJob::finished, job, &QObject::deleteLater);
-        job->setWorkingDirectory(workDir);
-        job->start();
+    QModelIndex nameIdx = idx.siblingAtColumn(0);
+    QString name = nameIdx.data().toString();
+
+    AppOutput *out = nullptr;
+    for (int i = 2; i < m_buildUi.u_tabWidget->count(); ++i) {
+        QString tabToolTip = m_buildUi.u_tabWidget->tabToolTip(i);
+        if (runCmd == tabToolTip) {
+            out = qobject_cast<AppOutput *>(m_buildUi.u_tabWidget->widget(i));
+            if (!out || !out->runningProcess().isEmpty()) {
+                out = nullptr;
+                continue;
+            }
+            // We have a winner, re-use this tab
+            m_buildUi.u_tabWidget->setCurrentIndex(i);
+            break;
+        }
     }
+    if (!out) {
+        // This is means we create a new tab
+        out = new AppOutput();
+        int tabIndex = m_buildUi.u_tabWidget->addTab(out, name);
+        m_buildUi.u_tabWidget->setCurrentIndex(tabIndex);
+        m_buildUi.u_tabWidget->setTabToolTip(tabIndex, runCmd);
+        m_buildUi.u_tabWidget->setTabIcon(tabIndex, QIcon::fromTheme(QStringLiteral("media-playback-start")));
+
+        connect(out, &AppOutput::runningChanhged, this, [this]() {
+            // Update the tab icon when the run state changes
+            for (int i = 2; i < m_buildUi.u_tabWidget->count(); ++i) {
+                AppOutput *tabOut = qobject_cast<AppOutput *>(m_buildUi.u_tabWidget->widget(i));
+                if (!tabOut) {
+                    continue;
+                }
+                if (!tabOut->runningProcess().isEmpty()) {
+                    m_buildUi.u_tabWidget->setTabIcon(i, QIcon::fromTheme(QStringLiteral("media-playback-start")));
+                } else {
+                    m_buildUi.u_tabWidget->setTabIcon(i, QIcon::fromTheme(QStringLiteral("media-playback-pause")));
+                }
+            }
+        });
+    }
+
+    out->setWorkingDir(workDir);
+    out->runCommand(runCmd);
+
+    m_win->activeView()->setFocus();
 }
 
 static void appendPlainTextTo(QPlainTextEdit *edit, const QString &text)

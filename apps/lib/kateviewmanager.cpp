@@ -282,7 +282,7 @@ void KateViewManager::updateViewSpaceActions()
     goPrev->setEnabled(multipleViewSpaces);
 
     // only allow to split if we have a view that we could show in the new view space
-    const bool allowSplit = activeViewSpace() && activeViewSpace()->currentView();
+    const bool allowSplit = activeViewSpace();
     m_splitViewVert->setEnabled(allowSplit);
     m_splitViewHoriz->setEnabled(allowSplit);
 
@@ -827,6 +827,7 @@ void KateViewManager::activateView(KTextEditor::View *view)
             m_guiMergedView = nullptr;
         }
         Q_EMIT viewChanged(nullptr);
+        updateViewSpaceActions();
         return;
     }
 
@@ -1096,8 +1097,7 @@ void KateViewManager::splitViewSpace(KateViewSpace *vs, // = 0
 
     // if we have no current view, splitting makes ATM no sense, as we have
     // nothing to put into the new viewspace
-    auto v = vs->currentView();
-    if (!v) {
+    if (!vs->currentView() && !vs->currentWidget()) {
         return;
     }
 
@@ -1155,10 +1155,15 @@ void KateViewManager::splitViewSpace(KateViewSpace *vs, // = 0
     vsNew->setActive(true);
     vsNew->show();
 
-    createView(v->document());
-
     if (moveDocument) {
-        vs->closeDocument(v->document());
+        if (vs->currentWidget()) {
+            moveViewToViewSpace(vsNew, vs, vs->currentWidget());
+        } else {
+            moveViewToViewSpace(vsNew, vs, vs->currentView()->document());
+        }
+    } else {
+        auto v = vs->currentView();
+        createView(v ? v->document() : nullptr);
     }
 
     updateViewSpaceActions();

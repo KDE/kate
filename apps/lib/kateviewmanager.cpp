@@ -343,6 +343,9 @@ void KateViewManager::slotDocumentOpen()
     KateDocumentInfo docInfo;
     docInfo.openedByUser = true;
     if (KTextEditor::Document *lastID = openUrls(urls, QString(), docInfo)) {
+        for (const QUrl &url : qAsConst(urls)) {
+            m_mainWindow->addRecentOpenedFile(url);
+        }
         activateView(lastID);
     }
 }

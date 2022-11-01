@@ -189,7 +189,7 @@ void KateViewManagementTests::testTwoMainWindowsCloseInitialDocument1()
     QVERIFY(first);
 
     // create a second one
-    KateMainWindow *second = app->newMainWindow();
+    std::unique_ptr<KateMainWindow> second(app->newMainWindow());
     QVERIFY(second);
 
     // close the initial document
@@ -209,7 +209,7 @@ void KateViewManagementTests::testTwoMainWindowsCloseInitialDocument2()
     QVERIFY(first);
 
     // create a second one
-    KateMainWindow *second = app->newMainWindow();
+    std::unique_ptr<KateMainWindow> second(app->newMainWindow());
     QVERIFY(second);
 
     // close the initial document tab in second window
@@ -229,7 +229,7 @@ void KateViewManagementTests::testTwoMainWindowsCloseInitialDocument3()
     QVERIFY(first);
 
     // create a second one
-    KateMainWindow *second = app->newMainWindow();
+    std::unique_ptr<KateMainWindow> second(app->newMainWindow());
     QVERIFY(second);
 
     // close the initial document tab in second window
@@ -402,33 +402,55 @@ void KateViewManagementTests::testTabBarHidesShows()
     app->sessionManager()->sessionNew();
     KateMainWindow *mw = app->activeKateMainWindow();
     auto vm = mw->viewManager();
+    vm->slotCloseOtherViews();
     auto vs = vm->activeViewSpace();
+    // close everything
+    for (int i = 0; i < vs->numberOfRegisteredDocuments(); ++i) {
+        vm->slotDocumentClose();
+    }
+    QTabBar *tabs = vs->m_tabBar;
     vs->m_autoHideTabBar = true;
     vs->tabBarToggled();
 
-    QVERIFY(!vs->m_tabBar->isVisible());
+    vm->slotDocumentClose();
 
     app->activeKateMainWindow()->viewManager()->slotDocumentNew();
-    QCOMPARE(vm->views().size(), 1);
-    QVERIFY(vs->m_tabBar->isHidden());
+    QCOMPARE(tabs->count(), 1);
+    QVERIFY(tabs->isHidden()); // only 1 => hide
 
     app->activeKateMainWindow()->viewManager()->slotDocumentNew();
-    QCOMPARE(vm->views().size(), 2);
-    qApp->processEvents();
-    QVERIFY(vs->m_tabBar->isVisible());
+    QCOMPARE(tabs->count(), 2);
+    QVERIFY(!tabs->isHidden()); // 2 => show
 
     vm->slotDocumentClose();
-    QCOMPARE(vm->views().size(), 1);
-    qApp->processEvents();
-    QVERIFY(!vs->m_tabBar->isVisible());
+    QCOMPARE(tabs->count(), 1);
+    QVERIFY(!vs->m_tabBar->isVisible()); // 1 -> hide
 
     Utils::addWidget(new QWidget, app->activeMainWindow());
-    qApp->processEvents();
-    QVERIFY(vs->m_tabBar->isVisible());
+    QVERIFY(vs->m_tabBar->isVisible()); // 1 + widget => show
 
     vm->slotDocumentClose();
-    qApp->processEvents();
-    QVERIFY(!vs->m_tabBar->isVisible());
+    QVERIFY(!vs->m_tabBar->isVisible()); // 1 -> hide
 
-    // m_autoHideTabBar
+    vm->splitViewSpace();
+    auto *secondVS = vm->activeViewSpace();
+    QVERIFY(secondVS != vs);
+
+    // if one viewspace has more than 1 tab and its
+    // tabbar is visible, all other viewspaces shall
+    // also have visible tabbars
+
+    // make first vs active and create a doc in it
+    // Expect: both viewspaces have tabbar visible
+    vm->setActiveSpace(vs);
+    vm->slotDocumentNew();
+    QCOMPARE(vs->m_tabBar->count(), 2);
+    QVERIFY(!vs->m_tabBar->isHidden());
+    QCOMPARE(secondVS->m_tabBar->count(), 1);
+    QVERIFY(!secondVS->m_tabBar->isHidden());
+
+    // Expect both have tabbar hidden
+    vm->slotDocumentClose();
+    QVERIFY(vs->m_tabBar->isHidden());
+    QVERIFY(secondVS->m_tabBar->isHidden());
 }

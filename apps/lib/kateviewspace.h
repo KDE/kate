@@ -85,6 +85,11 @@ public:
         return m_tabBar->documentList();
     }
 
+    int tabCount() const
+    {
+        return m_tabBar->count();
+    }
+
     /**
      * How many documents are registered here?
      */
@@ -255,7 +260,7 @@ private Q_SLOTS:
     /**
      * Document created or deleted, used to auto hide/show the tabs
      */
-    void documentCreatedOrDeleted(KTextEditor::Document *);
+    void updateTabBar();
 
 private:
     bool acceptsDroppedTab(const class QMimeData *tabMimeData);

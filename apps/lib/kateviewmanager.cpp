@@ -1171,6 +1171,13 @@ int KateViewManager::viewspaceCountForDoc(KTextEditor::Document *doc) const
     });
 }
 
+bool KateViewManager::tabsVisible() const
+{
+    return std::count_if(m_viewSpaceList.begin(), m_viewSpaceList.end(), [](KateViewSpace *vs) {
+        return vs->tabCount() > 1;
+    });
+}
+
 bool KateViewManager::docOnlyInOneViewspace(KTextEditor::Document *doc) const
 {
     return (viewspaceCountForDoc(doc) == 1) && !KateApp::self()->documentVisibleInOtherWindows(doc, m_mainWindow);

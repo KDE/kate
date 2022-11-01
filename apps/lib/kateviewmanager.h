@@ -317,6 +317,8 @@ public Q_SLOTS:
     int viewspaceCountForDoc(KTextEditor::Document *doc) const;
     // returns true if @p doc exists only in one viewspace
     bool docOnlyInOneViewspace(KTextEditor::Document *doc) const;
+    // returns true if any viewspace in this viewmanager has its tabbar visible
+    bool tabsVisible() const;
 
     void setShowUrlNavBar(bool show);
     bool showUrlNavBar() const;

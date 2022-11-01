@@ -171,9 +171,10 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent, cons
     connect(KateApp::self(), &KateApp::configurationChanged, this, &KateViewSpace::readConfig);
 
     // ensure we show/hide tabbar if needed
-    // Queued so tabbar etc handle it first
-    connect(KateApp::self()->documentManager(), &KateDocManager::documentCreated, this, &KateViewSpace::documentCreatedOrDeleted, Qt::QueuedConnection);
-    connect(KateApp::self()->documentManager(), &KateDocManager::documentDeleted, this, &KateViewSpace::documentCreatedOrDeleted, Qt::QueuedConnection);
+    connect(m_viewManager, &KateViewManager::viewCreated, this, &KateViewSpace::updateTabBar);
+    connect(KateApp::self()->documentManager(), &KateDocManager::documentsDeleted, this, &KateViewSpace::updateTabBar);
+    connect(m_viewManager->mainWindow(), &KateMainWindow::widgetAdded, this, &KateViewSpace::updateTabBar);
+    connect(m_viewManager->mainWindow(), &KateMainWindow::widgetRemoved, this, &KateViewSpace::updateTabBar);
 }
 
 KateViewSpace::~KateViewSpace() = default;
@@ -225,14 +226,14 @@ bool KateViewSpace::eventFilter(QObject *obj, QEvent *event)
     return false;
 }
 
-void KateViewSpace::documentCreatedOrDeleted(KTextEditor::Document *)
+void KateViewSpace::updateTabBar()
 {
     if (!m_autoHideTabBar || !m_viewManager->mainWindow()->showTabBar()) {
         return;
     }
 
     // toggle hide/show if state changed
-    if ((documentList().size() > 1) != m_tabBar->isVisible()) {
+    if (m_viewManager->tabsVisible() != m_tabBar->isVisible()) {
         tabBarToggled();
     }
 }
@@ -245,7 +246,7 @@ void KateViewSpace::tabBarToggled()
 
     // we might want to auto hide if just one document is open
     if (show && m_autoHideTabBar) {
-        show = documentList().size() > 1;
+        show = tabCount() > 1 || m_viewManager->tabsVisible();
     }
 
     const bool urlBarVisible = m_viewManager->showUrlNavBar();
@@ -663,8 +664,6 @@ QWidget *KateViewSpace::takeView(DocOrWidget docOrWidget)
             Qt::QueuedConnection);
     }
 
-    documentCreatedOrDeleted(nullptr);
-
     return ret;
 }
 
@@ -768,8 +767,6 @@ void KateViewSpace::closeTabRequest(int idx)
             // if this was the last doc, let viewManager know we are empty
             if (m_registeredDocuments.isEmpty() && m_tabBar->count() == 0) {
                 Q_EMIT viewSpaceEmptied(this);
-            } else {
-                documentCreatedOrDeleted(nullptr);
             }
         }
         return;
@@ -818,7 +815,7 @@ void KateViewSpace::addWidgetAsTab(QWidget *widget)
     connect(m_tabBar, &KateTabBar::currentChanged, this, &KateViewSpace::changeView);
     stack->setCurrentWidget(widget);
     m_registeredDocuments.append(widget);
-    documentCreatedOrDeleted(nullptr);
+    updateTabBar();
 }
 
 bool KateViewSpace::hasWidgets() const

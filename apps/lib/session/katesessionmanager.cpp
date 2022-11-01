@@ -643,8 +643,8 @@ void KateSessionManager::updateJumpListActions(const QStringList &sessionList)
         const QString &session = sessionSubList.at(i);
 
         KConfigGroup grp = df->actionGroup(action);
-        grp.writeEntry(QStringLiteral("Name"), session);
-        grp.writeEntry(QStringLiteral("Exec"), QStringLiteral("kate -n -s %1").arg(KShell::quoteArg(session)));
+        grp.writeEntry("Name", session);
+        grp.writeEntry("Exec", QStringLiteral("kate -n -s %1").arg(KShell::quoteArg(session)));
     }
 
     df->desktopGroup().writeXdgListEntry("Actions", newActions);

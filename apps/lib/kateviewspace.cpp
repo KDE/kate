@@ -768,8 +768,9 @@ void KateViewSpace::closeTabRequest(int idx)
             // if this was the last doc, let viewManager know we are empty
             if (m_registeredDocuments.isEmpty() && m_tabBar->count() == 0) {
                 Q_EMIT viewSpaceEmptied(this);
+            } else {
+                documentCreatedOrDeleted(nullptr);
             }
-            documentCreatedOrDeleted(nullptr);
         }
         return;
     }

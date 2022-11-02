@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-01 00:50+0000\n"
+"POT-Creation-Date: 2022-11-02 00:53+0000\n"
 "PO-Revision-Date: 2022-10-28 13:22+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -2074,7 +2074,7 @@ msgstr "Activa"
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "No s'ha pogut activar el connector <b>%1</b>"
 
-#: lib/kateviewmanager.cpp:1219
+#: lib/kateviewmanager.cpp:1231
 #, kde-format
 msgid "This view may have unsaved work. Do you really want to close it?"
 msgstr ""
@@ -2086,7 +2086,7 @@ msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr "+%1"
 
-#: lib/kateviewspace.cpp:104 lib/kateviewspace.cpp:209
+#: lib/kateviewspace.cpp:104 lib/kateviewspace.cpp:211
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr "Cliqueu ací per a canviar a la vista Obertura ràpida."
@@ -2096,7 +2096,7 @@ msgstr "Cliqueu ací per a canviar a la vista Obertura ràpida."
 msgid "Control view space splitting"
 msgstr "Control de la divisió de l'espai de la vista"
 
-#: lib/kateviewspace.cpp:210
+#: lib/kateviewspace.cpp:212
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2111,58 +2111,58 @@ msgstr[1] ""
 "Actualment, hi ha oberts %1 documents. Per a veure tots els documents "
 "oberts, canvieu a la vista Obertura ràpida clicant ací."
 
-#: lib/kateviewspace.cpp:959
+#: lib/kateviewspace.cpp:980
 #, kde-format
 msgid "Close Tab"
 msgstr "Tanca la pestanya"
 
-#: lib/kateviewspace.cpp:977
+#: lib/kateviewspace.cpp:998
 #, kde-format
 msgid "&Close Document"
 msgstr "Tan&ca el document"
 
-#: lib/kateviewspace.cpp:978
+#: lib/kateviewspace.cpp:999
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "Tanca els altres &documents"
 
-#: lib/kateviewspace.cpp:979
+#: lib/kateviewspace.cpp:1000
 #, kde-format
 msgid "Close &All Documents"
 msgstr "T&anca tots els documents"
 
-#: lib/kateviewspace.cpp:981
+#: lib/kateviewspace.cpp:1002
 #, kde-format
 msgid "D&etach Document"
 msgstr "S&epara el document"
 
-#: lib/kateviewspace.cpp:982
+#: lib/kateviewspace.cpp:1003
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "Obri el document en una finestra nova i el tanca a la finestra actual"
 
-#: lib/kateviewspace.cpp:991
+#: lib/kateviewspace.cpp:1012
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Compara amb el document actiu"
 
 # skip-rule: t-sp_pu
-#: lib/kateviewspace.cpp:995
+#: lib/kateviewspace.cpp:1016
 #, kde-format
 msgid "Diff %1 .. %2"
 msgstr "Diff %1 .. %2"
 
-#: lib/kateviewspace.cpp:1000
+#: lib/kateviewspace.cpp:1021
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Compara amb el document actiu emprant"
 
-#: lib/kateviewspace.cpp:1067
+#: lib/kateviewspace.cpp:1088
 #, kde-format
 msgid "Could not start program"
 msgstr "No s'ha pogut iniciar el programa"
 
-#: lib/kateviewspace.cpp:1068
+#: lib/kateviewspace.cpp:1089
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""

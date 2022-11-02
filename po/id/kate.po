@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-01 00:50+0000\n"
+"POT-Creation-Date: 2022-11-02 00:53+0000\n"
 "PO-Revision-Date: 2022-09-27 18:24+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -2099,7 +2099,7 @@ msgstr ""
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:1219
+#: lib/kateviewmanager.cpp:1231
 #, kde-format
 msgid "This view may have unsaved work. Do you really want to close it?"
 msgstr ""
@@ -2110,7 +2110,7 @@ msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr "+%1"
 
-#: lib/kateviewspace.cpp:104 lib/kateviewspace.cpp:209
+#: lib/kateviewspace.cpp:104 lib/kateviewspace.cpp:211
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr "Klik di sini untuk mengubah ke tampilan Buka Cepat."
@@ -2120,7 +2120,7 @@ msgstr "Klik di sini untuk mengubah ke tampilan Buka Cepat."
 msgid "Control view space splitting"
 msgstr "Kendali tampilan pemisahan ruang"
 
-#: lib/kateviewspace.cpp:210
+#: lib/kateviewspace.cpp:212
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2135,62 +2135,62 @@ msgstr[1] ""
 "Saat ini, ada %1 lagi dokumen yang terbuka. Untuk melihat semua dokumen yang "
 "terbuka, ganti ke tampilan Buka Cepat dengan klik di sini."
 
-#: lib/kateviewspace.cpp:959
+#: lib/kateviewspace.cpp:980
 #, fuzzy, kde-format
 #| msgid "Close"
 msgid "Close Tab"
 msgstr "Tutup"
 
-#: lib/kateviewspace.cpp:977
+#: lib/kateviewspace.cpp:998
 #, kde-format
 msgid "&Close Document"
 msgstr "&Tutup Dokumen"
 
-#: lib/kateviewspace.cpp:978
+#: lib/kateviewspace.cpp:999
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "Tutup &Dokumen Lainnya"
 
-#: lib/kateviewspace.cpp:979
+#: lib/kateviewspace.cpp:1000
 #, fuzzy, kde-format
 #| msgid "Close all documents"
 msgid "Close &All Documents"
 msgstr "Tutup semua dokumen"
 
-#: lib/kateviewspace.cpp:981
+#: lib/kateviewspace.cpp:1002
 #, fuzzy, kde-format
 #| msgid "Next Document"
 msgid "D&etach Document"
 msgstr "Dokumen Selanjutnya"
 
-#: lib/kateviewspace.cpp:982
+#: lib/kateviewspace.cpp:1003
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewspace.cpp:991
+#: lib/kateviewspace.cpp:1012
 #, fuzzy, kde-format
 #| msgid "Compare with active document"
 msgid "Compare with Active Document"
 msgstr "Bandingkan dengan dokumen yang aktif"
 
-#: lib/kateviewspace.cpp:995
+#: lib/kateviewspace.cpp:1016
 #, kde-format
 msgid "Diff %1 .. %2"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1000
+#: lib/kateviewspace.cpp:1021
 #, fuzzy, kde-format
 #| msgid "Compare with active document"
 msgid "Compare with Active Document Using"
 msgstr "Bandingkan dengan dokumen yang aktif"
 
-#: lib/kateviewspace.cpp:1067
+#: lib/kateviewspace.cpp:1088
 #, kde-format
 msgid "Could not start program"
 msgstr "Tidak bisa memulai program"
 
-#: lib/kateviewspace.cpp:1068
+#: lib/kateviewspace.cpp:1089
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr "Program yang dipilih tidak bisa dimulai. Mungkin ia belum diinstal."

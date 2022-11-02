@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-01 00:50+0000\n"
+"POT-Creation-Date: 2022-11-02 00:53+0000\n"
 "PO-Revision-Date: 2022-10-12 15:37+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
@@ -2081,7 +2081,7 @@ msgstr "Habilitate"
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:1219
+#: lib/kateviewmanager.cpp:1231
 #, kde-format
 msgid "This view may have unsaved work. Do you really want to close it?"
 msgstr ""
@@ -2094,7 +2094,7 @@ msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr "+%1"
 
-#: lib/kateviewspace.cpp:104 lib/kateviewspace.cpp:209
+#: lib/kateviewspace.cpp:104 lib/kateviewspace.cpp:211
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr "Pulsa hic pro commutar al  vista de aperir rapide."
@@ -2104,7 +2104,7 @@ msgstr "Pulsa hic pro commutar al  vista de aperir rapide."
 msgid "Control view space splitting"
 msgstr "Dividente spatio de vista de controlo"
 
-#: lib/kateviewspace.cpp:210
+#: lib/kateviewspace.cpp:212
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2119,61 +2119,61 @@ msgstr[1] ""
 "Currentemente , il ha %1 altere documentos aperite. Pro vider omne "
 "documentos aperite, commuta al vista de aperir rapide per pulsar hic."
 
-#: lib/kateviewspace.cpp:959
+#: lib/kateviewspace.cpp:980
 #, kde-format
 msgid "Close Tab"
 msgstr "Claude scheda"
 
-#: lib/kateviewspace.cpp:977
+#: lib/kateviewspace.cpp:998
 #, kde-format
 msgid "&Close Document"
 msgstr "&Claude Documento"
 
-#: lib/kateviewspace.cpp:978
+#: lib/kateviewspace.cpp:999
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "Claude altere &documentos"
 
-#: lib/kateviewspace.cpp:979
+#: lib/kateviewspace.cpp:1000
 #, fuzzy, kde-format
 #| msgid "Close all documents"
 msgid "Close &All Documents"
 msgstr "Claude omne documentos "
 
-#: lib/kateviewspace.cpp:981
+#: lib/kateviewspace.cpp:1002
 #, fuzzy, kde-format
 #| msgid "Next Document"
 msgid "D&etach Document"
 msgstr "Proxime documento"
 
-#: lib/kateviewspace.cpp:982
+#: lib/kateviewspace.cpp:1003
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewspace.cpp:991
+#: lib/kateviewspace.cpp:1012
 #, fuzzy, kde-format
 #| msgid "Compare with active document"
 msgid "Compare with Active Document"
 msgstr "Compara con  le documento active."
 
-#: lib/kateviewspace.cpp:995
+#: lib/kateviewspace.cpp:1016
 #, fuzzy, kde-format
 msgid "Diff %1 .. %2"
 msgstr "Diff"
 
-#: lib/kateviewspace.cpp:1000
+#: lib/kateviewspace.cpp:1021
 #, fuzzy, kde-format
 #| msgid "Compare with active document"
 msgid "Compare with Active Document Using"
 msgstr "Compara con  le documento active."
 
-#: lib/kateviewspace.cpp:1067
+#: lib/kateviewspace.cpp:1088
 #, kde-format
 msgid "Could not start program"
 msgstr "Non pote startar programma"
 
-#: lib/kateviewspace.cpp:1068
+#: lib/kateviewspace.cpp:1089
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""

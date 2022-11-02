@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-27 00:48+0000\n"
-"PO-Revision-Date: 2022-10-28 18:59+0700\n"
+"PO-Revision-Date: 2022-11-02 00:11+0700\n"
 "Last-Translator: OIS <mistresssilvara@hotmail.com>\n"
 "Language-Team: Interlingue <kde-i18n-doc@kde.org>\n"
 "Language: ie\n"
@@ -41,7 +41,7 @@ msgstr "Crear un nov repositoria de fragmentes"
 #: editrepository.cpp:142
 #, kde-format
 msgid "<i>leave empty for general purpose snippets</i>"
-msgstr ""
+msgstr "<i>lassa vacui por fragmentes de general intention</i>"
 
 #. i18n: ectx: property (text), widget (QLabel, repoNameLabel)
 #. i18n: ectx: property (text), widget (QLabel, snippetName)
@@ -82,9 +82,9 @@ msgstr "Un curt nómine del repositoria"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, repoNamespaceEdit)
 #: editrepository.ui:103
-#, fuzzy, kde-format
+#, kde-format
 msgid "Prefix to show in code completion"
-msgstr "Monstrar _QR-Code"
+msgstr "Un prefix monstrat in li competion de code"
 
 #: editsnippet.cpp:97 editsnippet.cpp:177
 #, kde-format
@@ -117,9 +117,9 @@ msgstr "Avise: íngardat modificationes"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
 #: editsnippet.ui:42
-#, fuzzy, kde-format
+#, kde-format
 msgid "will be shown in the completion list"
-msgstr "I_nformation pri processus monstrat in li liste:"
+msgstr "va esser monstrat in li liste de completion"
 
 #. i18n: ectx: attribute (title), widget (QWidget, snippetTab)
 #: editsnippet.ui:62
@@ -248,7 +248,7 @@ msgstr ""
 #: snippetrepository.cpp:238
 #, kde-format
 msgid "Output file '%1' could not be opened for writing"
-msgstr ""
+msgstr "Li file «%1» ne posset esser apertet por scrition"
 
 #: snippetrepository.cpp:273
 #, kde-format

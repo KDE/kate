@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-02 00:53+0000\n"
+"POT-Creation-Date: 2022-11-03 00:50+0000\n"
 "PO-Revision-Date: 2022-10-28 13:22+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -2036,41 +2036,41 @@ msgstr ""
 msgid "Opening Large File"
 msgstr "Obertura d'un fitxer gran"
 
-#: lib/kateviewmanager.cpp:463
+#: lib/kateviewmanager.cpp:466
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr "%1 no ha pogut obrir les carpetes"
 
-#: lib/kateviewmanager.cpp:482
+#: lib/kateviewmanager.cpp:485
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr "No s'ha trobat el connector requerit per obrir carpetes"
 
-#: lib/kateviewmanager.cpp:488
+#: lib/kateviewmanager.cpp:491
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
 msgstr ""
 "Per tal d'obrir carpetes, cal activar el connector <b>%1</b>. L'activo?"
 
-#: lib/kateviewmanager.cpp:497
+#: lib/kateviewmanager.cpp:500
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "Obertura de carpeta"
 
-#: lib/kateviewmanager.cpp:498
+#: lib/kateviewmanager.cpp:501
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "Activa"
 
-#: lib/kateviewmanager.cpp:509
+#: lib/kateviewmanager.cpp:512
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "Ha fallat en activar el connector <b>%1</b>"
 
-#: lib/kateviewmanager.cpp:1231
+#: lib/kateviewmanager.cpp:1234
 #, kde-format
 msgid "This view may have unsaved work. Do you really want to close it?"
 msgstr ""

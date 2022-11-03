@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-02 00:53+0000\n"
-"PO-Revision-Date: 2022-10-25 09:02+0200\n"
+"POT-Creation-Date: 2022-11-03 00:50+0000\n"
+"PO-Revision-Date: 2022-11-02 23:07+0100\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -940,16 +940,14 @@ msgid "Diff Style:"
 msgstr "Стил на разлики:"
 
 #: lib/kateconfigdialog.cpp:540
-#, fuzzy, kde-format
-#| msgid "Show Navigation Bar"
+#, kde-format
 msgid "Navigation Bar"
-msgstr "Показване на лентата за навигация"
+msgstr "Лента за навигация"
 
 #: lib/kateconfigdialog.cpp:545
-#, fuzzy, kde-format
-#| msgid "Focus the navigation bar"
+#, kde-format
 msgid "Show current symbol in navigation bar"
-msgstr "Фокусиране на лентата за навигация"
+msgstr "Показване на текущия символ в лентата за навигация"
 
 #: lib/kateconfigdialog.cpp:559
 #, kde-format
@@ -1501,7 +1499,7 @@ msgstr "Бутони на страничната лента"
 #: lib/katemdi.cpp:105
 #, kde-format
 msgid "Focus Toolview"
-msgstr ""
+msgstr "Фокусиране на изгледа с инструменти"
 
 #: lib/katemdi.cpp:108
 #, kde-format
@@ -1531,7 +1529,7 @@ msgstr "Показване на %1 бутон"
 #: lib/katemdi.cpp:191
 #, kde-format
 msgid "Focus %1"
-msgstr ""
+msgstr "Фокусиране на %1"
 
 #: lib/katemdi.cpp:1000
 #, kde-format
@@ -2035,17 +2033,17 @@ msgstr ""
 msgid "Opening Large File"
 msgstr "Отваряне на голям файл"
 
-#: lib/kateviewmanager.cpp:463
+#: lib/kateviewmanager.cpp:466
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr "%1 не може да отвори папките"
 
-#: lib/kateviewmanager.cpp:482
+#: lib/kateviewmanager.cpp:485
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr "Приставката, необходима за отваряне на папките не беше намерена"
 
-#: lib/kateviewmanager.cpp:488
+#: lib/kateviewmanager.cpp:491
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
@@ -2053,24 +2051,24 @@ msgstr ""
 "За да се отворят папките е необходима приставката <b>%1</b>. Да се активира "
 "ли тази приставка?"
 
-#: lib/kateviewmanager.cpp:497
+#: lib/kateviewmanager.cpp:500
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "Отваряне на папка"
 
-#: lib/kateviewmanager.cpp:498
+#: lib/kateviewmanager.cpp:501
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "Активиране"
 
-#: lib/kateviewmanager.cpp:509
+#: lib/kateviewmanager.cpp:512
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "Неуспех при активиране на приставка  <b>%1</b>"
 
-#: lib/kateviewmanager.cpp:1231
+#: lib/kateviewmanager.cpp:1234
 #, kde-format
 msgid "This view may have unsaved work. Do you really want to close it?"
 msgstr ""

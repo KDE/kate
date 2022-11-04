@@ -1153,7 +1153,7 @@ msgstr "Mostrar a Barra de Navegação"
 #: lib/katemainwindow.cpp:258
 #, kde-format
 msgid "&Window Color Scheme"
-msgstr "Novo &Esquema de Cores"
+msgstr "Esquema de Cores da &Janela"
 
 #: lib/katemainwindow.cpp:262
 #, kde-format

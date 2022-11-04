@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-03 00:50+0000\n"
-"PO-Revision-Date: 2022-10-27 19:47+0530\n"
+"PO-Revision-Date: 2022-11-03 21:04+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -929,16 +929,14 @@ msgid "Diff Style:"
 msgstr "வித்தியாசக்காட்சியின் பாங்கு:"
 
 #: lib/kateconfigdialog.cpp:540
-#, fuzzy, kde-format
-#| msgid "Show Navigation Bar"
+#, kde-format
 msgid "Navigation Bar"
-msgstr "உலாவல் பட்டையை காட்டு"
+msgstr "உலாவல் பட்டை"
 
 #: lib/kateconfigdialog.cpp:545
-#, fuzzy, kde-format
-#| msgid "Focus the navigation bar"
+#, kde-format
 msgid "Show current symbol in navigation bar"
-msgstr "உலாவல் பட்டையை குவியப்படுத்தும்"
+msgstr "தற்போதைய கூறை உலாவல் பட்டையை காட்டு"
 
 #: lib/kateconfigdialog.cpp:559
 #, kde-format

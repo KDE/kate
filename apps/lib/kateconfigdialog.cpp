@@ -60,6 +60,7 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent)
     setStandardButtons(QDialogButtonBox::Ok | QDialogButtonBox::Apply | QDialogButtonBox::Cancel | QDialogButtonBox::Help);
 
     m_searchLineEdit->setPlaceholderText(i18n("Search..."));
+    setFocusProxy(m_searchLineEdit);
     m_searchTimer->setSingleShot(true);
     m_searchTimer->setInterval(400);
     m_searchTimer->callOnTimeout(this, &KateConfigDialog::onSearchTextChanged);

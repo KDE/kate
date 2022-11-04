@@ -292,6 +292,13 @@ KatePluginGDBView::KatePluginGDBView(KTextEditor::Plugin *plugin, KTextEditor::M
 
     connect(m_mainWin, &KTextEditor::MainWindow::unhandledShortcutOverride, this, &KatePluginGDBView::handleEsc);
 
+    const auto documents = KTextEditor::Editor::instance()->application()->documents();
+    for (auto doc : documents) {
+        enableBreakpointMarks(doc);
+    }
+
+    connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::documentCreated, this, &KatePluginGDBView::enableBreakpointMarks);
+
     m_toolView->installEventFilter(this);
 
     m_mainWin->guiFactory()->addClient(this);
@@ -396,8 +403,6 @@ void KatePluginGDBView::slotBreakpointSet(const QUrl &file, int line)
     KTextEditor::MarkInterfaceV2 *iface = qobject_cast<KTextEditor::MarkInterfaceV2 *>(m_kateApplication->findUrl(file));
 
     if (iface) {
-        iface->setMarkDescription(KTextEditor::MarkInterface::BreakpointActive, i18n("Breakpoint"));
-        iface->setMarkIcon(KTextEditor::MarkInterface::BreakpointActive, QIcon::fromTheme(QStringLiteral("media-playback-pause")));
         iface->addMark(line, KTextEditor::MarkInterface::BreakpointActive);
     }
 }
@@ -815,6 +820,17 @@ void KatePluginGDBView::handleEsc(QEvent *e)
         if (m_toolView->isVisible()) {
             m_mainWin->hideToolView(m_toolView.get());
         }
+    }
+}
+
+void KatePluginGDBView::enableBreakpointMarks(KTextEditor::Document *document)
+{
+    KTextEditor::MarkInterfaceV2 *iface = qobject_cast<KTextEditor::MarkInterfaceV2 *>(document);
+
+    if (iface) {
+        iface->setEditableMarks(iface->editableMarks() | KTextEditor::MarkInterface::BreakpointActive);
+        iface->setMarkDescription(KTextEditor::MarkInterface::BreakpointActive, i18n("Breakpoint"));
+        iface->setMarkIcon(KTextEditor::MarkInterface::BreakpointActive, QIcon::fromTheme(QStringLiteral("media-playback-pause")));
     }
 }
 

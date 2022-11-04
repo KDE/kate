@@ -90,6 +90,7 @@ private Q_SLOTS:
     void addErrorText(QString const &text);
     void clearMarks();
     void handleEsc(QEvent *e);
+    void enableBreakpointMarks(KTextEditor::Document *document);
 
 protected:
     bool eventFilter(QObject *obj, QEvent *ev) override;

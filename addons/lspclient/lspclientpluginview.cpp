@@ -780,6 +780,7 @@ public:
         m_diagnosticsTreeOwn.reset(m_diagnosticsTree);
         m_diagnosticsModel.reset(new QStandardItemModel());
         m_diagnosticsModel->setColumnCount(1);
+        m_diagnosticsTree->setUniformRowHeights(true);
         m_diagnosticsTree->setModel(m_diagnosticsModel.data());
         configureTreeView(m_diagnosticsTree);
         connect(m_diagnosticsTree, &QTreeView::clicked, this, &self_type::goToItemLocation);

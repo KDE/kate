@@ -265,7 +265,7 @@ void KateFileTreePluginView::setupActions()
     aSave->setIcon(QIcon::fromTheme(QStringLiteral("document-save")));
 
     auto aSaveAs = actionCollection()->addAction(QStringLiteral("filetree_save_as"), this, SLOT(slotDocumentSaveAs()));
-    aSave->setText(i18n("Save As"));
+    aSaveAs->setText(i18n("Save As"));
     aSaveAs->setToolTip(i18n("Save the current document under a new name"));
     aSaveAs->setIcon(QIcon::fromTheme(QStringLiteral("document-save-as")));
 

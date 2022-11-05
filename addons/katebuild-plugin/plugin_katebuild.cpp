@@ -1145,7 +1145,9 @@ void KateBuildView::slotRunAfterBuild()
     out->setWorkingDir(workDir);
     out->runCommand(runCmd);
 
-    m_win->activeView()->setFocus();
+    if (m_win->activeView()) {
+        m_win->activeView()->setFocus();
+    }
 }
 
 static void appendPlainTextTo(QPlainTextEdit *edit, const QString &text)

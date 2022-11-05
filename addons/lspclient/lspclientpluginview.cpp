@@ -34,6 +34,7 @@
 #include <KXMLGUIClient>
 
 #include <ktexteditor/configinterface.h>
+#include <ktexteditor/editor.h>
 #include <ktexteditor/markinterface.h>
 #include <ktexteditor/movinginterface.h>
 #include <ktexteditor/movingrange.h>
@@ -54,6 +55,7 @@
 #include <QMenu>
 #include <QPainter>
 #include <QPlainTextEdit>
+#include <QScopeGuard>
 #include <QSet>
 #include <QStandardItem>
 #include <QStyledItemDelegate>
@@ -1105,14 +1107,7 @@ public:
     void addMarks(KTextEditor::Document *doc, QStandardItem *item, RangeCollection *ranges, DocumentCollection *docs)
     {
         Q_ASSERT(item);
-        KTextEditor::MovingInterface *miface = qobject_cast<KTextEditor::MovingInterface *>(doc);
-        Q_ASSERT(miface);
-        KTextEditor::MarkInterfaceV2 *iface = qobject_cast<KTextEditor::MarkInterfaceV2 *>(doc);
-        Q_ASSERT(iface);
-        KTextEditor::View *activeView = m_mainWindow->activeView();
         using Style = KSyntaxHighlighting::Theme::TextStyle;
-        const auto theme = activeView->theme();
-        KTextEditor::ConfigInterface *ciface = qobject_cast<KTextEditor::ConfigInterface *>(activeView);
 
         // only consider enabled items
         if (!(item->flags() & Qt::ItemIsEnabled)) {
@@ -1133,61 +1128,99 @@ public:
         auto line = range.start().line();
         RangeData::KindEnum kind = RangeData::KindEnum(item->data(RangeData::KindRole).toInt());
 
-        KTextEditor::Attribute::Ptr attr(new KTextEditor::Attribute());
+        KTextEditor::Attribute::Ptr attr;
 
         bool enabled = m_diagnostics && m_diagnostics->isChecked() && m_diagnosticsHighlight && m_diagnosticsHighlight->isChecked();
         KTextEditor::MarkInterface::MarkTypes markType = RangeData::markType;
         switch (kind) {
         case RangeData::KindEnum::Text: {
             // well, it's a bit like searching for something, so re-use that color
-            QColor rangeColor = Qt::yellow;
-            if (ciface) {
-                rangeColor = ciface->configValue(QStringLiteral("search-highlight-color")).value<QColor>();
+            static KTextEditor::Attribute::Ptr searchAttr;
+            if (!searchAttr) {
+                searchAttr = new KTextEditor::Attribute();
+                const auto theme = KTextEditor::Editor::instance()->theme();
+                QColor rangeColor = theme.editorColor(KSyntaxHighlighting::Theme::SearchHighlight);
+                searchAttr->setBackground(rangeColor);
+                searchAttr->setForeground(QBrush(theme.textColor(KSyntaxHighlighting::Theme::Normal)));
             }
-            attr->setBackground(rangeColor);
+            attr = searchAttr;
             enabled = true;
             break;
         }
         // FIXME are there any symbolic/configurable ways to pick these colors?
-        case RangeData::KindEnum::Read:
-            attr->setBackground(Qt::green);
+        case RangeData::KindEnum::Read: {
+            static KTextEditor::Attribute::Ptr greenAttr;
+            if (!greenAttr) {
+                const auto theme = KTextEditor::Editor::instance()->theme();
+                greenAttr = new KTextEditor::Attribute();
+                greenAttr->setBackground(Qt::green);
+                greenAttr->setForeground(QBrush(theme.textColor(KSyntaxHighlighting::Theme::Normal)));
+            }
+            attr = greenAttr;
             enabled = true;
             break;
-        case RangeData::KindEnum::Write:
-            attr->setBackground(Qt::red);
+        }
+        case RangeData::KindEnum::Write: {
+            static KTextEditor::Attribute::Ptr redAttr;
+            if (!redAttr) {
+                const auto theme = KTextEditor::Editor::instance()->theme();
+                redAttr = new KTextEditor::Attribute();
+                redAttr->setBackground(Qt::red);
+                redAttr->setForeground(QBrush(theme.textColor(KSyntaxHighlighting::Theme::Normal)));
+            }
+            attr = redAttr;
             enabled = true;
             break;
+        }
         // use underlining for diagnostics to avoid lots of fancy flickering
         case RangeData::KindEnum::Error: {
+            static KTextEditor::Attribute::Ptr errorAttr;
+            if (!errorAttr) {
+                const auto theme = KTextEditor::Editor::instance()->theme();
+                errorAttr = new KTextEditor::Attribute();
+                errorAttr->setUnderlineColor(theme.textColor(Style::Error));
+                errorAttr->setUnderlineStyle(QTextCharFormat::SpellCheckUnderline);
+            }
+            attr = errorAttr;
             markType = RangeData::markTypeDiagError;
-            const auto color = theme.textColor(Style::Error);
-            attr->setUnderlineStyle(QTextCharFormat::SpellCheckUnderline);
-            attr->setUnderlineColor(color);
             break;
         }
         case RangeData::KindEnum::Warning: {
+            static KTextEditor::Attribute::Ptr warnAttr;
+            if (!warnAttr) {
+                const auto theme = KTextEditor::Editor::instance()->theme();
+                warnAttr = new KTextEditor::Attribute();
+                warnAttr->setUnderlineColor(theme.textColor(Style::Warning));
+                warnAttr->setUnderlineStyle(QTextCharFormat::SpellCheckUnderline);
+            }
+            attr = warnAttr;
             markType = RangeData::markTypeDiagWarning;
-            const auto color = theme.textColor(Style::Warning);
-            attr->setUnderlineStyle(QTextCharFormat::SpellCheckUnderline);
-            attr->setUnderlineColor(color);
             break;
         }
         case RangeData::KindEnum::Information:
         case RangeData::KindEnum::Hint:
         case RangeData::KindEnum::Related: {
+            static KTextEditor::Attribute::Ptr infoAttr;
+            if (!infoAttr) {
+                const auto theme = KTextEditor::Editor::instance()->theme();
+                infoAttr = new KTextEditor::Attribute();
+                infoAttr->setUnderlineColor(theme.textColor(Style::Information));
+                infoAttr->setUnderlineStyle(QTextCharFormat::SpellCheckUnderline);
+            }
+            attr = infoAttr;
             markType = RangeData::markTypeDiagOther;
-            const auto color = theme.textColor(Style::Information);
-            attr->setUnderlineStyle(QTextCharFormat::DashUnderline);
-            attr->setUnderlineColor(color);
             break;
         }
         }
-        if (activeView) {
-            attr->setForeground(activeView->defaultStyleAttribute(KTextEditor::dsNormal)->foreground());
+
+        if (!attr) {
+            qWarning() << "Unexpected null attr";
         }
 
         // highlight the range
-        if (enabled && ranges) {
+        if (enabled && ranges && attr) {
+            KTextEditor::MovingInterface *miface = qobject_cast<KTextEditor::MovingInterface *>(doc);
+            Q_ASSERT(miface);
             KTextEditor::MovingRange *mr = miface->newMovingRange(range);
             mr->setZDepth(-90000.0); // Set the z-depth to slightly worse than the selection
             mr->setAttribute(attr);
@@ -1195,6 +1228,8 @@ public:
             ranges->insert(doc, mr);
         }
 
+        KTextEditor::MarkInterfaceV2 *iface = qobject_cast<KTextEditor::MarkInterfaceV2 *>(doc);
+        Q_ASSERT(iface);
         // add match mark for range
         bool handleClick = true;
         enabled = m_diagnostics && m_diagnostics->isChecked() && m_diagnosticsMark && m_diagnosticsMark->isChecked();
@@ -1253,6 +1288,12 @@ public:
 
     void addMarksRec(KTextEditor::Document *doc, QStandardItem *item, RangeCollection *ranges, DocumentCollection *docs)
     {
+        // We only care about @p doc items
+        auto docItem = dynamic_cast<DocumentDiagnosticItem *>(item);
+        if (docItem && QUrl::fromLocalFile(docItem->data(Qt::UserRole).toString()) != doc->url()) {
+            return;
+        }
+
         Q_ASSERT(item);
         addMarks(doc, item, ranges, docs);
         for (int i = 0; i < item->rowCount(); ++i) {
@@ -2898,6 +2939,7 @@ public:
     void updateState()
     {
         KTextEditor::View *activeView = m_mainWindow->activeView();
+
         auto doc = activeView ? activeView->document() : nullptr;
         auto server = m_serverManager->findServer(activeView);
         bool defEnabled = false, declEnabled = false, typeDefEnabled = false, refEnabled = false, implEnabled = false;

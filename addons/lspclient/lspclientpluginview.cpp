@@ -2902,14 +2902,28 @@ public:
         }
         // check and clear defunct entries
         const auto &model = *m_diagnosticsModel;
+
+        // Remove rows in groups
+        int start = -1, count = 0;
         for (int i = 0; i < model.rowCount(); ++i) {
             auto item = model.item(i);
             if (item && !fpaths.contains(item->text())) {
-                item->setRowCount(0);
-                if (m_diagnosticsTree) {
-                    m_diagnosticsTree->setRowHidden(item->row(), QModelIndex(), true);
+                if (start == -1) {
+                    start = i;
                 }
+                count += 1;
+            } else {
+                if (start > -1 && count != 0) {
+                    m_diagnosticsModel->removeRows(start, count);
+                    i = start - 1; // reset i
+                }
+                start = -1;
+                count = 0;
             }
+        }
+
+        if (start != -1 && count != 0) {
+            m_diagnosticsModel->removeRows(start, count);
         }
     }
 

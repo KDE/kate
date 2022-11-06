@@ -88,6 +88,7 @@ public Q_SLOTS:
 
 private:
     void search();
+    void appendLines(const QStringList &lines, const QString &token, const QTextCursor &pos = {});
 
     /**
      * the main window we belong to

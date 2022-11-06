@@ -10,6 +10,8 @@
 #include <QLineEdit>
 #include <QPointer>
 #include <QStandardItemModel>
+#include <QTextBrowser>
+#include <QTimer>
 #include <QWidget>
 
 class KateMainWindow;
@@ -85,6 +87,8 @@ public Q_SLOTS:
     void slotMessage(const QVariantMap &message);
 
 private:
+    void search();
+
     /**
      * the main window we belong to
      * each main window has exactly one KateOutputView
@@ -94,17 +98,18 @@ private:
     /**
      * Internal tree view to display the messages we get
      */
-    KateOutputTreeView *m_messagesTreeView = nullptr;
+    // KateOutputTreeView *m_messagesTreeView = nullptr;
 
-    /**
-     * Our message model, at the moment a standard item model
-     */
-    QStandardItemModel m_messagesModel;
+    // /**
+    //  * Our message model, at the moment a standard item model
+    //  */
+    // QStandardItemModel m_messagesModel;
+    class KateOutputEdit *m_textEdit;
 
     /**
      * Our proxy model for filtering
      */
-    QSortFilterProxyModel *m_proxyModel = nullptr;
+    // QSortFilterProxyModel *m_proxyModel = nullptr;
 
     /**
      * fuzzy filter line edit
@@ -138,6 +143,8 @@ private:
     QPointer<class NewMsgIndicator> m_fadingIndicator;
 
     QColor m_msgIndicatorColors[3];
+
+    QTimer m_searchTimer;
 };
 
 #endif

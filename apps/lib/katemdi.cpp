@@ -135,6 +135,8 @@ GUIClient::GUIClient(MainWindow *mw)
 
     // hide tool views menu for KWrite mode
     if (KateApp::isKWrite()) {
+        m_sidebarButtonsMenu->setVisible(false);
+        m_focusToolviewMenu->setVisible(false);
         m_toolMenu->setVisible(false);
     }
 }

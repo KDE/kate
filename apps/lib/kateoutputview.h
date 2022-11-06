@@ -9,7 +9,6 @@
 
 #include <QLineEdit>
 #include <QPointer>
-#include <QStandardItemModel>
 #include <QTextBrowser>
 #include <QTimer>
 #include <QWidget>
@@ -96,21 +95,8 @@ private:
      */
     KateMainWindow *const m_mainWindow = nullptr;
 
-    /**
-     * Internal tree view to display the messages we get
-     */
-    // KateOutputTreeView *m_messagesTreeView = nullptr;
-
-    // /**
-    //  * Our message model, at the moment a standard item model
-    //  */
-    // QStandardItemModel m_messagesModel;
+    // The text edit used to display messages
     class KateOutputEdit *m_textEdit;
-
-    /**
-     * Our proxy model for filtering
-     */
-    // QSortFilterProxyModel *m_proxyModel = nullptr;
 
     /**
      * fuzzy filter line edit
@@ -126,13 +112,6 @@ private:
      * 4 => on log or above
      */
     int m_showOutputViewForMessageType = 1;
-
-    /**
-     * cached categories + log levels to apply
-     * some optimization
-     */
-    QVector<QString> m_seenLogTypes;
-    QVector<QString> m_seenCategories;
 
     /**
      * history size limit, < 0 is unlimited

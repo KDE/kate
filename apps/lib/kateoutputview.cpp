@@ -12,7 +12,6 @@
 #include <KConfigGroup>
 #include <KLocalizedString>
 #include <KSharedConfig>
-
 #include <KTextEditor/Editor>
 
 #include <QClipboard>
@@ -20,14 +19,23 @@
 #include <QGuiApplication>
 #include <QMenu>
 #include <QPainter>
-#include <QSortFilterProxyModel>
+#include <QScrollBar>
+#include <QTextBlock>
 #include <QTimeLine>
 #include <QToolButton>
-#include <QTreeView>
 #include <QVBoxLayout>
 
-#include <KFuzzyMatcher>
 #include <ktexteditor_utils.h>
+
+class BlockData : public QTextBlockUserData
+{
+public:
+    BlockData(const QString &t)
+        : token(t)
+    {
+    }
+    const QString token;
+};
 
 class NewMsgIndicator : public QWidget
 {
@@ -85,181 +93,76 @@ private:
     QTimeLine m_timeline;
 };
 
-class KateOutputTreeView : public QTreeView
+class KateOutputEdit : public QTextBrowser
 {
     Q_OBJECT
 public:
-    KateOutputTreeView(QWidget *parent)
-        : QTreeView(parent)
+    KateOutputEdit(QWidget *parent)
+        : QTextBrowser(parent)
     {
-        // copy action, default off, is enabled on selection!
-        m_copyAction = new QAction(QIcon::fromTheme(QStringLiteral("edit-copy")), i18nc("@action:inmenu", "Copy to Clipboard"), this);
-        connect(m_copyAction, &QAction::triggered, this, &KateOutputTreeView::slotCopySelected);
-        m_copyAction->setEnabled(false);
+        setOpenExternalLinks(true);
+        m_iconCache[QStringLiteral("dialog-scripts")] = QIcon::fromTheme(QStringLiteral("dialog-scripts")).pixmap(16, 16);
     }
 
-    // we want no branches!
-    void drawBranches(QPainter *, const QRect &, const QModelIndex &) const override
+    QVariant loadResource(int type, const QUrl &name) override
     {
-    }
-
-    // activate copy action based on selection
-    void selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) override
-    {
-        QTreeView::selectionChanged(selected, deselected);
-        m_copyAction->setEnabled(!selected.indexes().isEmpty());
-    }
-
-    // provide simple context menu, e.g. for copy&paste
-    void contextMenuEvent(QContextMenuEvent *event) override
-    {
-        QMenu menu(this);
-        menu.addAction(m_copyAction);
-        menu.exec(viewport()->mapToGlobal(event->pos()));
-        event->accept();
-    }
-
-    // access to copy action for outside tool buttons etc.
-    QAction *copyAction()
-    {
-        return m_copyAction;
-    }
-
-private Q_SLOTS:
-    void slotCopySelected() const
-    {
-        // collect the stuff
-        QString clipboardText;
-        int row = -1;
-        const auto selectedIdxs = selectedIndexes();
-        for (const auto &selected : selectedIdxs) {
-            // we want to separate columns by " " and rows by "\n"
-
-            // first element: just append + remember row
-            if (row == -1) {
-                clipboardText += selected.data().toString();
-                row = selected.row();
-                continue;
-            }
-
-            // same line, space separated
-            if (row == selected.row()) {
-                clipboardText += QLatin1Char(' ') + selected.data().toString();
-                continue;
-            }
-
-            // new line, add \n
-            if (row != selected.row()) {
-                clipboardText += QLatin1Char('\n') + selected.data().toString();
-                row = selected.row();
-                continue;
+        if (type == QTextDocument::ImageResource) {
+            const QPixmap icon = m_iconCache[name.toString()];
+            if (!icon.isNull()) {
+                return icon;
             }
         }
-        if (!clipboardText.isEmpty()) {
-            QGuiApplication::clipboard()->setText(clipboardText);
-        }
+        return QTextBrowser::loadResource(type, name);
+    }
+
+    void addIcon(const QString &cat, const QIcon &icon)
+    {
+        m_iconCache[cat] = icon.pixmap(16, 16);
     }
 
 private:
-    /**
-     * action to copy current selection to clipboard
-     */
-    QAction *m_copyAction = nullptr;
-};
-
-class OutputSortFilterProxyModel final : public QSortFilterProxyModel
-{
-    Q_OBJECT
-public:
-    OutputSortFilterProxyModel(QObject *parent = nullptr)
-        : QSortFilterProxyModel(parent)
-    {
-    }
-
-    void setFilterString(const QString &string)
-    {
-        beginResetModel();
-        m_pattern = string;
-        endResetModel();
-    }
-
-protected:
-    bool lessThan(const QModelIndex &sourceLeft, const QModelIndex &sourceRight) const override
-    {
-        const int l = sourceLeft.data(WeightRole).toInt();
-        const int r = sourceRight.data(WeightRole).toInt();
-        return l < r;
-    }
-
-    bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const override
-    {
-        if (m_pattern.isEmpty()) {
-            return true;
-        }
-
-        const auto idxCat = sourceModel()->index(sourceRow, KateOutputView::Column_Category, sourceParent);
-        const auto idxType = sourceModel()->index(sourceRow, KateOutputView::Column_LogType, sourceParent);
-        const auto idxBody = sourceModel()->index(sourceRow, KateOutputView::Column_Body, sourceParent);
-
-        const QString cat = idxCat.data().toString();
-        const QString type = idxType.data().toString();
-        const QString body = idxBody.data().toString();
-
-        const auto resc = KFuzzyMatcher::match(m_pattern, cat);
-        const auto rest = KFuzzyMatcher::match(m_pattern, type);
-        const bool resb = body.contains(m_pattern, Qt::CaseInsensitive);
-
-        const auto idx = sourceModel()->index(sourceRow, KateOutputView::Column_Time, sourceParent);
-        sourceModel()->setData(idx, resc.score + rest.score, WeightRole);
-        return resc.matched || rest.matched || resb;
-    }
-
-private:
-    QString m_pattern;
-    static constexpr int WeightRole = Qt::UserRole + 1;
+    QHash<QString, QPixmap> m_iconCache;
 };
 
 KateOutputView::KateOutputView(KateMainWindow *mainWindow, QWidget *parent, QWidget *tabButton)
     : QWidget(parent)
     , m_mainWindow(mainWindow)
+    , m_textEdit(new KateOutputEdit(this))
     , tabButton(tabButton)
 {
     Q_ASSERT(tabButton);
 
-    m_proxyModel = new OutputSortFilterProxyModel(this);
-    m_proxyModel->setSourceModel(&m_messagesModel);
-    m_proxyModel->setRecursiveFilteringEnabled(true);
-
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->setContentsMargins(0, 0, 0, 0);
-    m_messagesTreeView = new KateOutputTreeView(this);
-    m_messagesTreeView->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    m_messagesTreeView->setHeaderHidden(true);
-    m_messagesTreeView->setRootIsDecorated(false);
-    m_messagesTreeView->setUniformRowHeights(true);
-    m_messagesTreeView->setSelectionBehavior(QAbstractItemView::SelectRows);
-    m_messagesTreeView->setSelectionMode(QAbstractItemView::ContiguousSelection);
-    m_messagesTreeView->setModel(m_proxyModel);
-    m_messagesTreeView->setIndentation(0);
+
+    m_searchTimer.setInterval(400);
+    m_searchTimer.setSingleShot(true);
+    m_searchTimer.callOnTimeout(this, &KateOutputView::search);
 
     // filter line edit
-    m_filterLine.installEventFilter(this);
-    m_filterLine.setPlaceholderText(i18n("Filter..."));
-    connect(&m_filterLine, &QLineEdit::textChanged, this, [this](const QString &text) {
-        static_cast<OutputSortFilterProxyModel *>(m_proxyModel)->setFilterString(text);
-        m_messagesTreeView->expandAll();
+    m_filterLine.setPlaceholderText(i18n("Search..."));
+    connect(&m_filterLine, &QLineEdit::textChanged, this, [this]() {
+        m_searchTimer.start();
     });
 
     // copy button
     auto copy = new QToolButton(this);
-    copy->setDefaultAction(m_messagesTreeView->copyAction());
+    connect(copy, &QToolButton::clicked, this, [this] {
+        const QString text = m_textEdit->toPlainText();
+        if (!text.isEmpty()) {
+            qApp->clipboard()->setText(text);
+        }
+    });
+    copy->setIcon(QIcon::fromTheme(QStringLiteral("edit-copy")));
+    copy->setToolButtonStyle(Qt::ToolButtonIconOnly);
+    copy->setToolTip(i18n("Copy all text to clipboard"));
 
     // clear button
     auto clear = new QToolButton(this);
     clear->setIcon(QIcon::fromTheme(QStringLiteral("edit-clear-history")));
     clear->setToolTip(i18n("Clear all messages"));
     connect(clear, &QPushButton::clicked, this, [this] {
-        m_messagesModel.clear();
+        m_textEdit->clear();
     });
 
     // setup top horizontal layout
@@ -272,7 +175,7 @@ KateOutputView::KateOutputView(KateMainWindow *mainWindow, QWidget *parent, QWid
 
     // tree view
     layout->addLayout(hLayout);
-    layout->addWidget(m_messagesTreeView);
+    layout->addWidget(m_textEdit);
 
     // handle config changes & apply initial configuration
     connect(KateApp::self(), &KateApp::configurationChanged, this, &KateOutputView::readConfig);
@@ -280,26 +183,57 @@ KateOutputView::KateOutputView(KateMainWindow *mainWindow, QWidget *parent, QWid
     readConfig();
 }
 
+void KateOutputView::search()
+{
+    const QString text = m_filterLine.text();
+    if (text.isEmpty()) {
+        m_textEdit->setExtraSelections({});
+        return;
+    }
+
+    const auto theme = KTextEditor::Editor::instance()->theme();
+    QTextCharFormat f;
+    f.setBackground(QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::SearchHighlight)));
+
+    QList<QTextEdit::ExtraSelection> sels;
+    const auto *doc = m_textEdit->document();
+    QTextCursor cursor = doc->find(text, 0);
+    while (!cursor.isNull()) {
+        QTextEdit::ExtraSelection s;
+        s.cursor = cursor;
+        s.format = f;
+        sels.append(s);
+        cursor = doc->find(text, cursor);
+    }
+
+    if (!sels.isEmpty()) {
+        m_textEdit->setExtraSelections(sels);
+        if (auto scroll = m_textEdit->verticalScrollBar()) {
+            scroll->setValue(sels.constFirst().cursor.blockNumber());
+        }
+    }
+}
+
 void KateOutputView::readConfig()
 {
     KSharedConfig::Ptr config = KSharedConfig::openConfig();
     KConfigGroup cgGeneral = KConfigGroup(config, "General");
     m_showOutputViewForMessageType = cgGeneral.readEntry("Show output view for message type", 1);
-    m_historyLimit = cgGeneral.readEntry("Output History Limit", 100);
+    const int historyLimit = cgGeneral.readEntry("Output History Limit", 100);
 
-    // ensure we don't violate the history limit
-    if (m_historyLimit >= 0 && m_messagesModel.rowCount() > m_historyLimit) {
-        m_messagesModel.removeRows(0, m_messagesModel.rowCount() - m_historyLimit);
+    if (historyLimit != m_historyLimit) {
+        m_historyLimit = historyLimit;
+        m_textEdit->document()->setMaximumBlockCount(m_historyLimit);
     }
 
     // use editor fonts
     const auto theme = KTextEditor::Editor::instance()->theme();
-    auto pal = m_messagesTreeView->palette();
+    auto pal = m_textEdit->palette();
     pal.setColor(QPalette::Base, QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::BackgroundColor)));
     pal.setColor(QPalette::Highlight, QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::TextSelection)));
     pal.setColor(QPalette::Text, QColor::fromRgba(theme.textColor(KSyntaxHighlighting::Theme::Normal)));
-    m_messagesTreeView->setPalette(pal);
-    m_messagesTreeView->setFont(Utils::editorFont());
+    m_textEdit->setPalette(pal);
+    m_textEdit->setFont(Utils::editorFont());
 
     auto brighten = [](QColor &c) {
         c = c.toHsv();
@@ -315,12 +249,19 @@ void KateOutputView::readConfig()
     brighten(m_msgIndicatorColors[2]);
 }
 
+static void wrapLinksWithHref(QString &text)
+{
+    static const QRegularExpression re(
+        QStringLiteral(R"re((https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)))re"));
+    text.replace(re, QStringLiteral("<a href=\"\\1\" >\\1</a>"));
+}
+
 void KateOutputView::slotMessage(const QVariantMap &message)
 {
     /**
      * discard all messages without any real text
      */
-    const auto text = message.value(QStringLiteral("text")).toString().trimmed();
+    auto text = message.value(QStringLiteral("text")).toString().trimmed().replace(QStringLiteral("\n"), QStringLiteral("<br>"));
     if (text.isEmpty()) {
         return;
     }
@@ -330,61 +271,60 @@ void KateOutputView::slotMessage(const QVariantMap &message)
      */
     const auto token = message.value(QStringLiteral("token")).toString();
 
+    QString t = QStringLiteral("[");
+
     /**
      * date time column: we want to know when a message arrived
      * TODO: perhaps store full date time for more stuff later
      */
-    auto dateTimeColumn = new QStandardItem();
     const QDateTime current = QDateTime::currentDateTime();
-    dateTimeColumn->setText(current.time().toString(Qt::TextDate));
-    if (!token.isEmpty()) {
-        dateTimeColumn->setData(token, Qt::UserRole);
-    }
+    t += current.time().toString(Qt::TextDate);
 
     /**
      * category
      * provided by sender to better categorize the output into stuff like: lsp, git, ...
      * optional icon support
      */
-    auto categoryColumn = new QStandardItem();
-    categoryColumn->setText(message.value(QStringLiteral("category")).toString().trimmed());
+    const QString category = message.value(QStringLiteral("category")).toString().trimmed();
     const auto categoryIcon = message.value(QStringLiteral("categoryIcon")).value<QIcon>();
     if (categoryIcon.isNull()) {
-        categoryColumn->setIcon(QIcon::fromTheme(QStringLiteral("dialog-scripts")));
+        t += QStringLiteral(" <img src=\"") + QStringLiteral("dialog-scripts") + QStringLiteral("\"/> ");
     } else {
-        categoryColumn->setIcon(categoryIcon);
+        m_textEdit->addIcon(category, categoryIcon);
+        t += QStringLiteral(" <img src=\"") + category + QStringLiteral("\"/> ");
     }
+
+    t += QStringLiteral("<u>") + category + QStringLiteral("</u> ");
 
     /**
      * type column: shows the type, icons for some types only
      */
     bool shouldShowOutputToolView = false;
-    auto typeColumn = new QStandardItem();
     int indicatorLoopCount = 0; // for warning/error infinite loop
     QColor color;
     const auto typeString = message.value(QStringLiteral("type")).toString();
     if (typeString == QLatin1String("Error")) {
         shouldShowOutputToolView = (m_showOutputViewForMessageType >= 1);
-        typeColumn->setText(i18nc("@info", "Error"));
-        typeColumn->setIcon(QIcon::fromTheme(QStringLiteral("data-error")));
+        t += QStringLiteral("<span style=\"color:red\">") + i18nc("@info", "Error") + QStringLiteral("</span>");
         color = m_msgIndicatorColors[0];
     } else if (typeString == QLatin1String("Warning")) {
         shouldShowOutputToolView = (m_showOutputViewForMessageType >= 2);
-        typeColumn->setText(i18nc("@info", "Warning"));
-        typeColumn->setIcon(QIcon::fromTheme(QStringLiteral("data-warning")));
+        t += QStringLiteral("<span style=\"color:#FFA500\">") + i18nc("@info", "Warning") + QStringLiteral("</span>");
         color = m_msgIndicatorColors[1];
     } else if (typeString == QLatin1String("Info")) {
         shouldShowOutputToolView = (m_showOutputViewForMessageType >= 3);
-        typeColumn->setText(i18nc("@info", "Info"));
-        typeColumn->setIcon(QIcon::fromTheme(QStringLiteral("data-information")));
+        const bool dark = m_textEdit->palette().base().color().lightness() < 127;
+        const QString blue = dark ? QStringLiteral("#0096FF") : QStringLiteral("#4169E1");
+        t += QStringLiteral("<span style=\"color:%1\">").arg(blue) + i18nc("@info", "Info") + QStringLiteral("</span>");
         indicatorLoopCount = 2;
         color = m_msgIndicatorColors[2];
     } else {
         shouldShowOutputToolView = (m_showOutputViewForMessageType >= 4);
-        typeColumn->setText(i18nc("@info", "Log"));
-        typeColumn->setIcon(QIcon::fromTheme(QStringLiteral("dialog-messages")));
+        t += i18nc("@info", "Log");
         indicatorLoopCount = -1; // no FadingIndicator for log messages
     }
+
+    t += QStringLiteral("] ");
 
     if (shouldShowOutputToolView || isVisible()) {
         // if we are going to show the output toolview afterwards
@@ -398,63 +338,52 @@ void KateOutputView::slotMessage(const QVariantMap &message)
     }
 
     /**
-     * body column, plain text
-     * we ensured above that we have some
-     * split it into lines, we want nice fixed-height parts
-     * we will add extra rows for everything below the first line
+     * actual message text
      */
-    const auto textLines = text.split(QLatin1Char('\n'));
-    Q_ASSERT(!textLines.empty());
-    auto bodyColumn = new QStandardItem(textLines.at(0));
-    auto lastItemForScrolling = bodyColumn;
-    for (int i = 1; i < textLines.size(); ++i) {
-        lastItemForScrolling = new QStandardItem(textLines.at(i));
-        dateTimeColumn->appendRow({new QStandardItem(), new QStandardItem(), new QStandardItem(), lastItemForScrolling});
-    }
+    wrapLinksWithHref(text);
+    t += text;
 
-    /**
-     * add message to model or replace previous one with matching token
-     */
-    auto indices = m_messagesModel.match(m_messagesModel.index(0, 0, QModelIndex()), Qt::UserRole, token, 1, Qt::MatchExactly);
-    auto items = {dateTimeColumn, categoryColumn, typeColumn, bodyColumn};
-    if (indices.length()) {
-        const auto index = indices.at(0);
-        const auto row = index.row();
-        int column = 0;
-        for (auto item : items) {
-            m_messagesModel.setItem(row, column++, item);
+    if (!token.isEmpty()) {
+        const auto doc = m_textEdit->document();
+        auto block = doc->lastBlock();
+        bool found = false;
+        while (block.isValid()) {
+            auto data = dynamic_cast<BlockData *>(block.userData());
+            if (data && data->token == token) {
+                found = true;
+                break;
+            }
+            block = block.previous();
+        }
+
+        if (!found) {
+            m_textEdit->append(t);
+            auto data = new BlockData(token);
+            m_textEdit->document()->lastBlock().setUserData(data);
+        } else if (block.isValid()) {
+            QTextCursor c(block);
+
+            c.select(QTextCursor::BlockUnderCursor);
+            c.removeSelectedText();
+            c.insertBlock();
+            c.insertHtml(t);
+            c.block().setUserData(new BlockData(token));
+        } else {
+            qWarning() << Q_FUNC_INFO << "unable to find valid block!";
+            m_textEdit->append(t);
+            auto data = new BlockData(token);
+            m_textEdit->document()->lastBlock().setUserData(data);
         }
     } else {
-        // ensure we don't grow over the set limit, we just need to cut the first element if needed
-        if (m_historyLimit >= 0 && m_messagesModel.rowCount() >= m_historyLimit) {
-            m_messagesModel.removeRow(0);
-        }
-
-        m_messagesModel.appendRow(items);
-    }
-
-    /**
-     * expand the new thingy
-     */
-    m_messagesTreeView->expand(m_proxyModel->mapFromSource(dateTimeColumn->index()));
-
-    /**
-     * ensure correct sizing
-     */
-    if (!m_seenCategories.contains(categoryColumn->text())) {
-        m_seenCategories << categoryColumn->text();
-        m_messagesTreeView->resizeColumnToContents(Column_Category);
-    }
-
-    if (!m_seenLogTypes.contains(typeColumn->text())) {
-        m_seenLogTypes << typeColumn->text();
-        m_messagesTreeView->resizeColumnToContents(Column_LogType);
+        m_textEdit->append(t);
     }
 
     /**
      * ensure last item is visible
      */
-    m_messagesTreeView->scrollTo(m_proxyModel->mapFromSource(lastItemForScrolling->index()));
+    if (auto scroll = m_textEdit->verticalScrollBar()) {
+        scroll->setValue(scroll->maximum());
+    }
 
     /**
      * if message requires it => show the tool view if hidden

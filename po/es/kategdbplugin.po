@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-25 00:50+0000\n"
+"POT-Creation-Date: 2022-11-06 00:50+0000\n"
 "PO-Revision-Date: 2022-10-26 01:13+0200\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -654,35 +654,35 @@ msgstr "popup_breakpoint"
 msgid "popup_run_to_cursor"
 msgstr "popup_run_to_cursor"
 
-#: plugin_kategdb.cpp:361 plugin_kategdb.cpp:377
+#: plugin_kategdb.cpp:368 plugin_kategdb.cpp:384
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "Insertar punto de interrupción"
 
-#: plugin_kategdb.cpp:375
+#: plugin_kategdb.cpp:382
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "Eliminar punto de interrupción"
 
-#: plugin_kategdb.cpp:399
-#, kde-format
-msgid "Breakpoint"
-msgstr "Punto de interrupción"
-
-#: plugin_kategdb.cpp:498
+#: plugin_kategdb.cpp:503
 #, kde-format
 msgid "Execution point"
 msgstr "Punto de ejecución"
 
-#: plugin_kategdb.cpp:641
+#: plugin_kategdb.cpp:646
 #, kde-format
 msgid "Thread %1"
 msgstr "Hilo %1"
 
-#: plugin_kategdb.cpp:741
+#: plugin_kategdb.cpp:746
 #, kde-format
 msgid "IO"
 msgstr "E/S"
+
+#: plugin_kategdb.cpp:832
+#, kde-format
+msgid "Breakpoint"
+msgstr "Punto de interrupción"
 
 #. i18n: ectx: Menu (debug)
 #: ui.rc:6

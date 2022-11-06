@@ -125,6 +125,11 @@ private:
     QColor m_msgIndicatorColors[3];
 
     QTimer m_searchTimer;
+
+    QString m_infoColor;
+    QString m_warnColor;
+    QString m_errColor;
+    QString m_keywordColor;
 };
 
 #endif

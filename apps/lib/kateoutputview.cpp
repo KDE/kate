@@ -248,6 +248,11 @@ void KateOutputView::readConfig()
     brighten(m_msgIndicatorColors[1]);
     m_msgIndicatorColors[2] = c.background(KColorScheme::PositiveBackground).color();
     brighten(m_msgIndicatorColors[2]);
+
+    m_infoColor = QColor::fromRgba(theme.textColor(KSyntaxHighlighting::Theme::Information)).name();
+    m_warnColor = QColor::fromRgba(theme.textColor(KSyntaxHighlighting::Theme::Warning)).name();
+    m_errColor = QColor::fromRgba(theme.textColor(KSyntaxHighlighting::Theme::Error)).name();
+    m_keywordColor = QColor::fromRgba(theme.textColor(KSyntaxHighlighting::Theme::DataType)).name();
 }
 
 static void wrapLinksWithHref(QString &text)
@@ -328,7 +333,7 @@ void KateOutputView::slotMessage(const QVariantMap &message)
         meta += QStringLiteral(" <img src=\"") + category + QStringLiteral("\"/> ");
     }
 
-    meta += QStringLiteral("<u>") + category + QStringLiteral("</u> ");
+    meta += QStringLiteral("<span style=\"color:%1\">").arg(m_keywordColor) + category + QStringLiteral("</span> ");
 
     /**
      * type column: shows the type, icons for some types only
@@ -339,17 +344,15 @@ void KateOutputView::slotMessage(const QVariantMap &message)
     const auto typeString = message.value(QStringLiteral("type")).toString();
     if (typeString == QLatin1String("Error")) {
         shouldShowOutputToolView = (m_showOutputViewForMessageType >= 1);
-        meta += QStringLiteral("<span style=\"color:red\">") + i18nc("@info", "Error") + QStringLiteral("</span>");
+        meta += QStringLiteral("<span style=\"color:%1\">").arg(m_errColor) + i18nc("@info", "Error") + QStringLiteral("</span>");
         color = m_msgIndicatorColors[0];
     } else if (typeString == QLatin1String("Warning")) {
         shouldShowOutputToolView = (m_showOutputViewForMessageType >= 2);
-        meta += QStringLiteral("<span style=\"color:#FFA500\">") + i18nc("@info", "Warning") + QStringLiteral("</span>");
+        meta += QStringLiteral("<span style=\"color:%1\">").arg(m_warnColor) + i18nc("@info", "Warning") + QStringLiteral("</span>");
         color = m_msgIndicatorColors[1];
     } else if (typeString == QLatin1String("Info")) {
         shouldShowOutputToolView = (m_showOutputViewForMessageType >= 3);
-        const bool dark = m_textEdit->palette().base().color().lightness() < 127;
-        const QString blue = dark ? QStringLiteral("#0096FF") : QStringLiteral("#4169E1");
-        meta += QStringLiteral("<span style=\"color:%1\">").arg(blue) + i18nc("@info", "Info") + QStringLiteral("</span>");
+        meta += QStringLiteral("<span style=\"color:%1\">").arg(m_infoColor) + i18nc("@info", "Info") + QStringLiteral("</span>");
         indicatorLoopCount = 2;
         color = m_msgIndicatorColors[2];
     } else {

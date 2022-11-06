@@ -40,8 +40,8 @@
 typedef QMap<QString, QString> QStringMap;
 Q_DECLARE_METATYPE(QStringMap)
 
-// helper to find a proper root dir for the given document & file name that indicate the root dir
-static QString rootForDocumentAndRootIndicationFileName(KTextEditor::Document *document, const QString &rootIndicationFileName)
+// helper to find a proper root dir for the given document & file name/pattern that indicates the root dir
+static QString findRootForDocument(KTextEditor::Document *document, const QStringList &rootIndicationFileNames, const QStringList &rootIndicationFilePatterns)
 {
     // search only feasible if document is local file
     if (!document->url().isLocalFile()) {
@@ -56,7 +56,15 @@ static QString rootForDocumentAndRootIndicationFileName(KTextEditor::Document *d
         seenDirectories.insert(dir.absolutePath());
 
         // the file that indicates the root dir is there => all fine
-        if (dir.exists(rootIndicationFileName)) {
+        for (const auto &fileName : rootIndicationFileNames) {
+            if (dir.exists(fileName)) {
+                return dir.absolutePath();
+            }
+        }
+
+        // look for matching file patterns
+        dir.setNameFilters(rootIndicationFilePatterns);
+        if (!dir.entryList().isEmpty()) {
             return dir.absolutePath();
         }
 
@@ -69,6 +77,22 @@ static QString rootForDocumentAndRootIndicationFileName(KTextEditor::Document *d
     // no root found, bad luck
     return QString();
 }
+
+static QStringList indicationDataToStringList(const QJsonValue &indicationData)
+{
+    if (indicationData.isArray()) {
+        QStringList indications;
+        for (auto indication : indicationData.toArray()) {
+            if (indication.isString()) {
+                indications << indication.toString();
+            }
+        }
+
+        return indications;
+    }
+
+    return {};
+};
 
 #include <memory>
 
@@ -624,20 +648,12 @@ private:
          * clangd does
          */
         if (!rootpath) {
-            const auto fileNamesForDetection = serverConfig.value(QStringLiteral("rootIndicationFileNames"));
-            if (fileNamesForDetection.isArray()) {
-                // we try each file name alternative in the listed order
-                // this allows to have preferences
-                const auto fileNames = fileNamesForDetection.toArray();
-                for (auto name : fileNames) {
-                    if (name.isString()) {
-                        auto root = rootForDocumentAndRootIndicationFileName(document, name.toString());
-                        if (!root.isEmpty()) {
-                            rootpath = root;
-                            break;
-                        }
-                    }
-                }
+            const auto fileNamesForDetection = indicationDataToStringList(serverConfig.value(QStringLiteral("rootIndicationFileNames")));
+            const auto filePatternsForDetection = indicationDataToStringList(serverConfig.value(QStringLiteral("rootIndicationFilePatterns")));
+
+            auto root = findRootForDocument(document, fileNamesForDetection, filePatternsForDetection);
+            if (!root.isEmpty()) {
+                rootpath = root;
             }
         }
 

@@ -2686,7 +2686,8 @@ to the <quote>projectBase</quote> (as determined by the <link
 linkend="kate-application-plugin-projects">Project plugin</link>) if applicable,
 or otherwise relative to the document's directory. If not specified and
 "rootIndicationFileNames" is an array as filenames, then a parent directory of
-current document containing such a file is selected. As a last fallback, the
+current document containing such a file is selected. Alternatively, if "root" is not specified and 
+"rootIndicationFilePatterns" is an array of file patterns, then a parent directory of the current document matching the file pattern is selected. As a last fallback, the
 home directory is selected as "root". For any document, the resulting "root"
 then determines whether or not a separate instance is needed. If so, the "root"
 is passed as rootUri/rootPath. </para>

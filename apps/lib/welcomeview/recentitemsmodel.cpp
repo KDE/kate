@@ -7,7 +7,6 @@
 
 #include "recentitemsmodel.h"
 
-#include <QFileInfo>
 #include <QMimeDatabase>
 
 RecentItemsModel::RecentItemsModel(QObject *parent)
@@ -51,17 +50,18 @@ void RecentItemsModel::refresh(const QList<QUrl> &urls)
     QIcon icon;
     QString name;
     for (const QUrl &url : urls) {
-        if (url.isLocalFile()) {
-            const QFileInfo fileInfo(url.toLocalFile());
-            if (!fileInfo.exists()) {
-                continue;
-            }
-
-            icon = QIcon::fromTheme(QMimeDatabase().mimeTypeForFile(fileInfo).iconName());
-            name = fileInfo.fileName();
+        // lookup mime type without accessing file to avoid stall for e.g. NFS/SMB
+        const QMimeType mimeType = QMimeDatabase().mimeTypeForFile(url.path(), QMimeDatabase::MatchExtension);
+        if (url.isLocalFile() || !mimeType.isDefault()) {
+            icon = QIcon::fromTheme(mimeType.iconName());
         } else {
             icon = QIcon::fromTheme(QStringLiteral("network-server"));
-            name = url.toString();
+        }
+
+        if (url.isLocalFile()) {
+            name = url.fileName();
+        } else {
+            name = url.toDisplayString();
         }
 
         recentItems.append({icon, name, url});

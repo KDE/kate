@@ -234,6 +234,7 @@ void KateOutputView::readConfig()
     pal.setColor(QPalette::Text, QColor::fromRgba(theme.textColor(KSyntaxHighlighting::Theme::Normal)));
     m_textEdit->setPalette(pal);
     m_textEdit->setFont(Utils::editorFont());
+    m_textEdit->document()->setIndentWidth(m_textEdit->fontMetrics().horizontalAdvance(QLatin1Char(' ')));
 
     auto brighten = [](QColor &c) {
         c = c.toHsv();
@@ -256,12 +257,45 @@ static void wrapLinksWithHref(QString &text)
     text.replace(re, QStringLiteral("<a href=\"\\1\" >\\1</a>"));
 }
 
+void KateOutputView::appendLines(const QStringList &lines, const QString &token, const QTextCursor &pos)
+{
+    QTextCursor cursor = pos;
+    if (cursor.isNull()) {
+        cursor = m_textEdit->textCursor();
+        if (!cursor.atEnd()) {
+            cursor.movePosition(QTextCursor::End);
+            m_textEdit->setTextCursor(cursor);
+        }
+    }
+    bool atStart = cursor.atStart();
+
+    int i = 0;
+    for (const auto &l : lines) {
+        if (!atStart) {
+            cursor.insertBlock();
+            cursor.setBlockFormat({});
+        }
+        cursor.insertHtml(l);
+        if (i >= 1) {
+            QTextBlockFormat fmt;
+            fmt.setIndent(8);
+            cursor.setBlockFormat(fmt);
+        }
+        atStart = false;
+        i++;
+    }
+
+    if (!token.isEmpty()) {
+        cursor.block().setUserData(new BlockData(token));
+    }
+}
+
 void KateOutputView::slotMessage(const QVariantMap &message)
 {
     /**
      * discard all messages without any real text
      */
-    auto text = message.value(QStringLiteral("text")).toString().trimmed().replace(QStringLiteral("\n"), QStringLiteral("<br>"));
+    auto text = message.value(QStringLiteral("text")).toString().trimmed() /*.replace(QStringLiteral("\n"), QStringLiteral("<br>"))*/;
     if (text.isEmpty()) {
         return;
     }
@@ -271,14 +305,14 @@ void KateOutputView::slotMessage(const QVariantMap &message)
      */
     const auto token = message.value(QStringLiteral("token")).toString();
 
-    QString t = QStringLiteral("[");
+    QString meta = QStringLiteral("[");
 
     /**
      * date time column: we want to know when a message arrived
      * TODO: perhaps store full date time for more stuff later
      */
     const QDateTime current = QDateTime::currentDateTime();
-    t += current.time().toString(Qt::TextDate);
+    meta += current.time().toString(Qt::TextDate);
 
     /**
      * category
@@ -288,13 +322,13 @@ void KateOutputView::slotMessage(const QVariantMap &message)
     const QString category = message.value(QStringLiteral("category")).toString().trimmed();
     const auto categoryIcon = message.value(QStringLiteral("categoryIcon")).value<QIcon>();
     if (categoryIcon.isNull()) {
-        t += QStringLiteral(" <img src=\"") + QStringLiteral("dialog-scripts") + QStringLiteral("\"/> ");
+        meta += QStringLiteral(" <img src=\"") + QStringLiteral("dialog-scripts") + QStringLiteral("\"/> ");
     } else {
         m_textEdit->addIcon(category, categoryIcon);
-        t += QStringLiteral(" <img src=\"") + category + QStringLiteral("\"/> ");
+        meta += QStringLiteral(" <img src=\"") + category + QStringLiteral("\"/> ");
     }
 
-    t += QStringLiteral("<u>") + category + QStringLiteral("</u> ");
+    meta += QStringLiteral("<u>") + category + QStringLiteral("</u> ");
 
     /**
      * type column: shows the type, icons for some types only
@@ -305,26 +339,26 @@ void KateOutputView::slotMessage(const QVariantMap &message)
     const auto typeString = message.value(QStringLiteral("type")).toString();
     if (typeString == QLatin1String("Error")) {
         shouldShowOutputToolView = (m_showOutputViewForMessageType >= 1);
-        t += QStringLiteral("<span style=\"color:red\">") + i18nc("@info", "Error") + QStringLiteral("</span>");
+        meta += QStringLiteral("<span style=\"color:red\">") + i18nc("@info", "Error") + QStringLiteral("</span>");
         color = m_msgIndicatorColors[0];
     } else if (typeString == QLatin1String("Warning")) {
         shouldShowOutputToolView = (m_showOutputViewForMessageType >= 2);
-        t += QStringLiteral("<span style=\"color:#FFA500\">") + i18nc("@info", "Warning") + QStringLiteral("</span>");
+        meta += QStringLiteral("<span style=\"color:#FFA500\">") + i18nc("@info", "Warning") + QStringLiteral("</span>");
         color = m_msgIndicatorColors[1];
     } else if (typeString == QLatin1String("Info")) {
         shouldShowOutputToolView = (m_showOutputViewForMessageType >= 3);
         const bool dark = m_textEdit->palette().base().color().lightness() < 127;
         const QString blue = dark ? QStringLiteral("#0096FF") : QStringLiteral("#4169E1");
-        t += QStringLiteral("<span style=\"color:%1\">").arg(blue) + i18nc("@info", "Info") + QStringLiteral("</span>");
+        meta += QStringLiteral("<span style=\"color:%1\">").arg(blue) + i18nc("@info", "Info") + QStringLiteral("</span>");
         indicatorLoopCount = 2;
         color = m_msgIndicatorColors[2];
     } else {
         shouldShowOutputToolView = (m_showOutputViewForMessageType >= 4);
-        t += i18nc("@info", "Log");
+        meta += i18nc("@info", "Log");
         indicatorLoopCount = -1; // no FadingIndicator for log messages
     }
 
-    t += QStringLiteral("] ");
+    meta += QStringLiteral("] ");
 
     if (shouldShowOutputToolView || isVisible()) {
         // if we are going to show the output toolview afterwards
@@ -341,7 +375,10 @@ void KateOutputView::slotMessage(const QVariantMap &message)
      * actual message text
      */
     wrapLinksWithHref(text);
-    t += text;
+    auto lines = text.split(QLatin1Char('\n'), Qt::SkipEmptyParts);
+    if (lines.isEmpty()) {
+        return;
+    }
 
     if (!token.isEmpty()) {
         const auto doc = m_textEdit->document();
@@ -357,25 +394,30 @@ void KateOutputView::slotMessage(const QVariantMap &message)
         }
 
         if (!found) {
-            m_textEdit->append(t);
-            auto data = new BlockData(token);
-            m_textEdit->document()->lastBlock().setUserData(data);
+            lines.first().prepend(meta);
+            appendLines(lines, token);
         } else if (block.isValid()) {
             QTextCursor c(block);
 
             c.select(QTextCursor::BlockUnderCursor);
             c.removeSelectedText();
-            c.insertBlock();
-            c.insertHtml(t);
+            if (lines.size() == 1) {
+                c.insertBlock();
+                c.insertHtml(meta + lines.first());
+            } else {
+                lines.first().prepend(meta);
+                appendLines(lines, token, c);
+            }
             c.block().setUserData(new BlockData(token));
         } else {
             qWarning() << Q_FUNC_INFO << "unable to find valid block!";
-            m_textEdit->append(t);
+            m_textEdit->append(meta);
             auto data = new BlockData(token);
             m_textEdit->document()->lastBlock().setUserData(data);
         }
     } else {
-        m_textEdit->append(t);
+        lines.first().prepend(meta);
+        appendLines(lines, /*token=*/QString());
     }
 
     /**

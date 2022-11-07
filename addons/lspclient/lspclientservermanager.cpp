@@ -43,6 +43,11 @@ Q_DECLARE_METATYPE(QStringMap)
 // helper to find a proper root dir for the given document & file name/pattern that indicates the root dir
 static QString findRootForDocument(KTextEditor::Document *document, const QStringList &rootIndicationFileNames, const QStringList &rootIndicationFilePatterns)
 {
+    // skip search if nothing there to look at
+    if (rootIndicationFileNames.isEmpty() && rootIndicationFilePatterns.isEmpty()) {
+        return QString();
+    }
+
     // search only feasible if document is local file
     if (!document->url().isLocalFile()) {
         return QString();
@@ -62,10 +67,12 @@ static QString findRootForDocument(KTextEditor::Document *document, const QStrin
             }
         }
 
-        // look for matching file patterns
-        dir.setNameFilters(rootIndicationFilePatterns);
-        if (!dir.entryList().isEmpty()) {
-            return dir.absolutePath();
+        // look for matching file patterns, if any
+        if (!rootIndicationFilePatterns.isEmpty()) {
+            dir.setNameFilters(rootIndicationFilePatterns);
+            if (!dir.entryList().isEmpty()) {
+                return dir.absolutePath();
+            }
         }
 
         // else: cd up, if possible or abort
@@ -650,8 +657,7 @@ private:
         if (!rootpath) {
             const auto fileNamesForDetection = indicationDataToStringList(serverConfig.value(QStringLiteral("rootIndicationFileNames")));
             const auto filePatternsForDetection = indicationDataToStringList(serverConfig.value(QStringLiteral("rootIndicationFilePatterns")));
-
-            auto root = findRootForDocument(document, fileNamesForDetection, filePatternsForDetection);
+            const auto root = findRootForDocument(document, fileNamesForDetection, filePatternsForDetection);
             if (!root.isEmpty()) {
                 rootpath = root;
             }

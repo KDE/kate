@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-31 00:49+0000\n"
+"POT-Creation-Date: 2022-11-07 00:48+0000\n"
 "PO-Revision-Date: ٢٠١٦-٠٩-٠٣ ١١:١٤+0300\n"
 "Last-Translator: Safa Alfulaij <safa1996alfulaij@gmail.com>\n"
 "Language-Team: Arabic <doc@arabeyes.org>\n"
@@ -75,61 +75,61 @@ msgctxt "Header for the error message column"
 msgid "Message"
 msgstr "الرّسالة"
 
-#: plugin_katebuild.cpp:131 plugin_katebuild.cpp:138 plugin_katebuild.cpp:1270
+#: plugin_katebuild.cpp:136 plugin_katebuild.cpp:143 plugin_katebuild.cpp:1323
 #, kde-format
 msgid "Build"
 msgstr "البناء"
 
-#: plugin_katebuild.cpp:141
+#: plugin_katebuild.cpp:146
 #, kde-format
 msgid "Select Target..."
 msgstr "اختر الهدف..."
 
-#: plugin_katebuild.cpp:146
+#: plugin_katebuild.cpp:151
 #, fuzzy, kde-format
 #| msgid "Build selected target"
 msgid "Build Selected Target"
 msgstr "ابنِ الهدف المحدّد"
 
-#: plugin_katebuild.cpp:151
+#: plugin_katebuild.cpp:156
 #, fuzzy, kde-format
 #| msgid "Build selected target"
 msgid "Build and Run Selected Target"
 msgstr "ابنِ الهدف المحدّد"
 
-#: plugin_katebuild.cpp:156
+#: plugin_katebuild.cpp:161
 #, kde-format
 msgid "Stop"
 msgstr "أوقف"
 
-#: plugin_katebuild.cpp:161
+#: plugin_katebuild.cpp:166
 #, kde-format
 msgid "Next Error"
 msgstr "الخطأ التّالي"
 
-#: plugin_katebuild.cpp:167
+#: plugin_katebuild.cpp:172
 #, kde-format
 msgid "Previous Error"
 msgstr "الخطأ السّابق"
 
-#: plugin_katebuild.cpp:173
+#: plugin_katebuild.cpp:178
 #, kde-format
 msgid "Show Marks"
 msgstr ""
 
-#: plugin_katebuild.cpp:182
+#: plugin_katebuild.cpp:187
 #, kde-format
 msgctxt "Tab label"
 msgid "Target Settings"
 msgstr "إعدادات الهدف"
 
-#: plugin_katebuild.cpp:337 plugin_katebuild.cpp:1372 plugin_katebuild.cpp:1383
-#: plugin_katebuild.cpp:1404 plugin_katebuild.cpp:1414
+#: plugin_katebuild.cpp:347 plugin_katebuild.cpp:1425 plugin_katebuild.cpp:1436
+#: plugin_katebuild.cpp:1457 plugin_katebuild.cpp:1467
 #, kde-format
 msgid "Project Plugin Targets"
 msgstr "أهداف ملحقة البناء"
 
-#: plugin_katebuild.cpp:490
+#: plugin_katebuild.cpp:500
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -137,98 +137,98 @@ msgid ""
 "the working directory in the Target Settings"
 msgstr ""
 
-#: plugin_katebuild.cpp:510
+#: plugin_katebuild.cpp:520
 #, kde-format
 msgctxt "The same word as 'make' uses to mark an error."
 msgid "error"
 msgstr "خطأ"
 
-#: plugin_katebuild.cpp:513
+#: plugin_katebuild.cpp:523
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "مرجع غير معرّف"
 
-#: plugin_katebuild.cpp:520
+#: plugin_katebuild.cpp:530
 #, kde-format
 msgctxt "The same word as 'make' uses to mark a warning."
 msgid "warning"
 msgstr "تحذير"
 
-#: plugin_katebuild.cpp:606
+#: plugin_katebuild.cpp:616
 #, fuzzy, kde-format
 #| msgctxt "The same word as 'make' uses to mark an error."
 #| msgid "error"
 msgid "Error"
 msgstr "خطأ"
 
-#: plugin_katebuild.cpp:611
+#: plugin_katebuild.cpp:621
 #, fuzzy, kde-format
 #| msgctxt "The same word as 'make' uses to mark a warning."
 #| msgid "warning"
 msgid "Warning"
 msgstr "تحذير"
 
-#: plugin_katebuild.cpp:742
+#: plugin_katebuild.cpp:752
 #, kde-format
 msgid "There is no file or directory specified for building."
 msgstr "لا ملفّ أو دليل محدّد للبناء."
 
-#: plugin_katebuild.cpp:746
+#: plugin_katebuild.cpp:756
 #, kde-format
 msgid ""
 "The file \"%1\" is not a local file. Non-local files cannot be compiled."
 msgstr "الملفّ \"%1\" ليس ملفًّا محليًّا. لا يمكن تصريف الملفّات غير المحليّة."
 
-#: plugin_katebuild.cpp:792
+#: plugin_katebuild.cpp:802
 #, kde-format
 msgid ""
 "Cannot run command: %1\n"
 "Work path does not exist: %2"
 msgstr ""
 
-#: plugin_katebuild.cpp:811
+#: plugin_katebuild.cpp:821
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "فشل تنفيذ \"%1\". حالة الخروج = %2"
 
-#: plugin_katebuild.cpp:830
+#: plugin_katebuild.cpp:840
 #, kde-format
 msgid "Building <b>%1</b> cancelled"
 msgstr "أُلغي بناء <b>%1</b>"
 
-#: plugin_katebuild.cpp:927
-#, kde-format
-msgid "Already building..."
-msgstr "يبني بالفعل..."
-
-#: plugin_katebuild.cpp:936
+#: plugin_katebuild.cpp:941
 #, kde-format
 msgid "No target available for building."
 msgstr "لا هدف متوفّر للبناء."
 
-#: plugin_katebuild.cpp:950
+#: plugin_katebuild.cpp:955
 #, kde-format
 msgid "There is no local file or directory specified for building."
 msgstr "لا ملفّ أو دليل محليّ محدّد للبناء."
 
-#: plugin_katebuild.cpp:974
+#: plugin_katebuild.cpp:961
+#, kde-format
+msgid "Already building..."
+msgstr "يبني بالفعل..."
+
+#: plugin_katebuild.cpp:988
 #, kde-format
 msgid "Building target <b>%1</b> ..."
 msgstr "يبني الهدف <b>%1</b>..."
 
-#: plugin_katebuild.cpp:989
+#: plugin_katebuild.cpp:1003
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Make Results:</title><nl/>%1"
 msgstr "<title>نتائج الصناعة/Make:</title><nl/>%1"
 
-#: plugin_katebuild.cpp:1025
+#: plugin_katebuild.cpp:1039
 #, kde-format
 msgid "Building <b>%1</b> completed."
 msgstr "اكتمل بناء <b>%1</b>."
 
-#: plugin_katebuild.cpp:1044
+#: plugin_katebuild.cpp:1058
 #, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
@@ -239,12 +239,12 @@ msgstr[3] "وُجدت %1 أخطاء."
 msgstr[4] "وُجد %1 خطأ."
 msgstr[5] "وُجد %1 خطأ."
 
-#: plugin_katebuild.cpp:1045
+#: plugin_katebuild.cpp:1059
 #, kde-format
 msgid "Building <b>%1</b> had errors."
 msgstr "واجه بناء <b>%1</b> بعض الأخطاء."
 
-#: plugin_katebuild.cpp:1047
+#: plugin_katebuild.cpp:1061
 #, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
@@ -255,77 +255,77 @@ msgstr[3] "وُجدت %1 تحذيرات."
 msgstr[4] "وُجد %1 تحذيرًا."
 msgstr[5] "وُجد %1 تحذير."
 
-#: plugin_katebuild.cpp:1048
+#: plugin_katebuild.cpp:1062
 #, kde-format
 msgid "Building <b>%1</b> had warnings."
 msgstr "أُبلغت عن تحذيرات عند بناء <b>%1</b>."
 
-#: plugin_katebuild.cpp:1054
+#: plugin_katebuild.cpp:1068
 #, kde-format
 msgid "Build failed."
 msgstr "فشل البناء."
 
-#: plugin_katebuild.cpp:1056
+#: plugin_katebuild.cpp:1070
 #, kde-format
 msgid "Build completed without problems."
 msgstr "اكتمل البناء بلا مشاكل."
 
-#: plugin_katebuild.cpp:1086
+#: plugin_katebuild.cpp:1101
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
 msgstr ""
 
-#: plugin_katebuild.cpp:1269
+#: plugin_katebuild.cpp:1322
 #, kde-format
 msgid "Target Set"
 msgstr "مجموعة الأهداف"
 
-#: plugin_katebuild.cpp:1271
+#: plugin_katebuild.cpp:1324
 #, kde-format
 msgid "Clean"
 msgstr "المسح"
 
-#: plugin_katebuild.cpp:1272
+#: plugin_katebuild.cpp:1325
 #, kde-format
 msgid "Config"
 msgstr "الضّبط"
 
-#: plugin_katebuild.cpp:1273
+#: plugin_katebuild.cpp:1326
 #, kde-format
 msgid "ConfigClean"
 msgstr "الضّبط والمسح"
 
-#: plugin_katebuild.cpp:1316
+#: plugin_katebuild.cpp:1369
 #, kde-format
 msgid "Only Errors"
 msgstr "الأخطاء فقط"
 
-#: plugin_katebuild.cpp:1319
+#: plugin_katebuild.cpp:1372
 #, kde-format
 msgid "Errors and Warnings"
 msgstr "الأخطاء والتّحذيرات"
 
-#: plugin_katebuild.cpp:1322
+#: plugin_katebuild.cpp:1375
 #, kde-format
 msgid "Parsed Output"
 msgstr "الخرج المحلّل"
 
-#: plugin_katebuild.cpp:1325
+#: plugin_katebuild.cpp:1378
 #, kde-format
 msgid "Full Output"
 msgstr "الخرج الكامل"
 
-#: plugin_katebuild.cpp:1442
+#: plugin_katebuild.cpp:1495
 #, kde-format
 msgid "build"
 msgstr "البناء"
 
-#: plugin_katebuild.cpp:1445
+#: plugin_katebuild.cpp:1498
 #, kde-format
 msgid "clean"
 msgstr "المسح"
 
-#: plugin_katebuild.cpp:1448
+#: plugin_katebuild.cpp:1501
 #, kde-format
 msgid "quick"
 msgstr "السّريع"
@@ -363,22 +363,22 @@ msgstr ""
 "‏\"‎%d\" لدليل الملفّ الحاليّ\n"
 "‏\"‎%n\" للملفّ الحاليّ بدون لاحقته"
 
-#: TargetModel.cpp:333
+#: TargetModel.cpp:339
 #, kde-format
 msgid "Check the check-box to make the command the default for the target-set."
 msgstr "أشّر على مربّع التّأشير لجعل الأمر افتراضيًّا لمجموعة الأهداف."
 
-#: TargetModel.cpp:389
+#: TargetModel.cpp:395
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "اسم الأمر/مجموعة الأهداف"
 
-#: TargetModel.cpp:392
+#: TargetModel.cpp:398
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "دليل العمل / الأمر"
 
-#: TargetModel.cpp:395
+#: TargetModel.cpp:401
 #, kde-format
 msgid "Run Command"
 msgstr ""

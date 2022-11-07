@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-31 00:49+0000\n"
+"POT-Creation-Date: 2022-11-07 00:48+0000\n"
 "PO-Revision-Date: 2017-03-22 17:11+0100\n"
 "Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
@@ -75,61 +75,61 @@ msgctxt "Header for the error message column"
 msgid "Message"
 msgstr "Meddelelse"
 
-#: plugin_katebuild.cpp:131 plugin_katebuild.cpp:138 plugin_katebuild.cpp:1270
+#: plugin_katebuild.cpp:136 plugin_katebuild.cpp:143 plugin_katebuild.cpp:1323
 #, kde-format
 msgid "Build"
 msgstr "Byg"
 
-#: plugin_katebuild.cpp:141
+#: plugin_katebuild.cpp:146
 #, kde-format
 msgid "Select Target..."
 msgstr "Vælg mål..."
 
-#: plugin_katebuild.cpp:146
+#: plugin_katebuild.cpp:151
 #, fuzzy, kde-format
 #| msgid "Build selected target"
 msgid "Build Selected Target"
 msgstr "Byg valgt mål"
 
-#: plugin_katebuild.cpp:151
+#: plugin_katebuild.cpp:156
 #, fuzzy, kde-format
 #| msgid "Build selected target"
 msgid "Build and Run Selected Target"
 msgstr "Byg valgt mål"
 
-#: plugin_katebuild.cpp:156
+#: plugin_katebuild.cpp:161
 #, kde-format
 msgid "Stop"
 msgstr "Stop"
 
-#: plugin_katebuild.cpp:161
+#: plugin_katebuild.cpp:166
 #, kde-format
 msgid "Next Error"
 msgstr "Næste fejl"
 
-#: plugin_katebuild.cpp:167
+#: plugin_katebuild.cpp:172
 #, kde-format
 msgid "Previous Error"
 msgstr "Forrige fejl"
 
-#: plugin_katebuild.cpp:173
+#: plugin_katebuild.cpp:178
 #, kde-format
 msgid "Show Marks"
 msgstr ""
 
-#: plugin_katebuild.cpp:182
+#: plugin_katebuild.cpp:187
 #, kde-format
 msgctxt "Tab label"
 msgid "Target Settings"
 msgstr "Indstillinger for mål"
 
-#: plugin_katebuild.cpp:337 plugin_katebuild.cpp:1372 plugin_katebuild.cpp:1383
-#: plugin_katebuild.cpp:1404 plugin_katebuild.cpp:1414
+#: plugin_katebuild.cpp:347 plugin_katebuild.cpp:1425 plugin_katebuild.cpp:1436
+#: plugin_katebuild.cpp:1457 plugin_katebuild.cpp:1467
 #, kde-format
 msgid "Project Plugin Targets"
 msgstr "Mål for projektplugin"
 
-#: plugin_katebuild.cpp:490
+#: plugin_katebuild.cpp:500
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -137,187 +137,187 @@ msgid ""
 "the working directory in the Target Settings"
 msgstr ""
 
-#: plugin_katebuild.cpp:510
+#: plugin_katebuild.cpp:520
 #, kde-format
 msgctxt "The same word as 'make' uses to mark an error."
 msgid "error"
 msgstr "fejl"
 
-#: plugin_katebuild.cpp:513
+#: plugin_katebuild.cpp:523
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "udefineret reference"
 
-#: plugin_katebuild.cpp:520
+#: plugin_katebuild.cpp:530
 #, kde-format
 msgctxt "The same word as 'make' uses to mark a warning."
 msgid "warning"
 msgstr "advarsel"
 
-#: plugin_katebuild.cpp:606
+#: plugin_katebuild.cpp:616
 #, fuzzy, kde-format
 #| msgctxt "The same word as 'make' uses to mark an error."
 #| msgid "error"
 msgid "Error"
 msgstr "fejl"
 
-#: plugin_katebuild.cpp:611
+#: plugin_katebuild.cpp:621
 #, fuzzy, kde-format
 #| msgid "Warnings"
 msgid "Warning"
 msgstr "Advarsler"
 
-#: plugin_katebuild.cpp:742
+#: plugin_katebuild.cpp:752
 #, kde-format
 msgid "There is no file or directory specified for building."
 msgstr "Der er ikke angivet en fil eller mappe til bygning."
 
-#: plugin_katebuild.cpp:746
+#: plugin_katebuild.cpp:756
 #, kde-format
 msgid ""
 "The file \"%1\" is not a local file. Non-local files cannot be compiled."
 msgstr ""
 "Filen \"%1\" er ikke en lokal fil. Ikke-lokale filer kan ikke oversættes."
 
-#: plugin_katebuild.cpp:792
+#: plugin_katebuild.cpp:802
 #, kde-format
 msgid ""
 "Cannot run command: %1\n"
 "Work path does not exist: %2"
 msgstr ""
 
-#: plugin_katebuild.cpp:811
+#: plugin_katebuild.cpp:821
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "Kunne ikke køre \"%1\". Exitstatus = %2"
 
-#: plugin_katebuild.cpp:830
+#: plugin_katebuild.cpp:840
 #, kde-format
 msgid "Building <b>%1</b> cancelled"
 msgstr "Bygning af <b>%1</b> annulleret"
 
-#: plugin_katebuild.cpp:927
-#, kde-format
-msgid "Already building..."
-msgstr "Bygger allerede..."
-
-#: plugin_katebuild.cpp:936
+#: plugin_katebuild.cpp:941
 #, kde-format
 msgid "No target available for building."
 msgstr "Ingen mål tilgængelige til bygning."
 
-#: plugin_katebuild.cpp:950
+#: plugin_katebuild.cpp:955
 #, kde-format
 msgid "There is no local file or directory specified for building."
 msgstr "Der er ikke angivet en lokal fil eller mappe til bygning."
 
-#: plugin_katebuild.cpp:974
+#: plugin_katebuild.cpp:961
+#, kde-format
+msgid "Already building..."
+msgstr "Bygger allerede..."
+
+#: plugin_katebuild.cpp:988
 #, kde-format
 msgid "Building target <b>%1</b> ..."
 msgstr "Bygger målet <b>%1</b>..."
 
-#: plugin_katebuild.cpp:989
+#: plugin_katebuild.cpp:1003
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Make Results:</title><nl/>%1"
 msgstr "<title>Make-resultater:</title><nl/>%1"
 
-#: plugin_katebuild.cpp:1025
+#: plugin_katebuild.cpp:1039
 #, kde-format
 msgid "Building <b>%1</b> completed."
 msgstr "Bygning af <b>%1</b> gennemført."
 
-#: plugin_katebuild.cpp:1044
+#: plugin_katebuild.cpp:1058
 #, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
 msgstr[0] "Fandt én fejl."
 msgstr[1] "Fandt %1 fejl."
 
-#: plugin_katebuild.cpp:1045
+#: plugin_katebuild.cpp:1059
 #, kde-format
 msgid "Building <b>%1</b> had errors."
 msgstr "Bygning af <b>%1</b> havde fejl."
 
-#: plugin_katebuild.cpp:1047
+#: plugin_katebuild.cpp:1061
 #, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
 msgstr[0] "Fandt én advarsel."
 msgstr[1] "Fandt %1 advarsler."
 
-#: plugin_katebuild.cpp:1048
+#: plugin_katebuild.cpp:1062
 #, kde-format
 msgid "Building <b>%1</b> had warnings."
 msgstr "Bygning af <b>%1</b> havde advarsler."
 
-#: plugin_katebuild.cpp:1054
+#: plugin_katebuild.cpp:1068
 #, kde-format
 msgid "Build failed."
 msgstr "Bygningen mislykkedes"
 
-#: plugin_katebuild.cpp:1056
+#: plugin_katebuild.cpp:1070
 #, kde-format
 msgid "Build completed without problems."
 msgstr "Bygning færdiggjort uden problemer."
 
-#: plugin_katebuild.cpp:1086
+#: plugin_katebuild.cpp:1101
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
 msgstr ""
 
-#: plugin_katebuild.cpp:1269
+#: plugin_katebuild.cpp:1322
 #, kde-format
 msgid "Target Set"
 msgstr "Mål sat"
 
-#: plugin_katebuild.cpp:1271
+#: plugin_katebuild.cpp:1324
 #, kde-format
 msgid "Clean"
 msgstr "Ryd op"
 
-#: plugin_katebuild.cpp:1272
+#: plugin_katebuild.cpp:1325
 #, kde-format
 msgid "Config"
 msgstr "Konfiguration"
 
-#: plugin_katebuild.cpp:1273
+#: plugin_katebuild.cpp:1326
 #, kde-format
 msgid "ConfigClean"
 msgstr "ConfigClean"
 
-#: plugin_katebuild.cpp:1316
+#: plugin_katebuild.cpp:1369
 #, kde-format
 msgid "Only Errors"
 msgstr "Kun fejl"
 
-#: plugin_katebuild.cpp:1319
+#: plugin_katebuild.cpp:1372
 #, kde-format
 msgid "Errors and Warnings"
 msgstr "Fejl og advarsler"
 
-#: plugin_katebuild.cpp:1322
+#: plugin_katebuild.cpp:1375
 #, kde-format
 msgid "Parsed Output"
 msgstr "Fortolket output"
 
-#: plugin_katebuild.cpp:1325
+#: plugin_katebuild.cpp:1378
 #, kde-format
 msgid "Full Output"
 msgstr "Fuldt output"
 
-#: plugin_katebuild.cpp:1442
+#: plugin_katebuild.cpp:1495
 #, kde-format
 msgid "build"
 msgstr "byg"
 
-#: plugin_katebuild.cpp:1445
+#: plugin_katebuild.cpp:1498
 #, kde-format
 msgid "clean"
 msgstr "ryd op"
 
-#: plugin_katebuild.cpp:1448
+#: plugin_katebuild.cpp:1501
 #, kde-format
 msgid "quick"
 msgstr "kvik"
@@ -355,23 +355,23 @@ msgstr ""
 "\"%d\" for mappen med den aktuelle fil \"%n\" for aktuelt filnavn uden "
 "endelse"
 
-#: TargetModel.cpp:333
+#: TargetModel.cpp:339
 #, kde-format
 msgid "Check the check-box to make the command the default for the target-set."
 msgstr ""
 "Markér afkrydsningsfeltet for at gøre kommandoen til standard for mål-sættet."
 
-#: TargetModel.cpp:389
+#: TargetModel.cpp:395
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Navn på kommando/mål-sæt"
 
-#: TargetModel.cpp:392
+#: TargetModel.cpp:398
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "Arbejdsmappe / kommando"
 
-#: TargetModel.cpp:395
+#: TargetModel.cpp:401
 #, fuzzy, kde-format
 #| msgid "Command:"
 msgid "Run Command"

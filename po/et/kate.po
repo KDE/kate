@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-05 00:49+0000\n"
+"POT-Creation-Date: 2022-11-07 00:48+0000\n"
 "PO-Revision-Date: 2020-10-23 12:03+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <>\n"
@@ -694,7 +694,7 @@ msgstr ""
 msgid "Configure"
 msgstr "Seadistamine"
 
-#: lib/kateconfigdialog.cpp:62
+#: lib/kateconfigdialog.cpp:62 lib/kateoutputview.cpp:143
 #, kde-format
 msgid "Search..."
 msgstr ""
@@ -1527,86 +1527,86 @@ msgstr "Näita külgri&basid"
 msgid "Hide All Tool Views"
 msgstr "Tööriista&vaated"
 
-#: lib/katemdi.cpp:165
+#: lib/katemdi.cpp:167
 #, kde-format
 msgid "Show %1"
 msgstr "%1 näitamine"
 
-#: lib/katemdi.cpp:176
+#: lib/katemdi.cpp:178
 #, fuzzy, kde-format
 #| msgid "&Show close button"
 msgid "Show %1 Button"
 msgstr "&Sulgemisnupu näitamine"
 
-#: lib/katemdi.cpp:191
+#: lib/katemdi.cpp:193
 #, kde-format
 msgid "Focus %1"
 msgstr ""
 
-#: lib/katemdi.cpp:1000
+#: lib/katemdi.cpp:1002
 #, fuzzy, kde-format
 #| msgid "Configure ..."
 msgid "Configure..."
 msgstr "Seadista ..."
 
-#: lib/katemdi.cpp:1004
+#: lib/katemdi.cpp:1006
 #, fuzzy, kde-format
 #| msgid "Hide Path"
 msgid "Hide Button"
 msgstr "Asukoha peitmine"
 
-#: lib/katemdi.cpp:1006
+#: lib/katemdi.cpp:1008
 #, kde-format
 msgid "Move To"
 msgstr "Liiguta"
 
-#: lib/katemdi.cpp:1011
+#: lib/katemdi.cpp:1013
 #, fuzzy, kde-format
 #| msgid "Open Session"
 msgid "Own Section"
 msgstr "Ava seanss"
 
-#: lib/katemdi.cpp:1017 lib/katemdi.cpp:1025
+#: lib/katemdi.cpp:1019 lib/katemdi.cpp:1027
 #, kde-format
 msgid "One Down"
 msgstr ""
 
-#: lib/katemdi.cpp:1019 lib/katemdi.cpp:1030
+#: lib/katemdi.cpp:1021 lib/katemdi.cpp:1032
 #, kde-format
 msgid "One Right"
 msgstr ""
 
-#: lib/katemdi.cpp:1023
+#: lib/katemdi.cpp:1025
 #, kde-format
 msgid "One Up"
 msgstr ""
 
-#: lib/katemdi.cpp:1028
+#: lib/katemdi.cpp:1030
 #, kde-format
 msgid "One Left"
 msgstr ""
 
-#: lib/katemdi.cpp:1037
+#: lib/katemdi.cpp:1039
 #, kde-format
 msgid "Left Sidebar"
 msgstr "Vasak külgriba"
 
-#: lib/katemdi.cpp:1041
+#: lib/katemdi.cpp:1043
 #, kde-format
 msgid "Right Sidebar"
 msgstr "Parem külgriba"
 
-#: lib/katemdi.cpp:1045
+#: lib/katemdi.cpp:1047
 #, kde-format
 msgid "Top Sidebar"
 msgstr "Ülemine külgriba"
 
-#: lib/katemdi.cpp:1049
+#: lib/katemdi.cpp:1051
 #, kde-format
 msgid "Bottom Sidebar"
 msgstr "Alumine külgriba"
 
-#: lib/katemdi.cpp:1424
+#: lib/katemdi.cpp:1426
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "
@@ -1736,44 +1736,37 @@ msgstr "Tühimärkide erinevusi arvestamata on failid identsed."
 msgid "Diff Output"
 msgstr "Võrdlemise väljund"
 
-#: lib/kateoutputview.cpp:96
+#: lib/kateoutputview.cpp:158
 #, fuzzy, kde-format
 #| msgid "Use Clipboard"
-msgctxt "@action:inmenu"
-msgid "Copy to Clipboard"
+msgid "Copy all text to clipboard"
 msgstr "Lõikepuhvri kasutamine"
 
-#: lib/kateoutputview.cpp:247
-#, fuzzy, kde-format
-#| msgid "Filter:"
-msgid "Filter..."
-msgstr "Filter:"
-
-#: lib/kateoutputview.cpp:260
+#: lib/kateoutputview.cpp:163
 #, kde-format
 msgid "Clear all messages"
 msgstr ""
 
-#: lib/kateoutputview.cpp:368
+#: lib/kateoutputview.cpp:347
 #, kde-format
 msgctxt "@info"
 msgid "Error"
 msgstr ""
 
-#: lib/kateoutputview.cpp:373
+#: lib/kateoutputview.cpp:351
 #, fuzzy, kde-format
 #| msgid "Warning"
 msgctxt "@info"
 msgid "Warning"
 msgstr "Hoiatus"
 
-#: lib/kateoutputview.cpp:378
+#: lib/kateoutputview.cpp:355
 #, kde-format
 msgctxt "@info"
 msgid "Info"
 msgstr ""
 
-#: lib/kateoutputview.cpp:384
+#: lib/kateoutputview.cpp:360
 #, kde-format
 msgctxt "@info"
 msgid "Log"
@@ -2670,6 +2663,11 @@ msgstr "&Halda seansse..."
 #| msgid "Create a new document"
 msgid "Show for new window"
 msgstr "Loo uus dokument"
+
+#, fuzzy
+#~| msgid "Filter:"
+#~ msgid "Filter..."
+#~ msgstr "Filter:"
 
 #, fuzzy
 #~| msgid "Create a new Kate view (a new window with the same document list)."

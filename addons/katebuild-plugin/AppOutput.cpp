@@ -15,8 +15,8 @@
 #include <QVBoxLayout>
 
 #include <KColorScheme>
+#include <KPluginFactory>
 #include <KProcess>
-#include <KService>
 
 #include <KParts/ReadOnlyPart>
 #include <kde_terminal_interface.h>

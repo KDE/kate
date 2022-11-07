@@ -47,7 +47,7 @@
         },
         "elm": {
             "command": ["elm-language-server"],
-            "rootIndicatorFileNames": ["elm.json"],
+            "rootIndicationFileNames": ["elm.json"],
             "url": "https://github.com/elm-tooling/elm-language-server",
             "highlightingModeRegex": "^Elm$"
         },

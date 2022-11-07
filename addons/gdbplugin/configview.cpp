@@ -123,7 +123,7 @@ ConfigView::ConfigView(QWidget *parent, KTextEditor::MainWindow *mainWin)
     m_processId = new QSpinBox(this);
     m_processId->setMinimum(1);
     m_processId->setMaximum(4194304);
-    m_processIdLabel = new QLabel(i18n("Process Id:"));
+    m_processIdLabel = new QLabel(i18n("Process Id:"), this);
     m_processIdLabel->setBuddy(m_processId);
 
     m_arguments = new QLineEdit(this);

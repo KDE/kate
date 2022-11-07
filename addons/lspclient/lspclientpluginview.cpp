@@ -711,7 +711,7 @@ public:
         m_restartAll->setText(i18n("Restart All LSP Servers"));
 
         auto addSeparator = [this]() {
-            auto *sep1 = new QAction();
+            auto *sep1 = new QAction(this);
             sep1->setSeparator(true);
             m_contextMenuActions << sep1;
         };

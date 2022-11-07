@@ -11,7 +11,6 @@
 #include <QScrollBar>
 #include <QTextCursor>
 #include <QTextEdit>
-#include <QTimer>
 #include <QVBoxLayout>
 
 #include <KColorScheme>
@@ -68,13 +67,6 @@ struct AppOutput::Private {
             terminalProcess = t->foregroundProcessName();
             Q_EMIT q->runningChanhged();
         }
-
-        if (!terminalProcess.isEmpty()) {
-            AppOutput *qThis = q;
-            QTimer::singleShot(500, q, [qThis]() {
-                qThis->d->updateTerminalProcessInfo();
-            });
-        }
     }
 };
 
@@ -105,6 +97,11 @@ AppOutput::AppOutput(QWidget *parent)
         layout->addWidget(d->part->widget());
         connect(d->part->widget(), &QObject::destroyed, this, &AppOutput::deleteLater);
         setFocusProxy(d->part->widget());
+
+        connect(d->part, &KParts::ReadOnlyPart::setWindowCaption, this, [this]() {
+            d->updateTerminalProcessInfo();
+        });
+
     } else {
         d->outputArea = new QTextEdit(this);
         layout->addWidget(d->outputArea);
@@ -153,11 +150,6 @@ void AppOutput::runCommand(const QString &cmd)
     if (t) {
         t->sendInput(cmd + QLatin1Char('\n'));
         d->terminalProcess = cmd;
-        // Start updating d->terminalProcess since TerminalInterface does not provide the
-        // info of when the foregroundProcess changes.
-        QTimer::singleShot(500, this, [this]() {
-            d->updateTerminalProcessInfo();
-        });
     } else {
         d->outputArea->clear();
         d->process.setShellCommand(cmd);

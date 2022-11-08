@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-25 00:50+0000\n"
+"POT-Creation-Date: 2022-11-06 00:50+0000\n"
 "PO-Revision-Date: 2013-06-03 02:59+0600\n"
 "Last-Translator: Sairan Kikkarin <sairan@computer.org>\n"
 "Language-Team: Kazakh <kde-i18n-doc@kde.org>\n"
@@ -653,35 +653,35 @@ msgstr "аялдау_нуктенің_қалқымалысы"
 msgid "popup_run_to_cursor"
 msgstr "меңзерге_дейін_орындау_қалқымалысы"
 
-#: plugin_kategdb.cpp:361 plugin_kategdb.cpp:377
+#: plugin_kategdb.cpp:368 plugin_kategdb.cpp:384
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "Аяладу нуктені орнату"
 
-#: plugin_kategdb.cpp:375
+#: plugin_kategdb.cpp:382
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "Аялдау нүктесін кетіру"
 
-#: plugin_kategdb.cpp:399
-#, kde-format
-msgid "Breakpoint"
-msgstr "Аялдау нүктесі"
-
-#: plugin_kategdb.cpp:498
+#: plugin_kategdb.cpp:503
 #, kde-format
 msgid "Execution point"
 msgstr "Орындау нүктесі"
 
-#: plugin_kategdb.cpp:641
+#: plugin_kategdb.cpp:646
 #, kde-format
 msgid "Thread %1"
 msgstr "%1 ағыны"
 
-#: plugin_kategdb.cpp:741
+#: plugin_kategdb.cpp:746
 #, kde-format
 msgid "IO"
 msgstr "ЕШ"
+
+#: plugin_kategdb.cpp:832
+#, kde-format
+msgid "Breakpoint"
+msgstr "Аялдау нүктесі"
 
 #. i18n: ectx: Menu (debug)
 #: ui.rc:6

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-25 00:50+0000\n"
+"POT-Creation-Date: 2022-11-06 00:50+0000\n"
 "PO-Revision-Date: 2022-07-22 19:08+0100\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English <kde-l10n-en_gb@kde.org>\n"
@@ -651,35 +651,35 @@ msgstr "popup_breakpoint"
 msgid "popup_run_to_cursor"
 msgstr "popup_run_to_cursor"
 
-#: plugin_kategdb.cpp:361 plugin_kategdb.cpp:377
+#: plugin_kategdb.cpp:368 plugin_kategdb.cpp:384
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "Insert breakpoint"
 
-#: plugin_kategdb.cpp:375
+#: plugin_kategdb.cpp:382
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "Remove breakpoint"
 
-#: plugin_kategdb.cpp:399
-#, kde-format
-msgid "Breakpoint"
-msgstr "Breakpoint"
-
-#: plugin_kategdb.cpp:498
+#: plugin_kategdb.cpp:503
 #, kde-format
 msgid "Execution point"
 msgstr "Execution point"
 
-#: plugin_kategdb.cpp:641
+#: plugin_kategdb.cpp:646
 #, kde-format
 msgid "Thread %1"
 msgstr "Thread %1"
 
-#: plugin_kategdb.cpp:741
+#: plugin_kategdb.cpp:746
 #, kde-format
 msgid "IO"
 msgstr "IO"
+
+#: plugin_kategdb.cpp:832
+#, kde-format
+msgid "Breakpoint"
+msgstr "Breakpoint"
 
 #. i18n: ectx: Menu (debug)
 #: ui.rc:6

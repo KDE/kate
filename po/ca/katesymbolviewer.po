@@ -256,14 +256,3 @@ msgstr "Variables"
 #, kde-format
 msgid "Templates"
 msgstr "Plantilles"
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your names"
-#~ msgstr "Josep M. Ferrer,Manuel Tortosa Moreno"
-
-#~ msgctxt "EMAIL OF TRANSLATORS"
-#~ msgid "Your emails"
-#~ msgstr "txemaq@gmail.com,manutortosa@gmail.com"
-
-#~ msgid "Show Globals"
-#~ msgstr "Mostra les globals"

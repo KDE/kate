@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-05 00:49+0000\n"
+"POT-Creation-Date: 2022-11-08 02:27+0000\n"
 "PO-Revision-Date: 2022-10-29 19:11+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -702,7 +702,7 @@ msgstr "تعذّر فتح الملفّ '%1'، لا يبدو ملفًّا بل م
 msgid "Configure"
 msgstr "اضبط"
 
-#: lib/kateconfigdialog.cpp:62
+#: lib/kateconfigdialog.cpp:62 lib/kateoutputview.cpp:143
 #, kde-format
 msgid "Search..."
 msgstr "ابحث..."
@@ -1506,82 +1506,82 @@ msgstr "أظهر الأش&رطة الجانبيّة"
 msgid "Hide All Tool Views"
 msgstr "أخفِ جميع مناظير الأدوات"
 
-#: lib/katemdi.cpp:165
+#: lib/katemdi.cpp:167
 #, kde-format
 msgid "Show %1"
 msgstr "أظهر %1"
 
-#: lib/katemdi.cpp:176
+#: lib/katemdi.cpp:178
 #, kde-format
 msgid "Show %1 Button"
 msgstr "اعرض زر %1"
 
-#: lib/katemdi.cpp:191
+#: lib/katemdi.cpp:193
 #, kde-format
 msgid "Focus %1"
 msgstr "تركيز %1"
 
-#: lib/katemdi.cpp:1000
+#: lib/katemdi.cpp:1002
 #, kde-format
 msgid "Configure..."
 msgstr "اضبط..."
 
-#: lib/katemdi.cpp:1004
+#: lib/katemdi.cpp:1006
 #, kde-format
 msgid "Hide Button"
 msgstr "أخفِ الزر"
 
-#: lib/katemdi.cpp:1006
+#: lib/katemdi.cpp:1008
 #, kde-format
 msgid "Move To"
 msgstr "انقل إلى"
 
-#: lib/katemdi.cpp:1011
+#: lib/katemdi.cpp:1013
 #, kde-format
 msgid "Own Section"
 msgstr "قسم مستقل"
 
-#: lib/katemdi.cpp:1017 lib/katemdi.cpp:1025
+#: lib/katemdi.cpp:1019 lib/katemdi.cpp:1027
 #, kde-format
 msgid "One Down"
 msgstr "واحد للأسفل"
 
-#: lib/katemdi.cpp:1019 lib/katemdi.cpp:1030
+#: lib/katemdi.cpp:1021 lib/katemdi.cpp:1032
 #, kde-format
 msgid "One Right"
 msgstr "وأحد لليمين"
 
-#: lib/katemdi.cpp:1023
+#: lib/katemdi.cpp:1025
 #, kde-format
 msgid "One Up"
 msgstr "واحد للأعلى"
 
-#: lib/katemdi.cpp:1028
+#: lib/katemdi.cpp:1030
 #, kde-format
 msgid "One Left"
 msgstr "واحد لليسار"
 
-#: lib/katemdi.cpp:1037
+#: lib/katemdi.cpp:1039
 #, kde-format
 msgid "Left Sidebar"
 msgstr "الشّريط الجانبيّ الأيمن"
 
-#: lib/katemdi.cpp:1041
+#: lib/katemdi.cpp:1043
 #, kde-format
 msgid "Right Sidebar"
 msgstr "الشّريط الجانبيّ الأيسر"
 
-#: lib/katemdi.cpp:1045
+#: lib/katemdi.cpp:1047
 #, kde-format
 msgid "Top Sidebar"
 msgstr "الشّريط الجانبيّ العلويّ"
 
-#: lib/katemdi.cpp:1049
+#: lib/katemdi.cpp:1051
 #, kde-format
 msgid "Bottom Sidebar"
 msgstr "الشّريط الجانبيّ السفليّ"
 
-#: lib/katemdi.cpp:1424
+#: lib/katemdi.cpp:1426
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "
@@ -1706,41 +1706,37 @@ msgstr "بتجاهل عدد المسافات البيضاء الذي تغيّر�
 msgid "Diff Output"
 msgstr "خرج الفرق"
 
-#: lib/kateoutputview.cpp:96
-#, kde-format
-msgctxt "@action:inmenu"
-msgid "Copy to Clipboard"
+#: lib/kateoutputview.cpp:158
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Copy to Clipboard"
+msgid "Copy all text to clipboard"
 msgstr "انسخ إلى الحافظة"
 
-#: lib/kateoutputview.cpp:247
-#, kde-format
-msgid "Filter..."
-msgstr "رشّح..."
-
-#: lib/kateoutputview.cpp:260
+#: lib/kateoutputview.cpp:163
 #, kde-format
 msgid "Clear all messages"
 msgstr "امح كل الرسائل"
 
-#: lib/kateoutputview.cpp:368
+#: lib/kateoutputview.cpp:347
 #, kde-format
 msgctxt "@info"
 msgid "Error"
 msgstr "خطأ"
 
-#: lib/kateoutputview.cpp:373
+#: lib/kateoutputview.cpp:351
 #, kde-format
 msgctxt "@info"
 msgid "Warning"
 msgstr "تحذير"
 
-#: lib/kateoutputview.cpp:378
+#: lib/kateoutputview.cpp:355
 #, kde-format
 msgctxt "@info"
 msgid "Info"
 msgstr "معلومات"
 
-#: lib/kateoutputview.cpp:384
+#: lib/kateoutputview.cpp:360
 #, kde-format
 msgctxt "@info"
 msgid "Log"
@@ -2587,6 +2583,9 @@ msgstr "أدر الجلسات..."
 #, kde-format
 msgid "Show for new window"
 msgstr "اعرض في نافذة جديدة…"
+
+#~ msgid "Filter..."
+#~ msgstr "رشّح..."
 
 #~ msgid "Open new window with fresh untitled document"
 #~ msgstr "افتح نافذة جديدة بمستند جديد غير معنون"

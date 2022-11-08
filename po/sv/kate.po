@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-05 00:49+0000\n"
+"POT-Creation-Date: 2022-11-08 02:27+0000\n"
 "PO-Revision-Date: 2022-10-02 16:47+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -691,7 +691,7 @@ msgstr ""
 msgid "Configure"
 msgstr "Anpassa"
 
-#: lib/kateconfigdialog.cpp:62
+#: lib/kateconfigdialog.cpp:62 lib/kateoutputview.cpp:143
 #, kde-format
 msgid "Search..."
 msgstr ""
@@ -1509,82 +1509,82 @@ msgstr "Visa sido&rader"
 msgid "Hide All Tool Views"
 msgstr "Dölj alla verktygsvyer"
 
-#: lib/katemdi.cpp:165
+#: lib/katemdi.cpp:167
 #, kde-format
 msgid "Show %1"
 msgstr "Visa %1"
 
-#: lib/katemdi.cpp:176
+#: lib/katemdi.cpp:178
 #, kde-format
 msgid "Show %1 Button"
 msgstr "Visa knappen %1"
 
-#: lib/katemdi.cpp:191
+#: lib/katemdi.cpp:193
 #, kde-format
 msgid "Focus %1"
 msgstr ""
 
-#: lib/katemdi.cpp:1000
+#: lib/katemdi.cpp:1002
 #, kde-format
 msgid "Configure..."
 msgstr "Anpassa..."
 
-#: lib/katemdi.cpp:1004
+#: lib/katemdi.cpp:1006
 #, kde-format
 msgid "Hide Button"
 msgstr "Dölj knapp"
 
-#: lib/katemdi.cpp:1006
+#: lib/katemdi.cpp:1008
 #, kde-format
 msgid "Move To"
 msgstr "Flytta till"
 
-#: lib/katemdi.cpp:1011
+#: lib/katemdi.cpp:1013
 #, kde-format
 msgid "Own Section"
 msgstr "Egen sektion"
 
-#: lib/katemdi.cpp:1017 lib/katemdi.cpp:1025
+#: lib/katemdi.cpp:1019 lib/katemdi.cpp:1027
 #, kde-format
 msgid "One Down"
 msgstr "Ner ett steg"
 
-#: lib/katemdi.cpp:1019 lib/katemdi.cpp:1030
+#: lib/katemdi.cpp:1021 lib/katemdi.cpp:1032
 #, kde-format
 msgid "One Right"
 msgstr "Höger ett steg"
 
-#: lib/katemdi.cpp:1023
+#: lib/katemdi.cpp:1025
 #, kde-format
 msgid "One Up"
 msgstr "Upp ett steg"
 
-#: lib/katemdi.cpp:1028
+#: lib/katemdi.cpp:1030
 #, kde-format
 msgid "One Left"
 msgstr "Vänster ett steg"
 
-#: lib/katemdi.cpp:1037
+#: lib/katemdi.cpp:1039
 #, kde-format
 msgid "Left Sidebar"
 msgstr "Vänster sidorad"
 
-#: lib/katemdi.cpp:1041
+#: lib/katemdi.cpp:1043
 #, kde-format
 msgid "Right Sidebar"
 msgstr "Höger sidorad"
 
-#: lib/katemdi.cpp:1045
+#: lib/katemdi.cpp:1047
 #, kde-format
 msgid "Top Sidebar"
 msgstr "Övre sidorad"
 
-#: lib/katemdi.cpp:1049
+#: lib/katemdi.cpp:1051
 #, kde-format
 msgid "Bottom Sidebar"
 msgstr "Nedre sidorad"
 
-#: lib/katemdi.cpp:1424
+#: lib/katemdi.cpp:1426
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "
@@ -1711,41 +1711,37 @@ msgstr "Om antal ändrade blanktecken ignoreras är filerna identiska."
 msgid "Diff Output"
 msgstr "Jämförelseutmatning"
 
-#: lib/kateoutputview.cpp:96
-#, kde-format
-msgctxt "@action:inmenu"
-msgid "Copy to Clipboard"
+#: lib/kateoutputview.cpp:158
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Copy to Clipboard"
+msgid "Copy all text to clipboard"
 msgstr "Kopiera till klippbordet"
 
-#: lib/kateoutputview.cpp:247
-#, kde-format
-msgid "Filter..."
-msgstr "Filtrera..."
-
-#: lib/kateoutputview.cpp:260
+#: lib/kateoutputview.cpp:163
 #, kde-format
 msgid "Clear all messages"
 msgstr "Rensa alla meddelanden"
 
-#: lib/kateoutputview.cpp:368
+#: lib/kateoutputview.cpp:347
 #, kde-format
 msgctxt "@info"
 msgid "Error"
 msgstr "Fel"
 
-#: lib/kateoutputview.cpp:373
+#: lib/kateoutputview.cpp:351
 #, kde-format
 msgctxt "@info"
 msgid "Warning"
 msgstr "Varning"
 
-#: lib/kateoutputview.cpp:378
+#: lib/kateoutputview.cpp:355
 #, kde-format
 msgctxt "@info"
 msgid "Info"
 msgstr "Information"
 
-#: lib/kateoutputview.cpp:384
+#: lib/kateoutputview.cpp:360
 #, kde-format
 msgctxt "@info"
 msgid "Log"
@@ -2617,6 +2613,9 @@ msgstr "&Hantera sessioner..."
 #| msgid "Create a new window."
 msgid "Show for new window"
 msgstr "Skapa ett nytt fönster."
+
+#~ msgid "Filter..."
+#~ msgstr "Filtrera..."
 
 #~ msgid "Open new window with fresh untitled document"
 #~ msgstr "Öppna nytt fönster med nytt namnlöst dokument"

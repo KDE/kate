@@ -210,17 +210,3 @@ msgstr "Arranjament del terminal"
 #, kde-format
 msgid "&Tools"
 msgstr "&Eines"
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your names"
-#~ msgstr "Josep M. Ferrer"
-
-#~ msgctxt "EMAIL OF TRANSLATORS"
-#~ msgid "Your emails"
-#~ msgstr "txemaq@gmail.com"
-
-#~ msgid "Kate Terminal"
-#~ msgstr "Terminal del Kate"
-
-#~ msgid "Terminal Panel"
-#~ msgstr "Plafó del terminal"

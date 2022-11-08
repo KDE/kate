@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-05 00:49+0000\n"
+"POT-Creation-Date: 2022-11-08 02:27+0000\n"
 "PO-Revision-Date: 2022-11-02 23:07+0100\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
@@ -686,7 +686,7 @@ msgstr "Файлът \"%1\" не може да бъде отворен, защо
 msgid "Configure"
 msgstr "Настройване"
 
-#: lib/kateconfigdialog.cpp:62
+#: lib/kateconfigdialog.cpp:62 lib/kateoutputview.cpp:143
 #, kde-format
 msgid "Search..."
 msgstr "Търсене..."
@@ -1516,82 +1516,82 @@ msgstr "&Показване на страничния панел"
 msgid "Hide All Tool Views"
 msgstr "Скриване на всички инструменти"
 
-#: lib/katemdi.cpp:165
+#: lib/katemdi.cpp:167
 #, kde-format
 msgid "Show %1"
 msgstr "Показване на %1"
 
-#: lib/katemdi.cpp:176
+#: lib/katemdi.cpp:178
 #, kde-format
 msgid "Show %1 Button"
 msgstr "Показване на %1 бутон"
 
-#: lib/katemdi.cpp:191
+#: lib/katemdi.cpp:193
 #, kde-format
 msgid "Focus %1"
 msgstr "Фокусиране на %1"
 
-#: lib/katemdi.cpp:1000
+#: lib/katemdi.cpp:1002
 #, kde-format
 msgid "Configure..."
 msgstr "Конфигуриране..."
 
-#: lib/katemdi.cpp:1004
+#: lib/katemdi.cpp:1006
 #, kde-format
 msgid "Hide Button"
 msgstr "Скриване на бутона"
 
-#: lib/katemdi.cpp:1006
+#: lib/katemdi.cpp:1008
 #, kde-format
 msgid "Move To"
 msgstr "Преместване към"
 
-#: lib/katemdi.cpp:1011
+#: lib/katemdi.cpp:1013
 #, kde-format
 msgid "Own Section"
 msgstr "Собствена секция"
 
-#: lib/katemdi.cpp:1017 lib/katemdi.cpp:1025
+#: lib/katemdi.cpp:1019 lib/katemdi.cpp:1027
 #, kde-format
 msgid "One Down"
 msgstr "Един надолу"
 
-#: lib/katemdi.cpp:1019 lib/katemdi.cpp:1030
+#: lib/katemdi.cpp:1021 lib/katemdi.cpp:1032
 #, kde-format
 msgid "One Right"
 msgstr "Един надясно"
 
-#: lib/katemdi.cpp:1023
+#: lib/katemdi.cpp:1025
 #, kde-format
 msgid "One Up"
 msgstr "Един нагоре"
 
-#: lib/katemdi.cpp:1028
+#: lib/katemdi.cpp:1030
 #, kde-format
 msgid "One Left"
 msgstr "Един наляво"
 
-#: lib/katemdi.cpp:1037
+#: lib/katemdi.cpp:1039
 #, kde-format
 msgid "Left Sidebar"
 msgstr "Лява странична лента"
 
-#: lib/katemdi.cpp:1041
+#: lib/katemdi.cpp:1043
 #, kde-format
 msgid "Right Sidebar"
 msgstr "Дясна странична лента"
 
-#: lib/katemdi.cpp:1045
+#: lib/katemdi.cpp:1047
 #, kde-format
 msgid "Top Sidebar"
 msgstr "Горна странична лента"
 
-#: lib/katemdi.cpp:1049
+#: lib/katemdi.cpp:1051
 #, kde-format
 msgid "Bottom Sidebar"
 msgstr "Долна странична лента"
 
-#: lib/katemdi.cpp:1424
+#: lib/katemdi.cpp:1426
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "
@@ -1722,41 +1722,37 @@ msgstr ""
 msgid "Diff Output"
 msgstr "Данни за разлика"
 
-#: lib/kateoutputview.cpp:96
-#, kde-format
-msgctxt "@action:inmenu"
-msgid "Copy to Clipboard"
+#: lib/kateoutputview.cpp:158
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Copy to Clipboard"
+msgid "Copy all text to clipboard"
 msgstr "Копиране в клипборда"
 
-#: lib/kateoutputview.cpp:247
-#, kde-format
-msgid "Filter..."
-msgstr "Филтър..."
-
-#: lib/kateoutputview.cpp:260
+#: lib/kateoutputview.cpp:163
 #, kde-format
 msgid "Clear all messages"
 msgstr "Изчистване на всички съобщения"
 
-#: lib/kateoutputview.cpp:368
+#: lib/kateoutputview.cpp:347
 #, kde-format
 msgctxt "@info"
 msgid "Error"
 msgstr "Грешка"
 
-#: lib/kateoutputview.cpp:373
+#: lib/kateoutputview.cpp:351
 #, kde-format
 msgctxt "@info"
 msgid "Warning"
 msgstr "Предупреждение"
 
-#: lib/kateoutputview.cpp:378
+#: lib/kateoutputview.cpp:355
 #, kde-format
 msgctxt "@info"
 msgid "Info"
 msgstr "Информация"
 
-#: lib/kateoutputview.cpp:384
+#: lib/kateoutputview.cpp:360
 #, kde-format
 msgctxt "@info"
 msgid "Log"
@@ -2608,6 +2604,9 @@ msgstr "Управление на сесиите..."
 #, kde-format
 msgid "Show for new window"
 msgstr "Показване за нов прозорец"
+
+#~ msgid "Filter..."
+#~ msgstr "Филтър..."
 
 #~ msgid "Open new window with fresh untitled document"
 #~ msgstr "Отваряне на нов прозорец с нов документ без заглавие"

@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-05 00:49+0000\n"
+"POT-Creation-Date: 2022-11-08 02:27+0000\n"
 "PO-Revision-Date: 2022-10-27 08:49+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@neuf.fr>\n"
 "Language-Team: French <kde-francophone@kde.org>\n"
@@ -716,7 +716,7 @@ msgstr ""
 msgid "Configure"
 msgstr "Configurer"
 
-#: lib/kateconfigdialog.cpp:62
+#: lib/kateconfigdialog.cpp:62 lib/kateoutputview.cpp:143
 #, kde-format
 msgid "Search..."
 msgstr "Rhercher…"
@@ -1562,82 +1562,82 @@ msgstr "Afficher les &barres latérales"
 msgid "Hide All Tool Views"
 msgstr "Masquer toutes les vues d'outils"
 
-#: lib/katemdi.cpp:165
+#: lib/katemdi.cpp:167
 #, kde-format
 msgid "Show %1"
 msgstr "Afficher %1"
 
-#: lib/katemdi.cpp:176
+#: lib/katemdi.cpp:178
 #, kde-format
 msgid "Show %1 Button"
 msgstr "Afficher un bouton %1"
 
-#: lib/katemdi.cpp:191
+#: lib/katemdi.cpp:193
 #, kde-format
 msgid "Focus %1"
 msgstr "Faire un focus sur %1"
 
-#: lib/katemdi.cpp:1000
+#: lib/katemdi.cpp:1002
 #, kde-format
 msgid "Configure..."
 msgstr "Configurer..."
 
-#: lib/katemdi.cpp:1004
+#: lib/katemdi.cpp:1006
 #, kde-format
 msgid "Hide Button"
 msgstr "Masquer un bouton"
 
-#: lib/katemdi.cpp:1006
+#: lib/katemdi.cpp:1008
 #, kde-format
 msgid "Move To"
 msgstr "Déplacer vers"
 
-#: lib/katemdi.cpp:1011
+#: lib/katemdi.cpp:1013
 #, kde-format
 msgid "Own Section"
 msgstr "Votre propre section"
 
-#: lib/katemdi.cpp:1017 lib/katemdi.cpp:1025
+#: lib/katemdi.cpp:1019 lib/katemdi.cpp:1027
 #, kde-format
 msgid "One Down"
 msgstr "Un vers le bas"
 
-#: lib/katemdi.cpp:1019 lib/katemdi.cpp:1030
+#: lib/katemdi.cpp:1021 lib/katemdi.cpp:1032
 #, kde-format
 msgid "One Right"
 msgstr "Un vers la droite"
 
-#: lib/katemdi.cpp:1023
+#: lib/katemdi.cpp:1025
 #, kde-format
 msgid "One Up"
 msgstr "Un vers le haut"
 
-#: lib/katemdi.cpp:1028
+#: lib/katemdi.cpp:1030
 #, kde-format
 msgid "One Left"
 msgstr "Un vers la gauche"
 
-#: lib/katemdi.cpp:1037
+#: lib/katemdi.cpp:1039
 #, kde-format
 msgid "Left Sidebar"
 msgstr "Barre latérale gauche"
 
-#: lib/katemdi.cpp:1041
+#: lib/katemdi.cpp:1043
 #, kde-format
 msgid "Right Sidebar"
 msgstr "Barre latérale droite"
 
-#: lib/katemdi.cpp:1045
+#: lib/katemdi.cpp:1047
 #, kde-format
 msgid "Top Sidebar"
 msgstr "Barre latérale en haut"
 
-#: lib/katemdi.cpp:1049
+#: lib/katemdi.cpp:1051
 #, kde-format
 msgid "Bottom Sidebar"
 msgstr "Barre latérale en bas"
 
-#: lib/katemdi.cpp:1424
+#: lib/katemdi.cpp:1426
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "
@@ -1771,41 +1771,37 @@ msgstr ""
 msgid "Diff Output"
 msgstr "Sortie de « Diff »"
 
-#: lib/kateoutputview.cpp:96
-#, kde-format
-msgctxt "@action:inmenu"
-msgid "Copy to Clipboard"
+#: lib/kateoutputview.cpp:158
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Copy to Clipboard"
+msgid "Copy all text to clipboard"
 msgstr "Copier dans le presse-papiers"
 
-#: lib/kateoutputview.cpp:247
-#, kde-format
-msgid "Filter..."
-msgstr "Filtrer..."
-
-#: lib/kateoutputview.cpp:260
+#: lib/kateoutputview.cpp:163
 #, kde-format
 msgid "Clear all messages"
 msgstr "Nettoyer les messages"
 
-#: lib/kateoutputview.cpp:368
+#: lib/kateoutputview.cpp:347
 #, kde-format
 msgctxt "@info"
 msgid "Error"
 msgstr "Erreur"
 
-#: lib/kateoutputview.cpp:373
+#: lib/kateoutputview.cpp:351
 #, kde-format
 msgctxt "@info"
 msgid "Warning"
 msgstr "Avertissement"
 
-#: lib/kateoutputview.cpp:378
+#: lib/kateoutputview.cpp:355
 #, kde-format
 msgctxt "@info"
 msgid "Info"
 msgstr "Informations"
 
-#: lib/kateoutputview.cpp:384
+#: lib/kateoutputview.cpp:360
 #, kde-format
 msgctxt "@info"
 msgid "Log"
@@ -2672,6 +2668,9 @@ msgstr "Gérer les sessions..."
 #, kde-format
 msgid "Show for new window"
 msgstr "Afficher pour une nouvelle fenêtre."
+
+#~ msgid "Filter..."
+#~ msgstr "Filtrer..."
 
 #~ msgid "Open new window with fresh untitled document"
 #~ msgstr "Ouvrir une nouvelle fenêtre avec un document vide sans titre"

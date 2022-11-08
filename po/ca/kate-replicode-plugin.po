@@ -400,26 +400,3 @@ msgstr "L'execució del Replicode ha fallat: %1"
 #, kde-format
 msgid "Replicode execution finished."
 msgstr "L'execució del Replicode ha finalitzat."
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your names"
-#~ msgstr "Josep M. Ferrer"
-
-#~ msgctxt "EMAIL OF TRANSLATORS"
-#~ msgid "Your emails"
-#~ msgstr "txemaq@gmail.com"
-
-#~ msgid "Replicode Output"
-#~ msgstr "Sortida del Replicode"
-
-#~ msgid "Unable to find active file"
-#~ msgstr "No s'ha pogut trobar cap fitxer actiu"
-
-#~ msgid "No file"
-#~ msgstr "No hi ha cap fitxer"
-
-#~ msgid "Can't find replicode executor"
-#~ msgstr "No s'ha pogut trobar l'executor del «replicode»"
-
-#~ msgid "Can't find user operator library"
-#~ msgstr "No s'ha pogut trobar la biblioteca d'operació de l'usuari"

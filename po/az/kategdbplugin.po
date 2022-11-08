@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-25 00:50+0000\n"
+"POT-Creation-Date: 2022-11-06 00:50+0000\n"
 "PO-Revision-Date: 2022-06-16 00:57+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -652,35 +652,35 @@ msgstr "popup_breakpoint"
 msgid "popup_run_to_cursor"
 msgstr "popup_run_to_cursor"
 
-#: plugin_kategdb.cpp:361 plugin_kategdb.cpp:377
+#: plugin_kategdb.cpp:368 plugin_kategdb.cpp:384
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "Qırılma nöqtəsi daxil edin"
 
-#: plugin_kategdb.cpp:375
+#: plugin_kategdb.cpp:382
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "Qırılma nöqtəsini silin"
 
-#: plugin_kategdb.cpp:399
-#, kde-format
-msgid "Breakpoint"
-msgstr "Qırılma nöqtəsi"
-
-#: plugin_kategdb.cpp:498
+#: plugin_kategdb.cpp:503
 #, kde-format
 msgid "Execution point"
 msgstr "İcra olunma nöqtəsi"
 
-#: plugin_kategdb.cpp:641
+#: plugin_kategdb.cpp:646
 #, kde-format
 msgid "Thread %1"
 msgstr "Axın %1"
 
-#: plugin_kategdb.cpp:741
+#: plugin_kategdb.cpp:746
 #, kde-format
 msgid "IO"
 msgstr "GÇ"
+
+#: plugin_kategdb.cpp:832
+#, kde-format
+msgid "Breakpoint"
+msgstr "Qırılma nöqtəsi"
 
 #. i18n: ectx: Menu (debug)
 #: ui.rc:6

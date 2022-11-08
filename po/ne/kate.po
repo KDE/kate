@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-05 00:49+0000\n"
+"POT-Creation-Date: 2022-11-08 02:27+0000\n"
 "PO-Revision-Date: 2007-09-13 12:58+0545\n"
 "Last-Translator: Narayan Kumar Magar <narayan@mpp.org.np>\n"
 "Language-Team: Nepali <info@mpp.org.np>\n"
@@ -700,7 +700,7 @@ msgstr "'%1' फाइल खोल्न सकिने छैन: यो स�
 msgid "Configure"
 msgstr "कन्फिगर गर्नुहोस्"
 
-#: lib/kateconfigdialog.cpp:62
+#: lib/kateconfigdialog.cpp:62 lib/kateoutputview.cpp:143
 #, kde-format
 msgid "Search..."
 msgstr ""
@@ -1565,86 +1565,86 @@ msgstr "छेउपट्टी देखाउनुहोस्"
 msgid "Hide All Tool Views"
 msgstr "उपरकण दृश्य"
 
-#: lib/katemdi.cpp:165
+#: lib/katemdi.cpp:167
 #, kde-format
 msgid "Show %1"
 msgstr "%1 देखाउनुहोस्"
 
-#: lib/katemdi.cpp:176
+#: lib/katemdi.cpp:178
 #, fuzzy, kde-format
 #| msgid "&Hovered button"
 msgid "Show %1 Button"
 msgstr "झुण्डिएको बटन"
 
-#: lib/katemdi.cpp:191
+#: lib/katemdi.cpp:193
 #, kde-format
 msgid "Focus %1"
 msgstr ""
 
-#: lib/katemdi.cpp:1000
+#: lib/katemdi.cpp:1002
 #, fuzzy, kde-format
 #| msgid "Configure..."
 msgid "Configure..."
 msgstr "कन्फिगर गर्नुहोस्..."
 
-#: lib/katemdi.cpp:1004
+#: lib/katemdi.cpp:1006
 #, fuzzy, kde-format
 #| msgid "Hide Path"
 msgid "Hide Button"
 msgstr "मार्ग लुकाउनुहोस्"
 
-#: lib/katemdi.cpp:1006
+#: lib/katemdi.cpp:1008
 #, kde-format
 msgid "Move To"
 msgstr "यसमा सार्नुहोस्"
 
-#: lib/katemdi.cpp:1011
+#: lib/katemdi.cpp:1013
 #, fuzzy, kde-format
 #| msgid "Open Session"
 msgid "Own Section"
 msgstr "खुला सत्र"
 
-#: lib/katemdi.cpp:1017 lib/katemdi.cpp:1025
+#: lib/katemdi.cpp:1019 lib/katemdi.cpp:1027
 #, kde-format
 msgid "One Down"
 msgstr ""
 
-#: lib/katemdi.cpp:1019 lib/katemdi.cpp:1030
+#: lib/katemdi.cpp:1021 lib/katemdi.cpp:1032
 #, kde-format
 msgid "One Right"
 msgstr ""
 
-#: lib/katemdi.cpp:1023
+#: lib/katemdi.cpp:1025
 #, kde-format
 msgid "One Up"
 msgstr ""
 
-#: lib/katemdi.cpp:1028
+#: lib/katemdi.cpp:1030
 #, kde-format
 msgid "One Left"
 msgstr ""
 
-#: lib/katemdi.cpp:1037
+#: lib/katemdi.cpp:1039
 #, kde-format
 msgid "Left Sidebar"
 msgstr "बायाँ छेउपट्टी"
 
-#: lib/katemdi.cpp:1041
+#: lib/katemdi.cpp:1043
 #, kde-format
 msgid "Right Sidebar"
 msgstr "दायाँ छेउपट्टी"
 
-#: lib/katemdi.cpp:1045
+#: lib/katemdi.cpp:1047
 #, kde-format
 msgid "Top Sidebar"
 msgstr "माथिल्लो छेउपट्टी"
 
-#: lib/katemdi.cpp:1049
+#: lib/katemdi.cpp:1051
 #, kde-format
 msgid "Bottom Sidebar"
 msgstr "तल्लो छेउपट्टी"
 
-#: lib/katemdi.cpp:1424
+#: lib/katemdi.cpp:1426
 #, fuzzy, kde-format
 #| msgid ""
 #| "<qt>You are about to hide the sidebars. With hidden sidebars it is not "
@@ -1790,43 +1790,36 @@ msgstr "सेतो खालीस्थान परिवर्तन बा
 msgid "Diff Output"
 msgstr "भिन्न निर्गत"
 
-#: lib/kateoutputview.cpp:96
+#: lib/kateoutputview.cpp:158
 #, kde-format
-msgctxt "@action:inmenu"
-msgid "Copy to Clipboard"
+msgid "Copy all text to clipboard"
 msgstr ""
 
-#: lib/kateoutputview.cpp:247
-#, fuzzy, kde-format
-#| msgid "&Filter:"
-msgid "Filter..."
-msgstr "फिल्टर:"
-
-#: lib/kateoutputview.cpp:260
+#: lib/kateoutputview.cpp:163
 #, kde-format
 msgid "Clear all messages"
 msgstr ""
 
-#: lib/kateoutputview.cpp:368
+#: lib/kateoutputview.cpp:347
 #, fuzzy, kde-format
 #| msgid "Error"
 msgctxt "@info"
 msgid "Error"
 msgstr "त्रुटि"
 
-#: lib/kateoutputview.cpp:373
+#: lib/kateoutputview.cpp:351
 #, kde-format
 msgctxt "@info"
 msgid "Warning"
 msgstr ""
 
-#: lib/kateoutputview.cpp:378
+#: lib/kateoutputview.cpp:355
 #, kde-format
 msgctxt "@info"
 msgid "Info"
 msgstr ""
 
-#: lib/kateoutputview.cpp:384
+#: lib/kateoutputview.cpp:360
 #, kde-format
 msgctxt "@info"
 msgid "Log"
@@ -2727,6 +2720,11 @@ msgstr "सत्र व्यवस्थापन गर्नुहोस्"
 #| msgid "Create a new document"
 msgid "Show for new window"
 msgstr "नयाँ कागजात सिर्जना गर्नुहोस्"
+
+#, fuzzy
+#~| msgid "&Filter:"
+#~ msgid "Filter..."
+#~ msgstr "फिल्टर:"
 
 #, fuzzy
 #~| msgid "Create a new Kate view (a new window with the same document list)."

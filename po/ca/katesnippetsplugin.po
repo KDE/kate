@@ -364,15 +364,3 @@ msgstr "Filtre..."
 #, kde-format
 msgid "&Tools"
 msgstr "&Eines"
-
-#~ msgid "Snippets tool view"
-#~ msgstr "Vista d'eina de retalls"
-
-#~ msgid "Publish Repository"
-#~ msgstr "Publica el repositori"
-
-#~ msgid "Snippets..."
-#~ msgstr "Retalls..."
-
-#~ msgid "Help"
-#~ msgstr "Ajuda"

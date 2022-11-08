@@ -1015,22 +1015,3 @@ msgstr "Ha fallat en mostrar la modificació temporal. Error: "
 #, kde-format
 msgid "&Projects"
 msgstr "&Projectes"
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your names"
-#~ msgstr "Josep M. Ferrer"
-
-#~ msgctxt "EMAIL OF TRANSLATORS"
-#~ msgid "Your emails"
-#~ msgstr "txemaq@gmail.com"
-
-#~ msgid "Failed to get file history: git executable not found in PATH"
-#~ msgstr ""
-#~ "Ha fallat en obtenir l'historial de fitxers: no s'ha trobat l'executable "
-#~ "«git» en el PATH"
-
-#~ msgid "Failed to get file history: %1"
-#~ msgstr "Ha fallat en obtenir l'historial de fitxers: %1"
-
-#~ msgid "Show File Git History"
-#~ msgstr "Mostra l'historial del Git dels fitxers"

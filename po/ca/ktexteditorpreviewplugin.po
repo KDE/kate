@@ -94,11 +94,3 @@ msgstr "No hi ha disponible la vista prèvia."
 #, kde-format
 msgid "About %1"
 msgstr "Quant al %1"
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your names"
-#~ msgstr "Josep M. Ferrer"
-
-#~ msgctxt "EMAIL OF TRANSLATORS"
-#~ msgid "Your emails"
-#~ msgstr "txemaq@gmail.com"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-31 00:49+0000\n"
+"POT-Creation-Date: 2022-11-08 02:27+0000\n"
 "PO-Revision-Date: 2022-04-28 19:17+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -79,61 +79,61 @@ msgctxt "Header for the error message column"
 msgid "Message"
 msgstr "Viesti"
 
-#: plugin_katebuild.cpp:131 plugin_katebuild.cpp:138 plugin_katebuild.cpp:1270
+#: plugin_katebuild.cpp:136 plugin_katebuild.cpp:143 plugin_katebuild.cpp:1323
 #, kde-format
 msgid "Build"
 msgstr "Koosta"
 
-#: plugin_katebuild.cpp:141
+#: plugin_katebuild.cpp:146
 #, kde-format
 msgid "Select Target..."
 msgstr "Valitse kohde…"
 
-#: plugin_katebuild.cpp:146
+#: plugin_katebuild.cpp:151
 #, fuzzy, kde-format
 #| msgid "Build selected target"
 msgid "Build Selected Target"
 msgstr "Koosta valittu kohde"
 
-#: plugin_katebuild.cpp:151
+#: plugin_katebuild.cpp:156
 #, fuzzy, kde-format
 #| msgid "Build selected target"
 msgid "Build and Run Selected Target"
 msgstr "Koosta valittu kohde"
 
-#: plugin_katebuild.cpp:156
+#: plugin_katebuild.cpp:161
 #, kde-format
 msgid "Stop"
 msgstr "Pysäytä"
 
-#: plugin_katebuild.cpp:161
+#: plugin_katebuild.cpp:166
 #, kde-format
 msgid "Next Error"
 msgstr "Seuraava virhe"
 
-#: plugin_katebuild.cpp:167
+#: plugin_katebuild.cpp:172
 #, kde-format
 msgid "Previous Error"
 msgstr "Edellinen virhe"
 
-#: plugin_katebuild.cpp:173
+#: plugin_katebuild.cpp:178
 #, kde-format
 msgid "Show Marks"
 msgstr "Näytä merkit"
 
-#: plugin_katebuild.cpp:182
+#: plugin_katebuild.cpp:187
 #, kde-format
 msgctxt "Tab label"
 msgid "Target Settings"
 msgstr "Kohdeasetukset"
 
-#: plugin_katebuild.cpp:337 plugin_katebuild.cpp:1372 plugin_katebuild.cpp:1383
-#: plugin_katebuild.cpp:1404 plugin_katebuild.cpp:1414
+#: plugin_katebuild.cpp:347 plugin_katebuild.cpp:1425 plugin_katebuild.cpp:1436
+#: plugin_katebuild.cpp:1457 plugin_katebuild.cpp:1467
 #, kde-format
 msgid "Project Plugin Targets"
 msgstr "Projektiliitännäisen kohteet"
 
-#: plugin_katebuild.cpp:490
+#: plugin_katebuild.cpp:500
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -143,46 +143,46 @@ msgstr ""
 "<title>Tiedostoa ei voitu avata:</title><nl/>%1<br/>Yritä kohdeasetuksissa "
 "lisätä työkansioon hakupolku"
 
-#: plugin_katebuild.cpp:510
+#: plugin_katebuild.cpp:520
 #, kde-format
 msgctxt "The same word as 'make' uses to mark an error."
 msgid "error"
 msgstr "virhe"
 
-#: plugin_katebuild.cpp:513
+#: plugin_katebuild.cpp:523
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "määrittämätön viite"
 
-#: plugin_katebuild.cpp:520
+#: plugin_katebuild.cpp:530
 #, kde-format
 msgctxt "The same word as 'make' uses to mark a warning."
 msgid "warning"
 msgstr "varoitus"
 
-#: plugin_katebuild.cpp:606
+#: plugin_katebuild.cpp:616
 #, kde-format
 msgid "Error"
 msgstr "Virhe"
 
-#: plugin_katebuild.cpp:611
+#: plugin_katebuild.cpp:621
 #, kde-format
 msgid "Warning"
 msgstr "Varoitus"
 
-#: plugin_katebuild.cpp:742
+#: plugin_katebuild.cpp:752
 #, kde-format
 msgid "There is no file or directory specified for building."
 msgstr "Koostettavaa tiedostoa tai kansiota ei ole määritetty."
 
-#: plugin_katebuild.cpp:746
+#: plugin_katebuild.cpp:756
 #, kde-format
 msgid ""
 "The file \"%1\" is not a local file. Non-local files cannot be compiled."
 msgstr "Tiedosto ”%1” ei ole paikallinen: etätiedostoja ei voi koostaa."
 
-#: plugin_katebuild.cpp:792
+#: plugin_katebuild.cpp:802
 #, kde-format
 msgid ""
 "Cannot run command: %1\n"
@@ -191,137 +191,137 @@ msgstr ""
 "Komentoa ei voida suorittaa: %1\n"
 "Työkansiota ei ole olemassa: %2"
 
-#: plugin_katebuild.cpp:811
+#: plugin_katebuild.cpp:821
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "Kohteen ”%1” suoritus epäonnistui. exitStatus = %2"
 
-#: plugin_katebuild.cpp:830
+#: plugin_katebuild.cpp:840
 #, kde-format
 msgid "Building <b>%1</b> cancelled"
 msgstr "Kohteen <b>%1</b> koostaminen peruttiin"
 
-#: plugin_katebuild.cpp:927
-#, kde-format
-msgid "Already building..."
-msgstr "On jo koostamassa…"
-
-#: plugin_katebuild.cpp:936
+#: plugin_katebuild.cpp:941
 #, kde-format
 msgid "No target available for building."
 msgstr "Ei koostettavaa kohdetta."
 
-#: plugin_katebuild.cpp:950
+#: plugin_katebuild.cpp:955
 #, kde-format
 msgid "There is no local file or directory specified for building."
 msgstr "Koostettavaa paikallista tiedostoa tai kansiota ei ole määritetty."
 
-#: plugin_katebuild.cpp:974
+#: plugin_katebuild.cpp:961
+#, kde-format
+msgid "Already building..."
+msgstr "On jo koostamassa…"
+
+#: plugin_katebuild.cpp:988
 #, kde-format
 msgid "Building target <b>%1</b> ..."
 msgstr "Koostetaan kohdetta <b>%1</b>…"
 
-#: plugin_katebuild.cpp:989
+#: plugin_katebuild.cpp:1003
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Make Results:</title><nl/>%1"
 msgstr "<title>Maken tulokset:</title><nl/>%1"
 
-#: plugin_katebuild.cpp:1025
+#: plugin_katebuild.cpp:1039
 #, kde-format
 msgid "Building <b>%1</b> completed."
 msgstr "Kohteen <b>%1</b> koostaminen valmistui."
 
-#: plugin_katebuild.cpp:1044
+#: plugin_katebuild.cpp:1058
 #, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
 msgstr[0] "Löytyi yksi virhe."
 msgstr[1] "Löytyi %1 virhettä."
 
-#: plugin_katebuild.cpp:1045
+#: plugin_katebuild.cpp:1059
 #, kde-format
 msgid "Building <b>%1</b> had errors."
 msgstr "Kohteen <b>%1</b> koostamisessa oli virheitä."
 
-#: plugin_katebuild.cpp:1047
+#: plugin_katebuild.cpp:1061
 #, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
 msgstr[0] "Löytyi yksi varoitus."
 msgstr[1] "Löytyi %1 varoitusta."
 
-#: plugin_katebuild.cpp:1048
+#: plugin_katebuild.cpp:1062
 #, kde-format
 msgid "Building <b>%1</b> had warnings."
 msgstr "Kohteen <b>%1</b> koostamisessa oli varoituksia."
 
-#: plugin_katebuild.cpp:1054
+#: plugin_katebuild.cpp:1068
 #, kde-format
 msgid "Build failed."
 msgstr "Koostaminen epäonnistui."
 
-#: plugin_katebuild.cpp:1056
+#: plugin_katebuild.cpp:1070
 #, kde-format
 msgid "Build completed without problems."
 msgstr "Koostaminen onnistui ongelmitta."
 
-#: plugin_katebuild.cpp:1086
+#: plugin_katebuild.cpp:1101
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
 msgstr ""
 
-#: plugin_katebuild.cpp:1269
+#: plugin_katebuild.cpp:1322
 #, kde-format
 msgid "Target Set"
 msgstr "Kohdejoukko"
 
-#: plugin_katebuild.cpp:1271
+#: plugin_katebuild.cpp:1324
 #, kde-format
 msgid "Clean"
 msgstr "Nollaa"
 
-#: plugin_katebuild.cpp:1272
+#: plugin_katebuild.cpp:1325
 #, kde-format
 msgid "Config"
 msgstr "Asetukset"
 
-#: plugin_katebuild.cpp:1273
+#: plugin_katebuild.cpp:1326
 #, kde-format
 msgid "ConfigClean"
 msgstr "Asetusten nollaus"
 
-#: plugin_katebuild.cpp:1316
+#: plugin_katebuild.cpp:1369
 #, kde-format
 msgid "Only Errors"
 msgstr "Vain virheet"
 
-#: plugin_katebuild.cpp:1319
+#: plugin_katebuild.cpp:1372
 #, kde-format
 msgid "Errors and Warnings"
 msgstr "Virheet ja varoitukset"
 
-#: plugin_katebuild.cpp:1322
+#: plugin_katebuild.cpp:1375
 #, kde-format
 msgid "Parsed Output"
 msgstr "Jäsennetty tuloste"
 
-#: plugin_katebuild.cpp:1325
+#: plugin_katebuild.cpp:1378
 #, kde-format
 msgid "Full Output"
 msgstr "Koko tuloste"
 
-#: plugin_katebuild.cpp:1442
+#: plugin_katebuild.cpp:1495
 #, kde-format
 msgid "build"
 msgstr "koosta"
 
-#: plugin_katebuild.cpp:1445
+#: plugin_katebuild.cpp:1498
 #, kde-format
 msgid "clean"
 msgstr "nollaa"
 
-#: plugin_katebuild.cpp:1448
+#: plugin_katebuild.cpp:1501
 #, kde-format
 msgid "quick"
 msgstr "pika"
@@ -360,22 +360,22 @@ msgstr ""
 "”%d” nykyisen tiedoston kansiota\n"
 "”%n” nykyistä tiedostoa nimen päätteettä"
 
-#: TargetModel.cpp:333
+#: TargetModel.cpp:339
 #, kde-format
 msgid "Check the check-box to make the command the default for the target-set."
 msgstr "Valitse valintaruutu tehdäksesi komennosta kohdejoukon oletuksen."
 
-#: TargetModel.cpp:389
+#: TargetModel.cpp:395
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Komennon/kohdejoukon nimi"
 
-#: TargetModel.cpp:392
+#: TargetModel.cpp:398
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "Työkansio / komento"
 
-#: TargetModel.cpp:395
+#: TargetModel.cpp:401
 #, fuzzy, kde-format
 #| msgid "Command:"
 msgid "Run Command"

@@ -557,35 +557,3 @@ msgstr "&Eines"
 #, kde-format
 msgid "Main Toolbar"
 msgstr "Barra d'eines principal"
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your names"
-#~ msgstr "Josep M. Ferrer"
-
-#~ msgctxt "EMAIL OF TRANSLATORS"
-#~ msgid "Your emails"
-#~ msgstr "txemaq@gmail.com"
-
-#~ msgid "Running external tool: %1"
-#~ msgstr "Execució de l'ordre externa: %1"
-
-#~ msgid "- Executable: %1"
-#~ msgstr "- Executable: %1"
-
-#~ msgid "- Arguments : %1"
-#~ msgstr "- Arguments: %1"
-
-#~ msgid "- Input     : %1"
-#~ msgstr "- Entrada: %1"
-
-#~ msgid "Warning: External tool crashed."
-#~ msgstr "Avís: L'eina externa ha fallat."
-
-#~ msgid "Status"
-#~ msgstr "Estat"
-
-#~ msgid "No errors detected"
-#~ msgstr "No s'ha detectat cap error"
-
-#~ msgid "&File"
-#~ msgstr "&Fitxer"

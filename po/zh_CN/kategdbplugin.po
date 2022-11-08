@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-25 00:50+0000\n"
-"PO-Revision-Date: 2022-10-30 07:47\n"
+"POT-Creation-Date: 2022-11-06 00:50+0000\n"
+"PO-Revision-Date: 2022-11-06 01:05\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -647,35 +647,35 @@ msgstr "popup_breakpoint"
 msgid "popup_run_to_cursor"
 msgstr "popup_run_to_cursor"
 
-#: plugin_kategdb.cpp:361 plugin_kategdb.cpp:377
+#: plugin_kategdb.cpp:368 plugin_kategdb.cpp:384
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "插入断点"
 
-#: plugin_kategdb.cpp:375
+#: plugin_kategdb.cpp:382
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "删除断点"
 
-#: plugin_kategdb.cpp:399
-#, kde-format
-msgid "Breakpoint"
-msgstr "断点"
-
-#: plugin_kategdb.cpp:498
+#: plugin_kategdb.cpp:503
 #, kde-format
 msgid "Execution point"
 msgstr "执行点"
 
-#: plugin_kategdb.cpp:641
+#: plugin_kategdb.cpp:646
 #, kde-format
 msgid "Thread %1"
 msgstr "线程 %1"
 
-#: plugin_kategdb.cpp:741
+#: plugin_kategdb.cpp:746
 #, kde-format
 msgid "IO"
 msgstr "输入输出"
+
+#: plugin_kategdb.cpp:832
+#, kde-format
+msgid "Breakpoint"
+msgstr "断点"
 
 #. i18n: ectx: Menu (debug)
 #: ui.rc:6

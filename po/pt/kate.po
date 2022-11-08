@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: katesymbolviewer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-07 00:48+0000\n"
-"PO-Revision-Date: 2022-10-28 11:43+0100\n"
+"PO-Revision-Date: 2022-11-07 15:58+0000\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-doc@kde.org>\n"
 "Language: pt\n"
@@ -1751,11 +1751,9 @@ msgid "Diff Output"
 msgstr "Resultado das Diferenças"
 
 #: lib/kateoutputview.cpp:158
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Copy to Clipboard"
+#, kde-format
 msgid "Copy all text to clipboard"
-msgstr "Copiar para a Área de Transferência"
+msgstr "Copiar todo o texto para a área de transferência"
 
 #: lib/kateoutputview.cpp:163
 #, kde-format
@@ -2635,6 +2633,3 @@ msgstr "Gerir as Sessões..."
 #, kde-format
 msgid "Show for new window"
 msgstr "Mostrar para uma nova janela"
-
-#~ msgid "Filter..."
-#~ msgstr "Filtro..."

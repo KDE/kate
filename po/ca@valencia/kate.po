@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-07 00:48+0000\n"
-"PO-Revision-Date: 2022-10-28 13:22+0200\n"
+"PO-Revision-Date: 2022-11-07 08:32+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -1729,11 +1729,9 @@ msgid "Diff Output"
 msgstr "Eixida de «diff»"
 
 #: lib/kateoutputview.cpp:158
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Copy to Clipboard"
+#, kde-format
 msgid "Copy all text to clipboard"
-msgstr "Copia al porta-retalls"
+msgstr "Copia tot el text en el porta-retalls"
 
 #: lib/kateoutputview.cpp:163
 #, kde-format
@@ -2612,6 +2610,3 @@ msgstr "Gestiona les sessions..."
 #, kde-format
 msgid "Show for new window"
 msgstr "Mostra per a una finestra nova"
-
-#~ msgid "Filter..."
-#~ msgstr "Filtre..."

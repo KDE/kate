@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-07 00:48+0000\n"
+"POT-Creation-Date: 2022-11-08 00:50+0000\n"
 "PO-Revision-Date: 2022-07-13 14:20+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -464,57 +464,57 @@ msgctxt "@info"
 msgid "LSP Client"
 msgstr "LSP 클라이언트"
 
-#: lspclientservermanager.cpp:569
+#: lspclientservermanager.cpp:576
 #, kde-format
 msgid "Restarting"
 msgstr "다시 시작하는 중"
 
-#: lspclientservermanager.cpp:569
+#: lspclientservermanager.cpp:576
 #, kde-format
 msgid "NOT Restarting"
 msgstr "다시 시작하지 않음"
 
-#: lspclientservermanager.cpp:570
+#: lspclientservermanager.cpp:577
 #, kde-format
 msgid "Server terminated unexpectedly ... %1 [%2] [homepage: %3] "
 msgstr "서버가 예상하지 못하게 종료됨 ... %1 [%2] [홈페이지: %3]"
 
-#: lspclientservermanager.cpp:767
+#: lspclientservermanager.cpp:773
 #, kde-format
 msgid "Failed to find server binary: %1"
 msgstr "서버 실행 파일을 찾을 수 없음: %1"
 
-#: lspclientservermanager.cpp:770 lspclientservermanager.cpp:802
+#: lspclientservermanager.cpp:776 lspclientservermanager.cpp:808
 #, kde-format
 msgid "Please check your PATH for the binary"
 msgstr "PATH에 등록된 경로에 실행 파일이 있는지 확인하십시오"
 
-#: lspclientservermanager.cpp:771 lspclientservermanager.cpp:803
+#: lspclientservermanager.cpp:777 lspclientservermanager.cpp:809
 #, kde-format
 msgid "See also %1 for installation or details"
 msgstr "설치 정보를 확인하려면 %1 문서도 참조하십시오"
 
-#: lspclientservermanager.cpp:799
+#: lspclientservermanager.cpp:805
 #, kde-format
 msgid "Failed to start server: %1"
 msgstr "서버를 시작할 수 없음: %1"
 
-#: lspclientservermanager.cpp:807
+#: lspclientservermanager.cpp:813
 #, kde-format
 msgid "Started server %2: %1"
 msgstr "서버 %2 시작함: %1"
 
-#: lspclientservermanager.cpp:841
+#: lspclientservermanager.cpp:847
 #, kde-format
 msgid "Failed to parse server configuration '%1': no JSON object"
 msgstr "서버 설정 '%1'을(를) 해석할 수 없음: JSON 객체가 없음"
 
-#: lspclientservermanager.cpp:844
+#: lspclientservermanager.cpp:850
 #, kde-format
 msgid "Failed to parse server configuration '%1': %2"
 msgstr "서버 설정 '%1'을(를) 해석할 수 없음: %2"
 
-#: lspclientservermanager.cpp:848
+#: lspclientservermanager.cpp:854
 #, kde-format
 msgid "Failed to read server configuration: %1"
 msgstr "서버 설정을 읽을 수 없음: %1"

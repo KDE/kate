@@ -4160,7 +4160,7 @@ Projects Replicode run / stop-->
 >projectBase</quote
 > (segons ho determini el <link linkend="kate-application-plugin-projects"
 >connector Projecte</link
->) si escau, o d'una altra manera relativa al directori del document. Si no s'especifica i «rootIndicationFileNames» és una matriu com noms de fitxer, llavors se selecciona un directori pare del document actual que conté aquest fitxer. Com a últim recurs, se seleccionarà el directori inicial com a «root». Per a qualsevol document, el «root» resultant determinarà si es necessita o no una instància separada. Si és així, el «root» es passarà com a rootUri/rootPath. </para>
+>) si escau, o d'una altra manera relativa al directori del document. Si no s'especifica i «rootIndicationFileNames» és una matriu com noms de fitxer, llavors se selecciona un directori pare del document actual que conté aquest fitxer. Alternativament, si no s'especifica «root» i «rootIndicationFilePatterns» és una matriu de patrons de fitxers, llavors se selecciona un directori pare del document actual que coincideixi amb el patró de fitxer. Com a últim recurs, se seleccionarà el directori inicial com a «root». Per a qualsevol document, el «root» resultant determinarà si es necessita o no una instància separada. Si és així, el «root» es passarà com a rootUri/rootPath. </para>
 
 <para
 >En general, es recomana deixar l'arrel sense especificar, ja que no és tan important per a un servidor (encara que la vostra experiència pot variar). Òbviament, menys instàncies del servidor serà més eficient, i també tindreu una vista «més àmplia» que amb la vista de moltes instàncies separades. </para>

@@ -1,5 +1,5 @@
 # Translation for lspclient.po to Euskara/Basque (eu).
-# Copyright (C) 2019-2022, This file is copyright:
+# Copyright (C) 2019-2022 This file is copyright:
 # This file is distributed under the same license as the kate package.
 # KDE euskaratzeko proiektuko arduraduna <xalba@ni.eus>.
 #
@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-07 00:48+0000\n"
-"PO-Revision-Date: 2022-09-25 21:47+0200\n"
+"POT-Creation-Date: 2022-11-08 00:50+0000\n"
+"PO-Revision-Date: 2022-11-07 05:33+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 22.08.0\n"
+"X-Generator: Lokalize 22.08.3\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:250
 #, kde-format
@@ -261,7 +261,7 @@ msgstr "Berrabiarazi LSP zerbitzari guztiak"
 #: lspclientpluginview.cpp:722
 #, kde-format
 msgid "Go To"
-msgstr ""
+msgstr "Joan hona"
 
 #: lspclientpluginview.cpp:750
 #, kde-format
@@ -460,59 +460,59 @@ msgctxt "@info"
 msgid "LSP Client"
 msgstr "LSP bezeroa"
 
-#: lspclientservermanager.cpp:569
+#: lspclientservermanager.cpp:576
 #, kde-format
 msgid "Restarting"
 msgstr "Berrabiatzen"
 
-#: lspclientservermanager.cpp:569
+#: lspclientservermanager.cpp:576
 #, kde-format
 msgid "NOT Restarting"
 msgstr "EZ da barrabiatzen ari"
 
-#: lspclientservermanager.cpp:570
+#: lspclientservermanager.cpp:577
 #, kde-format
 msgid "Server terminated unexpectedly ... %1 [%2] [homepage: %3] "
 msgstr "Zerbitzariak ustekabean amaitu du ... %1 [%2] [orri nagusia: %3]"
 
-#: lspclientservermanager.cpp:767
+#: lspclientservermanager.cpp:773
 #, kde-format
 msgid "Failed to find server binary: %1"
 msgstr "Zerbitzariaren bitarra aurkitzea huts egin du: %1"
 
-#: lspclientservermanager.cpp:770 lspclientservermanager.cpp:802
+#: lspclientservermanager.cpp:776 lspclientservermanager.cpp:808
 #, kde-format
 msgid "Please check your PATH for the binary"
 msgstr "Mesedez, ikuskatu zure PATH bitarraren bila"
 
-#: lspclientservermanager.cpp:771 lspclientservermanager.cpp:803
+#: lspclientservermanager.cpp:777 lspclientservermanager.cpp:809
 #, kde-format
 msgid "See also %1 for installation or details"
 msgstr "Begiratu %1 ere instalazio edo xehetasun bila"
 
-#: lspclientservermanager.cpp:799
+#: lspclientservermanager.cpp:805
 #, kde-format
 msgid "Failed to start server: %1"
 msgstr "Huts egin du zerbitzaria abiatzea: %1"
 
-#: lspclientservermanager.cpp:807
+#: lspclientservermanager.cpp:813
 #, kde-format
 msgid "Started server %2: %1"
 msgstr "%2 zerbitzaria abiatu da: %1"
 
-#: lspclientservermanager.cpp:841
+#: lspclientservermanager.cpp:847
 #, kde-format
 msgid "Failed to parse server configuration '%1': no JSON object"
 msgstr ""
 "Huts egin du zerbitzariaren konfigurazio sintaxi azterketak '%1': JSON "
 "objekturik ez"
 
-#: lspclientservermanager.cpp:844
+#: lspclientservermanager.cpp:850
 #, kde-format
 msgid "Failed to parse server configuration '%1': %2"
 msgstr "Huts egin du zerbitzariaren konfigurazio sintaxi azterketak '%1': %2"
 
-#: lspclientservermanager.cpp:848
+#: lspclientservermanager.cpp:854
 #, kde-format
 msgid "Failed to read server configuration: %1"
 msgstr "Huts egin du zerbitzariaren konfigurazioa irakurtzea: %1"

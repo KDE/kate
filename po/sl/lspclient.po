@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-07 00:48+0000\n"
-"PO-Revision-Date: 2022-09-04 07:40+0200\n"
+"POT-Creation-Date: 2022-11-08 00:50+0000\n"
+"PO-Revision-Date: 2022-11-07 08:51+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -261,7 +261,7 @@ msgstr "Ponovno zaženi vse strežnike LSP"
 #: lspclientpluginview.cpp:722
 #, kde-format
 msgid "Go To"
-msgstr ""
+msgstr "Pojdi na"
 
 #: lspclientpluginview.cpp:750
 #, kde-format
@@ -459,57 +459,57 @@ msgctxt "@info"
 msgid "LSP Client"
 msgstr "Odjemalec LSP"
 
-#: lspclientservermanager.cpp:569
+#: lspclientservermanager.cpp:576
 #, kde-format
 msgid "Restarting"
 msgstr "Ponovno zaganjam"
 
-#: lspclientservermanager.cpp:569
+#: lspclientservermanager.cpp:576
 #, kde-format
 msgid "NOT Restarting"
 msgstr "NE zaganjam"
 
-#: lspclientservermanager.cpp:570
+#: lspclientservermanager.cpp:577
 #, kde-format
 msgid "Server terminated unexpectedly ... %1 [%2] [homepage: %3] "
 msgstr "Strežnik je je nepričakovano ustavil ... %1 [%2] [domača stran: %3] "
 
-#: lspclientservermanager.cpp:767
+#: lspclientservermanager.cpp:773
 #, kde-format
 msgid "Failed to find server binary: %1"
 msgstr "Binarne datoteke strežnika ni bilo mogoče najti: %1"
 
-#: lspclientservermanager.cpp:770 lspclientservermanager.cpp:802
+#: lspclientservermanager.cpp:776 lspclientservermanager.cpp:808
 #, kde-format
 msgid "Please check your PATH for the binary"
 msgstr "Preverite vašo pot za binarne datoteke"
 
-#: lspclientservermanager.cpp:771 lspclientservermanager.cpp:803
+#: lspclientservermanager.cpp:777 lspclientservermanager.cpp:809
 #, kde-format
 msgid "See also %1 for installation or details"
 msgstr "Poglej tudi %1 za namestitev ali podrobnosti"
 
-#: lspclientservermanager.cpp:799
+#: lspclientservermanager.cpp:805
 #, kde-format
 msgid "Failed to start server: %1"
 msgstr "Ni bilo mogoče zagnati strežnika: %1"
 
-#: lspclientservermanager.cpp:807
+#: lspclientservermanager.cpp:813
 #, kde-format
 msgid "Started server %2: %1"
 msgstr "Zagnan strežnik %2: %1"
 
-#: lspclientservermanager.cpp:841
+#: lspclientservermanager.cpp:847
 #, kde-format
 msgid "Failed to parse server configuration '%1': no JSON object"
 msgstr "Ni mogoče razčleniti nastavitve strežnika '%1': ni predmeta JSON"
 
-#: lspclientservermanager.cpp:844
+#: lspclientservermanager.cpp:850
 #, kde-format
 msgid "Failed to parse server configuration '%1': %2"
 msgstr "Ni mogoče razčleniti nastavitve strežnika '%1': %2"
 
-#: lspclientservermanager.cpp:848
+#: lspclientservermanager.cpp:854
 #, kde-format
 msgid "Failed to read server configuration: %1"
 msgstr "Ni mogoče prebrati nastavitve strežnika: %1"

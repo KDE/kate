@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-07 00:48+0000\n"
-"PO-Revision-Date: 2022-11-07 08:51+0100\n"
+"PO-Revision-Date: 2022-11-08 10:41+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -179,7 +179,7 @@ msgstr "Za izgradnjo ni določene nobene datoteke ali mape."
 msgid ""
 "The file \"%1\" is not a local file. Non-local files cannot be compiled."
 msgstr ""
-"Datoteka »%1« ni krajevna. Datotek, ki niso krajevne, ni mogoče prevesti."
+"Datoteka \"%1\" ni krajevna. Datotek, ki niso krajevne, ni mogoče prevesti."
 
 #: plugin_katebuild.cpp:802
 #, kde-format
@@ -193,7 +193,7 @@ msgstr ""
 #: plugin_katebuild.cpp:821
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
-msgstr "Zagon »%1« ni uspel. Izhodno stanje = %2"
+msgstr "Zagon \"%1\" ni uspel. Izhodno stanje = %2"
 
 #: plugin_katebuild.cpp:840
 #, kde-format

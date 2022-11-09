@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-08 00:50+0000\n"
-"PO-Revision-Date: 2022-09-01 21:31+0530\n"
+"PO-Revision-Date: 2022-11-08 19:57+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.08.0\n"
+"X-Generator: Lokalize 22.08.3\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:250
 #, kde-format
@@ -32,7 +32,7 @@ msgstr ""
 #: lspclientconfigpage.cpp:236
 #, kde-format
 msgid "No JSON data to validate."
-msgstr ""
+msgstr "சரிபார்ப்பதற்கு எந்த JSON தரவும் இல்லை"
 
 #: lspclientconfigpage.cpp:245
 #, kde-format
@@ -254,7 +254,7 @@ msgstr "அனைத்து LSP சேவையகங்களையும் 
 #: lspclientpluginview.cpp:722
 #, kde-format
 msgid "Go To"
-msgstr ""
+msgstr "இங்கு செல்"
 
 #: lspclientpluginview.cpp:750
 #, kde-format
@@ -264,7 +264,7 @@ msgstr "மேலும் விருப்பங்கள்"
 #: lspclientpluginview.cpp:782
 #, kde-format
 msgid "LSP"
-msgstr ""
+msgstr "LSP"
 
 #: lspclientpluginview.cpp:978 lspclientpluginview.cpp:2522
 #: lspclientsymbolview.cpp:285

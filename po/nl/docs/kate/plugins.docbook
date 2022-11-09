@@ -4142,7 +4142,7 @@ Projects Replicode run / stop-->
 >projectBase</quote
 > (zoals bepaald door de <link linkend="kate-application-plugin-projects"
 >Projectplug-in</link
->), indien van toepassing of anders relatief tot de map van de documentatie. Indien niet gespecificeerd en "rootIndicationFileNames" is een array als bestandsnamen, dan wordt een oudermap van het huidige document die zo'n bestand bevat geselecteerd. Als een laatste terugval, wordt de thuismap geselecteerd als "root". Voor elk document bepaalt dan de resulterende "root" wel of niet een apart exemplaar nodig heeft. Zo ja, de "root" wordt doorgegeven als rootUri/rootPath. </para>
+>), indien van toepassing of anders relatief tot de map van de documentatie. Indien niet gespecificeerd en "rootIndicationFileNames" is een array als bestandsnamen, dan wordt een oudermap van het huidige document die zo'n bestand bevat geselecteerd. Alternatief, als "root" niet gespecificeerd is en "rootIndicationFilePatterns" is een array van bestandspatronen, dan wordt een oudermap van het huidige document overeenkomend met het bestandsprofiel geselecteerd. Als een laatste terugval, wordt de thuismap geselecteerd als "root". Voor elk document bepaalt dan de resulterende "root" wel of niet een apart exemplaar nodig heeft. Zo ja, de "root" wordt doorgegeven als rootUri/rootPath. </para>
 
 <para
 >In het algemeen wordt aanbevolen om de root niet te specificeren, omdat het niet zo belangrijk is voor een server (kan voor u anders zijn). Minder exemplaren van de server zijn natuurlijk efficiënter en ze hebben ook een 'bredere' blik dan de blik van vele gescheiden exemplaren. </para>

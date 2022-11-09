@@ -4657,7 +4657,7 @@ var katescript = {
 
 <sect2 id="dev-scripting-api">
 <title
->API voor scripts</title>
+>API voor scripts maken</title>
 
 <para
 >De API voor scripts hier aanwezig is beschikbaar voor alle scripts, &eg; scripts voor inspringen en opdrachtregels. De klassen <classname

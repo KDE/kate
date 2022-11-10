@@ -327,10 +327,10 @@ void KateOutputView::slotMessage(const QVariantMap &message)
     const QString category = message.value(QStringLiteral("category")).toString().trimmed();
     const auto categoryIcon = message.value(QStringLiteral("categoryIcon")).value<QIcon>();
     if (categoryIcon.isNull()) {
-        meta += QStringLiteral(" <img src=\"") + QStringLiteral("dialog-scripts") + QStringLiteral("\"/> ");
+        meta += QStringLiteral(" <img style=\"vertical-align:middle\" src=\"") + QStringLiteral("dialog-scripts") + QStringLiteral("\"/> ");
     } else {
         m_textEdit->addIcon(category, categoryIcon);
-        meta += QStringLiteral(" <img src=\"") + category + QStringLiteral("\"/> ");
+        meta += QStringLiteral(" <img style=\"vertical-align:middle\" src=\"") + category + QStringLiteral("\"/> ");
     }
 
     meta += QStringLiteral("<span style=\"color:%1\">").arg(m_keywordColor) + category + QStringLiteral("</span> ");

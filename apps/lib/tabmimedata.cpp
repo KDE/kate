@@ -13,6 +13,9 @@ TabMimeData::TabMimeData(KateViewSpace *vs, DocOrWidget d)
     , sourceVS(vs)
     , doc(d)
 {
+    if (doc.doc() && doc.doc()->url().isValid()) {
+        setUrls({doc.doc()->url()});
+    }
 }
 
 bool TabMimeData::hasValidData(const QMimeData *md)

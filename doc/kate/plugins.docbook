@@ -2797,6 +2797,15 @@ transformed to the &JSON; configuration that is used here and outlined above.
 
 </sect3>
 
+<sect3 id="lspclient-format-on-save">
+<title>LSP Server Format On Save</title>
+
+<para>
+You can enable "format on save" from LSP settings in configure dialog.
+</para>
+
+</sect3>
+
 <sect3 id="lspclient-diagnostics-suppression">
 <title>LSP Server Diagnostic Suppression</title>
 

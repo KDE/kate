@@ -2167,7 +2167,7 @@ public:
         });
     }
 
-    void format(QChar lastChar = QChar())
+    void format(QChar lastChar = QChar(), bool save = false)
     {
         KTextEditor::View *activeView = m_mainWindow->activeView();
         QPointer<KTextEditor::Document> document = activeView->document();
@@ -2186,7 +2186,7 @@ public:
         // sigh, no move initialization capture ...
         // (again) assuming reply ranges wrt revisions submitted at this time
         QSharedPointer<LSPClientRevisionSnapshot> snapshot(m_serverManager->snapshot(server.data()));
-        auto h = [this, document, snapshot, lastChar](const QList<LSPTextEdit> &edits) {
+        auto h = [this, document, snapshot, lastChar, save](const QList<LSPTextEdit> &edits) {
             if (lastChar.isNull()) {
                 checkEditResult(edits);
             }
@@ -2197,6 +2197,11 @@ public:
                 m_onTypeFormattingTriggers.clear();
                 applyEdits(document, snapshot.data(), edits);
                 m_onTypeFormattingTriggers = savedTriggers;
+                if (save) {
+                    disconnect(document, &KTextEditor::Document::documentSavedOrUploaded, this, &self_type::formatOnSave);
+                    document->documentSave();
+                    connect(document, &KTextEditor::Document::documentSavedOrUploaded, this, &self_type::formatOnSave);
+                }
             }
         };
 
@@ -2965,6 +2970,15 @@ public:
         }
     }
 
+    void formatOnSave(KTextEditor::Document *doc, bool)
+    {
+        // only trigger for active doc
+        auto activeView = m_mainWindow->activeView();
+        if (activeView && activeView->document() == doc) {
+            format({}, true);
+        }
+    }
+
     void updateState()
     {
         KTextEditor::View *activeView = m_mainWindow->activeView();
@@ -2978,6 +2992,7 @@ public:
         bool selectionRangeEnabled = false;
         bool isClangd = false;
         bool isRustAnalyzer = false;
+        bool formatOnSave = false;
 
         if (server) {
             const auto &caps = server->capabilities();
@@ -2992,6 +3007,7 @@ public:
             renameEnabled = caps.renameProvider;
             codeActionEnabled = caps.codeActionProvider;
             selectionRangeEnabled = caps.selectionRangeProvider;
+            formatOnSave = formatEnabled && m_plugin->m_fmtOnSave;
 
             connect(server.data(), &LSPClientServer::publishDiagnostics, this, &self_type::onDiagnostics, Qt::UniqueConnection);
             connect(server.data(), &LSPClientServer::applyEdit, this, &self_type::onApplyEdit, Qt::UniqueConnection);
@@ -3091,6 +3107,11 @@ public:
         updateHover(activeView, server.data());
 
         updateMarks(doc);
+
+        if (formatOnSave) {
+            auto t = Qt::ConnectionType(Qt::UniqueConnection | Qt::QueuedConnection);
+            connect(activeView->document(), &KTextEditor::Document::documentSavedOrUploaded, this, &self_type::formatOnSave, t);
+        }
 
         // connect for cleanup stuff
         if (activeView) {

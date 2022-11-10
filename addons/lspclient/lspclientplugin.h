@@ -62,6 +62,7 @@ public:
     bool m_semanticHighlighting = false;
     bool m_signatureHelp = true;
     bool m_autoImport = true;
+    bool m_fmtOnSave = false;
 
     // debug mode?
     const bool m_debugMode;

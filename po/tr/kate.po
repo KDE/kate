@@ -821,8 +821,8 @@ msgid ""
 "scrolling' to prevent it. Unlimited tabs are always scrollable."
 msgstr ""
 "Yüksek bir sınır pencere boyutunu artırabilir, bunu önlemek için 'Sekme "
-"kaydırmasına izin ver'i etkinleştirin. Sınırlandırılmamış sekmeler her zaman "
-"kaydırılabilir."
+"sarımına izin ver'i etkinleştirin. Sınırlandırılmamış sekmeler her zaman "
+"sarılabilir."
 
 #: lib/kateconfigdialog.cpp:454
 #, kde-format
@@ -877,7 +877,7 @@ msgstr "İmlendiğinde, orta tıklama bir belgeyi kapatır."
 #: lib/kateconfigdialog.cpp:484
 #, kde-format
 msgid "Allow tab scrolling"
-msgstr "Sekme kaydırmasına izin ver"
+msgstr "Sekme sarımına izin ver"
 
 #: lib/kateconfigdialog.cpp:486
 #, kde-format
@@ -885,7 +885,7 @@ msgid ""
 "When checked this will allow scrolling in tab bar when number of tabs is "
 "large."
 msgstr ""
-"İmlendiğinde, eğer sekme sayısı çoksa sekme çubuğunda kaydırmaya izin verir."
+"İmlendiğinde, eğer sekme sayısı çoksa sekme çubuğunda sarmaya izin verir."
 
 #: lib/kateconfigdialog.cpp:490
 #, kde-format
@@ -2599,9 +2599,3 @@ msgstr "Oturumları Yönet..."
 #, kde-format
 msgid "Show for new window"
 msgstr "Yeni pencerelerde göster"
-
-#~ msgid "Filter..."
-#~ msgstr "Süz..."
-
-#~ msgid "Open new window with fresh untitled document"
-#~ msgstr "Taze başlıksız bir belge ile yeni pencere aç"

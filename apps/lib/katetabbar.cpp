@@ -240,7 +240,9 @@ void KateTabBar::mouseMoveEvent(QMouseEvent *event)
     QStyleOptionTab opt;
 #endif
     opt.text = tabText(tab);
-    opt.state = QStyle::State_Selected | QStyle::State_Raised;
+    opt.icon = tabIcon(tab);
+    opt.iconSize = iconSize();
+    opt.state = QStyle::State_Enabled | QStyle::State_Selected | QStyle::State_Raised;
     opt.tabIndex = tab;
     opt.position = QStyleOptionTab::OnlyOneTab;
     opt.features = QStyleOptionTab::TabFeature::HasFrame;

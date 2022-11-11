@@ -417,9 +417,64 @@ public:
         return doc->characterAt(KTextEditor::Cursor(range.end().line(), range.end().column()));
     }
 
-    static bool isFunctionKind(LSPCompletionItemKind k)
+    QString stripSnippetMarkers(const QString &snip) const
     {
-        return k == LSPCompletionItemKind::Function || k == LSPCompletionItemKind::Method;
+#define C(c) QLatin1Char(c)
+        QString ret;
+        ret.reserve(snip.size());
+        int bracket = 0;
+        enum {
+            NoSnippetMarker = -1,
+            DollarZero = -2,
+        };
+        int lastSnippetMarkerPos = NoSnippetMarker;
+        for (auto i = snip.begin(), end = snip.end(); i != end; ++i) {
+            const bool prevSlash = i > snip.begin() && *(i - 1) == C('\\');
+            if (!prevSlash && *i == C('$') && i + 1 != end && *(i + 1) == C('{')) {
+                if (i + 2 != end && (i + 2)->isDigit()) {
+                    // its ${1:
+                    auto j = i + 2;
+                    // eat through digits
+                    while (j->isDigit()) {
+                        ++j;
+                    }
+                    if (*j == C(':')) {
+                        bracket++;
+                        // skip forward
+                        i = j;
+                    }
+                } else {
+                    // simple "${"
+                    ++i;
+                    bracket++;
+                }
+            } else if (!prevSlash && *i == C('$') && i + 1 != end && (i + 1)->isDigit()) { // $0, $1 => we dont support multiple cursor pos
+                if (*(i + 1) == C('0')) {
+                    ret += QLatin1String("${cursor}");
+                    lastSnippetMarkerPos = DollarZero;
+                }
+                ++i;
+                // eat through the digits
+                while (i->isDigit()) {
+                    ++i;
+                }
+                --i; // one step back to the last valid char
+            } else if (bracket > 0 && *i == C('}')) {
+                bracket--;
+                if (bracket == 0 && lastSnippetMarkerPos != DollarZero) {
+                    lastSnippetMarkerPos = ret.size();
+                }
+            } else if (bracket == 0) { // if we are in "real text", add it
+                ret += *i;
+            }
+        }
+
+        if (lastSnippetMarkerPos >= 0) {
+            ret.insert(lastSnippetMarkerPos, QStringLiteral("${cursor}"));
+        }
+
+#undef C
+        return ret;
     }
 
     void executeCompletionItem(KTextEditor::View *view, const KTextEditor::Range &word, const QModelIndex &index) const override
@@ -429,33 +484,20 @@ public:
         }
 
         QChar next = peekNextChar(view->document(), word);
-
         QString matching = m_matches.at(index.row()).insertText;
         // if there is already a '"' or >, remove it, this happens with #include "xx.h"
         if ((next == QLatin1Char('"') && matching.endsWith(QLatin1Char('"'))) || (next == QLatin1Char('>') && matching.endsWith(QLatin1Char('>')))) {
             matching.chop(1);
         }
 
-        const LSPCompletionItemKind kind = m_matches.at(index.row()).kind;
-        // Is this a function?
-        // add parentheses if function and guestimated meaningful for language in question
-        // this covers at least the common cases such as clangd, python, etc
-        // also no need to add one if the next char is already
-        bool addParens = m_complParens && next != QLatin1Char('(') && isFunctionKind(kind) && m_triggersSignature.contains(QLatin1Char('('));
-        if (addParens) {
-            matching += QStringLiteral("()");
-        }
-
-        view->document()->replaceText(word, matching);
-
         // NOTE: view->setCursorPosition() will invalidate the matches, so we save the
         // additionalTextEdits before setting cursor-possition
         const auto additionalTextEdits = m_matches.at(index.row()).additionalTextEdits;
 
-        if (addParens) {
-            // place the cursor in between (|)
-            view->setCursorPosition({view->cursorPosition().line(), view->cursorPosition().column() - 1});
-        }
+        view->document()->removeText(word);
+        const auto textToInsert = stripSnippetMarkers(matching);
+        qCInfo(LSPCLIENT) << "original text: " << matching << ", snippet markers removed; " << textToInsert;
+        view->insertTemplate(view->cursorPosition(), textToInsert);
 
         if (m_autoImport) {
             // re-use util to apply edits

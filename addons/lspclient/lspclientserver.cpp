@@ -1355,7 +1355,12 @@ private:
                                                     QStringLiteral("markdown"),
                                                     QStringLiteral("plaintext")
                                                 }}
-                                            }}
+                                            }},
+                                            {QStringLiteral("completion"), QJsonObject{
+                                                {QStringLiteral("completionItem"), QJsonObject{
+                                                    {QStringLiteral("snippetSupport"), true}
+                                                }}
+                                            }},
                                         },
                                   },
                                   {QStringLiteral("window"),

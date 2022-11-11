@@ -286,7 +286,7 @@ msgstr "Cometes"
 #, kde-format
 msgctxt "@option:check"
 msgid "Quote strings"
-msgstr "Cometes a les cadenes"
+msgstr "Cometes en les cadenes"
 
 #: exportwizard.cpp:116
 #, kde-format

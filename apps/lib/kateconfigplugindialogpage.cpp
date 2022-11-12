@@ -70,10 +70,11 @@ KateConfigPluginPage::KateConfigPluginPage(QWidget *parent, KateConfigDialog *di
 
     KatePluginList &pluginList(KateApp::self()->pluginManager()->pluginList());
     for (auto &pluginInfo : pluginList) {
-        QTreeWidgetItem *item = new KatePluginListItem(pluginInfo.load, &pluginInfo);
+        auto item = new KatePluginListItem(pluginInfo.load, &pluginInfo);
         item->setText(0, pluginInfo.metaData.name());
         item->setText(1, pluginInfo.metaData.description());
         listView->addTopLevelItem(item);
+        m_pluginItems.append(item);
     }
 
     listView->resizeColumnToContents(0);
@@ -83,17 +84,27 @@ KateConfigPluginPage::KateConfigPluginPage(QWidget *parent, KateConfigDialog *di
 
 void KateConfigPluginPage::stateChange(KatePluginListItem *item, bool b)
 {
-    if (b) {
-        loadPlugin(item);
-    } else {
-        unloadPlugin(item);
-    }
-
+    // just signal change to dialog, we will unload/load the plugins on apply
     Q_EMIT changed();
+}
+
+void KateConfigPluginPage::slotApply()
+{
+    for (auto item : m_pluginItems) {
+        if (item->checkState(0) == Qt::Checked) {
+            loadPlugin(item);
+        } else {
+            unloadPlugin(item);
+        }
+    }
 }
 
 void KateConfigPluginPage::loadPlugin(KatePluginListItem *item)
 {
+    if (item->info()->load) {
+        return;
+    }
+
     const bool ok = KateApp::self()->pluginManager()->loadPlugin(item->info());
     if (!ok) {
         return;
@@ -106,6 +117,10 @@ void KateConfigPluginPage::loadPlugin(KatePluginListItem *item)
 
 void KateConfigPluginPage::unloadPlugin(KatePluginListItem *item)
 {
+    if (!item->info()->load) {
+        return;
+    }
+
     myDialog->removePluginPage(item->info()->plugin);
     KateApp::self()->pluginManager()->unloadPlugin(item->info());
 

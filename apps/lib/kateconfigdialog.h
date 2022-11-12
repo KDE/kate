@@ -134,6 +134,8 @@ private:
     KUserFeedback::FeedbackConfigWidget *m_userFeedbackWidget = nullptr;
 #endif
 
+    class KateConfigPluginPage *m_configPluginPage = nullptr;
+
 Q_SIGNALS:
     void saved();
 };

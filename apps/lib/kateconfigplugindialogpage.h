@@ -35,6 +35,9 @@ class KateConfigPluginPage : public QFrame
 public:
     KateConfigPluginPage(QWidget *parent, class KateConfigDialog *dialog);
 
+public Q_SLOTS:
+    void slotApply();
+
 private:
     class KateConfigDialog *myDialog;
 
@@ -46,6 +49,9 @@ private Q_SLOTS:
 
     void loadPlugin(KatePluginListItem *);
     void unloadPlugin(KatePluginListItem *);
+
+private:
+    QVector<class KatePluginListItem *> m_pluginItems;
 };
 
 #endif

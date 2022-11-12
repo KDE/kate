@@ -635,9 +635,9 @@ void KateConfigDialog::addPluginsPage()
     vlayout->setContentsMargins(0, 0, 0, 0);
     vlayout->setSpacing(0);
 
-    KateConfigPluginPage *configPluginPage = new KateConfigPluginPage(page, this);
-    vlayout->addWidget(configPluginPage);
-    connect(configPluginPage, &KateConfigPluginPage::changed, this, &KateConfigDialog::slotChanged);
+    m_configPluginPage = new KateConfigPluginPage(page, this);
+    vlayout->addWidget(m_configPluginPage);
+    connect(m_configPluginPage, &KateConfigPluginPage::changed, this, &KateConfigDialog::slotChanged);
 
     auto item = addScrollablePage(page, i18n("Plugins"));
     m_allPages.insert(item);
@@ -735,6 +735,11 @@ void KateConfigDialog::slotApply()
 
     // if data changed apply the kate app stuff
     if (m_dataChanged) {
+        // apply plugin load state changes
+        if (m_configPluginPage) {
+            m_configPluginPage->slotApply();
+        }
+
         KConfigGroup cg(config, "General");
 
         // only there for kate

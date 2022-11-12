@@ -140,6 +140,9 @@ KateMwModOnHdDialog::KateMwModOnHdDialog(DocVector docs, QWidget *parent, const 
 
 KateMwModOnHdDialog::~KateMwModOnHdDialog()
 {
+    // ensure no cleanup of documents during shutdown
+    disconnect();
+
     KateMainWindow::unsetModifiedOnDiscDialogIfIf(this);
 
     if (m_proc) {
@@ -356,20 +359,30 @@ void KateMwModOnHdDialog::addDocument(KTextEditor::Document *doc)
         return;
     }
 
-    for (QTreeWidgetItemIterator it(twDocuments); *it; ++it) {
-        KateDocItem *item = static_cast<KateDocItem *>(*it);
-        if (item->document == doc) {
-            delete item;
-            break;
-        }
-    }
+    // avoid double occurrences, we want a fresh item
+    removeDocument(doc);
+
     uint reason = static_cast<uint>(KateApp::self()->documentManager()->documentInfo(doc)->modifiedOnDiscReason);
     if (reason) {
         new KateDocItem(doc, m_stateTexts[reason], twDocuments);
+
+        // ensure proper cleanups to avoid dangling pointers, we can arrive here multiple times, use unique connection
+        connect(doc, &KTextEditor::Document::destroyed, this, &KateMwModOnHdDialog::removeDocument, Qt::UniqueConnection);
     }
 
     if (!twDocuments->topLevelItemCount()) {
         accept();
+    }
+}
+
+void KateMwModOnHdDialog::removeDocument(QObject *doc)
+{
+    for (QTreeWidgetItemIterator it(twDocuments); *it; ++it) {
+        KateDocItem *item = static_cast<KateDocItem *>(*it);
+        if (item->document == static_cast<KTextEditor::Document *>(doc)) {
+            delete item;
+            break;
+        }
     }
 }
 

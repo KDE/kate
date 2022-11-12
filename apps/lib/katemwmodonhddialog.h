@@ -52,6 +52,7 @@ private Q_SLOTS:
     void slotCheckedFilesChanged(QTreeWidgetItem *, int column);
     void slotDataAvailable();
     void slotPDone();
+    void removeDocument(QObject *doc);
 
 private:
     enum Action { Ignore, Overwrite, Reload };

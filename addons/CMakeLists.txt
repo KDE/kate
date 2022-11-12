@@ -6,8 +6,8 @@ endfunction()
 find_package(KF5TextEditor ${KF5_DEP_VERSION} QUIET REQUIRED)
 
 # python plugin, purely optional ATM
-option(BUILD_PYTHON_BINDINDS "Enable building python bindings" OFF)
-if (BUILD_PYTHON_BINDINDS)
+option(BUILD_PYTHON_BINDINGS "Enable building python bindings" OFF)
+if (BUILD_PYTHON_BINDINGS)
     ecm_optional_add_subdirectory(python)
 endif()
 

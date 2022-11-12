@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-08 02:27+0000\n"
-"PO-Revision-Date: 2022-10-28 20:52+0300\n"
+"PO-Revision-Date: 2022-11-12 02:14+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
@@ -1733,11 +1733,9 @@ msgid "Diff Output"
 msgstr "Вивід Diff"
 
 #: lib/kateoutputview.cpp:158
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Copy to Clipboard"
+#, kde-format
 msgid "Copy all text to clipboard"
-msgstr "Копіювати до буфера"
+msgstr "Копіювати увесь текст до буфера"
 
 #: lib/kateoutputview.cpp:163
 #, kde-format

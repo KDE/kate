@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: lspclient\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-08 02:27+0000\n"
-"PO-Revision-Date: 2022-08-27 12:00+0300\n"
+"PO-Revision-Date: 2022-11-12 02:14+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
@@ -261,7 +261,7 @@ msgstr "Перезапустити усі сервери LSP"
 #: lspclientpluginview.cpp:722
 #, kde-format
 msgid "Go To"
-msgstr ""
+msgstr "Перейти"
 
 #: lspclientpluginview.cpp:750
 #, kde-format

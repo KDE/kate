@@ -423,11 +423,7 @@ public:
         QString ret;
         ret.reserve(snip.size());
         int bracket = 0;
-        enum {
-            NoSnippetMarker = -1,
-            DollarZero = -2,
-        };
-        int lastSnippetMarkerPos = NoSnippetMarker;
+        int lastSnippetMarkerPos = -1;
         for (auto i = snip.begin(), end = snip.end(); i != end; ++i) {
             const bool prevSlash = i > snip.begin() && *(i - 1) == C('\\');
             if (!prevSlash && *i == C('$') && i + 1 != end && *(i + 1) == C('{')) {
@@ -450,8 +446,9 @@ public:
                 }
             } else if (!prevSlash && *i == C('$') && i + 1 != end && (i + 1)->isDigit()) { // $0, $1 => we dont support multiple cursor pos
                 if (*(i + 1) == C('0')) {
-                    ret += QLatin1String("${cursor}");
-                    lastSnippetMarkerPos = DollarZero;
+                    if (lastSnippetMarkerPos == -1) {
+                        ret += QLatin1String("${cursor}");
+                    }
                 }
                 ++i;
                 // eat through the digits
@@ -461,7 +458,7 @@ public:
                 --i; // one step back to the last valid char
             } else if (bracket > 0 && *i == C('}')) {
                 bracket--;
-                if (bracket == 0 && lastSnippetMarkerPos != DollarZero) {
+                if (bracket == 0 && lastSnippetMarkerPos == -1) {
                     lastSnippetMarkerPos = ret.size();
                 }
             } else if (bracket == 0) { // if we are in "real text", add it

@@ -1515,6 +1515,7 @@ void KateFileTreeModel::removeWidget(QWidget *w)
     beginRemoveRows(parentIdx, item->row(), item->row());
     m_widgetsRoot->removeChild(item);
     endRemoveRows();
+    delete item;
 }
 
 #include "katefiletreemodel.moc"

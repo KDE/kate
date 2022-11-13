@@ -52,6 +52,8 @@ private Q_SLOTS:
     void slotCheckedFilesChanged(QTreeWidgetItem *, int column);
     void slotDataAvailable();
     void slotPDone();
+
+public Q_SLOTS:
     void removeDocument(QObject *doc);
 
 private:

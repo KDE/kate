@@ -29,7 +29,7 @@
 class KateDocItem : public QTreeWidgetItem
 {
 public:
-    KateDocItem(KTextEditor::Document *doc, const QString &status, QTreeWidget *tw)
+    KateDocItem(KTextEditor::Document *doc, const QString &status, QTreeWidget *tw, KateMwModOnHdDialog *dialog)
         : QTreeWidgetItem(tw)
         , document(doc)
     {
@@ -40,9 +40,9 @@ public:
         } else {
             setCheckState(0, Qt::Unchecked);
         }
-    }
-    ~KateDocItem() override
-    {
+
+        // ensure proper cleanups to avoid dangling pointers, we can arrive here multiple times, use unique connection
+        QObject::connect(doc, &KTextEditor::Document::destroyed, dialog, &KateMwModOnHdDialog::removeDocument, Qt::UniqueConnection);
     }
 
     KTextEditor::Document *document;
@@ -88,7 +88,7 @@ KateMwModOnHdDialog::KateMwModOnHdDialog(DocVector docs, QWidget *parent, const 
 
     m_stateTexts << QString() << i18n("Modified") << i18n("Created") << i18n("Deleted");
     for (auto &doc : qAsConst(docs)) {
-        new KateDocItem(doc, m_stateTexts[static_cast<uint>(KateApp::self()->documentManager()->documentInfo(doc)->modifiedOnDiscReason)], twDocuments);
+        new KateDocItem(doc, m_stateTexts[static_cast<uint>(KateApp::self()->documentManager()->documentInfo(doc)->modifiedOnDiscReason)], twDocuments, this);
     }
     twDocuments->header()->setStretchLastSection(false);
     twDocuments->header()->setSectionResizeMode(0, QHeaderView::Stretch);
@@ -364,10 +364,7 @@ void KateMwModOnHdDialog::addDocument(KTextEditor::Document *doc)
 
     uint reason = static_cast<uint>(KateApp::self()->documentManager()->documentInfo(doc)->modifiedOnDiscReason);
     if (reason) {
-        new KateDocItem(doc, m_stateTexts[reason], twDocuments);
-
-        // ensure proper cleanups to avoid dangling pointers, we can arrive here multiple times, use unique connection
-        connect(doc, &KTextEditor::Document::destroyed, this, &KateMwModOnHdDialog::removeDocument, Qt::UniqueConnection);
+        new KateDocItem(doc, m_stateTexts[reason], twDocuments, this);
     }
 
     if (!twDocuments->topLevelItemCount()) {

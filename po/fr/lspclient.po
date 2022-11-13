@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-08 00:50+0000\n"
+"POT-Creation-Date: 2022-11-13 00:49+0000\n"
 "PO-Revision-Date: 2022-11-11 09:28+0100\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@neuf.fr>\n"
 "Language-Team: French <kde-francophone@kde.org>\n"
@@ -21,48 +21,48 @@ msgid "Filter..."
 msgstr "Filtrer..."
 
 #. i18n: ectx: Menu (LSPClient Menubar)
-#: lspclientconfigpage.cpp:115 lspclientconfigpage.cpp:120
+#: lspclientconfigpage.cpp:101 lspclientconfigpage.cpp:106
 #: lspclientpluginview.cpp:596 lspclientpluginview.cpp:733 ui.rc:6
 #, kde-format
 msgid "LSP Client"
 msgstr "Client LSP"
 
-#: lspclientconfigpage.cpp:236
+#: lspclientconfigpage.cpp:224
 #, kde-format
 msgid "No JSON data to validate."
 msgstr "Aucune donnée JSON à valider."
 
-#: lspclientconfigpage.cpp:245
+#: lspclientconfigpage.cpp:233
 #, kde-format
 msgid "JSON data is valid."
 msgstr "Les données JSON sont valables."
 
-#: lspclientconfigpage.cpp:247
+#: lspclientconfigpage.cpp:235
 #, kde-format
 msgid "JSON data is invalid: no JSON object"
 msgstr "Les données JSON ne sont pas valables : aucun objet JSON"
 
-#: lspclientconfigpage.cpp:250
+#: lspclientconfigpage.cpp:238
 #, kde-format
 msgid "JSON data is invalid: %1"
 msgstr "Les données JSON ne sont pas valables : %1"
 
-#: lspclientconfigpage.cpp:298
+#: lspclientconfigpage.cpp:286
 #, kde-format
 msgid "Delete selected entries"
 msgstr "Supprimer les entrées sélectionnées"
 
-#: lspclientconfigpage.cpp:303
+#: lspclientconfigpage.cpp:291
 #, kde-format
 msgid "Delete all entries"
 msgstr "Supprimer toutes les entrées"
 
-#: lspclientplugin.cpp:225
+#: lspclientplugin.cpp:228
 #, kde-format
 msgid "LSP server start requested"
 msgstr "Le serveur « LSP » commence à être sollicité"
 
-#: lspclientplugin.cpp:228
+#: lspclientplugin.cpp:231
 #, kde-format
 msgid ""
 "Do you want the LSP server to be started?<br><br>The full command line is:"
@@ -73,7 +73,7 @@ msgstr ""
 "commandes est :<br><br><b>%1</b><br><br>Le choix peut être modifié grâce à "
 "la page de configuration du module externe."
 
-#: lspclientplugin.cpp:241
+#: lspclientplugin.cpp:244
 #, kde-format
 msgid ""
 "User permanently blocked start of: '%1'.\n"
@@ -269,13 +269,13 @@ msgstr "Plus d'options"
 msgid "LSP"
 msgstr "LSP"
 
-#: lspclientpluginview.cpp:978 lspclientpluginview.cpp:2522
+#: lspclientpluginview.cpp:978 lspclientpluginview.cpp:2527
 #: lspclientsymbolview.cpp:285
 #, kde-format
 msgid "Expand All"
 msgstr "Tout développer"
 
-#: lspclientpluginview.cpp:979 lspclientpluginview.cpp:2523
+#: lspclientpluginview.cpp:979 lspclientpluginview.cpp:2528
 #: lspclientsymbolview.cpp:286
 #, kde-format
 msgid "Collapse All"
@@ -322,8 +322,8 @@ msgstr ""
 msgid "Line: %1: "
 msgstr "Ligne : %1 : "
 
-#: lspclientpluginview.cpp:1925 lspclientpluginview.cpp:2272
-#: lspclientpluginview.cpp:2393
+#: lspclientpluginview.cpp:1925 lspclientpluginview.cpp:2277
+#: lspclientpluginview.cpp:2398
 #, kde-format
 msgid "No results"
 msgstr "Aucun résultat"
@@ -380,13 +380,13 @@ msgstr "Chargement en cours..."
 msgid "No edits"
 msgstr "Aucune modification"
 
-#: lspclientpluginview.cpp:2230
+#: lspclientpluginview.cpp:2235
 #, kde-format
 msgctxt "@title:window"
 msgid "Rename"
 msgstr "Renommer"
 
-#: lspclientpluginview.cpp:2231
+#: lspclientpluginview.cpp:2236
 #, kde-format
 msgctxt "@label:textbox"
 msgid "New name (caution: not all references may be replaced)"
@@ -394,64 +394,64 @@ msgstr ""
 "Nouveau nom (attention : toutes les références ne seront pas forcément "
 "remplacées)"
 
-#: lspclientpluginview.cpp:2278
+#: lspclientpluginview.cpp:2283
 #, kde-format
 msgid "Not enough results"
 msgstr "Pas assez les résultats"
 
-#: lspclientpluginview.cpp:2348
+#: lspclientpluginview.cpp:2353
 #, kde-format
 msgid "Corresponding Header/Source not found"
 msgstr "Impossible de trouver l'en-tête / source correspondante"
 
-#: lspclientpluginview.cpp:2532
+#: lspclientpluginview.cpp:2537
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "Copier dans le presse-papier"
 
-#: lspclientpluginview.cpp:2555
+#: lspclientpluginview.cpp:2560
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "Supprimer la suppression globale"
 
-#: lspclientpluginview.cpp:2557
+#: lspclientpluginview.cpp:2562
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "Ajouter la suppression globale"
 
-#: lspclientpluginview.cpp:2561
+#: lspclientpluginview.cpp:2566
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "Supprimer la suppression locale"
 
-#: lspclientpluginview.cpp:2563
+#: lspclientpluginview.cpp:2568
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "Ajouter la suppression locale"
 
-#: lspclientpluginview.cpp:2575
+#: lspclientpluginview.cpp:2580
 #, kde-format
 msgid "Disable Suppression"
 msgstr "Désactiver la suppression"
 
-#: lspclientpluginview.cpp:2577
+#: lspclientpluginview.cpp:2582
 #, kde-format
 msgid "Enable Suppression"
 msgstr "Activer la suppression"
 
-#: lspclientpluginview.cpp:2723
+#: lspclientpluginview.cpp:2728
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [supprimé : %2]"
 
-#: lspclientpluginview.cpp:2838 lspclientpluginview.cpp:2875
+#: lspclientpluginview.cpp:2843 lspclientpluginview.cpp:2880
 #, kde-format
 msgctxt "@info"
 msgid "LSP Server"
 msgstr "Serveur LSP"
 
-#: lspclientpluginview.cpp:2898
+#: lspclientpluginview.cpp:2903
 #, kde-format
 msgctxt "@info"
 msgid "LSP Client"
@@ -699,26 +699,33 @@ msgid "Add imports automatically if needed upon completion"
 msgstr ""
 "Ajouter automatiquement des importations, si nécessaire avant terminaison"
 
+#. i18n: ectx: property (text), widget (QCheckBox, chkFmtOnSave)
+#: lspconfigwidget.ui:248
+#, fuzzy, kde-format
+#| msgid "Format on typing"
+msgid "Format on save"
+msgstr "Formater lors de la saisie"
+
 #. i18n: ectx: attribute (title), widget (QWidget, tab_4)
-#: lspconfigwidget.ui:264
+#: lspconfigwidget.ui:271
 #, kde-format
 msgid "Allowed && Blocked Servers"
 msgstr "Serveurs autorisés et bloqués"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
-#: lspconfigwidget.ui:274
+#: lspconfigwidget.ui:281
 #, kde-format
 msgid "User Server Settings"
 msgstr "Utiliser les paramètres du serveur"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: lspconfigwidget.ui:282
+#: lspconfigwidget.ui:289
 #, kde-format
 msgid "Settings File:"
 msgstr "Fichiers de paramètres :"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_3)
-#: lspconfigwidget.ui:310
+#: lspconfigwidget.ui:316
 #, kde-format
 msgid "Default Server Settings"
 msgstr "Paramètres serveur par défaut"

@@ -27,6 +27,8 @@
 
 #include <ktexteditor_utils.h>
 
+#define GENERIC_ICON_NAME QLatin1String("dialog-scripts")
+
 class BlockData : public QTextBlockUserData
 {
 public:
@@ -101,7 +103,6 @@ public:
         : QTextBrowser(parent)
     {
         setOpenExternalLinks(true);
-        m_iconCache[QStringLiteral("dialog-scripts")] = QIcon::fromTheme(QStringLiteral("dialog-scripts")).pixmap(16, 16);
     }
 
     QVariant loadResource(int type, const QUrl &name) override
@@ -117,7 +118,14 @@ public:
 
     void addIcon(const QString &cat, const QIcon &icon)
     {
-        m_iconCache[cat] = icon.pixmap(16, 16);
+        const auto it = m_iconCache.constFind(cat);
+        if (it == m_iconCache.constEnd()) {
+            if (cat == GENERIC_ICON_NAME) {
+                m_iconCache[GENERIC_ICON_NAME] = QIcon::fromTheme(GENERIC_ICON_NAME).pixmap(16, 16);
+            } else {
+                m_iconCache[cat] = icon.pixmap(16, 16);
+            }
+        }
     }
 
 private:
@@ -327,7 +335,8 @@ void KateOutputView::slotMessage(const QVariantMap &message)
     const QString category = message.value(QStringLiteral("category")).toString().trimmed();
     const auto categoryIcon = message.value(QStringLiteral("categoryIcon")).value<QIcon>();
     if (categoryIcon.isNull()) {
-        meta += QStringLiteral(" <img style=\"vertical-align:middle\" src=\"") + QStringLiteral("dialog-scripts") + QStringLiteral("\"/> ");
+        m_textEdit->addIcon(GENERIC_ICON_NAME, {});
+        meta += QStringLiteral(" <img style=\"vertical-align:middle\" src=\"") + GENERIC_ICON_NAME + QStringLiteral("\"/> ");
     } else {
         m_textEdit->addIcon(category, categoryIcon);
         meta += QStringLiteral(" <img style=\"vertical-align:middle\" src=\"") + category + QStringLiteral("\"/> ");

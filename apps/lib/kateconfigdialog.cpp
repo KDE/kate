@@ -77,6 +77,8 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent)
     if (KateApp::isKate()) {
 #if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 94, 0)
         setFaceType(KPageDialog::FlatList);
+#else
+        setFaceType(KPageDialog::List);
 #endif
     }
     else {

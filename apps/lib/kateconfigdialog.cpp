@@ -264,7 +264,7 @@ void KateConfigDialog::onSearchTextChanged()
         QModelIndex current;
         for (int i = 0; i < model->rowCount(); ++i) {
             const auto itemName = model->index(i, 0).data().toString();
-            m_sideBar->setRowHidden(i, pagesToHide.contains(itemName));
+            m_sideBar->setRowHidden(i, pagesToHide.contains(itemName) && !itemName.contains(text, Qt::CaseInsensitive));
             if (!text.isEmpty() && !m_sideBar->isRowHidden(i) && !current.isValid()) {
                 current = model->index(i, 0);
             }

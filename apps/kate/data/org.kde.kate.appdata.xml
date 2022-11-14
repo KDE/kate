@@ -806,6 +806,15 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="zh-CN">Shell 集成</li>
       <li xml:lang="zh-TW">Shell 整合</li>
       <li>Wide protocol support (http, ftp, ssh, webdav etc.)</li>
+      <li xml:lang="ca">Implementació àmplia de protocols (http, ftp, ssh, webdav, etc.)</li>
+      <li xml:lang="ca-valencia">Implementació àmplia de protocols (http, ftp, ssh, webdav, etc.)</li>
+      <li xml:lang="es">Admite numerosos protocolos (http, ftp, ssh, webdav, etc.) </li>
+      <li xml:lang="eu">Protokolo-euskarri zabala (http, ftp, ssh, webdav etab.)</li>
+      <li xml:lang="nl">Brede ondersteuning van protocollen (http, ftp, ssh, webdav etc.)</li>
+      <li xml:lang="sl">Podpora za širok nabor protokolov (http, ftp, ssh, webdav, itd.)</li>
+      <li xml:lang="tr">Geniş protokol desteği (http, ftp, ssh, webdav vb.)</li>
+      <li xml:lang="uk">Широка підтримка протоколів (http, ftp, ssh, webdav тощо)</li>
+      <li xml:lang="x-test">xxWide protocol support (http, ftp, ssh, webdav etc.)xx</li>
       <li>Plugin architecture for the application and editor component</li>
       <li xml:lang="ar">بنية ملحقات للتّطبيق ومكوّن المحرّر</li>
       <li xml:lang="az">Tətbiq və redaktor komponentləri üçün qoşma arxitekturası</li>

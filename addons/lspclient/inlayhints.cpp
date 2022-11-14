@@ -271,7 +271,9 @@ void InlayHintsManager::registerView(KTextEditor::View *v)
         auto it = std::find_if(m_hintDataByDoc.begin(), m_hintDataByDoc.end(), [doc = v->document()](const HintData &hd) {
             return hd.doc == doc;
         });
-        if (it != m_hintDataByDoc.end()) {
+
+        // If the document was found and checksum hasn't changed
+        if (it != m_hintDataByDoc.end() && it->checksum == d->checksum()) {
             m_noteProvider.setHints(it->m_hints);
         } else {
             // Send delayed request for inlay hints
@@ -288,6 +290,14 @@ void InlayHintsManager::unregisterView(KTextEditor::View *v)
         v->disconnect(this);
         v->document()->disconnect(this);
         qobject_cast<KTextEditor::InlineNoteInterface *>(m_currentView)->unregisterInlineNoteProvider(&m_noteProvider);
+        auto it = std::find_if(m_hintDataByDoc.begin(), m_hintDataByDoc.end(), [doc = v->document()](const HintData &hd) {
+            return hd.doc == doc;
+        });
+        // update checksum
+        // we use it to check if doc was changed when restoring hints
+        if (it != m_hintDataByDoc.end()) {
+            it->checksum = v->document()->checksum();
+        }
     }
     m_insertCount = 0;
     m_noteProvider.setView(nullptr);
@@ -295,6 +305,10 @@ void InlayHintsManager::unregisterView(KTextEditor::View *v)
 
 void InlayHintsManager::onViewChanged(KTextEditor::View *v)
 {
+    if (v == m_currentView) {
+        return;
+    }
+
     unregisterView(m_currentView);
     registerView(v);
 }
@@ -355,7 +369,7 @@ InlayHintsManager::InsertResult InlayHintsManager::insertHintsForDoc(KTextEditor
     // New document
     if (it == m_hintDataByDoc.end()) {
         auto &r = m_hintDataByDoc.emplace_back();
-        r = HintData{doc, newHints};
+        r = HintData{doc, doc->checksum(), newHints};
         std::sort(r.m_hints.begin(), r.m_hints.end(), [](const LSPInlayHint &l, const LSPInlayHint &r) {
             return l.position < r.position;
         });

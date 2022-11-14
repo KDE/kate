@@ -72,6 +72,7 @@ private:
 
     struct HintData {
         QPointer<KTextEditor::Document> doc;
+        QByteArray checksum;
         QVector<LSPInlayHint> m_hints;
     };
     std::vector<HintData> m_hintDataByDoc;

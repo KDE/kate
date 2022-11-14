@@ -4243,6 +4243,15 @@ exec myserver
 
 </sect3>
 
+<sect3 id="lspclient-format-on-save">
+<title
+>Format per a desar del servidor LSP</title>
+
+<para
+>Podeu activar el «format per a desar» dels paràmetres del LSP en el diàleg de configuració. </para>
+
+</sect3>
+
 <sect3 id="lspclient-diagnostics-suppression">
 <title
 >Supressió del diagnòstic del servidor LSP</title>

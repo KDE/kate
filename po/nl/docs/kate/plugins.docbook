@@ -4226,6 +4226,15 @@ exec myserver
 
 </sect3>
 
+<sect3 id="lspclient-format-on-save">
+<title
+>LSP-serverformaat bij opslaan</title>
+
+<para
+>U kunt "formaat bij opslaan" uit LSP-instellingen in configuratiedialooginschakelen. </para>
+
+</sect3>
+
 <sect3 id="lspclient-diagnostics-suppression">
 <title
 >Onderdrukking van diagnostiek van LSP-server</title>

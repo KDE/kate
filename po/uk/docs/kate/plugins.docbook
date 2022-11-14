@@ -4252,6 +4252,15 @@ exec myserver
 
 </sect3>
 
+<sect3 id="lspclient-format-on-save">
+<title
+>Форматування при збереженні для сервера LSP</title>
+
+<para
+>Ви можете увімкнути «форматування при збереженні» у параметрах LSP діалогового вікна налаштовування програми. </para>
+
+</sect3>
+
 <sect3 id="lspclient-diagnostics-suppression">
 <title
 >Придушення діагностики на сервері LSP</title>

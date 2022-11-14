@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-07 00:48+0000\n"
+"POT-Creation-Date: 2022-11-14 00:49+0000\n"
 "PO-Revision-Date: 2022-11-08 03:59+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -228,17 +228,17 @@ msgstr "&სტატუსის ზოლის ელემენტები
 msgid "Change Style"
 msgstr "სტილის შეცვლა"
 
-#: lib/diff/diffeditor.cpp:180 lib/kateconfigdialog.cpp:533
+#: lib/diff/diffeditor.cpp:180 lib/kateconfigdialog.cpp:535
 #, kde-format
 msgid "Side By Side"
 msgstr "გვერდიგვერდ"
 
-#: lib/diff/diffeditor.cpp:183 lib/kateconfigdialog.cpp:534
+#: lib/diff/diffeditor.cpp:183 lib/kateconfigdialog.cpp:536
 #, kde-format
 msgid "Unified"
 msgstr "გაერთიანებული"
 
-#: lib/diff/diffeditor.cpp:186 lib/kateconfigdialog.cpp:535
+#: lib/diff/diffeditor.cpp:186 lib/kateconfigdialog.cpp:537
 #, kde-format
 msgid "Raw"
 msgstr "დაუმუშავებელი"
@@ -305,7 +305,7 @@ msgid "Jump to Previous Hunk"
 msgstr "წინა ნაფლეთზე გადასვლა"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
-#: lib/filehistorywidget.cpp:254 lib/kateconfigdialog.cpp:123
+#: lib/filehistorywidget.cpp:254 lib/kateconfigdialog.cpp:125
 #: lib/session/katesessionmanagedialog.ui:184
 #, kde-format
 msgid "Close"
@@ -321,7 +321,7 @@ msgstr ""
 msgid "Failed to get file history: %1"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:342 lib/kateconfigdialog.cpp:367
+#: lib/filehistorywidget.cpp:342 lib/kateconfigdialog.cpp:369
 #, kde-format
 msgid "Error"
 msgstr "შეცდომა"
@@ -673,72 +673,72 @@ msgstr ""
 msgid "Configure"
 msgstr "მორგება"
 
-#: lib/kateconfigdialog.cpp:62 lib/kateoutputview.cpp:143
+#: lib/kateconfigdialog.cpp:62 lib/kateoutputview.cpp:151
 #, kde-format
 msgid "Search..."
 msgstr "ძებნა..."
 
-#: lib/kateconfigdialog.cpp:124
+#: lib/kateconfigdialog.cpp:126
 #, kde-format
 msgid "Save"
 msgstr "შენახვა"
 
-#: lib/kateconfigdialog.cpp:344
+#: lib/kateconfigdialog.cpp:346
 #, kde-format
 msgid "Behavior"
 msgstr "ქცევა"
 
-#: lib/kateconfigdialog.cpp:346
+#: lib/kateconfigdialog.cpp:348
 #, kde-format
 msgid "Behavior Options"
 msgstr "ქცევის მორგება"
 
-#: lib/kateconfigdialog.cpp:353
+#: lib/kateconfigdialog.cpp:355
 #, kde-format
 msgid "&Behavior"
 msgstr "&ქცევა"
 
-#: lib/kateconfigdialog.cpp:362
+#: lib/kateconfigdialog.cpp:364
 #, kde-format
 msgid "&Switch to output view upon message type:"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:367
+#: lib/kateconfigdialog.cpp:369
 #, kde-format
 msgid "Never"
 msgstr "არასდროს"
 
-#: lib/kateconfigdialog.cpp:367 lib/kateconfigdialog.cpp:908
+#: lib/kateconfigdialog.cpp:369 lib/kateconfigdialog.cpp:915
 #, kde-format
 msgid "Warning"
 msgstr "შეტყობინება"
 
-#: lib/kateconfigdialog.cpp:367
+#: lib/kateconfigdialog.cpp:369
 #, kde-format
 msgid "Info"
 msgstr "ინფორმაცია"
 
-#: lib/kateconfigdialog.cpp:367
+#: lib/kateconfigdialog.cpp:369
 #, kde-format
 msgid "Log"
 msgstr "ჟურნალი"
 
-#: lib/kateconfigdialog.cpp:373
+#: lib/kateconfigdialog.cpp:375
 #, kde-format
 msgid "&Limit output view history:"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:379 lib/kateconfigdialog.cpp:445
+#: lib/kateconfigdialog.cpp:381 lib/kateconfigdialog.cpp:447
 #, kde-format
 msgid "Unlimited"
 msgstr "შეუზღუდავი"
 
-#: lib/kateconfigdialog.cpp:386
+#: lib/kateconfigdialog.cpp:388
 #, kde-format
 msgid "Use a separate &dialog for handling externally modified files"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:390
+#: lib/kateconfigdialog.cpp:392
 #, kde-format
 msgid ""
 "If enabled, a modal dialog will be used to show all of the modified files. "
@@ -746,17 +746,17 @@ msgid ""
 "file only when that file's view receives focus."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:399
+#: lib/kateconfigdialog.cpp:401
 #, kde-format
 msgid "&Sidebars"
 msgstr "&პანელები"
 
-#: lib/kateconfigdialog.cpp:402
+#: lib/kateconfigdialog.cpp:404
 #, kde-format
 msgid "Sync section size with tab positions"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:406
+#: lib/kateconfigdialog.cpp:408
 #, kde-format
 msgid ""
 "When enabled the section size will be determined by the position of the "
@@ -764,177 +764,177 @@ msgid ""
 "This option does not affect the bottom sidebar."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:411
+#: lib/kateconfigdialog.cpp:413
 #, kde-format
 msgid "Show text for left and right sidebar buttons"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:416
+#: lib/kateconfigdialog.cpp:418
 #, kde-format
 msgid "Icon size for left and right sidebar buttons"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:435
+#: lib/kateconfigdialog.cpp:437
 #, kde-format
 msgid "&Tabs"
 msgstr "&ჩანართები"
 
-#: lib/kateconfigdialog.cpp:439
+#: lib/kateconfigdialog.cpp:441
 #, kde-format
 msgid "&Limit number of tabs:"
 msgstr "&ჩანართების რაოდენობის შეზღუდვა:"
 
-#: lib/kateconfigdialog.cpp:450
+#: lib/kateconfigdialog.cpp:452
 #, kde-format
 msgid ""
 "A high limit can increase the window size, please enable 'Allow tab "
 "scrolling' to prevent it. Unlimited tabs are always scrollable."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:454
+#: lib/kateconfigdialog.cpp:456
 #, kde-format
 msgid "&Auto hide tabs"
 msgstr "&ჩანართების ავტომატური დამალვა"
 
-#: lib/kateconfigdialog.cpp:456
+#: lib/kateconfigdialog.cpp:458
 #, kde-format
 msgid "When checked tabs will be hidden if only one document is open."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:460
+#: lib/kateconfigdialog.cpp:462
 #, kde-format
 msgid "&Show close button"
 msgstr "&დახურვის ღილაკის ჩვენება"
 
-#: lib/kateconfigdialog.cpp:462
+#: lib/kateconfigdialog.cpp:464
 #, kde-format
 msgid "When checked each tab will display a close button."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:466
+#: lib/kateconfigdialog.cpp:468
 #, kde-format
 msgid "&Expand tabs"
 msgstr "&ჩანართების გაფართოება"
 
-#: lib/kateconfigdialog.cpp:468
+#: lib/kateconfigdialog.cpp:470
 #, kde-format
 msgid "When checked tabs take as much size as possible."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:472
+#: lib/kateconfigdialog.cpp:474
 #, kde-format
 msgid "&Double click opens a new document"
 msgstr "&ორმაგი წკაპი ახალ დოკუმენტს გახსნის"
 
-#: lib/kateconfigdialog.cpp:474
+#: lib/kateconfigdialog.cpp:476
 #, kde-format
 msgid "When checked double click opens a new document."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:478
+#: lib/kateconfigdialog.cpp:480
 #, kde-format
 msgid "&Middle click closes a document"
 msgstr "&თაგუნას შუა წკაპი დახურავს დოკუმენტს"
 
-#: lib/kateconfigdialog.cpp:480
+#: lib/kateconfigdialog.cpp:482
 #, kde-format
 msgid "When checked middle click closes a document."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:484
+#: lib/kateconfigdialog.cpp:486
 #, kde-format
 msgid "Allow tab scrolling"
 msgstr "ჩანართის აწევ-ჩამოწევის დაშვება"
 
-#: lib/kateconfigdialog.cpp:486
+#: lib/kateconfigdialog.cpp:488
 #, kde-format
 msgid ""
 "When checked this will allow scrolling in tab bar when number of tabs is "
 "large."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:490
+#: lib/kateconfigdialog.cpp:492
 #, kde-format
 msgid "Elide tab text"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:492
+#: lib/kateconfigdialog.cpp:494
 #, kde-format
 msgid "When checked tab text might be elided if its too long."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:498
+#: lib/kateconfigdialog.cpp:500
 #, kde-format
 msgid "&Mouse"
 msgstr "&თაგუნა"
 
-#: lib/kateconfigdialog.cpp:503
+#: lib/kateconfigdialog.cpp:505
 #, kde-format
 msgid "&Backward button pressed:"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:508
+#: lib/kateconfigdialog.cpp:510
 #, kde-format
 msgid "Previous tab"
 msgstr "წინა ჩანართი"
 
-#: lib/kateconfigdialog.cpp:508
+#: lib/kateconfigdialog.cpp:510
 #, kde-format
 msgid "History back"
 msgstr "ისტორია უკან"
 
-#: lib/kateconfigdialog.cpp:514
+#: lib/kateconfigdialog.cpp:516
 #, kde-format
 msgid "&Forward button pressed:"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:519
+#: lib/kateconfigdialog.cpp:521
 #, kde-format
 msgid "Next tab"
 msgstr "_შემდეგი ჩანართი"
 
-#: lib/kateconfigdialog.cpp:519
+#: lib/kateconfigdialog.cpp:521
 #, kde-format
 msgid "History forward"
 msgstr "ისტორია წინ"
 
-#: lib/kateconfigdialog.cpp:527
+#: lib/kateconfigdialog.cpp:529
 #, kde-format
 msgid "Diff"
 msgstr "სხვაობა"
 
-#: lib/kateconfigdialog.cpp:536
+#: lib/kateconfigdialog.cpp:538
 #, kde-format
 msgid "Diff Style:"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:541
+#: lib/kateconfigdialog.cpp:543
 #, kde-format
 msgid "Navigation Bar"
 msgstr "ნავიგაციის ზოლი"
 
-#: lib/kateconfigdialog.cpp:546
+#: lib/kateconfigdialog.cpp:548
 #, kde-format
 msgid "Show current symbol in navigation bar"
 msgstr "მიმდინარე სიმბოლოს ნავიგაციის პანელში ჩვენება"
 
-#: lib/kateconfigdialog.cpp:560
+#: lib/kateconfigdialog.cpp:562
 #, kde-format
 msgid "Session"
 msgstr "სესია"
 
-#: lib/kateconfigdialog.cpp:562
+#: lib/kateconfigdialog.cpp:564
 #, kde-format
 msgid "Session Management"
 msgstr "სესიების მართვა"
 
-#: lib/kateconfigdialog.cpp:573
+#: lib/kateconfigdialog.cpp:575
 #, kde-format
 msgctxt "The special case of 'Delete unused meta-information after'"
 msgid "(never)"
 msgstr "(არასდროს)"
 
-#: lib/kateconfigdialog.cpp:574
+#: lib/kateconfigdialog.cpp:576
 #, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid " day"
@@ -942,29 +942,29 @@ msgid_plural " days"
 msgstr[0] " დღე"
 msgstr[1] " დღე"
 
-#: lib/kateconfigdialog.cpp:607
+#: lib/kateconfigdialog.cpp:609
 #, kde-format
 msgid ""
 "When a window is closed the documents opened only in this window are closed "
 "as well."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:642
+#: lib/kateconfigdialog.cpp:644
 #, kde-format
 msgid "Plugins"
 msgstr "დამატებები"
 
-#: lib/kateconfigdialog.cpp:644
+#: lib/kateconfigdialog.cpp:646
 #, kde-format
 msgid "Plugin Manager"
 msgstr "დამატებების მმართველი"
 
-#: lib/kateconfigdialog.cpp:662 lib/kateconfigdialog.cpp:664
+#: lib/kateconfigdialog.cpp:664 lib/kateconfigdialog.cpp:666
 #, kde-format
 msgid "User Feedback"
 msgstr "მომხარებლის უკუკავშირი"
 
-#: lib/kateconfigdialog.cpp:907
+#: lib/kateconfigdialog.cpp:914
 #, kde-format
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"
@@ -1621,7 +1621,7 @@ msgstr "თავიდან ჩატვირთვა"
 msgid "Reload selected documents from disk"
 msgstr ""
 
-#: lib/katemwmodonhddialog.cpp:196
+#: lib/katemwmodonhddialog.cpp:199
 #, kde-format
 msgid ""
 "Could not save the document \n"
@@ -1630,57 +1630,57 @@ msgstr ""
 "დოკუმენტის შენახვის შეცდომა:\n"
 "\"%1\""
 
-#: lib/katemwmodonhddialog.cpp:329
+#: lib/katemwmodonhddialog.cpp:332
 #, kde-format
 msgid ""
 "The diff command failed. Please make sure that diff(1) is installed and in "
 "your PATH."
 msgstr ""
 
-#: lib/katemwmodonhddialog.cpp:331
+#: lib/katemwmodonhddialog.cpp:334
 #, kde-format
 msgid "Error Creating Diff"
 msgstr ""
 
-#: lib/katemwmodonhddialog.cpp:338
+#: lib/katemwmodonhddialog.cpp:341
 #, kde-format
 msgid "Ignoring amount of white space changed, the files are identical."
 msgstr ""
 
-#: lib/katemwmodonhddialog.cpp:338
+#: lib/katemwmodonhddialog.cpp:341
 #, kde-format
 msgid "Diff Output"
 msgstr "Diff -ის გამოტანა"
 
-#: lib/kateoutputview.cpp:158
+#: lib/kateoutputview.cpp:166
 #, kde-format
 msgid "Copy all text to clipboard"
 msgstr "სრული ტექსტის გაცვლის ბუფერში კოპირება"
 
-#: lib/kateoutputview.cpp:163
+#: lib/kateoutputview.cpp:171
 #, kde-format
 msgid "Clear all messages"
 msgstr "ყველა შეტყობინების გასუფთავება"
 
-#: lib/kateoutputview.cpp:347
+#: lib/kateoutputview.cpp:356
 #, kde-format
 msgctxt "@info"
 msgid "Error"
 msgstr "შეცდომა"
 
-#: lib/kateoutputview.cpp:351
+#: lib/kateoutputview.cpp:360
 #, kde-format
 msgctxt "@info"
 msgid "Warning"
 msgstr "შეტყობინება"
 
-#: lib/kateoutputview.cpp:355
+#: lib/kateoutputview.cpp:364
 #, kde-format
 msgctxt "@info"
 msgid "Info"
 msgstr "ინფორმაცია"
 
-#: lib/kateoutputview.cpp:360
+#: lib/kateoutputview.cpp:369
 #, kde-format
 msgctxt "@info"
 msgid "Log"

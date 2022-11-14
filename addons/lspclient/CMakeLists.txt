@@ -33,6 +33,7 @@ target_sources(
     semantic_tokens_legend.cpp
     lsptooltip.cpp
     gotosymboldialog.cpp
+    inlayhints.cpp
 
     plugin.qrc
 )

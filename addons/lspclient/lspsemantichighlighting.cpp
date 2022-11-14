@@ -11,6 +11,8 @@
 #include <KTextEditor/MovingInterface>
 #include <KTextEditor/View>
 
+#include <ktexteditor_utils.h>
+
 SemanticHighlighter::SemanticHighlighter(QSharedPointer<LSPClientServerManager> serverManager, QObject *parent)
     : QObject(parent)
     , m_serverManager(std::move(serverManager))
@@ -20,17 +22,6 @@ SemanticHighlighter::SemanticHighlighter(QSharedPointer<LSPClientServerManager> 
     m_requestTimer.connect(&m_requestTimer, &QTimer::timeout, this, [this]() {
         doSemanticHighlighting_impl(m_currentView);
     });
-}
-
-static KTextEditor::Range getCurrentViewLinesRange(KTextEditor::View *view)
-{
-    Q_ASSERT(view);
-
-    auto doc = view->document();
-    auto first = view->firstDisplayedLine();
-    auto last = view->lastDisplayedLine();
-    auto lastLineLen = doc->line(last).size();
-    return KTextEditor::Range(first, 0, last, lastLineLen);
 }
 
 void SemanticHighlighter::doSemanticHighlighting(KTextEditor::View *view, bool textChanged)
@@ -94,7 +85,7 @@ void SemanticHighlighter::doSemanticHighlighting_impl(KTextEditor::View *view)
     };
 
     if (caps.semanticTokenProvider.range) {
-        server->documentSemanticTokensRange(doc->url(), getCurrentViewLinesRange(view), this, h);
+        server->documentSemanticTokensRange(doc->url(), Utils::getVisibleRange(view), this, h);
     } else if (caps.semanticTokenProvider.fullDelta) {
         auto prevResultId = previousResultIdForDoc(doc);
         server->documentSemanticTokensFullDelta(doc->url(), prevResultId, this, h);

@@ -102,6 +102,16 @@ QFont viewFont(KTextEditor::View *view)
     return editorFont();
 }
 
+KATE_PRIVATE_EXPORT KTextEditor::Range getVisibleRange(KTextEditor::View *view)
+{
+    Q_ASSERT(view);
+    auto doc = view->document();
+    auto first = view->firstDisplayedLine();
+    auto last = view->lastDisplayedLine();
+    auto lastLineLen = doc->line(last).size();
+    return KTextEditor::Range(first, 0, last, lastLineLen);
+}
+
 QIcon iconForDocument(KTextEditor::Document *doc)
 {
     // simple modified indicator if modified

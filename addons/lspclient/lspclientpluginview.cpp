@@ -6,6 +6,7 @@
 
 #include "lspclientpluginview.h"
 #include "gotosymboldialog.h"
+#include "inlayhints.h"
 #include "lspclientcompletion.h"
 #include "lspclienthover.h"
 #include "lspclientplugin.h"
@@ -571,6 +572,7 @@ class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient, public KTe
     };
 
     SemanticHighlighter m_semHighlightingManager;
+    InlayHintsManager m_inlayHintsHandler;
 
 Q_SIGNALS:
 
@@ -592,6 +594,7 @@ public:
         , m_forwardHover(new ForwardingTextHintProvider(this))
         , m_symbolView(LSPClientSymbolView::new_(plugin, mainWin, m_serverManager))
         , m_semHighlightingManager(m_serverManager)
+        , m_inlayHintsHandler(m_serverManager, this)
     {
         KXMLGUIClient::setComponentName(QStringLiteral("lspclient"), i18n("LSP Client"));
         setXMLFile(QStringLiteral("ui.rc"));
@@ -3045,6 +3048,10 @@ public:
             }
 
             connect(activeView, &KTextEditor::View::contextMenuAboutToShow, this, &self_type::prepareContextMenu, Qt::UniqueConnection);
+
+            if (caps.inlayHintProvider) {
+                m_inlayHintsHandler.onViewChanged(activeView);
+            }
         }
 
         if (m_findDef) {

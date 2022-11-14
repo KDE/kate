@@ -391,6 +391,7 @@ static void from_json(LSPServerCapabilities &caps, const QJsonObject &json)
     auto workspace = json.value(QStringLiteral("workspace")).toObject();
     from_json(caps.workspaceFolders, workspace.value(QStringLiteral("workspaceFolders")));
     caps.selectionRangeProvider = toBoolOrObject(json.value(QStringLiteral("selectionRangeProvider")));
+    caps.inlayHintProvider = toBoolOrObject(json.value(QStringLiteral("inlayHintProvider")));
 }
 
 // follow suit; as performed in kate docmanager
@@ -905,6 +906,29 @@ static LSPSemanticTokensDelta parseSemanticTokensDelta(const QJsonValue &result)
     return ret;
 }
 
+static QVector<LSPInlayHint> parseInlayHints(const QJsonValue &result)
+{
+    const auto hints = result.toArray();
+    QVector<LSPInlayHint> ret;
+    for (const auto &hint : hints) {
+        LSPInlayHint h;
+        h.label = hint[QStringLiteral("label")].toString();
+        h.position = parsePosition(hint[QStringLiteral("position")].toObject());
+        ret.push_back(h);
+    }
+    auto comp = [](const LSPInlayHint &l, const LSPInlayHint &r) {
+        return l.position < r.position;
+    };
+
+    // it is likely to be already sorted
+    if (!std::is_sorted(ret.begin(), ret.end(), comp)) {
+        std::sort(ret.begin(), ret.end(), comp);
+    }
+
+    // printf("%s\n", QJsonDocument(result.toArray()).toJson().constData());
+    return ret;
+}
+
 static LSPPublishDiagnosticsParams parseDiagnostics(const QJsonObject &result)
 {
     LSPPublishDiagnosticsParams ret;
@@ -1365,6 +1389,7 @@ private:
                                                     {QStringLiteral("snippetSupport"), m_clientCapabilities.snippetSupport}
                                                 }}
                                             }},
+                                            {QStringLiteral("inlayHint"), true}
                                         },
                                   },
                                   {QStringLiteral("window"),
@@ -1570,6 +1595,13 @@ public:
         }
 
         return send(init_request(QStringLiteral("textDocument/semanticTokens/full"), params), h);
+    }
+
+    RequestHandle documentInlayHint(const QUrl &document, const LSPRange &range, const GenericReplyHandler &h)
+    {
+        auto params = textDocumentParams(document);
+        params[MEMBER_RANGE] = to_json(range);
+        return send(init_request(QStringLiteral("textDocument/inlayHint"), params), h);
     }
 
     void executeCommand(const QString &command, const QJsonValue &args)
@@ -1930,6 +1962,12 @@ LSPClientServer::RequestHandle
 LSPClientServer::documentSemanticTokensRange(const QUrl &document, const LSPRange &range, const QObject *context, const SemanticTokensDeltaReplyHandler &h)
 {
     return d->documentSemanticTokensFull(document, /* delta = */ false, QString(), range, make_handler(h, context, parseSemanticTokensDelta));
+}
+
+LSPClientServer::RequestHandle
+LSPClientServer::documentInlayHint(const QUrl &document, const LSPRange &range, const QObject *context, const InlayHintsReplyHandler &h)
+{
+    return d->documentInlayHint(document, range, make_handler(h, context, parseInlayHints));
 }
 
 void LSPClientServer::executeCommand(const QString &command, const QJsonValue &args)

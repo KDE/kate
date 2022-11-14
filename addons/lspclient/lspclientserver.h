@@ -71,6 +71,7 @@ using ExpandMacroHandler = ReplyHandler<LSPExpandedMacro>;
 using SemanticTokensDeltaReplyHandler = ReplyHandler<LSPSemanticTokensDelta>;
 using WorkspaceSymbolsReplyHandler = ReplyHandler<std::vector<LSPSymbolInformation>>;
 using SelectionRangeReplyHandler = ReplyHandler<QList<std::shared_ptr<LSPSelectionRange>>>;
+using InlayHintsReplyHandler = ReplyHandler<QVector<LSPInlayHint>>;
 
 class LSPClientPlugin;
 
@@ -172,6 +173,8 @@ public:
     documentSemanticTokensFullDelta(const QUrl &document, const QString requestId, const QObject *context, const SemanticTokensDeltaReplyHandler &h);
 
     RequestHandle documentSemanticTokensRange(const QUrl &document, const LSPRange &range, const QObject *context, const SemanticTokensDeltaReplyHandler &h);
+
+    RequestHandle documentInlayHint(const QUrl &document, const LSPRange &range, const QObject *context, const InlayHintsReplyHandler &h);
 
     void executeCommand(const QString &command, const QJsonValue &args);
 

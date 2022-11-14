@@ -117,6 +117,7 @@ struct LSPServerCapabilities {
     // (other parts not useful/considered at present)
     LSPWorkspaceFoldersServerCapabilities workspaceFolders;
     bool selectionRangeProvider = false;
+    bool inlayHintProvider = false;
 };
 
 enum class LSPMarkupKind { None = 0, PlainText = 1, MarkDown = 2 };
@@ -433,6 +434,16 @@ struct LSPSemanticTokensDelta {
 struct LSPExpandedMacro {
     QString name;
     QString expansion;
+};
+
+struct LSPInlayHint {
+    LSPPosition position;
+    QString label;
+    // unused fields atm, not sure if we will need them
+    // enum Kind { Type = 1, Parameter = 2 } kind;
+    // QString tooltip;
+    // bool paddingLeft = false;
+    // bool paddingRight = false;
 };
 
 #endif

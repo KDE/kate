@@ -22,6 +22,7 @@ namespace KTextEditor
 class View;
 class Document;
 class MainWindow;
+class Range;
 }
 struct DiffParams;
 
@@ -48,6 +49,11 @@ KATE_PRIVATE_EXPORT QFont editorFont();
  * returns the font for view @p view
  */
 KATE_PRIVATE_EXPORT QFont viewFont(KTextEditor::View *view);
+
+/**
+ * Returns the range that is currently visible in the @p view
+ */
+KATE_PRIVATE_EXPORT KTextEditor::Range getVisibleRange(KTextEditor::View *view);
 
 /**
  * @brief Given path "/home/user/xyz.txt" returns "xyz.txt"

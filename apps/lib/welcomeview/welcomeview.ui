@@ -151,7 +151,7 @@
         </widget>
        </item>
        <item>
-        <layout class="QGridLayout" name="layoutPanels" rowstretch="1,0">
+        <layout class="QGridLayout" name="layoutPanels" columnstretch="1,0">
          <property name="spacing">
           <number>20</number>
          </property>

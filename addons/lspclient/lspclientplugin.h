@@ -63,6 +63,7 @@ public:
     bool m_signatureHelp = true;
     bool m_autoImport = true;
     bool m_fmtOnSave = false;
+    bool m_inlayHints = false;
 
     // debug mode?
     const bool m_debugMode;

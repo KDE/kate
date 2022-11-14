@@ -46,6 +46,7 @@ static const QString CONFIG_AUTO_IMPORT{QStringLiteral("AutoImport")};
 static const QString CONFIG_ALLOWED_COMMANDS{QStringLiteral("AllowedServerCommandLines")};
 static const QString CONFIG_BLOCKED_COMMANDS{QStringLiteral("BlockedServerCommandLines")};
 static const QString CONFIG_FORMAT_ON_SAVE{QStringLiteral("FormatOnSave")};
+static const QString CONFIG_INLAY_HINT{QStringLiteral("InlayHints")};
 
 K_PLUGIN_FACTORY_WITH_JSON(LSPClientPluginFactory, "lspclientplugin.json", registerPlugin<LSPClientPlugin>();)
 
@@ -134,6 +135,7 @@ void LSPClientPlugin::readConfig()
     m_signatureHelp = config.readEntry(CONFIG_SIGNATURE_HELP, true);
     m_autoImport = config.readEntry(CONFIG_AUTO_IMPORT, true);
     m_fmtOnSave = config.readEntry(CONFIG_FORMAT_ON_SAVE, false);
+    m_inlayHints = config.readEntry(CONFIG_INLAY_HINT, false);
 
     // read allow + block lists as two separate keys, let block always win
     const auto allowed = config.readEntry(CONFIG_ALLOWED_COMMANDS, QStringList());
@@ -174,6 +176,7 @@ void LSPClientPlugin::writeConfig() const
     config.writeEntry(CONFIG_SIGNATURE_HELP, m_signatureHelp);
     config.writeEntry(CONFIG_AUTO_IMPORT, m_autoImport);
     config.writeEntry(CONFIG_FORMAT_ON_SAVE, m_fmtOnSave);
+    config.writeEntry(CONFIG_INLAY_HINT, m_inlayHints);
 
     // write allow + block lists as two separate keys
     QStringList allowed, blocked;

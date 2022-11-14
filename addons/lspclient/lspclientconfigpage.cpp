@@ -47,12 +47,10 @@ LSPClientConfigPage::LSPClientConfigPage(QWidget *parent, LSPClientPlugin *plugi
 
     reset();
 
-    for (const auto &cb : {
-             ui->chkSymbolDetails,  ui->chkSymbolExpand,     ui->chkSymbolSort,      ui->chkSymbolTree,      ui->chkComplDoc,
-             ui->chkRefDeclaration, ui->chkComplParens,      ui->chkDiagnostics,     ui->chkDiagnosticsMark, ui->chkDiagnosticsHover,
-             ui->chkMessages,       ui->chkOnTypeFormatting, ui->chkIncrementalSync, ui->chkHighlightGoto,   ui->chkSemanticHighlighting,
-             ui->chkAutoHover,      ui->chkSignatureHelp,    ui->chkAutoImport,      ui->chkFmtOnSave,
-         }) {
+    for (const auto &cb : {ui->chkSymbolDetails,  ui->chkSymbolExpand,     ui->chkSymbolSort,      ui->chkSymbolTree,      ui->chkComplDoc,
+                           ui->chkRefDeclaration, ui->chkComplParens,      ui->chkDiagnostics,     ui->chkDiagnosticsMark, ui->chkDiagnosticsHover,
+                           ui->chkMessages,       ui->chkOnTypeFormatting, ui->chkIncrementalSync, ui->chkHighlightGoto,   ui->chkSemanticHighlighting,
+                           ui->chkAutoHover,      ui->chkSignatureHelp,    ui->chkAutoImport,      ui->chkFmtOnSave,       ui->chkInlayHint}) {
         connect(cb, &QCheckBox::toggled, this, &LSPClientConfigPage::changed);
     }
     auto ch = [this](int) {
@@ -136,6 +134,7 @@ void LSPClientConfigPage::apply()
     m_plugin->m_signatureHelp = ui->chkSignatureHelp->isChecked();
     m_plugin->m_autoImport = ui->chkAutoImport->isChecked();
     m_plugin->m_fmtOnSave = ui->chkFmtOnSave->isChecked();
+    m_plugin->m_inlayHints = ui->chkInlayHint->isChecked();
 
     m_plugin->m_messages = ui->chkMessages->isChecked();
 
@@ -184,6 +183,7 @@ void LSPClientConfigPage::reset()
     ui->chkSignatureHelp->setChecked(m_plugin->m_signatureHelp);
     ui->chkAutoImport->setChecked(m_plugin->m_autoImport);
     ui->chkFmtOnSave->setChecked(m_plugin->m_fmtOnSave);
+    ui->chkInlayHint->setChecked(m_plugin->m_inlayHints);
 
     ui->chkMessages->setChecked(m_plugin->m_messages);
 

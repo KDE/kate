@@ -3049,7 +3049,7 @@ public:
 
             connect(activeView, &KTextEditor::View::contextMenuAboutToShow, this, &self_type::prepareContextMenu, Qt::UniqueConnection);
 
-            if (caps.inlayHintProvider) {
+            if (caps.inlayHintProvider && m_plugin->m_inlayHints) {
                 m_inlayHintsHandler.onViewChanged(activeView);
             }
         }

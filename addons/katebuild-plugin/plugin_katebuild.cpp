@@ -786,6 +786,7 @@ bool KateBuildView::startProcess(const QString &dir, const QString &command)
 
     // activate the output tab
     m_buildUi.u_tabWidget->setCurrentIndex(1);
+    m_buildUi.u_tabWidget->setTabIcon(1, QIcon::fromTheme(QStringLiteral("system-run")));
     m_displayModeBeforeBuild = m_buildUi.displayModeSlider->value();
     m_buildUi.displayModeSlider->setValue(0);
     m_win->showToolView(m_toolView);
@@ -1031,6 +1032,7 @@ void KateBuildView::displayMessage(const QString &msg, KTextEditor::Message::Mes
 void KateBuildView::slotProcExited(int exitCode, QProcess::ExitStatus)
 {
     m_targetsUi->unsetCursor();
+    m_buildUi.u_tabWidget->setTabIcon(1, QIcon::fromTheme(QStringLiteral("format-justify-left")));
     m_buildUi.cancelBuildButton->setEnabled(false);
     m_buildUi.cancelBuildButton2->setEnabled(false);
     m_buildUi.buildAgainButton->setEnabled(true);

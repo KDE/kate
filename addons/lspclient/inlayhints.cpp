@@ -348,6 +348,9 @@ void InlayHintsManager::onWrapped(KTextEditor::Document *doc, KTextEditor::Curso
     if (changed) {
         m_noteProvider.setHints(it->m_hints);
     }
+
+    KTextEditor::Range r(position.line(), 0, position.line(), doc->lineLength(position.line()));
+    sendRequestDelayed(r, 500);
 }
 
 void InlayHintsManager::onUnwrapped(KTextEditor::Document *doc, int line)
@@ -367,6 +370,9 @@ void InlayHintsManager::onUnwrapped(KTextEditor::Document *doc, int line)
     if (changed) {
         m_noteProvider.setHints(it->m_hints);
     }
+
+    KTextEditor::Range r(line - 1, 0, line - 1, doc->lineLength(line));
+    sendRequestDelayed(r, 500);
 }
 
 void InlayHintsManager::clearHintsForInvalidDocs()

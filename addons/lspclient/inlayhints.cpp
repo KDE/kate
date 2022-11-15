@@ -1,5 +1,8 @@
 #include "inlayhints.h"
 
+#include "lspclientservermanager.h"
+#include <ktexteditor_utils.h>
+
 #include <KSyntaxHighlighting/Theme>
 #include <KTextEditor/InlineNote>
 #include <KTextEditor/InlineNoteInterface>
@@ -7,10 +10,7 @@
 
 #include <QApplication>
 #include <QPainter>
-
-#include "lspclientservermanager.h"
 #include <QSet>
-#include <ktexteditor_utils.h>
 
 static std::size_t hash_combine(std::size_t seed, std::size_t v)
 {
@@ -74,7 +74,7 @@ void InlayHintNoteProvider::setHints(const QVector<LSPInlayHint> &hints)
 QVector<int> InlayHintNoteProvider::inlineNotes(int line) const
 {
     QVector<int> ret;
-    auto it = binaryFind(std::as_const(m_hints), line);
+    auto it = binaryFind(m_hints, line);
     while (it != m_hints.cend() && it->position.line() == line) {
         ret.push_back(it->position.column());
         ++it;
@@ -87,7 +87,7 @@ QSize InlayHintNoteProvider::inlineNoteSize(const KTextEditor::InlineNote &note)
     const auto font = qApp->font();
     const auto fm = QFontMetrics(font);
     const auto pos = note.position();
-    for (const auto &hint : std::as_const(m_hints)) {
+    for (const auto &hint : m_hints) {
         if (hint.position == pos) {
             return {fm.horizontalAdvance(hint.label), note.lineHeight()};
         }
@@ -113,7 +113,7 @@ InlayHintsManager::InlayHintsManager(const QSharedPointer<LSPClientServerManager
 {
     m_requestTimer.setInterval(300);
     m_requestTimer.setSingleShot(true);
-    m_requestTimer.callOnTimeout(this, &InlayHintsManager::sendRequest);
+    m_requestTimer.callOnTimeout(this, &InlayHintsManager::sendPendingRequests);
 }
 
 void InlayHintsManager::registerView(KTextEditor::View *v)
@@ -137,136 +137,10 @@ void InlayHintsManager::registerView(KTextEditor::View *v)
             }
         });
 
-        connect(d, &Document::textInserted, this, [this](Document *doc, const Cursor &pos, const QString &text) {
-            if (pos.line() > doc->lines()) {
-                return;
-            }
-            // normal typing is size==1, with undo / paste it can be bigger
-            // for which we should rerequest the server
-            m_insertCount += text.size();
-
-            auto it = std::find_if(m_hintDataByDoc.begin(), m_hintDataByDoc.end(), [doc](const HintData &hd) {
-                return hd.doc == doc;
-            });
-            if (it != m_hintDataByDoc.end()) {
-                auto &list = it->m_hints;
-                bool changed = false;
-                auto it = binaryFind(list, pos.line());
-                for (; it != list.end(); ++it) {
-                    if (it->position.line() > pos.line()) {
-                        break;
-                    }
-                    if (it->position >= pos) {
-                        it->position.setColumn(it->position.column() + text.size());
-                        changed = true;
-                    }
-                }
-                if (changed) {
-                    m_noteProvider.setHints(list);
-                }
-            }
-
-            if (m_insertCount > 5 || text.size() > 1) {
-                Range r(pos.line(), 0, pos.line(), doc->lineLength(pos.line()));
-                sendRequestDelayed(r);
-                m_insertCount = 0;
-            }
-        });
-
-        connect(d, &Document::textRemoved, this, [this](Document *doc, const Range &range, const QString &t) {
-            if (range.onSingleLine()) {
-                auto it = std::find_if(m_hintDataByDoc.begin(), m_hintDataByDoc.end(), [doc](const HintData &hd) {
-                    return hd.doc == doc;
-                });
-                if (it != m_hintDataByDoc.end()) {
-                    auto &list = it->m_hints;
-                    auto bit = binaryFind(list, range.start().line());
-                    auto bitCopy = bit;
-                    auto end = list.end();
-                    bool changed = false;
-                    for (; bit != list.end(); ++bit) {
-                        if (bit->position.line() > range.start().line()) {
-                            end = bit;
-                            break;
-                        }
-                        if (range.contains(bit->position)) {
-                            // was inside range? remove this note
-                            bit->position = Cursor::invalid();
-                            changed = true;
-                        } else if (bit->position > range.end()) {
-                            // in front? => adjust position
-                            bit->position.setColumn(bit->position.column() - t.size());
-                            changed = true;
-                        }
-                    }
-                    if (changed) {
-                        list.erase(std::remove_if(bitCopy,
-                                                  end,
-                                                  [](const LSPInlayHint &h) {
-                                                      return !h.position.isValid();
-                                                  }),
-                                   end);
-                        m_noteProvider.setHints(list);
-                    }
-
-                    if (t.size() > 1) {
-                        // non trivial text removal? => request new
-                        // could be for e.g., uncommenting
-                        Range r(range.start().line(), 0, range.end().line(), doc->lineLength(range.end().line()));
-                        sendRequestDelayed(r);
-                    }
-                }
-            } else {
-                Range r(range.start().line(), 0, range.end().line(), doc->lineLength(range.end().line()));
-                sendRequestDelayed(r);
-            }
-        });
-
-        connect(d, &Document::lineWrapped, this, [this](KTextEditor::Document *doc, const KTextEditor::Cursor &position) {
-            auto it = std::find_if(m_hintDataByDoc.begin(), m_hintDataByDoc.end(), [doc](const HintData &hd) {
-                return hd.doc == doc;
-            });
-            if (it != m_hintDataByDoc.end()) {
-                auto bit = std::lower_bound(it->m_hints.begin(), it->m_hints.end(), position.line(), [](const LSPInlayHint &h, int l) {
-                    return h.position.line() < l;
-                });
-                while (bit != it->m_hints.end()) {
-                    if (bit->position >= position) {
-                        break;
-                    }
-                    ++bit;
-                }
-                bool changed = bit != it->m_hints.end();
-                while (bit != it->m_hints.end()) {
-                    bit->position.setLine(bit->position.line() + 1);
-                    ++bit;
-                }
-
-                if (changed) {
-                    m_noteProvider.setHints(it->m_hints);
-                }
-            }
-        });
-
-        connect(d, &Document::lineUnwrapped, this, [this](KTextEditor::Document *doc, int line) {
-            auto it = std::find_if(m_hintDataByDoc.begin(), m_hintDataByDoc.end(), [doc](const HintData &hd) {
-                return hd.doc == doc;
-            });
-
-            if (it != m_hintDataByDoc.end()) {
-                auto bit = std::lower_bound(it->m_hints.begin(), it->m_hints.end(), line, [](const LSPInlayHint &h, int l) {
-                    return h.position.line() < l;
-                });
-                bool changed = bit != it->m_hints.end();
-                while (bit != it->m_hints.end()) {
-                    bit->position.setLine(bit->position.line() - 1);
-                    ++bit;
-                }
-                if (changed) {
-                    m_noteProvider.setHints(it->m_hints);
-                }
-            }
-        });
+        connect(d, &Document::textInserted, this, &InlayHintsManager::onTextInserted, Qt::UniqueConnection);
+        connect(d, &Document::textRemoved, this, &InlayHintsManager::onTextRemoved, Qt::UniqueConnection);
+        connect(d, &Document::lineWrapped, this, &InlayHintsManager::onWrapped, Qt::UniqueConnection);
+        connect(d, &Document::lineUnwrapped, this, &InlayHintsManager::onUnwrapped, Qt::UniqueConnection);
 
         auto it = std::find_if(m_hintDataByDoc.begin(), m_hintDataByDoc.end(), [doc = v->document()](const HintData &hd) {
             return hd.doc == doc;
@@ -299,7 +173,6 @@ void InlayHintsManager::unregisterView(KTextEditor::View *v)
             it->checksum = v->document()->checksum();
         }
     }
-    m_insertCount = 0;
     m_noteProvider.setView(nullptr);
 }
 
@@ -315,17 +188,32 @@ void InlayHintsManager::onViewChanged(KTextEditor::View *v)
 
 void InlayHintsManager::sendRequestDelayed(KTextEditor::Range r, int delay)
 {
-    m_requestData.r = r;
-    m_requestTimer.start(delay);
+    if (!pendingRanges.contains(r)) {
+        pendingRanges.append(r);
+        m_requestTimer.start(delay);
+    }
 }
 
-void InlayHintsManager::sendRequest()
+void InlayHintsManager::sendPendingRequests()
 {
-    if (!m_currentView || !m_currentView->document()) {
+    if (pendingRanges.empty()) {
         return;
     }
-    if (!m_requestData.r.isValid()) {
-        qWarning() << Q_FUNC_INFO << "Unexpected invalid range";
+
+    KTextEditor::Range rangeToRequest;
+    for (auto r : std::as_const(pendingRanges)) {
+        rangeToRequest.expandToRange(r);
+    }
+    pendingRanges.clear();
+
+    if (rangeToRequest.isValid()) {
+        sendRequest(rangeToRequest);
+    }
+}
+
+void InlayHintsManager::sendRequest(KTextEditor::Range rangeToRequest)
+{
+    if (!m_currentView || !m_currentView->document()) {
         return;
     }
 
@@ -334,20 +222,143 @@ void InlayHintsManager::sendRequest()
     auto v = m_currentView;
     auto server = m_serverManager->findServer(v, false);
     if (server) {
-        server->documentInlayHint(url, m_requestData.r, this, [v = QPointer(m_currentView), this](const QVector<LSPInlayHint> &hints) {
-            if (v) {
-                const auto result = insertHintsForDoc(v->document(), hints);
-                m_noteProvider.setHints(result.addedHints);
-                if (result.newDoc) {
-                    m_noteProvider.inlineNotesReset();
-                } else {
-                    // qDebug() << "hints: " << hints.size() << "changed lines: " << result.changedLines.size();
-                    for (const auto &line : result.changedLines) {
-                        m_noteProvider.inlineNotesChanged(line);
-                    }
+        server->documentInlayHint(url, rangeToRequest, this, [v = QPointer(m_currentView), rangeToRequest, this](const QVector<LSPInlayHint> &hints) {
+            if (!v) {
+                return;
+            }
+            const auto result = insertHintsForDoc(v->document(), rangeToRequest, hints);
+            m_noteProvider.setHints(result.addedHints);
+            if (result.newDoc) {
+                m_noteProvider.inlineNotesReset();
+            } else {
+                // qDebug() << "hints: " << hints.size() << "changed lines: " << result.changedLines.size();
+                for (const auto &line : result.changedLines) {
+                    m_noteProvider.inlineNotesChanged(line);
                 }
             }
         });
+    }
+}
+
+void InlayHintsManager::onTextInserted(KTextEditor::Document *doc, KTextEditor::Cursor pos, const QString &text)
+{
+    auto it = std::find_if(m_hintDataByDoc.begin(), m_hintDataByDoc.end(), [doc](const HintData &hd) {
+        return hd.doc == doc;
+    });
+    if (it != m_hintDataByDoc.end()) {
+        auto &list = it->m_hints;
+        bool changed = false;
+        auto bit = binaryFind(list, pos.line());
+        for (; bit != list.end(); ++bit) {
+            if (bit->position.line() > pos.line()) {
+                break;
+            }
+            if (bit->position >= pos) {
+                bit->position.setColumn(bit->position.column() + text.size());
+                changed = true;
+            }
+        }
+        if (changed) {
+            m_noteProvider.setHints(list);
+        }
+    }
+
+    KTextEditor::Range r(pos.line(), 0, pos.line(), doc->lineLength(pos.line()));
+    sendRequestDelayed(r, 500);
+}
+
+void InlayHintsManager::onTextRemoved(KTextEditor::Document *doc, KTextEditor::Range range, const QString &t)
+{
+    if (!range.onSingleLine()) {
+        KTextEditor::Range r(range.start().line(), 0, range.end().line(), doc->lineLength(range.end().line()));
+        sendRequestDelayed(r);
+        return;
+    }
+
+    auto it = std::find_if(m_hintDataByDoc.begin(), m_hintDataByDoc.end(), [doc](const HintData &hd) {
+        return hd.doc == doc;
+    });
+    if (it == m_hintDataByDoc.end()) {
+        return;
+    }
+    auto &list = it->m_hints;
+    auto bit = binaryFind(list, range.start().line());
+    auto bitCopy = bit;
+    auto end = list.end();
+    bool changed = false;
+    for (; bit != list.end(); ++bit) {
+        if (bit->position.line() > range.start().line()) {
+            end = bit;
+            break;
+        }
+        if (range.contains(bit->position)) {
+            // was inside range? remove this note
+            bit->position = KTextEditor::Cursor::invalid();
+            changed = true;
+        } else if (bit->position > range.end()) {
+            // in front? => adjust position
+            bit->position.setColumn(bit->position.column() - t.size());
+            changed = true;
+        }
+    }
+    if (changed) {
+        list.erase(std::remove_if(bitCopy,
+                                  end,
+                                  [](const LSPInlayHint &h) {
+                                      return !h.position.isValid();
+                                  }),
+                   end);
+        m_noteProvider.setHints(list);
+    }
+
+    KTextEditor::Range r(range.start().line(), 0, range.end().line(), doc->lineLength(range.end().line()));
+    sendRequestDelayed(r, 500);
+}
+
+void InlayHintsManager::onWrapped(KTextEditor::Document *doc, KTextEditor::Cursor position)
+{
+    auto it = std::find_if(m_hintDataByDoc.begin(), m_hintDataByDoc.end(), [doc](const HintData &hd) {
+        return hd.doc == doc;
+    });
+    if (it == m_hintDataByDoc.end()) {
+        return;
+    }
+    auto bit = std::lower_bound(it->m_hints.begin(), it->m_hints.end(), position.line(), [](const LSPInlayHint &h, int l) {
+        return h.position.line() < l;
+    });
+    while (bit != it->m_hints.end()) {
+        if (bit->position >= position) {
+            break;
+        }
+        ++bit;
+    }
+    bool changed = bit != it->m_hints.end();
+    while (bit != it->m_hints.end()) {
+        bit->position.setLine(bit->position.line() + 1);
+        ++bit;
+    }
+
+    if (changed) {
+        m_noteProvider.setHints(it->m_hints);
+    }
+}
+
+void InlayHintsManager::onUnwrapped(KTextEditor::Document *doc, int line)
+{
+    auto it = std::find_if(m_hintDataByDoc.begin(), m_hintDataByDoc.end(), [doc](const HintData &hd) {
+        return hd.doc == doc;
+    });
+
+    auto bit = std::lower_bound(it->m_hints.begin(), it->m_hints.end(), line, [](const LSPInlayHint &h, int l) {
+        return h.position.line() < l;
+    });
+    bool changed = bit != it->m_hints.end();
+    while (bit != it->m_hints.end()) {
+        bit->position.setLine(bit->position.line() - 1);
+        ++bit;
+    }
+    if (changed) {
+        m_noteProvider.setHints(it->m_hints);
     }
 }
 
@@ -361,7 +372,8 @@ void InlayHintsManager::clearHintsForInvalidDocs()
                           m_hintDataByDoc.end());
 }
 
-InlayHintsManager::InsertResult InlayHintsManager::insertHintsForDoc(KTextEditor::Document *doc, const QVector<LSPInlayHint> &newHints)
+InlayHintsManager::InsertResult
+InlayHintsManager::insertHintsForDoc(KTextEditor::Document *doc, KTextEditor::Range requestedRange, const QVector<LSPInlayHint> &newHints)
 {
     auto it = std::find_if(m_hintDataByDoc.begin(), m_hintDataByDoc.end(), [doc](const HintData &hd) {
         return hd.doc == doc;
@@ -378,7 +390,7 @@ InlayHintsManager::InsertResult InlayHintsManager::insertHintsForDoc(KTextEditor
     // Old
     auto &existing = it->m_hints;
     if (newHints.isEmpty()) {
-        const auto r = m_requestData.r;
+        const auto r = requestedRange;
         auto bit = std::lower_bound(existing.begin(), existing.end(), r.start().line(), [](const LSPInlayHint &h, int l) {
             return h.position.line() < l;
         });
@@ -407,22 +419,20 @@ InlayHintsManager::InsertResult InlayHintsManager::insertHintsForDoc(KTextEditor
 
     QSet<LSPInlayHint> rangesToInsert(newHints.begin(), newHints.end());
 
+    auto pred = [&affectedLines, &rangesToInsert](const LSPInlayHint &h) {
+        if (affectedLines.contains(h.position.line())) {
+            auto i = rangesToInsert.find(h);
+            if (i != rangesToInsert.end()) {
+                // if this range already exists then it doesn't need to be reinserted
+                rangesToInsert.erase(i);
+                return false;
+            }
+            return true;
+        }
+        return false;
+    };
     // remove existing hints that contain affectedLines
-    existing.erase(std::remove_if(existing.begin(),
-                                  existing.end(),
-                                  [&affectedLines, &rangesToInsert](const LSPInlayHint &h) {
-                                      if (affectedLines.contains(h.position.line())) {
-                                          auto i = rangesToInsert.find(h);
-                                          if (i != rangesToInsert.end()) {
-                                              // if this range already exists then it doesn't need to be reinserted
-                                              rangesToInsert.erase(i);
-                                              return false;
-                                          }
-                                          return true;
-                                      }
-                                      return false;
-                                  }),
-                   existing.end());
+    existing.erase(std::remove_if(existing.begin(), existing.end(), pred), existing.end());
 
     // now add new ones
     affectedLines.clear();

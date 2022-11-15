@@ -56,7 +56,8 @@ private:
     void registerView(KTextEditor::View *);
     void unregisterView(KTextEditor::View *);
     void sendRequestDelayed(KTextEditor::Range, int delay = 300);
-    void sendRequest();
+    void sendPendingRequests();
+    void sendRequest(KTextEditor::Range r);
 
     void clearHintsForInvalidDocs();
     struct InsertResult {
@@ -64,11 +65,12 @@ private:
         const QVarLengthArray<int, 16> changedLines;
         const QVector<LSPInlayHint> addedHints;
     };
-    InsertResult insertHintsForDoc(KTextEditor::Document *doc, const QVector<LSPInlayHint> &newHints);
+    InsertResult insertHintsForDoc(KTextEditor::Document *doc, KTextEditor::Range requestedRange, const QVector<LSPInlayHint> &newHints);
 
-    struct RequestData {
-        KTextEditor::Range r;
-    };
+    void onTextInserted(KTextEditor::Document *doc, KTextEditor::Cursor pos, const QString &text);
+    void onTextRemoved(KTextEditor::Document *doc, KTextEditor::Range range, const QString &t);
+    void onWrapped(KTextEditor::Document *doc, KTextEditor::Cursor position);
+    void onUnwrapped(KTextEditor::Document *doc, int line);
 
     struct HintData {
         QPointer<KTextEditor::Document> doc;
@@ -77,12 +79,10 @@ private:
     };
     std::vector<HintData> m_hintDataByDoc;
 
-    int m_insertCount = 0;
-
     QTimer m_requestTimer;
     QPointer<KTextEditor::View> m_currentView;
     InlayHintNoteProvider m_noteProvider;
     QSharedPointer<LSPClientServerManager> m_serverManager;
-    RequestData m_requestData;
+    QVector<KTextEditor::Range> pendingRanges;
 };
 #endif

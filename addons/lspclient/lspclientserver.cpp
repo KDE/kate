@@ -1389,7 +1389,9 @@ private:
                                                     {QStringLiteral("snippetSupport"), m_clientCapabilities.snippetSupport}
                                                 }}
                                             }},
-                                            {QStringLiteral("inlayHint"), true}
+                                            {QStringLiteral("inlayHint"), QJsonObject{
+                                                {QStringLiteral("dynamicRegistration"), false}
+                                            }}
                                         },
                                   },
                                   {QStringLiteral("window"),

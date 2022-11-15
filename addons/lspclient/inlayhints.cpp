@@ -330,23 +330,43 @@ void InlayHintsManager::onWrapped(KTextEditor::Document *doc, KTextEditor::Curso
     if (it == m_hintDataByDoc.end()) {
         return;
     }
-    auto bit = std::lower_bound(it->m_hints.begin(), it->m_hints.end(), position.line(), [](const LSPInlayHint &h, int l) {
+    auto &hints = it->m_hints;
+    auto bit = std::lower_bound(hints.begin(), hints.end(), position.line(), [](const LSPInlayHint &h, int l) {
         return h.position.line() < l;
     });
-    while (bit != it->m_hints.end()) {
-        if (bit->position >= position) {
+
+    // Invalidate the ranges on the line that are after @p position
+    auto removeBegin = bit;
+    auto removeEnd = hints.end();
+    bool changed = false;
+    while (bit != hints.end()) {
+        if (bit->position.line() > position.line()) {
+            removeEnd = bit;
             break;
+        }
+        if (bit->position >= position) {
+            // invalidate
+            changed = true;
+            bit->position = KTextEditor::Cursor::invalid();
         }
         ++bit;
     }
-    bool changed = bit != it->m_hints.end();
-    while (bit != it->m_hints.end()) {
+    changed = changed || bit != hints.end();
+    while (bit != hints.end()) {
         bit->position.setLine(bit->position.line() + 1);
         ++bit;
     }
 
+    // remove invalidated stuff
+    hints.erase(std::remove_if(removeBegin,
+                               removeEnd,
+                               [](const LSPInlayHint &h) {
+                                   return !h.position.isValid();
+                               }),
+                removeEnd);
+
     if (changed) {
-        m_noteProvider.setHints(it->m_hints);
+        m_noteProvider.setHints(hints);
     }
 
     KTextEditor::Range r(position.line(), 0, position.line(), doc->lineLength(position.line()));
@@ -359,16 +379,41 @@ void InlayHintsManager::onUnwrapped(KTextEditor::Document *doc, int line)
         return hd.doc == doc;
     });
 
-    auto bit = std::lower_bound(it->m_hints.begin(), it->m_hints.end(), line, [](const LSPInlayHint &h, int l) {
+    auto &hints = it->m_hints;
+    auto bit = std::lower_bound(hints.begin(), hints.end(), line, [](const LSPInlayHint &h, int l) {
         return h.position.line() < l;
     });
-    bool changed = bit != it->m_hints.end();
-    while (bit != it->m_hints.end()) {
+
+    auto removeBegin = bit;
+    auto removeEnd = hints.end();
+    bool changed = false;
+    while (bit != hints.end()) {
+        if (bit->position.line() > line) {
+            removeEnd = bit;
+            break;
+        }
+        // invalidate
+        changed = true;
+        bit->position = KTextEditor::Cursor::invalid();
+        ++bit;
+    }
+
+    changed = changed || bit != hints.end();
+    while (bit != hints.end()) {
         bit->position.setLine(bit->position.line() - 1);
         ++bit;
     }
+
+    // remove invalidated stuff
+    hints.erase(std::remove_if(removeBegin,
+                               removeEnd,
+                               [](const LSPInlayHint &h) {
+                                   return !h.position.isValid();
+                               }),
+                removeEnd);
+
     if (changed) {
-        m_noteProvider.setHints(it->m_hints);
+        m_noteProvider.setHints(hints);
     }
 
     KTextEditor::Range r(line - 1, 0, line - 1, doc->lineLength(line));

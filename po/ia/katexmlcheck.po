@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-27 00:48+0000\n"
-"PO-Revision-Date: 2022-02-28 22:10+0100\n"
+"PO-Revision-Date: 2022-11-14 18:05+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -15,13 +15,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 21.12.2\n"
+"X-Generator: Lokalize 21.12.3\n"
 
 #: plugin_katexmlcheck.cpp:98
-#, fuzzy, kde-format
-#| msgid "XML Checker"
+#, kde-format
 msgid "XML Check"
-msgstr "Verificator de XML"
+msgstr "Verifica de XML "
 
 #: plugin_katexmlcheck.cpp:105
 #, kde-format

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-08 02:27+0000\n"
-"PO-Revision-Date: 2022-10-12 15:37+0200\n"
+"PO-Revision-Date: 2022-11-14 17:56+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -234,21 +234,20 @@ msgstr "Elementos de barra de &Stato"
 #: lib/diff/diffeditor.cpp:178
 #, kde-format
 msgid "Change Style"
-msgstr ""
+msgstr "Modifica stilo"
 
 #: lib/diff/diffeditor.cpp:180 lib/kateconfigdialog.cpp:533
 #, kde-format
 msgid "Side By Side"
-msgstr ""
+msgstr "Latere per latere"
 
 #: lib/diff/diffeditor.cpp:183 lib/kateconfigdialog.cpp:534
-#, fuzzy, kde-format
-#| msgid "Modified"
+#, kde-format
 msgid "Unified"
-msgstr "Modificate"
+msgstr "Unificate"
 
 #: lib/diff/diffeditor.cpp:186 lib/kateconfigdialog.cpp:535
-#, fuzzy, kde-format
+#, kde-format
 msgid "Raw"
 msgstr "Crude"
 
@@ -296,24 +295,22 @@ msgstr ""
 #: lib/diff/diffwidget.cpp:56
 #, kde-format
 msgid "Jump to Next File"
-msgstr ""
+msgstr "Salta a proxime file"
 
 #: lib/diff/diffwidget.cpp:60
-#, fuzzy, kde-format
-#| msgid "Go to Previous Location"
+#, kde-format
 msgid "Jump to Previous File"
-msgstr "Vade a previe location"
+msgstr "Salta a previe file"
 
 #: lib/diff/diffwidget.cpp:64
 #, kde-format
 msgid "Jump to Next Hunk"
-msgstr ""
+msgstr "Salta a proxime pecietta (hunk)"
 
 #: lib/diff/diffwidget.cpp:68
-#, fuzzy, kde-format
-#| msgid "Go to Previous Location"
+#, kde-format
 msgid "Jump to Previous Hunk"
-msgstr "Vade a previe location"
+msgstr "salta a previe pecietta (hunk)"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
 #: lib/filehistorywidget.cpp:254 lib/kateconfigdialog.cpp:123
@@ -341,7 +338,7 @@ msgstr "Error"
 #: lib/filehistorywidget.cpp:342
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
-msgstr ""
+msgstr "%1 non existe in un repo de git."
 
 #: lib/filehistorywidget.cpp:342
 #, kde-format
@@ -351,7 +348,7 @@ msgstr "Git"
 #: lib/filehistorywidget.cpp:350
 #, kde-format
 msgid "File History"
-msgstr ""
+msgstr "Chronologia de file"
 
 #: lib/kateapp.cpp:146
 #, kde-format
@@ -692,13 +689,12 @@ msgstr "Configura"
 #: lib/kateconfigdialog.cpp:62 lib/kateoutputview.cpp:143
 #, kde-format
 msgid "Search..."
-msgstr ""
+msgstr "Cerca..."
 
 #: lib/kateconfigdialog.cpp:124
-#, fuzzy, kde-format
-#| msgid "Save As"
+#, kde-format
 msgid "Save"
-msgstr "Salveguarda como"
+msgstr "Salveguarda"
 
 #: lib/kateconfigdialog.cpp:344
 #, kde-format
@@ -768,10 +764,9 @@ msgstr ""
 "foco."
 
 #: lib/kateconfigdialog.cpp:399
-#, fuzzy, kde-format
-#| msgid "Top Sidebar"
+#, kde-format
 msgid "&Sidebars"
-msgstr "Barra lateral al culmine"
+msgstr "Barra&s lateral"
 
 #: lib/kateconfigdialog.cpp:402
 #, kde-format
@@ -935,19 +930,17 @@ msgstr "Diff"
 #: lib/kateconfigdialog.cpp:536
 #, kde-format
 msgid "Diff Style:"
-msgstr ""
+msgstr "Stilo de Diff:"
 
 #: lib/kateconfigdialog.cpp:541
-#, fuzzy, kde-format
-#| msgid "Show Navigation Bar"
+#, kde-format
 msgid "Navigation Bar"
-msgstr "Monstra barra de navigation"
+msgstr "Barra de navigation"
 
 #: lib/kateconfigdialog.cpp:546
-#, fuzzy, kde-format
-#| msgid "Focus the navigation bar"
+#, kde-format
 msgid "Show current symbol in navigation bar"
-msgstr "Pone in foco le barra de navigation"
+msgstr "Monstra symbolo currente in le barra de navigation"
 
 #: lib/kateconfigdialog.cpp:560
 #, kde-format
@@ -1304,16 +1297,14 @@ msgid "Close this window"
 msgstr "Claude iste fenestra"
 
 #: lib/katemainwindow.cpp:420
-#, fuzzy, kde-format
-#| msgid "&New Synchronized Window"
+#, kde-format
 msgid "&New Window"
 msgstr "&Nove Fenestra"
 
 #: lib/katemainwindow.cpp:423
-#, fuzzy, kde-format
-#| msgid "Create a new document"
+#, kde-format
 msgid "Create a new window."
-msgstr "Crea un nove documento"
+msgstr "Crea un nove fenestra."
 
 #: lib/katemainwindow.cpp:430
 #, kde-format
@@ -1478,20 +1469,19 @@ msgid " [read only]"
 msgstr " [Solmente de lectura]"
 
 #: lib/katemainwindow.cpp:1403
-#, fuzzy, kde-format
+#, kde-format
 msgid "Diff %1"
-msgstr "Diff"
+msgstr "Diff %1"
 
 #: lib/katemainwindow.cpp:1405
-#, fuzzy, kde-format
+#, kde-format
 msgid "Diff %1..%2"
-msgstr "Diff"
+msgstr "Diff %1..%2"
 
 #: lib/katemdi.cpp:84
-#, fuzzy, kde-format
-#| msgid "Plugin Manager"
+#, kde-format
 msgid "Toolview Manager"
-msgstr "Gerente de plug-in"
+msgstr "Gerente de vista de intrumento (toolview)"
 
 #: lib/katemdi.cpp:102
 #, kde-format
@@ -1531,7 +1521,7 @@ msgstr "Monstra button %1"
 #: lib/katemdi.cpp:193
 #, kde-format
 msgid "Focus %1"
-msgstr ""
+msgstr "Foco %1"
 
 #: lib/katemdi.cpp:1002
 #, kde-format
@@ -1549,10 +1539,9 @@ msgid "Move To"
 msgstr "Move a"
 
 #: lib/katemdi.cpp:1013
-#, fuzzy, kde-format
-#| msgid "Open Session"
+#, kde-format
 msgid "Own Section"
-msgstr "Aperi session"
+msgstr "Proprie section"
 
 #: lib/katemdi.cpp:1019 lib/katemdi.cpp:1027
 #, kde-format
@@ -1726,11 +1715,9 @@ msgid "Diff Output"
 msgstr "Exito de Diff"
 
 #: lib/kateoutputview.cpp:158
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Copy to Clipboard"
+#, kde-format
 msgid "Copy all text to clipboard"
-msgstr "Copia in area de transferentia"
+msgstr "Copia omne texto in area de transferentia"
 
 #: lib/kateoutputview.cpp:163
 #, kde-format
@@ -1913,52 +1900,44 @@ msgid "Make the previous split view the active one."
 msgstr "Rende le previe vista dividite illo active."
 
 #: lib/kateviewmanager.cpp:179
-#, fuzzy, kde-format
-#| msgid "Next Split View"
+#, kde-format
 msgid "Left Split View"
-msgstr "Proxime vista dividite"
+msgstr "Vista dividite de sinistra"
 
 #: lib/kateviewmanager.cpp:184
-#, fuzzy, kde-format
-#| msgid "Make the next split view the active one."
+#, kde-format
 msgid "Make the split view intuitively on the left the active one."
-msgstr "Rende le proxime vista dividite illo active."
+msgstr "Rende le  vista dividite intuitivemente sur le sinistra ille active."
 
 #: lib/kateviewmanager.cpp:187
-#, fuzzy, kde-format
-#| msgid "Next Split View"
+#, kde-format
 msgid "Right Split View"
-msgstr "Proxime vista dividite"
+msgstr "Vista dividite de dextera"
 
 #: lib/kateviewmanager.cpp:192
-#, fuzzy, kde-format
-#| msgid "Make the next split view the active one."
+#, kde-format
 msgid "Make the split view intuitively on the right the active one."
-msgstr "Rende le proxime vista dividite illo active."
+msgstr "Rende le  vista dividite intuitivemente sur le dextera ille active."
 
 #: lib/kateviewmanager.cpp:195
-#, fuzzy, kde-format
-#| msgid "Split View"
+#, kde-format
 msgid "Upward Split View"
-msgstr "Scinde Vista"
+msgstr "Vista dividite in alto"
 
 #: lib/kateviewmanager.cpp:200
-#, fuzzy, kde-format
-#| msgid "Make the next split view the active one."
+#, kde-format
 msgid "Make the split view intuitively upward the active one."
-msgstr "Rende le proxime vista dividite illo active."
+msgstr "Rende le  vista dividite intuitivemente in alto ille active."
 
 #: lib/kateviewmanager.cpp:203
-#, fuzzy, kde-format
-#| msgid "Split View"
+#, kde-format
 msgid "Downward Split View"
-msgstr "Scinde Vista"
+msgstr "Vista dividite a basso"
 
 #: lib/kateviewmanager.cpp:208
-#, fuzzy, kde-format
-#| msgid "Make the next split view the active one."
+#, kde-format
 msgid "Make the split view intuitively downward the active one."
-msgstr "Rende le proxime vista dividite illo active."
+msgstr "Rende le  vista dividite intuitivemente a basso ille active."
 
 #: lib/kateviewmanager.cpp:211
 #, kde-format
@@ -2013,7 +1992,7 @@ msgstr "Pone in foco le barra de navigation"
 #: lib/kateviewmanager.cpp:243
 #, kde-format
 msgid "Welcome Page"
-msgstr ""
+msgstr "Pagina de benvenite"
 
 #: lib/kateviewmanager.cpp:258
 #, kde-format
@@ -2058,19 +2037,16 @@ msgid ""
 msgstr ""
 
 #: lib/kateviewmanager.cpp:500
-#, fuzzy, kde-format
-#| msgctxt "on welcome screen"
-#| msgid "Open Folder..."
+#, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
-msgstr "Aperi dossier..."
+msgstr "Aperi dossier"
 
 #: lib/kateviewmanager.cpp:501
-#, fuzzy, kde-format
-#| msgid "Enabled"
+#, kde-format
 msgctxt "@action:button"
 msgid "Enable"
-msgstr "Habilitate"
+msgstr "Habilita"
 
 #: lib/kateviewmanager.cpp:512
 #, kde-format
@@ -2131,16 +2107,14 @@ msgid "Close Other &Documents"
 msgstr "Claude altere &documentos"
 
 #: lib/kateviewspace.cpp:1000
-#, fuzzy, kde-format
-#| msgid "Close all documents"
+#, kde-format
 msgid "Close &All Documents"
-msgstr "Claude omne documentos "
+msgstr "Cl&aude omne documentos "
 
 #: lib/kateviewspace.cpp:1002
-#, fuzzy, kde-format
-#| msgid "Next Document"
+#, kde-format
 msgid "D&etach Document"
-msgstr "Proxime documento"
+msgstr "Distacca docum&ento"
 
 #: lib/kateviewspace.cpp:1003
 #, kde-format
@@ -2148,21 +2122,19 @@ msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
 #: lib/kateviewspace.cpp:1012
-#, fuzzy, kde-format
-#| msgid "Compare with active document"
+#, kde-format
 msgid "Compare with Active Document"
-msgstr "Compara con  le documento active."
+msgstr "Compara con  le documento active"
 
 #: lib/kateviewspace.cpp:1016
-#, fuzzy, kde-format
+#, kde-format
 msgid "Diff %1 .. %2"
-msgstr "Diff"
+msgstr "Diff %1 .. %2"
 
 #: lib/kateviewspace.cpp:1021
-#, fuzzy, kde-format
-#| msgid "Compare with active document"
+#, kde-format
 msgid "Compare with Active Document Using"
-msgstr "Compara con  le documento active."
+msgstr "Compara con  le usar de documento active."
 
 #: lib/kateviewspace.cpp:1088
 #, kde-format
@@ -2382,10 +2354,9 @@ msgstr "Selige &manualmente un session"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: lib/ui/sessionconfigwidget.ui:47
-#, fuzzy, kde-format
-#| msgid "Application Shutdown Behavior"
+#, kde-format
 msgid "Application Startup/Shutdown Behavior"
-msgstr "Comportamento de arresto de application"
+msgstr "Comportamento de startar/arresto de application"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: lib/ui/sessionconfigwidget.ui:55
@@ -2413,10 +2384,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, showWelcomeViewForNewWindow)
 #: lib/ui/sessionconfigwidget.ui:91
-#, fuzzy, kde-format
-#| msgid "Create a new document"
+#, kde-format
 msgid "Show welcome view for new windows"
-msgstr "Crea un nove documento"
+msgstr "Monstra vista de benvenite per nove fenestre"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, modCloseAfterLast)
 #: lib/ui/sessionconfigwidget.ui:98
@@ -2506,55 +2476,44 @@ msgid "Delete unused meta-information after:"
 msgstr "Dele meta-information non usate postea:"
 
 #: lib/welcomeview/welcomeview.cpp:52
-#, fuzzy, kde-format
-#| msgid "Welcome"
+#, kde-format
 msgid "Welcome to %1"
-msgstr "Benvenite"
+msgstr "Benvenite a %1"
 
 #: lib/welcomeview/welcomeview.cpp:56
-#, fuzzy, kde-format
-#| msgctxt "on welcome screen"
-#| msgid "Recent documents"
+#, kde-format
 msgid "Recent Documents and Projects"
-msgstr "Documentos recente"
+msgstr "Documentos e projectos recente"
 
 #: lib/welcomeview/welcomeview.cpp:56
-#, fuzzy, kde-format
-#| msgctxt "on welcome screen"
-#| msgid "Recent documents"
+#, kde-format
 msgid "Recent Documents"
 msgstr "Documentos recente"
 
 #: lib/welcomeview/welcomeview.cpp:59
-#, fuzzy, kde-format
-#| msgctxt "on welcome screen"
-#| msgid "Recent documents"
+#, kde-format
 msgid "No recent documents or projects"
-msgstr "Documentos recente"
+msgstr "Neciun documentos e projecto recente"
 
 #: lib/welcomeview/welcomeview.cpp:59
-#, fuzzy, kde-format
-#| msgctxt "on welcome screen"
-#| msgid "Recent documents"
+#, kde-format
 msgid "No recent documents"
-msgstr "Documentos recente"
+msgstr "Nulle documento recente"
 
 #: lib/welcomeview/welcomeview.cpp:115
-#, fuzzy, kde-format
-#| msgid "&Save Session"
+#, kde-format
 msgid "No saved sessions"
-msgstr "&Salveguarda session"
+msgstr "Necun session salveguardate"
 
 #: lib/welcomeview/welcomeview.cpp:237
-#, fuzzy, kde-format
-#| msgid "Copy Location"
+#, kde-format
 msgid "Copy &Location"
-msgstr "Copia location"
+msgstr "Copia &Location"
 
 #: lib/welcomeview/welcomeview.cpp:252
 #, kde-format
 msgid "&Remove"
-msgstr ""
+msgstr "&Remove"
 
 #. i18n: ectx: property (windowTitle), widget (QScrollArea, WelcomeView)
 #: lib/welcomeview/welcomeview.ui:17
@@ -2564,84 +2523,75 @@ msgstr "Benvenite"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonNewFile)
 #: lib/welcomeview/welcomeview.ui:179
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "New File"
-msgstr "Aperi file"
+msgstr "Nove file"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonOpenFolder)
 #: lib/welcomeview/welcomeview.ui:186
-#, fuzzy, kde-format
-#| msgctxt "on welcome screen"
-#| msgid "Open Folder..."
+#, kde-format
 msgid "Open Folder..."
 msgstr "Aperi dossier..."
 
 #. i18n: ectx: property (text), widget (QLabel, labelRecentItems)
 #: lib/welcomeview/welcomeview.ui:193
-#, fuzzy, kde-format
-#| msgid "Delete File?"
+#, kde-format
 msgid "Recent Files"
-msgstr "Dele file?"
+msgstr "Files recente"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonOpenFile)
 #: lib/welcomeview/welcomeview.ui:203
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "Open File..."
-msgstr "Aperi file"
+msgstr "Aperi file..."
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, buttonClearRecentItems)
 #: lib/welcomeview/welcomeview.ui:242
 #, kde-format
 msgid "Clear Recent Files"
-msgstr ""
+msgstr "Netta Files recente"
 
 #. i18n: ectx: property (text), widget (QLabel, labelHelp)
 #: lib/welcomeview/welcomeview.ui:271
-#, fuzzy, kde-format
-#| msgid "&Help"
+#, kde-format
 msgid "Help"
-msgstr "Ad&juta"
+msgstr "Adjuta"
 
 #. i18n: ectx: property (text), widget (KUrlLabel, labelHomepage)
 #: lib/welcomeview/welcomeview.ui:281
 #, kde-format
 msgid "Visit homepage"
-msgstr ""
+msgstr "Visita pagina domo o principal"
 
 #. i18n: ectx: property (text), widget (KUrlLabel, labelContribute)
 #: lib/welcomeview/welcomeview.ui:294
 #, kde-format
 msgid "Get involved"
-msgstr ""
+msgstr "Sea involvite"
 
 #. i18n: ectx: property (text), widget (KUrlLabel, labelHandbook)
 #: lib/welcomeview/welcomeview.ui:307
 #, kde-format
 msgid "Read handbook"
-msgstr ""
+msgstr "Lege Manual"
 
 #. i18n: ectx: property (text), widget (QLabel, labelSavedSessions)
 #: lib/welcomeview/welcomeview.ui:354
-#, fuzzy, kde-format
-#| msgid "&Save Session"
+#, kde-format
 msgid "Saved Sessions"
-msgstr "&Salveguarda session"
+msgstr "Sessiones Salveguarda"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonManageSessions)
 #: lib/welcomeview/welcomeview.ui:390
-#, fuzzy, kde-format
-#| msgid "&Manage Sessions..."
+#, kde-format
 msgid "Manage Sessions..."
-msgstr "Ad&ministra sessiones..."
+msgstr "Administra sessiones..."
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
 #: lib/welcomeview/welcomeview.ui:443
-#, fuzzy, kde-format
-#| msgid "Create a new document"
+#, kde-format
 msgid "Show for new window"
-msgstr "Crea un nove documento"
+msgstr "Monstra per nove fenestra"
 
 #~ msgid "Filter..."
 #~ msgstr "Filtro..."

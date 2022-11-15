@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-28 00:49+0000\n"
-"PO-Revision-Date: 2022-02-28 22:10+0100\n"
+"PO-Revision-Date: 2022-11-14 18:05+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 21.12.2\n"
+"X-Generator: Lokalize 21.12.3\n"
 
 #: connectionwizard.cpp:27
 #, kde-format
@@ -332,9 +332,7 @@ msgid "SQL ConfigPage Settings"
 msgstr "Preferentias deConfigPage de SQL"
 
 #: katesqlview.cpp:45
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "SQL"
+#, kde-format
 msgid "SQL"
 msgstr "SQL"
 
@@ -351,25 +349,19 @@ msgid "SQL Schema"
 msgstr "Schema SQL"
 
 #: katesqlview.cpp:106
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Add connection..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Add Connection..."
 msgstr "Adde connexion..."
 
 #: katesqlview.cpp:111
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Remove connection"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove Connection"
 msgstr "Remove connexion"
 
 #: katesqlview.cpp:116
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Edit connection..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Connection..."
 msgstr "Edita connexion..."
@@ -387,12 +379,10 @@ msgid "Connection"
 msgstr "Connexion"
 
 #: katesqlview.cpp:131
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Run query"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Query"
-msgstr "Executa requesta"
+msgstr "Executa requesta (Query)"
 
 #: outputstylewidget.cpp:29
 #, kde-format

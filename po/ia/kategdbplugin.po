@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-06 00:50+0000\n"
-"PO-Revision-Date: 2022-07-14 19:08+0200\n"
+"PO-Revision-Date: 2022-11-14 17:57+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -492,10 +492,9 @@ msgid "command not found"
 msgstr "commando non trovate"
 
 #: debugview_dap.cpp:1458
-#, fuzzy, kde-format
-#| msgid "invalid thread id: %1"
+#, kde-format
 msgid "missing thread id"
-msgstr "topico (thread) invalide: %1"
+msgstr "id de topico (thread) mancante"
 
 #: debugview_dap.cpp:1566
 #, kde-format

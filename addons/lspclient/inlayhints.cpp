@@ -89,7 +89,7 @@ QSize InlayHintNoteProvider::inlineNoteSize(const KTextEditor::InlineNote &note)
     const auto pos = note.position();
     for (const auto &hint : std::as_const(m_hints)) {
         if (hint.position == pos) {
-            return {fm.horizontalAdvance(hint.label) + 5, note.lineHeight()};
+            return {fm.horizontalAdvance(hint.label), note.lineHeight()};
         }
     }
     return {};

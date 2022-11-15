@@ -189,10 +189,16 @@ void InlayHintsManager::onViewChanged(KTextEditor::View *v)
 
 void InlayHintsManager::sendRequestDelayed(KTextEditor::Range r, int delay)
 {
-    if (!pendingRanges.contains(r)) {
-        pendingRanges.append(r);
-        m_requestTimer.start(delay);
+    // If its a single line range and the last range is on the same line
+    if (r.onSingleLine() && !pendingRanges.isEmpty() && pendingRanges.back().onSingleLine() && pendingRanges.back().end().line() == r.start().line()) {
+        pendingRanges.back() = r;
+        // start column must always be zero
+        pendingRanges.back().start().setColumn(0);
+        return;
     }
+
+    pendingRanges.append(r);
+    m_requestTimer.start(delay);
 }
 
 void InlayHintsManager::sendPendingRequests()
@@ -201,7 +207,7 @@ void InlayHintsManager::sendPendingRequests()
         return;
     }
 
-    KTextEditor::Range rangeToRequest;
+    KTextEditor::Range rangeToRequest = pendingRanges.first();
     for (auto r : std::as_const(pendingRanges)) {
         rangeToRequest.expandToRange(r);
     }
@@ -232,7 +238,7 @@ void InlayHintsManager::sendRequest(KTextEditor::Range rangeToRequest)
             if (result.newDoc) {
                 m_noteProvider.inlineNotesReset();
             } else {
-                // qDebug() << "hints: " << hints.size() << "changed lines: " << result.changedLines.size();
+                // qDebug() << "got hints: " << hints.size() << "changed lines: " << result.changedLines.size();
                 for (const auto &line : result.changedLines) {
                     m_noteProvider.inlineNotesChanged(line);
                 }

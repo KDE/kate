@@ -89,7 +89,7 @@ QSize InlayHintNoteProvider::inlineNoteSize(const KTextEditor::InlineNote &note)
     const auto pos = note.position();
     for (const auto &hint : m_hints) {
         if (hint.position == pos) {
-            return {fm.horizontalAdvance(hint.label), note.lineHeight()};
+            return {fm.horizontalAdvance(hint.label) + 5, note.lineHeight()};
         }
     }
     return {};
@@ -103,6 +103,7 @@ void InlayHintNoteProvider::paintInlineNote(const KTextEditor::InlineNote &note,
     auto it = binaryFind(m_hints, note.position());
     if (it != m_hints.end()) {
         QRectF r{0., 0., note.width(), (qreal)note.lineHeight()};
+        r.adjust(2., 0., -3., 0.);
         painter.drawText(r, Qt::AlignLeft | Qt::AlignVCenter, it->label);
     }
 }

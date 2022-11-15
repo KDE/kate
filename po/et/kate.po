@@ -4,20 +4,20 @@
 # Hasso Tepper <hasso@linux.ee>, 1999, 2003.
 # Marek Laane <bald@starman.ee>, 2003-2009.
 # Marek Laane <bald@smail.ee>, 2009, 2010, 2011, 2012, 2013, 2014, 2016, 2019, 2020.
-# Mihkel Tõnnov <mihhkel@gmail.com>, 2020.
+# Mihkel Tõnnov <mihhkel@gmail.com>, 2020, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-14 00:49+0000\n"
-"PO-Revision-Date: 2020-10-23 12:03+0200\n"
+"PO-Revision-Date: 2022-10-22 12:40+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <>\n"
 "Language: et\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 20.08.2\n"
+"X-Generator: Lokalize 22.08.2\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -41,10 +41,9 @@ msgid "Kate - Advanced Text Editor"
 msgstr "Kate - KDE võimas tekstiredaktor"
 
 #: kate/main.cpp:110 kwrite/main.cpp:89
-#, fuzzy, kde-format
-#| msgid "(c) 2000-2020 The Kate Authors"
+#, kde-format
 msgid "(c) 2000-2022 The Kate Authors"
-msgstr "(c) 2000-2020: Kate autorid"
+msgstr "(c) 2000-2022: Kate autorid"
 
 #: kate/main.cpp:156
 #, kde-format
@@ -57,8 +56,7 @@ msgid "session"
 msgstr "session"
 
 #: kate/main.cpp:162
-#, fuzzy, kde-format
-#| msgid "Start Kate with a new anonymous session, implies '-n'."
+#, kde-format
 msgid "Start Kate with a new anonymous session, implies '-n'."
 msgstr "Kate käivitamine uue anonüümse seansiga, eeldab võtit '-n'."
 
@@ -165,10 +163,9 @@ msgstr "&Fail"
 
 #. i18n: ectx: Menu (file_file_actions)
 #: lib/data/kateui.rc:30
-#, fuzzy, kde-format
-#| msgid "Actions"
+#, kde-format
 msgid "File Actions"
-msgstr "Toimingud"
+msgstr "Failitoimingud"
 
 #. i18n: ectx: Menu (edit)
 #: lib/data/kateui.rc:43
@@ -178,10 +175,9 @@ msgstr "&Redigeerimine"
 
 #. i18n: ectx: Menu (selection)
 #: lib/data/kateui.rc:54
-#, fuzzy, kde-format
-#| msgid "S&elected actions:"
+#, kde-format
 msgid "&Selection"
-msgstr "Valitud t&egevused:"
+msgstr "Vali&k"
 
 #. i18n: ectx: Menu (go)
 #: lib/data/kateui.rc:57
@@ -400,7 +396,7 @@ msgstr "Kåre Särs"
 #: lib/kateapp.cpp:150
 #, kde-format
 msgid "Waqar Ahmed"
-msgstr ""
+msgstr "Waqar Ahmed"
 
 #: lib/kateapp.cpp:151
 #, kde-format
@@ -550,12 +546,12 @@ msgstr "Kvaliteedikontroll ja skriptid"
 #: lib/kateapp.cpp:179
 #, kde-format
 msgid "Tyson Tan"
-msgstr ""
+msgstr "Tyson Tan"
 
 #: lib/kateapp.cpp:180
 #, kde-format
 msgid "Designer of Kate's mascot 'Kate the Cyber Woodpecker'"
-msgstr ""
+msgstr "Kate maskoti \"küberrähn Kate\" kujundaja"
 
 #: lib/kateapp.cpp:183
 #, kde-format
@@ -701,7 +697,6 @@ msgstr ""
 
 #: lib/kateconfigdialog.cpp:126
 #, fuzzy, kde-format
-#| msgid "&Save"
 msgid "Save"
 msgstr "&Salvesta"
 
@@ -727,8 +722,6 @@ msgstr ""
 
 #: lib/kateconfigdialog.cpp:369
 #, fuzzy, kde-format
-#| msgctxt "The special case of 'Delete unused meta-information after'"
-#| msgid "(never)"
 msgid "Never"
 msgstr "(mitte kunagi)"
 
@@ -740,12 +733,12 @@ msgstr "Hoiatus"
 #: lib/kateconfigdialog.cpp:369
 #, kde-format
 msgid "Info"
-msgstr ""
+msgstr "Teave"
 
 #: lib/kateconfigdialog.cpp:369
 #, kde-format
 msgid "Log"
-msgstr ""
+msgstr "Logikirje"
 
 #: lib/kateconfigdialog.cpp:375
 #, kde-format
@@ -1128,13 +1121,12 @@ msgstr "Dokumendi täieliku asukoha näitamine akna tiitliribal"
 #: lib/katemainwindow.cpp:248
 #, kde-format
 msgid "Show Navigation Bar"
-msgstr ""
+msgstr "Liikumisriba näitamine"
 
 #: lib/katemainwindow.cpp:258
-#, fuzzy, kde-format
-#| msgid "&Color Scheme"
+#, kde-format
 msgid "&Window Color Scheme"
-msgstr "&Värviskeem"
+msgstr "Akna värviskeem"
 
 #: lib/katemainwindow.cpp:262
 #, kde-format
@@ -1167,10 +1159,9 @@ msgid "Open a form to quick open documents."
 msgstr "Vormi avamine dokumentide kiireks avamiseks."
 
 #: lib/katemainwindow.cpp:305
-#, fuzzy, kde-format
-#| msgid "GDB Output"
+#, kde-format
 msgid "Output"
-msgstr "GDB väljund"
+msgstr "Väljund"
 
 #: lib/katemainwindow.cpp:315
 #, kde-format
@@ -1211,9 +1202,9 @@ msgid "Reload all open documents."
 msgstr "Laadib uuesti kõik avatud dokumendid."
 
 #: lib/katemainwindow.cpp:344
-#, fuzzy, kde-format
+#, kde-format
 msgid "Copy Location"
-msgstr "Asukoht"
+msgstr "Kopeeri asukoht"
 
 #: lib/katemainwindow.cpp:349 lib/katemainwindow.cpp:358
 #, kde-format
@@ -1312,10 +1303,9 @@ msgid "Close this window"
 msgstr "Sulge aken"
 
 #: lib/katemainwindow.cpp:420
-#, fuzzy, kde-format
-#| msgid "&Window"
+#, kde-format
 msgid "&New Window"
-msgstr "A&ken"
+msgstr "&Uus aken"
 
 #: lib/katemainwindow.cpp:423
 #, fuzzy, kde-format
@@ -1375,16 +1365,14 @@ msgid "&New Session"
 msgstr "&Uus seanss"
 
 #: lib/katemainwindow.cpp:480
-#, fuzzy, kde-format
-#| msgid "&Open Session"
+#, kde-format
 msgid "&Recent Sessions"
-msgstr "&Ava seanss"
+msgstr "H&iljutised seansid"
 
 #: lib/katemainwindow.cpp:485
-#, fuzzy, kde-format
-#| msgid "Sess&ions"
+#, kde-format
 msgid "&All Sessions"
-msgstr "Seans&id"
+msgstr "Kõik s&eansid"
 
 #: lib/katemainwindow.cpp:492
 #, kde-format
@@ -1737,25 +1725,23 @@ msgid "Diff Output"
 msgstr "Võrdlemise väljund"
 
 #: lib/kateoutputview.cpp:166
-#, fuzzy, kde-format
-#| msgid "Use Clipboard"
+#, kde-format
 msgid "Copy all text to clipboard"
-msgstr "Lõikepuhvri kasutamine"
+msgstr "Kopeeri lõikepuhvrisse"
 
 #: lib/kateoutputview.cpp:171
 #, kde-format
 msgid "Clear all messages"
-msgstr ""
+msgstr "Puhasta teated"
 
 #: lib/kateoutputview.cpp:356
 #, kde-format
 msgctxt "@info"
 msgid "Error"
-msgstr ""
+msgstr "Tõrge"
 
 #: lib/kateoutputview.cpp:360
-#, fuzzy, kde-format
-#| msgid "Warning"
+#, kde-format
 msgctxt "@info"
 msgid "Warning"
 msgstr "Hoiatus"
@@ -1764,13 +1750,13 @@ msgstr "Hoiatus"
 #, kde-format
 msgctxt "@info"
 msgid "Info"
-msgstr ""
+msgstr "Teave"
 
 #: lib/kateoutputview.cpp:369
 #, kde-format
 msgctxt "@info"
 msgid "Log"
-msgstr ""
+msgstr "Logikirje"
 
 #: lib/katesavemodifieddialog.cpp:77
 #, kde-format
@@ -2121,9 +2107,9 @@ msgstr[1] ""
 "kiiravamise vaatele lülitumiseks."
 
 #: lib/kateviewspace.cpp:980
-#, fuzzy, kde-format
+#, kde-format
 msgid "Close Tab"
-msgstr "Sulge aktiivne kaart"
+msgstr "Sulge kaart"
 
 #: lib/kateviewspace.cpp:998
 #, kde-format
@@ -2186,16 +2172,14 @@ msgid "Quick Open Search (configure via context menu)"
 msgstr ""
 
 #: lib/quickopen/katequickopenlineedit.cpp:61
-#, fuzzy, kde-format
-#| msgid "All Projects Files"
+#, kde-format
 msgid "All Projects"
-msgstr "Kõik projektifailid"
+msgstr "Kõik projektid"
 
 #: lib/quickopen/katequickopenlineedit.cpp:73
-#, fuzzy, kde-format
-#| msgid "Current Project Files"
+#, kde-format
 msgid "Current Project"
-msgstr "Aktiivsed projektifailid"
+msgstr "Aktiivne projekt"
 
 #: lib/quickopen/katequickopenlineedit.cpp:88
 #, kde-format
@@ -2568,9 +2552,9 @@ msgid "No saved sessions"
 msgstr "Seanssi ei salves&tata"
 
 #: lib/welcomeview/welcomeview.cpp:237
-#, fuzzy, kde-format
+#, kde-format
 msgid "Copy &Location"
-msgstr "Asukoht"
+msgstr "Kopeeri asukoht"
 
 #: lib/welcomeview/welcomeview.cpp:252
 #, fuzzy, kde-format

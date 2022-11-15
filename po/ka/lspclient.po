@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-13 00:49+0000\n"
-"PO-Revision-Date: 2022-08-27 04:25+0200\n"
+"PO-Revision-Date: 2022-11-14 07:06+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:250
 #, kde-format
@@ -255,7 +255,7 @@ msgstr "ყველა LSP სერვერის რესტარტი"
 #: lspclientpluginview.cpp:722
 #, kde-format
 msgid "Go To"
-msgstr ""
+msgstr "გადასვლა"
 
 #: lspclientpluginview.cpp:750
 #, kde-format
@@ -312,6 +312,8 @@ msgid ""
 "Error in regular expression: %1\n"
 "offset %2: %3"
 msgstr ""
+"შეცდომა რეგულარულ გამოსახულებაში: %1\n"
+"წანაცვლება %2: %3"
 
 #: lspclientpluginview.cpp:1778
 #, kde-format
@@ -469,12 +471,12 @@ msgstr ""
 #: lspclientservermanager.cpp:773
 #, kde-format
 msgid "Failed to find server binary: %1"
-msgstr ""
+msgstr "სერვერის გამშვები ფაილი ვერ ვიპოვე: %1"
 
 #: lspclientservermanager.cpp:776 lspclientservermanager.cpp:808
 #, kde-format
 msgid "Please check your PATH for the binary"
-msgstr ""
+msgstr "შეამოწმეთ ბილიკი და თქვენი წვდომები გამშვებ ფაილამდე"
 
 #: lspclientservermanager.cpp:777 lspclientservermanager.cpp:809
 #, kde-format
@@ -541,7 +543,7 @@ msgstr "სიმბოლოები"
 #: lspclientsymbolview.cpp:568
 #, kde-format
 msgid "No LSP server for this document."
-msgstr ""
+msgstr "ამ დოკუმენტისთვის LSP სერვერი არ არსებობს"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
 #: lspconfigwidget.ui:33
@@ -689,10 +691,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkFmtOnSave)
 #: lspconfigwidget.ui:248
-#, fuzzy, kde-format
-#| msgid "Format on typing"
+#, kde-format
 msgid "Format on save"
-msgstr "ფორმატირება კრეფისას"
+msgstr "ფორმატირება შენახვისას"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_4)
 #: lspconfigwidget.ui:271

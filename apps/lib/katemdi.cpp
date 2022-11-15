@@ -1530,6 +1530,13 @@ void MainWindow::startRestore(KConfigBase *config, const QString &group)
     KConfigGroup cg(m_restoreConfig, m_restoreGroup);
     KWindowConfig::restoreWindowSize(windowHandle(), cg);
 
+    // KWrite uses no sidebars, avoid all work beside windows sizes restoring above
+    if (KateApp::isKWrite()) {
+        m_restoreConfig = nullptr;
+        m_restoreGroup.clear();
+        return;
+    }
+
     // restore the sidebars
     for (auto &sidebar : qAsConst(m_sidebars)) {
         sidebar->startRestoreSession(cg);
@@ -1590,6 +1597,11 @@ void MainWindow::finishRestore()
 void MainWindow::saveSession(KConfigGroup &config)
 {
     saveMainWindowSettings(config);
+
+    // KWrite uses no sidebars, avoid all work beside windows sizes saving
+    if (KateApp::isKWrite()) {
+        return;
+    }
 
     // save main splitter sizes ;)
     config.writeEntry("Kate-MDI-H-Splitter", m_hSplitter->sizes());

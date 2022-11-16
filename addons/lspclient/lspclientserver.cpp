@@ -912,7 +912,12 @@ static QVector<LSPInlayHint> parseInlayHints(const QJsonValue &result)
     QVector<LSPInlayHint> ret;
     for (const auto &hint : hints) {
         LSPInlayHint h;
-        h.label = hint[QStringLiteral("label")].toString();
+        const auto &label = hint[QStringLiteral("label")];
+        if (label.isObject()) {
+            h.label = label.toObject().value(QStringLiteral("value")).toString();
+        } else {
+            h.label = label.toString();
+        }
         h.position = parsePosition(hint[QStringLiteral("position")].toObject());
         h.paddingLeft = hint[QStringLiteral("paddingLeft")].toBool();
         h.paddingRight = hint[QStringLiteral("paddingRight")].toBool();

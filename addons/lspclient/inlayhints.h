@@ -59,7 +59,8 @@ private:
     void sendPendingRequests();
     void sendRequest(KTextEditor::Range r);
 
-    void clearHintsForInvalidDocs();
+    // if doc is null, it will clear hints for all invalid docs
+    void clearHintsForDoc(KTextEditor::Document *);
     struct InsertResult {
         const bool newDoc = false;
         const QVarLengthArray<int, 16> changedLines;

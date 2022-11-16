@@ -141,15 +141,10 @@ void InlayHintsManager::registerView(KTextEditor::View *v)
         m_noteProvider.setView(v);
         auto d = v->document();
 
-        connect(d, &Document::reloaded, this, [this](Document *d) {
-            if (m_currentView && m_currentView->document() == d) {
-                m_hintDataByDoc.erase(std::remove_if(m_hintDataByDoc.begin(),
-                                                     m_hintDataByDoc.end(),
-                                                     [d](const HintData &hd) {
-                                                         return hd.doc == d;
-                                                     }),
-                                      m_hintDataByDoc.end());
-                sendRequestDelayed(d->documentRange(), 50);
+        connect(d, &Document::reloaded, this, [this](Document *doc) {
+            if (m_currentView && m_currentView->document() == doc) {
+                clearHintsForDoc(doc);
+                sendRequestDelayed(doc->documentRange(), 50);
             }
         });
 
@@ -166,12 +161,15 @@ void InlayHintsManager::registerView(KTextEditor::View *v)
         if (it != m_hintDataByDoc.end() && it->checksum == d->checksum()) {
             m_noteProvider.setHints(it->m_hints);
         } else {
+            if (it != m_hintDataByDoc.end()) {
+                m_hintDataByDoc.erase(it);
+            }
             // Send delayed request for inlay hints
             sendRequestDelayed(v->document()->documentRange(), 100);
         }
     }
 
-    clearHintsForInvalidDocs();
+    clearHintsForDoc(nullptr);
 }
 
 void InlayHintsManager::unregisterView(KTextEditor::View *v)
@@ -418,12 +416,16 @@ void InlayHintsManager::onUnwrapped(KTextEditor::Document *doc, int line)
     sendRequestDelayed(r, 500);
 }
 
-void InlayHintsManager::clearHintsForInvalidDocs()
+void InlayHintsManager::clearHintsForDoc(KTextEditor::Document *doc)
 {
     m_hintDataByDoc.erase(std::remove_if(m_hintDataByDoc.begin(),
                                          m_hintDataByDoc.end(),
-                                         [](const HintData &hd) {
-                                             return !hd.doc;
+                                         [doc](const HintData &hd) {
+                                             if (!doc) {
+                                                 // remove all null docs and docs where checksum doesn't match
+                                                 return !hd.doc || (hd.doc->checksum() != hd.checksum);
+                                             }
+                                             return hd.doc == doc;
                                          }),
                           m_hintDataByDoc.end());
 }

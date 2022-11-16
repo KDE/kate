@@ -52,6 +52,16 @@ static auto binaryFind(const QVector<LSPInlayHint> &hints, KTextEditor::Cursor p
     return hints.end();
 }
 
+static void removeInvalidRanges(QVector<LSPInlayHint> &hints, QVector<LSPInlayHint>::iterator begin, QVector<LSPInlayHint>::iterator end)
+{
+    hints.erase(std::remove_if(begin,
+                               end,
+                               [](const LSPInlayHint &h) {
+                                   return !h.position.isValid();
+                               }),
+                end);
+}
+
 InlayHintNoteProvider::InlayHintNoteProvider()
 {
 }
@@ -309,12 +319,7 @@ void InlayHintsManager::onTextRemoved(KTextEditor::Document *doc, KTextEditor::R
         }
     }
     if (changed) {
-        list.erase(std::remove_if(bitCopy,
-                                  end,
-                                  [](const LSPInlayHint &h) {
-                                      return !h.position.isValid();
-                                  }),
-                   end);
+        removeInvalidRanges(list, bitCopy, end);
         m_noteProvider.setHints(list);
     }
 
@@ -358,14 +363,8 @@ void InlayHintsManager::onWrapped(KTextEditor::Document *doc, KTextEditor::Curso
     }
 
     // remove invalidated stuff
-    hints.erase(std::remove_if(removeBegin,
-                               removeEnd,
-                               [](const LSPInlayHint &h) {
-                                   return !h.position.isValid();
-                               }),
-                removeEnd);
-
     if (changed) {
+        removeInvalidRanges(hints, removeBegin, removeEnd);
         m_noteProvider.setHints(hints);
     }
 
@@ -405,14 +404,8 @@ void InlayHintsManager::onUnwrapped(KTextEditor::Document *doc, int line)
     }
 
     // remove invalidated stuff
-    hints.erase(std::remove_if(removeBegin,
-                               removeEnd,
-                               [](const LSPInlayHint &h) {
-                                   return !h.position.isValid();
-                               }),
-                removeEnd);
-
     if (changed) {
+        removeInvalidRanges(hints, removeBegin, removeEnd);
         m_noteProvider.setHints(hints);
     }
 

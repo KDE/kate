@@ -914,6 +914,8 @@ static QVector<LSPInlayHint> parseInlayHints(const QJsonValue &result)
         LSPInlayHint h;
         h.label = hint[QStringLiteral("label")].toString();
         h.position = parsePosition(hint[QStringLiteral("position")].toObject());
+        h.paddingLeft = hint[QStringLiteral("paddingLeft")].toBool();
+        h.paddingRight = hint[QStringLiteral("paddingRight")].toBool();
         ret.push_back(h);
     }
     auto comp = [](const LSPInlayHint &l, const LSPInlayHint &r) {

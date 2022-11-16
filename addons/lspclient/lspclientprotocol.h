@@ -439,11 +439,11 @@ struct LSPExpandedMacro {
 struct LSPInlayHint {
     LSPPosition position;
     QString label;
+    bool paddingLeft = false;
+    bool paddingRight = false;
     // unused fields atm, not sure if we will need them
     // enum Kind { Type = 1, Parameter = 2 } kind;
     // QString tooltip;
-    // bool paddingLeft = false;
-    // bool paddingRight = false;
 };
 
 #endif

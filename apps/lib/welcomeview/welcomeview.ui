@@ -31,7 +31,7 @@
      <height>803</height>
     </rect>
    </property>
-   <layout class="QGridLayout" name="layoutRoot" rowstretch="1,0,1" columnstretch="1,0,1">
+   <layout class="QGridLayout" name="layoutRoot" rowstretch="3,5,3" columnstretch="3,5,3">
     <property name="leftMargin">
      <number>0</number>
     </property>

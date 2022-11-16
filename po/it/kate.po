@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-14 00:49+0000\n"
-"PO-Revision-Date: 2022-10-17 18:41+0200\n"
+"PO-Revision-Date: 2022-11-10 11:54+0100\n"
 "Last-Translator: Paolo Zamponi <zapaolo@email.it>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 22.08.2\n"
+"X-Generator: Lokalize 22.08.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -697,7 +697,7 @@ msgstr "Configura"
 #: lib/kateconfigdialog.cpp:62 lib/kateoutputview.cpp:151
 #, kde-format
 msgid "Search..."
-msgstr ""
+msgstr "Cerca..."
 
 #: lib/kateconfigdialog.cpp:126
 #, kde-format
@@ -944,16 +944,14 @@ msgid "Diff Style:"
 msgstr "Stile diff:"
 
 #: lib/kateconfigdialog.cpp:543
-#, fuzzy, kde-format
-#| msgid "Show Navigation Bar"
+#, kde-format
 msgid "Navigation Bar"
-msgstr "Mostra barra di navigazione"
+msgstr "Barra di navigazione"
 
 #: lib/kateconfigdialog.cpp:548
-#, fuzzy, kde-format
-#| msgid "Focus the navigation bar"
+#, kde-format
 msgid "Show current symbol in navigation bar"
-msgstr "Attiva la barra di navigazione"
+msgstr "Mostra il simbolo corrente nella barra di navigazione"
 
 #: lib/kateconfigdialog.cpp:562
 #, kde-format
@@ -985,6 +983,8 @@ msgid ""
 "When a window is closed the documents opened only in this window are closed "
 "as well."
 msgstr ""
+"Quando viene chiusa una finestra, vengono chiusi anche i documenti aperti "
+"solo in essa."
 
 #: lib/kateconfigdialog.cpp:644
 #, kde-format
@@ -1502,7 +1502,7 @@ msgstr "Pulsanti nella barra laterale"
 #: lib/katemdi.cpp:105
 #, kde-format
 msgid "Focus Toolview"
-msgstr ""
+msgstr "Attiva strumento visivo"
 
 #: lib/katemdi.cpp:108
 #, kde-format
@@ -1532,7 +1532,7 @@ msgstr "Mostra il pulsante %1"
 #: lib/katemdi.cpp:193
 #, kde-format
 msgid "Focus %1"
-msgstr ""
+msgstr "Attiva %1"
 
 #: lib/katemdi.cpp:1002
 #, kde-format
@@ -1725,11 +1725,9 @@ msgid "Diff Output"
 msgstr "Output di diff"
 
 #: lib/kateoutputview.cpp:166
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Copy to Clipboard"
+#, kde-format
 msgid "Copy all text to clipboard"
-msgstr "Copia negli appunti"
+msgstr "Copia tutto il testo negli appunti"
 
 #: lib/kateoutputview.cpp:171
 #, kde-format
@@ -2394,13 +2392,14 @@ msgstr "File con modifiche non salvate"
 #, kde-format
 msgid "If disabled, an untitled document will be shown for new windows."
 msgstr ""
+"Se disabilitato, per le nuove finestre verrà mostrato un documento senza "
+"titolo."
 
 #. i18n: ectx: property (text), widget (QCheckBox, showWelcomeViewForNewWindow)
 #: lib/ui/sessionconfigwidget.ui:91
-#, fuzzy, kde-format
-#| msgid "Create a new window."
+#, kde-format
 msgid "Show welcome view for new windows"
-msgstr "Crea una nuova finestra."
+msgstr "Mostra la vista di benvenuto per le nuove finestre"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, modCloseAfterLast)
 #: lib/ui/sessionconfigwidget.ui:98
@@ -2423,7 +2422,7 @@ msgstr "Chiudi completamente l'applicazione quando viene chiuso l'ultimo file"
 #: lib/ui/sessionconfigwidget.ui:108
 #, kde-format
 msgid "Close documents with the window they belong to"
-msgstr ""
+msgstr "Chiudi i documenti insieme alla finestra a cui appartengono"
 
 #. i18n: ectx: property (title), widget (QGroupBox, gbElements)
 #: lib/ui/sessionconfigwidget.ui:118
@@ -2568,28 +2567,27 @@ msgstr "Pulisci i file recenti"
 
 #. i18n: ectx: property (text), widget (QLabel, labelHelp)
 #: lib/welcomeview/welcomeview.ui:271
-#, fuzzy, kde-format
-#| msgid "&Help"
+#, kde-format
 msgid "Help"
-msgstr "Ai&uto"
+msgstr "Aiuto"
 
 #. i18n: ectx: property (text), widget (KUrlLabel, labelHomepage)
 #: lib/welcomeview/welcomeview.ui:281
 #, kde-format
 msgid "Visit homepage"
-msgstr ""
+msgstr "Visita la pagina web"
 
 #. i18n: ectx: property (text), widget (KUrlLabel, labelContribute)
 #: lib/welcomeview/welcomeview.ui:294
 #, kde-format
 msgid "Get involved"
-msgstr ""
+msgstr "Partecipa"
 
 #. i18n: ectx: property (text), widget (KUrlLabel, labelHandbook)
 #: lib/welcomeview/welcomeview.ui:307
 #, kde-format
 msgid "Read handbook"
-msgstr ""
+msgstr "Leggii il manuale"
 
 #. i18n: ectx: property (text), widget (QLabel, labelSavedSessions)
 #: lib/welcomeview/welcomeview.ui:354

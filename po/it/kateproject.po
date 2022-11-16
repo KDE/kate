@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-22 00:48+0000\n"
-"PO-Revision-Date: 2022-09-03 10:08+0200\n"
+"PO-Revision-Date: 2022-11-11 17:59+0100\n"
 "Last-Translator: Paolo Zamponi <zapaolo@email.it>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 22.08.0\n"
+"X-Generator: Lokalize 22.08.3\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -313,7 +313,7 @@ msgstr "Stash"
 #: gitwidget.cpp:972
 #, kde-format
 msgid "Diff - stash"
-msgstr ""
+msgstr "Diff - stash"
 
 #: gitwidget.cpp:1003
 #, kde-format

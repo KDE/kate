@@ -303,12 +303,12 @@ void InlayHintsManager::onTextRemoved(KTextEditor::Document *doc, KTextEditor::R
     }
     auto &list = it->m_hints;
     auto bit = binaryFind(list, range.start().line());
-    auto bitCopy = bit;
-    auto end = list.end();
+    auto removeBegin = bit;
+    auto removeEnd = list.end();
     bool changed = false;
     for (; bit != list.end(); ++bit) {
         if (bit->position.line() > range.start().line()) {
-            end = bit;
+            removeEnd = bit;
             break;
         }
         if (range.contains(bit->position)) {
@@ -322,7 +322,7 @@ void InlayHintsManager::onTextRemoved(KTextEditor::Document *doc, KTextEditor::R
         }
     }
     if (changed) {
-        removeInvalidRanges(list, bitCopy, end);
+        removeInvalidRanges(list, removeBegin, removeEnd);
         m_noteProvider.setHints(list);
     }
 

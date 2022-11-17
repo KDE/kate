@@ -440,9 +440,6 @@ InlayHintsManager::insertHintsForDoc(KTextEditor::Document *doc, KTextEditor::Ra
     if (it == m_hintDataByDoc.end()) {
         auto &r = m_hintDataByDoc.emplace_back();
         r = HintData{doc, doc->checksum(), newHints};
-        std::sort(r.m_hints.begin(), r.m_hints.end(), [](const LSPInlayHint &l, const LSPInlayHint &r) {
-            return l.position < r.position;
-        });
         return {true, {}, r.m_hints};
     }
     // Old

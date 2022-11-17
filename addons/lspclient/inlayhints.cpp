@@ -273,7 +273,7 @@ void InlayHintsManager::onTextInserted(KTextEditor::Document *doc, KTextEditor::
             if (bit->position.line() > pos.line()) {
                 break;
             }
-            if (bit->position >= pos) {
+            if (bit->position > pos) {
                 bit->position.setColumn(bit->position.column() + text.size());
                 changed = true;
             }

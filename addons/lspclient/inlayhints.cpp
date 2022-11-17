@@ -315,7 +315,7 @@ void InlayHintsManager::onTextRemoved(KTextEditor::Document *doc, KTextEditor::R
             removeEnd = bit;
             break;
         }
-        if (range.contains(bit->position)) {
+        if (range.contains(bit->position) && range.start() < bit->position) {
             // was inside range? remove this note
             bit->position = KTextEditor::Cursor::invalid();
             changed = true;

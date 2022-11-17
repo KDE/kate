@@ -94,16 +94,20 @@ QVector<int> InlayHintNoteProvider::inlineNotes(int line) const
 
 QSize InlayHintNoteProvider::inlineNoteSize(const KTextEditor::InlineNote &note) const
 {
-    const auto font = qApp->font();
-    const auto fm = QFontMetrics(font);
-    const auto pos = note.position();
-    for (const auto &hint : m_hints) {
-        if (hint.position == pos) {
-            const int padding = (hint.paddingLeft || hint.paddingRight) ? 4 : 0;
-            return {fm.horizontalAdvance(hint.label) + padding, note.lineHeight()};
-        }
+    auto it = binaryFind(m_hints, note.position());
+    if (it == m_hints.end()) {
+        qWarning() << Q_FUNC_INFO << "failed to find note in m_hints";
+        return {};
     }
-    return {};
+
+    const LSPInlayHint &hint = *it;
+    const int padding = (hint.paddingLeft || hint.paddingRight) ? 4 : 0;
+    if (hint.width == 0) {
+        const auto font = qApp->font();
+        const auto fm = QFontMetrics(font);
+        const_cast<LSPInlayHint &>(hint).width = fm.horizontalAdvance(hint.label) + padding;
+    }
+    return {hint.width, note.lineHeight()};
 }
 
 void InlayHintNoteProvider::paintInlineNote(const KTextEditor::InlineNote &note, QPainter &painter) const
@@ -113,7 +117,7 @@ void InlayHintNoteProvider::paintInlineNote(const KTextEditor::InlineNote &note,
         painter.setPen(m_noteColor);
         const auto font = qApp->font();
         painter.setFont(font);
-        QRectF r{0., 0., note.width(), (qreal)note.lineHeight()};
+        QRectF r{0., 0., (qreal)it->width, (qreal)note.lineHeight()};
         if (it->paddingLeft) {
             r.adjust(4., 0., 0., 0.);
         } else if (it->paddingRight) {

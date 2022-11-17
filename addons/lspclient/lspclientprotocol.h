@@ -444,6 +444,9 @@ struct LSPInlayHint {
     // unused fields atm, not sure if we will need them
     // enum Kind { Type = 1, Parameter = 2 } kind;
     // QString tooltip;
+
+    // kate specific
+    int width = 0; ///> Used to cache width
 };
 
 #endif

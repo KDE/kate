@@ -563,6 +563,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="sr-ijekavian">сажимање кода и текста</li>
       <li xml:lang="sr-ijekavianlatin">sažimanje koda i teksta</li>
       <li xml:lang="sv">Kod- och textvikning</li>
+      <li xml:lang="ta">உரை மற்றும் குறிமொழி மடிப்பு</li>
       <li xml:lang="tr">Kod ve metin katlama</li>
       <li xml:lang="uk">Засоби згортання коду та тексту.</li>
       <li xml:lang="vi">Gập mã và văn bản</li>
@@ -705,6 +706,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="sr-ijekavian">аутоматско увлачење</li>
       <li xml:lang="sr-ijekavianlatin">automatsko uvlačenje</li>
       <li xml:lang="sv">Automatisk indentering</li>
+      <li xml:lang="ta">தானியக்க முன்னிடைவெளி</li>
       <li xml:lang="tr">Otomatik girintileme</li>
       <li xml:lang="uk">Автовідступ.</li>
       <li xml:lang="vi">Thụt lề tự động</li>
@@ -817,6 +819,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="nl">Brede ondersteuning van protocollen (http, ftp, ssh, webdav etc.)</li>
       <li xml:lang="pt">Suporte abrangente de protocolos (HTTP, FTP, SSH, WebDAV, etc.)</li>
       <li xml:lang="sl">Podpora za širok nabor protokolov (http, ftp, ssh, webdav, itd.)</li>
+      <li xml:lang="ta">பல நெறிமுறைகளை ஆதரிக்கும் (http, ftp, ssh, webdav போன்றவை.) </li>
       <li xml:lang="tr">Geniş protokol desteği (http, ftp, ssh, webdav vb.)</li>
       <li xml:lang="uk">Широка підтримка протоколів (http, ftp, ssh, webdav тощо)</li>
       <li xml:lang="vi">Hỗ trợ nhiều giao thức (http, ftp, ssh, webdav, v.v.)</li>
@@ -1000,6 +1003,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="sr-ijekavian">скриптовање помоћу јаваскрипта</li>
       <li xml:lang="sr-ijekavianlatin">skriptovanje pomoću JavaScripta</li>
       <li xml:lang="sv">Skriptbar med användning av Javascript</li>
+      <li xml:lang="ta">ஜாவாஸ்கிறிப்டு மூலம் மாற்றியமைக்கலாம்</li>
       <li xml:lang="tr">JavaScript kullanılarak betikleştirilebilir</li>
       <li xml:lang="uk">Можливість керування програмою за допомогою скриптів мовою JavaScript.</li>
       <li xml:lang="vi">Lập kịch bản được bằng JavaScript</li>

@@ -10,6 +10,7 @@
 
 #include <KAboutData>
 #include <KDBusService>
+#include <KLazyLocalizedString>
 #include <KLocalizedString>
 
 #include <QApplication>
@@ -18,6 +19,9 @@
 
 #ifndef Q_OS_WIN
 #include <unistd.h>
+#ifndef Q_OS_HAIKU
+#include <libintl.h>
+#endif
 #endif
 
 #include <iostream>
@@ -27,17 +31,22 @@ extern "C" Q_DECL_EXPORT int main(int argc, char **argv)
 #if !defined(Q_OS_WIN) && !defined(Q_OS_HAIKU)
     // Prohibit using sudo or kdesu (but allow using the root user directly)
     if (getuid() == 0) {
+        setlocale(LC_ALL, "");
+        // KWrite using "kate" text domain
+        bindtextdomain("kate", KDE_INSTALL_FULL_LOCALEDIR);
         if (!qEnvironmentVariableIsEmpty("SUDO_USER")) {
-            std::cout << "Running KWrite with sudo can cause bugs and expose you to security vulnerabilities. "
-                         "Instead use KWrite normally and you will be prompted for elevated privileges when "
-                         "saving documents if needed."
-                      << std::endl;
+            auto message = kli18n(
+                "Running KWrite with sudo can cause bugs and expose you to security vulnerabilities. "
+                "Instead use KWrite normally and you will be prompted for elevated privileges when "
+                "saving documents if needed.");
+            std::cout << dgettext("kate", message.untranslatedText()) << std::endl;
             return EXIT_FAILURE;
         } else if (!qEnvironmentVariableIsEmpty("KDESU_USER")) {
-            std::cout << "Running KWrite with kdesu can cause bugs and expose you to security vulnerabilities. "
-                         "Instead use KWrite normally and you will be prompted for elevated privileges when "
-                         "saving documents if needed."
-                      << std::endl;
+            auto message = kli18n(
+                "Running KWrite with kdesu can cause bugs and expose you to security vulnerabilities. "
+                "Instead use KWrite normally and you will be prompted for elevated privileges when "
+                "saving documents if needed.");
+            std::cout << dgettext("kate", message.untranslatedText()) << std::endl;
             return EXIT_FAILURE;
         }
     }

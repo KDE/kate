@@ -12,6 +12,7 @@
 
 #include <KAboutData>
 #include <KDBusService>
+#include <KLazyLocalizedString>
 #include <KLocalizedString>
 #include <KStartupInfo>
 #include <KWindowSystem>
@@ -35,7 +36,11 @@
 
 #ifndef Q_OS_WIN
 #include <unistd.h>
+#ifndef Q_OS_HAIKU
+#include <libintl.h>
 #endif
+#endif
+
 #include <iostream>
 
 #include "config-kate.h"
@@ -59,17 +64,21 @@ int main(int argc, char **argv)
 #if !defined(Q_OS_WIN) && !defined(Q_OS_HAIKU)
     // Prohibit using sudo or kdesu (but allow using the root user directly)
     if (getuid() == 0) {
+        setlocale(LC_ALL, "");
+        bindtextdomain("kate", KDE_INSTALL_FULL_LOCALEDIR);
         if (!qEnvironmentVariableIsEmpty("SUDO_USER")) {
-            std::cout << "Running Kate with sudo can cause bugs and expose you to security vulnerabilities. "
-                         "Instead use Kate normally and you will be prompted for elevated privileges when "
-                         "saving documents if needed."
-                      << std::endl;
+            auto message = kli18n(
+                "Running Kate with sudo can cause bugs and expose you to security vulnerabilities. "
+                "Instead use Kate normally and you will be prompted for elevated privileges when "
+                "saving documents if needed.");
+            std::cout << dgettext("kate", message.untranslatedText()) << std::endl;
             return EXIT_FAILURE;
         } else if (!qEnvironmentVariableIsEmpty("KDESU_USER")) {
-            std::cout << "Running Kate with kdesu can cause bugs and expose you to security vulnerabilities. "
-                         "Instead use Kate normally and you will be prompted for elevated privileges when "
-                         "saving documents if needed."
-                      << std::endl;
+            auto message = kli18n(
+                "Running Kate with kdesu can cause bugs and expose you to security vulnerabilities. "
+                "Instead use Kate normally and you will be prompted for elevated privileges when "
+                "saving documents if needed.");
+            std::cout << dgettext("kate", message.untranslatedText()) << std::endl;
             return EXIT_FAILURE;
         }
     }

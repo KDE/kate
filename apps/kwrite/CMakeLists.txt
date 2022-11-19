@@ -5,6 +5,11 @@ find_package(KF5DBusAddons ${KF5_DEP_VERSION} REQUIRED)
 add_executable(kwrite main.cpp  data/kwrite.qrc)
 target_link_libraries(kwrite PRIVATE kateprivate PUBLIC KF5::DBusAddons)
 
+if (NOT WIN32 AND NOT HAIKU)
+    target_include_directories(kwrite PRIVATE ${Intl_INCLUDE_DIRS})
+    target_link_libraries(kwrite PRIVATE ${Intl_LIBRARIES})
+endif()
+
 # ensure right translations domain, we use one kate.po(t) for lib + apps
 target_compile_definitions(kwrite PRIVATE TRANSLATION_DOMAIN="kate")
 

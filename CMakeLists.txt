@@ -36,6 +36,7 @@ include(ECMInstallIcons)
 include(ECMDeprecationSettings)
 
 include(FeatureSummary)
+include(FindIntl)
 
 # forbid some old things
 add_definitions(-DQT_NO_FOREACH)
@@ -50,6 +51,14 @@ find_package(KF5 ${KF5_DEP_VERSION}
     OPTIONAL_COMPONENTS
         DocTools
 )
+
+if (NOT WIN32 AND NOT HAIKU)
+    find_package(Intl)
+    set_package_properties(Intl PROPERTIES TYPE REQUIRED
+        URL "http://gnuwin32.sourceforge.net/packages/libintl.htm"
+        PURPOSE "Needed for building kate unless glibc is the system libc implementation"
+    )
+endif()
 
 # addons for Kate
 ecm_optional_add_subdirectory(addons)

@@ -317,9 +317,10 @@ private:
 
 private:
     /**
-     * Watches for changes to .git/indiex
+     * Watches for changes to .git/index
+     * If this is non-empty, we registered that file in the project watcher
      */
-    QFileSystemWatcher m_gitChangedWatcher;
+    QString m_gitChangedWatcherFile;
 
     /**
      * our plugin

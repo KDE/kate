@@ -125,8 +125,10 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
         }
     });
 
-    connect(&m_gitChangedWatcher, &QFileSystemWatcher::fileChanged, this, [this] {
-        slotUpdateStatus(true);
+    connect(&m_plugin->fileWatcher(), &QFileSystemWatcher::fileChanged, this, [this](const QString &path) {
+        if (m_gitChangedWatcherFile == path) {
+            slotUpdateStatus(true);
+        }
     });
 
     /**
@@ -274,6 +276,11 @@ KateProjectPluginView::~KateProjectPluginView()
      * cu gui client
      */
     m_mainWindow->guiFactory()->removeClient(this);
+
+    // Don't watch what nobody use, the old project...
+    if (!m_gitChangedWatcherFile.isEmpty()) {
+        m_plugin->fileWatcher().removePath(m_gitChangedWatcherFile);
+    }
 }
 
 void KateProjectPluginView::slotConfigUpdated()
@@ -514,9 +521,11 @@ void KateProjectPluginView::slotCurrentChanged(int index)
     }
 
     // Don't watch what nobody use, the old project...
-    if (!m_gitChangedWatcher.files().isEmpty()) {
-        m_gitChangedWatcher.removePaths(m_gitChangedWatcher.files());
+    if (!m_gitChangedWatcherFile.isEmpty()) {
+        m_plugin->fileWatcher().removePath(m_gitChangedWatcherFile);
+        m_gitChangedWatcherFile.clear();
     }
+
     // ...and start watching the new one
     slotUpdateStatus(true);
 
@@ -714,9 +723,11 @@ void KateProjectPluginView::slotHandleProjectClosing(KateProject *project)
     m_projectsComboGit->removeItem(index);
 
     // Stop watching what no one is interesting anymore
-    if (!m_gitChangedWatcher.files().isEmpty()) {
-        m_gitChangedWatcher.removePaths(m_gitChangedWatcher.files());
+    if (!m_gitChangedWatcherFile.isEmpty()) {
+        m_plugin->fileWatcher().removePath(m_gitChangedWatcherFile);
+        m_gitChangedWatcherFile.clear();
     }
+
     // inform onward
     Q_EMIT pluginProjectRemoved(project->baseDir(), project->name());
 
@@ -805,9 +816,12 @@ void KateProjectPluginView::slotUpdateStatus(bool visible)
     if (auto widget = static_cast<GitWidget *>(m_stackedGitViews->currentWidget())) {
         // To support separate-git-dir always use dotGitPath
         // We need to add the path every time again because it's always a different file
-        const auto path = widget->indexPath();
-        if (!path.isEmpty()) {
-            m_gitChangedWatcher.addPath(path);
+        if (!m_gitChangedWatcherFile.isEmpty()) {
+            m_plugin->fileWatcher().removePath(m_gitChangedWatcherFile);
+        }
+        m_gitChangedWatcherFile = widget->indexPath();
+        if (!m_gitChangedWatcherFile.isEmpty()) {
+            m_plugin->fileWatcher().addPath(m_gitChangedWatcherFile);
         }
         widget->updateStatus();
     }

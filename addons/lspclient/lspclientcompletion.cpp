@@ -325,8 +325,8 @@ public:
 
         qCInfo(LSPCLIENT) << "completion invoked" << m_server;
 
-        const bool userInocation = it == UserInvocation;
-        if (userInocation && range.isEmpty() && m_signatureHelp) {
+        const bool userInvocation = it == UserInvocation;
+        if (userInvocation && range.isEmpty() && m_signatureHelp) {
             // If this is a user invocation (ctrl-space), check the last non-space char for sig help trigger
             QChar c;
             int i = range.start().column() - 1;
@@ -397,7 +397,7 @@ public:
             auto cursor = qMax(range.start(), qMin(range.end(), position));
             m_manager->update(document, false);
 
-            if (m_triggerCompletion || userInocation) {
+            if (m_triggerCompletion || userInvocation) {
                 m_handle = m_server->documentCompletion(document->url(), {cursor.line(), cursor.column()}, this, handler);
             }
 

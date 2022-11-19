@@ -22,6 +22,7 @@
 #include <KWindowConfig>
 #include <KXMLGUIFactory>
 
+#include <QApplication>
 #include <QContextMenuEvent>
 #include <QDomDocument>
 #include <QHBoxLayout>
@@ -1580,12 +1581,19 @@ void MainWindow::finishRestore()
 
         // Expand again to trigger splitter sync tabs/tools, but for any reason works this sometimes only after enough delay
         QTimer::singleShot(400, this, [this]() {
+            // ensure we don't steal the focus, remember old focus widget
+            QPointer<QWidget> oldFocusWidget(QApplication::focusWidget());
+
             for (auto &sidebar : m_sidebars) {
                 sidebar->updateSidebar();
             }
 
-            // ensure focus is not stolen
-            triggerFocusForCentralWidget();
+            // ensure focus is not stolen, pass back to widget or at least central area
+            if (oldFocusWidget) {
+                oldFocusWidget->setFocus();
+            } else {
+                triggerFocusForCentralWidget();
+            }
         });
     }
 

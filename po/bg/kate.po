@@ -2602,18 +2602,3 @@ msgstr "Управление на сесиите..."
 #, kde-format
 msgid "Show for new window"
 msgstr "Показване за нов прозорец"
-
-#~ msgid "Filter..."
-#~ msgstr "Филтър..."
-
-#~ msgid "Open new window with fresh untitled document"
-#~ msgstr "Отваряне на нов прозорец с нов документ без заглавие"
-
-#~ msgid "Untitled"
-#~ msgstr "Неозаглавен"
-
-#~ msgid "Please enable the project plugin to load directories"
-#~ msgstr "Моля, активирайте плъгина на проекта за зареждане на директории"
-
-#~ msgid "No recent files"
-#~ msgstr "Няма скорошни документи"

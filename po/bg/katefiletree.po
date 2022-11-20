@@ -420,12 +420,3 @@ msgstr "Запазване на текущия документ под ново 
 #, kde-format
 msgid "&Go"
 msgstr "Навига&ция"
-
-#~ msgid "Rename file"
-#~ msgstr "Преименуване на файл"
-
-#~ msgid "New file name"
-#~ msgstr "Ново име на файл"
-
-#~ msgid "File \"%1\" could not be moved to \"%2\""
-#~ msgstr "Файлът \"%1\" не можа да бъде преместен в \"%2\"."

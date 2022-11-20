@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-14 00:49+0000\n"
-"PO-Revision-Date: 2022-11-06 01:05\n"
+"PO-Revision-Date: 2022-11-19 14:48\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -1679,11 +1679,9 @@ msgid "Diff Output"
 msgstr "Diff 输出"
 
 #: lib/kateoutputview.cpp:166
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Copy to Clipboard"
+#, kde-format
 msgid "Copy all text to clipboard"
-msgstr "复制到剪贴板"
+msgstr ""
 
 #: lib/kateoutputview.cpp:171
 #, kde-format
@@ -2535,6 +2533,3 @@ msgstr ""
 #, kde-format
 msgid "Show for new window"
 msgstr ""
-
-#~ msgid "Filter..."
-#~ msgstr "筛选..."

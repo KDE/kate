@@ -429,6 +429,3 @@ msgstr ""
 #, kde-format
 msgid "Select directory to insert"
 msgstr ""
-
-#~ msgid "Filter targets"
-#~ msgstr "Филтриране на целите"

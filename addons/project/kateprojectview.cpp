@@ -10,6 +10,7 @@
 #include "gitprocess.h"
 #include "gitwidget.h"
 #include "kateprojectfiltermodel.h"
+#include "kateprojectplugin.h"
 #include "kateprojectpluginview.h"
 
 #include <KTextEditor/Document>
@@ -85,13 +86,18 @@ KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject 
     checkAndRefreshGit();
 
     connect(m_project, &KateProject::modelChanged, this, &KateProjectView::checkAndRefreshGit);
-    connect(&m_branchChangedWatcher, &QFileSystemWatcher::fileChanged, this, [this] {
-        m_project->reload(true);
+    connect(&m_pluginView->plugin()->fileWatcher(), &QFileSystemWatcher::fileChanged, this, [this](const QString &path) {
+        if (m_branchChangedWatcherFile == path) {
+            m_project->reload(true);
+        }
     });
 }
 
 KateProjectView::~KateProjectView()
 {
+    if (!m_branchChangedWatcherFile.isEmpty()) {
+        m_pluginView->plugin()->fileWatcher().removePath(m_branchChangedWatcherFile);
+    }
 }
 
 void KateProjectView::selectFile(const QString &file)
@@ -127,8 +133,9 @@ void KateProjectView::checkAndRefreshGit()
      * Not in a git repo or git was removed
      */
     if (!dotGitPath.has_value()) {
-        if (!m_branchChangedWatcher.files().isEmpty()) {
-            m_branchChangedWatcher.removePaths(m_branchChangedWatcher.files());
+        if (!m_branchChangedWatcherFile.isEmpty()) {
+            m_pluginView->plugin()->fileWatcher().removePath(m_branchChangedWatcherFile);
+            m_branchChangedWatcherFile.clear();
         }
         m_branchBtn->setHidden(true);
     } else {
@@ -136,8 +143,14 @@ void KateProjectView::checkAndRefreshGit()
         auto act = m_branchBtn->defaultAction();
         Q_ASSERT(act);
         act->setText(GitUtils::getCurrentBranchName(dotGitPath.value()));
-        if (m_branchChangedWatcher.files().isEmpty()) {
-            m_branchChangedWatcher.addPath(dotGitPath.value() + QStringLiteral(".git/HEAD"));
+
+        // watch new file if needed
+        if (const QString fileToWatch = dotGitPath.value() + QStringLiteral(".git/HEAD"); fileToWatch != m_branchChangedWatcherFile) {
+            if (!m_branchChangedWatcherFile.isEmpty()) {
+                m_pluginView->plugin()->fileWatcher().removePath(m_branchChangedWatcherFile);
+            }
+            m_branchChangedWatcherFile = fileToWatch;
+            m_pluginView->plugin()->fileWatcher().addPath(m_branchChangedWatcherFile);
         }
     }
 }

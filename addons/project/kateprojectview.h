@@ -11,7 +11,6 @@
 #include "kateproject.h"
 #include "kateprojectviewtree.h"
 
-#include <QFileSystemWatcher>
 #include <QTimer>
 
 class KLineEdit;
@@ -104,8 +103,9 @@ private:
 
     /**
      * watches for changes to .git/HEAD
+     * If this is non-empty, we registered that file in the project watcher
      */
-    QFileSystemWatcher m_branchChangedWatcher;
+    QString m_branchChangedWatcherFile;
 
     /**
      * filter timer

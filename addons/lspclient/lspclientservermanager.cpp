@@ -99,7 +99,7 @@ static QStringList indicationDataToStringList(const QJsonValue &indicationData)
     }
 
     return {};
-};
+}
 
 #include <memory>
 

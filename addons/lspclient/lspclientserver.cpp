@@ -1019,6 +1019,8 @@ class LSPClientServer::LSPClientServerPrivate
     QJsonValue m_init;
     // optional workspace folders
     FoldersType m_folders;
+    // tweak specified client capabilities
+    LSPClientCapabilities m_clientCapabilities;
     // server process
     QProcess m_sproc;
     // server declared capabilities
@@ -1045,13 +1047,15 @@ public:
                            const QUrl &root,
                            const QString &langId,
                            const QJsonValue &init,
-                           const FoldersType &folders)
+                           const FoldersType &folders,
+                           const LSPClientCapabilities &caps)
         : q(_q)
         , m_server(server)
         , m_root(root)
         , m_langId(langId)
         , m_init(init)
         , m_folders(folders)
+        , m_clientCapabilities(caps)
     {
         // setup async reading
         QObject::connect(&m_sproc, &QProcess::readyReadStandardOutput, utils::mem_fun(&self_type::readStandardOutput, this));
@@ -1358,7 +1362,7 @@ private:
                                             }},
                                             {QStringLiteral("completion"), QJsonObject{
                                                 {QStringLiteral("completionItem"), QJsonObject{
-                                                    {QStringLiteral("snippetSupport"), true}
+                                                    {QStringLiteral("snippetSupport"), m_clientCapabilities.snippetSupport}
                                                 }}
                                             }},
                                         },
@@ -1722,8 +1726,13 @@ make_handler(const ReplyHandler<ReplyType> &h, const QObject *context, typename 
     };
 }
 
-LSPClientServer::LSPClientServer(const QStringList &server, const QUrl &root, const QString &langId, const QJsonValue &init, const FoldersType &folders)
-    : d(new LSPClientServerPrivate(this, server, root, langId, init, folders))
+LSPClientServer::LSPClientServer(const QStringList &server,
+                                 const QUrl &root,
+                                 const QString &langId,
+                                 const QJsonValue &init,
+                                 const FoldersType &folders,
+                                 const LSPClientCapabilities &caps)
+    : d(new LSPClientServerPrivate(this, server, root, langId, init, folders, caps))
 {
 }
 

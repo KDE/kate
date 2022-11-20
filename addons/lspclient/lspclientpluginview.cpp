@@ -1008,6 +1008,15 @@ public:
         }
         m_diagnosticsSwitch->setEnabled(m_diagnostics->isChecked());
         m_serverManager->setIncrementalSync(m_incrementalSync->isChecked());
+        // use snippets if and only if parentheses are requested
+        auto &clientCaps = m_serverManager->clientCapabilities();
+        auto snippetSupport = m_complParens->isChecked();
+        if (clientCaps.snippetSupport != snippetSupport) {
+            clientCaps.snippetSupport = snippetSupport;
+            // restart servers to make it apply
+            // (not likely frequently toggled)
+            restartAll();
+        }
         updateState();
     }
 

@@ -491,10 +491,14 @@ public:
         // additionalTextEdits before setting cursor-possition
         const auto additionalTextEdits = m_matches.at(index.row()).additionalTextEdits;
 
-        view->document()->removeText(word);
-        const auto textToInsert = stripSnippetMarkers(matching);
-        qCInfo(LSPCLIENT) << "original text: " << matching << ", snippet markers removed; " << textToInsert;
-        view->insertTemplate(view->cursorPosition(), textToInsert);
+        if (m_complParens) {
+            view->document()->removeText(word);
+            const auto textToInsert = stripSnippetMarkers(matching);
+            qCInfo(LSPCLIENT) << "original text: " << matching << ", snippet markers removed; " << textToInsert;
+            view->insertTemplate(view->cursorPosition(), textToInsert);
+        } else {
+            view->document()->replaceText(word, matching);
+        }
 
         if (m_autoImport) {
             // re-use util to apply edits

@@ -74,6 +74,10 @@ using SelectionRangeReplyHandler = ReplyHandler<QList<std::shared_ptr<LSPSelecti
 
 class LSPClientPlugin;
 
+struct LSPClientCapabilities {
+    bool snippetSupport = false;
+};
+
 class LSPClientServer : public QObject
 {
     Q_OBJECT
@@ -103,7 +107,8 @@ public:
                     const QUrl &root,
                     const QString &langId = QString(),
                     const QJsonValue &init = QJsonValue(),
-                    const FoldersType &folders = std::nullopt);
+                    const FoldersType &folders = std::nullopt,
+                    const LSPClientCapabilities &caps = {});
     ~LSPClientServer() override;
 
     // server management

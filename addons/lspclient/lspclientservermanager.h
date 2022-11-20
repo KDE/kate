@@ -51,6 +51,8 @@ public:
 
     virtual void setIncrementalSync(bool inc) = 0;
 
+    virtual LSPClientCapabilities &clientCapabilities() = 0;
+
     // latest sync'ed revision of doc (-1 if N/A)
     virtual qint64 revision(KTextEditor::Document *doc) = 0;
 

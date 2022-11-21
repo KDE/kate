@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-14 00:49+0000\n"
+"POT-Creation-Date: 2022-11-21 00:50+0000\n"
 "PO-Revision-Date: 2022-11-07 16:18+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -1494,37 +1494,37 @@ msgstr "Різниця %1"
 msgid "Diff %1..%2"
 msgstr "Різниця %1..%2"
 
-#: lib/katemdi.cpp:84
+#: lib/katemdi.cpp:85
 #, kde-format
 msgid "Toolview Manager"
 msgstr "Керування панеллю інструментів"
 
-#: lib/katemdi.cpp:102
+#: lib/katemdi.cpp:103
 #, kde-format
 msgid "Sidebar Buttons"
 msgstr "Кнопки на бічній панелі"
 
-#: lib/katemdi.cpp:105
+#: lib/katemdi.cpp:106
 #, kde-format
 msgid "Focus Toolview"
 msgstr "Фокусувати панель інструментів"
 
-#: lib/katemdi.cpp:108
+#: lib/katemdi.cpp:109
 #, kde-format
 msgid "Tool &Views"
 msgstr "Вікна інс&трументів"
 
-#: lib/katemdi.cpp:110
+#: lib/katemdi.cpp:111
 #, kde-format
 msgid "Show Side&bars"
 msgstr "Показати &бічні панелі"
 
-#: lib/katemdi.cpp:118
+#: lib/katemdi.cpp:119
 #, kde-format
 msgid "Hide All Tool Views"
 msgstr "Приховати усі вікна інструментів"
 
-#: lib/katemdi.cpp:167
+#: lib/katemdi.cpp:168
 #, kde-format
 msgid "Show %1"
 msgstr ""
@@ -1534,77 +1534,77 @@ msgstr ""
 "'панель поточного проєкту' 'Вивід перевірки XML' 'панель результатів "
 "перевірки XML' 'Пошук з заміною' 'панель пошуку із заміною']"
 
-#: lib/katemdi.cpp:178
+#: lib/katemdi.cpp:179
 #, kde-format
 msgid "Show %1 Button"
 msgstr "Показати кнопку %1"
 
-#: lib/katemdi.cpp:193
+#: lib/katemdi.cpp:194
 #, kde-format
 msgid "Focus %1"
 msgstr "Фокусувати %1"
 
-#: lib/katemdi.cpp:1002
+#: lib/katemdi.cpp:1003
 #, kde-format
 msgid "Configure..."
 msgstr "Налаштувати…"
 
-#: lib/katemdi.cpp:1006
+#: lib/katemdi.cpp:1007
 #, kde-format
 msgid "Hide Button"
 msgstr "Приховати кнопку"
 
-#: lib/katemdi.cpp:1008
+#: lib/katemdi.cpp:1009
 #, kde-format
 msgid "Move To"
 msgstr "Пересунути до"
 
-#: lib/katemdi.cpp:1013
+#: lib/katemdi.cpp:1014
 #, kde-format
 msgid "Own Section"
 msgstr "Власний розділ"
 
-#: lib/katemdi.cpp:1019 lib/katemdi.cpp:1027
+#: lib/katemdi.cpp:1020 lib/katemdi.cpp:1028
 #, kde-format
 msgid "One Down"
 msgstr "На один вниз"
 
-#: lib/katemdi.cpp:1021 lib/katemdi.cpp:1032
+#: lib/katemdi.cpp:1022 lib/katemdi.cpp:1033
 #, kde-format
 msgid "One Right"
 msgstr "На один праворуч"
 
-#: lib/katemdi.cpp:1025
+#: lib/katemdi.cpp:1026
 #, kde-format
 msgid "One Up"
 msgstr "На один вгору"
 
-#: lib/katemdi.cpp:1030
+#: lib/katemdi.cpp:1031
 #, kde-format
 msgid "One Left"
 msgstr "На один ліворуч"
 
-#: lib/katemdi.cpp:1039
+#: lib/katemdi.cpp:1040
 #, kde-format
 msgid "Left Sidebar"
 msgstr "Ліва бічна панель"
 
-#: lib/katemdi.cpp:1043
+#: lib/katemdi.cpp:1044
 #, kde-format
 msgid "Right Sidebar"
 msgstr "Права бічна панель"
 
-#: lib/katemdi.cpp:1047
+#: lib/katemdi.cpp:1048
 #, kde-format
 msgid "Top Sidebar"
 msgstr "Верхня бічна панель"
 
-#: lib/katemdi.cpp:1051
+#: lib/katemdi.cpp:1052
 #, kde-format
 msgid "Bottom Sidebar"
 msgstr "Нижня бічна панель"
 
-#: lib/katemdi.cpp:1426
+#: lib/katemdi.cpp:1427
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

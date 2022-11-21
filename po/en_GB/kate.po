@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-14 00:49+0000\n"
+"POT-Creation-Date: 2022-11-21 00:50+0000\n"
 "PO-Revision-Date: 2022-09-18 12:04+0100\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English <kde-l10n-en_gb@kde.org>\n"
@@ -1475,112 +1475,112 @@ msgstr "Diff %1"
 msgid "Diff %1..%2"
 msgstr "Diff %1..%2"
 
-#: lib/katemdi.cpp:84
+#: lib/katemdi.cpp:85
 #, kde-format
 msgid "Toolview Manager"
 msgstr "Toolview Manager"
 
-#: lib/katemdi.cpp:102
+#: lib/katemdi.cpp:103
 #, kde-format
 msgid "Sidebar Buttons"
 msgstr "Sidebar Buttons"
 
-#: lib/katemdi.cpp:105
+#: lib/katemdi.cpp:106
 #, kde-format
 msgid "Focus Toolview"
 msgstr ""
 
-#: lib/katemdi.cpp:108
+#: lib/katemdi.cpp:109
 #, kde-format
 msgid "Tool &Views"
 msgstr "Tool &Views"
 
-#: lib/katemdi.cpp:110
+#: lib/katemdi.cpp:111
 #, kde-format
 msgid "Show Side&bars"
 msgstr "Show Side&bars"
 
-#: lib/katemdi.cpp:118
+#: lib/katemdi.cpp:119
 #, kde-format
 msgid "Hide All Tool Views"
 msgstr "Hide All Tool Views"
 
-#: lib/katemdi.cpp:167
+#: lib/katemdi.cpp:168
 #, kde-format
 msgid "Show %1"
 msgstr "Show %1"
 
-#: lib/katemdi.cpp:178
+#: lib/katemdi.cpp:179
 #, kde-format
 msgid "Show %1 Button"
 msgstr "Show %1 Button"
 
-#: lib/katemdi.cpp:193
+#: lib/katemdi.cpp:194
 #, kde-format
 msgid "Focus %1"
 msgstr ""
 
-#: lib/katemdi.cpp:1002
+#: lib/katemdi.cpp:1003
 #, kde-format
 msgid "Configure..."
 msgstr "Configure..."
 
-#: lib/katemdi.cpp:1006
+#: lib/katemdi.cpp:1007
 #, kde-format
 msgid "Hide Button"
 msgstr "Hide Button"
 
-#: lib/katemdi.cpp:1008
+#: lib/katemdi.cpp:1009
 #, kde-format
 msgid "Move To"
 msgstr "Move To"
 
-#: lib/katemdi.cpp:1013
+#: lib/katemdi.cpp:1014
 #, kde-format
 msgid "Own Section"
 msgstr "Own Section"
 
-#: lib/katemdi.cpp:1019 lib/katemdi.cpp:1027
+#: lib/katemdi.cpp:1020 lib/katemdi.cpp:1028
 #, kde-format
 msgid "One Down"
 msgstr "One Down"
 
-#: lib/katemdi.cpp:1021 lib/katemdi.cpp:1032
+#: lib/katemdi.cpp:1022 lib/katemdi.cpp:1033
 #, kde-format
 msgid "One Right"
 msgstr "One Right"
 
-#: lib/katemdi.cpp:1025
+#: lib/katemdi.cpp:1026
 #, kde-format
 msgid "One Up"
 msgstr "One Up"
 
-#: lib/katemdi.cpp:1030
+#: lib/katemdi.cpp:1031
 #, kde-format
 msgid "One Left"
 msgstr "One Left"
 
-#: lib/katemdi.cpp:1039
+#: lib/katemdi.cpp:1040
 #, kde-format
 msgid "Left Sidebar"
 msgstr "Left Sidebar"
 
-#: lib/katemdi.cpp:1043
+#: lib/katemdi.cpp:1044
 #, kde-format
 msgid "Right Sidebar"
 msgstr "Right Sidebar"
 
-#: lib/katemdi.cpp:1047
+#: lib/katemdi.cpp:1048
 #, kde-format
 msgid "Top Sidebar"
 msgstr "Top Sidebar"
 
-#: lib/katemdi.cpp:1051
+#: lib/katemdi.cpp:1052
 #, kde-format
 msgid "Bottom Sidebar"
 msgstr "Bottom Sidebar"
 
-#: lib/katemdi.cpp:1426
+#: lib/katemdi.cpp:1427
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

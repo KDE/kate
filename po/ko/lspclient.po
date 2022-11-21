@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-13 00:49+0000\n"
+"POT-Creation-Date: 2022-11-21 00:49+0000\n"
 "PO-Revision-Date: 2022-07-13 14:20+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -278,13 +278,13 @@ msgstr "옵션 더 보기"
 msgid "LSP"
 msgstr "LSP"
 
-#: lspclientpluginview.cpp:978 lspclientpluginview.cpp:2527
+#: lspclientpluginview.cpp:978 lspclientpluginview.cpp:2536
 #: lspclientsymbolview.cpp:285
 #, kde-format
 msgid "Expand All"
 msgstr "모두 펴기"
 
-#: lspclientpluginview.cpp:979 lspclientpluginview.cpp:2528
+#: lspclientpluginview.cpp:979 lspclientpluginview.cpp:2537
 #: lspclientsymbolview.cpp:286
 #, kde-format
 msgid "Collapse All"
@@ -296,27 +296,27 @@ msgctxt "@title:tab"
 msgid "Diagnostics"
 msgstr "진단"
 
-#: lspclientpluginview.cpp:1253
+#: lspclientpluginview.cpp:1262
 #, kde-format
 msgid "RangeHighLight"
 msgstr "범위강조"
 
-#: lspclientpluginview.cpp:1259
+#: lspclientpluginview.cpp:1268
 #, kde-format
 msgid "Error"
 msgstr "오류"
 
-#: lspclientpluginview.cpp:1263
+#: lspclientpluginview.cpp:1272
 #, kde-format
 msgid "Warning"
 msgstr "경고"
 
-#: lspclientpluginview.cpp:1267
+#: lspclientpluginview.cpp:1276
 #, kde-format
 msgid "Information"
 msgstr "정보"
 
-#: lspclientpluginview.cpp:1451
+#: lspclientpluginview.cpp:1460
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -326,195 +326,195 @@ msgstr ""
 "정규 표현식에서 오류 발생: %1\n"
 "위치 %2:%3"
 
-#: lspclientpluginview.cpp:1778
+#: lspclientpluginview.cpp:1787
 #, kde-format
 msgid "Line: %1: "
 msgstr "줄: %1: "
 
-#: lspclientpluginview.cpp:1925 lspclientpluginview.cpp:2277
-#: lspclientpluginview.cpp:2398
+#: lspclientpluginview.cpp:1934 lspclientpluginview.cpp:2286
+#: lspclientpluginview.cpp:2407
 #, kde-format
 msgid "No results"
 msgstr "결과 없음"
 
-#: lspclientpluginview.cpp:1984
+#: lspclientpluginview.cpp:1993
 #, kde-format
 msgctxt "@title:tab"
 msgid "Definition: %1"
 msgstr "정의: %1"
 
-#: lspclientpluginview.cpp:1990
+#: lspclientpluginview.cpp:1999
 #, kde-format
 msgctxt "@title:tab"
 msgid "Declaration: %1"
 msgstr "선언: %1"
 
-#: lspclientpluginview.cpp:1996
+#: lspclientpluginview.cpp:2005
 #, kde-format
 msgctxt "@title:tab"
 msgid "Type Definition: %1"
 msgstr "형식 정의: %1"
 
-#: lspclientpluginview.cpp:2002
+#: lspclientpluginview.cpp:2011
 #, kde-format
 msgctxt "@title:tab"
 msgid "References: %1"
 msgstr "참조: %1"
 
-#: lspclientpluginview.cpp:2014
+#: lspclientpluginview.cpp:2023
 #, kde-format
 msgctxt "@title:tab"
 msgid "Implementation: %1"
 msgstr "구현: %1"
 
-#: lspclientpluginview.cpp:2027
+#: lspclientpluginview.cpp:2036
 #, kde-format
 msgctxt "@title:tab"
 msgid "Highlight: %1"
 msgstr "강조: %1"
 
-#: lspclientpluginview.cpp:2051 lspclientpluginview.cpp:2063
-#: lspclientpluginview.cpp:2076
+#: lspclientpluginview.cpp:2060 lspclientpluginview.cpp:2072
+#: lspclientpluginview.cpp:2085
 #, kde-format
 msgid "No Actions"
 msgstr "동작 없음"
 
-#: lspclientpluginview.cpp:2067
+#: lspclientpluginview.cpp:2076
 #, kde-format
 msgid "Loading..."
 msgstr "불러오는 중..."
 
-#: lspclientpluginview.cpp:2159
+#: lspclientpluginview.cpp:2168
 #, kde-format
 msgid "No edits"
 msgstr "편집 없음"
 
-#: lspclientpluginview.cpp:2235
+#: lspclientpluginview.cpp:2244
 #, kde-format
 msgctxt "@title:window"
 msgid "Rename"
 msgstr "이름 바꾸기"
 
-#: lspclientpluginview.cpp:2236
+#: lspclientpluginview.cpp:2245
 #, kde-format
 msgctxt "@label:textbox"
 msgid "New name (caution: not all references may be replaced)"
 msgstr "새 이름(경고: 일부 참조가 변경되지 않을 수도 있습니다)"
 
-#: lspclientpluginview.cpp:2283
+#: lspclientpluginview.cpp:2292
 #, kde-format
 msgid "Not enough results"
 msgstr "충분한 결과 없음"
 
-#: lspclientpluginview.cpp:2353
+#: lspclientpluginview.cpp:2362
 #, kde-format
 msgid "Corresponding Header/Source not found"
 msgstr "해당하는 헤더/소스를 찾을 수 없음"
 
-#: lspclientpluginview.cpp:2537
+#: lspclientpluginview.cpp:2546
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "클립보드에 복사"
 
-#: lspclientpluginview.cpp:2560
+#: lspclientpluginview.cpp:2569
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "전역 억제 삭제"
 
-#: lspclientpluginview.cpp:2562
+#: lspclientpluginview.cpp:2571
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "전역 억제 추가"
 
-#: lspclientpluginview.cpp:2566
+#: lspclientpluginview.cpp:2575
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "로컬 억제 삭제"
 
-#: lspclientpluginview.cpp:2568
+#: lspclientpluginview.cpp:2577
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "로컬 억제 추가"
 
-#: lspclientpluginview.cpp:2580
+#: lspclientpluginview.cpp:2589
 #, kde-format
 msgid "Disable Suppression"
 msgstr "억제 비활성화"
 
-#: lspclientpluginview.cpp:2582
+#: lspclientpluginview.cpp:2591
 #, kde-format
 msgid "Enable Suppression"
 msgstr "억제 활성화"
 
-#: lspclientpluginview.cpp:2728
+#: lspclientpluginview.cpp:2737
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [억제됨: %2]"
 
-#: lspclientpluginview.cpp:2843 lspclientpluginview.cpp:2880
+#: lspclientpluginview.cpp:2852 lspclientpluginview.cpp:2889
 #, kde-format
 msgctxt "@info"
 msgid "LSP Server"
 msgstr "LSP 서버"
 
-#: lspclientpluginview.cpp:2903
+#: lspclientpluginview.cpp:2912
 #, kde-format
 msgctxt "@info"
 msgid "LSP Client"
 msgstr "LSP 클라이언트"
 
-#: lspclientservermanager.cpp:576
+#: lspclientservermanager.cpp:582
 #, kde-format
 msgid "Restarting"
 msgstr "다시 시작하는 중"
 
-#: lspclientservermanager.cpp:576
+#: lspclientservermanager.cpp:582
 #, kde-format
 msgid "NOT Restarting"
 msgstr "다시 시작하지 않음"
 
-#: lspclientservermanager.cpp:577
+#: lspclientservermanager.cpp:583
 #, kde-format
 msgid "Server terminated unexpectedly ... %1 [%2] [homepage: %3] "
 msgstr "서버가 예상하지 못하게 종료됨 ... %1 [%2] [홈페이지: %3]"
 
-#: lspclientservermanager.cpp:773
+#: lspclientservermanager.cpp:779
 #, kde-format
 msgid "Failed to find server binary: %1"
 msgstr "서버 실행 파일을 찾을 수 없음: %1"
 
-#: lspclientservermanager.cpp:776 lspclientservermanager.cpp:808
+#: lspclientservermanager.cpp:782 lspclientservermanager.cpp:817
 #, kde-format
 msgid "Please check your PATH for the binary"
 msgstr "PATH에 등록된 경로에 실행 파일이 있는지 확인하십시오"
 
-#: lspclientservermanager.cpp:777 lspclientservermanager.cpp:809
+#: lspclientservermanager.cpp:783 lspclientservermanager.cpp:818
 #, kde-format
 msgid "See also %1 for installation or details"
 msgstr "설치 정보를 확인하려면 %1 문서도 참조하십시오"
 
-#: lspclientservermanager.cpp:805
+#: lspclientservermanager.cpp:814
 #, kde-format
 msgid "Failed to start server: %1"
 msgstr "서버를 시작할 수 없음: %1"
 
-#: lspclientservermanager.cpp:813
+#: lspclientservermanager.cpp:822
 #, kde-format
 msgid "Started server %2: %1"
 msgstr "서버 %2 시작함: %1"
 
-#: lspclientservermanager.cpp:847
+#: lspclientservermanager.cpp:856
 #, kde-format
 msgid "Failed to parse server configuration '%1': no JSON object"
 msgstr "서버 설정 '%1'을(를) 해석할 수 없음: JSON 객체가 없음"
 
-#: lspclientservermanager.cpp:850
+#: lspclientservermanager.cpp:859
 #, kde-format
 msgid "Failed to parse server configuration '%1': %2"
 msgstr "서버 설정 '%1'을(를) 해석할 수 없음: %2"
 
-#: lspclientservermanager.cpp:854
+#: lspclientservermanager.cpp:863
 #, kde-format
 msgid "Failed to read server configuration: %1"
 msgstr "서버 설정을 읽을 수 없음: %1"

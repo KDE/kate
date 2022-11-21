@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-13 00:49+0000\n"
+"POT-Creation-Date: 2022-11-21 00:49+0000\n"
 "PO-Revision-Date: 2021-09-19 13:41+0630\n"
 "Last-Translator: \n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
@@ -268,13 +268,13 @@ msgstr "ပိုမို"
 msgid "LSP"
 msgstr ""
 
-#: lspclientpluginview.cpp:978 lspclientpluginview.cpp:2527
+#: lspclientpluginview.cpp:978 lspclientpluginview.cpp:2536
 #: lspclientsymbolview.cpp:285
 #, fuzzy, kde-format
 msgid "Expand All"
 msgstr "&Eတပ်ဘ်များဖြန့်မည်"
 
-#: lspclientpluginview.cpp:979 lspclientpluginview.cpp:2528
+#: lspclientpluginview.cpp:979 lspclientpluginview.cpp:2537
 #: lspclientsymbolview.cpp:286
 #, fuzzy, kde-format
 msgid "Collapse All"
@@ -286,27 +286,27 @@ msgctxt "@title:tab"
 msgid "Diagnostics"
 msgstr ""
 
-#: lspclientpluginview.cpp:1253
+#: lspclientpluginview.cpp:1262
 #, kde-format
 msgid "RangeHighLight"
 msgstr ""
 
-#: lspclientpluginview.cpp:1259
+#: lspclientpluginview.cpp:1268
 #, fuzzy, kde-format
 msgid "Error"
 msgstr "အမှား"
 
-#: lspclientpluginview.cpp:1263
+#: lspclientpluginview.cpp:1272
 #, kde-format
 msgid "Warning"
 msgstr "သတိ"
 
-#: lspclientpluginview.cpp:1267
+#: lspclientpluginview.cpp:1276
 #, fuzzy, kde-format
 msgid "Information"
 msgstr "သတင်းအချက်အလက်"
 
-#: lspclientpluginview.cpp:1451
+#: lspclientpluginview.cpp:1460
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -314,133 +314,133 @@ msgid ""
 "offset %2: %3"
 msgstr ""
 
-#: lspclientpluginview.cpp:1778
+#: lspclientpluginview.cpp:1787
 #, fuzzy, kde-format
 msgid "Line: %1: "
 msgstr "စာကြောင်း"
 
-#: lspclientpluginview.cpp:1925 lspclientpluginview.cpp:2277
-#: lspclientpluginview.cpp:2398
+#: lspclientpluginview.cpp:1934 lspclientpluginview.cpp:2286
+#: lspclientpluginview.cpp:2407
 #, fuzzy, kde-format
 msgid "No results"
 msgstr "အက်စ်ကျူအယ် ရလဒ်များ"
 
-#: lspclientpluginview.cpp:1984
+#: lspclientpluginview.cpp:1993
 #, fuzzy, kde-format
 msgctxt "@title:tab"
 msgid "Definition: %1"
 msgstr "အဓိပ္ပါယ်ဖွင့်ဆိုချက်သို့ သွားမည် - %1"
 
-#: lspclientpluginview.cpp:1990
+#: lspclientpluginview.cpp:1999
 #, fuzzy, kde-format
 msgctxt "@title:tab"
 msgid "Declaration: %1"
 msgstr "ကြေညာချက်သို့သွားမည် - %1"
 
-#: lspclientpluginview.cpp:1996
+#: lspclientpluginview.cpp:2005
 #, fuzzy, kde-format
 msgctxt "@title:tab"
 msgid "Type Definition: %1"
 msgstr "အဓိပ္ပါယ်ဖွင့်ဆိုချက်သို့ သွားမည် - %1"
 
-#: lspclientpluginview.cpp:2002
+#: lspclientpluginview.cpp:2011
 #, fuzzy, kde-format
 msgctxt "@title:tab"
 msgid "References: %1"
 msgstr "%1 -"
 
-#: lspclientpluginview.cpp:2014
+#: lspclientpluginview.cpp:2023
 #, fuzzy, kde-format
 msgctxt "@title:tab"
 msgid "Implementation: %1"
 msgstr "မြင်ကွင်း ၁ အချိုး ၁"
 
-#: lspclientpluginview.cpp:2027
+#: lspclientpluginview.cpp:2036
 #, fuzzy, kde-format
 msgctxt "@title:tab"
 msgid "Highlight: %1"
 msgstr "မီးမောင်းထိုးပြရန်"
 
-#: lspclientpluginview.cpp:2051 lspclientpluginview.cpp:2063
-#: lspclientpluginview.cpp:2076
+#: lspclientpluginview.cpp:2060 lspclientpluginview.cpp:2072
+#: lspclientpluginview.cpp:2085
 #, fuzzy, kde-format
 msgid "No Actions"
 msgstr "&Aလုပ်ဆောင်ချက်များ"
 
-#: lspclientpluginview.cpp:2067
+#: lspclientpluginview.cpp:2076
 #, fuzzy, kde-format
 msgid "Loading..."
 msgstr "တွန်းတင်နေသည်..."
 
-#: lspclientpluginview.cpp:2159
+#: lspclientpluginview.cpp:2168
 #, kde-format
 msgid "No edits"
 msgstr ""
 
-#: lspclientpluginview.cpp:2235
+#: lspclientpluginview.cpp:2244
 #, fuzzy, kde-format
 msgctxt "@title:window"
 msgid "Rename"
 msgstr "အမည်ပြောင်းရန်"
 
-#: lspclientpluginview.cpp:2236
+#: lspclientpluginview.cpp:2245
 #, kde-format
 msgctxt "@label:textbox"
 msgid "New name (caution: not all references may be replaced)"
 msgstr ""
 
-#: lspclientpluginview.cpp:2283
+#: lspclientpluginview.cpp:2292
 #, fuzzy, kde-format
 msgid "Not enough results"
 msgstr "အက်စ်ကျူအယ် ရလဒ်များ"
 
-#: lspclientpluginview.cpp:2353
+#: lspclientpluginview.cpp:2362
 #, kde-format
 msgid "Corresponding Header/Source not found"
 msgstr ""
 
-#: lspclientpluginview.cpp:2537
+#: lspclientpluginview.cpp:2546
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr ""
 
-#: lspclientpluginview.cpp:2560
+#: lspclientpluginview.cpp:2569
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr ""
 
-#: lspclientpluginview.cpp:2562
+#: lspclientpluginview.cpp:2571
 #, kde-format
 msgid "Add Global Suppression"
 msgstr ""
 
-#: lspclientpluginview.cpp:2566
+#: lspclientpluginview.cpp:2575
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr ""
 
-#: lspclientpluginview.cpp:2568
+#: lspclientpluginview.cpp:2577
 #, kde-format
 msgid "Add Local Suppression"
 msgstr ""
 
-#: lspclientpluginview.cpp:2580
+#: lspclientpluginview.cpp:2589
 #, kde-format
 msgid "Disable Suppression"
 msgstr ""
 
-#: lspclientpluginview.cpp:2582
+#: lspclientpluginview.cpp:2591
 #, kde-format
 msgid "Enable Suppression"
 msgstr ""
 
-#: lspclientpluginview.cpp:2728
+#: lspclientpluginview.cpp:2737
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr ""
 
-#: lspclientpluginview.cpp:2843 lspclientpluginview.cpp:2880
+#: lspclientpluginview.cpp:2852 lspclientpluginview.cpp:2889
 #, fuzzy, kde-format
 msgctxt "@info"
 msgid "LSP Server"
@@ -448,64 +448,64 @@ msgstr ""
 "ဆာဗာစနစ်အတွင်းပိုင်းအမှား\n"
 "%1"
 
-#: lspclientpluginview.cpp:2903
+#: lspclientpluginview.cpp:2912
 #, kde-format
 msgctxt "@info"
 msgid "LSP Client"
 msgstr "အယ်အက်စ်ပီ ပရိုဂရမ်"
 
-#: lspclientservermanager.cpp:576
+#: lspclientservermanager.cpp:582
 #, kde-format
 msgid "Restarting"
 msgstr "ပြန်စတင်နေသည်"
 
-#: lspclientservermanager.cpp:576
+#: lspclientservermanager.cpp:582
 #, fuzzy, kde-format
 msgid "NOT Restarting"
 msgstr ""
 "သင်၏ လုပ်ငန်းဆောင်ရွက်မှုခန်းကို ပြန်စကြည့်ပါ သို့မဟုတ် ကေအိုင်အိုဒီမှတ်တမ်းများတွင် အမှားများ ရှာကြည့်ပါ။"
 
-#: lspclientservermanager.cpp:577
+#: lspclientservermanager.cpp:583
 #, kde-format
 msgid "Server terminated unexpectedly ... %1 [%2] [homepage: %3] "
 msgstr ""
 
-#: lspclientservermanager.cpp:773
+#: lspclientservermanager.cpp:779
 #, fuzzy, kde-format
 msgid "Failed to find server binary: %1"
 msgstr "'%1' ကို မစတင်နိုင်ခဲ့ပါ"
 
-#: lspclientservermanager.cpp:776 lspclientservermanager.cpp:808
+#: lspclientservermanager.cpp:782 lspclientservermanager.cpp:817
 #, kde-format
 msgid "Please check your PATH for the binary"
 msgstr ""
 
-#: lspclientservermanager.cpp:777 lspclientservermanager.cpp:809
+#: lspclientservermanager.cpp:783 lspclientservermanager.cpp:818
 #, kde-format
 msgid "See also %1 for installation or details"
 msgstr ""
 
-#: lspclientservermanager.cpp:805
+#: lspclientservermanager.cpp:814
 #, fuzzy, kde-format
 msgid "Failed to start server: %1"
 msgstr "'%1' ကို မစတင်နိုင်ခဲ့ပါ"
 
-#: lspclientservermanager.cpp:813
+#: lspclientservermanager.cpp:822
 #, fuzzy, kde-format
 msgid "Started server %2: %1"
 msgstr "%1၊ %2"
 
-#: lspclientservermanager.cpp:847
+#: lspclientservermanager.cpp:856
 #, kde-format
 msgid "Failed to parse server configuration '%1': no JSON object"
 msgstr ""
 
-#: lspclientservermanager.cpp:850
+#: lspclientservermanager.cpp:859
 #, kde-format
 msgid "Failed to parse server configuration '%1': %2"
 msgstr ""
 
-#: lspclientservermanager.cpp:854
+#: lspclientservermanager.cpp:863
 #, fuzzy, kde-format
 msgid "Failed to read server configuration: %1"
 msgstr ""

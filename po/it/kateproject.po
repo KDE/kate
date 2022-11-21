@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-22 00:48+0000\n"
+"POT-Creation-Date: 2022-11-21 00:49+0000\n"
 "PO-Revision-Date: 2022-11-11 17:59+0100\n"
 "Last-Translator: Paolo Zamponi <zapaolo@email.it>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -770,7 +770,7 @@ msgstr ""
 "separatore di percorso nativo (la barra inversa in Windows)."
 
 #: kateprojectplugin.cpp:713 kateprojectpluginview.cpp:70
-#: kateprojectpluginview.cpp:211 kateprojectviewtree.cpp:136
+#: kateprojectpluginview.cpp:213 kateprojectviewtree.cpp:136
 #: kateprojectviewtree.cpp:161
 #, kde-format
 msgid "Project"
@@ -791,62 +791,62 @@ msgstr "Ricarica progetto"
 msgid "Refresh git status"
 msgstr "Aggiorna lo stato di git"
 
-#: kateprojectpluginview.cpp:173
+#: kateprojectpluginview.cpp:175
 #, kde-format
 msgid "Open Folder..."
 msgstr "Apri cartella..."
 
-#: kateprojectpluginview.cpp:178
+#: kateprojectpluginview.cpp:180
 #, kde-format
 msgid "Project TODOs"
 msgstr "Da fare nel progetto"
 
-#: kateprojectpluginview.cpp:182
+#: kateprojectpluginview.cpp:184
 #, kde-format
 msgid "Activate Previous Project"
 msgstr "Attiva il progetto precedente"
 
-#: kateprojectpluginview.cpp:187
+#: kateprojectpluginview.cpp:189
 #, kde-format
 msgid "Activate Next Project"
 msgstr "Attiva il progetto successivo"
 
-#: kateprojectpluginview.cpp:192
+#: kateprojectpluginview.cpp:194
 #, kde-format
 msgid "Lookup"
 msgstr "Ricerca"
 
-#: kateprojectpluginview.cpp:196
+#: kateprojectpluginview.cpp:198
 #, kde-format
 msgid "Close Project"
 msgstr "Chiudi progetto"
 
-#: kateprojectpluginview.cpp:200
+#: kateprojectpluginview.cpp:202
 #, kde-format
 msgid "Close All Projects"
 msgstr "Chiudi tutti i progetti"
 
-#: kateprojectpluginview.cpp:205
+#: kateprojectpluginview.cpp:207
 #, kde-format
 msgid "Close Orphaned Projects"
 msgstr "Chiudi i progetti orfani"
 
-#: kateprojectpluginview.cpp:214 kateprojectpluginview.cpp:780
+#: kateprojectpluginview.cpp:216 kateprojectpluginview.cpp:791
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Cerca: %1"
 
-#: kateprojectpluginview.cpp:215 kateprojectpluginview.cpp:781
+#: kateprojectpluginview.cpp:217 kateprojectpluginview.cpp:792
 #, kde-format
 msgid "Goto: %1"
 msgstr "Vai a: %1"
 
-#: kateprojectpluginview.cpp:289
+#: kateprojectpluginview.cpp:296
 #, kde-format
 msgid "Projects Index"
 msgstr "Indice dei progetti"
 
-#: kateprojectpluginview.cpp:819
+#: kateprojectpluginview.cpp:833
 #, kde-format
 msgid "Choose a directory"
 msgstr "Scegli una cartella"

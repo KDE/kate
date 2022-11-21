@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-13 00:49+0000\n"
+"POT-Creation-Date: 2022-11-21 00:49+0000\n"
 "PO-Revision-Date: 2022-11-13 11:44+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -271,13 +271,13 @@ msgstr "Daha fazla seçenekler"
 msgid "LSP"
 msgstr "LSP"
 
-#: lspclientpluginview.cpp:978 lspclientpluginview.cpp:2527
+#: lspclientpluginview.cpp:978 lspclientpluginview.cpp:2536
 #: lspclientsymbolview.cpp:285
 #, kde-format
 msgid "Expand All"
 msgstr "Tümünü Genişlet"
 
-#: lspclientpluginview.cpp:979 lspclientpluginview.cpp:2528
+#: lspclientpluginview.cpp:979 lspclientpluginview.cpp:2537
 #: lspclientsymbolview.cpp:286
 #, kde-format
 msgid "Collapse All"
@@ -289,27 +289,27 @@ msgctxt "@title:tab"
 msgid "Diagnostics"
 msgstr "Tanılar"
 
-#: lspclientpluginview.cpp:1253
+#: lspclientpluginview.cpp:1262
 #, kde-format
 msgid "RangeHighLight"
 msgstr "Erim Vurgulaması"
 
-#: lspclientpluginview.cpp:1259
+#: lspclientpluginview.cpp:1268
 #, kde-format
 msgid "Error"
 msgstr "Hata"
 
-#: lspclientpluginview.cpp:1263
+#: lspclientpluginview.cpp:1272
 #, kde-format
 msgid "Warning"
 msgstr "Uyarı"
 
-#: lspclientpluginview.cpp:1267
+#: lspclientpluginview.cpp:1276
 #, kde-format
 msgid "Information"
 msgstr "Bilgi"
 
-#: lspclientpluginview.cpp:1451
+#: lspclientpluginview.cpp:1460
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -319,195 +319,195 @@ msgstr ""
 "Düzenli ifadede hata: %1\n"
 "%2 ofseti: %3"
 
-#: lspclientpluginview.cpp:1778
+#: lspclientpluginview.cpp:1787
 #, kde-format
 msgid "Line: %1: "
 msgstr "Satır: %1 "
 
-#: lspclientpluginview.cpp:1925 lspclientpluginview.cpp:2277
-#: lspclientpluginview.cpp:2398
+#: lspclientpluginview.cpp:1934 lspclientpluginview.cpp:2286
+#: lspclientpluginview.cpp:2407
 #, kde-format
 msgid "No results"
 msgstr "Sonuç yok"
 
-#: lspclientpluginview.cpp:1984
+#: lspclientpluginview.cpp:1993
 #, kde-format
 msgctxt "@title:tab"
 msgid "Definition: %1"
 msgstr "Tanım: %1"
 
-#: lspclientpluginview.cpp:1990
+#: lspclientpluginview.cpp:1999
 #, kde-format
 msgctxt "@title:tab"
 msgid "Declaration: %1"
 msgstr "Beyan: %1"
 
-#: lspclientpluginview.cpp:1996
+#: lspclientpluginview.cpp:2005
 #, kde-format
 msgctxt "@title:tab"
 msgid "Type Definition: %1"
 msgstr "Tür Tanımı: %1"
 
-#: lspclientpluginview.cpp:2002
+#: lspclientpluginview.cpp:2011
 #, kde-format
 msgctxt "@title:tab"
 msgid "References: %1"
 msgstr "Başvurular: %1"
 
-#: lspclientpluginview.cpp:2014
+#: lspclientpluginview.cpp:2023
 #, kde-format
 msgctxt "@title:tab"
 msgid "Implementation: %1"
 msgstr "Uygulama Noktası: %1"
 
-#: lspclientpluginview.cpp:2027
+#: lspclientpluginview.cpp:2036
 #, kde-format
 msgctxt "@title:tab"
 msgid "Highlight: %1"
 msgstr "Vurgulama: %1"
 
-#: lspclientpluginview.cpp:2051 lspclientpluginview.cpp:2063
-#: lspclientpluginview.cpp:2076
+#: lspclientpluginview.cpp:2060 lspclientpluginview.cpp:2072
+#: lspclientpluginview.cpp:2085
 #, kde-format
 msgid "No Actions"
 msgstr "Eylem Yok"
 
-#: lspclientpluginview.cpp:2067
+#: lspclientpluginview.cpp:2076
 #, kde-format
 msgid "Loading..."
 msgstr "Yükleniyor..."
 
-#: lspclientpluginview.cpp:2159
+#: lspclientpluginview.cpp:2168
 #, kde-format
 msgid "No edits"
 msgstr "Düzenleme yok"
 
-#: lspclientpluginview.cpp:2235
+#: lspclientpluginview.cpp:2244
 #, kde-format
 msgctxt "@title:window"
 msgid "Rename"
 msgstr "Yeniden Adlandır"
 
-#: lspclientpluginview.cpp:2236
+#: lspclientpluginview.cpp:2245
 #, kde-format
 msgctxt "@label:textbox"
 msgid "New name (caution: not all references may be replaced)"
 msgstr "Yeni ad (Dikkat: Tüm başvurular değiştirilmeyebilir)"
 
-#: lspclientpluginview.cpp:2283
+#: lspclientpluginview.cpp:2292
 #, kde-format
 msgid "Not enough results"
 msgstr "Yeterli sonuç yok"
 
-#: lspclientpluginview.cpp:2353
+#: lspclientpluginview.cpp:2362
 #, kde-format
 msgid "Corresponding Header/Source not found"
 msgstr "İlgili Üstbilgi/Kaynak bulunamadı"
 
-#: lspclientpluginview.cpp:2537
+#: lspclientpluginview.cpp:2546
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "Panoya Kopyala"
 
-#: lspclientpluginview.cpp:2560
+#: lspclientpluginview.cpp:2569
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "Global Susturmayı Kaldır"
 
-#: lspclientpluginview.cpp:2562
+#: lspclientpluginview.cpp:2571
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "Global Susturma Ekle"
 
-#: lspclientpluginview.cpp:2566
+#: lspclientpluginview.cpp:2575
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "Yerel Susturmayı Kaldır"
 
-#: lspclientpluginview.cpp:2568
+#: lspclientpluginview.cpp:2577
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "Yerel Susturma Ekle"
 
-#: lspclientpluginview.cpp:2580
+#: lspclientpluginview.cpp:2589
 #, kde-format
 msgid "Disable Suppression"
 msgstr "Susturmayı Devre Dışı Bırak"
 
-#: lspclientpluginview.cpp:2582
+#: lspclientpluginview.cpp:2591
 #, kde-format
 msgid "Enable Suppression"
 msgstr "Susturmayı Etkinleştir"
 
-#: lspclientpluginview.cpp:2728
+#: lspclientpluginview.cpp:2737
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [susturuldu: %2]"
 
-#: lspclientpluginview.cpp:2843 lspclientpluginview.cpp:2880
+#: lspclientpluginview.cpp:2852 lspclientpluginview.cpp:2889
 #, kde-format
 msgctxt "@info"
 msgid "LSP Server"
 msgstr "LSP Sunucusu"
 
-#: lspclientpluginview.cpp:2903
+#: lspclientpluginview.cpp:2912
 #, kde-format
 msgctxt "@info"
 msgid "LSP Client"
 msgstr "LSP İstemcisi"
 
-#: lspclientservermanager.cpp:576
+#: lspclientservermanager.cpp:582
 #, kde-format
 msgid "Restarting"
 msgstr "Yeniden Başlatılıyor"
 
-#: lspclientservermanager.cpp:576
+#: lspclientservermanager.cpp:582
 #, kde-format
 msgid "NOT Restarting"
 msgstr "Yeniden BAŞLATILMIYOR"
 
-#: lspclientservermanager.cpp:577
+#: lspclientservermanager.cpp:583
 #, kde-format
 msgid "Server terminated unexpectedly ... %1 [%2] [homepage: %3] "
 msgstr "Sunucu beklenmedik bir biçimde sonlandı ... %1 [%2] [ana sayfa: %3] "
 
-#: lspclientservermanager.cpp:773
+#: lspclientservermanager.cpp:779
 #, kde-format
 msgid "Failed to find server binary: %1"
 msgstr "Sunucu ikilisi bulunamadı: %1"
 
-#: lspclientservermanager.cpp:776 lspclientservermanager.cpp:808
+#: lspclientservermanager.cpp:782 lspclientservermanager.cpp:817
 #, kde-format
 msgid "Please check your PATH for the binary"
 msgstr "İkili PATH'ini denetleyin"
 
-#: lspclientservermanager.cpp:777 lspclientservermanager.cpp:809
+#: lspclientservermanager.cpp:783 lspclientservermanager.cpp:818
 #, kde-format
 msgid "See also %1 for installation or details"
 msgstr "Kurulum veya ayrıntılar için ayrıca %1 ögesine bakın"
 
-#: lspclientservermanager.cpp:805
+#: lspclientservermanager.cpp:814
 #, kde-format
 msgid "Failed to start server: %1"
 msgstr "Sunucu başlatılamadı: %1"
 
-#: lspclientservermanager.cpp:813
+#: lspclientservermanager.cpp:822
 #, kde-format
 msgid "Started server %2: %1"
 msgstr "%2 sunucusu başlatıldı: %1"
 
-#: lspclientservermanager.cpp:847
+#: lspclientservermanager.cpp:856
 #, kde-format
 msgid "Failed to parse server configuration '%1': no JSON object"
 msgstr "Sunucu yapılandırması '%1' bulunamadı: JSON nesnesi yok"
 
-#: lspclientservermanager.cpp:850
+#: lspclientservermanager.cpp:859
 #, kde-format
 msgid "Failed to parse server configuration '%1': %2"
 msgstr "Sunucu yapılandırması '%1' ayrıştırılamadı: %2"
 
-#: lspclientservermanager.cpp:854
+#: lspclientservermanager.cpp:863
 #, kde-format
 msgid "Failed to read server configuration: %1"
 msgstr "Sunucu yapılandırması okunamadı: %1"

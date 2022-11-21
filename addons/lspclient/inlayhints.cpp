@@ -194,7 +194,7 @@ void InlayHintsManager::unregisterView(KTextEditor::View *v)
     m_noteProvider.setView(nullptr);
 }
 
-void InlayHintsManager::onViewChanged(KTextEditor::View *v)
+void InlayHintsManager::setActiveView(KTextEditor::View *v)
 {
     if (v == m_currentView) {
         return;
@@ -202,6 +202,12 @@ void InlayHintsManager::onViewChanged(KTextEditor::View *v)
 
     unregisterView(m_currentView);
     registerView(v);
+}
+
+void InlayHintsManager::disable()
+{
+    unregisterView(m_currentView);
+    m_currentView.clear();
 }
 
 void InlayHintsManager::sendRequestDelayed(KTextEditor::Range r, int delay)

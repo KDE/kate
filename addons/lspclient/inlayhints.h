@@ -50,7 +50,8 @@ class InlayHintsManager : public QObject
 public:
     InlayHintsManager(const QSharedPointer<LSPClientServerManager> &manager, QObject *parent = nullptr);
 
-    void onViewChanged(KTextEditor::View *v);
+    void setActiveView(KTextEditor::View *v);
+    void disable();
 
 private:
     void registerView(KTextEditor::View *);

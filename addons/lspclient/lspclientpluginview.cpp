@@ -492,6 +492,7 @@ class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient, public KTe
     QPointer<QAction> m_expandMacro;
     QPointer<QAction> m_quickFix;
     QPointer<QAction> m_memoryUsage;
+    QPointer<QAction> m_inlayHints;
     QPointer<KActionMenu> m_requestCodeAction;
 
     QList<QAction *> m_contextMenuActions;
@@ -679,6 +680,14 @@ public:
         m_highlightGoto = actionCollection()->addAction(QStringLiteral("lspclient_highlight_goto"), this, &self_type::displayOptionChanged);
         m_highlightGoto->setText(i18n("Highlight goto location"));
         m_highlightGoto->setCheckable(true);
+        m_inlayHints = actionCollection()->addAction(QStringLiteral("lspclient_inlay_hint"), this, [this](bool checked) {
+            if (!checked) {
+                m_inlayHintsHandler.disable();
+            }
+            displayOptionChanged();
+        });
+        m_inlayHints->setCheckable(true);
+        m_inlayHints->setText(i18n("Show Inlay Hints"));
 
         // diagnostics
         m_diagnostics = actionCollection()->addAction(QStringLiteral("lspclient_diagnostics"), this, &self_type::displayOptionChanged);
@@ -761,6 +770,7 @@ public:
         moreOptions->addAction(m_onTypeFormatting);
         moreOptions->addAction(m_incrementalSync);
         moreOptions->addAction(m_highlightGoto);
+        moreOptions->addAction(m_inlayHints);
         moreOptions->addSeparator();
         moreOptions->addAction(m_diagnostics);
         moreOptions->addAction(m_diagnosticsHighlight);
@@ -1066,6 +1076,9 @@ public:
         }
         if (m_completion) {
             m_completion->setAutoImport(m_plugin->m_autoImport);
+        }
+        if (m_inlayHints) {
+            m_inlayHints->setChecked(m_plugin->m_inlayHints);
         }
         displayOptionChanged();
     }
@@ -3049,8 +3062,8 @@ public:
 
             connect(activeView, &KTextEditor::View::contextMenuAboutToShow, this, &self_type::prepareContextMenu, Qt::UniqueConnection);
 
-            if (caps.inlayHintProvider && m_plugin->m_inlayHints) {
-                m_inlayHintsHandler.onViewChanged(activeView);
+            if (caps.inlayHintProvider && m_inlayHints->isChecked()) {
+                m_inlayHintsHandler.setActiveView(activeView);
             }
         }
 

@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-21 02:30+0000\n"
-"PO-Revision-Date: 2022-10-29 19:11+0400\n"
+"PO-Revision-Date: 2022-11-21 19:20+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -1707,11 +1707,9 @@ msgid "Diff Output"
 msgstr "خرج الفرق"
 
 #: lib/kateoutputview.cpp:158
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Copy to Clipboard"
+#, kde-format
 msgid "Copy all text to clipboard"
-msgstr "انسخ إلى الحافظة"
+msgstr "انسخ كامل النص إلى الحافظة"
 
 #: lib/kateoutputview.cpp:163
 #, kde-format

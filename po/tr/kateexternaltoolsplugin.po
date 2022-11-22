@@ -2,20 +2,21 @@
 # This file is distributed under the same license as the kate package.
 #
 # Volkan Gezer <volkangezer@gmail.com>, 2022.
+# Emir SARI <emir_sari@icloud.com>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-29 00:51+0000\n"
-"PO-Revision-Date: 2022-02-27 13:50+0100\n"
-"Last-Translator: Volkan Gezer <volkangezer@gmail.com>\n"
+"PO-Revision-Date: 2022-11-21 22:25+0300\n"
+"Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 20.12.3\n"
+"X-Generator: Lokalize 22.08.3\n"
 
 #. i18n: file: 7
 #, kde-format
@@ -168,7 +169,7 @@ msgstr "&Ekle"
 #: configwidget.ui:36
 #, kde-format
 msgid "&Edit..."
-msgstr "&Düzenle..."
+msgstr "Dü&zenle..."
 
 #. i18n: ectx: property (text), widget (QPushButton, btnRemove)
 #: configwidget.ui:43
@@ -546,7 +547,7 @@ msgstr "Dış araçtan çıktıyı görüntüler"
 #: ui.rc:5
 #, kde-format
 msgid "&Tools"
-msgstr "Araç&lar"
+msgstr "&Araçlar"
 
 #. i18n: ectx: ToolBar (mainToolBar)
 #: ui.rc:9

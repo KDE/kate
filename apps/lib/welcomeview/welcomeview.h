@@ -31,6 +31,10 @@ protected:
 private Q_SLOTS:
     void onPluginViewChanged(const QString &pluginName = QString());
     void onRecentItemsContextMenuRequested(const QPoint &pos);
+    bool shouldClose()
+    {
+        return true;
+    }
 
 private:
     void updateButtons();

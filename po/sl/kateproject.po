@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-21 00:49+0000\n"
+"POT-Creation-Date: 2022-11-22 00:49+0000\n"
 "PO-Revision-Date: 2022-11-15 09:51+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -204,7 +204,7 @@ msgstr "Prekliči operacijo"
 msgid " canceled."
 msgstr " preklicano."
 
-#: gitwidget.cpp:296 kateprojectview.cpp:68
+#: gitwidget.cpp:296 kateprojectview.cpp:69
 #, kde-format
 msgid "Filter..."
 msgstr "Filter..."
@@ -932,12 +932,12 @@ msgstr "Zbriši datoteko"
 msgid "Do you want to delete the file '%1'?"
 msgstr "Ali želite zbrisati datoteko '%1'?"
 
-#: kateprojectview.cpp:59
+#: kateprojectview.cpp:60
 #, kde-format
 msgid "Checkout Git Branch"
 msgstr "Izdaj Git vejo"
 
-#: kateprojectview.cpp:82
+#: kateprojectview.cpp:83
 #, kde-format
 msgid "Checkout branch"
 msgstr "Izdaj vejo"

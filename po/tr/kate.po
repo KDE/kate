@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-21 00:50+0000\n"
-"PO-Revision-Date: 2022-11-07 18:21+0300\n"
+"PO-Revision-Date: 2022-11-21 22:47+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.08.2\n"
+"X-Generator: Lokalize 22.08.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -213,13 +213,13 @@ msgstr "Bölünmüş Görünüm"
 #: lib/data/kateui.rc:109
 #, kde-format
 msgid "&Tools"
-msgstr "A&raçlar"
+msgstr "&Araçlar"
 
 #. i18n: ectx: Menu (settings)
 #: lib/data/kateui.rc:126
 #, kde-format
 msgid "&Settings"
-msgstr "&Ayarlar"
+msgstr "Ayar&lar"
 
 #. i18n: ectx: Menu (help)
 #: lib/data/kateui.rc:134
@@ -1504,7 +1504,7 @@ msgstr "Odak Araç Görünümü"
 #: lib/katemdi.cpp:109
 #, kde-format
 msgid "Tool &Views"
-msgstr "A&raç Görünümleri"
+msgstr "&Araç Görünümleri"
 
 #: lib/katemdi.cpp:111
 #, kde-format
@@ -2456,7 +2456,7 @@ msgstr ""
 #: lib/ui/sessionconfigwidget.ui:167
 #, kde-format
 msgid "Include &window configuration"
-msgstr "Pencere a&yarlarını içer"
+msgstr "&Pencere ayarlarını içer"
 
 #. i18n: ectx: property (whatsThis), widget (QGroupBox, saveMetaInfos)
 #: lib/ui/sessionconfigwidget.ui:177

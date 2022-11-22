@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-21 00:49+0000\n"
+"POT-Creation-Date: 2022-11-22 00:49+0000\n"
 "PO-Revision-Date: 2021-09-09 16:45+0300\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -204,7 +204,7 @@ msgstr "Ακύρωση λειτουργίας"
 msgid " canceled."
 msgstr " ακυρώθηκε."
 
-#: gitwidget.cpp:296 kateprojectview.cpp:68
+#: gitwidget.cpp:296 kateprojectview.cpp:69
 #, kde-format
 msgid "Filter..."
 msgstr "Φιλτράρισμα..."
@@ -938,12 +938,12 @@ msgstr "Διαγραφή αρχψείου"
 msgid "Do you want to delete the file '%1'?"
 msgstr "Θέλετε να διαγράψετε το αρχείο '%1';"
 
-#: kateprojectview.cpp:59
+#: kateprojectview.cpp:60
 #, kde-format
 msgid "Checkout Git Branch"
 msgstr "Εξαγωγή κλάδου του Git"
 
-#: kateprojectview.cpp:82
+#: kateprojectview.cpp:83
 #, fuzzy, kde-format
 #| msgid "Checkout Branch"
 msgid "Checkout branch"

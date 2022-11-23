@@ -648,7 +648,16 @@ public:
         actionCollection()->setDefaultShortcut(m_quickFix, QKeySequence((Qt::CTRL | Qt::Key_Period)));
         m_requestCodeAction = actionCollection()->add<KActionMenu>(QStringLiteral("lspclient_code_action"));
         m_requestCodeAction->setText(i18n("Code Action"));
-        actionCollection()->setDefaultShortcut(m_requestCodeAction, QKeySequence((Qt::ALT | Qt::Key_Enter)));
+        QList<QKeySequence> scuts;
+        scuts << QKeySequence(Qt::ALT | Qt::Key_Return) << QKeySequence(Qt::ALT | Qt::Key_Enter);
+        actionCollection()->setDefaultShortcuts(m_requestCodeAction, scuts);
+        connect(m_requestCodeAction, &QWidgetAction::triggered, this, [this] {
+            auto view = m_mainWindow->activeView();
+            if (m_requestCodeAction && view) {
+                const QPoint p = view->cursorPositionCoordinates();
+                m_requestCodeAction->menu()->exec(view->mapToGlobal(p));
+            }
+        });
         connect(m_requestCodeAction->menu(), &QMenu::aboutToShow, this, &self_type::requestCodeAction);
 
         // general options

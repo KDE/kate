@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-22 00:49+0000\n"
-"PO-Revision-Date: 2022-10-21 06:04+0200\n"
+"PO-Revision-Date: 2022-11-22 07:06+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -370,7 +370,7 @@ msgstr "ყველაფრის მოცილება"
 #: gitwidget.cpp:1068
 #, kde-format
 msgid "Open .gitignore"
-msgstr ""
+msgstr ".gitignore-ის გახსნა"
 
 #: gitwidget.cpp:1069 gitwidget.cpp:1124 gitwidget.cpp:1174
 #: kateprojectconfigpage.cpp:91 kateprojectconfigpage.cpp:102
@@ -381,12 +381,12 @@ msgstr "სხვაობის ჩვენება"
 #: gitwidget.cpp:1086
 #, kde-format
 msgid "Are you sure you want to remove these files?"
-msgstr ""
+msgstr "დარწმუნებული ბრძანდებით, რომ გნებავთ, წაშალოთ ეს ფაილები?"
 
 #: gitwidget.cpp:1095
 #, kde-format
 msgid "Are you sure you want to discard all changes?"
-msgstr ""
+msgstr "დარწმუნებული ბრძანდებით, რომ გნებავთ, უგულებელყოთ ყველა ცვლილება?"
 
 #: gitwidget.cpp:1123
 #, kde-format
@@ -401,7 +401,7 @@ msgstr ""
 #: gitwidget.cpp:1126
 #, kde-format
 msgid "Open at HEAD"
-msgstr ""
+msgstr "HEAD-თან გახსნა"
 
 #: gitwidget.cpp:1127
 #, kde-format
@@ -426,12 +426,12 @@ msgstr "გაუქმება"
 #: gitwidget.cpp:1145
 #, kde-format
 msgid "Are you sure you want to discard the changes in this file?"
-msgstr ""
+msgstr "დარწმუნებული ბრძანდებით, რომ გნებავთ, გააუქმოთ ცვლილებები ამ ფაილში?"
 
 #: gitwidget.cpp:1158
 #, kde-format
 msgid "Are you sure you want to remove this file?"
-msgstr ""
+msgstr "დარწმუნებული ხართ, რომ გსურთ ამ ფაილის წაშლა?"
 
 #: gitwidget.cpp:1173
 #, kde-format
@@ -912,12 +912,12 @@ msgstr "ნამდვილად გსურთ, წაშალოთ ფ�
 #: kateprojectview.cpp:60
 #, kde-format
 msgid "Checkout Git Branch"
-msgstr ""
+msgstr "Git-ის ბრენჩის გამოთხოვა"
 
 #: kateprojectview.cpp:83
 #, kde-format
 msgid "Checkout branch"
-msgstr ""
+msgstr "ბრენჩის გამოთხოვა"
 
 #: kateprojectviewtree.cpp:138
 #, kde-format

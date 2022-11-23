@@ -1330,7 +1330,16 @@ private:
     {
         // clang-format off
         QJsonObject codeAction{{QStringLiteral("codeActionLiteralSupport"),
-                                QJsonObject{{QStringLiteral("codeActionKind"), QJsonObject{{QStringLiteral("valueSet"), QJsonArray()}}}}}};
+                                    QJsonObject{{
+                                        QStringLiteral("codeActionKind"), QJsonObject{{
+                                            QStringLiteral("valueSet"), QJsonArray({
+                                                QStringLiteral("quickfix"),
+                                                QStringLiteral("refactor"),
+                                                QStringLiteral("source")
+                                            })
+                                        }}
+                                    }}
+                              }};
 
         QJsonObject semanticTokens{{QStringLiteral("requests"),
                                         QJsonObject{

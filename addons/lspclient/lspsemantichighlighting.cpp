@@ -190,7 +190,8 @@ void SemanticHighlighter::highlight(KTextEditor::View *view, const SemanticToken
 
     size_t reusedRanges = 0;
     size_t newRanges = 0;
-    size_t existingMovingRangesCount = movingRanges.size();
+    const size_t existingMovingRangesCount = movingRanges.size();
+    // uint32_t samecount = 0;
 
     for (size_t i = 0; i < data.size(); i += 5) {
         auto deltaLine = data.at(i);
@@ -224,6 +225,14 @@ void SemanticHighlighter::highlight(KTextEditor::View *view, const SemanticToken
             if (!range) {
                 range.reset(miface->newMovingRange(r));
             }
+
+            // Don't do any work if the range is same
+            if ((range->toRange() == r && range->attribute().constData() == attribute.constData())) {
+                // samecount++;
+                reusedRanges++;
+                continue;
+            }
+
             reusedRanges++;
             // clear attribute first so that we block some of the notifyAboutRangeChange stuff!
             range->setAttribute(KTextEditor::Attribute::Ptr(nullptr));
@@ -242,6 +251,8 @@ void SemanticHighlighter::highlight(KTextEditor::View *view, const SemanticToken
         // std::cout << "Token: " << text.toStdString() << " => " << m_types.at(type).toStdString() << ", Line: {" << currentLine << ", " << deltaLine
         //         << "}\n";
     }
+
+    // qDebug() << "same count: " << samecount << "reusedRanges" << reusedRanges << "newRanges" << newRanges;
 
     /**
      * Invalid all extra ranges

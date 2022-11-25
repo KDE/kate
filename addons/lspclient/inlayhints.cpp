@@ -12,6 +12,8 @@
 #include <QPainter>
 #include <QSet>
 
+static constexpr int textChangedDelay = 1000; // 1s
+
 static std::size_t hash_combine(std::size_t seed, std::size_t v)
 {
     seed ^= v + 0x9e3779b9 + (seed << 6) + (seed >> 2);
@@ -131,7 +133,6 @@ InlayHintsManager::InlayHintsManager(const QSharedPointer<LSPClientServerManager
     : QObject(parent)
     , m_serverManager(manager)
 {
-    m_requestTimer.setInterval(300);
     m_requestTimer.setSingleShot(true);
     m_requestTimer.callOnTimeout(this, &InlayHintsManager::sendPendingRequests);
 }
@@ -217,10 +218,10 @@ void InlayHintsManager::sendRequestDelayed(KTextEditor::Range r, int delay)
         pendingRanges.back() = r;
         // start column must always be zero
         pendingRanges.back().start().setColumn(0);
-        return;
+    } else {
+        pendingRanges.append(r);
     }
 
-    pendingRanges.append(r);
     m_requestTimer.start(delay);
 }
 
@@ -294,14 +295,14 @@ void InlayHintsManager::onTextInserted(KTextEditor::Document *doc, KTextEditor::
     }
 
     KTextEditor::Range r(pos.line(), 0, pos.line(), doc->lineLength(pos.line()));
-    sendRequestDelayed(r, 500);
+    sendRequestDelayed(r, textChangedDelay);
 }
 
 void InlayHintsManager::onTextRemoved(KTextEditor::Document *doc, KTextEditor::Range range, const QString &t)
 {
     if (!range.onSingleLine()) {
         KTextEditor::Range r(range.start().line(), 0, range.end().line(), doc->lineLength(range.end().line()));
-        sendRequestDelayed(r);
+        sendRequestDelayed(r, textChangedDelay);
         return;
     }
 
@@ -337,7 +338,7 @@ void InlayHintsManager::onTextRemoved(KTextEditor::Document *doc, KTextEditor::R
     }
 
     KTextEditor::Range r(range.start().line(), 0, range.end().line(), doc->lineLength(range.end().line()));
-    sendRequestDelayed(r, 500);
+    sendRequestDelayed(r, textChangedDelay);
 }
 
 void InlayHintsManager::onWrapped(KTextEditor::Document *doc, KTextEditor::Cursor position)
@@ -382,7 +383,7 @@ void InlayHintsManager::onWrapped(KTextEditor::Document *doc, KTextEditor::Curso
     }
 
     KTextEditor::Range r(position.line(), 0, position.line(), doc->lineLength(position.line()));
-    sendRequestDelayed(r, 500);
+    sendRequestDelayed(r, textChangedDelay);
 }
 
 void InlayHintsManager::onUnwrapped(KTextEditor::Document *doc, int line)
@@ -423,7 +424,7 @@ void InlayHintsManager::onUnwrapped(KTextEditor::Document *doc, int line)
     }
 
     KTextEditor::Range r(line - 1, 0, line - 1, doc->lineLength(line));
-    sendRequestDelayed(r, 500);
+    sendRequestDelayed(r, textChangedDelay);
 }
 
 void InlayHintsManager::clearHintsForDoc(KTextEditor::Document *doc)

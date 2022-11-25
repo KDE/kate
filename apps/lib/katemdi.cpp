@@ -191,7 +191,10 @@ void GUIClient::registerToolView(ToolView *tv)
     m_sidebarButtonsMenu->addAction(a);
     actionsForTool.push_back(a);
 
+    aname = QStringLiteral("kate_mdi_focus_toolview_") + tv->id;
     QAction *act = new QAction(i18n("Focus %1", tv->text), this);
+    actionCollection()->setDefaultShortcuts(act, shortcutsForActionName(aname));
+    actionCollection()->addAction(aname, act);
     connect(act, &QAction::triggered, tv, [tv = QPointer(tv)] {
         if (tv && tv->mainWindow()) {
             if (!tv->isVisible()) {

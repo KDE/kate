@@ -15,7 +15,6 @@ SemanticHighlighter::SemanticHighlighter(QSharedPointer<LSPClientServerManager> 
     : QObject(parent)
     , m_serverManager(std::move(serverManager))
 {
-    m_requestTimer.setInterval(500);
     m_requestTimer.setSingleShot(true);
     m_requestTimer.connect(&m_requestTimer, &QTimer::timeout, this, [this]() {
         doSemanticHighlighting_impl(m_currentView);
@@ -38,12 +37,9 @@ void SemanticHighlighter::doSemanticHighlighting(KTextEditor::View *view, bool t
     // start the timer
     // We dont send the request directly because then there can be too many requests
     // which leads to too much load on the server and client/server getting out of sync.
-    //
-    // This strategy can be problematic if the user keeps typing, but in reality that is
-    // unlikely to happen I think
     m_currentView = view;
     if (textChanged) {
-        m_requestTimer.start();
+        m_requestTimer.start(1000);
     } else {
         // This is not a textChange, its either the user scrolled or view changed etc
         m_requestTimer.start(1);

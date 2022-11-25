@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-24 00:49+0000\n"
-"PO-Revision-Date: 2022-10-25 11:10+0200\n"
+"PO-Revision-Date: 2022-11-25 00:01+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.08.2\n"
+"X-Generator: Lokalize 22.08.3\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
@@ -194,16 +194,14 @@ msgid "*** gdb exited normally ***"
 msgstr "*** gdb is normaal beëindigd ***"
 
 #: debugview.cpp:620
-#, fuzzy, kde-format
-#| msgid "all threads continued"
+#, kde-format
 msgid "all threads running"
-msgstr "alle threads zijn doorgegaan"
+msgstr "alle threads zijn actief"
 
 #: debugview.cpp:622
-#, fuzzy, kde-format
-#| msgid "thread %1"
+#, kde-format
 msgid "thread(s) running: %1"
-msgstr "thread %1"
+msgstr "thread(s) actief: %1"
 
 #: debugview.cpp:627 debugview_dap.cpp:269
 #, kde-format
@@ -221,16 +219,14 @@ msgid "Active thread: %1."
 msgstr "Actieve thread: %1"
 
 #: debugview.cpp:652
-#, fuzzy, kde-format
-#| msgid "Current frame: "
+#, kde-format
 msgid "Current frame: %1:%2"
-msgstr "Huidig frame: "
+msgstr "Huidig frame: %1:%2"
 
 #: debugview.cpp:679
-#, fuzzy, kde-format
-#| msgid "Target %1"
+#, kde-format
 msgid "Host: %1. Target: %1"
-msgstr "Doel %1"
+msgstr "Host: %1. Doel %1"
 
 #: debugview.cpp:1230
 #, kde-format
@@ -238,11 +234,13 @@ msgid ""
 "gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
 "Shutting down."
 msgstr ""
+"gdb-mi: kon laatste respons niet ontleden: %1. Te veel achtereenvolgende "
+"fouten. Aan het afsluiten."
 
 #: debugview.cpp:1232
 #, kde-format
 msgid "gdb-mi: Could not parse last response: %1"
-msgstr ""
+msgstr "gdb-mi: kon laatste respons niet ontleden: %1"
 
 #: debugview_dap.cpp:168
 #, kde-format

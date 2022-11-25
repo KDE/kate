@@ -1,6 +1,5 @@
 # Translation for kategdbplugin.po to Euskara/Basque (eu).
-# Copyright (C) 2011-2018 The Free Software Foundation.
-# Copyright (C) 2019-2022 This file is copyright:
+# Copyright (C) 2011-2022 This file is copyright:
 # This file is distributed under the same license as the kate package.
 # KDE euskaratzeko proiektuko arduraduna <xalba@ni.eus>.
 #
@@ -12,14 +11,14 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-24 00:49+0000\n"
-"PO-Revision-Date: 2022-10-25 07:47+0200\n"
+"PO-Revision-Date: 2022-11-24 05:37+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.08.1\n"
+"X-Generator: Lokalize 22.08.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
@@ -198,16 +197,14 @@ msgid "*** gdb exited normally ***"
 msgstr "*** gdb ohi bezala amaitu da ***"
 
 #: debugview.cpp:620
-#, fuzzy, kde-format
-#| msgid "all threads continued"
+#, kde-format
 msgid "all threads running"
-msgstr "hari guztiek jarraitu dute"
+msgstr "hari guztiak ibiltzen ari dira"
 
 #: debugview.cpp:622
-#, fuzzy, kde-format
-#| msgid "thread %1"
+#, kde-format
 msgid "thread(s) running: %1"
-msgstr "%1 haria"
+msgstr "ibiltzen ari d(ir)en haria(k): %1"
 
 #: debugview.cpp:627 debugview_dap.cpp:269
 #, kde-format
@@ -225,16 +222,14 @@ msgid "Active thread: %1."
 msgstr "Hari aktiboa: %1."
 
 #: debugview.cpp:652
-#, fuzzy, kde-format
-#| msgid "Current frame: "
+#, kde-format
 msgid "Current frame: %1:%2"
-msgstr "Uneko markoa: "
+msgstr "Uneko markoa: %1:%2"
 
 #: debugview.cpp:679
-#, fuzzy, kde-format
-#| msgid "Target %1"
+#, kde-format
 msgid "Host: %1. Target: %1"
-msgstr "Jomuga %1"
+msgstr "Ostalaria: %1. Jomuga %1"
 
 #: debugview.cpp:1230
 #, kde-format
@@ -242,11 +237,14 @@ msgid ""
 "gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
 "Shutting down."
 msgstr ""
+"gdb-mi: Ezin izan du azken erantzunaren azterketa sintaktikoa gainditu: %1. "
+"Ondoz ondoko akats gehiegi.Itzaltzen."
 
 #: debugview.cpp:1232
 #, kde-format
 msgid "gdb-mi: Could not parse last response: %1"
 msgstr ""
+"gdb-mi: Ezin izan du azken erantzunaren azterketa sintaktikoa gainditu: %1"
 
 #: debugview_dap.cpp:168
 #, kde-format

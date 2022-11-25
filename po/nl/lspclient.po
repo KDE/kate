@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-24 00:49+0000\n"
-"PO-Revision-Date: 2022-11-13 14:48+0100\n"
+"PO-Revision-Date: 2022-11-25 00:04+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.08.2\n"
+"X-Generator: Lokalize 22.08.3\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:250
 #, kde-format
@@ -210,7 +210,7 @@ msgstr "Locatie van ga-naar accentueren"
 #: lspclientpluginview.cpp:699
 #, kde-format
 msgid "Show Inlay Hints"
-msgstr ""
+msgstr "Tips van inleg tonen"
 
 #: lspclientpluginview.cpp:703
 #, kde-format
@@ -708,7 +708,7 @@ msgstr "Formaat bij opslaan"
 #: lspconfigwidget.ui:255
 #, kde-format
 msgid "Enable inlay hints"
-msgstr ""
+msgstr "Tips van inleg inschakelen"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_4)
 #: lspconfigwidget.ui:278

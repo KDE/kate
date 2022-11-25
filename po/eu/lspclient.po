@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-24 00:49+0000\n"
-"PO-Revision-Date: 2022-11-13 07:50+0100\n"
+"PO-Revision-Date: 2022-11-24 05:43+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -211,7 +211,7 @@ msgstr "Nabarmendu «goto» kokalekua"
 #: lspclientpluginview.cpp:699
 #, kde-format
 msgid "Show Inlay Hints"
-msgstr ""
+msgstr "Erakutsi inkrustatutako aholkuak"
 
 #: lspclientpluginview.cpp:703
 #, kde-format
@@ -711,7 +711,7 @@ msgstr "Eman formatua gordetzean"
 #: lspconfigwidget.ui:255
 #, kde-format
 msgid "Enable inlay hints"
-msgstr ""
+msgstr "Gaitu inkrustatutako aholkuak"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_4)
 #: lspconfigwidget.ui:278

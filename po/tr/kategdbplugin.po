@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-24 00:49+0000\n"
-"PO-Revision-Date: 2022-10-25 11:48+0300\n"
+"PO-Revision-Date: 2022-11-24 16:41+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.08.1\n"
+"X-Generator: Lokalize 22.08.3\n"
 
 #. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
 #: advanced_settings.ui:17
@@ -200,16 +200,14 @@ msgid "*** gdb exited normally ***"
 msgstr "*** gdb uygulamasından normal olarak çıkıldı ***"
 
 #: debugview.cpp:620
-#, fuzzy, kde-format
-#| msgid "all threads continued"
+#, kde-format
 msgid "all threads running"
-msgstr "tüm iş parçacıkları sürdürüldü"
+msgstr "tüm iş parçacıkları çalışıyor"
 
 #: debugview.cpp:622
-#, fuzzy, kde-format
-#| msgid "thread %1"
+#, kde-format
 msgid "thread(s) running: %1"
-msgstr "iş parçacığı %1"
+msgstr "çalışan iş parçacıkları: %1"
 
 #: debugview.cpp:627 debugview_dap.cpp:269
 #, kde-format
@@ -227,16 +225,14 @@ msgid "Active thread: %1."
 msgstr "Etkin iş parçacığı: %1."
 
 #: debugview.cpp:652
-#, fuzzy, kde-format
-#| msgid "Current frame: "
+#, kde-format
 msgid "Current frame: %1:%2"
-msgstr "Geçerli kare: "
+msgstr "Geçerli kare: %1:%2"
 
 #: debugview.cpp:679
-#, fuzzy, kde-format
-#| msgid "Target %1"
+#, kde-format
 msgid "Host: %1. Target: %1"
-msgstr "Hedef %1"
+msgstr "Makine: %1. Hedef: %1"
 
 #: debugview.cpp:1230
 #, kde-format
@@ -244,11 +240,12 @@ msgid ""
 "gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
 "Shutting down."
 msgstr ""
+"gdb-mi: Son yanıt ayrıştırılamadı: %1. Çok fazla art arda hata. Kapatılıyor."
 
 #: debugview.cpp:1232
 #, kde-format
 msgid "gdb-mi: Could not parse last response: %1"
-msgstr ""
+msgstr "gdb-mi: Son yanıt ayrıştırılamadı: %1"
 
 #: debugview_dap.cpp:168
 #, kde-format
@@ -710,7 +707,7 @@ msgstr "Çalıştırma noktası"
 #: plugin_kategdb.cpp:661
 #, kde-format
 msgid "Thread %1"
-msgstr "%1 İş Parçacığı"
+msgstr "İş Parçacığı %1"
 
 #: plugin_kategdb.cpp:761
 #, kde-format

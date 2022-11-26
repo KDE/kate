@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-24 00:49+0000\n"
-"PO-Revision-Date: 2022-10-26 05:14+0200\n"
+"PO-Revision-Date: 2022-11-25 06:30+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -189,19 +189,17 @@ msgstr ""
 #: debugview.cpp:421
 #, kde-format
 msgid "*** gdb exited normally ***"
-msgstr ""
+msgstr "*** gdb ნორმალურად დასრულდა ***"
 
 #: debugview.cpp:620
-#, fuzzy, kde-format
-#| msgid "all threads continued"
+#, kde-format
 msgid "all threads running"
-msgstr "ყველა ნაკადი გაგრძელდა"
+msgstr "ყველა ნაკადი გაშვებულია"
 
 #: debugview.cpp:622
-#, fuzzy, kde-format
-#| msgid "thread %1"
+#, kde-format
 msgid "thread(s) running: %1"
-msgstr "ნაკადი %1"
+msgstr "გაშვებული ნაკადები: %1"
 
 #: debugview.cpp:627 debugview_dap.cpp:269
 #, kde-format
@@ -219,16 +217,14 @@ msgid "Active thread: %1."
 msgstr "აქტიური ნაკადი: %1."
 
 #: debugview.cpp:652
-#, fuzzy, kde-format
-#| msgid "Current frame: "
+#, kde-format
 msgid "Current frame: %1:%2"
-msgstr "მიმდინარე კადრი: "
+msgstr "მიმდინარე კადრი: %1:%2"
 
 #: debugview.cpp:679
-#, fuzzy, kde-format
-#| msgid "Target %1"
+#, kde-format
 msgid "Host: %1. Target: %1"
-msgstr "სამიზნე %1"
+msgstr "ჰოსტი: %1. სამიზნე: %1"
 
 #: debugview.cpp:1230
 #, kde-format
@@ -295,12 +291,12 @@ msgstr ""
 #: debugview_dap.cpp:410
 #, kde-format
 msgid "program exited with code %1"
-msgstr ""
+msgstr "პროგრამა დასრულდა კოდით %1"
 
 #: debugview_dap.cpp:424
 #, kde-format
 msgid "*** waiting for user actions ***"
-msgstr ""
+msgstr "*** მოხმარებლის ქმედების მოლოდინი ***"
 
 #: debugview_dap.cpp:429
 #, kde-format
@@ -320,12 +316,12 @@ msgstr "ტელემეტრია"
 #: debugview_dap.cpp:466
 #, kde-format
 msgid "debugging process [%1] %2"
-msgstr ""
+msgstr "პროცესის [%1] %2 გამართვა"
 
 #: debugview_dap.cpp:468
 #, kde-format
 msgid "debugging process %1"
-msgstr ""
+msgstr "პროცესის გამართვა %1"
 
 #: debugview_dap.cpp:471
 #, kde-format
@@ -390,7 +386,7 @@ msgstr ""
 #: debugview_dap.cpp:749
 #, kde-format
 msgid "log points"
-msgstr ""
+msgstr "ჟურნალში ჩასაწერი წერტილები"
 
 #: debugview_dap.cpp:749
 #, kde-format
@@ -400,12 +396,12 @@ msgstr "მოდულების მოთხოვნა"
 #: debugview_dap.cpp:750
 #, kde-format
 msgid "goto targets request"
-msgstr ""
+msgstr "სამიზნის მოთხოვნაზე გადასვლა"
 
 #: debugview_dap.cpp:751
 #, kde-format
 msgid "terminate request"
-msgstr ""
+msgstr "მოთხოვნის შეწყვეტა"
 
 #: debugview_dap.cpp:752
 #, kde-format

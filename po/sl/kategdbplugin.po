@@ -9,14 +9,14 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-24 00:49+0000\n"
-"PO-Revision-Date: 2022-10-26 06:39+0200\n"
+"PO-Revision-Date: 2022-11-25 11:25+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.08.1\n"
+"X-Generator: Lokalize 22.08.2\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
 
@@ -196,16 +196,14 @@ msgid "*** gdb exited normally ***"
 msgstr "*** gdb se je končal brez težav ***"
 
 #: debugview.cpp:620
-#, fuzzy, kde-format
-#| msgid "all threads continued"
+#, kde-format
 msgid "all threads running"
-msgstr "vse niti se nadaljujejo"
+msgstr "vse niti so v teku"
 
 #: debugview.cpp:622
-#, fuzzy, kde-format
-#| msgid "thread %1"
+#, kde-format
 msgid "thread(s) running: %1"
-msgstr "nit %1"
+msgstr "niti v teku: %1"
 
 #: debugview.cpp:627 debugview_dap.cpp:269
 #, kde-format
@@ -223,16 +221,14 @@ msgid "Active thread: %1."
 msgstr "Aktivna nit: %1."
 
 #: debugview.cpp:652
-#, fuzzy, kde-format
-#| msgid "Current frame: "
+#, kde-format
 msgid "Current frame: %1:%2"
-msgstr "Trenutni okvir: "
+msgstr "Trenutni okvir: %1:%2"
 
 #: debugview.cpp:679
-#, fuzzy, kde-format
-#| msgid "Target %1"
+#, kde-format
 msgid "Host: %1. Target: %1"
-msgstr "Cilj %1"
+msgstr "Gostitelj: %1. Cilj %1"
 
 #: debugview.cpp:1230
 #, kde-format
@@ -240,11 +236,13 @@ msgid ""
 "gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
 "Shutting down."
 msgstr ""
+"gdb-mi: Ni bilo mogoče razčleniti zadnjega odziva: %1. Preveč zaporednih "
+"napak. Zaustavljam."
 
 #: debugview.cpp:1232
 #, kde-format
 msgid "gdb-mi: Could not parse last response: %1"
-msgstr ""
+msgstr "gdb-mi: Ni bilo mogoče razčleniti zadnjega odziva: %1"
 
 #: debugview_dap.cpp:168
 #, kde-format

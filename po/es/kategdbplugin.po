@@ -10,14 +10,14 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-24 00:49+0000\n"
-"PO-Revision-Date: 2022-10-26 01:13+0200\n"
+"PO-Revision-Date: 2022-11-25 12:46+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.08.2\n"
+"X-Generator: Lokalize 22.11.80\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
@@ -197,16 +197,14 @@ msgid "*** gdb exited normally ***"
 msgstr "*** gdb ha terminado normalmente ***"
 
 #: debugview.cpp:620
-#, fuzzy, kde-format
-#| msgid "all threads continued"
+#, kde-format
 msgid "all threads running"
-msgstr "se han reanudado todos los hilos"
+msgstr "todos los hilos en ejecución"
 
 #: debugview.cpp:622
-#, fuzzy, kde-format
-#| msgid "thread %1"
+#, kde-format
 msgid "thread(s) running: %1"
-msgstr "hilo %1"
+msgstr "hilo(s) en ejecución: %1"
 
 #: debugview.cpp:627 debugview_dap.cpp:269
 #, kde-format
@@ -224,16 +222,14 @@ msgid "Active thread: %1."
 msgstr "Hilo activo: %1."
 
 #: debugview.cpp:652
-#, fuzzy, kde-format
-#| msgid "Current frame: "
+#, kde-format
 msgid "Current frame: %1:%2"
-msgstr "Marco actual: "
+msgstr "Marco actual: %1:%2"
 
 #: debugview.cpp:679
-#, fuzzy, kde-format
-#| msgid "Target %1"
+#, kde-format
 msgid "Host: %1. Target: %1"
-msgstr "Objetivo %1"
+msgstr "Máquina: %1. Objetivo: %1"
 
 #: debugview.cpp:1230
 #, kde-format
@@ -241,11 +237,13 @@ msgid ""
 "gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
 "Shutting down."
 msgstr ""
+"gdb-mi: No se ha podido analizar la última respuesta: %1. Demasiados errores "
+"consecutivos. Apagando..."
 
 #: debugview.cpp:1232
 #, kde-format
 msgid "gdb-mi: Could not parse last response: %1"
-msgstr ""
+msgstr "gdb-mi: No se ha podido analizar la última respuesta: %1"
 
 #: debugview_dap.cpp:168
 #, kde-format

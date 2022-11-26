@@ -103,7 +103,7 @@ static QUrl normalizeUrl(const QUrl &url)
 {
     // Resolve symbolic links for local files (done anyway in KTextEditor)
     if (url.isLocalFile() && !KNetworkMounts::self()->isOptionEnabledForPath(url.toLocalFile(), KNetworkMounts::StrongSideEffectsOptimizations)) {
-        QString normalizedUrl = QFileInfo(url.toLocalFile()).canonicalFilePath();
+        QString normalizedUrl = QFileInfo(url.toLocalFile()).absoluteFilePath();
         if (!normalizedUrl.isEmpty()) {
             return QUrl::fromLocalFile(normalizedUrl);
         }

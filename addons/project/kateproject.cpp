@@ -117,14 +117,9 @@ KateProject::KateProject(QThreadPool &threadPool, KateProjectPlugin *plugin, con
     : m_threadPool(threadPool)
     , m_plugin(plugin)
     , m_fileBacked(true)
-    , m_fileName(QFileInfo(fileName).canonicalFilePath())
-    , m_baseDir(QFileInfo(fileName).canonicalPath())
+    , m_fileName(QFileInfo(fileName).absoluteFilePath())
+    , m_baseDir(QFileInfo(fileName).absolutePath())
 {
-    // if canonicalFilePath already returned empty string, no need to try to load this
-    if (m_fileName.isEmpty()) {
-        return;
-    }
-
     // ensure we get notified for project file changes
     connect(&m_plugin->fileWatcher(), &QFileSystemWatcher::fileChanged, this, &KateProject::slotFileChanged);
     m_plugin->fileWatcher().addPath(m_fileName);
@@ -139,8 +134,8 @@ KateProject::KateProject(QThreadPool &threadPool, KateProjectPlugin *plugin, con
     : m_threadPool(threadPool)
     , m_plugin(plugin)
     , m_fileBacked(false)
-    , m_fileName(QDir(QDir(directory).canonicalPath()).filePath(QStringLiteral(".kateproject")))
-    , m_baseDir(QDir(directory).canonicalPath())
+    , m_fileName(QDir(QDir(directory).absolutePath()).filePath(QStringLiteral(".kateproject")))
+    , m_baseDir(QDir(directory).absolutePath())
     , m_globalProject(globalProject)
 {
     // try to load the project map, will start worker thread, too
@@ -294,7 +289,7 @@ bool KateProject::load(const QVariantMap &globalProject, bool force)
      */
     const auto baseDir = globalProject[QStringLiteral("directory")].toString();
     if (!baseDir.isEmpty()) {
-        m_baseDir = QFileInfo(QFileInfo(m_fileName).dir(), baseDir).canonicalFilePath();
+        m_baseDir = QFileInfo(QFileInfo(m_fileName).dir(), baseDir).absoluteFilePath();
     }
 
     /**

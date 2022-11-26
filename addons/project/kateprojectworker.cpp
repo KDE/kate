@@ -310,7 +310,7 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent,
     preparedItems.reserve(files.size());
     for (const auto &item : files)
         preparedItems.emplace_back(item, QString(), nullptr);
-    QtConcurrent::blockingMap(preparedItems, [excludeFolderPatterns, dirPath, excludeRegexps](std::tuple<QString, QString, KateProjectItem *> &item) {
+    QtConcurrent::blockingMap(preparedItems, [dirPath, excludeRegexps](std::tuple<QString, QString, KateProjectItem *> &item) {
         /**
          * cheap file name computation
          * we do this A LOT, QFileInfo is very expensive just for this operation
@@ -330,17 +330,18 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent,
         filePath = (slashIndex < 0) ? QString() : filePath.left(slashIndex);
 
         /**
-         * don't create a KateProjectItem object if no file!
-         */
-        if (!QFileInfo(fullFilePath).isFile()) {
-            return;
-        }
-
-        /**
          * construct the item with info about filename + full file path
          */
-        projectItem = new KateProjectItem(KateProjectItem::File, fileName);
-        projectItem->setData(fullFilePath, Qt::UserRole);
+        const QFileInfo info(fullFilePath);
+        if (info.isFile()) {
+            projectItem = new KateProjectItem(KateProjectItem::File, fileName);
+            projectItem->setData(fullFilePath, Qt::UserRole);
+        }
+        else if(info.isDir() && QDir(fullFilePath).isEmpty())
+        {
+            projectItem = new KateProjectItem(KateProjectItem::Directory, fileName);
+            projectItem->setData(fullFilePath, Qt::UserRole);
+        }
     });
 
     /**
@@ -425,10 +426,15 @@ QVector<QString> KateProjectWorker::findFiles(const QDir &dir, const QVariantMap
     }
 
     /**
+     * shall we collect hidden files or not?
+     */
+    const bool hidden = filesEntry.contains(QLatin1String("hidden")) && filesEntry[QStringLiteral("hidden")].toBool();
+
+    /**
      * if nothing found for that, try to use filters to scan the directory
      * here we only get files
      */
-    return filesFromDirectory(dir, recursive, filesEntry[QStringLiteral("filters")].toStringList());
+    return filesFromDirectory(dir, recursive, hidden, filesEntry[QStringLiteral("filters")].toStringList());
 }
 
 QVector<QString> KateProjectWorker::filesFromGit(const QDir &dir, bool recursive)
@@ -688,13 +694,15 @@ QVector<QString> KateProjectWorker::filesFromFossil(const QDir &dir, bool recurs
     return files;
 }
 
-QVector<QString> KateProjectWorker::filesFromDirectory(const QDir &_dir, bool recursive, const QStringList &filters)
+QVector<QString> KateProjectWorker::filesFromDirectory(QDir dir, bool recursive, bool hidden, const QStringList &filters)
 {
     /**
-     * setup our filters, we only want files!
+     * setup our filters
      */
-    QDir dir(_dir);
-    dir.setFilter(QDir::Files);
+    QDir::Filters filterFlags = QDir::Files | QDir::Dirs | QDir::NoDot | QDir::NoDotDot;
+    if(hidden)
+        filterFlags |= QDir::Hidden;
+    dir.setFilter(filterFlags);
     if (!filters.isEmpty()) {
         dir.setNameFilters(filters);
     }
@@ -704,7 +712,7 @@ QVector<QString> KateProjectWorker::filesFromDirectory(const QDir &_dir, bool re
      */
     QDirIterator::IteratorFlags flags = QDirIterator::NoIteratorFlags;
     if (recursive) {
-        flags = flags | QDirIterator::Subdirectories;
+        flags = flags | QDirIterator::Subdirectories | QDirIterator::FollowSymlinks;
     }
 
     /**

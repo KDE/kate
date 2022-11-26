@@ -48,8 +48,7 @@ public:
     /**
      * Create new project for given project filename.
      * Null pointer if no project can be opened.
-     * File name will be canonicalized!
-     * @param fileName canonicalized file name for the project
+     * @param fileName file name for the project
      * @return project or null if not openable
      */
     KateProject *createProjectForFileName(const QString &fileName);

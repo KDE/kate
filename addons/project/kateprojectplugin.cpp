@@ -132,10 +132,11 @@ KateProject *KateProjectPlugin::createProjectForFileName(const QString &fileName
 KateProject *KateProjectPlugin::openProjectForDirectory(const QDir &dir)
 {
     // check for project and load it if found
-    const QString canonicalPath = dir.canonicalPath();
-    const QString canonicalFileName = dir.filePath(ProjectFileName);
+    const QDir absDir(dir.absolutePath());
+    const QString absolutePath = absDir.path();
+    const QString projectFileName = absDir.filePath(ProjectFileName);
     for (KateProject *project : qAsConst(m_projects)) {
-        if (project->baseDir() == canonicalPath || project->fileName() == canonicalFileName) {
+        if (project->baseDir() == absolutePath || project->fileName() == projectFileName) {
             return project;
         }
     }
@@ -346,7 +347,7 @@ KateProject *KateProjectPlugin::createProjectForRepository(const QString &type, 
     cnf[QStringLiteral("name")] = dir.dirName();
     cnf[QStringLiteral("files")] = (QVariantList() << files);
 
-    KateProject *project = new KateProject(m_threadPool, this, cnf, dir.canonicalPath());
+    KateProject *project = new KateProject(m_threadPool, this, cnf, dir.absolutePath());
 
     m_projects.append(project);
 
@@ -366,7 +367,7 @@ KateProject *KateProjectPlugin::createProjectForDirectory(const QDir &dir)
     cnf[QStringLiteral("name")] = dir.dirName();
     cnf[QStringLiteral("files")] = (QVariantList() << files);
 
-    KateProject *project = new KateProject(m_threadPool, this, cnf, dir.canonicalPath());
+    KateProject *project = new KateProject(m_threadPool, this, cnf, dir.absolutePath());
 
     m_projects.append(project);
 
@@ -381,7 +382,7 @@ KateProject *KateProjectPlugin::createProjectForDirectory(const QDir &dir, const
         return project;
     }
 
-    KateProject *project = new KateProject(m_threadPool, this, projectMap, dir.canonicalPath());
+    KateProject *project = new KateProject(m_threadPool, this, projectMap, dir.absolutePath());
     if (!project->isValid()) {
         delete project;
         return nullptr;

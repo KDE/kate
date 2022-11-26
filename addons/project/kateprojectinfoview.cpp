@@ -29,7 +29,7 @@ KateProjectInfoView::KateProjectInfoView(KateProjectPluginView *pluginView, Kate
         /**
          * terminal for the directory with the .kateproject file inside
          */
-        const QString projectPath = QFileInfo(QFileInfo(m_project->fileName()).path()).canonicalFilePath();
+        const QString projectPath = QFileInfo(QFileInfo(m_project->fileName()).path()).absoluteFilePath();
         if (!projectPath.isEmpty()) {
             m_terminal = new KateProjectInfoViewTerminal(pluginView, projectPath);
             addTab(m_terminal, i18n("Terminal (.kateproject)"));
@@ -38,7 +38,7 @@ KateProjectInfoView::KateProjectInfoView(KateProjectPluginView *pluginView, Kate
         /**
          * terminal for the base directory, if different to directory of .kateproject
          */
-        const QString basePath = QFileInfo(m_project->baseDir()).canonicalFilePath();
+        const QString basePath = QFileInfo(m_project->baseDir()).absoluteFilePath();
         if (!basePath.isEmpty() && projectPath != basePath) {
             addTab(new KateProjectInfoViewTerminal(pluginView, basePath), i18n("Terminal (Base)"));
         }

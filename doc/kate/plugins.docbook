@@ -2031,8 +2031,12 @@ or you can tell it to recursively load files from directories as follows:
         "CMakeLists.txt",
         "Find*.cmake"
       ],
-      "recursive": 1
+      "recursive": 1,
+      "hidden": 1
     }
+  ],
+  "exclude_patterns" : [
+    "^build/.*"
   ]
 }
 </screen>
@@ -2040,6 +2044,10 @@ or you can tell it to recursively load files from directories as follows:
 <para>
 Here, subfolders and filters define what’s part of the project.
 You can also mix version control and files based on filters.
+Hidden files will not be retrieved if the option <code>"hidden"</code> is 0.
+<code>"exclude_patterns"</code> is a list of regex patterns than can be used 
+to exclude folders and files from the project tree. In this example, All files
+and folders in a directory <filename>build</filename> from the root will be excluded.
 </para>
 
 <para id="projects-build-support">If you want to add support for the building, you can write a

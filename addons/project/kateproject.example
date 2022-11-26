@@ -11,6 +11,9 @@ struct
    /// If set, the directory given here is used as the base directory for the project.
    /// Otherwise, the directory in which the project file is located as the base directory.
    string directory;
+   
+   /// "exclude_patterns" is a list of regex patterns than can be used to exclude folders and files from the project tree
+   vector< string > exclude_patterns;
 
    /// The "files" struct describes which files belong to the project.
    /// There are five miutually exclusive methods to do this.
@@ -43,8 +46,8 @@ struct
       /// If "recursive" is set to 1, the globbing expressions in filters are executed recursively in the directory tree.
       bool recursive;
 
-      /// "exclude_patterns" is a list of regex patterns than can be used to exclude folders and files from the project tree
-      vector< string > exclude_patterns;
+      /// If "hidden" is set to 1, hidden files will be retrieved. Only affects directories not managed by version control.
+      bool hidden;
    };
 
    /// The "build" structure is optional.

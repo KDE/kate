@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-21 02:30+0000\n"
+"POT-Creation-Date: 2022-11-26 02:29+0000\n"
 "PO-Revision-Date: 2015-10-22 08:29+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic <kde-isl@molar.is>\n"
@@ -1554,73 +1554,73 @@ msgstr "Sýna %1"
 msgid "Show %1 Button"
 msgstr "Sýna %1"
 
-#: lib/katemdi.cpp:194
+#: lib/katemdi.cpp:195
 #, kde-format
 msgid "Focus %1"
 msgstr ""
 
-#: lib/katemdi.cpp:1003
+#: lib/katemdi.cpp:1006
 #, fuzzy, kde-format
 msgid "Configure..."
 msgstr "Stilla"
 
-#: lib/katemdi.cpp:1007
+#: lib/katemdi.cpp:1010
 #, kde-format
 msgid "Hide Button"
 msgstr ""
 
-#: lib/katemdi.cpp:1009
+#: lib/katemdi.cpp:1012
 #, kde-format
 msgid "Move To"
 msgstr "Flytja til"
 
-#: lib/katemdi.cpp:1014
+#: lib/katemdi.cpp:1017
 #, fuzzy, kde-format
 #| msgid "Open Session"
 msgid "Own Section"
 msgstr "Opna setu"
 
-#: lib/katemdi.cpp:1020 lib/katemdi.cpp:1028
+#: lib/katemdi.cpp:1023 lib/katemdi.cpp:1031
 #, kde-format
 msgid "One Down"
 msgstr ""
 
-#: lib/katemdi.cpp:1022 lib/katemdi.cpp:1033
+#: lib/katemdi.cpp:1025 lib/katemdi.cpp:1036
 #, kde-format
 msgid "One Right"
 msgstr ""
 
-#: lib/katemdi.cpp:1026
+#: lib/katemdi.cpp:1029
 #, kde-format
 msgid "One Up"
 msgstr ""
 
-#: lib/katemdi.cpp:1031
+#: lib/katemdi.cpp:1034
 #, kde-format
 msgid "One Left"
 msgstr ""
 
-#: lib/katemdi.cpp:1040
+#: lib/katemdi.cpp:1043
 #, kde-format
 msgid "Left Sidebar"
 msgstr "Vinstri hliðarslá"
 
-#: lib/katemdi.cpp:1044
+#: lib/katemdi.cpp:1047
 #, kde-format
 msgid "Right Sidebar"
 msgstr "Hægri hliðarslá"
 
-#: lib/katemdi.cpp:1048
+#: lib/katemdi.cpp:1051
 #, kde-format
 msgid "Top Sidebar"
 msgstr "Efsta hliðarslá"
 
-#: lib/katemdi.cpp:1052
+#: lib/katemdi.cpp:1055
 #, kde-format
 msgid "Bottom Sidebar"
 msgstr "Neðsta hliðarslá"
 
-#: lib/katemdi.cpp:1427
+#: lib/katemdi.cpp:1430
 #, fuzzy, kde-format
 #| msgid ""
 #| "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

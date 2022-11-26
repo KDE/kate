@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-21 02:30+0000\n"
+"POT-Creation-Date: 2022-11-26 02:29+0000\n"
 "PO-Revision-Date: 2022-11-14 14:41+0100\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -1509,72 +1509,72 @@ msgstr "Hiện %1"
 msgid "Show %1 Button"
 msgstr "Hiện nút %1"
 
-#: lib/katemdi.cpp:194
+#: lib/katemdi.cpp:195
 #, kde-format
 msgid "Focus %1"
 msgstr "Nhắm vào %1"
 
-#: lib/katemdi.cpp:1003
+#: lib/katemdi.cpp:1006
 #, kde-format
 msgid "Configure..."
 msgstr "Cấu hình..."
 
-#: lib/katemdi.cpp:1007
+#: lib/katemdi.cpp:1010
 #, kde-format
 msgid "Hide Button"
 msgstr "Ẩn nút"
 
-#: lib/katemdi.cpp:1009
+#: lib/katemdi.cpp:1012
 #, kde-format
 msgid "Move To"
 msgstr "Chuyển đến"
 
-#: lib/katemdi.cpp:1014
+#: lib/katemdi.cpp:1017
 #, kde-format
 msgid "Own Section"
 msgstr "Khu vực riêng"
 
-#: lib/katemdi.cpp:1020 lib/katemdi.cpp:1028
+#: lib/katemdi.cpp:1023 lib/katemdi.cpp:1031
 #, kde-format
 msgid "One Down"
 msgstr "Xuống một"
 
-#: lib/katemdi.cpp:1022 lib/katemdi.cpp:1033
+#: lib/katemdi.cpp:1025 lib/katemdi.cpp:1036
 #, kde-format
 msgid "One Right"
 msgstr "Sang phải một"
 
-#: lib/katemdi.cpp:1026
+#: lib/katemdi.cpp:1029
 #, kde-format
 msgid "One Up"
 msgstr "Lên một"
 
-#: lib/katemdi.cpp:1031
+#: lib/katemdi.cpp:1034
 #, kde-format
 msgid "One Left"
 msgstr "Sang trái một"
 
-#: lib/katemdi.cpp:1040
+#: lib/katemdi.cpp:1043
 #, kde-format
 msgid "Left Sidebar"
 msgstr "Thanh bên trái"
 
-#: lib/katemdi.cpp:1044
+#: lib/katemdi.cpp:1047
 #, kde-format
 msgid "Right Sidebar"
 msgstr "Thanh bên phải"
 
-#: lib/katemdi.cpp:1048
+#: lib/katemdi.cpp:1051
 #, kde-format
 msgid "Top Sidebar"
 msgstr "Thanh bên trên"
 
-#: lib/katemdi.cpp:1052
+#: lib/katemdi.cpp:1055
 #, kde-format
 msgid "Bottom Sidebar"
 msgstr "Thanh bên dưới"
 
-#: lib/katemdi.cpp:1427
+#: lib/katemdi.cpp:1430
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

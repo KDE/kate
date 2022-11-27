@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-16 02:54+0000\n"
-"PO-Revision-Date: 2022-04-23 14:19+0100\n"
+"PO-Revision-Date: 2022-11-26 15:02+0000\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English <kde-l10n-en_gb@kde.org>\n"
 "Language: en_GB\n"
@@ -86,16 +86,14 @@ msgid "Select Target..."
 msgstr "Select Target..."
 
 #: plugin_katebuild.cpp:151
-#, fuzzy, kde-format
-#| msgid "Build selected target"
+#, kde-format
 msgid "Build Selected Target"
-msgstr "Build selected target"
+msgstr "Build Selected Target"
 
 #: plugin_katebuild.cpp:156
-#, fuzzy, kde-format
-#| msgid "Build selected target"
+#, kde-format
 msgid "Build and Run Selected Target"
-msgstr "Build selected target"
+msgstr "Build and Run Selected Target"
 
 #: plugin_katebuild.cpp:161
 #, kde-format
@@ -266,7 +264,7 @@ msgstr "Build completed without problems."
 #: plugin_katebuild.cpp:1103
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
-msgstr ""
+msgstr "Cannot execute: %1 No working directory set."
 
 #: plugin_katebuild.cpp:1324
 #, kde-format
@@ -373,15 +371,14 @@ msgid "Working Directory / Command"
 msgstr "Working Directory / Command"
 
 #: TargetModel.cpp:401
-#, fuzzy, kde-format
-#| msgid "Command:"
+#, kde-format
 msgid "Run Command"
-msgstr "Command:"
+msgstr "Run Command"
 
 #: targets.cpp:23
 #, kde-format
 msgid "Filter targets, use arrow keys to select, Enter to execute"
-msgstr ""
+msgstr "Filter targets, use arrow keys to select, Enter to execute"
 
 #: targets.cpp:27
 #, kde-format
@@ -409,22 +406,19 @@ msgid "Build selected target"
 msgstr "Build selected target"
 
 #: targets.cpp:48
-#, fuzzy, kde-format
-#| msgid "Build selected target"
+#, kde-format
 msgid "Build and run selected target"
-msgstr "Build selected target"
+msgstr "Build and run selected target"
 
 #: targets.cpp:52
-#, fuzzy, kde-format
-#| msgid "Build selected target"
+#, kde-format
 msgid "Move selected target up"
-msgstr "Build selected target"
+msgstr "Move selected target up"
 
 #: targets.cpp:56
-#, fuzzy, kde-format
-#| msgid "Build selected target"
+#, kde-format
 msgid "Move selected target down"
-msgstr "Build selected target"
+msgstr "Move selected target down"
 
 #. i18n: ectx: Menu (Build Menubar)
 #: ui.rc:6

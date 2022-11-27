@@ -1,6 +1,6 @@
 # translation of kate.po to Polish
 # translation of kate.po to
-# Version: $Revision: 1639005 $
+# Version: $Revision: 1639062 $
 # Kate polish translation file.
 # Main translation work:
 #   Jacek Stolarczyk <jacek@mer.chemia.polsl.gliwice.pl>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-26 00:49+0000\n"
-"PO-Revision-Date: 2022-11-23 20:31+0100\n"
+"PO-Revision-Date: 2022-11-26 10:56+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -177,7 +177,7 @@ msgstr "&Plik"
 #: lib/data/kateui.rc:30
 #, kde-format
 msgid "File Actions"
-msgstr "Działania plikowe"
+msgstr "Działania na plikach"
 
 #. i18n: ectx: Menu (edit)
 #: lib/data/kateui.rc:43
@@ -1192,7 +1192,7 @@ msgstr ""
 #: lib/katemainwindow.cpp:332
 #, kde-format
 msgid "Save A&ll"
-msgstr "Zapisz w&szystko"
+msgstr "Zapisz w&szystkie"
 
 #: lib/katemainwindow.cpp:335
 #, kde-format
@@ -1202,7 +1202,7 @@ msgstr "Zapisz wszystkie otwarte lub zmienione pliki na dysk."
 #: lib/katemainwindow.cpp:338
 #, kde-format
 msgid "&Reload All"
-msgstr "&Wczytaj ponownie wszystko"
+msgstr "&Wczytaj ponownie wszystkie"
 
 #: lib/katemainwindow.cpp:340
 #, kde-format
@@ -1298,7 +1298,7 @@ msgstr "Zamknij inne otwarte dokumenty."
 #: lib/katemainwindow.cpp:409
 #, kde-format
 msgid "Clos&e All"
-msgstr "Za&mknij wszystko"
+msgstr "Zamknij wszystki&e"
 
 #: lib/katemainwindow.cpp:411
 #, kde-format

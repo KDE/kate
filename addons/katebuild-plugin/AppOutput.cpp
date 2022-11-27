@@ -65,7 +65,7 @@ struct AppOutput::Private {
 
         if (terminalProcess != t->foregroundProcessName()) {
             terminalProcess = t->foregroundProcessName();
-            Q_EMIT q->runningChanhged();
+            Q_EMIT q->runningChanged();
         }
     }
 };
@@ -119,7 +119,7 @@ AppOutput::AppOutput(QWidget *parent)
         d->outputArea->setPalette(p);
 
         d->process.setOutputChannelMode(KProcess::SeparateChannels);
-        connect(&d->process, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &AppOutput::runningChanhged);
+        connect(&d->process, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &AppOutput::runningChanged);
         connect(&d->process, &KProcess::readyReadStandardError, this, [this]() {
             d->addOutputText(QString::fromUtf8(d->process.readAllStandardError()));
         });
@@ -156,7 +156,7 @@ void AppOutput::runCommand(const QString &cmd)
         startHostProcess(d->process);
         d->process.waitForStarted(300);
     }
-    Q_EMIT runningChanhged();
+    Q_EMIT runningChanged();
 }
 
 QString AppOutput::runningProcess()

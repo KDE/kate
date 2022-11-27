@@ -813,6 +813,10 @@ bool KateBuildView::startProcess(const QString &dir, const QString &command)
     env.insert(nstatus, NinjaPrefix + curr);
     m_ninjaBuildDetected = false;
 
+    // chdir used by QProcess will resolve symbolic links.
+    // Define PWD so that shell scripts can get a path with symbolic links intact
+    env.insert(QStringLiteral("PWD"), QDir(m_make_dir).absolutePath());
+
     m_proc.setProcessEnvironment(env);
     m_proc.setWorkingDirectory(m_make_dir);
     m_proc.setShellCommand(command);
@@ -1128,7 +1132,7 @@ void KateBuildView::slotRunAfterBuild()
         m_buildUi.u_tabWidget->setTabToolTip(tabIndex, runCmd);
         m_buildUi.u_tabWidget->setTabIcon(tabIndex, QIcon::fromTheme(QStringLiteral("media-playback-start")));
 
-        connect(out, &AppOutput::runningChanhged, this, [this]() {
+        connect(out, &AppOutput::runningChanged, this, [this]() {
             // Update the tab icon when the run state changes
             for (int i = 2; i < m_buildUi.u_tabWidget->count(); ++i) {
                 AppOutput *tabOut = qobject_cast<AppOutput *>(m_buildUi.u_tabWidget->widget(i));
@@ -1287,12 +1291,6 @@ void KateBuildView::processLine(QStringView line)
             filename = m_searchPaths[i] + QLatin1Char('/') + filename;
         }
         i++;
-    }
-
-    // get canonical path, if possible, to avoid duplicated opened files
-    auto canonicalFilePath(QFileInfo(filename).canonicalFilePath());
-    if (!canonicalFilePath.isEmpty()) {
-        filename = canonicalFilePath;
     }
 
     // Now we have the data we need show the error/warning

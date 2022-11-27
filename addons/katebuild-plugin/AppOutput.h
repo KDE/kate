@@ -24,7 +24,7 @@ public:
     QString runningProcess();
 
 Q_SIGNALS:
-    void runningChanhged();
+    void runningChanged();
 
 private:
     struct Private;

@@ -101,12 +101,23 @@ KateDocumentInfo *KateDocManager::documentInfo(KTextEditor::Document *doc)
 
 static QUrl normalizeUrl(const QUrl &url)
 {
-    // Resolve symbolic links for local files (done anyway in KTextEditor)
+    // Resolve symbolic links for local files
     if (url.isLocalFile() && !KNetworkMounts::self()->isOptionEnabledForPath(url.toLocalFile(), KNetworkMounts::StrongSideEffectsOptimizations)) {
-        QString normalizedUrl = QFileInfo(url.toLocalFile()).absoluteFilePath();
+        QString normalizedUrl = QFileInfo(url.toLocalFile()).canonicalFilePath();
         if (!normalizedUrl.isEmpty()) {
             return QUrl::fromLocalFile(normalizedUrl);
         }
+    }
+
+    // else: cleanup only the .. stuff
+    return url.adjusted(QUrl::NormalizePathSegments);
+}
+
+static QUrl absoluteUrl(const QUrl &url)
+{
+    // Get absolute path if local file
+    if (url.isLocalFile()) {
+        return QUrl::fromLocalFile(QFileInfo(url.toLocalFile()).absoluteFilePath());
     }
 
     // else: cleanup only the .. stuff
@@ -117,7 +128,7 @@ KTextEditor::Document *KateDocManager::findDocument(const QUrl &url) const
 {
     const QUrl u(normalizeUrl(url));
     for (KTextEditor::Document *it : m_docList) {
-        if (it->url() == u) {
+        if (normalizeUrl(it->url()) == u) {
             return it;
         }
     }
@@ -136,14 +147,12 @@ std::vector<KTextEditor::Document *> KateDocManager::openUrls(const QList<QUrl> 
 
 KTextEditor::Document *KateDocManager::openUrl(const QUrl &url, const QString &encoding, const KateDocumentInfo &docInfo)
 {
-    // we want to work on normalized urls
-    const QUrl u(normalizeUrl(url));
+    // We want to work on absolute urls
+    const QUrl u(absoluteUrl(url));
 
     // try to find already open document
-    if (!u.isEmpty()) {
-        if (auto doc = findDocument(u)) {
-            return doc;
-        }
+    if (auto doc = findDocument(u)) {
+        return doc;
     }
 
     // else: create new document

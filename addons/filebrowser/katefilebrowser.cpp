@@ -79,7 +79,11 @@ KateFileBrowser::KateFileBrowser(KTextEditor::MainWindow *mainWindow, QWidget *p
 
     m_dirOperator = new KDirOperator(QUrl(), this);
     // Default to a view with only one column since columns are auto-sized
+#if KIO_VERSION < QT_VERSION_CHECK(5, 100, 0)
     m_dirOperator->setView(KFile::Tree);
+#else
+    m_dirOperator->setViewMode(KFile::Tree);
+#endif
     m_dirOperator->view()->setSelectionMode(QAbstractItemView::ExtendedSelection);
     m_dirOperator->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding));
     mainLayout->addWidget(m_dirOperator);
@@ -179,7 +183,11 @@ void KateFileBrowser::setupToolbar()
 void KateFileBrowser::readSessionConfig(const KConfigGroup &cg)
 {
     m_dirOperator->readConfig(cg);
+#if KIO_VERSION < QT_VERSION_CHECK(5, 100, 0)
     m_dirOperator->setView(KFile::Default);
+#else
+    m_dirOperator->setViewMode(KFile::Default);
+#endif
 
     m_urlNavigator->setLocationUrl(cg.readEntry("location", QUrl::fromLocalFile(QDir::homePath())));
     setDir(cg.readEntry("location", QUrl::fromLocalFile(QDir::homePath())));

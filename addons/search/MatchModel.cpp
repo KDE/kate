@@ -1141,9 +1141,11 @@ QString MatchModel::generateReplaceString(const QRegularExpressionMatch &match, 
         QString captureLX = QStringLiteral("\\L\\%1").arg(j);
         QString captureUX = QStringLiteral("\\U\\%1").arg(j);
         QString captureX = QStringLiteral("\\%1").arg(j);
-        replaceText.replace(captureLX, match.captured(j).toLower());
-        replaceText.replace(captureUX, match.captured(j).toUpper());
-        replaceText.replace(captureX, match.captured(j));
+        QString captured = match.captured(j);
+        captured.replace(QLatin1String("\\"), QLatin1String("¤Search&Replace¤"));
+        replaceText.replace(captureLX, captured.toLower());
+        replaceText.replace(captureUX, captured.toUpper());
+        replaceText.replace(captureX, captured);
     }
 
     // allow captures \{0} .. \{9999999}...
@@ -1151,9 +1153,11 @@ QString MatchModel::generateReplaceString(const QRegularExpressionMatch &match, 
         QString captureLX = QStringLiteral("\\L\\{%1}").arg(j);
         QString captureUX = QStringLiteral("\\U\\{%1}").arg(j);
         QString captureX = QStringLiteral("\\{%1}").arg(j);
-        replaceText.replace(captureLX, match.captured(j).toLower());
-        replaceText.replace(captureUX, match.captured(j).toUpper());
-        replaceText.replace(captureX, match.captured(j));
+        QString captured = match.captured(j);
+        captured.replace(QLatin1String("\\"), QLatin1String("¤Search&Replace¤"));
+        replaceText.replace(captureLX, captured.toLower());
+        replaceText.replace(captureUX, captured.toUpper());
+        replaceText.replace(captureX, captured);
     }
 
     replaceText.replace(QLatin1String("\\n"), QLatin1String("\n"));

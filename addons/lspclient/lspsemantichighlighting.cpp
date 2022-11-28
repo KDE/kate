@@ -33,7 +33,7 @@ void SemanticHighlighter::doSemanticHighlighting(KTextEditor::View *view, bool t
         m_requestTimer.start(1000);
     } else {
         // This is not a textChange, its either the user scrolled or view changed etc
-        m_requestTimer.start(1);
+        m_requestTimer.start(40);
     }
 }
 
@@ -174,19 +174,14 @@ void SemanticHighlighter::highlight(KTextEditor::View *view, const SemanticToken
 
     uint32_t currentLine = 0;
     uint32_t start = 0;
-
-    size_t reusedRanges = 0;
-    size_t newRanges = 0;
-    const size_t existingMovingRangesCount = movingRanges.size();
-    // uint32_t samecount = 0;
+    auto oldRanges = std::move(movingRanges);
 
     for (size_t i = 0; i < data.size(); i += 5) {
-        auto deltaLine = data.at(i);
-        auto deltaStart = data.at(i + 1);
-        auto len = data.at(i + 2);
-        auto type = data.at(i + 3);
-        auto mod = data.at(i + 4);
-        (void)mod;
+        const uint32_t deltaLine = data[i];
+        const uint32_t deltaStart = data[i + 1];
+        const uint32_t len = data[i + 2];
+        const uint32_t type = data[i + 3];
+        // auto mod = data[i + 4];
 
         currentLine += deltaLine;
 
@@ -205,49 +200,23 @@ void SemanticHighlighter::highlight(KTextEditor::View *view, const SemanticToken
         }
 
         KTextEditor::Range r(currentLine, start, currentLine, start + len);
+        using MovingRangePtr = std::unique_ptr<KTextEditor::MovingRange>;
+        // Check if we have a moving range for 'r' already available
+        auto it = std::lower_bound(oldRanges.begin(), oldRanges.end(), r, [](const MovingRangePtr &mr, KTextEditor::Range r) {
+            // null range is considered less
+            // it can be null because we 'move' the range from oldRanges whenever we find a matching
+            return !mr || mr->toRange() < r;
+        });
 
-        // Check if we have a moving ranges already available in the cache
-        if (reusedRanges < existingMovingRangesCount) {
-            auto &range = movingRanges[reusedRanges];
-            if (!range) {
-                range.reset(miface->newMovingRange(r));
-            }
-
-            // Don't do any work if the range is same
-            if ((range->toRange() == r && range->attribute().constData() == attribute.constData())) {
-                // samecount++;
-                reusedRanges++;
-                continue;
-            }
-
-            reusedRanges++;
-            // clear attribute first so that we block some of the notifyAboutRangeChange stuff!
-            range->setAttribute(KTextEditor::Attribute::Ptr(nullptr));
+        MovingRangePtr range;
+        if (it != oldRanges.end() && (*it) && (*it)->toRange() == r && (*it)->attribute() == attribute.constData()) {
+            range = std::move(*it);
+        } else {
+            range.reset(miface->newMovingRange(r));
             range->setZDepth(-91000.0);
             range->setRange(r);
-            range->setAttribute(attribute);
-            continue;
+            range->setAttribute(std::move(attribute));
         }
-
-        std::unique_ptr<KTextEditor::MovingRange> mr(miface->newMovingRange(r));
-        mr->setZDepth(-90000.0);
-        mr->setAttribute(attribute);
-        movingRanges.push_back(std::move(mr));
-        newRanges++;
-
-        // std::cout << "Token: " << text.toStdString() << " => " << m_types.at(type).toStdString() << ", Line: {" << currentLine << ", " << deltaLine
-        //         << "}\n";
-    }
-
-    // qDebug() << "same count: " << samecount << "reusedRanges" << reusedRanges << "newRanges" << newRanges;
-
-    /**
-     * Invalid all extra ranges
-     */
-    const auto totalUtilizedRanges = reusedRanges + newRanges;
-    if (totalUtilizedRanges < movingRanges.size()) {
-        std::for_each(movingRanges.begin() + totalUtilizedRanges, movingRanges.end(), [](const std::unique_ptr<KTextEditor::MovingRange> &mr) {
-            mr->setRange(KTextEditor::Range::invalid());
-        });
+        movingRanges.push_back(std::move(range));
     }
 }

@@ -65,7 +65,7 @@ private:
     void update(KTextEditor::Document *doc, const QString &resultId, uint32_t start, uint32_t deleteCount, const std::vector<uint32_t> &data);
 
     /**
-     * A simple struct which holds the tokens recieved by server +
+     * A simple struct which holds the tokens recieved from server +
      * moving ranges that were created to highlight those tokens
      */
     struct TokensData {

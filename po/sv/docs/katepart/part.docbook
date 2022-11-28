@@ -836,7 +836,7 @@
 ><guimenu
 >Verktyg</guimenu
 > <guimenuitem
->Justera</guimenuitem
+>Formatera indentering</guimenuitem
 ></menuchoice
 > som beräknar indenteringen för markeringen eller nuvarande rad igen. Alltså kan du indentera om hela dokumentet genom att markera all text och utföra åtgärden.</para>
 
@@ -1044,8 +1044,16 @@
 >&Alt;<keycap
 >J</keycap
 ></keycombo
-> för att söka efter nästa förekomst av ordet under markören, markera det samt skapa en markör.</para
-></listitem>
+> för att söka efter nästa förekomst av ordet under markören och markera det samt skapa en markör. Om du vill hoppa över det aktuella ordet under markören, tryck på <keycombo action="simul"
+>&Alt;<keycap
+>K</keycap
+></keycombo
+> så markeras det aktuella ordet som överhoppat. När du trycker på <keycombo action="simul"
+>&Alt;<keycap
+>J</keycap
+></keycombo
+> igen avmarkeras det aktuella ordet och sökningen efter nästa ord utförs.</para>
+</listitem>
 
 <listitem
 ><para
@@ -1053,7 +1061,15 @@
 >&Ctrl;&Alt;&Shift;<keycap
 >J</keycap
 ></keycombo
-> för att söka efter alla förekomst av ordet under markören, och markera dem med en markör i slutet av varje markering.</para
+> för att söka efter alla förekomster av ordet under markören, och markera dem med en markör i slutet av varje markering. Du kan använda <keycombo action="simul"
+>&Alt;<keycap
+>J</keycap
+></keycombo
+> för att gå igenom de markerade orden och använda <keycombo action="simul"
+>&Alt;<keycap
+>K</keycap
+></keycombo
+> för att avmarkera vilket ord som helst, som nämnt i föregående stycke.</para
 ></listitem>
 </itemizedlist>
 

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-06 00:50+0000\n"
-"PO-Revision-Date: 2022-06-12 10:41+0200\n"
+"PO-Revision-Date: 2022-11-27 11:48+0100\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
@@ -491,10 +491,9 @@ msgid "command not found"
 msgstr "kommando hittades inte"
 
 #: debugview_dap.cpp:1458
-#, fuzzy, kde-format
-#| msgid "invalid thread id: %1"
+#, kde-format
 msgid "missing thread id"
-msgstr "ogiltig trådidentifierare: %1"
+msgstr "saknar trådidentifierare"
 
 #: debugview_dap.cpp:1566
 #, kde-format

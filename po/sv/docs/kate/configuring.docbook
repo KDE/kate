@@ -444,7 +444,7 @@
 <term
 ><anchor id="config-dialog-sessions-shutdown-behavior"/>
 <guilabel
->Beteende vid programavstängning</guilabel
+>Beteende vid programstart och avstängning</guilabel
 ></term>
 <listitem>
 <para

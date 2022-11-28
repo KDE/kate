@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-01 00:50+0000\n"
-"PO-Revision-Date: 2022-09-24 10:41+0200\n"
+"PO-Revision-Date: 2022-11-27 11:48+0100\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
@@ -390,15 +390,14 @@ msgid "Next Document"
 msgstr "Nästa dokument"
 
 #: katefiletreeplugin.cpp:258
-#, fuzzy, kde-format
-#| msgid "&Show Active"
+#, kde-format
 msgid "&Show Active Document"
-msgstr "&Visa aktivt"
+msgstr "Vi&sa aktivt dokument"
 
 #: katefiletreeplugin.cpp:263
 #, kde-format
 msgid "Save"
-msgstr ""
+msgstr "Spara"
 
 #: katefiletreeplugin.cpp:264
 #, kde-format
@@ -408,11 +407,10 @@ msgstr "Spara aktuellt dokument"
 #: katefiletreeplugin.cpp:268
 #, kde-format
 msgid "Save As"
-msgstr ""
+msgstr "Spara som"
 
 #: katefiletreeplugin.cpp:269
-#, fuzzy, kde-format
-#| msgid "Save current document under new name"
+#, kde-format
 msgid "Save the current document under a new name"
 msgstr "Spara aktuellt dokument med nytt namn"
 

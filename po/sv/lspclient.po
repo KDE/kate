@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-25 02:37+0000\n"
-"PO-Revision-Date: 2022-09-25 10:02+0200\n"
+"PO-Revision-Date: 2022-11-27 11:47+0100\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
@@ -258,7 +258,7 @@ msgstr "Starta om alla LSP-servrar"
 #: lspclientpluginview.cpp:731
 #, kde-format
 msgid "Go To"
-msgstr ""
+msgstr "Gå till"
 
 #: lspclientpluginview.cpp:759
 #, kde-format

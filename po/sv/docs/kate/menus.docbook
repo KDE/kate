@@ -1131,6 +1131,74 @@
 </listitem>
 </varlistentry>
 
+<varlistentry id="view-split-left">
+<term
+><menuchoice
+><guimenu
+>Visa</guimenu
+> <guisubmenu
+>Delad vy</guisubmenu
+> <guimenuitem
+>Dela vy åt vänster</guimenuitem
+> </menuchoice>
+</term
+><listitem>
+<para
+>Fokusera den delade vyn åt vänster intuitivt, med användning av markörpositionen för att tydliggöra det vid behov.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-split-right">
+<term
+><menuchoice
+><guimenu
+>Visa</guimenu
+> <guisubmenu
+>Delad vy</guisubmenu
+> <guimenuitem
+>Dela vy åt höger</guimenuitem
+> </menuchoice>
+</term
+><listitem>
+<para
+>Fokusera den delade vyn åt höger intuitivt, med användning av markörpositionen för att tydliggöra det vid behov.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-split-upward">
+<term
+><menuchoice
+><guimenu
+>Visa</guimenu
+> <guisubmenu
+>Delad vy</guisubmenu
+> <guimenuitem
+>Dela vy uppåt</guimenuitem
+> </menuchoice>
+</term
+><listitem>
+<para
+>Fokusera den delade vyn uppåt intuitivt, med användning av markörpositionen för att tydliggöra det vid behov.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-split-downward">
+<term
+><menuchoice
+><guimenu
+>Visa</guimenu
+> <guisubmenu
+>Delad vy</guisubmenu
+> <guimenuitem
+>Dela vy neråt</guimenuitem
+> </menuchoice>
+</term
+><listitem>
+<para
+>Fokusera den delade vyn neråt intuitivt, med användning av markörpositionen för att tydliggöra det vid behov.</para>
+</listitem>
+</varlistentry>
+
 <varlistentry id="view-split-vertical">
 <term>
 <menuchoice
@@ -2372,184 +2440,236 @@ depends on the <link linkend="pref-edit-indent"
 </listitem>
 </varlistentry>
 -->
+
+<!-- <Pablo
+> These are in the selection menu now, and are documented in doc/katepart/menus.docbook -->
+<!--
 <varlistentry id="tools-cleanindent">
 <term
-><menuchoice
-><guimenu
->Verktyg</guimenu
-><guimenuitem
->Rensa indentering</guimenuitem
-> </menuchoice
+><menuchoice>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Clean Indentation</guimenuitem>
+</menuchoice
 ></term>
 <listitem>
 <para
->Det här rensar indenteringen för nuvarande markering eller för raden där markören för närvarande befinner sig. Att rensa indenteringen försäkrar dig om att den markerade texten följer indenteringsläget du valt.</para>
+>This cleans the indentation for the current selection or for the
+line the cursor is currently in. Cleaning the indentation ensures that
+all your selected text follows the indentation mode you choose.</para>
 </listitem>
 </varlistentry>
 
-<varlistentry id="tools-align">
+<varlistentry id="tools-formatindent">
 <term
-><menuchoice
-><guimenu
->Verktyg</guimenu
-> <guimenuitem
->Justera</guimenuitem
-> </menuchoice
+><menuchoice>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Format Indent</guimenuitem>
+</menuchoice
 ></term>
 <listitem>
 <para
->Gör att nuvarande rad eller markerade rader justeras om med indenteringsläget och indenteringsinställningarna i dokumentet.</para>
+>Causes a realign of the current line or selected lines using the
+indentation mode and indentation settings in the document.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-alignon">
+<term
+><menuchoice>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Align On...</guimenuitem>
+</menuchoice
+></term>
+<listitem>
+<para
+>This command aligns lines in the selected block or whole document on the column given by a regular expression that you will be prompted for.</para>
+<para
+>If you give an empty pattern it will align on the first non-blank character by default.</para>
+<para
+>If the pattern has a capture it will indent on the captured match.</para>
+<para
+><emphasis
+>Examples:</emphasis
+></para>
+<para
+>With '<userinput
+>-</userinput
+>' it will insert spaces before the first '-' of each lines to align them all on the same column.</para>
+<para
+>With '<userinput
+>alignon :\\s+(.)</userinput
+>' it will insert spaces before the first non-blank character that occurs after a colon to align them all on the same column.</para>
 </listitem>
 </varlistentry>
 
 <varlistentry id="tools-comment">
 <term
-><menuchoice
-><shortcut
-> <keycombo action="simul"
+><menuchoice>
+<shortcut>
+<keycombo action="simul"
 >&Ctrl;<keycap
 >D</keycap
-></keycombo
-> </shortcut
-> <guimenu
->Verktyg</guimenu
-> <guimenuitem
->Kommentera</guimenuitem
-> </menuchoice
+></keycombo>
+</shortcut>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Comment</guimenuitem>
+</menuchoice
 ></term>
 <listitem
 ><para
->Det här lägger till ett blanktecken i början på raden där textmarkören befinner sig eller till början av alla markerade rader.</para>
+>This adds one space to the beginning of the line
+where the text cursor is located or to the beginning of any
+selected lines.</para>
 </listitem>
 </varlistentry>
 
 <varlistentry id="tools-uncomment">
 <term
-><menuchoice
-><shortcut
-> <keycombo action="simul"
+><menuchoice>
+<shortcut>
+<keycombo action="simul"
 >&Ctrl;&Shift;<keycap
 >D</keycap
-></keycombo
-> </shortcut
-> <guimenu
->Verktyg</guimenu
-> <guimenuitem
->Avkommentera</guimenuitem
-> </menuchoice
+></keycombo>
+</shortcut>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Uncomment</guimenuitem>
+</menuchoice
 ></term>
 <listitem
 ><para
->Det här tar bort ett blanktecken (om det finns något) från början på raden där textmarkören befinner sig eller från början av alla markerade rader.</para
+>This removes one space (if any exist) from the beginning of the
+line where the text cursor is located or from the beginning of any
+selected lines.</para
 ></listitem>
 </varlistentry>
 
 <varlistentry id="tools-uppercase">
 <term
-><menuchoice
-><shortcut
-> <keycombo action="simul"
+><menuchoice>
+<shortcut>
+<keycombo action="simul"
 >&Ctrl;<keycap
 >U</keycap
-></keycombo
-> </shortcut
-> <guimenu
->Verktyg</guimenu
-> <guimenuitem
->Stora bokstäver</guimenuitem
-> </menuchoice
+></keycombo>
+</shortcut>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Uppercase</guimenuitem>
+</menuchoice
 ></term>
 <listitem
 ><para
->Ändra den markerade texten eller bokstaven efter markören till stora bokstäver.</para
+>Put the selected text or the letter after the cursor in
+uppercase.</para
 ></listitem>
 </varlistentry>
 
 <varlistentry id="tools-lowercase">
 <term
-><menuchoice
-><shortcut
-> <keycombo action="simul"
+><menuchoice>
+<shortcut>
+<keycombo action="simul"
 >&Ctrl;&Shift;<keycap
 >U</keycap
-></keycombo
-> </shortcut
-> <guimenu
->Verktyg</guimenu
-> <guimenuitem
->Små bokstäver</guimenuitem
-> </menuchoice
+></keycombo>
+</shortcut>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Lowercase</guimenuitem>
+</menuchoice
 ></term>
 <listitem
 ><para
->Ändra den markerade texten eller bokstaven efter markören till små bokstäver.</para
+>Put the selected text or the letter after the cursor in
+lowercase.</para
 ></listitem>
 </varlistentry>
 
 <varlistentry id="tools-capitalize">
 <term
-><menuchoice
-><shortcut
-> <keycombo action="simul"
->&Alt;&Ctrl;<keycap
+><menuchoice>
+<shortcut>
+<keycombo action="simul"
+>&Ctrl;&Alt;<keycap
 >U</keycap
-></keycombo
-> </shortcut
-> <guimenu
->Verktyg</guimenu
-> <guimenuitem
->Inledande stor bokstav</guimenuitem
-> </menuchoice
+></keycombo>
+</shortcut>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Capitalize</guimenuitem>
+</menuchoice
 ></term>
 <listitem
 ><para
->Ändra den inledande bokstaven för orden i den markerade texten eller i aktuellt ord till stor bokstav.</para
+>Capitalize the selected text or the current
+word.</para
 ></listitem>
 </varlistentry>
 
 <varlistentry id="tools-join-lines">
 <term
-><menuchoice
-><shortcut
-> <keycombo action="simul"
+><menuchoice>
+<shortcut>
+<keycombo action="simul"
 >&Ctrl;<keycap
 >J</keycap
-></keycombo
-> </shortcut
-> <guimenu
->Verktyg</guimenu
-> <guimenuitem
->Kombinera rader</guimenuitem
-> </menuchoice
+></keycombo>
+</shortcut>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Join Lines</guimenuitem>
+</menuchoice
 ></term>
 <listitem
 ><para
->Kombinerar markerade rader, eller den nuvarande raden och raden under den med ett blanktecken som avskiljare. Inledande eller efterföljande blanktecken tas bort för kombinerade rader i ändarna som påverkas.</para
+>Joins the selected lines, or the current line and the line below
+with one white space character as a separator. Leading/trailing white space on
+joined lines is removed in the affected ends.</para
 ></listitem>
 </varlistentry>
 
 <varlistentry id="tools-word-wrap-document">
 <term
-><menuchoice
-><guimenu
->Verktyg</guimenu
-><guimenuitem
->Bryt rader mellan ord i dokument</guimenuitem
-> </menuchoice
+><menuchoice>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Apply Word Wrap</guimenuitem>
+</menuchoice
 ></term>
 <listitem
 ><para
->Tillämpa statisk radbrytning i hela dokumentet. Det betyder att en ny textrad automatiskt börjar när den aktuella raden överskrider längden som anges av alternativet <guilabel
->Bryt rader vid</guilabel
-> under fliken Redigering i <menuchoice
-> <guimenu
->Inställningar</guimenu
+>Apply static word wrapping on all the document. That means that
+a new line of text will automatically start when the current
+line exceeds the length specified by the <guilabel
+>Wrap words at</guilabel
+> option
+in the Editing tab in <menuchoice>
+<guimenu
+>Settings</guimenu
 ><guimenuitem
->Anpassa editor...</guimenuitem
+>Configure
+Editor...</guimenuitem
 ></menuchoice
 >.</para
 ></listitem>
 </varlistentry>
+-->
 
 </variablelist>
 </sect1>

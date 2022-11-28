@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-26 02:29+0000\n"
-"PO-Revision-Date: 2022-10-02 16:47+0200\n"
+"PO-Revision-Date: 2022-11-27 21:39+0100\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
@@ -229,7 +229,7 @@ msgstr "Huvudverktygsrad"
 #: lib/data/kateui.rc:155
 #, kde-format
 msgid "Hamburger Menu Toolbar"
-msgstr ""
+msgstr "Hamburgarmenyverktygsrad"
 
 #. i18n: ectx: Menu (viewspace_popup_statusbar)
 #: lib/data/kateui.rc:173
@@ -296,29 +296,27 @@ msgstr "Avlägsna stycke"
 #: lib/diff/diffwidget.cpp:51
 #, kde-format
 msgid "Show/Hide Commit Info"
-msgstr ""
+msgstr "Visa eller dölj incheckningsinformation"
 
 #: lib/diff/diffwidget.cpp:56
 #, kde-format
 msgid "Jump to Next File"
-msgstr ""
+msgstr "Gå till nästa fil"
 
 #: lib/diff/diffwidget.cpp:60
-#, fuzzy, kde-format
-#| msgid "Go to Previous Location"
+#, kde-format
 msgid "Jump to Previous File"
-msgstr "Gå till föregående position"
+msgstr "Gå till föregående fil"
 
 #: lib/diff/diffwidget.cpp:64
 #, kde-format
 msgid "Jump to Next Hunk"
-msgstr ""
+msgstr "Gå till nästa stycke"
 
 #: lib/diff/diffwidget.cpp:68
-#, fuzzy, kde-format
-#| msgid "Go to Previous Location"
+#, kde-format
 msgid "Jump to Previous Hunk"
-msgstr "Gå till föregående position"
+msgstr "Gå till föregående stycke"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
 #: lib/filehistorywidget.cpp:254 lib/kateconfigdialog.cpp:123
@@ -397,7 +395,7 @@ msgstr "Kåre Särs"
 #: lib/kateapp.cpp:150
 #, kde-format
 msgid "Waqar Ahmed"
-msgstr ""
+msgstr "Waqar Ahmed"
 
 #: lib/kateapp.cpp:151
 #, kde-format
@@ -694,13 +692,12 @@ msgstr "Anpassa"
 #: lib/kateconfigdialog.cpp:62 lib/kateoutputview.cpp:143
 #, kde-format
 msgid "Search..."
-msgstr ""
+msgstr "Sök..."
 
 #: lib/kateconfigdialog.cpp:124
-#, fuzzy, kde-format
-#| msgid "&Save"
+#, kde-format
 msgid "Save"
-msgstr "&Spara"
+msgstr "Spara"
 
 #: lib/kateconfigdialog.cpp:344
 #, kde-format
@@ -937,16 +934,14 @@ msgid "Diff Style:"
 msgstr "Jämförelsestil:"
 
 #: lib/kateconfigdialog.cpp:541
-#, fuzzy, kde-format
-#| msgid "Show Navigation Bar"
+#, kde-format
 msgid "Navigation Bar"
-msgstr "Visa navigeringsrad"
+msgstr "Navigeringsrad"
 
 #: lib/kateconfigdialog.cpp:546
-#, fuzzy, kde-format
-#| msgid "Focus the navigation bar"
+#, kde-format
 msgid "Show current symbol in navigation bar"
-msgstr "Fokusera på navigeringsraden"
+msgstr "Visa aktuell symbol på navigeringsrad"
 
 #: lib/kateconfigdialog.cpp:560
 #, kde-format
@@ -978,6 +973,8 @@ msgid ""
 "When a window is closed the documents opened only in this window are closed "
 "as well."
 msgstr ""
+"När ett fönster stängs, stängs också dokumenten som bara är öppnade i "
+"fönstret."
 
 #: lib/kateconfigdialog.cpp:642
 #, kde-format
@@ -1492,7 +1489,7 @@ msgstr "Sidoradens knappar"
 #: lib/katemdi.cpp:106
 #, kde-format
 msgid "Focus Toolview"
-msgstr ""
+msgstr "Fokusera verktygsvy"
 
 #: lib/katemdi.cpp:109
 #, kde-format
@@ -1522,7 +1519,7 @@ msgstr "Visa knappen %1"
 #: lib/katemdi.cpp:195
 #, kde-format
 msgid "Focus %1"
-msgstr ""
+msgstr "Fokusera %1"
 
 #: lib/katemdi.cpp:1006
 #, kde-format
@@ -1712,11 +1709,9 @@ msgid "Diff Output"
 msgstr "Jämförelseutmatning"
 
 #: lib/kateoutputview.cpp:158
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Copy to Clipboard"
+#, kde-format
 msgid "Copy all text to clipboard"
-msgstr "Kopiera till klippbordet"
+msgstr "Kopiera all text till klippbordet"
 
 #: lib/kateoutputview.cpp:163
 #, kde-format
@@ -2020,38 +2015,37 @@ msgstr "Öppnar stor fil"
 #: lib/kateviewmanager.cpp:466
 #, kde-format
 msgid "%1 cannot open folders"
-msgstr ""
+msgstr "%1 kan inte öppna kataloger"
 
 #: lib/kateviewmanager.cpp:485
 #, kde-format
 msgid "The plugin required to open folders was not found"
-msgstr ""
+msgstr "Insticksprogrammet som krävs för att öppna kataloger hittades inte"
 
 #: lib/kateviewmanager.cpp:491
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
 msgstr ""
+"För att öppna kataloger måste insticksprogrammet <b>%1</b> aktiveras. "
+"Aktivera det?"
 
 #: lib/kateviewmanager.cpp:500
-#, fuzzy, kde-format
-#| msgctxt "on welcome screen"
-#| msgid "Open Folder..."
+#, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
-msgstr "Öppna katalog..."
+msgstr "Öppna katalog"
 
 #: lib/kateviewmanager.cpp:501
-#, fuzzy, kde-format
-#| msgid "Enabled"
+#, kde-format
 msgctxt "@action:button"
 msgid "Enable"
-msgstr "Aktiverad"
+msgstr "Aktivera"
 
 #: lib/kateviewmanager.cpp:512
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
-msgstr ""
+msgstr "Misslyckades aktivera insticksprogrammet <b>%1</b>"
 
 #: lib/kateviewmanager.cpp:1234
 #, kde-format
@@ -2379,14 +2373,13 @@ msgstr "Filer med osparade ändringar"
 #: lib/ui/sessionconfigwidget.ui:88
 #, kde-format
 msgid "If disabled, an untitled document will be shown for new windows."
-msgstr ""
+msgstr "Om inaktiverat, visas ett namnlöst dokument i nya fönster."
 
 #. i18n: ectx: property (text), widget (QCheckBox, showWelcomeViewForNewWindow)
 #: lib/ui/sessionconfigwidget.ui:91
-#, fuzzy, kde-format
-#| msgid "Create a new window."
+#, kde-format
 msgid "Show welcome view for new windows"
-msgstr "Skapa ett nytt fönster."
+msgstr "Visa välkomstvy för nya fönster"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, modCloseAfterLast)
 #: lib/ui/sessionconfigwidget.ui:98
@@ -2408,7 +2401,7 @@ msgstr "Stäng programmet helt och hållet när den sista filen stängs"
 #: lib/ui/sessionconfigwidget.ui:108
 #, kde-format
 msgid "Close documents with the window they belong to"
-msgstr ""
+msgstr "Stäng dokument med fönstret de hör till"
 
 #. i18n: ectx: property (title), widget (QGroupBox, gbElements)
 #: lib/ui/sessionconfigwidget.ui:118
@@ -2475,56 +2468,44 @@ msgid "Delete unused meta-information after:"
 msgstr "Ta bort oanvänd metainformation efter:"
 
 #: lib/welcomeview/welcomeview.cpp:52
-#, fuzzy, kde-format
-#| msgid "Welcome to Kate"
+#, kde-format
 msgid "Welcome to %1"
-msgstr "Välkommen till Kate"
+msgstr "Välkommen till %1"
 
 #: lib/welcomeview/welcomeview.cpp:56
-#, fuzzy, kde-format
-#| msgctxt "on welcome screen"
-#| msgid "Recent documents"
+#, kde-format
 msgid "Recent Documents and Projects"
-msgstr "Senaste dokument"
+msgstr "Senaste dokument och projekt"
 
 #: lib/welcomeview/welcomeview.cpp:56
-#, fuzzy, kde-format
-#| msgctxt "on welcome screen"
-#| msgid "Recent documents"
+#, kde-format
 msgid "Recent Documents"
 msgstr "Senaste dokument"
 
 #: lib/welcomeview/welcomeview.cpp:59
-#, fuzzy, kde-format
-#| msgctxt "on welcome screen"
-#| msgid "Recent documents"
+#, kde-format
 msgid "No recent documents or projects"
-msgstr "Senaste dokument"
+msgstr "Inga senaste dokument eller projekt"
 
 #: lib/welcomeview/welcomeview.cpp:59
-#, fuzzy, kde-format
-#| msgctxt "on welcome screen"
-#| msgid "Recent documents"
+#, kde-format
 msgid "No recent documents"
-msgstr "Senaste dokument"
+msgstr "Inga senaste dokument"
 
 #: lib/welcomeview/welcomeview.cpp:115
-#, fuzzy, kde-format
-#| msgid "&Save Session"
+#, kde-format
 msgid "No saved sessions"
-msgstr "&Spara session"
+msgstr "Inga sparade sessioner"
 
 #: lib/welcomeview/welcomeview.cpp:237
-#, fuzzy, kde-format
-#| msgid "Copy Location"
+#, kde-format
 msgid "Copy &Location"
-msgstr "Kopiera plats"
+msgstr "Kopiera p&lats"
 
 #: lib/welcomeview/welcomeview.cpp:252
-#, fuzzy, kde-format
-#| msgid "Remove target"
+#, kde-format
 msgid "&Remove"
-msgstr "Ta bort mål"
+msgstr "Ta bo&rt"
 
 #. i18n: ectx: property (windowTitle), widget (QScrollArea, WelcomeView)
 #: lib/welcomeview/welcomeview.ui:17
@@ -2534,85 +2515,75 @@ msgstr "Välkommen"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonNewFile)
 #: lib/welcomeview/welcomeview.ui:179
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "New File"
-msgstr "Öppna fil"
+msgstr "Ny fil"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonOpenFolder)
 #: lib/welcomeview/welcomeview.ui:186
-#, fuzzy, kde-format
-#| msgctxt "on welcome screen"
-#| msgid "Open Folder..."
+#, kde-format
 msgid "Open Folder..."
 msgstr "Öppna katalog..."
 
 #. i18n: ectx: property (text), widget (QLabel, labelRecentItems)
 #: lib/welcomeview/welcomeview.ui:193
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Delete File"
+#, kde-format
 msgid "Recent Files"
-msgstr "Ta bort fil"
+msgstr "Senaste filer"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonOpenFile)
 #: lib/welcomeview/welcomeview.ui:203
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "Open File..."
-msgstr "Öppna fil"
+msgstr "Öppna fil..."
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, buttonClearRecentItems)
 #: lib/welcomeview/welcomeview.ui:242
 #, kde-format
 msgid "Clear Recent Files"
-msgstr ""
+msgstr "Rensa senaste filer"
 
 #. i18n: ectx: property (text), widget (QLabel, labelHelp)
 #: lib/welcomeview/welcomeview.ui:271
-#, fuzzy, kde-format
-#| msgid "&Help"
+#, kde-format
 msgid "Help"
-msgstr "&Hjälp"
+msgstr "Hjälp"
 
 #. i18n: ectx: property (text), widget (KUrlLabel, labelHomepage)
 #: lib/welcomeview/welcomeview.ui:281
 #, kde-format
 msgid "Visit homepage"
-msgstr ""
+msgstr "Besök hemsida"
 
 #. i18n: ectx: property (text), widget (KUrlLabel, labelContribute)
 #: lib/welcomeview/welcomeview.ui:294
 #, kde-format
 msgid "Get involved"
-msgstr ""
+msgstr "Engagera dig"
 
 #. i18n: ectx: property (text), widget (KUrlLabel, labelHandbook)
 #: lib/welcomeview/welcomeview.ui:307
 #, kde-format
 msgid "Read handbook"
-msgstr ""
+msgstr "Läs handbok"
 
 #. i18n: ectx: property (text), widget (QLabel, labelSavedSessions)
 #: lib/welcomeview/welcomeview.ui:354
-#, fuzzy, kde-format
-#| msgid "&Save Session"
+#, kde-format
 msgid "Saved Sessions"
-msgstr "&Spara session"
+msgstr "Sparade sessioner"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonManageSessions)
 #: lib/welcomeview/welcomeview.ui:390
-#, fuzzy, kde-format
-#| msgid "&Manage Sessions..."
+#, kde-format
 msgid "Manage Sessions..."
-msgstr "&Hantera sessioner..."
+msgstr "Hantera sessioner..."
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
 #: lib/welcomeview/welcomeview.ui:443
-#, fuzzy, kde-format
-#| msgid "Create a new window."
+#, kde-format
 msgid "Show for new window"
-msgstr "Skapa ett nytt fönster."
+msgstr "Visa för nya fönster"
 
 #~ msgid "Filter..."
 #~ msgstr "Filtrera..."

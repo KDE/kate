@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-20 00:55+0000\n"
-"PO-Revision-Date: 2022-09-24 10:44+0200\n"
+"PO-Revision-Date: 2022-11-27 11:47+0100\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
@@ -601,10 +601,9 @@ msgid "Continuing from last match"
 msgstr "Fortsätter från sista träff"
 
 #: SearchPlugin.cpp:2028
-#, fuzzy, kde-format
-#| msgid "Search"
+#, kde-format
 msgid "Search: %1"
-msgstr "Sök"
+msgstr "Sök: %1"
 
 #: SearchPlugin.cpp:2159
 #, kde-format
@@ -624,7 +623,7 @@ msgstr "Exportera träffar"
 #: SearchPlugin.cpp:2173
 #, kde-format
 msgid "Open as Editor Tab"
-msgstr ""
+msgstr "Öppna som editorflik"
 
 #: SearchPlugin.cpp:2180
 #, kde-format

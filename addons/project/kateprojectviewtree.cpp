@@ -176,6 +176,9 @@ void KateProjectViewTree::removeFile(const QModelIndex &idx, const QString &full
     auto proxyModel = static_cast<QSortFilterProxyModel *>(model());
     auto index = proxyModel->mapToSource(idx);
     auto item = m_project->model()->itemFromIndex(index);
+    if (!item) {
+        return;
+    }
     QStandardItem *parent = item->parent();
 
     /**

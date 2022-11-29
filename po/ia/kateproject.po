@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-22 00:48+0000\n"
-"PO-Revision-Date: 2022-11-14 18:04+0100\n"
+"PO-Revision-Date: 2022-11-28 15:03+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -313,7 +313,7 @@ msgstr "Stash"
 #: gitwidget.cpp:972
 #, kde-format
 msgid "Diff - stash"
-msgstr ""
+msgstr "Diff - stash"
 
 #: gitwidget.cpp:1003
 #, kde-format
@@ -474,7 +474,7 @@ msgstr "Tu es secur que tu vole remover iste modificationes non traciate?"
 #: kateproject.cpp:223
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
-msgstr ""
+msgstr "File de  JSON malformate '%1': %2"
 
 #: kateproject.cpp:528
 #, kde-format
@@ -790,7 +790,7 @@ msgstr "Recarga projecto"
 #: kateprojectpluginview.cpp:97
 #, kde-format
 msgid "Refresh git status"
-msgstr ""
+msgstr "Refresca stato de git"
 
 #: kateprojectpluginview.cpp:173
 #, kde-format

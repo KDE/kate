@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-26 02:29+0000\n"
-"PO-Revision-Date: 2022-11-14 17:56+0100\n"
+"PO-Revision-Date: 2022-11-28 15:02+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -1397,7 +1397,7 @@ msgstr "Vade a proxime location"
 #: lib/katemainwindow.cpp:531
 #, kde-format
 msgid "Show File Git History"
-msgstr ""
+msgstr "Monstra chronologia de file de Git"
 
 #: lib/katemainwindow.cpp:546
 #, kde-format
@@ -1546,22 +1546,22 @@ msgstr "Proprie section"
 #: lib/katemdi.cpp:1023 lib/katemdi.cpp:1031
 #, kde-format
 msgid "One Down"
-msgstr ""
+msgstr "Un a basso"
 
 #: lib/katemdi.cpp:1025 lib/katemdi.cpp:1036
 #, kde-format
 msgid "One Right"
-msgstr ""
+msgstr "Un a dextera"
 
 #: lib/katemdi.cpp:1029
 #, kde-format
 msgid "One Up"
-msgstr ""
+msgstr "Un in alto"
 
 #: lib/katemdi.cpp:1034
 #, kde-format
 msgid "One Left"
-msgstr ""
+msgstr "Un a sinistra"
 
 #: lib/katemdi.cpp:1043
 #, kde-format

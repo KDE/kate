@@ -1100,18 +1100,9 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
   </custom>
   <content_rating type="oars-1.1"/>
   <releases>
+    <release version="22.12.0" date="2022-12-08"/>
     <release version="22.08.3" date="2022-11-03"/>
     <release version="22.08.2" date="2022-10-13"/>
     <release version="22.08.1" date="2022-09-08"/>
-    <release version="22.08.0" date="2022-08-18">
-      <artifacts>
-        <artifact type="binary" platform="x86_64-windows-msvc">
-          <location>https://download.kde.org/stable/release-service/22.08.0/windows/kate-22.08.0-windows-msvc2019_64-cl.exe</location>
-          <checksum type="sha256">3048b229e89f65dbfba63d64c5eae32c01f3ebfdeb98bd3cbd0339c70af3462d</checksum>
-          <size type="download">68679888</size>
-        </artifact>
-      </artifacts>
-    </release>
-    <release version="22.04.3" date="2022-07-07"/>
   </releases>
 </component>

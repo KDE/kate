@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-24 00:49+0000\n"
-"PO-Revision-Date: 2022-10-12 15:38+0200\n"
+"PO-Revision-Date: 2022-11-28 15:55+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -212,50 +212,42 @@ msgid "Show Inlay Hints"
 msgstr ""
 
 #: lspclientpluginview.cpp:703
-#, fuzzy, kde-format
-#| msgid "Show diagnostics notifications"
+#, kde-format
 msgid "Show Diagnostics Notifications"
 msgstr "Monstra notificationes de diagnostica"
 
 #: lspclientpluginview.cpp:706
-#, fuzzy, kde-format
-#| msgid "Show diagnostics highlights"
+#, kde-format
 msgid "Show Diagnostics Highlights"
 msgstr "Monstra evidentias de diagnostica"
 
 #: lspclientpluginview.cpp:709
-#, fuzzy, kde-format
-#| msgid "Show diagnostics marks"
+#, kde-format
 msgid "Show Diagnostics Marks"
 msgstr "Monstra marcas de diagnostica"
 
 #: lspclientpluginview.cpp:712
-#, fuzzy, kde-format
-#| msgid "Show diagnostics on hover"
+#, kde-format
 msgid "Show Diagnostics on Hover"
 msgstr "Monstra diagnostica quando passa supra"
 
 #: lspclientpluginview.cpp:715
-#, fuzzy, kde-format
-#| msgid "Switch to diagnostics tab"
+#, kde-format
 msgid "Switch to Diagnostics Tab"
-msgstr "Pasa a schda de diagnostica"
+msgstr "Passa a scheda de diagnostica"
 
 #: lspclientpluginview.cpp:719
-#, fuzzy, kde-format
-#| msgid "Show messages"
+#, kde-format
 msgid "Show Messages"
 msgstr "Monstra messages"
 
 #: lspclientpluginview.cpp:724
-#, fuzzy, kde-format
-#| msgid "Server memory usage"
+#, kde-format
 msgid "Server Memory Usage"
 msgstr "Uso de Memoria de servitor"
 
 #: lspclientpluginview.cpp:728
-#, fuzzy, kde-format
-#| msgid "Close all dynamic reference tabs"
+#, kde-format
 msgid "Close All Dynamic Reference Tabs"
 msgstr "Claude omne scheda de referentia dynamic"
 
@@ -270,9 +262,9 @@ msgid "Restart All LSP Servers"
 msgstr "Restarta omne Servitores LSP"
 
 #: lspclientpluginview.cpp:743
-#, kde-format
+#, fuzzy, kde-format
 msgid "Go To"
-msgstr ""
+msgstr "Vade a"
 
 #: lspclientpluginview.cpp:771
 #, kde-format

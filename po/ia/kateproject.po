@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-22 00:49+0000\n"
-"PO-Revision-Date: 2022-10-12 15:38+0200\n"
+"PO-Revision-Date: 2022-11-28 15:53+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -183,8 +183,7 @@ msgid "Git Push"
 msgstr "Git push"
 
 #: gitwidget.cpp:254
-#, fuzzy, kde-format
-#| msgid "Git pull"
+#, kde-format
 msgid "Git Pull"
 msgstr "Git pull"
 
@@ -303,8 +302,7 @@ msgid "Delete Branch"
 msgstr "Dele branca ..."
 
 #: gitwidget.cpp:959
-#, fuzzy, kde-format
-#| msgid "Compare Branch with ..."
+#, kde-format
 msgid "Compare Branch with..."
 msgstr "Compara branca con ..."
 
@@ -316,7 +314,7 @@ msgstr "Stash"
 #: gitwidget.cpp:972
 #, kde-format
 msgid "Diff - stash"
-msgstr ""
+msgstr "Diff - stash"
 
 #: gitwidget.cpp:1003
 #, kde-format
@@ -401,8 +399,7 @@ msgid "Open File"
 msgstr "Aperi file"
 
 #: gitwidget.cpp:1125
-#, fuzzy, kde-format
-#| msgid "Show in external git diff tool"
+#, kde-format
 msgid "Show in External Git Diff Tool"
 msgstr "Monstra in instrumento de diff git externe"
 
@@ -412,14 +409,12 @@ msgid "Open at HEAD"
 msgstr "Aperi a HEAD"
 
 #: gitwidget.cpp:1127
-#, fuzzy, kde-format
-#| msgid "Unstage file"
+#, kde-format
 msgid "Unstage File"
 msgstr "Deorganisa (unstage) file"
 
 #: gitwidget.cpp:1127
-#, fuzzy, kde-format
-#| msgid "Stage file"
+#, kde-format
 msgid "Stage File"
 msgstr "Organisa (stage) file"
 
@@ -481,7 +476,7 @@ msgstr "Tu es secur que tu vole remover iste modificationes non traciate?"
 #: kateproject.cpp:223
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
-msgstr ""
+msgstr "File de  JSON malformate '%1': %2"
 
 #: kateproject.cpp:528
 #, kde-format
@@ -790,15 +785,14 @@ msgid "Project Manager"
 msgstr "Gerente de projectos"
 
 #: kateprojectpluginview.cpp:80
-#, fuzzy, kde-format
-#| msgid "Close Project"
+#, kde-format
 msgid "Reload project"
-msgstr "Claude projecto"
+msgstr "Recarga projecto"
 
 #: kateprojectpluginview.cpp:97
 #, kde-format
 msgid "Refresh git status"
-msgstr ""
+msgstr "Refresca stato de git"
 
 #: kateprojectpluginview.cpp:175
 #, kde-format
@@ -936,8 +930,7 @@ msgid "Checkout Git Branch"
 msgstr "Extrahe (Checkout) brance de git"
 
 #: kateprojectview.cpp:83
-#, fuzzy, kde-format
-#| msgid "Checkout Branch"
+#, kde-format
 msgid "Checkout branch"
 msgstr "Branca de Checkhout (extraher)"
 

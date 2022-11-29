@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-24 00:49+0000\n"
-"PO-Revision-Date: 2022-10-25 10:45+0100\n"
+"PO-Revision-Date: 2022-11-28 18:09+0000\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
 "Language: pt\n"
@@ -193,16 +193,14 @@ msgid "*** gdb exited normally ***"
 msgstr "*** o 'gdb' saiu normalmente ***"
 
 #: debugview.cpp:620
-#, fuzzy, kde-format
-#| msgid "all threads continued"
+#, kde-format
 msgid "all threads running"
-msgstr "todas as tarefas retomadas"
+msgstr "todas as tarefas em execução"
 
 #: debugview.cpp:622
-#, fuzzy, kde-format
-#| msgid "thread %1"
+#, kde-format
 msgid "thread(s) running: %1"
-msgstr "tarefa %1"
+msgstr "tarefas em execução: %1"
 
 #: debugview.cpp:627 debugview_dap.cpp:269
 #, kde-format
@@ -220,16 +218,14 @@ msgid "Active thread: %1."
 msgstr "Tarefa activa: %1."
 
 #: debugview.cpp:652
-#, fuzzy, kde-format
-#| msgid "Current frame: "
+#, kde-format
 msgid "Current frame: %1:%2"
-msgstr "Pilha actual: "
+msgstr "Pilha actual: %1:%2"
 
 #: debugview.cpp:679
-#, fuzzy, kde-format
-#| msgid "Target %1"
+#, kde-format
 msgid "Host: %1. Target: %1"
-msgstr "Alvo %1"
+msgstr "Máquina: %1. Alvo: %1"
 
 #: debugview.cpp:1230
 #, kde-format
@@ -237,11 +233,13 @@ msgid ""
 "gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
 "Shutting down."
 msgstr ""
+"gdb-mi: não foi possível processar a última resposta: %1. Ocorreram vários "
+"erros consecutivos. A encerrar."
 
 #: debugview.cpp:1232
 #, kde-format
 msgid "gdb-mi: Could not parse last response: %1"
-msgstr ""
+msgstr "gdb-mi: não foi possível processar a última resposta: %1"
 
 #: debugview_dap.cpp:168
 #, kde-format

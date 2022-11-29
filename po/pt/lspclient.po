@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-24 00:49+0000\n"
-"PO-Revision-Date: 2022-11-15 09:50+0000\n"
+"PO-Revision-Date: 2022-11-28 18:09+0000\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
 "Language: pt\n"
@@ -206,7 +206,7 @@ msgstr "Realçar a localização do destino"
 #: lspclientpluginview.cpp:699
 #, kde-format
 msgid "Show Inlay Hints"
-msgstr ""
+msgstr "Mostrar as Dicas Interiores"
 
 #: lspclientpluginview.cpp:703
 #, kde-format
@@ -705,7 +705,7 @@ msgstr "Formatação ao gravar"
 #: lspconfigwidget.ui:255
 #, kde-format
 msgid "Enable inlay hints"
-msgstr ""
+msgstr "Activar as dicas interiores"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_4)
 #: lspconfigwidget.ui:278

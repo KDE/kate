@@ -60,45 +60,6 @@ KateDocManager::~KateDocManager()
     }
 }
 
-KTextEditor::Document *KateDocManager::createDoc(const KateDocumentInfo &docInfo)
-{
-    KTextEditor::Document *doc = KTextEditor::Editor::instance()->createDocument(this);
-
-    // turn of the editorpart's own modification dialog, we have our own one, too!
-    const KConfigGroup generalGroup(KSharedConfig::openConfig(), "General");
-    bool ownModNotification = generalGroup.readEntry("Modified Notification", false);
-    if (qobject_cast<KTextEditor::ModificationInterface *>(doc)) {
-        qobject_cast<KTextEditor::ModificationInterface *>(doc)->setModifiedOnDiskWarning(!ownModNotification);
-    }
-
-    m_docList.push_back(doc);
-    m_docInfos.emplace(doc, docInfo);
-
-    // connect internal signals...
-    connect(doc, &KTextEditor::Document::modifiedChanged, this, &KateDocManager::slotModChanged1);
-    // clang-format off
-    connect(doc,
-            SIGNAL(modifiedOnDisk(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)),
-            this,
-            SLOT(slotModifiedOnDisc(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)));
-    // clang-format on
-
-    // we have a new document, show it the world
-    Q_EMIT documentCreated(doc);
-
-    // return our new document
-    return doc;
-}
-
-KateDocumentInfo *KateDocManager::documentInfo(KTextEditor::Document *doc)
-{
-    auto it = m_docInfos.find(doc);
-    if (it != m_docInfos.end()) {
-        return &it->second;
-    }
-    return nullptr;
-}
-
 static QUrl normalizeUrl(const QUrl &url)
 {
     // Resolve symbolic links for local files
@@ -124,15 +85,63 @@ static QUrl absoluteUrl(const QUrl &url)
     return url.adjusted(QUrl::NormalizePathSegments);
 }
 
-KTextEditor::Document *KateDocManager::findDocument(const QUrl &url) const
+void KateDocManager::slotUrlChanged(const QUrl &newUrl)
 {
-    const QUrl u(normalizeUrl(url));
-    for (KTextEditor::Document *it : m_docList) {
-        if (normalizeUrl(it->url()) == u) {
-            return it;
-        }
+    KTextEditor::Document *doc = qobject_cast<KTextEditor::Document *>(sender());
+    if (doc) {
+        m_normalizedUrls.at(doc) = normalizeUrl(newUrl);
+    }
+}
+
+KTextEditor::Document *KateDocManager::createDoc(const KateDocumentInfo &docInfo)
+{
+    KTextEditor::Document *doc = KTextEditor::Editor::instance()->createDocument(this);
+
+    // turn off the editorpart's own modification dialog, we have our own one, too!
+    const KConfigGroup generalGroup(KSharedConfig::openConfig(), "General");
+    bool ownModNotification = generalGroup.readEntry("Modified Notification", false);
+    if (qobject_cast<KTextEditor::ModificationInterface *>(doc)) {
+        qobject_cast<KTextEditor::ModificationInterface *>(doc)->setModifiedOnDiskWarning(!ownModNotification);
+    }
+
+    m_docList.push_back(doc);
+    m_normalizedUrls.insert({doc, QUrl{}});
+    m_docInfos.emplace(doc, docInfo);
+
+    // connect internal signals...
+    connect(doc, &KTextEditor::Document::modifiedChanged, this, &KateDocManager::slotModChanged1);
+    // clang-format off
+    connect(doc,
+            SIGNAL(modifiedOnDisk(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)),
+            this,
+            SLOT(slotModifiedOnDisc(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)));
+    // clang-format on
+
+    connect(doc, &KParts::ReadOnlyPart::urlChanged, this, &KateDocManager::slotUrlChanged);
+
+    // we have a new document, show it the world
+    Q_EMIT documentCreated(doc);
+
+    // return our new document
+    return doc;
+}
+
+KateDocumentInfo *KateDocManager::documentInfo(KTextEditor::Document *doc)
+{
+    auto it = m_docInfos.find(doc);
+    if (it != m_docInfos.end()) {
+        return &it->second;
     }
     return nullptr;
+}
+
+KTextEditor::Document *KateDocManager::findDocument(const QUrl &url) const
+{
+    auto it = std::find_if(m_normalizedUrls.begin(), m_normalizedUrls.end(), [u = normalizeUrl(url)](const auto &p) {
+        return p.second == u;
+    });
+
+    return it == m_normalizedUrls.end() ? nullptr : it->first;
 }
 
 std::vector<KTextEditor::Document *> KateDocManager::openUrls(const QList<QUrl> &urls, const QString &encoding, const KateDocumentInfo &docInfo)
@@ -190,6 +199,8 @@ bool KateDocManager::closeDocuments(const QList<KTextEditor::Document *> documen
 
         // really delete the document and its infos
         m_docInfos.erase(doc);
+        disconnect(doc, &KParts::ReadOnlyPart::urlChanged, this, &KateDocManager::slotUrlChanged);
+        m_normalizedUrls.erase(doc);
         delete m_docList.takeAt(m_docList.indexOf(doc));
 
         // document is gone, emit our signals

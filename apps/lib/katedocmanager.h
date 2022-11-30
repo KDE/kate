@@ -158,6 +158,7 @@ private Q_SLOTS:
     void slotModifiedOnDisc(KTextEditor::Document *doc, bool b, KTextEditor::ModificationInterface::ModifiedOnDiskReason reason);
     void slotModChanged(KTextEditor::Document *doc);
     void slotModChanged1(KTextEditor::Document *doc);
+    void slotUrlChanged(const QUrl &newUrl);
 
 private:
     bool loadMetaInfos(KTextEditor::Document *doc, const QUrl &url);
@@ -165,6 +166,7 @@ private:
 
     QList<KTextEditor::Document *> m_docList;
     std::unordered_map<KTextEditor::Document *, KateDocumentInfo> m_docInfos;
+    std::unordered_map<KTextEditor::Document *, QUrl> m_normalizedUrls;
 
     KConfig m_metaInfos;
     bool m_saveMetaInfos;

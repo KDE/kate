@@ -160,8 +160,10 @@ KTextEditor::Document *KateDocManager::openUrl(const QUrl &url, const QString &e
     const QUrl u(absoluteUrl(url));
 
     // try to find already open document
-    if (auto doc = findDocument(u)) {
-        return doc;
+    if (!u.isEmpty()) {
+        if (auto doc = findDocument(u)) {
+            return doc;
+        }
     }
 
     // else: create new document

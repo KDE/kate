@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-22 00:49+0000\n"
-"PO-Revision-Date: 2022-11-28 15:53+0100\n"
+"PO-Revision-Date: 2022-11-29 22:41+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 22.11.80\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -177,8 +177,7 @@ msgid "Modified"
 msgstr "Modificate"
 
 #: gitwidget.cpp:241
-#, fuzzy, kde-format
-#| msgid "Git push"
+#, kde-format
 msgid "Git Push"
 msgstr "Git push"
 
@@ -393,8 +392,7 @@ msgid "Are you sure you want to discard all changes?"
 msgstr "Tu es secur que tu vole abandonar omne modificationes?"
 
 #: gitwidget.cpp:1123
-#, fuzzy, kde-format
-#| msgid "Open file"
+#, kde-format
 msgid "Open File"
 msgstr "Aperi file"
 

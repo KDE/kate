@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-26 00:49+0000\n"
-"PO-Revision-Date: 2022-11-28 15:52+0100\n"
+"PO-Revision-Date: 2022-11-29 22:37+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 22.11.80\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -247,7 +247,7 @@ msgid "Unified"
 msgstr "Unificate"
 
 #: lib/diff/diffeditor.cpp:186 lib/kateconfigdialog.cpp:537
-#, fuzzy, kde-format
+#, kde-format
 msgid "Raw"
 msgstr "Crude"
 
@@ -687,13 +687,12 @@ msgid "Configure"
 msgstr "Configura"
 
 #: lib/kateconfigdialog.cpp:62 lib/kateoutputview.cpp:151
-#, fuzzy, kde-format
+#, kde-format
 msgid "Search..."
 msgstr "Cerca..."
 
 #: lib/kateconfigdialog.cpp:126
-#, fuzzy, kde-format
-#| msgid "Save As"
+#, kde-format
 msgid "Save"
 msgstr "Salveguarda"
 
@@ -1298,10 +1297,9 @@ msgid "Close this window"
 msgstr "Claude iste fenestra"
 
 #: lib/katemainwindow.cpp:420
-#, fuzzy, kde-format
-#| msgid "&New Synchronized Window"
+#, kde-format
 msgid "&New Window"
-msgstr "&Nove fenestra"
+msgstr "&Nove Fenestra"
 
 #: lib/katemainwindow.cpp:423
 #, kde-format
@@ -2045,8 +2043,7 @@ msgid "Open Folder"
 msgstr "Aperi dossier"
 
 #: lib/kateviewmanager.cpp:501
-#, fuzzy, kde-format
-#| msgid "Enabled"
+#, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "Habilita"
@@ -2489,9 +2486,7 @@ msgid "Recent Documents and Projects"
 msgstr "Documentos e projectos recente"
 
 #: lib/welcomeview/welcomeview.cpp:56
-#, fuzzy, kde-format
-#| msgctxt "on welcome screen"
-#| msgid "Recent documents"
+#, kde-format
 msgid "Recent Documents"
 msgstr "Documentos recente"
 
@@ -2516,7 +2511,7 @@ msgid "Copy &Location"
 msgstr "Copia &Location"
 
 #: lib/welcomeview/welcomeview.cpp:252
-#, fuzzy, kde-format
+#, kde-format
 msgid "&Remove"
 msgstr "&Remove"
 
@@ -2540,8 +2535,7 @@ msgstr "Aperi dossier..."
 
 #. i18n: ectx: property (text), widget (QLabel, labelRecentItems)
 #: lib/welcomeview/welcomeview.ui:193
-#, fuzzy, kde-format
-#| msgid "Delete File?"
+#, kde-format
 msgid "Recent Files"
 msgstr "Files recente"
 

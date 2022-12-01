@@ -35,6 +35,8 @@ public:
     bool openSuccess = true;
     KTextEditor::Cursor startCursor = KTextEditor::Cursor::invalid(); // initial cursor position. This can be specified in the command line or as a url query
     bool wasDocumentEverModified = false;
+
+    QUrl normalizedUrl;
 };
 
 class KateDocManager : public QObject
@@ -166,7 +168,6 @@ private:
 
     QList<KTextEditor::Document *> m_docList;
     std::unordered_map<KTextEditor::Document *, KateDocumentInfo> m_docInfos;
-    std::unordered_map<KTextEditor::Document *, QUrl> m_normalizedUrls;
 
     KConfig m_metaInfos;
     bool m_saveMetaInfos;

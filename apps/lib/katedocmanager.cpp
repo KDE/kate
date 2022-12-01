@@ -89,7 +89,7 @@ void KateDocManager::slotUrlChanged(const QUrl &newUrl)
 {
     KTextEditor::Document *doc = qobject_cast<KTextEditor::Document *>(sender());
     if (doc) {
-        m_normalizedUrls.at(doc) = normalizeUrl(newUrl);
+        m_docInfos.at(doc).normalizedUrl = normalizeUrl(newUrl);
     }
 }
 
@@ -105,7 +105,6 @@ KTextEditor::Document *KateDocManager::createDoc(const KateDocumentInfo &docInfo
     }
 
     m_docList.push_back(doc);
-    m_normalizedUrls.insert({doc, QUrl{}});
     m_docInfos.emplace(doc, docInfo);
 
     // connect internal signals...
@@ -137,11 +136,11 @@ KateDocumentInfo *KateDocManager::documentInfo(KTextEditor::Document *doc)
 
 KTextEditor::Document *KateDocManager::findDocument(const QUrl &url) const
 {
-    auto it = std::find_if(m_normalizedUrls.begin(), m_normalizedUrls.end(), [u = normalizeUrl(url)](const auto &p) {
-        return p.second == u;
+    auto it = std::find_if(m_docInfos.begin(), m_docInfos.end(), [u = normalizeUrl(url)](const auto &p) {
+        return p.second.normalizedUrl == u;
     });
 
-    return it == m_normalizedUrls.end() ? nullptr : it->first;
+    return it == m_docInfos.end() ? nullptr : it->first;
 }
 
 std::vector<KTextEditor::Document *> KateDocManager::openUrls(const QList<QUrl> &urls, const QString &encoding, const KateDocumentInfo &docInfo)
@@ -200,9 +199,8 @@ bool KateDocManager::closeDocuments(const QList<KTextEditor::Document *> documen
         Q_EMIT documentWillBeDeleted(doc);
 
         // really delete the document and its infos
-        m_docInfos.erase(doc);
         disconnect(doc, &KParts::ReadOnlyPart::urlChanged, this, &KateDocManager::slotUrlChanged);
-        m_normalizedUrls.erase(doc);
+        m_docInfos.erase(doc);
         delete m_docList.takeAt(m_docList.indexOf(doc));
 
         // document is gone, emit our signals

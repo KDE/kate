@@ -2045,7 +2045,7 @@ or you can tell it to recursively load files from directories as follows:
 Here, subfolders and filters define what’s part of the project.
 You can also mix version control and files based on filters.
 Hidden files will not be retrieved if the option <code>"hidden"</code> is 0.
-<code>"exclude_patterns"</code> is a list of regex patterns than can be used 
+<code>"exclude_patterns"</code> is a list of regex patterns that can be used 
 to exclude folders and files from the project tree. In this example, All files
 and folders in a directory <filename>build</filename> from the root will be excluded.
 </para>

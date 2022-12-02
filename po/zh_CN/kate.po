@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-26 02:29+0000\n"
-"PO-Revision-Date: 2022-11-19 14:51\n"
+"PO-Revision-Date: 2022-12-01 06:57\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -926,12 +926,12 @@ msgstr "比较样式："
 #: lib/kateconfigdialog.cpp:541
 #, kde-format
 msgid "Navigation Bar"
-msgstr ""
+msgstr "导航栏"
 
 #: lib/kateconfigdialog.cpp:546
 #, kde-format
 msgid "Show current symbol in navigation bar"
-msgstr ""
+msgstr "在导航栏中显示当前符号"
 
 #: lib/kateconfigdialog.cpp:560
 #, kde-format

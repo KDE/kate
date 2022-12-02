@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-22 00:49+0000\n"
+"POT-Creation-Date: 2022-12-02 00:53+0000\n"
 "PO-Revision-Date: 2022-09-05 11:12+0200\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -468,12 +468,12 @@ msgstr "Bạn có chắc chắn muốn loại bỏ các thay đổi không?"
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "Bạn có chắc chắn muốn xoá những thay đổi chưa được theo dõi này không?"
 
-#: kateproject.cpp:223
+#: kateproject.cpp:218
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "Tệp JSON '%1' sai dạng: %2"
 
-#: kateproject.cpp:528
+#: kateproject.cpp:523
 #, kde-format
 msgid "<untracked>"
 msgstr "<chưa theo dõi>"
@@ -739,22 +739,22 @@ msgstr "Lỗi"
 msgid "File name already exists"
 msgstr "Tên tệp đã tồn tại"
 
-#: kateprojectplugin.cpp:222
+#: kateprojectplugin.cpp:223
 #, kde-format
 msgid "Confirm project closing: %1"
 msgstr "Xác nhận đóng dự án: %1"
 
-#: kateprojectplugin.cpp:223
+#: kateprojectplugin.cpp:224
 #, kde-format
 msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr "Bạn có muốn đóng dự án %1 và %2 tài liệu liên quan đang mở?"
 
-#: kateprojectplugin.cpp:575
+#: kateprojectplugin.cpp:576
 #, kde-format
 msgid "Full path to current project excluding the file name."
 msgstr "Đường dẫn đầy đủ đến dự án hiện tại không bao gồm tên tệp."
 
-#: kateprojectplugin.cpp:592
+#: kateprojectplugin.cpp:593
 #, kde-format
 msgid ""
 "Full path to current project excluding the file name, with native path "
@@ -763,7 +763,7 @@ msgstr ""
 "Đường dẫn đầy đủ đến dự án hiện tại không bao gồm tên tệp, với phần phân "
 "cách đường dẫn bản địa (dấu gạch chéo ngược trên Windows)."
 
-#: kateprojectplugin.cpp:713 kateprojectpluginview.cpp:70
+#: kateprojectplugin.cpp:714 kateprojectpluginview.cpp:70
 #: kateprojectpluginview.cpp:213 kateprojectviewtree.cpp:136
 #: kateprojectviewtree.cpp:161
 #, kde-format

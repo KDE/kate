@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-26 00:49+0000\n"
+"POT-Creation-Date: 2022-12-02 00:53+0000\n"
 "PO-Revision-Date: 2007-09-13 12:58+0545\n"
 "Last-Translator: Narayan Kumar Magar <narayan@mpp.org.np>\n"
 "Language-Team: Nepali <info@mpp.org.np>\n"
@@ -1045,7 +1045,7 @@ msgstr ""
 "तपाईँले यहाँ सबै उपलब्ध क्येट प्लगइन हेर्न सक्नुहुन्छ । तीनिहरू जाँच चिन्हसँग लोड गरिएका छन् र "
 "क्येट पछिल्लो समयमा सुरु हुँदा पुन: लोड हुन्छन् ।"
 
-#: lib/katedocmanager.cpp:269
+#: lib/katedocmanager.cpp:289
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>The document '%1' has been modified, but not saved.<p>Do you want to "
@@ -1057,32 +1057,32 @@ msgstr ""
 "<p>कागजात '%1' परिमार्जन गरिएको छ, तर बचत गरिएको छैन ।<p>तपाईँ परिवर्तनहरू बचत "
 "गर्न चाहनुहुन्छ वा तीनिहरूलाई छोड्न ?"
 
-#: lib/katedocmanager.cpp:272
+#: lib/katedocmanager.cpp:292
 #, kde-format
 msgid "Close Document"
 msgstr "कागजात बन्द गर्नुहोस्"
 
-#: lib/katedocmanager.cpp:285
+#: lib/katedocmanager.cpp:305
 #, kde-format
 msgid "Save As"
 msgstr "यस रुपमा बचत गर्नुहोस्"
 
-#: lib/katedocmanager.cpp:303 lib/katemainwindow.cpp:630
+#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:630
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr "क्येट बन्द गर्ने प्रयास गर्दा नयाँ फाइल खुल्यो, बन्द परित्याग गरियो ।"
 
-#: lib/katedocmanager.cpp:303 lib/katemainwindow.cpp:630
+#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:630
 #, kde-format
 msgid "Closing Aborted"
 msgstr "बन्द परित्याग गरियो"
 
-#: lib/katedocmanager.cpp:381
+#: lib/katedocmanager.cpp:401
 #, kde-format
 msgid "Starting Up"
 msgstr "सुरुआत हुँदैछ"
 
-#: lib/katedocmanager.cpp:382
+#: lib/katedocmanager.cpp:402
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "अन्तिम सत्रबाट फाइलहरू पुन: खोल्दैछ..."

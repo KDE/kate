@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-26 00:49+0000\n"
+"POT-Creation-Date: 2022-12-02 00:53+0000\n"
 "PO-Revision-Date: 2006-05-07 10:37+0200\n"
 "Last-Translator: Rinse de Vries <RinseDeVries@home.nl>\n"
 "Language-Team:  <nl@li.org>\n"
@@ -1035,7 +1035,7 @@ msgstr ""
 "in markearring, en sille op 'e nij laden wurde de folgjende kear as Kate "
 "úteinset."
 
-#: lib/katedocmanager.cpp:269
+#: lib/katedocmanager.cpp:289
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>The document '%1' has been modified, but not saved.<p>Do you want to "
@@ -1047,33 +1047,33 @@ msgstr ""
 "<p>Dit dokumint '%1' is bewurke, mar net op skiif bewarre.<p>Wolle jo de "
 "bewurkings bewarje of fuortsmite?"
 
-#: lib/katedocmanager.cpp:272
+#: lib/katedocmanager.cpp:292
 #, kde-format
 msgid "Close Document"
 msgstr "Dokumint slúte"
 
-#: lib/katedocmanager.cpp:285
+#: lib/katedocmanager.cpp:305
 #, fuzzy, kde-format
 msgid "Save As"
 msgstr "Bewarje &as..."
 
-#: lib/katedocmanager.cpp:303 lib/katemainwindow.cpp:630
+#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:630
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr ""
 "In nije triem is iepene ûnder it slúten fan Kate, it slúten is ôfbrutsen."
 
-#: lib/katedocmanager.cpp:303 lib/katemainwindow.cpp:630
+#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:630
 #, kde-format
 msgid "Closing Aborted"
 msgstr "Slúte ôfbrutsen"
 
-#: lib/katedocmanager.cpp:381
+#: lib/katedocmanager.cpp:401
 #, kde-format
 msgid "Starting Up"
 msgstr "Set út ein"
 
-#: lib/katedocmanager.cpp:382
+#: lib/katedocmanager.cpp:402
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "Dwaande triemmen wer te iepenjen fan de foarige sesje..."

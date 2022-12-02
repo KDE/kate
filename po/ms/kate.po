@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-26 00:49+0000\n"
+"POT-Creation-Date: 2022-12-02 00:53+0000\n"
 "PO-Revision-Date: 2006-10-20 20:16+0800\n"
 "Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>\n"
 "Language-Team: Malay <translation-team-ms@lists.sourceforge.net>\n"
@@ -1034,7 +1034,7 @@ msgstr ""
 "Di sini anda boleh lihat semua plugin Kate yang ada. Plugin yang ditanda "
 "dimuatkan, dan akan dimuatkan lagi apabila Kate dimulakan semula."
 
-#: lib/katedocmanager.cpp:269
+#: lib/katedocmanager.cpp:289
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>The document '%1' has been modified, but not saved.<p>Do you want to "
@@ -1046,32 +1046,32 @@ msgstr ""
 "<p>Dokumen'%1' telah diubah suai, tetapi tidak disimpan.<p>Anda ingin "
 "menyimpan perubahan anda atau membuangnya?"
 
-#: lib/katedocmanager.cpp:272
+#: lib/katedocmanager.cpp:292
 #, kde-format
 msgid "Close Document"
 msgstr "Tutup Dokumen"
 
-#: lib/katedocmanager.cpp:285
+#: lib/katedocmanager.cpp:305
 #, fuzzy, kde-format
 msgid "Save As"
 msgstr "Simp&an Sebagai..."
 
-#: lib/katedocmanager.cpp:303 lib/katemainwindow.cpp:630
+#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:630
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr "Fail baru dibuka semas cuba menutup Kate, penutupan dihenti paksa."
 
-#: lib/katedocmanager.cpp:303 lib/katemainwindow.cpp:630
+#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:630
 #, kde-format
 msgid "Closing Aborted"
 msgstr "Menutup Dibatalkan"
 
-#: lib/katedocmanager.cpp:381
+#: lib/katedocmanager.cpp:401
 #, fuzzy, kde-format
 msgid "Starting Up"
 msgstr "Memulakan daemon APM: "
 
-#: lib/katedocmanager.cpp:382
+#: lib/katedocmanager.cpp:402
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "Buka semula fail dari sesi terakhir..."

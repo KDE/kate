@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-26 00:49+0000\n"
+"POT-Creation-Date: 2022-12-02 00:53+0000\n"
 "PO-Revision-Date: 2021-10-11 08:07+0300\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -1041,7 +1041,7 @@ msgstr ""
 "είναι φορτωμένα, και θα φορτωθούν ξανά την επόμενη φορά που θα ξεκινήσει το "
 "Kate."
 
-#: lib/katedocmanager.cpp:269
+#: lib/katedocmanager.cpp:289
 #, kde-format
 msgid ""
 "<p>The document '%1' has been modified, but not saved.</p><p>Do you want to "
@@ -1050,32 +1050,32 @@ msgstr ""
 "<p>Το έγγραφο '%1' τροποποιήθηκε αλλά δεν αποθηκεύτηκε.</p><p>Θέλετε να "
 "αποθηκεύσετε τις αλλαγές ή να τις απορρίψετε;</p>"
 
-#: lib/katedocmanager.cpp:272
+#: lib/katedocmanager.cpp:292
 #, kde-format
 msgid "Close Document"
 msgstr "Κλείσιμο εγγράφου"
 
-#: lib/katedocmanager.cpp:285
+#: lib/katedocmanager.cpp:305
 #, kde-format
 msgid "Save As"
 msgstr "Αποθήκευση ως"
 
-#: lib/katedocmanager.cpp:303 lib/katemainwindow.cpp:630
+#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:630
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr "Νέο αρχείο άνοιξε όσο έκλεινε το Kate, το κλείσιμο ακυρώθηκε."
 
-#: lib/katedocmanager.cpp:303 lib/katemainwindow.cpp:630
+#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:630
 #, kde-format
 msgid "Closing Aborted"
 msgstr "Το κλείσιμο ακυρώθηκε"
 
-#: lib/katedocmanager.cpp:381
+#: lib/katedocmanager.cpp:401
 #, kde-format
 msgid "Starting Up"
 msgstr "Εκκίνηση"
 
-#: lib/katedocmanager.cpp:382
+#: lib/katedocmanager.cpp:402
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "Ξανά άνοιγμα των αρχείων της τελευταίας συνεδρίας..."

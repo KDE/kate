@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-22 00:49+0000\n"
+"POT-Creation-Date: 2022-12-02 00:53+0000\n"
 "PO-Revision-Date: 2021-09-09 16:45+0300\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -481,12 +481,12 @@ msgstr "Θέλετε πράγματι να απορρίψετε τις αλλα�
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "Θέλετε πράγματι να διαγράψετε αυτές τις μη παρακολουθούμενες αλλαγές;"
 
-#: kateproject.cpp:223
+#: kateproject.cpp:218
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr ""
 
-#: kateproject.cpp:528
+#: kateproject.cpp:523
 #, kde-format
 msgid "<untracked>"
 msgstr "<δεν παρακολουθείται>"
@@ -756,23 +756,23 @@ msgstr "Σφάλμα"
 msgid "File name already exists"
 msgstr "Το όνομα αρχείου υπάρχει ήδη"
 
-#: kateprojectplugin.cpp:222
+#: kateprojectplugin.cpp:223
 #, kde-format
 msgid "Confirm project closing: %1"
 msgstr "Επιβεβαίωση κλεισίματος έργου: %1"
 
-#: kateprojectplugin.cpp:223
+#: kateprojectplugin.cpp:224
 #, kde-format
 msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr ""
 "Θέλετε να κλείσετε το έργο %1 και τα σχετικά %2 με αυτό ανοιχτά έγγραφα;"
 
-#: kateprojectplugin.cpp:575
+#: kateprojectplugin.cpp:576
 #, kde-format
 msgid "Full path to current project excluding the file name."
 msgstr "Πλήρης διαδρομή στο τρέχον έργο χωρίς το όνομα αρχείου."
 
-#: kateprojectplugin.cpp:592
+#: kateprojectplugin.cpp:593
 #, kde-format
 msgid ""
 "Full path to current project excluding the file name, with native path "
@@ -781,7 +781,7 @@ msgstr ""
 "Πλήρης διαδρομή στο τρέχον έργο χωρίς το όνομα αρχείου, με εγγενές "
 "διαχωριστικό διαδρομής (ανάποδη πλαγιοκάθετος στα Windows)."
 
-#: kateprojectplugin.cpp:713 kateprojectpluginview.cpp:70
+#: kateprojectplugin.cpp:714 kateprojectpluginview.cpp:70
 #: kateprojectpluginview.cpp:213 kateprojectviewtree.cpp:136
 #: kateprojectviewtree.cpp:161
 #, kde-format

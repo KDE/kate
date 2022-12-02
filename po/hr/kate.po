@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate 0\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-26 00:49+0000\n"
+"POT-Creation-Date: 2022-12-02 00:53+0000\n"
 "PO-Revision-Date: 2010-03-15 15:31+0100\n"
 "Last-Translator: Andrej Dundovic <adundovi@gmail.com>\n"
 "Language-Team: Croatian <kde-croatia-list@lists.sourceforge.net>\n"
@@ -1040,7 +1040,7 @@ msgstr ""
 "Ovdje možete pregledati sve raspoloživa dodatke za Kate. Dodaci s oznakom su "
 "trenutno učitani, a bit će uplitani i pri svakom sljedećem pokretanju Kate."
 
-#: lib/katedocmanager.cpp:269
+#: lib/katedocmanager.cpp:289
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>The document '%1' has been modified, but not saved.<p>Do you want to "
@@ -1052,34 +1052,34 @@ msgstr ""
 "<p>Dokument '%1' je izmijenjen, ali nije spremljen.<p>Želite li spremiti "
 "izmjene ili ih odbaciti?"
 
-#: lib/katedocmanager.cpp:272
+#: lib/katedocmanager.cpp:292
 #, kde-format
 msgid "Close Document"
 msgstr "Zatvori dokument"
 
-#: lib/katedocmanager.cpp:285
+#: lib/katedocmanager.cpp:305
 #, fuzzy, kde-format
 msgid "Save As"
 msgstr "Spremi &kao..."
 
-#: lib/katedocmanager.cpp:303 lib/katemainwindow.cpp:630
+#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:630
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr ""
 "Nova datoteka je otvorena tijekom pokušaja zatvaranja Kate. Zatvaranje je "
 "prekinuto."
 
-#: lib/katedocmanager.cpp:303 lib/katemainwindow.cpp:630
+#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:630
 #, kde-format
 msgid "Closing Aborted"
 msgstr "Zatvaranje je prekinuto"
 
-#: lib/katedocmanager.cpp:381
+#: lib/katedocmanager.cpp:401
 #, kde-format
 msgid "Starting Up"
 msgstr "Započinjanje"
 
-#: lib/katedocmanager.cpp:382
+#: lib/katedocmanager.cpp:402
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "Ponovno otvaranje datoteka iz posljednje sesije"

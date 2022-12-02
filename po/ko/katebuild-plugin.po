@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-16 00:50+0000\n"
+"POT-Creation-Date: 2022-12-02 00:53+0000\n"
 "PO-Revision-Date: 2022-04-15 23:01+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -74,7 +74,7 @@ msgctxt "Header for the error message column"
 msgid "Message"
 msgstr "메시지"
 
-#: plugin_katebuild.cpp:136 plugin_katebuild.cpp:143 plugin_katebuild.cpp:1325
+#: plugin_katebuild.cpp:136 plugin_katebuild.cpp:143 plugin_katebuild.cpp:1323
 #, kde-format
 msgid "Build"
 msgstr "빌드"
@@ -122,8 +122,8 @@ msgctxt "Tab label"
 msgid "Target Settings"
 msgstr "대상 설정"
 
-#: plugin_katebuild.cpp:347 plugin_katebuild.cpp:1427 plugin_katebuild.cpp:1438
-#: plugin_katebuild.cpp:1459 plugin_katebuild.cpp:1469
+#: plugin_katebuild.cpp:347 plugin_katebuild.cpp:1425 plugin_katebuild.cpp:1436
+#: plugin_katebuild.cpp:1457 plugin_katebuild.cpp:1467
 #, kde-format
 msgid "Project Plugin Targets"
 msgstr "프로젝트 플러그인 대상"
@@ -187,135 +187,135 @@ msgstr ""
 "명령을 실행할 수 없음: %1\n"
 "작업 경로가 없음: %2"
 
-#: plugin_katebuild.cpp:822
+#: plugin_katebuild.cpp:826
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "\"%1\"을(를) 실행할 수 없습니다. 종료 상태 = %2"
 
-#: plugin_katebuild.cpp:841
+#: plugin_katebuild.cpp:845
 #, kde-format
 msgid "Building <b>%1</b> cancelled"
 msgstr "<b>%1</b> 빌드 취소됨"
 
-#: plugin_katebuild.cpp:942
+#: plugin_katebuild.cpp:946
 #, kde-format
 msgid "No target available for building."
 msgstr "빌드할 대상이 없습니다."
 
-#: plugin_katebuild.cpp:956
+#: plugin_katebuild.cpp:960
 #, kde-format
 msgid "There is no local file or directory specified for building."
 msgstr "빌드할 로컬 파일이나 디렉터리가 지정되지 않았습니다."
 
-#: plugin_katebuild.cpp:962
+#: plugin_katebuild.cpp:966
 #, kde-format
 msgid "Already building..."
 msgstr "이미 빌드 중..."
 
-#: plugin_katebuild.cpp:989
+#: plugin_katebuild.cpp:993
 #, kde-format
 msgid "Building target <b>%1</b> ..."
 msgstr "대상 <b>%1</b> 빌드 중..."
 
-#: plugin_katebuild.cpp:1004
+#: plugin_katebuild.cpp:1008
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Make Results:</title><nl/>%1"
 msgstr "<title>Make 결과:</title><nl/>%1"
 
-#: plugin_katebuild.cpp:1041
+#: plugin_katebuild.cpp:1045
 #, kde-format
 msgid "Building <b>%1</b> completed."
 msgstr "<b>%1</b> 빌드가 완료되었습니다."
 
-#: plugin_katebuild.cpp:1060
+#: plugin_katebuild.cpp:1064
 #, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
 msgstr[0] "오류 %1개를 발견했습니다."
 
-#: plugin_katebuild.cpp:1061
+#: plugin_katebuild.cpp:1065
 #, kde-format
 msgid "Building <b>%1</b> had errors."
 msgstr "<b>%1</b> 빌드 중 오류가 발생했습니다."
 
-#: plugin_katebuild.cpp:1063
+#: plugin_katebuild.cpp:1067
 #, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
 msgstr[0] "경고 %1개를 발견했습니다."
 
-#: plugin_katebuild.cpp:1064
+#: plugin_katebuild.cpp:1068
 #, kde-format
 msgid "Building <b>%1</b> had warnings."
 msgstr "<b>%1</b> 빌드 중 경고가 발생했습니다."
 
-#: plugin_katebuild.cpp:1070
+#: plugin_katebuild.cpp:1074
 #, kde-format
 msgid "Build failed."
 msgstr "빌드가 실패했습니다."
 
-#: plugin_katebuild.cpp:1072
+#: plugin_katebuild.cpp:1076
 #, kde-format
 msgid "Build completed without problems."
 msgstr "빌드가 성공적으로 끝났습니다."
 
-#: plugin_katebuild.cpp:1103
+#: plugin_katebuild.cpp:1107
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
 msgstr ""
 
-#: plugin_katebuild.cpp:1324
+#: plugin_katebuild.cpp:1322
 #, kde-format
 msgid "Target Set"
 msgstr "대상 설정"
 
-#: plugin_katebuild.cpp:1326
+#: plugin_katebuild.cpp:1324
 #, kde-format
 msgid "Clean"
 msgstr "청소"
 
-#: plugin_katebuild.cpp:1327
+#: plugin_katebuild.cpp:1325
 #, kde-format
 msgid "Config"
 msgstr "설정"
 
-#: plugin_katebuild.cpp:1328
+#: plugin_katebuild.cpp:1326
 #, kde-format
 msgid "ConfigClean"
 msgstr "설정 청소"
 
-#: plugin_katebuild.cpp:1371
+#: plugin_katebuild.cpp:1369
 #, kde-format
 msgid "Only Errors"
 msgstr "오류만"
 
-#: plugin_katebuild.cpp:1374
+#: plugin_katebuild.cpp:1372
 #, kde-format
 msgid "Errors and Warnings"
 msgstr "오류와 경고"
 
-#: plugin_katebuild.cpp:1377
+#: plugin_katebuild.cpp:1375
 #, kde-format
 msgid "Parsed Output"
 msgstr "처리된 출력"
 
-#: plugin_katebuild.cpp:1380
+#: plugin_katebuild.cpp:1378
 #, kde-format
 msgid "Full Output"
 msgstr "전체 출력"
 
-#: plugin_katebuild.cpp:1497
+#: plugin_katebuild.cpp:1495
 #, kde-format
 msgid "build"
 msgstr "빌드"
 
-#: plugin_katebuild.cpp:1500
+#: plugin_katebuild.cpp:1498
 #, kde-format
 msgid "clean"
 msgstr "청소"
 
-#: plugin_katebuild.cpp:1503
+#: plugin_katebuild.cpp:1501
 #, kde-format
 msgid "quick"
 msgstr "빠르게"

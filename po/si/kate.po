@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-26 00:49+0000\n"
+"POT-Creation-Date: 2022-12-02 00:53+0000\n"
 "PO-Revision-Date: 2011-08-04 10:19+0530\n"
 "Last-Translator: Danishka Navin <danishka@gmail.com>\n"
 "Language-Team: Sinhala <danishka@gmail.com>\n"
@@ -1046,7 +1046,7 @@ msgstr ""
 "මෙහිදී ඔබට පවතින සියළු Kate ප්ලගින දැකගත හැක. සලකුණු කර ඇත්තේ පූර්ණිත සහ ඊලඟ වතාවේ Kate "
 "ඇරඹෙන විට නැවත පූර්ණය වන ප්ලගිනයි."
 
-#: lib/katedocmanager.cpp:269
+#: lib/katedocmanager.cpp:289
 #, kde-format
 msgid ""
 "<p>The document '%1' has been modified, but not saved.</p><p>Do you want to "
@@ -1055,32 +1055,32 @@ msgstr ""
 "<p>'%1' ලේඛනය වෙනස් කර ඇති නමුත්, සුරැක නොමැත.</p><p>ඔබට අවශ්‍ය වෙනස්කම් සුරැකීමටද ඉවත "
 "දැමීමටද?</p>"
 
-#: lib/katedocmanager.cpp:272
+#: lib/katedocmanager.cpp:292
 #, kde-format
 msgid "Close Document"
 msgstr "ලේඛනය වසන්න"
 
-#: lib/katedocmanager.cpp:285
+#: lib/katedocmanager.cpp:305
 #, kde-format
 msgid "Save As"
 msgstr "සුරකින අයුර"
 
-#: lib/katedocmanager.cpp:303 lib/katemainwindow.cpp:630
+#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:630
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr "Kate වසාදැමීමට උත්සාහයේදී නව ගොනුවක් විවෘත විය, වැසීම නවතාදැමිනි."
 
-#: lib/katedocmanager.cpp:303 lib/katemainwindow.cpp:630
+#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:630
 #, kde-format
 msgid "Closing Aborted"
 msgstr "වැසීම නැවතිනි"
 
-#: lib/katedocmanager.cpp:381
+#: lib/katedocmanager.cpp:401
 #, kde-format
 msgid "Starting Up"
 msgstr "අරඹමින්"
 
-#: lib/katedocmanager.cpp:382
+#: lib/katedocmanager.cpp:402
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "පෙර වාරයෙන් ගොනු නැවත විවෘත කරමින්..."

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-16 00:50+0000\n"
+"POT-Creation-Date: 2022-12-02 00:53+0000\n"
 "PO-Revision-Date: 2022-11-25 11:29+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -79,7 +79,7 @@ msgctxt "Header for the error message column"
 msgid "Message"
 msgstr "Sporočilo"
 
-#: plugin_katebuild.cpp:136 plugin_katebuild.cpp:143 plugin_katebuild.cpp:1325
+#: plugin_katebuild.cpp:136 plugin_katebuild.cpp:143 plugin_katebuild.cpp:1323
 #, kde-format
 msgid "Build"
 msgstr "Izgradi"
@@ -125,8 +125,8 @@ msgctxt "Tab label"
 msgid "Target Settings"
 msgstr "Nastavitve cilja"
 
-#: plugin_katebuild.cpp:347 plugin_katebuild.cpp:1427 plugin_katebuild.cpp:1438
-#: plugin_katebuild.cpp:1459 plugin_katebuild.cpp:1469
+#: plugin_katebuild.cpp:347 plugin_katebuild.cpp:1425 plugin_katebuild.cpp:1436
+#: plugin_katebuild.cpp:1457 plugin_katebuild.cpp:1467
 #, kde-format
 msgid "Project Plugin Targets"
 msgstr "Cilji projektnega vstavka"
@@ -190,48 +190,48 @@ msgstr ""
 "Ne morem izvesti ukaza: %1\n"
 "Ne obstaja pot do delovnih datotek: %2"
 
-#: plugin_katebuild.cpp:822
+#: plugin_katebuild.cpp:826
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "Zagon \"%1\" ni uspel. Izhodno stanje = %2"
 
-#: plugin_katebuild.cpp:841
+#: plugin_katebuild.cpp:845
 #, kde-format
 msgid "Building <b>%1</b> cancelled"
 msgstr "Izgrajevanje <b>%1</b> preklicano"
 
-#: plugin_katebuild.cpp:942
+#: plugin_katebuild.cpp:946
 #, kde-format
 msgid "No target available for building."
 msgstr "Ni cilja za izgradnjo."
 
-#: plugin_katebuild.cpp:956
+#: plugin_katebuild.cpp:960
 #, kde-format
 msgid "There is no local file or directory specified for building."
 msgstr "Za izgradnjo ni določene nobene krajevne datoteke ali mape."
 
-#: plugin_katebuild.cpp:962
+#: plugin_katebuild.cpp:966
 #, kde-format
 msgid "Already building..."
 msgstr "Se že izgrajuje..."
 
-#: plugin_katebuild.cpp:989
+#: plugin_katebuild.cpp:993
 #, kde-format
 msgid "Building target <b>%1</b> ..."
 msgstr "Izgrajevanje cilja <b>%1</b> ..."
 
-#: plugin_katebuild.cpp:1004
+#: plugin_katebuild.cpp:1008
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Make Results:</title><nl/>%1"
 msgstr "<title>Rezultati ukaza make:</title><nl/>%1"
 
-#: plugin_katebuild.cpp:1041
+#: plugin_katebuild.cpp:1045
 #, kde-format
 msgid "Building <b>%1</b> completed."
 msgstr "Izgrajevanje <b>%1</b> zaključeno."
 
-#: plugin_katebuild.cpp:1060
+#: plugin_katebuild.cpp:1064
 #, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
@@ -240,12 +240,12 @@ msgstr[1] "Najdeni sta bili %1 napaki."
 msgstr[2] "Najdene so bile %1 napake."
 msgstr[3] "Najdeno je bilo %1 napak."
 
-#: plugin_katebuild.cpp:1061
+#: plugin_katebuild.cpp:1065
 #, kde-format
 msgid "Building <b>%1</b> had errors."
 msgstr "Izgrajevanje <b>%1</b> je imelo napake."
 
-#: plugin_katebuild.cpp:1063
+#: plugin_katebuild.cpp:1067
 #, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
@@ -254,77 +254,77 @@ msgstr[1] "Najdeni sta bili %1 opozorili."
 msgstr[2] "Najdena so bila %1 opozorila."
 msgstr[3] "Najdeno je bilo %1 opozoril."
 
-#: plugin_katebuild.cpp:1064
+#: plugin_katebuild.cpp:1068
 #, kde-format
 msgid "Building <b>%1</b> had warnings."
 msgstr "Izgrajevanje <b>%1</b> je imelo opozorila."
 
-#: plugin_katebuild.cpp:1070
+#: plugin_katebuild.cpp:1074
 #, kde-format
 msgid "Build failed."
 msgstr "Izgradnja ni uspela."
 
-#: plugin_katebuild.cpp:1072
+#: plugin_katebuild.cpp:1076
 #, kde-format
 msgid "Build completed without problems."
 msgstr "Izgradnja se je zaključila brez težav."
 
-#: plugin_katebuild.cpp:1103
+#: plugin_katebuild.cpp:1107
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
 msgstr "Izvajanje ni možno: %1 Ni določen delovni imenik."
 
-#: plugin_katebuild.cpp:1324
+#: plugin_katebuild.cpp:1322
 #, kde-format
 msgid "Target Set"
 msgstr "Nabor ciljev"
 
-#: plugin_katebuild.cpp:1326
+#: plugin_katebuild.cpp:1324
 #, kde-format
 msgid "Clean"
 msgstr "Počisti"
 
-#: plugin_katebuild.cpp:1327
+#: plugin_katebuild.cpp:1325
 #, kde-format
 msgid "Config"
 msgstr "Nastavitve"
 
-#: plugin_katebuild.cpp:1328
+#: plugin_katebuild.cpp:1326
 #, kde-format
 msgid "ConfigClean"
 msgstr "Počisti in nastavi"
 
-#: plugin_katebuild.cpp:1371
+#: plugin_katebuild.cpp:1369
 #, kde-format
 msgid "Only Errors"
 msgstr "Samo napake"
 
-#: plugin_katebuild.cpp:1374
+#: plugin_katebuild.cpp:1372
 #, kde-format
 msgid "Errors and Warnings"
 msgstr "Napake in opozorila"
 
-#: plugin_katebuild.cpp:1377
+#: plugin_katebuild.cpp:1375
 #, kde-format
 msgid "Parsed Output"
 msgstr "Razčlenjen izhod"
 
-#: plugin_katebuild.cpp:1380
+#: plugin_katebuild.cpp:1378
 #, kde-format
 msgid "Full Output"
 msgstr "Polni izhod"
 
-#: plugin_katebuild.cpp:1497
+#: plugin_katebuild.cpp:1495
 #, kde-format
 msgid "build"
 msgstr "izgradi"
 
-#: plugin_katebuild.cpp:1500
+#: plugin_katebuild.cpp:1498
 #, kde-format
 msgid "clean"
 msgstr "počisti"
 
-#: plugin_katebuild.cpp:1503
+#: plugin_katebuild.cpp:1501
 #, kde-format
 msgid "quick"
 msgstr "hitro"

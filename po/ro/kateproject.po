@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-22 00:49+0000\n"
+"POT-Creation-Date: 2022-12-02 00:53+0000\n"
 "PO-Revision-Date: 2021-05-15 17:03+0100\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian\n"
@@ -472,12 +472,12 @@ msgstr ""
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr ""
 
-#: kateproject.cpp:223
+#: kateproject.cpp:218
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr ""
 
-#: kateproject.cpp:528
+#: kateproject.cpp:523
 #, kde-format
 msgid "<untracked>"
 msgstr "<neurmărite>"
@@ -750,22 +750,22 @@ msgstr ""
 msgid "File name already exists"
 msgstr ""
 
-#: kateprojectplugin.cpp:222
+#: kateprojectplugin.cpp:223
 #, kde-format
 msgid "Confirm project closing: %1"
 msgstr ""
 
-#: kateprojectplugin.cpp:223
+#: kateprojectplugin.cpp:224
 #, kde-format
 msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr ""
 
-#: kateprojectplugin.cpp:575
+#: kateprojectplugin.cpp:576
 #, kde-format
 msgid "Full path to current project excluding the file name."
 msgstr "Calea completă spre proiectul actual, excluzând denumirea fișierului."
 
-#: kateprojectplugin.cpp:592
+#: kateprojectplugin.cpp:593
 #, kde-format
 msgid ""
 "Full path to current project excluding the file name, with native path "
@@ -774,7 +774,7 @@ msgstr ""
 "Calea completă spre proiectul actual, excluzând denumirea fișierului, cu "
 "separator de cale nativ (bară oblică inversă în Windows)."
 
-#: kateprojectplugin.cpp:713 kateprojectpluginview.cpp:70
+#: kateprojectplugin.cpp:714 kateprojectpluginview.cpp:70
 #: kateprojectpluginview.cpp:213 kateprojectviewtree.cpp:136
 #: kateprojectviewtree.cpp:161
 #, kde-format

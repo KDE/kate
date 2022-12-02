@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-22 00:49+0000\n"
+"POT-Creation-Date: 2022-12-02 00:53+0000\n"
 "PO-Revision-Date: 2022-08-09 13:37+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -474,12 +474,12 @@ msgstr "모든 변경 사항을 버리시겠습니까?"
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "추적하지 않는 변경 사항을 삭제하시겠습니까?"
 
-#: kateproject.cpp:223
+#: kateproject.cpp:218
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "'%1'의 잘못된 JSON 파일: %2"
 
-#: kateproject.cpp:528
+#: kateproject.cpp:523
 #, kde-format
 msgid "<untracked>"
 msgstr "<추적 안 됨>"
@@ -746,22 +746,22 @@ msgstr "오류"
 msgid "File name already exists"
 msgstr "파일 이름이 이미 존재함"
 
-#: kateprojectplugin.cpp:222
+#: kateprojectplugin.cpp:223
 #, kde-format
 msgid "Confirm project closing: %1"
 msgstr "프로젝트 닫기 확인: %1"
 
-#: kateprojectplugin.cpp:223
+#: kateprojectplugin.cpp:224
 #, kde-format
 msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr "프로젝트 %1 및 열린 문서 %2개를 닫으시겠습니까?"
 
-#: kateprojectplugin.cpp:575
+#: kateprojectplugin.cpp:576
 #, kde-format
 msgid "Full path to current project excluding the file name."
 msgstr "파일 이름을 제외한 현재 프로젝트의 전체 경로입니다."
 
-#: kateprojectplugin.cpp:592
+#: kateprojectplugin.cpp:593
 #, kde-format
 msgid ""
 "Full path to current project excluding the file name, with native path "
@@ -770,7 +770,7 @@ msgstr ""
 "네이티브 경로 구분자를 사용하는 파일 이름을 제외한 현재 프로젝트의 전체 경로"
 "입니다(Windows의 경우 백슬래시)."
 
-#: kateprojectplugin.cpp:713 kateprojectpluginview.cpp:70
+#: kateprojectplugin.cpp:714 kateprojectpluginview.cpp:70
 #: kateprojectpluginview.cpp:213 kateprojectviewtree.cpp:136
 #: kateprojectviewtree.cpp:161
 #, kde-format

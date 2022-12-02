@@ -58,7 +58,7 @@ KATE_PRIVATE_EXPORT void deleteDocumentFile(QWidget *parent, KTextEditor::Docume
 /**
  * @returns a list of supported diff tools (names of the executables + paths to them, empty if not found in PATH)
  */
-KATE_PRIVATE_EXPORT QVector<std::pair<QString, QString>> supportedDiffTools();
+QVector<std::pair<QString, QString>> supportedDiffTools();
 
 /**
  * Runs an external program to compare the underlying files of two given documents.
@@ -76,7 +76,7 @@ KATE_PRIVATE_EXPORT QVector<std::pair<QString, QString>> supportedDiffTools();
  *
  * IDEA for later: compare with unsaved buffer data instead of underlying file
  */
-KATE_PRIVATE_EXPORT bool compareWithExternalProgram(KTextEditor::Document *documentA, KTextEditor::Document *documentB, const QString &diffExecutable);
+bool compareWithExternalProgram(KTextEditor::Document *documentA, KTextEditor::Document *documentB, const QString &diffExecutable);
 
 /**
  * Prepares the open with menu

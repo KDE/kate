@@ -196,8 +196,10 @@ void KateFileActions::prepareOpenWithMenu(const QUrl &url, QMenu *menu)
         a = menu->addAction(QIcon::fromTheme(service->icon()), service->name());
         a->setData(service->entryPath());
     }
+
     // append "Other..." to call the KDE "open with" dialog.
-    QAction *other = menu->addAction(i18n("&Other..."));
+    menu->addSeparator();
+    QAction *other = menu->addAction(QIcon::fromTheme(QStringLiteral("system-run")), i18n("&Other Application..."));
     other->setData(QString());
 }
 

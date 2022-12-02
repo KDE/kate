@@ -6,19 +6,36 @@
 */
 #include "commitfilesview.h"
 
+#include <diffparams.h>
 #include <gitprocess.h>
+#include <ktexteditor_utils.h>
 
+#include <QByteArray>
+#include <QDebug>
 #include <QDir>
+#include <QFileInfo>
 #include <QMimeDatabase>
 #include <QPainter>
 #include <QProcess>
+#include <QPushButton>
+#include <QStandardItem>
 #include <QStyledItemDelegate>
+#include <QTreeView>
 #include <QVBoxLayout>
 
 #include <KColorScheme>
 #include <KLocalizedString>
+#include <KTextEditor/Application>
+#include <KTextEditor/Editor>
+#include <KTextEditor/MainWindow>
 
 #include <optional>
+
+struct GitFileItem {
+    QByteArray file;
+    int linesAdded;
+    int linesRemoved;
+};
 
 /**
  * Class representing a item inside the treeview
@@ -294,14 +311,49 @@ static QVector<GitFileItem> parseNumStat(const QByteArray &raw)
     return items;
 }
 
-CommitDiffTreeView::CommitDiffTreeView(QWidget *parent)
+class CommitDiffTreeView : public QWidget
+{
+    Q_OBJECT
+public:
+    explicit CommitDiffTreeView(const QString &repoBase, const QString &hash, KTextEditor::MainWindow *mainWindow, QWidget *parent);
+
+    /**
+     * open treeview for commit with @p hash
+     * @filePath can be path of any file in the repo
+     */
+    void openCommit(const QString &filePath);
+
+    Q_SIGNAL void showDiffRequested(const QByteArray &diffContents, const QString &file);
+
+public:
+    void createFileTreeForCommit(const QByteArray &rawNumStat);
+
+private Q_SLOTS:
+    void showDiff(const QModelIndex &idx);
+
+private:
+    KTextEditor::MainWindow *m_mainWindow;
+    QPushButton m_backBtn;
+    QTreeView m_tree;
+    QStandardItemModel m_model;
+    QString m_gitDir;
+    QString m_commitHash;
+};
+
+CommitDiffTreeView::CommitDiffTreeView(const QString &repoBase, const QString &hash, KTextEditor::MainWindow *mainWindow, QWidget *parent)
     : QWidget(parent)
+    , m_mainWindow(mainWindow)
+    , m_gitDir(repoBase)
 {
     setLayout(new QVBoxLayout);
 
     m_backBtn.setText(i18n("Close"));
     m_backBtn.setIcon(QIcon::fromTheme(QStringLiteral("window-close")));
-    connect(&m_backBtn, &QPushButton::clicked, this, &CommitDiffTreeView::closeRequested);
+    connect(&m_backBtn, &QPushButton::clicked, this, [parent, mainWindow] {
+        Q_ASSERT(parent);
+        parent->deleteLater();
+        mainWindow->hideToolView(parent);
+    });
     layout()->addWidget(&m_backBtn);
 
     m_tree.setModel(&m_model);
@@ -312,22 +364,25 @@ CommitDiffTreeView::CommitDiffTreeView(QWidget *parent)
     m_tree.setItemDelegate(new DiffStyleDelegate(this));
 
     connect(&m_tree, &QTreeView::clicked, this, &CommitDiffTreeView::showDiff);
+    openCommit(hash);
 }
 
-void CommitDiffTreeView::openCommit(const QString &hash, const QString &filePath)
+void CommitDiffTreeView::openCommit(const QString &hash)
 {
     m_commitHash = hash;
 
     QProcess *git = new QProcess(this);
     if (!setupGitProcess(*git,
-                         QFileInfo(filePath).absolutePath(),
+                         m_gitDir,
                          {QStringLiteral("show"), hash, QStringLiteral("--numstat"), QStringLiteral("--pretty=oneline"), QStringLiteral("-z")})) {
         delete git;
         return;
     }
-    connect(git, &QProcess::finished, this, [this, git, filePath](int e, QProcess::ExitStatus s) {
+    connect(git, &QProcess::finished, this, [this, git](int e, QProcess::ExitStatus s) {
         git->deleteLater();
         if (e != 0 || s != QProcess::NormalExit) {
+            Utils::showMessage(QString::fromUtf8(git->readAllStandardError()), gitIcon(), i18n("Git"), i18n("Error"), m_mainWindow);
+            m_backBtn.click();
             return;
         }
         auto contents = git->readAllStandardOutput();
@@ -336,20 +391,13 @@ void CommitDiffTreeView::openCommit(const QString &hash, const QString &filePath
             return;
         }
         QByteArray numstat = contents.mid(firstNull + 1);
-        createFileTreeForCommit(filePath, numstat);
+        createFileTreeForCommit(numstat);
     });
     startHostProcess(*git);
 }
 
-void CommitDiffTreeView::createFileTreeForCommit(const QString &filePath, const QByteArray &rawNumStat)
+void CommitDiffTreeView::createFileTreeForCommit(const QByteArray &rawNumStat)
 {
-    QFileInfo fi(filePath);
-    QString path = fi.absolutePath();
-    auto value = getRepoBasePath(path);
-    if (value.has_value()) {
-        m_gitDir = value.value();
-    }
-
     QStandardItem root;
     createFileTree(&root, m_gitDir, parseNumStat(rawNumStat));
 
@@ -408,5 +456,38 @@ void CommitDiffTreeView::showDiff(const QModelIndex &idx)
         }
     }
 
-    Q_EMIT showDiffRequested(git.readAllStandardOutput(), file);
+    DiffParams d;
+    d.srcFile = file;
+    d.flags.setFlag(DiffParams::ShowCommitInfo);
+    Utils::showDiff(git.readAllStandardOutput(), d, m_mainWindow);
 }
+
+void CommitView::openCommit(const QString &hash, const QString &path, KTextEditor::MainWindow *mainWindow)
+{
+    QFileInfo fi(path);
+    if (!fi.exists()) {
+        qWarning() << "Unexpected non-existent file: " << path;
+        return;
+    }
+
+    if (hash.length() < 7) {
+        Utils::showMessage(i18n("Invalid hash"), gitIcon(), i18n("Git"), i18n("Error"), mainWindow);
+        return;
+    }
+
+    const auto repoBase = getRepoBasePath(fi.absolutePath());
+    if (!repoBase.has_value()) {
+        Utils::showMessage(i18n("%1 doesn't exist in a git repo.", path), gitIcon(), i18n("Git"), i18n("Error"), mainWindow);
+        return;
+    }
+
+    if (!mainWindow) {
+        mainWindow = KTextEditor::Editor::instance()->application()->activeMainWindow();
+    }
+
+    auto toolView = mainWindow->createToolView(nullptr, QStringLiteral("git_commit_view"), KTextEditor::MainWindow::Left, gitIcon(), i18n("Commit"));
+    new CommitDiffTreeView(repoBase.value(), hash, mainWindow, toolView);
+    mainWindow->showToolView(toolView);
+}
+
+#include "commitfilesview.moc"

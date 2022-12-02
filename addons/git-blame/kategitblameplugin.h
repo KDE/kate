@@ -101,11 +101,6 @@ private:
     void startShowProcess(const QUrl &url, const QString &hash);
     void showFinished(int exitCode, QProcess::ExitStatus exitStatus);
 
-    void createToolView();
-    void hideToolView();
-
-    void showDiffForFile(const QByteArray &diffContents, const QString &file);
-
     const CommitInfo &blameGetUpdateInfo(int lineNr);
 
     KTextEditor::MainWindow *m_mainWindow;
@@ -122,7 +117,6 @@ private:
     GitBlameTooltip m_tooltip;
     QString m_showHash;
     class CommitDiffTreeView *m_commitFilesView;
-    std::unique_ptr<QWidget> m_toolView;
     QPointer<KTextEditor::View> m_diffView;
     QTimer m_startBlameTimer;
 };

@@ -19,6 +19,7 @@
 #include "pushpulldialog.h"
 #include "stashdialog.h"
 
+#include <commitfilesview.h>
 #include <gitprocess.h>
 
 #include <KColorScheme>
@@ -26,6 +27,7 @@
 #include <QDialog>
 #include <QEvent>
 #include <QHeaderView>
+#include <QInputDialog>
 #include <QInputMethodEvent>
 #include <QKeySequence>
 #include <QLineEdit>
@@ -957,6 +959,15 @@ void GitWidget::buildMenu(KActionCollection *ac)
     });
     a->setIcon(QIcon::fromTheme(QStringLiteral("vcs-diff")));
     a->setText(i18n("Compare Branch with..."));
+    m_gitMenu->addAction(a);
+
+    a = ac->addAction(QStringLiteral("git_show_commit"), this, [this] {
+        const QString hash = QInputDialog::getText(this, i18n("Show Commit"), i18n("Commit hash"));
+        const QString base = m_activeGitDirPath;
+        CommitView::openCommit(hash, base, m_mainWin);
+    });
+    a->setIcon(QIcon::fromTheme(QStringLiteral("vcs-diff")));
+    a->setText(i18n("Open Commit..."));
     m_gitMenu->addAction(a);
 
     auto stashMenu = m_gitMenu->addAction(QIcon::fromTheme(QStringLiteral("vcs-stash")), i18n("Stash"));

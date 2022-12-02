@@ -123,6 +123,7 @@ target_sources(
     diff/gitdiff.cpp
 
     filehistorywidget.cpp
+    commitfilesview.cpp
 
     welcomeview/welcomeview.cpp
     welcomeview/recentitemsmodel.cpp

@@ -5,10 +5,9 @@
 */
 
 #include "kategitblameplugin.h"
-#include "commitfilesview.h"
-#include "diffparams.h"
 #include "ktexteditor_utils.h"
 
+#include <commitfilesview.h>
 #include <gitprocess.h>
 
 #include <algorithm>
@@ -561,39 +560,8 @@ void KateGitBlamePluginView::setToolTipIgnoreKeySequence(QKeySequence sequence)
 void KateGitBlamePluginView::showCommitTreeView(const QUrl &url)
 {
     QString commitHash = url.toDisplayString();
-    createToolView();
-    m_commitFilesView->openCommit(commitHash, m_mainWindow->activeView()->document()->url().toLocalFile());
-    m_mainWindow->showToolView(m_toolView.get());
-}
-
-void KateGitBlamePluginView::createToolView()
-{
-    if (m_toolView) {
-        return;
-    }
-
-    auto plugin = static_cast<KTextEditor::Plugin *>(parent());
-    m_toolView.reset(m_mainWindow->createToolView(plugin, QStringLiteral("commitfilesview"), KTextEditor::MainWindow::Left, gitIcon(), i18n("Commit")));
-
-    m_commitFilesView = new CommitDiffTreeView(m_toolView.get());
-    m_toolView->layout()->addWidget(m_commitFilesView);
-    connect(m_commitFilesView, &CommitDiffTreeView::closeRequested, this, &KateGitBlamePluginView::hideToolView);
-    connect(m_commitFilesView, &CommitDiffTreeView::showDiffRequested, this, &KateGitBlamePluginView::showDiffForFile);
-}
-
-void KateGitBlamePluginView::hideToolView()
-{
-    m_mainWindow->hideToolView(m_toolView.get());
-    m_toolView.reset();
-    // CommitFileView will be destroyed as well as it is the child of m_ToolView
-}
-
-void KateGitBlamePluginView::showDiffForFile(const QByteArray &diffContents, const QString &file)
-{
-    DiffParams d;
-    d.srcFile = file;
-    d.flags.setFlag(DiffParams::ShowCommitInfo);
-    Utils::showDiff(diffContents, d, m_mainWindow);
+    const auto file = m_mainWindow->activeView()->document()->url().toLocalFile();
+    CommitView::openCommit(commitHash, file, m_mainWindow);
 }
 
 #include "kategitblameplugin.moc"

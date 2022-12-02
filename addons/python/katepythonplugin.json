@@ -17,6 +17,7 @@
         "Description[uk]": "Додаток, який уможливлює сценарії Python для Kate",
         "Description[vi]": "Phần cài cắm cho phép chạy kịch bản Python cho Kate",
         "Description[x-test]": "xxPlugin that allows Python scripting for Katexx",
+        "Description[zh_CN]": "Kate 的 Python 脚本编程功能插件",
         "Name": "Python Scripting",
         "Name[bg]": "Python Scripting",
         "Name[ca@valencia]": "Crear scripts en Python",
@@ -34,6 +35,7 @@
         "Name[uk]": "Сценарії на Python",
         "Name[vi]": "Kịch bản Python",
         "Name[x-test]": "xxPython Scriptingxx",
+        "Name[zh_CN]": "Python 脚本编程",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

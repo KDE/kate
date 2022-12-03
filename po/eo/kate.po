@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-02 00:53+0000\n"
+"POT-Creation-Date: 2022-12-03 00:50+0000\n"
 "PO-Revision-Date: 2007-11-22 20:44+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
@@ -156,6 +156,43 @@ msgstr "Aŭtoro de KWrite"
 #| msgid "Kate - Advanced Text Editor"
 msgid "KWrite - Text Editor"
 msgstr "Kejt' - Altnivela KDE-tekstredaktilo"
+
+#. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
+#: lib/commitfilesview.cpp:350 lib/filehistorywidget.cpp:254
+#: lib/kateconfigdialog.cpp:125 lib/session/katesessionmanagedialog.ui:184
+#, fuzzy, kde-format
+#| msgid "Clos&e All"
+msgid "Close"
+msgstr "F&ermi ĉiujn"
+
+#: lib/commitfilesview.cpp:384 lib/commitfilesview.cpp:474
+#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:342
+#: lib/kateconfigdialog.cpp:369
+#, kde-format
+msgid "Error"
+msgstr ""
+
+#: lib/commitfilesview.cpp:384 lib/commitfilesview.cpp:474
+#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:342
+#, kde-format
+msgid "Git"
+msgstr ""
+
+#: lib/commitfilesview.cpp:474
+#, kde-format
+msgid "Invalid hash"
+msgstr ""
+
+#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:342
+#, kde-format
+msgid "%1 doesn't exist in a git repo."
+msgstr ""
+
+#: lib/commitfilesview.cpp:488
+#, fuzzy, kde-format
+#| msgid "Comment"
+msgid "Commit"
+msgstr "Komento"
 
 #. i18n: ectx: Menu (file)
 #: lib/data/kateui.rc:6
@@ -321,14 +358,6 @@ msgstr ""
 msgid "Jump to Previous Hunk"
 msgstr ""
 
-#. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
-#: lib/filehistorywidget.cpp:254 lib/kateconfigdialog.cpp:125
-#: lib/session/katesessionmanagedialog.ui:184
-#, fuzzy, kde-format
-#| msgid "Clos&e All"
-msgid "Close"
-msgstr "F&ermi ĉiujn"
-
 #: lib/filehistorywidget.cpp:286
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
@@ -337,21 +366,6 @@ msgstr ""
 #: lib/filehistorywidget.cpp:299
 #, kde-format
 msgid "Failed to get file history: %1"
-msgstr ""
-
-#: lib/filehistorywidget.cpp:342 lib/kateconfigdialog.cpp:369
-#, kde-format
-msgid "Error"
-msgstr ""
-
-#: lib/filehistorywidget.cpp:342
-#, kde-format
-msgid "%1 doesn't exist in a git repo."
-msgstr ""
-
-#: lib/filehistorywidget.cpp:342
-#, kde-format
-msgid "Git"
 msgstr ""
 
 #: lib/filehistorywidget.cpp:350
@@ -2889,9 +2903,6 @@ msgstr "Kreas novan dokumenton"
 
 #~ msgid "Developer & Highlight wizard"
 #~ msgstr "Programista kaj emfazada magiisto"
-
-#~ msgid "Comment"
-#~ msgstr "Komento"
 
 #, fuzzy
 #~| msgid "Highlighting for Scheme"

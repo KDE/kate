@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate stable\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-02 00:53+0000\n"
+"POT-Creation-Date: 2022-12-03 00:50+0000\n"
 "PO-Revision-Date: 2005-11-24 11:27+0200\n"
 "Last-Translator: Frikkie Thirion <frikkie.thirion@deneloptronics.co.za>\n"
 "Language-Team: AFRIKAANS <AF@lia.org.za>\n"
@@ -151,6 +151,44 @@ msgstr "KWrite"
 #, kde-format
 msgid "KWrite - Text Editor"
 msgstr "KWrite - Teks redigeerder"
+
+#. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
+#: lib/commitfilesview.cpp:350 lib/filehistorywidget.cpp:254
+#: lib/kateconfigdialog.cpp:125 lib/session/katesessionmanagedialog.ui:184
+#, fuzzy, kde-format
+#| msgid "Clos&e All"
+msgid "Close"
+msgstr "Maak toe Alle"
+
+#: lib/commitfilesview.cpp:384 lib/commitfilesview.cpp:474
+#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:342
+#: lib/kateconfigdialog.cpp:369
+#, kde-format
+msgid "Error"
+msgstr ""
+
+#: lib/commitfilesview.cpp:384 lib/commitfilesview.cpp:474
+#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:342
+#, kde-format
+msgid "Git"
+msgstr ""
+
+#: lib/commitfilesview.cpp:474
+#, fuzzy, kde-format
+#| msgid "Invalid Folder"
+msgid "Invalid hash"
+msgstr "Ongeldige Gids"
+
+#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:342
+#, kde-format
+msgid "%1 doesn't exist in a git repo."
+msgstr ""
+
+#: lib/commitfilesview.cpp:488
+#, fuzzy, kde-format
+#| msgid "Comment"
+msgid "Commit"
+msgstr "Kommentaar"
 
 #. i18n: ectx: Menu (file)
 #: lib/data/kateui.rc:6
@@ -317,14 +355,6 @@ msgstr ""
 msgid "Jump to Previous Hunk"
 msgstr "Herstel ligging"
 
-#. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
-#: lib/filehistorywidget.cpp:254 lib/kateconfigdialog.cpp:125
-#: lib/session/katesessionmanagedialog.ui:184
-#, fuzzy, kde-format
-#| msgid "Clos&e All"
-msgid "Close"
-msgstr "Maak toe Alle"
-
 #: lib/filehistorywidget.cpp:286
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
@@ -333,21 +363,6 @@ msgstr ""
 #: lib/filehistorywidget.cpp:299
 #, kde-format
 msgid "Failed to get file history: %1"
-msgstr ""
-
-#: lib/filehistorywidget.cpp:342 lib/kateconfigdialog.cpp:369
-#, kde-format
-msgid "Error"
-msgstr ""
-
-#: lib/filehistorywidget.cpp:342
-#, kde-format
-msgid "%1 doesn't exist in a git repo."
-msgstr ""
-
-#: lib/filehistorywidget.cpp:342
-#, kde-format
-msgid "Git"
 msgstr ""
 
 #: lib/filehistorywidget.cpp:350
@@ -2885,9 +2900,6 @@ msgstr "Skep 'n nuwe dokument"
 #~ msgid "Developer & Highlight wizard"
 #~ msgstr "Ontwikkelaar en Verligting assistent"
 
-#~ msgid "Comment"
-#~ msgstr "Kommentaar"
-
 #, fuzzy
 #~ msgid "&Highlight Tab"
 #~ msgstr "Verligting vir LaTeX"
@@ -3704,9 +3716,6 @@ msgstr "Skep 'n nuwe dokument"
 #~ msgstr ""
 #~ "Jy moet 'n bestaande, plaaslike gids se naam in die 'Gids' inskrywing "
 #~ "intik."
-
-#~ msgid "Invalid Folder"
-#~ msgstr "Ongeldige Gids"
 
 #~ msgid ""
 #~ "<p>Here you can enter a path for a folder to display.<p>To go to a folder "

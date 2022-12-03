@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-02 00:53+0000\n"
+"POT-Creation-Date: 2022-12-03 00:50+0000\n"
 "PO-Revision-Date: 2022-11-07 19:18+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -174,6 +174,41 @@ msgstr "KWrite"
 #, kde-format
 msgid "KWrite - Text Editor"
 msgstr "KWrite - Editor de texto"
+
+#. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
+#: lib/commitfilesview.cpp:350 lib/filehistorywidget.cpp:254
+#: lib/kateconfigdialog.cpp:125 lib/session/katesessionmanagedialog.ui:184
+#, kde-format
+msgid "Close"
+msgstr "Cerrar"
+
+#: lib/commitfilesview.cpp:384 lib/commitfilesview.cpp:474
+#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:342
+#: lib/kateconfigdialog.cpp:369
+#, kde-format
+msgid "Error"
+msgstr "Error"
+
+#: lib/commitfilesview.cpp:384 lib/commitfilesview.cpp:474
+#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:342
+#, kde-format
+msgid "Git"
+msgstr "Git"
+
+#: lib/commitfilesview.cpp:474
+#, kde-format
+msgid "Invalid hash"
+msgstr ""
+
+#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:342
+#, kde-format
+msgid "%1 doesn't exist in a git repo."
+msgstr "%1 no existe en un repositorio git."
+
+#: lib/commitfilesview.cpp:488
+#, kde-format
+msgid "Commit"
+msgstr ""
 
 #. i18n: ectx: Menu (file)
 #: lib/data/kateui.rc:6
@@ -334,13 +369,6 @@ msgstr "Saltar al trozo siguiente"
 msgid "Jump to Previous Hunk"
 msgstr "Saltar al trozo anterior"
 
-#. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
-#: lib/filehistorywidget.cpp:254 lib/kateconfigdialog.cpp:125
-#: lib/session/katesessionmanagedialog.ui:184
-#, kde-format
-msgid "Close"
-msgstr "Cerrar"
-
 #: lib/filehistorywidget.cpp:286
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
@@ -352,21 +380,6 @@ msgstr ""
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr "No se ha podido obtener el historial del archivo: %1"
-
-#: lib/filehistorywidget.cpp:342 lib/kateconfigdialog.cpp:369
-#, kde-format
-msgid "Error"
-msgstr "Error"
-
-#: lib/filehistorywidget.cpp:342
-#, kde-format
-msgid "%1 doesn't exist in a git repo."
-msgstr "%1 no existe en un repositorio git."
-
-#: lib/filehistorywidget.cpp:342
-#, kde-format
-msgid "Git"
-msgstr "Git"
 
 #: lib/filehistorywidget.cpp:350
 #, kde-format

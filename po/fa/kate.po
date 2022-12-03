@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-02 00:53+0000\n"
+"POT-Creation-Date: 2022-12-03 00:50+0000\n"
 "PO-Revision-Date: 2011-09-27 16:16+0330\n"
 "Last-Translator: Mohamad Reza Mirdamadi <mohi@ubuntu.ir>\n"
 "Language-Team: Farsi (Persian) <>\n"
@@ -155,6 +155,43 @@ msgstr "نویسنده KWrite"
 #| msgid "Kate - Advanced Text Editor"
 msgid "KWrite - Text Editor"
 msgstr "Kate - ویرایشگر پیشرفته متن"
+
+#. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
+#: lib/commitfilesview.cpp:350 lib/filehistorywidget.cpp:254
+#: lib/kateconfigdialog.cpp:125 lib/session/katesessionmanagedialog.ui:184
+#, fuzzy, kde-format
+msgid "Close"
+msgstr "&بستن همه‌"
+
+#: lib/commitfilesview.cpp:384 lib/commitfilesview.cpp:474
+#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:342
+#: lib/kateconfigdialog.cpp:369
+#, kde-format
+msgid "Error"
+msgstr ""
+
+#: lib/commitfilesview.cpp:384 lib/commitfilesview.cpp:474
+#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:342
+#, kde-format
+msgid "Git"
+msgstr ""
+
+#: lib/commitfilesview.cpp:474
+#, fuzzy, kde-format
+#| msgid "Invalid Folder"
+msgid "Invalid hash"
+msgstr "پوشه نامعتبر"
+
+#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:342
+#, kde-format
+msgid "%1 doesn't exist in a git repo."
+msgstr ""
+
+#: lib/commitfilesview.cpp:488
+#, fuzzy, kde-format
+#| msgid "Comment"
+msgid "Commit"
+msgstr "توضیح"
 
 #. i18n: ectx: Menu (file)
 #: lib/data/kateui.rc:6
@@ -320,13 +357,6 @@ msgstr ""
 msgid "Jump to Previous Hunk"
 msgstr "بازگرداندن &محل‌"
 
-#. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
-#: lib/filehistorywidget.cpp:254 lib/kateconfigdialog.cpp:125
-#: lib/session/katesessionmanagedialog.ui:184
-#, fuzzy, kde-format
-msgid "Close"
-msgstr "&بستن همه‌"
-
 #: lib/filehistorywidget.cpp:286
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
@@ -335,21 +365,6 @@ msgstr ""
 #: lib/filehistorywidget.cpp:299
 #, kde-format
 msgid "Failed to get file history: %1"
-msgstr ""
-
-#: lib/filehistorywidget.cpp:342 lib/kateconfigdialog.cpp:369
-#, kde-format
-msgid "Error"
-msgstr ""
-
-#: lib/filehistorywidget.cpp:342
-#, kde-format
-msgid "%1 doesn't exist in a git repo."
-msgstr ""
-
-#: lib/filehistorywidget.cpp:342
-#, kde-format
-msgid "Git"
 msgstr ""
 
 #: lib/filehistorywidget.cpp:350
@@ -2890,9 +2905,6 @@ msgstr "ایجاد سندی جدید"
 #~ msgid "Developer & Highlight wizard"
 #~ msgstr "توسعه‌دهنده و مشخص کردن جادوگر"
 
-#~ msgid "Comment"
-#~ msgstr "توضیح"
-
 #, fuzzy
 #~| msgid "Highlighting for Scheme"
 #~ msgid "&Highlight Tab"
@@ -3669,9 +3681,6 @@ msgstr "ایجاد سندی جدید"
 
 #~ msgid "You must enter an existing local folder in the 'Folder' entry."
 #~ msgstr "باید پوشه محلی موجود را در مدخل »پوشه« وارد کنید."
-
-#~ msgid "Invalid Folder"
-#~ msgstr "پوشه نامعتبر"
 
 #~ msgid "Bookmarks"
 #~ msgstr "چوب الفها"

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-02 00:53+0000\n"
+"POT-Creation-Date: 2022-12-03 00:50+0000\n"
 "PO-Revision-Date: 2007-02-17 11:32+0100\n"
 "Last-Translator: Bozidar Proevski <bobibobi@freemail.com.mk>\n"
 "Language-Team: Macedonian <mkde-l10n@lists.sourceforge.net>\n"
@@ -159,6 +159,44 @@ msgstr "KWrite"
 #, kde-format
 msgid "KWrite - Text Editor"
 msgstr "KWrite - Уредувач на текст"
+
+#. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
+#: lib/commitfilesview.cpp:350 lib/filehistorywidget.cpp:254
+#: lib/kateconfigdialog.cpp:125 lib/session/katesessionmanagedialog.ui:184
+#, fuzzy, kde-format
+#| msgid "Clos&e All"
+msgid "Close"
+msgstr "Затвори ги сит&е"
+
+#: lib/commitfilesview.cpp:384 lib/commitfilesview.cpp:474
+#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:342
+#: lib/kateconfigdialog.cpp:369
+#, kde-format
+msgid "Error"
+msgstr ""
+
+#: lib/commitfilesview.cpp:384 lib/commitfilesview.cpp:474
+#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:342
+#, kde-format
+msgid "Git"
+msgstr ""
+
+#: lib/commitfilesview.cpp:474
+#, fuzzy, kde-format
+#| msgid "Invalid Folder"
+msgid "Invalid hash"
+msgstr "Невалидна папка"
+
+#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:342
+#, kde-format
+msgid "%1 doesn't exist in a git repo."
+msgstr ""
+
+#: lib/commitfilesview.cpp:488
+#, fuzzy, kde-format
+#| msgid "Comment"
+msgid "Commit"
+msgstr "Коментар"
 
 #. i18n: ectx: Menu (file)
 #: lib/data/kateui.rc:6
@@ -328,14 +366,6 @@ msgstr ""
 msgid "Jump to Previous Hunk"
 msgstr "Реконструирај ло&кација"
 
-#. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
-#: lib/filehistorywidget.cpp:254 lib/kateconfigdialog.cpp:125
-#: lib/session/katesessionmanagedialog.ui:184
-#, fuzzy, kde-format
-#| msgid "Clos&e All"
-msgid "Close"
-msgstr "Затвори ги сит&е"
-
 #: lib/filehistorywidget.cpp:286
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
@@ -344,21 +374,6 @@ msgstr ""
 #: lib/filehistorywidget.cpp:299
 #, kde-format
 msgid "Failed to get file history: %1"
-msgstr ""
-
-#: lib/filehistorywidget.cpp:342 lib/kateconfigdialog.cpp:369
-#, kde-format
-msgid "Error"
-msgstr ""
-
-#: lib/filehistorywidget.cpp:342
-#, kde-format
-msgid "%1 doesn't exist in a git repo."
-msgstr ""
-
-#: lib/filehistorywidget.cpp:342
-#, kde-format
-msgid "Git"
 msgstr ""
 
 #: lib/filehistorywidget.cpp:350
@@ -2903,9 +2918,6 @@ msgstr "Создава нов документ"
 #~ msgid "Developer & Highlight wizard"
 #~ msgstr "Волшебник за означување и за развивачи"
 
-#~ msgid "Comment"
-#~ msgstr "Коментар"
-
 #, fuzzy
 #~ msgid "&Highlight Tab"
 #~ msgstr "Означување на LaTeX"
@@ -3735,9 +3747,6 @@ msgstr "Создава нов документ"
 
 #~ msgid "You must enter an existing local folder in the 'Folder' entry."
 #~ msgstr "Мора да внесете постоечка локална папка во ставката „Папка“."
-
-#~ msgid "Invalid Folder"
-#~ msgstr "Невалидна папка"
 
 #~ msgid ""
 #~ "<p>Here you can enter a path for a folder to display.<p>To go to a folder "

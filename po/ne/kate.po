@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-02 00:53+0000\n"
+"POT-Creation-Date: 2022-12-03 00:50+0000\n"
 "PO-Revision-Date: 2007-09-13 12:58+0545\n"
 "Last-Translator: Narayan Kumar Magar <narayan@mpp.org.np>\n"
 "Language-Team: Nepali <info@mpp.org.np>\n"
@@ -157,6 +157,44 @@ msgstr "केडीई राइट लेखक"
 #| msgid "Kate - Advanced Text Editor"
 msgid "KWrite - Text Editor"
 msgstr "क्येट - उन्नत पाठ सम्पादक"
+
+#. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
+#: lib/commitfilesview.cpp:350 lib/filehistorywidget.cpp:254
+#: lib/kateconfigdialog.cpp:125 lib/session/katesessionmanagedialog.ui:184
+#, fuzzy, kde-format
+#| msgid "Clos&e All"
+msgid "Close"
+msgstr "सबै बन्द गर्नुहोस्"
+
+#: lib/commitfilesview.cpp:384 lib/commitfilesview.cpp:474
+#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:342
+#: lib/kateconfigdialog.cpp:369
+#, kde-format
+msgid "Error"
+msgstr "त्रुटि"
+
+#: lib/commitfilesview.cpp:384 lib/commitfilesview.cpp:474
+#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:342
+#, kde-format
+msgid "Git"
+msgstr ""
+
+#: lib/commitfilesview.cpp:474
+#, fuzzy, kde-format
+#| msgid "Invalid Folder"
+msgid "Invalid hash"
+msgstr "अवैध फोल्डर"
+
+#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:342
+#, kde-format
+msgid "%1 doesn't exist in a git repo."
+msgstr ""
+
+#: lib/commitfilesview.cpp:488
+#, fuzzy, kde-format
+#| msgid "Comment"
+msgid "Commit"
+msgstr "टिप्पणी"
 
 #. i18n: ectx: Menu (file)
 #: lib/data/kateui.rc:6
@@ -326,14 +364,6 @@ msgstr ""
 msgid "Jump to Previous Hunk"
 msgstr "स्थान पूर्वावस्थामा लैजानुहोस्"
 
-#. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
-#: lib/filehistorywidget.cpp:254 lib/kateconfigdialog.cpp:125
-#: lib/session/katesessionmanagedialog.ui:184
-#, fuzzy, kde-format
-#| msgid "Clos&e All"
-msgid "Close"
-msgstr "सबै बन्द गर्नुहोस्"
-
 #: lib/filehistorywidget.cpp:286
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
@@ -342,21 +372,6 @@ msgstr ""
 #: lib/filehistorywidget.cpp:299
 #, kde-format
 msgid "Failed to get file history: %1"
-msgstr ""
-
-#: lib/filehistorywidget.cpp:342 lib/kateconfigdialog.cpp:369
-#, kde-format
-msgid "Error"
-msgstr "त्रुटि"
-
-#: lib/filehistorywidget.cpp:342
-#, kde-format
-msgid "%1 doesn't exist in a git repo."
-msgstr ""
-
-#: lib/filehistorywidget.cpp:342
-#, kde-format
-msgid "Git"
 msgstr ""
 
 #: lib/filehistorywidget.cpp:350
@@ -2961,9 +2976,6 @@ msgstr "नयाँ कागजात सिर्जना गर्नुह
 #~ msgid "Developer & Highlight wizard"
 #~ msgstr "विकासकर्ता र हाइलाइट विजार्ड"
 
-#~ msgid "Comment"
-#~ msgstr "टिप्पणी"
-
 #, fuzzy
 #~| msgid "&Highlight Tab"
 #~ msgid "&Highlight Tab"
@@ -3939,9 +3951,6 @@ msgstr "नयाँ कागजात सिर्जना गर्नुह
 
 #~ msgid "You must enter an existing local folder in the 'Folder' entry."
 #~ msgstr "तपाईँले 'फोल्डर' प्रविष्टिमा एक अवस्थित स्थानीय फोल्डर प्रविष्ट गर्नुपर्छ ।"
-
-#~ msgid "Invalid Folder"
-#~ msgstr "अवैध फोल्डर"
 
 #~ msgid "Classes"
 #~ msgstr "वर्गहरू"

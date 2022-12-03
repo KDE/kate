@@ -226,6 +226,13 @@ private Q_SLOTS:
     void changeView(int buttonId);
 
     /**
+     * Save @p v config
+     * This function is called when closing the view
+     * When the viewspace itself saves its config, it doesn't use this function
+     */
+    void saveViewConfig(KTextEditor::View *v);
+
+    /**
      * Calls this slot to make this view space the currently active view space.
      * Making it active goes through the KateViewManager.
      * @param focusCurrentView if @e true, the current view will get focus

@@ -392,6 +392,22 @@ void KateViewSpace::removeView(KTextEditor::View *v)
     }
 }
 
+void KateViewSpace::saveViewConfig(KTextEditor::View *v)
+{
+    if (!v) {
+        return;
+    }
+    const auto url = v->document()->url();
+    if (!url.isEmpty() && !m_group.isEmpty()) {
+        const QString vgroup = QStringLiteral("%1 %2").arg(m_group, url.toString());
+        const KateSession::Ptr as = KateApp::self()->sessionManager()->activeSession();
+        if (as->config()) {
+            KConfigGroup viewGroup(as->config(), vgroup);
+            v->writeSessionConfig(viewGroup);
+        }
+    }
+}
+
 bool KateViewSpace::showView(DocOrWidget docOrWidget)
 {
     /**
@@ -540,6 +556,11 @@ void KateViewSpace::registerDocument(KTextEditor::Document *doc)
 
 void KateViewSpace::closeDocument(KTextEditor::Document *doc)
 {
+    auto it = m_docToView.find(doc);
+    if (it != m_docToView.end() && it->first) {
+        saveViewConfig(it->second);
+    }
+
     // If this is the only view of the document,
     // OR the doc has no views yet
     // just close the document and it will take
@@ -548,7 +569,6 @@ void KateViewSpace::closeDocument(KTextEditor::Document *doc)
         m_viewManager->slotDocumentClose(doc);
     } else {
         // KTE::view for this tab has been created yet?
-        auto it = m_docToView.find(doc);
         if (it != m_docToView.end()) {
             // - We have a view for this doc in this viewspace
             // - We have other views of this doc in other viewspaces

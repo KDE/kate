@@ -172,6 +172,10 @@ void TabSwitcherPluginView::raiseView(KTextEditor::View *view)
 
 void TabSwitcherPluginView::walk(const int from, const int to)
 {
+    if (m_model->rowCount() <= 1) {
+        return;
+    }
+
     QModelIndex index;
     const int step = from < to ? 1 : -1;
     if (!m_treeView->isVisible()) {

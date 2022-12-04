@@ -6,6 +6,7 @@
 
 #include "lspclientcompletion.h"
 #include "lspclientplugin.h"
+#include "lspclientprotocol.h"
 #include "lspclientutils.h"
 
 #include "lspclient_debug.h"
@@ -481,6 +482,7 @@ public:
         }
 
         QChar next = peekNextChar(view->document(), word);
+        const auto item = m_matches.at(index.row());
         QString matching = m_matches.at(index.row()).insertText;
         // if there is already a '"' or >, remove it, this happens with #include "xx.h"
         if ((next == QLatin1Char('"') && matching.endsWith(QLatin1Char('"'))) || (next == QLatin1Char('>') && matching.endsWith(QLatin1Char('>')))) {
@@ -503,7 +505,17 @@ public:
         if (m_autoImport) {
             // re-use util to apply edits
             // (which takes care to use moving range, etc)
-            applyEdits(view->document(), nullptr, additionalTextEdits);
+            if (!additionalTextEdits.isEmpty()) {
+                applyEdits(view->document(), nullptr, additionalTextEdits);
+            } else if (!item.data.isNull() && m_server->capabilities().completionProvider.resolveProvider) {
+                QPointer<KTextEditor::Document> doc = view->document();
+                auto h = [doc](const LSPCompletionItem &c) {
+                    if (doc && !c.additionalTextEdits.isEmpty()) {
+                        applyEdits(doc, nullptr, c.additionalTextEdits);
+                    }
+                };
+                m_server->documentCompletionResolve(item, this, h);
+            }
         }
     }
 

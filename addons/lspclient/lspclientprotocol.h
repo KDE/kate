@@ -258,15 +258,18 @@ enum class LSPCompletionItemKind {
 
 struct LSPCompletionItem {
     QString label;
+    QString originalLabel; // needed for completionItem/resolve
     LSPCompletionItemKind kind;
     QString detail;
     LSPMarkupContent documentation;
     QString sortText;
     QString insertText;
     QList<LSPTextEdit> additionalTextEdits;
-    // Intentionally disabled because doesn't work well
+    // textEdit is unused because doesn't work well
     // with KTE. See: https://invent.kde.org/utilities/kate/-/merge_requests/438
-    //     LSPTextEdit textEdit;
+    // We still read it so that it can be used with completionItem/resolve
+    LSPTextEdit textEdit;
+    QJsonValue data;
 };
 
 struct LSPParameterInformation {

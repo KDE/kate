@@ -673,12 +673,6 @@ static QList<LSPCompletionItem> parseDocumentCompletion(const QJsonValue &result
         items = result.toObject().value(QStringLiteral("items")).toArray();
     }
 
-    //     auto parseTextEdit = [](const QJsonObject &obj) -> LSPTextEdit {
-    //         auto newText = obj.value(QStringLiteral("newText")).toString();
-    //         auto range = parseRange(obj.value(QStringLiteral("range")).toObject());
-    //         return LSPTextEdit{range, newText};
-    //     };
-
     for (const auto &vitem : qAsConst(items)) {
         const auto &item = vitem.toObject();
         auto label = item.value(MEMBER_LABEL).toString();
@@ -692,19 +686,32 @@ static QList<LSPCompletionItem> parseDocumentCompletion(const QJsonValue &result
         if (insertText.isEmpty()) {
             insertText = label;
         }
+        LSPTextEdit lspTextEdit;
         const auto &textEdit = item.value(QStringLiteral("textEdit")).toObject();
         if (!textEdit.empty()) {
             // Not a proper implementation of textEdit, but a workaround for KDE bug #445085
             auto newText = textEdit.value(QStringLiteral("newText")).toString();
             insertText = newText;
+            lspTextEdit.newText = newText;
+            lspTextEdit.range = parseRange(textEdit.value(QStringLiteral("range")).toObject());
         }
         auto kind = static_cast<LSPCompletionItemKind>(item.value(MEMBER_KIND).toInt());
-        //         auto textEdit = parseTextEdit(item.value(QStringLiteral("textEdit")).toObject());
-
         const auto additionalTextEdits = parseTextEdit(item.value(QStringLiteral("additionalTextEdits")));
 
-        ret.push_back({label, kind, detail, doc, sortText, insertText, additionalTextEdits /*, textEdit*/});
+        QJsonValue data = item.value(QStringLiteral("data"));
+
+        ret.push_back({label, label, kind, detail, doc, sortText, insertText, additionalTextEdits, lspTextEdit, data});
     }
+    return ret;
+}
+
+static LSPCompletionItem parseDocumentCompletionResolve(const QJsonValue &result)
+{
+    const auto &item = result.toObject();
+    // we only support additionalTextEdits in resolve atm
+    const auto additionalTextEdits = parseTextEdit(item.value(QStringLiteral("additionalTextEdits")));
+    LSPCompletionItem ret;
+    ret.additionalTextEdits = additionalTextEdits;
     return ret;
 }
 
@@ -1402,7 +1409,10 @@ private:
                                             }},
                                             {QStringLiteral("completion"), QJsonObject{
                                                 {QStringLiteral("completionItem"), QJsonObject{
-                                                    {QStringLiteral("snippetSupport"), m_clientCapabilities.snippetSupport}
+                                                    {QStringLiteral("snippetSupport"), m_clientCapabilities.snippetSupport},
+                                                    {QStringLiteral("resolveSupport"), QJsonObject{
+                                                        {QStringLiteral("properties"), QJsonArray{ QStringLiteral("additionalTextEdits") }}
+                                                    }}
                                                 }}
                                             }},
                                             {QStringLiteral("inlayHint"), QJsonObject{
@@ -1535,6 +1545,19 @@ public:
     {
         auto params = textDocumentPositionParams(document, pos);
         return send(init_request(QStringLiteral("textDocument/completion"), params), h);
+    }
+
+    RequestHandle documentCompletionResolve(const LSPCompletionItem &c, const GenericReplyHandler &h)
+    {
+        QJsonObject params;
+        params[QStringLiteral("data")] = c.data;
+        params[MEMBER_DETAIL] = c.detail;
+        params[QStringLiteral("insertText")] = c.insertText;
+        params[QStringLiteral("sortText")] = c.sortText;
+        params[QStringLiteral("textEdit")] = QJsonObject{{QStringLiteral("newText"), c.textEdit.newText}, {QStringLiteral("range"), to_json(c.textEdit.range)}};
+        params[MEMBER_LABEL] = c.originalLabel;
+        params[MEMBER_KIND] = (int)c.kind;
+        return send(init_request(QStringLiteral("completionItem/resolve"), params), h);
     }
 
     RequestHandle signatureHelp(const QUrl &document, const LSPPosition &pos, const GenericReplyHandler &h)
@@ -1883,6 +1906,12 @@ LSPClientServer::RequestHandle
 LSPClientServer::documentCompletion(const QUrl &document, const LSPPosition &pos, const QObject *context, const DocumentCompletionReplyHandler &h)
 {
     return d->documentCompletion(document, pos, make_handler(h, context, parseDocumentCompletion));
+}
+
+LSPClientServer::RequestHandle
+LSPClientServer::documentCompletionResolve(const LSPCompletionItem &c, const QObject *context, const DocumentCompletionResolveReplyHandler &h)
+{
+    return d->documentCompletionResolve(c, make_handler(h, context, parseDocumentCompletionResolve));
 }
 
 LSPClientServer::RequestHandle

@@ -59,6 +59,7 @@ using DocumentDefinitionReplyHandler = ReplyHandler<QList<LSPLocation>>;
 using DocumentHighlightReplyHandler = ReplyHandler<QList<LSPDocumentHighlight>>;
 using DocumentHoverReplyHandler = ReplyHandler<LSPHover>;
 using DocumentCompletionReplyHandler = ReplyHandler<QList<LSPCompletionItem>>;
+using DocumentCompletionResolveReplyHandler = ReplyHandler<LSPCompletionItem>;
 using SignatureHelpReplyHandler = ReplyHandler<LSPSignatureHelp>;
 using FormattingReplyHandler = ReplyHandler<QList<LSPTextEdit>>;
 using CodeActionReplyHandler = ReplyHandler<QList<LSPCodeAction>>;
@@ -139,6 +140,7 @@ public:
     RequestHandle documentHover(const QUrl &document, const LSPPosition &pos, const QObject *context, const DocumentHoverReplyHandler &h);
     RequestHandle documentReferences(const QUrl &document, const LSPPosition &pos, bool decl, const QObject *context, const DocumentDefinitionReplyHandler &h);
     RequestHandle documentCompletion(const QUrl &document, const LSPPosition &pos, const QObject *context, const DocumentCompletionReplyHandler &h);
+    RequestHandle documentCompletionResolve(const LSPCompletionItem &c, const QObject *context, const DocumentCompletionResolveReplyHandler &h);
     RequestHandle signatureHelp(const QUrl &document, const LSPPosition &pos, const QObject *context, const SignatureHelpReplyHandler &h);
     RequestHandle selectionRange(const QUrl &document, const QVector<LSPPosition> &positions, const QObject *context, const SelectionRangeReplyHandler &h);
     // clangd specific

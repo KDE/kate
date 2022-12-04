@@ -56,6 +56,8 @@
 
 class NumStatStyle final : public QStyledItemDelegate
 {
+    static const int RightMargin = 2;
+
 public:
     NumStatStyle(QObject *parent, KateProjectPlugin *p)
         : QStyledItemDelegate(parent)
@@ -90,7 +92,7 @@ public:
         int hS = option.fontMetrics.horizontalAdvance(Status);
 
         QRect r = option.rect;
-        int mw = r.width() - (ha + hs + hS);
+        int mw = r.width() - (ha + hs + hS + RightMargin); // 2px margin on the right
         r.setX(r.x() + mw);
 
         KColorScheme c;

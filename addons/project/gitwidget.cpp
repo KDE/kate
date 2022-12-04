@@ -113,6 +113,14 @@ public:
         painter->restore();
     }
 
+    QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override
+    {
+        const auto str = index.data().toString();
+        auto sh = QStyledItemDelegate::sizeHint(option, index);
+        sh.setWidth(option.fontMetrics.horizontalAdvance(str) + RightMargin);
+        return sh;
+    }
+
 private:
     KateProjectPlugin *m_plugin;
 };

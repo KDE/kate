@@ -3337,13 +3337,13 @@ kate /path/to/folder
 </screen>
 
 <para
->Here, subfolders and filters define what’s part of the project. You can also mix version control and files based on filters. Hidden files will not be retrieved if the option <code
+>Aquí, les subcarpetes i els filtres defineixen què és part del projecte. També podeu barrejar el control de versions i fitxers basats en filtres. Els fitxers ocults no es recuperaran si l'opció <code
 >"hidden"</code
-> is 0. <code
+> és 0. <code
 >"exclude_patterns"</code
-> is a list of regex patterns that can be used to exclude folders and files from the project tree. In this example, All files and folders in a directory <filename
+> és una llista de patrons d'expressió regular que es poden utilitzar per excloure carpetes i fitxers de l'arbre del projecte. En aquest exemple, s'exclouran tots els fitxers i carpetes d'un directori <filename
 >build</filename
-> from the root will be excluded. </para>
+> des de l'arrel. </para>
 
 <para id="projects-build-support"
 >Si voleu afegir implementació per a la construcció, podeu escriure un <filename

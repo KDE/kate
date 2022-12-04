@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-01 00:50+0000\n"
+"POT-Creation-Date: 2022-12-04 00:49+0000\n"
 "PO-Revision-Date: 2022-08-05 11:52+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -31,29 +31,29 @@ msgstr ""
 "X-POT-Import-Date: 2013-01-13 20:43:20+0000\n"
 "X-Generator: Lokalize 20.12.0\n"
 
-#: katefiletree.cpp:127
+#: katefiletree.cpp:122
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Reloa&d"
 msgstr "Lataa &uudelleen"
 
-#: katefiletree.cpp:129
+#: katefiletree.cpp:124
 #, kde-format
 msgid "Reload selected document(s) from disk."
 msgstr "Lataa valitut tiedostot uudelleen levyltä."
 
-#: katefiletree.cpp:131
+#: katefiletree.cpp:126
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close"
 msgstr "Sulje"
 
-#: katefiletree.cpp:133
+#: katefiletree.cpp:128
 #, kde-format
 msgid "Close the current document."
 msgstr "Sulje nykyinen tiedosto."
 
-#: katefiletree.cpp:135
+#: katefiletree.cpp:130
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Expand recursively"
@@ -61,12 +61,12 @@ msgctxt "@action:inmenu"
 msgid "Expand Recursively"
 msgstr "Laajenna rekursiivisesti"
 
-#: katefiletree.cpp:137
+#: katefiletree.cpp:132
 #, kde-format
 msgid "Expand the file list sub tree recursively."
 msgstr "Laajenna tiedostoluettelon alipuu rekursiivisesti."
 
-#: katefiletree.cpp:139
+#: katefiletree.cpp:134
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Collapse recursively"
@@ -74,189 +74,169 @@ msgctxt "@action:inmenu"
 msgid "Collapse Recursively"
 msgstr "Sulje rekursiivisesti"
 
-#: katefiletree.cpp:141
+#: katefiletree.cpp:136
 #, kde-format
 msgid "Collapse the file list sub tree recursively."
 msgstr "Sulje tiedostoluettelon alipuu rekursiivisesti."
 
-#: katefiletree.cpp:143
+#: katefiletree.cpp:138
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close Other"
 msgstr "Sulje muut"
 
-#: katefiletree.cpp:145
+#: katefiletree.cpp:140
 #, kde-format
 msgid "Close other documents in this folder."
 msgstr "Sulje muut tämän kansion avoimet tiedostot."
 
-#: katefiletree.cpp:148
+#: katefiletree.cpp:143
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Containing Folder"
 msgstr "Avaa yläkansio"
 
-#: katefiletree.cpp:150
+#: katefiletree.cpp:145
 #, kde-format
 msgid "Open the folder this file is located in."
 msgstr "Avaa kansio, jossa tiedosto on."
 
-#: katefiletree.cpp:152
+#: katefiletree.cpp:147
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Location"
 msgstr "Kopioi sijainti"
 
-#: katefiletree.cpp:154
+#: katefiletree.cpp:149
 #, kde-format
 msgid "Copy path and filename to the clipboard."
 msgstr "Kopioi sijainti ja tiedoston nimi leikepöydälle."
 
-#: katefiletree.cpp:156
+#: katefiletree.cpp:151
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename..."
 msgstr "Muuta nimeä…"
 
-#: katefiletree.cpp:158
+#: katefiletree.cpp:153
 #, kde-format
 msgid "Rename the selected file."
 msgstr "Muuta valitun tiedoston nimeä."
 
-#: katefiletree.cpp:161
+#: katefiletree.cpp:156
 #, kde-format
 msgid "Print selected document."
 msgstr "Tulosta valittu tiedosto."
 
-#: katefiletree.cpp:164
+#: katefiletree.cpp:159
 #, kde-format
 msgid "Show print preview of current document"
 msgstr "Näytä nykyisen tiedoston tulostuksen esikatselu"
 
-#: katefiletree.cpp:166
+#: katefiletree.cpp:161
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete"
 msgstr "Poista"
 
-#: katefiletree.cpp:168
+#: katefiletree.cpp:163
 #, kde-format
 msgid "Close and delete selected file from storage."
 msgstr "Sulje ja poista valitut tiedostot levyltä."
 
-#: katefiletree.cpp:172
+#: katefiletree.cpp:167
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear History"
 msgstr "Tyhjennä historia"
 
-#: katefiletree.cpp:174
+#: katefiletree.cpp:169
 #, kde-format
 msgid "Clear edit/view history."
 msgstr "Tyhjennä muokkaus-/katseluhistoria"
 
-#: katefiletree.cpp:237
+#: katefiletree.cpp:232
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Tree Mode"
 msgstr "Puunäkymä"
 
-#: katefiletree.cpp:238
+#: katefiletree.cpp:233
 #, kde-format
 msgid "Set view style to Tree Mode"
 msgstr "Vaihtaa näkymätilaksi puun"
 
-#: katefiletree.cpp:244
+#: katefiletree.cpp:239
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "List Mode"
 msgstr "Luettelonäkymä"
 
-#: katefiletree.cpp:245
+#: katefiletree.cpp:240
 #, kde-format
 msgid "Set view style to List Mode"
 msgstr "Vaihtaa näkymätilaksi luettelon"
 
-#: katefiletree.cpp:252
+#: katefiletree.cpp:247
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Document Name"
 msgstr "Tiedoston nimi"
 
-#: katefiletree.cpp:253
+#: katefiletree.cpp:248
 #, kde-format
 msgid "Sort by Document Name"
 msgstr "Lajittele tiedoston nimen mukaan"
 
-#: katefiletree.cpp:258
+#: katefiletree.cpp:253
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Document Path"
 msgstr "Tiedoston sijainti"
 
-#: katefiletree.cpp:258
+#: katefiletree.cpp:253
 #, kde-format
 msgid "Sort by Document Path"
 msgstr "Lajittele tiedoston sijainnin mukaan"
 
-#: katefiletree.cpp:262
+#: katefiletree.cpp:257
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Opening Order"
 msgstr "Avausjärjestys"
 
-#: katefiletree.cpp:263
+#: katefiletree.cpp:258
 #, kde-format
 msgid "Sort by Opening Order"
 msgstr "Lajittelu avausjärjestyksen mukaan"
 
-#: katefiletree.cpp:266 katefiletreeconfigpage.cpp:74
+#: katefiletree.cpp:261 katefiletreeconfigpage.cpp:74
 #, kde-format
 msgid "Custom Sorting"
 msgstr "Mukautettu lajittelu"
 
-#: katefiletree.cpp:395
+#: katefiletree.cpp:390
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open With"
 msgstr "Avaa ohjelmalla"
 
-#: katefiletree.cpp:409
+#: katefiletree.cpp:404
 #, kde-format
 msgid "Show File Git History"
 msgstr ""
 
-#: katefiletree.cpp:448
+#: katefiletree.cpp:443
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "View Mode"
 msgstr "Näkymä"
 
-#: katefiletree.cpp:452
+#: katefiletree.cpp:447
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Sort By"
 msgstr "Lajittelu"
-
-#: katefiletree.cpp:494
-#, kde-format
-msgid "&Other..."
-msgstr "&Muu…"
-
-#: katefiletree.cpp:828
-#, kde-format
-msgid "Do you really want to delete file \"%1\" from storage?"
-msgstr "Haluatko varmasti poistaa tiedoston ”%1” levyltä?"
-
-#: katefiletree.cpp:829
-#, kde-format
-msgid "Delete file?"
-msgstr "Poistetaanko tiedosto?"
-
-#: katefiletree.cpp:846
-#, kde-format
-msgid "File \"%1\" could not be deleted."
-msgstr "Tiedoston ”%1” poistaminen epäonnistui."
 
 #: katefiletreeconfigpage.cpp:45
 #, kde-format
@@ -442,6 +422,18 @@ msgstr "Tallenna tiedosto uudella nimellä"
 #, kde-format
 msgid "&Go"
 msgstr "S&iirry"
+
+#~ msgid "&Other..."
+#~ msgstr "&Muu…"
+
+#~ msgid "Do you really want to delete file \"%1\" from storage?"
+#~ msgstr "Haluatko varmasti poistaa tiedoston ”%1” levyltä?"
+
+#~ msgid "Delete file?"
+#~ msgstr "Poistetaanko tiedosto?"
+
+#~ msgid "File \"%1\" could not be deleted."
+#~ msgstr "Tiedoston ”%1” poistaminen epäonnistui."
 
 #~ msgid "Rename file"
 #~ msgstr "Muuta tiedoston nimeä"

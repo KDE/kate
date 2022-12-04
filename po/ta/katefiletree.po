@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-01 00:50+0000\n"
+"POT-Creation-Date: 2022-12-04 00:49+0000\n"
 "PO-Revision-Date: 2022-10-13 19:31+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -17,228 +17,208 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Lokalize 22.08.1\n"
 
-#: katefiletree.cpp:127
+#: katefiletree.cpp:122
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Reloa&d"
 msgstr "&மீளேற்று"
 
-#: katefiletree.cpp:129
+#: katefiletree.cpp:124
 #, kde-format
 msgid "Reload selected document(s) from disk."
 msgstr "தேர்ந்தெடுத்துள்ள ஆவணங்களை வட்டிலிருந்து மீளேற்றும்."
 
-#: katefiletree.cpp:131
+#: katefiletree.cpp:126
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close"
 msgstr "மூடு"
 
-#: katefiletree.cpp:133
+#: katefiletree.cpp:128
 #, kde-format
 msgid "Close the current document."
 msgstr "தற்போதைய கோப்பை மூடும்."
 
-#: katefiletree.cpp:135
+#: katefiletree.cpp:130
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Expand Recursively"
 msgstr "சார்ந்துள்ளவற்றை விரிவுபடுத்து"
 
-#: katefiletree.cpp:137
+#: katefiletree.cpp:132
 #, kde-format
 msgid "Expand the file list sub tree recursively."
 msgstr "இப்பதிவையும் இதைச் சார்ந்த பதிவுகளையும் விரிவுபடுத்தும்."
 
-#: katefiletree.cpp:139
+#: katefiletree.cpp:134
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Collapse Recursively"
 msgstr "சார்ந்துள்ளவற்றைச் சுருக்கு"
 
-#: katefiletree.cpp:141
+#: katefiletree.cpp:136
 #, kde-format
 msgid "Collapse the file list sub tree recursively."
 msgstr "இப்பதிவையும் இதைச் சார்ந்த பதிவுகளையும் சுருக்கும்."
 
-#: katefiletree.cpp:143
+#: katefiletree.cpp:138
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close Other"
 msgstr "மற்றவற்றை மூடு"
 
-#: katefiletree.cpp:145
+#: katefiletree.cpp:140
 #, kde-format
 msgid "Close other documents in this folder."
 msgstr "இவ்வடைவிலுள்ள மற்ற ஆவணங்களை மூடும்."
 
-#: katefiletree.cpp:148
+#: katefiletree.cpp:143
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Containing Folder"
 msgstr "கொண்டுள்ள அடைவைத் திற"
 
-#: katefiletree.cpp:150
+#: katefiletree.cpp:145
 #, kde-format
 msgid "Open the folder this file is located in."
 msgstr "இக்கோப்பைக் கொண்டுள்ள அடைவைத் திறக்கும்."
 
-#: katefiletree.cpp:152
+#: katefiletree.cpp:147
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Location"
 msgstr "இருப்பிடத்தை நகலெடு"
 
-#: katefiletree.cpp:154
+#: katefiletree.cpp:149
 #, kde-format
 msgid "Copy path and filename to the clipboard."
 msgstr "பாதையையும் கோப்பின் பெயரையும் பிடிப்புப்பலகைக்கு நகலெடுக்கும்."
 
-#: katefiletree.cpp:156
+#: katefiletree.cpp:151
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename..."
 msgstr "மறுபெயரிடு..."
 
-#: katefiletree.cpp:158
+#: katefiletree.cpp:153
 #, kde-format
 msgid "Rename the selected file."
 msgstr "தேர்ந்தெடுத்துள்ள கோப்புக்கு மறுபெயரிடும்."
 
-#: katefiletree.cpp:161
+#: katefiletree.cpp:156
 #, kde-format
 msgid "Print selected document."
 msgstr "தேரந்தெடுத்துள்ள ஆவணத்தை அச்சிடும்."
 
-#: katefiletree.cpp:164
+#: katefiletree.cpp:159
 #, kde-format
 msgid "Show print preview of current document"
 msgstr "தற்போதைய ஆவணத்தின் அச்சு முன்னோட்டத்தைக் காட்டு"
 
-#: katefiletree.cpp:166
+#: katefiletree.cpp:161
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete"
 msgstr "அழி"
 
-#: katefiletree.cpp:168
+#: katefiletree.cpp:163
 #, kde-format
 msgid "Close and delete selected file from storage."
 msgstr "தேர்ந்தெடுத்துள்ள கோப்பை மூடி அதை சேமிப்பகத்திலிருந்து நீக்கும்."
 
-#: katefiletree.cpp:172
+#: katefiletree.cpp:167
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear History"
 msgstr "வரலாற்றை காலியாக்கு"
 
-#: katefiletree.cpp:174
+#: katefiletree.cpp:169
 #, kde-format
 msgid "Clear edit/view history."
 msgstr "திருத்த/பார்வை வரலாற்றைக் காலியாக்கும்."
 
-#: katefiletree.cpp:237
+#: katefiletree.cpp:232
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Tree Mode"
 msgstr "கிளைப்படப் பயன்முறை"
 
-#: katefiletree.cpp:238
+#: katefiletree.cpp:233
 #, kde-format
 msgid "Set view style to Tree Mode"
 msgstr "காட்சிமுறையை கிளைப்பட பயன்முறையாக அமைக்கும்"
 
-#: katefiletree.cpp:244
+#: katefiletree.cpp:239
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "List Mode"
 msgstr "பட்டியல் பயன்முறை"
 
-#: katefiletree.cpp:245
+#: katefiletree.cpp:240
 #, kde-format
 msgid "Set view style to List Mode"
 msgstr "காட்சிமுறையை பட்டியல் பயன்முறையாக அமைக்கும்"
 
-#: katefiletree.cpp:252
+#: katefiletree.cpp:247
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Document Name"
 msgstr "ஆவணப் பெயர்"
 
-#: katefiletree.cpp:253
+#: katefiletree.cpp:248
 #, kde-format
 msgid "Sort by Document Name"
 msgstr "ஆவணப் பெயரின் அடிப்படையில் வரிசைப்படுத்தும்"
 
-#: katefiletree.cpp:258
+#: katefiletree.cpp:253
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Document Path"
 msgstr "ஆவணப் பாதை"
 
-#: katefiletree.cpp:258
+#: katefiletree.cpp:253
 #, kde-format
 msgid "Sort by Document Path"
 msgstr "ஆவணப் பாதையின் அடிப்படையில் வரிசைப்படுத்தும்"
 
-#: katefiletree.cpp:262
+#: katefiletree.cpp:257
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Opening Order"
 msgstr "திறந்த வரிசை"
 
-#: katefiletree.cpp:263
+#: katefiletree.cpp:258
 #, kde-format
 msgid "Sort by Opening Order"
 msgstr "முதலில் திறந்தவற்றை முதலில் காட்டும்"
 
-#: katefiletree.cpp:266 katefiletreeconfigpage.cpp:74
+#: katefiletree.cpp:261 katefiletreeconfigpage.cpp:74
 #, kde-format
 msgid "Custom Sorting"
 msgstr "விருப்ப வரிசை"
 
-#: katefiletree.cpp:395
+#: katefiletree.cpp:390
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open With"
 msgstr "இதனால் திற"
 
-#: katefiletree.cpp:409
+#: katefiletree.cpp:404
 #, kde-format
 msgid "Show File Git History"
 msgstr "கோப்பின் கிட் வரலாற்றைக் காட்டு"
 
-#: katefiletree.cpp:448
+#: katefiletree.cpp:443
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "View Mode"
 msgstr "காட்சிமுறை"
 
-#: katefiletree.cpp:452
+#: katefiletree.cpp:447
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Sort By"
 msgstr "வரிசைப்படுத்தும் முறை"
-
-#: katefiletree.cpp:494
-#, kde-format
-msgid "&Other..."
-msgstr "&மற்ற"
-
-#: katefiletree.cpp:828
-#, kde-format
-msgid "Do you really want to delete file \"%1\" from storage?"
-msgstr "\"%1\" எனும் கோப்பை உறுதியாக சேமிப்பகத்திலிருந்து நீக்க வேண்டுமா?"
-
-#: katefiletree.cpp:829
-#, kde-format
-msgid "Delete file?"
-msgstr "கோப்பை நீக்கலாமா?"
-
-#: katefiletree.cpp:846
-#, kde-format
-msgid "File \"%1\" could not be deleted."
-msgstr "\"%1\" என்ற கோப்பை நீக்க முடியவில்லை."
 
 #: katefiletreeconfigpage.cpp:45
 #, kde-format
@@ -421,6 +401,18 @@ msgstr "தற்போதைய ஆவணத்தை வேறு பெயர
 #, kde-format
 msgid "&Go"
 msgstr "&செல்"
+
+#~ msgid "&Other..."
+#~ msgstr "&மற்ற"
+
+#~ msgid "Do you really want to delete file \"%1\" from storage?"
+#~ msgstr "\"%1\" எனும் கோப்பை உறுதியாக சேமிப்பகத்திலிருந்து நீக்க வேண்டுமா?"
+
+#~ msgid "Delete file?"
+#~ msgstr "கோப்பை நீக்கலாமா?"
+
+#~ msgid "File \"%1\" could not be deleted."
+#~ msgstr "\"%1\" என்ற கோப்பை நீக்க முடியவில்லை."
 
 #~ msgid "Rename file"
 #~ msgstr "கோப்பின் பெயரை மாற்று"

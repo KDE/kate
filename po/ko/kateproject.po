@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-03 00:50+0000\n"
+"POT-Creation-Date: 2022-12-04 00:49+0000\n"
 "PO-Revision-Date: 2022-08-09 13:37+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -72,7 +72,7 @@ msgstr "브랜치"
 msgid "Last Commit"
 msgstr "마지막 커밋"
 
-#: branchdeletedialog.cpp:135 kateprojecttreeviewcontextmenu.cpp:85
+#: branchdeletedialog.cpp:135 kateprojecttreeviewcontextmenu.cpp:78
 #, kde-format
 msgid "Delete"
 msgstr "삭제"
@@ -872,72 +872,72 @@ msgstr "프로젝트 색인"
 msgid "Choose a directory"
 msgstr "디렉터리 선택"
 
-#: kateprojecttreeviewcontextmenu.cpp:49
+#: kateprojecttreeviewcontextmenu.cpp:42
 #, kde-format
 msgid "Enter name:"
 msgstr "이름 입력:"
 
-#: kateprojecttreeviewcontextmenu.cpp:50
+#: kateprojecttreeviewcontextmenu.cpp:43
 #, kde-format
 msgid "Add"
 msgstr "추가"
 
-#: kateprojecttreeviewcontextmenu.cpp:71
+#: kateprojecttreeviewcontextmenu.cpp:64
 #, kde-format
 msgid "Copy Location"
 msgstr "위치 복사"
 
-#: kateprojecttreeviewcontextmenu.cpp:76
+#: kateprojecttreeviewcontextmenu.cpp:69
 #, kde-format
 msgid "Add File"
 msgstr "파일 추가"
 
-#: kateprojecttreeviewcontextmenu.cpp:77
+#: kateprojecttreeviewcontextmenu.cpp:70
 #, kde-format
 msgid "Add Folder"
 msgstr "폴더 추가"
 
-#: kateprojecttreeviewcontextmenu.cpp:84
+#: kateprojecttreeviewcontextmenu.cpp:77
 #, kde-format
 msgid "&Rename"
 msgstr "이름 바꾸기(&R)"
 
-#: kateprojecttreeviewcontextmenu.cpp:91
+#: kateprojecttreeviewcontextmenu.cpp:84
 #, kde-format
 msgid "Properties"
 msgstr "속성"
 
-#: kateprojecttreeviewcontextmenu.cpp:98
+#: kateprojecttreeviewcontextmenu.cpp:88
 #, kde-format
 msgid "Open With"
 msgstr "다음으로 열기"
 
-#: kateprojecttreeviewcontextmenu.cpp:117
+#: kateprojecttreeviewcontextmenu.cpp:96
 #, kde-format
 msgid "Open Internal Terminal Here"
 msgstr "여기에서 내부 터미널 열기"
 
-#: kateprojecttreeviewcontextmenu.cpp:126
+#: kateprojecttreeviewcontextmenu.cpp:105
 #, kde-format
 msgid "Open External Terminal Here"
 msgstr "여기에서 외부 터미널 열기"
 
-#: kateprojecttreeviewcontextmenu.cpp:131
+#: kateprojecttreeviewcontextmenu.cpp:110
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "포함하는 폴더 열기(&O)"
 
-#: kateprojecttreeviewcontextmenu.cpp:141
+#: kateprojecttreeviewcontextmenu.cpp:120
 #, kde-format
 msgid "Show Git History"
 msgstr "Git 기록 표시"
 
-#: kateprojecttreeviewcontextmenu.cpp:164
+#: kateprojecttreeviewcontextmenu.cpp:130
 #, kde-format
 msgid "Delete File"
 msgstr "파일 삭제"
 
-#: kateprojecttreeviewcontextmenu.cpp:165
+#: kateprojecttreeviewcontextmenu.cpp:131
 #, kde-format
 msgid "Do you want to delete the file '%1'?"
 msgstr "파일 '%1'을(를) 삭제하시겠습니까?"

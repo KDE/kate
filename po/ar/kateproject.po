@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-03 00:50+0000\n"
+"POT-Creation-Date: 2022-12-04 00:49+0000\n"
 "PO-Revision-Date: 2022-10-04 21:12+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -75,7 +75,7 @@ msgstr "الفرع"
 msgid "Last Commit"
 msgstr "آخر إيداع"
 
-#: branchdeletedialog.cpp:135 kateprojecttreeviewcontextmenu.cpp:85
+#: branchdeletedialog.cpp:135 kateprojecttreeviewcontextmenu.cpp:78
 #, kde-format
 msgid "Delete"
 msgstr "احذف"
@@ -881,72 +881,72 @@ msgstr "فهرس مشروع"
 msgid "Choose a directory"
 msgstr "اختر مجلدًا"
 
-#: kateprojecttreeviewcontextmenu.cpp:49
+#: kateprojecttreeviewcontextmenu.cpp:42
 #, kde-format
 msgid "Enter name:"
 msgstr "أدخل الاسم:"
 
-#: kateprojecttreeviewcontextmenu.cpp:50
+#: kateprojecttreeviewcontextmenu.cpp:43
 #, kde-format
 msgid "Add"
 msgstr "أضف"
 
-#: kateprojecttreeviewcontextmenu.cpp:71
+#: kateprojecttreeviewcontextmenu.cpp:64
 #, kde-format
 msgid "Copy Location"
 msgstr "انسخ المكان"
 
-#: kateprojecttreeviewcontextmenu.cpp:76
+#: kateprojecttreeviewcontextmenu.cpp:69
 #, kde-format
 msgid "Add File"
 msgstr "أضف ملفًّا"
 
-#: kateprojecttreeviewcontextmenu.cpp:77
+#: kateprojecttreeviewcontextmenu.cpp:70
 #, kde-format
 msgid "Add Folder"
 msgstr "أضف مجلدًا"
 
-#: kateprojecttreeviewcontextmenu.cpp:84
+#: kateprojecttreeviewcontextmenu.cpp:77
 #, kde-format
 msgid "&Rename"
 msgstr "غيّر الاسم"
 
-#: kateprojecttreeviewcontextmenu.cpp:91
+#: kateprojecttreeviewcontextmenu.cpp:84
 #, kde-format
 msgid "Properties"
 msgstr "الخصائص"
 
-#: kateprojecttreeviewcontextmenu.cpp:98
+#: kateprojecttreeviewcontextmenu.cpp:88
 #, kde-format
 msgid "Open With"
 msgstr "افتح ب‍"
 
-#: kateprojecttreeviewcontextmenu.cpp:117
+#: kateprojecttreeviewcontextmenu.cpp:96
 #, kde-format
 msgid "Open Internal Terminal Here"
 msgstr ""
 
-#: kateprojecttreeviewcontextmenu.cpp:126
+#: kateprojecttreeviewcontextmenu.cpp:105
 #, kde-format
 msgid "Open External Terminal Here"
 msgstr ""
 
-#: kateprojecttreeviewcontextmenu.cpp:131
+#: kateprojecttreeviewcontextmenu.cpp:110
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "ا&فتح المجلّد الحاوي"
 
-#: kateprojecttreeviewcontextmenu.cpp:141
+#: kateprojecttreeviewcontextmenu.cpp:120
 #, kde-format
 msgid "Show Git History"
 msgstr ""
 
-#: kateprojecttreeviewcontextmenu.cpp:164
+#: kateprojecttreeviewcontextmenu.cpp:130
 #, kde-format
 msgid "Delete File"
 msgstr "احذف الملفّ"
 
-#: kateprojecttreeviewcontextmenu.cpp:165
+#: kateprojecttreeviewcontextmenu.cpp:131
 #, kde-format
 msgid "Do you want to delete the file '%1'?"
 msgstr ""

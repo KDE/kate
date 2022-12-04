@@ -1,3 +1,9 @@
+/*
+    SPDX-FileCopyrightText: 2021 Waqar Ahmed <waqar.17a@gmail.com>
+    SPDX-FileCopyrightText: 2021 Christoph Cullmann <cullmann@kde.org>
+    SPDX-License-Identifier: LGPL-2.0-or-later
+ */
+
 #ifndef GIT_BLAME_FILE_TREE_VIEW
 #define GIT_BLAME_FILE_TREE_VIEW
 

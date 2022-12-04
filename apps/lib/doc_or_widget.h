@@ -1,3 +1,9 @@
+/*
+    SPDX-FileCopyrightText: 2022 Waqar Ahmed <waqar.17a@gmail.com>
+    SPDX-FileCopyrightText: 2022 Christoph Cullmann <cullmann@kde.org>
+    SPDX-License-Identifier: LGPL-2.0-or-later
+ */
+
 #ifndef KATE_DOC_OR_WIDGET
 #define KATE_DOC_OR_WIDGET
 

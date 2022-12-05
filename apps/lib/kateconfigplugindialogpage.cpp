@@ -82,7 +82,7 @@ KateConfigPluginPage::KateConfigPluginPage(QWidget *parent, KateConfigDialog *di
     connect(listView, &KatePluginListView::stateChange, this, &KateConfigPluginPage::stateChange);
 }
 
-void KateConfigPluginPage::stateChange(KatePluginListItem *item, bool b)
+void KateConfigPluginPage::stateChange(KatePluginListItem * /*item*/, bool /*b*/)
 {
     // just signal change to dialog, we will unload/load the plugins on apply
     Q_EMIT changed();

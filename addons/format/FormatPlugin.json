@@ -1,0 +1,9 @@
+{
+    "KPlugin": {
+        "Description": "Plugin for formatting code",
+        "Name": "Formatting",
+        "ServiceTypes": [
+            "KTextEditor/Plugin"
+        ]
+    }
+}

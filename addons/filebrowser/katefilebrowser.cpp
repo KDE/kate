@@ -30,6 +30,7 @@
 #include <KToolBar>
 #include <KUrlNavigator>
 #include <kio_version.h>
+#include <kwidgetsaddons_version.h>
 
 #include <QAbstractItemView>
 #include <QAction>

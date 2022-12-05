@@ -51,6 +51,7 @@
 #include <KWindowConfig>
 #include <KXMLGUIFactory>
 #include <kconfigwidgets_version.h>
+#include <kwidgetsaddons_version.h>
 
 #include <QApplication>
 #include <QDir>

@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-04 00:49+0000\n"
-"PO-Revision-Date: 2022-12-03 14:53+0200\n"
-"Last-Translator: Fracture dept <yurchor@ukr.net>\n"
+"POT-Creation-Date: 2022-12-05 00:50+0000\n"
+"PO-Revision-Date: 2022-12-04 08:51+0200\n"
+"Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
@@ -1114,10 +1114,9 @@ msgid "File \"%1\" could not be deleted."
 msgstr "Не вдалося вилучити файл «%1»."
 
 #: lib/katefileactions.cpp:202
-#, fuzzy, kde-format
-#| msgid "Application"
+#, kde-format
 msgid "&Other Application..."
-msgstr "Програма"
+msgstr "&Інша програма…"
 
 #: lib/katemainwindow.cpp:226
 #, kde-format
@@ -2136,57 +2135,57 @@ msgstr[3] ""
 "перемкніться на панель швидкого перегляду наведенням вказівника миші сюди з "
 "наступним клацанням лівою кнопкою миші."
 
-#: lib/kateviewspace.cpp:980
+#: lib/kateviewspace.cpp:1000
 #, kde-format
 msgid "Close Tab"
 msgstr "Закрити вкладку"
 
-#: lib/kateviewspace.cpp:998
+#: lib/kateviewspace.cpp:1018
 #, kde-format
 msgid "&Close Document"
 msgstr "&Закрити документ"
 
-#: lib/kateviewspace.cpp:999
+#: lib/kateviewspace.cpp:1019
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "Закрити &інші документи"
 
-#: lib/kateviewspace.cpp:1000
+#: lib/kateviewspace.cpp:1020
 #, kde-format
 msgid "Close &All Documents"
 msgstr "Закрити &всі документи"
 
-#: lib/kateviewspace.cpp:1002
+#: lib/kateviewspace.cpp:1022
 #, kde-format
 msgid "D&etach Document"
 msgstr "В&ід'єднати документ"
 
-#: lib/kateviewspace.cpp:1003
+#: lib/kateviewspace.cpp:1023
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "Відкриває документ у новому вікні і закриває його у поточному вікні"
 
-#: lib/kateviewspace.cpp:1012
+#: lib/kateviewspace.cpp:1032
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Порівняти із активним документом"
 
-#: lib/kateviewspace.cpp:1016
+#: lib/kateviewspace.cpp:1036
 #, kde-format
 msgid "Diff %1 .. %2"
 msgstr "Різниця %1 .. %2"
 
-#: lib/kateviewspace.cpp:1021
+#: lib/kateviewspace.cpp:1041
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Порівняти із активним документом за допомогою"
 
-#: lib/kateviewspace.cpp:1088
+#: lib/kateviewspace.cpp:1108
 #, kde-format
 msgid "Could not start program"
 msgstr "Не вдалося запустити програму"
 
-#: lib/kateviewspace.cpp:1089
+#: lib/kateviewspace.cpp:1109
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr "Не вдалося запустити вибрану програму. Можливо, її не встановлено."

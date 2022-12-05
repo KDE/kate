@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-04 00:49+0000\n"
-"PO-Revision-Date: 2022-12-03 19:01+0300\n"
+"POT-Creation-Date: 2022-12-05 00:50+0000\n"
+"PO-Revision-Date: 2022-12-04 14:07+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -1110,10 +1110,9 @@ msgid "File \"%1\" could not be deleted."
 msgstr "\"%1\" dosyası silinemedi."
 
 #: lib/katefileactions.cpp:202
-#, fuzzy, kde-format
-#| msgid "&Other..."
+#, kde-format
 msgid "&Other Application..."
-msgstr "Diğ&er..."
+msgstr "&Diğer Uygulama..."
 
 #: lib/katemainwindow.cpp:226
 #, kde-format
@@ -2113,57 +2112,57 @@ msgstr[1] ""
 "%1 belge daha açık. Tüm açık belgeleri görmek için buraya tıklayarak Hızlı "
 "Aç görünümüne geçebilirsiniz."
 
-#: lib/kateviewspace.cpp:980
+#: lib/kateviewspace.cpp:1000
 #, kde-format
 msgid "Close Tab"
 msgstr "Sekmeyi Kapat"
 
-#: lib/kateviewspace.cpp:998
+#: lib/kateviewspace.cpp:1018
 #, kde-format
 msgid "&Close Document"
 msgstr "&Belgeyi Kapat"
 
-#: lib/kateviewspace.cpp:999
+#: lib/kateviewspace.cpp:1019
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "Diğer &Belgeleri Kapat"
 
-#: lib/kateviewspace.cpp:1000
+#: lib/kateviewspace.cpp:1020
 #, kde-format
 msgid "Close &All Documents"
 msgstr "&Tüm Belgeleri Kapat"
 
-#: lib/kateviewspace.cpp:1002
+#: lib/kateviewspace.cpp:1022
 #, kde-format
 msgid "D&etach Document"
 msgstr "Bel&geyi Ayır"
 
-#: lib/kateviewspace.cpp:1003
+#: lib/kateviewspace.cpp:1023
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "Belgeyi yeni bir pencerede açıp geçerli pencerede kapatır"
 
-#: lib/kateviewspace.cpp:1012
+#: lib/kateviewspace.cpp:1032
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Etkin Belgeyle Karşılaştır"
 
-#: lib/kateviewspace.cpp:1016
+#: lib/kateviewspace.cpp:1036
 #, kde-format
 msgid "Diff %1 .. %2"
 msgstr "Diff %1 .. %2"
 
-#: lib/kateviewspace.cpp:1021
+#: lib/kateviewspace.cpp:1041
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Etkin Belgeyle Şunu Kullanarak Karşılaştır"
 
-#: lib/kateviewspace.cpp:1088
+#: lib/kateviewspace.cpp:1108
 #, kde-format
 msgid "Could not start program"
 msgstr "Program başlatılamadı"
 
-#: lib/kateviewspace.cpp:1089
+#: lib/kateviewspace.cpp:1109
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr "Seçilen program başlatılamadı. Kurulmamış olabilir."

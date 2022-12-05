@@ -3337,13 +3337,13 @@ kate /pad/naar/map/
 </screen>
 
 <para
->Here, subfolders and filters define what’s part of the project. You can also mix version control and files based on filters. Hidden files will not be retrieved if the option <code
+>Submappen en filters definiëren hier wat onderdeel is van het project. U kunt ook controle op versie en bestanden gebaseerd op filters mengen. Verborgen bestanden zullen niet opgehaald worden als de optie <code
 >"hidden"</code
-> is 0. <code
+> 0 is. <code
 >"exclude_patterns"</code
-> is a list of regex patterns that can be used to exclude folders and files from the project tree. In this example, All files and folders in a directory <filename
+> is een lijst met regex patronen die gebruikt kunnen worden om mappen en bestanden uit te sluiten van de projectboom. In dit voorbeeld zullen alle bestanden en mappen in een map <filename
 >build</filename
-> from the root will be excluded. </para>
+> in de hoofdmap uitgesloten worden. </para>
 
 <para id="projects-build-support"
 >Als u ondersteuning voor bouwen wilt toevoegen, dan kunt u een <filename

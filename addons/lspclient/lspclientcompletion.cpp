@@ -418,7 +418,9 @@ public:
         return doc->characterAt(KTextEditor::Cursor(range.end().line(), range.end().column()));
     }
 
-    QString stripSnippetMarkers(const QString &snip) const
+    // parses lsp snippets
+    // returns the column where cursor should be after completion and the text to insert
+    std::pair<int, QString> stripSnippetMarkers(const QString &snip) const
     {
 #define C(c) QLatin1Char(c)
         QString ret;
@@ -446,11 +448,6 @@ public:
                     bracket++;
                 }
             } else if (!prevSlash && *i == C('$') && i + 1 != end && (i + 1)->isDigit()) { // $0, $1 => we dont support multiple cursor pos
-                if (*(i + 1) == C('0')) {
-                    if (lastSnippetMarkerPos == -1) {
-                        ret += QLatin1String("${cursor}");
-                    }
-                }
                 ++i;
                 // eat through the digits
                 while (i->isDigit()) {
@@ -467,12 +464,8 @@ public:
             }
         }
 
-        if (lastSnippetMarkerPos >= 0) {
-            ret.insert(lastSnippetMarkerPos, QStringLiteral("${cursor}"));
-        }
-
 #undef C
-        return ret;
+        return {lastSnippetMarkerPos, ret};
     }
 
     void executeCompletionItem(KTextEditor::View *view, const KTextEditor::Range &word, const QModelIndex &index) const override
@@ -492,12 +485,33 @@ public:
         // NOTE: view->setCursorPosition() will invalidate the matches, so we save the
         // additionalTextEdits before setting cursor-possition
         const auto additionalTextEdits = m_matches.at(index.row()).additionalTextEdits;
-
         if (m_complParens) {
-            view->document()->removeText(word);
-            const auto textToInsert = stripSnippetMarkers(matching);
+            const auto [col, textToInsert] = stripSnippetMarkers(matching);
             qCInfo(LSPCLIENT) << "original text: " << matching << ", snippet markers removed; " << textToInsert;
-            view->insertTemplate(view->cursorPosition(), textToInsert);
+            view->document()->replaceText(word, textToInsert);
+            // if the text is same, don't do any work
+            if (col >= 0 && textToInsert != matching) {
+                KTextEditor::Cursor p{word.start()};
+                int column = p.column();
+                int count = 0;
+                // can be multiline text
+                for (auto c : textToInsert) {
+                    if (count == col) {
+                        break;
+                    }
+                    if (c == QLatin1Char('\n')) {
+                        p.setLine(p.line() + 1);
+                        // line changed reset column
+                        column = 0;
+                        count++;
+                        continue;
+                    }
+                    count++;
+                    column++;
+                }
+                p.setColumn(column);
+                view->setCursorPosition(p);
+            }
         } else {
             view->document()->replaceText(word, matching);
         }

@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-06 00:48+0000\n"
-"PO-Revision-Date: 2022-11-08 19:55+0530\n"
+"PO-Revision-Date: 2022-12-06 19:46+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -174,10 +174,9 @@ msgid "Git"
 msgstr "கிட்"
 
 #: lib/commitfilesview.cpp:474
-#, fuzzy, kde-format
-#| msgid "Invalid Folder"
+#, kde-format
 msgid "Invalid hash"
-msgstr "மதிப்பில்லாத அடைவு"
+msgstr "செல்லுபடியாகாத சரிகாண்தொகை"
 
 #: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:342
 #, kde-format
@@ -1096,10 +1095,9 @@ msgid "File \"%1\" could not be deleted."
 msgstr "\"%1\" என்ற கோப்பை நீக்க முடியவில்லை."
 
 #: lib/katefileactions.cpp:202
-#, fuzzy, kde-format
-#| msgid "Application"
+#, kde-format
 msgid "&Other Application..."
-msgstr "பயன்பாடு"
+msgstr "&வேறு செயலி..."
 
 #: lib/katemainwindow.cpp:227
 #, kde-format

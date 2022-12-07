@@ -1,19 +1,20 @@
 # Frederik Schwarzer <schwarzer@kde.org>, 2014, 2016, 2022.
 # Burkhard Lück <lueck@hube-lueck.de>, 2014, 2016, 2018, 2019, 2021.
+# Frank Steinmetzger <dev-kde@felsenfleischer.de>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-04 00:49+0000\n"
-"PO-Revision-Date: 2022-07-23 22:53+0200\n"
-"Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
+"PO-Revision-Date: 2022-11-24 00:13+0100\n"
+"Last-Translator: Frank Steinmetzger <dev-kde@felsenfleischer.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.07.70\n"
+"X-Generator: Lokalize 22.08.3\n"
 
 #: katefiletree.cpp:122
 #, kde-format
@@ -38,9 +39,7 @@ msgid "Close the current document."
 msgstr "Schließt das aktuelle Dokument."
 
 #: katefiletree.cpp:130
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Expand recursively"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Expand Recursively"
 msgstr "Rekursiv ausklappen"
@@ -51,9 +50,7 @@ msgid "Expand the file list sub tree recursively."
 msgstr "Klappt die Unterordner der Dateiliste rekursiv aus."
 
 #: katefiletree.cpp:134
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Collapse recursively"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Collapse Recursively"
 msgstr "Rekursiv einklappen"
@@ -208,7 +205,7 @@ msgstr "Öffnen mit"
 #: katefiletree.cpp:404
 #, kde-format
 msgid "Show File Git History"
-msgstr ""
+msgstr "Git-Verlauf der Datei anzeigen"
 
 #: katefiletree.cpp:443
 #, kde-format
@@ -378,15 +375,14 @@ msgid "Next Document"
 msgstr "Nächstes Dokument"
 
 #: katefiletreeplugin.cpp:258
-#, fuzzy, kde-format
-#| msgid "&Show Active"
+#, kde-format
 msgid "&Show Active Document"
-msgstr "Aktive &anzeigen"
+msgstr "Aktives Dokument &anzeigen"
 
 #: katefiletreeplugin.cpp:263
 #, kde-format
 msgid "Save"
-msgstr ""
+msgstr "Speichern"
 
 #: katefiletreeplugin.cpp:264
 #, kde-format
@@ -396,11 +392,10 @@ msgstr "Das aktuelle Dokument speichern"
 #: katefiletreeplugin.cpp:268
 #, kde-format
 msgid "Save As"
-msgstr ""
+msgstr "Speichern unter"
 
 #: katefiletreeplugin.cpp:269
-#, fuzzy, kde-format
-#| msgid "Save current document under new name"
+#, kde-format
 msgid "Save the current document under a new name"
 msgstr "Das aktuelle Dokument unter einem neuen Namen speichern"
 

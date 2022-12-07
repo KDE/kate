@@ -1,32 +1,32 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 # Frederik Schwarzer <schwarzer@kde.org>, 2016, 2022.
+# Frank Steinmetzger <dev-kde@felsenfleischer.de>, 2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-27 00:48+0000\n"
-"PO-Revision-Date: 2022-03-06 18:25+0100\n"
-"Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
-"Language-Team: German <kde-i18n-doc@kde.org>\n"
+"PO-Revision-Date: 2022-11-24 00:14+0100\n"
+"Last-Translator: Frank Steinmetzger <dev-kde@felsenfleischer.de>\n"
+"Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 21.12.2\n"
+"X-Generator: Lokalize 22.08.3\n"
 
 #: plugin_katexmlcheck.cpp:98
-#, fuzzy, kde-format
-#| msgid "XML Checker"
+#, kde-format
 msgid "XML Check"
 msgstr "XML-Überprüfung"
 
 #: plugin_katexmlcheck.cpp:105
 #, kde-format
 msgid "XML Checker"
-msgstr "XML-Überprüfung"
+msgstr "XML-Prüfung"
 
 #: plugin_katexmlcheck.cpp:109
 #, kde-format
@@ -65,7 +65,7 @@ msgid ""
 "installed. It is part of libxml2."
 msgstr ""
 "<b>Fehler:</b> xmllint kann nicht gefunden werden. Stellen Sie bitte sicher, "
-"dass xmllint installiert ist. xmllint ist Teil von libxml2."
+"dass xmllint installiert ist. Xmllint ist Teil von libxml2."
 
 #: plugin_katexmlcheck.cpp:394
 #, kde-format
@@ -74,7 +74,7 @@ msgid ""
 "installed. It is part of libxml2."
 msgstr ""
 "<b>Fehler:</b> xmllint kann nicht ausgeführt werden. Stellen Sie bitte "
-"sicher, dass xmllint installiert ist. xmllint ist Teil von libxml2."
+"sicher, dass xmllint installiert ist. Xmllint ist Teil von libxml2."
 
 #. i18n: ectx: Menu (xml)
 #: ui.rc:6

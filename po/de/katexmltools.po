@@ -3,25 +3,26 @@
 # Thomas Reitelbach <tr@erdfunkstelle.de>, 2005.
 # Frederik Schwarzer <schwarzer@kde.org>, 2007, 2014.
 # Burkhard Lück <lueck@hube-lueck.de>, 2013.
+# Frank Steinmetzger <dev-kde@felsenfleischer.de>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: katexmltools\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-27 00:48+0000\n"
-"PO-Revision-Date: 2014-08-01 12:42+0200\n"
-"Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
+"PO-Revision-Date: 2022-11-18 15:47+0100\n"
+"Last-Translator: Frank Steinmetzger <dev-kde@felsenfleischer.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 22.08.3\n"
 
 #: plugin_katexmltools.cpp:117
-#, fuzzy, kde-format
-#| msgid "Kate XML Tools"
+#, kde-format
 msgid "XML Tools"
-msgstr "Kate-XML-Werkzeuge"
+msgstr "XML-Werkzeuge"
 
 #: plugin_katexmltools.cpp:120
 #, kde-format
@@ -99,7 +100,7 @@ msgid ""
 "Enter XML tag name and attributes (\"<\", \">\" and closing tag will be "
 "supplied):"
 msgstr ""
-"XML-Elementnamen und -Attribute eingeben. („<\", \">“ und das schließende "
+"XML-Elementnamen und -Attribute eingeben. („<“, „>“ und das schließende "
 "Element werden automatisch gesetzt):"
 
 #: pseudo_dtd.cpp:45

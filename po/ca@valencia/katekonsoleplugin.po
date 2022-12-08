@@ -70,7 +70,7 @@ msgid ""
 "Do you really want to pipe the text to the console? This will execute any "
 "contained commands with your user rights."
 msgstr ""
-"Segur que voleu conduir («pipe») el text a la consola? Açò executarà "
+"Segur que voleu conduir («pipe») el text cap a la consola? Açò executarà "
 "qualsevol ordre continguda amb els vostres drets d'usuari."
 
 #: kateconsole.cpp:335

@@ -1055,10 +1055,8 @@ class LSPClientServer::LSPClientServerPrivate
     QString m_langId;
     // user provided init
     QJsonValue m_init;
-    // optional workspace folders
-    FoldersType m_folders;
-    // tweak specified client capabilities
-    LSPClientCapabilities m_clientCapabilities;
+    // additional tweaks
+    ExtraServerConfig m_config;
     // server process
     QProcess m_sproc;
     // server declared capabilities
@@ -1085,15 +1083,13 @@ public:
                            const QUrl &root,
                            const QString &langId,
                            const QJsonValue &init,
-                           const FoldersType &folders,
-                           const LSPClientCapabilities &caps)
+                           ExtraServerConfig config)
         : q(_q)
         , m_server(server)
         , m_root(root)
         , m_langId(langId)
         , m_init(init)
-        , m_folders(folders)
-        , m_clientCapabilities(caps)
+        , m_config(config)
     {
         // setup async reading
         QObject::connect(&m_sproc, &QProcess::readyReadStandardOutput, utils::mem_fun(&self_type::readStandardOutput, this));
@@ -1409,7 +1405,7 @@ private:
                                             }},
                                             {QStringLiteral("completion"), QJsonObject{
                                                 {QStringLiteral("completionItem"), QJsonObject{
-                                                    {QStringLiteral("snippetSupport"), m_clientCapabilities.snippetSupport},
+                                                    {QStringLiteral("snippetSupport"), m_config.caps.snippetSupport},
                                                     {QStringLiteral("resolveSupport"), QJsonObject{
                                                         {QStringLiteral("properties"), QJsonArray{ QStringLiteral("additionalTextEdits") }}
                                                     }}
@@ -1427,7 +1423,8 @@ private:
                                   }
                                 };
         // only declare workspace support if folders so specified
-        if (m_folders) {
+        const auto &folders = m_config.folders;
+        if (folders) {
             capabilities[QStringLiteral("workspace")] = QJsonObject{{QStringLiteral("workspaceFolders"), true}};
         }
         // NOTE a typical server does not use root all that much,
@@ -1438,8 +1435,8 @@ private:
                            {QStringLiteral("capabilities"), capabilities},
                            {QStringLiteral("initializationOptions"), m_init}};
         // only add new style workspaces init if so specified
-        if (m_folders) {
-            params[QStringLiteral("workspaceFolders")] = to_json(*m_folders);
+        if (folders) {
+            params[QStringLiteral("workspaceFolders")] = to_json(*folders);
         }
         //
         write(init_request(QStringLiteral("initialize"), params), utils::mem_fun(&self_type::onInitializeReply, this));
@@ -1799,13 +1796,8 @@ make_handler(const ReplyHandler<ReplyType> &h, const QObject *context, typename 
     };
 }
 
-LSPClientServer::LSPClientServer(const QStringList &server,
-                                 const QUrl &root,
-                                 const QString &langId,
-                                 const QJsonValue &init,
-                                 const FoldersType &folders,
-                                 const LSPClientCapabilities &caps)
-    : d(new LSPClientServerPrivate(this, server, root, langId, init, folders, caps))
+LSPClientServer::LSPClientServer(const QStringList &server, const QUrl &root, const QString &langId, const QJsonValue &init, ExtraServerConfig config)
+    : d(new LSPClientServerPrivate(this, server, root, langId, init, config))
 {
 }
 

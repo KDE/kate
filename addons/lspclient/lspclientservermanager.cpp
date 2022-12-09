@@ -808,7 +808,7 @@ private:
             // spin up using currently configured client capabilities
             auto &caps = m_clientCapabilities;
             // request server and setup
-            server.reset(new LSPClientServer(cmdline, root, realLangId, serverConfig.value(QStringLiteral("initializationOptions")), folders, caps));
+            server.reset(new LSPClientServer(cmdline, root, realLangId, serverConfig.value(QStringLiteral("initializationOptions")), {folders, caps}));
             connect(server.data(), &LSPClientServer::stateChanged, this, &self_type::onStateChanged, Qt::UniqueConnection);
             if (!server->start(m_plugin->m_debugMode)) {
                 QString message = i18n("Failed to start server: %1", cmdline.join(QLatin1Char(' ')));

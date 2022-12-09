@@ -105,12 +105,19 @@ public:
     };
 
     using FoldersType = std::optional<QList<LSPWorkspaceFolder>>;
+
+    // collect additional tweaks into a helper struct to avoid ever growing parameter list
+    // (which then also needs to be duplicated in a few places)
+    struct ExtraServerConfig {
+        FoldersType folders;
+        LSPClientCapabilities caps;
+    };
+
     LSPClientServer(const QStringList &server,
                     const QUrl &root,
                     const QString &langId = QString(),
                     const QJsonValue &init = QJsonValue(),
-                    const FoldersType &folders = std::nullopt,
-                    const LSPClientCapabilities &caps = {});
+                    const ExtraServerConfig = {});
     ~LSPClientServer() override;
 
     // server management

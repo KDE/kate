@@ -106,11 +106,19 @@ public:
 
     using FoldersType = std::optional<QList<LSPWorkspaceFolder>>;
 
+    // optionally adjust server provided/suggest trigger characters
+    struct TriggerCharactersOverride {
+        QVector<QChar> exclude;
+        QVector<QChar> include;
+    };
+
     // collect additional tweaks into a helper struct to avoid ever growing parameter list
     // (which then also needs to be duplicated in a few places)
     struct ExtraServerConfig {
         FoldersType folders;
         LSPClientCapabilities caps;
+        TriggerCharactersOverride completion;
+        TriggerCharactersOverride signature;
     };
 
     LSPClientServer(const QStringList &server,

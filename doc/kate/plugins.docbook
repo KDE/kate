@@ -2671,6 +2671,10 @@ entry object may also have an "initializationOptions" entry, which is passed
 along to the server as part of the 'initialize' method.
 If present, a "settings" entry is passed to the server by means of the
 'workspace/didChangeConfiguration' notification.
+Either of "completionTriggerCharacters" or "signatureTriggerCharacters" may be
+specified as a JSON object with string members "exclude" and/or "include".
+These will be used to respectively exclude or add some characters to
+the respective trigger set as provided by the server.
 </para>
 
 <para>

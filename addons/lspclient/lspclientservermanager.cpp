@@ -101,6 +101,21 @@ static QStringList indicationDataToStringList(const QJsonValue &indicationData)
     return {};
 }
 
+static LSPClientServer::TriggerCharactersOverride parseTriggerOverride(const QJsonValue &json)
+{
+    LSPClientServer::TriggerCharactersOverride adjust;
+    if (json.isObject()) {
+        auto ob = json.toObject();
+        for (const auto &c : ob.value(QStringLiteral("exclude")).toString()) {
+            adjust.exclude.push_back(c);
+        }
+        for (const auto &c : ob.value(QStringLiteral("include")).toString()) {
+            adjust.include.push_back(c);
+        }
+    }
+    return adjust;
+}
+
 #include <memory>
 
 // helper guard to handle revision (un)lock
@@ -807,8 +822,15 @@ private:
             }
             // spin up using currently configured client capabilities
             auto &caps = m_clientCapabilities;
+            // extract some more additional config
+            auto completionOverride = parseTriggerOverride(serverConfig.value(QStringLiteral("completionTriggerCharacters")));
+            auto signatureOverride = parseTriggerOverride(serverConfig.value(QStringLiteral("signatureTriggerCharacters")));
             // request server and setup
-            server.reset(new LSPClientServer(cmdline, root, realLangId, serverConfig.value(QStringLiteral("initializationOptions")), {folders, caps}));
+            server.reset(new LSPClientServer(cmdline,
+                                             root,
+                                             realLangId,
+                                             serverConfig.value(QStringLiteral("initializationOptions")),
+                                             {folders, caps, completionOverride, signatureOverride}));
             connect(server.data(), &LSPClientServer::stateChanged, this, &self_type::onStateChanged, Qt::UniqueConnection);
             if (!server->start(m_plugin->m_debugMode)) {
                 QString message = i18n("Failed to start server: %1", cmdline.join(QLatin1Char(' ')));

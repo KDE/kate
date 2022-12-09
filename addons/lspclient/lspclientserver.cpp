@@ -1356,10 +1356,22 @@ private:
         }
     }
 
+    void applyTriggerOverride(QVector<QChar> &characters, const TriggerCharactersOverride &adjust)
+    {
+        // these are expected 'small' sets, so the simple way should do
+        for (const auto &c : adjust.exclude) {
+            characters.removeAll(c);
+        }
+        characters.append(adjust.include);
+    }
+
     void onInitializeReply(const QJsonValue &value)
     {
         // only parse parts that we use later on
         from_json(m_capabilities, value.toObject().value(QStringLiteral("capabilities")).toObject());
+        // tweak triggers as specified
+        applyTriggerOverride(m_capabilities.completionProvider.triggerCharacters, m_config.completion);
+        applyTriggerOverride(m_capabilities.signatureHelpProvider.triggerCharacters, m_config.signature);
         // finish init
         initialized();
     }

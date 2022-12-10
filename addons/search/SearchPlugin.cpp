@@ -582,7 +582,6 @@ KatePluginSearchView::~KatePluginSearchView()
     delete m_toolView;
 }
 
-
 std::list<int> KatePluginSearchView::getDocumentSearchMarkedLines(const KTextEditor::Document *currentDocument)
 {
     std::list<int> result;
@@ -651,7 +650,6 @@ void KatePluginSearchView::copySearchedLines()
     std::list<int> lineNumberList = getDocumentSearchMarkedLines(currentDocument);
     setClipboardFromDocumentLines(currentDocument, lineNumberList);
 }
-
 
 void KatePluginSearchView::navigateFolderUp()
 {

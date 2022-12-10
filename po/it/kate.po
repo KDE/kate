@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-06 00:48+0000\n"
-"PO-Revision-Date: 2022-11-10 11:54+0100\n"
+"PO-Revision-Date: 2022-12-05 18:06+0100\n"
 "Last-Translator: Paolo Zamponi <zapaolo@email.it>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -183,7 +183,7 @@ msgstr "Git"
 #: lib/commitfilesview.cpp:474
 #, kde-format
 msgid "Invalid hash"
-msgstr ""
+msgstr "Hash non valido"
 
 #: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:342
 #, kde-format
@@ -191,10 +191,9 @@ msgid "%1 doesn't exist in a git repo."
 msgstr "%1 non esiste in un deposito di git."
 
 #: lib/commitfilesview.cpp:488
-#, fuzzy, kde-format
-#| msgid "Comment"
+#, kde-format
 msgid "Commit"
-msgstr "Commento"
+msgstr "Deposita"
 
 #. i18n: ectx: Menu (file)
 #: lib/data/kateui.rc:6
@@ -1110,10 +1109,9 @@ msgid "File \"%1\" could not be deleted."
 msgstr "Il file «%1» non può essere eliminato."
 
 #: lib/katefileactions.cpp:202
-#, fuzzy, kde-format
-#| msgid "Application"
+#, kde-format
 msgid "&Other Application..."
-msgstr "Applicazione"
+msgstr "Altra applicazi&one..."
 
 #: lib/katemainwindow.cpp:227
 #, kde-format

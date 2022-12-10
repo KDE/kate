@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-05 00:50+0000\n"
-"PO-Revision-Date: 2022-11-11 17:59+0100\n"
+"PO-Revision-Date: 2022-12-05 18:08+0100\n"
 "Last-Translator: Paolo Zamponi <zapaolo@email.it>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -306,10 +306,9 @@ msgid "Compare Branch with..."
 msgstr "Confronta ramo con..."
 
 #: gitwidget.cpp:975
-#, fuzzy, kde-format
-#| msgid "Commit"
+#, kde-format
 msgid "Show Commit"
-msgstr "Deposita"
+msgstr "Mostra deposito"
 
 #: gitwidget.cpp:975
 #, fuzzy, kde-format
@@ -318,10 +317,9 @@ msgid "Commit hash"
 msgstr "Deposita le modifiche"
 
 #: gitwidget.cpp:980
-#, fuzzy, kde-format
-#| msgid "Open Folder..."
+#, kde-format
 msgid "Open Commit..."
-msgstr "Apri cartella..."
+msgstr "Apri deposito..."
 
 #: gitwidget.cpp:983 gitwidget.cpp:1020
 #, kde-format

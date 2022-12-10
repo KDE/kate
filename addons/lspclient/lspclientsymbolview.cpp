@@ -568,20 +568,42 @@ public:
         onDocumentSymbolsOrProblem(QList<LSPSymbolInformation>(), i18n("No LSP server for this document."));
     }
 
-    QStandardItem *getCurrentItem(QStandardItem *item, int line)
+    // returns (covering item, closest child of covering item after line)
+    // if distance non-null, then (output) *distance:
+    //  = irrelevant if first element of return value is non-null
+    //  < 0 if line is after item range
+    //  > 0 if line is before item range = distance from line to item range start
+    std::pair<QStandardItem *, QStandardItem *> getCurrentItem(QStandardItem *item, int line, int *distance = nullptr)
     {
         // first traverse the child items to have deepest match!
         // only do this if our stuff is expanded
+        QStandardItem *minItem = nullptr;
         if (item == m_outline->invisibleRootItem() || m_symbols->isExpanded(m_filterModel.mapFromSource(m_outline->indexFromItem(item)))) {
+            int minDistance = std::numeric_limits<int>::max();
             for (int i = 0; i < item->rowCount(); i++) {
-                if (auto citem = getCurrentItem(item->child(i), line)) {
+                int dist = 0;
+                auto child = item->child(i);
+                auto citem = getCurrentItem(child, line, &dist);
+                if (citem.first) {
                     return citem;
+                } else if (dist > 0 && dist < minDistance) {
+                    minDistance = dist;
+                    minItem = child;
                 }
             }
         }
 
         // does the line match our item?
-        return item->data(SymbolViewRoles::SymbolRange).value<KTextEditor::Range>().overlapsLine(line) ? item : nullptr;
+        auto range = item->data(SymbolViewRoles::SymbolRange).value<KTextEditor::Range>();
+        if (range.overlapsLine(line)) {
+            return {item, minItem};
+        } else {
+            if (distance) {
+                auto startline = range.start().line();
+                *distance = line < startline ? startline - line : -1;
+            }
+            return {nullptr, minItem};
+        }
     }
 
     void updateCurrentTreeItem()
@@ -594,17 +616,24 @@ public:
         /**
          * get item if any
          */
-        QStandardItem *item = getCurrentItem(m_outline->invisibleRootItem(), editView->cursorPositionVirtual().line());
-        if (!item) {
+        auto items = getCurrentItem(m_outline->invisibleRootItem(), editView->cursorPositionVirtual().line());
+        if (!items.first) {
             return;
         }
 
         /**
-         * select it
+         * select it;
+         * however, in a typical (e.g. class/namespace) case, the areas between (e.g. method) children
+         * select the parent (class) as item.  To aid navigation in such case, the closest (following)
+         * child is also considered (as the parent item may in fact be quite far away in the symbol tree).
          */
-        QModelIndex index = m_filterModel.mapFromSource(m_outline->indexFromItem(item));
-        m_symbols->scrollTo(index);
-        m_symbols->selectionModel()->setCurrentIndex(index, QItemSelectionModel::Clear | QItemSelectionModel::Select);
+        QModelIndex coverIndex = m_filterModel.mapFromSource(m_outline->indexFromItem(items.first));
+        QModelIndex closestIndex = m_filterModel.mapFromSource(m_outline->indexFromItem(items.second ? items.second : items.first));
+        // select covering (parent) item
+        m_symbols->selectionModel()->setCurrentIndex(coverIndex, QItemSelectionModel::Clear | QItemSelectionModel::Select);
+        // add child to selection and move view there
+        m_symbols->selectionModel()->setCurrentIndex(closestIndex, QItemSelectionModel::Select);
+        m_symbols->scrollTo(closestIndex);
     }
 
     void goToSymbol(const QModelIndex &index)

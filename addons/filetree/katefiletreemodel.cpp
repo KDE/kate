@@ -490,7 +490,9 @@ void KateFileTreeModel::initModel()
 {
     beginInsertRows(QModelIndex(), 0, 0);
     Q_ASSERT(!m_widgetsRoot);
-    m_widgetsRoot = new ProxyItem(i18n("Open Widgets"), nullptr, ProxyItem::Flags(ProxyItem::Dir | ProxyItem::Widget));
+    m_widgetsRoot = new ProxyItem(i18nc("Open here is a description, i.e. 'list of widgets that are open' not a verb", "Open Widgets"),
+                                  nullptr,
+                                  ProxyItem::Flags(ProxyItem::Dir | ProxyItem::Widget));
     m_widgetsRoot->setFlags(ProxyItem::Flags(ProxyItem::Dir | ProxyItem::Widget));
     m_widgetsRoot->setIcon(QIcon::fromTheme(QStringLiteral("folder-windows")));
     m_root->addChild(m_widgetsRoot);

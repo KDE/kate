@@ -158,6 +158,9 @@ private Q_SLOTS:
     void showExportMatchesDialog();
     void customResMenuRequested(const QPoint &pos);
 
+    void cutSearchedLines();
+    void copySearchedLines();
+
 Q_SIGNALS:
     void searchBusy(bool busy);
 
@@ -165,6 +168,9 @@ protected:
     bool eventFilter(QObject *obj, QEvent *ev) override;
 
 private:
+    std::list<int> getDocumentSearchMarkedLines(const KTextEditor::Document *currentDocument);
+    void setClipboardFromDocumentLines(const KTextEditor::Document *currentDocument, const std::list<int> lineNumberList);
+
     QStringList filterFiles(const QStringList &fileList) const;
     void startDiskFileSearch(const QStringList &fileList, const QRegularExpression &reg, bool includeBinaryFiles);
     void cancelDiskFileSearch();

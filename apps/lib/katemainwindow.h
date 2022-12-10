@@ -26,7 +26,6 @@
 #include <QHash>
 #include <QStackedLayout>
 #include <QUrl>
-#include <list>
 
 class QMenu;
 
@@ -162,8 +161,6 @@ private:
 
     void dragEnterEvent(QDragEnterEvent *) override;
     void dropEvent(QDropEvent *) override;
-    std::list<int> getDocumentSearchMarkedLines(const KTextEditor::Document *currentDocument);
-    void setClipboardFromDocumentLines(const KTextEditor::Document *currentDocument, const std::list<int> lineNumberList);
 
 public Q_SLOTS:
     void slotFileClose();
@@ -584,8 +581,6 @@ private Q_SLOTS:
     void slotDocumentCloseOther();
     void slotDocumentCloseOther(KTextEditor::Document *document);
     void slotDocumentCloseSelected(const QList<KTextEditor::Document *> &);
-    void cutSearchedLines();
-    void copySearchedLines();
 
 private:
     /**

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- kate: space-indent on; indent-width 2; replace-tabs on; -->
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
-<gui name="kate" version="103" translationDomain="kate">
+<gui name="kate" version="104" translationDomain="kate">
   <MenuBar>
     <Menu name="file" noMerge="1">
       <text>&amp;File</text>
@@ -46,12 +46,12 @@
       <DefineGroup name="edit_paste_merge"/>
       <Menu name="cut_more">
         <text>Cut Variants</text>
-        <Action name="cut_searched_lines"/>
+        <DefineGroup name="cut_more_merge"/>
       </Menu>
       <Menu name="copy_more">
         <text>Copy Variants</text>
         <Action name="file_copy_filepath"/>
-        <Action name="copy_searched_lines"/>
+        <DefineGroup name="copy_more_merge"/>
       </Menu>
       <Separator/>
       <DefineGroup name="edit_select_merge"/>

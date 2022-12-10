@@ -353,6 +353,20 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
     actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::SHIFT | Qt::Key_F6));
     connect(a, &QAction::triggered, this, &KatePluginSearchView::goToPreviousMatch);
 
+    a = actionCollection()->addAction(QStringLiteral("cut_searched_lines"));
+    a->setText(i18n("Cut Searched Lines"));
+    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_X));
+    a->setIcon(QIcon::fromTheme(QStringLiteral("edit-cut")));
+    a->setWhatsThis(i18n("This will cut all highlighted search match lines from the current document to the clipboard"));
+    connect(a, &QAction::triggered, this, &KatePluginSearchView::cutSearchedLines);
+
+    a = actionCollection()->addAction(QStringLiteral("copy_searched_lines"));
+    a->setText(i18n("Copy Searched Lines"));
+    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_C));
+    a->setIcon(QIcon::fromTheme(QStringLiteral("edit-copy")));
+    a->setWhatsThis(i18n("This will copy all highlighted search match lines in the current document to the clipboard"));
+    connect(a, &QAction::triggered, this, &KatePluginSearchView::copySearchedLines);
+
     // Only show the tab bar when there is more than one tab
     KAcceleratorManager::setNoAccel(m_ui.resultWidget);
 
@@ -567,6 +581,77 @@ KatePluginSearchView::~KatePluginSearchView()
     m_mainWindow->guiFactory()->removeClient(this);
     delete m_toolView;
 }
+
+
+std::list<int> KatePluginSearchView::getDocumentSearchMarkedLines(const KTextEditor::Document *currentDocument)
+{
+    std::list<int> result;
+    if (!currentDocument) {
+        return result;
+    }
+    KTextEditor::MarkInterface *markInterface = qobject_cast<KTextEditor::MarkInterface *>(currentDocument);
+    QHash<int, KTextEditor::Mark *> documentMarksHash = markInterface->marks();
+
+    auto searchMarkType = KTextEditor::MarkInterface::SearchMatch;
+    for (const int markedLineNumber : documentMarksHash.keys()) {
+        auto documentMarkTypeMask = documentMarksHash.value(markedLineNumber)->type;
+        if ((searchMarkType & documentMarkTypeMask) != searchMarkType)
+            continue;
+        result.push_back(markedLineNumber);
+    }
+    result.sort();
+    return result;
+}
+
+void KatePluginSearchView::setClipboardFromDocumentLines(const KTextEditor::Document *currentDocument, const std::list<int> lineNumberList)
+{
+    QClipboard *clipboard = QGuiApplication::clipboard();
+    QString text;
+    for (auto iter = lineNumberList.begin(); iter != lineNumberList.end(); ++iter) {
+        int lineNumber = *iter;
+        text += currentDocument->line(lineNumber);
+        text += QLatin1String("\n");
+    }
+    clipboard->setText(text);
+}
+
+void KatePluginSearchView::cutSearchedLines()
+{
+    if (!m_mainWindow->activeView()) {
+        return;
+    }
+
+    KTextEditor::Document *currentDocument = m_mainWindow->activeView()->document();
+    if (!currentDocument) {
+        return;
+    }
+
+    std::list<int> lineNumberList = getDocumentSearchMarkedLines(currentDocument);
+    setClipboardFromDocumentLines(currentDocument, lineNumberList);
+
+    // Iterate in descending line number order to remove the search matched lines to complete
+    // the "cut" action.
+    for (auto iter = lineNumberList.rbegin(); iter != lineNumberList.rend(); ++iter) {
+        int lineNumber = *iter;
+        currentDocument->removeLine(lineNumber);
+    }
+}
+
+void KatePluginSearchView::copySearchedLines()
+{
+    if (!m_mainWindow->activeView()) {
+        return;
+    }
+
+    KTextEditor::Document *currentDocument = m_mainWindow->activeView()->document();
+    if (!currentDocument) {
+        return;
+    }
+
+    std::list<int> lineNumberList = getDocumentSearchMarkedLines(currentDocument);
+    setClipboardFromDocumentLines(currentDocument, lineNumberList);
+}
+
 
 void KatePluginSearchView::navigateFolderUp()
 {

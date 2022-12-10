@@ -54,12 +54,8 @@
 #include <kwidgetsaddons_version.h>
 
 #include <QApplication>
-#include <QClipboard>
-#include <QDebug>
 #include <QDir>
 #include <QFontDatabase>
-#include <QGuiApplication>
-#include <QHash>
 #include <QKeySequence>
 #include <QList>
 #include <QMenu>
@@ -68,19 +64,14 @@
 #include <QMimeDatabase>
 #include <QScreen>
 #include <QStackedWidget>
-#include <QString>
 #include <QTimer>
 #include <QToolButton>
 
 #include "diffwidget.h"
-#include <iostream>
-#include <list>
 
-#include <ktexteditor/markinterface.h>
 #include <ktexteditor/sessionconfiginterface.h>
 
 // END
-using namespace std;
 
 // shall windows close the documents only visible inside them if the are closed?
 static bool winClosesDocuments()
@@ -538,89 +529,6 @@ void KateMainWindow::setupActions()
             }
         }
     });
-
-    a = actionCollection()->addAction(QStringLiteral("cut_searched_lines"));
-    a->setText(i18n("Cut Searched Lines"));
-    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_X));
-    a->setIcon(QIcon::fromTheme(QStringLiteral("edit-cut")));
-    a->setWhatsThis(i18n("This will cut all highlighted search match lines from the current document to the clipboard"));
-    connect(a, &QAction::triggered, this, &KateMainWindow::cutSearchedLines);
-
-    a = actionCollection()->addAction(QStringLiteral("copy_searched_lines"));
-    a->setText(i18n("Copy Searched Lines"));
-    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_C));
-    a->setIcon(QIcon::fromTheme(QStringLiteral("edit-copy")));
-    a->setWhatsThis(i18n("This will copy all highlighted search match lines in the current document to the clipboard"));
-    connect(a, &QAction::triggered, this, &KateMainWindow::copySearchedLines);
-}
-
-std::list<int> KateMainWindow::getDocumentSearchMarkedLines(const KTextEditor::Document *currentDocument)
-{
-    std::list<int> result;
-    if (!currentDocument) {
-        return result;
-    }
-    KTextEditor::MarkInterface *markInterface = qobject_cast<KTextEditor::MarkInterface *>(currentDocument);
-    QHash<int, KTextEditor::Mark *> documentMarksHash = markInterface->marks();
-
-    auto searchMarkType = KTextEditor::MarkInterface::SearchMatch;
-    for (const int markedLineNumber : documentMarksHash.keys()) {
-        auto documentMarkTypeMask = documentMarksHash.value(markedLineNumber)->type;
-        if ((searchMarkType & documentMarkTypeMask) != searchMarkType)
-            continue;
-        result.push_back(markedLineNumber);
-    }
-    result.sort();
-    return result;
-}
-
-void KateMainWindow::setClipboardFromDocumentLines(const KTextEditor::Document *currentDocument, const std::list<int> lineNumberList)
-{
-    QClipboard *clipboard = QGuiApplication::clipboard();
-    QString text;
-    for (auto iter = lineNumberList.begin(); iter != lineNumberList.end(); ++iter) {
-        int lineNumber = *iter;
-        text += currentDocument->line(lineNumber);
-        text += QLatin1String("\n");
-    }
-    clipboard->setText(text);
-}
-
-void KateMainWindow::cutSearchedLines()
-{
-    if (!viewManager()->activeView()) {
-        return;
-    }
-
-    KTextEditor::Document *currentDocument = viewManager()->activeView()->document();
-    if (!currentDocument) {
-        return;
-    }
-
-    std::list<int> lineNumberList = getDocumentSearchMarkedLines(currentDocument);
-    setClipboardFromDocumentLines(currentDocument, lineNumberList);
-
-    // Iterate in descending line number order to remove the search matched lines to complete
-    // the "cut" action.
-    for (auto iter = lineNumberList.rbegin(); iter != lineNumberList.rend(); ++iter) {
-        int lineNumber = *iter;
-        currentDocument->removeLine(lineNumber);
-    }
-}
-
-void KateMainWindow::copySearchedLines()
-{
-    if (!viewManager()->activeView()) {
-        return;
-    }
-
-    KTextEditor::Document *currentDocument = viewManager()->activeView()->document();
-    if (!currentDocument) {
-        return;
-    }
-
-    std::list<int> lineNumberList = getDocumentSearchMarkedLines(currentDocument);
-    setClipboardFromDocumentLines(currentDocument, lineNumberList);
 }
 
 void KateMainWindow::slotDocumentCloseAll()

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
-<gui name="katesearch" library="libkatesearchplugin" version="5" translationDomain="katesearch">
+<gui name="katesearch" library="libkatesearchplugin" version="6" translationDomain="katesearch">
     <MenuBar>
         <Menu name="edit">
             <text>&amp;Edit</text>
@@ -10,6 +10,12 @@
                 <Action name="go_to_next_match"/>
                 <Action name="go_to_prev_match"/>
                 <Action name="search_in_files_new_tab"/>
+            </Menu>
+            <Menu name="cut_more">
+                <Action name="cut_searched_lines" group="cut_more_merge" />
+            </Menu>
+            <Menu name="copy_more">
+                <Action name="copy_searched_lines" group="copy_more_merge" />
             </Menu>
         </Menu>
     </MenuBar>

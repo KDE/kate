@@ -376,7 +376,7 @@ msgstr "Configura els documents"
 #: katefiletreemodel.cpp:493
 #, kde-format
 msgid "Open Widgets"
-msgstr "Obre els ginys"
+msgstr "Ginys oberts"
 
 #: katefiletreemodel.cpp:649
 #, kde-format

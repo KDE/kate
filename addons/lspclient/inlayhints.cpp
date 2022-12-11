@@ -394,6 +394,9 @@ void InlayHintsManager::onUnwrapped(KTextEditor::Document *doc, int line)
     auto it = std::find_if(m_hintDataByDoc.begin(), m_hintDataByDoc.end(), [doc](const HintData &hd) {
         return hd.doc == doc;
     });
+    if (it == m_hintDataByDoc.end()) {
+        return;
+    }
 
     auto &hints = it->m_hints;
     auto bit = std::lower_bound(hints.begin(), hints.end(), line, [](const LSPInlayHint &h, int l) {

@@ -257,7 +257,7 @@ void InlayHintsManager::sendRequest(KTextEditor::Range rangeToRequest)
     auto server = m_serverManager->findServer(v, false);
     if (server) {
         server->documentInlayHint(url, rangeToRequest, this, [v = QPointer(m_currentView), rangeToRequest, this](const QVector<LSPInlayHint> &hints) {
-            if (!v) {
+            if (!v || m_currentView != v) {
                 return;
             }
             const auto result = insertHintsForDoc(v->document(), rangeToRequest, hints);

@@ -149,6 +149,8 @@ void InlayHintsManager::registerView(KTextEditor::View *v)
         connect(d, &Document::reloaded, this, [this](Document *doc) {
             if (m_currentView && m_currentView->document() == doc) {
                 clearHintsForDoc(doc);
+                m_noteProvider.setHints({});
+                m_noteProvider.inlineNotesReset();
                 sendRequestDelayed(doc->documentRange(), 50);
             }
         });

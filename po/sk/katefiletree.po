@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katefiletree\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-04 00:49+0000\n"
+"POT-Creation-Date: 2022-12-11 00:50+0000\n"
 "PO-Revision-Date: 2022-08-22 17:02+0200\n"
 "Last-Translator: Matej Mrenica <matejm98mthw@gmail.com>\n"
 "Language-Team: Slovak <kde-i18n-doc@kde.org>\n"
@@ -356,10 +356,12 @@ msgstr "Nastaviť dokumenty"
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Open With"
+msgctxt ""
+"Open here is a description, i.e. 'list of widgets that are open' not a verb"
 msgid "Open Widgets"
 msgstr "Otvoriť s"
 
-#: katefiletreemodel.cpp:649
+#: katefiletreemodel.cpp:651
 #, kde-format
 msgctxt "%1 is the full path"
 msgid ""

@@ -73,6 +73,8 @@ void InlayHintNoteProvider::setView(KTextEditor::View *v)
     m_view = v;
     if (v) {
         m_noteColor = QColor::fromRgba(v->theme().textColor(KSyntaxHighlighting::Theme::Normal));
+        m_noteBgColor = m_noteColor;
+        m_noteBgColor.setAlphaF(0.1);
         m_noteColor.setAlphaF(0.5);
     }
     m_hints = {};
@@ -116,10 +118,21 @@ void InlayHintNoteProvider::paintInlineNote(const KTextEditor::InlineNote &note,
 {
     auto it = binaryFind(m_hints, note.position());
     if (it != m_hints.end()) {
-        painter.setPen(m_noteColor);
         const auto font = qApp->font();
         painter.setFont(font);
         QRectF r{0., 0., (qreal)it->width, (qreal)note.lineHeight()};
+
+        // draw background rectangle
+        painter.setRenderHint(QPainter::Antialiasing);
+        painter.setBrush(m_noteBgColor);
+        painter.setPen(Qt::NoPen);
+        auto bgRect = r;
+        bgRect.setHeight(QFontMetricsF(font).height());
+        bgRect.moveTop((r.height() - bgRect.height()) / 2.);
+        painter.drawRoundedRect(bgRect, 3., 3.);
+
+        // draw the hint
+        painter.setPen(m_noteColor);
         if (it->paddingLeft) {
             r.adjust(4., 0., 0., 0.);
         } else if (it->paddingRight) {

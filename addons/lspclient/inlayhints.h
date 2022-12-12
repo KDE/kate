@@ -40,6 +40,7 @@ public:
 
 private:
     QColor m_noteColor;
+    QColor m_noteBgColor;
     QPointer<KTextEditor::View> m_view;
     QVector<LSPInlayHint> m_hints;
 };

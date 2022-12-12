@@ -31,6 +31,7 @@ public:
     QList<KTextEditor::Document *> docTreeFromIndex(const QModelIndex &index);
 
 protected:
+    bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override;
     bool lessThan(const QModelIndex &left, const QModelIndex &right) const override;
 };
 

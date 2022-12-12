@@ -49,6 +49,18 @@
 #include <QTimer>
 #include <QVBoxLayout>
 
+static void ignoreSizePolicyForStackedWidget(QObject *p)
+{
+    const auto widgets = p->findChildren<QWidget *>();
+    for (auto w : widgets) {
+        if (w && qstrcmp(w->metaObject()->className(), "KPageStackedWidget") == 0) {
+            w->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
+            return;
+        }
+    }
+    qWarning() << "Failed to ignoreSizePolicy, there might be some sizing issues in config";
+}
+
 KateConfigDialog::KateConfigDialog(KateMainWindow *parent)
     : KPageDialog(parent)
     , m_mainWindow(parent)
@@ -122,6 +134,9 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent)
     button(QDialogButtonBox::Ok)->hide();
     button(QDialogButtonBox::Cancel)->setText(i18n("Close"));
     button(QDialogButtonBox::Apply)->setText(i18n("Save"));
+
+    // Ignore size policy so that it doesn't try to grow bigger than main window
+    ignoreSizePolicyForStackedWidget(this);
 
     // set focus on next iteration of event loop, doesn't work directly for some reason
     QMetaObject::invokeMethod(
@@ -948,16 +963,6 @@ KPageWidgetItem *KateConfigDialog::addScrollablePage(QWidget *page, const QStrin
     scroll->setWidget(page);
     scroll->setWidgetResizable(true);
     scroll->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
-
-    if (page->minimumSizeHint().height() > scroll->sizeHint().height() - 2) {
-        if (page->sizeHint().width() < scroll->sizeHint().width() + 2) {
-            // QScrollArea is planning only a vertical scroll bar,
-            // try to avoid the horizontal one by reserving space for the vertical one.
-            // Currently KPageViewPrivate::_k_modelChanged() queries the minimumSizeHint().
-            // We can only set the minimumSize(), so this approach relies on QStackedWidget size calculation.
-            scroll->setMinimumWidth(scroll->sizeHint().width() + qBound(0, scroll->verticalScrollBar()->sizeHint().width(), 200) + 4);
-        }
-    }
 
     boxLayout->addWidget(scroll);
     return addPage(frame, itemName);

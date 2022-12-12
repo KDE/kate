@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-06 00:48+0000\n"
-"PO-Revision-Date: 2022-12-04 14:07+0300\n"
+"PO-Revision-Date: 2022-12-11 20:00+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.08.3\n"
+"X-Generator: Lokalize 22.12.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1429,8 +1429,7 @@ msgstr "Dosya Git Geçmişini Göster"
 #, kde-format
 msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr ""
-"Bu işlem tüm açık belgeleri kapatacak. Devam etmek istediğinizden emin "
-"misiniz?"
+"Bu işlem tüm açık belgeleri kapatacak. Sürdürmek istediğinizden emin misiniz?"
 
 #: lib/katemainwindow.cpp:539
 #, kde-format
@@ -1443,8 +1442,8 @@ msgid ""
 "This will close all open documents beside the current one. Are you sure you "
 "want to continue?"
 msgstr ""
-"Bu, mevcut belge dışındaki tüm açık belgeleri kapatacaktır. Devam etmek "
-"istediğine emin misiniz?"
+"Bu, geçerli belge dışındaki tüm açık belgeleri kapatacak. Sürdürmek "
+"istediğinize emin misiniz?"
 
 #: lib/katemainwindow.cpp:555
 #, kde-format
@@ -1807,8 +1806,8 @@ msgid ""
 "Data you requested to be saved could not be written. Please choose how you "
 "want to proceed."
 msgstr ""
-"Kaydetmek istediğiniz veri yazılamıyor. Lütfen nasıl devam etmek "
-"istediğinizi seçin."
+"Kaydetmek istediğiniz veri yazılamıyor. Lütfen nasıl sürdürmek istediğinizi "
+"seçin."
 
 #: lib/kateviewmanager.cpp:101
 #, kde-format

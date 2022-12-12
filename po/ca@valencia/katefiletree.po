@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-11 00:50+0000\n"
-"PO-Revision-Date: 2022-10-09 11:50+0200\n"
+"PO-Revision-Date: 2022-12-11 08:49+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -354,12 +354,11 @@ msgid "Configure Documents"
 msgstr "Configura els documents"
 
 #: katefiletreemodel.cpp:493
-#, fuzzy, kde-format
-#| msgid "Open Widgets"
+#, kde-format
 msgctxt ""
 "Open here is a description, i.e. 'list of widgets that are open' not a verb"
 msgid "Open Widgets"
-msgstr "Obri els ginys"
+msgstr "Ginys oberts"
 
 #: katefiletreemodel.cpp:651
 #, kde-format
@@ -410,15 +409,3 @@ msgstr "Guarda el document actual amb un nom nou"
 #, kde-format
 msgid "&Go"
 msgstr "&Ves"
-
-#~ msgid "&Other..."
-#~ msgstr "Al&tres..."
-
-#~ msgid "Do you really want to delete file \"%1\" from storage?"
-#~ msgstr "Segur que voleu suprimir el fitxer «%1» de l'emmagatzematge?"
-
-#~ msgid "Delete file?"
-#~ msgstr "Voleu suprimir el fitxer?"
-
-#~ msgid "File \"%1\" could not be deleted."
-#~ msgstr "El fitxer «%1» no s'ha pogut suprimir."

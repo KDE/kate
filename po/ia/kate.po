@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-06 00:48+0000\n"
-"PO-Revision-Date: 2022-11-29 22:37+0100\n"
+"PO-Revision-Date: 2022-12-11 22:20+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.11.80\n"
+"X-Generator: Lokalize 22.12.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -184,10 +184,9 @@ msgid "%1 doesn't exist in a git repo."
 msgstr "%1 non existe in un repo de git."
 
 #: lib/commitfilesview.cpp:488
-#, fuzzy, kde-format
-#| msgid "Comment"
+#, kde-format
 msgid "Commit"
-msgstr "Commento"
+msgstr "Commit (Committer)"
 
 #. i18n: ectx: Menu (file)
 #: lib/data/kateui.rc:6
@@ -259,7 +258,7 @@ msgstr "Barra de instrumento principal"
 #: lib/data/kateui.rc:155
 #, kde-format
 msgid "Hamburger Menu Toolbar"
-msgstr ""
+msgstr "Barra de instrumento de Hamburger Menu"
 
 #. i18n: ectx: Menu (viewspace_popup_statusbar)
 #: lib/data/kateui.rc:173
@@ -1101,10 +1100,9 @@ msgid "File \"%1\" could not be deleted."
 msgstr "File \"%1\" non poteva esser delite."
 
 #: lib/katefileactions.cpp:202
-#, fuzzy, kde-format
-#| msgid "Application"
+#, kde-format
 msgid "&Other Application..."
-msgstr "Application"
+msgstr "Altere Applicati&on..."
 
 #: lib/katemainwindow.cpp:227
 #, kde-format

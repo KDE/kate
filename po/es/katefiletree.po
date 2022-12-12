@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: katefiletree\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-11 00:50+0000\n"
-"PO-Revision-Date: 2022-10-09 12:38+0200\n"
+"PO-Revision-Date: 2022-12-11 12:02+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.08.1\n"
+"X-Generator: Lokalize 22.12.0\n"
 
 #: katefiletree.cpp:122
 #, kde-format
@@ -353,12 +353,11 @@ msgid "Configure Documents"
 msgstr "Configurar documentos"
 
 #: katefiletreemodel.cpp:493
-#, fuzzy, kde-format
-#| msgid "Open Widgets"
+#, kde-format
 msgctxt ""
 "Open here is a description, i.e. 'list of widgets that are open' not a verb"
 msgid "Open Widgets"
-msgstr "Abrir widgets"
+msgstr "Widgets abiertos"
 
 #: katefiletreemodel.cpp:651
 #, kde-format

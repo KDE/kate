@@ -7,14 +7,14 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-20 00:55+0000\n"
-"PO-Revision-Date: 2022-11-28 15:54+0100\n"
+"PO-Revision-Date: 2022-12-11 22:22+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 22.12.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: KateSearchCommand.cpp:80
@@ -513,10 +513,9 @@ msgid "Lower-cased capture 0-999"
 msgstr "Captura de caso minuscule 0-999"
 
 #: SearchPlugin.cpp:295
-#, fuzzy, kde-format
-#| msgid "Search and Replace"
+#, kde-format
 msgid "Search & Replace"
-msgstr "Cerca e Reimplacia"
+msgstr "Cerca & Reimplacia"
 
 #: SearchPlugin.cpp:336
 #, kde-format
@@ -601,10 +600,9 @@ msgid "Continuing from last match"
 msgstr "Continuante ex ultime correspondentia"
 
 #: SearchPlugin.cpp:2028
-#, fuzzy, kde-format
-#| msgid "Search"
+#, kde-format
 msgid "Search: %1"
-msgstr "Cerca"
+msgstr "Cerca: %1"
 
 #: SearchPlugin.cpp:2159
 #, kde-format

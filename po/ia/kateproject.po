@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-05 00:50+0000\n"
-"PO-Revision-Date: 2022-11-29 22:41+0100\n"
+"PO-Revision-Date: 2022-12-11 22:22+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.11.80\n"
+"X-Generator: Lokalize 22.12.0\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -306,22 +306,19 @@ msgid "Compare Branch with..."
 msgstr "Compara branca con ..."
 
 #: gitwidget.cpp:975
-#, fuzzy, kde-format
-#| msgid "Commit"
+#, kde-format
 msgid "Show Commit"
-msgstr "Commit (Committer)"
+msgstr "Monstra Commit (Committer)"
 
 #: gitwidget.cpp:975
-#, fuzzy, kde-format
-#| msgid "Commit Changes"
+#, kde-format
 msgid "Commit hash"
-msgstr "Committer modificationes"
+msgstr "Hash de Commit"
 
 #: gitwidget.cpp:980
-#, fuzzy, kde-format
-#| msgid "Open Folder..."
+#, kde-format
 msgid "Open Commit..."
-msgstr "Aperi dossier..."
+msgstr "Aperi commit..."
 
 #: gitwidget.cpp:983 gitwidget.cpp:1020
 #, kde-format

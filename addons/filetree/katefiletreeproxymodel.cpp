@@ -91,3 +91,17 @@ bool KateFileTreeProxyModel::isWidgetDir(const QModelIndex &i) const
 {
     return static_cast<KateFileTreeModel *>(sourceModel())->isWidgetDir(mapToSource(i));
 }
+
+bool KateFileTreeProxyModel::filterAcceptsRow(int source_row, const QModelIndex &source_parent) const
+{
+    // Child rows accepted as is
+    if (source_parent.isValid()) {
+        return QSortFilterProxyModel::filterAcceptsRow(source_row, source_parent);
+    }
+
+    const auto index = sourceModel()->index(source_row, 0, source_parent);
+    if (static_cast<KateFileTreeModel *>(sourceModel())->isWidgetDir(index)) {
+        return sourceModel()->rowCount(index) > 0;
+    }
+    return QSortFilterProxyModel::filterAcceptsRow(source_row, source_parent);
+}

@@ -588,10 +588,6 @@ Qt::ItemFlags KateFileTreeModel::flags(const QModelIndex &index) const
             flags |= Qt::ItemIsDropEnabled;
         }
 
-        if (item->flag(ProxyItem::Dir) && item->flag(ProxyItem::Widget) && item->childCount() == 0) {
-            flags.setFlag(Qt::ItemIsEnabled, false);
-        }
-
         if (item->doc() && item->doc()->url().isValid()) {
             flags |= Qt::ItemIsDragEnabled;
         }

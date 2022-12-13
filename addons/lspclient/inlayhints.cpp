@@ -178,7 +178,7 @@ void InlayHintsManager::registerView(KTextEditor::View *v)
         });
 
         // If the document was found and checksum hasn't changed
-        if (it != m_hintDataByDoc.end() && it->checksum == d->checksum()) {
+        if (it != m_hintDataByDoc.end() && it->checksum == d->checksum() && !it->m_hints.empty()) {
             m_noteProvider.setHints(it->m_hints);
             m_noteProvider.inlineNotesReset();
         } else {
@@ -213,10 +213,6 @@ void InlayHintsManager::unregisterView(KTextEditor::View *v)
 
 void InlayHintsManager::setActiveView(KTextEditor::View *v)
 {
-    if (v == m_currentView) {
-        return;
-    }
-
     unregisterView(m_currentView);
     registerView(v);
 }

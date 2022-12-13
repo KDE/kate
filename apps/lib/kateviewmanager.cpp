@@ -100,7 +100,7 @@ void KateViewManager::readConfig()
 {
     KSharedConfig::Ptr config = KSharedConfig::openConfig();
     KConfigGroup cgGeneral = KConfigGroup(config, "General");
-    m_sdiMode = cgGeneral.readEntry("SDI Mode", false);
+    m_sdiMode = cgGeneral.readEntry("SDI Mode", true);
 }
 
 void KateViewManager::setupActions()
@@ -293,7 +293,13 @@ void KateViewManager::updateViewSpaceActions()
 
 void KateViewManager::slotDocumentNew()
 {
-    createView();
+    // open new window for SDI case
+    if (m_sdiMode) {
+        auto mainWindow = KateApp::self()->newMainWindow();
+        mainWindow->viewManager()->createView();
+    } else {
+        createView();
+    }
 }
 
 void KateViewManager::slotDocumentOpen()

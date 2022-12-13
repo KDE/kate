@@ -77,6 +77,12 @@ KateViewManager::KateViewManager(QWidget *parentW, KateMainWindow *parent)
 
     // we want to trigger showing of the welcome view or a new document
     showWelcomeViewOrNewDocumentIfNeeded();
+
+    // enforce configured limit
+    readConfig();
+
+    // handle config changes
+    connect(KateApp::self(), &KateApp::configurationChanged, this, &KateViewManager::readConfig);
 }
 
 KateViewManager::~KateViewManager()
@@ -88,6 +94,13 @@ KateViewManager::~KateViewManager()
         mainWindow()->guiFactory()->removeClient(m_guiMergedView);
         m_guiMergedView = nullptr;
     }
+}
+
+void KateViewManager::readConfig()
+{
+    KSharedConfig::Ptr config = KSharedConfig::openConfig();
+    KConfigGroup cgGeneral = KConfigGroup(config, "General");
+    m_sdiMode = cgGeneral.readEntry("SDI Mode", false);
 }
 
 void KateViewManager::setupActions()
@@ -418,7 +431,7 @@ KTextEditor::Document *KateViewManager::openUrls(const QList<QUrl> &urls, const 
     KTextEditor::Document *lastDocInThisViewManager = nullptr;
     for (auto doc : docs) {
         // it we have a doc to close, we can use this window for the first document even in SDI mode
-        if (first && docToClose) {
+        if (!m_sdiMode || (first && docToClose)) {
             // forward to currently active view space
             activeViewSpace()->registerDocument(doc);
             connect(doc, &KTextEditor::Document::documentSavedOrUploaded, this, &KateViewManager::documentSavedOrUploaded);

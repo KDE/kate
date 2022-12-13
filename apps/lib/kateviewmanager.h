@@ -184,6 +184,11 @@ private Q_SLOTS:
      */
     void documentsDeleted(const QList<KTextEditor::Document *> &documents);
 
+    /**
+     * Read and apply the config for this view manager.
+     */
+    void readConfig();
+
 public Q_SLOTS:
     /**
      * Splits a KateViewSpace into two in the following steps:
@@ -391,6 +396,11 @@ private:
      * last url of open file dialog, used if current document has no valid url
      */
     QUrl m_lastOpenDialogUrl;
+
+    /**
+     * SDI mode: open every new document in a new window in most cases
+     */
+    bool m_sdiMode = false;
 };
 
 #endif

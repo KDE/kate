@@ -408,26 +408,40 @@ KTextEditor::Document *KateViewManager::openUrls(const QList<QUrl> &urls, const 
         }
     }
 
-    const std::vector<KTextEditor::Document *> docs = KateApp::self()->documentManager()->openUrls(urls, encoding, docInfo);
-    for (auto doc : docs) {
-        // forward to currently active view space
-        activeViewSpace()->registerDocument(doc);
-        connect(doc, &KTextEditor::Document::documentSavedOrUploaded, this, &KateViewManager::documentSavedOrUploaded);
-    }
-
-    // nothing opened => do nothing
+    // try to open all given files, early out if nothing done
+    auto docs = KateApp::self()->documentManager()->openUrls(urls, encoding, docInfo);
     if (docs.empty()) {
         return nullptr;
     }
 
-    // else, if we had some single untitled doc around, trigger close
+    bool first = true;
+    KTextEditor::Document *lastDocInThisViewManager = nullptr;
+    for (auto doc : docs) {
+        // it we have a doc to close, we can use this window for the first document even in SDI mode
+        if (first && docToClose) {
+            // forward to currently active view space
+            activeViewSpace()->registerDocument(doc);
+            connect(doc, &KTextEditor::Document::documentSavedOrUploaded, this, &KateViewManager::documentSavedOrUploaded);
+            lastDocInThisViewManager = doc;
+            continue;
+        }
+
+        // open new window for SDI case
+        auto mainWindow = KateApp::self()->newMainWindow();
+        mainWindow->viewManager()->openViewForDoc(doc);
+        first = false;
+    }
+
+    // if we had some single untitled doc around, trigger close
     // do this delayed to avoid havoc
     if (docToClose) {
         QTimer::singleShot(0, docToClose, [docToClose]() {
             KateApp::self()->documentManager()->closeDocument(docToClose);
         });
     }
-    return docs.back();
+
+    // return the last document we opened in this view manager if any
+    return lastDocInThisViewManager;
 }
 
 KTextEditor::View *KateViewManager::openUrlWithView(const QUrl &url, const QString &encoding)

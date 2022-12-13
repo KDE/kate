@@ -4144,7 +4144,7 @@ Projects Replicode run / stop-->
 >, no es proporcionarà cap ID d'idioma al servidor en obrir el document. Això pot tenir millors resultats per a alguns servidors que són més precisos determinant el tipus de document que fer-ho basant-se en un mode del &kate;. </para>
 
 <para
->De l'exemple anterior, l'essència és presumiblement clara. A més, cada objecte d'entrada del servidor també podrà tenir una entrada «initializationOptions», la qual es passarà al servidor com a part del mètode «initialize». Si està present, es passarà una entrada «settings» al servidor mitjançant la notificació «workspace/didChangeConfiguration». </para>
+>A partir de l'exemple anterior, se suposa que l'essència és clara. A més, cada objecte d'entrada del servidor també podrà tenir una entrada «initializationOptions», la qual es passarà al servidor com a part del mètode «initialize». Si està present, es passarà una entrada «settings» al servidor mitjançant la notificació «workspace/didChangeConfiguration». Es poden especificar tant «completionTriggerCharacters» o «signatureTriggerCharacters» com un objecte JSON amb membres de cadena "exclude" i/o "include". S'utilitzaran per excloure o afegir alguns caràcters al joc d'activadors respectiu tal com el proporciona el servidor. </para>
 
 <para
 >S'apliquen diverses etapes de superposició/fusió; <itemizedlist>

@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-11 00:50+0000\n"
+"POT-Creation-Date: 2022-12-13 01:01+0000\n"
 "PO-Revision-Date: 2022-08-05 11:52+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -375,7 +375,7 @@ msgctxt ""
 msgid "Open Widgets"
 msgstr "Avaa ohjelmalla"
 
-#: katefiletreemodel.cpp:651
+#: katefiletreemodel.cpp:647
 #, kde-format
 msgctxt "%1 is the full path"
 msgid ""

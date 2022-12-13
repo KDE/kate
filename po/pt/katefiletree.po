@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katefiletree\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-11 00:50+0000\n"
-"PO-Revision-Date: 2022-10-11 17:13+0100\n"
+"POT-Creation-Date: 2022-12-13 01:01+0000\n"
+"PO-Revision-Date: 2022-12-12 18:00+0000\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
 "Language: pt\n"
@@ -345,14 +345,13 @@ msgid "Configure Documents"
 msgstr "Configurar os Documentos"
 
 #: katefiletreemodel.cpp:493
-#, fuzzy, kde-format
-#| msgid "Open Widgets"
+#, kde-format
 msgctxt ""
 "Open here is a description, i.e. 'list of widgets that are open' not a verb"
 msgid "Open Widgets"
 msgstr "Abrir os Elementos"
 
-#: katefiletreemodel.cpp:651
+#: katefiletreemodel.cpp:647
 #, kde-format
 msgctxt "%1 is the full path"
 msgid ""
@@ -399,24 +398,3 @@ msgstr "Gravar o documento actual com um novo nome"
 #, kde-format
 msgid "&Go"
 msgstr "&Ir"
-
-#~ msgid "&Other..."
-#~ msgstr "&Outro..."
-
-#~ msgid "Do you really want to delete file \"%1\" from storage?"
-#~ msgstr "Deseja realmente apagar o ficheiro \"%1\" do disco?"
-
-#~ msgid "Delete file?"
-#~ msgstr "Apagar o ficheiro?"
-
-#~ msgid "File \"%1\" could not be deleted."
-#~ msgstr "Não foi possível apagar o ficheiro \"%1\"."
-
-#~ msgid "Rename file"
-#~ msgstr "Mudar o nome do ficheiro"
-
-#~ msgid "New file name"
-#~ msgstr "Novo nome do ficheiro"
-
-#~ msgid "File \"%1\" could not be moved to \"%2\""
-#~ msgstr "Não foi possível mover o ficheiro \"%1\" para \"%2\"."

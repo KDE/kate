@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-11 00:50+0000\n"
-"PO-Revision-Date: 2022-10-20 06:04+0200\n"
+"POT-Creation-Date: 2022-12-13 01:01+0000\n"
+"PO-Revision-Date: 2022-12-12 07:13+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: katefiletree.cpp:122
 #, kde-format
@@ -300,6 +300,9 @@ msgid ""
 "edited within the current session will have a shaded background. The most "
 "recent documents have the strongest shade."
 msgstr ""
+"თუ ფონის დაჩრდილვა ჩართულია, დოკუმენტები, რომლებიც გახსნილი ან ჩასწორებულია "
+"მიმდინარე სესიაში, დაჩრდილული ფონი ექნებათ. რაც ახალია დოკუმენტი, მით "
+"ძლიერად იქნება დაჩრდილული."
 
 #: katefiletreeconfigpage.cpp:108
 #, kde-format
@@ -312,6 +315,8 @@ msgid ""
 "Set the color for modified documents. This color is blended into the color "
 "for viewed files. The most recently edited documents get most of this color."
 msgstr ""
+"ჩასწორებული დოკუმენტების ფერის დაყენება. ეს ფერი გახსნილი ფაილების ფერს "
+"ერევა. რაც ახალია დოკუმენტი, მით მეტ ფერს იღებს ის."
 
 #: katefiletreeconfigpage.cpp:115
 #, kde-format
@@ -319,6 +324,8 @@ msgid ""
 "When enabled, in tree mode, top level folders will show up with their full "
 "path rather than just the last folder name."
 msgstr ""
+"როცა ჩართულია, ზედა დონის საქაღალდეები ბოლო საქაღალდის სახელის მაგიერ სრული "
+"ბილიკით გამოჩნდება."
 
 #: katefiletreeconfigpage.cpp:118
 #, kde-format
@@ -326,6 +333,8 @@ msgid ""
 "When enabled, a toolbar with actions like “Save” are displayed above the "
 "list of documents."
 msgstr ""
+"როცა ჩართულია, ზოლი ისეთი ქმედებებით, როგორიცაა \"შენახვა\", დოკუმენტების "
+"სიაზე ზემოთ იქნება ნაჩვენები."
 
 #: katefiletreeconfigpage.cpp:137 katefiletreeplugin.cpp:129
 #: katefiletreeplugin.cpp:136
@@ -339,14 +348,13 @@ msgid "Configure Documents"
 msgstr "დოკუმენტების მორგება"
 
 #: katefiletreemodel.cpp:493
-#, fuzzy, kde-format
-#| msgid "Open Widgets"
+#, kde-format
 msgctxt ""
 "Open here is a description, i.e. 'list of widgets that are open' not a verb"
 msgid "Open Widgets"
 msgstr "ვიჯეტების გახსნა"
 
-#: katefiletreemodel.cpp:651
+#: katefiletreemodel.cpp:647
 #, kde-format
 msgctxt "%1 is the full path"
 msgid ""

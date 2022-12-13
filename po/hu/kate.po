@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE 4.2\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-06 00:48+0000\n"
+"POT-Creation-Date: 2022-12-13 01:01+0000\n"
 "PO-Revision-Date: 2022-01-14 10:53+0100\n"
 "Last-Translator: Kristóf Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -159,14 +159,14 @@ msgstr "Kate - a KDE szövegszerkesztője"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
 #: lib/commitfilesview.cpp:350 lib/filehistorywidget.cpp:254
-#: lib/kateconfigdialog.cpp:125 lib/session/katesessionmanagedialog.ui:184
+#: lib/kateconfigdialog.cpp:137 lib/session/katesessionmanagedialog.ui:184
 #, kde-format
 msgid "Close"
 msgstr "Bezárás"
 
 #: lib/commitfilesview.cpp:384 lib/commitfilesview.cpp:474
 #: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:342
-#: lib/kateconfigdialog.cpp:369
+#: lib/kateconfigdialog.cpp:384
 #, kde-format
 msgid "Error"
 msgstr "Hiba"
@@ -278,18 +278,18 @@ msgstr "Az állapot&sor elemei"
 msgid "Change Style"
 msgstr ""
 
-#: lib/diff/diffeditor.cpp:180 lib/kateconfigdialog.cpp:535
+#: lib/diff/diffeditor.cpp:180 lib/kateconfigdialog.cpp:550
 #, kde-format
 msgid "Side By Side"
 msgstr ""
 
-#: lib/diff/diffeditor.cpp:183 lib/kateconfigdialog.cpp:536
+#: lib/diff/diffeditor.cpp:183 lib/kateconfigdialog.cpp:551
 #, fuzzy, kde-format
 #| msgid "Modified"
 msgid "Unified"
 msgstr "Módosítva"
 
-#: lib/diff/diffeditor.cpp:186 lib/kateconfigdialog.cpp:537
+#: lib/diff/diffeditor.cpp:186 lib/kateconfigdialog.cpp:552
 #, kde-format
 msgid "Raw"
 msgstr ""
@@ -701,80 +701,80 @@ msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
 msgstr "A(z) „%1” fájlt nem sikerült megnyitni, mert nem fájl, hanem könyvtár."
 
-#: lib/kateconfigdialog.cpp:58
+#: lib/kateconfigdialog.cpp:70
 #, kde-format
 msgid "Configure"
 msgstr "Beállítás"
 
-#: lib/kateconfigdialog.cpp:62 lib/kateoutputview.cpp:151
+#: lib/kateconfigdialog.cpp:74 lib/kateoutputview.cpp:151
 #, kde-format
 msgid "Search..."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:126
+#: lib/kateconfigdialog.cpp:138
 #, fuzzy, kde-format
 #| msgid "&Save"
 msgid "Save"
 msgstr "Men&tés"
 
-#: lib/kateconfigdialog.cpp:346
+#: lib/kateconfigdialog.cpp:361
 #, kde-format
 msgid "Behavior"
 msgstr "Működés"
 
-#: lib/kateconfigdialog.cpp:348
+#: lib/kateconfigdialog.cpp:363
 #, kde-format
 msgid "Behavior Options"
 msgstr "Működési beállítások"
 
-#: lib/kateconfigdialog.cpp:355
+#: lib/kateconfigdialog.cpp:370
 #, kde-format
 msgid "&Behavior"
 msgstr "Műkö&dés"
 
-#: lib/kateconfigdialog.cpp:364
+#: lib/kateconfigdialog.cpp:379
 #, kde-format
 msgid "&Switch to output view upon message type:"
 msgstr "Váltá&s kimenetnézetre, ha az üzenettípus:"
 
-#: lib/kateconfigdialog.cpp:369
+#: lib/kateconfigdialog.cpp:384
 #, kde-format
 msgid "Never"
 msgstr "Soha"
 
-#: lib/kateconfigdialog.cpp:369 lib/kateconfigdialog.cpp:915
+#: lib/kateconfigdialog.cpp:384 lib/kateconfigdialog.cpp:930
 #, kde-format
 msgid "Warning"
 msgstr "Figyelmeztetés"
 
-#: lib/kateconfigdialog.cpp:369
+#: lib/kateconfigdialog.cpp:384
 #, kde-format
 msgid "Info"
 msgstr "Információ"
 
-#: lib/kateconfigdialog.cpp:369
+#: lib/kateconfigdialog.cpp:384
 #, kde-format
 msgid "Log"
 msgstr "Napló"
 
-#: lib/kateconfigdialog.cpp:375
+#: lib/kateconfigdialog.cpp:390
 #, kde-format
 msgid "&Limit output view history:"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:381 lib/kateconfigdialog.cpp:447
+#: lib/kateconfigdialog.cpp:396 lib/kateconfigdialog.cpp:462
 #, kde-format
 msgid "Unlimited"
 msgstr "Korlátlan"
 
-#: lib/kateconfigdialog.cpp:388
+#: lib/kateconfigdialog.cpp:403
 #, kde-format
 msgid "Use a separate &dialog for handling externally modified files"
 msgstr ""
 "Külön párbeszé&ablak használata külső program által módosított fájlok "
 "kezeléséhez"
 
-#: lib/kateconfigdialog.cpp:392
+#: lib/kateconfigdialog.cpp:407
 #, kde-format
 msgid ""
 "If enabled, a modal dialog will be used to show all of the modified files. "
@@ -785,18 +785,18 @@ msgstr ""
 "módosított fájl megjelenítéséhez. Ha ki van kapcsolva, minden egyes fájlnál "
 "külön-külön meg kell adnia, mi történjen, amint a fájl nézete fókuszt kap."
 
-#: lib/kateconfigdialog.cpp:401
+#: lib/kateconfigdialog.cpp:416
 #, fuzzy, kde-format
 #| msgid "Top Sidebar"
 msgid "&Sidebars"
 msgstr "Felső oldalsáv"
 
-#: lib/kateconfigdialog.cpp:404
+#: lib/kateconfigdialog.cpp:419
 #, kde-format
 msgid "Sync section size with tab positions"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:408
+#: lib/kateconfigdialog.cpp:423
 #, kde-format
 msgid ""
 "When enabled the section size will be determined by the position of the "
@@ -804,187 +804,187 @@ msgid ""
 "This option does not affect the bottom sidebar."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:413
+#: lib/kateconfigdialog.cpp:428
 #, kde-format
 msgid "Show text for left and right sidebar buttons"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:418
+#: lib/kateconfigdialog.cpp:433
 #, kde-format
 msgid "Icon size for left and right sidebar buttons"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:437
+#: lib/kateconfigdialog.cpp:452
 #, kde-format
 msgid "&Tabs"
 msgstr "&Lapok"
 
-#: lib/kateconfigdialog.cpp:441
+#: lib/kateconfigdialog.cpp:456
 #, kde-format
 msgid "&Limit number of tabs:"
 msgstr "Lapok számának kor&látozása:"
 
-#: lib/kateconfigdialog.cpp:452
+#: lib/kateconfigdialog.cpp:467
 #, kde-format
 msgid ""
 "A high limit can increase the window size, please enable 'Allow tab "
 "scrolling' to prevent it. Unlimited tabs are always scrollable."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:456
+#: lib/kateconfigdialog.cpp:471
 #, kde-format
 msgid "&Auto hide tabs"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:458
+#: lib/kateconfigdialog.cpp:473
 #, fuzzy, kde-format
 #| msgid "When checked each tab will display a close button."
 msgid "When checked tabs will be hidden if only one document is open."
 msgstr "Ha be van jelölve, a bezárás gomb minden fülön megjelenik."
 
-#: lib/kateconfigdialog.cpp:462
+#: lib/kateconfigdialog.cpp:477
 #, kde-format
 msgid "&Show close button"
 msgstr "Bezárás gomb megjeleníté&se"
 
-#: lib/kateconfigdialog.cpp:464
+#: lib/kateconfigdialog.cpp:479
 #, kde-format
 msgid "When checked each tab will display a close button."
 msgstr "Ha be van jelölve, a bezárás gomb minden fülön megjelenik."
 
-#: lib/kateconfigdialog.cpp:468
+#: lib/kateconfigdialog.cpp:483
 #, kde-format
 msgid "&Expand tabs"
 msgstr "Lapok &kibontása"
 
-#: lib/kateconfigdialog.cpp:470
+#: lib/kateconfigdialog.cpp:485
 #, kde-format
 msgid "When checked tabs take as much size as possible."
 msgstr ""
 "Ha be van jelölve, a fülek annyi helyet foglalnak el, amennyit csak lehet."
 
-#: lib/kateconfigdialog.cpp:474
+#: lib/kateconfigdialog.cpp:489
 #, kde-format
 msgid "&Double click opens a new document"
 msgstr "&Dupla kattintás új dokumentum megnyitásához"
 
-#: lib/kateconfigdialog.cpp:476
+#: lib/kateconfigdialog.cpp:491
 #, kde-format
 msgid "When checked double click opens a new document."
 msgstr "Ha be van jelölve, dupla kattintással lehet új dokumentumot megnyitni."
 
-#: lib/kateconfigdialog.cpp:480
+#: lib/kateconfigdialog.cpp:495
 #, kde-format
 msgid "&Middle click closes a document"
 msgstr "&Középső kattintás dokumentum bezárásához"
 
-#: lib/kateconfigdialog.cpp:482
+#: lib/kateconfigdialog.cpp:497
 #, kde-format
 msgid "When checked middle click closes a document."
 msgstr "Ha be van jelölve, a középső kattintás bezárja a dokumentumot."
 
-#: lib/kateconfigdialog.cpp:486
+#: lib/kateconfigdialog.cpp:501
 #, kde-format
 msgid "Allow tab scrolling"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:488
+#: lib/kateconfigdialog.cpp:503
 #, kde-format
 msgid ""
 "When checked this will allow scrolling in tab bar when number of tabs is "
 "large."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:492
+#: lib/kateconfigdialog.cpp:507
 #, kde-format
 msgid "Elide tab text"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:494
+#: lib/kateconfigdialog.cpp:509
 #, fuzzy, kde-format
 #| msgid "When checked tabs take as much size as possible."
 msgid "When checked tab text might be elided if its too long."
 msgstr ""
 "Ha be van jelölve, a fülek annyi helyet foglalnak el, amennyit csak lehet."
 
-#: lib/kateconfigdialog.cpp:500
+#: lib/kateconfigdialog.cpp:515
 #, kde-format
 msgid "&Mouse"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:505
+#: lib/kateconfigdialog.cpp:520
 #, kde-format
 msgid "&Backward button pressed:"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:510
+#: lib/kateconfigdialog.cpp:525
 #, fuzzy, kde-format
 #| msgid "&Previous Tab"
 msgid "Previous tab"
 msgstr "E&lőző lap"
 
-#: lib/kateconfigdialog.cpp:510
+#: lib/kateconfigdialog.cpp:525
 #, fuzzy, kde-format
 #| msgid "Go back"
 msgid "History back"
 msgstr "Vissza"
 
-#: lib/kateconfigdialog.cpp:516
+#: lib/kateconfigdialog.cpp:531
 #, kde-format
 msgid "&Forward button pressed:"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:521
+#: lib/kateconfigdialog.cpp:536
 #, fuzzy, kde-format
 #| msgid "&Next Tab"
 msgid "Next tab"
 msgstr "&Következő lap"
 
-#: lib/kateconfigdialog.cpp:521
+#: lib/kateconfigdialog.cpp:536
 #, fuzzy, kde-format
 #| msgid "Go forward"
 msgid "History forward"
 msgstr "Előre"
 
-#: lib/kateconfigdialog.cpp:529
+#: lib/kateconfigdialog.cpp:544
 #, kde-format
 msgid "Diff"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:538
+#: lib/kateconfigdialog.cpp:553
 #, kde-format
 msgid "Diff Style:"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:543
+#: lib/kateconfigdialog.cpp:558
 #, fuzzy, kde-format
 #| msgid "Focus the next tab."
 msgid "Navigation Bar"
 msgstr "Fókusz a következő lapra."
 
-#: lib/kateconfigdialog.cpp:548
+#: lib/kateconfigdialog.cpp:563
 #, fuzzy, kde-format
 #| msgid "Focus the next tab."
 msgid "Show current symbol in navigation bar"
 msgstr "Fókusz a következő lapra."
 
-#: lib/kateconfigdialog.cpp:562
+#: lib/kateconfigdialog.cpp:577
 #, kde-format
 msgid "Session"
 msgstr "Munkamenet"
 
-#: lib/kateconfigdialog.cpp:564
+#: lib/kateconfigdialog.cpp:579
 #, kde-format
 msgid "Session Management"
 msgstr "Munkamenetkezelés"
 
-#: lib/kateconfigdialog.cpp:575
+#: lib/kateconfigdialog.cpp:590
 #, kde-format
 msgctxt "The special case of 'Delete unused meta-information after'"
 msgid "(never)"
 msgstr "(soha)"
 
-#: lib/kateconfigdialog.cpp:576
+#: lib/kateconfigdialog.cpp:591
 #, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid " day"
@@ -992,29 +992,29 @@ msgid_plural " days"
 msgstr[0] " nap"
 msgstr[1] " nap"
 
-#: lib/kateconfigdialog.cpp:609
+#: lib/kateconfigdialog.cpp:624
 #, kde-format
 msgid ""
 "When a window is closed the documents opened only in this window are closed "
 "as well."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:644
+#: lib/kateconfigdialog.cpp:659
 #, kde-format
 msgid "Plugins"
 msgstr "Bővítmények"
 
-#: lib/kateconfigdialog.cpp:646
+#: lib/kateconfigdialog.cpp:661
 #, kde-format
 msgid "Plugin Manager"
 msgstr "Bővítménykezelő"
 
-#: lib/kateconfigdialog.cpp:664 lib/kateconfigdialog.cpp:666
+#: lib/kateconfigdialog.cpp:679 lib/kateconfigdialog.cpp:681
 #, kde-format
 msgid "User Feedback"
 msgstr "Felhasználói visszajelzés"
 
-#: lib/kateconfigdialog.cpp:914
+#: lib/kateconfigdialog.cpp:929
 #, kde-format
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"

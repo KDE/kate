@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-11 00:50+0000\n"
+"POT-Creation-Date: 2022-12-13 01:01+0000\n"
 "PO-Revision-Date: 2022-10-09 21:37+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -353,7 +353,7 @@ msgctxt ""
 msgid "Open Widgets"
 msgstr "افتح ويدجات"
 
-#: katefiletreemodel.cpp:651
+#: katefiletreemodel.cpp:647
 #, kde-format
 msgctxt "%1 is the full path"
 msgid ""

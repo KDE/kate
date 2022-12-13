@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-12 00:50+0000\n"
-"PO-Revision-Date: 2022-11-22 07:04+0100\n"
+"PO-Revision-Date: 2022-12-12 07:09+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:250
 #, kde-format
@@ -413,38 +413,38 @@ msgstr "გაცვლის ბუფერში კოპირება"
 #: lspclientpluginview.cpp:2594
 #, kde-format
 msgid "Remove Global Suppression"
-msgstr ""
+msgstr "გლობალური ჩახშობის წაშლა"
 
 #: lspclientpluginview.cpp:2596
 #, kde-format
 msgid "Add Global Suppression"
-msgstr ""
+msgstr "გლობალური ჩახშობის დამატება"
 
 #: lspclientpluginview.cpp:2600
 #, kde-format
 msgid "Remove Local Suppression"
-msgstr ""
+msgstr "ლოკალური ჩახშობის წაშლა"
 
 #: lspclientpluginview.cpp:2602
 #, kde-format
 msgid "Add Local Suppression"
-msgstr ""
+msgstr "ლოკალური ჩახშობის დამატება"
 
 #: lspclientpluginview.cpp:2614
 #, kde-format
 msgid "Disable Suppression"
-msgstr ""
+msgstr "ჩახშობის გათიშვა"
 
 #: lspclientpluginview.cpp:2616
 #, kde-format
 msgid "Enable Suppression"
-msgstr ""
+msgstr "ჩახშობის ჩართვა"
 
 #: lspclientpluginview.cpp:2762
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
-msgstr ""
+msgstr "%1 [ჩახშობილია: %2]"
 
 #: lspclientpluginview.cpp:2877 lspclientpluginview.cpp:2914
 #, kde-format

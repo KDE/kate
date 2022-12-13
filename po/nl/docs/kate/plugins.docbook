@@ -4126,7 +4126,7 @@ Projects Replicode run / stop-->
 >De "highlightingModeRegex" wordt gebruikt om de modus accentuering overeen te laten komen zoals gebruikt door &kate; naar de taal-id van de server. Als geen reguliere expressie is gegeven, wordt de taal-id zelf gebruikt. Als een "documentLanguageId" item is gezet op false, dan wordt geen taal-id aan de server geleverd bij openen van het document. Dit kan betere resultaten geven voor sommige servers die meer precies zijn in bepalen van het type document dan dat te doen op basis van een kate-modus. </para>
 
 <para
->Uit het bovenstaande is de boodschap waarschijnlijk helder. Bovendien kan elk item-object van de server ook een "initializationOptions" item hebben, die gezamenlijk wordt doorgegeven aan de server als onderdeel van de 'initialisatie' methode. Indien aanwezig wordt een item "instellingen" doorgegeven aan de server doormiddel van de melding 'workspace/didChangeConfiguration'. </para>
+>Uit het bovenstaande is de boodschap waarschijnlijk helder. Bovendien kan elk item-object van de server ook een "initializationOptions" item hebben, die gezamenlijk wordt doorgegeven aan de server als onderdeel van de 'initialisatie' methode. Indien aanwezig wordt een item "instellingen" doorgegeven aan de server doormiddel van de melding 'workspace/didChangeConfiguration'. Of "completionTriggerCharacters" of "signatureTriggerCharacters" mag gespecificeerd worden als een JSON-object met leden avn de tekenreeks  "exclude" en/of "include". Deze zullen gebruikt worden om respectievelijk enige teken uit te sluiten of toe te voegen aan de respectievelijk gezette trigger zoals geleverd door de server. </para>
 
 <para
 >Verschillende stadia van overschrijven/mengen worden toegepast; <itemizedlist>

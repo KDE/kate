@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- kate: space-indent on; indent-width 2; replace-tabs on; -->
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
-<gui name="kate" version="104" translationDomain="kate">
+<gui name="kate" version="105" translationDomain="kate">
   <MenuBar>
     <Menu name="file" noMerge="1">
       <text>&amp;File</text>
@@ -33,6 +33,7 @@
         <Action name="file_delete"/>
         <Action name="file_compare"/>
         <Separator/>
+        <Action name="file_copy_filepath"/>
         <Action name="file_open_containing_folder"/>
         <Action name="file_properties"/>
       </Menu>
@@ -50,7 +51,6 @@
       </Menu>
       <Menu name="copy_more">
         <text>Copy Variants</text>
-        <Action name="file_copy_filepath"/>
         <DefineGroup name="copy_more_merge"/>
       </Menu>
       <Separator/>

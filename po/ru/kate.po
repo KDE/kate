@@ -21,14 +21,14 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-13 01:01+0000\n"
-"PO-Revision-Date: 2022-10-12 11:24+0300\n"
-"Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
-"Language-Team: Basealt Translation Team\n"
+"PO-Revision-Date: 2022-12-13 23:26+0300\n"
+"Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
+"Language-Team: Russian <kde-russian@lists.kde.ru>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.04.3\n"
+"X-Generator: Lokalize 21.08.3\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Environment: kde\n"
@@ -40,14 +40,15 @@ msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr ""
 "Андрей Черепанов,Григорий Мохин,Евгений Иванов,Александр Лахин,Александр  "
-"Яворский,Антон Афонин,Олеся Герасименко"
+"Яворский,Антон Афонин,Олеся Герасименко,Павел Чернышов"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr ""
 "sibskull@mail.ru,mok@kde.ru,powerfox@kde.ru,exclusion@gmail.com, "
-"kekcuha@gmail.com,vdualb@gmail.com,translation-team@basealt.ru"
+"kekcuha@gmail.com,vdualb@gmail.com,translation-team@basealt.ru,"
+"farline99@yandex.ru"
 
 #: kate/main.cpp:106
 #, kde-format
@@ -193,24 +194,22 @@ msgstr "Ошибка"
 #: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:342
 #, kde-format
 msgid "Git"
-msgstr ""
+msgstr "Git"
 
 #: lib/commitfilesview.cpp:474
-#, fuzzy, kde-format
-#| msgid "Invalid Folder"
+#, kde-format
 msgid "Invalid hash"
-msgstr "Недопустимая папка"
+msgstr "Недопустимый хеш"
 
 #: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:342
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
-msgstr ""
+msgstr "«%1» не существует в репозитории git."
 
 #: lib/commitfilesview.cpp:488
-#, fuzzy, kde-format
-#| msgid "Comment"
+#, kde-format
 msgid "Commit"
-msgstr "Комментарий"
+msgstr "Фиксация"
 
 #. i18n: ectx: Menu (file)
 #: lib/data/kateui.rc:6
@@ -293,22 +292,22 @@ msgstr "Элементы &строки состояния"
 #: lib/diff/diffeditor.cpp:178
 #, kde-format
 msgid "Change Style"
-msgstr ""
+msgstr "Изменить стиль"
 
 #: lib/diff/diffeditor.cpp:180 lib/kateconfigdialog.cpp:550
 #, kde-format
 msgid "Side By Side"
-msgstr ""
+msgstr "Рядом друг с другом"
 
 #: lib/diff/diffeditor.cpp:183 lib/kateconfigdialog.cpp:551
-#, fuzzy, kde-format
+#, kde-format
 msgid "Unified"
-msgstr "Изменён"
+msgstr "Объединённый"
 
 #: lib/diff/diffeditor.cpp:186 lib/kateconfigdialog.cpp:552
 #, kde-format
 msgid "Raw"
-msgstr ""
+msgstr "Исходный"
 
 #: lib/diff/diffeditor.cpp:215
 #, fuzzy, kde-format
@@ -322,21 +321,21 @@ msgstr[3] "Конец строки"
 #: lib/diff/diffeditor.cpp:220
 #, kde-format
 msgid "Stage Hunk"
-msgstr ""
+msgstr "Применить промежуточное сохранение блока"
 
 #: lib/diff/diffeditor.cpp:227
 #, kde-format
 msgid "Discard Line"
 msgid_plural "Discard Lines"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Отбросить строки"
+msgstr[1] "Отбросить строки"
+msgstr[2] "Отбросить строки"
+msgstr[3] "Отбросить строку"
 
 #: lib/diff/diffeditor.cpp:232
 #, kde-format
 msgid "Discard Hunk"
-msgstr ""
+msgstr "Отбросить блок"
 
 #: lib/diff/diffeditor.cpp:239
 #, fuzzy, kde-format
@@ -350,47 +349,49 @@ msgstr[3] "Конец строки"
 #: lib/diff/diffeditor.cpp:244
 #, kde-format
 msgid "Unstage Hunk"
-msgstr ""
+msgstr "Отменить промежуточное сохранение блока"
 
 #: lib/diff/diffwidget.cpp:51
 #, kde-format
 msgid "Show/Hide Commit Info"
-msgstr ""
+msgstr "Показать или скрыть сведения о фиксации"
 
 #: lib/diff/diffwidget.cpp:56
 #, kde-format
 msgid "Jump to Next File"
-msgstr ""
+msgstr "Перейти к следующему файлу"
 
 #: lib/diff/diffwidget.cpp:60
-#, fuzzy, kde-format
+#, kde-format
 msgid "Jump to Previous File"
-msgstr "Вернуться к предыдущему расположению"
+msgstr "Вернуться к предыдущему файлу"
 
 #: lib/diff/diffwidget.cpp:64
 #, kde-format
 msgid "Jump to Next Hunk"
-msgstr ""
+msgstr "Перейти к следующему блоку"
 
 #: lib/diff/diffwidget.cpp:68
-#, fuzzy, kde-format
+#, kde-format
 msgid "Jump to Previous Hunk"
-msgstr "Вернуться к предыдущему расположению"
+msgstr "Вернуться к предыдущему блоку"
 
 #: lib/filehistorywidget.cpp:286
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
+"Не удалось получить историю файла: исполняемый файл git не найден в "
+"каталогах, перечисленных в переменной PATH"
 
 #: lib/filehistorywidget.cpp:299
 #, kde-format
 msgid "Failed to get file history: %1"
-msgstr ""
+msgstr "Не удалось получить историю файла: %1"
 
 #: lib/filehistorywidget.cpp:350
-#, fuzzy, kde-format
+#, kde-format
 msgid "File History"
-msgstr "Панель Проводник"
+msgstr "История файла"
 
 #: lib/kateapp.cpp:146
 #, kde-format
@@ -431,7 +432,7 @@ msgstr "Kåre Särs"
 #: lib/kateapp.cpp:150
 #, kde-format
 msgid "Waqar Ahmed"
-msgstr ""
+msgstr "Waqar Ahmed"
 
 #: lib/kateapp.cpp:151
 #, kde-format
@@ -730,13 +731,12 @@ msgstr "Настройка"
 #: lib/kateconfigdialog.cpp:74 lib/kateoutputview.cpp:151
 #, kde-format
 msgid "Search..."
-msgstr ""
+msgstr "Введите текст для поиска…"
 
 #: lib/kateconfigdialog.cpp:138
-#, fuzzy, kde-format
-#| msgid "&Save"
+#, kde-format
 msgid "Save"
-msgstr "&Сохранить"
+msgstr "Сохранить"
 
 #: lib/kateconfigdialog.cpp:361
 #, kde-format
@@ -806,14 +806,14 @@ msgstr ""
 "диалог, открываемый при получении фокуса вкладкой с таким файлом."
 
 #: lib/kateconfigdialog.cpp:416
-#, fuzzy, kde-format
+#, kde-format
 msgid "&Sidebars"
-msgstr "Сверху"
+msgstr "&Боковые панели"
 
 #: lib/kateconfigdialog.cpp:419
 #, kde-format
 msgid "Sync section size with tab positions"
-msgstr ""
+msgstr "Синхронизировать размер раздела с позициями вкладок"
 
 #: lib/kateconfigdialog.cpp:423
 #, kde-format
@@ -822,11 +822,14 @@ msgid ""
 "tabs.\n"
 "This option does not affect the bottom sidebar."
 msgstr ""
+"При использовании этого параметра, размер раздела будет определяться "
+"положением вкладок.\n"
+"Этот параметр не влияет на нижнюю боковую панель."
 
 #: lib/kateconfigdialog.cpp:428
 #, kde-format
 msgid "Show text for left and right sidebar buttons"
-msgstr "Показывать текст для кнопок левой и правой боковых панелей"
+msgstr "Показывать подписи кнопок на левой и правой боковых панелях"
 
 #: lib/kateconfigdialog.cpp:433
 #, kde-format
@@ -933,54 +936,52 @@ msgstr "&Мышь"
 #: lib/kateconfigdialog.cpp:520
 #, kde-format
 msgid "&Backward button pressed:"
-msgstr "&Нажата кнопка «назад»:"
+msgstr "&Действие при нажатии кнопки «назад»:"
 
 #: lib/kateconfigdialog.cpp:525
 #, kde-format
 msgid "Previous tab"
-msgstr "Предыдущая вкладка"
+msgstr "Перейти на предыдущую вкладку"
 
 #: lib/kateconfigdialog.cpp:525
 #, kde-format
 msgid "History back"
-msgstr "Назад в журнале"
+msgstr "Перейти на предыдущую запись в журнале"
 
 #: lib/kateconfigdialog.cpp:531
 #, kde-format
 msgid "&Forward button pressed:"
-msgstr "&Нажата кнопка «вперёд»:"
+msgstr "&Действие при нажатии кнопки «вперёд»:"
 
 #: lib/kateconfigdialog.cpp:536
 #, kde-format
 msgid "Next tab"
-msgstr "Следующая вкладка"
+msgstr "Перейти на следующую вкладку"
 
 #: lib/kateconfigdialog.cpp:536
 #, kde-format
 msgid "History forward"
-msgstr "Вперёд в журнале"
+msgstr "Перейти на следующую запись в журнале"
 
 #: lib/kateconfigdialog.cpp:544
 #, kde-format
 msgid "Diff"
-msgstr ""
+msgstr "Различия"
 
 #: lib/kateconfigdialog.cpp:553
 #, kde-format
 msgid "Diff Style:"
-msgstr ""
+msgstr "Оформление различий:"
 
 #: lib/kateconfigdialog.cpp:558
-#, fuzzy, kde-format
-#| msgid "Show Navigation Bar"
+#, kde-format
 msgid "Navigation Bar"
-msgstr "Показывать панель навигации"
+msgstr "Панель навигации"
 
 #: lib/kateconfigdialog.cpp:563
-#, fuzzy, kde-format
-#| msgid "Focus the navigation bar"
+#, kde-format
 msgid "Show current symbol in navigation bar"
-msgstr "Перейти на панель навигации"
+msgstr "Показывать текущий символ на панели навигации"
 
 #: lib/kateconfigdialog.cpp:577
 #, kde-format
@@ -1013,7 +1014,7 @@ msgstr[3] " день"
 msgid ""
 "When a window is closed the documents opened only in this window are closed "
 "as well."
-msgstr ""
+msgstr "При закрытии окна будут закрыты все документы, открытые в этом окне"
 
 #: lib/kateconfigdialog.cpp:659
 #, kde-format
@@ -1125,10 +1126,9 @@ msgid "File \"%1\" could not be deleted."
 msgstr "Произошла ошибка при попытке удаления файла «%1»."
 
 #: lib/katefileactions.cpp:202
-#, fuzzy, kde-format
-#| msgid "Application"
+#, kde-format
 msgid "&Other Application..."
-msgstr "Приложение"
+msgstr "&Другое приложение…"
 
 #: lib/katemainwindow.cpp:227
 #, kde-format
@@ -1341,14 +1341,14 @@ msgid "Close this window"
 msgstr "Закрыть окно"
 
 #: lib/katemainwindow.cpp:412
-#, fuzzy, kde-format
+#, kde-format
 msgid "&New Window"
-msgstr "&Окно"
+msgstr "&Новое окно"
 
 #: lib/katemainwindow.cpp:415
-#, fuzzy, kde-format
+#, kde-format
 msgid "Create a new window."
-msgstr "Создать новый документ"
+msgstr "&Создать окно"
 
 #: lib/katemainwindow.cpp:422
 #, kde-format
@@ -1439,7 +1439,7 @@ msgstr "Перейти к следующему расположению"
 #: lib/katemainwindow.cpp:523
 #, kde-format
 msgid "Show File Git History"
-msgstr ""
+msgstr "Показать историю файла Git"
 
 #: lib/katemainwindow.cpp:538
 #, kde-format
@@ -1503,15 +1503,15 @@ msgstr " [только для чтения]"
 #: lib/katemainwindow.cpp:1377
 #, kde-format
 msgid "Diff %1"
-msgstr ""
+msgstr "Различия %1"
 
 #: lib/katemainwindow.cpp:1379
 #, kde-format
 msgid "Diff %1..%2"
-msgstr ""
+msgstr "Различия между %1 и %2"
 
 #: lib/katemdi.cpp:85
-#, fuzzy, kde-format
+#, kde-format
 msgid "Toolview Manager"
 msgstr "Управление модулями"
 
@@ -1523,7 +1523,7 @@ msgstr "Кнопки боковой панели"
 #: lib/katemdi.cpp:106
 #, kde-format
 msgid "Focus Toolview"
-msgstr ""
+msgstr "Быстрый переход"
 
 #: lib/katemdi.cpp:109
 #, kde-format
@@ -1553,7 +1553,7 @@ msgstr "Показывать кнопку %1"
 #: lib/katemdi.cpp:195
 #, kde-format
 msgid "Focus %1"
-msgstr ""
+msgstr "Перейти в «%1»"
 
 #: lib/katemdi.cpp:1006
 #, kde-format
@@ -1745,11 +1745,9 @@ msgid "Diff Output"
 msgstr "Результат сравнения"
 
 #: lib/kateoutputview.cpp:166
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Copy to Clipboard"
+#, kde-format
 msgid "Copy all text to clipboard"
-msgstr "Копировать в буфер обмена"
+msgstr "Скопировать весь текст в буфер обмена"
 
 #: lib/kateoutputview.cpp:171
 #, kde-format
@@ -2020,12 +2018,12 @@ msgstr "Перейти на панель навигации"
 #: lib/kateviewmanager.cpp:243
 #, kde-format
 msgid "Welcome Page"
-msgstr ""
+msgstr "Страница приветствия"
 
 #: lib/kateviewmanager.cpp:258
 #, kde-format
 msgid "Show the welcome page"
-msgstr ""
+msgstr "Показывать страницу приветствия"
 
 #: lib/kateviewmanager.cpp:300 lib/kateviewmanager.cpp:302
 #, kde-format
@@ -2052,36 +2050,37 @@ msgstr "Открывается большой файл"
 #: lib/kateviewmanager.cpp:466
 #, kde-format
 msgid "%1 cannot open folders"
-msgstr ""
+msgstr "Папки не могут быть открыты в приложении «%1»"
 
 #: lib/kateviewmanager.cpp:485
 #, kde-format
 msgid "The plugin required to open folders was not found"
-msgstr ""
+msgstr "Не найден подключаемый модуль для открытия папок"
 
 #: lib/kateviewmanager.cpp:491
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
 msgstr ""
+"Для открытия папок необходимо включить подключаемый модуль<b>%1</b>. "
+"Включить его?"
 
 #: lib/kateviewmanager.cpp:500
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
-msgstr "Открыть файл"
+msgstr "Открытие папки"
 
 #: lib/kateviewmanager.cpp:501
-#, fuzzy, kde-format
-#| msgid "Enabled"
+#, kde-format
 msgctxt "@action:button"
 msgid "Enable"
-msgstr "Включено"
+msgstr "Включить"
 
 #: lib/kateviewmanager.cpp:512
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
-msgstr ""
+msgstr "Не удалось включить подключаемый модуль <b>%1</b>"
 
 #: lib/kateviewmanager.cpp:1234
 #, kde-format
@@ -2142,9 +2141,9 @@ msgid "Close Other &Documents"
 msgstr "Закрыть др&угие документы"
 
 #: lib/kateviewspace.cpp:1020
-#, fuzzy, kde-format
+#, kde-format
 msgid "Close &All Documents"
-msgstr "Закрытие всех документов"
+msgstr "Закрыть %все документы"
 
 #: lib/kateviewspace.cpp:1022
 #, fuzzy, kde-format
@@ -2517,129 +2516,120 @@ msgstr "Удалять неиспользуемые данные через:"
 #: lib/welcomeview/welcomeview.cpp:52
 #, kde-format
 msgid "Welcome to %1"
-msgstr ""
+msgstr "Добро пожаловать в %1"
 
 #: lib/welcomeview/welcomeview.cpp:56
-#, fuzzy, kde-format
+#, kde-format
 msgid "Recent Documents and Projects"
-msgstr "Открытые документы"
+msgstr "Последние документы и проекты"
 
 #: lib/welcomeview/welcomeview.cpp:56
-#, fuzzy, kde-format
+#, kde-format
 msgid "Recent Documents"
-msgstr "Открытые документы"
+msgstr "Последние документы"
 
 #: lib/welcomeview/welcomeview.cpp:59
-#, fuzzy, kde-format
+#, kde-format
 msgid "No recent documents or projects"
-msgstr "Открытые документы"
+msgstr "Нет ни одного последнего документа или проекта"
 
 #: lib/welcomeview/welcomeview.cpp:59
-#, fuzzy, kde-format
+#, kde-format
 msgid "No recent documents"
-msgstr "Открытые документы"
+msgstr "Нет ни одного последнего документа"
 
 #: lib/welcomeview/welcomeview.cpp:115
-#, fuzzy, kde-format
-#| msgid "&Do not save session"
+#, kde-format
 msgid "No saved sessions"
-msgstr "&Не сохранять сеанс"
+msgstr "Нет ни одного сохранённого сеанса"
 
 #: lib/welcomeview/welcomeview.cpp:237
-#, fuzzy, kde-format
-#| msgid "Copy Location"
+#, kde-format
 msgid "Copy &Location"
-msgstr "Копировать расположение"
+msgstr "Копировать &расположение"
 
 #: lib/welcomeview/welcomeview.cpp:252
-#, fuzzy, kde-format
+#, kde-format
 msgid "&Remove"
-msgstr "&Удалить"
+msgstr "&Удалить из списка"
 
 #. i18n: ectx: property (windowTitle), widget (QScrollArea, WelcomeView)
 #: lib/welcomeview/welcomeview.ui:17
 #, kde-format
 msgid "Welcome"
-msgstr ""
+msgstr "Добро пожаловать"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonNewFile)
 #: lib/welcomeview/welcomeview.ui:179
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "New File"
-msgstr "Открыть файл"
+msgstr "Создать файл"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonOpenFolder)
 #: lib/welcomeview/welcomeview.ui:186
-#, fuzzy, kde-format
+#, kde-format
 msgid "Open Folder..."
-msgstr "Открыть файл"
+msgstr "Открыть папку…"
 
 #. i18n: ectx: property (text), widget (QLabel, labelRecentItems)
 #: lib/welcomeview/welcomeview.ui:193
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Delete File"
+#, kde-format
 msgid "Recent Files"
-msgstr "Удалить файл"
+msgstr "Последние файлы"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonOpenFile)
 #: lib/welcomeview/welcomeview.ui:203
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "Open File..."
-msgstr "Открыть файл"
+msgstr "Открыть файл…"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, buttonClearRecentItems)
 #: lib/welcomeview/welcomeview.ui:242
 #, kde-format
 msgid "Clear Recent Files"
-msgstr ""
+msgstr "Очистить список последних файлов"
 
 #. i18n: ectx: property (text), widget (QLabel, labelHelp)
 #: lib/welcomeview/welcomeview.ui:271
-#, fuzzy, kde-format
-#| msgid "&Help"
+#, kde-format
 msgid "Help"
-msgstr "&Справка"
+msgstr "Справка"
 
 #. i18n: ectx: property (text), widget (KUrlLabel, labelHomepage)
 #: lib/welcomeview/welcomeview.ui:281
 #, kde-format
 msgid "Visit homepage"
-msgstr ""
+msgstr "Посетить домашнюю страницу"
 
 #. i18n: ectx: property (text), widget (KUrlLabel, labelContribute)
 #: lib/welcomeview/welcomeview.ui:294
 #, kde-format
 msgid "Get involved"
-msgstr ""
+msgstr "Присоединиться"
 
 #. i18n: ectx: property (text), widget (KUrlLabel, labelHandbook)
 #: lib/welcomeview/welcomeview.ui:307
 #, kde-format
 msgid "Read handbook"
-msgstr ""
+msgstr "Открыть руководство пользователя"
 
 #. i18n: ectx: property (text), widget (QLabel, labelSavedSessions)
 #: lib/welcomeview/welcomeview.ui:354
-#, fuzzy, kde-format
-#| msgid "&Save Session"
+#, kde-format
 msgid "Saved Sessions"
-msgstr "&Сохранить сеанс"
+msgstr "Сохранённые сеансы"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonManageSessions)
 #: lib/welcomeview/welcomeview.ui:390
-#, fuzzy, kde-format
-#| msgid "&Manage Sessions..."
+#, kde-format
 msgid "Manage Sessions..."
-msgstr "&Управление сеансами..."
+msgstr "Управление сеансами…"
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
 #: lib/welcomeview/welcomeview.ui:443
-#, fuzzy, kde-format
+#, kde-format
 msgid "Show for new window"
-msgstr "Создать новый документ"
+msgstr "Показывать в новых окнах"
 
 #~ msgid "&Other..."
 #~ msgstr "&Другое приложение..."

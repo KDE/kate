@@ -409,6 +409,3 @@ msgstr "現在の文書を閉じます。"
 #, kde-format
 msgid "&Go"
 msgstr ""
-
-#~ msgid "&Other..."
-#~ msgstr "その他(&O)..."

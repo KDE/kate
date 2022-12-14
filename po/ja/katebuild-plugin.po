@@ -445,13 +445,3 @@ msgstr ""
 #, kde-format
 msgid "Select directory to insert"
 msgstr ""
-
-#, fuzzy
-#~| msgid "Build failed."
-#~ msgid "Build and Run Default Target"
-#~ msgstr "ビルドに失敗しました。"
-
-#, fuzzy
-#~| msgid "Build failed."
-#~ msgid "Build Previous Target"
-#~ msgstr "ビルドに失敗しました。"

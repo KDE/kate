@@ -582,9 +582,9 @@ KatePluginSearchView::~KatePluginSearchView()
     delete m_toolView;
 }
 
-std::list<int> KatePluginSearchView::getDocumentSearchMarkedLines(const KTextEditor::Document *currentDocument)
+QVector<int> KatePluginSearchView::getDocumentSearchMarkedLines(const KTextEditor::Document *currentDocument)
 {
-    std::list<int> result;
+    QVector<int> result;
     if (!currentDocument) {
         return result;
     }
@@ -598,16 +598,15 @@ std::list<int> KatePluginSearchView::getDocumentSearchMarkedLines(const KTextEdi
             continue;
         result.push_back(markedLineNumber);
     }
-    result.sort();
+    std::sort(result.begin(), result.end());
     return result;
 }
 
-void KatePluginSearchView::setClipboardFromDocumentLines(const KTextEditor::Document *currentDocument, const std::list<int> lineNumberList)
+void KatePluginSearchView::setClipboardFromDocumentLines(const KTextEditor::Document *currentDocument, const QVector<int> lineNumbers)
 {
     QClipboard *clipboard = QGuiApplication::clipboard();
     QString text;
-    for (auto iter = lineNumberList.begin(); iter != lineNumberList.end(); ++iter) {
-        int lineNumber = *iter;
+    for (int lineNumber : lineNumbers) {
         text += currentDocument->line(lineNumber);
         text += QLatin1String("\n");
     }
@@ -625,12 +624,12 @@ void KatePluginSearchView::cutSearchedLines()
         return;
     }
 
-    std::list<int> lineNumberList = getDocumentSearchMarkedLines(currentDocument);
-    setClipboardFromDocumentLines(currentDocument, lineNumberList);
+    QVector<int> lineNumbers = getDocumentSearchMarkedLines(currentDocument);
+    setClipboardFromDocumentLines(currentDocument, lineNumbers);
 
     // Iterate in descending line number order to remove the search matched lines to complete
     // the "cut" action.
-    for (auto iter = lineNumberList.rbegin(); iter != lineNumberList.rend(); ++iter) {
+    for (auto iter = lineNumbers.rbegin(); iter != lineNumbers.rend(); ++iter) {
         int lineNumber = *iter;
         currentDocument->removeLine(lineNumber);
     }
@@ -647,8 +646,8 @@ void KatePluginSearchView::copySearchedLines()
         return;
     }
 
-    std::list<int> lineNumberList = getDocumentSearchMarkedLines(currentDocument);
-    setClipboardFromDocumentLines(currentDocument, lineNumberList);
+    QVector<int> lineNumbers = getDocumentSearchMarkedLines(currentDocument);
+    setClipboardFromDocumentLines(currentDocument, lineNumbers);
 }
 
 void KatePluginSearchView::navigateFolderUp()

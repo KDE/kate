@@ -168,8 +168,8 @@ protected:
     bool eventFilter(QObject *obj, QEvent *ev) override;
 
 private:
-    std::list<int> getDocumentSearchMarkedLines(const KTextEditor::Document *currentDocument);
-    void setClipboardFromDocumentLines(const KTextEditor::Document *currentDocument, const std::list<int> lineNumberList);
+    QVector<int> getDocumentSearchMarkedLines(const KTextEditor::Document *currentDocument);
+    void setClipboardFromDocumentLines(const KTextEditor::Document *currentDocument, const QVector<int> lineNumbers);
 
     QStringList filterFiles(const QStringList &fileList) const;
     void startDiskFileSearch(const QStringList &fileList, const QRegularExpression &reg, bool includeBinaryFiles);

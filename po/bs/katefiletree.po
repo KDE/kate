@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kde5\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-01 00:50+0000\n"
+"POT-Creation-Date: 2022-12-14 03:46+0000\n"
 "PO-Revision-Date: 2015-02-24 19:40+0100\n"
 "Last-Translator: Samir Ribić <megaribi@epn.ba>\n"
 "Language-Team: Bosnian\n"
@@ -377,7 +377,7 @@ msgstr "Podesite dokumente"
 msgid "Open Widgets"
 msgstr "Otvori pomoću"
 
-#: katefiletreemodel.cpp:649
+#: katefiletreemodel.cpp:645
 #, kde-format
 msgctxt "%1 is the full path"
 msgid ""

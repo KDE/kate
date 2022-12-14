@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-01 00:50+0000\n"
+"POT-Creation-Date: 2022-12-14 03:46+0000\n"
 "PO-Revision-Date: 2015-02-01 02:42-0600\n"
 "Last-Translator: A S Alam <aalam@users.sf.net>\n"
 "Language-Team: Punjabi/Panjabi <punjabi-users@list.sf.net>\n"
@@ -369,7 +369,7 @@ msgstr "ਡੌਕੂਮੈਂਟ ਦੀ ਸੰਰਚਨਾ ਕਰੋ"
 msgid "Open Widgets"
 msgstr "ਇਸ ਨਾਲ ਖੋਲ੍ਹੋ"
 
-#: katefiletreemodel.cpp:649
+#: katefiletreemodel.cpp:645
 #, kde-format
 msgctxt "%1 is the full path"
 msgid ""

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-20 00:55+0000\n"
-"PO-Revision-Date: 2022-10-20 21:45+0530\n"
+"PO-Revision-Date: 2022-12-13 21:16+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.08.2\n"
+"X-Generator: Lokalize 22.12.0\n"
 
 #: KateSearchCommand.cpp:80
 #, kde-format
@@ -93,8 +93,8 @@ msgstr[1] "<b><i>%1 பொருத்தங்கள் உள்ளன, தே
 #, kde-format
 msgid "One checked"
 msgid_plural "%1 checked"
-msgstr[0] "ஒன்று சோதிக்கப்பட்டுள்ளது"
-msgstr[1] "%1 சோதிக்கப்பட்டுள்ளன"
+msgstr[0] "ஒன்று குறிக்கப்பட்டுள்ளது"
+msgstr[1] "%1 குறிக்கப்பட்டுள்ளன"
 
 #: MatchModel.cpp:574
 #, kde-format
@@ -213,7 +213,7 @@ msgstr "தேடு"
 #: search.ui:47
 #, kde-format
 msgid "Replace Checked"
-msgstr "குறித்துள்ளவற்றை மாற்று"
+msgstr "குறித்தவற்றை மாற்று"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, nextButton)
 #. i18n: ectx: property (text), widget (QPushButton, nextButton)

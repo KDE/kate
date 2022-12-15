@@ -88,13 +88,11 @@ msgstr "Избиране на цел..."
 
 #: plugin_katebuild.cpp:151
 #, fuzzy, kde-format
-#| msgid "Build Default Target"
 msgid "Build Selected Target"
 msgstr "Изграждане на цел по подразбиране"
 
 #: plugin_katebuild.cpp:156
 #, fuzzy, kde-format
-#| msgid "Build Default Target"
 msgid "Build and Run Selected Target"
 msgstr "Изграждане на цел по подразбиране"
 
@@ -399,13 +397,11 @@ msgstr ""
 
 #: targets.cpp:48
 #, fuzzy, kde-format
-#| msgid "Build Default Target"
 msgid "Build and run selected target"
 msgstr "Изграждане на цел по подразбиране"
 
 #: targets.cpp:52
 #, fuzzy, kde-format
-#| msgid "Build Default Target"
 msgid "Move selected target up"
 msgstr "Изграждане на цел по подразбиране"
 
@@ -429,6 +425,3 @@ msgstr ""
 #, kde-format
 msgid "Select directory to insert"
 msgstr ""
-
-#~ msgid "Filter targets"
-#~ msgstr "Филтриране на целите"

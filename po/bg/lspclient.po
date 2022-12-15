@@ -215,28 +215,21 @@ msgstr ""
 
 #: lspclientpluginview.cpp:697
 #, fuzzy, kde-format
-#| msgctxt "@title:tab"
-#| msgid "Diagnostics"
 msgid "Show Diagnostics Marks"
 msgstr "Диагностика"
 
 #: lspclientpluginview.cpp:700
 #, fuzzy, kde-format
-#| msgctxt "@title:tab"
-#| msgid "Diagnostics"
 msgid "Show Diagnostics on Hover"
 msgstr "Диагностика"
 
 #: lspclientpluginview.cpp:703
 #, fuzzy, kde-format
-#| msgctxt "@title:tab"
-#| msgid "Diagnostics"
 msgid "Switch to Diagnostics Tab"
 msgstr "Диагностика"
 
 #: lspclientpluginview.cpp:707
 #, fuzzy, kde-format
-#| msgid "Show Details"
 msgid "Show Messages"
 msgstr "Показване на детайли"
 

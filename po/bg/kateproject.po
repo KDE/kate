@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-05 00:50+0000\n"
-"PO-Revision-Date: 2022-05-20 14:59+0200\n"
+"PO-Revision-Date: 2022-12-08 23:08+0100\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.04.0\n"
+"X-Generator: Lokalize 22.08.3\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -314,10 +314,9 @@ msgid "Commit hash"
 msgstr ""
 
 #: gitwidget.cpp:980
-#, fuzzy, kde-format
-#| msgid "Open Folder..."
+#, kde-format
 msgid "Open Commit..."
-msgstr "Отваряне на папка..."
+msgstr ""
 
 #: gitwidget.cpp:983 gitwidget.cpp:1020
 #, kde-format
@@ -406,8 +405,7 @@ msgid "Are you sure you want to discard all changes?"
 msgstr "Сигурни ли сте, че желаете да отхвърлите всички промени?"
 
 #: gitwidget.cpp:1144
-#, fuzzy, kde-format
-#| msgid "Open file"
+#, kde-format
 msgid "Open File"
 msgstr "Отваряне на файл"
 
@@ -422,16 +420,14 @@ msgid "Open at HEAD"
 msgstr ""
 
 #: gitwidget.cpp:1148
-#, fuzzy, kde-format
-#| msgid "Delete File"
+#, kde-format
 msgid "Unstage File"
-msgstr "Изтриване на файл"
+msgstr ""
 
 #: gitwidget.cpp:1148
-#, fuzzy, kde-format
-#| msgid "Delete File"
+#, kde-format
 msgid "Stage File"
-msgstr "Изтриване на файл"
+msgstr ""
 
 #: gitwidget.cpp:1149
 #, kde-format
@@ -476,7 +472,7 @@ msgstr "Отхвърляне на избрани файлове"
 #: gitwidget.cpp:1266
 #, kde-format
 msgid "Remove Selected Files"
-msgstr ""
+msgstr "Премахване на избраните файлове"
 
 #: gitwidget.cpp:1279
 #, kde-format
@@ -491,7 +487,7 @@ msgstr "Наистина ли искате да премахнете тези н
 #: kateproject.cpp:218
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
-msgstr ""
+msgstr "Неправилен JSON файл '%1': %2"
 
 #: kateproject.cpp:523
 #, kde-format
@@ -677,7 +673,7 @@ msgstr "Анализ на код"
 #: kateprojectinfoview.cpp:60
 #, kde-format
 msgid "Notes"
-msgstr "Бележка"
+msgstr "Бележки"
 
 #: kateprojectinfoviewcodeanalysis.cpp:31
 #, kde-format
@@ -794,16 +790,14 @@ msgid "Project"
 msgstr "Проект"
 
 #: kateprojectpluginview.cpp:54
-#, fuzzy, kde-format
-#| msgid "Kate Project Manager"
+#, kde-format
 msgid "Project Manager"
-msgstr "Мениджър на проекти на Kate"
+msgstr "Мениджър на проекти"
 
 #: kateprojectpluginview.cpp:80
-#, fuzzy, kde-format
-#| msgid "Close Project"
+#, kde-format
 msgid "Reload project"
-msgstr "Затваряне на проект"
+msgstr "Повторно зареждане на проект"
 
 #: kateprojectpluginview.cpp:97
 #, kde-format
@@ -823,12 +817,12 @@ msgstr "Задачи на проекта"
 #: kateprojectpluginview.cpp:184
 #, kde-format
 msgid "Activate Previous Project"
-msgstr ""
+msgstr "Активиране на предишния проект"
 
 #: kateprojectpluginview.cpp:189
 #, kde-format
 msgid "Activate Next Project"
-msgstr ""
+msgstr "Активиране на следващия проект"
 
 #: kateprojectpluginview.cpp:194
 #, kde-format
@@ -881,10 +875,9 @@ msgid "Add"
 msgstr "Добавяне"
 
 #: kateprojecttreeviewcontextmenu.cpp:64
-#, fuzzy, kde-format
-#| msgid "No Action"
+#, kde-format
 msgid "Copy Location"
-msgstr "Няма действие"
+msgstr "Копиране на местоположението"
 
 #: kateprojecttreeviewcontextmenu.cpp:69
 #, kde-format

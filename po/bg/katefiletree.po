@@ -403,16 +403,3 @@ msgstr "Запазване на текущия документ под ново 
 #, kde-format
 msgid "&Go"
 msgstr "Навига&ция"
-
-#~ msgid "&Other..."
-#~ msgstr "Други..."
-
-#~ msgid "Do you really want to delete file \"%1\" from storage?"
-#~ msgstr ""
-#~ "Наистина ли искате да изтриете файл \"%1\" от мястото за съхранение?"
-
-#~ msgid "Delete file?"
-#~ msgstr "Да се изтрие ли файлът?"
-
-#~ msgid "File \"%1\" could not be deleted."
-#~ msgstr "Файлът \"%1\" не можа да бъде изтрит."

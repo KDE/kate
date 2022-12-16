@@ -281,11 +281,6 @@ bool KateApp::startupKate()
         newMainWindow();
     }
 
-    // notify about start
-    QWidget *win = activeKateMainWindow();
-    win->setAttribute(Qt::WA_NativeWindow, true);
-    KStartupInfo::setNewStartupId(win->windowHandle(), KStartupInfo::startupId());
-
     QTextCodec *codec = m_args.isSet(QStringLiteral("encoding")) ? QTextCodec::codecForName(m_args.value(QStringLiteral("encoding")).toUtf8()) : nullptr;
     bool tempfileSet = m_args.isSet(QStringLiteral("tempfile"));
 

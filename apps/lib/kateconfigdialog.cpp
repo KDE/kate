@@ -371,6 +371,16 @@ void KateConfigDialog::addBehaviorPage()
     QVBoxLayout *vbox = new QVBoxLayout;
     layout->addWidget(buttonGroup);
 
+    // shall we try to behave like some SDI application
+    m_sdiMode = new QCheckBox(i18n("Prefer to open documents in own top level windows."), buttonGroup);
+    m_sdiMode->setChecked(cgGeneral.readEntry("SDI Mode", false));
+    m_sdiMode->setCursor(Qt::WhatsThisCursor);
+    m_sdiMode->setWhatsThis(
+        i18n("If enabled, the application will prefer to open documents in own top level windows (SDI). "
+             "If not enabled, new documents will be opened in the current top level window (MDI)."));
+    connect(m_sdiMode, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
+    vbox->addWidget(m_sdiMode);
+
     QHBoxLayout *hlayout = nullptr;
     QLabel *label = nullptr;
 
@@ -758,6 +768,8 @@ void KateConfigDialog::slotApply()
         }
 
         KConfigGroup cg(config, "General");
+
+        cg.writeEntry("SDI Mode", m_sdiMode->isChecked());
 
         // only there for kate
         if (m_syncSectionSizeWithSidebarTabs) {

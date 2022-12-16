@@ -105,7 +105,8 @@ private:
     QSpinBox *m_outputHistoryLimit = nullptr;
     QComboBox *m_mouseBackActions = nullptr;
     QComboBox *m_mouseForwardActions = nullptr;
-    QCheckBox *m_modNotifications;
+    QCheckBox *m_sdiMode = nullptr;
+    QCheckBox *m_modNotifications = nullptr;
     QCheckBox *m_syncSectionSizeWithSidebarTabs = nullptr;
     QCheckBox *m_showTextForLeftRightSidebars = nullptr;
     QSpinBox *m_leftRightSidebarsIconSize = nullptr;

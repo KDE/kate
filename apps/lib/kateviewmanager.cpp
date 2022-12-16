@@ -100,7 +100,7 @@ void KateViewManager::readConfig()
 {
     KSharedConfig::Ptr config = KSharedConfig::openConfig();
     KConfigGroup cgGeneral = KConfigGroup(config, "General");
-    m_sdiMode = cgGeneral.readEntry("SDI Mode", true);
+    m_sdiMode = cgGeneral.readEntry("SDI Mode", false);
 }
 
 void KateViewManager::setupActions()

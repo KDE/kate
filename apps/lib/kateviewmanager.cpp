@@ -295,7 +295,7 @@ void KateViewManager::slotDocumentNew()
 {
     // open new window for SDI case
     if (m_sdiMode) {
-        auto mainWindow = KateApp::self()->newMainWindow();
+        auto mainWindow = m_mainWindow->newWindow();
         mainWindow->viewManager()->createView();
     } else {
         createView();
@@ -447,7 +447,7 @@ KTextEditor::Document *KateViewManager::openUrls(const QList<QUrl> &urls, const 
         }
 
         // open new window for SDI case
-        auto mainWindow = KateApp::self()->newMainWindow();
+        auto mainWindow = m_mainWindow->newWindow();
         mainWindow->viewManager()->openViewForDoc(doc);
         first = false;
     }

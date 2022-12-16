@@ -655,9 +655,13 @@ bool KateMainWindow::queryClose()
     return false;
 }
 
-void KateMainWindow::newWindow()
+KateMainWindow *KateMainWindow::newWindow() const
 {
-    KateApp::self()->newMainWindow(KateApp::self()->sessionManager()->activeSession()->config());
+    // create new window with current session
+    // derive size from current one
+    auto win = KateApp::self()->newMainWindow(KateApp::self()->sessionManager()->activeSession()->config());
+    win->resize(size());
+    return win;
 }
 
 void KateMainWindow::slotEditToolbars()

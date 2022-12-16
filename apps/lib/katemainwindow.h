@@ -182,12 +182,17 @@ public Q_SLOTS:
     QSize sizeHint() const override;
 
     /**
+     * Create a new window.
+     * Inherit size from current one.
+     * @return new window
+     */
+    KateMainWindow *newWindow() const;
+
+    /**
      * slots used for actions in the menus/toolbars
      * or internal signal connections
      */
 private Q_SLOTS:
-    static void newWindow();
-
     void slotConfigure();
 
     void slotOpenWithMenuAction(QAction *a);

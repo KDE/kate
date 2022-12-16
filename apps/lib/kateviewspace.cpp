@@ -1109,7 +1109,7 @@ void KateViewSpace::showContextMenu(int idx, const QPoint &globalPos)
                                      QMessageBox::StandardButton::Ok);
         }
     } else if (choice == aDetachTab) {
-        auto mainWindow = KateApp::self()->newMainWindow();
+        auto mainWindow = viewManager()->mainWindow()->newWindow();
         mainWindow->viewManager()->openViewForDoc(doc);
 
         // use single shot as this action can trigger deletion of this viewspace!

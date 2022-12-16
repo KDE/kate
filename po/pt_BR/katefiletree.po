@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: katefiletree\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-14 03:46+0000\n"
-"PO-Revision-Date: 2022-08-19 15:41-0300\n"
+"PO-Revision-Date: 2022-12-15 11:59-0300\n"
 "Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
 "Language-Team: Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
@@ -42,9 +42,7 @@ msgid "Close the current document."
 msgstr "Fecha o documento atual."
 
 #: katefiletree.cpp:135
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Expand recursively"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Expand Recursively"
 msgstr "Expandir recursivamente"
@@ -55,9 +53,7 @@ msgid "Expand the file list sub tree recursively."
 msgstr "Expandir a sub-árvore da lista de arquivos recursivamente."
 
 #: katefiletree.cpp:139
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Collapse recursively"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Collapse Recursively"
 msgstr "Recolher recursivamente"
@@ -376,11 +372,9 @@ msgid "Configure Documents"
 msgstr "Configurar documentos"
 
 #: katefiletreemodel.cpp:493
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open With"
+#, kde-format
 msgid "Open Widgets"
-msgstr "Abrir com"
+msgstr "Abrir widgets"
 
 #: katefiletreemodel.cpp:645
 #, kde-format
@@ -401,15 +395,14 @@ msgid "Next Document"
 msgstr "Próximo documento"
 
 #: katefiletreeplugin.cpp:258
-#, fuzzy, kde-format
-#| msgid "&Show Active"
+#, kde-format
 msgid "&Show Active Document"
-msgstr "Mo&strar os ativos"
+msgstr "Mo&strar documento ativo"
 
 #: katefiletreeplugin.cpp:263
 #, kde-format
 msgid "Save"
-msgstr ""
+msgstr "Salvar"
 
 #: katefiletreeplugin.cpp:264
 #, kde-format
@@ -419,13 +412,12 @@ msgstr "Salvar o documento atual"
 #: katefiletreeplugin.cpp:268
 #, kde-format
 msgid "Save As"
-msgstr ""
+msgstr "Salvar como"
 
 #: katefiletreeplugin.cpp:269
-#, fuzzy, kde-format
-#| msgid "Save current document under new name"
+#, kde-format
 msgid "Save the current document under a new name"
-msgstr "Salvar o documento atual com novo nome"
+msgstr "Salva o documento atual com um novo nome"
 
 #. i18n: ectx: Menu (go)
 #: ui.rc:7

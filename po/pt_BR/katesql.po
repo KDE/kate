@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: katesql\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-28 00:49+0000\n"
-"PO-Revision-Date: 2022-08-19 15:41-0300\n"
+"PO-Revision-Date: 2022-12-15 11:59-0300\n"
 "Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
 "Language-Team: Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
@@ -353,25 +353,19 @@ msgid "SQL Schema"
 msgstr "Esquema do SQL"
 
 #: katesqlview.cpp:106
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Add connection..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Add Connection..."
 msgstr "Adicionar conexão..."
 
 #: katesqlview.cpp:111
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Remove connection"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove Connection"
 msgstr "Remover conexão"
 
 #: katesqlview.cpp:116
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Edit connection..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Connection..."
 msgstr "Editar conexão..."
@@ -389,9 +383,7 @@ msgid "Connection"
 msgstr "Conexão"
 
 #: katesqlview.cpp:131
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Run query"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Query"
 msgstr "Executar consulta"

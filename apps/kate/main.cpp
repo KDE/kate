@@ -38,6 +38,16 @@
 #endif
 #include <iostream>
 
+#include "config-kate.h"
+
+#if HAVE_X11
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+#include <private/qtx11extras_p.h>
+#else
+#include <QX11Info>
+#endif
+#endif
+
 int main(int argc, char **argv)
 {
 #if !defined(Q_OS_WIN) && !defined(Q_OS_HAIKU)
@@ -490,7 +500,13 @@ int main(int argc, char **argv)
                                                                       QStringLiteral("/MainApplication"),
                                                                       QStringLiteral("org.kde.Kate.Application"),
                                                                       QStringLiteral("activate"));
-            activateMsg.setArguments({qEnvironmentVariable("XDG_ACTIVATION_TOKEN")});
+            if (KWindowSystem::isPlatformWayland()) {
+                activateMsg.setArguments({qEnvironmentVariable("XDG_ACTIVATION_TOKEN")});
+            } else if (KWindowSystem::isPlatformX11()) {
+#if HAVE_X11
+                activateMsg.setArguments({QString::fromUtf8(QX11Info::nextStartupId())});
+#endif
+            }
             QDBusConnection::sessionBus().call(activateMsg);
 
             // connect dbus signal

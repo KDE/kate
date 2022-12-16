@@ -2,6 +2,16 @@
 
 find_package(KF5DBusAddons ${KF5_DEP_VERSION} REQUIRED)
 
+if (UNIX AND NOT APPLE)
+    if (QT_MAJOR_VERSION STREQUAL "5")
+        find_package(Qt5X11Extras REQUIRED)
+    endif()
+
+    set(HAVE_X11 TRUE)
+endif()
+
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config-kate.h.in ${CMAKE_CURRENT_BINARY_DIR}/config-kate.h @ONLY)
+
 add_executable(kate-bin
     main.cpp
     data/kate.qrc
@@ -12,6 +22,14 @@ add_executable(kate-bin
     SingleApplication/singleapplication.cpp
     SingleApplication/singleapplication_p.cpp)
 target_link_libraries(kate-bin PRIVATE kateprivate PUBLIC KF5::DBusAddons)
+
+if (HAVE_X11)
+    if (QT_MAJOR_VERSION STREQUAL "5")
+        target_link_libraries(kate-bin PRIVATE Qt5::X11Extras)
+    else()
+        target_link_libraries(kate-bin PRIVATE Qt::GuiPrivate)
+    endif()
+endif()
 
 # ensure right translations domain, we use one kate.po(t) for lib + apps
 target_compile_definitions(kate-bin PRIVATE TRANSLATION_DOMAIN="kate")

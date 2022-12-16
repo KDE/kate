@@ -41,10 +41,13 @@ void KateAppAdaptor::activate(const QString &token)
     win->activateWindow();
 
     // try to raise window, see bug 407288
-    win->setAttribute(Qt::WA_NativeWindow, true);
-    KStartupInfo::setNewStartupId(win->windowHandle(), KStartupInfo::startupId());
-    KWindowSystem::setCurrentXdgActivationToken(token);
-    KWindowSystem::activateWindow(win->effectiveWinId());
+    if (KWindowSystem::isPlatformX11()) {
+        KStartupInfo::setNewStartupId(win->windowHandle(), token.toUtf8());
+    } else if (KWindowSystem::isPlatformWayland()) {
+        KWindowSystem::setCurrentXdgActivationToken(token);
+    }
+
+    KWindowSystem::activateWindow(win->windowHandle());
 }
 
 bool KateAppAdaptor::openUrl(const QString &url, const QString &encoding)

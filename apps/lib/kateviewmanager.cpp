@@ -442,6 +442,7 @@ KTextEditor::Document *KateViewManager::openUrls(const QList<QUrl> &urls, const 
             activeViewSpace()->registerDocument(doc);
             connect(doc, &KTextEditor::Document::documentSavedOrUploaded, this, &KateViewManager::documentSavedOrUploaded);
             lastDocInThisViewManager = doc;
+            first = false;
             continue;
         }
 

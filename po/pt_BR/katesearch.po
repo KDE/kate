@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-20 00:55+0000\n"
-"PO-Revision-Date: 2022-08-19 15:41-0300\n"
+"PO-Revision-Date: 2022-12-15 11:58-0300\n"
 "Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
 "Language-Team: Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
@@ -527,8 +527,7 @@ msgid "Find in Files"
 msgstr "Procurar nos arquivos"
 
 #: SearchPlugin.cpp:341
-#, fuzzy, kde-format
-#| msgid "Find in Files (in new tab)"
+#, kde-format
 msgid "Find in Files (in a New Tab)"
 msgstr "Procurar nos arquivos (em nova aba)"
 
@@ -605,10 +604,9 @@ msgid "Continuing from last match"
 msgstr "Continuar da última ocorrência"
 
 #: SearchPlugin.cpp:2028
-#, fuzzy, kde-format
-#| msgid "Search"
+#, kde-format
 msgid "Search: %1"
-msgstr "Pesquisar"
+msgstr "Pesquisar: %1"
 
 #: SearchPlugin.cpp:2159
 #, kde-format

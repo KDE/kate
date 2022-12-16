@@ -1,6 +1,6 @@
 /* This file is part of the KDE project
    SPDX-FileCopyrightText: 2001 Christoph Cullmann <cullmann@kde.org>
-   SPDX-FileCopyrightText: 2001 Joseph Wenninger <jowenn@kde.org>
+   // SPDX-FileCopyrightText: 2001 Joseph Wenninger <jowenn@kde.org>
    SPDX-FileCopyrightText: 2001 Anders Lund <anders.lund@lund.tdcadsl.dk>
 
    SPDX-License-Identifier: LGPL-2.0-only
@@ -1685,7 +1685,8 @@ void KateViewManager::showWelcomeViewOrNewDocumentIfNeeded()
         if (cgGeneral.readEntry("Show welcome view for new window", true)) {
             showWelcomeView();
         } else {
-            slotDocumentNew();
+            // don't use slotDocumentNew() to avoid dummy new windows in SDI mode
+            createView();
         }
         triggerActiveViewFocus();
     });

@@ -376,8 +376,8 @@ void KateConfigDialog::addBehaviorPage()
     m_sdiMode->setChecked(cgGeneral.readEntry("SDI Mode", false));
     m_sdiMode->setCursor(Qt::WhatsThisCursor);
     m_sdiMode->setWhatsThis(
-        i18n("If enabled, the application will prefer to open documents in own top level windows (SDI). "
-             "If not enabled, new documents will be opened in the current top level window (MDI)."));
+        i18n("If enabled, each document will be opened in its own window. "
+             "If not enabled, each document will be opened in a new tab in the current window."));
     connect(m_sdiMode, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
     vbox->addWidget(m_sdiMode);
 

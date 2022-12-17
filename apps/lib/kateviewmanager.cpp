@@ -294,7 +294,7 @@ void KateViewManager::updateViewSpaceActions()
 void KateViewManager::slotDocumentNew()
 {
     // open new window for SDI case
-    if (m_sdiMode) {
+    if (m_sdiMode && !m_views.empty()) {
         auto mainWindow = m_mainWindow->newWindow();
         mainWindow->viewManager()->createView();
     } else {
@@ -437,7 +437,7 @@ KTextEditor::Document *KateViewManager::openUrls(const QList<QUrl> &urls, const 
     KTextEditor::Document *lastDocInThisViewManager = nullptr;
     for (auto doc : docs) {
         // it we have a doc to close, we can use this window for the first document even in SDI mode
-        if (!m_sdiMode || (first && docToClose)) {
+        if (!m_sdiMode || (first && docToClose) || m_views.empty()) {
             // forward to currently active view space
             activeViewSpace()->registerDocument(doc);
             connect(doc, &KTextEditor::Document::documentSavedOrUploaded, this, &KateViewManager::documentSavedOrUploaded);

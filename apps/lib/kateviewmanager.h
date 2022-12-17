@@ -391,6 +391,12 @@ private:
      * last url of open file dialog, used if current document has no valid url
      */
     QUrl m_lastOpenDialogUrl;
+
+    /**
+     * was the welcome view already shown?
+     * ensures it doesn't auto popup multiple times
+     */
+    bool m_welcomeViewAlreadyShown = false;
 };
 
 #endif

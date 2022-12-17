@@ -374,8 +374,7 @@ void KateConfigDialog::addBehaviorPage()
     // shall we try to behave like some SDI application
     m_sdiMode = new QCheckBox(i18n("Prefer to open documents in own top level windows."), buttonGroup);
     m_sdiMode->setChecked(cgGeneral.readEntry("SDI Mode", false));
-    m_sdiMode->setCursor(Qt::WhatsThisCursor);
-    m_sdiMode->setWhatsThis(
+    m_sdiMode->setToolTip(
         i18n("If enabled, each document will be opened in its own window. "
              "If not enabled, each document will be opened in a new tab in the current window."));
     connect(m_sdiMode, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
@@ -412,8 +411,7 @@ void KateConfigDialog::addBehaviorPage()
     // modified files notification
     m_modNotifications = new QCheckBox(i18n("Use a separate &dialog for handling externally modified files"), buttonGroup);
     m_modNotifications->setChecked(m_mainWindow->modNotificationEnabled());
-    m_modNotifications->setCursor(Qt::WhatsThisCursor);
-    m_modNotifications->setWhatsThis(
+    m_modNotifications->setToolTip(
         i18n("If enabled, a modal dialog will be used to show all of the modified files. "
              "If not enabled, you will be individually asked what to do for each modified file "
              "only when that file's view receives focus."));
@@ -428,8 +426,7 @@ void KateConfigDialog::addBehaviorPage()
         QVBoxLayout *vbox = new QVBoxLayout;
         m_syncSectionSizeWithSidebarTabs = new QCheckBox(i18n("Sync section size with tab positions"), buttonGroup);
         m_syncSectionSizeWithSidebarTabs->setChecked(cgGeneral.readEntry("Sync section size with tab positions", false));
-        m_syncSectionSizeWithSidebarTabs->setCursor(Qt::WhatsThisCursor);
-        m_syncSectionSizeWithSidebarTabs->setWhatsThis(
+        m_syncSectionSizeWithSidebarTabs->setToolTip(
             i18n("When enabled the section size will be determined by the position of the tabs.\n"
                  "This option does not affect the bottom sidebar."));
         connect(m_syncSectionSizeWithSidebarTabs, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);

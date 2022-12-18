@@ -372,7 +372,7 @@ void KateConfigDialog::addBehaviorPage()
     layout->addWidget(buttonGroup);
 
     // shall we try to behave like some SDI application
-    m_sdiMode = new QCheckBox(i18n("Prefer to open documents in own top level windows."), buttonGroup);
+    m_sdiMode = new QCheckBox(i18n("Open each document in its own window"), buttonGroup);
     m_sdiMode->setChecked(cgGeneral.readEntry("SDI Mode", false));
     m_sdiMode->setToolTip(
         i18n("If enabled, each document will be opened in its own window. "

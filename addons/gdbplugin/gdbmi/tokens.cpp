@@ -5,9 +5,7 @@
 */
 
 #include "tokens.h"
-#include <QJsonDocument>
 #include <QString>
-#include <optional>
 
 namespace gdbmi
 {

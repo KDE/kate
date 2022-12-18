@@ -21,7 +21,6 @@
 #include <KActionMenu>
 #include <KApplicationTrader>
 #include <KConfigGroup>
-#include <KDirOperator>
 #include <KFilePlacesModel>
 #include <KHistoryComboBox>
 #include <KLocalizedString>
@@ -29,7 +28,6 @@
 #include <KSharedConfig>
 #include <KToolBar>
 #include <KUrlNavigator>
-#include <kio_version.h>
 #include <kwidgetsaddons_version.h>
 
 #include <QAbstractItemView>

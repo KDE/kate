@@ -10,9 +10,6 @@
 //  SPDX-License-Identifier: LGPL-2.0-only
 
 #include "debugview.h"
-#include "dap/entities.h"
-#include "gdbmi/parser.h"
-#include "gdbmi/records.h"
 #include "gdbmi/tokens.h"
 #include "hostprocess.h"
 

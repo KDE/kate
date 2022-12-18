@@ -14,7 +14,6 @@
 #include "katefileactions.h"
 #include "katemainwindow.h"
 #include "katesessionmanager.h"
-#include "katetabbar.h"
 #include "kateupdatedisabler.h"
 #include "kateurlbar.h"
 #include "kateviewmanager.h"

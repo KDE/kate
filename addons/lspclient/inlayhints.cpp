@@ -6,7 +6,6 @@
 #include <KSyntaxHighlighting/Theme>
 #include <KTextEditor/InlineNote>
 #include <KTextEditor/InlineNoteInterface>
-#include <KTextEditor/InlineNoteProvider>
 
 #include <QApplication>
 #include <QPainter>

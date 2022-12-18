@@ -24,7 +24,6 @@
 #include <KLocalizedString>
 
 #include <QPushButton>
-#include <QTimer>
 #include <QVBoxLayout>
 
 KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject *project, KTextEditor::MainWindow *mainWindow)

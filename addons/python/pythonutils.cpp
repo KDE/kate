@@ -8,7 +8,6 @@
 #include <QtCore/QDebug>
 #include <QtCore/QDir>
 #include <QtCore/QOperatingSystemVersion>
-#include <QtCore/QStringList>
 #include <QtCore/QTemporaryFile>
 
 #include <sbkconverter.h>

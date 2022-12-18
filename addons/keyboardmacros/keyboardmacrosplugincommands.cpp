@@ -3,16 +3,12 @@
  * SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
-#include <QString>
 #include <QStringList>
 
 #include <KLocalizedString>
 
-#include <KTextEditor/Command>
 #include <KTextEditor/Range>
-#include <KTextEditor/View>
 
-#include "keyboardmacrosplugin.h"
 #include "keyboardmacrosplugincommands.h"
 
 KeyboardMacrosPluginCommands::KeyboardMacrosPluginCommands(KeyboardMacrosPlugin *plugin)

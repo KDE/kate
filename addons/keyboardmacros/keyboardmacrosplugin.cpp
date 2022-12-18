@@ -8,7 +8,6 @@
 #include "keyboardmacrospluginview.h"
 #include "keycombination.h"
 #include "ktexteditor_utils.h"
-#include "macro.h"
 
 #include <QApplication>
 #include <QCoreApplication>
@@ -19,24 +18,14 @@
 #include <QJsonObject>
 #include <QJsonParseError>
 #include <QKeyEvent>
-#include <QKeySequence>
-#include <QList>
 #include <QLoggingCategory>
-#include <QObject>
-#include <QPointer>
 #include <QSaveFile>
 #include <QStandardPaths>
-#include <QString>
 
 #include <KLocalizedString>
 #include <KPluginFactory>
 
-#include <KTextEditor/Application>
 #include <KTextEditor/Editor>
-#include <KTextEditor/MainWindow>
-#include <KTextEditor/Message>
-#include <KTextEditor/Plugin>
-#include <KTextEditor/View>
 
 Q_LOGGING_CATEGORY(KM_DBG, "kate.plugin.keyboardmacros", QtWarningMsg)
 

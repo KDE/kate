@@ -6,11 +6,8 @@
 
 #include "parser.h"
 #include "tokens.h"
-#include <QByteArray>
 #include <QJsonArray>
-#include <QJsonObject>
 #include <QRegularExpression>
-#include <optional>
 
 namespace gdbmi
 {

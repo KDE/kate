@@ -8,21 +8,16 @@
 #include <QKeySequence>
 #include <QLineEdit>
 #include <QMessageBox>
-#include <QObject>
 #include <QRegularExpression>
-#include <QString>
 
 #include <KActionCollection>
-#include <KActionMenu>
 #include <KLocalizedString>
 #include <KStringHandler>
 #include <KXMLGUIFactory>
 
 #include <KTextEditor/Editor>
-#include <KTextEditor/MainWindow>
 #include <KTextEditor/Message>
 #include <KTextEditor/Plugin>
-#include <KTextEditor/View>
 
 #include "keyboardmacrospluginview.h"
 

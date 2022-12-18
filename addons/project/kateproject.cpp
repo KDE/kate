@@ -25,7 +25,6 @@
 #include <QJsonParseError>
 #include <QMimeData>
 #include <QPlainTextDocumentLayout>
-#include <QPointer>
 #include <utility>
 
 #include <KIO/CopyJob>

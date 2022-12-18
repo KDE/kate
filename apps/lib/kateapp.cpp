@@ -268,7 +268,7 @@ bool KateApp::startupKate()
             // let the user choose session if possible
             if (!sessionManager()->chooseSession()) {
                 // we will exit kate now, notify the rest of the world we are done
-                KStartupInfo::appStarted(KStartupInfo::startupId());
+                KStartupInfo::appStarted();
                 return false;
             }
         } else {

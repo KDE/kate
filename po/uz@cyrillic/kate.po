@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-13 01:01+0000\n"
+"POT-Creation-Date: 2022-12-18 00:58+0000\n"
 "PO-Revision-Date: 2006-12-17 12:02+0000\n"
 "Last-Translator: Mashrab Kuvatov <kmashrab@uni-bremen.de>\n"
 "Language-Team: Uzbek <floss-uz-l10n@googlegroups.com>\n"
@@ -27,41 +27,41 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "kmashrab@uni-bremen.de"
 
-#: kate/main.cpp:106
+#: kate/main.cpp:116
 #, kde-format
 msgid "Kate"
 msgstr "Kate"
 
-#: kate/main.cpp:108
+#: kate/main.cpp:118
 #, kde-format
 msgid "Kate - Advanced Text Editor"
 msgstr "Kate - Кенгайтирилган матн таҳрирчи"
 
-#: kate/main.cpp:110 kwrite/main.cpp:89
+#: kate/main.cpp:120 kwrite/main.cpp:89
 #, fuzzy, kde-format
 #| msgid "(c) 2000-2005 The Kate Authors"
 msgid "(c) 2000-2022 The Kate Authors"
 msgstr "(C) 2000-2005, Kate муаллифлари"
 
-#: kate/main.cpp:156
+#: kate/main.cpp:166
 #, fuzzy, kde-format
 #| msgid "Start Kate with a given session"
 msgid "Start Kate with a given session."
 msgstr "Дастурни кўрсатилган сеанс билан ишга тушириш"
 
-#: kate/main.cpp:157
+#: kate/main.cpp:167
 #, fuzzy, kde-format
 #| msgid "Session"
 msgid "session"
 msgstr "Сеанс"
 
-#: kate/main.cpp:162
+#: kate/main.cpp:172
 #, fuzzy, kde-format
 #| msgid "Start Kate with a given session"
 msgid "Start Kate with a new anonymous session, implies '-n'."
 msgstr "Дастурни кўрсатилган сеанс билан ишга тушириш"
 
-#: kate/main.cpp:167
+#: kate/main.cpp:177
 #, kde-format
 msgid ""
 "Force start of a new kate instance (is ignored if start is used and another "
@@ -69,75 +69,75 @@ msgid ""
 "and no URLs are given at all."
 msgstr ""
 
-#: kate/main.cpp:173
+#: kate/main.cpp:183
 #, kde-format
 msgid ""
 "If using an already running kate instance, block until it exits, if URLs "
 "given to open."
 msgstr ""
 
-#: kate/main.cpp:179
+#: kate/main.cpp:189
 #, kde-format
 msgid ""
 "Only try to reuse kate instance with this pid (is ignored if start is used "
 "and another kate instance already has the given session opened)."
 msgstr ""
 
-#: kate/main.cpp:180
+#: kate/main.cpp:190
 #, kde-format
 msgid "pid"
 msgstr ""
 
-#: kate/main.cpp:185 kwrite/main.cpp:140
+#: kate/main.cpp:195 kwrite/main.cpp:140
 #, fuzzy, kde-format
 #| msgid "Set encoding for the file to open"
 msgid "Set encoding for the file to open."
 msgstr "Очиш керак бўлган файл учун кодлаш усулини танлаш"
 
-#: kate/main.cpp:186 kwrite/main.cpp:141
+#: kate/main.cpp:196 kwrite/main.cpp:141
 #, kde-format
 msgid "encoding"
 msgstr ""
 
-#: kate/main.cpp:190 kwrite/main.cpp:145
+#: kate/main.cpp:200 kwrite/main.cpp:145
 #, fuzzy, kde-format
 #| msgid "Navigate to this line"
 msgid "Navigate to this line."
 msgstr "Шу сатрга ўтиш"
 
-#: kate/main.cpp:190 kwrite/main.cpp:145
+#: kate/main.cpp:200 kwrite/main.cpp:145
 #, kde-format
 msgid "line"
 msgstr ""
 
-#: kate/main.cpp:195 kwrite/main.cpp:149
+#: kate/main.cpp:205 kwrite/main.cpp:149
 #, fuzzy, kde-format
 #| msgid "Navigate to this column"
 msgid "Navigate to this column."
 msgstr "Шу устунга ўтиш"
 
-#: kate/main.cpp:196 kwrite/main.cpp:149
+#: kate/main.cpp:206 kwrite/main.cpp:149
 #, fuzzy, kde-format
 msgid "column"
 msgstr "Изоҳ"
 
-#: kate/main.cpp:200 kwrite/main.cpp:153
+#: kate/main.cpp:210 kwrite/main.cpp:153
 #, kde-format
 msgid "Read the contents of stdin."
 msgstr ""
 
-#: kate/main.cpp:205 kwrite/main.cpp:157
+#: kate/main.cpp:215 kwrite/main.cpp:157
 #, kde-format
 msgid "The files/URLs opened by the application will be deleted after use"
 msgstr ""
 
-#: kate/main.cpp:209 kwrite/main.cpp:161
+#: kate/main.cpp:219 kwrite/main.cpp:161
 #, fuzzy, kde-format
 #| msgid "Document to open"
 msgid "Documents to open."
 msgstr "Очиш учун ҳужжат"
 
-#: kate/main.cpp:209 kwrite/main.cpp:161
+#: kate/main.cpp:219 kwrite/main.cpp:161
 #, kde-format
 msgid "[urls...]"
 msgstr ""
@@ -686,12 +686,12 @@ msgstr ""
 msgid "All people who have contributed and I have forgotten to mention"
 msgstr "Ҳисса қўшган, аммо уларни ёд этиш менинг эсимдан чиқан кишилар"
 
-#: lib/kateapp.cpp:315
+#: lib/kateapp.cpp:310
 #, kde-format
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr ""
 
-#: lib/kateapp.cpp:418
+#: lib/kateapp.cpp:413
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."

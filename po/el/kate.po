@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-13 01:01+0000\n"
+"POT-Creation-Date: 2022-12-18 00:58+0000\n"
 "PO-Revision-Date: 2021-10-11 08:07+0300\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -39,39 +39,39 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "sng@hellug.gr, manolis@koppermind.homelinux.org, pvidalis@gmail.com"
 
-#: kate/main.cpp:106
+#: kate/main.cpp:116
 #, kde-format
 msgid "Kate"
 msgstr "Kate"
 
-#: kate/main.cpp:108
+#: kate/main.cpp:118
 #, kde-format
 msgid "Kate - Advanced Text Editor"
 msgstr "Kate - Προηγμένος επεξεργαστής κειμένου"
 
-#: kate/main.cpp:110 kwrite/main.cpp:89
+#: kate/main.cpp:120 kwrite/main.cpp:89
 #, fuzzy, kde-format
 #| msgid "(c) 2000-2021 The Kate Authors"
 msgid "(c) 2000-2022 The Kate Authors"
 msgstr "(c) 2000-2021 Οι συγγραφείς του Kate"
 
-#: kate/main.cpp:156
+#: kate/main.cpp:166
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "Εκκίνηση του Kate με μία δοσμένη συνεδρία."
 
-#: kate/main.cpp:157
+#: kate/main.cpp:167
 #, kde-format
 msgid "session"
 msgstr "συνεδρία"
 
-#: kate/main.cpp:162
+#: kate/main.cpp:172
 #, kde-format
 msgid "Start Kate with a new anonymous session, implies '-n'."
 msgstr ""
 "Εκκίνηση του Kate με μία νέα ανώνυμη συνεδρία, εννοείται η επιλογή '-n'."
 
-#: kate/main.cpp:167
+#: kate/main.cpp:177
 #, kde-format
 msgid ""
 "Force start of a new kate instance (is ignored if start is used and another "
@@ -83,7 +83,7 @@ msgstr ""
 "τη δοθείσα συνεδρία), εξαναγκάζεται αν δεν παρέχονται παράμετροι και URL "
 "καθόλου."
 
-#: kate/main.cpp:173
+#: kate/main.cpp:183
 #, kde-format
 msgid ""
 "If using an already running kate instance, block until it exits, if URLs "
@@ -92,7 +92,7 @@ msgstr ""
 "Αν χρησιμοποιείτε ήδη μια διεργασία του Kate, να φραγεί μέχρι να γίνει "
 "έξοδος, αν δίνονται URL για άνοιγμα."
 
-#: kate/main.cpp:179
+#: kate/main.cpp:189
 #, kde-format
 msgid ""
 "Only try to reuse kate instance with this pid (is ignored if start is used "
@@ -102,58 +102,58 @@ msgstr ""
 "(αγνοείται, αν χρησιμοποιείται η εκκίνηση και μια άλλη διεργασία του Kate "
 "έχει ήδη ανοίξει τη δοθείσα συνεδρία)."
 
-#: kate/main.cpp:180
+#: kate/main.cpp:190
 #, kde-format
 msgid "pid"
 msgstr "pid"
 
-#: kate/main.cpp:185 kwrite/main.cpp:140
+#: kate/main.cpp:195 kwrite/main.cpp:140
 #, kde-format
 msgid "Set encoding for the file to open."
 msgstr "Ορισμός κωδικοποίησης για το αρχείο που θα ανοιχθεί."
 
-#: kate/main.cpp:186 kwrite/main.cpp:141
+#: kate/main.cpp:196 kwrite/main.cpp:141
 #, kde-format
 msgid "encoding"
 msgstr "κωδικοποίηση"
 
-#: kate/main.cpp:190 kwrite/main.cpp:145
+#: kate/main.cpp:200 kwrite/main.cpp:145
 #, kde-format
 msgid "Navigate to this line."
 msgstr "Πλοήγηση σε αυτήν τη γραμμή."
 
-#: kate/main.cpp:190 kwrite/main.cpp:145
+#: kate/main.cpp:200 kwrite/main.cpp:145
 #, kde-format
 msgid "line"
 msgstr "γραμμή"
 
-#: kate/main.cpp:195 kwrite/main.cpp:149
+#: kate/main.cpp:205 kwrite/main.cpp:149
 #, kde-format
 msgid "Navigate to this column."
 msgstr "Πλοήγηση σε αυτήν τη στήλη."
 
-#: kate/main.cpp:196 kwrite/main.cpp:149
+#: kate/main.cpp:206 kwrite/main.cpp:149
 #, kde-format
 msgid "column"
 msgstr "στήλη"
 
-#: kate/main.cpp:200 kwrite/main.cpp:153
+#: kate/main.cpp:210 kwrite/main.cpp:153
 #, kde-format
 msgid "Read the contents of stdin."
 msgstr "Διάβασε τα περιεχόμενα του stdin."
 
-#: kate/main.cpp:205 kwrite/main.cpp:157
+#: kate/main.cpp:215 kwrite/main.cpp:157
 #, kde-format
 msgid "The files/URLs opened by the application will be deleted after use"
 msgstr ""
 "Τα αρχεία/URL που ανοίγουν από αυτή την εφαρμογή θα διαγραφούν μετά τη χρήση"
 
-#: kate/main.cpp:209 kwrite/main.cpp:161
+#: kate/main.cpp:219 kwrite/main.cpp:161
 #, kde-format
 msgid "Documents to open."
 msgstr "Έγγραφο για άνοιγμα."
 
-#: kate/main.cpp:209 kwrite/main.cpp:161
+#: kate/main.cpp:219 kwrite/main.cpp:161
 #, kde-format
 msgid "[urls...]"
 msgstr "[urls...]"
@@ -702,12 +702,12 @@ msgstr "Πολύ καλή βοήθεια"
 msgid "All people who have contributed and I have forgotten to mention"
 msgstr "Όλοι όσοι έχουν συνεισφέρει και ξέχασα να αναφέρω"
 
-#: lib/kateapp.cpp:315
+#: lib/kateapp.cpp:310
 #, kde-format
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr "Οι φάκελοι ανοίγουν μόνο όταν το πρόσθετο των έργων είναι ενεργό"
 
-#: lib/kateapp.cpp:418
+#: lib/kateapp.cpp:413
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."

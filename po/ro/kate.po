@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-13 01:01+0000\n"
+"POT-Creation-Date: 2022-12-18 00:58+0000\n"
 "PO-Revision-Date: 2022-02-06 19:51+0000\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian\n"
@@ -32,38 +32,38 @@ msgid "Your emails"
 msgstr ""
 "claudiuc@kde.org,taipanromania@xnet.ro,sergiu@cip.md,cfrussen@yahoo.co.uk"
 
-#: kate/main.cpp:106
+#: kate/main.cpp:116
 #, kde-format
 msgid "Kate"
 msgstr "Kate"
 
-#: kate/main.cpp:108
+#: kate/main.cpp:118
 #, kde-format
 msgid "Kate - Advanced Text Editor"
 msgstr "Kate - Un editor de text avansat"
 
-#: kate/main.cpp:110 kwrite/main.cpp:89
+#: kate/main.cpp:120 kwrite/main.cpp:89
 #, fuzzy, kde-format
 #| msgid "(c) 2000-2019 The Kate Authors"
 msgid "(c) 2000-2022 The Kate Authors"
 msgstr "(c) 2000-2019 Autorii Kate"
 
-#: kate/main.cpp:156
+#: kate/main.cpp:166
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "Pornește Kate cu o sesiune dată."
 
-#: kate/main.cpp:157
+#: kate/main.cpp:167
 #, kde-format
 msgid "session"
 msgstr "sesiune"
 
-#: kate/main.cpp:162
+#: kate/main.cpp:172
 #, kde-format
 msgid "Start Kate with a new anonymous session, implies '-n'."
 msgstr "Pornește Kate cu o nouă sesiune anonimă, implică „-n”."
 
-#: kate/main.cpp:167
+#: kate/main.cpp:177
 #, kde-format
 msgid ""
 "Force start of a new kate instance (is ignored if start is used and another "
@@ -74,7 +74,7 @@ msgstr ""
 "și altă instanță Kate are deja deschisă sesiunea dată), forțată dacă nu se "
 "specifică niciun parametru sau adresă URL."
 
-#: kate/main.cpp:173
+#: kate/main.cpp:183
 #, kde-format
 msgid ""
 "If using an already running kate instance, block until it exits, if URLs "
@@ -83,7 +83,7 @@ msgstr ""
 "Dacă folosiți o instanță Kate ce rulează deja, se blochează până la "
 "terminare dacă s-au indicat adrese URL pentru deschidere."
 
-#: kate/main.cpp:179
+#: kate/main.cpp:189
 #, kde-format
 msgid ""
 "Only try to reuse kate instance with this pid (is ignored if start is used "
@@ -92,57 +92,57 @@ msgstr ""
 "Încearcă doar refolosirea instanței Kate cu acest PID (se ignoră dacă e "
 "folosit „start” și altă instanță Kate are deja deschisă sesiunea dată)."
 
-#: kate/main.cpp:180
+#: kate/main.cpp:190
 #, kde-format
 msgid "pid"
 msgstr "pid"
 
-#: kate/main.cpp:185 kwrite/main.cpp:140
+#: kate/main.cpp:195 kwrite/main.cpp:140
 #, kde-format
 msgid "Set encoding for the file to open."
 msgstr "Stabilește codarea pentru fișierul de deschis."
 
-#: kate/main.cpp:186 kwrite/main.cpp:141
+#: kate/main.cpp:196 kwrite/main.cpp:141
 #, kde-format
 msgid "encoding"
 msgstr "codare"
 
-#: kate/main.cpp:190 kwrite/main.cpp:145
+#: kate/main.cpp:200 kwrite/main.cpp:145
 #, kde-format
 msgid "Navigate to this line."
 msgstr "Navighează la această linie."
 
-#: kate/main.cpp:190 kwrite/main.cpp:145
+#: kate/main.cpp:200 kwrite/main.cpp:145
 #, kde-format
 msgid "line"
 msgstr "linie"
 
-#: kate/main.cpp:195 kwrite/main.cpp:149
+#: kate/main.cpp:205 kwrite/main.cpp:149
 #, kde-format
 msgid "Navigate to this column."
 msgstr "Navighează la această coloană."
 
-#: kate/main.cpp:196 kwrite/main.cpp:149
+#: kate/main.cpp:206 kwrite/main.cpp:149
 #, kde-format
 msgid "column"
 msgstr "coloană"
 
-#: kate/main.cpp:200 kwrite/main.cpp:153
+#: kate/main.cpp:210 kwrite/main.cpp:153
 #, kde-format
 msgid "Read the contents of stdin."
 msgstr "Citește conținutul STDIN."
 
-#: kate/main.cpp:205 kwrite/main.cpp:157
+#: kate/main.cpp:215 kwrite/main.cpp:157
 #, kde-format
 msgid "The files/URLs opened by the application will be deleted after use"
 msgstr "Fișierele/URL-urile deschise de aplicație vor fi șterse după utilizare"
 
-#: kate/main.cpp:209 kwrite/main.cpp:161
+#: kate/main.cpp:219 kwrite/main.cpp:161
 #, kde-format
 msgid "Documents to open."
 msgstr "Documente de deschis."
 
-#: kate/main.cpp:209 kwrite/main.cpp:161
+#: kate/main.cpp:219 kwrite/main.cpp:161
 #, kde-format
 msgid "[urls...]"
 msgstr "[url-uri...]"
@@ -694,12 +694,12 @@ msgid "All people who have contributed and I have forgotten to mention"
 msgstr ""
 "Toate persoanele care au contribuit și pe care am uitat să le menționez"
 
-#: lib/kateapp.cpp:315
+#: lib/kateapp.cpp:310
 #, kde-format
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr ""
 
-#: lib/kateapp.cpp:418
+#: lib/kateapp.cpp:413
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."

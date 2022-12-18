@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-13 01:01+0000\n"
+"POT-Creation-Date: 2022-12-18 00:58+0000\n"
 "PO-Revision-Date: 2022-12-04 10:11+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -33,37 +33,37 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "sps@sastia.com,antonibella5@yahoo.com,manutortosa@gmail.com"
 
-#: kate/main.cpp:106
+#: kate/main.cpp:116
 #, kde-format
 msgid "Kate"
 msgstr "Kate"
 
-#: kate/main.cpp:108
+#: kate/main.cpp:118
 #, kde-format
 msgid "Kate - Advanced Text Editor"
 msgstr "Kate: Editor avançat de text"
 
-#: kate/main.cpp:110 kwrite/main.cpp:89
+#: kate/main.cpp:120 kwrite/main.cpp:89
 #, kde-format
 msgid "(c) 2000-2022 The Kate Authors"
 msgstr "(c) 2000-2022 Els autors de Kate"
 
-#: kate/main.cpp:156
+#: kate/main.cpp:166
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "Inicia Kate amb una sessió indicada."
 
-#: kate/main.cpp:157
+#: kate/main.cpp:167
 #, kde-format
 msgid "session"
 msgstr "sessió"
 
-#: kate/main.cpp:162
+#: kate/main.cpp:172
 #, kde-format
 msgid "Start Kate with a new anonymous session, implies '-n'."
 msgstr "Inicia Kate amb una sessió anònima nova, implica «-n»."
 
-#: kate/main.cpp:167
+#: kate/main.cpp:177
 #, kde-format
 msgid ""
 "Force start of a new kate instance (is ignored if start is used and another "
@@ -74,7 +74,7 @@ msgstr ""
 "«start» i una altra instància de Kate ja té oberta la sessió indicada), "
 "forçada si no se li proporcionen paràmetres ni els URL."
 
-#: kate/main.cpp:173
+#: kate/main.cpp:183
 #, kde-format
 msgid ""
 "If using an already running kate instance, block until it exits, if URLs "
@@ -83,7 +83,7 @@ msgstr ""
 "Si s'està utilitzant una instància de Kate en execució, la bloqueja fins que "
 "eixiu, si se li han proporcionat els URL que s'obriran."
 
-#: kate/main.cpp:179
+#: kate/main.cpp:189
 #, kde-format
 msgid ""
 "Only try to reuse kate instance with this pid (is ignored if start is used "
@@ -93,58 +93,58 @@ msgstr ""
 "utilitzat «start» i ja hi ha una altra instància de Kate amb la sessió "
 "indicada oberta)."
 
-#: kate/main.cpp:180
+#: kate/main.cpp:190
 #, kde-format
 msgid "pid"
 msgstr "PID"
 
-#: kate/main.cpp:185 kwrite/main.cpp:140
+#: kate/main.cpp:195 kwrite/main.cpp:140
 #, kde-format
 msgid "Set encoding for the file to open."
 msgstr "Establix la codificació del fitxer que s'obrirà."
 
-#: kate/main.cpp:186 kwrite/main.cpp:141
+#: kate/main.cpp:196 kwrite/main.cpp:141
 #, kde-format
 msgid "encoding"
 msgstr "codificació"
 
-#: kate/main.cpp:190 kwrite/main.cpp:145
+#: kate/main.cpp:200 kwrite/main.cpp:145
 #, kde-format
 msgid "Navigate to this line."
 msgstr "Navega fins esta línia."
 
-#: kate/main.cpp:190 kwrite/main.cpp:145
+#: kate/main.cpp:200 kwrite/main.cpp:145
 #, kde-format
 msgid "line"
 msgstr "línia"
 
-#: kate/main.cpp:195 kwrite/main.cpp:149
+#: kate/main.cpp:205 kwrite/main.cpp:149
 #, kde-format
 msgid "Navigate to this column."
 msgstr "Navega fins esta columna."
 
-#: kate/main.cpp:196 kwrite/main.cpp:149
+#: kate/main.cpp:206 kwrite/main.cpp:149
 #, kde-format
 msgid "column"
 msgstr "columna"
 
-#: kate/main.cpp:200 kwrite/main.cpp:153
+#: kate/main.cpp:210 kwrite/main.cpp:153
 #, kde-format
 msgid "Read the contents of stdin."
 msgstr "Llig el contingut de l'entrada estàndard."
 
-#: kate/main.cpp:205 kwrite/main.cpp:157
+#: kate/main.cpp:215 kwrite/main.cpp:157
 #, kde-format
 msgid "The files/URLs opened by the application will be deleted after use"
 msgstr ""
 "Els fitxers/URL oberts per l'aplicació se suprimiran després d'utilitzar-los"
 
-#: kate/main.cpp:209 kwrite/main.cpp:161
+#: kate/main.cpp:219 kwrite/main.cpp:161
 #, kde-format
 msgid "Documents to open."
 msgstr "Documents que s'obriran."
 
-#: kate/main.cpp:209 kwrite/main.cpp:161
+#: kate/main.cpp:219 kwrite/main.cpp:161
 #, kde-format
 msgid "[urls...]"
 msgstr "[URL...]"
@@ -686,14 +686,14 @@ msgstr "Ajuda molt valuosa"
 msgid "All people who have contributed and I have forgotten to mention"
 msgstr "Tothom qui ha col·laborat i als que m'he descuidat de mencionar"
 
-#: lib/kateapp.cpp:315
+#: lib/kateapp.cpp:310
 #, kde-format
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr ""
 "Les carpetes només es poden obrir quan està habilitat el connector de "
 "projectes"
 
-#: lib/kateapp.cpp:418
+#: lib/kateapp.cpp:413
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
@@ -2146,7 +2146,7 @@ msgstr "S&epara el document"
 #: lib/kateviewspace.cpp:1023
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
-msgstr "Obri el document en una finestra nova i el tanca a la finestra actual"
+msgstr "Obri el document en una finestra nova i el tanca en la finestra actual"
 
 #: lib/kateviewspace.cpp:1032
 #, kde-format
@@ -2410,7 +2410,7 @@ msgstr "Fitxers amb canvis sense guardar"
 #, kde-format
 msgid "If disabled, an untitled document will be shown for new windows."
 msgstr ""
-"Si està desactivat, es mostrarà un document sense títol a les finestres "
+"Si està desactivada, es mostrarà un document sense títol en les finestres "
 "noves."
 
 #. i18n: ectx: property (text), widget (QCheckBox, showWelcomeViewForNewWindow)

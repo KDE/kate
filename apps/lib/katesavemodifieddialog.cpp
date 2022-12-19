@@ -15,7 +15,7 @@
 
 #include <QApplication>
 #include <QFileDialog>
-#include <QHBoxLayout>
+#include <QGridLayout>
 #include <QLabel>
 #include <QPushButton>
 #include <QTreeWidget>
@@ -132,24 +132,34 @@ KateSaveModifiedDialog::KateSaveModifiedDialog(QWidget *parent, const std::vecto
     setObjectName(QStringLiteral("KateSaveModifiedDialog"));
     setModal(true);
 
-    QVBoxLayout *mainLayout = new QVBoxLayout;
-    setLayout(mainLayout);
+    auto *wrapperLayout = new QGridLayout;
+    setLayout(wrapperLayout);
+
+    auto *mainLayout = new QVBoxLayout;
+    wrapperLayout->addLayout(mainLayout, 0, 1);
 
     // label
-    auto *labelLayout = new QHBoxLayout;
-    mainLayout->addLayout(labelLayout);
+
     QLabel *lbl = new QLabel;
+
     if (!multipleDocuments) {
-        auto *icon = new QLabel;
-        const auto warning = QApplication::style()->standardIcon(QStyle::SP_MessageBoxWarning);
-        icon->setPixmap(warning.pixmap(QSize(64, 64)));
-        labelLayout->addWidget(icon);
-        lbl->setWordWrap(true);
+        // Display a simpler dialog, similar to a QMessageBox::warning one
+
+        // Display a "warning" label as QMessageBox does
+        const auto icon = QApplication::style()->standardIcon(QStyle::SP_MessageBoxWarning);
+        const auto size = icon.actualSize(QSize(64, 64));
+        auto *iconLabel = new QLabel;
+        iconLabel->setPixmap(icon.pixmap(size));
+        wrapperLayout->addWidget(iconLabel, 0, 0);
+
         lbl->setText(i18n("The document \"%1\" has been modified. Do you want to save your changes or discard them?", documents.front()->documentName()));
+        lbl->setWordWrap(true);
+
     } else {
         lbl->setText(i18n("<qt>The following documents have been modified. Do you want to save them before closing?</qt>"));
     }
-    labelLayout->addWidget(lbl);
+
+    mainLayout->addWidget(lbl);
 
     // main view
     m_list = new QTreeWidget(this);
@@ -176,7 +186,7 @@ KateSaveModifiedDialog::KateSaveModifiedDialog(QWidget *parent, const std::vecto
 
     // dialog buttons
     QDialogButtonBox *buttons = new QDialogButtonBox(this);
-    mainLayout->addWidget(buttons);
+    wrapperLayout->addWidget(buttons, 1, 1);
 
     m_saveButton = new QPushButton;
     KGuiItem::assign(m_saveButton, KStandardGuiItem::save());

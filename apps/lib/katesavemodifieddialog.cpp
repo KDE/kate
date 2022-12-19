@@ -13,7 +13,9 @@
 #include <KMessageBox>
 #include <KStandardGuiItem>
 
+#include <QApplication>
 #include <QFileDialog>
+#include <QHBoxLayout>
 #include <QLabel>
 #include <QPushButton>
 #include <QTreeWidget>
@@ -124,7 +126,9 @@ private:
 KateSaveModifiedDialog::KateSaveModifiedDialog(QWidget *parent, const std::vector<KTextEditor::Document *> &documents)
     : QDialog(parent)
 {
-    setWindowTitle(i18n("Save Documents"));
+    const bool multipleDocuments = documents.size() != 1;
+
+    setWindowTitle(multipleDocuments ? i18n("Save Documents") : i18n("Close Document"));
     setObjectName(QStringLiteral("KateSaveModifiedDialog"));
     setModal(true);
 
@@ -132,8 +136,20 @@ KateSaveModifiedDialog::KateSaveModifiedDialog(QWidget *parent, const std::vecto
     setLayout(mainLayout);
 
     // label
-    QLabel *lbl = new QLabel(i18n("<qt>The following documents have been modified. Do you want to save them before closing?</qt>"), this);
-    mainLayout->addWidget(lbl);
+    auto *labelLayout = new QHBoxLayout;
+    mainLayout->addLayout(labelLayout);
+    QLabel *lbl = new QLabel;
+    if (!multipleDocuments) {
+        auto *icon = new QLabel;
+        const auto warning = QApplication::style()->standardIcon(QStyle::SP_MessageBoxWarning);
+        icon->setPixmap(warning.pixmap(QSize(64, 64)));
+        labelLayout->addWidget(icon);
+        lbl->setWordWrap(true);
+        lbl->setText(i18n("The document \"%1\" has been modified. Do you want to save your changes or discard them?", documents.front()->documentName()));
+    } else {
+        lbl->setText(i18n("<qt>The following documents have been modified. Do you want to save them before closing?</qt>"));
+    }
+    labelLayout->addWidget(lbl);
 
     // main view
     m_list = new QTreeWidget(this);
@@ -152,6 +168,11 @@ KateSaveModifiedDialog::KateSaveModifiedDialog(QWidget *parent, const std::vecto
     QPushButton *selectAllButton = new QPushButton(i18n("Se&lect All"), this);
     mainLayout->addWidget(selectAllButton);
     connect(selectAllButton, &QPushButton::clicked, this, &KateSaveModifiedDialog::slotSelectAll);
+
+    if (!multipleDocuments) {
+        m_list->hide();
+        selectAllButton->hide();
+    }
 
     // dialog buttons
     QDialogButtonBox *buttons = new QDialogButtonBox(this);

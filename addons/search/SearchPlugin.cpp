@@ -355,14 +355,12 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
 
     a = actionCollection()->addAction(QStringLiteral("cut_searched_lines"));
     a->setText(i18n("Cut Searched Lines"));
-    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_X));
     a->setIcon(QIcon::fromTheme(QStringLiteral("edit-cut")));
     a->setWhatsThis(i18n("This will cut all highlighted search match lines from the current document to the clipboard"));
     connect(a, &QAction::triggered, this, &KatePluginSearchView::cutSearchedLines);
 
     a = actionCollection()->addAction(QStringLiteral("copy_searched_lines"));
     a->setText(i18n("Copy Searched Lines"));
-    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_C));
     a->setIcon(QIcon::fromTheme(QStringLiteral("edit-copy")));
     a->setWhatsThis(i18n("This will copy all highlighted search match lines in the current document to the clipboard"));
     connect(a, &QAction::triggered, this, &KatePluginSearchView::copySearchedLines);

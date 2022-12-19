@@ -401,6 +401,12 @@ private:
      * SDI mode: open every new document in a new window in most cases
      */
     bool m_sdiMode = false;
+
+    /**
+     * was the welcome view already shown?
+     * ensures it doesn't auto popup multiple times
+     */
+    bool m_welcomeViewAlreadyShown = false;
 };
 
 #endif

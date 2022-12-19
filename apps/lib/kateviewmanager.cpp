@@ -1683,7 +1683,7 @@ void KateViewManager::showWelcomeViewOrNewDocumentIfNeeded()
         // the user can decide: welcome page or a new untitled document for a new window?
         KSharedConfig::Ptr config = KSharedConfig::openConfig();
         KConfigGroup cgGeneral = KConfigGroup(config, "General");
-        if (cgGeneral.readEntry("Show welcome view for new window", true)) {
+        if (!m_welcomeViewAlreadyShown && cgGeneral.readEntry("Show welcome view for new window", true)) {
             showWelcomeView();
         } else {
             // don't use slotDocumentNew() to avoid dummy new windows in SDI mode
@@ -1697,6 +1697,7 @@ void KateViewManager::showWelcomeView()
 {
     auto welcomeView = new WelcomeView(this);
     mainWindow()->addWidget(welcomeView);
+    m_welcomeViewAlreadyShown = true;
 }
 
 void KateViewManager::triggerActiveViewFocus()

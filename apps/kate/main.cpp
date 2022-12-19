@@ -41,6 +41,12 @@
 #include "config-kate.h"
 
 #if HAVE_X11
+
+#include "kwindowsystem_version.h"
+#if KWINDOWSYSTEM_VERSION > QT_VERSION_CHECK(5, 101, 0)
+#include <KX11Extras>
+#endif
+
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 #include <private/qtx11extras_p.h>
 #else
@@ -351,7 +357,16 @@ int main(int argc, char **argv)
         // prefer the Kate instance running on the current virtual desktop
         bool foundRunningService = false;
         if ((!force_new) && (serviceName.isEmpty())) {
-            const int desktopnumber = KWindowSystem::currentDesktop();
+            int desktopnumber = 1;
+#if KWINDOWSYSTEM_VERSION > QT_VERSION_CHECK(5, 101, 0)
+#if HAVE_X11
+            if (KWindowSystem::isPlatformX11()) {
+                desktopnumber = KX11Extras::currentDesktop();
+            }
+#endif
+#else
+            desktopnumber = KWindowSystem::currentDesktop();
+#endif
             for (int s = 0; s < kateServices.count(); s++) {
                 serviceName = kateServices[s];
 

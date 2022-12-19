@@ -92,6 +92,15 @@ the right.</para>
 <variablelist>
 
 <varlistentry>
+<term><anchor id="config-dialog-general-open-each-document"/>
+<guilabel>Open each document in its own window</guilabel></term>
+<listitem><para>If enabled, each document will be opened in its own window.
+If not enabled, each document will be opened in a new tab in the current
+window.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
 <term><anchor id="config-dialog-general-switch-to-output"/>
 <guilabel>Switch to output view upon message type</guilabel></term>
 <listitem><para>This option allows configuring when &kate; should show an

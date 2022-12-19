@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-05 00:50+0000\n"
+"POT-Creation-Date: 2022-12-19 00:49+0000\n"
 "PO-Revision-Date: 2022-12-08 23:08+0100\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
@@ -198,7 +198,7 @@ msgstr "Отменяне на операцията"
 msgid " canceled."
 msgstr " отменено."
 
-#: gitwidget.cpp:308 kateprojectview.cpp:69
+#: gitwidget.cpp:308 kateprojectview.cpp:68
 #, kde-format
 msgid "Filter..."
 msgstr "Филтър..."
@@ -484,12 +484,12 @@ msgstr "Сигурни ли сте, че желаете да отхвърлит�
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "Наистина ли искате да премахнете тези непроследени промени?"
 
-#: kateproject.cpp:218
+#: kateproject.cpp:217
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "Неправилен JSON файл '%1': %2"
 
-#: kateproject.cpp:523
+#: kateproject.cpp:522
 #, kde-format
 msgid "<untracked>"
 msgstr "<непроследен>"
@@ -934,12 +934,12 @@ msgstr "Изтриване на файл"
 msgid "Do you want to delete the file '%1'?"
 msgstr ""
 
-#: kateprojectview.cpp:60
+#: kateprojectview.cpp:59
 #, kde-format
 msgid "Checkout Git Branch"
 msgstr ""
 
-#: kateprojectview.cpp:83
+#: kateprojectview.cpp:82
 #, kde-format
 msgid "Checkout branch"
 msgstr ""

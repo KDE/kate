@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-24 00:49+0000\n"
+"POT-Creation-Date: 2022-12-19 00:49+0000\n"
 "PO-Revision-Date: 2022-11-25 06:30+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -176,64 +176,64 @@ msgstr "სამიზნეები"
 msgid "Target %1"
 msgstr "სამიზნე %1"
 
-#: debugview.cpp:38
+#: debugview.cpp:35
 #, kde-format
 msgid "Locals"
 msgstr "ლოკალურები"
 
-#: debugview.cpp:363
+#: debugview.cpp:360
 #, kde-format
 msgid "Could not start debugger process"
 msgstr ""
 
-#: debugview.cpp:421
+#: debugview.cpp:418
 #, kde-format
 msgid "*** gdb exited normally ***"
 msgstr "*** gdb ნორმალურად დასრულდა ***"
 
-#: debugview.cpp:620
+#: debugview.cpp:617
 #, kde-format
 msgid "all threads running"
 msgstr "ყველა ნაკადი გაშვებულია"
 
-#: debugview.cpp:622
+#: debugview.cpp:619
 #, kde-format
 msgid "thread(s) running: %1"
 msgstr "გაშვებული ნაკადები: %1"
 
-#: debugview.cpp:627 debugview_dap.cpp:269
+#: debugview.cpp:624 debugview_dap.cpp:269
 #, kde-format
 msgid "stopped (%1)."
 msgstr "გაჩერებული (%1)."
 
-#: debugview.cpp:631 debugview_dap.cpp:277
+#: debugview.cpp:628 debugview_dap.cpp:277
 #, kde-format
 msgid "Active thread: %1 (all threads stopped)."
 msgstr "აქტიური ნაკადი: %1 (ყველა ნაკადი შეჩერდა)."
 
-#: debugview.cpp:633 debugview_dap.cpp:279
+#: debugview.cpp:630 debugview_dap.cpp:279
 #, kde-format
 msgid "Active thread: %1."
 msgstr "აქტიური ნაკადი: %1."
 
-#: debugview.cpp:652
+#: debugview.cpp:649
 #, kde-format
 msgid "Current frame: %1:%2"
 msgstr "მიმდინარე კადრი: %1:%2"
 
-#: debugview.cpp:679
+#: debugview.cpp:676
 #, kde-format
 msgid "Host: %1. Target: %1"
 msgstr "ჰოსტი: %1. სამიზნე: %1"
 
-#: debugview.cpp:1230
+#: debugview.cpp:1227
 #, kde-format
 msgid ""
 "gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
 "Shutting down."
 msgstr ""
 
-#: debugview.cpp:1232
+#: debugview.cpp:1229
 #, kde-format
 msgid "gdb-mi: Could not parse last response: %1"
 msgstr ""

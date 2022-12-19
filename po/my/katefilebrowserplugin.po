@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-06 00:48+0000\n"
+"POT-Creation-Date: 2022-12-19 00:49+0000\n"
 "PO-Revision-Date: 2021-09-15 05:32+0630\n"
 "Last-Translator: \n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
@@ -18,60 +18,60 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 2.2.1\n"
 
-#: katefilebrowser.cpp:106
+#: katefilebrowser.cpp:104
 #, kde-format
 msgid "Search"
 msgstr "ရှာမည်"
 
-#: katefilebrowser.cpp:120
+#: katefilebrowser.cpp:118
 #, kde-format
 msgid "Enter a name filter to limit which files are displayed."
 msgstr ""
 
-#: katefilebrowser.cpp:299
+#: katefilebrowser.cpp:297
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open With"
 msgstr "ဖြင့် ဖွင့်မည်"
 
-#: katefilebrowser.cpp:328
+#: katefilebrowser.cpp:326
 #, kde-format
 msgid "&Other..."
 msgstr "&Oအခြား..."
 
-#: katefilebrowser.cpp:359
+#: katefilebrowser.cpp:357
 #, kde-format
 msgid "You are trying to open 1 file, are you sure?"
 msgid_plural "You are trying to open %1 files, are you sure?"
 msgstr[0] "သင်သည် ဖိုင်လ် %1ခု ဖွင့်ရန် ကြိုးပမ်းနေသည်။ သေချာပါသလား။"
 
-#: katefilebrowser.cpp:361
+#: katefilebrowser.cpp:359
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr ""
 
-#: katefilebrowser.cpp:428
+#: katefilebrowser.cpp:426
 #, kde-format
 msgid "Bookmarks"
 msgstr "စာမျက်နှာအမှတ်အသားများ"
 
-#: katefilebrowser.cpp:436
+#: katefilebrowser.cpp:434
 #, kde-format
 msgid "Current Document Folder"
 msgstr "လက်ရှိမှတ်တမ်းပုံနှိပ်မူ ဖိုလ်ဒါ"
 
-#: katefilebrowser.cpp:444
+#: katefilebrowser.cpp:442
 #, kde-format
 msgid "Options"
 msgstr "ရွေးချယ်စရာများ"
 
-#: katefilebrowser.cpp:465
+#: katefilebrowser.cpp:463
 #, kde-format
 msgid "Automatically synchronize with current document"
 msgstr ""
 
-#: katefilebrowser.cpp:472
+#: katefilebrowser.cpp:470
 #, kde-format
 msgid "Highlight current file"
 msgstr ""

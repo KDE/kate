@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-24 00:49+0000\n"
+"POT-Creation-Date: 2022-12-19 00:49+0000\n"
 "PO-Revision-Date: 2022-07-13 15:25+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -175,68 +175,68 @@ msgstr "대상"
 msgid "Target %1"
 msgstr "대상 %1"
 
-#: debugview.cpp:38
+#: debugview.cpp:35
 #, kde-format
 msgid "Locals"
 msgstr "지역 변수"
 
-#: debugview.cpp:363
+#: debugview.cpp:360
 #, kde-format
 msgid "Could not start debugger process"
 msgstr "디버거 프로세스를 시작할 수 없음"
 
-#: debugview.cpp:421
+#: debugview.cpp:418
 #, kde-format
 msgid "*** gdb exited normally ***"
 msgstr "*** gdb가 정상적으로 종료됨 ***"
 
-#: debugview.cpp:620
+#: debugview.cpp:617
 #, fuzzy, kde-format
 #| msgid "all threads continued"
 msgid "all threads running"
 msgstr "모든 스레드 다시 시작됨"
 
-#: debugview.cpp:622
+#: debugview.cpp:619
 #, fuzzy, kde-format
 #| msgid "thread %1"
 msgid "thread(s) running: %1"
 msgstr "스레드 %1"
 
-#: debugview.cpp:627 debugview_dap.cpp:269
+#: debugview.cpp:624 debugview_dap.cpp:269
 #, kde-format
 msgid "stopped (%1)."
 msgstr "정지됨(%1)."
 
-#: debugview.cpp:631 debugview_dap.cpp:277
+#: debugview.cpp:628 debugview_dap.cpp:277
 #, kde-format
 msgid "Active thread: %1 (all threads stopped)."
 msgstr "활성 스레드: %1(모든 스레드 중단됨)."
 
-#: debugview.cpp:633 debugview_dap.cpp:279
+#: debugview.cpp:630 debugview_dap.cpp:279
 #, kde-format
 msgid "Active thread: %1."
 msgstr "활성 스레드: %1."
 
-#: debugview.cpp:652
+#: debugview.cpp:649
 #, fuzzy, kde-format
 #| msgid "Current frame: "
 msgid "Current frame: %1:%2"
 msgstr "현재 프레임: "
 
-#: debugview.cpp:679
+#: debugview.cpp:676
 #, fuzzy, kde-format
 #| msgid "Target %1"
 msgid "Host: %1. Target: %1"
 msgstr "대상 %1"
 
-#: debugview.cpp:1230
+#: debugview.cpp:1227
 #, kde-format
 msgid ""
 "gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
 "Shutting down."
 msgstr ""
 
-#: debugview.cpp:1232
+#: debugview.cpp:1229
 #, kde-format
 msgid "gdb-mi: Could not parse last response: %1"
 msgstr ""

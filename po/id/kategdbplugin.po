@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE Frameworks 5 Applications\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-24 00:49+0000\n"
+"POT-Creation-Date: 2022-12-19 00:49+0000\n"
 "PO-Revision-Date: 2019-11-09 21:15+0700\n"
 "Last-Translator: Wantoyo <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -177,66 +177,66 @@ msgstr "Sasaran"
 msgid "Target %1"
 msgstr "Sasaran %1"
 
-#: debugview.cpp:38
+#: debugview.cpp:35
 #, kde-format
 msgid "Locals"
 msgstr ""
 
-#: debugview.cpp:363
+#: debugview.cpp:360
 #, kde-format
 msgid "Could not start debugger process"
 msgstr "Tidak dapat memulai proses pendebug"
 
-#: debugview.cpp:421
+#: debugview.cpp:418
 #, kde-format
 msgid "*** gdb exited normally ***"
 msgstr "*** gdb keluar secara normal ***"
 
-#: debugview.cpp:620
+#: debugview.cpp:617
 #, kde-format
 msgid "all threads running"
 msgstr ""
 
-#: debugview.cpp:622
+#: debugview.cpp:619
 #, fuzzy, kde-format
 #| msgid "Thread %1"
 msgid "thread(s) running: %1"
 msgstr "Thread %1"
 
-#: debugview.cpp:627 debugview_dap.cpp:269
+#: debugview.cpp:624 debugview_dap.cpp:269
 #, kde-format
 msgid "stopped (%1)."
 msgstr ""
 
-#: debugview.cpp:631 debugview_dap.cpp:277
+#: debugview.cpp:628 debugview_dap.cpp:277
 #, kde-format
 msgid "Active thread: %1 (all threads stopped)."
 msgstr ""
 
-#: debugview.cpp:633 debugview_dap.cpp:279
+#: debugview.cpp:630 debugview_dap.cpp:279
 #, kde-format
 msgid "Active thread: %1."
 msgstr ""
 
-#: debugview.cpp:652
+#: debugview.cpp:649
 #, kde-format
 msgid "Current frame: %1:%2"
 msgstr ""
 
-#: debugview.cpp:679
+#: debugview.cpp:676
 #, fuzzy, kde-format
 #| msgid "Target %1"
 msgid "Host: %1. Target: %1"
 msgstr "Sasaran %1"
 
-#: debugview.cpp:1230
+#: debugview.cpp:1227
 #, kde-format
 msgid ""
 "gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
 "Shutting down."
 msgstr ""
 
-#: debugview.cpp:1232
+#: debugview.cpp:1229
 #, kde-format
 msgid "gdb-mi: Could not parse last response: %1"
 msgstr ""

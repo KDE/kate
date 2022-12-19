@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-05 00:50+0000\n"
+"POT-Creation-Date: 2022-12-19 00:49+0000\n"
 "PO-Revision-Date: 2022-02-01 10:20+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -202,7 +202,7 @@ msgstr "Művelet megszakítása"
 msgid " canceled."
 msgstr " megszakítva."
 
-#: gitwidget.cpp:308 kateprojectview.cpp:69
+#: gitwidget.cpp:308 kateprojectview.cpp:68
 #, kde-format
 msgid "Filter..."
 msgstr "Szűrő…"
@@ -499,12 +499,12 @@ msgstr "Biztosan el szeretné dobni a változtatásokat?"
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "Biztosan törölni szeretné ezeket a nem követett változtatásokat?"
 
-#: kateproject.cpp:218
+#: kateproject.cpp:217
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr ""
 
-#: kateproject.cpp:523
+#: kateproject.cpp:522
 #, kde-format
 msgid "<untracked>"
 msgstr "<nem követett>"
@@ -957,12 +957,12 @@ msgstr "Fájl törlése"
 msgid "Do you want to delete the file '%1'?"
 msgstr "Szeretné törölni a(z) „%1” fájlt?"
 
-#: kateprojectview.cpp:60
+#: kateprojectview.cpp:59
 #, kde-format
 msgid "Checkout Git Branch"
 msgstr "Git ág átváltása"
 
-#: kateprojectview.cpp:83
+#: kateprojectview.cpp:82
 #, fuzzy, kde-format
 #| msgid "Checkout Branch"
 msgid "Checkout branch"

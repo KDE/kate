@@ -1371,21 +1371,9 @@ void KateMainWindow::activateWidget(QWidget *widget)
     }
 }
 
-void KateMainWindow::showDiff(const QByteArray &wordDiff, const DiffParams &params)
+void KateMainWindow::showDiff(const QByteArray &diff, const DiffParams &params)
 {
-    auto w = new DiffWidget(params, this);
-    if (!params.tabTitle.isEmpty()) {
-        w->setWindowTitle(params.tabTitle);
-    } else {
-        if (params.destFile.isEmpty())
-            w->setWindowTitle(i18n("Diff %1", Utils::fileNameFromPath(params.srcFile)));
-        else
-            w->setWindowTitle(i18n("Diff %1..%2", Utils::fileNameFromPath(params.srcFile), Utils::fileNameFromPath(params.destFile)));
-    }
-
-    w->setWindowIcon(QIcon::fromTheme(QStringLiteral("text-x-patch")));
-    addWidget(w);
-    w->openDiff(wordDiff);
+    DiffWidgetManager::openDiff(diff, params, this);
 }
 
 void KateMainWindow::showMessage(const QVariantMap &map)

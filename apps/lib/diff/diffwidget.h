@@ -13,9 +13,26 @@ namespace KSyntaxHighlighting
 class SyntaxHighlighter;
 }
 
+/**
+ * - Small wrapper over DiffWidget. It tries to reuse an existing diff widget instead of opening a new one
+ * - Two DiffWidgets are considered equal if their DiffParams.arguments match
+ * - The diff is always recalculated
+ */
+class DiffWidgetManager
+{
+public:
+    static void openDiff(const QByteArray &diff, DiffParams p, class KateMainWindow *mw);
+    static void diffDocs(KTextEditor::Document *l, KTextEditor::Document *r, class KateMainWindow *mw);
+
+private:
+    static DiffWidget *existingDiffWidgetForParams(KateMainWindow *mw, const DiffParams &p);
+};
+
 class DiffWidget : public QWidget
 {
     Q_OBJECT
+    friend DiffWidgetManager;
+
 public:
     explicit DiffWidget(DiffParams p, QWidget *parent = nullptr);
 
@@ -50,6 +67,7 @@ private:
     enum ApplyFlags { None = 0, Staged = 1, Discard = 2 };
     void applyDiff(const QString &diff, ApplyFlags flags);
     void runGitDiff();
+    static QStringList diffDocsGitArgs(KTextEditor::Document *l, KTextEditor::Document *r);
 
     void jumpToNextFile();
     void jumpToPrevFile();

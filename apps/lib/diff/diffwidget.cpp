@@ -5,6 +5,7 @@
 #include "diffwidget.h"
 #include "gitdiff.h"
 #include "gitprocess.h"
+#include "katemainwindow.h"
 #include "ktexteditor_utils.h"
 
 #include <QApplication>
@@ -28,6 +29,66 @@
 #include <KSyntaxHighlighting/Format>
 #include <KSyntaxHighlighting/Repository>
 #include <KTextEditor/Editor>
+
+DiffWidget *DiffWidgetManager::existingDiffWidgetForParams(KateMainWindow *mw, const DiffParams &p)
+{
+    const auto widgets = mw->widgets();
+    for (auto widget : widgets) {
+        auto diffWidget = qobject_cast<DiffWidget *>(widget);
+        if (!diffWidget) {
+            continue;
+        }
+
+        if (diffWidget->m_params.arguments == p.arguments) {
+            return diffWidget;
+            break;
+        }
+    }
+    return nullptr;
+}
+
+void DiffWidgetManager::openDiff(const QByteArray &diff, DiffParams p, class KateMainWindow *mw)
+{
+    DiffWidget *existing = existingDiffWidgetForParams(mw, p);
+    if (!existing) {
+        existing = new DiffWidget(p, mw);
+        if (!p.tabTitle.isEmpty()) {
+            existing->setWindowTitle(p.tabTitle);
+        } else {
+            if (p.destFile.isEmpty())
+                existing->setWindowTitle(i18n("Diff %1", Utils::fileNameFromPath(p.srcFile)));
+            else
+                existing->setWindowTitle(i18n("Diff %1..%2", Utils::fileNameFromPath(p.srcFile), Utils::fileNameFromPath(p.destFile)));
+        }
+        existing->setWindowIcon(QIcon::fromTheme(QStringLiteral("text-x-patch")));
+        existing->openDiff(diff);
+        mw->addWidget(existing);
+    } else {
+        existing->clearData();
+        existing->m_params = p;
+        existing->openDiff(diff);
+        mw->activateWidget(existing);
+    }
+}
+
+void DiffWidgetManager::diffDocs(KTextEditor::Document *l, KTextEditor::Document *r, class KateMainWindow *mw)
+{
+    DiffParams p;
+    p.arguments = DiffWidget::diffDocsGitArgs(l, r);
+    DiffWidget *existing = existingDiffWidgetForParams(mw, p);
+    if (!existing) {
+        existing = new DiffWidget(p, mw);
+        existing->diffDocs(l, r);
+        existing->setWindowTitle(i18n("Diff %1 .. %2", l->documentName(), r->documentName()));
+        existing->setWindowIcon(QIcon::fromTheme(QStringLiteral("text-x-patch")));
+        mw->addWidget(existing);
+    } else {
+        existing->clearData();
+        existing->m_params = p;
+        existing->diffDocs(l, r);
+        mw->activateWidget(existing);
+    }
+}
 
 class Toolbar : public QToolBar
 {
@@ -346,6 +407,13 @@ void DiffWidget::clearData()
     m_commitInfo->hide();
 }
 
+QStringList DiffWidget::diffDocsGitArgs(KTextEditor::Document *l, KTextEditor::Document *r)
+{
+    const QString left = l->url().toLocalFile();
+    const QString right = r->url().toLocalFile();
+    return {QStringLiteral("diff"), QStringLiteral("--no-color"), QStringLiteral("--no-index"), left, right};
+}
+
 void DiffWidget::diffDocs(KTextEditor::Document *l, KTextEditor::Document *r)
 {
     clearData();
@@ -359,11 +427,8 @@ void DiffWidget::diffDocs(KTextEditor::Document *l, KTextEditor::Document *r)
         rightHl->setDefinition(repo.definitionForMimeType(r->mimeType()));
     }
 
-    const QString left = l->url().toLocalFile();
-    const QString right = r->url().toLocalFile();
-
     QPointer<QProcess> git = new QProcess(this);
-    setupGitProcess(*git, qApp->applicationDirPath(), {QStringLiteral("diff"), QStringLiteral("--no-index"), left, right});
+    setupGitProcess(*git, qApp->applicationDirPath(), diffDocsGitArgs(l, r));
 
     connect(git, &QProcess::readyReadStandardOutput, this, [this, git]() {
         onTextReceived(git->readAllStandardOutput());
@@ -377,6 +442,7 @@ void DiffWidget::diffDocs(KTextEditor::Document *l, KTextEditor::Document *r)
             onError(git->readAllStandardError(), git->exitCode());
         }
     });
+    m_params.arguments = git->arguments();
     git->start();
 }
 

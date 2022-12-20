@@ -354,13 +354,13 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
     connect(a, &QAction::triggered, this, &KatePluginSearchView::goToPreviousMatch);
 
     a = actionCollection()->addAction(QStringLiteral("cut_searched_lines"));
-    a->setText(i18n("Cut Searched Lines"));
+    a->setText(i18n("Cut Matching Lines"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("edit-cut")));
     a->setWhatsThis(i18n("This will cut all highlighted search match lines from the current document to the clipboard"));
     connect(a, &QAction::triggered, this, &KatePluginSearchView::cutSearchedLines);
 
     a = actionCollection()->addAction(QStringLiteral("copy_searched_lines"));
-    a->setText(i18n("Copy Searched Lines"));
+    a->setText(i18n("Copy Matching Lines"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("edit-copy")));
     a->setWhatsThis(i18n("This will copy all highlighted search match lines in the current document to the clipboard"));
     connect(a, &QAction::triggered, this, &KatePluginSearchView::copySearchedLines);
@@ -627,6 +627,8 @@ void KatePluginSearchView::cutSearchedLines()
 
     // Iterate in descending line number order to remove the search matched lines to complete
     // the "cut" action.
+    // Make one transaction for the whole remove to get all removes in one "undo"
+    KTextEditor::Document::EditingTransaction transaction(currentDocument);
     for (auto iter = lineNumbers.rbegin(); iter != lineNumbers.rend(); ++iter) {
         int lineNumber = *iter;
         currentDocument->removeLine(lineNumber);

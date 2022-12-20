@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- kate: space-indent on; indent-width 2; replace-tabs on; -->
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
-<gui name="kate" version="106" translationDomain="kate">
+<gui name="kate" version="102" translationDomain="kate">
   <MenuBar>
     <Menu name="file" noMerge="1">
       <text>&amp;File</text>
@@ -181,3 +180,4 @@
     </Menu>
   </Menu>
 </gui>
+<!-- kate: space-indent on; indent-width 2; replace-tabs on; -->

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-05 00:50+0000\n"
+"POT-Creation-Date: 2022-12-19 00:49+0000\n"
 "PO-Revision-Date: 2022-12-03 10:01+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -199,7 +199,7 @@ msgstr "Utzi eragiketa bertan behera"
 msgid " canceled."
 msgstr " utzita."
 
-#: gitwidget.cpp:308 kateprojectview.cpp:69
+#: gitwidget.cpp:308 kateprojectview.cpp:68
 #, kde-format
 msgid "Filter..."
 msgstr "Iragazkia..."
@@ -489,12 +489,12 @@ msgid "Are you sure you want to remove these untracked changes?"
 msgstr ""
 "Ziur zaude aztarna jarraitzeke duten aldaketa hauek kendu nahi dituzula?"
 
-#: kateproject.cpp:218
+#: kateproject.cpp:217
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "Gaizki osatutako JSON fitxategia '%1': %2"
 
-#: kateproject.cpp:523
+#: kateproject.cpp:522
 #, kde-format
 msgid "<untracked>"
 msgstr "<aztarna jarraitzeke>"
@@ -943,12 +943,12 @@ msgstr "Ezabatu fitxategia"
 msgid "Do you want to delete the file '%1'?"
 msgstr "'%1' fitxategia ezabatu nahi duzu?"
 
-#: kateprojectview.cpp:60
+#: kateprojectview.cpp:59
 #, kde-format
 msgid "Checkout Git Branch"
 msgstr "Eskuratu Git adarra"
 
-#: kateprojectview.cpp:83
+#: kateprojectview.cpp:82
 #, kde-format
 msgid "Checkout branch"
 msgstr "Eskuratu adarra"

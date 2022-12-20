@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-19 00:49+0000\n"
+"POT-Creation-Date: 2022-12-20 00:49+0000\n"
 "PO-Revision-Date: 2021-05-01 23:42-0700\n"
 "Last-Translator: A S Alam <aalam@satluj.org>\n"
 "Language-Team: Punjabi <punjabi-users@lists.sf.net>\n"
@@ -1049,7 +1049,7 @@ msgstr ""
 "<p>ਡੌਕੂਮੈਂਟ '%1' ਸੋਧਿਆ ਤਾਂ ਗਿਆ ਹੈ, ਪਰ ਇਸ ਨੂੰ ਸੰਭਾਲਿਆ ਨਹੀਂ ਗਿਆ ਹੈ।</p><p>ਕੀ ਤੁਸੀਂ ਇਹਨਾਂ "
 "ਸੰਭਾਲਣਾ ਚਾਹੁੰਦੇ ਹੋ ਜਾਂ ਰੱਦ ਕਰਨਾ?</p>"
 
-#: lib/katedocmanager.cpp:292
+#: lib/katedocmanager.cpp:292 lib/katesavemodifieddialog.cpp:131
 #, kde-format
 msgid "Close Document"
 msgstr "ਡੌਕੂਮੈਂਟ ਬੰਦ ਕਰੋ"
@@ -1768,17 +1768,29 @@ msgctxt "@info"
 msgid "Log"
 msgstr "ਲਾਗ"
 
-#: lib/katesavemodifieddialog.cpp:77
+#: lib/katesavemodifieddialog.cpp:79
 #, kde-format
 msgid "Save As (%1)"
 msgstr "(%1) ਵਾਂਗ ਸੰਭਾਲੋ"
 
-#: lib/katesavemodifieddialog.cpp:127
+#: lib/katesavemodifieddialog.cpp:131
 #, kde-format
 msgid "Save Documents"
 msgstr "ਡੌਕੂਮੈਂਟ ਸੰਭਾਲੋ"
 
-#: lib/katesavemodifieddialog.cpp:135
+#: lib/katesavemodifieddialog.cpp:155
+#, fuzzy, kde-format
+#| msgid ""
+#| "<p>The document '%1' has been modified, but not saved.</p><p>Do you want "
+#| "to save your changes or discard them?</p>"
+msgid ""
+"The document \"%1\" has been modified. Do you want to save your changes or "
+"discard them?"
+msgstr ""
+"<p>ਡੌਕੂਮੈਂਟ '%1' ਸੋਧਿਆ ਤਾਂ ਗਿਆ ਹੈ, ਪਰ ਇਸ ਨੂੰ ਸੰਭਾਲਿਆ ਨਹੀਂ ਗਿਆ ਹੈ।</p><p>ਕੀ ਤੁਸੀਂ ਇਹਨਾਂ "
+"ਸੰਭਾਲਣਾ ਚਾਹੁੰਦੇ ਹੋ ਜਾਂ ਰੱਦ ਕਰਨਾ?</p>"
+
+#: lib/katesavemodifieddialog.cpp:159
 #, kde-format
 msgid ""
 "<qt>The following documents have been modified. Do you want to save them "
@@ -1787,22 +1799,22 @@ msgstr ""
 "<qt>ਹੇਠ ਦਿੱਤੇ ਡੌਕੂਮੈਂਟਾਂ ਨੂੰ ਸੋਧਿਆ ਗਿਆ ਹੈ। ਕੀ ਤੁਸੀਂ ਇਹਨਾਂ ਨੂੰ ਬੰਦ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਸੰਭਾਲਣਾ ਚਾਹੁੰਦੇ ਹੋ?</"
 "qt>"
 
-#: lib/katesavemodifieddialog.cpp:142
+#: lib/katesavemodifieddialog.cpp:168
 #, kde-format
 msgid "Documents"
 msgstr "ਡੌਕੂਮੈਂਟ"
 
-#: lib/katesavemodifieddialog.cpp:142
+#: lib/katesavemodifieddialog.cpp:168
 #, kde-format
 msgid "Location"
 msgstr "ਟਿਕਾਣਾ"
 
-#: lib/katesavemodifieddialog.cpp:152
+#: lib/katesavemodifieddialog.cpp:178
 #, kde-format
 msgid "Se&lect All"
 msgstr "ਸਭ ਚੁਣੋ(&l)"
 
-#: lib/katesavemodifieddialog.cpp:225
+#: lib/katesavemodifieddialog.cpp:256
 #, kde-format
 msgid ""
 "Data you requested to be saved could not be written. Please choose how you "

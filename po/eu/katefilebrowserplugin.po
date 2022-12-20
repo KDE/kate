@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-06 00:48+0000\n"
+"POT-Creation-Date: 2022-12-19 00:49+0000\n"
 "PO-Revision-Date: 2022-08-19 22:21+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -22,61 +22,61 @@ msgstr ""
 "X-Generator: Lokalize 22.04.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: katefilebrowser.cpp:106
+#: katefilebrowser.cpp:104
 #, kde-format
 msgid "Search"
 msgstr "Bilatu"
 
-#: katefilebrowser.cpp:120
+#: katefilebrowser.cpp:118
 #, kde-format
 msgid "Enter a name filter to limit which files are displayed."
 msgstr "Sartu izen iragazki bat bistaratutako fitxategiak mugatzeko."
 
-#: katefilebrowser.cpp:299
+#: katefilebrowser.cpp:297
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open With"
 msgstr "Ireki honekin"
 
-#: katefilebrowser.cpp:328
+#: katefilebrowser.cpp:326
 #, kde-format
 msgid "&Other..."
 msgstr "&Beste batzuk..."
 
-#: katefilebrowser.cpp:359
+#: katefilebrowser.cpp:357
 #, kde-format
 msgid "You are trying to open 1 file, are you sure?"
 msgid_plural "You are trying to open %1 files, are you sure?"
 msgstr[0] "Fitxategi bat ireki nahian zabiltza, ziur zaude?"
 msgstr[1] "%1 fitxategi ireki nahian zabiltza, ziur zaude?"
 
-#: katefilebrowser.cpp:361
+#: katefilebrowser.cpp:359
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Ireki fitxategi guztiak"
 
-#: katefilebrowser.cpp:428
+#: katefilebrowser.cpp:426
 #, kde-format
 msgid "Bookmarks"
 msgstr "Laster-markak"
 
-#: katefilebrowser.cpp:436
+#: katefilebrowser.cpp:434
 #, kde-format
 msgid "Current Document Folder"
 msgstr "Uneko dokumentuaren karpeta"
 
-#: katefilebrowser.cpp:444
+#: katefilebrowser.cpp:442
 #, kde-format
 msgid "Options"
 msgstr "Aukerak"
 
-#: katefilebrowser.cpp:465
+#: katefilebrowser.cpp:463
 #, kde-format
 msgid "Automatically synchronize with current document"
 msgstr "Automatikoki sinkronizatu uneko dokumentuarekin"
 
-#: katefilebrowser.cpp:472
+#: katefilebrowser.cpp:470
 #, kde-format
 msgid "Highlight current file"
 msgstr "Nabarmendu uneko fitxategia"

@@ -18,15 +18,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-19 00:49+0000\n"
-"PO-Revision-Date: 2022-12-04 12:23+0100\n"
+"POT-Creation-Date: 2022-12-20 00:49+0000\n"
+"PO-Revision-Date: 2022-12-19 10:34+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.08.3\n"
+"X-Generator: Lokalize 22.12.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -745,7 +745,7 @@ msgstr "&Gedrag"
 #: lib/kateconfigdialog.cpp:375
 #, kde-format
 msgid "Open each document in its own window"
-msgstr ""
+msgstr "Elk document in zijn eigen venster openen"
 
 #: lib/kateconfigdialog.cpp:378
 #, kde-format
@@ -753,6 +753,9 @@ msgid ""
 "If enabled, each document will be opened in its own window. If not enabled, "
 "each document will be opened in a new tab in the current window."
 msgstr ""
+"Indien ingeschakeld zal elk document geopend worden in zijn eigen venster. "
+"Zo niet, elk document zal geopend worden in een nieuw tabblad in het huidige "
+"venster."
 
 #: lib/kateconfigdialog.cpp:388
 #, kde-format
@@ -1074,7 +1077,7 @@ msgstr ""
 "<p>Het document '%1' is gewijzigd, maar niet opgeslagen.</p><p>Wilt u de "
 "wijzigingen opslaan of verwerpen?</p>"
 
-#: lib/katedocmanager.cpp:292
+#: lib/katedocmanager.cpp:292 lib/katesavemodifieddialog.cpp:131
 #, kde-format
 msgid "Close Document"
 msgstr "Document sluiten"
@@ -1797,17 +1800,29 @@ msgctxt "@info"
 msgid "Log"
 msgstr "Log"
 
-#: lib/katesavemodifieddialog.cpp:77
+#: lib/katesavemodifieddialog.cpp:79
 #, kde-format
 msgid "Save As (%1)"
 msgstr "Opslaan als (%1)"
 
-#: lib/katesavemodifieddialog.cpp:127
+#: lib/katesavemodifieddialog.cpp:131
 #, kde-format
 msgid "Save Documents"
 msgstr "Document opslaan"
 
-#: lib/katesavemodifieddialog.cpp:135
+#: lib/katesavemodifieddialog.cpp:155
+#, fuzzy, kde-format
+#| msgid ""
+#| "<p>The document '%1' has been modified, but not saved.</p><p>Do you want "
+#| "to save your changes or discard them?</p>"
+msgid ""
+"The document \"%1\" has been modified. Do you want to save your changes or "
+"discard them?"
+msgstr ""
+"<p>Het document '%1' is gewijzigd, maar niet opgeslagen.</p><p>Wilt u de "
+"wijzigingen opslaan of verwerpen?</p>"
+
+#: lib/katesavemodifieddialog.cpp:159
 #, kde-format
 msgid ""
 "<qt>The following documents have been modified. Do you want to save them "
@@ -1816,22 +1831,22 @@ msgstr ""
 "<qt>Het volgende document is gewijzigd. Wilt u het opslaan voordat u afsluit?"
 "</qt>"
 
-#: lib/katesavemodifieddialog.cpp:142
+#: lib/katesavemodifieddialog.cpp:168
 #, kde-format
 msgid "Documents"
 msgstr "Documenten"
 
-#: lib/katesavemodifieddialog.cpp:142
+#: lib/katesavemodifieddialog.cpp:168
 #, kde-format
 msgid "Location"
 msgstr "Locatie"
 
-#: lib/katesavemodifieddialog.cpp:152
+#: lib/katesavemodifieddialog.cpp:178
 #, kde-format
 msgid "Se&lect All"
 msgstr "Alles se&lecteren"
 
-#: lib/katesavemodifieddialog.cpp:225
+#: lib/katesavemodifieddialog.cpp:256
 #, kde-format
 msgid ""
 "Data you requested to be saved could not be written. Please choose how you "

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-20 00:55+0000\n"
+"POT-Creation-Date: 2022-12-21 00:50+0000\n"
 "PO-Revision-Date: 2022-12-13 12:21\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -235,7 +235,7 @@ msgid "..."
 msgstr "..."
 
 #. i18n: ectx: property (text), widget (QPushButton, replaceButton)
-#: search.ui:192 SearchPlugin.cpp:493
+#: search.ui:192 SearchPlugin.cpp:505
 #, kde-format
 msgid "Replace"
 msgstr "替换"
@@ -515,110 +515,134 @@ msgstr "跳到下一个匹配"
 msgid "Go to Previous Match"
 msgstr "跳到上一个匹配"
 
-#: SearchPlugin.cpp:380
+#: SearchPlugin.cpp:357
+#, kde-format
+msgid "Cut Matching Lines"
+msgstr ""
+
+#: SearchPlugin.cpp:359
+#, kde-format
+msgid ""
+"This will cut all highlighted search match lines from the current document "
+"to the clipboard"
+msgstr ""
+
+#: SearchPlugin.cpp:363
+#, kde-format
+msgid "Copy Matching Lines"
+msgstr ""
+
+#: SearchPlugin.cpp:365
+#, kde-format
+msgid ""
+"This will copy all highlighted search match lines in the current document to "
+"the clipboard"
+msgstr ""
+
+#: SearchPlugin.cpp:392
 #, kde-format
 msgid ""
 "Comma separated list of file types to search in. Example: \"*.cpp,*.h\"\n"
 msgstr "逗号分割的要搜索的文件类型列表。例如：“*.cpp,*.h”\n"
 
-#: SearchPlugin.cpp:381
+#: SearchPlugin.cpp:393
 #, kde-format
 msgid ""
 "Comma separated list of files and directories to exclude from the search. "
 "Example: \"build*\""
 msgstr "用于排除在搜索外的逗号分割的文件和目录列表。例如：“build*”"
 
-#: SearchPlugin.cpp:383
+#: SearchPlugin.cpp:395
 #, kde-format
 msgid "Click to filter through results"
 msgstr "点击筛选结果"
 
-#: SearchPlugin.cpp:473
+#: SearchPlugin.cpp:485
 #, kde-format
 msgid "Find"
 msgstr "查找"
 
-#: SearchPlugin.cpp:1229
+#: SearchPlugin.cpp:1311
 #, kde-format
 msgid "Searching while you type was interrupted. It would have taken too long."
 msgstr "输入时搜索已中断。因为耗时过长。"
 
-#: SearchPlugin.cpp:1571
+#: SearchPlugin.cpp:1653
 #, kde-format
 msgid "Search Match"
 msgstr "选择匹配"
 
-#: SearchPlugin.cpp:1755 SearchPlugin.cpp:1832
+#: SearchPlugin.cpp:1837 SearchPlugin.cpp:1914
 #, kde-format
 msgid "Next from cursor"
 msgstr "从光标处的下一个"
 
-#: SearchPlugin.cpp:1772
+#: SearchPlugin.cpp:1854
 #, kde-format
 msgid "Starting from first match"
 msgstr "从第一个匹配开始"
 
-#: SearchPlugin.cpp:1792
+#: SearchPlugin.cpp:1874
 #, kde-format
 msgid "Continuing from first match"
 msgstr "从第一个匹配继续"
 
-#: SearchPlugin.cpp:1849
+#: SearchPlugin.cpp:1931
 #, kde-format
 msgid "Starting from last match"
 msgstr "从最后一个匹配开始"
 
-#: SearchPlugin.cpp:1869
+#: SearchPlugin.cpp:1951
 #, kde-format
 msgid "Continuing from last match"
 msgstr "从最后一个匹配继续"
 
-#: SearchPlugin.cpp:2028
+#: SearchPlugin.cpp:2110
 #, kde-format
 msgid "Search: %1"
 msgstr ""
 
-#: SearchPlugin.cpp:2159
+#: SearchPlugin.cpp:2241
 #, kde-format
 msgid "Copy all"
 msgstr "复制全部"
 
-#: SearchPlugin.cpp:2164
+#: SearchPlugin.cpp:2246
 #, kde-format
 msgid "Copy expanded"
 msgstr "复制展开内容"
 
-#: SearchPlugin.cpp:2167
+#: SearchPlugin.cpp:2249
 #, kde-format
 msgid "Export matches"
 msgstr "导出匹配项"
 
-#: SearchPlugin.cpp:2173
+#: SearchPlugin.cpp:2255
 #, kde-format
 msgid "Open as Editor Tab"
 msgstr ""
 
-#: SearchPlugin.cpp:2180
+#: SearchPlugin.cpp:2262
 #, kde-format
 msgid "Clear"
 msgstr "清除"
 
-#: SearchPlugin.cpp:2288 SearchPlugin.cpp:2322
+#: SearchPlugin.cpp:2370 SearchPlugin.cpp:2404
 #, kde-format
 msgid "Add..."
 msgstr "添加..."
 
-#: SearchPlugin.cpp:2300
+#: SearchPlugin.cpp:2382
 #, kde-format
 msgid "Search As You Type"
 msgstr "即输即搜"
 
-#: SearchPlugin.cpp:2371
+#: SearchPlugin.cpp:2453
 #, kde-format
 msgid "In Current Project"
 msgstr "当前工程"
 
-#: SearchPlugin.cpp:2373
+#: SearchPlugin.cpp:2455
 #, kde-format
 msgid "In All Open Projects"
 msgstr "全部打开的工程"

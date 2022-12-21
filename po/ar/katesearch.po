@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-20 00:55+0000\n"
+"POT-Creation-Date: 2022-12-21 00:50+0000\n"
 "PO-Revision-Date: 2022-10-22 20:17+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -319,7 +319,7 @@ msgid "..."
 msgstr "..."
 
 #. i18n: ectx: property (text), widget (QPushButton, replaceButton)
-#: search.ui:192 SearchPlugin.cpp:493
+#: search.ui:192 SearchPlugin.cpp:505
 #, kde-format
 msgid "Replace"
 msgstr "استبدل"
@@ -599,110 +599,134 @@ msgstr "انتقل إلى المطابقة التّالية"
 msgid "Go to Previous Match"
 msgstr "انتقل إلى المطابقة السّابقة"
 
-#: SearchPlugin.cpp:380
+#: SearchPlugin.cpp:357
+#, kde-format
+msgid "Cut Matching Lines"
+msgstr ""
+
+#: SearchPlugin.cpp:359
+#, kde-format
+msgid ""
+"This will cut all highlighted search match lines from the current document "
+"to the clipboard"
+msgstr ""
+
+#: SearchPlugin.cpp:363
+#, kde-format
+msgid "Copy Matching Lines"
+msgstr ""
+
+#: SearchPlugin.cpp:365
+#, kde-format
+msgid ""
+"This will copy all highlighted search match lines in the current document to "
+"the clipboard"
+msgstr ""
+
+#: SearchPlugin.cpp:392
 #, kde-format
 msgid ""
 "Comma separated list of file types to search in. Example: \"*.cpp,*.h\"\n"
 msgstr "قائمة بأنواع الملفّات للبحث عنها مفصولة بفواصل. مثال: ‎\"*.cpp,*.h\"\n"
 
-#: SearchPlugin.cpp:381
+#: SearchPlugin.cpp:393
 #, kde-format
 msgid ""
 "Comma separated list of files and directories to exclude from the search. "
 "Example: \"build*\""
 msgstr "قائمة ملفّات وأدّلة لاستثنائها من البحث مفصولة بفواصل. مثال: ‎\"build*\"‎"
 
-#: SearchPlugin.cpp:383
+#: SearchPlugin.cpp:395
 #, kde-format
 msgid "Click to filter through results"
 msgstr "انقر لترشح النتائج"
 
-#: SearchPlugin.cpp:473
+#: SearchPlugin.cpp:485
 #, kde-format
 msgid "Find"
 msgstr "اعثر"
 
-#: SearchPlugin.cpp:1229
+#: SearchPlugin.cpp:1311
 #, kde-format
 msgid "Searching while you type was interrupted. It would have taken too long."
 msgstr "قوطع البحث أثناء الكتابة. كان يمكن أن يستغرق وقتا طويلا."
 
-#: SearchPlugin.cpp:1571
+#: SearchPlugin.cpp:1653
 #, kde-format
 msgid "Search Match"
 msgstr "تطابق البحث"
 
-#: SearchPlugin.cpp:1755 SearchPlugin.cpp:1832
+#: SearchPlugin.cpp:1837 SearchPlugin.cpp:1914
 #, kde-format
 msgid "Next from cursor"
 msgstr "التالي من المؤشر"
 
-#: SearchPlugin.cpp:1772
+#: SearchPlugin.cpp:1854
 #, kde-format
 msgid "Starting from first match"
 msgstr "يبدأ من أوّل مطابقة"
 
-#: SearchPlugin.cpp:1792
+#: SearchPlugin.cpp:1874
 #, kde-format
 msgid "Continuing from first match"
 msgstr "يتابع من أوّل مطابقة"
 
-#: SearchPlugin.cpp:1849
+#: SearchPlugin.cpp:1931
 #, kde-format
 msgid "Starting from last match"
 msgstr "يبدأ من أخر مطابقة"
 
-#: SearchPlugin.cpp:1869
+#: SearchPlugin.cpp:1951
 #, kde-format
 msgid "Continuing from last match"
 msgstr "يتابع من آخر مطابقة"
 
-#: SearchPlugin.cpp:2028
+#: SearchPlugin.cpp:2110
 #, kde-format
 msgid "Search: %1"
 msgstr "ابحث: %1"
 
-#: SearchPlugin.cpp:2159
+#: SearchPlugin.cpp:2241
 #, kde-format
 msgid "Copy all"
 msgstr "انسخ الكلّ"
 
-#: SearchPlugin.cpp:2164
+#: SearchPlugin.cpp:2246
 #, kde-format
 msgid "Copy expanded"
 msgstr "النسخ موسع"
 
-#: SearchPlugin.cpp:2167
+#: SearchPlugin.cpp:2249
 #, kde-format
 msgid "Export matches"
 msgstr "صدر المتطابقات"
 
-#: SearchPlugin.cpp:2173
+#: SearchPlugin.cpp:2255
 #, kde-format
 msgid "Open as Editor Tab"
 msgstr "افتح كلسان المُحرِر"
 
-#: SearchPlugin.cpp:2180
+#: SearchPlugin.cpp:2262
 #, kde-format
 msgid "Clear"
 msgstr "امسح"
 
-#: SearchPlugin.cpp:2288 SearchPlugin.cpp:2322
+#: SearchPlugin.cpp:2370 SearchPlugin.cpp:2404
 #, kde-format
 msgid "Add..."
 msgstr "أضف..."
 
-#: SearchPlugin.cpp:2300
+#: SearchPlugin.cpp:2382
 #, kde-format
 msgid "Search As You Type"
 msgstr "ابحث وأنت تكتب"
 
-#: SearchPlugin.cpp:2371
+#: SearchPlugin.cpp:2453
 #, kde-format
 msgid "In Current Project"
 msgstr "في المشروع الحاليّ"
 
-#: SearchPlugin.cpp:2373
+#: SearchPlugin.cpp:2455
 #, kde-format
 msgid "In All Open Projects"
 msgstr "في كلّ المشاريع المفتوحة"

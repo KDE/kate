@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-20 00:49+0000\n"
-"PO-Revision-Date: 2022-12-19 12:56+0100\n"
+"PO-Revision-Date: 2022-12-21 00:17+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -1824,16 +1824,13 @@ msgid "Save Documents"
 msgstr "Guardar documentos"
 
 #: lib/katesavemodifieddialog.cpp:155
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>The document '%1' has been modified, but not saved.</p><p>Do you want "
-#| "to save your changes or discard them?</p>"
+#, kde-format
 msgid ""
 "The document \"%1\" has been modified. Do you want to save your changes or "
 "discard them?"
 msgstr ""
-"<p>El documento «%1» ha sido modificado, aunque no ha sido guardado.</"
-"p><p>¿Desea guardar los cambios, o descartarlos?</p>"
+"El documento «%1» ha sido modificado. ¿Desea guardar los cambios o "
+"descartarlos?"
 
 #: lib/katesavemodifieddialog.cpp:159
 #, kde-format

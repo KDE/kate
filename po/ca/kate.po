@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-20 00:49+0000\n"
-"PO-Revision-Date: 2022-12-19 09:17+0100\n"
+"PO-Revision-Date: 2022-12-20 09:00+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -1797,16 +1797,12 @@ msgid "Save Documents"
 msgstr "Desa els documents"
 
 #: lib/katesavemodifieddialog.cpp:155
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>The document '%1' has been modified, but not saved.</p><p>Do you want "
-#| "to save your changes or discard them?</p>"
+#, kde-format
 msgid ""
 "The document \"%1\" has been modified. Do you want to save your changes or "
 "discard them?"
 msgstr ""
-"<p>El document «%1» ha estat modificat, però no desat.</p><p>Voleu desar els "
-"canvis o descartar-los?</p>"
+"S'ha modificat el document «%1». Voleu desar els canvis o descartar-los?"
 
 #: lib/katesavemodifieddialog.cpp:159
 #, kde-format

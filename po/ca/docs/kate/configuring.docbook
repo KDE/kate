@@ -118,6 +118,18 @@
 
 <varlistentry>
 <term
+><anchor id="config-dialog-general-open-each-document"/>
+<guilabel
+>Obre cada document en la seva pròpia finestra</guilabel
+></term>
+<listitem
+><para
+>Si està activat, cada document s'obrirà en la seva pròpia finestra. Si no està activat, cada document s'obrirà en una pestanya nova de la finestra actual.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
 ><anchor id="config-dialog-general-switch-to-output"/>
 <guilabel
 >Canvia a la vista de la sortida segons el tipus de missatge</guilabel

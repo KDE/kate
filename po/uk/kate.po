@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-20 00:49+0000\n"
-"PO-Revision-Date: 2022-12-19 11:29+0200\n"
-"Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
+"PO-Revision-Date: 2022-12-20 11:13+0200\n"
+"Last-Translator: Fracture dept <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
@@ -1804,16 +1804,13 @@ msgid "Save Documents"
 msgstr "Зберегти документи"
 
 #: lib/katesavemodifieddialog.cpp:155
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>The document '%1' has been modified, but not saved.</p><p>Do you want "
-#| "to save your changes or discard them?</p>"
+#, kde-format
 msgid ""
 "The document \"%1\" has been modified. Do you want to save your changes or "
 "discard them?"
 msgstr ""
-"<p>Документ «%1» було змінено, але не було збережено.</p><p>Чи бажаєте "
-"зберегти зміни чи відкинути їх?</p>"
+"До документа «%1» було внесено зміни. Хочете зберегти внесені зміни чи "
+"відкинути їх?"
 
 #: lib/katesavemodifieddialog.cpp:159
 #, kde-format

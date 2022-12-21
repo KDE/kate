@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-20 00:49+0000\n"
-"PO-Revision-Date: 2022-12-06 19:46+0530\n"
+"PO-Revision-Date: 2022-12-20 19:34+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.08.3\n"
+"X-Generator: Lokalize 22.12.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -724,7 +724,7 @@ msgstr "&நடத்தை"
 #: lib/kateconfigdialog.cpp:375
 #, kde-format
 msgid "Open each document in its own window"
-msgstr ""
+msgstr "ஒவ்வொரு ஆவணத்தையும் தனி சாளரத்தில் திற"
 
 #: lib/kateconfigdialog.cpp:378
 #, kde-format
@@ -732,6 +732,8 @@ msgid ""
 "If enabled, each document will be opened in its own window. If not enabled, "
 "each document will be opened in a new tab in the current window."
 msgstr ""
+"இது இயக்கப்பட்டிருந்தால், ஒவ்வொரு ஆவணமும் ஓர் புதிய சாளரத்தில் திறக்கப்படும். இல்லையேல், "
+"தற்போதைய சாளரத்தில் புதிய கீற்றாகவே திறக்கப்படும்."
 
 #: lib/kateconfigdialog.cpp:388
 #, kde-format
@@ -1771,16 +1773,12 @@ msgid "Save Documents"
 msgstr "ஆவணங்களை சேமி"
 
 #: lib/katesavemodifieddialog.cpp:155
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>The document '%1' has been modified, but not saved.</p><p>Do you want "
-#| "to save your changes or discard them?</p>"
+#, kde-format
 msgid ""
 "The document \"%1\" has been modified. Do you want to save your changes or "
 "discard them?"
 msgstr ""
-"<p>'%1' என்ற ஆவணம் மாற்றப்பட்டது, ஆனால் சேமிக்கப்படவில்லை.</p><p>மாற்றங்களை சேமிக்க "
-"வேண்டுமா அல்லது கைவிட வேண்டுமா?</p>"
+"'%1' என்ற ஆவணம் மாற்றப்பட்டுள்ளது. மாற்றங்களை சேமிக்க வேண்டுமா அல்லது கைவிட வேண்டுமா?"
 
 #: lib/katesavemodifieddialog.cpp:159
 #, kde-format

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-27 00:48+0000\n"
-"PO-Revision-Date: 2022-11-28 15:01+0100\n"
+"PO-Revision-Date: 2022-12-21 12:20+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -25,7 +25,7 @@ msgstr "On non pote aperir file '%1'."
 #: keyboardmacrosplugin.cpp:82
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
-msgstr ""
+msgstr "File de  JSON malformate '%1': %2"
 
 #: keyboardmacrosplugin.cpp:90
 #, kde-format
@@ -51,7 +51,7 @@ msgstr "Registrante…"
 #: keyboardmacrosplugin.cpp:278
 #, kde-format
 msgid "ended"
-msgstr ""
+msgstr "teminate (ended)"
 
 #: keyboardmacrosplugin.cpp:278
 #, kde-format
@@ -100,6 +100,8 @@ msgid ""
 "<qt><p>Usage: <code>kmsave &lt;name&gt;</code></p><p>Save current keyboard "
 "macro as <code>&lt;name&gt;</code>.</p>%1</qt>"
 msgstr ""
+"<qt><p>Usage: <code>kmsave &lt;name&gt;</code></p><p>Salveguarda macro de "
+"claviero currente como <code>&lt;name&gt;</code>.</p>%1</qt>"
 
 #: keyboardmacrosplugincommands.cpp:84
 #, kde-format
@@ -107,6 +109,8 @@ msgid ""
 "<qt><p>Usage: <code>kmload &lt;name&gt;</code></p><p>Load saved keyboard "
 "macro <code>&lt;name&gt;</code> as current macro.</p>%1</qt>"
 msgstr ""
+"<qt><p>Usage: <code>kmload &lt;name&gt;</code></p><p>Carga macro de claviero "
+"<code>&lt;name&gt;</code> como macrocurrente.</p>%1</qt>"
 
 #: keyboardmacrosplugincommands.cpp:88
 #, kde-format
@@ -114,6 +118,8 @@ msgid ""
 "<qt><p>Usage: <code>kmplay &lt;name&gt;</code></p><p>Play saved keyboard "
 "macro <code>&lt;name&gt;</code> without loading it.</p>%1</qt>"
 msgstr ""
+"<qt><p>Usage: <code>kmplay &lt;name&gt;</code></p><p>Exeque macro de "
+"clavierosalveguardate <code>&lt;name&gt;</code> sin cargar lo.</p>%1</qt>"
 
 #: keyboardmacrosplugincommands.cpp:92
 #, kde-format
@@ -130,22 +136,23 @@ msgstr "Macros de Clavi&ero"
 #: keyboardmacrospluginview.cpp:41
 #, kde-format
 msgid "Record and play keyboard macros."
-msgstr ""
+msgstr "Registra e exeque macros de claviero."
 
 #: keyboardmacrospluginview.cpp:46 keyboardmacrospluginview.cpp:163
 #, kde-format
 msgid "&Record Macro..."
-msgstr ""
+msgstr "&Registra Macro..."
 
 #: keyboardmacrospluginview.cpp:48
 #, kde-format
 msgid "Start/stop recording a macro (i.e., keyboard action sequence)."
 msgstr ""
+"Starta/Stoppa registrar un macro (i.e., sequentia de action de claviero)."
 
 #: keyboardmacrospluginview.cpp:57
 #, kde-format
 msgid "&Cancel Macro Recording"
-msgstr ""
+msgstr "&Cancella Registrar de macro"
 
 #: keyboardmacrospluginview.cpp:59
 #, kde-format
@@ -168,7 +175,7 @@ msgstr ""
 #: keyboardmacrospluginview.cpp:81
 #, kde-format
 msgid "&Save Current Macro"
-msgstr ""
+msgstr "&Salveguarda Macro Currente"
 
 #: keyboardmacrospluginview.cpp:83
 #, kde-format
@@ -178,22 +185,22 @@ msgstr ""
 #: keyboardmacrospluginview.cpp:95
 #, kde-format
 msgid "&Load Named Macro..."
-msgstr ""
+msgstr "C%arga Macro Nominate..."
 
 #: keyboardmacrospluginview.cpp:98
 #, kde-format
 msgid "Load a named macro as the current one."
-msgstr ""
+msgstr "CArga un macro nominate como le currente."
 
 #: keyboardmacrospluginview.cpp:103
 #, kde-format
 msgid "&Play Named Macro..."
-msgstr ""
+msgstr "&Executa Macro Nominate..."
 
 #: keyboardmacrospluginview.cpp:106
 #, kde-format
 msgid "Play a named macro without loading it."
-msgstr ""
+msgstr "Executa un macro nominate sin cargar lo."
 
 #: keyboardmacrospluginview.cpp:111
 #, kde-format
@@ -228,7 +235,7 @@ msgstr ""
 #: keyboardmacrospluginview.cpp:289
 #, kde-format
 msgid "Save current macro as?"
-msgstr ""
+msgstr "Salveguarda macro currente como?"
 
 #: keyboardmacrospluginview.cpp:323
 #, kde-format

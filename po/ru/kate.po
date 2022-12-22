@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-14 03:46+0000\n"
-"PO-Revision-Date: 2022-12-13 23:26+0300\n"
+"PO-Revision-Date: 2022-12-21 12:08+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
 "Language: ru\n"
@@ -246,7 +246,7 @@ msgstr "Основная панель инструментов"
 #: lib/data/kateui.rc:155
 #, kde-format
 msgid "Hamburger Menu Toolbar"
-msgstr ""
+msgstr "Панель инструментов «гамбургер»"
 
 #. i18n: ectx: Menu (viewspace_popup_statusbar)
 #: lib/data/kateui.rc:173
@@ -275,13 +275,13 @@ msgid "Raw"
 msgstr "Исходный"
 
 #: lib/diff/diffeditor.cpp:215
-#, fuzzy, kde-format
+#, kde-format
 msgid "Stage Line"
 msgid_plural "Stage Lines"
-msgstr[0] "Конец строки"
-msgstr[1] "Конец строки"
-msgstr[2] "Конец строки"
-msgstr[3] "Конец строки"
+msgstr[0] "Применить промежуточное состояние строк"
+msgstr[1] "Применить промежуточное состояние строк"
+msgstr[2] "Применить промежуточное состояние строк"
+msgstr[3] "Применить промежуточное состояние строки"
 
 #: lib/diff/diffeditor.cpp:220
 #, kde-format
@@ -303,13 +303,13 @@ msgid "Discard Hunk"
 msgstr "Отбросить блок"
 
 #: lib/diff/diffeditor.cpp:239
-#, fuzzy, kde-format
+#, kde-format
 msgid "Unstage Line"
 msgid_plural "Unstage Lines"
-msgstr[0] "Конец строки"
-msgstr[1] "Конец строки"
-msgstr[2] "Конец строки"
-msgstr[3] "Конец строки"
+msgstr[0] "Отменить промежуточное состояние строк"
+msgstr[1] "Отменить промежуточное состояние строк"
+msgstr[2] "Отменить промежуточное состояние строк"
+msgstr[3] "Отменить промежуточное состояние строки"
 
 #: lib/diff/diffeditor.cpp:244
 #, kde-format
@@ -1558,9 +1558,9 @@ msgid "Move To"
 msgstr "Размещение"
 
 #: lib/katemdi.cpp:1017
-#, fuzzy, kde-format
+#, kde-format
 msgid "Own Section"
-msgstr "Открыть сеанс"
+msgstr ""
 
 #: lib/katemdi.cpp:1023 lib/katemdi.cpp:1031
 #, kde-format
@@ -1913,44 +1913,44 @@ msgid "Make the previous split view the active one."
 msgstr "Перейти в предыдущую створку окна"
 
 #: lib/kateviewmanager.cpp:179
-#, fuzzy, kde-format
+#, kde-format
 msgid "Left Split View"
-msgstr "Следующая створка"
+msgstr "Открыть створку слева"
 
 #: lib/kateviewmanager.cpp:184
-#, fuzzy, kde-format
+#, kde-format
 msgid "Make the split view intuitively on the left the active one."
-msgstr "Перейти в следующую створку окна"
+msgstr "Разделить область просмотра, открыв створку слева от активного окна"
 
 #: lib/kateviewmanager.cpp:187
-#, fuzzy, kde-format
+#, kde-format
 msgid "Right Split View"
-msgstr "Следующая створка"
+msgstr "Открыть створку справа"
 
 #: lib/kateviewmanager.cpp:192
-#, fuzzy, kde-format
+#, kde-format
 msgid "Make the split view intuitively on the right the active one."
-msgstr "Перейти в следующую створку окна"
+msgstr "Разделить область просмотра, открыв створку справа от активного окна"
 
 #: lib/kateviewmanager.cpp:195
-#, fuzzy, kde-format
+#, kde-format
 msgid "Upward Split View"
-msgstr "Разделить окно"
+msgstr "Открыть створку сверху"
 
 #: lib/kateviewmanager.cpp:200
-#, fuzzy, kde-format
+#, kde-format
 msgid "Make the split view intuitively upward the active one."
-msgstr "Перейти в следующую створку окна"
+msgstr "Разделить область просмотра, открыв створку сверху от активного окна"
 
 #: lib/kateviewmanager.cpp:203
-#, fuzzy, kde-format
+#, kde-format
 msgid "Downward Split View"
-msgstr "Разделить окно"
+msgstr "Открыть створку снизу"
 
 #: lib/kateviewmanager.cpp:208
-#, fuzzy, kde-format
+#, kde-format
 msgid "Make the split view intuitively downward the active one."
-msgstr "Перейти в следующую створку окна"
+msgstr "Разделить область просмотра, открыв створку снизу от активного окна"
 
 #: lib/kateviewmanager.cpp:211
 #, kde-format
@@ -2130,32 +2130,32 @@ msgstr "Закрыть др&угие документы"
 #: lib/kateviewspace.cpp:1000
 #, kde-format
 msgid "Close &All Documents"
-msgstr "Закрыть %все документы"
+msgstr "Закрыть &все документы"
 
 #: lib/kateviewspace.cpp:1002
-#, fuzzy, kde-format
+#, kde-format
 msgid "D&etach Document"
-msgstr "Следующий документ"
+msgstr "Открыть в новом окне"
 
 #: lib/kateviewspace.cpp:1003
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
-msgstr ""
+msgstr "Переместить документ в новое окно"
 
 #: lib/kateviewspace.cpp:1012
-#, fuzzy, kde-format
+#, kde-format
 msgid "Compare with Active Document"
 msgstr "Сравнить с активным документом"
 
 #: lib/kateviewspace.cpp:1016
 #, kde-format
 msgid "Diff %1 .. %2"
-msgstr ""
+msgstr "Различия между «%1» и «%2»"
 
 #: lib/kateviewspace.cpp:1021
-#, fuzzy, kde-format
+#, kde-format
 msgid "Compare with Active Document Using"
-msgstr "Сравнить с активным документом"
+msgstr "Сравнить с активным документом с помощью"
 
 #: lib/kateviewspace.cpp:1088
 #, kde-format
@@ -2185,12 +2185,12 @@ msgstr "Текущий проект"
 #: lib/quickopen/katequickopenlineedit.cpp:88
 #, kde-format
 msgid "Fuzzy Filtering"
-msgstr ""
+msgstr "Нечёткая фильтрация"
 
 #: lib/quickopen/katequickopenlineedit.cpp:99
 #, kde-format
 msgid "Wildcard Filtering"
-msgstr ""
+msgstr "Фильтрация по подстановочным знакам"
 
 #: lib/session/katesessionmanagedialog.cpp:26
 #, kde-format
@@ -2374,9 +2374,9 @@ msgstr "&Выбрать сеанс"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: lib/ui/sessionconfigwidget.ui:47
-#, fuzzy, kde-format
+#, kde-format
 msgid "Application Startup/Shutdown Behavior"
-msgstr "Поведение при завершении приложения"
+msgstr "Поведение при запуске и завершении работы"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: lib/ui/sessionconfigwidget.ui:55
@@ -2398,20 +2398,17 @@ msgstr "Несохранённые изменённые файлы"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, showWelcomeViewForNewWindow)
 #: lib/ui/sessionconfigwidget.ui:88
-#, fuzzy, kde-format
-#| msgid ""
-#| "If this option is checked, the full document path will be shown in the "
-#| "window caption."
+#, kde-format
 msgid "If disabled, an untitled document will be shown for new windows."
 msgstr ""
-"При выборе этой опции в заголовке окна редактора будет показан полный путь к "
-"документу."
+"Если этот параметр не включён, при открытии нового окна создан документ без "
+"названия"
 
 #. i18n: ectx: property (text), widget (QCheckBox, showWelcomeViewForNewWindow)
 #: lib/ui/sessionconfigwidget.ui:91
-#, fuzzy, kde-format
+#, kde-format
 msgid "Show welcome view for new windows"
-msgstr "Создать новый документ"
+msgstr "Показывать страницу приветствия при открытии нового окна"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, modCloseAfterLast)
 #: lib/ui/sessionconfigwidget.ui:98
@@ -2434,7 +2431,7 @@ msgstr "Закрывать программу после закрытия все
 #: lib/ui/sessionconfigwidget.ui:108
 #, kde-format
 msgid "Close documents with the window they belong to"
-msgstr ""
+msgstr "Закрывать все документы в окне"
 
 #. i18n: ectx: property (title), widget (QGroupBox, gbElements)
 #: lib/ui/sessionconfigwidget.ui:118

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-14 03:46+0000\n"
-"PO-Revision-Date: 2022-12-19 12:23+0100\n"
+"PO-Revision-Date: 2022-12-21 12:10+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -267,13 +267,13 @@ msgstr "Stage Hunk (organisa fragmento)"
 #, kde-format
 msgid "Discard Line"
 msgid_plural "Discard Lines"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Abandona linea"
+msgstr[1] "Abandona Lineas"
 
 #: lib/diff/diffeditor.cpp:232
 #, kde-format
 msgid "Discard Hunk"
-msgstr ""
+msgstr "Abandona fragmento (hunk)"
 
 #: lib/diff/diffeditor.cpp:239
 #, kde-format
@@ -290,7 +290,7 @@ msgstr "Unstage Hunk (deorganisa fragmento)"
 #: lib/diff/diffwidget.cpp:51
 #, kde-format
 msgid "Show/Hide Commit Info"
-msgstr ""
+msgstr "Monstra/Cela Info de Commit"
 
 #: lib/diff/diffwidget.cpp:56
 #, kde-format
@@ -771,7 +771,7 @@ msgstr "Barra&s lateral"
 #: lib/kateconfigdialog.cpp:417
 #, kde-format
 msgid "Sync section size with tab positions"
-msgstr ""
+msgstr "Sync grandor de section con positiones de tab"
 
 #: lib/kateconfigdialog.cpp:421
 #, kde-format
@@ -780,6 +780,9 @@ msgid ""
 "tabs.\n"
 "This option does not affect the bottom sidebar."
 msgstr ""
+"Quando habilitate le grandor de section essera determinate pe le position "
+"del tabulationes (tabs).\n"
+"Iste option non influentia le barra lateral a basso."
 
 #: lib/kateconfigdialog.cpp:426
 #, kde-format
@@ -972,6 +975,8 @@ msgid ""
 "When a window is closed the documents opened only in this window are closed "
 "as well."
 msgstr ""
+"Quando un fenestra es claudite le documentos aperite solmente in iste "
+"fenestra tamben es claudite."
 
 #: lib/kateconfigdialog.cpp:657
 #, kde-format
@@ -1491,7 +1496,7 @@ msgstr "Buttones de barra lateral"
 #: lib/katemdi.cpp:106
 #, kde-format
 msgid "Focus Toolview"
-msgstr ""
+msgstr "Focalisa Vista de Instrumento"
 
 #: lib/katemdi.cpp:109
 #, kde-format
@@ -1997,7 +2002,7 @@ msgstr "Pagina de benvenite"
 #: lib/kateviewmanager.cpp:258
 #, kde-format
 msgid "Show the welcome page"
-msgstr ""
+msgstr "Monstra lel pagina de Benvenite"
 
 #: lib/kateviewmanager.cpp:300 lib/kateviewmanager.cpp:302
 #, kde-format
@@ -2023,18 +2028,20 @@ msgstr "Aperiente un grande file"
 #: lib/kateviewmanager.cpp:466
 #, kde-format
 msgid "%1 cannot open folders"
-msgstr ""
+msgstr "%1 non pote aperir dossieres"
 
 #: lib/kateviewmanager.cpp:485
 #, kde-format
 msgid "The plugin required to open folders was not found"
-msgstr ""
+msgstr "Le pliugin requirite per aperir dossieres non esseva trovate"
 
 #: lib/kateviewmanager.cpp:491
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
 msgstr ""
+"Pro aperir dossieres, le plugin <b>%1</b> debe esser habilitate. Tu lo "
+"habilita?"
 
 #: lib/kateviewmanager.cpp:500
 #, kde-format
@@ -2051,7 +2058,7 @@ msgstr "Habilita"
 #: lib/kateviewmanager.cpp:512
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
-msgstr ""
+msgstr "Falleva a habilitar le plugin  <b>%1</b> "
 
 #: lib/kateviewmanager.cpp:1234
 #, kde-format
@@ -2120,6 +2127,7 @@ msgstr "Distacca docum&ento"
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
+"Aperi le documento in un nove fenestra e lo claude in le fenestra currente"
 
 #: lib/kateviewspace.cpp:1012
 #, kde-format
@@ -2165,12 +2173,12 @@ msgstr "Projecto currente"
 #: lib/quickopen/katequickopenlineedit.cpp:88
 #, kde-format
 msgid "Fuzzy Filtering"
-msgstr ""
+msgstr "Filtrar Fuzzy (confuse)"
 
 #: lib/quickopen/katequickopenlineedit.cpp:99
 #, kde-format
 msgid "Wildcard Filtering"
-msgstr ""
+msgstr "Filtrar de wildcards"
 
 #: lib/session/katesessionmanagedialog.cpp:26
 #, kde-format
@@ -2381,6 +2389,8 @@ msgstr "Files con cmodificationes nn salveguardate"
 #, kde-format
 msgid "If disabled, an untitled document will be shown for new windows."
 msgstr ""
+"Si dishabilitate, un documento sin titulo essera monstrate per nove "
+"fenestras."
 
 #. i18n: ectx: property (text), widget (QCheckBox, showWelcomeViewForNewWindow)
 #: lib/ui/sessionconfigwidget.ui:91
@@ -2409,7 +2419,7 @@ msgstr "Claude completemente le application quando le ultime file es claudite."
 #: lib/ui/sessionconfigwidget.ui:108
 #, kde-format
 msgid "Close documents with the window they belong to"
-msgstr ""
+msgstr "Claude documentos con le fenestra al qual illos appertine"
 
 #. i18n: ectx: property (title), widget (QGroupBox, gbElements)
 #: lib/ui/sessionconfigwidget.ui:118

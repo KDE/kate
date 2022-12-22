@@ -4,21 +4,21 @@
 # Yuri Efremov <yur.arh@gmail.com>, 2013.
 # Alexander Lakhin <exclusion@gmail.com>, 2013.
 # Alexander Potashev <aspotashev@gmail.com>, 2015, 2016.
-# Alexander Yavorsky <kekcuha@gmail.com>, 2019, 2020.
+# Alexander Yavorsky <kekcuha@gmail.com>, 2019, 2020, 2022.
 # Olesya Gerasimenko <translation-team@basealt.ru>, 2021, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-22 00:48+0000\n"
-"PO-Revision-Date: 2022-10-12 12:46+0300\n"
-"Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
-"Language-Team: Basealt Translation Team\n"
+"PO-Revision-Date: 2022-12-21 11:56+0300\n"
+"Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
+"Language-Team: Russian <kde-russian@lists.kde.ru>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.04.3\n"
+"X-Generator: Lokalize 21.08.3\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Environment: kde\n"
@@ -171,7 +171,7 @@ msgstr "<span style=\"color:%1;\">%2</span> / 52"
 #: gitstatusmodel.cpp:85
 #, kde-format
 msgid "Staged"
-msgstr "Обозначено"
+msgstr "Промежуточно сохранённые"
 
 #: gitstatusmodel.cpp:87
 #, kde-format
@@ -181,22 +181,22 @@ msgstr "Неотслеживаемые"
 #: gitstatusmodel.cpp:89
 #, kde-format
 msgid "Conflict"
-msgstr "Конфликт"
+msgstr "Конфликтующие"
 
 #: gitstatusmodel.cpp:91
 #, kde-format
 msgid "Modified"
-msgstr "Изменено"
+msgstr "Изменённые"
 
 #: gitwidget.cpp:241
-#, fuzzy, kde-format
+#, kde-format
 msgid "Git Push"
-msgstr "Отправка в Git"
+msgstr "Отправить в Git"
 
 #: gitwidget.cpp:254
-#, fuzzy, kde-format
+#, kde-format
 msgid "Git Pull"
-msgstr "Получение из Git"
+msgstr "Получить из Git"
 
 #: gitwidget.cpp:267
 #, kde-format
@@ -312,9 +312,9 @@ msgid "Delete Branch"
 msgstr "Удалить ветвь"
 
 #: gitwidget.cpp:959
-#, fuzzy, kde-format
+#, kde-format
 msgid "Compare Branch with..."
-msgstr "Сравнить ветвь с..."
+msgstr "Сравнить ветвь с…"
 
 #: gitwidget.cpp:962 gitwidget.cpp:999
 #, kde-format
@@ -324,7 +324,7 @@ msgstr "Поместить в запасник"
 #: gitwidget.cpp:972
 #, kde-format
 msgid "Diff - stash"
-msgstr ""
+msgstr "Различия с запасником"
 
 #: gitwidget.cpp:1003
 #, kde-format
@@ -403,27 +403,27 @@ msgid "Are you sure you want to discard all changes?"
 msgstr "Действительно отменить все изменения?"
 
 #: gitwidget.cpp:1123
-#, fuzzy, kde-format
+#, kde-format
 msgid "Open File"
 msgstr "Открыть файл"
 
 #: gitwidget.cpp:1125
-#, fuzzy, kde-format
+#, kde-format
 msgid "Show in External Git Diff Tool"
-msgstr "Показать внешнюю утилиту для показа различий git"
+msgstr "Показать во внешнем приложении для показа различий git"
 
 #: gitwidget.cpp:1126
 #, kde-format
 msgid "Open at HEAD"
-msgstr "Открыть в HEAD"
+msgstr "Открыть HEAD"
 
 #: gitwidget.cpp:1127
-#, fuzzy, kde-format
+#, kde-format
 msgid "Unstage File"
 msgstr "Отменить промежуточное сохранение файла"
 
 #: gitwidget.cpp:1127
-#, fuzzy, kde-format
+#, kde-format
 msgid "Stage File"
 msgstr "Применить промежуточное сохранение файла"
 
@@ -485,7 +485,7 @@ msgstr "Действительно удалить эти неотслежива�
 #: kateproject.cpp:223
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
-msgstr ""
+msgstr "Некорректный файл в формате JSON «%1»: %2"
 
 #: kateproject.cpp:528
 #, kde-format
@@ -678,7 +678,7 @@ msgstr "Примечания"
 #: kateprojectinfoviewcodeanalysis.cpp:31
 #, kde-format
 msgid "Start Analysis..."
-msgstr "Начать анализ..."
+msgstr "Начать анализ…"
 
 #: kateprojectinfoviewcodeanalysis.cpp:44 kateprojectinfoviewindex.cpp:33
 #, kde-format
@@ -794,24 +794,24 @@ msgid "Project"
 msgstr "Проект"
 
 #: kateprojectpluginview.cpp:54
-#, fuzzy, kde-format
+#, kde-format
 msgid "Project Manager"
-msgstr "Диспетчер проектов Kate"
+msgstr "Управление проектами"
 
 #: kateprojectpluginview.cpp:80
-#, fuzzy, kde-format
+#, kde-format
 msgid "Reload project"
-msgstr "Закрыть проект"
+msgstr "Перечитать проект"
 
 #: kateprojectpluginview.cpp:97
 #, kde-format
 msgid "Refresh git status"
-msgstr ""
+msgstr "Обновить состояние Git"
 
 #: kateprojectpluginview.cpp:173
 #, kde-format
 msgid "Open Folder..."
-msgstr "Открыть папку..."
+msgstr "Открыть папку…"
 
 #: kateprojectpluginview.cpp:178
 #, kde-format
@@ -944,7 +944,7 @@ msgid "Checkout Git Branch"
 msgstr "Извлечь ветвь Git"
 
 #: kateprojectview.cpp:82
-#, fuzzy, kde-format
+#, kde-format
 msgid "Checkout branch"
 msgstr "Извлечь ветвь"
 

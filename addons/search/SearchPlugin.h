@@ -168,7 +168,7 @@ protected:
     bool eventFilter(QObject *obj, QEvent *ev) override;
 
 private:
-    QVector<int> getDocumentSearchMarkedLines(const KTextEditor::Document *currentDocument);
+    QVector<int> getDocumentSearchMarkedLines(KTextEditor::Document *currentDocument);
     void setClipboardFromDocumentLines(const KTextEditor::Document *currentDocument, const QVector<int> lineNumbers);
 
     QStringList filterFiles(const QStringList &fileList) const;

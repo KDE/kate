@@ -580,7 +580,7 @@ KatePluginSearchView::~KatePluginSearchView()
     delete m_toolView;
 }
 
-QVector<int> KatePluginSearchView::getDocumentSearchMarkedLines(const KTextEditor::Document *currentDocument)
+QVector<int> KatePluginSearchView::getDocumentSearchMarkedLines(KTextEditor::Document *currentDocument)
 {
     QVector<int> result;
     if (!currentDocument) {

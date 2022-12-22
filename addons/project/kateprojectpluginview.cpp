@@ -73,6 +73,7 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
      * create the combo + buttons for the toolViews + stacked widgets
      */
     m_projectsCombo = new QComboBox(m_toolView);
+    m_projectsCombo->setToolTip(i18n("Open projects list"));
     m_projectsCombo->setFrame(false);
     m_reloadButton = new QToolButton(m_toolView);
     m_reloadButton->setAutoRaise(true);
@@ -80,6 +81,7 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     m_reloadButton->setToolTip(i18n("Reload project"));
     m_closeProjectButton = new QToolButton(m_toolView);
     m_closeProjectButton->setAutoRaise(true);
+    m_closeProjectButton->setToolTip(i18n("Close project"));
     m_closeProjectButton->setIcon(QIcon::fromTheme(QStringLiteral(PROJECTCLOSEICON)));
     QHBoxLayout *layout = new QHBoxLayout();
     layout->setSpacing(0);

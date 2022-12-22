@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-20 00:49+0000\n"
-"PO-Revision-Date: 2022-12-19 12:31+0100\n"
+"POT-Creation-Date: 2022-12-22 00:50+0000\n"
+"PO-Revision-Date: 2022-12-21 12:27+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -27,37 +27,37 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "g.sora@tiscali.it"
 
-#: kate/main.cpp:116
+#: kate/main.cpp:122
 #, kde-format
 msgid "Kate"
 msgstr "Kate"
 
-#: kate/main.cpp:118
+#: kate/main.cpp:124
 #, kde-format
 msgid "Kate - Advanced Text Editor"
 msgstr "Kate - Editor avantiate de texto"
 
-#: kate/main.cpp:120 kwrite/main.cpp:89
+#: kate/main.cpp:126 kwrite/main.cpp:89
 #, kde-format
 msgid "(c) 2000-2022 The Kate Authors"
 msgstr "(c) 2000–2022 Le Autores de Kate"
 
-#: kate/main.cpp:166
+#: kate/main.cpp:172
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "Initia Kate con un date session"
 
-#: kate/main.cpp:167
+#: kate/main.cpp:173
 #, kde-format
 msgid "session"
 msgstr "session"
 
-#: kate/main.cpp:172
+#: kate/main.cpp:178
 #, kde-format
 msgid "Start Kate with a new anonymous session, implies '-n'."
 msgstr "Initia Kate con un nove session anonyme, implica '-n'"
 
-#: kate/main.cpp:177
+#: kate/main.cpp:183
 #, kde-format
 msgid ""
 "Force start of a new kate instance (is ignored if start is used and another "
@@ -68,7 +68,7 @@ msgstr ""
 "usate e un altere instantia de Kate ja ha le date session aperite), fortiate "
 "si nulle parametros e nulle URLs es date."
 
-#: kate/main.cpp:183
+#: kate/main.cpp:189
 #, kde-format
 msgid ""
 "If using an already running kate instance, block until it exits, if URLs "
@@ -77,7 +77,7 @@ msgstr ""
 "Si usante un instantia de Kate ja executante, bloca usque il exi, si date "
 "URLs aperir"
 
-#: kate/main.cpp:189
+#: kate/main.cpp:195
 #, kde-format
 msgid ""
 "Only try to reuse kate instance with this pid (is ignored if start is used "
@@ -87,58 +87,58 @@ msgstr ""
 "ignorate si initio es usate e un altere instantia de Kate ja ha le date "
 "session aperite)"
 
-#: kate/main.cpp:190
+#: kate/main.cpp:196
 #, kde-format
 msgid "pid"
 msgstr "pid"
 
-#: kate/main.cpp:195 kwrite/main.cpp:140
+#: kate/main.cpp:201 kwrite/main.cpp:140
 #, kde-format
 msgid "Set encoding for the file to open."
 msgstr "Il fixa le codifica pro le file que aperi"
 
-#: kate/main.cpp:196 kwrite/main.cpp:141
+#: kate/main.cpp:202 kwrite/main.cpp:141
 #, kde-format
 msgid "encoding"
 msgstr "Codificar"
 
-#: kate/main.cpp:200 kwrite/main.cpp:145
+#: kate/main.cpp:206 kwrite/main.cpp:145
 #, kde-format
 msgid "Navigate to this line."
 msgstr "Tu naviga a iste linea o rango."
 
-#: kate/main.cpp:200 kwrite/main.cpp:145
+#: kate/main.cpp:206 kwrite/main.cpp:145
 #, kde-format
 msgid "line"
 msgstr "rango"
 
-#: kate/main.cpp:205 kwrite/main.cpp:149
+#: kate/main.cpp:211 kwrite/main.cpp:149
 #, kde-format
 msgid "Navigate to this column."
 msgstr "Tu naviga a iste columna."
 
-#: kate/main.cpp:206 kwrite/main.cpp:149
+#: kate/main.cpp:212 kwrite/main.cpp:149
 #, kde-format
 msgid "column"
 msgstr "columna"
 
-#: kate/main.cpp:210 kwrite/main.cpp:153
+#: kate/main.cpp:216 kwrite/main.cpp:153
 #, kde-format
 msgid "Read the contents of stdin."
 msgstr "Lege le contentos de stdin."
 
-#: kate/main.cpp:215 kwrite/main.cpp:157
+#: kate/main.cpp:221 kwrite/main.cpp:157
 #, kde-format
 msgid "The files/URLs opened by the application will be deleted after use"
 msgstr ""
 "Le files/URL aperite per le application essera cancellate postea le uso"
 
-#: kate/main.cpp:219 kwrite/main.cpp:161
+#: kate/main.cpp:225 kwrite/main.cpp:161
 #, kde-format
 msgid "Documents to open."
 msgstr "Documentos de aperir."
 
-#: kate/main.cpp:219 kwrite/main.cpp:161
+#: kate/main.cpp:225 kwrite/main.cpp:161
 #, kde-format
 msgid "[urls...]"
 msgstr "[urls...]"
@@ -176,7 +176,7 @@ msgstr "Git"
 #: lib/commitfilesview.cpp:474
 #, kde-format
 msgid "Invalid hash"
-msgstr ""
+msgstr "Hash invalide"
 
 #: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:342
 #, kde-format
@@ -302,13 +302,13 @@ msgstr "Stage Hunk (organisa fragmento)"
 #, kde-format
 msgid "Discard Line"
 msgid_plural "Discard Lines"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Abandona linea"
+msgstr[1] "Abandona Lineas"
 
 #: lib/diff/diffeditor.cpp:232
 #, kde-format
 msgid "Discard Hunk"
-msgstr ""
+msgstr "Abandona fragmento (hunk)"
 
 #: lib/diff/diffeditor.cpp:239
 #, kde-format
@@ -325,7 +325,7 @@ msgstr "Unstage Hunk (deorganisa fragmento)"
 #: lib/diff/diffwidget.cpp:51
 #, kde-format
 msgid "Show/Hide Commit Info"
-msgstr ""
+msgstr "Monstra/Cela Info de Commit"
 
 #: lib/diff/diffwidget.cpp:56
 #, kde-format
@@ -796,7 +796,7 @@ msgstr "Barra&s lateral"
 #: lib/kateconfigdialog.cpp:427
 #, kde-format
 msgid "Sync section size with tab positions"
-msgstr ""
+msgstr "Sync grandor de section con positiones de tab"
 
 #: lib/kateconfigdialog.cpp:430
 #, kde-format
@@ -805,6 +805,9 @@ msgid ""
 "tabs.\n"
 "This option does not affect the bottom sidebar."
 msgstr ""
+"Quando habilitate le grandor de section essera determinate pe le position "
+"del tabulationes (tabs).\n"
+"Iste option non influentia le barra lateral a basso."
 
 #: lib/kateconfigdialog.cpp:435
 #, kde-format
@@ -997,6 +1000,8 @@ msgid ""
 "When a window is closed the documents opened only in this window are closed "
 "as well."
 msgstr ""
+"Quando un fenestra es claudite le documentos aperite solmente in iste "
+"fenestra tamben es claudite."
 
 #: lib/kateconfigdialog.cpp:666
 #, kde-format
@@ -1516,7 +1521,7 @@ msgstr "Buttones de barra lateral"
 #: lib/katemdi.cpp:106
 #, kde-format
 msgid "Focus Toolview"
-msgstr ""
+msgstr "Focalisa Vista de Instrumento"
 
 #: lib/katemdi.cpp:109
 #, kde-format
@@ -1784,16 +1789,13 @@ msgid "Save Documents"
 msgstr "Salveguarda documentos"
 
 #: lib/katesavemodifieddialog.cpp:155
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>The document '%1' has been modified, but not saved.</p><p>Do you want "
-#| "to save your changes or discard them?</p>"
+#, kde-format
 msgid ""
 "The document \"%1\" has been modified. Do you want to save your changes or "
 "discard them?"
 msgstr ""
-"<p>Le documento '%1' ha essite modificate, ma non salveguardate.</p><p>Tu "
-"vole salveguardar tu modificationes o abandonar los?</p>"
+"Le documento '%1' ha essite modificate.Tu vole salveguardar tu "
+"modificationes o abandonar los?"
 
 #: lib/katesavemodifieddialog.cpp:159
 #, kde-format
@@ -2034,7 +2036,7 @@ msgstr "Pagina de benvenite"
 #: lib/kateviewmanager.cpp:270
 #, kde-format
 msgid "Show the welcome page"
-msgstr ""
+msgstr "Monstra lel pagina de Benvenite"
 
 #: lib/kateviewmanager.cpp:318 lib/kateviewmanager.cpp:320
 #, kde-format
@@ -2060,18 +2062,20 @@ msgstr "Aperiente un grande file"
 #: lib/kateviewmanager.cpp:499
 #, kde-format
 msgid "%1 cannot open folders"
-msgstr ""
+msgstr "%1 non pote aperir dossieres"
 
 #: lib/kateviewmanager.cpp:518
 #, kde-format
 msgid "The plugin required to open folders was not found"
-msgstr ""
+msgstr "Le pliugin requirite per aperir dossieres non esseva trovate"
 
 #: lib/kateviewmanager.cpp:524
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
 msgstr ""
+"Pro aperir dossieres, le plugin <b>%1</b> debe esser habilitate. Tu lo "
+"habilita?"
 
 #: lib/kateviewmanager.cpp:533
 #, kde-format
@@ -2088,7 +2092,7 @@ msgstr "Habilita"
 #: lib/kateviewmanager.cpp:545
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
-msgstr ""
+msgstr "Falleva a habilitar le plugin  <b>%1</b> "
 
 #: lib/kateviewmanager.cpp:1267
 #, kde-format
@@ -2157,6 +2161,7 @@ msgstr "Distacca docum&ento"
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
+"Aperi le documento in un nove fenestra e lo claude in le fenestra currente"
 
 #: lib/kateviewspace.cpp:1031
 #, kde-format
@@ -2202,12 +2207,12 @@ msgstr "Projecto currente"
 #: lib/quickopen/katequickopenlineedit.cpp:88
 #, kde-format
 msgid "Fuzzy Filtering"
-msgstr ""
+msgstr "Filtrar Fuzzy (confuse)"
 
 #: lib/quickopen/katequickopenlineedit.cpp:99
 #, kde-format
 msgid "Wildcard Filtering"
-msgstr ""
+msgstr "Filtrar de wildcards"
 
 #: lib/session/katesessionmanagedialog.cpp:26
 #, kde-format
@@ -2418,6 +2423,8 @@ msgstr "Files con cmodificationes nn salveguardate"
 #, kde-format
 msgid "If disabled, an untitled document will be shown for new windows."
 msgstr ""
+"Si dishabilitate, un documento sin titulo essera monstrate per nove "
+"fenestras."
 
 #. i18n: ectx: property (text), widget (QCheckBox, showWelcomeViewForNewWindow)
 #: lib/ui/sessionconfigwidget.ui:91
@@ -2446,7 +2453,7 @@ msgstr "Claude completemente le application quando le ultime file es claudite."
 #: lib/ui/sessionconfigwidget.ui:108
 #, kde-format
 msgid "Close documents with the window they belong to"
-msgstr ""
+msgstr "Claude documentos con le fenestra al qual illos appertine"
 
 #. i18n: ectx: property (title), widget (QGroupBox, gbElements)
 #: lib/ui/sessionconfigwidget.ui:118

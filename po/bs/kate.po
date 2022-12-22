@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-20 00:49+0000\n"
+"POT-Creation-Date: 2022-12-22 00:50+0000\n"
 "PO-Revision-Date: 2014-01-31 19:52+0100\n"
 "Last-Translator: Samir Ribić <megaribi@epn.ba>\n"
 "Language-Team: bosanski <bs@li.org>\n"
@@ -32,41 +32,41 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "samir.ribic@etf.unsa.ba,vljubovic@smartnet.ba"
 
-#: kate/main.cpp:116
+#: kate/main.cpp:122
 #, kde-format
 msgid "Kate"
 msgstr "Kate"
 
-#: kate/main.cpp:118
+#: kate/main.cpp:124
 #, kde-format
 msgid "Kate - Advanced Text Editor"
 msgstr "Kate, napredni uređivač teksta"
 
-#: kate/main.cpp:120 kwrite/main.cpp:89
+#: kate/main.cpp:126 kwrite/main.cpp:89
 #, fuzzy, kde-format
 #| msgid "(c) 2000-2005 The Kate Authors"
 msgid "(c) 2000-2022 The Kate Authors"
 msgstr "(c) 2000-2005 The Kate Authors"
 
-#: kate/main.cpp:166
+#: kate/main.cpp:172
 #, fuzzy, kde-format
 #| msgid "Start Kate with a given session"
 msgid "Start Kate with a given session."
 msgstr "Pokreni Kate sa datom sesijom"
 
-#: kate/main.cpp:167
+#: kate/main.cpp:173
 #, fuzzy, kde-format
 #| msgid "Sessions"
 msgid "session"
 msgstr "Sesije"
 
-#: kate/main.cpp:172
+#: kate/main.cpp:178
 #, fuzzy, kde-format
 #| msgid "Start Kate with a new anonymous session, implies '-n'"
 msgid "Start Kate with a new anonymous session, implies '-n'."
 msgstr "Pokreni Kate sa novom anonimnom sesijom (povlači -n)"
 
-#: kate/main.cpp:177
+#: kate/main.cpp:183
 #, fuzzy, kde-format
 #| msgid ""
 #| "Force start of a new kate instance (is ignored if start is used and "
@@ -80,7 +80,7 @@ msgstr ""
 "Prinudno pokreni novi primjerak Kate ako nije dat nijedan parametar niti URL "
 "(ignoriše se ako je sesija zadata i već otvorena u drugom primjerku)"
 
-#: kate/main.cpp:183
+#: kate/main.cpp:189
 #, fuzzy, kde-format
 #| msgid ""
 #| "If using an already running kate instance, block until it exits, if URLs "
@@ -92,7 +92,7 @@ msgstr ""
 "Ako se koristi već pokrenuti primjerak Kate, blokiraj dok ne završi ako su "
 "dati URL‑ovi za otvaranje"
 
-#: kate/main.cpp:189
+#: kate/main.cpp:195
 #, fuzzy, kde-format
 #| msgid ""
 #| "Only try to reuse kate instance with this pid (is ignored if start is "
@@ -104,63 +104,63 @@ msgstr ""
 "Pokušaj da upotrijebiš samo primjerak Kate sa ovim PID‑om (ignoriše se ako "
 "je sesija zadata i već otvorena u drugom primjerku)"
 
-#: kate/main.cpp:190
+#: kate/main.cpp:196
 #, kde-format
 msgid "pid"
 msgstr ""
 
-#: kate/main.cpp:195 kwrite/main.cpp:140
+#: kate/main.cpp:201 kwrite/main.cpp:140
 #, fuzzy, kde-format
 #| msgid "Set encoding for the file to open"
 msgid "Set encoding for the file to open."
 msgstr "Kodiranje za datoteku koja se otvara"
 
-#: kate/main.cpp:196 kwrite/main.cpp:141
+#: kate/main.cpp:202 kwrite/main.cpp:141
 #, fuzzy, kde-format
 #| msgid "Show Encoding"
 msgid "encoding"
 msgstr "Prikaži kodiranje"
 
-#: kate/main.cpp:200 kwrite/main.cpp:145
+#: kate/main.cpp:206 kwrite/main.cpp:145
 #, fuzzy, kde-format
 #| msgid "Navigate to this line"
 msgid "Navigate to this line."
 msgstr "Idi na ovaj red"
 
-#: kate/main.cpp:200 kwrite/main.cpp:145
+#: kate/main.cpp:206 kwrite/main.cpp:145
 #, kde-format
 msgid "line"
 msgstr ""
 
-#: kate/main.cpp:205 kwrite/main.cpp:149
+#: kate/main.cpp:211 kwrite/main.cpp:149
 #, fuzzy, kde-format
 #| msgid "Navigate to this column"
 msgid "Navigate to this column."
 msgstr "Idi na ovu kolonu"
 
-#: kate/main.cpp:206 kwrite/main.cpp:149
+#: kate/main.cpp:212 kwrite/main.cpp:149
 #, kde-format
 msgid "column"
 msgstr ""
 
-#: kate/main.cpp:210 kwrite/main.cpp:153
+#: kate/main.cpp:216 kwrite/main.cpp:153
 #, fuzzy, kde-format
 #| msgid "Read the contents of stdin"
 msgid "Read the contents of stdin."
 msgstr "Učitaj sadržaj sa stdin"
 
-#: kate/main.cpp:215 kwrite/main.cpp:157
+#: kate/main.cpp:221 kwrite/main.cpp:157
 #, kde-format
 msgid "The files/URLs opened by the application will be deleted after use"
 msgstr ""
 
-#: kate/main.cpp:219 kwrite/main.cpp:161
+#: kate/main.cpp:225 kwrite/main.cpp:161
 #, fuzzy, kde-format
 #| msgid "Document to open"
 msgid "Documents to open."
 msgstr "Dokument za otvaranje"
 
-#: kate/main.cpp:219 kwrite/main.cpp:161
+#: kate/main.cpp:225 kwrite/main.cpp:161
 #, kde-format
 msgid "[urls...]"
 msgstr ""

@@ -132,6 +132,18 @@
 
 <varlistentry>
 <term
+><anchor id="config-dialog-general-open-each-document"/>
+<guilabel
+>Відкривати кожен документ у власному вікні</guilabel
+></term>
+<listitem
+><para
+>Якщо позначено, кожне документ буде відкрито у власному вікні. Якщо не позначено, кожен документ буде відкрито у новій вкладці поточного вікна.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
 ><anchor id="config-dialog-general-switch-to-output"/>
 <guilabel
 >Перемикання на панель виведення, якщо маємо повідомлення типу</guilabel

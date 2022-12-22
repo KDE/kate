@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-20 00:49+0000\n"
+"POT-Creation-Date: 2022-12-22 00:50+0000\n"
 "PO-Revision-Date: 2022-02-19 11:31+0800\n"
 "Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
 "Language-Team: Chinese <zh-l10n@lists.slat.org>\n"
@@ -35,37 +35,37 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "franklin@goodhorse.idv.tw, s8321414@gmail.com"
 
-#: kate/main.cpp:116
+#: kate/main.cpp:122
 #, kde-format
 msgid "Kate"
 msgstr "Kate"
 
-#: kate/main.cpp:118
+#: kate/main.cpp:124
 #, kde-format
 msgid "Kate - Advanced Text Editor"
 msgstr "Kate - 進階的文字編輯器"
 
-#: kate/main.cpp:120 kwrite/main.cpp:89
+#: kate/main.cpp:126 kwrite/main.cpp:89
 #, kde-format
 msgid "(c) 2000-2022 The Kate Authors"
 msgstr "(c) 2000-2022 Kate 作者群"
 
-#: kate/main.cpp:166
+#: kate/main.cpp:172
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "以指定的作業階段啟動 Kate。"
 
-#: kate/main.cpp:167
+#: kate/main.cpp:173
 #, kde-format
 msgid "session"
 msgstr "工作階段"
 
-#: kate/main.cpp:172
+#: kate/main.cpp:178
 #, kde-format
 msgid "Start Kate with a new anonymous session, implies '-n'."
 msgstr "以新的匿名作業階段啟動 Kate，也就是 '-n'。"
 
-#: kate/main.cpp:177
+#: kate/main.cpp:183
 #, kde-format
 msgid ""
 "Force start of a new kate instance (is ignored if start is used and another "
@@ -75,14 +75,14 @@ msgstr ""
 "強制啟動新的 kate 實體（若是指定 start，而且另一個 kate 實體已開啟指定的作業"
 "階段，則此指令會被忽略），即使沒有指定任何參數與網址。"
 
-#: kate/main.cpp:183
+#: kate/main.cpp:189
 #, kde-format
 msgid ""
 "If using an already running kate instance, block until it exits, if URLs "
 "given to open."
 msgstr "若已經有 kate 實體正在運作，則等待到此實體離開。"
 
-#: kate/main.cpp:189
+#: kate/main.cpp:195
 #, kde-format
 msgid ""
 "Only try to reuse kate instance with this pid (is ignored if start is used "
@@ -91,57 +91,57 @@ msgstr ""
 "只試著重複使用 pid 為此值的 kate 實體（若是使用 start，並且另一個 kate 實體已"
 "開啟相同的作業階段，則此指令會被忽略）。"
 
-#: kate/main.cpp:190
+#: kate/main.cpp:196
 #, kde-format
 msgid "pid"
 msgstr "行程代碼"
 
-#: kate/main.cpp:195 kwrite/main.cpp:140
+#: kate/main.cpp:201 kwrite/main.cpp:140
 #, kde-format
 msgid "Set encoding for the file to open."
 msgstr "設定要開啟檔案的編碼。"
 
-#: kate/main.cpp:196 kwrite/main.cpp:141
+#: kate/main.cpp:202 kwrite/main.cpp:141
 #, kde-format
 msgid "encoding"
 msgstr "編碼"
 
-#: kate/main.cpp:200 kwrite/main.cpp:145
+#: kate/main.cpp:206 kwrite/main.cpp:145
 #, kde-format
 msgid "Navigate to this line."
 msgstr "導覽至這一行。"
 
-#: kate/main.cpp:200 kwrite/main.cpp:145
+#: kate/main.cpp:206 kwrite/main.cpp:145
 #, kde-format
 msgid "line"
 msgstr "行"
 
-#: kate/main.cpp:205 kwrite/main.cpp:149
+#: kate/main.cpp:211 kwrite/main.cpp:149
 #, kde-format
 msgid "Navigate to this column."
 msgstr "導覽至這一欄。"
 
-#: kate/main.cpp:206 kwrite/main.cpp:149
+#: kate/main.cpp:212 kwrite/main.cpp:149
 #, kde-format
 msgid "column"
 msgstr "欄"
 
-#: kate/main.cpp:210 kwrite/main.cpp:153
+#: kate/main.cpp:216 kwrite/main.cpp:153
 #, kde-format
 msgid "Read the contents of stdin."
 msgstr "讀取 stdin 的內容。"
 
-#: kate/main.cpp:215 kwrite/main.cpp:157
+#: kate/main.cpp:221 kwrite/main.cpp:157
 #, kde-format
 msgid "The files/URLs opened by the application will be deleted after use"
 msgstr "應用程式開啟的檔案/URL在使用後會被刪除"
 
-#: kate/main.cpp:219 kwrite/main.cpp:161
+#: kate/main.cpp:225 kwrite/main.cpp:161
 #, kde-format
 msgid "Documents to open."
 msgstr "要開啟的文件"
 
-#: kate/main.cpp:219 kwrite/main.cpp:161
+#: kate/main.cpp:225 kwrite/main.cpp:161
 #, kde-format
 msgid "[urls...]"
 msgstr "[網址...]"

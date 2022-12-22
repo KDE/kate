@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-20 00:49+0000\n"
+"POT-Creation-Date: 2022-12-22 00:50+0000\n"
 "PO-Revision-Date: 2011-12-21 14:07+0700\n"
 "Last-Translator: Chan Sambathratanak <ratanak@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -29,41 +29,41 @@ msgstr ""
 "khoemsokhem@khmeros.info,mornmet@khmeros.info,sutha@khmeros.info,"
 "ratanak@khmeros.info,sophea@khmeros.info"
 
-#: kate/main.cpp:116
+#: kate/main.cpp:122
 #, kde-format
 msgid "Kate"
 msgstr "Kate"
 
-#: kate/main.cpp:118
+#: kate/main.cpp:124
 #, kde-format
 msgid "Kate - Advanced Text Editor"
 msgstr "Kate - កម្មវិធី​វាយ​អត្ថបទ​កម្រិត​ខ្ពស់"
 
-#: kate/main.cpp:120 kwrite/main.cpp:89
+#: kate/main.cpp:126 kwrite/main.cpp:89
 #, fuzzy, kde-format
 #| msgid "(c) 2000-2005 The Kate Authors"
 msgid "(c) 2000-2022 The Kate Authors"
 msgstr "រក្សាសិទ្ធិ​ឆ្នាំ ២០០០-២០០៤ ដោយ​អ្នកនក​និពន្ធ Kate"
 
-#: kate/main.cpp:166
+#: kate/main.cpp:172
 #, fuzzy, kde-format
 #| msgid "Start Kate with a given session"
 msgid "Start Kate with a given session."
 msgstr "ចាប់ផ្តើម Kate ជាមួយ​នឹង​សម័យ​ដែល​បាន​ផ្តល់"
 
-#: kate/main.cpp:167
+#: kate/main.cpp:173
 #, fuzzy, kde-format
 #| msgid "Sessions"
 msgid "session"
 msgstr "សម័យ"
 
-#: kate/main.cpp:172
+#: kate/main.cpp:178
 #, fuzzy, kde-format
 #| msgid "Start Kate with a new anonymous session, implies '-n'"
 msgid "Start Kate with a new anonymous session, implies '-n'."
 msgstr "ចាប់ផ្តើម Kate ជាមួយ​នឹង​សម័យ​អនាមិក​ថ្មី អនុវត្ត '-n'"
 
-#: kate/main.cpp:177
+#: kate/main.cpp:183
 #, fuzzy, kde-format
 #| msgid ""
 #| "Force start of a new kate instance (is ignored if start is used and "
@@ -77,7 +77,7 @@ msgstr ""
 "បង្ខំ​ឲ្យ​ចាប់ផ្ដើម​ធាតុ kate ថ្មី (មិនអើពើ​ប្រសិនបើ​ការ​ចាប់ផ្ដើម​ត្រូវ​បានប្រើ​ ហើយ​ធាតុ kate បាន​ផ្ដល់​"
 "សម័យ​ដែល​បានបើក​រួច​ហើយ) បង្ខំ​វា ប្រសិនបើ​គ្មាន​ប៉ារ៉ាម៉ែត្រ និង URLs ត្រូវ​បាន​ផ្ដល់​ទាល់តែ​សោះ"
 
-#: kate/main.cpp:183
+#: kate/main.cpp:189
 #, fuzzy, kde-format
 #| msgid ""
 #| "If using an already running kate instance, block until it exits, if URLs "
@@ -88,7 +88,7 @@ msgid ""
 msgstr ""
 "ប្រសិនបើ​ប្រើ​ធាតុ kate ដែល​កំពុង​រត់ ទប់ស្កាត់​វា​រហូតដល់​ពេល​ចេញ ប្រសិនបើ URLs ត្រូវ​ផ្ដល់​ដើម្បី​បើក"
 
-#: kate/main.cpp:189
+#: kate/main.cpp:195
 #, fuzzy, kde-format
 #| msgid ""
 #| "Only try to reuse kate instance with this pid (is ignored if start is "
@@ -100,63 +100,63 @@ msgstr ""
 "ព្យាយាម​ប្រើ​តែ​ធាតុ kate ឡើង​វិញ​ដោយ​ប្រើ pid (មិនអើពើ​ ប្រសិនបើ​កា​រចាប់ផ្ដើម​ត្រូវ​បានប្រើ និង​ធាតុ "
 "kate ផ្សេង​ទៀត​ត្រូវ​បាន​ផ្ដល់​រួច​ហើយ​ត្រូវ​បាន​បើក)"
 
-#: kate/main.cpp:190
+#: kate/main.cpp:196
 #, kde-format
 msgid "pid"
 msgstr ""
 
-#: kate/main.cpp:195 kwrite/main.cpp:140
+#: kate/main.cpp:201 kwrite/main.cpp:140
 #, fuzzy, kde-format
 #| msgid "Set encoding for the file to open"
 msgid "Set encoding for the file to open."
 msgstr "កំណត់​សំណុំ​តួអក្សរ ដើម្បី​បើក​ឯកសារ"
 
-#: kate/main.cpp:196 kwrite/main.cpp:141
+#: kate/main.cpp:202 kwrite/main.cpp:141
 #, fuzzy, kde-format
 #| msgid "Show Encoding"
 msgid "encoding"
 msgstr "បង្ហាញ​ការ​អ៊ិនកូដ"
 
-#: kate/main.cpp:200 kwrite/main.cpp:145
+#: kate/main.cpp:206 kwrite/main.cpp:145
 #, fuzzy, kde-format
 #| msgid "Navigate to this line"
 msgid "Navigate to this line."
 msgstr "រុករក​មក​កាន់​បន្ទាត់​នេះ"
 
-#: kate/main.cpp:200 kwrite/main.cpp:145
+#: kate/main.cpp:206 kwrite/main.cpp:145
 #, kde-format
 msgid "line"
 msgstr ""
 
-#: kate/main.cpp:205 kwrite/main.cpp:149
+#: kate/main.cpp:211 kwrite/main.cpp:149
 #, fuzzy, kde-format
 #| msgid "Navigate to this column"
 msgid "Navigate to this column."
 msgstr "រុករក​មក​កាន់​ជួរឈរ​នេះ"
 
-#: kate/main.cpp:206 kwrite/main.cpp:149
+#: kate/main.cpp:212 kwrite/main.cpp:149
 #, kde-format
 msgid "column"
 msgstr ""
 
-#: kate/main.cpp:210 kwrite/main.cpp:153
+#: kate/main.cpp:216 kwrite/main.cpp:153
 #, fuzzy, kde-format
 #| msgid "Read the contents of stdin"
 msgid "Read the contents of stdin."
 msgstr "អាន​មាតិកា​របស់ stdin"
 
-#: kate/main.cpp:215 kwrite/main.cpp:157
+#: kate/main.cpp:221 kwrite/main.cpp:157
 #, kde-format
 msgid "The files/URLs opened by the application will be deleted after use"
 msgstr ""
 
-#: kate/main.cpp:219 kwrite/main.cpp:161
+#: kate/main.cpp:225 kwrite/main.cpp:161
 #, fuzzy, kde-format
 #| msgid "Document to open"
 msgid "Documents to open."
 msgstr "ឯកសារ​ត្រូវ​បើក"
 
-#: kate/main.cpp:219 kwrite/main.cpp:161
+#: kate/main.cpp:225 kwrite/main.cpp:161
 #, kde-format
 msgid "[urls...]"
 msgstr ""

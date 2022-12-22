@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-20 00:49+0000\n"
+"POT-Creation-Date: 2022-12-22 00:50+0000\n"
 "PO-Revision-Date: 2022-12-20 07:47+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -22,8 +22,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100>=3 && n"
-"%100<=4 ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
+"%100==4 ? 3 : 0);\n"
 "Translator: Andrej Mernik <andrejm@ubuntu.si>\n"
 "X-Generator: Poedit 3.2.2\n"
 
@@ -42,37 +42,37 @@ msgstr ""
 "znidarsic@gmail.com,mihec.gaspersic@gmail.com,andrejm@ubuntu.si,matjaz."
 "jeran@amis.net,miles@filmsi.net"
 
-#: kate/main.cpp:116
+#: kate/main.cpp:122
 #, kde-format
 msgid "Kate"
 msgstr "Kate"
 
-#: kate/main.cpp:118
+#: kate/main.cpp:124
 #, kde-format
 msgid "Kate - Advanced Text Editor"
 msgstr "Kate - Napredni urejevalnik besedil"
 
-#: kate/main.cpp:120 kwrite/main.cpp:89
+#: kate/main.cpp:126 kwrite/main.cpp:89
 #, kde-format
 msgid "(c) 2000-2022 The Kate Authors"
 msgstr "(c) 2000-2022 Avtorji Kate"
 
-#: kate/main.cpp:166
+#: kate/main.cpp:172
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "Zaženi Kate z dano sejo."
 
-#: kate/main.cpp:167
+#: kate/main.cpp:173
 #, kde-format
 msgid "session"
 msgstr "seja"
 
-#: kate/main.cpp:172
+#: kate/main.cpp:178
 #, kde-format
 msgid "Start Kate with a new anonymous session, implies '-n'."
 msgstr "Zaženi Kate z novo anonimno sejo, s pomenom '-n'."
 
-#: kate/main.cpp:177
+#: kate/main.cpp:183
 #, kde-format
 msgid ""
 "Force start of a new kate instance (is ignored if start is used and another "
@@ -83,7 +83,7 @@ msgstr ""
 "nek drug primerek že odprto dano sejo), vsiljeno, če ni podanih nobenih "
 "parametrov ali URL-jev."
 
-#: kate/main.cpp:183
+#: kate/main.cpp:189
 #, kde-format
 msgid ""
 "If using an already running kate instance, block until it exits, if URLs "
@@ -92,7 +92,7 @@ msgstr ""
 "Če se že uporablja nek primerek in so podani URL-ji za odprtje, blokira "
 "dokler se primerek ne konča."
 
-#: kate/main.cpp:189
+#: kate/main.cpp:195
 #, kde-format
 msgid ""
 "Only try to reuse kate instance with this pid (is ignored if start is used "
@@ -101,57 +101,57 @@ msgstr ""
 "Poskusi znova uporabiti samo primerek s tem PID-om (se prezre, če je "
 "uporabljena možnost »start« in ima nek drug primerek že odprto dano sejo)."
 
-#: kate/main.cpp:190
+#: kate/main.cpp:196
 #, kde-format
 msgid "pid"
 msgstr "pid"
 
-#: kate/main.cpp:195 kwrite/main.cpp:140
+#: kate/main.cpp:201 kwrite/main.cpp:140
 #, kde-format
 msgid "Set encoding for the file to open."
 msgstr "Nastavi kodiranje datoteke, ki bo odprta."
 
-#: kate/main.cpp:196 kwrite/main.cpp:141
+#: kate/main.cpp:202 kwrite/main.cpp:141
 #, kde-format
 msgid "encoding"
 msgstr "kodiranje"
 
-#: kate/main.cpp:200 kwrite/main.cpp:145
+#: kate/main.cpp:206 kwrite/main.cpp:145
 #, kde-format
 msgid "Navigate to this line."
 msgstr "Krmari do te vrstice."
 
-#: kate/main.cpp:200 kwrite/main.cpp:145
+#: kate/main.cpp:206 kwrite/main.cpp:145
 #, kde-format
 msgid "line"
 msgstr "vrstica"
 
-#: kate/main.cpp:205 kwrite/main.cpp:149
+#: kate/main.cpp:211 kwrite/main.cpp:149
 #, kde-format
 msgid "Navigate to this column."
 msgstr "Krmari do tega stolpca."
 
-#: kate/main.cpp:206 kwrite/main.cpp:149
+#: kate/main.cpp:212 kwrite/main.cpp:149
 #, kde-format
 msgid "column"
 msgstr "stolpec"
 
-#: kate/main.cpp:210 kwrite/main.cpp:153
+#: kate/main.cpp:216 kwrite/main.cpp:153
 #, kde-format
 msgid "Read the contents of stdin."
 msgstr "Preberi vsebino stdin."
 
-#: kate/main.cpp:215 kwrite/main.cpp:157
+#: kate/main.cpp:221 kwrite/main.cpp:157
 #, kde-format
 msgid "The files/URLs opened by the application will be deleted after use"
 msgstr "Datoteke in URL-ji, ki jih odpre program, bodo izbrisani po uporabi"
 
-#: kate/main.cpp:219 kwrite/main.cpp:161
+#: kate/main.cpp:225 kwrite/main.cpp:161
 #, kde-format
 msgid "Documents to open."
 msgstr "Dokumenti za odprtje."
 
-#: kate/main.cpp:219 kwrite/main.cpp:161
+#: kate/main.cpp:225 kwrite/main.cpp:161
 #, kde-format
 msgid "[urls...]"
 msgstr "[naslovi url...]"

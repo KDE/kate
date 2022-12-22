@@ -133,7 +133,7 @@
     <p xml:lang="pl">Kate jest wielodokumentowym, wielowidokowym edytorem tekstu stworzonym przez KDE. Umożliwia zwijanie kodu, podświetlanie składni, dynamiczne zawijanie wyrazów, osadzoną konsolę, rozbudowany interfejs dla wtyczek i zapewnia podstawową obsługę skryptów.</p>
     <p xml:lang="pt">O Kate é um editor de texto multi-documentos e multi-janelas do KDE. Oferece algumas funcionalidades como a dobragem de código, realce de sintaxe, mudanças de linha dinâmicas, uma consola incorporada, uma interface em 'plugins' alargada e algum suporte preliminar para programação.</p>
     <p xml:lang="pt-BR">Kate é um editor de texto multi-documentos e multi-janelas para o KDE. Oferece algumas funcionalidades como a dobradura de código, realce de sintaxe, quebra de linha dinâmica, um console incorporado, uma interface de plugins extensa e um suporte preliminar para criação de scripts.</p>
-    <p xml:lang="ru">Kate — текстовый редактор от KDE, позволяющий работать с несколькими документами одновременно. Реализует сворачивание блоков кода, подсветка синтаксиса, динамический перенос строк, встроенный терминал, интерфейс для написания модулей и базовую поддержку сценариев.</p>
+    <p xml:lang="ru">Kate — текстовый редактор от KDE, позволяющий работать с несколькими документами одновременно. Приложение поддерживает сворачивание блоков кода, подсветку синтаксиса, динамический перенос строк, встроенный терминал, интерфейс для написания модулей и базовую поддержку сценариев.</p>
     <p xml:lang="sk">Kate je viacdokumentový, viacpohľadový textový editor pre KDE. Podporuje zabaľovanie kódu, zvýrazňovanie syntaxe, dynamické zalamovanie slov, vstavanú konzolu, rozšíriteľnú architektúru pluginov a základnú podporu skriptovania.</p>
     <p xml:lang="sl">Kate je urejevalnik besedil s strani KDE, s podporo več dokumentom in pogledom naenkrat. Podpira zvijanje kode, poudarjanje skladnje, dinamičen prelom besedila. Ima vgrajeno konzolo, razširljiv vmesnik za vstavke, vsebuje pa tudi podporo skriptom.</p>
     <p xml:lang="sr">Кејт је вишедокументски, вишеприказни уређивач текста из КДЕ‑а. Поседује могућности као што су сажимање кода, истицање синтаксе, динамички прелом текста, угнежђени терминал, опсежно сучеље за прикључке и основна подршка за скриптовање.</p>
@@ -229,7 +229,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="pl">MDI, dzielenie okna, okna w kartach</li>
       <li xml:lang="pt">MDI, divisão de janelas, janelas em páginas</li>
       <li xml:lang="pt-BR">MDI, divisão de janelas, janelas em abas</li>
-      <li xml:lang="ru">Работа с несколькими документами одновременно, разделение окон, вкладки</li>
+      <li xml:lang="ru">Работа с несколькими документами одновременно, разделение окон, вкладки;</li>
       <li xml:lang="sk">MDI, rozdeľovanie okien, záložky okien</li>
       <li xml:lang="sl">MDI, razdelitev oken, zavihki oken</li>
       <li xml:lang="sr">МДИ, подела прозора, прозори под језичцима</li>
@@ -277,7 +277,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="pt">Verificação ortográfica</li>
       <li xml:lang="pt-BR">Verificação ortográfica</li>
       <li xml:lang="ro">Verificare ortografică</li>
-      <li xml:lang="ru">Проверка орфографии</li>
+      <li xml:lang="ru">Проверка орфографии;</li>
       <li xml:lang="sk">Kontrola pravopisu</li>
       <li xml:lang="sl">Preverjanje črkovanja</li>
       <li xml:lang="sr">провера правописа</li>
@@ -324,7 +324,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="pl">Obsługa znaków nowego wiersza CR, CRLF, LF</li>
       <li xml:lang="pt">suporte de mudanças de linha com CR, CRLF, LF</li>
       <li xml:lang="pt-BR">Suporte de mudança de linha com CR, CRLF, LF</li>
-      <li xml:lang="ru">Поддержка переносов строк CR, CRLF, LF</li>
+      <li xml:lang="ru">Поддержка переносов строк CR, CRLF, LF;</li>
       <li xml:lang="sk">Podpora nových riadkov CR, CRLF, LF</li>
       <li xml:lang="sl">Podpora novim vrsticam vrste CR, CRLF in LF</li>
       <li xml:lang="sr">подршка за различите крајеве редова (ЦР, ЛФ, ЦР+ЛФ)</li>
@@ -371,7 +371,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="pl">Obsługa kodowań (utf-8, utf-16, ascii itp.)</li>
       <li xml:lang="pt">Suporte para codificações de caracteres (utf-8, utf-16, ascii etc.)</li>
       <li xml:lang="pt-BR">Suporte para codificação de caracteres (utf-8, utf-16, ascii, etc.)</li>
-      <li xml:lang="ru">Поддержка различных кодировок (UTF-8, UTF-16, ASCII и других)</li>
+      <li xml:lang="ru">Поддержка различных кодировок (UTF-8, UTF-16, ASCII и других);</li>
       <li xml:lang="sk">Podpora kódovania (utf-8, utf-16, ascii atď.)</li>
       <li xml:lang="sl">Podpora kodiranju (utf-8, utf-16, ascii, itd.)</li>
       <li xml:lang="sr">подршка за кодирања (УТФ‑8, УТФ‑16, аски, итд.)</li>
@@ -419,7 +419,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="pt">Conversão de codificações</li>
       <li xml:lang="pt-BR">Conversão de codificação de caracteres</li>
       <li xml:lang="ro">Conversie codare</li>
-      <li xml:lang="ru">Преобразование кодировки</li>
+      <li xml:lang="ru">Преобразование кодировки;</li>
       <li xml:lang="sk">Konverzia kódovania</li>
       <li xml:lang="sl">Pretvorba kodiranja</li>
       <li xml:lang="sr">претварање кодирања</li>
@@ -465,7 +465,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="pl">Znajdź i zastąp oparte na wyrażeniach regularnych</li>
       <li xml:lang="pt">Pesquisa &amp; substituição com base em expressões regulares</li>
       <li xml:lang="pt-BR">Pesquisa e substituição com base em expressões regulares</li>
-      <li xml:lang="ru">Поиск и замена с возможностью использования регулярных выражений</li>
+      <li xml:lang="ru">Поиск и замена с возможностью использования регулярных выражений;</li>
       <li xml:lang="sk">Regulárne výrazy založené na hľadaj a nahraď</li>
       <li xml:lang="sl">Iskanje in zamenjava temelječa na regularnih izrazih</li>
       <li xml:lang="sr">тражење и замена помоћу регуларних израза</li>
@@ -509,7 +509,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="pl">Rozbudowane podświetlanie składni i par nawiasów</li>
       <li xml:lang="pt">Realce de sintaxe e correspondência de parêntesis</li>
       <li xml:lang="pt-BR">Realce de sintaxe e correspondência de parênteses</li>
-      <li xml:lang="ru">Подсветка синтаксиса и поиск парных скобок</li>
+      <li xml:lang="ru">Подсветка синтаксиса и поиск парных скобок;</li>
       <li xml:lang="sk">Silné zvýrazňovanie syntaxe a párovanie zátvoriek</li>
       <li xml:lang="sl">Zmogljivo poudarjanje skladnje in oklepajev</li>
       <li xml:lang="sr">моћно истицање синтаксе и поклапање заграда</li>
@@ -556,7 +556,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="pt">Dobragem de código e texto</li>
       <li xml:lang="pt-BR">Dobradura de código e texto</li>
       <li xml:lang="ro">Îndosarierea codului și textului</li>
-      <li xml:lang="ru">Сворачивание блоков исходного кода</li>
+      <li xml:lang="ru">Сворачивание блоков исходного кода;</li>
       <li xml:lang="sk">Zabaľovanie kódu a textu</li>
       <li xml:lang="sl">Zvijanje kode in besedila</li>
       <li xml:lang="sr">сажимање кода и текста</li>
@@ -604,7 +604,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="pt">Suporte para desfazer/refazer ilimitado</li>
       <li xml:lang="pt-BR">Suporte para desfazer/refazer sem limite de ações</li>
       <li xml:lang="ro">Suport pentru desfacere/refacere infinită</li>
-      <li xml:lang="ru">Поддержка бесконечной глубины отмены и повтора действий</li>
+      <li xml:lang="ru">Поддержка бесконечной глубины отмены и повтора действий;</li>
       <li xml:lang="sk">Nekonečná podpora späť/znova</li>
       <li xml:lang="sl">Podpora neskončno razveljavitvam/uveljavitvam</li>
       <li xml:lang="sr">неограничено опозивање и понављање</li>
@@ -651,7 +651,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="pt">Modo de selecção em bloco</li>
       <li xml:lang="pt-BR">Modo de seleção de blocos</li>
       <li xml:lang="ro">Regim de selecție în bloc</li>
-      <li xml:lang="ru">Режим блочного выделения</li>
+      <li xml:lang="ru">Режим блочного выделения;</li>
       <li xml:lang="sk">Režim výberu bloku</li>
       <li xml:lang="sl">Način bločne izbire</li>
       <li xml:lang="sr">режим блоковског избора</li>
@@ -699,7 +699,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="pt">Indentação automática</li>
       <li xml:lang="pt-BR">Recuo automático</li>
       <li xml:lang="ro">Indentare automată</li>
-      <li xml:lang="ru">Автоматические отступы</li>
+      <li xml:lang="ru">Автоматические отступы;</li>
       <li xml:lang="sk">Automatické odsadzovanie</li>
       <li xml:lang="sl">Samodejno zamikanje</li>
       <li xml:lang="sr">аутоматско увлачење</li>
@@ -746,7 +746,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="pt">Modo de completação automática</li>
       <li xml:lang="pt-BR">Suporte para completamento automático</li>
       <li xml:lang="ro">Suport pentru completare automată</li>
-      <li xml:lang="ru">Поддержка автоматического дополнения текста</li>
+      <li xml:lang="ru">Поддержка автоматического дополнения текста;</li>
       <li xml:lang="sk">Podpora automatického ukončovania</li>
       <li xml:lang="sl">Podpora samodejnemu dopolnjevanju</li>
       <li xml:lang="sr">аутоматска допуна</li>
@@ -793,7 +793,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="pt">Integração com a consola</li>
       <li xml:lang="pt-BR">Integração com o console</li>
       <li xml:lang="ro">Integrare cu consola</li>
-      <li xml:lang="ru">Вызов функций из командной строки</li>
+      <li xml:lang="ru">Вызов функций из командной строки;</li>
       <li xml:lang="sk">Integrácia shellu</li>
       <li xml:lang="sl">Vgrajena lupina</li>
       <li xml:lang="sr">уклапање шкољке</li>
@@ -884,7 +884,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="pl">Architektura wtyczek dla programów i składników edytora</li>
       <li xml:lang="pt">Arquitectura modular para o componente de edição e a aplicação</li>
       <li xml:lang="pt-BR">Arquitetura modular para o aplicativo e componente de edição</li>
-      <li xml:lang="ru">Модульная архитектура приложения и компонента редактора</li>
+      <li xml:lang="ru">Модульная архитектура приложения и компонента редактора;</li>
       <li xml:lang="sk">Architektúra pluginov pre aplikáciu a komponent editora</li>
       <li xml:lang="sl">Arhitektura vstavkov za program in sestavni del urejevalnika</li>
       <li xml:lang="sr">архитектура прикључка за компоненте програма и уређивача</li>
@@ -931,7 +931,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="pt">Atalhos de teclado personalizados</li>
       <li xml:lang="pt-BR">Atalhos de teclado personalizados</li>
       <li xml:lang="ro">Scurtături personalizabile</li>
-      <li xml:lang="ru">Настраиваемые комбинации клавиш</li>
+      <li xml:lang="ru">Настраиваемые комбинации клавиш;</li>
       <li xml:lang="sk">Prispôsobiteľné skratky</li>
       <li xml:lang="sl">Prilagodljive bližnjice</li>
       <li xml:lang="sr">прилагодљиве пречице</li>
@@ -978,7 +978,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="pt">Linha de comandos integrada</li>
       <li xml:lang="pt-BR">Linha de comando integrada</li>
       <li xml:lang="ro">Linie de comandă integrată</li>
-      <li xml:lang="ru">Встроенный командный терминал</li>
+      <li xml:lang="ru">Встроенный командный терминал;</li>
       <li xml:lang="sk">Integrovaný príkazový riadok</li>
       <li xml:lang="sl">Vgrajena ukazna vrstica</li>
       <li xml:lang="sr">уклопљена командна линија</li>
@@ -1024,7 +1024,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="pl">Możliwość używania skryptów JavaScript</li>
       <li xml:lang="pt">Programável através de JavaScript</li>
       <li xml:lang="pt-BR">Possibilidade de uso de scripts feitos em JavaScript</li>
-      <li xml:lang="ru">Поддержка сценариев на языке JavaScript</li>
+      <li xml:lang="ru">Поддержка сценариев на языке JavaScript;</li>
       <li xml:lang="sk">Skriptovateľný pomocou JavaScriptu</li>
       <li xml:lang="sl">Podpora skriptom z uporabo JavaScript</li>
       <li xml:lang="sr">скриптовање помоћу јаваскрипта</li>
@@ -1077,7 +1077,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="pt">Edição de código com o Kate</caption>
       <caption xml:lang="pt-BR">Editando código no Kate</caption>
       <caption xml:lang="ro">Redactarea codului cu Kate</caption>
-      <caption xml:lang="ru">Редактирование исходного текста программы в Kate</caption>
+      <caption xml:lang="ru">Редактирование исходного текста программы в Kate;</caption>
       <caption xml:lang="sk">Úprava kódu s Kate</caption>
       <caption xml:lang="sl">Urejanje kode s Kate</caption>
       <caption xml:lang="sv">Redigera kod med Kate</caption>

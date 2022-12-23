@@ -116,8 +116,12 @@ bool KateAppAdaptor::activateSession(const QString &session)
 
 int KateAppAdaptor::desktopNumber()
 {
-    KWindowInfo appInfo(m_app->activeKateMainWindow()->winId(), NET::WMDesktop);
-    return appInfo.desktop();
+    if (KWindowSystem::isPlatformX11()) {
+        KWindowInfo appInfo(m_app->activeKateMainWindow()->winId(), NET::WMDesktop);
+        return appInfo.desktop();
+    }
+
+    return 0;
 }
 
 QString KateAppAdaptor::activeSession()

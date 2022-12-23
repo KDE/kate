@@ -357,7 +357,7 @@ int main(int argc, char **argv)
         // prefer the Kate instance running on the current virtual desktop
         bool foundRunningService = false;
         if ((!force_new) && (serviceName.isEmpty())) {
-            int desktopnumber = 1;
+            int desktopnumber = 0;
 #if KWINDOWSYSTEM_VERSION > QT_VERSION_CHECK(5, 101, 0)
 #if HAVE_X11
             if (KWindowSystem::isPlatformX11()) {

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-21 00:50+0000\n"
-"PO-Revision-Date: 2022-12-13 21:16+0530\n"
+"PO-Revision-Date: 2022-12-22 21:24+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -20,32 +20,33 @@ msgstr ""
 #: KateSearchCommand.cpp:80
 #, kde-format
 msgid "Usage: grep [pattern to search for in folder]"
-msgstr ""
+msgstr "பயன்பாடு: grep [கண்டுபிடிக்க வேண்டியதன் பாங்கு]"
 
 #: KateSearchCommand.cpp:82
 #, kde-format
 msgid "Usage: newGrep [pattern to search for in folder]"
-msgstr ""
+msgstr "பயன்பாடு: newGrep [கண்டுபிடிக்க வேண்டியதன் பாங்கு]"
 
 #: KateSearchCommand.cpp:86 KateSearchCommand.cpp:88
 #, kde-format
 msgid "Usage: search [pattern to search for in open files]"
-msgstr ""
+msgstr "பயன்பாடு: search [திறுந்துள்ள கோப்புகளில் கண்டுபிடிக்க வேண்டியதன் பாங்கு]"
 
 #: KateSearchCommand.cpp:92
 #, kde-format
 msgid "Usage: pgrep [pattern to search for in current project]"
-msgstr ""
+msgstr "பயன்பாடு: pgrep [தற்போதைய திட்டப்பணியில் கண்டுபிடிக்க வேண்டியதன் பாங்கு]"
 
 #: KateSearchCommand.cpp:94
 #, kde-format
 msgid "Usage: newPGrep [pattern to search for in current project]"
-msgstr ""
+msgstr "பயன்பாடு: newPGrep [தற்போதைய திட்டப்பணியில் கண்டுபிடிக்க வேண்டியதன் பாங்கு]"
 
 #: KateSearchCommand.cpp:98
 #, kde-format
 msgid "Usage: preg [regex pattern to search for in current project]"
 msgstr ""
+"பயன்பாடு: preg [தற்போதைய திட்டப்பணியில் கண்டுபிடிக்க வேண்டியதன் சுருங்குறித் தொடர்]"
 
 #: MatchExportDialog.cpp:20
 #, kde-format
@@ -542,7 +543,7 @@ msgstr "முந்தைய பொருத்த‍த்திற்கு�
 #: SearchPlugin.cpp:357
 #, kde-format
 msgid "Cut Matching Lines"
-msgstr ""
+msgstr "பொருந்தும் வரிகளை வெட்டு"
 
 #: SearchPlugin.cpp:359
 #, kde-format
@@ -550,11 +551,12 @@ msgid ""
 "This will cut all highlighted search match lines from the current document "
 "to the clipboard"
 msgstr ""
+"தற்போதைய ஆவணத்தில் தேடலுக்கு பொருந்தும் அனைத்து வரிகளையும் வெட்டி பிடிப்புப்பலகையில் இடும்"
 
 #: SearchPlugin.cpp:363
 #, kde-format
 msgid "Copy Matching Lines"
-msgstr ""
+msgstr "பொருந்தும் வரிகளை நகலெடு"
 
 #: SearchPlugin.cpp:365
 #, kde-format
@@ -562,6 +564,8 @@ msgid ""
 "This will copy all highlighted search match lines in the current document to "
 "the clipboard"
 msgstr ""
+"தற்போதைய ஆவணத்தில் தேடலுக்கு பொருந்தும் அனைத்து வரிகளையும்  பிடிப்புப்பலகைக்கு "
+"நகலெடுக்கும்"
 
 #: SearchPlugin.cpp:392
 #, kde-format

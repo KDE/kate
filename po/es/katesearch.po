@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-21 00:50+0000\n"
-"PO-Revision-Date: 2022-10-20 18:32+0200\n"
+"PO-Revision-Date: 2022-12-22 22:47+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -20,7 +20,7 @@ msgstr ""
 "com>\n"
 "com>\n"
 "com>\n"
-"X-Generator: Lokalize 22.08.2\n"
+"X-Generator: Lokalize 22.12.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: KateSearchCommand.cpp:80
@@ -555,7 +555,7 @@ msgstr "Ir a la anterior coincidencia"
 #: SearchPlugin.cpp:357
 #, kde-format
 msgid "Cut Matching Lines"
-msgstr ""
+msgstr "Cortar líneas coincidentes"
 
 #: SearchPlugin.cpp:359
 #, kde-format
@@ -563,11 +563,13 @@ msgid ""
 "This will cut all highlighted search match lines from the current document "
 "to the clipboard"
 msgstr ""
+"Esto cortará todas las líneas resaltadas del documento que coincidan con la "
+"búsqueda y las copiará en el portapapeles."
 
 #: SearchPlugin.cpp:363
 #, kde-format
 msgid "Copy Matching Lines"
-msgstr ""
+msgstr "Copiar líneas coincidentes"
 
 #: SearchPlugin.cpp:365
 #, kde-format
@@ -575,6 +577,8 @@ msgid ""
 "This will copy all highlighted search match lines in the current document to "
 "the clipboard"
 msgstr ""
+"Esto copiará en el portapapeles todas las líneas resaltadas del documento "
+"actual que coincidan con la búsqueda."
 
 #: SearchPlugin.cpp:392
 #, kde-format

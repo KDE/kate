@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-22 00:50+0000\n"
+"POT-Creation-Date: 2022-12-23 00:50+0000\n"
 "PO-Revision-Date: 2019-09-25 17:04+0500\n"
 "Last-Translator: Victor Ibragimov <victor.ibragimov@gmail.com>\n"
 "Language-Team: English <kde-i18n-doc@kde.org>\n"
@@ -150,14 +150,14 @@ msgid "Close"
 msgstr "Пӯшидан"
 
 #: lib/commitfilesview.cpp:384 lib/commitfilesview.cpp:474
-#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:342
+#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:343
 #: lib/kateconfigdialog.cpp:393
 #, kde-format
 msgid "Error"
 msgstr ""
 
 #: lib/commitfilesview.cpp:384 lib/commitfilesview.cpp:474
-#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:342
+#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:343
 #, kde-format
 msgid "Git"
 msgstr ""
@@ -167,7 +167,7 @@ msgstr ""
 msgid "Invalid hash"
 msgstr ""
 
-#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:342
+#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:343
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr ""
@@ -314,28 +314,43 @@ msgstr[1] ""
 msgid "Unstage Hunk"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:51
+#: lib/diff/diffwidget.cpp:59
+#, kde-format
+msgid "Diff %1"
+msgstr ""
+
+#: lib/diff/diffwidget.cpp:61
+#, kde-format
+msgid "Diff %1..%2"
+msgstr ""
+
+#: lib/diff/diffwidget.cpp:82
+#, kde-format
+msgid "Diff %1 .. %2"
+msgstr ""
+
+#: lib/diff/diffwidget.cpp:112
 #, kde-format
 msgid "Show/Hide Commit Info"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:56
+#: lib/diff/diffwidget.cpp:117
 #, kde-format
 msgid "Jump to Next File"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:60
+#: lib/diff/diffwidget.cpp:121
 #, fuzzy, kde-format
 #| msgid "Restore loca&tion"
 msgid "Jump to Previous File"
 msgstr "&Ёфтани аз нав тасвир кардан"
 
-#: lib/diff/diffwidget.cpp:64
+#: lib/diff/diffwidget.cpp:125
 #, kde-format
 msgid "Jump to Next Hunk"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:68
+#: lib/diff/diffwidget.cpp:129
 #, fuzzy, kde-format
 #| msgid "Restore loca&tion"
 msgid "Jump to Previous Hunk"
@@ -351,7 +366,7 @@ msgstr ""
 msgid "Failed to get file history: %1"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:350
+#: lib/filehistorywidget.cpp:351
 #, fuzzy, kde-format
 #| msgid "File Selector"
 msgid "File History"
@@ -1459,16 +1474,6 @@ msgstr "Кушодани Файл"
 msgid " [read only]"
 msgstr ""
 
-#: lib/katemainwindow.cpp:1381
-#, kde-format
-msgid "Diff %1"
-msgstr ""
-
-#: lib/katemainwindow.cpp:1383
-#, kde-format
-msgid "Diff %1..%2"
-msgstr ""
-
 #: lib/katemdi.cpp:85
 #, fuzzy, kde-format
 #| msgid "Plugin Manager"
@@ -2103,22 +2108,17 @@ msgstr ""
 msgid "Compare with Active Document"
 msgstr "Пӯшидани ҳуҷҷати ҷорӣ."
 
-#: lib/kateviewspace.cpp:1035
-#, kde-format
-msgid "Diff %1 .. %2"
-msgstr ""
-
-#: lib/kateviewspace.cpp:1040
+#: lib/kateviewspace.cpp:1037
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1107
+#: lib/kateviewspace.cpp:1104
 #, kde-format
 msgid "Could not start program"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1108
+#: lib/kateviewspace.cpp:1105
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""

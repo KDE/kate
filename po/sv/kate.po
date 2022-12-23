@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-22 00:50+0000\n"
+"POT-Creation-Date: 2022-12-23 00:50+0000\n"
 "PO-Revision-Date: 2022-10-02 16:47+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -167,14 +167,14 @@ msgid "Close"
 msgstr "Stäng"
 
 #: lib/commitfilesview.cpp:384 lib/commitfilesview.cpp:474
-#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:342
+#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:343
 #: lib/kateconfigdialog.cpp:393
 #, kde-format
 msgid "Error"
 msgstr "Fel"
 
 #: lib/commitfilesview.cpp:384 lib/commitfilesview.cpp:474
-#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:342
+#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:343
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -184,7 +184,7 @@ msgstr "Git"
 msgid "Invalid hash"
 msgstr ""
 
-#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:342
+#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:343
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 finns inte i Git-arkivet."
@@ -329,28 +329,43 @@ msgstr[1] "Avlägsna rader"
 msgid "Unstage Hunk"
 msgstr "Avlägsna stycke"
 
-#: lib/diff/diffwidget.cpp:51
+#: lib/diff/diffwidget.cpp:59
+#, kde-format
+msgid "Diff %1"
+msgstr "Jämför %1"
+
+#: lib/diff/diffwidget.cpp:61
+#, kde-format
+msgid "Diff %1..%2"
+msgstr "Jämför %1..%2"
+
+#: lib/diff/diffwidget.cpp:82
+#, kde-format
+msgid "Diff %1 .. %2"
+msgstr "Jämför %1 .. %2"
+
+#: lib/diff/diffwidget.cpp:112
 #, kde-format
 msgid "Show/Hide Commit Info"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:56
+#: lib/diff/diffwidget.cpp:117
 #, kde-format
 msgid "Jump to Next File"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:60
+#: lib/diff/diffwidget.cpp:121
 #, fuzzy, kde-format
 #| msgid "Go to Previous Location"
 msgid "Jump to Previous File"
 msgstr "Gå till föregående position"
 
-#: lib/diff/diffwidget.cpp:64
+#: lib/diff/diffwidget.cpp:125
 #, kde-format
 msgid "Jump to Next Hunk"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:68
+#: lib/diff/diffwidget.cpp:129
 #, fuzzy, kde-format
 #| msgid "Go to Previous Location"
 msgid "Jump to Previous Hunk"
@@ -367,7 +382,7 @@ msgstr ""
 msgid "Failed to get file history: %1"
 msgstr "Misslyckades hämta filhistorik: %1"
 
-#: lib/filehistorywidget.cpp:350
+#: lib/filehistorywidget.cpp:351
 #, kde-format
 msgid "File History"
 msgstr "Filhistorik"
@@ -1496,16 +1511,6 @@ msgstr "Öppna alla filer"
 msgid " [read only]"
 msgstr " [skrivskyddad]"
 
-#: lib/katemainwindow.cpp:1381
-#, kde-format
-msgid "Diff %1"
-msgstr "Jämför %1"
-
-#: lib/katemainwindow.cpp:1383
-#, kde-format
-msgid "Diff %1..%2"
-msgstr "Jämför %1..%2"
-
 #: lib/katemdi.cpp:85
 #, kde-format
 msgid "Toolview Manager"
@@ -2164,22 +2169,17 @@ msgstr ""
 msgid "Compare with Active Document"
 msgstr "Jämför med aktivt dokument"
 
-#: lib/kateviewspace.cpp:1035
-#, kde-format
-msgid "Diff %1 .. %2"
-msgstr "Jämför %1 .. %2"
-
-#: lib/kateviewspace.cpp:1040
+#: lib/kateviewspace.cpp:1037
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Jämför med aktivt dokument med användning av"
 
-#: lib/kateviewspace.cpp:1107
+#: lib/kateviewspace.cpp:1104
 #, kde-format
 msgid "Could not start program"
 msgstr "Kunde inte starta programmet"
 
-#: lib/kateviewspace.cpp:1108
+#: lib/kateviewspace.cpp:1105
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""

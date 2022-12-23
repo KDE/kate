@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-22 00:50+0000\n"
+"POT-Creation-Date: 2022-12-23 00:50+0000\n"
 "PO-Revision-Date: 2022-12-21 12:08+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -184,14 +184,14 @@ msgid "Close"
 msgstr "Закрыть"
 
 #: lib/commitfilesview.cpp:384 lib/commitfilesview.cpp:474
-#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:342
+#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:343
 #: lib/kateconfigdialog.cpp:393
 #, kde-format
 msgid "Error"
 msgstr "Ошибка"
 
 #: lib/commitfilesview.cpp:384 lib/commitfilesview.cpp:474
-#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:342
+#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:343
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -201,7 +201,7 @@ msgstr "Git"
 msgid "Invalid hash"
 msgstr "Недопустимый хеш"
 
-#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:342
+#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:343
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "«%1» не существует в репозитории git."
@@ -351,27 +351,42 @@ msgstr[3] "Отменить промежуточное состояние стр
 msgid "Unstage Hunk"
 msgstr "Отменить промежуточное сохранение блока"
 
-#: lib/diff/diffwidget.cpp:51
+#: lib/diff/diffwidget.cpp:59
+#, kde-format
+msgid "Diff %1"
+msgstr "Различия %1"
+
+#: lib/diff/diffwidget.cpp:61
+#, kde-format
+msgid "Diff %1..%2"
+msgstr "Различия между %1 и %2"
+
+#: lib/diff/diffwidget.cpp:82
+#, kde-format
+msgid "Diff %1 .. %2"
+msgstr "Различия между «%1» и «%2»"
+
+#: lib/diff/diffwidget.cpp:112
 #, kde-format
 msgid "Show/Hide Commit Info"
 msgstr "Показать или скрыть сведения о фиксации"
 
-#: lib/diff/diffwidget.cpp:56
+#: lib/diff/diffwidget.cpp:117
 #, kde-format
 msgid "Jump to Next File"
 msgstr "Перейти к следующему файлу"
 
-#: lib/diff/diffwidget.cpp:60
+#: lib/diff/diffwidget.cpp:121
 #, kde-format
 msgid "Jump to Previous File"
 msgstr "Вернуться к предыдущему файлу"
 
-#: lib/diff/diffwidget.cpp:64
+#: lib/diff/diffwidget.cpp:125
 #, kde-format
 msgid "Jump to Next Hunk"
 msgstr "Перейти к следующему блоку"
 
-#: lib/diff/diffwidget.cpp:68
+#: lib/diff/diffwidget.cpp:129
 #, kde-format
 msgid "Jump to Previous Hunk"
 msgstr "Вернуться к предыдущему блоку"
@@ -388,7 +403,7 @@ msgstr ""
 msgid "Failed to get file history: %1"
 msgstr "Не удалось получить историю файла: %1"
 
-#: lib/filehistorywidget.cpp:350
+#: lib/filehistorywidget.cpp:351
 #, kde-format
 msgid "File History"
 msgstr "История файла"
@@ -1515,16 +1530,6 @@ msgstr "Открыть все файлы"
 msgid " [read only]"
 msgstr " [только для чтения]"
 
-#: lib/katemainwindow.cpp:1381
-#, kde-format
-msgid "Diff %1"
-msgstr "Различия %1"
-
-#: lib/katemainwindow.cpp:1383
-#, kde-format
-msgid "Diff %1..%2"
-msgstr "Различия между %1 и %2"
-
 #: lib/katemdi.cpp:85
 #, kde-format
 msgid "Toolview Manager"
@@ -2182,22 +2187,17 @@ msgstr "Переместить документ в новое окно"
 msgid "Compare with Active Document"
 msgstr "Сравнить с активным документом"
 
-#: lib/kateviewspace.cpp:1035
-#, kde-format
-msgid "Diff %1 .. %2"
-msgstr "Различия между «%1» и «%2»"
-
-#: lib/kateviewspace.cpp:1040
+#: lib/kateviewspace.cpp:1037
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Сравнить с активным документом с помощью"
 
-#: lib/kateviewspace.cpp:1107
+#: lib/kateviewspace.cpp:1104
 #, kde-format
 msgid "Could not start program"
 msgstr "Невозможно запустить программу"
 
-#: lib/kateviewspace.cpp:1108
+#: lib/kateviewspace.cpp:1105
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr "Не удалось запустить выбранную программу, возможно она не установлена."

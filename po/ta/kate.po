@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-22 00:50+0000\n"
+"POT-Creation-Date: 2022-12-23 00:50+0000\n"
 "PO-Revision-Date: 2022-12-20 19:34+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -161,14 +161,14 @@ msgid "Close"
 msgstr "மூடு"
 
 #: lib/commitfilesview.cpp:384 lib/commitfilesview.cpp:474
-#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:342
+#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:343
 #: lib/kateconfigdialog.cpp:393
 #, kde-format
 msgid "Error"
 msgstr "சிக்கல்"
 
 #: lib/commitfilesview.cpp:384 lib/commitfilesview.cpp:474
-#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:342
+#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:343
 #, kde-format
 msgid "Git"
 msgstr "கிட்"
@@ -178,7 +178,7 @@ msgstr "கிட்"
 msgid "Invalid hash"
 msgstr "செல்லுபடியாகாத சரிகாண்தொகை"
 
-#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:342
+#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:343
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 ஓர் கிட் கிடங்கில் இல்லை."
@@ -323,27 +323,42 @@ msgstr[1] ""
 msgid "Unstage Hunk"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:51
+#: lib/diff/diffwidget.cpp:59
+#, kde-format
+msgid "Diff %1"
+msgstr "%1-இல் வித்தியாசங்காண்"
+
+#: lib/diff/diffwidget.cpp:61
+#, kde-format
+msgid "Diff %1..%2"
+msgstr "%1..%2 இடையே வித்தியாசங்காண்"
+
+#: lib/diff/diffwidget.cpp:82
+#, kde-format
+msgid "Diff %1 .. %2"
+msgstr "%1 .. %2 இடையே வித்தியாசங்காண்"
+
+#: lib/diff/diffwidget.cpp:112
 #, kde-format
 msgid "Show/Hide Commit Info"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:56
+#: lib/diff/diffwidget.cpp:117
 #, kde-format
 msgid "Jump to Next File"
 msgstr "அடுத்த கோப்புக்கு தாவு"
 
-#: lib/diff/diffwidget.cpp:60
+#: lib/diff/diffwidget.cpp:121
 #, kde-format
 msgid "Jump to Previous File"
 msgstr "முந்தைய கோப்புக்கு தாவு"
 
-#: lib/diff/diffwidget.cpp:64
+#: lib/diff/diffwidget.cpp:125
 #, kde-format
 msgid "Jump to Next Hunk"
 msgstr "அடுத்த பாளத்திற்கு தாவு"
 
-#: lib/diff/diffwidget.cpp:68
+#: lib/diff/diffwidget.cpp:129
 #, kde-format
 msgid "Jump to Previous Hunk"
 msgstr "முந்தைய பாளத்திற்கு தாவு"
@@ -358,7 +373,7 @@ msgstr "கோப்பின் வரலாற்றைக் கண்டற�
 msgid "Failed to get file history: %1"
 msgstr "கோப்பின் வரலாற்றைக் கண்டறிய முடியவில்லை: %1"
 
-#: lib/filehistorywidget.cpp:350
+#: lib/filehistorywidget.cpp:351
 #, kde-format
 msgid "File History"
 msgstr "கோப்பின் வரலாறு"
@@ -1484,16 +1499,6 @@ msgstr "அனைத்து கோப்புகளையும் திற"
 msgid " [read only]"
 msgstr " [படித்தல் மட்டும்]"
 
-#: lib/katemainwindow.cpp:1381
-#, kde-format
-msgid "Diff %1"
-msgstr "%1-இல் வித்தியாசங்காண்"
-
-#: lib/katemainwindow.cpp:1383
-#, kde-format
-msgid "Diff %1..%2"
-msgstr "%1..%2 இடையே வித்தியாசங்காண்"
-
 #: lib/katemdi.cpp:85
 #, kde-format
 msgid "Toolview Manager"
@@ -2144,22 +2149,17 @@ msgstr "ஆவணத்தைப் இச்சாளரத்தில் ம�
 msgid "Compare with Active Document"
 msgstr "செயலிலுள்ள ஆவணத்துடன் ஒப்பிடு"
 
-#: lib/kateviewspace.cpp:1035
-#, kde-format
-msgid "Diff %1 .. %2"
-msgstr "%1 .. %2 இடையே வித்தியாசங்காண்"
-
-#: lib/kateviewspace.cpp:1040
+#: lib/kateviewspace.cpp:1037
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "செயலிலுள்ள ஆவணத்துடன் வேறு நிரலால் ஒப்பிடு"
 
-#: lib/kateviewspace.cpp:1107
+#: lib/kateviewspace.cpp:1104
 #, kde-format
 msgid "Could not start program"
 msgstr "செயலியை துவக்க முடியவில்லை"
 
-#: lib/kateviewspace.cpp:1108
+#: lib/kateviewspace.cpp:1105
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""

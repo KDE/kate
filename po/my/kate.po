@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-22 00:50+0000\n"
+"POT-Creation-Date: 2022-12-23 00:50+0000\n"
 "PO-Revision-Date: 2022-10-05 20:28+0630\n"
 "Last-Translator: ဇေယျာလွင် <lw1nzayar@yandex.com>\n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
@@ -153,14 +153,14 @@ msgid "Close"
 msgstr "ပိတ်မည်"
 
 #: lib/commitfilesview.cpp:384 lib/commitfilesview.cpp:474
-#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:342
+#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:343
 #: lib/kateconfigdialog.cpp:393
 #, kde-format
 msgid "Error"
 msgstr "အမှား"
 
 #: lib/commitfilesview.cpp:384 lib/commitfilesview.cpp:474
-#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:342
+#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:343
 #, kde-format
 msgid "Git"
 msgstr "ဂစ်"
@@ -170,7 +170,7 @@ msgstr "ဂစ်"
 msgid "Invalid hash"
 msgstr ""
 
-#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:342
+#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:343
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr ""
@@ -311,28 +311,43 @@ msgstr[0] ""
 msgid "Unstage Hunk"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:51
+#: lib/diff/diffwidget.cpp:59
+#, kde-format
+msgid "Diff %1"
+msgstr "Diff %1"
+
+#: lib/diff/diffwidget.cpp:61
+#, kde-format
+msgid "Diff %1..%2"
+msgstr "Diff %1..%2"
+
+#: lib/diff/diffwidget.cpp:82
+#, kde-format
+msgid "Diff %1 .. %2"
+msgstr "Diff %1 .. %2"
+
+#: lib/diff/diffwidget.cpp:112
 #, kde-format
 msgid "Show/Hide Commit Info"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:56
+#: lib/diff/diffwidget.cpp:117
 #, kde-format
 msgid "Jump to Next File"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:60
+#: lib/diff/diffwidget.cpp:121
 #, fuzzy, kde-format
 #| msgid "Go to Previous Location"
 msgid "Jump to Previous File"
 msgstr "ယခင်နေရာသို့သွားမည်"
 
-#: lib/diff/diffwidget.cpp:64
+#: lib/diff/diffwidget.cpp:125
 #, kde-format
 msgid "Jump to Next Hunk"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:68
+#: lib/diff/diffwidget.cpp:129
 #, fuzzy, kde-format
 #| msgid "Go to Previous Location"
 msgid "Jump to Previous Hunk"
@@ -348,7 +363,7 @@ msgstr ""
 msgid "Failed to get file history: %1"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:350
+#: lib/filehistorywidget.cpp:351
 #, kde-format
 msgid "File History"
 msgstr "ဖိုင်လ်မှတ်တမ်း"
@@ -1452,16 +1467,6 @@ msgstr "ဖိုင်လ်ဖွင့်မည်"
 msgid " [read only]"
 msgstr " [ဖတ်၍သာရ]"
 
-#: lib/katemainwindow.cpp:1381
-#, kde-format
-msgid "Diff %1"
-msgstr "Diff %1"
-
-#: lib/katemainwindow.cpp:1383
-#, kde-format
-msgid "Diff %1..%2"
-msgstr "Diff %1..%2"
-
 #: lib/katemdi.cpp:85
 #, kde-format
 msgid "Toolview Manager"
@@ -2107,22 +2112,17 @@ msgstr ""
 msgid "Compare with Active Document"
 msgstr "သက်ဝင်နေသော မှတ်တမ်းစာအုပ်နှင့် နှိုင်းယှဉ်မည်"
 
-#: lib/kateviewspace.cpp:1035
-#, kde-format
-msgid "Diff %1 .. %2"
-msgstr "Diff %1 .. %2"
-
-#: lib/kateviewspace.cpp:1040
+#: lib/kateviewspace.cpp:1037
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "အောက်ပါကိုအသုံးပြု၍ သက်ဝင်နေသောမှတ်တမ်းစာအုပ်နှင့် နှိုင်းယှဉ်မည်"
 
-#: lib/kateviewspace.cpp:1107
+#: lib/kateviewspace.cpp:1104
 #, kde-format
 msgid "Could not start program"
 msgstr "ပရိုဂရမ်ကို မစတင်နိုင်ခဲ့ပါ"
 
-#: lib/kateviewspace.cpp:1108
+#: lib/kateviewspace.cpp:1105
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr "ရွေးထားသော ပရိုဂရမ်ကို မစတင်နိုင်ခဲ့ပါ။ တပ်ဆင်မထားရသေးခြင်းဖြစ်နိုင်သည်။"

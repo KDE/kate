@@ -9,15 +9,15 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-21 00:50+0000\n"
-"PO-Revision-Date: 2022-12-20 07:48+0100\n"
+"PO-Revision-Date: 2022-12-22 07:41+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
-"%100==4 ? 3 : 0);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100>=3 && n"
+"%100<=4 ? 2 : 3);\n"
 "Translator: Andrej Mernik <andrejm@ubuntu.si>\n"
 "X-Generator: Poedit 3.2.2\n"
 
@@ -579,7 +579,7 @@ msgstr "Pojdi na predhodno ujemanje"
 #: SearchPlugin.cpp:357
 #, kde-format
 msgid "Cut Matching Lines"
-msgstr ""
+msgstr "Izreži ujemajoče se vrstice"
 
 #: SearchPlugin.cpp:359
 #, kde-format
@@ -587,11 +587,13 @@ msgid ""
 "This will cut all highlighted search match lines from the current document "
 "to the clipboard"
 msgstr ""
+"To bo izrezalo vse osvetljene ujemajoče se vrstice iskanja iz trenutnega "
+"dokumenta na odložišče"
 
 #: SearchPlugin.cpp:363
 #, kde-format
 msgid "Copy Matching Lines"
-msgstr ""
+msgstr "kopiraj ujemajoče se vrstice"
 
 #: SearchPlugin.cpp:365
 #, kde-format
@@ -599,6 +601,8 @@ msgid ""
 "This will copy all highlighted search match lines in the current document to "
 "the clipboard"
 msgstr ""
+"To bo kopiralo vse osvetljene ujemajoče se vrstice iskanja iz trenutnega "
+"dokumenta na odložišče"
 
 #: SearchPlugin.cpp:392
 #, kde-format

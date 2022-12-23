@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-22 00:50+0000\n"
-"PO-Revision-Date: 2022-11-21 19:20+0400\n"
+"POT-Creation-Date: 2022-12-23 00:50+0000\n"
+"PO-Revision-Date: 2022-12-22 12:53+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -170,14 +170,14 @@ msgid "Close"
 msgstr "أغلق"
 
 #: lib/commitfilesview.cpp:384 lib/commitfilesview.cpp:474
-#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:342
+#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:343
 #: lib/kateconfigdialog.cpp:393
 #, kde-format
 msgid "Error"
 msgstr "خطأ"
 
 #: lib/commitfilesview.cpp:384 lib/commitfilesview.cpp:474
-#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:342
+#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:343
 #, kde-format
 msgid "Git"
 msgstr "غت"
@@ -185,18 +185,17 @@ msgstr "غت"
 #: lib/commitfilesview.cpp:474
 #, kde-format
 msgid "Invalid hash"
-msgstr ""
+msgstr "تلبيدة غير صالحة"
 
-#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:342
+#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:343
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 غير موجود في مستودع غت"
 
 #: lib/commitfilesview.cpp:488
-#, fuzzy, kde-format
-#| msgid "Comment"
+#, kde-format
 msgid "Commit"
-msgstr "التعليق"
+msgstr "أوْدِعْ"
 
 #. i18n: ectx: Menu (file)
 #: lib/data/kateui.rc:6
@@ -344,27 +343,42 @@ msgstr[5] "سطر غير مُعد"
 msgid "Unstage Hunk"
 msgstr "كتلة غير مُعدة"
 
-#: lib/diff/diffwidget.cpp:51
+#: lib/diff/diffwidget.cpp:59
+#, kde-format
+msgid "Diff %1"
+msgstr "الفرق %1"
+
+#: lib/diff/diffwidget.cpp:61
+#, kde-format
+msgid "Diff %1..%2"
+msgstr "الفرق %1..%2"
+
+#: lib/diff/diffwidget.cpp:82
+#, kde-format
+msgid "Diff %1 .. %2"
+msgstr "الفرق %1 .. %2"
+
+#: lib/diff/diffwidget.cpp:112
 #, kde-format
 msgid "Show/Hide Commit Info"
 msgstr "اعرض/ اخفِ معلومات الإيداع"
 
-#: lib/diff/diffwidget.cpp:56
+#: lib/diff/diffwidget.cpp:117
 #, kde-format
 msgid "Jump to Next File"
 msgstr "اقفز إلى الملف التالي"
 
-#: lib/diff/diffwidget.cpp:60
+#: lib/diff/diffwidget.cpp:121
 #, kde-format
 msgid "Jump to Previous File"
 msgstr "اقفز إلى الملف السابق"
 
-#: lib/diff/diffwidget.cpp:64
+#: lib/diff/diffwidget.cpp:125
 #, kde-format
 msgid "Jump to Next Hunk"
 msgstr "اقفز إلى الكتلة التالية"
 
-#: lib/diff/diffwidget.cpp:68
+#: lib/diff/diffwidget.cpp:129
 #, kde-format
 msgid "Jump to Previous Hunk"
 msgstr "اقفز إلى الكتلة السابقة"
@@ -379,7 +393,7 @@ msgstr "أخفق في الحصول على ملف التاريخ: لم يعثر �
 msgid "Failed to get file history: %1"
 msgstr "أخفق في الحصول على ملف التاريخ: %1"
 
-#: lib/filehistorywidget.cpp:350
+#: lib/filehistorywidget.cpp:351
 #, kde-format
 msgid "File History"
 msgstr "تاريغ الملف"
@@ -744,7 +758,7 @@ msgstr "ال&سّلوك"
 #: lib/kateconfigdialog.cpp:375
 #, kde-format
 msgid "Open each document in its own window"
-msgstr ""
+msgstr "افتح كل مستند في نافذته المستقلة"
 
 #: lib/kateconfigdialog.cpp:378
 #, kde-format
@@ -752,6 +766,8 @@ msgid ""
 "If enabled, each document will be opened in its own window. If not enabled, "
 "each document will be opened in a new tab in the current window."
 msgstr ""
+"إذا فعّلت هذا الخيار، فسيُفتح كل مستند في نافذته الخاصة. إذا لم يفعل فإن  كل "
+"مستند سيفتح في لسان جديد في النافذة الحالية."
 
 #: lib/kateconfigdialog.cpp:388
 #, kde-format
@@ -1124,10 +1140,9 @@ msgid "File \"%1\" could not be deleted."
 msgstr "تعذّر حذف الملفّ \"%1\""
 
 #: lib/katefileactions.cpp:202
-#, fuzzy, kde-format
-#| msgid "Application"
+#, kde-format
 msgid "&Other Application..."
-msgstr "التّطبيق"
+msgstr "برا&مج أخرى..."
 
 #: lib/katemainwindow.cpp:227
 #, kde-format
@@ -1493,16 +1508,6 @@ msgstr "افتح كل الملفّات"
 msgid " [read only]"
 msgstr " [للقراءة فقط]"
 
-#: lib/katemainwindow.cpp:1381
-#, kde-format
-msgid "Diff %1"
-msgstr "الفرق %1"
-
-#: lib/katemainwindow.cpp:1383
-#, kde-format
-msgid "Diff %1..%2"
-msgstr "الفرق %1..%2"
-
 #: lib/katemdi.cpp:85
 #, kde-format
 msgid "Toolview Manager"
@@ -1778,14 +1783,11 @@ msgid "Save Documents"
 msgstr "احفظ المستندات"
 
 #: lib/katesavemodifieddialog.cpp:155
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>The document '%1' has been modified, but not saved.</p><p>Do you want "
-#| "to save your changes or discard them?</p>"
+#, kde-format
 msgid ""
 "The document \"%1\" has been modified. Do you want to save your changes or "
 "discard them?"
-msgstr "<p>عُدّل المستند '%1' ولم يُحفظ.</p><p>أتريد حفظ التّعديلات أو رفضها؟</p>"
+msgstr "عُدّل المستند '%1' ولم يُحفظ. أتريد حفظ التّعديلات أو رفضها؟"
 
 #: lib/katesavemodifieddialog.cpp:159
 #, kde-format
@@ -2160,22 +2162,17 @@ msgstr "تفتح المستند في نافذة جديدة وتغلقها من �
 msgid "Compare with Active Document"
 msgstr "قارن مع المستند النشط"
 
-#: lib/kateviewspace.cpp:1035
-#, kde-format
-msgid "Diff %1 .. %2"
-msgstr "الفرق %1 .. %2"
-
-#: lib/kateviewspace.cpp:1040
+#: lib/kateviewspace.cpp:1037
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "قارن مع استعمال المستند النشط"
 
-#: lib/kateviewspace.cpp:1107
+#: lib/kateviewspace.cpp:1104
 #, kde-format
 msgid "Could not start program"
 msgstr "لا يمكن بدء البرنامج"
 
-#: lib/kateviewspace.cpp:1108
+#: lib/kateviewspace.cpp:1105
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr "لا يمكن بدء البرنامج المحدد. ربما لأنه غير مثبت."

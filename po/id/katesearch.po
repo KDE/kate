@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Budiman Jojo <budimanjojo@gmail.com>, 2014.
 # Rendiyono Wahyu Saputro <rendi.7936@gmail.com>, 2015.
-# Wantoyo <wantoyek@gmail.com>, 2017, 2018, 2019, 2020.
+# Wantoyo <wantoyek@gmail.com>, 2017, 2018, 2019, 2020, 2022.
 #
 # Translators:
 msgid ""
@@ -10,14 +10,15 @@ msgstr ""
 "Project-Id-Version: KDE Frameworks 5 Applications\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-20 00:55+0000\n"
-"PO-Revision-Date: 2020-02-24 22:04+0700\n"
-"Last-Translator: Wantoyo <wantoyek@gmail.com>\n"
+"PO-Revision-Date: 2022-12-12 08:28+0700\n"
+"Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 22.08.3\n"
 
 #: KateSearchCommand.cpp:80
 #, kde-format
@@ -45,16 +46,14 @@ msgid "Usage: newPGrep [pattern to search for in current project]"
 msgstr "Penggunaan: newPGrep [pola untuk mencari bagi projek saat ini]"
 
 #: KateSearchCommand.cpp:98
-#, fuzzy, kde-format
-#| msgid "Usage: pgrep [pattern to search for in current project]"
+#, kde-format
 msgid "Usage: preg [regex pattern to search for in current project]"
-msgstr "Penggunaan: pgrep [pola untuk mencari bagi projek saat ini]"
+msgstr "Penggunaan: preg [pola regex untuk pencarian di dalam proyek saat ini]"
 
 #: MatchExportDialog.cpp:20
-#, fuzzy, kde-format
-#| msgid "Kate Search & Replace"
+#, kde-format
 msgid "Export Search Result Matches"
-msgstr "Kate Cari & Ganti"
+msgstr "Ekspor Hasil Pencarian Yang Cocok"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, exportPatternText)
 #: MatchExportDialog.ui:31
@@ -75,28 +74,23 @@ msgid "Result"
 msgstr ""
 
 #: MatchModel.cpp:548 MatchModel.cpp:550
-#, fuzzy, kde-format
-#| msgid "<b>Replacing in: ...%1</b>"
+#, kde-format
 msgid "<b><i>Generating file list: ...%1</i></b>"
-msgstr "<b>Mengganti dalam: ...%1</b>"
+msgstr "<b><i>Menghasilkan daftar file: ...%1</i></b>"
 
 #: MatchModel.cpp:558
-#, fuzzy, kde-format
-#| msgid "<b><i>One match (%3) found in folder %2</i></b>"
-#| msgid_plural "<b><i>%1 matches (%3) found in folder %2</i></b>"
+#, kde-format
 msgid "<b><i>One match found, searching: ...%2</i></b>"
 msgid_plural "<b><i>%1 matches found, searching: ...%2</i></b>"
-msgstr[0] "<b><i>Satu cocok (%3) ditemukan di dalam folder %2</i></b>"
-msgstr[1] "<b><i>%1 cocok (%3) ditemukan di dalam folder %2</i></b>"
+msgstr[0] "<b><i>Satu kecocokan ditemukan, pencarian: ...%2</i></b>"
+msgstr[1] "<b><i>%1 kecocokan ditemukan, pencarian: ...%2</i></b>"
 
 #: MatchModel.cpp:563
-#, fuzzy, kde-format
-#| msgid "<b><i>One match (%3) found in folder %2</i></b>"
-#| msgid_plural "<b><i>%1 matches (%3) found in folder %2</i></b>"
+#, kde-format
 msgid "<b><i>One match found, searching: %2</i></b>"
 msgid_plural "<b><i>%1 matches found, searching: %2</i></b>"
-msgstr[0] "<b><i>Satu cocok (%3) ditemukan di dalam folder %2</i></b>"
-msgstr[1] "<b><i>%1 cocok (%3) ditemukan di dalam folder %2</i></b>"
+msgstr[0] "<b><i>Satu kecocokan ditemukan, pencarian: %2</i></b>"
+msgstr[1] "<b><i>%1 kecocokan ditemukan, pencarian: %2</i></b>"
 
 #: MatchModel.cpp:570 MatchModel.cpp:713
 #, kde-format
@@ -106,13 +100,11 @@ msgstr[0] "Satu tercentang"
 msgstr[1] "%1 tercentang"
 
 #: MatchModel.cpp:574
-#, fuzzy, kde-format
-#| msgid "<b><i>One match (%2) found in file</i></b>"
-#| msgid_plural "<b><i>%1 matches (%2) found in file</i></b>"
+#, kde-format
 msgid "<b><i>One match (%2) found in file</i></b>"
 msgid_plural "<b><i>%1 matches (%2) found in current file</i></b>"
-msgstr[0] "<b><i>Satu cocok (%2) ditemukan di dalam file</i></b>"
-msgstr[1] "<b><i>%1 cocok (%2) ditemukan di dalam file</i></b>"
+msgstr[0] "<b><i>Satu kecocokan ditemukan (%2) di dalam file</i></b>"
+msgstr[1] "<b><i>%1 kecocokan ditemukan (%2) di dalam file saat ini</i></b>"
 
 #: MatchModel.cpp:576
 #, kde-format
@@ -168,57 +160,43 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: MatchModel.cpp:717
-#, fuzzy, kde-format
-#| msgid "<b><i>One match (%2) found in file</i></b>"
-#| msgid_plural "<b><i>%1 matches (%2) found in file</i></b>"
+#, kde-format
 msgid "One match (%2) found in file"
 msgid_plural "%1 matches (%2) found in current file"
-msgstr[0] "<b><i>Satu cocok (%2) ditemukan di dalam file</i></b>"
-msgstr[1] "<b><i>%1 cocok (%2) ditemukan di dalam file</i></b>"
+msgstr[0] "Satu kecocokan ditemukan (%2) di dalam file"
+msgstr[1] "%1 kecocokan ditemukan (%2) di dalam file saat ini"
 
 #: MatchModel.cpp:719
-#, fuzzy, kde-format
-#| msgid "<b><i>One match (%2) found in open files</i></b>"
-#| msgid_plural "<b><i>%1 matches (%2) found in open files</i></b>"
+#, kde-format
 msgid "One match (%2) found in open files"
 msgid_plural "%1 matches (%2) found in open files"
-msgstr[0] "<b><i>Satu cocok (%2) ditemukan di dalam file yang dibuka</i></b>"
-msgstr[1] "<b><i>%1 cocok (%2) ditemukan di dalam file yang dibuka</i></b>"
+msgstr[0] "Satu kecocokan ditemukan (%2) di dalam file yang dibuka"
+msgstr[1] "%1 kecocokan ditemukan (%2) di dalam file yang dibuka"
 
 #: MatchModel.cpp:722
-#, fuzzy, kde-format
-#| msgid "<b><i>One match (%3) found in folder %2</i></b>"
-#| msgid_plural "<b><i>%1 matches (%3) found in folder %2</i></b>"
+#, kde-format
 msgid "One match (%3) found in folder %2"
 msgid_plural "%1 matches (%3) found in folder %2"
-msgstr[0] "<b><i>Satu cocok (%3) ditemukan di dalam folder %2</i></b>"
-msgstr[1] "<b><i>%1 cocok (%3) ditemukan di dalam folder %2</i></b>"
+msgstr[0] "Satu kecocokan ditemukan (%3) di dalam folder %2"
+msgstr[1] "%1 kecocokan ditemukan (%3) di dalam folder %2"
 
 #: MatchModel.cpp:725
-#, fuzzy, kde-format
-#| msgid "<b><i>One match (%4) found in project %2 (%3)</i></b>"
-#| msgid_plural "<b><i>%1 matches (%4) found in project %2 (%3)</i></b>"
+#, kde-format
 msgid "One match (%4) found in project %2 (%3)"
 msgid_plural "%1 matches (%4) found in project %2 (%3)"
-msgstr[0] "<b><i>Satu cocok (%4) ditemukan di dalam projek %2 (%3)</i></b>"
-msgstr[1] "<b><i>%1 cocok (%4) ditemukan di dalam projek %2 (%3)</i></b>"
+msgstr[0] "Satu kecocokan ditemukan (%4) di dalam proyek %2 (%3)"
+msgstr[1] "%1 kecocokan ditemukan (%4) di dalam proyek %2 (%3)"
 
 #: MatchModel.cpp:734
-#, fuzzy, kde-format
-#| msgid ""
-#| "<b><i>One match (%3) found in all open projects (common parent: %2)</i></"
-#| "b>"
-#| msgid_plural ""
-#| "<b><i>%1 matches (%3) found in all open projects (common parent: %2)</i></"
-#| "b>"
+#, kde-format
 msgid "One match (%3) found in all open projects (common parent: %2)"
 msgid_plural "%1 matches (%3) found in all open projects (common parent: %2)"
 msgstr[0] ""
-"<b><i>Satu cocok (%3) ditemukan di dalam semua projek yang dibuka (induk "
-"pada umumnya: %2)</i></b>"
+"Satu kecocokan ditemukan (%3) di semua proyek yang dibuka (induk pada "
+"umumnya: %2)"
 msgstr[1] ""
-"<b><i>%1 cocok (%3) ditemukan di dalam semua projek yang dibuka (induk pada "
-"umumnya: %2)</i></b>"
+"%1 kecocokan ditemukan (%3) di semua proyek yang dibuka (induk pada umumnya: "
+"%2)"
 
 #: Results.cpp:31
 #, fuzzy, kde-format

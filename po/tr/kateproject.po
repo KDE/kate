@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-23 00:50+0000\n"
-"PO-Revision-Date: 2022-12-03 19:00+0300\n"
+"PO-Revision-Date: 2022-12-23 20:51+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.08.3\n"
+"X-Generator: Lokalize 22.12.0\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -797,10 +797,9 @@ msgid "Project Manager"
 msgstr "Proje Yöneticisi"
 
 #: kateprojectpluginview.cpp:76
-#, fuzzy, kde-format
-#| msgid "Restore Open Projects"
+#, kde-format
 msgid "Open projects list"
-msgstr "Açık Projeleri Geri Yükle"
+msgstr "Projeler listesini aç"
 
 #: kateprojectpluginview.cpp:81
 #, kde-format
@@ -808,10 +807,9 @@ msgid "Reload project"
 msgstr "Projeyi yeniden yükle"
 
 #: kateprojectpluginview.cpp:84
-#, fuzzy, kde-format
-#| msgid "Close Project"
+#, kde-format
 msgid "Close project"
-msgstr "Projeyi Kapat"
+msgstr "Projeyi kapat"
 
 #: kateprojectpluginview.cpp:99
 #, kde-format

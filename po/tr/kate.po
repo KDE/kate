@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-23 00:50+0000\n"
-"PO-Revision-Date: 2022-12-11 20:00+0300\n"
+"PO-Revision-Date: 2022-12-23 20:52+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -751,7 +751,7 @@ msgstr "Davra&nış"
 #: lib/kateconfigdialog.cpp:375
 #, kde-format
 msgid "Open each document in its own window"
-msgstr ""
+msgstr "Her bir belgeyi kendi penceresinde aç"
 
 #: lib/kateconfigdialog.cpp:378
 #, kde-format
@@ -759,6 +759,9 @@ msgid ""
 "If enabled, each document will be opened in its own window. If not enabled, "
 "each document will be opened in a new tab in the current window."
 msgstr ""
+"Etkinleştirilmişse her bir belge kendi penceresinde açılacaktır. "
+"Etkinleştirilmemişse her bir belge, geçerli pencerede yeni bir sekmede "
+"açılacaktır."
 
 #: lib/kateconfigdialog.cpp:388
 #, kde-format
@@ -1794,16 +1797,13 @@ msgid "Save Documents"
 msgstr "Belgeleri Kaydet"
 
 #: lib/katesavemodifieddialog.cpp:155
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>The document '%1' has been modified, but not saved.</p><p>Do you want "
-#| "to save your changes or discard them?</p>"
+#, kde-format
 msgid ""
 "The document \"%1\" has been modified. Do you want to save your changes or "
 "discard them?"
 msgstr ""
-"<p>%1 belgesi değiştirildi; ancak kaydedilmedi.</p><p>Bu dosyayı kaydetmek "
-"istiyor musunuz?</p>"
+"%1 belgesi değiştirildi. Değişikliklerinizi kaydetmek mi yoksa atmak mı "
+"istiyorsunuz?"
 
 #: lib/katesavemodifieddialog.cpp:159
 #, kde-format

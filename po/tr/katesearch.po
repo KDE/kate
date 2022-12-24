@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-21 00:50+0000\n"
-"PO-Revision-Date: 2022-11-21 21:57+0300\n"
+"PO-Revision-Date: 2022-12-23 20:54+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.08.3\n"
+"X-Generator: Lokalize 22.12.0\n"
 
 #: KateSearchCommand.cpp:80
 #, kde-format
@@ -542,7 +542,7 @@ msgstr "Önceki Eşleşmeye Git"
 #: SearchPlugin.cpp:357
 #, kde-format
 msgid "Cut Matching Lines"
-msgstr ""
+msgstr "Eşleşen Satırları Kes"
 
 #: SearchPlugin.cpp:359
 #, kde-format
@@ -550,11 +550,13 @@ msgid ""
 "This will cut all highlighted search match lines from the current document "
 "to the clipboard"
 msgstr ""
+"Bu işlem, geçerli belgedeki tüm vurgulanan eşleşmiş satırları kesip panoya "
+"taşır"
 
 #: SearchPlugin.cpp:363
 #, kde-format
 msgid "Copy Matching Lines"
-msgstr ""
+msgstr "Eşleşen Satırları Kopyala"
 
 #: SearchPlugin.cpp:365
 #, kde-format
@@ -562,6 +564,7 @@ msgid ""
 "This will copy all highlighted search match lines in the current document to "
 "the clipboard"
 msgstr ""
+"Bu işlem, geçerli belgedeki tüm vurgulanan eşleşmiş satırları panoya kopyalar"
 
 #: SearchPlugin.cpp:392
 #, kde-format

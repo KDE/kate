@@ -764,7 +764,7 @@ msgstr "&Comportamento"
 #: lib/kateconfigdialog.cpp:375
 #, kde-format
 msgid "Open each document in its own window"
-msgstr ""
+msgstr "Abrir cada documento na sua própria janela"
 
 #: lib/kateconfigdialog.cpp:378
 #, kde-format
@@ -772,6 +772,8 @@ msgid ""
 "If enabled, each document will be opened in its own window. If not enabled, "
 "each document will be opened in a new tab in the current window."
 msgstr ""
+"Se estiver activo, cada documento será aberto na sua própria janela. Se não "
+"estiver activo, cada documento será aberto numa página nova da janela actual."
 
 #: lib/kateconfigdialog.cpp:388
 #, kde-format

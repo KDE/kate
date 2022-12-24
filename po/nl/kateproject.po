@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-23 00:50+0000\n"
-"PO-Revision-Date: 2022-12-03 11:51+0100\n"
+"PO-Revision-Date: 2022-12-23 11:13+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.08.3\n"
+"X-Generator: Lokalize 22.12.0\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -799,10 +799,9 @@ msgid "Project Manager"
 msgstr "Projectbeheerder"
 
 #: kateprojectpluginview.cpp:76
-#, fuzzy, kde-format
-#| msgid "Restore Open Projects"
+#, kde-format
 msgid "Open projects list"
-msgstr "Open projecten herstellen"
+msgstr "Open lijst met projecten"
 
 #: kateprojectpluginview.cpp:81
 #, kde-format
@@ -810,8 +809,7 @@ msgid "Reload project"
 msgstr "Project opnieuw laden"
 
 #: kateprojectpluginview.cpp:84
-#, fuzzy, kde-format
-#| msgid "Close Project"
+#, kde-format
 msgid "Close project"
 msgstr "Project sluiten"
 

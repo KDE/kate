@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-23 00:50+0000\n"
-"PO-Revision-Date: 2022-12-04 07:03+0100\n"
+"PO-Revision-Date: 2022-12-24 06:21+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -36,7 +36,7 @@ msgstr "ახალი ბრენჩის შექმნა წყარო
 #: branchcheckoutdialog.cpp:53
 #, kde-format
 msgid "Branch %1 checked out"
-msgstr ""
+msgstr "ბრენჩი %1 გამოთხოვილია"
 
 #: branchcheckoutdialog.cpp:56
 #, kde-format
@@ -230,12 +230,12 @@ msgstr ""
 #: gitwidget.cpp:610
 #, kde-format
 msgid "Failed to discard changes. Error:"
-msgstr ""
+msgstr "ცვლილებების გაუქმების შეცდომა:"
 
 #: gitwidget.cpp:621
 #, kde-format
 msgid "Failed to remove. Error:"
-msgstr ""
+msgstr "წაშლა შეუძლებელა. შეცდომა:"
 
 #: gitwidget.cpp:637
 #, kde-format
@@ -320,7 +320,7 @@ msgstr "გადაცემის გახსნა..."
 #: gitwidget.cpp:983 gitwidget.cpp:1020
 #, kde-format
 msgid "Stash"
-msgstr ""
+msgstr "შენახვა საკუჭნაოში"
 
 #: gitwidget.cpp:993
 #, kde-format
@@ -785,10 +785,9 @@ msgid "Project Manager"
 msgstr "პროექტის მმართველი"
 
 #: kateprojectpluginview.cpp:76
-#, fuzzy, kde-format
-#| msgid "Restore Open Projects"
+#, kde-format
 msgid "Open projects list"
-msgstr "ღია პროექტების აღდგენა"
+msgstr "ღია პროექტების სია"
 
 #: kateprojectpluginview.cpp:81
 #, kde-format
@@ -796,8 +795,7 @@ msgid "Reload project"
 msgstr "პროექტის თავიდან ჩატვირთვა"
 
 #: kateprojectpluginview.cpp:84
-#, fuzzy, kde-format
-#| msgid "Close Project"
+#, kde-format
 msgid "Close project"
 msgstr "პროექტის დახურვა"
 

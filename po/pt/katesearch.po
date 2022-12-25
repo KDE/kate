@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-21 00:50+0000\n"
-"PO-Revision-Date: 2022-10-20 09:22+0100\n"
+"PO-Revision-Date: 2022-12-23 22:32+0000\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
 "Language: pt\n"
@@ -542,7 +542,7 @@ msgstr "Ir para a Ocorrência Anterior"
 #: SearchPlugin.cpp:357
 #, kde-format
 msgid "Cut Matching Lines"
-msgstr ""
+msgstr "Cortar as Linhas Correspondentes"
 
 #: SearchPlugin.cpp:359
 #, kde-format
@@ -550,11 +550,13 @@ msgid ""
 "This will cut all highlighted search match lines from the current document "
 "to the clipboard"
 msgstr ""
+"Isto irá cortar todas as linhas realçadas e correspondentes ao texto da "
+"pesquisa, no documento actual, para a área de transferência"
 
 #: SearchPlugin.cpp:363
 #, kde-format
 msgid "Copy Matching Lines"
-msgstr ""
+msgstr "Copiar as Linhas Correspondentes"
 
 #: SearchPlugin.cpp:365
 #, kde-format
@@ -562,6 +564,8 @@ msgid ""
 "This will copy all highlighted search match lines in the current document to "
 "the clipboard"
 msgstr ""
+"Isto irá copiar todas as linhas realçadas e correspondentes ao texto da "
+"pesquisa, no documento actual, para a área de transferência"
 
 #: SearchPlugin.cpp:392
 #, kde-format

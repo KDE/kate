@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-23 00:50+0000\n"
-"PO-Revision-Date: 2022-12-13 12:21\n"
+"PO-Revision-Date: 2022-12-24 11:42\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -179,7 +179,7 @@ msgstr "Git"
 #: lib/commitfilesview.cpp:474
 #, kde-format
 msgid "Invalid hash"
-msgstr ""
+msgstr "哈希无效"
 
 #: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:343
 #, kde-format
@@ -189,7 +189,7 @@ msgstr "%1 不存在于 git 仓库中。"
 #: lib/commitfilesview.cpp:488
 #, kde-format
 msgid "Commit"
-msgstr ""
+msgstr "提交"
 
 #. i18n: ectx: Menu (file)
 #: lib/data/kateui.rc:6
@@ -1753,16 +1753,11 @@ msgid "Save Documents"
 msgstr "保存文档"
 
 #: lib/katesavemodifieddialog.cpp:155
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>The document '%1' has been modified, but not saved.</p><p>Do you want "
-#| "to save your changes or discard them?</p>"
+#, kde-format
 msgid ""
 "The document \"%1\" has been modified. Do you want to save your changes or "
 "discard them?"
 msgstr ""
-"<p>文档“%1”已经被修改，但尚未保存。</p><p>您是否想要保存更改还是丢弃更改？</"
-"p>"
 
 #: lib/katesavemodifieddialog.cpp:159
 #, kde-format
@@ -2339,7 +2334,7 @@ msgstr "手动选择会话(&M)"
 #: lib/ui/sessionconfigwidget.ui:47
 #, kde-format
 msgid "Application Startup/Shutdown Behavior"
-msgstr ""
+msgstr "应用打开/关闭行为"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: lib/ui/sessionconfigwidget.ui:55
@@ -2363,13 +2358,13 @@ msgstr "有未保存的变更的文件"
 #: lib/ui/sessionconfigwidget.ui:88
 #, kde-format
 msgid "If disabled, an untitled document will be shown for new windows."
-msgstr ""
+msgstr "如果禁用，为新窗口显示无标题文档。"
 
 #. i18n: ectx: property (text), widget (QCheckBox, showWelcomeViewForNewWindow)
 #: lib/ui/sessionconfigwidget.ui:91
 #, kde-format
 msgid "Show welcome view for new windows"
-msgstr ""
+msgstr "为新窗口显示欢迎界面"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, modCloseAfterLast)
 #: lib/ui/sessionconfigwidget.ui:98
@@ -2456,117 +2451,117 @@ msgstr "删除未使用的元信息，经过："
 #: lib/welcomeview/welcomeview.cpp:52
 #, kde-format
 msgid "Welcome to %1"
-msgstr ""
+msgstr "欢迎使用 %1"
 
 #: lib/welcomeview/welcomeview.cpp:56
 #, kde-format
 msgid "Recent Documents and Projects"
-msgstr ""
+msgstr "最近文件/工程"
 
 #: lib/welcomeview/welcomeview.cpp:56
 #, kde-format
 msgid "Recent Documents"
-msgstr ""
+msgstr "最近文件"
 
 #: lib/welcomeview/welcomeview.cpp:59
 #, kde-format
 msgid "No recent documents or projects"
-msgstr ""
+msgstr "无最近文件/工程"
 
 #: lib/welcomeview/welcomeview.cpp:59
 #, kde-format
 msgid "No recent documents"
-msgstr ""
+msgstr "无最近文件"
 
 #: lib/welcomeview/welcomeview.cpp:115
 #, kde-format
 msgid "No saved sessions"
-msgstr ""
+msgstr "无已保存会话"
 
 #: lib/welcomeview/welcomeview.cpp:237
 #, kde-format
 msgid "Copy &Location"
-msgstr ""
+msgstr "复制位置(&L)"
 
 #: lib/welcomeview/welcomeview.cpp:252
 #, kde-format
 msgid "&Remove"
-msgstr ""
+msgstr "移除(&R)"
 
 #. i18n: ectx: property (windowTitle), widget (QScrollArea, WelcomeView)
 #: lib/welcomeview/welcomeview.ui:17
 #, kde-format
 msgid "Welcome"
-msgstr ""
+msgstr "欢迎使用"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonNewFile)
 #: lib/welcomeview/welcomeview.ui:179
 #, kde-format
 msgid "New File"
-msgstr ""
+msgstr "新建文件"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonOpenFolder)
 #: lib/welcomeview/welcomeview.ui:186
 #, kde-format
 msgid "Open Folder..."
-msgstr ""
+msgstr "打开文件夹..."
 
 #. i18n: ectx: property (text), widget (QLabel, labelRecentItems)
 #: lib/welcomeview/welcomeview.ui:193
 #, kde-format
 msgid "Recent Files"
-msgstr ""
+msgstr "最近文件"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonOpenFile)
 #: lib/welcomeview/welcomeview.ui:203
 #, kde-format
 msgid "Open File..."
-msgstr ""
+msgstr "打开文件..."
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, buttonClearRecentItems)
 #: lib/welcomeview/welcomeview.ui:242
 #, kde-format
 msgid "Clear Recent Files"
-msgstr ""
+msgstr "清除最近的文件"
 
 #. i18n: ectx: property (text), widget (QLabel, labelHelp)
 #: lib/welcomeview/welcomeview.ui:271
 #, kde-format
 msgid "Help"
-msgstr ""
+msgstr "帮助"
 
 #. i18n: ectx: property (text), widget (KUrlLabel, labelHomepage)
 #: lib/welcomeview/welcomeview.ui:281
 #, kde-format
 msgid "Visit homepage"
-msgstr ""
+msgstr "访问主页"
 
 #. i18n: ectx: property (text), widget (KUrlLabel, labelContribute)
 #: lib/welcomeview/welcomeview.ui:294
 #, kde-format
 msgid "Get involved"
-msgstr ""
+msgstr "参与贡献"
 
 #. i18n: ectx: property (text), widget (KUrlLabel, labelHandbook)
 #: lib/welcomeview/welcomeview.ui:307
 #, kde-format
 msgid "Read handbook"
-msgstr ""
+msgstr "阅读手册"
 
 #. i18n: ectx: property (text), widget (QLabel, labelSavedSessions)
 #: lib/welcomeview/welcomeview.ui:354
 #, kde-format
 msgid "Saved Sessions"
-msgstr ""
+msgstr "已保存会话"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonManageSessions)
 #: lib/welcomeview/welcomeview.ui:390
 #, kde-format
 msgid "Manage Sessions..."
-msgstr ""
+msgstr "管理会话..."
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
 #: lib/welcomeview/welcomeview.ui:443
 #, kde-format
 msgid "Show for new window"
-msgstr ""
+msgstr "为新窗口显示该界面"

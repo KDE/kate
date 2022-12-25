@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-23 00:50+0000\n"
-"PO-Revision-Date: 2022-12-04 02:30+0000\n"
+"PO-Revision-Date: 2022-12-23 22:30+0000\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
 "Language: pt\n"
@@ -797,10 +797,9 @@ msgid "Project Manager"
 msgstr "Gestor de Projectos"
 
 #: kateprojectpluginview.cpp:76
-#, fuzzy, kde-format
-#| msgid "Restore Open Projects"
+#, kde-format
 msgid "Open projects list"
-msgstr "Repor os Projectos Abertos"
+msgstr "Abrir a lista de projectos"
 
 #: kateprojectpluginview.cpp:81
 #, kde-format
@@ -808,10 +807,9 @@ msgid "Reload project"
 msgstr "Recarregar o projecto"
 
 #: kateprojectpluginview.cpp:84
-#, fuzzy, kde-format
-#| msgid "Close Project"
+#, kde-format
 msgid "Close project"
-msgstr "Fechar o Projecto"
+msgstr "Fechar o projecto"
 
 #: kateprojectpluginview.cpp:99
 #, kde-format

@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-23 00:50+0000\n"
-"PO-Revision-Date: 2022-12-13 12:21\n"
+"PO-Revision-Date: 2022-12-24 11:42\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -785,10 +785,9 @@ msgid "Project Manager"
 msgstr ""
 
 #: kateprojectpluginview.cpp:76
-#, fuzzy, kde-format
-#| msgid "Restore Open Projects"
+#, kde-format
 msgid "Open projects list"
-msgstr "还原打开的项目"
+msgstr ""
 
 #: kateprojectpluginview.cpp:81
 #, kde-format
@@ -796,10 +795,9 @@ msgid "Reload project"
 msgstr ""
 
 #: kateprojectpluginview.cpp:84
-#, fuzzy, kde-format
-#| msgid "Close Project"
+#, kde-format
 msgid "Close project"
-msgstr "关闭项目"
+msgstr ""
 
 #: kateprojectpluginview.cpp:99
 #, kde-format

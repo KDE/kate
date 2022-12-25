@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: katesymbolviewer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-23 00:50+0000\n"
-"PO-Revision-Date: 2022-12-04 02:29+0000\n"
+"PO-Revision-Date: 2022-12-23 22:30+0000\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-doc@kde.org>\n"
 "Language: pt\n"
@@ -1827,16 +1827,13 @@ msgid "Save Documents"
 msgstr "Gravar os Documentos"
 
 #: lib/katesavemodifieddialog.cpp:155
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>The document '%1' has been modified, but not saved.</p><p>Do you want "
-#| "to save your changes or discard them?</p>"
+#, kde-format
 msgid ""
 "The document \"%1\" has been modified. Do you want to save your changes or "
 "discard them?"
 msgstr ""
-"<p>O documento '%1' foi modificado, mas não foi gravado.</p><p>Deseja gravar "
-"as alterações ou ignorá-las?</p>"
+"O documento \"%1\" foi modificado, mas não foi gravado.</p><p>Deseja gravar "
+"as alterações ou ignorá-las?"
 
 #: lib/katesavemodifieddialog.cpp:159
 #, kde-format

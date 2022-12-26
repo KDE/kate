@@ -107,9 +107,9 @@
 
 <sect3 id="command-line-options">
 <title
->Commandoregel-opties</title>
+>Opdrachtregel-opties</title>
 <para
->&kate; accepteert de volgende commandoregel-opties:</para>
+>&kate; accepteert de volgende opdrachtregel-opties:</para>
 
 <variablelist>
 <varlistentry>

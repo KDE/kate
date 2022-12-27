@@ -12,6 +12,10 @@
 #include "kateprojectpluginview.h"
 #include "tools/codeanalysisselector.h"
 
+#include "diagnostics/diagnostic_types.h"
+#include "diagnostics/diagnosticview.h"
+#include "ktexteditor_utils.h"
+
 #include <QFileInfo>
 #include <QHBoxLayout>
 #include <QStandardPaths>
@@ -34,7 +38,9 @@ KateProjectInfoViewCodeAnalysis::KateProjectInfoViewCodeAnalysis(KateProjectPlug
     , m_analyzer(nullptr)
     , m_analysisTool(nullptr)
     , m_toolSelector(new QComboBox())
+    , m_diagnosticProvider(new DiagnosticsProvider(this))
 {
+    Utils::registerDiagnosticsProvider(m_diagnosticProvider, m_pluginView->mainWindow());
     /**
      * default style
      */
@@ -97,6 +103,7 @@ KateProjectInfoViewCodeAnalysis::KateProjectInfoViewCodeAnalysis(KateProjectPlug
 
 KateProjectInfoViewCodeAnalysis::~KateProjectInfoViewCodeAnalysis()
 {
+    Utils::unregisterDiagnosticsProvider(m_diagnosticProvider, m_pluginView->mainWindow());
     if (m_analyzer && m_analyzer->state() != QProcess::NotRunning) {
         m_analyzer->kill();
         m_analyzer->blockSignals(true);
@@ -186,6 +193,16 @@ void KateProjectInfoViewCodeAnalysis::slotReadyRead()
             continue;
         }
 
+        FileDiagnostics fd;
+        fd.uri = QUrl::fromLocalFile(elements[0]);
+        Diagnostic d;
+        d.message = elements[3];
+        int ln = elements[1].toInt();
+        d.range = KTextEditor::Range(ln, 0, ln, 0);
+        fd.diagnostics = {d};
+
+        m_diagnosticProvider->diagnosticsAdded(fd);
+        return;
         /**
          * feed into model
          */

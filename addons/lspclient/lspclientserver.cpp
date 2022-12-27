@@ -816,9 +816,9 @@ static LSPCommand parseCommand(const QJsonObject &result)
     return {title, command, args};
 }
 
-static QList<LSPDiagnostic> parseDiagnostics(const QJsonArray &result)
+static QVector<LSPDiagnostic> parseDiagnostics(const QJsonArray &result)
 {
-    QList<LSPDiagnostic> ret;
+    QVector<LSPDiagnostic> ret;
     for (const auto &vdiag : result) {
         auto diag = vdiag.toObject();
         auto range = parseRange(diag.value(MEMBER_RANGE).toObject());

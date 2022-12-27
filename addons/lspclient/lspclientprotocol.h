@@ -16,6 +16,7 @@
 
 #include "lspsemantichighlighting.h"
 #include "semantic_tokens_legend.h"
+#include <diagnostics/diagnostic_types.h>
 
 #include <KTextEditor/Cursor>
 #include <KTextEditor/Range>
@@ -140,10 +141,11 @@ using LSPPosition = KTextEditor::Cursor;
  */
 using LSPRange = KTextEditor::Range;
 
-struct LSPLocation {
-    QUrl uri;
-    LSPRange range;
-};
+using LSPLocation = SourceLocation;
+// struct LSPLocation {
+//     QUrl uri;
+//     LSPRange range;
+// };
 
 struct LSPTextDocumentContentChangeEvent {
     LSPRange range;
@@ -297,33 +299,37 @@ struct LSPFormattingOptions {
     QJsonObject extra;
 };
 
-enum class LSPDiagnosticSeverity {
-    Unknown = 0,
-    Error = 1,
-    Warning = 2,
-    Information = 3,
-    Hint = 4,
-};
+using LSPDiagnosticSeverity = DiagnosticSeverity;
+// enum class LSPDiagnosticSeverity {
+//     Unknown = 0,
+//     Error = 1,
+//     Warning = 2,
+//     Information = 3,
+//     Hint = 4,
+// };
 
-struct LSPDiagnosticRelatedInformation {
-    // empty url / invalid range when absent
-    LSPLocation location;
-    QString message;
-};
+using LSPDiagnosticRelatedInformation = DiagnosticRelatedInformation;
+// struct LSPDiagnosticRelatedInformation {
+//     // empty url / invalid range when absent
+//     LSPLocation location;
+//     QString message;
+// };
 
-struct LSPDiagnostic {
-    LSPRange range;
-    LSPDiagnosticSeverity severity;
-    QString code;
-    QString source;
-    QString message;
-    QList<LSPDiagnosticRelatedInformation> relatedInformation;
-};
+using LSPDiagnostic = Diagnostic;
+// struct LSPDiagnostic {
+//     LSPRange range;
+//     LSPDiagnosticSeverity severity;
+//     QString code;
+//     QString source;
+//     QString message;
+//     QList<LSPDiagnosticRelatedInformation> relatedInformation;
+// };
 
-struct LSPPublishDiagnosticsParams {
-    QUrl uri;
-    QList<LSPDiagnostic> diagnostics;
-};
+using LSPPublishDiagnosticsParams = FileDiagnostics;
+// struct LSPPublishDiagnosticsParams {
+//     QUrl uri;
+//     QList<LSPDiagnostic> diagnostics;
+// };
 
 enum class LSPMessageType { Error = 1, Warning = 2, Info = 3, Log = 4 };
 
@@ -401,7 +407,7 @@ struct LSPWorkspaceEdit {
 struct LSPCodeAction {
     QString title;
     QString kind;
-    QList<LSPDiagnostic> diagnostics;
+    QVector<LSPDiagnostic> diagnostics;
     LSPWorkspaceEdit edit;
     LSPCommand command;
 };

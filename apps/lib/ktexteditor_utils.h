@@ -25,6 +25,7 @@ class Document;
 class MainWindow;
 class Range;
 }
+class DiagnosticsProvider;
 struct DiffParams;
 
 namespace Utils
@@ -97,4 +98,7 @@ KATE_PRIVATE_EXPORT QString projectBaseDirForDocument(KTextEditor::Document *doc
  * Returns project map for provided document
  */
 KATE_PRIVATE_EXPORT QVariantMap projectMapForDocument(KTextEditor::Document *doc);
+
+KATE_PRIVATE_EXPORT void registerDiagnosticsProvider(DiagnosticsProvider *, KTextEditor::MainWindow *mainWindow);
+KATE_PRIVATE_EXPORT void unregisterDiagnosticsProvider(DiagnosticsProvider *, KTextEditor::MainWindow *mainWindow);
 }

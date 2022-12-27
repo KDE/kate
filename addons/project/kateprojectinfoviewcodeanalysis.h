@@ -19,6 +19,7 @@ class KateProjectCodeAnalysisTool;
 class KMessageWidget;
 class KateProject;
 class QStandardItemModel;
+class DiagnosticsProvider;
 
 /**
  * View for Code Analysis.
@@ -129,4 +130,6 @@ private:
      * contains a rich text to explain what the current tool does
      */
     QString m_toolInfoText;
+
+    DiagnosticsProvider *const m_diagnosticProvider;
 };

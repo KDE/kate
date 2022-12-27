@@ -1,0 +1,79 @@
+/*
+    SPDX-FileCopyrightText: 2019 Mark Nauwelaerts <mark.nauwelaerts@gmail.com>
+    SPDX-FileCopyrightText: 2022 Waqar Ahmed <waqar.17a@gmail.com>
+    SPDX-License-Identifier: MIT
+*/
+#ifndef KATE_DIAGNOSTICS_ITEM_H
+#define KATE_DIAGNOSTICS_ITEM_H
+
+#include "diagnostic_suppression.h"
+#include "diagnostic_types.h"
+
+#include <QStandardItem>
+
+namespace DiagnosticModelRole
+{
+enum {
+    // preserve UserRole for generic use where needed
+    FileUrlRole = Qt::UserRole + 1,
+    RangeRole,
+    KindRole,
+    ProviderRole,
+};
+}
+
+enum {
+    DiagnosticItem_File = QStandardItem::UserType + 1,
+    DiagnosticItem_Diag,
+    DiagnosticItem_Fix,
+};
+
+// custom item subclass that captures additional attributes;
+// a bit more convenient than the variant/role way
+struct DiagnosticItem : public QStandardItem {
+    Diagnostic m_diagnostic;
+    // CodeAction m_codeAction;
+    // QSharedPointer<LSPClientRevisionSnapshot> m_snapshot;
+
+    DiagnosticItem(const Diagnostic &d)
+        : m_diagnostic(d)
+    {
+    }
+
+    int type() const override
+    {
+        return DiagnosticItem_Diag;
+    }
+
+    // DiagnosticItem(const LSPCodeAction &c, QSharedPointer<LSPClientRevisionSnapshot> s)
+    //     : m_codeAction(c)
+    //     , m_snapshot(std::move(s))
+    // {
+    //     m_diagnostic.range = LSPRange::invalid();
+    // }
+
+    // bool isCodeAction() const
+    // {
+    //     return !m_diagnostic.range.isValid() && m_codeAction.title.size();
+    // }
+};
+
+// likewise; a custom item for document level model item
+struct DocumentDiagnosticItem : public QStandardItem {
+    bool enabled = true;
+    std::unique_ptr<DiagnosticSuppression> diagnosticSuppression;
+    int type() const override
+    {
+        return DiagnosticItem_File;
+    }
+};
+
+struct DiagnosticFixItem : public QStandardItem {
+    DiagnosticFix fix;
+    int type() const override
+    {
+        return DiagnosticItem_Fix;
+    }
+};
+
+#endif

@@ -106,6 +106,7 @@ target_sources(
 
     kateoutputview.cpp
     katestashmanager.cpp
+    diagnostics/diagnosticview.cpp
 
     kateurlbar.cpp
 

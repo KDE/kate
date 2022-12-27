@@ -10,6 +10,7 @@
 // BEGIN Includes
 #include "katemainwindow.h"
 
+#include "diagnostics/diagnosticview.h"
 #include "filehistorywidget.h"
 #include "kateapp.h"
 #include "kateconfigdialog.h"
@@ -121,7 +122,7 @@ KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup)
     setupImportantActions();
 
     // setup the most important widgets
-    setupMainWindow();
+    setupMainWindow(sconfig);
 
     // setup the actions
     setupActions();
@@ -276,7 +277,7 @@ void KateMainWindow::setupImportantActions()
     hamburgerMenu->setShowMenuBarAction(m_paShowMenuBar);
 }
 
-void KateMainWindow::setupMainWindow()
+void KateMainWindow::setupMainWindow(KConfig *sconfig)
 {
     m_viewManager = new KateViewManager(centralWidget(), this);
     centralWidget()->layout()->addWidget(m_viewManager);
@@ -296,6 +297,14 @@ void KateMainWindow::setupMainWindow()
                                       QIcon::fromTheme(QStringLiteral("output_win")),
                                       i18n("Output"));
     m_outputView = new KateOutputView(this, m_toolViewOutput, toolviewToggleButton(static_cast<KateMDI::ToolView *>(m_toolViewOutput)));
+
+    m_toolViewDiags = createToolView(nullptr /* toolview has no plugin it belongs to */,
+                                     QStringLiteral("diagnostics"),
+                                     KTextEditor::MainWindow::Bottom,
+                                     QIcon::fromTheme(QStringLiteral("data-warning")),
+                                     i18n("Diagnostics"));
+    m_diagView = new DiagnosticsView(m_toolViewDiags, this);
+    m_diagView->readSessionConfig(KConfigGroup(sconfig, "Kate Diagnostics"));
 }
 
 void KateMainWindow::setupActions()
@@ -1190,6 +1199,11 @@ void KateMainWindow::saveGlobalProperties(KConfig *sessionConfig)
 
     // save plugin config !!
     KateApp::self()->pluginManager()->writeConfig(sessionConfig);
+
+    if (m_diagView) {
+        KConfigGroup cg(sessionConfig, "Kate Diagnostics");
+        m_diagView->writeSessionConfig(cg);
+    }
 }
 
 void KateMainWindow::saveWindowConfig(const KConfigGroup &_config)

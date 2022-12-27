@@ -154,7 +154,7 @@ private:
      */
     void setupImportantActions();
 
-    void setupMainWindow();
+    void setupMainWindow(KConfig *sconfig);
     void setupActions();
     bool queryClose() override;
 
@@ -685,6 +685,18 @@ private:
      * output widget contained in above tool view
      */
     KateOutputView *m_outputView = nullptr;
+
+    /**
+     * Diagnostics view at the bottom
+     */
+    QWidget *m_toolViewDiags = nullptr;
+    class DiagnosticsView *m_diagView = nullptr;
+
+public:
+    class DiagnosticsView *diagnosticsView()
+    {
+        return m_diagView;
+    }
 
 public:
     /**

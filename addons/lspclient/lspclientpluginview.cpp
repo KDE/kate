@@ -5,6 +5,7 @@
 */
 
 #include "lspclientpluginview.h"
+#include "diagnostics/diagnosticview.h"
 #include "gotosymboldialog.h"
 #include "inlayhints.h"
 #include "lspclientcompletion.h"
@@ -490,7 +491,6 @@ class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient, public KTe
     QPointer<QAction> m_restartAll;
     QPointer<QAction> m_switchSourceHeader;
     QPointer<QAction> m_expandMacro;
-    QPointer<QAction> m_quickFix;
     QPointer<QAction> m_memoryUsage;
     QPointer<QAction> m_inlayHints;
     QPointer<KActionMenu> m_requestCodeAction;
@@ -575,6 +575,30 @@ class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient, public KTe
     SemanticHighlighter m_semHighlightingManager;
     InlayHintsManager m_inlayHintsHandler;
 
+    class LSPDiagnosticProvider : public DiagnosticsProvider
+    {
+    public:
+        LSPDiagnosticProvider(LSPClientPluginViewImpl *lsp)
+            : m_lsp(lsp)
+        {
+        }
+
+        QJsonObject suppressions(KTextEditor::Document *doc) const override
+        {
+            auto config = m_lsp->m_serverManager->findServerConfig(doc);
+            if (config.isObject()) {
+                auto config_o = config.toObject();
+                return config_o.value(QStringLiteral("suppressions")).toObject();
+            }
+            return {};
+        }
+
+    private:
+        LSPClientPluginViewImpl *m_lsp;
+    };
+
+    LSPDiagnosticProvider m_diagnosticProvider;
+
 Q_SIGNALS:
 
     /**
@@ -596,6 +620,7 @@ public:
         , m_symbolView(LSPClientSymbolView::new_(plugin, mainWin, m_serverManager))
         , m_semHighlightingManager(m_serverManager)
         , m_inlayHintsHandler(m_serverManager, this)
+        , m_diagnosticProvider(this)
     {
         KXMLGUIClient::setComponentName(QStringLiteral("lspclient"), i18n("LSP Client"));
         setXMLFile(QStringLiteral("ui.rc"));
@@ -663,9 +688,6 @@ public:
         actionCollection()->setDefaultShortcut(m_switchSourceHeader, Qt::Key_F12);
         m_expandMacro = actionCollection()->addAction(QStringLiteral("lspclient_rust_analyzer_expand_macro"), this, &self_type::rustAnalyzerExpandMacro);
         m_expandMacro->setText(i18n("Expand Macro"));
-        m_quickFix = actionCollection()->addAction(QStringLiteral("lspclient_quick_fix"), this, &self_type::quickFix);
-        m_quickFix->setText(i18n("Quick Fix"));
-        actionCollection()->setDefaultShortcut(m_quickFix, QKeySequence((Qt::CTRL | Qt::Key_Period)));
         m_requestCodeAction = actionCollection()->add<KActionMenu>(QStringLiteral("lspclient_code_action"));
         m_requestCodeAction->setText(i18n("Code Action"));
         QList<QKeySequence> scuts;
@@ -753,7 +775,7 @@ public:
             m_contextMenuActions << sep1;
         };
 
-        m_contextMenuActions << m_quickFix << m_requestCodeAction;
+        m_contextMenuActions << m_requestCodeAction;
         addSeparator();
 
         QAction *goToAction = new QAction(i18n("Go To"));
@@ -825,6 +847,9 @@ public:
         KAcceleratorManager::setNoAccel(m_tabWidget);
         connect(m_tabWidget, &QTabWidget::tabCloseRequested, this, &self_type::tabCloseRequested);
         connect(m_tabWidget, &QTabWidget::currentChanged, this, &self_type::tabChanged);
+
+        Utils::registerDiagnosticsProvider(&m_diagnosticProvider, m_mainWindow);
+        connect(&m_diagnosticProvider, &DiagnosticsProvider::requestFixes, this, &self_type::fixDiagnostic);
 
         // diagnostics tab
         m_diagnosticsTree = new QTreeView();
@@ -1642,6 +1667,51 @@ public:
             range = document->documentRange();
         }
         server->documentCodeAction(url, range, {}, {it->m_diagnostic}, this, h);
+    }
+
+    void fixDiagnostic(const QUrl url, const Diagnostic &diagnostic, const QVariant &data)
+    {
+        KTextEditor::View *activeView = m_mainWindow->activeView();
+        QPointer<KTextEditor::Document> document = activeView->document();
+        auto server = m_serverManager->findServer(activeView);
+        // auto it = dynamic_cast<DiagnosticItem *>(m_diagnosticsModel->itemFromIndex(index));
+        if (!server || !document) {
+            return;
+        }
+
+        auto executeCodeAction = [this, server](LSPCodeAction action, QSharedPointer<LSPClientRevisionSnapshot> snapshot) {
+            // apply edit before command
+            applyWorkspaceEdit(action.edit, snapshot.data());
+            executeServerCommand(server, action.command);
+        };
+
+        // only engage action if active document matches diagnostic document
+        if (url != document->url()) {
+            return;
+        }
+
+        // store some things to find item safely later on
+        // QPersistentModelIndex pindex(index);
+        QSharedPointer<LSPClientRevisionSnapshot> snapshot(m_serverManager->snapshot(server.data()));
+        auto h = [url, snapshot, executeCodeAction, this, data](const QList<LSPCodeAction> &actions) {
+            // add actions below diagnostic item
+            QVector<DiagnosticFix> fixes;
+            for (const auto &action : actions) {
+                DiagnosticFix fix;
+                fix.fixTitle = action.title;
+                fix.fixCallback = [executeCodeAction, action, snapshot] {
+                    executeCodeAction(action, snapshot);
+                };
+                fixes << fix;
+            }
+            m_diagnosticProvider.fixesAvailable(fixes, data);
+        };
+
+        auto range = activeView->selectionRange();
+        if (!range.isValid()) {
+            range = document->documentRange();
+        }
+        server->documentCodeAction(url, range, {}, {diagnostic}, this, h);
     }
 
     void quickFix()
@@ -2645,6 +2715,9 @@ public:
 
     void onDiagnostics(const LSPPublishDiagnosticsParams &diagnostics)
     {
+        Q_EMIT m_diagnosticProvider.diagnosticsAdded(diagnostics);
+        return;
+
         if (!m_diagnosticsTree) {
             return;
         }
@@ -2796,41 +2869,14 @@ public:
 
     QString onTextHint(KTextEditor::View *view, const KTextEditor::Cursor &position)
     {
-        QString result;
-        auto document = view->document();
-
-        if (!m_diagnosticsTree || !m_diagnosticsModel || !document) {
-            return result;
-        }
-
         bool autoHover = m_autoHover && m_autoHover->isChecked();
-        bool diagHover = m_diagnostics && m_diagnostics->isChecked() && m_diagnosticsHover && m_diagnosticsHover->isChecked();
-
-        QStandardItem *topItem = diagHover ? getItem(*m_diagnosticsModel, document->url()) : nullptr;
-        QStandardItem *targetItem = getItem(topItem, position, false);
-        if (targetItem) {
-            result = targetItem->text();
-            // also include related info
-            int count = targetItem->rowCount();
-            for (int i = 0; i < count; ++i) {
-                auto item = targetItem->child(i);
-                result += QStringLiteral("\n<br>");
-                result += item->text();
-            }
-            // but let's not get carried away too far
-            const int maxsize = m_plugin->m_diagnosticsSize;
-            if (result.size() > maxsize) {
-                result.resize(maxsize);
-                result.append(QStringLiteral("..."));
-            }
-        } else if (autoHover) {
-            // only trigger generic hover if no diagnostic to show;
-            // avoids interference by generic hover info
-            // (which is likely not so useful in this case/position anyway)
-            result = m_hover->textHint(view, position);
+        // only trigger generic hover if no diagnostic to show;
+        // avoids interference by generic hover info
+        // (which is likely not so useful in this case/position anyway)
+        if (autoHover && !m_diagnosticProvider.hasTooltipForPos(view, position)) {
+            return m_hover->textHint(view, position);
         }
-
-        return result;
+        return {};
     }
 
     KTextEditor::View *viewForUrl(const QUrl &url) const
@@ -2969,6 +3015,10 @@ public:
                 fpaths.insert(doc->url().toLocalFile());
             }
         }
+
+        m_diagnosticProvider.requestClearDiagnosticsForStaleDocs({fpaths.begin(), fpaths.end()}, &m_diagnosticProvider);
+        return;
+
         // check and clear defunct entries
         const auto &model = *m_diagnosticsModel;
 

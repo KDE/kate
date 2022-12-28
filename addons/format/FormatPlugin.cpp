@@ -45,7 +45,6 @@ void FormatPlugin::readConfig()
     formatOnSave = cg.readEntry("FormatOnSave", false);
 
     formatterForJson = (Formatters)cg.readEntry("FormatterForJson", (int)Formatters::Prettier);
-    qDebug() << "fmtjson:" << (int)formatterForJson << cg.readEntry("FormatterForJson", (int)Formatters::Prettier);
 }
 
 FormatPluginView::FormatPluginView(FormatPlugin *plugin, KTextEditor::MainWindow *mainWin)

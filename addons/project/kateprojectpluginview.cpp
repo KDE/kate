@@ -816,7 +816,10 @@ void KateProjectPluginView::slotUpdateStatus(bool visible)
 void KateProjectPluginView::openDirectoryOrProject()
 {
     // get dir or do nothing
-    const QString dir = QFileDialog::getExistingDirectory(m_mainWindow->window(), i18n("Choose a directory"), QDir::currentPath());
+    QFileDialog::Options opts;
+    opts.setFlag(QFileDialog::ShowDirsOnly);
+    opts.setFlag(QFileDialog::ReadOnly);
+    const QString dir = QFileDialog::getExistingDirectory(m_mainWindow->window(), i18n("Choose a directory"), QDir::currentPath(), opts);
     if (dir.isEmpty()) {
         return;
     }

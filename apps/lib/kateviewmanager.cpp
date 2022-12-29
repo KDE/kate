@@ -1370,11 +1370,8 @@ void KateViewManager::saveViewConfiguration(KConfigGroup &config)
     // strange) and config somehow has previous value set
     config.writeEntry("Active ViewSpace", 0);
 
-    // avoid we save stuff for KWrite mode, see bug 461355 and bug 459366
-    if (KateApp::isKate()) {
-        m_splitterIndex = 0;
-        saveSplitterConfig(this, config.config(), config.name());
-    }
+    m_splitterIndex = 0;
+    saveSplitterConfig(this, config.config(), config.name());
 }
 
 void KateViewManager::restoreViewConfiguration(const KConfigGroup &config)
@@ -1410,10 +1407,7 @@ void KateViewManager::restoreViewConfiguration(const KConfigGroup &config)
     m_minAge = 0;
 
     // start recursion for the root splitter (Splitter 0)
-    // avoid we restore stuff for KWrite mode, see bug 461355 and bug 459366
-    if (KateApp::isKate()) {
-        restoreSplitter(config.config(), config.name() + QStringLiteral("-Splitter 0"), this, config.name());
-    }
+    restoreSplitter(config.config(), config.name() + QStringLiteral("-Splitter 0"), this, config.name());
 
     // finally, make the correct view from the last session active
     size_t lastViewSpace = config.readEntry("Active ViewSpace", 0);
@@ -1428,7 +1422,7 @@ void KateViewManager::restoreViewConfiguration(const KConfigGroup &config)
         m_viewSpaceList.at(lastViewSpace)->setFocus();
     }
 
-    // emergency or KWrite
+    // emergency
     if (m_viewSpaceList.empty()) {
         // kill bad children
         while (count()) {

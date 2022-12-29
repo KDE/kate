@@ -1153,7 +1153,7 @@ void KateMainWindow::updateCaption(KTextEditor::Document *doc)
     setCaption(sessName + c + readOnlyCaption + QStringLiteral(" [*]"), m_viewManager->activeView()->document()->isModified());
 }
 
-void KateMainWindow::saveProperties(KConfigGroup &config)
+void KateMainWindow::saveProperties(KConfigGroup &config, bool includeViewConfig)
 {
     saveSession(config);
 
@@ -1170,7 +1170,11 @@ void KateMainWindow::saveProperties(KConfigGroup &config)
     }
 
     saveOpenRecent(config.config());
-    m_viewManager->saveViewConfiguration(config);
+
+    // allow to skip the view manager config, this is needed for KWrite, see bug 463139
+    if (includeViewConfig) {
+        m_viewManager->saveViewConfiguration(config);
+    }
 }
 
 void KateMainWindow::readProperties(const KConfigGroup &config)

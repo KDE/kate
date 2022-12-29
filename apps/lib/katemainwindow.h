@@ -110,8 +110,13 @@ public:
 
 public:
     /*reimp*/ void readProperties(const KConfigGroup &config) override;
-    /*reimp*/ void saveProperties(KConfigGroup &config) override;
+    /*reimp*/ void saveProperties(KConfigGroup &config) override
+    {
+        saveProperties(config, true);
+    }
     /*reimp*/ void saveGlobalProperties(KConfig *sessionConfig) override;
+
+    void saveProperties(KConfigGroup &config, bool includeViewConfig);
 
     void saveOpenRecent(KConfig *config);
     void loadOpenRecent(const KConfig *config);

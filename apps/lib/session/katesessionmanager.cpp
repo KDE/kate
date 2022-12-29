@@ -356,7 +356,9 @@ void KateSessionManager::saveSessionTo(KConfig *sc)
     for (int i = 0; i < KateApp::self()->mainWindowsCount(); ++i) {
         KConfigGroup cg(sc, QStringLiteral("MainWindow%1").arg(i));
         // saveProperties() handles saving the "open recent" files list
-        KateApp::self()->mainWindow(i)->saveProperties(cg);
+        // don't store splitters and co. for KWrite
+        // see bug 461355 and bug 459366 and bug 463139
+        KateApp::self()->mainWindow(i)->saveProperties(cg, KateApp::isKate());
         if (saveWindowConfig) {
             KateApp::self()->mainWindow(i)->saveWindowConfig(KConfigGroup(sc, QStringLiteral("MainWindow%1 Settings").arg(i)));
         }

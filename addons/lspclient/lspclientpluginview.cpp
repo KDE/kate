@@ -86,11 +86,6 @@ public:
         Text = static_cast<int>(LSPDocumentHighlightKind::Text),
         Read = static_cast<int>(LSPDocumentHighlightKind::Read),
         Write = static_cast<int>(LSPDocumentHighlightKind::Write),
-        Error = 10 + static_cast<int>(LSPDiagnosticSeverity::Error),
-        Warning = 10 + static_cast<int>(LSPDiagnosticSeverity::Warning),
-        Information = 10 + static_cast<int>(LSPDiagnosticSeverity::Information),
-        Hint = 10 + static_cast<int>(LSPDiagnosticSeverity::Hint),
-        Related
     };
 
     KindEnum(int v)
@@ -118,42 +113,6 @@ private:
 };
 
 static constexpr KTextEditor::MarkInterface::MarkTypes markType = KTextEditor::MarkInterface::markType31;
-static constexpr KTextEditor::MarkInterface::MarkTypes markTypeDiagError = KTextEditor::MarkInterface::Error;
-static constexpr KTextEditor::MarkInterface::MarkTypes markTypeDiagWarning = KTextEditor::MarkInterface::Warning;
-static constexpr KTextEditor::MarkInterface::MarkTypes markTypeDiagOther = KTextEditor::MarkInterface::markType30;
-static constexpr KTextEditor::MarkInterface::MarkTypes markTypeDiagAll =
-    KTextEditor::MarkInterface::MarkTypes(markTypeDiagError | markTypeDiagWarning | markTypeDiagOther);
-
-}
-
-static QIcon diagnosticsIcon(LSPDiagnosticSeverity severity)
-{
-    // clang-format off
-#define RETURN_CACHED_ICON(name, fallbackname) \
-    { \
-        static QIcon icon(QIcon::fromTheme(QStringLiteral(name), \
-                                           QIcon::fromTheme(QStringLiteral(fallbackname)))); \
-        return icon; \
-    }
-    // clang-format on
-    switch (severity) {
-    case LSPDiagnosticSeverity::Error:
-        RETURN_CACHED_ICON("data-error", "dialog-error")
-    case LSPDiagnosticSeverity::Warning:
-        RETURN_CACHED_ICON("data-warning", "dialog-warning")
-    case LSPDiagnosticSeverity::Information:
-    case LSPDiagnosticSeverity::Hint:
-        RETURN_CACHED_ICON("data-information", "dialog-information")
-    default:
-        break;
-    }
-    return QIcon();
-}
-
-static QIcon codeActionIcon()
-{
-    static QIcon icon(QIcon::fromTheme(QStringLiteral("insert-text")));
-    return icon;
 }
 
 KTextEditor::Document *findDocument(KTextEditor::MainWindow *mainWindow, const QUrl &url)
@@ -368,93 +327,15 @@ private:
     KTextEditor::Range range;
 };
 
-class SessionDiagnosticSuppressions
-{
-    // file -> suppression
-    // (empty file matches any file)
-    QHash<QString, QSet<QString>> m_suppressions;
-    const QString ENTRY_PREFIX{QStringLiteral("File_")};
-
-public:
-    void readSessionConfig(const KConfigGroup &cg)
-    {
-        qCInfo(LSPCLIENT) << "reading session config";
-        const auto groups = cg.keyList();
-        for (const auto &fkey : groups) {
-            if (fkey.startsWith(ENTRY_PREFIX)) {
-                QString fname = fkey.mid(ENTRY_PREFIX.size());
-                QStringList entries = cg.readEntry(fkey, QStringList());
-                if (entries.size()) {
-                    m_suppressions[fname] = {entries.begin(), entries.end()};
-                }
-            }
-        }
-    }
-
-    void writeSessionConfig(KConfigGroup &cg)
-    {
-        qCInfo(LSPCLIENT) << "writing session config";
-        // clear existing entries
-        cg.deleteGroup();
-        for (auto it = m_suppressions.begin(); it != m_suppressions.end(); ++it) {
-            QStringList entries = it.value().values();
-            if (entries.size()) {
-                cg.writeEntry(ENTRY_PREFIX + it.key(), entries);
-            }
-        }
-    }
-
-    void add(const QString &file, const QString &diagnostic)
-    {
-        m_suppressions[file].insert(diagnostic);
-    }
-
-    void remove(const QString &file, const QString &diagnostic)
-    {
-        auto it = m_suppressions.find(file);
-        if (it != m_suppressions.end()) {
-            it->remove(diagnostic);
-        }
-    }
-
-    bool hasSuppression(const QString &file, const QString &diagnostic)
-    {
-        auto it = m_suppressions.find(file);
-        if (it != m_suppressions.end()) {
-            return it->contains(diagnostic);
-        } else {
-            return false;
-        }
-    }
-
-    QVector<QString> getSuppressions(const QString &file)
-    {
-        QVector<QString> result;
-
-        for (const auto &entry : {QString(), file}) {
-            auto it = m_suppressions.find(entry);
-            if (it != m_suppressions.end()) {
-                const auto ds = it.value();
-                for (const auto &d : ds) {
-                    result.push_back(d);
-                }
-            }
-        }
-        return result;
-    }
-};
-
-class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient, public KTextEditor::SessionConfigInterface
+class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient
 {
     Q_OBJECT
-    Q_INTERFACES(KTextEditor::SessionConfigInterface)
 
     typedef LSPClientPluginViewImpl self_type;
 
     LSPClientPlugin *m_plugin;
     KTextEditor::MainWindow *m_mainWindow;
     QSharedPointer<LSPClientServerManager> m_serverManager;
-    QScopedPointer<LSPClientViewTracker> m_viewTracker;
     QScopedPointer<LSPClientCompletion> m_completion;
     QScopedPointer<LSPClientHover> m_hover;
     QScopedPointer<KTextEditor::TextHintProvider> m_forwardHover;
@@ -480,11 +361,6 @@ class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient, public KTe
     QPointer<QAction> m_onTypeFormatting;
     QPointer<QAction> m_incrementalSync;
     QPointer<QAction> m_highlightGoto;
-    QPointer<QAction> m_diagnostics;
-    QPointer<QAction> m_diagnosticsHighlight;
-    QPointer<QAction> m_diagnosticsMark;
-    QPointer<QAction> m_diagnosticsHover;
-    QPointer<QAction> m_diagnosticsSwitch;
     QPointer<QAction> m_messages;
     QPointer<QAction> m_closeDynamic;
     QPointer<QAction> m_restartServer;
@@ -520,16 +396,15 @@ class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient, public KTe
     QPointer<QTreeView> m_typeDefTree;
 
     // diagnostics tab
-    QPointer<QTreeView> m_diagnosticsTree;
-    // tree widget is either owned here or by tab
-    QScopedPointer<QTreeView> m_diagnosticsTreeOwn;
-    QScopedPointer<QStandardItemModel> m_diagnosticsModel;
-    // diagnostics ranges
-    RangeCollection m_diagnosticsRanges;
-    // and marks
-    DocumentCollection m_diagnosticsMarks;
+    // QPointer<QTreeView> m_diagnosticsTree;
+    // // tree widget is either owned here or by tab
+    // QScopedPointer<QTreeView> m_diagnosticsTreeOwn;
+    // QScopedPointer<QStandardItemModel> m_diagnosticsModel;
+    // // diagnostics ranges
+    // RangeCollection m_diagnosticsRanges;
+    // // and marks
+    // DocumentCollection m_diagnosticsMarks;
     // suppression tracked by session config
-    SessionDiagnosticSuppressions m_sessionDiagnosticSuppressions;
 
     // views on which completions have been registered
     QSet<KTextEditor::View *> m_completionViews;
@@ -736,22 +611,6 @@ public:
         m_inlayHints->setCheckable(true);
         m_inlayHints->setText(i18n("Show Inlay Hints"));
 
-        // diagnostics
-        m_diagnostics = actionCollection()->addAction(QStringLiteral("lspclient_diagnostics"), this, &self_type::displayOptionChanged);
-        m_diagnostics->setText(i18n("Show Diagnostics Notifications"));
-        m_diagnostics->setCheckable(true);
-        m_diagnosticsHighlight = actionCollection()->addAction(QStringLiteral("lspclient_diagnostics_highlight"), this, &self_type::displayOptionChanged);
-        m_diagnosticsHighlight->setText(i18n("Show Diagnostics Highlights"));
-        m_diagnosticsHighlight->setCheckable(true);
-        m_diagnosticsMark = actionCollection()->addAction(QStringLiteral("lspclient_diagnostics_mark"), this, &self_type::displayOptionChanged);
-        m_diagnosticsMark->setText(i18n("Show Diagnostics Marks"));
-        m_diagnosticsMark->setCheckable(true);
-        m_diagnosticsHover = actionCollection()->addAction(QStringLiteral("lspclient_diagnostics_hover"), this, &self_type::displayOptionChanged);
-        m_diagnosticsHover->setText(i18n("Show Diagnostics on Hover"));
-        m_diagnosticsHover->setCheckable(true);
-        m_diagnosticsSwitch = actionCollection()->addAction(QStringLiteral("lspclient_diagnostic_switch"), this, &self_type::switchToDiagnostics);
-        m_diagnosticsSwitch->setText(i18n("Switch to Diagnostics Tab"));
-
         // messages
         m_messages = actionCollection()->addAction(QStringLiteral("lspclient_messages"), this, &self_type::displayOptionChanged);
         m_messages->setText(i18n("Show Messages"));
@@ -799,7 +658,6 @@ public:
         lspOther->addAction(m_triggerFormat);
         lspOther->addAction(m_triggerSymbolInfo);
         lspOther->addSeparator();
-        lspOther->addAction(m_diagnosticsSwitch);
         lspOther->addAction(m_closeDynamic);
         lspOther->addSeparator();
         lspOther->addAction(m_restartServer);
@@ -818,11 +676,6 @@ public:
         moreOptions->addAction(m_incrementalSync);
         moreOptions->addAction(m_highlightGoto);
         moreOptions->addAction(m_inlayHints);
-        moreOptions->addSeparator();
-        moreOptions->addAction(m_diagnostics);
-        moreOptions->addAction(m_diagnosticsHighlight);
-        moreOptions->addAction(m_diagnosticsMark);
-        moreOptions->addAction(m_diagnosticsHover);
         moreOptions->addSeparator();
         moreOptions->addAction(m_messages);
         moreOptions->addSeparator();
@@ -851,22 +704,6 @@ public:
         Utils::registerDiagnosticsProvider(&m_diagnosticProvider, m_mainWindow);
         connect(&m_diagnosticProvider, &DiagnosticsProvider::requestFixes, this, &self_type::fixDiagnostic);
 
-        // diagnostics tab
-        m_diagnosticsTree = new QTreeView();
-        m_diagnosticsTree->setAlternatingRowColors(true);
-        m_diagnosticsTreeOwn.reset(m_diagnosticsTree);
-        m_diagnosticsModel.reset(new QStandardItemModel());
-        m_diagnosticsModel->setColumnCount(1);
-        m_diagnosticsTree->setUniformRowHeights(true);
-        m_diagnosticsTree->setModel(m_diagnosticsModel.data());
-        configureTreeView(m_diagnosticsTree);
-        connect(m_diagnosticsTree, &QTreeView::clicked, this, &self_type::goToItemLocation);
-        connect(m_diagnosticsTree, &QTreeView::doubleClicked, this, &self_type::triggerCodeAction);
-
-        // track position in view to sync diagnostics list
-        m_viewTracker.reset(LSPClientViewTracker::new_(plugin, mainWin, 0, 500));
-        connect(m_viewTracker.data(), &LSPClientViewTracker::newState, this, &self_type::onViewState);
-
         connect(m_mainWindow, &KTextEditor::MainWindow::viewCreated, this, &self_type::onViewCreated);
 
         connect(this, &self_type::ctrlClickDefRecieved, this, &self_type::onCtrlMouseMove);
@@ -875,11 +712,6 @@ public:
         updateState();
 
         m_mainWindow->guiFactory()->addClient(this);
-    }
-
-    SessionDiagnosticSuppressions &sessionDiagnosticSuppressions()
-    {
-        return m_sessionDiagnosticSuppressions;
     }
 
     void onViewCreated(KTextEditor::View *view)
@@ -1021,7 +853,6 @@ public:
         }
 
         clearAllLocationMarks();
-        clearAllDiagnosticsMarks();
     }
 
     void configureTreeView(QTreeView *treeView)
@@ -1043,33 +874,11 @@ public:
         auto h = [treeView, menu](const QPoint &p) {
             menu->popup(treeView->viewport()->mapToGlobal(p));
         };
-        if (m_diagnosticsTree == treeView) {
-            connect(treeView, &QTreeView::customContextMenuRequested, this, &self_type::onDiagnosticsMenu);
-        } else {
-            connect(treeView, &QTreeView::customContextMenuRequested, h);
-        }
+        connect(treeView, &QTreeView::customContextMenuRequested, h);
     }
 
     void displayOptionChanged()
     {
-        m_diagnosticsHighlight->setEnabled(m_diagnostics->isChecked());
-        m_diagnosticsMark->setEnabled(m_diagnostics->isChecked());
-        m_diagnosticsHover->setEnabled(m_diagnostics->isChecked());
-
-        // diagnstics tab next
-        int diagnosticsIndex = m_tabWidget->indexOf(m_diagnosticsTree);
-        // setTabEnabled may still show it ... so let's be more forceful
-        if (m_diagnostics->isChecked() && m_diagnosticsTreeOwn) {
-            m_diagnosticsTreeOwn.take();
-            m_tabWidget->insertTab(0, m_diagnosticsTree, i18nc("@title:tab", "Diagnostics"));
-            // Hide close button
-            m_tabWidget->tabBar()->setTabButton(0, QTabBar::LeftSide, nullptr);
-            m_tabWidget->tabBar()->setTabButton(0, QTabBar::RightSide, nullptr);
-        } else if (!m_diagnostics->isChecked() && !m_diagnosticsTreeOwn) {
-            m_diagnosticsTreeOwn.reset(m_diagnosticsTree);
-            m_tabWidget->removeTab(diagnosticsIndex);
-        }
-        m_diagnosticsSwitch->setEnabled(m_diagnostics->isChecked());
         m_serverManager->setIncrementalSync(m_incrementalSync->isChecked());
         // use snippets if and only if parentheses are requested
         auto &clientCaps = m_serverManager->clientCapabilities();
@@ -1108,18 +917,6 @@ public:
         }
         if (m_highlightGoto) {
             m_highlightGoto->setChecked(m_plugin->m_highlightGoto);
-        }
-        if (m_diagnostics) {
-            m_diagnostics->setChecked(m_plugin->m_diagnostics);
-        }
-        if (m_diagnosticsHighlight) {
-            m_diagnosticsHighlight->setChecked(m_plugin->m_diagnosticsHighlight);
-        }
-        if (m_diagnosticsMark) {
-            m_diagnosticsMark->setChecked(m_plugin->m_diagnosticsMark);
-        }
-        if (m_diagnosticsHover) {
-            m_diagnosticsHover->setChecked(m_plugin->m_diagnosticsHover);
         }
         if (m_messages) {
             m_messages->setChecked(m_plugin->m_messages);
@@ -1178,7 +975,6 @@ public:
     Q_SLOT void clearAllMarks(KTextEditor::Document *doc)
     {
         clearMarks(doc, m_ranges, m_marks, RangeData::markType);
-        clearMarks(doc, m_diagnosticsRanges, m_diagnosticsMarks, RangeData::markTypeDiagAll);
     }
 
     void clearAllLocationMarks()
@@ -1189,15 +985,9 @@ public:
         m_markModel.clear();
     }
 
-    void clearAllDiagnosticsMarks()
-    {
-        clearMarks(m_diagnosticsRanges, m_diagnosticsMarks, RangeData::markTypeDiagAll);
-    }
-
     void addMarks(KTextEditor::Document *doc, QStandardItem *item, RangeCollection *ranges, DocumentCollection *docs)
     {
         Q_ASSERT(item);
-        using Style = KSyntaxHighlighting::Theme::TextStyle;
 
         // only consider enabled items
         if (!(item->flags() & Qt::ItemIsEnabled)) {
@@ -1220,7 +1010,7 @@ public:
 
         KTextEditor::Attribute::Ptr attr;
 
-        bool enabled = m_diagnostics && m_diagnostics->isChecked() && m_diagnosticsHighlight && m_diagnosticsHighlight->isChecked();
+        bool enabled;
         KTextEditor::MarkInterface::MarkTypes markType = RangeData::markType;
         switch (kind) {
         case RangeData::KindEnum::Text: {
@@ -1262,45 +1052,6 @@ public:
             enabled = true;
             break;
         }
-        // use underlining for diagnostics to avoid lots of fancy flickering
-        case RangeData::KindEnum::Error: {
-            static KTextEditor::Attribute::Ptr errorAttr;
-            if (!errorAttr) {
-                const auto theme = KTextEditor::Editor::instance()->theme();
-                errorAttr = new KTextEditor::Attribute();
-                errorAttr->setUnderlineColor(theme.textColor(Style::Error));
-                errorAttr->setUnderlineStyle(QTextCharFormat::SpellCheckUnderline);
-            }
-            attr = errorAttr;
-            markType = RangeData::markTypeDiagError;
-            break;
-        }
-        case RangeData::KindEnum::Warning: {
-            static KTextEditor::Attribute::Ptr warnAttr;
-            if (!warnAttr) {
-                const auto theme = KTextEditor::Editor::instance()->theme();
-                warnAttr = new KTextEditor::Attribute();
-                warnAttr->setUnderlineColor(theme.textColor(Style::Warning));
-                warnAttr->setUnderlineStyle(QTextCharFormat::SpellCheckUnderline);
-            }
-            attr = warnAttr;
-            markType = RangeData::markTypeDiagWarning;
-            break;
-        }
-        case RangeData::KindEnum::Information:
-        case RangeData::KindEnum::Hint:
-        case RangeData::KindEnum::Related: {
-            static KTextEditor::Attribute::Ptr infoAttr;
-            if (!infoAttr) {
-                const auto theme = KTextEditor::Editor::instance()->theme();
-                infoAttr = new KTextEditor::Attribute();
-                infoAttr->setUnderlineColor(theme.textColor(Style::Information));
-                infoAttr->setUnderlineStyle(QTextCharFormat::SpellCheckUnderline);
-            }
-            attr = infoAttr;
-            markType = RangeData::markTypeDiagOther;
-            break;
-        }
         }
 
         if (!attr) {
@@ -1321,26 +1072,11 @@ public:
         KTextEditor::MarkInterfaceV2 *iface = qobject_cast<KTextEditor::MarkInterfaceV2 *>(doc);
         Q_ASSERT(iface);
         // add match mark for range
-        bool handleClick = true;
-        enabled = m_diagnostics && m_diagnostics->isChecked() && m_diagnosticsMark && m_diagnosticsMark->isChecked();
         switch (markType) {
         case RangeData::markType:
             iface->setMarkDescription(markType, i18n("RangeHighLight"));
             iface->setMarkIcon(markType, QIcon());
-            handleClick = false;
             enabled = true;
-            break;
-        case RangeData::markTypeDiagError:
-            iface->setMarkDescription(markType, i18n("Error"));
-            iface->setMarkIcon(markType, diagnosticsIcon(LSPDiagnosticSeverity::Error));
-            break;
-        case RangeData::markTypeDiagWarning:
-            iface->setMarkDescription(markType, i18n("Warning"));
-            iface->setMarkIcon(markType, diagnosticsIcon(LSPDiagnosticSeverity::Warning));
-            break;
-        case RangeData::markTypeDiagOther:
-            iface->setMarkDescription(markType, i18n("Information"));
-            iface->setMarkIcon(markType, diagnosticsIcon(LSPDiagnosticSeverity::Information));
             break;
         default:
             Q_ASSERT(false);
@@ -1365,25 +1101,11 @@ public:
                 Qt::UniqueConnection);
         // reload might save/restore marks before/after above signals, so let's clear before that
         connect(doc, &KTextEditor::Document::aboutToReload, this, &self_type::clearAllMarks, Qt::UniqueConnection);
-
-        if (handleClick) {
-            connect(doc,
-                    SIGNAL(markClicked(KTextEditor::Document*,KTextEditor::Mark,bool&)),
-                    this,
-                    SLOT(onMarkClicked(KTextEditor::Document*,KTextEditor::Mark,bool&)),
-                    Qt::UniqueConnection);
-        }
         // clang-format on
     }
 
     void addMarksRec(KTextEditor::Document *doc, QStandardItem *item, RangeCollection *ranges, DocumentCollection *docs)
     {
-        // We only care about @p doc items
-        auto docItem = dynamic_cast<DocumentDiagnosticItem *>(item);
-        if (docItem && QUrl::fromLocalFile(docItem->data(Qt::UserRole).toString()) != doc->url()) {
-            return;
-        }
-
         Q_ASSERT(item);
         addMarks(doc, item, ranges, docs);
         for (int i = 0; i < item->rowCount(); ++i) {
@@ -1478,203 +1200,11 @@ public:
         goToDocumentLocation(url, start);
     }
 
-    // custom item subclass that captures additional attributes;
-    // a bit more convenient than the variant/role way
-    struct DiagnosticItem : public QStandardItem {
-        LSPDiagnostic m_diagnostic;
-        LSPCodeAction m_codeAction;
-        QSharedPointer<LSPClientRevisionSnapshot> m_snapshot;
-
-        DiagnosticItem(const LSPDiagnostic &d)
-            : m_diagnostic(d)
-        {
-        }
-
-        DiagnosticItem(const LSPCodeAction &c, QSharedPointer<LSPClientRevisionSnapshot> s)
-            : m_codeAction(c)
-            , m_snapshot(std::move(s))
-        {
-            m_diagnostic.range = LSPRange::invalid();
-        }
-
-        bool isCodeAction() const
-        {
-            return !m_diagnostic.range.isValid() && m_codeAction.title.size();
-        }
-    };
-
-    // helper data that holds diagnostics suppressions
-    class DiagnosticSuppression
-    {
-        struct Suppression {
-            QRegularExpression diag, code;
-        };
-        QVector<Suppression> m_suppressions;
-        QPointer<KTextEditor::Document> m_document;
-
-    public:
-        // construct from configuration
-        DiagnosticSuppression(self_type *self, KTextEditor::Document *doc, const QJsonObject &serverConfig)
-            : m_document(doc)
-        {
-            // check regexp and report
-            auto checkRegExp = [self](const QRegularExpression &regExp) {
-                auto valid = regExp.isValid();
-                if (!valid) {
-                    auto error = regExp.errorString();
-                    auto offset = regExp.patternErrorOffset();
-                    auto msg = i18nc("@info", "Error in regular expression: %1\noffset %2: %3", regExp.pattern(), offset, error);
-                    self->onShowMessage(KTextEditor::Message::Error, msg);
-                }
-                return valid;
-            };
-
-            Q_ASSERT(doc);
-            const auto localPath = doc->url().toLocalFile();
-            const auto supps = serverConfig.value(QStringLiteral("suppressions")).toObject();
-            for (const auto &entry : supps) {
-                // should be (array) tuple (last element optional)
-                // [url regexp, message regexp, code regexp]
-                const auto patterns = entry.toArray();
-                if (patterns.size() >= 2) {
-                    const auto urlRegExp = QRegularExpression(patterns.at(0).toString());
-                    if (urlRegExp.isValid() && urlRegExp.match(localPath).hasMatch()) {
-                        QRegularExpression diagRegExp, codeRegExp;
-                        diagRegExp = QRegularExpression(patterns.at(1).toString());
-                        if (patterns.size() >= 3) {
-                            codeRegExp = QRegularExpression(patterns.at(2).toString());
-                        }
-                        if (checkRegExp(diagRegExp) && checkRegExp(codeRegExp)) {
-                            m_suppressions.push_back({diagRegExp, codeRegExp});
-                        }
-                    }
-                }
-            }
-            // also consider session suppressions
-            const auto suppressions = self->m_sessionDiagnosticSuppressions.getSuppressions(localPath);
-            for (const auto &entry : suppressions) {
-                auto pattern = QRegularExpression::escape(entry);
-                m_suppressions.push_back({QRegularExpression(pattern), {}});
-            }
-        }
-
-        bool match(const QStandardItem &item) const
-        {
-            for (const auto &s : m_suppressions) {
-                if (s.diag.match(item.text()).hasMatch()) {
-                    // retrieve and check code text if we need to match the content as well
-                    if (m_document && !s.code.pattern().isEmpty()) {
-                        auto range = item.data(RangeData::RangeRole).value<LSPRange>();
-                        auto code = m_document->text(range);
-                        if (!s.code.match(code).hasMatch()) {
-                            continue;
-                        }
-                    }
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        KTextEditor::Document *document()
-        {
-            return m_document;
-        }
-    };
-
-    // likewise; a custom item for document level model item
-    struct DocumentDiagnosticItem : public QStandardItem {
-        QScopedPointer<DiagnosticSuppression> m_diagnosticSuppression;
-        bool m_enabled = true;
-    };
-
-    // double click on:
-    // diagnostic item -> request and add actions (below item)
-    // code action -> perform action (literal edit and/or execute command)
-    // (execution of command may lead to an applyEdit request from server)
-    void triggerCodeAction(const QModelIndex &index)
-    {
-        triggerCodeActionItem(index, false);
-    }
-
-    void triggerCodeActionItem(const QModelIndex &index, bool autoApply)
-    {
-        KTextEditor::View *activeView = m_mainWindow->activeView();
-        QPointer<KTextEditor::Document> document = activeView->document();
-        auto server = m_serverManager->findServer(activeView);
-        auto it = dynamic_cast<DiagnosticItem *>(m_diagnosticsModel->itemFromIndex(index));
-        if (!server || !document || !it) {
-            return;
-        }
-
-        auto executeCodeAction = [this, server](DiagnosticItem *it) {
-            Q_ASSERT(it->isCodeAction());
-            auto &action = it->m_codeAction;
-            // apply edit before command
-            applyWorkspaceEdit(action.edit, it->m_snapshot.data());
-            executeServerCommand(server, action.command);
-            // diagnostics are likely updated soon, but might be clicked again in meantime
-            // so clear once executed, so not executed again
-            action.edit.changes.clear();
-            action.command.command.clear();
-            return;
-        };
-        // click on an action ?
-        if (it->isCodeAction()) {
-            executeCodeAction(it);
-        }
-
-        // only engage action if
-        // * active document matches diagnostic document
-        // * if really clicked a diagnostic item
-        //   (which is the case as it != nullptr and not a code action)
-        // * if no code action invoked and added already
-        //   (note; related items are also children)
-        auto url = it->data(RangeData::FileUrlRole).toUrl();
-        if (url != document->url() || it->data(Qt::UserRole).toBool()) {
-            return;
-        }
-
-        // store some things to find item safely later on
-        QPersistentModelIndex pindex(index);
-        QSharedPointer<LSPClientRevisionSnapshot> snapshot(m_serverManager->snapshot(server.data()));
-        auto h = [this, url, snapshot, pindex, autoApply, executeCodeAction](const QList<LSPCodeAction> &actions) {
-            if (!pindex.isValid()) {
-                return;
-            }
-            auto child = m_diagnosticsModel->itemFromIndex(pindex);
-            if (!child) {
-                return;
-            }
-            // add actions below diagnostic item
-            for (const auto &action : actions) {
-                auto item = new DiagnosticItem(action, snapshot);
-                child->appendRow(item);
-                auto text = action.kind.size() ? QStringLiteral("[%1] %2").arg(action.kind).arg(action.title) : action.title;
-                item->setData(text, Qt::DisplayRole);
-                item->setData(codeActionIcon(), Qt::DecorationRole);
-                if (autoApply) {
-                    executeCodeAction(item);
-                }
-            }
-            m_diagnosticsTree->setExpanded(child->index(), true);
-            // mark actions added
-            child->setData(true, Qt::UserRole);
-        };
-
-        auto range = activeView->selectionRange();
-        if (!range.isValid()) {
-            range = document->documentRange();
-        }
-        server->documentCodeAction(url, range, {}, {it->m_diagnostic}, this, h);
-    }
-
     void fixDiagnostic(const QUrl url, const Diagnostic &diagnostic, const QVariant &data)
     {
         KTextEditor::View *activeView = m_mainWindow->activeView();
         QPointer<KTextEditor::Document> document = activeView->document();
         auto server = m_serverManager->findServer(activeView);
-        // auto it = dynamic_cast<DiagnosticItem *>(m_diagnosticsModel->itemFromIndex(index));
         if (!server || !document) {
             return;
         }
@@ -1714,52 +1244,20 @@ public:
         server->documentCodeAction(url, range, {}, {diagnostic}, this, h);
     }
 
-    void quickFix()
-    {
-        KTextEditor::View *activeView = m_mainWindow->activeView();
-        KTextEditor::Document *document = activeView ? activeView->document() : nullptr;
-
-        if (!document) {
-            return;
-        }
-
-        QStandardItem *topItem = getItem(*m_diagnosticsModel, document->url());
-        // try to find current diagnostic based on cursor position
-        auto pos = activeView->cursorPosition();
-        QStandardItem *targetItem = getItem(topItem, pos, false);
-        if (!targetItem) {
-            // match based on line position only
-            targetItem = getItem(topItem, pos, true);
-        }
-
-        if (targetItem) {
-            triggerCodeActionItem(targetItem->index(), true);
-        }
-    }
-
     bool tabCloseRequested(int index)
     {
         auto widget = m_tabWidget->widget(index);
-        if (widget != m_diagnosticsTree) {
-            if (m_markModel && widget == m_markModel->parent()) {
-                clearAllLocationMarks();
-            }
-            delete widget;
-            return true;
+        if (m_markModel && widget == m_markModel->parent()) {
+            clearAllLocationMarks();
         }
-        return false;
+        delete widget;
+        return true;
     }
 
     void tabChanged(int index)
     {
         // reset to regular foreground
         m_tabWidget->tabBar()->setTabTextColor(index, QColor());
-    }
-
-    void switchToDiagnostics()
-    {
-        m_tabWidget->setCurrentWidget(m_diagnosticsTree);
-        m_mainWindow->showToolView(m_toolView.data());
     }
 
     void closeDynamic()
@@ -2587,283 +2085,20 @@ public:
         return targetItem;
     }
 
-    // select/scroll to diagnostics item for document and (optionally) line
-    bool syncDiagnostics(KTextEditor::Document *document, int line, bool allowTop, bool doShow)
-    {
-        if (!m_diagnosticsTree) {
-            return false;
-        }
-
-        auto hint = QAbstractItemView::PositionAtTop;
-        QStandardItem *topItem = getItem(*m_diagnosticsModel, document->url());
-        updateDiagnosticsSuppression(topItem, document);
-        QStandardItem *targetItem = getItem(topItem, {line, 0}, true);
-        if (targetItem) {
-            hint = QAbstractItemView::PositionAtCenter;
-        }
-        if (!targetItem && allowTop) {
-            targetItem = topItem;
-        }
-        if (targetItem) {
-            m_diagnosticsTree->blockSignals(true);
-            m_diagnosticsTree->scrollTo(targetItem->index(), hint);
-            m_diagnosticsTree->setCurrentIndex(targetItem->index());
-            m_diagnosticsTree->blockSignals(false);
-            if (doShow) {
-                m_tabWidget->setCurrentWidget(m_diagnosticsTree);
-                m_mainWindow->showToolView(m_toolView.data());
-            }
-        }
-        return targetItem != nullptr;
-    }
-
-    void onViewState(KTextEditor::View *view, LSPClientViewTracker::State newState)
-    {
-        if (!view || !view->document()) {
-            return;
-        }
-
-        // select top item on view change,
-        // but otherwise leave selection unchanged if no match
-        switch (newState) {
-        case LSPClientViewTracker::ViewChanged:
-            syncDiagnostics(view->document(), view->cursorPosition().line(), true, false);
-            break;
-        case LSPClientViewTracker::LineChanged:
-            syncDiagnostics(view->document(), view->cursorPosition().line(), false, false);
-            break;
-        default:
-            // should not happen
-            break;
-        }
-    }
-
-    Q_SLOT void onDiagnosticsMenu(const QPoint &pos)
-    {
-        Q_UNUSED(pos);
-
-        auto treeView = m_diagnosticsTree.data();
-        auto menu = new QMenu(m_diagnosticsTreeOwn.data());
-        menu->addAction(i18n("Expand All"), treeView, &QTreeView::expandAll);
-        menu->addAction(i18n("Collapse All"), treeView, &QTreeView::collapseAll);
-        menu->addSeparator();
-
-        QModelIndex index = treeView->currentIndex();
-        auto item = m_diagnosticsModel->itemFromIndex(index);
-        auto diagItem = dynamic_cast<DiagnosticItem *>(item);
-        auto docDiagItem = dynamic_cast<DocumentDiagnosticItem *>(item);
-        if (diagItem) {
-            auto diagText = index.data().toString();
-            menu->addAction(QIcon::fromTheme(QLatin1String("edit-copy")), i18n("Copy to Clipboard"), [diagText]() {
-                QClipboard *clipboard = QGuiApplication::clipboard();
-                clipboard->setText(diagText);
-            });
-            menu->addSeparator();
-            auto parent = index.parent();
-            docDiagItem = dynamic_cast<DocumentDiagnosticItem *>(m_diagnosticsModel->itemFromIndex(parent));
-            // track validity of raw pointer
-            QPersistentModelIndex pindex(parent);
-            auto h = [this, pindex, diagText, docDiagItem](bool add, const QString &file, const QString &diagnostic) {
-                if (!pindex.isValid()) {
-                    return;
-                }
-                if (add) {
-                    m_sessionDiagnosticSuppressions.add(file, diagnostic);
-                } else {
-                    m_sessionDiagnosticSuppressions.remove(file, diagnostic);
-                }
-                updateDiagnosticsSuppression(docDiagItem, docDiagItem->m_diagnosticSuppression->document(), true);
-            };
-            using namespace std::placeholders;
-            const auto empty = QString();
-            if (m_sessionDiagnosticSuppressions.hasSuppression(empty, diagText)) {
-                menu->addAction(i18n("Remove Global Suppression"), this, std::bind(h, false, empty, diagText));
-            } else {
-                menu->addAction(i18n("Add Global Suppression"), this, std::bind(h, true, empty, diagText));
-            }
-            auto file = parent.data(Qt::UserRole).toString();
-            if (m_sessionDiagnosticSuppressions.hasSuppression(file, diagText)) {
-                menu->addAction(i18n("Remove Local Suppression"), this, std::bind(h, false, file, diagText));
-            } else {
-                menu->addAction(i18n("Add Local Suppression"), this, std::bind(h, true, file, diagText));
-            }
-        } else if (docDiagItem) {
-            // track validity of raw pointer
-            QPersistentModelIndex pindex(index);
-            auto h = [this, docDiagItem, pindex](bool enabled) {
-                if (pindex.isValid()) {
-                    docDiagItem->m_enabled = enabled;
-                }
-                updateDiagnosticsState(docDiagItem);
-            };
-            if (docDiagItem->m_enabled) {
-                menu->addAction(i18n("Disable Suppression"), this, std::bind(h, false));
-            } else {
-                menu->addAction(i18n("Enable Suppression"), this, std::bind(h, true));
-            }
-        }
-        menu->popup(treeView->viewport()->mapToGlobal(pos));
-    }
-
-    Q_SLOT void onMarkClicked(KTextEditor::Document *document, KTextEditor::Mark mark, bool &handled)
-    {
-        // no action if no mark was sprinkled here
-        if (m_diagnosticsMarks.contains(document) && syncDiagnostics(document, mark.line, false, true)) {
-            handled = true;
-        }
-    }
-
     void onDiagnostics(const LSPPublishDiagnosticsParams &diagnostics)
     {
         Q_EMIT m_diagnosticProvider.diagnosticsAdded(diagnostics);
-        return;
-
-        if (!m_diagnosticsTree) {
-            return;
-        }
-
-        QStandardItemModel *model = m_diagnosticsModel.data();
-        QStandardItem *topItem = getItem(*m_diagnosticsModel, diagnostics.uri);
-
-        // current diagnostics row, if one of incoming diagnostics' document
-        int row = -1;
-        if (!topItem) {
-            // no need to create an empty one
-            if (diagnostics.diagnostics.empty()) {
-                return;
-            }
-            topItem = new DocumentDiagnosticItem();
-            model->appendRow(topItem);
-            topItem->setText(diagnostics.uri.toLocalFile());
-            topItem->setData(diagnostics.uri.toLocalFile(), Qt::UserRole);
-        } else {
-            // try to retain current position
-            auto currentIndex = m_diagnosticsTree->currentIndex();
-            if (currentIndex.parent() == topItem->index()) {
-                row = currentIndex.row();
-            }
-            topItem->setRowCount(0);
-        }
-
-        for (const auto &diag : diagnostics.diagnostics) {
-            auto item = new DiagnosticItem(diag);
-            topItem->appendRow(item);
-            QString source;
-            if (diag.source.length()) {
-                source = QStringLiteral("[%1] ").arg(diag.source);
-            }
-            if (diag.code.length()) {
-                source += QStringLiteral("(%1) ").arg(diag.code);
-            }
-            item->setData(diagnosticsIcon(diag.severity), Qt::DecorationRole);
-            // rendering of lines with embedded newlines does not work so well
-            // so ... split message by lines
-            auto lines = diag.message.split(QLatin1Char('\n'), Qt::SkipEmptyParts);
-            item->setText(source + (lines.size() > 0 ? lines[0] : QString()));
-            fillItemRoles(item, diagnostics.uri, diag.range, diag.severity);
-            // add subsequent lines to subitems
-            // no metadata is added to these,
-            // as it can be taken from the parent (for marks and ranges)
-            for (int l = 1; l < lines.size(); ++l) {
-                auto subitem = new QStandardItem();
-                subitem->setText(lines[l]);
-                item->appendRow(subitem);
-            }
-            const auto &relatedInfo = diag.relatedInformation;
-            for (const auto &related : relatedInfo) {
-                if (related.location.uri.isEmpty()) {
-                    continue;
-                }
-                auto relatedItemMessage = new QStandardItem();
-                fillItemRoles(relatedItemMessage, related.location.uri, related.location.range, RangeData::KindEnum::Related);
-                auto basename = QFileInfo(related.location.uri.toLocalFile()).fileName();
-                auto location = QStringLiteral("%1:%2").arg(basename).arg(related.location.range.start().line());
-                relatedItemMessage->setText(QStringLiteral("[%1] %2").arg(location).arg(related.message));
-                relatedItemMessage->setData(diagnosticsIcon(LSPDiagnosticSeverity::Information), Qt::DecorationRole);
-                item->appendRow(relatedItemMessage);
-            }
-            m_diagnosticsTree->setExpanded(item->index(), true);
-        }
-
-        // TODO perhaps add some custom delegate that only shows 1 line
-        // and only the whole text when item selected ??
-        m_diagnosticsTree->setExpanded(topItem->index(), true);
-
-        updateDiagnosticsState(topItem);
-        // also sync updated diagnostic to current position
-        auto currentView = m_mainWindow->activeView();
-        if (currentView && currentView->document()) {
-            if (!syncDiagnostics(currentView->document(), currentView->cursorPosition().line(), false, false)) {
-                // avoid jitter; only restore previous if applicable
-                if (row >= 0 && row < topItem->rowCount()) {
-                    m_diagnosticsTree->scrollTo(topItem->child(row)->index());
-                }
-            }
-        }
-    }
-
-    void updateDiagnosticsSuppression(QStandardItem *topItem, KTextEditor::Document *doc, bool force = false)
-    {
-        if (!topItem || !doc) {
-            return;
-        }
-
-        auto diagTopItem = static_cast<DocumentDiagnosticItem *>(topItem);
-        auto &suppressions = diagTopItem->m_diagnosticSuppression;
-        if (!suppressions || force) {
-            auto config = m_serverManager->findServerConfig(doc);
-            if (config.isObject()) {
-                auto supp = new DiagnosticSuppression(this, doc, config.toObject());
-                suppressions.reset(supp);
-                updateDiagnosticsState(topItem);
-            }
-        }
-    }
-
-    void updateDiagnosticsState(QStandardItem *topItem)
-    {
-        if (!topItem) {
-            return;
-        }
-
-        auto diagTopItem = static_cast<DocumentDiagnosticItem *>(topItem);
-        auto enabled = diagTopItem->m_enabled;
-        auto suppressions = enabled ? diagTopItem->m_diagnosticSuppression.data() : nullptr;
-
-        int totalCount = topItem->rowCount();
-        int count = 0;
-        for (int i = 0; i < totalCount; ++i) {
-            auto item = topItem->child(i);
-            auto hide = suppressions && item && suppressions->match(*item);
-            // mark accordingly as flag and (un)hide
-            auto flags = item->flags();
-            const auto ENABLED = Qt::ItemFlag::ItemIsEnabled;
-            if ((flags & ENABLED) != !hide) {
-                flags = hide ? (flags & ~ENABLED) : (flags | ENABLED);
-                item->setFlags(flags);
-                m_diagnosticsTree->setRowHidden(item->row(), topItem->index(), hide);
-            }
-            count += hide ? 0 : 1;
-        }
-        // adjust file item level text
-        auto suppressed = totalCount - count;
-        auto text = topItem->data(Qt::UserRole).toString();
-        topItem->setText(suppressed ? i18nc("@info", "%1 [suppressed: %2]", text, suppressed) : text);
-        // only hide if really nothing below
-        m_diagnosticsTree->setRowHidden(topItem->row(), QModelIndex(), totalCount == 0);
-
-        updateMarks();
     }
 
     void onServerChanged()
     {
         // need to clear suppressions
         // will be filled at suitable time
-        auto &model = m_diagnosticsModel;
-        for (int i = 0; i < model->rowCount(); ++i) {
-            auto diagItem = static_cast<DocumentDiagnosticItem *>(model->item(i));
-            diagItem->m_diagnosticSuppression.reset();
-        }
+        // auto &model = m_diagnosticsModel;
+        // for (int i = 0; i < model->rowCount(); ++i) {
+        //     auto diagItem = static_cast<DocumentDiagnosticItem *>(model->item(i));
+        //     diagItem->m_diagnosticSuppression.reset();
+        // }
         updateState();
     }
 
@@ -3017,33 +2252,6 @@ public:
         }
 
         m_diagnosticProvider.requestClearDiagnosticsForStaleDocs({fpaths.begin(), fpaths.end()}, &m_diagnosticProvider);
-        return;
-
-        // check and clear defunct entries
-        const auto &model = *m_diagnosticsModel;
-
-        // Remove rows in groups
-        int start = -1, count = 0;
-        for (int i = 0; i < model.rowCount(); ++i) {
-            auto item = model.item(i);
-            if (item && !fpaths.contains(item->text())) {
-                if (start == -1) {
-                    start = i;
-                }
-                count += 1;
-            } else {
-                if (start > -1 && count != 0) {
-                    m_diagnosticsModel->removeRows(start, count);
-                    i = start - 1; // reset i
-                }
-                start = -1;
-                count = 0;
-            }
-        }
-
-        if (start != -1 && count != 0) {
-            m_diagnosticsModel->removeRows(start, count);
-        }
     }
 
     void onTextChanged(KTextEditor::Document *doc)
@@ -3274,10 +2482,6 @@ public:
         if (m_markModel && doc) {
             addMarks(doc, m_markModel, m_ranges, m_marks);
         }
-        if (m_diagnosticsModel && doc) {
-            clearMarks(doc, m_diagnosticsRanges, m_diagnosticsMarks, RangeData::markTypeDiagAll);
-            addMarks(doc, m_diagnosticsModel.data(), m_diagnosticsRanges, m_diagnosticsMarks);
-        }
     }
 
     void viewDestroyed(QObject *view)
@@ -3337,16 +2541,6 @@ public:
     Q_INVOKABLE QAbstractItemModel *documentSymbolsModel()
     {
         return m_symbolView->documentSymbolsModel();
-    }
-
-    void readSessionConfig(const KConfigGroup &config) override
-    {
-        sessionDiagnosticSuppressions().readSessionConfig(config);
-    }
-
-    void writeSessionConfig(KConfigGroup &config) override
-    {
-        sessionDiagnosticSuppressions().writeSessionConfig(config);
     }
 };
 

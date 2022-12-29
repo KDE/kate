@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-23 00:50+0000\n"
+"POT-Creation-Date: 2022-12-29 00:55+0000\n"
 "PO-Revision-Date: 2019-03-17 02:54+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: Swathanthra|സ്വതന്ത്ര Malayalam|മലയാളം Computing|കമ്പ്യൂട്ടിങ്ങ് <smc."
@@ -859,7 +859,7 @@ msgstr ""
 msgid "Projects Index"
 msgstr ""
 
-#: kateprojectpluginview.cpp:835
+#: kateprojectpluginview.cpp:838
 #, kde-format
 msgid "Choose a directory"
 msgstr ""

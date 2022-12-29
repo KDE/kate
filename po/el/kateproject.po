@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-23 00:50+0000\n"
+"POT-Creation-Date: 2022-12-29 00:55+0000\n"
 "PO-Revision-Date: 2021-09-09 16:45+0300\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -892,7 +892,7 @@ msgstr "Μετάβαση: %1"
 msgid "Projects Index"
 msgstr "Ευρετήριο έργων"
 
-#: kateprojectpluginview.cpp:835
+#: kateprojectpluginview.cpp:838
 #, kde-format
 msgid "Choose a directory"
 msgstr "Επιλογή καταλόγου"

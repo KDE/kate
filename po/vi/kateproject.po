@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-23 00:50+0000\n"
+"POT-Creation-Date: 2022-12-29 00:55+0000\n"
 "PO-Revision-Date: 2022-09-05 11:12+0200\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -870,7 +870,7 @@ msgstr "Đi đến: %1"
 msgid "Projects Index"
 msgstr "Chỉ mục dự án"
 
-#: kateprojectpluginview.cpp:835
+#: kateprojectpluginview.cpp:838
 #, kde-format
 msgid "Choose a directory"
 msgstr "Chọn một thư mục"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-23 00:50+0000\n"
+"POT-Creation-Date: 2022-12-29 00:55+0000\n"
 "PO-Revision-Date: 2016-08-02 19:10+0100\n"
 "Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
@@ -883,7 +883,7 @@ msgstr "Slå op: %1"
 msgid "Projects Index"
 msgstr "Projekt"
 
-#: kateprojectpluginview.cpp:835
+#: kateprojectpluginview.cpp:838
 #, kde-format
 msgid "Choose a directory"
 msgstr ""

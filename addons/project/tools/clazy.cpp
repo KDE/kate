@@ -75,17 +75,17 @@ QString KateProjectCodeAnalysisToolClazy::notInstalledMessage() const
     return i18n("Please install 'clazy'.");
 }
 
-QStringList KateProjectCodeAnalysisToolClazy::parseLine(const QString &line) const
+FileDiagnostics KateProjectCodeAnalysisToolClazy::parseLine(const QString &line) const
 {
     //"/path/kate/kate/kateapp.cpp:529:10: warning: Missing reference in range-for with non trivial type (QJsonValue) [-Wclazy-range-loop]"
     int idxColon = line.indexOf(QLatin1Char(':'));
     if (idxColon < 0) {
         return {};
     }
-    QString file = line.mid(0, idxColon);
+    const QString file = line.mid(0, idxColon);
     idxColon++;
     int nextColon = line.indexOf(QLatin1Char(':'), idxColon);
-    QString lineNo = line.mid(idxColon, nextColon - idxColon);
+    const QString lineNo = line.mid(idxColon, nextColon - idxColon);
 
     int spaceIdx = line.indexOf(QLatin1Char(' '), nextColon);
     if (spaceIdx < 0) {
@@ -97,13 +97,18 @@ QStringList KateProjectCodeAnalysisToolClazy::parseLine(const QString &line) con
         return {};
     }
 
-    QString severity = line.mid(spaceIdx + 1, idxColon - (spaceIdx + 1));
+    const QString severity = line.mid(spaceIdx + 1, idxColon - (spaceIdx + 1));
 
     idxColon++;
+    const QString msg = line.mid(idxColon);
 
-    QString msg = line.mid(idxColon);
-
-    return {file, lineNo, severity, msg};
+    const auto url = QUrl::fromLocalFile(file);
+    Diagnostic d;
+    d.message = msg;
+    d.severity = DiagnosticSeverity::Warning;
+    int ln = lineNo.toInt() - 1;
+    d.range = KTextEditor::Range(ln, 0, ln, -1);
+    return {url, {d}};
 }
 
 QString KateProjectCodeAnalysisToolClazy::stdinMessages()

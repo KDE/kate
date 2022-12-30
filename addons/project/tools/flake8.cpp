@@ -77,9 +77,16 @@ QString KateProjectCodeAnalysisToolFlake8::notInstalledMessage() const
     return i18n("Please install 'flake8'.");
 }
 
-QStringList KateProjectCodeAnalysisToolFlake8::parseLine(const QString &line) const
+FileDiagnostics KateProjectCodeAnalysisToolFlake8::parseLine(const QString &line) const
 {
-    return line.split(QLatin1String("////"), Qt::SkipEmptyParts);
+    const QStringList elements = line.split(QLatin1String("////"), Qt::SkipEmptyParts);
+    const auto url = QUrl::fromLocalFile(elements[0]);
+    Diagnostic d;
+    d.message = elements[3];
+    d.severity = DiagnosticSeverity::Warning;
+    int ln = elements[1].toInt() - 1;
+    d.range = KTextEditor::Range(ln, 0, ln, -1);
+    return {url, {d}};
 }
 
 QString KateProjectCodeAnalysisToolFlake8::stdinMessages()

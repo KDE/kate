@@ -5,8 +5,8 @@
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
-#include "hostprocess.h"
 #include "kateprojectinfoviewcodeanalysis.h"
+#include "hostprocess.h"
 #include "kateproject.h"
 #include "kateprojectcodeanalysistool.h"
 #include "kateprojectpluginview.h"
@@ -183,48 +183,24 @@ void KateProjectInfoViewCodeAnalysis::slotReadyRead()
     /**
      * get results of analysis
      */
+    QHash<QUrl, QVector<Diagnostic>> fileDiagnostics;
     while (m_analyzer->canReadLine()) {
         /**
          * get one line, split it, skip it, if too few elements
          */
         QString line = QString::fromLocal8Bit(m_analyzer->readLine());
-        QStringList elements = m_analysisTool->parseLine(line);
-        if (elements.size() < 4) {
+        FileDiagnostics fd = m_analysisTool->parseLine(line);
+        if (!fd.uri.isValid()) {
             continue;
         }
+        fileDiagnostics[fd.uri] << fd.diagnostics;
 
-        FileDiagnostics fd;
-        fd.uri = QUrl::fromLocalFile(elements[0]);
-        Diagnostic d;
-        d.message = elements[3];
-        int ln = elements[1].toInt();
-        d.range = KTextEditor::Range(ln, 0, ln, 0);
-        fd.diagnostics = {d};
-
-        m_diagnosticProvider->diagnosticsAdded(fd);
-        return;
-        /**
-         * feed into model
-         */
-        QList<QStandardItem *> items;
-        QStandardItem *fileNameItem = new QStandardItem(QFileInfo(elements[0]).fileName());
-        fileNameItem->setToolTip(elements[0]);
-        items << fileNameItem;
-        items << new QStandardItem(elements[1]);
-        items << new QStandardItem(elements[2]);
-        const auto message = elements[3].simplified();
-        auto messageItem = new QStandardItem(message);
-        messageItem->setToolTip(message);
-        items << messageItem;
-        m_model->appendRow(items);
+        continue;
     }
 
-    /**
-     * tree view polish ;)
-     */
-    m_treeView->resizeColumnToContents(2);
-    m_treeView->resizeColumnToContents(1);
-    m_treeView->resizeColumnToContents(0);
+    for (auto it = fileDiagnostics.cbegin(); it != fileDiagnostics.cend(); ++it) {
+        m_diagnosticProvider->diagnosticsAdded(FileDiagnostics{it.key(), it.value()});
+    }
 }
 
 void KateProjectInfoViewCodeAnalysis::slotClicked(const QModelIndex &index)

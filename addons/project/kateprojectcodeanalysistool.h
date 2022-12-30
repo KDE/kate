@@ -11,6 +11,8 @@
 #include <QString>
 #include <QStringList>
 
+#include "diagnostics/diagnostic_types.h"
+
 class KateProject;
 namespace KTextEditor
 {
@@ -89,7 +91,7 @@ public:
      * @param line
      * @return file, line, severity, message
      */
-    virtual QStringList parseLine(const QString &line) const = 0;
+    virtual FileDiagnostics parseLine(const QString &line) const = 0;
 
     /**
      * Tells the tool runner if the returned process exit code

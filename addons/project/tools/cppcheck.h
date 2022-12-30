@@ -33,7 +33,7 @@ public:
 
     QString notInstalledMessage() const override;
 
-    QStringList parseLine(const QString &line) const override;
+    FileDiagnostics parseLine(const QString &line) const override;
 
     QString stdinMessages() override;
 };

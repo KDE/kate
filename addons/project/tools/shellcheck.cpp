@@ -74,7 +74,7 @@ QString KateProjectCodeAnalysisToolShellcheck::notInstalledMessage() const
     return i18n("Please install ShellCheck (see https://www.shellcheck.net).");
 }
 
-QStringList KateProjectCodeAnalysisToolShellcheck::parseLine(const QString &line) const
+FileDiagnostics KateProjectCodeAnalysisToolShellcheck::parseLine(const QString &line) const
 {
     // Example:
     // IN:
@@ -83,16 +83,22 @@ QStringList KateProjectCodeAnalysisToolShellcheck::parseLine(const QString &line
     // file, line, severity, message
     // "script.sh", "3", "note", "... ..."
 
-    QRegularExpression regex(QStringLiteral("([^:]+):(\\d+):\\d+: (\\w+): (.*)"));
+    static const QRegularExpression regex(QStringLiteral("([^:]+):(\\d+):\\d+: (\\w+): (.*)"));
     QRegularExpressionMatch match = regex.match(line);
-    QStringList outList = match.capturedTexts();
-    outList.erase(outList.begin()); // remove first element
-    if (outList.size() != 4) {
+    QStringList elements = match.capturedTexts();
+    elements.erase(elements.begin()); // remove first element
+    if (elements.size() != 4) {
         // if parsing fails we clear the list
-        outList.clear();
+        return {};
     }
 
-    return outList;
+    const auto url = QUrl::fromLocalFile(elements[0]);
+    Diagnostic d;
+    d.message = elements[3];
+    d.severity = DiagnosticSeverity::Warning;
+    int ln = elements[1].toInt() - 1;
+    d.range = KTextEditor::Range(ln, 0, ln, -1);
+    return {url, {d}};
 }
 
 bool KateProjectCodeAnalysisToolShellcheck::isSuccessfulExitCode(int exitCode) const

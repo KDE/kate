@@ -53,8 +53,8 @@ QStringList KateProjectCodeAnalysisToolCppcheck::arguments()
     QStringList _args;
 
     _args << QStringLiteral("-q") << QStringLiteral("-f") << QStringLiteral("-j") + QString::number(QThread::idealThreadCount())
-          << QStringLiteral("--inline-suppr") << QStringLiteral("--enable=all") << QStringLiteral("--template={file}////{line}////{severity}////{message}")
-          << QStringLiteral("--file-list=-");
+          << QStringLiteral("--inline-suppr") << QStringLiteral("--enable=all")
+          << QStringLiteral("--template={file}////{line}////{column}////{severity}////{id}////{message}") << QStringLiteral("--file-list=-");
 
     return _args;
 }
@@ -64,9 +64,29 @@ QString KateProjectCodeAnalysisToolCppcheck::notInstalledMessage() const
     return i18n("Please install 'cppcheck'.");
 }
 
-QStringList KateProjectCodeAnalysisToolCppcheck::parseLine(const QString &line) const
+FileDiagnostics KateProjectCodeAnalysisToolCppcheck::parseLine(const QString &line) const
 {
-    return line.split(QLatin1String("////"), Qt::SkipEmptyParts);
+    const QStringList elements = line.split(QLatin1String("////"), Qt::SkipEmptyParts);
+    if (elements.size() < 4) {
+        return {};
+    }
+
+    Diagnostic d;
+    const auto url = QUrl::fromLocalFile(elements[0]);
+    int ln = elements[1].toInt() - 1;
+    int col = elements[2].toInt() - 1;
+    d.range = KTextEditor::Range(ln, col, ln, col);
+    d.source = QStringLiteral("cppcheck");
+    d.code = elements[4];
+    d.message = elements[5];
+    if (elements[3].startsWith(QLatin1String("warn"))) {
+        d.severity = DiagnosticSeverity::Warning;
+    } else if (elements[3].startsWith(QLatin1String("error"))) {
+        d.severity = DiagnosticSeverity::Warning;
+    } else {
+        d.severity = DiagnosticSeverity::Information;
+    }
+    return {url, {d}};
 }
 
 QString KateProjectCodeAnalysisToolCppcheck::stdinMessages()

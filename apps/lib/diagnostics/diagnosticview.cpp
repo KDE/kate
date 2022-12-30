@@ -461,7 +461,15 @@ void DiagnosticsView::onDiagnosticsAdded(const FileDiagnostics &diagnostics)
         if (currentIndex.parent() == topItem->index()) {
             row = currentIndex.row();
         }
-        topItem->setRowCount(0);
+
+        // Remove diagnostics of this provider
+        for (int i = 0; i < topItem->rowCount(); ++i) {
+            auto item = topItem->child(i);
+            if (item && item->data(DiagnosticModelRole::ProviderRole).value<DiagnosticsProvider *>() == provider) {
+                topItem->removeRow(i);
+                i--;
+            }
+        }
     }
 
     for (const auto &diag : diagnostics.diagnostics) {
@@ -572,7 +580,7 @@ void DiagnosticsView::addMarks(KTextEditor::Document *doc, QStandardItem *item, 
     }
 
     KTextEditor::Range range = item->data(DiagnosticModelRole::RangeRole).value<KTextEditor::Range>();
-    if (!range.isValid() || range.isEmpty()) {
+    if (!range.isValid()) {
         return;
     }
     const auto line = range.start().line();
@@ -580,7 +588,6 @@ void DiagnosticsView::addMarks(KTextEditor::Document *doc, QStandardItem *item, 
 
     KTextEditor::Attribute::Ptr attr;
 
-    bool enabled = true; // m_diagnostics && m_diagnostics->isChecked() && m_diagnosticsHighlight && m_diagnosticsHighlight->isChecked();
     KTextEditor::MarkInterface::MarkTypes markType = markTypeDiagWarning;
     switch (kind) {
     // use underlining for diagnostics to avoid lots of fancy flickering
@@ -631,7 +638,7 @@ void DiagnosticsView::addMarks(KTextEditor::Document *doc, QStandardItem *item, 
     }
 
     // highlight the range
-    if (enabled && ranges && attr) {
+    if (ranges && attr && !range.isEmpty()) {
         KTextEditor::MovingInterface *miface = qobject_cast<KTextEditor::MovingInterface *>(doc);
         Q_ASSERT(miface);
         KTextEditor::MovingRange *mr = miface->newMovingRange(range);
@@ -644,7 +651,6 @@ void DiagnosticsView::addMarks(KTextEditor::Document *doc, QStandardItem *item, 
     KTextEditor::MarkInterfaceV2 *iface = qobject_cast<KTextEditor::MarkInterfaceV2 *>(doc);
     Q_ASSERT(iface);
     // add match mark for range
-    // enabled = m_diagnostics && m_diagnostics->isChecked() && m_diagnosticsMark && m_diagnosticsMark->isChecked();
     switch (markType) {
     case markTypeDiagError:
         iface->setMarkDescription(markType, i18n("Error"));
@@ -662,7 +668,8 @@ void DiagnosticsView::addMarks(KTextEditor::Document *doc, QStandardItem *item, 
         Q_ASSERT(false);
         break;
     }
-    if (enabled && docs) {
+
+    if (docs) {
         iface->addMark(line, markType);
         docs->insert(doc);
     }

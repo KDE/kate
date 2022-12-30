@@ -812,11 +812,11 @@ void DiagnosticsView::goToItemLocation(QModelIndex index)
     int line = start.start().line();
     int column = start.start().column();
     KTextEditor::View *activeView = m_mainWindow->activeView();
-    if (!activeView || url.isEmpty() || line < 0 || column < 0) {
+    if (line < 0 || column < 0) {
         return;
     }
 
-    KTextEditor::Document *document = activeView->document();
+    KTextEditor::Document *document = activeView ? activeView->document() : nullptr;
     KTextEditor::Cursor cdef(line, column);
 
     KTextEditor::View *targetView = nullptr;
@@ -827,13 +827,12 @@ void DiagnosticsView::goToItemLocation(QModelIndex index)
     }
     if (targetView) {
         // save current position for location history
-        m_mainWindow->viewManager()->addPositionToHistory(activeView->document()->url(), activeView->cursorPosition());
+        if (activeView) {
+            m_mainWindow->viewManager()->addPositionToHistory(activeView->document()->url(), activeView->cursorPosition());
+        }
         // save the position to which we are jumping in location history
         m_mainWindow->viewManager()->addPositionToHistory(targetView->document()->url(), cdef);
         targetView->setCursorPosition(cdef);
-
-        // TODO: highlight landing location
-        // highlightLandingLocation(targetView, location);
     }
 }
 

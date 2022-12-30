@@ -601,7 +601,23 @@ public:
         connect(m_serverManager.data(), &LSPClientServerManager::serverChanged, this, &self_type::onServerChanged);
         connect(m_plugin, &LSPClientPlugin::showMessage, this, &self_type::onShowMessage);
         connect(m_serverManager.data(), &LSPClientServerManager::serverShowMessage, this, &self_type::onMessage);
-        connect(m_serverManager.data(), &LSPClientServerManager::serverLogMessage, this, &self_type::onMessage);
+        connect(m_serverManager.data(), &LSPClientServerManager::serverLogMessage, this, [this](LSPClientServer *server, LSPLogMessageParams params) {
+            switch (params.type) {
+            case LSPMessageType::Error:
+                params.message.prepend(QStringLiteral("[Error] "));
+                break;
+            case LSPMessageType::Warning:
+                params.message.prepend(QStringLiteral("[Warn] "));
+                break;
+            case LSPMessageType::Info:
+                params.message.prepend(QStringLiteral("[Info] "));
+                break;
+            case LSPMessageType::Log:
+                break;
+            }
+            params.type = LSPMessageType::Log;
+            onMessage(server, params);
+        });
         connect(m_serverManager.data(), &LSPClientServerManager::serverWorkDoneProgress, this, &self_type::onWorkDoneProgress);
 
         m_findDef = actionCollection()->addAction(QStringLiteral("lspclient_find_definition"), this, &self_type::goToDefinition);

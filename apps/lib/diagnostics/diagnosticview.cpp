@@ -183,6 +183,7 @@ DiagnosticsView::DiagnosticsView(QWidget *parent, KateMainWindow *mainWindow)
     ac->setDefaultShortcut(a, QKeySequence((Qt::CTRL | Qt::Key_Period)));
 
     m_posChangedTimer->setInterval(500);
+    m_posChangedTimer->setSingleShot(true);
     m_posChangedTimer->callOnTimeout(this, [this] {
         auto v = m_mainWindow->activeView();
         if (auto doc = v->document()) {

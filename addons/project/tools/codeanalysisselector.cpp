@@ -10,6 +10,7 @@
 #include "clazy.h"
 #include "clazycurrent.h"
 #include "cppcheck.h"
+#include "eslintcurrent.h"
 #include "flake8.h"
 #include "shellcheck.h"
 
@@ -20,16 +21,20 @@ QStandardItemModel *KateProjectCodeAnalysisSelector::model(QObject *parent)
     /*
      * available linters
      */
-    const QList<KateProjectCodeAnalysisTool *> tools = {// cppcheck, for C++
-                                                        new KateProjectCodeAnalysisToolCppcheck(model),
-                                                        // flake8, for Python
-                                                        new KateProjectCodeAnalysisToolFlake8(model),
-                                                        // ShellCheck, for sh/bash scripts
-                                                        new KateProjectCodeAnalysisToolShellcheck(model),
-                                                        // clazy for Qt C++
-                                                        new KateProjectCodeAnalysisToolClazy(model),
-                                                        // clang-tidy
-                                                        new KateProjectCodeAnalysisToolClazyCurrent(model)};
+    const QList<KateProjectCodeAnalysisTool *> tools = {
+        // cppcheck, for C++
+        new KateProjectCodeAnalysisToolCppcheck(model),
+        // flake8, for Python
+        new KateProjectCodeAnalysisToolFlake8(model),
+        // ShellCheck, for sh/bash scripts
+        new KateProjectCodeAnalysisToolShellcheck(model),
+        // clazy for Qt C++
+        new KateProjectCodeAnalysisToolClazy(model),
+        // clang-tidy
+        new KateProjectCodeAnalysisToolClazyCurrent(model),
+        // eslint-current-file
+        new ESLintCurrentFile(model),
+    };
 
     QList<QStandardItem *> column;
 

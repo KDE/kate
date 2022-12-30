@@ -73,6 +73,7 @@ target_sources(
     tools/cppcheck.cpp
     tools/flake8.cpp
     tools/shellcheck.cpp
+    tools/eslintcurrent.cpp
 
     git/gitutils.cpp
     git/gitstatus.cpp

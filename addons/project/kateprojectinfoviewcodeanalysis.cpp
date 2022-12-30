@@ -33,33 +33,12 @@ KateProjectInfoViewCodeAnalysis::KateProjectInfoViewCodeAnalysis(KateProjectPlug
     , m_project(project)
     , m_messageWidget(nullptr)
     , m_startStopAnalysis(new QPushButton(i18n("Start Analysis...")))
-    , m_treeView(new QTreeView(this))
-    , m_model(new QStandardItemModel(m_treeView))
     , m_analyzer(nullptr)
     , m_analysisTool(nullptr)
     , m_toolSelector(new QComboBox())
     , m_diagnosticProvider(new DiagnosticsProvider(this))
 {
     Utils::registerDiagnosticsProvider(m_diagnosticProvider, m_pluginView->mainWindow());
-    /**
-     * default style
-     */
-    m_treeView->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    m_treeView->setUniformRowHeights(true);
-    m_treeView->setRootIsDecorated(false);
-    m_model->setHorizontalHeaderLabels(QStringList() << i18n("File") << i18n("Line") << i18n("Severity") << i18n("Message"));
-
-    /**
-     * attach model
-     * kill selection model
-     */
-    QItemSelectionModel *m = m_treeView->selectionModel();
-    m_treeView->setModel(m_model);
-    delete m;
-
-    m_treeView->setSortingEnabled(true);
-    m_treeView->sortByColumn(1, Qt::AscendingOrder);
-    m_treeView->sortByColumn(2, Qt::AscendingOrder);
 
     /**
      * Connect selection change callback
@@ -91,14 +70,13 @@ KateProjectInfoViewCodeAnalysis::KateProjectInfoViewCodeAnalysis(KateProjectPlug
     hlayout->addWidget(m_startStopAnalysis);
     hlayout->addStretch();
     // below: result list...
-    layout->addWidget(m_treeView);
+    layout->addStretch();
     setLayout(layout);
 
     /**
      * connect needed signals
      */
     connect(m_startStopAnalysis, &QPushButton::clicked, this, &KateProjectInfoViewCodeAnalysis::slotStartStopClicked);
-    connect(m_treeView, &QTreeView::clicked, this, &KateProjectInfoViewCodeAnalysis::slotClicked);
 }
 
 KateProjectInfoViewCodeAnalysis::~KateProjectInfoViewCodeAnalysis()
@@ -132,7 +110,7 @@ void KateProjectInfoViewCodeAnalysis::slotStartStopClicked()
     /**
      * clear existing entries
      */
-    m_model->removeRows(0, m_model->rowCount(), QModelIndex());
+    m_diagnosticProvider->requestClearDiagnosticsForStaleDocs({}, m_diagnosticProvider);
 
     /**
      * launch selected tool
@@ -200,33 +178,6 @@ void KateProjectInfoViewCodeAnalysis::slotReadyRead()
 
     for (auto it = fileDiagnostics.cbegin(); it != fileDiagnostics.cend(); ++it) {
         m_diagnosticProvider->diagnosticsAdded(FileDiagnostics{it.key(), it.value()});
-    }
-}
-
-void KateProjectInfoViewCodeAnalysis::slotClicked(const QModelIndex &index)
-{
-    /**
-     * get path
-     */
-    QString filePath = m_model->item(index.row(), 0)->toolTip();
-    if (filePath.isEmpty()) {
-        return;
-    }
-
-    /**
-     * create view
-     */
-    KTextEditor::View *view = m_pluginView->mainWindow()->openUrl(QUrl::fromLocalFile(filePath));
-    if (!view) {
-        return;
-    }
-
-    /**
-     * set cursor, if possible
-     */
-    int line = m_model->item(index.row(), 1)->text().toInt();
-    if (line >= 1) {
-        view->setCursorPosition(KTextEditor::Cursor(line - 1, 0));
     }
 }
 

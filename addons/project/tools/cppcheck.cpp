@@ -82,7 +82,7 @@ FileDiagnostics KateProjectCodeAnalysisToolCppcheck::parseLine(const QString &li
     if (elements[3].startsWith(QLatin1String("warn"))) {
         d.severity = DiagnosticSeverity::Warning;
     } else if (elements[3].startsWith(QLatin1String("error"))) {
-        d.severity = DiagnosticSeverity::Warning;
+        d.severity = DiagnosticSeverity::Error;
     } else {
         d.severity = DiagnosticSeverity::Information;
     }

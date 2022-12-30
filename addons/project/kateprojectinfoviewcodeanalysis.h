@@ -11,7 +11,6 @@
 #include <QPointer>
 #include <QProcess>
 #include <QPushButton>
-#include <QTreeView>
 #include <QWidget>
 
 class KateProjectPluginView;
@@ -68,12 +67,6 @@ private Q_SLOTS:
     void slotReadyRead();
 
     /**
-     * item got clicked, do stuff, like open document
-     * @param index model index of clicked item
-     */
-    void slotClicked(const QModelIndex &index);
-
-    /**
      * Analysis finished
      * @param exitCode analyzer process exit code
      * @param exitStatus analyzer process exit status
@@ -100,16 +93,6 @@ private:
      * start/stop analysis button
      */
     QPushButton *m_startStopAnalysis;
-
-    /**
-     * tree view for results
-     */
-    QTreeView *m_treeView;
-
-    /**
-     * standard item model for results
-     */
-    QStandardItemModel *m_model;
 
     /**
      * running analyzer process

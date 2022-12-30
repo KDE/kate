@@ -125,6 +125,7 @@ void KateProjectInfoViewCodeAnalysis::slotStartStopClicked()
     // ensure we only run the code analyzer from PATH
     const QString fullExecutable = safeExecutableName(m_analysisTool->path());
     if (!fullExecutable.isEmpty()) {
+        m_analyzer->setWorkingDirectory(m_project->baseDir());
         startHostProcess(*m_analyzer, fullExecutable, m_analysisTool->arguments());
     }
 

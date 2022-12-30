@@ -74,6 +74,7 @@ target_sources(
     tools/flake8.cpp
     tools/shellcheck.cpp
     tools/eslintcurrent.cpp
+    tools/clippy.cpp
 
     git/gitutils.cpp
     git/gitstatus.cpp

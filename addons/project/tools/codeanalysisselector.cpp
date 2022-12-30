@@ -9,6 +9,7 @@
 
 #include "clazy.h"
 #include "clazycurrent.h"
+#include "clippy.h"
 #include "cppcheck.h"
 #include "eslintcurrent.h"
 #include "flake8.h"
@@ -34,6 +35,8 @@ QStandardItemModel *KateProjectCodeAnalysisSelector::model(QObject *parent)
         new KateProjectCodeAnalysisToolClazyCurrent(model),
         // eslint-current-file
         new ESLintCurrentFile(model),
+        // clippy
+        new Clippy(model),
     };
 
     QList<QStandardItem *> column;

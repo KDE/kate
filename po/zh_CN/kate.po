@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-14 03:46+0000\n"
+"POT-Creation-Date: 2022-12-30 03:15+0000\n"
 "PO-Revision-Date: 2022-12-24 11:45\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -1440,12 +1440,12 @@ msgstr "其他(&O)..."
 msgid " [read only]"
 msgstr " [只读]"
 
-#: lib/katemainwindow.cpp:1403
+#: lib/katemainwindow.cpp:1407
 #, kde-format
 msgid "Diff %1"
 msgstr "差异 %1"
 
-#: lib/katemainwindow.cpp:1405
+#: lib/katemainwindow.cpp:1409
 #, kde-format
 msgid "Diff %1..%2"
 msgstr "比较 %1 和 %2"
@@ -2245,12 +2245,12 @@ msgstr "此会话无法被重命名为“%1”，无法写入“%2”"
 msgid "Session Renaming"
 msgstr "会话重命名"
 
-#: lib/session/katesessionmanager.cpp:460
+#: lib/session/katesessionmanager.cpp:462
 #, kde-format
 msgid "Session name:"
 msgstr "会话名称："
 
-#: lib/session/katesessionmanager.cpp:462
+#: lib/session/katesessionmanager.cpp:464
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2259,17 +2259,17 @@ msgstr ""
 "已经有了一个和您选择的同名的会话：%1\n"
 "请选择其他会话名称。"
 
-#: lib/session/katesessionmanager.cpp:464
+#: lib/session/katesessionmanager.cpp:466
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "要保存会话，您必须指定名称。"
 
-#: lib/session/katesessionmanager.cpp:491
+#: lib/session/katesessionmanager.cpp:493
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "指定此会话的名称"
 
-#: lib/session/katesessionmanager.cpp:493
+#: lib/session/katesessionmanager.cpp:495
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "为会话指定新名称：%1"

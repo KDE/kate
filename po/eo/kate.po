@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-14 03:46+0000\n"
+"POT-Creation-Date: 2022-12-30 03:15+0000\n"
 "PO-Revision-Date: 2007-11-22 20:44+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
@@ -1498,12 +1498,12 @@ msgstr "&Aliaj..."
 msgid " [read only]"
 msgstr ""
 
-#: lib/katemainwindow.cpp:1403
+#: lib/katemainwindow.cpp:1407
 #, kde-format
 msgid "Diff %1"
 msgstr ""
 
-#: lib/katemainwindow.cpp:1405
+#: lib/katemainwindow.cpp:1409
 #, kde-format
 msgid "Diff %1..%2"
 msgstr ""
@@ -2355,12 +2355,12 @@ msgstr ""
 msgid "Session Renaming"
 msgstr "Renomado de Seanco"
 
-#: lib/session/katesessionmanager.cpp:460
+#: lib/session/katesessionmanager.cpp:462
 #, kde-format
 msgid "Session name:"
 msgstr "Seanca nomo:"
 
-#: lib/session/katesessionmanager.cpp:462
+#: lib/session/katesessionmanager.cpp:464
 #, fuzzy, kde-format
 #| msgid ""
 #| "There is already an existing session with your chosen name.\n"
@@ -2374,18 +2374,18 @@ msgstr ""
 "Bonvolu elektu alian nomon\n"
 "Nomo de seanco:"
 
-#: lib/session/katesessionmanager.cpp:464
+#: lib/session/katesessionmanager.cpp:466
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "Por konservi seancon, vi devas elekti nomon"
 
-#: lib/session/katesessionmanager.cpp:491
+#: lib/session/katesessionmanager.cpp:493
 #, fuzzy, kde-format
 #| msgid "Specify New Name for Session"
 msgid "Specify a name for this session"
 msgstr "Specifi novan nomon por la seanco"
 
-#: lib/session/katesessionmanager.cpp:493
+#: lib/session/katesessionmanager.cpp:495
 #, fuzzy, kde-format
 #| msgid "Specify New Name for Session"
 msgid "Specify a new name for session: %1"

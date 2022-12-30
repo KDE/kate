@@ -1,6 +1,6 @@
 # translation of kate.po to Polish
 # translation of kate.po to
-# Version: $Revision: 1639982 $
+# Version: $Revision: 1641070 $
 # Kate polish translation file.
 # Main translation work:
 #   Jacek Stolarczyk <jacek@mer.chemia.polsl.gliwice.pl>\n"
@@ -15,15 +15,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-14 03:46+0000\n"
-"PO-Revision-Date: 2022-11-26 10:56+0100\n"
+"POT-Creation-Date: 2022-12-30 03:15+0000\n"
+"PO-Revision-Date: 2022-12-29 11:23+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.08.2\n"
+"X-Generator: Lokalize 22.12.0\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 
@@ -60,17 +60,18 @@ msgstr "(c) 2000-2022 Autorzy Kate"
 #: kate/main.cpp:156
 #, kde-format
 msgid "Start Kate with a given session."
-msgstr "Uruchom Kate z daną sesją."
+msgstr "Uruchom Kate z danym posiedzeniem."
 
 #: kate/main.cpp:157
 #, kde-format
 msgid "session"
-msgstr "sesja"
+msgstr "posiedzenie"
 
 #: kate/main.cpp:162
 #, kde-format
 msgid "Start Kate with a new anonymous session, implies '-n'."
-msgstr "Uruchom Kate z nową anonimową sesją, implikuje opcję '-n'"
+msgstr ""
+"Uruchom Kate z nowym anonimowym posiedzeniem, implikuje ustawienie '-n'"
 
 #: kate/main.cpp:167
 #, kde-format
@@ -79,9 +80,9 @@ msgid ""
 "kate instance already has the given session opened), forced if no parameters "
 "and no URLs are given at all."
 msgstr ""
-"Wymusza uruchomienie nowej instancji Kate (jest to ignorowane jeśli użyto "
-"start i inna instancja Kate już ma otwartą daną sesję), wymuszone jeśli w "
-"ogóle nie podano parametrów i adresów URL."
+"Wymusza uruchomienie nowego wystąpienia Kate (zostanie pominięte, jeśli "
+"użyto start i inne wystąpienie Kate już ma otwarte dane posiedzenie), "
+"wymuszone jeśli w ogóle nie podano parametrów i adresów URL."
 
 #: kate/main.cpp:173
 #, kde-format
@@ -98,9 +99,9 @@ msgid ""
 "Only try to reuse kate instance with this pid (is ignored if start is used "
 "and another kate instance already has the given session opened)."
 msgstr ""
-"Próbuje użyć ponownie wystąpienia Kate jedynie z tym numerem PID (jest to "
-"ignorowane jeśli użyto start i inne wystąpienie Kate już ma otwartą daną "
-"sesję)."
+"Próbuje użyć ponownie wystąpienia Kate jedynie z tym numerem PID (zostanie "
+"pominięte, jeśli użyto start i inne wystąpienie Kate już ma otwarte dane "
+"posiedzenie)."
 
 #: kate/main.cpp:180
 #, kde-format
@@ -960,12 +961,12 @@ msgstr "Pokaż bieżący symbol na pasku poruszania się"
 #: lib/kateconfigdialog.cpp:575
 #, kde-format
 msgid "Session"
-msgstr "Sesja"
+msgstr "Posiedzenie"
 
 #: lib/kateconfigdialog.cpp:577
 #, kde-format
 msgid "Session Management"
-msgstr "Zarządzanie sesjami"
+msgstr "Zarządzanie posiedzeniami"
 
 #: lib/kateconfigdialog.cpp:588
 #, kde-format
@@ -1068,7 +1069,7 @@ msgstr "Uruchamianie"
 #: lib/katedocmanager.cpp:382
 #, kde-format
 msgid "Reopening files from the last session..."
-msgstr "Otwieranie plików z poprzedniej sesji..."
+msgstr "Otwieranie plików z poprzedniej posiedzenia..."
 
 #: lib/katefileactions.cpp:64
 #, kde-format
@@ -1363,38 +1364,38 @@ msgstr "Pokazuje pliki pomocy dla dostępnych wtyczek."
 #: lib/katemainwindow.cpp:469
 #, kde-format
 msgid "Sess&ions"
-msgstr "Ses&je"
+msgstr "Posiedzen&ia"
 
 #: lib/katemainwindow.cpp:475
 #, kde-format
 msgctxt "Menu entry Session->New Session"
 msgid "&New Session"
-msgstr "&Nowa sesja"
+msgstr "&Nowe posiedzenie"
 
 #: lib/katemainwindow.cpp:480
 #, kde-format
 msgid "&Recent Sessions"
-msgstr "&Ostatni sesje"
+msgstr "&Ostatnie posiedzenia"
 
 #: lib/katemainwindow.cpp:485
 #, kde-format
 msgid "&All Sessions"
-msgstr "&Wszystkie sesje"
+msgstr "Wszystkie posiedzeni&a"
 
 #: lib/katemainwindow.cpp:492
 #, kde-format
 msgid "&Manage Sessions..."
-msgstr "Zarządzanie &sesjami..."
+msgstr "Zarządzanie posiedzenia&mi..."
 
 #: lib/katemainwindow.cpp:501
 #, kde-format
 msgid "&Save Session"
-msgstr "&Zapisz sesję"
+msgstr "Zapi&sz posiedzenie"
 
 #: lib/katemainwindow.cpp:507
 #, kde-format
 msgid "Save Session &As..."
-msgstr "Zapisz sesję &jako..."
+msgstr "Zapisz posiedzenie j&ako..."
 
 #: lib/katemainwindow.cpp:514 lib/kateviewspace.cpp:59
 #, kde-format
@@ -1478,12 +1479,12 @@ msgstr "&Inne..."
 msgid " [read only]"
 msgstr " [tylko do odczytu]"
 
-#: lib/katemainwindow.cpp:1403
+#: lib/katemainwindow.cpp:1407
 #, kde-format
 msgid "Diff %1"
 msgstr "Różnica %1"
 
-#: lib/katemainwindow.cpp:1405
+#: lib/katemainwindow.cpp:1409
 #, kde-format
 msgid "Diff %1..%2"
 msgstr "Różnica %1..%2"
@@ -2186,12 +2187,12 @@ msgstr "Filtrowanie po znakach wieloznacznych"
 #: lib/session/katesessionmanagedialog.cpp:26
 #, kde-format
 msgid "Manage Sessions"
-msgstr "Zarządzanie sesjami"
+msgstr "Zarządzanie posiedzeniami"
 
 #: lib/session/katesessionmanagedialog.cpp:62
 #, kde-format
 msgid "Session Chooser"
-msgstr "Wybieranie sesji"
+msgstr "Wybieranie posiedzenia"
 
 #: lib/session/katesessionmanagedialog.cpp:146
 #, kde-format
@@ -2201,19 +2202,19 @@ msgstr "Przywróć"
 #: lib/session/katesessionmanagedialog.cpp:303
 #, kde-format
 msgid "Session will be deleted on dialog close"
-msgstr "Sesja zostanie usunięta po zamknięciu okna dialogowego"
+msgstr "Posiedzenie zostanie usunięte po zamknięciu okna dialogowego"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, m_filterBox)
 #: lib/session/katesessionmanagedialog.ui:30
 #, kde-format
 msgid "Filter Sessions"
-msgstr "Odfiltruj sesje"
+msgstr "Odfiltruj posiedzenia"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, m_sessionList)
 #: lib/session/katesessionmanagedialog.ui:55
 #, kde-format
 msgid "Session Name"
-msgstr "Nazwa sesji"
+msgstr "Nazwa posiedzenia"
 
 #. i18n: The number of open documents
 #. i18n: ectx: property (text), widget (QTreeWidget, m_sessionList)
@@ -2239,7 +2240,7 @@ msgstr "&Otwórz"
 #: lib/session/katesessionmanagedialog.ui:98 lib/welcomeview/welcomeview.ui:364
 #, kde-format
 msgid "New Session"
-msgstr "Nowa sesja"
+msgstr "Nowe posiedzenie"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_templateButton)
 #: lib/session/katesessionmanagedialog.ui:108
@@ -2276,7 +2277,8 @@ msgstr "Usuń"
 msgid ""
 "Internal error: there is more than one instance open for a given session."
 msgstr ""
-"Błąd wewnętrzny: dla danej sesji istnieje więcej niż jedna otwarta instancja."
+"Błąd wewnętrzny: dla danego posiedzenia istnieje więcej niż jedno otwarte "
+"wystąpienie."
 
 #: lib/session/katesessionmanager.cpp:117
 #, kde-format
@@ -2284,8 +2286,8 @@ msgid ""
 "Session '%1' is already opened in another Kate instance. Switch to that or "
 "reopen in this instance?"
 msgstr ""
-"Sesja '%1' jest już otwarta w innym wystąpieniu Kate. Przełączyć na nie, czy "
-"ponownie otworzyć w tym wystąpieniu?"
+"Posiedzenie '%1' jest już otwarte w innym wystąpieniu Kate. Przełączyć na "
+"nie, czy ponownie otworzyć w tym wystąpieniu?"
 
 #: lib/session/katesessionmanager.cpp:119
 #, kde-format
@@ -2303,41 +2305,42 @@ msgstr "Otwórz ponownie"
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr ""
-"Nie można zmienić nazwy sesji na \"%1\". Nieudane zapisywanie do \"%2\""
+"Nie można zmienić nazwy posiedzenia na \"%1\". Nie udało się zapisać do "
+"\"%2\""
 
 #: lib/session/katesessionmanager.cpp:313
 #, kde-format
 msgid "Session Renaming"
-msgstr "Zmiana nazwy sesji"
-
-#: lib/session/katesessionmanager.cpp:460
-#, kde-format
-msgid "Session name:"
-msgstr "Nazwa sesji:"
+msgstr "Zmiana nazwy posiedzenia"
 
 #: lib/session/katesessionmanager.cpp:462
+#, kde-format
+msgid "Session name:"
+msgstr "Nazwa posiedzenia:"
+
+#: lib/session/katesessionmanager.cpp:464
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
 "Please choose a different one."
 msgstr ""
-"Już istnieje sesja o nazwie: %1\n"
-"Wybierz inną."
+"Już istnieje posiedzenie o nazwie: %1\n"
+"Wpisz inne."
 
-#: lib/session/katesessionmanager.cpp:464
+#: lib/session/katesessionmanager.cpp:466
 #, kde-format
 msgid "To save a session, you must specify a name."
-msgstr "Aby zachować sesję musisz podać dla niej nazwę."
-
-#: lib/session/katesessionmanager.cpp:491
-#, kde-format
-msgid "Specify a name for this session"
-msgstr "Podaj nazwę dla tej sesji"
+msgstr "Aby zachować posiedzenie, wpisz jego nazwę."
 
 #: lib/session/katesessionmanager.cpp:493
 #, kde-format
+msgid "Specify a name for this session"
+msgstr "Wpisz nazwę dla tego posiedzenia"
+
+#: lib/session/katesessionmanager.cpp:495
+#, kde-format
 msgid "Specify a new name for session: %1"
-msgstr "Podaj nową nazwę dla sesji: %1"
+msgstr "Wpisz nową nazwę dla posiedzenia: %1"
 
 #. i18n: ectx: property (title), widget (QGroupBox, gbAppStartup)
 #: lib/ui/sessionconfigwidget.ui:17
@@ -2349,19 +2352,19 @@ msgstr "Zachowanie przy uruchamianiu"
 #: lib/ui/sessionconfigwidget.ui:23
 #, kde-format
 msgid "&Start new session"
-msgstr "Rozpocznij nową &sesję"
+msgstr "Rozpocznij nowe po&siedzenie"
 
 #. i18n: ectx: property (text), widget (QRadioButton, loadLastUserSessionRadioButton)
 #: lib/ui/sessionconfigwidget.ui:30
 #, kde-format
 msgid "&Load last used session"
-msgstr "&Wznów ostatnio używaną sesję"
+msgstr "&Wznów ostatnio używane posiedzenie"
 
 #. i18n: ectx: property (text), widget (QRadioButton, manuallyChooseSessionRadioButton)
 #: lib/ui/sessionconfigwidget.ui:37
 #, kde-format
 msgid "&Manually choose a session"
-msgstr "Wy&bierz sesję ręcznie"
+msgstr "Wy&bierz posiedzenie ręcznie"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: lib/ui/sessionconfigwidget.ui:47
@@ -2428,7 +2431,7 @@ msgstr "Zamknij dokumenty wraz z oknem, do którego należą"
 #: lib/ui/sessionconfigwidget.ui:118
 #, kde-format
 msgid "Session Elements"
-msgstr "Rzeczy należące do sesji"
+msgstr "Pliki posiedzenia"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: lib/ui/sessionconfigwidget.ui:124
@@ -2438,15 +2441,15 @@ msgid ""
 "bookmarks, cursor position etc. When the session is loaded all elements are "
 "restored."
 msgstr ""
-"Sesja zawiera wykaz otwartych dokumentów, wykaz ostatnio otwieranych plików, "
-"zakładki, bieżące położenie itp. Gdy sesja jest wczytywana, to wszystkie "
-"dokumenty są przywracane."
+"Posiedzenie zawiera wykaz otwartych dokumentów, wykaz ostatnio otwieranych "
+"plików, zakładki, bieżące położenie itp. Gdy posiedzenie jest wczytywane, to "
+"wszystkie dokumenty są przywracane."
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: lib/ui/sessionconfigwidget.ui:136
 #, kde-format
 msgid "Maximum number of entries in recent file list:"
-msgstr "Największa liczba wpisów w wykazie ostatnich plików:"
+msgstr "Liczba ostatnich plików do pamiętania:"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, restoreVC)
 #: lib/ui/sessionconfigwidget.ui:164
@@ -2473,14 +2476,14 @@ msgid ""
 "document has not changed when reopened."
 msgstr ""
 "Zaznacz jeśli chcesz zachować ustawienia dokumentu (na przykład zakładki) "
-"pomiędzy sesjami edytora. Konfiguracja będzie przywrócona przy otwarciu, "
+"pomiędzy posiedzeniami edytora. Ustawienia będą przywrócone przy otwarciu, "
 "jeśli w międzyczasie dokument nie został zmieniony."
 
 #. i18n: ectx: property (title), widget (QGroupBox, saveMetaInfos)
 #: lib/ui/sessionconfigwidget.ui:180
 #, kde-format
 msgid "Keep &meta-information past sessions"
-msgstr "Zachowaj &metadane między sesjami"
+msgstr "Zachowaj &metadane między posiedzeniami"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: lib/ui/sessionconfigwidget.ui:191
@@ -2516,7 +2519,7 @@ msgstr "Brak ostatnich dokumentów"
 #: lib/welcomeview/welcomeview.cpp:115
 #, kde-format
 msgid "No saved sessions"
-msgstr "Nie ma żadnych zapisanych sesji"
+msgstr "Nie ma żadnych zapisanych posiedzeń"
 
 #: lib/welcomeview/welcomeview.cpp:237
 #, kde-format
@@ -2592,13 +2595,13 @@ msgstr "Przeczytaj podręcznik"
 #: lib/welcomeview/welcomeview.ui:354
 #, kde-format
 msgid "Saved Sessions"
-msgstr "Zapisane sesje"
+msgstr "Zapisane posiedzenia"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonManageSessions)
 #: lib/welcomeview/welcomeview.ui:390
 #, kde-format
 msgid "Manage Sessions..."
-msgstr "Zarządzanie sesjami..."
+msgstr "Zarządzanie posiedzeniami..."
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
 #: lib/welcomeview/welcomeview.ui:443

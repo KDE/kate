@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-14 03:46+0000\n"
+"POT-Creation-Date: 2022-12-30 03:15+0000\n"
 "PO-Revision-Date: 2022-02-06 19:51+0000\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian\n"
@@ -1324,8 +1324,7 @@ msgid "Close this window"
 msgstr "Închide această fereastră"
 
 #: lib/katemainwindow.cpp:420
-#, fuzzy, kde-format
-#| msgid "&New Window"
+#, kde-format
 msgid "&New Window"
 msgstr "Fereastră &nouă"
 
@@ -1505,12 +1504,12 @@ msgstr "&Altele..."
 msgid " [read only]"
 msgstr " [numai citire]"
 
-#: lib/katemainwindow.cpp:1403
+#: lib/katemainwindow.cpp:1407
 #, kde-format
 msgid "Diff %1"
 msgstr ""
 
-#: lib/katemainwindow.cpp:1405
+#: lib/katemainwindow.cpp:1409
 #, kde-format
 msgid "Diff %1..%2"
 msgstr ""
@@ -2363,12 +2362,12 @@ msgstr "Sesiunea nu poate fi redenumită în „%1”. Scrierea în „%2” a e
 msgid "Session Renaming"
 msgstr "Redenumire sesiune"
 
-#: lib/session/katesessionmanager.cpp:460
+#: lib/session/katesessionmanager.cpp:462
 #, kde-format
 msgid "Session name:"
 msgstr "Numele sesiunii:"
 
-#: lib/session/katesessionmanager.cpp:462
+#: lib/session/katesessionmanager.cpp:464
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2377,17 +2376,17 @@ msgstr ""
 "Există deja o sesiune cu denumirea aleasă: %1\n"
 "Alegeți altă denumire."
 
-#: lib/session/katesessionmanager.cpp:464
+#: lib/session/katesessionmanager.cpp:466
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "Pentru a salva o sesiune, trebuie să specificați o denumire."
 
-#: lib/session/katesessionmanager.cpp:491
+#: lib/session/katesessionmanager.cpp:493
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "Specificați o denumire pentru această sesiune"
 
-#: lib/session/katesessionmanager.cpp:493
+#: lib/session/katesessionmanager.cpp:495
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "Specificați o denumire nouă pentru sesiune: %1"

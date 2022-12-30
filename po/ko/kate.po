@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-23 00:50+0000\n"
+"POT-Creation-Date: 2022-12-30 00:56+0000\n"
 "PO-Revision-Date: 2022-07-13 14:16+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -31,37 +31,51 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "kde@peremen.name,sptcedna@gmail.com"
 
-#: kate/main.cpp:122
+#: kate/main.cpp:71
+msgid ""
+"Running Kate with sudo can cause bugs and expose you to security "
+"vulnerabilities. Instead use Kate normally and you will be prompted for "
+"elevated privileges when saving documents if needed."
+msgstr ""
+
+#: kate/main.cpp:78
+msgid ""
+"Running Kate with kdesu can cause bugs and expose you to security "
+"vulnerabilities. Instead use Kate normally and you will be prompted for "
+"elevated privileges when saving documents if needed."
+msgstr ""
+
+#: kate/main.cpp:131
 #, kde-format
 msgid "Kate"
 msgstr "Kate"
 
-#: kate/main.cpp:124
+#: kate/main.cpp:133
 #, kde-format
 msgid "Kate - Advanced Text Editor"
 msgstr "Kate - 고급 문서 편집기"
 
-#: kate/main.cpp:126 kwrite/main.cpp:89
+#: kate/main.cpp:135 kwrite/main.cpp:98
 #, kde-format
 msgid "(c) 2000-2022 The Kate Authors"
 msgstr "(c) 2000-2022 The Kate Authors"
 
-#: kate/main.cpp:172
+#: kate/main.cpp:181
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "지정한 세션으로 Kate를 시작합니다."
 
-#: kate/main.cpp:173
+#: kate/main.cpp:182
 #, kde-format
 msgid "session"
 msgstr "세션"
 
-#: kate/main.cpp:178
+#: kate/main.cpp:187
 #, kde-format
 msgid "Start Kate with a new anonymous session, implies '-n'."
 msgstr "이름 없는 새 세션으로 Kate를 시작합니다. '-n'이 지정됩니다."
 
-#: kate/main.cpp:183
+#: kate/main.cpp:192
 #, kde-format
 msgid ""
 "Force start of a new kate instance (is ignored if start is used and another "
@@ -71,7 +85,7 @@ msgstr ""
 "새 Kate 인스턴스를 강제로 시작합니다(다른 Kate 인스턴스에서 지정한 세션을 열"
 "어 둔 경우 제외). 만약 인자나 URL이 지정되지 않았으면 강제로 지정됩니다."
 
-#: kate/main.cpp:189
+#: kate/main.cpp:198
 #, kde-format
 msgid ""
 "If using an already running kate instance, block until it exits, if URLs "
@@ -79,7 +93,7 @@ msgid ""
 msgstr ""
 "만약 실행 중인 Kate 인스턴스가 있고 URL을 지정했으면 끝날 때까지 기다립니다."
 
-#: kate/main.cpp:195
+#: kate/main.cpp:204
 #, kde-format
 msgid ""
 "Only try to reuse kate instance with this pid (is ignored if start is used "
@@ -88,67 +102,81 @@ msgstr ""
 "이 PID와 연결되어 있는 Kate 인스턴스를 다시 사용합니다(다른 Kate 인스턴스에"
 "서 지정한 세션을 열어 둔 경우 제외)."
 
-#: kate/main.cpp:196
+#: kate/main.cpp:205
 #, kde-format
 msgid "pid"
 msgstr "PID"
 
-#: kate/main.cpp:201 kwrite/main.cpp:140
+#: kate/main.cpp:210 kwrite/main.cpp:149
 #, kde-format
 msgid "Set encoding for the file to open."
 msgstr "열 파일의 인코딩을 지정합니다."
 
-#: kate/main.cpp:202 kwrite/main.cpp:141
+#: kate/main.cpp:211 kwrite/main.cpp:150
 #, kde-format
 msgid "encoding"
 msgstr "인코딩"
 
-#: kate/main.cpp:206 kwrite/main.cpp:145
+#: kate/main.cpp:215 kwrite/main.cpp:154
 #, kde-format
 msgid "Navigate to this line."
 msgstr "이 줄로 찾아갑니다."
 
-#: kate/main.cpp:206 kwrite/main.cpp:145
+#: kate/main.cpp:215 kwrite/main.cpp:154
 #, kde-format
 msgid "line"
 msgstr "줄"
 
-#: kate/main.cpp:211 kwrite/main.cpp:149
+#: kate/main.cpp:220 kwrite/main.cpp:158
 #, kde-format
 msgid "Navigate to this column."
 msgstr "이 칸으로 찾아갑니다."
 
-#: kate/main.cpp:212 kwrite/main.cpp:149
+#: kate/main.cpp:221 kwrite/main.cpp:158
 #, kde-format
 msgid "column"
 msgstr "칸"
 
-#: kate/main.cpp:216 kwrite/main.cpp:153
+#: kate/main.cpp:225 kwrite/main.cpp:162
 #, kde-format
 msgid "Read the contents of stdin."
 msgstr "표준 입력의 내용을 읽어옵니다."
 
-#: kate/main.cpp:221 kwrite/main.cpp:157
+#: kate/main.cpp:230 kwrite/main.cpp:166
 #, kde-format
 msgid "The files/URLs opened by the application will be deleted after use"
 msgstr "프로그램에서 연 파일/URL을 사용한 후 삭제합니다"
 
-#: kate/main.cpp:225 kwrite/main.cpp:161
+#: kate/main.cpp:234 kwrite/main.cpp:170
 #, kde-format
 msgid "Documents to open."
 msgstr "열 문서입니다."
 
-#: kate/main.cpp:225 kwrite/main.cpp:161
+#: kate/main.cpp:234 kwrite/main.cpp:170
 #, kde-format
 msgid "[urls...]"
 msgstr "[urls...]"
 
-#: kwrite/main.cpp:85
+#: kwrite/main.cpp:39
+msgid ""
+"Running KWrite with sudo can cause bugs and expose you to security "
+"vulnerabilities. Instead use KWrite normally and you will be prompted for "
+"elevated privileges when saving documents if needed."
+msgstr ""
+
+#: kwrite/main.cpp:46
+msgid ""
+"Running KWrite with kdesu can cause bugs and expose you to security "
+"vulnerabilities. Instead use KWrite normally and you will be prompted for "
+"elevated privileges when saving documents if needed."
+msgstr ""
+
+#: kwrite/main.cpp:94
 #, kde-format
 msgid "KWrite"
 msgstr "KWrite"
 
-#: kwrite/main.cpp:87
+#: kwrite/main.cpp:96
 #, kde-format
 msgid "KWrite - Text Editor"
 msgstr "KWrite - 텍스트 편집기"
@@ -2319,12 +2347,12 @@ msgstr "세션 이름을 \"%1\"(으)로 변경할 수 없습니다. \"%2\"에 �
 msgid "Session Renaming"
 msgstr "세션 이름 바꾸기"
 
-#: lib/session/katesessionmanager.cpp:460
+#: lib/session/katesessionmanager.cpp:462
 #, kde-format
 msgid "Session name:"
 msgstr "세션 이름:"
 
-#: lib/session/katesessionmanager.cpp:462
+#: lib/session/katesessionmanager.cpp:464
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2333,17 +2361,17 @@ msgstr ""
 "지정한 이름의 세션이 이미 있습니다: %1\n"
 "다른 이름을 지정하십시오."
 
-#: lib/session/katesessionmanager.cpp:464
+#: lib/session/katesessionmanager.cpp:466
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "세션을 저장하려면 이름을 입력해야 합니다."
 
-#: lib/session/katesessionmanager.cpp:491
+#: lib/session/katesessionmanager.cpp:493
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "이 세션의 이름 지정"
 
-#: lib/session/katesessionmanager.cpp:493
+#: lib/session/katesessionmanager.cpp:495
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "세션의 새로운 이름 지정: %1"

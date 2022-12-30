@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-21 00:50+0000\n"
-"PO-Revision-Date: 2022-10-31 08:01+0100\n"
+"PO-Revision-Date: 2022-12-22 08:40+0100\n"
 "Last-Translator: Paolo Zamponi <zapaolo@email.it>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 22.08.2\n"
+"X-Generator: Lokalize 22.12.0\n"
 
 #: KateSearchCommand.cpp:80
 #, kde-format
@@ -544,7 +544,7 @@ msgstr "Vai alla corrispondenza precedente"
 #: SearchPlugin.cpp:357
 #, kde-format
 msgid "Cut Matching Lines"
-msgstr ""
+msgstr "Taglia le righe corrispondenti"
 
 #: SearchPlugin.cpp:359
 #, kde-format
@@ -552,11 +552,13 @@ msgid ""
 "This will cut all highlighted search match lines from the current document "
 "to the clipboard"
 msgstr ""
+"Questa opzione taglierà e metterà negli appunti tutte le righe evidenziate "
+"nel documento corrente che corrispondono alla ricerca"
 
 #: SearchPlugin.cpp:363
 #, kde-format
 msgid "Copy Matching Lines"
-msgstr ""
+msgstr "Copia le righe corrispondenti"
 
 #: SearchPlugin.cpp:365
 #, kde-format
@@ -564,6 +566,8 @@ msgid ""
 "This will copy all highlighted search match lines in the current document to "
 "the clipboard"
 msgstr ""
+"Questa opzione copierà negli appunti tutte le righe evidenziate nel "
+"documento corrente che corrispondono alla ricerca"
 
 #: SearchPlugin.cpp:392
 #, kde-format

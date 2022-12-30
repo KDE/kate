@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-23 00:50+0000\n"
+"POT-Creation-Date: 2022-12-30 00:56+0000\n"
 "PO-Revision-Date: 2020-01-12 13:14+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
@@ -34,39 +34,53 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "xabigf@gmx.net, mvillarino@users.sourceforge.net, adrian@chaves.io"
 
-#: kate/main.cpp:122
+#: kate/main.cpp:71
+msgid ""
+"Running Kate with sudo can cause bugs and expose you to security "
+"vulnerabilities. Instead use Kate normally and you will be prompted for "
+"elevated privileges when saving documents if needed."
+msgstr ""
+
+#: kate/main.cpp:78
+msgid ""
+"Running Kate with kdesu can cause bugs and expose you to security "
+"vulnerabilities. Instead use Kate normally and you will be prompted for "
+"elevated privileges when saving documents if needed."
+msgstr ""
+
+#: kate/main.cpp:131
 #, kde-format
 msgid "Kate"
 msgstr "Kate"
 
-#: kate/main.cpp:124
+#: kate/main.cpp:133
 #, kde-format
 msgid "Kate - Advanced Text Editor"
 msgstr "Kate, o editor avanzado de textos"
 
-#: kate/main.cpp:126 kwrite/main.cpp:89
+#: kate/main.cpp:135 kwrite/main.cpp:98
 #, fuzzy, kde-format
 #| msgid "(c) 2000-2019 The Kate Authors"
 msgid "(c) 2000-2022 The Kate Authors"
 msgstr "© 2000-2019 Autores de Kate"
 
-#: kate/main.cpp:172
+#: kate/main.cpp:181
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "Iniciar Kate cunha sesión dada."
 
-#: kate/main.cpp:173
+#: kate/main.cpp:182
 #, kde-format
 msgid "session"
 msgstr "sesión"
 
-#: kate/main.cpp:178
+#: kate/main.cpp:187
 #, fuzzy, kde-format
 #| msgid "Start Kate with a new anonymous session, implies '-n'."
 msgid "Start Kate with a new anonymous session, implies '-n'."
 msgstr "Iniciar Kate cunha sesión anónima nova, implica «-n»."
 
-#: kate/main.cpp:183
+#: kate/main.cpp:192
 #, kde-format
 msgid ""
 "Force start of a new kate instance (is ignored if start is used and another "
@@ -77,7 +91,7 @@ msgstr ""
 "haber xa outra instancia de kate coa sesión data aberta), forzando de non "
 "indicarse ningún parámetro nin URL."
 
-#: kate/main.cpp:189
+#: kate/main.cpp:198
 #, kde-format
 msgid ""
 "If using an already running kate instance, block until it exits, if URLs "
@@ -86,7 +100,7 @@ msgstr ""
 "Se está a usar unha instancia de Kate en execución bloquéaa ata que sae, no "
 "caso de indicarse URL para abrir."
 
-#: kate/main.cpp:195
+#: kate/main.cpp:204
 #, kde-format
 msgid ""
 "Only try to reuse kate instance with this pid (is ignored if start is used "
@@ -95,70 +109,84 @@ msgstr ""
 "Só se intentará reutilizar a instancia de kate con este pid (ignórase de "
 "empregar o inicio e haber xa outra sesión de kate coa sesión dada aberta)."
 
-#: kate/main.cpp:196
+#: kate/main.cpp:205
 #, kde-format
 msgid "pid"
 msgstr "pid"
 
-#: kate/main.cpp:201 kwrite/main.cpp:140
+#: kate/main.cpp:210 kwrite/main.cpp:149
 #, kde-format
 msgid "Set encoding for the file to open."
 msgstr "Estabelecer a codificación do ficheiro para abrir."
 
-#: kate/main.cpp:202 kwrite/main.cpp:141
+#: kate/main.cpp:211 kwrite/main.cpp:150
 #, kde-format
 msgid "encoding"
 msgstr "codificación"
 
-#: kate/main.cpp:206 kwrite/main.cpp:145
+#: kate/main.cpp:215 kwrite/main.cpp:154
 #, kde-format
 msgid "Navigate to this line."
 msgstr "Ir ata esta liña."
 
-#: kate/main.cpp:206 kwrite/main.cpp:145
+#: kate/main.cpp:215 kwrite/main.cpp:154
 #, kde-format
 msgid "line"
 msgstr "liña"
 
-#: kate/main.cpp:211 kwrite/main.cpp:149
+#: kate/main.cpp:220 kwrite/main.cpp:158
 #, kde-format
 msgid "Navigate to this column."
 msgstr "Ir ata esta columna."
 
-#: kate/main.cpp:212 kwrite/main.cpp:149
+#: kate/main.cpp:221 kwrite/main.cpp:158
 #, kde-format
 msgid "column"
 msgstr "columna"
 
-#: kate/main.cpp:216 kwrite/main.cpp:153
+#: kate/main.cpp:225 kwrite/main.cpp:162
 #, kde-format
 msgid "Read the contents of stdin."
 msgstr "Ler o contido da saída estándar."
 
-#: kate/main.cpp:221 kwrite/main.cpp:157
+#: kate/main.cpp:230 kwrite/main.cpp:166
 #, kde-format
 msgid "The files/URLs opened by the application will be deleted after use"
 msgstr ""
 "Os ficheiros ou enderezos URL que a aplicación abriu eliminaranse despois de "
 "usalos."
 
-#: kate/main.cpp:225 kwrite/main.cpp:161
+#: kate/main.cpp:234 kwrite/main.cpp:170
 #, kde-format
 msgid "Documents to open."
 msgstr "Documento para abrir."
 
-#: kate/main.cpp:225 kwrite/main.cpp:161
+#: kate/main.cpp:234 kwrite/main.cpp:170
 #, kde-format
 msgid "[urls...]"
 msgstr "[urls…]"
 
-#: kwrite/main.cpp:85
+#: kwrite/main.cpp:39
+msgid ""
+"Running KWrite with sudo can cause bugs and expose you to security "
+"vulnerabilities. Instead use KWrite normally and you will be prompted for "
+"elevated privileges when saving documents if needed."
+msgstr ""
+
+#: kwrite/main.cpp:46
+msgid ""
+"Running KWrite with kdesu can cause bugs and expose you to security "
+"vulnerabilities. Instead use KWrite normally and you will be prompted for "
+"elevated privileges when saving documents if needed."
+msgstr ""
+
+#: kwrite/main.cpp:94
 #, fuzzy, kde-format
 #| msgid "KWrite Author"
 msgid "KWrite"
 msgstr "Autor de KWrite"
 
-#: kwrite/main.cpp:87
+#: kwrite/main.cpp:96
 #, fuzzy, kde-format
 #| msgid "Kate - Advanced Text Editor"
 msgid "KWrite - Text Editor"
@@ -2393,12 +2421,12 @@ msgstr ""
 msgid "Session Renaming"
 msgstr "Renomeamento de sesión"
 
-#: lib/session/katesessionmanager.cpp:460
+#: lib/session/katesessionmanager.cpp:462
 #, kde-format
 msgid "Session name:"
 msgstr "Nome da sesión:"
 
-#: lib/session/katesessionmanager.cpp:462
+#: lib/session/katesessionmanager.cpp:464
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2407,17 +2435,17 @@ msgstr ""
 "Xa existe unha sesión co nome que escolleu: %1\n"
 "Escolla un nome distinto."
 
-#: lib/session/katesessionmanager.cpp:464
+#: lib/session/katesessionmanager.cpp:466
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "Para gardar unha sesión, precisa especificar un nome."
 
-#: lib/session/katesessionmanager.cpp:491
+#: lib/session/katesessionmanager.cpp:493
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "Indicar un nome para a sesión"
 
-#: lib/session/katesessionmanager.cpp:493
+#: lib/session/katesessionmanager.cpp:495
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "Indicar un novo nome para a sesión: %1"

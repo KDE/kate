@@ -153,19 +153,12 @@ void InlayHintsManager::registerView(KTextEditor::View *v)
 {
     using namespace KTextEditor;
     if (v) {
+        // when reloading the view is same
+        bool reloaded = m_currentView == v;
         m_currentView = v;
         qobject_cast<InlineNoteInterface *>(m_currentView)->registerInlineNoteProvider(&m_noteProvider);
         m_noteProvider.setView(v);
         auto d = v->document();
-
-        connect(d, &Document::reloaded, this, [this](Document *doc) {
-            if (m_currentView && m_currentView->document() == doc) {
-                clearHintsForDoc(doc);
-                m_noteProvider.setHints({});
-                m_noteProvider.inlineNotesReset();
-                sendRequestDelayed(doc->documentRange(), 50);
-            }
-        });
 
         connect(d, &Document::textInserted, this, &InlayHintsManager::onTextInserted, Qt::UniqueConnection);
         connect(d, &Document::textRemoved, this, &InlayHintsManager::onTextRemoved, Qt::UniqueConnection);
@@ -177,7 +170,7 @@ void InlayHintsManager::registerView(KTextEditor::View *v)
         });
 
         // If the document was found and checksum hasn't changed
-        if (it != m_hintDataByDoc.end() && it->checksum == d->checksum() && !it->m_hints.empty()) {
+        if (it != m_hintDataByDoc.end() && it->checksum == d->checksum() && !it->m_hints.empty() && !reloaded) {
             m_noteProvider.setHints(it->m_hints);
             m_noteProvider.inlineNotesReset();
         } else {

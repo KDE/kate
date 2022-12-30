@@ -428,6 +428,7 @@ void KateExternalToolsConfigWidget::addNewTool(KateExternalTool *tool)
     auto item = newToolItem(tool->icon.isEmpty() ? blankIcon() : QIcon::fromTheme(tool->icon), tool);
     auto category = addCategory(tool->translatedCategory());
     category->appendRow(item);
+    tool->category = category->text();
     lbTools->setCurrentIndex(item->index());
 
     m_plugin->addNewTool(tool);
@@ -440,7 +441,7 @@ void KateExternalToolsConfigWidget::addNewTool(KateExternalTool *tool)
 QStandardItem *KateExternalToolsConfigWidget::addCategory(const QString &translatedCategory)
 {
     if (translatedCategory.isEmpty() || (m_noCategory && translatedCategory == i18n("Uncategorized"))) {
-        return m_noCategory;
+        return currentCategory();
     }
 
     // search for existing category

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateexternaltoolsplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-29 00:51+0000\n"
+"POT-Creation-Date: 2022-12-31 00:55+0000\n"
 "PO-Revision-Date: 2022-01-27 08:47+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -269,18 +269,18 @@ msgstr "Додати інструмент з типових"
 msgid "Add Category"
 msgstr "Додати категорію"
 
-#: kateexternaltoolsconfigwidget.cpp:283 kateexternaltoolsconfigwidget.cpp:390
-#: kateexternaltoolsconfigwidget.cpp:436
+#: kateexternaltoolsconfigwidget.cpp:283 kateexternaltoolsconfigwidget.cpp:396
+#: kateexternaltoolsconfigwidget.cpp:443
 #, kde-format
 msgid "Uncategorized"
 msgstr "Поза категоріями"
 
-#: kateexternaltoolsconfigwidget.cpp:478
+#: kateexternaltoolsconfigwidget.cpp:485
 #, kde-format
 msgid "New Category"
 msgstr "Нова категорія"
 
-#: kateexternaltoolsconfigwidget.cpp:481
+#: kateexternaltoolsconfigwidget.cpp:488
 #, kde-format
 msgid "New Category %1"
 msgstr "Нова категорія %1"

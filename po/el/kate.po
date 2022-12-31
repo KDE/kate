@@ -10,7 +10,7 @@
 # Toussis Manolis <manolis@koppermind.homelinux.org>, 2005, 2007, 2008, 2009.
 # Antonis Geralis <capoiosct@gmail.com>, 2012.
 # Dimitrios Glentadakis <dglent@gmail.com>, 2012, 2013.
-# Stelios <sstavra@gmail.com>, 2012, 2016, 2017, 2018, 2019, 2020, 2021.
+# Stelios <sstavra@gmail.com>, 2012, 2016, 2017, 2018, 2019, 2020, 2021, 2022.
 # Bouklis Panos <panos@echidna-band.com>, 2012.
 # Dimitris Kardarakos <dimkard@gmail.com>, 2014.
 # Petros Vidalis <pvidalis@gmail.com>, 2016.
@@ -19,14 +19,14 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-30 00:56+0000\n"
-"PO-Revision-Date: 2021-10-11 08:07+0300\n"
+"PO-Revision-Date: 2022-12-30 15:26+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 20.04.2\n"
+"X-Generator: Lokalize 21.12.3\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -45,6 +45,10 @@ msgid ""
 "vulnerabilities. Instead use Kate normally and you will be prompted for "
 "elevated privileges when saving documents if needed."
 msgstr ""
+"Η εκτέλεση του Kate με δικαιώματα root (sudo) ίσως προκαλέσει σφάλματα και "
+"εκθέτει τον χρήστη σε ευπάθειες ασφαλείας. Χρησιμοποιήστε το Kate κανονικά "
+"και θα ερωτηθείτε για κλιμάκωση προνομίων, αν απαιτείται, κατά την "
+"αποθήκευση των εγγράφων."
 
 #: kate/main.cpp:78
 msgid ""
@@ -52,6 +56,10 @@ msgid ""
 "vulnerabilities. Instead use Kate normally and you will be prompted for "
 "elevated privileges when saving documents if needed."
 msgstr ""
+"Η εκτέλεση του Kate με δικαιώματα root (kdesu) ίσως προκαλέσει σφάλματα και "
+"εκθέτει τον χρήστη σε ευπάθειες ασφαλείας. Χρησιμοποιήστε το Kate κανονικά "
+"και θα ερωτηθείτε για κλιμάκωση προνομίων, αν απαιτείται, κατά την "
+"αποθήκευση των εγγράφων."
 
 #: kate/main.cpp:131
 #, kde-format
@@ -64,10 +72,9 @@ msgid "Kate - Advanced Text Editor"
 msgstr "Kate - Προηγμένος επεξεργαστής κειμένου"
 
 #: kate/main.cpp:135 kwrite/main.cpp:98
-#, fuzzy, kde-format
-#| msgid "(c) 2000-2021 The Kate Authors"
+#, kde-format
 msgid "(c) 2000-2022 The Kate Authors"
-msgstr "(c) 2000-2021 Οι συγγραφείς του Kate"
+msgstr "(c) 2000-2022 Οι συγγραφείς του Kate"
 
 #: kate/main.cpp:181
 #, kde-format
@@ -178,6 +185,10 @@ msgid ""
 "vulnerabilities. Instead use KWrite normally and you will be prompted for "
 "elevated privileges when saving documents if needed."
 msgstr ""
+"Η εκτέλεση του KWrite με δικαιώματα root (sudo) ίσως προκαλέσει σφάλματα και "
+"εκθέτει τον χρήστη σε ευπάθειες ασφαλείας. Χρησιμοποιήστε το KWrite κανονικά "
+"και θα ερωτηθείτε για κλιμάκωση προνομίων, αν απαιτείται, κατά την "
+"αποθήκευση των εγγράφων."
 
 #: kwrite/main.cpp:46
 msgid ""
@@ -185,18 +196,20 @@ msgid ""
 "vulnerabilities. Instead use KWrite normally and you will be prompted for "
 "elevated privileges when saving documents if needed."
 msgstr ""
+"Η εκτέλεση του KWrite με δικαιώματα root (kdesu) ίσως προκαλέσει σφάλματα "
+"και εκθέτει τον χρήστη σε ευπάθειες ασφαλείας. Χρησιμοποιήστε το KWrite "
+"κανονικά και θα ερωτηθείτε για κλιμάκωση προνομίων, αν απαιτείται, κατά την "
+"αποθήκευση των εγγράφων."
 
 #: kwrite/main.cpp:94
-#, fuzzy, kde-format
-#| msgid "KWrite Author"
+#, kde-format
 msgid "KWrite"
-msgstr "Συγγραφέας του KWrite"
+msgstr "KWrite"
 
 #: kwrite/main.cpp:96
-#, fuzzy, kde-format
-#| msgid "Kate - Advanced Text Editor"
+#, kde-format
 msgid "KWrite - Text Editor"
-msgstr "Kate - Προηγμένος επεξεργαστής κειμένου"
+msgstr "KWrite - Επεξεργαστής κειμένου"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
 #: lib/commitfilesview.cpp:350 lib/filehistorywidget.cpp:254
@@ -216,23 +229,22 @@ msgstr "Σφάλμα"
 #: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:343
 #, kde-format
 msgid "Git"
-msgstr ""
+msgstr "Git"
 
 #: lib/commitfilesview.cpp:474
 #, kde-format
 msgid "Invalid hash"
-msgstr ""
+msgstr "Μη έγκυρος κατακερματισμός"
 
 #: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:343
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
-msgstr ""
+msgstr "Το %1 δεν υπάρχει σε αποθετήριο git."
 
 #: lib/commitfilesview.cpp:488
-#, fuzzy, kde-format
-#| msgid "Comment"
+#, kde-format
 msgid "Commit"
-msgstr "Σχόλιο"
+msgstr "Αποστολή στο αποθετήριο (commit)"
 
 #. i18n: ectx: Menu (file)
 #: lib/data/kateui.rc:6
@@ -242,10 +254,9 @@ msgstr "&Αρχείο"
 
 #. i18n: ectx: Menu (file_file_actions)
 #: lib/data/kateui.rc:30
-#, fuzzy, kde-format
-#| msgid "Actions"
+#, kde-format
 msgid "File Actions"
-msgstr "Ενέργειες"
+msgstr "Ενέργειες αρχείου"
 
 #. i18n: ectx: Menu (edit)
 #: lib/data/kateui.rc:43
@@ -255,16 +266,15 @@ msgstr "&Επεξεργασία"
 
 #. i18n: ectx: Menu (selection)
 #: lib/data/kateui.rc:54
-#, fuzzy, kde-format
-#| msgid "Actions"
+#, kde-format
 msgid "&Selection"
-msgstr "Ενέργειες"
+msgstr "Ε&πιλογή"
 
 #. i18n: ectx: Menu (go)
 #: lib/data/kateui.rc:57
 #, kde-format
 msgid "&Go"
-msgstr ""
+msgstr "&Μετάβαση"
 
 #. i18n: ectx: Menu (view)
 #: lib/data/kateui.rc:73
@@ -306,7 +316,7 @@ msgstr "Κύρια γραμμή εργαλείων"
 #: lib/data/kateui.rc:155
 #, kde-format
 msgid "Hamburger Menu Toolbar"
-msgstr ""
+msgstr "Γραμμή εργαλείων μενού hamburger"
 
 #. i18n: ectx: Menu (viewspace_popup_statusbar)
 #: lib/data/kateui.rc:173
@@ -317,18 +327,17 @@ msgstr "Αντικείμενα &γραμμής κατάστασης"
 #: lib/diff/diffeditor.cpp:178
 #, kde-format
 msgid "Change Style"
-msgstr ""
+msgstr "Αλλαγή στιλ"
 
 #: lib/diff/diffeditor.cpp:180 lib/kateconfigdialog.cpp:557
 #, kde-format
 msgid "Side By Side"
-msgstr ""
+msgstr "Το ένα δίπλα στο άλλο"
 
 #: lib/diff/diffeditor.cpp:183 lib/kateconfigdialog.cpp:558
-#, fuzzy, kde-format
-#| msgid "Modified"
+#, kde-format
 msgid "Unified"
-msgstr "Τροποποιημένο"
+msgstr "Ενοποιημένο"
 
 #: lib/diff/diffeditor.cpp:186 lib/kateconfigdialog.cpp:559
 #, kde-format
@@ -352,8 +361,8 @@ msgstr ""
 #, kde-format
 msgid "Discard Line"
 msgid_plural "Discard Lines"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Απόρριψη γραμμής"
+msgstr[1] "Απόρριψη γραμμών"
 
 #: lib/diff/diffeditor.cpp:232
 #, kde-format

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-29 00:51+0000\n"
+"POT-Creation-Date: 2022-12-31 00:55+0000\n"
 "PO-Revision-Date: 2022-12-24 11:42\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -263,18 +263,18 @@ msgstr "从默认添加工具"
 msgid "Add Category"
 msgstr "添加分类"
 
-#: kateexternaltoolsconfigwidget.cpp:283 kateexternaltoolsconfigwidget.cpp:390
-#: kateexternaltoolsconfigwidget.cpp:436
+#: kateexternaltoolsconfigwidget.cpp:283 kateexternaltoolsconfigwidget.cpp:396
+#: kateexternaltoolsconfigwidget.cpp:443
 #, kde-format
 msgid "Uncategorized"
 msgstr "未分类"
 
-#: kateexternaltoolsconfigwidget.cpp:478
+#: kateexternaltoolsconfigwidget.cpp:485
 #, kde-format
 msgid "New Category"
 msgstr "新建分类"
 
-#: kateexternaltoolsconfigwidget.cpp:481
+#: kateexternaltoolsconfigwidget.cpp:488
 #, kde-format
 msgid "New Category %1"
 msgstr "新建分类 %1"

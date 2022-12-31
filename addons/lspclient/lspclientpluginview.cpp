@@ -1010,7 +1010,7 @@ public:
 
         KTextEditor::Attribute::Ptr attr;
 
-        bool enabled;
+        bool enabled = false;
         KTextEditor::MarkInterface::MarkTypes markType = RangeData::markType;
         switch (kind) {
         case RangeData::KindEnum::Text: {

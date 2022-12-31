@@ -348,7 +348,10 @@ void FileHistory::showFileHistory(const QString &file, KTextEditor::MainWindow *
         mainWindow = KTextEditor::Editor::instance()->application()->activeMainWindow();
     }
 
-    auto toolView = mainWindow->createToolView(nullptr, QStringLiteral("git_file_history"), KTextEditor::MainWindow::Left, gitIcon(), i18n("File History"));
+    const QString identifier = QStringLiteral("git_file_history_%1").arg(file);
+    const QString title = i18nc("@title:tab", "File History - %1", fi.fileName());
+
+    auto toolView = mainWindow->createToolView(nullptr, identifier, KTextEditor::MainWindow::Left, gitIcon(), title);
     new FileHistoryWidget(repoBase.value(), file, mainWindow, toolView);
     mainWindow->showToolView(toolView);
 }

@@ -53,8 +53,8 @@ Q_SIGNALS:
 
     /// emitted by provider
     /// DiagnosticView will remove diagnostics where provider is @p provider
-    /// and filepath of a diagnostic is not contained in @p fileDiagnosticsToKeep
-    void requestClearDiagnosticsForStaleDocs(const QVector<QString> &fileDiagnosticsToKeep, DiagnosticsProvider *provider);
+    /// and filepath of a diagnostic is not contained in @p filesToKeep
+    void requestClearDiagnosticsForStaleDocs(const QVector<QString> &filesToKeep, DiagnosticsProvider *provider);
 
     /// Request fixes for given diagnostic
     /// @p data must be passed back when fixes are sent back via fixesAvailable()
@@ -91,7 +91,7 @@ private:
     void showFixesInMenu(const QVector<DiagnosticFix> &fixes);
     void quickFix();
     void onDiagnosticsAdded(const FileDiagnostics &diagnostics);
-    void clearDiagnosticsForStaleDocs(const QVector<QString> &fileDiagnosticsToKeep, DiagnosticsProvider *provider);
+    void clearDiagnosticsForStaleDocs(const QVector<QString> &filesToKeep, DiagnosticsProvider *provider);
     void updateDiagnosticsState(QStandardItem *topItem);
     void updateMarks();
     void goToItemLocation(QModelIndex index);

@@ -533,28 +533,58 @@ void DiagnosticsView::onDiagnosticsAdded(const FileDiagnostics &diagnostics)
     }
 }
 
-void DiagnosticsView::clearDiagnosticsForStaleDocs(const QVector<QString> &fileDiagnosticsToKeep, DiagnosticsProvider *provider)
+void DiagnosticsView::clearDiagnosticsForStaleDocs(const QVector<QString> &filesToKeep, DiagnosticsProvider *provider)
 {
     auto get_provider = [](QStandardItem *item) {
         return item->data(DiagnosticModelRole::ProviderRole).value<DiagnosticsProvider *>();
     };
+    auto all_diags_from_provider = [get_provider, provider](QStandardItem *file) {
+        if (file->rowCount() == 0) {
+            return true;
+        }
+        for (int i = 0; i < file->rowCount(); ++i) {
+            auto diagItem = file->child(i);
+            auto p = get_provider(diagItem);
+            if (provider != p) {
+                return false;
+            }
+        }
+        return true;
+    };
 
-    // Remove rows in groups
+    auto bulk_remove = [](QStandardItemModel *model, int &start, int &count, int &i) {
+        if (start > -1 && count != 0) {
+            model->removeRows(start, count);
+            i = start - 1; // reset i
+        }
+        start = -1;
+        count = 0;
+    };
+
     int start = -1, count = 0;
+
     for (int i = 0; i < m_model.rowCount(); ++i) {
-        auto item = m_model.item(i);
-        if (item && get_provider(item) == provider && !fileDiagnosticsToKeep.contains(item->text())) {
-            if (start == -1) {
-                start = i;
+        auto fileItem = m_model.item(i);
+        if (!filesToKeep.contains(fileItem->data(Qt::UserRole).toString())) {
+            if (!all_diags_from_provider(fileItem)) {
+                // If the diagnostics of this file item are from multiple providers
+                // delete the ones from @p provider
+                bulk_remove(&m_model, start, count, i);
+                for (int r = 0; r < fileItem->rowCount(); ++r) {
+                    auto item = fileItem->child(r);
+                    if (item && get_provider(item) == provider) {
+                        fileItem->removeRow(r);
+                        r--;
+                    }
+                }
+            } else {
+                if (start == -1) {
+                    start = i;
+                }
+                count += 1;
             }
-            count += 1;
         } else {
-            if (start > -1 && count != 0) {
-                m_model.removeRows(start, count);
-                i = start - 1; // reset i
-            }
-            start = -1;
-            count = 0;
+            bulk_remove(&m_model, start, count, i);
         }
     }
 

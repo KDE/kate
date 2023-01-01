@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-12 00:50+0000\n"
-"PO-Revision-Date: 2022-08-29 12:10+0100\n"
+"PO-Revision-Date: 2022-12-31 17:33+0000\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
-"Language-Team: British English <kde-l10n-en_gb@kde.org>\n"
+"Language-Team: English <kde-i18n-doc@kde.org>\n"
 "Language: en_GB\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.08.0\n"
+"X-Generator: Lokalize 21.12.3\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:250
 #, kde-format
@@ -209,7 +209,7 @@ msgstr "Highlight goto location"
 #: lspclientpluginview.cpp:699
 #, kde-format
 msgid "Show Inlay Hints"
-msgstr ""
+msgstr "Show Inlay Hints"
 
 #: lspclientpluginview.cpp:703
 #, kde-format
@@ -264,7 +264,7 @@ msgstr "Restart All LSP Servers"
 #: lspclientpluginview.cpp:743
 #, kde-format
 msgid "Go To"
-msgstr ""
+msgstr "Go To"
 
 #: lspclientpluginview.cpp:771
 #, kde-format
@@ -698,16 +698,15 @@ msgstr "Add imports automatically if needed upon completion"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkFmtOnSave)
 #: lspconfigwidget.ui:248
-#, fuzzy, kde-format
-#| msgid "Format on typing"
+#, kde-format
 msgid "Format on save"
-msgstr "Format on typing"
+msgstr "Format on save"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkInlayHint)
 #: lspconfigwidget.ui:255
 #, kde-format
 msgid "Enable inlay hints"
-msgstr ""
+msgstr "Enable inlay hints"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_4)
 #: lspconfigwidget.ui:278

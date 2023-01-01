@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-30 00:56+0000\n"
+"POT-Creation-Date: 2023-01-01 01:03+0000\n"
 "PO-Revision-Date: 2011-07-17 15:37+0200\n"
 "Last-Translator: Jean Cayron <jean.cayron@base.be>\n"
 "Language-Team: Walloon <linux@walon.org>\n"
@@ -411,10 +411,11 @@ msgstr ""
 msgid "Failed to get file history: %1"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:351
+#: lib/filehistorywidget.cpp:352
 #, fuzzy, kde-format
 #| msgid "File Selector"
-msgid "File History"
+msgctxt "@title:tab"
+msgid "File History - %1"
 msgstr "Tchoes do fitchî"
 
 #: lib/kateapp.cpp:146

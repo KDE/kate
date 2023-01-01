@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-30 00:56+0000\n"
+"POT-Creation-Date: 2023-01-01 01:03+0000\n"
 "PO-Revision-Date: 2007-09-13 12:58+0545\n"
 "Last-Translator: Narayan Kumar Magar <narayan@mpp.org.np>\n"
 "Language-Team: Nepali <info@mpp.org.np>\n"
@@ -417,10 +417,11 @@ msgstr ""
 msgid "Failed to get file history: %1"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:351
+#: lib/filehistorywidget.cpp:352
 #, fuzzy, kde-format
 #| msgid "File Exists"
-msgid "File History"
+msgctxt "@title:tab"
+msgid "File History - %1"
 msgstr "फाइल अवस्थित छ"
 
 #: lib/kateapp.cpp:146

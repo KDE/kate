@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-30 00:56+0000\n"
+"POT-Creation-Date: 2023-01-01 01:03+0000\n"
 "PO-Revision-Date: 2020-07-27 23:03+0200\n"
 "Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
@@ -413,10 +413,11 @@ msgstr ""
 msgid "Failed to get file history: %1"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:351
+#: lib/filehistorywidget.cpp:352
 #, fuzzy, kde-format
 #| msgid "File Selector"
-msgid "File History"
+msgctxt "@title:tab"
+msgid "File History - %1"
 msgstr "Filvælger"
 
 #: lib/kateapp.cpp:146

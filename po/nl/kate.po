@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-30 00:56+0000\n"
-"PO-Revision-Date: 2022-12-20 10:24+0100\n"
+"POT-Creation-Date: 2023-01-01 01:03+0000\n"
+"PO-Revision-Date: 2022-12-30 09:56+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -48,6 +48,10 @@ msgid ""
 "vulnerabilities. Instead use Kate normally and you will be prompted for "
 "elevated privileges when saving documents if needed."
 msgstr ""
+"Kate uitvoeren met sudo kan bugs veroorzaken en u blootstellen aan "
+"kwetsbaarheden bij beveiliging. Gebruik Kate normaal en u zult gevraagd "
+"worden naar verhoogde toegangsrechten, indien nodig, bij opslaan van "
+"documenten."
 
 #: kate/main.cpp:78
 msgid ""
@@ -55,6 +59,10 @@ msgid ""
 "vulnerabilities. Instead use Kate normally and you will be prompted for "
 "elevated privileges when saving documents if needed."
 msgstr ""
+"Kate uitvoeren met kdesu kan bugs veroorzaken en u blootstellen aan "
+"kwetsbaarheden bij beveiliging. Gebruik Kate normaal en u zult gevraagd "
+"worden naar verhoogde toegangsrechten, indien nodig, bij opslaan van "
+"documenten."
 
 #: kate/main.cpp:131
 #, kde-format
@@ -179,6 +187,10 @@ msgid ""
 "vulnerabilities. Instead use KWrite normally and you will be prompted for "
 "elevated privileges when saving documents if needed."
 msgstr ""
+"KWrite uitvoeren met sudo kan bugs veroorzaken en u blootstellen aan "
+"kwetsbaarheden bij beveiliging. Gebruik KWrite normaal en u zult gevraagd "
+"worden naar verhoogde toegangsrechten, indien nodig, bij opslaan van "
+"documenten."
 
 #: kwrite/main.cpp:46
 msgid ""
@@ -186,6 +198,10 @@ msgid ""
 "vulnerabilities. Instead use KWrite normally and you will be prompted for "
 "elevated privileges when saving documents if needed."
 msgstr ""
+"KWrite uitvoeren met kdesu kan bugs veroorzaken en u blootstellen aan "
+"kwetsbaarheden bij beveiliging. Gebruik KWrite normaal en u zult gevraagd "
+"worden naar verhoogde toegangsrechten, indien nodig, bij opslaan van "
+"documenten."
 
 #: kwrite/main.cpp:94
 #, kde-format
@@ -418,9 +434,11 @@ msgstr ""
 msgid "Failed to get file history: %1"
 msgstr "Ophalen van geschiedenis van bestand is mislukt: %1"
 
-#: lib/filehistorywidget.cpp:351
-#, kde-format
-msgid "File History"
+#: lib/filehistorywidget.cpp:352
+#, fuzzy, kde-format
+#| msgid "File History"
+msgctxt "@title:tab"
+msgid "File History - %1"
 msgstr "Geschiedenis van bestand"
 
 #: lib/kateapp.cpp:146

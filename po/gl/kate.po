@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-30 00:56+0000\n"
+"POT-Creation-Date: 2023-01-01 01:03+0000\n"
 "PO-Revision-Date: 2020-01-12 13:14+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
@@ -75,8 +75,7 @@ msgid "session"
 msgstr "sesión"
 
 #: kate/main.cpp:187
-#, fuzzy, kde-format
-#| msgid "Start Kate with a new anonymous session, implies '-n'."
+#, kde-format
 msgid "Start Kate with a new anonymous session, implies '-n'."
 msgstr "Iniciar Kate cunha sesión anónima nova, implica «-n»."
 
@@ -181,16 +180,14 @@ msgid ""
 msgstr ""
 
 #: kwrite/main.cpp:94
-#, fuzzy, kde-format
-#| msgid "KWrite Author"
+#, kde-format
 msgid "KWrite"
-msgstr "Autor de KWrite"
+msgstr "KWrite"
 
 #: kwrite/main.cpp:96
-#, fuzzy, kde-format
-#| msgid "Kate - Advanced Text Editor"
+#, kde-format
 msgid "KWrite - Text Editor"
-msgstr "Kate, o editor avanzado de textos"
+msgstr "KWrite, o editor de textos"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
 #: lib/commitfilesview.cpp:350 lib/filehistorywidget.cpp:254
@@ -417,9 +414,10 @@ msgstr ""
 msgid "Failed to get file history: %1"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:351
+#: lib/filehistorywidget.cpp:352
 #, kde-format
-msgid "File History"
+msgctxt "@title:tab"
+msgid "File History - %1"
 msgstr ""
 
 #: lib/kateapp.cpp:146
@@ -2409,9 +2407,7 @@ msgid "Reopen"
 msgstr ""
 
 #: lib/session/katesessionmanager.cpp:312
-#, fuzzy, kde-format
-#| msgid ""
-#| "The session could not be renamed to \"%1\". Failed to write to \"%2\""
+#, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr ""
 "Non se puido renomear a sesión como «%1». Non se puido escribir en «%2»."

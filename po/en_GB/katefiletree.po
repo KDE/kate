@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-13 01:01+0000\n"
-"PO-Revision-Date: 2022-09-18 12:04+0100\n"
+"PO-Revision-Date: 2022-12-31 17:33+0000\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
-"Language-Team: British English <kde-l10n-en_gb@kde.org>\n"
+"Language-Team: English <kde-i18n-doc@kde.org>\n"
 "Language: en_GB\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.08.1\n"
+"X-Generator: Lokalize 21.12.3\n"
 
 #: katefiletree.cpp:122
 #, kde-format
@@ -348,8 +348,7 @@ msgid "Configure Documents"
 msgstr "Configure Documents"
 
 #: katefiletreemodel.cpp:493
-#, fuzzy, kde-format
-#| msgid "Open Widgets"
+#, kde-format
 msgctxt ""
 "Open here is a description, i.e. 'list of widgets that are open' not a verb"
 msgid "Open Widgets"
@@ -374,15 +373,14 @@ msgid "Next Document"
 msgstr "Next Document"
 
 #: katefiletreeplugin.cpp:258
-#, fuzzy, kde-format
-#| msgid "&Show Active"
+#, kde-format
 msgid "&Show Active Document"
-msgstr "&Show Active"
+msgstr "&Show Active Document"
 
 #: katefiletreeplugin.cpp:263
 #, kde-format
 msgid "Save"
-msgstr ""
+msgstr "Save"
 
 #: katefiletreeplugin.cpp:264
 #, kde-format
@@ -392,13 +390,12 @@ msgstr "Save the current document"
 #: katefiletreeplugin.cpp:268
 #, kde-format
 msgid "Save As"
-msgstr ""
+msgstr "Save As"
 
 #: katefiletreeplugin.cpp:269
-#, fuzzy, kde-format
-#| msgid "Save current document under new name"
+#, kde-format
 msgid "Save the current document under a new name"
-msgstr "Save current document under new name"
+msgstr "Save the current document under a new name"
 
 #. i18n: ectx: Menu (go)
 #: ui.rc:7

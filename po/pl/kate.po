@@ -1,6 +1,6 @@
 # translation of kate.po to Polish
 # translation of kate.po to
-# Version: $Revision: 1641066 $
+# Version: $Revision: 1641172 $
 # Kate polish translation file.
 # Main translation work:
 #   Jacek Stolarczyk <jacek@mer.chemia.polsl.gliwice.pl>\n"
@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-30 00:56+0000\n"
+"POT-Creation-Date: 2023-01-01 01:03+0000\n"
 "PO-Revision-Date: 2022-12-29 11:25+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -420,9 +420,11 @@ msgstr ""
 msgid "Failed to get file history: %1"
 msgstr "Nie udało się pobrać historii pliku: %1"
 
-#: lib/filehistorywidget.cpp:351
-#, kde-format
-msgid "File History"
+#: lib/filehistorywidget.cpp:352
+#, fuzzy, kde-format
+#| msgid "File History"
+msgctxt "@title:tab"
+msgid "File History - %1"
 msgstr "Historia pliku"
 
 #: lib/kateapp.cpp:146

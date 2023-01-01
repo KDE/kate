@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-30 00:56+0000\n"
-"PO-Revision-Date: 2022-12-22 12:53+0400\n"
+"POT-Creation-Date: 2023-01-01 01:03+0000\n"
+"PO-Revision-Date: 2022-12-31 18:37+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -45,6 +45,8 @@ msgid ""
 "vulnerabilities. Instead use Kate normally and you will be prompted for "
 "elevated privileges when saving documents if needed."
 msgstr ""
+"يمكن أن يسبب تشغيل كيت مع sudo الأخطاء ويعرضك على ثغرات الأمن. بدلاً من ذلك، "
+"استخدم كيت بشكل طبيعي وسيتطلب امتيازات أرفع عند حفظ المستندات إذا لزم الأمر."
 
 #: kate/main.cpp:78
 msgid ""
@@ -52,6 +54,8 @@ msgid ""
 "vulnerabilities. Instead use Kate normally and you will be prompted for "
 "elevated privileges when saving documents if needed."
 msgstr ""
+"يمكن أن يسبب تشغيل كيت مع kdesu الأخطاء ويعرضك على ثغرات الأمن. بدلاً من ذلك، "
+"استخدم كيت بشكل طبيعي وسيتطلب امتيازات أرفع عند حفظ المستندات إذا لزم الأمر."
 
 #: kate/main.cpp:131
 #, kde-format
@@ -172,6 +176,9 @@ msgid ""
 "vulnerabilities. Instead use KWrite normally and you will be prompted for "
 "elevated privileges when saving documents if needed."
 msgstr ""
+"يمكن أن يسبب تشغيل كاتبك مع sudo الأخطاء ويعرضك على ثغرات الأمن. بدلاً من "
+"ذلك، استخدم كاتبك بشكل طبيعي وسيتطلب امتيازات أرفع عند حفظ المستندات إذا لزم "
+"الأمر."
 
 #: kwrite/main.cpp:46
 msgid ""
@@ -179,6 +186,9 @@ msgid ""
 "vulnerabilities. Instead use KWrite normally and you will be prompted for "
 "elevated privileges when saving documents if needed."
 msgstr ""
+"يمكن أن يسبب تشغيل كاتبك مع kdesu الأخطاء ويعرضك على ثغرات الأمن. بدلاً من "
+"ذلك، استخدم كاتبك بشكل طبيعي وسيتطلب امتيازات أرفع عند حفظ المستندات إذا لزم "
+"الأمر."
 
 #: kwrite/main.cpp:94
 #, kde-format
@@ -421,9 +431,11 @@ msgstr "أخفق في الحصول على ملف التاريخ: لم يعثر �
 msgid "Failed to get file history: %1"
 msgstr "أخفق في الحصول على ملف التاريخ: %1"
 
-#: lib/filehistorywidget.cpp:351
-#, kde-format
-msgid "File History"
+#: lib/filehistorywidget.cpp:352
+#, fuzzy, kde-format
+#| msgid "File History"
+msgctxt "@title:tab"
+msgid "File History - %1"
 msgstr "تاريغ الملف"
 
 #: lib/kateapp.cpp:146

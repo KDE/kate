@@ -61,8 +61,7 @@ msgid "session"
 msgstr "sesión"
 
 #: kate/main.cpp:162
-#, fuzzy, kde-format
-#| msgid "Start Kate with a new anonymous session, implies '-n'."
+#, kde-format
 msgid "Start Kate with a new anonymous session, implies '-n'."
 msgstr "Iniciar Kate cunha sesión anónima nova, implica «-n»."
 
@@ -153,16 +152,14 @@ msgid "[urls...]"
 msgstr "[urls…]"
 
 #: kwrite/main.cpp:85
-#, fuzzy, kde-format
-#| msgid "KWrite Author"
+#, kde-format
 msgid "KWrite"
-msgstr "Autor de KWrite"
+msgstr "KWrite"
 
 #: kwrite/main.cpp:87
-#, fuzzy, kde-format
-#| msgid "Kate - Advanced Text Editor"
+#, kde-format
 msgid "KWrite - Text Editor"
-msgstr "Kate, o editor avanzado de textos"
+msgstr "KWrite, o editor de textos"
 
 #. i18n: ectx: Menu (file)
 #: lib/data/kateui.rc:6
@@ -2342,9 +2339,7 @@ msgid "Reopen"
 msgstr ""
 
 #: lib/session/katesessionmanager.cpp:312
-#, fuzzy, kde-format
-#| msgid ""
-#| "The session could not be renamed to \"%1\". Failed to write to \"%2\""
+#, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr ""
 "Non se puido renomear a sesión como «%1». Non se puido escribir en «%2»."

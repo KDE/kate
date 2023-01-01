@@ -178,7 +178,8 @@ msgid "Target %1"
 msgstr "Destino %1"
 
 #: debugview.cpp:29
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Locals"
 msgid "Locals"
 msgstr "Locais"
 

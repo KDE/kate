@@ -1647,7 +1647,7 @@ public:
     void quickFix()
     {
         KTextEditor::View *activeView = m_mainWindow->activeView();
-        KTextEditor::Document *document = activeView->document();
+        KTextEditor::Document *document = activeView ? activeView->document() : nullptr;
 
         if (!document) {
             return;

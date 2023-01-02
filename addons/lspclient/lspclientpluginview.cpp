@@ -2220,7 +2220,7 @@ public:
     void format(QChar lastChar = QChar(), bool save = false)
     {
         KTextEditor::View *activeView = m_mainWindow->activeView();
-        QPointer<KTextEditor::Document> document = activeView->document();
+        QPointer<KTextEditor::Document> document = activeView ? activeView->document() : nullptr;
         auto server = m_serverManager->findServer(activeView);
         if (!server || !document) {
             return;
@@ -2266,7 +2266,7 @@ public:
     void rename()
     {
         KTextEditor::View *activeView = m_mainWindow->activeView();
-        QPointer<KTextEditor::Document> document = activeView->document();
+        QPointer<KTextEditor::Document> document = activeView ? activeView->document() : nullptr;
         auto server = m_serverManager->findServer(activeView);
         if (!server || !document) {
             return;
@@ -2316,7 +2316,7 @@ public:
     void changeSelection(bool expand)
     {
         KTextEditor::View *activeView = m_mainWindow->activeView();
-        QPointer<KTextEditor::Document> document = activeView->document();
+        QPointer<KTextEditor::Document> document = activeView ? activeView->document() : nullptr;
         auto server = m_serverManager->findServer(activeView);
         if (!server || !document) {
             return;

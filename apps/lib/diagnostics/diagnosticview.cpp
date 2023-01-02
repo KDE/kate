@@ -595,7 +595,7 @@ void DiagnosticsView::clearDiagnosticsForStaleDocs(const QVector<QString> &files
     updateMarks();
 }
 
-void DiagnosticsView::addMarks(KTextEditor::Document *doc, QStandardItem *item, RangeCollection *ranges, DocumentCollection *docs)
+void DiagnosticsView::addMarks(KTextEditor::Document *doc, QStandardItem *item)
 {
     Q_ASSERT(item);
     using Style = KSyntaxHighlighting::Theme::TextStyle;
@@ -671,14 +671,14 @@ void DiagnosticsView::addMarks(KTextEditor::Document *doc, QStandardItem *item, 
     }
 
     // highlight the range
-    if (ranges && attr && !range.isEmpty()) {
+    if (attr && !range.isEmpty()) {
         KTextEditor::MovingInterface *miface = qobject_cast<KTextEditor::MovingInterface *>(doc);
         Q_ASSERT(miface);
         KTextEditor::MovingRange *mr = miface->newMovingRange(range);
         mr->setZDepth(-90000.0); // Set the z-depth to slightly worse than the selection
         mr->setAttribute(attr);
         mr->setAttributeOnlyForViews(true);
-        ranges->insert(doc, mr);
+        m_diagnosticsRanges.insert(doc, mr);
     }
 
     KTextEditor::MarkInterfaceV2 *iface = qobject_cast<KTextEditor::MarkInterfaceV2 *>(doc);
@@ -702,10 +702,8 @@ void DiagnosticsView::addMarks(KTextEditor::Document *doc, QStandardItem *item, 
         break;
     }
 
-    if (docs) {
-        iface->addMark(line, markType);
-        docs->insert(doc);
-    }
+    iface->addMark(line, markType);
+    m_diagnosticsMarks.insert(doc);
 
     // ensure runtime match
     // clang-format off
@@ -730,7 +728,7 @@ void DiagnosticsView::addMarks(KTextEditor::Document *doc, QStandardItem *item, 
     // clang-format on
 }
 
-void DiagnosticsView::addMarksRec(KTextEditor::Document *doc, QStandardItem *item, RangeCollection *ranges, DocumentCollection *docs)
+void DiagnosticsView::addMarksRec(KTextEditor::Document *doc, QStandardItem *item)
 {
     // We only care about @p doc items
     auto docItem = dynamic_cast<DocumentDiagnosticItem *>(item);
@@ -739,24 +737,19 @@ void DiagnosticsView::addMarksRec(KTextEditor::Document *doc, QStandardItem *ite
     }
 
     Q_ASSERT(item);
-    addMarks(doc, item, ranges, docs);
+    addMarks(doc, item);
     for (int i = 0; i < item->rowCount(); ++i) {
-        addMarksRec(doc, item->child(i), ranges, docs);
+        addMarksRec(doc, item->child(i));
     }
 }
 
-void DiagnosticsView::addMarks(KTextEditor::Document *doc, QStandardItemModel *treeModel, RangeCollection &ranges, DocumentCollection &docs)
+void DiagnosticsView::addMarks(KTextEditor::Document *doc)
 {
     // check if already added
-    auto oranges = ranges.contains(doc) ? nullptr : &ranges;
-    auto odocs = docs.contains(doc) ? nullptr : &docs;
-
-    if (!oranges && !odocs) {
+    if (m_diagnosticsRanges.contains(doc) && m_diagnosticsMarks.contains(doc)) {
         return;
     }
-
-    Q_ASSERT(treeModel);
-    addMarksRec(doc, treeModel->invisibleRootItem(), oranges, odocs);
+    addMarksRec(doc, m_model.invisibleRootItem());
 }
 
 static void clearMarks(KTextEditor::Document *doc,
@@ -795,7 +788,7 @@ void DiagnosticsView::updateMarks()
 
     if (doc) {
         clearMarks(doc, m_diagnosticsRanges, m_diagnosticsMarks, markTypeDiagAll);
-        addMarks(doc, &m_model, m_diagnosticsRanges, m_diagnosticsMarks);
+        addMarks(doc);
     }
 }
 

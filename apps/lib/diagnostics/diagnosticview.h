@@ -100,9 +100,9 @@ private:
 
     void onDoubleClicked(const QModelIndex &index, bool quickFix = false);
 
-    void addMarks(KTextEditor::Document *doc, QStandardItem *item, RangeCollection *ranges, DocumentCollection *docs);
-    void addMarksRec(KTextEditor::Document *doc, QStandardItem *item, RangeCollection *ranges, DocumentCollection *docs);
-    void addMarks(KTextEditor::Document *doc, QStandardItemModel *treeModel, RangeCollection &ranges, DocumentCollection &docs);
+    void addMarks(KTextEditor::Document *doc, QStandardItem *item);
+    void addMarksRec(KTextEditor::Document *doc, QStandardItem *item);
+    void addMarks(KTextEditor::Document *doc);
 
     Q_SLOT void clearAllMarks(KTextEditor::Document *doc);
     Q_SLOT void onMarkClicked(KTextEditor::Document *document, KTextEditor::Mark mark, bool &handled);

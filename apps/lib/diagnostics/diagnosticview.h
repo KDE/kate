@@ -12,7 +12,6 @@
 
 #include <QJsonObject>
 #include <QStandardItemModel>
-#include <QTreeView>
 #include <QUrl>
 #include <QWidget>
 
@@ -23,6 +22,7 @@
 class KConfigGroup;
 class SessionDiagnosticSuppressions;
 class KateMainWindow;
+class QSortFilterProxyModel;
 
 typedef QMultiHash<KTextEditor::Document *, KTextEditor::MovingRange *> RangeCollection;
 typedef QSet<KTextEditor::Document *> DocumentCollection;
@@ -112,9 +112,16 @@ private:
 
     void onContextMenuRequested(const QPoint &pos);
 
+    void setupDiagnosticViewToolbar(class QVBoxLayout *mainLayout);
+
     KateMainWindow *const m_mainWindow;
-    QTreeView *const m_diagnosticsTree;
+    class QTreeView *const m_diagnosticsTree;
+    class QToolButton *const m_clearButton;
+    class QLineEdit *const m_filterLineEdit;
+    // class QToolButton *const ss;
+
     QStandardItemModel m_model;
+    QSortFilterProxyModel *const m_proxy;
     QVector<DiagnosticsProvider *> m_providers;
     std::unique_ptr<SessionDiagnosticSuppressions> m_sessionDiagnosticSuppressions;
 
@@ -126,6 +133,7 @@ private:
 
     QMetaObject::Connection posChangedConnection;
     QTimer *const m_posChangedTimer;
+    QTimer *const m_filterChangedTimer;
 };
 
 #endif

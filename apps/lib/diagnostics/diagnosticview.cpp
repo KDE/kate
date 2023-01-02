@@ -12,6 +12,7 @@
 #include "session_diagnostic_suppression.h"
 
 #include <KActionCollection>
+#include <KTextEditor/Application>
 #include <KTextEditor/Editor>
 #include <KTextEditor/MarkInterface>
 #include <KTextEditor/MovingInterface>
@@ -21,11 +22,15 @@
 #include <QDebug>
 #include <QFileInfo>
 #include <QGuiApplication>
+#include <QLineEdit>
 #include <QMenu>
 #include <QPainter>
+#include <QSortFilterProxyModel>
 #include <QStyledItemDelegate>
 #include <QTextLayout>
 #include <QTimer>
+#include <QToolButton>
+#include <QTreeView>
 #include <QVBoxLayout>
 
 bool DiagnosticsProvider::hasTooltipForPos(KTextEditor::View *v, KTextEditor::Cursor pos) const
@@ -148,13 +153,23 @@ DiagnosticsView::DiagnosticsView(QWidget *parent, KateMainWindow *mainWindow)
     : QWidget(parent)
     , m_mainWindow(mainWindow)
     , m_diagnosticsTree(new QTreeView(this))
+    , m_clearButton(new QToolButton(this))
+    , m_filterLineEdit(new QLineEdit(this))
+    , m_proxy(new QSortFilterProxyModel(this))
     , m_sessionDiagnosticSuppressions(std::make_unique<SessionDiagnosticSuppressions>())
     , m_textHintProvider(new ForwardingTextHintProvider(this))
     , m_posChangedTimer(new QTimer(this))
+    , m_filterChangedTimer(new QTimer(this))
 {
     auto l = new QVBoxLayout(this);
     l->setContentsMargins({});
+    setupDiagnosticViewToolbar(l);
     l->addWidget(m_diagnosticsTree);
+
+    m_filterChangedTimer->setInterval(400);
+    m_filterChangedTimer->callOnTimeout(this, [this] {
+        m_proxy->setFilterRegularExpression(m_filterLineEdit->text());
+    });
 
     m_model.setColumnCount(1);
 
@@ -167,14 +182,19 @@ DiagnosticsView::DiagnosticsView(QWidget *parent, KateMainWindow *mainWindow)
     m_diagnosticsTree->setContextMenuPolicy(Qt::CustomContextMenu);
     m_diagnosticsTree->setItemDelegate(new LocationTreeDelegate(this));
 
-    m_diagnosticsTree->setModel(&m_model);
+    m_proxy->setSourceModel(&m_model);
+    m_proxy->setFilterKeyColumn(0);
+    m_proxy->setRecursiveFilteringEnabled(true);
+    m_proxy->setFilterRole(Qt::DisplayRole);
+
+    m_diagnosticsTree->setModel(m_proxy);
 
     connect(m_mainWindow->wrapper(), &KTextEditor::MainWindow::viewChanged, this, &DiagnosticsView::onViewChanged);
 
     connect(m_diagnosticsTree, &QTreeView::customContextMenuRequested, this, &DiagnosticsView::onContextMenuRequested);
     connect(m_diagnosticsTree, &QTreeView::clicked, this, &DiagnosticsView::goToItemLocation);
     connect(m_diagnosticsTree, &QTreeView::doubleClicked, this, [this](const QModelIndex &index) {
-        onDoubleClicked(index);
+        onDoubleClicked(m_proxy->mapToSource(index));
     });
 
     auto *ac = m_mainWindow->actionCollection();
@@ -195,6 +215,29 @@ DiagnosticsView::DiagnosticsView(QWidget *parent, KateMainWindow *mainWindow)
 DiagnosticsView::~DiagnosticsView()
 {
     m_textHintProvider->setView(nullptr);
+}
+
+void DiagnosticsView::setupDiagnosticViewToolbar(QVBoxLayout *mainLayout)
+{
+    mainLayout->setSpacing(2);
+    auto l = new QHBoxLayout();
+    mainLayout->addLayout(l);
+    l->addWidget(m_filterLineEdit);
+    m_filterLineEdit->setPlaceholderText(i18n("Filter..."));
+    m_filterLineEdit->setClearButtonEnabled(true);
+    connect(m_filterLineEdit, &QLineEdit::textChanged, m_filterChangedTimer, [this] {
+        m_filterChangedTimer->start();
+    });
+
+    m_clearButton->setIcon(QIcon::fromTheme(QStringLiteral("edit-clear-all")));
+    connect(m_clearButton, &QToolButton::clicked, this, [this] {
+        std::vector<KTextEditor::Document *> docs(m_diagnosticsMarks.begin(), m_diagnosticsMarks.end());
+        for (auto d : docs) {
+            clearAllMarks(d);
+        }
+        m_model.clear();
+    });
+    l->addWidget(m_clearButton);
 }
 
 void DiagnosticsView::onViewChanged(KTextEditor::View *v)
@@ -444,6 +487,10 @@ void DiagnosticsView::onDiagnosticsAdded(const FileDiagnostics &diagnostics)
     QStandardItemModel *model = &m_model;
     QStandardItem *topItem = getItem(m_model, diagnostics.uri);
 
+    auto toProxyIndex = [this](const QModelIndex &index) {
+        return m_proxy->mapFromSource(index);
+    };
+
     // current diagnostics row, if one of incoming diagnostics' document
     int row = -1;
     if (!topItem) {
@@ -458,7 +505,7 @@ void DiagnosticsView::onDiagnosticsAdded(const FileDiagnostics &diagnostics)
         topItem->setData(QVariant::fromValue(provider), DiagnosticModelRole::ProviderRole);
     } else {
         // try to retain current position
-        auto currentIndex = m_diagnosticsTree->currentIndex();
+        auto currentIndex = m_proxy->mapToSource(m_diagnosticsTree->currentIndex());
         if (currentIndex.parent() == topItem->index()) {
             row = currentIndex.row();
         }
@@ -513,12 +560,12 @@ void DiagnosticsView::onDiagnosticsAdded(const FileDiagnostics &diagnostics)
             relatedItemMessage->setData(diagnosticsIcon(DiagnosticSeverity::Information), Qt::DecorationRole);
             item->appendRow(relatedItemMessage);
         }
-        m_diagnosticsTree->setExpanded(item->index(), true);
+        m_diagnosticsTree->setExpanded(toProxyIndex(item->index()), true);
     }
 
     // TODO perhaps add some custom delegate that only shows 1 line
     // and only the whole text when item selected ??
-    m_diagnosticsTree->setExpanded(topItem->index(), true);
+    m_diagnosticsTree->setExpanded(toProxyIndex(topItem->index()), true);
 
     updateDiagnosticsState(topItem);
     // also sync updated diagnostic to current position
@@ -527,7 +574,7 @@ void DiagnosticsView::onDiagnosticsAdded(const FileDiagnostics &diagnostics)
         if (!syncDiagnostics(currentView->document(), currentView->cursorPosition().line(), false, false)) {
             // avoid jitter; only restore previous if applicable
             if (row >= 0 && row < topItem->rowCount()) {
-                m_diagnosticsTree->scrollTo(topItem->child(row)->index());
+                m_diagnosticsTree->scrollTo(toProxyIndex(topItem->child(row)->index()));
             }
         }
     }
@@ -815,7 +862,8 @@ void DiagnosticsView::updateDiagnosticsState(QStandardItem *topItem)
         if ((flags & ENABLED) != !hide) {
             flags = hide ? (flags & ~ENABLED) : (flags | ENABLED);
             item->setFlags(flags);
-            m_diagnosticsTree->setRowHidden(item->row(), topItem->index(), hide);
+            const auto proxyIdx = m_proxy->mapFromSource(item->index());
+            m_diagnosticsTree->setRowHidden(proxyIdx.row(), proxyIdx.parent(), hide);
         }
         count += hide ? 0 : 1;
     }
@@ -824,7 +872,8 @@ void DiagnosticsView::updateDiagnosticsState(QStandardItem *topItem)
     auto text = topItem->data(Qt::UserRole).toString();
     topItem->setText(suppressed ? i18nc("@info", "%1 [suppressed: %2]", text, suppressed) : text);
     // only hide if really nothing below
-    m_diagnosticsTree->setRowHidden(topItem->row(), QModelIndex(), totalCount == 0);
+    const auto proxyIdx = m_proxy->mapFromSource(topItem->index());
+    m_diagnosticsTree->setRowHidden(proxyIdx.row(), proxyIdx.parent(), totalCount == 0);
 
     updateMarks({QUrl::fromLocalFile(topItem->data(Qt::UserRole).toString())});
 }
@@ -893,8 +942,9 @@ bool DiagnosticsView::syncDiagnostics(KTextEditor::Document *document, int line,
     }
     if (targetItem) {
         m_diagnosticsTree->blockSignals(true);
-        m_diagnosticsTree->scrollTo(targetItem->index(), hint);
-        m_diagnosticsTree->setCurrentIndex(targetItem->index());
+        const auto idx = m_proxy->mapFromSource(targetItem->index());
+        m_diagnosticsTree->scrollTo(idx, hint);
+        m_diagnosticsTree->setCurrentIndex(idx);
         m_diagnosticsTree->blockSignals(false);
         if (doShow) {
             m_mainWindow->showToolView(parentWidget());
@@ -929,7 +979,7 @@ void DiagnosticsView::onContextMenuRequested(const QPoint &pos)
     menu->addAction(i18n("Collapse All"), m_diagnosticsTree, &QTreeView::collapseAll);
     menu->addSeparator();
 
-    QModelIndex index = m_diagnosticsTree->currentIndex();
+    QModelIndex index = m_proxy->mapToSource(m_diagnosticsTree->currentIndex());
     auto item = m_model.itemFromIndex(index);
     auto diagItem = dynamic_cast<DiagnosticItem *>(item);
     auto docDiagItem = dynamic_cast<DocumentDiagnosticItem *>(item);

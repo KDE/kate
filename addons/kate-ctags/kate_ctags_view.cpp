@@ -238,8 +238,10 @@ void KateCTagsView::stepBack()
     back = m_jumpStack.pop();
 
     m_mWin->openUrl(back.url);
-    m_mWin->activeView()->setCursorPosition(back.cursor);
-    m_mWin->activeView()->setFocus();
+    if (m_mWin->activeView()) {
+        m_mWin->activeView()->setCursorPosition(back.cursor);
+        m_mWin->activeView()->setFocus();
+    }
 }
 
 /******************************************************************/
@@ -468,8 +470,10 @@ void KateCTagsView::jumpToTag(const QString &file, const QString &pattern, const
 
     // save current location
     TagJump from;
-    from.url = m_mWin->activeView()->document()->url();
-    from.cursor = m_mWin->activeView()->cursorPosition();
+    if (auto v = m_mWin->activeView()) {
+        from.url = v->document()->url();
+        from.cursor = v->cursorPosition();
+    }
     m_jumpStack.push(from);
 
     // open/activate the new file

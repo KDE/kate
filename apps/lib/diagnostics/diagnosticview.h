@@ -93,7 +93,7 @@ private:
     void onDiagnosticsAdded(const FileDiagnostics &diagnostics);
     void clearDiagnosticsForStaleDocs(const QVector<QString> &filesToKeep, DiagnosticsProvider *provider);
     void updateDiagnosticsState(QStandardItem *topItem);
-    void updateMarks();
+    void updateMarks(const QList<QUrl> &urls = {});
     void goToItemLocation(QModelIndex index);
 
     void onViewChanged(KTextEditor::View *v);

@@ -771,12 +771,24 @@ void DiagnosticsView::clearAllMarks(KTextEditor::Document *doc)
     }
 }
 
-void DiagnosticsView::updateMarks()
+void DiagnosticsView::updateMarks(const QList<QUrl> &urls)
 {
-    KTextEditor::View *activeView = m_mainWindow->activeView();
-    KTextEditor::Document *doc = activeView ? activeView->document() : nullptr;
+    std::vector<KTextEditor::Document *> docs;
+    if (!urls.isEmpty()) {
+        auto app = KTextEditor::Editor::instance()->application();
+        for (const auto &url : urls) {
+            if (auto doc = app->findUrl(url)) {
+                docs.push_back(doc);
+            }
+        }
+    } else {
+        KTextEditor::View *activeView = m_mainWindow->activeView();
+        if (activeView && activeView->document()) {
+            docs.push_back(activeView->document());
+        }
+    }
 
-    if (doc) {
+    for (auto doc : docs) {
         clearAllMarks(doc);
         addMarks(doc);
     }
@@ -814,7 +826,7 @@ void DiagnosticsView::updateDiagnosticsState(QStandardItem *topItem)
     // only hide if really nothing below
     m_diagnosticsTree->setRowHidden(topItem->row(), QModelIndex(), totalCount == 0);
 
-    updateMarks();
+    updateMarks({QUrl::fromLocalFile(topItem->data(Qt::UserRole).toString())});
 }
 
 void DiagnosticsView::goToItemLocation(QModelIndex index)

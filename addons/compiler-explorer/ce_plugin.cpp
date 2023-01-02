@@ -5,6 +5,7 @@
 */
 #include "ce_plugin.h"
 #include "ce_widget.h"
+#include "ktexteditor_utils.h"
 
 #include <QAction>
 
@@ -49,6 +50,11 @@ CEPluginView::~CEPluginView()
 
 void CEPluginView::openANewTab()
 {
+    if (!m_mainWindow->activeView() || !m_mainWindow->activeView()->document()) {
+        Utils::showMessage(i18n("No file open"), {}, i18nc("error category title", "CompilerExplorer"), QStringLiteral("Error"));
+        return;
+    }
+
     m_mainWidget = new CEWidget(this, m_mainWindow);
 
     QWidget *mw = m_mainWindow->window();

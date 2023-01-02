@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the kate package.
 # Arif Budiman <arifpedia@gmail.com>, 2014, 2017.
 # Andhika Padmawan <andhika.padmawan@gmail.com>, 2014.
-# Wantoyo <wantoyek@gmail.com>, 2017, 2018, 2019, 2020, 2021, 2022.
+# Wantoyo <wantoyek@gmail.com>, 2017, 2018, 2019, 2020, 2021, 2022, 2023.
 # Linerly <linerly@protonmail.com>, 2022.
 #
 msgid ""
@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-30 03:15+0000\n"
-"PO-Revision-Date: 2022-09-27 18:24+0700\n"
+"PO-Revision-Date: 2023-01-02 07:25+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
 "Language: id\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 22.08.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -998,7 +998,7 @@ msgstr "Pengelola Pengaya"
 #: lib/kateconfigdialog.cpp:677 lib/kateconfigdialog.cpp:679
 #, kde-format
 msgid "User Feedback"
-msgstr "Tanggapan Pengguna"
+msgstr "Umpan Balik Pengguna"
 
 #: lib/kateconfigdialog.cpp:922
 #, kde-format

@@ -35,7 +35,7 @@ msgstr "txemaq@gmail.com"
 #, kde-format
 msgctxt "@title:window"
 msgid "Close files confirmation"
-msgstr "Confirmeu pel tancament de fitxers"
+msgstr "Confirmeu per al tancament de fitxers"
 
 #: close_confirm_dialog.cpp:72
 #, kde-format

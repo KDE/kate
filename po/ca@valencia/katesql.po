@@ -322,7 +322,7 @@ msgstr "Guarda i restaura les connexions a les sessions de Kate"
 #, kde-format
 msgctxt "@title:group"
 msgid "Output Customization"
-msgstr "Personalització de l'eixida"
+msgstr "Personalitzeu l'eixida"
 
 #: katesqlconfigpage.cpp:49
 #, kde-format

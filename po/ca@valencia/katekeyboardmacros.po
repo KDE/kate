@@ -48,7 +48,7 @@ msgstr "<b>Macros de teclat:</b> %1"
 #: keyboardmacrosplugin.cpp:242
 #, kde-format
 msgid "Recording…"
-msgstr "S'està enregistrant…"
+msgstr "S'està gravant…"
 
 #: keyboardmacrosplugin.cpp:278
 #, kde-format
@@ -63,7 +63,7 @@ msgstr "s'ha cancel·lat"
 #: keyboardmacrosplugin.cpp:278
 #, kde-format
 msgid "Recording %1"
-msgstr "S'està enregistrant %1"
+msgstr "S'està gravant %1"
 
 #: keyboardmacrosplugin.cpp:321
 #, kde-format

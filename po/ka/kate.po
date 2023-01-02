@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-01 01:03+0000\n"
-"PO-Revision-Date: 2022-12-30 06:20+0100\n"
+"PO-Revision-Date: 2023-01-01 06:48+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -201,7 +201,7 @@ msgstr "არასწორი ჰეში"
 #: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:343
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
-msgstr ""
+msgstr "%1 Git-ის რეპოში არ არსებობს."
 
 #: lib/commitfilesview.cpp:488
 #, kde-format
@@ -390,14 +390,13 @@ msgstr ""
 #: lib/filehistorywidget.cpp:299
 #, kde-format
 msgid "Failed to get file history: %1"
-msgstr ""
+msgstr "შეცდომა ფაილის ისტორიის მიღებისას: %1"
 
 #: lib/filehistorywidget.cpp:352
-#, fuzzy, kde-format
-#| msgid "File History"
+#, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
-msgstr "ფაილის ისტორია"
+msgstr "ფაილის ისტორია - %1"
 
 #: lib/kateapp.cpp:146
 #, kde-format
@@ -468,7 +467,7 @@ msgstr "Waldo Bastian"
 #: lib/kateapp.cpp:158
 #, kde-format
 msgid "The cool buffersystem"
-msgstr ""
+msgstr "ბუფერის საკაიფო განხორციელება"
 
 #: lib/kateapp.cpp:159
 #, kde-format
@@ -573,7 +572,7 @@ msgstr "Pablo Martín"
 #: lib/kateapp.cpp:171
 #, kde-format
 msgid "Python Plugin Developer"
-msgstr ""
+msgstr "Python -ის დამატების პროგრამისტი"
 
 #: lib/kateapp.cpp:174
 #, kde-format
@@ -583,7 +582,7 @@ msgstr "Gerald Senarclens de Grancy"
 #: lib/kateapp.cpp:175
 #, kde-format
 msgid "QA and Scripting"
-msgstr ""
+msgstr "ხარისხის კონტროლი, სკრიპტები"
 
 #: lib/kateapp.cpp:179
 #, kde-format
@@ -796,7 +795,7 @@ msgstr "ჟურნალი"
 #: lib/kateconfigdialog.cpp:399
 #, kde-format
 msgid "&Limit output view history:"
-msgstr ""
+msgstr "&შეზღუდვა:"
 
 #: lib/kateconfigdialog.cpp:405 lib/kateconfigdialog.cpp:469
 #, kde-format
@@ -926,7 +925,7 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:514
 #, kde-format
 msgid "Elide tab text"
-msgstr ""
+msgstr "ჩანართის ტექსტის შემოკლება"
 
 #: lib/kateconfigdialog.cpp:516
 #, kde-format
@@ -976,7 +975,7 @@ msgstr "სხვაობა"
 #: lib/kateconfigdialog.cpp:560
 #, kde-format
 msgid "Diff Style:"
-msgstr ""
+msgstr "სხვაობის სტილი:"
 
 #: lib/kateconfigdialog.cpp:565
 #, kde-format
@@ -1534,7 +1533,7 @@ msgstr "%1 ღილაკის ჩვენება"
 #: lib/katemdi.cpp:195
 #, kde-format
 msgid "Focus %1"
-msgstr ""
+msgstr "%1-ის ფოკუსი"
 
 #: lib/katemdi.cpp:1006
 #, kde-format
@@ -1700,7 +1699,7 @@ msgstr ""
 #: lib/katemwmodonhddialog.cpp:334
 #, kde-format
 msgid "Error Creating Diff"
-msgstr ""
+msgstr "სხვაობის შექმნის შეცდომა"
 
 #: lib/katemwmodonhddialog.cpp:341
 #, kde-format

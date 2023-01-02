@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-31 00:55+0000\n"
-"PO-Revision-Date: 2022-08-25 13:53+0200\n"
+"PO-Revision-Date: 2023-01-01 06:50+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,13 +16,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #. i18n: file: 7
 #, kde-format
 msgctxt "External tool name"
 msgid "Clang Format Full File"
-msgstr ""
+msgstr "Clang-ის ფაილის სრული ფორმატირება"
 
 #. i18n: file: 4
 #, kde-format
@@ -34,19 +34,19 @@ msgstr "ხელსაწყოები"
 #, kde-format
 msgctxt "External tool name"
 msgid "Clang Format Selected Text"
-msgstr ""
+msgstr "Clang-ის ფაილის მონიშნული ტექსტის ფორმატირება"
 
 #. i18n: file: 7
 #, kde-format
 msgctxt "External tool name"
 msgid "Compile and Run cpp"
-msgstr ""
+msgstr "Cpp-ის კომპილაცია და გაშვება"
 
 #. i18n: file: 7
 #, kde-format
 msgctxt "External tool name"
 msgid "git blame"
-msgstr ""
+msgstr "git blame"
 
 #. i18n: file: 4
 #. i18n: file: 3
@@ -71,7 +71,7 @@ msgstr "gitk"
 #, kde-format
 msgctxt "External tool name"
 msgid "Go Fmt Full File"
-msgstr ""
+msgstr "სრული ფაილის Go Fmt"
 
 #. i18n: file: 4
 #, kde-format
@@ -83,25 +83,25 @@ msgstr "გადასვლა"
 #, kde-format
 msgctxt "External tool name"
 msgid "GoImports Full File"
-msgstr ""
+msgstr "მთელი ფაილის GoImports"
 
 #. i18n: file: 8
 #, kde-format
 msgctxt "External tool name"
 msgid "Google Selected Text"
-msgstr ""
+msgstr "მონიშნული ტექსტის Google-ში მოძებნა"
 
 #. i18n: file: 7
 #, kde-format
 msgctxt "External tool name"
 msgid "Insert UUID"
-msgstr ""
+msgstr "UUID-ის ჩასმა"
 
 #. i18n: file: 9
 #, kde-format
 msgctxt "External tool name"
 msgid "JSON Format Full File"
-msgstr ""
+msgstr "მთელი ფაილის JSON ფორმატირება"
 
 #. i18n: file: 7
 #, kde-format
@@ -247,7 +247,7 @@ msgstr ""
 #: kateexternaltoolsconfigwidget.cpp:207
 #, kde-format
 msgid "Select Mime Types"
-msgstr ""
+msgstr "აირჩიეთ MIME ტიპები"
 
 #: kateexternaltoolsconfigwidget.cpp:233
 #, kde-format

@@ -1,11 +1,11 @@
 # Translation for kate.po to Euskara/Basque (eu).
-# Copyright (C) 2002-2022 This file is copyright:
+# Copyright (C) 2002-2023 This file is copyright:
 # This file is distributed under the same license as the kate package.
 # KDE euskaratzeko proiektuko arduraduna <xalba@ni.eus>.
 #
 # Translators:
 # Marcos  <marcos@euskalgnu.org>, 2002, 2003, 2004, 2005, 2006.
-# Iñigo Salvador Azurmendi <xalba@ni.eus>, 2004, 2005, 2011, 2018, 2019, 2020, 2021, 2022.
+# Iñigo Salvador Azurmendi <xalba@ni.eus>, 2004, 2005, 2011, 2018, 2019, 2020, 2021, 2022, 2023.
 # Juan Irigoien <juanirigoien@irakasle.net>, 2004.
 # Juan Irigoien <juanirigoien@yahoo.es>, 2004.
 # Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>, 2011.
@@ -14,14 +14,14 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-01 01:03+0000\n"
-"PO-Revision-Date: 2022-12-04 08:46+0100\n"
+"PO-Revision-Date: 2023-01-01 11:32+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.08.3\n"
+"X-Generator: Lokalize 22.12.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #, kde-format
@@ -44,6 +44,10 @@ msgid ""
 "vulnerabilities. Instead use Kate normally and you will be prompted for "
 "elevated privileges when saving documents if needed."
 msgstr ""
+"Kate «sudo» erabiliz ibiltzeak akatsak eragin ditzake eta segurtasun "
+"ahulezien aurrean zaurgarri utz zaitzake. Horren ordez erabili Kate era "
+"arruntean eta dokumentuak gordetzeko beharrezkoak badira, pribilegio "
+"garaiagoak eskatuko zaizkizu."
 
 #: kate/main.cpp:78
 msgid ""
@@ -51,6 +55,10 @@ msgid ""
 "vulnerabilities. Instead use Kate normally and you will be prompted for "
 "elevated privileges when saving documents if needed."
 msgstr ""
+"Kate «kdesu» erabiliz ibiltzeak akatsak eragin ditzake eta segurtasun "
+"ahulezien aurrean zaurgarri utz zaitzake. Horren ordez erabili Kate era "
+"arruntean eta dokumentuak gordetzeko beharrezkoak badira, pribilegio "
+"garaiagoak eskatuko zaizkizu."
 
 #: kate/main.cpp:131
 #, kde-format
@@ -174,6 +182,10 @@ msgid ""
 "vulnerabilities. Instead use KWrite normally and you will be prompted for "
 "elevated privileges when saving documents if needed."
 msgstr ""
+"KWrite «sudo» erabiliz ibiltzeak akatsak eragin ditzake eta segurtasun "
+"ahulezien aurrean zaurgarri utz zaitzake. Horren ordez erabili KWrite era "
+"arruntean eta dokumentuak gordetzeko beharrezkoak badira, pribilegio "
+"garaiagoak eskatuko zaizkizu."
 
 #: kwrite/main.cpp:46
 msgid ""
@@ -181,6 +193,10 @@ msgid ""
 "vulnerabilities. Instead use KWrite normally and you will be prompted for "
 "elevated privileges when saving documents if needed."
 msgstr ""
+"KWrite «kdesu» erabiliz ibiltzeak akatsak eragin ditzake eta segurtasun "
+"ahulezien aurrean zaurgarri utz zaitzake. Horren ordez erabili KWrite era "
+"arruntean eta dokumentuak gordetzeko beharrezkoak badira, pribilegio "
+"garaiagoak eskatuko zaizkizu."
 
 #: kwrite/main.cpp:94
 #, kde-format
@@ -414,11 +430,10 @@ msgid "Failed to get file history: %1"
 msgstr "Fitxategi-historia lortzea huts egin du: %1"
 
 #: lib/filehistorywidget.cpp:352
-#, fuzzy, kde-format
-#| msgid "File History"
+#, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
-msgstr "Fitxategi-historia"
+msgstr "Fitxategiaren historia - %1"
 
 #: lib/kateapp.cpp:146
 #, kde-format
@@ -781,7 +796,7 @@ msgstr "&Jokabidea"
 #: lib/kateconfigdialog.cpp:375
 #, kde-format
 msgid "Open each document in its own window"
-msgstr ""
+msgstr "Ireki dokumentu bakoitza bere leiho propioan"
 
 #: lib/kateconfigdialog.cpp:378
 #, kde-format
@@ -789,6 +804,8 @@ msgid ""
 "If enabled, each document will be opened in its own window. If not enabled, "
 "each document will be opened in a new tab in the current window."
 msgstr ""
+"Gaituz gero, dokumentu bakoitza bere leiho propioan irekiko da. Gaitzen ez "
+"bada, dokumentu bakoitza uneko leihoko fitxa berri batean irekiko da."
 
 #: lib/kateconfigdialog.cpp:388
 #, kde-format
@@ -1829,16 +1846,13 @@ msgid "Save Documents"
 msgstr "Gorde dokumentuak"
 
 #: lib/katesavemodifieddialog.cpp:155
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>The document '%1' has been modified, but not saved.</p><p>Do you want "
-#| "to save your changes or discard them?</p>"
+#, kde-format
 msgid ""
 "The document \"%1\" has been modified. Do you want to save your changes or "
 "discard them?"
 msgstr ""
-"<p>'%1' dokumentua aldatu egin da, baina ez da gorde.</p><p>Zure aldaketak "
-"gorde edo baztertu nahi dituzu?</p>"
+"'%1' dokumentua aldatu egin da. Zure aldaketak gorde edo baztertu nahi "
+"dituzu?"
 
 #: lib/katesavemodifieddialog.cpp:159
 #, kde-format

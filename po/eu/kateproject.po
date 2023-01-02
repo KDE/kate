@@ -1,16 +1,16 @@
 # Translation for kateproject.po to Euskara/Basque (eu).
-# Copyright (C) 2018-2022, This file is copyright:
+# Copyright (C) 2018-2023 This file is copyright:
 # This file is distributed under the same license as the kate package.
 # KDE euskaratzeko proiektuko arduraduna <xalba@ni.eus>
 #
 # Translators:
-# Iñigo Salvador Azurmendi <xalba@ni.eus>, 2018, 2019, 2020, 2022.
+# Iñigo Salvador Azurmendi <xalba@ni.eus>, 2018, 2019, 2020, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-29 00:55+0000\n"
-"PO-Revision-Date: 2022-12-03 10:01+0100\n"
+"PO-Revision-Date: 2023-01-01 10:55+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 22.08.3\n"
+"X-Generator: Lokalize 22.12.0\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -804,10 +804,9 @@ msgid "Project Manager"
 msgstr "Proiektu-kudeatzailea"
 
 #: kateprojectpluginview.cpp:76
-#, fuzzy, kde-format
-#| msgid "Restore Open Projects"
+#, kde-format
 msgid "Open projects list"
-msgstr "Lehengoratu Ireki proiektuak"
+msgstr "Ireki proiektuen zerrenda"
 
 #: kateprojectpluginview.cpp:81
 #, kde-format
@@ -815,8 +814,7 @@ msgid "Reload project"
 msgstr "Birzamatu proiektua"
 
 #: kateprojectpluginview.cpp:84
-#, fuzzy, kde-format
-#| msgid "Close Project"
+#, kde-format
 msgid "Close project"
 msgstr "Itxi proiektua"
 

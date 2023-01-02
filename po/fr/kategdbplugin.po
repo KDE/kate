@@ -6,20 +6,21 @@
 # Maxime Corteel <mcorteel@gmail.com>, 2015.
 # Xavier Besnard <xavier.besnard@neuf.fr>, 2020, 2021, 2022.
 #
+# Xavier BESNARD <xavier.besnard]neuf.fr>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-19 00:49+0000\n"
-"PO-Revision-Date: 2022-10-27 08:44+0200\n"
-"Last-Translator: Xavier Besnard <xavier.besnard@neuf.fr>\n"
-"Language-Team: French <kde-francophone@kde.org>\n"
+"PO-Revision-Date: 2023-01-01 11:23+0100\n"
+"Last-Translator: Xavier BESNARD <xavier.besnard]neuf.fr>\n"
+"Language-Team: fr\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.08.2\n"
+"X-Generator: Lokalize 22.12.0\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
@@ -200,16 +201,14 @@ msgid "*** gdb exited normally ***"
 msgstr "*** gdb s'est terminé normalement ***"
 
 #: debugview.cpp:617
-#, fuzzy, kde-format
-#| msgid "all threads continued"
+#, kde-format
 msgid "all threads running"
-msgstr "tous les processus reprennent"
+msgstr "tous les processus sont en cours d'exécution"
 
 #: debugview.cpp:619
-#, fuzzy, kde-format
-#| msgid "thread %1"
+#, kde-format
 msgid "thread(s) running: %1"
-msgstr "Processus %1"
+msgstr "Processus en cours d'exécution : %1"
 
 #: debugview.cpp:624 debugview_dap.cpp:269
 #, kde-format
@@ -227,16 +226,14 @@ msgid "Active thread: %1."
 msgstr "Processus actif : %1."
 
 #: debugview.cpp:649
-#, fuzzy, kde-format
-#| msgid "Current frame: "
+#, kde-format
 msgid "Current frame: %1:%2"
-msgstr "Trame courante :"
+msgstr "Trame courante : %1 : %2"
 
 #: debugview.cpp:676
-#, fuzzy, kde-format
-#| msgid "Target %1"
+#, kde-format
 msgid "Host: %1. Target: %1"
-msgstr "Cible %1"
+msgstr "Cible : %1. Cible : %1"
 
 #: debugview.cpp:1227
 #, kde-format
@@ -244,11 +241,13 @@ msgid ""
 "gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
 "Shutting down."
 msgstr ""
+"gdb-mi : impossible d'analyser la dernière réponse : %1. Trop d'erreurs "
+"consécutives. Arrêt en cours."
 
 #: debugview.cpp:1229
 #, kde-format
 msgid "gdb-mi: Could not parse last response: %1"
-msgstr ""
+msgstr "gdb-mi : impossible d'analyser la dernière réponse : %1"
 
 #: debugview_dap.cpp:168
 #, kde-format

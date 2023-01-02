@@ -9,7 +9,9 @@
 
 #include <KTextEditor/MainWindow>
 #include <QDir>
-#include <QRegularExpression>
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
 
 ESLintCurrentFile::ESLintCurrentFile(QObject *parent)
     : KateProjectCodeAnalysisTool(parent)
@@ -49,12 +51,11 @@ QStringList ESLintCurrentFile::arguments()
         return {};
     }
 
-    QStringList args;
-
-    args << QStringLiteral("eslint");
-    args << QStringLiteral("-f");
-    args << QStringLiteral("compact");
-    args << QStringLiteral("--cache");
+    QStringList args{
+        QStringLiteral("eslint"),
+        QStringLiteral("-f"),
+        QStringLiteral("json"),
+    };
     setActualFilesCount(1);
     const QString file = m_mainWindow->activeView()->document()->url().toLocalFile();
     if (file.isEmpty()) {
@@ -71,30 +72,57 @@ QString ESLintCurrentFile::notInstalledMessage() const
 
 FileDiagnostics ESLintCurrentFile::parseLine(const QString &line) const
 {
-    // INPUT: /path/to/file.js: line 7, col 2, Error - Unnecessary semicolon. (no-extra-semi)
-    static const QRegularExpression PARSE_LINE_REGEX(QStringLiteral("([^:]+): line (\\d+), col (\\d+), (\\w+) - (.+)"));
-    // OUT: file, line, column, severity, message
-    QRegularExpressionMatch match = PARSE_LINE_REGEX.match(line);
-    QStringList outList = match.capturedTexts();
-    if (outList.size() != 6) {
+    QJsonParseError e;
+    QJsonDocument d = QJsonDocument::fromJson(line.toUtf8(), &e);
+    if (e.error != QJsonParseError::NoError) {
         return {};
     }
-    outList.erase(outList.begin()); // remove first element
 
-    QUrl uri = QUrl::fromLocalFile(outList[0]);
-    Diagnostic d;
-    int ln = outList[1].toInt() - 1;
-    int col = outList[2].toInt() - 1;
-    d.range = {ln, col, ln, col};
-    if (outList[3].startsWith(QLatin1String("Error"))) {
-        d.severity = DiagnosticSeverity::Error;
-    } else {
-        d.severity = DiagnosticSeverity::Warning;
+    const auto arr = d.array();
+    if (arr.empty()) {
+        return {};
     }
-    d.message = outList[4];
-    d.source = QStringLiteral("eslint");
+    auto obj = arr.at(0).toObject();
+    QUrl uri = QUrl::fromLocalFile(obj.value(QStringLiteral("filePath")).toString());
+    if (!uri.isValid()) {
+        return {};
+    }
+    const auto messages = obj.value(QStringLiteral("messages")).toArray();
+    if (messages.empty()) {
+        return {};
+    }
 
-    return {uri, {d}};
+    QVector<Diagnostic> diags;
+    diags.reserve(messages.size());
+    for (const auto &m : messages) {
+        const auto msg = m.toObject();
+        if (msg.isEmpty()) {
+            continue;
+        }
+        const int startLine = msg.value(QStringLiteral("line")).toInt() - 1;
+        const int startColumn = msg.value(QStringLiteral("column")).toInt() - 1;
+        const int endLine = msg.value(QStringLiteral("endLine")).toInt() - 1;
+        const int endColumn = msg.value(QStringLiteral("endColumn")).toInt() - 1;
+        Diagnostic d;
+        d.range = {startLine, startColumn, endLine, endColumn};
+        if (!d.range.isValid()) {
+            continue;
+        }
+        d.code = msg.value(QStringLiteral("ruleId")).toString();
+        d.message = msg.value(QStringLiteral("message")).toString();
+        d.source = QStringLiteral("eslint");
+        const int severity = msg.value(QStringLiteral("severity")).toInt();
+        if (severity == 1) {
+            d.severity = DiagnosticSeverity::Warning;
+        } else if (severity == 2) {
+            d.severity = DiagnosticSeverity::Error;
+        } else {
+            // fallback, even though there is no other severity
+            d.severity = DiagnosticSeverity::Information;
+        }
+        diags << d;
+    }
+    return {uri, diags};
 }
 
 QString ESLintCurrentFile::stdinMessages()

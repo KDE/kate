@@ -591,6 +591,8 @@ void DiagnosticsView::clearDiagnosticsForStaleDocs(const QVector<QString> &files
     if (start != -1 && count != 0) {
         m_model.removeRows(start, count);
     }
+
+    updateMarks();
 }
 
 void DiagnosticsView::addMarks(KTextEditor::Document *doc, QStandardItem *item, RangeCollection *ranges, DocumentCollection *docs)

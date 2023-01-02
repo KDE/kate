@@ -616,12 +616,11 @@ void DiagnosticsView::addMarks(KTextEditor::Document *doc, QStandardItem *item)
     if (!range.isValid()) {
         return;
     }
-    const auto line = range.start().line();
-    const auto kind = item->data(DiagnosticModelRole::KindRole).value<DiagnosticSeverity>();
 
     KTextEditor::Attribute::Ptr attr;
-
     KTextEditor::MarkInterface::MarkTypes markType = markTypeDiagWarning;
+
+    const auto kind = item->data(DiagnosticModelRole::KindRole).value<DiagnosticSeverity>();
     switch (kind) {
     // use underlining for diagnostics to avoid lots of fancy flickering
     case DiagnosticSeverity::Error: {
@@ -702,6 +701,7 @@ void DiagnosticsView::addMarks(KTextEditor::Document *doc, QStandardItem *item)
         break;
     }
 
+    const auto line = range.start().line();
     iface->addMark(line, markType);
     m_diagnosticsMarks.insert(doc);
 
@@ -752,33 +752,23 @@ void DiagnosticsView::addMarks(KTextEditor::Document *doc)
     addMarksRec(doc, m_model.invisibleRootItem());
 }
 
-static void clearMarks(KTextEditor::Document *doc,
-                       QMultiHash<KTextEditor::Document *, KTextEditor::MovingRange *> &ranges,
-                       QSet<KTextEditor::Document *> &docs,
-                       uint markType)
-{
-    KTextEditor::MarkInterface *iface = docs.contains(doc) ? qobject_cast<KTextEditor::MarkInterface *>(doc) : nullptr;
-    if (iface) {
-        const QHash<int, KTextEditor::Mark *> marks = iface->marks();
-        QHashIterator<int, KTextEditor::Mark *> i(marks);
-        while (i.hasNext()) {
-            i.next();
-            if (i.value()->type & markType) {
-                iface->removeMark(i.value()->line, markType);
-            }
-        }
-        docs.remove(doc);
-    }
-
-    for (auto it = ranges.find(doc); it != ranges.end() && it.key() == doc;) {
-        delete it.value();
-        it = ranges.erase(it);
-    }
-}
-
 void DiagnosticsView::clearAllMarks(KTextEditor::Document *doc)
 {
-    clearMarks(doc, m_diagnosticsRanges, m_diagnosticsMarks, markTypeDiagAll);
+    KTextEditor::MarkInterface *iface = m_diagnosticsMarks.contains(doc) ? qobject_cast<KTextEditor::MarkInterface *>(doc) : nullptr;
+    if (iface) {
+        const QHash<int, KTextEditor::Mark *> marks = iface->marks();
+        for (auto mark : marks) {
+            if (mark->type & markTypeDiagAll) {
+                iface->removeMark(mark->line, markTypeDiagAll);
+            }
+        }
+        m_diagnosticsMarks.remove(doc);
+    }
+
+    for (auto it = m_diagnosticsRanges.find(doc); it != m_diagnosticsRanges.end() && it.key() == doc;) {
+        delete it.value();
+        it = m_diagnosticsRanges.erase(it);
+    }
 }
 
 void DiagnosticsView::updateMarks()
@@ -787,7 +777,7 @@ void DiagnosticsView::updateMarks()
     KTextEditor::Document *doc = activeView ? activeView->document() : nullptr;
 
     if (doc) {
-        clearMarks(doc, m_diagnosticsRanges, m_diagnosticsMarks, markTypeDiagAll);
+        clearAllMarks(doc);
         addMarks(doc);
     }
 }

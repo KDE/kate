@@ -125,7 +125,7 @@ private:
     // applied marks
     QSet<KTextEditor::Document *> m_diagnosticsMarks;
 
-    class ForwardingTextHintProvider *m_textHintProvider;
+    std::unique_ptr<class ForwardingTextHintProvider> m_textHintProvider;
 
     QMetaObject::Connection posChangedConnection;
     QTimer *const m_posChangedTimer;

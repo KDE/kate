@@ -108,6 +108,14 @@ public:
         Q_ASSERT(m_parent);
     }
 
+    ~ForwardingTextHintProvider()
+    {
+        if (m_view) {
+            auto iface = qobject_cast<KTextEditor::TextHintInterface *>(m_view);
+            iface->unregisterTextHintProvider(this);
+        }
+    }
+
     void setView(KTextEditor::View *v)
     {
         if (m_view) {

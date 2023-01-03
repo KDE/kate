@@ -817,7 +817,6 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="cs">Široká podpora protokolů pomocí kioslaves (http, ftp, ssh, webdav atd.)</li>
       <li xml:lang="da">Bred understøttelse af protokoller (http, ftp, ssh, webdav osv.) ved brug af kioslaves</li>
       <li xml:lang="de">Unterstützung für viele Protokolle (http, ftp, ssh, webdav usw.) unter Verwendung von Ein-/Ausgabemodulen</li>
-      <li xml:lang="el">Ευρεία υποστήριξη σε πρωτόκολλα (http, ftp, ssh, webdav κτλ.) με χρήση kioslaves</li>
       <li xml:lang="en-GB">Wide protocol support (http, ftp, ssh, webdav etc.) using kioslaves</li>
       <li xml:lang="es">Admite numerosos protocolos mediante el uso de kioslaves (http, ftp, ssh, webdav, etc.) </li>
       <li xml:lang="et">Laialdane protokollide (http, ftp, ssh, webdav jne.) toetus KIO moodulite vahendusel</li>

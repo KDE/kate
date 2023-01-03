@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-22 00:48+0000\n"
+"POT-Creation-Date: 2023-01-03 04:16+0000\n"
 "PO-Revision-Date: 2022-10-09 22:14+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -854,7 +854,7 @@ msgstr "Joan hona: %1"
 msgid "Projects Index"
 msgstr "Proiektuen indizea"
 
-#: kateprojectpluginview.cpp:819
+#: kateprojectpluginview.cpp:822
 #, kde-format
 msgid "Choose a directory"
 msgstr "Hautatu direktorio bat"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-29 00:51+0000\n"
+"POT-Creation-Date: 2023-01-03 04:16+0000\n"
 "PO-Revision-Date: 2022-01-29 09:23+0100\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -265,18 +265,18 @@ msgstr "Dodaj orodje izmed privzetih"
 msgid "Add Category"
 msgstr "Dodaj kategorijo"
 
-#: kateexternaltoolsconfigwidget.cpp:283 kateexternaltoolsconfigwidget.cpp:390
-#: kateexternaltoolsconfigwidget.cpp:436
+#: kateexternaltoolsconfigwidget.cpp:283 kateexternaltoolsconfigwidget.cpp:393
+#: kateexternaltoolsconfigwidget.cpp:439
 #, kde-format
 msgid "Uncategorized"
 msgstr "Nekategorizirano"
 
-#: kateexternaltoolsconfigwidget.cpp:478
+#: kateexternaltoolsconfigwidget.cpp:481
 #, kde-format
 msgid "New Category"
 msgstr "Nova kategorija"
 
-#: kateexternaltoolsconfigwidget.cpp:481
+#: kateexternaltoolsconfigwidget.cpp:484
 #, kde-format
 msgid "New Category %1"
 msgstr "Nova kategorija %1"

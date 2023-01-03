@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-29 00:51+0000\n"
+"POT-Creation-Date: 2023-01-03 04:16+0000\n"
 "PO-Revision-Date: 2022-08-19 20:36+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: https://t.me/Localizations_KDE_Indonesia\n"
@@ -274,18 +274,18 @@ msgstr "Tambahkan Alat dari Bakunya"
 msgid "Add Category"
 msgstr "Tambahkan Kategori"
 
-#: kateexternaltoolsconfigwidget.cpp:283 kateexternaltoolsconfigwidget.cpp:390
-#: kateexternaltoolsconfigwidget.cpp:436
+#: kateexternaltoolsconfigwidget.cpp:283 kateexternaltoolsconfigwidget.cpp:393
+#: kateexternaltoolsconfigwidget.cpp:439
 #, kde-format
 msgid "Uncategorized"
 msgstr "Tidak berkategori"
 
-#: kateexternaltoolsconfigwidget.cpp:478
+#: kateexternaltoolsconfigwidget.cpp:481
 #, kde-format
 msgid "New Category"
 msgstr "Kategori Baru"
 
-#: kateexternaltoolsconfigwidget.cpp:481
+#: kateexternaltoolsconfigwidget.cpp:484
 #, kde-format
 msgid "New Category %1"
 msgstr "Kategori Baru %1"

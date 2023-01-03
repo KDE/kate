@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate-ctags-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-07 00:50+0000\n"
+"POT-Creation-Date: 2023-01-03 04:16+0000\n"
 "PO-Revision-Date: 2022-01-25 18:48+0100\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@neuf.fr>\n"
 "Language-Team: French <kde-francophone@kde.org>\n"
@@ -371,12 +371,12 @@ msgstr "CTags"
 msgid "CTags Settings"
 msgstr "Paramètres de CTags"
 
-#: kate_ctags_plugin.cpp:229 kate_ctags_view.cpp:551
+#: kate_ctags_plugin.cpp:229 kate_ctags_view.cpp:555
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "Impossible de lancer « %1 ». Code de sortie = %2"
 
-#: kate_ctags_plugin.cpp:240 kate_ctags_view.cpp:563
+#: kate_ctags_plugin.cpp:240 kate_ctags_view.cpp:567
 #, kde-format
 msgid "The CTags executable crashed."
 msgstr "L'exécutable CTags s'est arrêté brutalement."
@@ -452,17 +452,17 @@ msgstr "Aller au symbole local"
 msgid "Go To Global Symbol"
 msgstr "Aller au symbole global"
 
-#: kate_ctags_view.cpp:315 kate_ctags_view.cpp:347
+#: kate_ctags_view.cpp:317 kate_ctags_view.cpp:349
 #, kde-format
 msgid "No hits found"
 msgstr "Aucun résultat n'a été trouvé"
 
-#: kate_ctags_view.cpp:540
+#: kate_ctags_view.cpp:544
 #, kde-format
 msgid "No folders or files to index"
 msgstr "Aucun dossier ou fichier à indexer"
 
-#: kate_ctags_view.cpp:565
+#: kate_ctags_view.cpp:569
 #, kde-format
 msgid "The CTags program exited with code %1: %2"
 msgstr "Le programme CTags s'est terminé avec le code %1 : %2"

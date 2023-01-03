@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Dimitris Kardarakos <dimkard@gmail.com>, 2014.
-# Stelios <sstavra@gmail.com>, 2018, 2019, 2021.
+# Stelios <sstavra@gmail.com>, 2018, 2019, 2021, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-14 03:46+0000\n"
-"PO-Revision-Date: 2021-06-14 10:00+0300\n"
+"PO-Revision-Date: 2023-01-02 09:38+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
 "Language: el\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 20.04.2\n"
+"X-Generator: Lokalize 21.12.3\n"
 
 #: katefiletree.cpp:127
 #, kde-format
@@ -41,9 +41,7 @@ msgid "Close the current document."
 msgstr "Κλείσιμο του τρέχοντος εγγράφου."
 
 #: katefiletree.cpp:135
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Expand recursively"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Expand Recursively"
 msgstr "Ανάπτυξη αναδρομικά"
@@ -54,9 +52,7 @@ msgid "Expand the file list sub tree recursively."
 msgstr "Ανάπτυξη του υπο-δέντρου της λίστας αρχείων αναδρομικά."
 
 #: katefiletree.cpp:139
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Collapse recursively"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Collapse Recursively"
 msgstr "Σύμπτυξη αναδρομικά"
@@ -92,7 +88,7 @@ msgstr "Άνοιγμα του φακέλου στον οποίο βρίσκετ�
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Location"
-msgstr ""
+msgstr "Αντιγραφή τοποθεσίας"
 
 #: katefiletree.cpp:154
 #, kde-format
@@ -201,7 +197,7 @@ msgstr "Ταξινόμηση κατά σειρά ανοίγματος"
 #: katefiletree.cpp:266 katefiletreeconfigpage.cpp:74
 #, kde-format
 msgid "Custom Sorting"
-msgstr ""
+msgstr "Προσαρμοσμένη ταξινόμηση"
 
 #: katefiletree.cpp:395
 #, kde-format
@@ -212,7 +208,7 @@ msgstr "Άνοιγμα με"
 #: katefiletree.cpp:409
 #, kde-format
 msgid "Show File Git History"
-msgstr ""
+msgstr "Εμφάνιση του ιστορικού git του αρχείου"
 
 #: katefiletree.cpp:448
 #, kde-format
@@ -378,8 +374,6 @@ msgstr "Διαμόρφωση εγγράφων"
 
 #: katefiletreemodel.cpp:493
 #, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open With"
 msgid "Open Widgets"
 msgstr "Άνοιγμα με"
 
@@ -402,15 +396,14 @@ msgid "Next Document"
 msgstr "Επόμενο έγγραφο"
 
 #: katefiletreeplugin.cpp:258
-#, fuzzy, kde-format
-#| msgid "&Show Active"
+#, kde-format
 msgid "&Show Active Document"
-msgstr "&Εμφάνιση ενεργού"
+msgstr "&Εμφάνιση ενεργού εγγράφου"
 
 #: katefiletreeplugin.cpp:263
 #, kde-format
 msgid "Save"
-msgstr ""
+msgstr "Αποθήκευση"
 
 #: katefiletreeplugin.cpp:264
 #, kde-format
@@ -420,19 +413,18 @@ msgstr "Αποθήκευση του τρέχοντος εγγράφου"
 #: katefiletreeplugin.cpp:268
 #, kde-format
 msgid "Save As"
-msgstr ""
+msgstr "Αποθήκευση ως"
 
 #: katefiletreeplugin.cpp:269
-#, fuzzy, kde-format
-#| msgid "Save current document under new name"
+#, kde-format
 msgid "Save the current document under a new name"
-msgstr "Αποθήκευση του τρέχοντος εγγράφου με νέο όνομα"
+msgstr "Αποθήκευση του τρέχοντος εγγράφου με ένα νέο όνομα"
 
 #. i18n: ectx: Menu (go)
 #: ui.rc:7
 #, kde-format
 msgid "&Go"
-msgstr ""
+msgstr "&Μετάβαση"
 
 #~ msgid "Rename file"
 #~ msgstr "Μετονομασία αρχείου"

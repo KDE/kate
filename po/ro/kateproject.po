@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-22 00:48+0000\n"
+"POT-Creation-Date: 2023-01-03 04:16+0000\n"
 "PO-Revision-Date: 2021-05-15 17:03+0100\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian\n"
@@ -857,7 +857,7 @@ msgstr "Mergi la: %1"
 msgid "Projects Index"
 msgstr "Index proiecte"
 
-#: kateprojectpluginview.cpp:819
+#: kateprojectpluginview.cpp:822
 #, kde-format
 msgid "Choose a directory"
 msgstr "Alegeți un dosar"

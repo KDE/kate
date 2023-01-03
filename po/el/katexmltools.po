@@ -4,26 +4,26 @@
 # Stergios Dramis <sdramis@egnatia.ee.auth.gr>, 2002-2004.
 # Spiros Georgaras <sng@hellug.gr>, 2005, 2007.
 # Dimitris Kardarakos <dimkard@gmail.com>, 2014.
+# Stelios <sstavra@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: katexmltools\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-27 00:48+0000\n"
-"PO-Revision-Date: 2014-11-25 16:31+0200\n"
-"Last-Translator: Dimitris Kardarakos <dimkard@gmail.com>\n"
+"PO-Revision-Date: 2023-01-02 21:16+0200\n"
+"Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.5\n"
+"X-Generator: Lokalize 21.12.3\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: plugin_katexmltools.cpp:117
-#, fuzzy, kde-format
-#| msgid "Kate XML Tools"
+#, kde-format
 msgid "XML Tools"
-msgstr "Εργαλεία Kate XML"
+msgstr "Εργαλεία XML"
 
 #: plugin_katexmltools.cpp:120
 #, kde-format

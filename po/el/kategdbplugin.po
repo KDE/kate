@@ -1,7 +1,7 @@
 # kategdbplugin.po translation el
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-# Stelios <sstavra@gmail.com>, 2012, 2013, 2015, 2020..
+# Stelios <sstavra@gmail.com>, 2012, 2013, 2015, 2020, 2023..
 # Dimitrios Glentadakis <dglent@gmail.com>, 2012.
 # Dimitris Kardarakos <dimkard@gmail.com>, 2014, 2015.
 msgid ""
@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-06 00:50+0000\n"
-"PO-Revision-Date: 2020-10-02 12:39+0300\n"
+"PO-Revision-Date: 2023-01-02 10:17+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
 "Language: el\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 20.04.2\n"
+"X-Generator: Lokalize 21.12.3\n"
 
 #. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
 #: advanced_settings.ui:17
@@ -104,6 +104,8 @@ msgid ""
 "A debugging session is on course. Please, use re-run or stop the current "
 "session."
 msgstr ""
+"Μια συνεδρία αποσφαλμάτωσης είναι σε εξέλιξη. Δώστε επανεκτέλεση ή διακόψτε "
+"την τρέχουσα συνεδρία."
 
 #: configview.cpp:85
 #, kde-format
@@ -133,7 +135,7 @@ msgstr "Κατάλογος εργασίας:"
 #: configview.cpp:126
 #, kde-format
 msgid "Process Id:"
-msgstr ""
+msgstr "Ταυτότητα διεργασίας:"
 
 #: configview.cpp:131
 #, kde-format
@@ -195,323 +197,316 @@ msgstr "*** το gdb τερματίστηκε κανονικά ***"
 #: debugview_dap.cpp:167
 #, kde-format
 msgid "DAP backend failed"
-msgstr ""
+msgstr "Αποτυχία συστήματος υποστήριξης DAP"
 
 #: debugview_dap.cpp:209
 #, kde-format
 msgid "program terminated"
-msgstr ""
+msgstr "το πρόγραμμα τερματίστηκε"
 
 #: debugview_dap.cpp:221
 #, kde-format
 msgid "requesting disconnection"
-msgstr ""
+msgstr "ζητείται αποσύνδεση"
 
 #: debugview_dap.cpp:235
 #, kde-format
 msgid "requesting shutdown"
-msgstr ""
+msgstr "ζητείται τερματισμός"
 
 #: debugview_dap.cpp:259
 #, kde-format
 msgid "DAP backend: %1"
-msgstr ""
+msgstr "Σύστημα υποστήριξης DAP: %1"
 
 #: debugview_dap.cpp:268
 #, kde-format
 msgid "stopped (%1)."
-msgstr ""
+msgstr "διακόπηκαν (%1)."
 
 #: debugview_dap.cpp:276
 #, kde-format
 msgid "Active thread: %1 (all threads stopped)."
-msgstr ""
+msgstr "Ενεργό νήμα: %1 (όλα τα νήματα διακόπηκαν)."
 
 #: debugview_dap.cpp:278
 #, kde-format
 msgid "Active thread: %1."
-msgstr ""
+msgstr "Ενεργό νήμα: %1."
 
 #: debugview_dap.cpp:283
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Breakpoint(s) reached:"
-msgstr "Σημείο διακοπής"
+msgstr "Σημείο διακοπής εντοπίστηκε:"
 
 #: debugview_dap.cpp:305
 #, kde-format
 msgid "(continued) thread %1"
-msgstr ""
+msgstr "(σε συνέχεια) νήμα %1"
 
 #: debugview_dap.cpp:307
 #, kde-format
 msgid "all threads continued"
-msgstr ""
+msgstr "όλα τα νήματα σε συνέχεια"
 
 #: debugview_dap.cpp:314
 #, kde-format
 msgid "(running)"
-msgstr ""
+msgstr "(εκτελείται)"
 
 #: debugview_dap.cpp:402
 #, kde-format
 msgid "*** connection with server closed ***"
-msgstr ""
+msgstr "*** η σύνδεση με τον διακομιστή έκλεισε ***"
 
 #: debugview_dap.cpp:409
 #, kde-format
 msgid "program exited with code %1"
-msgstr ""
+msgstr "το πρόγραμμα τερματίστηκε με κωδικό %1"
 
 #: debugview_dap.cpp:423
 #, kde-format
 msgid "*** waiting for user actions ***"
-msgstr ""
+msgstr "*** αναμονή για τις ενέργειες του χρήστη ***"
 
 #: debugview_dap.cpp:428
 #, kde-format
 msgid "error on response: %1"
-msgstr ""
+msgstr "σφάλμα στην απάντηση: %1"
 
 #: debugview_dap.cpp:443
-#, fuzzy, kde-format
-#| msgid "port"
+#, kde-format
 msgid "important"
-msgstr "θύρα"
+msgstr "σημαντικό"
 
 #: debugview_dap.cpp:446
 #, kde-format
 msgid "telemetry"
-msgstr ""
+msgstr "τηλεμετρία"
 
 #: debugview_dap.cpp:465
 #, kde-format
 msgid "debugging process [%1] %2"
-msgstr ""
+msgstr "διαδικασία αποσφαλμάτωσης [%1] %2"
 
 #: debugview_dap.cpp:467
 #, kde-format
 msgid "debugging process %1"
-msgstr ""
+msgstr "διαδικασία αποσφαλμάτωσης %1"
 
 #: debugview_dap.cpp:470
 #, kde-format
 msgid "Start method: %1"
-msgstr ""
+msgstr "Εκκίνηση μεθόδου: %1"
 
 #: debugview_dap.cpp:477
-#, fuzzy, kde-format
-#| msgid "Thread %1"
+#, kde-format
 msgid "thread %1"
-msgstr "Νήμα %1"
+msgstr "νήμα %1"
 
 #: debugview_dap.cpp:631
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "breakpoint set"
-msgstr "Σημείο διακοπής"
+msgstr "Σύνολο σημείων διακοπής"
 
 #: debugview_dap.cpp:640
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "breakpoint cleared"
-msgstr "Σημείο διακοπής"
+msgstr "Σημείο διακοπής καθαρό"
 
 #: debugview_dap.cpp:700
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "(%1) breakpoint"
-msgstr "Σημείο διακοπής"
+msgstr "(%1) σημείο διακοπής"
 
 #: debugview_dap.cpp:717
 #, kde-format
 msgid "<not evaluated>"
-msgstr ""
+msgstr "<not evaluated>"
 
 #: debugview_dap.cpp:739
 #, kde-format
 msgid "server capabilities"
-msgstr ""
+msgstr "δυνατότητες διακομιστή"
 
 #: debugview_dap.cpp:742
-#, fuzzy, kde-format
-#| msgid "port"
+#, kde-format
 msgid "supported"
-msgstr "θύρα"
+msgstr "υποστηρίζεται"
 
 #: debugview_dap.cpp:742
 #, kde-format
 msgid "unsupported"
-msgstr ""
+msgstr "δεν υποστηρίζεται"
 
 #: debugview_dap.cpp:745
-#, fuzzy, kde-format
-#| msgid "Insert breakpoint"
+#, kde-format
 msgid "conditional breakpoints"
-msgstr "Εισαγωγή σημείου διακοπής"
+msgstr "Σημεία διακοπής υπό συνθήκη"
 
 #: debugview_dap.cpp:746
-#, fuzzy, kde-format
-#| msgid "Insert breakpoint"
+#, kde-format
 msgid "function breakpoints"
-msgstr "Εισαγωγή σημείου διακοπής"
+msgstr "Σημεία διακοπής συνάρτησης"
 
 #: debugview_dap.cpp:747
 #, kde-format
 msgid "hit conditional breakpoints"
-msgstr ""
+msgstr "στόχευση σημείων διακοπής υπό συνθήκη"
 
 #: debugview_dap.cpp:748
 #, kde-format
 msgid "log points"
-msgstr ""
+msgstr "log points"
 
 #: debugview_dap.cpp:748
 #, kde-format
 msgid "modules request"
-msgstr ""
+msgstr "αίτημα αρθρωμάτων"
 
 #: debugview_dap.cpp:749
 #, kde-format
 msgid "goto targets request"
-msgstr ""
+msgstr "αίτημα μετάβασης στους προορισμούς"
 
 #: debugview_dap.cpp:750
 #, kde-format
 msgid "terminate request"
-msgstr ""
+msgstr "αίτημα τερματισμού"
 
 #: debugview_dap.cpp:751
 #, kde-format
 msgid "terminate debuggee"
-msgstr ""
+msgstr "τερματισμός προγράμματος σε αποσφαλμάτωση"
 
 #: debugview_dap.cpp:920
 #, kde-format
 msgid "syntax error: expression not found"
-msgstr ""
+msgstr "συντακτικό σφάλμα: η έκφραση δεν βρέθηκε"
 
 #: debugview_dap.cpp:938 debugview_dap.cpp:973 debugview_dap.cpp:1011
 #: debugview_dap.cpp:1045 debugview_dap.cpp:1081 debugview_dap.cpp:1117
 #: debugview_dap.cpp:1153 debugview_dap.cpp:1253 debugview_dap.cpp:1310
 #, kde-format
 msgid "syntax error: %1"
-msgstr ""
+msgstr "συντακτικό σφάλμα: %1"
 
 #: debugview_dap.cpp:946 debugview_dap.cpp:981 debugview_dap.cpp:1260
 #: debugview_dap.cpp:1318
 #, kde-format
 msgid "invalid line: %1"
-msgstr ""
+msgstr "μη έγκυρη γραμμή: %1"
 
 #: debugview_dap.cpp:953 debugview_dap.cpp:958 debugview_dap.cpp:988
 #: debugview_dap.cpp:993 debugview_dap.cpp:1284 debugview_dap.cpp:1289
 #: debugview_dap.cpp:1325 debugview_dap.cpp:1330
 #, kde-format
 msgid "file not specified: %1"
-msgstr ""
+msgstr "δεν ορίστηκε αρχείο: %1"
 
 #: debugview_dap.cpp:1023 debugview_dap.cpp:1057 debugview_dap.cpp:1093
 #: debugview_dap.cpp:1129 debugview_dap.cpp:1165
 #, kde-format
 msgid "invalid thread id: %1"
-msgstr ""
+msgstr "μη έγκυρη ταυτότητα νήματος: %1"
 
 #: debugview_dap.cpp:1029 debugview_dap.cpp:1063 debugview_dap.cpp:1099
 #: debugview_dap.cpp:1135 debugview_dap.cpp:1171
 #, kde-format
 msgid "thread id not specified: %1"
-msgstr ""
+msgstr "δεν ορίστηκε ταυτότητα νήματος: %1"
 
 #: debugview_dap.cpp:1182
 #, kde-format
 msgid "Available commands:"
-msgstr ""
+msgstr "Διαθέσιμες εντολές:"
 
 #: debugview_dap.cpp:1270
 #, kde-format
 msgid "conditional breakpoints are not supported by the server"
-msgstr ""
+msgstr "Ο διακομιστής δεν υποστηρίζει σημεία διακοπής υπό συνθήκη"
 
 #: debugview_dap.cpp:1278
 #, kde-format
 msgid "hit conditional breakpoints are not supported by the server"
 msgstr ""
+"η στόχευση των υπό συνθήκη σημείων διακοπής δεν υποστηρίζεται από τον "
+"διακομιστή"
 
 #: debugview_dap.cpp:1339
 #, kde-format
 msgid "breakpoint not found (%1:%2)"
-msgstr ""
+msgstr "δεν βρέθηκε σημείο διακοπής: (%1:%2)"
 
 #: debugview_dap.cpp:1348
 #, kde-format
 msgid "Current thread: "
-msgstr ""
+msgstr "Τρέχον νήμα: "
 
 #: debugview_dap.cpp:1353 debugview_dap.cpp:1360 debugview_dap.cpp:1384
 #, kde-format
 msgid "none"
-msgstr ""
+msgstr "κανένα"
 
 #: debugview_dap.cpp:1356
 #, kde-format
 msgid "Current frame: "
-msgstr ""
+msgstr "Τρέχον πλαίσιο: "
 
 #: debugview_dap.cpp:1363
 #, kde-format
 msgid "Session state: "
-msgstr ""
+msgstr "Κατάσταση συνεδρίας: "
 
 #: debugview_dap.cpp:1366
 #, kde-format
 msgid "initializing"
-msgstr ""
+msgstr "γίνεται αρχικοποίηση"
 
 #: debugview_dap.cpp:1369
 #, kde-format
 msgid "running"
-msgstr ""
+msgstr "εκτελείται"
 
 #: debugview_dap.cpp:1372
 #, kde-format
 msgid "stopped"
-msgstr ""
+msgstr "διακόπηκε"
 
 #: debugview_dap.cpp:1375
 #, kde-format
 msgid "terminated"
-msgstr ""
+msgstr "τερματίστηκε"
 
 #: debugview_dap.cpp:1378
 #, kde-format
 msgid "disconnected"
-msgstr ""
+msgstr "αποσυνδέθηκε"
 
 #: debugview_dap.cpp:1381
 #, kde-format
 msgid "post mortem"
-msgstr ""
+msgstr "νεκροψία"
 
 #: debugview_dap.cpp:1437
 #, kde-format
 msgid "command not found"
-msgstr ""
+msgstr "η εντολή δεν βρέθηκε"
 
 #: debugview_dap.cpp:1458
 #, kde-format
 msgid "missing thread id"
-msgstr ""
+msgstr "λείπει η ταυτότητα νήματος"
 
 #: debugview_dap.cpp:1566
 #, kde-format
 msgid "killing backend"
-msgstr ""
+msgstr "τερματισμός συστήματος υποστήριξης"
 
 #: debugview_dap.cpp:1624
 #, kde-format
 msgid "Current frame [%3]: %1:%2 (%4)"
-msgstr ""
+msgstr "Τρέχον πλαίσιο [%3]: %1:%2 (%4)"
 
 #: localsview.cpp:17
 #, kde-format
@@ -526,17 +521,17 @@ msgstr "Τιμή"
 #: localsview.cpp:41
 #, kde-format
 msgid "type"
-msgstr ""
+msgstr "τύπος"
 
 #: localsview.cpp:50
 #, kde-format
 msgid "indexed items"
-msgstr ""
+msgstr "δεικτοδοτημένα αντικείμενα"
 
 #: localsview.cpp:53
 #, kde-format
 msgid "named items"
-msgstr ""
+msgstr "αντικείμενα με όνομα"
 
 #: plugin_kategdb.cpp:65
 #, kde-format
@@ -700,6 +695,28 @@ msgstr "&Διόρθωση"
 #, kde-format
 msgid "GDB Plugin"
 msgstr "Πρόσθετο GDB"
+
+#~ msgid "all threads running"
+#~ msgstr "όλα τα νήματα εκτελούνται"
+
+#~ msgid "thread(s) running: %1"
+#~ msgstr "Νήμα(τα) σε εκτέλεση: %1"
+
+#~ msgid "Current frame: %1:%2"
+#~ msgstr "Τρέχον πλαίσιο: %1:%2"
+
+#~ msgid "Host: %1. Target: %1"
+#~ msgstr "Υπολογιστής: %1. Προορισμός: %1"
+
+#~ msgid ""
+#~ "gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
+#~ "Shutting down."
+#~ msgstr ""
+#~ "gdb-mi: Αδυναμία ανάλυσης της τελευταίας απάντησης: %1. Πάρα πολλά "
+#~ "συνεχόμενα σφάλματα. Γίνεται τερματισμός."
+
+#~ msgid "gdb-mi: Could not parse last response: %1"
+#~ msgstr "gdb-mi: Αδυναμία ανάλυσης της τελευταίας απάντησης: %1"
 
 #~ msgctxt "NAME OF TRANSLATORS"
 #~ msgid "Your names"

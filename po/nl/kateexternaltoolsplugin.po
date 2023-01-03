@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-29 00:51+0000\n"
+"POT-Creation-Date: 2023-01-03 04:16+0000\n"
 "PO-Revision-Date: 2022-01-27 10:49+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -266,18 +266,18 @@ msgstr "Hulpmiddel uit standaarden toevoegen"
 msgid "Add Category"
 msgstr "Categorie toevoegen"
 
-#: kateexternaltoolsconfigwidget.cpp:283 kateexternaltoolsconfigwidget.cpp:390
-#: kateexternaltoolsconfigwidget.cpp:436
+#: kateexternaltoolsconfigwidget.cpp:283 kateexternaltoolsconfigwidget.cpp:393
+#: kateexternaltoolsconfigwidget.cpp:439
 #, kde-format
 msgid "Uncategorized"
 msgstr "Niet-gecategoriseerd"
 
-#: kateexternaltoolsconfigwidget.cpp:478
+#: kateexternaltoolsconfigwidget.cpp:481
 #, kde-format
 msgid "New Category"
 msgstr "Nieuwe categorie"
 
-#: kateexternaltoolsconfigwidget.cpp:481
+#: kateexternaltoolsconfigwidget.cpp:484
 #, kde-format
 msgid "New Category %1"
 msgstr "Nieuwe categorie %1"

@@ -1,6 +1,6 @@
 # translation of kate.po to Polish
 # translation of kate.po to
-# Version: $Revision: 1641070 $
+# Version: $Revision: 1641323 $
 # Kate polish translation file.
 # Main translation work:
 #   Jacek Stolarczyk <jacek@mer.chemia.polsl.gliwice.pl>\n"
@@ -10,13 +10,13 @@
 # Robert Gomulka <rgom@o2.pl>, 2006.
 # Marta Rybczyńska <kde-i18n@rybczynska.net>, 2008, 2012, 2013.
 # Michał Smoczyk <msmoczyk@wp.pl>, 2009, 2010.
-# Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022.
+# Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-30 03:15+0000\n"
-"PO-Revision-Date: 2022-12-29 11:23+0100\n"
+"PO-Revision-Date: 2023-01-02 20:54+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -911,7 +911,7 @@ msgstr "&Mysz"
 #: lib/kateconfigdialog.cpp:518
 #, kde-format
 msgid "&Backward button pressed:"
-msgstr "&Naciśnięto przycisk wstecz:"
+msgstr "Po &naciśnięciu przycisku wstecz:"
 
 #: lib/kateconfigdialog.cpp:523
 #, kde-format
@@ -926,7 +926,7 @@ msgstr "Historia wstecz"
 #: lib/kateconfigdialog.cpp:529
 #, kde-format
 msgid "&Forward button pressed:"
-msgstr "Naciśnięto &przycisk wprzód:"
+msgstr "Po naciśnięciu &przycisku wprzód:"
 
 #: lib/kateconfigdialog.cpp:534
 #, kde-format
@@ -936,7 +936,7 @@ msgstr "Następna karta"
 #: lib/kateconfigdialog.cpp:534
 #, kde-format
 msgid "History forward"
-msgstr "Historia w przód"
+msgstr "Historia wprzód"
 
 #: lib/kateconfigdialog.cpp:542
 #, kde-format

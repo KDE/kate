@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-30 03:15+0000\n"
-"PO-Revision-Date: 2022-11-09 22:35+0100\n"
+"PO-Revision-Date: 2022-12-20 13:17+0100\n"
 "Last-Translator: Frank Steinmetzger <dev-kde@felsenfleischer.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -22,17 +22,17 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.08.3\n"
+"X-Generator: Lokalize 22.12.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Thomas Diehl, Frederik Schwarzer"
+msgstr "Thomas Diehl, Frederik Schwarzer, Frank Steinmetzger"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "thd@kde.org, schwarzer@kde.org"
+msgstr "thd@kde.org, schwarzer@kde.org, dev-kde@felsenfleischer.de"
 
 #: kate/main.cpp:106
 #, kde-format
@@ -1745,11 +1745,9 @@ msgid "Diff Output"
 msgstr "Diff-Ausgabe"
 
 #: lib/kateoutputview.cpp:158
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Copy to Clipboard"
+#, kde-format
 msgid "Copy all text to clipboard"
-msgstr "In die Zwischenablage kopieren"
+msgstr "Gesamten Text in die Zwischenablage kopieren"
 
 #: lib/kateoutputview.cpp:163
 #, kde-format

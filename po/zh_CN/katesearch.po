@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-20 00:55+0000\n"
-"PO-Revision-Date: 2022-12-24 11:45\n"
+"PO-Revision-Date: 2023-01-02 07:16\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -493,7 +493,7 @@ msgstr "小写捕捉 0-999"
 #: SearchPlugin.cpp:295
 #, kde-format
 msgid "Search & Replace"
-msgstr ""
+msgstr "搜索和替换"
 
 #: SearchPlugin.cpp:336
 #, kde-format
@@ -503,7 +503,7 @@ msgstr "在文件中查找"
 #: SearchPlugin.cpp:341
 #, kde-format
 msgid "Find in Files (in a New Tab)"
-msgstr ""
+msgstr "在文件中查找(在新标签页中)"
 
 #: SearchPlugin.cpp:347
 #, kde-format
@@ -576,7 +576,7 @@ msgstr "从最后一个匹配继续"
 #: SearchPlugin.cpp:2028
 #, kde-format
 msgid "Search: %1"
-msgstr ""
+msgstr "搜索：%1"
 
 #: SearchPlugin.cpp:2159
 #, kde-format
@@ -596,7 +596,7 @@ msgstr "导出匹配项"
 #: SearchPlugin.cpp:2173
 #, kde-format
 msgid "Open as Editor Tab"
-msgstr ""
+msgstr "以编辑器选项卡打开"
 
 #: SearchPlugin.cpp:2180
 #, kde-format

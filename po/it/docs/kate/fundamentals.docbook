@@ -917,6 +917,76 @@ action="simul"
 
 </sect1>
 
+<sect1 id="fundamentals-quick-open">
+<title
+>Apertura rapida</title>
+
+<para
+>Per essere in grado di aprire e di passare rapidamente tra i file, Kate ha una finestra di apertura rapida integrata. Puoi aprirla con <keycombo action="simul"
+>&Ctrl;&Alt;<keycap
+>O</keycap
+></keycombo
+>. </para>
+
+<para
+>L'apertura rapida può mostrare tutti i documenti aperti in Kate e in tutti i file nei progetti aperti. Per poter vedere i file di progetto devi abilitare l'<link linkend="kate-application-plugin-projects"
+>Estensione di progetto</link
+>. </para>
+
+<sect2>
+<title
+>Uso dell'apertura rapida</title>
+
+<para
+>L'uso dell'apertura rapida è molto semplice. Una volta aperta, digita il nome o la porzione del nome del file che vuoi aprire: la funzione filtrerà l'elenco in base a ciò che hai digitato. Premendo &Enter; il file selezionato verrà aperto, mentre con &Esc; l'apertura rapida verrà nascosta. </para>
+<para
+>Per impostazione predefinita, durante il filtraggio verrà associato solo il nome. Se vuoi associare il percorso ci deve essere un «/» nel testo digitato. Ad esempio, «documenti/pippo» farà corrispondere tutti i file nella cartella «documenti» che contengono «pippo». </para>
+<para
+>Quando la finestra si apre, i documenti già aperti sono evidenziati i grassetto e vengono elencati in cima. Inoltre, quando l'apertura rapida compare, il documento aperto in precedenza è già selezionato: devi solo premere &Enter; e verrai portato in quel documento. </para>
+
+</sect2>
+
+<sect2>
+<title
+>Configurazione dell'apertura rapida</title>
+<screenshot id="screenshot-project-quickopen">
+<screeninfo
+>Apertura rapida</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="project-quickopen.png" format="PNG"/></imageobject>
+</mediaobject>
+</screenshot>
+<para
+>L'apertura rapida fornisce un paio di opzioni di configurazione. Per avere accesso a queste opzioni, tasto destro nella riga di modifica. </para>
+<variablelist>
+<varlistentry>
+<term
+>Le opzioni attualmente disponibili sono:</term>
+<listitem>
+<para
+><userinput
+>Progetto attuale</userinput
+> - mostra solo i file dal progetto attuale</para>
+<para
+><userinput
+>Tutti i progetti</userinput
+> -mostra i file da tutti i progetti aperti</para>
+<para
+><userinput
+>Filtraggio approssimato</userinput
+> - usa l'algoritmo di ricerca approssimata per filtrare i file</para>
+<para
+><userinput
+>Filtraggio con caratteri jolly</userinput
+> - usa la corrispondenza con caratteri jolly per filtrare i file</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</sect2>
+
+</sect1>
+
 <sect1 id="fundamentals-getting-help">
 
 <title

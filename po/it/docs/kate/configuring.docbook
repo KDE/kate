@@ -458,7 +458,7 @@
 <term
 ><anchor id="config-dialog-sessions-shutdown-behavior"/>
 <guilabel
->Comportamento dell'applicazione alla chiusura</guilabel
+>Comportamento dell'applicazione all'avvio e alla chiusura</guilabel
 ></term>
 <listitem>
 <para

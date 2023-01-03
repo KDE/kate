@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-27 00:48+0000\n"
-"PO-Revision-Date: 2022-12-24 11:45\n"
+"PO-Revision-Date: 2023-01-02 07:16\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -20,79 +20,79 @@ msgstr ""
 #: keyboardmacrosplugin.cpp:76 keyboardmacrosplugin.cpp:112
 #, kde-format
 msgid "Could not open file '%1'."
-msgstr ""
+msgstr "无法打开文件“%1”。"
 
 #: keyboardmacrosplugin.cpp:82
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
-msgstr ""
+msgstr "错误格式的 JSON 文件“%1”：%2"
 
 #: keyboardmacrosplugin.cpp:90
 #, kde-format
 msgid "Could not load '%1': malformed macro; wiping it."
-msgstr ""
+msgstr "无法加载%1'：宏格式不正确；正在擦除。"
 
 #: keyboardmacrosplugin.cpp:131 keyboardmacrospluginview.cpp:35
 #: keyboardmacrospluginview.cpp:289 keyboardmacrospluginview.cpp:323
 #, kde-format
 msgid "Keyboard Macros"
-msgstr ""
+msgstr "键盘宏"
 
 #: keyboardmacrosplugin.cpp:143
 #, kde-format
 msgid "<b>Keyboard Macros:</b> %1"
-msgstr ""
+msgstr "<b>Keyboard Macros:</b> %1"
 
 #: keyboardmacrosplugin.cpp:242
 #, kde-format
 msgid "Recording…"
-msgstr ""
+msgstr "录制中"
 
 #: keyboardmacrosplugin.cpp:278
 #, kde-format
 msgid "ended"
-msgstr ""
+msgstr "已结束"
 
 #: keyboardmacrosplugin.cpp:278
 #, kde-format
 msgid "canceled"
-msgstr ""
+msgstr "已取消"
 
 #: keyboardmacrosplugin.cpp:278
 #, kde-format
 msgid "Recording %1"
-msgstr ""
+msgstr "正在录制 %1"
 
 #: keyboardmacrosplugin.cpp:321
 #, kde-format
 msgid "Saved '%1'"
-msgstr ""
+msgstr "已保存 '%1'"
 
 #: keyboardmacrosplugin.cpp:340
 #, kde-format
 msgid "Loaded '%1'"
-msgstr ""
+msgstr "已加载 ’%1‘"
 
 #: keyboardmacrosplugin.cpp:357
 #, kde-format
 msgid "Wiped '%1'"
-msgstr ""
+msgstr "已擦除 '%1'"
 
 #: keyboardmacrosplugincommands.cpp:31
 #, kde-format
 msgid "Usage: %1 <name>."
-msgstr ""
+msgstr "用法： %1 <name>。"
 
 #: keyboardmacrosplugincommands.cpp:45 keyboardmacrosplugincommands.cpp:60
 #: keyboardmacrosplugincommands.cpp:66
 #, kde-format
 msgid "No keyboard macro named '%1' found."
-msgstr ""
+msgstr "找不到名为 '%1' 的键盘宏。"
 
 #: keyboardmacrosplugincommands.cpp:54
 #, kde-format
 msgid "Cannot save empty keyboard macro."
-msgstr ""
+msgstr "无法保存空的键盘宏。"
 
 #: keyboardmacrosplugincommands.cpp:81
 #, kde-format
@@ -100,6 +100,8 @@ msgid ""
 "<qt><p>Usage: <code>kmsave &lt;name&gt;</code></p><p>Save current keyboard "
 "macro as <code>&lt;name&gt;</code>.</p>%1</qt>"
 msgstr ""
+"<qt><p>用法： <code>kmsave &lt;name&gt;</code></p><p>保存当前键盘宏为 "
+"<code>&lt;name&gt;</code></p>%1</qt>"
 
 #: keyboardmacrosplugincommands.cpp:84
 #, kde-format
@@ -107,6 +109,8 @@ msgid ""
 "<qt><p>Usage: <code>kmload &lt;name&gt;</code></p><p>Load saved keyboard "
 "macro <code>&lt;name&gt;</code> as current macro.</p>%1</qt>"
 msgstr ""
+"<qt><p>用法： <code>kmload &lt;name&gt;</code></p><p>加载已保存的键盘宏 "
+"<code>&lt;name&gt;</code> 为当前宏</p>%1</qt>"
 
 #: keyboardmacrosplugincommands.cpp:88
 #, kde-format
@@ -114,6 +118,8 @@ msgid ""
 "<qt><p>Usage: <code>kmplay &lt;name&gt;</code></p><p>Play saved keyboard "
 "macro <code>&lt;name&gt;</code> without loading it.</p>%1</qt>"
 msgstr ""
+"<qt><p>用法： <code>kmplay &lt;name&gt;</code></p><p> 直接执行已保存的键盘宏 "
+"<code>&lt;name&gt;</code> 而不加载 </p>%1</qt>"
 
 #: keyboardmacrosplugincommands.cpp:92
 #, kde-format
@@ -121,122 +127,124 @@ msgid ""
 "<qt><p>Usage: <code>kmwipe &lt;name&gt;</code></p><p>Wipe saved keyboard "
 "macro <code>&lt;name&gt;</code>.</p>%1</qt>"
 msgstr ""
+"<qt><p>用法： <code>kmwipe &lt;name&gt;</code></p><p> 擦除保存的键盘宏 "
+"<code>&lt;name&gt;</code></p>%1</qt>"
 
 #: keyboardmacrospluginview.cpp:38
 #, kde-format
 msgid "&Keyboard Macros"
-msgstr ""
+msgstr "&键盘宏"
 
 #: keyboardmacrospluginview.cpp:41
 #, kde-format
 msgid "Record and play keyboard macros."
-msgstr ""
+msgstr "录制和运行键盘宏。"
 
 #: keyboardmacrospluginview.cpp:46 keyboardmacrospluginview.cpp:163
 #, kde-format
 msgid "&Record Macro..."
-msgstr ""
+msgstr "&录制宏..."
 
 #: keyboardmacrospluginview.cpp:48
 #, kde-format
 msgid "Start/stop recording a macro (i.e., keyboard action sequence)."
-msgstr ""
+msgstr "开始/停止录制键盘宏（即键盘动作序列）。"
 
 #: keyboardmacrospluginview.cpp:57
 #, kde-format
 msgid "&Cancel Macro Recording"
-msgstr ""
+msgstr "&取消宏录制"
 
 #: keyboardmacrospluginview.cpp:59
 #, kde-format
 msgid ""
 "Cancel ongoing recording (and keep the previous macro as the current one)."
-msgstr ""
+msgstr "取消正在进行的录制(并保持原宏为当前宏)。"
 
 #: keyboardmacrospluginview.cpp:69
 #, kde-format
 msgid "&Play Macro"
-msgstr ""
+msgstr "&运行宏"
 
 #: keyboardmacrospluginview.cpp:71
 #, kde-format
 msgid ""
 "Play current macro (i.e., execute the last recorded keyboard action "
 "sequence)."
-msgstr ""
+msgstr "运行当前宏(即执行上次录制的键盘动作序列)。"
 
 #: keyboardmacrospluginview.cpp:81
 #, kde-format
 msgid "&Save Current Macro"
-msgstr ""
+msgstr "&保存当前宏..."
 
 #: keyboardmacrospluginview.cpp:83
 #, kde-format
 msgid "Give a name to the current macro and persistently save it."
-msgstr ""
+msgstr "给当前宏命名并保存。"
 
 #: keyboardmacrospluginview.cpp:95
 #, kde-format
 msgid "&Load Named Macro..."
-msgstr ""
+msgstr "&加载已命名的宏..."
 
 #: keyboardmacrospluginview.cpp:98
 #, kde-format
 msgid "Load a named macro as the current one."
-msgstr ""
+msgstr "加载一个已命名的宏作为当前宏."
 
 #: keyboardmacrospluginview.cpp:103
 #, kde-format
 msgid "&Play Named Macro..."
-msgstr ""
+msgstr "&运行已命名的宏..."
 
 #: keyboardmacrospluginview.cpp:106
 #, kde-format
 msgid "Play a named macro without loading it."
-msgstr ""
+msgstr "运行一个已命名的宏而不加载它。"
 
 #: keyboardmacrospluginview.cpp:111
 #, kde-format
 msgid "&Wipe Named Macro..."
-msgstr ""
+msgstr "&擦除已命名的宏..."
 
 #: keyboardmacrospluginview.cpp:114
 #, kde-format
 msgid "Wipe a named macro."
-msgstr ""
+msgstr "擦除一个已命名的宏."
 
 #: keyboardmacrospluginview.cpp:155
 #, kde-format
 msgid "End Macro &Recording"
-msgstr ""
+msgstr "结束宏 & 宏录制"
 
 #: keyboardmacrospluginview.cpp:183
 #, kde-format
 msgid "Load the '%1' macro as the current one."
-msgstr ""
+msgstr "加载 '%1' 宏作为当前宏."
 
 #: keyboardmacrospluginview.cpp:196
 #, kde-format
 msgid "Play the '%1' macro without loading it."
-msgstr ""
+msgstr "运行 '%1' 宏而不加载它。"
 
 #: keyboardmacrospluginview.cpp:211
 #, kde-format
 msgid "Wipe the '%1' macro."
-msgstr ""
+msgstr "擦除 '%1' 宏。"
 
 #: keyboardmacrospluginview.cpp:289
 #, kde-format
 msgid "Save current macro as?"
-msgstr ""
+msgstr "将当前宏另存为？"
 
 #: keyboardmacrospluginview.cpp:323
 #, kde-format
 msgid "Wipe the '%1' macro?"
-msgstr ""
+msgstr "确定擦除 '%1' 宏吗？"
 
 #. i18n: ectx: Menu (tools)
 #: ui.rc:6
 #, kde-format
 msgid "&Tools"
-msgstr ""
+msgstr "&工具"

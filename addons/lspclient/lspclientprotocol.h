@@ -300,36 +300,12 @@ struct LSPFormattingOptions {
 };
 
 using LSPDiagnosticSeverity = DiagnosticSeverity;
-// enum class LSPDiagnosticSeverity {
-//     Unknown = 0,
-//     Error = 1,
-//     Warning = 2,
-//     Information = 3,
-//     Hint = 4,
-// };
 
 using LSPDiagnosticRelatedInformation = DiagnosticRelatedInformation;
-// struct LSPDiagnosticRelatedInformation {
-//     // empty url / invalid range when absent
-//     LSPLocation location;
-//     QString message;
-// };
 
 using LSPDiagnostic = Diagnostic;
-// struct LSPDiagnostic {
-//     LSPRange range;
-//     LSPDiagnosticSeverity severity;
-//     QString code;
-//     QString source;
-//     QString message;
-//     QList<LSPDiagnosticRelatedInformation> relatedInformation;
-// };
 
 using LSPPublishDiagnosticsParams = FileDiagnostics;
-// struct LSPPublishDiagnosticsParams {
-//     QUrl uri;
-//     QList<LSPDiagnostic> diagnostics;
-// };
 
 enum class LSPMessageType { Error = 1, Warning = 2, Info = 3, Log = 4 };
 

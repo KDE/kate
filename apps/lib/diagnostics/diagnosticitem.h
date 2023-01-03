@@ -32,8 +32,6 @@ enum {
 // a bit more convenient than the variant/role way
 struct DiagnosticItem : public QStandardItem {
     Diagnostic m_diagnostic;
-    // CodeAction m_codeAction;
-    // QSharedPointer<LSPClientRevisionSnapshot> m_snapshot;
 
     DiagnosticItem(const Diagnostic &d)
         : m_diagnostic(d)
@@ -44,18 +42,6 @@ struct DiagnosticItem : public QStandardItem {
     {
         return DiagnosticItem_Diag;
     }
-
-    // DiagnosticItem(const LSPCodeAction &c, QSharedPointer<LSPClientRevisionSnapshot> s)
-    //     : m_codeAction(c)
-    //     , m_snapshot(std::move(s))
-    // {
-    //     m_diagnostic.range = LSPRange::invalid();
-    // }
-
-    // bool isCodeAction() const
-    // {
-    //     return !m_diagnostic.range.isValid() && m_codeAction.title.size();
-    // }
 };
 
 // likewise; a custom item for document level model item

@@ -142,12 +142,15 @@ void KateProjectView::checkAndRefreshGit()
         auto act = m_branchBtn->defaultAction();
         Q_ASSERT(act);
         act->setText(GitUtils::getCurrentBranchName(dotGitPath.value()));
+        const QString fileToWatch = dotGitPath.value() + QStringLiteral(".git/HEAD");
+        // fileToWatch == m_branchChangedWatcherFile can be true, but doesn't matter. We MUST always
+        // re add the file otherwise it will not work.
 
-        // watch new file if needed
-        if (const QString fileToWatch = dotGitPath.value() + QStringLiteral(".git/HEAD"); fileToWatch != m_branchChangedWatcherFile) {
-            if (!m_branchChangedWatcherFile.isEmpty()) {
-                m_pluginView->plugin()->fileWatcher().removePath(m_branchChangedWatcherFile);
-            }
+        if (!m_branchChangedWatcherFile.isEmpty()) {
+            m_pluginView->plugin()->fileWatcher().removePath(m_branchChangedWatcherFile);
+            m_branchChangedWatcherFile.clear();
+        }
+        if (QFileInfo::exists(fileToWatch)) {
             m_branchChangedWatcherFile = fileToWatch;
             m_pluginView->plugin()->fileWatcher().addPath(m_branchChangedWatcherFile);
         }

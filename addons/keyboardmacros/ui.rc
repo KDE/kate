@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
-<gui name="keyboardmacrosplugin" library="libkeyboardmacrosplugin" version="1" translationDomain="katekeyboardmacros">
+<gui name="keyboardmacrosplugin" library="libkeyboardmacrosplugin" version="2" translationDomain="katekeyboardmacros">
   <MenuBar>
     <Menu name="tools">
       <text>&amp;Tools</text>
@@ -8,5 +8,8 @@
       <Action name="keyboardmacros" />
     </Menu>
   </MenuBar>
+  <ToolBar name="keyboardmacros">
+    <text>Keyboard Macros</text>
+  </ToolBar>
 </gui>
 <!-- kate: space-indent on; indent-width 4; replace-tabs on; -->

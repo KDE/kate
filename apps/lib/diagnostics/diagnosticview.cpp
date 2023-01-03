@@ -724,7 +724,7 @@ void DiagnosticsView::addMarks(KTextEditor::Document *doc, QStandardItem *item)
         mr->setZDepth(-90000.0); // Set the z-depth to slightly worse than the selection
         mr->setAttribute(attr);
         mr->setAttributeOnlyForViews(true);
-        m_diagnosticsRanges.insert(doc, mr);
+        m_diagnosticsRanges[doc].push_back(mr);
     }
 
     KTextEditor::MarkInterfaceV2 *iface = qobject_cast<KTextEditor::MarkInterfaceV2 *>(doc);
@@ -812,8 +812,11 @@ void DiagnosticsView::clearAllMarks(KTextEditor::Document *doc)
         m_diagnosticsMarks.remove(doc);
     }
 
-    for (auto it = m_diagnosticsRanges.find(doc); it != m_diagnosticsRanges.end() && it.key() == doc;) {
-        delete it.value();
+    auto it = m_diagnosticsRanges.find(doc);
+    if (it != m_diagnosticsRanges.end()) {
+        for (auto range : it.value()) {
+            delete range;
+        }
         it = m_diagnosticsRanges.erase(it);
     }
 }

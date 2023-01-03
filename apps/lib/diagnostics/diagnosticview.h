@@ -24,9 +24,6 @@ class SessionDiagnosticSuppressions;
 class KateMainWindow;
 class QSortFilterProxyModel;
 
-typedef QMultiHash<KTextEditor::Document *, KTextEditor::MovingRange *> RangeCollection;
-typedef QSet<KTextEditor::Document *> DocumentCollection;
-
 class KATE_PRIVATE_EXPORT DiagnosticsProvider : public QObject
 {
     Q_OBJECT
@@ -118,16 +115,15 @@ private:
     class QTreeView *const m_diagnosticsTree;
     class QToolButton *const m_clearButton;
     class QLineEdit *const m_filterLineEdit;
-    // class QToolButton *const ss;
 
     QStandardItemModel m_model;
     QSortFilterProxyModel *const m_proxy;
     QVector<DiagnosticsProvider *> m_providers;
     std::unique_ptr<SessionDiagnosticSuppressions> m_sessionDiagnosticSuppressions;
 
-    RangeCollection m_diagnosticsRanges;
+    QHash<KTextEditor::Document *, QVector<KTextEditor::MovingRange *>> m_diagnosticsRanges;
     // applied marks
-    DocumentCollection m_diagnosticsMarks;
+    QSet<KTextEditor::Document *> m_diagnosticsMarks;
 
     class ForwardingTextHintProvider *m_textHintProvider;
 

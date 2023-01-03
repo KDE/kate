@@ -2,13 +2,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Stelios <sstavra@gmail.com>, 2016.
+# Stelios <sstavra@gmail.com>, 2016, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: katexmlcheck\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-27 00:48+0000\n"
-"PO-Revision-Date: 2016-06-18 14:03+0200\n"
+"PO-Revision-Date: 2023-01-02 21:14+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
 "Language: el\n"
@@ -16,19 +16,17 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 2.0\n"
+"X-Generator: Lokalize 21.12.3\n"
 
 #: plugin_katexmlcheck.cpp:98
-#, fuzzy, kde-format
-#| msgid "XML Checker Output"
+#, kde-format
 msgid "XML Check"
-msgstr "Αποτέλεσμα ελέγχου του XML"
+msgstr "Έλεγχος XML"
 
 #: plugin_katexmlcheck.cpp:105
-#, fuzzy, kde-format
-#| msgid "XML Checker Output"
+#, kde-format
 msgid "XML Checker"
-msgstr "Αποτέλεσμα ελέγχου του XML"
+msgstr "Έλεγκτής XML"
 
 #: plugin_katexmlcheck.cpp:109
 #, kde-format
@@ -61,16 +59,13 @@ msgid "<b>Error:</b> Could not create temporary file '%1'."
 msgstr "<b>Σφάλμα:</b> Αδυναμία δημιουργίας προσωρινού αρχείου '%1'."
 
 #: plugin_katexmlcheck.cpp:307
-#, fuzzy, kde-format
-#| msgid ""
-#| "<b>Error:</b> Failed to execute xmllint. Please make sure that xmllint is "
-#| "installed. It is part of libxml2."
+#, kde-format
 msgid ""
 "<b>Error:</b> Failed to find xmllint. Please make sure that xmllint is "
 "installed. It is part of libxml2."
 msgstr ""
-"<b>Σφάλμα:</b> Αποτυχία εκτέλεσης του xmllint. Βεβαιωθείτε ότι το xmllint "
-"έχει εγκατασταθεί. Είναι τμήμα του libxml2."
+"<b>Σφάλμα:</b> Αποτυχία εύρεσης του xmllint. Βεβαιωθείτε ότι το xmllint έχει "
+"εγκατασταθεί. Είναι τμήμα του libxml2."
 
 #: plugin_katexmlcheck.cpp:394
 #, kde-format

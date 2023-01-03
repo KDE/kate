@@ -148,6 +148,18 @@
 
 <varlistentry>
 <term
+><anchor id="config-dialog-general-open-each-document"/>
+<guilabel
+>Apri ogni documento nella sua finestra</guilabel
+></term>
+<listitem
+><para
+>Se abilitato, ogni documento verrà aperto nella sua finestra, diversamente verrà aperto in una nuova scheda della finestra corrente.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
 ><anchor id="config-dialog-general-switch-to-output"/>
 <guilabel
 >Passa alla visualizzazione dell'output in base al tipo di messaggio</guilabel
@@ -458,7 +470,7 @@
 <term
 ><anchor id="config-dialog-sessions-shutdown-behavior"/>
 <guilabel
->Comportamento dell'applicazione alla chiusura</guilabel
+>Comportamento dell'applicazione all'avvio e alla chiusura</guilabel
 ></term>
 <listitem>
 <para

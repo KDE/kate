@@ -3378,14 +3378,24 @@ kate /path/to/folder
         "CMakeLists.txt",
         "Find*.cmake"
       ],
-      "recursive": 1
+      "recursive": 1,
+      "hidden": 1
     }
+  ],
+  "exclude_patterns" : [
+    "^build/.*"
   ]
 }
 </screen>
 
 <para
->Qui le sottocartelle ed i filtri definiscono ciò che fa parte del progetto; puoi anche mescolare il controllo della versione con dei file basati sui filtri. </para>
+>Qui le sotto-cartelle e i filtri definiscono qual è parte del progetto. Puoi anche mischiare controllo della versione e file in base ai filtri. I file nascosti non verranno recuperati se l'opzione <code
+>"hidden"</code
+> è 0. <code
+>"exclude_patterns"</code
+> è un elenco di modelli di espressioni regolari che possono essere usati per escludere file e cartelle dall'albero del progetto. In questo esempio verranno esclusi tutti i file e le cartelle in una cartella <filename
+>build</filename
+>. </para>
 
 <para id="projects-build-support"
 >Se vuoi aggiungere il supporto per la compilazione, allora puoi scrivere un <filename
@@ -4168,7 +4178,7 @@ Projects Replicode run / stop-->
 >«HighlightingModeRegex» viene usato per associare la modalità di evidenziazione usata da &kate; all'ID del linguaggio del server. Se non viene fornita alcuna espressione regolare, viene utilizzato l'id del linguaggio stesso. Se una voce «documentLanguageId» viene impostata a falso allora non viene fornito al server nessun ID del linguaggio all'apertura del documento. Questo potrebbe dare dei risultati migliori su alcuni server che sono più precisi nel determinare il tipo di documento piuttosto che farlo in base alla modalità di kate. </para>
 
 <para
->Dall'esempio qui sopra, il principio è probabilmente chiaro. Inoltre, ciascun oggetto di voce del server può avere anche una voce «initializationOptions», che viene passata al server come parte del metodo «initialize». Se presente, viene passata al server una voce «settings» per mezzo della notifica «workspace/didChangeConfiguration». </para>
+>Dall'esempio qui sopra, il principio è probabilmente chiaro. Inoltre, ciascun oggetto di voce del server può avere anche una voce «initializationOptions», che viene passata al server come parte del metodo «initialize». Se presente, viene passata al server una voce «settings» per mezzo della notifica «workspace/didChangeConfiguration». Sia «completionTriggerCharacters» che «signatureTriggerCharacters» possono essere specificati come oggetto JSON col membro stringa «exclude» oppure «include». Questi verranno usati per, rispettivamente, escludere o aggiungere alcuni caratteri ai rispettivi attuatori impostati come forniti dal server. </para>
 
 <para
 >Vengono applicate varie fasi di sovrapposizione/unione; <itemizedlist>

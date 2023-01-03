@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Bouklis Panos <panos@echidna-band.com>, 2012.
-# Stelios <sstavra@gmail.com>, 2012, 2016, 2018, 2019, 2020, 2021.
+# Stelios <sstavra@gmail.com>, 2012, 2016, 2018, 2019, 2020, 2021, 2023.
 # Dimitris Kardarakos <dimkard@gmail.com>, 2014.
 # Petros Vidalis <pvidalis@gmail.com>, 2016.
 msgid ""
@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-29 00:55+0000\n"
-"PO-Revision-Date: 2021-09-09 16:45+0300\n"
+"PO-Revision-Date: 2023-01-02 16:46+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
 "Language: el\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 20.04.2\n"
+"X-Generator: Lokalize 21.12.3\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -67,16 +67,14 @@ msgid "Failed to create new branch. Error \"%1\""
 msgstr "Αποτυχία δημιουργίας νέου κλάδου. Σφάλμα «%1»"
 
 #: branchdeletedialog.cpp:122
-#, fuzzy, kde-format
-#| msgid "Delete Branch"
+#, kde-format
 msgid "Branch"
-msgstr "Διαγραφή κλάδου"
+msgstr "Κλάδος"
 
 #: branchdeletedialog.cpp:122
-#, fuzzy, kde-format
-#| msgid "Amend Last Commit"
+#, kde-format
 msgid "Last Commit"
-msgstr "Τροποποίηση τελευταίας υποβολής"
+msgstr "Τελευταία υποβολή"
 
 #: branchdeletedialog.cpp:135 kateprojecttreeviewcontextmenu.cpp:78
 #, kde-format
@@ -183,16 +181,14 @@ msgid "Modified"
 msgstr "Τροποποιημένο"
 
 #: gitwidget.cpp:253
-#, fuzzy, kde-format
-#| msgid "Git push"
+#, kde-format
 msgid "Git Push"
-msgstr "Git push"
+msgstr "Git Push"
 
 #: gitwidget.cpp:266
-#, fuzzy, kde-format
-#| msgid "Git pull"
+#, kde-format
 msgid "Git Pull"
-msgstr "Git pull"
+msgstr "Git Pull"
 
 #: gitwidget.cpp:279
 #, kde-format
@@ -210,10 +206,10 @@ msgid "Filter..."
 msgstr "Φιλτράρισμα..."
 
 #: gitwidget.cpp:394
-#, fuzzy, kde-format
-#| msgid "Failed to find .git directory, things may not work correctly"
+#, kde-format
 msgid "Failed to find .git directory for '%1', things may not work correctly"
-msgstr "Αποτυχία εύρεσης του καταλόγου .git, τα πράγματα δεν θα πάνε καλά"
+msgstr ""
+"Αποτυχία εύρεσης του καταλόγου .git για το '%1', τα πράγματα δεν θα πάνε καλά"
 
 #: gitwidget.cpp:560
 #, kde-format
@@ -306,28 +302,24 @@ msgid "Delete Branch"
 msgstr "Διαγραφή κλάδου"
 
 #: gitwidget.cpp:971
-#, fuzzy, kde-format
-#| msgid "Compare Branch with ..."
+#, kde-format
 msgid "Compare Branch with..."
 msgstr "Σύγκριση κλάδου με..."
 
 #: gitwidget.cpp:975
-#, fuzzy, kde-format
-#| msgid "Commit"
+#, kde-format
 msgid "Show Commit"
-msgstr "Υποβολή"
+msgstr "Εμφάνιση υποβολής"
 
 #: gitwidget.cpp:975
-#, fuzzy, kde-format
-#| msgid "Commit Changes"
+#, kde-format
 msgid "Commit hash"
-msgstr "Υποβολή αλλαγών"
+msgstr "Συμβολοσειρά υποβολής"
 
 #: gitwidget.cpp:980
-#, fuzzy, kde-format
-#| msgid "Open Folder..."
+#, kde-format
 msgid "Open Commit..."
-msgstr "Άνοιγμα φακέλου..."
+msgstr "Άνοιγμα υποβολής..."
 
 #: gitwidget.cpp:983 gitwidget.cpp:1020
 #, kde-format
@@ -337,7 +329,7 @@ msgstr "Σε στοίβα αναμονής"
 #: gitwidget.cpp:993
 #, kde-format
 msgid "Diff - stash"
-msgstr ""
+msgstr "Diff - σε αναμονή"
 
 #: gitwidget.cpp:1024
 #, kde-format
@@ -416,16 +408,14 @@ msgid "Are you sure you want to discard all changes?"
 msgstr "Θέλετε πράγματι να απορρίψετε αυτές τις αλλαγές;"
 
 #: gitwidget.cpp:1144
-#, fuzzy, kde-format
-#| msgid "Open file"
+#, kde-format
 msgid "Open File"
 msgstr "Άνοιγμα αρχείου"
 
 #: gitwidget.cpp:1146
-#, fuzzy, kde-format
-#| msgid "Show in external git diff tool"
+#, kde-format
 msgid "Show in External Git Diff Tool"
-msgstr "Εμφάνιση των διαφορών του git με εξωτερικό εργαλείο"
+msgstr "Εμφάνιση των διαφορών του Git με εξωτερικό εργαλείο"
 
 #: gitwidget.cpp:1147
 #, kde-format
@@ -433,14 +423,12 @@ msgid "Open at HEAD"
 msgstr "Άνοιγμα στο HEAD"
 
 #: gitwidget.cpp:1148
-#, fuzzy, kde-format
-#| msgid "Unstage file"
+#, kde-format
 msgid "Unstage File"
 msgstr "Αναίρεση αρχείου από προετοιμασία για υποβολή"
 
 #: gitwidget.cpp:1148
-#, fuzzy, kde-format
-#| msgid "Stage file"
+#, kde-format
 msgid "Stage File"
 msgstr "Προετοιμασία αρχείου για υποβολή"
 
@@ -502,7 +490,7 @@ msgstr "Θέλετε πράγματι να διαγράψετε αυτές τι�
 #: kateproject.cpp:217
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
-msgstr ""
+msgstr "Κακοδιατυπωμένο JSON αρχείο '%1': %2"
 
 #: kateproject.cpp:522
 #, kde-format
@@ -547,24 +535,23 @@ msgstr "&Mercurial"
 #: kateprojectconfigpage.cpp:37
 #, kde-format
 msgid "&Fossil"
-msgstr ""
+msgstr "&Fossil"
 
 #: kateprojectconfigpage.cpp:46
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Session Behavior"
-msgstr ""
+msgstr "Συμπεριφορά συνεδρίας"
 
 #: kateprojectconfigpage.cpp:47
 #, kde-format
 msgid "Session settings for projects"
-msgstr ""
+msgstr "Ρυθμίσεις συνεδρίας για έργα"
 
 #: kateprojectconfigpage.cpp:48
-#, fuzzy, kde-format
-#| msgid "Current Project"
+#, kde-format
 msgid "Restore Open Projects"
-msgstr "Τρέχον έργο"
+msgstr "Επαναφορά ανοικτών έργων"
 
 #: kateprojectconfigpage.cpp:55
 #, kde-format
@@ -807,33 +794,29 @@ msgid "Project"
 msgstr "Έργο"
 
 #: kateprojectpluginview.cpp:54
-#, fuzzy, kde-format
-#| msgid "Kate Project Manager"
+#, kde-format
 msgid "Project Manager"
-msgstr "Διαχειριστής έργων του Kate"
+msgstr "Διαχειριστής έργων"
 
 #: kateprojectpluginview.cpp:76
-#, fuzzy, kde-format
-#| msgid "Current Project"
+#, kde-format
 msgid "Open projects list"
-msgstr "Τρέχον έργο"
+msgstr "Άνοιγμα λίστας έργων"
 
 #: kateprojectpluginview.cpp:81
-#, fuzzy, kde-format
-#| msgid "Close Project"
+#, kde-format
 msgid "Reload project"
-msgstr "Κλείσιμο έργου"
+msgstr "Επαναφόρτωση έργου"
 
 #: kateprojectpluginview.cpp:84
-#, fuzzy, kde-format
-#| msgid "Close Project"
+#, kde-format
 msgid "Close project"
 msgstr "Κλείσιμο έργου"
 
 #: kateprojectpluginview.cpp:99
 #, kde-format
 msgid "Refresh git status"
-msgstr ""
+msgstr "Ανανέωση κατάστασης του git"
 
 #: kateprojectpluginview.cpp:177
 #, kde-format
@@ -848,12 +831,12 @@ msgstr "Μελλοντικά έργα"
 #: kateprojectpluginview.cpp:186
 #, kde-format
 msgid "Activate Previous Project"
-msgstr ""
+msgstr "Ενεργοποίηση προηγούμενου έργου"
 
 #: kateprojectpluginview.cpp:191
 #, kde-format
 msgid "Activate Next Project"
-msgstr ""
+msgstr "Ενεργοποίηση επόμενου έργου"
 
 #: kateprojectpluginview.cpp:196
 #, kde-format
@@ -866,16 +849,14 @@ msgid "Close Project"
 msgstr "Κλείσιμο έργου"
 
 #: kateprojectpluginview.cpp:204
-#, fuzzy, kde-format
-#| msgid "Close Project"
+#, kde-format
 msgid "Close All Projects"
-msgstr "Κλείσιμο έργου"
+msgstr "Κλείσιμο όλων των έργων"
 
 #: kateprojectpluginview.cpp:209
-#, fuzzy, kde-format
-#| msgid "Close Project"
+#, kde-format
 msgid "Close Orphaned Projects"
-msgstr "Κλείσιμο έργου"
+msgstr "Κλείσιμο ορφανών έργων"
 
 #: kateprojectpluginview.cpp:218 kateprojectpluginview.cpp:793
 #, kde-format
@@ -908,10 +889,9 @@ msgid "Add"
 msgstr "Προσθήκη"
 
 #: kateprojecttreeviewcontextmenu.cpp:64
-#, fuzzy, kde-format
-#| msgid "No Action"
+#, kde-format
 msgid "Copy Location"
-msgstr "Καμία ενέργεια"
+msgstr "Αντιγραφή τοποθεσίας"
 
 #: kateprojecttreeviewcontextmenu.cpp:69
 #, kde-format
@@ -974,8 +954,7 @@ msgid "Checkout Git Branch"
 msgstr "Εξαγωγή κλάδου του Git"
 
 #: kateprojectview.cpp:82
-#, fuzzy, kde-format
-#| msgid "Checkout Branch"
+#, kde-format
 msgid "Checkout branch"
 msgstr "Εξαγωγή κλάδου"
 

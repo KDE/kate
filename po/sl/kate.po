@@ -8,22 +8,22 @@
 # Jure Repinc <jlp@holodeck1.com>, 2006, 2008, 2009, 2011, 2012, 2013.
 # Jaka Kranjc <lynxlynxlynx@sourcemage.org>, 2007.
 # Andrej Mernik <andrejm@ubuntu.si>, 2012, 2013, 2014, 2015, 2016, 2017, 2018.
-# Matjaž Jeran <matjaz.jeran@amis.net>, 2019, 2020, 2021, 2022.
+# Matjaž Jeran <matjaz.jeran@amis.net>, 2019, 2020, 2021, 2022, 2023.
 # Martin Srebotnjak <miles@filmsi.net>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-01 01:03+0000\n"
-"PO-Revision-Date: 2022-12-24 06:30+0100\n"
+"PO-Revision-Date: 2023-01-02 20:05+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
-"%100==4 ? 3 : 0);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100>=3 && n"
+"%100<=4 ? 2 : 3);\n"
 "Translator: Andrej Mernik <andrejm@ubuntu.si>\n"
 "X-Generator: Poedit 3.2.2\n"
 
@@ -48,6 +48,9 @@ msgid ""
 "vulnerabilities. Instead use Kate normally and you will be prompted for "
 "elevated privileges when saving documents if needed."
 msgstr ""
+"Poganjanje aplikacije Kate pod sudo lahko povzroča napake in vas izpostavlja "
+"varnostnim tveganjem. Namesto tega uporabljajte Kate normalno in boste "
+"opozorjeni za povečane pravice ob shranjevanju dokumentov, če bo to potrebno."
 
 #: kate/main.cpp:78
 msgid ""
@@ -55,6 +58,10 @@ msgid ""
 "vulnerabilities. Instead use Kate normally and you will be prompted for "
 "elevated privileges when saving documents if needed."
 msgstr ""
+"Poganjanje aplikacije Kate pod kdesu lahko povzroča napake in vas "
+"izpostavlja varnostnim tveganjem. Namesto tega uporabljajte Kate normalno in "
+"boste opozorjeni za povečane pravice ob shranjevanju dokumentov, če bo to "
+"potrebno."
 
 #: kate/main.cpp:131
 #, kde-format
@@ -176,6 +183,10 @@ msgid ""
 "vulnerabilities. Instead use KWrite normally and you will be prompted for "
 "elevated privileges when saving documents if needed."
 msgstr ""
+"Poganjanje aplikacije KWrite pod sudo lahko povzroča napake in vas "
+"izpostavlja varnostnim tveganjem. Namesto tega uporabljajte KWrite normalno "
+"in boste opozorjeni za povečane pravice ob shranjevanju dokumentov, če bo to "
+"potrebno."
 
 #: kwrite/main.cpp:46
 msgid ""
@@ -183,6 +194,10 @@ msgid ""
 "vulnerabilities. Instead use KWrite normally and you will be prompted for "
 "elevated privileges when saving documents if needed."
 msgstr ""
+"Poganjanje aplikacije KWrite pod kdesu lahko povzroča napake in vas "
+"izpostavlja varnostnim tveganjem. Namesto tega uporabljajte KWrite normalno "
+"in boste opozorjeni za povečane pravice ob shranjevanju dokumentov, če bo to "
+"potrebno."
 
 #: kwrite/main.cpp:94
 #, kde-format
@@ -422,11 +437,10 @@ msgid "Failed to get file history: %1"
 msgstr "Pridobivanje zgodovine datoteke ni uspelo: %1"
 
 #: lib/filehistorywidget.cpp:352
-#, fuzzy, kde-format
-#| msgid "File History"
+#, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
-msgstr "Zgodovina datoteke"
+msgstr "Zgodovina datoteke - %1"
 
 #: lib/kateapp.cpp:146
 #, kde-format

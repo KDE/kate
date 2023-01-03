@@ -1,14 +1,14 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>, 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020, 2021, 2022.
+# Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>, 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020, 2021, 2022, 2023.
 # Marta Rybczyńska <kde-i18n@rybczynska.net>, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-29 00:55+0000\n"
-"PO-Revision-Date: 2022-09-28 20:39+0200\n"
+"PO-Revision-Date: 2023-01-02 20:42+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Lokalize 22.04.1\n"
+"X-Generator: Lokalize 22.12.0\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -311,22 +311,19 @@ msgid "Compare Branch with..."
 msgstr "Porównaj gałąź z..."
 
 #: gitwidget.cpp:975
-#, fuzzy, kde-format
-#| msgid "Commit"
+#, kde-format
 msgid "Show Commit"
-msgstr "Wdrożenie"
+msgstr "Pokaż wdrożenie"
 
 #: gitwidget.cpp:975
-#, fuzzy, kde-format
-#| msgid "Commit Changes"
+#, kde-format
 msgid "Commit hash"
-msgstr "Wdroż zmiany"
+msgstr "Skrót wdrożenia"
 
 #: gitwidget.cpp:980
-#, fuzzy, kde-format
-#| msgid "Open Folder..."
+#, kde-format
 msgid "Open Commit..."
-msgstr "Otwórz katalog..."
+msgstr "Otwórz wdrożenie..."
 
 #: gitwidget.cpp:983 gitwidget.cpp:1020
 #, kde-format
@@ -806,10 +803,9 @@ msgid "Project Manager"
 msgstr "Kierownik projektu"
 
 #: kateprojectpluginview.cpp:76
-#, fuzzy, kde-format
-#| msgid "Restore Open Projects"
+#, kde-format
 msgid "Open projects list"
-msgstr "Przywróć otwarte projekty"
+msgstr "Otwórz spis projektów"
 
 #: kateprojectpluginview.cpp:81
 #, kde-format
@@ -817,8 +813,7 @@ msgid "Reload project"
 msgstr "Wczytaj projekt ponownie"
 
 #: kateprojectpluginview.cpp:84
-#, fuzzy, kde-format
-#| msgid "Close Project"
+#, kde-format
 msgid "Close project"
 msgstr "Zamknij projekt"
 

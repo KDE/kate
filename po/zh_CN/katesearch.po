@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-21 00:50+0000\n"
-"PO-Revision-Date: 2022-12-24 11:42\n"
+"PO-Revision-Date: 2023-01-02 07:11\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -493,7 +493,7 @@ msgstr "小写捕捉 0-999"
 #: SearchPlugin.cpp:295
 #, kde-format
 msgid "Search & Replace"
-msgstr ""
+msgstr "搜索和替换"
 
 #: SearchPlugin.cpp:336
 #, kde-format
@@ -503,7 +503,7 @@ msgstr "在文件中查找"
 #: SearchPlugin.cpp:341
 #, kde-format
 msgid "Find in Files (in a New Tab)"
-msgstr ""
+msgstr "在文件中查找(在新标签页中)"
 
 #: SearchPlugin.cpp:347
 #, kde-format
@@ -518,26 +518,26 @@ msgstr "跳到上一个匹配"
 #: SearchPlugin.cpp:357
 #, kde-format
 msgid "Cut Matching Lines"
-msgstr ""
+msgstr "剪切匹配的行"
 
 #: SearchPlugin.cpp:359
 #, kde-format
 msgid ""
 "This will cut all highlighted search match lines from the current document "
 "to the clipboard"
-msgstr ""
+msgstr "这将剪切所有高亮的搜索匹配行，从当前文档到剪贴板"
 
 #: SearchPlugin.cpp:363
 #, kde-format
 msgid "Copy Matching Lines"
-msgstr ""
+msgstr "复制匹配的行"
 
 #: SearchPlugin.cpp:365
 #, kde-format
 msgid ""
 "This will copy all highlighted search match lines in the current document to "
 "the clipboard"
-msgstr ""
+msgstr "这将复制所有高亮的搜索匹配行，从当前文档到剪贴板"
 
 #: SearchPlugin.cpp:392
 #, kde-format
@@ -600,7 +600,7 @@ msgstr "从最后一个匹配继续"
 #: SearchPlugin.cpp:2110
 #, kde-format
 msgid "Search: %1"
-msgstr ""
+msgstr "搜索：%1"
 
 #: SearchPlugin.cpp:2241
 #, kde-format
@@ -620,7 +620,7 @@ msgstr "导出匹配项"
 #: SearchPlugin.cpp:2255
 #, kde-format
 msgid "Open as Editor Tab"
-msgstr ""
+msgstr "以编辑器选项卡打开"
 
 #: SearchPlugin.cpp:2262
 #, kde-format

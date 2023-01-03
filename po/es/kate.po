@@ -9,7 +9,7 @@
 # Miguel Revilla Rodríguez <yo@miguelrevilla.com>, 2003, 2004.
 # Pablo de Vicente <vicnte@oan.es>, 2003.
 # Pablo de Vicente <p.devicente@wanadoo.es>, 2004, 2005.
-# Eloy Cuadra <ecuadra@eloihr.net>, 2005, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022.
+# Eloy Cuadra <ecuadra@eloihr.net>, 2005, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023.
 # Pablo de Vicente <pablo.devicente@gmail.com>, 2006.
 # Cristina Yenyxe Gonzalez Garcia <the.blue.valkyrie@gmail.com>, 2009.
 # Cristina Yenyxe González García <the.blue.valkyrie@gmail.com>, 2011, 2012, 2013.
@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-01 01:03+0000\n"
-"PO-Revision-Date: 2022-12-31 10:56+0100\n"
+"PO-Revision-Date: 2023-01-02 04:57+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -441,11 +441,10 @@ msgid "Failed to get file history: %1"
 msgstr "No se ha podido obtener el historial del archivo: %1"
 
 #: lib/filehistorywidget.cpp:352
-#, fuzzy, kde-format
-#| msgid "File History"
+#, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
-msgstr "Historial del archivo"
+msgstr "Historial del archivo - %1"
 
 #: lib/kateapp.cpp:146
 #, kde-format

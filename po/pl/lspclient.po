@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>, 2019, 2020, 2021, 2022.
+# Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>, 2019, 2020, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-02 01:09+0000\n"
-"PO-Revision-Date: 2022-11-23 20:32+0100\n"
+"PO-Revision-Date: 2023-01-02 20:47+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Lokalize 22.08.2\n"
+"X-Generator: Lokalize 22.12.0\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:250
 #, kde-format
@@ -209,7 +209,7 @@ msgstr "Podświetl położenie goto"
 #: lspclientpluginview.cpp:715
 #, kde-format
 msgid "Show Inlay Hints"
-msgstr ""
+msgstr "Pokaż włożone wskazówki"
 
 #: lspclientpluginview.cpp:719
 #, kde-format
@@ -698,16 +698,15 @@ msgstr "Sam dodaje pliki importowane po dokonaniu uzupełnienia"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkFmtOnSave)
 #: lspconfigwidget.ui:248
-#, fuzzy, kde-format
-#| msgid "Format on typing"
+#, kde-format
 msgid "Format on save"
-msgstr "Formatuj przy pisaniu"
+msgstr "Sformatuj przy zapisie"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkInlayHint)
 #: lspconfigwidget.ui:255
 #, kde-format
 msgid "Enable inlay hints"
-msgstr ""
+msgstr "Włącz wkładane wskazówki"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_4)
 #: lspconfigwidget.ui:278

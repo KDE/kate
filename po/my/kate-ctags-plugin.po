@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-07 00:50+0000\n"
+"POT-Creation-Date: 2023-01-03 00:51+0000\n"
 "PO-Revision-Date: 2021-09-15 01:40+0630\n"
 "Last-Translator: \n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
@@ -362,12 +362,12 @@ msgstr "စီတပ်"
 msgid "CTags Settings"
 msgstr "စီတပ် ဆက်တင်"
 
-#: kate_ctags_plugin.cpp:229 kate_ctags_view.cpp:551
+#: kate_ctags_plugin.cpp:229 kate_ctags_view.cpp:555
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "\"%1\" ကို မမောင်းနှင်နိုင်ခဲ့ပါ။ အထွက်အခြေအနေ = %2"
 
-#: kate_ctags_plugin.cpp:240 kate_ctags_view.cpp:563
+#: kate_ctags_plugin.cpp:240 kate_ctags_view.cpp:567
 #, kde-format
 msgid "The CTags executable crashed."
 msgstr "စီတပ် လုပ်ဆောင်-ဖိုင်လ် ရုတ်တရက် ရပ်သွားခဲ့သည်။"
@@ -443,17 +443,17 @@ msgstr "ဒေသတွင်းသုံးသင်္ကေတ သို့�
 msgid "Go To Global Symbol"
 msgstr "အများသုံးသင်္ကေတ သို့သွားမည်"
 
-#: kate_ctags_view.cpp:315 kate_ctags_view.cpp:347
+#: kate_ctags_view.cpp:317 kate_ctags_view.cpp:349
 #, kde-format
 msgid "No hits found"
 msgstr "ရှာမတွေ့ပါ"
 
-#: kate_ctags_view.cpp:540
+#: kate_ctags_view.cpp:544
 #, kde-format
 msgid "No folders or files to index"
 msgstr "အညွှန်းပြရန် ဖိုင်လ်နှင့် ဖိုလ်ဒါများ မရှိပါ"
 
-#: kate_ctags_view.cpp:565
+#: kate_ctags_view.cpp:569
 #, kde-format
 msgid "The CTags program exited with code %1: %2"
 msgstr "စီတပ်သည် ကုတ် %1 - %2 ဖြင့် ထွက်ခဲ့သည်"

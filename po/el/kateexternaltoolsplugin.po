@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# Stelios <sstavra@gmail.com>, 2019, 2020.
+# Stelios <sstavra@gmail.com>, 2019, 2020, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-31 00:55+0000\n"
-"PO-Revision-Date: 2020-03-01 20:55+0200\n"
+"PO-Revision-Date: 2023-01-02 09:38+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
 "Language: el\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 18.12.3\n"
+"X-Generator: Lokalize 21.12.3\n"
 
 #. i18n: file: 7
 #, kde-format
@@ -239,6 +239,8 @@ msgstr "Πρέπει να ορίσετε τουλάχιστον ένα όνομ�
 #, kde-format
 msgid "With 'Trigger' enabled, at least one mimetype needs to be specified."
 msgstr ""
+"Με την ενεργοποίηση της 'Εκτέλεσης', πρέπει να οριστεί τουλάχιστον ένας "
+"τύπος mime."
 
 #: kateexternaltoolsconfigwidget.cpp:205
 #, kde-format
@@ -433,19 +435,19 @@ msgstr "Όλα τα έγγραφα"
 #: tooldialog.ui:182
 #, kde-format
 msgid "Trigger"
-msgstr ""
+msgstr "Εκτέλεση"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbTrigger)
 #: tooldialog.ui:195
 #, kde-format
 msgid "Before Save"
-msgstr ""
+msgstr "Πριν την αποθήκευση"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbTrigger)
 #: tooldialog.ui:200
 #, kde-format
 msgid "After Save"
-msgstr ""
+msgstr "Μετά την αποθήκευση"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkReload)
 #: tooldialog.ui:208

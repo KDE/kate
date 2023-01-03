@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE 4.2\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-07 00:50+0000\n"
+"POT-Creation-Date: 2023-01-03 00:51+0000\n"
 "PO-Revision-Date: 2022-01-25 10:16+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -365,12 +365,12 @@ msgstr "CTags"
 msgid "CTags Settings"
 msgstr "A CTags beállításai"
 
-#: kate_ctags_plugin.cpp:229 kate_ctags_view.cpp:551
+#: kate_ctags_plugin.cpp:229 kate_ctags_view.cpp:555
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "Nem sikerült futtatni: „%1”. Kilépési kód = %2"
 
-#: kate_ctags_plugin.cpp:240 kate_ctags_view.cpp:563
+#: kate_ctags_plugin.cpp:240 kate_ctags_view.cpp:567
 #, kde-format
 msgid "The CTags executable crashed."
 msgstr "A CTags program összeomlott."
@@ -446,17 +446,17 @@ msgstr "Ugrás a helyi szimbólumra"
 msgid "Go To Global Symbol"
 msgstr "Ugrás a globális szimbólumra"
 
-#: kate_ctags_view.cpp:315 kate_ctags_view.cpp:347
+#: kate_ctags_view.cpp:317 kate_ctags_view.cpp:349
 #, kde-format
 msgid "No hits found"
 msgstr "Nincs találat"
 
-#: kate_ctags_view.cpp:540
+#: kate_ctags_view.cpp:544
 #, kde-format
 msgid "No folders or files to index"
 msgstr "Nincs indexelendő fájl vagy mappa"
 
-#: kate_ctags_view.cpp:565
+#: kate_ctags_view.cpp:569
 #, kde-format
 msgid "The CTags program exited with code %1: %2"
 msgstr "A CTags program a(z) %1 kóddal lépett ki: %2."

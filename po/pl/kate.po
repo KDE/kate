@@ -1,6 +1,6 @@
 # translation of kate.po to Polish
 # translation of kate.po to
-# Version: $Revision: 1641172 $
+# Version: $Revision: 1641316 $
 # Kate polish translation file.
 # Main translation work:
 #   Jacek Stolarczyk <jacek@mer.chemia.polsl.gliwice.pl>\n"
@@ -10,13 +10,13 @@
 # Robert Gomulka <rgom@o2.pl>, 2006.
 # Marta Rybczyńska <kde-i18n@rybczynska.net>, 2008, 2012, 2013.
 # Michał Smoczyk <msmoczyk@wp.pl>, 2009, 2010.
-# Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022.
+# Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-01 01:03+0000\n"
-"PO-Revision-Date: 2022-12-29 11:25+0100\n"
+"PO-Revision-Date: 2023-01-02 20:54+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -48,6 +48,9 @@ msgid ""
 "vulnerabilities. Instead use Kate normally and you will be prompted for "
 "elevated privileges when saving documents if needed."
 msgstr ""
+"Uruchomienie Kate z sudo może przyczynić się do błędów i narazić cię utratę "
+"bezpieczeństwa. Zamiast tego uruchom Kate zwyczajnie i wpisz hasło dopiero "
+"przy zapisie pliku."
 
 #: kate/main.cpp:78
 msgid ""
@@ -55,6 +58,9 @@ msgid ""
 "vulnerabilities. Instead use Kate normally and you will be prompted for "
 "elevated privileges when saving documents if needed."
 msgstr ""
+"Uruchomienie Kate z kdesu może przyczynić się do błędów i narazić cię utratę "
+"bezpieczeństwa. Zamiast tego uruchom Kate zwyczajnie i wpisz hasło dopiero "
+"przy zapisie pliku."
 
 #: kate/main.cpp:131
 #, kde-format
@@ -178,6 +184,9 @@ msgid ""
 "vulnerabilities. Instead use KWrite normally and you will be prompted for "
 "elevated privileges when saving documents if needed."
 msgstr ""
+"Uruchomienie KWrite z sudo może przyczynić się do błędów i narazić cię "
+"utratę bezpieczeństwa. Zamiast tego uruchom KWrite zwyczajnie i wpisz hasło "
+"dopiero przy zapisie pliku."
 
 #: kwrite/main.cpp:46
 msgid ""
@@ -185,6 +194,9 @@ msgid ""
 "vulnerabilities. Instead use KWrite normally and you will be prompted for "
 "elevated privileges when saving documents if needed."
 msgstr ""
+"Uruchomienie KWrite z kdesu może przyczynić się do błędów i narazić cię "
+"utratę bezpieczeństwa. Zamiast tego uruchom KWrite zwyczajnie i wpisz hasło "
+"dopiero przy zapisie pliku."
 
 #: kwrite/main.cpp:94
 #, kde-format
@@ -421,11 +433,10 @@ msgid "Failed to get file history: %1"
 msgstr "Nie udało się pobrać historii pliku: %1"
 
 #: lib/filehistorywidget.cpp:352
-#, fuzzy, kde-format
-#| msgid "File History"
+#, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
-msgstr "Historia pliku"
+msgstr "Historia pliku - %1"
 
 #: lib/kateapp.cpp:146
 #, kde-format
@@ -984,7 +995,7 @@ msgstr "&Mysz"
 #: lib/kateconfigdialog.cpp:527
 #, kde-format
 msgid "&Backward button pressed:"
-msgstr "&Naciśnięto przycisk wstecz:"
+msgstr "Po &naciśnięciu przycisku wstecz:"
 
 #: lib/kateconfigdialog.cpp:532
 #, kde-format
@@ -999,7 +1010,7 @@ msgstr "Historia wstecz"
 #: lib/kateconfigdialog.cpp:538
 #, kde-format
 msgid "&Forward button pressed:"
-msgstr "Naciśnięto &przycisk wprzód:"
+msgstr "Po naciśnięciu &przycisku wprzód:"
 
 #: lib/kateconfigdialog.cpp:543
 #, kde-format
@@ -1009,7 +1020,7 @@ msgstr "Następna karta"
 #: lib/kateconfigdialog.cpp:543
 #, kde-format
 msgid "History forward"
-msgstr "Historia w przód"
+msgstr "Historia wprzód"
 
 #: lib/kateconfigdialog.cpp:551
 #, kde-format

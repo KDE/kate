@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate-ctags-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-07 00:50+0000\n"
+"POT-Creation-Date: 2023-01-03 00:51+0000\n"
 "PO-Revision-Date: 2019-10-29 20:07+0200\n"
 "Last-Translator: Marek Laane <qiilaq69@gmail.com>\n"
 "Language-Team: Estonian <kde-i18n-doc@kde.org>\n"
@@ -364,12 +364,12 @@ msgstr "CTags"
 msgid "CTags Settings"
 msgstr "CTagsi seadistused"
 
-#: kate_ctags_plugin.cpp:229 kate_ctags_view.cpp:551
+#: kate_ctags_plugin.cpp:229 kate_ctags_view.cpp:555
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "\"%1\" käivitamine nurjus. exitStatus = %2"
 
-#: kate_ctags_plugin.cpp:240 kate_ctags_view.cpp:563
+#: kate_ctags_plugin.cpp:240 kate_ctags_view.cpp:567
 #, kde-format
 msgid "The CTags executable crashed."
 msgstr "CTagsi täitmisfaili tabas krahh."
@@ -445,17 +445,17 @@ msgstr ""
 msgid "Go To Global Symbol"
 msgstr ""
 
-#: kate_ctags_view.cpp:315 kate_ctags_view.cpp:347
+#: kate_ctags_view.cpp:317 kate_ctags_view.cpp:349
 #, kde-format
 msgid "No hits found"
 msgstr "Ühtegi vastet ei leitud"
 
-#: kate_ctags_view.cpp:540
+#: kate_ctags_view.cpp:544
 #, kde-format
 msgid "No folders or files to index"
 msgstr "Pole ühtegi kataloogi ega faili indekseerida"
 
-#: kate_ctags_view.cpp:565
+#: kate_ctags_view.cpp:569
 #, kde-format
 msgid "The CTags program exited with code %1: %2"
 msgstr "CTagsi programm lõpetas koodiga %1: %2"

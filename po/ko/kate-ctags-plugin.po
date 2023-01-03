@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-07 00:50+0000\n"
+"POT-Creation-Date: 2023-01-03 00:51+0000\n"
 "PO-Revision-Date: 2022-05-07 02:01+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -361,12 +361,12 @@ msgstr "CTags"
 msgid "CTags Settings"
 msgstr "CTags 설정"
 
-#: kate_ctags_plugin.cpp:229 kate_ctags_view.cpp:551
+#: kate_ctags_plugin.cpp:229 kate_ctags_view.cpp:555
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "\"%1\"을(를) 실행하는 데 실패했습니다. 종료 상태 = %2"
 
-#: kate_ctags_plugin.cpp:240 kate_ctags_view.cpp:563
+#: kate_ctags_plugin.cpp:240 kate_ctags_view.cpp:567
 #, kde-format
 msgid "The CTags executable crashed."
 msgstr "CTags가 충돌했습니다."
@@ -442,17 +442,17 @@ msgstr "로컬 기호로 이동"
 msgid "Go To Global Symbol"
 msgstr "전역 기호로 이동"
 
-#: kate_ctags_view.cpp:315 kate_ctags_view.cpp:347
+#: kate_ctags_view.cpp:317 kate_ctags_view.cpp:349
 #, kde-format
 msgid "No hits found"
 msgstr "일치하는 항목 없음"
 
-#: kate_ctags_view.cpp:540
+#: kate_ctags_view.cpp:544
 #, kde-format
 msgid "No folders or files to index"
 msgstr "인덱싱할 폴더나 파일 없음"
 
-#: kate_ctags_view.cpp:565
+#: kate_ctags_view.cpp:569
 #, kde-format
 msgid "The CTags program exited with code %1: %2"
 msgstr "CTags 프로그램이 코드 %1을(를) 반환했습니다: %2"

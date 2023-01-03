@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-01 01:03+0000\n"
-"PO-Revision-Date: 2023-01-01 11:33+0100\n"
+"PO-Revision-Date: 2023-01-01 20:05+0100\n"
 "Last-Translator: Xavier BESNARD <xavier.besnard]neuf.fr>\n"
 "Language-Team: fr\n"
 "Language: fr\n"
@@ -449,11 +449,10 @@ msgid "Failed to get file history: %1"
 msgstr "Impossible d'obtenir l'historique des fichiers : %1"
 
 #: lib/filehistorywidget.cpp:352
-#, fuzzy, kde-format
-#| msgid "File History"
+#, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
-msgstr "Historique des fichiers"
+msgstr "Historique des fichiers - %1"
 
 #: lib/kateapp.cpp:146
 #, kde-format

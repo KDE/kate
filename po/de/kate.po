@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-01 01:03+0000\n"
-"PO-Revision-Date: 2022-11-09 22:35+0100\n"
+"PO-Revision-Date: 2022-12-20 13:17+0100\n"
 "Last-Translator: Frank Steinmetzger <dev-kde@felsenfleischer.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -22,17 +22,17 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.08.3\n"
+"X-Generator: Lokalize 22.12.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Thomas Diehl, Frederik Schwarzer"
+msgstr "Thomas Diehl, Frederik Schwarzer, Frank Steinmetzger"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "thd@kde.org, schwarzer@kde.org"
+msgstr "thd@kde.org, schwarzer@kde.org, dev-kde@felsenfleischer.de"
 
 #: kate/main.cpp:71
 msgid ""
@@ -210,10 +210,9 @@ msgid "Git"
 msgstr "Git"
 
 #: lib/commitfilesview.cpp:474
-#, fuzzy, kde-format
-#| msgid "Invalid Folder"
+#, kde-format
 msgid "Invalid hash"
-msgstr "Ungültiger Ordner"
+msgstr "Ungültiger Hash"
 
 #: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:343
 #, kde-format
@@ -221,10 +220,9 @@ msgid "%1 doesn't exist in a git repo."
 msgstr "%1 existiert in keinem Git-Repo."
 
 #: lib/commitfilesview.cpp:488
-#, fuzzy, kde-format
-#| msgid "Comment"
+#, kde-format
 msgid "Commit"
-msgstr "Kommentar"
+msgstr "Commit"
 
 #. i18n: ectx: Menu (file)
 #: lib/data/kateui.rc:6
@@ -781,7 +779,7 @@ msgstr "&Verhalten"
 #: lib/kateconfigdialog.cpp:375
 #, kde-format
 msgid "Open each document in its own window"
-msgstr ""
+msgstr "jedes Dokument in eigenem Fenster öffnen"
 
 #: lib/kateconfigdialog.cpp:378
 #, kde-format
@@ -789,6 +787,9 @@ msgid ""
 "If enabled, each document will be opened in its own window. If not enabled, "
 "each document will be opened in a new tab in the current window."
 msgstr ""
+"Ist dies aktiviert, dann wird jedes Dokument in einem neuen, eigenen Fenster "
+"geöffnet. Andernfalls wird jedes Dokument in einem neuen Unterfenster des "
+"aktuellen Fensters geöffnet."
 
 #: lib/kateconfigdialog.cpp:388
 #, kde-format
@@ -1178,10 +1179,9 @@ msgid "File \"%1\" could not be deleted."
 msgstr "Die Datei „%1“ kann nicht gelöscht werden."
 
 #: lib/katefileactions.cpp:202
-#, fuzzy, kde-format
-#| msgid "Application"
+#, kde-format
 msgid "&Other Application..."
-msgstr "Programm"
+msgstr "&Andere Anwendung ..."
 
 #: lib/katemainwindow.cpp:227
 #, kde-format
@@ -1808,11 +1808,9 @@ msgid "Diff Output"
 msgstr "Diff-Ausgabe"
 
 #: lib/kateoutputview.cpp:166
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Copy to Clipboard"
+#, kde-format
 msgid "Copy all text to clipboard"
-msgstr "In die Zwischenablage kopieren"
+msgstr "Gesamten Text in die Zwischenablage kopieren"
 
 #: lib/kateoutputview.cpp:171
 #, kde-format

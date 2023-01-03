@@ -218,9 +218,8 @@ void PrettierFormat::onReadyReadOut()
     m_runOutput.out += s_nodeProcess->readAllStandardOutput();
     if (m_runOutput.out.endsWith("[[{END_PRETTIER_SCRIPT}]]")) {
         m_runOutput.out.truncate(m_runOutput.out.size() - (sizeof("[[{END_PRETTIER_SCRIPT}]]") - 1));
-        m_runOutput.exitCode = 0;
-        onResultReady(m_runOutput);
-        m_runOutput.out.clear();
+        const auto formatted = std::move(m_runOutput.out);
+        onResultReady(RunOutput{0, formatted, {}});
     }
 }
 

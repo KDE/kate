@@ -146,14 +146,16 @@ void FormatPluginView::onFormattedTextReceived(AbstractFormatter *formatter, KTe
 
     // if the user typed something while the formatter ran, ignore the formatted text
     if (formatter->originalText != doc->text()) {
-        // qDebug() << "text changed, ignoring format";
+        // qDebug() << "text changed, ignoring format" << doc->documentName();
         return;
     }
 
     // non local file or untitled?
     if (doc->url().toLocalFile().isEmpty()) {
         doc->setText(QString::fromUtf8(formattedText));
-        m_lastChecksum.clear();
+        if (m_activeDoc == doc && !m_lastChecksum.isEmpty()) {
+            m_lastChecksum.clear();
+        }
         return;
     }
 
@@ -174,7 +176,9 @@ void FormatPluginView::onFormattedTextReceived(AbstractFormatter *formatter, KTe
         }
         doc->setText(QString::fromUtf8(formattedText));
         saveDocument(doc);
-        m_lastChecksum = doc->checksum();
+        if (m_activeDoc == doc) {
+            m_lastChecksum = doc->checksum();
+        }
         return;
     }
 
@@ -186,7 +190,9 @@ void FormatPluginView::onFormattedPatchReceived(KTextEditor::Document *doc, cons
     applyPatch(doc, patch);
     // finally save the document
     saveDocument(doc);
-    m_lastChecksum = doc->checksum();
+    if (m_activeDoc == doc) {
+        m_lastChecksum = doc->checksum();
+    }
 }
 
 void FormatPluginView::saveDocument(KTextEditor::Document *doc)

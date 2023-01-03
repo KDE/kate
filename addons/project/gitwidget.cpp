@@ -1005,6 +1005,7 @@ void GitWidget::enableCancel(QProcess *git)
 {
     m_cancelHandle = git;
     m_pushBtn->hide();
+    m_pullBtn->hide();
     m_cancelBtn->show();
 }
 
@@ -1012,6 +1013,7 @@ void GitWidget::hideCancel()
 {
     m_cancelBtn->hide();
     m_pushBtn->show();
+    m_pullBtn->show();
 }
 
 QMenu *GitWidget::stashMenu(KActionCollection *ac)

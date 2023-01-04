@@ -3,8 +3,7 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#ifndef COMPILER_EXPLORER_PLUGIN_H
-#define COMPILER_EXPLORER_PLUGIN_H
+#pragma once
 
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/Plugin>
@@ -55,5 +54,3 @@ private:
     KTextEditor::MainWindow *m_mainWindow;
     class CEWidget *m_mainWidget;
 };
-
-#endif

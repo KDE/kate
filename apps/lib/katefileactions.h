@@ -5,8 +5,7 @@
  * SPDX-License-Identifier: LGPL-2.0-or-later
  **/
 
-#ifndef KATE_FILEACTIONS_H
-#define KATE_FILEACTIONS_H
+#pragma once
 
 #include "kateprivate_export.h"
 
@@ -88,5 +87,3 @@ KATE_PRIVATE_EXPORT void prepareOpenWithMenu(const QUrl &url, QMenu *menu);
  */
 KATE_PRIVATE_EXPORT void showOpenWithMenu(QWidget *parent, const QUrl &url, QAction *action);
 }
-
-#endif

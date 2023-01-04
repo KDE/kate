@@ -4,8 +4,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef KATE_UPDATE_DISABLER
-#define KATE_UPDATE_DISABLER
+#pragma once
 
 #include <QPointer>
 #include <QWidget>
@@ -47,5 +46,3 @@ private:
      */
     QPointer<QWidget> m_widget;
 };
-
-#endif

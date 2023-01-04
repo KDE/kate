@@ -4,8 +4,7 @@
    SPDX-License-Identifier: LGPL-2.0-only
 */
 
-#ifndef BTDATABASE_H
-#define BTDATABASE_H
+#pragma once
 
 #include <QHash>
 #include <QMutex>
@@ -35,7 +34,5 @@ private:
     mutable QMutex mutex;
     QHash<QString, QStringList> db;
 };
-
-#endif // BTDATABASE_H
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

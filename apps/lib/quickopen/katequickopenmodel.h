@@ -5,8 +5,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef KATEQUICKOPENMODEL_H
-#define KATEQUICKOPENMODEL_H
+#pragma once
 
 #include <QAbstractTableModel>
 #include <QUrl>
@@ -100,5 +99,3 @@ private:
     QString m_projectBase;
     List m_listMode{};
 };
-
-#endif

@@ -4,8 +4,7 @@
    SPDX-License-Identifier: LGPL-2.0-only
 */
 
-#ifndef CONNECTIONMODEL_H
-#define CONNECTIONMODEL_H
+#pragma once
 
 #include "connection.h"
 
@@ -42,5 +41,3 @@ private:
     QHash<QString, Connection> m_connections;
     QHash<Connection::Status, QIcon> m_icons;
 };
-
-#endif // CONNECTIONMODEL_H

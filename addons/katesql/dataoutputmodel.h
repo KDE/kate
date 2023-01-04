@@ -4,8 +4,7 @@
    SPDX-License-Identifier: LGPL-2.0-only
 */
 
-#ifndef DATAOUTPUTMODEL_H
-#define DATAOUTPUTMODEL_H
+#pragma once
 
 struct OutputStyle;
 
@@ -32,5 +31,3 @@ private:
     QHash<QString, OutputStyle *> m_styles;
     bool m_useSystemLocale;
 };
-
-#endif // DATAOUTPUTMODEL_H

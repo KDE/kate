@@ -8,8 +8,7 @@
    SPDX-License-Identifier: LGPL-2.0-only
 */
 
-#ifndef KATE_FILEBROWSER_CONFIG_H
-#define KATE_FILEBROWSER_CONFIG_H
+#pragma once
 
 #include <ktexteditor/configpage.h>
 
@@ -47,5 +46,3 @@ private:
 
     bool m_changed = false;
 };
-
-#endif // KATE_FILEBROWSER_CONFIG_H

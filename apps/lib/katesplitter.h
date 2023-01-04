@@ -5,8 +5,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef __KATE_SPLITTER_H__
-#define __KATE_SPLITTER_H__
+#pragma once
 
 #include <QSplitter>
 
@@ -21,5 +20,3 @@ public:
 protected:
     virtual QSplitterHandle *createHandle() override;
 };
-
-#endif

@@ -4,8 +4,7 @@
    SPDX-License-Identifier: LGPL-2.0-only
 */
 
-#ifndef SCHEMAWIDGET_H
-#define SCHEMAWIDGET_H
+#pragma once
 
 class SQLManager;
 class QMouseEvent;
@@ -67,5 +66,3 @@ private:
 
     SQLManager *m_manager;
 };
-
-#endif // SCHEMAWIDGET_H

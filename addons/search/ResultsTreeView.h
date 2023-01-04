@@ -4,8 +4,7 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#ifndef KATE_SEARCH_RESULTS_TREE_VIEW_H
-#define KATE_SEARCH_RESULTS_TREE_VIEW_H
+#pragma once
 
 #include <QTreeView>
 
@@ -38,5 +37,3 @@ Q_SIGNALS:
     void geometryChanged();
     void detachClicked();
 };
-
-#endif

@@ -4,8 +4,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
-#ifndef GIT_BLAME_FILE_TREE_VIEW
-#define GIT_BLAME_FILE_TREE_VIEW
+#pragma once
 
 #include "kateprivate_export.h"
 
@@ -27,5 +26,3 @@ public:
      */
     static void KATE_PRIVATE_EXPORT openCommit(const QString &hash, const QString &path, KTextEditor::MainWindow *mainWindow);
 };
-
-#endif

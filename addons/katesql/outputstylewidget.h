@@ -4,8 +4,7 @@
    SPDX-License-Identifier: LGPL-2.0-only
 */
 
-#ifndef OUTPUTSTYLEWIDGET_H
-#define OUTPUTSTYLEWIDGET_H
+#pragma once
 
 #include <QTreeWidget>
 
@@ -33,5 +32,3 @@ protected Q_SLOTS:
 Q_SIGNALS:
     void changed();
 };
-
-#endif // OUTPUTSTYLEWIDGET_H

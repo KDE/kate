@@ -4,13 +4,10 @@
     SPDX-License-Identifier: MIT
 */
 
-#ifndef LSPCLIENTUTILS_H
-#define LSPCLIENTUTILS_H
+#pragma once
 
 #include "lspclientservermanager.h"
 
 LSPRange transformRange(const QUrl &url, const LSPClientRevisionSnapshot &snapshot, const LSPRange &range);
 
 void applyEdits(KTextEditor::Document *doc, const LSPClientRevisionSnapshot *snapshot, const QList<LSPTextEdit> &edits);
-
-#endif

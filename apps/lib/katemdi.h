@@ -5,8 +5,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef __KATE_MDI_H__
-#define __KATE_MDI_H__
+#pragma once
 
 #include <KTextEditor/Plugin>
 
@@ -647,5 +646,3 @@ Q_SIGNALS:
 };
 
 }
-
-#endif

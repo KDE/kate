@@ -4,8 +4,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef KateSearchCommand_h
-#define KateSearchCommand_h
+#pragma once
 
 #include <KTextEditor/Command>
 #include <QString>
@@ -44,7 +43,5 @@ public:
 private:
     bool m_busy{false};
 };
-
-#endif
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

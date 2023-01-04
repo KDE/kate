@@ -9,8 +9,7 @@
 //
 //  SPDX-License-Identifier: LGPL-2.0-only
 
-#ifndef CONFIGVIEW_H
-#define CONFIGVIEW_H
+#pragma once
 
 #include "advanced_settings.h"
 
@@ -147,5 +146,3 @@ private:
 
     AdvancedGDBSettings *m_advanced;
 };
-
-#endif

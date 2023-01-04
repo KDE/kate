@@ -5,8 +5,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef KFTS_FUZZY_MATCH_H
-#define KFTS_FUZZY_MATCH_H
+#pragma once
 
 #include <QDebug>
 #include <QString>
@@ -430,5 +429,3 @@ get_fuzzy_match_formats(const QStringView pattern, const QStringView str, int of
 }
 
 } // namespace kfts
-
-#endif // KFTS_FUZZY_MATCH_H

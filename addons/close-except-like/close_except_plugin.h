@@ -22,8 +22,7 @@
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __SRC__CLOSE_EXCEPT_PLUGIN_H__
-#define __SRC__CLOSE_EXCEPT_PLUGIN_H__
+#pragma once
 
 // Project specific includes
 
@@ -129,4 +128,3 @@ private:
 };
 
 } // namespace kate
-#endif // __SRC__CLOSE_EXCEPT_PLUGIN_H__

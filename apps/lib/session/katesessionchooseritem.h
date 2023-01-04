@@ -4,8 +4,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef __KATE_SESSION_CHOOSER_ITEM_H__
-#define __KATE_SESSION_CHOOSER_ITEM_H__
+#pragma once
 
 #include <QTreeWidgetItem>
 
@@ -26,5 +25,3 @@ public:
 
     KateSession::Ptr session;
 };
-
-#endif

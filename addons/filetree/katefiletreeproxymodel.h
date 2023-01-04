@@ -4,8 +4,7 @@
    SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef KATE_FILETREEPROXYMODEL_H
-#define KATE_FILETREEPROXYMODEL_H
+#pragma once
 
 #include <QSortFilterProxyModel>
 
@@ -34,5 +33,3 @@ protected:
     bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override;
     bool lessThan(const QModelIndex &left, const QModelIndex &right) const override;
 };
-
-#endif /* KATE_FILETREEPROXYMODEL_H */

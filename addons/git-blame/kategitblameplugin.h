@@ -4,8 +4,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef KateGitBlamePlugin_h
-#define KateGitBlamePlugin_h
+#pragma once
 
 #include "gitblametooltip.h"
 
@@ -120,5 +119,3 @@ private:
     QPointer<KTextEditor::View> m_diffView;
     QTimer m_startBlameTimer;
 };
-
-#endif // KateGitBlamePlugin_h

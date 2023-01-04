@@ -4,8 +4,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
-#ifndef KATE_DOC_OR_WIDGET
-#define KATE_DOC_OR_WIDGET
+#pragma once
 
 #include <KTextEditor/Document>
 #include <QWidget>
@@ -75,5 +74,3 @@ struct hash<DocOrWidget> {
     }
 };
 }
-
-#endif

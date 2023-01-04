@@ -4,8 +4,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef _KATE_MW_MODONHD_DIALOG_H_
-#define _KATE_MW_MODONHD_DIALOG_H_
+#pragma once
 
 #include <ktexteditor/document.h>
 
@@ -73,5 +72,3 @@ protected:
     void closeEvent(QCloseEvent *e) override;
     void keyPressEvent(QKeyEvent *) override;
 };
-
-#endif // _KATE_MW_MODONHD_DIALOG_H_

@@ -5,8 +5,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef __KATE_WAITER_H__
-#define __KATE_WAITER_H__
+#pragma once
 
 #include <QCoreApplication>
 #include <QDBusConnection>
@@ -32,5 +31,3 @@ private:
     QStringList m_tokens;
     QDBusServiceWatcher m_watcher;
 };
-
-#endif

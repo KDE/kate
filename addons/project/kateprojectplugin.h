@@ -5,8 +5,7 @@
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
-#ifndef _KATE_PROJECT_PLUGIN_H_
-#define _KATE_PROJECT_PLUGIN_H_
+#pragma once
 
 #include <unordered_map>
 
@@ -295,5 +294,3 @@ private:
      */
     QThreadPool m_threadPool;
 };
-
-#endif

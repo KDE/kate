@@ -3,8 +3,7 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#ifndef DAP_SETTINGS_H
-#define DAP_SETTINGS_H
+#pragma once
 
 #include <QHash>
 #include <QJsonObject>
@@ -92,5 +91,3 @@ QHash<QString, QJsonValue> findReferences(const QJsonObject &configuration);
 
 }
 }
-
-#endif // DAP_SETTINGS_H

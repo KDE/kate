@@ -5,8 +5,7 @@
 //
 //  SPDX-License-Identifier: LGPL-2.0-only
 
-#ifndef ADVANCED_SETTINGS_H
-#define ADVANCED_SETTINGS_H
+#pragma once
 
 #include "ui_advanced_settings.h"
 #include <QDialog>
@@ -46,5 +45,3 @@ private Q_SLOTS:
 
     void slotLocalRemoteChanged();
 };
-
-#endif

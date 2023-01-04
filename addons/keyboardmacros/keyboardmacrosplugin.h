@@ -3,8 +3,7 @@
  * SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
-#ifndef KEYBOARDMACROSPLUGIN_H
-#define KEYBOARDMACROSPLUGIN_H
+#pragma once
 
 #include <QEvent>
 #include <QKeySequence>
@@ -80,5 +79,3 @@ private:
     bool load(const QString &name);
     bool wipe(const QString &name);
 };
-
-#endif

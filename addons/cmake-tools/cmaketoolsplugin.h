@@ -3,8 +3,7 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#ifndef KATE_CMAKE_TOOLS_PLUGIN_H
-#define KATE_CMAKE_TOOLS_PLUGIN_H
+#pragma once
 
 #include <KTextEditor/Plugin>
 #include <KXMLGUIClient>
@@ -47,5 +46,3 @@ private:
     KTextEditor::MainWindow *m_mainWindow;
     CMakeCompletion m_completion;
 };
-
-#endif

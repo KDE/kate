@@ -4,8 +4,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef KATE_SESSION_TEST_H
-#define KATE_SESSION_TEST_H
+#pragma once
 
 #include <QObject>
 
@@ -28,5 +27,3 @@ private Q_SLOTS:
 private:
     class QTemporaryFile *m_tmpfile;
 };
-
-#endif

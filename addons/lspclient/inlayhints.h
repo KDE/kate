@@ -3,8 +3,7 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#ifndef LSP_INLAY_HINTS_H
-#define LSP_INLAY_HINTS_H
+#pragma once
 
 #include "lspclientprotocol.h"
 #include <QObject>
@@ -88,4 +87,3 @@ private:
     QSharedPointer<LSPClientServerManager> m_serverManager;
     QVector<KTextEditor::Range> pendingRanges;
 };
-#endif

@@ -1,5 +1,4 @@
-#ifndef PLUGIN_KATEBUILD_H
-#define PLUGIN_KATEBUILD_H
+#pragma once
 /* plugin_katebuild.h                    Kate Plugin
 **
 ** SPDX-FileCopyrightText: 2008-2015 Kåre Särs <kare.sars@iki.fi>
@@ -180,5 +179,3 @@ public:
 
     QObject *createView(KTextEditor::MainWindow *mainWindow) override;
 };
-
-#endif

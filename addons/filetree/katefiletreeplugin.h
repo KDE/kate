@@ -4,8 +4,7 @@
    SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef KATE_FILETREE_PLUGIN_H
-#define KATE_FILETREE_PLUGIN_H
+#pragma once
 
 #include <QTimer>
 
@@ -137,5 +136,3 @@ private Q_SLOTS:
     void slotWidgetCreated(QWidget *);
     void slotWidgetRemoved(QWidget *);
 };
-
-#endif // KATE_FILETREE_PLUGIN_H

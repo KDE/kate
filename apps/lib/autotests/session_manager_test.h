@@ -4,8 +4,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef KATE_SESSION_MANAGER_TEST_H
-#define KATE_SESSION_MANAGER_TEST_H
+#pragma once
 
 #include <QObject>
 
@@ -30,5 +29,3 @@ private:
     class KateSessionManager *m_manager;
     class KateApp *m_app; // dependency, sigh...
 };
-
-#endif

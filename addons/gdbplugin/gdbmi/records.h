@@ -4,8 +4,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef GDBMIRECORDS_H
-#define GDBMIRECORDS_H
+#pragma once
 
 #include <QJsonObject>
 #include <QString>
@@ -27,5 +26,3 @@ struct Record {
 };
 
 }
-
-#endif // GDBMIRECORDS_H

@@ -8,8 +8,7 @@
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
-#ifndef EDITREPOSITORY_H
-#define EDITREPOSITORY_H
+#pragma once
 
 #include "ui_editrepository.h"
 
@@ -39,5 +38,3 @@ private Q_SLOTS:
     void validate();
     void updateFileTypes();
 };
-
-#endif

@@ -8,8 +8,7 @@
 //
 //  SPDX-License-Identifier: LGPL-2.0-only
 
-#ifndef IOVIEW_H
-#define IOVIEW_H
+#pragma once
 
 #include <QFile>
 #include <QWidget>
@@ -70,5 +69,3 @@ private:
     QSocketNotifier *m_stdoutNotifier = nullptr;
     QSocketNotifier *m_stderrNotifier = nullptr;
 };
-
-#endif

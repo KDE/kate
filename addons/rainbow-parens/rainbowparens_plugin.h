@@ -3,8 +3,7 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#ifndef RAINBOW_PARENS_PLUGIN_H
-#define RAINBOW_PARENS_PLUGIN_H
+#pragma once
 
 #include <KTextEditor/ConfigPage>
 #include <KTextEditor/Editor>
@@ -96,5 +95,3 @@ private:
     std::array<KColorButton, 5> m_btns;
     RainbowParenPlugin *const m_plugin;
 };
-
-#endif

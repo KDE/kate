@@ -4,8 +4,7 @@
  *  SPDX-License-Identifier: GPL-2.0-or-later
  */
 
-#ifndef SAVEDSESSIONSMODEL_H
-#define SAVEDSESSIONSMODEL_H
+#pragma once
 
 #include "katesessionmanager.h"
 
@@ -36,5 +35,3 @@ private:
 
     QVector<SessionInfo> m_sessions;
 };
-
-#endif // SAVEDSESSIONSMODEL_H

@@ -20,8 +20,7 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  ***************************************************************************/
 
-#ifndef PSEUDO_DTD_H
-#define PSEUDO_DTD_H
+#pragma once
 
 #include <QMap>
 #include <QProgressDialog>
@@ -69,7 +68,5 @@ protected:
     // Attribute values e.g. <"td", <"align", ( "left", "right", "justify" )>>
     QMap<QString, QMap<QString, QStringList>> m_attributevaluesList;
 };
-
-#endif // PSEUDO_DTD_H
 
 // kate: space-indent on; indent-width 4; replace-tabs on; mixed-indent off;

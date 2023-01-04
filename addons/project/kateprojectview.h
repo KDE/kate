@@ -5,8 +5,7 @@
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
-#ifndef KATE_PROJECT_VIEW_H
-#define KATE_PROJECT_VIEW_H
+#pragma once
 
 #include "kateproject.h"
 #include "kateprojectviewtree.h"
@@ -112,5 +111,3 @@ private:
      */
     QTimer m_filterStartTimer;
 };
-
-#endif

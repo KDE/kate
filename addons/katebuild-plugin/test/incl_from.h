@@ -1,6 +1,3 @@
-#ifndef INCL_FROM_H
-#define INCL_FROM_H
+#pragma once
 // krazy:skip
 #include "incl_from_from.h"
-
-#endif

@@ -5,8 +5,7 @@
 //
 //  SPDX-License-Identifier: LGPL-2.0-only
 
-#ifndef GDB_VARIABLE_PARSER_H_
-#define GDB_VARIABLE_PARSER_H_
+#pragma once
 
 #include "dap/entities.h"
 #include <QObject>
@@ -43,5 +42,3 @@ private:
     bool m_allAdded = true;
     QString m_local;
 };
-
-#endif

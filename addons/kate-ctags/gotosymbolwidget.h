@@ -3,8 +3,7 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#ifndef GOTOSYMBOLWIDGET_H
-#define GOTOSYMBOLWIDGET_H
+#pragma once
 
 #include <KTextEditor/Cursor>
 #include <QWidget>
@@ -58,5 +57,3 @@ private:
     KTextEditor::Cursor oldPos;
     QString m_tagFile;
 };
-
-#endif // GOTOSYMBOLWIDGET_H

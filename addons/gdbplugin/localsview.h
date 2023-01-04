@@ -5,8 +5,7 @@
 //
 //  SPDX-License-Identifier: LGPL-2.0-only
 
-#ifndef LOCALSVIEW_H
-#define LOCALSVIEW_H
+#pragma once
 
 #include "dap/entities.h"
 #include <QTreeWidget>
@@ -38,5 +37,3 @@ private:
 
     QHash<int, QTreeWidgetItem *> m_variables;
 };
-
-#endif

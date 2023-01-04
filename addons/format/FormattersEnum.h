@@ -2,8 +2,7 @@
     SPDX-FileCopyrightText: 2022 Waqar Ahmed <waqar.17a@gmail.com>
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#ifndef FORMATTERS_ENUM_H
-#define FORMATTERS_ENUM_H
+#pragma once
 
 enum class Formatters {
     ClangFormat = 0,
@@ -14,5 +13,3 @@ enum class Formatters {
     XmlLint,
     GoFmt,
 };
-
-#endif

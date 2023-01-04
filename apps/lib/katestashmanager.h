@@ -4,8 +4,7 @@
    SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef KATESTASHMANAGER_H
-#define KATESTASHMANAGER_H
+#pragma once
 
 #include "katesession.h"
 #include "kconfiggroup.h"
@@ -56,5 +55,3 @@ private:
     bool m_stashUnsavedChanges = false;
     bool m_stashNewUnsavedFiles = true;
 };
-
-#endif // KATESTASHMANAGER_H

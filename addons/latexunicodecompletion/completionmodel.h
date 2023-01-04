@@ -4,8 +4,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef KATELATEXCOMPLETIONMODEL_H
-#define KATELATEXCOMPLETIONMODEL_H
+#pragma once
 
 #include <QModelIndex>
 
@@ -40,4 +39,3 @@ public:
 private:
     QPair<int, int> m_matches = {0, 0};
 };
-#endif

@@ -4,8 +4,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef __KATE_SESSION_H__
-#define __KATE_SESSION_H__
+#pragma once
 
 #include "kateprivate_export.h"
 
@@ -113,5 +112,3 @@ private:
     std::unique_ptr<KConfig> m_config;
     QDateTime m_timestamp;
 };
-
-#endif

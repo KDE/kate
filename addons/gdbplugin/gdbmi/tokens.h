@@ -4,8 +4,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef GDBMITOKENS_H
-#define GDBMITOKENS_H
+#pragma once
 
 #include <QJsonArray>
 #include <QJsonDocument>
@@ -180,5 +179,3 @@ Item<Record> tryRecord(const char prefix, const QByteArray &message, const int s
 
 Q_DECLARE_METATYPE(gdbmi::StreamOutput)
 Q_DECLARE_METATYPE(gdbmi::Record)
-
-#endif // GDBMITOKENS_H

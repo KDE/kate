@@ -3,8 +3,7 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#ifndef LSP_SEMANTIC_HIGHLIGHTING_H
-#define LSP_SEMANTIC_HIGHLIGHTING_H
+#pragma once
 
 #include <QObject>
 #include <QPointer>
@@ -93,4 +92,3 @@ private:
     QTimer m_requestTimer;
     QPointer<KTextEditor::View> m_currentView;
 };
-#endif

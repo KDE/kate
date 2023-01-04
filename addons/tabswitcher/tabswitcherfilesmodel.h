@@ -5,8 +5,7 @@
    SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef KTEXTEDITOR_TAB_SWITCHER_FILES_MODEL_H
-#define KTEXTEDITOR_TAB_SWITCHER_FILES_MODEL_H
+#pragma once
 
 #include <QAbstractTableModel>
 #include <QIcon>
@@ -99,5 +98,3 @@ private:
 QString longestCommonPrefix(std::vector<QString> const &strs);
 
 }
-
-#endif // KTEXTEDITOR_TAB_SWITCHER_FILES_MODEL_H

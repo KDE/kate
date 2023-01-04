@@ -5,8 +5,7 @@
    SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef DOCUMENT_DUMMY_H
-#define DOCUMENT_DUMMY_H
+#pragma once
 
 #include <KTextEditor/Document>
 #include <KTextEditor/ModificationInterface>
@@ -281,5 +280,3 @@ private:
     QString m_name, m_encoding;
     QList<KTextEditor::View *> m_views;
 };
-
-#endif

@@ -3,8 +3,7 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#ifndef GITSTATUS_H
-#define GITSTATUS_H
+#pragma once
 
 #include <QString>
 #include <QVector>
@@ -72,5 +71,3 @@ QVector<StatusItem> parseDiffNameStatus(const QByteArray &raw);
 
 QString statusString(GitStatus s);
 }
-
-#endif // GITSTATUS_H

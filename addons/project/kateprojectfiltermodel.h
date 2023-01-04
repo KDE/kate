@@ -6,8 +6,7 @@
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
-#ifndef KATEPROJECTFILTERMODEL_H
-#define KATEPROJECTFILTERMODEL_H
+#pragma once
 
 #include <QSortFilterProxyModel>
 
@@ -50,5 +49,3 @@ protected:
 private:
     QString m_pattern;
 };
-
-#endif // KATEPROJECTFILTERMODEL_H

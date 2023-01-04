@@ -3,8 +3,7 @@
 
    SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#ifndef REPLICODECONFIGPAGE_H
-#define REPLICODECONFIGPAGE_H
+#pragma once
 #include <KTextEditor/ConfigPage>
 
 class KUrlRequester;
@@ -30,5 +29,3 @@ private:
     KUrlRequester *m_requester;
     ReplicodeConfig *m_config;
 };
-
-#endif // REPLICODECONFIGPAGE_H

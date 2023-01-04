@@ -4,8 +4,7 @@
    SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef REPLICODEVIEW_H
-#define REPLICODEVIEW_H
+#pragma once
 
 #include <KTextEditor/Plugin>
 #include <KTextEditor/SessionConfigInterface>
@@ -58,5 +57,3 @@ private:
     ReplicodeConfig *m_configView;
     bool m_completed = false;
 };
-
-#endif

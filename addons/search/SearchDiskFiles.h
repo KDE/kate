@@ -5,8 +5,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef SearchDiskFiles_h
-#define SearchDiskFiles_h
+#pragma once
 
 // Qt
 #include <QMutex>
@@ -182,5 +181,3 @@ private:
     const QRegularExpression m_regExp;
     bool m_includeBinaryFiles = false;
 };
-
-#endif

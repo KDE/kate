@@ -1,5 +1,4 @@
-#ifndef KATE_CE_ENDPPOINTS_H
-#define KATE_CE_ENDPPOINTS_H
+#pragma once
 
 #include <QHash>
 
@@ -24,5 +23,3 @@ static const QHash<QString, Endpoints> stringToEndpoint = {
 };
 
 }
-
-#endif // KATE_CE_ENDPPOINTS_H

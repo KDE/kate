@@ -3,8 +3,7 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#ifndef QUICKOPENLINEEDIT_H
-#define QUICKOPENLINEEDIT_H
+#pragma once
 
 #include <QLineEdit>
 #include <memory>
@@ -48,5 +47,3 @@ Q_SIGNALS:
     void listModeChanged(KateQuickOpenModelList mode);
     void filterModeChanged();
 };
-
-#endif // QUICKOPENLINEEDIT_H

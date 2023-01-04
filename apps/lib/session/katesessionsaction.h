@@ -4,8 +4,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef __KATE_SESSIONS_ACTION_H__
-#define __KATE_SESSIONS_ACTION_H__
+#pragma once
 
 #include "kateprivate_export.h"
 #include <KActionMenu>
@@ -30,5 +29,3 @@ private:
     KateSessionManager *m_manager;
     const bool m_allSessions;
 };
-
-#endif

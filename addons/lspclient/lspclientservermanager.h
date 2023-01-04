@@ -4,8 +4,7 @@
     SPDX-License-Identifier: MIT
 */
 
-#ifndef LSPCLIENTSERVERMANAGER_H
-#define LSPCLIENTSERVERMANAGER_H
+#pragma once
 
 #include "lspclientplugin.h"
 #include "lspclientserver.h"
@@ -88,5 +87,3 @@ public:
     // find a locked revision for url in snapshot
     virtual void find(const QUrl &url, KTextEditor::MovingInterface *&miface, qint64 &revision) const = 0;
 };
-
-#endif

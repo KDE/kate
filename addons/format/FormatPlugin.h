@@ -2,8 +2,7 @@
     SPDX-FileCopyrightText: 2022 Waqar Ahmed <waqar.17a@gmail.com>
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#ifndef FORMAT_PLUGIN_H
-#define FORMAT_PLUGIN_H
+#pragma once
 
 #include "FormattersEnum.h"
 
@@ -65,5 +64,3 @@ private:
     FormatPlugin *const m_plugin;
     KTextEditor::MainWindow *m_mainWindow;
 };
-
-#endif

@@ -4,8 +4,7 @@
     SPDX-License-Identifier: MIT
 */
 
-#ifndef LSPCLIENTSERVER_H
-#define LSPCLIENTSERVER_H
+#pragma once
 
 #include "lspclientprotocol.h"
 
@@ -225,5 +224,3 @@ private:
     // pimpl data holder
     LSPClientServerPrivate *const d;
 };
-
-#endif

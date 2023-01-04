@@ -4,8 +4,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef HTML_DELEGATE_H
-#define HTML_DELEGATE_H
+#pragma once
 
 #include <QFont>
 #include <QStyledItemDelegate>
@@ -35,5 +34,3 @@ private:
     QColor m_searchColor;
     QColor m_replaceColor;
 };
-
-#endif

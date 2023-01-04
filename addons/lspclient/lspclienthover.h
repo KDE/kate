@@ -5,8 +5,7 @@
     SPDX-License-Identifier: MIT
 */
 
-#ifndef LSPCLIENTHOVER_H
-#define LSPCLIENTHOVER_H
+#pragma once
 
 class LSPClientServerManager;
 class LSPClientServer;
@@ -33,5 +32,3 @@ public:
     // support additional parameters besides the usual interface signature
     virtual QString showTextHint(KTextEditor::View *view, const KTextEditor::Cursor &position, bool manual) = 0;
 };
-
-#endif

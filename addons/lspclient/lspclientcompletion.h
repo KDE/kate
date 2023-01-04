@@ -4,8 +4,7 @@
     SPDX-License-Identifier: MIT
 */
 
-#ifndef LSPCLIENTCOMPLETION_H
-#define LSPCLIENTCOMPLETION_H
+#pragma once
 
 #include "lspclientserver.h"
 #include "lspclientservermanager.h"
@@ -34,5 +33,3 @@ public:
     virtual void setCompleteParens(bool) = 0;
     virtual void setAutoImport(bool) = 0;
 };
-
-#endif

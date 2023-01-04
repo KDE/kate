@@ -8,8 +8,7 @@
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
-#ifndef EDITSNIPPET_H
-#define EDITSNIPPET_H
+#pragma once
 
 #include <QDialog>
 
@@ -62,5 +61,3 @@ private Q_SLOTS:
     void validate();
     void topBoxModified();
 };
-
-#endif

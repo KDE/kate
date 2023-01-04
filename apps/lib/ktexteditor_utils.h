@@ -2,8 +2,7 @@
     SPDX-FileCopyrightText: 2022 Waqar Ahmed <waqar.17a@gmail.com>
     SPDX-License-Identifier: MIT
 */
-#ifndef KATE_KTEXTEDITOR_UTILS
-#define KATE_KTEXTEDITOR_UTILS
+#pragma once
 
 #include "kateprivate_export.h"
 
@@ -99,5 +98,3 @@ KATE_PRIVATE_EXPORT QString projectBaseDirForDocument(KTextEditor::Document *doc
  */
 KATE_PRIVATE_EXPORT QVariantMap projectMapForDocument(KTextEditor::Document *doc);
 }
-
-#endif

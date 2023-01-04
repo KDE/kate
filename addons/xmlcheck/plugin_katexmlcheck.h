@@ -22,8 +22,7 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  ***************************************************************************/
 
-#ifndef PLUGIN_KATEXMLCHECK_H
-#define PLUGIN_KATEXMLCHECK_H
+#pragma once
 
 #include <QProcess>
 
@@ -78,5 +77,3 @@ public:
     ~PluginKateXMLCheck() override;
     QObject *createView(KTextEditor::MainWindow *mainWindow) override;
 };
-
-#endif // PLUGIN_KATEXMLCHECK_H

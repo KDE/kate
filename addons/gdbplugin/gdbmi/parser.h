@@ -4,8 +4,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef GDBMIPARSER_H
-#define GDBMIPARSER_H
+#pragma once
 
 #include <QByteArray>
 #include <QJsonObject>
@@ -61,5 +60,3 @@ private:
 };
 
 }
-
-#endif // GDBMIPARSER_H

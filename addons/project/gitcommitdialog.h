@@ -3,8 +3,7 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#ifndef GITCOMMITDIALOG_H
-#define GITCOMMITDIALOG_H
+#pragma once
 
 #include <QCheckBox>
 #include <QDialog>
@@ -40,5 +39,3 @@ private:
     QCheckBox m_cbSignOff;
     QCheckBox m_cbAmend;
 };
-
-#endif // GITCOMMITDIALOG_H

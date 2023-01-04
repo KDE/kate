@@ -4,8 +4,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef _PLUGIN_SEARCH_H_
-#define _PLUGIN_SEARCH_H_
+#pragma once
 
 #include <KTextEditor/Command>
 #include <KTextEditor/Message>
@@ -225,7 +224,5 @@ private:
      */
     KTextEditor::MainWindow *m_mainWindow;
 };
-
-#endif
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

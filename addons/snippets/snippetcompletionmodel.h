@@ -7,8 +7,7 @@
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
-#ifndef SNIPPETCOMPLETIONMODEL_H
-#define SNIPPETCOMPLETIONMODEL_H
+#pragma once
 
 #include <ktexteditor/codecompletionmodel.h>
 #include <ktexteditor/codecompletionmodelcontrollerinterface.h>
@@ -42,5 +41,3 @@ private:
     void initData(KTextEditor::View *view);
     QList<SnippetCompletionItem *> m_snippets;
 };
-
-#endif

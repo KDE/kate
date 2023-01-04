@@ -4,8 +4,7 @@
    SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef KATE_FILETREE_H
-#define KATE_FILETREE_H
+#pragma once
 
 #include <QIcon>
 #include <QTreeView>
@@ -125,5 +124,3 @@ private:
 
     KTextEditor::MainWindow *m_mainWindow;
 };
-
-#endif // KATE_FILETREE_H

@@ -7,8 +7,7 @@
    SPDX-License-Identifier: LGPL-2.0-only
 */
 
-#ifndef KATE_BOOKMARK_HANDLER_H
-#define KATE_BOOKMARK_HANDLER_H
+#pragma once
 
 #include <KBookmarkMenu>
 #include <KBookmarkOwner>
@@ -42,5 +41,3 @@ private:
     QMenu *m_menu;
     KBookmarkMenu *m_bookmarkMenu;
 };
-
-#endif // KATE_BOOKMARK_HANDLER_H

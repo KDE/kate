@@ -4,8 +4,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef _kateapp_adaptor_h_
-#define _kateapp_adaptor_h_
+#pragma once
 
 #include <QDBusAbstractAdaptor>
 
@@ -109,5 +108,3 @@ public:
 private:
     KateApp *m_app;
 };
-
-#endif

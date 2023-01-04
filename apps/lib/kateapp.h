@@ -5,8 +5,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef __KATE_APP_H__
-#define __KATE_APP_H__
+#pragma once
 
 #include <ktexteditor/application.h>
 
@@ -490,5 +489,3 @@ private:
     KUserFeedback::Provider m_userFeedbackProvider;
 #endif
 };
-
-#endif

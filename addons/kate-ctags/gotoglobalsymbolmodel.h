@@ -3,8 +3,7 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#ifndef GOTOGLOBALSYMBOLMODEL_H
-#define GOTOGLOBALSYMBOLMODEL_H
+#pragma once
 
 #include "tags.h"
 
@@ -41,5 +40,3 @@ public:
 private:
     Tags::TagList m_rows;
 };
-
-#endif // GOTOGLOBALSYMBOLMODEL_H

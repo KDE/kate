@@ -4,8 +4,7 @@
    SPDX-License-Identifier: LGPL-2.0-only
 */
 
-#ifndef EXPORTWIZARD_H
-#define EXPORTWIZARD_H
+#pragma once
 
 class KUrlRequester;
 class KLineEdit;
@@ -55,5 +54,3 @@ private:
     KLineEdit *quoteNumbersLine;
     KLineEdit *fieldDelimiterLine;
 };
-
-#endif // EXPORTWIZARD_H

@@ -4,8 +4,7 @@
     SPDX-License-Identifier: MIT
 */
 
-#ifndef LSPCLIENTPLUGINVIEW_H
-#define LSPCLIENTPLUGINVIEW_H
+#pragma once
 
 #include <QObject>
 
@@ -23,5 +22,3 @@ public:
     // only needs a factory; no other public interface
     static QObject *new_(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin, QSharedPointer<LSPClientServerManager> manager);
 };
-
-#endif

@@ -6,8 +6,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef CTAGSKINDS_H
-#define CTAGSKINDS_H
+#pragma once
 
 #include <QString>
 
@@ -21,5 +20,3 @@ public:
     static QString findKindNoi18n(const char *kindChar, const QStringView &extension);
 #endif
 };
-
-#endif

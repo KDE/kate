@@ -4,8 +4,7 @@
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
-#ifndef KATE_TAB_MIME_DATA_H
-#define KATE_TAB_MIME_DATA_H
+#pragma once
 
 #include <QMimeData>
 
@@ -37,5 +36,3 @@ public:
     KateViewSpace *const sourceVS;
     const DocOrWidget doc;
 };
-
-#endif

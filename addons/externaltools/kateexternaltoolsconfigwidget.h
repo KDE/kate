@@ -4,8 +4,7 @@
  *
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
-#ifndef KTEXTEDITOR_EXTERNALTOOLS_CONFIGWIDGET_H
-#define KTEXTEDITOR_EXTERNALTOOLS_CONFIGWIDGET_H
+#pragma once
 
 #include "ui_configwidget.h"
 #include "ui_tooldialog.h"
@@ -113,7 +112,5 @@ private:
     KateExternalToolsPlugin *m_plugin;
     KateExternalTool *m_tool;
 };
-
-#endif // KTEXTEDITOR_EXTERNALTOOLS_CONFIGWIDGET_H
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

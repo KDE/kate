@@ -6,8 +6,7 @@
    SPDX-License-Identifier: LGPL-2.0-only
 */
 
-#ifndef __KATE_VIEWMANAGER_H__
-#define __KATE_VIEWMANAGER_H__
+#pragma once
 
 #include "doc_or_widget.h"
 #include "katedocmanager.h"
@@ -408,5 +407,3 @@ private:
      */
     bool m_welcomeViewAlreadyShown = false;
 };
-
-#endif

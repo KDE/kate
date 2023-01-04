@@ -3,8 +3,7 @@
  * SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
-#ifndef KEYBOARDMACROSPLUGIN_KEYCOMBINATION_H
-#define KEYBOARDMACROSPLUGIN_KEYCOMBINATION_H
+#pragma once
 
 #include <utility>
 
@@ -80,5 +79,3 @@ public:
         return dbg << kc.toString();
     };
 };
-
-#endif

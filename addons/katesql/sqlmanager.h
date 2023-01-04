@@ -4,8 +4,7 @@
    SPDX-License-Identifier: LGPL-2.0-only
 */
 
-#ifndef SQLMANAGER_H
-#define SQLMANAGER_H
+#pragma once
 
 class ConnectionModel;
 class KConfigGroup;
@@ -60,5 +59,3 @@ private:
     ConnectionModel *m_model;
     KWallet::Wallet *m_wallet = nullptr;
 };
-
-#endif // SQLMANAGER_H

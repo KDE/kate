@@ -3,8 +3,7 @@
  * SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
-#ifndef KEYBOARDMACROSPLUGINCOMMANDS_H
-#define KEYBOARDMACROSPLUGINCOMMANDS_H
+#pragma once
 
 #include <QString>
 
@@ -28,5 +27,3 @@ public:
 private:
     KeyboardMacrosPlugin *m_plugin;
 };
-
-#endif

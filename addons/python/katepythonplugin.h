@@ -5,8 +5,7 @@
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
-#ifndef KATE_PYTHON_PLUGIN
-#define KATE_PYTHON_PLUGIN
+#pragma once
 
 #include <QVariant>
 
@@ -20,5 +19,3 @@ public:
     ~KatePythonPlugin() = default;
     QObject *createView(KTextEditor::MainWindow *) override;
 };
-
-#endif // __SRC__CLOSE_EXCEPT_PLUGIN_H__

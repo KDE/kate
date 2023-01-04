@@ -4,8 +4,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef MatchModel_h
-#define MatchModel_h
+#pragma once
 
 #include <QAbstractItemModel>
 #include <QPointer>
@@ -252,5 +251,3 @@ static_assert(MatchModel::contextLengths(140, 40, 50) == std::pair<int, int>{0, 
 static_assert(MatchModel::contextLengths(140, 20, 50) == std::pair<int, int>{0, 160});
 
 Q_DECLARE_METATYPE(KateSearchMatch)
-
-#endif

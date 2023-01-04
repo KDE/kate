@@ -5,8 +5,7 @@
    SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef KTEXTEDITOR_TAB_SWITCHER_PLUGIN_H
-#define KTEXTEDITOR_TAB_SWITCHER_PLUGIN_H
+#pragma once
 
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/Plugin>
@@ -136,5 +135,3 @@ private:
     QSet<KTextEditor::Document *> m_documents;
     TabSwitcherTreeView *m_treeView;
 };
-
-#endif // KTEXTEDITOR_TAB_SWITCHER_PLUGIN_H

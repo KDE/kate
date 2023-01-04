@@ -5,8 +5,7 @@
 //
 //  SPDX-License-Identifier: LGPL-2.0-only
 
-#ifndef TARGETS_H
-#define TARGETS_H
+#pragma once
 
 #include "TargetFilterProxyModel.h"
 #include "TargetHtmlDelegate.h"
@@ -58,5 +57,3 @@ private:
 
     TargetHtmlDelegate *m_delegate = nullptr;
 };
-
-#endif

@@ -6,8 +6,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef KATE_COLORPICKER_CONFIGPAGE_H
-#define KATE_COLORPICKER_CONFIGPAGE_H
+#pragma once
 
 #include "katecolorpickerplugin.h"
 #include <KTextEditor/ConfigPage>
@@ -41,5 +40,3 @@ private:
     KateColorPickerPlugin *m_plugin;
     bool m_colorConfigChanged = false;
 };
-
-#endif // KATE_COLORPICKER_H

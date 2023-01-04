@@ -5,8 +5,7 @@
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
-#ifndef KATE_PROJECT_H
-#define KATE_PROJECT_H
+#pragma once
 
 #include "kateprojectindex.h"
 #include "kateprojectitem.h"
@@ -379,5 +378,3 @@ private:
      */
     QVariantMap m_globalProject;
 };
-
-#endif

@@ -5,8 +5,7 @@
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
-#ifndef KATE_PROJECT_CODE_ANALYSIS_TOOL_FLAKE8_H
-#define KATE_PROJECT_CODE_ANALYSIS_TOOL_FLAKE8_H
+#pragma once
 
 #include "../kateprojectcodeanalysistool.h"
 
@@ -38,5 +37,3 @@ public:
 
     QString stdinMessages() override;
 };
-
-#endif // KATE_PROJECT_CODE_ANALYSIS_TOOL_FLAKE8_H

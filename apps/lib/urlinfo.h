@@ -4,8 +4,7 @@
    SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef URLINFO_H
-#define URLINFO_H
+#pragma once
 
 #include <KTextEditor/Cursor>
 
@@ -131,5 +130,3 @@ public:
      */
     KTextEditor::Cursor cursor;
 };
-
-#endif // URLINFO_H

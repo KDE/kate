@@ -6,8 +6,7 @@
    SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef __KATE_PLUGINMANAGER_H__
-#define __KATE_PLUGINMANAGER_H__
+#pragma once
 
 #include <KTextEditor/Plugin>
 
@@ -84,5 +83,3 @@ private:
      */
     QMap<QString, KatePluginInfo *> m_name2Plugin;
 };
-
-#endif

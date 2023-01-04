@@ -5,8 +5,7 @@
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
-#ifndef KATE_PROJECT_INFO_VIEW_CODE_ANALYSIS_H
-#define KATE_PROJECT_INFO_VIEW_CODE_ANALYSIS_H
+#pragma once
 
 #include <QComboBox>
 #include <QPointer>
@@ -131,5 +130,3 @@ private:
      */
     QString m_toolInfoText;
 };
-
-#endif

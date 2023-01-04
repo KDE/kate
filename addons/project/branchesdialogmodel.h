@@ -3,8 +3,7 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#ifndef KATEQUICKOPENMODEL_H
-#define KATEQUICKOPENMODEL_H
+#pragma once
 
 #include <QAbstractTableModel>
 #include <QVariant>
@@ -50,5 +49,3 @@ private:
 
     QVector<BranchesDialogModel::Branch> m_modelEntries;
 };
-
-#endif

@@ -3,8 +3,7 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#ifndef GITSTATUSMODEL_H
-#define GITSTATUSMODEL_H
+#pragma once
 
 #include <QAbstractItemModel>
 
@@ -59,5 +58,3 @@ private:
     QVector<GitUtils::StatusItem> m_nodes[4];
     bool m_showNumStat = false;
 };
-
-#endif // GITSTATUSMODEL_H

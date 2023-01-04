@@ -3,8 +3,7 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#ifndef DAP_SOCKETBUS_H
-#define DAP_SOCKETBUS_H
+#pragma once
 
 #include <QTcpSocket>
 
@@ -33,5 +32,3 @@ private:
 };
 
 }
-
-#endif // DAP_SOCKETBUS_H

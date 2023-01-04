@@ -5,8 +5,7 @@
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
-#ifndef KATE_PROJECT_TREE_VIEW_CONTEXT_MENU_H
-#define KATE_PROJECT_TREE_VIEW_CONTEXT_MENU_H
+#pragma once
 
 #include <QPoint>
 #include <QString>
@@ -23,5 +22,3 @@ public:
      */
     static void exec(const QString &filename, const QModelIndex &index, const QPoint &pos, KateProjectViewTree *parent);
 };
-
-#endif

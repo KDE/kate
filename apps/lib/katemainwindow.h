@@ -6,8 +6,7 @@
    SPDX-License-Identifier: LGPL-2.0-only
 */
 
-#ifndef __KATE_MAINWINDOW_H__
-#define __KATE_MAINWINDOW_H__
+#pragma once
 
 #include "diffparams.h"
 #include "katemdi.h"
@@ -739,5 +738,3 @@ protected:
     bool event(QEvent *e) override;
     void mousePressEvent(QMouseEvent *e) override;
 };
-
-#endif

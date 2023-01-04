@@ -3,8 +3,7 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#ifndef LSPTOOLTIP_H
-#define LSPTOOLTIP_H
+#pragma once
 
 #include "lspclientprotocol.h"
 
@@ -25,5 +24,3 @@ public:
     // tooltip hidden after timeout msec (if > 0)
     static void show(const QString &text, LSPMarkupKind kind, QPoint pos, KTextEditor::View *v, bool manual);
 };
-
-#endif // LSPTOOLTIP_H

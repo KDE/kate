@@ -5,8 +5,7 @@
     SPDX-License-Identifier: MIT
 */
 
-#ifndef LSPCLIENTSYMBOLVIEW_H
-#define LSPCLIENTSYMBOLVIEW_H
+#pragma once
 
 #include "lspclientplugin.h"
 #include "lspclientservermanager.h"
@@ -40,5 +39,3 @@ public:
 Q_SIGNALS:
     void newState(KTextEditor::View *, State);
 };
-
-#endif

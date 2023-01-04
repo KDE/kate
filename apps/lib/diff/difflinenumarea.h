@@ -2,8 +2,7 @@
     SPDX-FileCopyrightText: 2022 Waqar Ahmed <waqar.17a@gmail.com>
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#ifndef DIFF_LINE_NUM_AREA
-#define DIFF_LINE_NUM_AREA
+#pragma once
 
 #include <QWidget>
 
@@ -38,5 +37,3 @@ private:
     QVector<int> m_lineToNumB;
     int maxLineNum = 0;
 };
-
-#endif

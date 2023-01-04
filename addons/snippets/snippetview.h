@@ -9,8 +9,7 @@
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
-#ifndef SNIPPETVIEW_H
-#define SNIPPETVIEW_H
+#pragma once
 
 #include <KNSWidgets/Action>
 #include <KTextEditor/MainWindow>
@@ -98,5 +97,3 @@ private:
     QAction *m_editSnippetAction;
     KNSWidgets::Action *m_getNewStuffAction;
 };
-
-#endif

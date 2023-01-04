@@ -5,8 +5,7 @@
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
-#ifndef KATE_PROJECT_CODE_ANALYSIS_SELECTOR_H
-#define KATE_PROJECT_CODE_ANALYSIS_SELECTOR_H
+#pragma once
 
 #include <QStandardItemModel>
 
@@ -21,5 +20,3 @@ public:
      */
     static QStandardItemModel *model(QObject *parent = nullptr);
 };
-
-#endif // KATE_PROJECT_CODE_ANALYSIS_SELECTOR_H

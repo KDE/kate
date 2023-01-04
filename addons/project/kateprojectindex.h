@@ -5,8 +5,7 @@
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
-#ifndef KATE_PROJECT_INDEX_H
-#define KATE_PROJECT_INDEX_H
+#pragma once
 
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
@@ -102,5 +101,3 @@ private:
      */
     tagFile *m_ctagsIndexHandle;
 };
-
-#endif

@@ -4,8 +4,7 @@
    SPDX-License-Identifier: LGPL-2.0-only
 */
 
-#ifndef TEXTOUTPUTWIDGET_H
-#define TEXTOUTPUTWIDGET_H
+#pragma once
 
 class QHBoxLayout;
 class QTextEdit;
@@ -37,5 +36,3 @@ private:
     QColor m_errorTextColor;
     QColor m_errorBackgroundColor;
 };
-
-#endif // TEXTOUTPUTWIDGET_H

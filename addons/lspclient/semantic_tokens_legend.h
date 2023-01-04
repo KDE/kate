@@ -3,8 +3,7 @@
 
     SPDX-License-Identifier: MIT
 */
-#ifndef SEMANTIC_TOKENS_LEGEND_H
-#define SEMANTIC_TOKENS_LEGEND_H
+#pragma once
 
 #include <QObject>
 
@@ -72,5 +71,3 @@ private:
     std::vector<KTextEditor::Attribute::Ptr> sharedAttrs;
     KTextEditor::Attribute::Ptr fixedAttrs[7];
 };
-
-#endif

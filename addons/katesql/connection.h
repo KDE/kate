@@ -4,8 +4,7 @@
    SPDX-License-Identifier: LGPL-2.0-only
 */
 
-#ifndef CONNECTION_H
-#define CONNECTION_H
+#pragma once
 
 #include <QMetaType>
 #include <QString>
@@ -25,5 +24,3 @@ struct Connection {
 };
 
 Q_DECLARE_METATYPE(Connection)
-
-#endif // CONNECTION_H

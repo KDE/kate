@@ -3,8 +3,7 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#ifndef COMAREBRANCHESVIEW_H
-#define COMAREBRANCHESVIEW_H
+#pragma once
 
 #include <QPushButton>
 #include <QStandardItemModel>
@@ -38,5 +37,3 @@ private:
     QString m_toBr;
     KateProjectPluginView *m_pluginView;
 };
-
-#endif // COMAREBRANCHESVIEW_H

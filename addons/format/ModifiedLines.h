@@ -2,8 +2,7 @@
     SPDX-FileCopyrightText: 2022 Waqar Ahmed <waqar.17a@gmail.com>
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#ifndef FORMATTER_GET_MODIFIED_LINE_H
-#define FORMATTER_GET_MODIFIED_LINE_H
+#pragma once
 
 #include <gitprocess.h>
 
@@ -108,5 +107,3 @@ static inline std::optional<std::vector<ModifiedLines>> getModifiedLines(const Q
     }
     return __internal::modifedLinesFromGitDiff(git.readAllStandardOutput());
 }
-
-#endif

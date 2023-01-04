@@ -4,8 +4,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef KATE_OUTPUT_VIEW_H
-#define KATE_OUTPUT_VIEW_H
+#pragma once
 
 #include <QLineEdit>
 #include <QPointer>
@@ -131,5 +130,3 @@ private:
     QString m_errColor;
     QString m_keywordColor;
 };
-
-#endif

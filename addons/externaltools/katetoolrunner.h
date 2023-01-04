@@ -5,8 +5,7 @@
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
-#ifndef KTEXTEDITOR_EXTERNALTOOLRUNNER_H
-#define KTEXTEDITOR_EXTERNALTOOLRUNNER_H
+#pragma once
 
 #include <QByteArray>
 #include <QObject>
@@ -95,7 +94,5 @@ private:
     //! Collect stderr
     QByteArray m_stderr;
 };
-
-#endif // KTEXTEDITOR_EXTERNALTOOLRUNNER_H
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

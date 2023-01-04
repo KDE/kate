@@ -3,8 +3,7 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#ifndef BRANCHCHECKOUTDIALOG_H
-#define BRANCHCHECKOUTDIALOG_H
+#pragma once
 
 #include "branchesdialog.h"
 
@@ -29,5 +28,3 @@ private:
     QString m_checkoutFromBranchName;
     bool m_checkingOutFromBranch = false;
 };
-
-#endif // BRANCHCHECKOUTDIALOG_H

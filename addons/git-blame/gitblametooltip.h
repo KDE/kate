@@ -4,8 +4,7 @@
 
     SPDX-License-Identifier: MIT
 */
-#ifndef GitBlameTooltip_h
-#define GitBlameTooltip_h
+#pragma once
 
 #include <memory>
 
@@ -33,5 +32,3 @@ private:
     std::unique_ptr<Private> d;
     KateGitBlamePluginView *m_pluginView;
 };
-
-#endif // GitBlameTooltip_h

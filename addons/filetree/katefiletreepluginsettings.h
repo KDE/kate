@@ -4,8 +4,7 @@
    SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef KATE_FILETREE_PLUGIN_SETTINGS_H
-#define KATE_FILETREE_PLUGIN_SETTINGS_H
+#pragma once
 
 #include <KConfigGroup>
 #include <QColor>
@@ -56,5 +55,3 @@ private:
     bool m_showToolbar;
     bool m_showCloseButton;
 };
-
-#endif // KATE_FILETREE_PLUGIN_H

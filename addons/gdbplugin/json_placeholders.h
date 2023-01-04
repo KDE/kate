@@ -3,8 +3,7 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#ifndef JSON_PLACEHOLDERS_H
-#define JSON_PLACEHOLDERS_H
+#pragma once
 
 #include <QHash>
 #include <QSet>
@@ -63,5 +62,3 @@ QJsonArray resolve(const QJsonArray &array, const VarMap &variables);
 QJsonValue resolve(const QJsonValue &value, const VarMap &variables);
 
 }
-
-#endif // JSON_PLACEHOLDERS_H

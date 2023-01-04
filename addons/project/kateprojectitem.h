@@ -5,8 +5,7 @@
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
-#ifndef KATE_PROJECT_ITEM_H
-#define KATE_PROJECT_ITEM_H
+#pragma once
 
 #include <KTextEditor/ModificationInterface>
 #include <QStandardItem>
@@ -85,5 +84,3 @@ private:
      */
     QString m_emblem;
 };
-
-#endif

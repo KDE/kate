@@ -6,8 +6,7 @@
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
-#ifndef KATE_PROJECT_COMPLETION_H
-#define KATE_PROJECT_COMPLETION_H
+#pragma once
 
 #include <ktexteditor/codecompletionmodel.h>
 #include <ktexteditor/codecompletionmodelcontrollerinterface.h>
@@ -80,5 +79,3 @@ private:
      */
     bool m_automatic = false;
 };
-
-#endif

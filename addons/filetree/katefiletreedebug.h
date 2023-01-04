@@ -4,10 +4,7 @@
    SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef KATE_FILETREEDEBUG_H
-#define KATE_FILETREEDEBUG_H
+#pragma once
 
 #include <QLoggingCategory>
 Q_DECLARE_LOGGING_CATEGORY(FILETREE)
-
-#endif /* KATE_FILETREEDEBUG_H */

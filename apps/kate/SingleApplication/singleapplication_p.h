@@ -29,8 +29,7 @@
 // version without notice, or may even be removed.
 //
 
-#ifndef SINGLEAPPLICATION_P_H
-#define SINGLEAPPLICATION_P_H
+#pragma once
 
 #include <QtCore/QSharedMemory>
 #include <QtNetwork/QLocalServer>
@@ -106,4 +105,3 @@ public Q_SLOTS:
     void slotClientConnectionClosed( QLocalSocket*, quint32 );
 };
 
-#endif // SINGLEAPPLICATION_P_H

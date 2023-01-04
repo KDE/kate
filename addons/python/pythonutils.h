@@ -1,8 +1,7 @@
 // Copyright (C) 2017 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR BSD-3-Clause
 
-#ifndef PYTHONUTILS_H
-#define PYTHONUTILS_H
+#pragma once
 
 #include <QtCore/QStringList>
 
@@ -22,5 +21,3 @@ State init();
 bool runScript(const QStringList &script);
 
 } // namespace PythonUtils
-
-#endif // PYTHONUTILS_H

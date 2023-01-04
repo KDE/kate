@@ -4,8 +4,7 @@
    SPDX-License-Identifier: LGPL-2.0-only
 */
 
-#ifndef BTFILEINDEXER_H
-#define BTFILEINDEXER_H
+#pragma once
 
 #include <QString>
 #include <QStringList>
@@ -36,7 +35,5 @@ private:
 
     KateBtDatabase *db;
 };
-
-#endif
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

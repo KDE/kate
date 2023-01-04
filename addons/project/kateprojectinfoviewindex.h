@@ -5,8 +5,7 @@
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
-#ifndef KATE_PROJECT_INFO_VIEW_INDEX_H
-#define KATE_PROJECT_INFO_VIEW_INDEX_H
+#pragma once
 
 #include <QLineEdit>
 #include <QTreeView>
@@ -110,5 +109,3 @@ private:
      */
     QStandardItemModel *m_model;
 };
-
-#endif

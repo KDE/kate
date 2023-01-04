@@ -4,8 +4,7 @@
  *
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
-#ifndef KTEXTEDITOR_KATE_EXTERNALTOOL_H
-#define KTEXTEDITOR_KATE_EXTERNALTOOL_H
+#pragma once
 
 #include <QMetaType>
 #include <QString>
@@ -157,7 +156,5 @@ bool operator==(const KateExternalTool &lhs, const KateExternalTool &rhs);
 
 // for use in QVariant (QAction::setData() and QAction::data())
 Q_DECLARE_METATYPE(KateExternalTool *)
-
-#endif // KTEXTEDITOR_KATE_EXTERNALTOOL_H
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

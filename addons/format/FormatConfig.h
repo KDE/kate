@@ -2,8 +2,7 @@
     SPDX-FileCopyrightText: 2022 Waqar Ahmed <waqar.17a@gmail.com>
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#ifndef FORMAT_CONFIG_H
-#define FORMAT_CONFIG_H
+#pragma once
 
 #include <KLocalizedString>
 #include <KTextEditor/ConfigPage>
@@ -43,5 +42,3 @@ private:
 
     class QComboBox *m_cmbJson;
 };
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef KATE_CTAGS_VIEW_H
-#define KATE_CTAGS_VIEW_H
+#pragma once
 /* Description : Kate CTags plugin
  *
  * SPDX-FileCopyrightText: 2008-2011 Kare Sars <kare.sars@iki.fi>
@@ -114,5 +113,3 @@ private:
     QTimer m_editTimer;
     QStack<TagJump> m_jumpStack;
 };
-
-#endif

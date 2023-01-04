@@ -1,5 +1,4 @@
-#ifndef KATE_CTAGS_PLUGIN_H
-#define KATE_CTAGS_PLUGIN_H
+#pragma once
 /* Description : Kate CTags plugin
  *
  * SPDX-FileCopyrightText: 2008-2011 Kare Sars <kare.sars@iki.fi>
@@ -88,5 +87,3 @@ private:
     KateCTagsPlugin *m_plugin;
     Ui_CTagsGlobalConfig m_confUi{};
 };
-
-#endif

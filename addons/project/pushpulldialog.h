@@ -3,8 +3,7 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#ifndef PUSHPULLDIALOG_H
-#define PUSHPULLDIALOG_H
+#pragma once
 
 #include "quickdialog.h"
 
@@ -33,5 +32,3 @@ private:
 protected Q_SLOTS:
     void slotReturnPressed(const QModelIndex &index) override;
 };
-
-#endif // PUSHPULLDIALOG_H

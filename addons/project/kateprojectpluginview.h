@@ -5,8 +5,7 @@
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
-#ifndef _KATE_PROJECT_PLUGIN_VIEW_H_
-#define _KATE_PROJECT_PLUGIN_VIEW_H_
+#pragma once
 
 #include <QComboBox>
 #include <QMenu>
@@ -441,5 +440,3 @@ private:
      */
     FixedView m_fixedView;
 };
-
-#endif

@@ -8,8 +8,7 @@
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
-#ifndef __SNIPPETREPOSITORY_H__
-#define __SNIPPETREPOSITORY_H__
+#pragma once
 
 #include <QDir>
 #include <QStandardItem>
@@ -144,5 +143,3 @@ private:
     /// QtScript with functions to be used in the snippets; common to all snippets
     QString m_script;
 };
-
-#endif

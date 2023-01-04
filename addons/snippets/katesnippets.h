@@ -5,8 +5,7 @@
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
-#ifndef __KATE_SNIPPETS_H__
-#define __KATE_SNIPPETS_H__
+#pragma once
 
 #include <KTextEditor/Editor>
 #include <KTextEditor/MainWindow>
@@ -70,5 +69,3 @@ private:
      */
     QVector<QPointer<KTextEditor::View>> m_textViews;
 };
-
-#endif

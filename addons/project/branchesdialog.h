@@ -3,8 +3,7 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#ifndef BRANCHES_DIALOG_H
-#define BRANCHES_DIALOG_H
+#pragma once
 
 #include <QFutureWatcher>
 
@@ -50,5 +49,3 @@ private:
     KateProjectPluginView *m_pluginView;
     QString m_branch;
 };
-
-#endif

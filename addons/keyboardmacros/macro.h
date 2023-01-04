@@ -3,8 +3,7 @@
  * SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
-#ifndef KEYBOARDMACROSPLUGIN_MACRO_H
-#define KEYBOARDMACROSPLUGIN_MACRO_H
+#pragma once
 
 #include <utility>
 
@@ -63,5 +62,3 @@ public:
         return str.trimmed().replace(QRegularExpression(QStringLiteral("\\s+")), QStringLiteral(" "));
     };
 };
-
-#endif

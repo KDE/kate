@@ -4,8 +4,7 @@
    SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef KATE_FILEBROWSEROPENWITHMENU_H
-#define KATE_FILEBROWSEROPENWITHMENU_H
+#pragma once
 
 #include <KFileItem>
 #include <QMenu>
@@ -42,5 +41,3 @@ protected:
 private:
     KFileItem m_item;
 };
-
-#endif // KATE_FILEBROWSEROPENWITHMENU_H

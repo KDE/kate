@@ -3,8 +3,7 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#ifndef DAP_CLIENT_H
-#define DAP_CLIENT_H
+#pragma once
 
 #include <QByteArray>
 #include <QHash>
@@ -210,4 +209,3 @@ private:
 };
 
 }
-#endif // DAP_CLIENT_H

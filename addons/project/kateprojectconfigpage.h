@@ -3,8 +3,7 @@
    SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef KATE_PROJECT_CONFIGPAGE_H
-#define KATE_PROJECT_CONFIGPAGE_H
+#pragma once
 
 #include <ktexteditor/configpage.h>
 
@@ -53,5 +52,3 @@ private:
     KateProjectPlugin *m_plugin;
     bool m_changed = false;
 };
-
-#endif /* KATE_PROJECT_CONFIGPAGE_H */

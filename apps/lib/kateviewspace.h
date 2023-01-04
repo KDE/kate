@@ -6,8 +6,7 @@
    SPDX-License-Identifier: LGPL-2.0-only
 */
 
-#ifndef KATE_VIEWSPACE_H
-#define KATE_VIEWSPACE_H
+#pragma once
 
 #include <ktexteditor/document.h>
 #include <ktexteditor/modificationinterface.h>
@@ -354,5 +353,3 @@ private:
     // should the tab bar be auto hidden if just one document is open?
     bool m_autoHideTabBar = false;
 };
-
-#endif

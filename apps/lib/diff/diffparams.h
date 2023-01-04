@@ -2,8 +2,7 @@
     SPDX-FileCopyrightText: 2022 Waqar Ahmed <waqar.17a@gmail.com>
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#ifndef KATE_DIFF_PARAMS
-#define KATE_DIFF_PARAMS
+#pragma once
 
 #include <QMetaType>
 #include <QStringList>
@@ -71,5 +70,3 @@ struct DiffParams {
     std::function<void()> updateStatusCallback;
 };
 Q_DECLARE_METATYPE(DiffParams)
-
-#endif

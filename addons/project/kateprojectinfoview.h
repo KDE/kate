@@ -5,8 +5,7 @@
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
-#ifndef KATE_PROJECT_INFO_VIEW_H
-#define KATE_PROJECT_INFO_VIEW_H
+#pragma once
 
 #include <QTabWidget>
 
@@ -70,5 +69,3 @@ private:
 
     KateProjectInfoViewTerminal *m_terminal;
 };
-
-#endif

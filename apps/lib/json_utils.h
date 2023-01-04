@@ -4,8 +4,7 @@
     SPDX-License-Identifier: MIT
 */
 
-#ifndef KATE_SHARED_JSON_UTILS_H
-#define KATE_SHARED_JSON_UTILS_H
+#pragma once
 
 #include <QJsonObject>
 
@@ -34,5 +33,3 @@ QJsonObject merge(const QJsonObject &bottom, const QJsonObject &top)
 }
 
 }
-
-#endif

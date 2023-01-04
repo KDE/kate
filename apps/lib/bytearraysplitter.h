@@ -2,8 +2,7 @@
     SPDX-FileCopyrightText: 2022 Waqar Ahmed <waqar.17a@gmail.com>
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#ifndef KATE_BYTE_ARRAY_SPLITTER
-#define KATE_BYTE_ARRAY_SPLITTER
+#pragma once
 
 #include <QByteArray>
 #include <QString>
@@ -135,5 +134,3 @@ private:
     const ArrayType &data;
     char s;
 };
-
-#endif

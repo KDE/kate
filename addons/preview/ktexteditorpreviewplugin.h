@@ -4,8 +4,7 @@
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
-#ifndef KTEXTEDITORPREVIEWPLUGIN_H
-#define KTEXTEDITORPREVIEWPLUGIN_H
+#pragma once
 
 // KF
 #include <KTextEditor/Plugin>
@@ -25,5 +24,3 @@ public:
 public: // KTextEditor::Plugin API
     QObject *createView(KTextEditor::MainWindow *mainWindow) override;
 };
-
-#endif

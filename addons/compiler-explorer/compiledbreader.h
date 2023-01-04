@@ -1,5 +1,4 @@
-#ifndef KATE_CMP_DB_READER_H
-#define KATE_CMP_DB_READER_H
+#pragma once
 
 #include <QHash>
 #include <QString>
@@ -36,5 +35,3 @@ public:
     //
     //     QHash<QString, QString> m_fileToArgs;
 };
-
-#endif // KATE_CMP_DB_READER_H

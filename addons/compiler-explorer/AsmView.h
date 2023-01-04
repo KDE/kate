@@ -1,5 +1,4 @@
-#ifndef KATE_CE_ASM_VIEW_H
-#define KATE_CE_ASM_VIEW_H
+#pragma once
 
 #include <QTreeView>
 
@@ -15,5 +14,3 @@ protected:
 Q_SIGNALS:
     void scrollToLineRequested(int line);
 };
-
-#endif // KATE_CE_ASM_VIEW_H

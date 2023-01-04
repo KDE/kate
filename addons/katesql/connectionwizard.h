@@ -4,8 +4,7 @@
    SPDX-License-Identifier: LGPL-2.0-only
 */
 
-#ifndef CONNECTIONWIZARD_H
-#define CONNECTIONWIZARD_H
+#pragma once
 
 class SQLManager;
 class KComboBox;
@@ -95,5 +94,3 @@ public:
 private:
     KLineEdit *connectionNameLineEdit;
 };
-
-#endif // CONNECTIONWIZARD_H

@@ -4,8 +4,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef _KATE_RUNNING_INSTANCE_INFO_
-#define _KATE_RUNNING_INSTANCE_INFO_
+#pragma once
 
 #include <QDBusConnection>
 #include <QDBusInterface>
@@ -58,5 +57,3 @@ private:
 typedef std::map<QString, KateRunningInstanceInfo> KateRunningInstanceMap;
 
 Q_DECL_EXPORT bool fillinRunningKateAppInstances(KateRunningInstanceMap *map);
-
-#endif

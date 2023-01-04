@@ -4,8 +4,7 @@
    SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef REPLICODESETTINGS_H
-#define REPLICODESETTINGS_H
+#pragma once
 
 #include <QObject>
 
@@ -79,5 +78,3 @@ public:
     QString modelsPath;
     bool testModels = false;
 };
-
-#endif // REPLICODESETTINGS_H

@@ -7,8 +7,7 @@
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
-#ifndef SNIPPETCOMPLETIONITEM_H
-#define SNIPPETCOMPLETIONITEM_H
+#pragma once
 
 /// TODO: push this into kdevplatform/language/codecompletion so language plugins can reuse it's functionality
 
@@ -41,5 +40,3 @@ private:
     QString m_snippet;
     SnippetRepository *m_repo;
 };
-
-#endif // SNIPPETCOMPLETIONITEM_H

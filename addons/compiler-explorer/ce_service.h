@@ -1,5 +1,4 @@
-#ifndef KATE_CE_SVC_H
-#define KATE_CE_SVC_H
+#pragma once
 
 #include "ce_endpoints.h"
 #include <QObject>
@@ -39,5 +38,3 @@ private:
     QNetworkAccessManager *mgr;
     QString url;
 };
-
-#endif // KATE_CE_SVC_H

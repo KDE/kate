@@ -4,8 +4,7 @@
    SPDX-License-Identifier: LGPL-2.0-only
 */
 
-#ifndef DATAOUTPUTWIDGET_H
-#define DATAOUTPUTWIDGET_H
+#pragma once
 
 class QTextStream;
 class QVBoxLayout;
@@ -63,5 +62,3 @@ private:
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(DataOutputWidget::Options)
-
-#endif // DATAOUTPUTWIDGET_H

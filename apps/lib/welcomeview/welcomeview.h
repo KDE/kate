@@ -5,8 +5,7 @@
     SPDX-License-Identifier: GPL-2.0-or-later
 */
 
-#ifndef WELCOMEVIEW_H
-#define WELCOMEVIEW_H
+#pragma once
 
 #include "ui_welcomeview.h"
 
@@ -47,5 +46,3 @@ private:
     Placeholder *m_placeholderRecentItems = nullptr;
     Placeholder *m_placeholderSavedSessions = nullptr;
 };
-
-#endif // WELCOMEVIEW_H

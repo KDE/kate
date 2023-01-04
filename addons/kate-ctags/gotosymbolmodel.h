@@ -3,8 +3,7 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#ifndef GOTOSYMBOLMODEL_H
-#define GOTOSYMBOLMODEL_H
+#pragma once
 
 #include <QAbstractTableModel>
 #include <QIcon>
@@ -33,5 +32,3 @@ public:
 private:
     QVector<SymbolItem> m_rows;
 };
-
-#endif // GOTOSYMBOLMODEL_H

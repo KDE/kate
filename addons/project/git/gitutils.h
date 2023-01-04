@@ -3,8 +3,7 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#ifndef GITUTILS_H
-#define GITUTILS_H
+#pragma once
 
 #include <QString>
 #include <functional>
@@ -91,5 +90,3 @@ Result deleteBranches(const QStringList &branches, const QString &repo);
 }
 
 Q_DECLARE_TYPEINFO(GitUtils::Branch, Q_MOVABLE_TYPE);
-
-#endif // GITUTILS_H

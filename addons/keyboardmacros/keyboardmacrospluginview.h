@@ -3,8 +3,7 @@
  * SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
-#ifndef KEYBOARDMACROSPLUGINVIEW_H
-#define KEYBOARDMACROSPLUGINVIEW_H
+#pragma once
 
 #include <QMap>
 #include <QObject>
@@ -62,5 +61,3 @@ public Q_SLOTS:
     void slotPlayNamed(const QString &name = QString());
     void slotWipeNamed(const QString &name = QString());
 };
-
-#endif

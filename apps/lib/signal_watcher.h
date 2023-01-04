@@ -3,8 +3,7 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#ifndef KATE_SIG_WATCHER_H
-#define KATE_SIG_WATCHER_H
+#pragma once
 
 #include <QObject>
 
@@ -33,5 +32,3 @@ private:
     class QSocketNotifier *m_sigTermSocketNotifier;
 #endif // defined(Q_OS_UNIX)
 };
-
-#endif

@@ -3,8 +3,7 @@
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
-#ifndef FILETREE_MODEL_TEST_H
-#define FILETREE_MODEL_TEST_H
+#pragma once
 
 #include <QObject>
 
@@ -46,5 +45,3 @@ private Q_SLOTS:
 private:
     void walkTree(KateFileTreeModel &model, const QModelIndex &i, ResultNode &node);
 };
-
-#endif

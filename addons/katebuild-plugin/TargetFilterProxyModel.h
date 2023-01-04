@@ -4,8 +4,7 @@
  *                                                                         *
  *   SPDX-License-Identifier: LGPL-2.0-or-later
  ***************************************************************************/
-#ifndef TargetFilterProxyModel_H
-#define TargetFilterProxyModel_H
+#pragma once
 
 #include <QModelIndex>
 #include <QObject>
@@ -23,5 +22,3 @@ public:
 
     QString m_filter;
 };
-
-#endif

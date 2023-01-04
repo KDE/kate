@@ -4,8 +4,7 @@
    SPDX-License-Identifier: LGPL-2.0-only
 */
 
-#ifndef KATE_BACKTRACEBROWSER_H
-#define KATE_BACKTRACEBROWSER_H
+#pragma once
 
 #include <KTextEditor/Plugin>
 #include <ktexteditor/configpage.h>
@@ -134,7 +133,5 @@ public:
 private:
     KateBtConfigWidget *m_configWidget;
 };
-
-#endif // KATE_BACKTRACEBROWSER_H
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

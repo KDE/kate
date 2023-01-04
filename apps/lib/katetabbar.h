@@ -5,8 +5,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef KATE_TAB_BAR_H
-#define KATE_TAB_BAR_H
+#pragma once
 
 #include "doc_or_widget.h"
 #include <QTabBar>
@@ -160,5 +159,3 @@ private:
     QPoint dragStartPos;
     QPoint dragHotspotPos;
 };
-
-#endif // KATE_TAB_BAR_H

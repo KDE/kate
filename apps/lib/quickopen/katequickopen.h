@@ -5,8 +5,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef KATE_QUICK_OPEN_H
-#define KATE_QUICK_OPEN_H
+#pragma once
 
 #include <QMenu>
 
@@ -69,5 +68,3 @@ private:
      */
     QuickOpenFilterProxyModel *m_proxyModel = nullptr;
 };
-
-#endif

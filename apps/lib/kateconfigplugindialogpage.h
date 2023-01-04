@@ -6,8 +6,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef __KATE_CONFIGPLUGINDIALOGPAGE_H__
-#define __KATE_CONFIGPLUGINDIALOGPAGE_H__
+#pragma once
 
 #include <QFrame>
 #include <QTreeWidget>
@@ -53,5 +52,3 @@ private Q_SLOTS:
 private:
     QVector<class KatePluginListItem *> m_pluginItems;
 };
-
-#endif

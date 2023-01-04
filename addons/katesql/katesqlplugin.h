@@ -4,8 +4,7 @@
    SPDX-License-Identifier: LGPL-2.0-only
 */
 
-#ifndef KATESQLPLUGIN_H
-#define KATESQLPLUGIN_H
+#pragma once
 
 #include <ktexteditor/application.h>
 #include <ktexteditor/mainwindow.h>
@@ -37,5 +36,3 @@ public:
 Q_SIGNALS:
     void globalSettingsChanged();
 };
-
-#endif // KATESQLPLUGIN_H

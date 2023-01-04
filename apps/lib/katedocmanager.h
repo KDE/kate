@@ -5,8 +5,7 @@
    SPDX-License-Identifier: LGPL-2.0-only
 */
 
-#ifndef __KATE_DOCMANAGER_H__
-#define __KATE_DOCMANAGER_H__
+#pragma once
 
 #include <ktexteditor/document.h>
 #include <ktexteditor/modificationinterface.h>
@@ -176,5 +175,3 @@ private:
 private Q_SLOTS:
     void documentOpened();
 };
-
-#endif

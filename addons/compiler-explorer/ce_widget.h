@@ -1,5 +1,4 @@
-#ifndef KATE_CE_WIDGET_H
-#define KATE_CE_WIDGET_H
+#pragma once
 
 #include <KTextEditor/View>
 #include <QPointer>
@@ -68,5 +67,3 @@ private:
 Q_SIGNALS:
     void lineHovered(int line);
 };
-
-#endif // KATE_CE_WIDGET_H

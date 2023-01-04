@@ -7,8 +7,7 @@
    SPDX-License-Identifier: LGPL-2.0-only
 */
 
-#ifndef __KATE_CONSOLE_H__
-#define __KATE_CONSOLE_H__
+#pragma once
 
 #include <KTextEditor/Plugin>
 #include <ktexteditor/configpage.h>
@@ -249,4 +248,3 @@ private Q_SLOTS:
      */
     static void slotEnableRunWarning();
 };
-#endif

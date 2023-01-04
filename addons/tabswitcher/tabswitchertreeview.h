@@ -5,8 +5,7 @@
    SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef KTEXTEDITOR_TABSWITCHER_TREEVIEW_H
-#define KTEXTEDITOR_TABSWITCHER_TREEVIEW_H
+#pragma once
 
 #include <QTreeView>
 
@@ -56,5 +55,3 @@ protected:
      */
     void showEvent(QShowEvent *event) override;
 };
-
-#endif // KTEXTEDITOR_TABSWITCHER_TREEVIEW_H

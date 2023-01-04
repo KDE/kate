@@ -4,8 +4,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef __KATE_SESSION_MANAGE_DIALOG_H__
-#define __KATE_SESSION_MANAGE_DIALOG_H__
+#pragma once
 
 #include <QDialog>
 
@@ -179,5 +178,3 @@ private:
      */
     QSet<KateSession::Ptr> m_deleteList;
 };
-
-#endif

@@ -4,8 +4,7 @@
  *
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
-#ifndef KATEPROJECTCODEANALYSISTOOLCLAZY_H
-#define KATEPROJECTCODEANALYSISTOOLCLAZY_H
+#pragma once
 
 #include <kateprojectcodeanalysistool.h>
 
@@ -36,5 +35,3 @@ public:
 
     QString compileCommandsDirectory() const;
 };
-
-#endif // KATEPROJECTCODEANALYSISTOOLCLAZY_H

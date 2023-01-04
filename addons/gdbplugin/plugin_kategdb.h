@@ -7,8 +7,7 @@
 //
 //  SPDX-License-Identifier: LGPL-2.0-only
 
-#ifndef PLUGIN_KATEGDB_H
-#define PLUGIN_KATEGDB_H
+#pragma once
 
 #include <QPointer>
 
@@ -125,5 +124,3 @@ private:
     bool m_focusOnInput;
     QPointer<KTextEditor::Message> m_infoMessage;
 };
-
-#endif

@@ -4,8 +4,7 @@
  *
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
-#ifndef KTEXTEDITOR_EXTERNALTOOLS_H
-#define KTEXTEDITOR_EXTERNALTOOLS_H
+#pragma once
 
 namespace KTextEditor
 {
@@ -151,7 +150,5 @@ private:
     QTextDocument *m_outputDoc = nullptr;
     QPointer<KTextEditor::View> m_currentView;
 };
-
-#endif // KTEXTEDITOR_EXTERNALTOOLS_H
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

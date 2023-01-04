@@ -5,8 +5,7 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#ifndef KDEVPLATFORM_VCSDIFF_H
-#define KDEVPLATFORM_VCSDIFF_H
+#pragma once
 
 #include <QVector>
 #include <memory>
@@ -182,5 +181,3 @@ private:
 
 // Helper, parses "123, 12" into ints
 std::pair<uint, uint> parseRange(const QString &range);
-
-#endif

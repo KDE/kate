@@ -4,8 +4,7 @@
  *
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
-#ifndef KTEXTEDITOR_EXTERNALTOOLS_PLUGIN_H
-#define KTEXTEDITOR_EXTERNALTOOLS_PLUGIN_H
+#pragma once
 
 #include <KTextEditor/Plugin>
 #include <QVector>
@@ -155,7 +154,5 @@ private Q_SLOTS:
      */
     void handleToolFinished(KateToolRunner *runner, int exitCode, bool crashed);
 };
-
-#endif
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

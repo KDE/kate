@@ -2,8 +2,7 @@
     SPDX-FileCopyrightText: 2022 Waqar Ahmed <waqar.17a@gmail.com>
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#ifndef KATE_DIFF_EDITOR
-#define KATE_DIFF_EDITOR
+#pragma once
 
 #include "diffparams.h"
 #include <KTextEditor/Range>
@@ -132,5 +131,3 @@ Q_SIGNALS:
     void switchStyle(int);
     void actionTriggered(DiffEditor *e, int startLine, int endLine, int actionType, DiffParams::Flag);
 };
-
-#endif

@@ -5,8 +5,7 @@
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
-#ifndef KATE_PROJECT_INFO_VIEW_NOTES_H
-#define KATE_PROJECT_INFO_VIEW_NOTES_H
+#pragma once
 
 #include <QPlainTextEdit>
 
@@ -54,5 +53,3 @@ private:
      */
     QPlainTextEdit *m_edit;
 };
-
-#endif

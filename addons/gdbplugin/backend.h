@@ -5,8 +5,7 @@
  *
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
-#ifndef BACKEND_H_
-#define BACKEND_H_
+#pragma once
 
 #include <QObject>
 #include <memory>
@@ -63,5 +62,3 @@ private:
     DebugViewInterface *m_debugger;
     std::optional<bool> m_displayQueryLocals = std::nullopt;
 };
-
-#endif

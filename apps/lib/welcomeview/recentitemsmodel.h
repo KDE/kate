@@ -5,8 +5,7 @@
     SPDX-License-Identifier: GPL-2.0-or-later
 */
 
-#ifndef RECENTITEMSMODEL_H
-#define RECENTITEMSMODEL_H
+#pragma once
 
 #include <QAbstractListModel>
 #include <QIcon>
@@ -34,5 +33,3 @@ private:
 
     QVector<RecentItemInfo> m_recentItems;
 };
-
-#endif // RECENTITEMSMODEL_H

@@ -4,8 +4,7 @@
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
-#ifndef KATE_GDB_TEST_GDBMI_H
-#define KATE_GDB_TEST_GDBMI_H
+#pragma once
 
 #include <QObject>
 
@@ -61,5 +60,3 @@ private Q_SLOTS:
     void compare(const QJsonArray &ref, const QJsonArray &result);
     void compare(const QJsonObject &ref, const QJsonObject &result);
 };
-
-#endif

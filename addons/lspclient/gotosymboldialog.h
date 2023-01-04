@@ -3,8 +3,7 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#ifndef LSPGOTOSYMBOLDIALOG_H
-#define LSPGOTOSYMBOLDIALOG_H
+#pragma once
 
 #include <quickdialog.h>
 
@@ -43,5 +42,3 @@ private:
     const QIcon m_icon_function = QIcon::fromTheme(QStringLiteral("code-function"));
     const QIcon m_icon_var = QIcon::fromTheme(QStringLiteral("code-variable"));
 };
-
-#endif

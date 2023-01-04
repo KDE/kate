@@ -3,8 +3,7 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#ifndef GITWIDGET_H
-#define GITWIDGET_H
+#pragma once
 
 #include <QFutureWatcher>
 #include <QPointer>
@@ -161,5 +160,3 @@ private Q_SLOTS:
 public:
     Q_SIGNAL void checkoutBranch();
 };
-
-#endif // GITWIDGET_H

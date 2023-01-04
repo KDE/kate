@@ -5,8 +5,7 @@
  *
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
-#ifndef DEBUGVIEW_IFACE_H
-#define DEBUGVIEW_IFACE_H
+#pragma once
 
 #include <QObject>
 #include <QUrl>
@@ -146,5 +145,3 @@ Q_SIGNALS:
 
     void debuggerCapabilitiesChanged();
 };
-
-#endif

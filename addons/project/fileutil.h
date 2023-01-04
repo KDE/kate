@@ -5,8 +5,7 @@
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
-#ifndef KATE_PROJECT_FILEUTIL_H
-#define KATE_PROJECT_FILEUTIL_H
+#pragma once
 
 #include <QString>
 
@@ -23,7 +22,5 @@ public:
      */
     static const QString commonParent(const QString &path1, const QString &path2);
 };
-
-#endif
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

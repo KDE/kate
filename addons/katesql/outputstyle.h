@@ -4,8 +4,7 @@
    SPDX-License-Identifier: LGPL-2.0-only
 */
 
-#ifndef OUTPUTSTYLE_H
-#define OUTPUTSTYLE_H
+#pragma once
 
 #include <QBrush>
 #include <QFont>
@@ -18,5 +17,3 @@ struct OutputStyle {
 };
 
 // Q_DECLARE_METATYPE(OutputStyle)
-
-#endif // OUTPUTSTYLE_H

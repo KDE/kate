@@ -5,8 +5,7 @@
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
-#ifndef BT_BROWSER_TEST_H
-#define BT_BROWSER_TEST_H
+#pragma once
 
 #include <QObject>
 
@@ -21,7 +20,5 @@ public Q_SLOTS:
 private Q_SLOTS:
     void testParser();
 };
-
-#endif
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

@@ -7,8 +7,7 @@
    SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef KATE_FILETREE_CONFIGPAGE_H
-#define KATE_FILETREE_CONFIGPAGE_H
+#pragma once
 
 #include <QWidget>
 
@@ -53,5 +52,3 @@ private:
 
     bool m_changed = false;
 };
-
-#endif /* KATE_FILETREE_CONFIGPAGE_H */

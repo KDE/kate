@@ -4,8 +4,7 @@
     SPDX-License-Identifier: MIT
 */
 
-#ifndef LSPCLIENTCONFIGPAGE_H
-#define LSPCLIENTCONFIGPAGE_H
+#pragma once
 
 #include <KTextEditor/ConfigPage>
 
@@ -44,5 +43,3 @@ private:
     Ui::LspConfigWidget *ui;
     LSPClientPlugin *m_plugin;
 };
-
-#endif

@@ -4,8 +4,7 @@
     SPDX-License-Identifier: MIT
 */
 
-#ifndef LSPCLIENTPROTOCOL_H
-#define LSPCLIENTPROTOCOL_H
+#pragma once
 
 #include <QHash>
 #include <QJsonArray>
@@ -451,5 +450,3 @@ struct LSPInlayHint {
     // kate specific
     int width = 0; ///> Used to cache width
 };
-
-#endif

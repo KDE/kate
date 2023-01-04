@@ -4,8 +4,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef FolderFilesList_h
-#define FolderFilesList_h
+#pragma once
 
 #include <QRegularExpression>
 #include <QStringList>
@@ -52,5 +51,3 @@ private:
     QStringList m_types;
     QVector<QRegularExpression> m_excludes;
 };
-
-#endif

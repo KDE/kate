@@ -4,8 +4,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef __KATE_SESSION_MANAGER_H__
-#define __KATE_SESSION_MANAGER_H__
+#pragma once
 
 #include "katesession.h"
 
@@ -251,5 +250,3 @@ private:
      */
     QFileSystemWatcher m_dirWatch;
 };
-
-#endif

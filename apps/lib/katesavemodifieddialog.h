@@ -4,8 +4,7 @@
    SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef _KATE_SAVE_MODIFIED_DIALOG_
-#define _KATE_SAVE_MODIFIED_DIALOG_
+#pragma once
 
 #include <ktexteditor/document.h>
 
@@ -36,5 +35,3 @@ private:
     QTreeWidget *m_list;
     QPushButton *m_saveButton;
 };
-
-#endif

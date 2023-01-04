@@ -4,8 +4,7 @@
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
-#ifndef KTEXTEDITORPREVIEWVIEW_H
-#define KTEXTEDITORPREVIEWVIEW_H
+#pragma once
 
 // KF
 #include <KTextEditor/SessionConfigInterface>
@@ -44,5 +43,3 @@ private:
     QPointer<QWidget> m_toolView;
     KTextEditorPreview::PreviewWidget *m_previewView;
 };
-
-#endif

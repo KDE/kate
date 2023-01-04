@@ -3,8 +3,7 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#ifndef FILEHISTORYWIDGET_H
-#define FILEHISTORYWIDGET_H
+#pragma once
 
 #include "kateprivate_export.h"
 
@@ -25,5 +24,3 @@ public:
      */
     static KATE_PRIVATE_EXPORT void showFileHistory(const QString &file, KTextEditor::MainWindow *mainWindow = nullptr);
 };
-
-#endif // FILEHISTORYWIDGET_H

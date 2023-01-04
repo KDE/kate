@@ -5,8 +5,7 @@
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
-#ifndef KATE_PROJECT_INFO_VIEW_TERMINAL_H
-#define KATE_PROJECT_INFO_VIEW_TERMINAL_H
+#pragma once
 
 #include <QKeyEvent>
 #include <QVBoxLayout>
@@ -111,5 +110,3 @@ private:
 
     QPointer<QAction> m_showProjectInfoViewAction;
 };
-
-#endif

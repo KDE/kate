@@ -3,8 +3,7 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#ifndef QUICKDIALOG_H
-#define QUICKDIALOG_H
+#pragma once
 
 #include <QLineEdit>
 #include <QMenu>
@@ -85,5 +84,3 @@ private:
 Q_SIGNALS:
     void itemExecuted(const QModelIndex &index);
 };
-
-#endif // QUICKDIALOG_H

@@ -16,8 +16,7 @@
    Boston, MA 02110-1301, USA
 */
 
-#ifndef KATESQLVIEW_H
-#define KATESQLVIEW_H
+#pragma once
 
 class KateSQLOutputWidget;
 class SchemaBrowserWidget;
@@ -86,5 +85,3 @@ private:
 
     KTextEditor::MainWindow *m_mainWindow;
 };
-
-#endif // KATESQLVIEW_H

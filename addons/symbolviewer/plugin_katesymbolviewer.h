@@ -12,8 +12,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef _PLUGIN_KATE_SYMBOLVIEWER_H_
-#define _PLUGIN_KATE_SYMBOLVIEWER_H_
+#pragma once
 
 #include <KTextEditor/ConfigPage>
 #include <KTextEditor/MainWindow>
@@ -176,5 +175,3 @@ public Q_SLOTS:
 private:
     QSet<KatePluginSymbolViewerView *> m_views;
 };
-
-#endif

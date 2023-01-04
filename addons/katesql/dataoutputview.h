@@ -4,8 +4,7 @@
    SPDX-License-Identifier: LGPL-2.0-only
 */
 
-#ifndef DATAOUTPUTVIEW_H
-#define DATAOUTPUTVIEW_H
+#pragma once
 
 #include <QTableView>
 
@@ -19,5 +18,3 @@ public:
 private Q_SLOTS:
     void slotCustomContextMenuRequested(const QPoint &pos);
 };
-
-#endif // DATAOUTPUTVIEW_H

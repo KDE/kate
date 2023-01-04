@@ -3,8 +3,7 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#ifndef DAP_MESSAGES_H
-#define DAP_MESSAGES_H
+#pragma once
 
 #include <QString>
 
@@ -101,5 +100,3 @@ static const QString DAP_END_LINE = QStringLiteral("endLine");
 static const QString DAP_END_COLUMN = QStringLiteral("endColumn");
 
 }
-
-#endif // DAP_MESSAGES_H

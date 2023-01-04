@@ -5,8 +5,7 @@
  *   SPDX-License-Identifier: LGPL-2.0-or-later                            *
  ***************************************************************************/
 
-#ifndef TargetModel_h
-#define TargetModel_h
+#pragma once
 
 #include <QAbstractItemModel>
 #include <QByteArray>
@@ -88,5 +87,3 @@ public:
 private:
     QList<TargetSet> m_targets;
 };
-
-#endif

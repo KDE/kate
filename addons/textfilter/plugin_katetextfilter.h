@@ -12,8 +12,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef PLUGIN_KATETEXTFILTER_H
-#define PLUGIN_KATETEXTFILTER_H
+#pragma once
 
 #include <KTextEditor/Application>
 #include <KTextEditor/Command>
@@ -98,5 +97,3 @@ private:
      */
     KTextEditor::MainWindow *m_mainWindow;
 };
-
-#endif

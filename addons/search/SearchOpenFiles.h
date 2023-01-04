@@ -4,8 +4,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef _SEARCH_OPEN_FILES_H_
-#define _SEARCH_OPEN_FILES_H_
+#pragma once
 
 #include <QElapsedTimer>
 #include <QObject>
@@ -56,5 +55,3 @@ private:
     QVector<int> m_lineStart;
     QElapsedTimer m_statusTime;
 };
-
-#endif

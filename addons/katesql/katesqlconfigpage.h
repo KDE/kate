@@ -4,8 +4,7 @@
    SPDX-License-Identifier: LGPL-2.0-only
 */
 
-#ifndef KATESQLCONFIGPAGE_H
-#define KATESQLCONFIGPAGE_H
+#pragma once
 
 class OutputStyleWidget;
 class QCheckBox;
@@ -41,5 +40,3 @@ private:
 Q_SIGNALS:
     void settingsChanged();
 };
-
-#endif // KATESQLCONFIGPAGE_H

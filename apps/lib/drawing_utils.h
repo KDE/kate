@@ -5,8 +5,7 @@
  *  SPDX-License-Identifier: MIT
  */
 
-#ifndef KATE_DRAW_UTILS_H
-#define KATE_DRAW_UTILS_H
+#pragma once
 
 #include <QIcon>
 #include <QPainter>
@@ -73,5 +72,3 @@ inline void paintItemViewText(QPainter *p, const QString &text, const QStyleOpti
 }
 
 } // namespace Utils
-
-#endif

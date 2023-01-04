@@ -8,8 +8,7 @@
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
-#ifndef __SNIPPETSTORE_H__
-#define __SNIPPETSTORE_H__
+#pragma once
 
 #include <KConfigGroup>
 #include <QStandardItemModel>
@@ -57,5 +56,3 @@ private:
     static SnippetStore *m_self;
     KateSnippetGlobal *m_plugin;
 };
-
-#endif

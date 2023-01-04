@@ -3,8 +3,7 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#ifndef DAP_BUS_H
-#define DAP_BUS_H
+#pragma once
 
 #include <QObject>
 
@@ -54,5 +53,3 @@ private:
 };
 
 }
-
-#endif // DAP_BUS_H

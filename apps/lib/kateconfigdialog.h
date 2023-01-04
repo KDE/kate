@@ -6,8 +6,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef __kate_configdialog_h__
-#define __kate_configdialog_h__
+#pragma once
 
 #include <QPointer>
 
@@ -140,5 +139,3 @@ private:
 Q_SIGNALS:
     void saved();
 };
-
-#endif

@@ -3,8 +3,7 @@
 
    SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#ifndef REPLICODECONFIG_H
-#define REPLICODECONFIG_H
+#pragma once
 
 #include <QTabWidget>
 #include <QVariant>
@@ -34,5 +33,3 @@ private:
     Ui_tabWidget *m_ui;
     ReplicodeSettings *m_settings;
 };
-
-#endif // REPLICODECONFIG_H

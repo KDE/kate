@@ -3,8 +3,7 @@
 
    SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#ifndef REPLICODEPLUGIN_H
-#define REPLICODEPLUGIN_H
+#pragma once
 
 #include "replicodeview.h"
 #include <KTextEditor/ConfigPage>
@@ -32,5 +31,3 @@ public:
     }
     KTextEditor::ConfigPage *configPage(int number = 0, QWidget *parent = nullptr) override;
 };
-
-#endif

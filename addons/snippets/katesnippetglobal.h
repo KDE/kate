@@ -7,8 +7,7 @@
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
-#ifndef __KATE_SNIPPET_GLOBAL_H__
-#define __KATE_SNIPPET_GLOBAL_H__
+#pragma once
 
 #include <QPointer>
 #include <QVariant>
@@ -65,5 +64,3 @@ private:
     QScopedPointer<SnippetCompletionModel> m_model;
     QPointer<KTextEditor::View> m_activeViewForDialog;
 };
-
-#endif

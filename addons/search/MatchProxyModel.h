@@ -3,8 +3,7 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#ifndef KATE_SEARCH_MATCH_PROXY_MODEL_H
-#define KATE_SEARCH_MATCH_PROXY_MODEL_H
+#pragma once
 
 #include <QSortFilterProxyModel>
 
@@ -18,5 +17,3 @@ public:
 
     Q_SLOT void setFilterText(const QString &text);
 };
-
-#endif

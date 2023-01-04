@@ -1,5 +1,4 @@
-#ifndef GOTOSYMBOLTREEVIEW_H
-#define GOTOSYMBOLTREEVIEW_H
+#pragma once
 /*
     SPDX-FileCopyrightText: 2020 Waqar Ahmed <waqar.17a@gmail.com>
 
@@ -31,5 +30,3 @@ private:
     KTextEditor::MainWindow *m_mainWindow;
     bool globalMode = false;
 };
-
-#endif // GOTOSYMBOLTREEVIEW_H

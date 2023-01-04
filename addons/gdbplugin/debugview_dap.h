@@ -3,8 +3,7 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#ifndef DEBUGVIEW_DAP_H
-#define DEBUGVIEW_DAP_H
+#pragma once
 
 #include <QMap>
 #include <QObject>
@@ -174,5 +173,3 @@ private:
     QMap<QString, QList<dap::SourceBreakpoint>> m_wantedBreakpoints;
     QList<dap::StackFrame> m_frames;
 };
-
-#endif

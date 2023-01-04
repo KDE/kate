@@ -4,8 +4,7 @@
  *
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
-#ifndef KATEPROJECTCODEANALYSISTOOLCLANGTIDY_H
-#define KATEPROJECTCODEANALYSISTOOLCLANGTIDY_H
+#pragma once
 
 #include "clazy.h"
 
@@ -18,5 +17,3 @@ public:
     QString description() const override;
     QStringList arguments() override;
 };
-
-#endif // KATEPROJECTCODEANALYSISTOOLCLANGTIDY_H

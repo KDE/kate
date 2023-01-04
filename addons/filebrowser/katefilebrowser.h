@@ -8,8 +8,7 @@
    SPDX-License-Identifier: LGPL-2.0-only
 */
 
-#ifndef KATE_FILEBROWSER_H
-#define KATE_FILEBROWSER_H
+#pragma once
 
 #include <ktexteditor/mainwindow.h>
 
@@ -113,5 +112,3 @@ private:
 
     KTextEditor::MainWindow *m_mainWindow;
 };
-
-#endif // KATE_FILEBROWSER_H

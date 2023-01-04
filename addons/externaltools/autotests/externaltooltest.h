@@ -5,8 +5,7 @@
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
-#ifndef KATE_TOOLRUNNER_TEST_H
-#define KATE_TOOLRUNNER_TEST_H
+#pragma once
 
 #include <QObject>
 
@@ -23,7 +22,5 @@ private Q_SLOTS:
     void testRunListDirectory();
     void testRunTac();
 };
-
-#endif
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

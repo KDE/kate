@@ -5,8 +5,7 @@
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
-#ifndef KATE_PROJECT_CODE_ANALYSIS_TOOL_H
-#define KATE_PROJECT_CODE_ANALYSIS_TOOL_H
+#pragma once
 
 #include <QObject>
 #include <QString>
@@ -130,5 +129,3 @@ private:
 };
 
 Q_DECLARE_METATYPE(KateProjectCodeAnalysisTool *)
-
-#endif // KATE_PROJECT_CODE_ANALYSIS_TOOL_H

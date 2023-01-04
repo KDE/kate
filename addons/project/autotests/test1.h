@@ -5,8 +5,7 @@
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
-#ifndef KATE_PROJECT_TEST1_H
-#define KATE_PROJECT_TEST1_H
+#pragma once
 
 #include <QObject>
 
@@ -22,7 +21,5 @@ private Q_SLOTS:
     void testCommonParent();
     void testShellCheckParsing();
 };
-
-#endif
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

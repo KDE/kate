@@ -5,8 +5,7 @@
  *   SPDX-License-Identifier: LGPL-2.0-or-later                            *
  ***************************************************************************/
 
-#ifndef TargetHtmlDelegate_H
-#define TargetHtmlDelegate_H
+#pragma once
 
 #include <QStyledItemDelegate>
 
@@ -38,5 +37,3 @@ Q_SIGNALS:
 private:
     bool m_isEditing;
 };
-
-#endif

@@ -17,8 +17,7 @@
  *   the tool needing to detect and resynchronize with changes to the tag file.
  *   Even for an unsorted 24MB tag file, tag searches take about one second.
  */
-#ifndef READTAGS_H
-#define READTAGS_H
+#pragma once
 
 #ifdef __cplusplus
 extern "C" {
@@ -237,8 +236,6 @@ extern tagResult tagsClose(tagFile *const file);
 
 #ifdef __cplusplus
 }
-#endif
-
 #endif
 
 /* vi:set tabstop=8 shiftwidth=4: */

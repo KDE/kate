@@ -4,8 +4,7 @@
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
-#ifndef KTEXTEDITORPREVIEW_PREVIEWWIDGET_H
-#define KTEXTEDITORPREVIEW_PREVIEWWIDGET_H
+#pragma once
 
 // KF
 #include <KPluginMetaData>
@@ -117,5 +116,3 @@ private:
 };
 
 }
-
-#endif

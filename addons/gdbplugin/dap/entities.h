@@ -3,8 +3,7 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#ifndef DAP_ENTITIES_H
-#define DAP_ENTITIES_H
+#pragma once
 
 #include <QHash>
 #include <QJsonValue>
@@ -480,5 +479,3 @@ struct GotoTarget {
 };
 
 }
-
-#endif // DAP_ENTITIES_H

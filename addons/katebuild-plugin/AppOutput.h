@@ -2,8 +2,7 @@
 //
 //  SPDX-License-Identifier: LGPL-2.0-only
 
-#ifndef AppOutput_H
-#define AppOutput_H
+#pragma once
 
 #include <QString>
 #include <QWidget>
@@ -31,5 +30,3 @@ private:
     friend struct Private;
     std::unique_ptr<Private> d;
 };
-
-#endif

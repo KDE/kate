@@ -8,8 +8,7 @@
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
 
-#ifndef __SNIPPET_H__
-#define __SNIPPET_H__
+#pragma once
 
 #include <QStandardItem>
 
@@ -60,5 +59,3 @@ private:
 };
 
 Q_DECLARE_METATYPE(Snippet *)
-
-#endif

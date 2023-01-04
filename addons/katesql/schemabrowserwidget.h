@@ -4,8 +4,7 @@
    SPDX-License-Identifier: LGPL-2.0-only
 */
 
-#ifndef SCHEMABROWSERWIDGET_H
-#define SCHEMABROWSERWIDGET_H
+#pragma once
 
 class SQLManager;
 class SchemaWidget;
@@ -25,5 +24,3 @@ public:
 private:
     SchemaWidget *m_schemaWidget;
 };
-
-#endif // SCHEMABROWSERWIDGET_H

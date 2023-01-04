@@ -6,8 +6,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef TAGS_H
-#define TAGS_H
+#pragma once
 
 #include <QString>
 #include <QStringList>
@@ -60,7 +59,5 @@ public:
 private:
     static QString _tagsfile;
 };
-
-#endif
 
 // kate: space-indent off; indent-width 4; tab-width 4; show-tabs off;

@@ -5,8 +5,7 @@
  *   SPDX-License-Identifier: LGPL-2.0-or-later                            *
  ***************************************************************************/
 
-#ifndef UrlInserter_H
-#define UrlInserter_H
+#pragma once
 
 #include <QLineEdit>
 #include <QToolButton>
@@ -33,5 +32,3 @@ private:
     QUrl m_startUrl;
     bool m_replace;
 };
-
-#endif

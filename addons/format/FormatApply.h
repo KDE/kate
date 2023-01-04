@@ -2,8 +2,7 @@
     SPDX-FileCopyrightText: 2022 Waqar Ahmed <waqar.17a@gmail.com>
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#ifndef FORMAT_APPLY_H
-#define FORMAT_APPLY_H
+#pragma once
 
 #include <KLocalizedString>
 #include <KTextEditor/Document>
@@ -131,5 +130,3 @@ static std::vector<PatchLine> parseDiff(KTextEditor::MovingInterface *iface, con
         delete p.pos;
     }
 }
-
-#endif

@@ -20,8 +20,7 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  ***************************************************************************/
 
-#ifndef PLUGIN_KATEXMLTOOLS_H
-#define PLUGIN_KATEXMLTOOLS_H
+#pragma once
 
 #include "pseudo_dtd.h"
 
@@ -167,7 +166,5 @@ private:
     QComboBox *m_cmbElements;
     QPushButton *m_okButton;
 };
-
-#endif // PLUGIN_KATEXMLTOOLS_H
 
 // kate: space-indent on; indent-width 4; replace-tabs on; mixed-indent off;

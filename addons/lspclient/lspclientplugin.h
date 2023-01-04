@@ -4,8 +4,7 @@
     SPDX-License-Identifier: MIT
 */
 
-#ifndef LSPCLIENTPLUGIN_H
-#define LSPCLIENTPLUGIN_H
+#pragma once
 
 #include <QUrl>
 #include <QVariant>
@@ -107,5 +106,3 @@ private:
     // server manager to pass along
     QSharedPointer<LSPClientServerManager> m_serverManager;
 };
-
-#endif

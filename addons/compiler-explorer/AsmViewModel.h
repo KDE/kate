@@ -1,5 +1,4 @@
-#ifndef KATE_ASM_VIEW_MODEL_H
-#define KATE_ASM_VIEW_MODEL_H
+#pragma once
 
 #include <QAbstractTableModel>
 #include <QFont>
@@ -122,5 +121,3 @@ private:
     int m_hoveredLine = -1;
     bool m_hasError = false;
 };
-
-#endif

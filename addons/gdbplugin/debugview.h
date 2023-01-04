@@ -9,8 +9,7 @@
 //
 //  SPDX-License-Identifier: LGPL-2.0-only
 
-#ifndef DEBUGVIEW_H
-#define DEBUGVIEW_H
+#pragma once
 
 #include <QObject>
 
@@ -224,5 +223,3 @@ private:
         std::optional<bool> execJump;
     } m_capabilities;
 };
-
-#endif

@@ -4,8 +4,7 @@
    SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef KATEFILETREEMODEL_H
-#define KATEFILETREEMODEL_H
+#pragma once
 
 #include <unordered_map>
 
@@ -135,5 +134,3 @@ private:
 };
 
 Q_DECLARE_METATYPE(QList<KTextEditor::Document *>)
-
-#endif /* KATEFILETREEMODEL_H */

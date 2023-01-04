@@ -6,8 +6,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#ifndef KATE_COLORPICKER_H
-#define KATE_COLORPICKER_H
+#pragma once
 
 #include <unordered_map>
 
@@ -82,5 +81,3 @@ private:
     KTextEditor::MainWindow *m_mainWindow;
     std::unordered_map<KTextEditor::Document *, std::unique_ptr<ColorPickerInlineNoteProvider>> m_inlineColorNoteProviders;
 };
-
-#endif // KATE_COLORPICKER_H

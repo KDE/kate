@@ -284,7 +284,12 @@ void KateCTagsView::gotoDefinition()
 
     QStringList types;
     types << QStringLiteral("S") << QStringLiteral("d") << QStringLiteral("f") << QStringLiteral("t") << QStringLiteral("v");
-    gotoTagForTypes(currWord, types);
+    Tags::TagList list = Tags::getMatches(m_ctagsUi.tagsFile->text(), currWord, false, types);
+    if (list.isEmpty()) {
+        gotoDeclaration();
+    } else {
+        gotoResults(currWord, list);
+    }
 }
 
 /******************************************************************/
@@ -298,17 +303,13 @@ void KateCTagsView::gotoDeclaration()
     QStringList types;
     types << QStringLiteral("L") << QStringLiteral("c") << QStringLiteral("e") << QStringLiteral("g") << QStringLiteral("m") << QStringLiteral("n")
           << QStringLiteral("p") << QStringLiteral("s") << QStringLiteral("u") << QStringLiteral("x");
-    gotoTagForTypes(currWord, types);
+    Tags::TagList list = Tags::getMatches(m_ctagsUi.tagsFile->text(), currWord, false, types);
+    gotoResults(currWord, list);
 }
 
 /******************************************************************/
-void KateCTagsView::gotoTagForTypes(const QString &word, const QStringList &types)
+void KateCTagsView::gotoResults(const QString &word, const Tags::TagList &list)
 {
-    Tags::TagList list = Tags::getMatches(m_ctagsUi.tagsFile->text(), word, false, types);
-    if (list.empty()) {
-        list = Tags::getMatches(m_commonDB, word, false, types);
-    }
-
     // qCDebug(KTECTAGS) << "found" << list.count() << word << types;
     setNewLookupText(word);
 

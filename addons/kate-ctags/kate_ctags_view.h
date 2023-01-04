@@ -95,7 +95,7 @@ private:
     void setNewLookupText(const QString &newText);
     void displayHits(const Tags::TagList &list);
 
-    void gotoTagForTypes(const QString &tag, QStringList const &types);
+    void gotoResults(const QString &word, const Tags::TagList &list);
 
     QPointer<KTextEditor::MainWindow> m_mWin;
     QPointer<QWidget> m_toolView;

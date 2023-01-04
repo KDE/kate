@@ -3,7 +3,7 @@
 # Vít Pelčák <vit@pelcak.org>, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2019.
 # Lukáš Tinkl <ltinkl@redhat.com>, 2011.
 # Tomáš Chvátal <tomas.chvatal@gmail.com>, 2012, 2013.
-# Vit Pelcak <vpelcak@suse.cz>, 2021.
+# Vit Pelcak <vit@pelcak.org>, 2021.
 #
 msgid ""
 msgstr ""
@@ -11,7 +11,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-14 03:46+0000\n"
 "PO-Revision-Date: 2021-08-19 11:47+0200\n"
-"Last-Translator: Vit Pelcak <vpelcak@suse.cz>\n"
+"Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -392,15 +392,14 @@ msgid "Next Document"
 msgstr "Následující dokument"
 
 #: katefiletreeplugin.cpp:258
-#, fuzzy, kde-format
-#| msgid "&Show Active"
+#, kde-format
 msgid "&Show Active Document"
-msgstr "Zob&razit aktivní"
+msgstr ""
 
 #: katefiletreeplugin.cpp:263
 #, kde-format
 msgid "Save"
-msgstr ""
+msgstr "Uložit"
 
 #: katefiletreeplugin.cpp:264
 #, kde-format
@@ -410,25 +409,15 @@ msgstr "Uložit současný dokument"
 #: katefiletreeplugin.cpp:268
 #, kde-format
 msgid "Save As"
-msgstr ""
+msgstr "Uložit jako"
 
 #: katefiletreeplugin.cpp:269
-#, fuzzy, kde-format
-#| msgid "Save current document under new name"
+#, kde-format
 msgid "Save the current document under a new name"
-msgstr "Uložit současný dokument pod novým názvem"
+msgstr ""
 
 #. i18n: ectx: Menu (go)
 #: ui.rc:7
 #, kde-format
 msgid "&Go"
 msgstr "Pře&jít"
-
-#~ msgid "Rename file"
-#~ msgstr "Přejmenovat soubor"
-
-#~ msgid "New file name"
-#~ msgstr "Nový název souboru"
-
-#~ msgid "File \"%1\" could not be moved to \"%2\""
-#~ msgstr "Soubor \"%1\" nelze přesunout do \"%2\""

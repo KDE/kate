@@ -64,9 +64,3 @@ msgstr "Zatím neodesláno"
 #, kde-format
 msgid "&Tools"
 msgstr "Nás&troje"
-
-#~ msgid "Close"
-#~ msgstr "Zavřít"
-
-#~ msgid "Commit"
-#~ msgstr "Commit"

@@ -3,7 +3,7 @@
 # Vít Pelčák <vit@pelcak.org>, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020.
 # Lukáš Tinkl <ltinkl@redhat.com>, 2011.
 # Tomáš Chvátal <tomas.chvatal@gmail.com>, 2012, 2013.
-# Vit Pelcak <vpelcak@suse.cz>, 2021.
+# Vit Pelcak <vit@pelcak.org>, 2021.
 #
 msgid ""
 msgstr ""
@@ -11,7 +11,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-01 01:03+0000\n"
 "PO-Revision-Date: 2021-11-11 10:53+0100\n"
-"Last-Translator: Vit Pelcak <vpelcak@suse.cz>\n"
+"Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -216,7 +216,7 @@ msgstr ""
 #: lib/commitfilesview.cpp:488
 #, kde-format
 msgid "Commit"
-msgstr ""
+msgstr "Commit"
 
 #. i18n: ectx: Menu (file)
 #: lib/data/kateui.rc:6
@@ -746,13 +746,12 @@ msgstr "Nastavit"
 #: lib/kateconfigdialog.cpp:74 lib/kateoutputview.cpp:151
 #, kde-format
 msgid "Search..."
-msgstr ""
+msgstr "Hledat..."
 
 #: lib/kateconfigdialog.cpp:138
-#, fuzzy, kde-format
-#| msgid "Save As"
+#, kde-format
 msgid "Save"
-msgstr "Uložit jako"
+msgstr "Uložit"
 
 #: lib/kateconfigdialog.cpp:361
 #, kde-format
@@ -1143,10 +1142,9 @@ msgid "File \"%1\" could not be deleted."
 msgstr "Soubor \"%1\" nelze smazat."
 
 #: lib/katefileactions.cpp:202
-#, fuzzy, kde-format
-#| msgid "&Other..."
+#, kde-format
 msgid "&Other Application..."
-msgstr "&Jiné..."
+msgstr ""
 
 #: lib/katemainwindow.cpp:227
 #, kde-format
@@ -1752,11 +1750,9 @@ msgid "Diff Output"
 msgstr "Výstup diffu"
 
 #: lib/kateoutputview.cpp:166
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Copy to Clipboard"
+#, kde-format
 msgid "Copy all text to clipboard"
-msgstr "Zkopírovat do schránky"
+msgstr ""
 
 #: lib/kateoutputview.cpp:171
 #, kde-format
@@ -1798,16 +1794,11 @@ msgid "Save Documents"
 msgstr "Uložit dokumenty"
 
 #: lib/katesavemodifieddialog.cpp:155
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>The document '%1' has been modified, but not saved.</p><p>Do you want "
-#| "to save your changes or discard them?</p>"
+#, kde-format
 msgid ""
 "The document \"%1\" has been modified. Do you want to save your changes or "
 "discard them?"
 msgstr ""
-"<p>Dokument '%1' byl upraven, ale neuložen.</p><p>Přejete si uložit změny "
-"nebo je zahodit?</p>"
 
 #: lib/katesavemodifieddialog.cpp:159
 #, kde-format
@@ -2083,17 +2074,16 @@ msgid ""
 msgstr ""
 
 #: lib/kateviewmanager.cpp:533
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
-msgstr "Otevřít soubor"
+msgstr ""
 
 #: lib/kateviewmanager.cpp:534
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
-msgstr ""
+msgstr "Povolit"
 
 #: lib/kateviewmanager.cpp:545
 #, kde-format
@@ -2500,10 +2490,9 @@ msgid "Delete unused meta-information after:"
 msgstr "Smazat nepoužívaná metadata po:"
 
 #: lib/welcomeview/welcomeview.cpp:52
-#, fuzzy, kde-format
-#| msgid "Welcome"
+#, kde-format
 msgid "Welcome to %1"
-msgstr "Vítejte"
+msgstr "Vítejte ve %1"
 
 #: lib/welcomeview/welcomeview.cpp:56
 #, kde-format
@@ -2511,10 +2500,9 @@ msgid "Recent Documents and Projects"
 msgstr ""
 
 #: lib/welcomeview/welcomeview.cpp:56
-#, fuzzy, kde-format
-#| msgid "Save Documents"
+#, kde-format
 msgid "Recent Documents"
-msgstr "Uložit dokumenty"
+msgstr "Nedávné dokumenty"
 
 #: lib/welcomeview/welcomeview.cpp:59
 #, kde-format
@@ -2522,27 +2510,24 @@ msgid "No recent documents or projects"
 msgstr ""
 
 #: lib/welcomeview/welcomeview.cpp:59
-#, fuzzy, kde-format
-#| msgid "Save Documents"
+#, kde-format
 msgid "No recent documents"
-msgstr "Uložit dokumenty"
+msgstr ""
 
 #: lib/welcomeview/welcomeview.cpp:115
-#, fuzzy, kde-format
-#| msgid "&Save Session"
+#, kde-format
 msgid "No saved sessions"
-msgstr "&Uložit sezení"
+msgstr ""
 
 #: lib/welcomeview/welcomeview.cpp:237
-#, fuzzy, kde-format
-#| msgid "Copy Location"
+#, kde-format
 msgid "Copy &Location"
-msgstr "Kopírovat umístění"
+msgstr ""
 
 #: lib/welcomeview/welcomeview.cpp:252
 #, kde-format
 msgid "&Remove"
-msgstr ""
+msgstr "Odst&ranit"
 
 #. i18n: ectx: property (windowTitle), widget (QScrollArea, WelcomeView)
 #: lib/welcomeview/welcomeview.ui:17
@@ -2552,31 +2537,27 @@ msgstr "Vítejte"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonNewFile)
 #: lib/welcomeview/welcomeview.ui:179
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "New File"
-msgstr "Otevřít soubor"
+msgstr "Nový soubor"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonOpenFolder)
 #: lib/welcomeview/welcomeview.ui:186
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "Open Folder..."
-msgstr "Otevřít soubor"
+msgstr "Otevřít složku..."
 
 #. i18n: ectx: property (text), widget (QLabel, labelRecentItems)
 #: lib/welcomeview/welcomeview.ui:193
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "Recent Files"
-msgstr "Otevřít soubor"
+msgstr "Nedávné soubory"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonOpenFile)
 #: lib/welcomeview/welcomeview.ui:203
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "Open File..."
-msgstr "Otevřít soubor"
+msgstr "Otevřít soubor..."
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, buttonClearRecentItems)
 #: lib/welcomeview/welcomeview.ui:242
@@ -2586,10 +2567,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, labelHelp)
 #: lib/welcomeview/welcomeview.ui:271
-#, fuzzy, kde-format
-#| msgid "&Help"
+#, kde-format
 msgid "Help"
-msgstr "Nápo&věda"
+msgstr "Nápověda"
 
 #. i18n: ectx: property (text), widget (KUrlLabel, labelHomepage)
 #: lib/welcomeview/welcomeview.ui:281
@@ -2601,7 +2581,7 @@ msgstr ""
 #: lib/welcomeview/welcomeview.ui:294
 #, kde-format
 msgid "Get involved"
-msgstr ""
+msgstr "Přidejte se"
 
 #. i18n: ectx: property (text), widget (KUrlLabel, labelHandbook)
 #: lib/welcomeview/welcomeview.ui:307
@@ -2611,34 +2591,18 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, labelSavedSessions)
 #: lib/welcomeview/welcomeview.ui:354
-#, fuzzy, kde-format
-#| msgid "&Save Session"
+#, kde-format
 msgid "Saved Sessions"
-msgstr "&Uložit sezení"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonManageSessions)
 #: lib/welcomeview/welcomeview.ui:390
-#, fuzzy, kde-format
-#| msgid "&Manage Sessions..."
+#, kde-format
 msgid "Manage Sessions..."
-msgstr "Spravovat seze&ní..."
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
 #: lib/welcomeview/welcomeview.ui:443
 #, kde-format
 msgid "Show for new window"
 msgstr ""
-
-#~ msgid "Filter..."
-#~ msgstr "Filtr..."
-
-#~ msgid "Untitled"
-#~ msgstr "Nepojmenovaný"
-
-#, fuzzy
-#~| msgid "Delete file"
-#~ msgid "No recent files"
-#~ msgstr "Smazat soubor"
-
-#~ msgid "Form"
-#~ msgstr "Formulář"

@@ -7,13 +7,13 @@
 # Vasee Vaseeharan <vasee@ieee.org>, 2004.
 # Ambalam <tamilpc@ambalam.com>, 2004.
 # root <root@localhost.localdomain>, 2004.
-# Kishore G <kishore96@gmail.com>, 2020, 2021, 2022.
+# Kishore G <kishore96@gmail.com>, 2020, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-01 01:03+0000\n"
-"PO-Revision-Date: 2022-12-20 19:34+0530\n"
+"PO-Revision-Date: 2023-01-03 21:35+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -40,6 +40,9 @@ msgid ""
 "vulnerabilities. Instead use Kate normally and you will be prompted for "
 "elevated privileges when saving documents if needed."
 msgstr ""
+"கேட்டை sudo மூலம் இயக்குவது, பிழைகளையும் பாதுகாப்பு குறைபாடுகளையும் காரணிக்கலாம். "
+"பதிலாக, கேட்டை சாதாரணமாகவே இயக்குங்கள். ஆவணங்களை சேமிக்க ரூட் உரிமை தேவைப்பட்டால், "
+"அப்போது மட்டும் அதற்கான கோரிக்கை எழுப்பப்படும்."
 
 #: kate/main.cpp:78
 msgid ""
@@ -47,6 +50,9 @@ msgid ""
 "vulnerabilities. Instead use Kate normally and you will be prompted for "
 "elevated privileges when saving documents if needed."
 msgstr ""
+"கேட்டை kdesu மூலம் இயக்குவது, பிழைகளையும் பாதுகாப்பு குறைபாடுகளையும் காரணிக்கலாம். "
+"பதிலாக, கேட்டை சாதாரணமாகவே இயக்குங்கள். ஆவணங்களை சேமிக்க ரூட் உரிமை தேவைப்பட்டால், "
+"அப்போது மட்டும் அதற்கான கோரிக்கை எழுப்பப்படும்."
 
 #: kate/main.cpp:131
 #, kde-format
@@ -163,6 +169,9 @@ msgid ""
 "vulnerabilities. Instead use KWrite normally and you will be prompted for "
 "elevated privileges when saving documents if needed."
 msgstr ""
+"கேரைட்டை sudo மூலம் இயக்குவது, பிழைகளையும் பாதுகாப்பு குறைபாடுகளையும் காரணிக்கலாம். "
+"பதிலாக, கேரைட்டை சாதாரணமாகவே இயக்குங்கள். ஆவணங்களை சேமிக்க ரூட் உரிமை தேவைப்பட்டால், "
+"அப்போது மட்டும் அதற்கான கோரிக்கை எழுப்பப்படும்."
 
 #: kwrite/main.cpp:46
 msgid ""
@@ -170,6 +179,9 @@ msgid ""
 "vulnerabilities. Instead use KWrite normally and you will be prompted for "
 "elevated privileges when saving documents if needed."
 msgstr ""
+"கேரைட்டை kdesu மூலம் இயக்குவது, பிழைகளையும் பாதுகாப்பு குறைபாடுகளையும் காரணிக்கலாம். "
+"பதிலாக, கேரைட்டை சாதாரணமாகவே இயக்குங்கள். ஆவணங்களை சேமிக்க ரூட் உரிமை தேவைப்பட்டால், "
+"அப்போது மட்டும் அதற்கான கோரிக்கை எழுப்பப்படும்."
 
 #: kwrite/main.cpp:94
 #, kde-format
@@ -402,11 +414,10 @@ msgid "Failed to get file history: %1"
 msgstr "கோப்பின் வரலாற்றைக் கண்டறிய முடியவில்லை: %1"
 
 #: lib/filehistorywidget.cpp:352
-#, fuzzy, kde-format
-#| msgid "File History"
+#, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
-msgstr "கோப்பின் வரலாறு"
+msgstr "கோப்பின் வரலாறு - %1"
 
 #: lib/kateapp.cpp:146
 #, kde-format

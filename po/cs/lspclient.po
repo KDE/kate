@@ -8,7 +8,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-02 01:09+0000\n"
 "PO-Revision-Date: 2022-01-11 17:38+0100\n"
-"Last-Translator: Vit Pelcak <vpelcak@suse.cz>\n"
+"Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -259,7 +259,7 @@ msgstr ""
 #: lspclientpluginview.cpp:759
 #, kde-format
 msgid "Go To"
-msgstr ""
+msgstr "Přejít na"
 
 #: lspclientpluginview.cpp:787
 #, kde-format
@@ -695,10 +695,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkFmtOnSave)
 #: lspconfigwidget.ui:248
-#, fuzzy, kde-format
-#| msgid "Format"
+#, kde-format
 msgid "Format on save"
-msgstr "Formátovat"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkInlayHint)
 #: lspconfigwidget.ui:255

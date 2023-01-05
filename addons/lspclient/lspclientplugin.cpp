@@ -124,11 +124,6 @@ void LSPClientPlugin::readConfig()
     m_onTypeFormatting = config.readEntry(CONFIG_TYPE_FORMATTING, false);
     m_incrementalSync = config.readEntry(CONFIG_INCREMENTAL_SYNC, false);
     m_highlightGoto = config.readEntry(CONFIG_HIGHLIGHT_GOTO, true);
-    m_diagnostics = config.readEntry(CONFIG_DIAGNOSTICS, true);
-    m_diagnosticsHighlight = config.readEntry(CONFIG_DIAGNOSTICS_HIGHLIGHT, true);
-    m_diagnosticsMark = config.readEntry(CONFIG_DIAGNOSTICS_MARK, true);
-    m_diagnosticsHover = config.readEntry(CONFIG_DIAGNOSTICS_HOVER, true);
-    m_diagnosticsSize = config.readEntry(CONFIG_DIAGNOSTICS_SIZE, 1024);
     m_messages = config.readEntry(CONFIG_MESSAGES, true);
     m_configPath = config.readEntry(CONFIG_SERVER_CONFIG, QUrl());
     m_semanticHighlighting = config.readEntry(CONFIG_SEMANTIC_HIGHLIGHTING, true);
@@ -165,11 +160,6 @@ void LSPClientPlugin::writeConfig() const
     config.writeEntry(CONFIG_TYPE_FORMATTING, m_onTypeFormatting);
     config.writeEntry(CONFIG_INCREMENTAL_SYNC, m_incrementalSync);
     config.writeEntry(CONFIG_HIGHLIGHT_GOTO, m_highlightGoto);
-    config.writeEntry(CONFIG_DIAGNOSTICS, m_diagnostics);
-    config.writeEntry(CONFIG_DIAGNOSTICS_HIGHLIGHT, m_diagnosticsHighlight);
-    config.writeEntry(CONFIG_DIAGNOSTICS_MARK, m_diagnosticsMark);
-    config.writeEntry(CONFIG_DIAGNOSTICS_HOVER, m_diagnosticsHover);
-    config.writeEntry(CONFIG_DIAGNOSTICS_SIZE, m_diagnosticsSize);
     config.writeEntry(CONFIG_MESSAGES, m_messages);
     config.writeEntry(CONFIG_SERVER_CONFIG, m_configPath);
     config.writeEntry(CONFIG_SEMANTIC_HIGHLIGHTING, m_semanticHighlighting);

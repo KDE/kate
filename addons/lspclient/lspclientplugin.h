@@ -47,11 +47,6 @@ public:
     bool m_complDoc = false;
     bool m_refDeclaration = false;
     bool m_complParens = false;
-    bool m_diagnostics = false;
-    bool m_diagnosticsHighlight = false;
-    bool m_diagnosticsMark = false;
-    bool m_diagnosticsHover = false;
-    unsigned m_diagnosticsSize = 0;
     bool m_messages = false;
     bool m_autoHover = false;
     bool m_onTypeFormatting = false;

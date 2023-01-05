@@ -47,16 +47,26 @@ LSPClientConfigPage::LSPClientConfigPage(QWidget *parent, LSPClientPlugin *plugi
 
     reset();
 
-    for (const auto &cb : {ui->chkSymbolDetails,  ui->chkSymbolExpand,     ui->chkSymbolSort,      ui->chkSymbolTree,      ui->chkComplDoc,
-                           ui->chkRefDeclaration, ui->chkComplParens,      ui->chkDiagnostics,     ui->chkDiagnosticsMark, ui->chkDiagnosticsHover,
-                           ui->chkMessages,       ui->chkOnTypeFormatting, ui->chkIncrementalSync, ui->chkHighlightGoto,   ui->chkSemanticHighlighting,
-                           ui->chkAutoHover,      ui->chkSignatureHelp,    ui->chkAutoImport,      ui->chkFmtOnSave,       ui->chkInlayHint}) {
+    for (const auto &cb : {ui->chkSymbolDetails,
+                           ui->chkSymbolExpand,
+                           ui->chkSymbolSort,
+                           ui->chkSymbolTree,
+                           ui->chkComplDoc,
+                           ui->chkRefDeclaration,
+                           ui->chkComplParens,
+                           ui->chkMessages,
+                           ui->chkOnTypeFormatting,
+                           ui->chkIncrementalSync,
+                           ui->chkHighlightGoto,
+                           ui->chkSemanticHighlighting,
+                           ui->chkAutoHover,
+                           ui->chkSignatureHelp,
+                           ui->chkAutoImport,
+                           ui->chkFmtOnSave,
+                           ui->chkInlayHint}) {
         connect(cb, &QCheckBox::toggled, this, &LSPClientConfigPage::changed);
     }
-    auto ch = [this](int) {
-        this->changed();
-    };
-    connect(ui->spinDiagnosticsSize, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, ch);
+
     connect(ui->edtConfigPath, &KUrlRequester::textChanged, this, &LSPClientConfigPage::configUrlChanged);
     connect(ui->edtConfigPath, &KUrlRequester::urlSelected, this, &LSPClientConfigPage::configUrlChanged);
 
@@ -75,18 +85,6 @@ LSPClientConfigPage::LSPClientConfigPage(QWidget *parent, LSPClientPlugin *plugi
         }
     };
     connect(ui->userConfig->document(), &QTextDocument::contentsChange, this, cfgh);
-
-    // custom control logic
-    auto h = [this]() {
-        bool enabled = ui->chkDiagnostics->isChecked();
-        ui->chkDiagnosticsHighlight->setEnabled(enabled);
-        ui->chkDiagnosticsMark->setEnabled(enabled);
-        ui->chkDiagnosticsHover->setEnabled(enabled);
-        enabled = enabled && ui->chkDiagnosticsHover->isChecked();
-        ui->spinDiagnosticsSize->setEnabled(enabled);
-        enabled = ui->chkMessages->isChecked();
-    };
-    connect(this, &LSPClientConfigPage::changed, this, h);
 }
 
 LSPClientConfigPage::~LSPClientConfigPage()
@@ -119,12 +117,6 @@ void LSPClientConfigPage::apply()
     m_plugin->m_complDoc = ui->chkComplDoc->isChecked();
     m_plugin->m_refDeclaration = ui->chkRefDeclaration->isChecked();
     m_plugin->m_complParens = ui->chkComplParens->isChecked();
-
-    m_plugin->m_diagnostics = ui->chkDiagnostics->isChecked();
-    m_plugin->m_diagnosticsHighlight = ui->chkDiagnosticsHighlight->isChecked();
-    m_plugin->m_diagnosticsMark = ui->chkDiagnosticsMark->isChecked();
-    m_plugin->m_diagnosticsHover = ui->chkDiagnosticsHover->isChecked();
-    m_plugin->m_diagnosticsSize = ui->spinDiagnosticsSize->value();
 
     m_plugin->m_autoHover = ui->chkAutoHover->isChecked();
     m_plugin->m_onTypeFormatting = ui->chkOnTypeFormatting->isChecked();
@@ -168,12 +160,6 @@ void LSPClientConfigPage::reset()
     ui->chkComplDoc->setChecked(m_plugin->m_complDoc);
     ui->chkRefDeclaration->setChecked(m_plugin->m_refDeclaration);
     ui->chkComplParens->setChecked(m_plugin->m_complParens);
-
-    ui->chkDiagnostics->setChecked(m_plugin->m_diagnostics);
-    ui->chkDiagnosticsHighlight->setChecked(m_plugin->m_diagnosticsHighlight);
-    ui->chkDiagnosticsMark->setChecked(m_plugin->m_diagnosticsMark);
-    ui->chkDiagnosticsHover->setChecked(m_plugin->m_diagnosticsHover);
-    ui->spinDiagnosticsSize->setValue(m_plugin->m_diagnosticsSize);
 
     ui->chkAutoHover->setChecked(m_plugin->m_autoHover);
     ui->chkOnTypeFormatting->setChecked(m_plugin->m_onTypeFormatting);

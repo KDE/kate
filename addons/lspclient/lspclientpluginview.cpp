@@ -1484,7 +1484,7 @@ public:
         if (k->key() == Qt::Key_Escape && k->modifiers() == Qt::NoModifier) {
             if (!m_ranges.empty()) {
                 clearAllLocationMarks();
-            } else if (m_toolView->isVisible()) {
+            } else if (m_toolView && m_toolView->isVisible()) {
                 m_mainWindow->hideToolView(m_toolView.get());
             }
         }

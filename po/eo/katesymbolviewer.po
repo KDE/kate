@@ -1,13 +1,15 @@
 # Translation of katesymbolviewer into esperanto.
+# Copyright (C) 2009 Free Software Foundation, Inc.
 # Axel Rousseau <axel@esperanto-jeunes.org>, 2009.
+# Oliver Kellogg <okellogg@users.sourceforge.net>, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: katesymbolviewer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-27 00:48+0000\n"
-"PO-Revision-Date: 2009-11-15 12:06+0100\n"
-"Last-Translator: Axel Rousseau <axel@esperanto-jeunes.org>\n"
+"PO-Revision-Date: 2023-01-04 22:00+0100\n"
+"Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +22,7 @@ msgstr ""
 #: plugin_katesymbolviewer.cpp:88 python_parser.cpp:21 ruby_parser.cpp:21
 #, kde-format
 msgid "Show Functions"
-msgstr ""
+msgstr "Montri Funkciojn"
 
 #: bash_parser.cpp:28 cpp_parser.cpp:43 fortran_parser.cpp:40 php_parser.cpp:34
 #: python_parser.cpp:39 ruby_parser.cpp:33 tcl_parser.cpp:35
@@ -31,32 +33,32 @@ msgstr "Funkcioj"
 #: cpp_parser.cpp:29 plugin_katesymbolviewer.cpp:84
 #, kde-format
 msgid "Show Macros"
-msgstr ""
+msgstr "Montri Makroojn"
 
 #: cpp_parser.cpp:30 plugin_katesymbolviewer.cpp:86
 #, kde-format
 msgid "Show Structures"
-msgstr ""
+msgstr "Montri Strukturojn"
 
 #: cpp_parser.cpp:41
-#, fuzzy, kde-format
+#, kde-format
 msgid "Macros"
-msgstr "Aldonu maskon"
+msgstr "Makrooj"
 
 #: cpp_parser.cpp:42
 #, kde-format
 msgid "Structures"
-msgstr ""
+msgstr "Strukturoj"
 
 #: fortran_parser.cpp:35 perl_parser.cpp:23
 #, kde-format
 msgid "Show Subroutines"
-msgstr ""
+msgstr "Montri Subfunkciojn"
 
 #: fortran_parser.cpp:36
 #, kde-format
 msgid "Show Modules"
-msgstr ""
+msgstr "Montri Modulojn"
 
 #: fortran_parser.cpp:41 perl_parser.cpp:35
 #, kde-format
@@ -66,38 +68,37 @@ msgstr "Subfunkcioj"
 #: fortran_parser.cpp:42
 #, kde-format
 msgid "Modules"
-msgstr ""
+msgstr "Moduloj"
 
 #: perl_parser.cpp:21
 #, kde-format
 msgid "Show Uses"
-msgstr ""
+msgstr "Montri Uzojn"
 
 #: perl_parser.cpp:22
 #, kde-format
 msgid "Show Pragmas"
-msgstr ""
+msgstr "Montri Pragmaojn"
 
 #: perl_parser.cpp:33
-#, fuzzy, kde-format
-#| msgid "Class"
+#, kde-format
 msgid "Uses"
-msgstr "Klaso"
+msgstr "Uzadoj"
 
 #: perl_parser.cpp:34
 #, kde-format
 msgid "Pragmas"
-msgstr ""
+msgstr "Pragmaoj"
 
 #: php_parser.cpp:31
 #, kde-format
 msgid "Namespaces"
-msgstr ""
+msgstr "Nomspacoj"
 
 #: php_parser.cpp:32
 #, kde-format
 msgid "Defines"
-msgstr ""
+msgstr "Difinoj"
 
 #: php_parser.cpp:33 python_parser.cpp:38 ruby_parser.cpp:32
 #, kde-format
@@ -107,49 +108,49 @@ msgstr "Klasoj"
 #: plugin_katesymbolviewer.cpp:68
 #, kde-format
 msgid "SymbolViewer"
-msgstr ""
+msgstr "Simbolmontrilo"
 
 #: plugin_katesymbolviewer.cpp:77
 #, kde-format
 msgid "Tree Mode"
-msgstr ""
+msgstr "Arba Reĝimo"
 
 #: plugin_katesymbolviewer.cpp:79
 #, kde-format
 msgid "Expand Tree"
-msgstr ""
+msgstr "Ekspandi Arbon"
 
 #: plugin_katesymbolviewer.cpp:81
 #, kde-format
 msgid "Show Sorted"
-msgstr ""
+msgstr "Montri Ordigite"
 
 #: plugin_katesymbolviewer.cpp:90
 #, kde-format
 msgid "Show Parameters"
-msgstr ""
+msgstr "Montri Parametrojn"
 
 #: plugin_katesymbolviewer.cpp:116
 #, kde-format
 msgid "Symbol List"
-msgstr ""
+msgstr "Simbollisto"
 
 #: plugin_katesymbolviewer.cpp:134
 #, kde-format
 msgid "Filter..."
-msgstr ""
+msgstr "Filtri..."
 
 #: plugin_katesymbolviewer.cpp:143
 #, kde-format
 msgctxt "@title:column"
 msgid "Symbols"
-msgstr ""
+msgstr "Simboloj"
 
 #: plugin_katesymbolviewer.cpp:143
 #, kde-format
 msgctxt "@title:column"
 msgid "Position"
-msgstr ""
+msgstr "Pozicio"
 
 #: plugin_katesymbolviewer.cpp:359
 #, kde-format
@@ -159,7 +160,7 @@ msgstr ""
 #: plugin_katesymbolviewer.cpp:363
 #, kde-format
 msgid "File type: %1"
-msgstr ""
+msgstr "Dosiertipo: %1"
 
 #: plugin_katesymbolviewer.cpp:476
 #, kde-format
@@ -199,17 +200,17 @@ msgstr ""
 #: python_parser.cpp:22 ruby_parser.cpp:22
 #, kde-format
 msgid "Show Methods"
-msgstr ""
+msgstr "Montri Metodojn"
 
 #: python_parser.cpp:23 ruby_parser.cpp:23
 #, kde-format
 msgid "Show Classes"
-msgstr ""
+msgstr "Montri Klasojn"
 
 #: tcl_parser.cpp:36
 #, kde-format
 msgid "Globals"
-msgstr ""
+msgstr "Globaloj"
 
 #. i18n: ectx: Menu (view)
 #: ui.rc:6
@@ -220,27 +221,27 @@ msgstr "A&gordo"
 #: xml_parser.cpp:25
 #, kde-format
 msgid "Show Tags"
-msgstr ""
+msgstr "Montri Etikedojn"
 
 #: xslt_parser.cpp:22
 #, kde-format
 msgid "Show Params"
-msgstr ""
+msgstr "Montri Param-ojn"
 
 #: xslt_parser.cpp:23
 #, kde-format
 msgid "Show Variables"
-msgstr ""
+msgstr "Montri Variablojn"
 
 #: xslt_parser.cpp:24
 #, kde-format
 msgid "Show Templates"
-msgstr ""
+msgstr "Montri Ŝablonojn"
 
 #: xslt_parser.cpp:34
 #, kde-format
 msgid "Params"
-msgstr ""
+msgstr "Param-oj"
 
 #: xslt_parser.cpp:35
 #, kde-format
@@ -251,11 +252,3 @@ msgstr "Variabloj"
 #, kde-format
 msgid "Templates"
 msgstr "Ŝablonoj:"
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your names"
-#~ msgstr "Axel Rousseau"
-
-#~ msgctxt "EMAIL OF TRANSLATORS"
-#~ msgid "Your emails"
-#~ msgstr "axel@esperanto-jeunes.org"

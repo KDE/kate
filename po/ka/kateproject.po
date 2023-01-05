@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-04 00:53+0000\n"
-"PO-Revision-Date: 2022-12-24 06:21+0100\n"
+"PO-Revision-Date: 2023-01-04 07:31+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -21,7 +21,7 @@ msgstr ""
 #: branchcheckoutdialog.cpp:29
 #, kde-format
 msgid "Select branch to checkout. Press 'Esc' to cancel."
-msgstr ""
+msgstr "აირჩიეთ გამოსათხოვი ბრენჩი. გასაუქმებლად 'Esc'."
 
 #: branchcheckoutdialog.cpp:36
 #, kde-format
@@ -41,22 +41,22 @@ msgstr "ბრენჩი %1 გამოთხოვილია"
 #: branchcheckoutdialog.cpp:56
 #, kde-format
 msgid "Failed to checkout to branch %1, Error: %2"
-msgstr ""
+msgstr "შეცდომა ბრენჩის (%1) გამოთხოვისას. შეცდომა: %2"
 
 #: branchcheckoutdialog.cpp:83 branchcheckoutdialog.cpp:95
 #, kde-format
 msgid "Enter new branch name. Press 'Esc' to cancel."
-msgstr ""
+msgstr "შეიყვანეთ ახალი ბრენჩის სახელი. 'Esc' გასაუქმებლად."
 
 #: branchcheckoutdialog.cpp:100
 #, kde-format
 msgid "Select branch to checkout from. Press 'Esc' to cancel."
-msgstr ""
+msgstr "აირჩიეთ გამოსათხოვი ბრენჩი. გასაუქმებლად 'Esc'."
 
 #: branchcheckoutdialog.cpp:121
 #, kde-format
 msgid "Checked out to new branch: %1"
-msgstr ""
+msgstr "გამოთხოვილია ახალ ბრენჩში: %1"
 
 #: branchcheckoutdialog.cpp:123
 #, kde-format
@@ -370,7 +370,7 @@ msgstr ""
 #: gitwidget.cpp:1086
 #, kde-format
 msgid "Stage All"
-msgstr ""
+msgstr "ყველა ფაილის შუალედური შენახვა"
 
 #: gitwidget.cpp:1088
 #, kde-format
@@ -421,12 +421,12 @@ msgstr "HEAD-თან გახსნა"
 #: gitwidget.cpp:1150
 #, kde-format
 msgid "Unstage File"
-msgstr ""
+msgstr "ფაილის შუალედური შენახვის გაუქმება"
 
 #: gitwidget.cpp:1150
 #, kde-format
 msgid "Stage File"
-msgstr ""
+msgstr "ფაილის შუალედური შენახვა"
 
 #: gitwidget.cpp:1151
 #, kde-format
@@ -451,22 +451,22 @@ msgstr "დარწმუნებული ხართ, რომ გსუ�
 #: gitwidget.cpp:1196
 #, kde-format
 msgid "Unstage All"
-msgstr ""
+msgstr "ყველა ფაილის შუალედური შენახვის გაუქმება"
 
 #: gitwidget.cpp:1263
 #, kde-format
 msgid "Unstage Selected Files"
-msgstr ""
+msgstr "მონიშნული ფაილების შუალედური შენახვის გაუქმება"
 
 #: gitwidget.cpp:1263
 #, kde-format
 msgid "Stage Selected Files"
-msgstr ""
+msgstr "მონიშნული ფაილების შუალედური შენახვა"
 
 #: gitwidget.cpp:1264
 #, kde-format
 msgid "Discard Selected Files"
-msgstr ""
+msgstr "მონიშნული ფალების მოცილება"
 
 #: gitwidget.cpp:1268
 #, kde-format
@@ -476,7 +476,7 @@ msgstr "მონიშნული ფაილების წაშლა"
 #: gitwidget.cpp:1281
 #, kde-format
 msgid "Are you sure you want to discard the changes?"
-msgstr ""
+msgstr "დარწმუნებული ბრძანდებით, რომ გნებავთ, უგულებელყოთ ყველა ცვლილება?"
 
 #: gitwidget.cpp:1290
 #, kde-format
@@ -566,7 +566,7 @@ msgstr "ინდექსრების ჩართვა"
 #: kateprojectconfigpage.cpp:60
 #, kde-format
 msgid "Directory for index files"
-msgstr ""
+msgstr "საქაღალდე ინდექსის ფაილებისთვის"
 
 #: kateprojectconfigpage.cpp:64
 #, kde-format
@@ -647,12 +647,12 @@ msgstr "პროექტის თვისებები"
 #: kateprojectinfoview.cpp:35
 #, kde-format
 msgid "Terminal (.kateproject)"
-msgstr ""
+msgstr "ტერმინალი (.kateproject)"
 
 #: kateprojectinfoview.cpp:43
 #, kde-format
 msgid "Terminal (Base)"
-msgstr ""
+msgstr "ტერმინალი (ძირითადი)"
 
 #: kateprojectinfoview.cpp:50
 #, kde-format
@@ -705,8 +705,8 @@ msgstr ""
 #, kde-format
 msgid "Analysis on %1 file finished."
 msgid_plural "Analysis on %1 files finished."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 ფაილის ანალიზი დასრულდა."
+msgstr[1] "%1 ფაილის ანალიზი დასრულდა."
 
 #: kateprojectinfoviewcodeanalysis.cpp:262
 #, kde-format
@@ -753,7 +753,7 @@ msgstr "ფაილის სახელი უკვე არსებობ
 #: kateprojectplugin.cpp:223
 #, kde-format
 msgid "Confirm project closing: %1"
-msgstr ""
+msgstr "დაადასტურეთ პროექტის დახურვა: %1"
 
 #: kateprojectplugin.cpp:224
 #, kde-format

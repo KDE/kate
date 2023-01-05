@@ -1,7 +1,9 @@
 # Translation of katexmltools into esperanto.
-#
+# Copyright (C) 2009 Free Software Foundation, Inc.
 # Axel Rousseau <axel@esperanto-jeunes.org>, 2009.
 # Michael Moroni <michael.moroni@mailoo.org>, 2012.
+# Oliver Kellogg <okellogg@users.sourceforge.net>, 2023.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: katexmltools\n"
@@ -20,7 +22,7 @@ msgstr ""
 #: plugin_katexmltools.cpp:117
 #, kde-format
 msgid "XML Tools"
-msgstr ""
+msgstr "XML Iloj"
 
 #: plugin_katexmltools.cpp:120
 #, kde-format
@@ -69,23 +71,22 @@ msgstr "Eraro de XML-kromprogramo"
 #: plugin_katexmltools.cpp:991
 #, kde-format
 msgid "XML entities"
-msgstr ""
+msgstr "XML entoj"
 
 #: plugin_katexmltools.cpp:993
 #, kde-format
 msgid "XML attribute values"
-msgstr ""
+msgstr "XML atributvaloroj"
 
 #: plugin_katexmltools.cpp:995
 #, kde-format
 msgid "XML attributes"
-msgstr ""
+msgstr "XML atributoj"
 
 #: plugin_katexmltools.cpp:998
-#, fuzzy, kde-format
-#| msgid "Insert XML Element"
+#, kde-format
 msgid "XML elements"
-msgstr "Enmeti XML-eron"
+msgstr "XML elementoj"
 
 #: plugin_katexmltools.cpp:1038
 #, kde-format

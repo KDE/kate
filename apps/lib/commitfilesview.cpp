@@ -485,8 +485,16 @@ void CommitView::openCommit(const QString &hash, const QString &path, KTextEdito
         mainWindow = KTextEditor::Editor::instance()->application()->activeMainWindow();
     }
 
-    auto toolView = mainWindow->createToolView(nullptr, QStringLiteral("git_commit_view"), KTextEditor::MainWindow::Left, gitIcon(), i18n("Commit"));
-    new CommitDiffTreeView(repoBase.value(), hash, mainWindow, toolView);
+    QWidget *toolView = Utils::toolviewForName(mainWindow, QStringLiteral("git_commit_view_%1").arg(hash));
+    if (!toolView) {
+        const auto icon = QIcon::fromTheme(QStringLiteral("vcs-commit"));
+        toolView = mainWindow->createToolView(nullptr,
+                                              QStringLiteral("git_commit_view_%1").arg(hash),
+                                              KTextEditor::MainWindow::Left,
+                                              icon,
+                                              i18nc("@title:tab", "Commit %1", hash.mid(0, 7)));
+        new CommitDiffTreeView(repoBase.value(), hash, mainWindow, toolView);
+    }
     mainWindow->showToolView(toolView);
 }
 

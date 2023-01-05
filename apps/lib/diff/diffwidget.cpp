@@ -627,20 +627,28 @@ void DiffWidget::parseAndShowDiff(const QByteArray &raw)
     for (int i = 0; i < text.size(); ++i) {
         const QString &line = text.at(i);
         auto match = DIFF_FILENAME_RE.match(line);
-        if (match.hasMatch() && i + 1 < text.size()) {
-            srcFile = match.captured(1);
+        if ((match.hasMatch() || line == QStringLiteral("--- /dev/null")) && i + 1 < text.size()) {
+            srcFile = match.hasMatch() ? match.captured(1) : QString();
             mimeTypes.insert(QMimeDatabase().mimeTypeForFile(match.captured(1), QMimeDatabase::MatchExtension).name());
             auto match = DIFF_FILENAME_RE.match(text.at(i + 1));
 
-            if (match.hasMatch()) {
-                tgtFile = match.captured(1);
+            if (match.hasMatch() || text.at(i + 1) == QStringLiteral("--- /dev/null")) {
+                tgtFile = match.hasMatch() ? match.captured(1) : QString();
                 mimeTypes.insert(QMimeDatabase().mimeTypeForFile(match.captured(1), QMimeDatabase::MatchExtension).name());
             }
             i++;
 
             if (m_params.flags.testFlag(DiffParams::ShowFileName)) {
-                left.append(Utils::fileNameFromPath(srcFile));
-                right.append(Utils::fileNameFromPath(tgtFile));
+                if (srcFile.isEmpty() && !tgtFile.isEmpty()) {
+                    left.append(QLatin1String("---"));
+                    right.append(i18n("New file %1", Utils::fileNameFromPath(tgtFile)));
+                } else if (!srcFile.isEmpty() && tgtFile.isEmpty()) {
+                    left.append(i18n("Deleted file %1", Utils::fileNameFromPath(srcFile)));
+                    right.append(QLatin1String("+++"));
+                } else {
+                    left.append(Utils::fileNameFromPath(srcFile));
+                    right.append(Utils::fileNameFromPath(tgtFile));
+                }
                 Q_ASSERT(left.size() == right.size() && lineA == lineB);
                 linesWithFileName.append(lineA);
                 lineNumsA.append(-1);
@@ -820,19 +828,25 @@ void DiffWidget::parseAndShowDiffUnified(const QByteArray &raw)
     for (int i = 0; i < text.size(); ++i) {
         const QString &line = text.at(i);
         auto match = DIFF_FILENAME_RE.match(line);
-        if (match.hasMatch() && i + 1 < text.size()) {
-            srcFile = match.captured(1);
+        if ((match.hasMatch() || line == QStringLiteral("--- /dev/null")) && i + 1 < text.size()) {
+            srcFile = match.hasMatch() ? match.captured(1) : QString();
             mimeTypes.insert(QMimeDatabase().mimeTypeForFile(match.captured(1), QMimeDatabase::MatchExtension).name());
             auto match = DIFF_FILENAME_RE.match(text.at(i + 1));
 
-            if (match.hasMatch()) {
-                tgtFile = match.captured(1);
+            if (match.hasMatch() || text.at(i + 1) == QStringLiteral("--- /dev/null")) {
+                tgtFile = match.hasMatch() ? match.captured(1) : QString();
                 mimeTypes.insert(QMimeDatabase().mimeTypeForFile(match.captured(1), QMimeDatabase::MatchExtension).name());
             }
             i++;
 
             if (m_params.flags.testFlag(DiffParams::ShowFileName)) {
-                lines.append(QStringLiteral("%1 → %2").arg(Utils::fileNameFromPath(srcFile), Utils::fileNameFromPath(tgtFile)));
+                if (srcFile.isEmpty() && !tgtFile.isEmpty()) {
+                    lines.append(i18n("New file %1", Utils::fileNameFromPath(tgtFile)));
+                } else if (!srcFile.isEmpty() && tgtFile.isEmpty()) {
+                    lines.append(i18n("Deleted file %1", Utils::fileNameFromPath(srcFile)));
+                } else if (!srcFile.isEmpty() && !tgtFile.isEmpty()) {
+                    lines.append(QStringLiteral("%1 → %2").arg(Utils::fileNameFromPath(srcFile), Utils::fileNameFromPath(tgtFile)));
+                }
                 lineNumsA.append(-1);
                 lineNumsB.append(-1);
                 linesWithFileName.append(lineNo);

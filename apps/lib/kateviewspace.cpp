@@ -739,20 +739,32 @@ void KateViewSpace::closeTabRequest(int idx)
             Q_ASSERT(false);
             return;
         }
+        removeWidget(widget);
+        return;
+    }
 
-        bool shouldClose = true;
-        QMetaObject::invokeMethod(widget, "shouldClose", Q_RETURN_ARG(bool, shouldClose));
-        if (shouldClose) {
-            stack->removeWidget(widget);
-            m_registeredDocuments.removeOne(widget);
+    closeDocument(doc);
+}
 
-            m_tabBar->blockSignals(true);
-            m_tabBar->removeDocument(docOrWidget);
-            m_tabBar->blockSignals(false);
+void KateViewSpace::removeWidget(QWidget *w)
+{
+    bool shouldClose = true;
+    QMetaObject::invokeMethod(w, "shouldClose", Q_RETURN_ARG(bool, shouldClose));
+    if (shouldClose) {
+        stack->removeWidget(w);
+        m_registeredDocuments.removeOne(w);
 
-            widget->deleteLater();
-            Q_EMIT m_viewManager->mainWindow()->widgetRemoved(widget);
+        DocOrWidget widget(w);
+        const auto idx = m_tabBar->documentIdx(widget);
+        m_tabBar->blockSignals(true);
+        m_tabBar->removeDocument(widget);
+        m_tabBar->blockSignals(false);
 
+        w->deleteLater();
+        Q_EMIT m_viewManager->mainWindow()->widgetRemoved(w);
+
+        // If some tab was removed, switch to most recently used doc
+        if (idx >= 0) {
             // switch to most recently used doc
             for (auto rit = m_registeredDocuments.rbegin(); rit != m_registeredDocuments.rend(); ++rit) {
                 if (auto doc = rit->doc()) {
@@ -763,16 +775,13 @@ void KateViewSpace::closeTabRequest(int idx)
                     break;
                 }
             }
-
-            // if this was the last doc, let viewManager know we are empty
-            if (m_registeredDocuments.isEmpty() && m_tabBar->count() == 0) {
-                Q_EMIT viewSpaceEmptied(this);
-            }
         }
-        return;
-    }
 
-    closeDocument(doc);
+        // if this was the last doc, let viewManager know we are empty
+        if (m_registeredDocuments.isEmpty() && m_tabBar->count() == 0) {
+            Q_EMIT viewSpaceEmptied(this);
+        }
+    }
 }
 
 void KateViewSpace::createNewDocument()
@@ -845,17 +854,12 @@ QWidgetList KateViewSpace::widgets() const
 
 bool KateViewSpace::closeTabWithWidget(QWidget *widget)
 {
-    if (!widget) {
+    int index = m_registeredDocuments.indexOf(widget);
+    if (index < 0) {
         return false;
     }
-
-    for (int i = 0; i < m_tabBar->count(); ++i) {
-        if (m_tabBar->tabData(i).value<DocOrWidget>().widget() == widget) {
-            closeTabRequest(i);
-            return true;
-        }
-    }
-    return false;
+    removeWidget(widget);
+    return true;
 }
 
 bool KateViewSpace::activateWidget(QWidget *widget)

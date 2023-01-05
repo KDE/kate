@@ -124,16 +124,20 @@ void FormatPluginView::format()
     }
 
     connect(formatter, &AbstractFormatter::textFormatted, this, &FormatPluginView::onFormattedTextReceived);
-    connect(formatter, &AbstractFormatter::textFormatted, formatter, &AbstractFormatter::deleteLater);
-    connect(formatter, &AbstractFormatter::textFormattedPatch, this, [this, formatter](KTextEditor::Document *doc, const std::vector<PatchLine> &patch) {
-        onFormattedPatchReceived(doc, patch);
+    connect(formatter, &AbstractFormatter::error, this, [formatter](const QString &error) {
         formatter->deleteLater();
+        Utils::showMessage(error, {}, i18n("Format"), i18n("Error"));
+    });
+    connect(formatter, &AbstractFormatter::textFormattedPatch, this, [this, formatter](KTextEditor::Document *doc, const std::vector<PatchLine> &patch) {
+        formatter->deleteLater();
+        onFormattedPatchReceived(doc, patch);
     });
     formatter->run(m_activeDoc);
 }
 
 void FormatPluginView::onFormattedTextReceived(AbstractFormatter *formatter, KTextEditor::Document *doc, const QByteArray &formattedText)
 {
+    formatter->deleteLater();
     if (!doc) {
         qWarning() << Q_FUNC_INFO << "invalid null doc";
         return;

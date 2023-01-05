@@ -23,7 +23,7 @@ void AbstractFormatter::run(KTextEditor::Document *doc)
     const auto args = this->args(doc);
     const auto name = safeExecutableName(this->name());
     if (name.isEmpty()) {
-        showError(i18n("%1 is not installed, please install it to be able to format this document!", this->name()));
+        Q_EMIT error(i18n("%1 is not installed, please install it to be able to format this document!", this->name()));
         return;
     }
 
@@ -65,7 +65,8 @@ void AbstractFormatter::run(KTextEditor::Document *doc)
 void AbstractFormatter::onResultReady(const RunOutput &o)
 {
     if (!o.err.isEmpty()) {
-        showError(QString::fromUtf8(o.err));
+        Q_EMIT error(QString::fromUtf8(o.err));
+        return;
     }
     if (o.out.isEmpty()) {
         return;
@@ -101,7 +102,7 @@ void DartFormat::onResultReady(const RunOutput &out)
         return;
     } else if (out.exitCode > 1) {
         if (!out.err.isEmpty()) {
-            showError(QString::fromUtf8(out.err));
+            Q_EMIT error(QString::fromUtf8(out.err));
         }
     } else if (out.exitCode == 1) {
         Q_EMIT textFormatted(this, m_doc, out.out);
@@ -111,7 +112,7 @@ void DartFormat::onResultReady(const RunOutput &out)
 void RustFormat::onResultReady(const RunOutput &out)
 {
     if (!out.err.isEmpty()) {
-        showError(QString::fromUtf8(out.err));
+        Q_EMIT error(QString::fromUtf8(out.err));
         return;
     }
     if (out.out.isEmpty()) {
@@ -183,21 +184,21 @@ void PrettierFormat::setupNode()
 
     const auto node = safeExecutableName(QStringLiteral("node"));
     if (node.isEmpty()) {
-        showError(i18n("Please install node and prettier"));
+        Q_EMIT error(i18n("Please install node and prettier"));
         return;
     }
 
-    delete m_tempFile;
-    m_tempFile = new QTemporaryFile(KTextEditor::Editor::instance());
-    if (!m_tempFile->open()) {
-        showError(i18n("PrettierFormat: Failed to create temporary file"));
+    delete s_tempFile;
+    s_tempFile = new QTemporaryFile(KTextEditor::Editor::instance());
+    if (!s_tempFile->open()) {
+        Q_EMIT error(i18n("PrettierFormat: Failed to create temporary file"));
         return;
     }
     QFile prettierServer(QStringLiteral(":/formatting/prettier_script.js"));
     bool opened = prettierServer.open(QFile::ReadOnly);
     Q_ASSERT(opened);
-    m_tempFile->write(prettierServer.readAll());
-    m_tempFile->close();
+    s_tempFile->write(prettierServer.readAll());
+    s_tempFile->close();
 
     // Static node process
     s_nodeProcess = new QProcess(KTextEditor::Editor::instance());
@@ -207,7 +208,7 @@ void PrettierFormat::setupNode()
     });
 
     s_nodeProcess->setProgram(node);
-    s_nodeProcess->setArguments({m_tempFile->fileName()});
+    s_nodeProcess->setArguments({s_tempFile->fileName()});
 
     startHostProcess(*s_nodeProcess, QProcess::ReadWrite);
     s_nodeProcess->waitForStarted();
@@ -255,6 +256,6 @@ void GoFormat::onResultReady(const RunOutput &out)
         const auto parsed = parseDiff(iface, QString::fromUtf8(out.out));
         Q_EMIT textFormattedPatch(m_doc, parsed);
     } else if (!out.err.isEmpty()) {
-        showError(QString::fromUtf8(out.err));
+        Q_EMIT error(QString::fromUtf8(out.err));
     }
 }

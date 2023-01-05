@@ -5,7 +5,6 @@
 #ifndef KATE_FORMATTERS
 #define KATE_FORMATTERS
 
-#include <QIcon>
 #include <QPointer>
 #include <QProcess>
 
@@ -41,11 +40,6 @@ public:
     virtual void run(KTextEditor::Document *doc);
 
     const QString originalText;
-
-    static void showError(const QString &error)
-    {
-        Utils::showMessage(error, {}, i18n("Format"), i18n("Error"));
-    }
 
 protected:
     struct RunOutput {
@@ -91,6 +85,7 @@ private:
 Q_SIGNALS:
     void textFormatted(AbstractFormatter *formatter, KTextEditor::Document *doc, const QByteArray &text);
     void textFormattedPatch(KTextEditor::Document *doc, const std::vector<PatchLine> &);
+    void error(const QString &error);
 };
 
 class ClangFormat : public AbstractFormatter
@@ -159,7 +154,7 @@ private:
         if (out.exitCode == 0) {
             Q_EMIT textFormatted(this, m_doc, out.out);
         } else if (out.exitCode != 0 && !out.err.isEmpty()) {
-            showError(QString::fromUtf8(out.err));
+            Q_EMIT error(QString::fromUtf8(out.err));
         }
     }
 };
@@ -196,12 +191,12 @@ private:
         if (out.exitCode == 0) {
             Q_EMIT textFormatted(this, m_doc, out.out);
         } else if (out.exitCode != 0 && !out.err.isEmpty()) {
-            showError(QString::fromUtf8(out.err));
+            Q_EMIT error(QString::fromUtf8(out.err));
         }
     }
 
     void setupNode();
-    QPointer<QTemporaryFile> m_tempFile = nullptr;
+    static inline QPointer<QTemporaryFile> s_tempFile = nullptr;
     static inline QPointer<QProcess> s_nodeProcess = nullptr;
     RunOutput m_runOutput;
 };
@@ -279,7 +274,7 @@ private:
         if (out.exitCode == 0) {
             Q_EMIT textFormatted(this, m_doc, out.out);
         } else if (out.exitCode != 0 && !out.err.isEmpty()) {
-            showError(QString::fromUtf8(out.err));
+            Q_EMIT error(QString::fromUtf8(out.err));
         }
     }
 };

@@ -43,7 +43,7 @@ void KateProjectItem::slotModifiedChanged(KTextEditor::Document *doc)
         m_icon = nullptr;
     }
 
-    if (doc->isModified()) {
+    if (doc && doc->isModified()) {
         if (m_emblem.isEmpty()) {
             m_icon = new QIcon(QIcon::fromTheme(QStringLiteral("document-save")));
         } else {

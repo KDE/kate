@@ -865,17 +865,10 @@ bool KateViewSpace::activateWidget(QWidget *widget)
     }
 
     stack->setCurrentWidget(widget);
-    for (int i = 0; i < m_tabBar->count(); ++i) {
-        if (m_tabBar->tabData(i).value<DocOrWidget>().widget() == widget) {
-            m_registeredDocuments.removeOne(widget);
-            m_registeredDocuments.append(widget);
-            // "activation signal, ViewManager::viewChanged" will be emitted
-            // when tab changes
-            m_tabBar->setCurrentIndex(i);
-            return true;
-        }
-    }
-    return false;
+    m_registeredDocuments.removeOne(widget);
+    m_registeredDocuments.append(widget);
+    m_tabBar->setCurrentDocument(DocOrWidget(widget));
+    return true;
 }
 
 void KateViewSpace::focusNavigationBar()

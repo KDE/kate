@@ -149,6 +149,15 @@ QAction *toolviewShowAction(KTextEditor::MainWindow *mainWindow, const QString &
     return (*it)->actionCollection()->action(prefix + toolviewName);
 }
 
+QWidget *toolviewForName(KTextEditor::MainWindow *mainWindow, const QString &toolviewName)
+{
+    auto kmw = qobject_cast<KateMainWindow *>(mainWindow->window());
+    if (!kmw) {
+        return nullptr;
+    }
+    return kmw->toolView(toolviewName);
+}
+
 void showMessage(const QString &message, const QIcon &icon, const QString &category, const QString &type, KTextEditor::MainWindow *mainWindow)
 {
     QVariantMap msg;

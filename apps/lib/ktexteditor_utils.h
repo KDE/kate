@@ -76,6 +76,8 @@ KATE_PRIVATE_EXPORT QIcon iconForDocument(KTextEditor::Document *doc);
 
 KATE_PRIVATE_EXPORT QAction *toolviewShowAction(KTextEditor::MainWindow *, const QString &toolviewName);
 
+KATE_PRIVATE_EXPORT QWidget *toolviewForName(KTextEditor::MainWindow *, const QString &toolviewName);
+
 /*** BEGIN KTextEditor::MainWindow extensions **/
 
 KATE_PRIVATE_EXPORT void

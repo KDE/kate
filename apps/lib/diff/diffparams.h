@@ -61,7 +61,14 @@ struct DiffParams {
         tabTitle = srcFile = destFile = workingDir = QString();
         arguments.clear();
         flags = {};
+        updateStatusCallback = nullptr;
     }
+
+    /**
+     * Function call back that should update git status
+     * This is called after Stage/Discard/Unstage actions
+     */
+    std::function<void()> updateStatusCallback;
 };
 Q_DECLARE_METATYPE(DiffParams)
 

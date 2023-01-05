@@ -354,6 +354,9 @@ void DiffWidget::applyDiff(const QString &diff, ApplyFlags flags)
             onError(git->readAllStandardError(), git->exitCode());
         } else {
             runGitDiff();
+            if (m_params.updateStatusCallback) {
+                m_params.updateStatusCallback();
+            }
         }
         delete file;
         git->deleteLater();

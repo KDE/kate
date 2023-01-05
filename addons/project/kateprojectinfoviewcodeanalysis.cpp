@@ -28,6 +28,42 @@
 
 #include <KTextEditor/MainWindow>
 
+
+class ToolFilterProxyModel : public QSortFilterProxyModel
+{
+public:
+    using QSortFilterProxyModel::QSortFilterProxyModel;
+
+    bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override
+    {
+        if (!m_activeDoc) {
+            return false;
+        }
+        auto tool = sourceModel()->index(source_row, 0, source_parent).data(Qt::UserRole + 1).value<KateProjectCodeAnalysisTool *>();
+        const auto file = m_activeDoc->url().toLocalFile();
+        if (file.isEmpty()) {
+            return false;
+        }
+        if (tool) {
+            const auto extensions = tool->fileExtensions().split(QLatin1Char('|'));
+            for (const auto &ext : extensions) {
+                if (file.endsWith(ext)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    void setActiveDoc(KTextEditor::Document *doc)
+    {
+        m_activeDoc = doc;
+        invalidateFilter();
+    }
+
+private:
+    QPointer<KTextEditor::Document> m_activeDoc;
+};
 KateProjectInfoViewCodeAnalysis::KateProjectInfoViewCodeAnalysis(KateProjectPluginView *pluginView, KateProject *project)
     : m_pluginView(pluginView)
     , m_project(project)
@@ -36,6 +72,7 @@ KateProjectInfoViewCodeAnalysis::KateProjectInfoViewCodeAnalysis(KateProjectPlug
     , m_analyzer(nullptr)
     , m_analysisTool(nullptr)
     , m_toolSelector(new QComboBox())
+    , m_proxyModel(new ToolFilterProxyModel(this))
     , m_diagnosticProvider(new DiagnosticsProvider(this))
 {
     Utils::registerDiagnosticsProvider(m_diagnosticProvider, m_pluginView->mainWindow());
@@ -48,7 +85,13 @@ KateProjectInfoViewCodeAnalysis::KateProjectInfoViewCodeAnalysis(KateProjectPlug
             static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
             this,
             &KateProjectInfoViewCodeAnalysis::slotToolSelectionChanged);
-    m_toolSelector->setModel(KateProjectCodeAnalysisSelector::model(this));
+    m_proxyModel->setSourceModel(KateProjectCodeAnalysisSelector::model(this));
+    m_toolSelector->setModel(m_proxyModel);
+    m_toolSelector->setSizeAdjustPolicy(QComboBox::AdjustToContents);
+
+    connect(m_pluginView->mainWindow(), &KTextEditor::MainWindow::viewChanged, this, [this](KTextEditor::View *v) {
+        static_cast<ToolFilterProxyModel *>(m_proxyModel)->setActiveDoc(v ? v->document() : nullptr);
+    });
 
     /**
      * layout widget

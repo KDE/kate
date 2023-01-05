@@ -19,6 +19,7 @@ class KMessageWidget;
 class KateProject;
 class QStandardItemModel;
 class DiagnosticsProvider;
+class QSortFilterProxyModel;
 
 /**
  * View for Code Analysis.
@@ -108,6 +109,8 @@ private:
      * UI element to select the tool
      */
     QComboBox *m_toolSelector;
+
+    QSortFilterProxyModel *m_proxyModel;
 
     /**
      * contains a rich text to explain what the current tool does

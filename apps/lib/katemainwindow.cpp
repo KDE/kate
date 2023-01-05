@@ -301,7 +301,7 @@ void KateMainWindow::setupMainWindow(KConfig *sconfig)
     m_toolViewDiags = createToolView(nullptr /* toolview has no plugin it belongs to */,
                                      QStringLiteral("diagnostics"),
                                      KTextEditor::MainWindow::Bottom,
-                                     QIcon::fromTheme(QStringLiteral("data-warning")),
+                                     QIcon::fromTheme(QStringLiteral("dialog-warning-symbolic")),
                                      i18n("Diagnostics"));
     m_diagView = new DiagnosticsView(m_toolViewDiags, this);
     m_diagView->readSessionConfig(KConfigGroup(sconfig, "Kate Diagnostics"));

@@ -18,6 +18,7 @@
 
 #include <QFileInfo>
 #include <QHBoxLayout>
+#include <QSortFilterProxyModel>
 #include <QStandardPaths>
 #include <QToolTip>
 #include <QVBoxLayout>
@@ -28,6 +29,20 @@
 
 #include <KTextEditor/MainWindow>
 
+void DocumentOnSaveTracker::setDocument(KTextEditor::Document *doc)
+{
+    if (doc == m_doc) {
+        return;
+    }
+
+    if (m_doc) {
+        disconnect(m_doc, &KTextEditor::Document::documentSavedOrUploaded, &m_timer, qOverload<>(&QTimer::start));
+    }
+    m_doc = doc;
+    if (m_doc) {
+        connect(m_doc, &KTextEditor::Document::documentSavedOrUploaded, &m_timer, qOverload<>(&QTimer::start));
+    }
+}
 
 class ToolFilterProxyModel : public QSortFilterProxyModel
 {
@@ -64,6 +79,7 @@ public:
 private:
     QPointer<KTextEditor::Document> m_activeDoc;
 };
+
 KateProjectInfoViewCodeAnalysis::KateProjectInfoViewCodeAnalysis(KateProjectPluginView *pluginView, KateProject *project)
     : m_pluginView(pluginView)
     , m_project(project)
@@ -90,8 +106,10 @@ KateProjectInfoViewCodeAnalysis::KateProjectInfoViewCodeAnalysis(KateProjectPlug
     m_toolSelector->setSizeAdjustPolicy(QComboBox::AdjustToContents);
 
     connect(m_pluginView->mainWindow(), &KTextEditor::MainWindow::viewChanged, this, [this](KTextEditor::View *v) {
+        m_onSaveTracker.setDocument(v ? v->document() : nullptr);
         static_cast<ToolFilterProxyModel *>(m_proxyModel)->setActiveDoc(v ? v->document() : nullptr);
     });
+    connect(&m_onSaveTracker, &DocumentOnSaveTracker::saved, this, &KateProjectInfoViewCodeAnalysis::onSaved);
 
     /**
      * layout widget
@@ -119,11 +137,15 @@ KateProjectInfoViewCodeAnalysis::KateProjectInfoViewCodeAnalysis(KateProjectPlug
     /**
      * connect needed signals
      */
-    connect(m_startStopAnalysis, &QPushButton::clicked, this, &KateProjectInfoViewCodeAnalysis::slotStartStopClicked);
+    connect(m_startStopAnalysis, &QPushButton::clicked, this, [this] {
+        m_invocationType = UserClickedButton;
+        slotStartStopClicked();
+    });
 }
 
 KateProjectInfoViewCodeAnalysis::~KateProjectInfoViewCodeAnalysis()
 {
+    m_onSaveTracker.setDocument(nullptr);
     Utils::unregisterDiagnosticsProvider(m_diagnosticProvider, m_pluginView->mainWindow());
     if (m_analyzer && m_analyzer->state() != QProcess::NotRunning) {
         m_analyzer->kill();
@@ -135,10 +157,33 @@ KateProjectInfoViewCodeAnalysis::~KateProjectInfoViewCodeAnalysis()
 
 void KateProjectInfoViewCodeAnalysis::slotToolSelectionChanged(int)
 {
+    auto oldTool = m_analysisTool;
+    auto layout = static_cast<QVBoxLayout *>(this->layout());
+    if (oldTool && oldTool->configWidget()) {
+        oldTool->configWidget()->hide();
+    }
+
     m_analysisTool = m_toolSelector->currentData(Qt::UserRole + 1).value<KateProjectCodeAnalysisTool *>();
-    m_toolInfoText = i18n("%1<br/><br/>The tool will be run on all project files which match this list of file extensions:<br/><br/><b>%2</b>",
-                          m_analysisTool->description(),
-                          m_analysisTool->fileExtensions());
+    if (m_analysisTool) {
+        m_toolInfoText = i18n("%1<br/><br/>The tool will be run on all project files which match this list of file extensions:<br/><br/><b>%2</b>",
+                              m_analysisTool->description(),
+                              m_analysisTool->fileExtensions());
+        auto w = m_analysisTool->configWidget();
+        if (w) {
+            w->show();
+            bool found = false;
+            for (int i = 0; i < layout->count(); ++i) {
+                auto item = layout->itemAt(i);
+                if (item && item->widget() == w) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                layout->insertWidget(layout->count() - 1, w);
+            }
+        }
+    }
 }
 
 void KateProjectInfoViewCodeAnalysis::slotStartStopClicked()
@@ -200,6 +245,31 @@ void KateProjectInfoViewCodeAnalysis::slotStartStopClicked()
     m_analyzer->closeWriteChannel();
 }
 
+void KateProjectInfoViewCodeAnalysis::onSaved(KTextEditor::Document *)
+{
+    if (m_analyzer && m_analyzer->state() == QProcess::Running) {
+        return;
+    }
+    m_invocationType = OnSave;
+
+    KateProjectCodeAnalysisTool *toolToRun = nullptr;
+    if (m_analysisTool && m_analysisTool->canRunOnSave()) {
+        toolToRun = m_analysisTool;
+    } else {
+        for (int i = 0; i < m_toolSelector->count(); ++i) {
+            auto tool = m_toolSelector->itemData(i, Qt::UserRole + 1).value<KateProjectCodeAnalysisTool *>();
+            if (tool && tool->canRunOnSave()) {
+                toolToRun = tool;
+                m_toolSelector->setCurrentIndex(i);
+                break;
+            }
+        }
+    }
+    if (toolToRun) {
+        slotStartStopClicked();
+    }
+}
+
 void KateProjectInfoViewCodeAnalysis::slotReadyRead()
 {
     /**
@@ -224,11 +294,14 @@ void KateProjectInfoViewCodeAnalysis::slotReadyRead()
         m_diagnosticProvider->diagnosticsAdded(FileDiagnostics{it.key(), it.value()});
     }
 
-    m_diagnosticProvider->showDiagnosticsView();
+    if (m_invocationType == UserClickedButton) {
+        m_diagnosticProvider->showDiagnosticsView();
+    }
 }
 
 void KateProjectInfoViewCodeAnalysis::finished(int exitCode, QProcess::ExitStatus)
 {
+    m_invocationType = None;
     m_startStopAnalysis->setEnabled(true);
     m_messageWidget = new KMessageWidget(this);
     m_messageWidget->setCloseButtonVisible(true);

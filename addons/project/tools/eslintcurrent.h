@@ -31,6 +31,14 @@ public:
     FileDiagnostics parseLine(const QString &line) const override;
 
     QString stdinMessages() override;
+
+    bool canRunOnSave() const override;
+
+    QWidget *configWidget() override;
+
+private:
+    QWidget *m_configWidget = nullptr;
+    class QCheckBox *m_runOnSave = nullptr;
 };
 
 #endif // KATEPROJECTCODEANALYSISTOOLESLINT_H

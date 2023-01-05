@@ -11,6 +11,7 @@
 #include <QPointer>
 #include <QProcess>
 #include <QPushButton>
+#include <QTimer>
 #include <QWidget>
 
 class KateProjectPluginView;
@@ -20,6 +21,34 @@ class KateProject;
 class QStandardItemModel;
 class DiagnosticsProvider;
 class QSortFilterProxyModel;
+
+namespace KTextEditor
+{
+class Document;
+}
+
+class DocumentOnSaveTracker : public QObject
+{
+    Q_OBJECT
+public:
+    DocumentOnSaveTracker(QObject *parent = nullptr)
+        : QObject(parent)
+    {
+        m_timer.setInterval(300);
+        m_timer.callOnTimeout(this, [this] {
+            Q_EMIT saved(m_doc);
+        });
+        m_timer.setSingleShot(true);
+    }
+    void setDocument(KTextEditor::Document *doc);
+
+Q_SIGNALS:
+    void saved(KTextEditor::Document *);
+
+private:
+    QPointer<KTextEditor::Document> m_doc;
+    QTimer m_timer;
+};
 
 /**
  * View for Code Analysis.
@@ -74,6 +103,8 @@ private Q_SLOTS:
      */
     void finished(int exitCode, QProcess::ExitStatus exitStatus);
 
+    void onSaved(KTextEditor::Document *doc);
+
 private:
     /**
      * our plugin view
@@ -118,4 +149,12 @@ private:
     QString m_toolInfoText;
 
     DiagnosticsProvider *const m_diagnosticProvider;
+
+    DocumentOnSaveTracker m_onSaveTracker;
+
+    enum {
+        None = 0,
+        OnSave,
+        UserClickedButton,
+    } m_invocationType;
 };

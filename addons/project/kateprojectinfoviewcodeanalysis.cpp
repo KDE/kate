@@ -180,6 +180,8 @@ void KateProjectInfoViewCodeAnalysis::slotReadyRead()
     for (auto it = fileDiagnostics.cbegin(); it != fileDiagnostics.cend(); ++it) {
         m_diagnosticProvider->diagnosticsAdded(FileDiagnostics{it.key(), it.value()});
     }
+
+    m_diagnosticProvider->showDiagnosticsView();
 }
 
 void KateProjectInfoViewCodeAnalysis::finished(int exitCode, QProcess::ExitStatus)

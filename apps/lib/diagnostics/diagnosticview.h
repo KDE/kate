@@ -44,6 +44,8 @@ public:
 
     bool hasTooltipForPos(KTextEditor::View *v, KTextEditor::Cursor pos) const;
 
+    void showDiagnosticsView();
+
 Q_SIGNALS:
     /// emitted by provider when diags are available
     void diagnosticsAdded(const FileDiagnostics &);
@@ -82,6 +84,8 @@ public:
     void writeSessionConfig(KConfigGroup &config);
 
     QString onTextHint(KTextEditor::View *view, const KTextEditor::Cursor &position) const;
+
+    void showToolview();
 
 private:
     void onFixesAvailable(const QVector<DiagnosticFix> &fixes, const QVariant &data);

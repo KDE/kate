@@ -40,6 +40,13 @@ bool DiagnosticsProvider::hasTooltipForPos(KTextEditor::View *v, KTextEditor::Cu
     return false;
 }
 
+void DiagnosticsProvider::showDiagnosticsView()
+{
+    if (diagnosticView && !diagnosticView->isVisible()) {
+        diagnosticView->showToolview();
+    }
+}
+
 static constexpr KTextEditor::MarkInterface::MarkTypes markTypeDiagError = KTextEditor::MarkInterface::Error;
 static constexpr KTextEditor::MarkInterface::MarkTypes markTypeDiagWarning = KTextEditor::MarkInterface::Warning;
 static constexpr KTextEditor::MarkInterface::MarkTypes markTypeDiagOther = KTextEditor::MarkInterface::markType30;
@@ -937,6 +944,11 @@ void DiagnosticsView::onMarkClicked(KTextEditor::Document *document, KTextEditor
     if (m_diagnosticsMarks.contains(document) && syncDiagnostics(document, mark.line, false, true)) {
         handled = true;
     }
+}
+
+void DiagnosticsView::showToolview()
+{
+    m_mainWindow->showToolView(parentWidget());
 }
 
 bool DiagnosticsView::syncDiagnostics(KTextEditor::Document *document, int line, bool allowTop, bool doShow)

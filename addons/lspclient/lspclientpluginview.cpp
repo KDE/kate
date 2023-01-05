@@ -374,7 +374,7 @@ class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient
     QList<QAction *> m_contextMenuActions;
 
     // toolview
-    QScopedPointer<QWidget> m_toolView;
+    std::unique_ptr<QWidget> m_toolView;
     QPointer<QTabWidget> m_tabWidget;
     // applied search ranges
     typedef QMultiHash<KTextEditor::Document *, KTextEditor::MovingRange *> RangeCollection;
@@ -687,20 +687,6 @@ public:
         // sync with plugin settings if updated
         connect(m_plugin, &LSPClientPlugin::update, this, &self_type::configUpdated);
 
-        // toolview
-        m_toolView.reset(mainWin->createToolView(plugin,
-                                                 QStringLiteral("kate_lspclient"),
-                                                 KTextEditor::MainWindow::Bottom,
-                                                 QIcon::fromTheme(QStringLiteral("format-text-code")),
-                                                 i18n("LSP")));
-        m_tabWidget = new QTabWidget(m_toolView.data());
-        m_toolView->layout()->addWidget(m_tabWidget);
-        m_tabWidget->setFocusPolicy(Qt::NoFocus);
-        m_tabWidget->setTabsClosable(true);
-        KAcceleratorManager::setNoAccel(m_tabWidget);
-        connect(m_tabWidget, &QTabWidget::tabCloseRequested, this, &self_type::tabCloseRequested);
-        connect(m_tabWidget, &QTabWidget::currentChanged, this, &self_type::tabChanged);
-
         Utils::registerDiagnosticsProvider(&m_diagnosticProvider, m_mainWindow);
         connect(&m_diagnosticProvider, &DiagnosticsProvider::requestFixes, this, &self_type::fixDiagnostic);
 
@@ -712,6 +698,26 @@ public:
         updateState();
 
         m_mainWindow->guiFactory()->addClient(this);
+    }
+
+    void initToolView()
+    {
+        if (m_tabWidget || m_toolView) {
+            return;
+        }
+        // toolview
+        m_toolView.reset(m_mainWindow->createToolView(m_plugin,
+                                                      QStringLiteral("kate_lspclient"),
+                                                      KTextEditor::MainWindow::Bottom,
+                                                      QIcon::fromTheme(QStringLiteral("format-text-code")),
+                                                      i18n("LSP")));
+        m_tabWidget = new QTabWidget(m_toolView.get());
+        m_toolView->layout()->addWidget(m_tabWidget);
+        m_tabWidget->setFocusPolicy(Qt::NoFocus);
+        m_tabWidget->setTabsClosable(true);
+        KAcceleratorManager::setNoAccel(m_tabWidget);
+        connect(m_tabWidget, &QTabWidget::tabCloseRequested, this, &self_type::tabCloseRequested);
+        connect(m_tabWidget, &QTabWidget::currentChanged, this, &self_type::tabChanged);
     }
 
     void onViewCreated(KTextEditor::View *view)
@@ -1251,6 +1257,11 @@ public:
             clearAllLocationMarks();
         }
         delete widget;
+
+        if (m_tabWidget->count() == 0) {
+            m_toolView.release()->deleteLater();
+        }
+
         return true;
     }
 
@@ -1411,6 +1422,11 @@ public:
 
     void showTree(const QString &title, QPointer<QTreeView> *targetTree)
     {
+        // create toolview if not present
+        if (!m_tabWidget) {
+            initToolView();
+        }
+
         // clean up previous target if any
         if (targetTree && *targetTree) {
             int index = m_tabWidget->indexOf(*targetTree);
@@ -1441,7 +1457,7 @@ public:
 
         // activate the resulting tab
         m_tabWidget->setCurrentIndex(index);
-        m_mainWindow->showToolView(m_toolView.data());
+        m_mainWindow->showToolView(m_toolView.get());
     }
 
     void showMessage(const QString &text, KTextEditor::Message::MessageType level)
@@ -1469,7 +1485,7 @@ public:
             if (!m_ranges.empty()) {
                 clearAllLocationMarks();
             } else if (m_toolView->isVisible()) {
-                m_mainWindow->hideToolView(m_toolView.data());
+                m_mainWindow->hideToolView(m_toolView.get());
             }
         }
     }

@@ -288,6 +288,8 @@ private:
         return m_locations;
     }
 
+    void removeWidget(QWidget *w);
+
 private:
     // Kate's view manager
     KateViewManager *m_viewManager;

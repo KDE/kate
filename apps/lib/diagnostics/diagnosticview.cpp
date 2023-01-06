@@ -445,8 +445,8 @@ void DiagnosticsView::quickFix()
         targetItem = getItem(topItem, pos, true);
     }
 
-    if (targetItem) {
-        if (targetItem->hasChildren()) {
+    if (targetItem && targetItem->type() == DiagnosticItem_Diag) {
+        if (static_cast<DiagnosticItem *>(targetItem)->hasFixes()) {
             QVector<DiagnosticFix> fixes;
             for (int i = 0; i < targetItem->rowCount(); ++i) {
                 auto item = targetItem->child(i);
@@ -469,11 +469,12 @@ void DiagnosticsView::onDoubleClicked(const QModelIndex &index, bool quickFix)
 {
     auto itemFromIndex = m_model.itemFromIndex(index);
     if (!itemFromIndex) {
+        qWarning() << "invalid item clicked";
         return;
     }
 
     if (itemFromIndex->type() == DiagnosticItem_Diag) {
-        if (itemFromIndex->hasChildren()) {
+        if (static_cast<DiagnosticItem *>(itemFromIndex)->hasFixes()) {
             return;
         }
         auto provider = index.data(DiagnosticModelRole::ProviderRole).value<DiagnosticsProvider *>();

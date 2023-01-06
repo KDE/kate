@@ -42,6 +42,19 @@ struct DiagnosticItem : public QStandardItem {
     {
         return DiagnosticItem_Diag;
     }
+
+    bool hasFixes() const
+    {
+        if (!hasChildren()) {
+            return false;
+        }
+        for (int i = 0; i < rowCount(); ++i) {
+            if (child(i)->type() == DiagnosticItem_Fix) {
+                return true;
+            }
+        }
+        return false;
+    }
 };
 
 // likewise; a custom item for document level model item

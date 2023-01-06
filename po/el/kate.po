@@ -10,7 +10,7 @@
 # Toussis Manolis <manolis@koppermind.homelinux.org>, 2005, 2007, 2008, 2009.
 # Antonis Geralis <capoiosct@gmail.com>, 2012.
 # Dimitrios Glentadakis <dglent@gmail.com>, 2012, 2013.
-# Stelios <sstavra@gmail.com>, 2012, 2016, 2017, 2018, 2019, 2020, 2021, 2022.
+# Stelios <sstavra@gmail.com>, 2012, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023.
 # Bouklis Panos <panos@echidna-band.com>, 2012.
 # Dimitris Kardarakos <dimkard@gmail.com>, 2014.
 # Petros Vidalis <pvidalis@gmail.com>, 2016.
@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-30 03:15+0000\n"
-"PO-Revision-Date: 2022-12-31 11:28+0200\n"
+"PO-Revision-Date: 2023-01-05 10:46+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
 "Language: el\n"
@@ -805,7 +805,7 @@ msgstr "Εμφάνιση κειμένου για τα κουμπιά στις π
 #: lib/kateconfigdialog.cpp:431
 #, kde-format
 msgid "Icon size for left and right sidebar buttons"
-msgstr "Μέγεθος εικονιδιών για τα κουμπιά στις πλευρικές μπάρες"
+msgstr "Μέγεθος εικονιδίων για τα κουμπιά στις πλευρικές μπάρες"
 
 #: lib/kateconfigdialog.cpp:450
 #, kde-format
@@ -823,7 +823,7 @@ msgid ""
 "A high limit can increase the window size, please enable 'Allow tab "
 "scrolling' to prevent it. Unlimited tabs are always scrollable."
 msgstr ""
-"Ενεργοποιήτε το 'Να επιτρέπεται η κύλιση καρτέλας' για να εμποδίσετε την "
+"Ενεργοποιήστε το 'Να επιτρέπεται η κύλιση καρτέλας' για να εμποδίσετε την "
 "αύξηση του μεγέθους του παραθύρου εξαιτίας ενός υψηλού ορίου. Οι χωρίς όριο "
 "καρτέλες είναι πάντα κυλιόμενες."
 
@@ -2396,7 +2396,7 @@ msgstr "Αυτόματη αποθήκευση και ανάκτηση:"
 #: lib/ui/sessionconfigwidget.ui:67
 #, kde-format
 msgid "Newly-created unsaved files"
-msgstr "Νεοδημιουργημένα μη αποθηκευμένα αρχεία"
+msgstr "Νεο-δημιουργημένα μη αποθηκευμένα αρχεία"
 
 #. i18n: ectx: property (text), widget (QCheckBox, stashUnsavedFilesChanges)
 #: lib/ui/sessionconfigwidget.ui:77

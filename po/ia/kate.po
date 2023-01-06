@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-01 01:03+0000\n"
+"POT-Creation-Date: 2023-01-06 00:51+0000\n"
 "PO-Revision-Date: 2022-12-21 12:27+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
@@ -211,9 +211,11 @@ msgstr "Hash invalide"
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 non existe in un repo de git."
 
-#: lib/commitfilesview.cpp:488
-#, kde-format
-msgid "Commit"
+#: lib/commitfilesview.cpp:495
+#, fuzzy, kde-format
+#| msgid "Commit"
+msgctxt "@title:tab"
+msgid "Commit %1"
 msgstr "Commit (Committer)"
 
 #. i18n: ectx: Menu (file)
@@ -389,6 +391,18 @@ msgstr "Salta a proxime pecietta (hunk)"
 #, kde-format
 msgid "Jump to Previous Hunk"
 msgstr "salta a previe pecietta (hunk)"
+
+#: lib/diff/diffwidget.cpp:644 lib/diff/diffwidget.cpp:844
+#, fuzzy, kde-format
+#| msgid "New file name"
+msgid "New file %1"
+msgstr "Nove nomine de file"
+
+#: lib/diff/diffwidget.cpp:646 lib/diff/diffwidget.cpp:846
+#, fuzzy, kde-format
+#| msgid "Delete file"
+msgid "Deleted file %1"
+msgstr "Dele file"
 
 #: lib/filehistorywidget.cpp:286
 #, kde-format
@@ -2167,53 +2181,53 @@ msgstr[1] ""
 "Currentemente , il ha %1 altere documentos aperite. Pro vider omne "
 "documentos aperite, commuta al vista de aperir rapide per pulsar hic."
 
-#: lib/kateviewspace.cpp:999
+#: lib/kateviewspace.cpp:996
 #, kde-format
 msgid "Close Tab"
 msgstr "Claude scheda"
 
-#: lib/kateviewspace.cpp:1017
+#: lib/kateviewspace.cpp:1014
 #, kde-format
 msgid "&Close Document"
 msgstr "&Claude Documento"
 
-#: lib/kateviewspace.cpp:1018
+#: lib/kateviewspace.cpp:1015
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "Claude altere &documentos"
 
-#: lib/kateviewspace.cpp:1019
+#: lib/kateviewspace.cpp:1016
 #, kde-format
 msgid "Close &All Documents"
 msgstr "Cl&aude omne documentos "
 
-#: lib/kateviewspace.cpp:1021
+#: lib/kateviewspace.cpp:1018
 #, kde-format
 msgid "D&etach Document"
 msgstr "Distacca docum&ento"
 
-#: lib/kateviewspace.cpp:1022
+#: lib/kateviewspace.cpp:1019
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 "Aperi le documento in un nove fenestra e lo claude in le fenestra currente"
 
-#: lib/kateviewspace.cpp:1031
+#: lib/kateviewspace.cpp:1028
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Compara con  le documento active"
 
-#: lib/kateviewspace.cpp:1037
+#: lib/kateviewspace.cpp:1034
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Compara con  le usar de documento active."
 
-#: lib/kateviewspace.cpp:1104
+#: lib/kateviewspace.cpp:1101
 #, kde-format
 msgid "Could not start program"
 msgstr "Non pote startar programma"
 
-#: lib/kateviewspace.cpp:1105
+#: lib/kateviewspace.cpp:1102
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""

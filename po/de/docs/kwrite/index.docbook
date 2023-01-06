@@ -2,324 +2,187 @@
 <!DOCTYPE article PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN"
 "dtd/kdedbx45.dtd" [
 <!ENTITY kappname "&kwrite;">
-<!ENTITY % German "INCLUDE"
-> <!-- change language only here -->
+<!ENTITY % English "INCLUDE" > <!-- change language only here -->
 ]>
 
 <article id="kwrite" lang="&language;">
 
 <articleinfo>
-<title
->Das Handbuch zu &kwrite;</title>
+<title>The &kwrite; Handbook</title>
 <authorgroup>
-<author
->&TC.Hollingsworth; &TC.Hollingsworth.mail;</author>
-<othercredit role="developer"
->&Christoph.Cullmann; &Christoph.Cullmann.mail; </othercredit>
+<author>&TC.Hollingsworth; &TC.Hollingsworth.mail;</author>
+<othercredit role="developer">
+&Christoph.Cullmann; &Christoph.Cullmann.mail;
+<!-- <contrib>Core Developer and Maintainer</contrib> -->
+</othercredit>
 
- <othercredit role="translator"
-> <firstname
->Thomas</firstname
-> <surname
->Diehl</surname
-> <affiliation
-> <address
-><email
->thd@kde.org</email
-></address
-> </affiliation
-> <contrib
->GUI-Übersetzung</contrib
-></othercredit
-> <othercredit role="translator"
-> <firstname
->Matthias</firstname
-><surname
->Schulz</surname
-> <affiliation
-> <address
-><email
->matthias.schulz@kdemail.net</email
-></address
-> </affiliation
-> <contrib
->Deutsche Übersetzung</contrib
-></othercredit
-> 
+<!-- TRANS:ROLES_OF_TRANSLATORS -->
 
 </authorgroup>
 
 <copyright>
-<year
->2014</year>
-<holder
->&TC.Hollingsworth; &TC.Hollingsworth.mail;</holder>
+<year>2014</year>
+<holder>&TC.Hollingsworth; &TC.Hollingsworth.mail;</holder>
 </copyright>
-<legalnotice
->&FDLNotice;</legalnotice>
+<legalnotice>&FDLNotice;</legalnotice>
 
-<date
->2021-09-02</date>
-<releaseinfo
->KDE Gear 21.12</releaseinfo>
+<date>2021-09-02</date>
+<releaseinfo>KDE Gear 21.12</releaseinfo>
 
 <abstract>
-<para
->&kwrite; ist ein Texteditor von &kde;, mit dem Sie jede einzelne Datei in einem eigenen Fenster bearbeiten.</para>
+<para>&kwrite; is a text editor by &kde; allowing you to edit one file at the time per window.</para>
 </abstract>
 
 <keywordset>
-<keyword
->KDE</keyword>
-<keyword
->KWrite</keyword>
-<keyword
->Text</keyword>
-<keyword
->Editor</keyword>
+<keyword>KDE</keyword>
+<keyword>KWrite</keyword>
+<keyword>text</keyword>
+<keyword>editor</keyword>
 </keywordset>
 
 </articleinfo>
 
 <sect1 id="introduction">
-<title
->Einführung</title>
+<title>Introduction</title>
 
-<para
->&kwrite; ist mehr als ein Texteditor von &kde;. Es ist als Programmiereditor gedacht und könnte mindestens als teilweise Alternative zu leistungsfähigeren Editoren betrachtet werden. Es kann am besten in Verbindung mit &konqueror; oder &dolphin; für das Darstellen von Quelltext verschiedener Sprachen benutzt werden. &kwrite; ist auch sehr gut als einfacher Texteditor zu verwenden. Eine der Haupteigenschaften von &kwrite; ist die farbige Darstellung von Quelltext, angepasst für viele verschiedene Programmiersprachen wie: C/C++, &Java;, Python, Perl, Bash, Modula 2, &HTML; und Ada. &kwrite; verwendet eine sog. Ein-Dokument-Oberfläche (<acronym
->SDI</acronym
->, single document interface), mit der Sie jeweils ein Dokument je Fenster gleichzeitig bearbeiten können. </para>
+<para>
+&kwrite; is more than a text editor by &kde;. It is meant
+to be a programmer's editor, and could be considered as at least a
+partial alternative to more powerful editors.  It may be best used in
+conjunction with &konqueror; or &dolphin; for source file browsing for different
+languages. &kwrite; also works very well as a simple text editor.  One
+of &kwrite;'s main features is the colorized syntax, customized for many
+different programming languages such as: C/C++, &Java;, Python, Perl,
+Bash, Modula 2, &HTML;, and Ada.  &kwrite; has a single document interface
+(<acronym>SDI</acronym>) allowing you to edit one file at the time per window.
+</para>
 
-<para
->&kwrite; ist eine einfache Oberfläche zur Komponente &katepart;, die auch für &kate;, &kdevelop; und andere Anwendungen von &kde; benutzt wird, die zum fortgeschrittenen Editieren von Texten dienen. Die komplette Dokumentation für alle Funktionen von &kwrite; Können Sie im <ulink url="help:/katepart"
->Handbuch zu &katepart;</ulink
-> finden. </para>
+<para>
+&kwrite; is a simple interface to the &katepart; component also used by &kate;,
+&kdevelop;, and other applications from &kde; that require advanced text editing.
+Therefore, complete documentation for all the features of &kwrite; can be found
+in the <ulink url="help:/katepart">&katepart; Handbook</ulink>.
+</para>
 </sect1>
 
 <sect1 id="command-line-options">
-<title
->Befehlszeilenoptionen</title>
+<title>Command Line Options</title>
 
-<para
->Auch wenn &kwrite; meistens vom &plasma;-Startmenü oder über ein Arbeitsflächensymbol geöffnet wird, kann es von einer Befehlszeile in einem Terminalfenster gestartet werden. Es gibt hierbei einige nützliche Optionen. </para>
+<para>
+Though &kwrite; may most often be started from the &plasma; application starter, or
+a desktop icon, it can also be opened at the command line prompt of a
+terminal window.  There are a few useful options that are available when
+doing this.
+</para>
 
-<para
->Viele andere Anwendungen, die &katepart; verwenden, haben ähnliche Befehlszeilenoptionen.</para>
+<para>Many other applications that use &katepart; offer similar command line
+options.</para>
 
 <sect2 id="specify-a-file">
-<title
->Angabe eines Dateinamens</title>
+<title>Specify a File</title>
 
-<para
->Der Benutzer kann Pfad und Dateinamen einer Datei angeben, die dann beim Starten von &kwrite; geöffnet (oder erzeugt) wird. Hierzu ein Beispiel:</para>
+<para>By specifying the path and name of a particular file the user can
+have &kwrite; open (or create) that file immediately upon startup.  This
+option might look something like the following:</para>
 
-<informalexample
-><screen
-><prompt
->%</prompt
-> <userinput
-><command
->kwrite</command>
-<option
-><replaceable
->/home/myhome/docs/myfile.txt</replaceable
-></option>
-</userinput
->
+<informalexample><screen>
+<prompt>%</prompt> <userinput><command>kwrite</command>
+<option><replaceable>/home/myhome/docs/myfile.txt</replaceable></option>
+</userinput>
 </screen>
 </informalexample>
 </sect2>
 <sect2 id="editing-files-on-the-internet">
-<title
->Angabe eines Dateinamens im Internet</title>
+<title>Specify a file on the Internet</title>
 
-<para
->Die oben genannte Methode kann auch benutzt werden, um Dateien im Internet zu öffnen (wenn der Benutzer eine aktive Verbindung hat). Hierzu wieder ein Beispiel:</para>
+<para>The above-mentioned method could even be used to open files on the
+Internet (if the user has an active connection at the time.)  An example of
+this might look like the following:</para>
 
-<informalexample
-><screen
-><prompt
->%</prompt
-> <userinput
-><command
->kwrite</command>
-<option
-><replaceable
->ftp://ftp.kde.org/pub/kde/Welcome.msg</replaceable>
-</option
-></userinput
->
+<informalexample><screen>
+<prompt>%</prompt> <userinput><command>kwrite</command>
+<option><replaceable>ftp://ftp.kde.org/pub/kde/README</replaceable>
+</option></userinput>
 </screen>
 </informalexample>
 
 </sect2>
 
 <sect2 id="other-command-line-options">
-<title
->Weitere Befehlszeilenoptionen</title>
+<title>Other Command Line Options</title>
 
-<para
->Die folgenden Hilfe-Möglichkeiten sind über die Befehlszeile verfügbar</para>
+<para>The following command line help options are available</para>
 
 <variablelist>
 
 <varlistentry>
-<term
-><userinput
-><command
->kwrite</command
-> <option
->--help</option
-></userinput
-></term>
-<listitem
-><para
->Zeigt die grundsätzlichen Möglichkeiten für die Befehlszeile an.</para
-></listitem>
+<term><userinput><command>kwrite</command>
+<option>--help</option></userinput></term>
+<listitem><para>This lists the most basic options available at the command
+line.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><userinput
-><command
->kwrite</command
-> <option
->--author</option
-></userinput
-></term>
-<listitem
-><para
->Zeigt die Autoren von &kwrite; im Terminalfenster an.</para
-></listitem>
+<term><userinput><command>kwrite</command>
+<option>--author</option></userinput></term>
+<listitem><para>Lists &kwrite;'s authors in the terminal
+window.</para></listitem>
 </varlistentry>
 <varlistentry>
 
-<term
-><userinput
-><command
->kwrite</command
-> <option
->-v</option
->, <option
->--version</option
-></userinput
-></term>
-<listitem
-><para
->Zeigt Versionsinformationen für das Programm an</para
-></listitem>
+<term><userinput><command>kwrite</command>
+<option>-v</option>, <option>--version</option></userinput></term>
+<listitem><para>Lists version information for the application.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><userinput
-><command
->kwrite</command
-> <option
->--license</option
-></userinput
-></term>
+<term><userinput><command>kwrite</command>
+<option>--license</option></userinput></term>
 <listitem>
-<para
->Lizenz-Informationen anzeigen</para>
+<para>Shows license information.</para>
 </listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><userinput
-><command
->kwrite</command
-> <option
->--desktopfile</option
-> <parameter
->filename</parameter
-></userinput
-></term>
-<listitem
-><para
->Der Basis-Dateiname des Desktop-Eintrags dieser Anwendung.</para>
-<para
->Dies ist besonders nützlich für Wrapper-Anwendungen und Anwendungen, die mehrere Desktop-Dateien haben. So kann jede Desktop-Datei ihre eigene Befehlszeile für den Eintrag <option
->Exec</option
-> verwenden. </para
-></listitem>
+<term><userinput><command>kwrite</command>
+<option>--desktopfile</option> <parameter>filename</parameter></userinput></term>
+<listitem><para>The base file name of the desktop entry for this application.</para>
+<para>This is in particular useful for wrapper applications and
+applications having in general multiple desktop files. Thus each desktop
+file can have its own command line for the <option>Exec</option> entry.
+</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><userinput
-><command
->kwrite</command
-> <option
->-e</option
->, <option
->--encoding</option
-> <parameter
->encoding </parameter
-> </userinput
-></term>
-<listitem
-><para
->Weist &kwrite; an, die angegebene Kodierung für das Dokument zu benutzen. </para
-></listitem>
+<term><userinput><command>kwrite</command>
+<option>-e</option>, <option>--encoding</option> <parameter>encoding</parameter>
+</userinput></term>
+<listitem><para>Causes &kwrite; to use the specified encoding for the document.
+</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><userinput
-><command
->kwrite</command
-> <option
->-l</option
->, <option
->--line</option
-> <parameter
->line</parameter
-> </userinput
-></term>
-<listitem
-><para
->Setzt den Cursor nach dem Öffnen des Dokuments auf die angegebene Zeile. </para
-></listitem>
+<term><userinput><command>kwrite</command>
+<option>-l</option>, <option>--line</option> <parameter>line</parameter>
+</userinput></term>
+<listitem><para>Navigate to the specified line after opening the document.
+</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><userinput
-><command
->kwrite</command
-> <option
->-c</option
->, <option
->--column</option
-> <parameter
->column</parameter
-> </userinput
-></term>
-<listitem
-><para
->Setzt den Cursor nach dem Öffnen des Dokuments auf die angegebene Spalte. </para
-></listitem>
+<term><userinput><command>kwrite</command>
+<option>-c</option>, <option>--column</option> <parameter>column</parameter>
+</userinput></term>
+<listitem><para>Navigate to the specified column after opening the document.
+</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><userinput
-><command
->kwrite</command
-> <option
->-i</option
->, <option
->--stdin</option
-></userinput
-></term>
-<listitem
-><para
->Weist &kwrite; an, den Inhalt des zu bearbeitenden Dokuments von STDIN zu lesen. Dies ähnelt der Option <option
->-</option
->, die in vielen Befehlszeilenprogrammen benutzt wird und erlaubt das Einfügen einer Programmausgabe in &kwrite;.</para
-></listitem>
+<term><userinput><command>kwrite</command>
+<option>-i</option>, <option>--stdin</option></userinput></term>
+<listitem><para>Causes &kwrite; to read the document content from STDIN. This
+is similar to the common option <option>-</option> used in many command line
+programs, and allows you to pipe command output into &kwrite;.</para></listitem>
 </varlistentry>
 
 </variablelist>
@@ -327,116 +190,76 @@
 </sect1>
 
 <sect1 id="credits">
-<title
->Danksagungen und Lizenz</title>
+<title>Credits and License</title>
 
-<para
->&kwrite; Copyright 2001-2014 das &kate;-Team.</para>
+<para>&kwrite; Copyright 2001-2014 by the &kate; team.</para>
 
-<para
->Basiert auf dem Original-&kwrite;, das Copyright 2000 von Jochen Wilhelmy <email
->digisnap@cs.tu-berlin.de</email
-> </para>
+<para>
+Based on the original &kwrite;, which was Copyright 2000 by Jochen Wilhelmy
+<email>digisnap@cs.tu-berlin.de</email>
+</para>
 
-<para
->Beiträge:</para>
+<para>Contributions:</para>
 
 <itemizedlist>
 <listitem>
-<para
->&Christoph.Cullmann; &Christoph.Cullmann.mail;</para>
+<para>&Christoph.Cullmann; &Christoph.Cullmann.mail;</para>
 </listitem>
 
 <listitem>
-<para
->Michael Bartl <email
->michael.bartl1@chello.at</email
-></para>
+<para>Michael Bartl <email>michael.bartl1@chello.at</email></para>
 </listitem>
 
 <listitem>
-<para
->Phlip <email
->phlip_cpp@my-deja.com</email
-></para>
+<para>Phlip <email>phlip_cpp@my-deja.com</email></para>
 </listitem>
 
 <listitem>
-<para
->&Anders.Lund; &Anders.Lund.mail;</para>
+<para>&Anders.Lund; &Anders.Lund.mail;</para>
 </listitem>
 
 <listitem>
-<para
->Matt Newell <email
->newellm@proaxis.com</email
-></para>
+<para>Matt Newell <email>newellm@proaxis.com</email></para>
 </listitem>
 
 <listitem>
-<para
->&Joseph.Wenninger; &Joseph.Wenninger.mail;</para>
+<para>&Joseph.Wenninger; &Joseph.Wenninger.mail;</para>
 </listitem>
 
 <listitem>
-<para
->Jochen Wilhelmy <email
->digisnap@cs.tu-berlin.de</email
-></para>
+<para>Jochen Wilhelmy <email>digisnap@cs.tu-berlin.de</email></para>
 </listitem>
 
 <listitem>
-<para
->&Michael.Koch; &Michael.Koch.mail;</para>
+<para>&Michael.Koch; &Michael.Koch.mail;</para>
 </listitem>
 
 <listitem>
-<para
->&Christian.Gebauer; &Christian.Gebauer.mail;</para>
+<para>&Christian.Gebauer; &Christian.Gebauer.mail;</para>
 </listitem>
 
 <listitem>
-<para
->&Simon.Hausmann; &Simon.Hausmann.mail;</para>
+<para>&Simon.Hausmann; &Simon.Hausmann.mail;</para>
 </listitem>
 
 <listitem>
-<para
->Glen Parker <email
->glenebob@nwlink.com</email
-></para>
+<para>Glen Parker <email>glenebob@nwlink.com</email></para>
 </listitem>
 
 <listitem>
-<para
->Scott Manson <email
->sdmanson@altel.net</email
-></para>
+<para>Scott Manson <email>sdmanson@altel.net</email></para>
 </listitem>
 
 <listitem>
-<para
->&John.Firebaugh; &John.Firebaugh.mail;</para>
+<para>&John.Firebaugh; &John.Firebaugh.mail;</para>
 </listitem>
 </itemizedlist>
 
-<para
->Übersetzungen von:</para
-><itemizedlist
-><listitem
-><para
->Thomas Diehl <email
->thd@kde.org</email
->, GUI-Übersetzung</para
-></listitem
-><listitem
-><para
->Matthias Schulz<email
->matthias.schulz@kdemail.net</email
->, Übersetzung der Dokumentation</para
-></listitem
-></itemizedlist
-> &underFDL; &underGPL; </sect1>
+<!-- TRANS:CREDIT_FOR_TRANSLATORS -->
+
+&underFDL;
+&underGPL;
+</sect1>
 
 </article>
 <!--

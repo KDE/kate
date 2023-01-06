@@ -1,388 +1,327 @@
 <chapter id="config-dialog">
-<title
->Einrichten von &kappname;</title>
-<para
->Die Auswahl von <menuchoice
-><guimenu
->Einstellungen</guimenu
-> <guimenuitem
-><replaceable
->Anwendung</replaceable
-> einrichten ...</guimenuitem
-></menuchoice
-> im Menü öffnet das Einrichtungsfenster;. In diesem Dialogfenster können eine ganze Reihe von Einstellungen vorgenommen werden. Die angezeigten Einstellungsmöglichkeiten hängen von der Auswahl eines links in der Liste angezeigten Symbols ab. Die drei Knöpfe am unteren Rand des Dialogfeldes rufen die <guilabel
->Hilfe</guilabel
-> auf, machen die aktuellen Einstellungen mit <guibutton
->OK</guibutton
-> gütig, oder brechen mit <guibutton
->Abbrechen</guibutton
-> den Einstellungs-Prozess ab. </para>
+<title>Configure &kappname;</title>
+<para>
+Selecting <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure
+<replaceable>Application</replaceable>...</guimenuitem></menuchoice> from the menu brings up the
+<guilabel>Configure</guilabel> dialog box.  This dialog can be
+used to alter a number of different settings.  The settings available
+for change vary according to which category the user chooses from a
+vertical list on the left side of the dialog.  By means of three buttons
+along the bottom of the box the user can control the process.
+</para>
 
-<para
->Sie können das <guilabel
->Hilfe</guilabel
->system aufrufen, die aktuellen Einstellungen mit <guibutton
->OK</guibutton
-> übernehmen und das Dialogfeld schließen, oder den Knopf <guibutton
->Abbrechen</guibutton
-> benutzen, um das Dialogfeld zu schließen, ohne Änderungen zu speichern.  Die zur Auswahl stehenden Kategorien - <guilabel
->Erscheinungsbild</guilabel
->, <guilabel
->Schriften &amp; Farben</guilabel
->, <guilabel
->Bearbeitung</guilabel
->, <guilabel
->Öffnen/Speichern</guilabel
-> und <guilabel
->Erweiterungen</guilabel
-> sind nachfolgend erläutert. </para>
+<para>
+You may invoke the <guilabel>Help</guilabel> system, accept the
+current settings and close the dialog by means of the
+<guibutton>OK</guibutton> button, or <guibutton>Cancel</guibutton> the
+process. The categories <guilabel>Appearance</guilabel>,
+<guilabel>Fonts &amp; Colors</guilabel>, <guilabel>Editing</guilabel>,
+<guilabel>Open/Save</guilabel> and
+<guilabel>Extensions</guilabel> are detailed below.
+</para>
 
 <sect1 id="config-dialog-editor">
-<title
->Einstellungen für die Editor-Komponente</title>
-<para
->Diese Gruppe enthält alle Seiten, auf denen die Einstellungen zum Editor von &kappname; vorgenommen werden. Für die meisten der Einstellungen gibt es Standardwerte, die durch <link linkend="pref-open-save-modes-filetypes"
->Festlegen von Datentypen</link
->,  <link linkend="config-variables"
->Dokumentvariablen</link
-> oder durch dokumentbezogene Einstellungen verändert werden können.</para>
+<title>The Editor Component Configuration</title>
+<para>This group contains all pages related to the editor component of
+&kappname;. Most of the settings here are defaults, they can be overridden by
+<link linkend="pref-open-save-modes-filetypes">defining a filetype</link>,
+by <link linkend="config-variables">Document Variables</link> or
+by changing them per document during an editing session.</para>
 <sect2 id="appearance">
-<title
->Erscheinungsbild</title>
-
-<sect3 id="prefcolors-fonts">
-<title
->Schriftart</title>
-<para
->Hier stellen Sie die Schriftarten für den Text im Editor ein. Sie können jede Schriftart verwenden, die auf Ihrem System verfügbar ist und Sie können eine Standardgröße einstellen. Unten im Dialog wird ein Beispiel in der gewählten Schrift angezeigt, sodass Sie die Auswirkungen Ihrer Wahl sofort sehen. </para>
-<para
->Weitere Informationen dazu finden Sie im Abschnitt <ulink url="help:/fundamentals/fonts.html"
-><emphasis
->Auswahl von Schriftarten</emphasis
-> der <emphasis
->&kde;-Grundlagen</emphasis
-></ulink
->.</para>
-</sect3>
+<title>Appearance</title>
 
 <sect3 id="appearance-general">
-<title
->Allgemein</title>
+<title>General</title>
 
 <variablelist>
 <varlistentry>
-<term
-><guilabel
->Dynamischer Zeilenumbruch</guilabel
-></term>
+<term><guilabel>Editor font</guilabel></term>
 <listitem>
-<para
->Wenn eingeschaltet, dann werden die Zeilen am rechten Bildschirmrand automatisch umgebrochen.</para>
-<variablelist>
-<varlistentry>
-<term
-><guilabel
->Kennzeichnung für dynamischen Zeilenumbruch:</guilabel
-></term>
-<listitem
-><para
->Wählen Sie hier, ob die Markierungen für den dynamischen Zeilenumbruch angezeigt werden sollen, entweder <guilabel
->Aus</guilabel
->, <guilabel
->Zeilennummern folgen</guilabel
-> or <guilabel
->Immer aktiv</guilabel
->. </para
-></listitem
-></varlistentry>
-<varlistentry>
-<term
-><guilabel
->Dynamisch umbrochene Zeilen an der Einrückungstiefe ausrichten: </guilabel
-></term>
-<listitem
-><para
->Dynamisch umgebrochene Zeilen werden auf die Einrückungsposition der ersten Zeile des Abschnittes eingerückt. Dadurch werden Quelltexte besser lesbar.</para
-><para
->Zusätzlich können sie hier ein Maximum angeben, ab dem die neuen Zeilen nicht weiter eingerückt werden. Wenn Sie hier zum Beispiel 50&nbsp;% angeben, dann werden Zeilen nicht weiter eingerückt, deren Einrückung weiter als 50&nbsp;% der Bildschirmbreite sein würde.</para
-></listitem>
-</varlistentry>
-</variablelist>
+<para>
+Here you can choose the font of the editor text.  You can choose from
+any font available on your system, and set a default size. A sample text
+is displayed at the bottom of the dialog, so you can see the effect of your choices.
+</para>
+<para>For more information about selecting a font, see the
+<ulink url="help:/fundamentals/fonts.html"><emphasis>Choosing Fonts</emphasis>
+section of the <emphasis>&kde; Fundamentals</emphasis> documentation</ulink>.</para>
 </listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><guilabel
->Leerraum-Hervorhebung</guilabel
-></term>
+<term><guilabel>Show whitespace indicators</guilabel></term>
 <listitem>
 <variablelist>
 <varlistentry>
-<term
-><guilabel
->Tabulatoren hervorheben</guilabel
-></term>
-<listitem
-><para
->Im Editor wird ein &raquo;-Symbol für einen vorhandenen Tabulator angezeigt.</para
-></listitem>
+<term><guilabel>Never</guilabel></term>
+<listitem><para>The editor will never display dots to indicate the presence of whitespace.</para></listitem>
 </varlistentry>
 <varlistentry>
-<term
-><guilabel
->Leerzeichen am Zeilenende hervorheben</guilabel
-></term>
-<listitem
-><para
->Im Editor werden Punkte angezeigt, wenn zusätzliche Leerzeichen am Zeilenende vorhanden sind.</para
-></listitem>
+<term><guilabel>At the end of a line</guilabel></term>
+<listitem><para>The editor will display dots to indicate the presence of extra
+whitespace at the end of lines.</para></listitem>
 </varlistentry>
 <varlistentry>
-<term
-><guilabel
->Größe der Hervorhebungsmarkierungen</guilabel
-></term>
-<listitem
-><para
->Ändern Sie mit dem Schieberegler die Größe der sichtbaren Markierung für Hervorhebungen.</para
-></listitem>
+<term><guilabel>Always</guilabel></term>
+<listitem><para>The editor will always display dots to indicate the presence of whitespace.</para></listitem>
 </varlistentry>
 </variablelist>
 </listitem>
 </varlistentry>
+<varlistentry>
+<term><guilabel>Whitespace indicator size</guilabel></term>
+<listitem><para>Use the slider to change the size of the visible indicator marker.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Show tab indicators</guilabel></term>
+<listitem><para>When checked the editor will display a &raquo; symbol to indicate the presence
+  of a tab in the text.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Show focus frame around editor</guilabel></term>
+<listitem><para>When checked the editor shows focus frame around the main source text control.</para></listitem>
+</varlistentry>
 
 <varlistentry>
-<term
-><guilabel
->Erweitert </guilabel
-></term>
-<listitem
-><para>
+<term><guilabel>Bracket matching
+</guilabel></term>
+<listitem><para>
 <variablelist>
 <varlistentry>
-<term
-><guilabel
->Einrückungslinien anzeigen </guilabel
-></term>
-<listitem
-><para
->Wenn dieses Feld angekreuzt ist, dann werden im aktuellen Dokument senkrechte Linien angezeigt, die Ihnen helfen, eingerückte Zeilen zuzuordnen.</para
-></listitem>
+<term><guilabel>Highlight range between selected brackets
+</guilabel></term>
+<listitem><para>If this is enabled, the range between the selected matching brackets will be highlighted.</para></listitem>
 </varlistentry>
 <varlistentry>
-<term
-><guilabel
->Bereich zwischen zusammengehörenden Klammern hervorheben </guilabel
-></term>
-<listitem
-><para
->Ist diese Einstellung markiert, wird der Bereich zwischen den ausgewählten, zusammengehörenden Klammern hervorgehoben.</para
-></listitem>
+<term><guilabel>Show preview of matching open bracket
+</guilabel></term>
+<listitem><para>When enabled, the editor will show a tooltip of the matching open bracket.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Flash matching bracket when cursor moves to other bracket in pair
+</guilabel></term>
+<listitem><para>If enabled, moving on the brackets (<keycap>{</keycap>, <keycap>[</keycap>,  
+<keycap>]</keycap>, <keycap>}</keycap>,<keycap>(</keycap> or <keycap>)</keycap>) will
+quickly flash the matching bracket.</para></listitem>
 </varlistentry>
 </variablelist>
-</para
-></listitem>
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Show indentation lines
+</guilabel></term>
+<listitem><para>If this is checked, the editor will display
+vertical lines to help identifying indent lines.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Counts
+</guilabel></term>
+<listitem><para>
+<variablelist>
+<varlistentry>
+<term><guilabel>Show word count
+</guilabel></term>
+<listitem><para>Displays the number of words and characters in the document and
+in the current selection in the status bar.
+This option is also available in the status bar context menu.</para></listitem>
 </varlistentry>
 <varlistentry>
-<term
-><guilabel
->Zusammengehörige Klammern animieren </guilabel
-></term>
-<listitem
-><para
->Ist dies aktiviert, werden mit dem Mauszeiger auf Klammern  (<keycap
->{</keycap
->, <keycap
->[</keycap
->, <keycap
->]</keycap
->, <keycap
->}</keycap
->,<keycap
->(</keycap
-> oder <keycap
->)</keycap
->) die zugehörigen schließenden Klammern hervorgehoben.</para
-></listitem>
+<term><guilabel>Show line count
+</guilabel></term>
+<listitem><para>Displays the number of total lines in the document in the status bar.
+This option is also available in the status bar context menu.</para></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Fold first line
+</guilabel></term>
+<listitem><para>If enabled, the first line is folded, if possible. This is useful, 
+if the file starts with a comment, such as a copyright</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Dynamic Word Wrap</guilabel></term>
+<listitem>
+<para>If this option is checked, the text lines
+will be wrapped at the view border on the screen.</para>
+<para>
+<variablelist>
+<varlistentry>
+<term><guilabel>Wrap dynamically at static word wrap marker
+</guilabel></term>
+<listitem><para>When checked, editor wraps lines dynamically at the <link linkend="pref-word-wrap">static word wrap position</link>.</para></listitem>
 </varlistentry>
 <varlistentry>
-<term
-><guilabel
->Erste Zeile ausblenden </guilabel
-></term>
-<listitem
-><para
->Ist die aktiviert, dann wird die erste Zeile ausgeblendet. Benutzen Sie diese Einstellung, wenn die Datei mit einem Kommentar with zum Beispiel einem Copyright beginnt.</para
-></listitem>
+<term><guilabel>Disregard word boundaries for dynamic wrapping
+</guilabel></term>
+<listitem><para>When checked, the editor does not take into account word boundaries when wrapping text lines.</para></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</listitem>
 </varlistentry>
 <varlistentry>
-<term
-><guilabel
->Wortanzahl anzeigen </guilabel
-></term>
-<listitem
-><para
->Zeigt die Zahl der Wörter und Zeichen im Dokument und in der aktuellen Auswahl in der Statusleiste. Diese Einstellung finden Sie auch im Kontextmenü der Statusleiste.</para
-></listitem>
+<term><guilabel>Dynamic word wrap indicators</guilabel></term>
+<listitem><para>Choose when the Dynamic word wrap indicators
+should be displayed, either <guilabel>Off</guilabel>, <guilabel>Follow Line
+Numbers</guilabel> or <guilabel>Always on</guilabel>.
+</para></listitem></varlistentry>
+<varlistentry>
+<term><guilabel>Indent wrapped lines
+</guilabel></term>
+<listitem><para>Additionally, this allows you to
+set a maximum width of the screen, as a percentage,
+after which dynamically wrapped lines will no longer be vertically aligned.
+For example, at 50%, lines whose indentation levels are deeper than 50% of the
+width of the screen will not have vertical alignment applied to subsequent
+wrapped lines.</para></listitem>
 </varlistentry>
 <varlistentry>
-<term
-><guilabel
->Zeilenanzahl anzeigen </guilabel
-></term>
-<listitem
-><para
->Zeigt die Zeilenanzahl im Dokument in der Statusleiste. Diese Einstellung finden Sie auch im Kontextmenü der Statusleiste.</para
-></listitem>
-</varlistentry>
+<term><guilabel>Line Height Multiplier
+</guilabel></term>
+<listitem><para>This value will be multiplied by the font's default line height. A value 
+of 1.0 means that the default height will be used.</para></listitem></varlistentry>
 </variablelist>
 </sect3>
 
 <sect3 id="appearance-borders">
-<title
->Randbereiche</title>
+<title>Borders</title>
 
 <variablelist>
 <varlistentry>
-<term
-><guilabel
->Randbereiche</guilabel
-></term>
+<term><guilabel>Code block folding</guilabel></term>
 <listitem>
 <variablelist>
 <varlistentry>
-<term
-><guilabel
->Markierungen für Quelltextausblendungen anzeigen </guilabel
-></term>
-<listitem
-><para
->Wenn dieses Feld angekreuzt ist, dann werden im aktuellen Dokument für Quelltextausblendungen Markierungen angezeigt.</para
-></listitem>
+<term><guilabel>Show arrows to collapse code blocks
+</guilabel></term>
+<listitem><para>If this option is checked, the current view will display marks
+for code folding, if code folding is available.</para></listitem>
 </varlistentry>
 <varlistentry>
-<term
-><guilabel
->Vorschau des ausgeblendeten Texts anzeigen </guilabel
-></term>
-<listitem
-><para
->Ist dies aktiviert, wird beim Überfahren eines ausgeblendeten Bereich eine Vorschau des ausgeblendeten Texts in einen Fenster angezeigt.</para
-></listitem>
-</varlistentry>
-<varlistentry>
-<term
-><guilabel
->Symbolrand anzeigen </guilabel
-></term>
-<listitem
-><para
->Wenn dieses Feld angekreuzt ist, dann wird im aktuellen Dokument an der linken Seite der Symbolrand angezeigt. Darin werden zum Beispiel Markierungen für Lesezeichen angezeigt.</para
-></listitem>
-</varlistentry>
-<varlistentry>
-<term
-><guilabel
->Zeilennummern anzeigen </guilabel
-></term>
-<listitem
-><para
->Wenn dieses Feld angekreuzt ist, dann werden im aktuellen Dokument an der linken Seite Zeilennummern angezeigt.</para
-></listitem>
-</varlistentry>
-<varlistentry>
-<term
-><guilabel
->Markierungen für geänderte Zeilen anzeigen </guilabel
-></term>
-<listitem
-><para
->Ist diese Einstellung aktiv, werden Markierungen für geänderte Zeilen angezeigt. Weitere Informationen finden Sie unter <xref linkend="kate-part-line-modification"/>. </para
-></listitem>
-</varlistentry>
-<varlistentry>
-<term
-><guilabel
->Markierung für Bildlaufleiste anzeigen </guilabel
-></term>
-<listitem
-><para
->Wenn dieses Feld angekreuzt ist, dann werden im aktuellen Dokument Markierungen in der senkrechten Bildlaufleiste angezeigt. Diese zeigen zum Beispiel Lesezeichen.</para
-></listitem>
-</varlistentry>
-<varlistentry>
-<term
-><guilabel
->Textvorschau an der Bildlaufleiste anzeigen</guilabel
-></term>
-<listitem
-><para
->Ist diese Einstellung aktiviert, wird beim Überfahren der Bildlaufleiste mit dem Mauszeiger eine verkleinerte Textvorschau mit mehreren Textzeilen um die Position des Mauszeigers angezeigt. Damit können Sie schnell zu anderen Bereichen des Dokuments wechseln.</para>
-</listitem>
-</varlistentry>
-<varlistentry>
-<term
-><guilabel
->Textgrafik auf Bildlaufleiste anzeigen</guilabel
-></term>
-<listitem
-><para
->Ist diese Einstellung aktiv, zeigen neu geöffnete Ansichten ein verkleinerte Grafik des Texts im Dokuments auf der senkrechten Bildlaufleiste.</para>
-<para
->Weitere Informationen über die Textgrafik auf der Bildlaufleiste finden Sie im Abschnitt <xref linkend="kate-part-scrollbar-minimap"/>.</para
-></listitem>
-</varlistentry>
-<varlistentry>
-<term
-><guilabel
->Breite der Textgrafik:</guilabel
-></term>
-<listitem
-><para
->Bestimmt die Breite der Textgrafik auf der Bildlaufleiste in Pixeln. </para
-></listitem>
-</varlistentry>
-<varlistentry>
-<term
-><guilabel
->Anzeige der Bildlaufleisten</guilabel
-></term>
-<listitem
-><para
->Schaltet die Bildlaufleisten ein, aus oder nur ein, wenn erforderlich. Klicken Sie mit der &LMBn; auf das blaue Rechteck, dann wird der Zeilenbereich des Dokumentausschnitts auf dem Bildschirm angezeigt. Halten Sie die &LMB;  außerhalb des blauen Rechtecks, um automatisch durch des Dokument zu blättern. </para
-></listitem>
+<term><guilabel>Show preview of folded blocks on hover
+</guilabel></term>
+<listitem><para>If checked, hovering over a folded region shows a preview of the folded text
+in a popup.</para></listitem>
 </varlistentry>
 </variablelist>
 </listitem>
 </varlistentry>
+</variablelist>
 
+<variablelist>
 <varlistentry>
-<term
-><guilabel
->Lesezeichenmenü sortieren </guilabel
-></term>
+<term><guilabel>Folding arrows visibility</guilabel></term>
+<listitem><para>Switch the folding arrows between <guimenuitem>Show on Hover</guimenuitem>
+and <guimenuitem>Show Always</guimenuitem>.
+</para></listitem>
+</varlistentry>
+</variablelist>
+
+<variablelist>
+<varlistentry>
+<term><guilabel>Left side</guilabel></term>
 <listitem>
 <variablelist>
 <varlistentry>
-<term
-><guilabel
->Nach Erstellungszeitpunkt </guilabel
-></term>
-<listitem
-><para
->Jedes neue Lesezeichen wird am Ende der Liste hinzugefügt.</para
-></listitem>
+<term><guilabel>Show marks
+</guilabel></term>
+<listitem><para>If this is checked, you will see an icon border on the left
+hand side. The icon border shows bookmark signs for instance.</para></listitem>
 </varlistentry>
 <varlistentry>
-<term
-><guilabel
->Nach Position </guilabel
-></term>
-<listitem
-><para
->Die Lesezeichen werden nach Zeilennummern geordnet.</para
-></listitem>
+<term><guilabel>Show line numbers
+</guilabel></term>
+<listitem><para>If this is checked, you will see line numbers on the left
+hand side.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Highlight changed and unsaved lines
+</guilabel></term>
+<listitem><para>If this is checked, line modification markers will be visible.
+For more information, see <xref linkend="kate-part-line-modification"/>.
+</para></listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+</variablelist>
+
+<variablelist>
+<varlistentry>
+<term><guilabel>Scrollbars</guilabel></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term><guilabel>Show marks
+</guilabel></term>
+<listitem><para>If this option is checked the current view
+will show marks on the vertical scrollbar. These marks will
+for instance show bookmarks.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Show preview when hovering over scrollbar</guilabel></term>
+<listitem><para>If this option is checked, and you hover the scrollbar with the mouse cursor
+a small text preview with several lines of the current document around the cursor position will be displayed.
+This allows you to quickly switch to another part of the document.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+</variablelist>
+
+<variablelist>
+<varlistentry>
+<term><guilabel>Minimap</guilabel></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term><guilabel>Show minimap</guilabel></term>
+<listitem><para>If this option is checked, every new view will show a minimap of the 
+document on the vertical scrollbar.</para>
+<para>For more information on the scrollbar minimap, see
+<xref linkend="kate-part-scrollbar-minimap"/>.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Minimap Width</guilabel></term>
+<listitem><para>Adjusts the width of the scrollbar mini-map, defined in pixels.
+</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Scrollbars visibility</guilabel></term>
+<listitem><para>Switch the scrollbar on, off or show the scrollbar only when needed.
+Click with the &LMB; on the blue rectangle to display the line number range of the document displayed on the screen.
+Keep the &LMB; pressed outside the blue rectangle to automatically scroll through the document.
+</para></listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+</variablelist>
+
+<variablelist>
+<varlistentry>
+<term><guilabel>Sort bookmarks menu</guilabel></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term><guilabel>By date created
+</guilabel></term>
+<listitem><para>Each new bookmark will be added to the bottom,
+independently from where it is placed in the document.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>By line number
+</guilabel></term>
+<listitem><para>The bookmarks will be ordered by the line
+numbers they are placed at.</para></listitem>
 </varlistentry>
 </variablelist>
 </listitem>
@@ -393,147 +332,109 @@
 </sect2>
 
 <sect2 id="prefcolors">
-<title
->Farbschemata</title>
+<title>Color Themes</title>
 
-<para
->Dieser Abschnitt erlaubt die Einstellung aller Farben in jedem Ihrer Farbschemata. Sie  können auch neue Schemata erstellen oder bereits existierende löschen. Jedes Schema hat Einstellungen für Farben sowie normale und hervorgehobene Textstile. </para>
+<para>This section of the dialog lets you configure all colors in
+any color theme you have, and create new themes, delete existing
+ones or just <guilabel>Follow System Color Scheme</guilabel>.
+Each scheme has settings for colors and normal and highlighted text
+styles.
+</para>
 
-<para
->&kappname; startet diese Seite mit dem aktuell aktiven Farbschema. Wenn Sie an einem anderen Farbschema Veränderungen vornehmen wollen, dann wählen Sie dieses mit im Auswahlfeld <guilabel
->Schema</guilabel
->. Mit den Knöpfen <guibutton
->Neu</guibutton
-> und <guibutton
->Löschen</guibutton
-> können Sie neue Schemata als Kopie eines vorhandenen Schemas erstellen oder vorhandene entfernen.</para>
-<para
->Unten auf dieser Seite wählen Sie das <guilabel
->Standardschema für <replaceable
->Anwendung</replaceable
-></guilabel
->.</para>
+<para>&kappname; will preselect the currently active theme for you, if you want to
+work on a different theme start by selecting that from the
+<guilabel>Select theme</guilabel> combobox. With the <guibutton>Copy</guibutton> and <guibutton>Delete</guibutton>
+ buttons you can create a new theme (copying an existing one) or delete existing ones.</para>
 
-<para
->Dies wird ausführlich in diesem Abschnitt <xref linkend="color-themes-gui"/> beschrieben.</para>
+<para>This is described in detail in <xref linkend="color-themes-gui"/>.</para>
 
 </sect2>
 
 <sect2 id="pref-edit">
-<title
->Bearbeitungseinstellungen</title>
+<title>Editing</title>
 
 <sect3 id="pref-edit-general">
-<title
->Allgemein</title>
+<title>General</title>
 <variablelist>
 
 <varlistentry>
-<term id="pref-word-wrap"
-><guilabel
->Statischer Zeilenumbruch</guilabel
-></term>
-<listitem
-><para
->Zeilenumbruch ist eine Funktion, die bewirkt, dass der Editor automatisch eine neue Textzeile beginnt und den Cursor an den Anfang dieser neuen Zeile verschiebt. Wenn diese Option aktiv ist, beginnt &kappname; automatisch eine neue Zeile, sobald die aktuelle Zeile die Länge erreicht, die im Feld <link linkend="pref-wrap-words-at"
->Zeilenumbruch bei:</link
-> angegeben ist.</para>
+<term id="pref-word-wrap"><guilabel>Word wrap</guilabel></term>
+<listitem><para>
+Word wrap is a feature that causes the editor to automatically start a new line
+of text and move (wrap) the cursor to the beginning of that new line.  &kappname;
+will automatically start a new line of text when  the current line reaches the
+length specified by the <link linkend="pref-wrap-words-at">Wrap words
+at:</link> option.</para>
 <variablelist>
 <varlistentry>
-<term
-><guilabel
->Statischen Zeilenumbruch aktivieren</guilabel
-></term>
+<term><guilabel>Wrap words at a fixed column</guilabel></term>
 <listitem>
-<para
->Schaltet den statischen Zeilenumbruch ein und aus.</para>
+<para>Turns static word wrap on or off.</para>
 </listitem>
 </varlistentry>
 <varlistentry>
-<term
-><guilabel
->Markierung für statischen Zeilenumbruch anzeigen (falls zutreffend)</guilabel
-></term>
+<term><guilabel>Draw vertical line at the word wrap column</guilabel></term>
 <listitem>
-<para
->Wenn eingeschaltet, dann wird eine senkrechte Linie in der Spalte, an der der Zeilenumbruch erfolgt, angezeigt. Die Position wird in <menuchoice
-> <guimenu
->Einstellungen</guimenu
-> <guimenuitem
->Editor einrichten ...</guimenuitem
-></menuchoice
-> auf der Karte Bearbeitung festgelegt. Die Markierung wird nur dann angezeigt, wenn Sie eine Schrift mit fester Buchstabenbreite verwenden.</para>
+<para>If this option is checked, a vertical line will be drawn at the word wrap
+column as defined in the <menuchoice> <guimenu>Settings</guimenu>
+<guimenuitem>Configure Editor...</guimenuitem></menuchoice> in the Editing tab.
+Please note that the word wrap marker is only drawn if you use a fixed pitch
+font.</para>
 </listitem>
 </varlistentry>
 <varlistentry>
-<term id="pref-wrap-words-at"
-><guilabel
->Zeilenumbruch bei:</guilabel
-></term>
+<term id="pref-wrap-words-at"><guilabel>Wrap words at:</guilabel></term>
 <listitem>
-<para
->Wenn die Option <link linkend="pref-word-wrap"
->Statischen Zeilenumbruch aktivieren</link
-> eingeschaltet ist, dann wird hier eingestellt, bei welcher Zeilenlänge in Zeichen der Editor automatisch eine neue Zeile beginnt.</para>
+<para>If the <link linkend="pref-word-wrap">Wrap words at a fixed column</link> option is selected
+this entry  determines the length (in characters) at which the editor will
+automatically start a new line.</para>
 </listitem>
 </varlistentry>
 </variablelist>
 </listitem>
 </varlistentry>
 <varlistentry>
-<term
-><guilabel
->Eingabemodus</guilabel
-></term
-> <listitem
-><para
->Der hier ausgewählte Eingabemodus wird aktiviert, wenn eine neue Ansicht geöffnet wird. Sie können den VI-Eingabemodus weiterhin über das Menü <guimenu
->Bearbeiten</guimenu
-> für jede Ansicht separat ein-/ausschalten. </para>
-</listitem>
-</varlistentry>
-<varlistentry>
-<term
-><guilabel
->Automatische Klammern</guilabel
-></term
-> <listitem
-><para
->Wenn dies Option aktiv ist, setzt &kappname; beim Eingeben einer linken Klammer (<keycap
->[</keycap
->, <keycap
->(</keycap
-> oder <keycap
->{</keycap
->) automatisch eine rechte Klammer des gleichen Typs (<keycap
->}</keycap
->, <keycap
->)</keycap
->, or <keycap
->]</keycap
->)  rechts vom Cursor. Diese braucht dann zum Schließen der Klammer nur noch übersprungen zu werden.</para>
-<para
->Ist Text ausgewählt, wird bei Eingabe dieser Zeichen der Text umgebrochen.</para>
+<term><guilabel>Default input mode</guilabel></term> <listitem><para>
+The selected input mode will be enabled when opening a new view.
+You can still toggle the vi input mode on/off for a particular view in the
+<guimenu>Edit</guimenu> menu.
+</para>
 </listitem>
 </varlistentry>
 
+<varlistentry>
+<term><guilabel>Brackets</guilabel></term> <listitem>
+<para>If the <guilabel>Automatically close brackets when opening bracket is typed</guilabel> option is selected when
+the user types a left bracket (<keycap>[</keycap>, <keycap>(</keycap>, or <keycap>{</keycap>)
+&kappname; automatically enters the right bracket (<keycap>}</keycap>, <keycap>)</keycap>, 
+or <keycap>]</keycap>) to the right of the cursor.</para>
+</listitem>
+</varlistentry>
 
 <varlistentry>
-<term
-><guilabel
->Kopieren und Einfügen</guilabel
-></term>
+<term><guilabel>Enclosing characters</guilabel></term> <listitem>
+<para>It is possible to select the enclosing characters using the corresponding drop-down list.</para>
+<para>When text is selected, typing one of these characters wraps the selected text.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term ><guilabel>Copy and paste</guilabel></term>
 <listitem>
 <variablelist>
 <varlistentry>
-<term
-><guilabel
->Die aktuelle Zeile kopieren/ausschneiden, wenn keine Markierung vorliegt</guilabel
-></term
-> <listitem>
-<para
->Ist diese Einstellung aktiv und kein Text ausgewählt, werden die Aktionen Kopieren und Ausschneiden für die ganze Textzeile an der aktuellen Cursorposition ausgeführt.</para
-></listitem>
+<term><guilabel>Move selected text when dragged</guilabel></term> <listitem>
+<para>This option enables drag-and-drop of the selected text inside the editor window.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Copy/cut the current line if invoked without any text selected</guilabel></term> <listitem>
+<para>If this option is enabled and the text selection is empty, copy and cut
+action are performed for the line of text at the actual cursor position.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Don't move the text cursor when pasting by mouse</guilabel></term> <listitem>
+<para>If this option is enabled and you paste some text in the editor window with the &MMB; clicking, &kappname;
+will not move the text cursor into the clicked position.</para></listitem>
 </varlistentry>
 </variablelist>
 </listitem>
@@ -543,64 +444,49 @@
 </sect3>
 
 <sect3 id="pref-edit-cursor-selection">
-<title
->Textnavigation</title>
+<title>Text Navigation</title>
 
 <variablelist>
 
 <varlistentry>
-<term
-><guilabel
->Text-Cursor-Bewegung</guilabel
-></term>
+<term><guilabel>Text Cursor Movement</guilabel></term>
 <listitem>
 <variablelist>
 <varlistentry>
-<term
-><guilabel
->Intelligente Tasten Pos 1 und Ende</guilabel
-></term>
+<term><guilabel>Smart home and smart end</guilabel></term>
 <listitem>
-<para
->Wenn dieses Feld angekreuzt ist, dann bewegt das Drücken der Taste Pos1 den Cursor an den Beginn des Textes in der aktuellen Zeile, Leerzeichen und Tabulatoren davor werden übersprungen.</para>
+<para>When selected, pressing the home key will cause the cursor to
+skip white space and go to the start of a line's text.</para>
 </listitem>
 </varlistentry>
 <varlistentry>
-<term
-><guilabel
->Cursor folgt Bild auf/ab</guilabel
-></term>
+<term><guilabel>PageUp/PageDown moves cursor</guilabel></term>
 <listitem>
-<para
->Diese Option ändert das Verhalten des Cursors, wenn der Benutzer die Tasten &PgUp; oder &PgDn; drückt. Wenn diese Option ausgeschaltet ist, dann bleibt der Cursor an der gleichen Stelle innerhalb des sichtbaren Bildes, es wird also der Text unter dem Cursor verschoben. Bei Erreichen des Textendes oder Textanfangs kann dies aber nicht immer funktionieren. Bei eingeschalteter Option wird der Cursor beim ersten Drücken der Taste an den Bildanfang oder das Bildende bewegt. Erst beim nächsten Betätigen wird dann der Text bewegt.</para>
+<para>This option changes the behavior of the cursor when the user presses
+the &PgUp; or &PgDn; key. If unselected the text cursor will maintain its
+relative position within the visible text in &kappname; as new text becomes
+visible as a result of the operation.  So if the
+cursor is in the middle of the visible text when the operation occurs it will
+remain there (except when one reaches the beginning or end.)  With this option
+selected, the first key press will cause the cursor to move to either the top or
+bottom of the visible text as a new page of text is displayed.</para>
 </listitem>
 </varlistentry>
 <varlistentry>
-<term
-><guilabel
->Cursor-Bewegung mit Binnenmajuskeln (Camel Case) aktivieren</guilabel
-></term>
+<term><guilabel>Enable camel case cursor movement</guilabel></term>
 <listitem>
-<para
->Diese Einstellung ändert das Verhalten des Cursors, wenn der Benutzer die Tastenkombination <keycombo
->&Ctrl;<keycap
->Pfeil links</keycap
-></keycombo
-> oder <keycombo
->&Ctrl;<keycap
->Pfeil rechts</keycap
-></keycombo
-> drückt. Wenn diese Einstellung nicht ausgewählt ist, springt der Textcursor über die ganzen Wörter. Wenn diese Einstellung ausgewählt ist, springt der Cursor zu den Binnenmajuskeln (Großbuchstaben innerhalb eines Wortes).</para>
+<para>This option changes the behavior of the cursor when the user presses
+the <keycombo>&Ctrl;<keycap>Left arrow</keycap></keycombo> or
+<keycombo>&Ctrl;<keycap>Right arrow</keycap></keycombo> shortcut. If unselected
+the text cursor jumps over the full words. With this option
+selected, the cursor jumps break at camel case humps.</para>
 </listitem>
 </varlistentry>
 <varlistentry>
-<term
-><guilabel
->Automatische Cursor-Zentrierung:</guilabel
-></term>
+<term><guilabel>Autocenter cursor:</guilabel></term>
 <listitem>
-<para
->Setzt die Anzahl der Zeilen, die der Cursor Abstand vom oberen oder unteren Bildrand hält, wenn möglich.</para>
+<para>Sets the number of lines to maintain visible above and below the cursor
+when possible.</para>
 </listitem>
 </varlistentry>
 </variablelist>
@@ -608,54 +494,40 @@
 </varlistentry>
 
 <varlistentry>
-<term
-><guilabel
->Textmarkierungsmodus</guilabel
-></term>
+<term><guilabel>Text Selection Mode</guilabel></term>
 <listitem>
 <variablelist>
 <varlistentry>
-<term
-><guilabel
->Normal</guilabel
-></term>
+<term><guilabel>Normal</guilabel></term>
 <listitem>
-<para
->Die Auswahl wird durch Texteingaben überschrieben und geht beim Bewegen des Cursors verloren.</para>
+<para>Selections will be overwritten by typed text and will be lost on
+cursor movement.</para>
 </listitem>
 </varlistentry>
 <varlistentry>
-<term
-><guilabel
->Beständig</guilabel
-></term>
+<term><guilabel>Persistent</guilabel></term>
 <listitem>
-<para
->Die Auswahl bleibt auch beim Bewegen des Cursors und bei Texteingaben bestehen.</para>
+<para>Selections will stay even after cursor movement and typing.</para>
 </listitem>
 </varlistentry>
 <varlistentry>
-<term
-><guilabel
->Rollen über das Dokumentende hinaus zulassen</guilabel
-></term
-> <listitem>
-<para
->Mit dieser Einstellung ist es möglich, über das Dokumentende hinaus zu blättern. Damit kann das Ende des Dokuments im Fenster zentriert oder bis zum Anfang der Ansicht hochgeschoben werden.</para
-></listitem>
+<term><guilabel>Allow scrolling past the end of the document</guilabel></term> <listitem>
+<para>This option lets you scroll past the end of the document. This can be used to vertically centre the bottom of the document, or put it on top of the current view.</para></listitem>
 </varlistentry>
 <varlistentry>
-<term
-><guilabel
->Rücktaste löscht Basis- und zugehöriges diakritische Zeichen</guilabel
-></term
-> <listitem>
-<para
->Ist dies aktiviert, werden zusammengesetzte Zeichen  mit den zugehörigen diakritischen Zeichen gelöscht, nicht nur die Basiszeichen allein. Dies ist nützlich für indische Schriften.</para
-></listitem>
+<term><guilabel>Backspace key removes character’s base with its diacritics</guilabel></term> <listitem>
+<para>When selected, composed characters are removed with their diacritics instead
+of only removing the base character. This is useful for Indic locales.</para></listitem>
 </varlistentry>
 
 </variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry id="multicursor-modifier-configure">
+<term><guilabel>Multicursor modifier</guilabel></term>
+<listitem>
+<para>This option lets you set the modifier that will be used to create multiple cursors with &LMB; click. You need to press the modifiers and click &LMB; to create a cursor at the desired location. See <link linkend="kate-part-create-multiple-cursors">Creating multiple cursors</link> to discover other ways to create multiple cursors.</para>
 </listitem>
 </varlistentry>
 
@@ -663,87 +535,62 @@
 </sect3>
 
 <sect3 id="pref-edit-indent">
-<title
->Einrückung</title>
+<title>Indentation</title>
 
 <variablelist>
 
 <varlistentry>
-<term
-><guilabel
->Standard-Einrückungsmodus:</guilabel
-></term>
+<term><guilabel>Default indentation mode:</guilabel></term>
 <listitem>
-<para
->Hier wählen Sie den Einrückungsmodus, den Sie als Standard benutzen wollen. Es wird empfohlen, dass Sie hier <userinput
->Kein</userinput
-> oder <userinput
->Normal</userinput
-> einstellen und die Einstellungen für Dateitypen benutzen, um andere Einrückungen, wie zum Beispiel C/C++-Quelltext oder &XML; zu wählen.</para>
+<para>Select the automatic indentation mode you want to use as default. It is
+strongly recommended to use <userinput>None</userinput> or
+<userinput>Normal</userinput> here, and use filetype configurations to set other
+indentation modes for text formats like C/C++ code or &XML;.</para>
 </listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><guilabel
->Einrücken mit</guilabel
-></term>
+<term><guilabel>Indent using</guilabel></term>
 <listitem>
 <variablelist>
 <varlistentry>
-<term
-><guilabel
->Tabulatoren</guilabel
-></term>
+<term><guilabel>Tabulators</guilabel></term>
 <listitem>
-<para
->Wenn dieses Feld angekreuzt ist, setzt der Editor Tabulatorzeichen ein, wenn die Taste &Tab; gedrückt oder die <link linkend="kate-part-autoindent"
->Automatische Einrückung</link
-> benutzt wird.</para>
+<para>When this is enabled the editor will insert tabulator characters when you
+press the &Tab; key or use <link linkend="kate-part-autoindent">automatic
+indentation</link>.</para>
 </listitem>
 </varlistentry>
 <varlistentry>
-<term
-><guilabel
->Leerzeichen</guilabel
-></term>
+<term><guilabel>Spaces</guilabel></term>
 <listitem>
-<para
->Wenn dieses Feld angekreuzt ist, setzt der Editor eine berechnete Anzahl von Leerzeichen ein, wenn die Taste &Tab; gedrückt oder <link linkend="kate-part-autoindent"
->Automatische Einrückung</link
-> benutzt wird. Die Anzahl der Leerzeichen wird aus der Position im Text und der Einstellung für <option
->Tabulatorweite</option
-> berechnet.</para>
+<para>When this is enabled the editor will insert a calculated number of spaces
+according to the position in the text and the <option>tab-width</option> setting
+when you press the &Tab; key or use <link linkend="kate-part-autoindent">automatic
+indentation</link>.</para>
 </listitem>
 </varlistentry>
 <varlistentry>
-<term
-><guilabel
->Tabulatoren und Leerzeichen</guilabel
-></term>
+<term><guilabel>Tabulators and Spaces</guilabel></term>
 <listitem>
-<para
->Ist diese Einstellung aktiv, werden Leerzeichen wie oben beschrieben eingefügt, wenn die &Tab;taste am Zeilenanfang gedrückt oder Einrückung benutzt wird. Wird die &Tab;taste mitten in der Zeile oder am Zeilenende gedrückt, werden Tabulatorzeichen eingefügt.</para>
+<para>When this is enabled, the editor will insert spaces as describe above when
+indenting or pressing &Tab; at the beginning of a line, but insert tabulators when
+the &Tab; key is pressed in the middle or end of a line.</para>
 </listitem>
 </varlistentry>
 <varlistentry>
-<term
-><guilabel
->Tabulatorweite:</guilabel
-></term>
+<term><guilabel>Tab width:</guilabel></term>
 <listitem>
-<para
->Hier wird die Anzahl der Leerzeichen angegeben, die für ein Tabulatorzeichen angezeigt werden.</para>
+<para>This configures the number of spaces that are displayed in place of a tabulator
+character.</para>
 </listitem>
 </varlistentry>
 <varlistentry>
-<term
-><guilabel
->Einrückungstiefe:</guilabel
-></term>
+<term><guilabel>Indentation width:</guilabel></term>
 <listitem>
-<para
->Die Einrückungstiefe ist die Anzahl Leerzeichen, die zum Einrücken einer Zeile verwendet wird. Ist das Einrücken mit Tabulator eingestellt , wird für die Einrückung ein Tabulator-Zeichen verwendet, sofern die Einrückungstiefe durch die Tabulatorweite teilbar ist.</para>
+<para>The indentation width is the number of spaces which is used to indent a line.
+If configured to indent using tabulators, a tabulator character is inserted
+if the indentation is divisible by the tab width.</para>
 </listitem>
 </varlistentry>
 </variablelist>
@@ -751,34 +598,20 @@
 </varlistentry>
 
 <varlistentry>
-<term
-><guilabel
->Einrückungseigenschaften</guilabel
-></term>
+<term><guilabel>Indentation Properties</guilabel></term>
 <listitem>
 <variablelist>
 <varlistentry>
-<term
-><guilabel
->Zusätzliche Leerzeichen beibehalten</guilabel
-></term>
-<listitem
-><para
->Ist diese Einstellung nicht aktiv, richtet die Änderung der Einrückungsebene eine Zeile an einem Vielfachen der angegebenen <guilabel
->Einrückungstiefe</guilabel
-> aus.</para
-></listitem>
+<term><guilabel>Keep extra spaces</guilabel></term>
+<listitem><para>If this option is disabled, changing the indentation
+level aligns a line to a multiple of the width specified in
+<guilabel>Indentation width</guilabel>.</para></listitem>
 </varlistentry>
 <varlistentry>
-<term
-><guilabel
->Einrückung von Text vornehmen, der aus der Zwischenablage eingefügt wird</guilabel
-></term>
+<term><guilabel>Adjust indentation of text pasted from the clipboard</guilabel></term>
 <listitem>
-<para
->Ist diese Einstellung ausgewählt, wird aus der Zwischenablage eingefügter Text eingerückt. Durch die Aktion <guimenuitem
->Rückgängig</guimenuitem
-> kann die Einrückung rückgängig gemacht werden.</para>
+<para>If this option is selected, text pasted from the clipboard is indented.
+Triggering the <guimenuitem>Undo</guimenuitem> action removes the indentation.</para>
 </listitem>
 </varlistentry>
 </variablelist>
@@ -786,78 +619,53 @@
 </varlistentry>
 
 <varlistentry>
-<term
-><guilabel
->Einrückungs-Aktionen</guilabel
-></term>
+<term><guilabel>Indentation Actions</guilabel></term>
 <listitem>
 <variablelist>
 <varlistentry>
-<term
-><guilabel
->Rücktaste verringert Einrückungsebene (im führenden Leerbereich einer eingerückten Zeile)</guilabel
-></term>
+<term><guilabel>Backspace key in leading blank space unindents</guilabel></term>
 <listitem>
-<para
->Ist diese Einstellung markiert, verringert die &Backspace; die Einrückungsebene, wenn der Cursor in den Leerzeichen am Anfang einer Zeile steht.</para>
+<para>If this option is selected, the &Backspace; key decreases the indentation level
+if the cursor is located in the leading blank space of a line.</para>
 </listitem>
 </varlistentry>
 <varlistentry>
-<term
-><guilabel
->Aktion der Tabulator-Taste (wenn keine Markierung vorliegt)</guilabel
-></term>
+<term><guilabel>Tab key action (if no selection exists)</guilabel></term>
 <listitem>
-<para
->Wenn Sie möchten, dass die &Tab;taste die aktuelle Zeile im aktuellen Quelltextblock wie in &Emacs; ausrichtet, weisen Sie der &Tab;taste den Kurzbefehl <guimenuitem
->Ausrichten</guimenuitem
-> zu. </para>
+<para>
+If you want &Tab; to align the current line in the current code block
+like in &Emacs;, make &Tab; a shortcut to the action <guimenuitem>Format Indentation</guimenuitem>.
+</para>
 <variablelist>
 <varlistentry>
-<term
-><guilabel
->Immer zur nächsten Tabulatorposition vorrücken</guilabel
-></term>
+<term><guilabel>Always advance to the next tab position</guilabel></term>
 <listitem>
-<para
->Ist diese Einstellung aktiv, fügt die Tabulator-Taste immer Leerzeichen bis zum nächsten Tabulatorstop ein. Ist die Einstellung <guilabel
->Leerzeichen statt Tabulatoren für Einrückung verwenden</guilabel
-> auf der Karteikarte <guilabel
->Allgemein</guilabel
-> der Seite <guilabel
->Bearbeitung</guilabel
-> aktiv, werden Leerzeichen eingefügt, anderenfalls ein einzelner Tabulator.</para>
+<para>If this option is selected, the &Tab; key always inserts white space
+so that the next tab position is reached. If the option <guilabel>Insert spaces instead of tabulators</guilabel>
+on the <guilabel>General</guilabel> tab in the <guilabel>Editing</guilabel>
+page is enabled, spaces are inserted; otherwise, a single tabulator is inserted.</para>
 </listitem>
 </varlistentry>
 <varlistentry>
-<term
-><guilabel
->Einrückungsebene immer erhöhen</guilabel
-></term>
+<term><guilabel>Always increase indentation level</guilabel></term>
 <listitem>
-<para
->Ist diese Einstellung aktiv, fügt die &Tab;-Taste immer die unter <guilabel
->Einrückungstiefe</guilabel
-> angegebene Anzahl Leerzeichen ein.</para>
+<para>If this option is selected, the &Tab; key always indents the current
+line by the number of character positions specified in <guilabel>Indentation width</guilabel>.</para>
 </listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><guilabel
->Einrückungsebene erhöhen, wenn im Leerzeichenbereich am Zeilenanfang</guilabel
-></term>
+<term><guilabel>Increase indentation level if in leading blank space</guilabel></term>
 <listitem>
-<para
->Ist die Einstellung markiert, rückt die Taste &Tab; entweder die aktuelle Zeile ein oder springt zur nächsten Tabulatorposition. Wird der Tabulator an oder vor der Position des ersten Zeichens eingefügt, dass kein Leerzeichen ist, oder liegt eine Markierung vor, wird die aktuelle Zeile um die Anzahl Zeichen eingerückt, die unter <guilabel
->Einrückungstiefe:</guilabel
-> angegeben ist. Wird der Tabulator nach dem ersten Zeichen, dass kein Leerzeichen ist, eingefügt und es liegt keine Markierung vor, werden Leerräume bis zum Erreichen der nächsten Tabulatorposition eingefügt. Ist die Einstellung <guilabel
->Leerzeichen statt Tabulatoren für Einrückung verwenden</guilabel
-> auf der Karteikarte <guilabel
->Allgemein</guilabel
-> der Seite <guilabel
->Bearbeitung</guilabel
-> aktiviert, werden Leerzeichen eingefügt, anderenfalls ein Tabulatorzeichen.</para>
+<para>If this option is selected, the &Tab; key either indents the current line
+or advances to the next tab position. If the insertion point is at or before the
+first non-space character in the line, or if there is a selection, the current line
+is indented by the number of character positions specified in <guilabel>Indentation width</guilabel>.
+If the insertion point is located after the first non-space character in the line
+and there is no selection, white space is inserted so that the next tab position is
+reached: if the option <guilabel>Insert spaces instead of tabulators</guilabel>
+on the <guilabel>General</guilabel> tab in the <guilabel>Editing</guilabel>
+page is enabled, spaces are inserted; otherwise, a single tabulator is inserted.</para>
 </listitem>
 </varlistentry>
 </variablelist>
@@ -873,34 +681,26 @@
 </sect3>
 
 <sect3 id="pref-edit-autocompletion">
-<title
->Autovervollständigung</title>
+<title>Auto Completion</title>
 <variablelist>
 <varlistentry>
-<term
-><guilabel
->Allgemein</guilabel
-></term>
+<term><guilabel>General</guilabel></term>
 <listitem>
 <variablelist>
 <varlistentry>
-<term
-><guilabel
->Autovervollständigung aktivieren</guilabel
-></term>
+<term><guilabel>Enable auto completion</guilabel></term>
 <listitem>
-<para
->Ist dies aktiviert, erscheint bei der Eingabe automatisch eine Liste mit Texteinträgen, mit denen der aktuelle Text unter dem Cursor vervollständigt werden kann.</para>
+<para>If enabled, a word completion box automatically pops up during typing
+showing a list of text entries to complete the current text under the
+cursor.</para>
 </listitem>
 </varlistentry>
 <varlistentry>
-<term
-><guilabel
->Ersten Vervollständigungseintrag automatisch wählen</guilabel
-></term>
+<term><guilabel>Auto select first completion entry</guilabel></term>
 <listitem>
-<para
->Wenn dies aktiviert ist, wird das erste Element der automatischen Vervollständigung immer vorausgewählt, so dass Sie es mit &Enter; einfügen können. Wenn Sie ein solches Verhalten nicht möchten, &eg; wenn Sie mit &Enter; nur einen Zeilenumbruch einfügen wollen, dann deaktivieren Sie diese Einstellung.</para>
+<para>If enabled, the first auto completion item is always preselected so you can insert it with
+&Enter;. If you do not want such behavior, &eg; if you want pressing &Enter; to only insert a newline,
+then disable this item.</para>
 </listitem>
 </varlistentry>
 </variablelist>
@@ -908,36 +708,24 @@
 </varlistentry>
 
 <varlistentry>
-<term
-><guilabel
->Minimale Wortlänge für Vervollständigung</guilabel
-></term>
-<listitem
-><para
->Bei der Texteingabe sucht die Wortvervollständigung im Dokument nach Wörtern, die mit dem bereits eingegebenen Text beginnen. Diese Einstellung legt die minimale Anzahl der einzugebenden Zeichen fest, ab der die Wortvervollständigung aktiviert und das Feld mit passenden Vorschlägen angezeigt wird.</para
-></listitem>
+<term><guilabel>Minimal word length to complete</guilabel></term>
+<listitem><para>While typing text, the word completion searches for words in the
+document starting with the already typed text. This option configures the minimal
+amount of characters that are needed to make the word completion active and pop
+up a completion box.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><guilabel
->Bei Vervollständigung Wortende entfernen</guilabel
-></term>
-<listitem
-><para
->Entfernt ein bestehendes Wortende, wenn eine Vervollständigung aus der Liste gewählt wird </para
-></listitem>
+<term><guilabel>Remove tail on complete</guilabel></term>
+<listitem><para>Remove the tail of a previous word when the completion item is chosen from a list.
+</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><guilabel
->Schlüsselwortvervollständigung </guilabel
-></term>
-<listitem
-><para
->Die eingebaute automatische Vervollständigung verwendet die Schlüsselwörter, die in der Syntaxhervorhebung definiert sind. </para
-></listitem>
+<term><guilabel>Keyword completion
+</guilabel></term>
+<listitem><para>If enabled, the built-in autocompletion uses the keywords defined by the syntax highlighting.
+</para></listitem>
 </varlistentry>
 
 </variablelist>
@@ -945,74 +733,45 @@
 </sect3>
 
 <sect3 id="pref-edit-spellcheck">
-<title
->Rechtschreibprüfung</title>
-<para
->Die Einstellungen für die Rechtschreibprüfung werden Sie im &systemsettings;-Module <ulink url="help:/kcontrol/spellchecking"
->Rechtschreibprüfung</ulink
-> erläutert.</para>
+<title>Spellcheck</title>
+<para>These configuration options are described in the documentation for the
+&systemsettings; module <ulink url="help:/kcontrol/spellchecking">Spell Checker</ulink>.</para>
 </sect3>
 
 <sect3 id="pref-edit-vi-input-mode">
-<title
->VI-Eingabemodus</title>
+<title>Vi Input Mode</title>
 <variablelist>
 <varlistentry>
-<term
-><guilabel
->Allgemein</guilabel
-></term>
+<term><guilabel>General</guilabel></term>
 <listitem>
 <variablelist>
 <varlistentry>
-<term
-><guilabel
->VI-Befehle überschreiben Kate-Kurzbefehle</guilabel
-></term>
+<term><guilabel>Let Vi commands override Kate shortcuts</guilabel></term>
 <listitem>
-<para
->Wenn diese Einstellung aktiviert ist, werden VI-Befehle &kappname;'s eingebaute Befehle überschreiben. Beispielsweise wird <keycombo action="simul"
->&Ctrl;<keycap
->R</keycap
-></keycombo
-> eine Aktion wiederherstellen anstatt die Standard-Aktion auszuführen (den Dialog „Suchen und Ersetzen“ anzeigen).</para>
+<para>When selected, Vi commands will override &kappname;'s built-in commands. For
+example: <keycombo action="simul">&Ctrl;<keycap>R</keycap></keycombo> will redo,
+and override the standard action (showing the search and replace dialog).</para>
 </listitem>
 </varlistentry>
 <varlistentry>
-<term
-><guilabel
->Relative Zeilennummern anzeigen </guilabel
-></term>
-<listitem
-><para
->Ist dies aktiviert, wird immer die aktuelle Zeile als Zeile „0“ gezählt und Zeilen über und unter der aktuellen Zeile relativ zur aktuellen Zeile nummeriert.</para
-></listitem>
+<term><guilabel>Display relative line numbers
+</guilabel></term>
+<listitem><para>if this is enabled, the current line always refers to line 0. 
+Lines above and below increase the line number relatively.</para></listitem>
 </varlistentry>
 </variablelist>
 </listitem>
 </varlistentry>
 <varlistentry>
-<term
-><guilabel
->Tastenzuordnung</guilabel
-></term>
-<listitem
-><para
->Mit der Tastenzuordnung können Sie die Bedeutung von gedrückten Tasten auf der Tastatur anpassen. Sie können Befehle auf andere Tasten umlegen oder besondere Tastenkombinationen definieren, um eine Serie von Befehlen auszuführen.</para>
-<para
->Beispiel:</para>
-<para
-><keycap
->F2</keycap
-> -> <userinput
->I--</userinput
-> &Esc;</para>
-<para
->Dadurch wird einer Zeile beim Drücken von <keycap
->F2</keycap
-> die Zeichenfolge <userinput
->I--</userinput
-> vorangestellt. </para>
+<term><guilabel>Key Mapping</guilabel></term>
+<listitem><para>
+Key mapping is used to change the meaning of typed keys. This allows you to
+move commands to other keys or make special keypresses for doing a series of
+commands.</para>
+<para>Example:</para>
+<para><keycap>F2</keycap> -> <userinput>I--</userinput> &Esc;</para>
+<para>This will prepend <userinput>I--</userinput> to a line when pressing <keycap>F2</keycap>.
+</para>
 </listitem>
 <!-- Normal Mode Insert Mode Visual Mode 
 Commands Repacement Recursuive?
@@ -1025,102 +784,84 @@ Remove selected Add new mapping Import from vimrc file-->
 </sect2>
 
 <sect2 id="pref-open-save">
-<title
->Öffnen/Speichern</title>
+<title>Open/Save</title>
 
 <sect3 id="pref-open-save-general">
-<title
->Allgemein</title>
+<title>General</title>
 
 <variablelist>
 
 <varlistentry>
-<term
-><guilabel
->Dateiformat</guilabel
-></term>
+<term><guilabel>File Format</guilabel></term>
 <listitem>
 <variablelist>
 
 <varlistentry>
-<term
-><guilabel
->Kodierung</guilabel
-></term>
+<term><guilabel>Encoding</guilabel></term>
 <listitem>
-<para
->Hier wird die Standardkodierung zum Öffnen/Speichern von Dateien festgelegt, falls diese nicht im Öffnen-/Speichern-Dialog oder über die Befehlszeile bereits festgelegt ist.</para>
+<para>This defines the standard encoding to use to open/save files, if not changed
+in the open/save dialog or by using a command line option.</para>
 </listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><guilabel
->Erkennung der Kodierung</guilabel
-></term>
+<term><guilabel>Encoding Detection</guilabel></term>
 <listitem>
-<para
->Wählen Sie einen Eintrag aus der Liste im Auswahlfeld, um die automatische Erkennung abzuschalten oder mit <guilabel
->Allgemein</guilabel
-> für alle Kodierungen zu aktivieren. Da diese Einstellung oft nur die Kodierung utf-8 oder utf-16 erkennt, wird bei der Auswahl einer Region mit dafür angepassten Verfahren die richtige Kodierung eher erkannt. Falls weder die oben angegebene Kodierung, noch die im Öffnen-/Speichern-Dialog oder die über die Befehlszeile angegebene Kodierung für die Datei passend sind, wird die automatische Erkennung gestartet.</para>
+<para>Select an item from the drop down box, either to disable autodetection or
+use <guilabel>Universal</guilabel> to enable autodetection for all encodings. But as
+this may probably only detect utf-8/utf-16, selecting a region will use custom heuristics
+for better results.
+If neither the encoding chosen as standard above, nor the encoding specified
+in the open/save dialog, nor the encoding specified on command line match
+the content of the file, this detection will be run.</para>
 </listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><guilabel
->Ausweich-Kodierung:</guilabel
-></term>
+<term><guilabel>Fallback Encoding</guilabel></term>
 <listitem>
-<para
->Hier wird die Ausweich-Kodierung festgelegt, mit der Dateien geöffnet werden, falls keine der sonstigen angegebenen Kodierungen passend ist. Bevor die Ausweich-Kodierung eingesetzt wird, wird zunächst versucht, die korrekte Kodierung anhand einer Byte-Reihenfolge-Markierung am Anfang der Datei automatisch festzustellen: Wenn eine gefunden wird, wird die korrekte Unicode-Kodierung verwendet; ansonsten wird die Kodierungserkennung gestartet. Erst wenn beides fehlschlägt, wird die Ausweich-Kodierung verwendet.</para>
+<para>This defines the fallback encoding to try for opening files if neither the
+encoding chosen as standard above, nor the encoding specified in the open/
+save dialog, nor the encoding specified on command line match the content of
+the file.  Before this is used, an attempt will be made to determine the
+encoding to use by looking for a byte order mark at start of file: if one
+is found, the right unicode encoding will be chosen; otherwise encoding
+detection will run, if both fail fallback encoding will be tried.</para>
 </listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><guilabel
->Zeilenende</guilabel
-></term>
+<term><guilabel>End of line</guilabel></term>
 <listitem>
-<para
->Wählen Sie den Zeilenendemodus für das aktuelle Dokument. Sie haben die Auswahl zwischen &UNIX;, DOS/&Windows; oder Macintosh.</para>
+<para>Choose your preferred end of line mode for your active
+document. You have the choice between &UNIX;, DOS/&Windows; or Macintosh.</para>
 </listitem>
 </varlistentry>
 <varlistentry>
-<term
-><guilabel
->Automatische Zeilenendeerkennung</guilabel
-></term>
+<term><guilabel>Automatic end of line detection</guilabel></term>
 <listitem>
-<para
->Wenn dieses Feld angekreuzt ist, dann stellt der Editor den Zeilenendetyp automatisch fest. Dazu wird das erste gefundene Zeilenende benutzt.</para>
+<para>Check this if you want the editor to autodetect the end of line
+type. The first found end of line type will be used for the whole file.</para>
 </listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><guilabel
->Byte-Reihenfolge-Markierung aktivieren (BOM)</guilabel
-></term>
+<term><guilabel>Enable byte order mark (BOM)</guilabel></term>
 <listitem>
-<para
->Die Byte-Reihenfolge-Markierung ist eine spezielle Abfolge am Anfang von Unicode-kodierten Dokumenten. Sie unterstützt Editoren beim Öffnen von Textdokumenten mit der richtigen Unicode-Kodierung. Die Byte-Reihenfolge-Markierung ist im angezeigten Dokument nicht sichtbar. Weitere Informationen finden Sie im Artikel <ulink url="https://de.wikipedia.org/wiki/Byte_Order_Mark"
->Byte-Reihenfolge-Markierung</ulink
->.</para>
+<para>The byte order mark is a special sequence at the beginning of unicode
+encoded documents. It helps editors to open text documents with the correct
+unicode encoding. For more information see <ulink
+url="https://en.wikipedia.org/wiki/Byte_order_mark">Byte Order Mark</ulink>.</para>
 </listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><guilabel
->Begrenzung der Zeilenlänge</guilabel
-></term>
+<term><guilabel>Line Length Limit</guilabel></term>
 <listitem>
-<para
->Wegen Mängeln in &Qt; verarbeitet &kappname; sehr lange Zeilen nur mit eingeschränkter Leistungsfähigkeit. Daher werden Zeilen mit einer größeren Anzahl von Zeichen als hier angegeben automatisch umgebrochen. Um den automatischen Umbruch abzuschalten, setzen Sie diesen Wert auf <userinput
->0</userinput
->.</para>
+<para>Unfortunately, due to deficiencies in &Qt;, &kappname; experiences poor
+performance when working with extremely long lines. For that reason, &kappname;
+will automatically wrap lines when they are longer than the number of characters
+specified here. To disable this, set this to <userinput>0</userinput>.</para>
 </listitem>
 </varlistentry>
 
@@ -1129,38 +870,53 @@ Remove selected Add new mapping Import from vimrc file-->
 </varlistentry>
 
 <varlistentry>
-<term
-><guilabel
->Automatische Bereinigung beim Speichern</guilabel
-></term>
+<term><guilabel>Automatic Cleanups on Save</guilabel></term>
 <listitem>
 <variablelist>
 
 <varlistentry>
-<term
-><guilabel
->Leerzeichen am Zeilenende entfernen</guilabel
-></term>
+<term><guilabel>Remove trailing spaces</guilabel></term>
 <listitem>
-<para
->Der Editor entfernt überflüssige Leerzeichen an den Zeilenenden beim Speichern.Sie können <guilabel
->Nie</guilabel
->  zum Abschalten dieser Funktion, <guilabel
->Nur geänderte Zeilen</guilabel
-> oder <guilabel
->Im gesamten Dokument</guilabel
-> einstellen und so die Anwendung dieser Funktion steuern.</para>
+<para>The editor will automatically eliminate extra spaces at the ends of lines
+of text while saving the file.  You can select <guilabel>Never</guilabel> to
+disable this functionality, <guilabel>On Modified Lines</guilabel> to do so
+only on lines that you have modified since you last saved the document, or
+<guilabel>In Entire Document</guilabel> to remove them unconditionally from the
+entire document.</para>
 </listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><guilabel
->Beim Speichern Zeilenumbruch am Ende der Datei einfügen</guilabel
-></term>
+<term><guilabel>Append newline at end of file on save</guilabel></term>
 <listitem>
-<para
->Der Editor fügt beim Speichern automatisch ein Zeilenvorschubzeichen am Ende der Datei an, wenn noch keins vorhanden ist.</para>
+<para>The editor will automatically append a newline to the end of the file if
+one is not already present upon saving the file.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Enable Auto Save (local files only)</guilabel></term>
+<listitem>
+<para>
+Check this if you want the editor to autosave documents while you are working on them.
+</para>
+<variablelist>
+
+<varlistentry>
+<term><guilabel>Auto save document when focus leaves the editor</guilabel></term>
+<listitem>
+<para>The editor will automatically save documents when you switch to something outside the editor, &eg;, the terminal panel in &kate;.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Auto save interval</guilabel></term>
+<listitem>
+<para>You can determine the autosave interval in seconds here. If the interval is 0, the document will not be autosaved after intervals.</para>
 </listitem>
 </varlistentry>
 
@@ -1172,78 +928,73 @@ Remove selected Add new mapping Import from vimrc file-->
 </sect3>
 
 <sect3 id="pref-open-save-advanced">
-<title
->Erweitert</title>
+<title>Advanced</title>
 <variablelist>
 
 <varlistentry>
-<term
-><guilabel
->Sicherungskopie beim Speichern</guilabel
-></term>
-<listitem
-><para
->Sicherungskopie beim Speichern weist &kappname; an, vor dem Speichern von Dateien eine Sicherungskopie unter: &lt;Präfix&gt;&lt;Dateiname&gt;&lt;Erweiterung&gt;' zu erstellen. Die Erweiterung ist standardmäßig <emphasis role="bold"
->~</emphasis
-> und der Präfix ist standardmäßig leer. </para>
+<term><guilabel>Write a backup file on save for</guilabel></term>
+<listitem><para>Backing up on save will cause &kappname; to copy the disk file
+(the previously saved version of the file) to &lt;prefix&gt;&lt;filename&gt;&lt;suffix&gt;
+before saving the new changes. A backup file can help you recover work if
+something goes wrong while saving or if you later want to recover the previous
+version of the file.  The suffix defaults to <emphasis role="bold">~</emphasis>
+and prefix is empty by default. </para>
 <variablelist>
 <varlistentry>
-<term
-><guilabel
->Lokale Dateien</guilabel
-></term>
+<term><guilabel>Local files</guilabel></term>
 <listitem>
-<para
->Wenn dieses Feld angekreuzt ist, werden von lokalen Dateien Sicherungskopien erstellt.</para>
+<para>Check this if you want backups of local files when
+saving.</para>
 </listitem>
 </varlistentry>
 <varlistentry>
-<term
-><guilabel
->Dateien auf Fremdrechnern</guilabel
-></term>
+<term><guilabel>Remote files</guilabel></term>
 <listitem>
-<para
->Wenn dieses Feld angekreuzt ist, werden von auf Fremdrechnern bearbeiteten Dateien Sicherungskopien erstellt.</para>
+<para>Check this if you want backups of remote files when saving.</para>
 </listitem>
 </varlistentry>
 <varlistentry>
-<term
-><guilabel
->Präfix</guilabel
-></term>
+<term><guilabel>Prefix for backup files</guilabel></term>
 <listitem>
-<para
->Geben Sie hier den Präfix ein, der dem Dateinamen der Sicherungskopie vorangestellt wird.</para>
+<para>Enter the prefix to prepend to the backup file names.</para>
 </listitem>
 </varlistentry>
 <varlistentry>
-<term
-><guilabel
->Erweiterung</guilabel
-></term>
+<term><guilabel>Suffix for backup files</guilabel></term>
 <listitem>
-<para
->Geben Sie hier die Erweiterung ein, die an den Dateinamen der Sicherungskopie angehängt wird.</para>
+<para>Enter the suffix to add to the backup file names.</para>
 </listitem>
 </varlistentry>
 <varlistentry>
-<term
-><guilabel
->Swap-Dateieinstellungen</guilabel
-></term>
+<term><guilabel>Swap file mode</guilabel></term>
 <listitem>
-<para
->&kappname; ist in der Lage, große Teile dessen, was seit der letzten Sicherung geschrieben wurde, bei einem Absturz oder einem Stromausfall wiederherzustellen. Nach der ersten Veränderung des aktuellen Dokumentes wird eine Swap-Datei (.swp.&lt;filename&gt;) erzeugt. Wenn der Nutzer die Änderungen nicht speichert und &kappname; abstürzt, bleibt die Swap-Datei auf der Festplatte. Beim Öffnen eines Dokumentes prüft &kappname;, ob eine Swap-Datei zu diesem Dokument existiert und wenn das der Fall ist, dann fragt &kappname;, ob die verlorenen Änderungen wiederhergestellt werden sollen. Dabei kann der Nutzer diese Änderungen ansehen. Die Swap-Datei wird bei jedem Sichern und beim normalen Beenden von &kappname; gelöscht.</para>
-<para
->&kappname; gleicht die offenen Dateien mit den Swap-Dateien auf der Festplatte alle 15 Sekunden ab, aber nur wenn diese seit dem letzten Abgleich geändert wurden. Der Nutzer kann diesen Abgleich durch Ankreuzen von <guilabel
->Deaktivieren</guilabel
->abschalten, das kann aber zu Datenverlust führen. </para>
-<para
->Ist dies aktiviert, dann werden die Swap-Dateien im Ordner der Datei gespeichert. Mit <guilabel
->Alternativer Ordner</guilabel
-> können Sie einen bestimmten Ordner für die Swap-Dateien angeben. Dies sollte bei Netzwerkwerk-Dateisystemen benutzt werden, um unnötige Netzwerkbelastungen zu vermeiden.</para>
+<para>&kappname; is able to recover (most) unsaved work in the case of a
+crash or power failure. A swap file (.&lt;filename&gt;.kate-swp) is created
+when a document is edited. If the user doesn’t save the
+changes and &kappname; crashes, the swap file remains on the disk. When opening a
+file, &kappname; checks if there is a swap file for the document and if it is, it asks
+the user whether he wants to recover the lost data or not. The user has the
+possibility to view the differences between the original file and the recovered
+one, too. The swap file is deleted after every save and on normal exit.</para>
+<para>&kappname; syncs the swap files on the disk every 15 seconds, but only if they
+have changed since the last sync. The user can disable the swap files syncing if
+he wants, by selecting <guilabel>Disable</guilabel>,
+but this can lead to more data loss.</para>
+<para>When the swap file is enabled, it is possible to switch between two modes, namely <guilabel>Enabled, Store in Default Directory</guilabel> and <guilabel>Enabled, Store in Custom Directory</guilabel>.
+</para>
 </listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Store swap files in</guilabel></term>
+<listitem><para>By default, the swap files are saved in the same folder as the file. 
+When <guilabel>Enabled, Store in Custom Directory</guilabel> is chosen for the swap file mode, swap files are created in the specified folder.
+This is useful for network file systems to avoid unnecessary network traffic.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Save swap files every</guilabel></term>
+<listitem><para>&kappname; syncs the swap files on the disk every 15 seconds, but only if they
+have changed since the last sync. You can change the sync interval as you like.</para></listitem>
 </varlistentry>
 
 </variablelist>
@@ -1254,166 +1005,105 @@ Remove selected Add new mapping Import from vimrc file-->
 </sect3>
 
 <sect3 id="pref-open-save-modes-filetypes">
-<title
->Modi &amp; Dateitypen</title>
-<para
->Diese Seite dient zur Einstellung von abweichenden Einstellungen für Dokumente bestimmter &MIME;-Typen. Wenn ein Dokument in den Editor geladen wird, dann versucht dieser einen schon festgelegten Datentyp zu finden, auf den die Merkmale eines &MIME;-Typs passen und verwendet dann die Variablen, die für diesen Datentyp festgelegt wurden. Wenn mehrere Datentypen passend sind, dann wird der Typ verwendet, der die höchste Priorität besitzt. </para>
+<title>Modes &amp; Filetypes</title>
+<para>This page allows you to override the default configuration for documents
+of specified &MIME; types. When the editor loads a document, it will try if it
+matches the file masks or &MIME; types for one of the defined filetypes, and if so
+apply the variables defined. If more filetypes match, the one with the highest
+priority will be used.
+</para>
 <variablelist>
 <varlistentry>
-<term
-><guilabel
->Dateityp:</guilabel
-></term>
-<listitem
-><para
->Der Dateityp mit der höchsten Priorität wird im ersten Auswahlfeld angezeigt. Wenn mehrere Dateitypen gefunden wurden, werden diese ebenfalls aufgelistet.</para>
+<term><guilabel>Filetype:</guilabel></term>
+<listitem><para>The filetype with the highest priority is the one displayed in
+the first drop down box. If more filetypes were found, they are
+also listed.</para>
 <variablelist>
 <varlistentry>
-<term
-><guilabel
->Neu</guilabel
-></term>
-<listitem
-><para
->Dieser Knopf wird zum Erstellen eines neuen Dateityps benutzt. Wenn Sie diesen Knopf drücken, werden die Inhalte aller Felder hierunter gelöscht und Sie können die gewünschten Eigenschaften für den neuen Dateityp dort eintragen.</para
-></listitem>
+<term><guilabel>New</guilabel></term>
+<listitem><para>This is used to create a new filetype. After
+you click on this button, the fields below get empty and you
+can fill the properties you want for the new filetype.</para></listitem>
 </varlistentry>
 <varlistentry>
-<term
-><guilabel
->Löschen</guilabel
-></term>
-<listitem
-><para
->Um einen existierenden Dateityp zu entfernen, klicken Sie auf den Knopf <guibutton
->Löschen</guibutton
->. </para
-></listitem>
+<term><guilabel>Delete</guilabel></term>
+<listitem><para>To remove an existing filetype, select it from the drop down
+box and press the Delete button.</para></listitem>
 </varlistentry>
 </variablelist>
-</listitem
-> </varlistentry>
+</listitem> </varlistentry>
 
 <varlistentry>
-<term
-><guilabel
->Eigenschaften des <replaceable
->aktuellen Dateityps</replaceable
-></guilabel
-></term>
-<listitem
-><para
->Der Dateityp mit der höchsten Priorität wird im ersten Auswahlfeld angezeigt. Wenn mehrere Dateitypen gefunden wurden, werden diese ebenfalls aufgelistet.</para>
+<term><guilabel>Properties of <replaceable>current filetype</replaceable></guilabel></term>
+<listitem><para>The filetype with the highest priority is the one displayed in
+the first drop down box. If more filetypes were found, they are also
+listed.</para>
 <variablelist>
 <varlistentry>
-<term
-><guilabel
->Name:</guilabel
-></term>
-<listitem
-><para
->Geben Sie hier einen aussagekräftigen Namen an, der dann im Menü <menuchoice
-><guisubmenu
->Extras</guisubmenu
-> <guisubmenu
->Dateityp</guisubmenu
-></menuchoice
-> erscheint.</para
-></listitem>
+<term><guilabel>Name:</guilabel></term>
+<listitem><para>The name of the filetype will be the text of the corresponding
+menu item. This name is displayed in the
+<menuchoice><guimenu>Tools</guimenu><guimenuitem>Filetypes</guimenuitem>
+</menuchoice> menu.</para></listitem>
 </varlistentry>
 <varlistentry>
-<term
-><guilabel
->Abschnitt:</guilabel
-></term>
-<listitem
-><para
->Der Abschnittsname wird zum Organisieren der vielen Dateitypen in Menüs benutzt. Geben Sie hier einen aussagekräftigen Namen an, der dann im Menü <menuchoice
-><guisubmenu
->Extras</guisubmenu
-> <guisubmenu
->Dateityp</guisubmenu
-></menuchoice
-> als Untermenü erscheint.</para
-></listitem>
+<term><guilabel>Section:</guilabel></term>
+<listitem><para>The section name is used to organize the file types in
+menus. This is also used in the
+<menuchoice><guimenu>Tools</guimenu><guimenuitem>Filetypes</guimenuitem>
+</menuchoice> menu.</para></listitem>
 </varlistentry>
 <varlistentry>
-<term
-><guilabel
->Variablen:</guilabel
-></term>
-<listitem
-><para
->Dieser Eintrag erlaubt das Einstellen von &kappname;s Optionen für die Dateien dieses &MIME;-Typs unter Benutzung der Variablen von &kappname;. Sie können so fast alle Einstellungen wie zum Beispiel Hervorhebungen, Einrückung &etc; einstellen.</para>
-<para
->Drücken Sie auf das Symbol rechts neben dem Eingabefeld. dann wird eine Liste aller vorhandenen Variablen und deren Beschreibung angezeigt. Klicken Sie auf das Ankreuzfeld links, um eine bestimmte Variable zu aktivieren und stellen Sie dann rechts den Wert der Variablen ein. Für einige Variablen gibt es Auswahlfelder mit zulässigen Werten, für andere Variablen müssen Sie die Werte direkt eingeben.</para>
-<para
->Weitere Informationen zu diesen Variablen finden Sie unter <link linkend="config-variables"
->Einstellungen mit Dokumentvariablen</link
->.</para>
+<term><guilabel>Variables:</guilabel></term>
+<listitem><para>This string allows you to configure &kappname;'s settings for the
+files selected by this &MIME; type using &kappname; variables. You can set almost any
+configuration option, such as highlight, indent-mode, &etc;</para>
+<para>Press <guibutton>Edit</guibutton> to see a list of all available variables
+and their descriptions.  Select the checkbox on the left to enable a particular
+variable and then set the value of the variable on the right.  Some variables
+provide a drop-down box to select possible values from while others require you
+to enter a valid value manually.</para>
+<para>For complete information on these variables, see
+<link linkend="config-variables">Configuring with Document
+Variables</link>.</para>
 </listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><guilabel
->Hervorhebung:</guilabel
-></term>
-<listitem
-><para
->Wenn Sie einen neuen Dateityp erstellen, können Sie in diesem Auswahlfeld einen Dateityp für die Hervorhebung auswählen.</para
-></listitem>
+<term><guilabel>Highlighting:</guilabel></term>
+<listitem><para>If you create a new file type, this drop down box allows you to
+select a filetype for highlighting.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><guilabel
->Einrückungsmodus:</guilabel
-></term>
-<listitem
-><para
->In diesem Auswahlfeld kann der Einrückungsmodus für neue Dokumente eingestellt werden.</para
-></listitem>
+<term><guilabel>Indentation Mode:</guilabel></term>
+<listitem><para>The drop down box specifies the indentation mode for new
+documents.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><guilabel
->Dateierweiterungen:</guilabel
-></term>
-<listitem
-><para
->Das Feld Dateierweiterungen erlaubt das Auswählen von Dateien nach dem Dateinamen. Ein typischer Eintrag hier besteht aus einem Stern und der Dateinamenserweiterung, zum Beispiel <filename
->*.txt; *.text</filename
->. Tragen Sie hier mehrere Typen ein, werden diese Einträge durch Semikolons getrennt.</para
-></listitem>
+<term><guilabel>File extensions:</guilabel></term>
+<listitem><para>The wildcards mask allows you to select files by filename. A
+typical mask uses an asterisk and the file extension, for example
+<filename>*.txt; *.text</filename>. The string is a semicolon-separated list of
+masks.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><guilabel
->MIME-Typen:</guilabel
-></term>
-<listitem
-><para
->Zeigt ein Dialogfeld an, in dem Sie einfach und schnell &MIME;-Typen auswählen können.</para
-></listitem>
+<term><guilabel>MIME types:</guilabel></term>
+<listitem><para>Displays a wizard that helps you easily select
+&MIME; types.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><guilabel
->Priorität:</guilabel
-></term>
-<listitem
-><para
->Stellen Sie hier die Priorität für den Dateityp ein. Wenn auf ein Dokument mehrere Dateitypen zutreffen, wird der Typ mit der höchsten Priorität benutzt.</para
-></listitem>
+<term><guilabel>Priority:</guilabel></term>
+<listitem><para>Sets a priority for this file type. If more than one file type
+selects the same file, the one with the highest priority will be
+used.</para></listitem>
 </varlistentry>
 
 </variablelist>
-</listitem
-> </varlistentry>
+</listitem> </varlistentry>
 
 </variablelist>
 </sect3>
@@ -1423,821 +1113,323 @@ Remove selected Add new mapping Import from vimrc file-->
 </sect1>
 
 <sect1 id="config-variables">
-<title
->Einstellungen mit Dokumentvariablen</title>
+<title>Configuring With Document Variables</title>
 
-<para
->&kappname; Variablen sind &kappname; Dokumentvariablen, ähnlich der Modelines in &Emacs; und Vi. In Katepart haben die Dokumentvariablen das folgende Format: <userinput
->kate: VARIABLENAME VALUE; [ VARIABLENAME VALUE; ... ]</userinput
->. Die Zeilen können natürlich auch in einem Kommentar stehen, wenn das Format des Dokuments Kommentare beinhaltet. Variablennamen sind einzelne Wörter ohne Zwischenräume und alles bis zum nächsten Semikolon sind Werte. Das Semikolon ist vorgeschrieben.</para>
+<para>&kappname; variables is &kappname;'s implementation of document variables, similar
+to &Emacs; and vi modelines. In katepart, the lines have the following format:
 
-<para
->Hier ein Beispiel für eine Variablenzeile, die die Einrückung für Quelltext in C++, &Java; oder &javascript; einschaltet: <programlisting
->// kate: replace-tabs on; indent-width 4; indent-mode cstyle;</programlisting>
+<userinput>kate: VARIABLENAME VALUE; [ VARIABLENAME VALUE; ... ]</userinput>
+
+The lines can of course be in a comment, if the file is in a format with comments.
+Variable names are single words (no whitespace), and anything up to the next
+semicolon is the value. The semicolon is required.</para>
+
+<para>Here is an example variable line, forcing indentation settings for a C++,
+&Java; or &javascript; file:
+
+<programlisting>// kate: replace-tabs on; indent-width 4; indent-mode cstyle;</programlisting>
 </para>
 
-<note
-><para
->Nur die ersten und letzten 10 Zeilen eines Dokuments werden nach Dokumentvariablen durchsucht.</para
-></note>
+<note><para>Only the first and last 10 lines are searched for variable lines.</para></note>
 
-<para
->Zusätzlich können Dokumentvariablen in eine Datei mit dem Namen <filename
->.kateconfig</filename
-> in jedem beliebigen Ordner geschrieben werden. Die Einstellungen dieser Dokumentvariablen werden so verwendet, als wenn sie als Modelines in jeder Datei im Ordner und allen Unterordnern eingefügt wären. Dokumentvariablen in <filename
->.kateconfig</filename
-> verwenden die gleiche Syntax wie Modelines, aber mit <link linkend="kateconfig-extended-options"
->zusätzlichen Optionen</link
->.</para>
+<para>Additionally, document variables can be placed in a file called
+<filename>.kateconfig</filename> in any directory, and the configured settings will
+be applied as if the modelines were entered on every file in the directory and its
+subdirectories. Document variables in <filename>.kateconfig</filename> use the same syntax as
+in modelines, but with <link linkend="kateconfig-extended-options">extended options</link>.</para>
 
-<para
->Es gibt Variablen für fast alle Einstellungen in &kappname;. Außerdem können Module Variablen benutzen. In diesem Fall sind sie in der Dokumentation der Module dokumentiert.</para>
+<para>There are variables to support almost all configurations in &kappname;, and
+additionally plugins can use variables, in which case it should be documented in
+the plugin's documentation.</para>
 
-<para
->&kappname; kann Einstellungen aus <filename
->.editorconfig</filename
->-Dateien einlesen, wenn die Bibliothek <ulink url="https://editorconfig.org/"
->editorconfig</ulink
-> installiert ist. &kappname; sucht immer automatisch nach einer Datei mit dem Namen <filename
->.editorconfig</filename
->, wenn Sie ein Dokument öffnen. Allerdings werden die Einstellungen aus <filename
->.kateconfig</filename
->-Dateien zuerst benutzt. </para>
+<para>&kappname; has support for reading configurations from <filename>.editorconfig</filename>
+files, when the <ulink url="https://editorconfig.org/">editorconfig</ulink> library is installed.
+&kappname; automatically searches for a <filename>.editorconfig</filename>
+whenever you open a file. It gives priority to <filename>.kateconfig</filename> files, though.
+</para>
 
 <sect2 id="config-variables-howto">
-<title
->Wie &kappname; Variablen benutzt</title>
+<title>How &kappname; uses Variables</title>
 
-<para
->Beim Einlesen der Einstellungen werden von katepart  <itemizedlist
-> <listitem
-><para
->die globalen Einstellungen,</para
-></listitem
-> <listitem
-><para
->optionale Daten zur aktuellen Sitzung,</para
-></listitem
-> <listitem
-><para
->die Einstellungen zum <quote
->Dateityp</quote
->,</para
-></listitem
-> <listitem
-><para
->Dokumentvariablen in <filename
->.kateconfig</filename
->,</para
-></listitem
-><listitem
-><para
->Variablen im Dokument selbst,</para
-></listitem
-> <listitem
-><para
->Einstellungen während der aktuellen Sitzung über das Menü oder die Befehlszeile</para
-></listitem
-> </itemizedlist
-> in der angegebenen Reihenfolge gelesen und angewendet. Wie Sie sehen, werden Dokumentvariablen nur durch Änderungen zur Laufzeit überschrieben. Immer wenn ein Dokument gespeichert wird, werden die Dokumentvariablen neu eingelesen und überschreiben dann von der Befehlszeile oder über das Menü vorgenommene Einstellungsänderungen.</para>
+<para>When reading configuration, katepart looks in the following places
+(in that order):
 
-<para
->Jede hier nicht beschriebene Variable ist im Dokument gespeichert und kann durch andere Objekte wie Erweiterungen  abgefragt werden, die diese Variablen für ihre eigenen Zwecke setzen können. Zum Beispiel nutzt der Modus für die Variablenbasierte-Einrückung Dokumentvariablen zum Speichern der Einstellungen.</para>
+<itemizedlist>
+<listitem><para>The global configuration.</para></listitem>
+<listitem><para>Optional session data.</para></listitem>
+<listitem><para>The "Filetype" configuration.</para></listitem>
+<listitem><para>Document variables in <filename>.kateconfig</filename>.</para></listitem>
+<listitem><para>Document variables in the document itself.</para></listitem>
+<listitem><para>Settings made during editing from menu or command line.</para></listitem>
+</itemizedlist>
 
-<para
->Die hier beschriebenen Variablen sind in &kappname; Version 5.38 enthalten. Es werden in der Zukunft sicher weitere Variablen hinzugefügt werden. Es gibt drei Typen von Variablen mit den folgenden gültigen Werten: <itemizedlist>
-<listitem
-><para
->BOOL - on|off|true|false|1|0</para
-></listitem>
-<listitem
-><para
->INTEGER - eine ganze Zahl</para
-></listitem>
-<listitem
-><para
->STRING - alles andere</para
-></listitem>
+As you can see, document variables are only overridden by changes made at runtime.
+Whenever a document is saved, the document variables are reread, and will
+overwrite changes made using menu items or the command line.</para>
+
+<para>Any variable not listed below is stored in the document and can be queried
+by other objects such as plugins, which can use them for their own purpose.
+For example, the variable indent mode uses document variables for its
+configuration.</para>
+
+<para>The variables listed here documents &kappname; version 5.38. More variables
+may be added in the future. There are 3 possible types of values for variables,
+with the following valid expressions:
+<itemizedlist>
+<listitem><para>BOOL - on|off|true|false|1|0</para></listitem>
+<listitem><para>INTEGER - any integer number</para></listitem>
+<listitem><para>STRING - anything else</para></listitem>
 </itemizedlist>
 </para>
 
 </sect2>
 
 <sect2 id="config-variables-list">
-<title
->Verfügbare Variablen</title>
+<title>Available Variables</title>
 
 <variablelist>
 
 <varlistentry id="variable-auto-brackets">
-<term
-><cmdsynopsis
-><command
->auto-brackets</command
-><arg
->BOOL</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Automatischen Einfügen von Klammern aktivieren.</para
-></listitem>
+<term><cmdsynopsis><command>auto-brackets</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Enable automatic insertion of brackets.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-auto-center-lines">
-<term
-><cmdsynopsis
-><command
->auto-center-lines</command
-><arg
->INT</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Setzt die Anzahl der automatisch zentrierten Zeilen.</para
-></listitem>
+<term><cmdsynopsis><command>auto-center-lines</command><arg>INT</arg></cmdsynopsis></term>
+<listitem><para>Set the number of autocenter lines.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-background-color">
-<term
-><cmdsynopsis
-><command
->background-color</command
-><arg
->STRING</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Setzt die Hintergrundfarbe des Dokuments. Der Wert muss als gültige Farbe ausgewertet werden können, also &eg; <userinput
->#ff0000</userinput
->. </para
-></listitem>
+<term><cmdsynopsis><command>background-color</command><arg>STRING</arg></cmdsynopsis></term>
+<listitem><para>Set the document background color. The value must be something
+that can be evaluated to a valid color, for example <userinput>#ff0000</userinput>.
+</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-backspace-indents">
-<term
-><cmdsynopsis
-><command
->backspace-indents</command
-><arg
->BOOL</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Schaltet die Verringerung des Einrückens beim Drücken der Taste &Backspace; ein oder aus.</para
-></listitem>
+<term><cmdsynopsis><command>backspace-indents</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Enable or disable unindenting when &Backspace; is pressed.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-block-selection">
-<term
-><cmdsynopsis
-><command
->block-selection</command
-><arg
->BOOL</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Schaltet die <link linkend="kate-part-selection-block"
->Blockauswahl</link
-> ein und aus.</para
-></listitem>
+<term><cmdsynopsis><command>block-selection</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Turn <link linkend="kate-part-selection-block">block selection</link>
+on or off.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-byte-order-mark">
-<term
-><cmdsynopsis
-><command
->bom | byte-order-mark | byte-order-marker</command
-><arg
->BOOL</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Schaltet die Markierung für die Bytereihenfolge  (BOM) ein und aus, wenn Dokumente in einem Unicodeformat (utf8, utf16, utf32) gespeichert werden.</para>
-<para
->Ab Version: &kate; 3.9 (&kde; 4.9)</para
-></listitem>
+<term><cmdsynopsis><command>bom | byte-order-mark | byte-order-marker</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Enable/disable the byte order mark (BOM) when saving files in Unicode format
+(utf8, utf16, utf32).</para>
+<para>Since: &kate; 3.4 (&kde; 4.4)</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-bracket-highlight-color">
-<term
-><cmdsynopsis
-><command
->bracket-highlight-color</command
-><arg
->STRING</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Setzt die Hintergrundfarbe für die Hervorhebung von Klammern. Der Wert muss als gültige Farbe ausgewertet werden können, also &eg; <userinput
->#ff0000</userinput
->. </para
-></listitem>
+<term><cmdsynopsis><command>bracket-highlight-color</command><arg>STRING</arg></cmdsynopsis></term>
+<listitem><para>Set the color for the bracket highlight. The value must be
+something that can be evaluated to a valid color, for example <userinput>#ff0000</userinput>.
+</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-current-line-color">
-<term
-><cmdsynopsis
-><command
->current-line-color</command
-><arg
->STRING</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Setzt die Farbe für die aktuelle Zeile. Der Wert muss als gültige Farbe ausgewertet werden können, also &eg; <userinput
->#ff0000</userinput
->. </para
-></listitem>
+<term><cmdsynopsis><command>current-line-color</command><arg>STRING</arg></cmdsynopsis></term>
+<listitem><para>Set the color for the current line. The  value must be
+something that can be evaluated to a valid color, for example <userinput>#ff0000</userinput>.
+</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-default-dictionary">
-<term
-><cmdsynopsis
-><command
->default-dictionary</command
-><arg
->STRING</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Legt das Standardwörterbuch für die Rechtschreibprüfung fest.</para>
-<para
->Ab Version: &kate; 3.9 (&kde; 4.9)</para
-></listitem>
+<term><cmdsynopsis><command>default-dictionary</command><arg>STRING</arg></cmdsynopsis></term>
+<listitem><para>Sets the default dictionary used for spellchecking.</para>
+<para>Since: &kate; 3.4 (&kde; 4.4)</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-dynamic-word-wrap">
-<term
-><cmdsynopsis
-><command
->dynamic-word-wrap</command
-><arg
->BOOL</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Schaltet den <link linkend="kate-part-auto-wrap"
->dynamischen Zeilenumbruch</link
-> ein und aus.</para
-></listitem>
+<term><cmdsynopsis><command>dynamic-word-wrap</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Turns <link linkend="kate-part-auto-wrap">dynamic word wrap</link> on or
+off.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-end-of-line">
-<term
-><cmdsynopsis
-><command
->eol | end-of-line</command
-><arg
->STRING</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Setzt das Format für das Zeilenende. Gültige Werte hierfür sind: <quote
->unix</quote
->, <quote
->mac</quote
-> und <quote
->dos</quote
->.</para
-></listitem>
+<term><cmdsynopsis><command>eol | end-of-line</command><arg>STRING</arg></cmdsynopsis></term>
+<listitem><para>Set the end of line mode. Valid settings are
+<userinput>unix</userinput>, <userinput>mac</userinput> and <userinput>dos</userinput>.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-folding-markers">
-<term
-><cmdsynopsis
-><command
->folding-markers</command
-><arg
->BOOL</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Schaltet die Anzeige von <link linkend="advanced-editing-tools-code-folding"
->Quelltextausblendungen</link
-> ein und aus. </para
-></listitem>
+<term><cmdsynopsis><command>folding-markers</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Set the display of
+<link linkend="advanced-editing-tools-code-folding">folding markers</link>
+on or off.
+</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-folding-preview">
-<term
-><cmdsynopsis
-><command
->folding-preview</command
-><arg
->BOOL</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Vorschau der Text-Ausblendung am Editor-Rand anzeigen</para
-></listitem>
+<term><cmdsynopsis><command>folding-preview</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Enable folding preview in the editor border.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-font-size">
-<term
-><cmdsynopsis
-><command
->font-size</command
-><arg
->INT</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Setzt die Schriftgröße des Dokuments.</para
-></listitem>
+<term><cmdsynopsis><command>font-size</command><arg>INT</arg></cmdsynopsis></term>
+<listitem><para>Set the point size of the document font.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-font">
-<term
-><cmdsynopsis
-><command
->font</command
-><arg
->STRING</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Setzt die Schriftart des Dokuments . Der Wert muss eine gültige Schriftart bezeichnen, also &eg; <userinput
->courier</userinput
->.</para
-></listitem>
+<term><cmdsynopsis><command>font</command><arg>STRING</arg></cmdsynopsis></term>
+<listitem><para>Set the font of the document. The value should be a valid font
+name, for example <userinput>courier</userinput>.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-syntax">
-<term
-><cmdsynopsis
-><command
->hl | syntax</command
-><arg
->STRING</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Setzt den Hervorhebungsmodus. Es können alle Namen, die auch in den Menüs vorhanden sind, verwendet werden. z.B für C++ benutzen Sie einfach <userinput
->C++</userinput
->.</para
-></listitem>
+<term><cmdsynopsis><command>hl | syntax</command><arg>STRING</arg></cmdsynopsis></term>
+<listitem><para>Set the syntax highlighting. Valid strings are all the names available
+in the menus.  For instance, for C++ simply write <userinput>C++</userinput>.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-icon-bar-color">
-<term
-><cmdsynopsis
-><command
->icon-bar-color</command
-><arg
->STRING</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Setzt die Farbe des Symbolrandes. Der Wert muss als eine gültige Farbe übersetzt werden können, also &eg; <userinput
->#ff0000</userinput
->.</para
-></listitem>
+<term><cmdsynopsis><command>icon-bar-color</command><arg>STRING</arg></cmdsynopsis></term>
+<listitem><para>Set the icon bar color. The  value must be something that can
+be evaluated to a valid color, for example <userinput>#ff0000</userinput>.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-icon-border">
-<term
-><cmdsynopsis
-><command
->icon-border</command
-><arg
->BOOL</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Schaltet die Anzeige des Symbolrandes ein und aus.</para
-></listitem>
+<term><cmdsynopsis><command>icon-border</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Set the display of the icon border on or off.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-indent-mode">
-<term
-><cmdsynopsis
-><command
->indent-mode</command
-><arg
->STRING</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Setzt den Modus für das automatische Einrücken. Die Einstellungen <userinput
->normal</userinput
->, <userinput
->cstyle</userinput
->, <userinput
->haskell</userinput
->, <userinput
->lilypond</userinput
->, <userinput
->lisp</userinput
->, <userinput
->python</userinput
->, <userinput
->ruby</userinput
-> und <userinput
->xml</userinput
-> sind möglich. Sehen Sie unter <link linkend="kate-part-autoindent"
->Automatisches Einrücken benutzen</link
-> für Einzelheiten nach.</para
-></listitem>
+<term><cmdsynopsis><command>indent-mode</command><arg>STRING</arg></cmdsynopsis></term>
+<listitem><para>Set the auto-indentation mode. The options <userinput>none</userinput>,
+<userinput>normal</userinput>, <userinput>cstyle</userinput>, <userinput>haskell</userinput>,
+<userinput>lilypond</userinput>, <userinput>lisp</userinput>, <userinput>python</userinput>,
+<userinput>ruby</userinput> and <userinput>xml</userinput> are recognized. See the section
+<xref linkend="kate-part-autoindent"/> for details.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-indent-pasted-text">
-<term
-><cmdsynopsis
-><command
->indent-pasted-text</command
-><arg
->BOOL</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Aktiviert/deaktiviert die Anpassung der Einrückung von Text, der aus der Zwischenablage eingefügt wird</para>
-<para
->Ab Version: &kate; 3.11 (&kde; 4.11)</para
-></listitem>
+<term><cmdsynopsis><command>indent-pasted-text</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Enable/disable adjusting indentation of text pasted from the clipboard.</para>
+<para>Since: &kate; 3.11 (&kde; 4.11)</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-indent-width">
-<term
-><cmdsynopsis
-><command
->indent-width</command
-><arg
->INT</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Setzt die Breite der Einrückung.</para
-></listitem>
+<term><cmdsynopsis><command>indent-width</command><arg>INT</arg></cmdsynopsis></term>
+<listitem><para>Set the indentation width.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-keep-extra-spaces">
-<term
-><cmdsynopsis
-><command
->keep-extra-spaces</command
-><arg
->BOOL</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Legt fest, ob zusätzliche Leerzeichen bei der Berechnung der Einrückungweite beibehalten werden. </para
-></listitem>
+<term><cmdsynopsis><command>keep-extra-spaces</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Set whether to keep extra spaces when calculating indentation width.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-line-numbers">
-<term
-><cmdsynopsis
-><command
->line-numbers</command
-><arg
->BOOL</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Schaltet die Anzeige der Zeilennummern ein und aus.</para
-></listitem>
+<term><cmdsynopsis><command>line-numbers</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Set the display of line numbers on or off.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-newline-at-eof">
-<term
-><cmdsynopsis
-><command
->newline-at-eof</command
-><arg
->BOOL</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Fügt beim Speichern des Dokuments eine leere Zeile am Ende der Datei (EOF) an.</para>
-<para
->Ab Version: &kate; 3.9 (&kde; 4.9)</para
-></listitem>
+<term><cmdsynopsis><command>newline-at-eof</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Add an empty line at the end of the file (EOF) when saving the document.</para>
+<para>Since: &kate; 3.9 (&kde; 4.9)</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-overwrite-mode">
-<term
-><cmdsynopsis
-><command
->overwrite-mode</command
-><arg
->BOOL</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Schaltet den Überschreibmodus ein und aus.</para
-></listitem>
+<term><cmdsynopsis><command>overwrite-mode</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Set overwrite mode on or off.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-persistent-selection">
-<term
-><cmdsynopsis
-><command
->persistent-selection</command
-><arg
->BOOL</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Schaltet die <link linkend="kate-part-selection-persistent"
->durchgehende Auswahl</link
-> ein und aus.</para
-></listitem>
+<term><cmdsynopsis><command>persistent-selection</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Set <link linkend="kate-part-selection-persistent">persistent selection</link>
+on or off.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-replace-tabs-save">
-<term
-><cmdsynopsis
-><command
->replace-tabs-save</command
-><arg
->BOOL</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Schaltet das Ersetzen von Tabulatoren durch Leerzeichen beim Speichern des Dokuments ein und aus.</para
-></listitem>
+<term><cmdsynopsis><command>replace-tabs-save</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Set tab to space conversion on save on or off.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-replace-tabs">
-<term
-><cmdsynopsis
-><command
->replace-tabs</command
-><arg
->BOOL</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Schaltet das sofortige Ersetzen von Tabulatoren durch Leerzeichen ein und aus.</para
-></listitem>
+<term><cmdsynopsis><command>replace-tabs</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Set dynamic tab to space conversion on or off.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-remove-trailing-spaces">
-<term
-><cmdsynopsis
-><command
->remove-trailing-spaces</command
-><arg
->STRING</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Entfernt Leerzeichen am Zeilenende beim Speichern des Dokuments. Gültige Optionen sind:</para>
+<term><cmdsynopsis><command>remove-trailing-spaces</command><arg>STRING</arg></cmdsynopsis></term>
+<listitem><para>Removes trailing spaces when saving the document. Valid options are:</para>
 <itemizedlist>
-<listitem
-><para
-><userinput
->none</userinput
->, <userinput
->-</userinput
-> or <userinput
->0</userinput
->: Leerzeichen am Zeilenende nie entfernen.</para
-></listitem>
-<listitem
-><para
-><userinput
->modified</userinput
->, <userinput
->mod</userinput
->, <userinput
->+</userinput
-> or <userinput
->1</userinput
->: Leerzeichen am Zeilenende nur in geänderten Zeilen entfernen. Diese geänderten Zeilen werden durch das Zeilenänderungssystem gekennzeichnet.</para
-></listitem>
-<listitem
-><para
-><userinput
->all</userinput
->, <userinput
->*</userinput
-> or <userinput
->2</userinput
->: Leerzeichen am Zeilenende im gesamten Dokument entfernen.</para
-></listitem>
+<listitem><para><userinput>none</userinput>, <userinput>-</userinput> or <userinput>0</userinput>: never remove trailing spaces.</para></listitem>
+<listitem><para><userinput>modified</userinput>, <userinput>mod</userinput>, <userinput>+</userinput> or <userinput>1</userinput>: remove trailing spaces only in
+modified lines. The modified lines are marked by the line modification system.</para></listitem>
+<listitem><para><userinput>all</userinput>, <userinput>*</userinput> or <userinput>2</userinput>: remove trailing spaces in the entire document.</para></listitem>
 </itemizedlist>
 </listitem>
 </varlistentry>
 
 <varlistentry id="variable-scrollbar-minimap">
-<term
-><cmdsynopsis
-><command
->scrollbar-minimap</command
-><arg
->BOOL</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Textgrafik auf Bildlaufleiste anzeigen</para
-></listitem>
+<term><cmdsynopsis><command>scrollbar-minimap</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Show scrollbar minimap.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-scrollbar-preview">
-<term
-><cmdsynopsis
-><command
->scrollbar-preview</command
-><arg
->BOOL</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Vorschau an Bildlaufleiste anzeigen.</para
-></listitem>
+<term><cmdsynopsis><command>scrollbar-preview</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Show scrollbar preview.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-scheme">
-<term
-><cmdsynopsis
-><command
->scheme</command
-><arg
->ZEICHENFOLGE</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Setzt das Farbschema von &kate;. Die Zeichenfolge muss ein gültiger Name für ein Farbschema sein, sonst wird diese Einstellung ignoriert.</para
-></listitem>
+<term><cmdsynopsis><command>scheme</command><arg>STRING</arg></cmdsynopsis></term>
+<listitem><para>Set the color scheme. The string must be the name of a color
+scheme that exists in your configuration to have any effect.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-selection-color">
-<term
-><cmdsynopsis
-><command
->selection-color</command
-><arg
->STRING</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Setzt die Farbe für ausgewählten Text. Der Wert muss als gültige Farbe ausgewertet werden können, also &eg; <userinput
->#ff0000</userinput
->.</para
-></listitem>
+<term><cmdsynopsis><command>selection-color</command><arg>STRING</arg></cmdsynopsis></term>
+<listitem><para>Set the selection color. The  value must be something that can
+be evaluated to a valid color, for example <userinput>#ff0000</userinput>.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-show-tabs">
-<term
-><cmdsynopsis
-><command
->show-tabs</command
-><arg
->BOOL</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Schaltet die Anzeige von Tabulatorzeichen ein und aus.</para
-></listitem>
+<term><cmdsynopsis><command>show-tabs</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Set the visual tab character on or off.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-smart-home">
-<term
-><cmdsynopsis
-><command
->smart-home</command
-><arg
->BOOL</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Schaltet die <link linkend="pref-edit-cursor-selection"
->intelligente Funktion der Tasten Pos1 und Ende</link
-> ein oder aus.</para
-></listitem>
+<term><cmdsynopsis><command>smart-home</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Set <link linkend="pref-edit-cursor-selection">smart home navigation</link>
+on or off.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-tab-indents">
-<term
-><cmdsynopsis
-><command
->tab-indents</command
-><arg
->BOOL</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Schaltet das Einrücken mit der &Tab;taste ein und aus.</para
-></listitem>
+<term><cmdsynopsis><command>tab-indents</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Set &Tab; key indentation on or off.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-tab-width">
-<term
-><cmdsynopsis
-><command
->tab-width</command
-><arg
->INT</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Setzt die angezeigte Weite für ein Tabulatorzeichen.</para
-></listitem>
+<term><cmdsynopsis><command>tab-width</command><arg>INT</arg></cmdsynopsis></term>
+<listitem><para>Set the tab character display width.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-undo-steps">
-<term
-><cmdsynopsis
-><command
->undo-steps</command
-><arg
->INT</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Setzt die Anzahl der gespeicherten Schritte für die Funktion Rückgängig.</para>
-<para
->Anmerkung: Ab Version &kate; 3 in &kde;4 wird diese Variable ignoriert. Die maximale Anzahl von Schritten für Rückgängig ist unbegrenzt.</para
-></listitem>
+<term><cmdsynopsis><command>undo-steps</command><arg>INT</arg></cmdsynopsis></term>
+<listitem><para>Set the number of undo steps to remember.</para>
+<para>Note: Deprecated since &kate; 3 in &kde;4. This variable is ignored. The maximal count of undo steps is unlimited.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-word-wrap-column">
-<term
-><cmdsynopsis
-><command
->word-wrap-column</command
-><arg
->INT</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Setzt die Zeilenlänge für den <link linkend="kate-part-auto-wrap"
->Statischen Zeilenumbruch</link
->. </para
-></listitem>
+<term><cmdsynopsis><command>word-wrap-column</command><arg>INT</arg></cmdsynopsis></term>
+<listitem><para>Set the <link linkend="kate-part-auto-wrap">static word wrap</link>
+width. </para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-word-wrap-marker-color">
-<term
-><cmdsynopsis
-><command
->word-wrap-marker-color</command
-><arg
->STRING</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Setzt die Farbe für Zeilenumbruchmarkierungen. Der Wert muss als gültige Farbe ausgewertet werden können, also &eg; <userinput
->#ff0000</userinput
->.</para
-></listitem>
+<term><cmdsynopsis><command>word-wrap-marker-color</command><arg>STRING</arg></cmdsynopsis></term>
+<listitem><para>Set the word wrap marker color. The value must be something
+that can be evaluated to a valid color, for example <userinput>#ff0000</userinput>.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-word-wrap">
-<term
-><cmdsynopsis
-><command
->word-wrap</command
-><arg
->BOOL</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Schaltet den statischen Zeilenumbruch ein und aus.</para
-></listitem>
+<term><cmdsynopsis><command>word-wrap</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Set static word wrapping on or off.</para></listitem>
 </varlistentry>
 
 </variablelist>
@@ -2245,45 +1437,35 @@ Remove selected Add new mapping Import from vimrc file-->
 </sect2>
 
 <sect2 id="kateconfig-extended-options">
-<title
->Zusätzliche Optionen in <filename
->.kateconfig</filename
->-Dateien</title>
+<title>Extended Options in <filename>.kateconfig</filename> files</title>
 
-<para
->&kappname; sucht nach einer <filename
->.kateconfig</filename
->-Datei nur in lokalen Dateien, nicht in Dateien auf anderen Rechnern. Außerdem können Optionen für Platzhalter (Dateierweiterungen) wie folgt eingestellt werden:</para>
+<para>&kappname; always search for a <filename>.kateconfig</filename> file for local files (not remote files).
+In addition, it is possible to set options based on wildcards (file extensions) as follows:</para>
 
-<programlisting
->kate: tab-width 4; indent-width 4; replace-tabs on;
+<programlisting>kate: tab-width 4; indent-width 4; replace-tabs on;
 kate-wildcard(*.xml): indent-width 2;
 kate-wildcard(Makefile): replace-tabs off;
 </programlisting>
 
-<para
->In diesem Beispiel wird für alle Dateien eine Tabulatorweite von vier Leerzeichen, eine Einrückungstiefe von vier Leerzeichen verwendet und Tabulatoren werden durch Leerzeichen ersetzt. Bei allen <filename class="extension"
->*.xml</filename
->-Dateien wird jedoch eine Einrückungstiefe von zwei Leerzeichen benutzt., außerdem in Make-Dateien nur Tabulatoren, &ie; sie werden nicht durch Leerzeichen ersetzt.</para>
+<para>In this example, all files use a tab-width of 4 spaces, an indent-width of 4 spaces,
+and tabs are replaced expanded to spaces. However, for all <filename class="extension">*.xml</filename>
+files, the indent width is set to 2 spaces.
+And Makefiles use tabs, &ie; tabs are not replaced with spaces.</para>
 
-<para
->Platzhalter werden durch Semikolon getrennt, &ie; Sie können auch mehrere Erweiterungen wie im nächsten Beispiel angeben: </para>
+<para>Wildcards are semicolon separated, &ie; you can also specify multiple file extensions as follows:
+</para>
 
-<programlisting
->kate-wildcard(*.json;*.xml): indent-width 2;</programlisting>
+<programlisting>kate-wildcard(*.json;*.xml): indent-width 2;</programlisting>
 
-<para
->Weiterhin können Sie &MIME;-Typen auch zur Erkennung bestimmter Dateien benutzen. Um &eg; alle Dateien mit C++-Quelltexten mit vier Leerzeichen ein zu rücken, verwenden Sie: </para>
+<para>Further, you can also use the &MIME; type to match certain files, &eg; to indent
+all C++ source files with 4 spaces, you can write:
+</para>
 
-<programlisting
->kate-mimetype(text/x-c++src): indent-width 4;</programlisting>
+<programlisting>kate-mimetype(text/x-c++src): indent-width 4;</programlisting>
 
-<note
-><para
->Außer in <filename
->.kateconfig</filename
->-Dateien können Dokumentvariablen mit Platzhaltern und &MIME;-Typen auch in Dateien direkt als Kommentare benutzt werden. </para
-></note>
+<note><para>Next to the support in <filename>.kateconfig</filename> files, wildcard and &MIME; type
+dependent document variables are also supported in the files itself as comments.
+</para></note>
 
 </sect2>
 

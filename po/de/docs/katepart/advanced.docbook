@@ -1,189 +1,105 @@
 <chapter id="advanced-editing-tools">
 <chapterinfo>
 <authorgroup>
-<author
->&Anders.Lund; &Anders.Lund.mail;</author>
-<author
->&Dominik.Haumann; &Dominik.Haumann.mail;</author>
-<othercredit role="translator"
-> <firstname
->Thomas</firstname
-> <surname
->Diehl</surname
-> <affiliation
-> <address
-><email
->thd@kde.org</email
-></address
-> </affiliation
-> <contrib
->GUI-Übersetzung</contrib
-></othercredit
-> <othercredit role="translator"
-> <firstname
->Matthias</firstname
-><surname
->Schulz</surname
-> <affiliation
-> <address
-><email
->matthias.schulz@kdemail.net</email
-></address
-> </affiliation
-> <contrib
->Deutsche Übersetzung</contrib
-></othercredit
-> 
+<author>&Anders.Lund; &Anders.Lund.mail;</author>
+<author>&Dominik.Haumann; &Dominik.Haumann.mail;</author>
+<!-- TRANS:ROLES_OF_TRANSLATORS -->
 </authorgroup>
 </chapterinfo>
-<title
->Weiterentwickelte Editierwerkzeuge</title>
+<title>Advanced Editing Tools</title>
 
 <sect1 id="advanced-editing-tools-comment">
 
-<title
->Kommentar/Kommentar entfernen</title>
+<title>Comment/Uncomment</title>
 
-<para
->Die Befehle <guimenuitem
->Kommentar</guimenuitem
-> und <guimenuitem
->Kommentar entfernen</guimenuitem
-> im Menü <guimenu
->Bearbeiten</guimenu
-> erlauben das Hinzufügen oder Entfernen von Kommentarzeichen zur Auswahl, oder der aktuellen Textzeile, wenn kein Text markiert wurde. Diese Funktionen stehen nur zur Verfügung, wenn das benutzte Textformat Kommentare unterstützt.</para>
+<para>The <guimenuitem>Comment</guimenuitem> and <guimenuitem>Uncomment</guimenuitem> commands, available from the
+<guimenu>Tools</guimenu> menu allow you to add or remove comment
+markers to the selection, or the current line if no text is selected,
+if comments are supported by the format of the text you are
+editing.</para>
 
-<para
->Die Regeln für Kommentare werden in den Definitionen für die Syntax festgelegt, wenn Hervorhebungen für Syntax nicht benutzt werden, ist die Nutzung der Befehle also nicht möglich. </para>
+<para>The rules for how commenting is done are defined in the syntax
+definitions, so if syntax highlighting is not used, commenting/uncommenting
+is not possible. </para>
 
-<para
->Einige Formate nutzen Kommentarzeichen für einzelne Zeilen, manche nutzen Kommentarzeichen für mehrere Zeilen, manche beides. Wenn Kommentarzeichen für mehrere Zeilen nicht verfügbar sind, kann eine Auswahl nicht auskommentiert werden, deren letzte Zeile nicht vollständig in die Auswahl einbezogen ist.</para>
+<para>Some formats define single line comment markers, some multiline
+markers and some both.  If multiline markers are not available,
+commenting out a selection that does not fully include its last line
+is not possible.</para>
 
-<para
->Wenn Kommentarzeichen für einzelne Zeilen definiert sind, werden diese bevorzugt eingesetzt, dies hilft, Probleme mit eingebetteten Kommentaren zu vermeiden.</para>
+<para>If a single line marker is available, commenting single lines is
+preferred where applicable, as this helps to avoid problems with
+nested comments.</para>
 
-<para
->Wenn Sie Kommentarzeichen entfernen, sollte nur kommentierter Text ausgewählt sein. Wenn mehrzeilige Kommentare entfernt werden, werden Leerzeichen und Tabulatoren (whitespaces) außerhalb der Kommentarzeichen ignoriert.</para>
+<para>When removing comment markers, no uncommented text should be
+selected. When removing multiline comment markers from a selection,
+any whitespace outside the comment markers is ignored.</para>
 
-<para
-><indexterm
-><primary
->Kommentar</primary
-></indexterm
-> Um Kommentarzeichen einzufügen, wählen Sie im Menü <menuchoice
-><guimenu
->Extras</guimenu
-><guimenuitem
->Kommentar</guimenuitem
-></menuchoice
-> oder das Tastenkürzel, hier standardmäßig <keycombo action="simul"
->&Ctrl;<keycap
->D</keycap
-></keycombo
->.</para>
+<para><indexterm><primary>comment</primary></indexterm>
+To place comment markers, use the
+<menuchoice><guimenu>Tools</guimenu><guimenuitem>Comment</guimenuitem></menuchoice>
+menu item or the related keyboard shortcut sequence, the default is
+<keycombo action="simul">&Ctrl;<keycap>D</keycap></keycombo>.</para>
 
-<para
-><indexterm
-><primary
->Kommentar entfernen</primary
-></indexterm
-> Zum Entfernen von Kommentarzeichen wählen Sie im Menü <menuchoice
-><guimenu
->Bearbeiten</guimenu
-><guimenuitem
->Kommentar entfernen</guimenuitem
-></menuchoice
-> oder das Tastenkürzel, hier standardmäßig <keycombo action="simul"
->&Ctrl;&Shift;<keycap
->D</keycap
-></keycombo
->.</para>
+<para><indexterm><primary>uncomment</primary></indexterm>
+To remove comment markers, use the
+<menuchoice><guimenu>Tools</guimenu><guimenuitem>Uncomment</guimenuitem></menuchoice>
+menu item or the related keyboard shortcut, the default is <keycombo
+action="simul">&Ctrl;&Shift;<keycap>D</keycap></keycombo>.</para>
 
 </sect1>
 
 <sect1 id="advanced-editing-tools-commandline">
-<title
->Die integrierte Befehlszeile im Editor</title>
+<title>The Editor Component Command Line</title>
 
-<para
->&kappname;;s Editorkomponente hat eine interne Befehlszeile, von der aus Sie verschiedene Aktionen von einer minimalen &GUI; ausführen können. Die Befehlszeile ist ein Texteingabefeld am unteren Rand des Editorbereichs. Sie können diese einblenden, indem Sie im Menü <menuchoice
-><guimenu
->Ansicht</guimenu
-><guimenuitem
->Auf Befehlszeile umschalten</guimenuitem
-></menuchoice
-> wählen oder das Tastenkürzel verwenden (standardmäßig ist <keycombo action="simul"
-><keycap
->F7</keycap
-></keycombo
-> eingestellt). Der Editor stellt einige Befehle bereit, die nachfolgend beschrieben werden. Außerdem können Module weitere Befehle bereitstellen.</para>
+<para>&kappname;'s editor component has an internal command line, allowing you to
+perform various actions from a minimal &GUI;. The command line is a text entry
+at the bottom of the editor area; to show it select
+<menuchoice><guimenu>View</guimenu><guimenuitem>Switch to Command Line</guimenuitem></menuchoice>
+or use the shortcut (default is
+<keycombo action="simul"><keycap>F7</keycap></keycombo>). The editor provides
+a set of commands as documented below, and additional commands can be provided
+by plugins.</para>
 
-<para
->Um einen Befehl auszuführen, geben Sie diesen in die Befehlszeile ein und drücken Sie Eingabetaste. Der Befehl gibt aus, ob die Ausführung erfolgreich war, eventuell wird noch eine Mitteilung ausgegeben. Wenn Sie den Befehl durch Drücken des Tastenkürzels <keycap
->F7</keycap
-> eingegeben haben, wird die Befehlszeile nach einigen Sekunden ausgeblendet. Um die Mitteilung zu löschen und einen neuen Befehl einzugeben, drücken Sie das Tastenkürzel <keycap
->F7</keycap
-> noch einmal.</para>
+<para>To execute a command, type the command then press the return key. The
+command line will indicate whether it succeeded and possibly display a message. If
+you entered the command line by pressing <keycap>F7</keycap> it will
+automatically hide after a few seconds. To clear the message and enter a new
+command, press <keycap>F7</keycap> again.</para>
 
-<para
->Die Befehlszeile hat ein eingebautes Hilfesystem, das durch den Befehl <command
->help</command
-> aufgerufen wird. Der Befehl <command
->help list</command
-> zeigt eine Liste aller verfügbaren Befehle an, Hilfe zu einem speziellen Befehl erhalten Sie durch Eingabe von <command
->help <replaceable
->befehl</replaceable
-></command
->.</para>
+<para>The command line has a built-in help system; issue the command
+<command>help</command> to get started. To see a list of all available commands
+issue <command>help list</command>; to view help for a specific command, do
+<command>help <replaceable>command</replaceable></command>.</para>
 
-<para
->Die Befehlszeile hat eine eingebauten Verlaufsspeicher, sodass Sie bereits eingegebene Befehle wiederverwenden können. Um aus den bisherigen Befehlen auszuwählen, benutzen Sie die Tasten &Up; und &Down;. Wenn bisherige Befehle angezeigt werden, dann ist automatisch der Teil des Befehls, der die Argumente enthält, markiert, sodass Sie die Argumente sofort überschreiben können. </para>
+<para>The command line has a built in history, so you can reuse commands already
+typed. To navigate the history, use the &Up; and
+&Down; keys. When showing historical commands, the argument part
+of the command will be selected, allowing you to easily overwrite the
+arguments.</para>
 
 <sect2 id="advanced-editing-tools-commandline-commands">
-<title
->Standardbefehle der Befehlszeile</title>
+<title>Standard Command Line Commands</title>
 
 <variablelist>
-<title
->Typen der Argumente</title>
+<title>Argument types</title>
 
 <varlistentry>
-<term
->BOOLEAN</term>
-<listitem
-><para
->Dieser Typ wird mit Befehlen benutzt, die Dinge ein- und ausschalten. Zulässige Werte sind <userinput
->on</userinput
->, <userinput
->off</userinput
->, <userinput
->true</userinput
->, <userinput
->false</userinput
->, <userinput
->1</userinput
-> oder <userinput
->0</userinput
->.</para
-></listitem>
+<term>BOOLEAN</term>
+<listitem><para>This is used with commands that turns things on or off.
+Legal values are <userinput>on</userinput>, <userinput>off</userinput>,
+<userinput>true</userinput>, <userinput>false</userinput>,
+<userinput>1</userinput> or <userinput>0</userinput>.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
->INTEGER</term>
-<listitem
-><para
->Eine ganze Zahl.</para
-></listitem>
+<term>INTEGER</term>
+<listitem><para>An integer number.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
->STRING</term>
-<listitem
-><para
->Ein Text, umschlossen von einfachen Anführungszeichen  (') oder von doppelten Anführungszeichen ("), wenn der Text Leerzeichen enthält.</para
-></listitem>
+<term>STRING</term>
+<listitem><para>A string, surrounded by single quotes (') or double quotes (") when it contains spaces.</para></listitem>
 </varlistentry>
 
 </variablelist>
@@ -191,357 +107,151 @@
 
 
 <sect3 id="advanced-editing-tools-commandline-commands-configure">
-<title
->Befehle zum Einrichten des Editors</title>
+<title>Commands for Configuring the Editor</title>
 
-<para
->Diese Befehle werden von der Editorkomponente bereitgestellt und gestatten das Einrichten des Editors für die aktuelle Ansicht des aktuellen Dokuments. Dies ist hilfreich, wenn Sie von den Standardeinstellungen abweichende Einstellungen, &eg; für Einrückungen benutzen wollen. </para>
+<para>These commands are provided by the editor component, and allow you to
+configure the active document and view only. This is handy if you want to use
+a setting different from the default settings, for example for indentation.
+</para>
 
 <variablelist>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->set-tab-width</command
-><arg choice="req"
->INTEGER Weite</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Setzt die Tabulatorweite auf <userinput
->Weite</userinput
->.</para
-></listitem>
+<term><cmdsynopsis><command>set-tab-width</command><arg choice="req">INTEGER width</arg></cmdsynopsis></term>
+<listitem><para>Sets the tab width to the number <userinput>width</userinput>.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->set-indent-width</command
-><arg choice="req"
->INTEGER Weite</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Setzt die Einrückungsweite auf <userinput
->Weite</userinput
->. Dieser Wert wird nur benutzt, wenn Sie Leerzeichen zum Einrücken verwenden.</para
-></listitem>
+<term><cmdsynopsis><command>set-indent-width</command><arg choice="req">INTEGER width</arg></cmdsynopsis></term>
+<listitem><para>Sets the indentation width to the number
+<userinput>width</userinput>. Used only if you are indenting with
+spaces.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->set-word-wrap-column</command
-><arg choice="req"
->INTEGER Weite</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Setzt die Zeilenlänge für den harten Zeilenumbruch auf <userinput
->Weite</userinput
->. Dieser Wert wird nur benutzt, wenn Sie den automatischen Zeilenumbruch benutzen.</para
-></listitem>
+<term><cmdsynopsis><command>set-word-wrap-column</command><arg choice="req">INTEGER width</arg></cmdsynopsis></term>
+<listitem><para>Sets the line width for hard wrapping to
+<userinput>width</userinput>. This is used if you are having your text wrapped
+automatically.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->set-icon-border</command
-><arg choice="req"
->BOOLEAN enable</arg
-> </cmdsynopsis
-></term>
-<listitem
-><para
->Schaltet die Anzeige des Symbolrandes ein und aus.</para
-></listitem>
+<term><cmdsynopsis><command>set-icon-border</command><arg choice="req">BOOLEAN enable</arg>
+</cmdsynopsis></term>
+<listitem><para>Sets the visibility of the icon border.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->set-folding-markers</command
-><arg choice="req"
->BOOLEAN enable</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Schaltet die Markierungen für die Quelltextausblendung ein und aus.</para
-></listitem>
+<term><cmdsynopsis><command>set-folding-markers</command><arg choice="req">BOOLEAN enable</arg></cmdsynopsis></term>
+<listitem><para>Sets the visibility of the folding markers pane.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->set-line-numbers</command
-><arg choice="req"
->BOOLEAN enable</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Schaltet die Zeilennummerierung ein und aus.</para
-></listitem>
+<term><cmdsynopsis><command>set-line-numbers</command><arg choice="req">BOOLEAN enable</arg></cmdsynopsis></term>
+<listitem><para>Sets the visibility of the line numbers pane.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->set-replace-tabs</command
-><arg choice="req"
->BOOLEAN enable</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Wenn eingeschaltet, werden Tabulatorzeichen durch Leerzeichen ersetzt. </para
-></listitem>
+<term><cmdsynopsis><command>set-replace-tabs</command><arg choice="req">BOOLEAN enable</arg></cmdsynopsis></term>
+<listitem><para>If enabled, tabs are replaced with spaces as you type.
+</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->set-remove-trailing-space</command
-><arg choice="req"
->BOOLEAN enable</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Wenn eingeschaltet, werden Leerzeichen und andere Zwischenräume am Zeilenanfang entfernt, wenn der Cursor eine Zeile verlässt.</para
-></listitem>
+<term><cmdsynopsis><command>set-remove-trailing-space</command><arg choice="req">BOOLEAN enable</arg></cmdsynopsis></term>
+<listitem><para>If enabled, trailing whitespace is removed whenever the cursor
+leaves a line.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->set-show-tabs</command
-><arg choice="req"
->BOOLEAN enable</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Wenn eingeschaltet, werden Tabulatorzeichen und vorangestellte Leerzeichen durch kleine Punkte dargestellt.</para
-></listitem>
+<term><cmdsynopsis><command>set-show-tabs</command><arg choice="req">BOOLEAN enable</arg></cmdsynopsis></term>
+<listitem><para>If enabled, TAB characters and trailing whitespace will be
+visualized by a small dot.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->set-show-indent</command
-><arg choice="req"
->BOOLEAN enable</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Wenn eingeschaltet, wird die Einrückung durch eine punktierte Linie dargestellt.</para
-></listitem>
+<term><cmdsynopsis><command>set-show-indent</command><arg choice="req">BOOLEAN enable</arg></cmdsynopsis></term>
+<listitem><para>If enabled, indentation will be visualized by a vertical dotted
+line.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->set-indent-spaces</command
-><arg choice="req"
->BOOLEAN enable</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Wenn eingeschaltet, werden Leerzeichen in der mit <option
->indent-width</option
-> eingestellten Anzahl für jedes Einrückungsniveau benutzt und nicht Tabulatorzeichen.</para
-></listitem>
+<term><cmdsynopsis><command>set-indent-spaces</command><arg choice="req">BOOLEAN enable</arg></cmdsynopsis></term>
+<listitem><para>If enabled, the editor will indent with
+<option>indent-width</option> spaces for each indentation level, rather than
+with one TAB character.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->set-mixed-indent</command
-><arg choice="req"
->BOOLEAN enable</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->&kappname; benutzt eine Mischung aus Tabulatoren und Leerzeichen zum Einrücken wenn diese Option eingeschaltet ist. Jedes Einrückungsniveau ist <option
->indent-width</option
-> breit, es werden möglichst viele Leerzeichen durch Tabulatoren ersetzt.</para>
-<para
->Wenn dieser Befehl ausgeführt wird, wird außerdem das Einrücken mit Leerzeichen eingeschaltet und wenn die Einrückungsbreite noch nicht festgelegt ist, dann wird diese auf die Hälfte von <option
->tab-width</option
-> für dieses Dokument zum Ausführungszeitpunkt gesetzt.</para
-></listitem>
+<term><cmdsynopsis><command>set-mixed-indent</command><arg choice="req">BOOLEAN enable</arg></cmdsynopsis></term>
+<listitem><para>If enabled, &kappname; will use a mix of TAB and spaces for
+indentation. Each indentation level will be <option>indent-width</option> wide,
+and more indentation levels will be optimized to use as many TAB characters as
+possible.</para>
+<para>When executed, this command will additionally set space indentation enabled,
+and if the indent width is unspecified it will be set to half of the
+<option>tab-width</option> for the document at the time of execution.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->set-word-wrap</command
-><arg choice="req"
->BOOLEAN enable</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Schaltet dynamischen Zeilenumbruch ein oder aus.</para
-></listitem>
+<term><cmdsynopsis><command>set-word-wrap</command><arg choice="req">BOOLEAN
+enable</arg></cmdsynopsis></term>
+<listitem><para>Enables dynamic word wrap according to
+<userinput>enable</userinput>.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->set-replace-tabs-save</command
-><arg choice="req"
->BOOLEAN enable </arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Wenn eingeschaltet, werden Tabulatorzeichen durch Leerzeichen ersetzt, wenn das Dokument gespeichert wird.</para
-></listitem>
+<term><cmdsynopsis><command>set-replace-tabs-save</command><arg choice="req">BOOLEAN enable
+</arg></cmdsynopsis></term>
+<listitem><para>When enabled, tabs will be replaced with whitespace whenever
+ the document is saved.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->set-remove-trailing-space-save</command
-><arg choice="req"
->BOOLEAN enable</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Wenn eingeschaltet, werden am Anfang der Zeile stehende Leerzeichen oder Tabulatorzeichen entfernt, wenn das Dokument gespeichert wird.</para
-></listitem>
+<term><cmdsynopsis><command>set-remove-trailing-space-save</command><arg choice="req">BOOLEAN enable</arg></cmdsynopsis></term>
+<listitem><para>When enabled, trailing space will be removed from each line
+whenever the document is saved.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->set-indent-mode</command
-><arg choice="req"
->STRING name</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Setzt den Einrückungsmodus auf <userinput
->name</userinput
->. Wenn <userinput
->name</userinput
-> nicht angegeben ist oder ein ungültiger Name verwendet wurde, wird der Modus ‚Kein(none)‘ gesetzt. Verfügbare Modi sind: 'none', 'normal', 'cstyle', 'haskell', 'lilypond', 'lisp', 'python', 'ruby' und 'xml'.</para
-></listitem>
+<term><cmdsynopsis><command>set-indent-mode</command><arg choice="req">STRING name</arg></cmdsynopsis></term>
+<listitem><para>Sets the autoindentation mode to <userinput>name</userinput>.
+If <userinput>name</userinput> is not known, the mode is set to 'none'. Valid
+modes are 'none', 'normal', 'cstyle', 'haskell', 'lilypond', 'lisp', 'python',
+'ruby' and 'xml'.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->set-auto-ident</command
-><arg choice="req"
->BOOLEAN script</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Aktiviert oder deaktiviert die automatische Einrückung.</para
-></listitem>
+<term><cmdsynopsis><command>set-auto-ident</command><arg choice="req">BOOLEAN script</arg></cmdsynopsis></term>
+<listitem><para>Enable or disable autoindentation.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->set-highlight</command
-><arg choice="req"
->STRING highlight</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Setzt den Hervorhebungsmodus für das aktuelle Dokument. Das Argument muss ein gültiger Name für einen Hervorhebungsmodus sein. Die gültigen Modi findet man unter <menuchoice
-><guimenu
->Extras</guimenu
-><guisubmenu
->Hervorhebungen</guisubmenu
-></menuchoice
->. Dieser Befehl zeigt eine Liste der möglichen Argumente an, wenn die ersten Zeichen des Argumentes eingegeben wurden.</para
-></listitem>
+<term><cmdsynopsis><command>set-highlight</command><arg choice="req">STRING highlight</arg></cmdsynopsis></term>
+<listitem><para>Sets the syntax highlighting system for the document. The
+argument must be a valid highlight name, as seen in the
+<menuchoice><guimenu>Tools</guimenu><guisubmenu>Highlighting</guisubmenu></menuchoice>
+menu. This command provides an autocompletion list for its
+argument.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->reload-scripts</command
-></cmdsynopsis
-></term>
-<listitem
-><para
->Lädt alle von &kate; benutzten <link linkend="dev-scripting"
->&javascript;-Skripte</link
-> neu, einschließlich der Skripte für die Befehlszeile und  Einrückung.</para
-></listitem>
+<term><cmdsynopsis><command>reload-scripts</command></cmdsynopsis></term>
+<listitem><para>Reload all <link linkend="dev-scripting">&javascript;
+scripts</link> used by &kate;, including indenters and command line scripts.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->set-mode</command
-><arg choice="req"
->STRING mode</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Setzt das Dateityp-Schema für das aktuelle Dokument. </para
-></listitem>
+<term><cmdsynopsis><command>set-mode</command><arg choice="req">STRING mode</arg></cmdsynopsis></term>
+<listitem><para>Choose the filetype scheme for the current document.
+</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->nn[oremap]</command
-><arg choice="req"
->STRING original</arg
-> <arg choice="req"
->STRING mapped</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Weist den Kurzbefehl <userinput
->original</userinput
-> dem Kurzbefehl <userinput
->mapped</userinput
-> zu.</para
-></listitem>
+<term><cmdsynopsis><command>nn[oremap]</command><arg choice="req">STRING original</arg>
+<arg choice="req">STRING mapped</arg></cmdsynopsis></term>
+<listitem><para>Map the key sequence <userinput>original</userinput> to 
+<userinput>mapped</userinput>.</para></listitem>
 </varlistentry>
 
 </variablelist>
@@ -549,205 +259,100 @@
 </sect3>
 
 <sect3 id="advanced-editing-tools-commandline-commands-edit">
-<title
->Befehle zum Bearbeiten</title>
+<title>Commands for editing</title>
 
-<para
->Diese Befehle bearbeiten und verändern das aktuelle Dokument.</para>
+<para>These commands modify the current document.</para>
 
 <variablelist>
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->indent</command
-></cmdsynopsis
-></term>
-<listitem
-><para
->Rückt markierten Text oder die aktuelle Zeile ein.</para
-></listitem>
+<term><cmdsynopsis><command>indent</command></cmdsynopsis></term>
+<listitem><para>Indents the selected lines or the current line.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->unindent</command
-></cmdsynopsis
-></term>
-<listitem
-><para
->Hebt die Einrückung für die markierten Zeilen oder die aktuelle Zeile auf.</para
-></listitem>
+<term><cmdsynopsis><command>unindent</command></cmdsynopsis></term>
+<listitem><para>Unindents the selected lines or current line.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->cleanindent</command
-></cmdsynopsis
-></term>
-<listitem
-><para
->Setzt die Einrückungen in den markierten Zeilen oder in der aktuellen Zeile in den Grundzustand zurück. Hierzu werden die Einstellungen für das aktuelle Dokument verwendet. </para
-></listitem>
+<term><cmdsynopsis><command>cleanindent</command></cmdsynopsis></term>
+<listitem><para>Cleans up the indentation of the selected lines or current line
+according to the indentation settings in the document.
+</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->comment</command
-></cmdsynopsis
-></term>
-<listitem
-><para
->Setzt Kommentarzeichen um die markierten Zeilen oder die aktuelle Zeile zu Kommentaren zu machen. Es wird das Kommentarzeichen aus der Hervorhebungsdefinition für das aktuelle Textformat benutzt.</para
-></listitem>
+<term><cmdsynopsis><command>comment</command></cmdsynopsis></term>
+<listitem><para>Inserts comment markers to make the selection or selected lines
+or current line a comment according to the text format as defined by the syntax
+highlight definition for the document.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->uncomment</command
-></cmdsynopsis
-></term>
-<listitem
-><para
->Entfernt Kommentarzeichen von den markierten Zeilen oder der aktuellen Zeile. Es wird das Kommentarzeichen aus der Hervorhebungsdefinition für das aktuelle Textformat benutzt.</para
-></listitem>
+<term><cmdsynopsis><command>uncomment</command></cmdsynopsis></term>
+<listitem><para>Removes comment markers from the selection or selected lines
+or current line according to the text format as defined by the syntax highlight
+definition for the document.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->kill-line</command
-></cmdsynopsis
-></term>
-<listitem
-><para
->Löscht die aktuelle Zeile</para
-></listitem>
+<term><cmdsynopsis><command>kill-line</command></cmdsynopsis></term>
+<listitem><para>Deletes the current line.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->replace</command
-><arg choice="req"
-> STRING suchtext</arg
-> <arg choice="req"
->STRING replacement</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Ersetzt den mit <userinput
->suchtext</userinput
-> übereinstimmenden Text durch <userinput
->replacement</userinput
->. Wenn Sie Leerzeichen oder Tabulatoren im <userinput
->suchtext</userinput
-> verwenden wollen, dann müssen Sie sowohl <userinput
->suchtext</userinput
-> als auch <userinput
->replacement</userinput
-> in einfache oder doppelte Anführungszeichen einschließen. Wenn Worte nicht in Anführungszeichen eingeschlossen sind, wird das erste Wort als <userinput
->suchtext</userinput
-> und der Rest als <userinput
->replacement</userinput
-> benutzt. Wenn <userinput
->replacement</userinput
-> nicht angegeben ist, dann wird jedes Auftreten von <userinput
->suchtext</userinput
-> gelöscht.</para>
-<para
->Sie können bestimmte Einstellungen für die Suche vornehmen, indem Sie einen Doppelpunkt, gefolgt von einem oder mehreren Buchstaben - die die Einstellungen enthalten - anfügen. Die Form der Eingabe ist dann:  <userinput
->replace:options suchtext replacement</userinput
->. Folgende Einstellungen sind verfügbar: <variablelist>
+<term><cmdsynopsis><command>replace</command><arg choice="req"> STRING pattern</arg>
+<arg choice="req">STRING replacement</arg></cmdsynopsis></term>
+<listitem><para>Replaces text matching <userinput>pattern</userinput> with
+<userinput>replacement</userinput>. If you want to include whitespace in the
+<userinput>pattern</userinput>, you must quote both the <userinput>pattern</userinput>
+and <userinput>replacement</userinput> with single or double quotes. If the
+arguments are unquoted, the first word is used as <userinput>pattern</userinput>
+and the rest for <userinput>replacement</userinput>. If
+<userinput>replacement</userinput> is empty, each occurrence of
+<userinput>pattern</userinput> is removed.</para>
+<para>You can set flags to configure the search by adding a colon, followed
+by one or more letters each representing a configuration, giving the form
+<userinput>replace:options pattern replacement</userinput>. Available options
+are:
+
+<variablelist>
 
 <varlistentry>
-<term
-><userinput
->b</userinput
-></term>
-<listitem
-><para
->Rückwärts suchen.</para
-></listitem>
+<term><userinput>b</userinput></term>
+<listitem><para>Search backwards.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><userinput
->c</userinput
-></term>
-<listitem
-><para
->Suchen ab Cursor-Position.</para
-></listitem>
+<term><userinput>c</userinput></term>
+<listitem><para>Search from cursor position.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><userinput
->e</userinput
-></term>
-<listitem
-><para
->Suchen nur in markiertem Text.</para
-></listitem>
+<term><userinput>e</userinput></term>
+<listitem><para>Search in the selection only.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><userinput
->r</userinput
-></term>
-<listitem
-><para
->Suche nach einem regulären Ausdruck. Wenn diese Einstellung verwendet wird, können Sie <userinput
->\N</userinput
-> im Ersetzungstext verwenden, die Anzahl, wie oft der Suchtext gefunden wurde, wird dann in den Ersetzungstext eingefügt.</para
-></listitem>
+<term><userinput>r</userinput></term>
+<listitem><para>Do regular expression search. If set, you may use
+<userinput>\N</userinput> where N is a number to represent captures in the
+replacement string.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><userinput
->s</userinput
-></term>
-<listitem
-><para
->Suche unter Berücksichtigung von Groß- und Kleinschreibung.</para
-></listitem>
+<term><userinput>s</userinput></term>
+<listitem><para>Do case sensitive search.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><userinput
->p</userinput
-></term>
-<listitem
-><para
->Nachfragen vor Ersetzen des nächsten Auftretens.</para
-></listitem>
+<term><userinput>p</userinput></term>
+<listitem><para>Prompt for permission to replace the next occurrence.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><userinput
->w</userinput
-></term>
-<listitem
-><para
->Nur ganze Wörter erfüllen die Suchbedingung.</para
-></listitem>
+<term><userinput>w</userinput></term>
+<listitem><para>Match whole words only.</para></listitem>
 </varlistentry>
 
 </variablelist>
@@ -757,240 +362,59 @@
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->date</command
-><arg choice="req"
->STRING format</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Setzt das aktuelle Datum und die aktuelle Uhrzeit im durch <userinput
->format</userinput
-> eingestellten Format ein. Wenn kein Format eingestellt wurde, wird das Format <quote
->yyyy-MM-dd hh:mm:ss</quote
-> als Standard benutzt. Die folgenden Übersetzungen werden vorgenommen, wenn <userinput
->format</userinput
-> ausgewertet wird: <informaltable
-> <tgroup cols="2"
-> <tbody>
-<row
-><entry
-><literal
->d</literal
-></entry
-><entry
->Tag als Ziffer ohne führende Null (1-31).</entry
-></row>
-<row
-><entry
-><literal
->dd</literal
-></entry
-><entry
->Tag als Ziffer mit führender Null (01-31).</entry
-></row>
-<row
-><entry
-><literal
->ddd</literal
-></entry
-><entry
->Tag als abgekürzter Name in Landessprache (&eg; ‚Mon‘..‚Son‘).</entry
-></row>
-<row
-><entry
-><literal
->dddd</literal
-></entry
-><entry
->Tag als langer Name in Landessprache (&eg; ‚Montag‘..‚Sonntag‘).</entry
-></row>
-<row
-><entry
-><literal
->M</literal
-></entry
-><entry
->Monat als Ziffer ohne führende Null (1-12).</entry
-></row>
-<row
-><entry
-><literal
->MM</literal
-></entry
-><entry
->Monat als Ziffer mit führender Null (01-12).</entry
-></row>
-<row
-><entry
-><literal
->MMMM</literal
-></entry
-><entry
->Der lange, lokale Monatsname (z. B. „Januar“..„Dezember“).</entry
-></row>
-<row
-><entry
-><literal
->MMM</literal
-></entry
-><entry
->Monat als abgekürzter Name in Landessprache (&eg;‚Jan‘..‚Dez‘).</entry
-></row>
-<row
-><entry
-><literal
->yy</literal
-></entry
-><entry
->Das Jahr als zweistellige Ziffer (00-99).</entry
-></row>
-<row
-><entry
-><literal
->yyyy</literal
-></entry
-><entry
->Das Jahr als vierstellige Ziffer (1752-8000).</entry
-></row>
-<row
-><entry
-><literal
->h</literal
-></entry
-><entry
->Stunde ohne führende Null (0..23 oder 1..12 wenn AM/PM verwendet wird).</entry
-></row>
-<row
-><entry
-><literal
->hh</literal
-></entry
-><entry
->Stunde mit führender Null (00..23 oder 00..12 wenn AM/PM verwendet wird).</entry
-></row>
-<row
-><entry
-><literal
->m</literal
-></entry
-><entry
->Minute ohne führende Null (0.59).</entry
-></row>
-<row
-><entry
-><literal
->mm</literal
-></entry
-><entry
->Minute mit führender Null (00..59).</entry
-></row>
-<row
-><entry
-><literal
->s</literal
-></entry
-><entry
->Sekunde ohne führende Null (0.59).</entry
-></row>
-<row
-><entry
-><literal
->ss</literal
-></entry
-><entry
->Sekunde mit führender Null (00.59).</entry
-></row>
-<row
-><entry
-><literal
->z</literal
-></entry
-><entry
->Millisekunden ohne führende Null (0..999).</entry
-></row>
-<row
-><entry
-><literal
->zzz</literal
-></entry
-><entry
->Millisekunden mit führender Null (000..999).</entry
-></row>
-<row
-><entry
-><literal
->AP</literal
-></entry
-><entry
->Benutzt die Anzeige mit AM/PM. AP wird entweder von <quote
->AM</quote
-> oder <quote
->PM</quote
-> ersetzt.</entry
-></row>
-<row
-><entry
-><literal
->ap</literal
-></entry
-><entry
->Benutzt die Anzeige mit am/pm. ap wird durch <quote
->am</quote
-> oder <quote
->pm</quote
-> ersetzt.</entry
-></row>
+<term><cmdsynopsis><command>date</command><arg choice="req">STRING format</arg></cmdsynopsis></term>
+<listitem><para>Inserts a date/time string as defined by the specified
+<userinput>format</userinput>, or the format <quote>yyyy-MM-dd hh:mm:ss</quote>
+if none is specified. The following translations are done when interpreting
+<userinput>format</userinput>:
+
+<informaltable>
+<tgroup cols="2">
+<tbody>
+<row><entry><literal>d</literal></entry><entry>The day as number without a leading zero (1-31).</entry></row>
+<row><entry><literal>dd</literal></entry><entry>The day as number with a leading zero (01-31).</entry></row>
+<row><entry><literal>ddd</literal></entry><entry>The abbreviated localized day name (&eg; 'Mon'..'Sun').</entry></row>
+<row><entry><literal>dddd</literal></entry><entry>The long localized day name (&eg; 'Monday'..'Sunday').</entry></row>
+<row><entry><literal>M</literal></entry><entry>The month as number without a leading zero (1-12).</entry></row>
+<row><entry><literal>MM</literal></entry><entry>The month as number with a leading zero (01-12).</entry></row>
+<row><entry><literal>MMMM</literal></entry><entry>The long localized month name (&eg; 'January'..'December').</entry></row>
+<row><entry><literal>MMM</literal></entry><entry>The abbreviated localized month name (&eg; 'Jan'..'Dec').</entry></row>
+<row><entry><literal>yy</literal></entry><entry>The year as two digit number
+(00-99).</entry></row>
+<row><entry><literal>yyyy</literal></entry><entry>The year as four digit number (1752-8000).</entry></row>
+<row><entry><literal>h</literal></entry><entry>The hour without a leading zero (0..23 or 1..12 if AM/PM display).</entry></row>
+<row><entry><literal>hh</literal></entry><entry>The hour with a leading zero (00..23 or 01..12 if AM/PM display).</entry></row>
+<row><entry><literal>m</literal></entry><entry>The minute without a leading zero (0..59).</entry></row>
+<row><entry><literal>mm</literal></entry><entry>The minute with a leading zero (00..59).</entry></row>
+<row><entry><literal>s</literal></entry><entry>The second without a leading zero (0..59).</entry></row>
+<row><entry><literal>ss</literal></entry><entry>The second with a leading zero (00..59).</entry></row>
+<row><entry><literal>z</literal></entry><entry>The milliseconds without leading zeroes (0..999).</entry></row>
+<row><entry><literal>zzz</literal></entry><entry>The milliseconds with leading zeroes (000..999).</entry></row>
+<row><entry><literal>AP</literal></entry><entry>Use AM/PM display. AP will be replaced by either "AM" or "PM".</entry></row>
+<row><entry><literal>ap</literal></entry><entry>Use am/pm display. ap will be replaced by either "am" or "pm".</entry></row>
 </tbody>
 </tgroup>
 </informaltable>
 
-</para
-></listitem>
+</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->char</command
-><arg choice="req"
->STRING identifier</arg
-></cmdsynopsis
-></term>
+<term><cmdsynopsis><command>char</command><arg choice="req">STRING identifier</arg></cmdsynopsis></term>
 <listitem>
-<para
->Dieser Befehl erlaubt das Einsetzen von Zeichen in Text durch die Eingabe Ihrer Kodierung in dezimaler, oktaler oder hexadezimaler Form. Rufen Sie die Befehlszeile auf, schreiben Sie in das Eingabefeld das Wort <userinput
->char:[nummer]</userinput
-> und klicken Sie auf <guibutton
->OK</guibutton
->.</para>
+<para>This command allows you to insert literal characters by their
+numerical identifier, in decimal, octal or hexadecimal form.
+To use it launch the Editing Command dialog and type <userinput>char:
+[number]</userinput> in the entry box, then hit
+<guibutton>OK</guibutton>.</para>
 
 <example>
-<title
->Beispiele zu <command
->char</command
-></title>
+<title><command>char</command> examples</title>
 
-<para
->Eingabe: <userinput
->char:234</userinput
-></para>
-<para
->Ausgabe: <computeroutput
->&#234;</computeroutput
-></para>
-<para
->Eingabe: <userinput
->char:0x1234</userinput
-></para>
-<para
->Ausgabe: <computeroutput
->&#x1234;</computeroutput
-></para>
+<para>Input: <userinput>char:234</userinput></para>
+<para>Output: <computeroutput>&#234;</computeroutput></para>
+<para>Input: <userinput>char:0x1234</userinput></para>
+<para>Output: <computeroutput>&#x1234;</computeroutput></para>
 </example>
 
 </listitem>
@@ -998,163 +422,109 @@
 
 <varlistentry>
 <term>
-<indexterm
-><primary
->Ersetzen, sed-Stil</primary>
-<secondary
->Suchen, sed-Stil</secondary
-></indexterm
-><command
->s///[ig]</command
-> <command
->%s///[ig]</command
-></term>
+<indexterm><primary>replace, sed style</primary>
+<secondary>search, sed style</secondary></indexterm>
+<command>s///[ig]</command> <command>%s///[ig]</command></term>
 
 <listitem>
-<para
->Dieser Befehl führt Suchen/Ersetzen auf der aktuellen Zeile oder in der gesamten Datei aus (<command
->%s///</command
->).</para>
+<para>This command does a sed-like search/replace operation on the
+current line, or on the whole file (<command>%s///</command>).</para>
 
-<para
->Kurz gesagt, der Text wird nach dem <emphasis
->Suchtext</emphasis
->, dem regulären Ausdruck zwischen dem ersten und dem zweiten Schrägstrich, durchsucht und wenn der <emphasis
->Suchtext</emphasis
-> gefunden wurde, wird der übereinstimmende Teil des Textes durch den Ausdruck zwischen dem zweiten und dem hinterem Schrägstrich ersetzt. Runde Klammern im <emphasis
->Suchtext</emphasis
-> erzeugen <emphasis
->Referenzen</emphasis
->, die dann später dazu benutzt werden, die Zeichenfolgen wiederzuverwenden. Diese Referenzen werden wie folgt aufgerufen: <userinput
->\1</userinput
-> für die erste Referenz, <userinput
->\2</userinput
-> für die zweite und so weiter.</para>
+<para>In short, the text is searched for text matching the
+<emphasis>search pattern</emphasis>, the regular expression between
+the first and the second slash, and when a match is found, the
+matching part of the text is replaced with the expression between the
+second and last slash. Parentheses in the search pattern
+create <emphasis>back references</emphasis>, that is the command
+remembers which part of the string matched in the parentheses; these
+strings can be reused in the replace pattern, referred to as
+<userinput>\1</userinput> for the first set of parentheses,
+<userinput>\2</userinput> for the second and so on.</para>
 
-<para
->Um nach einem Sonderzeichen, <literal
->(</literal
-> oder <literal
->)</literal
->, zu suchen, müssen Sie dieses durch einen Rückwärtsschrägstrich kenntlich machen. <userinput
->\(\)</userinput
-></para>
+<para>To search for a literal <literal>(</literal> or
+<literal>)</literal>, you need to <emphasis>escape</emphasis> it using
+a backslash character: <userinput>\(\)</userinput></para>
 
-<para
->Wenn Sie ein <userinput
->i</userinput
-> an das Ende des Ausdruckes anhängen, wird beim Suchen nicht nach Groß- und Kleinbuchstaben unterschieden. Das Anhängen eines <userinput
->g</userinput
-> legt fest, dass alle Vorkommen des Suchtextes ersetzt werden, normalerweise wird nur das erste Vorkommen ersetzt.</para>
+<para>If you put an <userinput>i</userinput> at the end of the
+expression, the matching will be case insensitive. If you put a
+<userinput>g</userinput> at the end, all occurrences of the pattern will be
+replaced, otherwise only the first occurrence is replaced.</para>
 
 <example>
 
-<title
->Ersetzen von Text in der aktuellen Zeile</title>
+<title>Replacing text in the current line</title>
 
-<para
->Ihr lieber Computer verweigerte gerade die Ausführung eines Programms, mit der Bemerkung, dass die Klasse <classname
->myClass</classname
->, die in der Zeile 3902 im Quelltext verwendet wird, nicht definiert ist.</para>
+<para>Your friendly compiler just stopped, telling you that the class
+<classname>myClass</classname> mentioned in line 3902 in your source file
+is not defined.</para>
 
-<para
->&quot;Natürlich!&quot;, denken Sie, das muss <classname
->MyClass</classname
-> heißen. Sie gehen zur Zeile 3092, rufen den Bearbeitungsbefehl auf, geben <userinput
->s/myclass/MyClass/i</userinput
-> ein und klicken auf <guibutton
->OK</guibutton
->, Speichern die Datei und kompilieren &ndash; ohne Fehlermeldungen.</para>
+<para>&quot;Buckle!&quot; you think, it is of course
+<classname>MyClass</classname>. You go to line 3902, and instead of trying
+to find the word in the text, you launch the Editing Command Dialog,
+enter <userinput>s/myclass/MyClass/i</userinput>, hit the
+<guibutton>OK</guibutton> button, save the file and compile &ndash;
+successfully without the error.</para>
 
 </example>
 
 <example>
-<title
->Ersetzen von Text in der gesamten Datei</title>
+<title>Replacing text in the whole file</title>
 
-<para
->Stellen Sie sich vor, Sie hätten eine Datei, in der eine <quote
->Miss Jensen</quote
-> einige Male erwähnt wird. Jemand kommt zur Tür herein und erzählt Ihnen, dass sie gerade <quote
->Mr Jones</quote
-> geheiratet hat. Sie stehen nun vor der Aufgabe, jedes <quote
->Miss Jensen</quote
-> durch <quote
->Ms Jones</quote
-> zu ersetzen.</para>
+<para>Imagine that you have a file, in which you mention a <quote>Miss
+Jensen</quote> several times, when someone comes in and tells you that
+she just got married to <quote>Mr Jones</quote>. You want, of course,
+to replace each and every occurrence of <quote>Miss Jensen</quote>
+with <quote>Ms Jones</quote>.</para>
 
-<para
->Rufen Sie die Befehlszeile auf, geben Sie <userinput
->%s/Miss Jensen/Ms Jones/</userinput
-> ein drücken Sie die Eingabetaste - fertig.</para>
+<para>Enter the command line and issue the command
+<userinput>%s/Miss Jensen/Ms Jones/</userinput> and hit return, you
+are done.</para>
 
 </example>
 
 <example>
-<title
->Ein etwas komplizierteres Beispiel</title>
+<title>A More Advanced Example</title>
 
-<para
->Dieses Beispiel benutzt <emphasis
->Referenzen</emphasis
-> und auch eine <emphasis
->Wortklasse</emphasis
-> (wenn Sie nicht wissen, was das bedeutet, sehen Sie bitte in der unten angegebenen Dokumentation nach).</para>
+<para>This example makes use of <emphasis>back references</emphasis>
+as well as a <emphasis>character class</emphasis> (if you do not know what
+that is, please refer to the related documentation mentioned
+below).</para>
 
-<para
->Stellen Sie sich vor, Sie hätten folgende Zeile: <programlisting
->void MyClass::DoStringOps( String      &amp;foo, String &amp;bar, String *p, int  &amp;a, int &amp;b )</programlisting>
+<para>Suppose you have the following line:
+
+<programlisting>void MyClass::DoStringOps( String      &amp;foo, String &amp;bar, String *p, int  &amp;a, int &amp;b )</programlisting>
 </para>
-<para
->Sie erkennen, dass dies nicht gut lesbar ist und entscheiden, das Schlüsselwort <constant
->const</constant
-> für alle <quote
->address of</quote
->-Argumente zu verwenden (diese sind durch den vorangestellten Operator &amp; gekennzeichnet). Außerdem wollen Sie die Zwischenräume vereinfachen, sodass nur noch ein Leerzeichen zwischen den Wörtern steht.</para>
+<para>Now you realize that this is not nice code, and decide that you
+want to use the <constant>const</constant> keyword for all
+<quote>address of</quote> arguments, those characterized by the &amp;
+operator in front of the argument name. You would also like to
+simplify the white space, so that there is only 1 whitespace character
+between each word.</para>
 
-<para
->Rufen Sie den Bearbeitungsbefehl auf, geben Sie <userinput
->s/\s+(\w+)\s+(&amp;)/ const \1 \2/g</userinput
-> und klicken Sie auf <guibutton
->OK</guibutton
->. Das <userinput
->g</userinput
-> am Ende des regulären Ausdrucks bewirkt, dass der reguläre Ausdruck jedesmal neu kompiliert wird, um die <emphasis
->Referenz</emphasis
-> zu sichern.</para>
+<para>Launch the Editing Command Dialog, and enter:
+<userinput>s/\s+(\w+)\s+(&amp;)/ const \1 \2/g</userinput> and hit the
+<guibutton>OK</guibutton> button. The <userinput>g</userinput> at the end of the expression makes
+the regular expression recompile for each match to save the <emphasis>backreferences</emphasis>.</para>
 
-<para
->Ausgabe: <computeroutput
->void MyClass::DoStringOps( const String &amp;foo, const String &amp;bar, String *p, const int &amp;a, const int &amp;b )</computeroutput
-></para>
+<para>Output:
 
-<para
->Erledigt! Was passierte hier? Es wurde nach Leerzeichen (<literal
->\s+</literal
->) gefolgt von einem oder mehreren alphanumerischen Zeichen (<literal
->\w+</literal
->) gefolgt von einem oder mehreren Leerzeichen (<literal
->\s+</literal
->) gefolgt von einem Ampersand (&amp;) gesucht und dabei der alphanumerische Abschnitt und das Ampersand (&amp;) gesichert, um diese beim Ersetzen wiederzuverwenden. Dann haben wir den übereinstimmenden Teil der Zeile ersetzt durch ein Leerzeichen gefolgt von <quote
->const</quote
-> gefolgt von einem Leerzeichen gefolgt vom gesicherten Abschnitt (<literal
->\1</literal
->) gefolgt von einem Leerzeichen gefolgt vom gesicherten Ampersand (&amp;) (<literal
->\2</literal
->).</para>
+<computeroutput>void MyClass::DoStringOps( const String &amp;foo, const String &amp;bar, String *p, const int &amp;a, const int &amp;b )</computeroutput></para>
 
-<para
->In einigen Fällen war der gesicherte Abschnitt <quote
->String</quote
->, in einigen <quote
->int</quote
->, sodass das Benutzen der Wortklasse <literal
->\w</literal
-> und des <literal
->+</literal
->-Zeichens zum Angeben von <quote
->ein oder mehrere</quote
-> sich als wertvoll erwies.</para>
+<para>Mission completed! Now, what happened? Well, we looked for some
+white space (<literal>\s+</literal>) followed by one or more
+alphabetic characters (<literal>\w+</literal>) followed by some more
+whitespace (<literal>\s+</literal>) followed by an ampersand, and in
+the process saved the alphabetic chunk and the ampersand for reuse in
+the replace operation. Then we replaced the matching part of our line
+with one whitespace followed by <quote>const</quote> followed by one
+whitespace followed by our saved alphabetical chunk
+(<literal>\1</literal>) followed by one whitespace followed by our
+saved ampersand (<literal>\2</literal>)</para>
+
+<para>Now in some cases the alphabetical chunk was
+<quote>String</quote>, in some <quote>int</quote>, so using the
+character class <literal>\w</literal> and the <literal>+</literal>
+quantifier proved a valuable asset.</para>
 
 </example>
 
@@ -1163,197 +533,93 @@
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->sort</command
-></cmdsynopsis
-></term>
-<listitem
-><para
->Sortiert den markierten Text oder das ganze Dokument.</para
-></listitem>
+<term><cmdsynopsis><command>sort</command></cmdsynopsis></term>
+<listitem><para>Sorts the selected text or entire document.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->natsort</command
-></cmdsynopsis
-></term>
-<listitem
-><para
->Sortiert den markierten Text oder das ganze Dokument in natürlicher Reihenfolge.</para>
+<term><cmdsynopsis><command>natsort</command></cmdsynopsis></term>
+<listitem><para>Sort the selected lines or entire document naturally.</para>
 
 <example>
-<title
-><command
->sort</command
-> vs. <command
->natsort</command
-></title>
-<para
-><userinput
-><command
->sort</command
->(a10, a1, a2)</userinput
-> ergibt <computeroutput
->a1, a10, a2</computeroutput
-></para>
-<para
-><userinput
-><command
->natsort</command
->(a10, a1, a2)</userinput
-> ergibt <computeroutput
->a1, a2, a10</computeroutput
-></para>
-</example
-></listitem>
+<title><command>sort</command> vs. <command>natsort</command></title>
+<para><userinput><command>sort</command>(a10, a1, a2)</userinput> results in
+                            <computeroutput>a1, a10, a2</computeroutput></para>
+<para><userinput><command>natsort</command>(a10, a1, a2)</userinput> results in
+                            <computeroutput>a1, a2, a10</computeroutput></para>
+</example></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->moveLinesDown</command
-></cmdsynopsis
-></term>
-<listitem
-><para
->Verschiebt die markierten Zeilen nach unten.</para
-></listitem>
+<term><cmdsynopsis><command>moveLinesDown</command></cmdsynopsis></term>
+<listitem><para>Move selected lines down.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->moveLinesUp</command
-></cmdsynopsis
-></term>
-<listitem
-><para
->Verschiebt die markierten Zeilen nach oben.</para
-></listitem>
+<term><cmdsynopsis><command>moveLinesUp</command></cmdsynopsis></term>
+<listitem><para>Move selected lines up.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->uniq</command
-></cmdsynopsis
-></term>
-<listitem
-><para
->Entfernt doppelte Zeilen aus dem markierten Text oder dem gesamten Dokument.</para
-></listitem>
+<term><cmdsynopsis><command>uniq</command></cmdsynopsis></term>
+<listitem><para>Remove duplicated lines from the selected text or the whole
+document.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->rtrim</command
-></cmdsynopsis
-></term>
-<listitem
-><para
->Entfernt Leerzeichen am Zeilenende aus dem markierten Text oder dem gesamten Dokument.</para
-></listitem>
+<term><cmdsynopsis><command>rtrim</command></cmdsynopsis></term>
+<listitem><para>Remove trailing space from the selected text or the whole
+document.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->ltrim</command
-></cmdsynopsis
-></term>
-<listitem
-><para
->Entfernt Leerzeichen am Zeilenanfang aus dem markierten Text oder dem gesamten Dokument.</para
-></listitem>
+<term><cmdsynopsis><command>ltrim</command></cmdsynopsis></term>
+<listitem><para>Remove leading space from the selected text or the whole
+document.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->join</command
-><arg choice="opt"
->STRING separator</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Verbindet die ausgewählten Zeilen oder das gesamte Dokument. Wahlweise kann ein Parameter mit der Definition des Trennzeichens angegeben werden, zum Beispiel <userinput
-><command
->join</command
-> ', '</userinput
-> </para
-></listitem>
+<term><cmdsynopsis><command>join</command><arg choice="opt">STRING separator</arg></cmdsynopsis></term>
+<listitem><para>Join selected lines or whole document.  Optionally takes a parameter
+defining a separator, for example:  <userinput><command>join</command> ', '</userinput>
+</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->rmblank</command
-></cmdsynopsis
-></term>
-<listitem
-><para
->Entfernt alle Leerzeichen aus dem markierten Text oder dem gesamten Dokument.</para
-></listitem>
+<term><cmdsynopsis><command>rmblank</command></cmdsynopsis></term>
+<listitem><para>Remove all blank spaces from the selected text or the whole
+document.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->unwrap</command
-></cmdsynopsis
-></term>
-<listitem
-><para
->Entfernt den Zeilenumbruch aus dem markierten Text oder dem gesamten Dokument.</para
-></listitem>
+<term><cmdsynopsis><command>alignon</command></cmdsynopsis></term>
+<listitem>
+<para>This command aligns lines in the selected block or whole document on the column given by a regular expression given as an argument.</para>
+<para>If you give an empty pattern it will align on the first non-blank character by default.</para>
+<para>If the pattern has a capture it will indent on the captured match.</para>
+<para><emphasis>Examples:</emphasis></para>
+<para><userinput>alignon -</userinput> will insert spaces before the first '-' of each lines to align them all on the same column.</para>
+<para><userinput>alignon :\\s+(.)</userinput> will insert spaces before the first non-blank character that occurs after a colon to align them all on the same column.</para>
+</listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->each</command
-><arg choice="req"
->STRING script</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Mit einer &javascript;-Funktion als Argument wird diese Funktion für die Liste der ausgewählten Zeilen aufgerufen und die Zeilen mit dem Rückgabewert der Funktion ersetzt</para>
+<term><cmdsynopsis><command>unwrap</command></cmdsynopsis></term>
+<listitem><para>Unwrap the selected text or the whole document.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>each</command><arg choice="req">STRING script</arg></cmdsynopsis></term>
+<listitem><para>Given a &javascript; function as an argument, call that for the list of
+selected lines and replace them with the return value of that callback.</para>
 
 <example>
-<title
->Verbindet die ausgewählten Zeilen</title>
-<para
-><userinput
-><command
->each</command
-> 'function(lines){return lines.join(", ")}' </userinput
-></para>
+<title>Join selected lines</title>
+<para><userinput><command>each</command> 'function(lines){return lines.join(", ")}'
+</userinput></para>
 
-<para
->Oder noch kürzer:</para>
-<para
-><userinput
-><command
->each</command
-> 'lines.join(", ")'</userinput
-></para>
+<para>Or, more briefly:</para>
+<para><userinput><command>each</command> 'lines.join(", ")'</userinput></para>
 </example>
 
 </listitem>
@@ -1362,102 +628,49 @@
 
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->filter</command
-><arg choice="req"
->STRING script</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Mit einer &javascript;-Funktion als Argument wird diese Funktion für die ausgewählten Zeilen aufgerufen und die Zeilen werden entfernt, bei denen die Funktion den Wert Falsch zurück gibt</para>
+<term><cmdsynopsis><command>filter</command><arg choice="req">STRING script</arg></cmdsynopsis></term>
+<listitem><para>Given a &javascript; function as an argument, call that for the list of
+selected lines and remove those where the callback returns false.</para>
 
 <example>
-<title
->Entfernt leere Zeilen.</title>
-<para
-><userinput
-><command
->filter</command
-> 'function(1){return 1.length 
-> 0;}' </userinput
-></para>
+<title>Remove blank lines</title>
+<para><userinput><command>filter</command> 'function(1){return 1.length > 0;}'
+</userinput></para>
 
-<para
->Oder noch kürzer:</para>
-<para
-><userinput
-><command
->filter</command
-> 'line.length 
-> 0'</userinput
-></para>
+<para>Or, more briefly:</para>
+<para><userinput><command>filter</command> 'line.length > 0'</userinput></para>
 </example>
 
 </listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->map</command
-><arg choice="req"
->STRING script</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Mit einer &javascript;-Funktion als Argument wird diese Funktion für die Liste der ausgewählten Zeilen aufgerufen und die Zeile mit dem Rückgabewert der Funktion ersetzt</para>
+<term><cmdsynopsis><command>map</command><arg choice="req">STRING script</arg></cmdsynopsis></term>
+<listitem><para>Given a &javascript; function as an argument, call that for the list of
+selected lines and replace the line with the value of the callback.</para>
 
 <example>
-<title
->Entfernt leere Zeilen.</title>
-<para
-><userinput
-><command
->map</command
-> 'function(line){return line.replace(/^s+/,"");}' </userinput
-></para>
+<title>Remove blank lines</title>
+<para><userinput><command>map</command> 'function(line){return
+line.replace(/^s+/,"");}'
+</userinput></para>
 
-<para
->Oder noch kürzer:</para>
-<para
-><userinput
-><command
->map</command
-> 'line.replace(/^s+/,"")'</userinput
-></para>
+<para>Or, more briefly:</para>
+<para><userinput><command>map</command> 'line.replace(/^s+/,"")'</userinput></para>
 </example>
 
 </listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->duplicateLinesUp</command
-></cmdsynopsis
-></term>
-<listitem
-><para
->Verdoppelt die ausgewählten Zeilen oberhalb der aktuellen Auswahl.</para>
+<term><cmdsynopsis><command>duplicateLinesUp</command></cmdsynopsis></term>
+<listitem><para>Duplicate the selected lines above the current selection.</para>
 </listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->duplicateLinesDown</command
-></cmdsynopsis
-></term>
-<listitem
-><para
->Verdoppelt die ausgewählten Zeilen unterhalb der aktuellen Auswahl.</para>
+<term><cmdsynopsis><command>duplicateLinesDown</command></cmdsynopsis></term>
+<listitem><para>Duplicate the selected lines below the current selection.</para>
 </listitem>
 </varlistentry>
 
@@ -1466,140 +679,68 @@
 </sect3>
 
 <sect3 id="advanced-editing-tools-commandline-commands-navigation">
-<title
->Befehle zur Bewegung im Dokument</title>
+<title>Commands for navigation</title>
 
 <variablelist>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->goto</command
-><arg choice="req"
->INT line</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Dieser Befehl setzt den Cursor auf die angegebene Zeile.</para
-></listitem>
+<term><cmdsynopsis><command>goto</command><arg choice="req">INT line</arg></cmdsynopsis></term>
+<listitem><para>This command navigates to the specified line.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->grep</command
-> <arg choice="req"
->STRING pattern</arg
-> </cmdsynopsis
-></term>
-<listitem
-><para
->Sucht im Dokument nach dem regulären Ausdruck <userinput
->muster</userinput
->. Weitere Informationen finden Sie unter <xref linkend="regular-expressions"/>.</para>
+<term><cmdsynopsis><command>grep</command> <arg choice="req">STRING pattern</arg>
+</cmdsynopsis></term>
+<listitem><para>Search the document for the regular expression
+<userinput>pattern</userinput>. For more information, see
+<xref linkend="regular-expressions" />.</para>
 </listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->find</command
-><arg choice="req"
->STRING pattern</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Dieser Befehl setzt den Cursor auf das erste Auftreten des <userinput
->Suchtext</userinput
-> entsprechend der Einstellungen. Weitere Fundstellen werden durch <menuchoice
-><guimenu
->Bearbeiten</guimenu
-> <guimenuitem
->Weitersuchen</guimenuitem
-></menuchoice
-> oder Drücken des Tastenkürzels (Standard ist  <keycap
->F3</keycap
->) gefunden.</para>
-<para
->Der Befehl <userinput
->find</userinput
-> kann durch das Anhängen eines Doppelpunktes und eines oder mehrerer Buchstaben in der Form <userinput
->find:options pattern</userinput
-> ergänzt werden. Die folgenden Einstellungen sind verfügbar:</para>
+<term><cmdsynopsis><command>find</command><arg choice="req">STRING pattern</arg></cmdsynopsis></term>
+<listitem><para>This command navigates to the first occurrence of
+<userinput>pattern</userinput> according to the configuration. Following
+occurrences can be found using
+<menuchoice><guimenu>Edit</guimenu><guimenuitem>Find Next</guimenuitem></menuchoice>
+(the default shortcut is <keycap>F3</keycap>).</para>
+<para>The find command can be configured by appending a colon followed by one or
+more options, the form is
+<userinput>find:options pattern</userinput>. The
+    following options are supported:</para>
 
 <variablelist>
 
 <varlistentry>
-<term
-><userinput
->b</userinput
-></term>
-<listitem
-><para
->Rückwärts suchen.</para
-></listitem>
+<term><userinput>b</userinput></term>
+<listitem><para>Search backwards.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><userinput
->c</userinput
-></term>
-<listitem
-><para
->Suchen ab Cursor-Position.</para
-></listitem>
+<term><userinput>c</userinput></term>
+<listitem><para>Search from cursor position.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><userinput
->e</userinput
-></term>
-<listitem
-><para
->Suchen nur in markiertem Text.</para
-></listitem>
+<term><userinput>e</userinput></term>
+<listitem><para>Search in the selection only.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><userinput
->r</userinput
-></term>
-<listitem
-><para
->Suche nach einem regulären Ausdruck. Wenn diese Einstellung verwendet wird, können Sie <userinput
->\N</userinput
-> im Ersetzungstext verwenden, die Anzahl, wie oft der Suchtext gefunden wurde, wird dann in den Ersetzungstext eingefügt.</para
-></listitem>
+<term><userinput>r</userinput></term>
+<listitem><para>Do regular expression search. If set, you may use
+<userinput>\N</userinput> where N is a number to represent captures in the
+replacement string.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><userinput
->s</userinput
-></term>
-<listitem
-><para
->Suche unter Berücksichtigung von Groß- und Kleinschreibung.</para
-></listitem>
+<term><userinput>s</userinput></term>
+<listitem><para>Do case sensitive search.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><userinput
->w</userinput
-></term>
-<listitem
-><para
->Nur ganze Wörter erfüllen die Suchbedingung.</para
-></listitem>
+<term><userinput>w</userinput></term>
+<listitem><para>Match whole words only.</para></listitem>
 </varlistentry>
 
 </variablelist>
@@ -1608,68 +749,35 @@
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->ifind</command
-><arg choice="req"
->STRING pattern</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Dieser Befehl sucht <quote
->schon beim Eingeben</quote
-> nach dem Suchtext. Sie können auch hier die Suche durch Anhängen eines Doppelpunktes und eines oder mehrerer Buchstaben in ihrem Verhalten anpassen. Die Eingabe muss dann in der Form: <userinput
->ifind:options suchtext</userinput
-> erfolgen. Die folgenden Einstellungen stehen zur Verfügung: <variablelist>
+<term><cmdsynopsis><command>ifind</command><arg choice="req">STRING pattern</arg></cmdsynopsis></term>
+<listitem><para>This command provides <quote>as-you-type</quote> searching. You
+can configure the behavior of the search by appending a colon
+followed by one or more options, like this:
+<userinput>ifind:options pattern</userinput>. Allowed options are:
+
+<variablelist>
 <varlistentry>
-<term
-><userinput
->b</userinput
-></term>
-<listitem
-><para
->Rückwärts suchen.</para
-></listitem>
+<term><userinput>b</userinput></term>
+<listitem><para>Search backwards.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><userinput
->r</userinput
-></term>
-<listitem
-><para
->Suche nach einem regulären Ausdruck.</para
-></listitem>
+<term><userinput>r</userinput></term>
+<listitem><para>Do regular expression search.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><userinput
->s</userinput
-></term>
-<listitem
-><para
->Suche unter Berücksichtigung von Groß- und Kleinschreibung.</para
-></listitem>
+<term><userinput>s</userinput></term>
+<listitem><para>Do case sensitive search.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><userinput
->c</userinput
-></term>
-<listitem
-><para
->Suchen ab Cursor-Position.</para
-></listitem>
+<term><userinput>c</userinput></term>
+<listitem><para>Search from cursor position.</para></listitem>
 </varlistentry>
 
 </variablelist>
-</para
-></listitem>
+</para></listitem>
 </varlistentry>
 
 </variablelist>
@@ -1678,204 +786,92 @@
 
 
 <sect3 id="advanced-editing-tools-commandline-commands-basic">
-<title
->Befehle für die grundlegenden Editor-Funktionen. Diese hängen von der Anwendung ab, in der die Editorkomponente verwendet wird.</title>
+<title>Commands for Basic Editor Functions (These depend on the application the editor component is used in)</title>
 
 <variablelist>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->w</command
-></cmdsynopsis
-></term>
-<listitem
-><para
->Speichert das aktuelle Dokument.</para
-></listitem>
+<term><cmdsynopsis><command>w</command></cmdsynopsis></term>
+<listitem><para>Save the current document.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->wa</command
-></cmdsynopsis
-></term>
-<listitem
-><para
->Speichert alle gerade geöffneten Dateien.</para
-></listitem>
+<term><cmdsynopsis><command>wa</command></cmdsynopsis></term>
+<listitem><para>Save all currently open documents.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->q</command
-></cmdsynopsis
-></term>
-<listitem
-><para
->Schließt das aktuelle Dokument.</para
-></listitem>
+<term><cmdsynopsis><command>q</command></cmdsynopsis></term>
+<listitem><para>Close the current document.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->qa</command
-></cmdsynopsis
-></term>
-<listitem
-><para
->Schließt alle geöffneten Dokumente.</para
-></listitem>
+<term><cmdsynopsis><command>qa</command></cmdsynopsis></term>
+<listitem><para>Close all open documents.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->wq</command
-></cmdsynopsis
-></term>
-<listitem
-><para
->Speichert und schließt das aktuelle Dokument.</para
-></listitem>
+<term><cmdsynopsis><command>wq</command></cmdsynopsis></term>
+<listitem><para>Save and close the current document.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->wqa</command
-></cmdsynopsis
-></term>
-<listitem
-><para
->Speichert und schließt alle geöffneten Dokumente.</para
-></listitem>
+<term><cmdsynopsis><command>wqa</command></cmdsynopsis></term>
+<listitem><para>Save and close all currently open documents.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->x</command
-></cmdsynopsis
-></term>
-<listitem
-><para
->Speichert und schließt das aktuelle Dokument nur, wenn es geändert wurde. </para
-></listitem>
+<term><cmdsynopsis><command>x</command></cmdsynopsis></term>
+<listitem><para>Save and close the current document only if it has changed.
+</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->x</command
-></cmdsynopsis
-></term>
-<listitem
-><para
->Speichert und schließt alle geöffneten Dokument nur, wenn sie geändert wurden.</para
-></listitem>
+<term><cmdsynopsis><command>x</command></cmdsynopsis></term>
+<listitem><para>Save and close all currently open documents only if they have
+changed.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->bp</command
-></cmdsynopsis
-></term>
-<listitem
-><para
->Geht zum vorherigen Dokument in der Dokumentliste. </para
-></listitem>
+<term><cmdsynopsis><command>bp</command></cmdsynopsis></term>
+<listitem><para>Go to the previous document in the documents list.
+</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->bn</command
-></cmdsynopsis
-></term>
-<listitem
-><para
->Geht zum nächsten Dokument in der Dokumentliste. </para
-></listitem>
+<term><cmdsynopsis><command>bn</command></cmdsynopsis></term>
+<listitem><para>Go to the next document in the documents list.
+</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->new</command
-></cmdsynopsis
-></term>
-<listitem
-><para
->Öffnet ein neues Dokument in waagerecht geteilter Ansicht. </para
-></listitem>
+<term><cmdsynopsis><command>new</command></cmdsynopsis></term>
+<listitem><para>Open a new document in horizontal split view.
+</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->vnew</command
-></cmdsynopsis
-></term>
-<listitem
-><para
->Öffnet ein neues Dokument in senkrecht geteilter Ansicht. </para
-></listitem>
+<term><cmdsynopsis><command>vnew</command></cmdsynopsis></term>
+<listitem><para>Open a new document in vertical split view.
+</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->e</command
-></cmdsynopsis
-></term>
-<listitem
-><para
->Lädt das aktuelle Dokument erneut, wenn es auf dem Datenträger geändert wurde. </para
-></listitem>
+<term><cmdsynopsis><command>e</command></cmdsynopsis></term>
+<listitem><para>Reload the current document if it has changed on disk.
+</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->enew</command
-></cmdsynopsis
-></term>
-<listitem
-><para
->Bearbeitet ein neues Dokument. </para
-></listitem>
+<term><cmdsynopsis><command>enew</command></cmdsynopsis></term>
+<listitem><para>Edit a new document.
+</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><cmdsynopsis
-><command
->print</command
-></cmdsynopsis
-></term>
-<listitem
-><para
->Öffnet den Druckdialog, um das aktuelle Dokument zu drucken. </para
-></listitem>
+<term><cmdsynopsis><command>print</command></cmdsynopsis></term>
+<listitem><para>Open the Print dialog to print the current document.
+</para></listitem>
 </varlistentry>
 
 </variablelist>
@@ -1888,39 +884,36 @@
 </sect1>
 
 <sect1 id="advanced-editing-tools-code-folding">
-<title
->Benutzen von Quelltextausblendung</title>
+<title>Using Code Folding</title>
 
-<para
->Quelltextausblendung dient zum Verstecken von Teilen des Dokuments im Editor, sodass große Dokumente einfacher zu lesen sind. In &kappname; werden die ausblendbaren Abschnitte unter Zugrundelegung der Hervorhebungsregeln ermittelt und demzufolge sind Quelltextausblendungen nur in manchen Formaten verfügbar. Dies sind besonders Quelltexte in Programmiersprachen, XML und Ähnliches. Die meisten Hervorhebungsregeln, die Quelltextausblendungen bereitstellen, lassen auch die manuelle Festlegung von ausblendbaren Abschnitten zu, üblicherweise werden dazu die Schlüsselwörter <userinput
->BEGIN</userinput
-> und <userinput
->END</userinput
-> benutzt.</para>
+<para>Code folding allows you to hide parts of a document in the editor, making
+it easier to overview large documents. In &kappname; the foldable regions are
+calculated using rules defined in the syntax highlight definitions, and
+therefore it is only available in some formats - typically program source code,
+XML markup and similar. Most highlight definitions supporting code folding
+also lets you manually define foldable regions, typically using the
+<userinput>BEGIN</userinput> and <userinput>END</userinput> keywords.</para>
 
-<para
->Um die Funktion Quelltextausblendung zu benutzen, wählen Sie im Menü <menuchoice
-><guimenu
->Ansicht</guimenu
-><guimenuitem
->Markierungen für Quelltextausblendungen anzeigen</guimenuitem
-></menuchoice
->. Es wird dann am linken Rand des Editorfensters ein grauer Rand eingeblendet, der eine grafische Darstellung der ausblendbaren Abschnitte enthält. In diesen Markierungen sind Symbole enthalten, die die möglichen Operationen anzeigen. Wenn zum Beispiel ein Dreieck mit der Spitze nach unten angezeigt wird, kann dieser Abschnitt ausgeblendet werden, ein nach rechts zeigendes Dreieck dagegen zeigt, dass hier ein Abschnitt ausgeblendet wurde. Dieser kann durch Klicken auf das Dreiecksymbol wieder eingeblendet werden.</para>
+<para>To use the code folding feature, activate the folding markers using
+<menuchoice><guimenu>View</guimenu><guimenuitem>Show Folding
+Markers</guimenuitem></menuchoice> menu item if they are not already visible.
+The Folding Markers Pane on the left side of the screen displays a graphical
+view of the foldable regions, with triangle symbols to indicate the possible operation
+on a given region: a top down triangle means that the region is expanded, clicking it will
+collapse the region and a right pointing triangle will be displayed instead.</para>
 <!--FIXME change Three to Four when Unfold Toplevel Nodes action is back-->
-<para
->Drei Befehle sind im Menü enthalten, die die Quelltextausblendung beeinflussen, sehen Sie in der <link linkend="view-code-folding"
->Menü-Dokumentation</link
-> für weitere Einzelheiten nach. </para>
+<para>Three commands are provided to manipulate the state of folding regions,
+ see the <link linkend="view-code-folding">menu documentation</link>.
+ </para>
 
-<para
->Der Status der Quelltextausblendung wird gespeichert, wenn eine Datei geschlossen wird. Öffnen Sie diese Datei erneut, wird sie mit den ausgeblendeten Ebenen wie beim Schließen angezeigt. Auch beim erneuten Laden einer Datei bleibt die eingestellte Quelltextausblendung erhalten.</para>
+<para>The folded lines are remembered when a file is closed, so when you reopen
+the file the folded nodes will still be folded. This applies to reload operations
+as well.</para>
 
-<para
->Wenn Sie keine Quelltextausblendung benutzen wollen, dann können Sie die Funktion <guilabel
->Markierung für Quelltextausblendungen anzeigen</guilabel
-> auf der Seite <link linkend="appearance"
->Erscheinungsbild</link
-> in den Einstellungen komplett ausschalten.</para>
+<para>If you do not want to use the code folding feature, you can disable
+the <guilabel>Show folding markers (if available)</guilabel> option in the
+<link linkend="appearance">Appearance</link> page of the editor
+configuration.</para>
 
 </sect1>
 

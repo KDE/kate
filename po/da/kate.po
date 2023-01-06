@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-01 01:03+0000\n"
+"POT-Creation-Date: 2023-01-06 00:51+0000\n"
 "PO-Revision-Date: 2020-07-27 23:03+0200\n"
 "Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
@@ -218,10 +218,11 @@ msgstr ""
 msgid "%1 doesn't exist in a git repo."
 msgstr ""
 
-#: lib/commitfilesview.cpp:488
+#: lib/commitfilesview.cpp:495
 #, fuzzy, kde-format
 #| msgid "Comment"
-msgid "Commit"
+msgctxt "@title:tab"
+msgid "Commit %1"
 msgstr "Kommentar"
 
 #. i18n: ectx: Menu (file)
@@ -402,6 +403,18 @@ msgstr ""
 #, kde-format
 msgid "Jump to Previous Hunk"
 msgstr ""
+
+#: lib/diff/diffwidget.cpp:644 lib/diff/diffwidget.cpp:844
+#, fuzzy, kde-format
+#| msgid "New file name"
+msgid "New file %1"
+msgstr "Nyt filnavn"
+
+#: lib/diff/diffwidget.cpp:646 lib/diff/diffwidget.cpp:846
+#, fuzzy, kde-format
+#| msgid "Delete file"
+msgid "Deleted file %1"
+msgstr "Slet filen"
 
 #: lib/filehistorywidget.cpp:286
 #, kde-format
@@ -2198,57 +2211,57 @@ msgstr[1] ""
 "Der er i øjeblikket yderligere %1 dokumenter åbne. Skift til kvikåbn-visning "
 "ved at klikke her for at se alle åbne dokumenter."
 
-#: lib/kateviewspace.cpp:999
+#: lib/kateviewspace.cpp:996
 #, fuzzy, kde-format
 #| msgid "Close"
 msgid "Close Tab"
 msgstr "Luk"
 
-#: lib/kateviewspace.cpp:1017
+#: lib/kateviewspace.cpp:1014
 #, kde-format
 msgid "&Close Document"
 msgstr "&Luk dokument"
 
-#: lib/kateviewspace.cpp:1018
+#: lib/kateviewspace.cpp:1015
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "Luk andre &dokumenter"
 
-#: lib/kateviewspace.cpp:1019
+#: lib/kateviewspace.cpp:1016
 #, fuzzy, kde-format
 #| msgid "Close all documents"
 msgid "Close &All Documents"
 msgstr "Luk alle dokumenter"
 
-#: lib/kateviewspace.cpp:1021
+#: lib/kateviewspace.cpp:1018
 #, fuzzy, kde-format
 #| msgid "Next Document"
 msgid "D&etach Document"
 msgstr "Næste dokument"
 
-#: lib/kateviewspace.cpp:1022
+#: lib/kateviewspace.cpp:1019
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1031
+#: lib/kateviewspace.cpp:1028
 #, fuzzy, kde-format
 #| msgid "Compare with active document"
 msgid "Compare with Active Document"
 msgstr "Sammenlign med det aktive dokument"
 
-#: lib/kateviewspace.cpp:1037
+#: lib/kateviewspace.cpp:1034
 #, fuzzy, kde-format
 #| msgid "Compare with active document"
 msgid "Compare with Active Document Using"
 msgstr "Sammenlign med det aktive dokument"
 
-#: lib/kateviewspace.cpp:1104
+#: lib/kateviewspace.cpp:1101
 #, kde-format
 msgid "Could not start program"
 msgstr "Kunne ikke starte programmet"
 
-#: lib/kateviewspace.cpp:1105
+#: lib/kateviewspace.cpp:1102
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr "Det valgte program kunne ikke startes. Måske er det ikke installeret."

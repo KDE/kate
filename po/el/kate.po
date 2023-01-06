@@ -10,7 +10,7 @@
 # Toussis Manolis <manolis@koppermind.homelinux.org>, 2005, 2007, 2008, 2009.
 # Antonis Geralis <capoiosct@gmail.com>, 2012.
 # Dimitrios Glentadakis <dglent@gmail.com>, 2012, 2013.
-# Stelios <sstavra@gmail.com>, 2012, 2016, 2017, 2018, 2019, 2020, 2021, 2022.
+# Stelios <sstavra@gmail.com>, 2012, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023.
 # Bouklis Panos <panos@echidna-band.com>, 2012.
 # Dimitris Kardarakos <dimkard@gmail.com>, 2014.
 # Petros Vidalis <pvidalis@gmail.com>, 2016.
@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-01 01:03+0000\n"
-"PO-Revision-Date: 2022-12-31 11:28+0200\n"
+"POT-Creation-Date: 2023-01-06 00:51+0000\n"
+"PO-Revision-Date: 2023-01-05 10:46+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
 "Language: el\n"
@@ -241,9 +241,11 @@ msgstr "Μη έγκυρος κατακερματισμός"
 msgid "%1 doesn't exist in a git repo."
 msgstr "Το %1 δεν υπάρχει σε αποθετήριο git."
 
-#: lib/commitfilesview.cpp:488
-#, kde-format
-msgid "Commit"
+#: lib/commitfilesview.cpp:495
+#, fuzzy, kde-format
+#| msgid "Commit"
+msgctxt "@title:tab"
+msgid "Commit %1"
 msgstr "Αποστολή στο αποθετήριο (commit)"
 
 #. i18n: ectx: Menu (file)
@@ -420,6 +422,18 @@ msgstr "Μετάβαση στο επόμενο σύνολο γραμμών πο�
 msgid "Jump to Previous Hunk"
 msgstr "Μετάβαση στο προηγούμενο σύνολο γραμμών που διαφέρουν"
 
+#: lib/diff/diffwidget.cpp:644 lib/diff/diffwidget.cpp:844
+#, fuzzy, kde-format
+#| msgid "New file name"
+msgid "New file %1"
+msgstr "Νέο όνομα αρχείου"
+
+#: lib/diff/diffwidget.cpp:646 lib/diff/diffwidget.cpp:846
+#, fuzzy, kde-format
+#| msgid "Delete file"
+msgid "Deleted file %1"
+msgstr "Διαγραφή αρχείου"
+
 #: lib/filehistorywidget.cpp:286
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
@@ -433,11 +447,10 @@ msgid "Failed to get file history: %1"
 msgstr "Αποτυχία ανάκτησης ιστορικού του αρχείου: %1"
 
 #: lib/filehistorywidget.cpp:352
-#, fuzzy, kde-format
-#| msgid "File History"
+#, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
-msgstr "Ιστορικό αρχείου"
+msgstr "Ιστορικό αρχείου - %1"
 
 #: lib/kateapp.cpp:146
 #, kde-format
@@ -893,7 +906,7 @@ msgstr "Εμφάνιση κειμένου για τα κουμπιά στις π
 #: lib/kateconfigdialog.cpp:440
 #, kde-format
 msgid "Icon size for left and right sidebar buttons"
-msgstr "Μέγεθος εικονιδιών για τα κουμπιά στις πλευρικές μπάρες"
+msgstr "Μέγεθος εικονιδίων για τα κουμπιά στις πλευρικές μπάρες"
 
 #: lib/kateconfigdialog.cpp:459
 #, kde-format
@@ -911,7 +924,7 @@ msgid ""
 "A high limit can increase the window size, please enable 'Allow tab "
 "scrolling' to prevent it. Unlimited tabs are always scrollable."
 msgstr ""
-"Ενεργοποιήτε το 'Να επιτρέπεται η κύλιση καρτέλας' για να εμποδίσετε την "
+"Ενεργοποιήστε το 'Να επιτρέπεται η κύλιση καρτέλας' για να εμποδίσετε την "
 "αύξηση του μεγέθους του παραθύρου εξαιτίας ενός υψηλού ορίου. Οι χωρίς όριο "
 "καρτέλες είναι πάντα κυλιόμενες."
 
@@ -2205,52 +2218,52 @@ msgstr[1] ""
 "Αυτή τη στιγμή είναι ανοιχτά %1 ακόμα έγγραφα. Για να δείτε όλα τα ανοιχτά "
 "έγγραφα, κάντε εναλλαγή σε προβολή \"Γρήγορου ανοίγματος\" κάνοντας κλικ εδώ."
 
-#: lib/kateviewspace.cpp:999
+#: lib/kateviewspace.cpp:996
 #, kde-format
 msgid "Close Tab"
 msgstr "Κλείσιμο καρτέλας"
 
-#: lib/kateviewspace.cpp:1017
+#: lib/kateviewspace.cpp:1014
 #, kde-format
 msgid "&Close Document"
 msgstr "&Κλείσιμο εγγράφου"
 
-#: lib/kateviewspace.cpp:1018
+#: lib/kateviewspace.cpp:1015
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "Κλείσιμο των άλλων &εγγράφων"
 
-#: lib/kateviewspace.cpp:1019
+#: lib/kateviewspace.cpp:1016
 #, kde-format
 msgid "Close &All Documents"
 msgstr "Κλείσιμο ό&λων των εγγράφων"
 
-#: lib/kateviewspace.cpp:1021
+#: lib/kateviewspace.cpp:1018
 #, kde-format
 msgid "D&etach Document"
 msgstr "Απόσπαση &εγγράφου"
 
-#: lib/kateviewspace.cpp:1022
+#: lib/kateviewspace.cpp:1019
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "Ανοίγει το έγγραφο σε νέο παράθυρο και το κλείνει στο τρέχον"
 
-#: lib/kateviewspace.cpp:1031
+#: lib/kateviewspace.cpp:1028
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Σύγκρινε με το ενεργό έγγραφο"
 
-#: lib/kateviewspace.cpp:1037
+#: lib/kateviewspace.cpp:1034
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Σύγκρινε με το ενεργό έγγραφο με χρήση"
 
-#: lib/kateviewspace.cpp:1104
+#: lib/kateviewspace.cpp:1101
 #, kde-format
 msgid "Could not start program"
 msgstr "Αδυναμία εκκίνησης προγράμματος"
 
-#: lib/kateviewspace.cpp:1105
+#: lib/kateviewspace.cpp:1102
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""
@@ -2478,7 +2491,7 @@ msgstr "Αυτόματη αποθήκευση και ανάκτηση:"
 #: lib/ui/sessionconfigwidget.ui:67
 #, kde-format
 msgid "Newly-created unsaved files"
-msgstr "Νεοδημιουργημένα μη αποθηκευμένα αρχεία"
+msgstr "Νεο-δημιουργημένα μη αποθηκευμένα αρχεία"
 
 #. i18n: ectx: property (text), widget (QCheckBox, stashUnsavedFilesChanges)
 #: lib/ui/sessionconfigwidget.ui:77

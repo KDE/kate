@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-01 01:03+0000\n"
+"POT-Creation-Date: 2023-01-06 00:51+0000\n"
 "PO-Revision-Date: 2019-09-25 17:04+0500\n"
 "Last-Translator: Victor Ibragimov <victor.ibragimov@gmail.com>\n"
 "Language-Team: English <kde-i18n-doc@kde.org>\n"
@@ -200,10 +200,11 @@ msgstr ""
 msgid "%1 doesn't exist in a git repo."
 msgstr ""
 
-#: lib/commitfilesview.cpp:488
+#: lib/commitfilesview.cpp:495
 #, fuzzy, kde-format
 #| msgid "Comment"
-msgid "Commit"
+msgctxt "@title:tab"
+msgid "Commit %1"
 msgstr "Шарҳ"
 
 #. i18n: ectx: Menu (file)
@@ -383,6 +384,18 @@ msgstr ""
 #| msgid "Restore loca&tion"
 msgid "Jump to Previous Hunk"
 msgstr "&Ёфтани аз нав тасвир кардан"
+
+#: lib/diff/diffwidget.cpp:644 lib/diff/diffwidget.cpp:844
+#, fuzzy, kde-format
+#| msgid "New file name"
+msgid "New file %1"
+msgstr "Номи нави файл"
+
+#: lib/diff/diffwidget.cpp:646 lib/diff/diffwidget.cpp:846
+#, fuzzy, kde-format
+#| msgid "Delete file"
+msgid "Deleted file %1"
+msgstr "Нест кардани файл"
 
 #: lib/filehistorywidget.cpp:286
 #, kde-format
@@ -2099,55 +2112,55 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/kateviewspace.cpp:999
+#: lib/kateviewspace.cpp:996
 #, fuzzy, kde-format
 msgid "Close Tab"
 msgstr "&Намуди Ҳозира Пӯшидан"
 
-#: lib/kateviewspace.cpp:1017
+#: lib/kateviewspace.cpp:1014
 #, kde-format
 msgid "&Close Document"
 msgstr "&Пӯшидани ҳуҷҷат"
 
-#: lib/kateviewspace.cpp:1018
+#: lib/kateviewspace.cpp:1015
 #, kde-format
 msgid "Close Other &Documents"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1019
+#: lib/kateviewspace.cpp:1016
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "Close &All Documents"
 msgstr "Пӯшидани ҳуҷҷат"
 
-#: lib/kateviewspace.cpp:1021
+#: lib/kateviewspace.cpp:1018
 #, fuzzy, kde-format
 #| msgid "&Document"
 msgid "D&etach Document"
 msgstr "&Ҳуҷҷат"
 
-#: lib/kateviewspace.cpp:1022
+#: lib/kateviewspace.cpp:1019
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1031
+#: lib/kateviewspace.cpp:1028
 #, fuzzy, kde-format
 #| msgid "Close the current document."
 msgid "Compare with Active Document"
 msgstr "Пӯшидани ҳуҷҷати ҷорӣ."
 
-#: lib/kateviewspace.cpp:1037
+#: lib/kateviewspace.cpp:1034
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1104
+#: lib/kateviewspace.cpp:1101
 #, kde-format
 msgid "Could not start program"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1105
+#: lib/kateviewspace.cpp:1102
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-13 01:01+0000\n"
-"PO-Revision-Date: 2023-01-02 09:38+0200\n"
+"PO-Revision-Date: 2023-01-05 10:48+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
 "Language: el\n"
@@ -352,13 +352,11 @@ msgid "Configure Documents"
 msgstr "Διαμόρφωση εγγράφων"
 
 #: katefiletreemodel.cpp:493
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open With"
+#, kde-format
 msgctxt ""
 "Open here is a description, i.e. 'list of widgets that are open' not a verb"
 msgid "Open Widgets"
-msgstr "Άνοιγμα με"
+msgstr "Ανοικτά γραφικά συστατικά"
 
 #: katefiletreemodel.cpp:647
 #, kde-format

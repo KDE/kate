@@ -2,351 +2,236 @@
 <chapter id="kate-part">
 <chapterinfo>
 <authorgroup>
-<author
->&Anders.Lund; &Anders.Lund.mail;</author>
-<author
->&Dominik.Haumann; &Dominik.Haumann.mail;</author>
-<othercredit role="translator"
-> <firstname
->Thomas</firstname
-> <surname
->Diehl</surname
-> <affiliation
-> <address
-><email
->thd@kde.org</email
-></address
-> </affiliation
-> <contrib
->GUI-Übersetzung</contrib
-></othercredit
-> <othercredit role="translator"
-> <firstname
->Matthias</firstname
-><surname
->Schulz</surname
-> <affiliation
-> <address
-><email
->matthias.schulz@kdemail.net</email
-></address
-> </affiliation
-> <contrib
->Deutsche Übersetzung</contrib
-></othercredit
-> 
+<author>&Anders.Lund; &Anders.Lund.mail;</author>
+<author>&Dominik.Haumann; &Dominik.Haumann.mail;</author>
+<!-- TRANS:ROLES_OF_TRANSLATORS -->
 </authorgroup>
 </chapterinfo>
-<title
->Arbeiten mit dem Editor von &kappname;</title>
+<title>Working with the &kappname; editor</title>
 
 <sect1 id="kate-part-overview">
 
-<title
->Überblick</title>
+<title>Overview</title>
 
-<para
->Der Editor von &kappname; ist der Bearbeitungsbereich des &kappname;-Fensters. Dieser Editor wird von &kate; und &kwrite; benutzt und kann von &konqueror; für das Anzeigen von Textdateien vom lokalen Computer oder dem Netzwerk benutzt werden.</para>
+<para>The &kappname; editor is the editing area of the &kappname; window. This
+editor is shared between &kate; and &kwrite;, and it can also be used in &konqueror;
+for displaying text files from your local computer, or from the
+network.</para>
 
-<para
->Der Editor besteht aus den folgenden Bestandteilen:</para>
+<para>The editor is composed of the following components:</para>
 
 <variablelist>
 
 <varlistentry>
-<term
->Dem Editorbereich</term>
-<listitem
-><para
->Das ist der Bereich, in den der Text Ihres Dokuments geladen wird.</para
-></listitem>
+<term>The editing area</term>
+<listitem><para>This is where the text of your document is located.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
->Die Bildlaufleisten</term>
+<term>The Scrollbars</term>
 <listitem>
-<para
->Die Bildlaufleisten zeigen die Position des sichtbaren Teils des Dokuments und können benutzt werden, um sich im Dokument zu bewegen. Ziehen an den Bildlaufleisten verändert nicht die Position des Cursors.</para>
-<para
->Die Bildlaufleisten werden nur bei Bedarf angezeigt.</para>
+<para>The scrollbars indicate the  position of the visible part of
+the document text, and can be used to move around the
+document. Dragging the scrollbars will not cause the insertion cursor
+to be moved.</para>
+<para>The scrollbars are displayed and hidden as required.</para>
 </listitem>
 </varlistentry>
 
 <varlistentry>
-<term
->Die Symbolspalte</term>
+<term>The Icon Border</term>
 <listitem>
-<para
->Die Symbolspalte ist ein kleines Feld an der linken Seite des Editorfensters, das kleine Symbole neben markierten Zeilen anzeigt.</para>
-<para
->Sie können <link linkend="kate-part-bookmarks"
->Lesezeichen</link
-> in sichtbaren Zeilen setzen oder entfernen, indem Sie mit der &LMBn; neben der Zeile in die Symbolspalte klicken.</para>
-<para
->Die Anzeige der Symbolspalte wird mit <menuchoice
-><guimenu
->Ansicht</guimenu
-> <guimenuitem
->Symbolspalte anzeigen</guimenuitem
-></menuchoice
-> ein- und ausgeschaltet.</para>
+<para>The icon border is a small pane on the left side of the editor,
+displaying a small icon next to marked lines.</para>
+<para>You can set or remove a <link
+linkend="kate-part-bookmarks">bookmark</link> in a visible line by
+clicking the &LMB; in the icon border next to that line.</para>
+<para>The display of the icon border can be toggled using the
+<menuchoice><guimenu>View</guimenu> <guimenuitem>Show Icon
+Border</guimenuitem></menuchoice> menu item.</para>
 </listitem>
 </varlistentry>
 
 <varlistentry>
-<term
->Die Zeilennummernspalte</term>
+<term>The Line Numbers Pane</term>
 <listitem>
-<para
->Die Zeilennummernspalte zeigt die Zeilennummern aller sichtbaren Zeilen des Dokuments.</para>
-<para
->Die Anzeige der Zeilennummernspalte wird mit <menuchoice
-><guimenu
->Ansicht</guimenu
-> <guimenuitem
->Zeilennummern anzeigen</guimenuitem
-></menuchoice
-> ein- und ausgeschaltet.</para>
+<para>The Line numbers pane shows the line numbers of all visible
+lines in the document.</para>
+<para>The display of the Line Numbers Pane can be toggled using the
+<menuchoice><guimenu>View</guimenu> <guimenuitem>Show Line
+Numbers</guimenuitem></menuchoice> menu item.</para>
 </listitem>
 </varlistentry>
 
 <varlistentry>
-<term
->Die Quelltext-Ausblendungsspalte</term>
+<term>The Folding Pane</term>
 <listitem>
-<para
->Die Quelltext-Ausblendungsspalte erlaubt das Ein- und  Ausblenden von Blöcken im Quelltext von Programmiersprachen. Die Festlegung von Anfang und Ende der Blöcke erledigt &kappname; nach den Regeln in der Hervorhebungsdefinition für das aktuelle Dokument.</para>
+<para>The folding pane allows you to collapse or expand foldable blocks
+of lines. The calculation of the foldable regions is done according to
+rules in the syntax highlight definition for the document.</para>
 </listitem>
 </varlistentry>
 
 </variablelist>
 
 <itemizedlist>
-<title
->Außerdem in diesem Kapitel:</title>
-<listitem
-><para
-><link linkend="kate-part-navigation"
->Navigieren im Text</link
-> </para
-></listitem>
-<listitem
-><para
-><link linkend="kate-part-selection"
->Arbeiten mit der Auswahl</link
-></para
-></listitem>
-<listitem
-><para
-><link linkend="kate-part-copy-and-paste"
->Kopieren und Einfügen von Text</link
-></para
-></listitem>
-<listitem
-><para
-><link linkend="kate-part-find-replace"
->Suchen und Ersetzen von Text</link
-></para
-></listitem>
-<listitem
-><para
-><link linkend="kate-part-bookmarks"
->Lesezeichen benutzen</link
-></para
-></listitem>
-<listitem
-><para
-><link linkend="kate-part-auto-wrap"
->Automatischer Zeilenumbruch</link
-></para
-></listitem>
-<listitem
-><para
-><link linkend="kate-part-autoindent"
->Automatisches Einrücken benutzen</link
-></para
-></listitem>
+<title>Also in this Chapter:</title>
+<listitem><para><link linkend="kate-part-navigation">Navigating in the
+Text</link> </para></listitem>
+<listitem><para><link linkend="kate-part-selection">Working with the
+Selection</link></para></listitem>
+<listitem><para><link linkend="kate-part-copy-and-paste">Copying and
+Pasting Text</link></para></listitem>
+<listitem><para><link linkend="kate-part-find-replace">Finding and
+Replacing Text</link></para></listitem>
+<listitem><para><link linkend="kate-part-bookmarks">Using
+Bookmarks</link></para></listitem>
+<listitem><para><link linkend="kate-part-auto-wrap">Automatically
+Wrapping Text</link></para></listitem>
+<listitem><para><link linkend="kate-part-autoindent">Using automatic indenting</link></para></listitem>
 </itemizedlist>
 
 </sect1>
 
 <sect1 id="kate-part-navigation">
-<title
->Navigieren im Text</title>
+<title>Navigating in the Text</title>
 
-<para
->Das Bewegen im Text funktioniert in &kappname; genauso wie in anderen grafischen Editoren. Sie können den Cursor mit den Pfeiltasten bewegen und die Tasten &PgUp;, &PgDn;, &Home; und &End; benutzen. Dies Alles funktioniert auch in Kombination mit den Tasten &Ctrl; und den &Shift;tasten. Die &Shift;tasten werden zum Auswählen benutzt, die &Ctrl;-Tasten haben verschiedene Bedeutungen bei verschiedenen Tasten: <itemizedlist>
-<listitem
-><para
->Mit den Tasten &Up; und &Down; wird das Dokument verschoben und nicht der Cursor.</para
-></listitem>
-<listitem
-><para
->In Verbindung mit den Tasten &Left; und &Right; wird mit diesen Tasten der Cursor wortweise bewegt.</para
-></listitem>
-<listitem
-><para
->In Verbindung mit den Tasten &PgUp; und &PgDn; wird mit diesen Tasten der Cursor an den oberen oder unteren Bildrand bewegt.</para>
+<para>Moving around in the text in &kappname; is similar to most graphical text
+editors. You move the cursor using the arrow keys and the
+&PgUp;, &PgDn;, &Home; and &End; keys in combination with the &Ctrl; and
+&Shift; modifiers. The &Shift; key is always used
+to generate a selection, while the &Ctrl; key has different
+effects on different keys:
+<itemizedlist>
+<listitem><para>For the &Up; and &Down; keys it
+means scroll rather than move the cursor.</para></listitem>
+<listitem><para>For the &Left; and &Right;
+keys it means skip words rather than characters.</para></listitem>
+<listitem><para>For the &PgUp; and &PgDn;
+keys it means move to the visible edge of the view rather than browse.</para>
 </listitem>
-<listitem
-><para
->In Verbindung mit den Tasten &Home; und &End; wird mit diesen Tasten der Cursor an den Anfang oder das Ende des Dokuments bewegt und nicht an den Anfang oder das Ende der Zeile.</para
-></listitem>
+<listitem><para>For the &Home; and &End; keys it means move to the beginning or
+end of the document rather than the beginning or end of the line.</para></listitem>
 </itemizedlist>
 </para>
 
-<para
->&kappname; stellt außerdem einen schnellen Weg bereit, um den Cursor auf eine zugehörige Klammer zu bewegen: Platzieren Sie den Cursor direkt neben eine Klammer und drücken Sie die Kombination <keycombo action="simul"
->&Ctrl; <keycap
->6</keycap
-></keycombo
->. Der Cursor wird zur zugehörigen öffnenden oder schließenden Klammer bewegt.</para>
+<para>&kappname; also provides you with a way to quickly jump to a matching brace
+or parenthesis: place the cursor on the inside of a parenthesis or brace
+character, and press <keycombo action="simul">&Ctrl;<keycap>6</keycap></keycombo>
+to jump to the matching parenthesis or brace.</para>
 
-<para
->Sie können auch <link linkend="kate-part-bookmarks"
->Lesezeichen</link
-> benutzen, um den Cursor schnell auf vorher selbst definierte Positionen zu bewegen.</para>
+<para>In addition you can use
+<link linkend="kate-part-bookmarks">bookmarks</link> to quickly jump to
+positions that you define on your own.</para>
 
 </sect1>
 
 <sect1 id="kate-part-selection">
-<title
->Arbeiten mit der Auswahl</title>
+<title>Working with the Selection</title>
 
-<para
->Es gibt grundsätzlich zwei Wege, Text in &kappname; zu markieren: mit der Maus oder mit der Tastatur.</para>
+<para>There are two basic ways of selecting text in &kappname;: using the
+mouse, and using the keyboard.</para>
 
-<para
->Mit der Maus wird Text markiert, indem Sie mit der linken Maustaste auf den gewünschten Anfangspunkt klicken, die linke Maustaste gedrückt halten, den Mauszeiger an den gewünschten Endpunkt ziehen und dort die linke Maustaste loslassen. Der Text wird beim Ziehen markiert.</para>
+<para>To select using the mouse, hold down the &LMB; while dragging
+the mouse cursor from where the selection should start, to the desired
+end point. The text gets selected as you drag.</para>
 
-<para
->Doppelklicken auf ein Wort wählt dieses Wort aus.</para>
+<para>Double-clicking a word will select that word.</para>
 
-<para
->Dreifachklicken auf eine Zeile wählt diese Zeile aus.</para>
+<para>Triple-clicking in a line will select the entire line.</para>
 
-<para
->Wenn während des Klickens die &Shift;taste gedrückt ist, wird Text wie folgt ausgewählt:</para>
+<para>If &Shift; is held down while clicking, text will be
+selected:</para>
 
 <itemizedlist>
-<listitem
-><para
->Wenn noch kein Text ausgewählt ist, wird der Text von der Text-Cursor-Position bis zur Mauszeigerposition ausgewählt.</para
-></listitem>
-<listitem
-><para
->Wenn bereits eine Auswahl existiert, wird von dieser Auswahl diese Auswahl einschließend, bis zur Mauszeigerposition ausgewählt.</para
-></listitem>
+<listitem><para>If nothing is already selected, from the text cursor
+position to the mouse cursor position.</para></listitem>
+<listitem><para>If there is a selection, from and including that
+selection to the mouse cursor position.</para></listitem>
 </itemizedlist>
 
 <note>
-<para
->Wenn Sie Text mit der Maus auswählen, wird dieser automatisch in die Zwischenablage kopiert und kann dann durch Klicken mit der mittleren Maustaste in eine beliebige Stelle eingefügt werden, auch außerhalb von &kappname; in eine andere Anwendung. </para>
+<para>When selecting text by dragging the mouse, the
+selected text is copied to the clipboard, and can be pasted by
+clicking the middle mouse button in the editor, or in any other
+application to which you want to paste the text.
+</para>
 </note>
 
-<para
->Zum Auswählen von Text mit der Tastatur setzen Sie den Cursor auf die gewünschte Anfangsposition, halten die &Shift;-Taste gedrückt und bewegen dann den Cursor mit den Cursor-Tasten oder mit &PgUp;, &PgDn;, &Home; und &End; an die Endposition. Wenn Sie beim Bewegen des Cursors die Taste &Ctrl; gedrückt halten, springt der Cursor wortweise in die gewünschte Richtung.</para>
+<para>To select using the keyboard, hold down the &Shift; key while
+using the navigation keys (Arrow keys, &PgUp;, &PgDn;, &Home; and
+&End;, possibly in combination with &Ctrl; to extend
+the move of the text cursor).</para>
 
-<para
->Sehen Sie auch unter <link linkend="kate-part-navigation"
->Navigieren im Text</link
-> weiter oben in diesem Kapitel nach.</para>
+<para>See also the section <link
+linkend="kate-part-navigation">Navigating in the Text</link> in this
+chapter.</para>
 
-<para
->Zum <action
->Kopieren</action
-> der aktuellen Auswahl, wählen Sie <menuchoice
-><guimenu
->Bearbeiten</guimenu
-> <guimenuitem
->Kopieren</guimenuitem
-></menuchoice
-> im Menü oder benutzen Sie den Tastaturkurzbefehl (standardmäßig <keycombo action="simul"
->&Ctrl;<keycap
->C</keycap
-></keycombo
->).</para>
+<para>To <action>Copy</action> the current selection, use the
+<menuchoice><guimenu>Edit</guimenu>
+<guimenuitem>Copy</guimenuitem></menuchoice> menu item or the keyboard
+shortcut (defaults to <keycombo
+action="simul">&Ctrl;<keycap>C</keycap></keycombo>).</para>
 
-<para
->Zum Aufheben der aktuellen Auswahl wählen Sie <menuchoice
-><guimenu
->Bearbeiten</guimenu
-> <guimenuitem
->Auswahl aufheben</guimenuitem
-></menuchoice
-> im Menü, benutzen Sie den Tastaturkurzbefehl (standardmäßig <keycombo action="simul"
->&Ctrl;&Shift;<keycap
->A</keycap
-></keycombo
->) oder Klicken Sie mit der linken Maustaste irgendwo in das Editorfenster.</para>
+<para>To <action>Deselect</action> the current selection, use the
+<menuchoice><guimenu>Edit</guimenu>
+<guimenuitem>Deselect</guimenuitem></menuchoice> menu item, or the
+keyboard shortcut (default is <keycombo
+action="simul">&Ctrl;&Shift;<keycap>A</keycap></keycombo>), or click
+with the &LMB; in the editor.</para>
 
 <sect2 id="kate-part-selection-block">
-<title
->Blockauswahl benutzen</title>
+<title>Using Block Selection</title>
 
-<para
->Wenn die Blockauswahl eingeschaltet ist, können Sie <quote
->senkrechte Auswahlen</quote
-> im Text machen. Sie können also rechteckige Abschnitte mitten im Text auswählen, was sehr hilfreich &eg; für das Arbeiten mit Tabellen ist.</para>
+<para>When Block Selection is enabled, you can make <quote>vertical
+selections</quote> in the text, meaning selecting limited columns from
+multiple lines. This is handy for working with tab separated lines for
+example.</para>
 
-<para
->Die Blockauswahl können Sie im Menü mit <menuchoice
-><guimenu
->Bearbeiten</guimenu
-> <guimenuitem
->Blockauswahlmodus</guimenuitem
-></menuchoice
-> oder mit der Taste <keycombo action="simul"
->&Ctrl;&Shift;   <keycap
->B</keycap
-> </keycombo
-> ein- und ausschalten.</para>
+<para>Block Selection can be toggled using the
+<menuchoice><guimenu>Edit</guimenu> <guimenuitem>Block
+Selection Mode</guimenuitem></menuchoice> menu item. The default keyboard
+shortcut is <keycombo action="simul">&Ctrl;&Shift;<keycap>B</keycap>
+</keycombo>.</para>
 
 </sect2>
 
 <sect2 id="kate-part-selection-overwrite">
 <!-- term not used in settings Editing Text Seöection Mode, it is called "Normal"-->
-<title
->Benutzen von Auswahl überschreiben</title>
+<title>Using Overwrite Selection</title>
 
-<para
->Wenn die Option „Auswahl überschreiben“ eingeschaltet ist, dann wird die Auswahl bei der Eingabe von Text oder beim Einfügen von Text durch den eingegebenen oder eingefügten Text ersetzt. Ist sie ausgeschaltet, wird der neue Text an der Text-Cursor-Position eingefügt.</para>
+<para>If Overwrite Selection is enabled, typing or pasting text into
+the selection will cause the selected text to be replaced. If not
+enabled, new text will be added at the position of the text
+cursor.</para>
 
-<para
->Die Option Auswahl überschreiben ist standardmäßig eingeschaltet.</para>
+<para>Overwrite Selection is enabled by default.</para>
 
-<para
->Die Einstellung für diese Option wird auf der Seite <link linkend="pref-edit-cursor-selection"
->Cursor &amp; Auswahl</link
-> im <link linkend="config-dialog"
->Einrichtungsdialog</link
-> festgelegt.</para>
+<para>To change the setting for this option, use the <link
+linkend="pref-edit-cursor-selection">Cursor &amp; Selection</link> page of the <link
+linkend="config-dialog">Configuration Dialog</link>.</para>
 
 </sect2>
 
 <sect2 id="kate-part-selection-persistent">
 
-<title
->Benutzen von Durchgehende Auswahl</title>
+<title>Using Persistent Selection</title>
 
-<para
->Wenn diese Option eingeschaltet ist, dann bleibt die Auswahl erhalten, wenn Text eingegeben wird oder der Cursor bewegt wird.</para>
+<para>When Persistent Selection is enabled, typing characters or
+moving the cursor will not cause the Selection to become
+deselected. This means that you can move the cursor away from the
+selection and type text.</para>
 
-<para
->Die Option Durchgehende Auswahl ist standardmäßig ausgeschaltet.</para>
+<para>Persistent Selection is disabled by default.</para>
 
-<para
->Die Einstellung für diese Option wird auf der Seite <link linkend="pref-edit-cursor-selection"
->Cursor &amp; Auswahl</link
-> im <link linkend="config-dialog"
->Einrichtungsdialog</link
-> festgelegt.</para>
+<para>Persistent Selection can be enabled in the <link
+linkend="pref-edit-cursor-selection">Cursor &amp; Selection</link> page of the <link
+linkend="config-dialog">Configuration Dialog</link>.</para>
 
-<warning
-> <!-- is that still possible in 4.4? radio button Normal + Persistent!-->
-<para
->Wenn beide Optionen; Durchgehende Auswahl und Auswahl überschreiben; eingeschaltet sind, wird die Auswahl ersetzt, wenn in der Auswahl Text eingegeben oder eingefügt wird. Außerdem wird die Auswahl aufgehoben.</para>
+<warning> <!-- is that still possible in 4.4? radio button Normal + Persistent!-->
+<para>If Persistent Selection and Overwrite Selection are both
+enabled, typing or pasting text when the text cursor is inside the
+selection will cause it to be replaced and deselected.</para>
 </warning>
 
 </sect2>
@@ -355,331 +240,217 @@
 
 <sect1 id="kate-part-copy-and-paste">
 
-<title
->Kopieren und Einfügen von Text</title>
+<title>Copying and Pasting Text</title>
 
-<para
->Zum Kopieren von Text, wählen Sie diesen aus und benutzen Sie dann <menuchoice
-><guimenu
->Bearbeiten</guimenu
-> <guimenuitem
->Kopieren</guimenuitem
-></menuchoice
-> aus dem Menü. Sie können auch die Markierung mit der Maus vornehmen und das Kopieren in die Zwischenablage erfolgt automatisch.</para>
+<para>To copy text, select it and use the
+<menuchoice><guimenu>Edit</guimenu>
+<guimenuitem>Copy</guimenuitem></menuchoice> menu item. Additionally,
+selecting text with the mouse will cause selected text to be copied to
+the X selection.</para>
 
-<para
->Zum Einfügen von Text aus der Zwischenablage benutzen Sie <menuchoice
-><guimenu
->Bearbeiten</guimenu
-> <guimenuitem
->Einfügen</guimenuitem
-></menuchoice
-> aus dem Menü. </para>
+<para>To paste the text currently in the clipboard, use the
+<menuchoice>
+<guimenu>Edit</guimenu><guimenuitem>Paste</guimenuitem></menuchoice>
+menu item.</para>
 
-<para
->Sie können auch Text, der mit der Maus ausgewählt wurde, durch Klicken mit der &MMBn; auf die gewünschte Stelle einfügen.</para>
+<para>Additionally, text selected with the mouse may be pasted by
+clicking the &MMB; at the desired position.</para>
 
 <tip>
-<para
->Wenn Sie die &kde;-Arbeitsumgebung benutzen, dann können Sie früher kopierten Text von allen Anwendungen in der Zwischenablage durch Klicken auf das &klipper;Symbol in der Kontrollleiste; wiederfinden.</para>
+<para>If you are using the &kde; desktop, you can retrieve earlier
+copied text from any application using the &klipper; icon in the
+system tray.</para>
 </tip>
 
 </sect1>
 
 <!-- changed in 4.5-->
 <sect1 id="kate-part-find-replace">
-<title
->Suchen und Ersetzen von Text</title>
+<title>Finding and Replacing Text</title>
 
 <sect2 id="find-replace-bars">
-<title
->Die Leisten für Suchen und Ersetzen</title>
+<title>The Search and Replace Bars</title>
 
 
-<para
->&kappname; enthält eine Suchleiste für die inkrementelle Suche sowie eine erweiterte Suchleiste, die Suchen und Ersetzen mit einigen Extra-Optionen unterstützt.</para>
+<para>&kappname; has an incremental search bar and a power search and
+replace bar, which  offers the means of entering a
+replacement string along with a few extra options.</para>
 
-<para
->Beide Leisten bieten die folgenden gemeinsamen Optionen:</para>
+<para>The bars offer the following common options:</para>
 
 <variablelist>
 
 <varlistentry>
-<term
-><guilabel
->Suchen</guilabel
-></term>
-<listitem
-><para
->Hier geben Sie den zu suchenden Text ein. Die Auswertung hängt von einigen der nachfolgend beschriebenen Optionen ab.</para
-></listitem>
+<term><guilabel>Find</guilabel></term>
+<listitem><para>This is where to enter the search string. The interpretation of the string
+depends on some of the options described below.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><guilabel
->Groß-/Kleinschreibung beachten</guilabel
-></term>
+<term><guilabel>Match case</guilabel></term>
 <listitem>
-<para
->Wenn eingeschaltet, wird die Groß-/Kleinschreibung beim Suchen beachtet.</para>
+<para>If enabled, the search will be limited to entries that match the
+case (upper or lower) of each of the characters in the search pattern.</para>
 </listitem>
 </varlistentry>
 
 </variablelist>
 
-<para
->Die erweiterte Leiste für Suchen und Ersetzen bietet zusätzliche Einstellungen an:</para>
+<para>The power search and replace bar offers some
+additional options:</para>
 
 <variablelist>
 
 <varlistentry>
-<term
-><guilabel
->Einfacher Text</guilabel
-></term>
+<term><guilabel>Plain Text</guilabel></term>
 <listitem>
-<para
->Findet alle Vorkommen des Suchtextes.</para>
+<para>Literally match any occurrence of the search string.</para>
 </listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><guilabel
->Ganze Wörter</guilabel
-></term>
+<term><guilabel>Whole Words</guilabel></term>
 <listitem>
-<para
->Wenn dies ausgewählt ist, wird die Suche nur dann als gefunden betrachtet, wenn eine Wortgrenze an beiden Seiten des Suchtextes steht, ein nicht alphanumerisches Zeichen - Leerzeichen, Zeilenende oder Sonderzeichen.</para>
+<para>If selected, the search will only match if there is a word
+boundary at both ends of the string matching, meaning not an
+alphanumeric character - either some other visible character or a line
+end.</para>
 </listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><guilabel
->Escape-Sequenzen</guilabel
-></term>
+<term><guilabel>Escape Sequences</guilabel></term>
 <listitem>
-<para
->Wenn diese ausgewählt ist, wird der Menüeintrag <guibutton
->Hinzufügen</guibutton
-> in den Kontextmenüs der Textfelder unten angezeigt, der es Ihnen ermöglicht, dem Suchkriterium Escape-Sequenzen aus einer vordefinierten Liste hinzuzufügen.</para>
+<para>If selected, the <guibutton>Add</guibutton> menuitem at the
+bottom of the context menu of the text boxes will be enabled
+and allows you to add escape sequences to the
+search pattern from a predefined list.</para>
 </listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><guilabel
->Regulärer Ausdruck</guilabel
-></term>
+<term><guilabel>Regular Expression</guilabel></term>
 <listitem>
-<para
->Wenn dieses Feld angekreuzt ist, wird der Suchtext als regulärer Ausdruck ausgewertet. Ein Menüeintrag <guibutton
->Hinzufügen</guibutton
-> wird in den Kontextmenüs der Textfelder unten angezeigt und es können reguläre Ausdrücke zum Suchtext von einer vordefinierten Liste hinzugefügt werden.</para>
-<para
->Im Abschnitt <link linkend="regular-expressions"
->Reguläre Ausdrücke</link
-> finden Sie weitere Informationen dazu.</para>
+<para>If selected, the search string is interpreted as a regular
+expression. The <guibutton>Add</guibutton> menuitem at the
+bottom of the context menu of the text boxes will be enabled
+and allows you to add regular expression items to the
+search pattern from a predefined list.</para>
+<para>See <link linkend="regular-expressions">Regular
+Expressions</link> for more on these.</para>
 </listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><guilabel
->Suchen nur in markiertem Text</guilabel
-></term>
+<term><guilabel>Search in the selection only</guilabel></term>
 <listitem>
-<para
->Wenn dieses Feld angekreuzt ist, wird die Suche nur im ausgewählten Text durchgeführt.</para>
+<para>If checked, the search and replace will be performed within
+the selected text only.</para>
 </listitem>
 </varlistentry>
 
 <varlistentry>
-<term
-><guilabel
->Alle suchen</guilabel
-></term>
+<term><guilabel>Find all</guilabel></term>
 <listitem>
-<para
->Das Klicken auf diesen Knopf hebt alle Fundstellen im Dokument hervor und zeigt die Anzahl der Fundstellen in einem kleinen Fenster an. </para
-></listitem>
+<para>Clicking this button highlights
+all matches in the document and shows the number of found matches in a small popup.
+</para></listitem>
 </varlistentry>
 
 </variablelist>
 
 </sect2>
-<!--FIXME keep in sync with kate/menus.docbook <varlistentry id="edit-find"
-> -->
+<!--FIXME keep in sync with kate/menus.docbook <varlistentry id="edit-find"> -->
 <sect2 id="finding-text">
-<title
->Suchen von Text</title>
+<title>Finding Text</title>
 
-<para
->Um einen Text zu suchen, öffnen Sie die inkrementelle Suchleiste, indem Sie <keycombo action="simul"
->&Ctrl;<keycap
->F</keycap
-></keycombo
-> drücken, oder aus dem Menü <menuchoice
-><guimenu
->Bearbeiten</guimenu
-> <guimenuitem
->Suche ...</guimenuitem
-></menuchoice
-> auswählen.</para>
-<para
->Öffnet die Zusatzleiste für inkrementelle Suche im Editor-Fenster. An der linken Seite der Leiste finden Sie ein Symbol zum Schließen der Suchleiste, daneben befindet sich ein kleines Eingabefeld, in das Sie den gewünschten Suchbegriff eingeben können.</para>
-<para
->Sobald Sie die ersten Zeichen in das Textfeld eingeben, beginnt die Suche. Fundstellen werden im Text hervorgehoben und die Hintergrundfarbe des Textfeldes wird grün gefärbt. Falls keine Fundstellen gefunden werden, wird der Hintergrund rot eingefärbt.</para>
-<para
->Mit den Knöpfen <inlinemediaobject
-><imageobject
-><imagedata fileref="arrow-up-double-22.png" format="PNG"/></imageobject
-></inlinemediaobject
-> und <inlinemediaobject
-><imageobject
-><imagedata fileref="arrow-down-double-22.png" format="PNG"/></imageobject
-></inlinemediaobject
-> können Sie zur nächsten bzw. vorherigen Fundstelle im Dokument springen.</para>
-<para
->Die im Dokument gefundenen Textstellen bleiben auch dann noch hervorgehoben, wenn Sie die Suchleiste schließen. Drücken Sie die Taste &Esc;, um die Hervorhebungen auszuschalten.</para>
-<para
->Wenn <inlinemediaobject
-><imageobject
-><imagedata fileref="format-text-superscript-22.png" format="PNG"/></imageobject
-></inlinemediaobject
-> aktiviert ist, wird die Gro&szlig;- und Kleinschreibung beim Suchen beachtet.</para>
-<para
->Klicken Sie auf  <inlinemediaobject
-><imageobject
-><imagedata fileref="configure-shortcuts-22.png" format="PNG"/></imageobject
-></inlinemediaobject
-> auf der rechten Seite der Suchleiste, um zwischen der inkrementellen und der erweiterten Suche zu wechseln. </para>
-<para
->Sie können die letzte Suche wiederholen ohne die Suchleiste erneut zu öffnen. Verwenden Sie dazu <menuchoice
-> <shortcut
-><keycombo action="simul"
-><keycap
->F3</keycap
-></keycombo
-></shortcut
-> <guimenu
->Bearbeiten</guimenu
-><guimenuitem
->Weitersuchen</guimenuitem
-></menuchoice
-> oder <menuchoice
-><shortcut
-> <keycombo action="simul"
->&Shift;<keycap
->F3</keycap
-></keycombo
-></shortcut
-> <guimenu
->Bearbeiten</guimenu
-><guimenuitem
->Frühere suchen</guimenuitem
-></menuchoice
->. </para>
+<para>To find text, launch the incremental search bar
+with <keycombo action="simul">&Ctrl;<keycap>F</keycap></keycombo> or
+from the <menuchoice><guimenu>Edit</guimenu>
+<guimenuitem>Find...</guimenuitem></menuchoice> menu item.</para>
+<para>This opens the incremental search bar at the bottom of the editor window.
+On the left side of the bar is a button with an icon to close the bar, followed by a small text 
+box for entering the search pattern.</para>
+<para>When you start entering the characters of your search pattern, the search starts
+immediately. If there is a match in the text this is highlighted and the background color
+of the entry field changes to light green. If the search pattern does not match any
+string in the text, this is indicated by a light red background color of the entry field.</para>
+<para>Use the 
+<inlinemediaobject><imageobject><imagedata fileref="arrow-up-double-22.png" format="PNG"/></imageobject></inlinemediaobject> or
+<inlinemediaobject><imageobject><imagedata fileref="arrow-down-double-22.png" format="PNG"/></imageobject></inlinemediaobject> button
+to jump to the next or previous match in the document.</para>
+<para>Matches in the document are highlighted even when you close the search bar. To clear
+this highlighting, press the &Esc; key.</para>
+<para>You can choose whether the search should be case sensitive.
+Selecting <inlinemediaobject><imageobject><imagedata fileref="format-text-superscript-22.png" format="PNG"/></imageobject></inlinemediaobject>
+will limit finds to entries that match the
+case (upper or lower) of each of the characters in the search  pattern.</para>
+<para>Click on the <inlinemediaobject><imageobject><imagedata fileref="configure-shortcuts-22.png" format="PNG"/></imageobject></inlinemediaobject>
+button at the right side of the incremental search bar to
+switch to the power search and replace bar.
+</para>
+<para>
+To repeat the last find operation, if any, without calling the incremental
+search bar, use <menuchoice>
+<shortcut><keycombo action="simul"><keycap>F3</keycap></keycombo></shortcut>
+<guimenu>Edit</guimenu><guimenuitem>Find Next</guimenuitem></menuchoice>
+or
+<menuchoice><shortcut>
+<keycombo action="simul">&Shift;<keycap>F3</keycap></keycombo></shortcut>
+<guimenu>Edit</guimenu><guimenuitem>Find Previous</guimenuitem></menuchoice>.
+</para>
 
 </sect2>
-<!--FIXME keep in sync with kate/menus.docbook <varlistentry id="edit-replace"
-> -->
+<!--FIXME keep in sync with kate/menus.docbook <varlistentry id="edit-replace"> -->
 <sect2 id="replacing-text">
-<title
->Ersetzen</title>
+<title>Replacing Text</title>
 
-<para
->Um Text zu suchen und ersetzen, öffnen Sie die erweiterte Suche über <menuchoice
-><guimenu
->Bearbeiten</guimenu
-> <guimenuitem
->Ersetzen</guimenuitem
-></menuchoice
->, oder drücken Sie den Kurzbefehl <keycombo action="simul"
->&Ctrl;<keycap
->R</keycap
-></keycombo
->.</para>
-<para
->Links oben in der Leiste finden Sie ein Symbol, um die Leiste wieder zu schließen. Daneben befindet sich ein Kombinationsfeld, in das Sie den Suchbegriff eingeben müssen. Auch zuletzt verwendete Muster können gewählt werden.</para>
-<para
->Sie können das Verhalten der Suche mit den Optionen <guilabel
->Einfacher Text</guilabel
->, <guilabel
->Ganze Wörter</guilabel
->, <guilabel
->Escape-Sequenzen</guilabel
-> und <guilabel
->Regulärer Ausdruck</guilabel
-> im Auswahlfeld beeinflussen. </para>
-<para
->In den Modi <guilabel
->Escape-Sequenzen</guilabel
-> und <guilabel
->Regulärer Ausdruck</guilabel
-> wird der Knopf <guibutton
->Hinzufügen ...</guibutton
-> unten im Kontextmenü verfügbar, über den Sie vordefinierte Zeichen/Ausdrücke für diese Modi aus einer Liste als Such- oder Ersetzungsmuster hinzufügen können.</para>
-<para
->Mit den Knöpfen <inlinemediaobject
-><imageobject
-><imagedata fileref="arrow-up-double-22.png" format="PNG"/></imageobject
-></inlinemediaobject
-> und <inlinemediaobject
-><imageobject
-><imagedata fileref="arrow-down-double-22.png" format="PNG"/></imageobject
-></inlinemediaobject
-> können Sie zur nächsten bzw. vorherigen Fundstelle im Dokument springen.</para>
-<para
->Geben Sie den Ersatztext in das Eingabefeld <guilabel
->Ersetzen</guilabel
-> ein und drücken Sie anschließend den Knopf <guibutton
->Ersetzen</guibutton
-> rechts daneben um die markierte Fundstelle entsprechend zu ersetzen, oder drücken Sie <guibutton
->Alle ersetzen</guibutton
->, um alle Fundstellen im ganzen Dokument zu ersetzen. </para>
-<para
->Sie können das Verhalten von Suchen und Ersetzen mit den verschiedenen Einstellungen unten in der Leiste ändern. Mit <inlinemediaobject
-><imageobject
-><imagedata fileref="format-text-superscript-22.png" format="PNG"/></imageobject
-></inlinemediaobject
-> werden nur Übereinstimmungen gefunden, die in Groß-/Kleinschreibung Ihrem Suchtext entsprechen. Mit <inlinemediaobject
-><imageobject
-><imagedata fileref="edit-select-all-22.png" format="PNG"/></imageobject
-></inlinemediaobject
-> wird der Suchen/Ersetzen-Vorgang nur innerhalb des ausgewählten Textes ausgeführt. Die Einstellung <guilabel
->Alle hervorheben</guilabel
-> bewirkt, dass alle Fundstellen farbig hinterlegt werden und die Anzahl der Fundstellen in einem kleinen Fenster angezeigt wird. (Auch, wenn noch keine Ersetzung stattgefunden hat. Dies kann nützlich sein, um auf einen Blick zu sehen, an welchen Stellen im Dokument Ersetzungen erfolgen würden, wenn Sie auf <guilabel
->Alle ersetzen</guilabel
-> klicken.) </para>
-<para
->Klicken Sie auf <inlinemediaobject
-><imageobject
-><imagedata fileref="configure-shortcuts-22.png" format="PNG"/></imageobject
-></inlinemediaobject
-> rechts in der Suchleiste, um von der erweiterten Suche zur einfachen Suche zu wechseln. </para>
+<para>To replace text, launch the power search and replace bar
+using the <menuchoice><guimenu>Edit</guimenu>
+<guimenuitem>Replace</guimenuitem></menuchoice> command, or the
+<keycombo action="simul">&Ctrl;<keycap>R</keycap></keycombo> shortcut.</para>
+<para>On the upper left side of the bar is a button with an icon to close the bar, followed by a small combo
+box for entering the search pattern. The box remembers recently used patterns.</para>
+<para>You can control the search mode by selecting the options <guilabel>Plain Text</guilabel>,
+<guilabel>Whole Words</guilabel>, <guilabel>Escape Sequences</guilabel> or
+<guilabel>Regular Expression</guilabel> from the drop down box.
+</para>
+<para>If <guilabel>Escape sequences</guilabel> or <guilabel>Regular expression</guilabel> are
+selected, the <guibutton>Add...</guibutton> menuitem at the bottom of the context menu of the text boxes will be enabled
+and allows you to add escape sequences or regular expression items to the
+search or replace pattern from predefined lists.</para>
+<para>Use the
+<inlinemediaobject><imageobject><imagedata fileref="arrow-up-double-22.png" format="PNG"/></imageobject></inlinemediaobject> or
+<inlinemediaobject><imageobject><imagedata fileref="arrow-down-double-22.png" format="PNG"/></imageobject></inlinemediaobject> button
+to jump to the next or previous match in the document.</para>
+<para>Enter the text to replace with in the text box labeled <guilabel>Replace</guilabel>
+and click the <guibutton>Replace</guibutton> button to replace only the highlighted text or
+the <guibutton>Replace All</guibutton> button to replace the search text in the whole document.
+</para>
+<para>You can modify the search and replace behavior by selecting different
+options at the bottom of the bar.
+Selecting <inlinemediaobject><imageobject><imagedata fileref="format-text-superscript-22.png" format="PNG"/></imageobject></inlinemediaobject>
+will limit finds to entries that match the
+case (upper or lower) of each of the characters in the search  pattern.
+<inlinemediaobject><imageobject><imagedata fileref="edit-select-all-22.png" format="PNG"/></imageobject></inlinemediaobject>
+will search and replace within the current selection only.
+The <guilabel>Find All</guilabel> button highlights
+all matches in the document and shows the number of found matches in a small popup.
+</para>
+<para>Click on the <inlinemediaobject><imageobject><imagedata fileref="configure-shortcuts-22.png" format="PNG"/></imageobject></inlinemediaobject>
+button at the right side of the power search and replace bar to
+switch to the incremental search bar.
+</para>
 <tip>
-<para
->Wenn Sie einen Regulären Ausdruck verwenden, um den Suchtext zu finden, können Sie Referenzen auf den gefundenen Text verwenden, um den gefundenen Text weiterzuverwenden.</para>
-<para
->Im Abschnitt <link linkend="regular-expressions"
->Reguläre Ausdrücke</link
-> finden Sie weitere Informationen dazu.</para>
+<para>If you are using a regular expression to find the text to replace, you can
+employ backreferences to reuse text captured in parenthesized subpatterns of the expression.</para>
+<para>See <link linkend="regular-expressions">Regular Expressions</link> for more
+on those.</para>
 </tip>
 
-<tip
-><para
->Sie können die Befehle <command
->find</command
->, <command
->replace</command
-> und <command
->ifind</command
-> (Weitersuchen) der <link linkend="advanced-editing-tools-commandline"
->Befehlszeile</link
-> benutzen.</para>
+<tip><para>You can do <command>find</command>, <command>replace</command> and
+<command>ifind</command> (incremental search) from the
+<link linkend="advanced-editing-tools-commandline">command line</link>.</para>
 </tip>
 
 </sect2>
@@ -687,218 +458,147 @@
 </sect1>
 
 <sect1 id="kate-part-bookmarks">
-<title
->Lesezeichen benutzen</title>
+<title>Using Bookmarks</title>
 
-<para
->Die Lesezeichenfunktion markiert bestimmte Zeilen, damit Sie diese einfach wiederfinden.</para>
+<para>The bookmarks feature allows you to mark certain lines, to be
+able to easily find them again.</para>
 
-<para
->Sie können Lesezeichen auf zwei Arten setzen oder entfernen:</para>
+<para>You can set or remove a bookmark in a line in two ways:</para>
 
 <itemizedlist>
 <listitem>
-<para
->Setzen Sie den Text-Cursor auf die Zeile und benutzen Sie <menuchoice
-><guimenu
->Lesezeichen</guimenu
-><guimenuitem
->Lesezeichen setzen</guimenuitem
-></menuchoice
->    im Menü oder den Tastaturkurzbefehl (<keycombo action="simul"
->&Ctrl;<keycap
->B</keycap
-></keycombo
->).</para>
+<para>Move the insertion cursor to the line and activate the
+<menuchoice><guimenu>Bookmarks</guimenu><guimenuitem>Set
+Bookmark</guimenuitem></menuchoice> (<keycombo
+action="simul">&Ctrl;<keycap>B</keycap></keycombo>) command.</para>
 </listitem>
 <listitem>
-<para
->Klicken auf den Symbolrand neben dieser Zeile.</para>
+<para>Click in the Icon Border next to the line.</para>
 </listitem>
 </itemizedlist>
 
 
-<para
->Gesetzte Lesezeichen werden zum Menü <guimenu
->Lesezeichen</guimenu
-> hinzugefügt. Die einzelnen Lesezeichen werden zu Menüeinträgen mit der Zeilennummer und den ersten Zeichen der Zeile als Name. Klicken Sie einfach auf den Menüeintrag und der Text-Cursor springt zur gewünschten Zeile.</para>
+<para>Bookmarks are available in the <guimenu>Bookmarks</guimenu>
+menu. The individual bookmarks are available as menu items, labeled
+with the line number of the line with the bookmark, and the first few
+characters of the text in the line. To move the insertion cursor to
+the beginning of a bookmarked line, open the menu and select the
+bookmark.</para>
 
-<para
->Zum schnellen Bewegen des Cursors zwischen Lesezeichen oder zum nächsten/vorherigen Lesezeichen, benutzen Sie den Menüpunkt <menuchoice
-><guimenu
->Lesezeichen</guimenu
-> <guimenuitem
->Nächstes</guimenuitem
-> </menuchoice
-> (<keycombo action="simul"
->&Alt;&PgDn;</keycombo
->) oder <menuchoice
-> <guimenu
->Lesezeichen</guimenu
-><guimenuitem
->Vorheriges</guimenuitem
-></menuchoice
-> (<keycombo action="simul"
->&Alt;&PgUp; </keycombo
->).</para>
+<para>To quickly move between bookmarks or to the next/previous bookmark,
+use the <menuchoice><guimenu>Bookmarks</guimenu><guimenuitem>Next</guimenuitem>
+</menuchoice> (<keycombo action="simul">&Alt;&PgDn;</keycombo>) or <menuchoice>
+<guimenu>Bookmarks</guimenu><guimenuitem>Previous</guimenuitem></menuchoice>
+(<keycombo action="simul">&Alt;&PgUp;</keycombo>) commands.</para>
 
 </sect1>
 
 <sect1 id="kate-part-auto-wrap">
 <!--dynamic word wrap needs description here-->
-<title
->Automatischer Zeilenumbruch</title>
+<title>Automatically Wrapping text</title>
 
-<para
->Diese Funktion gestattet die Formatierung von Text in einem sehr einfachen Weg. Es werden Zeilenvorschübe eingefügt, sodass keine Zeile die vorgegebene Zeilenlänge überschreitet. Text ohne Leerzeichen, der länger als die Zeilenlänge ist, kann hiermit nicht formatiert werden.</para>
+<para>This feature allows you to have the text formatted in a very simple way: the text will be wrapped,
+so that no lines exceed a maximum number of characters per line, unless there is a longer string of
+non-whitespace characters.</para>
 
-<para
->Zum Ein- und Ausschalten diese Funktion dient das Ankreuzfeld <guibutton
->Statischer Zeilenumbruch</guibutton
-> auf der Seite <link linkend="pref-word-wrap"
->Editor</link
-> im <link linkend="config-dialog"
->Einrichtungsdialog</link
->.</para>
+<para>To enable/disable it, check/uncheck the <guibutton>Static Word Wrap</guibutton> checkbox in the
+<link linkend="pref-word-wrap">edit page</link> of the <link linkend="config-dialog">configuration dialog</link>.</para>
 
-<para
->Die maximale Zeilenlänge wird im Feld <link linkend="pref-wrap-words-at"
-><guibutton
->Zeilenumbruch bei</guibutton
-></link
-> auf der Seite <link linkend="pref-edit"
->Bearbeitung</link
-> im <link linkend="config-dialog"
->Einrichtungsdialog</link
-> eingestellt.</para>
+<para>To set the maximum line width (maximum characters per line), use the
+<link linkend="pref-wrap-words-at"><guibutton>Wrap Words At</guibutton></link>
+option in the <link linkend="pref-edit">Editing</link> page of the <link linkend="config-dialog">configuration
+dialog</link>.</para>
 
-<para
->Wenn diese Option eingeschaltet ist, funktioniert der automatische Zeilenumbruch wie folgt: <itemizedlist>
-<listitem
-><para
->Wenn Text eingegeben wird, fügt der Editor automatisch Zeilenvorschübe nach dem letzten Leerzeichen, das die Zeilenlänge noch nicht erreicht, ein.</para
-></listitem>
-<listitem
-><para
->Wenn ein Dokument geladen wird, wird genauso verfahren, sodass im Dokument danach keine Zeile mehr existiert, die länger als die maximale Zeilenlänge ist, solange in allen Zeilen Leerzeichen existieren, die dieses erlauben.</para
-></listitem>
+<para>If enabled,
+it has the following effects:
+
+<itemizedlist>
+<listitem><para>While typing, the editor will automatically insert a hard line break after
+the last whitespace character at a position before the maximum line width is reached.</para></listitem>
+<listitem><para>While loading a document, the editor will wrap the text in a similar way, so that
+no lines are longer than the maximum line width, if they contain any whitespace allowing that.</para></listitem>
 </itemizedlist>
 
 </para>
 
-<note
-><para
->Es gibt keine Möglichkeit die Zeilenlänge dokumentenabhängig zu setzen oder ein- und auszuschalten. Dies wird in einer späteren Version von &kappname; möglich werden..</para
-></note>
+<note><para>There is currently no way to set word wrap for document types, or even to enable or disable
+the feature on a per document level. This will be fixed in a future version of &kappname;.</para></note>
 
 </sect1>
 
 <sect1 id="kate-part-autoindent">
-<title
->Automatisches Einrücken benutzen</title>
+<title>Using automatic indenting</title>
 
-<para
->&kappname;s Editorkomponente unterstützt verschiedene Varianten des automatischen Einrückens. Diese sind für verschiedene Textformate gedacht. Sie können im Menü <menuchoice
-><guimenu
->Extras</guimenu
-><guisubmenu
->Einrückung</guisubmenu
-></menuchoice
-> aus den vorhandenen Varianten eine auswählen. Der Modul für das automatische Einrücken stellt auch eine Funktion <menuchoice
-><guimenu
->Extras</guimenu
-> <guimenuitem
->Ausrichten</guimenuitem
-></menuchoice
-> bereit, die die Einrückung der markierten oder der aktuellen Zeile neu berechnet. Damit können Sie durch Markieren des gesamten Textes und Nutzung dieser Funktion das Dokument neu ordnen lassen.</para>
+<para>&kappname;s editor component supports a variety of autoindenting modes,
+designed for different text formats. You can pick from the available modes using
+the <menuchoice><guimenu>Tools</guimenu><guisubmenu>Indentation</guisubmenu></menuchoice>
+menu. The autoindent modules also provide a function
+<menuchoice><guimenu>Tools</guimenu><guimenuitem>Format Indentation</guimenuitem></menuchoice>
+which will recalculate the indentation of the selected or current line. Thus,
+you may reindent your entire document by selecting all the text and activating
+that action.</para>
 
-<para
->Alle Einrückungsmodi benutzen die Einstellungen für Einrückungen für das aktuelle Dokument.</para>
+<para>All the indent modes use the indentation related settings in the active
+document.</para>
 
-<tip
-><para
->Sie können alle Einstellungsvariablen, auch die für Einrückungen, setzen, indem Sie  <link linkend="config-variables"
->Dokumentvariablen</link
-> und <link linkend="pref-open-save-modes-filetypes"
->Dateitypen</link
-> benutzen.</para
-></tip>
+<tip><para>You can set all sorts of configuration variables, including
+those related to indentation using
+<link linkend="config-variables">Document Variables</link> and
+<link linkend="pref-open-save-modes-filetypes">File types</link>.</para></tip>
 
 <variablelist>
 
-<title
->Verfügbare Einrückungsmethoden</title>
+<title>Available Autoindent Modes</title>
 
 <varlistentry>
-<term
->Kein</term>
-<listitem
-><para
->Diese Einstellung schaltet das automatische Einrücken ab.</para>
+<term>None</term>
+<listitem><para>Selecting this mode turns automatic indenting off entirely.</para>
 </listitem>
 </varlistentry>
 
 <varlistentry>
-<term
->Normal</term>
-<listitem
-><para
->Diese Einstellung rückt die aktuelle Zeile genau so ein, wie die vorhergehende Zeile. Die ersten Nichtleerzeichen der beiden Zeilen stehen genau untereinander. Sie können diese Einstellung mit den Befehlen für Einrücken und Einrücken rückgängig kombinieren, um die Einrückung nach Ihrem persönlichen Geschmack einzustellen. </para
-></listitem>
+<term>Normal</term>
+<listitem><para>This indenter simply keeps the indentation similar to the
+previous line with any content other than whitespace. You can combine this
+with using the indent and unindent actions for indenting to your own taste.
+</para></listitem>
 </varlistentry>
 
-<varlistentry
-><term
->C-Stil</term>
-<listitem
-><para
->Eine Einrückung für C und ähnliche Programmiersprachen, wie C++, C#, &Java;, &javascript; &etc; Diese Einrückung funktioniert nicht mit Skriptsprachen wie Perl oder PHP.</para
-></listitem>
+<varlistentry><term>C Style</term>
+<listitem><para>An indenter for C and similar languages, such as
+C++, C#, &Java;, &javascript; and so on. This indenter will not work with scripting
+languages such as Perl or PHP.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
->Haskell</term>
-<listitem
-><para
->Eine Einrückung speziell für die Skriptsprache Haskell. </para
-></listitem>
+<term>Haskell</term>
+<listitem><para>An indenter for the functional programming language Haskell.
+</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
->LilyPond</term>
-<listitem
-><para
->Eine Einrückung speziell für die Lilypond-Schreibweise für Musik. </para
-></listitem>
+<term>Lilypond</term>
+<listitem><para>An indenter for the Lilypond notation language for music.
+</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
->Lisp</term>
-<listitem
-><para
->Eine Einrückung speziell für die Skriptsprache Lisp und deren Dialekte. </para
-></listitem>
+<term>Lisp</term>
+<listitem><para>An indenter specifically for the Lisp scripting language and
+Lisp dialects.
+</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
->Python</term>
-<listitem
-><para
->Eine Einrückung speziell für die Skriptsprache Python. </para
-></listitem>
+<term>Python</term>
+<listitem><para>An indenter specifically for the python scripting language.
+</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term
->XML-Stil</term>
-<listitem
-><para
->Eine Einrückung speziell für XML. </para
-></listitem>
+<term>XML Style</term>
+<listitem><para>An indenter specifically for XML like languages.
+</para></listitem>
 </varlistentry>
 <!--Ruby + Lua missing -->
 </variablelist>
@@ -906,66 +606,81 @@
 </sect1>
 
 <sect1 id="kate-part-line-modification">
-<title
->Kennzeichnung von Änderungen in Textzeilen</title>
+<title>Line Modification Indicators</title>
 
-<para
->Mit der Kennzeichnung von Änderungen in Textzeilen in &kappname; können Sie leicht erkennen, was gerade in einer Datei geändert wurde. In der Voreinstellung werden gespeicherte Änderungen werden mit grünen und noch nicht gespeicherte Änderungen mit orangefarbenen Balken links im Textfenster angezeigt.</para>
+<para>&kappname;'s line modification indicators let you easily see what you have
+recently changed in a file.  By default, saved changes are indicated by a green
+bar to the left of a document, while unsaved changes are indicated by an orange
+bar.</para>
 
 <para>
 <mediaobject>
-<imageobject
-><imagedata format="PNG" fileref="line-modification-system.png"/></imageobject>
-<caption
-><para
->Kennzeichnung von Änderungen in Textzeilen in Aktion</para
-></caption>
+<imageobject><imagedata format="PNG" fileref="line-modification-system.png"/></imageobject>
+<caption><para>Line Modification Indicators in action.</para></caption>
 </mediaobject>
 </para>
 
-<para
->Sie können die verwendeten Farben im Einrichtungsdialog auf der Seite <link linkend="prefcolors"
-><guilabel
->Schriften &amp; Farben</guilabel
-></link
-> ändern oder diese Funktion auf der Karteikarte <link linkend="appearance-borders"
-><guilabel
->Randbereiche</guilabel
-></link
-> auf der Seite <guilabel
->Erscheinungsbild</guilabel
-> ganz abschalten.</para>
+<para>You can change the colors used in the
+<link linkend="prefcolors"><guilabel>Fonts &amp; Colors</guilabel> configuration
+panel</link>, or you can disable this feature completely in the
+<link linkend="appearance-borders"><guilabel>Borders</guilabel> tab of the
+<guilabel>Appearance</guilabel> configuration panel</link>.</para>
 
 </sect1>
 
 <sect1 id="kate-part-scrollbar-minimap">
-<title
->Die Textgrafik auf der Bildlaufleiste</title>
+<title>The Scrollbar Minimap</title>
 
-<para
->Die Textgrafik auf der Bildlaufleiste von &kappname; zeigt eine Vorschau des Dokuments anstatt der normalen Bildlaufleiste. Der zurzeit sichtbare Teil des Dokuments ist hervorgehoben. </para>
+<para>&kappname;'s Scrollbar Minimap displays a preview of documents in place of
+the scrollbar.  The currently visible portion of the document is highlighted.
+</para>
 
 <para>
 <mediaobject>
-<imageobject
-><imagedata format="PNG" fileref="minimap.png"/></imageobject>
-<caption
-><para
->Die Textgrafik auf der Bildlaufleiste zeigt eine Vorschau von &kate;s Quelltext. </para
-></caption>
+<imageobject><imagedata format="PNG" fileref="minimap.png"/></imageobject>
+<caption><para>The Scrollbar Minimap shows a preview of the &kate; source code.
+</para></caption>
 </mediaobject>
 </para>
 
-<para
->Sie können die Textgrafik auf der Bildlaufleiste temporär mit <menuchoice
-><guimenu
->Ansicht</guimenu
-><guimenuitem
->Textgrafik auf Bildlaufleiste anzeigen</guimenuitem
-></menuchoice
-> oder dauerhaft auf der Seite <link linkend="appearance-borders"
->Erscheinungsbild</link
-> im Einrichtungsdialog von &kappname; ein- oder ausschalten.</para>
+<para>You can temporarily enable or disable the minimap by selecting
+<menuchoice><guimenu>View</guimenu><guimenuitem>View Scrollbar Minimap</guimenuitem></menuchoice>
+or permanently in <link linkend="appearance-borders">the Appearance section of
+&kappname;'s configuration</link>.</para>
+
+</sect1>
+
+<sect1 id="kate-part-multiple-cursors">
+<title>Multiple cursors</title>
+
+<para>Multiple cursor support was introduced with version 5.93 of katepart.</para>
+
+<sect2 id="kate-part-create-multiple-cursors">
+<title>Creating multiple cursors</title>
+
+<itemizedlist>
+<listitem><para>To create them via mouse, use &Alt; + &LMB;. The modifier is configurable, see <link linkend="multicursor-modifier-configure">Configure multicursor modifier</link></para></listitem>
+
+<listitem><para>To create via keyboard, press <keycombo action="simul">&Ctrl;&Alt;&Up;</keycombo> to create cursor above primary cursor and <keycombo action="simul">&Ctrl;&Alt;&Down;</keycombo> to create cursor below. These shortcuts are also configurable</para></listitem>
+
+<listitem><para>To create cursors out of a selection, first select some text and then press <keycombo action="simul">&Shift;&Alt;<keycap>I</keycap></keycombo>. This will create a cursor at the end of each line in selection.</para></listitem>
+
+<listitem><para>Use <keycombo action="simul">&Alt;<keycap>J</keycap></keycombo> to find the next occurrence of the word under cursor and select it + create a cursor. If you want to skip the current word under cursor, press <keycombo action="simul">&Alt;<keycap>K</keycap></keycombo> and it will mark the currently selected word as skipped. When you press <keycombo action="simul">&Alt;<keycap>J</keycap></keycombo> again it will unselect the current word and move to the next word.</para>
+</listitem>
+
+<listitem><para>Use <keycombo action="simul">&Ctrl;&Alt;&Shift;<keycap>J</keycap></keycombo> to find all occurrences of the word under cursor and select them with a cursor at the end of each selection. You can use <keycombo action="simul">&Alt;<keycap>J</keycap></keycombo> to cycle through the selected words and use <keycombo action="simul">&Alt;<keycap>K</keycap></keycombo> to unselect any word as mentioned in the previous paragraph.</para></listitem>
+</itemizedlist>
+
+</sect2>
+
+<sect2><title>Working with multiple cursors</title>
+<para>Once you have created a few cursors, you can perform most of the editing operations on them as you would on a single cursor.
+For example, typing a letter will type it for each cursor. Similarly you can perform text transforms &eg;, capitalization
+for all the positions or selections.</para>
+
+<para>Sometimes you will want to remove cursors. To do so, you can &Alt; + &LMB; on the cursor that you want to remove. If you just want to remove cursors on lines that are empty, there is a ready-made action for it that will do it for you. To invoke the action, open the Command Bar using <keycombo action="simul">&Ctrl;&Alt;<keycap>I</keycap></keycombo> and look for <guimenuitem>Remove cursors from empty lines</guimenuitem> and hit &Enter;. You can also configure a shortcut for this action.</para>
+
+</sect2>
 
 </sect1>
 

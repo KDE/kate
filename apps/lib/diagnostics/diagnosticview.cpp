@@ -267,6 +267,10 @@ void DiagnosticsView::onViewChanged(KTextEditor::View *v)
         });
         m_posChangedTimer->start();
     }
+
+    if (v && v->document()) {
+        connect(v->document(), &KTextEditor::Document::documentUrlChanged, this, &DiagnosticsView::onDocumentUrlChanged, Qt::UniqueConnection);
+    }
 }
 
 void DiagnosticsView::registerDiagnosticsProvider(DiagnosticsProvider *provider)
@@ -279,7 +283,7 @@ void DiagnosticsView::registerDiagnosticsProvider(DiagnosticsProvider *provider)
     provider->diagnosticView = this;
     connect(provider, &DiagnosticsProvider::diagnosticsAdded, this, &DiagnosticsView::onDiagnosticsAdded);
     connect(provider, &DiagnosticsProvider::fixesAvailable, this, &DiagnosticsView::onFixesAvailable);
-    connect(provider, &DiagnosticsProvider::requestClearDiagnosticsForStaleDocs, this, &DiagnosticsView::clearDiagnosticsForStaleDocs);
+    connect(provider, &DiagnosticsProvider::requestClearDiagnostics, this, &DiagnosticsView::clearDiagnosticsFromProvider);
     m_providers.push_back(provider);
 }
 
@@ -291,7 +295,7 @@ void DiagnosticsView::unregisterDiagnosticsProvider(DiagnosticsProvider *provide
     }
     disconnect(provider, &DiagnosticsProvider::diagnosticsAdded, this, &DiagnosticsView::onDiagnosticsAdded);
     disconnect(provider, &DiagnosticsProvider::fixesAvailable, this, &DiagnosticsView::onFixesAvailable);
-    disconnect(provider, &DiagnosticsProvider::requestClearDiagnosticsForStaleDocs, this, &DiagnosticsView::clearDiagnosticsForStaleDocs);
+    disconnect(provider, &DiagnosticsProvider::requestClearDiagnostics, this, &DiagnosticsView::clearDiagnosticsFromProvider);
     m_providers.removeOne(provider);
 }
 
@@ -598,11 +602,12 @@ void DiagnosticsView::onDiagnosticsAdded(const FileDiagnostics &diagnostics)
 
 void DiagnosticsView::clearDiagnosticsForStaleDocs(const QVector<QString> &filesToKeep, DiagnosticsProvider *provider)
 {
+    // If provider == null, all diags get cleared
     auto get_provider = [](QStandardItem *item) {
         return item->data(DiagnosticModelRole::ProviderRole).value<DiagnosticsProvider *>();
     };
     auto all_diags_from_provider = [get_provider, provider](QStandardItem *file) {
-        if (file->rowCount() == 0) {
+        if (file->rowCount() == 0 || !provider) {
             return true;
         }
         for (int i = 0; i < file->rowCount(); ++i) {
@@ -1086,4 +1091,18 @@ QString DiagnosticsView::onTextHint(KTextEditor::View *view, const KTextEditor::
         }
     }
     return result;
+}
+
+void DiagnosticsView::onDocumentUrlChanged()
+{
+    // remove lingering diagnostics
+    // collect active urls
+    QSet<QString> fpaths;
+    const auto views = m_mainWindow->views();
+    for (const auto view : views) {
+        if (auto doc = view->document()) {
+            fpaths.insert(doc->url().toLocalFile());
+        }
+    }
+    clearDiagnosticsForStaleDocs({fpaths.begin(), fpaths.end()}, nullptr);
 }

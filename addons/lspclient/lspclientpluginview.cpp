@@ -2250,26 +2250,6 @@ public:
         addMessage(lvl, i18nc("@info", "LSP Client"), msg);
     }
 
-    void onDocumentUrlChanged(KTextEditor::Document *doc)
-    {
-        // url already changed by this time and new url not useful
-        (void)doc;
-        // note; url also changes when closed
-        // spec says;
-        // if a language has a project system, diagnostics are not cleared by *server*
-        // but in either case (url change or close); remove lingering diagnostics
-        // collect active urls
-        QSet<QString> fpaths;
-        const auto views = m_mainWindow->views();
-        for (const auto view : views) {
-            if (auto doc = view->document()) {
-                fpaths.insert(doc->url().toLocalFile());
-            }
-        }
-
-        m_diagnosticProvider.requestClearDiagnosticsForStaleDocs({fpaths.begin(), fpaths.end()}, &m_diagnosticProvider);
-    }
-
     void onTextChanged(KTextEditor::Document *doc)
     {
         KTextEditor::View *activeView = m_mainWindow->activeView();
@@ -2346,7 +2326,6 @@ public:
             // and monitor for such
             if (doc) {
                 connect(doc, &KTextEditor::Document::textChanged, this, &self_type::onTextChanged, Qt::UniqueConnection);
-                connect(doc, &KTextEditor::Document::documentUrlChanged, this, &self_type::onDocumentUrlChanged, Qt::UniqueConnection);
                 connect(doc, &KTextEditor::Document::reloaded, this, &self_type::updateState, Qt::UniqueConnection);
             }
             // only consider basename (full path may have been custom specified)

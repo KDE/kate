@@ -198,7 +198,7 @@ void KateProjectInfoViewCodeAnalysis::slotStartStopClicked()
     /**
      * clear existing entries
      */
-    m_diagnosticProvider->requestClearDiagnosticsForStaleDocs({}, m_diagnosticProvider);
+    m_diagnosticProvider->requestClearDiagnostics(m_diagnosticProvider);
 
     /**
      * launch selected tool

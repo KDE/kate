@@ -71,6 +71,12 @@ public:
 
     void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override
     {
+        const bool docItem = !index.parent().isValid();
+        if (!docItem) {
+            QStyledItemDelegate::paint(painter, option, index);
+            return;
+        }
+
         auto options = option;
         initStyleOption(&options, index);
 
@@ -81,18 +87,16 @@ public:
         options.widget->style()->drawControl(QStyle::CE_ItemViewItem, &options, painter, options.widget);
 
         QVector<QTextLayout::FormatRange> formats;
-        if (!index.parent().isValid()) {
-            int lastSlash = text.lastIndexOf(QLatin1Char('/'));
-            if (lastSlash != -1) {
-                QTextCharFormat fmt;
-                fmt.setFontWeight(QFont::Bold);
-                formats.append({lastSlash + 1, int(text.length() - (lastSlash + 1)), fmt});
-            }
+        int lastSlash = text.lastIndexOf(QLatin1Char('/'));
+        if (lastSlash != -1) {
+            QTextCharFormat fmt;
+            fmt.setFontWeight(QFont::Bold);
+            formats.append({lastSlash + 1, int(text.length() - (lastSlash + 1)), fmt});
         }
 
         /** There might be an icon? Make sure to not draw over it **/
-        auto textRectX = options.widget->style()->subElementRect(QStyle::SE_ItemViewItemText, &options, options.widget).x();
-        auto width = textRectX - options.rect.x();
+        auto textRect = options.widget->style()->subElementRect(QStyle::SE_ItemViewItemText, &options, options.widget);
+        auto width = textRect.x() - options.rect.x();
         painter->translate(width, 0);
         Utils::paintItemViewText(painter, text, options, formats);
 

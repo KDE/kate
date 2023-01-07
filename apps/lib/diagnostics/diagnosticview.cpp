@@ -33,6 +33,52 @@
 #include <QTreeView>
 #include <QVBoxLayout>
 
+class DiagTabOverlay : public QWidget
+{
+public:
+    DiagTabOverlay(QWidget *parent)
+        : QWidget(parent)
+        , m_tabButton(parent)
+    {
+        setAttribute(Qt::WA_TransparentForMouseEvents, true);
+        setGeometry(parent->geometry());
+        show();
+        raise();
+    }
+
+    bool active() const
+    {
+        return m_active;
+    }
+
+    void setActive(bool a)
+    {
+        if (m_active != a) {
+            m_active = a;
+            if (m_tabButton->size() != size()) {
+                resize(m_tabButton->size());
+            }
+            update();
+        }
+    }
+
+protected:
+    void paintEvent(QPaintEvent *) override
+    {
+        if (m_active) {
+            QPainter p(this);
+            p.setOpacity(0.25);
+            p.setBrush(Qt::red);
+            p.setPen(Qt::NoPen);
+            p.drawRect(rect().adjusted(1, 1, -1, -1));
+        }
+    }
+
+private:
+    bool m_active = false;
+    QWidget *m_tabButton = nullptr;
+};
+
 bool DiagnosticsProvider::hasTooltipForPos(KTextEditor::View *v, KTextEditor::Cursor pos) const
 {
     if (!diagnosticView->onTextHint(v, pos).isEmpty())
@@ -168,7 +214,7 @@ static QIcon diagnosticsIcon(DiagnosticSeverity severity)
     return QIcon();
 }
 
-DiagnosticsView::DiagnosticsView(QWidget *parent, KateMainWindow *mainWindow)
+DiagnosticsView::DiagnosticsView(QWidget *parent, KateMainWindow *mainWindow, QWidget *tabButton)
     : QWidget(parent)
     , m_mainWindow(mainWindow)
     , m_diagnosticsTree(new QTreeView(this))
@@ -177,6 +223,7 @@ DiagnosticsView::DiagnosticsView(QWidget *parent, KateMainWindow *mainWindow)
     , m_proxy(new QSortFilterProxyModel(this))
     , m_sessionDiagnosticSuppressions(std::make_unique<SessionDiagnosticSuppressions>())
     , m_textHintProvider(new ForwardingTextHintProvider(this))
+    , m_tabButtonOverlay(new DiagTabOverlay(tabButton))
     , m_posChangedTimer(new QTimer(this))
     , m_filterChangedTimer(new QTimer(this))
 {
@@ -311,6 +358,12 @@ void DiagnosticsView::readSessionConfig(const KConfigGroup &config)
 void DiagnosticsView::writeSessionConfig(KConfigGroup &config)
 {
     m_sessionDiagnosticSuppressions->writeSessionConfig(config);
+}
+
+void DiagnosticsView::showEvent(QShowEvent *e)
+{
+    m_tabButtonOverlay->setActive(false);
+    QWidget::showEvent(e);
 }
 
 static QStandardItem *getItem(const QStandardItemModel &model, const QUrl &url)
@@ -591,10 +644,11 @@ void DiagnosticsView::onDiagnosticsAdded(const FileDiagnostics &diagnostics)
     // and only the whole text when item selected ??
     m_diagnosticsTree->setExpanded(toProxyIndex(topItem->index()), true);
 
+    // topItem might be removed after this
     updateDiagnosticsState(topItem);
     // also sync updated diagnostic to current position
     auto currentView = m_mainWindow->activeView();
-    if (currentView && currentView->document()) {
+    if (topItem && currentView && currentView->document()) {
         if (!syncDiagnostics(currentView->document(), currentView->cursorPosition().line(), false, false)) {
             // avoid jitter; only restore previous if applicable
             if (row >= 0 && row < topItem->rowCount()) {
@@ -602,6 +656,7 @@ void DiagnosticsView::onDiagnosticsAdded(const FileDiagnostics &diagnostics)
             }
         }
     }
+    m_tabButtonOverlay->setActive(!isVisible() && m_model.rowCount() > 0);
 }
 
 void DiagnosticsView::clearDiagnosticsForStaleDocs(const QVector<QString> &filesToKeep, DiagnosticsProvider *provider)
@@ -665,6 +720,8 @@ void DiagnosticsView::clearDiagnosticsForStaleDocs(const QVector<QString> &files
     }
 
     updateMarks();
+
+    m_tabButtonOverlay->setActive(!isVisible() && m_model.rowCount() > 0);
 }
 
 void DiagnosticsView::addMarks(KTextEditor::Document *doc, QStandardItem *item)
@@ -869,7 +926,7 @@ void DiagnosticsView::updateMarks(const QList<QUrl> &urls)
     }
 }
 
-void DiagnosticsView::updateDiagnosticsState(QStandardItem *topItem)
+void DiagnosticsView::updateDiagnosticsState(QStandardItem *&topItem)
 {
     if (!topItem) {
         return;
@@ -879,7 +936,7 @@ void DiagnosticsView::updateDiagnosticsState(QStandardItem *topItem)
     auto enabled = diagTopItem->enabled;
     auto suppressions = enabled ? diagTopItem->diagnosticSuppression.get() : nullptr;
 
-    int totalCount = topItem->rowCount();
+    const int totalCount = topItem->rowCount();
     int count = 0;
     for (int i = 0; i < totalCount; ++i) {
         auto item = topItem->child(i);
@@ -897,13 +954,17 @@ void DiagnosticsView::updateDiagnosticsState(QStandardItem *topItem)
     }
     // adjust file item level text
     auto suppressed = totalCount - count;
-    auto text = topItem->data(Qt::UserRole).toString();
-    topItem->setText(suppressed ? i18nc("@info", "%1 [suppressed: %2]", text, suppressed) : text);
+    const QString path = topItem->data(Qt::UserRole).toString();
+    topItem->setText(suppressed ? i18nc("@info", "%1 [suppressed: %2]", path, suppressed) : path);
     // only hide if really nothing below
     const auto proxyIdx = m_proxy->mapFromSource(topItem->index());
     m_diagnosticsTree->setRowHidden(proxyIdx.row(), proxyIdx.parent(), totalCount == 0);
+    if (topItem->rowCount() == 0) {
+        m_model.removeRow(topItem->row());
+        topItem = nullptr;
+    }
 
-    updateMarks({QUrl::fromLocalFile(topItem->data(Qt::UserRole).toString())});
+    updateMarks({QUrl::fromLocalFile(path)});
 }
 
 void DiagnosticsView::goToItemLocation(QModelIndex index)
@@ -1058,7 +1119,8 @@ void DiagnosticsView::onContextMenuRequested(const QPoint &pos)
             if (pindex.isValid()) {
                 docDiagItem->enabled = enabled;
             }
-            updateDiagnosticsState(docDiagItem);
+            auto si = static_cast<QStandardItem *>(docDiagItem);
+            updateDiagnosticsState(si);
         };
         if (docDiagItem->enabled) {
             menu->addAction(i18n("Disable Suppression"), this, std::bind(h, false));

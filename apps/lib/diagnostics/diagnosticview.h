@@ -73,7 +73,7 @@ class DiagnosticsView : public QWidget
     friend class ForwardingTextHintProvider;
 
 public:
-    explicit DiagnosticsView(QWidget *parent, KateMainWindow *mainWindow);
+    explicit DiagnosticsView(QWidget *parent, KateMainWindow *mainWindow, QWidget *tabButton);
     ~DiagnosticsView();
 
     void registerDiagnosticsProvider(DiagnosticsProvider *provider);
@@ -86,6 +86,9 @@ public:
 
     void showToolview();
 
+protected:
+    void showEvent(QShowEvent *e) override;
+
 private:
     void onFixesAvailable(const QVector<DiagnosticFix> &fixes, const QVariant &data);
     void showFixesInMenu(const QVector<DiagnosticFix> &fixes);
@@ -97,7 +100,7 @@ private:
     }
     void clearDiagnosticsForStaleDocs(const QVector<QString> &filesToKeep, DiagnosticsProvider *provider);
     void onDocumentUrlChanged();
-    void updateDiagnosticsState(QStandardItem *topItem);
+    void updateDiagnosticsState(QStandardItem *&topItem);
     void updateMarks(const QList<QUrl> &urls = {});
     void goToItemLocation(QModelIndex index);
 
@@ -134,6 +137,8 @@ private:
     QSet<KTextEditor::Document *> m_diagnosticsMarks;
 
     std::unique_ptr<class ForwardingTextHintProvider> m_textHintProvider;
+
+    class DiagTabOverlay *const m_tabButtonOverlay;
 
     QMetaObject::Connection posChangedConnection;
     QTimer *const m_posChangedTimer;

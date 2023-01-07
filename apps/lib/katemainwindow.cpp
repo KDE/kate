@@ -303,7 +303,7 @@ void KateMainWindow::setupMainWindow(KConfig *sconfig)
                                      KTextEditor::MainWindow::Bottom,
                                      QIcon::fromTheme(QStringLiteral("dialog-warning-symbolic")),
                                      i18n("Diagnostics"));
-    m_diagView = new DiagnosticsView(m_toolViewDiags, this);
+    m_diagView = new DiagnosticsView(m_toolViewDiags, this, toolviewToggleButton(static_cast<KateMDI::ToolView *>(m_toolViewDiags)));
     m_diagView->readSessionConfig(KConfigGroup(sconfig, "Kate Diagnostics"));
 }
 

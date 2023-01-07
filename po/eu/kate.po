@@ -14,14 +14,14 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-06 00:51+0000\n"
-"PO-Revision-Date: 2023-01-01 11:32+0100\n"
+"PO-Revision-Date: 2023-01-06 20:10+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.12.0\n"
+"X-Generator: Lokalize 22.12.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #, kde-format
@@ -239,11 +239,10 @@ msgid "%1 doesn't exist in a git repo."
 msgstr "%1 ez da existitzen «git» gordetegi batean."
 
 #: lib/commitfilesview.cpp:495
-#, fuzzy, kde-format
-#| msgid "Commit"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Commit %1"
-msgstr "Baliozkotu"
+msgstr "Baliozkotu %1"
 
 #. i18n: ectx: Menu (file)
 #: lib/data/kateui.rc:6
@@ -420,16 +419,14 @@ msgid "Jump to Previous Hunk"
 msgstr "Jauzi aurreko puskara"
 
 #: lib/diff/diffwidget.cpp:644 lib/diff/diffwidget.cpp:844
-#, fuzzy, kde-format
-#| msgid "New file name"
+#, kde-format
 msgid "New file %1"
-msgstr "Fitxategi-izen berria"
+msgstr "Fitxategi berria %1"
 
 #: lib/diff/diffwidget.cpp:646 lib/diff/diffwidget.cpp:846
-#, fuzzy, kde-format
-#| msgid "Delete file"
+#, kde-format
 msgid "Deleted file %1"
-msgstr "Ezabatu fitxategia"
+msgstr "Ezabatutako fitxategia %1"
 
 #: lib/filehistorywidget.cpp:286
 #, kde-format

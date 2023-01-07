@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-06 00:51+0000\n"
-"PO-Revision-Date: 2022-08-25 12:46+0200\n"
+"PO-Revision-Date: 2023-01-06 07:40+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: keyboardmacrosplugin.cpp:65 keyboardmacrosplugin.cpp:101
 #, kde-format
@@ -26,12 +26,12 @@ msgstr "ფაილ %1-ის გახსნა შეუძლებელი
 #: keyboardmacrosplugin.cpp:71
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
-msgstr ""
+msgstr "არასწორი JSON ფაილი '%1': %2"
 
 #: keyboardmacrosplugin.cpp:79
 #, kde-format
 msgid "Could not load '%1': malformed macro; wiping it."
-msgstr ""
+msgstr "'%1'-ის ჩატვირთვის შეცდომა: არასწორი მაკრო. ის წაიშლება."
 
 #. i18n: ectx: ToolBar (keyboardmacros)
 #: keyboardmacrosplugin.cpp:120 keyboardmacrospluginview.cpp:30
@@ -89,12 +89,12 @@ msgstr "გამოყენება: %1 <სახელი>."
 #: keyboardmacrosplugincommands.cpp:62
 #, kde-format
 msgid "No keyboard macro named '%1' found."
-msgstr ""
+msgstr "კლავიატურის მაკრო სახელით '%1' ვერ ვიპოვე."
 
 #: keyboardmacrosplugincommands.cpp:50
 #, kde-format
 msgid "Cannot save empty keyboard macro."
-msgstr ""
+msgstr "ცარიელი კლავიატურის მაკროს შენახვის შეცდომა."
 
 #: keyboardmacrosplugincommands.cpp:77
 #, kde-format
@@ -102,6 +102,8 @@ msgid ""
 "<qt><p>Usage: <code>kmsave &lt;name&gt;</code></p><p>Save current keyboard "
 "macro as <code>&lt;name&gt;</code>.</p>%1</qt>"
 msgstr ""
+"<qt><p>გამოყენება: <code>kmsave &lt;სახელი&gt;</code></p><p>მიმდინარე "
+"კლავიატურის მაკროს შენახვა, როგორც <code>&lt;სახელი&gt;</code>.</p>%1</qt>"
 
 #: keyboardmacrosplugincommands.cpp:80
 #, kde-format
@@ -109,6 +111,9 @@ msgid ""
 "<qt><p>Usage: <code>kmload &lt;name&gt;</code></p><p>Load saved keyboard "
 "macro <code>&lt;name&gt;</code> as current macro.</p>%1</qt>"
 msgstr ""
+"<qt><p>გამოყენება: <code>kmload &lt;სახელი&gt;</code></p><p>შენახული "
+"კლავიატურის მაკროს ჩატვირთვა <code>&lt;სახელით&gt;</code> როგორც მიმდინარე "
+"მაკრო.</p>%1</qt>"
 
 #: keyboardmacrosplugincommands.cpp:84
 #, kde-format
@@ -116,6 +121,9 @@ msgid ""
 "<qt><p>Usage: <code>kmplay &lt;name&gt;</code></p><p>Play saved keyboard "
 "macro <code>&lt;name&gt;</code> without loading it.</p>%1</qt>"
 msgstr ""
+"<qt><p>გამოყენება: <code>kmplay &lt;სახელი&gt;</code></p><p>შენახული "
+"კლავიატურის მაკროს <code>&lt;სახელით&gt;</code> გაშვება ჩატვირთვის გარეშე.</"
+"p>%1</qt>"
 
 #: keyboardmacrosplugincommands.cpp:88
 #, kde-format
@@ -123,6 +131,8 @@ msgid ""
 "<qt><p>Usage: <code>kmwipe &lt;name&gt;</code></p><p>Wipe saved keyboard "
 "macro <code>&lt;name&gt;</code>.</p>%1</qt>"
 msgstr ""
+"<qt><p>გამოყენება: <code>kmwipe &lt;სახელი&gt;</code></p><p>შენახული "
+"კლავიატურის მაკროს წაშლა: <code>&lt;სახელით&gt;</code>.</p>%1</qt>"
 
 #: keyboardmacrospluginview.cpp:33
 #, kde-format
@@ -132,7 +142,7 @@ msgstr "&კლავიატურის მაკროები"
 #: keyboardmacrospluginview.cpp:36
 #, kde-format
 msgid "Record and play keyboard macros."
-msgstr ""
+msgstr "კლავიატურის მაკროების ჩაწერა და გაშვება."
 
 #: keyboardmacrospluginview.cpp:41 keyboardmacrospluginview.cpp:158
 #, kde-format
@@ -143,6 +153,7 @@ msgstr "&მაკროს ჩაწერა…"
 #, kde-format
 msgid "Start/stop recording a macro (i.e., keyboard action sequence)."
 msgstr ""
+"მაკროს ჩაწერის გაშვება/შეჩერება (მაგ: კლავიატურის ქმედების მიმდევრობა)."
 
 #: keyboardmacrospluginview.cpp:52
 #, kde-format
@@ -154,6 +165,7 @@ msgstr "&მაკროს ჩაწერის გაუქმება"
 msgid ""
 "Cancel ongoing recording (and keep the previous macro as the current one)."
 msgstr ""
+"მიმდინარე ჩაწერის გაუქმება (და წინა მაკროს, როგორც მიმდინარის, შენარჩუნება)."
 
 #: keyboardmacrospluginview.cpp:64
 #, kde-format
@@ -166,6 +178,8 @@ msgid ""
 "Play current macro (i.e., execute the last recorded keyboard action "
 "sequence)."
 msgstr ""
+"მიმდინარე მაკროს გაშვება (ანუ გაუშვი ბოლოს ჩაწერილი კლავიატურის ქმედების "
+"მიმდევრობა)."
 
 #: keyboardmacrospluginview.cpp:76
 #, kde-format
@@ -175,7 +189,7 @@ msgstr "&მიმდინარე მაკროს შენახვა"
 #: keyboardmacrospluginview.cpp:78
 #, kde-format
 msgid "Give a name to the current macro and persistently save it."
-msgstr ""
+msgstr "მიანიჭეთ სახელი მიმდინარე მაკროს და შეინახეთ ის სამუდამოდ."
 
 #: keyboardmacrospluginview.cpp:90
 #, kde-format
@@ -185,7 +199,7 @@ msgstr "&მაკროს ჩატვირთვა…"
 #: keyboardmacrospluginview.cpp:93
 #, kde-format
 msgid "Load a named macro as the current one."
-msgstr ""
+msgstr "სახელიანი მაკროს მიმდინარედ ჩატვირთვა."
 
 #: keyboardmacrospluginview.cpp:98
 #, kde-format
@@ -195,17 +209,17 @@ msgstr "&მაკროს დაკვრა…"
 #: keyboardmacrospluginview.cpp:101
 #, kde-format
 msgid "Play a named macro without loading it."
-msgstr ""
+msgstr "სახელიანი მაკროს მისი ჩატვირთვის გარეშე გაშვება."
 
 #: keyboardmacrospluginview.cpp:106
 #, kde-format
 msgid "&Wipe Named Macro..."
-msgstr ""
+msgstr "სახელიანი მაკროს წაშლა..."
 
 #: keyboardmacrospluginview.cpp:109
 #, kde-format
 msgid "Wipe a named macro."
-msgstr ""
+msgstr "სახელიანი მაკროს წაშლა."
 
 #: keyboardmacrospluginview.cpp:150
 #, kde-format
@@ -215,12 +229,12 @@ msgstr "&მაკროს ჩაწერის დასრულება"
 #: keyboardmacrospluginview.cpp:178
 #, kde-format
 msgid "Load the '%1' macro as the current one."
-msgstr ""
+msgstr "'%1' მაკროს მიმდინარედ ჩატვირთვა."
 
 #: keyboardmacrospluginview.cpp:191
 #, kde-format
 msgid "Play the '%1' macro without loading it."
-msgstr ""
+msgstr "'%1' მაკროს გაშვება მისი ჩატვირთვის გარეშე."
 
 #: keyboardmacrospluginview.cpp:206
 #, kde-format

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-06 00:51+0000\n"
-"PO-Revision-Date: 2023-01-01 06:48+0100\n"
+"PO-Revision-Date: 2023-01-06 07:41+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -204,11 +204,10 @@ msgid "%1 doesn't exist in a git repo."
 msgstr "%1 Git-ის რეპოში არ არსებობს."
 
 #: lib/commitfilesview.cpp:495
-#, fuzzy, kde-format
-#| msgid "Commit"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Commit %1"
-msgstr "გადაცემა"
+msgstr "გადაცემა %1"
 
 #. i18n: ectx: Menu (file)
 #: lib/data/kateui.rc:6
@@ -385,16 +384,14 @@ msgid "Jump to Previous Hunk"
 msgstr "წინა ნაფლეთზე გადასვლა"
 
 #: lib/diff/diffwidget.cpp:644 lib/diff/diffwidget.cpp:844
-#, fuzzy, kde-format
-#| msgid "New file name"
+#, kde-format
 msgid "New file %1"
-msgstr "ახალი ფაილის სახელი"
+msgstr "ახალი ფაილი %1"
 
 #: lib/diff/diffwidget.cpp:646 lib/diff/diffwidget.cpp:846
-#, fuzzy, kde-format
-#| msgid "Delete file"
+#, kde-format
 msgid "Deleted file %1"
-msgstr "Ფაილის წაშლა"
+msgstr "წაშლილია ფაილი %1"
 
 #: lib/filehistorywidget.cpp:286
 #, kde-format
@@ -772,7 +769,7 @@ msgstr "&ქცევა"
 #: lib/kateconfigdialog.cpp:375
 #, kde-format
 msgid "Open each document in its own window"
-msgstr ""
+msgstr "თითოეული დოკუმენტის მის საკუთარ ფანჯარაში გახსნა"
 
 #: lib/kateconfigdialog.cpp:378
 #, kde-format
@@ -1473,7 +1470,7 @@ msgstr ""
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
-msgstr ""
+msgstr "ეს მენიუს ზოლს სრულად დამალავს. მისი ჩვენება %1-ზე დაწოლით შეგიძლიათ."
 
 #: lib/katemainwindow.cpp:773
 #, kde-format

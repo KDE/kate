@@ -1,14 +1,17 @@
 # Translation of katetextfilter into esperanto.
-#
+# Copyright (C) 2009 Free Software Foundation, Inc.
+# This file is distributed under the same license as the "kate" package.
 # Axel Rousseau <axel@esperanto-jeunes.org>, 2009.
 # Michael Moroni <michael.moroni@mailoo.org>, 2012.
+# Oliver Kellogg <okellogg@users.sourceforge.net>, 2023.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: katetextfilter\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-27 00:48+0000\n"
-"PO-Revision-Date: 2012-05-23 11:37+0200\n"
-"Last-Translator: Michael Moroni <michael.moroni@mailoo.org>\n"
+"PO-Revision-Date: 2023-01-07 01:00+0100\n"
+"Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: Esperanto <kde-i18n-doc@kde.org>\n"
 "Language: eo\n"
 "MIME-Version: 1.0\n"
@@ -40,10 +43,9 @@ msgid "Access Restrictions"
 msgstr "Limigo al akiro"
 
 #: plugin_katetextfilter.cpp:172 plugin_katetextfilter.cpp:260
-#, fuzzy, kde-format
-#| msgid "Filter"
+#, kde-format
 msgid "Text Filter"
-msgstr "Filtrilo"
+msgstr "Teksta Filtrilo"
 
 #: plugin_katetextfilter.cpp:238
 #, kde-format
@@ -62,32 +64,31 @@ msgstr ""
 #: plugin_katetextfilter.cpp:265
 #, kde-format
 msgid "&Filter Through Command..."
-msgstr ""
+msgstr "&Filtri tra Komando..."
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, TextFilterWidget)
 #: textfilterwidget.ui:14
 #, kde-format
 msgid "Dialog"
-msgstr ""
+msgstr "Dialogo"
 
 #. i18n: ectx: property (text), widget (QLabel, lblFilter)
 #: textfilterwidget.ui:26
-#, fuzzy, kde-format
-#| msgid "Enter command to pipe selected text through:"
+#, kde-format
 msgid "Enter command to &pipe selected text through:"
-msgstr "Enigu komandon por transmeti la elektitan tekston per:"
+msgstr "Enigu komandon &por transmeto de la elektita teksto:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, newDoc)
 #: textfilterwidget.ui:39
 #, kde-format
 msgid "Open results in a new document"
-msgstr ""
+msgstr "Malfermi rezultojn en nova fenestro"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, copyResult)
 #: textfilterwidget.ui:46
 #, kde-format
 msgid "Copy the result to clipboard leaving a document unchanged."
-msgstr ""
+msgstr "Kopii la rezultojn al tondujo lasante la dokumenton neŝanĝita."
 
 #. i18n: ectx: property (text), widget (QCheckBox, copyResult)
 #: textfilterwidget.ui:49
@@ -115,6 +116,3 @@ msgstr ""
 #, kde-format
 msgid "&Tools"
 msgstr "&Iloj"
-
-#~ msgid "Filter Te&xt..."
-#~ msgstr "Filtrigi te&kston..."

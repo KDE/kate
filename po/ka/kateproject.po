@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-06 00:51+0000\n"
-"PO-Revision-Date: 2023-01-04 07:31+0100\n"
+"PO-Revision-Date: 2023-01-06 07:33+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -215,17 +215,17 @@ msgstr " შეცდომა: %1"
 #: gitwidget.cpp:566
 #, kde-format
 msgid "\"%1\" executed successfully: %2"
-msgstr ""
+msgstr "\"%1\" წარმატებით შესრულდა: %2"
 
 #: gitwidget.cpp:586
 #, kde-format
 msgid "Failed to stage file. Error:"
-msgstr ""
+msgstr "ფაილის შუალედური შენახვის შეცდომა:"
 
 #: gitwidget.cpp:599
 #, kde-format
 msgid "Failed to unstage file. Error:"
-msgstr ""
+msgstr "ფაილის შუალედური შენახვის გაუქმების შეცდომა:"
 
 #: gitwidget.cpp:610
 #, kde-format

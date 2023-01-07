@@ -1,13 +1,16 @@
 # Translation of kate-ctags-plugin into esperanto.
+# Copyright (C) 2009 Free Software Foundation, Inc.
+# This file is distributed under the same license as the "kate" package.
 # Axel Rousseau <axel@esperanto-jeunes.org>, 2009.
+# Oliver Kellogg <okellogg@users.sourceforge.net>, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kate-ctags-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-03 00:51+0000\n"
-"PO-Revision-Date: 2009-11-15 12:06+0100\n"
-"Last-Translator: Axel Rousseau <axel@esperanto-jeunes.org>\n"
+"PO-Revision-Date: 2023-01-07 01:00+0100\n"
+"Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
 "MIME-Version: 1.0\n"
@@ -20,47 +23,47 @@ msgstr ""
 #: CTagsGlobalConfig.ui:9
 #, kde-format
 msgid "Session-global index targets"
-msgstr ""
+msgstr "Indeksoceloj globalaj al seanco"
 
 #. i18n: ectx: property (text), widget (QPushButton, addButton)
 #: CTagsGlobalConfig.ui:33 kate_ctags.ui:109
 #, kde-format
 msgid "Add"
-msgstr ""
+msgstr "Aldoni"
 
 #. i18n: ectx: property (text), widget (QPushButton, delButton)
 #: CTagsGlobalConfig.ui:40 kate_ctags.ui:116
 #, kde-format
 msgid "Remove"
-msgstr ""
+msgstr "Forigi"
 
 #. i18n: ectx: property (text), widget (QPushButton, updateDB)
 #: CTagsGlobalConfig.ui:54
 #, kde-format
 msgid "Update"
-msgstr ""
+msgstr "Ĝisdatigi"
 
 #. i18n: ectx: property (text), widget (QLabel, cmdLabel)
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
 #: CTagsGlobalConfig.ui:66 kate_ctags.ui:172
 #, kde-format
 msgid "CTags command"
-msgstr ""
+msgstr "CTags-komando"
 
 #: ctagskinds.cpp:23
 msgctxt "Tag Type"
 msgid "define"
-msgstr ""
+msgstr "difinaĵo (define)"
 
 #: ctagskinds.cpp:24 ctagskinds.cpp:66
 msgctxt "Tag Type"
 msgid "label"
-msgstr ""
+msgstr "etikedo"
 
 #: ctagskinds.cpp:25 ctagskinds.cpp:39 ctagskinds.cpp:85
 msgctxt "Tag Type"
 msgid "macro"
-msgstr ""
+msgstr "makroo"
 
 #: ctagskinds.cpp:28 ctagskinds.cpp:30 ctagskinds.cpp:41 ctagskinds.cpp:63
 #: ctagskinds.cpp:83 ctagskinds.cpp:87 ctagskinds.cpp:91 ctagskinds.cpp:93
@@ -68,22 +71,22 @@ msgstr ""
 #: ctagskinds.cpp:110
 msgctxt "Tag Type"
 msgid "function"
-msgstr ""
+msgstr "funkcio"
 
 #: ctagskinds.cpp:28 ctagskinds.cpp:71 ctagskinds.cpp:89 ctagskinds.cpp:95
 msgctxt "Tag Type"
 msgid "subroutine"
-msgstr ""
+msgstr "subproceduro"
 
 #: ctagskinds.cpp:32
 msgctxt "Tag Type"
 msgid "fragment definition"
-msgstr ""
+msgstr "fragmentdifino"
 
 #: ctagskinds.cpp:33
 msgctxt "Tag Type"
 msgid "any pattern"
-msgstr ""
+msgstr "iu ŝablono"
 
 #: ctagskinds.cpp:34
 msgctxt "Tag Type"
@@ -93,158 +96,158 @@ msgstr "slot"
 #: ctagskinds.cpp:35
 msgctxt "Tag Type"
 msgid "pattern"
-msgstr ""
+msgstr "ŝablono"
 
 #: ctagskinds.cpp:38 ctagskinds.cpp:55 ctagskinds.cpp:76 ctagskinds.cpp:91
 #: ctagskinds.cpp:93 ctagskinds.cpp:97
 msgctxt "Tag Type"
 msgid "class"
-msgstr ""
+msgstr "klaso"
 
 #: ctagskinds.cpp:40
 msgctxt "Tag Type"
 msgid "enumerator"
-msgstr ""
+msgstr "enumeraciilo"
 
 #: ctagskinds.cpp:42
 msgctxt "Tag Type"
 msgid "enumeration"
-msgstr ""
+msgstr "enumeracio"
 
 #: ctagskinds.cpp:43
 msgctxt "Tag Type"
 msgid "member"
-msgstr ""
+msgstr "membro"
 
 #: ctagskinds.cpp:44 ctagskinds.cpp:106
 msgctxt "Tag Type"
 msgid "namespace"
-msgstr ""
+msgstr "nomspaco"
 
 #: ctagskinds.cpp:45
 msgctxt "Tag Type"
 msgid "prototype"
-msgstr ""
+msgstr "prototipo"
 
 #: ctagskinds.cpp:46
 msgctxt "Tag Type"
 msgid "struct"
-msgstr ""
+msgstr "strukturo (struct)"
 
 #: ctagskinds.cpp:47
 msgctxt "Tag Type"
 msgid "typedef"
-msgstr ""
+msgstr "tipdifino (typedef)"
 
 #: ctagskinds.cpp:48
 msgctxt "Tag Type"
 msgid "union"
-msgstr ""
+msgstr "unio"
 
 #: ctagskinds.cpp:49 ctagskinds.cpp:73
 msgctxt "Tag Type"
 msgid "variable"
-msgstr ""
+msgstr "variablo"
 
 #: ctagskinds.cpp:50
 msgctxt "Tag Type"
 msgid "external variable"
-msgstr ""
+msgstr "eksterna variablo"
 
 #: ctagskinds.cpp:53
 msgctxt "Tag Type"
 msgid "paragraph"
-msgstr ""
+msgstr "paragrafo"
 
 #: ctagskinds.cpp:56
 msgctxt "Tag Type"
 msgid "feature"
-msgstr ""
+msgstr "trajto"
 
 #: ctagskinds.cpp:57
 msgctxt "Tag Type"
 msgid "local entity"
-msgstr ""
+msgstr "loka enirejo"
 
 #: ctagskinds.cpp:60
 msgctxt "Tag Type"
 msgid "block"
-msgstr ""
+msgstr "bloko"
 
 #: ctagskinds.cpp:61
 msgctxt "Tag Type"
 msgid "common"
-msgstr ""
+msgstr "komuna"
 
 #: ctagskinds.cpp:62
 msgctxt "Tag Type"
 msgid "entry"
-msgstr ""
+msgstr "enirejo"
 
 #: ctagskinds.cpp:64 ctagskinds.cpp:78
 msgctxt "Tag Type"
 msgid "interface"
-msgstr ""
+msgstr "interfaco"
 
 #: ctagskinds.cpp:65
 msgctxt "Tag Type"
 msgid "type component"
-msgstr ""
+msgstr "tipkomponanto"
 
 #: ctagskinds.cpp:67
 msgctxt "Tag Type"
 msgid "local"
-msgstr ""
+msgstr "loka"
 
 #: ctagskinds.cpp:68
 msgctxt "Tag Type"
 msgid "module"
-msgstr ""
+msgstr "modulo"
 
 #: ctagskinds.cpp:69
 msgctxt "Tag Type"
 msgid "namelist"
-msgstr ""
+msgstr "nomlisto"
 
 #: ctagskinds.cpp:70
 msgctxt "Tag Type"
 msgid "program"
-msgstr ""
+msgstr "programo"
 
 #: ctagskinds.cpp:72
 msgctxt "Tag Type"
 msgid "type"
-msgstr ""
+msgstr "tipo"
 
 #: ctagskinds.cpp:77
 msgctxt "Tag Type"
 msgid "field"
-msgstr ""
+msgstr "kampo"
 
 #: ctagskinds.cpp:79
 msgctxt "Tag Type"
 msgid "method"
-msgstr ""
+msgstr "metodo"
 
 #: ctagskinds.cpp:80
 msgctxt "Tag Type"
 msgid "package"
-msgstr ""
+msgstr "pako"
 
 #: ctagskinds.cpp:87 ctagskinds.cpp:108
 msgctxt "Tag Type"
 msgid "procedure"
-msgstr ""
+msgstr "proceduro"
 
 #: ctagskinds.cpp:99
 msgctxt "Tag Type"
 msgid "mixin"
-msgstr ""
+msgstr "enmiksaĵo"
 
 #: ctagskinds.cpp:102
 msgctxt "Tag Type"
 msgid "set"
-msgstr ""
+msgstr "aro"
 
 #: gotosymbolmodel.cpp:67
 #, kde-format
@@ -270,20 +273,20 @@ msgstr ""
 #: gotosymbolwidget.cpp:314
 #, kde-format
 msgid "File for '%1' not found."
-msgstr ""
+msgstr "Dosiero por '%1' ne trovata."
 
 #. i18n: ectx: attribute (title), widget (QWidget, widget)
 #: kate_ctags.ui:33
 #, kde-format
 msgid "Lookup"
-msgstr ""
+msgstr "Elserĉi"
 
 #. i18n: ectx: property (text), widget (QPushButton, updateButton)
 #. i18n: ectx: property (text), widget (QPushButton, updateButton2)
 #: kate_ctags.ui:58 kate_ctags.ui:136
 #, kde-format
 msgid "Update Index"
-msgstr ""
+msgstr "Aktuaigi Indekson"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, tagTreeWidget)
 #: kate_ctags.ui:69
@@ -307,25 +310,25 @@ msgstr "Dosiero"
 #: kate_ctags.ui:88
 #, kde-format
 msgid "Index Targets"
-msgstr ""
+msgstr "Indeksoceloj"
 
 #. i18n: ectx: attribute (title), widget (QWidget, database)
 #: kate_ctags.ui:144
 #, kde-format
 msgid "Database"
-msgstr ""
+msgstr "Datumbazo"
 
 #. i18n: ectx: property (text), widget (QLabel, fileLabel)
 #: kate_ctags.ui:162
 #, kde-format
 msgid "CTags database file"
-msgstr ""
+msgstr "CTags datumbaza dosiero"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, resetCMD)
 #: kate_ctags.ui:205
 #, kde-format
 msgid "Revert to the default command"
-msgstr ""
+msgstr "Reverti al defaŭlta komando"
 
 #. i18n: ectx: property (text), widget (QToolButton, resetCMD)
 #: kate_ctags.ui:208
@@ -336,17 +339,17 @@ msgstr "..."
 #: kate_ctags_plugin.cpp:77 kate_ctags_view.cpp:108
 #, kde-format
 msgid "Add a directory to index."
-msgstr ""
+msgstr "Aldoni dosierujon al indekso."
 
 #: kate_ctags_plugin.cpp:80 kate_ctags_view.cpp:111
 #, kde-format
 msgid "Remove a directory."
-msgstr ""
+msgstr "Forigi dosierujon."
 
 #: kate_ctags_plugin.cpp:83
 #, kde-format
 msgid "(Re-)generate the common CTags database."
-msgstr ""
+msgstr "(Re-)generi la komunan CTags-datumbazon."
 
 #: kate_ctags_plugin.cpp:101 kate_ctags_view.cpp:45 kate_ctags_view.cpp:52
 #: kate_ctags_view.cpp:95
@@ -355,92 +358,90 @@ msgid "CTags"
 msgstr "CTags"
 
 #: kate_ctags_plugin.cpp:107
-#, fuzzy, kde-format
-#| msgid "Settings"
+#, kde-format
 msgid "CTags Settings"
-msgstr "Agordo"
+msgstr "CTags-Agordo"
 
 #: kate_ctags_plugin.cpp:229 kate_ctags_view.cpp:555
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
-msgstr ""
+msgstr "Malsukcesis lanĉi \"%1\". elirStato = %2"
 
 #: kate_ctags_plugin.cpp:240 kate_ctags_view.cpp:567
 #, kde-format
 msgid "The CTags executable crashed."
-msgstr ""
+msgstr "La CTags-programo paneis."
 
 #: kate_ctags_plugin.cpp:242
 #, kde-format
 msgid "The CTags command exited with code %1"
-msgstr ""
+msgstr "La CTags-komando eliris kun kodo %1"
 
 #: kate_ctags_view.cpp:56
 #, kde-format
 msgid "Jump back one step"
-msgstr ""
+msgstr "Salti reen unu paŝon"
 
 #: kate_ctags_view.cpp:60
 #, kde-format
 msgid "Go to Declaration"
-msgstr ""
+msgstr "Go to Deklaro"
 
 #: kate_ctags_view.cpp:64
 #, kde-format
 msgid "Go to Definition"
-msgstr ""
+msgstr "Iri al Difino"
 
 #: kate_ctags_view.cpp:68
 #, kde-format
 msgid "Lookup Current Text"
-msgstr ""
+msgstr "Elserĉi Aktualan Tekston"
 
 #: kate_ctags_view.cpp:72
 #, kde-format
 msgid "Configure ..."
-msgstr ""
+msgstr "Agordi ..."
 
 #: kate_ctags_view.cpp:87
-#, fuzzy, kde-format
-#| msgid "Settings"
+#, kde-format
 msgctxt "@title:window"
 msgid "Configure CTags Plugin"
-msgstr "Agordo"
+msgstr "Agordi CTags-kromprogramon"
 
 #: kate_ctags_view.cpp:98 kate_ctags_view.cpp:187
 #, kde-format
 msgid "Go to Declaration: %1"
-msgstr ""
+msgstr "Iri al Deklaro: %1"
 
 #: kate_ctags_view.cpp:99 kate_ctags_view.cpp:188
 #, kde-format
 msgid "Go to Definition: %1"
-msgstr ""
+msgstr "Iri al Difino: %1"
 
 #: kate_ctags_view.cpp:100 kate_ctags_view.cpp:189
 #, kde-format
 msgid "Lookup: %1"
-msgstr ""
+msgstr "Elserĉi: %1"
 
 #: kate_ctags_view.cpp:114 kate_ctags_view.cpp:117
 #, kde-format
 msgid "(Re-)generate the session specific CTags database."
-msgstr ""
+msgstr "(Re-)generi la seancospecifan CTags-datumbazon."
 
 #: kate_ctags_view.cpp:122
 #, kde-format
 msgid "Select new or existing database file."
-msgstr ""
+msgstr "Elekti novan aŭ ekzistantan datumbazan dosieron."
 
 #: kate_ctags_view.cpp:138
 #, kde-format
 msgid "Go To Local Symbol"
-msgstr ""
+msgstr "Iri al Loka Simbolo"
 
 #: kate_ctags_view.cpp:143
 #, kde-format
 msgid "Go To Global Symbol"
-msgstr ""
+msgstr "Iri al Globala Simbolo"
 
 #: kate_ctags_view.cpp:317 kate_ctags_view.cpp:349
 #, kde-format
@@ -456,14 +457,3 @@ msgstr ""
 #, kde-format
 msgid "The CTags program exited with code %1: %2"
 msgstr ""
-
-#, fuzzy
-#~| msgid "CTags"
-#~ msgid "Kate CTags"
-#~ msgstr "CTags"
-
-#~ msgid "Tags"
-#~ msgstr "Etikedoj"
-
-#~ msgid "Settings"
-#~ msgstr "Agordo"

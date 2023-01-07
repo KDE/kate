@@ -1,57 +1,95 @@
 <chapter id="configuring-kate">
 <chapterinfo>
 <authorgroup>
-<author>&Anders.Lund; &Anders.Lund.mail;</author>
-<!-- TRANS:ROLES_OF_TRANSLATORS -->
+<author
+>&Anders.Lund; &Anders.Lund.mail;</author>
+<othercredit role="translator"
+> <firstname
+>Thomas</firstname
+> <surname
+>Diehl</surname
+> <affiliation
+> <address
+><email
+>thd@kde.org</email
+></address
+> </affiliation
+> <contrib
+>GUI-Übersetzung</contrib
+></othercredit
+> <othercredit role="translator"
+> <firstname
+>Matthias</firstname
+><surname
+>Schulz</surname
+> <affiliation
+> <address
+><email
+>matthias.schulz@kdemail.net</email
+></address
+> </affiliation
+> <contrib
+>Deutsche Übersetzung</contrib
+></othercredit
+> 
 </authorgroup>
 </chapterinfo>
-<title>Configuring &kate;</title>
+<title
+>&kate; einrichten</title>
 
 <sect1 id="configuring-overview">
-<title>Overview</title>
+<title
+>Überblick</title>
 <para>
 <indexterm>
-<primary>configure</primary>
-<secondary>settings</secondary>
-<tertiary>preferences</tertiary></indexterm>
-<anchor id="find"/>
-<anchor id="find-again"/>
-<!-- <anchor id="print"/> -->
-<anchor id="replace"/>
-<!-- <anchor id="save"/> -->
-<anchor id="undo"/>
-<anchor id="redo"/>
-&kate; offers several means of tweaking the application to behave as desired.
-The most important ones are:
-</para>
+<primary
+>Einstellen</primary>
+<secondary
+>Einstellungen</secondary>
+<tertiary
+>Voreinstellungen</tertiary
+></indexterm
+><anchor id="find"/> <anchor id="find-again"/> <anchor id="replace"/> <anchor id="undo"/> <anchor id="redo"/> &kate; bietet viele Möglichkeiten, mit Feineinstellungen die Anwendung wie gewünscht reagieren zu lassen. Die wichtigsten sind: </para>
 
 <variablelist>
 <varlistentry>
-<term id="configure">The Configuration Dialog</term>
-<listitem><para>The main configuration tool, allowing you to configure the &kate; application,
-the editor component and the usage of plugins.</para></listitem>
+<term id="configure"
+>Der Einrichtungsdialog</term>
+<listitem
+><para
+>Das Haupteinrichtungsfenster, in dem wichtige Einstellungen für &kate;, das Editorfenster und die Nutzung von Modulen vorgenommen werden.</para
+></listitem>
 </varlistentry>
 <varlistentry>
-<term id="settings">The <guimenu>Settings</guimenu> Menu</term>
-<listitem><para>Allows you to change often used settings, and to
-launch the configuration dialogs.</para></listitem>
+<term id="settings"
+>Das Menü <guimenu
+>Einstellungen</guimenu
+></term>
+<listitem
+><para
+>Dieses Menü enthält oft benutzte Einstellungen und dient zum Öffnen der Einstellungsdialoge.</para
+></listitem>
 </varlistentry>
 <varlistentry>
-<term>The <guimenu>View</guimenu> Menu</term>
-<listitem><para>Allows you to split the current frame, as well as to
-display the icons and line numbers pane for the currently edited
-document.</para></listitem>
+<term
+>Das Menü <guimenu
+>Ansicht</guimenu
+></term>
+<listitem
+><para
+>Gestattet die Teilung des aktiven Rahmens, sowie das Ein- und Ausschalten von Symbol- und Zeilennummernspalte für das aktive Dokument.</para
+></listitem>
 </varlistentry>
 </variablelist>
 
-<para>The embedded terminal uses the configuration defined in the
-&systemsettings;, and may also be configured by clicking the
-&RMB; to display a context menu.</para>
+<para
+>Als eingebetteter Terminal-Emulator wird die in den Systemeinstellungen ausgewählte Standardkomponente benutzt. Durch Klicken mit der  &RMBn; kann ein Kontextmenü mit Optionen zur Einrichtung des Terminals geöffnet werden.</para>
 
 </sect1>
 
 <sect1 id="configuring-kate-configdialog">
-<title>The Main Configuration Dialog</title>
+<title
+>Der Haupteinrichtungsdialog</title>
 
 <mediaobject>
 <imageobject>
@@ -59,15 +97,23 @@ document.</para></listitem>
 </imageobject>
 </mediaobject>
 
-<para>The &kate; configuration dialog displays a tree of topics on the
-left, and a configuration page corresponding to the selected topic on
-the right.</para>
+<para
+>Der &kate;-Haupteinrichtungsdialog zeigt eine Baumstruktur links und eine Seite mit Einstellungen zu dem links ausgewählten Thema auf der rechten Seite.</para>
 
-<para>The configuration is divided into two groups, namely:
-<itemizedlist>
-<listitem><para><link linkend="config-dialog">Application configuration</link>
-</para></listitem>
-<listitem><para><link linkend="config-dialog-editor">Editor component configuration</link></para></listitem>
+<para
+>Die Einstellungen sind in zwei Gruppen unterteilt, nämlich: <itemizedlist>
+<listitem
+><para
+><link linkend="config-dialog"
+>Programm</link>
+</para
+></listitem>
+<listitem
+><para
+><link linkend="config-dialog-editor"
+>Editor</link
+></para
+></listitem>
 
 </itemizedlist>
 
@@ -76,298 +122,391 @@ the right.</para>
 </sect1>
 
 <sect1 id="config-dialog">
-<title>The &kate; Application Configuration</title>
-<para>This group contains pages to configure the main &kate; application</para>
+<title
+>Die Einstellungen zum Programm &kate;</title>
+<para
+>Diese Gruppe enthält Seiten mit Einstellungen der &kate;-Anwendung.</para>
 
 <sect2 id="config-dialog-general">
-<title>General</title>
-<para>This section contains a few global options for &kate;</para>
+<title
+>Allgemein</title>
+<para
+>Diese Seite enthält einige globale Einstellungen von &kate;</para>
 
 <variablelist>
 
 <varlistentry>
-<term><anchor id="config-general-behavior"/>
-<guilabel>Behavior</guilabel></term>
+<term
+><anchor id="config-general-behavior"/>
+<guilabel
+>Verhalten</guilabel
+></term>
 <listitem>
 <variablelist>
 
 <varlistentry>
-<term><anchor id="config-dialog-general-open-each-document"/>
-<guilabel>Open each document in its own window</guilabel></term>
-<listitem><para>If enabled, each document will be opened in its own window.
-If not enabled, each document will be opened in a new tab in the current
-window.</para>
+<term
+><anchor id="config-dialog-general-switch-to-output"/>
+<guilabel
+>Zur Ausgabeansicht bei diesen Meldungen wechseln</guilabel
+></term>
+<listitem
+><para
+>Hier stellen Sie ein, ob &kate; abhängig von der Kategorie der Ausgabe eine Ausgabeleiste anzeigen soll.</para>
+<para
+>Sie können zwischen <guimenuitem
+>Nie</guimenuitem
+>, <guimenuitem
+>Fehler</guimenuitem
+> bei Fehlern, <guimenuitem
+>Warnung</guimenuitem
+>  bei Warnungen und höheren Kategorien, <guimenuitem
+>Information</guimenuitem
+> bei Informationen und höheren Kategorien sowie <guimenuitem
+>Protokoll</guimenuitem
+> bei Protokoll oder höheren Kategorien auswählen.</para>
 </listitem>
 </varlistentry>
 
 <varlistentry>
-<term><anchor id="config-dialog-general-switch-to-output"/>
-<guilabel>Switch to output view upon message type</guilabel></term>
-<listitem><para>This option allows configuring when &kate; should show an
-output pane depending on the type of action output.</para>
-<para>It is possible to choose between <guimenuitem>Never</guimenuitem>,
-<guimenuitem>Error</guimenuitem> (on error), <guimenuitem>Warning</guimenuitem>
-(on warning or above), <guimenuitem>Info</guimenuitem> (on info or above),
-and <guimenuitem>Log</guimenuitem> (on log or above).</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term><anchor id="config-dialog-general-separate-dialog"/>
-<guilabel>Use a separate dialog for handling externally modified files</guilabel></term>
-<listitem><para>When enabled, &kate; will notify you with a modal dialog about all
-files modified from outside the application whenever the main window receives input focus.
-You will be able to deal with several modified files at once, you
-can reload, save or discard changed files in groups.</para>
-<para>If not enabled, &kate; will individually ask you what to do for each modified file only
-when that file's view receives focus.</para>
+<term
+><anchor id="config-dialog-general-separate-dialog"/>
+<guilabel
+>Eigenen Dialog für die Bearbeitung extern geänderter Dateien verwenden</guilabel
+></term>
+<listitem
+><para
+>Wenn eingeschaltet, dann gibt &kate; eine Meldung in einem modalen Dialog aus, sobald geöffnete Dateien von anderen Anwendungen geändert wurden. Die Meldung wird immer dann ausgegeben, wenn das Hauptfenster den Fokus erhält. Sie können mit mehreren geänderten Dateien gleichzeitig arbeiten, Sie können erneut laden, sichern oder die Änderungen in den Dateien ignorieren, alles das in Gruppen.</para>
+<para
+>Ist diese Einstellung nicht aktiv, werden Sie bei jeder geänderten Datei erst gefragt, wenn die Datei den Fokus erhält.</para>
 </listitem>
 </varlistentry>
 
 </variablelist>
 </listitem>
-</varlistentry><!-- /behavior group -->
+</varlistentry
+><!-- /behavior group -->
 
 <varlistentry>
-<term><anchor id="config-general-quick-open"/>
-<guilabel>Quick Open</guilabel></term>
+<term
+><anchor id="config-general-quick-open"/>
+<guilabel
+>Schnellöffner</guilabel
+></term>
  <listitem>
 
 <variablelist>
 <varlistentry>
-<term><anchor id="config-general-quick-open-match-mode"/>
-<guilabel>Match Mode</guilabel></term>
-<listitem><para>Set the list mode for the <link linkend="view-quick-open">Quick Open</link> tool. The files can be matched by their name or by their path.</para></listitem>
+<term
+><anchor id="config-general-quick-open-match-mode"/>
+<guilabel
+>Übereinstimmungs-Modus</guilabel
+></term>
+<listitem
+><para
+>Geben Sie einen Listenmodus für den <link linkend="view-quick-open"
+>Schnellöffner</link
+> an. Die Dateien können nach Übereinstimmung mit dem Namen oder mit dem Pfad für die Liste ausgewählt werden.</para
+></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><anchor id="config-general-quick-open-list-mode"/>
-<guilabel>List Mode</guilabel></term>
-<listitem><para>Set the list mode for the <link linkend="view-quick-open">Quick Open</link> tool. It is possible to choose from <guilabel>Current Project Files</guilabel> and <guilabel>All Projects Files</guilabel>.</para></listitem>
+<term
+><anchor id="config-general-quick-open-list-mode"/>
+<guilabel
+>Listenmodus</guilabel
+></term>
+<listitem
+><para
+>Geben Sie einen Listenmodus für den <link linkend="view-quick-open"
+>Schnellöffner</link
+> an. Sie können zwischen <guilabel
+>Aktuelles Projekt</guilabel
+> und <guilabel
+>Alle Projekte</guilabel
+> wählen.</para
+></listitem>
 </varlistentry>
 
 </variablelist>
 
 </listitem>
-</varlistentry><!-- /quick open group -->
+</varlistentry
+><!-- /quick open group -->
 
 <varlistentry>
-<term><anchor id="config-general-tabs"/>
-<guilabel>Tabs</guilabel></term>
+<term
+><anchor id="config-general-tabs"/>
+<guilabel
+>Unterfenster</guilabel
+></term>
  <listitem>
 
 <variablelist>
 <varlistentry>
-<term><anchor id="config-general-limit-number-of-tabs"/>
-<guilabel>Limit number of tabs</guilabel></term>
-<listitem><para>Set the maximum number of tabs. Choose <guimenuitem>Unlimited</guimenuitem> if you do not want to restrict this number.</para></listitem>
+<term
+><anchor id="config-general-limit-number-of-tabs"/>
+<guilabel
+>Anzahl der Unterfenster begrenzen</guilabel
+></term>
+<listitem
+><para
+>Legt die maximale Anzahl von Unterfenstern fest. Wählen Sie <guimenuitem
+>Unbegrenzt</guimenuitem
+>, wenn Sie diese Zahl nicht beschränken möchten.</para
+></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><anchor id="config-general-auto-hide-tabs"/>
-<guilabel>Auto hide tabs</guilabel></term>
-<listitem><para>When checked tabs will be hidden if only one document is open.</para></listitem>
+<term
+><anchor id="config-general-show-close-button"/>
+<guilabel
+>„Schließen“-Knopf anzeigen</guilabel
+></term>
+<listitem
+><para
+>Wenn dies aktiviert ist, dann wird auf jedem Karteireiter ein Knopf zum Schließen des Unterfensters angezeigt</para
+></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><anchor id="config-general-show-close-button"/>
-<guilabel>Show close button</guilabel></term>
-<listitem><para>When checked each tab will display a close button.</para></listitem>
+<term
+><anchor id="config-general-expand-tabs"/>
+<guilabel
+>Karteireiter erweitern</guilabel
+></term>
+<listitem
+><para
+>Wenn dies aktiviert ist, dann verwenden Karteireiter soviel Platz wie möglich.</para
+></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><anchor id="config-general-expand-tabs"/>
-<guilabel>Expand tabs</guilabel></term>
-<listitem><para>When checked tabs take as much size as possible.</para></listitem>
+<term
+><anchor id="config-general-double-click"/>
+<guilabel
+>Doppelklick öffnet ein neues Dokument</guilabel
+></term>
+<listitem
+><para
+>Wenn dies aktiviert ist, dann öffnet ein Doppelklick ein neues Dokument.</para
+></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><anchor id="config-general-double-click"/>
-<guilabel>Double click opens a new document</guilabel></term>
-<listitem><para>When checked double click opens a new document.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><anchor id="config-general-middle-click"/>
-<guilabel>Middle click closes a document</guilabel></term>
-<listitem><para>When checked middle click closes a document.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><anchor id="config-general-tab-scrolling"/>
-<guilabel>Allow tab scrolling</guilabel></term>
-<listitem><para>When checked this will allow scrolling in tab bar when number of tabs is large.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><anchor id="config-general-elide-tab-text"/>
-<guilabel>Elide tab text</guilabel></term>
-<listitem><para>When checked tab text might be elided if its too long.</para></listitem>
-</varlistentry>
-</variablelist>
-
-</listitem>
-</varlistentry><!-- /tabs group -->
-
-<varlistentry>
-<term><anchor id="config-general-mouse"/>
-<guilabel>Tabs</guilabel></term>
- <listitem>
-
-<variablelist>
-<varlistentry>
-<term><anchor id="config-general-backward-button-pressed"/>
-<guilabel>Backward button pressed</guilabel></term>
-<listitem><para>Allows selecting the mouse back button action between the <guimenuitem>Previous tab</guimenuitem> and the <guimenuitem>History back</guimenuitem> items.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><anchor id="config-general-forward-button-pressed"/>
-<guilabel>Forward button pressed</guilabel></term>
-<listitem><para>Allows selecting the mouse forward button action between the <guimenuitem>Next tab</guimenuitem> and the <guimenuitem>History forward</guimenuitem> items.</para></listitem>
+<term
+><anchor id="config-general-middle-click"/>
+<guilabel
+>Mittelklick schließt ein Dokument</guilabel
+></term>
+<listitem
+><para
+>Wenn dies aktiviert ist, dann schließt ein Mittelklick ein Dokument.</para
+></listitem>
 </varlistentry>
 </variablelist>
 
 </listitem>
-</varlistentry><!-- /mouse group -->
+</varlistentry
+><!-- /tabs group -->
 </variablelist>
 </sect2>
 
 <sect2 id="config-dialog-sessions">
-<title>Session</title>
+<title
+>Sitzung</title>
 
-<para>This section contains options related to <link
-linkend="fundamentals-using-sessions">using sessions</link>.</para>
+<para
+>Dieser Abschnitt enthält Einstellungen, die im Abschnitt <link linkend="fundamentals-using-sessions"
+>Benutzen von Sitzungen </link
+> beschrieben werden.</para>
 
 <variablelist>
 
 <varlistentry>
-<term><anchor id="config-dialog-sessions-startup-behavior"/>
-<guilabel>Application Startup Behavior</guilabel></term>
+<term
+><anchor id="config-dialog-sessions-startup-behavior"/>
+<guilabel
+>Verhalten beim Programmstart</guilabel
+></term>
 <listitem>
-<para>Select how you want &kate; to behave at startup. This setting can be
-overridden by specifying what to do on the <link
-linkend="command-line-options">command line</link>.</para>
+<para
+>Hier stellen Sie ein, wie sich &kate; beim Start verhält. Diese Einstellung kann in der <link linkend="command-line-options"
+>Befehlszeile</link
+> überschrieben werden.</para>
 <variablelist>
 <varlistentry>
-<term><guilabel>Start new session</guilabel></term>
-<listitem><para>With this option, &kate; will start a new, unnamed session
-when you start the application.</para></listitem>
+<term
+><guilabel
+>Neue Sitzung starten</guilabel
+></term>
+<listitem
+><para
+>Mit dieser Einstellung startet &kate; eine neue unbenannte Sitzung beim Programmstart.</para
+></listitem>
 </varlistentry>
 <varlistentry>
-<term><guilabel>Load last-used session</guilabel></term>
-<listitem><para>&kate; will use the most recently opened session at
-startup. This is good if you want to use the same session always or switch
-rarely.</para></listitem>
+<term
+><guilabel
+>Zuletzt verwendete Sitzung laden</guilabel
+></term>
+<listitem
+><para
+>&kate; benutzt die zuletzt geöffnete Sitzung beim Programmstart. Diese Einstellung ist optimal, wenn Sie immer dieselbe Sitzung verwenden oder die Sitzungen nur selten ändern wollen.</para
+></listitem>
 </varlistentry>
 <varlistentry>
-<term><guilabel>Manually choose a session</guilabel></term>
-<listitem><para>&kate; will display a small dialog that lets you choose
-your preferred session, or load the default session if none have been saved.
-This is the default behavior. Nice if you use a lot of different sessions
-frequently.</para></listitem>
+<term
+><guilabel
+>Sitzung manuell auswählen</guilabel
+></term>
+<listitem
+><para
+>&kate; zeigt ein kleines Dialogfenster, in dem Sie eine Sitzung auswählen oder die Standardsitzung laden können, wenn es noch keine früher gespeicherten Sitzungen gibt. Optimal, wenn Sie viele verschiedene Sitzungen verwenden.</para
+></listitem>
 </varlistentry>
 </variablelist>
 </listitem>
-</varlistentry><!-- /startup behavior -->
+</varlistentry
+><!-- /startup behavior -->
 
 <varlistentry>
-<term><anchor id="config-dialog-sessions-shutdown-behavior"/>
-<guilabel>Application Startup/Shutdown Behavior</guilabel></term>
+<term
+><anchor id="config-dialog-sessions-shutdown-behavior"/>
+<guilabel
+>Verhalten beim Programmende</guilabel
+></term>
 <listitem>
-<para>Select how you want &kate; to behave at shutdown. It is possible to define what
-&kate; should <guilabel>Automatically save and restore</guilabel>.</para>
+<para
+>In diesem Abschnitt legen Sie das Verhalten von &kate; beim Beenden fest, unter anderem welche Dateien &kate; <guilabel
+>Automatisch speichern und wiederherstellen</guilabel
+> soll.</para>
 <variablelist>
 <varlistentry>
-<term><guilabel>Newly-created unsaved files</guilabel></term>
-<listitem><para>With this item checked, &kate; will automatically save
-all newly-created unsaved files.</para></listitem>
+<term
+><guilabel
+>Neu erstellte nicht gespeicherte Dateien</guilabel
+></term>
+<listitem
+><para
+>Mit dieser Einstellung werden alle neu erstellten, aber noch nicht gespeicherten Dateien automatisch gespeichert.</para
+></listitem>
 </varlistentry>
 <varlistentry>
-<term><guilabel>Files with unsaved changes</guilabel></term>
-<listitem><para>This item allows configuring &kate; for automatically saving
-all files with unsaved changes on shutdown.</para></listitem>
+<term
+><guilabel
+>Dateien mit ungespeicherten Änderungen</guilabel
+></term>
+<listitem
+><para
+>Mit dieser Einstellung werden automatisch alle Dateien mit nicht gespeicherten Änderungen beim Beenden von &kate; gespeichert.</para
+></listitem>
 </varlistentry>
 <varlistentry>
-<term><anchor id="config-dialog-sessions-close-mod"/>
-<guilabel>Close Kate entirely when the last file is closed</guilabel></term>
-<listitem><para>If enabled, &kate; will shutdown when the last file being edited is closed,
-otherwise a blank page will open so that you can start a new file.</para>
+<term
+><anchor id="config-dialog-sessions-close-mod"/>
+<guilabel
+>Kate beenden, wenn die letzte Datei geschlossen wird</guilabel
+></term>
+<listitem
+><para
+>Ist dies aktiviert, dann wird &kate; beendet, wenn die letzte Datei im Editor geschlossen wird. Ansonsten wird eine neue leere Seite geöffnet, die als neue Datei verwendet werden kann.</para>
 </listitem>
 </varlistentry>
 </variablelist>
 
 </listitem>
-</varlistentry><!-- /shutdown behavior -->
+</varlistentry
+><!-- /shutdown behavior -->
 
 <varlistentry>
-<term><anchor id="config-dialog-sessions-elements"/>
-<guilabel>Session Elements</guilabel></term>
+<term
+><anchor id="config-dialog-sessions-elements"/>
+<guilabel
+>Sitzungselemente</guilabel
+></term>
 <listitem>
 <variablelist>
 <!--FIXME Maximum number of entries in recent file list-->
 <varlistentry>
-<term><guilabel>Include window configuration</guilabel></term>
-<listitem><para>If enabled, &kate; will save the window configuration
-with each session.</para></listitem>
+<term
+><guilabel
+>Fenstereinstellungen einbeziehen</guilabel
+></term>
+<listitem
+><para
+>Wenn eingeschaltet, sichert &kate; die Fenstereinstellungen mit jeder Sitzung.</para
+></listitem>
 </varlistentry>
 </variablelist>
 </listitem>
-</varlistentry><!-- /elements of sessions -->
+</varlistentry
+><!-- /elements of sessions -->
 
 <varlistentry>
-<term><anchor id="config-sessions-keep-meta-information"/>
-<guilabel>Keep meta-information past sessions</guilabel></term>
-<listitem><para>When enabled, &kate; will store meta data such as bookmarks
-and session configuration even when you close your documents. The data
-will be used if the document is unchanged when reopened.</para></listitem>
+<term
+><anchor id="config-sessions-keep-meta-information"/>
+<guilabel
+>Meta-Information über Sitzungen hinaus speichern</guilabel
+></term>
+<listitem
+><para
+>Wenn eingeschaltet, speichert &kate; Meta-Informationen wie Lesezeichen und Sitzungseinstellungen auch wenn Sie die Dokumente schließen. Die Informationen werden benutzt, wenn das Dokument beim erneuten Öffnen unverändert ist.</para
+></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><anchor id="config-sessions-delete-meta-information-after"/>
-<guilabel>Delete unused meta-information after</guilabel></term>
-<listitem><para>Set the maximum number of days to keep meta information
-for previously opened files. This helps keep the database of meta information
-reasonably sized.</para></listitem>
+<term
+><anchor id="config-sessions-delete-meta-information-after"/>
+<guilabel
+>Unbenutzte Meta-Information löschen nach</guilabel
+></term>
+<listitem
+><para
+>Setzt die Anzahl der Tage, für die die Meta-Informationen für früher geöffnete Dateien behalten werden. Dadurch kann die Datenbasis auf eine vernünftige Größe begrenzt werden.</para
+></listitem>
 </varlistentry>
 
 </variablelist>
-<para>Any changes to the session data (opened files and, if enabled,
-window configuration) will always be saved.</para>
+<para
+>Jede Änderung der Sitzungsdaten (geöffnete Dateien und - wenn aktiviert - auch die Fenstereinstellung) werden immer gespeichert.</para>
 
 </sect2>
 
 <sect2 id="config-dialog-plugins">
-<title>Plugins</title>
+<title
+>Module</title>
 
-<para>This page provides a list of installed plugins for the &kate;
-application. Each plugin is represented with its name and a short description.
-You can check the checkbox with an item to enable the plugin it represents.
-</para>
+<para
+>Diese Seite zeigt eine Liste mit allen installierten Modulen für &kate; an. Jedes Modul wird in der Liste mit Namen und einer kurzen Erläuterung angezeigt. Sie können mit dem Ankreuzfeld das Modul zur Verwendung einschalten. </para>
 
-<para>If a plugin provides configuration options, a section to access those
-will appear as a child of this page.</para>
+<para
+>Wenn ein Modul eine Seite mit Einstellungen für dieses Modul bereitstellt, dann wird diese Seite als Unterseite der Seite Module in das Menü eingefügt.</para>
 
-<para>For more information about the available plugins, see
-<xref linkend="plugins"/>.</para>
+<para
+>Weitere Informationen über die verfügbaren Module finden Sie im Abschnitt <xref linkend="plugins"/>.</para>
 
 </sect2>
 
 <sect2 id="config-dialog-editor">
-<title>The Editor Component Configuration</title>
+<title
+>Einstellungen für den Editor</title>
 
-<para>For information about this section of the configuration dialog, see the
-<ulink url="help:/katepart/config-dialog.html">Editor Component
-Configuration section of the &katepart; Handbook</ulink>.</para>
+<para
+>Weitere Informationen über diesen Abschnitt des Einrichtungsdialogs finden Sie im Abschnitt <ulink url="help:/katepart/config-dialog.html"
+>Einrichtung der Editorkomponente des Handbuchs zu &katepart;</ulink
+>.</para>
 
 </sect2>
 
 <sect2 id="config-variables">
-<title>Configuring With Document Variables</title>
+<title
+>Einstellungen mit Dokumentvariablen</title>
 
-<para>For information about using document variables with &kate;, see the
-<ulink url="help:/katepart/config-variables.html">Configuring with Document
-Variables section of the &katepart; Handbook</ulink>.</para>
+<para
+>Weitere Informationen über die Anwendung von Dokumentvariablen in &kate; finden Sie im Abschnitt <ulink url="help:/katepart/config-variables.html"
+>Einstellungen mit Dokumentvariablen im Handbuch zu &katepart;</ulink
+>.</para>
 
 </sect2>
 

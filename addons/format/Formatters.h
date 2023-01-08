@@ -38,6 +38,11 @@ public:
 
     virtual void run(KTextEditor::Document *doc);
 
+    void setCursorPosition(KTextEditor::Cursor c)
+    {
+        m_pos = c;
+    }
+
     const QString originalText;
 
 protected:
@@ -74,6 +79,7 @@ protected:
 
     QPointer<KTextEditor::Document> m_doc;
     QPointer<QProcess> m_procHandle;
+    KTextEditor::Cursor m_pos;
 
 private:
     QByteArray textForStdin() const
@@ -82,7 +88,7 @@ private:
     }
 
 Q_SIGNALS:
-    void textFormatted(AbstractFormatter *formatter, KTextEditor::Document *doc, const QByteArray &text);
+    void textFormatted(AbstractFormatter *formatter, KTextEditor::Document *doc, const QByteArray &text, int offset = -1);
     void textFormattedPatch(KTextEditor::Document *doc, const std::vector<PatchLine> &);
     void error(const QString &error);
 };
@@ -98,11 +104,15 @@ public:
     }
 
     QStringList args(KTextEditor::Document *doc) const override;
+    void onResultReady(const RunOutput &o) override;
 
     bool supportsStdin() const override
     {
         return true;
     }
+
+private:
+    bool m_withCursor = false;
 };
 
 class DartFormat : public AbstractFormatter

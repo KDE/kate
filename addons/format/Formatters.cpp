@@ -16,6 +16,20 @@
 
 #include <KTextEditor/Editor>
 
+// TODO: Move to KTextEditor::Document
+static QString cursorToOffset(KTextEditor::Document *doc, KTextEditor::Cursor c)
+{
+    if (doc) {
+        int o = 0;
+        for (int i = 0; i < c.line(); ++i) {
+            o += doc->lineLength(i) + 1; // + 1 for \n
+        }
+        o += c.column();
+        return QString::number(o);
+    }
+    return {};
+}
+
 void AbstractFormatter::run(KTextEditor::Document *doc)
 {
     // QElapsedTimer t;
@@ -83,7 +97,12 @@ QStringList ClangFormat::args(KTextEditor::Document *doc) const
     }
 
     const auto lines = getModifiedLines(file);
+    const QString offset = cursorToOffset(m_doc, m_pos);
     QStringList args;
+    if (!offset.isEmpty()) {
+        const_cast<ClangFormat *>(this)->m_withCursor = true;
+        args << QStringLiteral("--cursor=%1").arg(offset);
+    }
     if (lines.has_value()) {
         for (auto ll : *lines) {
             args.push_back(QStringLiteral("--lines=%1:%2").arg(ll.startLine).arg(ll.endline));
@@ -91,7 +110,30 @@ QStringList ClangFormat::args(KTextEditor::Document *doc) const
         args.push_back(file);
         return args;
     } else {
-        return {file};
+        return args << file;
+    }
+}
+
+void ClangFormat::onResultReady(const RunOutput &o)
+{
+    if (!o.err.isEmpty()) {
+        Q_EMIT error(QString::fromUtf8(o.err));
+        return;
+    }
+    if (!o.out.isEmpty()) {
+        if (m_withCursor) {
+            int p = o.out.indexOf('\n');
+            if (p >= 0) {
+                QJsonParseError e;
+                auto jd = QJsonDocument::fromJson(o.out.mid(0, p), &e);
+                if (e.error == QJsonParseError::NoError && jd.isObject()) {
+                    auto v = jd.object()[QLatin1String("Cursor")].toInt(-1);
+                    Q_EMIT textFormatted(this, m_doc, o.out.mid(p + 1), v);
+                }
+            }
+        } else {
+            Q_EMIT textFormatted(this, m_doc, o.out);
+        }
     }
 }
 

@@ -6,6 +6,7 @@
 
 #include "FormattersEnum.h"
 
+#include <KTextEditor/Cursor>
 #include <KTextEditor/Editor>
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/Plugin>
@@ -50,7 +51,7 @@ public:
 private:
     void format();
     void onActiveViewChanged(KTextEditor::View *);
-    void onFormattedTextReceived(class AbstractFormatter *, KTextEditor::Document *doc, const QByteArray &);
+    void onFormattedTextReceived(class AbstractFormatter *, KTextEditor::Document *doc, const QByteArray &, int offset);
     void onFormattedPatchReceived(KTextEditor::Document *doc, const std::vector<PatchLine> &);
     void saveDocument(KTextEditor::Document *doc);
     bool formatOnSave() const

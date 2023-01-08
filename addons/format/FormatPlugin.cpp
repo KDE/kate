@@ -123,6 +123,10 @@ void FormatPluginView::format()
         return;
     }
 
+    if (m_activeDoc == m_mainWindow->activeView()->document()) {
+        formatter->setCursorPosition(m_mainWindow->activeView()->cursorPosition());
+    }
+
     connect(formatter, &AbstractFormatter::textFormatted, this, &FormatPluginView::onFormattedTextReceived);
     connect(formatter, &AbstractFormatter::error, this, [formatter](const QString &error) {
         formatter->deleteLater();
@@ -135,7 +139,7 @@ void FormatPluginView::format()
     formatter->run(m_activeDoc);
 }
 
-void FormatPluginView::onFormattedTextReceived(AbstractFormatter *formatter, KTextEditor::Document *doc, const QByteArray &formattedText)
+void FormatPluginView::onFormattedTextReceived(AbstractFormatter *formatter, KTextEditor::Document *doc, const QByteArray &formattedText, int offset)
 {
     formatter->deleteLater();
     if (!doc) {
@@ -154,12 +158,19 @@ void FormatPluginView::onFormattedTextReceived(AbstractFormatter *formatter, KTe
         return;
     }
 
+    auto setCursorPositionForActiveView = [this, offset, doc] {
+        if (offset > -1 && m_mainWindow->activeView()->document() == doc) {
+            m_mainWindow->activeView()->setCursorPosition(Utils::cursorFromOffset(doc, offset));
+        }
+    };
+
     // non local file or untitled?
     if (doc->url().toLocalFile().isEmpty()) {
         doc->setText(QString::fromUtf8(formattedText));
         if (m_activeDoc == doc && !m_lastChecksum.isEmpty()) {
             m_lastChecksum.clear();
         }
+        setCursorPositionForActiveView();
         return;
     }
 
@@ -183,10 +194,12 @@ void FormatPluginView::onFormattedTextReceived(AbstractFormatter *formatter, KTe
         if (m_activeDoc == doc) {
             m_lastChecksum = doc->checksum();
         }
+        setCursorPositionForActiveView();
         return;
     }
 
     onFormattedPatchReceived(doc, edits);
+    setCursorPositionForActiveView();
 }
 
 void FormatPluginView::onFormattedPatchReceived(KTextEditor::Document *doc, const std::vector<PatchLine> &patch)

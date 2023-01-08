@@ -24,6 +24,7 @@ class View;
 class Document;
 class MainWindow;
 class Range;
+class Cursor;
 }
 class DiagnosticsProvider;
 struct DiffParams;
@@ -101,4 +102,9 @@ KATE_PRIVATE_EXPORT QVariantMap projectMapForDocument(KTextEditor::Document *doc
 
 KATE_PRIVATE_EXPORT void registerDiagnosticsProvider(DiagnosticsProvider *, KTextEditor::MainWindow *mainWindow);
 KATE_PRIVATE_EXPORT void unregisterDiagnosticsProvider(DiagnosticsProvider *, KTextEditor::MainWindow *mainWindow);
+
+/**
+ * Translates offset to line, col aka KTextEditor::Cursor
+ */
+KATE_PRIVATE_EXPORT KTextEditor::Cursor cursorFromOffset(KTextEditor::Document *doc, int offset);
 }

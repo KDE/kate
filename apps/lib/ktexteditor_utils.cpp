@@ -223,4 +223,24 @@ void unregisterDiagnosticsProvider(DiagnosticsProvider *p, KTextEditor::MainWind
         kmw->diagnosticsView()->unregisterDiagnosticsProvider(p);
     }
 }
+
+KTextEditor::Cursor cursorFromOffset(KTextEditor::Document *doc, int offset)
+{
+    if (doc && offset >= 0) {
+        const int lineCount = doc->lines();
+        int line = -1;
+        int o = 0;
+        for (int i = 0; i < lineCount; ++i) {
+            int len = doc->lineLength(i);
+            if (o + len >= offset) {
+                line = i;
+                break;
+            }
+            o += len + 1; // + 1 for \n
+        }
+        int col = offset - o;
+        return KTextEditor::Cursor(line, col);
+    }
+    return KTextEditor::Cursor::invalid();
+}
 }

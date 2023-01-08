@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "Plugin for formatting code",
+        "Description[bg]": "Приставка за форматиране на код",
         "Description[ca@valencia]": "Connector per a donar format al codi",
         "Description[ca]": "Connector per a donar format al codi",
         "Description[el]": "Πρόσθετο για διαμόρφωση κώδικα",
@@ -15,6 +16,7 @@
         "Description[uk]": "Додаток для форматування коду",
         "Description[x-test]": "xxPlugin for formatting codexx",
         "Name": "Formatting",
+        "Name[bg]": "Форматиране",
         "Name[ca@valencia]": "Dona format",
         "Name[ca]": "Dona format",
         "Name[el]": "Διαμόρφωση",

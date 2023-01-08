@@ -294,7 +294,7 @@ void KateProjectInfoViewCodeAnalysis::slotReadyRead()
         m_diagnosticProvider->diagnosticsAdded(FileDiagnostics{it.key(), it.value()});
     }
 
-    if (m_invocationType == UserClickedButton) {
+    if (m_invocationType == UserClickedButton && !fileDiagnostics.isEmpty()) {
         m_diagnosticProvider->showDiagnosticsView();
     }
 }

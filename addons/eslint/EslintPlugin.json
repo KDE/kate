@@ -1,0 +1,9 @@
+{
+    "KPlugin": {
+        "Description": "Runs ESLint on current file",
+        "Name": "ESLint",
+        "ServiceTypes": [
+            "KTextEditor/Plugin"
+        ]
+    }
+}

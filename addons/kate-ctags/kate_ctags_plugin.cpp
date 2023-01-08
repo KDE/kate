@@ -73,6 +73,7 @@ KateCTagsConfigPage::KateCTagsConfigPage(QWidget *parent, KateCTagsPlugin *plugi
 {
     m_confUi.setupUi(this);
     m_confUi.cmdEdit->setText(DEFAULT_CTAGS_CMD);
+    connect(m_confUi.cmdEdit, &QLineEdit::textEdited, this, &KateCTagsConfigPage::changed);
 
     m_confUi.addButton->setToolTip(i18n("Add a directory to index."));
     m_confUi.addButton->setIcon(QIcon::fromTheme(QStringLiteral("list-add")));
@@ -173,6 +174,7 @@ void KateCTagsConfigPage::addGlobalTagTarget()
     for (int i = 0; i < urls.size(); i++) {
         if (!listContains(urls[i])) {
             new QListWidgetItem(urls[i], m_confUi.targetList);
+            Q_EMIT changed();
         }
     }
 }
@@ -181,6 +183,7 @@ void KateCTagsConfigPage::addGlobalTagTarget()
 void KateCTagsConfigPage::delGlobalTagTarget()
 {
     delete m_confUi.targetList->currentItem();
+    Q_EMIT changed();
 }
 
 /******************************************************************/

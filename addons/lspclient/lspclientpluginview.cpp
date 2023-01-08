@@ -687,6 +687,7 @@ public:
         // sync with plugin settings if updated
         connect(m_plugin, &LSPClientPlugin::update, this, &self_type::configUpdated);
 
+        m_diagnosticProvider.setObjectName(QStringLiteral("LSPDiagnosticProvider"));
         Utils::registerDiagnosticsProvider(&m_diagnosticProvider, m_mainWindow);
         connect(&m_diagnosticProvider, &DiagnosticsProvider::requestFixes, this, &self_type::fixDiagnostic);
 

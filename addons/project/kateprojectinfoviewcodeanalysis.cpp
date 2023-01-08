@@ -37,6 +37,7 @@ KateProjectInfoViewCodeAnalysis::KateProjectInfoViewCodeAnalysis(KateProjectPlug
     , m_toolSelector(new QComboBox())
     , m_diagnosticProvider(new DiagnosticsProvider(this))
 {
+    m_diagnosticProvider->setObjectName(QStringLiteral("CodeAnalysisDiagnosticProvider"));
     Utils::registerDiagnosticsProvider(m_diagnosticProvider, m_pluginView->mainWindow());
 
     /**

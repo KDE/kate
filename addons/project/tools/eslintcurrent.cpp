@@ -25,7 +25,7 @@ ESLintCurrentFile::ESLintCurrentFile(QObject *parent)
 
 QString ESLintCurrentFile::name() const
 {
-    return i18n("ESLint current file");
+    return i18n("ESLint");
 }
 
 QString ESLintCurrentFile::description() const
@@ -52,7 +52,7 @@ QString ESLintCurrentFile::path() const
 
 QStringList ESLintCurrentFile::arguments()
 {
-    if (!m_project || !m_mainWindow->activeView()) {
+    if (!m_project) {
         return {};
     }
 
@@ -61,13 +61,10 @@ QStringList ESLintCurrentFile::arguments()
         QStringLiteral("-f"),
         QStringLiteral("json"),
     };
-    setActualFilesCount(1);
-    const QString file = m_mainWindow->activeView()->document()->url().toLocalFile();
-    if (file.isEmpty()) {
-        return {};
-    }
-    args.append(file);
-    return args;
+
+    const QStringList fileList = filter(m_project->files());
+    setActualFilesCount(fileList.size());
+    return args << fileList;
 }
 
 QString ESLintCurrentFile::notInstalledMessage() const

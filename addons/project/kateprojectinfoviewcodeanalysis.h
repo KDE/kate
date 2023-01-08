@@ -111,8 +111,6 @@ private:
      */
     QComboBox *m_toolSelector;
 
-    QSortFilterProxyModel *m_proxyModel;
-
     /**
      * contains a rich text to explain what the current tool does
      */

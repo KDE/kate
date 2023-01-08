@@ -147,6 +147,12 @@ private:
 
     DocumentOnSaveTracker m_onSaveTracker;
 
+    /**
+     * Output read in the slotReadyRead
+     * will be cleared after process finishes
+     */
+    QByteArray m_output;
+
     enum {
         None = 0,
         OnSave,

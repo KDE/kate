@@ -262,19 +262,20 @@ void KateProjectInfoViewCodeAnalysis::slotReadyRead()
     /**
      * get results of analysis
      */
+    m_output = {};
     QHash<QUrl, QVector<Diagnostic>> fileDiagnostics;
     while (m_analyzer->canReadLine()) {
         /**
          * get one line, split it, skip it, if too few elements
          */
-        QString line = QString::fromLocal8Bit(m_analyzer->readLine());
+        auto rawLine = m_analyzer->readLine();
+        m_output += rawLine;
+        QString line = QString::fromLocal8Bit(rawLine);
         FileDiagnostics fd = m_analysisTool->parseLine(line);
         if (!fd.uri.isValid()) {
             continue;
         }
         fileDiagnostics[fd.uri] << fd.diagnostics;
-
-        continue;
     }
 
     for (auto it = fileDiagnostics.cbegin(); it != fileDiagnostics.cend(); ++it) {
@@ -297,11 +298,9 @@ void KateProjectInfoViewCodeAnalysis::finished(int exitCode, QProcess::ExitStatu
             i18np("[%1]Analysis on %2 file finished.", "Analysis on %1 files finished.", m_analysisTool->name(), m_analysisTool->getActualFilesCount());
         Utils::showMessage(msg, {}, i18n("CodeAnalsis"), QStringLiteral("Log"), m_pluginView->mainWindow());
     } else {
-        // unfortunately, output was eaten by slotReadyRead()
-        // TODO: get stderr output, show it here
-
-        const QString err = QString::fromUtf8(m_analyzer->readAllStandardError());
+        const QString err = QString::fromUtf8(m_output);
         const QString message = i18n("Analysis failed with exit code %1, Error: %2", exitCode, err);
         Utils::showMessage(message, {}, i18n("CodeAnalsis"), QStringLiteral("Error"), m_pluginView->mainWindow());
     }
+    m_output = {};
 }

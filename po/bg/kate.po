@@ -3,13 +3,13 @@
 #
 # Zlatko Popov <zlatkopopov@fsa-bg.org>, 2006, 2007.
 # Yasen Pramatarov <yasen@lindeas.com>, 2009, 2010, 2011.
-# Mincho Kondarev <mkondarev@yahoo.de>, 2022.
+# Mincho Kondarev <mkondarev@yahoo.de>, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-06 00:51+0000\n"
-"PO-Revision-Date: 2022-12-23 22:44+0100\n"
+"PO-Revision-Date: 2023-01-07 18:18+0100\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -35,6 +35,10 @@ msgid ""
 "vulnerabilities. Instead use Kate normally and you will be prompted for "
 "elevated privileges when saving documents if needed."
 msgstr ""
+"Стартирането на Kate с sudo може да причини грешки и да ви изложи на риск за "
+"уязвимости на сигурността. Вместо това използвайте Kate нормално и ще бъдете "
+"подканени за повишени привилегии при запазване на документи, ако е "
+"необходимо."
 
 #: kate/main.cpp:78
 msgid ""
@@ -42,6 +46,10 @@ msgid ""
 "vulnerabilities. Instead use Kate normally and you will be prompted for "
 "elevated privileges when saving documents if needed."
 msgstr ""
+"Стартирането на Kate с kdesu може да причини грешки и да ви изложи на риск "
+"за уязвимости на сигурността. Вместо това използвайте Kate нормално и ще "
+"бъдете подканени за повишени привилегии при запазване на документи, ако е "
+"необходимо."
 
 #: kate/main.cpp:131
 #, kde-format
@@ -166,6 +174,10 @@ msgid ""
 "vulnerabilities. Instead use KWrite normally and you will be prompted for "
 "elevated privileges when saving documents if needed."
 msgstr ""
+"Стартирането на KWrite с sudo може да причини грешки и да ви изложи на риск "
+"за уязвимости на сигурността. Вместо това използвайте KWrite нормално и ще "
+"бъдете подканени за повишени привилегии при запазване на документи, ако е "
+"необходимо."
 
 #: kwrite/main.cpp:46
 msgid ""
@@ -173,6 +185,10 @@ msgid ""
 "vulnerabilities. Instead use KWrite normally and you will be prompted for "
 "elevated privileges when saving documents if needed."
 msgstr ""
+"Стартирането на KWrite с kdesu може да причини грешки и да ви изложи на риск "
+"за уязвимости на сигурността. Вместо това използвайте KWrite нормално и ще "
+"бъдете подканени за повишени привилегии при запазване на документи, ако е "
+"необходимо."
 
 #: kwrite/main.cpp:94
 #, kde-format
@@ -215,11 +231,10 @@ msgid "%1 doesn't exist in a git repo."
 msgstr "%1s не съществува в хранилището на git."
 
 #: lib/commitfilesview.cpp:495
-#, fuzzy, kde-format
-#| msgid "Commit"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Commit %1"
-msgstr "Качване"
+msgstr "Качване %1"
 
 #. i18n: ectx: Menu (file)
 #: lib/data/kateui.rc:6
@@ -396,16 +411,14 @@ msgid "Jump to Previous Hunk"
 msgstr "Отиване до предишно място"
 
 #: lib/diff/diffwidget.cpp:644 lib/diff/diffwidget.cpp:844
-#, fuzzy, kde-format
-#| msgid "New file name"
+#, kde-format
 msgid "New file %1"
-msgstr "Ново име на файл"
+msgstr "Нов файл %1"
 
 #: lib/diff/diffwidget.cpp:646 lib/diff/diffwidget.cpp:846
-#, fuzzy, kde-format
-#| msgid "Delete file"
+#, kde-format
 msgid "Deleted file %1"
-msgstr "Изтриване на файл"
+msgstr "Изтрити файлове %1"
 
 #: lib/filehistorywidget.cpp:286
 #, kde-format
@@ -420,11 +433,10 @@ msgid "Failed to get file history: %1"
 msgstr "Неуспешно получаване на историята на файловете: %1"
 
 #: lib/filehistorywidget.cpp:352
-#, fuzzy, kde-format
-#| msgid "File History"
+#, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
-msgstr "История на файловете"
+msgstr "История на файловете - %1"
 
 #: lib/kateapp.cpp:146
 #, kde-format

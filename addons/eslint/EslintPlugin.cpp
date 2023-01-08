@@ -7,6 +7,8 @@
 #include <KLocalizedString>
 #include <KPluginFactory>
 #include <KSharedConfig>
+#include <KTextEditor/Application>
+#include <KTextEditor/Editor>
 #include <KTextEditor/View>
 #include <KXMLGUIFactory>
 
@@ -42,6 +44,7 @@ ESLintPluginView::ESLintPluginView(ESLintPlugin *plugin, KTextEditor::MainWindow
     connect(mainWin, &KTextEditor::MainWindow::viewChanged, this, &ESLintPluginView::onActiveViewChanged);
     connect(&m_eslintProcess, &QProcess::readyReadStandardOutput, this, &ESLintPluginView::onReadyRead);
     connect(&m_eslintProcess, &QProcess::readyReadStandardError, this, &ESLintPluginView::onError);
+    connect(&m_provider, &DiagnosticsProvider::requestFixes, this, &ESLintPluginView::onFixesRequested);
 
     m_mainWindow->guiFactory()->addClient(this);
 }
@@ -88,6 +91,7 @@ static bool canLintDoc(KTextEditor::Document *d)
 
 void ESLintPluginView::onSaved(KTextEditor::Document *d)
 {
+    m_diagsWithFix.clear();
     if (!canLintDoc(d)) {
         return;
     }
@@ -105,7 +109,7 @@ void ESLintPluginView::onSaved(KTextEditor::Document *d)
     startHostProcess(m_eslintProcess, name, args);
 }
 
-static FileDiagnostics parseLine(const QString &line)
+static FileDiagnostics parseLine(const QString &line, std::vector<DiagnosticWithFix> &diagWithFix)
 {
     QJsonParseError e;
     QJsonDocument d = QJsonDocument::fromJson(line.toUtf8(), &e);
@@ -134,6 +138,7 @@ static FileDiagnostics parseLine(const QString &line)
         if (msg.isEmpty()) {
             continue;
         }
+
         const int startLine = msg.value(QStringLiteral("line")).toInt() - 1;
         const int startColumn = msg.value(QStringLiteral("column")).toInt() - 1;
         const int endLine = msg.value(QStringLiteral("endLine")).toInt() - 1;
@@ -155,6 +160,24 @@ static FileDiagnostics parseLine(const QString &line)
             // fallback, even though there is no other severity
             d.severity = DiagnosticSeverity::Information;
         }
+
+        auto fixObject = msg.value(QStringLiteral("fix")).toObject();
+        if (!fixObject.isEmpty()) {
+            const auto rangeArray = fixObject.value(QStringLiteral("range")).toArray();
+            int s, e;
+            if (rangeArray.size() == 2) {
+                s = rangeArray[0].toInt(-1);
+                e = rangeArray[1].toInt(-1);
+                auto v = fixObject.value(QStringLiteral("text"));
+                if (!v.isUndefined()) {
+                    DiagnosticWithFix df;
+                    df.diag = d;
+                    df.fix = {s, e, v.toString()};
+                    diagWithFix.push_back(df);
+                }
+            }
+        }
+
         diags << d;
     }
     return {uri, diags};
@@ -172,7 +195,7 @@ void ESLintPluginView::onReadyRead()
          * get one line, split it, skip it, if too few elements
          */
         QString line = QString::fromLocal8Bit(rawLine);
-        FileDiagnostics fd = parseLine(line);
+        FileDiagnostics fd = parseLine(line, m_diagsWithFix);
         if (!fd.uri.isValid()) {
             continue;
         }
@@ -190,6 +213,46 @@ void ESLintPluginView::onError()
     if (!err.isEmpty()) {
         const QString message = i18n("Eslint failed, error: %1", err);
         Utils::showMessage(message, {}, i18n("ESLint"), QStringLiteral("Error"), m_mainWindow);
+    }
+}
+
+void ESLintPluginView::onFixesRequested(const QUrl &u, const Diagnostic &d, const QVariant &v)
+{
+    if (m_diagsWithFix.empty()) {
+        return;
+    }
+
+    for (const auto &fd : m_diagsWithFix) {
+        const auto &diag = fd.diag;
+        if (diag.range == d.range && diag.code == d.code && diag.message == d.message) {
+            DiagnosticFix f;
+            f.fixTitle = QStringLiteral("replace with %1").arg(fd.fix.text);
+            f.fixCallback = [u, fix = fd.fix, this] {
+                fixDiagnostic(u, fix);
+            };
+            Q_EMIT m_provider.fixesAvailable({f}, v);
+        }
+    }
+}
+
+void ESLintPluginView::fixDiagnostic(const QUrl &url, const DiagnosticWithFix::Fix &fix)
+{
+    KTextEditor::Document *d = nullptr;
+    if (m_activeDoc && m_activeDoc->url() == url) {
+        d = m_activeDoc;
+    } else {
+        d = KTextEditor::Editor::instance()->application()->findUrl(url);
+    }
+    if (!d) {
+        const QString message = i18n("Failed to find doc with url %1", url.toLocalFile());
+        Utils::showMessage(message, {}, i18n("ESLint"), QStringLiteral("Info"), m_mainWindow);
+        return;
+    }
+
+    KTextEditor::Cursor s = Utils::cursorFromOffset(d, fix.rangeStart);
+    KTextEditor::Cursor e = Utils::cursorFromOffset(d, fix.rangeEnd);
+    if (s.isValid() && e.isValid()) {
+        d->replaceText({s, e}, fix.text);
     }
 }
 

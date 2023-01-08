@@ -24,6 +24,15 @@ public:
     QObject *createView(KTextEditor::MainWindow *mainWindow) override;
 };
 
+struct DiagnosticWithFix {
+    Diagnostic diag;
+    struct Fix {
+        int rangeStart = 0;
+        int rangeEnd = 0;
+        QString text;
+    } fix;
+};
+
 class ESLintPluginView final : public QObject, public KXMLGUIClient
 {
     Q_OBJECT
@@ -37,10 +46,13 @@ private:
     void onSaved(KTextEditor::Document *d);
     void onReadyRead();
     void onError();
+    void onFixesRequested(const QUrl &, const Diagnostic &, const QVariant &);
+    void fixDiagnostic(const QUrl &url, const DiagnosticWithFix::Fix &fix);
 
     QPointer<KTextEditor::Document> m_activeDoc;
     ESLintPlugin *const m_plugin;
     KTextEditor::MainWindow *m_mainWindow;
     DiagnosticsProvider m_provider;
     QProcess m_eslintProcess;
+    std::vector<DiagnosticWithFix> m_diagsWithFix;
 };

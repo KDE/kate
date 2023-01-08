@@ -24,7 +24,6 @@
 #include <QVBoxLayout>
 
 #include <KLocalizedString>
-#include <KMessageWidget>
 #include <QTimer>
 
 #include <KTextEditor/MainWindow>
@@ -83,7 +82,6 @@ private:
 KateProjectInfoViewCodeAnalysis::KateProjectInfoViewCodeAnalysis(KateProjectPluginView *pluginView, KateProject *project)
     : m_pluginView(pluginView)
     , m_project(project)
-    , m_messageWidget(nullptr)
     , m_startStopAnalysis(new QPushButton(i18n("Start Analysis...")))
     , m_analyzer(nullptr)
     , m_analysisTool(nullptr)
@@ -217,19 +215,8 @@ void KateProjectInfoViewCodeAnalysis::slotStartStopClicked()
         startHostProcess(*m_analyzer, fullExecutable, m_analysisTool->arguments());
     }
 
-    if (m_messageWidget) {
-        delete m_messageWidget;
-        m_messageWidget = nullptr;
-    }
-
     if (fullExecutable.isEmpty() || !m_analyzer->waitForStarted()) {
-        m_messageWidget = new KMessageWidget(this);
-        m_messageWidget->setCloseButtonVisible(true);
-        m_messageWidget->setMessageType(KMessageWidget::Warning);
-        m_messageWidget->setWordWrap(false);
-        m_messageWidget->setText(m_analysisTool->notInstalledMessage());
-        static_cast<QVBoxLayout *>(layout())->addWidget(m_messageWidget);
-        m_messageWidget->animatedShow();
+        Utils::showMessage(m_analysisTool->notInstalledMessage(), {}, i18n("CodeAnalsis"), QStringLiteral("Warning"));
         return;
     }
 
@@ -303,31 +290,18 @@ void KateProjectInfoViewCodeAnalysis::finished(int exitCode, QProcess::ExitStatu
 {
     m_invocationType = None;
     m_startStopAnalysis->setEnabled(true);
-    m_messageWidget = new KMessageWidget(this);
-    m_messageWidget->setCloseButtonVisible(true);
-    m_messageWidget->setWordWrap(false);
 
     if (m_analysisTool->isSuccessfulExitCode(exitCode)) {
         // normally 0 is successful but there are exceptions
-        m_messageWidget->setMessageType(KMessageWidget::Information);
-        m_messageWidget->setText(i18np("Analysis on %1 file finished.", "Analysis on %1 files finished.", m_analysisTool->getActualFilesCount()));
-
-        // hide after 3 seconds
-        QTimer::singleShot(3000, this, [this]() {
-            if (m_messageWidget) {
-                m_messageWidget->animatedHide();
-            }
-        });
+        const QString msg =
+            i18np("[%1]Analysis on %2 file finished.", "Analysis on %1 files finished.", m_analysisTool->name(), m_analysisTool->getActualFilesCount());
+        Utils::showMessage(msg, {}, i18n("CodeAnalsis"), QStringLiteral("Log"), m_pluginView->mainWindow());
     } else {
         // unfortunately, output was eaten by slotReadyRead()
         // TODO: get stderr output, show it here
-        m_messageWidget->setMessageType(KMessageWidget::Warning);
-        m_messageWidget->setText(i18np("Analysis on %1 file failed with exit code %2.",
-                                       "Analysis on %1 files failed with exit code %2.",
-                                       m_analysisTool->getActualFilesCount(),
-                                       exitCode));
-    }
 
-    static_cast<QVBoxLayout *>(layout())->addWidget(m_messageWidget);
-    m_messageWidget->animatedShow();
+        const QString err = QString::fromUtf8(m_analyzer->readAllStandardError());
+        const QString message = i18n("Analysis failed with exit code %1, Error: %2", exitCode, err);
+        Utils::showMessage(message, {}, i18n("CodeAnalsis"), QStringLiteral("Error"), m_pluginView->mainWindow());
+    }
 }

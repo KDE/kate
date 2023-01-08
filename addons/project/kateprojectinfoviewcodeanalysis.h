@@ -117,11 +117,6 @@ private:
     KateProject *m_project;
 
     /**
-     * information widget showing a warning about missing ctags.
-     */
-    QPointer<KMessageWidget> m_messageWidget;
-
-    /**
      * start/stop analysis button
      */
     QPushButton *m_startStopAnalysis;

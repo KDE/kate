@@ -30,15 +30,12 @@ public:
 
     FileDiagnostics parseLine(const QString &line) const override;
 
+    bool isSuccessfulExitCode(int c) const override
+    {
+        return c == 1;
+    }
+
     QString stdinMessages() override;
-
-    bool canRunOnSave() const override;
-
-    QWidget *configWidget() override;
-
-private:
-    QWidget *m_configWidget = nullptr;
-    class QCheckBox *m_runOnSave = nullptr;
 };
 
 #endif // KATEPROJECTCODEANALYSISTOOLESLINT_H

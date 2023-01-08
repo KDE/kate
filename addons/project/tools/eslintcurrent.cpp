@@ -134,27 +134,3 @@ QString ESLintCurrentFile::stdinMessages()
 {
     return QString();
 }
-
-bool ESLintCurrentFile::canRunOnSave() const
-{
-    return m_runOnSave && m_runOnSave->isChecked();
-}
-
-QWidget *ESLintCurrentFile::configWidget()
-{
-    if (m_configWidget) {
-        return m_configWidget;
-    }
-    m_configWidget = new QWidget();
-    auto l = new QHBoxLayout(m_configWidget);
-    m_runOnSave = new QCheckBox(i18n("Run on save"));
-    l->addWidget(m_runOnSave);
-    KConfigGroup cg(KSharedConfig::openConfig(), "CodeAnalysis");
-    m_runOnSave->setChecked(cg.readEntry("EsLintRunOnSave", true));
-    connect(m_runOnSave, &QCheckBox::stateChanged, this, [this] {
-        KConfigGroup cg(KSharedConfig::openConfig(), "CodeAnalysis");
-        cg.writeEntry("EsLintRunOnSave", m_runOnSave->isChecked());
-    });
-
-    return m_configWidget;
-}

@@ -114,22 +114,6 @@ public:
     virtual QString stdinMessages() = 0;
 
     /**
-     * @return whether this tool can be run on saving a document
-     */
-    virtual bool canRunOnSave() const
-    {
-        return false;
-    }
-
-    /**
-     * @return config widget for this tool. Will be shown in the toolview beneat the combobox
-     */
-    virtual QWidget *configWidget()
-    {
-        return nullptr;
-    }
-
-    /**
      * @returns the number of files to be processed after the filter
      * has been applied
      */

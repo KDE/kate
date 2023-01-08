@@ -27,29 +27,6 @@ namespace KTextEditor
 class Document;
 }
 
-class DocumentOnSaveTracker : public QObject
-{
-    Q_OBJECT
-public:
-    DocumentOnSaveTracker(QObject *parent = nullptr)
-        : QObject(parent)
-    {
-        m_timer.setInterval(300);
-        m_timer.callOnTimeout(this, [this] {
-            Q_EMIT saved(m_doc);
-        });
-        m_timer.setSingleShot(true);
-    }
-    void setDocument(KTextEditor::Document *doc);
-
-Q_SIGNALS:
-    void saved(KTextEditor::Document *);
-
-private:
-    QPointer<KTextEditor::Document> m_doc;
-    QTimer m_timer;
-};
-
 /**
  * View for Code Analysis.
  * cppcheck and perhaps later more...
@@ -103,8 +80,6 @@ private Q_SLOTS:
      */
     void finished(int exitCode, QProcess::ExitStatus exitStatus);
 
-    void onSaved(KTextEditor::Document *doc);
-
 private:
     /**
      * our plugin view
@@ -145,17 +120,9 @@ private:
 
     DiagnosticsProvider *const m_diagnosticProvider;
 
-    DocumentOnSaveTracker m_onSaveTracker;
-
     /**
      * Output read in the slotReadyRead
      * will be cleared after process finishes
      */
-    QByteArray m_output;
-
-    enum {
-        None = 0,
-        OnSave,
-        UserClickedButton,
-    } m_invocationType;
+    QByteArray m_errOutput;
 };

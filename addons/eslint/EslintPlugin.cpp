@@ -127,9 +127,13 @@ static FileDiagnostics parseLine(const QString &line, std::vector<DiagnosticWith
     if (!uri.isValid()) {
         return {};
     }
+
+    FileDiagnostics fd;
+    fd.uri = uri;
     const auto messages = obj.value(QStringLiteral("messages")).toArray();
     if (messages.empty()) {
-        return {};
+        // No errors in this file
+        return fd;
     }
 
     QVector<Diagnostic> diags;
@@ -172,6 +176,7 @@ static FileDiagnostics parseLine(const QString &line, std::vector<DiagnosticWith
                 auto v = fixObject.value(QStringLiteral("text"));
                 if (!v.isUndefined()) {
                     DiagnosticWithFix df;
+                    d.message += QStringLiteral(" (fix available)");
                     df.diag = d;
                     df.fix = {s, e, v.toString()};
                     diagWithFix.push_back(df);

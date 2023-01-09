@@ -2,8 +2,7 @@
  *  SPDX-FileCopyrightText: 2021 Waqar Ahmed <waqar.17a@gmail.com>
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
-#ifndef KATEPROJECTCODEANALYSISTOOLCLIPPY_H
-#define KATEPROJECTCODEANALYSISTOOLCLIPPY_H
+#pragma once
 
 #include <kateprojectcodeanalysistool.h>
 
@@ -37,5 +36,3 @@ public:
         return 101 == exitCode;
     }
 };
-
-#endif // Clippy_H

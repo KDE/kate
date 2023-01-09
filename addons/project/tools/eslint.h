@@ -1,18 +1,15 @@
 /**
- *  SPDX-FileCopyrightText: 2021 Waqar Ahmed <waqar.17a@gmail.com>
+ *  SPDX-FileCopyrightText: 2023 Waqar Ahmed <waqar.17a@gmail.com>
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
-#ifndef KATEPROJECTCODEANALYSISTOOLESLINT_H
-#define KATEPROJECTCODEANALYSISTOOLESLINT_H
+#pragma once
 
 #include <kateprojectcodeanalysistool.h>
 
-class ESLintCurrentFile : public KateProjectCodeAnalysisTool
+class ESLint : public KateProjectCodeAnalysisTool
 {
 public:
-    explicit ESLintCurrentFile(QObject *parent = nullptr);
-
-    ~ESLintCurrentFile() override = default;
+    explicit ESLint(QObject *parent = nullptr);
 
     QString name() const override;
 
@@ -37,5 +34,3 @@ public:
 
     QString stdinMessages() override;
 };
-
-#endif // KATEPROJECTCODEANALYSISTOOLESLINT_H

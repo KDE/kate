@@ -1,56 +1,49 @@
 /**
- *  SPDX-FileCopyrightText: 2021 Waqar Ahmed <waqar.17a@gmail.com>
+ *  SPDX-FileCopyrightText: 2023 Waqar Ahmed <waqar.17a@gmail.com>
  *  SPDX-License-Identifier: LGPL-2.0-or-later
  */
-#include "eslintcurrent.h"
+#include "eslint.h"
 #include "kateproject.h"
 
-#include <KConfigGroup>
 #include <KLocalizedString>
-#include <KSharedConfig>
-#include <KTextEditor/MainWindow>
 
-#include <QCheckBox>
-#include <QDir>
-#include <QHBoxLayout>
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
-#include <QLabel>
 
-ESLintCurrentFile::ESLintCurrentFile(QObject *parent)
+ESLint::ESLint(QObject *parent)
     : KateProjectCodeAnalysisTool(parent)
 {
 }
 
-QString ESLintCurrentFile::name() const
+QString ESLint::name() const
 {
     return i18n("ESLint");
 }
 
-QString ESLintCurrentFile::description() const
+QString ESLint::description() const
 {
     return i18n("ESLint is a static analysis tool & style guide enforcer for JavaScript/Typescript code.");
 }
 
-QString ESLintCurrentFile::fileExtensions() const
+QString ESLint::fileExtensions() const
 {
     return QStringLiteral("js|jsx|ts|tsx");
 }
 
-QStringList ESLintCurrentFile::filter(const QStringList &files) const
+QStringList ESLint::filter(const QStringList &files) const
 {
     // js/ts files
     return files.filter(
         QRegularExpression(QStringLiteral("\\.(") + fileExtensions().replace(QStringLiteral("+"), QStringLiteral("\\+")) + QStringLiteral(")$")));
 }
 
-QString ESLintCurrentFile::path() const
+QString ESLint::path() const
 {
     return QStringLiteral("npx");
 }
 
-QStringList ESLintCurrentFile::arguments()
+QStringList ESLint::arguments()
 {
     if (!m_project) {
         return {};
@@ -67,12 +60,12 @@ QStringList ESLintCurrentFile::arguments()
     return args << fileList;
 }
 
-QString ESLintCurrentFile::notInstalledMessage() const
+QString ESLint::notInstalledMessage() const
 {
     return i18n("Please install 'eslint'.");
 }
 
-FileDiagnostics ESLintCurrentFile::parseLine(const QString &line) const
+FileDiagnostics ESLint::parseLine(const QString &line) const
 {
     QJsonParseError e;
     QJsonDocument d = QJsonDocument::fromJson(line.toUtf8(), &e);
@@ -127,7 +120,7 @@ FileDiagnostics ESLintCurrentFile::parseLine(const QString &line) const
     return {uri, diags};
 }
 
-QString ESLintCurrentFile::stdinMessages()
+QString ESLint::stdinMessages()
 {
     return QString();
 }

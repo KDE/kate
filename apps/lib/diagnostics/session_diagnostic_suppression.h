@@ -3,8 +3,7 @@
     SPDX-FileCopyrightText: 2022 Waqar Ahmed <waqar.17a@gmail.com>
     SPDX-License-Identifier: MIT
 */
-#ifndef KATE_SESSION_DIAGNOSTIC_SUPPRESSION_H
-#define KATE_SESSION_DIAGNOSTIC_SUPPRESSION_H
+#pragma once
 
 #include <KConfigGroup>
 #include <QSet>
@@ -84,5 +83,3 @@ public:
         return result;
     }
 };
-
-#endif

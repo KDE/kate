@@ -3,8 +3,7 @@
     SPDX-FileCopyrightText: 2022 Waqar Ahmed <waqar.17a@gmail.com>
     SPDX-License-Identifier: MIT
 */
-#ifndef KATE_DIAGNOSTICS_ITEM_H
-#define KATE_DIAGNOSTICS_ITEM_H
+#pragma once
 
 #include "diagnostic_suppression.h"
 #include "diagnostic_types.h"
@@ -74,5 +73,3 @@ struct DiagnosticFixItem : public QStandardItem {
         return DiagnosticItem_Fix;
     }
 };
-
-#endif

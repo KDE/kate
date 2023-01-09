@@ -2,8 +2,7 @@
     SPDX-FileCopyrightText: 2019 Mark Nauwelaerts <mark.nauwelaerts@gmail.com>
     SPDX-License-Identifier: MIT
 */
-#ifndef KATE_DIAGNOSTICS_TYPES_H
-#define KATE_DIAGNOSTICS_TYPES_H
+#pragma once
 
 #include <KTextEditor/Range>
 #include <QString>
@@ -50,5 +49,3 @@ struct DiagnosticFix {
     std::function<void()> fixCallback;
 };
 Q_DECLARE_METATYPE(DiagnosticFix)
-
-#endif

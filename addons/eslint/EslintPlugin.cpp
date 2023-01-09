@@ -21,7 +21,6 @@
 #include <hostprocess.h>
 #include <ktexteditor_utils.h>
 
-
 K_PLUGIN_FACTORY_WITH_JSON(ESLintPluginFactory, "EslintPlugin.json", registerPlugin<ESLintPlugin>();)
 
 ESLintPlugin::ESLintPlugin(QObject *parent, const QVariantList &)
@@ -218,7 +217,7 @@ void ESLintPluginView::onError()
     const QString err = QString::fromUtf8(m_eslintProcess.readAllStandardError());
     if (!err.isEmpty()) {
         const QString message = i18n("Eslint failed, error: %1", err);
-        Utils::showMessage(message, {}, i18n("ESLint"), QStringLiteral("Error"), m_mainWindow);
+        Utils::showMessage(message, {}, i18n("ESLint"), QStringLiteral("Warning"), m_mainWindow);
     }
 }
 

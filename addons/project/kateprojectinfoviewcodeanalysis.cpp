@@ -133,7 +133,7 @@ void KateProjectInfoViewCodeAnalysis::slotStartStopClicked()
     }
 
     if (fullExecutable.isEmpty() || !m_analyzer->waitForStarted()) {
-        Utils::showMessage(m_analysisTool->notInstalledMessage(), {}, i18n("CodeAnalsis"), QStringLiteral("Warning"));
+        Utils::showMessage(m_analysisTool->notInstalledMessage(), {}, i18n("CodeAnalysis"), QStringLiteral("Warning"));
         return;
     }
 
@@ -187,11 +187,11 @@ void KateProjectInfoViewCodeAnalysis::finished(int exitCode, QProcess::ExitStatu
         // normally 0 is successful but there are exceptions
         const QString msg =
             i18np("[%1]Analysis on %2 file finished.", "Analysis on %1 files finished.", m_analysisTool->name(), m_analysisTool->getActualFilesCount());
-        Utils::showMessage(msg, {}, i18n("CodeAnalsis"), QStringLiteral("Log"), m_pluginView->mainWindow());
+        Utils::showMessage(msg, {}, i18n("CodeAnalysis"), QStringLiteral("Log"), m_pluginView->mainWindow());
     } else {
         const QString err = QString::fromUtf8(m_errOutput);
         const QString message = i18n("Analysis failed with exit code %1, Error: %2", exitCode, err);
-        Utils::showMessage(message, {}, i18n("CodeAnalsis"), QStringLiteral("Error"), m_pluginView->mainWindow());
+        Utils::showMessage(message, {}, i18n("CodeAnalysis"), QStringLiteral("Error"), m_pluginView->mainWindow());
     }
     m_errOutput = {};
 }

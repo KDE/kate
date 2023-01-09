@@ -18,6 +18,7 @@
 #include <KTextEditor/MovingInterface>
 #include <KTextEditor/TextHintInterface>
 
+#include <KColorScheme>
 #include <QClipboard>
 #include <QDebug>
 #include <QFileInfo>
@@ -46,11 +47,6 @@ public:
         raise();
     }
 
-    bool active() const
-    {
-        return m_active;
-    }
-
     void setActive(bool a)
     {
         if (m_active != a) {
@@ -68,7 +64,7 @@ protected:
         if (m_active) {
             QPainter p(this);
             p.setOpacity(0.25);
-            p.setBrush(Qt::red);
+            p.setBrush(KColorScheme().foreground(KColorScheme::NeutralText));
             p.setPen(Qt::NoPen);
             p.drawRect(rect().adjusted(1, 1, -1, -1));
         }

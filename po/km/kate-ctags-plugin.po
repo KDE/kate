@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate-ctags-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-03 04:16+0000\n"
+"POT-Creation-Date: 2023-01-09 02:41+0000\n"
 "PO-Revision-Date: 2010-12-23 09:52+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -338,43 +338,43 @@ msgstr ""
 msgid "..."
 msgstr "..."
 
-#: kate_ctags_plugin.cpp:77 kate_ctags_view.cpp:108
+#: kate_ctags_plugin.cpp:78 kate_ctags_view.cpp:108
 #, kde-format
 msgid "Add a directory to index."
 msgstr "បន្ថែម​ថត​ទៅកាន់​លិបិក្រម​ ។"
 
-#: kate_ctags_plugin.cpp:80 kate_ctags_view.cpp:111
+#: kate_ctags_plugin.cpp:81 kate_ctags_view.cpp:111
 #, kde-format
 msgid "Remove a directory."
 msgstr "យក​ថត​ចេញ​ ។"
 
-#: kate_ctags_plugin.cpp:83
+#: kate_ctags_plugin.cpp:84
 #, kde-format
 msgid "(Re-)generate the common CTags database."
 msgstr "បង្កើត​ឯកសារ​មូលដ្ឋាន​ទិន្នន័យ​របស់​ CTags ទូទៅ​ឡើង​វិញ ។"
 
-#: kate_ctags_plugin.cpp:101 kate_ctags_view.cpp:45 kate_ctags_view.cpp:52
+#: kate_ctags_plugin.cpp:102 kate_ctags_view.cpp:45 kate_ctags_view.cpp:52
 #: kate_ctags_view.cpp:95
 #, kde-format
 msgid "CTags"
 msgstr "CTags"
 
-#: kate_ctags_plugin.cpp:107
+#: kate_ctags_plugin.cpp:108
 #, kde-format
 msgid "CTags Settings"
 msgstr "ការ​កំណត់​របស់​ CTags"
 
-#: kate_ctags_plugin.cpp:229 kate_ctags_view.cpp:555
+#: kate_ctags_plugin.cpp:232 kate_ctags_view.cpp:555
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "បាន​បរាជ័យ​ក្នុង​ការ​រត់ \"%1\" ។ exitStatus = %2​"
 
-#: kate_ctags_plugin.cpp:240 kate_ctags_view.cpp:567
+#: kate_ctags_plugin.cpp:243 kate_ctags_view.cpp:567
 #, kde-format
 msgid "The CTags executable crashed."
 msgstr "បាន​គាំង​ឯកសារ​ប្រតិបត្តិ​របស់​ CTags ។​"
 
-#: kate_ctags_plugin.cpp:242
+#: kate_ctags_plugin.cpp:245
 #, kde-format
 msgid "The CTags command exited with code %1"
 msgstr "បាន​ចេញ​ពាក្យ​បញ្ជា​របស់​ CTags ​ជាមួយ​កូដ​ %1​"

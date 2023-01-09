@@ -1,12 +1,12 @@
 # Translation of kate-ctags-plugin to Norwegian Nynorsk
 #
-# Karl Ove Hufthammer <karl@huftis.org>, 2009, 2015, 2019, 2020, 2021.
+# Karl Ove Hufthammer <karl@huftis.org>, 2009, 2015, 2019, 2020, 2021, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: KDE 4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-03 04:16+0000\n"
-"PO-Revision-Date: 2021-01-11 20:56+0100\n"
+"PO-Revision-Date: 2023-01-08 12:06+0100\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
 "Language: nn\n"
@@ -17,7 +17,7 @@ msgstr ""
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
-"X-Generator: Lokalize 20.12.0\n"
+"X-Generator: Lokalize 22.12.0\n"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: CTagsGlobalConfig.ui:9
@@ -259,7 +259,7 @@ msgstr "Fann ikkje programfil for CTags."
 #: gotosymbolmodel.cpp:80
 #, kde-format
 msgid "CTags executable failed to execute."
-msgstr ""
+msgstr "Klarte ikkje starta programfil for CTags."
 
 #: gotosymbolmodel.cpp:148
 #, kde-format

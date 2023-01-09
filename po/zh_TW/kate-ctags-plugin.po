@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate-ctags-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-03 04:16+0000\n"
+"POT-Creation-Date: 2023-01-09 02:41+0000\n"
 "PO-Revision-Date: 2022-02-19 11:37+0800\n"
 "Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
 "Language-Team: Chinese <zh-l10n@lists.slat.org>\n"
@@ -338,43 +338,43 @@ msgstr "回復為預設指令"
 msgid "..."
 msgstr "..."
 
-#: kate_ctags_plugin.cpp:77 kate_ctags_view.cpp:108
+#: kate_ctags_plugin.cpp:78 kate_ctags_view.cpp:108
 #, kde-format
 msgid "Add a directory to index."
 msgstr "新增字典到索引"
 
-#: kate_ctags_plugin.cpp:80 kate_ctags_view.cpp:111
+#: kate_ctags_plugin.cpp:81 kate_ctags_view.cpp:111
 #, kde-format
 msgid "Remove a directory."
 msgstr "移除字典。"
 
-#: kate_ctags_plugin.cpp:83
+#: kate_ctags_plugin.cpp:84
 #, kde-format
 msgid "(Re-)generate the common CTags database."
 msgstr "(重新)產生 CTags 資料庫檔案。"
 
-#: kate_ctags_plugin.cpp:101 kate_ctags_view.cpp:45 kate_ctags_view.cpp:52
+#: kate_ctags_plugin.cpp:102 kate_ctags_view.cpp:45 kate_ctags_view.cpp:52
 #: kate_ctags_view.cpp:95
 #, kde-format
 msgid "CTags"
 msgstr "CTags"
 
-#: kate_ctags_plugin.cpp:107
+#: kate_ctags_plugin.cpp:108
 #, kde-format
 msgid "CTags Settings"
 msgstr "CTags 設定"
 
-#: kate_ctags_plugin.cpp:229 kate_ctags_view.cpp:555
+#: kate_ctags_plugin.cpp:232 kate_ctags_view.cpp:555
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "執行 %1 失敗。離開狀態：%2"
 
-#: kate_ctags_plugin.cpp:240 kate_ctags_view.cpp:567
+#: kate_ctags_plugin.cpp:243 kate_ctags_view.cpp:567
 #, kde-format
 msgid "The CTags executable crashed."
 msgstr "CTags 執行檔發生問題。"
 
-#: kate_ctags_plugin.cpp:242
+#: kate_ctags_plugin.cpp:245
 #, kde-format
 msgid "The CTags command exited with code %1"
 msgstr "CTags 指令已離開，狀態為 %1"

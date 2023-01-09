@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-03 04:16+0000\n"
+"POT-Creation-Date: 2023-01-09 02:41+0000\n"
 "PO-Revision-Date: 2012-06-30 11:32+0300\n"
 "Last-Translator: Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -339,43 +339,43 @@ msgstr ""
 msgid "..."
 msgstr "..."
 
-#: kate_ctags_plugin.cpp:77 kate_ctags_view.cpp:108
+#: kate_ctags_plugin.cpp:78 kate_ctags_view.cpp:108
 #, kde-format
 msgid "Add a directory to index."
 msgstr "Pievienot mapi indeksam."
 
-#: kate_ctags_plugin.cpp:80 kate_ctags_view.cpp:111
+#: kate_ctags_plugin.cpp:81 kate_ctags_view.cpp:111
 #, kde-format
 msgid "Remove a directory."
 msgstr "Izņemt mapi."
 
-#: kate_ctags_plugin.cpp:83
+#: kate_ctags_plugin.cpp:84
 #, kde-format
 msgid "(Re-)generate the common CTags database."
 msgstr "(Re-)ģenerēt parasto CTags datubāzi."
 
-#: kate_ctags_plugin.cpp:101 kate_ctags_view.cpp:45 kate_ctags_view.cpp:52
+#: kate_ctags_plugin.cpp:102 kate_ctags_view.cpp:45 kate_ctags_view.cpp:52
 #: kate_ctags_view.cpp:95
 #, kde-format
 msgid "CTags"
 msgstr "CTags"
 
-#: kate_ctags_plugin.cpp:107
+#: kate_ctags_plugin.cpp:108
 #, kde-format
 msgid "CTags Settings"
 msgstr "CTags iestatījumi"
 
-#: kate_ctags_plugin.cpp:229 kate_ctags_view.cpp:555
+#: kate_ctags_plugin.cpp:232 kate_ctags_view.cpp:555
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "Neizdevās palaist \"%1\". exitStatus = %2"
 
-#: kate_ctags_plugin.cpp:240 kate_ctags_view.cpp:567
+#: kate_ctags_plugin.cpp:243 kate_ctags_view.cpp:567
 #, kde-format
 msgid "The CTags executable crashed."
 msgstr "CTags izpildāmā datne avarēja."
 
-#: kate_ctags_plugin.cpp:242
+#: kate_ctags_plugin.cpp:245
 #, kde-format
 msgid "The CTags command exited with code %1"
 msgstr "CTags komanda izgāja ar kodu %1"

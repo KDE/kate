@@ -14,6 +14,7 @@
         "Description[sl]": "Vtičnik za oblikovanje kode",
         "Description[tr]": "Kod biçimlendirme için eklenti",
         "Description[uk]": "Додаток для форматування коду",
+        "Description[vi]": "Phần cài cắm để định dạng mã",
         "Description[x-test]": "xxPlugin for formatting codexx",
         "Name": "Formatting",
         "Name[bg]": "Форматиране",
@@ -30,6 +31,7 @@
         "Name[sl]": "Oblikovanje",
         "Name[tr]": "Biçimlendirme",
         "Name[uk]": "Форматування",
+        "Name[vi]": "Định dạng",
         "Name[x-test]": "xxFormattingxx",
         "ServiceTypes": [
             "KTextEditor/Plugin"

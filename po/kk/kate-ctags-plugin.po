@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-03 00:51+0000\n"
+"POT-Creation-Date: 2023-01-09 00:59+0000\n"
 "PO-Revision-Date: 2011-04-26 04:05+0600\n"
 "Last-Translator: Sairan Kikkarin <sairan@computer.org>\n"
 "Language-Team: Kazakh <kde-i18n-doc@kde.org>\n"
@@ -337,43 +337,43 @@ msgstr ""
 msgid "..."
 msgstr "..."
 
-#: kate_ctags_plugin.cpp:77 kate_ctags_view.cpp:108
+#: kate_ctags_plugin.cpp:78 kate_ctags_view.cpp:108
 #, kde-format
 msgid "Add a directory to index."
 msgstr "Индекстетін каталогты қосу"
 
-#: kate_ctags_plugin.cpp:80 kate_ctags_view.cpp:111
+#: kate_ctags_plugin.cpp:81 kate_ctags_view.cpp:111
 #, kde-format
 msgid "Remove a directory."
 msgstr "Каталогты өшіру."
 
-#: kate_ctags_plugin.cpp:83
+#: kate_ctags_plugin.cpp:84
 #, kde-format
 msgid "(Re-)generate the common CTags database."
 msgstr "CTags жалпы деректер қорының файлын (қайта) құру."
 
-#: kate_ctags_plugin.cpp:101 kate_ctags_view.cpp:45 kate_ctags_view.cpp:52
+#: kate_ctags_plugin.cpp:102 kate_ctags_view.cpp:45 kate_ctags_view.cpp:52
 #: kate_ctags_view.cpp:95
 #, kde-format
 msgid "CTags"
 msgstr "CTags"
 
-#: kate_ctags_plugin.cpp:107
+#: kate_ctags_plugin.cpp:108
 #, kde-format
 msgid "CTags Settings"
 msgstr "CTags параметрлері"
 
-#: kate_ctags_plugin.cpp:229 kate_ctags_view.cpp:555
+#: kate_ctags_plugin.cpp:232 kate_ctags_view.cpp:556
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "\"%1\" жегу жаңылысы. exitStatus = %2"
 
-#: kate_ctags_plugin.cpp:240 kate_ctags_view.cpp:567
+#: kate_ctags_plugin.cpp:243 kate_ctags_view.cpp:568
 #, kde-format
 msgid "The CTags executable crashed."
 msgstr "CTags орындау жаңылысы."
 
-#: kate_ctags_plugin.cpp:242
+#: kate_ctags_plugin.cpp:245
 #, kde-format
 msgid "The CTags command exited with code %1"
 msgstr "CTags командасы доғарылды. Шығу коды: %1"
@@ -445,17 +445,17 @@ msgstr ""
 msgid "Go To Global Symbol"
 msgstr ""
 
-#: kate_ctags_view.cpp:317 kate_ctags_view.cpp:349
+#: kate_ctags_view.cpp:318 kate_ctags_view.cpp:350
 #, kde-format
 msgid "No hits found"
 msgstr "Ештеңе табылмады."
 
-#: kate_ctags_view.cpp:544
+#: kate_ctags_view.cpp:545
 #, kde-format
 msgid "No folders or files to index"
 msgstr ""
 
-#: kate_ctags_view.cpp:569
+#: kate_ctags_view.cpp:570
 #, fuzzy, kde-format
 #| msgid "The CTags program exited with code %1"
 msgid "The CTags program exited with code %1: %2"

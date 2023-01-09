@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-03 00:51+0000\n"
+"POT-Creation-Date: 2023-01-09 00:59+0000\n"
 "PO-Revision-Date: 2022-02-09 17:54+0100\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -336,43 +336,43 @@ msgstr "Hoàn nguyên về lệnh mặc định"
 msgid "..."
 msgstr "..."
 
-#: kate_ctags_plugin.cpp:77 kate_ctags_view.cpp:108
+#: kate_ctags_plugin.cpp:78 kate_ctags_view.cpp:108
 #, kde-format
 msgid "Add a directory to index."
 msgstr "Thêm một thư mục vào chỉ mục."
 
-#: kate_ctags_plugin.cpp:80 kate_ctags_view.cpp:111
+#: kate_ctags_plugin.cpp:81 kate_ctags_view.cpp:111
 #, kde-format
 msgid "Remove a directory."
 msgstr "Xoá một thư mục."
 
-#: kate_ctags_plugin.cpp:83
+#: kate_ctags_plugin.cpp:84
 #, kde-format
 msgid "(Re-)generate the common CTags database."
 msgstr "Tạo (lại) cơ sở dữ liệu CTags chung."
 
-#: kate_ctags_plugin.cpp:101 kate_ctags_view.cpp:45 kate_ctags_view.cpp:52
+#: kate_ctags_plugin.cpp:102 kate_ctags_view.cpp:45 kate_ctags_view.cpp:52
 #: kate_ctags_view.cpp:95
 #, kde-format
 msgid "CTags"
 msgstr "CTags"
 
-#: kate_ctags_plugin.cpp:107
+#: kate_ctags_plugin.cpp:108
 #, kde-format
 msgid "CTags Settings"
 msgstr "Thiết lập CTags"
 
-#: kate_ctags_plugin.cpp:229 kate_ctags_view.cpp:555
+#: kate_ctags_plugin.cpp:232 kate_ctags_view.cpp:556
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "Chạy \"%1\" thất bại. Trạng thái thoát = %2"
 
-#: kate_ctags_plugin.cpp:240 kate_ctags_view.cpp:567
+#: kate_ctags_plugin.cpp:243 kate_ctags_view.cpp:568
 #, kde-format
 msgid "The CTags executable crashed."
 msgstr "Tệp thực thi CTags gặp sự cố."
 
-#: kate_ctags_plugin.cpp:242
+#: kate_ctags_plugin.cpp:245
 #, kde-format
 msgid "The CTags command exited with code %1"
 msgstr "Lệnh CTags đã thoát với mã %1"
@@ -443,17 +443,17 @@ msgstr "Đi đến kí hiệu cục bộ"
 msgid "Go To Global Symbol"
 msgstr "Đi đến kí hiệu toàn cục"
 
-#: kate_ctags_view.cpp:317 kate_ctags_view.cpp:349
+#: kate_ctags_view.cpp:318 kate_ctags_view.cpp:350
 #, kde-format
 msgid "No hits found"
 msgstr "Không tìm thấy gì"
 
-#: kate_ctags_view.cpp:544
+#: kate_ctags_view.cpp:545
 #, kde-format
 msgid "No folders or files to index"
 msgstr "Không có thư mục hay tệp nào để lập chỉ mục"
 
-#: kate_ctags_view.cpp:569
+#: kate_ctags_view.cpp:570
 #, kde-format
 msgid "The CTags program exited with code %1: %2"
 msgstr "Chương trình CTags đã thoát với mã %1: %2"

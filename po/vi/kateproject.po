@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# Phu Hung Nguyen <phu.nguyen@kdemail.net>, 2021, 2022.
+# Phu Hung Nguyen <phu.nguyen@kdemail.net>, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-06 00:51+0000\n"
-"PO-Revision-Date: 2022-09-05 11:12+0200\n"
+"PO-Revision-Date: 2023-01-08 08:47+0100\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
 "Language: vi\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 22.04.1\n"
+"X-Generator: Lokalize 22.12.0\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -303,22 +303,19 @@ msgid "Compare Branch with..."
 msgstr "So sánh nhánh với..."
 
 #: gitwidget.cpp:981
-#, fuzzy, kde-format
-#| msgid "Commit"
+#, kde-format
 msgid "Show Commit"
-msgstr "Chuyển giao"
+msgstr "Hiện bản chuyển giao"
 
 #: gitwidget.cpp:981
-#, fuzzy, kde-format
-#| msgid "Commit Changes"
+#, kde-format
 msgid "Commit hash"
-msgstr "Chuyển giao các thay đổi"
+msgstr "Giá trị băm của bản chuyển giao"
 
 #: gitwidget.cpp:986
-#, fuzzy, kde-format
-#| msgid "Open Folder..."
+#, kde-format
 msgid "Open Commit..."
-msgstr "Mở thư mục..."
+msgstr "Mở bản chuyển giao..."
 
 #: gitwidget.cpp:989 gitwidget.cpp:1028
 #, kde-format
@@ -794,10 +791,9 @@ msgid "Project Manager"
 msgstr "Trình quản lí dự án"
 
 #: kateprojectpluginview.cpp:76
-#, fuzzy, kde-format
-#| msgid "Restore Open Projects"
+#, kde-format
 msgid "Open projects list"
-msgstr "Khôi phục các dự án mở"
+msgstr "Mở danh sách các dự án"
 
 #: kateprojectpluginview.cpp:81
 #, kde-format
@@ -805,8 +801,7 @@ msgid "Reload project"
 msgstr "Tải lại dự án"
 
 #: kateprojectpluginview.cpp:84
-#, fuzzy, kde-format
-#| msgid "Close Project"
+#, kde-format
 msgid "Close project"
 msgstr "Đóng dự án"
 

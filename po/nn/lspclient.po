@@ -1,12 +1,12 @@
 # Translation of lspclient to Norwegian Nynorsk
 #
-# Karl Ove Hufthammer <karl@huftis.org>, 2019, 2020, 2021.
+# Karl Ove Hufthammer <karl@huftis.org>, 2019, 2020, 2021, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-02 01:09+0000\n"
-"PO-Revision-Date: 2021-02-11 21:13+0100\n"
+"PO-Revision-Date: 2023-01-08 12:06+0100\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
 "Language: nn\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 20.12.2\n"
+"X-Generator: Lokalize 22.12.0\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
@@ -94,7 +94,7 @@ msgstr "Gå til deklarasjon"
 #: lspclientpluginview.cpp:632
 #, kde-format
 msgid "Go to Type Definition"
-msgstr ""
+msgstr "Gå til typedefinisjon"
 
 #: lspclientpluginview.cpp:634
 #, kde-format
@@ -134,12 +134,12 @@ msgstr "Endra namn"
 #: lspclientpluginview.cpp:655
 #, kde-format
 msgid "Expand Selection"
-msgstr ""
+msgstr "Utvid utval"
 
 #: lspclientpluginview.cpp:658
 #, kde-format
 msgid "Shrink Selection"
-msgstr ""
+msgstr "Trekk saman utval"
 
 #: lspclientpluginview.cpp:662
 #, kde-format
@@ -149,7 +149,7 @@ msgstr ""
 #: lspclientpluginview.cpp:665
 #, kde-format
 msgid "Expand Macro"
-msgstr ""
+msgstr "Utvid makro"
 
 #: lspclientpluginview.cpp:667
 #, kde-format

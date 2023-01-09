@@ -1,12 +1,12 @@
 # Translation of kateproject to Norwegian Nynorsk
 #
-# Karl Ove Hufthammer <karl@huftis.org>, 2015, 2016, 2018, 2019, 2020, 2021.
+# Karl Ove Hufthammer <karl@huftis.org>, 2015, 2016, 2018, 2019, 2020, 2021, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-06 00:51+0000\n"
-"PO-Revision-Date: 2021-02-11 21:12+0100\n"
+"PO-Revision-Date: 2023-01-08 12:05+0100\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
 "Language: nn\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 20.12.2\n"
+"X-Generator: Lokalize 22.12.0\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
@@ -67,17 +67,17 @@ msgstr "Klarte ikkje oppretta ny grein. Feilmelding: %1"
 #: branchdeletedialog.cpp:122
 #, kde-format
 msgid "Branch"
-msgstr ""
+msgstr "Grein"
 
 #: branchdeletedialog.cpp:122
 #, kde-format
 msgid "Last Commit"
-msgstr ""
+msgstr "Siste innmelding"
 
 #: branchdeletedialog.cpp:135 kateprojecttreeviewcontextmenu.cpp:78
 #, kde-format
 msgid "Delete"
-msgstr ""
+msgstr "Slett"
 
 #: branchdeletedialog.cpp:140
 #, kde-format
@@ -89,37 +89,37 @@ msgstr[1] ""
 #: branchesdialog.cpp:102
 #, kde-format
 msgid "Select Branch..."
-msgstr ""
+msgstr "Vel grein …"
 
 #: branchesdialog.cpp:131 gitwidget.cpp:486 kateprojectpluginview.cpp:65
 #, kde-format
 msgid "Git"
-msgstr ""
+msgstr "Git"
 
 #: comparebranchesview.cpp:143
 #, kde-format
 msgid "Back"
-msgstr ""
+msgstr "Tilbake"
 
 #: gitcommitdialog.cpp:69 gitcommitdialog.cpp:116
 #, kde-format
 msgid "Commit Changes"
-msgstr ""
+msgstr "Meld inn endringar"
 
 #: gitcommitdialog.cpp:73 gitcommitdialog.cpp:115 gitwidget.cpp:245
 #, kde-format
 msgid "Commit"
-msgstr ""
+msgstr "Meld inn"
 
 #: gitcommitdialog.cpp:74
 #, kde-format
 msgid "Cancel"
-msgstr ""
+msgstr "Avbryt"
 
 #: gitcommitdialog.cpp:76
 #, kde-format
 msgid "Write commit message..."
-msgstr ""
+msgstr "Skriv loggmelding …"
 
 #: gitcommitdialog.cpp:83
 #, kde-format
@@ -129,34 +129,34 @@ msgstr ""
 #: gitcommitdialog.cpp:107
 #, kde-format
 msgid "Sign off"
-msgstr ""
+msgstr "Signer"
 
 #: gitcommitdialog.cpp:111 gitcommitdialog.cpp:120
 #, kde-format
 msgid "Amend"
-msgstr ""
+msgstr "Endra"
 
 #: gitcommitdialog.cpp:112 gitwidget.cpp:945
 #, kde-format
 msgid "Amend Last Commit"
-msgstr ""
+msgstr "Endra siste innmelding"
 
 #: gitcommitdialog.cpp:119
 #, kde-format
 msgid "Amending Commit"
-msgstr ""
+msgstr "Endrar innmelding"
 
 #: gitcommitdialog.cpp:203
 #, kde-format
 msgctxt "Number of characters"
 msgid "%1 / 52"
-msgstr ""
+msgstr "%1 / 52"
 
 #: gitcommitdialog.cpp:207
 #, kde-format
 msgctxt "Number of characters"
 msgid "<span style=\"color:%1;\">%2</span> / 52"
-msgstr ""
+msgstr "<span style=\"color:%1;\">%2</span> / 52"
 
 #: gitstatusmodel.cpp:85
 #, kde-format
@@ -171,12 +171,12 @@ msgstr ""
 #: gitstatusmodel.cpp:89
 #, kde-format
 msgid "Conflict"
-msgstr ""
+msgstr "Konflikt"
 
 #: gitstatusmodel.cpp:91
 #, kde-format
 msgid "Modified"
-msgstr ""
+msgstr "Endra"
 
 #: gitwidget.cpp:253
 #, kde-format
@@ -791,47 +791,48 @@ msgstr "Prosjekt"
 #: kateprojectpluginview.cpp:54
 #, kde-format
 msgid "Project Manager"
-msgstr ""
+msgstr "Prosjekthandsamar"
 
 #: kateprojectpluginview.cpp:76
 #, kde-format
 msgid "Open projects list"
-msgstr ""
+msgstr "Opna prosjektoversikt …"
 
 #: kateprojectpluginview.cpp:81
 #, kde-format
 msgid "Reload project"
-msgstr ""
+msgstr "Last prosjekt på nytt"
 
 #: kateprojectpluginview.cpp:84
 #, kde-format
 msgid "Close project"
-msgstr ""
+msgstr "Lukk prosjekt"
 
 #: kateprojectpluginview.cpp:99
 #, kde-format
 msgid "Refresh git status"
-msgstr ""
+msgstr "Oppdater Git-status"
 
 #: kateprojectpluginview.cpp:177
 #, kde-format
 msgid "Open Folder..."
-msgstr ""
+msgstr "Opna mappe …"
 
+# Søk etter teksten TODO, FIXME e.l., så lèt det stå delvis uomsett.
 #: kateprojectpluginview.cpp:182
 #, kde-format
 msgid "Project TODOs"
-msgstr ""
+msgstr "TODO-punkt for prosjekt"
 
 #: kateprojectpluginview.cpp:186
 #, kde-format
 msgid "Activate Previous Project"
-msgstr ""
+msgstr "Start førre prosjekt"
 
 #: kateprojectpluginview.cpp:191
 #, kde-format
 msgid "Activate Next Project"
-msgstr ""
+msgstr "Start neste prosjekt"
 
 #: kateprojectpluginview.cpp:196
 #, kde-format
@@ -841,17 +842,17 @@ msgstr "Oppslag"
 #: kateprojectpluginview.cpp:200
 #, kde-format
 msgid "Close Project"
-msgstr ""
+msgstr "Lukk prosjektet"
 
 #: kateprojectpluginview.cpp:204
 #, kde-format
 msgid "Close All Projects"
-msgstr ""
+msgstr "Lukk alle prosjekt"
 
 #: kateprojectpluginview.cpp:209
 #, kde-format
 msgid "Close Orphaned Projects"
-msgstr ""
+msgstr "Lukk utdaterte prosjekt"
 
 #: kateprojectpluginview.cpp:218 kateprojectpluginview.cpp:793
 #, kde-format
@@ -871,37 +872,37 @@ msgstr "Prosjektindeks"
 #: kateprojectpluginview.cpp:838
 #, kde-format
 msgid "Choose a directory"
-msgstr ""
+msgstr "Vel ei mappe"
 
 #: kateprojecttreeviewcontextmenu.cpp:42
 #, kde-format
 msgid "Enter name:"
-msgstr ""
+msgstr "Skriv inn namn:"
 
 #: kateprojecttreeviewcontextmenu.cpp:43
 #, kde-format
 msgid "Add"
-msgstr ""
+msgstr "Legg til"
 
 #: kateprojecttreeviewcontextmenu.cpp:64
 #, kde-format
 msgid "Copy Location"
-msgstr ""
+msgstr "Kopier adresse"
 
 #: kateprojecttreeviewcontextmenu.cpp:69
 #, kde-format
 msgid "Add File"
-msgstr ""
+msgstr "Legg til fil"
 
 #: kateprojecttreeviewcontextmenu.cpp:70
 #, kde-format
 msgid "Add Folder"
-msgstr ""
+msgstr "Legg til mappe"
 
 #: kateprojecttreeviewcontextmenu.cpp:77
 #, kde-format
 msgid "&Rename"
-msgstr ""
+msgstr "&Endra namn"
 
 #: kateprojecttreeviewcontextmenu.cpp:84
 #, kde-format
@@ -916,12 +917,12 @@ msgstr "Opna med"
 #: kateprojecttreeviewcontextmenu.cpp:96
 #, kde-format
 msgid "Open Internal Terminal Here"
-msgstr ""
+msgstr "Opna intern terminal her"
 
 #: kateprojecttreeviewcontextmenu.cpp:105
 #, kde-format
 msgid "Open External Terminal Here"
-msgstr ""
+msgstr "Opna ekstern terminal her"
 
 #: kateprojecttreeviewcontextmenu.cpp:110
 #, kde-format
@@ -931,27 +932,27 @@ msgstr "&Opna foreldermappa"
 #: kateprojecttreeviewcontextmenu.cpp:120
 #, kde-format
 msgid "Show Git History"
-msgstr ""
+msgstr "Vis Git-logg"
 
 #: kateprojecttreeviewcontextmenu.cpp:130
 #, kde-format
 msgid "Delete File"
-msgstr ""
+msgstr "Slett fil"
 
 #: kateprojecttreeviewcontextmenu.cpp:131
 #, kde-format
 msgid "Do you want to delete the file '%1'?"
-msgstr ""
+msgstr "Er du sikker på at du vil sletta fila «%1»?"
 
 #: kateprojectview.cpp:59
 #, kde-format
 msgid "Checkout Git Branch"
-msgstr ""
+msgstr "Sjekk ut Git-grein"
 
 #: kateprojectview.cpp:82
 #, kde-format
 msgid "Checkout branch"
-msgstr ""
+msgstr "Sjekk ut grein"
 
 #: kateprojectviewtree.cpp:138
 #, kde-format

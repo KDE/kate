@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# Phu Hung Nguyen <phu.nguyen@kdemail.net>, 2021, 2022.
+# Phu Hung Nguyen <phu.nguyen@kdemail.net>, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-19 00:49+0000\n"
-"PO-Revision-Date: 2022-10-31 15:13+0100\n"
+"PO-Revision-Date: 2023-01-08 09:11+0100\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
 "Language: vi\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 22.08.1\n"
+"X-Generator: Lokalize 22.12.0\n"
 
 #. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
 #: advanced_settings.ui:17
@@ -193,16 +193,14 @@ msgid "*** gdb exited normally ***"
 msgstr "*** gdb đã thoát một cách bình thường ***"
 
 #: debugview.cpp:617
-#, fuzzy, kde-format
-#| msgid "all threads continued"
+#, kde-format
 msgid "all threads running"
-msgstr "tất cả các luồng tiếp tục"
+msgstr "tất cả các luồng đang chạy"
 
 #: debugview.cpp:619
-#, fuzzy, kde-format
-#| msgid "thread %1"
+#, kde-format
 msgid "thread(s) running: %1"
-msgstr "luồng %1"
+msgstr "(các) luồng đang chạy: %1"
 
 #: debugview.cpp:624 debugview_dap.cpp:269
 #, kde-format
@@ -220,16 +218,14 @@ msgid "Active thread: %1."
 msgstr "Luồng hoạt động: %1."
 
 #: debugview.cpp:649
-#, fuzzy, kde-format
-#| msgid "Current frame: "
+#, kde-format
 msgid "Current frame: %1:%2"
-msgstr "Khung hiện tại: "
+msgstr "Khung hiện tại: %1:%2"
 
 #: debugview.cpp:676
-#, fuzzy, kde-format
-#| msgid "Target %1"
+#, kde-format
 msgid "Host: %1. Target: %1"
-msgstr "Mục tiêu %1"
+msgstr "Máy: %1. Mục tiêu: %1"
 
 #: debugview.cpp:1227
 #, kde-format
@@ -237,11 +233,13 @@ msgid ""
 "gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
 "Shutting down."
 msgstr ""
+"gdb-mi: Không phân tách được lời hồi đáp cuối: %1. Quá nhiều lỗi liên tiếp. "
+"Đang tắt."
 
 #: debugview.cpp:1229
 #, kde-format
 msgid "gdb-mi: Could not parse last response: %1"
-msgstr ""
+msgstr "gdb-mi: Không phân tách được lời hồi đáp cuối: %1"
 
 #: debugview_dap.cpp:168
 #, kde-format

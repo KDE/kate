@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# Phu Hung Nguyen <phu.nguyen@kdemail.net>, 2021, 2022.
+# Phu Hung Nguyen <phu.nguyen@kdemail.net>, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-21 00:50+0000\n"
-"PO-Revision-Date: 2022-10-31 15:14+0100\n"
+"PO-Revision-Date: 2023-01-08 09:07+0100\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
 "Language: vi\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 22.08.1\n"
+"X-Generator: Lokalize 22.12.0\n"
 
 #: KateSearchCommand.cpp:80
 #, kde-format
@@ -523,7 +523,7 @@ msgstr "Đi đến phần khớp trước"
 #: SearchPlugin.cpp:357
 #, kde-format
 msgid "Cut Matching Lines"
-msgstr ""
+msgstr "Cắt các dòng khớp"
 
 #: SearchPlugin.cpp:359
 #, kde-format
@@ -531,11 +531,13 @@ msgid ""
 "This will cut all highlighted search match lines from the current document "
 "to the clipboard"
 msgstr ""
+"Hành động này sẽ cắt tất cả các dòng khớp với tìm kiếm được tô sáng từ tài "
+"liệu hiện tại vào bảng nháp"
 
 #: SearchPlugin.cpp:363
 #, kde-format
 msgid "Copy Matching Lines"
-msgstr ""
+msgstr "Chép các dòng khớp"
 
 #: SearchPlugin.cpp:365
 #, kde-format
@@ -543,6 +545,8 @@ msgid ""
 "This will copy all highlighted search match lines in the current document to "
 "the clipboard"
 msgstr ""
+"Hành động này sẽ chép tất cả các dòng khớp với tìm kiếm được tô sáng trong "
+"tài liệu hiện tại vào bảng nháp"
 
 #: SearchPlugin.cpp:392
 #, kde-format

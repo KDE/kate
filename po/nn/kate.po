@@ -1,21 +1,21 @@
 # Translation of kate to Norwegian Nynorsk
 #
 # Gaute Hvoslef Kvalnes <gaute@verdsveven.com>, 1999, 2000, 2002, 2003, 2004, 2005.
-# Karl Ove Hufthammer <karl@huftis.org>, 2004, 2007, 2008, 2009, 2010, 2013, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022.
+# Karl Ove Hufthammer <karl@huftis.org>, 2004, 2007, 2008, 2009, 2010, 2013, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023.
 # Axel Bojer <fri_programvare@bojer.no>, 2004.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-06 00:51+0000\n"
-"PO-Revision-Date: 2022-10-30 10:59+0100\n"
+"PO-Revision-Date: 2023-01-08 12:16+0100\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
 "Language: nn\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.08.2\n"
+"X-Generator: Lokalize 22.12.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
@@ -58,7 +58,7 @@ msgstr "Kate – avansert skriveprogram for KDE"
 #: kate/main.cpp:135 kwrite/main.cpp:98
 #, kde-format
 msgid "(c) 2000-2022 The Kate Authors"
-msgstr ""
+msgstr "© 2000–2022 Kate-utviklarane"
 
 #: kate/main.cpp:181
 #, kde-format
@@ -1186,10 +1186,11 @@ msgstr "Vis heile filadressa i tittellinja i vindauget"
 msgid "Show Navigation Bar"
 msgstr "Vis navigasjonslinja"
 
+# Jf. liknande melding i ktexteditor.po.
 #: lib/katemainwindow.cpp:250
 #, kde-format
 msgid "&Window Color Scheme"
-msgstr ""
+msgstr "Fargetema for &vindauge"
 
 #: lib/katemainwindow.cpp:254
 #, kde-format
@@ -1224,7 +1225,7 @@ msgstr "Opna ei rute for kjapp opning av dokument."
 #: lib/katemainwindow.cpp:297
 #, kde-format
 msgid "Output"
-msgstr ""
+msgstr "Utdata"
 
 #: lib/katemainwindow.cpp:307
 #, kde-format
@@ -1430,12 +1431,12 @@ msgstr "&Ny økt"
 #: lib/katemainwindow.cpp:472
 #, kde-format
 msgid "&Recent Sessions"
-msgstr ""
+msgstr "&Nyleg brukte økter"
 
 #: lib/katemainwindow.cpp:477
 #, kde-format
 msgid "&All Sessions"
-msgstr ""
+msgstr "&Alle økter"
 
 #: lib/katemainwindow.cpp:484
 #, kde-format
@@ -1455,17 +1456,17 @@ msgstr "Lagra økta &som …"
 #: lib/katemainwindow.cpp:506 lib/kateviewspace.cpp:58
 #, kde-format
 msgid "Go to Previous Location"
-msgstr ""
+msgstr "Gå til plassering"
 
 #: lib/katemainwindow.cpp:515 lib/kateviewspace.cpp:71
 #, kde-format
 msgid "Go to Next Location"
-msgstr ""
+msgstr "Gå til neste plassering"
 
 #: lib/katemainwindow.cpp:523
 #, kde-format
 msgid "Show File Git History"
-msgstr ""
+msgstr "Vis Git-logg for fil"
 
 #: lib/katemainwindow.cpp:538
 #, kde-format
@@ -1510,19 +1511,19 @@ msgstr "Gøym menylinje"
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
 "contained in it?"
-msgstr ""
+msgstr "Du sleppte mappa %1 på Kate. Vil du opna alle filene i mappa?"
 
 #: lib/katemainwindow.cpp:880
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
-msgstr ""
+msgstr "Opna filer rekursivt"
 
 #: lib/katemainwindow.cpp:881
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
-msgstr ""
+msgstr "Opna alle filer"
 
 #: lib/katemainwindow.cpp:1128
 #, kde-format
@@ -1542,7 +1543,7 @@ msgstr "Sidestolpe-knappar"
 #: lib/katemdi.cpp:106
 #, kde-format
 msgid "Focus Toolview"
-msgstr ""
+msgstr "Byt fokus"
 
 #: lib/katemdi.cpp:109
 #, kde-format
@@ -1572,12 +1573,12 @@ msgstr ""
 #: lib/katemdi.cpp:195
 #, kde-format
 msgid "Focus %1"
-msgstr ""
+msgstr "Byt fokus til %1"
 
 #: lib/katemdi.cpp:1006
 #, kde-format
 msgid "Configure..."
-msgstr ""
+msgstr "Set opp …"
 
 #: lib/katemdi.cpp:1010
 #, kde-format
@@ -2044,12 +2045,12 @@ msgstr ""
 #: lib/kateviewmanager.cpp:255
 #, kde-format
 msgid "Welcome Page"
-msgstr ""
+msgstr "Velkomstside"
 
 #: lib/kateviewmanager.cpp:270
 #, kde-format
 msgid "Show the welcome page"
-msgstr ""
+msgstr "Vis velkomstsida"
 
 #: lib/kateviewmanager.cpp:318 lib/kateviewmanager.cpp:320
 #, kde-format
@@ -2515,117 +2516,117 @@ msgstr "Slett ubrukt meta-informasjon etter:"
 #: lib/welcomeview/welcomeview.cpp:52
 #, kde-format
 msgid "Welcome to %1"
-msgstr ""
+msgstr "Velkommen til %1"
 
 #: lib/welcomeview/welcomeview.cpp:56
 #, kde-format
 msgid "Recent Documents and Projects"
-msgstr ""
+msgstr "Nyleg brukte dokument og prosjekt"
 
 #: lib/welcomeview/welcomeview.cpp:56
 #, kde-format
 msgid "Recent Documents"
-msgstr ""
+msgstr "Nyleg brukte dokument"
 
 #: lib/welcomeview/welcomeview.cpp:59
 #, kde-format
 msgid "No recent documents or projects"
-msgstr ""
+msgstr "Ingen nyleg brukte dokument eller prosjekt"
 
 #: lib/welcomeview/welcomeview.cpp:59
 #, kde-format
 msgid "No recent documents"
-msgstr ""
+msgstr "Ingen nyleg brukte dokument"
 
 #: lib/welcomeview/welcomeview.cpp:115
 #, kde-format
 msgid "No saved sessions"
-msgstr ""
+msgstr "Ingen lagra økter"
 
 #: lib/welcomeview/welcomeview.cpp:237
 #, kde-format
 msgid "Copy &Location"
-msgstr ""
+msgstr "Kopier &filadresse"
 
 #: lib/welcomeview/welcomeview.cpp:252
 #, kde-format
 msgid "&Remove"
-msgstr ""
+msgstr "&Fjern"
 
 #. i18n: ectx: property (windowTitle), widget (QScrollArea, WelcomeView)
 #: lib/welcomeview/welcomeview.ui:17
 #, kde-format
 msgid "Welcome"
-msgstr ""
+msgstr "Velkommen"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonNewFile)
 #: lib/welcomeview/welcomeview.ui:179
 #, kde-format
 msgid "New File"
-msgstr ""
+msgstr "Ny fil"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonOpenFolder)
 #: lib/welcomeview/welcomeview.ui:186
 #, kde-format
 msgid "Open Folder..."
-msgstr ""
+msgstr "Opna mappe …"
 
 #. i18n: ectx: property (text), widget (QLabel, labelRecentItems)
 #: lib/welcomeview/welcomeview.ui:193
 #, kde-format
 msgid "Recent Files"
-msgstr ""
+msgstr "Nyleg brukte filer"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonOpenFile)
 #: lib/welcomeview/welcomeview.ui:203
 #, kde-format
 msgid "Open File..."
-msgstr ""
+msgstr "Opna fil …"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, buttonClearRecentItems)
 #: lib/welcomeview/welcomeview.ui:242
 #, kde-format
 msgid "Clear Recent Files"
-msgstr ""
+msgstr "Tøm nyleg brukte filer"
 
 #. i18n: ectx: property (text), widget (QLabel, labelHelp)
 #: lib/welcomeview/welcomeview.ui:271
 #, kde-format
 msgid "Help"
-msgstr ""
+msgstr "Hjelp"
 
 #. i18n: ectx: property (text), widget (KUrlLabel, labelHomepage)
 #: lib/welcomeview/welcomeview.ui:281
 #, kde-format
 msgid "Visit homepage"
-msgstr ""
+msgstr "Besøk heimesida"
 
 #. i18n: ectx: property (text), widget (KUrlLabel, labelContribute)
 #: lib/welcomeview/welcomeview.ui:294
 #, kde-format
 msgid "Get involved"
-msgstr ""
+msgstr "Vert med"
 
 #. i18n: ectx: property (text), widget (KUrlLabel, labelHandbook)
 #: lib/welcomeview/welcomeview.ui:307
 #, kde-format
 msgid "Read handbook"
-msgstr ""
+msgstr "Les handboka"
 
 #. i18n: ectx: property (text), widget (QLabel, labelSavedSessions)
 #: lib/welcomeview/welcomeview.ui:354
 #, kde-format
 msgid "Saved Sessions"
-msgstr ""
+msgstr "Lagra økter"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonManageSessions)
 #: lib/welcomeview/welcomeview.ui:390
 #, kde-format
 msgid "Manage Sessions..."
-msgstr ""
+msgstr "Handsam økter …"
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
 #: lib/welcomeview/welcomeview.ui:443
 #, kde-format
 msgid "Show for new window"
-msgstr ""
+msgstr "Vis for nye vindauge"

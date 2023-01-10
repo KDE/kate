@@ -29,7 +29,7 @@ public:
 
     bool isSuccessfulExitCode(int c) const override
     {
-        return c == 1;
+        return c == 1 || c == 0;
     }
 
     QString stdinMessages() override;

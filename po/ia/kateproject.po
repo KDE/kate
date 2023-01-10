@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Giovanni Sora <g.sora@tiscali.it>, 2012, 2013, 2014, 2016, 2017, 2019, 2020, 2021, 2022.
+# Giovanni Sora <g.sora@tiscali.it>, 2012, 2013, 2014, 2016, 2017, 2019, 2020, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-06 00:51+0000\n"
-"PO-Revision-Date: 2022-12-11 22:22+0100\n"
+"PO-Revision-Date: 2023-01-09 12:14+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.12.0\n"
+"X-Generator: Lokalize 21.12.3\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -798,10 +798,9 @@ msgid "Project Manager"
 msgstr "Gerente de projectos"
 
 #: kateprojectpluginview.cpp:76
-#, fuzzy, kde-format
-#| msgid "Restore Open Projects"
+#, kde-format
 msgid "Open projects list"
-msgstr "Restabili Projecto Aperite"
+msgstr "Aperi lista de Projecto"
 
 #: kateprojectpluginview.cpp:81
 #, kde-format
@@ -809,8 +808,7 @@ msgid "Reload project"
 msgstr "Recarga projecto"
 
 #: kateprojectpluginview.cpp:84
-#, fuzzy, kde-format
-#| msgid "Close Project"
+#, kde-format
 msgid "Close project"
 msgstr "Claude projecto"
 

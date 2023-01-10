@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# g.sora <g.sora@tiscali.it>, 2011, 2012, 2013, 2014, 2016, 2017, 2018, 2019, 2020, 2021, 2022.
+# g.sora <g.sora@tiscali.it>, 2011, 2012, 2013, 2014, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-06 00:51+0000\n"
-"PO-Revision-Date: 2022-12-21 12:27+0100\n"
+"PO-Revision-Date: 2023-01-09 12:13+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -212,11 +212,10 @@ msgid "%1 doesn't exist in a git repo."
 msgstr "%1 non existe in un repo de git."
 
 #: lib/commitfilesview.cpp:495
-#, fuzzy, kde-format
-#| msgid "Commit"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Commit %1"
-msgstr "Commit (Committer)"
+msgstr "Commit (Committer) %1"
 
 #. i18n: ectx: Menu (file)
 #: lib/data/kateui.rc:6
@@ -393,16 +392,14 @@ msgid "Jump to Previous Hunk"
 msgstr "salta a previe pecietta (hunk)"
 
 #: lib/diff/diffwidget.cpp:644 lib/diff/diffwidget.cpp:844
-#, fuzzy, kde-format
-#| msgid "New file name"
+#, kde-format
 msgid "New file %1"
-msgstr "Nove nomine de file"
+msgstr "Nove file %1"
 
 #: lib/diff/diffwidget.cpp:646 lib/diff/diffwidget.cpp:846
-#, fuzzy, kde-format
-#| msgid "Delete file"
+#, kde-format
 msgid "Deleted file %1"
-msgstr "Dele file"
+msgstr "File cancellate %1"
 
 #: lib/filehistorywidget.cpp:286
 #, kde-format
@@ -416,11 +413,10 @@ msgid "Failed to get file history: %1"
 msgstr "Falleva a obtener chronologia de flie: %1"
 
 #: lib/filehistorywidget.cpp:352
-#, fuzzy, kde-format
-#| msgid "File History"
+#, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
-msgstr "Chronologia de file"
+msgstr "Chronologia de file - %1"
 
 #: lib/kateapp.cpp:146
 #, kde-format
@@ -786,7 +782,7 @@ msgstr "&Comportamento"
 #: lib/kateconfigdialog.cpp:375
 #, kde-format
 msgid "Open each document in its own window"
-msgstr ""
+msgstr "Aperi cata documento in su proprie fenestra"
 
 #: lib/kateconfigdialog.cpp:378
 #, kde-format

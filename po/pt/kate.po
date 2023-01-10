@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: katesymbolviewer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-06 00:51+0000\n"
-"PO-Revision-Date: 2022-12-23 22:30+0000\n"
+"PO-Revision-Date: 2023-01-09 18:31+0000\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-doc@kde.org>\n"
 "Language: pt\n"
@@ -37,7 +37,7 @@ msgstr ""
 "X-POFile-SpellExtra: Django JSLint IPython JSON Ready import PDB Neundorf\n"
 "X-POFile-SpellExtra: Alexander Kåre Särs Brauch Sven pid recém Tyson Tan\n"
 "X-POFile-IgnoreConsistency: Name\n"
-"X-POFile-SpellExtra: Picapau Kwrite Waqar Ahmed\n"
+"X-POFile-SpellExtra: Picapau Kwrite Waqar Ahmed expô kdesu\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -55,6 +55,10 @@ msgid ""
 "vulnerabilities. Instead use Kate normally and you will be prompted for "
 "elevated privileges when saving documents if needed."
 msgstr ""
+"A execução do Kate com o 'sudo' poderá provocar erros e expô-lo a "
+"vulnerabilidades de segurança. Em alternativa, use o Kate normalmente, sendo "
+"que lhe serão solicitados privilégios mais elevados na gravação dos "
+"documentos, caso seja necessário."
 
 #: kate/main.cpp:78
 msgid ""
@@ -62,6 +66,10 @@ msgid ""
 "vulnerabilities. Instead use Kate normally and you will be prompted for "
 "elevated privileges when saving documents if needed."
 msgstr ""
+"A execução do Kate com o 'kdesu' poderá provocar erros e expô-lo a "
+"vulnerabilidades de segurança. Em alternativa, use o Kate normalmente, sendo "
+"que lhe serão solicitados privilégios mais elevados na gravação dos "
+"documentos, caso seja necessário."
 
 #: kate/main.cpp:131
 #, kde-format
@@ -184,6 +192,10 @@ msgid ""
 "vulnerabilities. Instead use KWrite normally and you will be prompted for "
 "elevated privileges when saving documents if needed."
 msgstr ""
+"A execução do KWrite com o 'sudo' poderá provocar erros e expô-lo a "
+"vulnerabilidades de segurança. Em alternativa, use o KWrite normalmente, "
+"sendo que lhe serão solicitados privilégios mais elevados na gravação dos "
+"documentos, caso seja necessário."
 
 #: kwrite/main.cpp:46
 msgid ""
@@ -191,6 +203,10 @@ msgid ""
 "vulnerabilities. Instead use KWrite normally and you will be prompted for "
 "elevated privileges when saving documents if needed."
 msgstr ""
+"A execução do KWrite com o 'kdesu' poderá provocar erros e expô-lo a "
+"vulnerabilidades de segurança. Em alternativa, use o KWrite normalmente, "
+"sendo que lhe serão solicitados privilégios mais elevados na gravação dos "
+"documentos, caso seja necessário."
 
 #: kwrite/main.cpp:94
 #, kde-format
@@ -233,11 +249,10 @@ msgid "%1 doesn't exist in a git repo."
 msgstr "O %1 não existe num repositório de Git."
 
 #: lib/commitfilesview.cpp:495
-#, fuzzy, kde-format
-#| msgid "Commit"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Commit %1"
-msgstr "Enviar"
+msgstr "Enviar o %1"
 
 #. i18n: ectx: Menu (file)
 #: lib/data/kateui.rc:6
@@ -414,16 +429,14 @@ msgid "Jump to Previous Hunk"
 msgstr "Ir para o Bloco Anterior"
 
 #: lib/diff/diffwidget.cpp:644 lib/diff/diffwidget.cpp:844
-#, fuzzy, kde-format
-#| msgid "New file name"
+#, kde-format
 msgid "New file %1"
-msgstr "Novo nome do ficheiro"
+msgstr "Novo ficheiro %1"
 
 #: lib/diff/diffwidget.cpp:646 lib/diff/diffwidget.cpp:846
-#, fuzzy, kde-format
-#| msgid "Delete file"
+#, kde-format
 msgid "Deleted file %1"
-msgstr "Apagar o ficheiro"
+msgstr "Ficheiro apagado %1"
 
 #: lib/filehistorywidget.cpp:286
 #, kde-format
@@ -438,11 +451,10 @@ msgid "Failed to get file history: %1"
 msgstr "Não foi possível obter o histórico dos ficheiros: %1"
 
 #: lib/filehistorywidget.cpp:352
-#, fuzzy, kde-format
-#| msgid "File History"
+#, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
-msgstr "Histórico dos Ficheiros"
+msgstr "Histórico dos Ficheiros - %1"
 
 #: lib/kateapp.cpp:146
 #, kde-format

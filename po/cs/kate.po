@@ -214,11 +214,10 @@ msgid "%1 doesn't exist in a git repo."
 msgstr ""
 
 #: lib/commitfilesview.cpp:495
-#, fuzzy, kde-format
-#| msgid "Commit"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Commit %1"
-msgstr "Commit"
+msgstr ""
 
 #. i18n: ectx: Menu (file)
 #: lib/data/kateui.rc:6
@@ -398,16 +397,14 @@ msgid "Jump to Previous Hunk"
 msgstr ""
 
 #: lib/diff/diffwidget.cpp:644 lib/diff/diffwidget.cpp:844
-#, fuzzy, kde-format
-#| msgid "New file name"
+#, kde-format
 msgid "New file %1"
-msgstr "Nový název souboru"
+msgstr ""
 
 #: lib/diff/diffwidget.cpp:646 lib/diff/diffwidget.cpp:846
-#, fuzzy, kde-format
-#| msgid "Delete file"
+#, kde-format
 msgid "Deleted file %1"
-msgstr "Smazat soubor"
+msgstr ""
 
 #: lib/filehistorywidget.cpp:286
 #, kde-format

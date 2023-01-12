@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-06 00:51+0000\n"
+"POT-Creation-Date: 2023-01-12 00:58+0000\n"
 "PO-Revision-Date: 2022-12-24 06:29+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -684,32 +684,12 @@ msgstr "Preučevanje kode"
 msgid "Notes"
 msgstr "Opombe"
 
-#: kateprojectinfoviewcodeanalysis.cpp:31
+#: kateprojectinfoviewcodeanalysis.cpp:34
 #, kde-format
 msgid "Start Analysis..."
 msgstr "Začni z analizo..."
 
-#: kateprojectinfoviewcodeanalysis.cpp:44 kateprojectinfoviewindex.cpp:33
-#, kde-format
-msgid "File"
-msgstr "Datoteka"
-
-#: kateprojectinfoviewcodeanalysis.cpp:44 kateprojectinfoviewindex.cpp:33
-#, kde-format
-msgid "Line"
-msgstr "Vrstica"
-
-#: kateprojectinfoviewcodeanalysis.cpp:44
-#, kde-format
-msgid "Severity"
-msgstr "Resnost"
-
-#: kateprojectinfoviewcodeanalysis.cpp:44
-#, kde-format
-msgid "Message"
-msgstr "Sporočilo"
-
-#: kateprojectinfoviewcodeanalysis.cpp:111
+#: kateprojectinfoviewcodeanalysis.cpp:98
 #, kde-format
 msgid ""
 "%1<br/><br/>The tool will be run on all project files which match this list "
@@ -718,23 +698,31 @@ msgstr ""
 "%1<br/><br/>Orodje bo obdelalo vse datoteke projektov, ki ustrezajo seznamu "
 "naslednjih podaljškov datotek:<br/><br/><b>%2</b>"
 
-#: kateprojectinfoviewcodeanalysis.cpp:250
-#, kde-format
-msgid "Analysis on %1 file finished."
+#: kateprojectinfoviewcodeanalysis.cpp:136
+#: kateprojectinfoviewcodeanalysis.cpp:190
+#: kateprojectinfoviewcodeanalysis.cpp:194
+#, fuzzy, kde-format
+#| msgid "Code Analysis"
+msgid "CodeAnalysis"
+msgstr "Preučevanje kode"
+
+#: kateprojectinfoviewcodeanalysis.cpp:189
+#, fuzzy, kde-format
+#| msgid "Analysis on %1 file finished."
+#| msgid_plural "Analysis on %1 files finished."
+msgid "[%1]Analysis on %2 file finished."
 msgid_plural "Analysis on %1 files finished."
 msgstr[0] "Analiza na datoteki %1 je zaključena."
 msgstr[1] "Analiza na datotekah %1 je zaključena."
 msgstr[2] "Analiza na datotekah %1 je zaključena."
 msgstr[3] "Analiza na datotekah %1 je zaključena."
 
-#: kateprojectinfoviewcodeanalysis.cpp:262
-#, kde-format
-msgid "Analysis on %1 file failed with exit code %2."
-msgid_plural "Analysis on %1 files failed with exit code %2."
-msgstr[0] "Analiza na datoteki %1 je izpadla s kodo %2."
-msgstr[1] "Analiza na datotekah %1 je izpadla s kodo %2."
-msgstr[2] "Analiza na datotekah %1 je izpadla s kodo %2."
-msgstr[3] "Analiza na datotekah %1 je izpadla s kodo %2."
+#: kateprojectinfoviewcodeanalysis.cpp:193
+#, fuzzy, kde-format
+#| msgid "Analysis on %1 file failed with exit code %2."
+#| msgid_plural "Analysis on %1 files failed with exit code %2."
+msgid "Analysis failed with exit code %1, Error: %2"
+msgstr "Analiza na datoteki %1 je izpadla s kodo %2."
 
 #: kateprojectinfoviewindex.cpp:33
 #, kde-format
@@ -745,6 +733,16 @@ msgstr "Ime"
 #, kde-format
 msgid "Kind"
 msgstr "Vrsta"
+
+#: kateprojectinfoviewindex.cpp:33
+#, kde-format
+msgid "File"
+msgstr "Datoteka"
+
+#: kateprojectinfoviewindex.cpp:33
+#, kde-format
+msgid "Line"
+msgstr "Vrstica"
 
 #: kateprojectinfoviewindex.cpp:34
 #, kde-format
@@ -1043,6 +1041,12 @@ msgstr "Prikazovanje zaloge je bilo neuspešno. Napaka: "
 #, kde-format
 msgid "&Projects"
 msgstr "&Projekti"
+
+#~ msgid "Severity"
+#~ msgstr "Resnost"
+
+#~ msgid "Message"
+#~ msgstr "Sporočilo"
 
 #~ msgctxt "NAME OF TRANSLATORS"
 #~ msgid "Your names"

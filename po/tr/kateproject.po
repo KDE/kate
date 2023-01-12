@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-06 00:51+0000\n"
+"POT-Creation-Date: 2023-01-12 00:58+0000\n"
 "PO-Revision-Date: 2022-12-23 20:51+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -677,32 +677,12 @@ msgstr "Kod Çözümlemesi"
 msgid "Notes"
 msgstr "Notlar"
 
-#: kateprojectinfoviewcodeanalysis.cpp:31
+#: kateprojectinfoviewcodeanalysis.cpp:34
 #, kde-format
 msgid "Start Analysis..."
 msgstr "Çözümlemeyi Başlat..."
 
-#: kateprojectinfoviewcodeanalysis.cpp:44 kateprojectinfoviewindex.cpp:33
-#, kde-format
-msgid "File"
-msgstr "Dosya"
-
-#: kateprojectinfoviewcodeanalysis.cpp:44 kateprojectinfoviewindex.cpp:33
-#, kde-format
-msgid "Line"
-msgstr "Satır"
-
-#: kateprojectinfoviewcodeanalysis.cpp:44
-#, kde-format
-msgid "Severity"
-msgstr "Ciddiyet"
-
-#: kateprojectinfoviewcodeanalysis.cpp:44
-#, kde-format
-msgid "Message"
-msgstr "İleti"
-
-#: kateprojectinfoviewcodeanalysis.cpp:111
+#: kateprojectinfoviewcodeanalysis.cpp:98
 #, kde-format
 msgid ""
 "%1<br/><br/>The tool will be run on all project files which match this list "
@@ -711,19 +691,29 @@ msgstr ""
 "%1<br/><br/>Araç, bu dosya uzantıları listesiyle eşleşen tüm proje "
 "dosyalarıyla çalışır:<br/><br/><b>%2</b>"
 
-#: kateprojectinfoviewcodeanalysis.cpp:250
-#, kde-format
-msgid "Analysis on %1 file finished."
+#: kateprojectinfoviewcodeanalysis.cpp:136
+#: kateprojectinfoviewcodeanalysis.cpp:190
+#: kateprojectinfoviewcodeanalysis.cpp:194
+#, fuzzy, kde-format
+#| msgid "Code Analysis"
+msgid "CodeAnalysis"
+msgstr "Kod Çözümlemesi"
+
+#: kateprojectinfoviewcodeanalysis.cpp:189
+#, fuzzy, kde-format
+#| msgid "Analysis on %1 file finished."
+#| msgid_plural "Analysis on %1 files finished."
+msgid "[%1]Analysis on %2 file finished."
 msgid_plural "Analysis on %1 files finished."
 msgstr[0] "%1 dosya üzerinde çözümleme tamamlandı."
 msgstr[1] "%1 dosya üzerinde çözümleme tamamlandı."
 
-#: kateprojectinfoviewcodeanalysis.cpp:262
-#, kde-format
-msgid "Analysis on %1 file failed with exit code %2."
-msgid_plural "Analysis on %1 files failed with exit code %2."
-msgstr[0] "%1 dosya üzerinde çözümleme %2 çıkış koduyla başarısız oldu."
-msgstr[1] "%1 dosya üzerinde çözümleme %2 çıkış koduyla başarısız oldu."
+#: kateprojectinfoviewcodeanalysis.cpp:193
+#, fuzzy, kde-format
+#| msgid "Analysis on %1 file failed with exit code %2."
+#| msgid_plural "Analysis on %1 files failed with exit code %2."
+msgid "Analysis failed with exit code %1, Error: %2"
+msgstr "%1 dosya üzerinde çözümleme %2 çıkış koduyla başarısız oldu."
 
 #: kateprojectinfoviewindex.cpp:33
 #, kde-format
@@ -734,6 +724,16 @@ msgstr "Ad"
 #, kde-format
 msgid "Kind"
 msgstr "Tür"
+
+#: kateprojectinfoviewindex.cpp:33
+#, kde-format
+msgid "File"
+msgstr "Dosya"
+
+#: kateprojectinfoviewindex.cpp:33
+#, kde-format
+msgid "Line"
+msgstr "Satır"
 
 #: kateprojectinfoviewindex.cpp:34
 #, kde-format
@@ -1031,6 +1031,12 @@ msgstr "Zula gösterme başarısız. Hata: "
 #, kde-format
 msgid "&Projects"
 msgstr "Pro&jeler"
+
+#~ msgid "Severity"
+#~ msgstr "Ciddiyet"
+
+#~ msgid "Message"
+#~ msgstr "İleti"
 
 #~ msgctxt "NAME OF TRANSLATORS"
 #~ msgid "Your names"

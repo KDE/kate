@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-06 00:51+0000\n"
+"POT-Creation-Date: 2023-01-12 00:58+0000\n"
 "PO-Revision-Date: 2023-01-02 16:46+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -678,32 +678,12 @@ msgstr "Ανάλυση κώδικα"
 msgid "Notes"
 msgstr "Σημειώσεις"
 
-#: kateprojectinfoviewcodeanalysis.cpp:31
+#: kateprojectinfoviewcodeanalysis.cpp:34
 #, kde-format
 msgid "Start Analysis..."
 msgstr "Έναρξη ανάλυσης..."
 
-#: kateprojectinfoviewcodeanalysis.cpp:44 kateprojectinfoviewindex.cpp:33
-#, kde-format
-msgid "File"
-msgstr "Αρχείο"
-
-#: kateprojectinfoviewcodeanalysis.cpp:44 kateprojectinfoviewindex.cpp:33
-#, kde-format
-msgid "Line"
-msgstr "Γραμμή"
-
-#: kateprojectinfoviewcodeanalysis.cpp:44
-#, kde-format
-msgid "Severity"
-msgstr "Αυστηρότητα"
-
-#: kateprojectinfoviewcodeanalysis.cpp:44
-#, kde-format
-msgid "Message"
-msgstr "Μήνυμα"
-
-#: kateprojectinfoviewcodeanalysis.cpp:111
+#: kateprojectinfoviewcodeanalysis.cpp:98
 #, kde-format
 msgid ""
 "%1<br/><br/>The tool will be run on all project files which match this list "
@@ -712,19 +692,29 @@ msgstr ""
 "%1<br/><br/>Το εργαλείο θα εκτελεστεί σε όλα τα αρχεία έργων που ταιριάζουν "
 "με αυτήν τη λίστα κατάληξης αρχείων:<br/><br/><b>%2</b>"
 
-#: kateprojectinfoviewcodeanalysis.cpp:250
-#, kde-format
-msgid "Analysis on %1 file finished."
+#: kateprojectinfoviewcodeanalysis.cpp:136
+#: kateprojectinfoviewcodeanalysis.cpp:190
+#: kateprojectinfoviewcodeanalysis.cpp:194
+#, fuzzy, kde-format
+#| msgid "Code Analysis"
+msgid "CodeAnalysis"
+msgstr "Ανάλυση κώδικα"
+
+#: kateprojectinfoviewcodeanalysis.cpp:189
+#, fuzzy, kde-format
+#| msgid "Analysis on %1 file finished."
+#| msgid_plural "Analysis on %1 files finished."
+msgid "[%1]Analysis on %2 file finished."
 msgid_plural "Analysis on %1 files finished."
 msgstr[0] "Η ανάλυση σε %1 αρχείο ολοκληρώθηκε."
 msgstr[1] "Η ανάλυση σε %1 αρχεία ολοκληρώθηκε."
 
-#: kateprojectinfoviewcodeanalysis.cpp:262
-#, kde-format
-msgid "Analysis on %1 file failed with exit code %2."
-msgid_plural "Analysis on %1 files failed with exit code %2."
-msgstr[0] "Αποτυχία ανάλυσης σε %1 αρχείο με κωδικό εξόδου %2."
-msgstr[1] "Αποτυχία ανάλυσης σε %1 αρχεία με κωδικό εξόδου %2."
+#: kateprojectinfoviewcodeanalysis.cpp:193
+#, fuzzy, kde-format
+#| msgid "Analysis on %1 file failed with exit code %2."
+#| msgid_plural "Analysis on %1 files failed with exit code %2."
+msgid "Analysis failed with exit code %1, Error: %2"
+msgstr "Αποτυχία ανάλυσης σε %1 αρχείο με κωδικό εξόδου %2."
 
 #: kateprojectinfoviewindex.cpp:33
 #, kde-format
@@ -735,6 +725,16 @@ msgstr "Όνομα"
 #, kde-format
 msgid "Kind"
 msgstr "Είδος"
+
+#: kateprojectinfoviewindex.cpp:33
+#, kde-format
+msgid "File"
+msgstr "Αρχείο"
+
+#: kateprojectinfoviewindex.cpp:33
+#, kde-format
+msgid "Line"
+msgstr "Γραμμή"
 
 #: kateprojectinfoviewindex.cpp:34
 #, kde-format
@@ -1037,6 +1037,12 @@ msgstr "Αποτυχία εμφάνισης της στοίβας. Σφάλμα:
 #, kde-format
 msgid "&Projects"
 msgstr "&Έργα"
+
+#~ msgid "Severity"
+#~ msgstr "Αυστηρότητα"
+
+#~ msgid "Message"
+#~ msgstr "Μήνυμα"
 
 #~ msgctxt "NAME OF TRANSLATORS"
 #~ msgid "Your names"

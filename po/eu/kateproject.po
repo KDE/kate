@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-06 00:51+0000\n"
+"POT-Creation-Date: 2023-01-12 00:58+0000\n"
 "PO-Revision-Date: 2023-01-01 10:55+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -680,32 +680,12 @@ msgstr "Kodearen azterketa"
 msgid "Notes"
 msgstr "Oharrak"
 
-#: kateprojectinfoviewcodeanalysis.cpp:31
+#: kateprojectinfoviewcodeanalysis.cpp:34
 #, kde-format
 msgid "Start Analysis..."
 msgstr "Hasi azterketa..."
 
-#: kateprojectinfoviewcodeanalysis.cpp:44 kateprojectinfoviewindex.cpp:33
-#, kde-format
-msgid "File"
-msgstr "Fitxategia"
-
-#: kateprojectinfoviewcodeanalysis.cpp:44 kateprojectinfoviewindex.cpp:33
-#, kde-format
-msgid "Line"
-msgstr "Lerroa"
-
-#: kateprojectinfoviewcodeanalysis.cpp:44
-#, kde-format
-msgid "Severity"
-msgstr "&Larritasuna"
-
-#: kateprojectinfoviewcodeanalysis.cpp:44
-#, kde-format
-msgid "Message"
-msgstr "Mezua"
-
-#: kateprojectinfoviewcodeanalysis.cpp:111
+#: kateprojectinfoviewcodeanalysis.cpp:98
 #, kde-format
 msgid ""
 "%1<br/><br/>The tool will be run on all project files which match this list "
@@ -714,21 +694,29 @@ msgstr ""
 "%1<br/><br/>Tresna, fitxategi luzapen zerrenda honekin bat datozen proiektu "
 "guztietan exekutatuko da:<br/><br/><b>%2</b>"
 
-#: kateprojectinfoviewcodeanalysis.cpp:250
-#, kde-format
-msgid "Analysis on %1 file finished."
+#: kateprojectinfoviewcodeanalysis.cpp:136
+#: kateprojectinfoviewcodeanalysis.cpp:190
+#: kateprojectinfoviewcodeanalysis.cpp:194
+#, fuzzy, kde-format
+#| msgid "Code Analysis"
+msgid "CodeAnalysis"
+msgstr "Kodearen azterketa"
+
+#: kateprojectinfoviewcodeanalysis.cpp:189
+#, fuzzy, kde-format
+#| msgid "Analysis on %1 file finished."
+#| msgid_plural "Analysis on %1 files finished."
+msgid "[%1]Analysis on %2 file finished."
 msgid_plural "Analysis on %1 files finished."
 msgstr[0] "Fitxategi %1-en gaineko azterketa amaitu da."
 msgstr[1] "%1 fitxategiren gaineko azterketa amaitu da."
 
-#: kateprojectinfoviewcodeanalysis.cpp:262
-#, kde-format
-msgid "Analysis on %1 file failed with exit code %2."
-msgid_plural "Analysis on %1 files failed with exit code %2."
-msgstr[0] ""
-"Fitxategi %1-en gaineko azterketak huts egin du %2 irteera kodearekin."
-msgstr[1] ""
-"%1 fitxategiren gaineko azterketak huts egin du %2 irteera kodearekin."
+#: kateprojectinfoviewcodeanalysis.cpp:193
+#, fuzzy, kde-format
+#| msgid "Analysis on %1 file failed with exit code %2."
+#| msgid_plural "Analysis on %1 files failed with exit code %2."
+msgid "Analysis failed with exit code %1, Error: %2"
+msgstr "Fitxategi %1-en gaineko azterketak huts egin du %2 irteera kodearekin."
 
 #: kateprojectinfoviewindex.cpp:33
 #, kde-format
@@ -739,6 +727,16 @@ msgstr "Izena"
 #, kde-format
 msgid "Kind"
 msgstr "Mota"
+
+#: kateprojectinfoviewindex.cpp:33
+#, kde-format
+msgid "File"
+msgstr "Fitxategia"
+
+#: kateprojectinfoviewindex.cpp:33
+#, kde-format
+msgid "Line"
+msgstr "Lerroa"
 
 #: kateprojectinfoviewindex.cpp:34
 #, kde-format
@@ -1039,6 +1037,12 @@ msgstr "«Erakutsi gordelekua»k huts egin du. Errorea:"
 #, kde-format
 msgid "&Projects"
 msgstr "&Proiektuak"
+
+#~ msgid "Severity"
+#~ msgstr "&Larritasuna"
+
+#~ msgid "Message"
+#~ msgstr "Mezua"
 
 #~ msgctxt "NAME OF TRANSLATORS"
 #~ msgid "Your names"

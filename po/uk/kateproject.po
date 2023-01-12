@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-06 00:51+0000\n"
+"POT-Creation-Date: 2023-01-12 00:58+0000\n"
 "PO-Revision-Date: 2022-12-23 08:51+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -684,32 +684,12 @@ msgstr "Аналіз коду"
 msgid "Notes"
 msgstr "Нотатки"
 
-#: kateprojectinfoviewcodeanalysis.cpp:31
+#: kateprojectinfoviewcodeanalysis.cpp:34
 #, kde-format
 msgid "Start Analysis..."
 msgstr "Розпочати аналіз…"
 
-#: kateprojectinfoviewcodeanalysis.cpp:44 kateprojectinfoviewindex.cpp:33
-#, kde-format
-msgid "File"
-msgstr "Файл"
-
-#: kateprojectinfoviewcodeanalysis.cpp:44 kateprojectinfoviewindex.cpp:33
-#, kde-format
-msgid "Line"
-msgstr "Рядок"
-
-#: kateprojectinfoviewcodeanalysis.cpp:44
-#, kde-format
-msgid "Severity"
-msgstr "Критичність"
-
-#: kateprojectinfoviewcodeanalysis.cpp:44
-#, kde-format
-msgid "Message"
-msgstr "Повідомлення"
-
-#: kateprojectinfoviewcodeanalysis.cpp:111
+#: kateprojectinfoviewcodeanalysis.cpp:98
 #, kde-format
 msgid ""
 "%1<br/><br/>The tool will be run on all project files which match this list "
@@ -718,23 +698,31 @@ msgstr ""
 "%1<br/><br/>Інструмент обробки буде запущено для усіх файлів проєкту, "
 "суфікси назв яких є у цьому списку:<br/><br/><b>%2</b>"
 
-#: kateprojectinfoviewcodeanalysis.cpp:250
-#, kde-format
-msgid "Analysis on %1 file finished."
+#: kateprojectinfoviewcodeanalysis.cpp:136
+#: kateprojectinfoviewcodeanalysis.cpp:190
+#: kateprojectinfoviewcodeanalysis.cpp:194
+#, fuzzy, kde-format
+#| msgid "Code Analysis"
+msgid "CodeAnalysis"
+msgstr "Аналіз коду"
+
+#: kateprojectinfoviewcodeanalysis.cpp:189
+#, fuzzy, kde-format
+#| msgid "Analysis on %1 file finished."
+#| msgid_plural "Analysis on %1 files finished."
+msgid "[%1]Analysis on %2 file finished."
 msgid_plural "Analysis on %1 files finished."
 msgstr[0] "Завершено аналіз %1 файла."
 msgstr[1] "Завершено аналіз %1 файлів."
 msgstr[2] "Завершено аналіз %1 файлів."
 msgstr[3] "Завершено аналіз %1 файла."
 
-#: kateprojectinfoviewcodeanalysis.cpp:262
-#, kde-format
-msgid "Analysis on %1 file failed with exit code %2."
-msgid_plural "Analysis on %1 files failed with exit code %2."
-msgstr[0] "Не вдалося виконати аналіз %1 файла. Код виходу: %2."
-msgstr[1] "Не вдалося виконати аналіз %1 файлів. Код виходу: %2."
-msgstr[2] "Не вдалося виконати аналіз %1 файлів. Код виходу: %2."
-msgstr[3] "Не вдалося виконати аналіз %1 файла. Код виходу: %2."
+#: kateprojectinfoviewcodeanalysis.cpp:193
+#, fuzzy, kde-format
+#| msgid "Analysis on %1 file failed with exit code %2."
+#| msgid_plural "Analysis on %1 files failed with exit code %2."
+msgid "Analysis failed with exit code %1, Error: %2"
+msgstr "Не вдалося виконати аналіз %1 файла. Код виходу: %2."
 
 #: kateprojectinfoviewindex.cpp:33
 #, kde-format
@@ -745,6 +733,16 @@ msgstr "Назва"
 #, kde-format
 msgid "Kind"
 msgstr "Тип"
+
+#: kateprojectinfoviewindex.cpp:33
+#, kde-format
+msgid "File"
+msgstr "Файл"
+
+#: kateprojectinfoviewindex.cpp:33
+#, kde-format
+msgid "Line"
+msgstr "Рядок"
 
 #: kateprojectinfoviewindex.cpp:34
 #, kde-format
@@ -1046,6 +1044,12 @@ msgstr "Не вдалося показати позначення. Повідо�
 #, kde-format
 msgid "&Projects"
 msgstr "П&роєкти"
+
+#~ msgid "Severity"
+#~ msgstr "Критичність"
+
+#~ msgid "Message"
+#~ msgstr "Повідомлення"
 
 #~ msgctxt "NAME OF TRANSLATORS"
 #~ msgid "Your names"

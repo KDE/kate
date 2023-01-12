@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-06 00:51+0000\n"
+"POT-Creation-Date: 2023-01-12 00:58+0000\n"
 "PO-Revision-Date: 2022-02-01 10:20+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -691,32 +691,12 @@ msgstr "Kódelemzés"
 msgid "Notes"
 msgstr "Megjegyzések"
 
-#: kateprojectinfoviewcodeanalysis.cpp:31
+#: kateprojectinfoviewcodeanalysis.cpp:34
 #, kde-format
 msgid "Start Analysis..."
 msgstr "Elemzés indítása…"
 
-#: kateprojectinfoviewcodeanalysis.cpp:44 kateprojectinfoviewindex.cpp:33
-#, kde-format
-msgid "File"
-msgstr "Fájl"
-
-#: kateprojectinfoviewcodeanalysis.cpp:44 kateprojectinfoviewindex.cpp:33
-#, kde-format
-msgid "Line"
-msgstr "Sor"
-
-#: kateprojectinfoviewcodeanalysis.cpp:44
-#, kde-format
-msgid "Severity"
-msgstr "Súlyosság"
-
-#: kateprojectinfoviewcodeanalysis.cpp:44
-#, kde-format
-msgid "Message"
-msgstr "Üzenet"
-
-#: kateprojectinfoviewcodeanalysis.cpp:111
+#: kateprojectinfoviewcodeanalysis.cpp:98
 #, kde-format
 msgid ""
 "%1<br/><br/>The tool will be run on all project files which match this list "
@@ -725,19 +705,29 @@ msgstr ""
 "%1<br/><br/>Az eszköz az összes olyan projektfájlra futtatva lesz, ami "
 "illeszkedik erre a fájlkiterjesztés-listára:<br/><br/><b>%2</b>"
 
-#: kateprojectinfoviewcodeanalysis.cpp:250
-#, kde-format
-msgid "Analysis on %1 file finished."
+#: kateprojectinfoviewcodeanalysis.cpp:136
+#: kateprojectinfoviewcodeanalysis.cpp:190
+#: kateprojectinfoviewcodeanalysis.cpp:194
+#, fuzzy, kde-format
+#| msgid "Code Analysis"
+msgid "CodeAnalysis"
+msgstr "Kódelemzés"
+
+#: kateprojectinfoviewcodeanalysis.cpp:189
+#, fuzzy, kde-format
+#| msgid "Analysis on %1 file finished."
+#| msgid_plural "Analysis on %1 files finished."
+msgid "[%1]Analysis on %2 file finished."
 msgid_plural "Analysis on %1 files finished."
 msgstr[0] "%1 fájl elemzése befejeződött."
 msgstr[1] "%1 fájl elemzése befejeződött."
 
-#: kateprojectinfoviewcodeanalysis.cpp:262
-#, kde-format
-msgid "Analysis on %1 file failed with exit code %2."
-msgid_plural "Analysis on %1 files failed with exit code %2."
-msgstr[0] "%1 fájl elemzése sikertelen a következő hibakóddal: %2."
-msgstr[1] "%1 fájl elemzése sikertelen a következő hibakóddal: %2."
+#: kateprojectinfoviewcodeanalysis.cpp:193
+#, fuzzy, kde-format
+#| msgid "Analysis on %1 file failed with exit code %2."
+#| msgid_plural "Analysis on %1 files failed with exit code %2."
+msgid "Analysis failed with exit code %1, Error: %2"
+msgstr "%1 fájl elemzése sikertelen a következő hibakóddal: %2."
 
 #: kateprojectinfoviewindex.cpp:33
 #, kde-format
@@ -748,6 +738,16 @@ msgstr "Név"
 #, kde-format
 msgid "Kind"
 msgstr "Fajta"
+
+#: kateprojectinfoviewindex.cpp:33
+#, kde-format
+msgid "File"
+msgstr "Fájl"
+
+#: kateprojectinfoviewindex.cpp:33
+#, kde-format
+msgid "Line"
+msgstr "Sor"
 
 #: kateprojectinfoviewindex.cpp:34
 #, kde-format
@@ -1059,6 +1059,12 @@ msgstr "Nem sikerült megjeleníteni a félretett változtatásokat. Hiba: "
 #, kde-format
 msgid "&Projects"
 msgstr "&Projektek"
+
+#~ msgid "Severity"
+#~ msgstr "Súlyosság"
+
+#~ msgid "Message"
+#~ msgstr "Üzenet"
 
 #~ msgctxt "NAME OF TRANSLATORS"
 #~ msgid "Your names"

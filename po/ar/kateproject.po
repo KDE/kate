@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-06 00:51+0000\n"
+"POT-Creation-Date: 2023-01-12 00:58+0000\n"
 "PO-Revision-Date: 2022-10-04 21:12+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -684,42 +684,30 @@ msgstr "تحليل الكود"
 msgid "Notes"
 msgstr "الملاحظات"
 
-#: kateprojectinfoviewcodeanalysis.cpp:31
+#: kateprojectinfoviewcodeanalysis.cpp:34
 #, kde-format
 msgid "Start Analysis..."
 msgstr "ابدأ التّحليل..."
 
-#: kateprojectinfoviewcodeanalysis.cpp:44 kateprojectinfoviewindex.cpp:33
-#, kde-format
-msgid "File"
-msgstr "الملفّ"
-
-#: kateprojectinfoviewcodeanalysis.cpp:44 kateprojectinfoviewindex.cpp:33
-#, kde-format
-msgid "Line"
-msgstr "السّطر"
-
-#: kateprojectinfoviewcodeanalysis.cpp:44
-#, kde-format
-msgid "Severity"
-msgstr "الخطورة"
-
-#: kateprojectinfoviewcodeanalysis.cpp:44
-#, kde-format
-msgid "Message"
-msgstr "الرّسالة"
-
-#: kateprojectinfoviewcodeanalysis.cpp:111
+#: kateprojectinfoviewcodeanalysis.cpp:98
 #, kde-format
 msgid ""
 "%1<br/><br/>The tool will be run on all project files which match this list "
 "of file extensions:<br/><br/><b>%2</b>"
 msgstr ""
 
-#: kateprojectinfoviewcodeanalysis.cpp:250
+#: kateprojectinfoviewcodeanalysis.cpp:136
+#: kateprojectinfoviewcodeanalysis.cpp:190
+#: kateprojectinfoviewcodeanalysis.cpp:194
+#, fuzzy, kde-format
+#| msgid "Code Analysis"
+msgid "CodeAnalysis"
+msgstr "تحليل الكود"
+
+#: kateprojectinfoviewcodeanalysis.cpp:189
 #, fuzzy, kde-format
 #| msgid "Analysis finished."
-msgid "Analysis on %1 file finished."
+msgid "[%1]Analysis on %2 file finished."
 msgid_plural "Analysis on %1 files finished."
 msgstr[0] "انتهى التّحليل."
 msgstr[1] "انتهى التّحليل."
@@ -728,16 +716,10 @@ msgstr[3] "انتهى التّحليل."
 msgstr[4] "انتهى التّحليل."
 msgstr[5] "انتهى التّحليل."
 
-#: kateprojectinfoviewcodeanalysis.cpp:262
+#: kateprojectinfoviewcodeanalysis.cpp:193
 #, kde-format
-msgid "Analysis on %1 file failed with exit code %2."
-msgid_plural "Analysis on %1 files failed with exit code %2."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
+msgid "Analysis failed with exit code %1, Error: %2"
+msgstr ""
 
 #: kateprojectinfoviewindex.cpp:33
 #, kde-format
@@ -748,6 +730,16 @@ msgstr "الاسم"
 #, kde-format
 msgid "Kind"
 msgstr "النّوع"
+
+#: kateprojectinfoviewindex.cpp:33
+#, kde-format
+msgid "File"
+msgstr "الملفّ"
+
+#: kateprojectinfoviewindex.cpp:33
+#, kde-format
+msgid "Line"
+msgstr "السّطر"
 
 #: kateprojectinfoviewindex.cpp:34
 #, kde-format
@@ -1048,6 +1040,12 @@ msgstr ""
 #, kde-format
 msgid "&Projects"
 msgstr "م&شاريع"
+
+#~ msgid "Severity"
+#~ msgstr "الخطورة"
+
+#~ msgid "Message"
+#~ msgstr "الرّسالة"
 
 #~ msgctxt "NAME OF TRANSLATORS"
 #~ msgid "Your names"

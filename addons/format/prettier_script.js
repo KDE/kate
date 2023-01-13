@@ -1,6 +1,6 @@
 /*
     SPDX-FileCopyrightText: 2022 Waqar Ahmed <waqar.17a@gmail.com>
-    SPDX-FileCopyrightText: 2022 Abdullah <abdullahatta@streetwriters.com>
+    SPDX-FileCopyrightText: 2022 Abdullah <abdullahatta@streetwriters.co>
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 const path = require("path");
@@ -15,20 +15,21 @@ process.stdin.on("data", (data) => {
   try {
     text += data;
     // read till we find a null char
-    if (text[text.length - 1] !== '\0') {
-        return;
+    if (text[text.length - 1] !== "\0") {
+      return;
     }
 
-    const { filePath, source } = JSON.parse(text.slice(0, -1));
+    const { filePath, source, cursorOffset } = JSON.parse(text.slice(0, -1));
     const prettier = getPrettier(filePath);
     text = "";
 
     if (!prettier) {
-      const formatted = prettify(filePath);
+      const formatted = prettify(filePath, cursorOffset);
       if (formatted) {
         log(formatted);
         return;
       }
+      return;
     }
 
     if (!prettier) {
@@ -42,7 +43,13 @@ process.stdin.on("data", (data) => {
         editorconfig: true,
       }) || {};
 
-    log(prettier.format(source, { filepath: filePath, ...options }));
+    log(
+      prettier.formatWithCursor(source, {
+        cursorOffset: parseInt(cursorOffset),
+        filepath: filePath,
+        ...options,
+      })
+    );
   } catch (e) {
     console.error(e);
   }
@@ -104,17 +111,35 @@ function getPrettier(filePath) {
   }
 }
 
-function prettify(filePath) {
+function prettify(filePath, cursorOffset) {
   try {
-    return childProcess.execSync(`prettier ${filePath}`, {
-      encoding: "utf8",
-    });
+    const { stdout, stderr, status } = childProcess.spawnSync(
+      "prettier",
+      ["--cursor-offset", cursorOffset, filePath],
+      {
+        encoding: "utf8",
+      }
+    );
+
+    if (status !== 0) {
+        process.stderr.write(stderr);
+        return null;
+    }
+
+    const resultCursorOffset = parseInt(stderr);
+    return {
+      formatted: stdout,
+      cursorOffset: isNaN(resultCursorOffset)
+        ? cursorOffset
+        : resultCursorOffset,
+    };
   } catch (e) {
+    console.error(e);
     return null;
   }
 }
 
 function log(message) {
-  process.stdout.write(message);
+  process.stdout.write(JSON.stringify(message));
   process.stdout.write("[[{END_PRETTIER_SCRIPT}]]");
 }

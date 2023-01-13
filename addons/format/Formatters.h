@@ -195,15 +195,6 @@ private:
     void onReadyReadOut();
     void onReadyReadErr();
 
-    void onResultReady(const RunOutput &out) override
-    {
-        if (out.exitCode == 0) {
-            Q_EMIT textFormatted(this, m_doc, out.out);
-        } else if (out.exitCode != 0 && !out.err.isEmpty()) {
-            Q_EMIT error(QString::fromUtf8(out.err));
-        }
-    }
-
     void setupNode();
     static inline QPointer<QTemporaryFile> s_tempFile = nullptr;
     static inline QPointer<QProcess> s_nodeProcess = nullptr;

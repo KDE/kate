@@ -261,17 +261,26 @@ void PrettierFormat::onReadyReadOut()
     m_runOutput.out += s_nodeProcess->readAllStandardOutput();
     if (m_runOutput.out.endsWith("[[{END_PRETTIER_SCRIPT}]]")) {
         m_runOutput.out.truncate(m_runOutput.out.size() - (sizeof("[[{END_PRETTIER_SCRIPT}]]") - 1));
-        const auto formatted = std::move(m_runOutput.out);
-        onResultReady(RunOutput{0, formatted, {}});
+        QJsonParseError e;
+        QJsonDocument doc = QJsonDocument::fromJson(m_runOutput.out, &e);
+        m_runOutput.out = {};
+        if (e.error != QJsonParseError::NoError) {
+            Q_EMIT error(e.errorString());
+        } else {
+            const auto obj = doc.object();
+            const auto formatted = obj[QStringLiteral("formatted")].toString().toUtf8();
+            const auto cursor = obj[QStringLiteral("cursorOffset")].toInt(-1);
+            Q_EMIT textFormatted(this, m_doc, formatted, cursor);
+        }
     }
 }
 
 void PrettierFormat::onReadyReadErr()
 {
-    RunOutput o;
-    o.exitCode = 1;
-    o.err = s_nodeProcess->readAllStandardError();
-    onResultReady(o);
+    const auto err = s_nodeProcess->readAllStandardError();
+    if (!err.isEmpty()) {
+        Q_EMIT error(QString::fromUtf8(err));
+    }
 }
 
 void PrettierFormat::run(KTextEditor::Document *doc)
@@ -288,6 +297,7 @@ void PrettierFormat::run(KTextEditor::Document *doc)
     QJsonObject o;
     o[QStringLiteral("filePath")] = path;
     o[QStringLiteral("source")] = originalText;
+    o[QStringLiteral("cursorOffset")] = cursorToOffset(doc, m_pos);
     s_nodeProcess->write(QJsonDocument(o).toJson(QJsonDocument::Compact) + '\0');
 }
 

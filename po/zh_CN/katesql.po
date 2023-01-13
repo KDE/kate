@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-28 00:49+0000\n"
-"PO-Revision-Date: 2023-01-02 07:16\n"
+"PO-Revision-Date: 2023-01-12 10:35\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -352,19 +352,19 @@ msgstr "SQL 模式"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add Connection..."
-msgstr ""
+msgstr "添加连接..."
 
 #: katesqlview.cpp:111
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove Connection"
-msgstr ""
+msgstr "移除连接"
 
 #: katesqlview.cpp:116
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Connection..."
-msgstr ""
+msgstr "编辑连接..."
 
 #: katesqlview.cpp:121
 #, kde-format
@@ -382,7 +382,7 @@ msgstr "连接"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Query"
-msgstr ""
+msgstr "运行查询"
 
 #: outputstylewidget.cpp:29
 #, kde-format

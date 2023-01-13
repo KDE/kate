@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-30 03:15+0000\n"
-"PO-Revision-Date: 2023-01-02 07:16\n"
+"PO-Revision-Date: 2023-01-12 10:35\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -961,7 +961,7 @@ msgstr[0] " 天"
 msgid ""
 "When a window is closed the documents opened only in this window are closed "
 "as well."
-msgstr ""
+msgstr "当一个窗口被关闭时，仅在此窗口中打开的文档也将会被关闭。"
 
 #: lib/kateconfigdialog.cpp:657
 #, kde-format
@@ -1463,7 +1463,7 @@ msgstr "侧边栏按钮"
 #: lib/katemdi.cpp:106
 #, kde-format
 msgid "Focus Toolview"
-msgstr ""
+msgstr "聚焦工具视图"
 
 #: lib/katemdi.cpp:109
 #, kde-format
@@ -1493,7 +1493,7 @@ msgstr "显示 %1 按钮"
 #: lib/katemdi.cpp:195
 #, kde-format
 msgid "Focus %1"
-msgstr ""
+msgstr "聚焦 %1"
 
 #: lib/katemdi.cpp:1006
 #, kde-format
@@ -1681,7 +1681,7 @@ msgstr "Diff 输出"
 #: lib/kateoutputview.cpp:158
 #, kde-format
 msgid "Copy all text to clipboard"
-msgstr ""
+msgstr "复制所有文本到剪贴板"
 
 #: lib/kateoutputview.cpp:163
 #, kde-format
@@ -2118,7 +2118,7 @@ msgstr "模糊筛选"
 #: lib/quickopen/katequickopenlineedit.cpp:99
 #, kde-format
 msgid "Wildcard Filtering"
-msgstr ""
+msgstr "通配符筛选"
 
 #: lib/session/katesessionmanagedialog.cpp:26
 #, kde-format
@@ -2354,7 +2354,7 @@ msgstr "关闭最后一个文件时彻底退出此应用程序"
 #: lib/ui/sessionconfigwidget.ui:108
 #, kde-format
 msgid "Close documents with the window they belong to"
-msgstr ""
+msgstr "关闭文档及其所属的窗口"
 
 #. i18n: ectx: property (title), widget (QGroupBox, gbElements)
 #: lib/ui/sessionconfigwidget.ui:118

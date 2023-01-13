@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-03 04:16+0000\n"
-"PO-Revision-Date: 2023-01-02 07:16\n"
+"PO-Revision-Date: 2023-01-12 10:35\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -389,12 +389,12 @@ msgstr "您确定要放弃所有更改吗？"
 #: gitwidget.cpp:1123
 #, kde-format
 msgid "Open File"
-msgstr ""
+msgstr "打开文件"
 
 #: gitwidget.cpp:1125
 #, kde-format
 msgid "Show in External Git Diff Tool"
-msgstr ""
+msgstr "在外部 Git diff 工具中显示"
 
 #: gitwidget.cpp:1126
 #, kde-format
@@ -404,12 +404,12 @@ msgstr "在 HEAD 打开"
 #: gitwidget.cpp:1127
 #, kde-format
 msgid "Unstage File"
-msgstr ""
+msgstr "未暂存的文件"
 
 #: gitwidget.cpp:1127
 #, kde-format
 msgid "Stage File"
-msgstr ""
+msgstr "暂存文件"
 
 #: gitwidget.cpp:1128
 #, kde-format
@@ -767,17 +767,17 @@ msgstr "工程"
 #: kateprojectpluginview.cpp:54
 #, kde-format
 msgid "Project Manager"
-msgstr ""
+msgstr "项目管理器"
 
 #: kateprojectpluginview.cpp:80
 #, kde-format
 msgid "Reload project"
-msgstr ""
+msgstr "重新加载项目"
 
 #: kateprojectpluginview.cpp:97
 #, kde-format
 msgid "Refresh git status"
-msgstr ""
+msgstr "刷新 git 状态"
 
 #: kateprojectpluginview.cpp:173
 #, kde-format
@@ -917,7 +917,7 @@ msgstr "检出 Git 分支"
 #: kateprojectview.cpp:82
 #, kde-format
 msgid "Checkout branch"
-msgstr ""
+msgstr "检出分支"
 
 #: kateprojectviewtree.cpp:138
 #, kde-format

@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-13 01:01+0000\n"
-"PO-Revision-Date: 2023-01-02 07:11\n"
+"PO-Revision-Date: 2023-01-12 10:30\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -43,7 +43,7 @@ msgstr "关闭当前文档。"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Expand Recursively"
-msgstr ""
+msgstr "递归展开"
 
 #: katefiletree.cpp:132
 #, kde-format
@@ -54,7 +54,7 @@ msgstr "递归展开文件列表子树"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Collapse Recursively"
-msgstr ""
+msgstr "递归折叠"
 
 #: katefiletree.cpp:136
 #, kde-format
@@ -206,7 +206,7 @@ msgstr "打开方式"
 #: katefiletree.cpp:404
 #, kde-format
 msgid "Show File Git History"
-msgstr ""
+msgstr "显示文件 Git 历史"
 
 #: katefiletree.cpp:443
 #, kde-format
@@ -345,7 +345,7 @@ msgstr "配置文档"
 msgctxt ""
 "Open here is a description, i.e. 'list of widgets that are open' not a verb"
 msgid "Open Widgets"
-msgstr ""
+msgstr "打开控件"
 
 #: katefiletreemodel.cpp:647
 #, kde-format
@@ -367,12 +367,12 @@ msgstr "下一个文档"
 #: katefiletreeplugin.cpp:258
 #, kde-format
 msgid "&Show Active Document"
-msgstr ""
+msgstr "显示活动文档(&S)"
 
 #: katefiletreeplugin.cpp:263
 #, kde-format
 msgid "Save"
-msgstr ""
+msgstr "保存"
 
 #: katefiletreeplugin.cpp:264
 #, kde-format
@@ -382,12 +382,12 @@ msgstr "保存当前文档"
 #: katefiletreeplugin.cpp:268
 #, kde-format
 msgid "Save As"
-msgstr ""
+msgstr "另存为"
 
 #: katefiletreeplugin.cpp:269
 #, kde-format
 msgid "Save the current document under a new name"
-msgstr ""
+msgstr "用新名称保存文档"
 
 #. i18n: ectx: Menu (go)
 #: ui.rc:7

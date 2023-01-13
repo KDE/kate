@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-12 00:58+0000\n"
-"PO-Revision-Date: 2023-01-06 17:31+0100\n"
+"PO-Revision-Date: 2023-01-13 01:03+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -32,7 +32,7 @@ msgstr ""
 "the.blue.valkyrie@gmail.com>\n"
 "com>\n"
 "First-Translator: Boris Wesslowski <Boris@Wesslowski.com>\n"
-"X-Generator: Lokalize 22.12.0\n"
+"X-Generator: Lokalize 22.12.1\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -340,12 +340,13 @@ msgid ""
 "Error in regular expression: %1\n"
 "offset %2: %3"
 msgstr ""
+"Error en expresión regular: %1\n"
+"desplazamiento %2: %3"
 
 #: lib/diagnostics/diagnosticview.cpp:264
-#, fuzzy, kde-format
-#| msgid "&Quick Open"
+#, kde-format
 msgid "Quick Fix"
-msgstr "Apertura &rápida"
+msgstr "Corrección rápida"
 
 #: lib/diagnostics/diagnosticview.cpp:288
 #, kde-format
@@ -359,67 +360,60 @@ msgid "Warning"
 msgstr "Advertencia"
 
 #: lib/diagnostics/diagnosticview.cpp:821
-#, fuzzy, kde-format
-#| msgid "Location"
+#, kde-format
 msgid "Information"
-msgstr "Ubicación"
+msgstr "Información"
 
 #: lib/diagnostics/diagnosticview.cpp:954
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
-msgstr ""
+msgstr "%1 [suprimido: %2]"
 
 #: lib/diagnostics/diagnosticview.cpp:1068
-#, fuzzy, kde-format
-#| msgid "&Expand tabs"
+#, kde-format
 msgid "Expand All"
-msgstr "&Expandir pestañas"
+msgstr "Expandir todo"
 
 #: lib/diagnostics/diagnosticview.cpp:1069
-#, fuzzy, kde-format
-#| msgid "Clos&e All"
+#, kde-format
 msgid "Collapse All"
-msgstr "C&errar todos"
+msgstr "Contraer todo"
 
 #: lib/diagnostics/diagnosticview.cpp:1078
-#, fuzzy, kde-format
-#| msgid "Copy all text to clipboard"
+#, kde-format
 msgid "Copy to Clipboard"
-msgstr "Copiar todo el texto en el portapapeles"
+msgstr "Copiar en el portapapeles"
 
 #: lib/diagnostics/diagnosticview.cpp:1101
 #, kde-format
 msgid "Remove Global Suppression"
-msgstr ""
+msgstr "Eliminar supresión global"
 
 #: lib/diagnostics/diagnosticview.cpp:1103
-#, fuzzy, kde-format
-#| msgid "&All Sessions"
+#, kde-format
 msgid "Add Global Suppression"
-msgstr "&Todas las sesiones"
+msgstr "Añadir supresión global"
 
 #: lib/diagnostics/diagnosticview.cpp:1107
 #, kde-format
 msgid "Remove Local Suppression"
-msgstr ""
+msgstr "Eliminar supresión local"
 
 #: lib/diagnostics/diagnosticview.cpp:1109
 #, kde-format
 msgid "Add Local Suppression"
-msgstr ""
+msgstr "Añadir supresión local"
 
 #: lib/diagnostics/diagnosticview.cpp:1122
-#, fuzzy, kde-format
-#| msgid "Filter Sessions"
+#, kde-format
 msgid "Disable Suppression"
-msgstr "Filtrar sesiones"
+msgstr "Desactivar supresión"
 
 #: lib/diagnostics/diagnosticview.cpp:1124
-#, fuzzy, kde-format
-#| msgid "Manage Sessions"
+#, kde-format
 msgid "Enable Suppression"
-msgstr "Gestionar sesiones"
+msgstr "Activar supresión"
 
 #: lib/diff/diffeditor.cpp:178
 #, kde-format
@@ -1377,7 +1371,7 @@ msgstr "Salida"
 #: lib/katemainwindow.cpp:305
 #, kde-format
 msgid "Diagnostics"
-msgstr ""
+msgstr "Diagnósticos"
 
 #: lib/katemainwindow.cpp:316
 #, kde-format

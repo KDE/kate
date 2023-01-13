@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-12 00:58+0000\n"
-"PO-Revision-Date: 2023-01-10 19:58+0530\n"
+"PO-Revision-Date: 2023-01-12 21:27+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -315,12 +315,13 @@ msgid ""
 "Error in regular expression: %1\n"
 "offset %2: %3"
 msgstr ""
+"சுருங்குறித் தொடரில் சிக்கல்: %1\n"
+"எழுத்தெண் %2: %3"
 
 #: lib/diagnostics/diagnosticview.cpp:264
-#, fuzzy, kde-format
-#| msgid "&Quick Open"
+#, kde-format
 msgid "Quick Fix"
-msgstr "&விரைவாக திறத்தல்"
+msgstr "விரை திருத்தம்"
 
 #: lib/diagnostics/diagnosticview.cpp:288
 #, kde-format
@@ -334,34 +335,30 @@ msgid "Warning"
 msgstr "எச்சரிக்கை"
 
 #: lib/diagnostics/diagnosticview.cpp:821
-#, fuzzy, kde-format
-#| msgid "Meta-Information"
+#, kde-format
 msgid "Information"
-msgstr "மெடா தகவல்"
+msgstr "தகவல்"
 
 #: lib/diagnostics/diagnosticview.cpp:954
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
-msgstr ""
+msgstr "%1 [மறைத்துள்ளவை: %2]"
 
 #: lib/diagnostics/diagnosticview.cpp:1068
-#, fuzzy, kde-format
-#| msgid "&Expand tabs"
+#, kde-format
 msgid "Expand All"
-msgstr "கீற்றுகளை வி&ரிவுபடுத்து"
+msgstr "அனைத்தையும் விரிவாக்கு"
 
 #: lib/diagnostics/diagnosticview.cpp:1069
-#, fuzzy, kde-format
-#| msgid "Clos&e All"
+#, kde-format
 msgid "Collapse All"
-msgstr "&அனைத்தையும் மூடு"
+msgstr "அனைத்தையும் சுருக்கு"
 
 #: lib/diagnostics/diagnosticview.cpp:1078
-#, fuzzy, kde-format
-#| msgid "Copy all text to clipboard"
+#, kde-format
 msgid "Copy to Clipboard"
-msgstr "எல்லா உரையையையும் பிடிப்புப்பலகைக்கு நகலெடு"
+msgstr "பிடிப்புப்பலகைக்கு நகலெடு"
 
 #: lib/diagnostics/diagnosticview.cpp:1101
 #, fuzzy, kde-format
@@ -1335,9 +1332,9 @@ msgid "Output"
 msgstr "வெளியீடு"
 
 #: lib/katemainwindow.cpp:305
-#, kde-format
+#, fuzzy, kde-format
 msgid "Diagnostics"
-msgstr ""
+msgstr "பிழைநீக்கம்"
 
 #: lib/katemainwindow.cpp:316
 #, kde-format

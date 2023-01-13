@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-12 00:58+0000\n"
-"PO-Revision-Date: 2023-01-06 22:35+0300\n"
+"PO-Revision-Date: 2023-01-13 01:15+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.12.0\n"
+"X-Generator: Lokalize 22.12.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -332,18 +332,18 @@ msgid ""
 "Error in regular expression: %1\n"
 "offset %2: %3"
 msgstr ""
+"Düzenli ifadede hata: %1\n"
+"ofset %2: %3"
 
 #: lib/diagnostics/diagnosticview.cpp:264
-#, fuzzy, kde-format
-#| msgid "&Quick Open"
+#, kde-format
 msgid "Quick Fix"
-msgstr "Hı&zlı Aç"
+msgstr "Hızlı Düzelt"
 
 #: lib/diagnostics/diagnosticview.cpp:288
-#, fuzzy, kde-format
-#| msgid "Open Folder..."
+#, kde-format
 msgid "Filter..."
-msgstr "Klasör Aç..."
+msgstr "Süz..."
 
 #: lib/diagnostics/diagnosticview.cpp:817 lib/kateconfigdialog.cpp:393
 #: lib/kateconfigdialog.cpp:939
@@ -352,67 +352,60 @@ msgid "Warning"
 msgstr "Uyarı"
 
 #: lib/diagnostics/diagnosticview.cpp:821
-#, fuzzy, kde-format
-#| msgid "Location"
+#, kde-format
 msgid "Information"
-msgstr "Konum"
+msgstr "Bilgi"
 
 #: lib/diagnostics/diagnosticview.cpp:954
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
-msgstr ""
+msgstr "%1 [susturulmuş: %2]"
 
 #: lib/diagnostics/diagnosticview.cpp:1068
-#, fuzzy, kde-format
-#| msgid "&Expand tabs"
+#, kde-format
 msgid "Expand All"
-msgstr "Sekmeleri Ge&nişlet"
+msgstr "Tümünü Genişlet"
 
 #: lib/diagnostics/diagnosticview.cpp:1069
-#, fuzzy, kde-format
-#| msgid "Clos&e All"
+#, kde-format
 msgid "Collapse All"
-msgstr "Tümünü &Kapat"
+msgstr "Tümünü Daralt"
 
 #: lib/diagnostics/diagnosticview.cpp:1078
-#, fuzzy, kde-format
-#| msgid "Copy all text to clipboard"
+#, kde-format
 msgid "Copy to Clipboard"
-msgstr "Tüm metni panoya kopyala"
+msgstr "Panoya Kopyala"
 
 #: lib/diagnostics/diagnosticview.cpp:1101
 #, kde-format
 msgid "Remove Global Suppression"
-msgstr ""
+msgstr "Global Susturmayı Kaldır"
 
 #: lib/diagnostics/diagnosticview.cpp:1103
-#, fuzzy, kde-format
-#| msgid "&All Sessions"
+#, kde-format
 msgid "Add Global Suppression"
-msgstr "Tüm Oturu&mlar"
+msgstr "Global Susturma Ekle"
 
 #: lib/diagnostics/diagnosticview.cpp:1107
 #, kde-format
 msgid "Remove Local Suppression"
-msgstr ""
+msgstr "Yerel Susturmayı Kaldır"
 
 #: lib/diagnostics/diagnosticview.cpp:1109
 #, kde-format
 msgid "Add Local Suppression"
-msgstr ""
+msgstr "Yerel Susturma Ekle"
 
 #: lib/diagnostics/diagnosticview.cpp:1122
-#, fuzzy, kde-format
-#| msgid "Filter Sessions"
+#, kde-format
 msgid "Disable Suppression"
-msgstr "Oturumları Süz"
+msgstr "Susturmayı Devre Dışı Bırak"
 
 #: lib/diagnostics/diagnosticview.cpp:1124
-#, fuzzy, kde-format
-#| msgid "Manage Sessions"
+#, kde-format
 msgid "Enable Suppression"
-msgstr "Oturumları Yönet"
+msgstr "Susturmayı Etkinleştir"
 
 #: lib/diff/diffeditor.cpp:178
 #, kde-format
@@ -1357,7 +1350,7 @@ msgstr "Çıktı"
 #: lib/katemainwindow.cpp:305
 #, kde-format
 msgid "Diagnostics"
-msgstr ""
+msgstr "Tanılar"
 
 #: lib/katemainwindow.cpp:316
 #, kde-format
@@ -2755,7 +2748,7 @@ msgstr "Ana sayfayı ziyaret et"
 #: lib/welcomeview/welcomeview.ui:294
 #, kde-format
 msgid "Get involved"
-msgstr "Katkıda bulun"
+msgstr "Katıl"
 
 #. i18n: ectx: property (text), widget (KUrlLabel, labelHandbook)
 #: lib/welcomeview/welcomeview.ui:307

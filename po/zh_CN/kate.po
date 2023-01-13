@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-12 00:58+0000\n"
-"PO-Revision-Date: 2023-01-02 07:11\n"
+"PO-Revision-Date: 2023-01-12 10:30\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -41,6 +41,8 @@ msgid ""
 "vulnerabilities. Instead use Kate normally and you will be prompted for "
 "elevated privileges when saving documents if needed."
 msgstr ""
+"用 sudo 运行 Kate 可能会导致程序错误，并使你暴露在安全风险中。请以正常方式运"
+"行 Kate，如果在保存文档时需要提升权限，Kate 将提示您进行身份验证。"
 
 #: kate/main.cpp:78
 msgid ""
@@ -48,6 +50,8 @@ msgid ""
 "vulnerabilities. Instead use Kate normally and you will be prompted for "
 "elevated privileges when saving documents if needed."
 msgstr ""
+"用 kdesu 运行 Kate 可能会导致程序错误，并使你暴露在安全风险中。请以正常方式运"
+"行 Kate，如果在保存文档时需要提升权限，Kate 将提示您进行身份验证。"
 
 #: kate/main.cpp:131
 #, kde-format
@@ -166,6 +170,8 @@ msgid ""
 "vulnerabilities. Instead use KWrite normally and you will be prompted for "
 "elevated privileges when saving documents if needed."
 msgstr ""
+"用 sudo 运行 KWrite 可能会导致程序错误，并使你暴露在安全风险中。请以正常方式"
+"运行 KWrite，如果在保存文档时需要提升权限，KWrite 将提示您进行身份验证。"
 
 #: kwrite/main.cpp:46
 msgid ""
@@ -173,6 +179,8 @@ msgid ""
 "vulnerabilities. Instead use KWrite normally and you will be prompted for "
 "elevated privileges when saving documents if needed."
 msgstr ""
+"用 kdesu 运行 KWrite 可能会导致程序错误，并使你暴露在安全风险中。请以正常方式"
+"运行 KWrite，如果在保存文档时需要提升权限，KWrite 将提示您进行身份验证。"
 
 #: kwrite/main.cpp:94
 #, kde-format
@@ -215,11 +223,10 @@ msgid "%1 doesn't exist in a git repo."
 msgstr "%1 不存在于 git 仓库中。"
 
 #: lib/commitfilesview.cpp:495
-#, fuzzy, kde-format
-#| msgid "Commit"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Commit %1"
-msgstr "提交"
+msgstr ""
 
 #. i18n: ectx: Menu (file)
 #: lib/data/kateui.rc:6
@@ -350,9 +357,10 @@ msgid "Collapse All"
 msgstr "全部关闭(&E)"
 
 #: lib/diagnostics/diagnosticview.cpp:1078
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Copy all text to clipboard"
 msgid "Copy to Clipboard"
-msgstr ""
+msgstr "复制所有文本到剪贴板"
 
 #: lib/diagnostics/diagnosticview.cpp:1101
 #, kde-format
@@ -481,16 +489,14 @@ msgid "Jump to Previous Hunk"
 msgstr "跳转到上一个块"
 
 #: lib/diff/diffwidget.cpp:644 lib/diff/diffwidget.cpp:844
-#, fuzzy, kde-format
-#| msgid "New file name"
+#, kde-format
 msgid "New file %1"
-msgstr "新文件名"
+msgstr ""
 
 #: lib/diff/diffwidget.cpp:646 lib/diff/diffwidget.cpp:846
-#, fuzzy, kde-format
-#| msgid "Delete file"
+#, kde-format
 msgid "Deleted file %1"
-msgstr "删除文件"
+msgstr ""
 
 #: lib/filehistorywidget.cpp:286
 #, kde-format
@@ -507,7 +513,7 @@ msgstr "无法获取文件历史：%1"
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
-msgstr ""
+msgstr "文件历史 - %1"
 
 #: lib/kateapp.cpp:146
 #, kde-format
@@ -869,7 +875,7 @@ msgstr "行为(&B)"
 #: lib/kateconfigdialog.cpp:375
 #, kde-format
 msgid "Open each document in its own window"
-msgstr ""
+msgstr "在单独的窗口中打开每个文件夹"
 
 #: lib/kateconfigdialog.cpp:378
 #, kde-format
@@ -877,6 +883,8 @@ msgid ""
 "If enabled, each document will be opened in its own window. If not enabled, "
 "each document will be opened in a new tab in the current window."
 msgstr ""
+"如果启用，每个文档将在自己单独的窗口中打开。如果不启用，每个文档将在当前窗口"
+"的新标签页中打开。"
 
 #: lib/kateconfigdialog.cpp:388
 #, kde-format
@@ -1127,7 +1135,7 @@ msgstr[0] " 天"
 msgid ""
 "When a window is closed the documents opened only in this window are closed "
 "as well."
-msgstr ""
+msgstr "当一个窗口被关闭时，仅在此窗口中打开的文档也将会被关闭。"
 
 #: lib/kateconfigdialog.cpp:666
 #, kde-format
@@ -1241,7 +1249,7 @@ msgstr "无法删除文件“%1”。"
 #: lib/katefileactions.cpp:202
 #, kde-format
 msgid "&Other Application..."
-msgstr ""
+msgstr "其他应用程序(&O)..."
 
 #: lib/katemainwindow.cpp:228
 #, kde-format
@@ -1624,7 +1632,7 @@ msgstr "侧边栏按钮"
 #: lib/katemdi.cpp:106
 #, kde-format
 msgid "Focus Toolview"
-msgstr ""
+msgstr "聚焦工具视图"
 
 #: lib/katemdi.cpp:109
 #, kde-format
@@ -1654,7 +1662,7 @@ msgstr "显示 %1 按钮"
 #: lib/katemdi.cpp:195
 #, kde-format
 msgid "Focus %1"
-msgstr ""
+msgstr "聚焦 %1"
 
 #: lib/katemdi.cpp:1006
 #, kde-format
@@ -1842,7 +1850,7 @@ msgstr "Diff 输出"
 #: lib/kateoutputview.cpp:166
 #, kde-format
 msgid "Copy all text to clipboard"
-msgstr ""
+msgstr "复制所有文本到剪贴板"
 
 #: lib/kateoutputview.cpp:171
 #, kde-format
@@ -1889,6 +1897,8 @@ msgid ""
 "The document \"%1\" has been modified. Do you want to save your changes or "
 "discard them?"
 msgstr ""
+"文档“%1”已被修改。\n"
+"您想要保存更改，还是丢弃更改？"
 
 #: lib/katesavemodifieddialog.cpp:159
 #, kde-format
@@ -2281,7 +2291,7 @@ msgstr "模糊筛选"
 #: lib/quickopen/katequickopenlineedit.cpp:99
 #, kde-format
 msgid "Wildcard Filtering"
-msgstr ""
+msgstr "通配符筛选"
 
 #: lib/session/katesessionmanagedialog.cpp:26
 #, kde-format
@@ -2517,7 +2527,7 @@ msgstr "关闭最后一个文件时彻底退出此应用程序"
 #: lib/ui/sessionconfigwidget.ui:108
 #, kde-format
 msgid "Close documents with the window they belong to"
-msgstr ""
+msgstr "关闭文档及其所属的窗口"
 
 #. i18n: ectx: property (title), widget (QGroupBox, gbElements)
 #: lib/ui/sessionconfigwidget.ui:118

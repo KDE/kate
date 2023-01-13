@@ -687,27 +687,22 @@ msgstr ""
 #: kateprojectinfoviewcodeanalysis.cpp:136
 #: kateprojectinfoviewcodeanalysis.cpp:190
 #: kateprojectinfoviewcodeanalysis.cpp:194
-#, fuzzy, kde-format
-#| msgid "Code Analysis"
+#, kde-format
 msgid "CodeAnalysis"
-msgstr "Analýza kódu"
+msgstr ""
 
 #: kateprojectinfoviewcodeanalysis.cpp:189
-#, fuzzy, kde-format
-#| msgid "Analysis on %1 file finished."
-#| msgid_plural "Analysis on %1 files finished."
+#, kde-format
 msgid "[%1]Analysis on %2 file finished."
 msgid_plural "Analysis on %1 files finished."
-msgstr[0] "Analýza %1 souboru byla dokončena."
-msgstr[1] "Analýza %1 souborů byla dokončena."
-msgstr[2] "Analýza %1 souborů byla dokončena."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 #: kateprojectinfoviewcodeanalysis.cpp:193
-#, fuzzy, kde-format
-#| msgid "Analysis on %1 file failed with exit code %2."
-#| msgid_plural "Analysis on %1 files failed with exit code %2."
+#, kde-format
 msgid "Analysis failed with exit code %1, Error: %2"
-msgstr "Analýza %1 souboru selhala s kódem pro ukončení %2."
+msgstr ""
 
 #: kateprojectinfoviewindex.cpp:33
 #, kde-format
@@ -1023,9 +1018,3 @@ msgstr ""
 #, kde-format
 msgid "&Projects"
 msgstr "&Projekty"
-
-#~ msgid "Severity"
-#~ msgstr "Závažnost"
-
-#~ msgid "Message"
-#~ msgstr "Zpráva"

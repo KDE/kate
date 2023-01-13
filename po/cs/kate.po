@@ -306,16 +306,14 @@ msgid ""
 msgstr ""
 
 #: lib/diagnostics/diagnosticview.cpp:264
-#, fuzzy, kde-format
-#| msgid "&Quick Open"
+#, kde-format
 msgid "Quick Fix"
-msgstr "&Rychle otevřít"
+msgstr ""
 
 #: lib/diagnostics/diagnosticview.cpp:288
-#, fuzzy, kde-format
-#| msgid "Open Folder..."
+#, kde-format
 msgid "Filter..."
-msgstr "Otevřít složku..."
+msgstr "Filtr..."
 
 #: lib/diagnostics/diagnosticview.cpp:817 lib/kateconfigdialog.cpp:393
 #: lib/kateconfigdialog.cpp:939
@@ -324,10 +322,9 @@ msgid "Warning"
 msgstr "Varování"
 
 #: lib/diagnostics/diagnosticview.cpp:821
-#, fuzzy, kde-format
-#| msgid "Location"
+#, kde-format
 msgid "Information"
-msgstr "Umístění"
+msgstr "Informace"
 
 #: lib/diagnostics/diagnosticview.cpp:954
 #, kde-format
@@ -336,22 +333,19 @@ msgid "%1 [suppressed: %2]"
 msgstr ""
 
 #: lib/diagnostics/diagnosticview.cpp:1068
-#, fuzzy, kde-format
-#| msgid "&Expand tabs"
+#, kde-format
 msgid "Expand All"
-msgstr "Roztáhnout kart&y"
+msgstr "Rozbalit vše"
 
 #: lib/diagnostics/diagnosticview.cpp:1069
-#, fuzzy, kde-format
-#| msgid "Clos&e All"
+#, kde-format
 msgid "Collapse All"
-msgstr "Zavřít vš&e"
+msgstr "Svinout vše"
 
 #: lib/diagnostics/diagnosticview.cpp:1078
-#, fuzzy, kde-format
-#| msgid "Copy all text to clipboard"
+#, kde-format
 msgid "Copy to Clipboard"
-msgstr "Zkopírovat všechen text do schránky"
+msgstr "Zkopírovat do schránky"
 
 #: lib/diagnostics/diagnosticview.cpp:1101
 #, kde-format
@@ -374,16 +368,14 @@ msgid "Add Local Suppression"
 msgstr ""
 
 #: lib/diagnostics/diagnosticview.cpp:1122
-#, fuzzy, kde-format
-#| msgid "Filter Sessions"
+#, kde-format
 msgid "Disable Suppression"
-msgstr "Filtrovat sezeníNo,"
+msgstr ""
 
 #: lib/diagnostics/diagnosticview.cpp:1124
-#, fuzzy, kde-format
-#| msgid "Manage Sessions"
+#, kde-format
 msgid "Enable Suppression"
-msgstr "Spravovat sezení"
+msgstr ""
 
 #: lib/diff/diffeditor.cpp:178
 #, kde-format
@@ -1313,7 +1305,7 @@ msgstr "Výstup"
 #: lib/katemainwindow.cpp:305
 #, kde-format
 msgid "Diagnostics"
-msgstr ""
+msgstr "Diagnostika"
 
 #: lib/katemainwindow.cpp:316
 #, kde-format

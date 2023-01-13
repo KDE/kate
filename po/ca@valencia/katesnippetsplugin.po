@@ -161,7 +161,7 @@ msgstr ""
 "emprar per crear un camp que avalue una funció JavaScript en cada edició i "
 "continga el seu contingut. Per a més informació, vegeu la pestanya «Scripts»."
 "<br><tt>${cursor}</tt> es pot emprar per a marcar la posició final del "
-"cursor després d'omplir-ho tot.\">Més...</a>"
+"cursor després d'emplenar-ho tot.\">Més...</a>"
 
 #. i18n: ectx: attribute (title), widget (QWidget, scriptTab)
 #: editsnippet.ui:82

@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-27 00:48+0000\n"
-"PO-Revision-Date: 2023-01-02 07:11\n"
+"PO-Revision-Date: 2023-01-12 10:30\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -20,12 +20,12 @@ msgstr ""
 #: plugin_katexmlcheck.cpp:98
 #, kde-format
 msgid "XML Check"
-msgstr ""
+msgstr "XML 检查"
 
 #: plugin_katexmlcheck.cpp:105
 #, kde-format
 msgid "XML Checker"
-msgstr "XML 验证"
+msgstr "XML 检查器"
 
 #: plugin_katexmlcheck.cpp:109
 #, kde-format

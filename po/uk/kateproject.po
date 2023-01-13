@@ -3,14 +3,14 @@
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
-# Yuri Chornoivan <yurchor@ukr.net>, 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2021, 2022.
+# Yuri Chornoivan <yurchor@ukr.net>, 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-12 00:58+0000\n"
-"PO-Revision-Date: 2022-12-23 08:51+0200\n"
-"Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
+"PO-Revision-Date: 2023-01-12 09:38+0200\n"
+"Last-Translator: Fracture dept <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
@@ -701,15 +701,12 @@ msgstr ""
 #: kateprojectinfoviewcodeanalysis.cpp:136
 #: kateprojectinfoviewcodeanalysis.cpp:190
 #: kateprojectinfoviewcodeanalysis.cpp:194
-#, fuzzy, kde-format
-#| msgid "Code Analysis"
+#, kde-format
 msgid "CodeAnalysis"
 msgstr "Аналіз коду"
 
 #: kateprojectinfoviewcodeanalysis.cpp:189
-#, fuzzy, kde-format
-#| msgid "Analysis on %1 file finished."
-#| msgid_plural "Analysis on %1 files finished."
+#, kde-format
 msgid "[%1]Analysis on %2 file finished."
 msgid_plural "Analysis on %1 files finished."
 msgstr[0] "Завершено аналіз %1 файла."
@@ -718,11 +715,10 @@ msgstr[2] "Завершено аналіз %1 файлів."
 msgstr[3] "Завершено аналіз %1 файла."
 
 #: kateprojectinfoviewcodeanalysis.cpp:193
-#, fuzzy, kde-format
-#| msgid "Analysis on %1 file failed with exit code %2."
-#| msgid_plural "Analysis on %1 files failed with exit code %2."
+#, kde-format
 msgid "Analysis failed with exit code %1, Error: %2"
-msgstr "Не вдалося виконати аналіз %1 файла. Код виходу: %2."
+msgstr ""
+"Не вдалося виконати аналіз. Код виходу %1, повідомлення про помилку: %2"
 
 #: kateprojectinfoviewindex.cpp:33
 #, kde-format

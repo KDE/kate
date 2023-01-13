@@ -1,16 +1,16 @@
 # Translation of kateproject.po to Catalan (Valencian)
-# Copyright (C) 2012-2022 This_file_is_part_of_KDE
+# Copyright (C) 2012-2023 This_file_is_part_of_KDE
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
-# Josep M. Ferrer <txemaq@gmail.com>, 2012, 2013, 2015, 2016, 2018, 2019, 2020, 2021, 2022.
+# Josep M. Ferrer <txemaq@gmail.com>, 2012, 2013, 2015, 2016, 2018, 2019, 2020, 2021, 2022, 2023.
 # Antoni Bella Pérez <antonibella5@yahoo.com>, 2014, 2018, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-12 00:58+0000\n"
-"PO-Revision-Date: 2022-12-23 14:14+0100\n"
+"PO-Revision-Date: 2023-01-12 16:42+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -699,26 +699,21 @@ msgstr ""
 #: kateprojectinfoviewcodeanalysis.cpp:136
 #: kateprojectinfoviewcodeanalysis.cpp:190
 #: kateprojectinfoviewcodeanalysis.cpp:194
-#, fuzzy, kde-format
-#| msgid "Code Analysis"
+#, kde-format
 msgid "CodeAnalysis"
 msgstr "Anàlisi del codi"
 
 #: kateprojectinfoviewcodeanalysis.cpp:189
-#, fuzzy, kde-format
-#| msgid "Analysis on %1 file finished."
-#| msgid_plural "Analysis on %1 files finished."
+#, kde-format
 msgid "[%1]Analysis on %2 file finished."
 msgid_plural "Analysis on %1 files finished."
-msgstr[0] "Anàlisi en finalitzar %1 fitxer."
-msgstr[1] "Anàlisi en finalitzar %1 fitxers."
+msgstr[0] "[%1]Ha finalitzat l'anàlisi d'%1 fitxer."
+msgstr[1] "[%1]Ha finalitzat l'anàlisi de %1 fitxers."
 
 #: kateprojectinfoviewcodeanalysis.cpp:193
-#, fuzzy, kde-format
-#| msgid "Analysis on %1 file failed with exit code %2."
-#| msgid_plural "Analysis on %1 files failed with exit code %2."
+#, kde-format
 msgid "Analysis failed with exit code %1, Error: %2"
-msgstr "Anàlisi en fallar %1 fitxer amb el codi d'eixida %2."
+msgstr "L'anàlisi ha fallat amb el codi d'eixida %1. Error: %2"
 
 #: kateprojectinfoviewindex.cpp:33
 #, kde-format
@@ -1041,9 +1036,3 @@ msgstr "No s'ha pogut mostrar la modificació temporal. Error: "
 #, kde-format
 msgid "&Projects"
 msgstr "&Projectes"
-
-#~ msgid "Severity"
-#~ msgstr "Gravetat"
-
-#~ msgid "Message"
-#~ msgstr "Missatge"

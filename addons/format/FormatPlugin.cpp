@@ -61,6 +61,26 @@ FormatPluginView::FormatPluginView(FormatPlugin *plugin, KTextEditor::MainWindow
     a->setText(i18n("Format Document"));
     connect(mainWin, &KTextEditor::MainWindow::viewChanged, this, &FormatPluginView::onActiveViewChanged);
 
+    const QString guiDescription = QStringLiteral(
+        ""
+        "<!DOCTYPE gui><gui name=\"formatplugin\">"
+        "<MenuBar>"
+        "    <Menu name=\"tools\">"
+        "        <Action name=\"format_on_save\"/>"
+        "    </Menu>"
+        "</MenuBar>"
+        "</gui>");
+    setXML(guiDescription);
+    a = actionCollection()->addAction(QStringLiteral("format_on_save"), this, [this](bool b) {
+        m_plugin->formatOnSave = b;
+        onActiveViewChanged(nullptr);
+        onActiveViewChanged(m_mainWindow->activeView());
+    });
+    a->setText(i18n("Format on Save"));
+    a->setCheckable(true);
+    a->setChecked(formatOnSave());
+    a->setToolTip(i18n("Disable formatting on save without persisting it in settings"));
+
     m_mainWindow->guiFactory()->addClient(this);
 }
 

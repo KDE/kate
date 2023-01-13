@@ -18,6 +18,7 @@
         "Description[uk]": "Додаток для форматування коду",
         "Description[vi]": "Phần cài cắm để định dạng mã",
         "Description[x-test]": "xxPlugin for formatting codexx",
+        "Description[zh_CN]": "格式化代码插件",
         "Name": "Formatting",
         "Name[bg]": "Форматиране",
         "Name[ca@valencia]": "Dona format",
@@ -37,6 +38,7 @@
         "Name[uk]": "Форматування",
         "Name[vi]": "Định dạng",
         "Name[x-test]": "xxFormattingxx",
+        "Name[zh_CN]": "格式",
         "ServiceTypes": [
             "KTextEditor/Plugin"
         ]

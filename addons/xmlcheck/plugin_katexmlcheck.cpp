@@ -129,7 +129,7 @@ void PluginKateXMLCheckView::slotProcExited(int exitCode, QProcess::ExitStatus e
     //	}
 
     if (exitStatus != QProcess::NormalExit) {
-        Utils::showMessage(i18n("Validate process crashed"), {}, i18n("XMLCheck"), QStringLiteral("Error"));
+        Utils::showMessage(i18n("Validate process crashed"), {}, i18n("XMLCheck"), MessageType::Error);
         return;
     }
 
@@ -147,7 +147,7 @@ void PluginKateXMLCheckView::slotProcExited(int exitCode, QProcess::ExitStatus e
         } else {
             msg = i18nc("%1 refers to the XML DTD", "'%1' not found, will only check well-formedness.", m_dtdname);
         }
-        Utils::showMessage(msg, {}, i18n("XMLCheck"), QStringLiteral("Warn"));
+        Utils::showMessage(msg, {}, i18n("XMLCheck"), MessageType::Warn);
     }
     if (!proc_stderr.isEmpty()) {
         QVector<Diagnostic> diags;
@@ -207,7 +207,7 @@ void PluginKateXMLCheckView::slotProcExited(int exitCode, QProcess::ExitStatus e
         } else {
             msg = QStringLiteral("No errors found, document is well-formed."); // no i18n here
         }
-        Utils::showMessage(msg, {}, i18n("XMLCheck"), QStringLiteral("Info"));
+        Utils::showMessage(msg, {}, i18n("XMLCheck"), MessageType::Info);
     }
 }
 
@@ -232,7 +232,7 @@ bool PluginKateXMLCheckView::slotValidate()
     if (!m_tmp_file->open()) {
         qDebug() << "Error (slotValidate()): could not create '" << m_tmp_file->fileName() << "': " << m_tmp_file->errorString();
         const QString msg = i18n("<b>Error:</b> Could not create temporary file '%1'.", m_tmp_file->fileName());
-        Utils::showMessage(msg, {}, i18n("XMLCheck"), QLatin1String("Error"), m_mainWindow);
+        Utils::showMessage(msg, {}, i18n("XMLCheck"), MessageType::Error, m_mainWindow);
         delete m_tmp_file;
         m_tmp_file = nullptr;
         return false;
@@ -252,7 +252,7 @@ bool PluginKateXMLCheckView::slotValidate()
         const QString msg = i18n(
             "<b>Error:</b> Failed to find xmllint. Please make "
             "sure that xmllint is installed. It is part of libxml2.");
-        Utils::showMessage(msg, {}, i18n("XMLCheck"), QLatin1String("Error"), m_mainWindow);
+        Utils::showMessage(msg, {}, i18n("XMLCheck"), MessageType::Error, m_mainWindow);
         return false;
     }
 
@@ -340,7 +340,7 @@ bool PluginKateXMLCheckView::slotValidate()
         const QString msg = i18n(
             "<b>Error:</b> Failed to execute xmllint. Please make "
             "sure that xmllint is installed. It is part of libxml2.");
-        Utils::showMessage(msg, {}, i18n("XMLCheck"), QLatin1String("Error"), m_mainWindow);
+        Utils::showMessage(msg, {}, i18n("XMLCheck"), MessageType::Error, m_mainWindow);
         return false;
     }
     QApplication::setOverrideCursor(Qt::WaitCursor);

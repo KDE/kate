@@ -21,7 +21,7 @@ static AbstractFormatter *formatterForDoc(KTextEditor::Document *doc, FormatPlug
         return mode == QLatin1String(s) || mode.contains(QLatin1String(s));
     };
 
-    if (is_or_contains("c++") || is("c")) {
+    if (is_or_contains("c++") || is("c") || is("objective-c") || is("objective-c++") || is("protobuf")) {
         return new ClangFormat(doc);
     } else if (is("dart")) {
         return new DartFormat(doc);

@@ -24,15 +24,15 @@
 
 #pragma once
 
-#include <QProcess>
+#include "diagnostics/diagnosticview.h"
 
 #include <ktexteditor/application.h>
+#include <ktexteditor/document.h>
 #include <ktexteditor/mainwindow.h>
 #include <ktexteditor/plugin.h>
-
-#include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
 
+#include <QProcess>
 #include <QString>
 #include <QVariantList>
 
@@ -49,22 +49,19 @@ public:
     ~PluginKateXMLCheckView() override;
 
     KTextEditor::MainWindow *m_mainWindow;
-    QWidget *dock;
 
 public Q_SLOTS:
     bool slotValidate();
-    void slotClicked(QTreeWidgetItem *item, int column);
     void slotProcExited(int exitCode, QProcess::ExitStatus exitStatus);
     static void slotUpdate();
 
 private:
     QTemporaryFile *m_tmp_file;
-    KParts::ReadOnlyPart *part = nullptr;
     bool m_validating = false;
     QProcess m_proc;
     QString m_proc_stderr;
     QString m_dtdname;
-    QTreeWidget *listview;
+    DiagnosticsProvider m_provider;
 };
 
 class PluginKateXMLCheck : public KTextEditor::Plugin

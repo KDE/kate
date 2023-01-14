@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-12 00:58+0000\n"
-"PO-Revision-Date: 2023-01-03 08:59+0100\n"
+"PO-Revision-Date: 2023-01-13 06:20+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -82,6 +82,8 @@ msgid ""
 "User permanently blocked start of: '%1'.\n"
 "Use the config page of the plugin to undo this block."
 msgstr ""
+"მომხმარებელი სამუდამოდ დაიბლოკა: '%1'.\n"
+"ბლოკის გასაუქმებლად დამატების კონფიგურაციის გვერდი გამოიყენეთ."
 
 #: lspclientpluginview.cpp:528
 #, kde-format
@@ -508,7 +510,7 @@ msgstr "ნავიგაცია:"
 #: lspconfigwidget.ui:117
 #, kde-format
 msgid "Count declarations when searching for references to a symbol"
-msgstr ""
+msgstr "აღწერების დათვლა სიმბოლოზე მიმართვის ძებნისას"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkAutoHover)
 #: lspconfigwidget.ui:124
@@ -562,7 +564,7 @@ msgstr "სიმბოლოების დამატებითი დე�
 #: lspconfigwidget.ui:180
 #, kde-format
 msgid "Present symbols in a hierarchy instead of a flat list"
-msgstr ""
+msgstr "სიმბოლოების ბრტყელი სიის მაგიერ იერარქიაში ჩვენება"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSymbolExpand)
 #: lspconfigwidget.ui:195

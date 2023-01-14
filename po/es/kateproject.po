@@ -1,7 +1,7 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Eloy Cuadra <ecuadra@eloihr.net>, 2012, 2014, 2015, 2016, 2018, 2019, 2020, 2021, 2022.
+# Eloy Cuadra <ecuadra@eloihr.net>, 2012, 2014, 2015, 2016, 2018, 2019, 2020, 2021, 2022, 2023.
 # Cristina Yenyxe Gonzalez Garcia <the.blue.valkyrie@gmail.com>, 2012.
 # Rocio Gallego <traducciones@rociogallego.com>, 2013, 2014, 2015.
 msgid ""
@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-12 00:58+0000\n"
-"PO-Revision-Date: 2022-12-24 21:00+0100\n"
+"PO-Revision-Date: 2023-01-13 12:45+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -19,7 +19,7 @@ msgstr ""
 "com>\n"
 "com>\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.12.0\n"
+"X-Generator: Lokalize 22.12.1\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -698,26 +698,21 @@ msgstr ""
 #: kateprojectinfoviewcodeanalysis.cpp:136
 #: kateprojectinfoviewcodeanalysis.cpp:190
 #: kateprojectinfoviewcodeanalysis.cpp:194
-#, fuzzy, kde-format
-#| msgid "Code Analysis"
+#, kde-format
 msgid "CodeAnalysis"
 msgstr "Análisis de código"
 
 #: kateprojectinfoviewcodeanalysis.cpp:189
-#, fuzzy, kde-format
-#| msgid "Analysis on %1 file finished."
-#| msgid_plural "Analysis on %1 files finished."
+#, kde-format
 msgid "[%1]Analysis on %2 file finished."
 msgid_plural "Analysis on %1 files finished."
-msgstr[0] "El análisis en %1 archivo ha terminado."
-msgstr[1] "El análisis en %1 archivos ha terminado."
+msgstr[0] ""
+msgstr[1] ""
 
 #: kateprojectinfoviewcodeanalysis.cpp:193
-#, fuzzy, kde-format
-#| msgid "Analysis on %1 file failed with exit code %2."
-#| msgid_plural "Analysis on %1 files failed with exit code %2."
+#, kde-format
 msgid "Analysis failed with exit code %1, Error: %2"
-msgstr "El análisis en %1 archivo ha fallado con el código de salida %2."
+msgstr "El análisis ha fallado con el código de salida %1. Error: %2"
 
 #: kateprojectinfoviewindex.cpp:33
 #, kde-format

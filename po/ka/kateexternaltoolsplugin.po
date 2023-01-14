@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-31 00:55+0000\n"
-"PO-Revision-Date: 2023-01-01 06:50+0100\n"
+"PO-Revision-Date: 2023-01-13 06:38+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -107,13 +107,13 @@ msgstr "მთელი ფაილის JSON ფორმატირებ�
 #, kde-format
 msgctxt "External tool name"
 msgid "Prettier Format Current File"
-msgstr ""
+msgstr "მიმდინარე ფაილის უფრო გალამაზება"
 
 #. i18n: file: 8
 #, kde-format
 msgctxt "External tool name"
 msgid "Qt Quick 2 Preview (qmlscene)"
-msgstr ""
+msgstr "Qt Quick 2 -ის მინიატურა (qmlscene)"
 
 #. i18n: file: 4
 #, kde-format
@@ -125,7 +125,7 @@ msgstr "Qt"
 #, kde-format
 msgctxt "External tool name"
 msgid "Run Shell Script"
-msgstr ""
+msgstr "გარსის სკრიპტის გაშვება"
 
 #. i18n: file: 9
 #, kde-format
@@ -137,19 +137,19 @@ msgstr ""
 #, kde-format
 msgctxt "External tool name"
 msgid "Search KDE API"
-msgstr ""
+msgstr "KDE API-ში ძებნა"
 
 #. i18n: file: 10
 #, kde-format
 msgctxt "External tool name"
 msgid "Search Qt API"
-msgstr ""
+msgstr "Qt API-ში ძებნა"
 
 #. i18n: file: 8
 #, kde-format
 msgctxt "External tool name"
 msgid "XML Format Full File"
-msgstr ""
+msgstr "XML ფორმატის სრული ფაილი"
 
 #. i18n: ectx: property (whatsThis), widget (QTreeView, lbTools)
 #: configwidget.ui:17
@@ -197,7 +197,7 @@ msgstr "გარე ხელსაწყოები"
 #: externaltoolsplugin.cpp:382
 #, kde-format
 msgid "Data written to stderr:\n"
-msgstr ""
+msgstr "Stderr-ზე ჩაწერილი მონაცემები:\n"
 
 #: externaltoolsplugin.cpp:393
 #, kde-format
@@ -207,7 +207,7 @@ msgstr "%1 ავარიულად გაითიშა"
 #: externaltoolsplugin.cpp:395
 #, kde-format
 msgid "%1 finished with exit code %2"
-msgstr ""
+msgstr "%1 დასრულდა გამოსვლის კოდით %2"
 
 #: kateexternaltoolscommand.cpp:38
 #, kde-format
@@ -360,7 +360,7 @@ msgstr "სამუშაო საქაღალდე:"
 #: tooldialog.ui:108
 #, kde-format
 msgid "Uses current document path if empty"
-msgstr ""
+msgstr "თუ ცარიელია, გამოყენებული იქნება მიმდინარე დოკუმენტის ბილიკი"
 
 #. i18n: ectx: property (text), widget (QLabel, lblMimeType)
 #: tooldialog.ui:115
@@ -444,7 +444,7 @@ msgstr "შენახვის შემდეგ"
 #: tooldialog.ui:208
 #, kde-format
 msgid "Reload current document after execution"
-msgstr ""
+msgstr "გაშვების შემდეგ მიმდინარე დოკუმენტის თავიდან ჩატვირთვა"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: tooldialog.ui:215
@@ -462,7 +462,7 @@ msgstr "იგნორი"
 #: tooldialog.ui:231
 #, kde-format
 msgid "Insert at Cursor Position"
-msgstr ""
+msgstr "კურსორის პოზიციაზე ჩასმა"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbOutput)
 #: tooldialog.ui:236
@@ -519,7 +519,7 @@ msgstr ""
 #: tooldialog.ui:282
 #, kde-format
 msgid "Optional view command line name"
-msgstr ""
+msgstr "არასავალდებული ხედის ბრძანების სტრიქონის სახელი"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tabOutput)
 #: toolview.ui:27
@@ -531,7 +531,7 @@ msgstr "გამოტანა"
 #: toolview.ui:36
 #, kde-format
 msgid "Displays output from the external tool"
-msgstr ""
+msgstr "გარე პროგრამის მიერ გამოტანილი ინფორმაციის ჩვენება"
 
 #. i18n: ectx: Menu (tools)
 #: ui.rc:5

@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-12 00:58+0000\n"
-"PO-Revision-Date: 2022-12-23 22:30+0000\n"
+"PO-Revision-Date: 2023-01-13 09:58+0000\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
 "Language: pt\n"
@@ -694,26 +694,21 @@ msgstr ""
 #: kateprojectinfoviewcodeanalysis.cpp:136
 #: kateprojectinfoviewcodeanalysis.cpp:190
 #: kateprojectinfoviewcodeanalysis.cpp:194
-#, fuzzy, kde-format
-#| msgid "Code Analysis"
+#, kde-format
 msgid "CodeAnalysis"
 msgstr "Análise de Código"
 
 #: kateprojectinfoviewcodeanalysis.cpp:189
 #, fuzzy, kde-format
-#| msgid "Analysis on %1 file finished."
-#| msgid_plural "Analysis on %1 files finished."
 msgid "[%1]Analysis on %2 file finished."
 msgid_plural "Analysis on %1 files finished."
-msgstr[0] "A análise de %1 ficheiro terminou."
-msgstr[1] "A análise de %1 ficheiros terminou."
+msgstr[0] "[%2] A análise de %1 ficheiro terminou."
+msgstr[1] "[%2] A análise dos %1 ficheiros terminou."
 
 #: kateprojectinfoviewcodeanalysis.cpp:193
-#, fuzzy, kde-format
-#| msgid "Analysis on %1 file failed with exit code %2."
-#| msgid_plural "Analysis on %1 files failed with exit code %2."
+#, kde-format
 msgid "Analysis failed with exit code %1, Error: %2"
-msgstr "A análise de %1 ficheiro falhou com o código de erro %2."
+msgstr "A análise falhou com o código de erro %1. Erro: %2"
 
 #: kateprojectinfoviewindex.cpp:33
 #, kde-format
@@ -1032,9 +1027,3 @@ msgstr "Não foi possível mostrar os ficheiros preparados. Erro: "
 #, kde-format
 msgid "&Projects"
 msgstr "&Projectos"
-
-#~ msgid "Severity"
-#~ msgstr "Gravidade"
-
-#~ msgid "Message"
-#~ msgstr "Mensagem"

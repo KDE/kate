@@ -25,6 +25,8 @@ static AbstractFormatter *formatterForDoc(KTextEditor::Document *doc, FormatPlug
         return new ClangFormat(doc);
     } else if (is("dart")) {
         return new DartFormat(doc);
+    } else if (is("html")) {
+        return new PrettierFormat(doc);
     } else if (is("javascript") || is("typescript") || is("typescript react (tsx)") || is("javascript react (jsx)") || is("css")) {
         return new PrettierFormat(doc);
     } else if (is("json")) {

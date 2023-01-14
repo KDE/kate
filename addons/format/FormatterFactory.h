@@ -13,16 +13,21 @@ static AbstractFormatter *formatterForDoc(KTextEditor::Document *doc, FormatPlug
         qWarning() << "Unexpected null doc";
         return nullptr;
     }
-
     const auto mode = doc->highlightingMode().toLower();
-    if (mode.contains(QStringLiteral("c++")) || mode == QStringLiteral("c")) {
+    auto is = [mode](const char *s) {
+        return mode == QLatin1String(s);
+    };
+    auto is_or_contains = [mode](const char *s) {
+        return mode == QLatin1String(s) || mode.contains(QLatin1String(s));
+    };
+
+    if (is_or_contains("c++") || is("c")) {
         return new ClangFormat(doc);
-    } else if (mode == QStringLiteral("dart")) {
+    } else if (is("dart")) {
         return new DartFormat(doc);
-    } else if (mode == QStringLiteral("javascript") || mode == QStringLiteral("typescript") || mode == QStringLiteral("typescript react (tsx)")
-               || mode == QStringLiteral("javascript react (jsx)") || mode == QStringLiteral("css")) {
+    } else if (is("javascript") || is("typescript") || is("typescript react (tsx)") || is("javascript react (jsx)") || is("css")) {
         return new PrettierFormat(doc);
-    } else if (mode == QStringLiteral("json")) {
+    } else if (is("json")) {
         if (plugin->formatterForJson == Formatters::Prettier) {
             return new PrettierFormat(doc);
         } else if (plugin->formatterForJson == Formatters::ClangFormat) {
@@ -32,11 +37,11 @@ static AbstractFormatter *formatterForDoc(KTextEditor::Document *doc, FormatPlug
         }
         qWarning() << "Unexpected formatterForJson value: " << (int)plugin->formatterForJson;
         return new JsonJqFormat(doc);
-    } else if (mode == QStringLiteral("rust")) {
+    } else if (is("rust")) {
         return new RustFormat(doc);
-    } else if (mode == QStringLiteral("xml")) {
+    } else if (is("xml")) {
         return new XmlLintFormat(doc);
-    } else if (mode == QStringLiteral("go")) {
+    } else if (is("go")) {
         return new GoFormat(doc);
     }
 

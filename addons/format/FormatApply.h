@@ -19,7 +19,7 @@ static QString diff(KTextEditor::Document *doc, const QByteArray &formatted)
 {
     QTemporaryFile f;
     if (!f.open()) {
-        Utils::showMessage(i18n("Failed to write a temp file"), {}, i18n("Format"), i18n("Error"));
+        Utils::showMessage(i18n("Failed to write a temp file"), {}, i18n("Format"), QLatin1String("Error"));
         return {};
     }
     f.write(formatted);
@@ -32,7 +32,7 @@ static QString diff(KTextEditor::Document *doc, const QByteArray &formatted)
     setupGitProcess(p, QFileInfo(doc->url().toString(QUrl::PreferLocalFile)).absolutePath(), args);
     p.start();
     if (!p.waitForStarted() || !p.waitForFinished()) {
-        Utils::showMessage(i18n("Failed to run git diff"), {}, i18n("Format"), i18n("Error"));
+        Utils::showMessage(i18n("Failed to run git diff"), {}, i18n("Format"), QLatin1String("Error"));
         return {};
     }
 

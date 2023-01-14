@@ -285,7 +285,7 @@ KateToolRunner *KateExternalToolsPlugin::runnerForTool(const KateExternalTool &t
                                                       : i18n("Running %1: %2 %3 with input %4", copy->name, copy->executable, copy->arguments, tool.input);
 
     // use generic output view for status
-    Utils::showMessage(messageText, QIcon::fromTheme(QStringLiteral("system-run")), i18n("External Tools"), QStringLiteral("Info"), pluginView->mainWindow());
+    Utils::showMessage(messageText, QIcon::fromTheme(QStringLiteral("system-run")), i18n("External Tools"), MessageType::Info, pluginView->mainWindow());
 
     // Allocate runner on heap such that it lives as long as the child
     // process is running and does not block the main thread.
@@ -377,15 +377,15 @@ void KateExternalToolsPlugin::handleToolFinished(KateToolRunner *runner, int exi
         }
 
         QString messageBody;
-        QString messageType = QStringLiteral("Info");
+        MessageType messageType = MessageType::Info;
         if (!runner->errorData().isEmpty()) {
             messageBody += i18n("Data written to stderr:\n");
             messageBody += runner->errorData();
             messageBody += QStringLiteral("\n");
-            messageType = QStringLiteral("Warning");
+            messageType = MessageType::Warn;
         }
         if (crashed || exitCode != 0) {
-            messageType = QStringLiteral("Error");
+            messageType = MessageType::Error;
         }
 
         // print crash or exit code

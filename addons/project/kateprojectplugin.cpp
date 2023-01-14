@@ -709,12 +709,8 @@ void KateProjectPlugin::writeSessionConfig(KConfigGroup &config)
 
 void KateProjectPlugin::sendMessage(const QString &text, bool error)
 {
-    QVariantMap genericMessage;
-    genericMessage.insert(QStringLiteral("type"), error ? QStringLiteral("Error") : QStringLiteral("Info"));
-    genericMessage.insert(QStringLiteral("category"), i18n("Project"));
-    genericMessage.insert(QStringLiteral("categoryIcon"), QIcon::fromTheme(QStringLiteral("project-open")));
-    genericMessage.insert(QStringLiteral("text"), text);
-    Utils::showMessage(genericMessage);
+    const auto icon = QIcon::fromTheme(QStringLiteral("project-open"));
+    Utils::showMessage(text, icon, i18n("Project"), error ? MessageType::Error : MessageType::Info);
 }
 
 QString KateProjectPlugin::projectBaseDirForDocument(KTextEditor::Document *doc)

@@ -29,6 +29,13 @@ class Cursor;
 class DiagnosticsProvider;
 struct DiffParams;
 
+enum MessageType {
+    Log = 0,
+    Info,
+    Warn,
+    Error,
+};
+
 namespace Utils
 {
 
@@ -80,9 +87,8 @@ KATE_PRIVATE_EXPORT QAction *toolviewShowAction(KTextEditor::MainWindow *, const
 KATE_PRIVATE_EXPORT QWidget *toolviewForName(KTextEditor::MainWindow *, const QString &toolviewName);
 
 /*** BEGIN KTextEditor::MainWindow extensions **/
-
 KATE_PRIVATE_EXPORT void
-showMessage(const QString &message, const QIcon &icon, const QString &category, const QString &type, KTextEditor::MainWindow *mainWindow = nullptr);
+showMessage(const QString &message, const QIcon &icon, const QString &category, MessageType type, KTextEditor::MainWindow *mainWindow = nullptr);
 KATE_PRIVATE_EXPORT void showMessage(const QVariantMap &map, KTextEditor::MainWindow *mainWindow = nullptr);
 
 KATE_PRIVATE_EXPORT void showDiff(const QByteArray &diff, const DiffParams &params, KTextEditor::MainWindow *mainWindow);

@@ -125,11 +125,5 @@ void BranchesDialog::slotReturnPressed(const QModelIndex &index)
 
 void BranchesDialog::sendMessage(const QString &plainText, bool warn)
 {
-    // use generic output view
-    QVariantMap genericMessage;
-    genericMessage.insert(QStringLiteral("type"), warn ? QStringLiteral("Error") : QStringLiteral("Info"));
-    genericMessage.insert(QStringLiteral("category"), i18n("Git"));
-    genericMessage.insert(QStringLiteral("categoryIcon"), gitIcon());
-    genericMessage.insert(QStringLiteral("text"), plainText);
-    Utils::showMessage(genericMessage, m_pluginView->mainWindow());
+    Utils::showMessage(plainText, gitIcon(), i18n("Git"), warn ? MessageType::Error : MessageType::Info);
 }

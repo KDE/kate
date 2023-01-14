@@ -133,7 +133,7 @@ void KateProjectInfoViewCodeAnalysis::slotStartStopClicked()
     }
 
     if (fullExecutable.isEmpty() || !m_analyzer->waitForStarted()) {
-        Utils::showMessage(m_analysisTool->notInstalledMessage(), {}, i18n("CodeAnalysis"), QStringLiteral("Warning"));
+        Utils::showMessage(m_analysisTool->notInstalledMessage(), {}, i18n("CodeAnalysis"), MessageType::Warn);
         return;
     }
 
@@ -185,13 +185,19 @@ void KateProjectInfoViewCodeAnalysis::finished(int exitCode, QProcess::ExitStatu
 
     if (m_analysisTool->isSuccessfulExitCode(exitCode)) {
         // normally 0 is successful but there are exceptions
-        const QString msg =
-            i18np("[%1]Analysis on %2 file finished.", "Analysis on %1 files finished.", m_analysisTool->name(), m_analysisTool->getActualFilesCount());
-        Utils::showMessage(msg, {}, i18n("CodeAnalysis"), QStringLiteral("Log"), m_pluginView->mainWindow());
+        const QString msg = i18ncp(
+            "Message to the user that analysis finished. %1 is the name of the program that did the analysis, %2 is a number. e.g., [clang-tidy]Analysis on 5 "
+            "files finished",
+            "[%1]Analysis on %2 file finished.",
+            "[%1]Analysis on %2 files finished.",
+            m_analysisTool->name(),
+            m_analysisTool->getActualFilesCount());
+        // We only log here because once the analysis starts, the user will be taken to diagnosticview to see the results
+        Utils::showMessage(msg, {}, i18n("CodeAnalysis"), MessageType::Log, m_pluginView->mainWindow());
     } else {
         const QString err = QString::fromUtf8(m_errOutput);
         const QString message = i18n("Analysis failed with exit code %1, Error: %2", exitCode, err);
-        Utils::showMessage(message, {}, i18n("CodeAnalysis"), QStringLiteral("Error"), m_pluginView->mainWindow());
+        Utils::showMessage(message, {}, i18n("CodeAnalysis"), MessageType::Error, m_pluginView->mainWindow());
     }
     m_errOutput = {};
 }

@@ -37,7 +37,7 @@ public:
                 auto error = regExp.errorString();
                 auto offset = regExp.patternErrorOffset();
                 auto msg = i18nc("@info", "Error in regular expression: %1\noffset %2: %3", regExp.pattern(), offset, error);
-                Utils::showMessage(msg, {}, QStringLiteral("LSP Client"), QStringLiteral("Error"));
+                Utils::showMessage(msg, {}, QStringLiteral("LSP Client"), MessageType::Error);
             }
             return valid;
         };

@@ -576,11 +576,7 @@ void CEWidget::addExtraActionstoTextEditor()
 void CEWidget::sendMessage(const QString &plainText, bool warn)
 {
     // use generic output view
-    QVariantMap genericMessage;
-    genericMessage.insert(QStringLiteral("type"), warn ? QStringLiteral("Error") : QStringLiteral("Info"));
-    genericMessage.insert(QStringLiteral("category"), i18n("CompilerExplorer"));
-    genericMessage.insert(QStringLiteral("text"), plainText);
-    Utils::showMessage(genericMessage, m_mainWindow);
+    Utils::showMessage(plainText, {}, i18n("CompilerExplorer"), warn ? MessageType::Error : MessageType::Info);
 }
 
 void CEWidget::warnIfBadArgs(const QStringList &args)

@@ -131,12 +131,8 @@ void KateProjectViewTree::addFile(const QModelIndex &idx, const QString &fileNam
     QFile f(fullFileName);
     bool created = f.open(QIODevice::WriteOnly);
     if (!created) {
-        QVariantMap genericMessage;
-        genericMessage.insert(QStringLiteral("type"), QStringLiteral("Error"));
-        genericMessage.insert(QStringLiteral("category"), i18n("Project"));
-        genericMessage.insert(QStringLiteral("categoryIcon"), QIcon::fromTheme(QStringLiteral("document-new")));
-        genericMessage.insert(QStringLiteral("text"), i18n("Failed to create file: %1, Error: %2", fileName, f.errorString()));
-        Utils::showMessage(genericMessage, m_pluginView->mainWindow());
+        const auto icon = QIcon::fromTheme(QStringLiteral("document-new"));
+        Utils::showMessage(i18n("Failed to create file: %1, Error: %2", fileName, f.errorString()), icon, i18n("Project"), MessageType::Error);
         return;
     }
 
@@ -156,12 +152,8 @@ void KateProjectViewTree::addDirectory(const QModelIndex &idx, const QString &na
 
     QDir dir(index.data(Qt::UserRole).toString());
     if (!dir.mkdir(name)) {
-        QVariantMap genericMessage;
-        genericMessage.insert(QStringLiteral("type"), QStringLiteral("Error"));
-        genericMessage.insert(QStringLiteral("category"), i18n("Project"));
-        genericMessage.insert(QStringLiteral("categoryIcon"), QIcon::fromTheme(QStringLiteral("folder-new")));
-        genericMessage.insert(QStringLiteral("text"), i18n("Failed to create dir: %1", name));
-        Utils::showMessage(genericMessage, m_pluginView->mainWindow());
+        const auto icon = QIcon::fromTheme(QStringLiteral("folder-new"));
+        Utils::showMessage(i18n("Failed to create dir: %1", name), icon, i18n("Project"), MessageType::Error);
         return;
     }
 

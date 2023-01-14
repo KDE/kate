@@ -45,7 +45,7 @@ static AbstractFormatter *formatterForDoc(KTextEditor::Document *doc, FormatPlug
         return new GoFormat(doc);
     }
 
-    Utils::showMessage(i18n("Failed to run formatter. Unsupporter language %1", mode), {}, i18n("Format"), QStringLiteral("Info"));
+    Utils::showMessage(i18n("Failed to run formatter. Unsupporter language %1", mode), {}, i18n("Format"), MessageType::Info);
 
     return nullptr;
 }

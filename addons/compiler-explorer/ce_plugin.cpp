@@ -51,7 +51,7 @@ CEPluginView::~CEPluginView()
 void CEPluginView::openANewTab()
 {
     if (!m_mainWindow->activeView() || !m_mainWindow->activeView()->document()) {
-        Utils::showMessage(i18n("No file open"), {}, i18nc("error category title", "CompilerExplorer"), QStringLiteral("Error"));
+        Utils::showMessage(i18n("No file open"), {}, i18nc("error category title", "CompilerExplorer"), MessageType::Error);
         return;
     }
 

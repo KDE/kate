@@ -217,7 +217,7 @@ void ESLintPluginView::onError()
     const QString err = QString::fromUtf8(m_eslintProcess.readAllStandardError());
     if (!err.isEmpty()) {
         const QString message = i18n("Eslint failed, error: %1", err);
-        Utils::showMessage(message, {}, i18n("ESLint"), QStringLiteral("Warning"), m_mainWindow);
+        Utils::showMessage(message, {}, i18n("ESLint"), MessageType::Warn, m_mainWindow);
     }
 }
 
@@ -250,7 +250,7 @@ void ESLintPluginView::fixDiagnostic(const QUrl &url, const DiagnosticWithFix::F
     }
     if (!d) {
         const QString message = i18n("Failed to find doc with url %1", url.toLocalFile());
-        Utils::showMessage(message, {}, i18n("ESLint"), QStringLiteral("Info"), m_mainWindow);
+        Utils::showMessage(message, {}, i18n("ESLint"), MessageType::Info, m_mainWindow);
         return;
     }
 

@@ -381,7 +381,7 @@ void CommitDiffTreeView::openCommit(const QString &hash)
     connect(git, &QProcess::finished, this, [this, git](int e, QProcess::ExitStatus s) {
         git->deleteLater();
         if (e != 0 || s != QProcess::NormalExit) {
-            Utils::showMessage(QString::fromUtf8(git->readAllStandardError()), gitIcon(), i18n("Git"), i18n("Error"), m_mainWindow);
+            Utils::showMessage(QString::fromUtf8(git->readAllStandardError()), gitIcon(), i18n("Git"), MessageType::Error, m_mainWindow);
             m_backBtn.click();
             return;
         }
@@ -471,13 +471,13 @@ void CommitView::openCommit(const QString &hash, const QString &path, KTextEdito
     }
 
     if (hash.length() < 7) {
-        Utils::showMessage(i18n("Invalid hash"), gitIcon(), i18n("Git"), i18n("Error"), mainWindow);
+        Utils::showMessage(i18n("Invalid hash"), gitIcon(), i18n("Git"), MessageType::Error, mainWindow);
         return;
     }
 
     const auto repoBase = getRepoBasePath(fi.absolutePath());
     if (!repoBase.has_value()) {
-        Utils::showMessage(i18n("%1 doesn't exist in a git repo.", path), gitIcon(), i18n("Git"), i18n("Error"), mainWindow);
+        Utils::showMessage(i18n("%1 doesn't exist in a git repo.", path), gitIcon(), i18n("Git"), MessageType::Error, mainWindow);
         return;
     }
 

@@ -159,10 +159,17 @@ QWidget *toolviewForName(KTextEditor::MainWindow *mainWindow, const QString &too
     return kmw->toolView(toolviewName);
 }
 
-void showMessage(const QString &message, const QIcon &icon, const QString &category, const QString &type, KTextEditor::MainWindow *mainWindow)
+void showMessage(const QString &message, const QIcon &icon, const QString &category, MessageType type, KTextEditor::MainWindow *mainWindow)
 {
+    Q_ASSERT(type >= MessageType::Log && type <= MessageType::Error);
     QVariantMap msg;
-    msg.insert(QStringLiteral("type"), type);
+    const char *msgToString[4]{
+        "Log",
+        "Info",
+        "Warning",
+        "Error",
+    };
+    msg.insert(QStringLiteral("type"), QLatin1String(msgToString[type]));
     msg.insert(QStringLiteral("category"), category);
     msg.insert(QStringLiteral("categoryIcon"), icon);
     msg.insert(QStringLiteral("text"), message);

@@ -115,12 +115,8 @@ void KeyboardMacrosPlugin::saveNamedMacros()
 
 void KeyboardMacrosPlugin::sendMessage(const QString &text, bool error)
 {
-    QVariantMap genericMessage;
-    genericMessage.insert(QStringLiteral("type"), error ? QStringLiteral("Error") : QStringLiteral("Info"));
-    genericMessage.insert(QStringLiteral("category"), i18n("Keyboard Macros"));
-    genericMessage.insert(QStringLiteral("categoryIcon"), QIcon::fromTheme(QStringLiteral("input-keyboard")));
-    genericMessage.insert(QStringLiteral("text"), text);
-    Utils::showMessage(genericMessage, KTextEditor::Editor::instance()->application()->activeMainWindow());
+    const auto icon = QIcon::fromTheme(QStringLiteral("input-keyboard"));
+    Utils::showMessage(text, icon, i18n("Keyboard Macros"), error ? MessageType::Error : MessageType::Info);
 }
 
 void KeyboardMacrosPlugin::displayMessage(const QString &text, KTextEditor::Message::MessageType type)

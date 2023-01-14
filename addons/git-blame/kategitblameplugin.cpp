@@ -312,12 +312,7 @@ static int nextBlockStart(const QByteArray &out, int from)
 
 void KateGitBlamePluginView::sendMessage(const QString &text, bool error)
 {
-    QVariantMap genericMessage;
-    genericMessage.insert(QStringLiteral("type"), error ? QStringLiteral("Error") : QStringLiteral("Info"));
-    genericMessage.insert(QStringLiteral("category"), i18n("Git"));
-    genericMessage.insert(QStringLiteral("categoryIcon"), gitIcon());
-    genericMessage.insert(QStringLiteral("text"), text);
-    Utils::showMessage(genericMessage, m_mainWindow);
+    Utils::showMessage(text, gitIcon(), i18n("Git"), error ? MessageType::Error : MessageType::Info, m_mainWindow);
 }
 
 void KateGitBlamePluginView::blameFinished(int exitCode, QProcess::ExitStatus exitStatus)

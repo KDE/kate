@@ -340,7 +340,7 @@ void FileHistory::showFileHistory(const QString &file, KTextEditor::MainWindow *
 
     const auto repoBase = getRepoBasePath(fi.absolutePath());
     if (!repoBase.has_value()) {
-        Utils::showMessage(i18n("%1 doesn't exist in a git repo.", file), gitIcon(), i18n("Git"), i18n("Error"), mainWindow);
+        Utils::showMessage(i18n("%1 doesn't exist in a git repo.", file), gitIcon(), i18n("Git"), MessageType::Error, mainWindow);
         return;
     }
 

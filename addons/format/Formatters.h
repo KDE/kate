@@ -59,12 +59,6 @@ protected:
         return false;
     }
 
-    // Supports only stdin
-    virtual bool onlyStdin() const
-    {
-        return false;
-    }
-
     virtual QStringList args(KTextEditor::Document *doc) const = 0;
     virtual QString name() const = 0;
     virtual QString workingDir() const
@@ -222,11 +216,6 @@ private:
         return true;
     }
 
-    bool onlyStdin() const override
-    {
-        return true;
-    }
-
     void onResultReady(const RunOutput &out) override;
 };
 
@@ -296,11 +285,6 @@ public:
 
 private:
     bool supportsStdin() const override
-    {
-        return true;
-    }
-
-    bool onlyStdin() const override
     {
         return true;
     }

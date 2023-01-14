@@ -30,6 +30,32 @@ static QString cursorToOffset(KTextEditor::Document *doc, KTextEditor::Cursor c)
     return {};
 }
 
+// Makes up a fake file name for doc mode
+static QString filenameFromMode(KTextEditor::Document *doc)
+{
+    const QString m = doc->highlightingMode().toLower();
+    auto is = [m](const char *s) {
+        return m == QLatin1String(s);
+    };
+    auto is_or_contains = [m](const char *s) {
+        return m == QLatin1String(s) || m.contains(QLatin1String(s));
+    };
+    if (is_or_contains("c++")) {
+        return QLatin1String("a.cpp");
+    } else if (is("c")) {
+        return QLatin1String("a.c");
+    } else if (is("json")) {
+        return QLatin1String("a.json");
+    } else if (is("objective-c")) {
+        return QLatin1String("a.m");
+    } else if (is("objective-c++")) {
+        return QLatin1String("a.mm");
+    } else if (is("protobuf")) {
+        return QLatin1String("a.proto");
+    }
+    return {};
+}
+
 void AbstractFormatter::run(KTextEditor::Document *doc)
 {
     // QElapsedTimer t;
@@ -66,12 +92,10 @@ void AbstractFormatter::run(KTextEditor::Document *doc)
     startHostProcess(*p, name, args);
 
     if (supportsStdin()) {
-        if (onlyStdin() || doc->url().toLocalFile().isEmpty()) {
-            const auto stdinText = textForStdin();
-            if (!stdinText.isEmpty()) {
-                p->write(stdinText);
-                p->closeWriteChannel();
-            }
+        const auto stdinText = textForStdin();
+        if (!stdinText.isEmpty()) {
+            p->write(stdinText);
+            p->closeWriteChannel();
         }
     }
 }
@@ -81,28 +105,28 @@ void AbstractFormatter::onResultReady(const RunOutput &o)
     if (!o.err.isEmpty()) {
         Q_EMIT error(QString::fromUtf8(o.err));
         return;
+    } else if (!o.out.isEmpty()) {
+        Q_EMIT textFormatted(this, m_doc, o.out);
     }
-    if (o.out.isEmpty()) {
-        return;
-    }
-
-    Q_EMIT textFormatted(this, m_doc, o.out);
 }
 
 QStringList ClangFormat::args(KTextEditor::Document *doc) const
 {
     const auto file = doc->url().toLocalFile();
-    if (file.isEmpty()) {
-        return {};
-    }
-
-    const auto lines = getModifiedLines(file);
     const QString offset = cursorToOffset(m_doc, m_pos);
     QStringList args;
     if (!offset.isEmpty()) {
         const_cast<ClangFormat *>(this)->m_withCursor = true;
         args << QStringLiteral("--cursor=%1").arg(offset);
     }
+
+    // If its a non-local or unsaved file
+    if (file.isEmpty()) {
+        args << QStringLiteral("--assume-filename=%1").arg(filenameFromMode(doc));
+        return args;
+    }
+
+    const auto lines = getModifiedLines(file);
     if (lines.has_value()) {
         for (auto ll : *lines) {
             args.push_back(QStringLiteral("--lines=%1:%2").arg(ll.startLine).arg(ll.endline));

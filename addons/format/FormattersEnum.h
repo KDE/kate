@@ -12,4 +12,5 @@ enum class Formatters {
     RustFmt,
     XmlLint,
     GoFmt,
+    ZigFmt,
 };

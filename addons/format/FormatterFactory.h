@@ -43,6 +43,8 @@ static AbstractFormatter *formatterForDoc(KTextEditor::Document *doc, FormatPlug
         return new XmlLintFormat(doc);
     } else if (is("go")) {
         return new GoFormat(doc);
+    } else if (is("zig")) {
+        return new ZigFormat(doc);
     }
 
     Utils::showMessage(i18n("Failed to run formatter. Unsupporter language %1", mode), {}, i18n("Format"), MessageType::Info);

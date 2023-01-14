@@ -278,3 +278,25 @@ private:
 
     void onResultReady(const RunOutput &out) override;
 };
+
+class ZigFormat : public AbstractFormatter
+{
+    Q_OBJECT
+public:
+    using AbstractFormatter::AbstractFormatter;
+    QString name() const override
+    {
+        return QStringLiteral("zig");
+    }
+
+    QStringList args(KTextEditor::Document *) const override
+    {
+        return {QStringLiteral("fmt"), QStringLiteral("--stdin")};
+    }
+
+private:
+    bool supportsStdin() const override
+    {
+        return true;
+    }
+};

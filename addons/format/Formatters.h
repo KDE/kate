@@ -142,7 +142,7 @@ public:
         return QStringLiteral("jq");
     }
 
-    QStringList args(KTextEditor::Document *doc) const override
+    QStringList args(KTextEditor::Document *) const override
     {
         return {
             QStringLiteral("."),
@@ -252,16 +252,6 @@ public:
 
         environment.insert(QStringLiteral("XMLLINT_INDENT"), indent);
         return environment;
-    }
-
-private:
-    void onResultReady(const RunOutput &out) override
-    {
-        if (out.exitCode == 0) {
-            Q_EMIT textFormatted(this, m_doc, out.out);
-        } else if (out.exitCode != 0 && !out.err.isEmpty()) {
-            Q_EMIT error(QString::fromUtf8(out.err));
-        }
     }
 };
 

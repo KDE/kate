@@ -133,7 +133,7 @@ void KateProjectInfoViewCodeAnalysis::slotStartStopClicked()
     }
 
     if (fullExecutable.isEmpty() || !m_analyzer->waitForStarted()) {
-        Utils::showMessage(m_analysisTool->notInstalledMessage(), {}, i18n("CodeAnalysis"), MessageType::Warn);
+        Utils::showMessage(m_analysisTool->notInstalledMessage(), {}, i18n("CodeAnalysis"), MessageType::Warning);
         return;
     }
 

@@ -382,7 +382,7 @@ void KateExternalToolsPlugin::handleToolFinished(KateToolRunner *runner, int exi
             messageBody += i18n("Data written to stderr:\n");
             messageBody += runner->errorData();
             messageBody += QStringLiteral("\n");
-            messageType = MessageType::Warn;
+            messageType = MessageType::Warning;
         }
         if (crashed || exitCode != 0) {
             messageType = MessageType::Error;

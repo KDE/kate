@@ -217,7 +217,7 @@ void ESLintPluginView::onError()
     const QString err = QString::fromUtf8(m_eslintProcess.readAllStandardError());
     if (!err.isEmpty()) {
         const QString message = i18n("Eslint failed, error: %1", err);
-        Utils::showMessage(message, {}, i18n("ESLint"), MessageType::Warn, m_mainWindow);
+        Utils::showMessage(message, {}, i18n("ESLint"), MessageType::Warning, m_mainWindow);
     }
 }
 

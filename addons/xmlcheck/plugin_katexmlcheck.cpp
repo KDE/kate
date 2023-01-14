@@ -147,7 +147,7 @@ void PluginKateXMLCheckView::slotProcExited(int exitCode, QProcess::ExitStatus e
         } else {
             msg = i18nc("%1 refers to the XML DTD", "'%1' not found, will only check well-formedness.", m_dtdname);
         }
-        Utils::showMessage(msg, {}, i18n("XMLCheck"), MessageType::Warn);
+        Utils::showMessage(msg, {}, i18n("XMLCheck"), MessageType::Warning);
     }
     if (!proc_stderr.isEmpty()) {
         QVector<Diagnostic> diags;

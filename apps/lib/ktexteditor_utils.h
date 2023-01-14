@@ -32,7 +32,7 @@ struct DiffParams;
 enum MessageType {
     Log = 0,
     Info,
-    Warn,
+    Warning,
     Error,
 };
 

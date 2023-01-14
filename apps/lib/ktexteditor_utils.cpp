@@ -163,13 +163,13 @@ void showMessage(const QString &message, const QIcon &icon, const QString &categ
 {
     Q_ASSERT(type >= MessageType::Log && type <= MessageType::Error);
     QVariantMap msg;
-    const char *msgToString[4]{
-        "Log",
-        "Info",
-        "Warning",
-        "Error",
+    static const QString msgToString[] = {
+        QStringLiteral("Log"),
+        QStringLiteral("Info"),
+        QStringLiteral("Warning"),
+        QStringLiteral("Error"),
     };
-    msg.insert(QStringLiteral("type"), QLatin1String(msgToString[type]));
+    msg.insert(QStringLiteral("type"), msgToString[type]);
     msg.insert(QStringLiteral("category"), category);
     msg.insert(QStringLiteral("categoryIcon"), icon);
     msg.insert(QStringLiteral("text"), message);

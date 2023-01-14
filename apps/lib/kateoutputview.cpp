@@ -288,7 +288,7 @@ void KateOutputView::appendLines(const QStringList &lines, const QString &token,
             cursor.insertBlock();
             cursor.setBlockFormat({});
         }
-        cursor.insertHtml(l);
+        cursor.insertHtml(QLatin1String("<span style=\"white-space:pre\">") + l + QLatin1String("</span>"));
         if (i >= 1) {
             QTextBlockFormat fmt;
             fmt.setIndent(8);

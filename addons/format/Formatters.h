@@ -144,21 +144,18 @@ public:
 
     QStringList args(KTextEditor::Document *doc) const override
     {
-        return {QStringLiteral("."),
-                QStringLiteral("--indent"),
-                QStringLiteral("4"),
-                QStringLiteral("-M"), // no color
-                doc->url().toDisplayString(QUrl::PreferLocalFile)};
+        return {
+            QStringLiteral("."),
+            QStringLiteral("--indent"),
+            QStringLiteral("4"),
+            QStringLiteral("-M"), // no color
+        };
     }
 
 private:
-    void onResultReady(const RunOutput &out) override
+    bool supportsStdin() const override
     {
-        if (out.exitCode == 0) {
-            Q_EMIT textFormatted(this, m_doc, out.out);
-        } else if (out.exitCode != 0 && !out.err.isEmpty()) {
-            Q_EMIT error(QString::fromUtf8(out.err));
-        }
+        return true;
     }
 };
 

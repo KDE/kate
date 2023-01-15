@@ -466,9 +466,9 @@ public:
      * are @e always hidden. Usually you do not have to call this because
      * the user can set this in the menu.
      * @param visible sidebars visibility
-     * @param noWarning avoid to warn about hiding the stuff
+     * @param hideFullySilent hide the stuff forever, e.g. for KWrite
      */
-    void setSidebarsVisibleInternal(bool visible, bool noWarning);
+    void setSidebarsVisibleInternal(bool visible, bool hideFullySilent);
 
 public Q_SLOTS:
     /**

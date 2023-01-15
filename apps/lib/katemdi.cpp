@@ -1093,7 +1093,7 @@ void Sidebar::setVisible(bool visible)
         return;
     }
 
-    QWidget::setVisible(visible);
+    QSplitter::setVisible(visible);
 }
 
 void Sidebar::buttonPopupActivate(QAction *a)
@@ -1413,19 +1413,24 @@ void MainWindow::toolViewDeleted(ToolView *widget)
     m_toolviews.erase(widget->id);
 }
 
-void MainWindow::setSidebarsVisibleInternal(bool visible, bool noWarning)
+void MainWindow::setSidebarsVisibleInternal(bool visible, bool hideFullySilent)
 {
     bool old_visible = m_sidebarsVisible;
     m_sidebarsVisible = visible;
 
     for (auto &sidebar : m_sidebars) {
         sidebar->setVisible(visible);
+
+        // fully hide the stuff, see bug 464320
+        if (hideFullySilent) {
+            sidebar->collapseSidebar();
+        }
     }
 
     m_guiClient->updateSidebarsVisibleAction();
 
     // show information message box, if the users hides the sidebars
-    if (!noWarning && old_visible && (!m_sidebarsVisible)) {
+    if (!hideFullySilent && old_visible && (!m_sidebarsVisible)) {
         KMessageBox::information(this,
                                  i18n("<qt>You are about to hide the sidebars. With "
                                       "hidden sidebars it is not possible to directly "

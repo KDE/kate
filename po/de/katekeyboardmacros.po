@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-06 00:51+0000\n"
+"POT-Creation-Date: 2023-01-15 00:59+0000\n"
 "PO-Revision-Date: 2022-11-18 16:11+0100\n"
 "Last-Translator: Frank Steinmetzger <dev-kde@felsenfleischer.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -35,48 +35,48 @@ msgid "Could not load '%1': malformed macro; wiping it."
 msgstr "„%1“ kann nicht geladen werden: ungültiges Makro; wird gelöscht."
 
 #. i18n: ectx: ToolBar (keyboardmacros)
-#: keyboardmacrosplugin.cpp:120 keyboardmacrospluginview.cpp:30
+#: keyboardmacrosplugin.cpp:119 keyboardmacrospluginview.cpp:30
 #: keyboardmacrospluginview.cpp:284 keyboardmacrospluginview.cpp:318 ui.rc:12
 #, kde-format
 msgid "Keyboard Macros"
 msgstr "Tastaturmakros"
 
-#: keyboardmacrosplugin.cpp:132
+#: keyboardmacrosplugin.cpp:128
 #, kde-format
 msgid "<b>Keyboard Macros:</b> %1"
 msgstr "<b>Tastaturmakros:</b> %1"
 
-#: keyboardmacrosplugin.cpp:231
+#: keyboardmacrosplugin.cpp:227
 #, kde-format
 msgid "Recording…"
 msgstr "Aufnahme ..."
 
-#: keyboardmacrosplugin.cpp:267
+#: keyboardmacrosplugin.cpp:263
 #, kde-format
 msgid "ended"
 msgstr "beendet"
 
-#: keyboardmacrosplugin.cpp:267
+#: keyboardmacrosplugin.cpp:263
 #, kde-format
 msgid "canceled"
 msgstr "abgebrochen"
 
-#: keyboardmacrosplugin.cpp:267
+#: keyboardmacrosplugin.cpp:263
 #, kde-format
 msgid "Recording %1"
 msgstr "%1 wird aufgenommen"
 
-#: keyboardmacrosplugin.cpp:310
+#: keyboardmacrosplugin.cpp:306
 #, kde-format
 msgid "Saved '%1'"
 msgstr "„%1“ gespeichert"
 
-#: keyboardmacrosplugin.cpp:329
+#: keyboardmacrosplugin.cpp:325
 #, kde-format
 msgid "Loaded '%1'"
 msgstr "„%1“ geladen"
 
-#: keyboardmacrosplugin.cpp:346
+#: keyboardmacrosplugin.cpp:342
 #, kde-format
 msgid "Wiped '%1'"
 msgstr "„%1“ gelöscht"

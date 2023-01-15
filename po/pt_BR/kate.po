@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-12 00:58+0000\n"
+"POT-Creation-Date: 2023-01-15 00:59+0000\n"
 "PO-Revision-Date: 2022-07-14 10:01-0300\n"
 "Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
 "Language-Team: Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -202,13 +202,6 @@ msgid "Close"
 msgstr "Fechar"
 
 #: lib/commitfilesview.cpp:384 lib/commitfilesview.cpp:474
-#: lib/commitfilesview.cpp:480 lib/diagnostics/diagnosticview.cpp:813
-#: lib/filehistorywidget.cpp:343 lib/kateconfigdialog.cpp:393
-#, kde-format
-msgid "Error"
-msgstr "Erro"
-
-#: lib/commitfilesview.cpp:384 lib/commitfilesview.cpp:474
 #: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:343
 #, kde-format
 msgid "Git"
@@ -326,6 +319,11 @@ msgstr "Abertura &rápida"
 #, kde-format
 msgid "Filter..."
 msgstr "Filtrar..."
+
+#: lib/diagnostics/diagnosticview.cpp:813 lib/kateconfigdialog.cpp:393
+#, kde-format
+msgid "Error"
+msgstr "Erro"
 
 #: lib/diagnostics/diagnosticview.cpp:817 lib/kateconfigdialog.cpp:393
 #: lib/kateconfigdialog.cpp:939

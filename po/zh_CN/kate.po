@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-12 00:58+0000\n"
+"POT-Creation-Date: 2023-01-15 00:59+0000\n"
 "PO-Revision-Date: 2023-01-12 10:30\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -200,13 +200,6 @@ msgid "Close"
 msgstr "关闭"
 
 #: lib/commitfilesview.cpp:384 lib/commitfilesview.cpp:474
-#: lib/commitfilesview.cpp:480 lib/diagnostics/diagnosticview.cpp:813
-#: lib/filehistorywidget.cpp:343 lib/kateconfigdialog.cpp:393
-#, kde-format
-msgid "Error"
-msgstr "错误"
-
-#: lib/commitfilesview.cpp:384 lib/commitfilesview.cpp:474
 #: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:343
 #, kde-format
 msgid "Git"
@@ -325,6 +318,11 @@ msgstr "快速打开(&Q)"
 #| msgid "Open Folder..."
 msgid "Filter..."
 msgstr "打开文件夹..."
+
+#: lib/diagnostics/diagnosticview.cpp:813 lib/kateconfigdialog.cpp:393
+#, kde-format
+msgid "Error"
+msgstr "错误"
 
 #: lib/diagnostics/diagnosticview.cpp:817 lib/kateconfigdialog.cpp:393
 #: lib/kateconfigdialog.cpp:939

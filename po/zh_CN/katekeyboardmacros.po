@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-06 00:51+0000\n"
+"POT-Creation-Date: 2023-01-15 00:59+0000\n"
 "PO-Revision-Date: 2023-01-12 10:30\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -33,48 +33,48 @@ msgid "Could not load '%1': malformed macro; wiping it."
 msgstr "无法加载%1'：宏格式不正确；正在擦除。"
 
 #. i18n: ectx: ToolBar (keyboardmacros)
-#: keyboardmacrosplugin.cpp:120 keyboardmacrospluginview.cpp:30
+#: keyboardmacrosplugin.cpp:119 keyboardmacrospluginview.cpp:30
 #: keyboardmacrospluginview.cpp:284 keyboardmacrospluginview.cpp:318 ui.rc:12
 #, kde-format
 msgid "Keyboard Macros"
 msgstr "键盘宏"
 
-#: keyboardmacrosplugin.cpp:132
+#: keyboardmacrosplugin.cpp:128
 #, kde-format
 msgid "<b>Keyboard Macros:</b> %1"
 msgstr "<b>Keyboard Macros:</b> %1"
 
-#: keyboardmacrosplugin.cpp:231
+#: keyboardmacrosplugin.cpp:227
 #, kde-format
 msgid "Recording…"
 msgstr "录制中"
 
-#: keyboardmacrosplugin.cpp:267
+#: keyboardmacrosplugin.cpp:263
 #, kde-format
 msgid "ended"
 msgstr "已结束"
 
-#: keyboardmacrosplugin.cpp:267
+#: keyboardmacrosplugin.cpp:263
 #, kde-format
 msgid "canceled"
 msgstr "已取消"
 
-#: keyboardmacrosplugin.cpp:267
+#: keyboardmacrosplugin.cpp:263
 #, kde-format
 msgid "Recording %1"
 msgstr "正在录制 %1"
 
-#: keyboardmacrosplugin.cpp:310
+#: keyboardmacrosplugin.cpp:306
 #, kde-format
 msgid "Saved '%1'"
 msgstr "已保存 '%1'"
 
-#: keyboardmacrosplugin.cpp:329
+#: keyboardmacrosplugin.cpp:325
 #, kde-format
 msgid "Loaded '%1'"
 msgstr "已加载 ’%1‘"
 
-#: keyboardmacrosplugin.cpp:346
+#: keyboardmacrosplugin.cpp:342
 #, kde-format
 msgid "Wiped '%1'"
 msgstr "已擦除 '%1'"

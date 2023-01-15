@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate stable\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-12 00:58+0000\n"
+"POT-Creation-Date: 2023-01-15 00:59+0000\n"
 "PO-Revision-Date: 2005-11-24 11:27+0200\n"
 "Last-Translator: Frikkie Thirion <frikkie.thirion@deneloptronics.co.za>\n"
 "Language-Team: AFRIKAANS <AF@lia.org.za>\n"
@@ -189,13 +189,6 @@ msgid "Close"
 msgstr "Maak toe Alle"
 
 #: lib/commitfilesview.cpp:384 lib/commitfilesview.cpp:474
-#: lib/commitfilesview.cpp:480 lib/diagnostics/diagnosticview.cpp:813
-#: lib/filehistorywidget.cpp:343 lib/kateconfigdialog.cpp:393
-#, kde-format
-msgid "Error"
-msgstr ""
-
-#: lib/commitfilesview.cpp:384 lib/commitfilesview.cpp:474
 #: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:343
 #, kde-format
 msgid "Git"
@@ -318,6 +311,11 @@ msgstr "Vinnig oopmaak"
 #, fuzzy, kde-format
 msgid "Filter..."
 msgstr "Lêers:"
+
+#: lib/diagnostics/diagnosticview.cpp:813 lib/kateconfigdialog.cpp:393
+#, kde-format
+msgid "Error"
+msgstr ""
 
 #: lib/diagnostics/diagnosticview.cpp:817 lib/kateconfigdialog.cpp:393
 #: lib/kateconfigdialog.cpp:939

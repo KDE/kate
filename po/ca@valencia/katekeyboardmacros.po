@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-06 00:51+0000\n"
+"POT-Creation-Date: 2023-01-15 00:59+0000\n"
 "PO-Revision-Date: 2022-08-15 19:08+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -35,48 +35,48 @@ msgid "Could not load '%1': malformed macro; wiping it."
 msgstr "No s'ha pogut carregar «%1»: macro amb format incorrecte; s'esborra."
 
 #. i18n: ectx: ToolBar (keyboardmacros)
-#: keyboardmacrosplugin.cpp:120 keyboardmacrospluginview.cpp:30
+#: keyboardmacrosplugin.cpp:119 keyboardmacrospluginview.cpp:30
 #: keyboardmacrospluginview.cpp:284 keyboardmacrospluginview.cpp:318 ui.rc:12
 #, kde-format
 msgid "Keyboard Macros"
 msgstr "Macros de teclat"
 
-#: keyboardmacrosplugin.cpp:132
+#: keyboardmacrosplugin.cpp:128
 #, kde-format
 msgid "<b>Keyboard Macros:</b> %1"
 msgstr "<b>Macros de teclat:</b> %1"
 
-#: keyboardmacrosplugin.cpp:231
+#: keyboardmacrosplugin.cpp:227
 #, kde-format
 msgid "Recording…"
 msgstr "S'està gravant…"
 
-#: keyboardmacrosplugin.cpp:267
+#: keyboardmacrosplugin.cpp:263
 #, kde-format
 msgid "ended"
 msgstr "ha finalitzat"
 
-#: keyboardmacrosplugin.cpp:267
+#: keyboardmacrosplugin.cpp:263
 #, kde-format
 msgid "canceled"
 msgstr "s'ha cancel·lat"
 
-#: keyboardmacrosplugin.cpp:267
+#: keyboardmacrosplugin.cpp:263
 #, kde-format
 msgid "Recording %1"
 msgstr "S'està gravant %1"
 
-#: keyboardmacrosplugin.cpp:310
+#: keyboardmacrosplugin.cpp:306
 #, kde-format
 msgid "Saved '%1'"
 msgstr "S'ha guardat «%1»"
 
-#: keyboardmacrosplugin.cpp:329
+#: keyboardmacrosplugin.cpp:325
 #, kde-format
 msgid "Loaded '%1'"
 msgstr "S'ha carregat «%1»"
 
-#: keyboardmacrosplugin.cpp:346
+#: keyboardmacrosplugin.cpp:342
 #, kde-format
 msgid "Wiped '%1'"
 msgstr "S'ha esborrat «%1»"

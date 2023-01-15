@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-03 00:50+0000\n"
+"POT-Creation-Date: 2023-01-15 00:59+0000\n"
 "PO-Revision-Date: 2022-05-04 21:19+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@neuf.fr>\n"
 "Language-Team: French <kde-francophone@kde.org>\n"
@@ -44,17 +44,17 @@ msgstr "Afficher les détails du « git Blame »"
 msgid "Toggle Git Blame Details"
 msgstr "Afficher ou non les détails du « git blame »"
 
-#: kategitblameplugin.cpp:317
+#: kategitblameplugin.cpp:315
 #, kde-format
 msgid "Git"
 msgstr "Git"
 
-#: kategitblameplugin.cpp:457
+#: kategitblameplugin.cpp:452
 #, kde-format
 msgid "Git blame, show commit failed."
 msgstr "Git blame : afficher l'échec de la validation."
 
-#: kategitblameplugin.cpp:544
+#: kategitblameplugin.cpp:539
 #, kde-format
 msgid "Not Committed Yet"
 msgstr "Pas encore validé"

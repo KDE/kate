@@ -1,6 +1,6 @@
 # translation of kate.po to Polish
 # translation of kate.po to
-# Version: $Revision: 1641979 $
+# Version: $Revision: 1642396 $
 # Kate polish translation file.
 # Main translation work:
 #   Jacek Stolarczyk <jacek@mer.chemia.polsl.gliwice.pl>\n"
@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-12 00:58+0000\n"
+"POT-Creation-Date: 2023-01-15 00:59+0000\n"
 "PO-Revision-Date: 2023-01-02 20:54+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -216,13 +216,6 @@ msgid "Close"
 msgstr "Zamknij"
 
 #: lib/commitfilesview.cpp:384 lib/commitfilesview.cpp:474
-#: lib/commitfilesview.cpp:480 lib/diagnostics/diagnosticview.cpp:813
-#: lib/filehistorywidget.cpp:343 lib/kateconfigdialog.cpp:393
-#, kde-format
-msgid "Error"
-msgstr "Błąd"
-
-#: lib/commitfilesview.cpp:384 lib/commitfilesview.cpp:474
 #: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:343
 #, kde-format
 msgid "Git"
@@ -341,6 +334,11 @@ msgstr "&Szybkie otwarcie"
 #, kde-format
 msgid "Filter..."
 msgstr "Odfiltruj..."
+
+#: lib/diagnostics/diagnosticview.cpp:813 lib/kateconfigdialog.cpp:393
+#, kde-format
+msgid "Error"
+msgstr "Błąd"
 
 #: lib/diagnostics/diagnosticview.cpp:817 lib/kateconfigdialog.cpp:393
 #: lib/kateconfigdialog.cpp:939

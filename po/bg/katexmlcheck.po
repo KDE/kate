@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"POT-Creation-Date: 2023-01-15 00:59+0000\n"
 "PO-Revision-Date: 2022-03-26 00:47+0000\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -17,54 +17,52 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: plugin_katexmlcheck.cpp:98
+#: plugin_katexmlcheck.cpp:94
 #, kde-format
 msgid "XML Check"
 msgstr ""
 
-#: plugin_katexmlcheck.cpp:105
-#, kde-format
-msgid "XML Checker"
-msgstr ""
-
-#: plugin_katexmlcheck.cpp:109
+#: plugin_katexmlcheck.cpp:99
 #, kde-format
 msgid "Validate XML"
 msgstr ""
 
-#: plugin_katexmlcheck.cpp:117
+#: plugin_katexmlcheck.cpp:132
 #, kde-format
-msgid "#"
+msgid "Validate process crashed"
 msgstr ""
 
-#: plugin_katexmlcheck.cpp:118
+#: plugin_katexmlcheck.cpp:132 plugin_katexmlcheck.cpp:150
+#: plugin_katexmlcheck.cpp:210 plugin_katexmlcheck.cpp:235
+#: plugin_katexmlcheck.cpp:255 plugin_katexmlcheck.cpp:343
 #, kde-format
-msgid "Line"
+msgid "XMLCheck"
 msgstr ""
 
-#: plugin_katexmlcheck.cpp:119
+#: plugin_katexmlcheck.cpp:146
 #, kde-format
-msgid "Column"
+msgid "No DOCTYPE found, will only check well-formedness."
 msgstr ""
 
-#: plugin_katexmlcheck.cpp:120
+#: plugin_katexmlcheck.cpp:148
 #, kde-format
-msgid "Message"
+msgctxt "%1 refers to the XML DTD"
+msgid "'%1' not found, will only check well-formedness."
 msgstr ""
 
-#: plugin_katexmlcheck.cpp:287
+#: plugin_katexmlcheck.cpp:234
 #, kde-format
 msgid "<b>Error:</b> Could not create temporary file '%1'."
 msgstr ""
 
-#: plugin_katexmlcheck.cpp:307
+#: plugin_katexmlcheck.cpp:253
 #, kde-format
 msgid ""
 "<b>Error:</b> Failed to find xmllint. Please make sure that xmllint is "
 "installed. It is part of libxml2."
 msgstr ""
 
-#: plugin_katexmlcheck.cpp:394
+#: plugin_katexmlcheck.cpp:341
 #, kde-format
 msgid ""
 "<b>Error:</b> Failed to execute xmllint. Please make sure that xmllint is "

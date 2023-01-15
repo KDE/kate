@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-12 00:58+0000\n"
+"POT-Creation-Date: 2023-01-15 00:59+0000\n"
 "PO-Revision-Date: 2023-01-13 01:15+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -219,13 +219,6 @@ msgid "Close"
 msgstr "Kapat"
 
 #: lib/commitfilesview.cpp:384 lib/commitfilesview.cpp:474
-#: lib/commitfilesview.cpp:480 lib/diagnostics/diagnosticview.cpp:813
-#: lib/filehistorywidget.cpp:343 lib/kateconfigdialog.cpp:393
-#, kde-format
-msgid "Error"
-msgstr "Hata"
-
-#: lib/commitfilesview.cpp:384 lib/commitfilesview.cpp:474
 #: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:343
 #, kde-format
 msgid "Git"
@@ -344,6 +337,11 @@ msgstr "Hızlı Düzelt"
 #, kde-format
 msgid "Filter..."
 msgstr "Süz..."
+
+#: lib/diagnostics/diagnosticview.cpp:813 lib/kateconfigdialog.cpp:393
+#, kde-format
+msgid "Error"
+msgstr "Hata"
 
 #: lib/diagnostics/diagnosticview.cpp:817 lib/kateconfigdialog.cpp:393
 #: lib/kateconfigdialog.cpp:939

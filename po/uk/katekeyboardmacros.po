@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-06 00:51+0000\n"
+"POT-Creation-Date: 2023-01-15 00:59+0000\n"
 "PO-Revision-Date: 2022-08-15 09:48+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -35,48 +35,48 @@ msgstr ""
 "Не вдалося завантажити «%1»: помилкове форматування макроса; витираємо його."
 
 #. i18n: ectx: ToolBar (keyboardmacros)
-#: keyboardmacrosplugin.cpp:120 keyboardmacrospluginview.cpp:30
+#: keyboardmacrosplugin.cpp:119 keyboardmacrospluginview.cpp:30
 #: keyboardmacrospluginview.cpp:284 keyboardmacrospluginview.cpp:318 ui.rc:12
 #, kde-format
 msgid "Keyboard Macros"
 msgstr "Клавіатурні макроси"
 
-#: keyboardmacrosplugin.cpp:132
+#: keyboardmacrosplugin.cpp:128
 #, kde-format
 msgid "<b>Keyboard Macros:</b> %1"
 msgstr "<b>Клавіатурні макроси:</b> %1"
 
-#: keyboardmacrosplugin.cpp:231
+#: keyboardmacrosplugin.cpp:227
 #, kde-format
 msgid "Recording…"
 msgstr "Записування…"
 
-#: keyboardmacrosplugin.cpp:267
+#: keyboardmacrosplugin.cpp:263
 #, kde-format
 msgid "ended"
 msgstr "завершено"
 
-#: keyboardmacrosplugin.cpp:267
+#: keyboardmacrosplugin.cpp:263
 #, kde-format
 msgid "canceled"
 msgstr "скасовано"
 
-#: keyboardmacrosplugin.cpp:267
+#: keyboardmacrosplugin.cpp:263
 #, kde-format
 msgid "Recording %1"
 msgstr "Записуємо %1"
 
-#: keyboardmacrosplugin.cpp:310
+#: keyboardmacrosplugin.cpp:306
 #, kde-format
 msgid "Saved '%1'"
 msgstr "Збережено «%1»"
 
-#: keyboardmacrosplugin.cpp:329
+#: keyboardmacrosplugin.cpp:325
 #, kde-format
 msgid "Loaded '%1'"
 msgstr "Завантажено «%1»"
 
-#: keyboardmacrosplugin.cpp:346
+#: keyboardmacrosplugin.cpp:342
 #, kde-format
 msgid "Wiped '%1'"
 msgstr "Витерто «%1»"

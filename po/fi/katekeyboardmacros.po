@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-06 00:51+0000\n"
+"POT-Creation-Date: 2023-01-15 00:59+0000\n"
 "PO-Revision-Date: 2022-08-22 21:53+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -33,48 +33,48 @@ msgid "Could not load '%1': malformed macro; wiping it."
 msgstr "Ei voitu ladata: ”%1”: virheellinen makro, pyyhitään se."
 
 #. i18n: ectx: ToolBar (keyboardmacros)
-#: keyboardmacrosplugin.cpp:120 keyboardmacrospluginview.cpp:30
+#: keyboardmacrosplugin.cpp:119 keyboardmacrospluginview.cpp:30
 #: keyboardmacrospluginview.cpp:284 keyboardmacrospluginview.cpp:318 ui.rc:12
 #, kde-format
 msgid "Keyboard Macros"
 msgstr "Näppäinmakrot"
 
-#: keyboardmacrosplugin.cpp:132
+#: keyboardmacrosplugin.cpp:128
 #, kde-format
 msgid "<b>Keyboard Macros:</b> %1"
 msgstr "<b>Näppäinmakrot:</b> %1"
 
-#: keyboardmacrosplugin.cpp:231
+#: keyboardmacrosplugin.cpp:227
 #, kde-format
 msgid "Recording…"
 msgstr "Nauhoitetaan…"
 
-#: keyboardmacrosplugin.cpp:267
+#: keyboardmacrosplugin.cpp:263
 #, kde-format
 msgid "ended"
 msgstr "lopetettu"
 
-#: keyboardmacrosplugin.cpp:267
+#: keyboardmacrosplugin.cpp:263
 #, kde-format
 msgid "canceled"
 msgstr "peruttu"
 
-#: keyboardmacrosplugin.cpp:267
+#: keyboardmacrosplugin.cpp:263
 #, kde-format
 msgid "Recording %1"
 msgstr "nauhoitetaan %1"
 
-#: keyboardmacrosplugin.cpp:310
+#: keyboardmacrosplugin.cpp:306
 #, kde-format
 msgid "Saved '%1'"
 msgstr "Tallennettu: ”%1”"
 
-#: keyboardmacrosplugin.cpp:329
+#: keyboardmacrosplugin.cpp:325
 #, kde-format
 msgid "Loaded '%1'"
 msgstr "Ladattu: ”%1”"
 
-#: keyboardmacrosplugin.cpp:346
+#: keyboardmacrosplugin.cpp:342
 #, kde-format
 msgid "Wiped '%1'"
 msgstr "Pyyhitty: ”%1”"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"POT-Creation-Date: 2023-01-15 00:59+0000\n"
 "PO-Revision-Date: 2022-04-15 23:01+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -17,48 +17,47 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Lokalize 21.08.1\n"
 
-#: plugin_katexmlcheck.cpp:98
+#: plugin_katexmlcheck.cpp:94
 #, fuzzy, kde-format
 #| msgid "XML Checker"
 msgid "XML Check"
 msgstr "XML 검사기"
 
-#: plugin_katexmlcheck.cpp:105
-#, kde-format
-msgid "XML Checker"
-msgstr "XML 검사기"
-
-#: plugin_katexmlcheck.cpp:109
+#: plugin_katexmlcheck.cpp:99
 #, kde-format
 msgid "Validate XML"
 msgstr "XML 유효성 검사"
 
-#: plugin_katexmlcheck.cpp:117
+#: plugin_katexmlcheck.cpp:132
 #, kde-format
-msgid "#"
-msgstr "#"
+msgid "Validate process crashed"
+msgstr ""
 
-#: plugin_katexmlcheck.cpp:118
+#: plugin_katexmlcheck.cpp:132 plugin_katexmlcheck.cpp:150
+#: plugin_katexmlcheck.cpp:210 plugin_katexmlcheck.cpp:235
+#: plugin_katexmlcheck.cpp:255 plugin_katexmlcheck.cpp:343
+#, fuzzy, kde-format
+#| msgid "XML Checker"
+msgid "XMLCheck"
+msgstr "XML 검사기"
+
+#: plugin_katexmlcheck.cpp:146
 #, kde-format
-msgid "Line"
-msgstr "줄"
+msgid "No DOCTYPE found, will only check well-formedness."
+msgstr ""
 
-#: plugin_katexmlcheck.cpp:119
+#: plugin_katexmlcheck.cpp:148
 #, kde-format
-msgid "Column"
-msgstr "칸"
+msgctxt "%1 refers to the XML DTD"
+msgid "'%1' not found, will only check well-formedness."
+msgstr ""
 
-#: plugin_katexmlcheck.cpp:120
-#, kde-format
-msgid "Message"
-msgstr "메시지"
-
-#: plugin_katexmlcheck.cpp:287
+#: plugin_katexmlcheck.cpp:234
 #, kde-format
 msgid "<b>Error:</b> Could not create temporary file '%1'."
 msgstr "<b>오류:</b> 임시 파일 '%1'을(를) 만들 수 없습니다."
 
-#: plugin_katexmlcheck.cpp:307
+#: plugin_katexmlcheck.cpp:253
 #, kde-format
 msgid ""
 "<b>Error:</b> Failed to find xmllint. Please make sure that xmllint is "
@@ -67,7 +66,7 @@ msgstr ""
 "<b>오류:</b> xmllint를 찾을 수 없습니다. libxml2 패키지의 일부인 xmllint를 설"
 "치했는지 확인하십시오."
 
-#: plugin_katexmlcheck.cpp:394
+#: plugin_katexmlcheck.cpp:341
 #, kde-format
 msgid ""
 "<b>Error:</b> Failed to execute xmllint. Please make sure that xmllint is "
@@ -81,6 +80,21 @@ msgstr ""
 #, kde-format
 msgid "&XML"
 msgstr "XML(&X)"
+
+#~ msgid "XML Checker"
+#~ msgstr "XML 검사기"
+
+#~ msgid "#"
+#~ msgstr "#"
+
+#~ msgid "Line"
+#~ msgstr "줄"
+
+#~ msgid "Column"
+#~ msgstr "칸"
+
+#~ msgid "Message"
+#~ msgstr "메시지"
 
 #~ msgid "Kate XML check"
 #~ msgstr "Kate XML 검사"

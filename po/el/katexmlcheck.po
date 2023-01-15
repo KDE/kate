@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katexmlcheck\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"POT-Creation-Date: 2023-01-15 00:59+0000\n"
 "PO-Revision-Date: 2023-01-02 21:14+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -18,47 +18,46 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Lokalize 21.12.3\n"
 
-#: plugin_katexmlcheck.cpp:98
+#: plugin_katexmlcheck.cpp:94
 #, kde-format
 msgid "XML Check"
 msgstr "Έλεγχος XML"
 
-#: plugin_katexmlcheck.cpp:105
-#, kde-format
-msgid "XML Checker"
-msgstr "Έλεγκτής XML"
-
-#: plugin_katexmlcheck.cpp:109
+#: plugin_katexmlcheck.cpp:99
 #, kde-format
 msgid "Validate XML"
 msgstr "Επαλήθευση του XML"
 
-#: plugin_katexmlcheck.cpp:117
+#: plugin_katexmlcheck.cpp:132
 #, kde-format
-msgid "#"
-msgstr "#"
+msgid "Validate process crashed"
+msgstr ""
 
-#: plugin_katexmlcheck.cpp:118
+#: plugin_katexmlcheck.cpp:132 plugin_katexmlcheck.cpp:150
+#: plugin_katexmlcheck.cpp:210 plugin_katexmlcheck.cpp:235
+#: plugin_katexmlcheck.cpp:255 plugin_katexmlcheck.cpp:343
+#, fuzzy, kde-format
+#| msgid "XML Check"
+msgid "XMLCheck"
+msgstr "Έλεγχος XML"
+
+#: plugin_katexmlcheck.cpp:146
 #, kde-format
-msgid "Line"
-msgstr "Γραμμή"
+msgid "No DOCTYPE found, will only check well-formedness."
+msgstr ""
 
-#: plugin_katexmlcheck.cpp:119
+#: plugin_katexmlcheck.cpp:148
 #, kde-format
-msgid "Column"
-msgstr "Στήλη"
+msgctxt "%1 refers to the XML DTD"
+msgid "'%1' not found, will only check well-formedness."
+msgstr ""
 
-#: plugin_katexmlcheck.cpp:120
-#, kde-format
-msgid "Message"
-msgstr "Μήνυμα"
-
-#: plugin_katexmlcheck.cpp:287
+#: plugin_katexmlcheck.cpp:234
 #, kde-format
 msgid "<b>Error:</b> Could not create temporary file '%1'."
 msgstr "<b>Σφάλμα:</b> Αδυναμία δημιουργίας προσωρινού αρχείου '%1'."
 
-#: plugin_katexmlcheck.cpp:307
+#: plugin_katexmlcheck.cpp:253
 #, kde-format
 msgid ""
 "<b>Error:</b> Failed to find xmllint. Please make sure that xmllint is "
@@ -67,7 +66,7 @@ msgstr ""
 "<b>Σφάλμα:</b> Αποτυχία εύρεσης του xmllint. Βεβαιωθείτε ότι το xmllint έχει "
 "εγκατασταθεί. Είναι τμήμα του libxml2."
 
-#: plugin_katexmlcheck.cpp:394
+#: plugin_katexmlcheck.cpp:341
 #, kde-format
 msgid ""
 "<b>Error:</b> Failed to execute xmllint. Please make sure that xmllint is "
@@ -81,6 +80,21 @@ msgstr ""
 #, kde-format
 msgid "&XML"
 msgstr "&XML"
+
+#~ msgid "XML Checker"
+#~ msgstr "Έλεγκτής XML"
+
+#~ msgid "#"
+#~ msgstr "#"
+
+#~ msgid "Line"
+#~ msgstr "Γραμμή"
+
+#~ msgid "Column"
+#~ msgstr "Στήλη"
+
+#~ msgid "Message"
+#~ msgstr "Μήνυμα"
 
 #~ msgid "Kate XML check"
 #~ msgstr "XML έλεγχος του Kate"

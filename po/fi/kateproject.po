@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-12 00:58+0000\n"
+"POT-Creation-Date: 2023-01-15 00:59+0000\n"
 "PO-Revision-Date: 2022-06-13 19:26+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -93,7 +93,7 @@ msgstr[1] "Haluatko varmasti poistaa valitut haarat?"
 msgid "Select Branch..."
 msgstr "Valitse haara…"
 
-#: branchesdialog.cpp:131 gitwidget.cpp:486 kateprojectpluginview.cpp:65
+#: branchesdialog.cpp:128 gitwidget.cpp:483 kateprojectpluginview.cpp:65
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -138,7 +138,7 @@ msgstr "Kirjaudu ulos"
 msgid "Amend"
 msgstr "Täydennä"
 
-#: gitcommitdialog.cpp:112 gitwidget.cpp:945
+#: gitcommitdialog.cpp:112 gitwidget.cpp:939
 #, kde-format
 msgid "Amend Last Commit"
 msgstr "Täydennä viimeisintä toimitusta"
@@ -213,286 +213,286 @@ msgstr "Suodata…"
 msgid "Failed to find .git directory for '%1', things may not work correctly"
 msgstr ".git-kansiota ei löytynyt: kaikki ei ehkä toimi oikein"
 
-#: gitwidget.cpp:560
+#: gitwidget.cpp:554
 #, kde-format
 msgid " error: %1"
 msgstr " virhe: %1"
 
-#: gitwidget.cpp:566
+#: gitwidget.cpp:560
 #, kde-format
 msgid "\"%1\" executed successfully: %2"
 msgstr "”%1” suoritettiin onnistuneesti: %2"
 
-#: gitwidget.cpp:586
+#: gitwidget.cpp:580
 #, kde-format
 msgid "Failed to stage file. Error:"
 msgstr "Tiedoston vaiheistaminen epäonnistui. Virhe:"
 
-#: gitwidget.cpp:599
+#: gitwidget.cpp:593
 #, kde-format
 msgid "Failed to unstage file. Error:"
 msgstr "Tiedoston vaiheistuksen peruminen epäonnistui. Virhe:"
 
-#: gitwidget.cpp:610
+#: gitwidget.cpp:604
 #, kde-format
 msgid "Failed to discard changes. Error:"
 msgstr "Muutosten hylkääminen epäonnistui. Virhe:"
 
-#: gitwidget.cpp:621
+#: gitwidget.cpp:615
 #, kde-format
 msgid "Failed to remove. Error:"
 msgstr "Poistaminen epäonnistui. Virhe:"
 
-#: gitwidget.cpp:637
+#: gitwidget.cpp:631
 #, kde-format
 msgid "Failed to open file at HEAD: %1"
 msgstr "Tiedoston avaaminen HEAD-kohtaan epäonnistui: %1"
 
-#: gitwidget.cpp:669
+#: gitwidget.cpp:663
 #, kde-format
 msgid "Failed to get Diff of file: %1"
 msgstr "Tiedostoerojen noutaminen epäonnistui: %1"
 
-#: gitwidget.cpp:735
+#: gitwidget.cpp:729
 #, kde-format
 msgid "Failed to commit: %1"
 msgstr "Toimittaminen epäonnistui: %1"
 
-#: gitwidget.cpp:739
+#: gitwidget.cpp:733
 #, kde-format
 msgid "Changes committed successfully."
 msgstr "Muutosten toimitus onnistui."
 
-#: gitwidget.cpp:749
+#: gitwidget.cpp:743
 #, kde-format
 msgid "Nothing to commit. Please stage your changes first."
 msgstr "Ei mitään toimitettavaa. Vaiheista muutokset ensin."
 
-#: gitwidget.cpp:762
+#: gitwidget.cpp:756
 #, kde-format
 msgid "Commit message cannot be empty."
 msgstr "Toimitusviesti ei voi olla tyhjä."
 
-#: gitwidget.cpp:877
+#: gitwidget.cpp:871
 #, kde-format
 msgid "No diff for %1...%2"
 msgstr "Ei tiedostoeroja: %1…%2"
 
-#: gitwidget.cpp:883
+#: gitwidget.cpp:877
 #, kde-format
 msgid "Failed to compare %1...%2"
 msgstr "Vertailu epäonnistui: %1…%2"
 
-#: gitwidget.cpp:898
+#: gitwidget.cpp:892
 #, kde-format
 msgid "Failed to get numstat when diffing %1...%2"
 msgstr ""
 
-#: gitwidget.cpp:937
+#: gitwidget.cpp:931
 #, kde-format
 msgid "Refresh"
 msgstr "Virkistä"
 
-#: gitwidget.cpp:953
+#: gitwidget.cpp:947
 #, kde-format
 msgid "Checkout Branch"
 msgstr "Nouda haara"
 
-#: gitwidget.cpp:965
+#: gitwidget.cpp:959
 #, kde-format
 msgid "Delete Branch"
 msgstr "Poista haara"
 
-#: gitwidget.cpp:977
+#: gitwidget.cpp:971
 #, fuzzy, kde-format
 #| msgid "Compare Branch with ..."
 msgid "Compare Branch with..."
 msgstr "Vertaa haaraa…"
 
-#: gitwidget.cpp:981
+#: gitwidget.cpp:975
 #, fuzzy, kde-format
 #| msgid "Commit"
 msgid "Show Commit"
 msgstr "Toimita"
 
-#: gitwidget.cpp:981
+#: gitwidget.cpp:975
 #, fuzzy, kde-format
 #| msgid "Commit Changes"
 msgid "Commit hash"
 msgstr "Toimita muutokset"
 
-#: gitwidget.cpp:986
+#: gitwidget.cpp:980
 #, fuzzy, kde-format
 #| msgid "Open Folder..."
 msgid "Open Commit..."
 msgstr "Avaa kansio…"
 
-#: gitwidget.cpp:989 gitwidget.cpp:1028
+#: gitwidget.cpp:983 gitwidget.cpp:1022
 #, kde-format
 msgid "Stash"
 msgstr "Kätkö"
 
-#: gitwidget.cpp:999
+#: gitwidget.cpp:993
 #, kde-format
 msgid "Diff - stash"
 msgstr ""
 
-#: gitwidget.cpp:1032
+#: gitwidget.cpp:1026
 #, kde-format
 msgid "Pop Last Stash"
 msgstr ""
 
-#: gitwidget.cpp:1036
+#: gitwidget.cpp:1030
 #, kde-format
 msgid "Pop Stash"
 msgstr ""
 
-#: gitwidget.cpp:1040
+#: gitwidget.cpp:1034
 #, kde-format
 msgid "Apply Last Stash"
 msgstr ""
 
-#: gitwidget.cpp:1042
+#: gitwidget.cpp:1036
 #, kde-format
 msgid "Stash (Keep Staged)"
 msgstr ""
 
-#: gitwidget.cpp:1046
+#: gitwidget.cpp:1040
 #, kde-format
 msgid "Stash (Include Untracked)"
 msgstr ""
 
-#: gitwidget.cpp:1050
+#: gitwidget.cpp:1044
 #, kde-format
 msgid "Apply Stash"
 msgstr ""
 
-#: gitwidget.cpp:1051
+#: gitwidget.cpp:1045
 #, kde-format
 msgid "Drop Stash"
 msgstr ""
 
-#: gitwidget.cpp:1052
+#: gitwidget.cpp:1046
 #, kde-format
 msgid "Show Stash Content"
 msgstr ""
 
-#: gitwidget.cpp:1092
+#: gitwidget.cpp:1086
 #, kde-format
 msgid "Stage All"
 msgstr "Vaiheista kaikki"
 
-#: gitwidget.cpp:1094
+#: gitwidget.cpp:1088
 #, kde-format
 msgid "Remove All"
 msgstr "Poista kaikki"
 
-#: gitwidget.cpp:1094
+#: gitwidget.cpp:1088
 #, kde-format
 msgid "Discard All"
 msgstr "Hylkää kaikki"
 
-#: gitwidget.cpp:1097
+#: gitwidget.cpp:1091
 #, kde-format
 msgid "Open .gitignore"
 msgstr "Avaa .gitignore"
 
-#: gitwidget.cpp:1098 gitwidget.cpp:1153 gitwidget.cpp:1203
+#: gitwidget.cpp:1092 gitwidget.cpp:1147 gitwidget.cpp:1197
 #: kateprojectconfigpage.cpp:91 kateprojectconfigpage.cpp:102
 #, kde-format
 msgid "Show Diff"
 msgstr "Näytä diff"
 
-#: gitwidget.cpp:1115
+#: gitwidget.cpp:1109
 #, kde-format
 msgid "Are you sure you want to remove these files?"
 msgstr "Haluatko varmasti poistaa nämä tiedostot?"
 
-#: gitwidget.cpp:1124
+#: gitwidget.cpp:1118
 #, kde-format
 msgid "Are you sure you want to discard all changes?"
 msgstr "Haluatko varmasti hylätä kaikki muutokset?"
 
-#: gitwidget.cpp:1152
+#: gitwidget.cpp:1146
 #, fuzzy, kde-format
 #| msgid "Open file"
 msgid "Open File"
 msgstr "Avaa tiedosto"
 
-#: gitwidget.cpp:1154
+#: gitwidget.cpp:1148
 #, fuzzy, kde-format
 #| msgid "Show in external git diff tool"
 msgid "Show in External Git Diff Tool"
 msgstr "Näytä ulkoisessa git diff -työkalussa"
 
-#: gitwidget.cpp:1155
+#: gitwidget.cpp:1149
 #, kde-format
 msgid "Open at HEAD"
 msgstr "Avaa HEADistä"
 
-#: gitwidget.cpp:1156
+#: gitwidget.cpp:1150
 #, fuzzy, kde-format
 #| msgid "Unstage file"
 msgid "Unstage File"
 msgstr "Kumoa tiedoston vaiheistus"
 
-#: gitwidget.cpp:1156
+#: gitwidget.cpp:1150
 #, fuzzy, kde-format
 #| msgid "Stage file"
 msgid "Stage File"
 msgstr "Vaiheista tiedosto"
 
-#: gitwidget.cpp:1157
+#: gitwidget.cpp:1151
 #, kde-format
 msgid "Remove"
 msgstr "Poista"
 
-#: gitwidget.cpp:1157
+#: gitwidget.cpp:1151
 #, kde-format
 msgid "Discard"
 msgstr "Hylkää"
 
-#: gitwidget.cpp:1174
+#: gitwidget.cpp:1168
 #, kde-format
 msgid "Are you sure you want to discard the changes in this file?"
 msgstr "Haluatko varmasti hylätä tämän tiedoston muutokset?"
 
-#: gitwidget.cpp:1187
+#: gitwidget.cpp:1181
 #, kde-format
 msgid "Are you sure you want to remove this file?"
 msgstr "Haluatko varmasti poistaa tämän tiedoston?"
 
-#: gitwidget.cpp:1202
+#: gitwidget.cpp:1196
 #, kde-format
 msgid "Unstage All"
 msgstr "Peru kaikkien vaiheistus"
 
-#: gitwidget.cpp:1269
+#: gitwidget.cpp:1263
 #, kde-format
 msgid "Unstage Selected Files"
 msgstr "Peru valittujen tiedostojen vaiheistus"
 
-#: gitwidget.cpp:1269
+#: gitwidget.cpp:1263
 #, kde-format
 msgid "Stage Selected Files"
 msgstr "Vaiheista valitut tiedostot"
 
-#: gitwidget.cpp:1270
+#: gitwidget.cpp:1264
 #, kde-format
 msgid "Discard Selected Files"
 msgstr "Hylkää valitut tiedostot"
 
-#: gitwidget.cpp:1274
+#: gitwidget.cpp:1268
 #, kde-format
 msgid "Remove Selected Files"
 msgstr "Poista valitut tiedostot"
 
-#: gitwidget.cpp:1287
+#: gitwidget.cpp:1281
 #, kde-format
 msgid "Are you sure you want to discard the changes?"
 msgstr "Haluatko varmasti hylätä muutokset?"
 
-#: gitwidget.cpp:1296
+#: gitwidget.cpp:1290
 #, kde-format
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "Haluatko varmasti poistaa nämä ei-jäljitetyt muutokset?"
@@ -702,23 +702,27 @@ msgstr ""
 "löytyy tästä luettelosta:<br/><br/><b>%2</b>"
 
 #: kateprojectinfoviewcodeanalysis.cpp:136
-#: kateprojectinfoviewcodeanalysis.cpp:190
-#: kateprojectinfoviewcodeanalysis.cpp:194
+#: kateprojectinfoviewcodeanalysis.cpp:196
+#: kateprojectinfoviewcodeanalysis.cpp:200
 #, fuzzy, kde-format
 #| msgid "Code Analysis"
 msgid "CodeAnalysis"
 msgstr "Koodianalyysi"
 
-#: kateprojectinfoviewcodeanalysis.cpp:189
+#: kateprojectinfoviewcodeanalysis.cpp:191
 #, fuzzy, kde-format
 #| msgid "Analysis on %1 file finished."
 #| msgid_plural "Analysis on %1 files finished."
+msgctxt ""
+"Message to the user that analysis finished. %1 is the name of the program "
+"that did the analysis, %2 is a number. e.g., [clang-tidy]Analysis on 5 files "
+"finished"
 msgid "[%1]Analysis on %2 file finished."
-msgid_plural "Analysis on %1 files finished."
+msgid_plural "[%1]Analysis on %2 files finished."
 msgstr[0] "%1 tiedoston analyysi on valmis."
 msgstr[1] "%1 tiedoston analyysi on valmis."
 
-#: kateprojectinfoviewcodeanalysis.cpp:193
+#: kateprojectinfoviewcodeanalysis.cpp:199
 #, fuzzy, kde-format
 #| msgid "Analysis on %1 file failed with exit code %2."
 #| msgid_plural "Analysis on %1 files failed with exit code %2."
@@ -795,9 +799,9 @@ msgstr ""
 "Nykyisen projektin koko sijainti tiedostonimettä järjestelmän "
 "kansioerottimella (Windowsissa takakeno)."
 
-#: kateprojectplugin.cpp:714 kateprojectpluginview.cpp:70
-#: kateprojectpluginview.cpp:215 kateprojectviewtree.cpp:136
-#: kateprojectviewtree.cpp:161
+#: kateprojectplugin.cpp:713 kateprojectpluginview.cpp:70
+#: kateprojectpluginview.cpp:215 kateprojectviewtree.cpp:135
+#: kateprojectviewtree.cpp:156
 #, kde-format
 msgid "Project"
 msgstr "Projekti"
@@ -973,12 +977,12 @@ msgstr "Nouda Git-haara"
 msgid "Checkout branch"
 msgstr "Nouda haara"
 
-#: kateprojectviewtree.cpp:138
+#: kateprojectviewtree.cpp:135
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
 msgstr "Ei voitu luoda tiedostoa: %1, virhe: %2"
 
-#: kateprojectviewtree.cpp:163
+#: kateprojectviewtree.cpp:156
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr "Ei voitu luoda kansiota: %1"

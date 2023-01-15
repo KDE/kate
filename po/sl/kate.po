@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-12 00:58+0000\n"
-"PO-Revision-Date: 2023-01-07 09:32+0100\n"
+"POT-Creation-Date: 2023-01-15 00:59+0000\n"
+"PO-Revision-Date: 2023-01-13 11:31+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -217,13 +217,6 @@ msgid "Close"
 msgstr "Zapri"
 
 #: lib/commitfilesview.cpp:384 lib/commitfilesview.cpp:474
-#: lib/commitfilesview.cpp:480 lib/diagnostics/diagnosticview.cpp:813
-#: lib/filehistorywidget.cpp:343 lib/kateconfigdialog.cpp:393
-#, kde-format
-msgid "Error"
-msgstr "Napaka"
-
-#: lib/commitfilesview.cpp:384 lib/commitfilesview.cpp:474
 #: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:343
 #, kde-format
 msgid "Git"
@@ -330,17 +323,23 @@ msgid ""
 "Error in regular expression: %1\n"
 "offset %2: %3"
 msgstr ""
+"Napaka v regularnem izrazu %1\n"
+"odmik %2: %3"
 
 #: lib/diagnostics/diagnosticview.cpp:264
-#, fuzzy, kde-format
-#| msgid "&Quick Open"
+#, kde-format
 msgid "Quick Fix"
-msgstr "Hitro odpiranje"
+msgstr "Hitro popravljanje"
 
 #: lib/diagnostics/diagnosticview.cpp:288
 #, kde-format
 msgid "Filter..."
 msgstr "Filter..."
+
+#: lib/diagnostics/diagnosticview.cpp:813 lib/kateconfigdialog.cpp:393
+#, kde-format
+msgid "Error"
+msgstr "Napaka"
 
 #: lib/diagnostics/diagnosticview.cpp:817 lib/kateconfigdialog.cpp:393
 #: lib/kateconfigdialog.cpp:939
@@ -349,67 +348,60 @@ msgid "Warning"
 msgstr "Opozorilo"
 
 #: lib/diagnostics/diagnosticview.cpp:821
-#, fuzzy, kde-format
-#| msgid "Location"
+#, kde-format
 msgid "Information"
-msgstr "Mesto"
+msgstr "Informacije"
 
 #: lib/diagnostics/diagnosticview.cpp:954
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
-msgstr ""
+msgstr "%1 [zatrto %2]"
 
 #: lib/diagnostics/diagnosticview.cpp:1068
-#, fuzzy, kde-format
-#| msgid "&Expand tabs"
+#, kde-format
 msgid "Expand All"
-msgstr "Razširi zavihke"
+msgstr "Razširi vse"
 
 #: lib/diagnostics/diagnosticview.cpp:1069
-#, fuzzy, kde-format
-#| msgid "Clos&e All"
+#, kde-format
 msgid "Collapse All"
-msgstr "Zapri vse"
+msgstr "Strni vse"
 
 #: lib/diagnostics/diagnosticview.cpp:1078
-#, fuzzy, kde-format
-#| msgid "Copy all text to clipboard"
+#, kde-format
 msgid "Copy to Clipboard"
-msgstr "Kopiraj vse besedilo na odložišče"
+msgstr "Kopiraj na odložišče"
 
 #: lib/diagnostics/diagnosticview.cpp:1101
 #, kde-format
 msgid "Remove Global Suppression"
-msgstr ""
+msgstr "Odstrani globalno zatrtje"
 
 #: lib/diagnostics/diagnosticview.cpp:1103
-#, fuzzy, kde-format
-#| msgid "&All Sessions"
+#, kde-format
 msgid "Add Global Suppression"
-msgstr "Vse seje"
+msgstr "Dodaj globalno zatrtje"
 
 #: lib/diagnostics/diagnosticview.cpp:1107
 #, kde-format
 msgid "Remove Local Suppression"
-msgstr ""
+msgstr "Odstrani lokalno zatrtje"
 
 #: lib/diagnostics/diagnosticview.cpp:1109
 #, kde-format
 msgid "Add Local Suppression"
-msgstr ""
+msgstr "Dodaj lokalno zatrtje"
 
 #: lib/diagnostics/diagnosticview.cpp:1122
-#, fuzzy, kde-format
-#| msgid "Filter Sessions"
+#, kde-format
 msgid "Disable Suppression"
-msgstr "Filtriraj seje"
+msgstr "Onemogoči zatrtje"
 
 #: lib/diagnostics/diagnosticview.cpp:1124
-#, fuzzy, kde-format
-#| msgid "Manage Sessions"
+#, kde-format
 msgid "Enable Suppression"
-msgstr "Upravljanje s sejami"
+msgstr "Omogoči zatrtje"
 
 #: lib/diff/diffeditor.cpp:178
 #, kde-format
@@ -1366,7 +1358,7 @@ msgstr "Izhod"
 #: lib/katemainwindow.cpp:305
 #, kde-format
 msgid "Diagnostics"
-msgstr ""
+msgstr "Diagnostika"
 
 #: lib/katemainwindow.cpp:316
 #, kde-format

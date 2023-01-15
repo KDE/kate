@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katexmlcheck\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"POT-Creation-Date: 2023-01-15 00:59+0000\n"
 "PO-Revision-Date: 2016-10-28 12:12+0800\n"
 "Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
 "Language-Team: Chinese <kde-i18n-doc@kde.org>\n"
@@ -17,49 +17,47 @@ msgstr ""
 "X-Generator: Lokalize 2.0\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: plugin_katexmlcheck.cpp:98
+#: plugin_katexmlcheck.cpp:94
 #, fuzzy, kde-format
 #| msgid "XML Checker Output"
 msgid "XML Check"
 msgstr "XML 檢驗器輸出"
 
-#: plugin_katexmlcheck.cpp:105
-#, fuzzy, kde-format
-#| msgid "XML Checker Output"
-msgid "XML Checker"
-msgstr "XML 檢驗器輸出"
-
-#: plugin_katexmlcheck.cpp:109
+#: plugin_katexmlcheck.cpp:99
 #, kde-format
 msgid "Validate XML"
 msgstr "檢驗 XML"
 
-#: plugin_katexmlcheck.cpp:117
+#: plugin_katexmlcheck.cpp:132
 #, kde-format
-msgid "#"
-msgstr "#"
+msgid "Validate process crashed"
+msgstr ""
 
-#: plugin_katexmlcheck.cpp:118
+#: plugin_katexmlcheck.cpp:132 plugin_katexmlcheck.cpp:150
+#: plugin_katexmlcheck.cpp:210 plugin_katexmlcheck.cpp:235
+#: plugin_katexmlcheck.cpp:255 plugin_katexmlcheck.cpp:343
+#, fuzzy, kde-format
+#| msgid "XML Checker Output"
+msgid "XMLCheck"
+msgstr "XML 檢驗器輸出"
+
+#: plugin_katexmlcheck.cpp:146
 #, kde-format
-msgid "Line"
-msgstr "行"
+msgid "No DOCTYPE found, will only check well-formedness."
+msgstr ""
 
-#: plugin_katexmlcheck.cpp:119
+#: plugin_katexmlcheck.cpp:148
 #, kde-format
-msgid "Column"
-msgstr "欄"
+msgctxt "%1 refers to the XML DTD"
+msgid "'%1' not found, will only check well-formedness."
+msgstr ""
 
-#: plugin_katexmlcheck.cpp:120
-#, kde-format
-msgid "Message"
-msgstr "訊息"
-
-#: plugin_katexmlcheck.cpp:287
+#: plugin_katexmlcheck.cpp:234
 #, kde-format
 msgid "<b>Error:</b> Could not create temporary file '%1'."
 msgstr "<b>錯誤：</b>無法建立暫存檔「%1」。"
 
-#: plugin_katexmlcheck.cpp:307
+#: plugin_katexmlcheck.cpp:253
 #, fuzzy, kde-format
 #| msgid ""
 #| "<b>Error:</b> Failed to execute xmllint. Please make sure that xmllint is "
@@ -71,7 +69,7 @@ msgstr ""
 "<b>錯誤：</b>執行 xmllint 失敗。請確定 xmllint 已安裝。它是 libxml2 的一部"
 "份。"
 
-#: plugin_katexmlcheck.cpp:394
+#: plugin_katexmlcheck.cpp:341
 #, kde-format
 msgid ""
 "<b>Error:</b> Failed to execute xmllint. Please make sure that xmllint is "
@@ -85,6 +83,23 @@ msgstr ""
 #, kde-format
 msgid "&XML"
 msgstr "XML(&X)"
+
+#, fuzzy
+#~| msgid "XML Checker Output"
+#~ msgid "XML Checker"
+#~ msgstr "XML 檢驗器輸出"
+
+#~ msgid "#"
+#~ msgstr "#"
+
+#~ msgid "Line"
+#~ msgstr "行"
+
+#~ msgid "Column"
+#~ msgstr "欄"
+
+#~ msgid "Message"
+#~ msgstr "訊息"
 
 #~ msgid "Kate XML check"
 #~ msgstr "Kate XML 檢查"

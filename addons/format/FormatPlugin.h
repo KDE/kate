@@ -52,7 +52,7 @@ private:
     void format();
     void onActiveViewChanged(KTextEditor::View *);
     void onFormattedTextReceived(class AbstractFormatter *, KTextEditor::Document *doc, const QByteArray &, int offset);
-    void onFormattedPatchReceived(KTextEditor::Document *doc, const std::vector<PatchLine> &);
+    void onFormattedPatchReceived(KTextEditor::Document *doc, const std::vector<PatchLine> &, bool setCursor = false);
     void saveDocument(KTextEditor::Document *doc);
     bool formatOnSave() const
     {

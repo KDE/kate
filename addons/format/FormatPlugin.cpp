@@ -4,6 +4,7 @@
 */
 #include "FormatPlugin.h"
 
+#include "CursorPositionRestorer.h"
 #include "FormatConfig.h"
 #include "FormatterFactory.h"
 #include "Formatters.h"
@@ -13,6 +14,7 @@
 #include <KLocalizedString>
 #include <KPluginFactory>
 #include <KSharedConfig>
+#include <KTextEditor/DocumentCursor>
 #include <KTextEditor/View>
 #include <KXMLGUIFactory>
 
@@ -154,7 +156,7 @@ void FormatPluginView::format()
     });
     connect(formatter, &AbstractFormatter::textFormattedPatch, this, [this, formatter](KTextEditor::Document *doc, const std::vector<PatchLine> &patch) {
         formatter->deleteLater();
-        onFormattedPatchReceived(doc, patch);
+        onFormattedPatchReceived(doc, patch, true);
     });
     formatter->run(m_activeDoc);
 }
@@ -178,7 +180,7 @@ void FormatPluginView::onFormattedTextReceived(AbstractFormatter *formatter, KTe
         return;
     }
 
-    auto setCursorPositionForActiveView = [this, offset, doc] {
+    auto setCursorPositionFromOffset = [this, offset, doc] {
         if (offset > -1 && m_mainWindow->activeView()->document() == doc) {
             m_mainWindow->activeView()->setCursorPosition(Utils::cursorFromOffset(doc, offset));
         }
@@ -190,7 +192,7 @@ void FormatPluginView::onFormattedTextReceived(AbstractFormatter *formatter, KTe
         if (m_activeDoc == doc && !m_lastChecksum.isEmpty()) {
             m_lastChecksum.clear();
         }
-        setCursorPositionForActiveView();
+        setCursorPositionFromOffset();
         return;
     }
 
@@ -214,21 +216,28 @@ void FormatPluginView::onFormattedTextReceived(AbstractFormatter *formatter, KTe
         if (m_activeDoc == doc) {
             m_lastChecksum = doc->checksum();
         }
-        setCursorPositionForActiveView();
+        setCursorPositionFromOffset();
         return;
     }
 
-    onFormattedPatchReceived(doc, edits);
-    setCursorPositionForActiveView();
+    onFormattedPatchReceived(doc, edits, offset == -1);
+    setCursorPositionFromOffset();
 }
 
-void FormatPluginView::onFormattedPatchReceived(KTextEditor::Document *doc, const std::vector<PatchLine> &patch)
+void FormatPluginView::onFormattedPatchReceived(KTextEditor::Document *doc, const std::vector<PatchLine> &patch, bool setCursor)
 {
+    // Helper to restore cursor position for all views of doc
+    CursorPositionRestorer restorer(setCursor ? doc : nullptr);
+
     applyPatch(doc, patch);
     // finally save the document
     saveDocument(doc);
     if (m_activeDoc == doc) {
         m_lastChecksum = doc->checksum();
+    }
+
+    if (setCursor) {
+        restorer.restore();
     }
 }
 

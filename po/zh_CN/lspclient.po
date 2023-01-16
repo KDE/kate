@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-03 04:16+0000\n"
-"PO-Revision-Date: 2023-01-12 10:35\n"
+"PO-Revision-Date: 2023-01-15 15:27\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -208,42 +208,42 @@ msgstr "突出显示转到位置"
 #: lspclientpluginview.cpp:707
 #, kde-format
 msgid "Show Diagnostics Notifications"
-msgstr ""
+msgstr "显示诊断通知"
 
 #: lspclientpluginview.cpp:710
 #, kde-format
 msgid "Show Diagnostics Highlights"
-msgstr ""
+msgstr "显示诊断重点"
 
 #: lspclientpluginview.cpp:713
 #, kde-format
 msgid "Show Diagnostics Marks"
-msgstr ""
+msgstr "显示诊断标记"
 
 #: lspclientpluginview.cpp:716
 #, kde-format
 msgid "Show Diagnostics on Hover"
-msgstr ""
+msgstr "鼠标悬停时显示诊断信息"
 
 #: lspclientpluginview.cpp:719
 #, kde-format
 msgid "Switch to Diagnostics Tab"
-msgstr ""
+msgstr "切换到诊断标签页"
 
 #: lspclientpluginview.cpp:723
 #, kde-format
 msgid "Show Messages"
-msgstr ""
+msgstr "显示消息"
 
 #: lspclientpluginview.cpp:728
 #, kde-format
 msgid "Server Memory Usage"
-msgstr ""
+msgstr "服务器内存使用情况"
 
 #: lspclientpluginview.cpp:732
 #, kde-format
 msgid "Close All Dynamic Reference Tabs"
-msgstr ""
+msgstr "关闭所有动态参考标签"
 
 #: lspclientpluginview.cpp:734
 #, kde-format

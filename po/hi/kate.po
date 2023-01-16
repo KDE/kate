@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-15 00:59+0000\n"
+"POT-Creation-Date: 2023-01-16 01:01+0000\n"
 "PO-Revision-Date: 2021-08-21 16:25+0530\n"
 "Last-Translator: Raghavendra Kamath <raghu@raghukamath.com>\n"
 "Language-Team: kde-hindi\n"
@@ -1773,7 +1773,7 @@ msgstr "शीर्ष बाजू-पट्टी"
 msgid "Bottom Sidebar"
 msgstr "तल बाजू-पट्टी"
 
-#: lib/katemdi.cpp:1430
+#: lib/katemdi.cpp:1435
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

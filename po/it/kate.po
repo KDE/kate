@@ -8,13 +8,13 @@
 # Nicola Ruggero <nicola@nxnt.org>, 2008, 2009, 2010, 2011, 2012, 2013.
 # Pino Toscano <toscano.pino@tiscali.it>, 2013.
 # Vincenzo Reale <smart2128vr@gmail.com>, 2014.
-# Paolo Zamponi <zapaolo@email.it>, 2016, 2017, 2018, 2019, 2020, 2021, 2022.
+# Paolo Zamponi <zapaolo@email.it>, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-15 00:59+0000\n"
-"PO-Revision-Date: 2022-12-21 07:29+0100\n"
+"POT-Creation-Date: 2023-01-16 01:01+0000\n"
+"PO-Revision-Date: 2023-01-12 17:26+0100\n"
 "Last-Translator: Paolo Zamponi <zapaolo@email.it>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 22.12.0\n"
+"X-Generator: Lokalize 22.12.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -42,6 +42,9 @@ msgid ""
 "vulnerabilities. Instead use Kate normally and you will be prompted for "
 "elevated privileges when saving documents if needed."
 msgstr ""
+"Eseguire Kate con sudo può causare bug, e ti espone a vulnerabilità di "
+"sicurezza. Avvialo invece normalmente: se necessario, al salvataggio dei "
+"documenti ti verranno chiesti dei privilegi più elevati."
 
 #: kate/main.cpp:78
 msgid ""
@@ -49,6 +52,9 @@ msgid ""
 "vulnerabilities. Instead use Kate normally and you will be prompted for "
 "elevated privileges when saving documents if needed."
 msgstr ""
+"Eseguire Kate con kdesu può causare bug, e ti espone a vulnerabilità di "
+"sicurezza. Avvialo invece normalmente: se necessario, al salvataggio dei "
+"documenti ti verranno chiesti dei privilegi più elevati."
 
 #: kate/main.cpp:131
 #, kde-format
@@ -170,6 +176,9 @@ msgid ""
 "vulnerabilities. Instead use KWrite normally and you will be prompted for "
 "elevated privileges when saving documents if needed."
 msgstr ""
+"Eseguire KWrite con sudo può causare bug, e ti espone a vulnerabilità di "
+"sicurezza. Avvialo invece normalmente: se necessario, al salvataggio dei "
+"documenti ti verranno chiesti dei privilegi più elevati."
 
 #: kwrite/main.cpp:46
 msgid ""
@@ -177,6 +186,9 @@ msgid ""
 "vulnerabilities. Instead use KWrite normally and you will be prompted for "
 "elevated privileges when saving documents if needed."
 msgstr ""
+"Eseguire KWrite con kdesu può causare bug, e ti espone a vulnerabilità di "
+"sicurezza. Avvialo invece normalmente: se necessario, al salvataggio dei "
+"documenti ti verranno chiesti dei privilegi più elevati."
 
 #: kwrite/main.cpp:94
 #, kde-format
@@ -212,11 +224,10 @@ msgid "%1 doesn't exist in a git repo."
 msgstr "%1 non esiste in un deposito di git."
 
 #: lib/commitfilesview.cpp:495
-#, fuzzy, kde-format
-#| msgid "Commit"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Commit %1"
-msgstr "Deposita"
+msgstr "Deposita %1"
 
 #. i18n: ectx: Menu (file)
 #: lib/data/kateui.rc:6
@@ -303,12 +314,13 @@ msgid ""
 "Error in regular expression: %1\n"
 "offset %2: %3"
 msgstr ""
+"Errore nell'espressione regolare: %1\n"
+"scostamento di %2: %3"
 
 #: lib/diagnostics/diagnosticview.cpp:264
-#, fuzzy, kde-format
-#| msgid "&Quick Open"
+#, kde-format
 msgid "Quick Fix"
-msgstr "&Apertura rapida"
+msgstr "Soluzione rapida"
 
 #: lib/diagnostics/diagnosticview.cpp:288
 #, kde-format
@@ -327,67 +339,60 @@ msgid "Warning"
 msgstr "Avviso"
 
 #: lib/diagnostics/diagnosticview.cpp:821
-#, fuzzy, kde-format
-#| msgid "Meta-Information"
+#, kde-format
 msgid "Information"
-msgstr "Informazioni aggiuntive"
+msgstr "Informazioni"
 
 #: lib/diagnostics/diagnosticview.cpp:954
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
-msgstr ""
+msgstr "%1 [soppresso: %2]"
 
 #: lib/diagnostics/diagnosticview.cpp:1068
-#, fuzzy, kde-format
-#| msgid "&Expand tabs"
+#, kde-format
 msgid "Expand All"
-msgstr "&Espandi schede"
+msgstr "Espandi tutto"
 
 #: lib/diagnostics/diagnosticview.cpp:1069
-#, fuzzy, kde-format
-#| msgid "Clos&e All"
+#, kde-format
 msgid "Collapse All"
-msgstr "C&hiudi tutti"
+msgstr "Contrai tutto"
 
 #: lib/diagnostics/diagnosticview.cpp:1078
-#, fuzzy, kde-format
-#| msgid "Copy all text to clipboard"
+#, kde-format
 msgid "Copy to Clipboard"
-msgstr "Copia tutto il testo negli appunti"
+msgstr "Copia negli appunti"
 
 #: lib/diagnostics/diagnosticview.cpp:1101
 #, kde-format
 msgid "Remove Global Suppression"
-msgstr ""
+msgstr "Rimuovi soppressione globale"
 
 #: lib/diagnostics/diagnosticview.cpp:1103
-#, fuzzy, kde-format
-#| msgid "&All Sessions"
+#, kde-format
 msgid "Add Global Suppression"
-msgstr "&Tutte le sessioni"
+msgstr "Aggiungi soppressione globale"
 
 #: lib/diagnostics/diagnosticview.cpp:1107
 #, kde-format
 msgid "Remove Local Suppression"
-msgstr ""
+msgstr "Rimuovi soppressione locale"
 
 #: lib/diagnostics/diagnosticview.cpp:1109
 #, kde-format
 msgid "Add Local Suppression"
-msgstr ""
+msgstr "Aggiungi soppressione locale"
 
 #: lib/diagnostics/diagnosticview.cpp:1122
-#, fuzzy, kde-format
-#| msgid "Filter Sessions"
+#, kde-format
 msgid "Disable Suppression"
-msgstr "Filtra sessioni"
+msgstr "Disabilita soppressione"
 
 #: lib/diagnostics/diagnosticview.cpp:1124
-#, fuzzy, kde-format
-#| msgid "Manage Sessions"
+#, kde-format
 msgid "Enable Suppression"
-msgstr "Gestisci sessioni"
+msgstr "Abilita soppressione"
 
 #: lib/diff/diffeditor.cpp:178
 #, kde-format
@@ -486,16 +491,14 @@ msgid "Jump to Previous Hunk"
 msgstr "Vai al frammento precedente"
 
 #: lib/diff/diffwidget.cpp:644 lib/diff/diffwidget.cpp:844
-#, fuzzy, kde-format
-#| msgid "New file name"
+#, kde-format
 msgid "New file %1"
-msgstr "Nuovo nome del file"
+msgstr "Nuovo file %1"
 
 #: lib/diff/diffwidget.cpp:646 lib/diff/diffwidget.cpp:846
-#, fuzzy, kde-format
-#| msgid "Delete file"
+#, kde-format
 msgid "Deleted file %1"
-msgstr "Elimina file"
+msgstr "File eliminato %1"
 
 #: lib/filehistorywidget.cpp:286
 #, kde-format
@@ -510,11 +513,10 @@ msgid "Failed to get file history: %1"
 msgstr "Impossibile ottenere la cronologia del file: %1"
 
 #: lib/filehistorywidget.cpp:352
-#, fuzzy, kde-format
-#| msgid "File History"
+#, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
-msgstr "Cronologia del file"
+msgstr "Cronologia del file - %1"
 
 #: lib/kateapp.cpp:146
 #, kde-format
@@ -1342,7 +1344,7 @@ msgstr "Output"
 #: lib/katemainwindow.cpp:305
 #, kde-format
 msgid "Diagnostics"
-msgstr ""
+msgstr "Diagnostica"
 
 #: lib/katemainwindow.cpp:316
 #, kde-format
@@ -1756,7 +1758,7 @@ msgstr "Barra superiore"
 msgid "Bottom Sidebar"
 msgstr "Barra inferiore"
 
-#: lib/katemdi.cpp:1430
+#: lib/katemdi.cpp:1435
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

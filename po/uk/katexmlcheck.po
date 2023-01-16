@@ -3,13 +3,13 @@
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
-# Yuri Chornoivan <yurchor@ukr.net>, 2016, 2022.
+# Yuri Chornoivan <yurchor@ukr.net>, 2016, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: katexmlcheck\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-15 00:59+0000\n"
-"PO-Revision-Date: 2022-08-16 19:44+0300\n"
+"PO-Revision-Date: 2023-01-15 08:57+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
@@ -33,13 +33,12 @@ msgstr "Перевірити коректність XML"
 #: plugin_katexmlcheck.cpp:132
 #, kde-format
 msgid "Validate process crashed"
-msgstr ""
+msgstr "Аварійне завершення процесу перевірки"
 
 #: plugin_katexmlcheck.cpp:132 plugin_katexmlcheck.cpp:150
 #: plugin_katexmlcheck.cpp:210 plugin_katexmlcheck.cpp:235
 #: plugin_katexmlcheck.cpp:255 plugin_katexmlcheck.cpp:343
-#, fuzzy, kde-format
-#| msgid "XML Check"
+#, kde-format
 msgid "XMLCheck"
 msgstr "Перевірка XML"
 
@@ -47,12 +46,14 @@ msgstr "Перевірка XML"
 #, kde-format
 msgid "No DOCTYPE found, will only check well-formedness."
 msgstr ""
+"Не знайдено запису DOCTYPE. Буде перевірено лише коректність форматування."
 
 #: plugin_katexmlcheck.cpp:148
 #, kde-format
 msgctxt "%1 refers to the XML DTD"
 msgid "'%1' not found, will only check well-formedness."
 msgstr ""
+"Не знайдено запису «%1». Буде перевірено лише коректність форматування."
 
 #: plugin_katexmlcheck.cpp:234
 #, kde-format

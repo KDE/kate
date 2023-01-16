@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Nicola Ruggero <nicola@nxnt.org>, 2013.
 # Vincenzo Reale <smart2128vr@gmail.com>, 2014.
-# Paolo Zamponi <zapaolo@email.it>, 2016, 2018, 2019, 2021, 2022.
+# Paolo Zamponi <zapaolo@email.it>, 2016, 2018, 2019, 2021, 2022, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-15 00:59+0000\n"
-"PO-Revision-Date: 2022-12-05 18:08+0100\n"
+"PO-Revision-Date: 2023-01-03 09:26+0100\n"
 "Last-Translator: Paolo Zamponi <zapaolo@email.it>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 22.08.3\n"
+"X-Generator: Lokalize 22.12.0\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -802,10 +802,9 @@ msgid "Project Manager"
 msgstr "Gestore del progetto"
 
 #: kateprojectpluginview.cpp:76
-#, fuzzy, kde-format
-#| msgid "Restore Open Projects"
+#, kde-format
 msgid "Open projects list"
-msgstr "Ripristina i progetti aperti"
+msgstr "Apri elenco di progetti"
 
 #: kateprojectpluginview.cpp:81
 #, kde-format
@@ -813,8 +812,7 @@ msgid "Reload project"
 msgstr "Ricarica progetto"
 
 #: kateprojectpluginview.cpp:84
-#, fuzzy, kde-format
-#| msgid "Close Project"
+#, kde-format
 msgid "Close project"
 msgstr "Chiudi progetto"
 

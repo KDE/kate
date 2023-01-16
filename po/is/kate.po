@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-15 00:59+0000\n"
+"POT-Creation-Date: 2023-01-16 01:01+0000\n"
 "PO-Revision-Date: 2015-10-22 08:29+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic <kde-isl@molar.is>\n"
@@ -1779,7 +1779,7 @@ msgstr "Efsta hliðarslá"
 msgid "Bottom Sidebar"
 msgstr "Neðsta hliðarslá"
 
-#: lib/katemdi.cpp:1430
+#: lib/katemdi.cpp:1435
 #, fuzzy, kde-format
 #| msgid ""
 #| "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

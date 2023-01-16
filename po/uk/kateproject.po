@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-15 00:59+0000\n"
-"PO-Revision-Date: 2023-01-12 09:38+0200\n"
-"Last-Translator: Fracture dept <yurchor@ukr.net>\n"
+"PO-Revision-Date: 2023-01-15 08:56+0200\n"
+"Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
@@ -706,19 +706,17 @@ msgid "CodeAnalysis"
 msgstr "Аналіз коду"
 
 #: kateprojectinfoviewcodeanalysis.cpp:191
-#, fuzzy, kde-format
-#| msgid "[%1]Analysis on %2 file finished."
-#| msgid_plural "Analysis on %1 files finished."
+#, kde-format
 msgctxt ""
 "Message to the user that analysis finished. %1 is the name of the program "
 "that did the analysis, %2 is a number. e.g., [clang-tidy]Analysis on 5 files "
 "finished"
 msgid "[%1]Analysis on %2 file finished."
 msgid_plural "[%1]Analysis on %2 files finished."
-msgstr[0] "Завершено аналіз %1 файла."
-msgstr[1] "Завершено аналіз %1 файлів."
-msgstr[2] "Завершено аналіз %1 файлів."
-msgstr[3] "Завершено аналіз %1 файла."
+msgstr[0] "[%1]Завершено аналіз %2 файла."
+msgstr[1] "[%1]Завершено аналіз %2 файлів."
+msgstr[2] "[%1]Завершено аналіз %2 файлів."
+msgstr[3] "[%1]Завершено аналіз %2 файла."
 
 #: kateprojectinfoviewcodeanalysis.cpp:199
 #, kde-format

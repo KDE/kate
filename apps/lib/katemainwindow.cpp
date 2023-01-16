@@ -287,6 +287,11 @@ void KateMainWindow::setupMainWindow(KConfig *sconfig)
     centralWidget()->layout()->addWidget(m_bottomViewBarContainer);
     m_bottomContainerStack = new KateContainerStackedLayout(m_bottomViewBarContainer);
 
+    if (KateApp::isKWrite()) {
+        // Kwrite has nothing other than the view manager
+        return;
+    }
+
     /**
      * create generic output tool view
      * is used to display output of e.g. plugins
@@ -1322,7 +1327,7 @@ bool KateMainWindow::event(QEvent *e)
         QKeyEvent *k = static_cast<QKeyEvent *>(e);
         Q_EMIT unhandledShortcutOverride(k);
 
-        if (k->key() == Qt::Key_Escape && k->modifiers() == Qt::NoModifier) {
+        if (KateApp::isKate() && k->key() == Qt::Key_Escape && k->modifiers() == Qt::NoModifier) {
             if (!m_toolViewOutput->isHidden()) {
                 hideToolView(m_toolViewOutput);
             }

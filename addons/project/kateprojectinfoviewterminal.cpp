@@ -182,7 +182,10 @@ bool KateProjectInfoViewTerminal::eventFilter(QObject *w, QEvent *e)
         QKeyEvent *keyEvent = static_cast<QKeyEvent *>(e);
         if (isCtrlShiftT(keyEvent)) {
             e->accept();
-            QMetaObject::invokeMethod(m_konsolePart, "newTab");
+            auto tiface = qobject_cast<TerminalInterface *>(m_konsolePart);
+            const auto profile = QString{};
+            const auto workingDir = tiface->currentWorkingDirectory();
+            QMetaObject::invokeMethod(m_konsolePart, "createSession", Q_ARG(QString, profile), Q_ARG(QString, workingDir));
             return true;
         }
     }

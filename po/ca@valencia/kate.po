@@ -963,7 +963,7 @@ msgstr "Sessió"
 #: lib/kateconfigdialog.cpp:577
 #, kde-format
 msgid "Session Management"
-msgstr "Gestió de les sessions"
+msgstr "Gestioneu les sessions"
 
 #: lib/kateconfigdialog.cpp:588
 #, kde-format
@@ -2032,7 +2032,7 @@ msgstr ""
 #: lib/kateviewmanager.cpp:330
 #, kde-format
 msgid "Opening Large File"
-msgstr "Obertura d'un fitxer gran"
+msgstr "Obriu un fitxer gran"
 
 #: lib/kateviewmanager.cpp:466
 #, kde-format

@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # André Marcelo Alvarenga <alvarenga@kde.org>, 2011, 2012, 2013, 2014, 2015, 2018.
-# Luiz Fernando Ranghetti <elchevive@opensuse.org>, 2016, 2017, 2018, 2019, 2020, 2021, 2022.
+# Luiz Fernando Ranghetti <elchevive@opensuse.org>, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023.
 # Camila Moura <camila.moura@kde.org>, 2017.
 # Thiago Masato Costa Sueto <herzenschein@gmail.com>, 2019.
 msgid ""
@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-20 00:55+0000\n"
-"PO-Revision-Date: 2022-12-15 11:58-0300\n"
+"PO-Revision-Date: 2023-01-16 23:45-0300\n"
 "Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
 "Language-Team: Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
@@ -626,7 +626,7 @@ msgstr "Exportar ocorrências"
 #: SearchPlugin.cpp:2173
 #, kde-format
 msgid "Open as Editor Tab"
-msgstr ""
+msgstr "Abrir como aba do editor"
 
 #: SearchPlugin.cpp:2180
 #, kde-format

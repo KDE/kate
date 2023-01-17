@@ -534,7 +534,7 @@ msgstr "Comportament de la sessió"
 #: kateprojectconfigpage.cpp:47
 #, kde-format
 msgid "Session settings for projects"
-msgstr "Configuració de la sessió per als projectes"
+msgstr "Configureu la sessió per als projectes"
 
 #: kateprojectconfigpage.cpp:48
 #, kde-format

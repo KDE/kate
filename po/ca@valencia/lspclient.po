@@ -559,7 +559,7 @@ msgstr "No hi ha cap servidor LSP per a este document."
 #: lspconfigwidget.ui:33
 #, kde-format
 msgid "Client Settings"
-msgstr "Configuració del client"
+msgstr "Configureu el client"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: lspconfigwidget.ui:47

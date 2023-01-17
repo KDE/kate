@@ -222,7 +222,7 @@ msgstr "Inicia l'eina externa «%1»"
 #: kateexternaltoolsconfigwidget.cpp:132
 #, kde-format
 msgid "Edit External Tool"
-msgstr "Edició d'eina externa"
+msgstr "Editeu l'eina externa"
 
 #: kateexternaltoolsconfigwidget.cpp:165
 #, kde-format
@@ -252,7 +252,7 @@ msgstr "Seleccioneu els tipus MIME per als que cal activar esta eina."
 #: kateexternaltoolsconfigwidget.cpp:207
 #, kde-format
 msgid "Select Mime Types"
-msgstr "Selecció dels tipus MIME"
+msgstr "Seleccioneu els tipus MIME"
 
 #: kateexternaltoolsconfigwidget.cpp:233
 #, kde-format
@@ -299,7 +299,7 @@ msgstr "Inicia aplicacions externes d'ajuda"
 #: tooldialog.ui:14
 #, kde-format
 msgid "Edit Tool"
-msgstr "Edició d'eina"
+msgstr "Editeu l'eina"
 
 #. i18n: ectx: property (text), widget (QLabel, lblName)
 #: tooldialog.ui:20

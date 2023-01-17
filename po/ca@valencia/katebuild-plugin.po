@@ -123,7 +123,7 @@ msgstr "Mostra les marques"
 #, kde-format
 msgctxt "Tab label"
 msgid "Target Settings"
-msgstr "Configuració de l'objectiu"
+msgstr "Configureu l'objectiu"
 
 #: plugin_katebuild.cpp:347 plugin_katebuild.cpp:1427 plugin_katebuild.cpp:1438
 #: plugin_katebuild.cpp:1459 plugin_katebuild.cpp:1469
@@ -139,7 +139,7 @@ msgid ""
 "the working directory in the Target Settings"
 msgstr ""
 "<title>No s'ha pogut obrir el fitxer:</title><nl/>%1<br/>Intenteu afegir un "
-"camí de busca en el directori de treball a Configuració de l'objectiu"
+"camí de busca en el directori de treball a Configureu l'objectiu"
 
 #: plugin_katebuild.cpp:520
 #, kde-format

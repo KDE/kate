@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-15 00:59+0000\n"
-"PO-Revision-Date: 2023-01-13 06:13+0100\n"
+"PO-Revision-Date: 2023-01-16 06:23+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -82,8 +82,8 @@ msgstr "წაშლა"
 #, kde-format
 msgid "Are you sure you want to delete the selected branch?"
 msgid_plural "Are you sure you want to delete the selected branches?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "დარწმუნებული ბრძანდებით, რომ გნებავთ, წაშალოთ მონიშნული ბრენჩი?"
+msgstr[1] "დარწმუნებული ბრძანდებით, რომ გნებავთ, წაშალოთ მონიშნული ბრენჩები?"
 
 #: branchesdialog.cpp:102
 #, kde-format
@@ -118,12 +118,12 @@ msgstr "გაუქმენა"
 #: gitcommitdialog.cpp:76
 #, kde-format
 msgid "Write commit message..."
-msgstr ""
+msgstr "დაწერეთ კომიტის შეტყობინება..."
 
 #: gitcommitdialog.cpp:83
 #, kde-format
 msgid "Extended commit description..."
-msgstr ""
+msgstr "კომიტის გაფართოებული აღწერა..."
 
 #: gitcommitdialog.cpp:107
 #, kde-format
@@ -250,22 +250,22 @@ msgstr ""
 #: gitwidget.cpp:729
 #, kde-format
 msgid "Failed to commit: %1"
-msgstr ""
+msgstr "კომიტის შეცდომა: %1"
 
 #: gitwidget.cpp:733
 #, kde-format
 msgid "Changes committed successfully."
-msgstr ""
+msgstr "ყველა ცვლილება დაკომიტებულია."
 
 #: gitwidget.cpp:743
 #, kde-format
 msgid "Nothing to commit. Please stage your changes first."
-msgstr ""
+msgstr "დასაკომიტებელი არაფერია. ჯერ დაგეგმეთ ცვლილებები."
 
 #: gitwidget.cpp:756
 #, kde-format
 msgid "Commit message cannot be empty."
-msgstr ""
+msgstr "კომიტის შეტყობინება ცარიელი ვერ იქნება."
 
 #: gitwidget.cpp:871
 #, kde-format
@@ -275,7 +275,7 @@ msgstr ""
 #: gitwidget.cpp:877
 #, kde-format
 msgid "Failed to compare %1...%2"
-msgstr ""
+msgstr "შედარების შეცდომა %1...%2"
 
 #: gitwidget.cpp:892
 #, kde-format
@@ -486,7 +486,7 @@ msgstr ""
 #: kateproject.cpp:217
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
-msgstr ""
+msgstr "არასწორი JSON ფაილი '%1': %2"
 
 #: kateproject.cpp:522
 #, kde-format
@@ -689,14 +689,14 @@ msgid "CodeAnalysis"
 msgstr "კოდის ანალიზი"
 
 #: kateprojectinfoviewcodeanalysis.cpp:191
-#, kde-format
+#, fuzzy, kde-format
 msgctxt ""
 "Message to the user that analysis finished. %1 is the name of the program "
 "that did the analysis, %2 is a number. e.g., [clang-tidy]Analysis on 5 files "
 "finished"
 msgid "[%1]Analysis on %2 file finished."
 msgid_plural "[%1]Analysis on %2 files finished."
-msgstr[0] ""
+msgstr[0] "[%1] ანალიზი %2 დასრულებულია."
 msgstr[1] ""
 
 #: kateprojectinfoviewcodeanalysis.cpp:199

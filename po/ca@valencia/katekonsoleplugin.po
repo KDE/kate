@@ -203,7 +203,7 @@ msgstr ""
 #: kateconsole.cpp:610
 #, kde-format
 msgid "Terminal Settings"
-msgstr "Configuració del terminal"
+msgstr "Configureu el terminal"
 
 #. i18n: ectx: Menu (tools)
 #: ui.rc:6

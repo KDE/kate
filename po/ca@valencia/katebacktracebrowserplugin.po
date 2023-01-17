@@ -189,9 +189,9 @@ msgstr "La informació sobre la depuració no està disponible"
 #: katebacktracebrowser.cpp:283
 #, kde-format
 msgid "Backtrace Settings"
-msgstr "Configuració de les traces inverses"
+msgstr "Configureu les traces inverses"
 
 #: katebacktracebrowser.cpp:357
 #, kde-format
 msgid "Backtrace Browser Settings"
-msgstr "Configuració del navegador de les traces inverses"
+msgstr "Configureu el navegador de les traces inverses"

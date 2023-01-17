@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-15 00:59+0000\n"
-"PO-Revision-Date: 2022-08-24 20:29+0200\n"
+"PO-Revision-Date: 2023-01-16 06:17+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: kategitblameplugin.cpp:96
 #, kde-format
@@ -33,17 +33,17 @@ msgstr " %1: %2: %3 "
 #: kategitblameplugin.cpp:165
 #, kde-format
 msgid "Git Blame"
-msgstr ""
+msgstr "Git Blame"
 
 #: kategitblameplugin.cpp:168
 #, kde-format
 msgid "Show Git Blame Details"
-msgstr ""
+msgstr "Git Blame-ის დეტალების ჩვენება"
 
 #: kategitblameplugin.cpp:171
 #, kde-format
 msgid "Toggle Git Blame Details"
-msgstr ""
+msgstr "Git Blame-ის დეტალების გადართვა"
 
 #: kategitblameplugin.cpp:315
 #, kde-format
@@ -53,12 +53,12 @@ msgstr "Git"
 #: kategitblameplugin.cpp:452
 #, kde-format
 msgid "Git blame, show commit failed."
-msgstr ""
+msgstr "Git Blame. კომიტის ჩვენების შეცდომა."
 
 #: kategitblameplugin.cpp:539
 #, kde-format
 msgid "Not Committed Yet"
-msgstr ""
+msgstr "ჯერ დაკომიტებული არაა"
 
 #. i18n: ectx: Menu (tools)
 #: ui.rc:6

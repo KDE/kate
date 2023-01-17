@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-15 00:59+0000\n"
-"PO-Revision-Date: 2023-01-13 10:45+0100\n"
+"PO-Revision-Date: 2023-01-16 12:04+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -700,17 +700,15 @@ msgid "CodeAnalysis"
 msgstr "Code analyse"
 
 #: kateprojectinfoviewcodeanalysis.cpp:191
-#, fuzzy, kde-format
-#| msgid "Analysis on %1 file finished."
-#| msgid_plural "Analysis on %1 files finished."
+#, kde-format
 msgctxt ""
 "Message to the user that analysis finished. %1 is the name of the program "
 "that did the analysis, %2 is a number. e.g., [clang-tidy]Analysis on 5 files "
 "finished"
 msgid "[%1]Analysis on %2 file finished."
 msgid_plural "[%1]Analysis on %2 files finished."
-msgstr[0] "Analyse op %1 bestand voltooid."
-msgstr[1] "Analyse op %1 bestanden voltooid."
+msgstr[0] "[%1]Analyse op %2 bestand voltooid."
+msgstr[1] "[%1]Analyse op %2 bestanden voltooid."
 
 #: kateprojectinfoviewcodeanalysis.cpp:199
 #, kde-format

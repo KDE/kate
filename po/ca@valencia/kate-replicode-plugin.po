@@ -299,7 +299,7 @@ msgstr "Replicode"
 #: replicodeconfigpage.cpp:44
 #, kde-format
 msgid "Replicode configuration"
-msgstr "Configuració de Replicode"
+msgstr "Configureu Replicode"
 
 #: replicodeview.cpp:38
 #, kde-format
@@ -314,7 +314,7 @@ msgstr "Para «replicode»"
 #: replicodeview.cpp:61
 #, kde-format
 msgid "Replicode Config"
-msgstr "Configuració de Replicode"
+msgstr "Configureu Replicode"
 
 #: replicodeview.cpp:64
 #, kde-format

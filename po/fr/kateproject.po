@@ -14,14 +14,14 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-15 00:59+0000\n"
-"PO-Revision-Date: 2023-01-01 10:30+0100\n"
+"PO-Revision-Date: 2023-01-16 18:17+0100\n"
 "Last-Translator: Xavier BESNARD <xavier.besnard]neuf.fr>\n"
 "Language-Team: fr\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.12.0\n"
+"X-Generator: Lokalize 22.12.1\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
@@ -711,30 +711,25 @@ msgstr ""
 #: kateprojectinfoviewcodeanalysis.cpp:136
 #: kateprojectinfoviewcodeanalysis.cpp:196
 #: kateprojectinfoviewcodeanalysis.cpp:200
-#, fuzzy, kde-format
-#| msgid "Code Analysis"
+#, kde-format
 msgid "CodeAnalysis"
 msgstr "Analyse du code"
 
 #: kateprojectinfoviewcodeanalysis.cpp:191
-#, fuzzy, kde-format
-#| msgid "Analysis on %1 file finished."
-#| msgid_plural "Analysis on %1 files finished."
+#, kde-format
 msgctxt ""
 "Message to the user that analysis finished. %1 is the name of the program "
 "that did the analysis, %2 is a number. e.g., [clang-tidy]Analysis on 5 files "
 "finished"
 msgid "[%1]Analysis on %2 file finished."
 msgid_plural "[%1]Analysis on %2 files finished."
-msgstr[0] "Analyse sur %1 fichier terminée."
-msgstr[1] "Analyse sur %1 fichiers terminée."
+msgstr[0] "[%1] Analyse terminée sur le fichier %2."
+msgstr[1] "[%1] Analyse terminée sur les %2 fichiers."
 
 #: kateprojectinfoviewcodeanalysis.cpp:199
-#, fuzzy, kde-format
-#| msgid "Analysis on %1 file failed with exit code %2."
-#| msgid_plural "Analysis on %1 files failed with exit code %2."
+#, kde-format
 msgid "Analysis failed with exit code %1, Error: %2"
-msgstr "Échec de l'analyse sur %1 fichier avec le code de sortie %2."
+msgstr "Échec de l'analyse avec le code de sortie %1, erreur : %2."
 
 #: kateprojectinfoviewindex.cpp:33
 #, kde-format

@@ -79,7 +79,7 @@ msgstr "Selector de color"
 #: colorpickerconfigpage.cpp:77
 #, kde-format
 msgid "Color Picker Settings"
-msgstr "Configuració del selector de color"
+msgstr "Configureu el selector de color"
 
 #: katecolorpickerplugin.cpp:246
 #, kde-format

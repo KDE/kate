@@ -460,13 +460,13 @@ msgstr "No hi ha cap servidor LSP per a este document."
 #: lspconfigwidget.ui:33
 #, kde-format
 msgid "Client Settings"
-msgstr "Configuració del client"
+msgstr "Configureu el client"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkFmtOnSave)
 #: lspconfigwidget.ui:54
 #, kde-format
 msgid "Format on save"
-msgstr "Format per a guardar"
+msgstr "Format per que es guardarà"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSemanticHighlighting)
 #: lspconfigwidget.ui:61
@@ -605,86 +605,3 @@ msgstr "Configuració predeterminada del servidor"
 #, kde-format
 msgid "More Options"
 msgstr "Més opcions"
-
-#~ msgid "Quick Fix"
-#~ msgstr "Esmena ràpida"
-
-#~ msgid "Show Diagnostics Notifications"
-#~ msgstr "Mostra les notificacions de diagnòstic"
-
-#~ msgid "Show Diagnostics Highlights"
-#~ msgstr "Mostra els ressaltats de diagnòstic"
-
-#~ msgid "Show Diagnostics Marks"
-#~ msgstr "Mostra les marques de diagnòstic"
-
-#~ msgid "Show Diagnostics on Hover"
-#~ msgstr "Mostra el diagnòstic en passar-hi per damunt"
-
-#~ msgid "Switch to Diagnostics Tab"
-#~ msgstr "Canvia a la pestanya de diagnòstic"
-
-#~ msgctxt "@title:tab"
-#~ msgid "Diagnostics"
-#~ msgstr "Diagnòstics"
-
-#~ msgid "Error"
-#~ msgstr "S'ha produït un error"
-
-#~ msgid "Warning"
-#~ msgstr "Avís"
-
-#~ msgid "Information"
-#~ msgstr "Informació"
-
-#~ msgctxt "@info"
-#~ msgid ""
-#~ "Error in regular expression: %1\n"
-#~ "offset %2: %3"
-#~ msgstr ""
-#~ "S'ha produït un error en l'expressió regular: %1\n"
-#~ "desplaçament %2: %3"
-
-#~ msgid "Copy to Clipboard"
-#~ msgstr "Copia al porta-retalls"
-
-#~ msgid "Remove Global Suppression"
-#~ msgstr "Elimina la supressió global"
-
-#~ msgid "Add Global Suppression"
-#~ msgstr "Afig una supressió global"
-
-#~ msgid "Remove Local Suppression"
-#~ msgstr "Elimina la supressió local"
-
-#~ msgid "Add Local Suppression"
-#~ msgstr "Afig una supressió local"
-
-#~ msgid "Disable Suppression"
-#~ msgstr "Desactiva la supressió"
-
-#~ msgid "Enable Suppression"
-#~ msgstr "Activa la supressió"
-
-#~ msgctxt "@info"
-#~ msgid "%1 [suppressed: %2]"
-#~ msgstr "%1 [suprimida: %2]"
-
-#~ msgid "Diagnostics:"
-#~ msgstr "Diagnòstics:"
-
-#~ msgid "Show program diagnostics"
-#~ msgstr "Mostra el diagnòstic del programa"
-
-#~ msgid "Highlight lines with diagnostics"
-#~ msgstr "Ressalta les línies amb el diagnòstic"
-
-#~ msgid "Show markers in the margins for lines with diagnostics"
-#~ msgstr ""
-#~ "Mostra els marcadors en els marges per a les línies amb el diagnòstic"
-
-#~ msgid "Show diagnostics on hover"
-#~ msgstr "Mostra el diagnòstic en passar-hi per damunt"
-
-#~ msgid "max diagnostics tooltip size"
-#~ msgstr "Mida màxima del consell d'eina de diagnòstic"

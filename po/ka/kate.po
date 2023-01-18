@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-17 01:02+0000\n"
-"PO-Revision-Date: 2023-01-16 06:15+0100\n"
+"PO-Revision-Date: 2023-01-17 07:43+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -909,7 +909,7 @@ msgstr "&პანელები"
 #: lib/kateconfigdialog.cpp:427
 #, kde-format
 msgid "Sync section size with tab positions"
-msgstr ""
+msgstr "სექციის ზომის სინქრონიზაცია ჩანართების მდებარეობებთან"
 
 #: lib/kateconfigdialog.cpp:430
 #, kde-format
@@ -922,7 +922,7 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:435
 #, kde-format
 msgid "Show text for left and right sidebar buttons"
-msgstr ""
+msgstr "მარჯვენა და მარცხენა გვერდითი პანელის ღილაკებისთვის ტექსტის ჩვენება"
 
 #: lib/kateconfigdialog.cpp:440
 #, kde-format

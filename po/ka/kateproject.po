@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-15 00:59+0000\n"
-"PO-Revision-Date: 2023-01-16 06:23+0100\n"
+"PO-Revision-Date: 2023-01-17 07:45+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -61,7 +61,7 @@ msgstr "გამოთხოვილია ახალ ბრენჩში:
 #: branchcheckoutdialog.cpp:123
 #, kde-format
 msgid "Failed to create new branch. Error \"%1\""
-msgstr ""
+msgstr "ახალი ბრენჩის შექმნა შეუძლებელია. შეცდომა \"%1\""
 
 #: branchdeletedialog.cpp:122
 #, kde-format
@@ -689,15 +689,15 @@ msgid "CodeAnalysis"
 msgstr "კოდის ანალიზი"
 
 #: kateprojectinfoviewcodeanalysis.cpp:191
-#, fuzzy, kde-format
+#, kde-format
 msgctxt ""
 "Message to the user that analysis finished. %1 is the name of the program "
 "that did the analysis, %2 is a number. e.g., [clang-tidy]Analysis on 5 files "
 "finished"
 msgid "[%1]Analysis on %2 file finished."
 msgid_plural "[%1]Analysis on %2 files finished."
-msgstr[0] "[%1] ანალიზი %2 დასრულებულია."
-msgstr[1] ""
+msgstr[0] "[%1] ანალიზი ფაილზე %2 დასრულებულია."
+msgstr[1] "[%1] ანალიზი ფაილზე %2 დასრულებულია."
 
 #: kateprojectinfoviewcodeanalysis.cpp:199
 #, kde-format

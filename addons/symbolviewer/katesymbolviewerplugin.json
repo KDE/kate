@@ -22,6 +22,7 @@
         "Description[pl]": "Wydobywa i pokazuje symbole odniesienia ze źródła",
         "Description[pt]": "Extraia e mostre símbolos de referência do código",
         "Description[ru]": "Извлечение идентификаторов из исходного кода и их показ",
+        "Description[sk]": "Získanie a zobrazenie referenčných symbolov zo zdroja",
         "Description[sl]": "Izvleci in prikaži reference simbolov iz izvora",
         "Description[sv]": "Hämta och visa referenssymboler från källkod",
         "Description[tr]": "Kaynaktan başvuru sembollerini çıkarın ve gösterin",

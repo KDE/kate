@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: katexmlcheck\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-15 00:59+0000\n"
-"PO-Revision-Date: 2022-08-17 15:08+0100\n"
+"PO-Revision-Date: 2023-01-18 13:37+0000\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
 "Language: pt\n"
@@ -31,13 +31,12 @@ msgstr "Validar o XML"
 #: plugin_katexmlcheck.cpp:132
 #, kde-format
 msgid "Validate process crashed"
-msgstr ""
+msgstr "O processo de validação estoirou"
 
 #: plugin_katexmlcheck.cpp:132 plugin_katexmlcheck.cpp:150
 #: plugin_katexmlcheck.cpp:210 plugin_katexmlcheck.cpp:235
 #: plugin_katexmlcheck.cpp:255 plugin_katexmlcheck.cpp:343
-#, fuzzy, kde-format
-#| msgid "XML Check"
+#, kde-format
 msgid "XMLCheck"
 msgstr "Verificação do XML"
 
@@ -45,12 +44,13 @@ msgstr "Verificação do XML"
 #, kde-format
 msgid "No DOCTYPE found, will only check well-formedness."
 msgstr ""
+"Não foi detectado nenhum DOCTYPE; só irá verificar a devida formatação."
 
 #: plugin_katexmlcheck.cpp:148
 #, kde-format
 msgctxt "%1 refers to the XML DTD"
 msgid "'%1' not found, will only check well-formedness."
-msgstr ""
+msgstr "O '%1' não foi encontrado; só irá verificar a devida formatação."
 
 #: plugin_katexmlcheck.cpp:234
 #, kde-format
@@ -80,18 +80,3 @@ msgstr ""
 #, kde-format
 msgid "&XML"
 msgstr "&XML"
-
-#~ msgid "XML Checker"
-#~ msgstr "Verificação do XML"
-
-#~ msgid "#"
-#~ msgstr "#"
-
-#~ msgid "Line"
-#~ msgstr "Linha"
-
-#~ msgid "Column"
-#~ msgstr "Coluna"
-
-#~ msgid "Message"
-#~ msgstr "Mensagem"

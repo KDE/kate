@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-17 01:02+0000\n"
-"PO-Revision-Date: 2023-01-01 20:05+0100\n"
+"PO-Revision-Date: 2023-01-18 17:58+0100\n"
 "Last-Translator: Xavier BESNARD <xavier.besnard]neuf.fr>\n"
 "Language-Team: fr\n"
 "Language: fr\n"
@@ -32,7 +32,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.12.0\n"
+"X-Generator: Lokalize 22.12.1\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
@@ -247,11 +247,10 @@ msgid "%1 doesn't exist in a git repo."
 msgstr "%1 n'existe pas dans un dépôt « Git »"
 
 #: lib/commitfilesview.cpp:495
-#, fuzzy, kde-format
-#| msgid "Commit"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Commit %1"
-msgstr "Commit"
+msgstr "Valider %1"
 
 #. i18n: ectx: Menu (file)
 #: lib/data/kateui.rc:6
@@ -338,12 +337,13 @@ msgid ""
 "Error in regular expression: %1\n"
 "offset %2: %3"
 msgstr ""
+"Erreur dans une expression régulière : %1\n"
+"décalage %2 : %3"
 
 #: lib/diagnostics/diagnosticview.cpp:264
-#, fuzzy, kde-format
-#| msgid "&Quick Open"
+#, kde-format
 msgid "Quick Fix"
-msgstr "&Ouverture rapide"
+msgstr "Correction rapide"
 
 #: lib/diagnostics/diagnosticview.cpp:288
 #, kde-format
@@ -362,67 +362,60 @@ msgid "Warning"
 msgstr "Avertissement"
 
 #: lib/diagnostics/diagnosticview.cpp:821
-#, fuzzy, kde-format
-#| msgid "Meta-Information"
+#, kde-format
 msgid "Information"
-msgstr "Méta-informations"
+msgstr "Informations"
 
 #: lib/diagnostics/diagnosticview.cpp:954
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
-msgstr ""
+msgstr "%1 [supprimé : %2]"
 
 #: lib/diagnostics/diagnosticview.cpp:1068
-#, fuzzy, kde-format
-#| msgid "&Expand tabs"
+#, kde-format
 msgid "Expand All"
-msgstr "Dév&elopper les onglets"
+msgstr "Tout développer"
 
 #: lib/diagnostics/diagnosticview.cpp:1069
-#, fuzzy, kde-format
-#| msgid "Clos&e All"
+#, kde-format
 msgid "Collapse All"
-msgstr "Tout f&ermer"
+msgstr "Tout réduire"
 
 #: lib/diagnostics/diagnosticview.cpp:1078
-#, fuzzy, kde-format
-#| msgid "Copy all text to clipboard"
+#, kde-format
 msgid "Copy to Clipboard"
-msgstr "Copier la totalité du texte dans le presse-papier"
+msgstr "Copier dans le presse-papier"
 
 #: lib/diagnostics/diagnosticview.cpp:1101
 #, kde-format
 msgid "Remove Global Suppression"
-msgstr ""
+msgstr "Supprimer la suppression globale"
 
 #: lib/diagnostics/diagnosticview.cpp:1103
-#, fuzzy, kde-format
-#| msgid "&All Sessions"
+#, kde-format
 msgid "Add Global Suppression"
-msgstr "T&outes les sessions"
+msgstr "Ajouter à la suppression globale"
 
 #: lib/diagnostics/diagnosticview.cpp:1107
 #, kde-format
 msgid "Remove Local Suppression"
-msgstr ""
+msgstr "Supprimer la suppression locale"
 
 #: lib/diagnostics/diagnosticview.cpp:1109
 #, kde-format
 msgid "Add Local Suppression"
-msgstr ""
+msgstr "Ajouter une suppression locale"
 
 #: lib/diagnostics/diagnosticview.cpp:1122
-#, fuzzy, kde-format
-#| msgid "Filter Sessions"
+#, kde-format
 msgid "Disable Suppression"
-msgstr "Filtrer les sessions"
+msgstr "Désactiver une suppression"
 
 #: lib/diagnostics/diagnosticview.cpp:1124
-#, fuzzy, kde-format
-#| msgid "Manage Sessions"
+#, kde-format
 msgid "Enable Suppression"
-msgstr "Gérer les sessions"
+msgstr "Activer une suppression"
 
 #: lib/diff/diffeditor.cpp:178
 #, kde-format
@@ -525,16 +518,14 @@ msgid "Jump to Previous Hunk"
 msgstr "Passer au morceau précédent"
 
 #: lib/diff/diffwidget.cpp:644 lib/diff/diffwidget.cpp:844
-#, fuzzy, kde-format
-#| msgid "New file name"
+#, kde-format
 msgid "New file %1"
-msgstr "Nouveau nom de fichier"
+msgstr "Nouveau fichier %1"
 
 #: lib/diff/diffwidget.cpp:646 lib/diff/diffwidget.cpp:846
-#, fuzzy, kde-format
-#| msgid "Delete file"
+#, kde-format
 msgid "Deleted file %1"
-msgstr "Supprimer le fichier"
+msgstr "Supprimer le fichier %1"
 
 #: lib/filehistorywidget.cpp:286
 #, kde-format
@@ -1397,7 +1388,7 @@ msgstr "Sortie"
 #: lib/katemainwindow.cpp:310
 #, kde-format
 msgid "Diagnostics"
-msgstr ""
+msgstr "Diagnostics"
 
 #: lib/katemainwindow.cpp:321
 #, kde-format

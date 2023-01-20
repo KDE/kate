@@ -109,4 +109,5 @@ private:
     KParts::ReadOnlyPart *m_konsolePart;
 
     QPointer<QAction> m_showProjectInfoViewAction;
+    QPointer<QAction> m_searchInFilesAction;
 };

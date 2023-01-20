@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# Kishore G <kishore96@gmail.com>, 2022.
+# Kishore G <kishore96@gmail.com>, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-30 00:48+0000\n"
-"PO-Revision-Date: 2022-08-18 21:30+0530\n"
+"PO-Revision-Date: 2023-01-19 20:01+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.07.90\n"
+"X-Generator: Lokalize 22.12.1\n"
 
 #: commitfilesview.cpp:302
 #, kde-format
@@ -62,7 +62,7 @@ msgstr "Git blame, commit-ஐக் காட்டுவது தோல்வ�
 #: kategitblameplugin.cpp:545
 #, kde-format
 msgid "Not Committed Yet"
-msgstr "இன்னும் Committed செய்யப்படவில்லை"
+msgstr "இன்னும் commit செய்யப்படவில்லை"
 
 #: kategitblameplugin.cpp:576
 #, kde-format

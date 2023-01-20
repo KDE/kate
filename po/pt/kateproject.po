@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-15 00:59+0000\n"
-"PO-Revision-Date: 2023-01-18 13:42+0000\n"
+"PO-Revision-Date: 2023-01-19 09:52+0000\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
 "Language: pt\n"
@@ -699,15 +699,15 @@ msgid "CodeAnalysis"
 msgstr "Análise de Código"
 
 #: kateprojectinfoviewcodeanalysis.cpp:191
-#, fuzzy, kde-format
+#, kde-format
 msgctxt ""
 "Message to the user that analysis finished. %1 is the name of the program "
 "that did the analysis, %2 is a number. e.g., [clang-tidy]Analysis on 5 files "
 "finished"
 msgid "[%1]Analysis on %2 file finished."
 msgid_plural "[%1]Analysis on %2 files finished."
-msgstr[0] "[%2] A análise de %1 ficheiro terminou."
-msgstr[1] "[%2] A análise dos %1 ficheiros terminou."
+msgstr[0] "[%1] A análise de %2 ficheiro terminou."
+msgstr[1] "[%1] A análise dos %2 ficheiros terminou."
 
 #: kateprojectinfoviewcodeanalysis.cpp:199
 #, kde-format

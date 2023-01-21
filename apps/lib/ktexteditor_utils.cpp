@@ -200,6 +200,13 @@ void addWidget(QWidget *widget, KTextEditor::MainWindow *mainWindow)
     }
 }
 
+void insertWidgetInStatusbar(QWidget *widget, KTextEditor::MainWindow *mainWindow)
+{
+    if (auto kmw = qobject_cast<KateMainWindow *>(mainWindow->window())) {
+        kmw->insertWidgetInStatusBar(widget);
+    }
+}
+
 QString projectBaseDirForDocument(KTextEditor::Document *doc)
 {
     QString baseDir;

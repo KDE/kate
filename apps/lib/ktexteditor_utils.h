@@ -94,6 +94,8 @@ KATE_PRIVATE_EXPORT void showMessage(const QVariantMap &map, KTextEditor::MainWi
 KATE_PRIVATE_EXPORT void showDiff(const QByteArray &diff, const DiffParams &params, KTextEditor::MainWindow *mainWindow);
 
 KATE_PRIVATE_EXPORT void addWidget(QWidget *widget, KTextEditor::MainWindow *mainWindow);
+
+KATE_PRIVATE_EXPORT void insertWidgetInStatusbar(QWidget *widget, KTextEditor::MainWindow *mainWindow);
 /*** END KTextEditor::MainWindow extensions **/
 
 /**

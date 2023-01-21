@@ -96,9 +96,9 @@ private:
     KLineEdit *m_filter;
 
     /**
-      checkout branch button
+      checkout branch button in the statusbar
      */
-    QToolButton *m_branchBtn;
+    QToolButton *const m_branchBtn;
 
     /**
      * watches for changes to .git/HEAD

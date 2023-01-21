@@ -7,11 +7,13 @@
 
 #include "kateprojectview.h"
 #include "branchcheckoutdialog.h"
+#include "currentgitbranchbutton.h"
 #include "gitprocess.h"
 #include "gitwidget.h"
 #include "kateprojectfiltermodel.h"
 #include "kateprojectplugin.h"
 #include "kateprojectpluginview.h"
+#include "ktexteditor_utils.h"
 
 #include <KTextEditor/Document>
 #include <KTextEditor/Editor>
@@ -31,7 +33,7 @@ KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject 
     , m_project(project)
     , m_treeView(new KateProjectViewTree(pluginView, project))
     , m_filter(new KLineEdit())
-    , m_branchBtn(new QToolButton)
+    , m_branchBtn(new CurrentGitBranchButton(mainWindow, this))
 {
     /**
      * layout tree view and co.
@@ -39,24 +41,24 @@ KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject 
     QVBoxLayout *layout = new QVBoxLayout();
     layout->setSpacing(0);
     layout->setContentsMargins(0, 0, 0, 0);
-    layout->addWidget(m_branchBtn);
     layout->addWidget(m_treeView);
     layout->addWidget(m_filter);
     setLayout(layout);
 
-    m_branchBtn->setAutoRaise(true);
-    m_branchBtn->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-    m_branchBtn->setSizePolicy(QSizePolicy::Minimum, m_branchBtn->sizePolicy().verticalPolicy());
-    KAcceleratorManager::setNoAccel(m_branchBtn);
+    /**
+     * Setup checkout stuff, git branch button in statusbar
+     */
+    auto chckbrAct = pluginView->actionCollection()->addAction(QStringLiteral("checkout_branch"), this, [mainWindow, this] {
+        BranchCheckoutDialog bd(mainWindow->window(), m_pluginView, m_project->baseDir());
+        bd.openDialog();
+    });
+    m_branchBtn->setDefaultAction(chckbrAct);
+    chckbrAct->setIcon(QIcon::fromTheme(QStringLiteral("vcs-branch")));
+    chckbrAct->setText(i18n("Checkout Git Branch"));
+    Utils::insertWidgetInStatusbar(m_branchBtn, mainWindow);
 
     // let tree get focus for keyboard selection of file to open
     setFocusProxy(m_treeView);
-
-    // add to actionCollection so that this is available in Kate Command bar
-    auto chckbr = pluginView->actionCollection()->addAction(QStringLiteral("checkout_branch"), this, [this] {
-        m_branchBtn->click();
-    });
-    chckbr->setText(i18n("Checkout Git Branch"));
 
     m_filterStartTimer.setSingleShot(true);
     m_filterStartTimer.setInterval(400);
@@ -70,17 +72,6 @@ KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject 
     connect(m_filter, &KLineEdit::textChanged, this, [this] {
         m_filterStartTimer.start();
     });
-
-    /**
-     * Setup git checkout stuff
-     */
-    auto currBranchAct = pluginView->actionCollection()->addAction(QStringLiteral("current_branch"), this, [this, mainWindow] {
-        BranchCheckoutDialog bd(mainWindow->window(), m_pluginView, m_project->baseDir());
-        bd.openDialog();
-    });
-    currBranchAct->setIcon(gitIcon());
-    currBranchAct->setToolTip(i18n("Checkout branch"));
-    m_branchBtn->setDefaultAction(currBranchAct);
 
     checkAndRefreshGit();
 
@@ -136,12 +127,7 @@ void KateProjectView::checkAndRefreshGit()
             m_pluginView->plugin()->fileWatcher().removePath(m_branchChangedWatcherFile);
             m_branchChangedWatcherFile.clear();
         }
-        m_branchBtn->setHidden(true);
     } else {
-        m_branchBtn->setHidden(false);
-        auto act = m_branchBtn->defaultAction();
-        Q_ASSERT(act);
-        act->setText(GitUtils::getCurrentBranchName(dotGitPath.value()));
         const QString fileToWatch = dotGitPath.value() + QStringLiteral(".git/HEAD");
         // fileToWatch == m_branchChangedWatcherFile can be true, but doesn't matter. We MUST always
         // re add the file otherwise it will not work.
@@ -155,4 +141,5 @@ void KateProjectView::checkAndRefreshGit()
             m_pluginView->plugin()->fileWatcher().addPath(m_branchChangedWatcherFile);
         }
     }
+    static_cast<CurrentGitBranchButton *>(m_branchBtn)->refresh();
 }

@@ -473,6 +473,11 @@ public Q_SLOTS:
         hideBottomViewBarForView(view);
     }
 
+    void insertWidgetInStatusBar(QWidget *w)
+    {
+        insertWidgetBeforeStatusbar(w);
+    }
+
     /**
      * Create a new toolview with unique \p identifier at side \p pos
      * with \p icon and caption \p text. Use the returned widget to embed

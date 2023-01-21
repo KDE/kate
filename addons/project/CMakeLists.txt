@@ -66,6 +66,7 @@ target_sources(
     pushpulldialog.cpp
     comparebranchesview.cpp
     branchdeletedialog.cpp
+    currentgitbranchbutton.cpp
 
     tools/clazy.cpp
     tools/clazycurrent.cpp

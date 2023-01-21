@@ -1326,13 +1326,17 @@ MainWindow::MainWindow(QWidget *parentWidget)
 
     // bottom side bar spans full windows, include status bar, too
     m_sidebars[KMultiTabBar::Bottom] = std::make_unique<Sidebar>(KMultiTabBar::Bottom, m_vSplitter, this, vb);
-    auto bottomHBoxLaout = new QHBoxLayout;
-    bottomHBoxLaout->addWidget(m_sidebars[KMultiTabBar::Bottom].get());
+    m_bottomSidebarLayout = new QHBoxLayout;
+    m_bottomSidebarLayout->addWidget(m_sidebars[KMultiTabBar::Bottom].get());
     m_statusBarStackedWidget = new QStackedWidget(this);
     m_statusBarStackedWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-    bottomHBoxLaout->addWidget(m_statusBarStackedWidget);
-    bottomHBoxLaout->setStretch(0, 100);
-    toplevelVBox->addLayout(bottomHBoxLaout);
+    // button that shows git branch
+    // m_branchLabel = new CurrentGitBranchButton(this);
+    // m_bottomSidebarLayout->addWidget(m_branchLabel);
+    // widget that hold statusbar of active kte-view
+    m_bottomSidebarLayout->addWidget(m_statusBarStackedWidget);
+    m_bottomSidebarLayout->setStretch(0, 100);
+    toplevelVBox->addLayout(m_bottomSidebarLayout);
 
     // ensure proper toolview style
     setToolViewStyle(KMultiTabBar::KDEV3ICON);
@@ -1356,6 +1360,14 @@ MainWindow::~MainWindow()
 QWidget *MainWindow::centralWidget() const
 {
     return m_centralWidget;
+}
+
+void MainWindow::insertWidgetBeforeStatusbar(QWidget *widget)
+{
+    Q_ASSERT(m_bottomSidebarLayout);
+    const auto idxOfStatusbar = m_bottomSidebarLayout->indexOf(m_statusBarStackedWidget);
+    Q_ASSERT(idxOfStatusbar != -1);
+    m_bottomSidebarLayout->insertWidget(idxOfStatusbar, widget);
 }
 
 ToolView *MainWindow::createToolView(KTextEditor::Plugin *plugin,

@@ -31,6 +31,7 @@ class QLabel;
 class QPixmap;
 class QStackedWidget;
 class KConfigBase;
+class QHBoxLayout;
 
 namespace KTextEditor
 {
@@ -533,6 +534,8 @@ protected:
         return m_statusBarStackedWidget;
     }
 
+    void insertWidgetBeforeStatusbar(QWidget *widget);
+
     /**
      * modifiers for existing toolviews
      */
@@ -640,6 +643,8 @@ private:
      * stacked widget for status bars
      */
     QStackedWidget *m_statusBarStackedWidget;
+
+    QHBoxLayout *m_bottomSidebarLayout = nullptr;
 
 Q_SIGNALS:
     void sigShowPluginConfigPage(KTextEditor::Plugin *configpageinterface, int id);

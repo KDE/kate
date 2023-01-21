@@ -234,22 +234,22 @@ void WelcomeView::onRecentItemsContextMenuRequested(const QPoint &pos)
 
     QMenu contextMenu(listViewRecentItems);
 
-    QAction *action = new QAction(i18n("Copy &Location"));
+    QAction *action = new QAction(i18n("Copy &Location"), this);
     action->setIcon(QIcon::fromTheme(QStringLiteral("edit-copy-path")));
     connect(action, &QAction::triggered, this, [url]() {
         qApp->clipboard()->setText(url.toString(QUrl::PreferLocalFile));
     });
     contextMenu.addAction(action);
 
-    action = new QAction(i18n("&Open Containing Folder"));
+    action = new QAction(i18n("&Open Containing Folder"), this);
     action->setEnabled(url.isLocalFile());
     action->setIcon(QIcon::fromTheme(QStringLiteral("document-open-folder")));
     connect(action, &QAction::triggered, this, [url]() {
-        KIO::highlightInFileManager({ url });
+        KIO::highlightInFileManager({url});
     });
     contextMenu.addAction(action);
 
-    action = new QAction(i18n("&Remove"));
+    action = new QAction(i18n("&Remove"), this);
     action->setIcon(QIcon::fromTheme(QStringLiteral("edit-delete")));
     connect(action, &QAction::triggered, this, [this, url]() {
         KRecentFilesAction *recentFilesAction = m_viewManager->mainWindow()->recentFilesAction();

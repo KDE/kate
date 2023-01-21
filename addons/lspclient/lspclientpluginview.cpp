@@ -336,10 +336,10 @@ class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient
     LSPClientPlugin *m_plugin;
     KTextEditor::MainWindow *m_mainWindow;
     std::shared_ptr<LSPClientServerManager> m_serverManager;
-    QScopedPointer<LSPClientCompletion> m_completion;
-    QScopedPointer<LSPClientHover> m_hover;
-    QScopedPointer<KTextEditor::TextHintProvider> m_forwardHover;
-    QScopedPointer<LSPClientSymbolView> m_symbolView;
+    std::unique_ptr<LSPClientCompletion> m_completion;
+    std::unique_ptr<LSPClientHover> m_hover;
+    std::unique_ptr<KTextEditor::TextHintProvider> m_forwardHover;
+    std::unique_ptr<LSPClientSymbolView> m_symbolView;
 
     QPointer<QAction> m_findDef;
     QPointer<QAction> m_findDecl;
@@ -384,7 +384,7 @@ class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient
     typedef QSet<KTextEditor::Document *> DocumentCollection;
     DocumentCollection m_marks;
     // modelis either owned by tree added to tabwidget or owned here
-    QScopedPointer<QStandardItemModel> m_ownedModel;
+    std::unique_ptr<QStandardItemModel> m_ownedModel;
     // in either case, the model that directs applying marks/ranges
     QPointer<QStandardItemModel> m_markModel;
     // goto definition and declaration jump list is more a menu than a
@@ -847,12 +847,12 @@ public:
 
         // unregister all code-completion providers, else we might crash
         for (auto view : qAsConst(m_completionViews)) {
-            qobject_cast<KTextEditor::CodeCompletionInterface *>(view)->unregisterCompletionModel(m_completion.data());
+            qobject_cast<KTextEditor::CodeCompletionInterface *>(view)->unregisterCompletionModel(m_completion.get());
         }
 
         // unregister all text-hint providers, else we might crash
         for (auto view : qAsConst(m_hoverViews)) {
-            qobject_cast<KTextEditor::TextHintInterface *>(view)->unregisterTextHintProvider(m_forwardHover.data());
+            qobject_cast<KTextEditor::TextHintInterface *>(view)->unregisterTextHintProvider(m_forwardHover.get());
         }
 
         clearAllLocationMarks();
@@ -1324,7 +1324,7 @@ public:
             }
 
             KTextEditor::Document *doc = nullptr;
-            QScopedPointer<FileLineReader> fr;
+            std::unique_ptr<FileLineReader> fr;
             for (int i = 0; i < rootItem->rowCount(); i++) {
                 auto child = rootItem->child(i);
                 if (i == 0) {
@@ -1440,7 +1440,7 @@ public:
         configureTreeView(treeView);
 
         // transfer model from owned to tree and that in turn to tabwidget
-        auto treeModel = m_ownedModel.take();
+        auto treeModel = m_ownedModel.release();
         treeView->setModel(treeModel);
         treeModel->setParent(treeView);
         int index = m_tabWidget->addTab(treeView, title);
@@ -1497,7 +1497,7 @@ public:
     template<typename Handler>
     void positionRequest(const LocationRequest<Handler> &req,
                          const Handler &h,
-                         QScopedPointer<LSPClientRevisionSnapshot> *snapshot = nullptr,
+                         std::unique_ptr<LSPClientRevisionSnapshot> *snapshot = nullptr,
                          KTextEditor::Cursor cur = KTextEditor::Cursor::invalid())
     {
         KTextEditor::View *activeView = m_mainWindow->activeView();
@@ -1553,7 +1553,7 @@ public:
     {
         // no capture for move only using initializers available (yet), so shared outer type
         // the additional level of indirection is so it can be 'filled-in' after lambda creation
-        std::shared_ptr<QScopedPointer<LSPClientRevisionSnapshot>> s(new QScopedPointer<LSPClientRevisionSnapshot>);
+        std::shared_ptr<std::unique_ptr<LSPClientRevisionSnapshot>> s(new std::unique_ptr<LSPClientRevisionSnapshot>);
         auto h = [this, title, onlyshow, itemConverter, targetTree, s](const QList<ReplyEntryType> &defs) {
             if (defs.count() == 0) {
                 showMessage(i18n("No results"), KTextEditor::Message::Information);
@@ -1566,7 +1566,7 @@ public:
                 }
                 // ... so we can sort it also
                 std::stable_sort(ranges.begin(), ranges.end(), compareRangeItem);
-                makeTree(ranges, s.get()->data());
+                makeTree(ranges, s.get()->get());
 
                 // assuming that reply ranges refer to revision when submitted
                 // (not specified anyway in protocol/reply)
@@ -2494,13 +2494,13 @@ public:
 
         if (!registered && server && server->capabilities().completionProvider.provider) {
             qCInfo(LSPCLIENT) << "registering cci";
-            cci->registerCompletionModel(m_completion.data());
+            cci->registerCompletionModel(m_completion.get());
             m_completionViews.insert(view);
         }
 
         if (registered && !server) {
             qCInfo(LSPCLIENT) << "unregistering cci";
-            cci->unregisterCompletionModel(m_completion.data());
+            cci->unregisterCompletionModel(m_completion.get());
             m_completionViews.remove(view);
         }
     }
@@ -2518,13 +2518,13 @@ public:
 
         if (!registered && server) {
             qCInfo(LSPCLIENT) << "registering thi";
-            cci->registerTextHintProvider(m_forwardHover.data());
+            cci->registerTextHintProvider(m_forwardHover.get());
             m_hoverViews.insert(view);
         }
 
         if (registered && !server) {
             qCInfo(LSPCLIENT) << "unregistering thi";
-            cci->unregisterTextHintProvider(m_forwardHover.data());
+            cci->unregisterTextHintProvider(m_forwardHover.get());
             m_hoverViews.remove(view);
         }
     }

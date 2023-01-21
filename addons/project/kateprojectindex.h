@@ -94,7 +94,7 @@ private:
     /**
      * ctags index file
      */
-    QScopedPointer<QFile> m_ctagsIndexFile;
+    std::unique_ptr<QFile> m_ctagsIndexFile;
 
     /**
      * handle to ctags file for querying, if possible

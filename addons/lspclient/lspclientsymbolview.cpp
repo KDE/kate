@@ -182,11 +182,11 @@ class LSPClientSymbolViewImpl : public QObject, public LSPClientSymbolView
     LSPClientPlugin *m_plugin;
     KTextEditor::MainWindow *m_mainWindow;
     std::shared_ptr<LSPClientServerManager> m_serverManager;
-    QScopedPointer<QWidget> m_toolview;
+    std::unique_ptr<QWidget> m_toolview;
     // parent ownership
     QPointer<QTreeView> m_symbols;
     QPointer<KLineEdit> m_filter;
-    QScopedPointer<QMenu> m_popup;
+    std::unique_ptr<QMenu> m_popup;
     // initialized/updated from plugin settings
     // managed by context menu later on
     // parent ownership
@@ -195,7 +195,7 @@ class LSPClientSymbolViewImpl : public QObject, public LSPClientSymbolView
     QAction *m_treeOn;
     QAction *m_sortOn;
     // view tracking
-    QScopedPointer<LSPClientViewTracker> m_viewTracker;
+    std::unique_ptr<LSPClientViewTracker> m_viewTracker;
     // outstanding request
     LSPClientServer::RequestHandle m_handle;
     // magic request tracking cookie
@@ -237,7 +237,7 @@ public:
                                                       QIcon::fromTheme(QStringLiteral("quickopen-class")),
                                                       i18n("Symbol Outline")));
 
-        m_symbols = new QTreeView(m_toolview.data());
+        m_symbols = new QTreeView(m_toolview.get());
         m_symbols->setFocusPolicy(Qt::NoFocus);
         m_symbols->setLayoutDirection(Qt::LeftToRight);
         m_toolview->layout()->setContentsMargins(0, 0, 0, 0);
@@ -245,7 +245,7 @@ public:
         m_toolview->layout()->setSpacing(0);
 
         // setup filter line edit
-        m_filter = new KLineEdit(m_toolview.data());
+        m_filter = new KLineEdit(m_toolview.get());
         m_toolview->layout()->addWidget(m_filter);
         m_filter->setPlaceholderText(i18n("Filter..."));
         m_filter->setClearButtonEnabled(true);
@@ -290,7 +290,7 @@ public:
 
         // get updated
         m_viewTracker.reset(LSPClientViewTracker::new_(plugin, mainWin, 500, 100));
-        connect(m_viewTracker.data(), &LSPClientViewTracker::newState, this, &self_type::onViewState);
+        connect(m_viewTracker.get(), &LSPClientViewTracker::newState, this, &self_type::onViewState);
         connect(m_serverManager.get(), &LSPClientServerManager::serverChanged, this, [this]() {
             refresh(false, false);
         });

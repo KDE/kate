@@ -419,7 +419,8 @@ bool KateSessionManager::chooseSession()
     }
 
     // else: ask the user
-    return QScopedPointer<KateSessionManageDialog>(new KateSessionManageDialog(nullptr, lastSession))->exec();
+    KateSessionManageDialog dlg(nullptr, lastSession);
+    return dlg.exec();
 }
 
 void KateSessionManager::sessionNew()
@@ -529,7 +530,8 @@ QString KateSessionManager::suggestNewSessionName(const QString &target)
 
 void KateSessionManager::sessionManage()
 {
-    QScopedPointer<KateSessionManageDialog>(new KateSessionManageDialog(KateApp::self()->activeKateMainWindow()))->exec();
+    KateSessionManageDialog dlg(KateApp::self()->activeKateMainWindow());
+    dlg.exec();
 }
 
 bool KateSessionManager::sessionIsActive(const QString &session)

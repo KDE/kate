@@ -134,17 +134,17 @@ void FileTreeModelTest::cleanup()
 
 void FileTreeModelTest::basic()
 {
-    QScopedPointer<DummyDocument> d1(new DummyDocument());
-    QScopedPointer<DummyDocument> d2(new DummyDocument());
+    DummyDocument d1;
+    DummyDocument d2;
 
     KateFileTreeModel m(this);
     // 1 because, there is always a "open widgets" node
     QCOMPARE(m.rowCount(QModelIndex()), 1);
 
-    m.documentOpened(d1.data());
+    m.documentOpened(&d1);
     QCOMPARE(m.rowCount(QModelIndex()), 2);
 
-    m.documentOpened(d2.data());
+    m.documentOpened(&d2);
     QCOMPARE(m.rowCount(QModelIndex()), 3);
 }
 

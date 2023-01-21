@@ -9,12 +9,13 @@
 
 #pragma once
 
+#include "snippetcompletionmodel.h"
+
 #include <QPointer>
 #include <QVariant>
 
 #include <KTextEditor/View>
 
-class SnippetCompletionModel;
 class Snippet;
 
 /**
@@ -47,7 +48,7 @@ public:
      */
     SnippetCompletionModel *completionModel()
     {
-        return m_model.data();
+        return &m_model;
     }
 
 public Q_SLOTS:
@@ -61,6 +62,6 @@ public Q_SLOTS:
 
 private:
     static KateSnippetGlobal *s_self;
-    QScopedPointer<SnippetCompletionModel> m_model;
+    SnippetCompletionModel m_model;
     QPointer<KTextEditor::View> m_activeViewForDialog;
 };

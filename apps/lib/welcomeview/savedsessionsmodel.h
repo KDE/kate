@@ -28,7 +28,8 @@ private:
         QDateTime lastOpened;
         QString name;
 
-        bool operator<(const SessionInfo &other) const {
+        bool operator<(const SessionInfo &other) const
+        {
             return lastOpened > other.lastOpened;
         }
     };

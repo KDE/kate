@@ -14,11 +14,11 @@
 
 #include <KAboutData>
 #include <KConfigGroup>
+#include <KIO/OpenFileManagerWindowJob>
 #include <KIconLoader>
 #include <KRecentFilesAction>
 #include <KSharedConfig>
 #include <QTimer>
-#include <KIO/OpenFileManagerWindowJob>
 
 #include <QClipboard>
 #include <QDesktopServices>
@@ -74,8 +74,7 @@ WelcomeView::WelcomeView(KateViewManager *viewManager, QWidget *parent)
     recentFilesAction->menu()->installEventFilter(this);
 
     listViewRecentItems->setModel(m_recentItemsModel);
-    connect(listViewRecentItems, &QListView::customContextMenuRequested,
-            this, &WelcomeView::onRecentItemsContextMenuRequested);
+    connect(listViewRecentItems, &QListView::customContextMenuRequested, this, &WelcomeView::onRecentItemsContextMenuRequested);
     connect(listViewRecentItems, &QListView::activated, this, [this](const QModelIndex &index) {
         if (index.isValid()) {
             const QUrl url = m_recentItemsModel->url(index);
@@ -103,10 +102,8 @@ WelcomeView::WelcomeView(KateViewManager *viewManager, QWidget *parent)
     onPluginViewChanged();
 
     const KTextEditor::MainWindow *mainWindow = m_viewManager->mainWindow()->wrapper();
-    connect(mainWindow, &KTextEditor::MainWindow::pluginViewCreated,
-            this, &WelcomeView::onPluginViewChanged);
-    connect(mainWindow, &KTextEditor::MainWindow::pluginViewDeleted,
-            this, &WelcomeView::onPluginViewChanged);
+    connect(mainWindow, &KTextEditor::MainWindow::pluginViewCreated, this, &WelcomeView::onPluginViewChanged);
+    connect(mainWindow, &KTextEditor::MainWindow::pluginViewDeleted, this, &WelcomeView::onPluginViewChanged);
 
     if (KateApp::isKWrite()) {
         widgetSavedSessions->hide();
@@ -263,11 +260,7 @@ void WelcomeView::onRecentItemsContextMenuRequested(const QPoint &pos)
 
 void WelcomeView::updateButtons()
 {
-    QVector<QPushButton*> buttons {
-        buttonNewFile,
-        buttonOpenFile,
-        buttonOpenFolder
-    };
+    QVector<QPushButton *> buttons{buttonNewFile, buttonOpenFile, buttonOpenFolder};
     if (KateApp::isKate()) {
         buttons << buttonNewSession << buttonManageSessions;
     }

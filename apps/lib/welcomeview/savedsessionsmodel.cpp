@@ -12,7 +12,8 @@
 
 SavedSessionsModel::SavedSessionsModel(QObject *parent)
     : QAbstractListModel(parent)
-{}
+{
+}
 
 QVariant SavedSessionsModel::data(const QModelIndex &index, int role) const
 {
@@ -49,7 +50,7 @@ void SavedSessionsModel::refresh(const KateSessionList &sessionList)
     sessions.reserve(sessionList.count());
 
     for (const KateSession::Ptr &session : sessionList) {
-        sessions.append({ session->timestamp(), session->name() });
+        sessions.append({session->timestamp(), session->name()});
     }
 
     std::sort(sessions.begin(), sessions.end());

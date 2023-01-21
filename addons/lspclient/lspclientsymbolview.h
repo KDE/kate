@@ -16,7 +16,7 @@ class LSPClientSymbolView
 {
 public:
     // only needs a factory; no other public interface
-    static LSPClientSymbolView *new_(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin, QSharedPointer<LSPClientServerManager> manager);
+    static LSPClientSymbolView *new_(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin, std::shared_ptr<LSPClientServerManager> manager);
 
     virtual ~LSPClientSymbolView();
 

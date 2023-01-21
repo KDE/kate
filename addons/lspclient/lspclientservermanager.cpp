@@ -215,7 +215,7 @@ class LSPClientServerManagerImpl : public LSPClientServerManager
     typedef LSPClientServerManagerImpl self_type;
 
     struct ServerInfo {
-        QSharedPointer<LSPClientServer> server;
+        std::shared_ptr<LSPClientServer> server;
         // config specified server url
         QString url;
         QTime started;
@@ -227,7 +227,7 @@ class LSPClientServerManagerImpl : public LSPClientServerManager
     };
 
     struct DocumentInfo {
-        QSharedPointer<LSPClientServer> server;
+        std::shared_ptr<LSPClientServer> server;
         // merged server config as obtain from various sources
         QJsonObject config;
         KTextEditor::MovingInterface *movingInterface;
@@ -257,7 +257,7 @@ class LSPClientServerManagerImpl : public LSPClientServerManager
     // most either do not care about the id, or can find out themselves
     // (and might get confused if we pass a not so accurate one)
     QHash<QString, bool> m_documentLanguageId;
-    typedef QVector<QSharedPointer<LSPClientServer>> ServerList;
+    typedef QVector<std::shared_ptr<LSPClientServer>> ServerList;
 
     // Servers which were not found to be installed. We use this
     // variable to avoid warning more than once
@@ -315,7 +315,7 @@ public:
                 if (!s) {
                     continue;
                 }
-                disconnect(s.data(), nullptr, this, nullptr);
+                disconnect(s.get(), nullptr, this, nullptr);
                 if (s->state() != LSPClientServer::State::None) {
                     ++count;
                     s->stop(-1, -1);
@@ -400,7 +400,7 @@ public:
         return m_clientCapabilities;
     }
 
-    QSharedPointer<LSPClientServer> findServer(KTextEditor::View *view, bool updatedoc = true) override
+    std::shared_ptr<LSPClientServer> findServer(KTextEditor::View *view, bool updatedoc = true) override
     {
         if (!view) {
             return nullptr;
@@ -421,7 +421,7 @@ public:
         }
 
         if (server && updatedoc) {
-            update(server.data(), false);
+            update(server.get(), false);
         }
         return server;
     }
@@ -441,7 +441,7 @@ public:
         // find entry for server(s) and move out
         for (auto &m : m_servers) {
             for (auto it = m.begin(); it != m.end();) {
-                if (!server || it->server.data() == server) {
+                if (!server || it->server.get() == server) {
                     servers.push_back(it->server);
                     it = m.erase(it);
                 } else {
@@ -462,7 +462,7 @@ public:
     {
         auto result = new LSPClientRevisionSnapshotImpl;
         for (auto it = m_docs.begin(); it != m_docs.end(); ++it) {
-            if (it->server == server) {
+            if (it->server.get() == server) {
                 // sync server to latest revision that will be recorded
                 update(it.key(), false);
                 result->add(it.key());
@@ -487,7 +487,7 @@ private:
                 continue;
             }
             // controlling server here, so disable usual state tracking response
-            disconnect(server.data(), nullptr, this, nullptr);
+            disconnect(server.get(), nullptr, this, nullptr);
             for (auto it = m_docs.begin(); it != m_docs.end();) {
                 auto &item = it.value();
                 if (item.server == server) {
@@ -544,7 +544,7 @@ private:
             ServerInfo *info = nullptr;
             for (auto &m : m_servers) {
                 for (auto &si : m) {
-                    if (si.server.data() == server) {
+                    if (si.server.get() == server) {
                         info = &si;
                         break;
                     }
@@ -573,12 +573,12 @@ private:
             // find server info to see how bad this is
             // if this is an occasional termination/crash ... ok then
             // if this happens quickly (bad/missing server, wrong cmdline/config), then no restart
-            QSharedPointer<LSPClientServer> sserver;
+            std::shared_ptr<LSPClientServer> sserver;
             QString url;
             bool retry = true;
             for (auto &m : m_servers) {
                 for (auto &si : m) {
-                    if (si.server.data() == server) {
+                    if (si.server.get() == server) {
                         url = si.url;
                         if (si.started.secsTo(QTime::currentTime()) < 60) {
                             ++si.failcount;
@@ -605,7 +605,7 @@ private:
         }
     }
 
-    QSharedPointer<LSPClientServer> _findServer(KTextEditor::View *view, KTextEditor::Document *document, QJsonObject &mergedConfig)
+    std::shared_ptr<LSPClientServer> _findServer(KTextEditor::View *view, KTextEditor::Document *document, QJsonObject &mergedConfig)
     {
         // compute the LSP standardized language id, none found => no change
         auto langId = languageId(document->highlightingMode());
@@ -831,7 +831,7 @@ private:
                                              realLangId,
                                              serverConfig.value(QStringLiteral("initializationOptions")),
                                              {folders, caps, completionOverride, signatureOverride}));
-            connect(server.data(), &LSPClientServer::stateChanged, this, &self_type::onStateChanged, Qt::UniqueConnection);
+            connect(server.get(), &LSPClientServer::stateChanged, this, &self_type::onStateChanged, Qt::UniqueConnection);
             if (!server->start(m_plugin->m_debugMode)) {
                 QString message = i18n("Failed to start server: %1", cmdline.join(QLatin1Char(' ')));
                 const auto url = serverConfig.value(QStringLiteral("url")).toString();
@@ -841,12 +841,12 @@ private:
                 }
                 showMessage(message, KTextEditor::Message::Warning);
             } else {
-                showMessage(i18n("Started server %2: %1", cmdline.join(QLatin1Char(' ')), serverDescription(server.data())), KTextEditor::Message::Positive);
+                showMessage(i18n("Started server %2: %1", cmdline.join(QLatin1Char(' ')), serverDescription(server.get())), KTextEditor::Message::Positive);
                 using namespace std::placeholders;
-                server->connect(server.data(), &LSPClientServer::logMessage, this, std::bind(&self_type::onMessage, this, true, _1));
-                server->connect(server.data(), &LSPClientServer::showMessage, this, std::bind(&self_type::onMessage, this, false, _1));
-                server->connect(server.data(), &LSPClientServer::workDoneProgress, this, &self_type::onWorkDoneProgress);
-                server->connect(server.data(), &LSPClientServer::workspaceFolders, this, &self_type::onWorkspaceFolders, Qt::UniqueConnection);
+                server->connect(server.get(), &LSPClientServer::logMessage, this, std::bind(&self_type::onMessage, this, true, _1));
+                server->connect(server.get(), &LSPClientServer::showMessage, this, std::bind(&self_type::onMessage, this, false, _1));
+                server->connect(server.get(), &LSPClientServer::workDoneProgress, this, &self_type::onWorkDoneProgress);
+                server->connect(server.get(), &LSPClientServer::workspaceFolders, this, &self_type::onWorkspaceFolders, Qt::UniqueConnection);
             }
         }
         // set out param value
@@ -912,7 +912,7 @@ private:
         Q_EMIT serverChanged();
     }
 
-    void trackDocument(KTextEditor::Document *doc, const QSharedPointer<LSPClientServer> &server, QJsonObject serverConfig)
+    void trackDocument(KTextEditor::Document *doc, const std::shared_ptr<LSPClientServer> &server, QJsonObject serverConfig)
     {
         auto it = m_docs.find(doc);
         if (it == m_docs.end()) {
@@ -1000,7 +1000,7 @@ private:
     void update(LSPClientServer *server, bool force)
     {
         for (auto it = m_docs.begin(); it != m_docs.end(); ++it) {
-            if (it->server == server) {
+            if (it->server.get() == server) {
                 update(it, force);
             }
         }
@@ -1184,9 +1184,9 @@ private:
     }
 };
 
-QSharedPointer<LSPClientServerManager> LSPClientServerManager::new_(LSPClientPlugin *plugin)
+std::shared_ptr<LSPClientServerManager> LSPClientServerManager::new_(LSPClientPlugin *plugin)
 {
-    return QSharedPointer<LSPClientServerManager>(new LSPClientServerManagerImpl(plugin));
+    return std::shared_ptr<LSPClientServerManager>(new LSPClientServerManagerImpl(plugin));
 }
 
 #include "lspclientservermanager.moc"

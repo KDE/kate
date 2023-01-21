@@ -20,7 +20,7 @@ class MainWindow;
 class GotoSymbolHUDDialog : public HUDDialog
 {
 public:
-    GotoSymbolHUDDialog(KTextEditor::MainWindow *mainWindow, QSharedPointer<LSPClientServer> server);
+    GotoSymbolHUDDialog(KTextEditor::MainWindow *mainWindow, std::shared_ptr<LSPClientServer> server);
 
     void openDialog();
 
@@ -34,7 +34,7 @@ private:
 
     QStandardItemModel *model = nullptr;
     KTextEditor::MainWindow *mainWindow;
-    QSharedPointer<LSPClientServer> server;
+    std::shared_ptr<LSPClientServer> server;
 
     const QIcon m_icon_pkg = QIcon::fromTheme(QStringLiteral("code-block"));
     const QIcon m_icon_class = QIcon::fromTheme(QStringLiteral("code-class"));

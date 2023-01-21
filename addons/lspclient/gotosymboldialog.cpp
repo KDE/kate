@@ -148,7 +148,7 @@ private:
     QFont monoFont;
 };
 
-GotoSymbolHUDDialog::GotoSymbolHUDDialog(KTextEditor::MainWindow *mainWindow, QSharedPointer<LSPClientServer> server)
+GotoSymbolHUDDialog::GotoSymbolHUDDialog(KTextEditor::MainWindow *mainWindow, std::shared_ptr<LSPClientServer> server)
     : HUDDialog(nullptr, mainWindow->window())
     , model(new QStandardItemModel(this))
     , mainWindow(mainWindow)

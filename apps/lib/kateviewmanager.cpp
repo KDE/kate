@@ -687,7 +687,7 @@ KTextEditor::View *KateViewManager::createView(KTextEditor::Document *doc, KateV
         docInfo->startCursor = KTextEditor::Cursor::invalid(); // do this only once
 
         if (!doc->url().isLocalFile()) {
-            QSharedPointer<QMetaObject::Connection> conn(new QMetaObject::Connection());
+            std::shared_ptr<QMetaObject::Connection> conn(new QMetaObject::Connection());
             auto handler = [view, conn, c](KTextEditor::Document *) {
                 QObject::disconnect(*conn);
                 view->setCursorPosition(c);

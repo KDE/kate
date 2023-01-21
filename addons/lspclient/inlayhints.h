@@ -48,7 +48,7 @@ class InlayHintsManager : public QObject
 {
     Q_OBJECT
 public:
-    InlayHintsManager(const QSharedPointer<LSPClientServerManager> &manager, QObject *parent = nullptr);
+    InlayHintsManager(const std::shared_ptr<LSPClientServerManager> &manager, QObject *parent = nullptr);
 
     void setActiveView(KTextEditor::View *v);
     void disable();
@@ -84,6 +84,6 @@ private:
     QTimer m_requestTimer;
     QPointer<KTextEditor::View> m_currentView;
     InlayHintNoteProvider m_noteProvider;
-    QSharedPointer<LSPClientServerManager> m_serverManager;
+    std::shared_ptr<LSPClientServerManager> m_serverManager;
     QVector<KTextEditor::Range> pendingRanges;
 };

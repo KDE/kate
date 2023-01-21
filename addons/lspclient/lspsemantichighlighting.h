@@ -30,7 +30,7 @@ class SemanticHighlighter : public QObject
 {
     Q_OBJECT
 public:
-    SemanticHighlighter(QSharedPointer<LSPClientServerManager> serverManager, QObject *parent = nullptr);
+    SemanticHighlighter(std::shared_ptr<LSPClientServerManager> serverManager, QObject *parent = nullptr);
 
     void doSemanticHighlighting(KTextEditor::View *v, bool textChanged);
 
@@ -87,7 +87,7 @@ private:
      */
     std::unordered_map<KTextEditor::Document *, TokensData> m_docSemanticInfo;
 
-    QSharedPointer<LSPClientServerManager> m_serverManager;
+    std::shared_ptr<LSPClientServerManager> m_serverManager;
 
     QTimer m_requestTimer;
     QPointer<KTextEditor::View> m_currentView;

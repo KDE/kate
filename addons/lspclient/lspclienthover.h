@@ -20,14 +20,14 @@ class LSPClientHover : public QObject, public KTextEditor::TextHintProvider
 
 public:
     // implementation factory method
-    static LSPClientHover *new_(QSharedPointer<LSPClientServerManager> manager);
+    static LSPClientHover *new_(std::shared_ptr<LSPClientServerManager> manager);
 
     LSPClientHover()
         : KTextEditor::TextHintProvider()
     {
     }
 
-    virtual void setServer(QSharedPointer<LSPClientServer> server) = 0;
+    virtual void setServer(std::shared_ptr<LSPClientServer> server) = 0;
 
     // support additional parameters besides the usual interface signature
     virtual QString showTextHint(KTextEditor::View *view, const KTextEditor::Cursor &position, bool manual) = 0;

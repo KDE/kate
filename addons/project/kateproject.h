@@ -14,8 +14,8 @@
 
 #include <QHash>
 #include <QPointer>
-#include <QSharedPointer>
 #include <QTextDocument>
+#include <memory>
 
 class KateProjectModel : public QStandardItemModel
 {
@@ -40,13 +40,13 @@ private:
  * Shared pointer data types.
  * Used to pass pointers over queued connected slots
  */
-typedef QSharedPointer<QStandardItem> KateProjectSharedQStandardItem;
+typedef std::shared_ptr<QStandardItem> KateProjectSharedQStandardItem;
 Q_DECLARE_METATYPE(KateProjectSharedQStandardItem)
 
-typedef QSharedPointer<QHash<QString, KateProjectItem *>> KateProjectSharedQHashStringItem;
+typedef std::shared_ptr<QHash<QString, KateProjectItem *>> KateProjectSharedQHashStringItem;
 Q_DECLARE_METATYPE(KateProjectSharedQHashStringItem)
 
-typedef QSharedPointer<KateProjectIndex> KateProjectSharedProjectIndex;
+typedef std::shared_ptr<KateProjectIndex> KateProjectSharedProjectIndex;
 Q_DECLARE_METATYPE(KateProjectSharedProjectIndex)
 
 class KateProjectPlugin;
@@ -210,7 +210,7 @@ public:
      */
     KateProjectIndex *projectIndex()
     {
-        return m_projectIndex.data();
+        return m_projectIndex.get();
     }
 
     KateProjectPlugin *plugin()

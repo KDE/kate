@@ -11,7 +11,7 @@
 
 #include <KTextEditor/Message>
 
-#include <QSharedPointer>
+#include <memory>
 
 namespace KTextEditor
 {
@@ -38,9 +38,9 @@ class LSPClientServerManager : public QObject
 
 public:
     // factory method; private implementation by interface
-    static QSharedPointer<LSPClientServerManager> new_(LSPClientPlugin *plugin);
+    static std::shared_ptr<LSPClientServerManager> new_(LSPClientPlugin *plugin);
 
-    virtual QSharedPointer<LSPClientServer> findServer(KTextEditor::View *view, bool updatedoc = true) = 0;
+    virtual std::shared_ptr<LSPClientServer> findServer(KTextEditor::View *view, bool updatedoc = true) = 0;
 
     virtual QJsonValue findServerConfig(KTextEditor::Document *document) = 0;
 

@@ -20,19 +20,19 @@ class LSPClientHoverImpl : public LSPClientHover
 
     typedef LSPClientHoverImpl self_type;
 
-    QSharedPointer<LSPClientServerManager> m_manager;
-    QSharedPointer<LSPClientServer> m_server;
+    std::shared_ptr<LSPClientServerManager> m_manager;
+    std::shared_ptr<LSPClientServer> m_server;
 
     LSPClientServer::RequestHandle m_handle;
 
 public:
-    LSPClientHoverImpl(QSharedPointer<LSPClientServerManager> manager)
+    LSPClientHoverImpl(std::shared_ptr<LSPClientServerManager> manager)
         : m_manager(std::move(manager))
         , m_server(nullptr)
     {
     }
 
-    void setServer(QSharedPointer<LSPClientServer> server) override
+    void setServer(std::shared_ptr<LSPClientServer> server) override
     {
         m_server = server;
     }
@@ -99,7 +99,7 @@ public:
     }
 };
 
-LSPClientHover *LSPClientHover::new_(QSharedPointer<LSPClientServerManager> manager)
+LSPClientHover *LSPClientHover::new_(std::shared_ptr<LSPClientServerManager> manager)
 {
     return new LSPClientHoverImpl(std::move(manager));
 }

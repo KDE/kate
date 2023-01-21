@@ -7,6 +7,7 @@
 #pragma once
 
 #include <QObject>
+#include <memory>
 
 class LSPClientPlugin;
 class LSPClientServerManager;
@@ -20,5 +21,5 @@ class LSPClientPluginView
 {
 public:
     // only needs a factory; no other public interface
-    static QObject *new_(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin, QSharedPointer<LSPClientServerManager> manager);
+    static QObject *new_(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin, std::shared_ptr<LSPClientServerManager> manager);
 };

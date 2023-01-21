@@ -100,5 +100,5 @@ private Q_SLOTS:
 
 private:
     // server manager to pass along
-    QSharedPointer<LSPClientServerManager> m_serverManager;
+    std::shared_ptr<LSPClientServerManager> m_serverManager;
 };

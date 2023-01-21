@@ -46,7 +46,7 @@ EditRepository::EditRepository(SnippetRepository *repository, QWidget *parent)
     connect(cancel, &QPushButton::clicked, this, &EditRepository::reject);
 
     // fill list of available modes
-    QSharedPointer<KTextEditor::Document> document(KTextEditor::Editor::instance()->createDocument(nullptr));
+    std::shared_ptr<KTextEditor::Document> document(KTextEditor::Editor::instance()->createDocument(nullptr));
     repoFileTypesList->addItems(document->highlightingModes());
     repoFileTypesList->sortItems();
     repoFileTypesList->setSelectionMode(QAbstractItemView::ExtendedSelection);

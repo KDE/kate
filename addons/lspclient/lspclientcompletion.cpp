@@ -185,8 +185,8 @@ class LSPClientCompletionImpl : public LSPClientCompletion
 
     typedef LSPClientCompletionImpl self_type;
 
-    QSharedPointer<LSPClientServerManager> m_manager;
-    QSharedPointer<LSPClientServer> m_server;
+    std::shared_ptr<LSPClientServerManager> m_manager;
+    std::shared_ptr<LSPClientServer> m_server;
     bool m_selectedDocumentation = false;
     bool m_signatureHelp = true;
     bool m_complParens = true;
@@ -201,14 +201,14 @@ class LSPClientCompletionImpl : public LSPClientCompletion
     LSPClientServer::RequestHandle m_handle, m_handleSig;
 
 public:
-    LSPClientCompletionImpl(QSharedPointer<LSPClientServerManager> manager)
+    LSPClientCompletionImpl(std::shared_ptr<LSPClientServerManager> manager)
         : LSPClientCompletion(nullptr)
         , m_manager(std::move(manager))
         , m_server(nullptr)
     {
     }
 
-    void setServer(QSharedPointer<LSPClientServer> server) override
+    void setServer(std::shared_ptr<LSPClientServer> server) override
     {
         m_server = server;
         if (m_server) {
@@ -324,7 +324,7 @@ public:
     {
         Q_UNUSED(it)
 
-        qCInfo(LSPCLIENT) << "completion invoked" << m_server;
+        qCInfo(LSPCLIENT) << "completion invoked" << m_server.get();
 
         const bool userInvocation = it == UserInvocation;
         if (userInvocation && range.isEmpty() && m_signatureHelp) {
@@ -545,7 +545,7 @@ public:
     }
 };
 
-LSPClientCompletion *LSPClientCompletion::new_(QSharedPointer<LSPClientServerManager> manager)
+LSPClientCompletion *LSPClientCompletion::new_(std::shared_ptr<LSPClientServerManager> manager)
 {
     return new LSPClientCompletionImpl(std::move(manager));
 }

@@ -44,7 +44,7 @@ void KateProjectWorker::run()
      */
     KateProjectSharedQStandardItem topLevel(new QStandardItem());
     KateProjectSharedQHashStringItem file2Item(new QHash<QString, KateProjectItem *>());
-    loadProject(topLevel.data(), m_projectMap, file2Item.data(), m_baseDir);
+    loadProject(topLevel.get(), m_projectMap, file2Item.get(), m_baseDir);
 
     /**
      * sort the stuff once recursively, this is a LOT faster than once sorting the list

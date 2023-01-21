@@ -335,7 +335,7 @@ class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient
 
     LSPClientPlugin *m_plugin;
     KTextEditor::MainWindow *m_mainWindow;
-    QSharedPointer<LSPClientServerManager> m_serverManager;
+    std::shared_ptr<LSPClientServerManager> m_serverManager;
     QScopedPointer<LSPClientCompletion> m_completion;
     QScopedPointer<LSPClientHover> m_hover;
     QScopedPointer<KTextEditor::TextHintProvider> m_forwardHover;
@@ -474,7 +474,7 @@ Q_SIGNALS:
     void addPositionToHistory(const QUrl &url, KTextEditor::Cursor c);
 
 public:
-    LSPClientPluginViewImpl(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin, QSharedPointer<LSPClientServerManager> serverManager)
+    LSPClientPluginViewImpl(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin, std::shared_ptr<LSPClientServerManager> serverManager)
         : QObject(mainWin)
         , m_plugin(plugin)
         , m_mainWindow(mainWin)
@@ -492,10 +492,10 @@ public:
 
         connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, &self_type::updateState);
         connect(m_mainWindow, &KTextEditor::MainWindow::unhandledShortcutOverride, this, &self_type::handleEsc);
-        connect(m_serverManager.data(), &LSPClientServerManager::serverChanged, this, &self_type::onServerChanged);
+        connect(m_serverManager.get(), &LSPClientServerManager::serverChanged, this, &self_type::onServerChanged);
         connect(m_plugin, &LSPClientPlugin::showMessage, this, &self_type::onShowMessage);
-        connect(m_serverManager.data(), &LSPClientServerManager::serverShowMessage, this, &self_type::onMessage);
-        connect(m_serverManager.data(), &LSPClientServerManager::serverLogMessage, this, [this](LSPClientServer *server, LSPLogMessageParams params) {
+        connect(m_serverManager.get(), &LSPClientServerManager::serverShowMessage, this, &self_type::onMessage);
+        connect(m_serverManager.get(), &LSPClientServerManager::serverLogMessage, this, [this](LSPClientServer *server, LSPLogMessageParams params) {
             switch (params.type) {
             case LSPMessageType::Error:
                 params.message.prepend(QStringLiteral("[Error] "));
@@ -512,7 +512,7 @@ public:
             params.type = LSPMessageType::Log;
             onMessage(server, params);
         });
-        connect(m_serverManager.data(), &LSPClientServerManager::serverWorkDoneProgress, this, &self_type::onWorkDoneProgress);
+        connect(m_serverManager.get(), &LSPClientServerManager::serverWorkDoneProgress, this, &self_type::onWorkDoneProgress);
 
         m_findDef = actionCollection()->addAction(QStringLiteral("lspclient_find_definition"), this, &self_type::goToDefinition);
         m_findDef->setText(i18n("Go to Definition"));
@@ -941,7 +941,7 @@ public:
         KTextEditor::View *activeView = m_mainWindow->activeView();
         auto server = m_serverManager->findServer(activeView);
         if (server) {
-            m_serverManager->restart(server.data());
+            m_serverManager->restart(server.get());
         }
     }
 
@@ -1215,9 +1215,9 @@ public:
             return;
         }
 
-        auto executeCodeAction = [this, server](LSPCodeAction action, QSharedPointer<LSPClientRevisionSnapshot> snapshot) {
+        auto executeCodeAction = [this, server](LSPCodeAction action, std::shared_ptr<LSPClientRevisionSnapshot> snapshot) {
             // apply edit before command
-            applyWorkspaceEdit(action.edit, snapshot.data());
+            applyWorkspaceEdit(action.edit, snapshot.get());
             executeServerCommand(server, action.command);
         };
 
@@ -1228,7 +1228,7 @@ public:
 
         // store some things to find item safely later on
         // QPersistentModelIndex pindex(index);
-        QSharedPointer<LSPClientRevisionSnapshot> snapshot(m_serverManager->snapshot(server.data()));
+        std::shared_ptr<LSPClientRevisionSnapshot> snapshot(m_serverManager->snapshot(server.get()));
         auto h = [url, snapshot, executeCodeAction, this, data](const QList<LSPCodeAction> &actions) {
             // add actions below diagnostic item
             QVector<DiagnosticFix> fixes;
@@ -1508,7 +1508,7 @@ public:
 
         // track revision if requested
         if (snapshot) {
-            snapshot->reset(m_serverManager->snapshot(server.data()));
+            snapshot->reset(m_serverManager->snapshot(server.get()));
         }
 
         KTextEditor::Cursor cursor = cur.isValid() ? cur : activeView->cursorPosition();
@@ -1553,7 +1553,7 @@ public:
     {
         // no capture for move only using initializers available (yet), so shared outer type
         // the additional level of indirection is so it can be 'filled-in' after lambda creation
-        QSharedPointer<QScopedPointer<LSPClientRevisionSnapshot>> s(new QScopedPointer<LSPClientRevisionSnapshot>);
+        std::shared_ptr<QScopedPointer<LSPClientRevisionSnapshot>> s(new QScopedPointer<LSPClientRevisionSnapshot>);
         auto h = [this, title, onlyshow, itemConverter, targetTree, s](const QList<ReplyEntryType> &defs) {
             if (defs.count() == 0) {
                 showMessage(i18n("No results"), KTextEditor::Message::Information);
@@ -1566,7 +1566,7 @@ public:
                 }
                 // ... so we can sort it also
                 std::stable_sort(ranges.begin(), ranges.end(), compareRangeItem);
-                makeTree(ranges, s.data()->data());
+                makeTree(ranges, s.get()->data());
 
                 // assuming that reply ranges refer to revision when submitted
                 // (not specified anyway in protocol/reply)
@@ -1588,7 +1588,7 @@ public:
             }
         };
 
-        positionRequest<HandlerType>(req, h, s.data());
+        positionRequest<HandlerType>(req, h, s.get());
     }
 
     void processCtrlMouseHover(const KTextEditor::Cursor &cursor)
@@ -1702,7 +1702,7 @@ public:
         loadingAction->setEnabled(false);
 
         // store some things to find item safely later on
-        QSharedPointer<LSPClientRevisionSnapshot> snapshot(m_serverManager->snapshot(server.data()));
+        std::shared_ptr<LSPClientRevisionSnapshot> snapshot(m_serverManager->snapshot(server.get()));
         auto h = [this, snapshot, server, loadingAction](const QList<LSPCodeAction> &actions) {
             auto menu = m_requestCodeAction->menu();
             // clearing menu also hides it, and so added actions end up not shown
@@ -1712,7 +1712,7 @@ public:
             for (const auto &action : actions) {
                 auto text = action.kind.size() ? QStringLiteral("[%1] %2").arg(action.kind).arg(action.title) : action.title;
                 menu->addAction(text, this, [this, action, snapshot, server]() {
-                    applyWorkspaceEdit(action.edit, snapshot.data());
+                    applyWorkspaceEdit(action.edit, snapshot.get());
                     executeServerCommand(server, action.command);
                 });
             }
@@ -1723,7 +1723,7 @@ public:
         server->documentCodeAction(document->url(), range, {}, {}, this, h);
     }
 
-    void executeServerCommand(QSharedPointer<LSPClientServer> server, const LSPCommand &command)
+    void executeServerCommand(std::shared_ptr<LSPClientServer> server, const LSPCommand &command)
     {
         if (!command.command.isEmpty()) {
             // accept edit requests that may be sent to execute command
@@ -1819,7 +1819,7 @@ public:
 
         // sigh, no move initialization capture ...
         // (again) assuming reply ranges wrt revisions submitted at this time
-        QSharedPointer<LSPClientRevisionSnapshot> snapshot(m_serverManager->snapshot(server.data()));
+        std::shared_ptr<LSPClientRevisionSnapshot> snapshot(m_serverManager->snapshot(server.get()));
         auto h = [this, document, snapshot, lastChar, save](const QList<LSPTextEdit> &edits) {
             if (lastChar.isNull()) {
                 checkEditResult(edits);
@@ -1829,7 +1829,7 @@ public:
                 // might end up triggering formatting again ending up in an infinite loop
                 auto savedTriggers = m_onTypeFormattingTriggers;
                 m_onTypeFormattingTriggers.clear();
-                applyEdits(document, snapshot.data(), edits);
+                applyEdits(document, snapshot.get(), edits);
                 m_onTypeFormattingTriggers = savedTriggers;
                 if (save) {
                     disconnect(document, &KTextEditor::Document::documentSavedOrUploaded, this, &self_type::formatOnSave);
@@ -1875,12 +1875,12 @@ public:
             return;
         }
 
-        QSharedPointer<LSPClientRevisionSnapshot> snapshot(m_serverManager->snapshot(server.data()));
+        std::shared_ptr<LSPClientRevisionSnapshot> snapshot(m_serverManager->snapshot(server.get()));
         auto h = [this, snapshot](const LSPWorkspaceEdit &edit) {
             if (edit.documentChanges.empty()) {
                 checkEditResult(edit.changes);
             }
-            applyWorkspaceEdit(edit, snapshot.data());
+            applyWorkspaceEdit(edit, snapshot.get());
         };
         auto handle = server->documentRename(document->url(), activeView->cursorPosition(), newName, this, h);
         delayCancelRequest(std::move(handle));
@@ -2309,8 +2309,8 @@ public:
             selectionRangeEnabled = caps.selectionRangeProvider;
             formatOnSave = formatEnabled && m_plugin->m_fmtOnSave;
 
-            connect(server.data(), &LSPClientServer::publishDiagnostics, this, &self_type::onDiagnostics, Qt::UniqueConnection);
-            connect(server.data(), &LSPClientServer::applyEdit, this, &self_type::onApplyEdit, Qt::UniqueConnection);
+            connect(server.get(), &LSPClientServer::publishDiagnostics, this, &self_type::onDiagnostics, Qt::UniqueConnection);
+            connect(server.get(), &LSPClientServer::applyEdit, this, &self_type::onApplyEdit, Qt::UniqueConnection);
 
             // update format trigger characters
             const auto &fmt = caps.documentOnTypeFormattingProvider;
@@ -2369,10 +2369,10 @@ public:
             m_triggerRename->setEnabled(renameEnabled);
         }
         if (m_complDocOn) {
-            m_complDocOn->setEnabled(!server.isNull());
+            m_complDocOn->setEnabled(server != nullptr);
         }
         if (m_restartServer) {
-            m_restartServer->setEnabled(!server.isNull());
+            m_restartServer->setEnabled(server != nullptr);
         }
         if (m_requestCodeAction) {
             m_requestCodeAction->setEnabled(codeActionEnabled);
@@ -2401,13 +2401,13 @@ public:
         if (m_complParens) {
             m_completion->setCompleteParens(m_complParens->isChecked());
         }
-        updateCompletion(activeView, server.data());
+        updateCompletion(activeView, server.get());
 
         // update hover with relevant server
         m_hover->setServer(server && server->capabilities().hoverProvider ? server : nullptr);
         // need hover either for generic documentHover or for diagnostics
         // so register anyway if server available and will sort out what to do/show later
-        updateHover(activeView, server.data());
+        updateHover(activeView, server.get());
 
         updateMarks(doc);
 
@@ -2535,7 +2535,7 @@ public:
     }
 };
 
-QObject *LSPClientPluginView::new_(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin, QSharedPointer<LSPClientServerManager> manager)
+QObject *LSPClientPluginView::new_(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin, std::shared_ptr<LSPClientServerManager> manager)
 {
     return new LSPClientPluginViewImpl(plugin, mainWin, manager);
 }

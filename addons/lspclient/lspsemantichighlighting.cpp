@@ -13,7 +13,7 @@
 
 #include <ktexteditor_utils.h>
 
-SemanticHighlighter::SemanticHighlighter(QSharedPointer<LSPClientServerManager> serverManager, QObject *parent)
+SemanticHighlighter::SemanticHighlighter(std::shared_ptr<LSPClientServerManager> serverManager, QObject *parent)
     : QObject(parent)
     , m_serverManager(std::move(serverManager))
 {

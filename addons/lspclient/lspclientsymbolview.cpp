@@ -181,7 +181,7 @@ class LSPClientSymbolViewImpl : public QObject, public LSPClientSymbolView
 
     LSPClientPlugin *m_plugin;
     KTextEditor::MainWindow *m_mainWindow;
-    QSharedPointer<LSPClientServerManager> m_serverManager;
+    std::shared_ptr<LSPClientServerManager> m_serverManager;
     QScopedPointer<QWidget> m_toolview;
     // parent ownership
     QPointer<QTreeView> m_symbols;
@@ -224,7 +224,7 @@ class LSPClientSymbolViewImpl : public QObject, public LSPClientSymbolView
     const QIcon m_icon_var = QIcon::fromTheme(QStringLiteral("code-variable"));
 
 public:
-    LSPClientSymbolViewImpl(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin, QSharedPointer<LSPClientServerManager> manager)
+    LSPClientSymbolViewImpl(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin, std::shared_ptr<LSPClientServerManager> manager)
         : m_plugin(plugin)
         , m_mainWindow(mainWin)
         , m_serverManager(std::move(manager))
@@ -291,7 +291,7 @@ public:
         // get updated
         m_viewTracker.reset(LSPClientViewTracker::new_(plugin, mainWin, 500, 100));
         connect(m_viewTracker.data(), &LSPClientViewTracker::newState, this, &self_type::onViewState);
-        connect(m_serverManager.data(), &LSPClientServerManager::serverChanged, this, [this]() {
+        connect(m_serverManager.get(), &LSPClientServerManager::serverChanged, this, [this]() {
             refresh(false, false);
         });
 
@@ -646,7 +646,7 @@ private Q_SLOTS:
     }
 };
 
-LSPClientSymbolView *LSPClientSymbolView::new_(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin, QSharedPointer<LSPClientServerManager> manager)
+LSPClientSymbolView *LSPClientSymbolView::new_(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin, std::shared_ptr<LSPClientServerManager> manager)
 {
     return new LSPClientSymbolViewImpl(plugin, mainWin, std::move(manager));
 }

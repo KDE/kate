@@ -141,7 +141,7 @@ void InlayHintNoteProvider::paintInlineNote(const KTextEditor::InlineNote &note,
     }
 }
 
-InlayHintsManager::InlayHintsManager(const QSharedPointer<LSPClientServerManager> &manager, QObject *parent)
+InlayHintsManager::InlayHintsManager(const std::shared_ptr<LSPClientServerManager> &manager, QObject *parent)
     : QObject(parent)
     , m_serverManager(manager)
 {

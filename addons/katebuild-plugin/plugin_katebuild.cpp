@@ -96,7 +96,7 @@ static QIcon messageIcon(KateBuildView::ErrorCategory severity)
 
 struct ItemData {
     // ensure destruction, but not inadvertently so by a variant value copy
-    QSharedPointer<KTextEditor::MovingCursor> cursor;
+    std::shared_ptr<KTextEditor::MovingCursor> cursor;
 };
 
 Q_DECLARE_METATYPE(ItemData)

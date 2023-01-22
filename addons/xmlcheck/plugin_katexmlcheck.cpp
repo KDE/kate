@@ -196,7 +196,7 @@ void PluginKateXMLCheckView::slotProcExited(int exitCode, QProcess::ExitStatus e
                 fd.uri = v->document()->url();
                 fd.diagnostics = diags;
                 Q_EMIT m_provider.diagnosticsAdded(fd);
-                Q_EMIT m_provider.showDiagnosticsView();
+                m_provider.showDiagnosticsView();
             }
         }
     }

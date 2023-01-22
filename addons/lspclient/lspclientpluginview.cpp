@@ -1230,7 +1230,7 @@ public:
                 };
                 fixes << fix;
             }
-            m_diagnosticProvider.fixesAvailable(fixes, data);
+            Q_EMIT m_diagnosticProvider.fixesAvailable(fixes, data);
         };
 
         auto range = activeView->selectionRange();

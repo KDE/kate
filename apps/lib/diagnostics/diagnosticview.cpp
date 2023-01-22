@@ -544,7 +544,7 @@ void DiagnosticsView::onDoubleClicked(const QModelIndex &index, bool quickFix)
         idx.parentRow = item->parent() ? item->parent()->row() : -1;
         idx.autoApply = quickFix;
         QVariant data = QVariant::fromValue(idx);
-        provider->requestFixes(item->data(DiagnosticModelRole::FileUrlRole).toUrl(), item->m_diagnostic, data);
+        Q_EMIT provider->requestFixes(item->data(DiagnosticModelRole::FileUrlRole).toUrl(), item->m_diagnostic, data);
     }
 
     if (itemFromIndex->type() == DiagnosticItem_Fix) {

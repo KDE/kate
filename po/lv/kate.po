@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-17 01:02+0000\n"
+"POT-Creation-Date: 2023-01-22 01:01+0000\n"
 "PO-Revision-Date: 2012-12-27 17:53+0200\n"
 "Last-Translator: Maris Nartiss <maris.kde@gmail.com>\n"
 "Language-Team: Latvian\n"
@@ -1429,7 +1429,7 @@ msgstr "Atrašanās vieta"
 msgid "Copies the file path of the current file to clipboard."
 msgstr "Pārvietot pašreizējā skata sadalītāju augšup"
 
-#: lib/katemainwindow.cpp:359 lib/welcomeview/welcomeview.cpp:244
+#: lib/katemainwindow.cpp:359 lib/welcomeview/welcomeview.cpp:241
 #, fuzzy, kde-format
 #| msgid "Opening Order"
 msgid "&Open Containing Folder"
@@ -1803,7 +1803,7 @@ msgstr "Augšas sānu josla"
 msgid "Bottom Sidebar"
 msgstr "Apakšas sānu josla"
 
-#: lib/katemdi.cpp:1435
+#: lib/katemdi.cpp:1447
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "
@@ -2759,19 +2759,19 @@ msgstr "Atvērt dokumentus"
 msgid "No recent documents"
 msgstr "Atvērt dokumentus"
 
-#: lib/welcomeview/welcomeview.cpp:115
+#: lib/welcomeview/welcomeview.cpp:112
 #, fuzzy, kde-format
 #| msgid "&Save Session"
 msgid "No saved sessions"
 msgstr "&Saglabāt sesiju"
 
-#: lib/welcomeview/welcomeview.cpp:237
+#: lib/welcomeview/welcomeview.cpp:234
 #, fuzzy, kde-format
 #| msgid "Location"
 msgid "Copy &Location"
 msgstr "Atrašanās vieta"
 
-#: lib/welcomeview/welcomeview.cpp:252
+#: lib/welcomeview/welcomeview.cpp:249
 #, kde-format
 msgid "&Remove"
 msgstr ""

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-15 00:59+0000\n"
+"POT-Creation-Date: 2023-01-22 01:01+0000\n"
 "PO-Revision-Date: 2022-08-09 13:37+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -97,6 +97,26 @@ msgstr "Git"
 #, kde-format
 msgid "Back"
 msgstr "뒤로"
+
+#: currentgitbranchbutton.cpp:123
+#, fuzzy, kde-format
+#| msgid "Failed to commit: %1"
+msgctxt "Tooltip text, describing that '%1' commit is checked out"
+msgid "HEAD at commit %1"
+msgstr "커밋할 수 없음: %1"
+
+#: currentgitbranchbutton.cpp:125
+#, kde-format
+msgctxt "Tooltip text, describing that '%1' tag is checked out"
+msgid "HEAD is at this tag %1"
+msgstr ""
+
+#: currentgitbranchbutton.cpp:127
+#, fuzzy, kde-format
+#| msgid "Checked out to new branch: %1"
+msgctxt "Tooltip text, describing that '%1' branch is checked out"
+msgid "Active branch: %1"
+msgstr "새 브랜치 체크아웃함: %1"
 
 #: gitcommitdialog.cpp:69 gitcommitdialog.cpp:116
 #, kde-format
@@ -197,7 +217,7 @@ msgstr "작업 취소"
 msgid " canceled."
 msgstr " 취소됨."
 
-#: gitwidget.cpp:308 kateprojectview.cpp:68
+#: gitwidget.cpp:308 kateprojectview.cpp:70
 #, kde-format
 msgid "Filter..."
 msgstr "필터..."
@@ -959,16 +979,10 @@ msgstr "파일 삭제"
 msgid "Do you want to delete the file '%1'?"
 msgstr "파일 '%1'을(를) 삭제하시겠습니까?"
 
-#: kateprojectview.cpp:59
+#: kateprojectview.cpp:57
 #, kde-format
 msgid "Checkout Git Branch"
 msgstr "Git 브랜치 체크아웃"
-
-#: kateprojectview.cpp:82
-#, fuzzy, kde-format
-#| msgid "Checkout Branch"
-msgid "Checkout branch"
-msgstr "브랜치 체크아웃"
 
 #: kateprojectviewtree.cpp:135
 #, kde-format
@@ -1049,6 +1063,11 @@ msgstr "임시 저장 항목을 표시할 수 없습니다. 오류: "
 #, kde-format
 msgid "&Projects"
 msgstr "프로젝트(&P)"
+
+#, fuzzy
+#~| msgid "Checkout Branch"
+#~ msgid "Checkout branch"
+#~ msgstr "브랜치 체크아웃"
 
 #~ msgid "Severity"
 #~ msgstr "심각도"

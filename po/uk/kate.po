@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-17 01:02+0000\n"
+"POT-Creation-Date: 2023-01-22 01:01+0000\n"
 "PO-Revision-Date: 2023-01-12 08:55+0200\n"
 "Last-Translator: Fracture dept <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -1404,7 +1404,7 @@ msgstr "Копіювати адресу"
 msgid "Copies the file path of the current file to clipboard."
 msgstr "Копіювати шлях до поточного файла до буфера обміну даними."
 
-#: lib/katemainwindow.cpp:359 lib/welcomeview/welcomeview.cpp:244
+#: lib/katemainwindow.cpp:359 lib/welcomeview/welcomeview.cpp:241
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "Ві&дкрити теку, яка містить дані"
@@ -1772,7 +1772,7 @@ msgstr "Верхня бічна панель"
 msgid "Bottom Sidebar"
 msgstr "Нижня бічна панель"
 
-#: lib/katemdi.cpp:1435
+#: lib/katemdi.cpp:1447
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "
@@ -2703,17 +2703,17 @@ msgstr "Немає недавніх документів або проєктів
 msgid "No recent documents"
 msgstr "Немає недавніх документів"
 
-#: lib/welcomeview/welcomeview.cpp:115
+#: lib/welcomeview/welcomeview.cpp:112
 #, kde-format
 msgid "No saved sessions"
 msgstr "Немає збережених сеансів"
 
-#: lib/welcomeview/welcomeview.cpp:237
+#: lib/welcomeview/welcomeview.cpp:234
 #, kde-format
 msgid "Copy &Location"
 msgstr "Копіювати &адресу"
 
-#: lib/welcomeview/welcomeview.cpp:252
+#: lib/welcomeview/welcomeview.cpp:249
 #, kde-format
 msgid "&Remove"
 msgstr "Ви&лучити"

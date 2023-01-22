@@ -1,6 +1,6 @@
 # translation of kate.po to Polish
 # translation of kate.po to
-# Version: $Revision: 1642531 $
+# Version: $Revision: 1642898 $
 # Kate polish translation file.
 # Main translation work:
 #   Jacek Stolarczyk <jacek@mer.chemia.polsl.gliwice.pl>\n"
@@ -15,15 +15,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-17 01:02+0000\n"
-"PO-Revision-Date: 2023-01-02 20:54+0100\n"
+"POT-Creation-Date: 2023-01-22 01:01+0000\n"
+"PO-Revision-Date: 2023-01-21 11:01+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.12.0\n"
+"X-Generator: Lokalize 22.12.1\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 
@@ -1003,7 +1003,7 @@ msgid ""
 "A high limit can increase the window size, please enable 'Allow tab "
 "scrolling' to prevent it. Unlimited tabs are always scrollable."
 msgstr ""
-"Wysoka granica może zwiększyć rozmiar okna, włącz 'Zezwól na przewijanie "
+"Wysoka liczba może zwiększyć rozmiar okna, włącz 'Zezwól na przewijanie "
 "kart', aby tego uniknąć. Nieograniczone karty zawsze da się przewijać."
 
 #: lib/kateconfigdialog.cpp:478
@@ -1409,7 +1409,7 @@ msgstr "Skopiuj położenie"
 msgid "Copies the file path of the current file to clipboard."
 msgstr "Kopiuje ścieżkę do bieżącego pliku do schowka."
 
-#: lib/katemainwindow.cpp:359 lib/welcomeview/welcomeview.cpp:244
+#: lib/katemainwindow.cpp:359 lib/welcomeview/welcomeview.cpp:241
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "&Otwórz katalog zawierający"
@@ -1768,7 +1768,7 @@ msgstr "Górny panel"
 msgid "Bottom Sidebar"
 msgstr "Dolny panel"
 
-#: lib/katemdi.cpp:1435
+#: lib/katemdi.cpp:1447
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "
@@ -2692,17 +2692,17 @@ msgstr "Nie ma żadnych ostatnich dokumentów, ani projektów"
 msgid "No recent documents"
 msgstr "Brak ostatnich dokumentów"
 
-#: lib/welcomeview/welcomeview.cpp:115
+#: lib/welcomeview/welcomeview.cpp:112
 #, kde-format
 msgid "No saved sessions"
 msgstr "Nie ma żadnych zapisanych posiedzeń"
 
-#: lib/welcomeview/welcomeview.cpp:237
+#: lib/welcomeview/welcomeview.cpp:234
 #, kde-format
 msgid "Copy &Location"
 msgstr "S&kopiuj położenie"
 
-#: lib/welcomeview/welcomeview.cpp:252
+#: lib/welcomeview/welcomeview.cpp:249
 #, kde-format
 msgid "&Remove"
 msgstr "&Usuń"

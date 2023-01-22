@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-15 00:59+0000\n"
+"POT-Creation-Date: 2023-01-22 01:01+0000\n"
 "PO-Revision-Date: 2022-07-25 17:09+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -98,6 +98,26 @@ msgstr "Git"
 #, kde-format
 msgid "Back"
 msgstr "Geriyə"
+
+#: currentgitbranchbutton.cpp:123
+#, fuzzy, kde-format
+#| msgid "Failed to commit: %1"
+msgctxt "Tooltip text, describing that '%1' commit is checked out"
+msgid "HEAD at commit %1"
+msgstr "Dəyişiklik uğurla qeyd edildi: %1"
+
+#: currentgitbranchbutton.cpp:125
+#, kde-format
+msgctxt "Tooltip text, describing that '%1' tag is checked out"
+msgid "HEAD is at this tag %1"
+msgstr ""
+
+#: currentgitbranchbutton.cpp:127
+#, fuzzy, kde-format
+#| msgid "Checked out to branch: %1"
+msgctxt "Tooltip text, describing that '%1' branch is checked out"
+msgid "Active branch: %1"
+msgstr "Şöbə üçün yoxlanıldı: %1"
 
 #: gitcommitdialog.cpp:69 gitcommitdialog.cpp:116
 #, kde-format
@@ -198,7 +218,7 @@ msgstr "Əməliyyatdan imtina"
 msgid " canceled."
 msgstr " imtina edildi."
 
-#: gitwidget.cpp:308 kateprojectview.cpp:68
+#: gitwidget.cpp:308 kateprojectview.cpp:70
 #, kde-format
 msgid "Filter..."
 msgstr "Süzgəc..."
@@ -961,16 +981,10 @@ msgstr "Faylı silmək"
 msgid "Do you want to delete the file '%1'?"
 msgstr "'%1' faylını silmək istəyirsiniz?"
 
-#: kateprojectview.cpp:59
+#: kateprojectview.cpp:57
 #, kde-format
 msgid "Checkout Git Branch"
 msgstr "Git şöbəsindən məlumatları almaq"
-
-#: kateprojectview.cpp:82
-#, fuzzy, kde-format
-#| msgid "Checkout Branch"
-msgid "Checkout branch"
-msgstr "Şöbədən məlumatları almaq"
 
 #: kateprojectviewtree.cpp:135
 #, kde-format
@@ -1051,6 +1065,11 @@ msgstr "Toplanan göstərilə bilmədi. Xəta: "
 msgid "&Projects"
 msgstr "&Layihələr"
 
+#, fuzzy
+#~| msgid "Checkout Branch"
+#~ msgid "Checkout branch"
+#~ msgstr "Şöbədən məlumatları almaq"
+
 #~ msgid "Severity"
 #~ msgstr "Vaciblik"
 
@@ -1120,7 +1139,3 @@ msgstr "&Layihələr"
 #~| msgid "Git operation failed. Killing..."
 #~ msgid "Git operation timed-out. Killing..."
 #~ msgstr "Git əməliyyatının vaxtı bitdi Dayandırılır..."
-
-#~| msgid "Checked out to new branch: %1"
-#~ msgid "Checked out to branch: %1"
-#~ msgstr "Şöbə üçün yoxlanıldı: %1"

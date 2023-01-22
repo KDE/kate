@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-17 01:02+0000\n"
+"POT-Creation-Date: 2023-01-22 01:01+0000\n"
 "PO-Revision-Date: 2022-07-14 10:21+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -1385,7 +1385,7 @@ msgstr "Ünvanı kopyalayın"
 msgid "Copies the file path of the current file to clipboard."
 msgstr "Cari faylın fayl yolunu mübadilə yaddaşına kopyalayır."
 
-#: lib/katemainwindow.cpp:359 lib/welcomeview/welcomeview.cpp:244
+#: lib/katemainwindow.cpp:359 lib/welcomeview/welcomeview.cpp:241
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "&Fayldan ibarət qovluğu açmaq"
@@ -1751,7 +1751,7 @@ msgstr "Üst yan panel"
 msgid "Bottom Sidebar"
 msgstr "Aşağı yan panel"
 
-#: lib/katemdi.cpp:1435
+#: lib/katemdi.cpp:1447
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "
@@ -2691,19 +2691,19 @@ msgstr "bütün açılmış sənədləri yenidən yükləmək."
 msgid "No recent documents"
 msgstr "bütün açılmış sənədləri yenidən yükləmək."
 
-#: lib/welcomeview/welcomeview.cpp:115
+#: lib/welcomeview/welcomeview.cpp:112
 #, fuzzy, kde-format
 #| msgid "&Save Session"
 msgid "No saved sessions"
 msgstr "&Sesiyanı saxlamaq"
 
-#: lib/welcomeview/welcomeview.cpp:237
+#: lib/welcomeview/welcomeview.cpp:234
 #, fuzzy, kde-format
 #| msgid "Copy Location"
 msgid "Copy &Location"
 msgstr "Ünvanı kopyalayın"
 
-#: lib/welcomeview/welcomeview.cpp:252
+#: lib/welcomeview/welcomeview.cpp:249
 #, kde-format
 msgid "&Remove"
 msgstr ""

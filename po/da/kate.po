@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-17 01:02+0000\n"
+"POT-Creation-Date: 2023-01-22 01:01+0000\n"
 "PO-Revision-Date: 2020-07-27 23:03+0200\n"
 "Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
@@ -1400,7 +1400,7 @@ msgstr "Sted"
 msgid "Copies the file path of the current file to clipboard."
 msgstr "Kopierer filstien på den nuværende fil til udklipsholderen."
 
-#: lib/katemainwindow.cpp:359 lib/welcomeview/welcomeview.cpp:244
+#: lib/katemainwindow.cpp:359 lib/welcomeview/welcomeview.cpp:241
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "&Åbn indeholdende mappe"
@@ -1773,7 +1773,7 @@ msgstr "Øverste sidepanel"
 msgid "Bottom Sidebar"
 msgstr "Nederste sidepanel"
 
-#: lib/katemdi.cpp:1435
+#: lib/katemdi.cpp:1447
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "
@@ -2728,19 +2728,19 @@ msgstr "Åbn dokumenter"
 msgid "No recent documents"
 msgstr "Åbn dokumenter"
 
-#: lib/welcomeview/welcomeview.cpp:115
+#: lib/welcomeview/welcomeview.cpp:112
 #, fuzzy, kde-format
 #| msgid "&Do not save session"
 msgid "No saved sessions"
 msgstr "Gem &ikke session"
 
-#: lib/welcomeview/welcomeview.cpp:237
+#: lib/welcomeview/welcomeview.cpp:234
 #, fuzzy, kde-format
 #| msgid "Location"
 msgid "Copy &Location"
 msgstr "Sted"
 
-#: lib/welcomeview/welcomeview.cpp:252
+#: lib/welcomeview/welcomeview.cpp:249
 #, fuzzy, kde-format
 #| msgid "&Remove"
 msgid "&Remove"

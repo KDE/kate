@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-15 00:59+0000\n"
+"POT-Creation-Date: 2023-01-22 01:01+0000\n"
 "PO-Revision-Date: 2022-02-01 10:20+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -102,6 +102,26 @@ msgstr "Git"
 #, kde-format
 msgid "Back"
 msgstr "Vissza"
+
+#: currentgitbranchbutton.cpp:123
+#, fuzzy, kde-format
+#| msgid "Failed to commit: %1"
+msgctxt "Tooltip text, describing that '%1' commit is checked out"
+msgid "HEAD at commit %1"
+msgstr "Sikertelen véglegesítés: %1"
+
+#: currentgitbranchbutton.cpp:125
+#, kde-format
+msgctxt "Tooltip text, describing that '%1' tag is checked out"
+msgid "HEAD is at this tag %1"
+msgstr ""
+
+#: currentgitbranchbutton.cpp:127
+#, fuzzy, kde-format
+#| msgid "Checked out to new branch: %1"
+msgctxt "Tooltip text, describing that '%1' branch is checked out"
+msgid "Active branch: %1"
+msgstr "Átváltva az új ágra: %1"
 
 #: gitcommitdialog.cpp:69 gitcommitdialog.cpp:116
 #, kde-format
@@ -202,7 +222,7 @@ msgstr "Művelet megszakítása"
 msgid " canceled."
 msgstr " megszakítva."
 
-#: gitwidget.cpp:308 kateprojectview.cpp:68
+#: gitwidget.cpp:308 kateprojectview.cpp:70
 #, kde-format
 msgid "Filter..."
 msgstr "Szűrő…"
@@ -973,16 +993,10 @@ msgstr "Fájl törlése"
 msgid "Do you want to delete the file '%1'?"
 msgstr "Szeretné törölni a(z) „%1” fájlt?"
 
-#: kateprojectview.cpp:59
+#: kateprojectview.cpp:57
 #, kde-format
 msgid "Checkout Git Branch"
 msgstr "Git ág átváltása"
-
-#: kateprojectview.cpp:82
-#, fuzzy, kde-format
-#| msgid "Checkout Branch"
-msgid "Checkout branch"
-msgstr "Ág átváltása"
 
 #: kateprojectviewtree.cpp:135
 #, kde-format
@@ -1063,6 +1077,11 @@ msgstr "Nem sikerült megjeleníteni a félretett változtatásokat. Hiba: "
 #, kde-format
 msgid "&Projects"
 msgstr "&Projektek"
+
+#, fuzzy
+#~| msgid "Checkout Branch"
+#~ msgid "Checkout branch"
+#~ msgstr "Ág átváltása"
 
 #~ msgid "Severity"
 #~ msgstr "Súlyosság"

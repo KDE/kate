@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-15 00:59+0000\n"
+"POT-Creation-Date: 2023-01-22 01:01+0000\n"
 "PO-Revision-Date: 2023-01-16 07:37+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -101,6 +101,26 @@ msgstr "Git"
 #, kde-format
 msgid "Back"
 msgstr "Atzera"
+
+#: currentgitbranchbutton.cpp:123
+#, fuzzy, kde-format
+#| msgid "Failed to commit: %1"
+msgctxt "Tooltip text, describing that '%1' commit is checked out"
+msgid "HEAD at commit %1"
+msgstr "Baliozkotzea huts egin du: %1"
+
+#: currentgitbranchbutton.cpp:125
+#, kde-format
+msgctxt "Tooltip text, describing that '%1' tag is checked out"
+msgid "HEAD is at this tag %1"
+msgstr ""
+
+#: currentgitbranchbutton.cpp:127
+#, fuzzy, kde-format
+#| msgid "Checked out to new branch: %1"
+msgctxt "Tooltip text, describing that '%1' branch is checked out"
+msgid "Active branch: %1"
+msgstr "Adar berrira eskuratuta: %1"
 
 #: gitcommitdialog.cpp:69 gitcommitdialog.cpp:116
 #, kde-format
@@ -199,7 +219,7 @@ msgstr "Utzi eragiketa bertan behera"
 msgid " canceled."
 msgstr " utzita."
 
-#: gitwidget.cpp:308 kateprojectview.cpp:68
+#: gitwidget.cpp:308 kateprojectview.cpp:70
 #, kde-format
 msgid "Filter..."
 msgstr "Iragazkia..."
@@ -950,15 +970,10 @@ msgstr "Ezabatu fitxategia"
 msgid "Do you want to delete the file '%1'?"
 msgstr "'%1' fitxategia ezabatu nahi duzu?"
 
-#: kateprojectview.cpp:59
+#: kateprojectview.cpp:57
 #, kde-format
 msgid "Checkout Git Branch"
 msgstr "Eskuratu Git adarra"
-
-#: kateprojectview.cpp:82
-#, kde-format
-msgid "Checkout branch"
-msgstr "Eskuratu adarra"
 
 #: kateprojectviewtree.cpp:135
 #, kde-format
@@ -1036,6 +1051,9 @@ msgstr "«Erakutsi gordelekua»k huts egin du. Errorea:"
 #, kde-format
 msgid "&Projects"
 msgstr "&Proiektuak"
+
+#~ msgid "Checkout branch"
+#~ msgstr "Eskuratu adarra"
 
 #~ msgid "Severity"
 #~ msgstr "&Larritasuna"

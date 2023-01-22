@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: l 10n\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-15 00:59+0000\n"
+"POT-Creation-Date: 2023-01-22 01:01+0000\n"
 "PO-Revision-Date: 2014-03-15 01:53+0200\n"
 "Last-Translator: Liudas Ališauskas <liudas@aksioma.lt>\n"
 "Language-Team: Lithuanian <kde-i18n-lt@kde.org>\n"
@@ -103,6 +103,24 @@ msgstr ""
 #: comparebranchesview.cpp:143
 #, kde-format
 msgid "Back"
+msgstr ""
+
+#: currentgitbranchbutton.cpp:123
+#, kde-format
+msgctxt "Tooltip text, describing that '%1' commit is checked out"
+msgid "HEAD at commit %1"
+msgstr ""
+
+#: currentgitbranchbutton.cpp:125
+#, kde-format
+msgctxt "Tooltip text, describing that '%1' tag is checked out"
+msgid "HEAD is at this tag %1"
+msgstr ""
+
+#: currentgitbranchbutton.cpp:127
+#, kde-format
+msgctxt "Tooltip text, describing that '%1' branch is checked out"
+msgid "Active branch: %1"
 msgstr ""
 
 #: gitcommitdialog.cpp:69 gitcommitdialog.cpp:116
@@ -203,7 +221,7 @@ msgstr ""
 msgid " canceled."
 msgstr ""
 
-#: gitwidget.cpp:308 kateprojectview.cpp:68
+#: gitwidget.cpp:308 kateprojectview.cpp:70
 #, kde-format
 msgid "Filter..."
 msgstr ""
@@ -963,14 +981,9 @@ msgstr ""
 msgid "Do you want to delete the file '%1'?"
 msgstr ""
 
-#: kateprojectview.cpp:59
+#: kateprojectview.cpp:57
 #, kde-format
 msgid "Checkout Git Branch"
-msgstr ""
-
-#: kateprojectview.cpp:82
-#, kde-format
-msgid "Checkout branch"
 msgstr ""
 
 #: kateprojectviewtree.cpp:135

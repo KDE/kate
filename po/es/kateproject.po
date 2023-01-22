@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-15 00:59+0000\n"
+"POT-Creation-Date: 2023-01-22 01:01+0000\n"
 "PO-Revision-Date: 2023-01-15 11:57+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -102,6 +102,26 @@ msgstr "Git"
 #, kde-format
 msgid "Back"
 msgstr "Volver"
+
+#: currentgitbranchbutton.cpp:123
+#, fuzzy, kde-format
+#| msgid "Failed to commit: %1"
+msgctxt "Tooltip text, describing that '%1' commit is checked out"
+msgid "HEAD at commit %1"
+msgstr "No se ha podido confirmar: %1"
+
+#: currentgitbranchbutton.cpp:125
+#, kde-format
+msgctxt "Tooltip text, describing that '%1' tag is checked out"
+msgid "HEAD is at this tag %1"
+msgstr ""
+
+#: currentgitbranchbutton.cpp:127
+#, fuzzy, kde-format
+#| msgid "Checked out to branch: %1"
+msgctxt "Tooltip text, describing that '%1' branch is checked out"
+msgid "Active branch: %1"
+msgstr "Se ha cambiado a la rama: %1"
 
 #: gitcommitdialog.cpp:69 gitcommitdialog.cpp:116
 #, kde-format
@@ -200,7 +220,7 @@ msgstr "Cancelar operación"
 msgid " canceled."
 msgstr " cancelada."
 
-#: gitwidget.cpp:308 kateprojectview.cpp:68
+#: gitwidget.cpp:308 kateprojectview.cpp:70
 #, kde-format
 msgid "Filter..."
 msgstr "Filtro..."
@@ -950,15 +970,10 @@ msgstr "Borrar archivo"
 msgid "Do you want to delete the file '%1'?"
 msgstr "¿Desea borrar el archivo «%1»?"
 
-#: kateprojectview.cpp:59
+#: kateprojectview.cpp:57
 #, kde-format
 msgid "Checkout Git Branch"
 msgstr "Cambiar a rama de Git"
-
-#: kateprojectview.cpp:82
-#, kde-format
-msgid "Checkout branch"
-msgstr "Cambiar a rama"
 
 #: kateprojectviewtree.cpp:135
 #, kde-format
@@ -1038,6 +1053,9 @@ msgstr "No se ha podido mostrar la reserva. Error: "
 msgid "&Projects"
 msgstr "&Proyectos"
 
+#~ msgid "Checkout branch"
+#~ msgstr "Cambiar a rama"
+
 #~ msgid "Severity"
 #~ msgstr "Severidad"
 
@@ -1104,9 +1122,6 @@ msgstr "&Proyectos"
 
 #~ msgid "Git operation failed. Killing..."
 #~ msgstr "La operación de Git ha fallado. Matando el proceso..."
-
-#~ msgid "Checked out to branch: %1"
-#~ msgstr "Se ha cambiado a la rama: %1"
 
 #~ msgid "Untracked (%1)"
 #~ msgstr "No seguido (%1)"

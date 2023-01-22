@@ -3,21 +3,21 @@
 # Vít Pelčák <vit@pelcak.org>, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020.
 # Lukáš Tinkl <ltinkl@redhat.com>, 2011.
 # Tomáš Chvátal <tomas.chvatal@gmail.com>, 2012.
-# Vit Pelcak <vit@pelcak.org>, 2021, 2022.
+# Vit Pelcak <vit@pelcak.org>, 2021, 2022, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-21 00:50+0000\n"
-"PO-Revision-Date: 2022-01-11 17:35+0100\n"
+"PO-Revision-Date: 2023-01-17 15:21+0100\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 21.12.0\n"
+"X-Generator: Lokalize 22.12.1\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #: KateSearchCommand.cpp:80
@@ -541,7 +541,7 @@ msgstr "Najít v souborech"
 #: SearchPlugin.cpp:341
 #, kde-format
 msgid "Find in Files (in a New Tab)"
-msgstr ""
+msgstr "Hledat v souborech (v nové kartě)"
 
 #: SearchPlugin.cpp:347
 #, kde-format
@@ -556,7 +556,7 @@ msgstr "Přejít na předchozí výskyt"
 #: SearchPlugin.cpp:357
 #, kde-format
 msgid "Cut Matching Lines"
-msgstr ""
+msgstr "Vyjmout odpovídající řádky"
 
 #: SearchPlugin.cpp:359
 #, kde-format
@@ -568,7 +568,7 @@ msgstr ""
 #: SearchPlugin.cpp:363
 #, kde-format
 msgid "Copy Matching Lines"
-msgstr ""
+msgstr "Kopírovat odpovídající řádky"
 
 #: SearchPlugin.cpp:365
 #, kde-format
@@ -597,7 +597,7 @@ msgstr ""
 #: SearchPlugin.cpp:395
 #, kde-format
 msgid "Click to filter through results"
-msgstr ""
+msgstr "Klikněte pro filtrování výsledků"
 
 #: SearchPlugin.cpp:485
 #, kde-format
@@ -662,7 +662,7 @@ msgstr "Exportovat shody"
 #: SearchPlugin.cpp:2255
 #, kde-format
 msgid "Open as Editor Tab"
-msgstr ""
+msgstr "Otevřít jako kartu editoru"
 
 #: SearchPlugin.cpp:2262
 #, kde-format
@@ -677,7 +677,7 @@ msgstr "Přidat..."
 #: SearchPlugin.cpp:2382
 #, kde-format
 msgid "Search As You Type"
-msgstr ""
+msgstr "Hledat během psaní"
 
 #: SearchPlugin.cpp:2453
 #, kde-format

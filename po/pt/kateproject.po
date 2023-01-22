@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-15 00:59+0000\n"
+"POT-Creation-Date: 2023-01-22 01:01+0000\n"
 "PO-Revision-Date: 2023-01-19 09:52+0000\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
@@ -98,6 +98,26 @@ msgstr "Git"
 #, kde-format
 msgid "Back"
 msgstr "Recuar"
+
+#: currentgitbranchbutton.cpp:123
+#, fuzzy, kde-format
+#| msgid "Failed to commit: %1"
+msgctxt "Tooltip text, describing that '%1' commit is checked out"
+msgid "HEAD at commit %1"
+msgstr "Não foi possível enviar: %1"
+
+#: currentgitbranchbutton.cpp:125
+#, kde-format
+msgctxt "Tooltip text, describing that '%1' tag is checked out"
+msgid "HEAD is at this tag %1"
+msgstr ""
+
+#: currentgitbranchbutton.cpp:127
+#, fuzzy, kde-format
+#| msgid "Checked out to new branch: %1"
+msgctxt "Tooltip text, describing that '%1' branch is checked out"
+msgid "Active branch: %1"
+msgstr "Foi seleccionada a nova ramificação: %1"
 
 #: gitcommitdialog.cpp:69 gitcommitdialog.cpp:116
 #, kde-format
@@ -196,7 +216,7 @@ msgstr "Cancelar a Operação"
 msgid " canceled."
 msgstr " cancelada."
 
-#: gitwidget.cpp:308 kateprojectview.cpp:68
+#: gitwidget.cpp:308 kateprojectview.cpp:70
 #, kde-format
 msgid "Filter..."
 msgstr "Filtro..."
@@ -945,15 +965,10 @@ msgstr "Apagar o Ficheiro"
 msgid "Do you want to delete the file '%1'?"
 msgstr "Tem a certeza que deseja remover o ficheiro '%1'?"
 
-#: kateprojectview.cpp:59
+#: kateprojectview.cpp:57
 #, kde-format
 msgid "Checkout Git Branch"
 msgstr "Seleccionar a Ramificação do Git"
-
-#: kateprojectview.cpp:82
-#, kde-format
-msgid "Checkout branch"
-msgstr "Obter a ramificação"
 
 #: kateprojectviewtree.cpp:135
 #, kde-format
@@ -1031,3 +1046,6 @@ msgstr "Não foi possível mostrar os ficheiros preparados. Erro: "
 #, kde-format
 msgid "&Projects"
 msgstr "&Projectos"
+
+#~ msgid "Checkout branch"
+#~ msgstr "Obter a ramificação"

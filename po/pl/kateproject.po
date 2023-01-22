@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-15 00:59+0000\n"
+"POT-Creation-Date: 2023-01-22 01:01+0000\n"
 "PO-Revision-Date: 2023-01-02 20:42+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -106,6 +106,26 @@ msgstr "Git"
 msgid "Back"
 msgstr "Wstecz"
 
+#: currentgitbranchbutton.cpp:123
+#, fuzzy, kde-format
+#| msgid "Failed to commit: %1"
+msgctxt "Tooltip text, describing that '%1' commit is checked out"
+msgid "HEAD at commit %1"
+msgstr "Nie udało się wdrożyć: %1"
+
+#: currentgitbranchbutton.cpp:125
+#, kde-format
+msgctxt "Tooltip text, describing that '%1' tag is checked out"
+msgid "HEAD is at this tag %1"
+msgstr ""
+
+#: currentgitbranchbutton.cpp:127
+#, fuzzy, kde-format
+#| msgid "Checked out to new branch: %1"
+msgctxt "Tooltip text, describing that '%1' branch is checked out"
+msgid "Active branch: %1"
+msgstr "Pobrano wersję wyjściową do nowej gałęzi: %1"
+
 #: gitcommitdialog.cpp:69 gitcommitdialog.cpp:116
 #, kde-format
 msgid "Commit Changes"
@@ -203,7 +223,7 @@ msgstr "Zaniechaj działania"
 msgid " canceled."
 msgstr " anulowane."
 
-#: gitwidget.cpp:308 kateprojectview.cpp:68
+#: gitwidget.cpp:308 kateprojectview.cpp:70
 #, kde-format
 msgid "Filter..."
 msgstr "Odfiltruj..."
@@ -955,15 +975,10 @@ msgstr "Usuń plik"
 msgid "Do you want to delete the file '%1'?"
 msgstr "Czy na pewno usunąć plik '%1'?"
 
-#: kateprojectview.cpp:59
+#: kateprojectview.cpp:57
 #, kde-format
 msgid "Checkout Git Branch"
 msgstr "Pobierz wersję wyjściową gałęzi Git"
-
-#: kateprojectview.cpp:82
-#, kde-format
-msgid "Checkout branch"
-msgstr "Pobierz wersję wyjściową gałęzi"
 
 #: kateprojectviewtree.cpp:135
 #, kde-format
@@ -1044,6 +1059,9 @@ msgstr "Nie udało się pokazać składowiska. Błąd: "
 #, kde-format
 msgid "&Projects"
 msgstr "&Projekty"
+
+#~ msgid "Checkout branch"
+#~ msgstr "Pobierz wersję wyjściową gałęzi"
 
 #~ msgid "Severity"
 #~ msgstr "Waga"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-15 00:59+0000\n"
+"POT-Creation-Date: 2023-01-22 01:01+0000\n"
 "PO-Revision-Date: 2023-01-15 10:17+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -102,6 +102,26 @@ msgstr "Git"
 #, kde-format
 msgid "Back"
 msgstr "Arrere"
+
+#: currentgitbranchbutton.cpp:123
+#, fuzzy, kde-format
+#| msgid "Failed to commit: %1"
+msgctxt "Tooltip text, describing that '%1' commit is checked out"
+msgid "HEAD at commit %1"
+msgstr "No s'ha pogut entregar: %1"
+
+#: currentgitbranchbutton.cpp:125
+#, kde-format
+msgctxt "Tooltip text, describing that '%1' tag is checked out"
+msgid "HEAD is at this tag %1"
+msgstr ""
+
+#: currentgitbranchbutton.cpp:127
+#, fuzzy, kde-format
+#| msgid "Checked out to new branch: %1"
+msgctxt "Tooltip text, describing that '%1' branch is checked out"
+msgid "Active branch: %1"
+msgstr "Baixant a la branca nova: %1"
 
 #: gitcommitdialog.cpp:69 gitcommitdialog.cpp:116
 #, kde-format
@@ -200,7 +220,7 @@ msgstr "Cancel·la l'operació"
 msgid " canceled."
 msgstr " s'ha cancel·lat."
 
-#: gitwidget.cpp:308 kateprojectview.cpp:68
+#: gitwidget.cpp:308 kateprojectview.cpp:70
 #, kde-format
 msgid "Filter..."
 msgstr "Filtre..."
@@ -951,15 +971,10 @@ msgstr "Suprimix el fitxer"
 msgid "Do you want to delete the file '%1'?"
 msgstr "Voleu suprimir el fitxer «%1»?"
 
-#: kateprojectview.cpp:59
+#: kateprojectview.cpp:57
 #, kde-format
 msgid "Checkout Git Branch"
 msgstr "Entrega la branca de Git"
-
-#: kateprojectview.cpp:82
-#, kde-format
-msgid "Checkout branch"
-msgstr "Entrega la branca"
 
 #: kateprojectviewtree.cpp:135
 #, kde-format
@@ -1040,3 +1055,6 @@ msgstr "No s'ha pogut mostrar la modificació temporal. Error: "
 #, kde-format
 msgid "&Projects"
 msgstr "&Projectes"
+
+#~ msgid "Checkout branch"
+#~ msgstr "Entrega la branca"

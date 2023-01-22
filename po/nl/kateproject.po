@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-15 00:59+0000\n"
+"POT-Creation-Date: 2023-01-22 01:01+0000\n"
 "PO-Revision-Date: 2023-01-16 12:04+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -101,6 +101,26 @@ msgstr "Git"
 #, kde-format
 msgid "Back"
 msgstr "Terug"
+
+#: currentgitbranchbutton.cpp:123
+#, fuzzy, kde-format
+#| msgid "Failed to commit: %1"
+msgctxt "Tooltip text, describing that '%1' commit is checked out"
+msgid "HEAD at commit %1"
+msgstr "Commit (vastleggen) is mislukt: %1"
+
+#: currentgitbranchbutton.cpp:125
+#, kde-format
+msgctxt "Tooltip text, describing that '%1' tag is checked out"
+msgid "HEAD is at this tag %1"
+msgstr ""
+
+#: currentgitbranchbutton.cpp:127
+#, fuzzy, kde-format
+#| msgid "Checked out to branch: %1"
+msgctxt "Tooltip text, describing that '%1' branch is checked out"
+msgid "Active branch: %1"
+msgstr "Checkout gedaan naar branch: '%1'"
 
 #: gitcommitdialog.cpp:69 gitcommitdialog.cpp:116
 #, kde-format
@@ -199,7 +219,7 @@ msgstr "Bewerking annuleren"
 msgid " canceled."
 msgstr " geannuleerd."
 
-#: gitwidget.cpp:308 kateprojectview.cpp:68
+#: gitwidget.cpp:308 kateprojectview.cpp:70
 #, kde-format
 msgid "Filter..."
 msgstr "Filter..."
@@ -947,15 +967,10 @@ msgstr "Bestand verwijderen"
 msgid "Do you want to delete the file '%1'?"
 msgstr "Wilt u het bestand '%1' verwijderen?"
 
-#: kateprojectview.cpp:59
+#: kateprojectview.cpp:57
 #, kde-format
 msgid "Checkout Git Branch"
 msgstr "Uitchecken van git-branch"
-
-#: kateprojectview.cpp:82
-#, kde-format
-msgid "Checkout branch"
-msgstr "Uitchecken van branch"
 
 #: kateprojectviewtree.cpp:135
 #, kde-format
@@ -1035,6 +1050,9 @@ msgstr "Stapel tonen is mislukt. Fout: "
 msgid "&Projects"
 msgstr "&Projecten"
 
+#~ msgid "Checkout branch"
+#~ msgstr "Uitchecken van branch"
+
 #~ msgid "Severity"
 #~ msgstr "Ernst"
 
@@ -1102,9 +1120,6 @@ msgstr "&Projecten"
 #~| msgid "Git operation failed. Killing..."
 #~ msgid "Git operation timed-out. Killing..."
 #~ msgstr "Git bewerking tijdlimiet bereikt. Afbreken..."
-
-#~ msgid "Checked out to branch: %1"
-#~ msgstr "Checkout gedaan naar branch: '%1'"
 
 #~ msgid "Untracked (%1)"
 #~ msgstr "Niet-gevolgd (%1)"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE Frameworks 5 Applications\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-15 00:59+0000\n"
+"POT-Creation-Date: 2023-01-22 01:01+0000\n"
 "PO-Revision-Date: 2021-04-18 01:36+0700\n"
 "Last-Translator: Wantoyo <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -103,6 +103,26 @@ msgstr "Git"
 #, kde-format
 msgid "Back"
 msgstr "Kembali"
+
+#: currentgitbranchbutton.cpp:123
+#, fuzzy, kde-format
+#| msgid "Failed to commit: %1"
+msgctxt "Tooltip text, describing that '%1' commit is checked out"
+msgid "HEAD at commit %1"
+msgstr "Gagal meng-commit: %1"
+
+#: currentgitbranchbutton.cpp:125
+#, kde-format
+msgctxt "Tooltip text, describing that '%1' tag is checked out"
+msgid "HEAD is at this tag %1"
+msgstr ""
+
+#: currentgitbranchbutton.cpp:127
+#, fuzzy, kde-format
+#| msgid "Checked out to new branch: %1"
+msgctxt "Tooltip text, describing that '%1' branch is checked out"
+msgid "Active branch: %1"
+msgstr "Mencheckout ke cabang baru: %1"
 
 #: gitcommitdialog.cpp:69 gitcommitdialog.cpp:116
 #, kde-format
@@ -203,7 +223,7 @@ msgstr "Batalkan Operasi"
 msgid " canceled."
 msgstr " dibatalkan."
 
-#: gitwidget.cpp:308 kateprojectview.cpp:68
+#: gitwidget.cpp:308 kateprojectview.cpp:70
 #, kde-format
 msgid "Filter..."
 msgstr "Filter..."
@@ -977,16 +997,10 @@ msgstr "Buang File-file Yang Dipilih"
 msgid "Do you want to delete the file '%1'?"
 msgstr "Apakah kamu yakin ingin menghapus file-file tersebut?"
 
-#: kateprojectview.cpp:59
+#: kateprojectview.cpp:57
 #, kde-format
 msgid "Checkout Git Branch"
 msgstr "Checkout Cabang Git "
-
-#: kateprojectview.cpp:82
-#, fuzzy, kde-format
-#| msgid "Checkout Branch"
-msgid "Checkout branch"
-msgstr "Cabang Checkout"
 
 #: kateprojectviewtree.cpp:135
 #, kde-format
@@ -1066,6 +1080,11 @@ msgstr "Menampilkan stash gagal. Galat: "
 #, kde-format
 msgid "&Projects"
 msgstr "Pro&jek"
+
+#, fuzzy
+#~| msgid "Checkout Branch"
+#~ msgid "Checkout branch"
+#~ msgstr "Cabang Checkout"
 
 #~ msgid "Severity"
 #~ msgstr "Kebengisan"

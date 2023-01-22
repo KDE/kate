@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-15 00:59+0000\n"
+"POT-Creation-Date: 2023-01-22 01:01+0000\n"
 "PO-Revision-Date: 2023-01-15 17:47+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -101,6 +101,26 @@ msgstr "Git"
 #, kde-format
 msgid "Back"
 msgstr "Geri"
+
+#: currentgitbranchbutton.cpp:123
+#, fuzzy, kde-format
+#| msgid "Failed to commit: %1"
+msgctxt "Tooltip text, describing that '%1' commit is checked out"
+msgid "HEAD at commit %1"
+msgstr "İşlenemedi: %1"
+
+#: currentgitbranchbutton.cpp:125
+#, kde-format
+msgctxt "Tooltip text, describing that '%1' tag is checked out"
+msgid "HEAD is at this tag %1"
+msgstr ""
+
+#: currentgitbranchbutton.cpp:127
+#, fuzzy, kde-format
+#| msgid "Checked out to new branch: %1"
+msgctxt "Tooltip text, describing that '%1' branch is checked out"
+msgid "Active branch: %1"
+msgstr "Yeni dala çıkış yapıldı: %1"
 
 #: gitcommitdialog.cpp:69 gitcommitdialog.cpp:116
 #, kde-format
@@ -199,7 +219,7 @@ msgstr "İşlemi İptal Et"
 msgid " canceled."
 msgstr " iptal edildi."
 
-#: gitwidget.cpp:308 kateprojectview.cpp:68
+#: gitwidget.cpp:308 kateprojectview.cpp:70
 #, kde-format
 msgid "Filter..."
 msgstr "Süz..."
@@ -945,15 +965,10 @@ msgstr "Dosyayı Sil"
 msgid "Do you want to delete the file '%1'?"
 msgstr "'%1' dosyasını silmek istiyor musunuz?"
 
-#: kateprojectview.cpp:59
+#: kateprojectview.cpp:57
 #, kde-format
 msgid "Checkout Git Branch"
 msgstr "Git Dalını Çıkış Yap"
-
-#: kateprojectview.cpp:82
-#, kde-format
-msgid "Checkout branch"
-msgstr "Dalı çıkış yap"
 
 #: kateprojectviewtree.cpp:135
 #, kde-format
@@ -1030,3 +1045,6 @@ msgstr "Zula gösterme başarısız. Hata: "
 #, kde-format
 msgid "&Projects"
 msgstr "Pro&jeler"
+
+#~ msgid "Checkout branch"
+#~ msgstr "Dalı çıkış yap"

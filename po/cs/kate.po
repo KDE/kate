@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-17 01:02+0000\n"
-"PO-Revision-Date: 2023-01-04 10:15+0100\n"
+"POT-Creation-Date: 2023-01-22 01:01+0000\n"
+"PO-Revision-Date: 2023-01-19 07:21+0100\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 22.12.0\n"
+"X-Generator: Lokalize 22.12.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -58,7 +58,7 @@ msgstr "Kate - rozšířený textový editor KDE"
 #: kate/main.cpp:135 kwrite/main.cpp:98
 #, kde-format
 msgid "(c) 2000-2022 The Kate Authors"
-msgstr ""
+msgstr "(c) 2000-2022 autoři Kate"
 
 #: kate/main.cpp:181
 #, kde-format
@@ -199,18 +199,18 @@ msgstr "Git"
 #: lib/commitfilesview.cpp:474
 #, kde-format
 msgid "Invalid hash"
-msgstr ""
+msgstr "Neplatný heš"
 
 #: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:343
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
-msgstr ""
+msgstr "%1 v repozitáři git neexistuje."
 
 #: lib/commitfilesview.cpp:495
 #, kde-format
 msgctxt "@title:tab"
 msgid "Commit %1"
-msgstr ""
+msgstr "Commit %1"
 
 #. i18n: ectx: Menu (file)
 #: lib/data/kateui.rc:6
@@ -222,7 +222,7 @@ msgstr "Soubor"
 #: lib/data/kateui.rc:30
 #, kde-format
 msgid "File Actions"
-msgstr ""
+msgstr "Činnosti souboru"
 
 #. i18n: ectx: Menu (edit)
 #: lib/data/kateui.rc:43
@@ -301,7 +301,7 @@ msgstr ""
 #: lib/diagnostics/diagnosticview.cpp:264
 #, kde-format
 msgid "Quick Fix"
-msgstr ""
+msgstr "Rychlá oprava"
 
 #: lib/diagnostics/diagnosticview.cpp:288
 #, kde-format
@@ -328,7 +328,7 @@ msgstr "Informace"
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
-msgstr ""
+msgstr "%1 [potlačeno: %2]"
 
 #: lib/diagnostics/diagnosticview.cpp:1068
 #, kde-format
@@ -437,17 +437,17 @@ msgstr ""
 #: lib/diff/diffwidget.cpp:59
 #, kde-format
 msgid "Diff %1"
-msgstr ""
+msgstr "Rozdíl %1"
 
 #: lib/diff/diffwidget.cpp:61
 #, kde-format
 msgid "Diff %1..%2"
-msgstr ""
+msgstr "Rozdíl %1..%2"
 
 #: lib/diff/diffwidget.cpp:82
 #, kde-format
 msgid "Diff %1 .. %2"
-msgstr ""
+msgstr "Rozdíl %1 .. %2"
 
 #: lib/diff/diffwidget.cpp:112
 #, kde-format
@@ -457,12 +457,12 @@ msgstr ""
 #: lib/diff/diffwidget.cpp:117
 #, kde-format
 msgid "Jump to Next File"
-msgstr ""
+msgstr "Přejít na další soubor"
 
 #: lib/diff/diffwidget.cpp:121
 #, kde-format
 msgid "Jump to Previous File"
-msgstr ""
+msgstr "Přejít na předchozí soubor"
 
 #: lib/diff/diffwidget.cpp:125
 #, kde-format
@@ -477,12 +477,12 @@ msgstr ""
 #: lib/diff/diffwidget.cpp:644 lib/diff/diffwidget.cpp:844
 #, kde-format
 msgid "New file %1"
-msgstr ""
+msgstr "Nový soubor %1"
 
 #: lib/diff/diffwidget.cpp:646 lib/diff/diffwidget.cpp:846
 #, kde-format
 msgid "Deleted file %1"
-msgstr ""
+msgstr "Smazaný soubor %1"
 
 #: lib/filehistorywidget.cpp:286
 #, kde-format
@@ -1354,7 +1354,7 @@ msgstr "Kopírovat umístění"
 msgid "Copies the file path of the current file to clipboard."
 msgstr ""
 
-#: lib/katemainwindow.cpp:359 lib/welcomeview/welcomeview.cpp:244
+#: lib/katemainwindow.cpp:359 lib/welcomeview/welcomeview.cpp:241
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "&Otevřít odpovídající složku"
@@ -1710,7 +1710,7 @@ msgstr "Horní postranní panel"
 msgid "Bottom Sidebar"
 msgstr "Spodní postranní panel"
 
-#: lib/katemdi.cpp:1435
+#: lib/katemdi.cpp:1447
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "
@@ -2603,17 +2603,17 @@ msgstr ""
 msgid "No recent documents"
 msgstr ""
 
-#: lib/welcomeview/welcomeview.cpp:115
+#: lib/welcomeview/welcomeview.cpp:112
 #, kde-format
 msgid "No saved sessions"
 msgstr ""
 
-#: lib/welcomeview/welcomeview.cpp:237
+#: lib/welcomeview/welcomeview.cpp:234
 #, kde-format
 msgid "Copy &Location"
-msgstr ""
+msgstr "Kopírovat u&místění"
 
-#: lib/welcomeview/welcomeview.cpp:252
+#: lib/welcomeview/welcomeview.cpp:249
 #, kde-format
 msgid "&Remove"
 msgstr "Odst&ranit"
@@ -2652,7 +2652,7 @@ msgstr "Otevřít soubor..."
 #: lib/welcomeview/welcomeview.ui:242
 #, kde-format
 msgid "Clear Recent Files"
-msgstr ""
+msgstr "Vyprázdnit nedávné soubory"
 
 #. i18n: ectx: property (text), widget (QLabel, labelHelp)
 #: lib/welcomeview/welcomeview.ui:271
@@ -2664,7 +2664,7 @@ msgstr "Nápověda"
 #: lib/welcomeview/welcomeview.ui:281
 #, kde-format
 msgid "Visit homepage"
-msgstr ""
+msgstr "Navštivte domovskou stránku"
 
 #. i18n: ectx: property (text), widget (KUrlLabel, labelContribute)
 #: lib/welcomeview/welcomeview.ui:294
@@ -2676,22 +2676,22 @@ msgstr "Přidejte se"
 #: lib/welcomeview/welcomeview.ui:307
 #, kde-format
 msgid "Read handbook"
-msgstr ""
+msgstr "Přečtěte si příručku"
 
 #. i18n: ectx: property (text), widget (QLabel, labelSavedSessions)
 #: lib/welcomeview/welcomeview.ui:354
 #, kde-format
 msgid "Saved Sessions"
-msgstr ""
+msgstr "Uložená sezení"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonManageSessions)
 #: lib/welcomeview/welcomeview.ui:390
 #, kde-format
 msgid "Manage Sessions..."
-msgstr ""
+msgstr "Spravovat sezení..."
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
 #: lib/welcomeview/welcomeview.ui:443
 #, kde-format
 msgid "Show for new window"
-msgstr ""
+msgstr "Zobrazit pro nové okno"

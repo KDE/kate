@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-15 00:59+0000\n"
+"POT-Creation-Date: 2023-01-22 01:01+0000\n"
 "PO-Revision-Date: 2023-01-16 22:19+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
@@ -98,6 +98,26 @@ msgstr "Git"
 #, kde-format
 msgid "Back"
 msgstr "Retro"
+
+#: currentgitbranchbutton.cpp:123
+#, fuzzy, kde-format
+#| msgid "Failed to commit: %1"
+msgctxt "Tooltip text, describing that '%1' commit is checked out"
+msgid "HEAD at commit %1"
+msgstr "Falleva a committer: %1"
+
+#: currentgitbranchbutton.cpp:125
+#, kde-format
+msgctxt "Tooltip text, describing that '%1' tag is checked out"
+msgid "HEAD is at this tag %1"
+msgstr ""
+
+#: currentgitbranchbutton.cpp:127
+#, fuzzy, kde-format
+#| msgid "Checked out to new branch: %1"
+msgctxt "Tooltip text, describing that '%1' branch is checked out"
+msgid "Active branch: %1"
+msgstr "Facite check out a un nove branca: %1"
 
 #: gitcommitdialog.cpp:69 gitcommitdialog.cpp:116
 #, kde-format
@@ -196,7 +216,7 @@ msgstr "Cancella operation"
 msgid " canceled."
 msgstr " cancellate."
 
-#: gitwidget.cpp:308 kateprojectview.cpp:68
+#: gitwidget.cpp:308 kateprojectview.cpp:70
 #, kde-format
 msgid "Filter..."
 msgstr "Filtro..."
@@ -946,15 +966,10 @@ msgstr "Dele file"
 msgid "Do you want to delete the file '%1'?"
 msgstr "Tu vole deler le file '%1'?"
 
-#: kateprojectview.cpp:59
+#: kateprojectview.cpp:57
 #, kde-format
 msgid "Checkout Git Branch"
 msgstr "Extrahe (Checkout) brance de git"
-
-#: kateprojectview.cpp:82
-#, kde-format
-msgid "Checkout branch"
-msgstr "Branca de Checkhout (extraher)"
 
 #: kateprojectviewtree.cpp:135
 #, kde-format
@@ -1035,6 +1050,9 @@ msgstr "Falleva a monstrar celario (stash). Error:"
 #, kde-format
 msgid "&Projects"
 msgstr "&Projectos"
+
+#~ msgid "Checkout branch"
+#~ msgstr "Branca de Checkhout (extraher)"
 
 #~ msgid "Severity"
 #~ msgstr "Gravitate"

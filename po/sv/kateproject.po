@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-15 00:59+0000\n"
+"POT-Creation-Date: 2023-01-22 01:01+0000\n"
 "PO-Revision-Date: 2022-09-24 10:43+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -98,6 +98,26 @@ msgstr "Git"
 #, kde-format
 msgid "Back"
 msgstr "Tillbaka"
+
+#: currentgitbranchbutton.cpp:123
+#, fuzzy, kde-format
+#| msgid "Failed to commit: %1"
+msgctxt "Tooltip text, describing that '%1' commit is checked out"
+msgid "HEAD at commit %1"
+msgstr "Misslyckades arkivera: %1"
+
+#: currentgitbranchbutton.cpp:125
+#, kde-format
+msgctxt "Tooltip text, describing that '%1' tag is checked out"
+msgid "HEAD is at this tag %1"
+msgstr ""
+
+#: currentgitbranchbutton.cpp:127
+#, fuzzy, kde-format
+#| msgid "Checked out to branch: %1"
+msgctxt "Tooltip text, describing that '%1' branch is checked out"
+msgid "Active branch: %1"
+msgstr "Checkade ut till gren: %1"
 
 #: gitcommitdialog.cpp:69 gitcommitdialog.cpp:116
 #, kde-format
@@ -196,7 +216,7 @@ msgstr "Avbryt åtgärd"
 msgid " canceled."
 msgstr " avbruten."
 
-#: gitwidget.cpp:308 kateprojectview.cpp:68
+#: gitwidget.cpp:308 kateprojectview.cpp:70
 #, kde-format
 msgid "Filter..."
 msgstr "Filter..."
@@ -954,15 +974,10 @@ msgstr "Ta bort fil"
 msgid "Do you want to delete the file '%1'?"
 msgstr "Är du säker på att du vill ta bort filen '%1'?"
 
-#: kateprojectview.cpp:59
+#: kateprojectview.cpp:57
 #, kde-format
 msgid "Checkout Git Branch"
 msgstr "Checka ut Git-gren"
-
-#: kateprojectview.cpp:82
-#, kde-format
-msgid "Checkout branch"
-msgstr "Checka ut gren"
 
 #: kateprojectviewtree.cpp:135
 #, kde-format
@@ -1044,6 +1059,9 @@ msgstr "Misslyckades visa gömsle. Fel: "
 msgid "&Projects"
 msgstr "&Projekt"
 
+#~ msgid "Checkout branch"
+#~ msgstr "Checka ut gren"
+
 #~ msgid "Severity"
 #~ msgstr "Svårighetsgrad"
 
@@ -1114,9 +1132,6 @@ msgstr "&Projekt"
 #~| msgid "Git operation failed. Killing..."
 #~ msgid "Git operation timed-out. Killing..."
 #~ msgstr "Tidsgräns för Git-åtgärd gick ut. Dödar ..."
-
-#~ msgid "Checked out to branch: %1"
-#~ msgstr "Checkade ut till gren: %1"
 
 #~ msgid "Untracked (%1)"
 #~ msgstr "Ospårad (%1)"

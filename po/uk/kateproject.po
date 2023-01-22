@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-15 00:59+0000\n"
+"POT-Creation-Date: 2023-01-22 01:01+0000\n"
 "PO-Revision-Date: 2023-01-15 08:56+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -107,6 +107,26 @@ msgstr "Git"
 msgid "Back"
 msgstr "Назад"
 
+#: currentgitbranchbutton.cpp:123
+#, fuzzy, kde-format
+#| msgid "Failed to commit: %1"
+msgctxt "Tooltip text, describing that '%1' commit is checked out"
+msgid "HEAD at commit %1"
+msgstr "Не вдалося внести: %1"
+
+#: currentgitbranchbutton.cpp:125
+#, kde-format
+msgctxt "Tooltip text, describing that '%1' tag is checked out"
+msgid "HEAD is at this tag %1"
+msgstr ""
+
+#: currentgitbranchbutton.cpp:127
+#, fuzzy, kde-format
+#| msgid "Checked out to branch: %1"
+msgctxt "Tooltip text, describing that '%1' branch is checked out"
+msgid "Active branch: %1"
+msgstr "Перейшли на гілку: %1"
+
 #: gitcommitdialog.cpp:69 gitcommitdialog.cpp:116
 #, kde-format
 msgid "Commit Changes"
@@ -204,7 +224,7 @@ msgstr "Скасувати дію"
 msgid " canceled."
 msgstr " скасовано."
 
-#: gitwidget.cpp:308 kateprojectview.cpp:68
+#: gitwidget.cpp:308 kateprojectview.cpp:70
 #, kde-format
 msgid "Filter..."
 msgstr "Фільтрувати…"
@@ -955,15 +975,10 @@ msgstr "Вилучити файл"
 msgid "Do you want to delete the file '%1'?"
 msgstr "Ви справді хочете вилучити файл «%1»?"
 
-#: kateprojectview.cpp:59
+#: kateprojectview.cpp:57
 #, kde-format
 msgid "Checkout Git Branch"
 msgstr "Отримати гілку git"
-
-#: kateprojectview.cpp:82
-#, kde-format
-msgid "Checkout branch"
-msgstr "Отримати гілку"
 
 #: kateprojectviewtree.cpp:135
 #, kde-format
@@ -1045,6 +1060,9 @@ msgstr "Не вдалося показати позначення. Повідо�
 msgid "&Projects"
 msgstr "П&роєкти"
 
+#~ msgid "Checkout branch"
+#~ msgstr "Отримати гілку"
+
 #~ msgid "Severity"
 #~ msgstr "Критичність"
 
@@ -1114,9 +1132,6 @@ msgstr "П&роєкти"
 #~ msgstr ""
 #~ "Перевищено час очікування на завершення дії Git. Перериваємо роботу "
 #~ "команди…"
-
-#~ msgid "Checked out to branch: %1"
-#~ msgstr "Перейшли на гілку: %1"
 
 #~ msgid "Untracked (%1)"
 #~ msgstr "Поза системою керування (%1)"

@@ -21,7 +21,7 @@ public Q_SLOTS:
     void addLocal(const QString &vString);
     void openScope();
     void closeScope();
-    void insertVariable(const QString &name, const QString &value, const QString &type);
+    void insertVariable(const QString &name, const QString &value, const QString &type, bool changed = false);
     void parseNested(const dap::Variable &parent);
 
 Q_SIGNALS:

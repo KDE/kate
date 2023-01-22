@@ -444,6 +444,11 @@ struct Variable {
      */
     std::optional<QString> memoryReference;
 
+    /**
+     * the value has changed since the last time
+     */
+    std::optional<bool> valueChanged;
+
     Variable() = default;
     Variable(const QJsonObject &body);
     Variable(const QString &name, const QString &value, const int reference = 0);

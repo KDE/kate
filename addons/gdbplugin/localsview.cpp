@@ -56,9 +56,17 @@ QString valueTip(const dap::Variable &variable)
     return text;
 }
 
+static void formatName(QTreeWidgetItem &item, const dap::Variable &variable)
+{
+    QFont font = item.font(0);
+    font.setBold(variable.valueChanged.value_or(false));
+    item.setFont(0, font);
+}
+
 QTreeWidgetItem *LocalsView::createWrappedItem(QTreeWidgetItem *parent, const dap::Variable &variable)
 {
     QTreeWidgetItem *item = new QTreeWidgetItem(parent, QStringList(variable.name));
+    formatName(*item, variable);
     QLabel *label = new QLabel(variable.value);
     label->setWordWrap(true);
     setItemWidget(item, 1, label);
@@ -72,6 +80,7 @@ QTreeWidgetItem *LocalsView::createWrappedItem(QTreeWidgetItem *parent, const da
 QTreeWidgetItem *LocalsView::createWrappedItem(QTreeWidget *parent, const dap::Variable &variable)
 {
     QTreeWidgetItem *item = new QTreeWidgetItem(parent, QStringList(variable.name));
+    formatName(*item, variable);
     QLabel *label = new QLabel(variable.value);
     label->setWordWrap(true);
     setItemWidget(item, 1, label);

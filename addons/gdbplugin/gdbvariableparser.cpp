@@ -151,10 +151,11 @@ void GDBVariableParser::emitNestedVariable(int parentId, const dap::Variable &va
     Q_EMIT variable(parentId, var);
 }
 
-void GDBVariableParser::insertVariable(const QString &name, const QString &value, const QString &type)
+void GDBVariableParser::insertVariable(const QString &name, const QString &value, const QString &type, bool changed)
 {
     const int varId = newVariableId();
     m_pendingVariable = dap::Variable(name, value, varId);
+    m_pendingVariable->valueChanged = changed;
     if (!type.isEmpty()) {
         m_pendingVariable->type = type;
     }

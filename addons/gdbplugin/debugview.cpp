@@ -237,6 +237,7 @@ void DebugView::enqueueProtocolHandshake()
     enqueue(QStringLiteral("-info-gdb-mi-command thread-info"));
     enqueue(QStringLiteral("-info-gdb-mi-command break-list"));
     enqueue(QStringLiteral("-info-gdb-mi-command exec-jump"));
+    enqueue(QStringLiteral("-info-gdb-mi-command data-list-changed-registers"));
     enqueue(QStringLiteral("-kate-init"), QJsonValue(1));
 }
 
@@ -749,6 +750,9 @@ void DebugView::processMIResult(const gdbmi::Record &record)
     case GdbCommand::RegisterValues:
         isReady = responseMIRegisterValues(record);
         break;
+    case GdbCommand::ChangedRegisters:
+        isReady = responseMIChangedRegisters(record);
+        break;
     case GdbCommand::Continue:
     case GdbCommand::Step:
     default:
@@ -883,6 +887,8 @@ bool DebugView::responseMIInfoGdbCommand(const gdbmi::Record &record, const QStr
         m_capabilities.breakList = exists;
     } else if (command == QLatin1String("exec-jump")) {
         m_capabilities.execJump = exists;
+    } else if (command == QLatin1String("data-list-changed-registers")) {
+        m_capabilities.changedRegisters = exists;
     }
 
     return true;
@@ -961,9 +967,25 @@ bool DebugView::responseMIRegisterValues(const gdbmi::Record &record)
         if (name.isEmpty()) {
             continue;
         }
-        m_variableParser.insertVariable(m_registerNames[regIndex], var[QLatin1String("value")].toString(), QString());
+        m_variableParser.insertVariable(m_registerNames[regIndex], var[QLatin1String("value")].toString(), QString(), m_changedRegisters.contains(regIndex));
     }
     Q_EMIT variableScopeClosed();
+    return true;
+}
+
+bool DebugView::responseMIChangedRegisters(const gdbmi::Record &record)
+{
+    if (record.resultClass != QLatin1String("done")) {
+        return true;
+    }
+    for (const auto &item : record.value[QLatin1String("changed-registers")].toArray()) {
+        bool ok = false;
+        const int regIndex = item.toString().toInt(&ok);
+        if (!ok) {
+            continue;
+        }
+        m_changedRegisters.insert(regIndex);
+    }
     return true;
 }
 
@@ -1190,6 +1212,10 @@ void DebugView::enqueueScopeVariables()
         if (m_registerNames.isEmpty()) {
             enqueue(QLatin1String("-data-list-register-names"));
         }
+        if (m_capabilities.changedRegisters.value_or(false)) {
+            m_changedRegisters.clear();
+            enqueue(QLatin1String("-data-list-changed-registers"));
+        }
         enqueue(QLatin1String("-data-list-register-values --skip-unavailable r"));
     } else {
         // request locals
@@ -1393,6 +1419,8 @@ void DebugView::issueCommand(const QString &cmd, const std::optional<QJsonValue>
             command.type = GdbCommand::RegisterNames;
         } else if (command.check(QLatin1String("-data-list-register-values"))) {
             command.type = GdbCommand::RegisterValues;
+        } else if (command.check(QLatin1String("-data-list-changed-registers"))) {
+            command.type = GdbCommand::ChangedRegisters;
         } else if (command.check(QLatin1String("-gdb-exit"))) {
             command.type = GdbCommand::Exit;
         } else if (command.check(QLatin1String("-info-gdb-mi-command"))) {

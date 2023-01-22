@@ -44,7 +44,8 @@ struct GdbCommand {
         Kill,
         LldbVersion,
         RegisterNames,
-        RegisterValues
+        RegisterValues,
+        ChangedRegisters,
     };
     RequestType type = None;
     std::optional<QJsonValue> data = std::nullopt;
@@ -152,6 +153,7 @@ private:
     bool responseMIDataEvaluateExpression(const gdbmi::Record &record, const std::optional<QJsonValue> &data);
     bool responseMIRegisterNames(const gdbmi::Record &record);
     bool responseMIRegisterValues(const gdbmi::Record &record);
+    bool responseMIChangedRegisters(const gdbmi::Record &record);
     bool responseMIExit(const gdbmi::Record &record);
     bool responseMIKill(const gdbmi::Record &record);
     bool responseMIInfoGdbCommand(const gdbmi::Record &record, const QStringList &args);
@@ -206,6 +208,7 @@ private:
     GdbState m_gdbState = Disconnected;
     QList<dap::StackFrame> m_stackFrames;
     QVector<QString> m_registerNames;
+    QSet<int> m_changedRegisters;
     bool m_lastInputReady = false;
     bool m_pointerThis = false;
 
@@ -227,5 +230,6 @@ private:
         std::optional<bool> breakList;
         std::optional<bool> pendingBreakpoints;
         std::optional<bool> execJump;
+        std::optional<bool> changedRegisters;
     } m_capabilities;
 };

@@ -19,8 +19,8 @@
 #include <KTextEditor/Document>
 #include <KTextEditor/View>
 
-#include <KActionCollection>
 #include <KAboutData>
+#include <KActionCollection>
 #include <KConfig>
 #include <KConfigGroup>
 #include <KLocalizedString>
@@ -28,7 +28,6 @@
 #include <KSharedConfig>
 #include <KToolBar>
 #include <KXMLGUIFactory>
-#include <kwidgetsaddons_version.h>
 
 #ifdef KF5Activities_FOUND
 #include <KActivities/ResourceInstance>

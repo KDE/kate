@@ -395,17 +395,6 @@ class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient
     // ... and for type definition
     QPointer<QTreeView> m_typeDefTree;
 
-    // diagnostics tab
-    // QPointer<QTreeView> m_diagnosticsTree;
-    // // tree widget is either owned here or by tab
-    // QScopedPointer<QTreeView> m_diagnosticsTreeOwn;
-    // QScopedPointer<QStandardItemModel> m_diagnosticsModel;
-    // // diagnostics ranges
-    // RangeCollection m_diagnosticsRanges;
-    // // and marks
-    // DocumentCollection m_diagnosticsMarks;
-    // suppression tracked by session config
-
     // views on which completions have been registered
     QSet<KTextEditor::View *> m_completionViews;
 

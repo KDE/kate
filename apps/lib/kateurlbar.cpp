@@ -47,6 +47,9 @@ public:
     explicit FuzzyFilterModel(QObject *parent = nullptr)
         : QSortFilterProxyModel(parent)
     {
+        connect(this, &FuzzyFilterModel::modelAboutToBeReset, this, [this] {
+            m_pattern.clear();
+        });
     }
 
     bool filterAcceptsRow(int row, const QModelIndex &parent) const override
@@ -177,6 +180,9 @@ protected:
                     }
                     return true;
                 } else if (keyEvent->key() == Qt::Key_Enter || keyEvent->key() == Qt::Key_Return) {
+                    m_filterText.blockSignals(true);
+                    m_filterText.clear();
+                    m_filterText.blockSignals(false);
                     m_filterText.hide();
                     Q_EMIT returnPressed(m_itemView.currentIndex(), keyEvent->modifiers());
                 }

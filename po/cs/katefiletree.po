@@ -3,14 +3,14 @@
 # Vít Pelčák <vit@pelcak.org>, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2019.
 # Lukáš Tinkl <ltinkl@redhat.com>, 2011.
 # Tomáš Chvátal <tomas.chvatal@gmail.com>, 2012, 2013.
-# Vit Pelcak <vit@pelcak.org>, 2021.
+# Vit Pelcak <vit@pelcak.org>, 2021, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-14 03:46+0000\n"
-"PO-Revision-Date: 2021-08-19 11:47+0200\n"
+"PO-Revision-Date: 2023-01-17 15:20+0100\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 21.08.0\n"
+"X-Generator: Lokalize 22.12.1\n"
 
 #: katefiletree.cpp:127
 #, kde-format
@@ -46,7 +46,7 @@ msgstr "Zavřít aktuální dokument."
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Expand Recursively"
-msgstr ""
+msgstr "Rozbalit rekurzivně"
 
 #: katefiletree.cpp:137
 #, kde-format
@@ -57,7 +57,7 @@ msgstr "Rozbalit podstrom seznamu souborů rekurzivně."
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Collapse Recursively"
-msgstr ""
+msgstr "Sbalit rekurzivně"
 
 #: katefiletree.cpp:141
 #, kde-format
@@ -90,7 +90,7 @@ msgstr "Otevřít složku, kde se nachází soubor."
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Location"
-msgstr ""
+msgstr "Kopírovat umístění"
 
 #: katefiletree.cpp:154
 #, kde-format
@@ -209,7 +209,7 @@ msgstr "Otevřít pomocí"
 #: katefiletree.cpp:409
 #, kde-format
 msgid "Show File Git History"
-msgstr ""
+msgstr "Zobrazit Git historii souboru"
 
 #: katefiletree.cpp:448
 #, kde-format
@@ -372,7 +372,7 @@ msgstr "Nastavit dokumenty"
 #: katefiletreemodel.cpp:493
 #, kde-format
 msgid "Open Widgets"
-msgstr ""
+msgstr "Otevřít widgety"
 
 #: katefiletreemodel.cpp:645
 #, kde-format
@@ -394,7 +394,7 @@ msgstr "Následující dokument"
 #: katefiletreeplugin.cpp:258
 #, kde-format
 msgid "&Show Active Document"
-msgstr ""
+msgstr "Zo&brazit aktivní dokument"
 
 #: katefiletreeplugin.cpp:263
 #, kde-format
@@ -414,7 +414,7 @@ msgstr "Uložit jako"
 #: katefiletreeplugin.cpp:269
 #, kde-format
 msgid "Save the current document under a new name"
-msgstr ""
+msgstr "Uložit současný dokument pod novým názvem"
 
 #. i18n: ectx: Menu (go)
 #: ui.rc:7

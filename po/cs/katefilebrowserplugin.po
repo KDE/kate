@@ -1,21 +1,21 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Vit Pelcak <vit@pelcak.org>, 2013, 2014, 2017.
+# Vit Pelcak <vit@pelcak.org>, 2013, 2014, 2017, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: katefilebrowserplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-16 00:50+0000\n"
-"PO-Revision-Date: 2017-09-12 11:48+0100\n"
-"Last-Translator: Vít Pelčák <vit@pelcak.org>\n"
+"PO-Revision-Date: 2023-01-17 16:09+0100\n"
+"Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 2.0\n"
+"X-Generator: Lokalize 22.12.1\n"
 
 #: katefilebrowser.cpp:108
 #, kde-format
@@ -50,7 +50,7 @@ msgstr[2] "Pokoušíte se otevřít %1 souborů. Jste si jisti?"
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
-msgstr ""
+msgstr "Otevřít všechny soubory"
 
 #: katefilebrowser.cpp:436
 #, kde-format
@@ -75,7 +75,7 @@ msgstr "Automaticky synchronizovat s aktuálním dokumentem"
 #: katefilebrowser.cpp:480
 #, kde-format
 msgid "Highlight current file"
-msgstr ""
+msgstr "Zvýraznit současný soubor"
 
 #: katefilebrowserconfig.cpp:63
 #, kde-format

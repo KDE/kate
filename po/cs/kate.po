@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-30 03:15+0000\n"
-"PO-Revision-Date: 2023-01-04 10:15+0100\n"
+"PO-Revision-Date: 2023-01-19 07:21+0100\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 22.12.0\n"
+"X-Generator: Lokalize 22.12.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -44,7 +44,7 @@ msgstr "Kate - rozšířený textový editor KDE"
 #: kate/main.cpp:110 kwrite/main.cpp:89
 #, kde-format
 msgid "(c) 2000-2022 The Kate Authors"
-msgstr ""
+msgstr "(c) 2000-2022 autoři Kate"
 
 #: kate/main.cpp:156
 #, kde-format
@@ -165,7 +165,7 @@ msgstr "Soubor"
 #: lib/data/kateui.rc:30
 #, kde-format
 msgid "File Actions"
-msgstr ""
+msgstr "Činnosti souboru"
 
 #. i18n: ectx: Menu (edit)
 #: lib/data/kateui.rc:43
@@ -300,12 +300,12 @@ msgstr ""
 #: lib/diff/diffwidget.cpp:56
 #, kde-format
 msgid "Jump to Next File"
-msgstr ""
+msgstr "Přejít na další soubor"
 
 #: lib/diff/diffwidget.cpp:60
 #, kde-format
 msgid "Jump to Previous File"
-msgstr ""
+msgstr "Přejít na předchozí soubor"
 
 #: lib/diff/diffwidget.cpp:64
 #, kde-format
@@ -342,7 +342,7 @@ msgstr "Chyba"
 #: lib/filehistorywidget.cpp:342
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
-msgstr ""
+msgstr "%1 v repozitáři git neexistuje."
 
 #: lib/filehistorywidget.cpp:342
 #, kde-format
@@ -1450,12 +1450,12 @@ msgstr " [pouze ke čtení]"
 #: lib/katemainwindow.cpp:1407
 #, kde-format
 msgid "Diff %1"
-msgstr ""
+msgstr "Rozdíl %1"
 
 #: lib/katemainwindow.cpp:1409
 #, kde-format
 msgid "Diff %1..%2"
-msgstr ""
+msgstr "Rozdíl %1..%2"
 
 #: lib/katemdi.cpp:85
 #, kde-format
@@ -2095,7 +2095,7 @@ msgstr ""
 #: lib/kateviewspace.cpp:1016
 #, kde-format
 msgid "Diff %1 .. %2"
-msgstr ""
+msgstr "Rozdíl %1 .. %2"
 
 #: lib/kateviewspace.cpp:1021
 #, kde-format
@@ -2461,7 +2461,7 @@ msgstr ""
 #: lib/welcomeview/welcomeview.cpp:237
 #, kde-format
 msgid "Copy &Location"
-msgstr ""
+msgstr "Kopírovat u&místění"
 
 #: lib/welcomeview/welcomeview.cpp:252
 #, kde-format
@@ -2502,7 +2502,7 @@ msgstr "Otevřít soubor..."
 #: lib/welcomeview/welcomeview.ui:242
 #, kde-format
 msgid "Clear Recent Files"
-msgstr ""
+msgstr "Vyprázdnit nedávné soubory"
 
 #. i18n: ectx: property (text), widget (QLabel, labelHelp)
 #: lib/welcomeview/welcomeview.ui:271
@@ -2514,7 +2514,7 @@ msgstr "Nápověda"
 #: lib/welcomeview/welcomeview.ui:281
 #, kde-format
 msgid "Visit homepage"
-msgstr ""
+msgstr "Navštivte domovskou stránku"
 
 #. i18n: ectx: property (text), widget (KUrlLabel, labelContribute)
 #: lib/welcomeview/welcomeview.ui:294
@@ -2526,22 +2526,22 @@ msgstr "Přidejte se"
 #: lib/welcomeview/welcomeview.ui:307
 #, kde-format
 msgid "Read handbook"
-msgstr ""
+msgstr "Přečtěte si příručku"
 
 #. i18n: ectx: property (text), widget (QLabel, labelSavedSessions)
 #: lib/welcomeview/welcomeview.ui:354
 #, kde-format
 msgid "Saved Sessions"
-msgstr ""
+msgstr "Uložená sezení"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonManageSessions)
 #: lib/welcomeview/welcomeview.ui:390
 #, kde-format
 msgid "Manage Sessions..."
-msgstr ""
+msgstr "Spravovat sezení..."
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
 #: lib/welcomeview/welcomeview.ui:443
 #, kde-format
 msgid "Show for new window"
-msgstr ""
+msgstr "Zobrazit pro nové okno"

@@ -110,6 +110,12 @@ public:
         m_proxyModel.setFilterRole(Qt::DisplayRole);
         m_itemView.setModel(&m_proxyModel);
         connect(&m_filterText, &QLineEdit::textChanged, &m_proxyModel, &FuzzyFilterModel::setFilterString);
+        connect(&m_filterText, &QLineEdit::textChanged, this, [this] {
+            auto index = m_proxyModel.index(0, 0);
+            if (index.isValid()) {
+                m_itemView.setCurrentIndex(index);
+            }
+        });
     }
 
     void setModel(QAbstractItemModel *model)

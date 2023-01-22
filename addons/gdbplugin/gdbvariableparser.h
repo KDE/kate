@@ -38,7 +38,7 @@ private:
     int currentVariableId() const;
 
     std::optional<dap::Variable> m_pendingVariable = std::nullopt;
-    int m_varId = 1;
+    int m_varId;
     bool m_allAdded = true;
     QString m_local;
 };

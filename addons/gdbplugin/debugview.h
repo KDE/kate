@@ -15,6 +15,7 @@
 
 #include <QProcess>
 #include <QUrl>
+#include <QVector>
 #include <optional>
 
 #include "configview.h"
@@ -42,6 +43,8 @@ struct GdbCommand {
         Exit,
         Kill,
         LldbVersion,
+        RegisterNames,
+        RegisterValues
     };
     RequestType type = None;
     std::optional<QJsonValue> data = std::nullopt;
@@ -147,6 +150,8 @@ private:
     void notifyMIBreakpointModified(const gdbmi::Record &record);
     bool responseMIListFeatures(const gdbmi::Record &record);
     bool responseMIDataEvaluateExpression(const gdbmi::Record &record, const std::optional<QJsonValue> &data);
+    bool responseMIRegisterNames(const gdbmi::Record &record);
+    bool responseMIRegisterValues(const gdbmi::Record &record);
     bool responseMIExit(const gdbmi::Record &record);
     bool responseMIKill(const gdbmi::Record &record);
     bool responseMIInfoGdbCommand(const gdbmi::Record &record, const QStringList &args);
@@ -200,6 +205,7 @@ private:
     int m_seq = 0;
     GdbState m_gdbState = Disconnected;
     QList<dap::StackFrame> m_stackFrames;
+    QVector<QString> m_registerNames;
     bool m_lastInputReady = false;
     bool m_pointerThis = false;
 

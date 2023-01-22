@@ -34,6 +34,7 @@
 
 static const dap::Scope LocalScope(0, i18n("Locals"));
 static const dap::Scope ThisScope(1, QStringLiteral("*this"));
+static const dap::Scope RegistersScope(2, i18n("CPU registers"));
 
 static constexpr int DATA_EVAL_THIS_CHECK = 0;
 static constexpr int DATA_EVAL_THIS_DEREF = 1;
@@ -149,6 +150,7 @@ void DebugView::resetSession()
     m_nextCommands.clear();
     m_currentThread.reset();
     m_stackFrames.clear();
+    m_registerNames.clear();
 }
 
 void DebugView::runDebugger(const GDBTargetConf &conf, const QStringList &ioFifos)
@@ -741,6 +743,12 @@ void DebugView::processMIResult(const gdbmi::Record &record)
     case GdbCommand::LldbVersion:
         isReady = responseMILldbVersion(record);
         break;
+    case GdbCommand::RegisterNames:
+        isReady = responseMIRegisterNames(record);
+        break;
+    case GdbCommand::RegisterValues:
+        isReady = responseMIRegisterValues(record);
+        break;
     case GdbCommand::Continue:
     case GdbCommand::Step:
     default:
@@ -916,6 +924,46 @@ bool DebugView::responseMIStackListFrames(const gdbmi::Record &record)
         changeStackFrame(0);
     }
 
+    return true;
+}
+
+bool DebugView::responseMIRegisterNames(const gdbmi::Record &record)
+{
+    if (record.resultClass != QLatin1String("done")) {
+        return true;
+    }
+
+    const auto names = record.value[QLatin1String("register-names")].toArray();
+    m_registerNames.clear();
+    m_registerNames.reserve(names.size());
+    for (const auto &name : names) {
+        m_registerNames << name.toString().trimmed();
+    }
+
+    return true;
+}
+
+bool DebugView::responseMIRegisterValues(const gdbmi::Record &record)
+{
+    if (record.resultClass != QLatin1String("done")) {
+        return true;
+    }
+
+    Q_EMIT variableScopeOpened();
+    for (const auto &item : record.value[QLatin1String("register-values")].toArray()) {
+        const auto var = item.toObject();
+        bool ok = false;
+        const int regIndex = var[QLatin1String("number")].toString().toInt(&ok);
+        if (!ok || (regIndex < 0) || (regIndex >= m_registerNames.size())) {
+            continue;
+        }
+        const auto &name = m_registerNames[regIndex];
+        if (name.isEmpty()) {
+            continue;
+        }
+        m_variableParser.insertVariable(m_registerNames[regIndex], var[QLatin1String("value")].toString(), QString());
+    }
+    Q_EMIT variableScopeClosed();
     return true;
 }
 
@@ -1138,6 +1186,11 @@ void DebugView::enqueueScopeVariables()
     if (m_pointerThis && (m_currentScope == ThisScope.variablesReference)) {
         // request *this
         enqueue(QLatin1String("-data-evaluate-expression %1 \"*this\"").arg(makeFrameFlags()), QJsonValue(DATA_EVAL_THIS_DEREF));
+    } else if (m_currentScope == RegistersScope.variablesReference) {
+        if (m_registerNames.isEmpty()) {
+            enqueue(QLatin1String("-data-list-register-names"));
+        }
+        enqueue(QLatin1String("-data-list-register-values --skip-unavailable r"));
     } else {
         // request locals
         enqueue(QLatin1String("-stack-list-variables %1 --all-values").arg(makeFrameFlags()));
@@ -1155,6 +1208,7 @@ void DebugView::responseMIScopes(const gdbmi::Record &record)
     if (m_pointerThis) {
         scopes << ThisScope;
     }
+    scopes << RegistersScope;
 
     const auto activeScope = std::find_if(scopes.cbegin(), scopes.cend(), [this](const auto &scope) {
         return !m_watchedScope || (*m_watchedScope == scope.variablesReference);
@@ -1335,6 +1389,10 @@ void DebugView::issueCommand(const QString &cmd, const std::optional<QJsonValue>
             command.type = GdbCommand::ListFeatures;
         } else if (command.check(QLatin1String("-data-evaluate-expression"))) {
             command.type = GdbCommand::DataEvaluateExpression;
+        } else if (command.check(QLatin1String("-data-list-register-names"))) {
+            command.type = GdbCommand::RegisterNames;
+        } else if (command.check(QLatin1String("-data-list-register-values"))) {
+            command.type = GdbCommand::RegisterValues;
         } else if (command.check(QLatin1String("-gdb-exit"))) {
             command.type = GdbCommand::Exit;
         } else if (command.check(QLatin1String("-info-gdb-mi-command"))) {

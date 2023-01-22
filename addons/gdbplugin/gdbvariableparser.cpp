@@ -10,14 +10,17 @@
 
 #include "gdbvariableparser.h"
 
+static constexpr int MIN_VAR_ID = 10;
+
 GDBVariableParser::GDBVariableParser(QObject *parent)
     : QObject(parent)
+    , m_varId(MIN_VAR_ID)
 {
 }
 
 void GDBVariableParser::openScope()
 {
-    m_varId = 0;
+    m_varId = MIN_VAR_ID;
     m_allAdded = false;
 
     Q_EMIT scopeOpened();

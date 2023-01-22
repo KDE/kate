@@ -55,6 +55,7 @@ LSPClientConfigPage::LSPClientConfigPage(QWidget *parent, LSPClientPlugin *plugi
                            ui->chkRefDeclaration,
                            ui->chkComplParens,
                            ui->chkMessages,
+                           ui->chkDiagnostics,
                            ui->chkOnTypeFormatting,
                            ui->chkIncrementalSync,
                            ui->chkHighlightGoto,
@@ -128,6 +129,7 @@ void LSPClientConfigPage::apply()
     m_plugin->m_fmtOnSave = ui->chkFmtOnSave->isChecked();
     m_plugin->m_inlayHints = ui->chkInlayHint->isChecked();
 
+    m_plugin->m_diagnostics = ui->chkDiagnostics->isChecked();
     m_plugin->m_messages = ui->chkMessages->isChecked();
 
     m_plugin->m_configPath = ui->edtConfigPath->url();
@@ -171,6 +173,7 @@ void LSPClientConfigPage::reset()
     ui->chkFmtOnSave->setChecked(m_plugin->m_fmtOnSave);
     ui->chkInlayHint->setChecked(m_plugin->m_inlayHints);
 
+    ui->chkDiagnostics->setChecked(m_plugin->m_diagnostics);
     ui->chkMessages->setChecked(m_plugin->m_messages);
 
     ui->edtConfigPath->setUrl(m_plugin->m_configPath);

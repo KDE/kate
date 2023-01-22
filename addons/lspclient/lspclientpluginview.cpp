@@ -361,6 +361,7 @@ class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient
     QPointer<QAction> m_onTypeFormatting;
     QPointer<QAction> m_incrementalSync;
     QPointer<QAction> m_highlightGoto;
+    QPointer<QAction> m_diagnostics;
     QPointer<QAction> m_messages;
     QPointer<QAction> m_closeDynamic;
     QPointer<QAction> m_restartServer;
@@ -600,6 +601,11 @@ public:
         m_inlayHints->setCheckable(true);
         m_inlayHints->setText(i18n("Show Inlay Hints"));
 
+        // diagnostics
+        m_diagnostics = actionCollection()->addAction(QStringLiteral("lspclient_diagnostics"), this, &self_type::displayOptionChanged);
+        m_diagnostics->setText(i18n("Show Diagnostics Notifications"));
+        m_diagnostics->setCheckable(true);
+
         // messages
         m_messages = actionCollection()->addAction(QStringLiteral("lspclient_messages"), this, &self_type::displayOptionChanged);
         m_messages->setText(i18n("Show Messages"));
@@ -666,6 +672,7 @@ public:
         moreOptions->addAction(m_highlightGoto);
         moreOptions->addAction(m_inlayHints);
         moreOptions->addSeparator();
+        moreOptions->addAction(m_diagnostics);
         moreOptions->addAction(m_messages);
         moreOptions->addSeparator();
         moreOptions->addAction(m_memoryUsage);
@@ -913,6 +920,9 @@ public:
         }
         if (m_highlightGoto) {
             m_highlightGoto->setChecked(m_plugin->m_highlightGoto);
+        }
+        if (m_diagnostics) {
+            m_diagnostics->setChecked(m_plugin->m_diagnostics);
         }
         if (m_messages) {
             m_messages->setChecked(m_plugin->m_messages);
@@ -2093,7 +2103,9 @@ public:
 
     void onDiagnostics(const LSPPublishDiagnosticsParams &diagnostics)
     {
-        Q_EMIT m_diagnosticProvider.diagnosticsAdded(diagnostics);
+        if (m_diagnostics->isChecked()) {
+            Q_EMIT m_diagnosticProvider.diagnosticsAdded(diagnostics);
+        }
     }
 
     void onServerChanged()

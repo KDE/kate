@@ -140,48 +140,55 @@
           </widget>
          </item>
          <item row="11" column="1">
+          <widget class="QCheckBox" name="chkDiagnostics">
+           <property name="text">
+            <string>Show program diagnostics</string>
+           </property>
+          </widget>
+         </item>
+         <item row="12" column="1">
           <widget class="QCheckBox" name="chkMessages">
            <property name="text">
             <string>Show notifications from the LSP server</string>
            </property>
           </widget>
          </item>
-         <item row="12" column="1">
+         <item row="13" column="1">
           <widget class="QCheckBox" name="chkIncrementalSync">
            <property name="text">
             <string>Incrementally synchronize documents with the LSP server</string>
            </property>
           </widget>
          </item>
-         <item row="13" column="0">
+         <item row="14" column="0">
           <widget class="QLabel" name="label_6">
            <property name="text">
             <string>Document outline:</string>
            </property>
           </widget>
          </item>
-         <item row="13" column="1">
+         <item row="14" column="1">
           <widget class="QCheckBox" name="chkSymbolSort">
            <property name="text">
             <string>Sort symbols alphabetically</string>
            </property>
           </widget>
          </item>
-         <item row="14" column="1">
+         <item row="15" column="1">
           <widget class="QCheckBox" name="chkSymbolDetails">
            <property name="text">
             <string>Display additional details for symbols</string>
            </property>
           </widget>
          </item>
-         <item row="15" column="1">
+         <item row="16" column="1">
           <widget class="QCheckBox" name="chkSymbolTree">
            <property name="text">
             <string>Present symbols in a hierarchy instead of a flat list</string>
            </property>
           </widget>
          </item>
-         <item row="16" column="1">
+         <item row="17" column="1">
           <layout class="QHBoxLayout" name="horizontalLayout_4">
            <property name="leftMargin">
             <number>20</number>

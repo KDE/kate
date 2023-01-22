@@ -331,6 +331,7 @@ void DiagnosticsView::registerDiagnosticsProvider(DiagnosticsProvider *provider)
     connect(provider, &DiagnosticsProvider::diagnosticsAdded, this, &DiagnosticsView::onDiagnosticsAdded);
     connect(provider, &DiagnosticsProvider::fixesAvailable, this, &DiagnosticsView::onFixesAvailable);
     connect(provider, &DiagnosticsProvider::requestClearDiagnostics, this, &DiagnosticsView::clearDiagnosticsFromProvider);
+    connect(provider, &DiagnosticsProvider::requestClearSuppressions, this, &DiagnosticsView::clearSuppressionsFromProvider);
     m_providers.push_back(provider);
 }
 
@@ -343,6 +344,7 @@ void DiagnosticsView::unregisterDiagnosticsProvider(DiagnosticsProvider *provide
     disconnect(provider, &DiagnosticsProvider::diagnosticsAdded, this, &DiagnosticsView::onDiagnosticsAdded);
     disconnect(provider, &DiagnosticsProvider::fixesAvailable, this, &DiagnosticsView::onFixesAvailable);
     disconnect(provider, &DiagnosticsProvider::requestClearDiagnostics, this, &DiagnosticsView::clearDiagnosticsFromProvider);
+    disconnect(provider, &DiagnosticsProvider::requestClearSuppressions, this, &DiagnosticsView::clearSuppressionsFromProvider);
     m_providers.removeOne(provider);
 }
 
@@ -655,19 +657,21 @@ void DiagnosticsView::onDiagnosticsAdded(const FileDiagnostics &diagnostics)
     m_tabButtonOverlay->setActive(!isVisible() && m_model.rowCount() > 0);
 }
 
+static auto getProvider(QStandardItem *item)
+{
+    return item->data(DiagnosticModelRole::ProviderRole).value<DiagnosticsProvider *>();
+}
+
 void DiagnosticsView::clearDiagnosticsForStaleDocs(const QVector<QString> &filesToKeep, DiagnosticsProvider *provider)
 {
     // If provider == null, all diags get cleared
-    auto get_provider = [](QStandardItem *item) {
-        return item->data(DiagnosticModelRole::ProviderRole).value<DiagnosticsProvider *>();
-    };
-    auto all_diags_from_provider = [get_provider, provider](QStandardItem *file) {
+    auto all_diags_from_provider = [provider](QStandardItem *file) {
         if (file->rowCount() == 0 || !provider) {
             return true;
         }
         for (int i = 0; i < file->rowCount(); ++i) {
             auto diagItem = file->child(i);
-            auto p = get_provider(diagItem);
+            auto p = getProvider(diagItem);
             if (provider != p) {
                 return false;
             }
@@ -695,7 +699,7 @@ void DiagnosticsView::clearDiagnosticsForStaleDocs(const QVector<QString> &files
                 bulk_remove(&m_model, start, count, i);
                 for (int r = 0; r < fileItem->rowCount(); ++r) {
                     auto item = fileItem->child(r);
-                    if (item && get_provider(item) == provider) {
+                    if (item && getProvider(item) == provider) {
                         fileItem->removeRow(r);
                         r--;
                     }
@@ -718,6 +722,22 @@ void DiagnosticsView::clearDiagnosticsForStaleDocs(const QVector<QString> &files
     updateMarks();
 
     m_tabButtonOverlay->setActive(!isVisible() && m_model.rowCount() > 0);
+}
+
+void DiagnosticsView::clearSuppressionsFromProvider(DiagnosticsProvider *provider)
+{
+    // need to clear suppressions
+    // will be filled again at suitable time by re-requesting provider
+    for (int i = 0; i < m_model.rowCount(); ++i) {
+        auto item = m_model.item(i);
+        if (item->type() != DiagnosticItem_File) {
+            continue;
+        }
+        auto fileItem = static_cast<DocumentDiagnosticItem *>(item);
+        if (getProvider(fileItem) == provider) {
+            fileItem->diagnosticSuppression.reset();
+        }
+    }
 }
 
 void DiagnosticsView::addMarks(KTextEditor::Document *doc, QStandardItem *item)

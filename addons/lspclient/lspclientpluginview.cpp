@@ -2098,13 +2098,7 @@ public:
 
     void onServerChanged()
     {
-        // need to clear suppressions
-        // will be filled at suitable time
-        // auto &model = m_diagnosticsModel;
-        // for (int i = 0; i < model->rowCount(); ++i) {
-        //     auto diagItem = static_cast<DocumentDiagnosticItem *>(model->item(i));
-        //     diagItem->m_diagnosticSuppression.reset();
-        // }
+        m_diagnosticProvider.requestClearSuppressions(&m_diagnosticProvider);
         updateState();
     }
 

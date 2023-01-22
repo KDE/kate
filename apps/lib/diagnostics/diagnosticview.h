@@ -61,6 +61,10 @@ Q_SIGNALS:
     /// emitted by provider when fixes are available
     void fixesAvailable(const QVector<DiagnosticFix> &fixes, const QVariant &data);
 
+    /// emitted by provider to clear suppressions
+    /// (as some state that the previously provided ones depend on may have changed
+    void requestClearSuppressions(DiagnosticsProvider *provider);
+
 private:
     friend class DiagnosticsView;
     class DiagnosticsView *diagnosticView;
@@ -98,6 +102,7 @@ private:
         clearDiagnosticsForStaleDocs({}, provider);
     }
     void clearDiagnosticsForStaleDocs(const QVector<QString> &filesToKeep, DiagnosticsProvider *provider);
+    void clearSuppressionsFromProvider(DiagnosticsProvider *provider);
     void onDocumentUrlChanged();
     void updateDiagnosticsState(QStandardItem *&topItem);
     void updateMarks(const QList<QUrl> &urls = {});

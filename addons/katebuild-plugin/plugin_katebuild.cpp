@@ -513,24 +513,29 @@ void KateBuildView::slotErrorSelected(QTreeWidgetItem *item)
 /******************************************************************/
 void KateBuildView::addError(const QString &filename, const QString &line, const QString &column, const QString &message)
 {
+    KColorScheme schemeView(QPalette::Active, KColorScheme::View);
     ErrorCategory errorCategory = CategoryInfo;
     QTreeWidgetItem *item = new QTreeWidgetItem(m_buildUi.errTreeWidget);
-    item->setBackground(1, Qt::gray);
-    static QRegularExpression errorRegExp(QStringLiteral("\berror\b"));
-    static QRegularExpression errorRegExpTr(QStringLiteral("\b%1\b").arg(i18nc("The same word as 'make' uses to mark an error.", "error")));
+    item->setBackground(1, schemeView.background(KColorScheme::AlternateBackground).color());
+    static QRegularExpression errorRegExp(QStringLiteral("error:"), QRegularExpression::CaseInsensitiveOption);
+    static QRegularExpression errorRegExpTr(QStringLiteral("%1:").arg(i18nc("The same word as 'make' uses to mark an error.", "error")),
+                                            QRegularExpression::CaseInsensitiveOption);
     // The strings are twice in case kate is translated but not make.
     if (message.contains(errorRegExp) || message.contains(errorRegExpTr) || message.contains(QLatin1String("undefined reference"))
         || message.contains(i18nc("The same word as 'ld' uses to mark an ...", "undefined reference"))) {
         errorCategory = CategoryError;
-        item->setForeground(1, Qt::red);
+        item->setForeground(1, schemeView.foreground(KColorScheme::NegativeText).color());
+        item->setBackground(1, schemeView.background(KColorScheme::NegativeBackground).color());
         m_numErrors++;
         item->setHidden(false);
     }
-    static QRegularExpression warningRegExp(QStringLiteral("\bwarning\b"));
-    static QRegularExpression warningRegExpTr(QStringLiteral("\b%1\b").arg(i18nc("The same word as 'make' uses to mark a warning.", "warning")));
+    static QRegularExpression warningRegExp(QStringLiteral("warning:"), QRegularExpression::CaseInsensitiveOption);
+    static QRegularExpression warningRegExpTr(QStringLiteral("%1:").arg(i18nc("The same word as 'make' uses to mark a warning.", "warning")),
+                                              QRegularExpression::CaseInsensitiveOption);
     if (message.contains(warningRegExp) || message.contains(warningRegExpTr)) {
         errorCategory = CategoryWarning;
-        item->setForeground(1, Qt::yellow);
+        item->setForeground(1, schemeView.foreground(KColorScheme::NeutralText).color());
+        item->setBackground(1, schemeView.background(KColorScheme::NeutralBackground).color());
         m_numWarnings++;
         item->setHidden(m_buildUi.displayModeSlider->value() > 2);
     }

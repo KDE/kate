@@ -33,7 +33,7 @@ public:
      * @param pluginView our plugin view
      * @param project project this view is for
      */
-    KateProjectView(KateProjectPluginView *pluginView, KateProject *project, KTextEditor::MainWindow *mainWindow);
+    KateProjectView(KateProjectPluginView *pluginView, KateProject *project);
 
     /**
      * deconstruct project
@@ -94,11 +94,6 @@ private:
      * filter
      */
     KLineEdit *m_filter;
-
-    /**
-      checkout branch button in the statusbar
-     */
-    QToolButton *const m_branchBtn;
 
     /**
      * watches for changes to .git/HEAD

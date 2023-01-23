@@ -6,6 +6,8 @@
  */
 
 #include "kateprojectpluginview.h"
+#include "branchcheckoutdialog.h"
+#include "currentgitbranchbutton.h"
 #include "fileutil.h"
 #include "gitprocess.h"
 #include "gitwidget.h"
@@ -14,6 +16,7 @@
 #include "kateprojectinfoviewindex.h"
 #include "kateprojectplugin.h"
 #include "kateprojectview.h"
+#include "ktexteditor_utils.h"
 
 #include <KTextEditor/Command>
 #include <ktexteditor/application.h>
@@ -211,6 +214,13 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
 
     m_gotoSymbolActionAppMenu = a = actionCollection()->addAction(KStandardAction::Goto, QStringLiteral("projects_goto_symbol"), this, SLOT(slotGotoSymbol()));
 
+    auto chckbrAct = actionCollection()->addAction(QStringLiteral("checkout_branch"), this, [this] {
+        BranchCheckoutDialog bd(mainWindow()->window(), this, projectBaseDir());
+        bd.openDialog();
+    });
+    chckbrAct->setIcon(QIcon::fromTheme(QStringLiteral("vcs-branch")));
+    chckbrAct->setText(i18n("Checkout Git Branch"));
+
     // popup menu
     auto popup = new KActionMenu(i18n("Project"), this);
     actionCollection()->addAction(QStringLiteral("popup_project"), popup);
@@ -321,7 +331,7 @@ QPair<KateProjectView *, KateProjectInfoView *> KateProjectPluginView::viewForPr
     /**
      * create new views
      */
-    KateProjectView *view = new KateProjectView(this, project, m_mainWindow);
+    KateProjectView *view = new KateProjectView(this, project);
     KateProjectInfoView *infoView = new KateProjectInfoView(this, project);
     GitWidget *gitView = new GitWidget(project, m_mainWindow, this);
 
@@ -914,6 +924,23 @@ void KateProjectPluginView::slotActivateProject(KateProject *project)
     if (index >= 0) {
         m_projectsCombo->setCurrentIndex(index);
     }
+}
+
+void KateProjectPluginView::updateGitBranchButton(KateProject *project)
+{
+    if (!m_branchBtn) {
+        m_branchBtn.reset(new CurrentGitBranchButton(mainWindow(), nullptr));
+        auto a = actionCollection()->action(QStringLiteral("checkout_branch"));
+        Q_ASSERT(a);
+        m_branchBtn->setDefaultAction(a);
+        Utils::insertWidgetInStatusbar(m_branchBtn.get(), mainWindow());
+    }
+
+    if (!project || project->baseDir() != projectBaseDir()) {
+        return;
+    }
+
+    static_cast<CurrentGitBranchButton *>(m_branchBtn.get())->refresh();
 }
 
 #include "kateprojectpluginview.moc"

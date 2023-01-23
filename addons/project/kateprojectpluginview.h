@@ -133,6 +133,8 @@ public Q_SLOTS:
 
     void runCmdInTerminal(const QString &workingDir, const QString &cmd);
 
+    void updateGitBranchButton(KateProject *project);
+
 private Q_SLOTS:
     /**
      * Plugin config updated
@@ -421,22 +423,8 @@ private:
     QAction *m_projectCloseAllAction;
     QAction *m_projectCloseWithoutDocumentsAction;
 
-    class FixedView
-    {
-    public:
-        QPointer<KTextEditor::View> view;
-        QPointer<QMenu> defaultMenu;
-
-        void restoreMenu()
-        {
-            if (view && defaultMenu) {
-                view->setContextMenu(defaultMenu);
-            }
-        }
-    };
-
     /**
-     * Fixed view for viewing diffs
+      checkout branch button in the statusbar
      */
-    FixedView m_fixedView;
+    std::unique_ptr<QToolButton> m_branchBtn = nullptr;
 };

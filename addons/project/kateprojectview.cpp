@@ -7,13 +7,11 @@
 
 #include "kateprojectview.h"
 #include "branchcheckoutdialog.h"
-#include "currentgitbranchbutton.h"
 #include "gitprocess.h"
 #include "gitwidget.h"
 #include "kateprojectfiltermodel.h"
 #include "kateprojectplugin.h"
 #include "kateprojectpluginview.h"
-#include "ktexteditor_utils.h"
 
 #include <KTextEditor/Document>
 #include <KTextEditor/Editor>
@@ -28,12 +26,11 @@
 #include <QPushButton>
 #include <QVBoxLayout>
 
-KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject *project, KTextEditor::MainWindow *mainWindow)
+KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject *project)
     : m_pluginView(pluginView)
     , m_project(project)
     , m_treeView(new KateProjectViewTree(pluginView, project))
     , m_filter(new KLineEdit())
-    , m_branchBtn(new CurrentGitBranchButton(mainWindow, this))
 {
     /**
      * layout tree view and co.
@@ -48,14 +45,6 @@ KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject 
     /**
      * Setup checkout stuff, git branch button in statusbar
      */
-    auto chckbrAct = pluginView->actionCollection()->addAction(QStringLiteral("checkout_branch"), this, [mainWindow, this] {
-        BranchCheckoutDialog bd(mainWindow->window(), m_pluginView, m_project->baseDir());
-        bd.openDialog();
-    });
-    m_branchBtn->setDefaultAction(chckbrAct);
-    chckbrAct->setIcon(QIcon::fromTheme(QStringLiteral("vcs-branch")));
-    chckbrAct->setText(i18n("Checkout Git Branch"));
-    Utils::insertWidgetInStatusbar(m_branchBtn, mainWindow);
 
     // let tree get focus for keyboard selection of file to open
     setFocusProxy(m_treeView);
@@ -73,7 +62,8 @@ KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject 
         m_filterStartTimer.start();
     });
 
-    checkAndRefreshGit();
+    // pluginView is not fully initialized at this point so delay it.
+    QMetaObject::invokeMethod(this, &KateProjectView::checkAndRefreshGit, Qt::QueuedConnection);
 
     connect(m_project, &KateProject::modelChanged, this, &KateProjectView::checkAndRefreshGit);
     connect(&m_pluginView->plugin()->fileWatcher(), &QFileSystemWatcher::fileChanged, this, [this](const QString &path) {
@@ -141,5 +131,5 @@ void KateProjectView::checkAndRefreshGit()
             m_pluginView->plugin()->fileWatcher().addPath(m_branchChangedWatcherFile);
         }
     }
-    static_cast<CurrentGitBranchButton *>(m_branchBtn)->refresh();
+    m_pluginView->updateGitBranchButton(m_project);
 }

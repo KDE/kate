@@ -82,12 +82,12 @@ KatePluginGDBView::KatePluginGDBView(KTextEditor::Plugin *plugin, KTextEditor::M
     m_outputArea->setUndoRedoEnabled(false);
     // fixed wide font, like konsole
     m_outputArea->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
-    // alternate color scheme, like konsole
-    KColorScheme schemeView(QPalette::Active, KColorScheme::View);
-    m_outputArea->setTextBackgroundColor(schemeView.foreground().color());
-    m_outputArea->setTextColor(schemeView.background().color());
+    // Use complementary color scheme for dark "terminal"
+    KColorScheme schemeView(QPalette::Active, KColorScheme::Complementary);
+    m_outputArea->setTextBackgroundColor(schemeView.background().color());
+    m_outputArea->setTextColor(schemeView.foreground().color());
     QPalette p = m_outputArea->palette();
-    p.setColor(QPalette::Base, schemeView.foreground().color());
+    p.setColor(QPalette::Base, schemeView.background().color());
     m_outputArea->setPalette(p);
 
     // input

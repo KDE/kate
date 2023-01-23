@@ -194,6 +194,10 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
         m_buildUi.u_tabWidget->widget(index)->deleteLater();
     });
 
+    connect(m_buildUi.u_tabWidget->tabBar(), &QTabBar::tabBarClicked, this, [this](int index) {
+        m_buildUi.u_tabWidget->widget(index)->setFocus();
+    });
+
     m_buildWidget->installEventFilter(this);
 
     m_buildUi.buildAgainButton->setVisible(true);

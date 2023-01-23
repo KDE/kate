@@ -17,6 +17,7 @@ target_link_libraries(
     KF5::I18n
     KF5::TextEditor
     KF5::Wallet
+    KF5::KIOWidgets
     Qt::Sql
 )
 

@@ -57,6 +57,8 @@ target_link_libraries(
     KF5::TextEditor
     KF5::TextWidgets
     KF5::WindowSystem
+    KF5::KIOGui
+    KF5::KIOWidgets
 )
 
 if(KF5Activities_FOUND)

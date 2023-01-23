@@ -179,6 +179,40 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     a->setCheckable(true);
     connect(a, &QAction::triggered, this, &KateBuildView::slotDisplayOption);
 
+    a = actionCollection()->addAction(QStringLiteral("focus_build_tab_left"));
+    a->setText(i18n("Focus Next Tab to the Left"));
+    a->setIcon(QIcon::fromTheme(QStringLiteral("go-previous")));
+    connect(a, &QAction::triggered, this, [this]() {
+        int index = m_buildUi.u_tabWidget->currentIndex();
+        if (!m_toolView->isVisible()) {
+            m_win->showToolView(m_toolView);
+        } else {
+            index--;
+            if (index < 0) {
+                index = m_buildUi.u_tabWidget->count() - 1;
+            }
+        }
+        m_buildUi.u_tabWidget->setCurrentIndex(index);
+        m_buildUi.u_tabWidget->widget(index)->setFocus();
+    });
+
+    a = actionCollection()->addAction(QStringLiteral("focus_build_tab_right"));
+    a->setText(i18n("Focus Next Tab to the Right"));
+    a->setIcon(QIcon::fromTheme(QStringLiteral("go-next")));
+    connect(a, &QAction::triggered, this, [this]() {
+        int index = m_buildUi.u_tabWidget->currentIndex();
+        if (!m_toolView->isVisible()) {
+            m_win->showToolView(m_toolView);
+        } else {
+            index++;
+            if (index >= m_buildUi.u_tabWidget->count()) {
+                index = 0;
+            }
+        }
+        m_buildUi.u_tabWidget->setCurrentIndex(index);
+        m_buildUi.u_tabWidget->widget(index)->setFocus();
+    });
+
     m_buildWidget = new QWidget(m_toolView);
     m_buildUi.setupUi(m_buildWidget);
     int leftMargin = QApplication::style()->pixelMetric(QStyle::PM_LayoutLeftMargin);

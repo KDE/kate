@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-22 01:01+0000\n"
+"POT-Creation-Date: 2023-01-23 01:00+0000\n"
 "PO-Revision-Date: 2022-02-06 19:51+0000\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian\n"
@@ -189,7 +189,7 @@ msgstr "Kate - Un editor de text avansat"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
 #: lib/commitfilesview.cpp:350 lib/filehistorywidget.cpp:254
-#: lib/kateconfigdialog.cpp:137 lib/session/katesessionmanagedialog.ui:184
+#: lib/kateconfigdialog.cpp:135 lib/session/katesessionmanagedialog.ui:184
 #, kde-format
 msgid "Close"
 msgstr "Închide"
@@ -317,73 +317,73 @@ msgstr "&Deschide rapid"
 msgid "Filter..."
 msgstr "Filtru:"
 
-#: lib/diagnostics/diagnosticview.cpp:813 lib/kateconfigdialog.cpp:393
+#: lib/diagnostics/diagnosticview.cpp:833 lib/kateconfigdialog.cpp:391
 #, kde-format
 msgid "Error"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:817 lib/kateconfigdialog.cpp:393
-#: lib/kateconfigdialog.cpp:939
+#: lib/diagnostics/diagnosticview.cpp:837 lib/kateconfigdialog.cpp:391
+#: lib/kateconfigdialog.cpp:937
 #, kde-format
 msgid "Warning"
 msgstr "Avertisment"
 
-#: lib/diagnostics/diagnosticview.cpp:821
+#: lib/diagnostics/diagnosticview.cpp:841
 #, fuzzy, kde-format
 #| msgid "Meta-Information"
 msgid "Information"
 msgstr "Metainformații"
 
-#: lib/diagnostics/diagnosticview.cpp:954
+#: lib/diagnostics/diagnosticview.cpp:974
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1068
+#: lib/diagnostics/diagnosticview.cpp:1088
 #, kde-format
 msgid "Expand All"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1069
+#: lib/diagnostics/diagnosticview.cpp:1089
 #, fuzzy, kde-format
 #| msgid "Clos&e All"
 msgid "Collapse All"
 msgstr "În&chide tot"
 
-#: lib/diagnostics/diagnosticview.cpp:1078
+#: lib/diagnostics/diagnosticview.cpp:1098
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1101
+#: lib/diagnostics/diagnosticview.cpp:1121
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1103
+#: lib/diagnostics/diagnosticview.cpp:1123
 #, fuzzy, kde-format
 #| msgid "Sess&ions"
 msgid "Add Global Suppression"
 msgstr "Ses&iuni"
 
-#: lib/diagnostics/diagnosticview.cpp:1107
+#: lib/diagnostics/diagnosticview.cpp:1127
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1109
+#: lib/diagnostics/diagnosticview.cpp:1129
 #, kde-format
 msgid "Add Local Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1122
+#: lib/diagnostics/diagnosticview.cpp:1142
 #, fuzzy, kde-format
 #| msgid "Filter Sessions"
 msgid "Disable Suppression"
 msgstr "Filtrare sesiuni"
 
-#: lib/diagnostics/diagnosticview.cpp:1124
+#: lib/diagnostics/diagnosticview.cpp:1144
 #, fuzzy, kde-format
 #| msgid "Manage Sessions"
 msgid "Enable Suppression"
@@ -394,18 +394,18 @@ msgstr "Gestionează sesiunile"
 msgid "Change Style"
 msgstr ""
 
-#: lib/diff/diffeditor.cpp:180 lib/kateconfigdialog.cpp:557
+#: lib/diff/diffeditor.cpp:180 lib/kateconfigdialog.cpp:555
 #, kde-format
 msgid "Side By Side"
 msgstr ""
 
-#: lib/diff/diffeditor.cpp:183 lib/kateconfigdialog.cpp:558
+#: lib/diff/diffeditor.cpp:183 lib/kateconfigdialog.cpp:556
 #, fuzzy, kde-format
 #| msgid "Modified"
 msgid "Unified"
 msgstr "Modificat"
 
-#: lib/diff/diffeditor.cpp:186 lib/kateconfigdialog.cpp:559
+#: lib/diff/diffeditor.cpp:186 lib/kateconfigdialog.cpp:557
 #, kde-format
 msgid "Raw"
 msgstr ""
@@ -848,88 +848,88 @@ msgid ""
 msgstr ""
 "Fișierul „%1” nu poate fi deschis. Nu este un fișier normal, ci un dosar."
 
-#: lib/kateconfigdialog.cpp:70
+#: lib/kateconfigdialog.cpp:68
 #, kde-format
 msgid "Configure"
 msgstr "Configurează"
 
-#: lib/kateconfigdialog.cpp:74 lib/kateoutputview.cpp:151
+#: lib/kateconfigdialog.cpp:72 lib/kateoutputview.cpp:151
 #, kde-format
 msgid "Search..."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:138
+#: lib/kateconfigdialog.cpp:136
 #, fuzzy, kde-format
 #| msgid "Save As"
 msgid "Save"
 msgstr "Salvează ca"
 
-#: lib/kateconfigdialog.cpp:361
+#: lib/kateconfigdialog.cpp:359
 #, kde-format
 msgid "Behavior"
 msgstr "Comportament"
 
-#: lib/kateconfigdialog.cpp:363
+#: lib/kateconfigdialog.cpp:361
 #, fuzzy, kde-format
 #| msgid "Behavior"
 msgid "Behavior Options"
 msgstr "Comportament"
 
-#: lib/kateconfigdialog.cpp:370
+#: lib/kateconfigdialog.cpp:368
 #, kde-format
 msgid "&Behavior"
 msgstr "&Comportament"
 
-#: lib/kateconfigdialog.cpp:375
+#: lib/kateconfigdialog.cpp:373
 #, kde-format
 msgid "Open each document in its own window"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:378
+#: lib/kateconfigdialog.cpp:376
 #, kde-format
 msgid ""
 "If enabled, each document will be opened in its own window. If not enabled, "
 "each document will be opened in a new tab in the current window."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:388
+#: lib/kateconfigdialog.cpp:386
 #, kde-format
 msgid "&Switch to output view upon message type:"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:393
+#: lib/kateconfigdialog.cpp:391
 #, fuzzy, kde-format
 #| msgctxt "The special case of 'Delete unused meta-information after'"
 #| msgid "(never)"
 msgid "Never"
 msgstr "(niciodată)"
 
-#: lib/kateconfigdialog.cpp:393
+#: lib/kateconfigdialog.cpp:391
 #, kde-format
 msgid "Info"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:393
+#: lib/kateconfigdialog.cpp:391
 #, kde-format
 msgid "Log"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:399
+#: lib/kateconfigdialog.cpp:397
 #, kde-format
 msgid "&Limit output view history:"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:405 lib/kateconfigdialog.cpp:469
+#: lib/kateconfigdialog.cpp:403 lib/kateconfigdialog.cpp:467
 #, kde-format
 msgid "Unlimited"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:412
+#: lib/kateconfigdialog.cpp:410
 #, kde-format
 msgid "Use a separate &dialog for handling externally modified files"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:415
+#: lib/kateconfigdialog.cpp:413
 #, fuzzy, kde-format
 #| msgid ""
 #| "If enabled, when Kate receives focus you will be asked what to do with "
@@ -946,18 +946,18 @@ msgstr ""
 "atunci veți fi întrebat numai când se va încerca salvarea fișierului "
 "modificat."
 
-#: lib/kateconfigdialog.cpp:424
+#: lib/kateconfigdialog.cpp:422
 #, fuzzy, kde-format
 #| msgid "Top Sidebar"
 msgid "&Sidebars"
 msgstr "Bara laterală superioară"
 
-#: lib/kateconfigdialog.cpp:427
+#: lib/kateconfigdialog.cpp:425
 #, kde-format
 msgid "Sync section size with tab positions"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:430
+#: lib/kateconfigdialog.cpp:428
 #, kde-format
 msgid ""
 "When enabled the section size will be determined by the position of the "
@@ -965,184 +965,184 @@ msgid ""
 "This option does not affect the bottom sidebar."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:435
+#: lib/kateconfigdialog.cpp:433
 #, kde-format
 msgid "Show text for left and right sidebar buttons"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:440
+#: lib/kateconfigdialog.cpp:438
 #, kde-format
 msgid "Icon size for left and right sidebar buttons"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:459
+#: lib/kateconfigdialog.cpp:457
 #, fuzzy, kde-format
 #| msgid "Show Side&bars"
 msgid "&Tabs"
 msgstr "Arată &bare laterale"
 
-#: lib/kateconfigdialog.cpp:463
+#: lib/kateconfigdialog.cpp:461
 #, kde-format
 msgid "&Limit number of tabs:"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:474
+#: lib/kateconfigdialog.cpp:472
 #, kde-format
 msgid ""
 "A high limit can increase the window size, please enable 'Allow tab "
 "scrolling' to prevent it. Unlimited tabs are always scrollable."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:478
+#: lib/kateconfigdialog.cpp:476
 #, kde-format
 msgid "&Auto hide tabs"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:480
+#: lib/kateconfigdialog.cpp:478
 #, kde-format
 msgid "When checked tabs will be hidden if only one document is open."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:484
+#: lib/kateconfigdialog.cpp:482
 #, kde-format
 msgid "&Show close button"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:486
+#: lib/kateconfigdialog.cpp:484
 #, kde-format
 msgid "When checked each tab will display a close button."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:490
+#: lib/kateconfigdialog.cpp:488
 #, kde-format
 msgid "&Expand tabs"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:492
+#: lib/kateconfigdialog.cpp:490
 #, kde-format
 msgid "When checked tabs take as much size as possible."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:496
+#: lib/kateconfigdialog.cpp:494
 #, fuzzy, kde-format
 #| msgid "Create a new document"
 msgid "&Double click opens a new document"
 msgstr "Creează un document nou"
 
-#: lib/kateconfigdialog.cpp:498
+#: lib/kateconfigdialog.cpp:496
 #, kde-format
 msgid "When checked double click opens a new document."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:502
+#: lib/kateconfigdialog.cpp:500
 #, fuzzy, kde-format
 #| msgid "Close all documents"
 msgid "&Middle click closes a document"
 msgstr "Închide toate documentele"
 
-#: lib/kateconfigdialog.cpp:504
+#: lib/kateconfigdialog.cpp:502
 #, kde-format
 msgid "When checked middle click closes a document."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:508
+#: lib/kateconfigdialog.cpp:506
 #, kde-format
 msgid "Allow tab scrolling"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:510
+#: lib/kateconfigdialog.cpp:508
 #, kde-format
 msgid ""
 "When checked this will allow scrolling in tab bar when number of tabs is "
 "large."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:514
+#: lib/kateconfigdialog.cpp:512
 #, kde-format
 msgid "Elide tab text"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:516
+#: lib/kateconfigdialog.cpp:514
 #, kde-format
 msgid "When checked tab text might be elided if its too long."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:522
+#: lib/kateconfigdialog.cpp:520
 #, kde-format
 msgid "&Mouse"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:527
+#: lib/kateconfigdialog.cpp:525
 #, kde-format
 msgid "&Backward button pressed:"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:532
+#: lib/kateconfigdialog.cpp:530
 #, fuzzy, kde-format
 #| msgid "&Previous Tab"
 msgid "Previous tab"
 msgstr "Fila &precedentă"
 
-#: lib/kateconfigdialog.cpp:532
+#: lib/kateconfigdialog.cpp:530
 #, kde-format
 msgid "History back"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:538
+#: lib/kateconfigdialog.cpp:536
 #, kde-format
 msgid "&Forward button pressed:"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:543
+#: lib/kateconfigdialog.cpp:541
 #, fuzzy, kde-format
 #| msgid "&Next Tab"
 msgid "Next tab"
 msgstr "Fila &următoare"
 
-#: lib/kateconfigdialog.cpp:543
+#: lib/kateconfigdialog.cpp:541
 #, kde-format
 msgid "History forward"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:551
+#: lib/kateconfigdialog.cpp:549
 #, kde-format
 msgid "Diff"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:560
+#: lib/kateconfigdialog.cpp:558
 #, kde-format
 msgid "Diff Style:"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:565
+#: lib/kateconfigdialog.cpp:563
 #, fuzzy, kde-format
 #| msgid "Focus the next tab."
 msgid "Navigation Bar"
 msgstr "Focalizează fila următoare."
 
-#: lib/kateconfigdialog.cpp:570
+#: lib/kateconfigdialog.cpp:568
 #, fuzzy, kde-format
 #| msgid "Focus the next tab."
 msgid "Show current symbol in navigation bar"
 msgstr "Focalizează fila următoare."
 
-#: lib/kateconfigdialog.cpp:584
+#: lib/kateconfigdialog.cpp:582
 #, kde-format
 msgid "Session"
 msgstr "Sesiune"
 
-#: lib/kateconfigdialog.cpp:586
+#: lib/kateconfigdialog.cpp:584
 #, kde-format
 msgid "Session Management"
 msgstr "Gestiune sesiuni"
 
-#: lib/kateconfigdialog.cpp:597
+#: lib/kateconfigdialog.cpp:595
 #, kde-format
 msgctxt "The special case of 'Delete unused meta-information after'"
 msgid "(never)"
 msgstr "(niciodată)"
 
-#: lib/kateconfigdialog.cpp:598
+#: lib/kateconfigdialog.cpp:596
 #, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid " day"
@@ -1151,29 +1151,29 @@ msgstr[0] " zi"
 msgstr[1] " zile"
 msgstr[2] " de zile"
 
-#: lib/kateconfigdialog.cpp:631
+#: lib/kateconfigdialog.cpp:629
 #, kde-format
 msgid ""
 "When a window is closed the documents opened only in this window are closed "
 "as well."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:666
+#: lib/kateconfigdialog.cpp:664
 #, kde-format
 msgid "Plugins"
 msgstr "Extensii"
 
-#: lib/kateconfigdialog.cpp:668
+#: lib/kateconfigdialog.cpp:666
 #, kde-format
 msgid "Plugin Manager"
 msgstr "Gestionar de extensii"
 
-#: lib/kateconfigdialog.cpp:686 lib/kateconfigdialog.cpp:688
+#: lib/kateconfigdialog.cpp:684 lib/kateconfigdialog.cpp:686
 #, kde-format
 msgid "User Feedback"
 msgstr "Reacții utilizator"
 
-#: lib/kateconfigdialog.cpp:938
+#: lib/kateconfigdialog.cpp:936
 #, kde-format
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"
@@ -2002,34 +2002,34 @@ msgstr ""
 "Datele pe care ați cerut să le salvați nu pot fi scrie. Alegeți ce doriți să "
 "faceți în continuare."
 
-#: lib/kateviewmanager.cpp:113
+#: lib/kateviewmanager.cpp:112
 #, kde-format
 msgid "Split Ve&rtical"
 msgstr "Desparte pe &verticală"
 
-#: lib/kateviewmanager.cpp:117
+#: lib/kateviewmanager.cpp:116
 #, kde-format
 msgid "Split the currently active view vertically into two views."
 msgstr ""
 "Desparte vizualizarea curentă activă, pe verticală, în două vizualizări."
 
-#: lib/kateviewmanager.cpp:121
+#: lib/kateviewmanager.cpp:120
 #, kde-format
 msgid "Split &Horizontal"
 msgstr "Desparte pe &orizontală"
 
-#: lib/kateviewmanager.cpp:125
+#: lib/kateviewmanager.cpp:124
 #, kde-format
 msgid "Split the currently active view horizontally into two views."
 msgstr ""
 "Desparte vizualizarea curentă activă, pe orizontală, în două vizualizări."
 
-#: lib/kateviewmanager.cpp:129
+#: lib/kateviewmanager.cpp:128
 #, kde-format
 msgid "Move Document to New Vertical Split"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:133
+#: lib/kateviewmanager.cpp:132
 #, fuzzy, kde-format
 #| msgid "Split the currently active view vertically into two views."
 msgid ""
@@ -2038,12 +2038,12 @@ msgid ""
 msgstr ""
 "Desparte vizualizarea curentă activă, pe verticală, în două vizualizări."
 
-#: lib/kateviewmanager.cpp:138
+#: lib/kateviewmanager.cpp:137
 #, kde-format
 msgid "Move Document to New Horizontal Split"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:142
+#: lib/kateviewmanager.cpp:141
 #, fuzzy, kde-format
 #| msgid "Split the currently active view horizontally into two views."
 msgid ""
@@ -2052,181 +2052,181 @@ msgid ""
 msgstr ""
 "Desparte vizualizarea curentă activă, pe orizontală, în două vizualizări."
 
-#: lib/kateviewmanager.cpp:147
+#: lib/kateviewmanager.cpp:146
 #, kde-format
 msgid "Cl&ose Current View"
 msgstr "Închide vizualizarea &curentă"
 
-#: lib/kateviewmanager.cpp:151
+#: lib/kateviewmanager.cpp:150
 #, kde-format
 msgid "Close the currently active split view"
 msgstr "Închide vizualizarea împărțită activă"
 
-#: lib/kateviewmanager.cpp:155
+#: lib/kateviewmanager.cpp:154
 #, kde-format
 msgid "Close Inactive Views"
 msgstr "Închide vizualizările inactive"
 
-#: lib/kateviewmanager.cpp:158
+#: lib/kateviewmanager.cpp:157
 #, kde-format
 msgid "Close every view but the active one"
 msgstr "Închide toate vizualizările în afară de cea activă"
 
-#: lib/kateviewmanager.cpp:162
+#: lib/kateviewmanager.cpp:161
 #, kde-format
 msgid "Hide Inactive Views"
 msgstr "Ascunde vizualizările inactive"
 
-#: lib/kateviewmanager.cpp:166
+#: lib/kateviewmanager.cpp:165
 #, kde-format
 msgid "Hide every view but the active one"
 msgstr "Ascunde toate vizualizările în afară de cea activă"
 
-#: lib/kateviewmanager.cpp:169
+#: lib/kateviewmanager.cpp:168
 #, kde-format
 msgid "Toggle Orientation"
 msgstr "Comută orientarea"
 
-#: lib/kateviewmanager.cpp:172
+#: lib/kateviewmanager.cpp:171
 #, kde-format
 msgid "Toggles the orientation of the current split view"
 msgstr "Comută orientarea vizualizării despărțite actuale"
 
-#: lib/kateviewmanager.cpp:175
+#: lib/kateviewmanager.cpp:174
 #, kde-format
 msgid "Next Split View"
 msgstr "Următoarea vizualizare împărțită"
 
-#: lib/kateviewmanager.cpp:180
+#: lib/kateviewmanager.cpp:179
 #, kde-format
 msgid "Make the next split view the active one."
 msgstr "Activează următoarea vizualizare împărțită."
 
-#: lib/kateviewmanager.cpp:183
+#: lib/kateviewmanager.cpp:182
 #, kde-format
 msgid "Previous Split View"
 msgstr "Precedenta vizualizare împărțită"
 
-#: lib/kateviewmanager.cpp:188
+#: lib/kateviewmanager.cpp:187
 #, kde-format
 msgid "Make the previous split view the active one."
 msgstr "Activează vizualizarea împărțită precendentă."
 
-#: lib/kateviewmanager.cpp:191
+#: lib/kateviewmanager.cpp:190
 #, fuzzy, kde-format
 #| msgid "Next Split View"
 msgid "Left Split View"
 msgstr "Următoarea vizualizare împărțită"
 
-#: lib/kateviewmanager.cpp:196
+#: lib/kateviewmanager.cpp:195
 #, fuzzy, kde-format
 #| msgid "Make the next split view the active one."
 msgid "Make the split view intuitively on the left the active one."
 msgstr "Activează următoarea vizualizare împărțită."
 
-#: lib/kateviewmanager.cpp:199
+#: lib/kateviewmanager.cpp:198
 #, fuzzy, kde-format
 #| msgid "Next Split View"
 msgid "Right Split View"
 msgstr "Următoarea vizualizare împărțită"
 
-#: lib/kateviewmanager.cpp:204
+#: lib/kateviewmanager.cpp:203
 #, fuzzy, kde-format
 #| msgid "Make the next split view the active one."
 msgid "Make the split view intuitively on the right the active one."
 msgstr "Activează următoarea vizualizare împărțită."
 
-#: lib/kateviewmanager.cpp:207
+#: lib/kateviewmanager.cpp:206
 #, fuzzy, kde-format
 #| msgid "Split View"
 msgid "Upward Split View"
 msgstr "Desparte vizualizarea"
 
-#: lib/kateviewmanager.cpp:212
+#: lib/kateviewmanager.cpp:211
 #, fuzzy, kde-format
 #| msgid "Make the next split view the active one."
 msgid "Make the split view intuitively upward the active one."
 msgstr "Activează următoarea vizualizare împărțită."
 
-#: lib/kateviewmanager.cpp:215
+#: lib/kateviewmanager.cpp:214
 #, fuzzy, kde-format
 #| msgid "Split View"
 msgid "Downward Split View"
 msgstr "Desparte vizualizarea"
 
-#: lib/kateviewmanager.cpp:220
+#: lib/kateviewmanager.cpp:219
 #, fuzzy, kde-format
 #| msgid "Make the next split view the active one."
 msgid "Make the split view intuitively downward the active one."
 msgstr "Activează următoarea vizualizare împărțită."
 
-#: lib/kateviewmanager.cpp:223
+#: lib/kateviewmanager.cpp:222
 #, kde-format
 msgid "Move Splitter Right"
 msgstr "Mută separatorul la dreapta"
 
-#: lib/kateviewmanager.cpp:226
+#: lib/kateviewmanager.cpp:225
 #, kde-format
 msgid "Move the splitter of the current view to the right"
 msgstr "Mută separatorul vizualizării curente la dreapta"
 
-#: lib/kateviewmanager.cpp:229
+#: lib/kateviewmanager.cpp:228
 #, kde-format
 msgid "Move Splitter Left"
 msgstr "Mută separatorul la stânga"
 
-#: lib/kateviewmanager.cpp:232
+#: lib/kateviewmanager.cpp:231
 #, kde-format
 msgid "Move the splitter of the current view to the left"
 msgstr "Mută separatorul vizualizării curente la stânga"
 
-#: lib/kateviewmanager.cpp:235
+#: lib/kateviewmanager.cpp:234
 #, kde-format
 msgid "Move Splitter Up"
 msgstr "Mută separatorul în sus"
 
-#: lib/kateviewmanager.cpp:238
+#: lib/kateviewmanager.cpp:237
 #, kde-format
 msgid "Move the splitter of the current view up"
 msgstr "Mută separatorul vizualizării curente în sus"
 
-#: lib/kateviewmanager.cpp:241
+#: lib/kateviewmanager.cpp:240
 #, kde-format
 msgid "Move Splitter Down"
 msgstr "Mută separatorul în jos"
 
-#: lib/kateviewmanager.cpp:244
+#: lib/kateviewmanager.cpp:243
 #, kde-format
 msgid "Move the splitter of the current view down"
 msgstr "Mută separatorul vizualizării curente în jos"
 
-#: lib/kateviewmanager.cpp:247
+#: lib/kateviewmanager.cpp:246
 #, kde-format
 msgid "Focus Navigation Bar"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:248
+#: lib/kateviewmanager.cpp:247
 #, fuzzy, kde-format
 #| msgid "Focus the next tab."
 msgid "Focus the navigation bar"
 msgstr "Focalizează fila următoare."
 
-#: lib/kateviewmanager.cpp:255
+#: lib/kateviewmanager.cpp:254
 #, kde-format
 msgid "Welcome Page"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:270
+#: lib/kateviewmanager.cpp:269
 #, kde-format
 msgid "Show the welcome page"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:318 lib/kateviewmanager.cpp:320
+#: lib/kateviewmanager.cpp:317 lib/kateviewmanager.cpp:319
 #, kde-format
 msgid "Open File"
 msgstr "Deschide fișier"
 
-#: lib/kateviewmanager.cpp:339
+#: lib/kateviewmanager.cpp:338
 #, kde-format
 msgid ""
 "<p>You are attempting to open one or more large files:</p><ul>%1</ul><p>Do "
@@ -2237,47 +2237,47 @@ msgstr ""
 "ul><p>Doriți să continuați?</p><p><strong>Rețineți că Kate poate să nu mai "
 "răspundă pentru un timp la deschiderea fișierelor mari.</strong></p>"
 
-#: lib/kateviewmanager.cpp:348
+#: lib/kateviewmanager.cpp:347
 #, kde-format
 msgid "Opening Large File"
 msgstr "Deschiderea unui fișier mare"
 
-#: lib/kateviewmanager.cpp:499
+#: lib/kateviewmanager.cpp:498
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:518
+#: lib/kateviewmanager.cpp:517
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:524
+#: lib/kateviewmanager.cpp:523
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:533
+#: lib/kateviewmanager.cpp:532
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "Deschide fișier"
 
-#: lib/kateviewmanager.cpp:534
+#: lib/kateviewmanager.cpp:533
 #, fuzzy, kde-format
 #| msgid "Enabled"
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "Activat"
 
-#: lib/kateviewmanager.cpp:545
+#: lib/kateviewmanager.cpp:544
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:1267
+#: lib/kateviewmanager.cpp:1266
 #, kde-format
 msgid "This view may have unsaved work. Do you really want to close it?"
 msgstr ""

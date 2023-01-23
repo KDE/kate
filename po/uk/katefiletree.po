@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katefiletree\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-13 01:01+0000\n"
+"POT-Creation-Date: 2023-01-23 01:00+0000\n"
 "PO-Revision-Date: 2022-12-11 08:51+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -20,204 +20,204 @@ msgstr ""
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Lokalize 20.12.0\n"
 
-#: katefiletree.cpp:122
+#: katefiletree.cpp:120
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Reloa&d"
 msgstr "Перезава&нтажити"
 
-#: katefiletree.cpp:124
+#: katefiletree.cpp:122
 #, kde-format
 msgid "Reload selected document(s) from disk."
 msgstr "Перезавантажити позначені документи з носія даних."
 
-#: katefiletree.cpp:126
+#: katefiletree.cpp:124
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close"
 msgstr "Закрити"
 
-#: katefiletree.cpp:128
+#: katefiletree.cpp:126
 #, kde-format
 msgid "Close the current document."
 msgstr "Закрити поточний документ."
 
-#: katefiletree.cpp:130
+#: katefiletree.cpp:128
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Expand Recursively"
 msgstr "Розгорнути рекурсивно"
 
-#: katefiletree.cpp:132
+#: katefiletree.cpp:130
 #, kde-format
 msgid "Expand the file list sub tree recursively."
 msgstr "Розгорнути піддерево списку файлів рекурсивно."
 
-#: katefiletree.cpp:134
+#: katefiletree.cpp:132
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Collapse Recursively"
 msgstr "Згорнути рекурсивно"
 
-#: katefiletree.cpp:136
+#: katefiletree.cpp:134
 #, kde-format
 msgid "Collapse the file list sub tree recursively."
 msgstr "Згорнути піддерево списку файлів рекурсивно."
 
-#: katefiletree.cpp:138
+#: katefiletree.cpp:136
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close Other"
 msgstr "Закрити інші"
 
-#: katefiletree.cpp:140
+#: katefiletree.cpp:138
 #, kde-format
 msgid "Close other documents in this folder."
 msgstr "Закрити інші документи у цій теці."
 
-#: katefiletree.cpp:143
+#: katefiletree.cpp:141
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Containing Folder"
 msgstr "Відкрити теку файла"
 
-#: katefiletree.cpp:145
+#: katefiletree.cpp:143
 #, kde-format
 msgid "Open the folder this file is located in."
 msgstr "Відкрити теку, у якій зберігається цей файл."
 
-#: katefiletree.cpp:147
+#: katefiletree.cpp:145
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Location"
 msgstr "Копіювати адресу"
 
-#: katefiletree.cpp:149
+#: katefiletree.cpp:147
 #, kde-format
 msgid "Copy path and filename to the clipboard."
 msgstr "Копіювати шлях до файла і назву файла до буфера обміну даними."
 
-#: katefiletree.cpp:151
+#: katefiletree.cpp:149
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename..."
 msgstr "Перейменувати…"
 
-#: katefiletree.cpp:153
+#: katefiletree.cpp:151
 #, kde-format
 msgid "Rename the selected file."
 msgstr "Перейменувати позначений файл."
 
-#: katefiletree.cpp:156
+#: katefiletree.cpp:154
 #, kde-format
 msgid "Print selected document."
 msgstr "Надрукувати позначений документ."
 
-#: katefiletree.cpp:159
+#: katefiletree.cpp:157
 #, kde-format
 msgid "Show print preview of current document"
 msgstr "Показати попередній перегляд результатів друку поточного документа"
 
-#: katefiletree.cpp:161
+#: katefiletree.cpp:159
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete"
 msgstr "Вилучити"
 
-#: katefiletree.cpp:163
+#: katefiletree.cpp:161
 #, kde-format
 msgid "Close and delete selected file from storage."
 msgstr "Закрити і вилучити позначений файл з носія даних."
 
-#: katefiletree.cpp:167
+#: katefiletree.cpp:165
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear History"
 msgstr "Спорожнити журнал"
 
-#: katefiletree.cpp:169
+#: katefiletree.cpp:167
 #, kde-format
 msgid "Clear edit/view history."
 msgstr "Спорожнити журнал редагування і перегляду."
 
-#: katefiletree.cpp:232
+#: katefiletree.cpp:230
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Tree Mode"
 msgstr "Ієрархічний режим"
 
-#: katefiletree.cpp:233
+#: katefiletree.cpp:231
 #, kde-format
 msgid "Set view style to Tree Mode"
 msgstr "Перемкнутися у режим ієрархічного перегляду"
 
-#: katefiletree.cpp:239
+#: katefiletree.cpp:237
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "List Mode"
 msgstr "Режим списку"
 
-#: katefiletree.cpp:240
+#: katefiletree.cpp:238
 #, kde-format
 msgid "Set view style to List Mode"
 msgstr "Перемкнутися у режим перегляду списком"
 
-#: katefiletree.cpp:247
+#: katefiletree.cpp:245
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Document Name"
 msgstr "Назва документа"
 
-#: katefiletree.cpp:248
+#: katefiletree.cpp:246
 #, kde-format
 msgid "Sort by Document Name"
 msgstr "Впорядкувати за назвою документа"
 
-#: katefiletree.cpp:253
+#: katefiletree.cpp:251
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Document Path"
 msgstr "Адреса документа"
 
-#: katefiletree.cpp:253
+#: katefiletree.cpp:251
 #, kde-format
 msgid "Sort by Document Path"
 msgstr "Впорядкувати за адресою документа"
 
-#: katefiletree.cpp:257
+#: katefiletree.cpp:255
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Opening Order"
 msgstr "Порядок відкриття"
 
-#: katefiletree.cpp:258
+#: katefiletree.cpp:256
 #, kde-format
 msgid "Sort by Opening Order"
 msgstr "Впорядкувати за порядком відкриття"
 
-#: katefiletree.cpp:261 katefiletreeconfigpage.cpp:74
+#: katefiletree.cpp:259 katefiletreeconfigpage.cpp:74
 #, kde-format
 msgid "Custom Sorting"
 msgstr "Нетипове впорядкування"
 
-#: katefiletree.cpp:390
+#: katefiletree.cpp:388
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open With"
 msgstr "Відкрити за допомогою"
 
-#: katefiletree.cpp:404
+#: katefiletree.cpp:402
 #, kde-format
 msgid "Show File Git History"
 msgstr "Показати журнал файла git"
 
-#: katefiletree.cpp:443
+#: katefiletree.cpp:441
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "View Mode"
 msgstr "Режим перегляду"
 
-#: katefiletree.cpp:447
+#: katefiletree.cpp:445
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Sort By"

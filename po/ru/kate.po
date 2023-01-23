@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-22 01:01+0000\n"
+"POT-Creation-Date: 2023-01-23 01:00+0000\n"
 "PO-Revision-Date: 2022-12-21 12:08+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -206,7 +206,7 @@ msgstr "KWrite - Текстовый редактор KDE"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
 #: lib/commitfilesview.cpp:350 lib/filehistorywidget.cpp:254
-#: lib/kateconfigdialog.cpp:137 lib/session/katesessionmanagedialog.ui:184
+#: lib/kateconfigdialog.cpp:135 lib/session/katesessionmanagedialog.ui:184
 #, kde-format
 msgid "Close"
 msgstr "Закрыть"
@@ -331,76 +331,76 @@ msgstr "&Быстрый переход"
 msgid "Filter..."
 msgstr "Фильтр…"
 
-#: lib/diagnostics/diagnosticview.cpp:813 lib/kateconfigdialog.cpp:393
+#: lib/diagnostics/diagnosticview.cpp:833 lib/kateconfigdialog.cpp:391
 #, kde-format
 msgid "Error"
 msgstr "Ошибка"
 
-#: lib/diagnostics/diagnosticview.cpp:817 lib/kateconfigdialog.cpp:393
-#: lib/kateconfigdialog.cpp:939
+#: lib/diagnostics/diagnosticview.cpp:837 lib/kateconfigdialog.cpp:391
+#: lib/kateconfigdialog.cpp:937
 #, kde-format
 msgid "Warning"
 msgstr "Предупреждение"
 
-#: lib/diagnostics/diagnosticview.cpp:821
+#: lib/diagnostics/diagnosticview.cpp:841
 #, fuzzy, kde-format
 #| msgid "Meta-Information"
 msgid "Information"
 msgstr "Метаинформация"
 
-#: lib/diagnostics/diagnosticview.cpp:954
+#: lib/diagnostics/diagnosticview.cpp:974
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1068
+#: lib/diagnostics/diagnosticview.cpp:1088
 #, fuzzy, kde-format
 #| msgid "&Expand tabs"
 msgid "Expand All"
 msgstr "&Расширить вкладки"
 
-#: lib/diagnostics/diagnosticview.cpp:1069
+#: lib/diagnostics/diagnosticview.cpp:1089
 #, fuzzy, kde-format
 #| msgid "Clos&e All"
 msgid "Collapse All"
 msgstr "Закрыть вс&е"
 
-#: lib/diagnostics/diagnosticview.cpp:1078
+#: lib/diagnostics/diagnosticview.cpp:1098
 #, fuzzy, kde-format
 #| msgid "Copy all text to clipboard"
 msgid "Copy to Clipboard"
 msgstr "Скопировать весь текст в буфер обмена"
 
-#: lib/diagnostics/diagnosticview.cpp:1101
+#: lib/diagnostics/diagnosticview.cpp:1121
 #, fuzzy, kde-format
 #| msgid "Regular expression"
 msgid "Remove Global Suppression"
 msgstr "Регулярное выражение"
 
-#: lib/diagnostics/diagnosticview.cpp:1103
+#: lib/diagnostics/diagnosticview.cpp:1123
 #, fuzzy, kde-format
 #| msgid "&All Sessions"
 msgid "Add Global Suppression"
 msgstr "&Все сеансы"
 
-#: lib/diagnostics/diagnosticview.cpp:1107
+#: lib/diagnostics/diagnosticview.cpp:1127
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1109
+#: lib/diagnostics/diagnosticview.cpp:1129
 #, kde-format
 msgid "Add Local Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1122
+#: lib/diagnostics/diagnosticview.cpp:1142
 #, fuzzy, kde-format
 #| msgid "Filter Sessions"
 msgid "Disable Suppression"
 msgstr "Поиск сеансов"
 
-#: lib/diagnostics/diagnosticview.cpp:1124
+#: lib/diagnostics/diagnosticview.cpp:1144
 #, fuzzy, kde-format
 #| msgid "Manage Sessions"
 msgid "Enable Suppression"
@@ -411,17 +411,17 @@ msgstr "Управление сеансами"
 msgid "Change Style"
 msgstr "Изменить стиль"
 
-#: lib/diff/diffeditor.cpp:180 lib/kateconfigdialog.cpp:557
+#: lib/diff/diffeditor.cpp:180 lib/kateconfigdialog.cpp:555
 #, kde-format
 msgid "Side By Side"
 msgstr "Рядом друг с другом"
 
-#: lib/diff/diffeditor.cpp:183 lib/kateconfigdialog.cpp:558
+#: lib/diff/diffeditor.cpp:183 lib/kateconfigdialog.cpp:556
 #, kde-format
 msgid "Unified"
 msgstr "Объединённый"
 
-#: lib/diff/diffeditor.cpp:186 lib/kateconfigdialog.cpp:559
+#: lib/diff/diffeditor.cpp:186 lib/kateconfigdialog.cpp:557
 #, kde-format
 msgid "Raw"
 msgstr "Исходный"
@@ -869,42 +869,42 @@ msgstr ""
 "Файл «%1» не может быть открыт, поскольку является папкой, а не обычным "
 "файлом."
 
-#: lib/kateconfigdialog.cpp:70
+#: lib/kateconfigdialog.cpp:68
 #, kde-format
 msgid "Configure"
 msgstr "Настройка"
 
-#: lib/kateconfigdialog.cpp:74 lib/kateoutputview.cpp:151
+#: lib/kateconfigdialog.cpp:72 lib/kateoutputview.cpp:151
 #, kde-format
 msgid "Search..."
 msgstr "Введите текст для поиска…"
 
-#: lib/kateconfigdialog.cpp:138
+#: lib/kateconfigdialog.cpp:136
 #, kde-format
 msgid "Save"
 msgstr "Сохранить"
 
-#: lib/kateconfigdialog.cpp:361
+#: lib/kateconfigdialog.cpp:359
 #, kde-format
 msgid "Behavior"
 msgstr "Поведение"
 
-#: lib/kateconfigdialog.cpp:363
+#: lib/kateconfigdialog.cpp:361
 #, kde-format
 msgid "Behavior Options"
 msgstr "Параметры поведения"
 
-#: lib/kateconfigdialog.cpp:370
+#: lib/kateconfigdialog.cpp:368
 #, kde-format
 msgid "&Behavior"
 msgstr "&Поведение"
 
-#: lib/kateconfigdialog.cpp:375
+#: lib/kateconfigdialog.cpp:373
 #, kde-format
 msgid "Open each document in its own window"
 msgstr "Открыть каждый документ в отдельном окне"
 
-#: lib/kateconfigdialog.cpp:378
+#: lib/kateconfigdialog.cpp:376
 #, kde-format
 msgid ""
 "If enabled, each document will be opened in its own window. If not enabled, "
@@ -914,42 +914,42 @@ msgstr ""
 "окне. Если параметр не включён, то все документы будут открываться в "
 "отдельных вкладках внутри текущего окна."
 
-#: lib/kateconfigdialog.cpp:388
+#: lib/kateconfigdialog.cpp:386
 #, kde-format
 msgid "&Switch to output view upon message type:"
 msgstr "&Тип сообщения для переключения в режим просмотра вывода:"
 
-#: lib/kateconfigdialog.cpp:393
+#: lib/kateconfigdialog.cpp:391
 #, kde-format
 msgid "Never"
 msgstr "Не переключаться"
 
-#: lib/kateconfigdialog.cpp:393
+#: lib/kateconfigdialog.cpp:391
 #, kde-format
 msgid "Info"
 msgstr "Информация"
 
-#: lib/kateconfigdialog.cpp:393
+#: lib/kateconfigdialog.cpp:391
 #, kde-format
 msgid "Log"
 msgstr "Событие журнала"
 
-#: lib/kateconfigdialog.cpp:399
+#: lib/kateconfigdialog.cpp:397
 #, kde-format
 msgid "&Limit output view history:"
 msgstr "&Ограничить "
 
-#: lib/kateconfigdialog.cpp:405 lib/kateconfigdialog.cpp:469
+#: lib/kateconfigdialog.cpp:403 lib/kateconfigdialog.cpp:467
 #, kde-format
 msgid "Unlimited"
 msgstr "Без ограничений"
 
-#: lib/kateconfigdialog.cpp:412
+#: lib/kateconfigdialog.cpp:410
 #, kde-format
 msgid "Use a separate &dialog for handling externally modified files"
 msgstr "Отдельный &диалог при обнаружении внешних изменений файлов"
 
-#: lib/kateconfigdialog.cpp:415
+#: lib/kateconfigdialog.cpp:413
 #, kde-format
 msgid ""
 "If enabled, a modal dialog will be used to show all of the modified files. "
@@ -961,17 +961,17 @@ msgstr ""
 "включён, то для каждого из изменённых файлов будет использован отдельный "
 "диалог, открываемый при получении фокуса вкладкой с таким файлом."
 
-#: lib/kateconfigdialog.cpp:424
+#: lib/kateconfigdialog.cpp:422
 #, kde-format
 msgid "&Sidebars"
 msgstr "&Боковые панели"
 
-#: lib/kateconfigdialog.cpp:427
+#: lib/kateconfigdialog.cpp:425
 #, kde-format
 msgid "Sync section size with tab positions"
 msgstr "Синхронизировать размер раздела с позициями вкладок"
 
-#: lib/kateconfigdialog.cpp:430
+#: lib/kateconfigdialog.cpp:428
 #, kde-format
 msgid ""
 "When enabled the section size will be determined by the position of the "
@@ -982,27 +982,27 @@ msgstr ""
 "положением вкладок.\n"
 "Этот параметр не влияет на нижнюю боковую панель."
 
-#: lib/kateconfigdialog.cpp:435
+#: lib/kateconfigdialog.cpp:433
 #, kde-format
 msgid "Show text for left and right sidebar buttons"
 msgstr "Показывать подписи кнопок на левой и правой боковых панелях"
 
-#: lib/kateconfigdialog.cpp:440
+#: lib/kateconfigdialog.cpp:438
 #, kde-format
 msgid "Icon size for left and right sidebar buttons"
 msgstr "Размер значков для кнопок левой и правой боковых панелей"
 
-#: lib/kateconfigdialog.cpp:459
+#: lib/kateconfigdialog.cpp:457
 #, kde-format
 msgid "&Tabs"
 msgstr "&Вкладки"
 
-#: lib/kateconfigdialog.cpp:463
+#: lib/kateconfigdialog.cpp:461
 #, kde-format
 msgid "&Limit number of tabs:"
 msgstr "&Ограничение количества вкладок:"
 
-#: lib/kateconfigdialog.cpp:474
+#: lib/kateconfigdialog.cpp:472
 #, kde-format
 msgid ""
 "A high limit can increase the window size, please enable 'Allow tab "
@@ -1012,150 +1012,150 @@ msgstr ""
 "этого, включите параметр «Разрешить прокрутку вкладок». Если количество "
 "вкладок не ограничено, прокрутка будет включена автоматически."
 
-#: lib/kateconfigdialog.cpp:478
+#: lib/kateconfigdialog.cpp:476
 #, kde-format
 msgid "&Auto hide tabs"
 msgstr "&Автоматически скрывать вкладки"
 
-#: lib/kateconfigdialog.cpp:480
+#: lib/kateconfigdialog.cpp:478
 #, kde-format
 msgid "When checked tabs will be hidden if only one document is open."
 msgstr "Скрывать вкладки, если открыт только один документ."
 
-#: lib/kateconfigdialog.cpp:484
+#: lib/kateconfigdialog.cpp:482
 #, kde-format
 msgid "&Show close button"
 msgstr "&Показывать кнопку закрытия"
 
-#: lib/kateconfigdialog.cpp:486
+#: lib/kateconfigdialog.cpp:484
 #, kde-format
 msgid "When checked each tab will display a close button."
 msgstr "Показывать кнопки закрытия на вкладках."
 
-#: lib/kateconfigdialog.cpp:490
+#: lib/kateconfigdialog.cpp:488
 #, kde-format
 msgid "&Expand tabs"
 msgstr "&Расширить вкладки"
 
-#: lib/kateconfigdialog.cpp:492
+#: lib/kateconfigdialog.cpp:490
 #, kde-format
 msgid "When checked tabs take as much size as possible."
 msgstr "Использовать максимально возможную ширину вкладок."
 
-#: lib/kateconfigdialog.cpp:496
+#: lib/kateconfigdialog.cpp:494
 #, kde-format
 msgid "&Double click opens a new document"
 msgstr "&Создать новый документ двойным щелчком"
 
-#: lib/kateconfigdialog.cpp:498
+#: lib/kateconfigdialog.cpp:496
 #, kde-format
 msgid "When checked double click opens a new document."
 msgstr "Создавать новый документ двойным щелчком левой кнопкой мыши."
 
-#: lib/kateconfigdialog.cpp:502
+#: lib/kateconfigdialog.cpp:500
 #, kde-format
 msgid "&Middle click closes a document"
 msgstr "Закрытие документа средней кнопкой мыши"
 
-#: lib/kateconfigdialog.cpp:504
+#: lib/kateconfigdialog.cpp:502
 #, kde-format
 msgid "When checked middle click closes a document."
 msgstr "Закрывать документ щелчком средней кнопки мыши."
 
-#: lib/kateconfigdialog.cpp:508
+#: lib/kateconfigdialog.cpp:506
 #, kde-format
 msgid "Allow tab scrolling"
 msgstr "Разрешить прокрутку вкладок"
 
-#: lib/kateconfigdialog.cpp:510
+#: lib/kateconfigdialog.cpp:508
 #, kde-format
 msgid ""
 "When checked this will allow scrolling in tab bar when number of tabs is "
 "large."
 msgstr "Разрешить прокрутку вкладок колесом мыши."
 
-#: lib/kateconfigdialog.cpp:514
+#: lib/kateconfigdialog.cpp:512
 #, kde-format
 msgid "Elide tab text"
 msgstr "Сокращать текст вкладок"
 
-#: lib/kateconfigdialog.cpp:516
+#: lib/kateconfigdialog.cpp:514
 #, kde-format
 msgid "When checked tab text might be elided if its too long."
 msgstr "Текст вкладок может быть сокращён, если его длина слишком велика."
 
-#: lib/kateconfigdialog.cpp:522
+#: lib/kateconfigdialog.cpp:520
 #, kde-format
 msgid "&Mouse"
 msgstr "&Мышь"
 
-#: lib/kateconfigdialog.cpp:527
+#: lib/kateconfigdialog.cpp:525
 #, kde-format
 msgid "&Backward button pressed:"
 msgstr "&Действие при нажатии кнопки «назад»:"
 
-#: lib/kateconfigdialog.cpp:532
+#: lib/kateconfigdialog.cpp:530
 #, kde-format
 msgid "Previous tab"
 msgstr "Перейти на предыдущую вкладку"
 
-#: lib/kateconfigdialog.cpp:532
+#: lib/kateconfigdialog.cpp:530
 #, kde-format
 msgid "History back"
 msgstr "Перейти на предыдущую запись в журнале"
 
-#: lib/kateconfigdialog.cpp:538
+#: lib/kateconfigdialog.cpp:536
 #, kde-format
 msgid "&Forward button pressed:"
 msgstr "&Действие при нажатии кнопки «вперёд»:"
 
-#: lib/kateconfigdialog.cpp:543
+#: lib/kateconfigdialog.cpp:541
 #, kde-format
 msgid "Next tab"
 msgstr "Перейти на следующую вкладку"
 
-#: lib/kateconfigdialog.cpp:543
+#: lib/kateconfigdialog.cpp:541
 #, kde-format
 msgid "History forward"
 msgstr "Перейти на следующую запись в журнале"
 
-#: lib/kateconfigdialog.cpp:551
+#: lib/kateconfigdialog.cpp:549
 #, kde-format
 msgid "Diff"
 msgstr "Различия"
 
-#: lib/kateconfigdialog.cpp:560
+#: lib/kateconfigdialog.cpp:558
 #, kde-format
 msgid "Diff Style:"
 msgstr "Оформление различий:"
 
-#: lib/kateconfigdialog.cpp:565
+#: lib/kateconfigdialog.cpp:563
 #, kde-format
 msgid "Navigation Bar"
 msgstr "Панель навигации"
 
-#: lib/kateconfigdialog.cpp:570
+#: lib/kateconfigdialog.cpp:568
 #, kde-format
 msgid "Show current symbol in navigation bar"
 msgstr "Показывать текущий символ на панели навигации"
 
-#: lib/kateconfigdialog.cpp:584
+#: lib/kateconfigdialog.cpp:582
 #, kde-format
 msgid "Session"
 msgstr "Сеансы"
 
-#: lib/kateconfigdialog.cpp:586
+#: lib/kateconfigdialog.cpp:584
 #, kde-format
 msgid "Session Management"
 msgstr "Управление сеансами"
 
-#: lib/kateconfigdialog.cpp:597
+#: lib/kateconfigdialog.cpp:595
 #, kde-format
 msgctxt "The special case of 'Delete unused meta-information after'"
 msgid "(never)"
 msgstr "(никогда)"
 
-#: lib/kateconfigdialog.cpp:598
+#: lib/kateconfigdialog.cpp:596
 #, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid " day"
@@ -1165,29 +1165,29 @@ msgstr[1] " дня"
 msgstr[2] " дней"
 msgstr[3] " день"
 
-#: lib/kateconfigdialog.cpp:631
+#: lib/kateconfigdialog.cpp:629
 #, kde-format
 msgid ""
 "When a window is closed the documents opened only in this window are closed "
 "as well."
 msgstr "При закрытии окна будут закрыты все документы, открытые в этом окне"
 
-#: lib/kateconfigdialog.cpp:666
+#: lib/kateconfigdialog.cpp:664
 #, kde-format
 msgid "Plugins"
 msgstr "Модули"
 
-#: lib/kateconfigdialog.cpp:668
+#: lib/kateconfigdialog.cpp:666
 #, kde-format
 msgid "Plugin Manager"
 msgstr "Управление модулями"
 
-#: lib/kateconfigdialog.cpp:686 lib/kateconfigdialog.cpp:688
+#: lib/kateconfigdialog.cpp:684 lib/kateconfigdialog.cpp:686
 #, kde-format
 msgid "User Feedback"
 msgstr "Обратная связь"
 
-#: lib/kateconfigdialog.cpp:938
+#: lib/kateconfigdialog.cpp:936
 #, kde-format
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"
@@ -1975,32 +1975,32 @@ msgid ""
 "want to proceed."
 msgstr "Не удаётся сохранить данные."
 
-#: lib/kateviewmanager.cpp:113
+#: lib/kateviewmanager.cpp:112
 #, kde-format
 msgid "Split Ve&rtical"
 msgstr "Разделить по &вертикали"
 
-#: lib/kateviewmanager.cpp:117
+#: lib/kateviewmanager.cpp:116
 #, kde-format
 msgid "Split the currently active view vertically into two views."
 msgstr "Разделить текущую створку окна на две вертикальных"
 
-#: lib/kateviewmanager.cpp:121
+#: lib/kateviewmanager.cpp:120
 #, kde-format
 msgid "Split &Horizontal"
 msgstr "Разделить по &горизонтали"
 
-#: lib/kateviewmanager.cpp:125
+#: lib/kateviewmanager.cpp:124
 #, kde-format
 msgid "Split the currently active view horizontally into two views."
 msgstr "Разделить текущую створку окна на две горизонтальных"
 
-#: lib/kateviewmanager.cpp:129
+#: lib/kateviewmanager.cpp:128
 #, kde-format
 msgid "Move Document to New Vertical Split"
 msgstr "Разделить по вертикали и переместить документ"
 
-#: lib/kateviewmanager.cpp:133
+#: lib/kateviewmanager.cpp:132
 #, kde-format
 msgid ""
 "Split the currently active view vertically into two views and move the "
@@ -2009,12 +2009,12 @@ msgstr ""
 "Разделить текущую створку окна на две вертикальных и расположить открытый "
 "документ правой"
 
-#: lib/kateviewmanager.cpp:138
+#: lib/kateviewmanager.cpp:137
 #, kde-format
 msgid "Move Document to New Horizontal Split"
 msgstr "Разделить по горизонтали и переместить документ"
 
-#: lib/kateviewmanager.cpp:142
+#: lib/kateviewmanager.cpp:141
 #, kde-format
 msgid ""
 "Split the currently active view horizontally into two views and move the "
@@ -2023,172 +2023,172 @@ msgstr ""
 "Разделить текущую створку окна на две горизонтальных и расположить активный "
 "документ в нижней части"
 
-#: lib/kateviewmanager.cpp:147
+#: lib/kateviewmanager.cpp:146
 #, kde-format
 msgid "Cl&ose Current View"
 msgstr "&Закрыть текущую створку"
 
-#: lib/kateviewmanager.cpp:151
+#: lib/kateviewmanager.cpp:150
 #, kde-format
 msgid "Close the currently active split view"
 msgstr "Закрыть текущую створку окна"
 
-#: lib/kateviewmanager.cpp:155
+#: lib/kateviewmanager.cpp:154
 #, kde-format
 msgid "Close Inactive Views"
 msgstr "Закрыть неактивные створки"
 
-#: lib/kateviewmanager.cpp:158
+#: lib/kateviewmanager.cpp:157
 #, kde-format
 msgid "Close every view but the active one"
 msgstr "Закрыть все створки, кроме текущей"
 
-#: lib/kateviewmanager.cpp:162
+#: lib/kateviewmanager.cpp:161
 #, kde-format
 msgid "Hide Inactive Views"
 msgstr "Скрыть неактивные створки"
 
-#: lib/kateviewmanager.cpp:166
+#: lib/kateviewmanager.cpp:165
 #, kde-format
 msgid "Hide every view but the active one"
 msgstr "Скрыть все створки, кроме текущей"
 
-#: lib/kateviewmanager.cpp:169
+#: lib/kateviewmanager.cpp:168
 #, kde-format
 msgid "Toggle Orientation"
 msgstr "Сменить ориентацию створок"
 
-#: lib/kateviewmanager.cpp:172
+#: lib/kateviewmanager.cpp:171
 #, kde-format
 msgid "Toggles the orientation of the current split view"
 msgstr "Меняет ориентацию створок текущего окна"
 
-#: lib/kateviewmanager.cpp:175
+#: lib/kateviewmanager.cpp:174
 #, kde-format
 msgid "Next Split View"
 msgstr "Следующая створка"
 
-#: lib/kateviewmanager.cpp:180
+#: lib/kateviewmanager.cpp:179
 #, kde-format
 msgid "Make the next split view the active one."
 msgstr "Перейти в следующую створку окна"
 
-#: lib/kateviewmanager.cpp:183
+#: lib/kateviewmanager.cpp:182
 #, kde-format
 msgid "Previous Split View"
 msgstr "Предыдущая створка"
 
-#: lib/kateviewmanager.cpp:188
+#: lib/kateviewmanager.cpp:187
 #, kde-format
 msgid "Make the previous split view the active one."
 msgstr "Перейти в предыдущую створку окна"
 
-#: lib/kateviewmanager.cpp:191
+#: lib/kateviewmanager.cpp:190
 #, kde-format
 msgid "Left Split View"
 msgstr "Открыть створку слева"
 
-#: lib/kateviewmanager.cpp:196
+#: lib/kateviewmanager.cpp:195
 #, kde-format
 msgid "Make the split view intuitively on the left the active one."
 msgstr "Разделить область просмотра, открыв створку слева от активного окна"
 
-#: lib/kateviewmanager.cpp:199
+#: lib/kateviewmanager.cpp:198
 #, kde-format
 msgid "Right Split View"
 msgstr "Открыть створку справа"
 
-#: lib/kateviewmanager.cpp:204
+#: lib/kateviewmanager.cpp:203
 #, kde-format
 msgid "Make the split view intuitively on the right the active one."
 msgstr "Разделить область просмотра, открыв створку справа от активного окна"
 
-#: lib/kateviewmanager.cpp:207
+#: lib/kateviewmanager.cpp:206
 #, kde-format
 msgid "Upward Split View"
 msgstr "Открыть створку сверху"
 
-#: lib/kateviewmanager.cpp:212
+#: lib/kateviewmanager.cpp:211
 #, kde-format
 msgid "Make the split view intuitively upward the active one."
 msgstr "Разделить область просмотра, открыв створку сверху от активного окна"
 
-#: lib/kateviewmanager.cpp:215
+#: lib/kateviewmanager.cpp:214
 #, kde-format
 msgid "Downward Split View"
 msgstr "Открыть створку снизу"
 
-#: lib/kateviewmanager.cpp:220
+#: lib/kateviewmanager.cpp:219
 #, kde-format
 msgid "Make the split view intuitively downward the active one."
 msgstr "Разделить область просмотра, открыв створку снизу от активного окна"
 
-#: lib/kateviewmanager.cpp:223
+#: lib/kateviewmanager.cpp:222
 #, kde-format
 msgid "Move Splitter Right"
 msgstr "Переместить разделитель вправо"
 
-#: lib/kateviewmanager.cpp:226
+#: lib/kateviewmanager.cpp:225
 #, kde-format
 msgid "Move the splitter of the current view to the right"
 msgstr "Переместить разделитель текущего документа вправо"
 
-#: lib/kateviewmanager.cpp:229
+#: lib/kateviewmanager.cpp:228
 #, kde-format
 msgid "Move Splitter Left"
 msgstr "Переместить разделитель влево"
 
-#: lib/kateviewmanager.cpp:232
+#: lib/kateviewmanager.cpp:231
 #, kde-format
 msgid "Move the splitter of the current view to the left"
 msgstr "Переместить разделитель текущего документа влево"
 
-#: lib/kateviewmanager.cpp:235
+#: lib/kateviewmanager.cpp:234
 #, kde-format
 msgid "Move Splitter Up"
 msgstr "Переместить разделитель вверх"
 
-#: lib/kateviewmanager.cpp:238
+#: lib/kateviewmanager.cpp:237
 #, kde-format
 msgid "Move the splitter of the current view up"
 msgstr "Переместить разделитель текущего документа вверх"
 
-#: lib/kateviewmanager.cpp:241
+#: lib/kateviewmanager.cpp:240
 #, kde-format
 msgid "Move Splitter Down"
 msgstr "Переместить разделитель вниз"
 
-#: lib/kateviewmanager.cpp:244
+#: lib/kateviewmanager.cpp:243
 #, kde-format
 msgid "Move the splitter of the current view down"
 msgstr "Переместить разделитель текущего документа вниз"
 
-#: lib/kateviewmanager.cpp:247
+#: lib/kateviewmanager.cpp:246
 #, kde-format
 msgid "Focus Navigation Bar"
 msgstr "Перейти на панель навигации"
 
-#: lib/kateviewmanager.cpp:248
+#: lib/kateviewmanager.cpp:247
 #, kde-format
 msgid "Focus the navigation bar"
 msgstr "Перейти на панель навигации"
 
-#: lib/kateviewmanager.cpp:255
+#: lib/kateviewmanager.cpp:254
 #, kde-format
 msgid "Welcome Page"
 msgstr "Страница приветствия"
 
-#: lib/kateviewmanager.cpp:270
+#: lib/kateviewmanager.cpp:269
 #, kde-format
 msgid "Show the welcome page"
 msgstr "Показывать страницу приветствия"
 
-#: lib/kateviewmanager.cpp:318 lib/kateviewmanager.cpp:320
+#: lib/kateviewmanager.cpp:317 lib/kateviewmanager.cpp:319
 #, kde-format
 msgid "Open File"
 msgstr "Открыть файл"
 
-#: lib/kateviewmanager.cpp:339
+#: lib/kateviewmanager.cpp:338
 #, kde-format
 msgid ""
 "<p>You are attempting to open one or more large files:</p><ul>%1</ul><p>Do "
@@ -2200,22 +2200,22 @@ msgstr ""
 "большие файлы, kate может некоторое время ни на что не реагировать.</"
 "strong></p>"
 
-#: lib/kateviewmanager.cpp:348
+#: lib/kateviewmanager.cpp:347
 #, kde-format
 msgid "Opening Large File"
 msgstr "Открывается большой файл"
 
-#: lib/kateviewmanager.cpp:499
+#: lib/kateviewmanager.cpp:498
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr "Папки не могут быть открыты в приложении «%1»"
 
-#: lib/kateviewmanager.cpp:518
+#: lib/kateviewmanager.cpp:517
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr "Не найден подключаемый модуль для открытия папок"
 
-#: lib/kateviewmanager.cpp:524
+#: lib/kateviewmanager.cpp:523
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
@@ -2223,24 +2223,24 @@ msgstr ""
 "Для открытия папок необходимо включить подключаемый модуль<b>%1</b>. "
 "Включить его?"
 
-#: lib/kateviewmanager.cpp:533
+#: lib/kateviewmanager.cpp:532
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "Открытие папки"
 
-#: lib/kateviewmanager.cpp:534
+#: lib/kateviewmanager.cpp:533
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "Включить"
 
-#: lib/kateviewmanager.cpp:545
+#: lib/kateviewmanager.cpp:544
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "Не удалось включить подключаемый модуль <b>%1</b>"
 
-#: lib/kateviewmanager.cpp:1267
+#: lib/kateviewmanager.cpp:1266
 #, kde-format
 msgid "This view may have unsaved work. Do you really want to close it?"
 msgstr ""

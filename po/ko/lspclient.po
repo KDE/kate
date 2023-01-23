@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-12 00:58+0000\n"
+"POT-Creation-Date: 2023-01-23 01:00+0000\n"
 "PO-Revision-Date: 2022-07-13 14:20+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -23,48 +23,48 @@ msgid "Filter..."
 msgstr "필터..."
 
 #. i18n: ectx: Menu (LSPClient Menubar)
-#: lspclientconfigpage.cpp:97 lspclientconfigpage.cpp:102
-#: lspclientpluginview.cpp:500 lspclientpluginview.cpp:651 ui.rc:6
+#: lspclientconfigpage.cpp:98 lspclientconfigpage.cpp:103
+#: lspclientpluginview.cpp:490 lspclientpluginview.cpp:646 ui.rc:6
 #, kde-format
 msgid "LSP Client"
 msgstr "LSP 클라이언트"
 
-#: lspclientconfigpage.cpp:210
+#: lspclientconfigpage.cpp:213
 #, kde-format
 msgid "No JSON data to validate."
 msgstr "검증할 JSON 데이터가 없습니다."
 
-#: lspclientconfigpage.cpp:219
+#: lspclientconfigpage.cpp:222
 #, kde-format
 msgid "JSON data is valid."
 msgstr "JSON 데이터가 올바릅니다."
 
-#: lspclientconfigpage.cpp:221
+#: lspclientconfigpage.cpp:224
 #, kde-format
 msgid "JSON data is invalid: no JSON object"
 msgstr "JSON 데이터가 잘못됨: JSON 객체가 없음"
 
-#: lspclientconfigpage.cpp:224
+#: lspclientconfigpage.cpp:227
 #, kde-format
 msgid "JSON data is invalid: %1"
 msgstr "JSON 데이터가 잘못됨: %1"
 
-#: lspclientconfigpage.cpp:272
+#: lspclientconfigpage.cpp:275
 #, kde-format
 msgid "Delete selected entries"
 msgstr "선택한 항목 삭제"
 
-#: lspclientconfigpage.cpp:277
+#: lspclientconfigpage.cpp:280
 #, kde-format
 msgid "Delete all entries"
 msgstr "모든 항목 삭제"
 
-#: lspclientplugin.cpp:221
+#: lspclientplugin.cpp:223
 #, kde-format
 msgid "LSP server start requested"
 msgstr "LSP 서버 시작 요청됨"
 
-#: lspclientplugin.cpp:224
+#: lspclientplugin.cpp:226
 #, kde-format
 msgid ""
 "Do you want the LSP server to be started?<br><br>The full command line is:"
@@ -74,7 +74,7 @@ msgstr ""
 "LSP 서버를 시작하시겠습니까?<br><br>전체 명령행:<br><br><b>%1</b><br><br>플러"
 "그인 설정 페이지에서 선택을 변경할 수 있습니다."
 
-#: lspclientplugin.cpp:237
+#: lspclientplugin.cpp:239
 #, kde-format
 msgid ""
 "User permanently blocked start of: '%1'.\n"
@@ -83,278 +83,284 @@ msgstr ""
 "사용자가 다음의 시작에서 차단됨: '%1'.\n"
 "플러그인 설정 페이지에서 차단을 해제하십시오."
 
-#: lspclientpluginview.cpp:528
+#: lspclientpluginview.cpp:518
 #, kde-format
 msgid "Go to Definition"
 msgstr "정의로 이동"
 
-#: lspclientpluginview.cpp:530
+#: lspclientpluginview.cpp:520
 #, kde-format
 msgid "Go to Declaration"
 msgstr "선언으로 이동"
 
-#: lspclientpluginview.cpp:532
+#: lspclientpluginview.cpp:522
 #, kde-format
 msgid "Go to Type Definition"
 msgstr "형식 정의로 이동"
 
-#: lspclientpluginview.cpp:534
+#: lspclientpluginview.cpp:524
 #, kde-format
 msgid "Find References"
 msgstr "참조 찾기"
 
-#: lspclientpluginview.cpp:537
+#: lspclientpluginview.cpp:527
 #, kde-format
 msgid "Find Implementations"
 msgstr "구현 찾기"
 
-#: lspclientpluginview.cpp:539
+#: lspclientpluginview.cpp:529
 #, kde-format
 msgid "Highlight"
 msgstr "강조"
 
-#: lspclientpluginview.cpp:541
+#: lspclientpluginview.cpp:531
 #, kde-format
 msgid "Symbol Info"
 msgstr "기호 정보"
 
-#: lspclientpluginview.cpp:543
+#: lspclientpluginview.cpp:533
 #, kde-format
 msgid "Search and Go to Symbol"
 msgstr "기호를 검색하고 이동"
 
-#: lspclientpluginview.cpp:548
+#: lspclientpluginview.cpp:538
 #, kde-format
 msgid "Format"
 msgstr "형식"
 
-#: lspclientpluginview.cpp:551
+#: lspclientpluginview.cpp:541
 #, kde-format
 msgid "Rename"
 msgstr "이름 바꾸기"
 
-#: lspclientpluginview.cpp:555
+#: lspclientpluginview.cpp:545
 #, kde-format
 msgid "Expand Selection"
 msgstr "선택 확장"
 
-#: lspclientpluginview.cpp:558
+#: lspclientpluginview.cpp:548
 #, kde-format
 msgid "Shrink Selection"
 msgstr "선택 축소"
 
-#: lspclientpluginview.cpp:562
+#: lspclientpluginview.cpp:552
 #, kde-format
 msgid "Switch Source Header"
 msgstr "소스 헤더간 전환"
 
-#: lspclientpluginview.cpp:565
+#: lspclientpluginview.cpp:555
 #, kde-format
 msgid "Expand Macro"
 msgstr "매크로 확장"
 
-#: lspclientpluginview.cpp:567
+#: lspclientpluginview.cpp:557
 #, kde-format
 msgid "Code Action"
 msgstr "코드 동작"
 
-#: lspclientpluginview.cpp:582
+#: lspclientpluginview.cpp:572
 #, kde-format
 msgid "Show selected completion documentation"
 msgstr "선택한 완성 문서 보기"
 
-#: lspclientpluginview.cpp:585
+#: lspclientpluginview.cpp:575
 #, kde-format
 msgid "Enable signature help with auto completion"
 msgstr "자동 완성에 서명 도우미 사용"
 
-#: lspclientpluginview.cpp:588
+#: lspclientpluginview.cpp:578
 #, kde-format
 msgid "Include declaration in references"
 msgstr "참조에 선언 포함"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkComplParens)
-#: lspclientpluginview.cpp:591 lspconfigwidget.ui:96
+#: lspclientpluginview.cpp:581 lspconfigwidget.ui:96
 #, kde-format
 msgid "Add parentheses upon function completion"
 msgstr "함수 자동 완성 시 괄호 추가"
 
-#: lspclientpluginview.cpp:594
+#: lspclientpluginview.cpp:584
 #, kde-format
 msgid "Show hover information"
 msgstr "호버 정보 표시"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkOnTypeFormatting)
-#: lspclientpluginview.cpp:597 lspconfigwidget.ui:47
+#: lspclientpluginview.cpp:587 lspconfigwidget.ui:47
 #, kde-format
 msgid "Format on typing"
 msgstr "입력할 때 형식 지정"
 
-#: lspclientpluginview.cpp:600
+#: lspclientpluginview.cpp:590
 #, kde-format
 msgid "Incremental document synchronization"
 msgstr "증분 문서 동기화"
 
-#: lspclientpluginview.cpp:603
+#: lspclientpluginview.cpp:593
 #, kde-format
 msgid "Highlight goto location"
 msgstr "이동할 위치 강조 표시"
 
-#: lspclientpluginview.cpp:612
+#: lspclientpluginview.cpp:602
 #, kde-format
 msgid "Show Inlay Hints"
 msgstr ""
 
-#: lspclientpluginview.cpp:616
+#: lspclientpluginview.cpp:606
+#, fuzzy, kde-format
+#| msgid "Show diagnostics notifications"
+msgid "Show Diagnostics Notifications"
+msgstr "진단 알림 표시"
+
+#: lspclientpluginview.cpp:611
 #, fuzzy, kde-format
 #| msgid "Show messages"
 msgid "Show Messages"
 msgstr "메시지 보기"
 
-#: lspclientpluginview.cpp:621
+#: lspclientpluginview.cpp:616
 #, fuzzy, kde-format
 #| msgid "Server memory usage"
 msgid "Server Memory Usage"
 msgstr "서버 메모리 사용량"
 
-#: lspclientpluginview.cpp:625
+#: lspclientpluginview.cpp:620
 #, fuzzy, kde-format
 #| msgid "Close all dynamic reference tabs"
 msgid "Close All Dynamic Reference Tabs"
 msgstr "모든 동적 참조 탭 닫기"
 
-#: lspclientpluginview.cpp:627
+#: lspclientpluginview.cpp:622
 #, kde-format
 msgid "Restart LSP Server"
 msgstr "LSP 서버 다시 시작"
 
-#: lspclientpluginview.cpp:629
+#: lspclientpluginview.cpp:624
 #, kde-format
 msgid "Restart All LSP Servers"
 msgstr "모든 LSP 서버 다시 시작"
 
-#: lspclientpluginview.cpp:640
+#: lspclientpluginview.cpp:635
 #, kde-format
 msgid "Go To"
 msgstr ""
 
-#: lspclientpluginview.cpp:667
+#: lspclientpluginview.cpp:662
 #, kde-format
 msgid "More options"
 msgstr "옵션 더 보기"
 
-#: lspclientpluginview.cpp:714
+#: lspclientpluginview.cpp:710
 #, kde-format
 msgid "LSP"
 msgstr "LSP"
 
-#: lspclientpluginview.cpp:879 lspclientsymbolview.cpp:285
+#: lspclientpluginview.cpp:875 lspclientsymbolview.cpp:285
 #, kde-format
 msgid "Expand All"
 msgstr "모두 펴기"
 
-#: lspclientpluginview.cpp:880 lspclientsymbolview.cpp:286
+#: lspclientpluginview.cpp:876 lspclientsymbolview.cpp:286
 #, kde-format
 msgid "Collapse All"
 msgstr "모두 접기"
 
-#: lspclientpluginview.cpp:1084
+#: lspclientpluginview.cpp:1083
 #, kde-format
 msgid "RangeHighLight"
 msgstr "범위강조"
 
-#: lspclientpluginview.cpp:1408
+#: lspclientpluginview.cpp:1407
 #, kde-format
 msgid "Line: %1: "
 msgstr "줄: %1: "
 
-#: lspclientpluginview.cpp:1560 lspclientpluginview.cpp:1912
-#: lspclientpluginview.cpp:2033
+#: lspclientpluginview.cpp:1559 lspclientpluginview.cpp:1911
+#: lspclientpluginview.cpp:2032
 #, kde-format
 msgid "No results"
 msgstr "결과 없음"
 
-#: lspclientpluginview.cpp:1619
+#: lspclientpluginview.cpp:1618
 #, kde-format
 msgctxt "@title:tab"
 msgid "Definition: %1"
 msgstr "정의: %1"
 
-#: lspclientpluginview.cpp:1625
+#: lspclientpluginview.cpp:1624
 #, kde-format
 msgctxt "@title:tab"
 msgid "Declaration: %1"
 msgstr "선언: %1"
 
-#: lspclientpluginview.cpp:1631
+#: lspclientpluginview.cpp:1630
 #, kde-format
 msgctxt "@title:tab"
 msgid "Type Definition: %1"
 msgstr "형식 정의: %1"
 
-#: lspclientpluginview.cpp:1637
+#: lspclientpluginview.cpp:1636
 #, kde-format
 msgctxt "@title:tab"
 msgid "References: %1"
 msgstr "참조: %1"
 
-#: lspclientpluginview.cpp:1649
+#: lspclientpluginview.cpp:1648
 #, kde-format
 msgctxt "@title:tab"
 msgid "Implementation: %1"
 msgstr "구현: %1"
 
-#: lspclientpluginview.cpp:1662
+#: lspclientpluginview.cpp:1661
 #, kde-format
 msgctxt "@title:tab"
 msgid "Highlight: %1"
 msgstr "강조: %1"
 
-#: lspclientpluginview.cpp:1686 lspclientpluginview.cpp:1698
-#: lspclientpluginview.cpp:1711
+#: lspclientpluginview.cpp:1685 lspclientpluginview.cpp:1697
+#: lspclientpluginview.cpp:1710
 #, kde-format
 msgid "No Actions"
 msgstr "동작 없음"
 
-#: lspclientpluginview.cpp:1702
+#: lspclientpluginview.cpp:1701
 #, kde-format
 msgid "Loading..."
 msgstr "불러오는 중..."
 
-#: lspclientpluginview.cpp:1794
+#: lspclientpluginview.cpp:1793
 #, kde-format
 msgid "No edits"
 msgstr "편집 없음"
 
-#: lspclientpluginview.cpp:1870
+#: lspclientpluginview.cpp:1869
 #, kde-format
 msgctxt "@title:window"
 msgid "Rename"
 msgstr "이름 바꾸기"
 
-#: lspclientpluginview.cpp:1871
+#: lspclientpluginview.cpp:1870
 #, kde-format
 msgctxt "@label:textbox"
 msgid "New name (caution: not all references may be replaced)"
 msgstr "새 이름(경고: 일부 참조가 변경되지 않을 수도 있습니다)"
 
-#: lspclientpluginview.cpp:1918
+#: lspclientpluginview.cpp:1917
 #, kde-format
 msgid "Not enough results"
 msgstr "충분한 결과 없음"
 
-#: lspclientpluginview.cpp:1988
+#: lspclientpluginview.cpp:1987
 #, kde-format
 msgid "Corresponding Header/Source not found"
 msgstr "해당하는 헤더/소스를 찾을 수 없음"
 
-#: lspclientpluginview.cpp:2191 lspclientpluginview.cpp:2228
+#: lspclientpluginview.cpp:2186 lspclientpluginview.cpp:2223
 #, kde-format
 msgctxt "@info"
 msgid "LSP Server"
 msgstr "LSP 서버"
 
-#: lspclientpluginview.cpp:2251
+#: lspclientpluginview.cpp:2246
 #, kde-format
 msgctxt "@info"
 msgid "LSP Client"
@@ -529,68 +535,74 @@ msgstr "대상 줄로 이동할 때 강조"
 msgid "Server:"
 msgstr "서버:"
 
-#. i18n: ectx: property (text), widget (QCheckBox, chkMessages)
+#. i18n: ectx: property (text), widget (QCheckBox, chkDiagnostics)
 #: lspconfigwidget.ui:145
+#, kde-format
+msgid "Show program diagnostics"
+msgstr "프로그램 진단 표시"
+
+#. i18n: ectx: property (text), widget (QCheckBox, chkMessages)
+#: lspconfigwidget.ui:152
 #, kde-format
 msgid "Show notifications from the LSP server"
 msgstr "LSP 서버 알림 표시"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkIncrementalSync)
-#: lspconfigwidget.ui:152
+#: lspconfigwidget.ui:159
 #, kde-format
 msgid "Incrementally synchronize documents with the LSP server"
 msgstr "LSP 서버와 문서 증분 동기화"
 
 #. i18n: ectx: property (text), widget (QLabel, label_6)
-#: lspconfigwidget.ui:159
+#: lspconfigwidget.ui:166
 #, kde-format
 msgid "Document outline:"
 msgstr "문서 요약:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSymbolSort)
-#: lspconfigwidget.ui:166
+#: lspconfigwidget.ui:173
 #, kde-format
 msgid "Sort symbols alphabetically"
 msgstr "가나다순으로 기호 정렬"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSymbolDetails)
-#: lspconfigwidget.ui:173
+#: lspconfigwidget.ui:180
 #, kde-format
 msgid "Display additional details for symbols"
 msgstr "기호별 추가 정보 표시"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSymbolTree)
-#: lspconfigwidget.ui:180
+#: lspconfigwidget.ui:187
 #, kde-format
 msgid "Present symbols in a hierarchy instead of a flat list"
 msgstr "기호를 단일 단계 목록 대신 계층 구조로 표시"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSymbolExpand)
-#: lspconfigwidget.ui:195
+#: lspconfigwidget.ui:202
 #, kde-format
 msgid "Automatically expand tree"
 msgstr "자동으로 트리 펼치기"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_4)
-#: lspconfigwidget.ui:220
+#: lspconfigwidget.ui:227
 #, kde-format
 msgid "Allowed && Blocked Servers"
 msgstr "허용 및 차단된 서버"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
-#: lspconfigwidget.ui:230
+#: lspconfigwidget.ui:237
 #, kde-format
 msgid "User Server Settings"
 msgstr "사용자 서버 설정"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: lspconfigwidget.ui:238
+#: lspconfigwidget.ui:245
 #, kde-format
 msgid "Settings File:"
 msgstr "설정 파일:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_3)
-#: lspconfigwidget.ui:265
+#: lspconfigwidget.ui:272
 #, kde-format
 msgid "Default Server Settings"
 msgstr "기본 서버 설정"
@@ -603,11 +615,6 @@ msgstr "더 많은 옵션"
 
 #~ msgid "Quick Fix"
 #~ msgstr "빠른 수정"
-
-#, fuzzy
-#~| msgid "Show diagnostics notifications"
-#~ msgid "Show Diagnostics Notifications"
-#~ msgstr "진단 알림 표시"
 
 #, fuzzy
 #~| msgid "Show diagnostics highlights"
@@ -677,9 +684,6 @@ msgstr "더 많은 옵션"
 
 #~ msgid "Diagnostics:"
 #~ msgstr "진단:"
-
-#~ msgid "Show program diagnostics"
-#~ msgstr "프로그램 진단 표시"
 
 #~ msgid "Highlight lines with diagnostics"
 #~ msgstr "진단 항목이 있는 줄 강조"

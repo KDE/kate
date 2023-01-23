@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-22 01:01+0000\n"
-"PO-Revision-Date: 2023-01-16 12:04+0100\n"
+"PO-Revision-Date: 2023-01-22 14:10+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -103,24 +103,22 @@ msgid "Back"
 msgstr "Terug"
 
 #: currentgitbranchbutton.cpp:123
-#, fuzzy, kde-format
-#| msgid "Failed to commit: %1"
+#, kde-format
 msgctxt "Tooltip text, describing that '%1' commit is checked out"
 msgid "HEAD at commit %1"
-msgstr "Commit (vastleggen) is mislukt: %1"
+msgstr "HEAD is op commit %1"
 
 #: currentgitbranchbutton.cpp:125
 #, kde-format
 msgctxt "Tooltip text, describing that '%1' tag is checked out"
 msgid "HEAD is at this tag %1"
-msgstr ""
+msgstr "HEAD is op deze tag %1"
 
 #: currentgitbranchbutton.cpp:127
-#, fuzzy, kde-format
-#| msgid "Checked out to branch: %1"
+#, kde-format
 msgctxt "Tooltip text, describing that '%1' branch is checked out"
 msgid "Active branch: %1"
-msgstr "Checkout gedaan naar branch: '%1'"
+msgstr "Actieve branch: %1"
 
 #: gitcommitdialog.cpp:69 gitcommitdialog.cpp:116
 #, kde-format

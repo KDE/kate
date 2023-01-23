@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-22 01:01+0000\n"
-"PO-Revision-Date: 2023-01-15 10:17+0100\n"
+"PO-Revision-Date: 2023-01-22 10:43+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -44,7 +44,7 @@ msgstr "S'ha baixat la branca %1"
 #: branchcheckoutdialog.cpp:56
 #, kde-format
 msgid "Failed to checkout to branch %1, Error: %2"
-msgstr "No s'ha pogut baixar la branca %1, Error: %2"
+msgstr "No s'ha pogut agafar la branca %1, error: %2"
 
 #: branchcheckoutdialog.cpp:83 branchcheckoutdialog.cpp:95
 #, kde-format
@@ -54,7 +54,7 @@ msgstr "Introduïu el nom de la nova branca. Premeu «Esc» per a cancel·lar."
 #: branchcheckoutdialog.cpp:100
 #, kde-format
 msgid "Select branch to checkout from. Press 'Esc' to cancel."
-msgstr "Seleccioneu la branca que es baixarà. Premeu «Esc» per a cancel·lar."
+msgstr "Seleccioneu la branca que s'agafarà. Premeu «Esc» per a cancel·lar."
 
 #: branchcheckoutdialog.cpp:121
 #, kde-format
@@ -74,7 +74,7 @@ msgstr "Branca"
 #: branchdeletedialog.cpp:122
 #, kde-format
 msgid "Last Commit"
-msgstr "Última entrega"
+msgstr "Última comissió"
 
 #: branchdeletedialog.cpp:135 kateprojecttreeviewcontextmenu.cpp:78
 #, kde-format
@@ -104,34 +104,32 @@ msgid "Back"
 msgstr "Arrere"
 
 #: currentgitbranchbutton.cpp:123
-#, fuzzy, kde-format
-#| msgid "Failed to commit: %1"
+#, kde-format
 msgctxt "Tooltip text, describing that '%1' commit is checked out"
 msgid "HEAD at commit %1"
-msgstr "No s'ha pogut entregar: %1"
+msgstr "HEAD està en la comissió %1"
 
 #: currentgitbranchbutton.cpp:125
 #, kde-format
 msgctxt "Tooltip text, describing that '%1' tag is checked out"
 msgid "HEAD is at this tag %1"
-msgstr ""
+msgstr "HEAD està en esta etiqueta %1"
 
 #: currentgitbranchbutton.cpp:127
-#, fuzzy, kde-format
-#| msgid "Checked out to new branch: %1"
+#, kde-format
 msgctxt "Tooltip text, describing that '%1' branch is checked out"
 msgid "Active branch: %1"
-msgstr "Baixant a la branca nova: %1"
+msgstr "Branca activa: %1"
 
 #: gitcommitdialog.cpp:69 gitcommitdialog.cpp:116
 #, kde-format
 msgid "Commit Changes"
-msgstr "Entrega els canvis"
+msgstr "Comet els canvis"
 
 #: gitcommitdialog.cpp:73 gitcommitdialog.cpp:115 gitwidget.cpp:245
 #, kde-format
 msgid "Commit"
-msgstr "Entrega"
+msgstr "Comet"
 
 #: gitcommitdialog.cpp:74
 #, kde-format
@@ -141,12 +139,12 @@ msgstr "Cancel·la"
 #: gitcommitdialog.cpp:76
 #, kde-format
 msgid "Write commit message..."
-msgstr "Escriviu el missatge d'entrega..."
+msgstr "Escriviu el missatge de comissió..."
 
 #: gitcommitdialog.cpp:83
 #, kde-format
 msgid "Extended commit description..."
-msgstr "Descripció estesa de l'entrega..."
+msgstr "Descripció estesa de la comissió..."
 
 #: gitcommitdialog.cpp:107
 #, kde-format
@@ -161,12 +159,12 @@ msgstr "Esmena"
 #: gitcommitdialog.cpp:112 gitwidget.cpp:939
 #, kde-format
 msgid "Amend Last Commit"
-msgstr "Esmena de l'última entrega"
+msgstr "Esmena de l'última comissió"
 
 #: gitcommitdialog.cpp:119
 #, kde-format
 msgid "Amending Commit"
-msgstr "Esmena l'entrega"
+msgstr "Esmena la comissió"
 
 #: gitcommitdialog.cpp:203
 #, kde-format
@@ -275,23 +273,23 @@ msgstr "No s'ha pogut obtindre «diff» del fitxer: %1"
 #: gitwidget.cpp:729
 #, kde-format
 msgid "Failed to commit: %1"
-msgstr "No s'ha pogut entregar: %1"
+msgstr "No s'ha pogut cometre: %1"
 
 #: gitwidget.cpp:733
 #, kde-format
 msgid "Changes committed successfully."
-msgstr "Els canvis s'han entregat correctament."
+msgstr "Els canvis s'han comés correctament."
 
 #: gitwidget.cpp:743
 #, kde-format
 msgid "Nothing to commit. Please stage your changes first."
 msgstr ""
-"No hi ha res per a entregar (commit). Primer, marqueu els vostres canvis."
+"No hi ha res que s'haja de cometre. Primer, marqueu els vostres canvis."
 
 #: gitwidget.cpp:756
 #, kde-format
 msgid "Commit message cannot be empty."
-msgstr "El missatge d'entrega no pot estar buit."
+msgstr "El missatge de comissió no pot estar buit."
 
 #: gitwidget.cpp:871
 #, kde-format
@@ -316,7 +314,7 @@ msgstr "Actualitza"
 #: gitwidget.cpp:947
 #, kde-format
 msgid "Checkout Branch"
-msgstr "Entrega la branca"
+msgstr "Agafa la branca"
 
 #: gitwidget.cpp:959
 #, kde-format
@@ -336,12 +334,12 @@ msgstr "Mostra les entregues"
 #: gitwidget.cpp:975
 #, kde-format
 msgid "Commit hash"
-msgstr "Resum d'entrega"
+msgstr "Resum de comissió"
 
 #: gitwidget.cpp:980
 #, kde-format
 msgid "Open Commit..."
-msgstr "Obri una entrega..."
+msgstr "Obri una comissió..."
 
 #: gitwidget.cpp:983 gitwidget.cpp:1022
 #, kde-format
@@ -974,7 +972,7 @@ msgstr "Voleu suprimir el fitxer «%1»?"
 #: kateprojectview.cpp:57
 #, kde-format
 msgid "Checkout Git Branch"
-msgstr "Entrega la branca de Git"
+msgstr "Agafa la branca de Git"
 
 #: kateprojectviewtree.cpp:135
 #, kde-format
@@ -1055,6 +1053,3 @@ msgstr "No s'ha pogut mostrar la modificació temporal. Error: "
 #, kde-format
 msgid "&Projects"
 msgstr "&Projectes"
-
-#~ msgid "Checkout branch"
-#~ msgstr "Entrega la branca"

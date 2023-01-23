@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-22 01:01+0000\n"
+"POT-Creation-Date: 2023-01-23 01:00+0000\n"
 "PO-Revision-Date: 2022-07-13 14:16+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -183,7 +183,7 @@ msgstr "KWrite - 텍스트 편집기"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
 #: lib/commitfilesview.cpp:350 lib/filehistorywidget.cpp:254
-#: lib/kateconfigdialog.cpp:137 lib/session/katesessionmanagedialog.ui:184
+#: lib/kateconfigdialog.cpp:135 lib/session/katesessionmanagedialog.ui:184
 #, kde-format
 msgid "Close"
 msgstr "닫기"
@@ -307,76 +307,76 @@ msgstr "바로 열기(&Q)"
 msgid "Filter..."
 msgstr "필터..."
 
-#: lib/diagnostics/diagnosticview.cpp:813 lib/kateconfigdialog.cpp:393
+#: lib/diagnostics/diagnosticview.cpp:833 lib/kateconfigdialog.cpp:391
 #, kde-format
 msgid "Error"
 msgstr "오류"
 
-#: lib/diagnostics/diagnosticview.cpp:817 lib/kateconfigdialog.cpp:393
-#: lib/kateconfigdialog.cpp:939
+#: lib/diagnostics/diagnosticview.cpp:837 lib/kateconfigdialog.cpp:391
+#: lib/kateconfigdialog.cpp:937
 #, kde-format
 msgid "Warning"
 msgstr "경고"
 
-#: lib/diagnostics/diagnosticview.cpp:821
+#: lib/diagnostics/diagnosticview.cpp:841
 #, fuzzy, kde-format
 #| msgid "Meta-Information"
 msgid "Information"
 msgstr "메타 정보"
 
-#: lib/diagnostics/diagnosticview.cpp:954
+#: lib/diagnostics/diagnosticview.cpp:974
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1068
+#: lib/diagnostics/diagnosticview.cpp:1088
 #, fuzzy, kde-format
 #| msgid "&Expand tabs"
 msgid "Expand All"
 msgstr "탭 확장(&E)"
 
-#: lib/diagnostics/diagnosticview.cpp:1069
+#: lib/diagnostics/diagnosticview.cpp:1089
 #, fuzzy, kde-format
 #| msgid "Clos&e All"
 msgid "Collapse All"
 msgstr "모두 닫기(&E)"
 
-#: lib/diagnostics/diagnosticview.cpp:1078
+#: lib/diagnostics/diagnosticview.cpp:1098
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Copy to Clipboard"
 msgid "Copy to Clipboard"
 msgstr "클립보드에 복사"
 
-#: lib/diagnostics/diagnosticview.cpp:1101
+#: lib/diagnostics/diagnosticview.cpp:1121
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1103
+#: lib/diagnostics/diagnosticview.cpp:1123
 #, fuzzy, kde-format
 #| msgid "&All Sessions"
 msgid "Add Global Suppression"
 msgstr "모든 세션(&A)"
 
-#: lib/diagnostics/diagnosticview.cpp:1107
+#: lib/diagnostics/diagnosticview.cpp:1127
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1109
+#: lib/diagnostics/diagnosticview.cpp:1129
 #, kde-format
 msgid "Add Local Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1122
+#: lib/diagnostics/diagnosticview.cpp:1142
 #, fuzzy, kde-format
 #| msgid "Filter Sessions"
 msgid "Disable Suppression"
 msgstr "세션 필터"
 
-#: lib/diagnostics/diagnosticview.cpp:1124
+#: lib/diagnostics/diagnosticview.cpp:1144
 #, fuzzy, kde-format
 #| msgid "Manage Sessions"
 msgid "Enable Suppression"
@@ -387,18 +387,18 @@ msgstr "세션 관리"
 msgid "Change Style"
 msgstr ""
 
-#: lib/diff/diffeditor.cpp:180 lib/kateconfigdialog.cpp:557
+#: lib/diff/diffeditor.cpp:180 lib/kateconfigdialog.cpp:555
 #, kde-format
 msgid "Side By Side"
 msgstr ""
 
-#: lib/diff/diffeditor.cpp:183 lib/kateconfigdialog.cpp:558
+#: lib/diff/diffeditor.cpp:183 lib/kateconfigdialog.cpp:556
 #, fuzzy, kde-format
 #| msgid "Modified"
 msgid "Unified"
 msgstr "수정됨"
 
-#: lib/diff/diffeditor.cpp:186 lib/kateconfigdialog.cpp:559
+#: lib/diff/diffeditor.cpp:186 lib/kateconfigdialog.cpp:557
 #, kde-format
 msgid "Raw"
 msgstr ""
@@ -833,85 +833,85 @@ msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
 msgstr "파일 '%1'을(를) 열 수 없습니다: 일반적인 파일이 아닌 폴더입니다."
 
-#: lib/kateconfigdialog.cpp:70
+#: lib/kateconfigdialog.cpp:68
 #, kde-format
 msgid "Configure"
 msgstr "설정"
 
-#: lib/kateconfigdialog.cpp:74 lib/kateoutputview.cpp:151
+#: lib/kateconfigdialog.cpp:72 lib/kateoutputview.cpp:151
 #, kde-format
 msgid "Search..."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:138
+#: lib/kateconfigdialog.cpp:136
 #, fuzzy, kde-format
 #| msgid "Save As"
 msgid "Save"
 msgstr "다른 이름으로 저장"
 
-#: lib/kateconfigdialog.cpp:361
+#: lib/kateconfigdialog.cpp:359
 #, kde-format
 msgid "Behavior"
 msgstr "행동"
 
-#: lib/kateconfigdialog.cpp:363
+#: lib/kateconfigdialog.cpp:361
 #, kde-format
 msgid "Behavior Options"
 msgstr "행동 옵션"
 
-#: lib/kateconfigdialog.cpp:370
+#: lib/kateconfigdialog.cpp:368
 #, kde-format
 msgid "&Behavior"
 msgstr "행동(&B)"
 
-#: lib/kateconfigdialog.cpp:375
+#: lib/kateconfigdialog.cpp:373
 #, kde-format
 msgid "Open each document in its own window"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:378
+#: lib/kateconfigdialog.cpp:376
 #, kde-format
 msgid ""
 "If enabled, each document will be opened in its own window. If not enabled, "
 "each document will be opened in a new tab in the current window."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:388
+#: lib/kateconfigdialog.cpp:386
 #, kde-format
 msgid "&Switch to output view upon message type:"
 msgstr "메시지 형식에 따라서 출력 보기로 전환(&S):"
 
-#: lib/kateconfigdialog.cpp:393
+#: lib/kateconfigdialog.cpp:391
 #, kde-format
 msgid "Never"
 msgstr "하지 않음"
 
-#: lib/kateconfigdialog.cpp:393
+#: lib/kateconfigdialog.cpp:391
 #, kde-format
 msgid "Info"
 msgstr "정보"
 
-#: lib/kateconfigdialog.cpp:393
+#: lib/kateconfigdialog.cpp:391
 #, kde-format
 msgid "Log"
 msgstr "로그"
 
-#: lib/kateconfigdialog.cpp:399
+#: lib/kateconfigdialog.cpp:397
 #, kde-format
 msgid "&Limit output view history:"
 msgstr "출력 보기 과거 기록 크기 제한(&L):"
 
-#: lib/kateconfigdialog.cpp:405 lib/kateconfigdialog.cpp:469
+#: lib/kateconfigdialog.cpp:403 lib/kateconfigdialog.cpp:467
 #, kde-format
 msgid "Unlimited"
 msgstr "무제한"
 
-#: lib/kateconfigdialog.cpp:412
+#: lib/kateconfigdialog.cpp:410
 #, kde-format
 msgid "Use a separate &dialog for handling externally modified files"
 msgstr "외부에서 수정된 파일을 처리할 때 별도의 대화 상자 사용(&D)"
 
-#: lib/kateconfigdialog.cpp:415
+#: lib/kateconfigdialog.cpp:413
 #, kde-format
 msgid ""
 "If enabled, a modal dialog will be used to show all of the modified files. "
@@ -922,18 +922,18 @@ msgstr ""
 "지 않으면 해당 파일 보기로 전환할 때마다 수정된 파일별로 취할 동작을 물어 봅"
 "니다."
 
-#: lib/kateconfigdialog.cpp:424
+#: lib/kateconfigdialog.cpp:422
 #, fuzzy, kde-format
 #| msgid "Top Sidebar"
 msgid "&Sidebars"
 msgstr "위쪽 사이드바"
 
-#: lib/kateconfigdialog.cpp:427
+#: lib/kateconfigdialog.cpp:425
 #, kde-format
 msgid "Sync section size with tab positions"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:430
+#: lib/kateconfigdialog.cpp:428
 #, kde-format
 msgid ""
 "When enabled the section size will be determined by the position of the "
@@ -941,27 +941,27 @@ msgid ""
 "This option does not affect the bottom sidebar."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:435
+#: lib/kateconfigdialog.cpp:433
 #, kde-format
 msgid "Show text for left and right sidebar buttons"
 msgstr "왼쪽과 오른쪽 사이드바 단추 텍스트 표시"
 
-#: lib/kateconfigdialog.cpp:440
+#: lib/kateconfigdialog.cpp:438
 #, kde-format
 msgid "Icon size for left and right sidebar buttons"
 msgstr "왼쪽과 오른쪽 사이드바 단추 아이콘 크기"
 
-#: lib/kateconfigdialog.cpp:459
+#: lib/kateconfigdialog.cpp:457
 #, kde-format
 msgid "&Tabs"
 msgstr "탭(&T)"
 
-#: lib/kateconfigdialog.cpp:463
+#: lib/kateconfigdialog.cpp:461
 #, kde-format
 msgid "&Limit number of tabs:"
 msgstr "최대 탭 개수 제한(&L):"
 
-#: lib/kateconfigdialog.cpp:474
+#: lib/kateconfigdialog.cpp:472
 #, kde-format
 msgid ""
 "A high limit can increase the window size, please enable 'Allow tab "
@@ -970,181 +970,181 @@ msgstr ""
 "제한을 높이면 창 크기를 증가시킬 수 있으며, \"탭 스크롤 허용\"을 선택하면 방"
 "지할 수 있습니다. 무제한 탭은 항상 스크롤 가능합니다."
 
-#: lib/kateconfigdialog.cpp:478
+#: lib/kateconfigdialog.cpp:476
 #, kde-format
 msgid "&Auto hide tabs"
 msgstr "자동으로 탭 숨기기(&A)"
 
-#: lib/kateconfigdialog.cpp:480
+#: lib/kateconfigdialog.cpp:478
 #, kde-format
 msgid "When checked tabs will be hidden if only one document is open."
 msgstr "이 옵션을 선택하면 문서 한 개만 열려 있을 때 탭을 숨깁니다."
 
-#: lib/kateconfigdialog.cpp:484
+#: lib/kateconfigdialog.cpp:482
 #, kde-format
 msgid "&Show close button"
 msgstr "닫기 단추 표시(&S)"
 
-#: lib/kateconfigdialog.cpp:486
+#: lib/kateconfigdialog.cpp:484
 #, kde-format
 msgid "When checked each tab will display a close button."
 msgstr "이 옵션을 사용하면 각각 탭에 닫기 단추를 표시합니다."
 
-#: lib/kateconfigdialog.cpp:490
+#: lib/kateconfigdialog.cpp:488
 #, kde-format
 msgid "&Expand tabs"
 msgstr "탭 확장(&E)"
 
-#: lib/kateconfigdialog.cpp:492
+#: lib/kateconfigdialog.cpp:490
 #, kde-format
 msgid "When checked tabs take as much size as possible."
 msgstr "이 옵션을 선택하면 탭의 크기를 최대로 늘립니다."
 
-#: lib/kateconfigdialog.cpp:496
+#: lib/kateconfigdialog.cpp:494
 #, kde-format
 msgid "&Double click opens a new document"
 msgstr "두 번 클릭해서 새로운 문서 열기(&D)"
 
-#: lib/kateconfigdialog.cpp:498
+#: lib/kateconfigdialog.cpp:496
 #, kde-format
 msgid "When checked double click opens a new document."
 msgstr "이 옵션을 사용하면 두 번 클릭할 때 새 문서를 엽니다."
 
-#: lib/kateconfigdialog.cpp:502
+#: lib/kateconfigdialog.cpp:500
 #, kde-format
 msgid "&Middle click closes a document"
 msgstr "가운데 단추로 클릭할 때 문서 닫기(&M)"
 
-#: lib/kateconfigdialog.cpp:504
+#: lib/kateconfigdialog.cpp:502
 #, kde-format
 msgid "When checked middle click closes a document."
 msgstr "이 옵션을 사용하면 가운데 단추로 클릭할 때 문서를 닫습니다."
 
-#: lib/kateconfigdialog.cpp:508
+#: lib/kateconfigdialog.cpp:506
 #, kde-format
 msgid "Allow tab scrolling"
 msgstr "탭 스크롤 허용"
 
-#: lib/kateconfigdialog.cpp:510
+#: lib/kateconfigdialog.cpp:508
 #, kde-format
 msgid ""
 "When checked this will allow scrolling in tab bar when number of tabs is "
 "large."
 msgstr "이 옵션을 사용하면 탭 표시줄에 열린 탭이 많을 때 스크롤을 허용합니다."
 
-#: lib/kateconfigdialog.cpp:514
+#: lib/kateconfigdialog.cpp:512
 #, kde-format
 msgid "Elide tab text"
 msgstr "탭 텍스트 중간 생략"
 
-#: lib/kateconfigdialog.cpp:516
+#: lib/kateconfigdialog.cpp:514
 #, kde-format
 msgid "When checked tab text might be elided if its too long."
 msgstr "이 옵션을 선택하면 탭 텍스트가 너무 길 때 중간을 생략합니다."
 
-#: lib/kateconfigdialog.cpp:522
+#: lib/kateconfigdialog.cpp:520
 #, kde-format
 msgid "&Mouse"
 msgstr "마우스(&M)"
 
-#: lib/kateconfigdialog.cpp:527
+#: lib/kateconfigdialog.cpp:525
 #, kde-format
 msgid "&Backward button pressed:"
 msgstr "뒤로 단추를 눌렀을 때(&B):"
 
-#: lib/kateconfigdialog.cpp:532
+#: lib/kateconfigdialog.cpp:530
 #, kde-format
 msgid "Previous tab"
 msgstr "이전 탭"
 
-#: lib/kateconfigdialog.cpp:532
+#: lib/kateconfigdialog.cpp:530
 #, kde-format
 msgid "History back"
 msgstr "과거 기록 뒤로"
 
-#: lib/kateconfigdialog.cpp:538
+#: lib/kateconfigdialog.cpp:536
 #, kde-format
 msgid "&Forward button pressed:"
 msgstr "앞으로 단추를 눌렀을 때(&F):"
 
-#: lib/kateconfigdialog.cpp:543
+#: lib/kateconfigdialog.cpp:541
 #, kde-format
 msgid "Next tab"
 msgstr "다음 탭"
 
-#: lib/kateconfigdialog.cpp:543
+#: lib/kateconfigdialog.cpp:541
 #, kde-format
 msgid "History forward"
 msgstr "과거 기록 앞으로"
 
-#: lib/kateconfigdialog.cpp:551
+#: lib/kateconfigdialog.cpp:549
 #, kde-format
 msgid "Diff"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:560
+#: lib/kateconfigdialog.cpp:558
 #, kde-format
 msgid "Diff Style:"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:565
+#: lib/kateconfigdialog.cpp:563
 #, fuzzy, kde-format
 #| msgid "Show Navigation Bar"
 msgid "Navigation Bar"
 msgstr "탐색 표시줄 표시"
 
-#: lib/kateconfigdialog.cpp:570
+#: lib/kateconfigdialog.cpp:568
 #, fuzzy, kde-format
 #| msgid "Focus the navigation bar"
 msgid "Show current symbol in navigation bar"
 msgstr "탐색 표시줄에 초점 맞추기"
 
-#: lib/kateconfigdialog.cpp:584
+#: lib/kateconfigdialog.cpp:582
 #, kde-format
 msgid "Session"
 msgstr "세션"
 
-#: lib/kateconfigdialog.cpp:586
+#: lib/kateconfigdialog.cpp:584
 #, kde-format
 msgid "Session Management"
 msgstr "세션 관리"
 
-#: lib/kateconfigdialog.cpp:597
+#: lib/kateconfigdialog.cpp:595
 #, kde-format
 msgctxt "The special case of 'Delete unused meta-information after'"
 msgid "(never)"
 msgstr "(하지 않음)"
 
-#: lib/kateconfigdialog.cpp:598
+#: lib/kateconfigdialog.cpp:596
 #, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid " day"
 msgid_plural " days"
 msgstr[0] "일"
 
-#: lib/kateconfigdialog.cpp:631
+#: lib/kateconfigdialog.cpp:629
 #, kde-format
 msgid ""
 "When a window is closed the documents opened only in this window are closed "
 "as well."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:666
+#: lib/kateconfigdialog.cpp:664
 #, kde-format
 msgid "Plugins"
 msgstr "플러그인"
 
-#: lib/kateconfigdialog.cpp:668
+#: lib/kateconfigdialog.cpp:666
 #, kde-format
 msgid "Plugin Manager"
 msgstr "플러그인 관리자"
 
-#: lib/kateconfigdialog.cpp:686 lib/kateconfigdialog.cpp:688
+#: lib/kateconfigdialog.cpp:684 lib/kateconfigdialog.cpp:686
 #, kde-format
 msgid "User Feedback"
 msgstr "사용자 피드백"
 
-#: lib/kateconfigdialog.cpp:938
+#: lib/kateconfigdialog.cpp:936
 #, kde-format
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"
@@ -1939,32 +1939,32 @@ msgid ""
 "want to proceed."
 msgstr "저장하기로 요청한 데이터를 쓸 수 없습니다. 어떻게 할지 선택하십시오."
 
-#: lib/kateviewmanager.cpp:113
+#: lib/kateviewmanager.cpp:112
 #, kde-format
 msgid "Split Ve&rtical"
 msgstr "세로로 분할(&R)"
 
-#: lib/kateviewmanager.cpp:117
+#: lib/kateviewmanager.cpp:116
 #, kde-format
 msgid "Split the currently active view vertically into two views."
 msgstr "현재 활성 보기를 세로로 두 개로 나눕니다."
 
-#: lib/kateviewmanager.cpp:121
+#: lib/kateviewmanager.cpp:120
 #, kde-format
 msgid "Split &Horizontal"
 msgstr "가로로 분할(&H)"
 
-#: lib/kateviewmanager.cpp:125
+#: lib/kateviewmanager.cpp:124
 #, kde-format
 msgid "Split the currently active view horizontally into two views."
 msgstr "현재 활성 보기를 가로로 두 개로 나눕니다."
 
-#: lib/kateviewmanager.cpp:129
+#: lib/kateviewmanager.cpp:128
 #, kde-format
 msgid "Move Document to New Vertical Split"
 msgstr "문서를 새로운 세로 분할로 이동"
 
-#: lib/kateviewmanager.cpp:133
+#: lib/kateviewmanager.cpp:132
 #, kde-format
 msgid ""
 "Split the currently active view vertically into two views and move the "
@@ -1973,12 +1973,12 @@ msgstr ""
 "현재 활성 보기를 세로로 두 개로 나누고 현재 활성화된 문서를 오른쪽 보기로 이"
 "동합니다."
 
-#: lib/kateviewmanager.cpp:138
+#: lib/kateviewmanager.cpp:137
 #, kde-format
 msgid "Move Document to New Horizontal Split"
 msgstr "문서를 새로운 가로 분할로 이동"
 
-#: lib/kateviewmanager.cpp:142
+#: lib/kateviewmanager.cpp:141
 #, kde-format
 msgid ""
 "Split the currently active view horizontally into two views and move the "
@@ -1987,180 +1987,180 @@ msgstr ""
 "현재 활성 보기를 가로로 두 개로 나누고 현재 활성화된 문서를 아래쪽 보기로 이"
 "동합니다."
 
-#: lib/kateviewmanager.cpp:147
+#: lib/kateviewmanager.cpp:146
 #, kde-format
 msgid "Cl&ose Current View"
 msgstr "현재 보기 닫기(&O)"
 
-#: lib/kateviewmanager.cpp:151
+#: lib/kateviewmanager.cpp:150
 #, kde-format
 msgid "Close the currently active split view"
 msgstr "현재 활성화된 나뉜 보기 닫기"
 
-#: lib/kateviewmanager.cpp:155
+#: lib/kateviewmanager.cpp:154
 #, kde-format
 msgid "Close Inactive Views"
 msgstr "비활성 보기 닫기"
 
-#: lib/kateviewmanager.cpp:158
+#: lib/kateviewmanager.cpp:157
 #, kde-format
 msgid "Close every view but the active one"
 msgstr "현재 활성 보기를 제외한 보기 닫기"
 
-#: lib/kateviewmanager.cpp:162
+#: lib/kateviewmanager.cpp:161
 #, kde-format
 msgid "Hide Inactive Views"
 msgstr "비활성 보기 닫기"
 
-#: lib/kateviewmanager.cpp:166
+#: lib/kateviewmanager.cpp:165
 #, kde-format
 msgid "Hide every view but the active one"
 msgstr "현재 활성 보기를 제외한 보기 닫기"
 
-#: lib/kateviewmanager.cpp:169
+#: lib/kateviewmanager.cpp:168
 #, kde-format
 msgid "Toggle Orientation"
 msgstr "방향 전환"
 
-#: lib/kateviewmanager.cpp:172
+#: lib/kateviewmanager.cpp:171
 #, kde-format
 msgid "Toggles the orientation of the current split view"
 msgstr "현재 분할 보기 방향 전환"
 
-#: lib/kateviewmanager.cpp:175
+#: lib/kateviewmanager.cpp:174
 #, kde-format
 msgid "Next Split View"
 msgstr "다음 분할 보기로 이동"
 
-#: lib/kateviewmanager.cpp:180
+#: lib/kateviewmanager.cpp:179
 #, kde-format
 msgid "Make the next split view the active one."
 msgstr "다음 분할 보기를 활성화합니다."
 
-#: lib/kateviewmanager.cpp:183
+#: lib/kateviewmanager.cpp:182
 #, kde-format
 msgid "Previous Split View"
 msgstr "이전 분할 보기로 이동"
 
-#: lib/kateviewmanager.cpp:188
+#: lib/kateviewmanager.cpp:187
 #, kde-format
 msgid "Make the previous split view the active one."
 msgstr "이전 분할 보기를 활성화합니다."
 
-#: lib/kateviewmanager.cpp:191
+#: lib/kateviewmanager.cpp:190
 #, fuzzy, kde-format
 #| msgid "Next Split View"
 msgid "Left Split View"
 msgstr "다음 분할 보기로 이동"
 
-#: lib/kateviewmanager.cpp:196
+#: lib/kateviewmanager.cpp:195
 #, fuzzy, kde-format
 #| msgid "Make the next split view the active one."
 msgid "Make the split view intuitively on the left the active one."
 msgstr "다음 분할 보기를 활성화합니다."
 
-#: lib/kateviewmanager.cpp:199
+#: lib/kateviewmanager.cpp:198
 #, fuzzy, kde-format
 #| msgid "Next Split View"
 msgid "Right Split View"
 msgstr "다음 분할 보기로 이동"
 
-#: lib/kateviewmanager.cpp:204
+#: lib/kateviewmanager.cpp:203
 #, fuzzy, kde-format
 #| msgid "Make the next split view the active one."
 msgid "Make the split view intuitively on the right the active one."
 msgstr "다음 분할 보기를 활성화합니다."
 
-#: lib/kateviewmanager.cpp:207
+#: lib/kateviewmanager.cpp:206
 #, fuzzy, kde-format
 #| msgid "Split View"
 msgid "Upward Split View"
 msgstr "나누어서 보기"
 
-#: lib/kateviewmanager.cpp:212
+#: lib/kateviewmanager.cpp:211
 #, fuzzy, kde-format
 #| msgid "Make the next split view the active one."
 msgid "Make the split view intuitively upward the active one."
 msgstr "다음 분할 보기를 활성화합니다."
 
-#: lib/kateviewmanager.cpp:215
+#: lib/kateviewmanager.cpp:214
 #, fuzzy, kde-format
 #| msgid "Split View"
 msgid "Downward Split View"
 msgstr "나누어서 보기"
 
-#: lib/kateviewmanager.cpp:220
+#: lib/kateviewmanager.cpp:219
 #, fuzzy, kde-format
 #| msgid "Make the next split view the active one."
 msgid "Make the split view intuitively downward the active one."
 msgstr "다음 분할 보기를 활성화합니다."
 
-#: lib/kateviewmanager.cpp:223
+#: lib/kateviewmanager.cpp:222
 #, kde-format
 msgid "Move Splitter Right"
 msgstr "구분자 오른쪽으로 이동"
 
-#: lib/kateviewmanager.cpp:226
+#: lib/kateviewmanager.cpp:225
 #, kde-format
 msgid "Move the splitter of the current view to the right"
 msgstr "현재 보기의 구분자를 오른쪽으로 이동"
 
-#: lib/kateviewmanager.cpp:229
+#: lib/kateviewmanager.cpp:228
 #, kde-format
 msgid "Move Splitter Left"
 msgstr "구분자 왼쪽으로 이동"
 
-#: lib/kateviewmanager.cpp:232
+#: lib/kateviewmanager.cpp:231
 #, kde-format
 msgid "Move the splitter of the current view to the left"
 msgstr "현재 보기의 구분자를 왼쪽으로 이동"
 
-#: lib/kateviewmanager.cpp:235
+#: lib/kateviewmanager.cpp:234
 #, kde-format
 msgid "Move Splitter Up"
 msgstr "구분자 위로 이동"
 
-#: lib/kateviewmanager.cpp:238
+#: lib/kateviewmanager.cpp:237
 #, kde-format
 msgid "Move the splitter of the current view up"
 msgstr "현재 보기의 구분자를 위로 이동"
 
-#: lib/kateviewmanager.cpp:241
+#: lib/kateviewmanager.cpp:240
 #, kde-format
 msgid "Move Splitter Down"
 msgstr "구분자 아래로 이동"
 
-#: lib/kateviewmanager.cpp:244
+#: lib/kateviewmanager.cpp:243
 #, kde-format
 msgid "Move the splitter of the current view down"
 msgstr "현재 보기의 구분자를 아래로 이동"
 
-#: lib/kateviewmanager.cpp:247
+#: lib/kateviewmanager.cpp:246
 #, kde-format
 msgid "Focus Navigation Bar"
 msgstr "탐색 표시줄에 초점 맞추기"
 
-#: lib/kateviewmanager.cpp:248
+#: lib/kateviewmanager.cpp:247
 #, kde-format
 msgid "Focus the navigation bar"
 msgstr "탐색 표시줄에 초점 맞추기"
 
-#: lib/kateviewmanager.cpp:255
+#: lib/kateviewmanager.cpp:254
 #, kde-format
 msgid "Welcome Page"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:270
+#: lib/kateviewmanager.cpp:269
 #, kde-format
 msgid "Show the welcome page"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:318 lib/kateviewmanager.cpp:320
+#: lib/kateviewmanager.cpp:317 lib/kateviewmanager.cpp:319
 #, kde-format
 msgid "Open File"
 msgstr "파일 열기"
 
-#: lib/kateviewmanager.cpp:339
+#: lib/kateviewmanager.cpp:338
 #, kde-format
 msgid ""
 "<p>You are attempting to open one or more large files:</p><ul>%1</ul><p>Do "
@@ -2171,46 +2171,46 @@ msgstr ""
 "겠습니까?</p><p><strong>큰 파일을 열 때 Kate가 응답하지 않을 수도 있습니다.</"
 "strong></p>"
 
-#: lib/kateviewmanager.cpp:348
+#: lib/kateviewmanager.cpp:347
 #, kde-format
 msgid "Opening Large File"
 msgstr "큰 파일 열기"
 
-#: lib/kateviewmanager.cpp:499
+#: lib/kateviewmanager.cpp:498
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:518
+#: lib/kateviewmanager.cpp:517
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:524
+#: lib/kateviewmanager.cpp:523
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:533
+#: lib/kateviewmanager.cpp:532
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "파일 열기"
 
-#: lib/kateviewmanager.cpp:534
+#: lib/kateviewmanager.cpp:533
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:545
+#: lib/kateviewmanager.cpp:544
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:1267
+#: lib/kateviewmanager.cpp:1266
 #, kde-format
 msgid "This view may have unsaved work. Do you really want to close it?"
 msgstr ""

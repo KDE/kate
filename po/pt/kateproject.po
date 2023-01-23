@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-22 01:01+0000\n"
-"PO-Revision-Date: 2023-01-19 09:52+0000\n"
+"PO-Revision-Date: 2023-01-22 22:35+0000\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
 "Language: pt\n"
@@ -100,24 +100,22 @@ msgid "Back"
 msgstr "Recuar"
 
 #: currentgitbranchbutton.cpp:123
-#, fuzzy, kde-format
-#| msgid "Failed to commit: %1"
+#, kde-format
 msgctxt "Tooltip text, describing that '%1' commit is checked out"
 msgid "HEAD at commit %1"
-msgstr "Não foi possível enviar: %1"
+msgstr "HEAD na versão %1"
 
 #: currentgitbranchbutton.cpp:125
 #, kde-format
 msgctxt "Tooltip text, describing that '%1' tag is checked out"
 msgid "HEAD is at this tag %1"
-msgstr ""
+msgstr "A HEAD encontra-se nesta marca %1"
 
 #: currentgitbranchbutton.cpp:127
-#, fuzzy, kde-format
-#| msgid "Checked out to new branch: %1"
+#, kde-format
 msgctxt "Tooltip text, describing that '%1' branch is checked out"
 msgid "Active branch: %1"
-msgstr "Foi seleccionada a nova ramificação: %1"
+msgstr "Ramificação activa: %1"
 
 #: gitcommitdialog.cpp:69 gitcommitdialog.cpp:116
 #, kde-format
@@ -1046,6 +1044,3 @@ msgstr "Não foi possível mostrar os ficheiros preparados. Erro: "
 #, kde-format
 msgid "&Projects"
 msgstr "&Projectos"
-
-#~ msgid "Checkout branch"
-#~ msgstr "Obter a ramificação"

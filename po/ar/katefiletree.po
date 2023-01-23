@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-13 01:01+0000\n"
+"POT-Creation-Date: 2023-01-23 01:00+0000\n"
 "PO-Revision-Date: 2022-12-22 12:54+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -19,204 +19,204 @@ msgstr ""
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 "X-Generator: Lokalize 21.12.3\n"
 
-#: katefiletree.cpp:122
+#: katefiletree.cpp:120
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Reloa&d"
 msgstr "أ&عد التّحميل"
 
-#: katefiletree.cpp:124
+#: katefiletree.cpp:122
 #, kde-format
 msgid "Reload selected document(s) from disk."
 msgstr "أعد تحميل المستند/المستندات المحدّدة من القرص."
 
-#: katefiletree.cpp:126
+#: katefiletree.cpp:124
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close"
 msgstr "أغلق"
 
-#: katefiletree.cpp:128
+#: katefiletree.cpp:126
 #, kde-format
 msgid "Close the current document."
 msgstr "أغلق المستند الحاليّ."
 
-#: katefiletree.cpp:130
+#: katefiletree.cpp:128
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Expand Recursively"
 msgstr "وسّع تكراريًّا"
 
-#: katefiletree.cpp:132
+#: katefiletree.cpp:130
 #, kde-format
 msgid "Expand the file list sub tree recursively."
 msgstr "وسّع شجرة قائمة الملفّات الفرعيّة تكراريًّا."
 
-#: katefiletree.cpp:134
+#: katefiletree.cpp:132
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Collapse Recursively"
 msgstr "اطوِ تكراريًّا"
 
-#: katefiletree.cpp:136
+#: katefiletree.cpp:134
 #, kde-format
 msgid "Collapse the file list sub tree recursively."
 msgstr "اطوِ شجرة قائمة الملفّات الفرعيّة تكراريًّا."
 
-#: katefiletree.cpp:138
+#: katefiletree.cpp:136
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close Other"
 msgstr "أغلق البقيّة"
 
-#: katefiletree.cpp:140
+#: katefiletree.cpp:138
 #, kde-format
 msgid "Close other documents in this folder."
 msgstr "أغلق المستندات الأخرى في هذا المجلّد."
 
-#: katefiletree.cpp:143
+#: katefiletree.cpp:141
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Containing Folder"
 msgstr "افتح المجلد الحاوي"
 
-#: katefiletree.cpp:145
+#: katefiletree.cpp:143
 #, kde-format
 msgid "Open the folder this file is located in."
 msgstr "افتح المجلد الحاوي لهذا المستند"
 
-#: katefiletree.cpp:147
+#: katefiletree.cpp:145
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Location"
 msgstr "انسخ المكان"
 
-#: katefiletree.cpp:149
+#: katefiletree.cpp:147
 #, kde-format
 msgid "Copy path and filename to the clipboard."
 msgstr "انسخ اسم الملفّ ومساره للحافظة"
 
-#: katefiletree.cpp:151
+#: katefiletree.cpp:149
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename..."
 msgstr "أعد التسمية..."
 
-#: katefiletree.cpp:153
+#: katefiletree.cpp:151
 #, kde-format
 msgid "Rename the selected file."
 msgstr "أعد تسمية الملفّ المحدّد."
 
-#: katefiletree.cpp:156
+#: katefiletree.cpp:154
 #, kde-format
 msgid "Print selected document."
 msgstr "اطبع المستند المحدّد."
 
-#: katefiletree.cpp:159
+#: katefiletree.cpp:157
 #, kde-format
 msgid "Show print preview of current document"
 msgstr "أظهر معاينة طباعة للمستند الحاليّ"
 
-#: katefiletree.cpp:161
+#: katefiletree.cpp:159
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete"
 msgstr "احذف"
 
-#: katefiletree.cpp:163
+#: katefiletree.cpp:161
 #, kde-format
 msgid "Close and delete selected file from storage."
 msgstr "أغلق الملفّ المحدّد واحذفه من التّخزين."
 
-#: katefiletree.cpp:167
+#: katefiletree.cpp:165
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear History"
 msgstr "امح التّأريخ"
 
-#: katefiletree.cpp:169
+#: katefiletree.cpp:167
 #, kde-format
 msgid "Clear edit/view history."
 msgstr "امح تأريخ التّحرير/العرض."
 
-#: katefiletree.cpp:232
+#: katefiletree.cpp:230
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Tree Mode"
 msgstr "وضع الشّجرة"
 
-#: katefiletree.cpp:233
+#: katefiletree.cpp:231
 #, kde-format
 msgid "Set view style to Tree Mode"
 msgstr "عيّن نمط المنظور إلى وضع الشّجرة"
 
-#: katefiletree.cpp:239
+#: katefiletree.cpp:237
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "List Mode"
 msgstr "وضع القائمة"
 
-#: katefiletree.cpp:240
+#: katefiletree.cpp:238
 #, kde-format
 msgid "Set view style to List Mode"
 msgstr "عيّن نمط المنظور إلى وضع القائمة"
 
-#: katefiletree.cpp:247
+#: katefiletree.cpp:245
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Document Name"
 msgstr "اسم المستند"
 
-#: katefiletree.cpp:248
+#: katefiletree.cpp:246
 #, kde-format
 msgid "Sort by Document Name"
 msgstr "افرز باسم المستند"
 
-#: katefiletree.cpp:253
+#: katefiletree.cpp:251
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Document Path"
 msgstr "مسار المستند"
 
-#: katefiletree.cpp:253
+#: katefiletree.cpp:251
 #, kde-format
 msgid "Sort by Document Path"
 msgstr "افرز بمسار المستند"
 
-#: katefiletree.cpp:257
+#: katefiletree.cpp:255
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Opening Order"
 msgstr "ترتيب الفتح"
 
-#: katefiletree.cpp:258
+#: katefiletree.cpp:256
 #, kde-format
 msgid "Sort by Opening Order"
 msgstr "افرز بترتيب الفتح"
 
-#: katefiletree.cpp:261 katefiletreeconfigpage.cpp:74
+#: katefiletree.cpp:259 katefiletreeconfigpage.cpp:74
 #, kde-format
 msgid "Custom Sorting"
 msgstr "فرز مخصّص"
 
-#: katefiletree.cpp:390
+#: katefiletree.cpp:388
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open With"
 msgstr "افتح ب‍"
 
-#: katefiletree.cpp:404
+#: katefiletree.cpp:402
 #, kde-format
 msgid "Show File Git History"
 msgstr "اعرض تاريخ غت"
 
-#: katefiletree.cpp:443
+#: katefiletree.cpp:441
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "View Mode"
 msgstr "وضع المنظور"
 
-#: katefiletree.cpp:447
+#: katefiletree.cpp:445
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Sort By"

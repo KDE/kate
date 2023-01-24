@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE Frameworks 5 Applications\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-16 02:54+0000\n"
+"POT-Creation-Date: 2023-01-24 02:51+0000\n"
 "PO-Revision-Date: 2020-03-05 08:04+0700\n"
 "Last-Translator: Wantoyo <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -75,7 +75,7 @@ msgctxt "Header for the error message column"
 msgid "Message"
 msgstr "Pesan"
 
-#: plugin_katebuild.cpp:136 plugin_katebuild.cpp:143 plugin_katebuild.cpp:1325
+#: plugin_katebuild.cpp:136 plugin_katebuild.cpp:143 plugin_katebuild.cpp:1329
 #, kde-format
 msgid "Build"
 msgstr "Bangun"
@@ -123,13 +123,13 @@ msgctxt "Tab label"
 msgid "Target Settings"
 msgstr "Pengaturan Sasaran"
 
-#: plugin_katebuild.cpp:347 plugin_katebuild.cpp:1427 plugin_katebuild.cpp:1438
-#: plugin_katebuild.cpp:1459 plugin_katebuild.cpp:1469
+#: plugin_katebuild.cpp:351 plugin_katebuild.cpp:1431 plugin_katebuild.cpp:1442
+#: plugin_katebuild.cpp:1463 plugin_katebuild.cpp:1473
 #, kde-format
 msgid "Project Plugin Targets"
 msgstr "Sasaran Plugin Projek"
 
-#: plugin_katebuild.cpp:500
+#: plugin_katebuild.cpp:504
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -137,46 +137,46 @@ msgid ""
 "the working directory in the Target Settings"
 msgstr ""
 
-#: plugin_katebuild.cpp:520
+#: plugin_katebuild.cpp:524
 #, kde-format
 msgctxt "The same word as 'make' uses to mark an error."
 msgid "error"
 msgstr "error"
 
-#: plugin_katebuild.cpp:523
+#: plugin_katebuild.cpp:527
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "referensi tidak ditentukan"
 
-#: plugin_katebuild.cpp:530
+#: plugin_katebuild.cpp:534
 #, kde-format
 msgctxt "The same word as 'make' uses to mark a warning."
 msgid "warning"
 msgstr "peringatan"
 
-#: plugin_katebuild.cpp:616
+#: plugin_katebuild.cpp:620
 #, kde-format
 msgid "Error"
 msgstr "Error"
 
-#: plugin_katebuild.cpp:621
+#: plugin_katebuild.cpp:625
 #, kde-format
 msgid "Warning"
 msgstr "Peringatan"
 
-#: plugin_katebuild.cpp:752
+#: plugin_katebuild.cpp:756
 #, kde-format
 msgid "There is no file or directory specified for building."
 msgstr "Tidak ada file atau direktori yang ditetapkan untuk membangun."
 
-#: plugin_katebuild.cpp:756
+#: plugin_katebuild.cpp:760
 #, kde-format
 msgid ""
 "The file \"%1\" is not a local file. Non-local files cannot be compiled."
 msgstr "File \"%1\" buka file lokal. File non-lokal tidak dapat dikompilasi."
 
-#: plugin_katebuild.cpp:803
+#: plugin_katebuild.cpp:807
 #, kde-format
 msgid ""
 "Cannot run command: %1\n"
@@ -185,137 +185,137 @@ msgstr ""
 "Tidak bisa menjalankan perintah: %1\n"
 "Alur kerja tidak ada: %2"
 
-#: plugin_katebuild.cpp:822
+#: plugin_katebuild.cpp:826
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "Gagal menjalankan \"%1\". exitStatus = %2"
 
-#: plugin_katebuild.cpp:841
+#: plugin_katebuild.cpp:845
 #, kde-format
 msgid "Building <b>%1</b> cancelled"
 msgstr "Pembangunan <b>%1</b> dibatalkan"
 
-#: plugin_katebuild.cpp:942
+#: plugin_katebuild.cpp:946
 #, kde-format
 msgid "No target available for building."
 msgstr "Tidak ada sasaran untuk membangun."
 
-#: plugin_katebuild.cpp:956
+#: plugin_katebuild.cpp:960
 #, kde-format
 msgid "There is no local file or directory specified for building."
 msgstr "Tidak ada file atau direktori lokal yang ditetapkan untuk membangun."
 
-#: plugin_katebuild.cpp:962
+#: plugin_katebuild.cpp:966
 #, kde-format
 msgid "Already building..."
 msgstr "Sudah membangun..."
 
-#: plugin_katebuild.cpp:989
+#: plugin_katebuild.cpp:993
 #, kde-format
 msgid "Building target <b>%1</b> ..."
 msgstr "Sasaran pembangunan <b>%1</b> ..."
 
-#: plugin_katebuild.cpp:1004
+#: plugin_katebuild.cpp:1008
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Make Results:</title><nl/>%1"
 msgstr "<title>Hasil Membuat:</title><nl/>%1"
 
-#: plugin_katebuild.cpp:1041
+#: plugin_katebuild.cpp:1045
 #, kde-format
 msgid "Building <b>%1</b> completed."
 msgstr "Pembangunan <b>%1</b> selesai."
 
-#: plugin_katebuild.cpp:1060
+#: plugin_katebuild.cpp:1064
 #, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
 msgstr[0] "Ditemukan satu error."
 msgstr[1] "Ditemukan %1 error."
 
-#: plugin_katebuild.cpp:1061
+#: plugin_katebuild.cpp:1065
 #, kde-format
 msgid "Building <b>%1</b> had errors."
 msgstr "Pembangunan <b>%1</b> memiliki error."
 
-#: plugin_katebuild.cpp:1063
+#: plugin_katebuild.cpp:1067
 #, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
 msgstr[0] "Ditemukan suatu peringatan."
 msgstr[1] "Ditemukan %1 peringatan."
 
-#: plugin_katebuild.cpp:1064
+#: plugin_katebuild.cpp:1068
 #, kde-format
 msgid "Building <b>%1</b> had warnings."
 msgstr "Pembangunan <b>%1</b> memiliki peringatan."
 
-#: plugin_katebuild.cpp:1070
+#: plugin_katebuild.cpp:1074
 #, kde-format
 msgid "Build failed."
 msgstr "Pembangunan gagal."
 
-#: plugin_katebuild.cpp:1072
+#: plugin_katebuild.cpp:1076
 #, kde-format
 msgid "Build completed without problems."
 msgstr "Pembangunan selesai tanpa masalah."
 
-#: plugin_katebuild.cpp:1103
+#: plugin_katebuild.cpp:1107
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
 msgstr ""
 
-#: plugin_katebuild.cpp:1324
+#: plugin_katebuild.cpp:1328
 #, kde-format
 msgid "Target Set"
 msgstr "Set Sasaran"
 
-#: plugin_katebuild.cpp:1326
+#: plugin_katebuild.cpp:1330
 #, kde-format
 msgid "Clean"
 msgstr "Bersihkan"
 
-#: plugin_katebuild.cpp:1327
+#: plugin_katebuild.cpp:1331
 #, kde-format
 msgid "Config"
 msgstr "Konfigurasi"
 
-#: plugin_katebuild.cpp:1328
+#: plugin_katebuild.cpp:1332
 #, kde-format
 msgid "ConfigClean"
 msgstr "KonfigurasiBersih"
 
-#: plugin_katebuild.cpp:1371
+#: plugin_katebuild.cpp:1375
 #, kde-format
 msgid "Only Errors"
 msgstr "Hanya Error"
 
-#: plugin_katebuild.cpp:1374
+#: plugin_katebuild.cpp:1378
 #, kde-format
 msgid "Errors and Warnings"
 msgstr "Error dan Peringatan"
 
-#: plugin_katebuild.cpp:1377
+#: plugin_katebuild.cpp:1381
 #, kde-format
 msgid "Parsed Output"
 msgstr "Output Mengurai"
 
-#: plugin_katebuild.cpp:1380
+#: plugin_katebuild.cpp:1384
 #, kde-format
 msgid "Full Output"
 msgstr "Output Penuh"
 
-#: plugin_katebuild.cpp:1497
+#: plugin_katebuild.cpp:1501
 #, kde-format
 msgid "build"
 msgstr "bangun"
 
-#: plugin_katebuild.cpp:1500
+#: plugin_katebuild.cpp:1504
 #, kde-format
 msgid "clean"
 msgstr "bersih"
 
-#: plugin_katebuild.cpp:1503
+#: plugin_katebuild.cpp:1507
 #, kde-format
 msgid "quick"
 msgstr "cepat"

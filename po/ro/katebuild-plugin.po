@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-16 02:54+0000\n"
+"POT-Creation-Date: 2023-01-24 02:51+0000\n"
 "PO-Revision-Date: 2013-10-05 13:17+0300\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
@@ -77,7 +77,7 @@ msgctxt "Header for the error message column"
 msgid "Message"
 msgstr "Mesaj"
 
-#: plugin_katebuild.cpp:136 plugin_katebuild.cpp:143 plugin_katebuild.cpp:1325
+#: plugin_katebuild.cpp:136 plugin_katebuild.cpp:143 plugin_katebuild.cpp:1329
 #, kde-format
 msgid "Build"
 msgstr "Construire"
@@ -126,14 +126,14 @@ msgctxt "Tab label"
 msgid "Target Settings"
 msgstr "Configurări ținte"
 
-#: plugin_katebuild.cpp:347 plugin_katebuild.cpp:1427 plugin_katebuild.cpp:1438
-#: plugin_katebuild.cpp:1459 plugin_katebuild.cpp:1469
+#: plugin_katebuild.cpp:351 plugin_katebuild.cpp:1431 plugin_katebuild.cpp:1442
+#: plugin_katebuild.cpp:1463 plugin_katebuild.cpp:1473
 #, fuzzy, kde-format
 #| msgid "Project Plugin Target"
 msgid "Project Plugin Targets"
 msgstr "Ținta extensiei de proiect"
 
-#: plugin_katebuild.cpp:500
+#: plugin_katebuild.cpp:504
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -141,99 +141,99 @@ msgid ""
 "the working directory in the Target Settings"
 msgstr ""
 
-#: plugin_katebuild.cpp:520
+#: plugin_katebuild.cpp:524
 #, kde-format
 msgctxt "The same word as 'make' uses to mark an error."
 msgid "error"
 msgstr "eroare"
 
-#: plugin_katebuild.cpp:523
+#: plugin_katebuild.cpp:527
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "referință nedefinită"
 
-#: plugin_katebuild.cpp:530
+#: plugin_katebuild.cpp:534
 #, kde-format
 msgctxt "The same word as 'make' uses to mark a warning."
 msgid "warning"
 msgstr "avertizare"
 
-#: plugin_katebuild.cpp:616
+#: plugin_katebuild.cpp:620
 #, fuzzy, kde-format
 #| msgctxt "The same word as 'make' uses to mark an error."
 #| msgid "error"
 msgid "Error"
 msgstr "eroare"
 
-#: plugin_katebuild.cpp:621
+#: plugin_katebuild.cpp:625
 #, fuzzy, kde-format
 #| msgid "Warnings"
 msgid "Warning"
 msgstr "Avertizări"
 
-#: plugin_katebuild.cpp:752
+#: plugin_katebuild.cpp:756
 #, kde-format
 msgid "There is no file or directory specified for building."
 msgstr "Nu este specificat niciun fișier sau dosar pentru construire."
 
-#: plugin_katebuild.cpp:756
+#: plugin_katebuild.cpp:760
 #, kde-format
 msgid ""
 "The file \"%1\" is not a local file. Non-local files cannot be compiled."
 msgstr "Fișierul „%1” nu este local. Fișierele nelocale nu pot fi compilate."
 
-#: plugin_katebuild.cpp:803
+#: plugin_katebuild.cpp:807
 #, kde-format
 msgid ""
 "Cannot run command: %1\n"
 "Work path does not exist: %2"
 msgstr ""
 
-#: plugin_katebuild.cpp:822
+#: plugin_katebuild.cpp:826
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "Eșec la rularea „%1”. exitStatus = %2"
 
-#: plugin_katebuild.cpp:841
+#: plugin_katebuild.cpp:845
 #, kde-format
 msgid "Building <b>%1</b> cancelled"
 msgstr ""
 
-#: plugin_katebuild.cpp:942
+#: plugin_katebuild.cpp:946
 #, kde-format
 msgid "No target available for building."
 msgstr ""
 
-#: plugin_katebuild.cpp:956
+#: plugin_katebuild.cpp:960
 #, fuzzy, kde-format
 #| msgid "There is no file or directory specified for building."
 msgid "There is no local file or directory specified for building."
 msgstr "Nu este specificat niciun fișier sau dosar pentru construire."
 
-#: plugin_katebuild.cpp:962
+#: plugin_katebuild.cpp:966
 #, kde-format
 msgid "Already building..."
 msgstr ""
 
-#: plugin_katebuild.cpp:989
+#: plugin_katebuild.cpp:993
 #, fuzzy, kde-format
 #| msgid "Build failed."
 msgid "Building target <b>%1</b> ..."
 msgstr "Construirea a eșuat."
 
-#: plugin_katebuild.cpp:1004
+#: plugin_katebuild.cpp:1008
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Make Results:</title><nl/>%1"
 msgstr ""
 
-#: plugin_katebuild.cpp:1041
+#: plugin_katebuild.cpp:1045
 #, kde-format
 msgid "Building <b>%1</b> completed."
 msgstr ""
 
-#: plugin_katebuild.cpp:1060
+#: plugin_katebuild.cpp:1064
 #, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
@@ -241,12 +241,12 @@ msgstr[0] "A fost găsită o eroare."
 msgstr[1] "Au fost găsite %1 erori."
 msgstr[2] "Au fost găsite %1 de erori."
 
-#: plugin_katebuild.cpp:1061
+#: plugin_katebuild.cpp:1065
 #, kde-format
 msgid "Building <b>%1</b> had errors."
 msgstr ""
 
-#: plugin_katebuild.cpp:1063
+#: plugin_katebuild.cpp:1067
 #, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
@@ -254,86 +254,86 @@ msgstr[0] "A fost găsită o avertizare."
 msgstr[1] "Au fost găsite %1 avertizări."
 msgstr[2] "Au fost găsite %1 de avertizări."
 
-#: plugin_katebuild.cpp:1064
+#: plugin_katebuild.cpp:1068
 #, fuzzy, kde-format
 #| msgid "Build failed."
 msgid "Building <b>%1</b> had warnings."
 msgstr "Construirea a eșuat."
 
-#: plugin_katebuild.cpp:1070
+#: plugin_katebuild.cpp:1074
 #, kde-format
 msgid "Build failed."
 msgstr "Construirea a eșuat."
 
-#: plugin_katebuild.cpp:1072
+#: plugin_katebuild.cpp:1076
 #, kde-format
 msgid "Build completed without problems."
 msgstr "Construirea s-a terminat fără probleme."
 
-#: plugin_katebuild.cpp:1103
+#: plugin_katebuild.cpp:1107
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
 msgstr ""
 
-#: plugin_katebuild.cpp:1324
+#: plugin_katebuild.cpp:1328
 #, fuzzy, kde-format
 #| msgid "Targets"
 msgid "Target Set"
 msgstr "Ținte"
 
-#: plugin_katebuild.cpp:1326
+#: plugin_katebuild.cpp:1330
 #, kde-format
 msgid "Clean"
 msgstr "Curăță"
 
-#: plugin_katebuild.cpp:1327
+#: plugin_katebuild.cpp:1331
 #, kde-format
 msgid "Config"
 msgstr "Configurează"
 
-#: plugin_katebuild.cpp:1328
+#: plugin_katebuild.cpp:1332
 #, fuzzy, kde-format
 #| msgid "Config"
 msgid "ConfigClean"
 msgstr "Configurează"
 
-#: plugin_katebuild.cpp:1371
+#: plugin_katebuild.cpp:1375
 #, fuzzy, kde-format
 #| msgid "Errors"
 msgid "Only Errors"
 msgstr "Erori"
 
-#: plugin_katebuild.cpp:1374
+#: plugin_katebuild.cpp:1378
 #, fuzzy, kde-format
 #| msgid "Errors && Warnings"
 msgid "Errors and Warnings"
 msgstr "Erori și avertizări"
 
-#: plugin_katebuild.cpp:1377
+#: plugin_katebuild.cpp:1381
 #, fuzzy, kde-format
 #| msgid "Build Output"
 msgid "Parsed Output"
 msgstr "Rezultat construire"
 
-#: plugin_katebuild.cpp:1380
+#: plugin_katebuild.cpp:1384
 #, fuzzy, kde-format
 #| msgid "Build Output"
 msgid "Full Output"
 msgstr "Rezultat construire"
 
-#: plugin_katebuild.cpp:1497
+#: plugin_katebuild.cpp:1501
 #, fuzzy, kde-format
 #| msgid "Build"
 msgid "build"
 msgstr "Construire"
 
-#: plugin_katebuild.cpp:1500
+#: plugin_katebuild.cpp:1504
 #, fuzzy, kde-format
 #| msgid "Clean"
 msgid "clean"
 msgstr "Curăță"
 
-#: plugin_katebuild.cpp:1503
+#: plugin_katebuild.cpp:1507
 #, kde-format
 msgid "quick"
 msgstr ""

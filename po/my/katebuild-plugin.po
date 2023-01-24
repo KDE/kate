@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-16 02:54+0000\n"
+"POT-Creation-Date: 2023-01-24 02:51+0000\n"
 "PO-Revision-Date: 2021-09-15 04:13+0630\n"
 "Last-Translator: \n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
@@ -75,7 +75,7 @@ msgctxt "Header for the error message column"
 msgid "Message"
 msgstr "မှတ်စာ"
 
-#: plugin_katebuild.cpp:136 plugin_katebuild.cpp:143 plugin_katebuild.cpp:1325
+#: plugin_katebuild.cpp:136 plugin_katebuild.cpp:143 plugin_katebuild.cpp:1329
 #, kde-format
 msgid "Build"
 msgstr "တည်ဆောက်မည်"
@@ -123,13 +123,13 @@ msgctxt "Tab label"
 msgid "Target Settings"
 msgstr "ဦိးတည်ပစ်မှတ် ဆက်တင်"
 
-#: plugin_katebuild.cpp:347 plugin_katebuild.cpp:1427 plugin_katebuild.cpp:1438
-#: plugin_katebuild.cpp:1459 plugin_katebuild.cpp:1469
+#: plugin_katebuild.cpp:351 plugin_katebuild.cpp:1431 plugin_katebuild.cpp:1442
+#: plugin_katebuild.cpp:1463 plugin_katebuild.cpp:1473
 #, fuzzy, kde-format
 msgid "Project Plugin Targets"
 msgstr "ဦးတည်းဖိုင်လ်များကို အညွှန်းစီမည်"
 
-#: plugin_katebuild.cpp:500
+#: plugin_katebuild.cpp:504
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -137,181 +137,181 @@ msgid ""
 "the working directory in the Target Settings"
 msgstr ""
 
-#: plugin_katebuild.cpp:520
+#: plugin_katebuild.cpp:524
 #, kde-format
 msgctxt "The same word as 'make' uses to mark an error."
 msgid "error"
 msgstr "အမှား"
 
-#: plugin_katebuild.cpp:523
+#: plugin_katebuild.cpp:527
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "မသတ်မှတ်ထားသော အကိုးအကား"
 
-#: plugin_katebuild.cpp:530
+#: plugin_katebuild.cpp:534
 #, kde-format
 msgctxt "The same word as 'make' uses to mark a warning."
 msgid "warning"
 msgstr "သတိ"
 
-#: plugin_katebuild.cpp:616
+#: plugin_katebuild.cpp:620
 #, kde-format
 msgid "Error"
 msgstr "အမှား"
 
-#: plugin_katebuild.cpp:621
+#: plugin_katebuild.cpp:625
 #, kde-format
 msgid "Warning"
 msgstr "သတိ"
 
-#: plugin_katebuild.cpp:752
+#: plugin_katebuild.cpp:756
 #, kde-format
 msgid "There is no file or directory specified for building."
 msgstr "တည်ဆောက်ရန် ဖိုင်လ် သို့မဟုတ် ဒါရိုက်ထရီ သတ်မှတ်ထားခြင်းမရှိပါ။"
 
-#: plugin_katebuild.cpp:756
+#: plugin_katebuild.cpp:760
 #, kde-format
 msgid ""
 "The file \"%1\" is not a local file. Non-local files cannot be compiled."
 msgstr ""
 
-#: plugin_katebuild.cpp:803
+#: plugin_katebuild.cpp:807
 #, kde-format
 msgid ""
 "Cannot run command: %1\n"
 "Work path does not exist: %2"
 msgstr ""
 
-#: plugin_katebuild.cpp:822
+#: plugin_katebuild.cpp:826
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "\"%1\" ကို မမောင်းနှင်နိုင်ခဲ့ပါ။ အထွက်အခြေအနေ = %2"
 
-#: plugin_katebuild.cpp:841
+#: plugin_katebuild.cpp:845
 #, kde-format
 msgid "Building <b>%1</b> cancelled"
 msgstr "တည်ဆောက်မှု <b>%1</b> ပယ်ဖျက်ခဲ့သည်"
 
-#: plugin_katebuild.cpp:942
+#: plugin_katebuild.cpp:946
 #, kde-format
 msgid "No target available for building."
 msgstr "တည်ဆောက်ရန် ဦးတည်ပစ်မှတ် မရှိပါ"
 
-#: plugin_katebuild.cpp:956
+#: plugin_katebuild.cpp:960
 #, kde-format
 msgid "There is no local file or directory specified for building."
 msgstr ""
 
-#: plugin_katebuild.cpp:962
+#: plugin_katebuild.cpp:966
 #, kde-format
 msgid "Already building..."
 msgstr "တည်ဆောက်နေပြီးဖြစ်သည်..."
 
-#: plugin_katebuild.cpp:989
+#: plugin_katebuild.cpp:993
 #, kde-format
 msgid "Building target <b>%1</b> ..."
 msgstr "<b>%1</b> ဦးတည်ပစ်မှတ် တည်ဆောက်နေသည်..."
 
-#: plugin_katebuild.cpp:1004
+#: plugin_katebuild.cpp:1008
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Make Results:</title><nl/>%1"
 msgstr ""
 
-#: plugin_katebuild.cpp:1041
+#: plugin_katebuild.cpp:1045
 #, kde-format
 msgid "Building <b>%1</b> completed."
 msgstr "<b>%1</b> တည်ဆောက်မှု ပြီးပါပြီ"
 
-#: plugin_katebuild.cpp:1060
+#: plugin_katebuild.cpp:1064
 #, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
 msgstr[0] "အမှား %1ခု တွေ့ရှိသည်။"
 
-#: plugin_katebuild.cpp:1061
+#: plugin_katebuild.cpp:1065
 #, kde-format
 msgid "Building <b>%1</b> had errors."
 msgstr ""
 
-#: plugin_katebuild.cpp:1063
+#: plugin_katebuild.cpp:1067
 #, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
 msgstr[0] "သတိပေးချက် %1ခု တွေ့ရှိသည်"
 
-#: plugin_katebuild.cpp:1064
+#: plugin_katebuild.cpp:1068
 #, kde-format
 msgid "Building <b>%1</b> had warnings."
 msgstr ""
 
-#: plugin_katebuild.cpp:1070
+#: plugin_katebuild.cpp:1074
 #, kde-format
 msgid "Build failed."
 msgstr "တည်ဆောက်မှု မအောင်မြင်ပါ။"
 
-#: plugin_katebuild.cpp:1072
+#: plugin_katebuild.cpp:1076
 #, kde-format
 msgid "Build completed without problems."
 msgstr ""
 
-#: plugin_katebuild.cpp:1103
+#: plugin_katebuild.cpp:1107
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
 msgstr ""
 
-#: plugin_katebuild.cpp:1324
+#: plugin_katebuild.cpp:1328
 #, kde-format
 msgid "Target Set"
 msgstr "ဦိးတည်ပစ်မှတ်အစု"
 
-#: plugin_katebuild.cpp:1326
+#: plugin_katebuild.cpp:1330
 #, kde-format
 msgid "Clean"
 msgstr "ရှင်းမည်"
 
-#: plugin_katebuild.cpp:1327
+#: plugin_katebuild.cpp:1331
 #, kde-format
 msgid "Config"
 msgstr "ကွန်ဖစ်"
 
-#: plugin_katebuild.cpp:1328
+#: plugin_katebuild.cpp:1332
 #, kde-format
 msgid "ConfigClean"
 msgstr ""
 
-#: plugin_katebuild.cpp:1371
+#: plugin_katebuild.cpp:1375
 #, kde-format
 msgid "Only Errors"
 msgstr "အမှားများသာ"
 
-#: plugin_katebuild.cpp:1374
+#: plugin_katebuild.cpp:1378
 #, kde-format
 msgid "Errors and Warnings"
 msgstr "အမှားနှင့် သတိပေးချက်များ"
 
-#: plugin_katebuild.cpp:1377
+#: plugin_katebuild.cpp:1381
 #, fuzzy, kde-format
 msgid "Parsed Output"
 msgstr "အထုတ်"
 
-#: plugin_katebuild.cpp:1380
+#: plugin_katebuild.cpp:1384
 #, fuzzy, kde-format
 msgid "Full Output"
 msgstr "အထုတ်"
 
-#: plugin_katebuild.cpp:1497
+#: plugin_katebuild.cpp:1501
 #, kde-format
 msgid "build"
 msgstr "တည်ဆောက်မည်"
 
-#: plugin_katebuild.cpp:1500
+#: plugin_katebuild.cpp:1504
 #, kde-format
 msgid "clean"
 msgstr "ရှင်းမည်"
 
-#: plugin_katebuild.cpp:1503
+#: plugin_katebuild.cpp:1507
 #, kde-format
 msgid "quick"
 msgstr "အလျင်အမြန်"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-16 02:54+0000\n"
+"POT-Creation-Date: 2023-01-24 02:51+0000\n"
 "PO-Revision-Date: 2017-05-16 06:36-0400\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Hebrew <kde-i18n-doc@kde.org>\n"
@@ -75,7 +75,7 @@ msgctxt "Header for the error message column"
 msgid "Message"
 msgstr "הודעה"
 
-#: plugin_katebuild.cpp:136 plugin_katebuild.cpp:143 plugin_katebuild.cpp:1325
+#: plugin_katebuild.cpp:136 plugin_katebuild.cpp:143 plugin_katebuild.cpp:1329
 #, fuzzy, kde-format
 msgid "Build"
 msgstr "&בנה"
@@ -123,13 +123,13 @@ msgctxt "Tab label"
 msgid "Target Settings"
 msgstr "הגדרות של מטרות"
 
-#: plugin_katebuild.cpp:347 plugin_katebuild.cpp:1427 plugin_katebuild.cpp:1438
-#: plugin_katebuild.cpp:1459 plugin_katebuild.cpp:1469
+#: plugin_katebuild.cpp:351 plugin_katebuild.cpp:1431 plugin_katebuild.cpp:1442
+#: plugin_katebuild.cpp:1463 plugin_katebuild.cpp:1473
 #, kde-format
 msgid "Project Plugin Targets"
 msgstr "מטרות תוסף פרוייקטים"
 
-#: plugin_katebuild.cpp:500
+#: plugin_katebuild.cpp:504
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -137,187 +137,187 @@ msgid ""
 "the working directory in the Target Settings"
 msgstr ""
 
-#: plugin_katebuild.cpp:520
+#: plugin_katebuild.cpp:524
 #, kde-format
 msgctxt "The same word as 'make' uses to mark an error."
 msgid "error"
 msgstr "שגיאה"
 
-#: plugin_katebuild.cpp:523
+#: plugin_katebuild.cpp:527
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "ייחוס לא מוגדר"
 
-#: plugin_katebuild.cpp:530
+#: plugin_katebuild.cpp:534
 #, kde-format
 msgctxt "The same word as 'make' uses to mark a warning."
 msgid "warning"
 msgstr "הזהרה"
 
-#: plugin_katebuild.cpp:616
+#: plugin_katebuild.cpp:620
 #, fuzzy, kde-format
 #| msgctxt "The same word as 'make' uses to mark an error."
 #| msgid "error"
 msgid "Error"
 msgstr "שגיאה"
 
-#: plugin_katebuild.cpp:621
+#: plugin_katebuild.cpp:625
 #, fuzzy, kde-format
 #| msgctxt "The same word as 'make' uses to mark a warning."
 #| msgid "warning"
 msgid "Warning"
 msgstr "הזהרה"
 
-#: plugin_katebuild.cpp:752
+#: plugin_katebuild.cpp:756
 #, kde-format
 msgid "There is no file or directory specified for building."
 msgstr "אין קובץ או ספרייה מוגדרת עבור בנייה"
 
-#: plugin_katebuild.cpp:756
+#: plugin_katebuild.cpp:760
 #, kde-format
 msgid ""
 "The file \"%1\" is not a local file. Non-local files cannot be compiled."
 msgstr "הקובץ \"%1\" הוא לא קובץ מקומי. אין אפשרות לקמפל קבצים לא מקומיים."
 
-#: plugin_katebuild.cpp:803
+#: plugin_katebuild.cpp:807
 #, kde-format
 msgid ""
 "Cannot run command: %1\n"
 "Work path does not exist: %2"
 msgstr ""
 
-#: plugin_katebuild.cpp:822
+#: plugin_katebuild.cpp:826
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "אין אפשרות להפעיל את \"%1\". תוצאת הרצה = %2"
 
-#: plugin_katebuild.cpp:841
+#: plugin_katebuild.cpp:845
 #, kde-format
 msgid "Building <b>%1</b> cancelled"
 msgstr "בנייה של <b>%1</b> בוטלה"
 
-#: plugin_katebuild.cpp:942
+#: plugin_katebuild.cpp:946
 #, kde-format
 msgid "No target available for building."
 msgstr ""
 
-#: plugin_katebuild.cpp:956
+#: plugin_katebuild.cpp:960
 #, fuzzy, kde-format
 msgid "There is no local file or directory specified for building."
 msgstr "אין קובץ או ספרייה מוגדרת עבור בנייה"
 
-#: plugin_katebuild.cpp:962
+#: plugin_katebuild.cpp:966
 #, kde-format
 msgid "Already building..."
 msgstr ""
 
-#: plugin_katebuild.cpp:989
+#: plugin_katebuild.cpp:993
 #, kde-format
 msgid "Building target <b>%1</b> ..."
 msgstr "בנה את המטרה <b>%1</b>...."
 
-#: plugin_katebuild.cpp:1004
+#: plugin_katebuild.cpp:1008
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Make Results:</title><nl/>%1"
 msgstr ""
 
-#: plugin_katebuild.cpp:1041
+#: plugin_katebuild.cpp:1045
 #, kde-format
 msgid "Building <b>%1</b> completed."
 msgstr "בניית המטרה <b>%1</b> הושלמה."
 
-#: plugin_katebuild.cpp:1060
+#: plugin_katebuild.cpp:1064
 #, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
 msgstr[0] "נמצאה שגיאה אחת"
 msgstr[1] "נמצאו %1 שגיאות"
 
-#: plugin_katebuild.cpp:1061
+#: plugin_katebuild.cpp:1065
 #, kde-format
 msgid "Building <b>%1</b> had errors."
 msgstr "לבנייה של <b>%1</b> היו שגיאות."
 
-#: plugin_katebuild.cpp:1063
+#: plugin_katebuild.cpp:1067
 #, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
 msgstr[0] "נמצאה הזהרה אחת"
 msgstr[1] "נמצאו %1 הזהרות"
 
-#: plugin_katebuild.cpp:1064
+#: plugin_katebuild.cpp:1068
 #, fuzzy, kde-format
 msgid "Building <b>%1</b> had warnings."
 msgstr "לבנייה של <b>%1</b> היו שגיאות."
 
-#: plugin_katebuild.cpp:1070
+#: plugin_katebuild.cpp:1074
 #, kde-format
 msgid "Build failed."
 msgstr "הבנייה נכשלה"
 
-#: plugin_katebuild.cpp:1072
+#: plugin_katebuild.cpp:1076
 #, kde-format
 msgid "Build completed without problems."
 msgstr "הבנייה הסתיימה ללא בעיות"
 
-#: plugin_katebuild.cpp:1103
+#: plugin_katebuild.cpp:1107
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
 msgstr ""
 
-#: plugin_katebuild.cpp:1324
+#: plugin_katebuild.cpp:1328
 #, fuzzy, kde-format
 msgid "Target Set"
 msgstr "קבע מטרה"
 
-#: plugin_katebuild.cpp:1326
+#: plugin_katebuild.cpp:1330
 #, kde-format
 msgid "Clean"
 msgstr "נקה"
 
-#: plugin_katebuild.cpp:1327
+#: plugin_katebuild.cpp:1331
 #, kde-format
 msgid "Config"
 msgstr ""
 
-#: plugin_katebuild.cpp:1328
+#: plugin_katebuild.cpp:1332
 #, fuzzy, kde-format
 msgid "ConfigClean"
 msgstr "נקה"
 
-#: plugin_katebuild.cpp:1371
+#: plugin_katebuild.cpp:1375
 #, kde-format
 msgid "Only Errors"
 msgstr "שגיאות בלבד"
 
-#: plugin_katebuild.cpp:1374
+#: plugin_katebuild.cpp:1378
 #, kde-format
 msgid "Errors and Warnings"
 msgstr "שגיאות והזהרות"
 
-#: plugin_katebuild.cpp:1377
+#: plugin_katebuild.cpp:1381
 #, kde-format
 msgid "Parsed Output"
 msgstr "הפלט המנותח"
 
-#: plugin_katebuild.cpp:1380
+#: plugin_katebuild.cpp:1384
 #, kde-format
 msgid "Full Output"
 msgstr "הפלט המלא"
 
-#: plugin_katebuild.cpp:1497
+#: plugin_katebuild.cpp:1501
 #, fuzzy, kde-format
 msgid "build"
 msgstr "&בנה"
 
-#: plugin_katebuild.cpp:1500
+#: plugin_katebuild.cpp:1504
 #, fuzzy, kde-format
 msgid "clean"
 msgstr "נקה"
 
-#: plugin_katebuild.cpp:1503
+#: plugin_katebuild.cpp:1507
 #, kde-format
 msgid "quick"
 msgstr ""

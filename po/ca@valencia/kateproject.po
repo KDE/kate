@@ -1,16 +1,16 @@
 # Translation of kateproject.po to Catalan (Valencian)
-# Copyright (C) 2012-2022 This_file_is_part_of_KDE
+# Copyright (C) 2012-2023 This_file_is_part_of_KDE
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
-# Josep M. Ferrer <txemaq@gmail.com>, 2012, 2013, 2015, 2016, 2018, 2019, 2020, 2021, 2022.
+# Josep M. Ferrer <txemaq@gmail.com>, 2012, 2013, 2015, 2016, 2018, 2019, 2020, 2021, 2022, 2023.
 # Antoni Bella Pérez <antonibella5@yahoo.com>, 2014, 2018, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-03 04:16+0000\n"
-"PO-Revision-Date: 2022-09-04 14:37+0200\n"
+"PO-Revision-Date: 2023-01-22 10:43+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -44,7 +44,7 @@ msgstr "S'ha baixat la branca %1"
 #: branchcheckoutdialog.cpp:56
 #, kde-format
 msgid "Failed to checkout to branch %1, Error: %2"
-msgstr "No s'ha pogut baixar la branca %1, Error: %2"
+msgstr "No s'ha pogut agafar la branca %1, error: %2"
 
 #: branchcheckoutdialog.cpp:83 branchcheckoutdialog.cpp:95
 #, kde-format
@@ -54,7 +54,7 @@ msgstr "Introduïu el nom de la nova branca. Premeu «Esc» per a cancel·lar."
 #: branchcheckoutdialog.cpp:100
 #, kde-format
 msgid "Select branch to checkout from. Press 'Esc' to cancel."
-msgstr "Seleccioneu la branca que es baixarà. Premeu «Esc» per a cancel·lar."
+msgstr "Seleccioneu la branca que s'agafarà. Premeu «Esc» per a cancel·lar."
 
 #: branchcheckoutdialog.cpp:121
 #, kde-format
@@ -106,12 +106,12 @@ msgstr "Arrere"
 #: gitcommitdialog.cpp:69 gitcommitdialog.cpp:116
 #, kde-format
 msgid "Commit Changes"
-msgstr "Entrega els canvis"
+msgstr "Comet els canvis"
 
 #: gitcommitdialog.cpp:73 gitcommitdialog.cpp:115 gitwidget.cpp:233
 #, kde-format
 msgid "Commit"
-msgstr "Entrega"
+msgstr "Comet"
 
 #: gitcommitdialog.cpp:74
 #, kde-format
@@ -121,12 +121,12 @@ msgstr "Cancel·la"
 #: gitcommitdialog.cpp:76
 #, kde-format
 msgid "Write commit message..."
-msgstr "Escriviu el missatge d'entrega..."
+msgstr "Escriviu el missatge de comissió..."
 
 #: gitcommitdialog.cpp:83
 #, kde-format
 msgid "Extended commit description..."
-msgstr "Descripció estesa de l'entrega..."
+msgstr "Descripció estesa de la comissió..."
 
 #: gitcommitdialog.cpp:107
 #, kde-format
@@ -255,23 +255,22 @@ msgstr "No s'ha pogut obtindre «diff» del fitxer: %1"
 #: gitwidget.cpp:717
 #, kde-format
 msgid "Failed to commit: %1"
-msgstr "No s'ha pogut entregar: %1"
+msgstr "No s'ha pogut cometre: %1"
 
 #: gitwidget.cpp:721
 #, kde-format
 msgid "Changes committed successfully."
-msgstr "Els canvis s'han entregat correctament."
+msgstr "Els canvis s'han comés correctament."
 
 #: gitwidget.cpp:731
 #, kde-format
 msgid "Nothing to commit. Please stage your changes first."
-msgstr ""
-"No hi ha res per a entregar (commit). Primer, marqueu els vostres canvis."
+msgstr "No hi ha res a cometre. Primer, marqueu els vostres canvis."
 
 #: gitwidget.cpp:744
 #, kde-format
 msgid "Commit message cannot be empty."
-msgstr "El missatge d'entrega no pot estar buit."
+msgstr "El missatge de comissió no pot estar buit."
 
 #: gitwidget.cpp:859
 #, kde-format
@@ -296,7 +295,7 @@ msgstr "Actualitza"
 #: gitwidget.cpp:935
 #, kde-format
 msgid "Checkout Branch"
-msgstr "Entrega la branca"
+msgstr "Agafa la branca"
 
 #: gitwidget.cpp:947
 #, kde-format
@@ -930,7 +929,7 @@ msgstr "Voleu suprimir el fitxer «%1»?"
 #: kateprojectview.cpp:59
 #, kde-format
 msgid "Checkout Git Branch"
-msgstr "Entrega la branca de Git"
+msgstr "Agafa la branca de Git"
 
 #: kateprojectview.cpp:82
 #, kde-format

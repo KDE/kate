@@ -11,3 +11,6 @@ target_sources(
     plugin.qrc
 )
 
+if(BUILD_TESTING)
+  add_subdirectory(autotests)
+endif()

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-23 01:00+0000\n"
-"PO-Revision-Date: 2023-01-17 07:43+0100\n"
+"PO-Revision-Date: 2023-01-23 06:26+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -1466,7 +1466,7 @@ msgstr ""
 #: lib/katemainwindow.cpp:456
 #, kde-format
 msgid "&Plugins Handbook"
-msgstr ""
+msgstr "&დამატებების სახელმძღვანელო"
 
 #: lib/katemainwindow.cpp:458
 #, kde-format
@@ -2262,7 +2262,7 @@ msgstr "აღდგენა"
 #: lib/session/katesessionmanagedialog.cpp:303
 #, kde-format
 msgid "Session will be deleted on dialog close"
-msgstr ""
+msgstr "ფანჯრის დახურვისას სესია წაიშლება"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, m_filterBox)
 #: lib/session/katesessionmanagedialog.ui:30

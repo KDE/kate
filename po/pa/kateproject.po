@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-22 01:01+0000\n"
+"POT-Creation-Date: 2023-01-24 01:02+0000\n"
 "PO-Revision-Date: 2012-12-12 08:54+0530\n"
 "Last-Translator: A S Alam <aalam@users.sf.net>\n"
 "Language-Team: Punjabi/Panjabi <punjabi-users@lists.sf.net>\n"
@@ -89,7 +89,7 @@ msgstr[1] ""
 msgid "Select Branch..."
 msgstr ""
 
-#: branchesdialog.cpp:128 gitwidget.cpp:483 kateprojectpluginview.cpp:65
+#: branchesdialog.cpp:128 gitwidget.cpp:483 kateprojectpluginview.cpp:68
 #, kde-format
 msgid "Git"
 msgstr ""
@@ -214,7 +214,7 @@ msgstr ""
 msgid " canceled."
 msgstr ""
 
-#: gitwidget.cpp:308 kateprojectview.cpp:70
+#: gitwidget.cpp:308 kateprojectview.cpp:59
 #, kde-format
 msgid "Filter..."
 msgstr ""
@@ -656,7 +656,7 @@ msgstr ""
 msgid "Double click action in the git status view"
 msgstr ""
 
-#: kateprojectconfigpage.cpp:135 kateprojectpluginview.cpp:64
+#: kateprojectconfigpage.cpp:135 kateprojectpluginview.cpp:67
 #, kde-format
 msgid "Projects"
 msgstr "ਪਰੋਜੈਕਟ"
@@ -797,105 +797,110 @@ msgid ""
 "separator (backslash on Windows)."
 msgstr ""
 
-#: kateprojectplugin.cpp:713 kateprojectpluginview.cpp:70
-#: kateprojectpluginview.cpp:215 kateprojectviewtree.cpp:135
+#: kateprojectplugin.cpp:713 kateprojectpluginview.cpp:73
+#: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:135
 #: kateprojectviewtree.cpp:156
 #, fuzzy, kde-format
 #| msgid "Projects"
 msgid "Project"
 msgstr "ਪਰੋਜੈਕਟ"
 
-#: kateprojectpluginview.cpp:54
+#: kateprojectpluginview.cpp:57
 #, fuzzy, kde-format
 #| msgid "Projects"
 msgid "Project Manager"
 msgstr "ਪਰੋਜੈਕਟ"
 
-#: kateprojectpluginview.cpp:76
+#: kateprojectpluginview.cpp:79
 #, fuzzy, kde-format
 #| msgid "Current Project"
 msgid "Open projects list"
 msgstr "ਮੌਜੂਦਾ ਪਰੋਜੈਕਟ"
 
-#: kateprojectpluginview.cpp:81
+#: kateprojectpluginview.cpp:84
 #, fuzzy, kde-format
 #| msgid "Current Project"
 msgid "Reload project"
 msgstr "ਮੌਜੂਦਾ ਪਰੋਜੈਕਟ"
 
-#: kateprojectpluginview.cpp:84
+#: kateprojectpluginview.cpp:87
 #, fuzzy, kde-format
 #| msgid "Current Project"
 msgid "Close project"
 msgstr "ਮੌਜੂਦਾ ਪਰੋਜੈਕਟ"
 
-#: kateprojectpluginview.cpp:99
+#: kateprojectpluginview.cpp:102
 #, kde-format
 msgid "Refresh git status"
 msgstr ""
 
-#: kateprojectpluginview.cpp:177
+#: kateprojectpluginview.cpp:180
 #, fuzzy, kde-format
 #| msgid "Open With"
 msgid "Open Folder..."
 msgstr "ਇਸ ਨਾਲ ਖੋਲ੍ਹੋ"
 
-#: kateprojectpluginview.cpp:182
+#: kateprojectpluginview.cpp:185
 #, fuzzy, kde-format
 #| msgid "Projects"
 msgid "Project TODOs"
 msgstr "ਪਰੋਜੈਕਟ"
 
-#: kateprojectpluginview.cpp:186
+#: kateprojectpluginview.cpp:189
 #, kde-format
 msgid "Activate Previous Project"
 msgstr ""
 
-#: kateprojectpluginview.cpp:191
+#: kateprojectpluginview.cpp:194
 #, kde-format
 msgid "Activate Next Project"
 msgstr ""
 
-#: kateprojectpluginview.cpp:196
+#: kateprojectpluginview.cpp:199
 #, kde-format
 msgid "Lookup"
 msgstr ""
 
-#: kateprojectpluginview.cpp:200
+#: kateprojectpluginview.cpp:203
 #, fuzzy, kde-format
 #| msgid "Current Project"
 msgid "Close Project"
 msgstr "ਮੌਜੂਦਾ ਪਰੋਜੈਕਟ"
 
-#: kateprojectpluginview.cpp:204
+#: kateprojectpluginview.cpp:207
 #, fuzzy, kde-format
 #| msgid "Current Project"
 msgid "Close All Projects"
 msgstr "ਮੌਜੂਦਾ ਪਰੋਜੈਕਟ"
 
-#: kateprojectpluginview.cpp:209
+#: kateprojectpluginview.cpp:212
 #, fuzzy, kde-format
 #| msgid "Current Project"
 msgid "Close Orphaned Projects"
 msgstr "ਮੌਜੂਦਾ ਪਰੋਜੈਕਟ"
 
-#: kateprojectpluginview.cpp:218 kateprojectpluginview.cpp:793
+#: kateprojectpluginview.cpp:222
+#, kde-format
+msgid "Checkout Git Branch"
+msgstr ""
+
+#: kateprojectpluginview.cpp:228 kateprojectpluginview.cpp:803
 #, kde-format
 msgid "Lookup: %1"
 msgstr ""
 
-#: kateprojectpluginview.cpp:219 kateprojectpluginview.cpp:794
+#: kateprojectpluginview.cpp:229 kateprojectpluginview.cpp:804
 #, kde-format
 msgid "Goto: %1"
 msgstr ""
 
-#: kateprojectpluginview.cpp:298
+#: kateprojectpluginview.cpp:308
 #, fuzzy, kde-format
 #| msgid "Projects"
 msgid "Projects Index"
 msgstr "ਪਰੋਜੈਕਟ"
 
-#: kateprojectpluginview.cpp:838
+#: kateprojectpluginview.cpp:848
 #, kde-format
 msgid "Choose a directory"
 msgstr ""
@@ -969,11 +974,6 @@ msgstr ""
 #: kateprojecttreeviewcontextmenu.cpp:131
 #, kde-format
 msgid "Do you want to delete the file '%1'?"
-msgstr ""
-
-#: kateprojectview.cpp:57
-#, kde-format
-msgid "Checkout Git Branch"
 msgstr ""
 
 #: kateprojectviewtree.cpp:135

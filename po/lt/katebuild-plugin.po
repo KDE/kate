@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-23 01:00+0000\n"
+"POT-Creation-Date: 2023-01-24 01:02+0000\n"
 "PO-Revision-Date: 2015-12-29 21:20+0200\n"
 "Last-Translator: Mindaugas Baranauskas <opensuse.lietuviu.kalba@gmail.com>\n"
 "Language-Team: lt <kde-i18n-lt@kde.org>\n"
@@ -79,7 +79,7 @@ msgctxt "Header for the error message column"
 msgid "Message"
 msgstr "Pranešimas"
 
-#: plugin_katebuild.cpp:136 plugin_katebuild.cpp:143 plugin_katebuild.cpp:1328
+#: plugin_katebuild.cpp:136 plugin_katebuild.cpp:143 plugin_katebuild.cpp:1332
 #, kde-format
 msgid "Build"
 msgstr "Kompiliuoti"
@@ -128,14 +128,14 @@ msgctxt "Tab label"
 msgid "Target Settings"
 msgstr "Tikslo nuostatos"
 
-#: plugin_katebuild.cpp:347 plugin_katebuild.cpp:1430 plugin_katebuild.cpp:1441
-#: plugin_katebuild.cpp:1462 plugin_katebuild.cpp:1472
+#: plugin_katebuild.cpp:351 plugin_katebuild.cpp:1434 plugin_katebuild.cpp:1445
+#: plugin_katebuild.cpp:1466 plugin_katebuild.cpp:1476
 #, fuzzy, kde-format
 #| msgid "Project Plugin Target"
 msgid "Project Plugin Targets"
 msgstr "Projekto papildinio tikslas"
 
-#: plugin_katebuild.cpp:500
+#: plugin_katebuild.cpp:504
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -143,44 +143,44 @@ msgid ""
 "the working directory in the Target Settings"
 msgstr ""
 
-#: plugin_katebuild.cpp:521
+#: plugin_katebuild.cpp:525
 #, kde-format
 msgctxt "The same word as 'make' uses to mark an error."
 msgid "error"
 msgstr "klaida"
 
-#: plugin_katebuild.cpp:525
+#: plugin_katebuild.cpp:529
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "neapibrėžta nuoroda"
 
-#: plugin_katebuild.cpp:533
+#: plugin_katebuild.cpp:537
 #, kde-format
 msgctxt "The same word as 'make' uses to mark a warning."
 msgid "warning"
 msgstr "perspėjimas"
 
-#: plugin_katebuild.cpp:621
+#: plugin_katebuild.cpp:625
 #, fuzzy, kde-format
 #| msgctxt "The same word as 'make' uses to mark an error."
 #| msgid "error"
 msgid "Error"
 msgstr "klaida"
 
-#: plugin_katebuild.cpp:626
+#: plugin_katebuild.cpp:630
 #, fuzzy, kde-format
 #| msgctxt "The same word as 'make' uses to mark a warning."
 #| msgid "warning"
 msgid "Warning"
 msgstr "perspėjimas"
 
-#: plugin_katebuild.cpp:757
+#: plugin_katebuild.cpp:761
 #, kde-format
 msgid "There is no file or directory specified for building."
 msgstr "Nėra failo arba aplanko nurodyto statymui."
 
-#: plugin_katebuild.cpp:761
+#: plugin_katebuild.cpp:765
 #, kde-format
 msgid ""
 "The file \"%1\" is not a local file. Non-local files cannot be compiled."
@@ -188,57 +188,57 @@ msgstr ""
 "Failas „%1“ nėra vietinis failas. Ne vietiniai failai negali būti "
 "kompiliuojami."
 
-#: plugin_katebuild.cpp:808
+#: plugin_katebuild.cpp:812
 #, kde-format
 msgid ""
 "Cannot run command: %1\n"
 "Work path does not exist: %2"
 msgstr ""
 
-#: plugin_katebuild.cpp:831
+#: plugin_katebuild.cpp:835
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "Nepavyko paleisti „%1“. Išėjimo statusas (exitStatus) = %2"
 
-#: plugin_katebuild.cpp:850
+#: plugin_katebuild.cpp:854
 #, kde-format
 msgid "Building <b>%1</b> cancelled"
 msgstr ""
 
-#: plugin_katebuild.cpp:951
+#: plugin_katebuild.cpp:955
 #, kde-format
 msgid "No target available for building."
 msgstr ""
 
-#: plugin_katebuild.cpp:965
+#: plugin_katebuild.cpp:969
 #, fuzzy, kde-format
 #| msgid "There is no file or directory specified for building."
 msgid "There is no local file or directory specified for building."
 msgstr "Nėra failo arba aplanko nurodyto statymui."
 
-#: plugin_katebuild.cpp:971
+#: plugin_katebuild.cpp:975
 #, kde-format
 msgid "Already building..."
 msgstr ""
 
-#: plugin_katebuild.cpp:998
+#: plugin_katebuild.cpp:1002
 #, fuzzy, kde-format
 #| msgid "Build failed."
 msgid "Building target <b>%1</b> ..."
 msgstr "Kompiliavimas nepavyko."
 
-#: plugin_katebuild.cpp:1013
+#: plugin_katebuild.cpp:1017
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Make Results:</title><nl/>%1"
 msgstr ""
 
-#: plugin_katebuild.cpp:1050
+#: plugin_katebuild.cpp:1054
 #, kde-format
 msgid "Building <b>%1</b> completed."
 msgstr ""
 
-#: plugin_katebuild.cpp:1069
+#: plugin_katebuild.cpp:1073
 #, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
@@ -247,12 +247,12 @@ msgstr[1] "Rastos %1 klaidos."
 msgstr[2] "Rasta %1 klaidų."
 msgstr[3] "Rasta %1 klaida."
 
-#: plugin_katebuild.cpp:1070
+#: plugin_katebuild.cpp:1074
 #, kde-format
 msgid "Building <b>%1</b> had errors."
 msgstr ""
 
-#: plugin_katebuild.cpp:1072
+#: plugin_katebuild.cpp:1076
 #, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
@@ -261,83 +261,83 @@ msgstr[1] "Rasti %1 įspėjimai."
 msgstr[2] "Rasta %1 įspėjimų."
 msgstr[3] "Rastas %1 įspėjimas."
 
-#: plugin_katebuild.cpp:1073
+#: plugin_katebuild.cpp:1077
 #, fuzzy, kde-format
 #| msgid "Build failed."
 msgid "Building <b>%1</b> had warnings."
 msgstr "Kompiliavimas nepavyko."
 
-#: plugin_katebuild.cpp:1079
+#: plugin_katebuild.cpp:1083
 #, kde-format
 msgid "Build failed."
 msgstr "Kompiliavimas nepavyko."
 
-#: plugin_katebuild.cpp:1081
+#: plugin_katebuild.cpp:1085
 #, kde-format
 msgid "Build completed without problems."
 msgstr "Kompiliavimas pavyko be problemų."
 
-#: plugin_katebuild.cpp:1112
+#: plugin_katebuild.cpp:1116
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
 msgstr ""
 
-#: plugin_katebuild.cpp:1327
+#: plugin_katebuild.cpp:1331
 #, fuzzy, kde-format
 #| msgid "Targets"
 msgid "Target Set"
 msgstr "Tikslas"
 
-#: plugin_katebuild.cpp:1329
+#: plugin_katebuild.cpp:1333
 #, kde-format
 msgid "Clean"
 msgstr "Valyti"
 
-#: plugin_katebuild.cpp:1330
+#: plugin_katebuild.cpp:1334
 #, kde-format
 msgid "Config"
 msgstr "Konfigūracija"
 
-#: plugin_katebuild.cpp:1331
+#: plugin_katebuild.cpp:1335
 #, fuzzy, kde-format
 #| msgid "Config"
 msgid "ConfigClean"
 msgstr "Konfigūracija"
 
-#: plugin_katebuild.cpp:1374
+#: plugin_katebuild.cpp:1378
 #, fuzzy, kde-format
 #| msgid "Errors"
 msgid "Only Errors"
 msgstr "Klaidos"
 
-#: plugin_katebuild.cpp:1377
+#: plugin_katebuild.cpp:1381
 #, kde-format
 msgid "Errors and Warnings"
 msgstr "Klaidos ir pranešimai"
 
-#: plugin_katebuild.cpp:1380
+#: plugin_katebuild.cpp:1384
 #, kde-format
 msgid "Parsed Output"
 msgstr "Apdorota išvestis"
 
-#: plugin_katebuild.cpp:1383
+#: plugin_katebuild.cpp:1387
 #, kde-format
 msgid "Full Output"
 msgstr "Pilna išvestis"
 
-#: plugin_katebuild.cpp:1500
+#: plugin_katebuild.cpp:1504
 #, fuzzy, kde-format
 #| msgid "Build"
 msgid "build"
 msgstr "Kompiliuoti"
 
-#: plugin_katebuild.cpp:1503
+#: plugin_katebuild.cpp:1507
 #, fuzzy, kde-format
 #| msgid "Clean"
 msgid "clean"
 msgstr "Valyti"
 
-#: plugin_katebuild.cpp:1506
+#: plugin_katebuild.cpp:1510
 #, kde-format
 msgid "quick"
 msgstr ""

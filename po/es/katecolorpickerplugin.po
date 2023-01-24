@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katecolorpickerplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"POT-Creation-Date: 2023-01-24 01:02+0000\n"
 "PO-Revision-Date: 2021-01-20 11:23+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -81,12 +81,12 @@ msgstr "Selector de color"
 msgid "Color Picker Settings"
 msgstr "Preferencias del selector de color"
 
-#: katecolorpickerplugin.cpp:246
+#: katecolorpickerplugin.cpp:247
 #, kde-format
 msgid "Select Color (Hex output)"
 msgstr "Seleccionar color (salida hexadecimal)"
 
-#: katecolorpickerplugin.cpp:249
+#: katecolorpickerplugin.cpp:250
 #, kde-format
 msgid "View Color [Read only]"
 msgstr "Ver color [solo lectura]"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-24 01:02+0000\n"
+"POT-Creation-Date: 2023-01-25 01:01+0000\n"
 "PO-Revision-Date: 2020-09-17 14:57+0800\n"
 "Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
 "Language-Team: Chinese <zh-l10n@linux.org.tw>\n"
@@ -77,7 +77,7 @@ msgctxt "Header for the error message column"
 msgid "Message"
 msgstr "訊息"
 
-#: plugin_katebuild.cpp:136 plugin_katebuild.cpp:143 plugin_katebuild.cpp:1332
+#: plugin_katebuild.cpp:136 plugin_katebuild.cpp:143 plugin_katebuild.cpp:1372
 #, kde-format
 msgid "Build"
 msgstr "編譯"
@@ -119,19 +119,31 @@ msgstr "前一個錯誤"
 msgid "Show Marks"
 msgstr "顯示標記"
 
-#: plugin_katebuild.cpp:187
+#: plugin_katebuild.cpp:183
+#, kde-format
+msgctxt "Left is also left in RTL mode"
+msgid "Focus Next Tab to the Left"
+msgstr ""
+
+#: plugin_katebuild.cpp:203
+#, kde-format
+msgctxt "Right is right also in RTL mode"
+msgid "Focus Next Tab to the Right"
+msgstr ""
+
+#: plugin_katebuild.cpp:227
 #, kde-format
 msgctxt "Tab label"
 msgid "Target Settings"
 msgstr "目標設定"
 
-#: plugin_katebuild.cpp:351 plugin_katebuild.cpp:1434 plugin_katebuild.cpp:1445
-#: plugin_katebuild.cpp:1466 plugin_katebuild.cpp:1476
+#: plugin_katebuild.cpp:391 plugin_katebuild.cpp:1474 plugin_katebuild.cpp:1485
+#: plugin_katebuild.cpp:1506 plugin_katebuild.cpp:1516
 #, kde-format
 msgid "Project Plugin Targets"
 msgstr "專案外掛程式目標"
 
-#: plugin_katebuild.cpp:504
+#: plugin_katebuild.cpp:544
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -141,46 +153,46 @@ msgstr ""
 "<title>無法開啟檔案：</title><nl/>%1<br/>嘗試在目標設定中新增搜尋路徑到工作目"
 "錄"
 
-#: plugin_katebuild.cpp:525
+#: plugin_katebuild.cpp:565
 #, kde-format
 msgctxt "The same word as 'make' uses to mark an error."
 msgid "error"
 msgstr "錯誤"
 
-#: plugin_katebuild.cpp:529
+#: plugin_katebuild.cpp:569
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "未定義的參照"
 
-#: plugin_katebuild.cpp:537
+#: plugin_katebuild.cpp:577
 #, kde-format
 msgctxt "The same word as 'make' uses to mark a warning."
 msgid "warning"
 msgstr "警告"
 
-#: plugin_katebuild.cpp:625
+#: plugin_katebuild.cpp:665
 #, kde-format
 msgid "Error"
 msgstr "錯誤"
 
-#: plugin_katebuild.cpp:630
+#: plugin_katebuild.cpp:670
 #, kde-format
 msgid "Warning"
 msgstr "警告"
 
-#: plugin_katebuild.cpp:761
+#: plugin_katebuild.cpp:801
 #, kde-format
 msgid "There is no file or directory specified for building."
 msgstr "找不到編譯需要的檔案或目錄。"
 
-#: plugin_katebuild.cpp:765
+#: plugin_katebuild.cpp:805
 #, kde-format
 msgid ""
 "The file \"%1\" is not a local file. Non-local files cannot be compiled."
 msgstr "檔案 %1 不是本地檔案。無法編譯。"
 
-#: plugin_katebuild.cpp:812
+#: plugin_katebuild.cpp:852
 #, kde-format
 msgid ""
 "Cannot run command: %1\n"
@@ -189,135 +201,135 @@ msgstr ""
 "無法執行指令：%1\n"
 "工作目錄不存在：%2"
 
-#: plugin_katebuild.cpp:835
+#: plugin_katebuild.cpp:875
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "無法執行 %1。離開狀態為：%2"
 
-#: plugin_katebuild.cpp:854
+#: plugin_katebuild.cpp:894
 #, kde-format
 msgid "Building <b>%1</b> cancelled"
 msgstr "已取消 <b>%1</b> 的編譯"
 
-#: plugin_katebuild.cpp:955
+#: plugin_katebuild.cpp:995
 #, kde-format
 msgid "No target available for building."
 msgstr "沒有可編譯的目標。"
 
-#: plugin_katebuild.cpp:969
+#: plugin_katebuild.cpp:1009
 #, kde-format
 msgid "There is no local file or directory specified for building."
 msgstr "找不到編譯需要的本地端檔案或目錄。"
 
-#: plugin_katebuild.cpp:975
+#: plugin_katebuild.cpp:1015
 #, kde-format
 msgid "Already building..."
 msgstr "已經在編譯了..."
 
-#: plugin_katebuild.cpp:1002
+#: plugin_katebuild.cpp:1042
 #, kde-format
 msgid "Building target <b>%1</b> ..."
 msgstr "編譯目標 <b>%1</b> 中..."
 
-#: plugin_katebuild.cpp:1017
+#: plugin_katebuild.cpp:1057
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Make Results:</title><nl/>%1"
 msgstr "<title>Make 結果：</title><nl/>%1"
 
-#: plugin_katebuild.cpp:1054
+#: plugin_katebuild.cpp:1094
 #, kde-format
 msgid "Building <b>%1</b> completed."
 msgstr "編譯 <b>%1</b> 已完成。"
 
-#: plugin_katebuild.cpp:1073
+#: plugin_katebuild.cpp:1113
 #, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
 msgstr[0] "找到 %1 個錯誤。"
 
-#: plugin_katebuild.cpp:1074
+#: plugin_katebuild.cpp:1114
 #, kde-format
 msgid "Building <b>%1</b> had errors."
 msgstr "編譯 <b>%1</b> 時發生錯誤。"
 
-#: plugin_katebuild.cpp:1076
+#: plugin_katebuild.cpp:1116
 #, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
 msgstr[0] "找到 %1 個警告。"
 
-#: plugin_katebuild.cpp:1077
+#: plugin_katebuild.cpp:1117
 #, kde-format
 msgid "Building <b>%1</b> had warnings."
 msgstr "編譯 <b>%1</b> 時發生警告。"
 
-#: plugin_katebuild.cpp:1083
+#: plugin_katebuild.cpp:1123
 #, kde-format
 msgid "Build failed."
 msgstr "編譯失敗。"
 
-#: plugin_katebuild.cpp:1085
+#: plugin_katebuild.cpp:1125
 #, kde-format
 msgid "Build completed without problems."
 msgstr "編譯已順利完成。"
 
-#: plugin_katebuild.cpp:1116
+#: plugin_katebuild.cpp:1156
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
 msgstr ""
 
-#: plugin_katebuild.cpp:1331
+#: plugin_katebuild.cpp:1371
 #, kde-format
 msgid "Target Set"
 msgstr "目標集"
 
-#: plugin_katebuild.cpp:1333
+#: plugin_katebuild.cpp:1373
 #, kde-format
 msgid "Clean"
 msgstr "清除"
 
-#: plugin_katebuild.cpp:1334
+#: plugin_katebuild.cpp:1374
 #, kde-format
 msgid "Config"
 msgstr "設定"
 
-#: plugin_katebuild.cpp:1335
+#: plugin_katebuild.cpp:1375
 #, kde-format
 msgid "ConfigClean"
 msgstr "設定清除"
 
-#: plugin_katebuild.cpp:1378
+#: plugin_katebuild.cpp:1418
 #, kde-format
 msgid "Only Errors"
 msgstr "只有錯誤"
 
-#: plugin_katebuild.cpp:1381
+#: plugin_katebuild.cpp:1421
 #, kde-format
 msgid "Errors and Warnings"
 msgstr "錯誤與警告"
 
-#: plugin_katebuild.cpp:1384
+#: plugin_katebuild.cpp:1424
 #, kde-format
 msgid "Parsed Output"
 msgstr "已剖析的輸出"
 
-#: plugin_katebuild.cpp:1387
+#: plugin_katebuild.cpp:1427
 #, kde-format
 msgid "Full Output"
 msgstr "完整的輸出"
 
-#: plugin_katebuild.cpp:1504
+#: plugin_katebuild.cpp:1544
 #, kde-format
 msgid "build"
 msgstr "編譯"
 
-#: plugin_katebuild.cpp:1507
+#: plugin_katebuild.cpp:1547
 #, kde-format
 msgid "clean"
 msgstr "清除"
 
-#: plugin_katebuild.cpp:1510
+#: plugin_katebuild.cpp:1550
 #, kde-format
 msgid "quick"
 msgstr "快速"

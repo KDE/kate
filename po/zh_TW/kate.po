@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-23 01:00+0000\n"
+"POT-Creation-Date: 2023-01-25 01:01+0000\n"
 "PO-Revision-Date: 2022-02-19 11:31+0800\n"
 "Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
 "Language-Team: Chinese <zh-l10n@lists.slat.org>\n"
@@ -2465,12 +2465,12 @@ msgstr "此作業階段無法重新命名為「%1」。寫入「%2」失敗"
 msgid "Session Renaming"
 msgstr "重新命名作業階段"
 
-#: lib/session/katesessionmanager.cpp:462
+#: lib/session/katesessionmanager.cpp:463
 #, kde-format
 msgid "Session name:"
 msgstr "作業階段名稱:"
 
-#: lib/session/katesessionmanager.cpp:464
+#: lib/session/katesessionmanager.cpp:465
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2479,17 +2479,17 @@ msgstr ""
 "您選擇的名稱已經存在：%1\n"
 "請選擇其他名稱。"
 
-#: lib/session/katesessionmanager.cpp:466
+#: lib/session/katesessionmanager.cpp:467
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "要儲存作業階段，您必須指定一個名稱。"
 
-#: lib/session/katesessionmanager.cpp:493
+#: lib/session/katesessionmanager.cpp:494
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "為作業階段指定新的名稱"
 
-#: lib/session/katesessionmanager.cpp:495
+#: lib/session/katesessionmanager.cpp:496
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "為作業階段指定新的名稱：%1"

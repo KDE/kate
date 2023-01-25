@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-23 01:00+0000\n"
+"POT-Creation-Date: 2023-01-25 01:01+0000\n"
 "PO-Revision-Date: 2023-01-12 21:27+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -2453,12 +2453,12 @@ msgstr ""
 msgid "Session Renaming"
 msgstr "அமர்வின் பெயரை மாற்றல்"
 
-#: lib/session/katesessionmanager.cpp:462
+#: lib/session/katesessionmanager.cpp:463
 #, kde-format
 msgid "Session name:"
 msgstr "அமர்வின் பெயர்:"
 
-#: lib/session/katesessionmanager.cpp:464
+#: lib/session/katesessionmanager.cpp:465
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2467,17 +2467,17 @@ msgstr ""
 "இப்பெயரில் ஏற்கனவே ஒரு அமர்வு உள்ளது: %1\n"
 "வேறு பெயரை தேர்ந்தெடுங்கள்."
 
-#: lib/session/katesessionmanager.cpp:466
+#: lib/session/katesessionmanager.cpp:467
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "ஒரு அமர்வை சேமிக்க, நீங்கள் அதற்குரிய பெயரை குறிப்பிடவேண்டும்."
 
-#: lib/session/katesessionmanager.cpp:493
+#: lib/session/katesessionmanager.cpp:494
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "இந்த அமர்வுக்கான பெயரைக் குறிப்பிடவும்"
 
-#: lib/session/katesessionmanager.cpp:495
+#: lib/session/katesessionmanager.cpp:496
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "பின்வரும் அமர்வுக்கான பெயரைக் குறிப்பிடவும்: %1"

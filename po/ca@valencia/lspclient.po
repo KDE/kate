@@ -213,7 +213,7 @@ msgstr "Mostra els consells incrustats"
 #: lspclientpluginview.cpp:606
 #, kde-format
 msgid "Show Diagnostics Notifications"
-msgstr ""
+msgstr "Mostra les notificacions de diagnòstic"
 
 #: lspclientpluginview.cpp:611
 #, kde-format
@@ -543,7 +543,7 @@ msgstr "Servidor:"
 #: lspconfigwidget.ui:145
 #, kde-format
 msgid "Show program diagnostics"
-msgstr ""
+msgstr "Mostra el diagnòstic del programa"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkMessages)
 #: lspconfigwidget.ui:152

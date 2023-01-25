@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-23 01:00+0000\n"
+"POT-Creation-Date: 2023-01-25 01:01+0000\n"
 "PO-Revision-Date: 2011-12-21 14:07+0700\n"
 "Last-Translator: Chan Sambathratanak <ratanak@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -2527,12 +2527,12 @@ msgstr "មិនអាច​ប្ដូរ​ឈ្មោះ​សម័យ​
 msgid "Session Renaming"
 msgstr "ការ​ប្ដូរ​ឈ្មោះ​សម័យ"
 
-#: lib/session/katesessionmanager.cpp:462
+#: lib/session/katesessionmanager.cpp:463
 #, kde-format
 msgid "Session name:"
 msgstr "ឈ្មោះ​សម័យ ៖"
 
-#: lib/session/katesessionmanager.cpp:464
+#: lib/session/katesessionmanager.cpp:465
 #, fuzzy, kde-format
 #| msgid ""
 #| "There is already an existing session with your chosen name.\n"
@@ -2546,18 +2546,18 @@ msgstr ""
 "សូម​ជ្រើស​ឈ្មោះ​សម័យ\n"
 "ផ្សេង ៖"
 
-#: lib/session/katesessionmanager.cpp:466
+#: lib/session/katesessionmanager.cpp:467
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "ដើម្បី​រក្សាទុកសម័យ​មួយ អ្នក​ត្រូវ​តែ​បញ្ជាក់​ឈ្មោះ​មួយ​ ។"
 
-#: lib/session/katesessionmanager.cpp:493
+#: lib/session/katesessionmanager.cpp:494
 #, fuzzy, kde-format
 #| msgid "Specify New Name for Session"
 msgid "Specify a name for this session"
 msgstr "បញ្ជាក់​ឈ្មោះ​ថ្មី​សម្រាប់​សម័យ"
 
-#: lib/session/katesessionmanager.cpp:495
+#: lib/session/katesessionmanager.cpp:496
 #, fuzzy, kde-format
 #| msgid "Specify New Name for Session"
 msgid "Specify a new name for session: %1"

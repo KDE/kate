@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# giovanni <g.sora@tiscali.it>, 2022.
+# giovanni <g.sora@tiscali.it>, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-27 00:48+0000\n"
-"PO-Revision-Date: 2022-12-21 12:20+0100\n"
+"PO-Revision-Date: 2023-01-24 11:30+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -30,7 +30,7 @@ msgstr "File de  JSON malformate '%1': %2"
 #: keyboardmacrosplugin.cpp:90
 #, kde-format
 msgid "Could not load '%1': malformed macro; wiping it."
-msgstr ""
+msgstr "Non poteva cargar '%1': macro malformate, essugar lo."
 
 #: keyboardmacrosplugin.cpp:131 keyboardmacrospluginview.cpp:35
 #: keyboardmacrospluginview.cpp:289 keyboardmacrospluginview.cpp:323
@@ -127,6 +127,8 @@ msgid ""
 "<qt><p>Usage: <code>kmwipe &lt;name&gt;</code></p><p>Wipe saved keyboard "
 "macro <code>&lt;name&gt;</code>.</p>%1</qt>"
 msgstr ""
+"<qt><p>Uso: <code>kmwipe &lt;name&gt;</code></p><p>Esuga macro de claviero "
+"salveguardate <code>&lt;name&gt;</code>.</p>%1</qt>"
 
 #: keyboardmacrospluginview.cpp:38
 #, kde-format
@@ -159,6 +161,8 @@ msgstr "&Cancella Registrar de macro"
 msgid ""
 "Cancel ongoing recording (and keep the previous macro as the current one)."
 msgstr ""
+"Cancella registrar continue (e mantene le previe macro como le ille "
+"currente)."
 
 #: keyboardmacrospluginview.cpp:69
 #, kde-format
@@ -171,6 +175,8 @@ msgid ""
 "Play current macro (i.e., execute the last recorded keyboard action "
 "sequence)."
 msgstr ""
+"Reproduce  macro currente (i.e. executa le ultime sequentia de action de "
+"claviero registrate)."
 
 #: keyboardmacrospluginview.cpp:81
 #, kde-format
@@ -180,7 +186,7 @@ msgstr "&Salveguarda Macro Currente"
 #: keyboardmacrospluginview.cpp:83
 #, kde-format
 msgid "Give a name to the current macro and persistently save it."
-msgstr ""
+msgstr "Da un nomine al macro currente e salveguarda lo de modo persistente."
 
 #: keyboardmacrospluginview.cpp:95
 #, kde-format
@@ -205,32 +211,32 @@ msgstr "Executa un macro nominate sin cargar lo."
 #: keyboardmacrospluginview.cpp:111
 #, kde-format
 msgid "&Wipe Named Macro..."
-msgstr ""
+msgstr "Ess&uga Macro Nominate..."
 
 #: keyboardmacrospluginview.cpp:114
 #, kde-format
 msgid "Wipe a named macro."
-msgstr ""
+msgstr "Essuga un macro nominate."
 
 #: keyboardmacrospluginview.cpp:155
 #, kde-format
 msgid "End Macro &Recording"
-msgstr ""
+msgstr "Termina &Rgistrar de Macro"
 
 #: keyboardmacrospluginview.cpp:183
 #, kde-format
 msgid "Load the '%1' macro as the current one."
-msgstr ""
+msgstr "Carga le macro '%1' omo le currente."
 
 #: keyboardmacrospluginview.cpp:196
 #, kde-format
 msgid "Play the '%1' macro without loading it."
-msgstr ""
+msgstr "Reproduce le macro '%1' sin cargar lo."
 
 #: keyboardmacrospluginview.cpp:211
 #, kde-format
 msgid "Wipe the '%1' macro."
-msgstr ""
+msgstr "Essuga le  macro '%1'."
 
 #: keyboardmacrospluginview.cpp:289
 #, kde-format
@@ -240,7 +246,7 @@ msgstr "Salveguarda macro currente como?"
 #: keyboardmacrospluginview.cpp:323
 #, kde-format
 msgid "Wipe the '%1' macro?"
-msgstr ""
+msgstr "Essuga le macro '%1'?"
 
 #. i18n: ectx: Menu (tools)
 #: ui.rc:6

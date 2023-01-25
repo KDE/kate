@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# Kishore G <kishore96@gmail.com>, 2022.
+# Kishore G <kishore96@gmail.com>, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-03 04:16+0000\n"
-"PO-Revision-Date: 2022-11-08 19:57+0530\n"
+"PO-Revision-Date: 2023-01-24 21:32+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.08.3\n"
+"X-Generator: Lokalize 22.12.1\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:250
 #, kde-format
@@ -62,7 +62,7 @@ msgstr "அனைத்துப் பதிவுகளையும் நீ�
 #: lspclientplugin.cpp:225
 #, kde-format
 msgid "LSP server start requested"
-msgstr ""
+msgstr "LSP சேவையகத் துவக்கம் கோரப்பட்டது"
 
 #: lspclientplugin.cpp:228
 #, kde-format
@@ -71,6 +71,9 @@ msgid ""
 "<br><br><b>%1</b><br><br>The choice can be altered via the config page of "
 "the plugin."
 msgstr ""
+"LSP சேவையகத்தைத் துவக்க வேண்டுமா?<br><br>முழுக் கட்டளை பின்வருவது:<br><br><b>%1</"
+"b><br><br>LSP செருகுநிரலின் அமைப்புப்பக்கத்தில் இதை நீங்கள் எப்போது வேண்டுமானாலும் "
+"மாற்றியமைக்கலாம்."
 
 #: lspclientplugin.cpp:241
 #, kde-format

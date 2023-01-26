@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-27 00:48+0000\n"
-"PO-Revision-Date: 2022-08-24 20:37+0200\n"
+"PO-Revision-Date: 2023-01-25 07:32+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, lstBacktrace)
 #: btbrowserwidget.ui:27
@@ -46,25 +46,25 @@ msgstr "ფუნქცია"
 #: btbrowserwidget.ui:72
 #, kde-format
 msgid "Configure Paths..."
-msgstr ""
+msgstr "ბილიკების მორგება..."
 
 #. i18n: ectx: property (text), widget (QPushButton, btnClipboard)
 #: btbrowserwidget.ui:79
 #, kde-format
 msgid "Use Clipboard"
-msgstr ""
+msgstr "ბუფერის გამოყენება"
 
 #. i18n: ectx: property (text), widget (QPushButton, btnBacktrace)
 #: btbrowserwidget.ui:86
 #, kde-format
 msgid "Load File..."
-msgstr ""
+msgstr "ფაილის ჩატვირთვა..."
 
 #. i18n: ectx: property (title), widget (QGroupBox, gFolderList)
 #: btconfigwidget.ui:14
 #, kde-format
 msgid "Search Folders"
-msgstr ""
+msgstr "საქაღალდეების ძებნა"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: btconfigwidget.ui:20
@@ -119,12 +119,12 @@ msgstr "ფაილის ტიპები:"
 #: btconfigwidget.ui:89
 #, kde-format
 msgid "List of file extensions. Example: *.cpp, *.h, *.c, etc..."
-msgstr ""
+msgstr "ფაილის გაფართოებების სია. მაგ: *.cpp, *.h, *.c, etc..."
 
 #: katebacktracebrowser.cpp:89
 #, kde-format
 msgid "Indexing files..."
-msgstr ""
+msgstr "ფაილების ინდექსირება..."
 
 #: katebacktracebrowser.cpp:115 katebacktracebrowser.cpp:278
 #, kde-format
@@ -154,12 +154,12 @@ msgstr "ფაილი %1 ნაპოვნი არაა"
 #: katebacktracebrowser.cpp:238
 #, kde-format
 msgid "Opened file: %1"
-msgstr ""
+msgstr "გახსნილია ფაილი: %1"
 
 #: katebacktracebrowser.cpp:241
 #, kde-format
 msgid "No debugging information available"
-msgstr ""
+msgstr "გამართვის ინფორმაცია ხელმისაწვდომი არაა"
 
 #: katebacktracebrowser.cpp:283
 #, kde-format

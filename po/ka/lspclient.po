@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-03 04:16+0000\n"
-"PO-Revision-Date: 2022-08-27 04:25+0200\n"
+"PO-Revision-Date: 2023-01-25 07:36+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:250
 #, kde-format
@@ -72,6 +72,9 @@ msgid ""
 "<br><br><b>%1</b><br><br>The choice can be altered via the config page of "
 "the plugin."
 msgstr ""
+"გნებავთ LSP სერვერის გაშვება?<br><br>ბრძანების სრული ხაზია:<br><br><b>%1</"
+"b><br><br> არჩევანი შეიძლება კონფიგურაციის ან დამატების მორგების გვერდიდან "
+"შეიცვალოს."
 
 #: lspclientplugin.cpp:241
 #, kde-format
@@ -79,6 +82,8 @@ msgid ""
 "User permanently blocked start of: '%1'.\n"
 "Use the config page of the plugin to undo this block."
 msgstr ""
+"მომხმარებელი სამუდამოდ დაიბლოკა: '%1'.\n"
+"ბლოკის გასაუქმებლად დამატების კონფიგურაციის გვერდი გამოიყენეთ."
 
 #: lspclientpluginview.cpp:624
 #, kde-format
@@ -163,28 +168,28 @@ msgstr "კოდის ქმედება"
 #: lspclientpluginview.cpp:681
 #, kde-format
 msgid "Show selected completion documentation"
-msgstr ""
+msgstr "მონიშნულის დასრულების დოკუმენტაციის ჩვენება"
 
 #: lspclientpluginview.cpp:684
 #, kde-format
 msgid "Enable signature help with auto completion"
-msgstr ""
+msgstr "ავტომატური დასრულებისას ხელმოწერის დახმარების ჩართვა"
 
 #: lspclientpluginview.cpp:687
 #, kde-format
 msgid "Include declaration in references"
-msgstr ""
+msgstr "მიმართვებში აღწერების ჩართვა"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkComplParens)
 #: lspclientpluginview.cpp:690 lspconfigwidget.ui:68
 #, kde-format
 msgid "Add parentheses upon function completion"
-msgstr ""
+msgstr "ფუნქციის დასრულებისას ფრჩხილების დამატება"
 
 #: lspclientpluginview.cpp:693
 #, kde-format
 msgid "Show hover information"
-msgstr ""
+msgstr "გადატარების ინფორმაციის ჩვენება"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkOnTypeFormatting)
 #: lspclientpluginview.cpp:696 lspconfigwidget.ui:234
@@ -195,7 +200,7 @@ msgstr "ფორმატირება კრეფისას"
 #: lspclientpluginview.cpp:699
 #, kde-format
 msgid "Incremental document synchronization"
-msgstr ""
+msgstr "დოკუმენტების ინკრემენტული სინქრონიზაცია"
 
 #: lspclientpluginview.cpp:702
 #, kde-format
@@ -240,7 +245,7 @@ msgstr "სერვერის მეხსიერების დატვ�
 #: lspclientpluginview.cpp:732
 #, kde-format
 msgid "Close All Dynamic Reference Tabs"
-msgstr ""
+msgstr "დინამიკური მიმართვების შემცველი ჩანართების დახურვა"
 
 #: lspclientpluginview.cpp:734
 #, kde-format
@@ -255,7 +260,7 @@ msgstr "ყველა LSP სერვერის რესტარტი"
 #: lspclientpluginview.cpp:747
 #, kde-format
 msgid "Go To"
-msgstr ""
+msgstr "გადასვლა"
 
 #: lspclientpluginview.cpp:775
 #, kde-format
@@ -288,7 +293,7 @@ msgstr "დიაგნოსტიკა"
 #: lspclientpluginview.cpp:1278
 #, kde-format
 msgid "RangeHighLight"
-msgstr ""
+msgstr "დიაპაზონის გამოკვეთა"
 
 #: lspclientpluginview.cpp:1284
 #, kde-format
@@ -312,6 +317,8 @@ msgid ""
 "Error in regular expression: %1\n"
 "offset %2: %3"
 msgstr ""
+"შეცდომა რეგულარულ გამოსახულებაში: %1\n"
+"წანაცვლება %2: %3"
 
 #: lspclientpluginview.cpp:1803
 #, kde-format
@@ -386,7 +393,7 @@ msgstr "გადარქმევა"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "New name (caution: not all references may be replaced)"
-msgstr ""
+msgstr "ახალი სახელი (გაფრთხილება: ყველა მიმართვის ჩანაცვლება შეუძლებელია)"
 
 #: lspclientpluginview.cpp:2303
 #, kde-format
@@ -396,7 +403,7 @@ msgstr "საკმარისი შედეგების გარეშ�
 #: lspclientpluginview.cpp:2373
 #, kde-format
 msgid "Corresponding Header/Source not found"
-msgstr ""
+msgstr "შესაბამისი თავსართი/კოდი ვერ ვიპოვე"
 
 #: lspclientpluginview.cpp:2557
 #, kde-format
@@ -406,38 +413,38 @@ msgstr "გაცვლის ბუფერში კოპირება"
 #: lspclientpluginview.cpp:2580
 #, kde-format
 msgid "Remove Global Suppression"
-msgstr ""
+msgstr "გლობალური ჩახშობის წაშლა"
 
 #: lspclientpluginview.cpp:2582
 #, kde-format
 msgid "Add Global Suppression"
-msgstr ""
+msgstr "გლობალური ჩახშობის დამატება"
 
 #: lspclientpluginview.cpp:2586
 #, kde-format
 msgid "Remove Local Suppression"
-msgstr ""
+msgstr "ლოკალური ჩახშობის წაშლა"
 
 #: lspclientpluginview.cpp:2588
 #, kde-format
 msgid "Add Local Suppression"
-msgstr ""
+msgstr "ლოკალური ჩახშობის დამატება"
 
 #: lspclientpluginview.cpp:2600
 #, kde-format
 msgid "Disable Suppression"
-msgstr ""
+msgstr "ჩახშობის გათიშვა"
 
 #: lspclientpluginview.cpp:2602
 #, kde-format
 msgid "Enable Suppression"
-msgstr ""
+msgstr "ჩახშობის ჩართვა"
 
 #: lspclientpluginview.cpp:2748
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
-msgstr ""
+msgstr "%1 [ჩახშობილია: %2]"
 
 #: lspclientpluginview.cpp:2863 lspclientpluginview.cpp:2900
 #, kde-format
@@ -464,22 +471,22 @@ msgstr "არ გადაიტვირთა"
 #: lspclientservermanager.cpp:577
 #, kde-format
 msgid "Server terminated unexpectedly ... %1 [%2] [homepage: %3] "
-msgstr ""
+msgstr "სერვერი მოულოდნელად დასრულდა ... %1 [%2] [საწყისი გვერდი: %3] "
 
 #: lspclientservermanager.cpp:773
 #, kde-format
 msgid "Failed to find server binary: %1"
-msgstr ""
+msgstr "სერვერის გამშვები ფაილი ვერ ვიპოვე: %1"
 
 #: lspclientservermanager.cpp:776 lspclientservermanager.cpp:808
 #, kde-format
 msgid "Please check your PATH for the binary"
-msgstr ""
+msgstr "შეამოწმეთ ბილიკი და თქვენი წვდომები გამშვებ ფაილამდე"
 
 #: lspclientservermanager.cpp:777 lspclientservermanager.cpp:809
 #, kde-format
 msgid "See also %1 for installation or details"
-msgstr ""
+msgstr "დაყენების ან დეტალებისთვის ასევე იხილეთ %1"
 
 #: lspclientservermanager.cpp:805
 #, kde-format
@@ -497,21 +504,22 @@ msgstr ""
 #, kde-format
 msgid "Failed to parse server configuration '%1': no JSON object"
 msgstr ""
+"შეცდომა სერვერის კონფიგურაციის ('%1') დამუშავებისას: JSON ობიექტი არ არსებობს"
 
 #: lspclientservermanager.cpp:850
 #, kde-format
 msgid "Failed to parse server configuration '%1': %2"
-msgstr ""
+msgstr "შეცდომა სერვერის კონფიგურაციის ('%1') დამუშავებისას: %2"
 
 #: lspclientservermanager.cpp:854
 #, kde-format
 msgid "Failed to read server configuration: %1"
-msgstr ""
+msgstr "შეცდომა სერვერის კონფიგურაციის კითხვისას: %1"
 
 #: lspclientsymbolview.cpp:238
 #, kde-format
 msgid "Symbol Outline"
-msgstr ""
+msgstr "იდენტიფიკატორის სტრუქტურა"
 
 #: lspclientsymbolview.cpp:276
 #, kde-format
@@ -541,7 +549,7 @@ msgstr "სიმბოლოები"
 #: lspclientsymbolview.cpp:568
 #, kde-format
 msgid "No LSP server for this document."
-msgstr ""
+msgstr "ამ დოკუმენტისთვის LSP სერვერი არ არსებობს."
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
 #: lspconfigwidget.ui:33
@@ -559,13 +567,13 @@ msgstr "დასრულებები:"
 #: lspconfigwidget.ui:54
 #, kde-format
 msgid "Show inline docs for selected completion"
-msgstr ""
+msgstr "მონიშნული დასრულებისთვის ხაზისშიდა დოკუმენტების ჩვენება"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSignatureHelp)
 #: lspconfigwidget.ui:61
 #, kde-format
 msgid "Show function signature when typing a function call"
-msgstr ""
+msgstr "ფუნქციის გამოძახების აკრეფისას ფუნქციის ხელმოწერის ჩვენება"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: lspconfigwidget.ui:75
@@ -583,7 +591,7 @@ msgstr "პროგრამის დიაგნოსტიკის ჩვ�
 #: lspconfigwidget.ui:97
 #, kde-format
 msgid "Highlight lines with diagnostics"
-msgstr ""
+msgstr "დიაგნოსტიკის მონაცემების მქონე ხაზების გამოკვეთა"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkDiagnosticsMark)
 #: lspconfigwidget.ui:104
@@ -601,7 +609,7 @@ msgstr "დიაგნოსტიკის თაგუნას გადა�
 #: lspconfigwidget.ui:118
 #, kde-format
 msgid "max diagnostics tooltip size"
-msgstr ""
+msgstr "დიაგნოსტიკის მონაცემების შემცველი მინიშნებების მაქს. ზომა"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: lspconfigwidget.ui:133
@@ -613,19 +621,19 @@ msgstr "ნავიგაცია:"
 #: lspconfigwidget.ui:140
 #, kde-format
 msgid "Count declarations when searching for references to a symbol"
-msgstr ""
+msgstr "აღწერების დათვლა სიმბოლოზე მიმართვის ძებნისას"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkAutoHover)
 #: lspconfigwidget.ui:147
 #, kde-format
 msgid "Show information about currently hovered symbol"
-msgstr ""
+msgstr "ინფორმაციის ჩვენება ამჟამად თაგუნას კურსორ-მიშვერილი სიმბოლოს შესახებ"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkHighlightGoto)
 #: lspconfigwidget.ui:154
 #, kde-format
 msgid "Highlight target line when hopping to it"
-msgstr ""
+msgstr "ხაზზე გადასვლისას მისი გამოკვეთა"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: lspconfigwidget.ui:161
@@ -637,31 +645,31 @@ msgstr "სერვერი:"
 #: lspconfigwidget.ui:168
 #, kde-format
 msgid "Show notifications from the LSP server"
-msgstr ""
+msgstr "LSP სერვერიდან მოსული გაფრთხილებების ჩვენება"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkIncrementalSync)
 #: lspconfigwidget.ui:175
 #, kde-format
 msgid "Incrementally synchronize documents with the LSP server"
-msgstr ""
+msgstr "LSP სერვერთან დოკუმენტების ინკრემენტული სინქრონიზაცია"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSymbolDetails)
 #: lspconfigwidget.ui:182
 #, kde-format
 msgid "Display additional details for symbols"
-msgstr ""
+msgstr "სიმბოლოების დამატებითი დეტალების ჩვენება"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSymbolTree)
 #: lspconfigwidget.ui:189
 #, kde-format
 msgid "Present symbols in a hierarchy instead of a flat list"
-msgstr ""
+msgstr "სიმბოლოების ბრტყელი სიის მაგიერ იერარქიაში ჩვენება"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSymbolExpand)
 #: lspconfigwidget.ui:204
 #, kde-format
 msgid "Automatically expand tree"
-msgstr ""
+msgstr "ხის ავტომატური გაფართოება"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSymbolSort)
 #: lspconfigwidget.ui:213
@@ -673,25 +681,25 @@ msgstr "სიმბოლოების ანბანის მიხედ�
 #: lspconfigwidget.ui:220
 #, kde-format
 msgid "Document outline:"
-msgstr ""
+msgstr "დოკუმენტის სტრუქტურა:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSemanticHighlighting)
 #: lspconfigwidget.ui:227
 #, kde-format
 msgid "Enable semantic highlighting"
-msgstr ""
+msgstr "სემანტიკური გამოკვეთის ჩართვა"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkAutoImport)
 #: lspconfigwidget.ui:241
 #, kde-format
 msgid "Add imports automatically if needed upon completion"
-msgstr ""
+msgstr "დასრულებისას შემოტანების საჭიროებისამებრ დამატება"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_4)
 #: lspconfigwidget.ui:264
 #, kde-format
 msgid "Allowed && Blocked Servers"
-msgstr ""
+msgstr "დაშვებული და დაბლოკილი სერვერები"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
 #: lspconfigwidget.ui:274

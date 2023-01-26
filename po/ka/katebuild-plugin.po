@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-24 02:51+0000\n"
-"PO-Revision-Date: 2022-10-15 06:03+0200\n"
+"PO-Revision-Date: 2023-01-25 07:32+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -199,7 +199,7 @@ msgstr "ასაგები სამიზნე ხელმიუწვდ�
 #: plugin_katebuild.cpp:960
 #, kde-format
 msgid "There is no local file or directory specified for building."
-msgstr ""
+msgstr "აგებისთვის ლოკალური არც საქაღალდეა მითითებული, არც ფაილი."
 
 #: plugin_katebuild.cpp:966
 #, kde-format
@@ -215,7 +215,7 @@ msgstr "სამიზნის აგება <b>%1</b> ..."
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Make Results:</title><nl/>%1"
-msgstr ""
+msgstr "<title>აგების შედეგები:</title><nl/>%1"
 
 #: plugin_katebuild.cpp:1045
 #, kde-format
@@ -259,12 +259,12 @@ msgstr "აგება პრობლემების გარეშე შ
 #: plugin_katebuild.cpp:1107
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
-msgstr ""
+msgstr "შესრულებ შეუძლებელია: %1 სამუშაო საქაღალდე დაყენებული არაა."
 
 #: plugin_katebuild.cpp:1328
 #, kde-format
 msgid "Target Set"
-msgstr ""
+msgstr "სამიზნე დაყენებულია"
 
 #: plugin_katebuild.cpp:1330
 #, kde-format
@@ -279,7 +279,7 @@ msgstr "კონფიგურაცია"
 #: plugin_katebuild.cpp:1332
 #, kde-format
 msgid "ConfigClean"
-msgstr ""
+msgstr "ConfigClean"
 
 #: plugin_katebuild.cpp:1375
 #, kde-format
@@ -357,7 +357,7 @@ msgstr ""
 #: TargetModel.cpp:398
 #, kde-format
 msgid "Working Directory / Command"
-msgstr ""
+msgstr "სამუშაო საქაღალდე / ბრძანება"
 
 #: TargetModel.cpp:401
 #, kde-format
@@ -372,7 +372,7 @@ msgstr ""
 #: targets.cpp:27
 #, kde-format
 msgid "Create new set of targets"
-msgstr ""
+msgstr "სამიზნეების ახალი ნაკრების შექმნა"
 
 #: targets.cpp:31
 #, kde-format

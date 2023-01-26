@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-11-06 00:50+0000\n"
-"PO-Revision-Date: 2022-10-26 05:14+0200\n"
+"PO-Revision-Date: 2023-01-25 07:35+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
 #: advanced_settings.ui:17
@@ -189,7 +189,7 @@ msgstr ""
 #: debugview.cpp:215
 #, kde-format
 msgid "*** gdb exited normally ***"
-msgstr ""
+msgstr "*** gdb ნორმალურად დასრულდა ***"
 
 #: debugview_dap.cpp:167
 #, kde-format
@@ -259,12 +259,12 @@ msgstr ""
 #: debugview_dap.cpp:409
 #, kde-format
 msgid "program exited with code %1"
-msgstr ""
+msgstr "პროგრამა დასრულდა კოდით %1"
 
 #: debugview_dap.cpp:423
 #, kde-format
 msgid "*** waiting for user actions ***"
-msgstr ""
+msgstr "*** მოხმარებლის ქმედების მოლოდინი ***"
 
 #: debugview_dap.cpp:428
 #, kde-format
@@ -284,12 +284,12 @@ msgstr "ტელემეტრია"
 #: debugview_dap.cpp:465
 #, kde-format
 msgid "debugging process [%1] %2"
-msgstr ""
+msgstr "პროცესის [%1] %2 გამართვა"
 
 #: debugview_dap.cpp:467
 #, kde-format
 msgid "debugging process %1"
-msgstr ""
+msgstr "პროცესის გამართვა %1"
 
 #: debugview_dap.cpp:470
 #, kde-format
@@ -344,7 +344,7 @@ msgstr ""
 #: debugview_dap.cpp:746
 #, kde-format
 msgid "function breakpoints"
-msgstr ""
+msgstr "ფუნქციის გამართვის წერტილები"
 
 #: debugview_dap.cpp:747
 #, kde-format
@@ -354,7 +354,7 @@ msgstr ""
 #: debugview_dap.cpp:748
 #, kde-format
 msgid "log points"
-msgstr ""
+msgstr "ჟურნალში ჩასაწერი წერტილები"
 
 #: debugview_dap.cpp:748
 #, kde-format
@@ -364,12 +364,12 @@ msgstr "მოდულების მოთხოვნა"
 #: debugview_dap.cpp:749
 #, kde-format
 msgid "goto targets request"
-msgstr ""
+msgstr "სამიზნის მოთხოვნაზე გადასვლა"
 
 #: debugview_dap.cpp:750
 #, kde-format
 msgid "terminate request"
-msgstr ""
+msgstr "მოთხოვნის შეწყვეტა"
 
 #: debugview_dap.cpp:751
 #, kde-format
@@ -481,7 +481,7 @@ msgstr "გათიშულია"
 #: debugview_dap.cpp:1381
 #, kde-format
 msgid "post mortem"
-msgstr ""
+msgstr "სიკვდილის შემდეგ"
 
 #: debugview_dap.cpp:1437
 #, kde-format
@@ -496,12 +496,12 @@ msgstr "ნაკლული ნაკადის ID"
 #: debugview_dap.cpp:1566
 #, kde-format
 msgid "killing backend"
-msgstr ""
+msgstr "უკანაბოლოს მოკვლა"
 
 #: debugview_dap.cpp:1624
 #, kde-format
 msgid "Current frame [%3]: %1:%2 (%4)"
-msgstr ""
+msgstr "მიმდინარე კადრი [%3]: %1:%2 (%4)"
 
 #: localsview.cpp:17
 #, kde-format
@@ -583,7 +583,7 @@ msgstr ""
 #: plugin_kategdb.cpp:216
 #, kde-format
 msgid "Start Debugging"
-msgstr ""
+msgstr "გამარტვის დაწყება"
 
 #: plugin_kategdb.cpp:222
 #, kde-format
@@ -619,7 +619,7 @@ msgstr "გამობიჯება"
 #, kde-format
 msgctxt "Move Program Counter (next execution)"
 msgid "Move PC"
-msgstr ""
+msgstr "PC-ის გადატანა"
 
 #: plugin_kategdb.cpp:263 plugin_kategdb.cpp:287
 #, kde-format
@@ -634,27 +634,27 @@ msgstr "გაგრძელება"
 #: plugin_kategdb.cpp:275
 #, kde-format
 msgid "Print Value"
-msgstr ""
+msgstr "მნიშვნელობის დაბეჭდვა"
 
 #: plugin_kategdb.cpp:284
 #, kde-format
 msgid "popup_breakpoint"
-msgstr ""
+msgstr "popup_breakpoint"
 
 #: plugin_kategdb.cpp:286
 #, kde-format
 msgid "popup_run_to_cursor"
-msgstr ""
+msgstr "popup_run_to_cursor"
 
 #: plugin_kategdb.cpp:368 plugin_kategdb.cpp:384
 #, kde-format
 msgid "Insert breakpoint"
-msgstr ""
+msgstr "გამართვის წერტილის ჩასმა"
 
 #: plugin_kategdb.cpp:382
 #, kde-format
 msgid "Remove breakpoint"
-msgstr ""
+msgstr "გამართვის წერტილის წაშლა"
 
 #: plugin_kategdb.cpp:503
 #, kde-format
@@ -674,7 +674,7 @@ msgstr "IO"
 #: plugin_kategdb.cpp:832
 #, kde-format
 msgid "Breakpoint"
-msgstr ""
+msgstr "გამართვის წერტილი"
 
 #. i18n: ectx: Menu (debug)
 #: ui.rc:6

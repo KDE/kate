@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-30 03:15+0000\n"
-"PO-Revision-Date: 2022-11-09 06:36+0100\n"
+"PO-Revision-Date: 2023-01-25 07:31+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -118,7 +118,7 @@ msgstr "სვეტი"
 #: kate/main.cpp:200 kwrite/main.cpp:153
 #, kde-format
 msgid "Read the contents of stdin."
-msgstr ""
+msgstr "Stdin-ის შემცველობის წაკითხვა."
 
 #: kate/main.cpp:205 kwrite/main.cpp:157
 #, kde-format
@@ -215,7 +215,7 @@ msgstr "ხელსაწყოთა მთავარი ზოლი"
 #: lib/data/kateui.rc:155
 #, kde-format
 msgid "Hamburger Menu Toolbar"
-msgstr ""
+msgstr "ჰამბურგერის მენიუს ზოლი"
 
 #. i18n: ectx: Menu (viewspace_popup_statusbar)
 #: lib/data/kateui.rc:173
@@ -247,42 +247,42 @@ msgstr "დაუმუშავებელი"
 #, kde-format
 msgid "Stage Line"
 msgid_plural "Stage Lines"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "ხაზის შუალედური მდგომარეობის გამოყენება"
+msgstr[1] "ხაზის შუალედური მდგომარეობის გამოყენება"
 
 #: lib/diff/diffeditor.cpp:220
 #, kde-format
 msgid "Stage Hunk"
-msgstr ""
+msgstr "ბლოკის შუალედური შენახვის გამოყენება"
 
 #: lib/diff/diffeditor.cpp:227
 #, kde-format
 msgid "Discard Line"
 msgid_plural "Discard Lines"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "ხაზის მოცილება"
+msgstr[1] "ხაზის მოცილება"
 
 #: lib/diff/diffeditor.cpp:232
 #, kde-format
 msgid "Discard Hunk"
-msgstr ""
+msgstr "ბლოკის მოცილება"
 
 #: lib/diff/diffeditor.cpp:239
 #, kde-format
 msgid "Unstage Line"
 msgid_plural "Unstage Lines"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "ხაზის შუალედური ცვლილებების მოცილება"
+msgstr[1] "ხაზის შუალედური ცვლილებების მოცილება"
 
 #: lib/diff/diffeditor.cpp:244
 #, kde-format
 msgid "Unstage Hunk"
-msgstr ""
+msgstr "ბლოკის შუალედური შენახვის გაუქმება"
 
 #: lib/diff/diffwidget.cpp:51
 #, kde-format
 msgid "Show/Hide Commit Info"
-msgstr ""
+msgstr "გადაცემის ინფორმაციის ჩვენება/დამალვა"
 
 #: lib/diff/diffwidget.cpp:56
 #, kde-format
@@ -297,7 +297,7 @@ msgstr "წინა ფაილზე გადასვლა"
 #: lib/diff/diffwidget.cpp:64
 #, kde-format
 msgid "Jump to Next Hunk"
-msgstr ""
+msgstr "შემდეგ ბლოკზე გადასვლა"
 
 #: lib/diff/diffwidget.cpp:68
 #, kde-format
@@ -319,7 +319,7 @@ msgstr ""
 #: lib/filehistorywidget.cpp:299
 #, kde-format
 msgid "Failed to get file history: %1"
-msgstr ""
+msgstr "შეცდომა ფაილის ისტორიის მიღებისას: %1"
 
 #: lib/filehistorywidget.cpp:342 lib/kateconfigdialog.cpp:382
 #, kde-format
@@ -329,7 +329,7 @@ msgstr "შეცდომა"
 #: lib/filehistorywidget.cpp:342
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
-msgstr ""
+msgstr "%1 Git-ის რეპოში არ არსებობს."
 
 #: lib/filehistorywidget.cpp:342
 #, kde-format
@@ -410,7 +410,7 @@ msgstr "Waldo Bastian"
 #: lib/kateapp.cpp:158
 #, kde-format
 msgid "The cool buffersystem"
-msgstr ""
+msgstr "ბუფერის საკაიფო განხორციელება"
 
 #: lib/kateapp.cpp:159
 #, kde-format
@@ -440,7 +440,7 @@ msgstr "Michael Bartl"
 #: lib/kateapp.cpp:161
 #, kde-format
 msgid "Former Core Developer"
-msgstr ""
+msgstr "ყოფილი ძირითადი პროგრამისტი"
 
 #: lib/kateapp.cpp:162
 #, kde-format
@@ -485,7 +485,7 @@ msgstr "Glen Parker"
 #: lib/kateapp.cpp:167
 #, kde-format
 msgid "KWrite Undo History, Kspell integration"
-msgstr ""
+msgstr "KWrite -ის გაუქმების ისტორია, Kspell -ის ინტეგრაცია"
 
 #: lib/kateapp.cpp:168
 #, kde-format
@@ -495,7 +495,7 @@ msgstr "Scott Manson"
 #: lib/kateapp.cpp:168
 #, kde-format
 msgid "KWrite XML Syntax highlighting support"
-msgstr ""
+msgstr "KWrite XML სინტაქსის გამოკვეთის მხარდაჭერა"
 
 #: lib/kateapp.cpp:169
 #, kde-format
@@ -515,7 +515,7 @@ msgstr "Pablo Martín"
 #: lib/kateapp.cpp:171
 #, kde-format
 msgid "Python Plugin Developer"
-msgstr ""
+msgstr "Python -ის დამატების პროგრამისტი"
 
 #: lib/kateapp.cpp:174
 #, kde-format
@@ -525,7 +525,7 @@ msgstr "Gerald Senarclens de Grancy"
 #: lib/kateapp.cpp:175
 #, kde-format
 msgid "QA and Scripting"
-msgstr ""
+msgstr "ხარისხის კონტროლი, სკრიპტები"
 
 #: lib/kateapp.cpp:179
 #, kde-format
@@ -640,7 +640,7 @@ msgstr "Cristi Dumitrescu"
 #: lib/kateapp.cpp:193
 #, kde-format
 msgid "PHP Keyword/Datatype list"
-msgstr ""
+msgstr "PHP საკვანძო/მონაცემების ტიპების სია"
 
 #: lib/kateapp.cpp:194
 #, kde-format
@@ -726,7 +726,7 @@ msgstr "ჟურნალი"
 #: lib/kateconfigdialog.cpp:388
 #, kde-format
 msgid "&Limit output view history:"
-msgstr ""
+msgstr "&შეზღუდვა:"
 
 #: lib/kateconfigdialog.cpp:394 lib/kateconfigdialog.cpp:460
 #, kde-format
@@ -754,7 +754,7 @@ msgstr "&პანელები"
 #: lib/kateconfigdialog.cpp:417
 #, kde-format
 msgid "Sync section size with tab positions"
-msgstr ""
+msgstr "სექციის ზომის სინქრონიზაცია ჩანართების მდებარეობებთან"
 
 #: lib/kateconfigdialog.cpp:421
 #, kde-format
@@ -767,12 +767,12 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:426
 #, kde-format
 msgid "Show text for left and right sidebar buttons"
-msgstr ""
+msgstr "მარჯვენა და მარცხენა გვერდითი პანელის ღილაკებისთვის ტექსტის ჩვენება"
 
 #: lib/kateconfigdialog.cpp:431
 #, kde-format
 msgid "Icon size for left and right sidebar buttons"
-msgstr ""
+msgstr "ხატულის ზომა მარჯვენა და მარცხენა გვერდითი პანელის ღილაკებისთვის"
 
 #: lib/kateconfigdialog.cpp:450
 #, kde-format
@@ -809,7 +809,7 @@ msgstr "&დახურვის ღილაკის ჩვენება"
 #: lib/kateconfigdialog.cpp:477
 #, kde-format
 msgid "When checked each tab will display a close button."
-msgstr ""
+msgstr "როცა ჩართულია, თითოეულ ჩანართს დახურვის ღილაკი ექნება."
 
 #: lib/kateconfigdialog.cpp:481
 #, kde-format
@@ -819,7 +819,7 @@ msgstr "&ჩანართების გაფართოება"
 #: lib/kateconfigdialog.cpp:483
 #, kde-format
 msgid "When checked tabs take as much size as possible."
-msgstr ""
+msgstr "როცა ჩართულია, ჩანართები მაქსიმალურად შესაძლებელ ადგილს დაიკავებენ."
 
 #: lib/kateconfigdialog.cpp:487
 #, kde-format
@@ -829,7 +829,7 @@ msgstr "&ორმაგი წკაპი ახალ დოკუმენ�
 #: lib/kateconfigdialog.cpp:489
 #, kde-format
 msgid "When checked double click opens a new document."
-msgstr ""
+msgstr "როცა ჩართულია, ორმაგი წკაპი ახალ დოკუმენტს გახსნის."
 
 #: lib/kateconfigdialog.cpp:493
 #, kde-format
@@ -839,7 +839,7 @@ msgstr "&თაგუნას შუა წკაპი დახურავ�
 #: lib/kateconfigdialog.cpp:495
 #, kde-format
 msgid "When checked middle click closes a document."
-msgstr ""
+msgstr "როცა ჩართულია, შუა წკაპი დოკუმენტს დახურავს."
 
 #: lib/kateconfigdialog.cpp:499
 #, kde-format
@@ -856,7 +856,7 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:505
 #, kde-format
 msgid "Elide tab text"
-msgstr ""
+msgstr "ჩანართის ტექსტის შემოკლება"
 
 #: lib/kateconfigdialog.cpp:507
 #, kde-format
@@ -871,7 +871,7 @@ msgstr "&თაგუნა"
 #: lib/kateconfigdialog.cpp:518
 #, kde-format
 msgid "&Backward button pressed:"
-msgstr ""
+msgstr "&დააწექით უკან გასვლის ღილაკს:"
 
 #: lib/kateconfigdialog.cpp:523
 #, kde-format
@@ -886,7 +886,7 @@ msgstr "ისტორია უკან"
 #: lib/kateconfigdialog.cpp:529
 #, kde-format
 msgid "&Forward button pressed:"
-msgstr ""
+msgstr "&დააწექით წინ გადასვლის ღილაკს:"
 
 #: lib/kateconfigdialog.cpp:534
 #, kde-format
@@ -906,7 +906,7 @@ msgstr "სხვაობა"
 #: lib/kateconfigdialog.cpp:551
 #, kde-format
 msgid "Diff Style:"
-msgstr ""
+msgstr "სხვაობის სტილი:"
 
 #: lib/kateconfigdialog.cpp:556
 #, kde-format
@@ -1022,7 +1022,7 @@ msgstr "გაშვება"
 #: lib/katedocmanager.cpp:382
 #, kde-format
 msgid "Reopening files from the last session..."
-msgstr ""
+msgstr "წინა სესიის ფაილების თავიდან გახსნა..."
 
 #: lib/katefileactions.cpp:64
 #, kde-format
@@ -1037,12 +1037,12 @@ msgstr "ახალი ფაილის სახელი"
 #: lib/katefileactions.cpp:102
 #, kde-format
 msgid "File \"%1\" could not be moved to \"%2\""
-msgstr ""
+msgstr "ფაილის (%1) \"%2\"-ში გადატანა შეუძლებელია"
 
 #: lib/katefileactions.cpp:126
 #, kde-format
 msgid "Do you really want to delete file \"%1\"?"
-msgstr ""
+msgstr "ნამდვილად გსურთ წაშალოთ ფაილი \"%1\"?"
 
 #: lib/katefileactions.cpp:127
 #, kde-format
@@ -1117,7 +1117,7 @@ msgstr "&სწრაფი გახსნა"
 #: lib/katemainwindow.cpp:279
 #, kde-format
 msgid "Open a form to quick open documents."
-msgstr ""
+msgstr "დოკუმენტების სწრაფად გახსნის ფორმის გახსნა."
 
 #: lib/katemainwindow.cpp:305
 #, kde-format
@@ -1132,7 +1132,7 @@ msgstr "ახალი დოკუმენტის შექმნა"
 #: lib/katemainwindow.cpp:318
 #, kde-format
 msgid "Open an existing document for editing"
-msgstr ""
+msgstr "უკვე არსებული დოკუმენტის გახსნა"
 
 #: lib/katemainwindow.cpp:328
 #, kde-format
@@ -1196,7 +1196,7 @@ msgstr "წაშლა"
 #: lib/katemainwindow.cpp:376 lib/katemainwindow.cpp:385
 #, kde-format
 msgid "Deletes the file belonging to the current document."
-msgstr ""
+msgstr "წაშლს ფაილს, რომელიც მიმდინარე დოკუმენტს ეკუთვნის."
 
 #: lib/katemainwindow.cpp:380
 #, kde-format
@@ -1216,7 +1216,7 @@ msgstr ""
 #: lib/katemainwindow.cpp:392
 #, kde-format
 msgid "Shows a hint how to compare documents."
-msgstr ""
+msgstr "მინიშნების ჩვენება, როგორ შეადაროთ დოკუმენტები."
 
 #: lib/katemainwindow.cpp:395
 #, kde-format
@@ -1301,7 +1301,7 @@ msgstr ""
 #: lib/katemainwindow.cpp:450
 #, kde-format
 msgid "&Plugins Handbook"
-msgstr ""
+msgstr "&დამატებების სახელმძღვანელო"
 
 #: lib/katemainwindow.cpp:452
 #, kde-format
@@ -1379,13 +1379,13 @@ msgstr ""
 #: lib/katemainwindow.cpp:563
 #, kde-format
 msgid "Close all documents beside current one"
-msgstr ""
+msgstr "მიმდინარეს გარდა ყველა დოკუმენტის დახურვა"
 
 #: lib/katemainwindow.cpp:774
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
-msgstr ""
+msgstr "ეს მენიუს ზოლს სრულად დამალავს. მისი ჩვენება %1-ზე დაწოლით შეგიძლიათ."
 
 #: lib/katemainwindow.cpp:777
 #, kde-format
@@ -1424,12 +1424,12 @@ msgstr " (მხოლოდ-კითხვადი)"
 #: lib/katemainwindow.cpp:1407
 #, kde-format
 msgid "Diff %1"
-msgstr ""
+msgstr "ცვლილება %1"
 
 #: lib/katemainwindow.cpp:1409
 #, kde-format
 msgid "Diff %1..%2"
-msgstr ""
+msgstr "ცვლილება %1..%2"
 
 #: lib/katemdi.cpp:85
 #, kde-format
@@ -1474,7 +1474,7 @@ msgstr "%1 ღილაკის ჩვენება"
 #: lib/katemdi.cpp:195
 #, kde-format
 msgid "Focus %1"
-msgstr ""
+msgstr "%1-ის ფოკუსი"
 
 #: lib/katemdi.cpp:1006
 #, kde-format
@@ -1640,7 +1640,7 @@ msgstr ""
 #: lib/katemwmodonhddialog.cpp:331
 #, kde-format
 msgid "Error Creating Diff"
-msgstr ""
+msgstr "სხვაობის შექმნის შეცდომა"
 
 #: lib/katemwmodonhddialog.cpp:338
 #, kde-format
@@ -1872,7 +1872,7 @@ msgstr ""
 #: lib/kateviewmanager.cpp:211
 #, kde-format
 msgid "Move Splitter Right"
-msgstr ""
+msgstr "გამყოფის მარჯვენივ გაწევა"
 
 #: lib/kateviewmanager.cpp:214
 #, kde-format
@@ -1882,7 +1882,7 @@ msgstr ""
 #: lib/kateviewmanager.cpp:217
 #, kde-format
 msgid "Move Splitter Left"
-msgstr ""
+msgstr "გამყოფის მარცხნივ გაწევა"
 
 #: lib/kateviewmanager.cpp:220
 #, kde-format
@@ -1892,7 +1892,7 @@ msgstr ""
 #: lib/kateviewmanager.cpp:223
 #, kde-format
 msgid "Move Splitter Up"
-msgstr ""
+msgstr "გამყოფის მაღლა აწევა"
 
 #: lib/kateviewmanager.cpp:226
 #, kde-format
@@ -1902,7 +1902,7 @@ msgstr ""
 #: lib/kateviewmanager.cpp:229
 #, kde-format
 msgid "Move Splitter Down"
-msgstr ""
+msgstr "გამყოფის დაბლა ჩამოწევა"
 
 #: lib/kateviewmanager.cpp:232
 #, kde-format
@@ -2050,7 +2050,7 @@ msgstr "აქტიურ დოკუმენტთან შედარე�
 #: lib/kateviewspace.cpp:1016
 #, kde-format
 msgid "Diff %1 .. %2"
-msgstr ""
+msgstr "ცვლილება %1 .. %2"
 
 #: lib/kateviewspace.cpp:1021
 #, kde-format
@@ -2085,12 +2085,12 @@ msgstr "მიმდინარე პროექტი"
 #: lib/quickopen/katequickopenlineedit.cpp:88
 #, kde-format
 msgid "Fuzzy Filtering"
-msgstr ""
+msgstr "არაზუსტი ფილტრი"
 
 #: lib/quickopen/katequickopenlineedit.cpp:99
 #, kde-format
 msgid "Wildcard Filtering"
-msgstr ""
+msgstr "ვაილდკარდით ფილტრი"
 
 #: lib/session/katesessionmanagedialog.cpp:26
 #, kde-format
@@ -2110,7 +2110,7 @@ msgstr "აღდგენა"
 #: lib/session/katesessionmanagedialog.cpp:303
 #, kde-format
 msgid "Session will be deleted on dialog close"
-msgstr ""
+msgstr "ფანჯრის დახურვისას სესია წაიშლება"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, m_filterBox)
 #: lib/session/katesessionmanagedialog.ui:30
@@ -2264,7 +2264,7 @@ msgstr "ბოლოს გამოყენებული სესიის 
 #: lib/ui/sessionconfigwidget.ui:37
 #, kde-format
 msgid "&Manually choose a session"
-msgstr ""
+msgstr "&სესიის ხელით არჩევა"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: lib/ui/sessionconfigwidget.ui:47
@@ -2341,7 +2341,7 @@ msgstr ""
 #: lib/ui/sessionconfigwidget.ui:136
 #, kde-format
 msgid "Maximum number of entries in recent file list:"
-msgstr ""
+msgstr "უახლესი ფაილების სიის მაქსიმალურ ჩანაწერების რაოდენობა:"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, restoreVC)
 #: lib/ui/sessionconfigwidget.ui:164
@@ -2370,13 +2370,13 @@ msgstr ""
 #: lib/ui/sessionconfigwidget.ui:180
 #, kde-format
 msgid "Keep &meta-information past sessions"
-msgstr ""
+msgstr "&წარსული სესიების მეტაინფორმაციის შენარჩუნება"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: lib/ui/sessionconfigwidget.ui:191
 #, kde-format
 msgid "Delete unused meta-information after:"
-msgstr ""
+msgstr "გამოუყენებელი მეტაინფორმაციის წაშლის ვადა:"
 
 #: lib/welcomeview/welcomeview.cpp:52
 #, kde-format
@@ -2476,7 +2476,7 @@ msgstr "შემოგვიერთდით"
 #: lib/welcomeview/welcomeview.ui:307
 #, kde-format
 msgid "Read handbook"
-msgstr ""
+msgstr "სახელმძღვანელოს წაკითხვა"
 
 #. i18n: ectx: property (text), widget (QLabel, labelSavedSessions)
 #: lib/welcomeview/welcomeview.ui:354

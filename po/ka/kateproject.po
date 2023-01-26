@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-03 04:16+0000\n"
-"PO-Revision-Date: 2022-10-21 06:04+0200\n"
+"PO-Revision-Date: 2023-01-25 07:33+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,12 +16,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
 msgid "Select branch to checkout. Press 'Esc' to cancel."
-msgstr ""
+msgstr "აირჩიეთ გამოსათხოვი ბრენჩი. გასაუქმებლად 'Esc'."
 
 #: branchcheckoutdialog.cpp:36
 #, kde-format
@@ -36,32 +36,32 @@ msgstr "ახალი ბრენჩის შექმნა წყარო
 #: branchcheckoutdialog.cpp:53
 #, kde-format
 msgid "Branch %1 checked out"
-msgstr ""
+msgstr "ბრენჩი %1 გამოთხოვილია"
 
 #: branchcheckoutdialog.cpp:56
 #, kde-format
 msgid "Failed to checkout to branch %1, Error: %2"
-msgstr ""
+msgstr "შეცდომა ბრენჩის (%1) გამოთხოვისას. შეცდომა: %2"
 
 #: branchcheckoutdialog.cpp:83 branchcheckoutdialog.cpp:95
 #, kde-format
 msgid "Enter new branch name. Press 'Esc' to cancel."
-msgstr ""
+msgstr "შეიყვანეთ ახალი ბრენჩის სახელი. 'Esc' გასაუქმებლად."
 
 #: branchcheckoutdialog.cpp:100
 #, kde-format
 msgid "Select branch to checkout from. Press 'Esc' to cancel."
-msgstr ""
+msgstr "აირჩიეთ გამოსათხოვი ბრენჩი. გასაუქმებლად 'Esc'."
 
 #: branchcheckoutdialog.cpp:121
 #, kde-format
 msgid "Checked out to new branch: %1"
-msgstr ""
+msgstr "გამოთხოვილია ახალ ბრენჩში: %1"
 
 #: branchcheckoutdialog.cpp:123
 #, kde-format
 msgid "Failed to create new branch. Error \"%1\""
-msgstr ""
+msgstr "ახალი ბრენჩის შექმნა შეუძლებელია. შეცდომა \"%1\""
 
 #: branchdeletedialog.cpp:122
 #, kde-format
@@ -82,8 +82,8 @@ msgstr "წაშლა"
 #, kde-format
 msgid "Are you sure you want to delete the selected branch?"
 msgid_plural "Are you sure you want to delete the selected branches?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "დარწმუნებული ბრძანდებით, რომ გნებავთ, წაშალოთ მონიშნული ბრენჩი?"
+msgstr[1] "დარწმუნებული ბრძანდებით, რომ გნებავთ, წაშალოთ მონიშნული ბრენჩები?"
 
 #: branchesdialog.cpp:102
 #, kde-format
@@ -118,12 +118,12 @@ msgstr "გაუქმენა"
 #: gitcommitdialog.cpp:76
 #, kde-format
 msgid "Write commit message..."
-msgstr ""
+msgstr "დაწერეთ კომიტის შეტყობინება..."
 
 #: gitcommitdialog.cpp:83
 #, kde-format
 msgid "Extended commit description..."
-msgstr ""
+msgstr "კომიტის გაფართოებული აღწერა..."
 
 #: gitcommitdialog.cpp:107
 #, kde-format
@@ -160,12 +160,12 @@ msgstr "<span style=\"color:%1;\">%2</span> / 52"
 #: gitstatusmodel.cpp:85
 #, kde-format
 msgid "Staged"
-msgstr ""
+msgstr "აღნიშნულია"
 
 #: gitstatusmodel.cpp:87
 #, kde-format
 msgid "Untracked"
-msgstr ""
+msgstr "მიუთვალყურებელი"
 
 #: gitstatusmodel.cpp:89
 #, kde-format
@@ -215,27 +215,27 @@ msgstr " შეცდომა: %1"
 #: gitwidget.cpp:554
 #, kde-format
 msgid "\"%1\" executed successfully: %2"
-msgstr ""
+msgstr "\"%1\" წარმატებით შესრულდა: %2"
 
 #: gitwidget.cpp:574
 #, kde-format
 msgid "Failed to stage file. Error:"
-msgstr ""
+msgstr "ფაილის შუალედური შენახვის შეცდომა:"
 
 #: gitwidget.cpp:587
 #, kde-format
 msgid "Failed to unstage file. Error:"
-msgstr ""
+msgstr "ფაილის შუალედური შენახვის გაუქმების შეცდომა:"
 
 #: gitwidget.cpp:598
 #, kde-format
 msgid "Failed to discard changes. Error:"
-msgstr ""
+msgstr "ცვლილებების გაუქმების შეცდომა:"
 
 #: gitwidget.cpp:609
 #, kde-format
 msgid "Failed to remove. Error:"
-msgstr ""
+msgstr "წაშლა შეუძლებელა. შეცდომა:"
 
 #: gitwidget.cpp:625
 #, kde-format
@@ -250,22 +250,22 @@ msgstr ""
 #: gitwidget.cpp:717
 #, kde-format
 msgid "Failed to commit: %1"
-msgstr ""
+msgstr "კომიტის შეცდომა: %1"
 
 #: gitwidget.cpp:721
 #, kde-format
 msgid "Changes committed successfully."
-msgstr ""
+msgstr "ყველა ცვლილება დაკომიტებულია."
 
 #: gitwidget.cpp:731
 #, kde-format
 msgid "Nothing to commit. Please stage your changes first."
-msgstr ""
+msgstr "დასაკომიტებელი არაფერია. ჯერ დაგეგმეთ ცვლილებები."
 
 #: gitwidget.cpp:744
 #, kde-format
 msgid "Commit message cannot be empty."
-msgstr ""
+msgstr "კომიტის შეტყობინება ცარიელი ვერ იქნება."
 
 #: gitwidget.cpp:859
 #, kde-format
@@ -275,7 +275,7 @@ msgstr ""
 #: gitwidget.cpp:865
 #, kde-format
 msgid "Failed to compare %1...%2"
-msgstr ""
+msgstr "შედარების შეცდომა %1...%2"
 
 #: gitwidget.cpp:880
 #, kde-format
@@ -305,7 +305,7 @@ msgstr "ბრენჩის შედარება..."
 #: gitwidget.cpp:962 gitwidget.cpp:999
 #, kde-format
 msgid "Stash"
-msgstr ""
+msgstr "შენახვა საკუჭნაოში"
 
 #: gitwidget.cpp:972
 #, kde-format
@@ -355,7 +355,7 @@ msgstr ""
 #: gitwidget.cpp:1063
 #, kde-format
 msgid "Stage All"
-msgstr ""
+msgstr "ყველა ფაილის შუალედური შენახვა"
 
 #: gitwidget.cpp:1065
 #, kde-format
@@ -370,7 +370,7 @@ msgstr "ყველაფრის მოცილება"
 #: gitwidget.cpp:1068
 #, kde-format
 msgid "Open .gitignore"
-msgstr ""
+msgstr ".gitignore-ის გახსნა"
 
 #: gitwidget.cpp:1069 gitwidget.cpp:1124 gitwidget.cpp:1174
 #: kateprojectconfigpage.cpp:91 kateprojectconfigpage.cpp:102
@@ -381,12 +381,12 @@ msgstr "სხვაობის ჩვენება"
 #: gitwidget.cpp:1086
 #, kde-format
 msgid "Are you sure you want to remove these files?"
-msgstr ""
+msgstr "დარწმუნებული ბრძანდებით, რომ გნებავთ, წაშალოთ ეს ფაილები?"
 
 #: gitwidget.cpp:1095
 #, kde-format
 msgid "Are you sure you want to discard all changes?"
-msgstr ""
+msgstr "დარწმუნებული ბრძანდებით, რომ გნებავთ, უგულებელყოთ ყველა ცვლილება?"
 
 #: gitwidget.cpp:1123
 #, kde-format
@@ -401,17 +401,17 @@ msgstr ""
 #: gitwidget.cpp:1126
 #, kde-format
 msgid "Open at HEAD"
-msgstr ""
+msgstr "HEAD-თან გახსნა"
 
 #: gitwidget.cpp:1127
 #, kde-format
 msgid "Unstage File"
-msgstr ""
+msgstr "ფაილის შუალედური შენახვის გაუქმება"
 
 #: gitwidget.cpp:1127
 #, kde-format
 msgid "Stage File"
-msgstr ""
+msgstr "ფაილის შუალედური შენახვა"
 
 #: gitwidget.cpp:1128
 #, kde-format
@@ -426,32 +426,32 @@ msgstr "გაუქმება"
 #: gitwidget.cpp:1145
 #, kde-format
 msgid "Are you sure you want to discard the changes in this file?"
-msgstr ""
+msgstr "დარწმუნებული ბრძანდებით, რომ გნებავთ, გააუქმოთ ცვლილებები ამ ფაილში?"
 
 #: gitwidget.cpp:1158
 #, kde-format
 msgid "Are you sure you want to remove this file?"
-msgstr ""
+msgstr "დარწმუნებული ხართ, რომ გსურთ ამ ფაილის წაშლა?"
 
 #: gitwidget.cpp:1173
 #, kde-format
 msgid "Unstage All"
-msgstr ""
+msgstr "ყველა ფაილის შუალედური შენახვის გაუქმება"
 
 #: gitwidget.cpp:1240
 #, kde-format
 msgid "Unstage Selected Files"
-msgstr ""
+msgstr "მონიშნული ფაილების შუალედური შენახვის გაუქმება"
 
 #: gitwidget.cpp:1240
 #, kde-format
 msgid "Stage Selected Files"
-msgstr ""
+msgstr "მონიშნული ფაილების შუალედური შენახვა"
 
 #: gitwidget.cpp:1241
 #, kde-format
 msgid "Discard Selected Files"
-msgstr ""
+msgstr "მონიშნული ფალების მოცილება"
 
 #: gitwidget.cpp:1245
 #, kde-format
@@ -461,7 +461,7 @@ msgstr "მონიშნული ფაილების წაშლა"
 #: gitwidget.cpp:1258
 #, kde-format
 msgid "Are you sure you want to discard the changes?"
-msgstr ""
+msgstr "დარწმუნებული ბრძანდებით, რომ გნებავთ, უგულებელყოთ ყველა ცვლილება?"
 
 #: gitwidget.cpp:1267
 #, kde-format
@@ -471,7 +471,7 @@ msgstr ""
 #: kateproject.cpp:223
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
-msgstr ""
+msgstr "არასწორი JSON ფაილი '%1': %2"
 
 #: kateproject.cpp:528
 #, kde-format
@@ -551,7 +551,7 @@ msgstr "ინდექსრების ჩართვა"
 #: kateprojectconfigpage.cpp:60
 #, kde-format
 msgid "Directory for index files"
-msgstr ""
+msgstr "საქაღალდე ინდექსის ფაილებისთვის"
 
 #: kateprojectconfigpage.cpp:64
 #, kde-format
@@ -632,12 +632,12 @@ msgstr "პროექტის თვისებები"
 #: kateprojectinfoview.cpp:35
 #, kde-format
 msgid "Terminal (.kateproject)"
-msgstr ""
+msgstr "ტერმინალი (.kateproject)"
 
 #: kateprojectinfoview.cpp:43
 #, kde-format
 msgid "Terminal (Base)"
-msgstr ""
+msgstr "ტერმინალი (ძირითადი)"
 
 #: kateprojectinfoview.cpp:50
 #, kde-format
@@ -690,8 +690,8 @@ msgstr ""
 #, kde-format
 msgid "Analysis on %1 file finished."
 msgid_plural "Analysis on %1 files finished."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 ფაილის ანალიზი დასრულდა."
+msgstr[1] "%1 ფაილის ანალიზი დასრულდა."
 
 #: kateprojectinfoviewcodeanalysis.cpp:262
 #, kde-format
@@ -718,7 +718,7 @@ msgstr "ძებნა"
 #: kateprojectinfoviewindex.cpp:195
 #, kde-format
 msgid "The index could not be created. Please install 'ctags'."
-msgstr ""
+msgstr "ინდექსის შექმნა შეუძლებელია. დააყენეთ პროგრამა 'ctags'."
 
 #: kateprojectinfoviewindex.cpp:205
 #, kde-format
@@ -738,7 +738,7 @@ msgstr "ფაილის სახელი უკვე არსებობ
 #: kateprojectplugin.cpp:222
 #, kde-format
 msgid "Confirm project closing: %1"
-msgstr ""
+msgstr "დაადასტურეთ პროექტის დახურვა: %1"
 
 #: kateprojectplugin.cpp:223
 #, kde-format
@@ -787,7 +787,7 @@ msgstr "საქაღალდის გახსნა..."
 #: kateprojectpluginview.cpp:178
 #, kde-format
 msgid "Project TODOs"
-msgstr ""
+msgstr "პროექტის გეგმები"
 
 #: kateprojectpluginview.cpp:182
 #, kde-format
@@ -882,12 +882,12 @@ msgstr "გამხსნელი პროგრამა"
 #: kateprojecttreeviewcontextmenu.cpp:117
 #, kde-format
 msgid "Open Internal Terminal Here"
-msgstr ""
+msgstr "შიდა ტერმინალის აქ გახსნა"
 
 #: kateprojecttreeviewcontextmenu.cpp:126
 #, kde-format
 msgid "Open External Terminal Here"
-msgstr ""
+msgstr "გარე ტერმინალის აქ გახსნა"
 
 #: kateprojecttreeviewcontextmenu.cpp:131
 #, kde-format
@@ -912,12 +912,12 @@ msgstr "ნამდვილად გსურთ, წაშალოთ ფ�
 #: kateprojectview.cpp:59
 #, kde-format
 msgid "Checkout Git Branch"
-msgstr ""
+msgstr "Git-ის ბრენჩის გამოთხოვა"
 
 #: kateprojectview.cpp:82
 #, kde-format
 msgid "Checkout branch"
-msgstr ""
+msgstr "ბრენჩის გამოთხოვა"
 
 #: kateprojectviewtree.cpp:138
 #, kde-format

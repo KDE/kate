@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-24 01:02+0000\n"
-"PO-Revision-Date: 2022-08-24 20:35+0200\n"
+"PO-Revision-Date: 2023-01-25 06:53+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,12 +16,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: colorpickerconfigpage.cpp:34
 #, kde-format
 msgid "Show preview for known color names"
-msgstr ""
+msgstr "ცნობილი ფერის სახელების გადახედვის ჩვენება"
 
 #: colorpickerconfigpage.cpp:36
 #, kde-format
@@ -44,27 +44,27 @@ msgstr ""
 #: colorpickerconfigpage.cpp:48
 #, kde-format
 msgid "12 digits (#RRRRGGGGBBBB)"
-msgstr ""
+msgstr "12 ციფრი (#RRRRGGGGBBBB)"
 
 #: colorpickerconfigpage.cpp:49
 #, kde-format
 msgid "9 digits (#RRRGGGBBB)"
-msgstr ""
+msgstr "9 ციფრი (#RRRGGGBBB)"
 
 #: colorpickerconfigpage.cpp:50
 #, kde-format
 msgid "8 digits (#AARRGGBB)"
-msgstr ""
+msgstr "8 ციფრი (#AARRGGBB)"
 
 #: colorpickerconfigpage.cpp:51
 #, kde-format
 msgid "6 digits (#RRGGBB)"
-msgstr ""
+msgstr "6 ციფრი (#RRGGBB)"
 
 #: colorpickerconfigpage.cpp:52
 #, kde-format
 msgid "3 digits (#RGB)"
-msgstr ""
+msgstr "3 ციფრი (#RGB)"
 
 #: colorpickerconfigpage.cpp:72
 #, kde-format
@@ -74,14 +74,14 @@ msgstr "ფერის ამრჩევი"
 #: colorpickerconfigpage.cpp:77
 #, kde-format
 msgid "Color Picker Settings"
-msgstr ""
+msgstr "ფერის ამრჩევის მორგება"
 
 #: katecolorpickerplugin.cpp:247
 #, kde-format
 msgid "Select Color (Hex output)"
-msgstr ""
+msgstr "აირჩიეთ ფერი (თექვსმეტობითი რიცხვი)"
 
 #: katecolorpickerplugin.cpp:250
 #, kde-format
 msgid "View Color [Read only]"
-msgstr ""
+msgstr "ფერის ნახვა (მხოლოდ-წაკითხვადი)"

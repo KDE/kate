@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-25 01:01+0000\n"
-"PO-Revision-Date: 2023-01-23 06:34+0100\n"
+"PO-Revision-Date: 2023-01-25 06:50+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -119,13 +119,13 @@ msgstr "ნიშნების ჩვენება"
 #, kde-format
 msgctxt "Left is also left in RTL mode"
 msgid "Focus Next Tab to the Left"
-msgstr ""
+msgstr "ფოკუსის მარცხენა მხარეს შემდეგ ჩანართზე გადართვა"
 
 #: plugin_katebuild.cpp:203
 #, kde-format
 msgctxt "Right is right also in RTL mode"
 msgid "Focus Next Tab to the Right"
-msgstr ""
+msgstr "ფოკუსის მარჯვენა მხარეს შემდეგ ჩანართზე გადართვა"
 
 #: plugin_katebuild.cpp:227
 #, kde-format
@@ -276,7 +276,7 @@ msgstr "შესრულებ შეუძლებელია: %1 სამ
 #: plugin_katebuild.cpp:1371
 #, kde-format
 msgid "Target Set"
-msgstr ""
+msgstr "სამიზნე დაყენებულია"
 
 #: plugin_katebuild.cpp:1373
 #, kde-format
@@ -291,7 +291,7 @@ msgstr "კონფიგურაცია"
 #: plugin_katebuild.cpp:1375
 #, kde-format
 msgid "ConfigClean"
-msgstr ""
+msgstr "ConfigClean"
 
 #: plugin_katebuild.cpp:1418
 #, kde-format

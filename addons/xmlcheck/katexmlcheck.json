@@ -17,6 +17,7 @@
         "Description[ia]": "Valida files XML per usar xmllint",
         "Description[ie]": "Validar files XML med xmllint",
         "Description[it]": "Convalida i file XML usando xmllint",
+        "Description[ka]": "XML ფაილების გადამოწმება xmllint-ის საშუალებით",
         "Description[ko]": "xmllint로 XML 파일 검사하기",
         "Description[nl]": "Valideert XML-bestanden met behulp van xmllint",
         "Description[pl]": "Sprawdza poprawność składni XML za pomocą xmllint",

@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-25 01:01+0000\n"
-"PO-Revision-Date: 2023-01-12 10:51+0100\n"
+"PO-Revision-Date: 2023-01-26 14:25+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -866,7 +866,7 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:68
 #, kde-format
 msgid "Configure"
-msgstr "Instellen"
+msgstr "Configureren"
 
 #: lib/kateconfigdialog.cpp:72 lib/kateoutputview.cpp:151
 #, kde-format

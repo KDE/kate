@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-19 00:49+0000\n"
+"POT-Creation-Date: 2023-01-28 01:01+0000\n"
 "PO-Revision-Date: 2023-01-02 10:17+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -184,52 +184,57 @@ msgstr "Προορισμός %1"
 msgid "Locals"
 msgstr "Τοπικά"
 
-#: debugview.cpp:360
+#: debugview.cpp:37
+#, kde-format
+msgid "CPU registers"
+msgstr ""
+
+#: debugview.cpp:363
 #, kde-format
 msgid "Could not start debugger process"
 msgstr "Αδυναμία έναρξης διεργασίας διόρθωσης σφαλμάτων"
 
-#: debugview.cpp:418
+#: debugview.cpp:421
 #, kde-format
 msgid "*** gdb exited normally ***"
 msgstr "*** το gdb τερματίστηκε κανονικά ***"
 
-#: debugview.cpp:617
+#: debugview.cpp:620
 #, kde-format
 msgid "all threads running"
 msgstr "όλα τα νήματα εκτελούνται"
 
-#: debugview.cpp:619
+#: debugview.cpp:622
 #, kde-format
 msgid "thread(s) running: %1"
 msgstr "Νήμα(τα) σε εκτέλεση: %1"
 
-#: debugview.cpp:624 debugview_dap.cpp:269
+#: debugview.cpp:627 debugview_dap.cpp:269
 #, kde-format
 msgid "stopped (%1)."
 msgstr "διακόπηκαν (%1)."
 
-#: debugview.cpp:628 debugview_dap.cpp:277
+#: debugview.cpp:631 debugview_dap.cpp:277
 #, kde-format
 msgid "Active thread: %1 (all threads stopped)."
 msgstr "Ενεργό νήμα: %1 (όλα τα νήματα διακόπηκαν)."
 
-#: debugview.cpp:630 debugview_dap.cpp:279
+#: debugview.cpp:633 debugview_dap.cpp:279
 #, kde-format
 msgid "Active thread: %1."
 msgstr "Ενεργό νήμα: %1."
 
-#: debugview.cpp:649
+#: debugview.cpp:652
 #, kde-format
 msgid "Current frame: %1:%2"
 msgstr "Τρέχον πλαίσιο: %1:%2"
 
-#: debugview.cpp:676
+#: debugview.cpp:679
 #, kde-format
 msgid "Host: %1. Target: %1"
 msgstr "Υπολογιστής: %1. Προορισμός: %1"
 
-#: debugview.cpp:1227
+#: debugview.cpp:1307
 #, kde-format
 msgid ""
 "gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
@@ -238,7 +243,7 @@ msgstr ""
 "gdb-mi: Αδυναμία ανάλυσης της τελευταίας απάντησης: %1. Πάρα πολλά "
 "συνεχόμενα σφάλματα. Γίνεται τερματισμός."
 
-#: debugview.cpp:1229
+#: debugview.cpp:1309
 #, kde-format
 msgid "gdb-mi: Could not parse last response: %1"
 msgstr "gdb-mi: Αδυναμία ανάλυσης της τελευταίας απάντησης: %1"

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-19 00:49+0000\n"
+"POT-Creation-Date: 2023-01-28 01:01+0000\n"
 "PO-Revision-Date: 2022-08-05 11:51+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -191,63 +191,68 @@ msgstr "Kohde %1"
 msgid "Locals"
 msgstr "Paikalliset"
 
-#: debugview.cpp:360
+#: debugview.cpp:37
+#, kde-format
+msgid "CPU registers"
+msgstr ""
+
+#: debugview.cpp:363
 #, kde-format
 msgid "Could not start debugger process"
 msgstr "Ei voitu käynnistää virheenpaikanninprosessia"
 
-#: debugview.cpp:418
+#: debugview.cpp:421
 #, kde-format
 msgid "*** gdb exited normally ***"
 msgstr "*** gdb päättyi normaalisti ***"
 
-#: debugview.cpp:617
+#: debugview.cpp:620
 #, fuzzy, kde-format
 #| msgid "all threads continued"
 msgid "all threads running"
 msgstr "jatkettiin kaikkia säikeitä"
 
-#: debugview.cpp:619
+#: debugview.cpp:622
 #, fuzzy, kde-format
 #| msgid "thread %1"
 msgid "thread(s) running: %1"
 msgstr "säie %1"
 
-#: debugview.cpp:624 debugview_dap.cpp:269
+#: debugview.cpp:627 debugview_dap.cpp:269
 #, kde-format
 msgid "stopped (%1)."
 msgstr "pysäytetty (%1)."
 
-#: debugview.cpp:628 debugview_dap.cpp:277
+#: debugview.cpp:631 debugview_dap.cpp:277
 #, kde-format
 msgid "Active thread: %1 (all threads stopped)."
 msgstr "Aktiivinen säie: %1 (kaikki säikeet pysäytetty)."
 
-#: debugview.cpp:630 debugview_dap.cpp:279
+#: debugview.cpp:633 debugview_dap.cpp:279
 #, kde-format
 msgid "Active thread: %1."
 msgstr "Aktiivinen säie: %1."
 
-#: debugview.cpp:649
+#: debugview.cpp:652
 #, fuzzy, kde-format
 #| msgid "Current frame: "
 msgid "Current frame: %1:%2"
 msgstr "Nykyinen kehys:"
 
-#: debugview.cpp:676
+#: debugview.cpp:679
 #, fuzzy, kde-format
 #| msgid "Target %1"
 msgid "Host: %1. Target: %1"
 msgstr "Kohde %1"
 
-#: debugview.cpp:1227
+#: debugview.cpp:1307
 #, kde-format
 msgid ""
 "gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
 "Shutting down."
 msgstr ""
 
-#: debugview.cpp:1229
+#: debugview.cpp:1309
 #, kde-format
 msgid "gdb-mi: Could not parse last response: %1"
 msgstr ""

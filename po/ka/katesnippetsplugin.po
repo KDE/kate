@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-25 01:01+0000\n"
-"PO-Revision-Date: 2023-01-25 06:52+0100\n"
+"PO-Revision-Date: 2023-01-27 08:58+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -31,12 +31,12 @@ msgstr "Temuri.doghonadze@gmail.com"
 #: editrepository.cpp:81 editrepository.cpp:126
 #, kde-format
 msgid "Edit Snippet Repository %1"
-msgstr ""
+msgstr "ფრაგმენტის რეპოზიტორიის (%1) ჩასწორება"
 
 #: editrepository.cpp:83
 #, kde-format
 msgid "Create New Snippet Repository"
-msgstr ""
+msgstr "ახალი ფრაგმენტის რეპოზიტორიის შექმნა"
 
 #: editrepository.cpp:142
 #, kde-format
@@ -78,7 +78,7 @@ msgstr "&ფაილის ტიპები:"
 #: editrepository.ui:96
 #, kde-format
 msgid "A short name for the repository"
-msgstr ""
+msgstr "რეპოზიტორიის მოკლე სახელი"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, repoNamespaceEdit)
 #: editrepository.ui:103
@@ -89,12 +89,12 @@ msgstr ""
 #: editsnippet.cpp:97 editsnippet.cpp:177
 #, kde-format
 msgid "Edit Snippet %1 in %2"
-msgstr ""
+msgstr "%2-ში %1 ფრაგმენტის ჩასწორება"
 
 #: editsnippet.cpp:107
 #, kde-format
 msgid "Create New Snippet in Repository %1"
-msgstr ""
+msgstr "რეპოზიტორიაში %1 ახალი ფრაგმენტის შექმნა"
 
 #: editsnippet.cpp:145
 #, kde-format
@@ -234,7 +234,7 @@ msgstr ""
 #: snippetrepository.cpp:293
 #, kde-format
 msgid "Invalid XML snippet file: %1"
-msgstr ""
+msgstr "XML ფრაგმენტის არასწორი ფაილი: %1"
 
 #: snippetrepository.cpp:355
 #, kde-format

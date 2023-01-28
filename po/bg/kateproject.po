@@ -1048,9 +1048,3 @@ msgstr ""
 #, kde-format
 msgid "&Projects"
 msgstr "&Проекти"
-
-#~ msgid "Severity"
-#~ msgstr "Тежест"
-
-#~ msgid "Message"
-#~ msgstr "Съобщение"

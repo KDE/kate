@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-19 00:49+0000\n"
+"POT-Creation-Date: 2023-01-28 01:01+0000\n"
 "PO-Revision-Date: 2022-11-24 16:41+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -189,52 +189,57 @@ msgstr "Hedef %1"
 msgid "Locals"
 msgstr "Yereller"
 
-#: debugview.cpp:360
+#: debugview.cpp:37
+#, kde-format
+msgid "CPU registers"
+msgstr ""
+
+#: debugview.cpp:363
 #, kde-format
 msgid "Could not start debugger process"
 msgstr "Hata ayıklayıcı süreci başlatılamadı"
 
-#: debugview.cpp:418
+#: debugview.cpp:421
 #, kde-format
 msgid "*** gdb exited normally ***"
 msgstr "*** gdb uygulamasından normal olarak çıkıldı ***"
 
-#: debugview.cpp:617
+#: debugview.cpp:620
 #, kde-format
 msgid "all threads running"
 msgstr "tüm iş parçacıkları çalışıyor"
 
-#: debugview.cpp:619
+#: debugview.cpp:622
 #, kde-format
 msgid "thread(s) running: %1"
 msgstr "çalışan iş parçacıkları: %1"
 
-#: debugview.cpp:624 debugview_dap.cpp:269
+#: debugview.cpp:627 debugview_dap.cpp:269
 #, kde-format
 msgid "stopped (%1)."
 msgstr "durduruldu (%1)."
 
-#: debugview.cpp:628 debugview_dap.cpp:277
+#: debugview.cpp:631 debugview_dap.cpp:277
 #, kde-format
 msgid "Active thread: %1 (all threads stopped)."
 msgstr "Etkin iş parçacığı: %1 (tüm iş parçacıkları durduruldu)."
 
-#: debugview.cpp:630 debugview_dap.cpp:279
+#: debugview.cpp:633 debugview_dap.cpp:279
 #, kde-format
 msgid "Active thread: %1."
 msgstr "Etkin iş parçacığı: %1."
 
-#: debugview.cpp:649
+#: debugview.cpp:652
 #, kde-format
 msgid "Current frame: %1:%2"
 msgstr "Geçerli kare: %1:%2"
 
-#: debugview.cpp:676
+#: debugview.cpp:679
 #, kde-format
 msgid "Host: %1. Target: %1"
 msgstr "Makine: %1. Hedef: %1"
 
-#: debugview.cpp:1227
+#: debugview.cpp:1307
 #, kde-format
 msgid ""
 "gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
@@ -242,7 +247,7 @@ msgid ""
 msgstr ""
 "gdb-mi: Son yanıt ayrıştırılamadı: %1. Çok fazla art arda hata. Kapatılıyor."
 
-#: debugview.cpp:1229
+#: debugview.cpp:1309
 #, kde-format
 msgid "gdb-mi: Could not parse last response: %1"
 msgstr "gdb-mi: Son yanıt ayrıştırılamadı: %1"

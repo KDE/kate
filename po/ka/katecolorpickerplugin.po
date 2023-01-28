@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-24 01:02+0000\n"
-"PO-Revision-Date: 2023-01-25 06:53+0100\n"
+"PO-Revision-Date: 2023-01-27 08:58+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -34,12 +34,12 @@ msgstr ""
 #: colorpickerconfigpage.cpp:39
 #, kde-format
 msgid "Place preview after text color"
-msgstr ""
+msgstr "მინიატურის ტექსტის ფერის შემდეგ მოთავსება"
 
 #: colorpickerconfigpage.cpp:45
 #, kde-format
 msgid "Hex color matching"
-msgstr ""
+msgstr "თექვსმეტობითი ფერის დამთხვევა"
 
 #: colorpickerconfigpage.cpp:48
 #, kde-format

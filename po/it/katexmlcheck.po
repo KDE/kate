@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the kate package.
-# Paolo Zamponi <zapaolo@email.it>, 2016, 2022.
+# Paolo Zamponi <zapaolo@email.it>, 2016, 2022, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-15 00:59+0000\n"
-"PO-Revision-Date: 2022-08-16 15:18+0200\n"
+"PO-Revision-Date: 2023-01-24 07:51+0100\n"
 "Last-Translator: Paolo Zamponi <zapaolo@email.it>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 22.04.3\n"
+"X-Generator: Lokalize 22.12.1\n"
 
 #: plugin_katexmlcheck.cpp:94
 #, kde-format
@@ -30,13 +30,12 @@ msgstr "Convalida XML"
 #: plugin_katexmlcheck.cpp:132
 #, kde-format
 msgid "Validate process crashed"
-msgstr ""
+msgstr "Il processo di validazione è andato in crash"
 
 #: plugin_katexmlcheck.cpp:132 plugin_katexmlcheck.cpp:150
 #: plugin_katexmlcheck.cpp:210 plugin_katexmlcheck.cpp:235
 #: plugin_katexmlcheck.cpp:255 plugin_katexmlcheck.cpp:343
-#, fuzzy, kde-format
-#| msgid "XML Check"
+#, kde-format
 msgid "XMLCheck"
 msgstr "Verifica XML"
 

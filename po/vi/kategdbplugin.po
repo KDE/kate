@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-19 00:49+0000\n"
+"POT-Creation-Date: 2023-01-28 01:01+0000\n"
 "PO-Revision-Date: 2023-01-08 09:11+0100\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -182,52 +182,57 @@ msgstr "Mục tiêu %1"
 msgid "Locals"
 msgstr "Cục bộ"
 
-#: debugview.cpp:360
+#: debugview.cpp:37
+#, kde-format
+msgid "CPU registers"
+msgstr ""
+
+#: debugview.cpp:363
 #, kde-format
 msgid "Could not start debugger process"
 msgstr "Không khởi động được tiến trình gỡ lỗi"
 
-#: debugview.cpp:418
+#: debugview.cpp:421
 #, kde-format
 msgid "*** gdb exited normally ***"
 msgstr "*** gdb đã thoát một cách bình thường ***"
 
-#: debugview.cpp:617
+#: debugview.cpp:620
 #, kde-format
 msgid "all threads running"
 msgstr "tất cả các luồng đang chạy"
 
-#: debugview.cpp:619
+#: debugview.cpp:622
 #, kde-format
 msgid "thread(s) running: %1"
 msgstr "(các) luồng đang chạy: %1"
 
-#: debugview.cpp:624 debugview_dap.cpp:269
+#: debugview.cpp:627 debugview_dap.cpp:269
 #, kde-format
 msgid "stopped (%1)."
 msgstr "đã dừng (%1)."
 
-#: debugview.cpp:628 debugview_dap.cpp:277
+#: debugview.cpp:631 debugview_dap.cpp:277
 #, kde-format
 msgid "Active thread: %1 (all threads stopped)."
 msgstr "Luồng hoạt động: %1 (tất cả các luồng đã dừng)."
 
-#: debugview.cpp:630 debugview_dap.cpp:279
+#: debugview.cpp:633 debugview_dap.cpp:279
 #, kde-format
 msgid "Active thread: %1."
 msgstr "Luồng hoạt động: %1."
 
-#: debugview.cpp:649
+#: debugview.cpp:652
 #, kde-format
 msgid "Current frame: %1:%2"
 msgstr "Khung hiện tại: %1:%2"
 
-#: debugview.cpp:676
+#: debugview.cpp:679
 #, kde-format
 msgid "Host: %1. Target: %1"
 msgstr "Máy: %1. Mục tiêu: %1"
 
-#: debugview.cpp:1227
+#: debugview.cpp:1307
 #, kde-format
 msgid ""
 "gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
@@ -236,7 +241,7 @@ msgstr ""
 "gdb-mi: Không phân tách được lời hồi đáp cuối: %1. Quá nhiều lỗi liên tiếp. "
 "Đang tắt."
 
-#: debugview.cpp:1229
+#: debugview.cpp:1309
 #, kde-format
 msgid "gdb-mi: Could not parse last response: %1"
 msgstr "gdb-mi: Không phân tách được lời hồi đáp cuối: %1"

@@ -268,8 +268,10 @@ DiagnosticsView::DiagnosticsView(QWidget *parent, KateMainWindow *mainWindow, QW
     m_posChangedTimer->setSingleShot(true);
     m_posChangedTimer->callOnTimeout(this, [this] {
         auto v = m_mainWindow->activeView();
-        if (auto doc = v->document()) {
-            syncDiagnostics(doc, v->cursorPosition().line(), true, false);
+        if (v) {
+            if (auto doc = v->document()) {
+                syncDiagnostics(doc, v->cursorPosition().line(), true, false);
+            }
         }
     });
 }

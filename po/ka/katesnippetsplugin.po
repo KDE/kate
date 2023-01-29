@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-25 01:01+0000\n"
-"PO-Revision-Date: 2023-01-27 08:58+0100\n"
+"PO-Revision-Date: 2023-01-28 10:01+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -84,7 +84,7 @@ msgstr "რეპოზიტორიის მოკლე სახელი"
 #: editrepository.ui:103
 #, kde-format
 msgid "Prefix to show in code completion"
-msgstr ""
+msgstr "კოდის დასრულებისას ნაჩვენები პრეფიქსი"
 
 #: editsnippet.cpp:97 editsnippet.cpp:177
 #, kde-format

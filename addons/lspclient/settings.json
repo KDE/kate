@@ -110,6 +110,12 @@
             "url": "https://github.com/ocaml/ocaml-lsp",
             "highlightingModeRegex": "^Objective Caml.*$"
         },
+        "openscad": {
+            "command": ["openscad-lsp", "--stdio"],
+            "path": ["%{ENV:CARGO_HOME}/bin", "%{ENV:HOME}/.cargo/bin", "%{ENV:USERPROFILE}/.cargo/bin"],
+            "url": "https://github.com/Leathong/openscad-LSP",
+            "highlightingModeRegex": "^OpenSCAD$"
+        },
         "perl": {
             "command": ["perl", "-MPerl::LanguageServer", "-e", "Perl::LanguageServer::run", "--"],
             "commandDebug": ["perl", "-MPerl::LanguageServer", "-e", "Perl::LanguageServer::run", "--", "--debug"],

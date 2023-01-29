@@ -147,7 +147,7 @@ public:
         setWindowFlags(Qt::FramelessWindowHint | Qt::BypassGraphicsProxyWidget | Qt::ToolTip);
         setWordWrapMode(QTextOption::NoWrap);
         document()->setDocumentMargin(10);
-        setFrameStyle(QFrame::NoFrame);
+        setFrameStyle(QFrame::Box | QFrame::Raised);
         setOpenLinks(false);
         connect(&m_hideTimer, &QTimer::timeout, this, &Private::hideTooltip);
 

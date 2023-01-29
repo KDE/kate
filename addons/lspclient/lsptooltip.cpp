@@ -74,7 +74,7 @@ public:
         setWindowFlags(Qt::FramelessWindowHint | Qt::BypassGraphicsProxyWidget | Qt::ToolTip);
         setAttribute(Qt::WA_DeleteOnClose, true);
         document()->setDocumentMargin(5);
-        setFrameStyle(QFrame::NoFrame);
+        setFrameStyle(QFrame::Box | QFrame::Raised);
         connect(&m_hideTimer, &QTimer::timeout, this, &Tooltip::hideTooltip);
 
         setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);

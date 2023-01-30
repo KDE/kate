@@ -55,6 +55,9 @@ public:
     }
     int hunkLineCount(int hunkLine);
 
+protected:
+    void showEvent(QShowEvent *e) override;
+
 private:
     void clearData();
     void handleStyleChange(int);

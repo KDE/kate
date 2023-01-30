@@ -128,6 +128,10 @@ public:
         m_showPrevHunk = addAction(QIcon::fromTheme(QStringLiteral("arrow-up")), QString());
         m_showPrevHunk->setToolTip(i18n("Jump to Previous Hunk"));
         connect(m_showPrevHunk, &QAction::triggered, this, &Toolbar::jumpToPrevHunk);
+
+        m_reload = addAction(QIcon::fromTheme(QStringLiteral("view-refresh")), QString());
+        m_reload->setToolTip(i18nc("Tooltip for a button, clicking the button reloads the diff", "Reload Diff"));
+        connect(m_reload, &QAction::triggered, this, &Toolbar::reload);
     }
 
     void setShowCommitActionVisible(bool vis)
@@ -148,6 +152,7 @@ private:
     QAction *m_showPrevFile;
     QAction *m_showNextHunk;
     QAction *m_showPrevHunk;
+    QAction *m_reload;
 
 Q_SIGNALS:
     void showCommitInfoChanged(bool);
@@ -155,6 +160,7 @@ Q_SIGNALS:
     void jumpToPrevFile();
     void jumpToNextHunk();
     void jumpToPrevHunk();
+    void reload();
 };
 
 DiffWidget::DiffWidget(DiffParams p, QWidget *parent)
@@ -216,10 +222,20 @@ DiffWidget::DiffWidget(DiffParams p, QWidget *parent)
     connect(m_toolbar, &Toolbar::jumpToPrevFile, this, &DiffWidget::jumpToPrevFile);
     connect(m_toolbar, &Toolbar::jumpToNextHunk, this, &DiffWidget::jumpToNextHunk);
     connect(m_toolbar, &Toolbar::jumpToPrevHunk, this, &DiffWidget::jumpToPrevHunk);
+    connect(m_toolbar, &Toolbar::reload, this, &DiffWidget::runGitDiff);
 
     KSharedConfig::Ptr config = KSharedConfig::openConfig();
     KConfigGroup cgGeneral = KConfigGroup(config, "General");
     handleStyleChange(cgGeneral.readEntry("Diff Show Style", (int)SideBySide));
+}
+
+void DiffWidget::showEvent(QShowEvent *e)
+{
+    if (m_params.flags & DiffParams::ReloadOnShow) {
+        runGitDiff();
+    }
+
+    QWidget::showEvent(e);
 }
 
 void DiffWidget::handleStyleChange(int newStyle)
@@ -446,6 +462,7 @@ void DiffWidget::diffDocs(KTextEditor::Document *l, KTextEditor::Document *r)
         }
     });
     m_params.arguments = git->arguments();
+    m_params.flags.setFlag(DiffParams::ReloadOnShow);
     git->start();
 }
 

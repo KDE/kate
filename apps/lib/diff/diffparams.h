@@ -19,6 +19,8 @@ struct DiffParams {
         ShowFileName = 8,
         /** show commit info with diff **/
         ShowCommitInfo = 16,
+        /** Reload diff view whenever its widget is shown */
+        ReloadOnShow = 32
     };
     Q_DECLARE_FLAGS(Flags, Flag)
     Q_FLAGS(Flags)

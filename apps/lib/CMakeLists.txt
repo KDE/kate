@@ -32,7 +32,7 @@ target_include_directories(
 )
 
 find_package(
-  KF5 ${KF5_DEP_VERSION}
+  KF${KF_MAJOR_VERSION} ${KF5_DEP_VERSION}
   QUIET
   REQUIRED
   COMPONENTS

@@ -1,6 +1,6 @@
 kate_add_plugin(ktexteditorpreviewplugin)
 target_compile_definitions(ktexteditorpreviewplugin PRIVATE TRANSLATION_DOMAIN="ktexteditorpreviewplugin")
-target_link_libraries(ktexteditorpreviewplugin PRIVATE KF5::I18n KF5::TextEditor)
+target_link_libraries(ktexteditorpreviewplugin PRIVATE KF${KF_MAJOR_VERSION}::I18n KF${KF_MAJOR_VERSION}::TextEditor)
 
 include(ECMQtDeclareLoggingCategory)
 ecm_qt_declare_logging_category(

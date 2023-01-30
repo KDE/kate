@@ -1,9 +1,9 @@
-find_package(KF5I18n ${KF5_DEP_VERSION} QUIET)
+find_package(KF${KF_MAJOR_VERSION}I18n ${KF5_DEP_VERSION} QUIET)
 if(NOT KF5I18n_FOUND)
     return()
 endif()
 
-find_package(KF5IconThemes ${KF5_DEP_VERSION} QUIET)
+find_package(KF${KF_MAJOR_VERSION}IconThemes ${KF5_DEP_VERSION} QUIET)
 if(NOT KF5IconThemes_FOUND)
     return()
 endif()
@@ -13,10 +13,10 @@ find_package(Qt${QT_MAJOR_VERSION}Test ${QT_MIN_VERSION} QUIET REQUIRED)
 kate_add_plugin(externaltoolsplugin)
 target_compile_definitions(externaltoolsplugin PRIVATE TRANSLATION_DOMAIN="kateexternaltoolsplugin")
 target_link_libraries(externaltoolsplugin PRIVATE
-    KF5::CoreAddons
-    KF5::IconThemes
-    KF5::TextEditor
-    KF5::I18n
+    KF${KF_MAJOR_VERSION}::CoreAddons
+    KF${KF_MAJOR_VERSION}::IconThemes
+    KF${KF_MAJOR_VERSION}::TextEditor
+    KF${KF_MAJOR_VERSION}::I18n
     kateprivate
 )
 

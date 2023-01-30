@@ -3,7 +3,7 @@ find_package(Qt${QT_MAJOR_VERSION}Test ${QT_MIN_VERSION} QUIET REQUIRED)
 kate_add_plugin(latexcompletionplugin)
 target_compile_definitions(latexcompletionplugin PRIVATE TRANSLATION_DOMAIN="latexcompletionplugin")
 
-target_link_libraries(latexcompletionplugin PRIVATE KF5::I18n KF5::TextEditor)
+target_link_libraries(latexcompletionplugin PRIVATE KF${KF_MAJOR_VERSION}::I18n KF${KF_MAJOR_VERSION}::TextEditor)
 
 target_sources(
   latexcompletionplugin

@@ -1,6 +1,6 @@
 add_library(cmaketoolsplugin MODULE "")
 target_compile_definitions(cmaketoolsplugin PRIVATE TRANSLATION_DOMAIN="cmaketoolsplugin")
-target_link_libraries(cmaketoolsplugin PRIVATE kateprivate KF5::I18n KF5::TextEditor)
+target_link_libraries(cmaketoolsplugin PRIVATE kateprivate KF${KF_MAJOR_VERSION}::I18n KF${KF_MAJOR_VERSION}::TextEditor)
 
 target_sources(
   cmaketoolsplugin

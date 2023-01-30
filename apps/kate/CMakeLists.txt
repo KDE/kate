@@ -1,6 +1,6 @@
 # Kate application
 
-find_package(KF5DBusAddons ${KF5_DEP_VERSION} REQUIRED)
+find_package(KF${KF_MAJOR_VERSION}DBusAddons ${KF5_DEP_VERSION} REQUIRED)
 
 if (UNIX AND NOT APPLE)
     if (QT_MAJOR_VERSION STREQUAL "5")
@@ -21,7 +21,7 @@ add_executable(kate-bin
     # single application handing for the non-dbus case
     SingleApplication/singleapplication.cpp
     SingleApplication/singleapplication_p.cpp)
-target_link_libraries(kate-bin PRIVATE kateprivate PUBLIC KF5::DBusAddons)
+target_link_libraries(kate-bin PRIVATE kateprivate PUBLIC KF${KF_MAJOR_VERSION}::DBusAddons)
 
 if (HAVE_X11)
     if (QT_MAJOR_VERSION STREQUAL "5")
@@ -29,6 +29,10 @@ if (HAVE_X11)
     else()
         target_link_libraries(kate-bin PRIVATE Qt::GuiPrivate)
     endif()
+endif()
+
+if (QT_MAJOR_VERSION STREQUAL "6")
+	target_link_libraries(kate-bin PRIVATE Qt::Core5Compat)
 endif()
 
 if (NOT WIN32 AND NOT HAIKU)

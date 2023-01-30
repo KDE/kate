@@ -7,8 +7,8 @@ find_package(Qt${QT_MAJOR_VERSION}Test ${QT_MIN_VERSION} QUIET REQUIRED)
 target_link_libraries(
   gdbplugin_test
   PRIVATE
-    KF5::I18n
-    KF5::TextEditor
+    KF${KF_MAJOR_VERSION}::I18n
+    KF${KF_MAJOR_VERSION}::TextEditor
     Qt::Test
 )
 

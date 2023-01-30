@@ -8,7 +8,7 @@ target_link_libraries(
   test_formatapply
   PRIVATE
     kateprivate
-    KF5::TextEditor
+    KF${KF_MAJOR_VERSION}::TextEditor
     Qt::Test
 )
 

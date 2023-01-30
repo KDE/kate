@@ -2,7 +2,18 @@
 # SPDX-License-Identifier: CC0-1.0
 
 Dependencies:
-- 'on': ['Linux', 'FreeBSD', 'Windows', 'macOS']
+- 'on': ['Linux/Qt6', 'FreeBSD/Qt6', 'Windows/Qt6', 'macOS/Qt6']
+  'require':
+    'frameworks/extra-cmake-modules': '@latest-kf6'
+    'frameworks/kdoctools': '@latest-kf6'
+    'frameworks/ki18n': '@latest-kf6'
+    'frameworks/kiconthemes': '@latest-kf6'
+    'frameworks/knewstuff': '@latest-kf6'
+    'frameworks/ktexteditor': '@latest-kf6'
+    'frameworks/ktextwidgets': '@latest-kf6'
+    'libraries/kuserfeedback': '@latest-kf6'
+
+- 'on': ['Linux/Qt5', 'FreeBSD/Qt5', 'Windows/Qt5', 'macOS/Qt5']
   'require':
     'frameworks/extra-cmake-modules': '@stable'
     'frameworks/kdoctools': '@stable'
@@ -13,9 +24,13 @@ Dependencies:
     'frameworks/ktextwidgets': '@stable'
     'libraries/kuserfeedback': '@stable'
 
-- 'on': ['Linux', 'FreeBSD']
+- 'on': ['Linux/Qt5', 'FreeBSD/Qt5']
   'require':
     'frameworks/kactivities': '@stable'
+
+- 'on': ['Linux/Qt6', 'FreeBSD/Qt6']
+  'require':
+    'frameworks/kactivities': '@latest-kf6'
 
 Options:
   require-passing-tests-on: [ 'Linux', 'FreeBSD', 'Windows' ]

@@ -1,4 +1,4 @@
-find_package(KF5DocTools ${KF5_DEP_VERSION} QUIET)
+find_package(KF${KF_MAJOR_VERSION}DocTools ${KF5_DEP_VERSION} QUIET)
 
 if(NOT KF5DocTools_FOUND)
   return()

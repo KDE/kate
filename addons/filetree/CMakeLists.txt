@@ -1,5 +1,5 @@
-find_package(KF5GuiAddons ${KF5_DEP_VERSION} QUIET)
-set_package_properties(KF5GuiAddons PROPERTIES PURPOSE "Required to build the katefiletree addon")
+find_package(KF${KF_MAJOR_VERSION}GuiAddons ${KF5_DEP_VERSION} QUIET)
+set_package_properties(KF${KF_MAJOR_VERSION}GuiAddons PROPERTIES PURPOSE "Required to build the katefiletree addon")
 
 if(NOT KF5GuiAddons_FOUND)
   return()
@@ -13,9 +13,9 @@ target_link_libraries(
   katefiletreeplugin
   PUBLIC
     kateprivate
-    KF5::I18n
-    KF5::TextEditor
-    KF5::GuiAddons
+    KF${KF_MAJOR_VERSION}::I18n
+    KF${KF_MAJOR_VERSION}::TextEditor
+    KF${KF_MAJOR_VERSION}::GuiAddons
 )
 
 target_sources(

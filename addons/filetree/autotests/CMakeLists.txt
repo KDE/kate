@@ -8,9 +8,9 @@ target_link_libraries(
   filetree_model_test
   PRIVATE
     kateprivate
-    KF5::GuiAddons
-    KF5::I18n
-    KF5::TextEditor
+    KF${KF_MAJOR_VERSION}::GuiAddons
+    KF${KF_MAJOR_VERSION}::I18n
+    KF${KF_MAJOR_VERSION}::TextEditor
     Qt::Test
 )
 

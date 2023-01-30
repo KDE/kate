@@ -8,8 +8,8 @@ target_link_libraries(
   projectplugin_test 
   PRIVATE
     kateprivate
-    KF5::I18n
-    KF5::TextEditor
+    KF${KF_MAJOR_VERSION}::I18n
+    KF${KF_MAJOR_VERSION}::TextEditor
     Qt::Test
 )
 

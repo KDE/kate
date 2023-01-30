@@ -1,6 +1,6 @@
 kate_add_plugin(katectagsplugin)
 target_compile_definitions(katectagsplugin PRIVATE TRANSLATION_DOMAIN="kate-ctags-plugin")
-target_link_libraries(katectagsplugin PRIVATE kateprivate KF5::I18n KF5::TextEditor)
+target_link_libraries(katectagsplugin PRIVATE kateprivate KF${KF_MAJOR_VERSION}::I18n KF${KF_MAJOR_VERSION}::TextEditor)
 
 ki18n_wrap_ui(katectagsplugin kate_ctags.ui CTagsGlobalConfig.ui)
 

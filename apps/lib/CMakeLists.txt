@@ -44,22 +44,26 @@ find_package(
 )
 
 if (NOT WIN32 AND NOT APPLE)
-    find_package(KF5 ${KF5_DEP_VERSION} OPTIONAL_COMPONENTS Activities)
+    find_package(KF${KF_MAJOR_VERSION} ${KF5_DEP_VERSION} OPTIONAL_COMPONENTS Activities)
 endif()
 
 target_link_libraries(
   kateprivate
   PUBLIC
-    KF5::CoreAddons
-    KF5::Crash
-    KF5::I18n
-    KF5::IconThemes
-    KF5::TextEditor
-    KF5::TextWidgets
-    KF5::WindowSystem
-    KF5::KIOGui
-    KF5::KIOWidgets
+    KF${KF_MAJOR_VERSION}::CoreAddons
+    KF${KF_MAJOR_VERSION}::Crash
+    KF${KF_MAJOR_VERSION}::I18n
+    KF${KF_MAJOR_VERSION}::IconThemes
+    KF${KF_MAJOR_VERSION}::TextEditor
+    KF${KF_MAJOR_VERSION}::TextWidgets
+    KF${KF_MAJOR_VERSION}::WindowSystem
+    KF${KF_MAJOR_VERSION}::KIOGui
+    KF${KF_MAJOR_VERSION}::KIOWidgets
 )
+
+if (TARGET Qt6::Core5Compat)
+    target_link_libraries(kateprivate PRIVATE Qt6::Core5Compat) # QTextCodec
+endif()
 
 if(KF5Activities_FOUND)
   target_link_libraries(kateprivate PUBLIC KF5::Activities)

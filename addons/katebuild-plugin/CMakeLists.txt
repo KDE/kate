@@ -1,6 +1,6 @@
 kate_add_plugin(katebuildplugin)
 target_compile_definitions(katebuildplugin PRIVATE TRANSLATION_DOMAIN="katebuild-plugin")
-target_link_libraries(katebuildplugin PRIVATE KF5::I18n KF5::TextEditor kateprivate)
+target_link_libraries(katebuildplugin PRIVATE KF${KF_MAJOR_VERSION}::I18n KF${KF_MAJOR_VERSION}::TextEditor kateprivate)
 
 ki18n_wrap_ui(katebuildplugin build.ui)
 

@@ -5,7 +5,7 @@ endif()
 
 kate_add_plugin(kategdbplugin)
 target_compile_definitions(kategdbplugin PRIVATE TRANSLATION_DOMAIN="kategdbplugin")
-target_link_libraries(kategdbplugin PRIVATE kateprivate KF5::I18n KF5::TextEditor)
+target_link_libraries(kategdbplugin PRIVATE kateprivate KF${KF_MAJOR_VERSION}::I18n KF${KF_MAJOR_VERSION}::TextEditor)
 
 include(ECMQtDeclareLoggingCategory)
 ecm_qt_declare_logging_category(
@@ -56,6 +56,10 @@ target_sources(
 
     plugin.qrc 
 )
+
+if (TARGET Qt6::Core5Compat)
+    target_link_libraries(kategdbplugin PRIVATE Qt6::Core5Compat) # QTextCodec
+endif()
 
 if(BUILD_TESTING)
   add_subdirectory(autotests)

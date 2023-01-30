@@ -1,6 +1,6 @@
 kate_add_plugin(tabswitcherplugin)
 target_compile_definitions(tabswitcherplugin PRIVATE TRANSLATION_DOMAIN="tabswitcherplugin")
-target_link_libraries(tabswitcherplugin PRIVATE KF5::I18n KF5::TextEditor)
+target_link_libraries(tabswitcherplugin PRIVATE KF${KF_MAJOR_VERSION}::I18n KF${KF_MAJOR_VERSION}::TextEditor)
 
 target_sources(
   tabswitcherplugin 

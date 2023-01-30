@@ -1,9 +1,9 @@
 # KWrite application
 
-find_package(KF5DBusAddons ${KF5_DEP_VERSION} REQUIRED)
+find_package(KF${KF_MAJOR_VERSION}DBusAddons ${KF5_DEP_VERSION} REQUIRED)
 
 add_executable(kwrite main.cpp  data/kwrite.qrc)
-target_link_libraries(kwrite PRIVATE kateprivate PUBLIC KF5::DBusAddons)
+target_link_libraries(kwrite PRIVATE kateprivate PUBLIC KF${KF_MAJOR_VERSION}::DBusAddons)
 
 if (NOT WIN32 AND NOT HAIKU)
     target_include_directories(kwrite PRIVATE ${Intl_INCLUDE_DIRS})

@@ -2,8 +2,8 @@ function (kate_add_plugin name)
     kcoreaddons_add_plugin(${name} INSTALL_NAMESPACE "ktexteditor")
 endfunction()
 
-# Most plugins will need to link against KF5TextEditor to have access to its plugin interface.
-find_package(KF5TextEditor ${KF5_DEP_VERSION} QUIET REQUIRED)
+# Most plugins will need to link against KF${KF_MAJOR_VERSION}TextEditor to have access to its plugin interface.
+find_package(KF${KF_MAJOR_VERSION}TextEditor ${KF5_DEP_VERSION} QUIET REQUIRED)
 
 # python plugin, purely optional ATM
 option(BUILD_PYTHON_BINDINGS "Enable building python bindings" OFF)

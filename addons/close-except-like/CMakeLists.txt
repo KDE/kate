@@ -4,8 +4,8 @@ target_compile_definitions(katecloseexceptplugin PRIVATE TRANSLATION_DOMAIN="kat
 target_link_libraries(
   katecloseexceptplugin
   PRIVATE
-    KF5::I18n
-    KF5::TextEditor
+    KF${KF_MAJOR_VERSION}::I18n
+    KF${KF_MAJOR_VERSION}::TextEditor
 )
 
 ki18n_wrap_ui(katecloseexceptplugin close_confirm_dialog.ui)

@@ -1,6 +1,6 @@
 kate_add_plugin(compilerexplorer)
 target_compile_definitions(compilerexplorer PRIVATE TRANSLATION_DOMAIN="compilerexplorer")
-target_link_libraries(compilerexplorer PRIVATE kateprivate KF5::I18n KF5::TextEditor)
+target_link_libraries(compilerexplorer PRIVATE kateprivate KF${KF_MAJOR_VERSION}::I18n KF${KF_MAJOR_VERSION}::TextEditor)
 
 target_sources(
   compilerexplorer

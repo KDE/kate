@@ -38,6 +38,10 @@ target_sources(
     plugin.qrc
 )
 
+if (TARGET Qt6::Core5Compat)
+    target_link_libraries(lspclientplugin PRIVATE Qt6::Core5Compat) # QTextCodec
+endif()
+
 if(BUILD_TESTING)
   add_subdirectory(tests)
 endif()

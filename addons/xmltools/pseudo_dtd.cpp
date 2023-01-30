@@ -22,7 +22,7 @@
 
 #include "pseudo_dtd.h"
 
-#include <QRegExp>
+// #include <QRegExp>
 
 #include <KLocalizedString>
 #include <KMessageBox>

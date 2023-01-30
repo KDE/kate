@@ -34,6 +34,13 @@ include(ECMOptionalAddSubdirectory)
 include(ECMAddAppIcon)
 include(ECMInstallIcons)
 include(ECMDeprecationSettings)
+if (QT_MAJOR_VERSION STREQUAL "6")
+    set(QT_REQUIRED_VERSION "6.4.0")
+    set(KF_MIN_VERSION "5.240.0")
+    set(KF_MAJOR_VERSION "6")
+else()
+    set(KF_MAJOR_VERSION "5")
+endif()
 
 include(FeatureSummary)
 include(FindIntl)
@@ -43,11 +50,20 @@ add_definitions(-DQT_NO_FOREACH)
 
 # Required here so that the version comparison below works
 find_package(Qt${QT_MAJOR_VERSION}Widgets ${QT_MIN_VERSION} CONFIG REQUIRED)
+if (QT_MAJOR_VERSION STREQUAL "6")
+    find_package(Qt6Core5Compat)
+endif()
 
 # Required here so that the ki18n_install/kdoctools_install calls work.
-find_package(KF5 ${KF5_DEP_VERSION}
+find_package(KF${KF_MAJOR_VERSION} ${KF5_DEP_VERSION}
     REQUIRED COMPONENTS
         I18n
+        CoreAddons
+        GuiAddons
+	NewStuff
+	Crash
+	IconThemes
+	TextEditor
     OPTIONAL_COMPONENTS
         DocTools
 )

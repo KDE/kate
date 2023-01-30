@@ -7,7 +7,7 @@ find_package(Qt${QT_MAJOR_VERSION}Test ${QT_MIN_VERSION} QUIET REQUIRED)
 target_link_libraries(
   tabswitcher_test 
   PRIVATE
-    KF5::TextEditor
+    KF${KF_MAJOR_VERSION}::TextEditor
     Qt::Test
 )
 

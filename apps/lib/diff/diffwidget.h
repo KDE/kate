@@ -6,6 +6,8 @@
 #include "diffeditor.h"
 #include <QWidget>
 
+#include "kateprivate_export.h"
+
 #include <KTextEditor/Document>
 
 namespace KSyntaxHighlighting
@@ -28,10 +30,11 @@ private:
     static DiffWidget *existingDiffWidgetForParams(KateMainWindow *mw, const DiffParams &p);
 };
 
-class DiffWidget : public QWidget
+class KATE_PRIVATE_EXPORT DiffWidget : public QWidget
 {
     Q_OBJECT
     friend DiffWidgetManager;
+    friend class DiffWidgetTests;
 
 public:
     explicit DiffWidget(DiffParams p, QWidget *parent = nullptr);

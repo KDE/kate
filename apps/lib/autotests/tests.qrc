@@ -1,6 +1,8 @@
+<?xml version="1.0"?>
 <!DOCTYPE RCC>
 <RCC version="1.0">
     <qresource prefix="/kxmlgui5/kate">
         <file alias="kateui.rc">../data/kateui.rc</file>
+        <file>data/test.diff</file>
     </qresource>
 </RCC>

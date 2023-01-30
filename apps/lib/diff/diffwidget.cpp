@@ -994,8 +994,14 @@ void DiffWidget::openDiff(const QByteArray &raw)
         leftHl->setDefinition(KTextEditor::Editor::instance()->repository().definitionForName(QStringLiteral("Diff")));
     }
     m_rawDiff = raw;
-    m_left->verticalScrollBar()->setValue(0);
-    m_right->verticalScrollBar()->setValue(0);
+
+    QMetaObject::invokeMethod(
+        this,
+        [this] {
+            m_left->verticalScrollBar()->setValue(0);
+            m_right->verticalScrollBar()->setValue(0);
+        },
+        Qt::QueuedConnection);
 }
 
 void DiffWidget::onTextReceived(const QByteArray &raw)

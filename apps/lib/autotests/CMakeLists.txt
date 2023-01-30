@@ -27,4 +27,5 @@ kate_executable_tests(
   location_history_test
   kate_view_mgmt_tests
   bytearraysplitter_tests
+  diffwidget_tests
 )

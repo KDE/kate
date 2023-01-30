@@ -1,0 +1,163 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index d582ec6d0..c7fe5638e 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -69,9 +69,9 @@ ecm_optional_add_subdirectory(apps)
+ # our documentation
+ ecm_optional_add_subdirectory(doc)
+ 
+-ki18n_install(po)
++# ki18n_install(po)
+ if(KF5DocTools_FOUND)
+-    kdoctools_install(po)
++    # kdoctools_install(po)
+ endif()
+ 
+ feature_summary(INCLUDE_QUIET_PACKAGES WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
+diff --git a/addons/CMakeLists.txt b/addons/CMakeLists.txt
+index 277a5f214..a8fa2ab33 100644
+--- a/addons/CMakeLists.txt
++++ b/addons/CMakeLists.txt
+@@ -28,7 +28,7 @@ ecm_optional_add_subdirectory(git-blame) # Inline git-blame viewer
+ ecm_optional_add_subdirectory(kate-ctags)
+ ecm_optional_add_subdirectory(katebuild-plugin)
+ ecm_optional_add_subdirectory(katesql)
+-ecm_optional_add_subdirectory(konsole)
++# ecm_optional_add_subdirectory(konsole)
+ ecm_optional_add_subdirectory(latexunicodecompletion)
+ ecm_optional_add_subdirectory(lspclient) # Language Server Protocol (LSP) client plugin.
+ ecm_optional_add_subdirectory(preview) # Live preview of sources in target format.
+@@ -46,6 +46,7 @@ ecm_optional_add_subdirectory(cmake-tools)
+ ecm_optional_add_subdirectory(keyboardmacros)
+ ecm_optional_add_subdirectory(format)
+ ecm_optional_add_subdirectory(eslint)
++ecm_optional_add_subdirectory(vterm)
+ 
+ # TODO KF6 remove the migration leftovers
+ if(QT_MAJOR_VERSION STREQUAL "5")
+diff --git a/addons/project/kateprojectinfoviewterminal.cpp b/addons/project/kateprojectinfoviewterminal.cpp
+index 86d42894a..63246273a 100644
+--- a/addons/project/kateprojectinfoviewterminal.cpp
++++ b/addons/project/kateprojectinfoviewterminal.cpp
+@@ -86,6 +86,13 @@ void KateProjectInfoViewTerminal::showEvent(QShowEvent *)
+     }
+ }
+ 
++void KateProjectInfoViewTerminal::hideEvent(QHideEvent *)
++{
++    if (m_searchInFilesAction) {
++        m_searchInFilesAction->setEnabled(true);
++    }
++}
++
+ void KateProjectInfoViewTerminal::loadTerminal()
+ {
+     /**
+diff --git a/addons/project/kateprojectinfoviewterminal.h b/addons/project/kateprojectinfoviewterminal.h
+index e1f231648..499784266 100644
+--- a/addons/project/kateprojectinfoviewterminal.h
++++ b/addons/project/kateprojectinfoviewterminal.h
+@@ -73,6 +73,7 @@ protected:
+      * @param ev show event
+      */
+     void showEvent(QShowEvent *ev) override;
++    void hideEvent(QHideEvent *ev) override;
+ 
+ private:
+     /**
+diff --git a/addons/python/CMakeLists.txt b/addons/python/CMakeLists.txt
+index 0bbaa531e..bff21cd7b 100644
+--- a/addons/python/CMakeLists.txt
++++ b/addons/python/CMakeLists.txt
+@@ -16,7 +16,7 @@ if(NOT DEFINED PYSIDE_CUSTOM_PREFIX) #look for pyside in a custom location
+     set(PYSIDE_CUSTOM_PREFIX "")
+ endif()
+ 
+-if(${PROJECT_NAME}_QT6)
++if(QT_MAJOR_VERSION STREQUAL "6")
+     set(PYSIDE_MAJOR_VERSION "6")
+     set(PYTHON_BINDING_NAMESPACE "${PYTHON_BINDING_NAMESPACE}Qt${PYSIDE_MAJOR_VERSION}")
+     set(QtWidgets_VERSION ${Qt6Widgets_VERSION})
+@@ -51,8 +51,8 @@ target_link_libraries(
+   PRIVATE
+     KF5::I18n
+     KF5::TextEditor
+-    Shiboken2::libshiboken
+-    PySide2::pyside2
++    Shiboken6::libshiboken
++    PySide6::pyside6
+     ${Python3_LIBRARIES}
+     PyKate
+ )
+diff --git a/apps/lib/CMakeLists.txt b/apps/lib/CMakeLists.txt
+index a87afe131..65d813e51 100644
+--- a/apps/lib/CMakeLists.txt
++++ b/apps/lib/CMakeLists.txt
+@@ -67,11 +67,11 @@ if(KF5Activities_FOUND)
+ endif()
+ 
+ # optional KUserFeedback integration
+-find_package(KUserFeedback)
+-if (TARGET KUserFeedbackWidgets)
+-    target_link_libraries(kateprivate PRIVATE KUserFeedbackWidgets)
+-    target_compile_definitions(kateprivate PUBLIC -DWITH_KUSERFEEDBACK)
+-endif()
++# find_package(KUserFeedback)
++# if (TARGET KUserFeedbackWidgets)
++#     target_link_libraries(kateprivate PRIVATE KUserFeedbackWidgets)
++#     target_compile_definitions(kateprivate PUBLIC -DWITH_KUSERFEEDBACK)
++# endif()
+ 
+ ki18n_wrap_ui(kateprivate ui/sessionconfigwidget.ui welcomeview/welcomeview.ui session/katesessionmanagedialog.ui)
+ 
+diff --git a/apps/lib/autotests/CMakeLists.txt b/apps/lib/autotests/CMakeLists.txt
+index 869e95abf..b08c0eac3 100644
+--- a/apps/lib/autotests/CMakeLists.txt
++++ b/apps/lib/autotests/CMakeLists.txt
+@@ -27,4 +27,5 @@ kate_executable_tests(
+   location_history_test
+   kate_view_mgmt_tests
+   bytearraysplitter_tests
++  diffwidget_tests
+ )
+diff --git a/apps/lib/diff/diffwidget.cpp b/apps/lib/diff/diffwidget.cpp
+index 462554fe2..db07c7946 100644
+--- a/apps/lib/diff/diffwidget.cpp
++++ b/apps/lib/diff/diffwidget.cpp
+@@ -994,6 +994,10 @@ void DiffWidget::openDiff(const QByteArray &raw)
+         leftHl->setDefinition(KTextEditor::Editor::instance()->repository().definitionForName(QStringLiteral("Diff")));
+     }
+     m_rawDiff = raw;
++    QFile f(QStringLiteral("/home/waqar/kde/src/utilities/kate/build/out.diff"));
++    if (f.open(QFile::WriteOnly)) {
++        f.write(m_rawDiff);
++    }
+     QMetaObject::invokeMethod(
+         this,
+         [this] {
+diff --git a/apps/lib/diff/diffwidget.h b/apps/lib/diff/diffwidget.h
+index 7a299f754..fa566a230 100644
+--- a/apps/lib/diff/diffwidget.h
++++ b/apps/lib/diff/diffwidget.h
+@@ -6,6 +6,8 @@
+ #include "diffeditor.h"
+ #include <QWidget>
+ 
++#include "kateprivate_export.h"
++
+ #include <KTextEditor/Document>
+ 
+ namespace KSyntaxHighlighting
+@@ -28,10 +30,11 @@ private:
+     static DiffWidget *existingDiffWidgetForParams(KateMainWindow *mw, const DiffParams &p);
+ };
+ 
+-class DiffWidget : public QWidget
++class KATE_PRIVATE_EXPORT_H DiffWidget : public QWidget
+ {
+     Q_OBJECT
+     friend DiffWidgetManager;
++    friend class DiffWidgetTests;
+ 
+ public:
+     explicit DiffWidget(DiffParams p, QWidget *parent = nullptr);

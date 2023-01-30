@@ -21,6 +21,17 @@ This starts a new document in a new and independent editor window.
 </listitem>
 </varlistentry>
 
+<varlistentry id="file-new-window">
+<term><menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>New Window</guimenuitem>
+</menuchoice></term>
+<listitem>
+<para>Create another window containing the current document. All changes to the
+document in one window are reflected in the other window and vice versa.</para>
+</listitem>
+</varlistentry>
+
 <varlistentry id="file-open">
 <term><menuchoice>
 <shortcut>
@@ -255,6 +266,17 @@ transfer data between applications.</para>
 </listitem>
 </varlistentry>
 
+<varlistentry id="edit-copy-as-html">
+<term><menuchoice>
+<guimenu>Edit</guimenu>
+<guimenuitem>Copy as HTML</guimenuitem>
+</menuchoice></term>
+<listitem>
+<para>Copy the selection as &HTML;, formatted using the current syntax
+highlighting and color scheme settings.</para>
+</listitem>
+</varlistentry>
+
 <varlistentry id="edit-paste">
 <term><menuchoice>
 <shortcut>
@@ -297,23 +319,10 @@ transfer data between applications.</para>
 <varlistentry id="edit-clipboard-history">
 <term><menuchoice>
 <guimenu>Edit</guimenu>
-<guisubmenu>Clipboard History</guisubmenu>
+<guimenuitem>Clipboard History Paste</guimenuitem>
 </menuchoice></term>
 <listitem>
-<para>This submenu will display the beginning of portions of text recently
-copied to the clipboard.  Select an item from this menu to paste it in the
-currently open file.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry id="edit-copy-as-html">
-<term><menuchoice>
-<guimenu>Edit</guimenu>
-<guimenuitem>Copy as HTML</guimenuitem>
-</menuchoice></term>
-<listitem>
-<para>Copy the selection as &HTML;, formatted using the current syntax
-highlighting and color scheme settings.</para>
+<para>This will open a dialog to select and paste an entry from the clipboard history.</para>
 </listitem>
 </varlistentry>
 
@@ -346,6 +355,17 @@ insert characters where the cursor is. When the mode is <guilabel>OVR</guilabel>
 characters will replace the current characters if your cursor is positioned
 before any character. The status bar shows the current state of the Overwrite
 Mode, either <guilabel>INS</guilabel> or <guilabel>OVR</guilabel>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-read-only">
+<term><menuchoice>
+<guimenu>Edit</guimenu>
+<guimenuitem>Read Only Mode</guimenuitem>
+</menuchoice></term>
+<listitem>
+<para>Set the current document to Read Only mode. This prevents any text
+addition and any changes in the document formatting.</para>
 </listitem>
 </varlistentry>
 
@@ -487,20 +507,6 @@ number of found matches in a small popup.
 button at the right side of the power search and replace bar to
 switch to the incremental search bar.
 </para>
-</listitem>
-</varlistentry>
-
-<varlistentry id="edit-go-to-matching-bracket">
-<term><menuchoice>
-<shortcut>
-<keycombo action="simul">&Ctrl;<keycap>6</keycap></keycombo>
-</shortcut>
-<guimenu>Edit</guimenu>
-<guisubmenu>Go To</guisubmenu>
-<guimenuitem>Go to Matching Bracket</guimenuitem>
-</menuchoice></term>
-<listitem>
-<para>Move the cursor to the associated opening or closing bracket.</para>
 </listitem>
 </varlistentry>
 
@@ -713,6 +719,66 @@ in the Editing tab in <menuchoice>
 Editor...</guimenuitem></menuchoice> menu.</para></listitem>
 </varlistentry>
 
+<varlistentry id="selection-add-caret-above-cursor">
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;&Alt;&Up;</keycombo>
+</shortcut>
+<guimenu>Selection</guimenu>
+<guimenuitem>Add Caret above Cursor</guimenuitem>
+</menuchoice></term>
+<listitem><para>Adds another caret above the current cursor. The caret is placed in the line directly above and in the same column as the current cursor.
+</para></listitem>
+</varlistentry>
+
+<varlistentry id="selection-add-caret-below-cursor">
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;&Alt;&Down;</keycombo>
+</shortcut>
+<guimenu>Selection</guimenu>
+<guimenuitem>Add Caret below Cursor</guimenuitem>
+</menuchoice></term>
+<listitem><para>Adds another caret below the current cursor. The caret is placed in the line directly above and in the same column as the current cursor.
+</para></listitem>
+</varlistentry>
+
+<varlistentry id="selection-add-cursors-to-line-ends">
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Alt;&Shift;<keycap>I</keycap></keycombo>
+</shortcut>
+<guimenu>Selection</guimenu>
+<guimenuitem>Add Cursors to Line Ends</guimenuitem>
+</menuchoice></term>
+<listitem><para>Adds a cursor to every currently selected line.
+</para></listitem>
+</varlistentry>
+
+<varlistentry id="selection-find-and-select-next-occurrence">
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Alt;<keycap>J</keycap></keycombo>
+</shortcut>
+<guimenu>Selection</guimenu>
+<guimenuitem>Find and Select Next Occurrence</guimenuitem>
+</menuchoice></term>
+<listitem><para>Finds the next occurrence of the word currently under the cursor, selects it and adds a cursor.
+</para></listitem>
+</varlistentry>
+
+<varlistentry id="selection-find-and-select-all-occurrences">
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;&Alt;&Shift;<keycap>J</keycap></keycombo>
+</shortcut>
+<guimenu>Selection</guimenu>
+<guimenuitem>Find and Select All Occurrences</guimenuitem>
+</menuchoice></term>
+<listitem><para>Finds all occurrences of the word currently under the cursor, selects them and adds a cursor for each of them.
+</para></listitem>
+</varlistentry>
+
 </variablelist>
 
 </sect1>
@@ -722,34 +788,6 @@ Editor...</guimenuitem></menuchoice> menu.</para></listitem>
 <title>The View Menu</title>
 
 <variablelist>
-
-<varlistentry id="view-new-window">
-<term><menuchoice>
-<guimenu>View</guimenu>
-<guimenuitem>New Window</guimenuitem>
-</menuchoice></term>
-<listitem>
-<para>Create another window containing the current document. All changes to the
-document in one window are reflected in the other window and vice versa.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry id="view-command-line">
-<term><menuchoice>
-<shortcut>
-<keycap>F7</keycap>
-</shortcut>
-<guimenu>View</guimenu>
-<guimenuitem>Switch to Command Line</guimenuitem>
-</menuchoice></term>
-<listitem>
-<para>Displays the &katepart; command line at the bottom of the window.
-In the command line, type <userinput>help</userinput> to get help and <userinput>help list</userinput>
-to get a list of commands.  For more information on the command line, see
-<link linkend="advanced-editing-tools-commandline">The Editor
-Component Command Line</link>.</para>
-</listitem>
-</varlistentry>
 
 <varlistentry id="view-enlarge-font">
 <term><menuchoice>
@@ -885,9 +923,9 @@ folding</ulink>:</para>
 
 <varlistentry id="view-show-folding-markers">
 <term><menuchoice>
-<shortcut>
-<keycombo action="simul"><keycap>F9</keycap></keycombo>
-</shortcut>
+<guimenu>View</guimenu>
+<guisubmenu>Borders</guisubmenu>
+<guisubmenu>Code Folding</guisubmenu>
 <guimenuitem>Show Folding Markers</guimenuitem>
 </menuchoice></term>
 <listitem><para>Toggles the display of the folding marker pane in the left
@@ -896,6 +934,8 @@ side of the view.</para></listitem>
 
 <varlistentry id="view-fold-current-node">
 <term><menuchoice>
+<guimenu>View</guimenu>
+<guisubmenu>Code Folding</guisubmenu>
 <guimenuitem>Fold Current Node</guimenuitem>
 </menuchoice></term>
 <listitem><para>Collapse the region that contains the cursor.</para></listitem>
@@ -903,6 +943,8 @@ side of the view.</para></listitem>
 
 <varlistentry id="view-unfold-current-node">
 <term><menuchoice>
+<guimenu>View</guimenu>
+<guisubmenu>Code Folding</guisubmenu>
 <guimenuitem>Unfold Current Node</guimenuitem>
 </menuchoice></term>
 <listitem><para>Expand the region that contains the cursor.</para></listitem>
@@ -913,6 +955,8 @@ side of the view.</para></listitem>
 <shortcut>
 <keycombo action="simul">&Ctrl;&Shift;<keycap>-</keycap></keycombo>
 </shortcut>
+<guimenu>View</guimenu>
+<guisubmenu>Code Folding</guisubmenu>
 <guimenuitem>Fold Toplevel Nodes</guimenuitem>
 </menuchoice></term>
 <listitem><para>Collapse all toplevel regions in the document.
@@ -924,6 +968,7 @@ Click on the right pointing triangle to expand all toplevel regions.</para></lis
 <shortcut>
 <keycombo action="simul">&Ctrl;&Shift;<keycap>+</keycap></keycombo>
 </shortcut>
+<guisubmenu>Code Folding</guisubmenu>
 <guimenuitem>Unfold Toplevel Nodes</guimenuitem>
 </menuchoice></term>
 <listitem><para>Expand all toplevel regions in the document.</para></listitem>
@@ -1016,6 +1061,19 @@ arrow decrease it. Close the bar with a click on the button with an icon on the 
 <listitem>
 <para>Lines that were changed since opening the file are called modified lines. This action jumps the next modified line.
 </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="go-go-to-matching-bracket">
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;<keycap>6</keycap></keycombo>
+</shortcut>
+<guimenu>Go</guimenu>
+<guimenuitem>Go to Matching Bracket</guimenuitem>
+</menuchoice></term>
+<listitem>
+<para>Move the cursor to the associated opening or closing bracket.</para>
 </listitem>
 </varlistentry>
 
@@ -1118,17 +1176,6 @@ below the cursor.</para></listitem>
 
 <variablelist>
 
-<varlistentry id="tools-read-only">
-<term><menuchoice>
-<guimenu>Tools</guimenu>
-<guimenuitem>Read Only Mode</guimenuitem>
-</menuchoice></term>
-<listitem>
-<para>Set the current document to Read Only mode. This prevents any text
-addition and any changes in the document formatting.</para>
-</listitem>
-</varlistentry>
-
 <varlistentry id="tools-filetype">
 <term><menuchoice>
 <guimenu>Tools</guimenu>
@@ -1182,19 +1229,6 @@ set here will be only valid for your current document.</para>
 </listitem>
 </varlistentry>
 
-<varlistentry id="tools-end-of-line">
-<term><menuchoice>
-<guimenu>Tools</guimenu>
-<guisubmenu>End of Line</guisubmenu>
-</menuchoice></term>
-<listitem>
-<para>Choose your preferred end of line mode for your active
-document. This overwrites the global end of line mode set in <menuchoice>
-<guimenu>Settings</guimenu><guimenuitem>Configure Editor...</guimenuitem>
-</menuchoice> for your current document only.</para>
-</listitem>
-</varlistentry>
-
 <varlistentry id="tools-add-byte-mark-order">
 <term><menuchoice>
 <guimenu>Tools</guimenu>
@@ -1205,6 +1239,19 @@ document. This overwrites the global end of line mode set in <menuchoice>
 encoded documents. The byte order mark (BOM) is a Unicode character used to signal
 the endianness (byte order) of a text file or stream, for more information see
 <ulink url="https://en.wikipedia.org/wiki/Byte_order_mark">Byte Order Mark</ulink>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-end-of-line">
+<term><menuchoice>
+<guimenu>Tools</guimenu>
+<guisubmenu>End of Line</guisubmenu>
+</menuchoice></term>
+<listitem>
+<para>Choose your preferred end of line mode for your active
+document. This overwrites the global end of line mode set in <menuchoice>
+<guimenu>Settings</guimenu><guimenuitem>Configure Editor...</guimenuitem>
+</menuchoice> for your current document only.</para>
 </listitem>
 </varlistentry>
 
@@ -1573,6 +1620,23 @@ For example, if <userinput>4.5</userinput> is selected, it will become
 
 </variablelist>
 
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-command-line">
+<term><menuchoice>
+<shortcut>
+<keycap>F7</keycap>
+</shortcut>
+<guimenu>Tools</guimenu>
+<guimenuitem>Switch to Command Line</guimenuitem>
+</menuchoice></term>
+<listitem>
+<para>Displays the &katepart; command line at the bottom of the window.
+In the command line, type <userinput>help</userinput> to get help and <userinput>help list</userinput>
+to get a list of commands.  For more information on the command line, see
+<link linkend="advanced-editing-tools-commandline">The Editor
+Component Command Line</link>.</para>
 </listitem>
 </varlistentry>
 

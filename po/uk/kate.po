@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-25 01:01+0000\n"
+"POT-Creation-Date: 2023-01-30 01:01+0000\n"
 "PO-Revision-Date: 2023-01-12 08:55+0200\n"
 "Last-Translator: Fracture dept <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -325,74 +325,74 @@ msgstr ""
 msgid "Quick Fix"
 msgstr "Швидке виправлення"
 
-#: lib/diagnostics/diagnosticview.cpp:288
+#: lib/diagnostics/diagnosticview.cpp:290
 #, kde-format
 msgid "Filter..."
 msgstr "Фільтрувати…"
 
-#: lib/diagnostics/diagnosticview.cpp:833 lib/kateconfigdialog.cpp:391
+#: lib/diagnostics/diagnosticview.cpp:835 lib/kateconfigdialog.cpp:391
 #, kde-format
 msgid "Error"
 msgstr "Помилка"
 
-#: lib/diagnostics/diagnosticview.cpp:837 lib/kateconfigdialog.cpp:391
+#: lib/diagnostics/diagnosticview.cpp:839 lib/kateconfigdialog.cpp:391
 #: lib/kateconfigdialog.cpp:937
 #, kde-format
 msgid "Warning"
 msgstr "Попередження"
 
-#: lib/diagnostics/diagnosticview.cpp:841
+#: lib/diagnostics/diagnosticview.cpp:843
 #, kde-format
 msgid "Information"
 msgstr "Відомості"
 
-#: lib/diagnostics/diagnosticview.cpp:974
+#: lib/diagnostics/diagnosticview.cpp:976
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [придушено: %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1088
+#: lib/diagnostics/diagnosticview.cpp:1090
 #, kde-format
 msgid "Expand All"
 msgstr "Розгорнути все"
 
-#: lib/diagnostics/diagnosticview.cpp:1089
+#: lib/diagnostics/diagnosticview.cpp:1091
 #, kde-format
 msgid "Collapse All"
 msgstr "Згорнути все"
 
-#: lib/diagnostics/diagnosticview.cpp:1098
+#: lib/diagnostics/diagnosticview.cpp:1100
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "Скопіювати до буфера"
 
-#: lib/diagnostics/diagnosticview.cpp:1121
+#: lib/diagnostics/diagnosticview.cpp:1123
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "Вилучити загальне придушення"
 
-#: lib/diagnostics/diagnosticview.cpp:1123
+#: lib/diagnostics/diagnosticview.cpp:1125
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "Додати загальне придушення"
 
-#: lib/diagnostics/diagnosticview.cpp:1127
+#: lib/diagnostics/diagnosticview.cpp:1129
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "Вилучити локальне придушення"
 
-#: lib/diagnostics/diagnosticview.cpp:1129
+#: lib/diagnostics/diagnosticview.cpp:1131
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "Додати локальне придушення"
 
-#: lib/diagnostics/diagnosticview.cpp:1142
+#: lib/diagnostics/diagnosticview.cpp:1144
 #, kde-format
 msgid "Disable Suppression"
 msgstr "Вимкнути придушення"
 
-#: lib/diagnostics/diagnosticview.cpp:1144
+#: lib/diagnostics/diagnosticview.cpp:1146
 #, kde-format
 msgid "Enable Suppression"
 msgstr "Увімкнути придушення"

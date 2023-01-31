@@ -14,6 +14,7 @@
 #include <QDebug>
 #include <QDir>
 #include <QFileInfo>
+#include <QMenu>
 #include <QMimeDatabase>
 #include <QPainter>
 #include <QProcess>
@@ -21,6 +22,7 @@
 #include <QStandardItem>
 #include <QStyledItemDelegate>
 #include <QTreeView>
+#include <QUrl>
 #include <QVBoxLayout>
 
 #include <KColorScheme>
@@ -330,6 +332,7 @@ public:
 
 private Q_SLOTS:
     void showDiff(const QModelIndex &idx);
+    void openContextMenu(QPoint pos);
 
 private:
     KTextEditor::MainWindow *m_mainWindow;
@@ -362,9 +365,33 @@ CommitDiffTreeView::CommitDiffTreeView(const QString &repoBase, const QString &h
     m_tree.setHeaderHidden(true);
     m_tree.setEditTriggers(QTreeView::NoEditTriggers);
     m_tree.setItemDelegate(new DiffStyleDelegate(this));
+    m_tree.setIndentation(10);
+
+    m_tree.setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(&m_tree, &QTreeView::customContextMenuRequested, this, &CommitDiffTreeView::openContextMenu);
 
     connect(&m_tree, &QTreeView::clicked, this, &CommitDiffTreeView::showDiff);
     openCommit(hash);
+}
+
+void CommitDiffTreeView::openContextMenu(QPoint pos)
+{
+    const auto idx = m_tree.indexAt(pos);
+    if (!idx.isValid() || idx.data(FileItem::TypeRole).toInt() == FileItem::Directory) {
+        return;
+    }
+
+    const auto file = idx.data(FileItem::Path).toString();
+    QFileInfo fi(file);
+    if (!fi.exists()) {
+        return;
+    }
+
+    QMenu menu(this);
+    menu.addAction(i18n("Open File"), this, [this, fi] {
+        m_mainWindow->openUrl(QUrl::fromLocalFile(fi.absoluteFilePath()));
+    });
+    menu.exec(m_tree.viewport()->mapToGlobal(pos));
 }
 
 void CommitDiffTreeView::openCommit(const QString &hash)

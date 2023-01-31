@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-30 01:01+0000\n"
+"POT-Creation-Date: 2023-01-31 01:02+0000\n"
 "PO-Revision-Date: 2021-05-01 23:42-0700\n"
 "Last-Translator: A S Alam <aalam@satluj.org>\n"
 "Language-Team: Punjabi <punjabi-users@lists.sf.net>\n"
@@ -484,13 +484,20 @@ msgstr ""
 msgid "Jump to Previous Hunk"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:644 lib/diff/diffwidget.cpp:844
+#: lib/diff/diffwidget.cpp:133
+#, fuzzy, kde-format
+#| msgid "&Reload"
+msgctxt "Tooltip for a button, clicking the button reloads the diff"
+msgid "Reload Diff"
+msgstr "ਮੁੜ-ਲੋਡ(&R)"
+
+#: lib/diff/diffwidget.cpp:661 lib/diff/diffwidget.cpp:861
 #, fuzzy, kde-format
 #| msgid "New file name"
 msgid "New file %1"
 msgstr "ਨਵਾਂ ਫਾਇਲ ਨਾਂ"
 
-#: lib/diff/diffwidget.cpp:646 lib/diff/diffwidget.cpp:846
+#: lib/diff/diffwidget.cpp:663 lib/diff/diffwidget.cpp:863
 #, fuzzy, kde-format
 #| msgid "Delete file"
 msgid "Deleted file %1"
@@ -3405,11 +3412,6 @@ msgstr "ਨਵਾਂ ਡੌਕੂਮੈਂਟ ਬਣਾਓ"
 #~| msgid "Name"
 #~ msgid "Full Name:"
 #~ msgstr "ਨਾਂ"
-
-#, fuzzy
-#~| msgid "&Reload"
-#~ msgid "Reload"
-#~ msgstr "ਮੁੜ-ਲੋਡ(&R)"
 
 #~ msgid "&Save Selected"
 #~ msgstr "ਚੁਣੇ ਸੰਭਾਲੋ(&S)"

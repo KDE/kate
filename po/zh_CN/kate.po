@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-30 01:01+0000\n"
+"POT-Creation-Date: 2023-01-31 01:02+0000\n"
 "PO-Revision-Date: 2023-01-12 10:30\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -486,12 +486,19 @@ msgstr "跳转到下一个块"
 msgid "Jump to Previous Hunk"
 msgstr "跳转到上一个块"
 
-#: lib/diff/diffwidget.cpp:644 lib/diff/diffwidget.cpp:844
+#: lib/diff/diffwidget.cpp:133
+#, fuzzy, kde-format
+#| msgid "&Reload"
+msgctxt "Tooltip for a button, clicking the button reloads the diff"
+msgid "Reload Diff"
+msgstr "重新加载(&R)"
+
+#: lib/diff/diffwidget.cpp:661 lib/diff/diffwidget.cpp:861
 #, kde-format
 msgid "New file %1"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:646 lib/diff/diffwidget.cpp:846
+#: lib/diff/diffwidget.cpp:663 lib/diff/diffwidget.cpp:863
 #, kde-format
 msgid "Deleted file %1"
 msgstr ""

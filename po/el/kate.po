@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-30 01:01+0000\n"
+"POT-Creation-Date: 2023-01-31 01:02+0000\n"
 "PO-Revision-Date: 2023-01-05 10:46+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -509,13 +509,20 @@ msgstr "Μετάβαση στο επόμενο σύνολο γραμμών πο�
 msgid "Jump to Previous Hunk"
 msgstr "Μετάβαση στο προηγούμενο σύνολο γραμμών που διαφέρουν"
 
-#: lib/diff/diffwidget.cpp:644 lib/diff/diffwidget.cpp:844
+#: lib/diff/diffwidget.cpp:133
+#, fuzzy, kde-format
+#| msgid "Reload"
+msgctxt "Tooltip for a button, clicking the button reloads the diff"
+msgid "Reload Diff"
+msgstr "Επαναφόρτωση"
+
+#: lib/diff/diffwidget.cpp:661 lib/diff/diffwidget.cpp:861
 #, fuzzy, kde-format
 #| msgid "New file name"
 msgid "New file %1"
 msgstr "Νέο όνομα αρχείου"
 
-#: lib/diff/diffwidget.cpp:646 lib/diff/diffwidget.cpp:846
+#: lib/diff/diffwidget.cpp:663 lib/diff/diffwidget.cpp:863
 #, fuzzy, kde-format
 #| msgid "Delete file"
 msgid "Deleted file %1"
@@ -4082,9 +4089,6 @@ msgstr "Εμφάνιση για νέο παράθυρο"
 
 #~ msgid "Full Name:"
 #~ msgstr "Πλήρες όνομα:"
-
-#~ msgid "Reload"
-#~ msgstr "Επαναφόρτωση"
 
 #~ msgid "Modules"
 #~ msgstr "Αρθρώματα"

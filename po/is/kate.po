@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-30 01:01+0000\n"
+"POT-Creation-Date: 2023-01-31 01:02+0000\n"
 "PO-Revision-Date: 2015-10-22 08:29+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic <kde-isl@molar.is>\n"
@@ -491,13 +491,19 @@ msgstr ""
 msgid "Jump to Previous Hunk"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:644 lib/diff/diffwidget.cpp:844
+#: lib/diff/diffwidget.cpp:133
+#, fuzzy, kde-format
+msgctxt "Tooltip for a button, clicking the button reloads the diff"
+msgid "Reload Diff"
+msgstr "Endu&rlesa"
+
+#: lib/diff/diffwidget.cpp:661 lib/diff/diffwidget.cpp:861
 #, fuzzy, kde-format
 #| msgid "Filename"
 msgid "New file %1"
 msgstr "Skráarheiti"
 
-#: lib/diff/diffwidget.cpp:646 lib/diff/diffwidget.cpp:846
+#: lib/diff/diffwidget.cpp:663 lib/diff/diffwidget.cpp:863
 #, fuzzy, kde-format
 #| msgid "Delete File?"
 msgid "Deleted file %1"
@@ -3574,10 +3580,6 @@ msgstr "Búa til nýja skrá"
 #~| msgid "Name"
 #~ msgid "Full Name:"
 #~ msgstr "Nafn"
-
-#, fuzzy
-#~ msgid "Reload"
-#~ msgstr "Endu&rlesa"
 
 #~ msgid ""
 #~ "<p>You can drag the Tool views (<em>File List</em> and <em>File Selector</"

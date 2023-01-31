@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-30 01:01+0000\n"
+"POT-Creation-Date: 2023-01-31 01:02+0000\n"
 "PO-Revision-Date: 2019-09-25 17:04+0500\n"
 "Last-Translator: Victor Ibragimov <victor.ibragimov@gmail.com>\n"
 "Language-Team: English <kde-i18n-doc@kde.org>\n"
@@ -467,13 +467,20 @@ msgstr ""
 msgid "Jump to Previous Hunk"
 msgstr "&Ёфтани аз нав тасвир кардан"
 
-#: lib/diff/diffwidget.cpp:644 lib/diff/diffwidget.cpp:844
+#: lib/diff/diffwidget.cpp:133
+#, fuzzy, kde-format
+#| msgid "Plugins"
+msgctxt "Tooltip for a button, clicking the button reloads the diff"
+msgid "Reload Diff"
+msgstr "Модульҳо"
+
+#: lib/diff/diffwidget.cpp:661 lib/diff/diffwidget.cpp:861
 #, fuzzy, kde-format
 #| msgid "New file name"
 msgid "New file %1"
 msgstr "Номи нави файл"
 
-#: lib/diff/diffwidget.cpp:646 lib/diff/diffwidget.cpp:846
+#: lib/diff/diffwidget.cpp:663 lib/diff/diffwidget.cpp:863
 #, fuzzy, kde-format
 #| msgid "Delete file"
 msgid "Deleted file %1"
@@ -3148,11 +3155,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Manager"
 #~ msgstr "&Почта..."
-
-#, fuzzy
-#~| msgid "Plugins"
-#~ msgid "Reload Plugins"
-#~ msgstr "Модульҳо"
 
 #, fuzzy
 #~| msgid "Plugins"

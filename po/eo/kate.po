@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-30 01:01+0000\n"
+"POT-Creation-Date: 2023-01-31 01:02+0000\n"
 "PO-Revision-Date: 2007-11-22 20:44+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
@@ -487,13 +487,20 @@ msgstr ""
 msgid "Jump to Previous Hunk"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:644 lib/diff/diffwidget.cpp:844
+#: lib/diff/diffwidget.cpp:133
+#, fuzzy, kde-format
+#| msgid "&Reload"
+msgctxt "Tooltip for a button, clicking the button reloads the diff"
+msgid "Reload Diff"
+msgstr "&Reŝarĝi"
+
+#: lib/diff/diffwidget.cpp:661 lib/diff/diffwidget.cpp:861
 #, fuzzy, kde-format
 #| msgid "Filename"
 msgid "New file %1"
 msgstr "Dosiernomo"
 
-#: lib/diff/diffwidget.cpp:646 lib/diff/diffwidget.cpp:846
+#: lib/diff/diffwidget.cpp:663 lib/diff/diffwidget.cpp:863
 #, fuzzy, kde-format
 #| msgid "Delete File?"
 msgid "Deleted file %1"
@@ -3574,11 +3581,6 @@ msgstr "Kreas novan dokumenton"
 #~| msgid "Name"
 #~ msgid "Full Name:"
 #~ msgstr "Nomo"
-
-#, fuzzy
-#~| msgid "&Reload"
-#~ msgid "Reload"
-#~ msgstr "&Reŝarĝi"
 
 #~ msgid ""
 #~ "<p>You can drag the Tool views (<em>File List</em> and <em>File Selector</"

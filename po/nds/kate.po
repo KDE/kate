@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-30 01:01+0000\n"
+"POT-Creation-Date: 2023-01-31 01:02+0000\n"
 "PO-Revision-Date: 2014-09-18 23:24+0200\n"
 "Last-Translator: Sönke Dibbern <s_dibbern@web.de>\n"
 "Language-Team: Low Saxon <kde-i18n-nds@kde.org>\n"
@@ -494,13 +494,20 @@ msgstr ""
 msgid "Jump to Previous Hunk"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:644 lib/diff/diffwidget.cpp:844
+#: lib/diff/diffwidget.cpp:133
+#, fuzzy, kde-format
+#| msgid "&Reload"
+msgctxt "Tooltip for a button, clicking the button reloads the diff"
+msgid "Reload Diff"
+msgstr "&Nieg laden"
+
+#: lib/diff/diffwidget.cpp:661 lib/diff/diffwidget.cpp:861
 #, fuzzy, kde-format
 #| msgid "Filename"
 msgid "New file %1"
 msgstr "Dateinaam"
 
-#: lib/diff/diffwidget.cpp:646 lib/diff/diffwidget.cpp:846
+#: lib/diff/diffwidget.cpp:663 lib/diff/diffwidget.cpp:863
 #, fuzzy, kde-format
 #| msgid "Delete File?"
 msgid "Deleted file %1"
@@ -3796,11 +3803,6 @@ msgstr "Nieg Dokment opstellen"
 #~| msgid "Name"
 #~ msgid "Full Name:"
 #~ msgstr "Naam"
-
-#, fuzzy
-#~| msgid "&Reload"
-#~ msgid "Reload"
-#~ msgstr "&Nieg laden"
 
 #~ msgid ""
 #~ "<p>You can drag the Tool views (<em>File List</em> and <em>File Selector</"

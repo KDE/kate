@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-30 01:01+0000\n"
+"POT-Creation-Date: 2023-01-31 01:02+0000\n"
 "PO-Revision-Date: 2022-10-16 23:56+0300\n"
 "Last-Translator: Lasse Liehu <lasse.liehu@iki.fi>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -510,13 +510,20 @@ msgstr ""
 msgid "Jump to Previous Hunk"
 msgstr "Siirry edelliseen sijaintiin"
 
-#: lib/diff/diffwidget.cpp:644 lib/diff/diffwidget.cpp:844
+#: lib/diff/diffwidget.cpp:133
+#, fuzzy, kde-format
+#| msgid "Reload"
+msgctxt "Tooltip for a button, clicking the button reloads the diff"
+msgid "Reload Diff"
+msgstr "Lataa uudelleen"
+
+#: lib/diff/diffwidget.cpp:661 lib/diff/diffwidget.cpp:861
 #, fuzzy, kde-format
 #| msgid "New file name"
 msgid "New file %1"
 msgstr "Uusi tiedostonimi"
 
-#: lib/diff/diffwidget.cpp:646 lib/diff/diffwidget.cpp:846
+#: lib/diff/diffwidget.cpp:663 lib/diff/diffwidget.cpp:863
 #, fuzzy, kde-format
 #| msgid "Delete file"
 msgid "Deleted file %1"
@@ -3955,9 +3962,6 @@ msgstr "Luo uusi tiedosto"
 
 #~ msgid "Full Name:"
 #~ msgstr "Koko nimi:"
-
-#~ msgid "Reload"
-#~ msgstr "Lataa uudelleen"
 
 #~ msgid "Modules"
 #~ msgstr "Moduulit"

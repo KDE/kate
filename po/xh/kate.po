@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-30 01:01+0000\n"
+"POT-Creation-Date: 2023-01-31 01:02+0000\n"
 "PO-Revision-Date: 2002-11-15 12:44+0200\n"
 "Last-Translator: Thelma Lungcuzo <thelma@translate.org.za>\n"
 "Language-Team: Xhosa <xhosa@translate.org.za>\n"
@@ -475,12 +475,19 @@ msgstr ""
 msgid "Jump to Previous Hunk"
 msgstr "Buyisela kwakhona indawo eku&yo"
 
-#: lib/diff/diffwidget.cpp:644 lib/diff/diffwidget.cpp:844
+#: lib/diff/diffwidget.cpp:133
+#, fuzzy, kde-format
+#| msgid "Plugins"
+msgctxt "Tooltip for a button, clicking the button reloads the diff"
+msgid "Reload Diff"
+msgstr "Iiplagi ezifakiweyo"
+
+#: lib/diff/diffwidget.cpp:661 lib/diff/diffwidget.cpp:861
 #, fuzzy, kde-format
 msgid "New file %1"
 msgstr "Intlanganiso"
 
-#: lib/diff/diffwidget.cpp:646 lib/diff/diffwidget.cpp:846
+#: lib/diff/diffwidget.cpp:663 lib/diff/diffwidget.cpp:863
 #, fuzzy, kde-format
 msgid "Deleted file %1"
 msgstr "&Template:"
@@ -3243,11 +3250,6 @@ msgstr "Yenza uxwebhu olutsha"
 #, fuzzy
 #~ msgid "Manager"
 #~ msgstr "&Iposi..."
-
-#, fuzzy
-#~| msgid "Plugins"
-#~ msgid "Reload Plugins"
-#~ msgstr "Iiplagi ezifakiweyo"
 
 #, fuzzy
 #~| msgid "Plugins"

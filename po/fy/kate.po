@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-30 01:01+0000\n"
+"POT-Creation-Date: 2023-01-31 01:02+0000\n"
 "PO-Revision-Date: 2006-05-07 10:37+0200\n"
 "Last-Translator: Rinse de Vries <RinseDeVries@home.nl>\n"
 "Language-Team:  <nl@li.org>\n"
@@ -485,13 +485,20 @@ msgstr ""
 msgid "Jump to Previous Hunk"
 msgstr "Lokaasje werom se&tte"
 
-#: lib/diff/diffwidget.cpp:644 lib/diff/diffwidget.cpp:844
+#: lib/diff/diffwidget.cpp:133
+#, fuzzy, kde-format
+#| msgid "Plugins"
+msgctxt "Tooltip for a button, clicking the button reloads the diff"
+msgid "Reload Diff"
+msgstr "Plugins"
+
+#: lib/diff/diffwidget.cpp:661 lib/diff/diffwidget.cpp:861
 #, fuzzy, kde-format
 #| msgid "Filename"
 msgid "New file %1"
 msgstr "Triemnamme"
 
-#: lib/diff/diffwidget.cpp:646 lib/diff/diffwidget.cpp:846
+#: lib/diff/diffwidget.cpp:663 lib/diff/diffwidget.cpp:863
 #, fuzzy, kde-format
 msgid "Deleted file %1"
 msgstr "Fuortsmiten"
@@ -3498,11 +3505,6 @@ msgstr "In nij dokumint meitsje"
 #~| msgid "&Manage..."
 #~ msgid "Manager"
 #~ msgstr "Be&heare..."
-
-#, fuzzy
-#~| msgid "Plugins"
-#~ msgid "Reload Plugins"
-#~ msgstr "Plugins"
 
 #, fuzzy
 #~| msgid "Plugins"

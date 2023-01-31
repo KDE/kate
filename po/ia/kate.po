@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-30 01:01+0000\n"
+"POT-Creation-Date: 2023-01-31 01:02+0000\n"
 "PO-Revision-Date: 2023-01-16 21:58+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
@@ -483,12 +483,19 @@ msgstr "Salta a proxime pecietta (hunk)"
 msgid "Jump to Previous Hunk"
 msgstr "salta a previe pecietta (hunk)"
 
-#: lib/diff/diffwidget.cpp:644 lib/diff/diffwidget.cpp:844
+#: lib/diff/diffwidget.cpp:133
+#, fuzzy, kde-format
+#| msgid "Reload"
+msgctxt "Tooltip for a button, clicking the button reloads the diff"
+msgid "Reload Diff"
+msgstr "Recarga"
+
+#: lib/diff/diffwidget.cpp:661 lib/diff/diffwidget.cpp:861
 #, kde-format
 msgid "New file %1"
 msgstr "Nove file %1"
 
-#: lib/diff/diffwidget.cpp:646 lib/diff/diffwidget.cpp:846
+#: lib/diff/diffwidget.cpp:663 lib/diff/diffwidget.cpp:863
 #, kde-format
 msgid "Deleted file %1"
 msgstr "File cancellate %1"
@@ -4046,9 +4053,6 @@ msgstr "Monstra per nove fenestra"
 
 #~ msgid "Full Name:"
 #~ msgstr "Nomine complete:"
-
-#~ msgid "Reload"
-#~ msgstr "Recarga"
 
 #~ msgid "Modules"
 #~ msgstr "Modulos"

@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-30 01:01+0000\n"
+"POT-Creation-Date: 2023-01-31 01:02+0000\n"
 "PO-Revision-Date: 2023-01-23 20:24+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -502,12 +502,18 @@ msgstr "اقفز إلى الكتلة التالية"
 msgid "Jump to Previous Hunk"
 msgstr "اقفز إلى الكتلة السابقة"
 
-#: lib/diff/diffwidget.cpp:644 lib/diff/diffwidget.cpp:844
+#: lib/diff/diffwidget.cpp:133
+#, fuzzy, kde-format
+msgctxt "Tooltip for a button, clicking the button reloads the diff"
+msgid "Reload Diff"
+msgstr "أ&عد التحميل"
+
+#: lib/diff/diffwidget.cpp:661 lib/diff/diffwidget.cpp:861
 #, kde-format
 msgid "New file %1"
 msgstr "ملفّ جديد %1"
 
-#: lib/diff/diffwidget.cpp:646 lib/diff/diffwidget.cpp:846
+#: lib/diff/diffwidget.cpp:663 lib/diff/diffwidget.cpp:863
 #, kde-format
 msgid "Deleted file %1"
 msgstr "ملف محذوف %1"
@@ -3462,10 +3468,6 @@ msgstr "اعرض في نافذة جديدة…"
 #~| msgid "Name"
 #~ msgid "Full Name:"
 #~ msgstr "الاسم"
-
-#, fuzzy
-#~ msgid "Reload"
-#~ msgstr "أ&عد التحميل"
 
 #~ msgid ""
 #~ "<p>You can drag the Tool views (<em>File List</em> and <em>File Selector</"

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-30 01:01+0000\n"
+"POT-Creation-Date: 2023-01-31 01:02+0000\n"
 "PO-Revision-Date: 2008-01-31 22:09+0200\n"
 "Last-Translator: Darafei Praliaskouski <komzpa@gmail.com>\n"
 "Language-Team: Belarusian <i18n@mova.org>\n"
@@ -499,13 +499,20 @@ msgstr ""
 msgid "Jump to Previous Hunk"
 msgstr "Аднавіць &месцазнаходжанне"
 
-#: lib/diff/diffwidget.cpp:644 lib/diff/diffwidget.cpp:844
+#: lib/diff/diffwidget.cpp:133
+#, fuzzy, kde-format
+#| msgid "Plugins"
+msgctxt "Tooltip for a button, clicking the button reloads the diff"
+msgid "Reload Diff"
+msgstr "Утулкі"
+
+#: lib/diff/diffwidget.cpp:661 lib/diff/diffwidget.cpp:861
 #, fuzzy, kde-format
 #| msgid "Filename"
 msgid "New file %1"
 msgstr "Назва файла"
 
-#: lib/diff/diffwidget.cpp:646 lib/diff/diffwidget.cpp:846
+#: lib/diff/diffwidget.cpp:663 lib/diff/diffwidget.cpp:863
 #, fuzzy, kde-format
 msgid "Deleted file %1"
 msgstr "Выдалены"
@@ -3457,11 +3464,6 @@ msgstr "Стварыць новы дакумент"
 #~| msgid "&Manage..."
 #~ msgid "Manager"
 #~ msgstr "&Кіраваць..."
-
-#, fuzzy
-#~| msgid "Plugins"
-#~ msgid "Reload Plugins"
-#~ msgstr "Утулкі"
 
 #, fuzzy
 #~| msgid "Plugins"

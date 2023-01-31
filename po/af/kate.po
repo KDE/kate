@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate stable\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-30 01:01+0000\n"
+"POT-Creation-Date: 2023-01-31 01:02+0000\n"
 "PO-Revision-Date: 2005-11-24 11:27+0200\n"
 "Last-Translator: Frikkie Thirion <frikkie.thirion@deneloptronics.co.za>\n"
 "Language-Team: AFRIKAANS <AF@lia.org.za>\n"
@@ -484,13 +484,20 @@ msgstr ""
 msgid "Jump to Previous Hunk"
 msgstr "Herstel ligging"
 
-#: lib/diff/diffwidget.cpp:644 lib/diff/diffwidget.cpp:844
+#: lib/diff/diffwidget.cpp:133
+#, fuzzy, kde-format
+#| msgid "Plugins"
+msgctxt "Tooltip for a button, clicking the button reloads the diff"
+msgid "Reload Diff"
+msgstr "Inprop modules"
+
+#: lib/diff/diffwidget.cpp:661 lib/diff/diffwidget.cpp:861
 #, fuzzy, kde-format
 #| msgid "Filename"
 msgid "New file %1"
 msgstr "Lêernaam"
 
-#: lib/diff/diffwidget.cpp:646 lib/diff/diffwidget.cpp:846
+#: lib/diff/diffwidget.cpp:663 lib/diff/diffwidget.cpp:863
 #, fuzzy, kde-format
 msgid "Deleted file %1"
 msgstr "Uitgevee"
@@ -3486,11 +3493,6 @@ msgstr "Skep 'n nuwe dokument"
 #~| msgid "&Manage..."
 #~ msgid "Manager"
 #~ msgstr "Bestuur..."
-
-#, fuzzy
-#~| msgid "Plugins"
-#~ msgid "Reload Plugins"
-#~ msgstr "Inprop modules"
 
 #, fuzzy
 #~| msgid "Plugins"

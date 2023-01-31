@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-30 01:01+0000\n"
+"POT-Creation-Date: 2023-01-31 01:02+0000\n"
 "PO-Revision-Date: 2023-01-12 17:26+0100\n"
 "Last-Translator: Paolo Zamponi <zapaolo@email.it>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -490,12 +490,19 @@ msgstr "Vai al frammento successivo"
 msgid "Jump to Previous Hunk"
 msgstr "Vai al frammento precedente"
 
-#: lib/diff/diffwidget.cpp:644 lib/diff/diffwidget.cpp:844
+#: lib/diff/diffwidget.cpp:133
+#, fuzzy, kde-format
+#| msgid "&Reload"
+msgctxt "Tooltip for a button, clicking the button reloads the diff"
+msgid "Reload Diff"
+msgstr "&Ricarica"
+
+#: lib/diff/diffwidget.cpp:661 lib/diff/diffwidget.cpp:861
 #, kde-format
 msgid "New file %1"
 msgstr "Nuovo file %1"
 
-#: lib/diff/diffwidget.cpp:646 lib/diff/diffwidget.cpp:846
+#: lib/diff/diffwidget.cpp:663 lib/diff/diffwidget.cpp:863
 #, kde-format
 msgid "Deleted file %1"
 msgstr "File eliminato %1"
@@ -3926,11 +3933,6 @@ msgstr "Mostra per le nuove finestre"
 #~| msgid "&View Difference"
 #~ msgid "Reference"
 #~ msgstr "&Mostra differenze"
-
-#, fuzzy
-#~| msgid "&Reload"
-#~ msgid "Reload"
-#~ msgstr "&Ricarica"
 
 #~ msgid "Quick Document Switcher"
 #~ msgstr "Cambio rapido dei documenti"

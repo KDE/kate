@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-30 01:01+0000\n"
+"POT-Creation-Date: 2023-01-31 01:02+0000\n"
 "PO-Revision-Date: 2007-09-13 12:58+0545\n"
 "Last-Translator: Narayan Kumar Magar <narayan@mpp.org.np>\n"
 "Language-Team: Nepali <info@mpp.org.np>\n"
@@ -493,13 +493,20 @@ msgstr ""
 msgid "Jump to Previous Hunk"
 msgstr "स्थान पूर्वावस्थामा लैजानुहोस्"
 
-#: lib/diff/diffwidget.cpp:644 lib/diff/diffwidget.cpp:844
+#: lib/diff/diffwidget.cpp:133
+#, fuzzy, kde-format
+#| msgid "&Reload"
+msgctxt "Tooltip for a button, clicking the button reloads the diff"
+msgid "Reload Diff"
+msgstr "पुन: लोड गर्नुहोस्"
+
+#: lib/diff/diffwidget.cpp:661 lib/diff/diffwidget.cpp:861
 #, fuzzy, kde-format
 #| msgid "Filename"
 msgid "New file %1"
 msgstr "फाइल नाम"
 
-#: lib/diff/diffwidget.cpp:646 lib/diff/diffwidget.cpp:846
+#: lib/diff/diffwidget.cpp:663 lib/diff/diffwidget.cpp:863
 #, fuzzy, kde-format
 #| msgid "Delete File?"
 msgid "Deleted file %1"
@@ -3663,11 +3670,6 @@ msgstr "नयाँ कागजात सिर्जना गर्नुह
 #~| msgid "Name"
 #~ msgid "Full Name:"
 #~ msgstr "नाम"
-
-#, fuzzy
-#~| msgid "&Reload"
-#~ msgid "Reload"
-#~ msgstr "पुन: लोड गर्नुहोस्"
 
 #~ msgid "Modules"
 #~ msgstr "मोड्युल"

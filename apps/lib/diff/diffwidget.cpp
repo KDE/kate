@@ -464,7 +464,7 @@ void DiffWidget::diffDocs(KTextEditor::Document *l, KTextEditor::Document *r)
     });
     m_params.arguments = git->arguments();
     m_params.flags.setFlag(DiffParams::ReloadOnShow);
-    git->start();
+    startHostProcess(*git);
 }
 
 static void balanceHunkLines(QStringList &left, QStringList &right, int &lineA, int &lineB, QVector<int> &lineNosA, QVector<int> &lineNosB)

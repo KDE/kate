@@ -247,6 +247,7 @@ FileHistoryWidget::FileHistoryWidget(const QString &gitDir, const QString &file,
         m_toolView->deleteLater();
     });
     connect(m_listView, &QListView::clicked, this, &FileHistoryWidget::itemClicked);
+    connect(m_listView, &QListView::activated, this, &FileHistoryWidget::itemClicked);
 
     m_listView->setItemDelegate(new CommitDelegate(this));
 

@@ -41,9 +41,9 @@ struct Commit {
 };
 Q_DECLARE_METATYPE(Commit)
 
-static QVector<Commit> parseCommits(const QByteArray raw)
+static std::vector<Commit> parseCommits(const QByteArray raw)
 {
-    QVector<Commit> commits;
+    std::vector<Commit> commits;
 
     const auto splitted = ByteArraySplitter(raw, '\0');
     for (auto it = splitted.begin(); it != splitted.end(); ++it) {
@@ -82,7 +82,8 @@ static QVector<Commit> parseCommits(const QByteArray raw)
             file = (*it).toByteArray().trimmed();
         }
 
-        commits << Commit{hash, author, email, authorDate, commitDate, parent, msg, file};
+        Commit c{hash, author, email, authorDate, commitDate, parent, msg, file};
+        commits.push_back(std::move(c));
     }
 
     return commits;
@@ -100,8 +101,9 @@ public:
 
     int rowCount(const QModelIndex &) const override
     {
-        return m_rows.count();
+        return m_rows.size();
     }
+
     QVariant data(const QModelIndex &index, int role) const override
     {
         if (!index.isValid()) {
@@ -120,29 +122,15 @@ public:
         return {};
     }
 
-    void refresh(const QVector<Commit> &cmts)
+    void addCommits(std::vector<Commit> &&cmts)
     {
-        beginResetModel();
-        m_rows = cmts;
-        endResetModel();
-    }
-
-    void addCommit(Commit cmt)
-    {
-        beginInsertRows(QModelIndex(), m_rows.size(), m_rows.size());
-        m_rows.push_back(cmt);
+        beginInsertRows(QModelIndex(), m_rows.size(), m_rows.size() + cmts.size() - 1);
+        m_rows.insert(m_rows.end(), std::make_move_iterator(cmts.begin()), std::make_move_iterator(cmts.end()));
         endInsertRows();
     }
 
-    void addCommits(const QVector<Commit> &cmts)
-    {
-        for (const auto &commit : cmts) {
-            addCommit(commit);
-        }
-    }
-
 private:
-    QVector<Commit> m_rows;
+    std::vector<Commit> m_rows;
 };
 
 class CommitDelegate : public QStyledItemDelegate
@@ -288,9 +276,9 @@ void FileHistoryWidget::getFileHistory(const QString &file)
     }
 
     connect(&m_git, &QProcess::readyReadStandardOutput, this, [this] {
-        auto commits = parseCommits(m_git.readAllStandardOutput());
-        if (!commits.isEmpty()) {
-            static_cast<CommitListModel *>(m_listView->model())->addCommits(commits);
+        std::vector<Commit> commits = parseCommits(m_git.readAllStandardOutput());
+        if (!commits.empty()) {
+            static_cast<CommitListModel *>(m_listView->model())->addCommits(std::move(commits));
         }
     });
 

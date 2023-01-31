@@ -231,7 +231,7 @@ DiffWidget::DiffWidget(DiffParams p, QWidget *parent)
 
 void DiffWidget::showEvent(QShowEvent *e)
 {
-    if (m_params.flags & DiffParams::ReloadOnShow) {
+    if (!m_blockShowEvent && m_params.flags & DiffParams::ReloadOnShow) {
         runGitDiff();
     }
 
@@ -387,27 +387,27 @@ void DiffWidget::runGitDiff()
     if (workingDir.isEmpty() || arguments.isEmpty()) {
         return;
     }
+    m_blockShowEvent = true;
 
     auto leftState = m_left->saveState();
     auto rightState = m_right->saveState();
 
     QProcess *git = new QProcess(this);
     setupGitProcess(*git, workingDir, arguments);
-    connect(git, &QProcess::finished, this, [=](int exitCode, QProcess::ExitStatus es) {
+    connect(git, &QProcess::finished, this, [=](int, QProcess::ExitStatus) {
         const auto params = m_params;
         clearData();
         m_params = params;
-        m_left->setUpdatesEnabled(false);
-        m_right->setUpdatesEnabled(false);
-        if (es != QProcess::NormalExit || exitCode != 0) {
+        const auto out = git->readAllStandardOutput();
+        const auto err = git->readAllStandardError();
+        if (!err.isEmpty()) {
             onError(git->readAllStandardError(), git->exitCode());
         } else {
-            openDiff(git->readAllStandardOutput());
+            openDiff(out);
             m_left->restoreState(leftState);
             m_right->restoreState(rightState);
         }
-        m_left->setUpdatesEnabled(true);
-        m_right->setUpdatesEnabled(true);
+        m_blockShowEvent = false;
         git->deleteLater();
     });
     startHostProcess(*git, QProcess::ReadOnly);
@@ -446,26 +446,21 @@ void DiffWidget::diffDocs(KTextEditor::Document *l, KTextEditor::Document *r)
         rightHl->setDefinition(repo.definitionForMimeType(r->mimeType()));
     }
 
-    QPointer<QProcess> git = new QProcess(this);
-    setupGitProcess(*git, qApp->applicationDirPath(), diffDocsGitArgs(l, r));
+    QProcess git;
+    if (!setupGitProcess(git, qApp->applicationDirPath(), diffDocsGitArgs(l, r))) {
+        Utils::showMessage(
+            i18n("<b>git</b> not found. Git is needed to diff the documents. If git is already installed, make sure it is your PATH variable. See "
+                 "https://git-scm.com/downloads"),
+            gitIcon(),
+            i18n("Diff"),
+            MessageType::Error);
+        return;
+    }
 
-    connect(git, &QProcess::readyReadStandardOutput, this, [this, git]() {
-        onTextReceived(git->readAllStandardOutput());
-    });
-    connect(git, &QProcess::readyReadStandardError, this, [this, git]() {
-        onError(git->readAllStandardError(), -1);
-    });
-    connect(git, &QProcess::finished, this, [this, git] {
-        git->deleteLater();
-        onTextReceived({});
-        if (git->exitStatus() != QProcess::NormalExit) {
-            onError(git->readAllStandardError(), git->exitCode());
-        }
-    });
-    m_params.arguments = git->arguments();
+    m_params.arguments = git.arguments();
     m_params.flags.setFlag(DiffParams::ReloadOnShow);
-    m_params.workingDir = git->workingDirectory();
-    startHostProcess(*git);
+    m_params.workingDir = git.workingDirectory();
+    runGitDiff();
 }
 
 static void balanceHunkLines(QStringList &left, QStringList &right, int &lineA, int &lineB, QVector<int> &lineNosA, QVector<int> &lineNosB)
@@ -1037,20 +1032,23 @@ void DiffWidget::openDiff(const QByteArray &raw)
         [this] {
             m_left->verticalScrollBar()->setValue(0);
             m_right->verticalScrollBar()->setValue(0);
+            m_blockShowEvent = false;
         },
         Qt::QueuedConnection);
 }
 
 void DiffWidget::onTextReceived(const QByteArray &raw)
 {
-    if (m_style == SideBySide) {
-        parseAndShowDiff(raw);
-    } else if (m_style == Unified) {
-        parseAndShowDiffUnified(raw);
-    } else if (m_style == Raw) {
-        m_left->appendPlainText(QString::fromUtf8(raw));
+    if (!raw.isEmpty()) {
+        if (m_style == SideBySide) {
+            parseAndShowDiff(raw);
+        } else if (m_style == Unified) {
+            parseAndShowDiffUnified(raw);
+        } else if (m_style == Raw) {
+            m_left->appendPlainText(QString::fromUtf8(raw));
+        }
+        m_rawDiff += raw;
     }
-    m_rawDiff += raw;
 
     if (m_rawDiff.isEmpty()) {
         m_left->setPlainText(i18n("No differences found"));
@@ -1058,8 +1056,11 @@ void DiffWidget::onTextReceived(const QByteArray &raw)
     }
 }
 
-void DiffWidget::onError(const QByteArray & /*error*/, int /*code*/)
+void DiffWidget::onError(const QByteArray &error, int)
 {
+    if (!error.isEmpty()) {
+        Utils::showMessage(QString::fromUtf8(error), gitIcon(), i18n("Diff"), MessageType::Warning);
+    }
     //     printf("Got error: \n%s\n==============\n", error.constData());
 }
 

@@ -103,4 +103,5 @@ private:
     QVector<ViewLineToDiffLine> m_lineToDiffHunkLine;
     QVector<int> m_linesWithFileName;
     bool m_stopScrollSync = false;
+    bool m_blockShowEvent = true;
 };

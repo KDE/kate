@@ -229,6 +229,17 @@ DiffWidget::DiffWidget(DiffParams p, QWidget *parent)
     handleStyleChange(cgGeneral.readEntry("Diff Show Style", (int)SideBySide));
 }
 
+DiffWidget::~DiffWidget()
+{
+    // if there are any living processes, disconnect them now before we get destroyed
+    for (QObject *child : children()) {
+        QProcess *p = qobject_cast<QProcess *>(child);
+        if (p) {
+            disconnect(p, nullptr, nullptr, nullptr);
+        }
+    }
+}
+
 void DiffWidget::showEvent(QShowEvent *e)
 {
     if (!m_blockShowEvent && m_params.flags & DiffParams::ReloadOnShow) {

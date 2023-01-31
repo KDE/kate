@@ -38,6 +38,7 @@ class KATE_PRIVATE_EXPORT DiffWidget : public QWidget
 
 public:
     explicit DiffWidget(DiffParams p, QWidget *parent = nullptr);
+    ~DiffWidget();
 
     void diffDocs(KTextEditor::Document *l, KTextEditor::Document *r);
 

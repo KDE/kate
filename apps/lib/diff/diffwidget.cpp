@@ -464,6 +464,7 @@ void DiffWidget::diffDocs(KTextEditor::Document *l, KTextEditor::Document *r)
     });
     m_params.arguments = git->arguments();
     m_params.flags.setFlag(DiffParams::ReloadOnShow);
+    m_params.workingDir = git->workingDirectory();
     startHostProcess(*git);
 }
 

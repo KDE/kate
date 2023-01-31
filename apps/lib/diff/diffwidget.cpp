@@ -1002,10 +1002,23 @@ void DiffWidget::openDiff(const QByteArray &raw)
         m_toolbar->setShowCommitActionVisible(false);
     }
 
+    // Fallback to raw mode if parsing fails
+    auto fallback = [&] {
+        handleStyleChange(Raw);
+        m_left->setPlainText(QString::fromUtf8(raw));
+        leftHl->setDefinition(KTextEditor::Editor::instance()->repository().definitionForName(QStringLiteral("Diff")));
+    };
+
     if (m_style == SideBySide) {
         parseAndShowDiff(raw);
+        if (m_left->document()->isEmpty() && m_right->document()->isEmpty() && !raw.isEmpty()) {
+            fallback();
+        }
     } else if (m_style == Unified) {
         parseAndShowDiffUnified(raw);
+        if (m_left->document()->isEmpty() && !raw.isEmpty()) {
+            fallback();
+        }
     } else if (m_style == Raw) {
         m_left->setPlainText(QString::fromUtf8(raw));
         leftHl->setDefinition(KTextEditor::Editor::instance()->repository().definitionForName(QStringLiteral("Diff")));

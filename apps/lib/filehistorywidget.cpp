@@ -5,15 +5,20 @@
 */
 
 #include "filehistorywidget.h"
+#include "commitfilesview.h"
 #include "diffparams.h"
 #include "ktexteditor_utils.h"
 #include <bytearraysplitter.h>
 #include <gitprocess.h>
 
+#include <QAction>
+#include <QApplication>
+#include <QClipboard>
 #include <QDate>
 #include <QDebug>
 #include <QFileInfo>
 #include <QListView>
+#include <QMenu>
 #include <QPainter>
 #include <QPointer>
 #include <QProcess>
@@ -207,6 +212,7 @@ class FileHistoryWidget : public QWidget
     Q_OBJECT
 public:
     void itemClicked(const QModelIndex &idx);
+    void onContextMenu(QPoint pos);
 
     void getFileHistory(const QString &file);
     explicit FileHistoryWidget(const QString &gitDir, const QString &file, KTextEditor::MainWindow *mw, QWidget *parent = nullptr);
@@ -250,6 +256,8 @@ FileHistoryWidget::FileHistoryWidget(const QString &gitDir, const QString &file,
     connect(m_listView, &QListView::activated, this, &FileHistoryWidget::itemClicked);
 
     m_listView->setItemDelegate(new CommitDelegate(this));
+    m_listView->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(m_listView, &QListView::customContextMenuRequested, this, &FileHistoryWidget::onContextMenu);
 
     layout()->addWidget(&m_backBtn);
     layout()->addWidget(m_listView);
@@ -290,6 +298,30 @@ void FileHistoryWidget::getFileHistory(const QString &file)
     });
 
     startHostProcess(m_git, QProcess::ReadOnly);
+}
+
+void FileHistoryWidget::onContextMenu(QPoint pos)
+{
+    QMenu menu(m_listView->viewport());
+
+    menu.addAction(i18nc("@menu:action", "Copy Commit Hash"), this, [this, pos] {
+        const auto index = m_listView->indexAt(pos);
+        const auto commit = index.data(CommitListModel::CommitRole).value<Commit>();
+        if (!commit.hash.isEmpty()) {
+            qApp->clipboard()->setText(QString::fromLatin1(commit.hash));
+        }
+    });
+
+    menu.addAction(i18nc("@menu:action", "Show Full Commit"), this, [this, pos] {
+        const auto index = m_listView->indexAt(pos);
+        const auto commit = index.data(CommitListModel::CommitRole).value<Commit>();
+        if (!commit.hash.isEmpty()) {
+            const QString hash = QString::fromLatin1(commit.hash);
+            CommitView::openCommit(hash, m_file, m_mainWindow);
+        }
+    });
+
+    menu.exec(m_listView->viewport()->mapToGlobal(pos));
 }
 
 void FileHistoryWidget::itemClicked(const QModelIndex &idx)

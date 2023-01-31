@@ -494,6 +494,9 @@ void CommitDiffTreeView::showDiff(const QModelIndex &idx)
     DiffParams d;
     d.srcFile = file;
     d.flags.setFlag(DiffParams::ShowCommitInfo);
+    if (m_tree.model()->rowCount(idx) > 1) {
+        d.flags.setFlag(DiffParams::ShowFileName);
+    }
     Utils::showDiff(git.readAllStandardOutput(), d, m_mainWindow);
 }
 

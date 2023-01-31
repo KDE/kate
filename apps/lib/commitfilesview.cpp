@@ -10,7 +10,9 @@
 #include <gitprocess.h>
 #include <ktexteditor_utils.h>
 
+#include <QApplication>
 #include <QByteArray>
+#include <QClipboard>
 #include <QDebug>
 #include <QDir>
 #include <QFileInfo>
@@ -377,20 +379,26 @@ CommitDiffTreeView::CommitDiffTreeView(const QString &repoBase, const QString &h
 void CommitDiffTreeView::openContextMenu(QPoint pos)
 {
     const auto idx = m_tree.indexAt(pos);
-    if (!idx.isValid() || idx.data(FileItem::TypeRole).toInt() == FileItem::Directory) {
+    if (!idx.isValid()) {
         return;
     }
 
     const auto file = idx.data(FileItem::Path).toString();
     QFileInfo fi(file);
-    if (!fi.exists()) {
-        return;
-    }
 
     QMenu menu(this);
-    menu.addAction(i18n("Open File"), this, [this, fi] {
-        m_mainWindow->openUrl(QUrl::fromLocalFile(fi.absoluteFilePath()));
-    });
+    if (fi.exists() && fi.isFile()) {
+        menu.addAction(i18n("Open File"), this, [this, fi] {
+            m_mainWindow->openUrl(QUrl::fromLocalFile(fi.absoluteFilePath()));
+        });
+    }
+
+    if (auto clip = qApp->clipboard()) {
+        menu.addAction(i18n("Copy Location"), this, [fi] {
+            qApp->clipboard()->setText(fi.absoluteFilePath());
+        });
+    }
+
     menu.exec(m_tree.viewport()->mapToGlobal(pos));
 }
 

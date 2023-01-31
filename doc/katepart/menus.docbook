@@ -968,6 +968,7 @@ Click on the right pointing triangle to expand all toplevel regions.</para></lis
 <shortcut>
 <keycombo action="simul">&Ctrl;&Shift;<keycap>+</keycap></keycombo>
 </shortcut>
+<guimenu>View</guimenu>
 <guisubmenu>Code Folding</guisubmenu>
 <guimenuitem>Unfold Toplevel Nodes</guimenuitem>
 </menuchoice></term>

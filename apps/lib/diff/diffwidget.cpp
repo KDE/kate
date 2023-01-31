@@ -457,6 +457,7 @@ void DiffWidget::diffDocs(KTextEditor::Document *l, KTextEditor::Document *r)
     });
     connect(git, &QProcess::finished, this, [this, git] {
         git->deleteLater();
+        onTextReceived({});
         if (git->exitStatus() != QProcess::NormalExit) {
             onError(git->readAllStandardError(), git->exitCode());
         }
@@ -1025,6 +1026,11 @@ void DiffWidget::openDiff(const QByteArray &raw)
     }
     m_rawDiff = raw;
 
+    if (m_rawDiff.isEmpty()) {
+        m_left->setPlainText(i18n("No differences found"));
+        m_right->setPlainText(i18n("No differences found"));
+    }
+
     QMetaObject::invokeMethod(
         this,
         [this] {
@@ -1044,6 +1050,11 @@ void DiffWidget::onTextReceived(const QByteArray &raw)
         m_left->appendPlainText(QString::fromUtf8(raw));
     }
     m_rawDiff += raw;
+
+    if (m_rawDiff.isEmpty()) {
+        m_left->setPlainText(i18n("No differences found"));
+        m_right->setPlainText(i18n("No differences found"));
+    }
 }
 
 void DiffWidget::onError(const QByteArray & /*error*/, int /*code*/)

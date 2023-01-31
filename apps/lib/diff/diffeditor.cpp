@@ -309,6 +309,9 @@ void DiffEditor::paintEvent(QPaintEvent *e)
                 QTextLine sl = layout->lineForTextPosition(c.pos);
                 QTextLine el = layout->lineForTextPosition(c.pos + c.len);
                 // color any word diffs
+                if (!sl.isValid() || !el.isValid()) {
+                    continue;
+                }
                 if (sl.isValid() && sl.lineNumber() == el.lineNumber()) {
                     int sx = sl.cursorToX(c.pos);
                     int ex = el.cursorToX(c.pos + c.len);

@@ -19,8 +19,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-31 01:02+0000\n"
-"PO-Revision-Date: 2023-01-13 01:03+0100\n"
+"POT-Creation-Date: 2023-02-01 01:00+0000\n"
+"PO-Revision-Date: 2023-01-31 13:27+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -220,29 +220,40 @@ msgid "KWrite - Text Editor"
 msgstr "KWrite - Editor de texto"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
-#: lib/commitfilesview.cpp:350 lib/filehistorywidget.cpp:254
+#: lib/commitfilesview.cpp:355 lib/filehistorywidget.cpp:248
 #: lib/kateconfigdialog.cpp:135 lib/session/katesessionmanagedialog.ui:184
 #, kde-format
 msgid "Close"
 msgstr "Cerrar"
 
-#: lib/commitfilesview.cpp:384 lib/commitfilesview.cpp:474
-#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:343
+#: lib/commitfilesview.cpp:391 lib/kateviewmanager.cpp:317
+#: lib/kateviewmanager.cpp:319
+#, kde-format
+msgid "Open File"
+msgstr "Abrir archivo"
+
+#: lib/commitfilesview.cpp:397 lib/katemainwindow.cpp:350
+#, kde-format
+msgid "Copy Location"
+msgstr "Copiar ubicación"
+
+#: lib/commitfilesview.cpp:419 lib/commitfilesview.cpp:512
+#: lib/commitfilesview.cpp:518 lib/filehistorywidget.cpp:364
 #, kde-format
 msgid "Git"
 msgstr "Git"
 
-#: lib/commitfilesview.cpp:474
+#: lib/commitfilesview.cpp:512
 #, kde-format
 msgid "Invalid hash"
 msgstr "Hash no válido"
 
-#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:343
+#: lib/commitfilesview.cpp:518 lib/filehistorywidget.cpp:364
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 no existe en un repositorio git."
 
-#: lib/commitfilesview.cpp:495
+#: lib/commitfilesview.cpp:533
 #, kde-format
 msgctxt "@title:tab"
 msgid "Commit %1"
@@ -510,35 +521,66 @@ msgid "Jump to Previous Hunk"
 msgstr "Saltar al trozo anterior"
 
 #: lib/diff/diffwidget.cpp:133
-#, fuzzy, kde-format
-#| msgid "&Reload"
+#, kde-format
 msgctxt "Tooltip for a button, clicking the button reloads the diff"
 msgid "Reload Diff"
-msgstr "&Volver a cargar"
+msgstr "Volver a cargar las diferencias"
 
-#: lib/diff/diffwidget.cpp:661 lib/diff/diffwidget.cpp:861
+#: lib/diff/diffwidget.cpp:463
+#, kde-format
+msgid ""
+"<b>git</b> not found. Git is needed to diff the documents. If git is already "
+"installed, make sure it is your PATH variable. See https://git-scm.com/"
+"downloads"
+msgstr ""
+
+#: lib/diff/diffwidget.cpp:466 lib/diff/diffwidget.cpp:1073
+#: lib/kateconfigdialog.cpp:549
+#, kde-format
+msgid "Diff"
+msgstr "Diferencias"
+
+#: lib/diff/diffwidget.cpp:669 lib/diff/diffwidget.cpp:869
 #, kde-format
 msgid "New file %1"
 msgstr "Nuevo archivo %1"
 
-#: lib/diff/diffwidget.cpp:663 lib/diff/diffwidget.cpp:863
+#: lib/diff/diffwidget.cpp:671 lib/diff/diffwidget.cpp:871
 #, kde-format
 msgid "Deleted file %1"
 msgstr "Archivo borrado %1"
 
-#: lib/filehistorywidget.cpp:286
+#: lib/diff/diffwidget.cpp:1037 lib/diff/diffwidget.cpp:1038
+#: lib/diff/diffwidget.cpp:1065 lib/diff/diffwidget.cpp:1066
+#, kde-format
+msgid "No differences found"
+msgstr ""
+
+#: lib/filehistorywidget.cpp:283
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
 "No se ha podido obtener el historial del archivo: no se ha encontrado el "
 "ejecutable de git en PATH"
 
-#: lib/filehistorywidget.cpp:299
+#: lib/filehistorywidget.cpp:296
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr "No se ha podido obtener el historial del archivo: %1"
 
-#: lib/filehistorywidget.cpp:352
+#: lib/filehistorywidget.cpp:307
+#, kde-format
+msgctxt "@menu:action"
+msgid "Copy Commit Hash"
+msgstr ""
+
+#: lib/filehistorywidget.cpp:315
+#, kde-format
+msgctxt "@menu:action"
+msgid "Show Full Commit"
+msgstr ""
+
+#: lib/filehistorywidget.cpp:373
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
@@ -1133,11 +1175,6 @@ msgstr "Pestaña siguiente"
 msgid "History forward"
 msgstr "Avanzar en el historial"
 
-#: lib/kateconfigdialog.cpp:549
-#, kde-format
-msgid "Diff"
-msgstr "Diferencias"
-
 #: lib/kateconfigdialog.cpp:558
 #, kde-format
 msgid "Diff Style:"
@@ -1416,11 +1453,6 @@ msgstr "&Volver a cargar todo"
 #, kde-format
 msgid "Reload all open documents."
 msgstr "Volver a cargar todos los documentos abiertos."
-
-#: lib/katemainwindow.cpp:350
-#, kde-format
-msgid "Copy Location"
-msgstr "Copiar ubicación"
 
 #: lib/katemainwindow.cpp:355 lib/katemainwindow.cpp:364
 #, kde-format
@@ -2225,11 +2257,6 @@ msgstr "Página de bienvenida"
 #, kde-format
 msgid "Show the welcome page"
 msgstr "Mostrar la página de bienvenida"
-
-#: lib/kateviewmanager.cpp:317 lib/kateviewmanager.cpp:319
-#, kde-format
-msgid "Open File"
-msgstr "Abrir archivo"
 
 #: lib/kateviewmanager.cpp:338
 #, kde-format

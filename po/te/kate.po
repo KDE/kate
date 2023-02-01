@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-31 01:02+0000\n"
+"POT-Creation-Date: 2023-02-01 01:00+0000\n"
 "PO-Revision-Date: 2007-03-09 14:17+0530\n"
 "Last-Translator: pavithran <pavithran.s@gmail.com>\n"
 "Language-Team: Telugu <indlinux-telugu@lists.sourceforge.net>\n"
@@ -178,30 +178,41 @@ msgid "KWrite - Text Editor"
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
-#: lib/commitfilesview.cpp:350 lib/filehistorywidget.cpp:254
+#: lib/commitfilesview.cpp:355 lib/filehistorywidget.cpp:248
 #: lib/kateconfigdialog.cpp:135 lib/session/katesessionmanagedialog.ui:184
 #, fuzzy, kde-format
 #| msgid "Clos&e All"
 msgid "Close"
 msgstr "(&l) అన్ని మూయండి"
 
-#: lib/commitfilesview.cpp:384 lib/commitfilesview.cpp:474
-#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:343
+#: lib/commitfilesview.cpp:391 lib/kateviewmanager.cpp:317
+#: lib/kateviewmanager.cpp:319
+#, kde-format
+msgid "Open File"
+msgstr ""
+
+#: lib/commitfilesview.cpp:397 lib/katemainwindow.cpp:350
+#, kde-format
+msgid "Copy Location"
+msgstr ""
+
+#: lib/commitfilesview.cpp:419 lib/commitfilesview.cpp:512
+#: lib/commitfilesview.cpp:518 lib/filehistorywidget.cpp:364
 #, kde-format
 msgid "Git"
 msgstr ""
 
-#: lib/commitfilesview.cpp:474
+#: lib/commitfilesview.cpp:512
 #, kde-format
 msgid "Invalid hash"
 msgstr ""
 
-#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:343
+#: lib/commitfilesview.cpp:518 lib/filehistorywidget.cpp:364
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr ""
 
-#: lib/commitfilesview.cpp:495
+#: lib/commitfilesview.cpp:533
 #, kde-format
 msgctxt "@title:tab"
 msgid "Commit %1"
@@ -487,29 +498,61 @@ msgctxt "Tooltip for a button, clicking the button reloads the diff"
 msgid "Reload Diff"
 msgstr "ప్లగిన్లు"
 
-#: lib/diff/diffwidget.cpp:661 lib/diff/diffwidget.cpp:861
+#: lib/diff/diffwidget.cpp:463
+#, kde-format
+msgid ""
+"<b>git</b> not found. Git is needed to diff the documents. If git is already "
+"installed, make sure it is your PATH variable. See https://git-scm.com/"
+"downloads"
+msgstr ""
+
+#: lib/diff/diffwidget.cpp:466 lib/diff/diffwidget.cpp:1073
+#: lib/kateconfigdialog.cpp:549
+#, kde-format
+msgid "Diff"
+msgstr ""
+
+#: lib/diff/diffwidget.cpp:669 lib/diff/diffwidget.cpp:869
 #, fuzzy, kde-format
 #| msgid "Filename"
 msgid "New file %1"
 msgstr "దస్త్రం పేరు"
 
-#: lib/diff/diffwidget.cpp:663 lib/diff/diffwidget.cpp:863
+#: lib/diff/diffwidget.cpp:671 lib/diff/diffwidget.cpp:871
 #, fuzzy, kde-format
 #| msgid "Deleted"
 msgid "Deleted file %1"
 msgstr "తీసివేసిన"
 
-#: lib/filehistorywidget.cpp:286
+#: lib/diff/diffwidget.cpp:1037 lib/diff/diffwidget.cpp:1038
+#: lib/diff/diffwidget.cpp:1065 lib/diff/diffwidget.cpp:1066
+#, kde-format
+msgid "No differences found"
+msgstr ""
+
+#: lib/filehistorywidget.cpp:283
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:299
+#: lib/filehistorywidget.cpp:296
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:352
+#: lib/filehistorywidget.cpp:307
+#, kde-format
+msgctxt "@menu:action"
+msgid "Copy Commit Hash"
+msgstr ""
+
+#: lib/filehistorywidget.cpp:315
+#, kde-format
+msgctxt "@menu:action"
+msgid "Show Full Commit"
+msgstr ""
+
+#: lib/filehistorywidget.cpp:373
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
@@ -1085,11 +1128,6 @@ msgstr ""
 msgid "History forward"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:549
-#, kde-format
-msgid "Diff"
-msgstr ""
-
 #: lib/kateconfigdialog.cpp:558
 #, kde-format
 msgid "Diff Style:"
@@ -1369,11 +1407,6 @@ msgstr ""
 #| msgid "Close all open documents."
 msgid "Reload all open documents."
 msgstr "అన్నీ తెరిచిన పత్రాలని మూయండి"
-
-#: lib/katemainwindow.cpp:350
-#, kde-format
-msgid "Copy Location"
-msgstr ""
 
 #: lib/katemainwindow.cpp:355 lib/katemainwindow.cpp:364
 #, fuzzy, kde-format
@@ -2153,11 +2186,6 @@ msgstr ""
 #: lib/kateviewmanager.cpp:269
 #, kde-format
 msgid "Show the welcome page"
-msgstr ""
-
-#: lib/kateviewmanager.cpp:317 lib/kateviewmanager.cpp:319
-#, kde-format
-msgid "Open File"
 msgstr ""
 
 #: lib/kateviewmanager.cpp:338

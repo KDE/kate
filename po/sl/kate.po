@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-31 01:02+0000\n"
+"POT-Creation-Date: 2023-02-01 01:00+0000\n"
 "PO-Revision-Date: 2023-01-28 09:56+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -210,29 +210,40 @@ msgid "KWrite - Text Editor"
 msgstr "KWrite - Urejevalnik besedil"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
-#: lib/commitfilesview.cpp:350 lib/filehistorywidget.cpp:254
+#: lib/commitfilesview.cpp:355 lib/filehistorywidget.cpp:248
 #: lib/kateconfigdialog.cpp:135 lib/session/katesessionmanagedialog.ui:184
 #, kde-format
 msgid "Close"
 msgstr "Zapri"
 
-#: lib/commitfilesview.cpp:384 lib/commitfilesview.cpp:474
-#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:343
+#: lib/commitfilesview.cpp:391 lib/kateviewmanager.cpp:317
+#: lib/kateviewmanager.cpp:319
+#, kde-format
+msgid "Open File"
+msgstr "Odpri datoteko"
+
+#: lib/commitfilesview.cpp:397 lib/katemainwindow.cpp:350
+#, kde-format
+msgid "Copy Location"
+msgstr "Kopiraj mesto"
+
+#: lib/commitfilesview.cpp:419 lib/commitfilesview.cpp:512
+#: lib/commitfilesview.cpp:518 lib/filehistorywidget.cpp:364
 #, kde-format
 msgid "Git"
 msgstr "Git"
 
-#: lib/commitfilesview.cpp:474
+#: lib/commitfilesview.cpp:512
 #, kde-format
 msgid "Invalid hash"
 msgstr "Neveljavno razpršilo"
 
-#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:343
+#: lib/commitfilesview.cpp:518 lib/filehistorywidget.cpp:364
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 ne obstaja v git skladišču."
 
-#: lib/commitfilesview.cpp:495
+#: lib/commitfilesview.cpp:533
 #, kde-format
 msgctxt "@title:tab"
 msgid "Commit %1"
@@ -512,29 +523,61 @@ msgctxt "Tooltip for a button, clicking the button reloads the diff"
 msgid "Reload Diff"
 msgstr "Znova naloži"
 
-#: lib/diff/diffwidget.cpp:661 lib/diff/diffwidget.cpp:861
+#: lib/diff/diffwidget.cpp:463
+#, kde-format
+msgid ""
+"<b>git</b> not found. Git is needed to diff the documents. If git is already "
+"installed, make sure it is your PATH variable. See https://git-scm.com/"
+"downloads"
+msgstr ""
+
+#: lib/diff/diffwidget.cpp:466 lib/diff/diffwidget.cpp:1073
+#: lib/kateconfigdialog.cpp:549
+#, kde-format
+msgid "Diff"
+msgstr "Razlika"
+
+#: lib/diff/diffwidget.cpp:669 lib/diff/diffwidget.cpp:869
 #, kde-format
 msgid "New file %1"
 msgstr "Nova datoteka %1"
 
-#: lib/diff/diffwidget.cpp:663 lib/diff/diffwidget.cpp:863
+#: lib/diff/diffwidget.cpp:671 lib/diff/diffwidget.cpp:871
 #, kde-format
 msgid "Deleted file %1"
 msgstr "Brisana datoteka %1"
 
-#: lib/filehistorywidget.cpp:286
+#: lib/diff/diffwidget.cpp:1037 lib/diff/diffwidget.cpp:1038
+#: lib/diff/diffwidget.cpp:1065 lib/diff/diffwidget.cpp:1066
+#, kde-format
+msgid "No differences found"
+msgstr ""
+
+#: lib/filehistorywidget.cpp:283
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
 "Pridobivanje zgodovine datoteke ni uspelo: izvršljive datoteke git ni mogoče "
 "najti na poti PATH"
 
-#: lib/filehistorywidget.cpp:299
+#: lib/filehistorywidget.cpp:296
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr "Pridobivanje zgodovine datoteke ni uspelo: %1"
 
-#: lib/filehistorywidget.cpp:352
+#: lib/filehistorywidget.cpp:307
+#, kde-format
+msgctxt "@menu:action"
+msgid "Copy Commit Hash"
+msgstr ""
+
+#: lib/filehistorywidget.cpp:315
+#, kde-format
+msgctxt "@menu:action"
+msgid "Show Full Commit"
+msgstr ""
+
+#: lib/filehistorywidget.cpp:373
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
@@ -1121,11 +1164,6 @@ msgstr "Naslednji zavihek"
 msgid "History forward"
 msgstr "Zgodovina naprej"
 
-#: lib/kateconfigdialog.cpp:549
-#, kde-format
-msgid "Diff"
-msgstr "Razlika"
-
 #: lib/kateconfigdialog.cpp:558
 #, kde-format
 msgid "Diff Style:"
@@ -1405,11 +1443,6 @@ msgstr "Znova naloži vse"
 #, kde-format
 msgid "Reload all open documents."
 msgstr "Znova naloži vse odprte dokumente."
-
-#: lib/katemainwindow.cpp:350
-#, kde-format
-msgid "Copy Location"
-msgstr "Kopiraj mesto"
 
 #: lib/katemainwindow.cpp:355 lib/katemainwindow.cpp:364
 #, kde-format
@@ -2195,11 +2228,6 @@ msgstr "Stran dobrodošlice"
 #, kde-format
 msgid "Show the welcome page"
 msgstr "Prikazuj stran dobrodošlice"
-
-#: lib/kateviewmanager.cpp:317 lib/kateviewmanager.cpp:319
-#, kde-format
-msgid "Open File"
-msgstr "Odpri datoteko"
 
 #: lib/kateviewmanager.cpp:338
 #, kde-format

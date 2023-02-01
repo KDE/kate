@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-31 01:02+0000\n"
+"POT-Creation-Date: 2023-02-01 01:00+0000\n"
 "PO-Revision-Date: 2022-07-13 14:16+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -182,29 +182,40 @@ msgid "KWrite - Text Editor"
 msgstr "KWrite - 텍스트 편집기"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
-#: lib/commitfilesview.cpp:350 lib/filehistorywidget.cpp:254
+#: lib/commitfilesview.cpp:355 lib/filehistorywidget.cpp:248
 #: lib/kateconfigdialog.cpp:135 lib/session/katesessionmanagedialog.ui:184
 #, kde-format
 msgid "Close"
 msgstr "닫기"
 
-#: lib/commitfilesview.cpp:384 lib/commitfilesview.cpp:474
-#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:343
+#: lib/commitfilesview.cpp:391 lib/kateviewmanager.cpp:317
+#: lib/kateviewmanager.cpp:319
+#, kde-format
+msgid "Open File"
+msgstr "파일 열기"
+
+#: lib/commitfilesview.cpp:397 lib/katemainwindow.cpp:350
+#, kde-format
+msgid "Copy Location"
+msgstr "위치 복사"
+
+#: lib/commitfilesview.cpp:419 lib/commitfilesview.cpp:512
+#: lib/commitfilesview.cpp:518 lib/filehistorywidget.cpp:364
 #, kde-format
 msgid "Git"
 msgstr ""
 
-#: lib/commitfilesview.cpp:474
+#: lib/commitfilesview.cpp:512
 #, kde-format
 msgid "Invalid hash"
 msgstr ""
 
-#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:343
+#: lib/commitfilesview.cpp:518 lib/filehistorywidget.cpp:364
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr ""
 
-#: lib/commitfilesview.cpp:495
+#: lib/commitfilesview.cpp:533
 #, kde-format
 msgctxt "@title:tab"
 msgid "Commit %1"
@@ -485,29 +496,61 @@ msgctxt "Tooltip for a button, clicking the button reloads the diff"
 msgid "Reload Diff"
 msgstr "새로 고침(&R)"
 
-#: lib/diff/diffwidget.cpp:661 lib/diff/diffwidget.cpp:861
+#: lib/diff/diffwidget.cpp:463
+#, kde-format
+msgid ""
+"<b>git</b> not found. Git is needed to diff the documents. If git is already "
+"installed, make sure it is your PATH variable. See https://git-scm.com/"
+"downloads"
+msgstr ""
+
+#: lib/diff/diffwidget.cpp:466 lib/diff/diffwidget.cpp:1073
+#: lib/kateconfigdialog.cpp:549
+#, kde-format
+msgid "Diff"
+msgstr ""
+
+#: lib/diff/diffwidget.cpp:669 lib/diff/diffwidget.cpp:869
 #, fuzzy, kde-format
 #| msgid "New file name"
 msgid "New file %1"
 msgstr "새 파일 이름"
 
-#: lib/diff/diffwidget.cpp:663 lib/diff/diffwidget.cpp:863
+#: lib/diff/diffwidget.cpp:671 lib/diff/diffwidget.cpp:871
 #, fuzzy, kde-format
 #| msgid "Delete file"
 msgid "Deleted file %1"
 msgstr "파일 삭제"
 
-#: lib/filehistorywidget.cpp:286
+#: lib/diff/diffwidget.cpp:1037 lib/diff/diffwidget.cpp:1038
+#: lib/diff/diffwidget.cpp:1065 lib/diff/diffwidget.cpp:1066
+#, kde-format
+msgid "No differences found"
+msgstr ""
+
+#: lib/filehistorywidget.cpp:283
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:299
+#: lib/filehistorywidget.cpp:296
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:352
+#: lib/filehistorywidget.cpp:307
+#, kde-format
+msgctxt "@menu:action"
+msgid "Copy Commit Hash"
+msgstr ""
+
+#: lib/filehistorywidget.cpp:315
+#, kde-format
+msgctxt "@menu:action"
+msgid "Show Full Commit"
+msgstr ""
+
+#: lib/filehistorywidget.cpp:373
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
@@ -1084,11 +1127,6 @@ msgstr "다음 탭"
 msgid "History forward"
 msgstr "과거 기록 앞으로"
 
-#: lib/kateconfigdialog.cpp:549
-#, kde-format
-msgid "Diff"
-msgstr ""
-
 #: lib/kateconfigdialog.cpp:558
 #, kde-format
 msgid "Diff Style:"
@@ -1363,11 +1401,6 @@ msgstr "모두 다시 불러오기(&R)"
 #, kde-format
 msgid "Reload all open documents."
 msgstr "모든 열린 문서를 다시 불러옵니다."
-
-#: lib/katemainwindow.cpp:350
-#, kde-format
-msgid "Copy Location"
-msgstr "위치 복사"
 
 #: lib/katemainwindow.cpp:355 lib/katemainwindow.cpp:364
 #, kde-format
@@ -2161,11 +2194,6 @@ msgstr ""
 #, kde-format
 msgid "Show the welcome page"
 msgstr ""
-
-#: lib/kateviewmanager.cpp:317 lib/kateviewmanager.cpp:319
-#, kde-format
-msgid "Open File"
-msgstr "파일 열기"
 
 #: lib/kateviewmanager.cpp:338
 #, kde-format

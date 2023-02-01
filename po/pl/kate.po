@@ -1,6 +1,6 @@
 # translation of kate.po to Polish
 # translation of kate.po to
-# Version: $Revision: 1643586 $
+# Version: $Revision: 1643648 $
 # Kate polish translation file.
 # Main translation work:
 #   Jacek Stolarczyk <jacek@mer.chemia.polsl.gliwice.pl>\n"
@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-31 01:02+0000\n"
+"POT-Creation-Date: 2023-02-01 01:00+0000\n"
 "PO-Revision-Date: 2023-01-21 11:01+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -209,29 +209,40 @@ msgid "KWrite - Text Editor"
 msgstr "KWrite - edytor tekstu"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
-#: lib/commitfilesview.cpp:350 lib/filehistorywidget.cpp:254
+#: lib/commitfilesview.cpp:355 lib/filehistorywidget.cpp:248
 #: lib/kateconfigdialog.cpp:135 lib/session/katesessionmanagedialog.ui:184
 #, kde-format
 msgid "Close"
 msgstr "Zamknij"
 
-#: lib/commitfilesview.cpp:384 lib/commitfilesview.cpp:474
-#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:343
+#: lib/commitfilesview.cpp:391 lib/kateviewmanager.cpp:317
+#: lib/kateviewmanager.cpp:319
+#, kde-format
+msgid "Open File"
+msgstr "Otwórz plik"
+
+#: lib/commitfilesview.cpp:397 lib/katemainwindow.cpp:350
+#, kde-format
+msgid "Copy Location"
+msgstr "Skopiuj położenie"
+
+#: lib/commitfilesview.cpp:419 lib/commitfilesview.cpp:512
+#: lib/commitfilesview.cpp:518 lib/filehistorywidget.cpp:364
 #, kde-format
 msgid "Git"
 msgstr "Git"
 
-#: lib/commitfilesview.cpp:474
+#: lib/commitfilesview.cpp:512
 #, kde-format
 msgid "Invalid hash"
 msgstr "Nieprawidłowy skrót"
 
-#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:343
+#: lib/commitfilesview.cpp:518 lib/filehistorywidget.cpp:364
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 nie istnieje w repozytorium git."
 
-#: lib/commitfilesview.cpp:495
+#: lib/commitfilesview.cpp:533
 #, fuzzy, kde-format
 #| msgid "Commit"
 msgctxt "@title:tab"
@@ -515,31 +526,64 @@ msgctxt "Tooltip for a button, clicking the button reloads the diff"
 msgid "Reload Diff"
 msgstr "Wczytaj ponownie"
 
-#: lib/diff/diffwidget.cpp:661 lib/diff/diffwidget.cpp:861
+#: lib/diff/diffwidget.cpp:463
+#, kde-format
+msgid ""
+"<b>git</b> not found. Git is needed to diff the documents. If git is already "
+"installed, make sure it is your PATH variable. See https://git-scm.com/"
+"downloads"
+msgstr ""
+
+#: lib/diff/diffwidget.cpp:466 lib/diff/diffwidget.cpp:1073
+#: lib/kateconfigdialog.cpp:549
+#, kde-format
+msgid "Diff"
+msgstr "Różnica"
+
+#: lib/diff/diffwidget.cpp:669 lib/diff/diffwidget.cpp:869
 #, fuzzy, kde-format
 #| msgid "New file name"
 msgid "New file %1"
 msgstr "Nowa nazwa pliku"
 
-#: lib/diff/diffwidget.cpp:663 lib/diff/diffwidget.cpp:863
+#: lib/diff/diffwidget.cpp:671 lib/diff/diffwidget.cpp:871
 #, fuzzy, kde-format
 #| msgid "Delete file"
 msgid "Deleted file %1"
 msgstr "Usunąć plik"
 
-#: lib/filehistorywidget.cpp:286
+#: lib/diff/diffwidget.cpp:1037 lib/diff/diffwidget.cpp:1038
+#: lib/diff/diffwidget.cpp:1065 lib/diff/diffwidget.cpp:1066
+#, kde-format
+msgid "No differences found"
+msgstr ""
+
+#: lib/filehistorywidget.cpp:283
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
 "Nie udało się pobrać historii pliku: nie znaleziono pliku wykonywalnego git "
 "w zmiennej PATH"
 
-#: lib/filehistorywidget.cpp:299
+#: lib/filehistorywidget.cpp:296
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr "Nie udało się pobrać historii pliku: %1"
 
-#: lib/filehistorywidget.cpp:352
+#: lib/filehistorywidget.cpp:307
+#, kde-format
+msgctxt "@menu:action"
+msgid "Copy Commit Hash"
+msgstr ""
+
+#: lib/filehistorywidget.cpp:315
+#, fuzzy, kde-format
+#| msgid "&Show Full Path"
+msgctxt "@menu:action"
+msgid "Show Full Commit"
+msgstr "Pokaż pełną ś&cieżkę"
+
+#: lib/filehistorywidget.cpp:373
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
@@ -1124,11 +1168,6 @@ msgstr "Następna karta"
 msgid "History forward"
 msgstr "Historia wprzód"
 
-#: lib/kateconfigdialog.cpp:549
-#, kde-format
-msgid "Diff"
-msgstr "Różnica"
-
 #: lib/kateconfigdialog.cpp:558
 #, kde-format
 msgid "Diff Style:"
@@ -1405,11 +1444,6 @@ msgstr "&Wczytaj ponownie wszystkie"
 #, kde-format
 msgid "Reload all open documents."
 msgstr "Wczytaj ponownie wszystkie otwarte dokumenty."
-
-#: lib/katemainwindow.cpp:350
-#, kde-format
-msgid "Copy Location"
-msgstr "Skopiuj położenie"
 
 #: lib/katemainwindow.cpp:355 lib/katemainwindow.cpp:364
 #, kde-format
@@ -2196,11 +2230,6 @@ msgstr "Stronę powitalna"
 #, kde-format
 msgid "Show the welcome page"
 msgstr "Pokaż tę stronę powitalną"
-
-#: lib/kateviewmanager.cpp:317 lib/kateviewmanager.cpp:319
-#, kde-format
-msgid "Open File"
-msgstr "Otwórz plik"
 
 #: lib/kateviewmanager.cpp:338
 #, kde-format
@@ -3257,9 +3286,6 @@ msgstr "Pokaż dla nowego okna"
 
 #~ msgid "List View"
 #~ msgstr "Widok listy"
-
-#~ msgid "&Show Full Path"
-#~ msgstr "Pokaż pełną ś&cieżkę"
 
 #~ msgid ""
 #~ "When background shading is enabled, documents that have been viewed or "

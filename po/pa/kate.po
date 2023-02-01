@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-31 01:02+0000\n"
+"POT-Creation-Date: 2023-02-01 01:00+0000\n"
 "PO-Revision-Date: 2021-05-01 23:42-0700\n"
 "Last-Translator: A S Alam <aalam@satluj.org>\n"
 "Language-Team: Punjabi <punjabi-users@lists.sf.net>\n"
@@ -182,29 +182,41 @@ msgid "KWrite - Text Editor"
 msgstr "ਕੇਟ - ਇੱਕ ਤਕਨੀਕੀ ਟੈਕਸਟ ਐਡੀਟਰ"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
-#: lib/commitfilesview.cpp:350 lib/filehistorywidget.cpp:254
+#: lib/commitfilesview.cpp:355 lib/filehistorywidget.cpp:248
 #: lib/kateconfigdialog.cpp:135 lib/session/katesessionmanagedialog.ui:184
 #, kde-format
 msgid "Close"
 msgstr "ਬੰਦ ਕਰੋ"
 
-#: lib/commitfilesview.cpp:384 lib/commitfilesview.cpp:474
-#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:343
+#: lib/commitfilesview.cpp:391 lib/kateviewmanager.cpp:317
+#: lib/kateviewmanager.cpp:319
+#, kde-format
+msgid "Open File"
+msgstr "ਫਾਇਲ ਖੋਲ੍ਹੋ"
+
+#: lib/commitfilesview.cpp:397 lib/katemainwindow.cpp:350
+#, fuzzy, kde-format
+#| msgid "Location"
+msgid "Copy Location"
+msgstr "ਟਿਕਾਣਾ"
+
+#: lib/commitfilesview.cpp:419 lib/commitfilesview.cpp:512
+#: lib/commitfilesview.cpp:518 lib/filehistorywidget.cpp:364
 #, kde-format
 msgid "Git"
 msgstr ""
 
-#: lib/commitfilesview.cpp:474
+#: lib/commitfilesview.cpp:512
 #, kde-format
 msgid "Invalid hash"
 msgstr ""
 
-#: lib/commitfilesview.cpp:480 lib/filehistorywidget.cpp:343
+#: lib/commitfilesview.cpp:518 lib/filehistorywidget.cpp:364
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr ""
 
-#: lib/commitfilesview.cpp:495
+#: lib/commitfilesview.cpp:533
 #, fuzzy, kde-format
 #| msgid "Comment"
 msgctxt "@title:tab"
@@ -491,29 +503,62 @@ msgctxt "Tooltip for a button, clicking the button reloads the diff"
 msgid "Reload Diff"
 msgstr "ਮੁੜ-ਲੋਡ(&R)"
 
-#: lib/diff/diffwidget.cpp:661 lib/diff/diffwidget.cpp:861
+#: lib/diff/diffwidget.cpp:463
+#, kde-format
+msgid ""
+"<b>git</b> not found. Git is needed to diff the documents. If git is already "
+"installed, make sure it is your PATH variable. See https://git-scm.com/"
+"downloads"
+msgstr ""
+
+#: lib/diff/diffwidget.cpp:466 lib/diff/diffwidget.cpp:1073
+#: lib/kateconfigdialog.cpp:549
+#, kde-format
+msgid "Diff"
+msgstr ""
+
+#: lib/diff/diffwidget.cpp:669 lib/diff/diffwidget.cpp:869
 #, fuzzy, kde-format
 #| msgid "New file name"
 msgid "New file %1"
 msgstr "ਨਵਾਂ ਫਾਇਲ ਨਾਂ"
 
-#: lib/diff/diffwidget.cpp:663 lib/diff/diffwidget.cpp:863
+#: lib/diff/diffwidget.cpp:671 lib/diff/diffwidget.cpp:871
 #, fuzzy, kde-format
 #| msgid "Delete file"
 msgid "Deleted file %1"
 msgstr "ਫਾਇਲ ਹਟਾਓ"
 
-#: lib/filehistorywidget.cpp:286
+#: lib/diff/diffwidget.cpp:1037 lib/diff/diffwidget.cpp:1038
+#: lib/diff/diffwidget.cpp:1065 lib/diff/diffwidget.cpp:1066
+#, kde-format
+msgid "No differences found"
+msgstr ""
+
+#: lib/filehistorywidget.cpp:283
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:299
+#: lib/filehistorywidget.cpp:296
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:352
+#: lib/filehistorywidget.cpp:307
+#, kde-format
+msgctxt "@menu:action"
+msgid "Copy Commit Hash"
+msgstr ""
+
+#: lib/filehistorywidget.cpp:315
+#, fuzzy, kde-format
+#| msgid "&Show Full Path"
+msgctxt "@menu:action"
+msgid "Show Full Commit"
+msgstr "ਪੂਰਾ ਪਾਥ ਵੇਖੋ(&S)"
+
+#: lib/filehistorywidget.cpp:373
 #, fuzzy, kde-format
 #| msgid "File Selector"
 msgctxt "@title:tab"
@@ -1093,11 +1138,6 @@ msgstr "ਅਗਲੀ ਟੈਬ(&N)"
 msgid "History forward"
 msgstr "ਅੱਗੇ ਜਾਓ"
 
-#: lib/kateconfigdialog.cpp:549
-#, kde-format
-msgid "Diff"
-msgstr ""
-
 #: lib/kateconfigdialog.cpp:558
 #, kde-format
 msgid "Diff Style:"
@@ -1375,12 +1415,6 @@ msgstr "ਸਭ ਮੁੜ-ਲੋਡ(&R)"
 #, kde-format
 msgid "Reload all open documents."
 msgstr "ਸਭ ਖੁੱਲੇ ਡੌਕੂਮੈਂਟ ਮੁੜ-ਲੋਡ ਕਰੋ।"
-
-#: lib/katemainwindow.cpp:350
-#, fuzzy, kde-format
-#| msgid "Location"
-msgid "Copy Location"
-msgstr "ਟਿਕਾਣਾ"
 
 #: lib/katemainwindow.cpp:355 lib/katemainwindow.cpp:364
 #, kde-format
@@ -2178,11 +2212,6 @@ msgstr ""
 #, kde-format
 msgid "Show the welcome page"
 msgstr ""
-
-#: lib/kateviewmanager.cpp:317 lib/kateviewmanager.cpp:319
-#, kde-format
-msgid "Open File"
-msgstr "ਫਾਇਲ ਖੋਲ੍ਹੋ"
 
 #: lib/kateviewmanager.cpp:338
 #, kde-format
@@ -3117,9 +3146,6 @@ msgstr "ਨਵਾਂ ਡੌਕੂਮੈਂਟ ਬਣਾਓ"
 
 #~ msgid "List View"
 #~ msgstr "ਲਿਸਟ ਝਲਕ"
-
-#~ msgid "&Show Full Path"
-#~ msgstr "ਪੂਰਾ ਪਾਥ ਵੇਖੋ(&S)"
 
 #~ msgid "Set the color for shading viewed documents."
 #~ msgstr "ਵੇਖੇ ਡੌਕੂਮੈਂਟ ਦੇ ਸ਼ੇਡ ਵਾਸਤੇ ਰੰਗ ਸੈੱਟ ਕਰੋ।"

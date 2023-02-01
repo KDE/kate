@@ -29,6 +29,21 @@
 </listitem>
 </varlistentry>
 
+<varlistentry id="file-new-window">
+<term
+><menuchoice
+><guimenu
+>Bestand</guimenu
+> <guimenuitem
+>Nieuw venster</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Maak een nieuw venster aan met het huidige document als inhoud. Alle wijzigingen in het document in het ene venster worden meegenomen in het andere en vice versa.</para>
+</listitem>
+</varlistentry>
+
 <varlistentry id="file-open">
 <term
 ><menuchoice
@@ -346,6 +361,21 @@
 </listitem>
 </varlistentry>
 
+<varlistentry id="edit-copy-as-html">
+<term
+><menuchoice
+><guimenu
+>Bewerken</guimenu
+><guimenuitem
+>Als HTML kopiëren</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Kopieer de selectie als &HTML;, opgemaakt volgens de huidige accentuering van de syntaxis en instellingen van het kleurschema.</para>
+</listitem>
+</varlistentry>
+
 <varlistentry id="edit-paste">
 <term
 ><menuchoice
@@ -415,27 +445,12 @@
 ><guimenu
 >Bewerken</guimenu
 > <guisubmenu
->Klembordgeschiedenis</guisubmenu
+>Klembordgeschiedenis plakken</guisubmenu
 > </menuchoice
 ></term>
 <listitem>
 <para
->Dit submenu zal het begin van delen van tekst tonen die recent naar het klembord zijn gekopieerd. Selecteer een item uit dit menu om het in het nu geopende bestand te plakken.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry id="edit-copy-as-html">
-<term
-><menuchoice
-><guimenu
->Bewerken</guimenu
-><guimenuitem
->Als HTML kopiëren</guimenuitem
-> </menuchoice
-></term>
-<listitem>
-<para
->Kopieer de selectie als &HTML;, opgemaakt volgens de huidige accentuering van de syntaxis en instellingen van het kleurschema.</para>
+>Dit zal een dialoog openen om een item uit de klembordgeschiedenis te selecteren en te plakken.</para>
 </listitem>
 </varlistentry>
 
@@ -482,6 +497,21 @@
 > of <guilabel
 >OVR</guilabel
 >.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-read-only">
+<term
+><menuchoice
+><guimenu
+>Bewerken</guimenu
+><guimenuitem
+>Modus alleen lezen</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Stel het huidige document in op Alleen lezen. Dit voorkomt dat er tekst wordt toegevoegd of wijzigingen in de opmaak worden aangebracht.</para>
 </listitem>
 </varlistentry>
 
@@ -696,29 +726,6 @@
 ><imagedata fileref="configure-shortcuts-22.png" format="PNG"/></imageobject
 ></inlinemediaobject
 > rechts in de balk zoeken en vervangen om over te schakelen naar de incrementele zoekbalk. </para>
-</listitem>
-</varlistentry>
-
-<varlistentry id="edit-go-to-matching-bracket">
-<term
-><menuchoice
-><shortcut
-> <keycombo action="simul"
->&Ctrl;<keycap
->6</keycap
-></keycombo
-> </shortcut
-> <guimenu
->Bewerken</guimenu
-> <guisubmenu
->Ga naar</guisubmenu
-> <guimenuitem
->Ga naar overeenkomend haakje</guimenuitem
-> </menuchoice
-></term>
-<listitem>
-<para
->Beweeg de cursor naar het bijbehorende openings- of sluithaakje.</para>
 </listitem>
 </varlistentry>
 
@@ -1060,6 +1067,107 @@ depends on the <link linkend="pref-edit-indent"
 ></listitem>
 </varlistentry>
 
+<varlistentry id="selection-add-caret-above-cursor">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Alt;&Up;</keycombo
+> </shortcut
+> <guimenu
+>Selectie</guimenu
+> <guimenuitem
+>Dakje boven cursor toevoegen</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Voegt nog een dakje boven de huidige cursor toe. Het dakje wordt geplaatst in de regel er direct boven en in dezelfde kolom als de huidige cursor. </para
+></listitem>
+</varlistentry>
+
+<varlistentry id="selection-add-caret-below-cursor">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Shift;&Down;</keycombo
+> </shortcut
+> <guimenu
+>Selectie</guimenu
+> <guimenuitem
+>Dakje onder cursor toevoegen</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Voegt nog een dakje onder de huidige cursor toe. Het dakje wordt geplaatst in de regel er direct boven en in dezelfde kolom als de huidige cursor. </para
+></listitem>
+</varlistentry>
+
+<varlistentry id="selection-add-cursors-to-line-ends">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>I</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Selectie</guimenu
+> <guimenuitem
+>Cursors aan regeleinden toevoegen</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Voegt een cursor toe aan elke nu geselecteerde regel. </para
+></listitem>
+</varlistentry>
+
+<varlistentry id="selection-find-and-select-next-occurrence">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Alt;<keycap
+>J</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Selectie</guimenu
+> <guimenuitem
+>Zoek en selecteer volgende aanwezigheid</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Zoekt het volgende voorkomen van het woord nu onder de cursor, selecteert het en voegt een cursor toe. </para
+></listitem>
+</varlistentry>
+
+<varlistentry id="selection-find-and-select-all-occurrences">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Alt;&Shift;<keycap
+>J</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Selectie</guimenu
+> <guimenuitem
+>Zoek en selecteer alle voorkomens</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Zoekt alle voorkomens van het woord nu onder de cursor, selecteert ze en voegt een cursor toe aan elk van hen. </para
+></listitem>
+</varlistentry>
+
 </variablelist>
 
 </sect1>
@@ -1070,46 +1178,6 @@ depends on the <link linkend="pref-edit-indent"
 >Het menu Beeld</title>
 
 <variablelist>
-
-<varlistentry id="view-new-window">
-<term
-><menuchoice
-><guimenu
->Beeld</guimenu
-> <guimenuitem
->Nieuw venster</guimenuitem
-> </menuchoice
-></term>
-<listitem>
-<para
->Maak een nieuw venster aan met het huidige document als inhoud. Alle wijzigingen in het document in het ene venster worden meegenomen in het andere en vice versa.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry id="view-command-line">
-<term
-><menuchoice
-><shortcut
-> <keycap
->F7</keycap
-> </shortcut
-> <guimenu
->Beeld</guimenu
-> <guimenuitem
->Overschakelen naar commandoregel</guimenuitem
-> </menuchoice
-></term>
-<listitem>
-<para
->Toont de commandoregel van &katepart; onderaan het venster. Typ <userinput
->help</userinput
-> op de commandoregel om hulp te krijgen en <userinput
->help list</userinput
-> voor een lijst met commando's. Voor meer informatie over de commandoregel, zie <link linkend="advanced-editing-tools-commandline"
->De commandoregel van de bewerkingscomponent</link
->.</para>
-</listitem>
-</varlistentry>
 
 <varlistentry id="view-enlarge-font">
 <term
@@ -1306,25 +1374,25 @@ depends on the <link linkend="pref-edit-indent"
 ><guimenu
 >Beeld</guimenu
 > <guimenuitem
->Code invouwen</guimenuitem
+>Code vouwen</guimenuitem
 > </menuchoice
 ></term>
 <listitem
 ><para
 >Deze opties behoren bij <ulink url="help:/katepart/advanced-editing-tools-code-folding.html"
->code invouwen</ulink
+>code vouwen</ulink
 >.</para>
 <variablelist>
 
 <varlistentry id="view-show-folding-markers">
 <term
 ><menuchoice
-><shortcut
-><keycombo action="simul"
-><keycap
->F9</keycap
-> </keycombo
-> </shortcut
+><guimenu
+>Beeld</guimenu
+> <guisubmenu
+>Randen</guisubmenu
+> <guisubmenu
+>Code invouwen</guisubmenu
 > <guimenuitem
 >Invouwmarkeringen tonen</guimenuitem
 > </menuchoice
@@ -1337,10 +1405,14 @@ depends on the <link linkend="pref-edit-indent"
 
 <varlistentry id="view-fold-current-node">
 <term
-><menuchoice>
-<guimenuitem
->Huidige node invouwen</guimenuitem>
-</menuchoice
+><menuchoice
+><guimenu
+>Beeld</guimenu
+> <guisubmenu
+>Code vouwen</guisubmenu
+> <guimenuitem
+>Huidige node invouwen</guimenuitem
+> </menuchoice
 ></term>
 <listitem
 ><para
@@ -1350,10 +1422,14 @@ depends on the <link linkend="pref-edit-indent"
 
 <varlistentry id="view-unfold-current-node">
 <term
-><menuchoice>
-<guimenuitem
->Huidige node uitvouwen</guimenuitem>
-</menuchoice
+><menuchoice
+><guimenu
+>Beeld</guimenu
+> <guisubmenu
+>Code vouwen</guisubmenu
+> <guimenuitem
+>Huidige node uitvouwen</guimenuitem
+> </menuchoice
 ></term>
 <listitem
 ><para
@@ -1370,8 +1446,12 @@ depends on the <link linkend="pref-edit-indent"
 >-</keycap
 ></keycombo
 ></shortcut
-> <guimenuitem
->Bovenste nodes invouwen</guimenuitem
+> <guimenu
+>Beeld</guimenu
+><guisubmenu
+>Code vouwen</guisubmenu
+><guimenuitem
+>Nodes op topniveau invouwen</guimenuitem
 > </menuchoice
 ></term>
 <listitem
@@ -1384,13 +1464,17 @@ depends on the <link linkend="pref-edit-indent"
 <term
 ><menuchoice
 ><shortcut
-><keycombo action="simul"
+> <keycombo action="simul"
 >&Ctrl;&Shift;<keycap
 >+</keycap
 ></keycombo
-></shortcut
+> </shortcut
+> <guimenu
+>View</guimenu
+> <guisubmenu
+>Code Folding</guisubmenu
 > <guimenuitem
->Bovenste nodes uitvouwen</guimenuitem
+>Unfold Toplevel Nodes</guimenuitem
 > </menuchoice
 ></term>
 <listitem
@@ -1520,6 +1604,27 @@ depends on the <link linkend="pref-edit-indent"
 <listitem>
 <para
 >Regels die zijn gewijzigd na het openen van het bestand worden gewijzigde regels genoemd. Deze actie springt naar de volgende gewijzigde regel. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="go-go-to-matching-bracket">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>6</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Ga naar</guimenu
+> <guimenuitem
+>Ga naar het bijbehorende haakje</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Beweeg de cursor naar het bijbehorende openings- of sluithaakje.</para>
 </listitem>
 </varlistentry>
 
@@ -1658,21 +1763,6 @@ depends on the <link linkend="pref-edit-indent"
 
 <variablelist>
 
-<varlistentry id="tools-read-only">
-<term
-><menuchoice
-><guimenu
->Hulpmiddelen</guimenu
-><guimenuitem
->Alleen lezen</guimenuitem
-> </menuchoice
-></term>
-<listitem>
-<para
->Stel het huidige document in op Alleen lezen. Dit voorkomt dat er tekst wordt toegevoegd of wijzigingen in de opmaak worden aangebracht.</para>
-</listitem>
-</varlistentry>
-
 <varlistentry id="tools-filetype">
 <term
 ><menuchoice
@@ -1759,6 +1849,23 @@ depends on the <link linkend="pref-edit-indent"
 </listitem>
 </varlistentry>
 
+<varlistentry id="tools-add-byte-mark-order">
+<term
+><menuchoice
+><guimenu
+>Hulpmiddelen</guimenu
+> <guisubmenu
+>Bytevolgordemarkering (BOM) toevoegen</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>Door deze actie aan te vinken kunt u expliciet een bytevolgordemarkering voor documenten gecodeerd in unicode toevoegen. De bytevolgordemarkering (BOM) is een Unicode-teken dat gebruikt wordt om de "endianness" (byte-volgorde) van een tekstbestand of stream aan te geven. Zie voor meer informatie: <ulink url="https://en.wikipedia.org/wiki/Byte_order_mark"
+>Byte Order Mark</ulink
+>.</para>
+</listitem>
+</varlistentry>
+
 <varlistentry id="tools-end-of-line">
 <term
 ><menuchoice
@@ -1776,23 +1883,6 @@ depends on the <link linkend="pref-edit-indent"
 ><guimenuitem
 >Editor instellen...</guimenuitem
 ></menuchoice
->.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry id="tools-add-byte-mark-order">
-<term
-><menuchoice
-><guimenu
->Hulpmiddelen</guimenu
-> <guisubmenu
->Bytevolgordemarkering (BOM) toevoegen</guisubmenu
-> </menuchoice
-></term>
-<listitem>
-<para
->Door deze actie aan te vinken kunt u expliciet een bytevolgordemarkering voor documenten gecodeerd in unicode toevoegen. De bytevolgordemarkering (BOM) is een Unicode-teken dat gebruikt wordt om de "endianness" (byte-volgorde) van een tekstbestand of stream aan te geven. Zie voor meer informatie: <ulink url="https://en.wikipedia.org/wiki/Byte_order_mark"
->Byte Order Mark</ulink
 >.</para>
 </listitem>
 </varlistentry>
@@ -2352,6 +2442,31 @@ A bit experimental right now, therefore I suggest to keep the FIXME for now and 
 
 </variablelist>
 
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-command-line">
+<term
+><menuchoice
+><shortcut
+> <keycap
+>F7</keycap
+> </shortcut
+> <guimenu
+>Hulpmiddelen</guimenu
+> <guimenuitem
+>Overschakelen naar opdrachtregel</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Toont de commandoregel van &katepart; onderaan het venster. Typ <userinput
+>help</userinput
+> op de commandoregel om hulp te krijgen en <userinput
+>help list</userinput
+> voor een lijst met commando's. Voor meer informatie over de commandoregel, zie <link linkend="advanced-editing-tools-commandline"
+>De commandoregel van de bewerkingscomponent</link
+>.</para>
 </listitem>
 </varlistentry>
 

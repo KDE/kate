@@ -7,13 +7,13 @@
 # Vasee Vaseeharan <vasee@ieee.org>, 2004.
 # Ambalam <tamilpc@ambalam.com>, 2004.
 # root <root@localhost.localdomain>, 2004.
-# Kishore G <kishore96@gmail.com>, 2020, 2021, 2022.
+# Kishore G <kishore96@gmail.com>, 2020, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-30 03:15+0000\n"
-"PO-Revision-Date: 2022-11-08 19:55+0530\n"
+"PO-Revision-Date: 2023-01-31 19:48+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.08.3\n"
+"X-Generator: Lokalize 22.12.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -146,12 +146,12 @@ msgstr "[முகவரிகள்...]"
 #: kwrite/main.cpp:85
 #, kde-format
 msgid "KWrite"
-msgstr "KWrite"
+msgstr "கேரைட்"
 
 #: kwrite/main.cpp:87
 #, kde-format
 msgid "KWrite - Text Editor"
-msgstr "kஎழுத்து -  உரைதொகுப்பாளர் உறுப்பு"
+msgstr "கேரைட் -  உரைதொகுப்பாளர் உறுப்பு"
 
 #. i18n: ectx: Menu (file)
 #: lib/data/kateui.rc:6

@@ -393,7 +393,7 @@ void CommitDiffTreeView::openContextMenu(QPoint pos)
         });
     }
 
-    if (auto clip = qApp->clipboard()) {
+    if (qApp->clipboard()) {
         menu.addAction(i18n("Copy Location"), this, [fi] {
             qApp->clipboard()->setText(fi.absoluteFilePath());
         });

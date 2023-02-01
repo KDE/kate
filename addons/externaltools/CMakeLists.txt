@@ -1,10 +1,10 @@
 find_package(KF${KF_MAJOR_VERSION}I18n ${KF5_DEP_VERSION} QUIET)
-if(NOT KF5I18n_FOUND)
+if(NOT KF${KF_MAJOR_VERSION}I18n_FOUND)
     return()
 endif()
 
 find_package(KF${KF_MAJOR_VERSION}IconThemes ${KF5_DEP_VERSION} QUIET)
-if(NOT KF5IconThemes_FOUND)
+if(NOT KF${KF_MAJOR_VERSION}IconThemes_FOUND)
     return()
 endif()
 

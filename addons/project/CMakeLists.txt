@@ -1,16 +1,16 @@
 find_package(Qt${QT_MAJOR_VERSION}Concurrent ${QT_MIN_VERSION} QUIET)
 find_package(
-  KF5 ${KF5_DEP_VERSION}
+  KF${KF_MAJOR_VERSION} ${KF5_DEP_VERSION}
   QUIET
   COMPONENTS
     GuiAddons
     NewStuff
 )
 
-set_package_properties(KFGuiAddons PROPERTIES PURPOSE "Required to build the project addon")
+set_package_properties(KF${KF_MAJOR_VERSION}GuiAddons PROPERTIES PURPOSE "Required to build the project addon")
 set_package_properties(KF${KF_MAJOR_VERSION}NewStuff PROPERTIES PURPOSE "Required to build the project addon")
 
-if(NOT KF5_FOUND OR NOT Qt${QT_MAJOR_VERSION}Concurrent_FOUND)
+if(NOT KF${KF_MAJOR_VERSION}_FOUND OR NOT Qt${QT_MAJOR_VERSION}Concurrent_FOUND)
   return()
 endif()
 

@@ -1,7 +1,7 @@
 find_package(KF${KF_MAJOR_VERSION}GuiAddons ${KF5_DEP_VERSION} QUIET)
 set_package_properties(KF${KF_MAJOR_VERSION}GuiAddons PROPERTIES PURPOSE "Required to build the katefiletree addon")
 
-if(NOT KF5GuiAddons_FOUND)
+if(NOT KF${KF_MAJOR_VERSION}GuiAddons_FOUND)
   return()
 endif()
 

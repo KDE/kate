@@ -232,11 +232,10 @@ void GDBVariableParser::addStruct(int parentId, const QString &vString)
     QStringList symbolAndValue;
     QString subValue;
     int start = 0;
-    int end;
     while (start < vString.size()) {
         // Symbol
         symbolAndValue.clear();
-        end = vString.indexOf(QLatin1String(" = "), start);
+        int end = vString.indexOf(QLatin1String(" = "), start);
         if (end < 0) {
             // error situation -> bail out
             emitNestedVariable(parentId, dap::Variable(QString(), vString.right(start), parentId));

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-01 01:00+0000\n"
-"PO-Revision-Date: 2023-01-16 21:58+0100\n"
+"PO-Revision-Date: 2023-02-01 17:52+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.12.1\n"
+"X-Generator: Lokalize 21.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -495,11 +495,10 @@ msgid "Jump to Previous Hunk"
 msgstr "salta a previe pecietta (hunk)"
 
 #: lib/diff/diffwidget.cpp:133
-#, fuzzy, kde-format
-#| msgid "Reload"
+#, kde-format
 msgctxt "Tooltip for a button, clicking the button reloads the diff"
 msgid "Reload Diff"
-msgstr "Recarga"
+msgstr "Recarga Diff"
 
 #: lib/diff/diffwidget.cpp:463
 #, kde-format
@@ -529,7 +528,7 @@ msgstr "File cancellate %1"
 #: lib/diff/diffwidget.cpp:1065 lib/diff/diffwidget.cpp:1066
 #, kde-format
 msgid "No differences found"
-msgstr ""
+msgstr "On trovava nulle differentias"
 
 #: lib/filehistorywidget.cpp:283
 #, kde-format
@@ -549,11 +548,10 @@ msgid "Copy Commit Hash"
 msgstr ""
 
 #: lib/filehistorywidget.cpp:315
-#, fuzzy, kde-format
-#| msgid "&Show Full Path"
+#, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
-msgstr "Mon&stra percurso complete"
+msgstr "Monstra commit complete"
 
 #: lib/filehistorywidget.cpp:373
 #, kde-format

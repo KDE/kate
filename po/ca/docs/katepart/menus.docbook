@@ -29,6 +29,21 @@
 </listitem>
 </varlistentry>
 
+<varlistentry id="file-new-window">
+<term
+><menuchoice
+><guimenu
+>Fitxer</guimenu
+> <guimenuitem
+>Finestra nova</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Crea una altra finestra que conté el document actual. Tots els canvis al document en una finestra es reflecteixen en l'altra finestra i viceversa.</para>
+</listitem>
+</varlistentry>
+
 <varlistentry id="file-open">
 <term
 ><menuchoice
@@ -346,6 +361,21 @@
 </listitem>
 </varlistentry>
 
+<varlistentry id="edit-copy-as-html">
+<term
+><menuchoice
+><guimenu
+>Edita</guimenu
+> <guimenuitem
+>Copia com a HTML</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Copia la selecció com a &HTML;, amb format utilitzant la configuració actual per al ressaltat de la sintaxi i l'esquema de color.</para>
+</listitem>
+</varlistentry>
+
 <varlistentry id="edit-paste">
 <term
 ><menuchoice
@@ -415,27 +445,12 @@
 ><guimenu
 >Edita</guimenu
 > <guimenuitem
->Historial del porta-retalls</guimenuitem
+>Enganxa l'historial del porta-retalls</guimenuitem
 > </menuchoice
 ></term>
 <listitem>
 <para
->Aquest submenú mostra el començament de les porcions de text recentment copiades al porta-retalls. Seleccioneu un element d'aquest menú per a enganxar-lo al fitxer actualment obert.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry id="edit-copy-as-html">
-<term
-><menuchoice
-><guimenu
->Edita</guimenu
-> <guimenuitem
->Copia com a HTML</guimenuitem
-> </menuchoice
-></term>
-<listitem>
-<para
->Copia la selecció com a &HTML;, amb format utilitzant la configuració actual per al ressaltat de la sintaxi i l'esquema de color.</para>
+>Això obrirà un diàleg per a seleccionar i enganxar una entrada des de l'historial del porta-retalls.</para>
 </listitem>
 </varlistentry>
 
@@ -482,6 +497,21 @@
 > o <guilabel
 >SOB</guilabel
 >.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-read-only">
+<term
+><menuchoice
+><guimenu
+>Edita</guimenu
+> <guimenuitem
+>Mode de només lectura</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Estableix el document actual al mode de només lectura. Això evita que es pugui afegir text o canvis en el format del document.</para>
 </listitem>
 </varlistentry>
 
@@ -696,29 +726,6 @@
 ><imagedata fileref="configure-shortcuts-22.png" format="PNG"/></imageobject
 ></inlinemediaobject
 > a la part dreta de la barra de cerca i substitueix per a veure la barra de cerca incremental. </para>
-</listitem>
-</varlistentry>
-
-<varlistentry id="edit-go-to-matching-bracket">
-<term
-><menuchoice
-><shortcut
-> <keycombo action="simul"
->&Ctrl;<keycap
->6</keycap
-></keycombo
-> </shortcut
-> <guimenu
->Edita</guimenu
-> <guisubmenu
->Ves a</guisubmenu
-> <guimenuitem
->Ves al parèntesi que coincideixi</guimenuitem
-> </menuchoice
-></term>
-<listitem>
-<para
->Mou el cursor al parèntesi d'obertura o tancament associat.</para>
 </listitem>
 </varlistentry>
 
@@ -1060,6 +1067,107 @@ depends on the <link linkend="pref-edit-indent"
 ></listitem>
 </varlistentry>
 
+<varlistentry id="selection-add-caret-above-cursor">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Alt;&Up;</keycombo
+> </shortcut
+> <guimenu
+>Selecció</guimenu
+> <guimenuitem
+>Afegeix un cursor sobre el cursor</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Afegeix un altre cursor sobre el cursor actual. El cursor es col·loca a la línia directament superior i a la mateixa columna que el cursor actual. </para
+></listitem>
+</varlistentry>
+
+<varlistentry id="selection-add-caret-below-cursor">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Alt;&Down;</keycombo
+> </shortcut
+> <guimenu
+>Selecció</guimenu
+> <guimenuitem
+>Afegeix un cursor sota el cursor</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Afegeix un altre cursor sota el cursor actual. El cursor es col·loca a la línia directament superior i a la mateixa columna que el cursor actual. </para
+></listitem>
+</varlistentry>
+
+<varlistentry id="selection-add-cursors-to-line-ends">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Alt;&Maj;<keycap
+>I</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Selecció</guimenu
+> <guimenuitem
+>Afegeix cursors als finals de línia</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Afegeix un cursor a cada línia actualment seleccionada. </para
+></listitem>
+</varlistentry>
+
+<varlistentry id="selection-find-and-select-next-occurrence">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Alt;<keycap
+>J</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Selecció</guimenu
+> <guimenuitem
+>Cerca i selecciona l'ocurrència següent</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Cerca l'ocurrència següent de la paraula actualment sota el cursor, la selecciona i afegeix un cursor. </para
+></listitem>
+</varlistentry>
+
+<varlistentry id="selection-find-and-select-all-occurrences">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Alt;&Maj;<keycap
+>J</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Selecció</guimenu
+> <guimenuitem
+>Cerca i selecciona totes les ocurrències</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Cerca totes les ocurrències de la paraula actualment sota el cursor, les selecciona i afegeix un cursor a cada una d'elles. </para
+></listitem>
+</varlistentry>
+
 </variablelist>
 
 </sect1>
@@ -1070,46 +1178,6 @@ depends on the <link linkend="pref-edit-indent"
 >El menú Visualitza</title>
 
 <variablelist>
-
-<varlistentry id="view-new-window">
-<term
-><menuchoice
-><guimenu
->Visualitza</guimenu
-> <guimenuitem
->Finestra nova</guimenuitem
-> </menuchoice
-></term>
-<listitem>
-<para
->Crea una altra finestra que conté el document actual. Tots els canvis al document en una finestra es reflecteixen en l'altra finestra i viceversa.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry id="view-command-line">
-<term
-><menuchoice
-><shortcut
-> <keycap
->F7</keycap
-> </shortcut
-> <guimenu
->Visualitza</guimenu
-> <guimenuitem
->Canvia a la línia d'ordres</guimenuitem
-> </menuchoice
-></term>
-<listitem>
-<para
->Mostra la línia d'ordres a la &katepart; a la part inferior de la finestra. A la línia d'ordres, escriviu <userinput
->help</userinput
-> per a obtenir ajuda i <userinput
->help list</userinput
-> per a obtenir una llista de les ordres. Per a més informació sobre la línia d'ordres, vegeu <link linkend="advanced-editing-tools-commandline"
->El component de la línia d'ordres de l'editor</link
->.</para>
-</listitem>
-</varlistentry>
 
 <varlistentry id="view-enlarge-font">
 <term
@@ -1319,14 +1387,14 @@ depends on the <link linkend="pref-edit-indent"
 <varlistentry id="view-show-folding-markers">
 <term
 ><menuchoice
-><shortcut
-> <keycombo action="simul"
-><keycap
->F9</keycap
-></keycombo
-> </shortcut
+><guimenu
+>Visualitza</guimenu
+> <guisubmenu
+>Vores</guisubmenu
+> <guisubmenu
+>Plegat de codi</guisubmenu
 > <guimenuitem
->Mostra els marcadors plegables</guimenuitem
+>Mostra les marques de plegat</guimenuitem
 > </menuchoice
 ></term>
 <listitem
@@ -1337,10 +1405,14 @@ depends on the <link linkend="pref-edit-indent"
 
 <varlistentry id="view-fold-current-node">
 <term
-><menuchoice>
-<guimenuitem
->Contrau el node actual</guimenuitem>
-</menuchoice
+><menuchoice
+><guimenu
+>Visualitza</guimenu
+> <guisubmenu
+>Plegat de codi</guisubmenu
+> <guimenuitem
+>Contrau el node actual</guimenuitem
+> </menuchoice
 ></term>
 <listitem
 ><para
@@ -1350,10 +1422,14 @@ depends on the <link linkend="pref-edit-indent"
 
 <varlistentry id="view-unfold-current-node">
 <term
-><menuchoice>
-<guimenuitem
->Expandeix el node actual</guimenuitem>
-</menuchoice
+><menuchoice
+><guimenu
+>Visualitza</guimenu
+> <guisubmenu
+>Plegat de codi</guisubmenu
+> <guimenuitem
+>Expandeix el node actual</guimenuitem
+> </menuchoice
 ></term>
 <listitem
 ><para
@@ -1370,6 +1446,10 @@ depends on the <link linkend="pref-edit-indent"
 >-</keycap
 ></keycombo
 > </shortcut
+> <guimenu
+>Visualitza</guimenu
+> <guisubmenu
+>Plegat de codi</guisubmenu
 > <guimenuitem
 >Contrau els nodes de nivell superior</guimenuitem
 > </menuchoice
@@ -1389,8 +1469,12 @@ depends on the <link linkend="pref-edit-indent"
 >+</keycap
 ></keycombo
 > </shortcut
+> <guimenu
+>Visualitza</guimenu
+> <guisubmenu
+>Plegat de codi</guisubmenu
 > <guimenuitem
->Expandeix els nodes de nivell superior</guimenuitem
+>Contrau els nodes de nivell superior</guimenuitem
 > </menuchoice
 ></term>
 <listitem
@@ -1520,6 +1604,27 @@ depends on the <link linkend="pref-edit-indent"
 <listitem>
 <para
 >Les línies que s'han canviat des que es va obrir el fitxer, s'anomenen línies modificades. Aquesta acció saltarà a la línia modificada següent. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="go-go-to-matching-bracket">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>6</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Ves</guimenu
+> <guimenuitem
+>Ves al parèntesi concordant</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Mou el cursor al parèntesi d'obertura o tancament associat.</para>
 </listitem>
 </varlistentry>
 
@@ -1658,21 +1763,6 @@ depends on the <link linkend="pref-edit-indent"
 
 <variablelist>
 
-<varlistentry id="tools-read-only">
-<term
-><menuchoice
-><guimenu
->Eines</guimenu
-> <guimenuitem
->Mode de només lectura</guimenuitem
-> </menuchoice
-></term>
-<listitem>
-<para
->Estableix el document actual al mode de només lectura. Això evita que es pugui afegir text o canvis en el format del document.</para>
-</listitem>
-</varlistentry>
-
 <varlistentry id="tools-filetype">
 <term
 ><menuchoice
@@ -1759,6 +1849,23 @@ depends on the <link linkend="pref-edit-indent"
 </listitem>
 </varlistentry>
 
+<varlistentry id="tools-add-byte-mark-order">
+<term
+><menuchoice
+><guimenu
+>Eines</guimenu
+> <guisubmenu
+>Afegeix una marca d'ordre de byte (BOM)</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>Seleccionant aquesta acció de forma explícita, podeu afegir una marca d'ordre de byte per als documents codificats amb Unicode. La marca d'ordre de byte (BOM) és un caràcter Unicode utilitzat per a indicar l'ordre dels bytes en un fitxer de text o un flux, per a obtenir més informació, vegeu <ulink url="https://en.wikipedia.org/wiki/Byte_order_mark"
+>La marca d'ordre de byte</ulink
+>.</para>
+</listitem>
+</varlistentry>
+
 <varlistentry id="tools-end-of-line">
 <term
 ><menuchoice
@@ -1777,23 +1884,6 @@ depends on the <link linkend="pref-edit-indent"
 >Configura l'editor...</guimenuitem
 > </menuchoice
 > només per al document actual.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry id="tools-add-byte-mark-order">
-<term
-><menuchoice
-><guimenu
->Eines</guimenu
-> <guisubmenu
->Afegeix una marca d'ordre de byte (BOM)</guisubmenu
-> </menuchoice
-></term>
-<listitem>
-<para
->Seleccionant aquesta acció de forma explícita, podeu afegir una marca d'ordre de byte per als documents codificats amb Unicode. La marca d'ordre de byte (BOM) és un caràcter Unicode utilitzat per a indicar l'ordre dels bytes en un fitxer de text o un flux, per a obtenir més informació, vegeu <ulink url="https://en.wikipedia.org/wiki/Byte_order_mark"
->La marca d'ordre de byte</ulink
->.</para>
 </listitem>
 </varlistentry>
 
@@ -2352,6 +2442,31 @@ A bit experimental right now, therefore I suggest to keep the FIXME for now and 
 
 </variablelist>
 
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-command-line">
+<term
+><menuchoice
+><shortcut
+> <keycap
+>F7</keycap
+> </shortcut
+> <guimenu
+>Eines</guimenu
+> <guimenuitem
+>Canvia a la línia d'ordres</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Mostra la línia d'ordres a la &katepart; a la part inferior de la finestra. A la línia d'ordres, escriviu <userinput
+>help</userinput
+> per a obtenir ajuda i <userinput
+>help list</userinput
+> per a obtenir una llista de les ordres. Per a més informació sobre la línia d'ordres, vegeu <link linkend="advanced-editing-tools-commandline"
+>El component de la línia d'ordres de l'editor</link
+>.</para>
 </listitem>
 </varlistentry>
 

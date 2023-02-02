@@ -29,6 +29,21 @@
 </listitem>
 </varlistentry>
 
+<varlistentry id="file-new-window">
+<term
+><menuchoice
+><guimenu
+>Файл</guimenu
+> <guimenuitem
+>Нове вікно</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Створює ще одне вікно з поточним документом. Всі зміни у документі, що редагується у одному з вікон, повторюватимуться у іншому і навпаки.</para>
+</listitem>
+</varlistentry>
+
 <varlistentry id="file-open">
 <term
 ><menuchoice
@@ -346,6 +361,21 @@
 </listitem>
 </varlistentry>
 
+<varlistentry id="edit-copy-as-html">
+<term
+><menuchoice
+><guimenu
+>Зміни</guimenu
+><guimenuitem
+>Копіювати як HTML</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Копіювати позначений фрагмент тексту як код &HTML;, який буде форматовано з використанням поточного режиму підсвічування синтаксичних конструкцій та параметрів схеми кольорів.</para>
+</listitem>
+</varlistentry>
+
 <varlistentry id="edit-paste">
 <term
 ><menuchoice
@@ -413,29 +443,14 @@
 <term
 ><menuchoice
 ><guimenu
->Файл</guimenu
-> <guisubmenu
->Журнал буфера даних</guisubmenu
-> </menuchoice
-></term>
-<listitem>
-<para
->У цьому підменю буде показано список з початкових фрагментів блоків тексту, які було скопійовано до буфера обміну даними. Вибір певного пункту у цьому підменю призводитиме до вставлення відповідного блоку у поточний відкритий файл.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry id="edit-copy-as-html">
-<term
-><menuchoice
-><guimenu
 >Зміни</guimenu
-><guimenuitem
->Копіювати як HTML</guimenuitem
+> <guimenuitem
+>Вставлення з журналу буфера</guimenuitem
 > </menuchoice
 ></term>
 <listitem>
 <para
->Копіювати позначений фрагмент тексту як код &HTML;, який буде форматовано з використанням поточного режиму підсвічування синтаксичних конструкцій та параметрів схеми кольорів.</para>
+>Цей пункт відкриває вікно для вибору і вставлення запису з журналу буфера обміну даними.</para>
 </listitem>
 </varlistentry>
 
@@ -484,6 +499,21 @@
 > або <guilabel
 >ЗАМ</guilabel
 >.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-read-only">
+<term
+><menuchoice
+><guimenu
+>Зміни</guimenu
+> <guimenuitem
+>Режим лише для читання</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Переводить поточний документ у режим «лише для читання». Цей режим призначено для запобігання будь-якому додаванню тексту та будь-якій зміні форматування документа.</para>
 </listitem>
 </varlistentry>
 
@@ -698,29 +728,6 @@
 ><imagedata fileref="configure-shortcuts-22.png" format="PNG"/></imageobject
 ></inlinemediaobject
 >, розташовану у правій частині панелі потужного пошуку і заміни, щоб перемкнутися на звичайну нагромаджувальну панель пошуку. </para>
-</listitem>
-</varlistentry>
-
-<varlistentry id="edit-go-to-matching-bracket">
-<term
-><menuchoice
-><shortcut
-> <keycombo action="simul"
->&Ctrl;<keycap
->6</keycap
-></keycombo
-> </shortcut
-> <guimenu
->Зміни</guimenu
-> <guisubmenu
->Перейти</guisubmenu
-> <guimenuitem
->Перейти до відповідної дужки</guimenuitem
-> </menuchoice
-></term>
-<listitem>
-<para
->Пересунути курсор до відповідної парної початкової чи кінцевої дужки.</para>
 </listitem>
 </varlistentry>
 
@@ -1060,6 +1067,107 @@ depends on the <link linkend="pref-edit-indent"
 ></listitem>
 </varlistentry>
 
+<varlistentry id="selection-add-caret-above-cursor">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Alt;&Up;</keycombo
+> </shortcut
+> <guimenu
+>Позначення</guimenu
+> <guimenuitem
+>Додати каретку над поточним курсором</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Додає ще одну каретку над поточним курсором. Каретка розташовується у рядку вище на тій самій позиції, що і курсор у поточному рядку. </para
+></listitem>
+</varlistentry>
+
+<varlistentry id="selection-add-caret-below-cursor">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Alt;&Down;</keycombo
+> </shortcut
+> <guimenu
+>Позначення</guimenu
+> <guimenuitem
+>Додати каретку під курсором</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Додає ще одну каретку під поточним курсором. Каретка розташовується у рядку вище на тій самій позиції, що і курсор у поточному рядку. </para
+></listitem>
+</varlistentry>
+
+<varlistentry id="selection-add-cursors-to-line-ends">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Alt;&Shift;<keycap
+>I</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Позначення</guimenu
+> <guimenuitem
+>Додати курсори на кінцях рядків</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Додає курсор до кожного поточного позначеного рядка. </para
+></listitem>
+</varlistentry>
+
+<varlistentry id="selection-find-and-select-next-occurrence">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Alt;<keycap
+>J</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Позначення</guimenu
+> <guimenuitem
+>Знайти і позначити наступний збіг</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Знаходить наступний відповідник слова, у якому зараз перебуває курсор, позначає його і додає курсор. </para
+></listitem>
+</varlistentry>
+
+<varlistentry id="selection-find-and-select-all-occurrences">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Alt;&Shift;<keycap
+>J</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Позначення</guimenu
+> <guimenuitem
+>Знайти і позначити усі збіги</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Знаходить усі відповідники слова, у якому зараз перебуває курсор, позначає їх і додає курсор до кожного з них. </para
+></listitem>
+</varlistentry>
+
 </variablelist>
 
 </sect1>
@@ -1070,46 +1178,6 @@ depends on the <link linkend="pref-edit-indent"
 >Меню «Перегляд»</title>
 
 <variablelist>
-
-<varlistentry id="view-new-window">
-<term
-><menuchoice
-><guimenu
->Перегляд</guimenu
-> <guimenuitem
->Нове вікно</guimenuitem
-> </menuchoice
-></term>
-<listitem>
-<para
->Створює ще одне вікно з поточним документом. Всі зміни у документі, що редагується у одному з вікон, повторюватимуться у іншому і навпаки.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry id="view-command-line">
-<term
-><menuchoice
-><shortcut
-><keycap
->F7</keycap
-></shortcut
-> <guimenu
->Перегляд</guimenu
-> <guimenuitem
->Перемкнутися до командного рядка</guimenuitem
-> </menuchoice
-></term>
-<listitem>
-<para
->Показує командний рядок &katepart; внизу вікна. У цьому командному рядку можна ввести <userinput
->help</userinput
->, щоб переглянути довідкову інформацію, або <userinput
->help list</userinput
->, щоб переглянути список команд. Докладніші відомості щодо командного рядка можна знайти у розділі щодо <link linkend="advanced-editing-tools-commandline"
->командного рядка компонента редактора</link
->.</para>
-</listitem>
-</varlistentry>
 
 <varlistentry id="view-enlarge-font">
 <term
@@ -1319,12 +1387,12 @@ depends on the <link linkend="pref-edit-indent"
 <varlistentry id="view-show-folding-markers">
 <term
 ><menuchoice
-><shortcut
-> <keycombo action="simul"
-><keycap
->F9</keycap
-></keycombo
-> </shortcut
+><guimenu
+>Перегляд</guimenu
+> <guisubmenu
+>Межі</guisubmenu
+> <guisubmenu
+>Згортання коду</guisubmenu
 > <guimenuitem
 >Показувати маркери згортання</guimenuitem
 > </menuchoice
@@ -1337,10 +1405,14 @@ depends on the <link linkend="pref-edit-indent"
 
 <varlistentry id="view-fold-current-node">
 <term
-><menuchoice>
-<guimenuitem
->Згорнути поточний вузол</guimenuitem>
-</menuchoice
+><menuchoice
+><guimenu
+>Перегляд</guimenu
+> <guisubmenu
+>Згортання коду</guisubmenu
+> <guimenuitem
+>Згорнути поточний вузол</guimenuitem
+> </menuchoice
 ></term>
 <listitem
 ><para
@@ -1350,10 +1422,14 @@ depends on the <link linkend="pref-edit-indent"
 
 <varlistentry id="view-unfold-current-node">
 <term
-><menuchoice>
-<guimenuitem
->Розгорнути поточний вузол</guimenuitem>
-</menuchoice
+><menuchoice
+><guimenu
+>Перегляд</guimenu
+> <guisubmenu
+>Згортання коду</guisubmenu
+> <guimenuitem
+>Розгорнути поточний вузол</guimenuitem
+> </menuchoice
 ></term>
 <listitem
 ><para
@@ -1365,11 +1441,15 @@ depends on the <link linkend="pref-edit-indent"
 <term
 ><menuchoice
 ><shortcut
-><keycombo action="simul"
->&Ctrl; &Shift;<keycap
+> <keycombo action="simul"
+>&Ctrl;&Shift;<keycap
 >-</keycap
 ></keycombo
-></shortcut
+> </shortcut
+> <guimenu
+>Перегляд</guimenu
+> <guisubmenu
+>Згортання коду</guisubmenu
 > <guimenuitem
 >Згорнути вузли найвищого рівня</guimenuitem
 > </menuchoice
@@ -1384,11 +1464,15 @@ depends on the <link linkend="pref-edit-indent"
 <term
 ><menuchoice
 ><shortcut
-><keycombo action="simul"
->&Ctrl; &Shift;<keycap
+> <keycombo action="simul"
+>&Ctrl;&Shift;<keycap
 >+</keycap
 ></keycombo
-></shortcut
+> </shortcut
+> <guimenu
+>Перегляд</guimenu
+> <guisubmenu
+>Згортання коду</guisubmenu
 > <guimenuitem
 >Розгорнути вузли найвищого рівня</guimenuitem
 > </menuchoice
@@ -1520,6 +1604,27 @@ depends on the <link linkend="pref-edit-indent"
 <listitem>
 <para
 >Рядки, які було змінено з часу відкриття файла, називаються зміненими рядками. За допомогою цього пункту можна перейти до наступного зміненого рядка. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="go-go-to-matching-bracket">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>6</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Перехід</guimenu
+> <guimenuitem
+>Перейти до відповідної дужки</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Пересунути курсор до відповідної парної початкової чи кінцевої дужки.</para>
 </listitem>
 </varlistentry>
 
@@ -1662,21 +1767,6 @@ depends on the <link linkend="pref-edit-indent"
 
 <variablelist>
 
-<varlistentry id="tools-read-only">
-<term
-><menuchoice
-><guimenu
->Інструменти</guimenu
-> <guimenuitem
->Режим тільки для читання</guimenuitem
-> </menuchoice
-></term>
-<listitem>
-<para
->Переводить поточний документ у режим «лише для читання». Цей режим призначено для запобігання будь-якому додаванню тексту та будь-якій зміні форматування документа.</para>
-</listitem>
-</varlistentry>
-
 <varlistentry id="tools-filetype">
 <term
 ><menuchoice
@@ -1763,6 +1853,23 @@ depends on the <link linkend="pref-edit-indent"
 </listitem>
 </varlistentry>
 
+<varlistentry id="tools-add-byte-mark-order">
+<term
+><menuchoice
+><guimenu
+>Інструменти</guimenu
+> <guisubmenu
+>Додати позначку порядку байтів (BOM)</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>Після позначення цього пункту ви зможете явним чином додати позначку порядку байтів до документів у кодуванні Unicode. Позначка порядку байтів (BOM) — це символ Unicode, що використовується для визначення порядку байтів текстового файла або потоку даних. Докладніше про неї можна дізнатися зі статті <ulink url="http://uk.wikipedia.org/wiki/Маркер_порядку_байт"
+>Позначка порядку байтів</ulink
+>.</para>
+</listitem>
+</varlistentry>
+
 <varlistentry id="tools-end-of-line">
 <term
 ><menuchoice
@@ -1781,23 +1888,6 @@ depends on the <link linkend="pref-edit-indent"
 >Налаштувати редактор...</guimenuitem
 ></menuchoice
 >, але лише для поточного документа.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry id="tools-add-byte-mark-order">
-<term
-><menuchoice
-><guimenu
->Інструменти</guimenu
-> <guisubmenu
->Додати позначку порядку байтів (BOM)</guisubmenu
-> </menuchoice
-></term>
-<listitem>
-<para
->Після позначення цього пункту ви зможете явним чином додати позначку порядку байтів до документів у кодуванні Unicode. Позначка порядку байтів (BOM) — це символ Unicode, що використовується для визначення порядку байтів текстового файла або потоку даних. Докладніше про неї можна дізнатися зі статті <ulink url="http://uk.wikipedia.org/wiki/Маркер_порядку_байт"
->Позначка порядку байтів</ulink
->.</para>
 </listitem>
 </varlistentry>
 
@@ -2368,6 +2458,31 @@ A bit experimental right now, therefore I suggest to keep the FIXME for now and 
 
 </variablelist>
 
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-command-line">
+<term
+><menuchoice
+><shortcut
+> <keycap
+>F7</keycap
+> </shortcut
+> <guimenu
+>Інструменти</guimenu
+> <guimenuitem
+>Перемкнутися до командного рядка</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Показує командний рядок &katepart; внизу вікна. У цьому командному рядку можна ввести <userinput
+>help</userinput
+>, щоб переглянути довідкову інформацію, або <userinput
+>help list</userinput
+>, щоб переглянути список команд. Докладніші відомості щодо командного рядка можна знайти у розділі щодо <link linkend="advanced-editing-tools-commandline"
+>командного рядка компонента редактора</link
+>.</para>
 </listitem>
 </varlistentry>
 

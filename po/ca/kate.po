@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-01 01:00+0000\n"
-"PO-Revision-Date: 2023-01-31 10:04+0100\n"
+"PO-Revision-Date: 2023-02-01 10:35+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -514,6 +514,9 @@ msgid ""
 "installed, make sure it is your PATH variable. See https://git-scm.com/"
 "downloads"
 msgstr ""
+"No s'ha trobat el <b>git</b>. El «git» cal per a trobar les diferències dels "
+"documents. Si el «git» ja està instal·lat, comproveu que estigui a la "
+"variable PATH. Vegeu https://git-scm.com/downloads"
 
 #: lib/diff/diffwidget.cpp:466 lib/diff/diffwidget.cpp:1073
 #: lib/kateconfigdialog.cpp:549
@@ -535,7 +538,7 @@ msgstr "Fitxer suprimit %1"
 #: lib/diff/diffwidget.cpp:1065 lib/diff/diffwidget.cpp:1066
 #, kde-format
 msgid "No differences found"
-msgstr ""
+msgstr "No s'ha trobat cap diferència"
 
 #: lib/filehistorywidget.cpp:283
 #, kde-format
@@ -553,13 +556,13 @@ msgstr "Ha fallat en obtenir l'historial de fitxers: %1"
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
-msgstr ""
+msgstr "Copia el resum de la publicació"
 
 #: lib/filehistorywidget.cpp:315
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
-msgstr ""
+msgstr "Mostra la publicació completa"
 
 #: lib/filehistorywidget.cpp:373
 #, kde-format

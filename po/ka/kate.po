@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-01 01:00+0000\n"
-"PO-Revision-Date: 2023-01-25 06:49+0100\n"
+"PO-Revision-Date: 2023-02-01 02:22+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -475,11 +475,10 @@ msgid "Jump to Previous Hunk"
 msgstr "წინა ნაფლეთზე გადასვლა"
 
 #: lib/diff/diffwidget.cpp:133
-#, fuzzy, kde-format
-#| msgid "&Reload"
+#, kde-format
 msgctxt "Tooltip for a button, clicking the button reloads the diff"
 msgid "Reload Diff"
-msgstr "თავიდან ჩატვირთვა"
+msgstr "Diff-ის თავიდან ჩატვირთვა"
 
 #: lib/diff/diffwidget.cpp:463
 #, kde-format
@@ -1374,7 +1373,7 @@ msgstr "ყველა ღია დოკუმენტის თავიდ
 #: lib/katemainwindow.cpp:355 lib/katemainwindow.cpp:364
 #, kde-format
 msgid "Copies the file path of the current file to clipboard."
-msgstr ""
+msgstr "მიმდინარე ფაილის ბილიკის ბუფერში კოპირება."
 
 #: lib/katemainwindow.cpp:359 lib/welcomeview/welcomeview.cpp:241
 #, kde-format
@@ -1390,7 +1389,7 @@ msgstr "სახელის გადარქმევა..."
 #: lib/katemainwindow.cpp:373
 #, kde-format
 msgid "Renames the file belonging to the current document."
-msgstr ""
+msgstr "ფაილის, რომელიც მიმდინარე დოკუმენტს ეკუთვნის, სახელის გადარქმევა."
 
 #: lib/katemainwindow.cpp:377
 #, kde-format
@@ -1511,7 +1510,7 @@ msgstr "&დამატებების სახელმძღვანე�
 #: lib/katemainwindow.cpp:458
 #, kde-format
 msgid "This shows help files for various available plugins."
-msgstr ""
+msgstr "გაჩვენებთ დახმარებს ფაილებს სხვადასხვა ხელმისაწვდომი დამატებებისთვის."
 
 #: lib/katemainwindow.cpp:475
 #, kde-format
@@ -1567,7 +1566,7 @@ msgstr "ფაილის Git ისტორიის ჩვენება"
 #: lib/katemainwindow.cpp:552
 #, kde-format
 msgid "This will close all open documents. Are you sure you want to continue?"
-msgstr ""
+msgstr "ეს ყველა ღია დოკუმენტს დახურავთ. გნებავთ, გააგრძელოთ?"
 
 #: lib/katemainwindow.cpp:553
 #, kde-format
@@ -1739,7 +1738,7 @@ msgstr ""
 #: lib/katemwmodonhddialog.cpp:58
 #, kde-format
 msgid "Documents Modified on Disk"
-msgstr ""
+msgstr "დოკუმენტები დისკზე შეიცვალა"
 
 #: lib/katemwmodonhddialog.cpp:74
 #, kde-format

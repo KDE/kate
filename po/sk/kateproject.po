@@ -2,25 +2,26 @@
 # Roman Paholík <wizzardsk@gmail.com>, 2012, 2013, 2014, 2015, 2016, 2019.
 # Mthw <jari_45@hotmail.com>, 2018, 2019.
 # Matej Mrenica <matejm98mthw@gmail.com>, 2019, 2020, 2021, 2022, 2023.
+# Ferdinand Galko <galko.ferdinand@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-31 01:02+0000\n"
-"PO-Revision-Date: 2023-01-10 11:46+0100\n"
-"Last-Translator: Matej Mrenica <matejm98mthw@gmail.com>\n"
-"Language-Team: Slovak <kde-i18n-doc@kde.org>\n"
+"PO-Revision-Date: 2023-01-31 18:13+0100\n"
+"Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
+"Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.12.1\n"
+"X-Generator: Lokalize 21.12.3\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
 msgid "Select branch to checkout. Press 'Esc' to cancel."
-msgstr ""
+msgstr "Vyberte vetvu na získanie. Stlačením 'Esc' zrušíte výber."
 
 #: branchcheckoutdialog.cpp:36
 #, kde-format
@@ -35,33 +36,34 @@ msgstr "Vytvoriť novú vetvu z..."
 #: branchcheckoutdialog.cpp:53
 #, kde-format
 msgid "Branch %1 checked out"
-msgstr ""
+msgstr "Vetva %1 sa získala"
 
 #: branchcheckoutdialog.cpp:56
 #, kde-format
 msgid "Failed to checkout to branch %1, Error: %2"
-msgstr ""
+msgstr "Nepodarilo sa prejsť na vetvu %1, Chyba: %2"
 
 #: branchcheckoutdialog.cpp:83 branchcheckoutdialog.cpp:95
 #, kde-format
 msgid "Enter new branch name. Press 'Esc' to cancel."
-msgstr ""
-"Zadajte názov novej vetvy. Ak chcete akciu zrušiť stlačte klávesu 'Esc'."
+msgstr "Zadajte názov novej vetvy. Stlačením 'Esc' zrušíte zadávanie."
 
 #: branchcheckoutdialog.cpp:100
 #, kde-format
 msgid "Select branch to checkout from. Press 'Esc' to cancel."
 msgstr ""
+"Vyberte vetvu, z ktorej sa má uskutočniť získanie. Stlačením 'Esc' zrušíte "
+"výber."
 
 #: branchcheckoutdialog.cpp:121
 #, kde-format
 msgid "Checked out to new branch: %1"
-msgstr ""
+msgstr "Prešlo sa na novú vetvu: %1"
 
 #: branchcheckoutdialog.cpp:123
 #, kde-format
 msgid "Failed to create new branch. Error \"%1\""
-msgstr ""
+msgstr "Nepodarilo sa vytvoriť novú vetvu. Chyba \"%1\""
 
 #: branchdeletedialog.cpp:122
 #, kde-format
@@ -71,7 +73,7 @@ msgstr "Vetva"
 #: branchdeletedialog.cpp:122
 #, kde-format
 msgid "Last Commit"
-msgstr "Posledný commit"
+msgstr "Posledné začlenenie"
 
 #: branchdeletedialog.cpp:135 kateprojecttreeviewcontextmenu.cpp:78
 #, kde-format
@@ -82,9 +84,9 @@ msgstr "Vymazať"
 #, kde-format
 msgid "Are you sure you want to delete the selected branch?"
 msgid_plural "Are you sure you want to delete the selected branches?"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Naozaj chcete vymazať vybranú vetvu?"
+msgstr[1] "Naozaj chcete vymazať vybrané vetvy?"
+msgstr[2] "Naozaj chcete vymazať vybrané vetvy?"
 
 #: branchesdialog.cpp:102
 #, kde-format
@@ -105,29 +107,29 @@ msgstr "Späť"
 #, kde-format
 msgctxt "Tooltip text, describing that '%1' commit is checked out"
 msgid "HEAD at commit %1"
-msgstr ""
+msgstr "HEAD na začlenení %1"
 
 #: currentgitbranchbutton.cpp:125
 #, kde-format
 msgctxt "Tooltip text, describing that '%1' tag is checked out"
 msgid "HEAD is at this tag %1"
-msgstr ""
+msgstr "HEAD na tejto značke %1"
 
 #: currentgitbranchbutton.cpp:127
 #, kde-format
 msgctxt "Tooltip text, describing that '%1' branch is checked out"
 msgid "Active branch: %1"
-msgstr ""
+msgstr "Aktívna vetva: %1"
 
 #: gitcommitdialog.cpp:69 gitcommitdialog.cpp:116
 #, kde-format
 msgid "Commit Changes"
-msgstr "Commitovať zmeny"
+msgstr "Začleniť zmeny"
 
 #: gitcommitdialog.cpp:73 gitcommitdialog.cpp:115 gitwidget.cpp:245
 #, kde-format
 msgid "Commit"
-msgstr "Commitovať"
+msgstr "Začleniť"
 
 #: gitcommitdialog.cpp:74
 #, kde-format
@@ -137,12 +139,12 @@ msgstr "Zrušiť"
 #: gitcommitdialog.cpp:76
 #, kde-format
 msgid "Write commit message..."
-msgstr "Napísať správu pre commit..."
+msgstr "Napísať správu pre začlenenie..."
 
 #: gitcommitdialog.cpp:83
 #, kde-format
 msgid "Extended commit description..."
-msgstr ""
+msgstr "Rozšírený popis začlenenia..."
 
 #: gitcommitdialog.cpp:107
 #, kde-format
@@ -152,7 +154,7 @@ msgstr "Odhlásiť sa"
 #: gitcommitdialog.cpp:111 gitcommitdialog.cpp:120
 #, kde-format
 msgid "Amend"
-msgstr "Pridať"
+msgstr "Doplniť"
 
 #: gitcommitdialog.cpp:112 gitwidget.cpp:940
 #, kde-format
@@ -162,24 +164,24 @@ msgstr "Doplniť posledné začlenenie"
 #: gitcommitdialog.cpp:119
 #, kde-format
 msgid "Amending Commit"
-msgstr ""
+msgstr "Doplnenie začlenenia"
 
 #: gitcommitdialog.cpp:203
 #, kde-format
 msgctxt "Number of characters"
 msgid "%1 / 52"
-msgstr ""
+msgstr "%1 / 52"
 
 #: gitcommitdialog.cpp:207
 #, kde-format
 msgctxt "Number of characters"
 msgid "<span style=\"color:%1;\">%2</span> / 52"
-msgstr ""
+msgstr "<span style=\"color:%1;\">%2</span> / 52"
 
 #: gitstatusmodel.cpp:85
 #, kde-format
 msgid "Staged"
-msgstr ""
+msgstr "Označené"
 
 #: gitstatusmodel.cpp:87
 #, kde-format
@@ -197,16 +199,14 @@ msgid "Modified"
 msgstr "Zmenené"
 
 #: gitwidget.cpp:253
-#, fuzzy, kde-format
-#| msgid "Git push"
+#, kde-format
 msgid "Git Push"
-msgstr "Git push"
+msgstr "Git Push"
 
 #: gitwidget.cpp:266
-#, fuzzy, kde-format
-#| msgid "Git pull"
+#, kde-format
 msgid "Git Pull"
-msgstr "Git pull"
+msgstr "Git Pull"
 
 #: gitwidget.cpp:279
 #, kde-format
@@ -227,6 +227,7 @@ msgstr "Filtrovať..."
 #, kde-format
 msgid "Failed to find .git directory for '%1', things may not work correctly"
 msgstr ""
+"Nepodarilo sa nájsť adresár .git pre '%1', veci nemusia fungovať správne"
 
 #: gitwidget.cpp:554
 #, kde-format
@@ -236,72 +237,72 @@ msgstr " chyba: %1"
 #: gitwidget.cpp:560
 #, kde-format
 msgid "\"%1\" executed successfully: %2"
-msgstr ""
+msgstr "\"%1\" úspešne vykonané: %2"
 
 #: gitwidget.cpp:580
 #, kde-format
 msgid "Failed to stage file. Error:"
-msgstr ""
+msgstr "Nepodarilo sa označiť súbor. Chyba:"
 
 #: gitwidget.cpp:593
 #, kde-format
 msgid "Failed to unstage file. Error:"
-msgstr ""
+msgstr "Nepodarilo sa zrušiť označenie súboru. Chyba:"
 
 #: gitwidget.cpp:604
 #, kde-format
 msgid "Failed to discard changes. Error:"
-msgstr ""
+msgstr "Nepodarilo sa zahodiť zmeny. Chyba:"
 
 #: gitwidget.cpp:615
 #, kde-format
 msgid "Failed to remove. Error:"
-msgstr ""
+msgstr "Nepodarilo sa odstrániť. Chyba:"
 
 #: gitwidget.cpp:631
 #, kde-format
 msgid "Failed to open file at HEAD: %1"
-msgstr ""
+msgstr "Nepodarilo sa otvoriť súbor na HEAD: %1"
 
 #: gitwidget.cpp:663
 #, kde-format
 msgid "Failed to get Diff of file: %1"
-msgstr ""
+msgstr "Nepodarilo sa získať Diff súboru: %1"
 
 #: gitwidget.cpp:730
 #, kde-format
 msgid "Failed to commit: %1"
-msgstr ""
+msgstr "Nepodarilo sa začleniť: %1"
 
 #: gitwidget.cpp:734
 #, kde-format
 msgid "Changes committed successfully."
-msgstr ""
+msgstr "Zmeny boli úspešne začlenené."
 
 #: gitwidget.cpp:744
 #, kde-format
 msgid "Nothing to commit. Please stage your changes first."
-msgstr ""
+msgstr "Nič na začlenenie. Prosím, najskôr označte svoje zmeny."
 
 #: gitwidget.cpp:757
 #, kde-format
 msgid "Commit message cannot be empty."
-msgstr ""
+msgstr "Správa začlenenia nemôže byť prázdna."
 
 #: gitwidget.cpp:872
 #, kde-format
 msgid "No diff for %1...%2"
-msgstr ""
+msgstr "Žiadny rozdiel pre %1...%2"
 
 #: gitwidget.cpp:878
 #, kde-format
 msgid "Failed to compare %1...%2"
-msgstr ""
+msgstr "Nepodarilo sa porovnať %1...%2"
 
 #: gitwidget.cpp:893
 #, kde-format
 msgid "Failed to get numstat when diffing %1...%2"
-msgstr ""
+msgstr "Nepodarilo sa získať numstat pri porovnávaní %1...%2"
 
 #: gitwidget.cpp:932
 #, kde-format
@@ -311,7 +312,7 @@ msgstr "Obnoviť"
 #: gitwidget.cpp:948
 #, kde-format
 msgid "Checkout Branch"
-msgstr ""
+msgstr "Získať vetvu"
 
 #: gitwidget.cpp:960
 #, kde-format
@@ -321,25 +322,22 @@ msgstr "Vybrať vetvu"
 #: gitwidget.cpp:972
 #, kde-format
 msgid "Compare Branch with..."
-msgstr ""
+msgstr "Porovnať vetvu s..."
 
 #: gitwidget.cpp:976
-#, fuzzy, kde-format
-#| msgid "Commit"
+#, kde-format
 msgid "Show Commit"
-msgstr "Commitovať"
+msgstr "Zobraziť začlenenie"
 
 #: gitwidget.cpp:976
-#, fuzzy, kde-format
-#| msgid "Commit Changes"
+#, kde-format
 msgid "Commit hash"
-msgstr "Commitovať zmeny"
+msgstr "Hash začlenenie"
 
 #: gitwidget.cpp:981
-#, fuzzy, kde-format
-#| msgid "Open Folder..."
+#, kde-format
 msgid "Open Commit..."
-msgstr "Otvoriť priečinok..."
+msgstr "Otvoriť začlenenie..."
 
 #: gitwidget.cpp:984 gitwidget.cpp:1023
 #, kde-format
@@ -349,52 +347,52 @@ msgstr "Úschovňa"
 #: gitwidget.cpp:994
 #, kde-format
 msgid "Diff - stash"
-msgstr ""
+msgstr "Rozdiel - úschovňa"
 
 #: gitwidget.cpp:1027
 #, kde-format
 msgid "Pop Last Stash"
-msgstr ""
+msgstr "Aplikovať a vymazať poslednú úschovňu"
 
 #: gitwidget.cpp:1031
 #, kde-format
 msgid "Pop Stash"
-msgstr ""
+msgstr "Aplikovať a vymazať úschovňu"
 
 #: gitwidget.cpp:1035
 #, kde-format
 msgid "Apply Last Stash"
-msgstr ""
+msgstr "Aplikovať poslednú úschovňu"
 
 #: gitwidget.cpp:1037
 #, kde-format
 msgid "Stash (Keep Staged)"
-msgstr ""
+msgstr "Úschovňa (Ponechať označené)"
 
 #: gitwidget.cpp:1041
 #, kde-format
 msgid "Stash (Include Untracked)"
-msgstr ""
+msgstr "Úschovňa (vrátane nesledovaných)"
 
 #: gitwidget.cpp:1045
 #, kde-format
 msgid "Apply Stash"
-msgstr ""
+msgstr "Aplikovať úschovňu"
 
 #: gitwidget.cpp:1046
 #, kde-format
 msgid "Drop Stash"
-msgstr ""
+msgstr "Vymazať úschovňu"
 
 #: gitwidget.cpp:1047
 #, kde-format
 msgid "Show Stash Content"
-msgstr ""
+msgstr "Zobraziť obsah úschovne"
 
 #: gitwidget.cpp:1087
 #, kde-format
 msgid "Stage All"
-msgstr ""
+msgstr "Označiť všetko"
 
 #: gitwidget.cpp:1089
 #, kde-format
@@ -420,40 +418,37 @@ msgstr "Zobraziť rozdiel"
 #: gitwidget.cpp:1110
 #, kde-format
 msgid "Are you sure you want to remove these files?"
-msgstr ""
+msgstr "Ste si istí, že chcete tieto súbory odstrániť?"
 
 #: gitwidget.cpp:1119
 #, kde-format
 msgid "Are you sure you want to discard all changes?"
-msgstr ""
+msgstr "Naozaj chcete zahodiť všetky zmeny?"
 
 #: gitwidget.cpp:1147
-#, fuzzy, kde-format
-#| msgid "Open file"
+#, kde-format
 msgid "Open File"
 msgstr "Otvoriť súbor"
 
 #: gitwidget.cpp:1149
 #, kde-format
 msgid "Show in External Git Diff Tool"
-msgstr ""
+msgstr "Zobraziť v externom nástroji rozdielov git"
 
 #: gitwidget.cpp:1150
 #, kde-format
 msgid "Open at HEAD"
-msgstr ""
+msgstr "Otvoriť na HEAD"
 
 #: gitwidget.cpp:1151
-#, fuzzy, kde-format
-#| msgid "Delete File"
+#, kde-format
 msgid "Unstage File"
-msgstr "Vymazať súbor"
+msgstr "Zrušiť označenie súboru"
 
 #: gitwidget.cpp:1151
-#, fuzzy, kde-format
-#| msgid "Delete File"
+#, kde-format
 msgid "Stage File"
-msgstr "Vymazať súbor"
+msgstr "Označiť súbor"
 
 #: gitwidget.cpp:1152
 #, kde-format
@@ -478,17 +473,17 @@ msgstr "Naozaj chcete odstrániť tento súbor?"
 #: gitwidget.cpp:1197
 #, kde-format
 msgid "Unstage All"
-msgstr ""
+msgstr "Zrušiť označenie všetkého"
 
 #: gitwidget.cpp:1264
 #, kde-format
 msgid "Unstage Selected Files"
-msgstr ""
+msgstr "Zrušiť označenie vybraných súborov"
 
 #: gitwidget.cpp:1264
 #, kde-format
 msgid "Stage Selected Files"
-msgstr ""
+msgstr "Označiť vybrané súbory"
 
 #: gitwidget.cpp:1265
 #, kde-format
@@ -513,7 +508,7 @@ msgstr "Naozaj chcete odstrániť tieto nesledované zmeny?"
 #: kateproject.cpp:217
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
-msgstr ""
+msgstr "Chybne vytvorený súbor JSON '%1': %2"
 
 #: kateproject.cpp:522
 #, kde-format
@@ -558,24 +553,23 @@ msgstr "&Mercurial"
 #: kateprojectconfigpage.cpp:37
 #, kde-format
 msgid "&Fossil"
-msgstr ""
+msgstr "&Fossil"
 
 #: kateprojectconfigpage.cpp:46
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Session Behavior"
-msgstr ""
+msgstr "Správanie sedenia"
 
 #: kateprojectconfigpage.cpp:47
 #, kde-format
 msgid "Session settings for projects"
-msgstr ""
+msgstr "Nastavenia sedení pre projekty"
 
 #: kateprojectconfigpage.cpp:48
-#, fuzzy, kde-format
-#| msgid "Current Project"
+#, kde-format
 msgid "Restore Open Projects"
-msgstr "Aktuálny projekt"
+msgstr "Obnoviť otvorené projekty"
 
 #: kateprojectconfigpage.cpp:55
 #, kde-format
@@ -645,7 +639,7 @@ msgstr "Zobraziť počet zmenených riadkov v git status"
 #: kateprojectconfigpage.cpp:88
 #, kde-format
 msgid "Single click action in the git status view"
-msgstr ""
+msgstr "Akcia jedným kliknutím v zobrazení stavu git"
 
 #: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:101
 #, kde-format
@@ -660,12 +654,12 @@ msgstr "Otvoriť súbor"
 #: kateprojectconfigpage.cpp:93 kateprojectconfigpage.cpp:104
 #, kde-format
 msgid "Stage / Unstage"
-msgstr ""
+msgstr "Označiť / Zrušiť označenie"
 
 #: kateprojectconfigpage.cpp:99
 #, kde-format
 msgid "Double click action in the git status view"
-msgstr ""
+msgstr "Akcia dvojitým kliknutím v zobrazení stavu git"
 
 #: kateprojectconfigpage.cpp:135 kateprojectpluginview.cpp:67
 #, kde-format
@@ -720,31 +714,26 @@ msgstr ""
 #: kateprojectinfoviewcodeanalysis.cpp:136
 #: kateprojectinfoviewcodeanalysis.cpp:196
 #: kateprojectinfoviewcodeanalysis.cpp:200
-#, fuzzy, kde-format
-#| msgid "Code Analysis"
+#, kde-format
 msgid "CodeAnalysis"
 msgstr "Analýza kódu"
 
 #: kateprojectinfoviewcodeanalysis.cpp:191
-#, fuzzy, kde-format
-#| msgid "Analysis on %1 file finished."
-#| msgid_plural "Analysis on %1 files finished."
+#, kde-format
 msgctxt ""
 "Message to the user that analysis finished. %1 is the name of the program "
 "that did the analysis, %2 is a number. e.g., [clang-tidy]Analysis on 5 files "
 "finished"
 msgid "[%1]Analysis on %2 file finished."
 msgid_plural "[%1]Analysis on %2 files finished."
-msgstr[0] "Analýza na súbore %1 ukončená."
-msgstr[1] "Analýza na súboroch %1 ukončená."
-msgstr[2] "Analýza na súboroch %1 ukončená."
+msgstr[0] "[%1]Analýza na %2 súbore skončila."
+msgstr[1] "[%1]Analýza na %2 súboroch skončila."
+msgstr[2] "[%1]Analýza na %2 súboroch skončila."
 
 #: kateprojectinfoviewcodeanalysis.cpp:199
-#, fuzzy, kde-format
-#| msgid "Analysis on %1 file failed with exit code %2."
-#| msgid_plural "Analysis on %1 files failed with exit code %2."
+#, kde-format
 msgid "Analysis failed with exit code %1, Error: %2"
-msgstr "Analýza na súbore %1 zlyhala s výstupným kódom %2."
+msgstr "Analýza zlyhala s výstupným kódom %1, Chyba: %2"
 
 #: kateprojectinfoviewindex.cpp:33
 #, kde-format
@@ -828,27 +817,24 @@ msgid "Project Manager"
 msgstr "Správca projektu"
 
 #: kateprojectpluginview.cpp:79
-#, fuzzy, kde-format
-#| msgid "Current Project"
+#, kde-format
 msgid "Open projects list"
-msgstr "Aktuálny projekt"
+msgstr "Otvoriť zoznam projektov"
 
 #: kateprojectpluginview.cpp:84
-#, fuzzy, kde-format
-#| msgid "Close Project"
+#, kde-format
 msgid "Reload project"
-msgstr "Zatvoriť projekt"
+msgstr "Znovu načítať projekt"
 
 #: kateprojectpluginview.cpp:87
-#, fuzzy, kde-format
-#| msgid "Close Project"
+#, kde-format
 msgid "Close project"
 msgstr "Zatvoriť projekt"
 
 #: kateprojectpluginview.cpp:102
 #, kde-format
 msgid "Refresh git status"
-msgstr ""
+msgstr "Obnoviť stav git"
 
 #: kateprojectpluginview.cpp:180
 #, kde-format
@@ -856,20 +842,19 @@ msgid "Open Folder..."
 msgstr "Otvoriť priečinok..."
 
 #: kateprojectpluginview.cpp:185
-#, fuzzy, kde-format
-#| msgid "Projects"
+#, kde-format
 msgid "Project TODOs"
-msgstr "Projekty"
+msgstr "Projektové úlohy"
 
 #: kateprojectpluginview.cpp:189
 #, kde-format
 msgid "Activate Previous Project"
-msgstr ""
+msgstr "Aktivovať predchádzajúci projekt"
 
 #: kateprojectpluginview.cpp:194
 #, kde-format
 msgid "Activate Next Project"
-msgstr ""
+msgstr "Aktivovať nasledujúci projekt"
 
 #: kateprojectpluginview.cpp:199
 #, kde-format
@@ -882,21 +867,19 @@ msgid "Close Project"
 msgstr "Zatvoriť projekt"
 
 #: kateprojectpluginview.cpp:207
-#, fuzzy, kde-format
-#| msgid "Current Project"
+#, kde-format
 msgid "Close All Projects"
-msgstr "Aktuálny projekt"
+msgstr "Zatvoriť všetky projekty"
 
 #: kateprojectpluginview.cpp:212
-#, fuzzy, kde-format
-#| msgid "Current Project"
+#, kde-format
 msgid "Close Orphaned Projects"
-msgstr "Aktuálny projekt"
+msgstr "Zatvoriť opustené projekty"
 
 #: kateprojectpluginview.cpp:222
 #, kde-format
 msgid "Checkout Git Branch"
-msgstr ""
+msgstr "Získať vetvu git"
 
 #: kateprojectpluginview.cpp:228 kateprojectpluginview.cpp:803
 #, kde-format
@@ -991,72 +974,75 @@ msgstr "Chcete vymazať súbor '%1'?"
 #: kateprojectviewtree.cpp:135
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
-msgstr ""
+msgstr "Nepodarilo sa vytvoriť súbor: %1, Chyba: %2"
 
 #: kateprojectviewtree.cpp:156
 #, kde-format
 msgid "Failed to create dir: %1"
-msgstr ""
+msgstr "Nepodarilo sa vytvoriť adresár: %1"
 
 #: stashdialog.cpp:37
 #, kde-format
 msgid "Stash message (optional). Enter to confirm, Esc to leave."
 msgstr ""
+"Správa úschovne (nepovinné). Enter, ak chcete potvrdiť, Esc, ak chcete odísť."
 
 #: stashdialog.cpp:44
 #, kde-format
 msgid "Type to filter, Enter to pop stash, Esc to leave."
 msgstr ""
+"Napíšte, ak chcete filtrovať, Enter, ak chcete aplikovať a vymazať úschovňu, "
+"Esc, ak chcete odísť."
 
 #: stashdialog.cpp:143
 #, kde-format
 msgid "Failed to stash changes %1"
-msgstr ""
+msgstr "Nepodarilo sa uschovať zmeny %1"
 
 #: stashdialog.cpp:145
 #, kde-format
 msgid "Changes stashed successfully."
-msgstr ""
+msgstr "Zmeny boli úspešne uschované."
 
 #: stashdialog.cpp:164
 #, kde-format
 msgid "Failed to get stash list. Error: "
-msgstr ""
+msgstr "Nepodarilo sa získať zoznam úschovne Chyba: "
 
 #: stashdialog.cpp:180
 #, kde-format
 msgid "Failed to apply stash. Error: "
-msgstr ""
+msgstr "Nepodarilo sa aplikovať. Chyba: "
 
 #: stashdialog.cpp:182
 #, kde-format
 msgid "Failed to drop stash. Error: "
-msgstr ""
+msgstr "Nepodarilo sa vymazať úschovňu. Chyba: "
 
 #: stashdialog.cpp:184
 #, kde-format
 msgid "Failed to pop stash. Error: "
-msgstr ""
+msgstr "Nepodarilo sa aplikovať a vymazať úschovňu. Chyba: "
 
 #: stashdialog.cpp:188
 #, kde-format
 msgid "Stash applied successfully."
-msgstr ""
+msgstr "Úschovňa úspešne aplikovaná."
 
 #: stashdialog.cpp:190
 #, kde-format
 msgid "Stash dropped successfully."
-msgstr ""
+msgstr "Úschovňa úspešne vymazaná."
 
 #: stashdialog.cpp:192
 #, kde-format
 msgid "Stash popped successfully."
-msgstr ""
+msgstr "Úschovňa úspešne aplikovaná a vymazaná."
 
 #: stashdialog.cpp:221
 #, kde-format
 msgid "Show stash failed. Error: "
-msgstr ""
+msgstr "Zobrazenie úschovne zlyhalo. Chyba: "
 
 #. i18n: ectx: Menu (projects)
 #: ui.rc:9

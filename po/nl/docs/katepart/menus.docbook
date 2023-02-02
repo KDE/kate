@@ -1464,17 +1464,17 @@ depends on the <link linkend="pref-edit-indent"
 <term
 ><menuchoice
 ><shortcut
-> <keycombo action="simul"
+><keycombo action="simul"
 >&Ctrl;&Shift;<keycap
 >+</keycap
 ></keycombo
-> </shortcut
+></shortcut
 > <guimenu
->View</guimenu
-> <guisubmenu
->Code Folding</guisubmenu
-> <guimenuitem
->Unfold Toplevel Nodes</guimenuitem
+>Beeld</guimenu
+><guisubmenu
+>Code vouwen</guisubmenu
+><guimenuitem
+>Nodes op topniveau uitvouwen</guimenuitem
 > </menuchoice
 ></term>
 <listitem

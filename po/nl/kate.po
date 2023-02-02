@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-01 01:00+0000\n"
-"PO-Revision-Date: 2023-01-31 12:23+0100\n"
+"PO-Revision-Date: 2023-02-01 11:56+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -527,6 +527,9 @@ msgid ""
 "installed, make sure it is your PATH variable. See https://git-scm.com/"
 "downloads"
 msgstr ""
+"<b>git</b> niet gevonden. Git is nodig om diff te doen op documenten. Als "
+"git al is geïnstalleerd, ga na dat het in uw variabele PATH is. Zie https://"
+"git-scm.com/downloads"
 
 #: lib/diff/diffwidget.cpp:466 lib/diff/diffwidget.cpp:1073
 #: lib/kateconfigdialog.cpp:549
@@ -548,7 +551,7 @@ msgstr "Bestand %1 verwijderen"
 #: lib/diff/diffwidget.cpp:1065 lib/diff/diffwidget.cpp:1066
 #, kde-format
 msgid "No differences found"
-msgstr ""
+msgstr "Geen verschillen gevonden"
 
 #: lib/filehistorywidget.cpp:283
 #, kde-format
@@ -566,14 +569,13 @@ msgstr "Ophalen van geschiedenis van bestand is mislukt: %1"
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
-msgstr ""
+msgstr "Commit-hash kopiëren"
 
 #: lib/filehistorywidget.cpp:315
-#, fuzzy, kde-format
-#| msgid "&Show Full Path"
+#, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
-msgstr "Volledig pad &tonen"
+msgstr "Volledig vastlegging (commit) tonen"
 
 #: lib/filehistorywidget.cpp:373
 #, kde-format

@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-01 01:00+0000\n"
-"PO-Revision-Date: 2023-01-31 18:39+0300\n"
+"PO-Revision-Date: 2023-02-01 12:17+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -525,6 +525,9 @@ msgid ""
 "installed, make sure it is your PATH variable. See https://git-scm.com/"
 "downloads"
 msgstr ""
+"<b>git</b> bulunamadı. Dosyaların farklarına bakmak için Git gereklidir. Git "
+"halihazırda kuruluysa onun PATH değişkeninizde olduğundan emin olun. Bkz. "
+"https://git-scm.com/downloads"
 
 #: lib/diff/diffwidget.cpp:466 lib/diff/diffwidget.cpp:1073
 #: lib/kateconfigdialog.cpp:549
@@ -546,7 +549,7 @@ msgstr "Silinen dosya %1"
 #: lib/diff/diffwidget.cpp:1065 lib/diff/diffwidget.cpp:1066
 #, kde-format
 msgid "No differences found"
-msgstr ""
+msgstr "Fark bulunamadı."
 
 #: lib/filehistorywidget.cpp:283
 #, kde-format
@@ -562,13 +565,13 @@ msgstr "Dosya geçmişi alınamadı: %1"
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
-msgstr ""
+msgstr "İşleme Sağlamasını Kopyala"
 
 #: lib/filehistorywidget.cpp:315
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
-msgstr ""
+msgstr "Tüm İşlemeyi Göster"
 
 #: lib/filehistorywidget.cpp:373
 #, kde-format

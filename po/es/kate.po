@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-01 01:00+0000\n"
-"PO-Revision-Date: 2023-01-31 13:27+0100\n"
+"PO-Revision-Date: 2023-02-01 12:46+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -533,6 +533,9 @@ msgid ""
 "installed, make sure it is your PATH variable. See https://git-scm.com/"
 "downloads"
 msgstr ""
+"No se ha encontrado <b>git</b>. Git es necesario para encontrar las "
+"diferencias entre documentos. Si git ya está instalado, asegúrese de que "
+"está en su variable PATH. Consulte https://git-scm.com/downloads"
 
 #: lib/diff/diffwidget.cpp:466 lib/diff/diffwidget.cpp:1073
 #: lib/kateconfigdialog.cpp:549
@@ -554,7 +557,7 @@ msgstr "Archivo borrado %1"
 #: lib/diff/diffwidget.cpp:1065 lib/diff/diffwidget.cpp:1066
 #, kde-format
 msgid "No differences found"
-msgstr ""
+msgstr "No se han encontrado diferencias"
 
 #: lib/filehistorywidget.cpp:283
 #, kde-format
@@ -572,13 +575,13 @@ msgstr "No se ha podido obtener el historial del archivo: %1"
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
-msgstr ""
+msgstr "Copiar el hash de la confirmación"
 
 #: lib/filehistorywidget.cpp:315
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
-msgstr ""
+msgstr "Mostrar la confirmación completa"
 
 #: lib/filehistorywidget.cpp:373
 #, kde-format

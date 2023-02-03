@@ -349,7 +349,7 @@ public:
     }
 
     // map (highlight)mode to lsp languageId
-    QString languageId(const QString &mode)
+    QString _languageId(const QString &mode)
     {
         // query cache first
         const auto cacheIt = m_highlightingModeToLanguageIdCache.find(mode);
@@ -370,14 +370,24 @@ public:
         return QString();
     }
 
+    QString languageId(KTextEditor::Document *doc)
+    {
+        if (!doc) {
+            return {};
+        }
+
+        auto langId = _languageId(doc->highlightingMode());
+        return langId.isEmpty() ? _languageId(doc->mode()) : langId;
+    }
+
     QObject *projectPluginView(KTextEditor::MainWindow *mainWindow)
     {
         return mainWindow->pluginView(PROJECT_PLUGIN);
     }
 
-    QString documentLanguageId(const QString mode)
+    QString documentLanguageId(KTextEditor::Document *doc)
     {
-        auto langId = languageId(mode);
+        auto langId = languageId(doc);
         const auto it = m_documentLanguageId.find(langId);
         // FIXME ?? perhaps use default false
         // most servers can find out much better on their own
@@ -608,7 +618,7 @@ private:
     std::shared_ptr<LSPClientServer> _findServer(KTextEditor::View *view, KTextEditor::Document *document, QJsonObject &mergedConfig)
     {
         // compute the LSP standardized language id, none found => no change
-        auto langId = languageId(document->highlightingMode());
+        auto langId = languageId(document);
         if (langId.isEmpty()) {
             return nullptr;
         }
@@ -984,7 +994,7 @@ private:
                     (it->server)->didChange(it->url, it->version, (it->changes.empty()) ? doc->text() : QString(), it->changes);
                 }
             } else {
-                (it->server)->didOpen(it->url, it->version, documentLanguageId(doc->highlightingMode()), doc->text());
+                (it->server)->didOpen(it->url, it->version, documentLanguageId(doc), doc->text());
                 it->open = true;
             }
             it->modified = false;

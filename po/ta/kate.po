@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-01 01:00+0000\n"
-"PO-Revision-Date: 2023-01-31 19:48+0530\n"
+"PO-Revision-Date: 2023-02-02 19:33+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -512,6 +512,9 @@ msgid ""
 "installed, make sure it is your PATH variable. See https://git-scm.com/"
 "downloads"
 msgstr ""
+"<b>git</b> கண்டுபிடிக்கப்படவில்லை. ஆவணங்களுக்கிடையேயான வித்தியாசங்களைக் காட்ட கிட் "
+"தேவை. கிட் ஏற்கனவே நிறுவப்பட்டிருந்தால், அதற்கான பாதை உங்கள் PATH சூழ்மாறியில் உள்ளதா என "
+"சரிபாருங்கள். விவரங்களுக்கு https://git-scm.com/downloads என்பதைப் பாருங்கள்."
 
 #: lib/diff/diffwidget.cpp:466 lib/diff/diffwidget.cpp:1073
 #: lib/kateconfigdialog.cpp:549
@@ -533,7 +536,7 @@ msgstr "நீக்கப்பட்ட கோப்பு %1"
 #: lib/diff/diffwidget.cpp:1065 lib/diff/diffwidget.cpp:1066
 #, kde-format
 msgid "No differences found"
-msgstr ""
+msgstr "வித்தியாசங்கள் இல்லை"
 
 #: lib/filehistorywidget.cpp:283
 #, kde-format

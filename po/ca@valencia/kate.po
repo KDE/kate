@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-01 01:00+0000\n"
-"PO-Revision-Date: 2023-01-12 16:32+0100\n"
+"PO-Revision-Date: 2023-02-01 10:35+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -502,11 +502,10 @@ msgid "Jump to Previous Hunk"
 msgstr "Salta al bloc anterior"
 
 #: lib/diff/diffwidget.cpp:133
-#, fuzzy, kde-format
-#| msgid "&Reload"
+#, kde-format
 msgctxt "Tooltip for a button, clicking the button reloads the diff"
 msgid "Reload Diff"
-msgstr "Act&ualitza"
+msgstr "Actualitza «diff»"
 
 #: lib/diff/diffwidget.cpp:463
 #, kde-format
@@ -515,6 +514,9 @@ msgid ""
 "installed, make sure it is your PATH variable. See https://git-scm.com/"
 "downloads"
 msgstr ""
+"No s'ha trobat <b>git</b>. «git» cal per a trobar les diferències dels "
+"documents. Si «git» ja està instal·lat, comproveu que estiga a la variable "
+"PATH. Vegeu https://git-scm.com/downloads"
 
 #: lib/diff/diffwidget.cpp:466 lib/diff/diffwidget.cpp:1073
 #: lib/kateconfigdialog.cpp:549
@@ -536,7 +538,7 @@ msgstr "Fitxer suprimit %1"
 #: lib/diff/diffwidget.cpp:1065 lib/diff/diffwidget.cpp:1066
 #, kde-format
 msgid "No differences found"
-msgstr ""
+msgstr "No s'ha trobat cap diferència"
 
 #: lib/filehistorywidget.cpp:283
 #, kde-format
@@ -554,13 +556,13 @@ msgstr "No s'ha pogut obtindre l'historial de fitxers: %1"
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
-msgstr ""
+msgstr "Copia el resum de la publicació"
 
 #: lib/filehistorywidget.cpp:315
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
-msgstr ""
+msgstr "Mostra la publicació completa"
 
 #: lib/filehistorywidget.cpp:373
 #, kde-format
@@ -772,7 +774,7 @@ msgstr "Matteo Merli"
 #: lib/kateapp.cpp:183
 #, kde-format
 msgid "Highlighting for RPM Spec-Files, Perl, Diff and more"
-msgstr "Ressaltat per als fitxers «spec» dels RPM, Perl, diff i més"
+msgstr "Ressaltat per als fitxers «spec» dels RPM, Perl, «diff» i més"
 
 #: lib/kateapp.cpp:184
 #, kde-format
@@ -2535,7 +2537,7 @@ msgstr ""
 #: lib/session/katesessionmanager.cpp:467
 #, kde-format
 msgid "To save a session, you must specify a name."
-msgstr "Per que es guardarà una sessió, heu d'especificar un nom."
+msgstr "Per a guardar una sessió, heu d'especificar un nom."
 
 #: lib/session/katesessionmanager.cpp:494
 #, kde-format

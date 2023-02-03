@@ -471,7 +471,7 @@ msgstr "Configureu el client"
 #: lspconfigwidget.ui:54
 #, kde-format
 msgid "Format on save"
-msgstr "Format per que es guardarà"
+msgstr "Format per a guardar"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSemanticHighlighting)
 #: lspconfigwidget.ui:61

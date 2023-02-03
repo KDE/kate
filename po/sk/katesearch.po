@@ -4,19 +4,20 @@
 # Roman Paholík <wizzardsk@gmail.com>, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019.
 # Mthw <jari_45@hotmail.com>, 2018, 2019.
 # Matej Mrenica <matejm98mthw@gmail.com>, 2019, 2020, 2021, 2022.
+# Ferdinand Galko <galko.ferdinand@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-21 00:50+0000\n"
-"PO-Revision-Date: 2022-08-22 16:53+0200\n"
-"Last-Translator: Matej Mrenica <matejm98mthw@gmail.com>\n"
-"Language-Team: Slovak <kde-i18n-doc@kde.org>\n"
+"PO-Revision-Date: 2023-02-02 18:21+0100\n"
+"Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
+"Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.07.90\n"
+"X-Generator: Lokalize 21.12.3\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #: KateSearchCommand.cpp:80
@@ -544,8 +545,7 @@ msgid "Find in Files"
 msgstr "Hľadať v súboroch"
 
 #: SearchPlugin.cpp:341
-#, fuzzy, kde-format
-#| msgid "Find in Files (in new tab)"
+#, kde-format
 msgid "Find in Files (in a New Tab)"
 msgstr "Hľadať v súboroch (v novej karte)"
 
@@ -562,7 +562,7 @@ msgstr "Prejsť na predošlú zhodu"
 #: SearchPlugin.cpp:357
 #, kde-format
 msgid "Cut Matching Lines"
-msgstr ""
+msgstr "Vystrihnúť zhodné riadky"
 
 #: SearchPlugin.cpp:359
 #, kde-format
@@ -570,11 +570,13 @@ msgid ""
 "This will cut all highlighted search match lines from the current document "
 "to the clipboard"
 msgstr ""
+"Týmto sa z aktuálneho dokumentu do schránky vystrihnú všetky zvýraznené "
+"hľadané zhodné riadky"
 
 #: SearchPlugin.cpp:363
 #, kde-format
 msgid "Copy Matching Lines"
-msgstr ""
+msgstr "Kopírovať zhodné riadky"
 
 #: SearchPlugin.cpp:365
 #, kde-format
@@ -582,6 +584,8 @@ msgid ""
 "This will copy all highlighted search match lines in the current document to "
 "the clipboard"
 msgstr ""
+"Týmto sa do schránky skopírujú všetky zvýraznené hľadané zhodné riadky v "
+"aktuálnom dokumente"
 
 #: SearchPlugin.cpp:392
 #, kde-format
@@ -603,7 +607,7 @@ msgstr ""
 #: SearchPlugin.cpp:395
 #, kde-format
 msgid "Click to filter through results"
-msgstr ""
+msgstr "Kliknutím filtrujete výsledky"
 
 #: SearchPlugin.cpp:485
 #, kde-format
@@ -647,10 +651,9 @@ msgid "Continuing from last match"
 msgstr "Pokračujem od poslednej zhody"
 
 #: SearchPlugin.cpp:2110
-#, fuzzy, kde-format
-#| msgid "Search"
+#, kde-format
 msgid "Search: %1"
-msgstr "Hľadať"
+msgstr "Hľadať: %1"
 
 #: SearchPlugin.cpp:2241
 #, kde-format
@@ -670,7 +673,7 @@ msgstr "Exportovať zhody"
 #: SearchPlugin.cpp:2255
 #, kde-format
 msgid "Open as Editor Tab"
-msgstr ""
+msgstr "Otvoriť ako kartu editora"
 
 #: SearchPlugin.cpp:2262
 #, kde-format
@@ -707,7 +710,7 @@ msgstr "&Upraviť"
 #: ui.rc:9
 #, kde-format
 msgid "Find in Files Variants"
-msgstr ""
+msgstr "Hľadať vo variantoch súborov"
 
 #~ msgid "Kate Search & Replace"
 #~ msgstr "Kate Hľadať & Nahradiť"

@@ -2,19 +2,20 @@
 # Richard Fric <Richard.Fric@kdemail.net>, 2010.
 # Roman Paholík <wizzardsk@gmail.com>, 2012, 2014.
 # Matej Mrenica <matejm98mthw@gmail.com>, 2022.
+# Ferdinand Galko <galko.ferdinand@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: katesql\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-28 00:49+0000\n"
-"PO-Revision-Date: 2022-08-22 16:53+0200\n"
-"Last-Translator: Matej Mrenica <matejm98mthw@gmail.com>\n"
-"Language-Team: Slovak <kde-i18n-doc@kde.org>\n"
+"PO-Revision-Date: 2023-02-02 18:29+0100\n"
+"Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
+"Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.07.90\n"
+"X-Generator: Lokalize 21.12.3\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #: connectionwizard.cpp:27
@@ -349,25 +350,19 @@ msgid "SQL Schema"
 msgstr "SQL schéma"
 
 #: katesqlview.cpp:106
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Add connection..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Add Connection..."
 msgstr "Pridať spojenie..."
 
 #: katesqlview.cpp:111
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Remove connection"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove Connection"
 msgstr "Odstrániť spojenie"
 
 #: katesqlview.cpp:116
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Edit connection..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Connection..."
 msgstr "Upraviť spojenie..."
@@ -385,12 +380,10 @@ msgid "Connection"
 msgstr "Pripojenie"
 
 #: katesqlview.cpp:131
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Run query"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Query"
-msgstr "Spustiť dotaz"
+msgstr "Spustiť dopyt"
 
 #: outputstylewidget.cpp:29
 #, kde-format
@@ -524,7 +517,7 @@ msgstr "Obnoviť"
 #, kde-format
 msgctxt "@info"
 msgid "Query completed successfully"
-msgstr "Dotaz bol úspešne ukončený"
+msgstr "Dopyt bol úspešne ukončený"
 
 #: sqlmanager.cpp:352
 #, kde-format

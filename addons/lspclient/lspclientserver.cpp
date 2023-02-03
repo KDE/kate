@@ -55,6 +55,11 @@ static const QString MEMBER_TARGET_SELECTION_RANGE = QStringLiteral("targetSelec
 static const QString MEMBER_PREVIOUS_RESULT_ID = QStringLiteral("previousResultId");
 static const QString MEMBER_QUERY = QStringLiteral("query");
 
+static QJsonValue encodeUrl(const QUrl url)
+{
+    return QJsonValue(QLatin1String(url.toEncoded()));
+}
+
 // message construction helpers
 static QJsonObject to_json(const LSPPosition &pos)
 {
@@ -69,7 +74,7 @@ static QJsonObject to_json(const LSPRange &range)
 static QJsonValue to_json(const LSPLocation &location)
 {
     if (location.uri.isValid()) {
-        return QJsonObject{{MEMBER_URI, location.uri.toString()}, {MEMBER_RANGE, to_json(location.range)}};
+        return QJsonObject{{MEMBER_URI, encodeUrl(location.uri)}, {MEMBER_RANGE, to_json(location.range)}};
     }
     return QJsonValue();
 }
@@ -130,7 +135,7 @@ static QJsonArray to_json(const QVector<LSPPosition> &positions)
 
 static QJsonObject versionedTextDocumentIdentifier(const QUrl &document, int version = -1)
 {
-    QJsonObject map{{MEMBER_URI, document.toString()}};
+    QJsonObject map{{MEMBER_URI, encodeUrl(document)}};
     if (version >= 0) {
         map[MEMBER_VERSION] = version;
     }
@@ -238,7 +243,7 @@ static QJsonObject applyWorkspaceEditResponse(const LSPApplyWorkspaceEditRespons
 
 static QJsonObject workspaceFolder(const LSPWorkspaceFolder &response)
 {
-    return QJsonObject{{MEMBER_URI, response.uri.toString()}, {QStringLiteral("name"), response.name}};
+    return QJsonObject{{MEMBER_URI, encodeUrl(response.uri)}, {QStringLiteral("name"), response.name}};
 }
 
 static QJsonObject changeConfigurationParams(const QJsonValue &settings)
@@ -1583,7 +1588,7 @@ public:
 
     RequestHandle clangdSwitchSourceHeader(const QUrl &document, const GenericReplyHandler &h)
     {
-        auto params = QJsonObject{{MEMBER_URI, document.toString()}};
+        auto params = QJsonObject{{MEMBER_URI, encodeUrl(document)}};
         return send(init_request(QStringLiteral("textDocument/switchSourceHeader"), params), h);
     }
 

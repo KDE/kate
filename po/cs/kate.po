@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-30 03:15+0000\n"
-"PO-Revision-Date: 2023-01-19 07:21+0100\n"
+"PO-Revision-Date: 2023-02-01 09:33+0100\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -225,7 +225,7 @@ msgstr "Hlavní panel nástrojů"
 #: lib/data/kateui.rc:155
 #, kde-format
 msgid "Hamburger Menu Toolbar"
-msgstr ""
+msgstr "Hamburgerová nástrojová lišta"
 
 #. i18n: ectx: Menu (viewspace_popup_statusbar)
 #: lib/data/kateui.rc:173
@@ -241,7 +241,7 @@ msgstr "Změnit styl"
 #: lib/diff/diffeditor.cpp:180 lib/kateconfigdialog.cpp:548
 #, kde-format
 msgid "Side By Side"
-msgstr ""
+msgstr "Vedle sebe"
 
 #: lib/diff/diffeditor.cpp:183 lib/kateconfigdialog.cpp:549
 #, kde-format
@@ -295,7 +295,7 @@ msgstr ""
 #: lib/diff/diffwidget.cpp:51
 #, kde-format
 msgid "Show/Hide Commit Info"
-msgstr ""
+msgstr "Zobrazit/Skrýt informace o commitu"
 
 #: lib/diff/diffwidget.cpp:56
 #, kde-format
@@ -352,7 +352,7 @@ msgstr "Git"
 #: lib/filehistorywidget.cpp:350
 #, kde-format
 msgid "File History"
-msgstr ""
+msgstr "Historie souboru"
 
 #: lib/kateapp.cpp:146
 #, kde-format
@@ -393,7 +393,7 @@ msgstr "Kåre Särs"
 #: lib/kateapp.cpp:150
 #, kde-format
 msgid "Waqar Ahmed"
-msgstr ""
+msgstr "Waqar Ahmed"
 
 #: lib/kateapp.cpp:151
 #, kde-format
@@ -762,7 +762,7 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:414
 #, kde-format
 msgid "&Sidebars"
-msgstr ""
+msgstr "Postranní panely"
 
 #: lib/kateconfigdialog.cpp:417
 #, kde-format
@@ -1105,7 +1105,7 @@ msgstr ""
 #: lib/katemainwindow.cpp:258
 #, kde-format
 msgid "&Window Color Scheme"
-msgstr ""
+msgstr "Barevné sc&héma okna"
 
 #: lib/katemainwindow.cpp:262
 #, kde-format
@@ -1379,7 +1379,7 @@ msgstr ""
 #: lib/katemainwindow.cpp:531
 #, kde-format
 msgid "Show File Git History"
-msgstr ""
+msgstr "Zobrazit Git historii souboru"
 
 #: lib/katemainwindow.cpp:546
 #, kde-format
@@ -1435,7 +1435,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
-msgstr ""
+msgstr "Otevřít všechny soubory"
 
 #: lib/katemainwindow.cpp:1025
 #, kde-format
@@ -1495,12 +1495,12 @@ msgstr "Zobrazit '%1'"
 #: lib/katemdi.cpp:179
 #, kde-format
 msgid "Show %1 Button"
-msgstr ""
+msgstr "Zobrazit tlačítko %1"
 
 #: lib/katemdi.cpp:195
 #, kde-format
 msgid "Focus %1"
-msgstr ""
+msgstr "Zaměření %1"
 
 #: lib/katemdi.cpp:1006
 #, kde-format
@@ -1510,7 +1510,7 @@ msgstr "Nastavit..."
 #: lib/katemdi.cpp:1010
 #, kde-format
 msgid "Hide Button"
-msgstr ""
+msgstr "Skrýt tlačítko"
 
 #: lib/katemdi.cpp:1012
 #, kde-format
@@ -1520,7 +1520,7 @@ msgstr "Přesunout do"
 #: lib/katemdi.cpp:1017
 #, kde-format
 msgid "Own Section"
-msgstr ""
+msgstr "Vlastní oddíl"
 
 #: lib/katemdi.cpp:1023 lib/katemdi.cpp:1031
 #, kde-format
@@ -1550,7 +1550,7 @@ msgstr "Levý postranní panel"
 #: lib/katemdi.cpp:1047
 #, kde-format
 msgid "Right Sidebar"
-msgstr "Pravá postranní panel"
+msgstr "Pravý postranní panel"
 
 #: lib/katemdi.cpp:1051
 #, kde-format
@@ -2011,7 +2011,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
-msgstr ""
+msgstr "Otevřít složku"
 
 #: lib/kateviewmanager.cpp:501
 #, kde-format
@@ -2075,7 +2075,7 @@ msgstr "Zavřít ostatní &dokumenty"
 #: lib/kateviewspace.cpp:1000
 #, kde-format
 msgid "Close &All Documents"
-msgstr ""
+msgstr "Z&avřít všechny dokumenty"
 
 #: lib/kateviewspace.cpp:1002
 #, kde-format
@@ -2090,7 +2090,7 @@ msgstr ""
 #: lib/kateviewspace.cpp:1012
 #, kde-format
 msgid "Compare with Active Document"
-msgstr ""
+msgstr "Porovnat s aktivním dokumentem"
 
 #: lib/kateviewspace.cpp:1016
 #, kde-format
@@ -2248,7 +2248,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
-msgstr ""
+msgstr "Znovu otevřít"
 
 #: lib/session/katesessionmanager.cpp:312
 #, kde-format
@@ -2446,17 +2446,17 @@ msgstr "Nedávné dokumenty"
 #: lib/welcomeview/welcomeview.cpp:59
 #, kde-format
 msgid "No recent documents or projects"
-msgstr ""
+msgstr "Žádné nedávné dokumenty nebo projekty"
 
 #: lib/welcomeview/welcomeview.cpp:59
 #, kde-format
 msgid "No recent documents"
-msgstr ""
+msgstr "Žádné nedávné dokumenty"
 
 #: lib/welcomeview/welcomeview.cpp:115
 #, kde-format
 msgid "No saved sessions"
-msgstr ""
+msgstr "Žádné uložené sezení"
 
 #: lib/welcomeview/welcomeview.cpp:237
 #, kde-format

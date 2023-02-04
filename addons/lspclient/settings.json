@@ -138,6 +138,19 @@
             "url": "https://github.com/jeapostrophe/racket-langserver",
             "highlightingModeRegex": "^Racket$"
         },
+        "rst": {
+            "command": ["python", "-m", "esbonio"],
+            "initializationOptions": {
+                "server": {
+                    "completion": {
+                        "preferredInsertBehavior": "insert"
+                    }
+                }
+            },
+            "url": "https://github.com/swyddfa/esbonio",
+            "rootIndicationFileNames": ["conf.py"],
+            "highlightingModeRegex": "^reStructuredText$"
+        },        
         "ruby": {
             "command": ["solargraph", "stdio"],
             "rootIndicationFileNames": ["Gemfile", "Gemfile.lock", "gems.rb", "gems.lock", "Rakefile"],

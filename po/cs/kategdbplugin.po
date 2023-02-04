@@ -1,21 +1,21 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 # Vít Pelčák <vit@pelcak.org>, 2010, 2011, 2012, 2013, 2014, 2017.
-# Vit Pelcak <vit@pelcak.org>, 2021.
+# Vit Pelcak <vit@pelcak.org>, 2021, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-28 01:01+0000\n"
-"PO-Revision-Date: 2021-08-19 11:48+0200\n"
-"Last-Translator: Vit Pelcak <vpelcak@suse.cz>\n"
+"PO-Revision-Date: 2023-02-01 10:21+0100\n"
+"Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 21.08.0\n"
+"X-Generator: Lokalize 22.12.1\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
@@ -132,7 +132,7 @@ msgstr "Pracovní adresář:"
 #: configview.cpp:126
 #, kde-format
 msgid "Process Id:"
-msgstr ""
+msgstr "ID Procesu:"
 
 #: configview.cpp:131
 #, kde-format
@@ -184,7 +184,7 @@ msgstr "Místní"
 #: debugview.cpp:37
 #, kde-format
 msgid "CPU registers"
-msgstr ""
+msgstr "Registry CPU"
 
 #: debugview.cpp:363
 #, kde-format
@@ -199,7 +199,7 @@ msgstr "*** gdb bylo ukončeno normálně ***"
 #: debugview.cpp:620
 #, kde-format
 msgid "all threads running"
-msgstr ""
+msgstr "všechna běžící vlákna"
 
 #: debugview.cpp:622
 #, kde-format
@@ -209,7 +209,7 @@ msgstr ""
 #: debugview.cpp:627 debugview_dap.cpp:269
 #, kde-format
 msgid "stopped (%1)."
-msgstr ""
+msgstr "zastaveno (%1)."
 
 #: debugview.cpp:631 debugview_dap.cpp:277
 #, kde-format
@@ -219,17 +219,17 @@ msgstr ""
 #: debugview.cpp:633 debugview_dap.cpp:279
 #, kde-format
 msgid "Active thread: %1."
-msgstr ""
+msgstr "Aktivní vlákno: %1"
 
 #: debugview.cpp:652
 #, kde-format
 msgid "Current frame: %1:%2"
-msgstr ""
+msgstr "Současný rámec: %1:%2"
 
 #: debugview.cpp:679
 #, kde-format
 msgid "Host: %1. Target: %1"
-msgstr ""
+msgstr "Hostitel: %1. Cíl: %1"
 
 #: debugview.cpp:1307
 #, kde-format
@@ -246,27 +246,27 @@ msgstr ""
 #: debugview_dap.cpp:168
 #, kde-format
 msgid "DAP backend failed"
-msgstr ""
+msgstr "Podpůrná vrstva DAP selhala"
 
 #: debugview_dap.cpp:210
 #, kde-format
 msgid "program terminated"
-msgstr ""
+msgstr "program skončil"
 
 #: debugview_dap.cpp:222
 #, kde-format
 msgid "requesting disconnection"
-msgstr ""
+msgstr "vyžaduje odpojení"
 
 #: debugview_dap.cpp:236
 #, kde-format
 msgid "requesting shutdown"
-msgstr ""
+msgstr "vyžaduje vypnutí"
 
 #: debugview_dap.cpp:260
 #, kde-format
 msgid "DAP backend: %1"
-msgstr ""
+msgstr "Podpůrná vrstva DAP: %1"
 
 #: debugview_dap.cpp:284
 #, kde-format
@@ -291,67 +291,67 @@ msgstr "(běží)"
 #: debugview_dap.cpp:403
 #, kde-format
 msgid "*** connection with server closed ***"
-msgstr ""
+msgstr "*** spojení se serverem bylo zavřeno ***"
 
 #: debugview_dap.cpp:410
 #, kde-format
 msgid "program exited with code %1"
-msgstr ""
+msgstr "program byl ukončen s kódem %1"
 
 #: debugview_dap.cpp:424
 #, kde-format
 msgid "*** waiting for user actions ***"
-msgstr ""
+msgstr "*** čeká na činnost uživatele ***"
 
 #: debugview_dap.cpp:429
 #, kde-format
 msgid "error on response: %1"
-msgstr ""
+msgstr "chyba při odpovědi: %1"
 
 #: debugview_dap.cpp:444
 #, kde-format
 msgid "important"
-msgstr ""
+msgstr "důležité"
 
 #: debugview_dap.cpp:447
 #, kde-format
 msgid "telemetry"
-msgstr ""
+msgstr "telemetrie"
 
 #: debugview_dap.cpp:466
 #, kde-format
 msgid "debugging process [%1] %2"
-msgstr ""
+msgstr "ladění procesu [%1] %2"
 
 #: debugview_dap.cpp:468
 #, kde-format
 msgid "debugging process %1"
-msgstr ""
+msgstr "ladění procesu [%1] "
 
 #: debugview_dap.cpp:471
 #, kde-format
 msgid "Start method: %1"
-msgstr ""
+msgstr "Zahájit metodu: %1"
 
 #: debugview_dap.cpp:478
 #, kde-format
 msgid "thread %1"
-msgstr ""
+msgstr "vlákno %1"
 
 #: debugview_dap.cpp:632
 #, kde-format
 msgid "breakpoint set"
-msgstr ""
+msgstr "nastaven bod přerušení"
 
 #: debugview_dap.cpp:641
 #, kde-format
 msgid "breakpoint cleared"
-msgstr ""
+msgstr "odstraněn bod přerušení"
 
 #: debugview_dap.cpp:701
 #, kde-format
 msgid "(%1) breakpoint"
-msgstr ""
+msgstr "(%1) bod přerušení"
 
 #: debugview_dap.cpp:718
 #, kde-format
@@ -361,12 +361,12 @@ msgstr ""
 #: debugview_dap.cpp:740
 #, kde-format
 msgid "server capabilities"
-msgstr ""
+msgstr "možnosti serveru"
 
 #: debugview_dap.cpp:743
 #, kde-format
 msgid "supported"
-msgstr ""
+msgstr "podporováno"
 
 #: debugview_dap.cpp:743
 #, kde-format
@@ -416,33 +416,33 @@ msgstr ""
 #: debugview_dap.cpp:921
 #, kde-format
 msgid "syntax error: expression not found"
-msgstr ""
+msgstr "chyba v syntaxi: výraz nenalezen"
 
 #: debugview_dap.cpp:939 debugview_dap.cpp:974 debugview_dap.cpp:1012
 #: debugview_dap.cpp:1046 debugview_dap.cpp:1082 debugview_dap.cpp:1118
 #: debugview_dap.cpp:1154 debugview_dap.cpp:1254 debugview_dap.cpp:1311
 #, kde-format
 msgid "syntax error: %1"
-msgstr ""
+msgstr "chyba v syntaxi: %1"
 
 #: debugview_dap.cpp:947 debugview_dap.cpp:982 debugview_dap.cpp:1261
 #: debugview_dap.cpp:1319
 #, kde-format
 msgid "invalid line: %1"
-msgstr ""
+msgstr "neplatný řádek: %1"
 
 #: debugview_dap.cpp:954 debugview_dap.cpp:959 debugview_dap.cpp:989
 #: debugview_dap.cpp:994 debugview_dap.cpp:1285 debugview_dap.cpp:1290
 #: debugview_dap.cpp:1326 debugview_dap.cpp:1331
 #, kde-format
 msgid "file not specified: %1"
-msgstr ""
+msgstr "soubor nebyl určen: %1"
 
 #: debugview_dap.cpp:1024 debugview_dap.cpp:1058 debugview_dap.cpp:1094
 #: debugview_dap.cpp:1130 debugview_dap.cpp:1166
 #, kde-format
 msgid "invalid thread id: %1"
-msgstr ""
+msgstr "neplatné id vlákna: %1"
 
 #: debugview_dap.cpp:1030 debugview_dap.cpp:1064 debugview_dap.cpp:1100
 #: debugview_dap.cpp:1136 debugview_dap.cpp:1172
@@ -453,7 +453,7 @@ msgstr ""
 #: debugview_dap.cpp:1183
 #, kde-format
 msgid "Available commands:"
-msgstr ""
+msgstr "Dostupné příkazy:"
 
 #: debugview_dap.cpp:1271
 #, kde-format
@@ -473,7 +473,7 @@ msgstr ""
 #: debugview_dap.cpp:1349
 #, kde-format
 msgid "Current thread: "
-msgstr ""
+msgstr "Současné vlákno: "
 
 #: debugview_dap.cpp:1354 debugview_dap.cpp:1361 debugview_dap.cpp:1385
 #, kde-format
@@ -483,17 +483,17 @@ msgstr "žádný"
 #: debugview_dap.cpp:1357
 #, kde-format
 msgid "Current frame: "
-msgstr ""
+msgstr "Současný rámec:"
 
 #: debugview_dap.cpp:1364
 #, kde-format
 msgid "Session state: "
-msgstr ""
+msgstr "Stav sezení:"
 
 #: debugview_dap.cpp:1367
 #, kde-format
 msgid "initializing"
-msgstr ""
+msgstr "probíhá inicializace"
 
 #: debugview_dap.cpp:1370
 #, kde-format
@@ -528,7 +528,7 @@ msgstr "příkaz nenalezen"
 #: debugview_dap.cpp:1459
 #, kde-format
 msgid "missing thread id"
-msgstr ""
+msgstr "chybějící id vlákna"
 
 #: debugview_dap.cpp:1567
 #, kde-format
@@ -538,7 +538,7 @@ msgstr ""
 #: debugview_dap.cpp:1625
 #, kde-format
 msgid "Current frame [%3]: %1:%2 (%4)"
-msgstr ""
+msgstr "Současný rámec [%3]: %1:%2 (%4)"
 
 #: localsview.cpp:17
 #, kde-format
@@ -558,7 +558,7 @@ msgstr "typ"
 #: localsview.cpp:50
 #, kde-format
 msgid "indexed items"
-msgstr ""
+msgstr "indexované položky"
 
 #: localsview.cpp:53
 #, kde-format

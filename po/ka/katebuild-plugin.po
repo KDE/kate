@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-25 01:01+0000\n"
-"PO-Revision-Date: 2023-01-25 06:50+0100\n"
+"PO-Revision-Date: 2023-02-03 15:58+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -52,7 +52,7 @@ msgstr "თავიდან აგება"
 #: build.ui:128 build.ui:153
 #, kde-format
 msgid "Cancel"
-msgstr "_გაუქმება"
+msgstr "გაუქმება"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, errTreeWidget)
 #: build.ui:184

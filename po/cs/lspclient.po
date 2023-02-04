@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This file is copyright:
 # This file is distributed under the same license as the kate package.
-# Vit Pelcak <vit@pelcak.org>, 2019, 2020, 2021, 2022.
+# Vit Pelcak <vit@pelcak.org>, 2019, 2020, 2021, 2022, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-23 01:00+0000\n"
-"PO-Revision-Date: 2022-01-11 17:38+0100\n"
+"PO-Revision-Date: 2023-02-01 10:22+0100\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 21.12.0\n"
+"X-Generator: Lokalize 22.12.1\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:250
 #, kde-format
@@ -52,12 +52,12 @@ msgstr "Data JSON jsou neplatná: %1"
 #: lspclientconfigpage.cpp:275
 #, kde-format
 msgid "Delete selected entries"
-msgstr ""
+msgstr "Smazat označené záznamy"
 
 #: lspclientconfigpage.cpp:280
 #, kde-format
 msgid "Delete all entries"
-msgstr ""
+msgstr "Smazat všechny záznamy"
 
 #: lspclientplugin.cpp:223
 #, kde-format
@@ -132,7 +132,7 @@ msgstr "Přejmenovat"
 #: lspclientpluginview.cpp:545
 #, kde-format
 msgid "Expand Selection"
-msgstr ""
+msgstr "Rozbalit výběr"
 
 #: lspclientpluginview.cpp:548
 #, kde-format
@@ -147,7 +147,7 @@ msgstr ""
 #: lspclientpluginview.cpp:555
 #, kde-format
 msgid "Expand Macro"
-msgstr ""
+msgstr "Rozbalit makro"
 
 #: lspclientpluginview.cpp:557
 #, kde-format
@@ -209,7 +209,7 @@ msgstr ""
 #: lspclientpluginview.cpp:611
 #, kde-format
 msgid "Show Messages"
-msgstr ""
+msgstr "Zobrazit zprávy"
 
 #: lspclientpluginview.cpp:616
 #, kde-format
@@ -244,7 +244,7 @@ msgstr "Více možností"
 #: lspclientpluginview.cpp:710
 #, kde-format
 msgid "LSP"
-msgstr ""
+msgstr "LSP"
 
 #: lspclientpluginview.cpp:875 lspclientsymbolview.cpp:285
 #, kde-format
@@ -339,7 +339,7 @@ msgstr ""
 #: lspclientpluginview.cpp:1917
 #, kde-format
 msgid "Not enough results"
-msgstr ""
+msgstr "Nedostatek výsledků"
 
 #: lspclientpluginview.cpp:1987
 #, kde-format
@@ -502,7 +502,7 @@ msgstr ""
 #: lspconfigwidget.ui:110
 #, kde-format
 msgid "Navigation:"
-msgstr ""
+msgstr "Ovládání:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkRefDeclaration)
 #: lspconfigwidget.ui:117

@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-01 01:00+0000\n"
-"PO-Revision-Date: 2023-01-19 07:21+0100\n"
+"PO-Revision-Date: 2023-02-01 09:33+0100\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -293,7 +293,7 @@ msgstr "Hlavní panel nástrojů"
 #: lib/data/kateui.rc:155
 #, kde-format
 msgid "Hamburger Menu Toolbar"
-msgstr ""
+msgstr "Hamburgerová nástrojová lišta"
 
 #. i18n: ectx: Menu (viewspace_popup_statusbar)
 #: lib/data/kateui.rc:173
@@ -308,6 +308,8 @@ msgid ""
 "Error in regular expression: %1\n"
 "offset %2: %3"
 msgstr ""
+"Chyba v regulárním výrazu: %1\n"
+"posun %2: %3"
 
 #: lib/diagnostics/diagnosticview.cpp:264
 #, kde-format
@@ -359,32 +361,32 @@ msgstr "Zkopírovat do schránky"
 #: lib/diagnostics/diagnosticview.cpp:1123
 #, kde-format
 msgid "Remove Global Suppression"
-msgstr ""
+msgstr "Odstranit globální potlačení"
 
 #: lib/diagnostics/diagnosticview.cpp:1125
 #, kde-format
 msgid "Add Global Suppression"
-msgstr ""
+msgstr "Přidat globální potlačení"
 
 #: lib/diagnostics/diagnosticview.cpp:1129
 #, kde-format
 msgid "Remove Local Suppression"
-msgstr ""
+msgstr "Odstranit místní potlačení"
 
 #: lib/diagnostics/diagnosticview.cpp:1131
 #, kde-format
 msgid "Add Local Suppression"
-msgstr ""
+msgstr "Přidat místní potlačení"
 
 #: lib/diagnostics/diagnosticview.cpp:1144
 #, kde-format
 msgid "Disable Suppression"
-msgstr ""
+msgstr "Zakázat potlačení"
 
 #: lib/diagnostics/diagnosticview.cpp:1146
 #, kde-format
 msgid "Enable Suppression"
-msgstr ""
+msgstr "Povolit potlačení"
 
 #: lib/diff/diffeditor.cpp:178
 #, kde-format
@@ -394,7 +396,7 @@ msgstr "Změnit styl"
 #: lib/diff/diffeditor.cpp:180 lib/kateconfigdialog.cpp:555
 #, kde-format
 msgid "Side By Side"
-msgstr ""
+msgstr "Vedle sebe"
 
 #: lib/diff/diffeditor.cpp:183 lib/kateconfigdialog.cpp:556
 #, kde-format
@@ -463,7 +465,7 @@ msgstr "Rozdíl %1 .. %2"
 #: lib/diff/diffwidget.cpp:112
 #, kde-format
 msgid "Show/Hide Commit Info"
-msgstr ""
+msgstr "Zobrazit/Skrýt informace o commitu"
 
 #: lib/diff/diffwidget.cpp:117
 #, kde-format
@@ -486,11 +488,10 @@ msgid "Jump to Previous Hunk"
 msgstr ""
 
 #: lib/diff/diffwidget.cpp:133
-#, fuzzy, kde-format
-#| msgid "&Reload"
+#, kde-format
 msgctxt "Tooltip for a button, clicking the button reloads the diff"
 msgid "Reload Diff"
-msgstr "Znovu načíst"
+msgstr "Znovu načíst rozdíl"
 
 #: lib/diff/diffwidget.cpp:463
 #, kde-format
@@ -520,7 +521,7 @@ msgstr "Smazaný soubor %1"
 #: lib/diff/diffwidget.cpp:1065 lib/diff/diffwidget.cpp:1066
 #, kde-format
 msgid "No differences found"
-msgstr ""
+msgstr "Nebyly nalezeny žádné rozdíly"
 
 #: lib/filehistorywidget.cpp:283
 #, kde-format
@@ -542,13 +543,13 @@ msgstr ""
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
-msgstr ""
+msgstr "Zobrazit celý commit"
 
 #: lib/filehistorywidget.cpp:373
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
-msgstr ""
+msgstr "Historie souboru - %1"
 
 #: lib/kateapp.cpp:146
 #, kde-format
@@ -589,7 +590,7 @@ msgstr "Kåre Särs"
 #: lib/kateapp.cpp:150
 #, kde-format
 msgid "Waqar Ahmed"
-msgstr ""
+msgstr "Waqar Ahmed"
 
 #: lib/kateapp.cpp:151
 #, kde-format
@@ -910,7 +911,7 @@ msgstr "&Chování"
 #: lib/kateconfigdialog.cpp:373
 #, kde-format
 msgid "Open each document in its own window"
-msgstr ""
+msgstr "Otevřít každý dokument v novém okně"
 
 #: lib/kateconfigdialog.cpp:376
 #, kde-format
@@ -965,7 +966,7 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:422
 #, kde-format
 msgid "&Sidebars"
-msgstr ""
+msgstr "Postranní panely"
 
 #: lib/kateconfigdialog.cpp:425
 #, kde-format
@@ -1273,7 +1274,7 @@ msgstr "Soubor \"%1\" nelze smazat."
 #: lib/katefileactions.cpp:202
 #, kde-format
 msgid "&Other Application..."
-msgstr ""
+msgstr "Ji&ná aplikace..."
 
 #: lib/katemainwindow.cpp:228
 #, kde-format
@@ -1308,7 +1309,7 @@ msgstr ""
 #: lib/katemainwindow.cpp:251
 #, kde-format
 msgid "&Window Color Scheme"
-msgstr ""
+msgstr "Barevné sc&héma okna"
 
 #: lib/katemainwindow.cpp:255
 #, kde-format
@@ -1582,7 +1583,7 @@ msgstr ""
 #: lib/katemainwindow.cpp:537
 #, kde-format
 msgid "Show File Git History"
-msgstr ""
+msgstr "Zobrazit Git historii souboru"
 
 #: lib/katemainwindow.cpp:552
 #, kde-format
@@ -1638,7 +1639,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
-msgstr ""
+msgstr "Otevřít všechny soubory"
 
 #: lib/katemainwindow.cpp:1142
 #, kde-format
@@ -1683,12 +1684,12 @@ msgstr "Zobrazit '%1'"
 #: lib/katemdi.cpp:179
 #, kde-format
 msgid "Show %1 Button"
-msgstr ""
+msgstr "Zobrazit tlačítko %1"
 
 #: lib/katemdi.cpp:195
 #, kde-format
 msgid "Focus %1"
-msgstr ""
+msgstr "Zaměření %1"
 
 #: lib/katemdi.cpp:1006
 #, kde-format
@@ -1698,7 +1699,7 @@ msgstr "Nastavit..."
 #: lib/katemdi.cpp:1010
 #, kde-format
 msgid "Hide Button"
-msgstr ""
+msgstr "Skrýt tlačítko"
 
 #: lib/katemdi.cpp:1012
 #, kde-format
@@ -1708,7 +1709,7 @@ msgstr "Přesunout do"
 #: lib/katemdi.cpp:1017
 #, kde-format
 msgid "Own Section"
-msgstr ""
+msgstr "Vlastní oddíl"
 
 #: lib/katemdi.cpp:1023 lib/katemdi.cpp:1031
 #, kde-format
@@ -1738,7 +1739,7 @@ msgstr "Levý postranní panel"
 #: lib/katemdi.cpp:1047
 #, kde-format
 msgid "Right Sidebar"
-msgstr "Pravá postranní panel"
+msgstr "Pravý postranní panel"
 
 #: lib/katemdi.cpp:1051
 #, kde-format
@@ -1928,6 +1929,7 @@ msgid ""
 "The document \"%1\" has been modified. Do you want to save your changes or "
 "discard them?"
 msgstr ""
+"Dokument \"%1\" byl změněn. Přejete si uložit změny nebo je zapomenout?"
 
 #: lib/katesavemodifieddialog.cpp:159
 #, kde-format
@@ -2201,7 +2203,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
-msgstr ""
+msgstr "Otevřít složku"
 
 #: lib/kateviewmanager.cpp:533
 #, kde-format
@@ -2265,7 +2267,7 @@ msgstr "Zavřít ostatní &dokumenty"
 #: lib/kateviewspace.cpp:1016
 #, kde-format
 msgid "Close &All Documents"
-msgstr ""
+msgstr "Z&avřít všechny dokumenty"
 
 #: lib/kateviewspace.cpp:1018
 #, kde-format
@@ -2280,7 +2282,7 @@ msgstr ""
 #: lib/kateviewspace.cpp:1028
 #, kde-format
 msgid "Compare with Active Document"
-msgstr ""
+msgstr "Porovnat s aktivním dokumentem"
 
 #: lib/kateviewspace.cpp:1034
 #, kde-format
@@ -2433,7 +2435,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
-msgstr ""
+msgstr "Znovu otevřít"
 
 #: lib/session/katesessionmanager.cpp:312
 #, kde-format
@@ -2631,17 +2633,17 @@ msgstr "Nedávné dokumenty"
 #: lib/welcomeview/welcomeview.cpp:59
 #, kde-format
 msgid "No recent documents or projects"
-msgstr ""
+msgstr "Žádné nedávné dokumenty nebo projekty"
 
 #: lib/welcomeview/welcomeview.cpp:59
 #, kde-format
 msgid "No recent documents"
-msgstr ""
+msgstr "Žádné nedávné dokumenty"
 
 #: lib/welcomeview/welcomeview.cpp:112
 #, kde-format
 msgid "No saved sessions"
-msgstr ""
+msgstr "Žádné uložené sezení"
 
 #: lib/welcomeview/welcomeview.cpp:234
 #, kde-format

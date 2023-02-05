@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-23 01:00+0000\n"
+"POT-Creation-Date: 2023-02-05 01:01+0000\n"
 "PO-Revision-Date: 2019-06-30 16:17-0700\n"
 "Last-Translator: Japanese KDE translation team <kde-jp@kde.org>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -355,57 +355,57 @@ msgctxt "@info"
 msgid "LSP Client"
 msgstr ""
 
-#: lspclientservermanager.cpp:597
+#: lspclientservermanager.cpp:607
 #, kde-format
 msgid "Restarting"
 msgstr ""
 
-#: lspclientservermanager.cpp:597
+#: lspclientservermanager.cpp:607
 #, kde-format
 msgid "NOT Restarting"
 msgstr ""
 
-#: lspclientservermanager.cpp:598
+#: lspclientservermanager.cpp:608
 #, kde-format
 msgid "Server terminated unexpectedly ... %1 [%2] [homepage: %3] "
 msgstr ""
 
-#: lspclientservermanager.cpp:794
+#: lspclientservermanager.cpp:804
 #, kde-format
 msgid "Failed to find server binary: %1"
 msgstr ""
 
-#: lspclientservermanager.cpp:797 lspclientservermanager.cpp:839
+#: lspclientservermanager.cpp:807 lspclientservermanager.cpp:849
 #, kde-format
 msgid "Please check your PATH for the binary"
 msgstr ""
 
-#: lspclientservermanager.cpp:798 lspclientservermanager.cpp:840
+#: lspclientservermanager.cpp:808 lspclientservermanager.cpp:850
 #, kde-format
 msgid "See also %1 for installation or details"
 msgstr ""
 
-#: lspclientservermanager.cpp:836
+#: lspclientservermanager.cpp:846
 #, kde-format
 msgid "Failed to start server: %1"
 msgstr ""
 
-#: lspclientservermanager.cpp:844
+#: lspclientservermanager.cpp:854
 #, kde-format
 msgid "Started server %2: %1"
 msgstr ""
 
-#: lspclientservermanager.cpp:878
+#: lspclientservermanager.cpp:888
 #, kde-format
 msgid "Failed to parse server configuration '%1': no JSON object"
 msgstr ""
 
-#: lspclientservermanager.cpp:881
+#: lspclientservermanager.cpp:891
 #, kde-format
 msgid "Failed to parse server configuration '%1': %2"
 msgstr ""
 
-#: lspclientservermanager.cpp:885
+#: lspclientservermanager.cpp:895
 #, kde-format
 msgid "Failed to read server configuration: %1"
 msgstr ""

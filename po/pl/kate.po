@@ -1,6 +1,6 @@
 # translation of kate.po to Polish
 # translation of kate.po to
-# Version: $Revision: 1643648 $
+# Version: $Revision: 1643920 $
 # Kate polish translation file.
 # Main translation work:
 #   Jacek Stolarczyk <jacek@mer.chemia.polsl.gliwice.pl>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-01 01:00+0000\n"
-"PO-Revision-Date: 2023-01-21 11:01+0100\n"
+"PO-Revision-Date: 2023-02-04 09:01+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -243,11 +243,10 @@ msgid "%1 doesn't exist in a git repo."
 msgstr "%1 nie istnieje w repozytorium git."
 
 #: lib/commitfilesview.cpp:533
-#, fuzzy, kde-format
-#| msgid "Commit"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Commit %1"
-msgstr "Wdrożenie"
+msgstr "Wdrożenie %1"
 
 #. i18n: ectx: Menu (file)
 #: lib/data/kateui.rc:6
@@ -289,7 +288,7 @@ msgstr "&Widok"
 #: lib/data/kateui.rc:75 lib/kateviewspace.cpp:118
 #, kde-format
 msgid "Split View"
-msgstr "Podziel widok"
+msgstr "Widok podzielony"
 
 #. i18n: ectx: Menu (tools)
 #: lib/data/kateui.rc:109
@@ -334,12 +333,13 @@ msgid ""
 "Error in regular expression: %1\n"
 "offset %2: %3"
 msgstr ""
+"Błąd w wyrażeniu regularnym: %1\n"
+"przesunięcie %2: %3"
 
 #: lib/diagnostics/diagnosticview.cpp:264
-#, fuzzy, kde-format
-#| msgid "&Quick Open"
+#, kde-format
 msgid "Quick Fix"
-msgstr "&Szybkie otwarcie"
+msgstr "Szybka poprawka"
 
 #: lib/diagnostics/diagnosticview.cpp:290
 #, kde-format
@@ -358,67 +358,60 @@ msgid "Warning"
 msgstr "Ostrzeżenie"
 
 #: lib/diagnostics/diagnosticview.cpp:843
-#, fuzzy, kde-format
-#| msgid "Meta-Information"
+#, kde-format
 msgid "Information"
-msgstr "Meta-dane"
+msgstr "Informacje"
 
 #: lib/diagnostics/diagnosticview.cpp:976
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
-msgstr ""
+msgstr "%1 [wygaszone: %2]"
 
 #: lib/diagnostics/diagnosticview.cpp:1090
-#, fuzzy, kde-format
-#| msgid "&Expand tabs"
+#, kde-format
 msgid "Expand All"
-msgstr "&Rozprężaj karty"
+msgstr "Rozwiń wszystko"
 
 #: lib/diagnostics/diagnosticview.cpp:1091
-#, fuzzy, kde-format
-#| msgid "Clos&e All"
+#, kde-format
 msgid "Collapse All"
-msgstr "Zamknij wszystki&e"
+msgstr "Zwiń wszystko"
 
 #: lib/diagnostics/diagnosticview.cpp:1100
-#, fuzzy, kde-format
-#| msgid "Copy all text to clipboard"
+#, kde-format
 msgid "Copy to Clipboard"
-msgstr "Skopiuj cały tekst do schowka"
+msgstr "Skopiuj do schowka"
 
 #: lib/diagnostics/diagnosticview.cpp:1123
 #, kde-format
 msgid "Remove Global Suppression"
-msgstr ""
+msgstr "Usuń globalne wygaszenie"
 
 #: lib/diagnostics/diagnosticview.cpp:1125
-#, fuzzy, kde-format
-#| msgid "&All Sessions"
+#, kde-format
 msgid "Add Global Suppression"
-msgstr "Wszystkie posiedzeni&a"
+msgstr "Dodaj globalne wygaszenie"
 
 #: lib/diagnostics/diagnosticview.cpp:1129
 #, kde-format
 msgid "Remove Local Suppression"
-msgstr ""
+msgstr "Usuń lokalne wygaszenie"
 
 #: lib/diagnostics/diagnosticview.cpp:1131
 #, kde-format
 msgid "Add Local Suppression"
-msgstr ""
+msgstr "Dodaj lokalne wygaszenie"
 
 #: lib/diagnostics/diagnosticview.cpp:1144
-#, fuzzy, kde-format
-#| msgid "Filter Sessions"
+#, kde-format
 msgid "Disable Suppression"
-msgstr "Odfiltruj posiedzenia"
+msgstr "Wyłącz wygaszenie"
 
 #: lib/diagnostics/diagnosticview.cpp:1146
-#, fuzzy, kde-format
-#| msgid "Manage Sessions"
+#, kde-format
 msgid "Enable Suppression"
-msgstr "Zarządzanie posiedzeniami"
+msgstr "Włącz wygaszenie"
 
 #: lib/diff/diffeditor.cpp:178
 #, kde-format
@@ -520,11 +513,10 @@ msgid "Jump to Previous Hunk"
 msgstr "Przejdź do poprzedniego kawałka"
 
 #: lib/diff/diffwidget.cpp:133
-#, fuzzy, kde-format
-#| msgid "Reload"
+#, kde-format
 msgctxt "Tooltip for a button, clicking the button reloads the diff"
 msgid "Reload Diff"
-msgstr "Wczytaj ponownie"
+msgstr "Wczytaj ponownie różnicę"
 
 #: lib/diff/diffwidget.cpp:463
 #, kde-format
@@ -533,6 +525,10 @@ msgid ""
 "installed, make sure it is your PATH variable. See https://git-scm.com/"
 "downloads"
 msgstr ""
+"Nie znaleziono narzędzia <b>git</b>. Git jest potrzebny do znajdowania "
+"różnic w dokumentach. Jeśli git został już wgrany, to upewnij się, że "
+"ścieżka do niego znajduje się w twojej zmiennej PATH. Odwiedź stronę "
+"pobierania na https://git-scm.com/"
 
 #: lib/diff/diffwidget.cpp:466 lib/diff/diffwidget.cpp:1073
 #: lib/kateconfigdialog.cpp:549
@@ -541,22 +537,20 @@ msgid "Diff"
 msgstr "Różnica"
 
 #: lib/diff/diffwidget.cpp:669 lib/diff/diffwidget.cpp:869
-#, fuzzy, kde-format
-#| msgid "New file name"
+#, kde-format
 msgid "New file %1"
-msgstr "Nowa nazwa pliku"
+msgstr "Nowy plik %1"
 
 #: lib/diff/diffwidget.cpp:671 lib/diff/diffwidget.cpp:871
-#, fuzzy, kde-format
-#| msgid "Delete file"
+#, kde-format
 msgid "Deleted file %1"
-msgstr "Usunąć plik"
+msgstr "Usunięty plik %1"
 
 #: lib/diff/diffwidget.cpp:1037 lib/diff/diffwidget.cpp:1038
 #: lib/diff/diffwidget.cpp:1065 lib/diff/diffwidget.cpp:1066
 #, kde-format
 msgid "No differences found"
-msgstr ""
+msgstr "Nie znaleziono różnic"
 
 #: lib/filehistorywidget.cpp:283
 #, kde-format
@@ -574,14 +568,13 @@ msgstr "Nie udało się pobrać historii pliku: %1"
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
-msgstr ""
+msgstr "Skopiuj skrót wdrożenia"
 
 #: lib/filehistorywidget.cpp:315
-#, fuzzy, kde-format
-#| msgid "&Show Full Path"
+#, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
-msgstr "Pokaż pełną ś&cieżkę"
+msgstr "Pokaż pełne wdrożenie"
 
 #: lib/filehistorywidget.cpp:373
 #, kde-format
@@ -1404,7 +1397,7 @@ msgstr "Wyjście"
 #: lib/katemainwindow.cpp:310
 #, kde-format
 msgid "Diagnostics"
-msgstr ""
+msgstr "Diagnostyka"
 
 #: lib/katemainwindow.cpp:321
 #, kde-format
@@ -2046,7 +2039,7 @@ msgstr "Podziel bieżący widok poziomo na dwa."
 #: lib/kateviewmanager.cpp:128
 #, kde-format
 msgid "Move Document to New Vertical Split"
-msgstr "Przenieś dokument do nowego podziału w pionie"
+msgstr "Przenieś dokument do nowej części widoku w pionie"
 
 #: lib/kateviewmanager.cpp:132
 #, kde-format
@@ -2060,7 +2053,7 @@ msgstr ""
 #: lib/kateviewmanager.cpp:137
 #, kde-format
 msgid "Move Document to New Horizontal Split"
-msgstr "Przenieś dokument do nowego podziału w poziomie"
+msgstr "Przenieś dokument do nowej części widoku w poziomie"
 
 #: lib/kateviewmanager.cpp:141
 #, kde-format
@@ -2084,7 +2077,7 @@ msgstr "Zamknij obecnie aktywny podzielony widok"
 #: lib/kateviewmanager.cpp:154
 #, kde-format
 msgid "Close Inactive Views"
-msgstr "Zamknij nieaktywne widoki"
+msgstr "Zamknij niebieżące widoki"
 
 #: lib/kateviewmanager.cpp:157
 #, kde-format
@@ -2114,27 +2107,27 @@ msgstr "Przełącza kierunek bieżącego widoku podzielonego"
 #: lib/kateviewmanager.cpp:174
 #, kde-format
 msgid "Next Split View"
-msgstr "Następny podzielony widok"
+msgstr "Przejdź do następnej części widoku"
 
 #: lib/kateviewmanager.cpp:179
 #, kde-format
 msgid "Make the next split view the active one."
-msgstr "Uaktywnij następny podzielony widok."
+msgstr "Uczyń widokiem bieżącym następną część widoku."
 
 #: lib/kateviewmanager.cpp:182
 #, kde-format
 msgid "Previous Split View"
-msgstr "Poprzedni podzielony widok"
+msgstr "Przejdź do poprzedniej części widoku"
 
 #: lib/kateviewmanager.cpp:187
 #, kde-format
 msgid "Make the previous split view the active one."
-msgstr "Uaktywnij poprzedni podzielony widok."
+msgstr "Uczyń widokiem bieżącym poprzednią część widoku."
 
 #: lib/kateviewmanager.cpp:190
 #, kde-format
 msgid "Left Split View"
-msgstr "Lewy podzielony widok"
+msgstr "Przejdź do lewej części widoku"
 
 #: lib/kateviewmanager.cpp:195
 #, kde-format
@@ -2144,7 +2137,7 @@ msgstr "Stwórz widok podzielony intuicyjnie po lewo względem bieżącego."
 #: lib/kateviewmanager.cpp:198
 #, kde-format
 msgid "Right Split View"
-msgstr "Prawy podzielony widok"
+msgstr "Przejdź do prawej części widoku"
 
 #: lib/kateviewmanager.cpp:203
 #, kde-format
@@ -2154,7 +2147,7 @@ msgstr "Stwórz widok podzielony intuicyjnie po prawo względem bieżącego."
 #: lib/kateviewmanager.cpp:206
 #, kde-format
 msgid "Upward Split View"
-msgstr "Podziel widok w górę"
+msgstr "Przejdź do górnej części widoku"
 
 #: lib/kateviewmanager.cpp:211
 #, kde-format
@@ -2164,7 +2157,7 @@ msgstr "Stwórz widok podzielony intuicyjnie na górze względem bieżącego."
 #: lib/kateviewmanager.cpp:214
 #, kde-format
 msgid "Downward Split View"
-msgstr "Podziel widok w dół"
+msgstr "Przejdź do dolnej części widoku"
 
 #: lib/kateviewmanager.cpp:219
 #, kde-format
@@ -2174,42 +2167,42 @@ msgstr "Stwórz widok podzielony intuicyjnie na dole względem bieżącego."
 #: lib/kateviewmanager.cpp:222
 #, kde-format
 msgid "Move Splitter Right"
-msgstr "Przesuń dzielnik w prawo"
+msgstr "Przesuń podział w prawo"
 
 #: lib/kateviewmanager.cpp:225
 #, kde-format
 msgid "Move the splitter of the current view to the right"
-msgstr "Przesuń dzielnik bieżącego widoku w prawo"
+msgstr "Przesuń linię dzielącą bieżącego widoku w prawo"
 
 #: lib/kateviewmanager.cpp:228
 #, kde-format
 msgid "Move Splitter Left"
-msgstr "Przesuń dzielnik w lewo"
+msgstr "Przesuń podział w lewo"
 
 #: lib/kateviewmanager.cpp:231
 #, kde-format
 msgid "Move the splitter of the current view to the left"
-msgstr "Przesuń dzielnik bieżącego widoku w prawo"
+msgstr "Przesuń linię dzielącą bieżącego widoku w prawo"
 
 #: lib/kateviewmanager.cpp:234
 #, kde-format
 msgid "Move Splitter Up"
-msgstr "Przesuń dzielnik do góry"
+msgstr "Przesuń podział do góry"
 
 #: lib/kateviewmanager.cpp:237
 #, kde-format
 msgid "Move the splitter of the current view up"
-msgstr "Przesuń dzielnik bieżącego widoku do góry"
+msgstr "Przesuń linię dzielącą bieżącego widoku do góry"
 
 #: lib/kateviewmanager.cpp:240
 #, kde-format
 msgid "Move Splitter Down"
-msgstr "Przesuń dzielnik w dół"
+msgstr "Przesuń podział w dół"
 
 #: lib/kateviewmanager.cpp:243
 #, kde-format
 msgid "Move the splitter of the current view down"
-msgstr "Przesuń dzielnik bieżącego widoku w dół"
+msgstr "Przesuń linię dzielącą bieżącego widoku w dół"
 
 #: lib/kateviewmanager.cpp:246
 #, kde-format

@@ -227,6 +227,9 @@ DiffWidget::DiffWidget(DiffParams p, QWidget *parent)
     KSharedConfig::Ptr config = KSharedConfig::openConfig();
     KConfigGroup cgGeneral = KConfigGroup(config, "General");
     handleStyleChange(cgGeneral.readEntry("Diff Show Style", (int)SideBySide));
+    // clear, after handleStyleChange there might be "no differences found" text
+    m_left->clear();
+    m_right->clear();
 }
 
 DiffWidget::~DiffWidget()

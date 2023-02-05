@@ -4018,6 +4018,17 @@ sync with the current document.  See
 </listitem>
 </varlistentry>
 
+<varlistentry id="tools-run-current-document">
+<term><menuchoice>
+<guimenu>Tools</guimenu>
+<guimenuitem>Run Current Document</guimenuitem></menuchoice></term>
+<listitem>
+<para>Run the current document in &konsole;. Only the local documents can be run.
+&kate; will show a warning before running document because this action can be
+a serious security threat.</para>
+</listitem>
+</varlistentry>
+
 <varlistentry id="tools-focus-terminal">
 <term><menuchoice>
 <guimenu>Tools</guimenu>

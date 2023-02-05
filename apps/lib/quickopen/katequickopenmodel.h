@@ -19,7 +19,6 @@ class Document;
 }
 
 struct ModelEntry {
-    QUrl url;
     QString fileName; // display string for left column
     QString filePath; // display string for right column
     KTextEditor::Document *document = nullptr; // document for entry, if already open

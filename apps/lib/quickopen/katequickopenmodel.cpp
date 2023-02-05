@@ -65,7 +65,7 @@ QVariant KateQuickOpenModel::data(const QModelIndex &idx, int role) const
     case Qt::DecorationRole:
         return QIcon::fromTheme(QMimeDatabase().mimeTypeForFile(entry.fileName, QMimeDatabase::MatchExtension).iconName());
     case Qt::UserRole:
-        return entry.url.isEmpty() ? QUrl::fromLocalFile(entry.filePath) : entry.url;
+        return !entry.document ? QUrl::fromLocalFile(entry.filePath) : entry.document->url();
     case Role::Score:
         return entry.score;
     case Role::Document:
@@ -125,12 +125,12 @@ void KateQuickOpenModel::refresh(KateMainWindow *mainWindow)
         if (!doc->url().isEmpty()) {
             auto path = doc->url().toString(QUrl::NormalizePathSegments | QUrl::PreferLocalFile);
             openedDocUrls.insert(path);
-            allDocuments.push_back({doc->url(), QFileInfo(path).fileName(), path, doc, -1});
+            allDocuments.push_back({QFileInfo(path).fileName(), path, doc, -1});
             return;
         }
 
         // untitled document
-        allDocuments.push_back({doc->url(), doc->documentName(), QString(), doc, -1});
+        allDocuments.push_back({doc->documentName(), QString(), doc, -1});
     };
 
     for (auto *view : sortedViews) {
@@ -150,7 +150,7 @@ void KateQuickOpenModel::refresh(KateMainWindow *mainWindow)
         // QFileInfo is too expensive just for fileName computation
         const int slashIndex = filePath.lastIndexOf(QLatin1Char('/'));
         QString fileName = filePath.mid(slashIndex + 1);
-        allDocuments.push_back({QUrl(), std::move(fileName), filePath, nullptr, -1});
+        allDocuments.push_back({std::move(fileName), filePath, nullptr, -1});
     }
 
     beginResetModel();

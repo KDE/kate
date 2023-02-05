@@ -1048,25 +1048,6 @@ void DiffWidget::openDiff(const QByteArray &raw)
         Qt::QueuedConnection);
 }
 
-void DiffWidget::onTextReceived(const QByteArray &raw)
-{
-    if (!raw.isEmpty()) {
-        if (m_style == SideBySide) {
-            parseAndShowDiff(raw);
-        } else if (m_style == Unified) {
-            parseAndShowDiffUnified(raw);
-        } else if (m_style == Raw) {
-            m_left->appendPlainText(QString::fromUtf8(raw));
-        }
-        m_rawDiff += raw;
-    }
-
-    if (m_rawDiff.isEmpty()) {
-        m_left->setPlainText(i18n("No differences found"));
-        m_right->setPlainText(i18n("No differences found"));
-    }
-}
-
 void DiffWidget::onError(const QByteArray &error, int)
 {
     if (!error.isEmpty()) {

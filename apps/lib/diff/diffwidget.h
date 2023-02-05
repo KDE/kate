@@ -67,7 +67,6 @@ private:
     void handleStageUnstage_sideBySide(DiffEditor *e, int startLine, int endLine, int actionType, DiffParams::Flag);
     void handleStageUnstage_raw(int startLine, int endLine, int actionType, DiffParams::Flag flags);
     void doStageUnStage(int startLine, int endLine, int actionType, DiffParams::Flag);
-    void onTextReceived(const QByteArray &text);
     void onError(const QByteArray &error, int code);
     void parseAndShowDiff(const QByteArray &raw);
     void parseAndShowDiffUnified(const QByteArray &raw);

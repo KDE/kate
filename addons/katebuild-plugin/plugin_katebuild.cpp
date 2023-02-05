@@ -195,7 +195,9 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     });
 
     connect(m_buildUi.u_tabWidget->tabBar(), &QTabBar::tabBarClicked, this, [this](int index) {
-        m_buildUi.u_tabWidget->widget(index)->setFocus();
+        if (QWidget *tabWidget = m_buildUi.u_tabWidget->widget(index)) {
+            tabWidget->setFocus();
+        }
     });
 
     m_buildWidget->installEventFilter(this);

@@ -303,15 +303,26 @@ KateQuickOpen::KateQuickOpen(KateMainWindow *mainWindow)
     m_listView->setHeaderHidden(true);
     m_listView->setRootIsDecorated(false);
     m_listView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    m_listView->setModel(m_model);
 
-    m_proxyModel = new QuickOpenFilterProxyModel(this);
-    m_proxyModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
-    m_proxyModel->setSourceModel(m_model);
-    m_listView->setModel(m_proxyModel);
-    connect(m_inputLine, &QuickOpenLineEdit::textChanged, m_proxyModel, [this](const QString &text) {
-        if (m_proxyModel->setFilterText(text)) {
-            m_styleDelegate->setFilterString(text);
-            m_listView->viewport()->update();
+    connect(m_inputLine, &QuickOpenLineEdit::textChanged, this, [this](const QString &text) {
+        // We init the proxy model when there is something to filter
+        if (!m_proxyModel) {
+            m_proxyModel = new QuickOpenFilterProxyModel(this);
+            m_proxyModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
+            m_proxyModel->setFilterMode(m_inputLine->filterMode());
+            bool filtered = m_proxyModel->setFilterText(text);
+            m_proxyModel->setSourceModel(m_model);
+            m_listView->setModel(m_proxyModel);
+            if (filtered) {
+                m_styleDelegate->setFilterString(text);
+                m_listView->viewport()->update();
+            }
+        } else {
+            if (m_proxyModel->setFilterText(text)) {
+                m_styleDelegate->setFilterString(text);
+                m_listView->viewport()->update();
+            }
         }
     });
 
@@ -381,7 +392,7 @@ void KateQuickOpen::slotReturnPressed()
     }
 
     // either get view via document pointer or url
-    const QModelIndex index = m_listView->model()->index(m_listView->currentIndex().row(), 0);
+    const QModelIndex index = m_listView->currentIndex();
     KTextEditor::View *view = nullptr;
     if (auto doc = index.data(KateQuickOpenModel::Document).value<KTextEditor::Document *>()) {
         view = m_mainWindow->activateView(doc);
@@ -434,7 +445,9 @@ void KateQuickOpen::slotListModeChanged(KateQuickOpenModel::List mode)
 void KateQuickOpen::setFilterMode()
 {
     auto newMode = m_inputLine->filterMode();
-    m_proxyModel->setFilterMode(newMode);
+    if (m_proxyModel) {
+        m_proxyModel->setFilterMode(newMode);
+    }
     m_listView->setSortingEnabled(newMode == Fuzzy);
     m_styleDelegate->setFilterMode(newMode);
     m_listView->viewport()->update();

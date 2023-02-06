@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-01 01:00+0000\n"
+"POT-Creation-Date: 2023-02-06 01:03+0000\n"
 "PO-Revision-Date: 2013-03-29 16:35+0530\n"
 "Last-Translator: Chetan Khona <chetan@kompkin.com>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
@@ -501,7 +501,7 @@ msgctxt "Tooltip for a button, clicking the button reloads the diff"
 msgid "Reload Diff"
 msgstr "पुन्हा दाखल करा"
 
-#: lib/diff/diffwidget.cpp:463
+#: lib/diff/diffwidget.cpp:466
 #, kde-format
 msgid ""
 "<b>git</b> not found. Git is needed to diff the documents. If git is already "
@@ -509,26 +509,25 @@ msgid ""
 "downloads"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:466 lib/diff/diffwidget.cpp:1073
+#: lib/diff/diffwidget.cpp:469 lib/diff/diffwidget.cpp:1057
 #: lib/kateconfigdialog.cpp:549
 #, kde-format
 msgid "Diff"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:669 lib/diff/diffwidget.cpp:869
+#: lib/diff/diffwidget.cpp:672 lib/diff/diffwidget.cpp:872
 #, fuzzy, kde-format
 #| msgid "Filename"
 msgid "New file %1"
 msgstr "फाईल नाव"
 
-#: lib/diff/diffwidget.cpp:671 lib/diff/diffwidget.cpp:871
+#: lib/diff/diffwidget.cpp:674 lib/diff/diffwidget.cpp:874
 #, fuzzy, kde-format
 #| msgid "Delete File?"
 msgid "Deleted file %1"
 msgstr "फाईल काढून टाकायची का?"
 
-#: lib/diff/diffwidget.cpp:1037 lib/diff/diffwidget.cpp:1038
-#: lib/diff/diffwidget.cpp:1065 lib/diff/diffwidget.cpp:1066
+#: lib/diff/diffwidget.cpp:1040 lib/diff/diffwidget.cpp:1041
 #, kde-format
 msgid "No differences found"
 msgstr ""

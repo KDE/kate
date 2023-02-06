@@ -1,19 +1,20 @@
 # translation of lspclient.po to Slovak
 # Roman Paholík <wizzardsk@gmail.com>, 2019.
 # Matej Mrenica <matejm98mthw@gmail.com>, 2019, 2020, 2021, 2022.
+# Ferdinand Galko <galko.ferdinand@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: lspclient\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-05 01:01+0000\n"
-"PO-Revision-Date: 2022-08-22 16:52+0200\n"
-"Last-Translator: Matej Mrenica <matejm98mthw@gmail.com>\n"
-"Language-Team: Slovak <kde-i18n-doc@kde.org>\n"
+"PO-Revision-Date: 2023-02-05 17:53+0100\n"
+"Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
+"Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.07.90\n"
+"X-Generator: Lokalize 21.12.3\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:250
@@ -56,12 +57,12 @@ msgstr "Vymazať vybrané položky"
 #: lspclientconfigpage.cpp:280
 #, kde-format
 msgid "Delete all entries"
-msgstr ""
+msgstr "Vymazať všetky položky"
 
 #: lspclientplugin.cpp:223
 #, kde-format
 msgid "LSP server start requested"
-msgstr ""
+msgstr "Vyžiadané spustenie servera LSP"
 
 #: lspclientplugin.cpp:226
 #, kde-format
@@ -70,6 +71,9 @@ msgid ""
 "<br><br><b>%1</b><br><br>The choice can be altered via the config page of "
 "the plugin."
 msgstr ""
+"Chcete, aby sa spustil server LSP?<br><br>Úplný príkazový riadok je:"
+"<br><br><b>%1</b><br><br>Výber je možné zmeniť na konfiguračnej stránke "
+"zásuvného modulu."
 
 #: lspclientplugin.cpp:239
 #, kde-format
@@ -77,6 +81,8 @@ msgid ""
 "User permanently blocked start of: '%1'.\n"
 "Use the config page of the plugin to undo this block."
 msgstr ""
+"Používateľ trvalo zablokoval spustenie: '%1'.\n"
+"Použite konfiguračnú stránku zásuvného modulu na zrušenie tohto blokovania."
 
 #: lspclientpluginview.cpp:518
 #, kde-format
@@ -96,7 +102,7 @@ msgstr "Prejsť na definíciu typu"
 #: lspclientpluginview.cpp:524
 #, kde-format
 msgid "Find References"
-msgstr "Nájsť odkazy"
+msgstr "Nájsť referencie"
 
 #: lspclientpluginview.cpp:527
 #, kde-format
@@ -129,10 +135,9 @@ msgid "Rename"
 msgstr "Premenovať"
 
 #: lspclientpluginview.cpp:545
-#, fuzzy, kde-format
-#| msgid "Expand All"
+#, kde-format
 msgid "Expand Selection"
-msgstr "Rozbaliť všetko"
+msgstr "Rozbaliť výber"
 
 #: lspclientpluginview.cpp:548
 #, kde-format
@@ -145,10 +150,9 @@ msgid "Switch Source Header"
 msgstr "Prepnúť hlavičku zdroja"
 
 #: lspclientpluginview.cpp:555
-#, fuzzy, kde-format
-#| msgid "Expand All"
+#, kde-format
 msgid "Expand Macro"
-msgstr "Rozbaliť všetko"
+msgstr "Rozbaliť makro"
 
 #: lspclientpluginview.cpp:557
 #, kde-format
@@ -200,29 +204,25 @@ msgstr "Zvýrazniť umiestnenie"
 #: lspclientpluginview.cpp:602
 #, kde-format
 msgid "Show Inlay Hints"
-msgstr ""
+msgstr "Zobraziť vložené tipy"
 
 #: lspclientpluginview.cpp:606
-#, fuzzy, kde-format
-#| msgid "Show diagnostics notifications"
+#, kde-format
 msgid "Show Diagnostics Notifications"
-msgstr "Zobraziť diagnostické notifikácie"
+msgstr "Zobraziť diagnostické upozornenia"
 
 #: lspclientpluginview.cpp:611
-#, fuzzy, kde-format
-#| msgid "Show messages"
+#, kde-format
 msgid "Show Messages"
 msgstr "Zobraziť správy"
 
 #: lspclientpluginview.cpp:616
-#, fuzzy, kde-format
-#| msgid "Server memory usage"
+#, kde-format
 msgid "Server Memory Usage"
-msgstr "Využitie pamäte serverom"
+msgstr "Využitie pamäte servera"
 
 #: lspclientpluginview.cpp:620
-#, fuzzy, kde-format
-#| msgid "Close all dynamic reference tabs"
+#, kde-format
 msgid "Close All Dynamic Reference Tabs"
 msgstr "Zatvoriť všetky karty s dynamickými referenciami"
 
@@ -239,7 +239,7 @@ msgstr "Reštartovať všetky LSP Servery"
 #: lspclientpluginview.cpp:635
 #, kde-format
 msgid "Go To"
-msgstr ""
+msgstr "Prejsť na"
 
 #: lspclientpluginview.cpp:662
 #, kde-format
@@ -342,10 +342,9 @@ msgid "New name (caution: not all references may be replaced)"
 msgstr "Nový názov (upozornenie: niektoré odkazy nemusia byť nahradené)"
 
 #: lspclientpluginview.cpp:1917
-#, fuzzy, kde-format
-#| msgid "No results"
+#, kde-format
 msgid "Not enough results"
-msgstr "Žiadne výsledky"
+msgstr "Nedostatok výsledkov"
 
 #: lspclientpluginview.cpp:1987
 #, kde-format
@@ -380,10 +379,9 @@ msgid "Server terminated unexpectedly ... %1 [%2] [homepage: %3] "
 msgstr "Server sa neočakávane ukončil ... %1 [%2] [domovská stránka: %3] "
 
 #: lspclientservermanager.cpp:804
-#, fuzzy, kde-format
-#| msgid "Failed to start server: %1"
+#, kde-format
 msgid "Failed to find server binary: %1"
-msgstr "Nepodarilo sa spustiť server: %1"
+msgstr "Spustiteľný súbor servera sa nepodarilo nájsť: %1"
 
 #: lspclientservermanager.cpp:807 lspclientservermanager.cpp:849
 #, kde-format
@@ -421,10 +419,9 @@ msgid "Failed to read server configuration: %1"
 msgstr "Nepodarilo sa prečítať nastavenia serveru: %1"
 
 #: lspclientsymbolview.cpp:238
-#, fuzzy, kde-format
-#| msgid "Symbol Outline Options"
+#, kde-format
 msgid "Symbol Outline"
-msgstr "Možnosti obrysu symbolu"
+msgstr "Obrys symbolov"
 
 #: lspclientsymbolview.cpp:276
 #, kde-format
@@ -464,10 +461,9 @@ msgstr "Nastavenia klienta"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkFmtOnSave)
 #: lspconfigwidget.ui:54
-#, fuzzy, kde-format
-#| msgid "Format on typing"
+#, kde-format
 msgid "Format on save"
-msgstr "Formátovať pri písaní"
+msgstr "Formátovať pri uložení"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSemanticHighlighting)
 #: lspconfigwidget.ui:61
@@ -479,33 +475,31 @@ msgstr "Povoliť sémantické zvýrazňovanie"
 #: lspconfigwidget.ui:68
 #, kde-format
 msgid "Enable inlay hints"
-msgstr ""
+msgstr "Povoliť vložené tipy"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: lspconfigwidget.ui:75
-#, fuzzy, kde-format
-#| msgid "Code Action"
+#, kde-format
 msgid "Completions:"
-msgstr "Akcia kódu"
+msgstr "Dokončenia:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkComplDoc)
 #: lspconfigwidget.ui:82
-#, fuzzy, kde-format
-#| msgid "Show selected completion documentation"
+#, kde-format
 msgid "Show inline docs for selected completion"
-msgstr "Zobraziť vybranú dokumentáciu o dokončení"
+msgstr "Zobraziť vložené dokumenty pre vybrané dokončenie"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSignatureHelp)
 #: lspconfigwidget.ui:89
 #, kde-format
 msgid "Show function signature when typing a function call"
-msgstr ""
+msgstr "Zobraziť podpis funkcie pri zadávaní volania funkcie"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkAutoImport)
 #: lspconfigwidget.ui:103
 #, kde-format
 msgid "Add imports automatically if needed upon completion"
-msgstr ""
+msgstr "Pridať importy automaticky po dokončení, ak je to potrebné"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: lspconfigwidget.ui:110
@@ -517,19 +511,19 @@ msgstr "Navigácia:"
 #: lspconfigwidget.ui:117
 #, kde-format
 msgid "Count declarations when searching for references to a symbol"
-msgstr ""
+msgstr "Počítať deklarácie pri hľadaní referencií na symbol"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkAutoHover)
 #: lspconfigwidget.ui:124
 #, kde-format
 msgid "Show information about currently hovered symbol"
-msgstr ""
+msgstr "Zobrazenie informácií o symbole, na ktorom sa aktuálne nachádza kurzor"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkHighlightGoto)
 #: lspconfigwidget.ui:131
 #, kde-format
 msgid "Highlight target line when hopping to it"
-msgstr ""
+msgstr "Zvýrazniť cieľový riadok pri preskakovaní naň"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: lspconfigwidget.ui:138
@@ -539,28 +533,27 @@ msgstr "Server:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkDiagnostics)
 #: lspconfigwidget.ui:145
-#, fuzzy, kde-format
-#| msgid "Show diagnostics marks"
+#, kde-format
 msgid "Show program diagnostics"
-msgstr "Zobraziť diagnostické značky"
+msgstr "Zobraziť diagnostiku programu"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkMessages)
 #: lspconfigwidget.ui:152
 #, kde-format
 msgid "Show notifications from the LSP server"
-msgstr ""
+msgstr "Zobraziť upozornenia zo servera LSP"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkIncrementalSync)
 #: lspconfigwidget.ui:159
 #, kde-format
 msgid "Incrementally synchronize documents with the LSP server"
-msgstr ""
+msgstr "Inkrementálne synchronizovať dokumenty so serverom LSP"
 
 #. i18n: ectx: property (text), widget (QLabel, label_6)
 #: lspconfigwidget.ui:166
 #, kde-format
 msgid "Document outline:"
-msgstr ""
+msgstr "Osnova dokumentu:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSymbolSort)
 #: lspconfigwidget.ui:173
@@ -570,16 +563,15 @@ msgstr "Zoradiť symboly abecedne"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSymbolDetails)
 #: lspconfigwidget.ui:180
-#, fuzzy, kde-format
-#| msgid "Display symbol details"
+#, kde-format
 msgid "Display additional details for symbols"
-msgstr "Zobraziť detaily symbolu"
+msgstr "Zobraziť ďalšie podrobnosti o symboloch"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSymbolTree)
 #: lspconfigwidget.ui:187
 #, kde-format
 msgid "Present symbols in a hierarchy instead of a flat list"
-msgstr ""
+msgstr "Prezentovať symboly v hierarchii namiesto plochého zoznamu"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSymbolExpand)
 #: lspconfigwidget.ui:202
@@ -591,7 +583,7 @@ msgstr "Automaticky rozšíriť strom"
 #: lspconfigwidget.ui:227
 #, kde-format
 msgid "Allowed && Blocked Servers"
-msgstr ""
+msgstr "Povolené && blokované servery"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
 #: lspconfigwidget.ui:237

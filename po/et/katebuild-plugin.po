@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-25 01:01+0000\n"
+"POT-Creation-Date: 2023-02-06 01:03+0000\n"
 "PO-Revision-Date: 2020-06-05 19:31+0300\n"
 "Last-Translator: Marek Laane <qiilaq69@gmail.com>\n"
 "Language-Team: Estonian <kde-et@lists.linux.ee>\n"
@@ -75,7 +75,7 @@ msgctxt "Header for the error message column"
 msgid "Message"
 msgstr "Teade"
 
-#: plugin_katebuild.cpp:136 plugin_katebuild.cpp:143 plugin_katebuild.cpp:1372
+#: plugin_katebuild.cpp:136 plugin_katebuild.cpp:143 plugin_katebuild.cpp:1374
 #, kde-format
 msgid "Build"
 msgstr "Ehitamine"
@@ -135,13 +135,13 @@ msgctxt "Tab label"
 msgid "Target Settings"
 msgstr "Sihtmärgi seadistused"
 
-#: plugin_katebuild.cpp:391 plugin_katebuild.cpp:1474 plugin_katebuild.cpp:1485
-#: plugin_katebuild.cpp:1506 plugin_katebuild.cpp:1516
+#: plugin_katebuild.cpp:393 plugin_katebuild.cpp:1476 plugin_katebuild.cpp:1487
+#: plugin_katebuild.cpp:1508 plugin_katebuild.cpp:1518
 #, kde-format
 msgid "Project Plugin Targets"
 msgstr "Projektiplugina sihtmärgid"
 
-#: plugin_katebuild.cpp:544
+#: plugin_katebuild.cpp:546
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -151,47 +151,47 @@ msgstr ""
 "<title>Faili avamine nurjus:</title><nl/>%1<br/>Püüa lisada töökataloogi "
 "otsingutee sihtmärgi seadistustesse"
 
-#: plugin_katebuild.cpp:565
+#: plugin_katebuild.cpp:567
 #, kde-format
 msgctxt "The same word as 'make' uses to mark an error."
 msgid "error"
 msgstr "viga"
 
-#: plugin_katebuild.cpp:569
+#: plugin_katebuild.cpp:571
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "defineerimata viide"
 
-#: plugin_katebuild.cpp:577
+#: plugin_katebuild.cpp:579
 #, kde-format
 msgctxt "The same word as 'make' uses to mark a warning."
 msgid "warning"
 msgstr "hoiatus"
 
-#: plugin_katebuild.cpp:665
+#: plugin_katebuild.cpp:667
 #, kde-format
 msgid "Error"
 msgstr "Tõrge"
 
-#: plugin_katebuild.cpp:670
+#: plugin_katebuild.cpp:672
 #, kde-format
 msgid "Warning"
 msgstr "Hoiatus"
 
-#: plugin_katebuild.cpp:801
+#: plugin_katebuild.cpp:803
 #, kde-format
 msgid "There is no file or directory specified for building."
 msgstr "Ehitamiseks pole määratud faili ega kataloogi."
 
-#: plugin_katebuild.cpp:805
+#: plugin_katebuild.cpp:807
 #, kde-format
 msgid ""
 "The file \"%1\" is not a local file. Non-local files cannot be compiled."
 msgstr ""
 "Fail \"%1\" ei ole kohalik fail. Mittekohalikke faile ei saa kompileerida."
 
-#: plugin_katebuild.cpp:852
+#: plugin_katebuild.cpp:854
 #, kde-format
 msgid ""
 "Cannot run command: %1\n"
@@ -200,137 +200,137 @@ msgstr ""
 "Käsku ei saa käivitada: %1\n"
 "Asukohta ei ole olemas: %2"
 
-#: plugin_katebuild.cpp:875
+#: plugin_katebuild.cpp:877
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "\"%1\" käivitamine nurjus. exitStatus = %2"
 
-#: plugin_katebuild.cpp:894
+#: plugin_katebuild.cpp:896
 #, kde-format
 msgid "Building <b>%1</b> cancelled"
 msgstr "<b>%1</b> ehitamine katkestati"
 
-#: plugin_katebuild.cpp:995
+#: plugin_katebuild.cpp:997
 #, kde-format
 msgid "No target available for building."
 msgstr "Ehitamiseks puudub sihtmärk."
 
-#: plugin_katebuild.cpp:1009
+#: plugin_katebuild.cpp:1011
 #, kde-format
 msgid "There is no local file or directory specified for building."
 msgstr "Ehitamiseks pole määratud kohalikku faili ega kataloogi."
 
-#: plugin_katebuild.cpp:1015
+#: plugin_katebuild.cpp:1017
 #, kde-format
 msgid "Already building..."
 msgstr "Juba ehitatakse..."
 
-#: plugin_katebuild.cpp:1042
+#: plugin_katebuild.cpp:1044
 #, kde-format
 msgid "Building target <b>%1</b> ..."
 msgstr "Ehitamise sihtmärk <b>%1</b> ..."
 
-#: plugin_katebuild.cpp:1057
+#: plugin_katebuild.cpp:1059
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Make Results:</title><nl/>%1"
 msgstr "<title>Make'i tulemused:</title><nl/>%1"
 
-#: plugin_katebuild.cpp:1094
+#: plugin_katebuild.cpp:1096
 #, kde-format
 msgid "Building <b>%1</b> completed."
 msgstr "<b>%1</b> ehitamine on lõpetatud."
 
-#: plugin_katebuild.cpp:1113
+#: plugin_katebuild.cpp:1115
 #, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
 msgstr[0] "Leiti üks viga."
 msgstr[1] "Leiti %1 viga."
 
-#: plugin_katebuild.cpp:1114
+#: plugin_katebuild.cpp:1116
 #, kde-format
 msgid "Building <b>%1</b> had errors."
 msgstr "<b>%1</b> ehitamisel esines vigu."
 
-#: plugin_katebuild.cpp:1116
+#: plugin_katebuild.cpp:1118
 #, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
 msgstr[0] "Leiti üks hoiatus."
 msgstr[1] "Leiti %1 hoiatust."
 
-#: plugin_katebuild.cpp:1117
+#: plugin_katebuild.cpp:1119
 #, kde-format
 msgid "Building <b>%1</b> had warnings."
 msgstr "<b>%1</b> ehitamisel esines hoiatusi."
 
-#: plugin_katebuild.cpp:1123
+#: plugin_katebuild.cpp:1125
 #, kde-format
 msgid "Build failed."
 msgstr "Ehitamine nurjus."
 
-#: plugin_katebuild.cpp:1125
+#: plugin_katebuild.cpp:1127
 #, kde-format
 msgid "Build completed without problems."
 msgstr "Ehitamine lõpetati probleemideta."
 
-#: plugin_katebuild.cpp:1156
+#: plugin_katebuild.cpp:1158
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
 msgstr ""
 
-#: plugin_katebuild.cpp:1371
+#: plugin_katebuild.cpp:1373
 #, kde-format
 msgid "Target Set"
 msgstr "Sihtmärgikogum"
 
-#: plugin_katebuild.cpp:1373
+#: plugin_katebuild.cpp:1375
 #, kde-format
 msgid "Clean"
 msgstr "Puhasta"
 
-#: plugin_katebuild.cpp:1374
+#: plugin_katebuild.cpp:1376
 #, kde-format
 msgid "Config"
 msgstr "Seadistus"
 
-#: plugin_katebuild.cpp:1375
+#: plugin_katebuild.cpp:1377
 #, kde-format
 msgid "ConfigClean"
 msgstr "Seadistuse puhastamine"
 
-#: plugin_katebuild.cpp:1418
+#: plugin_katebuild.cpp:1420
 #, kde-format
 msgid "Only Errors"
 msgstr "Ainult vead"
 
-#: plugin_katebuild.cpp:1421
+#: plugin_katebuild.cpp:1423
 #, kde-format
 msgid "Errors and Warnings"
 msgstr "Vead ja hoiatused"
 
-#: plugin_katebuild.cpp:1424
+#: plugin_katebuild.cpp:1426
 #, kde-format
 msgid "Parsed Output"
 msgstr "Parsitud väljund"
 
-#: plugin_katebuild.cpp:1427
+#: plugin_katebuild.cpp:1429
 #, kde-format
 msgid "Full Output"
 msgstr "Täielik väljund"
 
-#: plugin_katebuild.cpp:1544
+#: plugin_katebuild.cpp:1546
 #, kde-format
 msgid "build"
 msgstr "ehitamine"
 
-#: plugin_katebuild.cpp:1547
+#: plugin_katebuild.cpp:1549
 #, kde-format
 msgid "clean"
 msgstr "puhastamine"
 
-#: plugin_katebuild.cpp:1550
+#: plugin_katebuild.cpp:1552
 #, kde-format
 msgid "quick"
 msgstr "kiire"

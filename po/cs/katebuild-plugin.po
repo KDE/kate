@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-25 01:01+0000\n"
+"POT-Creation-Date: 2023-02-06 01:03+0000\n"
 "PO-Revision-Date: 2023-02-01 10:33+0100\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -76,7 +76,7 @@ msgctxt "Header for the error message column"
 msgid "Message"
 msgstr "Zpráva"
 
-#: plugin_katebuild.cpp:136 plugin_katebuild.cpp:143 plugin_katebuild.cpp:1372
+#: plugin_katebuild.cpp:136 plugin_katebuild.cpp:143 plugin_katebuild.cpp:1374
 #, kde-format
 msgid "Build"
 msgstr "Překlad"
@@ -134,13 +134,13 @@ msgctxt "Tab label"
 msgid "Target Settings"
 msgstr "Nastavení cíle"
 
-#: plugin_katebuild.cpp:391 plugin_katebuild.cpp:1474 plugin_katebuild.cpp:1485
-#: plugin_katebuild.cpp:1506 plugin_katebuild.cpp:1516
+#: plugin_katebuild.cpp:393 plugin_katebuild.cpp:1476 plugin_katebuild.cpp:1487
+#: plugin_katebuild.cpp:1508 plugin_katebuild.cpp:1518
 #, kde-format
 msgid "Project Plugin Targets"
 msgstr ""
 
-#: plugin_katebuild.cpp:544
+#: plugin_katebuild.cpp:546
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -148,95 +148,95 @@ msgid ""
 "the working directory in the Target Settings"
 msgstr ""
 
-#: plugin_katebuild.cpp:565
+#: plugin_katebuild.cpp:567
 #, kde-format
 msgctxt "The same word as 'make' uses to mark an error."
 msgid "error"
 msgstr "chyba"
 
-#: plugin_katebuild.cpp:569
+#: plugin_katebuild.cpp:571
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "nedefinovaný odkaz"
 
-#: plugin_katebuild.cpp:577
+#: plugin_katebuild.cpp:579
 #, kde-format
 msgctxt "The same word as 'make' uses to mark a warning."
 msgid "warning"
 msgstr "varování"
 
-#: plugin_katebuild.cpp:665
+#: plugin_katebuild.cpp:667
 #, kde-format
 msgid "Error"
 msgstr "Chyba"
 
-#: plugin_katebuild.cpp:670
+#: plugin_katebuild.cpp:672
 #, kde-format
 msgid "Warning"
 msgstr "Varování"
 
-#: plugin_katebuild.cpp:801
+#: plugin_katebuild.cpp:803
 #, kde-format
 msgid "There is no file or directory specified for building."
 msgstr "Pro sestavení není určen soubor nebo adresář."
 
-#: plugin_katebuild.cpp:805
+#: plugin_katebuild.cpp:807
 #, kde-format
 msgid ""
 "The file \"%1\" is not a local file. Non-local files cannot be compiled."
 msgstr ""
 "Soubor \"%1\" není místním souborem. Lze kopírovat pouze místní soubory."
 
-#: plugin_katebuild.cpp:852
+#: plugin_katebuild.cpp:854
 #, kde-format
 msgid ""
 "Cannot run command: %1\n"
 "Work path does not exist: %2"
 msgstr ""
 
-#: plugin_katebuild.cpp:875
+#: plugin_katebuild.cpp:877
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "Nepovedlo se spustit \"%1\". exitStatus = %2"
 
-#: plugin_katebuild.cpp:894
+#: plugin_katebuild.cpp:896
 #, kde-format
 msgid "Building <b>%1</b> cancelled"
 msgstr "Sestavení <b>%1</b> bylo zrušeno."
 
-#: plugin_katebuild.cpp:995
+#: plugin_katebuild.cpp:997
 #, kde-format
 msgid "No target available for building."
 msgstr ""
 
-#: plugin_katebuild.cpp:1009
+#: plugin_katebuild.cpp:1011
 #, kde-format
 msgid "There is no local file or directory specified for building."
 msgstr "Pro sestavení není určen místní soubor nebo adresář."
 
-#: plugin_katebuild.cpp:1015
+#: plugin_katebuild.cpp:1017
 #, kde-format
 msgid "Already building..."
 msgstr "Sestavení již probíhá..."
 
-#: plugin_katebuild.cpp:1042
+#: plugin_katebuild.cpp:1044
 #, kde-format
 msgid "Building target <b>%1</b> ..."
 msgstr "Sestavuji cíl <b>%1</b> ..."
 
-#: plugin_katebuild.cpp:1057
+#: plugin_katebuild.cpp:1059
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Make Results:</title><nl/>%1"
 msgstr ""
 
-#: plugin_katebuild.cpp:1094
+#: plugin_katebuild.cpp:1096
 #, kde-format
 msgid "Building <b>%1</b> completed."
 msgstr "Sestavení <b>%1</b> dokončeno."
 
-#: plugin_katebuild.cpp:1113
+#: plugin_katebuild.cpp:1115
 #, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
@@ -244,12 +244,12 @@ msgstr[0] "Nalezena jedna chyba."
 msgstr[1] "Nalezena %1 chyby."
 msgstr[2] "Nalezeno %1 chyb."
 
-#: plugin_katebuild.cpp:1114
+#: plugin_katebuild.cpp:1116
 #, kde-format
 msgid "Building <b>%1</b> had errors."
 msgstr "Při sestavování <b>%1</b> došlo k chybám."
 
-#: plugin_katebuild.cpp:1116
+#: plugin_katebuild.cpp:1118
 #, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
@@ -257,77 +257,77 @@ msgstr[0] "Nalezeno jedno varování."
 msgstr[1] "Nalezena %1 varování."
 msgstr[2] "Nalezeno %1 varování."
 
-#: plugin_katebuild.cpp:1117
+#: plugin_katebuild.cpp:1119
 #, kde-format
 msgid "Building <b>%1</b> had warnings."
 msgstr "Při sestavování <b>%1</b> se vyskytla varování."
 
-#: plugin_katebuild.cpp:1123
+#: plugin_katebuild.cpp:1125
 #, kde-format
 msgid "Build failed."
 msgstr "Sestavení selhalo."
 
-#: plugin_katebuild.cpp:1125
+#: plugin_katebuild.cpp:1127
 #, kde-format
 msgid "Build completed without problems."
 msgstr "Sestavení dokončeno bez problémů."
 
-#: plugin_katebuild.cpp:1156
+#: plugin_katebuild.cpp:1158
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
 msgstr "Nelze spustit: %1 Nebyl nastaven pracovní adresář."
 
-#: plugin_katebuild.cpp:1371
+#: plugin_katebuild.cpp:1373
 #, kde-format
 msgid "Target Set"
 msgstr "Sada cílů"
 
-#: plugin_katebuild.cpp:1373
+#: plugin_katebuild.cpp:1375
 #, kde-format
 msgid "Clean"
 msgstr "Vyčistit"
 
-#: plugin_katebuild.cpp:1374
+#: plugin_katebuild.cpp:1376
 #, kde-format
 msgid "Config"
 msgstr "Nastavení"
 
-#: plugin_katebuild.cpp:1375
+#: plugin_katebuild.cpp:1377
 #, kde-format
 msgid "ConfigClean"
 msgstr ""
 
-#: plugin_katebuild.cpp:1418
+#: plugin_katebuild.cpp:1420
 #, kde-format
 msgid "Only Errors"
 msgstr "Pouze chyby"
 
-#: plugin_katebuild.cpp:1421
+#: plugin_katebuild.cpp:1423
 #, kde-format
 msgid "Errors and Warnings"
 msgstr "Chyby a varování"
 
-#: plugin_katebuild.cpp:1424
+#: plugin_katebuild.cpp:1426
 #, kde-format
 msgid "Parsed Output"
 msgstr "Zpracovaný výstup"
 
-#: plugin_katebuild.cpp:1427
+#: plugin_katebuild.cpp:1429
 #, kde-format
 msgid "Full Output"
 msgstr "Plný výstup"
 
-#: plugin_katebuild.cpp:1544
+#: plugin_katebuild.cpp:1546
 #, kde-format
 msgid "build"
 msgstr "překlad"
 
-#: plugin_katebuild.cpp:1547
+#: plugin_katebuild.cpp:1549
 #, kde-format
 msgid "clean"
 msgstr "vymazat"
 
-#: plugin_katebuild.cpp:1550
+#: plugin_katebuild.cpp:1552
 #, kde-format
 msgid "quick"
 msgstr ""

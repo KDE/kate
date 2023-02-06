@@ -317,6 +317,12 @@ bool KateProject::load(const QVariantMap &globalProject, bool force)
         }
     }
 
+    auto column = m_model.invisibleRootItem()->takeColumn(0);
+    auto deleter = QRunnable::create([column = std::move(column)] {
+        qDeleteAll(column);
+    });
+    m_threadPool.start(deleter);
+
     // let's run the stuff in our own thread pool
     // do manual queued connect, as only run() is done in extra thread, object stays in this one
     auto w = new KateProjectWorker(m_baseDir, indexDir, m_projectMap, force);

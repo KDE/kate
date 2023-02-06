@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-30 03:15+0000\n"
-"PO-Revision-Date: 2023-01-25 07:31+0100\n"
+"PO-Revision-Date: 2023-02-05 09:34+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -1169,7 +1169,7 @@ msgstr "მდებარეობის კოპირება"
 #: lib/katemainwindow.cpp:349 lib/katemainwindow.cpp:358
 #, kde-format
 msgid "Copies the file path of the current file to clipboard."
-msgstr ""
+msgstr "მიმდინარე ფაილის ბილიკის ბუფერში კოპირება."
 
 #: lib/katemainwindow.cpp:353 lib/welcomeview/welcomeview.cpp:244
 #, kde-format
@@ -1185,7 +1185,7 @@ msgstr "სახელის გადარქმევა..."
 #: lib/katemainwindow.cpp:367
 #, kde-format
 msgid "Renames the file belonging to the current document."
-msgstr ""
+msgstr "ფაილის, რომელიც მიმდინარე დოკუმენტს ეკუთვნის, სახელის გადარქმევა."
 
 #: lib/katemainwindow.cpp:371
 #, kde-format
@@ -1306,7 +1306,7 @@ msgstr "&დამატებების სახელმძღვანე�
 #: lib/katemainwindow.cpp:452
 #, kde-format
 msgid "This shows help files for various available plugins."
-msgstr ""
+msgstr "გაჩვენებთ დახმარებს ფაილებს სხვადასხვა ხელმისაწვდომი დამატებებისთვის."
 
 #: lib/katemainwindow.cpp:469
 #, kde-format
@@ -1362,7 +1362,7 @@ msgstr "ფაილის Git ისტორიის ჩვენება"
 #: lib/katemainwindow.cpp:546
 #, kde-format
 msgid "This will close all open documents. Are you sure you want to continue?"
-msgstr ""
+msgstr "ეს ყველა ღია დოკუმენტს დახურავთ. გნებავთ, გააგრძელოთ?"
 
 #: lib/katemainwindow.cpp:547
 #, kde-format
@@ -1549,7 +1549,7 @@ msgstr ""
 #: lib/katemwmodonhddialog.cpp:58
 #, kde-format
 msgid "Documents Modified on Disk"
-msgstr ""
+msgstr "დოკუმენტები დისკზე შეიცვალა"
 
 #: lib/katemwmodonhddialog.cpp:74
 #, kde-format

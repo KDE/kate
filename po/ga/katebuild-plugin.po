@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdesdk/katebuild-plugin.po\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-24 02:51+0000\n"
+"POT-Creation-Date: 2023-02-06 03:00+0000\n"
 "PO-Revision-Date: 2009-01-20 10:11-0500\n"
 "Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
@@ -75,7 +75,7 @@ msgctxt "Header for the error message column"
 msgid "Message"
 msgstr "Teachtaireacht"
 
-#: plugin_katebuild.cpp:136 plugin_katebuild.cpp:143 plugin_katebuild.cpp:1329
+#: plugin_katebuild.cpp:136 plugin_katebuild.cpp:143 plugin_katebuild.cpp:1331
 #, kde-format
 msgid "Build"
 msgstr "Tóg"
@@ -124,13 +124,13 @@ msgctxt "Tab label"
 msgid "Target Settings"
 msgstr "Socruithe Sprice"
 
-#: plugin_katebuild.cpp:351 plugin_katebuild.cpp:1431 plugin_katebuild.cpp:1442
-#: plugin_katebuild.cpp:1463 plugin_katebuild.cpp:1473
+#: plugin_katebuild.cpp:353 plugin_katebuild.cpp:1433 plugin_katebuild.cpp:1444
+#: plugin_katebuild.cpp:1465 plugin_katebuild.cpp:1475
 #, kde-format
 msgid "Project Plugin Targets"
 msgstr ""
 
-#: plugin_katebuild.cpp:504
+#: plugin_katebuild.cpp:506
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -138,99 +138,99 @@ msgid ""
 "the working directory in the Target Settings"
 msgstr ""
 
-#: plugin_katebuild.cpp:524
+#: plugin_katebuild.cpp:526
 #, kde-format
 msgctxt "The same word as 'make' uses to mark an error."
 msgid "error"
 msgstr "earráid"
 
-#: plugin_katebuild.cpp:527
+#: plugin_katebuild.cpp:529
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "tagairt gan sainmhíniú"
 
-#: plugin_katebuild.cpp:534
+#: plugin_katebuild.cpp:536
 #, kde-format
 msgctxt "The same word as 'make' uses to mark a warning."
 msgid "warning"
 msgstr "rabhadh"
 
-#: plugin_katebuild.cpp:620
+#: plugin_katebuild.cpp:622
 #, fuzzy, kde-format
 #| msgctxt "The same word as 'make' uses to mark an error."
 #| msgid "error"
 msgid "Error"
 msgstr "earráid"
 
-#: plugin_katebuild.cpp:625
+#: plugin_katebuild.cpp:627
 #, fuzzy, kde-format
 #| msgid "Warnings"
 msgid "Warning"
 msgstr "Rabhaidh"
 
-#: plugin_katebuild.cpp:756
+#: plugin_katebuild.cpp:758
 #, kde-format
 msgid "There is no file or directory specified for building."
 msgstr "Níor sonraíodh comhad nó comhadlann ar bith le tógáil ann."
 
-#: plugin_katebuild.cpp:760
+#: plugin_katebuild.cpp:762
 #, kde-format
 msgid ""
 "The file \"%1\" is not a local file. Non-local files cannot be compiled."
 msgstr "Ní comhad logánta é \"%1\". Ní féidir comhaid neamhlogánta a thiomsú."
 
-#: plugin_katebuild.cpp:807
+#: plugin_katebuild.cpp:809
 #, kde-format
 msgid ""
 "Cannot run command: %1\n"
 "Work path does not exist: %2"
 msgstr ""
 
-#: plugin_katebuild.cpp:826
+#: plugin_katebuild.cpp:828
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "Níorbh fhéidir \"%1\" a rith. Stádas scortha = %2"
 
-#: plugin_katebuild.cpp:845
+#: plugin_katebuild.cpp:847
 #, kde-format
 msgid "Building <b>%1</b> cancelled"
 msgstr ""
 
-#: plugin_katebuild.cpp:946
+#: plugin_katebuild.cpp:948
 #, kde-format
 msgid "No target available for building."
 msgstr ""
 
-#: plugin_katebuild.cpp:960
+#: plugin_katebuild.cpp:962
 #, fuzzy, kde-format
 #| msgid "There is no file or directory specified for building."
 msgid "There is no local file or directory specified for building."
 msgstr "Níor sonraíodh comhad nó comhadlann ar bith le tógáil ann."
 
-#: plugin_katebuild.cpp:966
+#: plugin_katebuild.cpp:968
 #, kde-format
 msgid "Already building..."
 msgstr ""
 
-#: plugin_katebuild.cpp:993
+#: plugin_katebuild.cpp:995
 #, fuzzy, kde-format
 #| msgid "Build failed."
 msgid "Building target <b>%1</b> ..."
 msgstr "Theip ar thógáil."
 
-#: plugin_katebuild.cpp:1008
+#: plugin_katebuild.cpp:1010
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Make Results:</title><nl/>%1"
 msgstr ""
 
-#: plugin_katebuild.cpp:1045
+#: plugin_katebuild.cpp:1047
 #, kde-format
 msgid "Building <b>%1</b> completed."
 msgstr ""
 
-#: plugin_katebuild.cpp:1064
+#: plugin_katebuild.cpp:1066
 #, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
@@ -240,12 +240,12 @@ msgstr[2] "Aimsíodh %1 earráid."
 msgstr[3] "Aimsíodh %1 n-earráid."
 msgstr[4] "Aimsíodh %1 earráid."
 
-#: plugin_katebuild.cpp:1065
+#: plugin_katebuild.cpp:1067
 #, kde-format
 msgid "Building <b>%1</b> had errors."
 msgstr ""
 
-#: plugin_katebuild.cpp:1067
+#: plugin_katebuild.cpp:1069
 #, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
@@ -255,86 +255,86 @@ msgstr[2] "Aimsíodh %1 rabhadh."
 msgstr[3] "Aimsíodh %1 rabhadh."
 msgstr[4] "Aimsíodh %1 rabhadh."
 
-#: plugin_katebuild.cpp:1068
+#: plugin_katebuild.cpp:1070
 #, fuzzy, kde-format
 #| msgid "Build failed."
 msgid "Building <b>%1</b> had warnings."
 msgstr "Theip ar thógáil."
 
-#: plugin_katebuild.cpp:1074
+#: plugin_katebuild.cpp:1076
 #, kde-format
 msgid "Build failed."
 msgstr "Theip ar thógáil."
 
-#: plugin_katebuild.cpp:1076
+#: plugin_katebuild.cpp:1078
 #, kde-format
 msgid "Build completed without problems."
 msgstr "D'éirigh leis an tógáil gan fadhb ar bith."
 
-#: plugin_katebuild.cpp:1107
+#: plugin_katebuild.cpp:1109
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
 msgstr ""
 
-#: plugin_katebuild.cpp:1328
+#: plugin_katebuild.cpp:1330
 #, fuzzy, kde-format
 #| msgid "Targets"
 msgid "Target Set"
 msgstr "Spriocanna"
 
-#: plugin_katebuild.cpp:1330
+#: plugin_katebuild.cpp:1332
 #, kde-format
 msgid "Clean"
 msgstr "Glan"
 
-#: plugin_katebuild.cpp:1331
+#: plugin_katebuild.cpp:1333
 #, kde-format
 msgid "Config"
 msgstr "Cumraíocht"
 
-#: plugin_katebuild.cpp:1332
+#: plugin_katebuild.cpp:1334
 #, fuzzy, kde-format
 #| msgid "Config"
 msgid "ConfigClean"
 msgstr "Cumraíocht"
 
-#: plugin_katebuild.cpp:1375
+#: plugin_katebuild.cpp:1377
 #, fuzzy, kde-format
 #| msgid "Errors"
 msgid "Only Errors"
 msgstr "Earráidí"
 
-#: plugin_katebuild.cpp:1378
+#: plugin_katebuild.cpp:1380
 #, fuzzy, kde-format
 #| msgid "Errors && Warnings"
 msgid "Errors and Warnings"
 msgstr "Earráidí agus Rabhaidh"
 
-#: plugin_katebuild.cpp:1381
+#: plugin_katebuild.cpp:1383
 #, fuzzy, kde-format
 #| msgid "Build Output"
 msgid "Parsed Output"
 msgstr "Aschur Tógála"
 
-#: plugin_katebuild.cpp:1384
+#: plugin_katebuild.cpp:1386
 #, fuzzy, kde-format
 #| msgid "Build Output"
 msgid "Full Output"
 msgstr "Aschur Tógála"
 
-#: plugin_katebuild.cpp:1501
+#: plugin_katebuild.cpp:1503
 #, fuzzy, kde-format
 #| msgid "Build"
 msgid "build"
 msgstr "Tóg"
 
-#: plugin_katebuild.cpp:1504
+#: plugin_katebuild.cpp:1506
 #, fuzzy, kde-format
 #| msgid "Clean"
 msgid "clean"
 msgstr "Glan"
 
-#: plugin_katebuild.cpp:1507
+#: plugin_katebuild.cpp:1509
 #, kde-format
 msgid "quick"
 msgstr ""

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-27 00:48+0000\n"
-"PO-Revision-Date: 2022-08-24 18:47+0200\n"
+"PO-Revision-Date: 2023-02-05 09:37+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: plugin_katexmlcheck.cpp:98
 #, kde-format
@@ -64,6 +64,8 @@ msgid ""
 "<b>Error:</b> Failed to find xmllint. Please make sure that xmllint is "
 "installed. It is part of libxml2."
 msgstr ""
+"<b>შეცდომა:</b> xmllnt-ის მოძებნა შეუძლებელია. დარწმუნდით, რომ ის "
+"დაყენებულია. xmmlint-ი libxml2-ის ნაწილია."
 
 #: plugin_katexmlcheck.cpp:394
 #, kde-format
@@ -71,6 +73,8 @@ msgid ""
 "<b>Error:</b> Failed to execute xmllint. Please make sure that xmllint is "
 "installed. It is part of libxml2."
 msgstr ""
+"<b>შეცდომა:</b> xmllnt-ის გაშვება შეუძლებელია. დარწმუნდით, რომ ის "
+"დაყენებულია. xmmlint-ი libxml2-ის ნაწილია."
 
 #. i18n: ectx: Menu (xml)
 #: ui.rc:6

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-27 00:48+0000\n"
-"PO-Revision-Date: 2022-09-22 06:46+0200\n"
+"PO-Revision-Date: 2023-02-05 09:36+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: kateconsole.cpp:54
 #, kde-format
@@ -97,7 +97,7 @@ msgstr ""
 #: kateconsole.cpp:439
 #, kde-format
 msgid "Run in Terminal?"
-msgstr ""
+msgstr "გავუშვა ტერმინალშ?"
 
 #: kateconsole.cpp:440
 #, kde-format
@@ -108,12 +108,12 @@ msgstr "გაშვება"
 #, kde-format
 msgctxt "@action"
 msgid "&Hide Terminal Panel"
-msgstr ""
+msgstr "&ტერმინალის პანელის დახურვა"
 
 #: kateconsole.cpp:466
 #, kde-format
 msgid "Defocus Terminal Panel"
-msgstr ""
+msgstr "ტერმინალის პანელიდან ფოკუსის მოხსნა"
 
 #: kateconsole.cpp:467 kateconsole.cpp:468
 #, kde-format
@@ -135,7 +135,7 @@ msgstr "ტერმინალში გაშვება"
 #: kateconsole.cpp:544
 #, kde-format
 msgid "&Remove extension"
-msgstr ""
+msgstr "&გაფართოების წაშლა"
 
 #: kateconsole.cpp:549
 #, kde-format
@@ -181,7 +181,7 @@ msgstr ""
 #: kateconsole.cpp:610
 #, kde-format
 msgid "Terminal Settings"
-msgstr ""
+msgstr "&ტერმინალის მორგება"
 
 #. i18n: ectx: Menu (tools)
 #: ui.rc:6

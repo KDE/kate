@@ -6187,6 +6187,21 @@ VALUES ("<replaceable
 </listitem>
 </varlistentry>
 
+<varlistentry id="tools-run-current-document">
+<term
+><menuchoice
+><guimenu
+>Eines</guimenu
+> <guimenuitem
+>Executa el document actual</guimenuitem
+></menuchoice
+></term>
+<listitem>
+<para
+>Executa el document actual en el &konsole;. Només es poden executar els documents locals. El &kate; mostrarà un avís abans d'executar el document perquè aquesta acció pot ser una amenaça seriosa de seguretat.</para>
+</listitem>
+</varlistentry>
+
 <varlistentry id="tools-focus-terminal">
 <term
 ><menuchoice

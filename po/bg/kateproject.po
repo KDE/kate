@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-31 01:02+0000\n"
+"POT-Creation-Date: 2023-02-07 01:02+0000\n"
 "PO-Revision-Date: 2022-12-08 23:08+0100\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
@@ -507,7 +507,7 @@ msgstr "Наистина ли искате да премахнете тези н
 msgid "Malformed JSON file '%1': %2"
 msgstr "Неправилен JSON файл '%1': %2"
 
-#: kateproject.cpp:522
+#: kateproject.cpp:528
 #, kde-format
 msgid "<untracked>"
 msgstr "<непроследен>"

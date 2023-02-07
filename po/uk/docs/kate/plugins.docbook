@@ -6198,6 +6198,21 @@ VALUES ("<replaceable
 </listitem>
 </varlistentry>
 
+<varlistentry id="tools-run-current-document">
+<term
+><menuchoice
+><guimenu
+>Інструменти</guimenu
+> <guimenuitem
+>Запустити поточний документ</guimenuitem
+></menuchoice
+></term>
+<listitem>
+<para
+>Запустити поточний документ у &konsole;. Можна запускати лише локальні документи. &kate; покаже попередження до запуску документа, оскільки ця дія може бути серйозною загрозою безпеки.</para>
+</listitem>
+</varlistentry>
+
 <varlistentry id="tools-focus-terminal">
 <term
 ><menuchoice

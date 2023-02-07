@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-01-31 01:02+0000\n"
+"POT-Creation-Date: 2023-02-07 01:02+0000\n"
 "PO-Revision-Date: 2023-01-22 22:35+0000\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
@@ -508,7 +508,7 @@ msgstr "Tem a certeza que deseja remover estas alterações por confirmar?"
 msgid "Malformed JSON file '%1': %2"
 msgstr "Ficheiro JSON mal-formatado '%1': %2"
 
-#: kateproject.cpp:522
+#: kateproject.cpp:528
 #, kde-format
 msgid "<untracked>"
 msgstr "<não seguido>"

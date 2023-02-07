@@ -6174,6 +6174,21 @@ VALUES ("<replaceable
 </listitem>
 </varlistentry>
 
+<varlistentry id="tools-run-current-document">
+<term
+><menuchoice
+><guimenu
+>Hulpmiddelen</guimenu
+> <guimenuitem
+>Huidig document uitvoeren</guimenuitem
+></menuchoice
+></term>
+<listitem>
+<para
+>Het huidige document in &konsole; uitvoeren. Alleen de lokale documenten kunnen uitgevoerd worden. &kate; zal een waarschuwing tonen alvorens het document uit te voeren omdat deze actie een serieuze beveiligingsdreiging kan zijn.</para>
+</listitem>
+</varlistentry>
+
 <varlistentry id="tools-focus-terminal">
 <term
 ><menuchoice

@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-06 01:03+0000\n"
-"PO-Revision-Date: 2023-01-12 17:26+0100\n"
+"PO-Revision-Date: 2023-02-04 07:56+0100\n"
 "Last-Translator: Paolo Zamponi <zapaolo@email.it>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -502,11 +502,10 @@ msgid "Jump to Previous Hunk"
 msgstr "Vai al frammento precedente"
 
 #: lib/diff/diffwidget.cpp:133
-#, fuzzy, kde-format
-#| msgid "&Reload"
+#, kde-format
 msgctxt "Tooltip for a button, clicking the button reloads the diff"
 msgid "Reload Diff"
-msgstr "&Ricarica"
+msgstr "Ricarica diff"
 
 #: lib/diff/diffwidget.cpp:466
 #, kde-format
@@ -515,6 +514,9 @@ msgid ""
 "installed, make sure it is your PATH variable. See https://git-scm.com/"
 "downloads"
 msgstr ""
+"<b>git</b> non trovato: è necessario per creare le differenze tra i "
+"documenti. Se è già installato, assicurati che sia nella variabile PATH. "
+"Vedi https://git-scm.com/downloads"
 
 #: lib/diff/diffwidget.cpp:469 lib/diff/diffwidget.cpp:1057
 #: lib/kateconfigdialog.cpp:549
@@ -535,7 +537,7 @@ msgstr "File eliminato %1"
 #: lib/diff/diffwidget.cpp:1040 lib/diff/diffwidget.cpp:1041
 #, kde-format
 msgid "No differences found"
-msgstr ""
+msgstr "Non ci sono differenze"
 
 #: lib/filehistorywidget.cpp:283
 #, kde-format
@@ -556,11 +558,10 @@ msgid "Copy Commit Hash"
 msgstr ""
 
 #: lib/filehistorywidget.cpp:315
-#, fuzzy, kde-format
-#| msgid "&Show Full Path"
+#, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
-msgstr "Mo&stra il percorso completo"
+msgstr "Mostra deposito completo"
 
 #: lib/filehistorywidget.cpp:373
 #, kde-format

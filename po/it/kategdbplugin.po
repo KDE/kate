@@ -1,14 +1,14 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 # Federico Zenith <federico.zenith@member.fsf.org>, 2010, 2011, 2012, 2013, 2014, 2015.
-# Paolo Zamponi <zapaolo@email.it>, 2018, 2020, 2022.
+# Paolo Zamponi <zapaolo@email.it>, 2018, 2020, 2022, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-01-28 01:01+0000\n"
-"PO-Revision-Date: 2022-11-25 08:11+0100\n"
+"PO-Revision-Date: 2023-01-31 09:18+0100\n"
 "Last-Translator: Paolo Zamponi <zapaolo@email.it>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 22.08.3\n"
+"X-Generator: Lokalize 22.12.1\n"
 
 #. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
 #: advanced_settings.ui:17
@@ -186,7 +186,7 @@ msgstr "Locali"
 #: debugview.cpp:37
 #, kde-format
 msgid "CPU registers"
-msgstr ""
+msgstr "Registri della CPU"
 
 #: debugview.cpp:363
 #, kde-format

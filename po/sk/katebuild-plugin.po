@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-06 01:03+0000\n"
-"PO-Revision-Date: 2023-01-19 17:46+0100\n"
+"PO-Revision-Date: 2023-02-07 18:21+0100\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
 "Language: sk\n"
@@ -120,13 +120,13 @@ msgstr "Zobraziť značky"
 #, kde-format
 msgctxt "Left is also left in RTL mode"
 msgid "Focus Next Tab to the Left"
-msgstr ""
+msgstr "Aktivovať ďalšiu kartu doľava"
 
 #: plugin_katebuild.cpp:203
 #, kde-format
 msgctxt "Right is right also in RTL mode"
 msgid "Focus Next Tab to the Right"
-msgstr ""
+msgstr "Aktivovať ďalšiu kartu doprava"
 
 #: plugin_katebuild.cpp:227
 #, kde-format

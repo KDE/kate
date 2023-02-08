@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-06 01:03+0000\n"
-"PO-Revision-Date: 2023-01-12 10:30\n"
+"PO-Revision-Date: 2023-02-07 11:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -118,13 +118,13 @@ msgstr "显示标记"
 #, kde-format
 msgctxt "Left is also left in RTL mode"
 msgid "Focus Next Tab to the Left"
-msgstr ""
+msgstr "焦点移动到左侧的下一个标签页"
 
 #: plugin_katebuild.cpp:203
 #, kde-format
 msgctxt "Right is right also in RTL mode"
 msgid "Focus Next Tab to the Right"
-msgstr ""
+msgstr "焦点移动到右侧的下一个标签页"
 
 #: plugin_katebuild.cpp:227
 #, kde-format

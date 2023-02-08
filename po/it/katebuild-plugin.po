@@ -4,14 +4,14 @@
 # Nicola Ruggero <nicola@nxnt.org>, 2009, 2010, 2011, 2012, 2013.
 # Federico Zenith <federico.zenith@member.fsf.org>, 2012.
 # Vincenzo Reale <smart2128vr@gmail.com>, 2014.
-# Paolo Zamponi <zapaolo@email.it>, 2016, 2018, 2019, 2020, 2021, 2022.
+# Paolo Zamponi <zapaolo@email.it>, 2016, 2018, 2019, 2020, 2021, 2022, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-06 01:03+0000\n"
-"PO-Revision-Date: 2022-11-04 19:10+0100\n"
+"PO-Revision-Date: 2023-01-31 09:19+0100\n"
 "Last-Translator: Paolo Zamponi <zapaolo@email.it>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 22.08.2\n"
+"X-Generator: Lokalize 22.12.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -122,13 +122,13 @@ msgstr "Mostra segni"
 #, kde-format
 msgctxt "Left is also left in RTL mode"
 msgid "Focus Next Tab to the Left"
-msgstr ""
+msgstr "Attiva la scheda successiva sulla sinistra"
 
 #: plugin_katebuild.cpp:203
 #, kde-format
 msgctxt "Right is right also in RTL mode"
 msgid "Focus Next Tab to the Right"
-msgstr ""
+msgstr "Attiva la scheda successiva sulla destra"
 
 #: plugin_katebuild.cpp:227
 #, kde-format

@@ -305,19 +305,19 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent,
      * we compute here already the KateProjectItem items we want to use later
      * this happens in the threads, we later skip all nullptr entries
      */
-    const QString dirPath = dir.path() + QLatin1Char('/');
     std::vector<std::tuple<QString, QString, KateProjectItem *>> preparedItems;
     preparedItems.reserve(files.size());
     for (const auto &item : files)
         preparedItems.emplace_back(item, QString(), nullptr);
-    QtConcurrent::blockingMap(preparedItems, [dirPath, excludeRegexps](std::tuple<QString, QString, KateProjectItem *> &item) {
+    QtConcurrent::blockingMap(preparedItems, [dir, excludeRegexps](std::tuple<QString, QString, KateProjectItem *> &item) {
         /**
          * cheap file name computation
          * we do this A LOT, QFileInfo is very expensive just for this operation
          * we remember fullFilePath for later use and overwrite filePath with the part without the filename for later use, too
          */
         auto &[filePath, fullFilePath, projectItem] = item;
-        fullFilePath = dirPath + filePath;
+        const QFileInfo info(dir, filePath);
+        fullFilePath = info.absoluteFilePath();
 
         for (const auto &excludePattern : excludeRegexps) {
             if (excludePattern.match(filePath).hasMatch()) {
@@ -332,7 +332,6 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent,
         /**
          * construct the item with info about filename + full file path
          */
-        const QFileInfo info(fullFilePath);
         if (info.isFile()) {
             projectItem = new KateProjectItem(KateProjectItem::File, fileName);
             projectItem->setData(fullFilePath, Qt::UserRole);

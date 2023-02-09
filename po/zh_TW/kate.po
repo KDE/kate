@@ -10,19 +10,20 @@
 # pan93412 <pan93412@gmail.com>, 2018, 2019, 2020.
 # Frank Weng (a.k.a. Franklin) <franklin at goodhorse dot idv dot tw>, 2006, 2008, 2009, 2010.
 # Franklin Weng <franklin at goodhorse dot idv dot tw>, 2007.
+# Kisaragi Hiu <mail@kisaragi-hiu.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-06 01:03+0000\n"
-"PO-Revision-Date: 2022-02-19 11:31+0800\n"
-"Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
-"Language-Team: Chinese <zh-l10n@lists.slat.org>\n"
+"PO-Revision-Date: 2023-02-09 02:25+0900\n"
+"Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
+"Language-Team: Traditional Chinese <zh-l10n@linux.org.tw>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 21.12.2\n"
+"X-Generator: Lokalize 23.03.70\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #, kde-format
@@ -2091,7 +2092,7 @@ msgstr "下個分割檢視"
 #: lib/kateviewmanager.cpp:179
 #, kde-format
 msgid "Make the next split view the active one."
-msgstr "讓下個分隔檢視成為作用中。"
+msgstr "讓下個分割檢視成為作用中。"
 
 #: lib/kateviewmanager.cpp:182
 #, kde-format
@@ -2101,55 +2102,47 @@ msgstr "前個分割檢視"
 #: lib/kateviewmanager.cpp:187
 #, kde-format
 msgid "Make the previous split view the active one."
-msgstr "讓上個分隔檢視成為作用中。"
+msgstr "讓上個分割檢視成為作用中。"
 
 #: lib/kateviewmanager.cpp:190
-#, fuzzy, kde-format
-#| msgid "Next Split View"
+#, kde-format
 msgid "Left Split View"
-msgstr "下個分割檢視"
+msgstr "左方分割檢視"
 
 #: lib/kateviewmanager.cpp:195
-#, fuzzy, kde-format
-#| msgid "Make the next split view the active one."
+#, kde-format
 msgid "Make the split view intuitively on the left the active one."
-msgstr "讓下個分隔檢視成為作用中。"
+msgstr "讓直覺感覺在左邊的分割檢視成為作用中。"
 
 #: lib/kateviewmanager.cpp:198
-#, fuzzy, kde-format
-#| msgid "Next Split View"
+#, kde-format
 msgid "Right Split View"
-msgstr "下個分割檢視"
+msgstr "右方分割檢視"
 
 #: lib/kateviewmanager.cpp:203
-#, fuzzy, kde-format
-#| msgid "Make the next split view the active one."
+#, kde-format
 msgid "Make the split view intuitively on the right the active one."
-msgstr "讓下個分隔檢視成為作用中。"
+msgstr "讓直覺感覺在右邊的分割檢視成為作用中。"
 
 #: lib/kateviewmanager.cpp:206
-#, fuzzy, kde-format
-#| msgid "Split View"
+#, kde-format
 msgid "Upward Split View"
-msgstr "分割檢視"
+msgstr "上方分割檢視"
 
 #: lib/kateviewmanager.cpp:211
-#, fuzzy, kde-format
-#| msgid "Make the next split view the active one."
+#, kde-format
 msgid "Make the split view intuitively upward the active one."
-msgstr "讓下個分隔檢視成為作用中。"
+msgstr "讓直覺感覺在上面的分割檢視成為作用中。"
 
 #: lib/kateviewmanager.cpp:214
-#, fuzzy, kde-format
-#| msgid "Split View"
+#, kde-format
 msgid "Downward Split View"
-msgstr "分割檢視"
+msgstr "下方分割檢視"
 
 #: lib/kateviewmanager.cpp:219
-#, fuzzy, kde-format
-#| msgid "Make the next split view the active one."
+#, kde-format
 msgid "Make the split view intuitively downward the active one."
-msgstr "讓下個分隔檢視成為作用中。"
+msgstr "讓直覺感覺在下面的分割檢視成為作用中。"
 
 #: lib/kateviewmanager.cpp:222
 #, kde-format

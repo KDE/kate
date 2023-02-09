@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-05 01:01+0000\n"
-"PO-Revision-Date: 2023-02-04 20:26+0300\n"
+"PO-Revision-Date: 2023-02-08 12:12+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -391,7 +391,7 @@ msgstr "İkili PATH'ini denetleyin"
 #: lspclientservermanager.cpp:808 lspclientservermanager.cpp:850
 #, kde-format
 msgid "See also %1 for installation or details"
-msgstr "Kurulum veya ayrıntılar için ayrıca %1 ögesine bakın"
+msgstr "Kurulum veya ayrıntılar için ayrıca %1 adresine bakın"
 
 #: lspclientservermanager.cpp:846
 #, kde-format

@@ -314,6 +314,24 @@ void DiffWidget::handleStageUnstage_sideBySide(DiffEditor *e, int startLine, int
                 break;
             }
         }
+
+        // If the selection by user isn't exact i.e.,
+        // the start line isn't a changed line but just a context line
+        if (diffLine == -1) {
+            for (auto vToD : std::as_const(m_lineToRawDiffLine)) {
+                // find the closes line to start line
+                if (vToD.line > startLine && vToD.added == added) {
+                    // check if the found line is in selection range
+                    if (vToD.line <= endLine) {
+                        // adjust startline
+                        startLine = vToD.line;
+                        diffLine = vToD.diffLine;
+                    }
+                    break;
+                }
+            }
+        }
+
     } else if (actionType == DiffEditor::Hunk) {
         // find the first hunk smaller than/equal this line
         for (auto it = m_lineToDiffHunkLine.crbegin(); it != m_lineToDiffHunkLine.crend(); ++it) {

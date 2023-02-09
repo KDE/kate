@@ -57,13 +57,6 @@ class DiffEditor : public QPlainTextEdit
 public:
     enum { Line = 0, Hunk = 1 };
     DiffEditor(DiffParams::Flags, QWidget *parent = nullptr);
-    struct State {
-        int scrollValue;
-        int cursorPosition;
-    };
-
-    State saveState() const;
-    void restoreState(State);
 
     void clearData()
     {
@@ -99,7 +92,7 @@ public:
         return QPlainTextEdit::firstVisibleBlock().blockNumber();
     }
 
-    void scrollToBlock(int block);
+    void scrollToBlock(int block, bool flashBlock = false);
 
 protected:
     void resizeEvent(QResizeEvent *event) override;

@@ -119,13 +119,15 @@ void DiffEditor::updateDiffColors(bool darkMode)
     green2.setAlphaF(0.20);
 }
 
-void DiffEditor::scrollToBlock(int block)
+void DiffEditor::scrollToBlock(int block, bool flashBlock)
 {
-    if (m_timeLine.state() == QTimeLine::Running) {
-        m_timeLine.stop();
-        auto r = m_animateTextRect;
-        m_animateTextRect = QRect();
-        viewport()->update(r);
+    if (flashBlock) {
+        if (m_timeLine.state() == QTimeLine::Running) {
+            m_timeLine.stop();
+            auto r = m_animateTextRect;
+            m_animateTextRect = QRect();
+            viewport()->update(r);
+        }
     }
     int lineNo = 0;
     for (int i = 0; i < block; ++i) {
@@ -133,9 +135,11 @@ void DiffEditor::scrollToBlock(int block)
     }
     verticalScrollBar()->setValue(lineNo);
 
-    QTextBlock b = document()->findBlockByNumber(block);
-    m_animateTextRect = blockBoundingGeometry(b).translated(contentOffset()).toRect();
-    m_timeLine.start();
+    if (flashBlock) {
+        QTextBlock b = document()->findBlockByNumber(block);
+        m_animateTextRect = blockBoundingGeometry(b).translated(contentOffset()).toRect();
+        m_timeLine.start();
+    }
 }
 
 void DiffEditor::resizeEvent(QResizeEvent *event)
@@ -403,23 +407,6 @@ void DiffEditor::setLineNumberData(QVector<int> lineNosA, QVector<int> lineNosB,
     m_lineNumArea->setLineNumData(std::move(lineNosA), std::move(lineNosB));
     m_lineNumArea->setMaxLineNum(maxLineNum);
     updateLineNumberAreaWidth(0);
-}
-
-DiffEditor::State DiffEditor::saveState() const
-{
-    return {verticalScrollBar()->value(), textCursor().position()};
-}
-
-void DiffEditor::restoreState(State s)
-{
-    if (document() && document()->isEmpty()) {
-        return;
-    }
-
-    verticalScrollBar()->setValue(qMax(0, s.scrollValue));
-    auto cursor = textCursor();
-    cursor.setPosition(qMin(cursor.document()->characterCount(), s.cursorPosition));
-    setTextCursor(cursor);
 }
 
 bool DiffEditor::isHunkLine(int line) const

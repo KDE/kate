@@ -421,8 +421,8 @@ void DiffWidget::runGitDiff()
     }
     m_blockShowEvent = true;
 
-    auto leftState = m_left->saveState();
-    auto rightState = m_right->saveState();
+    const int lf = m_left->firstVisibleBlockNumber();
+    const int rf = m_right->firstVisibleBlockNumber();
 
     QProcess *git = new QProcess(this);
     setupGitProcess(*git, workingDir, arguments);
@@ -436,8 +436,13 @@ void DiffWidget::runGitDiff()
             onError(git->readAllStandardError(), git->exitCode());
         } else {
             openDiff(out);
-            m_left->restoreState(leftState);
-            m_right->restoreState(rightState);
+            QMetaObject::invokeMethod(
+                this,
+                [this, lf, rf] {
+                    m_left->scrollToBlock(lf);
+                    m_right->scrollToBlock(rf);
+                },
+                Qt::QueuedConnection);
         }
         m_blockShowEvent = false;
         git->deleteLater();
@@ -1115,9 +1120,9 @@ void DiffWidget::jumpToNextFile()
     }
 
     QScopedValueRollback r(m_stopScrollSync, true);
-    m_left->scrollToBlock(nextFileLineNo);
+    m_left->scrollToBlock(nextFileLineNo, true);
     if (m_style == SideBySide) {
-        m_right->scrollToBlock(nextFileLineNo);
+        m_right->scrollToBlock(nextFileLineNo, true);
     }
 }
 
@@ -1133,9 +1138,9 @@ void DiffWidget::jumpToPrevFile()
     }
 
     QScopedValueRollback r(m_stopScrollSync, true);
-    m_left->scrollToBlock(prevFileLineNo);
+    m_left->scrollToBlock(prevFileLineNo, true);
     if (m_style == SideBySide) {
-        m_right->scrollToBlock(prevFileLineNo);
+        m_right->scrollToBlock(prevFileLineNo, true);
     }
 }
 
@@ -1151,9 +1156,9 @@ void DiffWidget::jumpToNextHunk()
     }
 
     QScopedValueRollback r(m_stopScrollSync, true);
-    m_left->scrollToBlock(nextHunkLineNo);
+    m_left->scrollToBlock(nextHunkLineNo, true);
     if (m_style == SideBySide) {
-        m_right->scrollToBlock(nextHunkLineNo);
+        m_right->scrollToBlock(nextHunkLineNo, true);
     }
 }
 
@@ -1169,9 +1174,9 @@ void DiffWidget::jumpToPrevHunk()
     }
 
     QScopedValueRollback r(m_stopScrollSync, true);
-    m_left->scrollToBlock(prevHunkLineNo);
+    m_left->scrollToBlock(prevHunkLineNo, true);
     if (m_style == SideBySide) {
-        m_right->scrollToBlock(prevHunkLineNo);
+        m_right->scrollToBlock(prevHunkLineNo, true);
     }
 }
 

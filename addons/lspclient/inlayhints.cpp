@@ -149,6 +149,11 @@ InlayHintsManager::InlayHintsManager(const std::shared_ptr<LSPClientServerManage
     m_requestTimer.callOnTimeout(this, &InlayHintsManager::sendPendingRequests);
 }
 
+InlayHintsManager::~InlayHintsManager()
+{
+    unregisterView(m_currentView);
+}
+
 void InlayHintsManager::registerView(KTextEditor::View *v)
 {
     using namespace KTextEditor;

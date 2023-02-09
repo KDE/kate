@@ -2729,7 +2729,7 @@ fragment can be entered in LSPClient plugin's "User Server Settings":
         {
                 "python":
                 {
-                        "command": ["pylsp_in_env"], ["%{Project:NativePath}"],
+                        "command": ["pylsp_in_env", "%{Project:NativePath}"],
                         "root": "."
                 }
         }

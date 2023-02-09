@@ -290,6 +290,8 @@ void DiffEditor::paintEvent(QPaintEvent *e)
     QPainter p(viewport());
     QPointF offset(contentOffset());
     QTextBlock block = firstVisibleBlock();
+    const auto cursorBlock = textCursor().blockNumber();
+    const auto cursorPos = textCursor().positionInBlock();
     const auto viewportRect = viewport()->rect();
 
     while (block.isValid()) {
@@ -372,6 +374,10 @@ void DiffEditor::paintEvent(QPaintEvent *e)
             QColor c(Qt::red);
             c.setAlpha(m_timeLine.currentFrame());
             p.fillRect(m_animateTextRect, c);
+        }
+
+        if (block.blockNumber() == cursorBlock && block.layout()) {
+            block.layout()->drawCursor(&p, {0., r.y()}, cursorPos, 2);
         }
 
         offset.ry() += r.height();

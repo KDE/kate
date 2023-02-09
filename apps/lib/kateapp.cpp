@@ -517,12 +517,12 @@ bool KateApp::openInput(const QString &text, const QString &encoding)
     return doc->setText(text);
 }
 
-KateMainWindow *KateApp::newMainWindow(KConfig *sconfig_, const QString &sgroup_)
+KateMainWindow *KateApp::newMainWindow(KConfig *sconfig_, const QString &sgroup_, bool userTriggered)
 {
     KConfig *sconfig = sconfig_ ? sconfig_ : KSharedConfig::openConfig().data();
     QString sgroup = !sgroup_.isEmpty() ? sgroup_ : QStringLiteral("MainWindow0");
 
-    KateMainWindow *mainWindow = new KateMainWindow(sconfig, sgroup);
+    KateMainWindow *mainWindow = new KateMainWindow(sconfig, sgroup, userTriggered);
     mainWindow->show();
 
     return mainWindow;

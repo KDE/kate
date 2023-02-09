@@ -185,9 +185,10 @@ public:
      * create a new main window, use given config if any for restore
      * @param sconfig session config object
      * @param sgroup session group for this window
+     * @param userTriggered did the user trigger creation of this new window
      * @return new constructed main window
      */
-    static KateMainWindow *newMainWindow(KConfig *sconfig = nullptr, const QString &sgroup = QString());
+    static KateMainWindow *newMainWindow(KConfig *sconfig = nullptr, const QString &sgroup = QString(), bool userTriggered = false);
 
     /**
      * add the mainwindow given

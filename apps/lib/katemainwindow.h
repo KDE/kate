@@ -60,8 +60,9 @@ public:
      * Construct the window and restore its state from given config if any
      * @param sconfig session config for this window, 0 if none
      * @param sgroup session config group to use
+     * @param userTriggered is the user creating this window or is it part of session restore / startup
      */
-    KateMainWindow(KConfig *sconfig, const QString &sgroup);
+    KateMainWindow(KConfig *sconfig, const QString &sgroup, bool userTriggered);
 
     /**
      * Destruct the nice window

@@ -105,7 +105,7 @@ QSize KateContainerStackedLayout::minimumSize() const
     return QStackedLayout::minimumSize();
 }
 
-KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup)
+KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup, bool userTriggered)
     : KateMDI::MainWindow(nullptr)
     , m_modignore(false)
     , m_wrapper(new KTextEditor::MainWindow(this))
@@ -150,7 +150,7 @@ KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup)
 
     readOptions();
 
-    if (sconfig) {
+    if (sconfig && !userTriggered) {
         m_viewManager->restoreViewConfiguration(KConfigGroup(sconfig, sgroup));
     }
 
@@ -673,7 +673,7 @@ KateMainWindow *KateMainWindow::newWindow() const
 {
     // create new window with current session
     // derive size from current one
-    auto win = KateApp::self()->newMainWindow(KateApp::self()->sessionManager()->activeSession()->config());
+    auto win = KateApp::self()->newMainWindow(KateApp::self()->sessionManager()->activeSession()->config(), {}, true);
     win->resize(size());
     return win;
 }

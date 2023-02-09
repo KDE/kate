@@ -163,6 +163,19 @@ Q_SIGNALS:
     void reload();
 };
 
+static void syncScroll(QPlainTextEdit *src, QPlainTextEdit *tgt)
+{
+    int srcValue = src->verticalScrollBar()->value();
+    const auto srcBlock = src->document()->findBlockByLineNumber(srcValue);
+    auto tgtBlock = tgt->document()->findBlockByLineNumber(srcValue);
+    if (srcBlock.blockNumber() == tgtBlock.blockNumber()) {
+        tgt->verticalScrollBar()->setValue(srcValue);
+    } else {
+        tgtBlock = tgt->document()->findBlockByNumber(srcBlock.blockNumber());
+        tgt->verticalScrollBar()->setValue(tgtBlock.firstLineNumber());
+    }
+}
+
 DiffWidget::DiffWidget(DiffParams p, QWidget *parent)
     : QWidget(parent)
     , m_left(new DiffEditor(p.flags, this))
@@ -187,17 +200,21 @@ DiffWidget::DiffWidget(DiffParams p, QWidget *parent)
     leftHl->setTheme(KTextEditor::Editor::instance()->theme());
     rightHl->setTheme(KTextEditor::Editor::instance()->theme());
 
-    connect(m_left->verticalScrollBar(), &QScrollBar::valueChanged, this, [this](int v) {
+    connect(m_left->verticalScrollBar(), &QScrollBar::valueChanged, this, [this](int) {
         if (m_stopScrollSync) {
             return;
         }
-        m_right->verticalScrollBar()->setValue(v);
+        m_stopScrollSync = true;
+        syncScroll(m_left, m_right);
+        m_stopScrollSync = false;
     });
-    connect(m_right->verticalScrollBar(), &QScrollBar::valueChanged, this, [this](int v) {
+    connect(m_right->verticalScrollBar(), &QScrollBar::valueChanged, this, [this](int) {
         if (m_stopScrollSync) {
             return;
         }
-        m_left->verticalScrollBar()->setValue(v);
+        m_stopScrollSync = true;
+        syncScroll(m_right, m_left);
+        m_stopScrollSync = false;
     });
 
     for (auto *e : {m_left, m_right}) {

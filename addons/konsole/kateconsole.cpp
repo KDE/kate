@@ -302,6 +302,9 @@ void KateConsole::cd(const QString &path)
             command = QLatin1String("Dir.chdir(\"") + path + QLatin1String("\") \n");
         } else if (t->foregroundProcessName() == QLatin1String("ghc")) {
             command = QLatin1String(":cd ") + path + QLatin1Char('\n');
+        } else if (!t->foregroundProcessName().isEmpty()) {
+            // If something is running, dont try to cd anywhere
+            return;
         }
     }
 

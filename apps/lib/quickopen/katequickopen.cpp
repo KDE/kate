@@ -180,11 +180,6 @@ public:
 
     void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override
     {
-        if (m_filterMode != Fuzzy) {
-            QStyledItemDelegate::paint(painter, option, index);
-            return;
-        }
-
         QStyleOptionViewItem options = option;
         initStyleOption(&options, index);
 
@@ -205,27 +200,33 @@ public:
         // space between name and path
         constexpr int space = 1;
         QVector<QTextLayout::FormatRange> formats;
+        QVector<QTextLayout::FormatRange> pathFormats;
 
-        // collect formats
-        int pos = m_filterString.lastIndexOf(QLatin1Char('/'));
-        if (pos > -1) {
-            ++pos;
-            auto pattern = QStringView(m_filterString).mid(pos);
-            auto nameFormats = kfts::get_fuzzy_match_formats(pattern, name, 0, fmt);
-            formats.append(nameFormats);
-        } else {
-            auto nameFormats = kfts::get_fuzzy_match_formats(m_filterString, name, 0, fmt);
-            formats.append(nameFormats);
+        if (m_filterMode == Fuzzy) {
+            // collect formats
+            int pos = m_filterString.lastIndexOf(QLatin1Char('/'));
+            if (pos > -1) {
+                ++pos;
+                auto pattern = QStringView(m_filterString).mid(pos);
+                auto nameFormats = kfts::get_fuzzy_match_formats(pattern, name, 0, fmt);
+                formats.append(nameFormats);
+            } else {
+                auto nameFormats = kfts::get_fuzzy_match_formats(m_filterString, name, 0, fmt);
+                formats.append(nameFormats);
+            }
+            QTextCharFormat boldFmt;
+            boldFmt.setFontWeight(QFont::Bold);
+            boldFmt.setFontPointSize(options.font.pointSize() - 1);
+            pathFormats = kfts::get_fuzzy_match_formats(m_filterString, path, nameLen + space, boldFmt);
         }
-        QTextCharFormat boldFmt;
-        boldFmt.setFontWeight(QFont::Bold);
-        boldFmt.setFontPointSize(options.font.pointSize() - 1);
-        auto pathFormats = kfts::get_fuzzy_match_formats(m_filterString, path, nameLen + space, boldFmt);
+
         QTextCharFormat gray;
         gray.setForeground(Qt::gray);
         gray.setFontPointSize(options.font.pointSize() - 1);
         formats.append({nameLen + space, static_cast<int>(path.length()), gray});
-        formats.append(pathFormats);
+        if (!pathFormats.isEmpty()) {
+            formats.append(pathFormats);
+        }
 
         painter->save();
 

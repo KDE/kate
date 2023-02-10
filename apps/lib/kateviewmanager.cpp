@@ -47,6 +47,8 @@ KateViewManager::KateViewManager(QWidget *parentW, KateMainWindow *parent)
     , m_minAge(0)
     , m_guiMergedView(nullptr)
 {
+    setObjectName(QStringLiteral("KateViewManager"));
+
     // we don't allow full collapse, see bug 366014
     setChildrenCollapsible(false);
 

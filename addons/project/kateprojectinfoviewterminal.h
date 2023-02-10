@@ -127,5 +127,4 @@ private:
     class KateTerminalWidget *m_termWidget = nullptr;
 
     QPointer<QAction> m_showProjectInfoViewAction;
-    QPointer<QAction> m_searchInFilesAction;
 };

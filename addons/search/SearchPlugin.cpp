@@ -335,6 +335,7 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
     actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_F));
     a->setText(i18n("Find in Files"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("edit-find")));
+    a->setShortcutContext(Qt::WidgetWithChildrenShortcut);
     connect(a, &QAction::triggered, this, &KatePluginSearchView::openSearchView);
 
     a = actionCollection()->addAction(QStringLiteral("search_in_files_new_tab"));
@@ -346,23 +347,27 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
     a = actionCollection()->addAction(QStringLiteral("go_to_next_match"));
     a->setText(i18n("Go to Next Match"));
     actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::Key_F6));
+    a->setShortcutContext(Qt::WidgetWithChildrenShortcut);
     connect(a, &QAction::triggered, this, &KatePluginSearchView::goToNextMatch);
 
     a = actionCollection()->addAction(QStringLiteral("go_to_prev_match"));
     a->setText(i18n("Go to Previous Match"));
     actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::SHIFT | Qt::Key_F6));
+    a->setShortcutContext(Qt::WidgetWithChildrenShortcut);
     connect(a, &QAction::triggered, this, &KatePluginSearchView::goToPreviousMatch);
 
     a = actionCollection()->addAction(QStringLiteral("cut_searched_lines"));
     a->setText(i18n("Cut Matching Lines"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("edit-cut")));
     a->setWhatsThis(i18n("This will cut all highlighted search match lines from the current document to the clipboard"));
+    a->setShortcutContext(Qt::WidgetWithChildrenShortcut);
     connect(a, &QAction::triggered, this, &KatePluginSearchView::cutSearchedLines);
 
     a = actionCollection()->addAction(QStringLiteral("copy_searched_lines"));
     a->setText(i18n("Copy Matching Lines"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("edit-copy")));
     a->setWhatsThis(i18n("This will copy all highlighted search match lines in the current document to the clipboard"));
+    a->setShortcutContext(Qt::WidgetWithChildrenShortcut);
     connect(a, &QAction::triggered, this, &KatePluginSearchView::copySearchedLines);
 
     // Only show the tab bar when there is more than one tab
@@ -566,6 +571,14 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
     m_toolView->installEventFilter(this);
 
     m_mainWindow->guiFactory()->addClient(this);
+
+    // We dont want our shortcuts available in the whole mainwindow
+    // It can conflict with Konsole shortcuts for e.g.,
+    actionCollection()->removeAssociatedWidget(m_mainWindow->window());
+    if (auto vm = m_mainWindow->window()->findChild<QWidget *>(QStringLiteral("KateViewManager"))) {
+        actionCollection()->addAssociatedWidget(vm);
+    }
+    actionCollection()->addAssociatedWidget(container);
 
     auto e = KTextEditor::Editor::instance();
     connect(e, &KTextEditor::Editor::configChanged, this, &KatePluginSearchView::updateViewColors);

@@ -1,0 +1,9 @@
+{
+    "KPlugin": {
+        "Description": "Terminal emulator plugin",
+        "Name": "Terminal",
+        "ServiceTypes": [
+            "KTextEditor/Plugin"
+        ]
+    }
+}

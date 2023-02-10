@@ -11,6 +11,11 @@ if (BUILD_PYTHON_BINDINGS)
     ecm_optional_add_subdirectory(python)
 endif()
 
+# Add before deprecations
+if (NOT BSD) # fails to compile in kpty.cpp, once fixed we can enable
+    ecm_optional_add_subdirectory(vterm)
+endif()
+
 ecm_set_disabled_deprecation_versions(
     QT 5.15
     KF 5.90

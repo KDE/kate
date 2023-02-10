@@ -1,0 +1,1 @@
+#define QTERMWIDGET_EXPORT

@@ -1,0 +1,7 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource prefix="/colorschemes">
+        <file>color-schemes/BlackOnWhite.colorscheme</file>
+        <file>color-schemes/Breeze.colorscheme</file>
+    </qresource>
+</RCC>

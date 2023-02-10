@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-06 01:03+0000\n"
+"POT-Creation-Date: 2023-02-10 01:01+0000\n"
 "PO-Revision-Date: 2007-02-17 11:32+0100\n"
 "Last-Translator: Bozidar Proevski <bobibobi@freemail.com.mk>\n"
 "Language-Team: Macedonian <mkde-l10n@lists.sourceforge.net>\n"
@@ -404,28 +404,28 @@ msgstr "Сесии"
 msgid "Enable Suppression"
 msgstr "Менаџмент на сесии"
 
-#: lib/diff/diffeditor.cpp:178
+#: lib/diff/diffeditor.cpp:182
 #, kde-format
 msgid "Change Style"
 msgstr ""
 
-#: lib/diff/diffeditor.cpp:180 lib/kateconfigdialog.cpp:555
+#: lib/diff/diffeditor.cpp:184 lib/kateconfigdialog.cpp:555
 #, kde-format
 msgid "Side By Side"
 msgstr ""
 
-#: lib/diff/diffeditor.cpp:183 lib/kateconfigdialog.cpp:556
+#: lib/diff/diffeditor.cpp:187 lib/kateconfigdialog.cpp:556
 #, fuzzy, kde-format
 #| msgid "Modified"
 msgid "Unified"
 msgstr "Изменето"
 
-#: lib/diff/diffeditor.cpp:186 lib/kateconfigdialog.cpp:557
+#: lib/diff/diffeditor.cpp:190 lib/kateconfigdialog.cpp:557
 #, kde-format
 msgid "Raw"
 msgstr ""
 
-#: lib/diff/diffeditor.cpp:215
+#: lib/diff/diffeditor.cpp:219
 #, fuzzy, kde-format
 msgid "Stage Line"
 msgid_plural "Stage Lines"
@@ -433,12 +433,12 @@ msgstr[0] "&Прозорец"
 msgstr[1] "&Прозорец"
 msgstr[2] "&Прозорец"
 
-#: lib/diff/diffeditor.cpp:220
+#: lib/diff/diffeditor.cpp:224
 #, kde-format
 msgid "Stage Hunk"
 msgstr ""
 
-#: lib/diff/diffeditor.cpp:227
+#: lib/diff/diffeditor.cpp:231
 #, kde-format
 msgid "Discard Line"
 msgid_plural "Discard Lines"
@@ -446,12 +446,12 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: lib/diff/diffeditor.cpp:232
+#: lib/diff/diffeditor.cpp:236
 #, kde-format
 msgid "Discard Hunk"
 msgstr ""
 
-#: lib/diff/diffeditor.cpp:239
+#: lib/diff/diffeditor.cpp:243
 #, fuzzy, kde-format
 msgid "Unstage Line"
 msgid_plural "Unstage Lines"
@@ -459,7 +459,7 @@ msgstr[0] "&Прозорец"
 msgstr[1] "&Прозорец"
 msgstr[2] "&Прозорец"
 
-#: lib/diff/diffeditor.cpp:244
+#: lib/diff/diffeditor.cpp:248
 #, kde-format
 msgid "Unstage Hunk"
 msgstr ""
@@ -513,7 +513,7 @@ msgctxt "Tooltip for a button, clicking the button reloads the diff"
 msgid "Reload Diff"
 msgstr "Приклучоци"
 
-#: lib/diff/diffwidget.cpp:466
+#: lib/diff/diffwidget.cpp:506
 #, kde-format
 msgid ""
 "<b>git</b> not found. Git is needed to diff the documents. If git is already "
@@ -521,24 +521,24 @@ msgid ""
 "downloads"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:469 lib/diff/diffwidget.cpp:1057
+#: lib/diff/diffwidget.cpp:509 lib/diff/diffwidget.cpp:1097
 #: lib/kateconfigdialog.cpp:549
 #, kde-format
 msgid "Diff"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:672 lib/diff/diffwidget.cpp:872
+#: lib/diff/diffwidget.cpp:712 lib/diff/diffwidget.cpp:912
 #, fuzzy, kde-format
 #| msgid "Filename"
 msgid "New file %1"
 msgstr "Име на датотека"
 
-#: lib/diff/diffwidget.cpp:674 lib/diff/diffwidget.cpp:874
+#: lib/diff/diffwidget.cpp:714 lib/diff/diffwidget.cpp:914
 #, fuzzy, kde-format
 msgid "Deleted file %1"
 msgstr "Избришано"
 
-#: lib/diff/diffwidget.cpp:1040 lib/diff/diffwidget.cpp:1041
+#: lib/diff/diffwidget.cpp:1080 lib/diff/diffwidget.cpp:1081
 #, kde-format
 msgid "No differences found"
 msgstr ""

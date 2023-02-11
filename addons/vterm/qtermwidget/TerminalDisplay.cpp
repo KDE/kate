@@ -205,12 +205,12 @@ void TerminalDisplay::setColorTable(const ColorEntry table[])
    QCodec.
 */
 
-bool TerminalDisplay::isLineChar(wchar_t c) const
+bool TerminalDisplay::isLineChar(QChar c) const
 {
-    return _drawLineChars && ((c & 0xFF80) == 0x2500);
+    return _drawLineChars && ((c.unicode() & 0xFF80) == 0x2500);
 }
 
-bool TerminalDisplay::isLineCharString(const std::wstring &string) const
+bool TerminalDisplay::isLineCharString(const QString &string) const
 {
     return (string.length() > 0) && (isLineChar(string[0]));
 }
@@ -644,7 +644,7 @@ static void drawOtherChar(QPainter &paint, int x, int y, int w, int h, uchar cod
     }
 }
 
-void TerminalDisplay::drawLineCharString(QPainter &painter, int x, int y, const std::wstring &str, const Character *attributes) const
+void TerminalDisplay::drawLineCharString(QPainter &painter, int x, int y, const QString &str, const Character *attributes) const
 {
     const QPen &currentPen = painter.pen();
 
@@ -654,8 +654,8 @@ void TerminalDisplay::drawLineCharString(QPainter &painter, int x, int y, const 
         painter.setPen(boldPen);
     }
 
-    for (size_t i = 0; i < str.length(); i++) {
-        uint8_t code = static_cast<uint8_t>(str[i] & 0xffU);
+    for (int i = 0; i < str.length(); i++) {
+        uint8_t code = static_cast<uint8_t>(str[i].unicode() & 0xffU);
         if (LineChars[code])
             drawLineChar(painter, x + (_fontWidth * i), y, _fontWidth, _fontHeight, code);
         else
@@ -768,7 +768,7 @@ void TerminalDisplay::drawCursor(QPainter &painter,
     }
 }
 
-void TerminalDisplay::drawCharacters(QPainter &painter, const QRect &rect, const std::wstring &text, const Character *style, bool invertCharacterColor)
+void TerminalDisplay::drawCharacters(QPainter &painter, const QRect &rect, const QString &text, const Character *style, bool invertCharacterColor)
 {
     // don't draw text which is currently blinking
     if (_blinking && (style->rendition & RE_BLINK))
@@ -816,18 +816,18 @@ void TerminalDisplay::drawCharacters(QPainter &painter, const QRect &rect, const
         painter.setLayoutDirection(Qt::LeftToRight);
 
         if (_bidiEnabled) {
-            painter.drawText(rect.x(), rect.y() + _fontAscent + _lineSpacing, QString::fromStdWString(text));
+            painter.drawText(rect.x(), rect.y() + _fontAscent + _lineSpacing, text);
         } else {
             {
                 QRect drawRect(rect.topLeft(), rect.size());
                 drawRect.setHeight(rect.height() + _drawTextAdditionHeight);
-                painter.drawText(drawRect, Qt::AlignBottom, LTR_OVERRIDE_CHAR + QString::fromStdWString(text));
+                painter.drawText(drawRect, Qt::AlignBottom, LTR_OVERRIDE_CHAR + text);
             }
         }
     }
 }
 
-void TerminalDisplay::drawTextFragment(QPainter &painter, const QRect &rect, const std::wstring &text, const Character *style)
+void TerminalDisplay::drawTextFragment(QPainter &painter, const QRect &rect, const QString &text, const Character *style)
 {
     painter.save();
 
@@ -1072,7 +1072,8 @@ void TerminalDisplay::updateImage()
     const int linesToUpdate = qMin(this->_lines, qMax(0, lines));
     const int columnsToUpdate = qMin(this->_columns, qMax(0, columns));
 
-    wchar_t *disstrU = new wchar_t[columnsToUpdate];
+    // wchar_t *disstrU = new wchar_t[columnsToUpdate];
+    QString disstrU(columnsToUpdate);
     char *dirtyMask = new char[columnsToUpdate + 2];
     QRegion dirtyRegion;
 
@@ -1133,7 +1134,7 @@ void TerminalDisplay::updateImage()
                         disstrU[p++] = c; // fontMap(c);
                     }
 
-                    std::wstring unistr(disstrU, p);
+                    QString unistr(disstrU.constData(), p);
 
                     bool saveFixedFont = _fixedFont;
                     if (lineDraw)
@@ -1200,7 +1201,6 @@ void TerminalDisplay::updateImage()
         _blinking = false;
     }
     delete[] dirtyMask;
-    delete[] disstrU;
 }
 
 void TerminalDisplay::showResizeNotification()
@@ -1374,7 +1374,7 @@ QPoint TerminalDisplay::cursorPosition() const
 
 QRect TerminalDisplay::preeditRect() const
 {
-    const int preeditLength = string_width(QString::fromStdWString(_inputMethodData.preeditString));
+    const int preeditLength = string_width(_inputMethodData.preeditString);
 
     if (preeditLength == 0)
         return {};
@@ -1384,7 +1384,7 @@ QRect TerminalDisplay::preeditRect() const
 
 void TerminalDisplay::drawInputMethodPreeditString(QPainter &painter, const QRect &rect)
 {
-    if (_inputMethodData.preeditString.empty())
+    if (_inputMethodData.preeditString.isEmpty())
         return;
 
     const QPoint cursorPos = cursorPosition();
@@ -1547,7 +1547,7 @@ void TerminalDisplay::drawContents(QPainter &paint, const QRect &rect)
     int rly = qMin(_usedLines - 1, qMax(0, (rect.bottom() - tLy - _topMargin) / _fontHeight));
 
     const int bufferSize = _usedColumns;
-    std::wstring unistr;
+    QString unistr;
     unistr.reserve(bufferSize);
     for (int y = luy; y <= rly; y++) {
         quint32 c = _image[loc(lux, y)].character;
@@ -2705,7 +2705,7 @@ void TerminalDisplay::inputMethodEvent(QInputMethodEvent *event)
     QKeyEvent keyEvent(QEvent::KeyPress, 0, Qt::NoModifier, event->commitString());
     Q_EMIT keyPressedSignal(&keyEvent, false);
 
-    _inputMethodData.preeditString = event->preeditString().toStdWString();
+    _inputMethodData.preeditString = event->preeditString();
     update(preeditRect() | _inputMethodData.previousPreeditRect);
 
     event->accept();

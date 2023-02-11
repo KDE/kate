@@ -720,7 +720,7 @@ private:
     void drawContents(QPainter &paint, const QRect &rect);
     // draws a section of text, all the text in this section
     // has a common color and style
-    void drawTextFragment(QPainter &painter, const QRect &rect, const std::wstring &text, const Character *style);
+    void drawTextFragment(QPainter &painter, const QRect &rect, const QString &text, const Character *style);
     // draws the background for a text fragment
     // if useOpacitySetting is true then the color's alpha value will be set to
     // the display's transparency (set with setOpacity()), otherwise the background
@@ -729,9 +729,9 @@ private:
     // draws the cursor character
     void drawCursor(QPainter &painter, const QRect &rect, const QColor &foregroundColor, const QColor &backgroundColor, bool &invertColors);
     // draws the characters or line graphics in a text fragment
-    void drawCharacters(QPainter &painter, const QRect &rect, const std::wstring &text, const Character *style, bool invertCharacterColor);
+    void drawCharacters(QPainter &painter, const QRect &rect, const QString &text, const Character *style, bool invertCharacterColor);
     // draws a string of line graphics
-    void drawLineCharString(QPainter &painter, int x, int y, const std::wstring &str, const Character *attributes) const;
+    void drawLineCharString(QPainter &painter, int x, int y, const QString &str, const Character *attributes) const;
 
     // draws the preedit string for input methods
     void drawInputMethodPreeditString(QPainter &painter, const QRect &rect);
@@ -780,8 +780,8 @@ private:
 
     bool handleShortcutOverrideEvent(QKeyEvent *event);
 
-    bool isLineChar(wchar_t c) const;
-    bool isLineCharString(const std::wstring &string) const;
+    bool isLineChar(QChar c) const;
+    bool isLineCharString(const QString &string) const;
 
     // the window onto the terminal screen which this display
     // is currently showing.
@@ -901,7 +901,7 @@ private:
     bool _trimPastedTrailingNewlines;
 
     struct InputMethodData {
-        std::wstring preeditString;
+        QString preeditString;
         QRect previousPreeditRect;
     };
     InputMethodData _inputMethodData;

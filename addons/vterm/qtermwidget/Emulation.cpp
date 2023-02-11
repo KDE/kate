@@ -33,6 +33,7 @@
 #include <QClipboard>
 #include <QHash>
 #include <QKeyEvent>
+#include <QTextCodec>
 #include <QTextStream>
 #include <QThread>
 
@@ -459,6 +460,12 @@ ExtendedCharTable::~ExtendedCharTable()
         iter.next();
         delete[] iter.value();
     }
+}
+
+bool Konsole::Emulation::utf8() const
+{
+    Q_ASSERT(_codec);
+    return _codec->mibEnum() == 106;
 }
 
 // global instance

@@ -1,9 +1,4 @@
-cmake_minimum_required(VERSION 3.1.0 FATAL_ERROR)
-# CMP0000: Call the cmake_minimum_required() command at the beginning of the top-level
-# CMakeLists.txt file even before calling the project() command.
-# The cmake_minimum_required(VERSION) command implicitly invokes the cmake_policy(VERSION)
-# command to specify that the current project code is written for the given range of CMake
-# versions.
+
 project(qtermwidget)
 
 set(KF5_DEP_VERSION "5.90")
@@ -58,61 +53,29 @@ if (WIN32)
     list(APPEND SRCS iptyprocess.cpp conptyprocess.cpp)
 endif()
 
-# Only the Headers that need to be moc'd go here
-set(HDRS
-    Emulation.h
-    Filter.h
-    HistorySearch.h
-    kprocess.h
-    kptydevice.h
-    kptyprocess.h
-    Pty.h
-    qtermwidget.h
-    ScreenWindow.h
-    SearchBar.h
-    Session.h
-    TerminalDisplay.h
-    Vt102Emulation.h
-)
-
 set(UI
     SearchBar.ui
-)
-
-# for distribution
-set(HDRS_DISTRIB
-    qtermwidget.h
-    Emulation.h
-    KeyboardTranslator.h
-    Filter.h
-    qtermwidget_interface.h
 )
 
 # dirs
 set(KB_LAYOUT_DIR "${CMAKE_INSTALL_FULL_DATADIR}/${QTERMWIDGET_LIBRARY_NAME}/kb-layouts")
 message(STATUS "Keyboard layouts will be installed in: ${KB_LAYOUT_DIR}")
 
-set(QTERMWIDGET_INCLUDE_DIR "${CMAKE_INSTALL_FULL_INCLUDEDIR}/${QTERMWIDGET_LIBRARY_NAME}")
+add_library(${QTERMWIDGET_LIBRARY_NAME} STATIC ${SRCS})
 
-# qt5_wrap_cpp(MOCS ${HDRS})
-# qt5_wrap_ui(UI_SRCS ${UI})
-
-add_library(${QTERMWIDGET_LIBRARY_NAME} STATIC ${SRCS} ${MOCS} ${UI_SRCS} ${QTERMWIDGET_QM})
-
-set(QTERM_LINK_LIBS Qt::Widgets)
 if (UNIX)
-    list(APPEND QTERM_LINK_LIBS KF${KF_MAJOR_VERSION}::Pty)
-endif()
-if (TARGET Qt6::Core5Compat)
-    list(APPEND QTERM_LINK_LIBS Qt6::Core5Compat)
+    set(PTYLIB KF${KF_MAJOR_VERSION}::Pty)
+else()
+    set(PTYLIB "")
 endif()
 
-target_link_libraries(${QTERMWIDGET_LIBRARY_NAME} PRIVATE ${QTERM_LINK_LIBS})
+if (QT_MAJOR_VERSION STREQUAL "6")
+    target_link_libraries(${QTERMWIDGET_LIBRARY_NAME} PRIVATE Qt::Widgets Qt6::Core5Compat ${PTYLIB})
+else()
+    target_link_libraries(${QTERMWIDGET_LIBRARY_NAME} PRIVATE Qt::Widgets ${PTYLIB})
+endif()
 
-set_target_properties( ${QTERMWIDGET_LIBRARY_NAME} PROPERTIES
-                       SOVERSION ${QTERMWIDGET_VERSION_MAJOR}
-                       VERSION ${QTERMWIDGET_VERSION}
-                     )
+set_target_properties(${QTERMWIDGET_LIBRARY_NAME} PROPERTIES POSITION_INDEPENDENT_CODE ON)
 
 target_compile_definitions(${QTERMWIDGET_LIBRARY_NAME}
     PRIVATE

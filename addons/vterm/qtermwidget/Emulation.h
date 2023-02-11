@@ -29,12 +29,14 @@
 // Qt
 #include <QKeyEvent>
 // #include <QPointer>
-#include <QTextCodec>
 #include <QTextStream>
 #include <QTimer>
 
 #include "KeyboardTranslator.h"
 #include "qtermwidget_export.h"
+
+class QTextCodec;
+class QTextDecoder;
 
 namespace Konsole
 {
@@ -200,11 +202,7 @@ public:
      * Returns true if the current codec used to decode incoming
      * characters is UTF-8
      */
-    bool utf8() const
-    {
-        Q_ASSERT(_codec);
-        return _codec->mibEnum() == 106;
-    }
+    bool utf8() const;
 
     /** TODO Document me */
     virtual char eraseChar() const;

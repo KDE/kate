@@ -1073,7 +1073,7 @@ void TerminalDisplay::updateImage()
     const int columnsToUpdate = qMin(this->_columns, qMax(0, columns));
 
     // wchar_t *disstrU = new wchar_t[columnsToUpdate];
-    QString disstrU(columnsToUpdate);
+    QString disstrU(columnsToUpdate, QChar());
     char *dirtyMask = new char[columnsToUpdate + 2];
     QRegion dirtyRegion;
 
@@ -1107,8 +1107,8 @@ void TerminalDisplay::updateImage()
                 // We also take the next one into account to handle the situation
                 // where characters exceed their cell width.
                 if (dirtyMask[x]) {
-                    wchar_t c = newLine[x + 0].character;
-                    if (!c)
+                    QChar c = (QChar)newLine[x + 0].character;
+                    if (c == QLatin1Char('\0'))
                         continue;
                     int p = 0;
                     disstrU[p++] = c; // fontMap(c);
@@ -1522,7 +1522,7 @@ int TerminalDisplay::textWidth(const int startColumn, const int length, const in
     QFontMetrics fm(font());
     int result = 0;
     for (int column = 0; column < length; column++) {
-        result += fm.horizontalAdvance(_image[loc(startColumn + column, line)].character);
+        result += fm.horizontalAdvance(QChar(_image[loc(startColumn + column, line)].character));
     }
     return result;
 }
@@ -1575,11 +1575,11 @@ void TerminalDisplay::drawContents(QPainter &paint, const QRect &rect)
                 c = _image[loc(x, y)].character;
                 if (c) {
                     Q_ASSERT(p < bufferSize);
-                    unistr[p++] = c; // fontMap(c);
+                    unistr[p++] = QChar(c); // fontMap(c);
                 }
             }
 
-            bool lineDraw = isLineChar(c);
+            bool lineDraw = isLineChar(QChar(c));
             bool doubleWidth = (_image[qMin(loc(x, y) + 1, _imageSize)].character == 0);
             CharacterColor currentForeground = _image[loc(x, y)].foregroundColor;
             CharacterColor currentBackground = _image[loc(x, y)].backgroundColor;
@@ -1588,10 +1588,10 @@ void TerminalDisplay::drawContents(QPainter &paint, const QRect &rect)
             while (x + len <= rlx && _image[loc(x + len, y)].foregroundColor == currentForeground
                    && _image[loc(x + len, y)].backgroundColor == currentBackground && _image[loc(x + len, y)].rendition == currentRendition
                    && (_image[qMin(loc(x + len, y) + 1, _imageSize)].character == 0) == doubleWidth
-                   && isLineChar(c = _image[loc(x + len, y)].character) == lineDraw) // Assignment!
+                   && isLineChar(QChar(c = _image[loc(x + len, y)].character)) == lineDraw) // Assignment!
             {
                 if (c)
-                    unistr[p++] = c; // fontMap(c);
+                    unistr[p++] = QChar(c); // fontMap(c);
                 if (doubleWidth) // assert((_image[loc(x+len,y)+1].character == 0)), see above if condition
                     len++; // Skip trailing part of multi-column character
                 len++;
@@ -1990,8 +1990,9 @@ void TerminalDisplay::mouseMoveEvent(QMouseEvent *ev)
 
         //   int distance = KGlobalSettings::dndEventDelay();
         int distance = QApplication::startDragDistance();
-        if (ev->x() > dragInfo.start.x() + distance || ev->x() < dragInfo.start.x() - distance || ev->y() > dragInfo.start.y() + distance
-            || ev->y() < dragInfo.start.y() - distance) {
+        const QPoint pos = ev->pos();
+        if (pos.x() > dragInfo.start.x() + distance || pos.x() < dragInfo.start.x() - distance || pos.y() > dragInfo.start.y() + distance
+            || pos.y() < dragInfo.start.y() - distance) {
             // we've left the drag square, we can start a real drag operation now
             Q_EMIT isBusySelecting(false); // Ok.. we can breath again.
 
@@ -2076,8 +2077,9 @@ void TerminalDisplay::extendSelection(const QPoint &position)
         QPoint left = left_not_right ? here : _iPntSelCorr;
         i = loc(left.x(), left.y());
         if (i >= 0 && i <= _imageSize) {
-            selClass = charClass(_image[i].character);
-            while (((left.x() > 0) || (left.y() > 0 && (_lineProperties[left.y() - 1] & LINE_WRAPPED))) && charClass(_image[i - 1].character) == selClass) {
+            selClass = charClass(QChar(_image[i].character));
+            while (((left.x() > 0) || (left.y() > 0 && (_lineProperties[left.y() - 1] & LINE_WRAPPED)))
+                   && charClass(QChar(_image[i - 1].character)) == selClass) {
                 i--;
                 if (left.x() > 0)
                     left.rx()--;
@@ -2092,9 +2094,9 @@ void TerminalDisplay::extendSelection(const QPoint &position)
         QPoint right = left_not_right ? _iPntSelCorr : here;
         i = loc(right.x(), right.y());
         if (i >= 0 && i <= _imageSize) {
-            selClass = charClass(_image[i].character);
+            selClass = charClass(QChar(_image[i].character));
             while (((right.x() < _usedColumns - 1) || (right.y() < _usedLines - 1 && (_lineProperties[right.y()] & LINE_WRAPPED)))
-                   && charClass(_image[i + 1].character) == selClass) {
+                   && charClass(QChar(_image[i + 1].character)) == selClass) {
                 i++;
                 if (right.x() < _usedColumns - 1)
                     right.rx()++;
@@ -2164,7 +2166,7 @@ void TerminalDisplay::extendSelection(const QPoint &position)
         if (right.x() > 0 && !_columnSelectionMode) {
             i = loc(right.x(), right.y());
             if (i >= 0 && i <= _imageSize) {
-                selClass = charClass(_image[i - 1].character);
+                selClass = charClass(QChar(_image[i - 1].character));
                 /* if (selClass == ' ')
                  {
                    while ( right.x() < _usedColumns-1 && charClass(_image[i+1].character) == selClass && (right.y()<_usedLines-1) &&
@@ -2330,11 +2332,11 @@ void TerminalDisplay::mouseDoubleClickEvent(QMouseEvent *ev)
     _wordSelectionMode = true;
 
     // find word boundaries...
-    QChar selClass = charClass(_image[i].character);
+    QChar selClass = charClass(QChar(_image[i].character));
     {
         // find the start of the word
         int x = bgnSel.x();
-        while (((x > 0) || (bgnSel.y() > 0 && (_lineProperties[bgnSel.y() - 1] & LINE_WRAPPED))) && charClass(_image[i - 1].character) == selClass) {
+        while (((x > 0) || (bgnSel.y() > 0 && (_lineProperties[bgnSel.y() - 1] & LINE_WRAPPED))) && charClass(QChar(_image[i - 1].character)) == selClass) {
             i--;
             if (x > 0)
                 x--;
@@ -2351,7 +2353,7 @@ void TerminalDisplay::mouseDoubleClickEvent(QMouseEvent *ev)
         i = loc(endSel.x(), endSel.y());
         x = endSel.x();
         while (((x < _usedColumns - 1) || (endSel.y() < _usedLines - 1 && (_lineProperties[endSel.y()] & LINE_WRAPPED)))
-               && charClass(_image[i + 1].character) == selClass) {
+               && charClass(QChar(_image[i + 1].character)) == selClass) {
             i++;
             if (x < _usedColumns - 1)
                 x++;
@@ -2450,10 +2452,10 @@ void TerminalDisplay::mouseTripleClickEvent(QMouseEvent *ev)
     if (_tripleClickMode == SelectForwardsFromCursor) {
         // find word boundary start
         int i = loc(_iPntSel.x(), _iPntSel.y());
-        QChar selClass = charClass(_image[i].character);
+        QChar selClass = charClass(QChar(_image[i].character));
         int x = _iPntSel.x();
 
-        while (((x > 0) || (_iPntSel.y() > 0 && (_lineProperties[_iPntSel.y() - 1] & LINE_WRAPPED))) && charClass(_image[i - 1].character) == selClass) {
+        while (((x > 0) || (_iPntSel.y() > 0 && (_lineProperties[_iPntSel.y() - 1] & LINE_WRAPPED))) && charClass(QChar(_image[i - 1].character)) == selClass) {
             i--;
             if (x > 0)
                 x--;

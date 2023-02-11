@@ -46,6 +46,7 @@ void scrolllock_set_on();
 #include <QDebug>
 #include <QEvent>
 #include <QKeyEvent>
+#include <QTextCodec>
 
 // KDE
 // #include <kdebug.h>
@@ -1522,8 +1523,8 @@ void Vt102Emulation::sendMouseEvent(int cb, int cx, int cy, int eventType)
             // coordinate+32, no matter what the locale is. We could easily
             // convert manually, but QString can also do it for us.
             QChar coords[2];
-            coords[0] = cx + 0x20;
-            coords[1] = cy + 0x20;
+            coords[0] = (ushort)(cx + 0x20);
+            coords[1] = (ushort)(cy + 0x20);
             QString coordsStr = QString(coords, 2);
             QByteArray utf8 = coordsStr.toUtf8();
             snprintf(command, sizeof(command), "\033[M%c%s", cb + 0x20, utf8.constData());

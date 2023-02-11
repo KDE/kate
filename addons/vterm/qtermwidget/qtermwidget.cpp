@@ -17,11 +17,12 @@
 */
 
 #include <QBoxLayout>
+#include <QDebug>
 #include <QDir>
 #include <QLayout>
 #include <QMessageBox>
 #include <QRegularExpression>
-#include <QtDebug>
+#include <QTextCodec>
 
 #include "ColorScheme.h"
 #include "ColorTables.h"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-10 01:01+0000\n"
-"PO-Revision-Date: 2022-09-22 06:46+0200\n"
+"PO-Revision-Date: 2023-02-10 08:48+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: kateconsole.cpp:54
 #, kde-format
@@ -44,7 +44,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action"
 msgid "Run Current Document"
-msgstr ""
+msgstr "მიმდინარე დოკუმენტის გაშვება"
 
 #: kateconsole.cpp:154 kateconsole.cpp:461
 #, kde-format
@@ -83,7 +83,7 @@ msgstr ""
 #: kateconsole.cpp:402
 #, kde-format
 msgid "Not a local file: '%1'"
-msgstr ""
+msgstr "არალოკალური ფაილი: %1"
 
 #: kateconsole.cpp:435
 #, kde-format
@@ -97,7 +97,7 @@ msgstr ""
 #: kateconsole.cpp:442
 #, kde-format
 msgid "Run in Terminal?"
-msgstr ""
+msgstr "გავუშვა ტერმინალში?"
 
 #: kateconsole.cpp:443
 #, kde-format
@@ -108,12 +108,12 @@ msgstr "გაშვება"
 #, kde-format
 msgctxt "@action"
 msgid "&Hide Terminal Panel"
-msgstr ""
+msgstr "&ტერმინალის პანელის დახურვა"
 
 #: kateconsole.cpp:469
 #, kde-format
 msgid "Defocus Terminal Panel"
-msgstr ""
+msgstr "ტერმინალის პანელიდან ფოკუსის მოხსნა"
 
 #: kateconsole.cpp:470 kateconsole.cpp:471
 #, kde-format
@@ -135,7 +135,7 @@ msgstr "ტერმინალში გაშვება"
 #: kateconsole.cpp:547
 #, kde-format
 msgid "&Remove extension"
-msgstr ""
+msgstr "&გაფართოების წაშლა"
 
 #: kateconsole.cpp:552
 #, kde-format
@@ -145,7 +145,7 @@ msgstr "პრეფიქსი:"
 #: kateconsole.cpp:560
 #, kde-format
 msgid "&Show warning next time"
-msgstr ""
+msgstr "&შემდეგ ჯერზე გაფრთხილების ჩვენება"
 
 #: kateconsole.cpp:562
 #, kde-format
@@ -181,7 +181,7 @@ msgstr ""
 #: kateconsole.cpp:613
 #, kde-format
 msgid "Terminal Settings"
-msgstr ""
+msgstr "ტერმინალის მორგება"
 
 #. i18n: ectx: Menu (tools)
 #: ui.rc:6

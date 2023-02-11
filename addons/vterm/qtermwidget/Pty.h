@@ -40,7 +40,7 @@
 
 // KDE
 #ifndef Q_OS_WIN
-#include "kptyprocess.h"
+#include <KPty/KPtyProcess>
 #else
 #include "iptyprocess.h"
 #endif
@@ -169,9 +169,14 @@ public:
         return m_proc->pid();
     }
 
-    bool isRunning()
+    bool isRunning() const
     {
         return m_proc->pid() > 0;
+    }
+#else
+    bool isRunning() const
+    {
+        return processId() > 0;
     }
 #endif
 

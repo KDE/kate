@@ -6,6 +6,11 @@ cmake_minimum_required(VERSION 3.1.0 FATAL_ERROR)
 # versions.
 project(qtermwidget)
 
+set(KF5_DEP_VERSION "5.90")
+if (UNIX)
+    find_package(KF${KF_MAJOR_VERSION} ${KF5_DEP_VERSION} REQUIRED Pty)
+endif()
+
 # just change version for releases
 # keep this in sync with the version in pyqt/pyproject.toml
 set(QTERMWIDGET_VERSION_MAJOR "1")
@@ -48,15 +53,6 @@ set(SRCS
     Vt102Emulation.cpp
     plugin.qrc
 )
-
-if (UNIX)
-    list(APPEND SRCS
-        kprocess.cpp
-        kpty.cpp
-        kptydevice.cpp
-        kptyprocess.cpp
-    )
-endif()
 
 if (WIN32)
     list(APPEND SRCS iptyprocess.cpp conptyprocess.cpp)
@@ -102,11 +98,17 @@ set(QTERMWIDGET_INCLUDE_DIR "${CMAKE_INSTALL_FULL_INCLUDEDIR}/${QTERMWIDGET_LIBR
 # qt5_wrap_ui(UI_SRCS ${UI})
 
 add_library(${QTERMWIDGET_LIBRARY_NAME} STATIC ${SRCS} ${MOCS} ${UI_SRCS} ${QTERMWIDGET_QM})
-if (TARGET Qt6::Core5Compat)
-    target_link_libraries(${QTERMWIDGET_LIBRARY_NAME} PRIVATE Qt::Widgets Qt6::Core5Compat) # QTextCodec
-else()
-    target_link_libraries(${QTERMWIDGET_LIBRARY_NAME} Qt::Widgets)
+
+set(QTERM_LINK_LIBS Qt::Widgets)
+if (UNIX)
+    list(APPEND QTERM_LINK_LIBS KF${KF_MAJOR_VERSION}::Pty)
 endif()
+if (TARGET Qt6::Core5Compat)
+    list(APPEND QTERM_LINK_LIBS Qt6::Core5Compat)
+endif()
+
+target_link_libraries(${QTERMWIDGET_LIBRARY_NAME} PRIVATE ${QTERM_LINK_LIBS})
+
 set_target_properties( ${QTERMWIDGET_LIBRARY_NAME} PROPERTIES
                        SOVERSION ${QTERMWIDGET_VERSION_MAJOR}
                        VERSION ${QTERMWIDGET_VERSION}

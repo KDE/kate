@@ -42,6 +42,11 @@
 #include "TerminalDisplay.h"
 #include "Vt102Emulation.h"
 
+#ifndef Q_OS_WIN
+#include <KPty/kptydevice.h>
+#include <csignal>
+#endif
+
 using namespace Konsole;
 
 int Session::lastSessionId = 0;

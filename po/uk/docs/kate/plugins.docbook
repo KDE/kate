@@ -4191,7 +4191,7 @@ Projects Replicode run / stop-->
         {
                 "python":
                 {
-                        "command": ["pylsp_in_env"], ["%{Project:NativePath}"],
+                        "command": ["pylsp_in_env", "%{Project:NativePath}"],
                         "root": "."
                 }
         }

@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-06 01:03+0000\n"
-"PO-Revision-Date: 2023-01-08 12:16+0100\n"
+"POT-Creation-Date: 2023-02-10 01:01+0000\n"
+"PO-Revision-Date: 2023-02-11 15:35+0100\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
 "Language: nn\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.12.0\n"
+"X-Generator: Lokalize 22.12.2\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
@@ -387,58 +387,58 @@ msgstr ""
 msgid "Enable Suppression"
 msgstr ""
 
-#: lib/diff/diffeditor.cpp:178
+#: lib/diff/diffeditor.cpp:182
 #, kde-format
 msgid "Change Style"
 msgstr ""
 
-#: lib/diff/diffeditor.cpp:180 lib/kateconfigdialog.cpp:555
+#: lib/diff/diffeditor.cpp:184 lib/kateconfigdialog.cpp:555
 #, kde-format
 msgid "Side By Side"
 msgstr ""
 
-#: lib/diff/diffeditor.cpp:183 lib/kateconfigdialog.cpp:556
+#: lib/diff/diffeditor.cpp:187 lib/kateconfigdialog.cpp:556
 #, kde-format
 msgid "Unified"
 msgstr ""
 
-#: lib/diff/diffeditor.cpp:186 lib/kateconfigdialog.cpp:557
+#: lib/diff/diffeditor.cpp:190 lib/kateconfigdialog.cpp:557
 #, kde-format
 msgid "Raw"
 msgstr ""
 
-#: lib/diff/diffeditor.cpp:215
+#: lib/diff/diffeditor.cpp:219
 #, kde-format
 msgid "Stage Line"
 msgid_plural "Stage Lines"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/diff/diffeditor.cpp:220
+#: lib/diff/diffeditor.cpp:224
 #, kde-format
 msgid "Stage Hunk"
 msgstr ""
 
-#: lib/diff/diffeditor.cpp:227
+#: lib/diff/diffeditor.cpp:231
 #, kde-format
 msgid "Discard Line"
 msgid_plural "Discard Lines"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/diff/diffeditor.cpp:232
+#: lib/diff/diffeditor.cpp:236
 #, kde-format
 msgid "Discard Hunk"
 msgstr ""
 
-#: lib/diff/diffeditor.cpp:239
+#: lib/diff/diffeditor.cpp:243
 #, kde-format
 msgid "Unstage Line"
 msgid_plural "Unstage Lines"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/diff/diffeditor.cpp:244
+#: lib/diff/diffeditor.cpp:248
 #, kde-format
 msgid "Unstage Hunk"
 msgstr ""
@@ -489,7 +489,7 @@ msgctxt "Tooltip for a button, clicking the button reloads the diff"
 msgid "Reload Diff"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:466
+#: lib/diff/diffwidget.cpp:506
 #, kde-format
 msgid ""
 "<b>git</b> not found. Git is needed to diff the documents. If git is already "
@@ -497,23 +497,23 @@ msgid ""
 "downloads"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:469 lib/diff/diffwidget.cpp:1057
+#: lib/diff/diffwidget.cpp:509 lib/diff/diffwidget.cpp:1097
 #: lib/kateconfigdialog.cpp:549
 #, kde-format
 msgid "Diff"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:672 lib/diff/diffwidget.cpp:872
+#: lib/diff/diffwidget.cpp:712 lib/diff/diffwidget.cpp:912
 #, kde-format
 msgid "New file %1"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:674 lib/diff/diffwidget.cpp:874
+#: lib/diff/diffwidget.cpp:714 lib/diff/diffwidget.cpp:914
 #, kde-format
 msgid "Deleted file %1"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:1040 lib/diff/diffwidget.cpp:1041
+#: lib/diff/diffwidget.cpp:1080 lib/diff/diffwidget.cpp:1081
 #, kde-format
 msgid "No differences found"
 msgstr ""
@@ -881,12 +881,12 @@ msgstr "Set opp"
 #: lib/kateconfigdialog.cpp:72 lib/kateoutputview.cpp:151
 #, kde-format
 msgid "Search..."
-msgstr ""
+msgstr "Søk …"
 
 #: lib/kateconfigdialog.cpp:136
 #, kde-format
 msgid "Save"
-msgstr ""
+msgstr "Lagra"
 
 #: lib/kateconfigdialog.cpp:359
 #, kde-format
